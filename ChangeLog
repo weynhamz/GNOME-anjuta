@@ -1,3 +1,15 @@
+2005-03-1t  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Massimo Cora' <maxcvs@email.it>:
+	
+	* plugins/class-gen/action-callbacks.c,
+	plugins/class-gen/anjuta-class-gen-plugin.glade,
+	plugins/class-gen/class_gen.c,
+	plugins/class-gen/class_gen.h,
+	plugins/class-gen/class_logo.xpm,
+	plugins/class-gen/plugin.c: Create files without project
+	being open. Add to project support. And other enhancements.
+
 2005-03-15  Adam Weinberger  <adamw@gnome.org>
 
 	* anjuta.glade,

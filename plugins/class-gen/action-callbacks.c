@@ -184,7 +184,6 @@ void on_create_button_clicked (GtkButton *button, ClassGenData* data) {
 	}
 	
 	if (can_close) {
-		DEBUG_PRINT ("going to destroy widget main" );
 		gtk_widget_destroy (classgen_widget);
 		g_free (data);
 	}
@@ -232,6 +231,9 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 	GtkWidget *classgen_widget;
 	GtkWidget *create_button;
 	GtkWidget *cancel_button;
+	GtkWidget *add_to_project_check;
+	GtkWidget *add_to_repository_check;	
+	GtkWidget *license_combo;
 	GtkWidget *cc_button_browse_source;
 	GtkWidget *cc_button_browse_header;
 	GtkWidget *cc_inheritance;
@@ -242,26 +244,41 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 	
 	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
 	g_return_if_fail (gxml != NULL );
-	
+
 	classgen_widget = glade_xml_get_widget (gxml, "classgen_main" );
-	
+
 	cc_button_browse_source = 
 					glade_xml_get_widget (gxml, "cc_button_browse_source");
 	cc_button_browse_header = 
 					glade_xml_get_widget (gxml, "cc_button_browse_header");
-	
+
 	cc_inheritance = glade_xml_get_widget (gxml, "cc_inheritance");
 	cc_inline = glade_xml_get_widget (gxml, "cc_inline");
-	
+
 	go_button_browse_source = 
 					glade_xml_get_widget (gxml, "go_button_browse_source");
 	go_button_browse_header = 
 					glade_xml_get_widget (gxml, "go_button_browse_header");
-	
+
 	create_button = glade_xml_get_widget (gxml, "create_button");
 	cancel_button = glade_xml_get_widget (gxml, "cancel_button");
+
+	add_to_project_check = glade_xml_get_widget (gxml, "add_to_project_check");
+	add_to_repository_check = glade_xml_get_widget (gxml, "add_to_repository_check");
+	license_combo = glade_xml_get_widget (gxml, "license_combo");
+
+	gtk_combo_box_set_active (GTK_COMBO_BOX (cc_inheritance), 0);
+	gtk_combo_box_set_active (GTK_COMBO_BOX (license_combo), 0);
 	
-	gtk_combo_box_set_active (GTK_COMBO_BOX(cc_inheritance), 0);
+	/* check whether we have a loaded project or not */
+	if ( !plugin->top_dir ) {
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_to_project_check), FALSE);
+		gtk_widget_set_sensitive (add_to_project_check, FALSE);
+	}
+	
+	/* FIXME: what about add to repository? */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_to_repository_check), FALSE);
+	gtk_widget_set_sensitive (add_to_repository_check, FALSE);
 	
 	/* connect signals */
 	data = g_new0 (ClassGenData, 1);
@@ -270,7 +287,7 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 
 	g_signal_connect (G_OBJECT (cc_button_browse_header), "clicked",
 		G_CALLBACK (on_cc_button_browse_header_clicked), gxml);
-		
+
 	g_signal_connect (G_OBJECT (cc_button_browse_source), "clicked",
 		G_CALLBACK (on_cc_button_browse_source_clicked), gxml);
 
@@ -285,7 +302,7 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 
 	g_signal_connect (G_OBJECT (cancel_button), "clicked",
 		G_CALLBACK (on_cancel_button_clicked), data);
-		
+
 	g_signal_connect (G_OBJECT (cc_inline), "toggled",
 		G_CALLBACK (on_inline_toggled), data);
 

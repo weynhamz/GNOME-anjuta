@@ -53,24 +53,8 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
-
-
-#define GPL_HEADING "/*\n" \
-" *  This program is free software; you can redistribute it and/or modify\n" \
-" *  it under the terms of the GNU General Public License as published by\n" \
-" *  the Free Software Foundation; either version 2 of the License, or\n" \
-" *  (at your option) any later version.\n" \
-" *\n" \
-" *  This program is distributed in the hope that it will be useful,\n" \
-" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n" \
-" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n" \
-" *  GNU Library General Public License for more details.\n" \
-" *\n" \
-" *  You should have received a copy of the GNU General Public License\n" \
-" *  along with this program; if not, write to the Free Software\n" \
-" *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n" \
-" */\n\n" 
 
 /*
  *------------------------------------------------------------------------------
@@ -80,8 +64,8 @@
 
 
 static struct tm* GetNowTime(void);
-static void generate_header (ClassGenData* data, gboolean is_inline, FILE* fpOut);
-static void generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut);
+static void gen_cpp_generate_header (ClassGenData* data, gboolean is_inline, FILE* fpOut);
+static void gen_cpp_generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut);
 
 
 
@@ -129,18 +113,23 @@ gobject_class_create_code (ClassGenData* data) {
 	const gchar *author_name = FETCH_STRING (data->gxml, "go_author_name");
 	const gchar *author_email = FETCH_STRING (data->gxml, "go_author_email");
 	gboolean date_output = FETCH_BOOLEAN (data->gxml, "go_date_output");
-	gboolean gpl_output = FETCH_BOOLEAN (data->gxml, "go_gpl_output");
-
+	gboolean add_to_project = FETCH_BOOLEAN (data->gxml, "add_to_project_check");
+	
+	GtkWidget* license_widget = glade_xml_get_widget (data->gxml, "license_combo");
+	gint license_output = gtk_combo_box_get_active (GTK_COMBO_BOX (license_widget));
+	
 	gchar *header_file_base; 
 	gchar *header_define;
 	gchar *t; 
 	AnjutaClassGenPlugin *plugin;
-	IAnjutaProjectManager *pm;
-
+	IAnjutaFileLoader *loader;
+	
 	plugin = data->plugin;
 	
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										 IAnjutaProjectManager, NULL);
+	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaFileLoader, NULL);
+
+	g_return_val_if_fail (loader != NULL, FALSE);
 
 	classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");	
 	
@@ -148,7 +137,7 @@ gobject_class_create_code (ClassGenData* data) {
 	if ( g_str_equal (base_class, "") || g_str_equal (gtype_name, "") ||
 		  g_str_equal (gtype_prefix, "") || g_str_equal (class_function_prefix, "") ||
 		  g_str_equal (source_file, "") || g_str_equal (header_file, "") ) {
-		anjuta_util_dialog_error (NULL, _("Please check your fields."));
+		anjuta_util_dialog_error (NULL, _("Please check your required fields."));
 		return FALSE;
 	}
 		
@@ -172,17 +161,30 @@ gobject_class_create_code (ClassGenData* data) {
 	/* act with templates... */
 	a = transform_file(CLASS_TEMPLATE"/"CLASS_GOC_HEADER_TEMPLATE, 
 					header_file, trans_table, author_name, author_email, 
-					date_output, gpl_output);
+					date_output, license_output);
 					
 	b = transform_file(CLASS_TEMPLATE"/"CLASS_GOC_SOURCE_TEMPLATE, 
 					source_file, trans_table, author_name, author_email, 
-					date_output, gpl_output);
+					date_output, license_output);
 
 	gtk_widget_hide (classgen_widget);
 	
 	if(a && b) {
-		ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
-		ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+		if ( add_to_project ) {
+			IAnjutaProjectManager *pm;
+			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaProjectManager, NULL);
+			
+			g_return_val_if_fail (pm != NULL, FALSE);			
+			
+			ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
+			ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+		}
+		
+		/* let's open the files in new a pair of new editors */
+		ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
+		ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
+		
 	} else {
 		anjuta_util_dialog_error (NULL,
 							  _("An error occurred when trying to write GObject Class Template. Check file permissions."));
@@ -243,7 +245,7 @@ cstr_replace_all(gchar *search, const gchar *find, const gchar *replace)
 gboolean 
 transform_file(const gchar *input_file, const gchar *output_file, 
 	gchar **replace_table, const gchar *author, const gchar *email, 
-	gboolean date_output, gboolean gpl_output)
+	gboolean date_output, gint license_output)
 {
 	gchar *contents;
 	gchar *working;
@@ -273,7 +275,7 @@ transform_file(const gchar *input_file, const gchar *output_file,
 		return FALSE;
 	}
 
-	for(i = 0; replace_table[i] != NULL; i++) {
+	for (i = 0; replace_table[i] != NULL; i++) {
 		if(i >= st_size)
 			break;
 			
@@ -282,7 +284,7 @@ transform_file(const gchar *input_file, const gchar *output_file,
 		contents = working;
 	}
 	
-	if(date_output) {
+	if (date_output) {
 		gchar *basename = g_path_get_basename(output_file);
 		gchar buf[128], year[5];
 		time_t curtime = time(NULL);
@@ -303,11 +305,20 @@ transform_file(const gchar *input_file, const gchar *output_file,
 	}
 	
 	
-			   
-	if(gpl_output) {
-		fputs(GPL_HEADING, out);
+	switch (license_output) {
+		case GPL:
+			fputs(GPL_HEADING, out);
+			break;
+		
+		case LGPL:
+			fputs(LGPL_HEADING, out);
+			break;
+		
+		case NO_LICENSE: 
+		default:
+			break;
 	}
-	
+
 	fputs(contents, out);
 	fclose(out);
 	
@@ -336,29 +347,31 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	const gchar *header_file = FETCH_STRING (data->gxml, "cc_header_file");
 	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
 	gboolean is_inline = FETCH_BOOLEAN (data->gxml, "cc_inline");
+	gboolean add_to_project = FETCH_BOOLEAN (data->gxml, "add_to_project_check");
 	FILE* header_fd;
 	FILE* source_fd;
 	gboolean bOK = FALSE;
 	IAnjutaProjectManager *pm;
-
+	IAnjutaFileLoader *loader;
+	
 	plugin = data->plugin;
 	
 	/* check whether all required fields are filled or not */
 	if ( g_str_equal (source_file, "") || g_str_equal (header_file, "") ||
 		  g_str_equal (class_name, "")) {
-		anjuta_util_dialog_error (NULL, _("Please check your fields."));
+		anjuta_util_dialog_error (NULL, _("Please fill required fields."));
 		return FALSE;
 	}
-	
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										 IAnjutaProjectManager, NULL);
-	
-	g_return_val_if_fail(pm != NULL, FALSE);
+
+	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaFileLoader, NULL);
+
+	g_return_val_if_fail (loader != NULL, FALSE);
 	
 	if (!is_inline) {	/* not inlined */
 		header_fd = fopen (header_file, "at");
 		if (header_fd != NULL) {
-			generate_header (data, is_inline, header_fd);
+			gen_cpp_generate_header (data, is_inline, header_fd);
 			fflush (header_fd);
 			bOK = !ferror (header_fd);
 			fclose (header_fd);
@@ -367,7 +380,7 @@ generic_cpp_class_create_code (ClassGenData *data) {
 		
 		source_fd = fopen (source_file, "at");
 		if (source_fd != NULL) {
-			generate_source (data, is_inline, header_file, source_fd);
+			gen_cpp_generate_source (data, is_inline, header_file, source_fd);
 			fflush (source_fd);
 			bOK = !ferror (source_fd);
 			fclose (source_fd);
@@ -377,8 +390,8 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	else 	{				/* inlined */
 		header_fd = fopen (header_file, "at");
 		if (header_fd != NULL) {
-			generate_header (data, is_inline, header_fd);
-			generate_source (data, is_inline, header_file, header_fd);
+			gen_cpp_generate_header (data, is_inline, header_fd);
+			gen_cpp_generate_source (data, is_inline, header_file, header_fd);
 			fflush (header_fd);
 			bOK = !ferror (header_fd);
 			fclose (header_fd);
@@ -387,9 +400,21 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	}
 	
 	if (bOK) {
-		if (!is_inline) 
-			ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
-		ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+		/* add the files to the project */
+		if (add_to_project) {
+			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaProjectManager, NULL);
+			
+			g_return_val_if_fail (pm != NULL, FALSE);
+			
+			if (!is_inline) 
+				ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
+			ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+		}
+		
+		/* let's open the files */
+		ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
+		ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
 	}
 	else
 		anjuta_util_dialog_error (NULL, _("Error in writing files"));
@@ -409,25 +434,63 @@ GetNowTime(void)
 
 
 static void
-generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {
-	
-	GtkWidget *combo;
+gen_cpp_generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {
 	const gchar *base_class = FETCH_STRING (data->gxml, "cc_base_class");	
 	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
 	const gchar *author_name = FETCH_STRING (data->gxml, "cc_author_name");
 	const gchar *author_email = FETCH_STRING (data->gxml, "cc_author_email");
 	gboolean is_virtual_destructor = FETCH_BOOLEAN (data->gxml, "cc_virtual_destructor");
+	gboolean date_output = FETCH_BOOLEAN (data->gxml, "cc_date_output");
 	
-	combo = glade_xml_get_widget (data->gxml, "cc_inheritance");
-	const gchar *access_inheritance = gtk_editable_get_chars (GTK_EDITABLE (combo), 0, -1);
+	GtkWidget* license_widget = glade_xml_get_widget (data->gxml, "license_combo");
+	gint license_output = gtk_combo_box_get_active (GTK_COMBO_BOX (license_widget));
+	
+	GtkWidget *combo = glade_xml_get_widget (data->gxml, "cc_inheritance");
+	gint access_inheritance_index = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
+	const gchar *access_inheritance;
 	
 	gchar* class_name_all_uppers = g_utf8_strup (class_name, strlen (class_name));
 	struct tm *t = GetNowTime();
 		
+	/* obtain the type of inheritance */
+	switch (access_inheritance_index) {
+		case INHERIT_PUBLIC:
+			access_inheritance = "public";
+			break;
+		
+		case INHERIT_PROTECTED:
+			access_inheritance = "protected";
+			break;
+		
+		case INHERIT_PRIVATE:
+			access_inheritance = "private";
+			break;
+		
+		default:
+			break;
+	}
+	
 	/* output a C++ header */
+	switch (license_output) {
+		case GPL:
+			fprintf(fpOut, "%s\n", GPL_HEADING);
+			break;
+		
+		case LGPL:
+			fprintf(fpOut, "%s\n", LGPL_HEADING);
+			break;
+		
+		case NO_LICENSE: 
+		default:
+			break;
+	}
+	
+	
 	fprintf (fpOut, "//\n// Class: %s\n", class_name);
-	fprintf (fpOut, "// Created by: %s <%s>\n", author_name, author_email);
-	fprintf (fpOut, "// Created on: %s//\n\n", asctime(t));
+	if (date_output) {
+		fprintf (fpOut, "// Created by: %s <%s>\n", author_name, author_email);
+		fprintf (fpOut, "// Created on: %s//\n\n", asctime(t));
+	}
 		
 	fprintf (fpOut,
 				"#ifndef _%s_H_\n"
@@ -537,7 +600,7 @@ generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {
 }
 
 static void
-generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut)
+gen_cpp_generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut)
 {
 	GtkWidget *combo;
 	const gchar *base_class = FETCH_STRING (data->gxml, "cc_base_class");	
@@ -545,14 +608,34 @@ generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_fil
 	const gchar *author_name = FETCH_STRING (data->gxml, "cc_author_name");
 	const gchar *author_email = FETCH_STRING (data->gxml, "cc_author_email");
 	gboolean is_virtual_destructor = FETCH_BOOLEAN (data->gxml, "cc_virtual_destructor");
+	gboolean date_output = FETCH_BOOLEAN (data->gxml, "cc_date_output");
 	struct tm *t = GetNowTime();	
+
+	GtkWidget* license_widget = glade_xml_get_widget (data->gxml, "license_combo");
+	gint license_output = gtk_combo_box_get_active (GTK_COMBO_BOX (license_widget));
 	
 	gchar* class_name_all_uppers = g_utf8_strup (class_name, strlen (class_name));
 
+	switch (license_output) {
+		case GPL:
+			fprintf(fpOut, "%s\n", GPL_HEADING);
+			break;
+		
+		case LGPL:
+			fprintf(fpOut, "%s\n", LGPL_HEADING);
+			break;
+		
+		case NO_LICENSE: 
+		default:
+			break;
+	}	
+	
 	if(!is_inline)	{
-		fprintf (fpOut, "//\n// Class: %s\n", class_name);
-		fprintf (fpOut, "// Created by: %s <%s>\n", author_name, author_email);
-		fprintf (fpOut, "// Created on: %s//\n\n", asctime(t) );
+		fprintf (fpOut, "//\n// Class: %s\n//\n", class_name);
+		if (date_output) {
+			fprintf (fpOut, "// Created by: %s <%s>\n", author_name, author_email);
+			fprintf (fpOut, "// Created on: %s//\n\n", asctime(t) );
+		}
 		
 		fprintf (
 				fpOut,

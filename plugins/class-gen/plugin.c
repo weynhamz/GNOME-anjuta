@@ -33,10 +33,6 @@
 
 static gpointer parent_class;
 
-static void dispose (GObject *obj);
-static void finalize (GObject *obj);
-static void class_gen_plugin_instance_init (GObject *obj);
-static void class_gen_plugin_class_init (GObjectClass *klass);
 
 
 static void
@@ -104,7 +100,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaClassGenPlugin *cg_plugin;
 	cg_plugin = (AnjutaClassGenPlugin *) plugin;
-	DEBUG_PRINT ("AnjutaClassGenPlugin: Dectivating ClassGen plugin ...");
+	DEBUG_PRINT ("AnjutaClassGenPlugin: Deactivating ClassGen plugin ...");
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, cg_plugin->root_watch_id, TRUE);
@@ -113,6 +109,24 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 
+static void
+dispose (GObject *obj)
+{
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+}
+
+
+static void
+finalize (GObject *obj)
+{
+	AnjutaClassGenPlugin *cg_plugin;
+	cg_plugin = (AnjutaClassGenPlugin *) obj;
+
+	if (cg_plugin->top_dir)
+		g_free (cg_plugin->top_dir);
+	
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+}
 
 static void
 class_gen_plugin_class_init (GObjectClass *klass) 
@@ -141,13 +155,7 @@ iwizard_activate (IAnjutaWizard *wiz, GError **err)
 	AnjutaClassGenPlugin *cg_plugin;
 	
 	cg_plugin = (AnjutaClassGenPlugin*)wiz;
-	
-	/* check if the top_dir is setted, i.e. a project is loaded */
-	if (cg_plugin->top_dir != NULL ) 
-		on_classgen_new ((AnjutaClassGenPlugin*)wiz);
-	else
-		anjuta_util_dialog_error (NULL,
-								  _("A project must be open before creating a class"));
+	on_classgen_new (cg_plugin);
 }
 
 static void
@@ -156,24 +164,6 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 	iface->activate = iwizard_activate;
 }
 
-static void
-dispose (GObject *obj)
-{
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
-}
-
-
-static void
-finalize (GObject *obj)
-{
-	AnjutaClassGenPlugin *cg_plugin;
-	cg_plugin = (AnjutaClassGenPlugin *) obj;
-
-	if (cg_plugin->top_dir)
-		g_free (cg_plugin->top_dir);
-	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
-}
 
 ANJUTA_PLUGIN_BEGIN (AnjutaClassGenPlugin, class_gen_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(iwizard, IANJUTA_TYPE_WIZARD);
