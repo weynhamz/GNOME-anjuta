@@ -3,6 +3,9 @@
 	* src/main_menubar_def.h: Changed status bar message for Help->
 	Browse info pages. Bug #603308
 
+	* src/executer.c: Made "User terminal" default for creating
+	projects (User can always disable it later). Bug #114222
+	
 2002-10-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* macros/autogen.sh: Require gettext 0.10.x for autogen
