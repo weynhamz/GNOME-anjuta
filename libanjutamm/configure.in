@@ -77,5 +77,8 @@ AC_LANG_CPLUSPLUS
 AC_OUTPUT(
 Makefile
 src/Makefile
+tools/Makefile
+tools/m4/Makefile
+tools/extra_defs_gen/Makefile
 )
 
