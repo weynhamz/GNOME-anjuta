@@ -1,5 +1,11 @@
 2003-05-26  Naba Kumar  <naba@gnome.org>
 
+	* src/project_dbase_gui.c: Added header files filter for add file
+	dialog box. Disabled project window to be transient window.
+	
+	* src/message-manager.cc: Disabled message manager window to be
+	transient window.
+	
 	* src/text_editor.c, src/anjuta_cbs.c: Better error reporting when
 	a file could not be loaded.
 	

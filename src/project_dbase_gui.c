@@ -167,6 +167,7 @@ set_fileselection_file_types(ProjectDBase * p)
 
 		case MODULE_SOURCE:
 			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
+			ftypes = fileselection_addtype_f (ftypes, _("C/C++ Headers"), ".h", ".H", ".hh", ".hxx", ".hpp", ".h++", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".pc", ".sc", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".C", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Java source files"), ".java", ".js", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Pascal files"), ".pas", NULL);
@@ -569,8 +570,10 @@ create_project_dbase_gui (ProjectDBase * p)
 	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	/*
 	gtk_window_set_transient_for (GTK_WINDOW (window1),
 								  GTK_WINDOW (app->widgets.window));
+	*/
 	gnome_window_icon_set_from_default ((GtkWindow *) window1);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "project_dbase", "Anjuta");
