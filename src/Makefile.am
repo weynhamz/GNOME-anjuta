@@ -11,7 +11,7 @@ INCLUDES = \
 	-I$(srcdir)/../pixmaps \
 	-I.. -I. \
 	-Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
-	-Wuninitialized -Wparentheses -Wtraditional -Wpointer-arith\
+	-Wuninitialized -Wparentheses -Wpointer-arith\
 	-Wmissing-prototypes\
  	-O1\
  	-g
