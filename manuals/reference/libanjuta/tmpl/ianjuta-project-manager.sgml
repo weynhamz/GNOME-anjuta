@@ -33,7 +33,12 @@ ianjuta-project-manager
 </para>
 
 @g_iface: 
+@added: 
+@removed: 
+@selected: 
 @configure: 
+@get_sources: 
+@get_targets: 
 
 <!-- ##### FUNCTION ianjuta_project_manager_error_quark ##### -->
 <para>

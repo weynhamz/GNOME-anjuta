@@ -1,29 +1,20 @@
 #include <libanjuta/libanjuta.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
-#include <libanjuta/interfaces/ianjuta-context.h>
-#include <libanjuta/interfaces/ianjuta-context-list.h>
-#include <libanjuta/interfaces/ianjuta-context-text.h>
-#include <libanjuta/interfaces/ianjuta-context-tree.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
-#include <libanjuta/interfaces/ianjuta-iterable.h>
-#include <libanjuta/interfaces/ianjuta-iterable-tree.h>
 #include <libanjuta/interfaces/ianjuta-loader.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
-#include <libanjuta/interfaces/ianjuta-renderable.h>
-#include <libanjuta/interfaces/ianjuta-sand-box.h>
 #include <libanjuta/interfaces/ianjuta-stream.h>
 #include <libanjuta/interfaces/ianjuta-stream-loader.h>
 #include <libanjuta/interfaces/ianjuta-stream-savable.h>
-#include <libanjuta/interfaces/ianjuta-transformable.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-debugger-manager.h>
@@ -39,29 +30,20 @@ anjuta_launcher_get_type
 anjuta_plugin_get_type
 ianjuta_editor_get_type
 ianjuta_buildable_get_type
-ianjuta_context_get_type
-ianjuta_context_list_get_type
-ianjuta_context_text_get_type
-ianjuta_context_tree_get_type
 ianjuta_document_manager_get_type
 ianjuta_file_get_type
 ianjuta_file_loader_get_type
 ianjuta_file_manager_get_type
 ianjuta_file_savable_get_type
 ianjuta_help_get_type
-ianjuta_iterable_get_type
-ianjuta_iterable_tree_get_type
 ianjuta_loader_get_type
 ianjuta_markable_get_type
 ianjuta_message_manager_get_type
 ianjuta_message_view_get_type
 ianjuta_profile_get_type
-ianjuta_renderable_get_type
-ianjuta_sand_box_get_type
 ianjuta_stream_get_type
 ianjuta_stream_loader_get_type
 ianjuta_stream_savable_get_type
-ianjuta_transformable_get_type
 ianjuta_terminal_get_type
 ianjuta_todo_get_type
 ianjuta_project_manager_get_type
