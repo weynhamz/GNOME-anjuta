@@ -9,7 +9,7 @@
 # TEMPLATE="$(dirname $0)/anjuta_project.template"
 TEMPLATE="@PACKAGE_DATA_DIR@/anjuta_project.template"
 AN_SKIP_DIRS=${AN_SKIP_DIRS:-"intl"}
-AN_SOURCE_EXTN=${AN_SOURCE_EXTN:-"c C cpp cxx cc java"}
+AN_SOURCE_EXTN=${AN_SOURCE_EXTN:-"c pc sc C cpp cxx cc java"}
 AN_HEADER_EXTN=${AN_HEADER_EXTN:-"h H hxx hpp hh"}
 AN_PIXMAP_EXTN=${AN_IMAGE_EXTN:-"jpeg jpg png gif xpm bmp ico tiff"}
 AN_DOC_EXTN=${AN_DOC_EXTN:-"html sgml sgml README INSTALL ChangeLog NEWS COPYING CREDITS AUTHORS THANKS TODO HACKING FUTURE"}

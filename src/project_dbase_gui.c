@@ -167,7 +167,7 @@ set_fileselection_file_types(ProjectDBase * p)
 
 		case MODULE_SOURCE:
 			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
-			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".C", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".pc", ".sc", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".C", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Java source files"), ".java", ".js", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Pascal files"), ".pas", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("PHP files"), ".php", ".php?", ".phtml", NULL);

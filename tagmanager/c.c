@@ -2406,7 +2406,7 @@ static void initializeJavaParser (const langType language)
 
 extern parserDefinition* CParser (void)
 {
-    static const char *const extensions [] = { "c", NULL };
+    static const char *const extensions [] = { "c", "pc", "sc", NULL };
     parserDefinition* def = parserNew ("C");
     def->kinds      = CKinds;
     def->kindCount  = KIND_COUNT (CKinds);
@@ -2420,7 +2420,7 @@ extern parserDefinition* CppParser (void)
 {
     static const char *const extensions [] = {
 	"c++", "cc", "cp", "cpp", "cxx", "h", "h++", "hh", "hp", "hpp", "hxx",
-"i", "pc",
+"i",
 #ifndef CASE_INSENSITIVE_FILENAMES
 	"C", "H",
 #endif
