@@ -52,6 +52,9 @@ create_new_project (AppWidzard * aw)
 
 	if (file_is_directory (top_dir))
 	{
+		g_free (all_prj_dir);
+		g_free (top_dir);
+		
 		anjuta_error (
 			_("The Project already exist.\n"
 			    "Project creation aborted."));
@@ -64,18 +67,24 @@ create_new_project (AppWidzard * aw)
 	g_free (all_prj_dir);
 
 	prj_file = g_strdup_printf ("%s/%s.prj", top_dir, aw->prj_name);
+	g_free (top_dir);
+	
 	fileselection_set_filename (app->project_dbase->fileselection_open, prj_file);
 	messages_clear (app->messages, MESSAGE_BUILD);
 	messages_append (app->messages, _("Generating  project ...\n"), MESSAGE_BUILD);
 	messages_show (app->messages, MESSAGE_BUILD);
 
 	fp = fopen (prj_file, "w");
-	if(!fp)
+	if (!fp)
 	{
 		anjuta_system_error (errno, _("Cannot create file: %s"), prj_file);
+		g_free (prj_file);
+		
 		return FALSE;
 	}
+
 	g_free (prj_file);
+
 	fprintf(fp, "# Anjuta Version %s\n", VERSION);
 	fprintf(fp, "Compatibility Level: %d\n\n", COMPATIBILITY_LEVEL);
 
@@ -205,7 +214,7 @@ new_prj_mesg_arrived (gchar * mesg)
 	messages_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
-void
+static void
 new_prj_terminated (int status, time_t t)
 {
 	if (WEXITSTATUS (status))
