@@ -15,6 +15,11 @@
 		
 	* src/main_menu.c: Fixed a compilation error.
 	
+	* src/anjuta.c: Fixed non-rememberence of editor tab position.
+	
+	* src/mainmenu_callbacks.c: Fixed gpl strings to avoid compiler warnings
+	  about the unterminated strings.
+	
 2001-08-28  Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	* widgets/gnomefileselection.c:

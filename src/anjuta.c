@@ -182,6 +182,7 @@ anjuta_new ()
 		debug_toolbar_update ();
 		format_toolbar_update ();
 		browser_toolbar_update ();
+		anjuta_apply_preferences();
 	}
 	else
 	{
