@@ -77,7 +77,7 @@ static const gchar* NPWPropertyTypeString[] = {"hidden",
 						"list",
 						"directory",
 						"file",
-						"iconfile"};
+						"icon"};
 
 /* Property object
  *---------------------------------------------------------------------------*/
@@ -248,7 +248,7 @@ npw_property_create_widget (NPWProperty* this)
 		gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY (entry), FALSE);
 		if (value) gnome_file_entry_set_filename (GNOME_FILE_ENTRY (entry), value);
 		break;
-	case NPW_ICONFILE_PROPERTY:
+	case NPW_ICON_PROPERTY:
 		entry = gnome_icon_entry_new("icon_choice", _("Icone choice"));
 		if (value) gnome_icon_entry_set_filename (GNOME_ICON_ENTRY (entry), value);
 		break;
@@ -334,7 +334,7 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 	case NPW_FILE_PROPERTY:
 		value = gnome_file_entry_get_full_path (GNOME_FILE_ENTRY (this->widget), FALSE);
 		break;
-	case NPW_ICONFILE_PROPERTY:
+	case NPW_ICON_PROPERTY:
 		value = gnome_icon_entry_get_filename(GNOME_ICON_ENTRY(this->widget));
 		break;
 	case NPW_LIST_PROPERTY:
