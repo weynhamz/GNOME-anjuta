@@ -1,3 +1,10 @@
+2001-08-06  Stephane Demurget <demurgets@free.fr>
+
+	* ccview/cccproj.cc: added missing i18n strings.
+
+	* data/welcome.txt: bumped version to 0.1.6.
+
+
 2001-08-06  Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	* help.c, help.h: Added support for DevHelp context sensitive help

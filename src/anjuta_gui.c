@@ -69,7 +69,7 @@ create_anjuta_gui (AnjutaApp * appl)
 
 	tooltips = gtk_tooltips_new ();
 
-	anjuta_gui = gnome_app_new ("Anjuta", _("Anjuta"));
+	anjuta_gui = gnome_app_new ("Anjuta", "Anjuta");
 	gtk_widget_set_uposition (anjuta_gui, 0, 0);
 	gtk_widget_set_usize (anjuta_gui, 500, 116);
 	gtk_window_set_default_size (GTK_WINDOW (anjuta_gui), 700, 400);

@@ -1011,7 +1011,7 @@ anjuta_error (gchar * mesg, ... )
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	str = g_strconcat ("ERROR: ", message, NULL);
+	str = g_strconcat (_("ERROR: "), message, NULL);
 	gnome_app_error (GNOME_APP (app->widgets.window), str);
 	g_free (message);
 	g_free (str);
@@ -1028,7 +1028,7 @@ anjuta_system_error (gint errnum, gchar * mesg, ... )
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
 	
-	tot_mesg = g_strconcat (message, "\nSystem: ", g_strerror(errnum), NULL);
+	tot_mesg = g_strconcat (message, _("\nSystem: "), g_strerror(errnum), NULL);
 	gnome_app_error (GNOME_APP (app->widgets.window), tot_mesg);
 	g_free (message);
 	g_free (tot_mesg);
@@ -1495,7 +1495,7 @@ anjuta_fill_windows_menu ()
 					sep);
 		for (i = (count - 1); i >= 0; i--)
 		{
-			TextEditor *te;
+			TextEditor
 			te = g_list_nth_data (app->text_editor_list, i);
 			wininfo[0].label = te->filename;
 			if (te == NULL)

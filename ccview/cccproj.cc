@@ -1450,7 +1450,7 @@ Scanner::create_dialog (void)
   GdkBitmap *mask;
 
   win = gnome_dialog_new (NULL, NULL);
-  gtk_object_set_data (GTK_OBJECT (win), "Scanning and Updating files. Please Wait ...", win);
+  gtk_object_set_data (GTK_OBJECT (win), _("Scanning and Updating files. Please Wait ..."), win);
   gtk_widget_set_usize (win, 380, 0);
   gtk_window_set_policy (GTK_WINDOW (win), TRUE, TRUE, FALSE);
 
@@ -1529,7 +1529,7 @@ void Scanner::start()
 	last_pos = contexts.end();
 	if(cur_pos == last_pos) return;
 	count = 0;
-	gtk_label_set_text (GTK_LABEL(label), "Updating file: ");
+	gtk_label_set_text (GTK_LABEL(label), _("Updating file: "));
 	gtk_progress_bar_update (GTK_PROGRESS_BAR(progressbar), 0);
 	gtk_widget_show(win);
 	gtk_signal_emit (owner->object, ccview_signals[UPDATE_START], owner->getdirectory());
@@ -1555,7 +1555,7 @@ Scanner::scan_context (gpointer data)
 	scn->owner->scan_file (*(scn->cur_pos));
 	gtk_progress_bar_update (GTK_PROGRESS_BAR(scn->progressbar),
 		(float)scn->count/scn->max_files);
-	string s = "Updating file: ";
+	string s = _("Updating file: ");
 	s += scn->cur_pos->get_filename();
 	gtk_label_set_text (GTK_LABEL(scn->label), s.c_str());
 	scn->cur_pos++;
