@@ -28,8 +28,9 @@
 
 #include <gtk/gtk.h>
 
+#include <libanjuta/resources.h>
+
 #include "anjuta.h"
-#include "resources.h"
 #include "utilities.h"
 #include "anjuta_info.h"
 
@@ -201,7 +202,7 @@ anjuta_info_show_string (const gchar *s, gint width, gint height)
 
 	g_return_val_if_fail (s != NULL, FALSE);
 
-	textview = create_dialog_with_textview (GTK_WINDOW (app->widgets.window),
+	textview = create_dialog_with_textview (GTK_WINDOW (app),
 											width, height);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
 	gtk_text_buffer_set_text (buffer, s, strlen (s));
@@ -222,7 +223,7 @@ anjuta_info_show_filestream (FILE *f,
 
 	g_return_val_if_fail (f != NULL, FALSE);
 
-	textview = create_dialog_with_textview (GTK_WINDOW (app->widgets.window),
+	textview = create_dialog_with_textview (GTK_WINDOW (app),
 											width, height);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
 
@@ -274,7 +275,7 @@ anjuta_info_show_list (GList* list,
 
 	g_return_if_fail (list != NULL);
 
-	treeview = create_dialog_with_treeview (GTK_WINDOW (app->widgets.window),
+	treeview = create_dialog_with_treeview (GTK_WINDOW (app),
 											width, height);
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
 

@@ -48,14 +48,92 @@
 #endif /* !G_ENABLE_DEBUG */
 
 
-/* VOID:STRING,POINTER (./anjuta-marshal.list:1) */
+/* VOID:BOOLEAN (./anjuta-marshal.list:24) */
+
+/* VOID:INT,STRING (./anjuta-marshal.list:25) */
 void
-anjuta_marshal_VOID__STRING_POINTER (GClosure     *closure,
-                                     GValue       *return_value,
-                                     guint         n_param_values,
-                                     const GValue *param_values,
-                                     gpointer      invocation_hint,
-                                     gpointer      marshal_data)
+anjuta_cclosure_marshal_VOID__INT_STRING (GClosure     *closure,
+                                          GValue       *return_value,
+                                          guint         n_param_values,
+                                          const GValue *param_values,
+                                          gpointer      invocation_hint,
+                                          gpointer      marshal_data)
+{
+  typedef void (*GMarshalFunc_VOID__INT_STRING) (gpointer     data1,
+                                                 gint         arg_1,
+                                                 gpointer     arg_2,
+                                                 gpointer     data2);
+  register GMarshalFunc_VOID__INT_STRING callback;
+  register GCClosure *cc = (GCClosure*) closure;
+  register gpointer data1, data2;
+
+  g_return_if_fail (n_param_values == 3);
+
+  if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+      data1 = closure->data;
+      data2 = g_value_peek_pointer (param_values + 0);
+    }
+  else
+    {
+      data1 = g_value_peek_pointer (param_values + 0);
+      data2 = closure->data;
+    }
+  callback = (GMarshalFunc_VOID__INT_STRING) (marshal_data ? marshal_data : cc->callback);
+
+  callback (data1,
+            g_marshal_value_peek_int (param_values + 1),
+            g_marshal_value_peek_string (param_values + 2),
+            data2);
+}
+
+/* VOID:INT,INT,ULONG (./anjuta-marshal.list:26) */
+void
+anjuta_cclosure_marshal_VOID__INT_INT_ULONG (GClosure     *closure,
+                                             GValue       *return_value,
+                                             guint         n_param_values,
+                                             const GValue *param_values,
+                                             gpointer      invocation_hint,
+                                             gpointer      marshal_data)
+{
+  typedef void (*GMarshalFunc_VOID__INT_INT_ULONG) (gpointer     data1,
+                                                    gint         arg_1,
+                                                    gint         arg_2,
+                                                    gulong       arg_3,
+                                                    gpointer     data2);
+  register GMarshalFunc_VOID__INT_INT_ULONG callback;
+  register GCClosure *cc = (GCClosure*) closure;
+  register gpointer data1, data2;
+
+  g_return_if_fail (n_param_values == 4);
+
+  if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+      data1 = closure->data;
+      data2 = g_value_peek_pointer (param_values + 0);
+    }
+  else
+    {
+      data1 = g_value_peek_pointer (param_values + 0);
+      data2 = closure->data;
+    }
+  callback = (GMarshalFunc_VOID__INT_INT_ULONG) (marshal_data ? marshal_data : cc->callback);
+
+  callback (data1,
+            g_marshal_value_peek_int (param_values + 1),
+            g_marshal_value_peek_int (param_values + 2),
+            g_marshal_value_peek_ulong (param_values + 3),
+            data2);
+}
+
+/* VOID:STRING,POINTER (./anjuta-marshal.list:27) */
+void
+anjuta_cclosure_marshal_VOID__STRING_POINTER (GClosure     *closure,
+                                              GValue       *return_value,
+                                              guint         n_param_values,
+                                              const GValue *param_values,
+                                              gpointer      invocation_hint,
+                                              gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__STRING_POINTER) (gpointer     data1,
                                                      gpointer     arg_1,
@@ -85,16 +163,16 @@ anjuta_marshal_VOID__STRING_POINTER (GClosure     *closure,
             data2);
 }
 
-/* VOID:STRING (./anjuta-marshal.list:2) */
+/* VOID:STRING (./anjuta-marshal.list:28) */
 
-/* VOID:STRING,BOXED (./anjuta-marshal.list:3) */
+/* VOID:STRING,BOXED (./anjuta-marshal.list:29) */
 void
-anjuta_marshal_VOID__STRING_BOXED (GClosure     *closure,
-                                   GValue       *return_value,
-                                   guint         n_param_values,
-                                   const GValue *param_values,
-                                   gpointer      invocation_hint,
-                                   gpointer      marshal_data)
+anjuta_cclosure_marshal_VOID__STRING_BOXED (GClosure     *closure,
+                                            GValue       *return_value,
+                                            guint         n_param_values,
+                                            const GValue *param_values,
+                                            gpointer      invocation_hint,
+                                            gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__STRING_BOXED) (gpointer     data1,
                                                    gpointer     arg_1,

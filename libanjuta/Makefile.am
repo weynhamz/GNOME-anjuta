@@ -55,14 +55,14 @@ BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h
 
 anjuta-marshal.h: anjuta-marshal.list
 	@GLIB_GENMARSHAL@ \
-	        --prefix=anjuta_marshal $(srcdir)/anjuta-marshal.list --header > xgen-gmc \
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --header > xgen-gmc \
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc
 
 anjuta-marshal.c: anjuta-marshal.h
 	echo "#include \"anjuta-marshal.h\"" > xgen-gmc \
 	&& @GLIB_GENMARSHAL@ \
-	        --prefix=anjuta_marshal $(srcdir)/anjuta-marshal.list --body >> xgen-gmc \
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --body >> xgen-gmc \
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc
 

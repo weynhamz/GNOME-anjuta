@@ -194,22 +194,6 @@ void string_assign (gchar** string, const gchar* value);
 /* Used as the callback for scandir() */
 int select_only_file (const struct dirent *e);
 
-/***********************************************/
-/*  Functions that operate on list of strings. */
-/***********************************************/
-void glist_strings_free(GList* list);
-void glist_strings_prefix (GList * list, const gchar *prefix);
-void glist_strings_sufix (GList * list, const gchar *sufix);
-GList* glist_strings_sort (GList * list);
-
-/**********************************************************/
-/* Both the returned glist and the data should be g_freed */
-/* Call g_list_strings_free() to do that.                 */
-/**********************************************************/
-GList* glist_from_data (guint props, const gchar* id);
-GList* glist_from_string (const gchar* id);
-GList* glist_strings_dup (GList * list);
-
 /* Returns the alphabatically sorted list for files in dir */
 /* select is the func that approves (returning 1)each file */
 GList* scan_files_in_dir (const char *dir, int (*select)(const struct dirent *));
@@ -277,22 +261,6 @@ GList *glist_path_dedup(GList *list);
  Returns: 1 -- Gnome1 gnome-terminal
  Returns: 2 -- Gnome2 gnome-terminal */
 gint anjuta_util_check_gnome_terminal (void);
-
-/* String integer mapping utility functions */
-typedef struct _StringMap
-{
-	int type;
-	char *name;
-} StringMap;
-
-int type_from_string(StringMap *map, const char *str);
-const char *string_from_type(StringMap *map, int type);
-GList *glist_from_map(StringMap *map);
-
-void anjuta_util_color_from_string (const gchar * val,
-									guint8 * r, guint8 * g, guint8 * b);
-
-gchar *anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
 
 /* Return must be freed. Works even if str is already UTF8 string */
 gchar *anjuta_util_convert_to_utf8 (const gchar *str);

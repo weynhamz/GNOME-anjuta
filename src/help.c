@@ -21,9 +21,9 @@
 #	include <config.h>
 #endif
 
+#include <libanjuta/resources.h>
 
 #include "anjuta.h"
-#include "resources.h"
 #include "utilities.h"
 
 static void create_anjuta_help_gui (AnjutaHelp* help);
@@ -122,7 +122,7 @@ create_anjuta_help_gui (AnjutaHelp* help)
   help->widgets.window = glade_xml_get_widget (help->gxml, "help_search_dialog");
   gtk_widget_hide (help->widgets.window);
   gtk_window_set_transient_for (GTK_WINDOW (help->widgets.window),
-                                GTK_WINDOW(app->widgets.window));
+                                GTK_WINDOW(app));
   help->widgets.entry = glade_xml_get_widget (help->gxml, "help_search_entry");
   help->widgets.combo = glade_xml_get_widget (help->gxml, "help_search_combo");
   help->widgets.gnome_radio = glade_xml_get_widget (help->gxml, "help_search_gnome_api");

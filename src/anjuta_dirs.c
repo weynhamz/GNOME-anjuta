@@ -23,9 +23,11 @@
 
 #include <sys/stat.h>
 #include <gnome.h>
+
+#include <libanjuta/resources.h>
+
 #include "anjuta_dirs.h"
 #include "utilities.h"
-#include "resources.h"
 
 AnjutaDirs*
 anjuta_dirs_new()

@@ -53,7 +53,7 @@ enum {
 	COL_TOOL
 };
 
-#define TOOL_SET_LOCATION "/apps/anjuta2/toolsets"
+#define TOOL_SET_LOCATION "/apps/anjuta/toolsets"
 
 static GConfClient *gconf_client = NULL;
 

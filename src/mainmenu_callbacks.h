@@ -20,14 +20,6 @@
 #include <gnome.h>
 #include <libegg/menu/egg-toggle-action.h>
 
-void on_new_file1_activate (EggAction * action, gpointer user_data);
-void on_open1_activate (EggAction * action, gpointer user_data);
-void on_save1_activate (EggAction * action, gpointer user_data);
-void on_save_as1_activate (EggAction * action, gpointer user_data);
-void on_save_all1_activate (EggAction * action, gpointer user_data);
-void on_close_file1_activate (EggAction * action, gpointer user_data);
-void on_reload_file1_activate (EggAction * action, gpointer user_data);
-void on_close_all_file1_activate (EggAction * action, gpointer user_data);
 void on_new_project1_activate (EggAction * action, gpointer user_data);
 void on_import_project_activate (EggAction * action, gpointer user_data);
 void on_open_project1_activate (EggAction * action, gpointer user_data);
@@ -35,33 +27,9 @@ void on_open_project1_activate (EggAction * action, gpointer user_data);
 void on_save_project1_activate (EggAction * action, gpointer user_data);
 void on_close_project1_activate (EggAction * action, gpointer user_data);
 void on_rename1_activate (EggAction * action, gpointer user_data);
-void on_nonimplemented_activate (EggAction * action, gpointer user_data);
 void on_exit1_activate (EggAction * action, gpointer user_data);
 
 /*****************************************************************************/
-void on_editor_command_activate (EggAction * action, gpointer user_data);
-void on_editor_select_function  (EggAction * action, gpointer user_data);
-void on_editor_select_word (EggAction *action, gpointer user_data);
-void on_editor_select_line (EggAction *action, gpointer user_data);
-void on_transform_eolchars1_activate (EggAction * action, gpointer user_data);
-void on_search1_activate (EggAction * action, gpointer user_data);
-void on_find1_activate (EggAction * action, gpointer user_data);
-void on_autocomplete1_activate (EggAction * action, gpointer user_data);
-void on_calltip1_activate (EggAction * action, gpointer user_data);
-void on_find_in_files1_activate (EggAction * action, gpointer user_data);
-void on_find_and_replace1_activate (EggAction * action, gpointer user_data);
-void on_goto_line_no1_activate (EggAction * action, gpointer user_data);
-
-void on_next_occur (EggAction * action, gpointer user_data);
-void on_prev_occur (EggAction * action, gpointer user_data);
-
-void on_comment_block (EggAction * action, gpointer user_data);
-void on_comment_box (EggAction * action, gpointer user_data);
-void on_comment_stream (EggAction * action, gpointer user_data);
-void on_insert_custom_indent (EggAction *action, gpointer user_data);
-
-void on_goto_block_start1_activate (EggAction * action, gpointer user_data);
-void on_goto_block_end1_activate (EggAction * action, gpointer user_data);
 void on_goto_prev_mesg1_activate (EggAction * action, gpointer user_data);
 void on_goto_next_mesg1_activate (EggAction * action, gpointer user_data);
 void on_edit_app_gui1_activate (EggAction * action, gpointer user_data);
@@ -75,20 +43,7 @@ void on_registers1_activate (EggAction * action, gpointer user_data);
 void on_shared_lib1_activate (EggAction * action, gpointer user_data);
 void on_kernal_signals1_activate (EggAction * action, gpointer user_data);
 void on_anjuta_toolbar_activate (EggAction *action, gpointer user_data);
-void on_editor_linenos1_activate (EggAction *action, gpointer user_data);
-void on_editor_markers1_activate (EggAction *action, gpointer user_data);
-void on_editor_codefold1_activate (EggAction *action, gpointer user_data);
-void on_editor_indentguides1_activate (EggAction *action,
-									   gpointer user_data);
-void on_editor_whitespaces1_activate (EggAction *action,
-									  gpointer user_data);
-void on_editor_eolchars1_activate (EggAction *action, gpointer user_data);
-void on_editor_linewrap1_activate (EggAction *action, gpointer user_data);
-void on_zoom_text_activate (EggAction * action, gpointer user_data);
-void on_force_hilite1_activate (EggAction * action, gpointer user_data);
-void on_indent1_activate (EggAction * action, gpointer user_data);
 void on_update_tagmanager_activate (EggAction * action, gpointer user_data);
-void on_detach1_activate (EggAction * action, gpointer user_data);
 void on_ordertab1_activate (EggAction * action, gpointer user_data);
 
 /*****************************************************************************/
@@ -222,32 +177,9 @@ void on_history_activate (EggAction * action, gpointer user_data);
 void on_search_a_topic1_activate (EggAction * action, gpointer user_data);
 void on_url_activate (EggAction * action, gpointer user_data);
 void on_about1_activate (EggAction * action, gpointer user_data);
-void on_insert_header (EggAction * action, gpointer user_data);
-void on_insert_cvs_author (EggAction * action, gpointer user_data);
-void on_insert_cvs_date (EggAction * action, gpointer user_data);
-void on_insert_cvs_header (EggAction * action, gpointer user_data);
-void on_insert_cvs_id (EggAction * action, gpointer user_data);
-void on_insert_cvs_log (EggAction * action, gpointer user_data);
-void on_insert_cvs_name (EggAction * action, gpointer user_data);
-void on_insert_cvs_revision (EggAction * action, gpointer user_data);
-void on_insert_cvs_source (EggAction * action, gpointer user_data);
-void on_insert_switch_template (EggAction * action, gpointer user_data);
-void on_insert_for_template (EggAction * action, gpointer user_data);
-void on_insert_while_template (EggAction * action, gpointer user_data);
-void on_insert_ifelse_template (EggAction * action, gpointer user_data);
-void on_insert_c_gpl_notice (EggAction * action, gpointer user_data);
-void on_insert_cpp_gpl_notice (EggAction * action, gpointer user_data);
-void on_insert_py_gpl_notice (EggAction * action, gpointer user_data);
-void on_insert_date_time (EggAction * action, gpointer user_data);
-void on_insert_changelog_entry (EggAction * action, gpointer user_data);
-void on_insert_header_template (EggAction * action, gpointer user_data);
-void on_insert_username (EggAction * action, gpointer user_data);
 void on_save_build_messages_activate (EggAction * action,
 									  gpointer user_data);
 
-void on_findnext1_activate (EggAction * action, gpointer user_data);
-void on_findprevious1_activate (EggAction * action, gpointer user_data);
-void on_enterselection (EggAction * action, gpointer user_data);
 void on_customize_shortcuts_activate (EggAction * action,
 									  gpointer user_data);
 void on_tool_editor_activate (EggAction * action, gpointer user_data);

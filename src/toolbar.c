@@ -26,13 +26,12 @@
 
 #include <gnome.h>
 
-#include "toolbar_callbacks.h"
-#include "search_incremental.h"
+#include <libanjuta/pixmaps.h>
+#include <libanjuta/resources.h>
 
-#include "resources.h"
-#include "toolbar.h"
 #include "anjuta.h"
-#include "pixmaps.h"
+#include "toolbar.h"
+#include "toolbar_callbacks.h"
 
 GtkWidget *
 create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)

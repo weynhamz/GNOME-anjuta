@@ -38,7 +38,7 @@ void
 on_toolbar_new_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.new_file),
+				 (app->menubar.file.new_file),
 				 "activate");
 }
 
@@ -47,7 +47,7 @@ void
 on_toolbar_open_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.open_file),
+				 (app->menubar.file.open_file),
 				 "activate");
 }
 
@@ -56,7 +56,7 @@ void
 on_toolbar_save_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.save_file),
+				 (app->menubar.file.save_file),
 				 "activate");
 }
 
@@ -64,7 +64,7 @@ void
 on_toolbar_save_all_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.save_all_file),
+				 (app->menubar.file.save_all_file),
 				 "activate");
 }
 
@@ -72,7 +72,7 @@ void
 on_toolbar_close_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.close_file),
+				 (app->menubar.file.close_file),
 				 "activate");
 }
 
@@ -81,7 +81,7 @@ void
 on_toolbar_reload_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.reload_file),
+				 (app->menubar.file.reload_file),
 				 "activate");
 }
 
@@ -90,7 +90,7 @@ void
 on_toolbar_undo_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.undo),
+				 (app->menubar.edit.undo),
 				 "activate");
 }
 
@@ -99,7 +99,7 @@ void
 on_toolbar_redo_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.redo),
+				 (app->menubar.edit.redo),
 				 "activate");
 }
 
@@ -107,7 +107,7 @@ void
 on_toolbar_print_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.print),
+				 (app->menubar.file.print),
 				 "activate");
 }
 
@@ -115,83 +115,8 @@ void
 on_toolbar_detach_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.detach),
+				 (app->menubar.format.detach),
 				 "activate");
-}
-
-gboolean
-on_toolbar_find_incremental_start (EggAction *action, gpointer user_data)
-{
-	toolbar_search_incremental_start ();
-	return FALSE;
-}
-
-gboolean
-on_toolbar_find_incremental_end (EggAction *action, gpointer user_data)
-{
-	toolbar_search_incremental_end ();
-	return FALSE;
-}
-
-void
-on_toolbar_find_incremental (EggAction *action, gpointer user_data)
-{
-	toolbar_search_incremental ();
-}
-
-void
-on_toolbar_find_clicked (EggAction * action, gpointer user_data)
-{
-	toolbar_search_clicked_cb ();
-}
-
-void
-on_toolbar_goto_activate (EggAction *action, gpointer user_data)
-{
-	anjuta_ui_activate_action_by_path (app->ui,
-		"ActionGroupNavigation/ActionEditGotoLineEntry");
-}
-
-void
-on_toolbar_goto_clicked (EggAction *action, gpointer user_data)
-{
-	TextEditor *te;
-	guint line;
-	const gchar *line_ascii;
-
-	if (EGG_IS_ENTRY_ACTION (action))
-	{
-		line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	else
-	{
-		AnjutaUI *ui;
-		EggEntryAction *entry_action;
-		ui = ANJUTA_UI (app->ui);
-		action = anjuta_ui_get_action (ui, "ActionNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	if (strlen (line_ascii) == 0)
-		return;
-	
-	te = anjuta_get_current_text_editor ();
-	if (te)
-	{
-		line_ascii =
-			gtk_entry_get_text (GTK_ENTRY
-					    (app->widgets.toolbar.
-					     main_toolbar.line_entry));
-		if (strlen (line_ascii) == 0)
-			return;
-		line = atoi (line_ascii);
-		if (text_editor_goto_line (te, line, TRUE, TRUE) == FALSE)
-		{
-			anjuta_error (_("There is no line number %d in \"%s\"."),
-				 line, te->filename);
-		}
-	}
 }
 
 void
@@ -205,7 +130,7 @@ on_toolbar_tag_clicked (EggAction * action, gpointer user_data)
 		return;
 	string =
 		gtk_entry_get_text (GTK_ENTRY
-		  (app->widgets.toolbar.browser_toolbar.tag_entry));
+		  (app->toolbar.browser_toolbar.tag_entry));
 	if (!string || strlen (string) == 0)
 		return;
 	anjuta_goto_local_tag(te, string);
@@ -215,7 +140,7 @@ void
 on_toolbar_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.view.project_listing),
+				 (app->menubar.view.project_listing),
 				 "activate");
 }
 
@@ -223,7 +148,7 @@ void
 on_toolbar_messages_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.view.messages),
+				 (app->menubar.view.messages),
 				 "activate");
 }
 
@@ -238,7 +163,7 @@ void
 on_toolbar_open_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.open_project),
+				 (app->menubar.file.open_project),
 				 "activate");
 }
 
@@ -246,7 +171,7 @@ void
 on_toolbar_save_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.save_project),
+				 (app->menubar.file.save_project),
 				 "activate");
 }
 
@@ -254,7 +179,7 @@ void
 on_toolbar_close_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.file.close_project),
+				 (app->menubar.file.close_project),
 				 "activate");
 }
 
@@ -262,7 +187,7 @@ void
 on_toolbar_compile_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.build.compile),
+				 (app->menubar.build.compile),
 				 "activate");
 }
 
@@ -270,7 +195,7 @@ void
 on_toolbar_configure_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.build.configure),
+				 (app->menubar.build.configure),
 				 "activate");
 }
 
@@ -278,7 +203,7 @@ void
 on_toolbar_build_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.build.build),
+				 (app->menubar.build.build),
 				 "activate");
 }
 
@@ -286,7 +211,7 @@ void
 on_toolbar_build_all_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.build.build_all),
+				 (app->menubar.build.build_all),
 				 "activate");
 }
 
@@ -294,7 +219,7 @@ void
 on_toolbar_exec_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.build.execute),
+				 (app->menubar.build.execute),
 				 "activate");
 }
 
@@ -302,7 +227,7 @@ void
 on_toolbar_debug_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.start_debug),
+				 (app->menubar.debug.start_debug),
 				 "activate");
 }
 
@@ -310,7 +235,7 @@ void
 on_toolbar_stop_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.build.stop_build),
+				 (app->menubar.build.stop_build),
 				 "activate");
 }
 
@@ -318,7 +243,7 @@ void
 on_toolbar_go_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.cont),
+				 (app->menubar.debug.cont),
 				 "activate");
 }
 
@@ -326,7 +251,7 @@ void
 on_toolbar_run_to_cursor_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.run_to_cursor),
+				 (app->menubar.debug.run_to_cursor),
 				 "activate");
 }
 
@@ -334,7 +259,7 @@ void
 on_toolbar_step_in_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.step_in),
+				 (app->menubar.debug.step_in),
 				 "activate");
 }
 
@@ -343,7 +268,7 @@ void
 on_toolbar_step_out_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.step_out),
+				 (app->menubar.debug.step_out),
 				 "activate");
 }
 
@@ -351,7 +276,7 @@ void
 on_toolbar_step_over_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.step_over),
+				 (app->menubar.debug.step_over),
 				 "activate");
 }
 
@@ -359,7 +284,7 @@ void
 on_toolbar_toggle_bp_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.tog_break),
+				 (app->menubar.debug.tog_break),
 				 "activate");
 }
 
@@ -368,7 +293,7 @@ void
 on_toolbar_watch_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.view.variable_watch),
+				 (app->menubar.view.variable_watch),
 				 "activate");
 }
 */
@@ -376,7 +301,7 @@ void
 on_toolbar_signals_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.view.signals),
+				 (app->menubar.view.signals),
 				 "activate");
 }
 
@@ -384,7 +309,7 @@ void
 on_toolbar_registers_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.view.registers),
+				 (app->menubar.view.registers),
 				 "activate");
 }
 
@@ -392,7 +317,7 @@ void
 on_toolbar_frame_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.info_frame),
+				 (app->menubar.debug.info_frame),
 				 "activate");
 }
 
@@ -400,7 +325,7 @@ void
 on_toolbar_inspect_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.inspect),
+				 (app->menubar.debug.inspect),
 				 "activate");
 }
 
@@ -408,7 +333,7 @@ void
 on_toolbar_interrupt_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.interrupt),
+				 (app->menubar.debug.interrupt),
 				 "activate");
 }
 
@@ -416,7 +341,7 @@ void
 on_toolbar_debug_stop_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.debug.stop),
+				 (app->menubar.debug.stop),
 				 "activate");
 }
 
@@ -432,7 +357,7 @@ void
 on_browser_toggle_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.bookmark.toggle),
+				 (app->menubar.bookmark.toggle),
 				 "activate");
 }
 
@@ -440,7 +365,7 @@ void
 on_browser_first_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.bookmark.first),
+				 (app->menubar.bookmark.first),
 				 "activate");
 }
 
@@ -448,7 +373,7 @@ void
 on_browser_prev_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.bookmark.prev),
+				 (app->menubar.bookmark.prev),
 				 "activate");
 }
 
@@ -456,7 +381,7 @@ void
 on_browser_next_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.bookmark.next),
+				 (app->menubar.bookmark.next),
 				 "activate");
 }
 
@@ -464,7 +389,7 @@ void
 on_browser_last_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.bookmark.last),
+				 (app->menubar.bookmark.last),
 				 "activate");
 }
 
@@ -472,7 +397,7 @@ void
 on_browser_prev_mesg_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.goto_prev_mesg),
+				 (app->menubar.edit.goto_prev_mesg),
 				 "activate");
 }
 
@@ -480,7 +405,7 @@ void
 on_browser_next_mesg_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.goto_next_mesg),
+				 (app->menubar.edit.goto_next_mesg),
 				 "activate");
 }
 
@@ -488,7 +413,7 @@ void
 on_browser_block_start_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.goto_block_start),
+				 (app->menubar.edit.goto_block_start),
 				 "activate");
 }
 
@@ -496,7 +421,7 @@ void
 on_browser_block_end_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.goto_block_end),
+				 (app->menubar.edit.goto_block_end),
 				 "activate");
 }
 
@@ -504,7 +429,7 @@ void
 on_format_fold_toggle_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.toggle_fold),
+				 (app->menubar.format.toggle_fold),
 				 "activate");
 }
 
@@ -512,7 +437,7 @@ void
 on_format_fold_open_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.open_folds),
+				 (app->menubar.format.open_folds),
 				 "activate");
 }
 
@@ -520,7 +445,7 @@ void
 on_format_fold_close_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.close_folds),
+				 (app->menubar.format.close_folds),
 				 "activate");
 }
 
@@ -528,7 +453,7 @@ void
 on_format_indent_inc_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.indent_inc),
+				 (app->menubar.format.indent_inc),
 				 "activate");
 }
 
@@ -536,7 +461,7 @@ void
 on_format_indent_dcr_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.indent_dcr),
+				 (app->menubar.format.indent_dcr),
 				 "activate");
 }
 
@@ -544,17 +469,7 @@ void
 on_format_indent_auto_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.format.indent),
-				 "activate");
-}
-
-void
-on_format_indent_style_clicked (EggAction * action, gpointer user_data)
-{
-/*	gtk_notebook_set_page (GTK_NOTEBOOK
-			       (app->preferences->widgets.notebook), 5);
-*/	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.settings.preferences),
+				 (app->menubar.format.indent),
 				 "activate");
 }
 
@@ -562,7 +477,7 @@ void
 on_format_block_select_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.select_block),
+				 (app->menubar.edit.select_block),
 				 "activate");
 }
 
@@ -575,6 +490,6 @@ void
 on_format_autocomplete_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.edit.autocomplete),
+				 (app->menubar.edit.autocomplete),
 				 "activate");
 }

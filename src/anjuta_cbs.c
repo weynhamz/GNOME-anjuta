@@ -27,14 +27,16 @@
 
 #include <gnome.h>
 
+#include <libanjuta/resources.h>
+
 #include "text_editor.h"
 #include "anjuta.h"
 #include "controls.h"
 #include "fileselection.h"
 #include "utilities.h"
-#include "resources.h"
 #include "launcher.h"
 #include "debugger.h"
+
 
 /* Blurb ?? */
 extern gboolean closing_state;
@@ -95,14 +97,16 @@ gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	return TRUE;
 }
 
-gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
+gint on_anjuta_delete (GtkWidget *w, GdkEvent *event, gpointer data)
 {
+	AnjutaApp *app;
 	TextEditor *te;
 	GList *list;
 	gboolean file_not_saved;
 	gint max_recent_files, max_recent_prjs;
 	
-	if (!app) return TRUE;
+	app = ANJUTA_APP (w);
+
 	file_not_saved = FALSE;
 	max_recent_files = 
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -130,7 +134,7 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 												app->project_dbase->proj_filename,
 													 max_recent_files));
 	}
-	anjuta_save_settings ();
+	anjuta_app_save_settings (app);
 
 	/* No need to check for saved project, as it is done in 
 	close project call later. */
@@ -138,7 +142,7 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	{
 		GtkWidget *dialog;
 		gint response;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE,
@@ -155,7 +159,7 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 		return TRUE;
 	}
 	else
-		anjuta_clean_exit ();
+		anjuta_app_clean_exit (app);
 	return TRUE;
 }
 
@@ -163,31 +167,6 @@ void
 on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
 	/* Nothing to be done here */
-}
-
-/*! state flag for Ctrl-TAB */
-static gboolean g_tabbing = FALSE;
-
-void
-on_anjuta_notebook_switch_page (GtkNotebook * notebook,
-								GtkNotebookPage * page,
-								gint page_num, gpointer user_data)
-{
-	GtkWidget *widget;
-	
-	anjuta_set_current_text_editor (anjuta_get_notebook_text_editor
-									(page_num));
-	if (!g_tabbing &&
-		!anjuta_preferences_get_int (app->preferences, EDITOR_TABS_ORDERING) && 
-		anjuta_preferences_get_int (app->preferences, EDITOR_TABS_RECENT_FIRST))
-	{
-		/* TTimo: reorder so that the most recently used files are always
-		 * at the beginning of the tab list
-		 */
-		widget = gtk_notebook_get_nth_page (notebook, page_num);
-		gtk_notebook_reorder_child (notebook, widget, 0);
-	}
-	anjuta_grab_text_focus ();
 }
 
 void
@@ -203,13 +182,11 @@ on_anjuta_window_focus_in_event (GtkWidget * widget,
 	gint page_num;
 	TextEditor *te;
 
-	if (g_list_length (GTK_NOTEBOOK (app->widgets.notebook)->children) >
-	    0)
+	if (g_list_length (GTK_NOTEBOOK (app->notebook)->children) > 0)
 	{
 		page_num =
 			gtk_notebook_get_current_page (GTK_NOTEBOOK
-						       (app->widgets.
-							notebook));
+						       (app->notebook));
 		if (page_num >= 0)
 			te = anjuta_get_notebook_text_editor (page_num);
 		else
@@ -294,7 +271,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 	switch (global_keymap[i].id) {
 	case ID_NEXTBUFFER:
 	case ID_PREVBUFFER: {
-		GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+		GtkNotebook *notebook = GTK_NOTEBOOK (app->notebook);
 		int pages_nb;
 		int cur_page;
 
@@ -322,7 +299,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		if (global_keymap[i].id >= ID_FIRSTBUFFER &&
 		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
 		{
-			GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+			GtkNotebook *notebook = GTK_NOTEBOOK (app->notebook);
 			int page_req = global_keymap[i].id - ID_FIRSTBUFFER;
 
 			if (!notebook->children)
@@ -351,7 +328,7 @@ on_anjuta_window_key_release_event (GtkWidget   *widget,
 	if (g_tabbing && ((event->keyval == GDK_Control_L) ||
 		(event->keyval == GDK_Control_R)))
 	{
-		GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+		GtkNotebook *notebook = GTK_NOTEBOOK (app->notebook);
 		GtkWidget *widget;
 		int cur_page;
 		g_tabbing = FALSE;
@@ -463,13 +440,13 @@ save_as_real (void)
 				
 				page_num =
 					gtk_notebook_get_current_page (GTK_NOTEBOOK
-									   (app->widgets.notebook));
+									   (app->notebook));
 				g_return_if_fail (page_num >= 0);
 				child =
 					gtk_notebook_get_nth_page (GTK_NOTEBOOK
-								   (app->widgets.notebook), page_num);
+								   (app->notebook), page_num);
 				/* This crashes */
-				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
+				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->notebook),
 								 child,
 								 anjuta_get_notebook_text_editor
 								 (page_num)->filename);
@@ -478,7 +455,7 @@ save_as_real (void)
 				gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
 								 (page_num)->filename);
 	
-				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->widgets.notebook),
+				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->notebook),
 								child,
 								anjuta_get_notebook_text_editor
 								(page_num)->filename);
@@ -498,7 +475,7 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	if (file_is_regular (filename))
 	{
 		GtkWidget *dialog;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE,
@@ -562,7 +539,7 @@ on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
 	if (file_is_regular (filename))
 	{
 		GtkWidget *dialog;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app),
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,
 										 GTK_BUTTONS_NONE,
@@ -592,6 +569,7 @@ on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data)
 	closing_state = FALSE;
 }
 
+#if 0
 void
 on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data)
 {
@@ -618,6 +596,8 @@ on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data)
 {
 	an_message_manager_undock (app->messages);
 }
+
+#endif
 
 void
 on_anjuta_progress_cancel (gpointer data)

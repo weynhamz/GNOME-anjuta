@@ -30,12 +30,14 @@
 #include <libegg/menu/egg-entry-action.h>
 #include <libegg/toolbar/eggtoolbar.h>
 
+#include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-ui.h>
+#include <libanjuta/pixmaps.h>
+#include <libanjuta/resources.h>
+
 #include "anjuta.h"
-#include "pixmaps.h"
-#include "resources.h"
 #include "main_menubar.h"
 #include "dnd.h"
-#include "anjuta-ui.h"
 #include "toolbar_callbacks.h"
 #include "mainmenu_callbacks.h"
 #include "search-replace.h"
@@ -100,27 +102,9 @@ create_anjuta_ui (AnjutaUI *ui, GtkWidget *app)
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupFile", _("File"),
 										menu_entries_file,
 										G_N_ELEMENTS (menu_entries_file));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupPrint", _("Print"),
-										menu_entries_print,
-										G_N_ELEMENTS (menu_entries_print));
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupEdit", _("Edit"),
 										menu_entries_edit,
 										G_N_ELEMENTS (menu_entries_edit));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupTransform", _("Transform"),
-										menu_entries_transform,
-										G_N_ELEMENTS (menu_entries_transform));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupSelect", _("Select"),
-										menu_entries_select,
-										G_N_ELEMENTS (menu_entries_select));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupInsert", _("Insert"),
-										menu_entries_insert,
-										G_N_ELEMENTS (menu_entries_insert));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupComment", _("Comment"),
-										menu_entries_comment,
-										G_N_ELEMENTS (menu_entries_comment));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupSearch", _("Search"),
-										menu_entries_search,
-										G_N_ELEMENTS (menu_entries_search));
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupNavigate", _("Navigate"),
 										menu_entries_navigation,
 										G_N_ELEMENTS (menu_entries_navigation));
@@ -130,18 +114,9 @@ create_anjuta_ui (AnjutaUI *ui, GtkWidget *app)
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupProject", _("Project"),
 										menu_entries_project,
 										G_N_ELEMENTS (menu_entries_project));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupFormat", _("Format"),
-										menu_entries_format,
-										G_N_ELEMENTS (menu_entries_format));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupStyles", _("Syntax hilighting styles"),
-										menu_entries_style,
-										G_N_ELEMENTS (menu_entries_style));
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupBuild", _("Build"),
 										menu_entries_build,
 										G_N_ELEMENTS (menu_entries_build));
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupBookmark", _("Bookmark"),
-										menu_entries_bookmark,
-										G_N_ELEMENTS (menu_entries_bookmark));
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupSettings", _("Settings"),
 										menu_entries_settings,
 										G_N_ELEMENTS (menu_entries_settings));
@@ -149,45 +124,12 @@ create_anjuta_ui (AnjutaUI *ui, GtkWidget *app)
 										menu_entries_help,
 										G_N_ELEMENTS (menu_entries_help));
 	
-	group = egg_action_group_new ("ActionGroupNavigation");
-	
-	action = g_object_new (EGG_TYPE_ENTRY_ACTION,
-						   "name", "ActionEditGotoLineEntry",
-						   "label", _("Goto line"),
-						   "tooltip", _("Enter the line number to jump and press enter"),
-						   "stock_id", GTK_STOCK_JUMP_TO,
-						   "width", 50,
-							NULL);
-	g_signal_connect (action, "activate",
-					  G_CALLBACK (on_toolbar_goto_clicked), ui);
-	egg_action_group_add_action (group, action);
-	
-	action = g_object_new (EGG_TYPE_ENTRY_ACTION,
-						   "name", "ActionEditSearchEntry",
-						   "label", _("Search"),
-						   "tooltip", _("Incremental search"),
-						   "stock_id", GTK_STOCK_JUMP_TO,
-						   "width", 150,
-							NULL);
-	g_signal_connect (action, "activate",
-					  G_CALLBACK (on_toolbar_find_clicked), ui);
-	g_signal_connect (action, "changed",
-					  G_CALLBACK (on_toolbar_find_incremental), ui);
-	g_signal_connect (action, "focus-in",
-					  G_CALLBACK (on_toolbar_find_incremental_start), ui);
-	g_signal_connect (action, "focus_out",
-					  G_CALLBACK (on_toolbar_find_incremental_end), ui);
-	egg_action_group_add_action (group, action);
-	
-	anjuta_ui_add_action_group (ui, "ActionGroupNavigation",
-								N_("Navigation"), group);
-	
 	merge_id = anjuta_ui_merge (ui, UI_FILE);
 	gtk_window_add_accel_group (GTK_WINDOW (app),
 								anjuta_ui_get_accel_group (ui));
 }
 
-static
+static void
 create_recent_files ()
 {
 	GtkWidget *menu;
@@ -243,7 +185,7 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 			"ActionViewToolbarDebug",
 			NULL,
 		};
-		static count = 0;
+		static gint count = 0;
 		gchar *toolbarname;
 		BonoboDockItem* item;
 		gchar* key;
@@ -277,7 +219,7 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 										  prop_get_int (pr, key, 1));
 			g_free (key);
 		} else {
-			item = gnome_app_get_dock_item_by_name (GNOME_APP (app->widgets.window),
+			item = gnome_app_get_dock_item_by_name (GNOME_APP (app),
 													toolbarname);
 			gtk_widget_show (GTK_WIDGET (item));
 			gtk_widget_show (GTK_BIN(item)->child);
@@ -296,322 +238,98 @@ on_remove_merge_widget (GtkWidget *merge, GtkWidget *widget,
 }
 
 void
-create_anjuta_gui (AnjutaApp * appl)
+create_anjuta_gui (AnjutaApp * app)
 {
-	GtkWidget *accel_dialog;
-	GtkWidget *anjuta_gui;
 	GtkWidget *dock1;
-	GtkWidget *vbox0;
 	GtkWidget *toolbar1;
 	GtkWidget *toolbar2;
 	GtkWidget *toolbar3;
 	GtkWidget *toolbar4;
 	GtkWidget *toolbar5;
-	GtkWidget *vpaned1;
-	GtkWidget *hpaned1;
-	GtkWidget *vbox1;
-	GtkWidget *hbox3;
-	GtkWidget *button1;
-	GtkWidget *frame1;
-	GtkWidget *vbox3;
-	GtkWidget *pixmap;
-	GtkWidget *hseparator1;
-	GtkWidget *hseparator2;
-	GtkWidget *hseparator3;
-	GtkWidget *button3;
-	GtkWidget *hbox2;
-	GtkWidget *vbox2;
-	GtkWidget *button4;
-	GtkWidget *frame2;
-	GtkWidget *hbox4;
-	GtkWidget *vseparator3;
-	GtkWidget *vseparator2;
-	GtkWidget *vseparator1;
-	GtkWidget *button2;
 	GtkWidget *anjuta_notebook;
 	GtkWidget *appbar1;
+	GtkWidget *ui;
 	GtkTooltips *tooltips;
 
 	gnome_window_icon_set_default_from_file(PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ICON);
 	tooltips = gtk_tooltips_new ();
-	anjuta_gui = gnome_app_new ("Anjuta", "Anjuta");
-	gtk_widget_set_uposition (anjuta_gui, 0, 0);
-	gtk_widget_set_usize (anjuta_gui, 500, 116);
-	gtk_window_set_default_size (GTK_WINDOW (anjuta_gui), 700, 400);
-	gtk_window_set_policy (GTK_WINDOW (anjuta_gui), FALSE, TRUE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (anjuta_gui), "mainide", "Anjuta");
+
+	gtk_widget_set_uposition (GTK_WIDGET (app), 0, 0);
+	gtk_widget_set_usize (GTK_WIDGET (app), 500, 116);
+	gtk_window_set_default_size (GTK_WINDOW (app), 700, 400);
+	gtk_window_set_policy (GTK_WINDOW (app), FALSE, TRUE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (app), "mainide", "Anjuta");
 	
 	/* Add file drag and drop support */
-	dnd_drop_init(anjuta_gui, on_anjuta_dnd_drop, NULL,
+	dnd_drop_init(GTK_WIDGET (app), on_anjuta_dnd_drop, NULL,
 		"text/plain", "text/html", "text/source", NULL);
 
-	dock1 = GNOME_APP (anjuta_gui)->dock;
+	dock1 = GNOME_APP (app)->dock;
 	gtk_widget_show (dock1);
 
 	/* Setup User Interface */
-	app->ui = ANJUTA_UI (anjuta_ui_new (anjuta_gui,
-										G_CALLBACK (on_add_merge_widget),
-										G_CALLBACK (on_remove_merge_widget)));
-	// gtk_widget_show (GTK_WIDGET (app->ui));
-	create_anjuta_ui (app->ui, anjuta_gui);
+	ui = anjuta_ui_new (GTK_WIDGET (app),
+						G_CALLBACK (on_add_merge_widget),
+						G_CALLBACK (on_remove_merge_widget));
+	app->ui = ANJUTA_UI (ui);
+	
+	create_anjuta_ui (app->ui, GTK_WIDGET (app));
 
 	gtk_window_set_transient_for (GTK_WINDOW (app->ui),
-								  GTK_WINDOW (anjuta_gui));
+								  GTK_WINDOW (app));
 
-	/*
-	accel_dialog = egg_accel_dialog_new (anjuta_ui_get_menu_merge (app->ui));
-	gtk_widget_show (accel_dialog);
-	gtk_window_set_transient_for (GTK_WINDOW (accel_dialog),
-								  GTK_WINDOW (anjuta_gui));
-	*/
 	/* Toolbars are created and added */
-
 	toolbar1 =
-		create_main_toolbar (anjuta_gui,
-				     &(appl->widgets.toolbar.main_toolbar));
-	// gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar1),
-	// 		       ANJUTA_MAIN_TOOLBAR,
-	//		       BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
-	//		       BONOBO_DOCK_TOP, 1, 0, 0);
-	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar1), 5);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
-	//			     GTK_TOOLBAR_SPACE_LINE);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
-	//			       GTK_RELIEF_NONE);
+		create_main_toolbar (GTK_WIDGET (app), &(app->toolbar.main_toolbar));
 	
 	toolbar2 =
-		create_browser_toolbar (anjuta_gui,
-					&(appl->widgets.toolbar.
-					  browser_toolbar));
-	// gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar2),
-	//		       ANJUTA_BROWSER_TOOLBAR,
-	//		       BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
-	//		       BONOBO_DOCK_TOP, 2, 0, 0);
-	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
-	//			     GTK_TOOLBAR_SPACE_LINE);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
-	//			       GTK_RELIEF_NONE);
-
+		create_browser_toolbar (GTK_WIDGET (app), &(app->toolbar.browser_toolbar));
 	toolbar3 =
-		create_debug_toolbar (anjuta_gui,
-					 &(appl->widgets.toolbar.
-					   debug_toolbar));
-	// gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar3),
-	//		       ANJUTA_DEBUG_TOOLBAR,
-	//		       BONOBO_DOCK_ITEM_BEH_NORMAL,
-	//		       BONOBO_DOCK_TOP, 3, 0, 0);
-
+		create_debug_toolbar (GTK_WIDGET (app), &(app->toolbar.debug_toolbar));
 	toolbar4 =
-		create_format_toolbar (anjuta_gui,
-				      &(appl->widgets.toolbar.format_toolbar));
-	// gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar4),
-	//		       ANJUTA_FORMAT_TOOLBAR,
-	//		       BONOBO_DOCK_ITEM_BEH_NORMAL,
-	//		       BONOBO_DOCK_TOP, 3, 1, 0);
-
+		create_format_toolbar (GTK_WIDGET (app), &(app->toolbar.format_toolbar));
 	toolbar5 =
-		create_extended_toolbar (anjuta_gui,
-				       &(appl->widgets.toolbar.
-					 extended_toolbar));
-	// gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar5),
-	//		       ANJUTA_EXTENDED_TOOLBAR,
-	//		       BONOBO_DOCK_ITEM_BEH_NORMAL,
-	//		       BONOBO_DOCK_TOP, 4, 0, 0);
+		create_extended_toolbar (GTK_WIDGET (app), &(app->toolbar.extended_toolbar));
 	/* Set toolbar style */
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar3), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar4), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar5), GTK_TOOLBAR_ICONS);
-	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar1), 22);
-	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar2), 22);
-	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar3), 22);
-	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar4), 22);
-	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar5), 22);
-	
-	//	 Use a vbox, not an eventbox, to support gtk_widget_reparent() stuff
-	//	done when hiding/showing project and message panes
-	
-	vbox0 = gtk_vbox_new(FALSE,0);
-	gtk_widget_ref (vbox0);
-	gtk_widget_show (vbox0);
-	gnome_app_set_contents (GNOME_APP (anjuta_gui), vbox0);
-
-	vpaned1 = gtk_vpaned_new ();
-	gtk_widget_ref (vpaned1);
-	gtk_widget_show (vpaned1);
-	gtk_container_add (GTK_CONTAINER (vbox0), vpaned1);
-	//gtk_paned_set_gutter_size (GTK_PANED (vpaned1), 8);
-	//gtk_paned_set_handle_size (GTK_PANED (vpaned1), 8);
-
-	hpaned1 = gtk_hpaned_new ();
-	gtk_widget_ref (hpaned1);
-	gtk_widget_show (hpaned1);
-	gtk_container_add (GTK_CONTAINER (vpaned1), hpaned1);
-	//gtk_paned_set_gutter_size (GTK_PANED (hpaned1), 8);
-	//gtk_paned_set_handle_size (GTK_PANED (hpaned1), 8);
-
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_ref (vbox1);
-	gtk_widget_show (vbox1);
-	gtk_container_add (GTK_CONTAINER (hpaned1), vbox1);
-
-	hbox3 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox3);
-	gtk_box_pack_start (GTK_BOX (vbox1), hbox3, FALSE, FALSE, 0);
-
-	button1 = gtk_button_new ();
-	gtk_widget_show (button1);
-	gtk_box_pack_start (GTK_BOX (hbox3), button1, FALSE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button1), 1);
-	gtk_tooltips_set_tip (tooltips, button1,
-			      _("Click here to undock this window"), NULL);
-
-	pixmap =
-		anjuta_res_get_image ("handle_undock.xpm");
-	gtk_widget_show (pixmap);
-	gtk_container_add (GTK_CONTAINER (button1), pixmap);
-
-	frame1 = gtk_frame_new (NULL);
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (hbox3), frame1, TRUE, TRUE, 1);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 1);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_NONE);
-
-	vbox3 = gtk_vbox_new (TRUE, 1);
-	gtk_widget_show (vbox3);
-	gtk_container_add (GTK_CONTAINER (frame1), vbox3);
-
-	hseparator1 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator1);
-	gtk_box_pack_start (GTK_BOX (vbox3), hseparator1, TRUE, TRUE, 0);
-
-	hseparator2 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator2);
-	gtk_box_pack_start (GTK_BOX (vbox3), hseparator2, TRUE, TRUE, 0);
-
-	hseparator3 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator3);
-	gtk_box_pack_start (GTK_BOX (vbox3), hseparator3, TRUE, TRUE, 0);
-
-	button3 = gtk_button_new ();
-	gtk_widget_show (button3);
-	gtk_box_pack_start (GTK_BOX (hbox3), button3, FALSE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button3), 1);
-	gtk_tooltips_set_tip (tooltips, button3,
-			      _("Click here to hide this window"), NULL);
-
-
-	pixmap = anjuta_res_get_image ("handle_hide.xpm");
-	gtk_widget_show (pixmap);
-	gtk_container_add (GTK_CONTAINER (button3), pixmap);
-
-	hbox2 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_ref (hbox2);
-	gtk_widget_show (hbox2);
-	gtk_container_add (GTK_CONTAINER (vpaned1), hbox2);
-
-	vbox2 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox2);
-	gtk_box_pack_start (GTK_BOX (hbox2), vbox2, FALSE, FALSE, 0);
-
-	button4 = gtk_button_new ();
-	gtk_widget_show (button4);
-
-	gtk_box_pack_start (GTK_BOX (vbox2), button4, FALSE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button4), 1);
-	gtk_tooltips_set_tip (tooltips, button4,
-			      _("Click here to hide this window"), NULL);
-
-	pixmap = anjuta_res_get_image ("handle_hide.xpm");
-	gtk_widget_show (pixmap);
-	gtk_container_add (GTK_CONTAINER (button4), pixmap);
-
-	frame2 = gtk_frame_new (NULL);
-	gtk_widget_show (frame2);
-	gtk_box_pack_start (GTK_BOX (vbox2), frame2, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame2), 1);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_NONE);
-
-	hbox4 = gtk_hbox_new (TRUE, 1);
-	gtk_widget_show (hbox4);
-	gtk_container_add (GTK_CONTAINER (frame2), hbox4);
-
-	vseparator3 = gtk_vseparator_new ();
-	gtk_widget_show (vseparator3);
-	gtk_box_pack_start (GTK_BOX (hbox4), vseparator3, TRUE, TRUE, 0);
-
-	vseparator2 = gtk_vseparator_new ();
-	gtk_widget_show (vseparator2);
-	gtk_box_pack_start (GTK_BOX (hbox4), vseparator2, TRUE, TRUE, 0);
-
-	vseparator1 = gtk_vseparator_new ();
-	gtk_widget_show (vseparator1);
-	gtk_box_pack_start (GTK_BOX (hbox4), vseparator1, TRUE, TRUE, 0);
-
-	button2 = gtk_button_new ();
-	gtk_widget_show (button2);
-	gtk_box_pack_start (GTK_BOX (vbox2), button2, FALSE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button2), 1);
-	gtk_tooltips_set_tip (tooltips, button2,
-			      _("Click here to undock this window"), NULL);
-
-	pixmap =
-		anjuta_res_get_image ("handle_undock.xpm");
-	gtk_widget_show (pixmap);
-	gtk_container_add (GTK_CONTAINER (button2), pixmap);
 
 	anjuta_notebook = gtk_notebook_new ();
 	gtk_widget_ref (anjuta_notebook);
 	gtk_widget_show (anjuta_notebook);
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (anjuta_notebook), TRUE);
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (anjuta_notebook), TRUE);
-
-	/* Notebook is not added now. It will be added later */
+	
+	anjuta_shell_add_widget (ANJUTA_SHELL (app), anjuta_notebook,
+							 "AnjutaDocumentManager", "Documents", NULL);
+	
 	appbar1 = gnome_appbar_new (TRUE, TRUE, GNOME_PREFERENCES_USER);
 	gtk_widget_ref (appbar1);
 	gtk_widget_show (appbar1);
-	gnome_app_set_statusbar (GNOME_APP (anjuta_gui), appbar1);
+	gnome_app_set_statusbar (GNOME_APP (app), appbar1);
 
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "focus_in_event",
+	gtk_signal_connect (GTK_OBJECT (app), "focus_in_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_window_focus_in_event),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_press_event",
+	gtk_signal_connect (GTK_OBJECT (app), "key_press_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_window_key_press_event),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_release_event",
+	gtk_signal_connect (GTK_OBJECT (app), "key_release_event",
           GTK_SIGNAL_FUNC (on_anjuta_window_key_release_event),
           NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "delete_event",
+	gtk_signal_connect (GTK_OBJECT (app), "delete_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_delete), NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "destroy",
+	gtk_signal_connect (GTK_OBJECT (app), "destroy",
 			    GTK_SIGNAL_FUNC (on_anjuta_destroy), NULL);
 	gtk_signal_connect (GTK_OBJECT (anjuta_notebook), "switch_page",
 			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_prj_list_undock_button_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC (on_prj_list_hide_button_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_hide_button_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC
-			    (on_mesg_win_undock_button_clicked), NULL);
-
-	app->accel_group = GNOME_APP (anjuta_gui)->accel_group;
-	app->widgets.window = anjuta_gui;
-	app->widgets.client_area = vbox0;
-	app->widgets.notebook = anjuta_notebook;
-	app->widgets.appbar = appbar1;
-	app->widgets.hpaned = hpaned1;
-	app->widgets.vpaned = vpaned1;
-	app->widgets.mesg_win_container = hbox2;
-	app->widgets.project_dbase_win_container = vbox1;
+	app->accel_group = GNOME_APP (app)->accel_group;
+	app->notebook = anjuta_notebook;
+	app->appbar = appbar1;
 
 	// main_menu_install_hints (anjuta_gui);
 }

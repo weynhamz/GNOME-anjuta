@@ -31,11 +31,13 @@
 #include <glib.h>
 
 #include <gtk/gtk.h>
+
+#include <libanjuta/resources.h>
+
 #include "anjuta.h"
 #include "utilities.h"
 #include "launcher.h"
 #include "properties.h"
-#include "resources.h"
 
 const gchar *
 extract_filename (const gchar * full_filename)
@@ -393,17 +395,6 @@ FileExtType get_file_ext_type (gchar * file)
 	}
 	g_free (filetype_str);
 	return filetype;
-}
-
-gchar *
-get_a_tmp_file ()
-{
-	static gint count = 0;
-	gchar *filename;
-	filename =
-		g_strdup_printf ("%s/anjuta_%d.%d", app->dirs->tmp, count++,
-				 getpid ());
-	return filename;
 }
 
 gboolean write_line (FILE * stream, gchar * str)
@@ -943,188 +934,6 @@ gboolean widget_is_child (GtkWidget * parent, GtkWidget * child)
 			return TRUE;
 	}
 	return FALSE;
-}
-
-/* GList of strings operations */
-GList *
-glist_from_string (const gchar *string)
-{
-	gchar *str, *temp, buff[256];
-	GList *list;
-	gchar *word_start, *word_end;
-	gboolean the_end;
-
-	list = NULL;
-	the_end = FALSE;
-	temp = g_strdup (string);
-	str = temp;
-	if (!str)
-		return NULL;
-
-	while (1)
-	{
-		gint i;
-		gchar *ptr;
-
-		/* Remove leading spaces */
-		while (isspace (*str) && *str != '\0')
-			str++;
-		if (*str == '\0')
-			break;
-
-		/* Find start and end of word */
-		word_start = str;
-		while (!isspace (*str) && *str != '\0')
-			str++;
-		word_end = str;
-
-		/* Copy the word into the buffer */
-		for (ptr = word_start, i = 0; ptr < word_end; ptr++, i++)
-			buff[i] = *ptr;
-		buff[i] = '\0';
-		if (strlen (buff))
-			list = g_list_append (list, g_strdup (buff));
-		if (*str == '\0')
-			break;
-	}
-	if (temp)
-		g_free (temp);
-	return list;
-}
-
-/* Get the list of strings as GList from a property value.
-   Strings are splitted from white spaces */
-GList *
-glist_from_data (guint props, const gchar *id)
-{
-	gchar *str;
-	GList *list;
-
-	str = prop_get (props, id);
-	list = glist_from_string (str);
-	g_free(str);
-	return list;
-}
-
-/* Prefix the strings */
-void
-glist_strings_prefix (GList * list, const gchar *prefix)
-{
-	GList *node;
-	node = list;
-	
-	g_return_if_fail (prefix != NULL);
-	while (node)
-	{
-		gchar* tmp;
-		tmp = node->data;
-		node->data = g_strconcat (prefix, tmp, NULL);
-		if (tmp) g_free (tmp);
-		node = g_list_next (node);
-	}
-}
-
-/* Suffix the strings */
-void
-glist_strings_sufix (GList * list, const gchar *sufix)
-{
-	GList *node;
-	node = list;
-	
-	g_return_if_fail (sufix != NULL);
-	while (node)
-	{
-		gchar* tmp;
-		tmp = node->data;
-		node->data = g_strconcat (tmp, sufix, NULL);
-		if (tmp) g_free (tmp);
-		node = g_list_next (node);
-	}
-}
-
-/* Duplicate list of strings */
-GList*
-glist_strings_dup (GList * list)
-{
-	GList *node;
-	GList *new_list;
-	
-	new_list = NULL;
-	node = list;
-	while (node)
-	{
-		if (node->data)
-			new_list = g_list_append (new_list, g_strdup(node->data));
-		else
-			new_list = g_list_append (new_list, NULL);
-		node = g_list_next (node);
-	}
-	return new_list;
-}
-
-/* Dedup a list of paths - duplicates are removed from the tail.
-** Useful for deduping Recent Files and Recent Projects */
-GList *glist_path_dedup(GList *list)
-{
-	GList *nlist = NULL, *tmp, *tmp1;
-	gchar *path;
-	struct stat s;
-	for (tmp = list; tmp; tmp = g_list_next(tmp))
-	{
-		path = tm_get_real_path((const gchar *) tmp->data);
-		if (0 != stat(path, &s))
-		{
-			g_free(path);
-		}
-		else
-		{
-			for (tmp1 = nlist; tmp1; tmp1 = g_list_next(tmp1))
-			{
-				if (0 == strcmp((const char *) tmp1->data, path))
-				{
-					g_free(path);
-					path = NULL;
-					break;
-				}
-			}
-			if (path)
-			nlist = g_list_prepend(nlist, path);
-		}
-	}
-	glist_strings_free(list);
-	nlist = g_list_reverse(nlist);
-	return nlist;
-}
-
-static gint
-sort_node (gchar* a, gchar *b)
-{
-	if ( !a && !b) return 0;
-	else if (!a) return -1;
-	else if (!b) return 1;
-	return strcmp (a, b);
-}
-
-/* Sort the list alphabatically */
-GList*
-glist_strings_sort (GList * list)
-{
-	return g_list_sort(list, (GCompareFunc)sort_node);
-}
-
-/* Free the strings and GList */
-void
-glist_strings_free (GList * list)
-{
-	GList *node;
-	node = list;
-	while (node)
-	{
-		if (node->data)
-			g_free (node->data);
-		node = g_list_next (node);
-	}
-	g_list_free (list);
 }
 
 /* Assign a value to a string */
@@ -1689,43 +1498,6 @@ anjuta_util_check_gnome_terminal (void)
     
     /* gnome-terminal-2 found */
     return 2;
-}
-
-int type_from_string(StringMap *map, const char *str)
-{
-	int i = 0;
-
-	while (-1 != map[i].type)
-	{
-		if (0 == strcmp(map[i].name, str))
-			return map[i].type;
-		++ i;
-	}
-	return -1;
-}
-
-const char *string_from_type(StringMap *map, int type)
-{
-	int i = 0;
-	while (-1 != map[i].type)
-	{
-		if (map[i].type == type)
-			return map[i].name;
-		++ i;
-	}
-	return "";
-}
-
-GList *glist_from_map(StringMap *map)
-{
-	GList *out_list = NULL;
-	int i = 0;
-	while (-1 != map[i].type)
-	{
-		out_list = g_list_append(out_list, map[i].name);
-		++ i;
-	}
-	return out_list;
 }
 
 static gint

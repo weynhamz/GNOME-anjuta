@@ -1,3 +1,9 @@
+2004-01-03  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Users GDL from external package.
+	* plugins/*: Added many new plugins (not ready though).
+	* src/*: Removed many files (which have been transfered in plugins/).
+	
 2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.

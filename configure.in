@@ -22,6 +22,7 @@ VTE_NEW_REQUIRED=0.9.0
 LIBXML_REQUIRED=2.4.23
 PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
+GDL_REQUIRED=0.4.0
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GOBJECT_REQUIRED)
@@ -42,6 +43,7 @@ AC_SUBST(LIBXML_REQUIRED)
 AC_SUBST(PANGO_REQUIRED)
 AC_SUBST(VTE_NEW_REQUIRED)
 AC_SUBST(PCRE_REQUIRED)
+AC_SUBST(GDL_REQUIRED)
 
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
@@ -145,7 +147,8 @@ PKG_CHECK_MODULES(ANJUTA, \
 	libbonoboui-2.0 >= $BONOBO_UI_REQUIRED \
 	vte >= $VTE_REQUIRED \
 	libxml-2.0 >= $LIBXML_REQUIRED \
-	pango >= $PANGO_REQUIRED)
+	pango >= $PANGO_REQUIRED \
+	gdl-1.0 >= $GDL_REQUIRED)
 
 AC_SUBST(ANJUTA_CFLAGS)
 AC_SUBST(ANJUTA_LIBS)
@@ -538,7 +541,6 @@ tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile
 scintilla/Makefile
-gdl/Makefile
 libegg/Makefile
 libegg/util/Makefile
 libegg/treeviewutils/Makefile

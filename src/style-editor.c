@@ -881,7 +881,7 @@ create_style_editor_gui (StyleEditor * se)
 	g_list_free (list);
 	
 	gtk_window_set_transient_for (GTK_WINDOW (se->priv->dialog),
-								  GTK_WINDOW (app->widgets.window));
+								  GTK_WINDOW (app));
 	
 	g_signal_connect (G_OBJECT (GTK_COMBO(se->priv->hilite_item_combo)->entry),
 					  "changed", G_CALLBACK (on_hilite_style_entry_changed),

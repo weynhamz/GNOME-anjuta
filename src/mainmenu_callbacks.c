@@ -32,6 +32,8 @@
 
 #include <libgnomeui/gnome-window-icon.h>
 
+#include <libanjuta/resources.h>
+
 #include "anjuta.h"
 #include "text_editor.h"
 #include "mainmenu_callbacks.h"
@@ -46,7 +48,6 @@
 #include "debugger.h"
 #include "breakpoints.h"
 #include "goto_line.h"
-#include "resources.h"
 #include "executer.h"
 #include "controls.h"
 #include "help.h"
@@ -75,190 +76,6 @@ void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
 gboolean closing_state;		/* Do not tamper with this variable  */
 
 static gchar *insert_header_c( TextEditor *te);
-
-void
-on_new_file1_activate (EggAction * action, gpointer user_data)
-{
-	display_new_file();
-}
-
-
-void
-on_open1_activate (EggAction * action, gpointer user_data)
-{
-	gtk_widget_show (app->fileselection);
-}
-
-
-void
-on_save1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean ret;
-	TextEditor *te;
-
-	if (user_data != NULL) {
-		te = (TextEditor*)user_data;
-	} else {
-		te = anjuta_get_current_text_editor ();
-	};
-	if (te == NULL)
-		return;
-	if (te->full_filename == NULL)
-	{
-		anjuta_set_current_text_editor (te);
-		gtk_widget_show (app->save_as_fileselection);
-		return;
-	}
-	ret = text_editor_save_file (te, TRUE);
-	if (closing_state && ret == TRUE)
-	{
-		anjuta_remove_text_editor (te);
-		closing_state = FALSE;
-	}
-}
-
-
-void
-on_save_as1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	fileselection_set_filename (app->save_as_fileselection, te->full_filename);
-	gtk_widget_show (app->save_as_fileselection);
-}
-
-void
-on_save_all1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_save_all_files();
-}
-
-void
-on_close_file1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-
-	if (user_data != NULL) {
-		te = (TextEditor*)user_data;
-	} else {
-		te = anjuta_get_current_text_editor ();
-	};
-	if (te == NULL)
-		return;
-	
-	if (te->used_by_cvs) {
-		GtkWidget* dialog;
-		gint value;
-		
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-		    GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
-			GTK_BUTTONS_YES_NO,
-			_("The editor is being used as output buffer for an operation.\n"
-			"Closing it will result in stopping the process.\n"
-			"Do you still want close the editor?"));
-		value = gtk_dialog_run (GTK_DIALOG(dialog));
-		gtk_widget_destroy (dialog);
-		if (value == 1) return;
-	}
-	if (text_editor_is_saved (te) == FALSE)
-	{
-		gchar *mesg;
-		GtkWidget *dialog;
-		gint res;
-		
-		closing_state = TRUE;
-		mesg = g_strdup_printf (_("The file '%s' is not saved.\n"
-								"Do you want to save it before closing?"),
-								te->filename);
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_NONE, mesg);
-		g_free (mesg);
-		gtk_dialog_add_button (GTK_DIALOG (dialog), 
-							   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-		anjuta_dialog_add_button (GTK_DIALOG (dialog), _("Do_n't save"),
-								  GTK_STOCK_NO, GTK_RESPONSE_NO);
-		gtk_dialog_add_button (GTK_DIALOG (dialog),
-							   GTK_STOCK_SAVE, GTK_RESPONSE_YES);
-		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
-										 GTK_RESPONSE_CANCEL);
-		res = gtk_dialog_run (GTK_DIALOG (dialog));
-		if (res == GTK_RESPONSE_YES)
-			on_save1_activate (NULL, te);
-		else if (res == GTK_RESPONSE_NO)
-		{
-			anjuta_remove_current_text_editor ();
-			closing_state = FALSE;
-		}
-		else
-			closing_state = FALSE;
-		gtk_widget_destroy (dialog);
-	}
-	else
-		anjuta_remove_text_editor (te);
-}
-
-void
-on_close_all_file1_activate (EggAction * action, gpointer user_data)
-{
-	GList *node;
-	
-	/* Close all 'saved' files */
-	node = app->text_editor_list;
-	while (node)
-	{
-		TextEditor* te;
-		GList* next;
-		te = node->data;
-		next = node->next; // Save it now, as we may change it.
-		if(te)
-		{
-			if (text_editor_is_saved (te))
-			{
-				anjuta_remove_text_editor(te);
-			}
-		}
-		node = next;
-	}
-}
-
-void
-on_reload_file1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	gchar mesg[256];
-	GtkWidget *dialog;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-
-	sprintf (mesg, _("Are you sure you want to reload '%s'?\n"
-					 "Any unsaved changes will be lost."),
-			 te->filename);
-
-	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-									 GTK_DIALOG_DESTROY_WITH_PARENT,
-									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_NONE, mesg);
-	gtk_dialog_add_button (GTK_DIALOG (dialog),
-						   GTK_STOCK_CANCEL,	GTK_RESPONSE_NO);
-	anjuta_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
-							  GTK_STOCK_REVERT_TO_SAVED,
-							  GTK_RESPONSE_YES);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
-									 GTK_RESPONSE_NO);
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-	{
-		text_editor_load_file (te);
-		anjuta_update_title ();
-	}
-	gtk_widget_destroy (dialog);
-}
 
 void
 on_new_project1_activate (EggAction * action, gpointer user_data)
@@ -300,367 +117,11 @@ on_close_project1_activate (EggAction * action, gpointer user_data)
 	project_dbase_close_project (app->project_dbase);
 }
 
-
-void
-on_rename1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_not_implemented (__FILE__, __LINE__);
-}
-
-void
-on_nonimplemented_activate(EggAction * action, gpointer user_data)
-{
-	anjuta_not_implemented (__FILE__, __LINE__);
-}
-
 void
 on_exit1_activate (EggAction * action, gpointer user_data)
 {
 	if (on_anjuta_delete (NULL, NULL, NULL) == FALSE)
 		on_anjuta_destroy (NULL, NULL);
-}
-
-
-void
-on_editor_command_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, (gint) user_data, 0, 0);
-}
-
-void
-on_editor_select_function (EggAction *action, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	function_select(te);
-}
-
-
-void on_editor_select_word (EggAction *action, gpointer user_data)
-{
-    TextEditor* te;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_WORDSELECT, 0, 0);
-}
-
-void on_editor_select_line (EggAction *action, gpointer user_data)
-{
-    TextEditor* te;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_LINESELECT, 0, 0);
-}
-
-void
-on_transform_eolchars1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	glong mode = (glong)user_data;
-	
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
-}
-
-void
-on_insert_c_gpl_notice(EggAction * action, gpointer user_data)
-{
-	insert_c_gpl_notice();
-}
-
-void
-on_insert_cpp_gpl_notice(EggAction * action, gpointer user_data)
-{
-	insert_cpp_gpl_notice();
-}
-
-void
-on_insert_py_gpl_notice(EggAction * action, gpointer user_data)
-{
-	insert_py_gpl_notice();
-}
-
-void
-on_insert_username(EggAction * action, gpointer user_data)
-{
-	insert_username();
-}
-
-void
-on_insert_changelog_entry(EggAction * action, gpointer user_data)
-{
-	insert_changelog_entry();
-}
-
-void
-on_insert_date_time(EggAction * action, gpointer user_data)
-{
-	insert_date_time();
-}
-
-void
-on_insert_header_template(EggAction * action, gpointer user_data)
-{
-	insert_header_template();
-}
-
-void
-on_insert_header(EggAction * action, gpointer user_data)
-{
-	insert_header();
-}
-
-void
-on_insert_switch_template(EggAction * action, gpointer user_data)
-{
-	insert_switch_template();
-}
-
-void
-on_insert_for_template(EggAction * action, gpointer user_data)
-{
-	insert_for_template();
-}
-
-void
-on_insert_while_template(EggAction * action, gpointer user_data)
-{
-	insert_while_template();
-}
-
-void
-on_insert_ifelse_template(EggAction * action, gpointer user_data)
-{
-	insert_ifelse_template();
-}
-
-void
-on_insert_cvs_author(EggAction * action, gpointer user_data)
-{
-	insert_cvs_author();
-}
-
-void
-on_insert_cvs_date(EggAction * action, gpointer user_data)
-{
-	insert_cvs_date();
-}
-
-void
-on_insert_cvs_header(EggAction * action, gpointer user_data)
-{
-	insert_cvs_header();
-}
-
-void
-on_insert_cvs_id(EggAction * action, gpointer user_data)
-{
-	insert_cvs_id();
-}
-
-void
-on_insert_cvs_log(EggAction * action, gpointer user_data)
-{
-	insert_cvs_log();
-}
-
-void
-on_insert_cvs_name(EggAction * action, gpointer user_data)
-{
-	insert_cvs_name();
-}
-
-void
-on_insert_cvs_revision(EggAction * action, gpointer user_data)
-{
-	insert_cvs_revision();
-}
-
-void
-on_insert_cvs_source(EggAction * action, gpointer user_data)
-{
-	insert_cvs_source();
-}
-
-void
-on_autocomplete1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_COMPLETEWORD, 0, 0);
-}
-
-void
-on_calltip1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_not_implemented (__FILE__, __LINE__);
-}
-
-void
-on_search1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_search_replace_activate(FALSE, FALSE);
-}
-
-void
-on_find1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_search_replace_activate(FALSE, FALSE);
-}
-
-
-void
-on_find_in_files1_activate (EggAction * action, gpointer user_data)
-{
-//	find_in_files_show (app->find_in_files);
-	anjuta_search_replace_activate(FALSE, TRUE);
-}
-
-
-void
-on_find_and_replace1_activate (EggAction * action, gpointer user_data)
-{
-	anjuta_search_replace_activate(TRUE, FALSE);
-}
-
-
-
-void on_prev_occur(EggAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	gboolean ret;
-	gchar *buffer = NULL;
-    gint return_;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-	if (text_editor_has_selection(te))
-	{
-		buffer = text_editor_get_selection(te);
-		g_strstrip(buffer);
-		if ('\0' == *buffer)
-		{
-			g_free(buffer);
-			buffer = NULL;
-		}
-	}
-	if (NULL == buffer)
-	{
-		buffer = g_new(char, 256);
-		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
-		if (!ret)
-		{
-			g_free(buffer);
-			return;
-		}
-	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1,0);
-	
-	g_free(buffer);
-
-}
-
-void on_next_occur(EggAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	gboolean ret;
-	gchar *buffer = NULL;
-    gint return_;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-	if (text_editor_has_selection(te))
-	{
-		buffer = text_editor_get_selection(te);
-		g_strstrip(buffer);
-		if ('\0' == *buffer)
-		{
-			g_free(buffer);
-			buffer = NULL;
-		}
-	}
-	if (NULL == buffer)
-	{
-		buffer = g_new(char, 256);
-		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
-		if (!ret)
-		{
-			g_free(buffer);
-			return;
-		}
-	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1,0);
-	
-	g_free(buffer);
-
-}
-
-void on_comment_block (EggAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_BLOCKCOMMENT, 0, 0);
-}
-
-void on_comment_box (EggAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_BOXCOMMENT, 0, 0);
-}
-
-void on_comment_stream (EggAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
-}
-
-void on_insert_custom_indent (EggAction *action, gpointer user_data)
-{
-    TextEditor* te;
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_CUSTOMINDENT, 0, 0);
-}
-
-void
-on_goto_line_no1_activate (EggAction * action, gpointer user_data)
-{
-	GtkWidget *gt;
-	gt = gotoline_new ();
-	gtk_widget_show (gt);
-}
-
-void
-on_goto_block_start1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	text_editor_goto_block_start(te);
-}
-
-void
-on_goto_block_end1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	text_editor_goto_block_end(te);
 }
 
 void
@@ -699,6 +160,7 @@ on_save_build_messages_activate (EggAction * action, gpointer user_data)
 void
 on_messages1_activate (EggAction * action, gpointer user_data)
 {
+#if 0
 	gboolean state;
 	state = an_message_manager_is_shown(app->messages);
 	if(state) {
@@ -706,11 +168,14 @@ on_messages1_activate (EggAction * action, gpointer user_data)
 	} else {
 		an_message_manager_show (app->messages, MESSAGE_NONE);
 	}
+#endif
+	an_message_manager_show (app->messages, MESSAGE_NONE);
 }
 
 void
 on_project_listing1_activate (EggAction * action, gpointer user_data)
 {
+#if 0
 	gboolean state;
 	state = app->project_dbase->is_showing;
 	if(state) {
@@ -718,6 +183,7 @@ on_project_listing1_activate (EggAction * action, gpointer user_data)
 	} else {
 		project_dbase_show (app->project_dbase);
 	}
+#endif
 }
 
 void
@@ -754,161 +220,6 @@ on_kernal_signals1_activate (EggAction * action, gpointer user_data)
 /************************************************************************/
 
 void
-on_editor_linenos1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"margin.linenumber.visible", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_LINENUMBERMARGIN, state,
-				  0);
-		node = g_list_next (node);
-	}
-}
-
-void
-on_editor_markers1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION  (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"margin.marker.visible", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_SELMARGIN, state, 0);
-		node = g_list_next (node);
-	}
-}
-
-void
-on_editor_codefold1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"margin.fold.visible", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_FOLDMARGIN, state, 0);
-		node = g_list_next (node);
-	}
-}
-
-void
-on_editor_indentguides1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"view.indentation.guides", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_VIEWGUIDES, state, 0);
-		node = g_list_next (node);
-	}
-}
-
-void
-on_editor_whitespaces1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"view.whitespace", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_VIEWSPACE, state, 0);
-		node = g_list_next (node);
-	}
-}
-
-void
-on_editor_eolchars1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"view.eol", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_VIEWEOL, state, 0);
-		node = g_list_next (node);
-	}
-}
-
-void
-on_editor_linewrap1_activate (EggAction * action, gpointer user_data)
-{
-	gboolean state;
-	GList *node;
-	TextEditor *te;
-	state = (int) EGG_TOGGLE_ACTION (action)->active;
-	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
-								"view.line.wrap", state);
-	node = app->text_editor_list;
-	while (node)
-	{
-		te = (TextEditor *) (node->data);
-		aneditor_command (te->editor_id, ANE_LINEWRAP, state, 0);
-		node = g_list_next (node);
-	}
-}
-
-#define MAX_ZOOM_FACTOR 8
-#define MIN_ZOOM_FACTOR -8
-
-void
-on_zoom_text_activate (EggAction * action, gpointer user_data)
-{
-	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
-	gint zoom;
-	gchar buf[20];
-	const gchar *zoom_text = (const gchar *) user_data;
-
-	if (!zoom_text)
-		zoom = 0;
-	else if (0 == strncmp(zoom_text, "++", 2))
-		zoom = prop_get_int(p->props, TEXT_ZOOM_FACTOR, 0) + 2;
-	else if (0 == strncmp(zoom_text, "--", 2))
-		zoom = prop_get_int(p->props, TEXT_ZOOM_FACTOR, 0) - 2;
-	else
-		zoom = atoi(zoom_text);
-	if (zoom > MAX_ZOOM_FACTOR)
-		zoom = MAX_ZOOM_FACTOR;
-	else if (zoom < MIN_ZOOM_FACTOR)
-		zoom = MIN_ZOOM_FACTOR;
-	g_snprintf(buf, 20, "%d", zoom);
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, buf);
-	anjuta_set_zoom_factor(zoom);
-}
-
-void
 on_anjuta_toolbar_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
@@ -930,34 +241,9 @@ on_update_tagmanager_activate (EggAction * action, gpointer user_data)
 
 /*************************************************************************/
 void
-on_force_hilite1_activate (EggAction * action, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	te->force_hilite = (gint) user_data;
-	text_editor_set_hilite_type (te);
-}
-
-void
-on_indent1_activate (EggAction * action, gpointer user_data)
-{
-    //trying to restore line no where i was before autoformat invoked
-    gint lineno;
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-    lineno = aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
-	if (te == NULL)
-		return;
-	text_editor_autoformat (te);
-	anjuta_update_title ();
-    text_editor_goto_line (te, lineno+1, TRUE, FALSE);
-}
-
-void
 on_detach1_activate (EggAction * action, gpointer user_data)
 {
+#if 0
 	gint page_num;
 	TextEditor *te;
 	GtkWidget *container;
@@ -976,6 +262,7 @@ on_detach1_activate (EggAction * action, gpointer user_data)
 				  page_num);
 	
 	on_anjuta_window_focus_in_event (NULL, NULL, NULL);
+#endif
 }
 
 void
@@ -1334,7 +621,7 @@ on_debugger_signal_activate (EggAction * action, gpointer user_data)
 void
 on_debugger_inspect_activate (EggAction * action, gpointer user_data)
 {
-	GtkWidget *w = create_eval_dialog (GTK_WINDOW(app->widgets.window), debugger.watch);
+	GtkWidget *w = create_eval_dialog (GTK_WINDOW(app), debugger.watch);
 	gtk_widget_show (w);
 }
 
@@ -1531,7 +818,7 @@ on_set_default_preferences1_activate (EggAction * action,
 void
 on_start_with_dialog_activate (EggAction * action, gpointer user_data)
 {
-	start_with_dialog_show (GTK_WINDOW (app->widgets.window),
+	start_with_dialog_show (GTK_WINDOW (app),
 							app->preferences, TRUE);
 }
 
@@ -1660,25 +947,6 @@ on_about1_activate (EggAction * action, gpointer user_data)
 {
 	GtkWidget *about_dlg = about_box_new ();
 	gtk_widget_show (about_dlg);
-}
-
-void
-on_findnext1_activate (EggAction * action, gpointer user_data)
-{
-	search_replace_next();
-}
-
-void
-on_findprevious1_activate (EggAction * action, gpointer user_data)
-{
-	search_replace_previous();
-}
-
-void
-on_enterselection (EggAction * action, gpointer user_data)
-{
-//    enter_selection_as_search_target();
-	gtk_widget_grab_focus (app->widgets.toolbar.main_toolbar.find_entry);
 }
 
 void on_customize_shortcuts_activate(EggAction *action, gpointer user_data)

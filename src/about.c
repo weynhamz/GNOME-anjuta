@@ -22,8 +22,8 @@
 #endif
 
 #include <gnome.h>
-#include "pixmaps.h"
-#include "resources.h"
+#include <libanjuta/pixmaps.h>
+#include <libanjuta/resources.h>
 #include "about.h"
 
 static const char *authors[] = {

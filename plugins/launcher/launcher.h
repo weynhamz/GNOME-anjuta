@@ -1,0 +1,95 @@
+/* launcher.h
+ * Copyright (C) 2003 Naba Kumar
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+#ifndef __ANJUTA_LAUNCHER_H__
+#define __ANJUTA_LAUNCHER_H__
+
+#include <glib.h>
+#include <glib-object.h>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+typedef struct _AnjutaLauncher      AnjutaLauncher;
+typedef struct _AnjutaLauncherClass AnjutaLauncherClass;
+typedef struct _AnjutaLauncherPriv  AnjutaLauncherPriv;
+
+#define ANJUTA_TYPE_LAUNCHER            (anjuta_launcher_get_type ())
+
+#define ANJUTA_LAUNCHER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LAUNCHER, AnjutaLauncher))
+#define ANJUTA_LAUNCHER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_LAUNCHER, AnjutaLauncherClass))
+
+#define ANJUTA_IS_LUANCHER(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), ANJUTA_TYPE_LAUNCHER))
+#define ANJUTA_IS_LUANCHER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), ANJUTA_TYPE_LAUNCHER))
+
+typedef enum {
+	ANJUTA_LAUNCHER_OUTPUT_STDOUT,
+	ANJUTA_LAUNCHER_OUTPUT_STDERR,
+	ANJUTA_LAUNCHER_OUTPUT_PTY
+} AnjutaLauncherOutputType;
+
+typedef void (*AnjutaLauncherOutputCallback) (AnjutaLauncher *launcher,
+										  AnjutaLauncherOutputType output_type,
+											  const gchar *chars,
+											  gpointer user_data);
+
+struct _AnjutaLauncher
+{
+    GObject parent;
+	AnjutaLauncherPriv *priv;
+};
+
+struct _AnjutaLauncherClass
+{
+    GObjectClass parent_class;
+	
+	/* Signals */
+	void (*child_exited_signal) (AnjutaLauncher *launcher,
+								 int child_pid, int exit_status,
+								 gulong time_taken_in_seconds);
+	void (*busy_signal) (AnjutaLauncher *launcher, gboolean busy_flag);
+};
+
+guint anjuta_launcher_get_type (void);
+GObject *anjuta_launcher_new (void);
+gboolean anjuta_launcher_is_busy (AnjutaLauncher *launcher);
+gboolean anjuta_launcher_execute (AnjutaLauncher *launcher,
+								  const gchar *command,
+								  AnjutaLauncherOutputCallback callback,
+								  gpointer callback_data);
+gboolean anjuta_launcher_execute_v (AnjutaLauncher *launcher,
+									gchar *const argv[],
+									AnjutaLauncherOutputCallback callback,
+									gpointer callback_data);
+gboolean anjuta_launcher_set_encoding (AnjutaLauncher *launcher,
+									   const gchar *charset);
+void anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar *in);
+void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar *in);
+gint anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);
+void anjuta_launcher_reset (AnjutaLauncher *launcher);
+void anjuta_launcher_signal (AnjutaLauncher *launcher, int sig);
+void anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
+										  gboolean buffered);
+void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
+											  gboolean buffered);
+#ifdef __cplusplus
+};
+#endif
+
+#endif				/* __ANJUTA_LAUNCHER_H__ */

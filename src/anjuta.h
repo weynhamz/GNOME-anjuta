@@ -23,14 +23,13 @@
 
 #include <glade/glade.h>
 #include <gdl/gdl-icons.h>
+#include <gdl/gdl-dock-layout.h>
 
 #include "toolbar.h"
 #include "text_editor.h"
 #include "preferences.h"
 #include "compiler_options.h"
 #include "src_paths.h"
-//#include "find_replace.h"
-//#include "find_in_files.h"
 #include "message-manager.h"
 #include "project_dbase.h"
 #include "commands.h"
@@ -47,7 +46,7 @@
 #include "tm_tagmanager.h"
 #include "file_history.h"
 /* #include "windows-dialog.h" */
-#include "anjuta-ui.h"
+#include <libanjuta/anjuta-ui.h>
 #include "launcher.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
@@ -60,34 +59,39 @@
 		g_strdup_printf(_FORMAT_, _STR1_, _STR2_); \
 	}
 
-typedef struct _AnjutaAppGui AnjutaAppGui;
+#define ANJUTA_TYPE_APP        (anjuta_app_get_type ())
+#define ANJUTA_APP(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_APP, AnjutaApp))
+#define ANJUTA_APP_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_APP, AnjutaAppClass))
+#define ANJUTA_IS_APP(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_APP))
+#define ANJUTA_IS_APP_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_APP))
+
+// typedef struct _AnjutaAppGui AnjutaAppGui;
 typedef struct _AnjutaApp AnjutaApp;
+typedef struct _AnjutaAppClass AnjutaAppClass;
+typedef struct _AnjutaAppGui AnjutaAppGui;
+
 typedef struct _FileLineInfo FileLineInfo;
-
-struct _AnjutaAppGui
-{
-	GtkWidget *window;
-	GtkWidget *client_area;
-	GtkWidget *the_client;
-	GtkWidget *hpaned_client;
-	GtkWidget *hpaned;
-	GtkWidget *vpaned;
-	GtkWidget *project_dbase_win_container;
-	GtkWidget *mesg_win_container;
-	GtkWidget *notebook;
-	GtkWidget *appbar;
-
-	Toolbar toolbar;
-	MainMenuBar menubar;
-};
 
 struct _AnjutaApp
 {
+	GnomeApp parent;
+	
 	/* sizeof() used as version # for components */
 	glong	size;
 	
-	AnjutaAppGui widgets;
+	GtkWidget *dock;
+ 	GdlDockLayout *layout_manager;
+
+	GHashTable *values;
+	GHashTable *widgets;
+
+	GtkWidget *notebook;
+	GtkWidget *appbar;
+	Toolbar toolbar;
+	MainMenuBar menubar;
+	
 	GdlIcons *icon_set;
+	
 	GtkWidget *fileselection;
 	GtkWidget *save_as_fileselection;
 	GtkWidget *save_as_build_msg_sel;
@@ -95,7 +99,6 @@ struct _AnjutaApp
 
 	GtkAccelGroup *accel_group;
 	AnjutaUI *ui;
-//	FindAndReplace *find_replace;
 	AnMessageManager *messages;
 	ProjectDBase *project_dbase;
 	CommandEditor *command_editor;
@@ -106,7 +109,6 @@ struct _AnjutaApp
 	AnjutaDirs *dirs;
 	Executer *executer;
 	Configurer *configurer;
-//	FindInFiles *find_in_files;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 	CVS* cvs;
@@ -119,8 +121,6 @@ struct _AnjutaApp
 	GList *registered_child_processes_cb_data;
 	GList *recent_files;
 	GList *recent_projects;
-	gint hpaned_width;
-	gint vpaned_height;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 	gboolean auto_gtk_update;
 
@@ -160,6 +160,16 @@ struct _AnjutaApp
 	gchar *last_open_project;
 };
 
+struct _AnjutaAppClass {
+	GnomeAppClass klass;
+};
+
+GType anjuta_app_get_type (void);
+GtkWidget* anjuta_app_new (void);
+
+void anjuta_app_save_layout (AnjutaApp *app, const gchar *name);
+void anjuta_app_load_layout (AnjutaApp *app, const gchar *name);
+
 struct _FileLineInfo
 {
 	gchar *file;
@@ -176,8 +186,8 @@ void anjuta_kernel_signals_connect (void);
 void anjuta_kernel_signals_disconnect (void);
 
 void anjuta_die_imidiately(void);
-void anjuta_new (void);
-void anjuta_show (void);
+// void anjuta_new (void);
+// void anjuta_show (void);
 void anjuta_session_restore (GnomeClient* client);
 
 GList *anjuta_get_file_list(void);
@@ -212,9 +222,9 @@ void anjuta_save_settings (void);
 
 void anjuta_save_all_files(void);
 
-gboolean anjuta_save_yourself (FILE * stream);
+gboolean anjuta_app_save_yourself (AnjutaApp *app, FILE * stream);
 
-gboolean anjuta_load_yourself (PropsID pr);
+gboolean anjuta_app_load_yourself (AnjutaApp *app, PropsID pr);
 
 void anjuta_application_exit(void);
 
@@ -238,9 +248,9 @@ void anjuta_error_parented (GtkWidget* parent, gchar * mesg, ...);
 void anjuta_system_error_parented (GtkWidget* parent, gint errornum,
 								   gchar * mesg, ...);
 
-void anjuta_set_busy (void);
-void anjuta_set_active (void);
-gboolean anjuta_set_auto_gtk_update (gboolean auto_flag);
+void anjuta_app_set_busy (AnjutaApp *app);
+void anjuta_app_set_active (AnjutaApp *app);
+
 void main_menu_unref (void);
 
 gchar *anjuta_get_full_filename (gchar * fn);
@@ -320,12 +330,6 @@ void on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer data);
 
 void on_build_msg_save_ok_clicked (GtkButton * button, gpointer user_data);
 void on_build_msg_save_cancel_clicked (GtkButton * button, gpointer user_data);
-
-void on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data);
-void on_prj_list_hide_button_clicked (GtkButton * button, gpointer user_data);
-
-void on_mesg_win_hide_button_clicked (GtkButton * button, gpointer user_data);
-void on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data);
 
 void on_recent_files_menu_item_activate (GtkMenuItem * item, gchar * data);
 void on_recent_projects_menu_item_activate (GtkMenuItem * item, gchar * data);

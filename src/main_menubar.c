@@ -22,17 +22,18 @@
 
 #include <gnome.h>
 
+#include <libanjuta/pixmaps.h>
+
 #include "anjuta.h"
-#include "pixmaps.h"
 #include "mainmenu_callbacks.h"
 #include "search-replace.h"
-#include "main_menubar_def.h"
+//#include "main_menubar_def.h"
 #include "fileselection.h"
 #include "widget-registry.h"
 
 static void on_file_menu_realize (GtkWidget * widget, gpointer data);
 static void on_project_menu_realize (GtkWidget * widget, gpointer data);
-
+#if 0
 void
 create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 {
@@ -316,9 +317,8 @@ main_menu_install_hints (GtkWidget* ap)
 		//	GTK_OBJECT(help1_menu_uiinfo[i].widget));
 	}
 	
-	gnome_app_install_appbar_menu_hints (GNOME_APPBAR
-					     (app->widgets.appbar),
-					     menubar1_uiinfo);
+	gnome_app_install_appbar_menu_hints (GNOME_APPBAR (app->appbar),
+										 menubar1_uiinfo);
 }
 
 void
@@ -337,6 +337,7 @@ main_menu_unref ()
 	for (i = 1; i < NUM_HELP_SUBMENUS; i++)
 		gtk_widget_unref (help1_menu_uiinfo[i].widget);
 }
+#endif
 
 GtkWidget *
 create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
@@ -383,7 +384,7 @@ on_file_menu_realize (GtkWidget * widget, gpointer data)
 				GTK_SIGNAL_FUNC
 				(on_recent_files_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
-	app->widgets.menubar.file.recent_files = widget;
+	app->menubar.file.recent_files = widget;
 }
 
 static void
@@ -394,7 +395,7 @@ on_project_menu_realize (GtkWidget * widget, gpointer data)
 				GTK_SIGNAL_FUNC
 				(on_recent_projects_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
-	app->widgets.menubar.file.recent_projects = widget;
+	app->menubar.file.recent_projects = widget;
 }
 
 void

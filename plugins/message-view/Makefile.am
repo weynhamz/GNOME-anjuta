@@ -4,7 +4,8 @@ INCLUDES= \
 	$(DEPRECATED_FLAGS)\
 	$(LIBANJUTA_CFLAGS)
 
-lib_LTLIBRARIES = libanjuta-message-view.la
+anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+anjuta_plugin_LTLIBRARIES = libanjuta-message-view.la
 
 libanjuta_message_view_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_message_view_la_LIBADD = \

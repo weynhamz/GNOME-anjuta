@@ -26,8 +26,10 @@
 #include <string.h>
 
 #include <gnome.h>
+
+#include <libanjuta/resources.h>
+
 #include "anjuta.h"
-#include "resources.h"
 #include "fileselection.h"
 #include "utilities.h"
 #include "gnomefilelist.h"
@@ -164,7 +166,7 @@ create_fileselection_gui (FileSelData * fsd)
 	fsd->filesel = fileselection_gui;
 	gtk_widget_ref (fileselection_gui);
 	gtk_window_set_transient_for(GTK_WINDOW(fileselection_gui),
-								 GTK_WINDOW(app->widgets.window));
+								 GTK_WINDOW(app));
 	return fileselection_gui;
 }
 
