@@ -1,3 +1,16 @@
+2005-03-13  Naba Kumar  <naba@gnome.org>
+	
+	* global-tags/Makefile.am,
+	global-tags/create_global_tags.sh,
+	plugins/editor/aneditor-autocomplete.cxx,
+	plugins/editor/aneditor-priv.h,
+	plugins/editor/aneditor.cxx,
+	tagmanager/tm_workspace.c: Fixed scope members autocompletion
+	in editor and made it work in global symbols also.
+	
+	* src/anjuta-app.c: Always use priority texts besides icons style
+	for toolbars, because other styles look horible for Anjuta (fixme).
+
 2005-03-11  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Removed test for iconv.

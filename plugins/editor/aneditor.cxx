@@ -94,7 +94,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 	call_tip_node_queue = g_queue_new();
 	lastPos = 0;
 		
-
+	autocompletion = NULL;
+	
 	margin = false;
 	marginWidth = marginWidthDefault;
 	foldMargin = true;
@@ -1384,15 +1385,23 @@ void AnEditor::CharAdded(char ch) {
 					braceCount--;
 				} else if (!wordCharacters.contains(ch)) {
 					SendEditor(SCI_AUTOCCANCEL);
+					if (autocompletion) {
+						g_completion_free (autocompletion);
+						autocompletion = NULL;
+					}
 				} else if (autoCCausedByOnlyOne) {
 					StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
 				} else {
 					StartAutoCompleteWord(0);
-				}									
+				}
 			} else if (HandleXml(ch)) {
 				// Handled in the routine
 			}
 			else {	// we don't have autocompetion nor calltip active
+				if (autocompletion) {
+					g_completion_free (autocompletion);
+					autocompletion = NULL;
+				}
 				if (ch == '(') {
 					braceCount = 1;
 					//StartCallTip();
@@ -1415,7 +1424,10 @@ void AnEditor::CharAdded(char ch) {
 						AutomaticIndentation(ch);
 					if (autoCompleteStartCharacters.contains(ch)) {
 						StartAutoComplete();
-					} else if (!StartAutoCompleteRecordsFields(ch) && props->GetInt("autocompleteword.automatic") && wordCharacters.contains(ch)) {
+					} else if (props->GetInt("autocompleteword.automatic") &&
+							   !StartAutoCompleteRecordsFields(ch) &&
+							   wordCharacters.contains(ch)) {
+						
 					    StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
 					    autoCCausedByOnlyOne = SendEditor(SCI_AUTOCACTIVE);
 					}

@@ -18,7 +18,7 @@ anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 system.tags: create_global_tags.sh anjuta-tags
 	echo "Detecting header files and Generating global symbols ....."
 	chmod +x $(srcdir)/create_global_tags.sh
-	(cd $(top_builddir)/global-tags && $(srcdir)/create_global_tags.sh && touch system.tags)
+	(cd $(top_builddir)/global-tags && $(srcdir)/create_global_tags.sh && echo "This is only a timestamp" > system.tags)
 
 all: system.tags
 

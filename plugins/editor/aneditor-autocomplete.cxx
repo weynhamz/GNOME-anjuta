@@ -19,6 +19,7 @@
 */
 
 #include "aneditor-priv.h"
+#include <glib.h>
 
 #define TYPESEP '?'
 
@@ -108,7 +109,11 @@ bool AnEditor::StartAutoComplete() {
 bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
                                              const char *ScanType)
 {
-	
+	if (autocompletion) {
+		g_completion_free (autocompletion);
+		autocompletion = NULL;
+	}
+		
 	if( !(ScanType && ScanType[0] != '\0') ) return false;
 		
 	const GPtrArray *tags = tm_workspace_find_scope_members(CurrentFileTags,
@@ -117,6 +122,7 @@ bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 	if ((tags) && (tags->len > 0))
 	{	
 		TMTag *tag;
+		GList *aclist = NULL;
 		GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
 		GString *words = g_string_sized_new(256);
 	
@@ -128,6 +134,8 @@ bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 			{
 				g_hash_table_insert(wordhash,
 									g_strdup(tag->name), (gpointer) 1);
+				aclist = g_list_prepend (aclist, tag->name);
+				
 				if (words->len > 0)
 				{
 					g_string_append_c(words, ' ');
@@ -139,11 +147,18 @@ bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 			}
 		}
 		
-		SendEditor(SCI_AUTOCSETAUTOHIDE, 0);
-		//SendEditorString(SCI_AUTOCSHOW, 0, words->str);
-		SendEditorString(SCI_USERLISTSHOW, 0, words->str);
-	
+		aclist = g_list_reverse (aclist);
+		if (aclist)
+		{
+			autocompletion = g_completion_new (NULL);
+			g_completion_add_items (autocompletion, aclist);
+		
+			SendEditor(SCI_AUTOCSETAUTOHIDE, 0);
+			//SendEditorString(SCI_AUTOCSHOW, 0, words->str);
+			SendEditorString(SCI_USERLISTSHOW, 0, words->str);
+		}
 		g_string_free(words, TRUE);
+			
 		g_hash_table_foreach(wordhash, free_word, NULL);
 		g_hash_table_destroy(wordhash);	
 
@@ -185,87 +200,88 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 										const char *root, const bool type,
 										bool *retptr, int *count)
 {
-  int posCurrentWord = SendEditor (SCI_GETCURRENTPOS);
+	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS);
 	int Line = SendEditor(SCI_LINEFROMPOSITION , posCurrentWord);
-  
-  {
-    TMTag *tag;
-    if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags, Line))))
-    {
-      return NULL;
-    }
-    Line = tag->atts.entry.line - 2;
-  }
-  
-  size_t rootlen = strlen(root);
-  posCurrentWord -= (rootlen + (type ? 1 : 2));
-  int EndBlokLine = 
-       GetBlockEndLine(SendEditor(SCI_LINEFROMPOSITION , posCurrentWord));  
-  if(EndBlokLine < 0) return NULL;
-  
-  SString linebuf;
-  const char *name; 
+	
+	{
+		TMTag *tag;
+		if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags, Line))))
+		{
+			return NULL;
+		}
+		Line = tag->atts.entry.line - 2;
+	}
+	
+	size_t rootlen = strlen(root);
+	posCurrentWord -= (rootlen + (type ? 1 : 2));
+	int EndBlokLine = 
+	GetBlockEndLine(SendEditor(SCI_LINEFROMPOSITION , posCurrentWord));  
+	if(EndBlokLine < 0) return NULL;
+		
+	SString linebuf;
+	const char *name; 
  
-  /* find open block '{' */
-  do {
-    Line++;
-    GetLine(linebuf, Line);
-    name = linebuf.c_str();
-    name = strchr(name, '{');
-  } while(!name);
+	/* find open block '{' */
+	do {
+		Line++;
+		GetLine(linebuf, Line);
+		name = linebuf.c_str();
+		name = strchr(name, '{');
+	} while(!name);
   
-  int posFind = SendEditor(SCI_POSITIONFROMLINE , Line) + (name - linebuf.c_str());
-  
+	int posFind = SendEditor(SCI_POSITIONFROMLINE , Line) + (name - linebuf.c_str());
+	
 	int doclen = LengthDocument();
 	TextToFind ft = {{0, 0}, 0, {0, 0}};
 	ft.lpstrText = const_cast<char*>(root);
-  ft.chrg.cpMin = posFind;
-  /* find close block '}' */
+	ft.chrg.cpMin = posFind;
+	/* find close block '}' */
 	ft.chrg.cpMax = SendEditor(SCI_BRACEMATCH , posFind, 0);
     
-  for (;;) {	// search all function blocks
+	for (;;) {	// search all function blocks
 		posFind = SendEditorString(SCI_FINDTEXT,
-        (SCFIND_WHOLEWORD | SCFIND_MATCHCASE), reinterpret_cast<char *>(&ft));
+								   (SCFIND_WHOLEWORD | SCFIND_MATCHCASE),
+								   reinterpret_cast<char *>(&ft));
     
 		if (posFind == -1 || posFind >= doclen || posFind >= posCurrentWord)
 		{
 			break;
 		}
 		
-    Line = SendEditor(SCI_LINEFROMPOSITION , posFind);
-    int current = GetBlockEndLine(Line);
-    if (current < 0) break;
+		Line = SendEditor(SCI_LINEFROMPOSITION , posFind);
+		int current = GetBlockEndLine(Line);
+		if (current < 0) break;
 		if ( EndBlokLine > current )
 		{
 			/* not in our block */
-      ft.chrg.cpMin = posFind + rootlen;
+			ft.chrg.cpMin = posFind + rootlen;
 			continue;
 		}
-
-    if(GetFullLine(linebuf, Line) < 0) break;
-    
-    /* find word position */    
+		
+		if(GetFullLine(linebuf, Line) < 0) break;
+		
+		/* find word position */    
 		current = 0;				
 		while(1)
 		{
-		  current = linebuf.search(root, current);
+			current = linebuf.search(root, current);
 			if(current < 0) break;
 			if(!current && !IsAlnum(linebuf[rootlen]))
 			{
 				break;
-			}	
+			}
 			if(current > 0 && !IsAlpha(linebuf[current-1]) &&
-				                !IsAlnum(linebuf[current + rootlen]))
+			   !IsAlnum(linebuf[current + rootlen]))
 			{
 				break;
 			}
 			current += rootlen;
 		}
-    if(current < 1) break;
-    
-    bool isPointer = false;
-    int startword = current - 1;
-    
+		if(current < 1) break;
+		
+		bool isPointer = false;
+		int startword = current - 1;
+		
 		{
 			/* find 'pointer' capability and move to "true start of line" */
 			bool findPointer = true;
@@ -290,77 +306,79 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 		}		
 		
 		name = NULL;
-		for (;;) {
+		for (;;)
+		{
 			/* find begin of word */
 			while (startword < current && !IsAlpha(linebuf[startword]))
-		  {
-			  startword++;
-		  }
-		  if (startword == current) break;
-			
-		  name = (linebuf.c_str() + startword);
-			
-			/* find end of word */
-			while (startword < current && IsAlnum(linebuf[startword]))
-		  {
-			  startword++;
-		  }
+			{
+				startword++;
+			}
 			if (startword == current) break;
 				
-		  char backup = linebuf[startword];
+				name = (linebuf.c_str() + startword);
+				
+			/* find end of word */
+			while (startword < current && IsAlnum(linebuf[startword]))
+			{
+				startword++;
+			}
+			if (startword == current) break;
+					
+			char backup = linebuf[startword];
 			linebuf.change(startword, '\0');
 			
 			if (strcmp(name, root) == 0)
 			{
 				break;
 			}
-			
+				
 			if (strcmp(name, "struct")   == 0 ||
 				strcmp(name, "class" )   == 0 ||
-			    strcmp(name, "union" )   == 0 ||
-			    strcmp(name, "const" )   == 0 ||
-			    strcmp(name, "static")   == 0 ||
-			    strcmp(name, "auto"  )   == 0 ||
-			    strcmp(name, "register") == 0 ||
-			    strcmp(name, "extern")   == 0 ||
+				strcmp(name, "union" )   == 0 ||
+				strcmp(name, "const" )   == 0 ||
+				strcmp(name, "static")   == 0 ||
+				strcmp(name, "auto"  )   == 0 ||
+				strcmp(name, "register") == 0 ||
+				strcmp(name, "extern")   == 0 ||
 				strcmp(name, "restrict") == 0)
 			{
 				linebuf.change(startword, backup);
 				continue;
 			}
-		  
-      /* search in file type tag's entrys */
-      doclen = 0;
-      TMTag **match = tm_tags_find(CurrentFileTags, name, FALSE, &current);
-      for(startword = 0; match && startword < current; ++startword)
-      {
-        if ((tm_tag_class_t | tm_tag_struct_t |tm_tag_typedef_t |
-             tm_tag_union_t | tm_tag_namespace_t) & match[startword]->type)
-        {
+			
+			/* search in file type tag's entrys */
+			doclen = 0;
+			TMTag **match = tm_tags_find(CurrentFileTags, name, FALSE, &current);
+			for(startword = 0; match && startword < current; ++startword)
+			{
+				if ((tm_tag_class_t | tm_tag_struct_t |tm_tag_typedef_t |
+					 tm_tag_union_t | tm_tag_namespace_t) &
+					match[startword]->type)
+				{
 					doclen++;
-        }
-      }
-      if (!doclen)
-	  {
-		  /* search in global type tag's entrys */
-		  const GPtrArray *tags = tm_workspace_find(name, (tm_tag_class_t |
+				}
+			}
+			if (!doclen)
+			{
+				/* search in global type tag's entrys */
+				const GPtrArray *tags = tm_workspace_find(name,
+														  (tm_tag_class_t |
 														   tm_tag_struct_t |
 														   tm_tag_typedef_t |
 														   tm_tag_union_t  |
 														   tm_tag_namespace_t),
-													NULL, FALSE);  
-		  doclen = tags->len;
-		  match = (TMTag **)tags->pdata;
-      }
-      
-      if(retptr) *retptr = isPointer;  
-      if(count) *count = doclen;
-	    return match;
-	
+														  NULL, FALSE);  
+				doclen = tags->len;
+				match = (TMTag **)tags->pdata;
+			}
+			
+			if(retptr) *retptr = isPointer;  
+			if(count) *count = doclen;
+			return match;
 		}
-    break;
-  }
-  return NULL;
+		break;
+	}
+	return NULL;
 }
 
 static TMWorkObject * get_current_tm_file (GtkWidget *scintilla)
@@ -470,6 +488,10 @@ static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
 
 bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 {
+	if (autocompletion)	{
+		g_completion_free (autocompletion);
+		autocompletion = NULL;
+	}
 	/* TagManager autocompletion - only for C/C++/Java */	  
 	if (SCLEX_CPP != lexLanguage ||
 		((ch != '.') &&	(ch != '>') && (ch != ':')))
@@ -783,9 +805,6 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	int minWordLength = 0;
 	int wordlen = 0;
 	
-	GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
-	GString *words = g_string_sized_new(256);
-	
 	GetLine(linebuf);
 	int current = GetCaretInLine();
 
@@ -807,6 +826,54 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	linebuf.change(current, '\0');
 	const char *root = linebuf.c_str() + startword;
 	int rootlen = current - startword;
+
+	GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
+	GString *words = g_string_sized_new(256);
+	
+	// If user autocompletion list is active, complete within it.
+	if (autocompletion) {
+		// gint count = 0;
+		gchar *prefix = NULL;
+		GList *completed_list = g_completion_complete_utf8 (autocompletion,
+															root, &prefix);
+		if (prefix)
+		{
+			/* FIXME: May be we should insert it and select the inserted part */
+			GList *node = completed_list;
+			while (node) {
+				gchar *item = (gchar *)node->data;
+				g_hash_table_insert(wordhash, g_strdup(item), (gpointer) 1);
+			
+				wordlen = strlen(item);
+				if (minWordLength < wordlen)
+					minWordLength = wordlen;
+				
+				if (words->len > 0)
+					g_string_append_c(words, ' ');
+				g_string_append(words, item);
+				// g_string_append_c(words, TYPESEP);
+				// g_string_append_printf(words, "%d", count);
+				node = g_list_next (node);
+			}
+		}
+		if (prefix && completed_list) {
+				SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
+				SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
+				// SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
+				// SendEditorString(SCI_USERLISTSHOW, 0, words->str);
+		} else {
+			SendEditor(SCI_AUTOCCANCEL);
+			if (autocompletion) {
+				g_completion_free (autocompletion);
+				autocompletion = NULL;
+			}
+		}
+		g_free (prefix);
+		g_string_free(words, TRUE);
+		g_hash_table_foreach(wordhash, free_word, NULL);
+		g_hash_table_destroy(wordhash);
+		return true;
+	}
 	
 	/* TagManager autocompletion - only for C/C++/Java */
 	if (SCLEX_CPP == lexLanguage)
@@ -816,7 +883,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 		if ((tags) && (tags->len > 0))
 		{
 			TMTag *tag;
-			for (guint i=0; ((i < tags->len) &&
+			for (guint i = 0; ((i < tags->len) &&
 				 (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
 			{
 				tag = (TMTag *) tags->pdata[i];

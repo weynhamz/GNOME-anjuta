@@ -167,6 +167,11 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		*/
 		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
 		
+		/* FIXME: This is probably not HIG-friendly. But the text/both
+		 * toolbar styles in anjuta is horible. We need to fix that first.
+		 */
+		gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_BOTH_HORIZ);
+		
 		toolbarname = gtk_widget_get_name (widget);
 		
 		DEBUG_PRINT ("Adding toolbar: %s", toolbarname);

@@ -166,9 +166,15 @@ static guint tm_file_inode_hash(gconstpointer key)
 {
 	struct stat file_stat;
 	const char *filename = (const char*)key;
-
-	stat(filename, &file_stat);
-	return file_stat.st_ino;
+	if (stat(filename, &file_stat) == 0)
+	{
+#ifdef TM_DEBUG
+		g_message ("Hash for '%s' is '%d'\n", filename, file_stat.st_ino);
+#endif
+		return g_direct_hash (GUINT_TO_POINTER (file_stat.st_ino));
+	} else {
+		return 0;
+	}
 }
 
 static void tm_move_entries_to_g_list(gpointer key, gpointer value, gpointer user_data)
@@ -178,7 +184,7 @@ static void tm_move_entries_to_g_list(gpointer key, gpointer value, gpointer use
 
 	GList **pp_list = (GList**)user_data;
 
-	*pp_list = g_list_append(*pp_list, value);
+	*pp_list = g_list_prepend(*pp_list, value);
 }
 
 gboolean tm_workspace_create_global_tags(const char *pre_process, const char **includes
@@ -194,19 +200,23 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 	GPtrArray *tags_array;
 	GHashTable *includes_files_hash;
 	GList *includes_files = NULL;
-	int list_len;
-	int idx_main;
-	int idx_sub;
-	int remove_count = 0;
-	char *temp_file = g_strdup_printf("%s/%d_%ld_1.cpp", P_tmpdir, getpid(), time(NULL));
-	char *temp_file2 = g_strdup_printf("%s/%d_%ld_2.cpp", P_tmpdir, getpid(), time(NULL));
-	TMTagAttrType sort_attrs[] = { tm_tag_attr_name_t, tm_tag_attr_scope_t
-		, tm_tag_attr_type_t, 0};
+	GList *node;
+	char *temp_file = g_strdup_printf("%s/%d_%ld_1.cpp", P_tmpdir, getpid(),
+									  time(NULL));
+	char *temp_file2 = g_strdup_printf("%s/%d_%ld_2.cpp", P_tmpdir, getpid(),
+									   time(NULL));
+	TMTagAttrType sort_attrs[] = {
+		tm_tag_attr_name_t, tm_tag_attr_scope_t,
+		tm_tag_attr_type_t, 0
+	};
+	
 	if (NULL == (fp = fopen(temp_file, "w")))
 		return FALSE;
 	
 	globbuf.gl_offs = 0;
-	includes_files_hash = g_hash_table_new(tm_file_inode_hash, g_int_equal);
+	includes_files_hash = g_hash_table_new_full (tm_file_inode_hash,
+												 g_direct_equal,
+												 NULL, g_free);
 
 	for(idx_inc = 0; idx_inc < includes_count; idx_inc++)
 	{
@@ -214,51 +224,75 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 		char *clean_path = malloc(dirty_len - 1);
 		strncpy(clean_path, includes[idx_inc] + 1, dirty_len - 1);
 		clean_path[dirty_len - 2] = 0;
-
-		//printf("[o][%s]\n", clean_path);
+		
+#ifdef TM_DEBUG
+		g_message ("[o][%s]\n", clean_path);
+#endif
 		glob(clean_path, 0, NULL, &globbuf);
-		//printf("matches: %d\n", globbuf.gl_pathc);
+		
+#ifdef TM_DEBUG
+		g_message ("matches: %d\n", globbuf.gl_pathc);
+#endif
+		
 		for(idx_glob = 0; idx_glob < globbuf.gl_pathc; idx_glob++)
 		{
-			//printf(">>> %s\n", globbuf.gl_pathv[idx_glob]);
-			gpointer existing_value = g_hash_table_lookup(includes_files_hash, globbuf.gl_pathv[idx_glob]);
-			if (existing_value == NULL) {
+#ifdef TM_DEBUG
+			g_message (">>> %s\n", globbuf.gl_pathv[idx_glob]);
+#endif			
+			if (!g_hash_table_lookup(includes_files_hash,
+									globbuf.gl_pathv[idx_glob]))
+			{
 				char* file_name_copy = strdup(globbuf.gl_pathv[idx_glob]);
-				g_hash_table_insert(includes_files_hash, file_name_copy, file_name_copy);
+				g_hash_table_insert(includes_files_hash, file_name_copy,
+									file_name_copy);
+#ifdef TM_DEBUG
+				g_message ("Added ...\n");
+#endif
 			}
 		}
 		globfree(&globbuf);
 		free(clean_path);
   	}
 
-
 	/* Checks for duplicate file entries which would case trouble */
-	{
-		g_hash_table_foreach(includes_files_hash, tm_move_entries_to_g_list, &includes_files);
-		g_hash_table_destroy(includes_files_hash);
-		includes_files_hash = NULL;
-	}
+	g_hash_table_foreach(includes_files_hash, tm_move_entries_to_g_list,
+						 &includes_files);
+	
+	includes_files = g_list_reverse (includes_files);
 
-	printf("writing out files to %s\n", temp_file);
-	for(idx_main = 0; idx_main < g_list_length(includes_files); idx_main++)
+#ifdef TM_DEBUG
+	g_message ("writing out files to %s\n", temp_file);
+#endif
+	node = includes_files;
+	while (node)
 	{
-		char *str = g_strdup_printf("#include \"%s\"\n",
-									(char*)g_list_nth_data(includes_files,
-														   idx_main));
+		char *str = g_strdup_printf("#include \"%s\"\n", (char*)node->data);
 		int str_len = strlen(str);
 
 		fwrite(str, str_len, 1, fp);
-
 		free(str);
-		free(g_list_nth(includes_files, idx_main) -> data);
+		node = g_list_next (node);
 	}
 	
+	g_list_free (includes_files);
+	g_hash_table_destroy(includes_files_hash);
+	includes_files_hash = NULL;
+	includes_files = NULL;
 	fclose(fp);
 
-	command = g_strdup_printf("%s %s >%s", pre_process, temp_file, temp_file2);
+	/* FIXME: The following grep command it be remove the lines 
+	 * G_BEGIN_DECLS and G_END_DECLS from the header files. The reason is
+	 * that in tagmanager, the files are not correctly parsed and the typedefs
+	 * following these lines are incorrectly parsed. The real fix should,
+	 * of course be in tagmanager (c) parser. This is just a temporary fix.
+	 */
+	command = g_strdup_printf("%s %s | grep -v -E '^\\s*(G_BEGIN_DECLS|G_END_DECLS)\\s*$' > %s",
+							  pre_process, temp_file, temp_file2);
+	
 #ifdef TM_DEBUG
 	g_message("Executing: %s", command);
 #endif
+	
 	system(command);
 	g_free(command);
 	unlink(temp_file);
@@ -271,15 +305,16 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 	}
 	unlink(temp_file2);
 	g_free(temp_file2);
-	if ((NULL == source_file->tags_array) || (0 == source_file->tags_array->len))
+	if ((NULL == source_file->tags_array) ||
+		(0 == source_file->tags_array->len))
 	{
 		tm_source_file_free(source_file);
 		return FALSE;
 	}
-	
 	/*
 	tags_array = tm_tags_extract(source_file->tags_array, tm_tag_class_t |
-	  tm_tag_typedef_t | tm_tag_prototype_t | tm_tag_enum_t | tm_tag_macro_with_arg_t);
+								 tm_tag_typedef_t | tm_tag_prototype_t |
+								 tm_tag_enum_t | tm_tag_macro_with_arg_t);
 	*/
 	tags_array = tm_tags_extract(source_file->tags_array, tm_tag_max_t);
 	
@@ -302,8 +337,13 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 	}
 	for (i=0; i < tags_array->len; ++i)
 	{
-		tm_tag_write(TM_TAG(tags_array->pdata[i]), fp, (tm_tag_attr_type_t
-		  | tm_tag_attr_scope_t | tm_tag_attr_arglist_t | tm_tag_attr_vartype_t | tm_tag_attr_pointer_t));
+		/*
+		tm_tag_write(TM_TAG(tags_array->pdata[i]), fp,
+					 (tm_tag_attr_type_t | tm_tag_attr_scope_t |
+					  tm_tag_attr_arglist_t | tm_tag_attr_vartype_t |
+					  tm_tag_attr_pointer_t));
+		*/
+		tm_tag_write(TM_TAG(tags_array->pdata[i]), fp, tm_tag_max_t);
 	}
 	fclose(fp);
 	tm_source_file_free(source_file);
@@ -743,8 +783,8 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, con
 	static langType langJava = -1;
 	TMTag *tag = NULL;	
 	
-	//FIX ME
-	//langJava = getNamedLanguage ("Java");
+	/* FIXME */
+	/* langJava = getNamedLanguage ("Java"); */
 	
 	g_return_val_if_fail((theWorkspace && name && name[0] != '\0'), NULL);
 	

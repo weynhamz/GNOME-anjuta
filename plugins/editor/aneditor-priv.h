@@ -235,6 +235,8 @@ protected:
 	GQueue *call_tip_node_queue;
 	CallTipNode call_tip_node;
 	
+	GCompletion *autocompletion;
+	
 	// needed for calltips caret moving
 	int lastPos;
 	

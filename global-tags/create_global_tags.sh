@@ -44,7 +44,7 @@ function anjuta_tags () {
 	if [ ! -e $OUTPUT_FILE ] ; then
 	    echo "WARNING: Could not create tags file $OUTPUT_FILE!" >&2
 	else
-	    gzip $OUTPUT_FILE
+	    gzip -f $OUTPUT_FILE
 	fi
     fi
 }
@@ -77,10 +77,10 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
 	    PKG_CFLAGS=`cat $pkg_file | grep -e "^\(\w\+\=\|\s*Cflags\:\)" | sed -e "s/^\s*Cflags\:\(.*\)/echo \"\1\"/" | sed -e 's/^\(\w\+\)\=\(.*\)/\1\=\"\2\"/' | sh`
 		# echo $PKG_CFLAGS
 	    package=`echo $pkg_file | sed -e 's/^.*\/\(.*\)\.pc/\1/'`
-	    if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
+	    # if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
 		echo "Creating tags file: tags/$package.anjutatags.gz ..."
 		anjuta_tags "$BASEDIR/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null
-	    fi
+	    # fi
 	done
     done
 fi
