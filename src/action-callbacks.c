@@ -65,7 +65,16 @@ on_set_default_preferences1_activate (GtkAction * action,
 void
 on_customize_shortcuts_activate(GtkAction *action, AnjutaApp *app)
 {
-	gtk_widget_show (GTK_WIDGET (app->ui));
+	GtkWidget *win, *accel_editor;
+	
+	accel_editor = anjuta_ui_get_accel_editor (ANJUTA_UI (app->ui));
+	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (app),
+									   GTK_DIALOG_DESTROY_WITH_PARENT,
+									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(win)->vbox), accel_editor);
+	gtk_window_set_default_size (GTK_WINDOW (win), 500, 400);
+	gtk_dialog_run (GTK_DIALOG (win));
+	gtk_widget_destroy (win);
 }
 
 void

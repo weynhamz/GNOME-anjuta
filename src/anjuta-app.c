@@ -253,12 +253,18 @@ anjuta_app_instance_init (AnjutaApp *app)
 	anjuta_preferences_initialize (app->preferences);
 
 	/* UI engine */
-	app->ui = ANJUTA_UI (anjuta_ui_new (GTK_WIDGET (app),
-					    G_CALLBACK (on_add_merge_widget),
-					    G_CALLBACK (on_remove_merge_widget)));
-	gtk_window_set_transient_for (GTK_WINDOW (app->ui),
-				      GTK_WINDOW (app));
-
+	app->ui = anjuta_ui_new ();
+	g_signal_connect (G_OBJECT (app->ui),
+					  "add_widget", G_CALLBACK (on_add_merge_widget),
+					  app);
+	
+	/* FIXME: */
+	/*
+	g_signal_connect (G_OBJECT (app->ui),
+					  "remove_widget", G_CALLBACK (on_remove_merge_widget),
+					  app);
+	*/
+	
 	/* Create stock icons */
 	create_stock_icons (app->ui);
 

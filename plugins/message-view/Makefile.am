@@ -23,17 +23,16 @@ plugin_LTLIBRARIES = libanjuta-message-view.la
 
 libanjuta_message_view_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_message_view_la_LIBADD = \
-	$(top_builddir)/libanjuta/libanjuta.la
+	$(top_builddir)/libanjuta/libanjuta.la \
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
 
 libanjuta_message_view_la_SOURCES = \
 	plugin.c\
 	plugin.h\
 	anjuta-msgman.c\
 	anjuta-msgman.h\
-	ianjuta-msgman.c\
 	message-view.c\
-	message-view.h\
-	imessage-view.c
+	message-view.h
 
 EXTRA_DIST = \
 	$(plugin_icon_DATA) \

@@ -22,7 +22,7 @@ Application shell interface
 </para>
 <para>
 	#AnjutaShell allows plugins to export arbitrary objects as <emphasis>
-	values</emphasis> in it's <emphasis>Values System</emphasis>. "value_added"
+	values</emphasis> in its <emphasis>Values System</emphasis>. "value_added"
 	and "value_removed" signals are emitted when a value is added to or
 	removed from the <emphasis>Values System</emphasis>, hence notifying the
 	plugins of its state. However, plugins should really not connect directly

@@ -1,3 +1,36 @@
+2004-04-27  Naba Kumar  <naba@gnome.org>
+
+	* (removed) plugins/message-view/imessage-view.c,
+	(removed) plugins/message-view/ianjuta-msgman.c,
+	plugins/message-view/Makefile.am,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/anjuta-msgman.h,
+	plugins/message-view/message-view.c,
+	plugins/message-view/message-view.h,
+	plugins/message-view/plugin.c,
+	plugins/message-view/plugin.h: Moved interface implementations
+	in their respective classes and used correct macros to
+	defined class types.
+
+	* libanjuta/anjuta-ui.c, libanjuta/anjuta-ui.h,
+	src/action-callbacks.c, src/anjuta-app.c: Subclassed
+	AnjutaUI from GtkUIManager instead of GtkDialog.
+
+	* manuals/reference/libanjuta/Makefile.am,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta.types,
+	(added) manuals/reference/libanjuta/anjuta-architecture.dia,
+	(added) manuals/reference/libanjuta/anjuta-architecture.png,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-ui.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml:
+	Wrote more documentation, fixed typos, added architecture
+	diagram, updated object types etc.
+
+	* plugins/editor/text_editor.c: Fixed interface implementation.
+
 2004-04-26  Naba Kumar  <naba@gnome.org>
 
 	* (added) manuals/reference/libanjuta/anjuta-architecture.dia,

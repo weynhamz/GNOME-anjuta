@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*  (c) 2003 Johannes Schmid
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -61,22 +62,22 @@ struct _MessageViewClass
 {
 	GtkHBoxClass parent;
 	
-	void (*message_clicked) (GObject* view, gchar* message);
+	void (*message_clicked) (GObject* view, const gchar* message);
 };	
 
 GType message_view_get_type (void);
-GtkWidget* message_view_new();
+GtkWidget* message_view_new (void);
 
-void message_view_append(MessageView* view, gchar* message); 
+void message_view_append (MessageView* view, const gchar* message); 
 
-gboolean message_view_select_next(MessageView* view);
-gboolean message_view_select_previous(MessageView* view);
+gboolean message_view_select_next (MessageView* view);
+gboolean message_view_select_previous (MessageView* view);
 
-guint message_view_get_line(MessageView* view);
-gchar* message_view_get_message(MessageView* view);
-GList* message_view_get_messages(MessageView* view);
+guint message_view_get_line (MessageView* view);
+gchar* message_view_get_message (MessageView* view);
+GList* message_view_get_messages (MessageView* view);
 
-void message_view_clear(MessageView* view);
+void message_view_clear (MessageView* view);
 
 G_END_DECLS
 

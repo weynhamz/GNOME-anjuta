@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*  (c) Johannes Schmid 2003
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -13,6 +14,9 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/interfaces/ianjuta-message-view.h>
 
 #include "message-view.h"
 
@@ -94,7 +98,7 @@ void add_char(gchar** str, gchar c);
 
 /* Function to register the message-view object */
 
-GNOME_CLASS_BOILERPLATE (MessageView, message_view, GtkHBox, GTK_TYPE_HBOX);
+// GNOME_CLASS_BOILERPLATE (MessageView, message_view, GtkHBox, GTK_TYPE_HBOX);
 
 /* Init message-view */
 
@@ -277,7 +281,7 @@ message_view_new ()
 The string is expected to be utf8 */
 
 void
-message_view_append (MessageView * view, gchar * message)
+message_view_append (MessageView * view, const gchar * message)
 {
 	gint cur_char;
 	gboolean highlite;
@@ -751,3 +755,69 @@ void add_char(gchar** str, gchar c)
 	g_free(str);
 	str = &buffer;
 }
+
+/*
+ * IAnjutaMessageView interface implementation
+ */
+static void
+ianjuta_msgview_append (IAnjutaMessageView * message_view,
+						const gchar * message, GError ** e)
+{
+	message_view_append (MESSAGE_VIEW (message_view), message);
+}
+
+static void
+ianjuta_msgview_clear (IAnjutaMessageView * message_view, GError ** e)
+{
+	message_view_clear (MESSAGE_VIEW (message_view));
+}
+
+static void
+ianjuta_msgview_select_next (IAnjutaMessageView * message_view,
+							 GError ** e)
+{
+	message_view_select_next (MESSAGE_VIEW (message_view));
+}
+
+static void
+ianjuta_msgview_select_previous (IAnjutaMessageView * message_view,
+								 GError ** e)
+{
+	message_view_select_previous (MESSAGE_VIEW (message_view));
+}
+
+static gint
+ianjuta_msgview_get_line (IAnjutaMessageView * message_view, GError ** e)
+{
+	return message_view_get_line (MESSAGE_VIEW (message_view));
+}
+
+static gchar *
+ianjuta_msgview_get_message (IAnjutaMessageView * message_view,
+							 GError ** e)
+{
+	return message_view_get_message (MESSAGE_VIEW (message_view));
+}
+
+static GList *
+ianjuta_msgview_get_all_messages (IAnjutaMessageView * message_view,
+								  GError ** e)
+{
+	return message_view_get_messages (MESSAGE_VIEW (message_view));
+}
+
+static void
+ianjuta_msgview_iface_init (IAnjutaMessageViewIface *iface)
+{
+	iface->append = ianjuta_msgview_append;
+	iface->clear = ianjuta_msgview_clear;
+	iface->select_next = ianjuta_msgview_select_next;
+	iface->select_previous = ianjuta_msgview_select_previous;
+	iface->get_line = ianjuta_msgview_get_line;
+	iface->get_message = ianjuta_msgview_get_message;
+	iface->get_all_messages = ianjuta_msgview_get_all_messages;
+}
+
+ANJUTA_TYPE_BEGIN(MessageView, message_view, GTK_TYPE_HBOX);
+ANJUTA_INTERFACE(ianjuta_msgview, IANJUTA_TYPE_MESSAGE_VIEW);
+ANJUTA_TYPE_END;

@@ -29,7 +29,7 @@ CFILE_GLOB=$(top_srcdir)/libanjuta/*.c
 IGNORE_HFILES=egg* glue* gnomefilelist.* fileselection.* e-*
 
 # Images to copy into HTML directory
-HTML_IMAGES =
+HTML_IMAGES = anjuta-architecture.png
 
 # Extra SGML files that are included by $(DOC_MAIN_SGML_FILE)
 content_files = \
@@ -48,7 +48,8 @@ GTKDOC_CFLAGS =						\
 	$(LIBANJUTA_CFLAGS)
 
 GTKDOC_LIBS =						\
-	$(top_builddir)/libanjuta/libanjuta.la		\
+	$(top_builddir)/libanjuta/libanjuta.la \
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
 	$(LIBANJUTA_LIBS)
 

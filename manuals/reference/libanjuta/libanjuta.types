@@ -1,7 +1,15 @@
 #include <libanjuta/libanjuta.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-message-view.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 anjuta_shell_get_type
 anjuta_preferences_get_type
 anjuta_preferences_dialog_get_type
 anjuta_ui_get_type
 anjuta_plugin_get_type
+ianjuta_editor_get_type
+ianjuta_document_manager_get_type
+ianjuta_message_view_get_type
+ianjuta_message_manager_get_type

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
   <bookinfo>
     <authorgroup>
@@ -37,9 +37,17 @@
   </bookinfo>
 
   <chapter>
-  	<title>Architecture</title>
+  	<title>Anjuta Architecture</title>
 	<para>
 		
+		<figure id="anjuta-architecture">
+			<title>Architecture diagram</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="anjuta-architecture.png" format="PNG"/>
+				</imageobject>
+			</mediaobject>
+		</figure>
 	</para>
   </chapter>
 
@@ -63,60 +71,74 @@
 	</para>
 	<para>
 		Fields used in <emphasis>.plugin.in</emphasis> file are:
-		<orderedlist>
-			<listitem>
-				<para>
-					<emphasis>Group name:</emphasis> The first line should
-					always be [Anjuta Plugin]. This is group containing
-					plugin details and will be used by plugin manager.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>Location:</emphasis> Describes where the plugin
-					is located. It is of the form <emphasis>libname:classname
-					</emphasis>. libname is the shared library name without
-					the 'lib' prefix and '.so' suffix. <emphasis>classname</emphasis>
-					is the plugin class defined in the library.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>Interfaces:</emphasis> Primary interfaces
-					implemented by the plugin.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>Dependencies:</emphasis> Comma separated list
-					of all interfaces that this plugin depends on. Plugin
-					implementing these interaces will be activated before
-					activating this plugin. This field is optional, so if there
-					is no dependencies, it may not present.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>Icon:</emphasis> Icon file name in .png format.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>_Name:</emphasis> Translatable plugin name.
-					Notice the '_' before the key name. It means the field
-					is translatable.
-				</para>
-			</listitem>
-			<listitem>
-				<para>
-					<emphasis>_Description:</emphasis> Brief translatable
-					description. Notice the '_' before the key name. It
-					means the field is translatable.
-				</para>
-			</listitem>
-		</orderedlist>
+		<variablelist>
+			<varlistentry><term>Group name</term>
+				<listitem>
+					<para>
+						The first group should
+						always be [Anjuta Plugin]. This group contains
+						plugin details and will be used by plugin manager.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>Location</term>
+				<listitem>
+					<para>
+						Describes where the plugin is located. It is of the
+						form <emphasis>libname:classname
+						</emphasis>. libname is the shared library name without
+						the 'lib' prefix and '.so' suffix.
+						<emphasis>classname</emphasis> is the plugin class
+						defined in the library.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>Interfaces</term>
+				<listitem>
+					<para>
+						Primary interfaces implemented by the plugin.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>Interfaces</term>
+				<listitem>
+					<para>
+						Comma separated list
+						of all interfaces that this plugin depends on. Plugin
+						implementing these interaces will be activated before
+						activating this plugin. This field is optional. If
+						there is no dependencies, it may not present.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>Icon</term>
+				<listitem>
+					<para>
+						Icon file name in .png format.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>_Name</term>
+				<listitem>
+					<para>
+						Translatable plugin name.
+						Notice the '_' before the key name. It means the field
+						is translatable.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry><term>_Description</term>
+				<listitem>
+					<para>
+						Brief translatable
+						description. Notice the '_' before the key name. It
+						means the field is translatable.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 		Here is a typical plugin meta-data file
-		anjuta-document-manager.plugin.in:
+		(anjuta-document-manager.plugin.in):
 
 <programlisting>
 [Anjuta Plugin]
@@ -134,6 +156,8 @@ _Description=Provides document management capabilities.
 		the	meta-data file can also contain other groups, which a plugin can
 		read using #AnjutaPluginFile methods. plugin manager simply ignores
 		these additional groups, but plugins can use them on their own.
+	</para>
+	<para>
 		A typical example would be using an extra group (e.g [Supported Mime Types])
 		for a anjuta-open-file plugin to identify plugins supporting
 		mime-types. It could then activate the correct plugin to open a
@@ -154,10 +178,18 @@ plugin_in_files = anjuta-plugin-name.plugin.in
 anjuta_plugindir = $(libdir)/anjuta
 anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-plugin_icondir = $(datadir)/anjuta/pixmaps
+plugin_icondir = $(datadir)/pixmaps/anjuta
 plugin_icon_DATA = anjuta-plugin-name.png
 </programlisting>
 
+		<note>
+			<para>
+				The $(datadir) variable should exactly match with installed
+				Anjuta's datadir. In case it is different, use the command
+				"pkg-config --variable=prefix libanjuta" in configure.in
+				to determine the installed prefix of Anjuta.
+			</para>
+		</note>
 	</para>
   </chapter>
   
@@ -196,5 +228,9 @@ plugin_icon_DATA = anjuta-plugin-name.png
     <xi:include href="xml/ianjuta-document-manager.xml"/>
     <xi:include href="xml/ianjuta-message-view.xml"/>
     <xi:include href="xml/ianjuta-message-manager.xml"/>
+  </chapter>
+  <chapter>
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
   </chapter>
 </book>

@@ -39,7 +39,6 @@
 #include "anjuta-ui.h"
 
 struct _AnjutaUIPrivate {
-	GtkUIManager *merge;
 	GtkIconFactory *icon_factory;
 	GtkTreeModel *model;
 	GHashTable *actions_hash;
@@ -54,15 +53,6 @@ enum {
 	COLUMN_GROUP,
 	N_COLUMNS
 };
-
-#if 0
-static gboolean
-on_delete_event (AnjutaUI *ui, gpointer data)
-{
-	gtk_widget_hide (GTK_WIDGET (ui));
-	return FALSE;
-}
-#endif
 
 static void
 sensitivity_toggled (GtkCellRendererToggle *cell,
@@ -278,103 +268,11 @@ accel_set_func (GtkTreeViewColumn *tree_column,
 	}
 }
 
-static GtkWidget *
-create_tree_view (AnjutaUI *ui)
-{
-	GtkWidget *tree_view, *sw;
-	GtkTreeStore *store;
-	GtkTreeViewColumn *column;
-	GtkCellRenderer *renderer;
-	
-	store = gtk_tree_store_new (N_COLUMNS,
-								GDK_TYPE_PIXBUF,
-								G_TYPE_STRING,
-								G_TYPE_BOOLEAN,
-								G_TYPE_BOOLEAN,
-								G_TYPE_POINTER,
-								G_TYPE_STRING);
-	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION,
-									 iter_compare_func, NULL, NULL);
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
-										  COLUMN_ACTION, GTK_SORT_ASCENDING);
-	
-	tree_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
-	
-	/* Columns */
-	column = gtk_tree_view_column_new ();
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Action"));
-
-	renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_tree_view_column_pack_start (column, renderer, FALSE);
-	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
-										COLUMN_PIXBUF);
-
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										COLUMN_ACTION);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree_view), column);
-	gtk_tree_view_column_set_sort_column_id (column, 0);
-	
-	renderer = gtk_cell_renderer_toggle_new ();
-	g_signal_connect (G_OBJECT (renderer), "toggled",
-					  G_CALLBACK (visibility_toggled), store);
-	column = gtk_tree_view_column_new_with_attributes (_("Visible"),
-													   renderer,
-													   "active",
-													   COLUMN_VISIBLE,
-													   NULL);
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-	
-	renderer = gtk_cell_renderer_toggle_new ();
-	g_signal_connect (G_OBJECT (renderer), "toggled",
-					  G_CALLBACK (sensitivity_toggled), store);
-	column = gtk_tree_view_column_new_with_attributes (_("Sensitive"),
-													   renderer,
-													   "active",
-													   COLUMN_SENSITIVE,
-													   NULL);
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-	
-	column = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (column, _("Shortcut"));
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);	
-	renderer = g_object_new (EGG_TYPE_CELL_RENDERER_KEYS,
-							"editable", TRUE,
-							"accel_mode", EGG_CELL_RENDERER_KEYS_MODE_GTK,
-							NULL);
-	g_signal_connect (G_OBJECT (renderer), "keys_edited",
-					  G_CALLBACK (accel_edited_callback),
-					  store);
-	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
-	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_set_cell_data_func (column, renderer, accel_set_func, NULL, NULL);
-	gtk_tree_view_column_set_sort_column_id (column, COLUMN_DATA);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-	
-	sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-	gtk_container_add (GTK_CONTAINER (sw), tree_view);
-	
-	// unreferenced in destroy() method.
-	ui->priv->model = GTK_TREE_MODEL (store);
-	
-	return sw;
-}
-
 static void anjuta_ui_class_init (AnjutaUIClass *class);
 static void anjuta_ui_instance_init (AnjutaUI *ui);
 
-GNOME_CLASS_BOILERPLATE (AnjutaUI, 
-						 anjuta_ui,
-						 GtkDialog, GTK_TYPE_DIALOG);
+GNOME_CLASS_BOILERPLATE (AnjutaUI, anjuta_ui,
+						 GtkUIManager, GTK_TYPE_UI_MANAGER);
 
 static void
 anjuta_ui_dispose (GObject *obj)
@@ -397,98 +295,59 @@ anjuta_ui_finalize (GObject *obj)
 }
 
 static void
-anjuta_ui_close (GtkDialog *dialog)
-{
-	gtk_widget_hide (GTK_WIDGET (dialog));
-}
-
-static void
 anjuta_ui_class_init (AnjutaUIClass *class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
-	GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (class);
 
 	parent_class = g_type_class_peek_parent (class);
 	
 	object_class->dispose = anjuta_ui_dispose;
 	object_class->finalize = anjuta_ui_finalize;
-
-	// dialog_class->response = anjuta_preferences_dialog_response;
-	dialog_class->close = anjuta_ui_close;
 }
 
 static void
 anjuta_ui_instance_init (AnjutaUI *ui)
 {
-	GtkWidget *view;
+	GtkTreeStore *store;
 	
+	/* Initialize member data */
 	ui->priv = g_new0 (AnjutaUIPrivate, 1);
-	ui->priv->merge = gtk_ui_manager_new();
 	ui->priv->actions_hash = g_hash_table_new_full (g_str_hash,
 													g_str_equal,
 													(GDestroyNotify) g_free,
 													(GDestroyNotify) NULL);
+	/* Create Icon factory */
 	ui->priv->icon_factory = gtk_icon_factory_new ();
 	gtk_icon_factory_add_default (ui->priv->icon_factory);
 	
-	gtk_window_set_default_size (GTK_WINDOW (ui), 500, 400);
-	view = create_tree_view (ui);
-	gtk_widget_show_all (view);
-	gtk_container_add (GTK_CONTAINER (GTK_DIALOG(ui)->vbox), view);
+	/* Create Accel editor model */
+	store = gtk_tree_store_new (N_COLUMNS,
+								GDK_TYPE_PIXBUF,
+								G_TYPE_STRING,
+								G_TYPE_BOOLEAN,
+								G_TYPE_BOOLEAN,
+								G_TYPE_POINTER,
+								G_TYPE_STRING);
+	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE(store), COLUMN_ACTION,
+									 iter_compare_func, NULL, NULL);
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
+										  COLUMN_ACTION, GTK_SORT_ASCENDING);
+	
+	// unreferenced in destroy() method.
+	ui->priv->model = GTK_TREE_MODEL (store);
 }
 
 /**
  * anjuta_ui_new:
- * @ui_container: The container where UI objects (menus and toolbars) will
- * be added.
- * @add_widget_cb: Callback function to call for adding the widget in
- * ui_container.
- * @remove_widget_cb: Callback function to call for removing the widget from
- * ui_container.
  * 
- * Creates a new instance of #AnjutaUI. @ui_container is the container where
- * where UI elements (menus and toolbars) will be added using the callback
- * @add_widget_cb. @remove_widget_cb will be called for removing the UI
- * elements from @ui_container. These two callbacks are directly connected to
- * the "add_widget" and "remove_widget" signals of GtkUIManager class, so the
- * the prototypes for these callbacks should be based on them.
+ * Creates a new instance of #AnjutaUI.
  * 
  * Return value: A #AnjutaUI object
  */
-GtkWidget *
-anjuta_ui_new (GtkWidget *ui_container,
-			   GCallback add_widget_cb, GCallback remove_widget_cb)
+AnjutaUI *
+anjuta_ui_new (void)
 {
-	GtkWidget *widget;
-	widget = gtk_widget_new (ANJUTA_TYPE_UI, 
-				 "title", _("Anjuta User Interface"),
-				 NULL);
-	if (add_widget_cb)
-		g_signal_connect (G_OBJECT (ANJUTA_UI (widget)->priv->merge),
-						  "add_widget", G_CALLBACK (add_widget_cb),
-	/* FIXME: */					  ui_container);
-	/* if (remove_widget_cb)
-		g_signal_connect (G_OBJECT (ANJUTA_UI (widget)->priv->merge),
-						  "remove_widget", G_CALLBACK (remove_widget_cb),
-					  ui_container);*/
-	return widget;
-}
-
-/**
- * anjuta_ui_get_icon_factory:
- * @ui: A #AnjutaUI object
- * 
- * This returns the IconFactory object. All icons should be registered using
- * this icon factory. Read the documentation for #GtkIconFactory on how to 
- * use it.
- *
- * Return value: The #GtkIconFactory object used by it
- */
-GtkIconFactory*
-anjuta_ui_get_icon_factory (AnjutaUI *ui)
-{
-	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
-	return ui->priv->icon_factory;
+	return g_object_new (ANJUTA_TYPE_UI, NULL);
 }
 
 /**
@@ -602,7 +461,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	g_return_if_fail (action_group_name != NULL);
 	g_return_if_fail (action_group_name != NULL);
 	
-	gtk_ui_manager_insert_action_group (ui->priv->merge, action_group, 0);
+	gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), action_group, 0);
 	g_hash_table_insert (ui->priv->actions_hash,
 						g_strdup (action_group_name), action_group);
 	actions = gtk_action_group_list_actions (action_group);
@@ -722,89 +581,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		else
 			valid = gtk_tree_model_iter_next (model, &iter);
 	}
-	gtk_ui_manager_remove_action_group (ui->priv->merge, action_group);
-}
-
-/**
- * anjuta_ui_merge:
- * @ui: A #AnjutaUI object.
- * @ui_filename: UI file to merge into UI manager.
- *
- * Merges XML UI definition in @ui_filename. UI elements defined in the xml
- * are merged with existing UI elements in UI manager. The format of the
- * file content is the standard XML UI definition tree. For more detail,
- * read the documentation for #GtkUIManager.
- * 
- * Return value: Integer merge ID
- */
-gint
-anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
-{
-	gint id;
-	GError *err = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_UI (ui), -1);
-	g_return_val_if_fail (ui_filename != NULL, -1);
-	id = gtk_ui_manager_add_ui_from_file(ui->priv->merge, ui_filename, &err);
-#ifdef DEBUG
-	{
-		gchar *basename = g_path_get_basename (ui_filename);
-		g_message("merged [%d] %s", id, basename);
-	}
-#endif
-	if (err != NULL)
-		g_warning ("Could not merge [%s]: %s", ui_filename, err->message);
-	return id;
-}
-
-/**
- * anjuta_ui_unmerge:
- * @ui: A #AnjutaUI object.
- * @id: Merge ID returned by anjuta_ui_merge().
- *
- * Unmerges UI with the ID value @id (returned by anjuta_ui_merge() when
- * it was merged. For more detail, read the documentation for #GtkUIManager.
- */
-void
-anjuta_ui_unmerge (AnjutaUI *ui, gint id)
-{
-#ifdef DEBUG
-	g_message("Menu unmerging %d", id);
-#endif
-	g_return_if_fail (ANJUTA_IS_UI (ui));
-	gtk_ui_manager_remove_ui(ui->priv->merge, id);
-}
-
-/**
- * anjuta_ui_get_accel_group:
- * @ui: A #AnjutaUI object.
- * returns: A #GtkAccelGroup object.
- *
- * Returns the #GtkAccelGroup object associated with this UI manager.
- */
-GtkAccelGroup*
-anjuta_ui_get_accel_group (AnjutaUI *ui)
-{
-	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
-	return gtk_ui_manager_get_accel_group (ui->priv->merge);
-}
-
-/**
- * anjuta_ui_get_menu_merge:
- * @ui: A #AnjutaUI object.
- * returns: A #GtkUIManager object.
- *
- * Returns the #GtkUIManager object use by this UI manager. Please note that
- * any actions additions/removals using GtkUIManager are not registred with
- * #AnjutaUI and hence their accellerators cannot be edited. Nor will they be
- * listed in the UI manager dialog. Hence, use #AnjutaUI methods whenever
- * possible.
- */
-GtkUIManager*
-anjuta_ui_get_menu_merge (AnjutaUI *ui)
-{
-	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
-	return ui->priv->merge;
+	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), action_group);
 }
 
 /**
@@ -899,6 +676,176 @@ anjuta_ui_activate_action_by_group (AnjutaUI *ui, GtkActionGroup *action_group,
 }
 
 /**
+ * anjuta_ui_merge:
+ * @ui: A #AnjutaUI object.
+ * @ui_filename: UI file to merge into UI manager.
+ *
+ * Merges XML UI definition in @ui_filename. UI elements defined in the xml
+ * are merged with existing UI elements in UI manager. The format of the
+ * file content is the standard XML UI definition tree. For more detail,
+ * read the documentation for #GtkUIManager.
+ * 
+ * Return value: Integer merge ID
+ */
+gint
+anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
+{
+	gint id;
+	GError *err = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_UI (ui), -1);
+	g_return_val_if_fail (ui_filename != NULL, -1);
+	id = gtk_ui_manager_add_ui_from_file(GTK_UI_MANAGER (ui),
+										 ui_filename, &err);
+#ifdef DEBUG
+	{
+		gchar *basename = g_path_get_basename (ui_filename);
+		g_message("merged [%d] %s", id, basename);
+	}
+#endif
+	if (err != NULL)
+		g_warning ("Could not merge [%s]: %s", ui_filename, err->message);
+	return id;
+}
+
+/**
+ * anjuta_ui_unmerge:
+ * @ui: A #AnjutaUI object.
+ * @id: Merge ID returned by anjuta_ui_merge().
+ *
+ * Unmerges UI with the ID value @id (returned by anjuta_ui_merge() when
+ * it was merged. For more detail, read the documentation for #GtkUIManager.
+ */
+void
+anjuta_ui_unmerge (AnjutaUI *ui, gint id)
+{
+#ifdef DEBUG
+	g_message("Menu unmerging %d", id);
+#endif
+	g_return_if_fail (ANJUTA_IS_UI (ui));
+	gtk_ui_manager_remove_ui(GTK_UI_MANAGER (ui), id);
+}
+
+/**
+ * anjuta_ui_get_accel_group:
+ * @ui: A #AnjutaUI object.
+ * returns: A #GtkAccelGroup object.
+ *
+ * Returns the #GtkAccelGroup object associated with this UI manager.
+ */
+GtkAccelGroup*
+anjuta_ui_get_accel_group (AnjutaUI *ui)
+{
+	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
+	return gtk_ui_manager_get_accel_group (GTK_UI_MANAGER (ui));
+}
+
+/**
+ * anjuta_ui_get_accel_editor:
+ * @ui: A #AnjutaUI object.
+ * returns: A #GtkWidget object.
+ *
+ * Creates an accel editor widget and returns it. It should be added to
+ * container and displayed to users.
+ *
+ * Returns a #GtkWidget containing the editor.
+ */
+GtkWidget *
+anjuta_ui_get_accel_editor (AnjutaUI *ui)
+{
+	GtkWidget *tree_view, *sw;
+	GtkTreeStore *store;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	
+	store = GTK_TREE_STORE (ui->priv->model);
+	
+	tree_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
+	
+	/* Columns */
+	column = gtk_tree_view_column_new ();
+	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Action"));
+
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
+										COLUMN_PIXBUF);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",
+										COLUMN_ACTION);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree_view), column);
+	gtk_tree_view_column_set_sort_column_id (column, 0);
+	
+	renderer = gtk_cell_renderer_toggle_new ();
+	g_signal_connect (G_OBJECT (renderer), "toggled",
+					  G_CALLBACK (visibility_toggled), store);
+	column = gtk_tree_view_column_new_with_attributes (_("Visible"),
+													   renderer,
+													   "active",
+													   COLUMN_VISIBLE,
+													   NULL);
+	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+	
+	renderer = gtk_cell_renderer_toggle_new ();
+	g_signal_connect (G_OBJECT (renderer), "toggled",
+					  G_CALLBACK (sensitivity_toggled), store);
+	column = gtk_tree_view_column_new_with_attributes (_("Sensitive"),
+													   renderer,
+													   "active",
+													   COLUMN_SENSITIVE,
+													   NULL);
+	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+	
+	column = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_title (column, _("Shortcut"));
+	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);	
+	renderer = g_object_new (EGG_TYPE_CELL_RENDERER_KEYS,
+							"editable", TRUE,
+							"accel_mode", EGG_CELL_RENDERER_KEYS_MODE_GTK,
+							NULL);
+	g_signal_connect (G_OBJECT (renderer), "keys_edited",
+					  G_CALLBACK (accel_edited_callback),
+					  store);
+	g_object_set (G_OBJECT (renderer), "editable", TRUE, NULL);
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_set_cell_data_func (column, renderer, accel_set_func, NULL, NULL);
+	gtk_tree_view_column_set_sort_column_id (column, COLUMN_DATA);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
+	
+	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (sw), tree_view);
+	gtk_widget_show_all (sw);
+	return sw;
+}
+
+/**
+ * anjuta_ui_get_icon_factory:
+ * @ui: A #AnjutaUI object
+ * 
+ * This returns the IconFactory object. All icons should be registered using
+ * this icon factory. Read the documentation for #GtkIconFactory on how to 
+ * use it.
+ *
+ * Return value: The #GtkIconFactory object used by it
+ */
+GtkIconFactory*
+anjuta_ui_get_icon_factory (AnjutaUI *ui)
+{
+	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
+	return ui->priv->icon_factory;
+}
+
+/**
  * anjuta_ui_dump_tree:
  * @ui: A #AnjutaUI object.
  *
@@ -911,8 +858,8 @@ anjuta_ui_dump_tree (AnjutaUI *ui)
 	
 	g_return_if_fail (ANJUTA_IS_UI(ui));
 	
-	gtk_ui_manager_ensure_update (ui->priv->merge);
-	ui_str = gtk_ui_manager_get_ui (ui->priv->merge);
+	gtk_ui_manager_ensure_update (GTK_UI_MANAGER (ui));
+	ui_str = gtk_ui_manager_get_ui (GTK_UI_MANAGER (ui));
 	printf("%s", ui_str);
 	g_free (ui_str);
 }

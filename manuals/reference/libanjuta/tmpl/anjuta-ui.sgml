@@ -6,12 +6,46 @@ User Interface manager
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+	#AnjutaUI subclasses #GtkUIManager, so you should really read #GtkUIManager
+	documentation first. This documentation will cover only the relevent
+	API.
+</para>
+<para>
+	#AnjutaUI has its own methods for adding action groups, which is differnt
+	from #GtkUIManager methods. All #AnjutaPlugin based classes should use
+	these methods instead of #GtkUIManager methods. The reason is, in addition
+	to adding the actions and groups to the UI manager, it also resgisters
+	them for UI customization and accellerators editing. It also keeps
+	record of all actions.
+</para>
+<para>
+	An interesting side effect of this is that these
+	actions could be conveniently accessed or activated with
+	anjuta_ui_get_action() or anjuta_ui_activate_action_by_path(), without
+	the need of original action group object. This makes it is possible for
+	activating actions remotely from other plugins.
+</para>
+<para>
+	anjuta_ui_get_accel_editor() will return a widget containing the
+	UI customization and accellerators editor. All actions and action groups
+	are organized into a tree view, which should be added to a visible
+	container (e.g. a #GtkDialog based object) and displayed to users.
+</para>
+<para>
+	<note>
+		<para>
+			Any actions additions/removals using #GtkUIManager are not
+			registred with #AnjutaUI and hence their accellerators
+			cannot be edited. Nor will they be listed in UI manager
+			dialog. Hence, use #AnjutaUI methods whenever possible.
+		</para>
+	</note>
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
-
+	#GtkAction, #GtkActionEntry, #GtkToggleAction, #GtkToggleActionEntry,
+	#GtkRadioAction, #GtkRadioActionEntry, #GtkActionGroup, #GtkUIManager
 </para>
 
 <!-- ##### STRUCT AnjutaUI ##### -->
@@ -25,22 +59,13 @@ User Interface manager
 
 </para>
 
+@Returns: 
+<!-- # Unused Parameters # -->
 @ui_container: 
 @add_widget_cb: 
 @remove_widget_cb: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @add_widget: 
 @remove_widget: 
-
-
-<!-- ##### FUNCTION anjuta_ui_get_icon_factory ##### -->
-<para>
-
-</para>
-
-@ui: 
-@Returns: 
 
 
 <!-- ##### FUNCTION anjuta_ui_add_action_group_entries ##### -->
@@ -97,45 +122,6 @@ User Interface manager
 @action_group: 
 
 
-<!-- ##### FUNCTION anjuta_ui_merge ##### -->
-<para>
-
-</para>
-
-@ui: 
-@ui_filename: 
-@Returns: 
-<!-- # Unused Parameters # -->
-@filename: 
-
-
-<!-- ##### FUNCTION anjuta_ui_unmerge ##### -->
-<para>
-
-</para>
-
-@ui: 
-@id: 
-
-
-<!-- ##### FUNCTION anjuta_ui_get_accel_group ##### -->
-<para>
-
-</para>
-
-@ui: 
-@Returns: 
-
-
-<!-- ##### FUNCTION anjuta_ui_get_menu_merge ##### -->
-<para>
-
-</para>
-
-@ui: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_ui_get_action ##### -->
 <para>
 
@@ -168,11 +154,57 @@ User Interface manager
 @action_name: 
 
 
-<!-- ##### FUNCTION anjuta_ui_dump_tree ##### -->
+<!-- ##### FUNCTION anjuta_ui_merge ##### -->
 <para>
 
 </para>
 
 @ui: 
+@ui_filename: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@filename: 
 
 
+<!-- ##### FUNCTION anjuta_ui_unmerge ##### -->
+<para>
+
+</para>
+
+@ui: 
+@id: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_icon_factory ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_accel_group ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_accel_editor ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_dump_tree ##### -->
+<para>
+
+</para>
+
+@ui:

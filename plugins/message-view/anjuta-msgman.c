@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*  anjuta-msgman.c (c) 2004 Johannes Schmid
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -168,7 +169,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 }
 
 void
-anjuta_msgman_remove_editor (AnjutaMsgman * msgman, MessageView * view)
+anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view)
 {
 	AnjutaMsgmanPage *page;
 	gint page_num;

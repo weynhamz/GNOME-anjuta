@@ -1711,7 +1711,7 @@ itext_editor_get_attributes (IAnjutaEditor *editor, gint start,
 }
 
 static void
-ianjuta_editor_iface_init (IAnjutaEditorIface *iface)
+itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->goto_line = itext_editor_goto_line;
 	iface->get_filename = itext_editor_get_filename;
@@ -1721,5 +1721,5 @@ ianjuta_editor_iface_init (IAnjutaEditorIface *iface)
 }
 
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
-ANJUTA_INTERFACE(ianjuta_editor, IANJUTA_TYPE_EDITOR);
+ANJUTA_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_END;

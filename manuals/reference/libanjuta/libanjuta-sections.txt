@@ -155,18 +155,18 @@ AnjutaPreferencesDialogPrivate
 AnjutaUI
 <TITLE>AnjutaUI</TITLE>
 anjuta_ui_new
-anjuta_ui_get_icon_factory
 anjuta_ui_add_action_group_entries
 anjuta_ui_add_toggle_action_group_entries
 anjuta_ui_add_action_group
 anjuta_ui_remove_action_group
-anjuta_ui_merge
-anjuta_ui_unmerge
-anjuta_ui_get_accel_group
-anjuta_ui_get_menu_merge
 anjuta_ui_get_action
 anjuta_ui_activate_action_by_path
 anjuta_ui_activate_action_by_group
+anjuta_ui_merge
+anjuta_ui_unmerge
+anjuta_ui_get_icon_factory
+anjuta_ui_get_accel_group
+anjuta_ui_get_accel_editor
 anjuta_ui_dump_tree
 <SUBSECTION Standard>
 ANJUTA_UI

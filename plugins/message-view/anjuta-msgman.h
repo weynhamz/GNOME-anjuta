@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*  anjuta-msgman.h (c) 2004 Johannes Schmid
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,13 +47,13 @@ GType anjuta_msgman_get_type (void);
 GtkWidget *anjuta_msgman_new (AnjutaPreferences * pref);
 
 MessageView *anjuta_msgman_add_view (AnjutaMsgman * msgman,
-				     const gchar * name,
-				     const gchar * pixmap);
+									 const gchar * name,
+									 const gchar * pixmap);
 void anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view);
 
 MessageView *anjuta_msgman_get_current_view (AnjutaMsgman * msgman);
 MessageView *anjuta_msgman_get_view_by_name (AnjutaMsgman * msgman,
-					     const gchar * name);
+										     const gchar * name);
 
 void anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv);
 

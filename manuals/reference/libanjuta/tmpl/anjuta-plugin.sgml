@@ -15,29 +15,35 @@ Anjuta plugin base class from which all plugins are derived.
 	A plugin class is derived from #AnjutaPlugin class and will be used by
 	shell to instanciate any number of plugin objects. Three member data
 	in #AnjutaPlugin are directly accessible from outside (usually accessed
-	by the plugin and it's associated interface implementations only ).
+	by the plugin and its associated interface implementations only ).
 	They are:
-
-	<orderedlist>
-		<listitem>
-			<para>
-				plugin->shell: It is the shell in which the plugin is loaded.
-			</para>
-		</listitem>
-		<listitem>
-			<para>
-				plugin->ui: It is the UI manager where the plugin will
-				merge or unmerge it's UI elements (menus, toolbars and popup
-				menus).
-			</para>
-		</listitem>
-		<listitem>
-			<para>
-				plugin->prefs: A #AnjutaPreferences object, where the plugin
-				can register it's prefereces.
-			</para>
-		</listitem>
-	</orderedlist>
+	<variablelist>
+		<varlistentry><term>shell</term>
+			<listitem>
+				<para>
+					It is the shell in which the plugin is loaded. See
+					#AnjutaShell for more details.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry><term>ui</term>
+			<listitem>
+				<para>
+					It is the UI manager where the plugin will
+					merge or unmerge its UI elements (menus, toolbars and
+					popup menus). See #AnjutaUI for more details.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry><term>prefs</term>
+			<listitem>
+				<para>
+					A #AnjutaPreferences object, where the plugin
+					can register its prefereces.
+				</para>
+			</listitem>
+		</varlistentry>
+	</variablelist>
 </para>
 <para>
 	When a plugin class is derived from #AnjutaPlugin, the virtual mehtods 
@@ -68,7 +74,7 @@ Anjuta plugin base class from which all plugins are derived.
 		<listitem>
 			<para>
 				Add widgets to Anjuta Shell: If the plugin has one or more
-				widgets as it's User Interface, they can be added with
+				widgets as its User Interface, they can be added with
 				anjuta_shell_add_widget().
 			</para>
 		</listitem>

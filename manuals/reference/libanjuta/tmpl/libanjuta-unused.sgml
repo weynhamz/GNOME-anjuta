@@ -59,3 +59,11 @@
 @ifIsTrue: 
 @Returns: 
 
+<!-- ##### FUNCTION anjuta_ui_get_menu_merge ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+

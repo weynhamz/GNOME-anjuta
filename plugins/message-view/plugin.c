@@ -20,6 +20,8 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
+
 #include "plugin.h"
 #include "anjuta-msgman.h"
 
@@ -123,5 +125,77 @@ message_view_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (MessageViewPlugin, message_view_plugin);
+/*
+ * IAnjutaMessagerManager interface implementation 
+ */
+static void
+ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
+						 const gchar *file, const gchar *icon,
+						 GError **e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
+}
+
+static void
+ianjuta_msgman_remove_view (IAnjutaMessageManager *plugin,
+							IAnjutaMessageView * view,
+							GError **e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	anjuta_msgman_remove_view (ANJUTA_MSGMAN (msgman), MESSAGE_VIEW (view));
+}
+
+static IAnjutaMessageView*
+ianjuta_msgman_get_current_view (IAnjutaMessageManager *plugin,
+								 GError **e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	return IANJUTA_MESSAGE_VIEW (anjuta_msgman_get_current_view
+				     (ANJUTA_MSGMAN (msgman)));
+}
+
+static IAnjutaMessageView*
+ianjuta_msgman_get_view_by_name (IAnjutaMessageManager *plugin,
+								 const gchar * name,
+								 GError ** e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	return IANJUTA_MESSAGE_VIEW (anjuta_msgman_get_view_by_name
+				     (ANJUTA_MSGMAN (msgman), name));
+}
+
+static GList *
+ianjuta_msgman_get_all_views (IAnjutaMessageManager *plugin,
+							  GError ** e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	return anjuta_msgman_get_all_views (ANJUTA_MSGMAN (msgman));
+}
+
+static void
+ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
+								 IAnjutaMessageView *message_view,
+								 GError ** e)
+{
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
+	return anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
+					       MESSAGE_VIEW (message_view));
+}
+
+static void
+ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
+{
+	iface->add_view = ianjuta_msgman_add_view;
+	iface->remove_view = ianjuta_msgman_remove_view;
+	iface->get_view_by_name = ianjuta_msgman_get_view_by_name;
+	iface->get_current_view = ianjuta_msgman_get_current_view;
+	iface->set_current_view = ianjuta_msgman_set_current_view;
+	iface->get_all_views = ianjuta_msgman_get_all_views;
+}
+
+ANJUTA_PLUGIN_BEGIN (MessageViewPlugin, message_view_plugin);
+ANJUTA_INTERFACE(ianjuta_msgman, IANJUTA_TYPE_MESSAGE_MANAGER);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (MessageViewPlugin, message_view_plugin);

@@ -35,7 +35,6 @@
  * removed from it and accordingly updates the required UI interfaces.
  * Use the EggMenuMerge object only to do things not doable by AnjutaUI.
  */
-#include <gtk/gtkdialog.h>
 #include <gtk/gtkaccelgroup.h>
 #include <gtk/gtkuimanager.h>
 
@@ -50,24 +49,19 @@ typedef struct _AnjutaUIClass   AnjutaUIClass;
 typedef struct _AnjutaUIPrivate AnjutaUIPrivate;
 
 struct _AnjutaUI {
-	GtkDialog parent;
+	GtkUIManager parent;
 	
 	AnjutaUIPrivate *priv;
 };
 
 struct _AnjutaUIClass {
-	GtkDialogClass parent;
+	GtkUIManagerClass parent;
 };
 
 GType anjuta_ui_get_type (void);
 
 /* Creates a new AnjutaUI object */
-GtkWidget* anjuta_ui_new (GtkWidget *ui_container,
-						  GCallback add_widget_cb,
-						  GCallback remove_widget_cb);
-
-/* Gets the icon factory */
-GtkIconFactory* anjuta_ui_get_icon_factory (AnjutaUI* ui);
+AnjutaUI* anjuta_ui_new (void);
 
 /* Adds a group of Action entries with the give group name.
  * Caller does not get a reference to the returned ActionGroup. Use it
@@ -80,12 +74,14 @@ GtkActionGroup* anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 											GtkActionEntry *entries,
 											gint num_entries,
 											gpointer user_data);
+
 GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 											const gchar *action_group_name,
 											const gchar *action_group_label,
 											GtkToggleActionEntry *entries,
 											gint num_entries,
 											gpointer user_data);
+
 void anjuta_ui_add_action_group (AnjutaUI *ui,
 								 const gchar *action_group_name,
 								 const gchar *action_group_label,
@@ -93,21 +89,6 @@ void anjuta_ui_add_action_group (AnjutaUI *ui,
 
 /* Removes the group of Actions */
 void anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group);
-
-/* Merges the given UI description file (written in xml)
-   Returns an id representing it */
-gint anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename);
-
-/* Unmerges the give merge id */
-void anjuta_ui_unmerge (AnjutaUI *ui, gint id);
-
-/* Get accel group associated with UI */
-GtkAccelGroup* anjuta_ui_get_accel_group (AnjutaUI *ui);
-
-/* Warning: do not use it directly, except for things AnjutaUI 
- * is not capable of doing.
- */
-GtkUIManager* anjuta_ui_get_menu_merge (AnjutaUI *ui);
 
 /* Get the action object from the given group with the given name */
 GtkAction * anjuta_ui_get_action (AnjutaUI *ui,
@@ -126,6 +107,21 @@ void anjuta_ui_activate_action_by_path (AnjutaUI *ui,
 void anjuta_ui_activate_action_by_group (AnjutaUI *ui,
 										 GtkActionGroup *action_group,
 										 const gchar *action_name);
+
+/* Merges the given UI description file (written in xml)
+   Returns an id representing it */
+gint anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename);
+
+/* Unmerges the give merge id */
+void anjuta_ui_unmerge (AnjutaUI *ui, gint id);
+
+/* Gets the icon factory */
+GtkIconFactory* anjuta_ui_get_icon_factory (AnjutaUI* ui);
+
+/* Get accel group associated with UI */
+GtkAccelGroup* anjuta_ui_get_accel_group (AnjutaUI *ui);
+
+GtkWidget* anjuta_ui_get_accel_editor (AnjutaUI *ui);
 
 /* Dump the whole tree in STDOUT. Useful for debugging */
 void anjuta_ui_dump_tree (AnjutaUI *ui);
