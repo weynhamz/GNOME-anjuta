@@ -59,6 +59,17 @@ typedef struct _SearchExpression
 	PcreInfo *re;
 } SearchExpression;
 
+
+void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton,
+                                         gpointer user_data);
+void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
+                                         gpointer user_data);
+void on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
+                                         gpointer user_data);
+void on_replace_regex_toggled (GtkToggleButton *togglebutton,
+                               gpointer user_data);
+
+
 static void pcre_info_free(PcreInfo *re)
 {
 	if (re)
@@ -515,7 +526,7 @@ static GList *get_project_file_list(void)
 }
 
 
-gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
+static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 {
 	gchar b, e;
 	
@@ -528,13 +539,16 @@ gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 		else
 			return FALSE;
 	else if (s->whole_word)
-		if ((fb->pos ==0 || b ==' ' || b=='\t' || b == '\n') && 
-			(e=='\0' || e=='\n' || e==' ' || e =='\t'))
+		if ((fb->pos ==0 || b ==' ' || b=='\t' || b == '\n' || b == '(' || 
+			b == '"' || b == '[') && 
+			(e=='\0' || e=='\n' || e==' ' || e =='\t' || e ==')' || 
+			e =='"' || e ==']'))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->word_start)
-		if (fb->pos ==0 || b ==' ' || b=='\t' || b == '\n')
+		if (fb->pos ==0 || b ==' ' || b=='\t' || b == '\n' || b == '(' || 
+			b == '"' || b == '[')
 			return TRUE;
 		else
 			return FALSE;	
@@ -570,7 +584,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 			g_warning("BUG ! ovector found to be too small");
 			return NULL;
 		}
-		else if (0 > status)
+		else if (0 > status && status != PCRE_ERROR_NOMATCH)
 		{
 			/* match error - again, this should never happen */
 			g_warning("PCRE Match error");
@@ -710,7 +724,7 @@ typedef struct _SearchEntry
 } SearchEntry;
 
 
-void function_select(SearchEntry *se)
+void function_select(TextEditor *te)
 {
 	gint pos;
 	gint line;
@@ -719,32 +733,32 @@ void function_select(SearchEntry *se)
 	gint line_count;
 	gint tmp;
 
-	line_count = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	line_count = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                    SCI_GETLINECOUNT, 0, 0);
-	pos = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	pos = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                             SCI_GETCURRENTPOS, 0, 0);
-	line = scintilla_send_message(SCINTILLA(se->te->widgets.editor),
+	line = scintilla_send_message(SCINTILLA(te->widgets.editor),
 	                              SCI_LINEFROMPOSITION, pos, 0);
 
 	tmp = line + 1;	
-	fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                    SCI_GETFOLDLEVEL, line, 0) ;	
 	if ((fold_level & 0xFF) != 0)
 	{
 		while((fold_level & 0x10FF) != 0x1000)
-			fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                    SCI_GETFOLDLEVEL, --line, 0) ;
-		start = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+		start = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                    SCI_POSITIONFROMLINE, line + 1, 0);
 		line = tmp;
-		fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+		fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                        SCI_GETFOLDLEVEL, line, 0) ;
 		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
-			fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
-		end = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+		end = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                 SCI_POSITIONFROMLINE, line , 0);
-		scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+		scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                           SCI_SETSEL, start, end) ;
 	}
 }
@@ -795,24 +809,37 @@ static GList *create_search_entries(Search *s)
 			se->type = SE_BUFFER;
 			if ((se->te = app->current_text_editor) != NULL)
 			{
+				gint sel_start, sel_end;
+				
+				if (s->range.type != SR_SELECTION)
+				{
+					sel_start = scintilla_send_message(SCINTILLA(
+			  		    se->te->widgets.editor), SCI_GETSELECTIONSTART, 0, 0);
+					sel_end = scintilla_send_message(SCINTILLA(
+			  		    se->te->widgets.editor), SCI_GETSELECTIONEND, 0, 0);
+				}				
 				se->direction = s->range.direction;
 				if (s->range.type == SR_BLOCK)
 					aneditor_command(se->te->editor_id, ANE_SELECTBLOCK, 0, 0);
 				if (s->range.type == SR_FUNCTION)
-					function_select(se);
+					function_select(se->te);
 				if (SD_BEGINNING == se->direction)
 					se->direction = SD_FORWARD;
 				se->start_pos = scintilla_send_message(SCINTILLA(
 			  		se->te->widgets.editor), SCI_GETSELECTIONSTART, 0, 0);
 				se->end_pos = scintilla_send_message(SCINTILLA(
-			  		se->te->widgets.editor), SCI_GETSELECTIONEND, 0, 0);	
+			  		se->te->widgets.editor), SCI_GETSELECTIONEND, 0, 0);
+			
 				if (se->direction == SD_BACKWARD)
 				{
 					tmp_pos = se->start_pos;
 					se->start_pos = se->end_pos;
 					se->end_pos = tmp_pos;
 				}	
-				entries = g_list_prepend(entries, se);				
+				entries = g_list_prepend(entries, se);
+				if (s->range.type != SR_SELECTION)
+					scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+				                           SCI_SETSEL, sel_start, sel_end);			
 			}
 			break;
 		case SR_OPEN_BUFFERS:
@@ -921,7 +948,7 @@ static void search_and_replace(void)
 	gint offset;
 	gchar *match_line;
 	gint nb_results;
-	
+	gint memo_sel;	
 	g_return_if_fail(sr);
 	s = &(sr->search);
 	entries = create_search_entries(s);
@@ -957,7 +984,10 @@ static void search_and_replace(void)
 				switch (s->action)
 				{
 					case SA_BOOKMARK:
-					case SA_HIGHLIGHT: /* FIXME */
+						if (NULL == fb->te)
+						{
+							fb->te = anjuta_goto_file_line(fb->path, mi->line);
+						}
 						if (fb->te)
 						{
 							scintilla_send_message(SCINTILLA(
@@ -966,12 +996,13 @@ static void search_and_replace(void)
 						}
 						break;
 					case SA_SELECT:
-						if (fb->te)
+						if (NULL == fb->te)
 						{
-							scintilla_send_message(SCINTILLA(
-							  fb->te->widgets.editor), SCI_SETSEL, mi->pos
-							  , (mi->pos + mi->len));
+							fb->te = anjuta_append_text_editor(fb->path);
 						}
+						scintilla_send_message(SCINTILLA(
+						  fb->te->widgets.editor), SCI_SETSEL, mi->pos
+						  , (mi->pos + mi->len));
 						break;
 					case SA_FIND_PANE: 
 						match_line = file_match_line_from_pos(fb, mi->pos);
@@ -990,26 +1021,39 @@ static void search_and_replace(void)
 						}
 						if (fb->te == NULL)
 							fb->te = anjuta_append_text_editor(se->path);
-							
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
 							SCI_SETSEL, mi->pos - offset, (mi->pos + mi->len - offset));
+						memo_sel = mi->pos - offset;
 						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
 							SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
 						if (se->direction != SD_BACKWARD)						
 							offset += mi->len - strlen(sr->replace.repl_str);
 						break;
-						
+					/* case SA_HIGHLIGHT: FIXME */
 					default:
+						anjuta_not_implemented(__FILE__, __LINE__);
 						break;
 				}
 				match_info_free(mi);
+				
 				if (SA_SELECT == s->action || SA_REPLACE == s->action)
+				{
+					if (SA_REPLACE == s->action)
+						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
+							SCI_SETSEL, memo_sel, memo_sel + strlen(sr->replace.repl_str));
 					break;
+				}
 			}
 		}
 		file_buffer_free(fb);
 		g_free(se);
+		if (SA_SELECT == s->action && nb_results > 0)
+			break;
 	}
+	if (nb_results == 0)
+		messagebox1(GNOME_MESSAGE_BOX_WARNING, 
+		            _("No Matches."),
+		            GNOME_STOCK_BUTTON_OK, NULL, NULL);
 	if (nb_results > sr->search.expr.actions_max)
 		messagebox1(GNOME_MESSAGE_BOX_WARNING, 
 		            _("The maximum number of results has been reached."),
@@ -1024,7 +1068,6 @@ static void search_and_replace(void)
 #define SEARCH_REPLACE_DIALOG "dialog.search.replace"
 #define CLOSE_BUTTON "button.close"
 #define HELP_BUTTON "button.help"
-#define SAVE_BUTTON "button.save"
 #define SEARCH_BUTTON "button.next"
 
 /* Frames */
@@ -1125,7 +1168,6 @@ static GladeWidget glade_widgets[] = {
 	{GE_NONE, SEARCH_REPLACE_DIALOG, NULL, NULL},
 	{GE_BUTTON, CLOSE_BUTTON, NULL, NULL},
 	{GE_BUTTON, HELP_BUTTON, NULL, NULL},
-	{GE_BUTTON, SAVE_BUTTON, NULL, NULL},
 	{GE_BUTTON, SEARCH_BUTTON, NULL, NULL},
 	{GE_NONE, SEARCH_EXPR_FRAME, NULL, NULL},
 	{GE_NONE, SEARCH_TARGET_FRAME, NULL, NULL},
@@ -1229,6 +1271,80 @@ gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event
 		sg->showing = FALSE;
 	}
 	return TRUE;
+}
+
+void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
+                                         gpointer user_data)
+{
+	GtkWidget *whole_line = glade_xml_get_widget(sg->xml, WHOLE_LINE);
+	GtkWidget *word_start = glade_xml_get_widget(sg->xml, WORD_START);
+	
+	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_line),(GtkSignalFunc)
+	                              on_search_match_whole_line_toggled, NULL);
+	gtk_signal_disconnect_by_func(GTK_OBJECT(word_start),(GtkSignalFunc)
+	                              on_search_match_word_start_toggled, NULL);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
+	{
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_line), FALSE);	
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(word_start), FALSE);
+	}
+	gtk_signal_connect(GTK_OBJECT(whole_line),"toggled", (GtkSignalFunc)
+	                   on_search_match_whole_line_toggled, NULL);
+	gtk_signal_connect(GTK_OBJECT(word_start),"toggled", (GtkSignalFunc)
+	                   on_search_match_word_start_toggled, NULL);
+}
+
+void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton, 
+                                         gpointer user_data)
+{
+	GtkWidget *whole_word = glade_xml_get_widget(sg->xml, WHOLE_WORD);
+	GtkWidget *word_start = glade_xml_get_widget(sg->xml, WORD_START);
+
+	gtk_signal_disconnect_by_func(GTK_OBJECT(word_start),(GtkSignalFunc)
+	                              on_search_match_word_start_toggled, NULL);
+	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_word),(GtkSignalFunc)
+	                              on_search_match_whole_word_toggled, NULL);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
+	{
+ 	  	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_word), FALSE);	
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(word_start), FALSE);
+	}
+	gtk_signal_connect(GTK_OBJECT(word_start),"toggled", (GtkSignalFunc)
+	                   on_search_match_word_start_toggled, NULL);
+	gtk_signal_connect(GTK_OBJECT(whole_word),"toggled", (GtkSignalFunc)
+	                   on_search_match_whole_word_toggled, NULL);
+}
+
+
+void on_search_match_word_start_toggled (GtkToggleButton *togglebutton, 
+                                         gpointer user_data)
+{
+	GtkWidget *whole_word = glade_xml_get_widget(sg->xml, WHOLE_WORD);
+	GtkWidget *whole_line = glade_xml_get_widget(sg->xml, WHOLE_LINE);
+
+	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_line),(GtkSignalFunc)
+	                              on_search_match_whole_line_toggled, NULL);
+	gtk_signal_disconnect_by_func(GTK_OBJECT(whole_word),(GtkSignalFunc)
+	                              on_search_match_whole_word_toggled, NULL);	
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
+	{
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_word), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(whole_line), FALSE);
+	}
+	gtk_signal_connect(GTK_OBJECT(whole_word),"toggled", (GtkSignalFunc)
+	                   on_search_match_whole_word_toggled, NULL);
+	gtk_signal_connect(GTK_OBJECT(whole_line),"toggled", (GtkSignalFunc)
+	                   on_search_match_whole_line_toggled, NULL);
+}
+
+
+void
+on_replace_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
+{
+	GtkWidget *search_regex = glade_xml_get_widget(sg->xml, SEARCH_REGEX);
+	
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
+ 	  	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(search_regex) ,TRUE);	
 }
 
 void on_search_action_changed(GtkEditable *editable, gpointer user_data)
@@ -1400,8 +1516,19 @@ void on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 	search_and_replace();
 }
 
+void on_search_expression_activate(GtkEditable *edit, gpointer user_data)
+{
+	GtkWidget *combo;
+	
+	search_replace_populate();
+	search_and_replace();
+	combo = GTK_WIDGET(edit)->parent;
+	gtk_combo_disable_activate((GtkCombo*)combo);
+}
+
 void on_search_button_save_clicked(GtkButton *button, gpointer user_data)
 {
+	anjuta_not_implemented(__FILE__, __LINE__);
 }
 
 static gboolean create_dialog(void)
@@ -1453,13 +1580,17 @@ static void show_dialog()
 
 void anjuta_search_replace_activate(void)
 {
+	GtkWidget *search_entry;
+	
 	if (NULL == sr)
 	{
 		if (! create_dialog())
 			return;
     }
 	/* Set properties */
-	
+	search_entry = glade_xml_get_widget(sg->xml, SEARCH_STRING);
+	gtk_widget_grab_focus (search_entry);	
 	/* Show the dialog */
 	show_dialog();
+
 }
