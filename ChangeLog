@@ -17,6 +17,9 @@
 	
 	* plugins/cvs-plugin/anjuta-cvs-plugin.png:
 	New icon
+	
+	* manuals/reference/template (removed)
+	Removed old api reference
 
 
 2005-01-07  Naba Kumar  <naba@gnome.org>
