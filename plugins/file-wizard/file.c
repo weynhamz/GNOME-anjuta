@@ -32,12 +32,13 @@
 #include <gnome.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
-#include "anjuta-docman.h"
-#include "text_editor.h"
+#include "plugin.h"
 #include "file.h"
 
-#define GLADE_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
+#define GLADE_FILE_FILE PACKAGE_DATA_DIR"/glade/anjuta-file-wizard.glade"
 #define NEW_FILE_DIALOG "dialog.new.file"
 #define NEW_FILE_ENTRY "new.file.entry"
 #define NEW_FILE_TYPE "new.file.type"
@@ -48,13 +49,13 @@
 #define IDENT_NAME                 "ident.name"
 #define IDENT_EMAIL                "ident.email"
 
-static gboolean create_new_file_dialog(AnjutaDocman *docman);
+static gboolean create_new_file_dialog(IAnjutaDocumentManager *docman);
 
 static gchar *insert_c_gpl(void);
 static gchar *insert_cpp_gpl(void);
 static gchar *insert_py_gpl(void);
-static gchar *insert_header_templ(TextEditor *te);
-static gchar *insert_header_c( TextEditor *te);
+static gchar *insert_header_templ(IAnjutaEditor *te);
+static gchar *insert_header_c( IAnjutaEditor *te, AnjutaPreferences *prefs);
 
 typedef struct _NewFileGUI
 {
@@ -95,7 +96,7 @@ NewfileType new_file_type[] = {
 NewFileGUI *nfg = NULL;
 
 void
-display_new_file(AnjutaDocman *docman)
+display_new_file(IAnjutaDocumentManager *docman)
 {
 	if (!nfg)
 		if (! create_new_file_dialog(docman))
@@ -104,7 +105,7 @@ display_new_file(AnjutaDocman *docman)
 	{
 		gtk_window_present (GTK_WINDOW (nfg->dialog));
 		nfg->showing = TRUE;
-	}		
+	}
 }
 
 //~ void
@@ -122,7 +123,7 @@ void on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);
 void on_new_file_type_changed (GtkOptionMenu   *optionmenu, gpointer user_data);
 
 static gboolean
-create_new_file_dialog(AnjutaDocman *docman)
+create_new_file_dialog(IAnjutaDocumentManager *docman)
 {
 	GtkWidget *optionmenu;
 	GtkWidget *menu;
@@ -153,7 +154,7 @@ create_new_file_dialog(AnjutaDocman *docman)
 	//gtk_window_set_transient_for (GTK_WINDOW(nfg->dialog),
 	//	                          GTK_WINDOW(app)); 
 
-	g_object_set_data (G_OBJECT (nfg->dialog), "AnjutaDocman", docman);
+	g_object_set_data (G_OBJECT (nfg->dialog), "IAnjutaDocumentManager", docman);
 	glade_xml_signal_autoconnect(nfg->xml);
 	gtk_signal_emit_by_name(GTK_OBJECT (optionmenu), "changed");
 	
@@ -175,19 +176,17 @@ on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 //~ Offset<0 	:	Move cursor to the end of txt
 //~ Offset >=0 	:	Move cursor + offset
 void 
-file_insert_text(TextEditor *te, gchar *txt, gint offset)
+file_insert_text(IAnjutaEditor *te, gchar *txt, gint offset)
 {
 	gint caret;
-	g_return_if_fail (IS_TEXT_EDITOR (te));
+	g_return_if_fail (IANJUTA_IS_EDITOR (te));
 
-	caret = aneditor_command (te->editor_id, ANE_GETCURRENTPOS, -1, -1);
-
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)txt);
-	
+	caret = ianjuta_editor_get_position (te, NULL);
+	ianjuta_editor_insert (te, -1, txt, -1, NULL);
 	if (offset < 0)
-		aneditor_command (te->editor_id, ANE_GOTOPOS, caret + strlen(txt), -1);
+		ianjuta_editor_goto_position (te, caret + strlen(txt), NULL);
 	else
-		aneditor_command (te->editor_id, ANE_GOTOPOS, caret + offset, -1);
+		ianjuta_editor_goto_position (te, caret + offset, NULL);
 }
 
 gboolean
@@ -199,28 +198,28 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	GtkWidget *optionmenu;
 	gchar *name;
 	gint sel;
-	TextEditor *te;
-	AnjutaDocman *docman;
+	IAnjutaEditor *te;
+	IAnjutaDocumentManager *docman;
 	GtkWidget *toplevel;
 
 	toplevel= gtk_widget_get_toplevel (window);
-	docman = ANJUTA_DOCMAN (g_object_get_data (G_OBJECT(toplevel), "AnjutaDocman"));
+	docman = IANJUTA_DOCUMENT_MANAGER (g_object_get_data (G_OBJECT(toplevel),
+										"IAnjutaDocumentManager"));
 	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
 	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
 	if (strlen(name) > 0)
-		anjuta_docman_add_editor (docman, NULL, name);
+		te = ianjuta_document_manager_add_buffer (docman, name, "", NULL);
 	else
-		anjuta_docman_add_editor (docman, NULL, NULL);
+		te = ianjuta_document_manager_add_buffer (docman, "", "", NULL);
 	g_free(name);
 	
-	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return FALSE;
 
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
-		insert_header(te);
+	// FIXME: if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+	//		gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+	//	insert_header(te);
 	
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_GPL);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
@@ -335,7 +334,7 @@ insert_c_gpl(void)
 
 
 void
-insert_c_gpl_notice(TextEditor *te)
+insert_c_gpl_notice(IAnjutaEditor *te)
 {
 	file_insert_text(te, insert_c_gpl(), -1);
 }
@@ -363,7 +362,7 @@ insert_cpp_gpl(void)
 }
 
 void
-insert_cpp_gpl_notice(TextEditor *te)
+insert_cpp_gpl_notice(IAnjutaEditor *te)
 {
 	file_insert_text(te, insert_cpp_gpl(), -1);
 }
@@ -390,13 +389,13 @@ insert_py_gpl(void)
 }
 
 void
-insert_py_gpl_notice(TextEditor *te)
+insert_py_gpl_notice(IAnjutaEditor *te)
 {
 	file_insert_text(te, insert_py_gpl(), -1);
 }
 
 static gchar *
-insert_header_templ(TextEditor *te)
+insert_header_templ(IAnjutaEditor *te)
 {
 	GtkWidget *parent;
 	gchar *header_template =
@@ -416,15 +415,15 @@ insert_header_templ(TextEditor *te)
 	gchar *name = NULL;
 	gchar mesg[256];
 	gint i;
-
-	i = strlen(te->filename);
-	if ( g_strcasecmp((te->filename) + i - 2, ".h") == 0)
-		name = g_strndup(te->filename, i - 2);
+	gchar *filename = ianjuta_file_get_filename (IANJUTA_FILE (te), NULL);
+	i = strlen(filename);
+	if ( g_strcasecmp((filename) + i - 2, ".h") == 0)
+		name = g_strndup(filename, i - 2);
 	else
 	{
 		parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
 		sprintf(mesg, _("The file \"%s\" is not a header file."),
-				te->filename);
+				filename);
 		anjuta_util_dialog_warning (GTK_WINDOW (te), mesg);
 		return NULL;
 	}
@@ -432,12 +431,13 @@ insert_header_templ(TextEditor *te)
 	buffer = g_strconcat("#ifndef _", name, "_H\n#define _", name,
 						header_template, name, "_H */\n", NULL);
 
-	g_free(name);
+	g_free (name);
+	g_free (filename);
 	return buffer;
 }
 
 void
-insert_header_template(TextEditor *te)
+insert_header_template(IAnjutaEditor *te)
 {
 	gchar *header;
 
@@ -462,7 +462,7 @@ insert_d_t(void)
 }                                                            ;
 
 void
-insert_date_time(TextEditor *te)
+insert_date_time(IAnjutaEditor *te)
 {
 	gchar *DateTime;
 	DateTime = insert_d_t();
@@ -484,11 +484,10 @@ static gchar *get_username(AnjutaPreferences *prefs)
 }
 
 void
-insert_username(TextEditor *te)
+insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs)
 {
-	file_insert_text(te, get_username(te->preferences), -1);
+	file_insert_text(te, get_username(prefs), -1);
 }
-
 
 static gchar *insert_email(AnjutaPreferences *prefs)
 {
@@ -548,17 +547,17 @@ insert_changelog(AnjutaPreferences *prefs)
 }
 
 void
-insert_changelog_entry(TextEditor *te)
+insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs)
 {
 	gchar *changelog;
-	changelog = insert_changelog(te->preferences);
+	changelog = insert_changelog(prefs);
 	file_insert_text(te, changelog, -1);
 
 	g_free(changelog);
 }
 
 static gchar*
-insert_header_c (TextEditor *te)
+insert_header_c (IAnjutaEditor *te, AnjutaPreferences *prefs)
 {
  	gchar *buffer;
 	gchar *tmp;
@@ -567,16 +566,16 @@ insert_header_c (TextEditor *te)
 	gchar *email;
 
 	star =  g_strnfill(75, '*');
-	tmp = g_strdup(te->filename);
+	tmp = ianjuta_file_get_filename (IANJUTA_FILE (te), NULL);
 	buffer = g_strconcat("/", star, "\n *            ", tmp, "\n *\n", NULL);
 	g_free(tmp);
 	tmp = insert_d_t();
 	buffer = g_strconcat( buffer, " *  ", tmp, NULL);
 	g_free(tmp);
-	copyright = insert_copyright(te->preferences);
+	copyright = insert_copyright(prefs);
 	buffer = g_strconcat(buffer, " *  ", copyright, "\n", NULL);
 	g_free(copyright);
-	email = insert_email(te->preferences);
+	email = insert_email(prefs);
 	buffer = g_strconcat(buffer, " *  ", email, "\n", NULL);
 	g_free(email);
 	buffer = g_strconcat(buffer, " ", star, "*/\n\n", NULL);
@@ -586,18 +585,18 @@ insert_header_c (TextEditor *te)
 }
 
 void
-insert_header(TextEditor *te)
+insert_header(IAnjutaEditor *te, AnjutaPreferences *prefs)
 {
 	gchar *header;
 
-	header = insert_header_c(te);
+	header = insert_header_c(te, prefs);
 	file_insert_text(te, header, -1);
 
 	g_free(header);
 }
 
 void
-insert_switch_template(TextEditor *te)
+insert_switch_template(IAnjutaEditor *te)
 {
 	gchar *switch_template =
 	"switch ()\n"
@@ -617,7 +616,7 @@ insert_switch_template(TextEditor *te)
 }
 
 void
-insert_for_template(TextEditor *te)
+insert_for_template(IAnjutaEditor *te)
 {
 	gchar *for_template =
 	"for ( ; ; )\n"
@@ -629,7 +628,7 @@ insert_for_template(TextEditor *te)
 }
 
 void
-insert_while_template(TextEditor *te)
+insert_while_template(IAnjutaEditor *te)
 {
 	gchar *while_template =
 	"while ()\n"
@@ -641,7 +640,7 @@ insert_while_template(TextEditor *te)
 }
 
 void
-insert_ifelse_template(TextEditor *te)
+insert_ifelse_template(IAnjutaEditor *te)
 {
 	gchar *ifelse_template =
 	"if ()\n"
@@ -657,7 +656,7 @@ insert_ifelse_template(TextEditor *te)
 }
 
 void
-insert_cvs_author(TextEditor *te)
+insert_cvs_author(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Author";
 	gchar *cvs_string;
@@ -667,7 +666,7 @@ insert_cvs_author(TextEditor *te)
 }
 
 void
-insert_cvs_date(TextEditor *te)
+insert_cvs_date(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Date";
 	gchar *cvs_string;
@@ -677,7 +676,7 @@ insert_cvs_date(TextEditor *te)
 }
 
 void
-insert_cvs_header(TextEditor *te)
+insert_cvs_header(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Header";
 	gchar *cvs_string;
@@ -687,7 +686,7 @@ insert_cvs_header(TextEditor *te)
 }
 
 void
-insert_cvs_id(TextEditor *te)
+insert_cvs_id(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Id";
 	gchar *cvs_string;
@@ -697,7 +696,7 @@ insert_cvs_id(TextEditor *te)
 }
 
 void
-insert_cvs_log(TextEditor *te)
+insert_cvs_log(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Log";
 	gchar *cvs_string;
@@ -707,7 +706,7 @@ insert_cvs_log(TextEditor *te)
 }
 
 void
-insert_cvs_name(TextEditor *te)
+insert_cvs_name(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Name";
 	gchar *cvs_string;
@@ -717,7 +716,7 @@ insert_cvs_name(TextEditor *te)
 }
 
 void
-insert_cvs_revision(TextEditor *te)
+insert_cvs_revision(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Revision";
 	gchar *cvs_string;
@@ -727,7 +726,7 @@ insert_cvs_revision(TextEditor *te)
 }
 
 void
-insert_cvs_source(TextEditor *te)
+insert_cvs_source(IAnjutaEditor *te)
 {
 	gchar *cvs_string_value = "Source";
 	gchar *cvs_string;

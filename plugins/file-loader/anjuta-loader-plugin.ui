@@ -3,6 +3,7 @@
 	<menubar name="MenuMain">
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
+				<menuitem name="New" action="ActionFileNew" />
 				<menuitem name="Open" action="ActionFileOpen" />
 			</placeholder>
 		</menu>

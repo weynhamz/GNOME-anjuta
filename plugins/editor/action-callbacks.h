@@ -17,8 +17,6 @@
 #ifndef _ACTION_CALLBACKS_H_
 #define _ACTION_CALLBACKS_H_
 
-
-void on_new_file1_activate (GtkAction * action, gpointer user_data);
 void on_open1_activate (GtkAction * action, gpointer user_data);
 void on_save1_activate (GtkAction * action, gpointer user_data);
 void on_save_as1_activate (GtkAction * action, gpointer user_data);
@@ -130,6 +128,7 @@ void on_force_hilite1_matlab_activate (GtkAction * action, gpointer user_data);
 
 void on_indent1_activate (GtkAction * action, gpointer user_data);
 
+#if 0
 void on_insert_header (GtkAction * action, gpointer user_data);
 void on_insert_cvs_author (GtkAction * action, gpointer user_data);
 void on_insert_cvs_date (GtkAction * action, gpointer user_data);
@@ -150,6 +149,7 @@ void on_insert_date_time (GtkAction * action, gpointer user_data);
 void on_insert_changelog_entry (GtkAction * action, gpointer user_data);
 void on_insert_header_template (GtkAction * action, gpointer user_data);
 void on_insert_username (GtkAction * action, gpointer user_data);
+#endif
 
 void on_format_indent_style_clicked (GtkAction * action, gpointer user_data);
 void on_detach1_activate  (GtkAction * action, gpointer user_data);

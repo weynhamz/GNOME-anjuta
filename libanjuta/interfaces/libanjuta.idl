@@ -354,9 +354,12 @@ interface IAnjutaEditor
 	}
 	
 	void   goto_line (gint lineno);
+	void   goto_position (gint position);
 	gchar* get_selection ();
 	gchar* get_text (gint start, gint end);
 	gchar* get_attributes (gint start, gint end);
+	gint   get_position ();
+	void   insert (int position, const gchar *text, gint length);
 }
 
 interface IAnjutaDocumentManager
@@ -372,6 +375,9 @@ interface IAnjutaDocumentManager
 	IAnjutaEditor* get_current_editor ();
 	void set_current_editor (IAnjutaEditor *editor);
 	GList* get_editors ();
+	
+	// New editor buffer
+	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
 }
 
 interface IAnjutaMessageView
@@ -445,6 +451,11 @@ interface IAnjutaTerminal
 interface IAnjutaProjectManager
 {
 	void configure();
+}
+
+interface IAnjutaWizard
+{
+	void activate();
 }
 
 /* interface IAnjutaModule

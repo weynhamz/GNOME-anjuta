@@ -31,6 +31,9 @@ GSList* anjuta_plugins_query (AnjutaShell *shell,
 							 const gchar *attribute_name,
 							 const gchar *attribute_value,
 							 ...);
+GObject* anjuta_plugins_select (AnjutaShell *shell, gchar *title,
+								gchar *description,
+								GSList *plugin_descriptions);
 
 /* Plugin activation and retrival */
 

@@ -157,7 +157,7 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	
 	te->preferences = eo;
 	te->props_base = text_editor_get_props(te);
-	if (name)
+	if (name && strlen(name) > 0)
 		te->filename = g_strdup(name); 
 	else 
 		te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
@@ -1811,6 +1811,12 @@ itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 	text_editor_goto_line (TEXT_EDITOR (editor), lineno, TRUE, TRUE);
 }
 
+static void
+itext_editor_goto_position (IAnjutaEditor *editor, gint position, GError **e)
+{
+	text_editor_goto_point (TEXT_EDITOR (editor), position);
+}
+
 static gchar*
 itext_editor_get_text (IAnjutaEditor *editor, gint start, gint end,
 						 GError **e)
@@ -1832,13 +1838,30 @@ itext_editor_get_attributes (IAnjutaEditor *editor, gint start,
 	return NULL;
 }
 
+static gint
+itext_editor_get_position (IAnjutaEditor *editor, GError **e)
+{
+	return text_editor_get_current_position (TEXT_EDITOR(editor));
+}
+
+static void
+itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
+					 gint length, GError **e)
+{
+	aneditor_command (TEXT_EDITOR(editor)->editor_id, ANE_INSERTTEXT,
+					  length, (long)txt);
+}
+
 static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->goto_line = itext_editor_goto_line;
+	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
 	iface->get_selection = itext_editor_get_selection;
 	iface->get_attributes = itext_editor_get_attributes;
+	iface->get_position = itext_editor_get_position;
+	iface->insert = itext_editor_insert;
 }
 
 static gchar*

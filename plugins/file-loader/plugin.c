@@ -19,10 +19,11 @@
 */
 
 #include <config.h>
-#include <libgnomevfs/gnome-vfs.h>
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/plugins.h>
 
 #include "plugin.h"
@@ -94,7 +95,37 @@ on_open_activate (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
 	gtk_widget_show (dlg);
 }
 
+static void
+on_new_activate (GtkAction *action, AnjutaFileLoaderPlugin *loader)
+{
+	GSList *plugin_descs = NULL;
+	GObject *plugin = NULL;	
+	
+	plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(loader)->shell,
+										 "Anjuta Plugin",
+										 "Interfaces", "IAnjutaWizard",
+										 NULL);
+	if (g_slist_length (plugin_descs) > 0)
+	{
+		plugin = anjuta_plugins_select (ANJUTA_PLUGIN(loader)->shell,
+								"New",
+								"Please select a wizard to create a new component.",
+								plugin_descs);
+		if (plugin)
+			ianjuta_wizard_activate (IANJUTA_WIZARD (plugin), NULL);
+	}
+	else
+	{
+		anjuta_util_dialog_error (NULL,
+		"No Wizard plugins found. Please make sure you have them installed.");
+	}
+	g_slist_free (plugin_descs);
+}
+
 static GtkActionEntry actions_file[] = {
+  { "ActionFileNew", GTK_STOCK_NEW, N_("_New ..."), "<control>n",
+	N_("New file, project and project components."),
+    G_CALLBACK (on_new_activate)},
   { "ActionFileOpen", GTK_STOCK_OPEN, N_("_Open ..."), "<control>o",
 	N_("Open file"), G_CALLBACK (on_open_activate)},
 };
@@ -113,7 +144,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	loader_plugin->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupLoader",
 											_("File Loader"),
-											actions_file, 1,
+											actions_file,
+											G_N_ELEMENTS (actions_file),
 											plugin);
 	loader_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	return TRUE;
@@ -156,17 +188,16 @@ anjuta_file_loader_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
-static void
+static GObject*
 iloader_load (IAnjutaFileLoader *loader, const gchar *filename,
 			  gboolean read_only, GError **err)
 {
-	GSList *plugin_descs = NULL;
-	gchar *icon_filename;
 	gchar *mime_type;
-	gchar *icon_path = NULL;
+	GSList *plugin_descs = NULL;
+	GObject *plugin = NULL;	
 	
-	mime_type = gnome_vfs_get_file_mime_type (filename, NULL, FALSE);
-	g_return_if_fail (mime_type != NULL);
+	mime_type = gnome_vfs_get_mime_type (filename);
+	g_return_val_if_fail (mime_type != NULL, NULL);
 	
 	plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(loader)->shell,
 										 "Anjuta Plugin",
@@ -175,80 +206,24 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *filename,
 										 "SupportedMimeTypes", mime_type,
 										 NULL);
 	
-	if (g_slist_length (plugin_descs) > 1) {
-		GdkPixbuf *icon_pixbuf;
-		GtkTreeModel *model;
-		GtkWidget *view;
-		GtkTreeViewColumn *column;
-		GtkCellRenderer *renderer;
-#if 0			
-		model = gtk_list_store_new (3, GDK_TYPE_PIXBUF, G_TYPE_STRING,
-									G_TYPE_POINTER);
-		view = gtk_tree_view_new_with_model (model);
-		
-		column = gtk_tree_view_column_new ();
-		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-		gtk_tree_view_column_set_title (column, _("Available Plugins"));
-	
-		renderer = gtk_cell_renderer_pixbuf_new ();
-		gtk_tree_view_column_pack_start (column, renderer, FALSE);
-		gtk_tree_view_column_add_attribute (column, renderer, "pixbuf", PIXBUF_COLUMN);
-	
-		renderer = gtk_cell_renderer_text_new ();
-		gtk_tree_view_column_pack_start (column, renderer, TRUE);
-		gtk_tree_view_column_add_attribute (column, renderer, "text", PLUGIN_COLUMN);
-	
-		gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
-		gtk_tree_view_set_expander_column (GTK_TREE_VIEW (view), column);
-	
-		renderer = gtk_cell_renderer_text_new ();
-		column = gtk_tree_view_column_new_with_attributes (_("Rev"), renderer,
-								   "text", REV_COLUMN,
-								   NULL);
-		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-		gtk_tree_view_append_column (GTK_TREE_VIEW (fv->tree), column);
-
-		
-		AnjutaPluginDescription *desc =
-			(AnjutaPluginDescription*)plugin_descs->data;
-		if (anjuta_plugin_description_get_string (desc,
-												  "Anjuta Plugin",
-												  "Icon",
-												  &icon_filename)) {
-			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
-									 icon_filename, NULL);
-			g_message ("Icon: %s", icon_path);
-			icon_pixbuf = 
-				gdk_pixbuf_new_from_file (icon_path, NULL);
-			g_free (icon_path);
-			if (icon_pixbuf) {
-				e_splash_add_icon (splash, icon_pixbuf);
-				max_icons++;
-				g_object_unref (icon_pixbuf);
-			}
-			// while (gtk_events_pending ())
-			//	gtk_main_iteration ();
-		} else {
-			g_warning ("Plugin does not define Icon");
-		}
-		g_slist_free (plugin_descs);
-#endif
+	if (g_slist_length (plugin_descs) > 1)
+	{
+		plugin = anjuta_plugins_select (ANJUTA_PLUGIN(loader)->shell,
+								"Open With",
+								"Please select a plugin to open this file.",
+								plugin_descs);
 	}
 	else if (g_slist_length (plugin_descs) == 1)
 	{
-		GObject *plugin = NULL;	
 		gchar *location = NULL;
 		
 		AnjutaPluginDescription *desc = plugin_descs->data;
 		anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 											  "Location", &location);
-		g_return_if_fail (location != NULL);
-		// anjuta_util_dialog_info (NULL, "Plugin %s found", location);
+		g_return_val_if_fail (location != NULL, NULL);
 		plugin =
 			anjuta_plugins_get_plugin_by_location (ANJUTA_PLUGIN(loader)->shell,
 												   location);
-		
-		ianjuta_file_open (IANJUTA_FILE(plugin), filename, NULL);
 	}
 	else
 	{
@@ -256,6 +231,9 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *filename,
 						"No plugin capabale of opening mime type \"%s\" found",
 						mime_type);
 	}
+	if (plugin)
+		ianjuta_file_open (IANJUTA_FILE(plugin), filename, NULL);
+	return plugin;
 }
 
 static void

@@ -84,20 +84,6 @@ Pixmap file definitions
 
 
 
-<!-- ##### MACRO ANJUTA_PIXMAP_SYNTAX ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_MESSAGES ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### MACRO ANJUTA_PIXMAP_PROJECT_LISTING ##### -->
 <para>
 
@@ -189,13 +175,6 @@ Pixmap file definitions
 
 
 
-<!-- ##### MACRO ANJUTA_PIXMAP_INDENT ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### MACRO ANJUTA_PIXMAP_HELP ##### -->
 <para>
 
@@ -204,13 +183,6 @@ Pixmap file definitions
 
 
 <!-- ##### MACRO ANJUTA_PIXMAP_DOCK ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_UNDOCK ##### -->
 <para>
 
 </para>
@@ -470,139 +442,6 @@ Pixmap file definitions
 
 
 <!-- ##### MACRO ANJUTA_PIXMAP_APP_QT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_TOGGLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_FIRST ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_PREV ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_NEXT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_LAST ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_ERROR_PREV ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_ERROR_NEXT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_TOGGLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_CLOSE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_OPEN ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_SELECT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_START ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_END ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_INC ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_DCR ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_AUTO ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_AUTOFORMAT_SETTING ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_CALLTIP ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_PIXMAP_AUTOCOMPLETE ##### -->
 <para>
 
 </para>

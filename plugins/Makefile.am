@@ -7,4 +7,6 @@ SUBDIRS = \
 	terminal \
 	build-basic-autotools \
 	file-loader \
-	profile-default
+	profile-default \
+	file-wizard
+

@@ -88,8 +88,6 @@
 gpointer parent_class;
 
 static GtkActionEntry actions_file[] = {
-  { "ActionFileNew", N_("_New"), GTK_STOCK_NEW, "<control>n",
-	N_("New file"), G_CALLBACK (on_new_file1_activate)},
   { "ActionFileSave", N_("_Save"), GTK_STOCK_SAVE, "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save1_activate)},
   { "ActionFileSaveAs", N_("Save _As ..."), GTK_STOCK_SAVE_AS, NULL,
@@ -152,73 +150,6 @@ static GtkActionEntry actions_select[] = {
 	ANJUTA_STOCK_BLOCK_SELECT, "<alt>b",
 	N_("Select the current code block"),
     G_CALLBACK (on_editor_command_select_block_activate)},
-};
-
-static GtkActionEntry actions_insert[] = {
-  { "ActionMenuEditInsert", N_("_Insert text"), NULL, NULL, NULL, NULL},
-  { "ActionMenuEditInsertCtemplate", N_("C _template"), NULL, NULL, NULL, NULL},
-  { "ActionMenuEditInsertCvs", N_("_CVS keyword"), NULL, NULL, NULL, NULL},
-  { "ActionMenuEditInsertGeneral", N_("_General"), NULL, NULL, NULL, NULL},
-  { "ActionEditInsertHeader", N_("_Header"), NULL, NULL,
-	N_("Insert a file header"),
-    G_CALLBACK (on_insert_header)},
-  { "ActionEditInsertCGPL", N_("/_* GPL Notice */"), NULL, NULL,
-	N_("Insert GPL notice with C style comments"),
-    G_CALLBACK (on_insert_c_gpl_notice)},
-  { "ActionEditInsertCPPGPL", N_("/_/ GPL Notice"), NULL, NULL,
-	N_("Insert GPL notice with C++ style comments"),
-    G_CALLBACK (on_insert_cpp_gpl_notice)},
-  { "ActionEditInsertPYGPL", N_("_# GPL Notice"), NULL, NULL,
-	N_("Insert GPL notice with Python style comments"),
-    G_CALLBACK (on_insert_py_gpl_notice)},
-  { "ActionEditInsertUsername", N_("Current _Username"), NULL, NULL,
-	N_("Insert name of current user"),
-    G_CALLBACK (on_insert_username)},
-  { "ActionEditInsertDateTime", N_("Current _Date & Time"), NULL, NULL,
-	N_("Insert current date & time"),
-    G_CALLBACK (on_insert_date_time)},
-  { "ActionEditInsertHeaderTemplate", N_("Header File _Template"), NULL, NULL,
-	N_("Insert a standard header file template"),
-    G_CALLBACK (on_insert_header_template)},
-  { "ActionEditInsertChangelog", N_("ChangeLog entry"), NULL, NULL,
-	N_("Insert a ChangeLog entry"),
-    G_CALLBACK (on_insert_changelog_entry)},
-  { "ActionEditInsertStatementSwitch", N_("_switch"), NULL, NULL,
-	N_("Insert a switch template"),
-    G_CALLBACK (on_insert_switch_template)},
-  { "ActionEditInsertStatementFor", N_("_for"), NULL, NULL,
-	N_("Insert a for template"),
-    G_CALLBACK (on_insert_for_template)},
-  { "ActionEditInsertStatementWhile", N_("_while"), NULL, NULL,
-	N_("Insert a while template"),
-    G_CALLBACK (on_insert_while_template)},
-  { "ActionEditInsertStatementIfElse", N_("_if...else"), NULL, NULL,
-	N_("Insert an if...else template"),
-    G_CALLBACK (on_insert_ifelse_template)},
-  { "ActionEditInsertCVSAuthor", N_("_Author"), NULL, NULL,
-	N_("Insert the CVS Author keyword (author of the change)"),
-    G_CALLBACK (on_insert_cvs_author)},
-  { "ActionEditInsertCVSDate", N_("_Date"), NULL, NULL,
-	N_("Insert the CVS Date keyword (date and time of the change)"),
-    G_CALLBACK (on_insert_cvs_date)},
-  { "ActionEditInsertCVSHeader", N_("_Header"), NULL, NULL,
-	N_("Insert the CVS Header keyword (full path revision, date, author, state)"),
-    G_CALLBACK (on_insert_cvs_header)},
-  { "ActionEditInsertCVSID", N_("_Id"), NULL, NULL,
-	N_("Insert the CVS Id keyword (file revision, date, author)"),
-    G_CALLBACK (on_insert_cvs_id)},
-  { "ActionEditInsertCVSLog", N_("_Log"), NULL, NULL,
-	N_("Insert the CVS Log keyword (log message)"),
-    G_CALLBACK (on_insert_cvs_log)},
-  { "ActionEditInsertCVSName", N_("_Name"), NULL, NULL,
-	N_("Insert the CVS Name keyword (name of the sticky tag)"),
-    G_CALLBACK (on_insert_cvs_name)},
-  { "ActionEditInsertCVSRevision", N_("_Revision"), NULL, NULL,
-	N_("Insert the CVS Revision keyword (revision number)"),
-    G_CALLBACK (on_insert_cvs_revision)},
-  { "ActionEditInsertCVSSource", N_("_Source"), NULL, NULL,
-	N_("Insert the CVS Source keyword (full path)"),
-    G_CALLBACK (on_insert_cvs_source)},
 };
 
 static GtkActionEntry actions_search[] = {
@@ -523,7 +454,7 @@ static struct ActionGroupInfo action_groups[] = {
 	{ actions_print, G_N_ELEMENTS (actions_print), "ActionGroupEditorPrint",  N_("Editor print operations")},
 	{ actions_transform, G_N_ELEMENTS (actions_transform), "ActionGroupEditorTransform", N_("Editor text transformation") },
 	{ actions_select, G_N_ELEMENTS (actions_select), "ActionGroupEditorSelect", N_("Editor text selection") },
-	{ actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
+//	{ actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
 	{ actions_search, G_N_ELEMENTS (actions_search), "ActionGroupEditorSearch", N_("Editor text searching") },
 	{ actions_comment, G_N_ELEMENTS (actions_comment), "ActionGroupEditorComment", N_("Editor code commenting") },
 	{ actions_navigation, G_N_ELEMENTS (actions_navigation), "ActionGroupEditorNavigate", N_("Editor navigations") },
@@ -821,11 +752,36 @@ ianjuta_docman_get_editors (IAnjutaDocumentManager *plugin, GError **e)
 }
 
 static void
+ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
+							   const gchar *filename, gint linenum, GError **e)
+{
+	AnjutaDocman *docman;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	anjuta_docman_goto_file_line (docman, filename, linenum);
+}
+
+static IAnjutaEditor*
+ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
+						   const gchar *filename, const gchar *content,
+						   GError **e)
+{
+	AnjutaDocman *docman;
+	TextEditor *te;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	te = anjuta_docman_add_editor (docman, NULL, filename);
+	if (content && strlen (content) > 0)
+		aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)content);
+	return IANJUTA_EDITOR (te);
+}
+
+static void
 ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
 	iface->get_current_editor = ianjuta_docman_get_current_editor;
 	iface->set_current_editor = ianjuta_docman_set_current_editor;
 	iface->get_editors = ianjuta_docman_get_editors;
+	iface->goto_file_line = ianjuta_docman_goto_file_line;
+	iface->add_buffer = ianjuta_docman_add_buffer;
 }
 
 /* Implement IAnjutaFile interface */

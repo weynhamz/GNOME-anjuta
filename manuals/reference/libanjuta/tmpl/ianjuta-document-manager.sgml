@@ -40,6 +40,7 @@
 </para>
 
 @g_iface: 
+@add_buffer: 
 @get_current_editor: 
 @get_editors: 
 @goto_file_line: 

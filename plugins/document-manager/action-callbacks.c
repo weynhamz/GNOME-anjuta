@@ -36,17 +36,6 @@
 gboolean closing_state;
 
 void
-on_new_file1_activate (GtkAction * action, gpointer user_data)
-{
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-
-	display_new_file(docman);
-}
-
-void
 on_open1_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
@@ -471,6 +460,7 @@ on_transform_eolchars1_activate (GtkAction * action, gpointer user_data)
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
 }
 
+#if 0
 void
 on_insert_c_gpl_notice(GtkAction * action, gpointer user_data)
 {
@@ -730,6 +720,7 @@ on_insert_cvs_source(GtkAction * action, gpointer user_data)
 	if(!te) return;
 	insert_cvs_source(te);
 }
+#endif
 
 void
 on_autocomplete1_activate (GtkAction * action, gpointer user_data)
@@ -881,18 +872,6 @@ void on_comment_stream (GtkAction * action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if(!te) return;
     aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
-}
-
-void on_insert_custom_indent (GtkAction *action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_CUSTOMINDENT, 0, 0);
 }
 
 void

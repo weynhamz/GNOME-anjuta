@@ -58,7 +58,253 @@ Gnome file selector (deprecated)
 GnomeFileList
 
 
+<!-- ##### MACRO ANJUTA_PIXMAP_AUTOCOMPLETE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_AUTOFORMAT_SETTING ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_END ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_SELECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_START ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_FIRST ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_LAST ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_NEXT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_PREV ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_TOGGLE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CALLTIP ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_ERROR_NEXT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_ERROR_PREV ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_CLOSE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_OPEN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_TOGGLE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_AUTO ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_DCR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_INC ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MESSAGES ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SYNTAX ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_UNDOCK ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_PLUGIN_FILE_PARSE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_AUTOCOMPLETE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_AUTOFORMAT_SETTINGS ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BLOCK_END ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BLOCK_SELECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BLOCK_START ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_FOLD_CLOSE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_FOLD_OPEN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_FOLD_TOGGLE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_INDENT_AUTO ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_INDENT_DCR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_INDENT_INC ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_MESSAGES ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_NEXT_BRACE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_NEXT_MESSAGE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_PREV_BRACE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_PREV_MESSAGE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_TOGGLE_BOOKMARK ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_UNDOCK ##### -->
 <para>
 
 </para>

@@ -3,7 +3,6 @@
 	<menubar name="MenuMain">
 		<menu name="MenuFile" action="ActionMenuFile">
 			<placeholder name="PlaceholderFileMenus">
-				<menuitem name="New" action="ActionFileNew" />
 				<menuitem name="Save" action="ActionFileSave" />
 				<menuitem name="SaveAs" action="ActionFileSaveAs" />
 				<menuitem name="SaveAll" action="ActionFileSaveAll" />
@@ -52,36 +51,7 @@
 					<menuitem name="SelectBlock" action="ActionEditSelectBlock" />
 				</menu>
 			</placeholder>
-			<placeholder name="PlaceholderInsertMenus">
-				<menu name="Insert" action="ActionMenuEditInsert">
-					<menuitem name="Header" action="ActionEditInsertHeader" />
-					<menu name="CTemplate" action="ActionMenuEditInsertCtemplate">
-						<menuitem name="Switch" action="ActionEditInsertStatementSwitch" />
-						<menuitem name="For" action="ActionEditInsertStatementFor" />
-						<menuitem name="While" action="ActionEditInsertStatementWhile" />
-						<menuitem name="IfElse" action="ActionEditInsertStatementIfElse" />
-					</menu>
-					<menu name="CVS" action="ActionMenuEditInsertCvs">
-						<menuitem name="Author" action="ActionEditInsertCVSAuthor" />
-						<menuitem name="Date" action="ActionEditInsertCVSDate" />
-						<menuitem name="Header" action="ActionEditInsertCVSHeader" />
-						<menuitem name="Id" action="ActionEditInsertCVSID" />
-						<menuitem name="Log" action="ActionEditInsertCVSLog" />
-						<menuitem name="Name" action="ActionEditInsertCVSName" />
-						<menuitem name="Revision" action="ActionEditInsertCVSRevision" />
-						<menuitem name="Source" action="ActionEditInsertCVSSource" />
-					</menu>
-					<menu name="General" action="ActionMenuEditInsertGeneral">
-						<menuitem name="CGPL" action="ActionEditInsertCGPL" />
-						<menuitem name="CPPGPL" action="ActionEditInsertCPPGPL" />
-						<menuitem name="PYGPL" action="ActionEditInsertPYGPL" />
-						<menuitem name="Username" action="ActionEditInsertUsername" />
-						<menuitem name="DateTime" action="ActionEditInsertDateTime" />
-						<menuitem name="HeaderTemplate" action="ActionEditInsertHeaderTemplate" />
-						<menuitem name="ChangeLog" action="ActionEditInsertChangelog" />
-					</menu>
-				</menu>
-			</placeholder>
+			<placeholder name="PlaceholderInsertMenus"/>
 			<placeholder name="PlaceholderSearchMenus">
 				<menu name="Search" action="ActionMenuEditSearch">
 					<menuitem name="Find" action="ActionEditSearchFind"/>

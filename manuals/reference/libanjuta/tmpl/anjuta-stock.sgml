@@ -14,70 +14,7 @@ Some predefined stock icons
 
 </para>
 
-<!-- ##### MACRO ANJUTA_STOCK_UNDOCK ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### MACRO ANJUTA_STOCK_PROJECT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_MESSAGES ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_TOGGLE_BOOKMARK ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_PREV_MESSAGE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_NEXT_MESSAGE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_PREV_BRACE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_NEXT_BRACE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_BLOCK_START ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_BLOCK_END ##### -->
 <para>
 
 </para>
@@ -134,69 +71,6 @@ Some predefined stock icons
 
 
 <!-- ##### MACRO ANJUTA_STOCK_SAVE_PROJECT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_FOLD_TOGGLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_FOLD_OPEN ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_FOLD_CLOSE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_BLOCK_SELECT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_INDENT_INC ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_INDENT_DCR ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_INDENT_AUTO ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_AUTOFORMAT_SETTINGS ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ANJUTA_STOCK_AUTOCOMPLETE ##### -->
 <para>
 
 </para>

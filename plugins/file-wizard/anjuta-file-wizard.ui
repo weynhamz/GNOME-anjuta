@@ -1,0 +1,37 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<placeholder name="PlaceholderInsertMenus">
+				<menu name="Insert" action="ActionMenuEditInsert">
+					<menuitem name="Header" action="ActionEditInsertHeader" />
+					<menu name="CTemplate" action="ActionMenuEditInsertCtemplate">
+						<menuitem name="Switch" action="ActionEditInsertStatementSwitch" />
+						<menuitem name="For" action="ActionEditInsertStatementFor" />
+						<menuitem name="While" action="ActionEditInsertStatementWhile" />
+						<menuitem name="IfElse" action="ActionEditInsertStatementIfElse" />
+					</menu>
+					<menu name="CVS" action="ActionMenuEditInsertCvs">
+						<menuitem name="Author" action="ActionEditInsertCVSAuthor" />
+						<menuitem name="Date" action="ActionEditInsertCVSDate" />
+						<menuitem name="Header" action="ActionEditInsertCVSHeader" />
+						<menuitem name="Id" action="ActionEditInsertCVSID" />
+						<menuitem name="Log" action="ActionEditInsertCVSLog" />
+						<menuitem name="Name" action="ActionEditInsertCVSName" />
+						<menuitem name="Revision" action="ActionEditInsertCVSRevision" />
+						<menuitem name="Source" action="ActionEditInsertCVSSource" />
+					</menu>
+					<menu name="General" action="ActionMenuEditInsertGeneral">
+						<menuitem name="CGPL" action="ActionEditInsertCGPL" />
+						<menuitem name="CPPGPL" action="ActionEditInsertCPPGPL" />
+						<menuitem name="PYGPL" action="ActionEditInsertPYGPL" />
+						<menuitem name="Username" action="ActionEditInsertUsername" />
+						<menuitem name="DateTime" action="ActionEditInsertDateTime" />
+						<menuitem name="HeaderTemplate" action="ActionEditInsertHeaderTemplate" />
+						<menuitem name="ChangeLog" action="ActionEditInsertChangelog" />
+					</menu>
+				</menu>
+			</placeholder>
+		</menu>
+	</menubar>
+</ui>

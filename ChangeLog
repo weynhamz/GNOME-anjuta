@@ -1,7 +1,59 @@
-2004-09-01 Amanpreet Singh Alam <aalam@redhat.com>
-	
-	* configure.in: Added Punjabi <pa> to ALL_LINGUAS
+2004-08-15  Naba Kumar  <naba@gnome.org>
 
+	* plugins/devhelp/plugin.[c,h]: Fixed a start-up warning.
+	
+	* libanjuta/e-splash.c, plugins/profile-default/plugin.c:
+	New improved splace with nicer progress.
+	
+	* configure.in, plugins/Makefile.am,
+	(added) file-wizard/.cvsignore,
+	(added) file-wizard/Makefile.am,
+	(added) file-wizard/action-callbacks.c,
+	(added) file-wizard/action-callbacks.h,
+	(added) file-wizard/anjuta-file-wizard-plugin.png,
+	(added) file-wizard/anjuta-file-wizard.glade,
+	(added) file-wizard/anjuta-file-wizard.plugin.in,
+	(added) file-wizard/anjuta-file-wizard.ui,
+	(added) file-wizard/file.c,
+	(added) file-wizard/file.h,
+	(added) file-wizard/plugin.c,
+	(added) file-wizard/plugin.h:
+	Created new file wizard and added it. The wizard takes care of text
+	bit insertions and new files creation.
+
+	* plugins/editor/Makefile.am, plugins/editor/action-callbacks.c,
+	plugins/editor/action-callbacks.h,
+	plugins/editor/anjuta-document-manager.glade,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c, plugins/editor/text_editor.c,
+	(removed) plugins/editor/file.[c,h]: Removed text insertions and
+	new files code and moved into a new plugin (file wizard).
+	
+	* libanjuta/plugins.[c,h]: Added plugins selection function.
+	
+	* libanjuta/interfaces/libanjuta.idl: Added goto_position(),
+	get_position(), insert() in IAnjutaEditor interface. Added
+	add_buffer() in IAnjutaDocumentManager interface. Added IAnjutaWizard
+	interface (for wizard plugins).
+
+	* plugins/file-loader/anjuta-loader-plugin.ui,
+	plugins/file-loader/plugin.c: Added wizard launcher interface which
+	scans for plugins implement IAnjutaWizard interface and presents the
+	list to user for selection. The selected plugin is then activated
+	for the wizard.
+
+	* libanjuta/interfaces/.cvsignore: Updated.
+	* plugins/message-view/.cvsignore: Updated.
+	* plugins/launcher/*: Removed as launcher has already been moved to
+	libanjuta as class.
+
+	* manuals/reference/libanjuta/tmpl/anjuta-stock.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-document-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	manuals/reference/libanjuta/tmpl/pixmaps.sgml:
+	Updated API documentations.
+	
 2004-07-29  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Added file-loader plugin Makefile path and

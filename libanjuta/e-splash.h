@@ -60,7 +60,8 @@ void       e_splash_construct           (ESplash   *splash,
 GtkWidget *e_splash_new                 (const char *image_file);
 
 int        e_splash_add_icon            (ESplash   *splash,
-					 GdkPixbuf *icon_pixbuf);
+					 GdkPixbuf *icon_pixbuf, const gchar *title,
+					 const gchar *desc);
 void       e_splash_set_icon_highlight  (ESplash   *splash,
 					 int        num,
 					 gboolean   highlight);

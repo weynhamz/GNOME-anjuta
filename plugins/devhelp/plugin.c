@@ -225,8 +225,6 @@ devhelp_plugin_instance_init (GObject *obj)
 	/* Create plugin widgets */
 	// priv->history = dh_history_new ();
 
-	g_signal_connect (priv->html, "location-changed",
-					  G_CALLBACK (location_changed_cb), obj);
 	// g_signal_connect (priv->history, "forward_exists_changed",
 	//				  G_CALLBACK (forward_exists_changed_cb), obj);
 	// g_signal_connect (priv->history, "back_exists_changed",
@@ -236,6 +234,9 @@ devhelp_plugin_instance_init (GObject *obj)
 	priv->html      = dh_html_new ();
 	priv->html_view = dh_html_get_widget (priv->html);
 	priv->notebook  = gtk_notebook_new ();
+
+	g_signal_connect (priv->html, "location-changed",
+					  G_CALLBACK (location_changed_cb), obj);
 	
 	html_sw         = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (html_sw),
@@ -284,11 +285,12 @@ devhelp_plugin_instance_init (GObject *obj)
 	}
 
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
-
+/*
  	g_signal_connect_swapped (priv->html, 
 				  "uri_selected", 
 				  G_CALLBACK (open_url),
 				  plugin);
+*/
 }
 
 static void

@@ -4,3 +4,5 @@ Makefile.am
 *.c
 *.h
 *.list
+hierarchy.txt
+iface-built.stamp

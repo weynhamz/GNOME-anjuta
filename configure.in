@@ -638,6 +638,7 @@ plugins/message-view/Makefile
 plugins/devhelp/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
+plugins/file-wizard/Makefile
 plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/profile-default/Makefile

@@ -75,6 +75,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 	{
 		"IAnjutaFileLoader",
 		"IAnjutaDocumentManager",
+		"IAnjutaWizard",
 		"IAnjutaHelp",
 		"IAnjutaMessageManager",
 		"IAnjutaFileManager",
@@ -103,6 +104,15 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 														  "Anjuta Plugin",
 														  "Icon",
 														  &icon_filename)) {
+					gchar *title, *description;
+					anjuta_plugin_description_get_string (desc,
+														  "Anjuta Plugin",
+														  "Name",
+														  &title);
+					anjuta_plugin_description_get_string (desc,
+														  "Anjuta Plugin",
+														  "Description",
+														  &description);
 					icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 											 icon_filename, NULL);
 				    // g_message ("Icon: %s", icon_path);
@@ -110,7 +120,8 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 						gdk_pixbuf_new_from_file (icon_path, NULL);
 					g_free (icon_path);
 					if (icon_pixbuf) {
-						e_splash_add_icon (splash, icon_pixbuf);
+						e_splash_add_icon (splash, icon_pixbuf, title,
+										   description);
 						max_icons++;
 						g_object_unref (icon_pixbuf);
 					}
@@ -131,12 +142,12 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 
 	i = 0;
 	while(interfaces[i]) {
-		anjuta_shell_get_object (ANJUTA_PLUGIN (profile)->shell,
-								 interfaces[i], NULL);
 		if (splash && max_icons > 0)
 			e_splash_set_icon_highlight (splash, i, TRUE);
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
+		anjuta_shell_get_object (ANJUTA_PLUGIN (profile)->shell,
+								 interfaces[i], NULL);
 		i++;
 		max_icons--;
 	}

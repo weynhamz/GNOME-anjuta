@@ -83,8 +83,6 @@ libanjuta_editor_la_SOURCES= \
 	plugin.c \
 	action-callbacks.c\
 	action-callbacks.h\
-	file.c \
-	file.h \
 	file_history.c \
 	file_history.h \
 	search-replace.h \
