@@ -25,7 +25,8 @@
   <type>GTK_WINDOW_TOPLEVEL</type>
   <position>GTK_WIN_POS_NONE</position>
   <modal>False</modal>
-  <default_height>200</default_height>
+  <default_width>400</default_width>
+  <default_height>300</default_height>
   <allow_shrink>False</allow_shrink>
   <allow_grow>True</allow_grow>
   <auto_shrink>False</auto_shrink>
@@ -892,8 +893,8 @@ $(top.proj_dir)
   <type>GTK_WINDOW_TOPLEVEL</type>
   <position>GTK_WIN_POS_NONE</position>
   <modal>False</modal>
-  <default_width>400</default_width>
-  <default_height>200</default_height>
+  <default_width>600</default_width>
+  <default_height>400</default_height>
   <allow_shrink>False</allow_shrink>
   <allow_grow>True</allow_grow>
   <auto_shrink>False</auto_shrink>
@@ -925,8 +926,8 @@ $(top.proj_dir)
 	<name>tools.help.clist</name>
 	<tooltip>List of tool variables</tooltip>
 	<can_focus>True</can_focus>
-	<columns>2</columns>
-	<column_widths>80,80</column_widths>
+	<columns>3</columns>
+	<column_widths>168,285,80</column_widths>
 	<selection_mode>GTK_SELECTION_BROWSE</selection_mode>
 	<show_titles>True</show_titles>
 	<shadow_type>GTK_SHADOW_IN</shadow_type>
@@ -948,6 +949,19 @@ $(top.proj_dir)
 	  <class>GtkLabel</class>
 	  <child_name>CList:title</child_name>
 	  <name>label22</name>
+	  <label>Meaning</label>
+	  <justify>GTK_JUSTIFY_CENTER</justify>
+	  <wrap>False</wrap>
+	  <xalign>0.5</xalign>
+	  <yalign>0.5</yalign>
+	  <xpad>0</xpad>
+	  <ypad>0</ypad>
+	</widget>
+
+	<widget>
+	  <class>GtkLabel</class>
+	  <child_name>CList:title</child_name>
+	  <name>label23</name>
 	  <label>Value</label>
 	  <justify>GTK_JUSTIFY_CENTER</justify>
 	  <wrap>False</wrap>
