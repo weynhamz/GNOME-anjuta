@@ -1,3 +1,10 @@
+2001-10-09	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/find_text.c: applied patch from rikul <null@acm.org> to fix minor
+	issue with find dialog reporting an error when Scintilla finds text
+	* applied patch from Denis Boehme <boehme at syncio dot de> to support
+	DOS files (i.e. CR/LF translation)
+
 2001-10-03	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/notebook.c: applied patch from rikul <null@acm.org> to fix bug

@@ -435,12 +435,174 @@ text_editor_set_line_marker (TextEditor *te, glong line)
 	text_editor_set_marker (te, line, TEXT_EDITOR_LINEMARKER);
 }
 
+/* Support for DOS-Files
+ *
+ * On load, Anjuta will detect DOS-files by finding <CR><LF>. 
+ * Anjuta will translate some chars >= 128 to native charset.
+ * On save the DOS_EOL_CHECK(preferences->editor) will be checked
+ * and chars >=128 will be replaced by DOS-codes, if any translation 
+ * match(see struct tr_dos in this file) and <CR><LF> will used 
+ * instead of <LF>.
+ * The DOS_EOL_CHECK-checkbox will be set on loading a DOS-file.
+ *
+ *  23.Sep.2001  Denis Boehme<boehme at syncio dot de>
+ */
+
+/*
+ * this is a translation table from unix->dos 
+ * this table will be used by filter_chars and save filtered.
+ */
+static struct {
+	unsigned char c; /* unix-char */
+	unsigned char b; /* dos-char */
+} tr_dos[]= {
+	{ 'ä', 0x84 },
+	{ 'Ä', 0x8e },
+	{ 'ß', 0xe1 },
+	{ 'ü', 0x81 },
+	{ 'Ü', 0x9a },
+	{ 'ö', 0x94 },
+	{ 'Ö', 0x99 },
+	{ 'é', 0x82 },
+	{ 'É', 0x90 },
+	{ 'è', 0x9a },
+	{ 'È', 0xd4 },
+	{ 'ê', 0x88 },
+	{ 'Ê', 0xd2 },
+	{ 'á', 0xa0 },
+	{ 'Á', 0xb5 },
+	{ 'à', 0x85 },
+	{ 'À', 0xb7 },
+	{ 'â', 0x83 },
+	{ 'Â', 0xb6 },
+	{ 'ú', 0xa3 },
+	{ 'Ú', 0xe9 },
+	{ 'ù', 0x97 },
+	{ 'Ù', 0xeb },
+	{ 'û', 0x96 },
+	{ 'Û', 0xea }
+};
+
+/*
+ * filter chars in buffer, by using tr_dos-table. 
+ *
+ */
+static size_t
+filter_chars( gchar *data_, size_t size )
+{
+	int k;
+	size_t i;
+	unsigned char * data = data_;
+	unsigned char * tr_map;
+
+	tr_map = (unsigned char *)malloc( 256 );
+	memset( tr_map, 0, 256 );
+	for ( k = 0; k < sizeof(tr_dos )/2 ; k++ )
+		tr_map[tr_dos[k].b] = tr_dos[k].c;
+
+	for ( i = 0; i < size; i++ )
+	{
+      		if ( (data[i] >= 128) && ( tr_map[data[i]] != 0) )
+			data[i] = tr_map[data[i]];;
+	}
+
+	if ( tr_map )
+		free( tr_map );
+
+	return size;
+}
+
+/*
+ * save buffer. filter chars and set dos-like CR/LF if dos_text is set.
+ */
+static size_t
+save_filtered( FILE * f, gchar *data_, size_t size, gint dos_text )
+{
+	size_t i, j;
+	gchar dos_eol_data[] = { 0x0d, 0x0a };
+	unsigned char *data;
+	unsigned char *tr_map;
+	int k;
+
+	/* build the translation table */
+	tr_map = malloc( 256 );
+	memset( tr_map, 0, 256 );
+	for ( k = 0; k < sizeof(tr_dos)/2; k++)
+	  tr_map[tr_dos[k].c] = tr_dos[k].b;
+
+	data = data_;
+	i = 0; j = 0;
+	while ( i < size )
+	{
+		if ( data[i] == 0x0d )
+		{
+			/* ignore CR */
+			i++;
+			continue;
+		}
+		if ( data[i]==0x0a )
+		{
+			/* create CR+LF or LF */
+			if ( dos_text )
+				j += fwrite( dos_eol_data, 1, 2, f );
+			else
+				j += fwrite( &data[i], 1, 1, f );
+			i++;
+		}
+		else if ( data[i]>=128 && dos_text )
+		  {
+		    /* convert dos-text */
+		    if ( tr_map[data[i]] != 0 )
+		      j += fwrite( &tr_map[data[i]], 1, 1, f );
+		    else
+		      /* char not found, skip transform */
+		      j += fwrite( &data[i], 1, 1, f );
+
+		    i++;
+		  }
+		else
+		  {
+			/* write normal chars */
+			j += fwrite( &data[i], 1, 1, f );
+			i++;
+		  }
+		
+	}
+
+	if ( tr_map )
+		free(tr_map);
+
+//	printf( "size: %d, written: %d\n", size, j );
+	return size;
+}
+
+/*
+ * Check end-of-line type. Returns true, if it is DOS <cr><lf> type. 
+ */
+static gboolean
+is_dos_eol ( const gchar * buffer, gint size )
+{
+	int i;
+	int cr = 0;
+	
+	for ( i = 0; i < size ; i++ )
+	{
+		if ( buffer[i] == 0x0a ) // LF
+			break;
+		if ( buffer[i] == 0x0d ) // CR
+			cr = TRUE;
+	}
+	
+	return cr;
+}
+
 static gboolean
 load_from_file (TextEditor * te, gchar * fn)
 {
 	FILE *fp;
 	gchar *buffer;
 	gint nchars;
+	gint dos_text;
 	struct stat st;
 	size_t size;
 
@@ -467,6 +629,14 @@ load_from_file (TextEditor * te, gchar * fn)
 	}
 	/* Crude way of loading, but faster */
 	nchars = fread (buffer, 1, size, fp);
+	/* check EOL type */
+	dos_text = is_dos_eol(buffer,nchars);
+	preferences_set_int ( te->preferences, DOS_EOL_CHECK, 
+			      dos_text );
+	preferences_sync( te->preferences );
+	if ( dos_text )
+	  nchars = filter_chars( buffer, nchars );
+       
 	if (size != nchars)
 		g_warning ("File size and loaded size not matching");
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_ADDTEXT,
@@ -553,12 +723,15 @@ save_to_file (TextEditor * te, gchar * fn)
 	if (data)
 	{
 		size_t size;
-
+		gint dos_text;
+		
 		size = strlen (data);
+		dos_text = preferences_get_int( te->preferences, DOS_EOL_CHECK );
 		if (size != nchars)
 			g_warning
 				("Text length and no. of bytes saved is not equal");
-		size = fwrite (data, size, 1, fp);
+//		size = fwrite (data, size, 1, fp);
+		size = save_filtered( fp, data, size, dos_text );
 		g_free (data);
 	}
 	if (ferror (fp))

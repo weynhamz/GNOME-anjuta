@@ -511,7 +511,7 @@ on_find_text_ok_clicked (GtkButton * button, gpointer user_data)
 	}
 	ret = text_editor_find (te, string, ft->area, ft->forward, ft->regexp, ft->ignore_case, ft->whole_word);
 	g_free (string);
-	if (ret < 1)	anjuta_error (buff);
+	if (ret < 0)	anjuta_error (buff);
 }
 
 void

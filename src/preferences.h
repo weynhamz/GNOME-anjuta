@@ -98,6 +98,7 @@ struct _PreferencesWidgets
 	GtkWidget *auto_indent_check;
 	GtkWidget *use_tabs_check;
 	GtkWidget *braces_check_check;
+	GtkWidget *dos_eol_check;
 
 	GtkWidget *tab_size_spin;
 	GtkWidget *autosave_timer_spin;
@@ -246,6 +247,7 @@ void preferences_set_build_options(Preferences* p);
 #define INDENT_AUTOMATIC "indent.automatic"
 #define USE_TABS "use.tabs"
 #define BRACES_CHECK "braces.check"
+#define DOS_EOL_CHECK "editor.doseol"
 #define TAB_SIZE "tabsize"
 #define INDENT_SIZE "indent.size"
 #define AUTOSAVE_TIMER "autosave.timer"

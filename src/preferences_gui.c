@@ -899,6 +899,7 @@ create_preferences_page3 (Preferences * p)
 	GtkWidget *checkbutton10;
 	GtkWidget *checkbutton12;
 	GtkWidget *checkbutton11;
+	GtkWidget *checkbutton13;
 	GtkWidget *checkbutton8;
 	GtkObject *spinbutton4_adj;
 	GtkWidget *spinbutton4;
@@ -923,7 +924,7 @@ create_preferences_page3 (Preferences * p)
 	gtk_widget_show (vbox2);
 	gtk_container_add (GTK_CONTAINER (frame1), vbox2);
 
-	table2 = gtk_table_new (7, 4, FALSE);
+	table2 = gtk_table_new (8, 4, FALSE);
 	gtk_widget_show (table2);
 	gtk_box_pack_start (GTK_BOX (vbox2), table2, TRUE, TRUE, 0);
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
@@ -966,6 +967,13 @@ create_preferences_page3 (Preferences * p)
 	gtk_table_attach (GTK_TABLE (table2), checkbutton12, 0, 1, 4, 5,
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
+			  
+	checkbutton13 =
+		gtk_check_button_new_with_label(_("Save in DOS format"));
+	gtk_widget_show (checkbutton13);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton13, 0, 1, 7, 8,
+			(GtkAttachOptions) (GTK_FILL),
+			(GtkAttachOptions) (0), 0, 0);
 
 	vseparator1 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator1);
@@ -1069,6 +1077,7 @@ create_preferences_page3 (Preferences * p)
 	p->widgets.auto_indent_check = checkbutton10;
 	p->widgets.use_tabs_check = checkbutton11;
 	p->widgets.braces_check_check = checkbutton12;
+	p->widgets.dos_eol_check = checkbutton13;
 	p->widgets.tab_size_spin = spinbutton5;
 	p->widgets.autosave_timer_spin = spinbutton2;
 	p->widgets.autoindent_size_spin = spinbutton3;
@@ -1090,6 +1099,7 @@ create_preferences_page3 (Preferences * p)
 	gtk_widget_ref (checkbutton10);
 	gtk_widget_ref (checkbutton11);
 	gtk_widget_ref (checkbutton12);
+	gtk_widget_ref (checkbutton13);
 
 	return frame1;
 }
@@ -1652,6 +1662,11 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    braces_check_check)));
+
+	preferences_set_int (pr, DOS_EOL_CHECK,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    dos_eol_check)));
 
 	preferences_set_int (pr, TAB_SIZE,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
