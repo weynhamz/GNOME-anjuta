@@ -396,6 +396,8 @@ attach_process_update (AttachProcess * ap)
 	if (ch_pid == 0)
 	{
 		execlp (shell, shell, "-c", cmd, NULL);
+		g_warning (_("Cannot execute command: \"%s\""), shell);
+		_exit(1);
 	}
 	if (ch_pid < 0)
 	{

@@ -1205,7 +1205,8 @@ debugger_start_terminal ()
 	if ((pid = fork ()) == 0)
 	{
 		execvp (argv[0], argv);
-		g_error (_("Cannot execute gnome-terminal"));
+		g_warning (_("Cannot execute command: \"%s\""), argv[0]);
+		_exit(1);
 	}
 	glist_strings_free (args);
 

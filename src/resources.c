@@ -260,7 +260,8 @@ anjuta_res_help_search (const gchar * word)
 		if(fork()==0)
 		{
 			execlp("devhelp", "devhelp", "-s", word, NULL);
-			g_error (_("Cannot execute Devhelp. Make sure it is installed"));
+			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
+			_exit(1);
 		}
 	}
 	else
@@ -268,7 +269,8 @@ anjuta_res_help_search (const gchar * word)
 		if(fork()==0)
 		{
 			execlp("devhelp", "devhelp", NULL);
-			g_error (_("Cannot execute Devhelp. Make sure it is installed"));
+			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
+			_exit(1);
 		}
 	}
 }

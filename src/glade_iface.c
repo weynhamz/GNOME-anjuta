@@ -101,7 +101,8 @@ glade_iface_generate_source_code(gchar* glade_file)
 				if((pid = fork ()) == 0)
 				{
 					execlp ("glade", "glade", "--write-source",  glade_file, NULL);
-					g_error ("Cannot execute glade\n");
+					g_warning (_("Cannot execute command: \"%s\""), "glade");
+					_exit(1);
 				}
 				if(pid <1)
 				{
@@ -141,7 +142,8 @@ glade_iface_generate_source_code(gchar* glade_file)
 					execlp ("glade--", "glade--", "--noautoconf",
 						"--directory", 
 						dir, extract_filename(glade_file), NULL);
-					g_error ("Cannot execute glade--\n");
+					g_warning (_("Cannot execute command: \"%s\""), "glade--");
+					_exit(1);
 				}
 				if(pid <1)
 				{
@@ -182,7 +184,8 @@ glade_iface_generate_source_code(gchar* glade_file)
 				if((pid = fork ()) == 0)
 				{
 					execlp ("glade-2", "glade-2", "--write-source",  glade_file, NULL);
-					g_error ("Cannot execute glade\n");
+					g_warning (_("Cannot execute command: \"%s\""), "glade-2");
+					_exit(1);
 				}
 				if(pid <1)
 				{
@@ -222,7 +225,8 @@ glade_iface_generate_source_code(gchar* glade_file)
 					execlp ("glade--", "glade--", "--noautoconf",
 						"--directory", 
 						dir, extract_filename(glade_file), NULL);
-					g_error ("Cannot execute glade--\n");
+					g_warning (_("Cannot execute command: \"%s\""), "glade--");
+					_exit(1);
 				}
 				if(pid <1)
 				{
@@ -272,10 +276,16 @@ glade_iface_start_glade_editing (gchar* glade_file)
 			chdir (dir);
 		}
 		if (glade_2)
+		{
 			execlp ("glade-2", "glade-2", glade_file, NULL);
+			g_warning (_("Cannot execute command: \"%s\""), "glade-2");
+		}
 		else
+		{
 			execlp ("glade", "glade", glade_file, NULL);
-		g_error ("Cannot execute glade\n");
+			g_warning (_("Cannot execute command: \"%s\""), "glade");
+		}
+		_exit(1);
 	}
 	g_free (dir);
 	return TRUE;

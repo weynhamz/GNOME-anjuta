@@ -1616,7 +1616,8 @@ anjuta_util_kill (pid_t process_id, const gchar* signal)
 	if (pid == 0)
 	{
 		execlp ("kill", "kill", "-s", signal, pid_str, NULL);
-		g_error ("Can not execute kill command");
+		g_warning (_("Can not execute command: \"%s\""), "kill");
+		_exit(1);
 	}
 	g_free (pid_str);
 	if (pid > 0) {
@@ -1954,10 +1955,11 @@ anjuta_execute_shell (const gchar *dir, const gchar *command)
 			chdir (dir);
 		}
 		execlp (shell, shell, "-c", command, NULL);
-		g_error ("Cannot execute command %s using shell %s\n", command, shell);
+		g_warning (_("Cannot execute command: %s (using shell %s)\n", command, shell);
+		_exit(1);
 	}
 	if (pid < 0)
-		g_warning ("Cannot execute command %s using shell %s\n", command, shell);
+		g_warning (_("Cannot execute command %s (using shell %s)\n"), command, shell);
 	g_free (shell);
 	// Anjuta will take care of child exit automatically.
 	return pid;
