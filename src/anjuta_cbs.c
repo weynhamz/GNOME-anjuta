@@ -202,16 +202,19 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		/* printf("I have reached this point\n"); */
 		anjuta_goto_file_line (full_filename, -1);
 		/* printf("I have reached this point goto line\n"); */
-		gtk_widget_hide (app->fileselection);
+		//gtk_widget_hide (app->fileselection);
+		fileselection_hide_widget(app->fileselection);
 		g_free (full_filename);
 	}
+	fileselection_hide_widget(app->fileselection);
 	/* g_free(list); */
 }
 
 void
 on_open_filesel_cancel_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_widget_hide (app->fileselection);
+	fileselection_hide_widget(app->fileselection);
+	//gtk_widget_hide (app->fileselection);
 }
 
 void

@@ -59,4 +59,7 @@ fileselection_get_nodelist(GtkWidget * filesel);
 gchar * 
 fileselection_get_lastfilename(GtkWidget * widget, GList * list);
 
+void 
+fileselection_hide_widget(GtkWidget * widget);
+
 #endif

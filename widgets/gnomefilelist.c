@@ -198,7 +198,8 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
 
    file_list->file_list = gtk_ctree_new(1, 0);
 	//gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_EXTENDED);
-	gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
+//	gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
+	gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_SINGLE);
 	file_list->multiple_selection = TRUE;
 //   gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_SINGLE);
 //   gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_MULTIPLE);
@@ -210,6 +211,9 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_ctree_set_line_style (GTK_CTREE(file_list->file_list), GTK_CTREE_LINES_NONE);
    gtk_clist_column_titles_passive(GTK_CLIST(file_list->file_list));
    gtk_container_add(GTK_CONTAINER(scrolled_window), file_list->file_list);
+ gtk_widget_set_events(file_list->file_list, 
+                                        GDK_KEY_PRESS_MASK);
+
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "select_row", GTK_SIGNAL_FUNC(file_select_event), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "unselect_row", GTK_SIGNAL_FUNC(file_unselect_event), file_list);
@@ -338,7 +342,6 @@ static void file_select_event(GtkCTree *tree, gint row, gint col, GdkEvent *even
    if(!event || event->type != GDK_2BUTTON_PRESS)
       file_list->history_position = -1;
 }
-
 
 static void file_unselect_event(GtkCTree *tree, gint row, gint col, GdkEvent *event, GnomeFileList *file_list)
 {
@@ -520,7 +523,7 @@ GList * gnome_filelist_get_filelist(GnomeFileList * file_list)
 			full = g_strconcat(path,text,NULL);
 			list = g_list_append(list, full);
 		}
-		gtk_ctree_unselect(GTK_CTREE(file_list->file_list), node);
+//		gtk_ctree_unselect(GTK_CTREE(file_list->file_list), node);
 		temp = GTK_CLIST(file_list->file_list)->selection;
 		num_elements--;
 	}
@@ -552,24 +555,24 @@ gchar * gnome_filelist_get_lastfilename(GnomeFileList * file_list, GList * list)
 	gchar * text = NULL;
 	gchar * full = NULL;
 	gchar * path;
-
+	
 	if(!gtk_ctree_node_get_pixtext(GTK_CTREE(file_list->file_list), node, 0, &text, NULL, NULL, NULL))
 		return NULL;
 	filename = g_strdup(text);
 	gtk_ctree_select(GTK_CTREE(file_list->file_list), node);
-   path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
+	path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
 	if(!path)
-		return;
+		return NULL;
 	g_free(file_list->selected);
-   file_list->selected = g_new(char, strlen(text)+1);
-   strcpy(file_list->selected, text);
-   set_file_selection(file_list);
+	file_list->selected = g_new(char, strlen(text)+1);
+	strcpy(file_list->selected, text);
+	set_file_selection(file_list);
 	
 	full = g_strconcat(path, filename, NULL);
 	g_free(filename);
 	return full;
 }
-	
+
 gchar *gnome_filelist_get_path(GnomeFileList *file_list)
 {
    g_return_val_if_fail(file_list != NULL, NULL);
@@ -778,6 +781,12 @@ static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event)
       gtk_widget_grab_focus(GTK_WIDGET(clist));
       del = TRUE;
    }
+	else if(event->keyval == GDK_Control_L || event->keyval == GDK_Control_R)
+	{
+		// printf("Control pressed\n");
+		gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
+	}
+	
    if(row >= 0 && row < clist->rows)
    {
       gtk_clist_select_row(clist, row, 0);

@@ -32,10 +32,19 @@
 #include "utilities.h"
 #include "gnomefilelist.h"
 
+void fileselection_hide_widget(GtkWidget *widget)
+{
+	GtkWidget * file_list = GNOME_FILELIST(widget)->file_list;
+	gtk_clist_unselect_all(GTK_CLIST(file_list));
+	gnome_filelist_set_selection_mode(GNOME_FILELIST(widget), GTK_SELECTION_SINGLE);
+	gtk_widget_hide(widget);
+}
+
 static gboolean
 on_fileselection_delete_event (GtkWidget * w, GdkEvent * event, gpointer data)
 {
-	gtk_widget_hide (w);
+	//gtk_widget_hide (w);
+	fileselection_hide_widget(w);
 	return TRUE;
 }
 
@@ -57,6 +66,7 @@ on_file_selection_ok_clicked (GtkButton * button, gpointer data)
 	gtk_widget_hide (fd->filesel);
 	if (fd->click_ok_callback)
 		fd->click_ok_callback (button, fd->data);
+	fileselection_hide_widget(fd->filesel);
 	
 	g_free (filename);
 	return;
@@ -121,7 +131,6 @@ GList * fileselection_get_nodelist(GtkWidget * filesel)
 {
 	return gnome_filelist_get_nodelist (GNOME_FILELIST(filesel));
 }
-
 
 /* Free the return */
 gchar*

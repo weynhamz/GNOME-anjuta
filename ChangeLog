@@ -1,3 +1,13 @@
+2001-08-5  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* widgets/gonmefilelist.c, gnomefilelist.c:
+	Modified multiple selection on pressing	control.
+	  # Patch from: venugopal gummuluru <vgummuluru@yahoo.com>
+	
+	* src/project_dbase_gui.c, anjuta_cbs.c, fileselection.h, fileselection.h:
+	Modified multiple selection on pressing control.
+	  # Patch from: venugopal gummuluru <vgummuluru@yahoo.com>
+	
 2001-09-05  Abel Cheung  <maddog@linux.org.hk>
 
 	* src/project_dbase_gui.c(*lang_data[]): Rename zh_TW.Big5 to zh_TW .

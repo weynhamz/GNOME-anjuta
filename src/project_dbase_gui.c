@@ -322,6 +322,7 @@ on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 void
 on_open_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data)
 {
+//	fileselection_hide_widget(app->project_dbase->fileselection_open);
 	gtk_widget_hide (app->project_dbase->fileselection_open);
 }
 
@@ -1298,7 +1299,8 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 void
 on_add_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_widget_hide (app->project_dbase->fileselection_add_file);
+	fileselection_hide_widget(app->project_dbase->fileselection_add_file);
+	// gtk_widget_hide (app->project_dbase->fileselection_add_file);
 }
 
 		
@@ -1339,7 +1341,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 					filename);
 		if (strcmp (dir, comp_dir) == 0)
 			on_prj_import_confirm_yes (NULL, user_data);
-
+	
 		else
 		{
 		
@@ -1358,7 +1360,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		}
 		
 		
-		gtk_widget_hide (p->fileselection_add_file);
+		// gtk_widget_hide (p->fileselection_add_file);
 		g_free (dir);
 		g_free (mesg);
 		g_free (comp_dir);
