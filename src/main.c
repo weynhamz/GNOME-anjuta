@@ -27,7 +27,10 @@
 #include "anjuta.h"
 #include "utilities.h"
 #include "fileselection.h"
-#include "CORBA-Server.h"
+
+#ifdef USE_GLADEN
+#  include "CORBA-Server.h"
+#endif
 
 /* #define DEBUG */
 

@@ -251,7 +251,7 @@ EXTRA_DIST = \
 	glades.c\
 	Prj-skelimpl.c\
 	Prj-skels.c\
-	Prj-stubs.c
+	Prj-stubs.c \
 	CORBA-Server.c\
 	CORBA-Server.h\
 	Gladen-common.c\
