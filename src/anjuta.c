@@ -54,8 +54,6 @@ static GdkCursor *app_cursor;
 void anjuta_child_terminated (int t);
 static void on_anjuta_window_selected (GtkMenuItem * menuitem,
 				       gpointer user_data);
-static void anjuta_clear_windows_menu (void);
-static void anjuta_fill_windows_menu (void);
 static void anjuta_show_text_editor (TextEditor * te);
 
 static void
@@ -1476,7 +1474,7 @@ anjuta_load_cmdline_files ()
 	}
 }
 
-static void
+void
 anjuta_clear_windows_menu ()
 {
 	guint count;
@@ -1502,7 +1500,7 @@ anjuta_delete_all_marker (gint marker)
 	}
 }
 
-static void
+void
 anjuta_fill_windows_menu ()
 {
 	gint count, i;

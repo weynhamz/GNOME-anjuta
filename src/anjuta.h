@@ -217,9 +217,12 @@ void anjuta_not_implemented (gchar * file, guint line);
 
 gboolean anjuta_is_installed (gchar * prog, gboolean show);
 
-/* If set_job is TRUE, jon_name is set in the status bar */
+/* If set_job is TRUE, job_name is set in the status bar */
 /* Else previous job is set in the status bar */
 void anjuta_update_app_status (gboolean set_job, gchar * job_name);
+
+void anjuta_clear_windows_menu (void);
+void anjuta_fill_windows_menu (void);
 
 /* Private callbacks */
 

@@ -151,9 +151,7 @@ create_new_project (AppWizard * aw)
 	
 	/* Creating icon pixmap file for gnome projects */
 	messages_append (app->messages, _("Copying icon file ...\n"), MESSAGE_BUILD);
-	if ( (aw->prj_type == PROJECT_TYPE_GNOME
-		||aw->prj_type == PROJECT_TYPE_GNOMEMM
-		||aw->prj_type == PROJECT_TYPE_BONOBO) && aw->icon_file)
+	if (type->gnome_support && aw->icon_file)
 	{
 		gchar* dir;
 		gchar* dest;
@@ -174,7 +172,9 @@ create_new_project (AppWizard * aw)
 	for(i=0; i<MODULE_END_MARK; i++)
 	{
 		gchar *key;	
-
+	
+		free_project_type(type);
+	
 		if (i == MODULE_PO)
 			continue;
 		list = project_dbase_scan_files_in_module (app->project_dbase, i, FALSE);

@@ -38,3 +38,5 @@ dist-hook:
 			cp -p $$specfile $(distdir); \
 		fi \
 	done
+	project_type.c\
+	project_type.h\

@@ -1582,7 +1582,8 @@ project_dbase_get_language (ProjectDBase* p)
 	gchar *str;
 	gint i;
 	
-	g_return_val_if_fail (p != NULL, PROJECT_PROGRAMMING_LANGUAGE_END_MARK;);
+	g_return_val_if_fail (p != NULL, PROJECT_PROGRAMMING_LANGUAGE_END_MARK);
+	
 	str = prop_get (p->props, "project.programming.language");
 	if (!str)
 		return PROJECT_PROGRAMMING_LANGUAGE_END_MARK;

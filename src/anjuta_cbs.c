@@ -303,6 +303,8 @@ on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 		}
 	}
 	anjuta_update_title ();
+	anjuta_clear_windows_menu();
+	anjuta_fill_windows_menu();
 	g_free (full_filename);
 }
 

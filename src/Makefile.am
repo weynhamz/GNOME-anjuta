@@ -1,12 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-## Created by Anjuta - will be overwritten
-## If you don't want it to overwrite it,
-## 	Please disable it in the Anjuta project configuration
-
 INCLUDES = \
 	-I$(top_srcdir)/intl \
 	$(GNOME_INCLUDEDIR)\
+	$(EXTRA_GNOME_CFLAGS)\
+	$(EXTRA_ORBIT_CFLAGS)\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../ccview \
@@ -195,10 +193,16 @@ anjuta_SOURCES = \
 
 anjuta_LDADD =  \
 	$(INTLLIBS) \
-	$(GNOME_LIBDIR) $(GNOMEUI_LIBS)\
+	$(GNOME_LIBDIR)\
+	$(GNOMEUI_LIBS)\
+	$(EXTRA_GNOME_LIBS)\
+	$(EXTRA_ORBIT_LIBS)\
 	-L../scintilla -L../widgets -L../ccview\
 	../scintilla/LexCPP.o ../scintilla/LexConf.o ../scintilla/LexHTML.o\
 	../scintilla/LexLua.o ../scintilla/LexOthers.o ../scintilla/LexPerl.o\
 	../scintilla/LexPython.o ../scintilla/LexSQL.o ../scintilla/LexVB.o\
 	../scintilla/LexPascal.o ../scintilla/LexAVE.o -lwidgets -lccview -lxml\
-	-lscintilla -lORBit -lIIOP -lORBitutil -lgnorba
+	-lscintilla
+
+	
+# -lIIOP -lORBitutil -lgnorba -lORBit

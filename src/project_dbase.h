@@ -23,6 +23,7 @@
 #include "properties.h"
 #include "project_config.h"
 #include "project_type.h"
+#include "project_type.h"
 
 #define COMPATIBILITY_LEVEL    1
 

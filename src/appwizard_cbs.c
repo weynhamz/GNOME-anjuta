@@ -82,10 +82,12 @@ on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 		|| aw->prj_type == PROJECT_TYPE_GNOMEMM)
 	{
 		   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(aw->widgets.language_cpp_radio), TRUE);
+		   gtk_widget_set_sensitive (GTK_WIDGET(aw->widgets.language_c_radio), FALSE);
 	}
 	else
 	{
 		   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(aw->widgets.language_c_radio), TRUE);
+		   gtk_widget_set_sensitive (GTK_WIDGET(aw->widgets.language_c_radio), TRUE);
 	}
 	gtk_widget_grab_focus (aw->widgets.prj_name_entry);
 	return FALSE;

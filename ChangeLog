@@ -1,5 +1,17 @@
 2001-09-12  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* configure.in, src/Makefile.am: Using macros for ORBit flags.
+	
+2001-09-07 Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* Fixed bug #445752
+  
+2001-9-06  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* Fixed bugs in Gtk-- and Gnome-- project type
+
+2001-09-12  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* dnd.c: Support for multiple files drag-n-drop.
 	
 	  Patch from: rikul <null@acm.org>
