@@ -1,3 +1,7 @@
+2003-09-19  Naba Kumar  <naba@gnome.org>
+
+	* printing/print.c: Proper UTF8 printing support.
+	
 2003-09-18  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/*/*, src/scintilla/Makefile.am, src/Makefile.am,

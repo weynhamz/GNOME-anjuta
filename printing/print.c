@@ -60,8 +60,7 @@
 #define AN_PRINT_LINENUM_PADDING '0'
 
 /* Boiler plate */
-#define TEXT_AT(buf, index)  (buf)[(index)*2]
-#define STYLE_AT(buf, index) (buf)[(index)*2+1]
+#define STYLE_AT(pji, index) (pji)->styles[(index)]
 
 typedef struct _PrintJobInfoStyle
 {
@@ -90,7 +89,8 @@ typedef struct _PrintJobInfo
 	TextEditor *te;
 
 	/* Print Buffer */
-	guchar  *buffer;
+	gchar  *buffer;
+	gchar  *styles;
 	guint   buffer_size;
 	
 	/* Document zoom factor */
@@ -336,57 +336,6 @@ anjuta_print_job_info_style_new (PropsID prop, gchar* lang,
 
 #define _PROPER_I18N
 
-static int
-anjuta_print_unichar_to_utf8(gint c, gchar * outbuf)
-{
-	size_t len = 0;
-	int first;
-	int i;
-
-	if (c < 0x80)
-	{
-		first = 0;
-		len = 1;
-	}
-	else if (c < 0x800)
-	{
-		first = 0xc0;
-		len = 2;
-	}
-	else if (c < 0x10000)
-	{
-		first = 0xe0;
-		len = 3;
-	}
-	else if (c < 0x200000)
-	{
-		first = 0xf0;
-		len = 4;
-	}
-	else if (c < 0x4000000)
-	{
-		first = 0xf8;
-		len = 5;
-	}
-	else
-	{
-		first = 0xfc;
-		len = 6;
-	}
-
-	if (outbuf)
-	{
-		for (i = len - 1; i > 0; --i)
-		{
-			outbuf[i] = (c & 0x3f) | 0x80;
-			c >>= 6;
-		}
-		outbuf[0] = c | first;
-	}
-
-	return len;
-}
-
 static gfloat
 anjuta_print_get_font_height (PrintJobInfo *pji, gint style)
 {
@@ -445,6 +394,7 @@ anjuta_print_job_info_destroy(PrintJobInfo *pji)
 		g_object_unref (pji->print_job);
 	
 	if (pji->buffer) g_free(pji->buffer);
+	if (pji->styles) g_free(pji->styles);
 	for (i = 0; i < AN_PRINT_MAX_STYLES; i++)
 	{
 		if (pji->styles_pool[i])
@@ -526,6 +476,7 @@ anjuta_print_job_info_new (void)
 	PrintJobInfo *pji;
 	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
 	gint i;
+	gchar *buffer;
 
 	pji = g_new0(PrintJobInfo, 1);
 	if (NULL == (pji->te = anjuta_get_current_text_editor()))
@@ -550,7 +501,17 @@ anjuta_print_job_info_new (void)
 	
 	/* Load Buffer to be printed. The buffer loaded is the text/style combination.*/
 	pji->buffer_size = scintilla_send_message(SCINTILLA(pji->te->widgets.editor), SCI_GETLENGTH, 0, 0);
-	pji->buffer = (gchar *) aneditor_command(pji->te->editor_id, ANE_GETSTYLEDTEXT, 0, pji->buffer_size);
+	buffer = (gchar *) aneditor_command(pji->te->editor_id, ANE_GETSTYLEDTEXT, 0, pji->buffer_size);
+	pji->buffer = g_new(char, pji->buffer_size + 1);
+	pji->styles = g_new(char, pji->buffer_size + 1);
+	pji->buffer[pji->buffer_size] = '\0';
+	pji->styles[pji->buffer_size] = '\0';
+	for (i = 0; i < pji->buffer_size; i++)
+	{
+		pji->buffer[i] = buffer[i << 1];
+		pji->styles[i] = buffer[(i << 1) + 1];
+	}
+	g_free (buffer);
 	if (NULL == pji->buffer)
 	{
 		anjuta_error(_("Unable to get text buffer for printing"));
@@ -675,36 +636,18 @@ anjuta_print_new_line (PrintJobInfo *pji)
 
 
 static gint
-anjuta_print_show_char_styled (PrintJobInfo *pji, const char ch,
+anjuta_print_show_chars_styled (PrintJobInfo *pji, const char *chars, gint size,
 							   const char style)
 {
-	wchar_t wcs[64];
-	gchar utf8[64];
-	gint  len;
 	gfloat width;
 	
 	g_return_val_if_fail (pji != NULL, -1);
+	g_return_val_if_fail (size > 0, -1);
 	
-	if (ch == '\n') {
+	if (chars[0] == '\n') {
 		anjuta_print_new_line (pji);
 	} else {
-		int conv_status;
-		int i;
-		char *p;
-
-		/* Convert input char to wchar string */
-		conv_status = mbstowcs (wcs, &ch, 1);
-		if (conv_status == (size_t) (-1))
-				return 0;
-		
-		/* Convert wchar string to utf8 */
-		p = utf8;
-		for (i = 0; i < conv_status; i++)
-			p += anjuta_print_unichar_to_utf8 ((gint) wcs[i], p);
-		
-		/* Calculate final string length and width */
-		len = p - utf8;
-		width = anjuta_print_get_text_width_sized (pji, style, TRUE, utf8, len);
+		width = anjuta_print_get_text_width_sized (pji, style, TRUE, chars, size);
 		
 		/* Determine wrapping */
 		if ((pji->cursor_x + width) > (pji->page_width - pji->margin_right)) {
@@ -719,7 +662,7 @@ anjuta_print_show_char_styled (PrintJobInfo *pji, const char ch,
 		
 		/* Print it */
 		gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-		gnome_print_show_sized (pji->pc, utf8, len);
+		gnome_print_show_sized (pji->pc, chars, size);
 		pji->cursor_x += width;
 	}
 	return 0; /* Return text wrap status */
@@ -787,7 +730,6 @@ anjuta_print_show_header (PrintJobInfo * pji)
 {
 	guchar *text1 = g_strdup_printf (_("File: %s"), pji->te->filename);
 	guchar *text2 = g_strdup_printf (_("%d"), pji->current_page);
-	gchar  *ch;
 	gfloat width;
 	gboolean save_wrapping;
 
@@ -798,22 +740,17 @@ anjuta_print_show_header (PrintJobInfo * pji)
 	pji->cursor_x = pji->margin_left;
 	pji->cursor_y = pji->page_height - pji->margin_top;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-	ch = text1;
-	while (*ch != '\0') {
-		if (anjuta_print_show_char_styled(pji, *ch, AN_PRINT_DEFAULT_TEXT_STYLE)) break;
-		ch++;
-	}
+	anjuta_print_show_chars_styled(pji, text1, strlen(text1),
+								   AN_PRINT_DEFAULT_TEXT_STYLE);
 
 	/* Print page number on right */
 	width = anjuta_print_get_text_width (pji, AN_PRINT_DEFAULT_TEXT_STYLE, FALSE, text2);
 	pji->cursor_x = pji->page_width - pji->margin_right - width - 2;
 	pji->cursor_y = pji->page_height - pji->margin_top;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-	ch = text2;
-	while (*ch != '\0') {
-		if (anjuta_print_show_char_styled(pji, *ch, AN_PRINT_DEFAULT_TEXT_STYLE)) break;
-		ch++;
-	}
+	anjuta_print_show_chars_styled(pji, text2, strlen(text2),
+								   AN_PRINT_DEFAULT_TEXT_STYLE);
+	
 	pji->wrapping = save_wrapping;
 	g_free (text1);
 	g_free (text2);
@@ -823,7 +760,7 @@ static void
 anjuta_print_show_linenum (PrintJobInfo * pji, guint line, guint padding)
 {
 	guchar *line_num = g_strdup_printf ("%u", line);
-	guchar *ch, *pad_str, *text;
+	guchar *pad_str, *text;
 	gboolean save_wrapping;
 	gfloat save_x, save_y;
 		
@@ -839,11 +776,8 @@ anjuta_print_show_linenum (PrintJobInfo * pji, guint line, guint padding)
 	pji->wrapping = FALSE;
 	pji->cursor_x = pji->margin_left;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-	ch = text;
-	while (*ch != '\0') {
-		if (anjuta_print_show_char_styled(pji, *ch, AN_PRINT_LINENUMBER_STYLE)) break;
-		ch++;
-	}
+	anjuta_print_show_chars_styled(pji, text, strlen(text), 
+								  AN_PRINT_LINENUMBER_STYLE);
 
 	pji->wrapping = save_wrapping;
 	pji->cursor_x = save_x;
@@ -959,7 +893,8 @@ anjuta_print_progress_end (PrintJobInfo * pji)
 static void
 anjuta_print_document (PrintJobInfo * pji)
 {
-	guint i, ret, current_line, num_lines, padding;
+	guint i, style_index, ret, current_line, num_lines, padding;
+	gchar *current_pos;
 
 	current_line = 1;
 	
@@ -989,37 +924,58 @@ anjuta_print_document (PrintJobInfo * pji)
 	if (pji->print_line_numbers > 0)
 		anjuta_print_show_linenum (pji, current_line, padding);
 	
-	for (i=0; i<pji->buffer_size; i++ ) {
-		gchar text;
+	current_pos = pji->buffer;
+	style_index = 0;
+	i = 0;
+	while (current_pos < (pji->buffer + pji->buffer_size))
+	{
+		gchar *previous_pos;
 		gchar style;
 		
 		ret = 0;
-		text = TEXT_AT(pji->buffer, i);
-		style = STYLE_AT(pji->buffer, i);
+		/* text = TEXT_AT(pji->buffer, i); */
+		style = STYLE_AT(pji, style_index);
 		
-		if (text == '\t') {
+		if (current_pos[0] == '\t') {
 			int j;
 			for (j = 0; j < pji->tab_size; j++ ) {
-				ret = anjuta_print_show_char_styled(pji, ' ', style);
+				ret = anjuta_print_show_chars_styled(pji, " ", 1, style);
 				if (ret == 1) break;
 			}
 		} else {
-			ret = anjuta_print_show_char_styled(pji, text, style);
+			ret = anjuta_print_show_chars_styled(pji, current_pos,
+												 g_utf8_next_char(current_pos)
+													- current_pos,
+												 style);
 		}
+		/* Skip to next line */
 		if (ret == 1) {
-			while (TEXT_AT(pji->buffer, i) != '\n') {
+			while ((current_pos < (pji->buffer + pji->buffer_size))
+					&& (current_pos[0] != '\n')) {
+						
+				/* Advance to next character */
+				previous_pos = current_pos;
+				current_pos = g_utf8_next_char (current_pos);
+				style_index += current_pos - previous_pos;
 				i++;
-				if (i >= pji->buffer_size)
-					break;
 			}
 		}
-		if (text == '\n' || ret == 1) {
+		if (current_pos[0] == '\n' || ret == 1) {
 			current_line++;
 			if (pji->print_line_numbers > 0 &&
 					((current_line+1) % pji->print_line_numbers == 0))
 				anjuta_print_show_linenum (pji, current_line, padding);
 		}
-		if (i % 50 ==  0) anjuta_print_progress_tick (pji, i);
+		if (i % 50 ==  0)
+			anjuta_print_progress_tick (pji, i);
+		
+		/* advance to next character. */
+		previous_pos = current_pos;
+		current_pos = g_utf8_next_char (current_pos);
+		style_index += current_pos - previous_pos;
+		i++;
+		
+		/* Exit if canceled. */
 		if (pji->canceled)
 			break;
 	}
