@@ -1,5 +1,10 @@
 2002-06-09	Andy Piper	<andy.piper@freeuk.com>
 
+	* src/main_menubar_def.h, src/mainmenu_callbacks.c: fixed
+	the CVS keyword insert and improved help text
+
+2002-06-09	Andy Piper	<andy.piper@freeuk.com>
+
 	* data/stock_libs.anj: expanded library list and began to add 
 	library descriptions
 	

@@ -801,8 +801,11 @@ void
 on_insert_cvs_author(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Author\n";
-
+	gchar *cvs_string_value = "Author";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
+	
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
@@ -813,7 +816,10 @@ void
 on_insert_cvs_date(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Date\n";
+	gchar *cvs_string_value = "Date";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -825,7 +831,10 @@ void
 on_insert_cvs_header(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Header\n";
+	gchar *cvs_string_value = "Header";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -837,7 +846,10 @@ void
 on_insert_cvs_id(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Id\n";
+	gchar *cvs_string_value = "Id";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -849,7 +861,10 @@ void
 on_insert_cvs_log(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Log\n";
+	gchar *cvs_string_value = "Log";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -861,7 +876,10 @@ void
 on_insert_cvs_name(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Name\n";
+	gchar *cvs_string_value = "Name";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -873,7 +891,10 @@ void
 on_insert_cvs_revision(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Revision\n";
+	gchar *cvs_string_value = "Revision";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -885,7 +906,10 @@ void
 on_insert_cvs_source(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"Source\n";
+	gchar *cvs_string_value = "Source";
+	gchar *cvs_string;
+	
+	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
