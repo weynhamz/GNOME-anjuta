@@ -161,4 +161,8 @@ src/resources.h
 src/notebook.c
 src/notebook.h
 
-
+ccview/cccmd.cc
+ccview/cccproj.cc
+ccview/ccview_main.cc
+ccview/func_dialog.cc
+ccview/support.c
