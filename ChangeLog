@@ -1,3 +1,10 @@
+2005-02-20  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/editor/aneditor-autocomplete.cxx:
+	
+	Patch from Jason Bayman <JBayman@HobbitHell.com> avoids
+	crash with C++ "template" keyword.
+
 2005-02-20  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/macro/macro-dialog.c, plugins/macro/macro-edit.c :

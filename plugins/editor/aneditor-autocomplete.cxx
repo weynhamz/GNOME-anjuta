@@ -511,6 +511,15 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 				if(linebuf[endword] == '(') count--;
 			}	while (endword > 0 && count);
 		}
+		else if(linebuf[endword - 1] == '>')
+		{
+			int count = 0;
+			do {
+				endword--;
+				if(linebuf[endword] == '>') count++;
+				if(linebuf[endword] == '<') count--;
+			}	while (endword > 0 && count);
+		}
 		else
 		{
 			while(linebuf[endword - 1] == ']')
