@@ -1,5 +1,10 @@
 2002-05-26	Andy Piper	<andy.piper@freeuk.com>
 
+	* HACKING: info on FIXME statements and removed ccview references
+	* Makefile.am: added rule to make RPM package
+
+2002-05-26	Andy Piper	<andy.piper@freeuk.com>
+
 	* THANKS, widgets/e-shell-about-box.c, 
 	manuals/anjuta-manual/C/authors.sgml: updated for new
 	patch

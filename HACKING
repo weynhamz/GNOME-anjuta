@@ -92,7 +92,6 @@ Key elements:
 * src/ - the main Anjuta sources
 * scintilla/ - the editor
 * widgets/ - additional widgets used
-* ccview/ - the C++ class viewer
 * launcher/ - launcher wrapper used by the debugger
 * tagmanager/ - the tagmanager library
 * plugins/ - plugin components (see the sample for more information)

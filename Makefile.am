@@ -43,3 +43,6 @@ dist-hook:
 			cp -p $$specfile $(distdir); \
 		fi \
 	done
+
+rpm: dist
+	rpm -ta $(distdir).tar.gz
