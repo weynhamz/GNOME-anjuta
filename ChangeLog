@@ -1,3 +1,17 @@
+2002-06-03  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* printing/print.h, printing/printing.c: Taken care of document
+	zoom factor and fixed a font loading bug. Dynamically calculated
+	text widths to work with zooms properly. Re-organized code for
+	dynamic text width calulations to work in general with utf8 chars.
+	 Determined font height and width automatically from the font info.
+	
+	* src/anjuta.c, src/mainmenu_callbacks.c, *src/preferences.c:
+	src/preferences.h, src/text_editor.c, src/preferences_gui.c:
+	Converted text.zoom.factor property to use #defined value. Removed
+	margin header and margin numbers preferences, as they is now
+	calculated dynamically.
+	
 2002-06-02  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* printing/print-doc.c, printing/print-doc.h, printing/print-util.c,

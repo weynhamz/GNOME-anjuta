@@ -41,16 +41,8 @@
 #include "print-doc.h"
 #include "print-util.h"
 
-/*
-static void anjuta_print_calculate_pages (PrintJobInfo *pji)
-{
-	pji->total_lines = anjuta_print_document_determine_lines(pji, FALSE);
-	pji->total_lines_real = anjuta_print_document_determine_lines(pji, TRUE);
-	pji->pages = ((int) (pji->total_lines_real-1)/pji->lines_per_page)+1;
-	pji->page_first = 1;
-	pji->page_last = pji->pages;
-}
-*/
+static PrintJobInfoStyle* anjuta_print_get_style (PrintJobInfo* pji, gint style);
+
 static void
 anjuta_print_job_info_style_destroy (PrintJobInfoStyle *pis) {
 	if (pis) {
@@ -131,7 +123,8 @@ anjuta_print_job_info_style_init (PrintJobInfoStyle *pis, PropsID prop,
 }
 
 static PrintJobInfoStyle*
-anjuta_print_job_info_style_new (PropsID prop, gchar* lang, guint style)
+anjuta_print_job_info_style_new (PropsID prop, gchar* lang,
+			guint style, gint font_zoom_factor)
 {
 	PrintJobInfoStyle* pis;
 	
@@ -156,13 +149,15 @@ anjuta_print_job_info_style_new (PropsID prop, gchar* lang, guint style)
 	pis->italics = FALSE;
 	pis->size = AN_PRINT_FONT_SIZE_BODY_DEFAULT;
 	
-	pis->font = gnome_font_new_closest (pis->font_name, pis->weight,
-					pis->italics, pis->size);
-
 	anjuta_print_job_info_style_init (pis, prop, "*", style);
 	if (lang && strlen(lang) > 0) {
 		anjuta_print_job_info_style_init (pis, prop, lang, style);
 	}
+	
+	pis->size += font_zoom_factor;
+	
+	pis->font = gnome_font_new_closest (pis->font_name, pis->weight,
+					pis->italics, pis->size);
 	
 	if (!pis->font) {
 		g_warning ("Cannot load document font: %s. Trying Default font: %s.",
@@ -187,6 +182,50 @@ anjuta_print_job_info_style_new (PropsID prop, gchar* lang, guint style)
 		return NULL;
 	}
 	return pis;
+}
+
+static gfloat
+anjuta_print_get_font_height (PrintJobInfo *pji, gint style)
+{
+	PrintJobInfoStyle* pis = anjuta_print_get_style (pji, style);
+	/* return gnome_font_get_size (pis->font); */
+	return 	gnome_font_get_ascender (pis->font) + 
+				gnome_font_get_descender (pis->font);
+}
+
+static gfloat
+anjuta_print_get_text_width (PrintJobInfo *pji, gint style,
+		gboolean utf8, const char *buff)
+{
+	PrintJobInfoStyle* style_info;
+	gfloat width;
+	
+	style_info = anjuta_print_get_style (pji, style);
+	if (style_info) {
+		if (utf8) {
+			width = gnome_font_get_width_utf8 (style_info->font, buff);
+		} else {
+			width = gnome_font_get_width_string (style_info->font, buff);
+		}
+	} else {
+		width = aneditor_command(pji->te->editor_id,
+				ANE_TEXTWIDTH, style, (long)buff);
+	}
+	return width;
+}
+
+static gfloat
+anjuta_print_get_text_width_sized (PrintJobInfo *pji,
+		gint style, gboolean utf8, const char *str, gint len)
+{
+	gfloat width;
+	char *buff = g_new (gchar, len+1);
+	
+	strncpy(buff, str, len);
+	buff[len] = '\0';
+	width = anjuta_print_get_text_width (pji, style, utf8, buff);
+	g_free (buff);
+	return width;
 }
 
 void 
@@ -249,6 +288,9 @@ anjuta_print_job_info_new (void)
 		return NULL;
 	}
 	
+	/* Zoom factor */
+	pji->zoom_factor = preferences_get_int_with_default(p, TEXT_ZOOM_FACTOR, 0);
+	
 	/* Load paper specifications */
 	if (NULL == (paper_name = preferences_get(p, PRINT_PAPER_SIZE)))
 		paper_name = g_strdup("A4");
@@ -276,14 +318,6 @@ anjuta_print_job_info_new (void)
 		pji->page_height = gnome_paper_psheight(pji->paper);
 	}
 	
-	/* Margin settings */
-	pji->margin_left    = preferences_get_int_with_default(p, PRINT_MARGIN_LEFT, 54);
-	pji->margin_right   = preferences_get_int_with_default(p, PRINT_MARGIN_RIGHT, 54);
-	pji->margin_top     = preferences_get_int_with_default(p, PRINT_MARGIN_TOP, 54);
-	pji->margin_bottom  = preferences_get_int_with_default(p, PRINT_MARGIN_BOTTOM, 54);
-	pji->margin_header  = preferences_get_int_with_default(p, PRINT_MARGIN_HEADER, 18);
-	pji->margin_numbers = preferences_get_int_with_default(p, PRINT_MARGIN_NUMBERS, 36);
-	
 	/* Line number printing details */
 	pji->print_line_numbers = preferences_get_int_with_default (p, PRINT_LINENUM_COUNT, 1);
 	pji->print_line_numbers = pji->print_line_numbers >= 0? pji->print_line_numbers: 0;
@@ -304,17 +338,22 @@ anjuta_print_job_info_new (void)
 	pji->current_page = 0;
 	pji->cursor_x = pji->margin_left + pji->margin_numbers;
 	pji->cursor_y = pji->page_height - pji->margin_top - pji->margin_header;
-	
-	for (i = 0; i < AN_PRINT_MAX_STYLES; i++) pji->styles_pool[i] = NULL;
-	return pji;
-}
 
-gfloat anjuta_print_get_width (PrintJobInfo *pji, gint style, const char *str, gint len)
-{
-	char buff[64];
-	strncpy(buff, str, len);
-	buff[len] = '\0';
-	return aneditor_command(pji->te->editor_id, ANE_TEXTWIDTH, style, (long)buff);
+	/* Init style pool */
+	for (i = 0; i < AN_PRINT_MAX_STYLES; i++) pji->styles_pool[i] = NULL;
+	
+	/* Margin settings */
+	pji->margin_left    = preferences_get_int_with_default(p, PRINT_MARGIN_LEFT, 54);
+	pji->margin_right   = preferences_get_int_with_default(p, PRINT_MARGIN_RIGHT, 54);
+	pji->margin_top     = preferences_get_int_with_default(p, PRINT_MARGIN_TOP, 54);
+	pji->margin_bottom  = preferences_get_int_with_default(p, PRINT_MARGIN_BOTTOM, 54);
+	pji->margin_header  = anjuta_print_get_font_height (pji, AN_PRINT_DEFAULT_TEXT_STYLE);
+	pji->margin_header  *= 2.5;
+	pji->margin_numbers = anjuta_print_get_text_width (pji, AN_PRINT_LINENUMBER_STYLE, FALSE, "0");
+	pji->margin_numbers *= 5; /* Digits in linenumbers */
+	pji->margin_numbers += 5; /* Spacer */
+	
+	return pji;
 }
 
 void anjuta_print_set_orientation (PrintJobInfo * pji)
@@ -335,29 +374,30 @@ anjuta_print_show_header (PrintJobInfo * pji)
 	guchar *text1 = g_strdup_printf (_("File: %s"), pji->te->filename);
 	guchar *text2 = g_strdup_printf (_("%d"), pji->current_page);
 	gchar  *ch;
-	gfloat len;
+	gfloat width;
 	gboolean save_wrapping;
 
 	save_wrapping = pji->wrapping;
 	pji->wrapping = FALSE;
+	
 	/* Print filename on left */
 	pji->cursor_x = pji->margin_left;
 	pji->cursor_y = pji->page_height - pji->margin_top;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
 	ch = text1;
 	while (*ch != '\0') {
-		if (anjuta_print_show_char_styled(pji, *ch, 32)) break;
+		if (anjuta_print_show_char_styled(pji, *ch, AN_PRINT_DEFAULT_TEXT_STYLE)) break;
 		ch++;
 	}
 
 	/* Print page number on right */
-	len = aneditor_command(pji->te->editor_id, ANE_TEXTWIDTH, 32, (long)text2);
-	pji->cursor_x = pji->page_width - pji->margin_right - len - 2;
-	pji->cursor_y = pji->page_height - pji->margin_top - pji->margin_header / 2;
+	width = anjuta_print_get_text_width (pji, AN_PRINT_DEFAULT_TEXT_STYLE, FALSE, text2);
+	pji->cursor_x = pji->page_width - pji->margin_right - width - 2;
+	pji->cursor_y = pji->page_height - pji->margin_top;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
 	ch = text2;
 	while (*ch != '\0') {
-		if (anjuta_print_show_char_styled(pji, *ch, 32)) break;
+		if (anjuta_print_show_char_styled(pji, *ch, AN_PRINT_DEFAULT_TEXT_STYLE)) break;
 		ch++;
 	}
 	pji->wrapping = save_wrapping;
@@ -372,7 +412,7 @@ anjuta_print_show_linenum (PrintJobInfo * pji, guint line)
 	gchar  *ch;
 	gboolean save_wrapping;
 	gfloat save_x, save_y;
-
+	
 	save_wrapping = pji->wrapping;
 	save_x = pji->cursor_x;
 	save_y = pji->cursor_y;
@@ -382,7 +422,7 @@ anjuta_print_show_linenum (PrintJobInfo * pji, guint line)
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
 	ch = text;
 	while (*ch != '\0') {
-		if (anjuta_print_show_char_styled(pji, *ch, 33)) break;
+		if (anjuta_print_show_char_styled(pji, *ch, AN_PRINT_LINENUMBER_STYLE)) break;
 		ch++;
 	}
 
@@ -448,12 +488,13 @@ anjuta_print_get_style (PrintJobInfo *pji, gint style)
 	
 	if (!pis) {
 		gchar* language;
-		language = (gchar*) aneditor_command(pji->te->editor_id, ANE_GETLANGUAGE, 0, 0);
-		pis = anjuta_print_job_info_style_new (pji->te->props_base, language, style);
+		language = (gchar*) aneditor_command(pji->te->editor_id, ANE_GETLANGUAGE,0, 0);
+		pis = anjuta_print_job_info_style_new (pji->te->props_base,
+						language, style, pji->zoom_factor);
 		pji->styles_pool[style] = pis;
 	}
-	if (!pis && style != 32) {
-		pis = anjuta_print_get_style (pji, 32);
+	if (!pis && style != AN_PRINT_DEFAULT_TEXT_STYLE) {
+		pis = anjuta_print_get_style (pji, AN_PRINT_DEFAULT_TEXT_STYLE);
 	}
 	
 	return pis;
@@ -477,9 +518,8 @@ void anjuta_print_set_style (PrintJobInfo *pji, gint style)
 	pji->current_style_num = style;
 	pji->current_style = pis;
 	
-	/* FIXME: How to find it? */
-	/* font_height = gnome_display_font_height (gnome_font_get_display_font(pji->current_style->font)); */
-	font_height = .14 * 72;
+	font_height = anjuta_print_get_font_height (pji, style);
+
 	pji->current_font_height = (pji->current_font_height > font_height)? pji->current_font_height : font_height;
 }
 
@@ -499,7 +539,7 @@ anjuta_print_show_char_styled (PrintJobInfo *pji, const char ch, const char styl
 		int conv_status;
 		int i;
 		char *p;
-		
+
 		/* Convert input char to wchar string */
 		conv_status = mbstowcs (wcs, &ch, 1);
 		if (conv_status == (size_t) (-1))
@@ -512,7 +552,8 @@ anjuta_print_show_char_styled (PrintJobInfo *pji, const char ch, const char styl
 		
 		/* Calculate final string length and width */
 		len = p - utf8;
-		width = anjuta_print_get_width (pji, style, &ch, 1);
+		width = anjuta_print_get_text_width_sized (pji, style, TRUE, utf8, len);
+		
 		/* Determine wrapping */
 		if ((pji->cursor_x + width) > (pji->page_width - pji->margin_right)) {
 			anjuta_print_new_line (pji);
@@ -626,7 +667,7 @@ void anjuta_print_document(PrintJobInfo * pji)
 		if (text == '\t') {
 			int j;
 			for (j = 0; j < pji->tab_size; j++ ) {
-				ret = anjuta_print_show_char_styled(pji, ' ', 32);
+				ret = anjuta_print_show_char_styled(pji, ' ', style);
 				if (ret == 1) break;
 			}
 		} else {

@@ -1858,7 +1858,7 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 	}
 	prj = project_dbase_get_proj_name (app->project_dbase);
 	if (!prj)	prj = g_strdup (_("None"));
-	zoom = prop_get_int (app->preferences->props, "text.zoom.factor", 0);
+	zoom = prop_get_int (app->preferences->props, TEXT_ZOOM_FACTOR, 0);
 	if (sci)
 	{
 		gint editor_mode;

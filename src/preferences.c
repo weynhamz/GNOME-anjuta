@@ -195,8 +195,6 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.margin_right_spin);
 		gtk_widget_unref (pr->widgets.margin_top_spin);
 		gtk_widget_unref (pr->widgets.margin_bottom_spin);
-		gtk_widget_unref (pr->widgets.margin_header_spin);
-		gtk_widget_unref (pr->widgets.margin_numbers_spin);
 
 		gtk_widget_unref (pr->widgets.format_style_combo);
 		gtk_widget_unref (pr->widgets.custom_style_entry);
@@ -533,12 +531,6 @@ preferences_sync (Preferences * pr)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON
 				   (pr->widgets.margin_bottom_spin),
 				   preferences_get_int_with_default (pr, PRINT_MARGIN_BOTTOM, 54));
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON
-				   (pr->widgets.margin_header_spin),
-				   preferences_get_int_with_default (pr, PRINT_MARGIN_HEADER, 18));
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON
-				   (pr->widgets.margin_numbers_spin),
-				   preferences_get_int_with_default (pr, PRINT_MARGIN_NUMBERS, 36));
 
 /* Page 5 */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
@@ -909,10 +901,6 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int_with_default (pr, PRINT_MARGIN_TOP, 54));
 	fprintf (fp, "%s=%d\n", PRINT_MARGIN_BOTTOM,
 		 preferences_get_int_with_default (pr, PRINT_MARGIN_BOTTOM, 54));
-	fprintf (fp, "%s=%d\n", PRINT_MARGIN_HEADER,
-		 preferences_get_int_with_default (pr, PRINT_MARGIN_HEADER, 18));
-	fprintf (fp, "%s=%d\n", PRINT_MARGIN_NUMBERS,
-		 preferences_get_int_with_default (pr, PRINT_MARGIN_NUMBERS, 36));
 
 	/* Page 5 */
 	fprintf (fp, "%s=%d\n", AUTOFORMAT_DISABLE,
@@ -986,8 +974,8 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	}
 	fprintf (fp, "preferences.win.pos.x=%d\n", pr->win_pos_x);
 	fprintf (fp, "preferences.win.pos.y=%d\n", pr->win_pos_y);
-	fprintf (fp, "text.zoom.factor=%d\n",
-	preferences_get_int (pr, "text.zoom.factor"));
+	fprintf (fp, "%s=%d\n", TEXT_ZOOM_FACTOR,
+	preferences_get_int (pr, TEXT_ZOOM_FACTOR));
 
 	/* Identification */
 	str = preferences_get (pr, IDENT_NAME);

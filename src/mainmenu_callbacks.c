@@ -892,9 +892,9 @@ on_zoom_text_plus_activate (GtkMenuItem * menuitem, gpointer user_data)
 	gchar buff[20];
 	p = app->preferences;
 
-	zoom = prop_get_int (p->props, "text.zoom.factor", 0);
+	zoom = prop_get_int (p->props, TEXT_ZOOM_FACTOR, 0);
 	sprintf(buff, "%d", zoom+2);
-	prop_set_with_key(p->props, "text.zoom.factor", buff);
+	prop_set_with_key(p->props, TEXT_ZOOM_FACTOR, buff);
 	anjuta_apply_preferences();
 }
 void
@@ -903,7 +903,7 @@ on_zoom_text_8_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "8");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "8");
 	anjuta_apply_preferences();
 }
 
@@ -913,7 +913,7 @@ on_zoom_text_6_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "6");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "6");
 	anjuta_apply_preferences();
 }
 
@@ -923,7 +923,7 @@ on_zoom_text_4_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "4");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "4");
 	anjuta_apply_preferences();
 }
 void
@@ -932,7 +932,7 @@ on_zoom_text_2_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "2");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "2");
 	anjuta_apply_preferences();
 }
 void
@@ -941,7 +941,7 @@ on_zoom_text_0_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "0");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "0");
 	anjuta_apply_preferences();
 }
 void
@@ -950,7 +950,7 @@ on_zoom_text_s2_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "-2");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-2");
 	anjuta_apply_preferences();
 }
 void
@@ -959,7 +959,7 @@ on_zoom_text_s4_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "-4");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-4");
 	anjuta_apply_preferences();
 }
 void
@@ -968,7 +968,7 @@ on_zoom_text_s6_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "-6");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-6");
 	anjuta_apply_preferences();
 }
 void
@@ -977,7 +977,7 @@ on_zoom_text_s8_activate (GtkMenuItem * menuitem, gpointer user_data)
 	Preferences *p;
 	p = app->preferences;
 
-	prop_set_with_key (p->props, "text.zoom.factor", "-8");
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-8");
 	anjuta_apply_preferences();
 }
 void
@@ -988,9 +988,9 @@ on_zoom_text_minus_activate (GtkMenuItem * menuitem, gpointer user_data)
 	gchar buff[20];
 	p = app->preferences;
 
-	zoom = prop_get_int (p->props, "text.zoom.factor", 0);
+	zoom = prop_get_int (p->props, TEXT_ZOOM_FACTOR, 0);
 	sprintf(buff, "%d", zoom-2);
-	prop_set_with_key(p->props, "text.zoom.factor", buff);
+	prop_set_with_key(p->props, TEXT_ZOOM_FACTOR, buff);
 	anjuta_apply_preferences();
 }
 

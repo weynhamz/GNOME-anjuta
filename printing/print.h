@@ -41,14 +41,17 @@ typedef enum _AnPrintOrientation
 	PRINT_ORIENT_LANDSCAPE
 } AnPrintOrientation;
 
-/* Default fall back when everything fails */
 #define AN_PRINT_FONT_BODY_DEFAULT   "courier"
 #define AN_PRINT_FONT_HEADER_DEFAULT "helvetica"
 #define AN_PRINT_FONT_SIZE_BODY_DEFAULT   10
 #define AN_PRINT_FONT_SIZE_HEADER_DEFALT 10
 #define AN_PRINT_FONT_SIZE_NUMBERS_DEFAULT 6
 #define AN_PRINT_MAX_STYLES 256
+#define AN_PRINT_LINENUMBER_STYLE 33
+#define AN_PRINT_DEFAULT_TEXT_STYLE 32
+#define AN_PRINT_LINENUMBER_WIDTH 4
 
+/* Boiler plate */
 #define TEXT_AT(buf, index)  (buf)[(index)*2]
 #define STYLE_AT(buf, index) (buf)[(index)*2+1]
 
@@ -77,6 +80,9 @@ typedef struct _PrintJobInfo
 	/* Print Buffer */
 	guchar  *buffer;
 	guint   buffer_size;
+	
+	/* Document zoom factor */
+	gint zoom_factor;
 	
 	/* Preferences */
 	gfloat page_width;

@@ -1244,15 +1244,9 @@ create_preferences_page4 (Preferences * p)
 	GtkObject *margin_bottom_spinbtn_adj;
 	GtkWidget *margin_bottom_spinbtn;
 	GtkWidget *pixmap1;
-	GtkWidget *label3;
-	GtkObject *margin_header_spinbtn_adj;
-	GtkWidget *margin_header_spinbtn;
 	GtkWidget *label4;
 	GtkObject *margin_right_spinbtn_adj;
 	GtkWidget *margin_right_spinbtn;
-	GtkWidget *label5;
-	GtkObject *margin_numbers_spinbtn_adj;
-	GtkWidget *margin_numbers_spinbtn;
 	GtkWidget *label6;
 	GtkObject *margin_left_spinbtn_adj;
 	GtkWidget *margin_left_spinbtn;
@@ -1352,21 +1346,6 @@ create_preferences_page4 (Preferences * p)
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
 	
-	label3 = gtk_label_new (_("Header:"));
-	gtk_widget_show (label3);
-	gtk_table_attach (GTK_TABLE (table2), label3, 4, 5, 1, 2,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (0), 0, 0);
-	gtk_misc_set_alignment (GTK_MISC (label3), 0, 0.5);
-	gtk_misc_set_padding (GTK_MISC (label3), 5, 0);
-	
-	margin_header_spinbtn_adj = gtk_adjustment_new (18, 0, 100, 1, 10, 10);
-	margin_header_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_header_spinbtn_adj), 1, 0);
-	gtk_widget_show (margin_header_spinbtn);
-	gtk_table_attach (GTK_TABLE (table2), margin_header_spinbtn, 5, 6, 1, 2,
-					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-					(GtkAttachOptions) (0), 0, 0);
-	
 	label4 = gtk_label_new (_("Right:"));
 	gtk_widget_show (label4);
 	gtk_table_attach (GTK_TABLE (table2), label4, 4, 5, 3, 4,
@@ -1379,21 +1358,6 @@ create_preferences_page4 (Preferences * p)
 	margin_right_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_right_spinbtn_adj), 1, 0);
 	gtk_widget_show (margin_right_spinbtn);
 	gtk_table_attach (GTK_TABLE (table2), margin_right_spinbtn, 5, 6, 3, 4,
-					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-					(GtkAttachOptions) (0), 0, 0);
-	
-	label5 = gtk_label_new (_("Linenum:"));
-	gtk_widget_show (label5);
-	gtk_table_attach (GTK_TABLE (table2), label5, 0, 1, 1, 2,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (0), 0, 0);
-	gtk_misc_set_alignment (GTK_MISC (label5), 0, 0.5);
-	gtk_misc_set_padding (GTK_MISC (label5), 5, 0);
-	
-	margin_numbers_spinbtn_adj = gtk_adjustment_new (36, 0, 100, 1, 10, 10);
-	margin_numbers_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (margin_numbers_spinbtn_adj), 1, 0);
-	gtk_widget_show (margin_numbers_spinbtn);
-	gtk_table_attach (GTK_TABLE (table2), margin_numbers_spinbtn, 1, 2, 1, 2,
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 					(GtkAttachOptions) (0), 0, 0);
 	
@@ -1570,8 +1534,6 @@ create_preferences_page4 (Preferences * p)
 	p->widgets.margin_bottom_spin = margin_bottom_spinbtn;
 	p->widgets.margin_left_spin = margin_left_spinbtn;
 	p->widgets.margin_right_spin = margin_right_spinbtn;
-	p->widgets.margin_header_spin = margin_header_spinbtn;
-	p->widgets.margin_numbers_spin = margin_numbers_spinbtn;
 	
 	gtk_widget_ref(p->widgets.paper_selector);
 	gtk_widget_ref(p->widgets.print_header_check);
@@ -1583,8 +1545,6 @@ create_preferences_page4 (Preferences * p)
 	gtk_widget_ref(p->widgets.margin_bottom_spin);
 	gtk_widget_ref(p->widgets.margin_left_spin);
 	gtk_widget_ref(p->widgets.margin_right_spin);
-	gtk_widget_ref(p->widgets.margin_header_spin);
-	gtk_widget_ref(p->widgets.margin_numbers_spin);
 	
 	return vbox1;
 }
@@ -2497,12 +2457,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 	preferences_set_int (pr, PRINT_MARGIN_BOTTOM,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
 							   (pr->widgets.margin_bottom_spin)));
-	preferences_set_int (pr, PRINT_MARGIN_HEADER,
-			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-							   (pr->widgets.margin_header_spin)));
-	preferences_set_int (pr, PRINT_MARGIN_NUMBERS,
-			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
-							   (pr->widgets.margin_numbers_spin)));
+
 /* Page 5 */
 	preferences_set (pr, AUTOFORMAT_STYLE,
 			 gtk_entry_get_text (GTK_ENTRY

@@ -128,9 +128,7 @@ struct _PreferencesWidgets
 	GtkWidget *margin_right_spin;
 	GtkWidget *margin_top_spin;
 	GtkWidget *margin_bottom_spin;
-	GtkWidget *margin_header_spin;
-	GtkWidget *margin_numbers_spin;
-
+	
 	/*
 	 * * Page 5 
 	 */
@@ -313,7 +311,7 @@ void preferences_set_build_options(Preferences* p);
 #define CALLTIP_BACK_COLOR     "calltip.back"
 #define SELECTION_FORE_COLOR   "selection.fore"
 #define SELECTION_BACK_COLOR   "selection.back"
-
+#define TEXT_ZOOM_FACTOR       "text.zoom.factor"
 #define TRUNCAT_MESSAGES       "truncat.messages"
 #define TRUNCAT_MESG_FIRST     "truncat.mesg.first"
 #define TRUNCAT_MESG_LAST      "truncat.mesg.last"
@@ -335,8 +333,6 @@ void preferences_set_build_options(Preferences* p);
 #define PRINT_MARGIN_RIGHT      "print.margin.right"
 #define PRINT_MARGIN_TOP        "print.margin.top"
 #define PRINT_MARGIN_BOTTOM     "print.margin.bottom"
-#define PRINT_MARGIN_HEADER     "print.margin.header"
-#define PRINT_MARGIN_NUMBERS    "print.margin.numbers"
 #define PRINT_COLOR             "print.color"
 
 #define USE_COMPONENTS          "components.enable"
