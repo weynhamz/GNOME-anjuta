@@ -1,5 +1,13 @@
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta.h: Removed reference to windows-dialog.h.
+	* src/message-manager-private.[cc,h]: Fixed doulbe click
+	activation of messages to properly jump at the destination.
+	* src/toolbar_callbacks.c: Fixed search combo pulldown bug.
+	* src/toolbar.c: Code clean-ups.
+	
+2003-06-24  Naba Kumar  <naba@gnome.org>
+
 	* src/search-replace.c: Shows the dialog properly, even when it is
 	hidden behind another window.
 	

@@ -122,22 +122,12 @@ gboolean
 on_toolbar_find_incremental_start (GtkEntry *entry,
 	GdkEvent *e, gpointer user_data)
 {
-	TextEditor *te = anjuta_get_current_text_editor();
-	if (!te) return FALSE;
-	app->find_replace->find_text->incremental_pos =
-		text_editor_get_current_position(te);
-	app->find_replace->find_text->incremental_wrap = FALSE;
-	return FALSE;
-}
-
-gboolean
-on_toolbar_find_incremental_end (GtkEntry *entry,
-	GdkEvent *e, gpointer user_data)
-{
 	gchar *string;
 	const gchar *string1;
-	app->find_replace->find_text->incremental_pos = -1;
+	TextEditor *te = anjuta_get_current_text_editor();
+	if (!te) return FALSE;
 
+	/* Updated find combo history */
 	string1 =
 		gtk_entry_get_text (GTK_ENTRY
 				    (app->widgets.toolbar.main_toolbar.
@@ -154,6 +144,19 @@ on_toolbar_find_incremental_end (GtkEntry *entry,
 				       app->find_replace->find_text->
 				       find_history);
 	g_free (string);
+
+	/* Prepare to begin incremental search */	
+	app->find_replace->find_text->incremental_pos =
+		text_editor_get_current_position(te);
+	app->find_replace->find_text->incremental_wrap = FALSE;
+	return FALSE;
+}
+
+gboolean
+on_toolbar_find_incremental_end (GtkEntry *entry,
+	GdkEvent *e, gpointer user_data)
+{
+	app->find_replace->find_text->incremental_pos = -1;
 	return FALSE;
 }
 
@@ -161,7 +164,9 @@ void
 on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 {
 	const gchar *entry_text;
-	
+#ifdef DEBUG
+	g_message ("Find entry text changed");
+#endif	
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (!te) return;
 	if (app->find_replace->find_text->incremental_pos < 0) return;

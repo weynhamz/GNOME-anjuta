@@ -46,7 +46,6 @@
 #include "style-editor.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
-#include "windows-dialog.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \

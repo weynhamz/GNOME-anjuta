@@ -234,7 +234,7 @@ AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 {
 	g_return_if_fail(p_amm != NULL);
 
-	m_line = 0;		
+	// m_line = 0;		
 	
 	m_scrolled_win = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(m_scrolled_win),
@@ -265,8 +265,8 @@ AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 	
 	g_signal_connect(G_OBJECT(m_tree), "event", 
 		G_CALLBACK(AnMessageWindow::on_mesg_event), this);
-	g_signal_connect(G_OBJECT(select), "changed",
-		G_CALLBACK(AnMessageWindow::on_selection_changed), this);
+	/* g_signal_connect(G_OBJECT(select), "changed",
+		G_CALLBACK(AnMessageWindow::on_selection_changed), this); */
 	GtkAdjustment* adj =
 			gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
 												     (m_scrolled_win));
@@ -356,19 +356,13 @@ AnMessageWindow::append_buffer()
 	gtk_list_store_set (store, &iter,
 						COLUMN_MESSAGES, utf8_msg,
 						COLUMN_COLOR, &color,
-						COLUMN_LINE, m_line, -1);
-	m_line++;
+						COLUMN_LINE, m_messages.size() - 1, -1);
+	// m_line++;
 	g_free(utf8_msg);
 }
 
 int
 AnMessageWindow::get_cur_line()
-{
-	return m_line;
-}
-
-string
-AnMessageWindow::get_cur_msg()
 {
 	GtkTreeIter iter;
 	GtkTreeSelection *select;
@@ -376,10 +370,18 @@ AnMessageWindow::get_cur_msg()
 	
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW (m_tree));
 	if (!gtk_tree_selection_get_selected (select, &model, &iter))
-		return "";
+		return m_messages.size();
 	int line;
 	gtk_tree_model_get (model, &iter, COLUMN_LINE, &line, -1);
-	set_cur_line (line);
+	return line;
+}
+
+string
+AnMessageWindow::get_cur_msg()
+{
+	int line = get_cur_line();
+	if (line < 0 || line >= m_messages.size())
+		return "";
 	return m_messages[line];
 }
 
@@ -390,7 +392,8 @@ AnMessageWindow::clear()
 	GtkListStore* store = GTK_LIST_STORE(
 		gtk_tree_view_get_model(GTK_TREE_VIEW(m_tree)));
 	gtk_list_store_clear(store);
-	m_line = 0;
+	// FIXME: Should we clear m_messages too?
+	// m_line = 0;
 }
 
 void 
@@ -461,6 +464,7 @@ bool AnMessageWindow::select_prev()
 	}
 }
 
+/*
 void AnMessageWindow::on_selection_changed(GtkTreeSelection* select, gpointer data)
 {
 	AnMessageWindow* win = reinterpret_cast< AnMessageWindow* >(data);
@@ -473,6 +477,7 @@ void AnMessageWindow::on_selection_changed(GtkTreeSelection* select, gpointer da
 	gtk_tree_model_get(model, &iter, COLUMN_LINE, &line, -1);
 	win->set_cur_line(line);
 }
+*/
 
 gboolean AnMessageWindow::on_mesg_event (GtkTreeView* list, GdkEvent * event, gpointer data)
 {
