@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-17 21:01+0100\n"
+"POT-Creation-Date: 2004-01-24 01:44+0100\n"
 "PO-Revision-Date: 2004-01-17 16:17+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -49,7 +49,7 @@ msgstr ""
 "Limites :\n"
 "- Les expressions régulières ne peuvent être trouvées qu'en avançant\n"
 "À faire :\t\n"
-"- Autoriser l'utilisateur à enregistrer les réglages de   recherche/"
+"- Autoriser l'utilisateur à enregistrer les réglages de recherche/"
 "remplacement et à leur donner un nom\n"
 "- ..."
 
@@ -333,7 +333,7 @@ msgstr "Arguments de la commande"
 
 #: anjuta.glade.h:79
 msgid "Command:"
-msgstr "Commande"
+msgstr "Commande :"
 
 #: anjuta.glade.h:80
 msgid "Commands"
@@ -407,7 +407,7 @@ msgstr "Activer le profilage"
 
 #: anjuta.glade.h:97
 msgid "Default"
-msgstr "Valeur par défaut"
+msgstr "Défaut"
 
 #: anjuta.glade.h:98
 msgid "Defines"
@@ -475,7 +475,7 @@ msgstr "Tracer une ligne sous les lignes repliées"
 
 #: anjuta.glade.h:114 src/anjuta_gui.c:106
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Édition"
 
 #: anjuta.glade.h:115
 msgid "Editor caret (cursor) width in pixels"
@@ -612,7 +612,7 @@ msgstr "Filtrer les caractères superflux du mode DOS"
 
 #: anjuta.glade.h:147
 msgid "Find & Replace"
-msgstr "Chercher et remplacer"
+msgstr "Rechercher et remplacer"
 
 #: anjuta.glade.h:148
 msgid "Fold style:"
@@ -896,7 +896,7 @@ msgstr "Mots complets"
 
 #: anjuta.glade.h:212
 msgid "Max. Actions"
-msgstr "Nb Maximum d'actions :"
+msgstr "Nb Maximum d'actions"
 
 #: anjuta.glade.h:213
 msgid "Maximum number of independent jobs (0 == no limit)"
@@ -912,27 +912,27 @@ msgstr "Mémoire"
 
 #: anjuta.glade.h:216
 msgid "Menu icon:"
-msgstr "Menu Icone"
+msgstr "Icône du menu :"
 
 #: anjuta.glade.h:217
 msgid "Menu location:"
-msgstr "Position :"
+msgstr "Emplacement du menu :"
 
 #: anjuta.glade.h:218
 msgid "Message colors"
-msgstr " Couleurs des messages "
+msgstr "Couleurs des messages"
 
 #: anjuta.glade.h:219
 msgid "Messages options"
-msgstr " Messages d'options "
+msgstr "Messages d'options"
 
 #: anjuta.glade.h:220
 msgid "Misc options"
-msgstr "Options Diverses "
+msgstr "Options Diverses"
 
 #: anjuta.glade.h:221
 msgid "Mode:"
-msgstr "Mode"
+msgstr "Mode :"
 
 #: anjuta.glade.h:222
 msgid "Modules"
@@ -994,20 +994,20 @@ msgstr "Nombre de caractères de fin à afficher :"
 #. Must declare static, because it will be used forever
 #: anjuta.glade.h:234 src/project_dbase.c:197 src/toolbar.c:214
 msgid "Open Project"
-msgstr "Ouvrir projet"
+msgstr "Ouvrir un projet"
 
 #: anjuta.glade.h:235
 msgid "Open existing Project."
-msgstr "Ouvrir Projet existant"
+msgstr "Ouvre un projet existant."
 
 #: anjuta.glade.h:236
 msgid "Open existing file or create a new file."
-msgstr "Ouvrir un fichier ou créer un nouveau fichier."
+msgstr "Ouvre un fichier ou crée un nouveau fichier."
 
 #: anjuta.glade.h:237 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:81
 msgid "Open file"
-msgstr "Ouvrir fichier"
+msgstr "Ouvrir un fichier"
 
 #: anjuta.glade.h:238
 msgid "Open last working Project"
@@ -1024,7 +1024,7 @@ msgstr "Options"
 
 #: anjuta.glade.h:241
 msgid "Original Berkeley style"
-msgstr "Style Original Berkeley "
+msgstr "Style Original Berkeley"
 
 #: anjuta.glade.h:242
 msgid "Other colors"
@@ -1040,7 +1040,7 @@ msgstr "Autres"
 
 #: anjuta.glade.h:245
 msgid "Output files"
-msgstr "Fichiers de Sortie"
+msgstr "Fichiers de sortie"
 
 #: anjuta.glade.h:246
 msgid "Pick a color"
@@ -1125,7 +1125,7 @@ msgstr "Projets récents :"
 
 #: anjuta.glade.h:266
 msgid "Regular Expression"
-msgstr "Expression Relationnelle"
+msgstr "Expression régulière"
 
 #: anjuta.glade.h:267
 msgid "Reload Session Defaults"
@@ -1148,7 +1148,7 @@ msgstr "Remplacer par :"
 #: anjuta.glade.h:271
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
-"Remettre à zéro toutes les marques (sticky tags) durant les mises à jours "
+"Réinitialise toutes les marques (sticky tags) lors des mises à jours "
 "(update) (perd les branches) [-A]"
 
 #: anjuta.glade.h:272
@@ -1165,7 +1165,7 @@ msgstr "Lancer Détaché"
 
 #: anjuta.glade.h:275
 msgid "Run in Terminal"
-msgstr "Démarrer dans un terminal"
+msgstr "Lancer dans un terminal"
 
 #: anjuta.glade.h:276
 msgid "Run in terminal"
@@ -1237,11 +1237,11 @@ msgstr "Couleur de premier plan de la sélection :"
 
 #: anjuta.glade.h:293
 msgid "Setting"
-msgstr "Réglage"
+msgstr "Paramètre"
 
 #: anjuta.glade.h:294 src/anjuta_gui.c:145
 msgid "Settings"
-msgstr "Réglages"
+msgstr "Paramètres"
 
 #: anjuta.glade.h:295
 msgid "Short cut:"
@@ -1249,7 +1249,7 @@ msgstr "Raccourci :"
 
 #: anjuta.glade.h:296
 msgid "Show tooltips"
-msgstr "Montrer les bulles d'aide"
+msgstr "Afficher les bulles d'aide"
 
 #: anjuta.glade.h:297
 msgid "Silent. That is, do not echo shell commads during make"
@@ -1404,7 +1404,7 @@ msgstr "Souligné"
 #: anjuta.glade.h:333 src/cvs_gui.c:73 src/registers_gui.c:47
 #: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
-msgstr "Rafraîchir"
+msgstr "Mettre à jour"
 
 #: anjuta.glade.h:334
 msgid "Update tags image automatically"
@@ -1428,7 +1428,7 @@ msgstr "Utiliser des tabulations pour l'indentation"
 
 #: anjuta.glade.h:339
 msgid "User Tools"
-msgstr "Outils Utilisateur"
+msgstr "Outils utilisateur"
 
 #: anjuta.glade.h:340
 msgid "User email address:"
@@ -1440,7 +1440,7 @@ msgstr "Information utilisateur"
 
 #: anjuta.glade.h:342
 msgid "User name:"
-msgstr "Nom Utilisateur (user) :"
+msgstr "Nom d'utilisateur :"
 
 #: anjuta.glade.h:343
 msgid "Variable list"
@@ -1501,7 +1501,7 @@ msgstr "_Éditer"
 
 #: anjuta.glade.h:357
 msgid "_Execute:"
-msgstr "_Exécuter :"
+msgstr "E_xécuter :"
 
 #: anjuta.glade.h:358
 msgid "_Hide paths"
@@ -1513,7 +1513,7 @@ msgstr "_Éditeur d'images :"
 
 #: anjuta.glade.h:360
 msgid "_Language:"
-msgstr "_Langage de programmation :"
+msgstr "_Langage :"
 
 #: anjuta.glade.h:361
 msgid "_Location:"
@@ -1549,7 +1549,7 @@ msgstr "_Terminal :"
 
 #: anjuta.glade.h:369
 msgid "_Update"
-msgstr "_Mise à Jour"
+msgstr "_Mettre à jour"
 
 #: gdl/gdl-dock-item-grip.c:244
 msgid "Dock the toolbar"
@@ -1575,7 +1575,7 @@ msgstr "Redimensionnable"
 msgid "If set, the dock item can be resized when docked in a paned"
 msgstr ""
 "Si activé, l'élément dock peut être retaillé lorsqu'il est attaché à un "
-"panneau<"
+"panneau"
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
@@ -1599,7 +1599,7 @@ msgstr "Taille en pixels de la poignée pour faire glisser l'élément dock"
 
 #: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
 msgid "Locked"
-msgstr "Vérrouillée"
+msgstr "Verrouillée"
 
 #: gdl/gdl-dock-item.c:283
 msgid ""
@@ -1805,7 +1805,7 @@ msgid ""
 "crash"
 msgstr ""
 "Opération d'attachement demandée dans un objet %p non-connecté. "
-"L'application peut planter."
+"L'application peut planter"
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
@@ -2084,7 +2084,7 @@ msgstr ""
 
 #: plugins/class-gen/clsGen.c:1580
 msgid "Welcome to the Anjuta Class Builder. "
-msgstr "Bienvenu dans le générateur de Classes"
+msgstr "Bienvenue dans le générateur de Classes Anjuta."
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
 #: plugins/class-gen/clsGen.c:1589
@@ -2251,7 +2251,7 @@ msgstr "Imprimer"
 
 #: printing/print.c:1038
 msgid "Print Preview"
-msgstr "Apercu avant impression"
+msgstr "Aperçu avant impression"
 
 #: src/about.c:95
 msgid "Copyright (c) Naba Kumar"
@@ -2282,7 +2282,7 @@ msgstr "Maj. fichier"
 
 #: src/an_file_view.c:355 src/main_menubar_def.h:1612
 msgid "Update current working copy"
-msgstr "Mise à jour (update) de la copie de travail"
+msgstr "Mettre à jour la copie de travail"
 
 #. 1
 #: src/an_file_view.c:361
@@ -2356,7 +2356,7 @@ msgstr "Voir avec visualiseur par défaut"
 #. 3
 #: src/an_file_view.c:427 src/an_symbol_view.c:302
 msgid "Refresh"
-msgstr "Rafraîchir arbre"
+msgstr "Rafraîchir"
 
 #. 4
 #. 5
@@ -2416,7 +2416,7 @@ msgstr "Aller à la déclaration"
 #. 17
 #: src/an_symbol_view.c:295 src/text_editor_menu.c:339
 msgid "Find Usage"
-msgstr "Chercher Usage"
+msgstr "Rechercher l'usage"
 
 #: src/an_symbol_view.c:569
 msgid "Symbol"
@@ -2522,11 +2522,11 @@ msgstr "Ouvrir un fichier"
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:137 src/anjuta.c:142
 msgid "Save File As"
-msgstr "Enregistrer fichier sous"
+msgstr "Enregistrer le fichier sous"
 
 #: src/anjuta.c:271
 msgid "Cannot create application... exiting\n"
-msgstr "Impossible de créer l'application ... sortie\n"
+msgstr "Impossible de créer l'application... sortie\n"
 
 #: src/anjuta.c:321 src/anjuta.c:325 src/anjuta.c:1113 src/anjuta.c:1129
 #, c-format
@@ -2677,7 +2677,7 @@ msgstr "Transformer"
 
 #: src/anjuta_gui.c:112 src/toolbar.c:804
 msgid "Select"
-msgstr "Sélectionne"
+msgstr "Sélectionner"
 
 #: src/anjuta_gui.c:115
 msgid "Insert"
@@ -2703,7 +2703,7 @@ msgstr "Styles de coloration syntaxique"
 
 #: src/anjuta_gui.c:156
 msgid "Goto line"
-msgstr " Aller à une ligne"
+msgstr "Aller à la ligne"
 
 #: src/anjuta_gui.c:157
 msgid "Enter the line number to jump and press enter"
@@ -3114,7 +3114,7 @@ msgstr "Définitions"
 
 #: src/compiler_options.c:940
 msgid "Warning"
-msgstr "Avertissements"
+msgstr "Avertissement"
 
 #: src/configurer.c:157
 msgid ""
@@ -3210,7 +3210,7 @@ msgstr "Var. locales"
 
 #: src/cvs_gui.c:30
 msgid "Password"
-msgstr "Mot de Passe"
+msgstr "Mot de passe"
 
 #: src/cvs_gui.c:30
 msgid "Extern(rsh)"
@@ -3222,7 +3222,7 @@ msgstr "Serveur"
 
 #: src/cvs_gui.c:72
 msgid "CVS: Update"
-msgstr "CVS : Mise à Jour"
+msgstr "CVS : Mettre à jour"
 
 #: src/cvs_gui.c:76
 msgid "CVS: Commit"
@@ -3234,11 +3234,11 @@ msgstr "Commit"
 
 #: src/cvs_gui.c:80
 msgid "CVS: Status"
-msgstr "CVS : Etat (Status)"
+msgstr "CVS : État"
 
 #: src/cvs_gui.c:81
 msgid "Show status"
-msgstr "Montrer état (status)"
+msgstr "Afficher l'état"
 
 #: src/cvs_gui.c:84
 msgid "CVS: Log"
@@ -3246,15 +3246,15 @@ msgstr "CVS : \"Log\""
 
 #: src/cvs_gui.c:85
 msgid "Show log"
-msgstr "Monter \"log\""
+msgstr "Afficher \"log\""
 
 #: src/cvs_gui.c:88
 msgid "CVS: Add file"
-msgstr "CVS : Ajouter Fichier"
+msgstr "CVS : Ajouter un fichier"
 
 #: src/cvs_gui.c:92
 msgid "CVS: Remove file"
-msgstr "CVS : Oter Fichier"
+msgstr "CVS : Supprimer un fichier"
 
 #: src/cvs_gui.c:95
 msgid ""
@@ -3313,7 +3313,7 @@ msgstr "Type de serveur : "
 
 #: src/cvs_gui.c:348 src/cvs_gui.c:443
 msgid "Username: "
-msgstr "Nom utilisateur : "
+msgstr "Nom d'utilisateur : "
 
 #: src/cvs_gui.c:349 src/cvs_gui.c:441
 msgid "Server: "
@@ -3381,11 +3381,11 @@ msgstr "Décimal non signé"
 
 #: src/debug_tree.c:1520 src/registers_gui.c:111
 msgid "Hex"
-msgstr "Hexa"
+msgstr "Hex"
 
 #: src/debug_tree.c:1523
 msgid "Char"
-msgstr "Char"
+msgstr "Caractère"
 
 #: src/debug_tree.c:1528
 msgid "Inspect memory"
@@ -3801,7 +3801,7 @@ msgstr "Ferme le fichier courant"
 #. 6
 #: src/main_menubar_def.h:65
 msgid "Close All Files"
-msgstr "Fermer fichiers ouverts"
+msgstr "Fermer tout les fichiers ouverts"
 
 #: src/main_menubar_def.h:66
 msgid "Close all files"
@@ -3876,7 +3876,7 @@ msgstr "Renomme le fichier courant"
 #. 17
 #: src/main_menubar_def.h:116
 msgid "_Print"
-msgstr "Im_primer"
+msgstr "_Imprimer"
 
 #: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:111
 msgid "Print the current file"
@@ -3885,7 +3885,7 @@ msgstr "Imprime le fichier courant"
 #. 18
 #: src/main_menubar_def.h:122
 msgid "_Print Preview"
-msgstr "_Apercu avant impression"
+msgstr "_Aperçu avant impression"
 
 #: src/main_menubar_def.h:123
 msgid "Print preview of the current file"
@@ -3965,7 +3965,7 @@ msgstr "_Tout sélectionner"
 
 #: src/main_menubar_def.h:199
 msgid "Select all text in the editor"
-msgstr "Sélectionne tout le texte du document"
+msgstr "Sélectionne tout le texte dans l'éditeur"
 
 #. 1
 #: src/main_menubar_def.h:204
@@ -4178,7 +4178,7 @@ msgstr "Commente/décommente (\"stream\") le texte sélectionné."
 #. 0
 #: src/main_menubar_def.h:427
 msgid "_Find ..."
-msgstr "_Chercher..."
+msgstr "_Rechercher..."
 
 #: src/main_menubar_def.h:428
 msgid "Search for a string or regular expression in the editor"
@@ -4187,11 +4187,11 @@ msgstr "Cherche une chaîne ou une expression relationnelle dans le document"
 #. 1
 #: src/main_menubar_def.h:434
 msgid "Find _Next"
-msgstr "Chercher _suivant"
+msgstr "Rechercher le _suivant"
 
 #: src/main_menubar_def.h:435
 msgid "Search Forward"
-msgstr "Chercher en avant"
+msgstr "Rechercher en avant"
 
 #. 2
 #: src/main_menubar_def.h:441
@@ -4217,7 +4217,7 @@ msgstr ""
 #. 4
 #: src/main_menubar_def.h:455
 msgid "Fin_d in Files ..."
-msgstr "Chercher dans _fichiers..."
+msgstr "Rechercher dans des _fichiers..."
 
 #: src/main_menubar_def.h:456
 msgid "Search for a string in multiple files or directories"
@@ -4376,7 +4376,7 @@ msgstr "Co_uper"
 
 #: src/main_menubar_def.h:578
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr "Coupe le texte sélectionné et le place dans le presse-papier"
+msgstr "Coupe le texte sélectionné et le place dans le presse-papiers"
 
 #. 4
 #: src/main_menubar_def.h:584
@@ -4385,7 +4385,7 @@ msgstr "_Copier"
 
 #: src/main_menubar_def.h:585
 msgid "Copy the selected text to the clipboard"
-msgstr "Copie le texte sélectionné dans le presse-papier"
+msgstr "Copie le texte sélectionné dans le presse-papiers"
 
 #. 5
 #: src/main_menubar_def.h:591
@@ -4394,7 +4394,7 @@ msgstr "C_oller"
 
 #: src/main_menubar_def.h:592
 msgid "Paste the content of clipboard at the current position"
-msgstr "Colle le contenu du presse-papier après le curseur"
+msgstr "Colle le contenu du presse-papiers après le curseur"
 
 #. 6
 #: src/main_menubar_def.h:598
@@ -4429,7 +4429,7 @@ msgstr "Co_mmenter"
 #. 12
 #: src/main_menubar_def.h:634
 msgid "S_earch"
-msgstr "R_echercher"
+msgstr "_Rechercher"
 
 #. 13
 #: src/main_menubar_def.h:640
@@ -4453,7 +4453,7 @@ msgstr "_Montrer appel"
 
 #: src/main_menubar_def.h:657
 msgid "Show calltip for the function"
-msgstr "Montre le prototype d'appel à la fonction"
+msgstr "Affiche le prototype d'appel à la fonction"
 
 #. 0
 #: src/main_menubar_def.h:669
@@ -4552,7 +4552,7 @@ msgstr "_Retours chariot"
 
 #: src/main_menubar_def.h:735
 msgid "Show/Hide line end characters"
-msgstr "Affiche/Masque les caractères de fin de ligne"
+msgstr "Affiche/Cache les caractères de fin de ligne"
 
 #. 6
 #: src/main_menubar_def.h:740
@@ -5089,7 +5089,7 @@ msgstr "Formate automatiquement le fichier source courant"
 #. 1
 #: src/main_menubar_def.h:1190
 msgid "_Increase Indent"
-msgstr "_Indenter"
+msgstr "_Augmenter l'indentation"
 
 #: src/main_menubar_def.h:1191
 msgid "Increase indentation of line/selection"
@@ -5098,7 +5098,7 @@ msgstr "Augmente l'indentation de la ligne/sélection"
 #. 2
 #: src/main_menubar_def.h:1196
 msgid "_Decrease Indent"
-msgstr "_Désindenter"
+msgstr "_Diminuer l'indentation"
 
 #: src/main_menubar_def.h:1197
 msgid "Decrease indentation of line/selection"
@@ -5114,7 +5114,7 @@ msgstr "Forcer _coloration syntaxique"
 #. 6
 #: src/main_menubar_def.h:1210
 msgid "_Close All Folds"
-msgstr "_Fermer battants"
+msgstr "_Fermer tout les battants"
 
 #: src/main_menubar_def.h:1211
 msgid "Close all code folds in the editor"
@@ -5266,7 +5266,7 @@ msgstr "Stoppe la compilation ou la construction en cours"
 #. 18
 #: src/main_menubar_def.h:1318
 msgid "_Execute"
-msgstr "_Exécuter"
+msgstr "E_xécuter"
 
 #: src/main_menubar_def.h:1319 src/toolbar.c:297
 msgid "Execute the program"
@@ -5598,7 +5598,7 @@ msgstr "Envoie un signal au processus en cours de débogage"
 #. 13
 #: src/main_menubar_def.h:1566
 msgid "_Execution"
-msgstr "_Exécution"
+msgstr "E_xécution"
 
 #. 15
 #. 16
@@ -5768,7 +5768,7 @@ msgstr "Permet de spécifier les différentes commandes à utiliser"
 #. 4
 #: src/main_menubar_def.h:1735
 msgid "_Preferences ..."
-msgstr "Préfé_rences..."
+msgstr "_Préférences..."
 
 #: src/main_menubar_def.h:1736
 msgid "Do you prefer coffee to tea? Check it out."
@@ -6068,7 +6068,7 @@ msgstr "Adresse inaccessible !"
 
 #: src/message-manager.cc:44
 msgid "Find"
-msgstr "Chercher"
+msgstr "Rechercher"
 
 #: src/message-manager.cc:46
 msgid "Terminal"
@@ -6122,7 +6122,7 @@ msgstr ""
 
 #: src/preferences.c:698
 msgid "_Reset"
-msgstr "_Remise à zéro"
+msgstr "_Réinitialiser"
 
 #: src/preferences.c:1068
 #, c-format
@@ -6304,7 +6304,7 @@ msgstr "Fichiers GIF"
 
 #: src/project_dbase_gui.c:215
 msgid "Text files"
-msgstr "Fichiers Text"
+msgstr "Fichiers texte"
 
 #: src/project_dbase_gui.c:216
 msgid "XML files"
@@ -6464,7 +6464,7 @@ msgstr "Islandais"
 
 #: src/project_dbase_gui.c:1150
 msgid "Italian"
-msgstr "Italie"
+msgstr "Italien"
 
 #: src/project_dbase_gui.c:1152
 msgid "Korean"
@@ -6476,11 +6476,11 @@ msgstr "Macédonien"
 
 #: src/project_dbase_gui.c:1154
 msgid "Dutch"
-msgstr "Allemand"
+msgstr "Hollandais"
 
 #: src/project_dbase_gui.c:1155
 msgid "Norwegian"
-msgstr "Norvège"
+msgstr "Norvègien"
 
 #: src/project_dbase_gui.c:1156
 msgid "Polish"
@@ -6492,7 +6492,7 @@ msgstr "Portugais"
 
 #: src/project_dbase_gui.c:1158
 msgid "Romanian"
-msgstr "Romain"
+msgstr "Roumain"
 
 #: src/project_dbase_gui.c:1159
 msgid "Russian"
@@ -6689,7 +6689,7 @@ msgstr "Remplacer"
 
 #: src/search-replace.c:703 src/search-replace.c:1335
 msgid "Replace All"
-msgstr "Remplacer Tout"
+msgstr "Tout remplacer"
 
 #: src/search-replace.c:739
 #, c-format
@@ -6715,7 +6715,7 @@ msgstr "%d correspondances ont été remplacées."
 #: src/search-replace.c:953
 msgid "Unable to build user interface for Search And Replace"
 msgstr ""
-"Impossibilité de construire l'interface utilisateur pour la Rechercher et le "
+"Impossibilité de construire l'interface utilisateur pour la Recherche et le "
 "Remplacement"
 
 #: src/sharedlib_gui.c:79
@@ -6946,15 +6946,15 @@ msgstr "L'enregistrement automatique de \"%s\" a échoué"
 
 #: src/text_editor_gui.c:118
 msgid "Cut to clipboard"
-msgstr "Couper et placer dans le presse-papier"
+msgstr "Couper et placer dans le presse-papiers"
 
 #: src/text_editor_gui.c:123
 msgid "Copy to clipboard"
-msgstr "Copier dans le presse-papier"
+msgstr "Copier dans le presse-papiers"
 
 #: src/text_editor_gui.c:128
 msgid "Paste from clipboard"
-msgstr "Coller depuis le presse-papier"
+msgstr "Coller depuis le presse-papiers"
 
 #: src/text_editor_gui.c:135
 msgid "Search string"
@@ -7090,7 +7090,7 @@ msgstr "Changer .h/.c"
 #. 10
 #: src/text_editor_menu.c:301 src/toolbar.c:513
 msgid "Go"
-msgstr "Continuer"
+msgstr "Aller"
 
 #. 11
 #: src/text_editor_menu.c:309 src/text_editor_menu.c:431
@@ -7104,7 +7104,7 @@ msgstr "Fermer"
 
 #: src/toolbar.c:106
 msgid "Detach"
-msgstr "Détache"
+msgstr "Détacher"
 
 #: src/toolbar.c:107
 msgid "Detach the current page"
@@ -7116,7 +7116,7 @@ msgstr "Recherche la chaîne fournie dans le fichier courant"
 
 #: src/toolbar.c:132
 msgid "Enter the string to search for"
-msgstr "Saisissez la chaîne à chercher"
+msgstr "Saisissez la chaîne à rechercher"
 
 #: src/toolbar.c:138
 msgid "Go to the given line number in the current file"
@@ -7188,11 +7188,11 @@ msgstr "Va au dernier signet du document"
 
 #: src/toolbar.c:416
 msgid "Prev"
-msgstr "Précédant"
+msgstr "Préc"
 
 #: src/toolbar.c:417
 msgid "Goto previous message in this document"
-msgstr "Va au message précédant message du document"
+msgstr "Va au message précédant du document"
 
 #: src/toolbar.c:423
 msgid "Next"
@@ -7304,7 +7304,7 @@ msgstr "Ouvre/Ferme le battant courant du code"
 
 #: src/toolbar.c:776
 msgid "Close all"
-msgstr "Ferme tout"
+msgstr "Tout fermer"
 
 #: src/toolbar.c:778
 msgid "Close all code folds in this document"
@@ -7390,7 +7390,7 @@ msgstr "Ajouter expression"
 
 #: src/watch_gui.c:49
 msgid "Update all"
-msgstr "Mettre à jour"
+msgstr "Tout mettre à jour"
 
 #: src/watch_gui.c:55
 msgid "Clear"
@@ -7710,13 +7710,13 @@ msgstr "Nom du dossier :"
 #~ "World, style Crazy boy"
 
 #~ msgid "Direction"
-#~ msgstr " Direction "
+#~ msgstr "Direction"
 
 #~ msgid "File/Directory to add:"
 #~ msgstr "Fichier/Répertoire à ajouter :"
 
 #~ msgid "Find and replace"
-#~ msgstr "Chercher et remplacer"
+#~ msgstr "Rechercher et remplacer"
 
 #~ msgid "Find in Files"
 #~ msgstr "Rechercher dans des fichiers"
@@ -7734,7 +7734,7 @@ msgstr "Nom du dossier :"
 #~ msgstr "Ignorer Fichiers Binaires"
 
 #~ msgid "Ignore case"
-#~ msgstr "Ignore le casse"
+#~ msgstr "Ignorer la casse"
 
 #~ msgid "Prompt before replace"
 #~ msgstr "Confirmer les remplacements"
@@ -7743,16 +7743,16 @@ msgstr "Nom du dossier :"
 #~ msgstr "Expr. regulière"
 
 #~ msgid "Regexp/String to find"
-#~ msgstr " Expression régulière/chaîne à rechercher "
+#~ msgstr "Expression régulière/chaîne à rechercher"
 
 #~ msgid "Replace Expression"
 #~ msgstr "Remplacer Expression"
 
 #~ msgid "Scope"
-#~ msgstr " Domaine "
+#~ msgstr "Domaine"
 
 #~ msgid "Search String"
-#~ msgstr " Rechercher une chaîne "
+#~ msgstr "Rechercher une chaîne"
 
 #~ msgid "Search type"
 #~ msgstr "Type de recherche"
@@ -8135,7 +8135,7 @@ msgstr "Nom du dossier :"
 #~ msgstr "Répète la dernière commande de recherche"
 
 #~ msgid "_Search"
-#~ msgstr "Rechercher"
+#~ msgstr "_Rechercher"
 
 #~ msgid "New Search And Replace stuff"
 #~ msgstr "Nouvelle fonction de recherche/remplacement"
@@ -8175,10 +8175,10 @@ msgstr "Nom du dossier :"
 #~ msgstr "Enregistrer"
 
 #~ msgid "Undo"
-#~ msgstr "Annule la dernière action"
+#~ msgstr "Annuler"
 
 #~ msgid "Redo"
-#~ msgstr "Refait la dernière action annulée"
+#~ msgstr "Refaire"
 
 #~ msgid "Go To"
 #~ msgstr "Aller à"
@@ -8289,10 +8289,10 @@ msgstr "Nom du dossier :"
 #~ msgstr "Propriétaire"
 
 #~ msgid "YES"
-#~ msgstr "Oui"
+#~ msgstr "OUI"
 
 #~ msgid "NO"
-#~ msgstr "Non"
+#~ msgstr "NON"
 
 #~ msgid "Breakpoint is set, but the ID could not be found."
 #~ msgstr ""
@@ -8382,7 +8382,7 @@ msgstr "Nom du dossier :"
 #~ msgstr "Sélectionnez les librairies d'appoint à ajouter"
 
 #~ msgid "Info"
-#~ msgstr "Infos"
+#~ msgstr "Info"
 
 #~ msgid "Added Libraries"
 #~ msgstr "Librairies ajoutées"
@@ -8568,7 +8568,7 @@ msgstr "Nom du dossier :"
 #~ msgstr "Formatage automatique"
 
 #~ msgid "misc"
-#~ msgstr "Divers"
+#~ msgstr "divers"
 
 #~ msgid "Components"
 #~ msgstr "Composants"
