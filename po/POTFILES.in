@@ -156,9 +156,6 @@ src/sharedlib_cbs.h
 src/sharedlib_gui.c
 src/signals.c
 src/signals.h
-src/signals_cbs.c
-src/signals_cbs.h
-src/signals_gui.c
 src/source.c
 src/source.h
 src/src_paths.c
