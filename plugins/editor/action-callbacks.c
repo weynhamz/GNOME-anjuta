@@ -1102,6 +1102,7 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	EditorPlugin *plugin;
 	IncrementalSearch *search_params;
 	gboolean search_wrap = FALSE;
+	AnjutaStatus *status; 
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
@@ -1139,6 +1140,9 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 							TEXT_EDITOR_FIND_SCOPE_CURRENT,
 							TRUE, /* Forward */
 							FALSE, TRUE, FALSE, search_wrap);
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (user_data)->shell, NULL);
+	
 	if (ret < 0) {
 		if (search_params->pos < 0)
 		{
@@ -1159,24 +1163,21 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 		{
 			if (search_wrap == FALSE)
 			{
-#if 0 /* FIXME */
-				anjuta_status(
-				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
-				string);
+				anjuta_status_push(status,
+					_("Failling I-Search: '%s'. Press Enter or click Find to overwrap."),
+					string);
 				search_params->wrap = 1;
-				if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-											BEEP_ON_BUILD_COMPLETE))
-#endif
-					gdk_beep();
+				gdk_beep();
 			}
-#if 0 /* FIXME */
 			else
 			{
-				anjuta_status ("Failling Overwrapped I-Search: %s.", string);
+				anjuta_status_push (status, _("Failling Overwrapped I-Search: %s."), 
+				                    string);
 			}
-#endif
 		}
 	}
+	else
+		anjuta_status_clear_stack (status);
 }
 
 void

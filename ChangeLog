@@ -1,3 +1,11 @@
+2005-03-02  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* libanjuta/anjuta-status.h plugins/editor/Makefile.am
+	plugins/editor/action-callbacks.c, plugins/editor/search-replace.c :
+	Displayed search_incremental status.
+
+	* Removed plugins/editor/search_incremental.[ch]
+
 2005-02-26  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/cvs-execute.c

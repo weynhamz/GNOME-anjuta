@@ -97,8 +97,6 @@ libanjuta_editor_la_SOURCES= \
 	search-replace_backend.h \
 	search_preferences.c \
 	search_preferences.h \
-	search_incremental.c \
-	search_incremental.h \
 	goto_line.c \
 	goto_line.h \
 	print.c \

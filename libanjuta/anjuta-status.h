@@ -52,6 +52,7 @@ GtkWidget* anjuta_status_new (void);
 void anjuta_status_set (AnjutaStatus *status, gchar * mesg, ...);
 void anjuta_status_push (AnjutaStatus *status, gchar * mesg, ...);
 #define anjuta_status_pop(obj) gnome_appbar_pop(GNOME_APPBAR((obj)));
+#define anjuta_status_clear_stack(obj) gnome_appbar_clear_stack(GNOME_APPBAR((obj)));
 void anjuta_status_busy_push (AnjutaStatus *status);
 void anjuta_status_busy_pop (AnjutaStatus *status);
 void anjuta_status_set_default (AnjutaStatus *status, const gchar *label,

@@ -540,6 +540,7 @@ search_replace_next_previous(SearchDirection dir)
 	
 	if (sr)
 	{
+		g_print("sr non null\n");
 		save_action = sr->search.action;
 		save_type = sr->search.range.type;
 		save_direction = sr->search.range.direction;
@@ -555,6 +556,10 @@ search_replace_next_previous(SearchDirection dir)
 		sr->search.range.type = save_type;
 		sr->search.range.direction = save_direction;
 	}	
+	else
+	{
+		g_print("sr null\n");
+	}
 }
 
 void
