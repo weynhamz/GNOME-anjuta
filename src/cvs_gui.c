@@ -60,6 +60,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	GtkWidget *label_misc = NULL;
 	GtkWidget *table;
 	GtkWidget *gtkentry;
+	GtkWidget *text_frame;
 
 	CVSFileGUI *gui;
 
@@ -128,8 +129,13 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	gtk_widget_show (gui->entry_file);
 	gtk_widget_set_usize (gui->entry_file, 400, -1);
 	
+	text_frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (text_frame), GTK_SHADOW_IN);
+	gtk_widget_show (text_frame);
+	
 	gui->text_message = gtk_text_view_new ();
 	gtk_widget_set_usize (gui->text_message, 400, 150);
+	gtk_container_add (GTK_CONTAINER (text_frame), gui->text_message);
 	
 	gui->entry_branch = gnome_entry_new ("cvs-branch");
 	if (gui->type == CVS_ACTION_UPDATE || gui->type == CVS_ACTION_COMMIT)
@@ -170,7 +176,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	                  0, 1, 2, 3,
 	                  GTK_FILL, GTK_FILL, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-	                  gui->text_message,
+	                  text_frame,
 	                  1, 2, 2, 3,
 	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 	if (label_misc != NULL)
