@@ -47,6 +47,7 @@
 #include "properties.h"
 #include "commands.h"
 
+extern const struct poptOption anjuta_options[];
 extern gboolean closing_state;
 static GdkCursor *app_cursor;
 
@@ -419,7 +420,7 @@ anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
 	return;
 }
 
-void
+static void
 anjuta_show_text_editor (TextEditor * te)
 {
 	GtkWidget *page;
@@ -1373,12 +1374,35 @@ anjuta_child_terminated (int t)
 	anjuta_unregister_child_process (pid);
 }
 
-void
+static void
 anjuta_load_cmdline_files ()
 {
-	int i;
-	for (i = 1; i < arg_c; i++)
-	{
+	int i, j, skip;
+	gchar *option;
+	
+	for (i = 1; i < arg_c; i++) {
+		skip = 0;
+
+		/* FIXME: ugly hack waiting a nice implementation parsing the
+		   poptable and passing the filenames to this fonction */
+		for (j = 0; anjuta_options[j].longName || 
+		            anjuta_options[j].shortName != '\0'; j++) {
+			option = g_strconcat ("--", anjuta_options[j].longName, NULL);
+			if (!strcmp (option, arg_v[i]))
+				skip = 1;		
+			g_free (option);
+
+			if (!skip && 
+			    arg_v[i][0] == '-' && 
+			    arg_v[i][1] == anjuta_options[j].shortName) 
+				skip = 1;
+
+			if (skip) break;
+		}
+
+		if (skip)
+			continue;
+
 		switch (get_file_ext_type (arg_v[i]))
 		{
 		case FILE_TYPE_IMAGE:
@@ -1397,7 +1421,7 @@ anjuta_load_cmdline_files ()
 	}
 }
 
-void
+static void
 anjuta_clear_windows_menu ()
 {
 	guint count;
@@ -1423,7 +1447,7 @@ anjuta_delete_all_marker (gint marker)
 	}
 }
 
-void
+static void
 anjuta_fill_windows_menu ()
 {
 	gint count, i;

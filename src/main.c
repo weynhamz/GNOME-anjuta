@@ -32,6 +32,14 @@ AnjutaApp *app;
 int arg_c;
 char **arg_v;
 
+gboolean no_splash = 0;
+
+/* command line options table */
+const struct poptOption anjuta_options[] = {
+	{"no-splash", 's', POPT_ARG_NONE, &no_splash, 0, N_("Don't show the splashscreen"), NULL},
+	{NULL, '\0', 0, NULL, 0}
+};
+
 int
 main (int argc, char *argv[])
 {
@@ -41,16 +49,16 @@ main (int argc, char *argv[])
 	textdomain (PACKAGE);
 #endif
 
-	gnome_init ("anjuta", VERSION, argc, argv);
+	gnome_init_with_popt_table ("anjuta", VERSION, argc, argv,
+				    anjuta_options, 0, NULL);
 	
 	/* Session management is under development */
 	gnome_client_disable_master_connection ();
 	arg_c = argc;
 	arg_v = argv;
 
-#ifndef ANJUTA_DISABLE_SPLASH
-	splash_screen ();
-#endif
+	if (!no_splash)
+		splash_screen ();
 
 	anjuta_new ();
 	anjuta_show ();
