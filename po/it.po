@@ -3,7 +3,6 @@
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Michele Campeotto <micampe@f2s.com>, 2001.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta 0.1.5\n"

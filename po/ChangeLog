@@ -1,5 +1,7 @@
 2001-08-01  Fatih Demir <kabalak@gtranslator.org>
 
+	* it.po: Corrected header fuzziness -- the po file is enabled now .-)
+
 	* ChangeLog: Spew cleanup.
 
 	* POTFILES.in: Added missing ccview/* files to the list of
