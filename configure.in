@@ -516,7 +516,6 @@ scintilla/Makefile
 gdl/Makefile
 widgets/Makefile
 printing/Makefile
-omf-install/Makefile
 scintilla/include/Makefile
 anjuta.spec
 src/Makefile

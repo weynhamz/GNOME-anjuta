@@ -1,3 +1,7 @@
+2003-04-29  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Removed omf-install from Makefiles list.
+
 2003-04-28  Naba Kumar  <naba@gnome.org>
 
 	* po/POTFILES.in: Remvoded deleted files.
