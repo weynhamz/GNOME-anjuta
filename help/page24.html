@@ -1,0 +1,74 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV:<A HREF="page23.html#start">Getting project information</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP:<A HREF="page19.html#start">Concept of project management</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT:<A HREF="page25.html#start">Compiling, building and executing project</A></TD>
+</TR>
+</TABLE>
+<hr>
+<h3><u>Managing Project files:</u></h3>
+<p>
+This part is for the <b>dare devils</b>. Others may skip this section.
+<p>
+Anjuta will manage the following files of a project:
+<ol>
+  <li> Project file -----------> [ *.prj file in the top project directory ]
+  <li> Source Makefile.am -------> [ Makefile.am in the source sub-directory ]
+  <li> Document Makefile.am -----> [ Makefile.am in the document sub-directory ]
+  <li> POTFILE.in-----------> [ POTFILE.in the po sub-directory ]
+</ol>
+<p>
+If you are doing your own stuffs with the project's build files, then make sure whatever you do
+does not conflict with what Anjuta does.
+<p>
+For that matter, It is better not to touch the build files in the following directories:
+<ol>
+  <li> source directory
+  <li> Document directory
+  <li> Pixmap directory
+  <li> po directory
+</ol>
+<p>
+Of course, you can add or remove files in these directories. For the first three 
+directories, you can let Anjuta do the adding or removing, but for the po 
+directory, you have to manually copy the translation file inside. Remember, removing 
+a file means removing from the project. The file still exists in the directory. 
+You have to delete it manually (or add it later, if you so wish).
+<p>
+You can also create your own subdirectories in the project. Managing build 
+files in these directories is solely your job.
+<p>
+If your project has multiple executables, then do not mix them with 
+the project's main executable in the source directory. Make separate directory 
+or directories for them. Again it's your job to manage them.
+<p>
+Also make sure to update the top level Makefile.am to accommodate the 
+subdirectories you have created. Anjuta does not overwrite the top 
+level Makefile.am (at least not now).
+</body>
+</html>

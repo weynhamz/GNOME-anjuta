@@ -1,0 +1,19 @@
+
+Entry in the stock_libs.anj file:
+---------------------
+Please somebody add the library descriptions in the file stock_libs.anj.
+The description should be given just after the library name and should
+end at that line only.
+
+-------------------------------------------------
+for example:
+
+libglade Dynamic creation of widgets from *.glade files
+-------------------------------------------------
+
+Also add libraries that has not yet been added.
+The addition should be in alphabetical order.
+Send the patch to me, so that I can include it from the next release.
+-------------------------------------------------
+Thank you,
+-Naba

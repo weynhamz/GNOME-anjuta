@@ -1,0 +1,69 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents(Top)</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV: <A HREF="page14.html#start">Defining macros</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP: <A HREF="page11.html#start">Setting Compiler Options</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT: <A HREF="page16.html#start">Compiler Warnings</A></TD>
+</TR>
+</TABLE>
+<hr>
+
+<h3><u>Specifying supports for your program:</u></h3><p>
+You have have seen in the previous sections how to specify the basic compiling 
+options ( <i>i.e.. includes, library paths, libraries and defines</i>). This process is 
+a cumbersome when you want to use some of the standard ( meaning popular ) libraries 
+(Such as gtk libraries, gnome libraries etc. Also it may lead to inconsistencies when you 
+distribute your project. To facilitate easy implementation of these libraries and to avoid 
+inconsistencies, the developers of such libraries usually supply  a configuration 
+program (usually called *-config) along with their libraries.<p>
+Well, that's the theory part. Now the practical part. You don't have to bother 
+about the library config programs. Anjuta will do the difficult parts for you. 
+You just have to mention the particular <b>support</b> you want to use for 
+your project.<p>
+<b><u>Specifying support:<u></b><p>
+Activate the menu item <b>'Settings/Compiler options'</b> and Select the <b>'Supports'</b> 
+page in the settings dialog box.<pre>
+</pre>Select the support you want to add to your program.<pre>
+</pre>
+Basically, It will automatically set all the include paths and the libraries necessary for 
+the required support. You don't need to set the include paths and the libraries manually.<pre>
+</pre>
+Presently, It has only three supports, namely, glib, gtk and gnome.<pre>
+</pre>
+I am planning to add more in the coming releases. Till then be 
+satisfied with the given three :).<pre>
+</pre>
+<img src="supports.jpg"><p>
+<b><u>Things to note:<u></b><p>
+Remember, once you have specified the support, you don't have to 
+specify the basic compiler options such as defines, libraries, includes etc. 
+Just forget about them. Only for this support, you will <b>not</b> specify the basic 
+compiler options. You may need to supply these for the other things you
+are using besides the standard supports.
+</body>
+</html>

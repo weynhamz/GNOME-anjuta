@@ -1,0 +1,150 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents (Top)</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV: <A HREF="page100.html#start">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP: <A HREF="index.html#loc10">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT: <A HREF="page111.html#start">Contacts</A></TD>
+</TR>
+</TABLE>
+<hr>
+<ul>
+<li><u><b>REQUIREMENTS:</b></u>
+<ol>
+  <li> Installation:
+  <ul>
+    <li>From Tarball:
+    <ul>
+       <li> Red Hat 6.1 or above
+       <li> Gnome
+       <li> Automake
+       <li> Autoconf
+       <li> Gnu C compiler
+    </ul><p>
+    <li> From SRPM Rpm:
+    <ul>
+       <li> Red Hat 6.1 or above
+       <li> Gnome
+       <li> Automake
+       <li> Autoconf
+       <li> Gnu C compiler
+     </ul><p>
+    <li> From Rpm Pkg:
+    <ul>
+       <li> Red Hat 6.1 or above
+       <li> Gnome
+       <li> rpm
+     </ul><p>
+  </ul>
+  <li> Running:
+  <ul>
+     <li> Red Hat 6.1 or above
+     <li> Gnome 
+     <li> Bash command shell
+     <li> ctags
+     <li> Indent
+     <li> gnome-terminal
+     <li> gnome-help-browser
+     <li> Gnu debugger (gdb)
+     <li> grep
+   </ul><p>
+</ol>
+<li><u><b>INSTALLATION:</b></u>
+<ul>
+<li> From Tarball:
+<pre>
+Note:-
+  The package as an example is taken as anjuta-0.1.tar.gz
+  and '#' is the shell prompt. You must be logged in as root
+  to install anjuta.
+</pre>
+  <ul>
+    <li>Get the tarball anjuta-0.1.tar.gz. (Visit www.gnome.org).
+    <li>copy it to your home Dir.
+    <li>Unzip it by typing:   #gunzip anjuta-0.1.tar.gz
+    <li>Extract it by typing:   #tar -xvf anjuta-0.1.tar
+    <li>Change Dir:   #cd anjuta-0.1
+    <li>Type:  #./configure
+    <li>Type:  #make
+    <li>Type:  #make install
+  </ul><p>
+<pre>
+That's all. If everything went smoothly, congratulations.
+If not, then please check that you have libgnome and libgnomeui
+installed. Get them if you don't have and repeat the above steps.
+</pre>
+<li> From Rpm Pkg:
+<pre>
+Note:-
+  The package as an example is taken as anjuta-0.1.1-1.i386.rpm
+  and '#' is the shell prompt. You must be logged in as root
+  to install anjuta.
+</pre>
+  <ul>
+    <li> Get the rpm package anjuta-0.1.1-1.i386.rpm (Visit www.gnome.org).
+    <li> Change to the directory containing the rpm package.
+    <li> Type: rpm -ivh anjuta-0.1.1-1.i386.rpm.
+  </ul><p>
+<pre>
+That's all. If everything went smoothly, congratulations.
+Otherwise, some dependency error will come up. You will have
+to install the required components first. Then repeat the above.
+</pre>
+</ul><p>
+<pre>
+To run Anjuta, type:   #anjuta
+
+If you get the shell error 'Command not found', then make sure your PATH
+variable contains the executable path of Anjuta binary (by default: /usr/local/bin).
+Usually, PATH variable is set in the file /etc/profile. Check it out.
+For detailed custom installation, please read the file INSTALL.
+
+<b><u>Following files will be installed in your system.</u></b>
+
+Assume that the install Dir is /usr/local (this is the default directory).
+
+/usr/local/bin/
+--------- anjuta
+--------- anjuta_launcher
+--------- anjuta_prj_conf
+--------- anjuta_missing
+
+/usr/local/doc/ (All the document files).
+
+/usr/local/share/anjuta/ (All the data files).
+
+/usr/share/pixmaps/anjuta/ (All the pixmap files).
+
+/usr/share/gnome/help/anjuta/ (All the help files).
+
+/usr/share/gnome/apps/Development/Anjuta-IDE.desktop. [Menu entry]
+
+** Good Luck **
+</pre>
+</body>
+</html>

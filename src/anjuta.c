@@ -1,0 +1,1596 @@
+/*
+ * anjuta2.c Copyright (C) 2000  Kh. Naba Kumar Singh
+ * 
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free 
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details.
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc., 59 
+ * Temple Place, Suite 330, Boston, MA  02111-1307  USA 
+ */
+
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <sys/stat.h>
+#include <unistd.h>
+#include <signal.h>
+#include <string.h>
+
+#include <sys/wait.h>
+#include <gnome.h>
+
+#include "text_editor.h"
+#include "anjuta.h"
+#include "fileselection.h"
+#include "utilities.h"
+#include "resources.h"
+#include "messagebox.h"
+#include "launcher.h"
+#include "debugger.h"
+#include "controls.h"
+#include "project_dbase.h"
+#include "anjuta_info.h"
+
+#define GTK
+#undef PLAT_GTK
+#define PLAT_GTK 1
+#include "Scintilla.h"
+#include "ScintillaWidget.h"
+#include "properties.h"
+#include "commands.h"
+
+extern gboolean closing_state;
+static GdkCursor *app_cursor;
+
+void anjuta_child_terminated (int t);
+static void anjuta_load_cmdline_files (void);
+static void on_anjuta_window_selected (GtkMenuItem * menuitem,
+				       gpointer user_data);
+static void anjuta_clear_windows_menu (void);
+static void anjuta_fill_windows_menu (void);
+static void anjuta_show_text_editor (TextEditor * te);
+
+void
+anjuta_new ()
+{
+	app = (AnjutaApp *) g_malloc (sizeof (AnjutaApp));
+	if (app)
+	{
+		/* Must declare static, because it will be used forever */
+		static FileSelData fsd1 = { N_("Open File"), NULL,
+			on_open_filesel_ok_clicked,
+			on_open_filesel_cancel_clicked, NULL
+		};
+
+		/* Must declare static, because it will be used forever */
+		static FileSelData fsd2 = { N_("Save File As"), NULL,
+			on_save_as_filesel_ok_clicked,
+			on_save_as_filesel_cancel_clicked, NULL
+		};
+		app->shutdown_in_progress = FALSE;
+		app->registered_windows = NULL;
+		app->registered_child_processes = NULL;
+		app->registered_child_processes_cb = NULL;
+		app->registered_child_processes_cb_data = NULL;
+		app->text_editor_list = NULL;
+		app->current_text_editor = NULL;
+		app->cur_job = NULL;
+		app->recent_files = NULL;
+		app->recent_projects = NULL;
+		app->win_width = gdk_screen_width () - 10;
+		app->win_height = gdk_screen_height () - 25;
+		app->vpaned_height = app->win_height / 2 + 7;
+		app->hpaned_width = app->win_width / 4;
+		app->in_progress = FALSE;
+		app->auto_gtk_update = TRUE;
+		app->busy_count = 0;
+		app->execution_dir = NULL;
+		app->first_time_expose = TRUE;
+
+		signal (SIGCHLD, anjuta_child_terminated);
+		create_anjuta_gui (app);
+
+		app->dirs = anjuta_dirs_new ();
+		app->fileselection = create_fileselection_gui (&fsd1);
+		app->save_as_fileselection = create_fileselection_gui (&fsd2);
+		app->find_replace = find_replace_new ();
+		app->find_in_files = find_in_files_new ();
+		app->preferences = preferences_new ();
+		app->compiler_options = compiler_options_new (app->preferences->props);
+		app->src_paths = src_paths_new ();
+		app->messages = messages_new ();
+		app->project_dbase = project_dbase_new (app->preferences->props);
+		app->configurer = configurer_new (app->project_dbase->props);
+		app->executer = executer_new (app->project_dbase->props);
+		app->command_editor = command_editor_new (app->preferences->props_global,
+					app->preferences->props_local, app->project_dbase->props);
+		app->tags_manager = tags_manager_new ();
+
+		app->widgets.the_client = app->widgets.vpaned;
+		app->widgets.hpaned_client = app->widgets.hpaned;
+		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
+				   app->widgets.notebook);
+		gtk_notebook_popup_enable (GTK_NOTEBOOK
+					   (app->widgets.notebook));
+		gtk_box_pack_start (GTK_BOX (app->widgets.mesg_win_container),
+				    app->messages->client, TRUE, TRUE, 0);
+		gtk_box_pack_start (GTK_BOX
+				    (app->widgets.
+				     project_dbase_win_container),
+				    app->project_dbase->widgets.client, TRUE,
+				    TRUE, 0);
+		project_dbase_hide (app->project_dbase);
+		messages_hide (app->messages);
+
+		gtk_paned_set_position (GTK_PANED (app->widgets.vpaned),
+					app->vpaned_height);
+		gtk_paned_set_position (GTK_PANED (app->widgets.hpaned),
+					app->hpaned_width);
+		anjuta_update_title ();
+		launcher_init ();
+		debugger_init ();
+
+		anjuta_load_yourself (app->preferences->props);
+		gtk_widget_set_uposition (app->widgets.window, app->win_pos_x,
+					  app->win_pos_y);
+		gtk_window_set_default_size (GTK_WINDOW (app->widgets.window),
+					     app->win_width, app->win_height);
+		main_toolbar_update ();
+		extended_toolbar_update ();
+		debug_toolbar_update ();
+		format_toolbar_update ();
+		browser_toolbar_update ();
+	}
+	else
+	{
+		app = NULL;
+		g_error (_("Cannot create application...exiting\n"));
+	}
+}
+
+TextEditor *
+anjuta_append_text_editor (gchar * filename)
+{
+	GtkWidget *label, *eventbox;
+	TextEditor *te, *cur_page;
+	gchar *buff;
+
+	cur_page = anjuta_get_current_text_editor ();
+	te = text_editor_new (filename, cur_page, app->preferences);
+	g_return_val_if_fail (te != NULL, NULL);
+	gtk_signal_disconnect_by_func (GTK_OBJECT (app->widgets.notebook),
+				       GTK_SIGNAL_FUNC
+				       (on_anjuta_notebook_switch_page),
+				       NULL);
+	anjuta_set_current_text_editor (te);
+	anjuta_clear_windows_menu ();
+	app->text_editor_list = g_list_append (app->text_editor_list, te);
+	breakpoints_dbase_set_all_in_editor (debugger.breakpoints_dbase, te);
+	switch (te->mode)
+	{
+	case TEXT_EDITOR_PAGED:
+		label = gtk_label_new (te->filename);
+		gtk_widget_show (label);
+		eventbox = gtk_event_box_new ();
+		gtk_widget_show (eventbox);
+		gtk_notebook_prepend_page (GTK_NOTEBOOK
+					   (app->widgets.notebook), eventbox,
+					   label);
+		gtk_container_add (GTK_CONTAINER (eventbox),
+				   te->widgets.client);
+	
+		/* For your kind info, this same data is also set in */
+		/* the function on_text_editor_dock_activated() */
+		gtk_object_set_data (GTK_OBJECT (eventbox), "TextEditor", te);
+
+		if (te->full_filename)
+			buff =
+				g_strdup_printf (_("Anjuta: %s"),
+						 te->full_filename);
+		else
+			buff =
+				g_strdup_printf (_("Anjuta: %s"),
+						 te->filename);
+		gtk_window_set_title (GTK_WINDOW (app->widgets.window), buff);
+		g_free (buff);
+		gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook),
+		       0);
+		break;
+
+	case TEXT_EDITOR_WINDOWED:
+		gtk_widget_show (te->widgets.window);
+		break;
+	}
+	anjuta_fill_windows_menu ();
+	gtk_signal_connect (GTK_OBJECT (app->widgets.notebook), "switch_page",
+			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
+			    NULL);
+	anjuta_set_current_text_editor(te);
+	anjuta_grab_text_focus ();
+	return te;
+}
+
+static void
+on_anjuta_window_selected (GtkMenuItem * menuitem, gpointer user_data)
+{
+	anjuta_show_text_editor ((TextEditor *) user_data);
+}
+
+void
+anjuta_remove_current_text_editor ()
+{
+	TextEditor *te;
+	GtkWidget *submenu;
+	GtkWidget *wid;
+
+	gint nb_cur_page_num;
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+
+	gtk_signal_disconnect_by_func (GTK_OBJECT (app->widgets.notebook),
+				       GTK_SIGNAL_FUNC
+				       (on_anjuta_notebook_switch_page),
+				       NULL);
+	anjuta_clear_windows_menu ();
+	if (te->full_filename != NULL)
+	{
+		gint max_recent_files;
+
+		max_recent_files =
+			preferences_get_int (app->preferences,
+					     MAXIMUM_RECENT_FILES);
+		app->recent_files =
+			update_string_list (app->recent_files,
+					    te->full_filename,
+					    max_recent_files);
+		submenu =
+			create_submenu (_("Recent Files "), app->recent_files,
+					GTK_SIGNAL_FUNC
+					(on_recent_files_menu_item_activate));
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM
+					   (app->widgets.menubar.file.
+					    recent_files), submenu);
+	}
+	breakpoints_dbase_clear_all_in_editor (debugger.breakpoints_dbase, te);
+	switch (te->mode)
+	{
+	case TEXT_EDITOR_PAGED:
+		nb_cur_page_num =
+			gtk_notebook_get_current_page (GTK_NOTEBOOK (app->widgets.notebook));
+		wid = te->widgets.client->parent;
+		if (GTK_IS_CONTAINER (wid))
+			gtk_container_remove (GTK_CONTAINER (wid),
+					      te->widgets.client);
+		gtk_notebook_remove_page (GTK_NOTEBOOK
+					  (app->widgets.notebook),
+					  nb_cur_page_num);
+		gtk_container_add (GTK_CONTAINER (te->widgets.client_area),
+				   te->widgets.client);
+		app->text_editor_list =
+			g_list_remove (app->text_editor_list, te);
+		/* This is called to set the next active document */
+		if (GTK_NOTEBOOK (app->widgets.notebook)->children == NULL)
+		{
+			anjuta_set_current_text_editor (NULL);
+		}
+		else
+		{
+			on_anjuta_window_focus_in_event (NULL, NULL, NULL);
+		}
+		break;
+
+	case TEXT_EDITOR_WINDOWED:
+		app->text_editor_list =
+			g_list_remove (app->text_editor_list, te);
+		break;
+	}
+	if (te->full_filename)
+	{
+		if (app->project_dbase->project_is_open == FALSE)
+			tags_manager_remove (app->tags_manager,
+					     te->full_filename);
+	}
+	anjuta_fill_windows_menu ();
+	text_editor_destroy (te);
+	gtk_signal_connect (GTK_OBJECT (app->widgets.notebook), "switch_page",
+			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
+			    NULL);
+}
+
+TextEditor *
+anjuta_get_current_text_editor ()
+{
+	return app->current_text_editor;
+}
+
+void
+anjuta_set_current_text_editor (TextEditor * te)
+{
+	app->current_text_editor = te;
+	main_toolbar_update ();
+	extended_toolbar_update ();
+	format_toolbar_update ();
+	browser_toolbar_update ();
+	anjuta_update_title ();
+	anjuta_update_app_status (FALSE, NULL);
+	if (te == NULL)
+	{
+		chdir (app->dirs->home);
+		return;
+	}
+	if (te->full_filename)
+	{
+		gchar* dir;
+		dir = g_dirname (te->full_filename);
+		chdir (dir);
+		g_free (dir);
+		return;
+	}
+	return;
+}
+
+TextEditor *
+anjuta_get_notebook_text_editor (gint page_num)
+{
+	GtkWidget *page;
+	TextEditor *te;
+
+	page =
+		gtk_notebook_get_nth_page (GTK_NOTEBOOK
+					   (app->widgets.notebook), page_num);
+	te = gtk_object_get_data (GTK_OBJECT (page), "TextEditor");
+	return te;
+}
+
+GtkWidget *
+anjuta_get_current_text ()
+{
+	TextEditor *t = anjuta_get_current_text_editor ();
+	if (t)
+		return t->widgets.editor;
+	return NULL;
+}
+
+gchar *
+anjuta_get_current_selection ()
+{
+	gchar *chars;
+	TextEditor* te;
+
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return NULL;
+
+	chars = text_editor_get_selection (te);
+	return chars;
+}
+
+void
+anjuta_goto_file_line (gchar * fname, guint lineno)
+{
+	anjuta_goto_file_line_mark (fname, lineno, TRUE);
+}
+
+void
+anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
+{
+	gchar *fn;
+	GList *node;
+
+	TextEditor *te;
+
+	g_return_if_fail (fname != NULL);
+	fn = anjuta_get_full_filename (fname);
+	g_return_if_fail (fname != NULL);
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) node->data;
+		if (te->full_filename == NULL)
+		{
+			node = g_list_next (node);
+			continue;
+		}
+		if (strcmp (fn, te->full_filename) == 0)
+		{
+			if (lineno >= 0)
+				text_editor_goto_line (te, lineno, mark);
+			anjuta_show_text_editor (te);
+			anjuta_grab_text_focus ();
+			g_free (fn);
+			return;
+		}
+		node = g_list_next (node);
+	}
+	te = anjuta_append_text_editor (fn);
+	if (lineno >= 0 && te)
+		text_editor_goto_line (te, lineno, mark);
+	g_free (fn);
+	return;
+}
+
+void
+anjuta_show_text_editor (TextEditor * te)
+{
+	GtkWidget *page;
+	GList *node;
+	gint i;
+
+	if (te == NULL)
+		return;
+	if (te->mode == TEXT_EDITOR_WINDOWED)
+	{
+		gdk_window_raise (te->widgets.window->window);
+		anjuta_set_current_text_editor (te);
+		return;
+	}
+	node = GTK_NOTEBOOK (app->widgets.notebook)->children;
+	i = 0;
+	while (node)
+	{
+		TextEditor *t;
+
+		page =
+			gtk_notebook_get_nth_page (GTK_NOTEBOOK
+						   (app->widgets.notebook),
+						   i);
+		t = gtk_object_get_data (GTK_OBJECT (page), "TextEditor");
+		if (t == te && GTK_IS_EVENT_BOX (page) && t)
+		{
+			gint page_num;
+			page_num =
+				gtk_notebook_page_num (GTK_NOTEBOOK
+						       (app->widgets.
+							notebook), page);
+			gtk_notebook_set_page (GTK_NOTEBOOK
+					       (app->widgets.notebook),
+					       page_num);
+			anjuta_set_current_text_editor (te);
+			return;
+		}
+		i++;
+		node = g_list_next (node);
+	}
+}
+
+void
+anjuta_show ()
+{
+	PropsID pr;
+	gchar* key;
+
+	pr = app->preferences->props;
+
+	gtk_widget_show (app->widgets.window);
+
+	/* Editor stuffs */
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_linenos), prop_get_int (pr,
+									"margin.linenumber.view",
+									0));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_markers), prop_get_int (pr,
+									"margin.marker.view",
+									0));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_folds), prop_get_int (pr,
+								      "margin.fold.view",
+								      0));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_indentguides),
+					prop_get_int (pr,
+						      "view.indentation.guides",
+						      0));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_whitespaces),
+					prop_get_int (pr, "view.whitespace",
+						      0));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+					(app->widgets.menubar.view.
+					 editor_eolchars), prop_get_int (pr,
+									 "view.eol",
+									 0));
+
+
+	/* Hide all toolbars, since corrosponding toggle menu items */
+	/* (in the view submenu) are all initially off */
+	/* We do not resize or set the change in props */
+	anjuta_toolbar_set_view (ANJUTA_MAIN_TOOLBAR, FALSE, FALSE, FALSE);
+	anjuta_toolbar_set_view (ANJUTA_EXTENDED_TOOLBAR, FALSE, FALSE, FALSE);
+	anjuta_toolbar_set_view (ANJUTA_TAGS_TOOLBAR, FALSE, FALSE, FALSE);
+	anjuta_toolbar_set_view (ANJUTA_DEBUG_TOOLBAR, FALSE, FALSE, FALSE);
+	anjuta_toolbar_set_view (ANJUTA_BROWSER_TOOLBAR, FALSE, FALSE, FALSE);
+	anjuta_toolbar_set_view (ANJUTA_FORMAT_TOOLBAR, FALSE, FALSE, FALSE);
+
+	/* Now we are synced with the menu items */
+	/* Show/Hide the necessary toolbars */
+	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".view", NULL);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar. view.main_toolbar),
+			prop_get_int (pr, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".view", NULL);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar. view.extended_toolbar),
+			prop_get_int (pr, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".view", NULL);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar. view.tags_toolbar),
+			prop_get_int (pr, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".view", NULL);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar. view.debug_toolbar),
+			prop_get_int (pr, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".view", NULL);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar. view.browser_toolbar),
+			prop_get_int (pr, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".view", NULL);
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+			(app->widgets.menubar. view.format_toolbar),
+			prop_get_int (pr, key, 1));
+	g_free (key);
+	
+	update_gtk ();
+	messages_append (app->messages,
+			 _("CVS is not yet implemented. :-(\n"), MESSAGE_CVS);
+	anjuta_load_cmdline_files ();
+	if (app->dirs->first_time)
+	{
+		gchar *file;
+		app->dirs->first_time = FALSE;
+		file = g_strconcat (app->dirs->data, "/welcome.txt", NULL);
+		anjuta_info_show_file (file, 500, 435);
+		g_free (file);
+	}
+}
+
+void
+anjuta_save_settings ()
+{
+	gchar *buffer;
+	FILE *stream;
+
+	if (!app)
+		return;
+	buffer =
+		g_strconcat (app->dirs->settings, "/session.properties",
+			     NULL);
+	stream = fopen (buffer, "w");
+	g_free (buffer);
+	if (stream)
+	{
+		anjuta_save_yourself (stream);
+		fclose (stream);
+	}
+}
+
+gboolean anjuta_save_yourself (FILE * stream)
+{
+	GList *node;
+	PropsID pr;
+	gchar* key;
+
+	pr = app->preferences->props;
+
+	gdk_window_get_root_origin (app->widgets.window->window,
+				    &app->win_pos_x, &app->win_pos_y);
+	gdk_window_get_size (app->widgets.window->window, &app->win_width,
+			     &app->win_height);
+	fprintf (stream,
+		 _("# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"));
+	fprintf (stream, "anjuta.version=%s\n", VERSION);
+	fprintf (stream, "anjuta.win.pos.x=%d\n", app->win_pos_x);
+	fprintf (stream, "anjuta.win.pos.y=%d\n", app->win_pos_y);
+	fprintf (stream, "anjuta.win.width=%d\n", app->win_width);
+	fprintf (stream, "anjuta.win.height=%d\n", app->win_height);
+	fprintf (stream, "anjuta.vpaned.size=%d\n",
+		 GTK_PANED (app->widgets.vpaned)->child1_size);
+	fprintf (stream, "anjuta.hpaned.size=%d\n",
+		 GTK_PANED (app->widgets.hpaned)->child1_size);
+
+	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".view", NULL);
+	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".view", NULL);
+	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".view", NULL);
+	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".view", NULL);
+	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_TAGS_TOOLBAR, ".view", NULL);
+	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	g_free (key);
+
+	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".view", NULL);
+	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	g_free (key);
+
+	fprintf (stream, "view.eol=%d\n", prop_get_int (pr, "view.eol", 0));
+	fprintf (stream, "view.indentation.guides=%d\n",
+		 prop_get_int (pr, "view.indentation.guides", 0));
+	fprintf (stream, "view.whitespace=%d\n",
+		 prop_get_int (pr, "view.whitespace", 0));
+	fprintf (stream, "view.indentation.whitespace=%d\n",
+		 prop_get_int (pr, "view.indentation.whitespace", 0));
+	fprintf (stream, "margin.linenumber.view=%d\n",
+		 prop_get_int (pr, "margin.linenumber.view", 0));
+	fprintf (stream, "margin.marker.view=%d\n",
+		 prop_get_int (pr, "margin.marker.view", 0));
+	fprintf (stream, "margin.fold.view=%d\n",
+		 prop_get_int (pr, "margin.fold.view", 0));
+
+	fprintf (stream, "anjuta.recent.files=");
+	node = app->recent_files;
+	while (node)
+	{
+		fprintf (stream, "\\\n%s ", (gchar *) node->data);
+		node = g_list_next (node);
+	}
+	fprintf (stream, "\n\n");
+
+	fprintf (stream, "anjuta.recent.projects=");
+	node = app->recent_projects;
+	while (node)
+	{
+		fprintf (stream, "\\\n%s ", (gchar *) node->data);
+		node = g_list_next (node);
+	}
+	fprintf (stream, "\n\n");
+	messages_save_yourself (app->messages, stream);
+	project_dbase_save_yourself (app->project_dbase, stream);
+
+	compiler_options_save_yourself (app->compiler_options, stream);
+	if (app->project_dbase->project_is_open == FALSE)
+		compiler_options_save (app->compiler_options, stream);
+
+	command_editor_save_yourself (app->command_editor, stream);
+	if (app->project_dbase->project_is_open == FALSE)
+		command_editor_save (app->command_editor, stream);
+
+	src_paths_save_yourself (app->src_paths, stream);
+	if (app->project_dbase->project_is_open == FALSE)
+		src_paths_save (app->src_paths, stream);
+
+	find_replace_save_yourself (app->find_replace, stream);
+	debugger_save_yourself (stream);
+	preferences_save_yourself (app->preferences, stream);
+	return TRUE;
+}
+
+gboolean anjuta_load_yourself (PropsID pr)
+{
+	gint length;
+
+	app->win_pos_x = prop_get_int (pr, "anjuta.win.pos.x", 10);
+	app->win_pos_y = prop_get_int (pr, "anjuta.win.pos.y", 10);
+	app->win_width =
+		prop_get_int (pr, "anjuta.win.width",
+			      gdk_screen_width () - 10);
+	app->win_height =
+		prop_get_int (pr, "anjuta.win.height",
+			      gdk_screen_height () - 25);
+	length =
+		prop_get_int (pr, "anjuta.vpaned.size",
+			      app->win_height / 2 + 7);
+	gtk_paned_set_position (GTK_PANED (app->widgets.vpaned), length);
+	length = prop_get_int (pr, "anjuta.hpaned.size", app->win_width / 4);
+	gtk_paned_set_position (GTK_PANED (app->widgets.hpaned), length);
+
+	glist_strings_free (app->recent_files);
+	app->recent_files = glist_from_data (pr, "anjuta.recent.files");
+	glist_strings_free (app->recent_projects);
+	app->recent_projects = glist_from_data (pr, "anjuta.recent.projects");
+	messages_load_yourself (app->messages, pr);
+	project_dbase_load_yourself (app->project_dbase, pr);
+	preferences_load_yourself (app->preferences, pr);
+	compiler_options_load_yourself (app->compiler_options, pr);
+	compiler_options_load (app->compiler_options, pr);
+	src_paths_load_yourself (app->src_paths, pr);
+	src_paths_load (app->src_paths, pr);
+	find_replace_load_yourself (app->find_replace, pr);
+	debugger_load_yourself (pr);
+	return TRUE;
+}
+
+void
+anjuta_update_title ()
+{
+	gchar *buff1, *buff2;
+	GtkWidget *window;
+	TextEditor *te;
+	te = anjuta_get_current_text_editor ();
+	if (te)
+	{
+		if (te->mode == TEXT_EDITOR_PAGED)
+		{
+			window = app->widgets.window;
+			main_toolbar_update ();
+			extended_toolbar_update ();
+		}
+		else
+			window = te->widgets.window;
+
+		if (text_editor_is_saved (te))
+		{
+			buff1 =
+				g_strdup_printf (_("Anjuta: %s(Saved)"),
+						 te->full_filename);
+			buff2 =
+				g_strdup_printf (_("Anjuta: %s"),
+						 te->filename);
+		}
+		else
+		{
+			buff1 =
+				g_strdup_printf (_("Anjuta: %s(Unsaved)"),
+						 te->full_filename);
+			buff2 =
+				g_strdup_printf (_("Anjuta: %s"),
+						 te->filename);
+		}
+		if (te->full_filename)
+		{
+			gtk_window_set_title (GTK_WINDOW (window), buff1);
+			tags_manager_set_filename (app->tags_manager,
+						   te->full_filename);
+		}
+		else
+			gtk_window_set_title (GTK_WINDOW (window), buff2);
+		g_free (buff1);
+		g_free (buff2);
+	}
+	else
+		gtk_window_set_title (GTK_WINDOW (app->widgets.window),
+				      _("Anjuta: No file"));
+}
+
+void
+anjuta_apply_preferences (void)
+{
+	TextEditor *te;
+	gint i;
+	gint no_tag;
+
+	Preferences *pr = app->preferences;
+	no_tag = preferences_get_int (pr, EDITOR_TAG_HIDE);
+	if (no_tag == TRUE)
+	{
+		gtk_notebook_set_show_tabs (GTK_NOTEBOOK
+					    (app->widgets.notebook), FALSE);
+	}
+	else
+	{
+		gchar *tag_pos;
+
+		tag_pos = preferences_get (pr, EDITOR_TAG_POS);
+
+		if (strcmp (tag_pos, "bottom") == 0)
+			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+						  (app->widgets.notebook),
+						  GTK_POS_BOTTOM);
+		else if (strcmp (tag_pos, "left") == 0)
+			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+						  (app->widgets.notebook),
+						  GTK_POS_LEFT);
+		else if (strcmp (tag_pos, "right") == 0)
+			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+						  (app->widgets.notebook),
+						  GTK_POS_RIGHT);
+		else
+			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+						  (app->widgets.notebook),
+						  GTK_POS_TOP);
+		g_free (tag_pos);
+		gtk_notebook_set_show_tabs (GTK_NOTEBOOK
+					    (app->widgets.notebook), TRUE);
+	}
+	messages_update (app->messages);
+	for (i = 0; i < g_list_length (app->text_editor_list); i++)
+	{
+		te =	(TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
+		text_editor_update_preferences (te);
+		anjuta_refresh_breakpoints (te);
+	}
+}
+
+void
+anjuta_refresh_breakpoints (TextEditor* te)
+{
+	breakpoints_dbase_clear_all_in_editor (debugger.breakpoints_dbase, te);
+	breakpoints_dbase_set_all_in_editor (debugger.breakpoints_dbase, te);
+}
+
+void
+anjuta_clean_exit ()
+{
+	gchar *tmp;
+	pid_t pid;
+
+	g_return_if_fail (app != NULL);
+
+	/* This will remove all tmp files */
+	tmp =
+		g_strdup_printf ("rm -f %s/anjuta_*.%ld",
+				 app->dirs->tmp, (long) getpid ());
+	pid = gnome_execute_shell (app->dirs->home, tmp);
+	waitpid (pid, NULL, 0);
+
+/* Is it necessary to free up all the memos on exit? */
+/* Assuming that it is not, I am disabling the following */
+/* Basicaly, because it is faster */
+
+#if 0				/* From here */
+	if (app->project_dbase->project_is_open)
+		project_dbase_close_project (app->project_dbase);
+	debugger_stop ();
+
+	gtk_widget_hide (app->widgets.notebook);
+	for (i = 0;
+	     i <
+	     g_list_length (GTK_NOTEBOOK (app->widgets.notebook)->
+			    children); i++)
+	{
+		te = anjuta_get_notebook_text_editor (i);
+		gtk_container_remove (GTK_CONTAINER
+				      (gtk_notebook_get_nth_page
+				       (GTK_NOTEBOOK (app->widgets.
+						      notebook), i)),
+				      te->widgets.client);
+		gtk_container_add (GTK_CONTAINER
+				   (te->widgets.client_area),
+				   te->widgets.client);}
+	app->shutdown_in_progress = TRUE;
+	for (i = 0; i < g_list_length (app->text_editor_list); i++)
+	{
+		te =
+			(TextEditor
+		      *) (g_list_nth_data (app->text_editor_list, i));
+		text_editor_destroy (te);
+	}
+	if (app->text_editor_list)
+		g_list_free (app->text_editor_list);
+	for (i = 0; i < g_list_length (app->recent_files); i++)
+	{
+		g_free (g_list_nth_data (app->recent_files, i));
+	}
+	if (app->recent_files)
+		g_list_free (app->recent_files);
+	for (i = 0; i < g_list_length (app->recent_projects); i++)
+	{
+		g_free (g_list_nth_data (app->recent_projects, i));
+	}
+	if (app->recent_projects)
+		g_list_free (app->recent_projects);
+	if (app->fileselection)
+		gtk_widget_destroy (app->fileselection);
+	if (app->save_as_fileselection)
+		gtk_widget_destroy (app->save_as_fileselection);
+	if (app->preferences)
+		preferences_destroy (app->preferences);
+	if (app->compiler_options)
+		compiler_options_destroy (app->compiler_options);
+	if (app->src_paths)
+		src_paths_destroy (app->src_paths);
+	if (app->messages)
+		messages_destroy (app->messages);
+	if (app->project_dbase)
+		project_dbase_destroy (app->project_dbase);
+	if (app->command_editor)
+		command_editor_destroy (app->command_editor);
+	if (app->find_replace)
+		find_replace_destroy (app->find_replace);
+	if (app->find_in_files)
+		find_in_files_destroy (app->find_in_files);
+	if (app->dirs)
+		anjuta_dirs_destroy (app->dirs);
+	if (app->executer)
+		executer_destroy (app->executer);
+	if (app->configurer)
+		configurer_destroy (app->configurer);
+	if (app->tags_manager)
+		tags_manager_destroy (app->tags_manager);
+	if (app->execution_dir)
+		g_free (app->execution_dir);
+	debugger_shutdown ();
+	
+	string_assign (&app->cur_job, NULL);
+	app->text_editor_list = NULL;
+	app->fileselection = NULL;
+	app->save_as_fileselection = NULL;
+	app->preferences = NULL;
+	main_menu_unref ();
+	app = NULL;
+#endif /* To here */
+
+	gtk_main_quit ();
+}
+
+void
+anjuta_status (gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	gnome_app_flash (GNOME_APP (app->widgets.window), message);
+}
+
+void
+anjuta_warning (gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	gnome_app_warning (GNOME_APP (app->widgets.window), message);
+	g_free (message);
+}
+
+void
+anjuta_error (gchar * mesg, ... )
+{
+	gchar* message;
+	gchar* str;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	str = g_strconcat ("ERROR: ", message, NULL);
+	gnome_app_error (GNOME_APP (app->widgets.window), str);
+	g_free (message);
+	g_free (str);
+}
+
+void
+anjuta_system_error (gint errnum, gchar * mesg, ... )
+{
+	gchar* message;
+	gchar* tot_mesg;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	
+	tot_mesg = g_strconcat (message, "\nSystem: ", g_strerror(errnum), NULL);
+	gnome_app_error (GNOME_APP (app->widgets.window), tot_mesg);
+	g_free (message);
+	g_free (tot_mesg);
+}
+
+void
+anjuta_set_file_properties (gchar* file)
+{
+	gchar *full_filename, *dir, *filename, *ext;
+	PropsID props;
+
+	g_return_if_fail (file != NULL);
+	full_filename = g_strdup (file);
+	props = app->preferences->props;
+	dir = g_dirname (full_filename);
+	filename = extract_filename (full_filename);
+	ext = get_file_extension (filename);
+	prop_set_with_key (props, CURRENT_FULL_FILENAME, "");
+	prop_set_with_key (props, CURRENT_FILE_DIRECTORY, "");
+	prop_set_with_key (props, CURRENT_FILENAME_WITH_EXT, "");
+	prop_set_with_key (props, CURRENT_FILE_EXTENSION, "");
+
+	if (full_filename) prop_set_with_key (props, CURRENT_FULL_FILENAME_WITH_EXT, full_filename);
+	if (dir) prop_set_with_key (props, CURRENT_FILE_DIRECTORY, dir);
+	if (filename) prop_set_with_key (props, CURRENT_FILENAME_WITH_EXT, filename);
+	if (ext)
+	{
+		prop_set_with_key (props, CURRENT_FILE_EXTENSION, ext);
+		*(--ext) = '\0';
+		/* Ext has been removed */
+	}
+	if (filename) prop_set_with_key (props, CURRENT_FILENAME, filename);
+	if (full_filename) prop_set_with_key (props, CURRENT_FULL_FILENAME, full_filename);
+	if (dir) g_free (dir);
+	if (full_filename) g_free (full_filename);
+}
+
+void
+anjuta_open_file (gchar* fname)
+{
+	Preferences *pref;
+	pid_t pid;
+	gchar *cmd;
+	GList *list;
+
+	g_return_if_fail (fname != NULL);
+	pref = app->preferences;
+	anjuta_set_file_properties (fname);
+	cmd = command_editor_get_command_file (app->command_editor, COMMAND_OPEN_FILE, fname);
+	list = glist_from_string (cmd);
+	g_free (cmd);
+	if(list == NULL)
+	{
+		anjuta_goto_file_line (fname, -1);
+		return;
+	}
+	if (anjuta_is_installed ((gchar*)list->data, TRUE))
+	{
+		gchar **av, *dir;
+		guint length;
+		gint i;
+		
+		length = g_list_length (list);
+		av = g_malloc (sizeof (gchar*) * length);
+		for (i=0; i<length; i++)
+		{
+			av[i] = g_list_nth_data (list, i);
+		}
+		dir = prop_get_new_expand (pref->props, CURRENT_FILE_DIRECTORY,
+			app->dirs->home);
+		chdir(dir);
+		pid = gnome_execute_async (dir, length, av);
+		g_free (dir);
+		glist_strings_free (list);
+		return;
+	}
+	anjuta_goto_file_line (fname, -1);
+}
+
+void
+anjuta_view_file (gchar* fname)
+{
+	Preferences *pref;
+	pid_t pid;
+	gchar *cmd;
+	GList *list;
+
+	g_return_if_fail (fname != NULL);
+	pref = app->preferences;
+	anjuta_set_file_properties (fname);
+	cmd = command_editor_get_command_file (app->command_editor, COMMAND_VIEW_FILE, fname);
+	list = glist_from_string (cmd);
+	g_free (cmd);
+	if(list == NULL)
+	{
+		anjuta_goto_file_line (fname, -1);
+		return;
+	}
+	if (anjuta_is_installed ((gchar*)list->data, TRUE))
+	{
+		gchar **av, *dir;
+		guint length;
+		gint i;
+		
+		length = g_list_length (list);
+		av = g_malloc (sizeof (gchar*) * length);
+		for (i=0; i<length; i++)
+		{
+			av[i] = g_list_nth_data (list, i);
+		}
+		dir = prop_get_new_expand (pref->props, CURRENT_FILE_DIRECTORY,
+			app->dirs->home);
+		pid = gnome_execute_async (dir, length, av);
+		g_free (dir);
+		glist_strings_free (list);
+		return;
+	}
+	anjuta_goto_file_line (fname, -1);
+}
+
+gchar *
+anjuta_get_full_filename (gchar * fn)
+{
+	gchar *cur_dir, *dummy;
+	GList *list;
+	gchar *text;
+	gint i;
+	if (!fn)
+		return NULL;
+	if (fn[0] == '/')
+		return g_strdup (fn);
+
+	if( app->execution_dir)
+	{
+		dummy = g_strconcat (app->execution_dir, "/", fn, NULL);
+		if (file_is_regular (dummy) == TRUE)
+			return dummy;
+		g_free (dummy);
+	}
+	cur_dir = g_get_current_dir ();
+	if (app->project_dbase->project_is_open)
+	{
+		gchar *src_dir;
+
+		src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
+		dummy = g_strconcat (src_dir, "/", fn, NULL);
+		g_free (src_dir);
+		if (file_is_regular (dummy) == TRUE)
+		{
+			g_free (cur_dir);
+			return dummy;
+		}
+		g_free (dummy);
+	}
+	else
+	{
+		dummy = g_strconcat (cur_dir, "/", fn, NULL);
+		if (file_is_regular (dummy) == TRUE)
+		{
+			g_free (cur_dir);
+			return dummy;
+		}
+		g_free (dummy);
+	}
+
+	list = GTK_CLIST (app->src_paths->widgets.src_clist)->row_list;
+	for (i = 0; i < g_list_length (list); i++)
+	{
+		gtk_clist_get_text (GTK_CLIST
+				    (app->src_paths->widgets.src_clist), i, 0,
+				    &text);
+		if (app->project_dbase->project_is_open)
+			dummy =
+				g_strconcat (app->project_dbase->top_proj_dir,
+					     "/", text, "/", fn, NULL);
+		else
+			dummy =
+				g_strconcat (cur_dir, "/", text, "/", fn,
+					     NULL);
+		if (file_is_regular (dummy) == TRUE)
+		{
+			g_free (cur_dir);
+			return dummy;
+		}
+		g_free (dummy);
+	}
+	dummy = g_strconcat (cur_dir, "/", fn, NULL);
+
+	g_free (cur_dir);
+	return dummy;
+}
+
+gboolean
+anjuta_init_progress (gchar * description, gdouble full_value,
+		      GnomeAppProgressCancelFunc cancel_cb, gpointer data)
+{
+	if (app->in_progress)
+		return FALSE;
+	app->in_progress = TRUE;
+	app->progress_value = 0.0;
+	app->progress_full_value = full_value;
+	app->progress_cancel_cb = cancel_cb;
+	app->progress_key =
+		gnome_app_progress_timeout (GNOME_APP (app->widgets.window),
+					    description,
+					    100,
+					    on_anjuta_progress_cb,
+					    on_anjuta_progress_cancel, data);
+	return TRUE;
+}
+
+void
+anjuta_set_progress (gdouble value)
+{
+	if (app->in_progress)
+
+		app->progress_value = value / app->progress_full_value;
+}
+
+void
+anjuta_done_progress (gchar * end_mesg)
+{
+	if (app->in_progress)
+		gnome_app_progress_done (app->progress_key);
+	anjuta_status (end_mesg);
+	app->in_progress = FALSE;
+}
+
+void
+anjuta_not_implemented (char *file, guint line)
+{
+	gchar *mesg =
+		g_strdup_printf (N_
+				 ("Not yet implemented.\nInsert code at \"%s:%u\""),
+				 file, line);
+	messagebox (GNOME_MESSAGE_BOX_INFO, _(mesg));
+	g_free (mesg);
+}
+
+void
+anjuta_set_busy ()
+{
+	GnomeAnimator *led;
+	GList *node;
+	
+	led = GNOME_ANIMATOR (app->widgets.toolbar.main_toolbar.led);
+	app->busy_count++;
+	if (app->busy_count > 1)
+		return;
+	if (app_cursor)
+		gdk_cursor_destroy (app_cursor);
+	gnome_animator_stop (led);
+	gnome_animator_goto_frame (led, 1);
+	app_cursor = gdk_cursor_new (GDK_WATCH);
+	if (app->widgets.window->window)
+		gdk_window_set_cursor (app->widgets.window->window, app_cursor);
+	node = app->text_editor_list;
+	while (node)
+	{
+		if (((TextEditor*)node->data)->widgets.editor->window)
+			scintilla_send_message (SCINTILLA(((TextEditor*)node->data)->widgets.editor),
+				SCI_SETCURSOR, SC_CURSORWAIT, 0);
+		node = g_list_next (node);
+	}
+	gdk_flush ();
+}
+
+void
+anjuta_set_active ()
+{
+	GList* node;
+	
+	app->busy_count--;
+	if (app->busy_count > 0)
+		return;
+	app->busy_count = 0;
+	if (app_cursor)
+		gdk_cursor_destroy (app_cursor);
+	app_cursor = gdk_cursor_new (GDK_TOP_LEFT_ARROW);
+	gdk_window_set_cursor (app->widgets.window->window, app_cursor);
+	node = app->text_editor_list;
+	while (node)
+	{
+		scintilla_send_message (SCINTILLA(((TextEditor*)node->data)->widgets.editor),
+			SCI_SETCURSOR, SC_CURSORNORMAL, 0);
+		node = g_list_next (node);
+	}
+	update_led_animator ();
+}
+
+void
+anjuta_grab_text_focus ()
+{
+	GtkWidget *text;
+	text = GTK_WIDGET (anjuta_get_current_text ());
+	g_return_if_fail (text != NULL);
+	scintilla_send_message (SCINTILLA (text), SCI_GRABFOCUS, 0, 0);
+}
+
+void
+anjuta_register_window (GtkWidget * win)
+{
+	app->registered_windows =
+		g_list_append (app->registered_windows, win);
+}
+
+void
+anjuta_unregister_window (GtkWidget * win)
+{
+	app->registered_windows =
+		g_list_remove (app->registered_windows, win);
+}
+
+void
+anjuta_foreach_windows (GFunc cb, gpointer data)
+{
+	g_list_foreach (app->registered_windows, cb, data);
+}
+
+void
+anjuta_register_child_process (pid_t pid,
+			       void (*ch_terminated) (int s,
+						      gpointer d),
+			       gpointer data)
+{
+	if (pid < 1)
+		return;
+	app->registered_child_processes =
+		g_list_append (app->registered_child_processes, (int *) pid);
+	app->registered_child_processes_cb =
+		g_list_append (app->registered_child_processes_cb,
+			       ch_terminated);
+	app->registered_child_processes_cb_data =
+		g_list_append (app->registered_child_processes_cb_data, data);
+}
+
+void
+anjuta_unregister_child_process (pid_t pid)
+{
+	gint index;
+	index = g_list_index (app->registered_child_processes, (int *) pid);
+	app->registered_child_processes =
+		g_list_remove (app->registered_child_processes, (int *) pid);
+	app->registered_child_processes_cb =
+		g_list_remove (app->registered_child_processes_cb,
+			       g_list_nth_data (app->
+						registered_child_processes_cb,
+						index));
+	app->registered_child_processes_cb_data =
+		g_list_remove (app->registered_child_processes_cb_data,
+			       g_list_nth_data (app->
+
+						registered_child_processes_cb_data,
+						index));}
+
+void
+anjuta_foreach_child_processes (GFunc cb, gpointer data)
+{
+	g_list_foreach (app->registered_child_processes, cb, data);
+}
+
+void
+anjuta_child_terminated (int t)
+{
+	int status;
+	gint index;
+	pid_t pid;
+	int (*callback) (int st, gpointer d);
+	gpointer cb_data;
+	pid = waitpid (0, &status, WNOHANG);
+	if (pid < 1)
+		return;
+	index = g_list_index (app->registered_child_processes, (int *) pid);
+	if (index < 0)
+		return;
+	callback =
+		g_list_nth_data (app->registered_child_processes_cb, index);
+	cb_data = g_list_nth_data (app->registered_child_processes_cb, index);
+	if (callback)
+		(*callback) (status, cb_data);
+	anjuta_unregister_child_process (pid);
+}
+
+void
+anjuta_load_cmdline_files ()
+{
+	int i;
+	for (i = 1; i < arg_c; i++)
+	{
+		switch (get_file_ext_type (arg_v[i]))
+		{
+		case FILE_TYPE_IMAGE:
+			continue;
+		case FILE_TYPE_PROJECT:
+			if (!app->project_dbase->project_is_open)
+			{
+				fileselection_set_filename (app->project_dbase->fileselection_open, arg_v[i]);
+				project_dbase_load_project (app->project_dbase, TRUE);
+			}
+			continue;
+		default:
+			anjuta_goto_file_line (arg_v[i], -1);
+			continue;
+		}
+	}
+}
+
+void
+anjuta_clear_windows_menu ()
+{
+	guint count;
+	count = g_list_length (app->text_editor_list);
+	if (count < 1)
+		return;
+	gnome_app_remove_menus (GNOME_APP (app->widgets.window),
+				"_Windows/<Separator>", count + 1);
+}
+
+void
+anjuta_delete_all_marker (gint marker)
+{
+	GList *node;
+	node = app->text_editor_list;
+	while (node)
+	{
+		TextEditor* te;
+		te = node->data;
+		scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_MARKERDELETEALL,
+			marker, 0);
+		node = g_list_next (node);
+	}
+}
+
+void
+anjuta_fill_windows_menu ()
+{
+	gint count, i;
+	GnomeUIInfo wininfo[] = {
+		{
+		 GNOME_APP_UI_ITEM, NULL,
+		 N_("Activate this to select this window"),
+		 on_anjuta_window_selected, NULL, NULL,
+		 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_FORWARD, 0, 0, NULL}
+		, GNOMEUIINFO_END
+	};
+	GnomeUIInfo sep[] = {
+		GNOMEUIINFO_SEPARATOR,
+		GNOMEUIINFO_END
+	};
+	count = g_list_length (app->text_editor_list);
+	if (count > 0)
+	{
+		gnome_app_insert_menus (GNOME_APP (app->widgets.window),
+					"_Windows/Cl_ose Current window",
+					sep);
+		for (i = (count - 1); i >= 0; i--)
+		{
+			TextEditor *te;
+			te = g_list_nth_data (app->text_editor_list, i);
+			wininfo[0].label = te->filename;
+			if (te == NULL)
+				continue;
+			wininfo[0].user_data = te;
+			gnome_app_insert_menus (GNOME_APP
+						(app->widgets.window),
+						"_Windows/<Separator>",
+						wininfo);
+		}
+	}
+}
+
+gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
+{
+	gboolean save;
+	save = app->auto_gtk_update;
+
+	app->auto_gtk_update = auto_flag;
+	return save;
+}
+
+gboolean anjuta_is_installed (gchar * prog, gboolean show)
+{
+	if (gnome_is_program_in_path (prog))
+		return TRUE;
+	if (show)
+	{
+		anjuta_error (_
+					 ("You do not have \"%s\" installed in your box.\n"
+					  "Install it and then restart Anjuta."), prog);
+	}
+	return FALSE;
+}
+
+void
+anjuta_update_app_status (gboolean set_job, gchar* job_name)
+{
+	gchar *prj, *edit, *job;
+	guint line, col, caret_pos;
+	gchar *str;
+	gint zoom;
+	TextEditor *te;
+	GtkWidget *sci;
+
+	te = anjuta_get_current_text_editor ();
+	if (te)
+	{
+		sci = te->widgets.editor;
+	}
+	else
+	{
+		sci = NULL;
+	}
+	prj = project_dbase_get_proj_name (app->project_dbase);
+	if (!prj)	prj = g_strdup (_("None"));
+	zoom = prop_get_int (app->preferences->props, "text.zoom.factor", 0);
+	if (sci)
+	{
+		caret_pos =
+			scintilla_send_message (SCINTILLA (sci),
+						SCI_GETCURRENTPOS, 0, 0);
+		line =
+			scintilla_send_message (SCINTILLA (sci),
+						SCI_LINEFROMPOSITION,
+						caret_pos, 0);
+		col =
+			scintilla_send_message (SCINTILLA (sci),
+						SCI_GETCOLUMN, caret_pos, 0);
+		if (scintilla_send_message
+		    (SCINTILLA (sci), SCI_GETOVERTYPE, 0, 0))
+		{
+			edit = g_strdup (_("OVR"));
+		}
+		else
+		{
+			edit = g_strdup (_("INS"));
+		}
+	}
+	else
+	{
+		line = col = 0;
+		edit = g_strdup (_("INS"));
+	}
+	if (set_job)
+		string_assign (&app->cur_job, job_name);
+
+	if (app->cur_job)
+		job = g_strdup (app->cur_job);
+	else
+		job = g_strdup (_("None"));
+	str =
+		g_strdup_printf(
+		_("  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       Job: %s"),
+		 prj, zoom, line, col, edit, job);
+	gnome_appbar_set_default (GNOME_APPBAR (app->widgets.appbar), str);
+	g_free (str);
+	g_free (prj);
+	g_free (edit);
+	g_free (job);
+}
+
+void
+anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view, gboolean resize, gboolean set_in_props)
+{
+	gchar* key;
+	GnomeDock* dock;
+	GnomeDockItem* item;
+
+	if (set_in_props)
+	{
+		key = g_strconcat (toolbar_name, ".view", NULL);
+		preferences_set_int (app->preferences, key, view);
+		g_free (key);
+	}
+
+	item = gnome_app_get_dock_item_by_name (GNOME_APP (app->widgets.window), toolbar_name);
+
+	g_return_if_fail (item != NULL);
+	g_return_if_fail (GNOME_IS_DOCK_ITEM (item));
+
+	if (view)
+		gtk_widget_show (GTK_WIDGET (item));
+	else
+		gtk_widget_hide (GTK_WIDGET (item));
+	dock = gnome_app_get_dock(GNOME_APP(app->widgets.window));
+	g_return_if_fail (dock != NULL);
+	if (resize)
+		gtk_widget_queue_resize (GTK_WIDGET (dock));
+}
+
+gint
+anjuta_get_file_property (gchar* key, gchar* filename, gint default_value)
+{
+	gint value;
+	gchar* value_str;
+
+	g_return_val_if_fail (filename != NULL, default_value);
+	g_return_val_if_fail (strlen (filename) != 0,  default_value);
+
+	value_str = prop_get_new_expand (app->preferences->props, key, filename);
+	if (!value_str)
+		return default_value;
+	value = atoi (value_str);
+	return value;
+}

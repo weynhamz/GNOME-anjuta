@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#fff9d6">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td align="left" NOSAVE><img src="anjuta_logo.jpg"></td>
+      <td align="left" NOSAVE><h1>Anjuta Manual version 0.1</h1>
+        <u>Copyright (c) Kh. Naba Kumar Singh</u></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<a name="start"></a>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td align="center" NOSAVE><a href="index.html">Contents</a></td>
+      <td align="center" NOSAVE><a href="index.html#index">Index</a></td>
+      <td align="center" NOSAVE><a href="shortcuts.html">Shortcuts</a></td>
+    </tr>
+    <tr>
+      <td align="center" NOSAVE>PREV: <a
+        href="page00.html#start">Introduction</a></td>
+      <td align="center" NOSAVE>UP: <a
+      href="index.html#loc01">Contents</a></td>
+      <td align="center" NOSAVE>NEXT: <a href="page02.html#start">File
+        Operations</a></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+
+<h3><u>Getting familiar with the GUI.</u></h3>
+<b><u>Menus:<u></u></u></b>
+
+<p>The top most part of the Anjuta IDE is the menu bar. Almost all of the
+functionalities are available by activating the appropriate menu item. The
+functions have been grouped according to their type of operations. For
+instance, most of the file and project operations have been grouped in the
+sub-menu 'File'. Similarly, The other sub-menus contain the operations they
+are grouped to.</p>
+
+<p></p>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td align="left" NOSAVE><img src="menu_detached.jpg"></td>
+      <td align="left" NOSAVE>The main menu is detachable. Drag it from the
+        main window using the handle at the extreme right. Once it is
+        detached, it will become a floating menu.
+
+        <p>All the Sub-menus in the main menu are detachable. You can detach
+        it by clicking the detach bar on the sub-menu (just above the first
+        item). Once the sub-menu is detached, it will be shown as an
+        independent window. A detached menu is shown as an illustration.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><b><u>Tool-bars:<u></u></u></b></p>
+
+<p>To make the life easier, all those operations which are performed very
+often are made available from the tool-bars. There are basically four
+tool-bars on the main window. They are:</p>
+<ol>
+  <li>Main tool-bar.</li>
+  <li>Extended tool-bar.</li>
+  <li>Browser tool-bar.</li>
+  <li>Debug tool-bar.</li>
+</ol>
+
+<p>It would be worth spending some time getting familiar with the tool-bar
+buttons. Tool tips describing the function of the tool-bar buttons will appear
+as soon as you move the mouse over the buttons. Read and remember them
+carefully. Tool-bars avoid the unnecessary selection of menu items which are
+used very often.</p>
+
+<p>You will find some combo (entry) boxes on the tool-bars. They are explained
+in the later section.</p>
+
+<p>Similarly, to make the life still more easier, short cuts are available for
+those operations that are performed very often. All the keyboard short cuts
+are given along with their corresponding menu item. You must remember some of
+them, for they become handy while you are typing into the editor and you don't
+want to leave the keyboard. <a name="scrnshot"></a></p>
+
+<p><b><u>Main Window:<u></u></u></b></p>
+
+<p><img src="scrshot.jpg"></p>
+
+<p>In the main window, there are three frames that you must be familiar with,
+before you start doing anything (All of them may not be visible when you start
+Anjuta). They are called:</p>
+<ol>
+  <li>Editor window.</li>
+  <li>Project window.</li>
+  <li>Message window.</li>
+</ol>
+
+<p>The frame on the left is the <b>Project window</b>, on the right is the
+<b>Editor window</b> and the one at the bottom is the <b>Message window</b>.
+The project window and the message window can be detached into separate
+windows instead of docking them into the main window. You can detach them by
+clicking the the detach button (You will find them along with the frames: the
+small buttons with the un-docking icon). Similarly, you can hide them, by
+clicking the hide buttons (small buttons with the red cross). You can make
+them visible anytime by activating the menu items View/Project listing and
+View/Message, respectively, or by clicking the corresponding tool-bar buttons
+in the main tool-bar.</p>
+
+<p></p>
+<ol>
+  <li><b><u>Editor window</u></b> is the part of the main window, so you can
+    either detach nor hide it. But, you can always detach the individual
+    documents, which are shown as pages in the editor window. Editor window
+    will have one document active at a time (if there is any file opened). All
+    the file commands are meant for this active document. You can switch to
+    any page by clicking on the page tag. You can do the same by right
+    clicking on the page tags and selecting the document from the pop up menu
+    that will appear. This is especially useful when you have many files
+    opened and all the files not visible in the page tag area.
+    <p></p>
+  </li>
+  <li><b><u>Project window</u></b> shows the project files if you have a
+    project opened. Otherwise, the project window is usually hidden. Double
+    clicking on any item in the project window will open that file.
+    <p></p>
+  </li>
+  <li><a name="message_win"></a> <b><u>Message window</u></b> will list all
+    the messages (both stdout and stderr outputs) when an external command is
+    executed. Message window is usually hidden, but appears as soon as the
+    external command is executed, such as during file or project compilation
+    or building, during debugging session, searching in files and many other
+    operations requiring external commands. Anjuta also adds its own messages
+    whenever it becomes necessary.
+    <p>The colors with which the messages are displayed in the message window
+    are very important to note. Messages displayed in normal color (usually
+    black) are normal messages. Those displayed in Blue are usually important
+    messages such as error messages or some important information. Messages
+    shown in Red color are <b>Hot linked</b>. That is double clicking on such
+    a message will take you to the particular file and line number specified
+    in the message.</p>
+    <p>For example, when you compile a buggy file, some messages in red will
+    appear in the message window which tell where is the error and what sort
+    of error is that. Double clicking on such messages will open the file and
+    hi-lite the line containing the error.</p>
+  </li>
+</ol>
+
+<p>All these three frames are realizable. Try adjusting them by dragging the
+handle bars separating them.</p>
+
+<p><b><u>Things to note:<u></u></u></b></p>
+
+<p>One last thing I should tell you in this section is that, all the settings,
+including all the window sizes and window positions, are saved when you exit
+Anjuta  Then they are all set again when you next restart Anjuta  Session
+management is still under development. So you should not exit Anjuta with any
+unsaved document. Of course, Anjuta will display a warning if you try to exit
+Anjuta with unsaved document(s) still opened.</p>
+</body>
+</html>

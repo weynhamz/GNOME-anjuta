@@ -1,0 +1,75 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV:<A HREF="page31.html#start">Stack Trace</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP:<A HREF="index.html#loc07">Contents(Debugging)</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT:<A HREF="page33.html#start">CPU registers</A></TD>
+</TR>
+</TABLE>
+<hr>
+<p>
+<h2><u>Kernel Signals:</u></h2><p>
+Kernel signals is a way of signaling between processes in Linux. You
+can get the list of signals available for the program by activating <b>View->Kernel Signals</b>.
+This will bring up a window which will list all the signals available in you system along with
+their brief description.
+<p>
+<img src="signals.jpg">
+<p>
+You will also find three columns which specifies what to do when the signal is
+received:
+<ol>
+<li> <b>Stop:</b>
+<p> This tells the debugger whether to stop the program execution (and return the control to you) 
+when the program receives this signal.
+<li> <b>Print:</b>
+<p> This tells the debugger whether to Display the received signal.
+<li> <b>Pass:</b>
+<p> This tells the debugger whether to pass the signal to the program.
+</ol>
+<p>
+<b><u>Changing the behavior:<u></b><p>
+You can change the way debugger behaves when a particular signal is
+received. To change it, select the signal in the given list. Right click to pop-up
+the operation menu. Activate <b>Modify Signal</b>. This will bring up a dialog
+box. You can set the three behaviors and click OK to commit the change.
+<p>
+<img src="signal_mod.jpg">
+<p>
+<a name="signal"></a>
+<b><u>Sending the signal to the program:<u></b><p>
+You can explicitly sent the signal to the program being debugged. To
+do this, select the signal in the given list. Right click to pop-up
+the operation menu. Activate <b>Send to process</b>. A confirmation will be
+asked. Click OK to confirm. This will send the signal to the program.
+<p>
+<b><u>Updating the signal list:<u></b><p>
+Activating the menu item <b>Update</b> from the operation menu (right click to pop it up)
+will refresh the Kernel signals window.
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV: <A HREF="page17.html#start">Code Optimizations</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP: <A HREF="page11.html#start">Setting Compiler Options</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT: <A HREF="page19.html#start">Concept of Project management</A></TD>
+</TR>
+</TABLE>
+<hr>
+
+<h3><u>Other compiler options:</u></h3>
+Activate the menu item <b>'Settings/Compiler options'</b> and Select the <b>'Others'</b> 
+page in the settings dialog box.<pre>
+</pre>
+The misc options for compiling are set in this page.<pre>
+</pre>
+The first one is the <b>'Enable Debugging'</b> option. This option tells the compiler 
+to add extra debug information (such as symbol table), which are 
+necessary for the program debugging. This makes your program a bit 
+larger, but that doesn't matters. Does it?<pre>
+</pre>
+You should enable this option all 
+the time during the development of your program. When your 
+program is ready for the release, disable this option and build 
+your program again. You should clean your project first and then 
+build, otherwise, because of automatic dependency check, all files 
+may not be built with this option disabled.<pre>
+</pre>
+Again, do not set the optimization in the previous page with this 
+option enabled. Why? Just try it out and find it for yourself :^D.<pre>
+</pre>
+<img src="other_opts.jpg">
+<p>
+The second option <b>'Enable Profiling'</b> is, more or less, 
+same as the Debug option, except that, it builds your program 
+with profiling information. Profiling is not yet implemented in Anjuta. 
+For the time being, you can use <b>gprof</b>, a console based 
+profiler. Read the man page for gprof to learn how to profile your 
+program. One thing you should note here is that, enabling profile 
+in your program will make it run very slowly (It's a nightmare if 
+enabled in X programs).<pre>
+</pre>
+The third option is very obvious. It will <b>show warnings as errors</b>. 
+Put this on if you are very strict with compiler warnings.<pre>
+</pre>
+Lastly, you can put any other additional compiler options in the entry box marked as 
+<b>'Other options'</b> which are not handled by Anjuta. I don't think you 
+will ever come to need this. Only for the sake of flexibility, it has been 
+added there.
+
+</body>
+</html>

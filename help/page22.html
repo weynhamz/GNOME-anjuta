@@ -1,0 +1,71 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV:<A HREF="page21.html#start">Loading and saving files</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP:<A HREF="page19.html#start">Concept of project management</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT:<A HREF="page23.html#start">Getting Project information</A></TD>
+</TR>
+</TABLE>
+<hr>
+
+<h3><u>Adding and removing files:</u></h3>
+There are three types of files Anjuta will manage for you in the project. They are:
+<p>
+<ul>
+  <li> Source files
+  <li> Document files
+  <li> Pixmap files
+</ul>
+<p>
+These three different types of files exist in the three different directories under the project.
+Namely, <i>Source directory, Document directory and Pixmap directory</i>
+<p>
+<b><u>Adding files:<u></b><p>
+Activate the corresponding <i>Add</i> menu item from the <b>Project</b> sub-menu. 
+Select the file you want to add in the <i>file selection dialog box</i> and <i>click OK</i>. 
+<p>
+If the file you are adding is already added to the project, then Anjuta will not add it again. 
+It will also give you a warning that the file is already added.
+<p>
+If the file you are adding is not in the <i>corresponding</i> directory (<i>source directory, document directory 
+or pixmap directory</i>), then Anjuta will ask you a confirmation to copy the file in the corresponding 
+directory. Anjuta can not add a file which is outside the corresponding directory. It needs to 
+be copied first to the directory and then added. That's why Anjuta ask for the confirmation.
+<p>
+<b><u>Removing files:<u></b><p>
+Select the file you want to remove in the <i>project listing window</i> and activate 
+<b>Project->Remove from project</b>.
+<p>
+<b><u>Things to note:<u></b><p>
+When a file is <b>removed</b> from the project, it is not deleted. It still exists in the 
+corresponding directory. It simply does not take any part in the project management 
+<i>such as compiling, building, distribution etc.</i> You can delete it manually if 
+you think you no longer need this file. Or you can add it later if you 
+change your mind.
+</body>
+</html>

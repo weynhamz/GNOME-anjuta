@@ -1,0 +1,124 @@
+Anjuta 0.1.4:	(25nd Mar 2001)		-- Nabakumar. 
+
+   => Release of Anjuta-0.1.4 (stable).
+
+Calltips provided for Gnome function prototypes (and standard libraries functions).   
+Fixed project dir creation bug.
+Fixed double accelerators bug.
+Fixed source generation bug.
+Fixed pixmap creation with NULL window.
+i18n bug fix.
+Debugger now takes program args.
+Japanese translation.
+Other minor  bug fixes.
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.3:	(4th Mar 2001)		-- Nabakumar. 
+
+   => Release of Third  version (Alpha)  with lots of bugs.
+   
+New Features in Anjuta 0.1.3:
+-----------------------------
+
+   	=> Anjuta now integrates Scintilla editing component:
+	----------------------------------------------------
+		* Automatic syntax hilighting (using lexers).
+		* Code folding/hiding .
+		* Linenumbers/markers display.
+		* Text zoomming.
+		* Text autocompletion
+		* Automatic indentation and indentation guides
+		* ... and much more.
+
+	=> Dynamic Project Management:
+	-----------------------------
+		* Anjuta no longer uses the templete based project management.
+		* Provides project configuration.
+		* Added two more modules in project management:
+			(Help module and Transtaltion module).
+		* Added BONOBO support and BONOBO application widzard.
+		
+	=> Java style Properties management:
+	-----------------------------------
+		Now uses Java style properties management. Which makes
+		it highly configurable, both from distributor's and user's side.
+	
+	=> Supports for Other languages added:
+	-------------------------------------
+		* Java, Perl, Python, LaTeX, 
+		... and others can be user configurable.
+		
+	=> On-Board command editor:
+	--------------------------
+		Facilates customization of commands used
+		for compiling, building and execution.
+	
+	=> Provides Hilite style editor:
+	-------------------------------
+		Used for custumizing Syntax hiliting style.
+	
+	=> More inteligent messaging system:
+	-----------------------------------
+		* Now error messages (or messages in general)
+		can be browsed using goto Prev/Next message,
+		goto start/end of block and goto matching braces.
+	
+	=> Bookmarks management:
+	-----------------------
+		Anjuta has now supported Bookmarks
+		management.
+	
+	=> Debugger:
+	-----------
+		* Now breakpoints can be toggled Onboard.
+		* Added Run to cursor.
+		* Fixed some earlier bugs.
+	
+	=> Added Two more toolbars:
+	--------------------------
+		* Browser toolbar for browsing messages,
+		bookmarks and code blocks.
+		* Format toolbar for easy formating
+		of code statements.
+		
+	=> Application GUI:
+	------------------
+		* Smarter and more informative status bar.
+		* Improved memory to remember Application
+		GUI configuration between sessions.
+
+Thing that I forgot to change:
+------------------------------
+	=> Anjuta Online manual. It's still the old one.
+	so, new users may find it a bit annoying to learn
+	the controls, especially those who are young
+	in programming.
+
+--------------------------------------------------------------------
+Anjuta 0.1.2-beta_2:	(24th Feb 2001)		-- Nabakumar. 
+
+   => Release of 0.1.2 beta2  version  with lesser bugs.
+
+--------------------------------------------------------------------
+Anjuta 0.1.2:	(03rd Nov 2000)		-- Nabakumar. 
+
+   => Release of second version (Beta) with lesser bugs.
+
+   => Minor fixes in Doc files.
+   => Fixed to ignore non-existant dir for blank prj.
+   => More checking in project creation, especially to confirm
+	that the prj file already does not exist.
+   => Now Menu item "Format/Detach current document" is inactive
+        when there is no document opened.
+   => Improved Library settings GUI.
+   => Can now enable/disable added libraries.
+   => Stock libs provided for ease of entry.
+
+--------------------------------------------------------------------
+Anjuta 0.1.1: (01rd Nov 2000)	-- Nabakumar. 
+
+  => Release of first version (Beta) with lots of bugs.
+	
+--------------------------------------------------------------------
+

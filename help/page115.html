@@ -1,0 +1,58 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents(Top)</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV: <A HREF="page12.html#start">Setting Include paths</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP: <A HREF="page11.html#start">Setting Compiler Options</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT: <A HREF="page13.html#start">Specifying libraries to link with</A></TD>
+</TR>
+</TABLE>
+<hr>
+
+<h3><u>Specifying Library paths:</u></h3>
+Activate the menu item <b>Settings->Compiler options</b> and Select the 'Library paths" 
+page in the settings dialog box.<pre>
+</pre> Enter all the paths one by one and press the <b>Add</b> button for each entry.<pre>
+</pre>
+To remove an entry, select the entry in the list and click <b>Remove</b>.<pre>
+</pre>
+To edit an entry, select the entry, modify it in the entry box and click <b>Update</b>.<pre>
+</pre>
+To clear all the entries, click <b>Clear</b>.<pre>
+</pre>
+<img src="lib_paths.jpg">
+<p>
+<b><u>Things to note:<u></b><p>
+Note that if the settings are for a project then all the Library paths path 
+should be relative to the source directory of the project. There should not 
+be any absolute path. Otherwise when you distribute the program, people 
+trying to build your program will find difficulties.<p>
+If the settings are for the 'no-project', then it doesn't matter if the paths are absolute 
+or relative (since the settings are local to your machine only and it wouldn't 
+go anywhere).
+</body>
+</html>

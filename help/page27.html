@@ -1,0 +1,131 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV:<A HREF="page26.html#start">Debugging</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP:<A HREF="index.html#loc07">Contents(Debugging)</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT:<A HREF="page28.html#start">Running the program</A></TD>
+</TR>
+</TABLE>
+<hr>
+<p>
+<h2><u>Breakpoints:</u></h2><p>
+While you are debugging a program you would like to break the execution of the program at
+some location, probably because you want to study the state of the execution at that location.
+Breakpoints are what that come into picture. You set breakpoints at different locations in your
+source file and let the program run. When it encounters any breakpoint, it will suspend the
+execution of the program. You can then do whatever you want, such as evaluate expressions,
+inspect variables, study the stack trace etc at that location.
+<p><img src="brk_dlg.jpg"><p>
+By <i>Location</i>, I mean the location of the code in your source file. You will be frequently
+prompted for locations. <i>Location</i> can be specified in any of the following formats:
+<ul>
+<li> File_name:Line_number
+<li> Function_name
+<li> File:Function_name
+</ul>
+<p>
+The first one is very obvious. The location refers to the line number "Line_number" in the
+source file "File". The second one refers to the first line of the function "Function_name".
+The third one is similar to the second one except that it is used when you have more than
+one function with the name "Function_name" in your program. You differentiate them by
+giving "File" which will refer to the function "Function_name" in the file "File".
+<p>
+With every breakpoint, You may associate two parameters. They are:
+<ol>
+<li> Break condition
+<li> Pass count
+</ol>
+<p>
+The <i>Break condition</i> is a valid C expression which should evaluate to a boolean data. That is
+The evaluation of the expression should result in either TRUE(1) or FALSE(0). If the final evaluation
+value is not a boolean data, then it will be appropriately type casted to boolean data.
+<p>
+Every time the breakpoint is encountered during the execution, the break condition will be evaluated.
+The debugger will break the execution only if the evaluation results in a TRUE value, otherwise
+it will continue the execution as though there had been no breakpoint.
+<p>
+The <i>pass count</i> is an integer (unsigned) value which tells the debugger to skip the 
+breakpoint that many times before it is considered. Pass count has higher priority than the
+break condition. Only when the pass count reaches zero will the debugger evaluate the break
+condition (if it is present). If there is no break condition, the debugger will break the execution
+on pass count zero.
+<p>
+The default value of Break condition is always TRUE. That is the debugger will break the
+execution at the breakpoint location.
+<p>
+The default value of the Pass count is zero. That is the breakpoint will be considered
+on its first encounter itself.
+<p>
+<a name="add"></a>
+<b><u>Setting breakpoint:<u></b><p>
+Bring up the 'Breakpoints editing window' by activating <b>View->Breakpoints</b>
+or <b>Debug->Breakpoints->Breakpoints</b>. Click <b>Add</b> button. A breakpoint add
+dialog box will appear (as shown below).
+<p><img src="brk_add.jpg"><p>
+Enter the location
+where you want to set the breakpoint. Optionally, you may also enter the <i>Break condition</i>
+and the <i>Pass count</i> in the appropriate entry boxes. Click OK to set the breakpoint.
+<p>
+Alternatively, you may also set the breakpoint by highlighting the function name in the editor
+and activating <b>Debug->Breakpoints->Set Breakpoint</b> ( or clicking the Set breakpoint
+icon on the <a href="page01.html#start">Debug Toolbar</a>).
+<p>
+<a name="edit"></a>
+<b><u>Editing breakpoint:<u></b><p>
+Bring up the 'Breakpoints editing window' by activating <b>View->Breakpoints</b>
+or <b>Debug->Breakpoints->Breakpoints</b>. Select the breakpoint you want to edit and
+Click <b>Edit</b> button. A breakpoint edit dialog box will appear (as shown below).
+<p><img src="brk_add.jpg"><p>
+Edit the entries according to your new settings and click OK to
+commit the changes.
+<p>
+<a name="delete"></a>
+<b><u>Deleting breakpoint:<u></b><p>
+Bring up the 'Breakpoints editing window' by activating <b>View->Breakpoints</b>
+or <b>Debug->Breakpoints->Breakpoints</b>. Select the breakpoint you want to 
+delete and Click <b>Delete</b> button. This will delete the breakpoint.
+<p>
+If you want to <i>delete all</i> the breakpoints, then click <b>Delete All</b>.
+<p>
+<a name="enable"></a>
+<b><u>Enabling and disabling breakpoint:<u></b><p>
+Bring up the 'Breakpoints editing window' by activating <b>View->Breakpoints</b>
+or <b>Debug->Breakpoints->Breakpoints</b>. Select the breakpoint you want to 
+enable or disable and Click <b>Toggle Enable</b> button. This will enable or
+disable the breakpoint.
+<p>
+If you want to <i>enable all or disable All</i> breakpoints, instead of clicking
+<b>Toggle Enable</b> button, click <b>Enable All</b> or <b>Disable All</b>
+button
+<p>
+<b><u>Things to note:<u></b><p>
+When you start the debugger, all the breakpoints will be set. Those breakpoints
+which are old (i.e.. the source file is more recent than the breakpoint), will be
+disabled.
+</body>
+</html>

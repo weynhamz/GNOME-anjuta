@@ -1,0 +1,60 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; Linux 2.2.14-12 i686) [Netscape]">
+</head>
+<title>Anjuta manual</title>
+
+<body bgcolor="#fff9d6">
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+  <TD ALIGN=LEFT NOSAVE>
+    <img src="anjuta_logo.jpg">
+  </TD>
+  <TD ALIGN=LEFT NOSAVE>
+    <h1>Anjuta Manual version 0.1</h1>
+    <u>Copyright (c) Kh. Naba Kumar Singh</u>
+  </TD>
+</TR>
+</TABLE>
+<hr>
+<a name="start"></a>
+<TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html">Contents</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="index.html#index">Index</A></TD>
+<TD ALIGN=CENTER NOSAVE><A HREF="shortcuts.html">Shortcuts</A></TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER NOSAVE>PREV:<A HREF="page32.html#start">Kernal signals</A></TD>
+<TD ALIGN=CENTER NOSAVE>UP:<A HREF="index.html#loc07">Contents(Debugging)</A></TD>
+<TD ALIGN=CENTER NOSAVE>NEXT:<A HREF="page34.html#start">Setting preferences</A></TD>
+</TR>
+</TABLE>
+<hr>
+<p>
+<h2><u>Cpu registers:</u></h2><p>
+You can examine the contents of CPU's (microprocessor) internal registers.
+Activate <b>View->Registers</b>. A window listing all the available registers
+in the microprocessor and their corrosponding contents will appear. Right click
+on the window to popup operation menu.
+<p>
+<a name="dyna_libs"></a>
+<h2><u>Dynamically loaded Libraries:</u></h2><p>
+To get the listing of the dynamic libraries used by you program, activate
+<b>View->Shared Libraries</b>. This will bring up a window which will
+list all the shared libraries your program has loaded and their locations
+in the memory. It is also told if the symbol table is loaded or not (Yes/No).
+<p>
+<h2><u>Interrupting the program:</u></h2><p>
+<a name="interrupt"></a>
+While the program has got the control, you can not perform any debugging task.
+If you want back the control while the program is running, Activate <b>Debug->Interrupt program</b>.
+This will interrupt the program and give you the control back.
+<p>
+Of course, for the interruption to work properly, you should set the debugger behaviour
+for this interrupt signal (SIGINT) to the value [ Stop:Yes, Print:Yes, Pass:No ]. This is
+also the default value. So, unless you modify it, it will remain like this. See
+<a href="page32.html#start>Kernal signals<a> to find out what it means and how
+it is set.
+<p>

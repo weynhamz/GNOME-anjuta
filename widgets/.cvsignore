@@ -1,0 +1,10 @@
+Makefile
+Makefile.in
+*.o
+*.a
+*~
+.*swp
+.deps
+.libs
+.sources
+.nautilus-metafile.xml

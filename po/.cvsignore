@@ -1,0 +1,12 @@
+*.gmo
+.*swp
+*~
+cat-id-tbl.c
+stamp-cat-id
+anjuta.pot
+messages
+POTFILES
+Makefile
+Makefile.in
+Makefile.in.in
+.nautilus-metafile.xml
