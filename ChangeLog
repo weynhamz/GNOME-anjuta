@@ -1,3 +1,10 @@
+2001-12-07	Andy Piper	<andy.piper@freeuk.com>
+
+	* configure.in: bumped version to 0.1.9-pre
+	* THANKS, manuals/C/anjuta-manual/authors.sgml: updated for new 
+	  translation
+	* src/aneditor.cxx: patch from Biswa to re-enable autocompletion
+
 2001-12-07  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* src/splash.c: removed a DOS end of line of a comment (so the *.po
