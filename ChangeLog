@@ -1,4 +1,16 @@
 2004-08-16  Naba Kumar  <naba@gnome.org>
+	
+	* anjuta.prj: Updated.
+	
+	* pixmaps/Makefile.am, plugins/build-basic-autotools/Makefile.am,
+	plugins/devhelp/Makefile.am, plugins/editor/Makefile.am,
+	plugins/file-loader/Makefile.am, plugins/file-manager/Makefile.am,
+	plugins/file-wizard/Makefile.am, plugins/message-view/Makefile.am,
+	plugins/profile-default/Makefile.am, plugins/sample1/Makefile.am,
+	plugins/terminal/Makefile.am, src/Makefile.am: Fixed makefile
+	syntax errors.
+
+2004-08-16  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, src/layout.xml,
 	plugins/profile-default/plugin.c,

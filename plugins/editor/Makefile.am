@@ -39,9 +39,7 @@ plugin_pixmaps_DATA = \
 
 # Plugin Icon file
 plugin_in_files = anjuta-document-manager.plugin.in
-%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; \
-	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u \ \
-		-c $(top_builddir)/po/.intltool-merge-cache
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
 anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)

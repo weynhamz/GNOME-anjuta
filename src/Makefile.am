@@ -45,10 +45,10 @@ anjuta_SOURCES = \
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) $(GDL_LIBS) -lutil\
 	$(PCRE_LIBS)\
-	$(top_builddir)/libanjuta/libanjuta.la\
-	$(top_builddir)/libanjuta/anjuta-preferences.o
-	$(top_builddir)/tagmanager/libanjuta-ctags.la\
-	$(top_builddir)/scintilla/libanjuta-scintilla.la
+	$(top_builddir)/libanjuta/libanjuta.la
+#	$(top_builddir)/libanjuta/anjuta-preferences.o
+#	$(top_builddir)/tagmanager/libanjuta-ctags.la\
+#	$(top_builddir)/scintilla/libanjuta-scintilla.la
 
 #	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
 #	$(top_builddir)/libegg/menu/libegg-menu.a\

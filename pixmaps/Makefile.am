@@ -45,58 +45,58 @@ anjuta_pixmaps_DATA = \
 	dock.xpm \
 	directory.png \
 	directory-accept.png
-	frame.xpm \
-	handle_hide.xpm \
-	handle_undock.xpm \
-	help.xpm \
-	inspect.xpm \
-	interrupt.xpm \
-	madeinanjuta.xcf\
-	messages.xpm \
-	mini_build.xpm \
-	mini_cvs.xpm \
-	mini_debug.xpm \
-	mini_dock.xpm \
-	mini_find.xpm \
-	mini_locals.xpm \
-	mini-modules.xpm \
-	mini_term.xpm \
-	new_folder.xpm \
-	open_project.png \
-	password.png \
-	pointer.xpm \
-	preferences-build.png\
-	preferences-encodings.png\
-	preferences-indentation.png\
-	preferences-cvs.png\
-	preferences-print.png\
-	preferences-general.png\
-	project.xpm \
-	registers.xpm \
-	run_to_cursor.xpm \
-	save_project.png \
-	stack.xpm \
-	step_in.xpm \
-	step_out.xpm \
-	step_over.xpm \
-	sv_unknown.xpm \
-	sv_class.xpm \
-	sv_function.xpm \
-	sv_macro.xpm \
-	sv_private_fun.xpm \
-	sv_private_var.xpm \
-	sv_protected_fun.xpm \
-	sv_protected_var.xpm \
-	sv_public_fun.xpm \
-	sv_public_var.xpm \
-	sv_static_fun.xpm \
-	sv_static_var.xpm \
-	sv_struct.xpm \
-	sv_unknown.xpm \
-	sv_variable.xpm \
-	syntax.xpm \
-	watch.xpm \
-	wizard.xpm
+#	frame.xpm \
+#	handle_hide.xpm \
+#	handle_undock.xpm \
+#	help.xpm \
+#	inspect.xpm \
+#	interrupt.xpm \
+#	madeinanjuta.xcf\
+#	messages.xpm \
+#	mini_build.xpm \
+#	mini_cvs.xpm \
+#	mini_debug.xpm \
+#	mini_dock.xpm \
+#	mini_find.xpm \
+#	mini_locals.xpm \
+#	mini-modules.xpm \
+#	mini_term.xpm \
+#	new_folder.xpm \
+#	open_project.png \
+#	password.png \
+#	pointer.xpm \
+#	preferences-build.png\
+#	preferences-encodings.png\
+#	preferences-indentation.png\
+#	preferences-cvs.png\
+#	preferences-print.png\
+#	preferences-general.png\
+#	project.xpm \
+#	registers.xpm \
+#	run_to_cursor.xpm \
+#	save_project.png \
+#	stack.xpm \
+#	step_in.xpm \
+#	step_out.xpm \
+#	step_over.xpm \
+#	sv_unknown.xpm \
+#	sv_class.xpm \
+#	sv_function.xpm \
+#	sv_macro.xpm \
+#	sv_private_fun.xpm \
+#	sv_private_var.xpm \
+#	sv_protected_fun.xpm \
+#	sv_protected_var.xpm \
+#	sv_public_fun.xpm \
+#	sv_public_var.xpm \
+#	sv_static_fun.xpm \
+#	sv_static_var.xpm \
+#	sv_struct.xpm \
+#	sv_unknown.xpm \
+#	sv_variable.xpm \
+#	syntax.xpm \
+#	watch.xpm \
+#	wizard.xpm
 
 anjuta_glade_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 anjuta_glade_pixmaps_DATA = \
