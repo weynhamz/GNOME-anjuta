@@ -1,5 +1,7 @@
 2005-03-11  Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Removed test for iconv.
+
 	* scintilla/ScintillaGTK.cxx: Fixed crash bug when focus in occurs
 	before scintilla widget is realized.
 	
