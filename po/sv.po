@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-10-29 14:54+0100\n"
-"PO-Revision-Date: 2001-10-29 14:54+0100\n"
+"POT-Creation-Date: 2001-11-04 23:26+0100\n"
+"PO-Revision-Date: 2001-11-04 23:30+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -998,55 +998,55 @@ msgid "All Warnings"
 msgstr "Alla varningar"
 
 #: src/compiler_options_gui.c:870
-msgid "Warning for Implicit declarations"
+msgid "Warning for implicit declarations"
 msgstr "Varning för implicita deklarationer"
 
 #: src/compiler_options_gui.c:878
-msgid "Warning for mismached Return types"
+msgid "Warning for mismatched return types"
 msgstr "Varning för opassande return-typer"
 
 #: src/compiler_options_gui.c:886
-msgid "Warning for Unused Variables"
+msgid "Warning for unused variables"
 msgstr "Varning för oanvända variabler"
 
 #: src/compiler_options_gui.c:894
-msgid "Warning for unhandled Switch case with enums"
-msgstr "Varning för ohanterat Switch-case med enum:ar"
+msgid "Warning for unhandled switch case with enums"
+msgstr "Varning för ohanterat switch-case med enum:ar"
 
 #: src/compiler_options_gui.c:902
-msgid "Warning for nested Comment"
+msgid "Warning for nested comment"
 msgstr "Varning för nästlad kommentar"
 
 #: src/compiler_options_gui.c:910
-msgid "Warning for Uninitialized variable use"
+msgid "Warning for uninitialized variable use"
 msgstr "Varning för användning av oinitierad variabel"
 
 #: src/compiler_options_gui.c:918
-msgid "Warning for missing Parentheses"
+msgid "Warning for missing parentheses"
 msgstr "Varning för saknade parenteser"
 
 #: src/compiler_options_gui.c:926
-msgid "Warning for Un-Traditional syntax"
-msgstr "Varning för otraditionell syntax"
+msgid "Warning on differences to traditional syntax"
+msgstr "Varning vid skillnader mot traditionell syntax"
 
 #: src/compiler_options_gui.c:934
-msgid "Warning for Variable Shadowing"
+msgid "Warning for variable shadowing"
 msgstr "Varning för variabelskuggning"
 
 #: src/compiler_options_gui.c:942
-msgid "Warning for suspected Pointer-arith"
+msgid "Warning for suspected pointer arithmetic"
 msgstr "Varning för misstänkt pekararitmetik"
 
 #: src/compiler_options_gui.c:950
-msgid "Warning for Missing-prototypes"
-msgstr "Varning för Missing-prototyper"
+msgid "Warning for missing prototypes"
+msgstr "Varning för saknade prototyper"
 
 #: src/compiler_options_gui.c:958
-msgid "Warning for Un-Inline-able declarations"
-msgstr "Varning för deklarationer som inte kan inline:as"
+msgid "Warning if declarations cannot be inlined"
+msgstr "Varning om deklarationer inte kan inline:as"
 
 #: src/compiler_options_gui.c:966
-msgid "Warning for Overloaded-virtuals"
+msgid "Warning for overloaded virtuals"
 msgstr "Varning för omdefinierade virtuals"
 
 #: src/compiler_options_gui.c:1002
@@ -1054,15 +1054,15 @@ msgid "No optimization"
 msgstr "Ingen optimering"
 
 #: src/compiler_options_gui.c:1012
-msgid "Low level optimization (Machine dependent)"
-msgstr "Lågnivåoptimisering (maskinberoende)"
+msgid "Low-level optimization (machine-dependent)"
+msgstr "Lågnivåoptimering (maskinberoende)"
 
 #: src/compiler_options_gui.c:1022
-msgid "Higher level optimization (without space-speed tradeoff)"
-msgstr "Högnivåoptimisering (utan storlek-hastighetskompromiss)"
+msgid "Higher-level optimization (without space-speed tradeoff)"
+msgstr "Högnivåoptimering (utan storlek-hastighetskompromiss)"
 
 #: src/compiler_options_gui.c:1032
-msgid "Fastest code optimization (Function inlined where ever possible"
+msgid "Fastest-code optimization (functions inlined whereever possible"
 msgstr "Snabbast kodoptimering (funktioner är inline:ade där det är möjligt"
 
 #: src/compiler_options_gui.c:1043
@@ -1323,8 +1323,8 @@ msgstr "Målet för detta projekt är okänt"
 msgid "Target of this project is not executable"
 msgstr "Målet för detta projekt är inte körbart"
 
-#: src/executer.c:244
-msgid "Executable does not exsits for this project."
+#: src/executer.c:244 src/mainmenu_callbacks.c:1553
+msgid "Executable does not exist for this project."
 msgstr "Körbar fil finns inte för detta projekt."
 
 #: src/executer.c:257
@@ -3131,7 +3131,7 @@ msgid "_Preferences ..."
 msgstr "_Inställningar..."
 
 #: src/main_menubar_def.h:1427
-msgid "Do your prefer coffee to tea? Check it out."
+msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Föredrar du kaffe framför te? Testa detta."
 
 #: src/main_menubar_def.h:1432
@@ -3305,10 +3305,6 @@ msgstr "Är du säker på att du vill skriva ut den aktuella filen?"
 #: src/mainmenu_callbacks.c:1140
 msgid "Tags image update successfully."
 msgstr "Uppdatering av taggbild lyckades."
-
-#: src/mainmenu_callbacks.c:1553
-msgid "Executable does not exsits this project."
-msgstr "Körbar fil finns inte för detta projekt."
 
 #: src/mainmenu_callbacks.c:1604
 msgid "Debugger is not running. Start it first."
@@ -5200,6 +5196,15 @@ msgstr "Kunde inte skapa pixmap från fil: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
 
+#~ msgid "Warning for Un-Inline-able declarations"
+#~ msgstr "Varning för deklarationer som inte kan inline:as"
+
+#~ msgid "Executable does not exsits for this project."
+#~ msgstr "Körbar fil finns inte för detta projekt."
+
+#~ msgid "Executable does not exsits this project."
+#~ msgstr "Körbar fil finns inte för detta projekt."
+
 #~ msgid "Additional compiler options (command line options)"
 #~ msgstr "Ytterligare kompilatoralternativ (kommandoradsflaggor)"
 
@@ -5214,9 +5219,6 @@ msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
 
 #~ msgid "Macros in configure.in file:\n"
 #~ msgstr "Makron i filen configure.in:\n"
-
-#~ msgid "Executable does not exist for this project."
-#~ msgstr "Körbar fil finns inte för detta projekt."
 
 #~ msgid "Anjuta: Information"
 #~ msgstr "Anjuta: Information"
