@@ -3,6 +3,8 @@
 	* src/launcher.c: Added a fix a memory leak and a possible
 	fix for zvt-crash bug.
 	
+	* printing/.cvsignore, plugins/patch/.cvsignore: Added files.
+	
 2002-06-07	Andy Piper	<andy.piper@freeuk.com>
 
 	* anjuta.prj: bump project version for release
