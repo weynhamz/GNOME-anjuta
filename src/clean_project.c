@@ -99,18 +99,18 @@ clean_terminated (int status, time_t time)
 	if (WEXITSTATUS (status))
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Cleaning completed...............Unsuccessful\n"),
+				 _("Cleaning completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_("Cleaning completed ... unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Cleaning completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Cleaning completed...............Successful\n"),
+				 _("Cleaning completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Cleaning completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Cleaning completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
@@ -179,18 +179,18 @@ clean_all_terminated (int status, time_t time)
 	if (WEXITSTATUS (status))
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Clean All completed...............Unsuccessful\n"),
+				 _("Clean All completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_("Clean All completed ... unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Clean All completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Clean All completed...............Successful\n"),
+				 _("Clean All completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Clean All completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Clean All completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),

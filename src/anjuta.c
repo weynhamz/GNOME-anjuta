@@ -248,7 +248,6 @@ anjuta_append_text_editor (gchar * filename)
 				       (on_anjuta_notebook_switch_page),
 				       NULL);
 	anjuta_set_current_text_editor (te);
-	anjuta_clear_windows_menu ();
 	app->text_editor_list = g_list_append (app->text_editor_list, te);
 	breakpoints_dbase_set_all_in_editor (debugger.breakpoints_dbase, te);
 	switch (te->mode)
@@ -320,7 +319,6 @@ anjuta_remove_text_editor (TextEditor* te)
 				       GTK_SIGNAL_FUNC
 				       (on_anjuta_notebook_switch_page),
 				       NULL);
-	anjuta_clear_windows_menu ();
 	if (te->full_filename != NULL)
 	{
 		gint max_recent_files;
@@ -1850,17 +1848,6 @@ anjuta_load_cmdline_files ()
 		glist_strings_free (command_args);
 		command_args = NULL;
 	}
-}
-
-void
-anjuta_clear_windows_menu ()
-{
-	guint count;
-	count = g_list_length (app->text_editor_list);
-	if (count < 1)
-		return;
-	gnome_app_remove_menus (GNOME_APP (app->widgets.window),
-				"_Windows/<Separator>", count + 1);
 }
 
 void

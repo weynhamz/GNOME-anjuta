@@ -278,8 +278,6 @@ gboolean anjuta_is_installed (gchar * prog, gboolean show);
 /* Else previous job is set in the status bar */
 void anjuta_update_app_status (gboolean set_job, gchar * job_name);
 
-void anjuta_clear_windows_menu (void);
-
 /* Private callbacks */
 
 gint on_anjuta_session_die(GnomeClient * client, gpointer data);

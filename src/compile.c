@@ -179,7 +179,8 @@ compile_terminated (int status, time_t time)
 				 _("Compile completed ... unsuccessful"),
 				 MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_warning (_("Compile completed ... unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Compile completed ... unsuccessful"));
 	}
 	else
 	{
@@ -187,7 +188,8 @@ compile_terminated (int status, time_t time)
 				 _("Compile completed ... successful"),
 				 MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		anjuta_status (_("Compile completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Compile completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),

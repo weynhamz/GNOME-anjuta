@@ -134,14 +134,16 @@ build_file_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Build completed ... unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_("Build completed ... unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Build completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Build completed ... successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Build completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Build completed ... successful"));
 	}
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))

@@ -336,7 +336,8 @@ build_terminated (int status, time_t time)
 				 _
 				 ("Build completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_("Build terminated with error(s)."));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Build terminated with error(s)."));
 	}
 	else
 	{
@@ -344,7 +345,8 @@ build_terminated (int status, time_t time)
 				 _
 				 ("Build completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Build completed ... successful."));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Build completed ... successful."));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
@@ -366,16 +368,16 @@ build_all_terminated (int status, time_t time)
 				 _
 				 ("Build All completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_
-				("Build All completed...............Unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Build All completed...............Unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Build All completed...............Successful\n"),
+				 _("Build All completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Build All completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Build All completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
@@ -395,24 +397,21 @@ build_dist_terminated (int status, time_t time)
 	if (WEXITSTATUS (status))
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Build Distribution completed...............Unsuccessful\n"),
+				 _("Build Distribution completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_
-				("Build Distribution completed ... unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Build Distribution completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Build Distribution completed...............Successful\n"),
+				 _("Build Distribution completed...............Successful\n"),
 				 MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("The source tarball can be found in the top level directory of the project.\n"),
+				 _("The source tarball can be found in the top level directory of the project.\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_
-			       ("Build Distribution completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Build Distribution completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
@@ -432,19 +431,18 @@ build_install_terminated (int status, time_t time)
 	if (WEXITSTATUS (status))
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Install completed...............Unsuccessful\n"),
+				 _("Install completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_
-				("Install completed...............Unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Install completed...............Unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Install completed...............Successful\n"),
+				 _("Install completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Install completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Install completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
@@ -464,19 +462,18 @@ build_autogen_terminated (int status, time_t time)
 	if (WEXITSTATUS (status))
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Auto generation completed...............Unsuccessful\n"),
+				 _("Auto generation completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_
-				("Auto generation completed ... unsuccessful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_warning (_("Auto generation completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
-				 _
-				 ("Auto generation completed...............Successful\nNow Configure the Project.\n"),
+				 _("Auto generation completed...............Successful\nNow Configure the Project.\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Auto generation completed ... successful"));
+		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+			anjuta_status (_("Auto generation completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),

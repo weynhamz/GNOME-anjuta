@@ -89,6 +89,33 @@ static void delete_old_config_file (void)
 	}
 }
 
+static gint
+restore_session_on_idle (gpointer data)
+{
+	GnomeClient* client = data;
+	while (gtk_events_pending ())
+	{
+		gtk_main_iteration ();
+	}
+	anjuta_session_restore(client);
+	return FALSE;
+}
+static gint
+load_command_lines_on_idle(gpointer data)
+{
+	int argc = (int)data;
+	while (gtk_events_pending ())
+	{
+		gtk_main_iteration ();
+	}
+	anjuta_load_cmdline_files();
+	if( ( 1 == argc ) &&	app->b_reload_last_project )
+	{
+		anjuta_load_last_project();
+	}
+	return FALSE;
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -116,12 +143,6 @@ main (int argc, char *argv[])
 	corb = gnome_CORBA_init_with_popt_table(PACKAGE, VERSION, &argc, argv,
 					   anjuta_options, 0, &context,
 					   GNORBA_INIT_SERVER_FUNC, &ev );
-	/*corb = gnome_CORBA_init(PACKAGE, VERSION, &argc, argv, 
-		GNORBA_INIT_SERVER_FUNC, &ev );*/
-
-
-	//gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv,
-	//	   anjuta_options, 0, &context);
 	
 	/* Session management */
 	client = gnome_master_client();
@@ -165,23 +186,17 @@ main (int argc, char *argv[])
 	
 	anjuta_new ();
 	anjuta_show ();
-
-	/* Restore session */
+	
 	flags = gnome_client_get_flags(client);
-	if (flags & GNOME_CLIENT_RESTORED)
-		anjuta_session_restore(client);
-	else
-	{
-		anjuta_load_cmdline_files();
-		if( ( 1 == argc ) &&	app->b_reload_last_project )
-		{
-			anjuta_load_last_project();
-		}
+	if (flags & GNOME_CLIENT_RESTORED) {
+		/* Restore session */
+		gtk_idle_add(restore_session_on_idle, client);
+	} else {
+		/* Load commandline args */
+		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
 	}
 	retCode = MainLoop( &argc, argv, corb );
 	anjuta_application_exit();
 	write_config();
 	return retCode ;
-//	return 0;
 }
-
