@@ -169,6 +169,24 @@ static char tmp_file[PATH_MAX] = "";
 GString *current_tool_output = NULL;
 GString *current_tool_error = NULL;
 
+/* Signal prototypes to fix GCC warnings. Note that we cannot declare
+these as static since then signal autoconnect won't work :-(
+*/
+void on_user_tool_select(GtkCList *clist, gint row, gint column,
+  GdkEventButton *event, gpointer user_data);
+void on_user_tool_unselect(GtkCList *clist, gint row, gint column,
+  GdkEventButton *event, gpointer user_data);
+void on_user_tool_ok_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_edit_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_new_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_delete_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data);
+void on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data);
+void on_user_tool_edit_ok_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_edit_cancel_clicked(GtkButton *button, gpointer user_data);
+gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data);
+
 /* Destroys memory allocated to an user tool */
 
 static void an_user_tool_free(AnUserTool *tool, gboolean remove_from_list)
@@ -1477,6 +1495,7 @@ static struct
 , {BUILD_OPTION_WARN_UNDEF, "Warn on undefined variables during build" }
 , {BUILD_OPTION_JOBS, "Maximum number of build jobs" }
 , {BUILD_OPTION_AUTOSAVE, "Autosave before build"}
+, {DEBUGGER_COMMAND, "Command to fire the debugger"}
 , {DISABLE_SYNTAX_HILIGHTING, "Disable syntax highlighting for source files"}
 , {SAVE_AUTOMATIC, "Save automatically on a periodic basis"}
 , {INDENT_AUTOMATIC, "Auto-indent"}

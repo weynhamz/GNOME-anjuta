@@ -661,7 +661,10 @@ create_preferences_page1 (Preferences * p)
 	GtkWidget *checkbutton7;
 	GtkWidget *hseparator1;
 	GtkWidget *hbox1;
+	GtkWidget *hbox2;
 	GtkWidget *label1;
+	GtkWidget *label2;
+	GtkWidget *entry1;
 	GtkObject *spinbutton1_adj;
 	GtkWidget *spinbutton1;
 
@@ -729,19 +732,35 @@ create_preferences_page1 (Preferences * p)
 	gtk_widget_show (spinbutton1);
 	gtk_box_pack_start (GTK_BOX (hbox1), spinbutton1, FALSE, FALSE, 0);
 
+	hbox2 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox2);
+	gtk_box_pack_start (GTK_BOX (vbox1), hbox2, FALSE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox2), 5);
+
+	label2 = gtk_label_new (_("Debugger Command:"));
+	gtk_widget_show (label2);
+	gtk_box_pack_start (GTK_BOX (hbox2), label2, FALSE, TRUE, 0);
+	gtk_misc_set_padding (GTK_MISC (label2), 19, 0);
+
+	entry1 = gtk_entry_new_with_max_length(30);
+	gtk_widget_show(entry1);
+	gtk_box_pack_start (GTK_BOX (hbox2), label2, FALSE, TRUE, 0);
+	
 	p->widgets.build_keep_going_check = checkbutton1;
 	p->widgets.build_silent_check = checkbutton2;
 	p->widgets.build_debug_check = checkbutton3;
 	p->widgets.build_warn_undef_check = checkbutton6;
 	p->widgets.build_jobs_spin = spinbutton1;
 	p->widgets.build_autosave_check = checkbutton7;
-		
+	p->widgets.debugger_command = entry1;
+
 	gtk_widget_ref (checkbutton1);
 	gtk_widget_ref (checkbutton2);
 	gtk_widget_ref (checkbutton3);
 	gtk_widget_ref (checkbutton6);
 	gtk_widget_ref (spinbutton1);
 	gtk_widget_ref (checkbutton7);
+	gtk_widget_ref (entry1);
 	
 	return frame1;
 }
@@ -2244,6 +2263,8 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
 							       (pr->widgets.build_jobs_spin)));
 
+	str = gtk_entry_get_text(pr->widgets.debugger_command);
+	preferences_set(pr, DEBUGGER_COMMAND, str?str:"gdb");
 
 /* page 2 */
 	for (i = 0;; i += 2)

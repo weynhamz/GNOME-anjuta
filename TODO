@@ -15,6 +15,8 @@ Before 1.0.2:
 
 General:
 --------
+	o Gnome-VFS integration for remote open/save of files.
+	o Favourites menu for files and projects.
 	o Faster file/symbol selection (somewhat like I-Search for project/symbol/file
 	trees ?) Would be nice to have filters as well.
 	o Macro recording. Scintilla has this - needs to be integrated in the GUI
@@ -157,4 +159,3 @@ General:
 	  
 	  So, watch out guys! Atleast don't miss the beer. :-)
 	Biswa: Added in the requirements docs for Search/Replace rewrite.
-

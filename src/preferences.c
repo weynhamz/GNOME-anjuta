@@ -366,6 +366,15 @@ preferences_sync (Preferences * pr)
 				   (pr->widgets.build_jobs_spin),
 				   preferences_get_int (pr, BUILD_OPTION_JOBS));
 
+	str = preferences_get (pr, DEBUGGER_COMMAND);
+	if(str)
+	{
+		gtk_entry_set_text(GTK_ENTRY(pr->widgets.debugger_command), str);
+		g_free (str);
+	}
+	else
+		gtk_entry_set_text(GTK_ENTRY(pr->widgets.debugger_command), "gdb");
+
 /* Page 2 */
 
 	/* Never hurts to use gtk_object_*_data as temp hash buffer */
@@ -885,7 +894,15 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, BUILD_OPTION_JOBS));
 	fprintf (fp, "%s=%d\n", BUILD_OPTION_AUTOSAVE,
 		 preferences_get_int (pr, BUILD_OPTION_AUTOSAVE));
-	
+	str = preferences_get (pr, DEBUGGER_COMMAND);
+	if(str)
+	{
+		fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, str);
+		g_free (str);
+	}
+	else
+		fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, "gdb");
+		
 	/* Page 2 */
 	for (i = 0;; i += 2)
 	{

@@ -171,7 +171,8 @@ on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 	anjuta_set_current_text_editor (anjuta_get_notebook_text_editor
 					(page_num));
 	anjuta_grab_text_focus ();
-	if (!g_tabbing)
+	if (!g_tabbing && preferences_get_int(app->preferences,
+EDITOR_TABS_RECENTORDER))
 	{
 		/*
 		TTimo
@@ -507,7 +508,8 @@ on_anjuta_window_key_release_event (GtkWidget   *widget,
 	g_return_val_if_fail (GNOME_IS_APP (widget), FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
 
-  if (g_tabbing && ((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)))
+  if (g_tabbing && preferences_get_int(app->preferences, EDITOR_TABS_RECENTORDER)
+	  && ((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)))
   {
     GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
     GtkWidget *widget;

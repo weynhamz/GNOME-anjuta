@@ -73,6 +73,7 @@ struct _PreferencesWidgets
 	GtkWidget *build_warn_undef_check;
 	GtkWidget *build_jobs_spin;
 	GtkWidget *build_autosave_check;
+	GtkWidget *debugger_command;
 
 	/*
 	 * * page2 
@@ -362,6 +363,7 @@ void preferences_set_build_options(Preferences* p);
 
 /* Miscellaneous */
 #define CHARACTER_SET "character.set"
+#define DEBUGGER_COMMAND "debugger.command"
 
 /* Terminal preferences */
 #define TERMINAL_FONT			"terminal.font"

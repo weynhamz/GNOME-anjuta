@@ -4,6 +4,7 @@
 
 gchar   *GetDescr       (void);
 glong    GetVersion     (void);
+gchar *GetMenu(void);
 gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
 void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
 void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);

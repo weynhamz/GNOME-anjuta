@@ -394,13 +394,13 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("Box Comment"),
+	 GNOME_APP_UI_ITEM, N_("Box Comment/Uncomment"),
 	 N_("Box comment the selected text"),
 	 on_comment_box, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Stream Comment"),
+	 GNOME_APP_UI_ITEM, N_("Stream Comment/Uncomment"),
 	 N_("Stream comment the selected text"),
 	 on_comment_stream, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,

@@ -19,7 +19,7 @@ if [ ! -z "$WX_PREFIX" ]; then
   CFLAGS="$CFLAGS $WX_CFLAGS"
 fi
 
-SDL_PREFIX=`sdl-config --prefix`
+SDL_PREFIX=`sdl-config --prefix 2>/dev/null`
 if [ ! -z "$SDL_PREFIX" ]; then
   SDL_CFLAGS=`sdl-config --cflags`
   for cflag in $SDL_CFLAGS

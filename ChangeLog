@@ -6,6 +6,7 @@
 	* global-tags/create_global_tags.sh: Fixed SDL warning
 	* TODO: Updated TODO for 1.0.2
 	* plugins/sample1/plugin-sample1.c: Fixed GCC warning
+	* src/anjuta-tools.c: Fix GCC prototype-missing warnings.
 
 2003-03-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* tagmanager/*: Added ignore-list for symbols. This will make
