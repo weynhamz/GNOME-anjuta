@@ -107,7 +107,7 @@ To subscribe to one or more of the mailing lists, visit
 [ http://www.sourceforge.net/mail/?group_id=14222 ].
 or send a mail at <listname>-request@lists.sourceforge.net with a subject 
 just "subscribe".
-Where, <listname> is anjuta-list, anjuta-devel or anjuta-announce.
+Where, <listname> is anjuta-list or anjuta-devel.
 
 Mailing lists:
 	o anjuta-list@lists.anjuta.sourceforge.net
@@ -128,6 +128,7 @@ REQUIREMENTS:
 		* GNOME libs
 		* gnome-xml (aka libxml1)
 		* scrollkeeper
+		* pkgconfig
 
 	# From Src RPM:
 		< RedHat 6.1 or upwards >
@@ -136,16 +137,16 @@ REQUIREMENTS:
 		* GNU C compiler
 		* RPM
 		* xml-i18n-tools
+		* pkgconfig
 
-	# From Rpm Pkg:
-		< RedHat 6.1 or upwards >
+	# From RPM Pkg:
+		< RedHat 7.1 or upwards >
 		* RPM
 				
 2) Running
 	< RedHat 6.1 or upwards >
 	* GNOME 
 	* Bash command shell
-	* ctags
 	* indent
 	* gnome-terminal
 	* gnome-help-browser (or Nautilus)
@@ -222,7 +223,7 @@ RUNNING:
 --------
 
 To run Anjuta, choose Development->Anjuta from the GNOME Main Menu, 
-or type:   #anjuta
+or type:   # anjuta
 
 If you get the shell error 'Command not found', then make sure your PATH
 variable contains the executable path of Anjuta binary (by default: /usr/local/bin).

@@ -1205,11 +1205,11 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 	/*
 	 * File has not been added. So add it 
 	 */
-	if (strcmp (dir, comp_dir) != 0)
+	if (!is_file_same(dir, comp_dir))
 	{
 		gchar* fn;
 		/*
-		 * File does not exist in the corrospondig dir. So, import it. 
+		 * File does not exist in the corroeponding dir. So, import it. 
 		 */
 		fn =
 			g_strconcat (comp_dir, "/",
@@ -1262,6 +1262,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	for(i=0;i<num_elements;i++)
 	{
 		gpointer list_data;
+		
 		filename = fileselection_get_lastfilename (p->fileselection_add_file,list);
 		list_data = g_list_nth_data(list, 0);
 		list = g_list_remove(list, list_data);
@@ -1281,12 +1282,11 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 					 ("\"%s\"\ndoes not exist in the current module directory."
 					  "\nDo you want to IMPORT (copy) it into the module?"),
 					filename);
-		if (strcmp (dir, comp_dir) == 0)
+
+		if (is_file_same(dir, comp_dir))
 			on_prj_import_confirm_yes (NULL, user_data);
-	
 		else
 		{
-		
 			int button;
 			GtkWidget * label = gtk_label_new(mesg);
 			GtkWidget * dialog = gnome_dialog_new(

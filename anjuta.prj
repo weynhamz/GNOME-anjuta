@@ -542,6 +542,7 @@ module.pixmap.files=\
 	pixmaps/mini_locals.xpm\
 	pixmaps/mini_term.xpm\
 	pixmaps/new_file.xpm\
+	pixmaps/new_folder.xpm\
 	pixmaps/ofolder.xpm\
 	pixmaps/open_file.xpm\
 	pixmaps/open_project.xpm\
@@ -609,7 +610,9 @@ module.doc.files=\
 	INSTALL\
 	NEWS\
 	README\
+	THANKS\
 	TODO\
+	doc/anjuta.1\
 	doc/ScintillaDoc.html\
 	manuals/C/anjuta-faqs/anjuta-faqs.sgml\
 	manuals/C/anjuta-manual/anjuta-manual.sgml\

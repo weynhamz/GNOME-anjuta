@@ -1187,6 +1187,27 @@ move_file_if_not_same (gchar* src, gchar* dest)
 	return TRUE;
 }
 
+gboolean is_file_same(gchar *a, gchar *b)
+{
+	struct stat st_a,st_b;
+
+	if(stat(a, &st_a) == -1)
+	{
+		printf("WARNING: Unable to stat '%s'.", a);
+		return FALSE;
+	}
+	if(stat(b, &st_b) == -1)
+	{
+		printf("WARNING: Unable to stat '%s'.", b);
+		return FALSE;
+	}
+
+	if(st_a.st_ino == st_b.st_ino)
+		return TRUE;
+	else
+		return FALSE;
+}
+
 gchar*
 get_file_as_buffer (gchar* filename)
 {

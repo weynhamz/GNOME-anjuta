@@ -29,10 +29,17 @@ is now.
 	  
 	- Martyn Bone <mbone@brightstar.u-net.com>, for his goto line
 	  activation bug fix,
+	  
+	- Rob Bradford <robster@debian.org>, for the man page and Debian packages,
 	
 	- Archit Baweja <bighead@crosswinds.net>, for his DND idea,
 	
 	- Fatih Demir <kabalak@gtranslator.org>, for his fixes,
+
+	- Philip Van Hoof <freax@pandora.be>, for his improvements to the file 
+	  selection dialog,
+	  
+	- Vadim Berezniker <vadim@berezniker.com>, for improving file import,
 
 	- Denis Boehme <boehme at synci dot de>, for adding DOS support,
 
@@ -47,9 +54,6 @@ is now.
 
 	- Johannes Schmid <johannes.schmid@gmx.de>, for the GTK--/GNOME-- integration, 
 	  patches and great debugging work,
-
-	- Philip Van Roof <freax@pandora.be>, for his filetypes combobox
-	  in the file selection dialog patch.
 	
 	- Hector Rivera Falu <misha@phreaker.net>, for the whole Anjuta website
 	  design & content management, and his overall artwork on the Anjuta project,

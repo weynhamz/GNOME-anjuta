@@ -1,3 +1,30 @@
+2002-02-17  Andy Piper <andyp@users.sourceforge.net>
+
+    * src/about.c, THANKS: updated for new contributors
+	
+	* anjuta.prj: added new files
+	
+	* README: corrected some documentation, ctags no longer needed,
+	  pkgconfig now required
+	  
+	* data/properties/others.properties: add .cvsdiff extension
+	
+	* src/project_dbase_gui.c, src/utilities.c, src/utilities.h: 
+	  patch from Vadim Berezniker <vadim@berezniker.com> to improve 
+	  file import
+	  
+	* doc/anjuta.1: added initial man page thanks to 
+	  Rob Bradford <rob@debianplanet.org> (NB build and install 
+	  needs work)
+	
+2002-02-17  Johannes Schmid <clubfan@users.sourceforge.net>
+
+    * src/Makefile.am: Cleaned handling of compiler flags by moving them
+      to CFLAGS and CXXFLAGS. Anjuta is now compiled with -g -O2 and many
+	  warning flags. 
+  
+    * configure.in: Changed version to 0.1.10-pre
+  
 2002-02-17  Stephane Demurget  <demurgets@free.fr>
 
 	* src/fileselection.c: (create_fileselection_gui): always display

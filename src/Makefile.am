@@ -11,12 +11,13 @@ INCLUDES = \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
-	-I.. -I. \
-	-Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
-	-Wuninitialized -Wparentheses -Wpointer-arith\
-	-Wmissing-prototypes\
- 	-O1\
- 	-g
+	-I.. -I.
+
+CFLAGS = -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
+		 -Wuninitialized -Wparentheses -Wpointer-arith\
+		 -Wmissing-prototypes -g -O2
+
+CXXFLAGS = $(CFLAGS)
 
 SCILEXERS =\
     ../scintilla/StyleContext.o\

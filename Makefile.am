@@ -36,7 +36,7 @@ gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 gnomemenu_premerge_file = anjuta.desktop.in
 gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)
 
-# Copy all the spec files. Of cource, only one is actually used.
+# Copy all the spec files. Of course, only one is actually used.
 dist-hook:
 	for specfile in *.spec; do \
 		if test -f $$specfile; then \

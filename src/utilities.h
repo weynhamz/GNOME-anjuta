@@ -164,6 +164,9 @@ gboolean copy_file(gchar* src, gchar* dest, gboolean show_error);
 /* Which may result in recompilation, etc */
 gboolean move_file_if_not_same (gchar* src, gchar* dest);
 
+/* Check if two files/dirs/etc are the same one */
+gboolean is_file_same(gchar *a, gchar *b);
+
 /* Update, flush and paint all gtk widgets */
 void update_gtk(void);
 
