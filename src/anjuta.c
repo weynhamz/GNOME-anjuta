@@ -231,6 +231,8 @@ anjuta_new ()
 		gtk_paned_set_position (GTK_PANED (app->widgets.hpaned),
 					app->hpaned_width);
 		anjuta_update_title ();
+		while (gtk_events_pending ())
+			gtk_main_iteration ();
 		launcher_init ();
 		debugger_init ();
 		anjuta_plugins_load();

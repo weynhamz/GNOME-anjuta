@@ -1,3 +1,6 @@
+2003-05-26  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* src/anjuta.c: Try to sow the splash image more often.
+
 2003-05-20  Naba Kumar  <naba@gnome.org>
 
 	Patch from Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
@@ -34,6 +37,10 @@
 2003-05-16  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/main.c, widgets/e-splash.c: Splash screen improvements.
 	* src/anjuta.desktop.in.in: Support startup notification.
+2003-05-16  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* src/main.c, widgets/e-splash.c: Splash screen improvements.
+	* src/anjuta.desktop.in.in: Support startup notification.
+
 
 2003-05-13  Dan Elphick <dre00r@ecs.soton.ac.uk>
 
