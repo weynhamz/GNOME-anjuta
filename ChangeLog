@@ -1,7 +1,7 @@
 2004-03-17  Naba Kumar  <naba@gnome.org>
 
 	* data/autogen.sh.*, data/macros/autogen.sh, data/macros2/autogen.sh:
-	Fixed generated projects to read m4 directory if the directory,
+	Fixed the generated projects to read m4 directory if the directory,
 	it exists (bug #917781).
 	
 2004-03-12  Naba Kumar  <naba@gnome.org>
