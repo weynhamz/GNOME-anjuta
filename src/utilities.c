@@ -340,6 +340,10 @@ FileExtType get_file_ext_type (gchar * file)
 	{
 		filetype = FILE_TYPE_BAAN;
 	}
+	else if (strcmp (filetype_str, "ada") == 0)
+	{
+		filetype = FILE_TYPE_ADA;
+	}
 	else if (strcmp (filetype_str, "wscript") == 0)
 	{
 		filetype = FILE_TYPE_WSCRIPT;

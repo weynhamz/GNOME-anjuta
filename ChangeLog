@@ -1,7 +1,16 @@
 2001-12-31  Stephane Demurget  <demurgets@free.fr>
 
-	* plugins/*/.cvsignore: updated.
+	* data/internal.properties: fixed baan properties.
+	  Added all ada properties.
 
+	* src/main_menubar_def.h,
+	  src/lexer.h,
+	  src/aneditor.cxx,
+	  src/utilities.[ch]: added support for the Ada highlight style.
+
+2001-12-31  Stephane Demurget  <demurgets@free.fr>
+
+	* plugins/*/.cvsignore: updated.
 
 2001-12-31  Stephane Demurget  <demurgets@free.fr>
 
@@ -91,7 +100,7 @@
 	  Updated C++, HTML and shell scripts definitions.
 	  Updated Ada and Bullant, that have been forgotten.
 
-	* src/main_menubar_def.[ch],
+	* src/main_menubar_def.h,
 	  src/lexer.h,
 	  src/aneditor.cxx,
 	  src/utilities.[ch]: added support for the Baan highlight style.
