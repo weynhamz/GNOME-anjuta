@@ -1,3 +1,8 @@
+2002-10-22  Naba Kumar <naba@gnome.org>
+
+	* acinclude.m4: New file with dummy funtion for gettext
+	cross compatibility fix.
+
 2002-10-21  Naba Kumar <naba@gnome.org>
 
 	Patch from Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
