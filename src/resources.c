@@ -24,6 +24,7 @@
 #include <gnome.h>
 
 #include "utilities.h"
+#include "pixmaps.h"
 #include "resources.h"
 
 GtkWidget *
@@ -57,15 +58,33 @@ anjuta_res_get_pixbuf (const gchar * filename)
 	GdkPixbuf *image;
 	gchar *pathname;
 	GError *error = NULL;
-
+	static GHashTable *pixbuf_hash;
+	
+	if (pixbuf_hash == NULL)
+	{
+#ifdef DEBUG
+		g_message ("Creating pixbuf hash table");
+#endif
+		pixbuf_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
+											 (GDestroyNotify)g_free,
+											 (GDestroyNotify)gdk_pixbuf_unref);
+	}
 	pathname = anjuta_res_get_pixmap_file (filename);
-	if (!pathname)
+	if (pathname == NULL)
 	{
 		g_warning (_("Could not find application image file: %s"), filename);
 		return NULL;
 	}
 
-	image = gdk_pixbuf_new_from_file (pathname, &error);
+	image = g_hash_table_lookup (pixbuf_hash, pathname);
+	if (image == NULL)
+	{
+#ifdef DEBUG
+		g_message ("Loading pixmap: %s", pathname);
+#endif
+		image = gdk_pixbuf_new_from_file (pathname, &error);
+		g_hash_table_insert (pixbuf_hash, g_strdup(pathname), image);
+	}
 	g_free (pathname);
 	return image;
 }
@@ -215,6 +234,24 @@ anjuta_res_get_doc_file (const gchar * docfile)
 		return path;
 	g_free (path);
 	return NULL;
+}
+
+/* File type icons 16x16 */
+GdkPixbuf *
+anjuta_res_get_icon_for_file (PropsID props, const gchar *filename)
+{
+	gchar *value;
+	GdkPixbuf *pixbuf;
+	const gchar *file;
+	
+	g_return_val_if_fail (filename != NULL, NULL);
+	file = extract_filename (filename);
+	value = prop_get_new_expand (props, "icon.", file);
+	if (value == NULL)
+		value = g_strdup (ANJUTA_PIXMAP_FV_UNKNOWN);
+	pixbuf = anjuta_res_get_pixbuf (value);
+	g_free (value);
+	return pixbuf;
 }
 
 void

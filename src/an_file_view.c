@@ -15,18 +15,6 @@
 
 #include "an_file_view.h"
 
-typedef enum
-{
-	fv_unknown_t = 0,
-	fv_text_t,
-	fv_image_t,
-	fv_exec_t,
-	fv_core_t,
-	fv_cfolder_t,
-	fv_ofolder_t,
-	fv_max_t
-} FVFileType;
-
 enum {
 	PIXBUF_COLUMN,
 	FILENAME_COLUMN,
@@ -36,53 +24,6 @@ enum {
 };
 
 static AnFileView *fv = NULL;
-static GdkPixbuf **fv_pixbufs = NULL;
-
-#define CREATE_FV_ICON(N, F) \
-	pix_file = anjuta_res_get_pixmap_file (F); \
-	fv_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
-	g_free (pix_file);
-
-static void
-fv_load_pixbufs ()
-{
-	char *pix_file;
-
-	if (fv_pixbufs)
-		return;
-
-	g_return_if_fail (fv != NULL && fv->win);
-
-	fv_pixbufs = g_new (GdkPixbuf *, fv_max_t + 1);
-
-	CREATE_FV_ICON (fv_unknown_t, ANJUTA_PIXMAP_FV_UNKNOWN);
-	CREATE_FV_ICON (fv_text_t, ANJUTA_PIXMAP_FV_TEXT);
-	CREATE_FV_ICON (fv_image_t, ANJUTA_PIXMAP_FV_IMAGE);
-	CREATE_FV_ICON (fv_exec_t, ANJUTA_PIXMAP_FV_EXECUTABLE);
-	CREATE_FV_ICON (fv_core_t, ANJUTA_PIXMAP_FV_CORE);
-	CREATE_FV_ICON (fv_cfolder_t, ANJUTA_PIXMAP_CLOSED_FOLDER);
-	CREATE_FV_ICON (fv_ofolder_t, ANJUTA_PIXMAP_OPEN_FOLDER);
-
-	fv_pixbufs[fv_max_t] = NULL;
-}
-
-static FVFileType
-fv_get_file_type (const char *name)
-{
-	const char *mime_type = gnome_vfs_mime_type_from_name (name);
-
-	if (0 == strncmp(mime_type, "text/", 5))
-		return fv_text_t;
-	else if (0 == strncmp(mime_type, "image/", 6))
-		return fv_image_t;
-	else if (0 == strcmp(mime_type, "application/x-executable-binary"))
-		return fv_exec_t;
-	else if (0 == strcmp(mime_type, "application/x-core-file"))
-		return fv_core_t;
-
-	return fv_unknown_t;
-}
-
 gboolean
 anjuta_fv_open_file (const char *path,
 		     gboolean    use_anjuta)
@@ -452,11 +393,11 @@ on_file_view_row_expanded (GtkTreeView *view,
 			   GtkTreeIter *iter,
 			   GtkTreePath *path)
 {
+	GdkPixbuf *pix;
+	
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-
-	gtk_tree_store_set (store, iter,
-			    PIXBUF_COLUMN, fv_pixbufs[fv_ofolder_t],
-			    -1);
+	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_OPEN_FOLDER);
+	gtk_tree_store_set (store, iter, PIXBUF_COLUMN, pix, -1);
 }
 
 static void
@@ -464,11 +405,11 @@ on_file_view_row_collapsed (GtkTreeView *view,
 			   GtkTreeIter *iter,
 			   GtkTreePath *path)
 {
+	GdkPixbuf *pix;
+	
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
-
-	gtk_tree_store_set (store, iter,
-			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
-			    -1);
+	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+	gtk_tree_store_set (store, iter, PIXBUF_COLUMN, pix, -1);
 }
 
 static void
@@ -534,10 +475,6 @@ fv_create ()
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (fv->tree), column);
 
-	/* The remaining bits */
-	if (!fv_pixbufs)
-		fv_load_pixbufs ();
-
 	fv_create_context_menu ();
 	gtk_widget_ref (fv->tree);
 	gtk_widget_ref (fv->win);
@@ -574,7 +511,8 @@ fv_add_tree_entry (TMFileEntry *entry,
 	GtkTreeIter iter, sub_iter;
 	GtkTreeIter *parent = root;
 	GSList *tmp;
-
+	GdkPixbuf *pixbuf;
+	
 	if (!entry || !entry->path || !entry->name || !fv || !fv->tree)
 		return;
 
@@ -586,20 +524,15 @@ fv_add_tree_entry (TMFileEntry *entry,
 	while (gtk_events_pending())
 		gtk_main_iteration();
 	
+	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
 	gtk_tree_store_append (store, &iter, parent);
 	gtk_tree_store_set (store, &iter,
-			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
+			    PIXBUF_COLUMN, pixbuf,
 			    FILENAME_COLUMN, entry->name,
 			    REV_COLUMN, entry->version ? entry->version : "",
 			    TMFILE_ENTRY_COLUMN, entry,
 			    -1);
-	if (parent == NULL) 
-	{
-		GtkTreePath *path;
-		path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
-		gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
-		gtk_tree_path_free (path);
-	}
+	
 	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
 		TMFileEntry *child = (TMFileEntry *) tmp->data;
 		if (tm_file_dir_t == entry->type)
@@ -610,11 +543,11 @@ fv_add_tree_entry (TMFileEntry *entry,
 		TMFileEntry *child = (TMFileEntry *) tmp->data;
 
 		if (tm_file_regular_t == child->type) {
-			FVFileType type = fv_get_file_type(child->name);
-
+			pixbuf = anjuta_res_get_icon_for_file (app->preferences->props,
+												   child->name);
 			gtk_tree_store_append (store, &sub_iter, &iter);
 			gtk_tree_store_set (store, &sub_iter,
-					    PIXBUF_COLUMN, fv_pixbufs[type],
+					    PIXBUF_COLUMN, pixbuf,
 					    FILENAME_COLUMN, child->name,
 					    REV_COLUMN, child->version ? child->version : "",
 					    TMFILE_ENTRY_COLUMN, child,
@@ -657,6 +590,18 @@ fv_populate (gboolean full)
 		goto clean_leave;
 	fv_add_tree_entry (fv->file_tree, NULL);
 
+	/* Expand first node */
+	{
+		GtkTreeIter iter;
+		GtkTreePath *path;
+		GtkTreeModel *model;
+		
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
+		gtk_tree_model_get_iter_first (model, &iter);
+		path = gtk_tree_model_get_path (model, &iter);
+		gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
+		gtk_tree_path_free (path);
+	}
 	/* Restore expanded nodes */	
 	if (selected_items)
 	{

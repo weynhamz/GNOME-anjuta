@@ -31,16 +31,53 @@
 #include "debugger.h"
 #include "memory.h"
 
+static void change_display_type (DebugTree *d_tree, gint display_type);
+static void debug_ctree_cmd_gdb (GtkTreeView *ctree, GtkTreeIter *node,
+								 GList *list, gint display_type,
+								 gboolean is_pointer);
+static gboolean find_expanded (GtkTreeModel *tree, GtkTreePath *path,
+							   GtkTreeIter *node, gpointer list);
+static gboolean debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
+										  gpointer user_data);
+static void parse_data (GtkTreeView *ctree, GtkTreeIter *parent, gchar *buf);
+static gchar *get_name (gchar **buf);
+static void parse_array (GtkTreeView *ctree, GtkTreeIter *parent, gchar *buf);
+static gchar* get_value (gchar **buf);
+static gchar* skip_next_token_start (gchar *buf);
+static gboolean is_long_array (GtkTreeView *ctree, GtkTreeIter *parent);
+static gchar* skip_token_value (gchar *buf);
+static gchar* skip_string (gchar *buf);
+static void set_item (GtkTreeView *ctree, GtkTreeIter *parent,
+					  const gchar *var_name, DataType dataType,
+					  const gchar * value, gboolean long_array);
+static void set_data (GtkTreeView * ctree, GtkTreeIter* node, DataType dataType,
+					  const gchar * var_name, const gchar * value,
+					  gboolean expandable, gboolean expanded,
+					  gboolean analyzed);
+static DataType determine_type (gchar *buf);
+static gchar* skip_quotes (gchar *buf, gchar quotes);
+static gchar* skip_delim (gchar *buf, gchar open, gchar close);
+static gchar* skip_token_end (gchar *buf);
+static gboolean destroy_recursive(GtkTreeModel *model, GtkTreePath *path,
+								  GtkTreeIter* iter, gpointer pdata);
+
 #define MAX_BUFFER 10000
 
-#define FORMAT_DEFAULT  0						 /* gdb print command without
-												  * switches */
-#define FORMAT_BINARY   0x1						 /* print/t */
-#define FORMAT_OCTAL    0x2						 /* print/o */
-#define FORMAT_SDECIMAL 0x4						 /* print/d */
-#define FORMAT_UDECIMAL 0x8						 /* print/u */
-#define FORMAT_HEX      0x10					 /* print/x */
-#define FORMAT_CHAR     0x20					 /* print/c */
+#define FORMAT_DEFAULT  0	/* gdb print command without switches */
+#define FORMAT_BINARY   1	/* print/t */
+#define FORMAT_OCTAL    2	/* print/o */
+#define FORMAT_SDECIMAL 3	/* print/d */
+#define FORMAT_UDECIMAL 4	/* print/u */
+#define FORMAT_HEX      5	/* print/x */
+#define FORMAT_CHAR     6	/* print/c */
+
+gchar* DisplayCommands[] = { "print " ,
+							 "print/t ",
+							 "print/o ",
+							 "print/d ",
+							 "print/u ",
+							 "print/x ",
+							 "print/c " };
 
 struct parse_private_data {
 	DebugTree *d_tree;
@@ -59,24 +96,24 @@ gchar *type_names[] = {
 };
 
 /* stores colors for variables */
+/*
 static GtkStyle *style_red;
 static GtkStyle *style_normal;
+*/
 
 enum {
 	VARIABLE_COLUMN,
 	VALUE_COLUMN,
+	DTREE_ENTRY_COLUMN,
 	N_COLUMNS
 };
-#warning "G2: Complete the port of debug tree"
-#if 0
 
-#warning "G2: Enable middle click menu"
-#if 0
 
 /* build a menu item for the middle-click button @param menutext text to
  * display on the menu item @param signalhandler signal handler for item
  * selection @param menu menu the item belongs to @param data private data for 
  * the signal handler */
+#if 0
 static
 GtkWidget *
 build_menu_item (gchar * menutext, GtkSignalFunc signalhandler,
@@ -129,22 +166,24 @@ show_hide_popup_menu_items (GtkWidget * menu, gint start, gint end,
 
 	while (list)
 	{
-		if (nb >= start && nb <= end)
-			gtk_widget_set_sensitive (GTK_WIDGET (list->data), sensitive);
+		/* if (nb >= start && nb <= end)
+			gtk_widget_set_sensitive (GTK_WIDGET (list->data), sensitive); */
 		list = g_list_next (list);
 		nb++;
 	}
 }
 
 /* middle click call back for bringing up the format menu */
+
 static gboolean
-debug_tree_on_middle_click (GtkWidget * widget, GdkEvent * event, gpointer data)
+debug_tree_on_middle_click (GtkWidget *widget,
+							GdkEvent *event, gpointer data)
 {
 	GdkEventButton *buttonevent = NULL;
 	DebugTree *d_tree = NULL;
 	GtkCTree *tree = NULL;
 	gint row;
-	GtkCTreeNode *node = NULL;
+	GtkTreeIter *node = NULL;
 	TrimmableItem *node_data = NULL;
 
 	/* only mouse press events */
@@ -171,7 +210,7 @@ debug_tree_on_middle_click (GtkWidget * widget, GdkEvent * event, gpointer data)
 	if (node == NULL)
 		return FALSE;
 
-	node_data = gtk_ctree_node_get_row_data (GTK_CTREE (d_tree->tree), node);
+	node_data = ((GNode*)node->user_data)->data;
 
 	/* only for items with 'real' data */
 	if (!node_data || node_data->dataType == TYPE_ROOT)
@@ -253,16 +292,15 @@ on_format_char_clicked (GtkMenuItem * menu_item, gpointer data)
 
 /* changes the display format of a node */
 static void
-change_display_type (DebugTree * d_tree, gint display_type)
+change_display_type (DebugTree *d_tree, gint display_type)
 {
 	TrimmableItem *node_data = NULL;
 
 	g_return_if_fail (d_tree);
 
 	/* get the node's private data */
-	node_data =
-		gtk_ctree_node_get_row_data (GTK_CTREE (d_tree->tree),
-									 d_tree->cur_node);
+	node_data =  ((GNode*)(d_tree->cur_node->user_data))->data;
+	
 	g_return_if_fail (node_data != NULL);
 
 	/* if the display type did not change - skip the operation altogether */
@@ -272,12 +310,15 @@ change_display_type (DebugTree * d_tree, gint display_type)
 	/* store the new display type in the node's private data */
 	node_data->display_type = display_type;
 
-	debug_ctree_cmd_gdb (GTK_CTREE (d_tree->tree), d_tree->cur_node, NULL,
+	debug_ctree_cmd_gdb (GTK_TREE_VIEW(d_tree->tree),
+						 d_tree->cur_node, NULL,
 						 display_type, FALSE);
 }
+#endif
 
 /* return the correct display command according to the display type. caller
  * must free the returned string! */
+#if 0
 static gchar *
 get_display_command (gint display_mask)
 {
@@ -315,18 +356,27 @@ get_display_command (gint display_mask)
 }
 #endif
 
-/* return full name of the supplied node caller must free the returned string */
+/*
+ Return full name of the supplied node. caller must free the returned
+ string
+*/
 static gchar *
-extract_full_name (GtkCTree * ctree, GtkCTreeNode * node)
+extract_full_name (GtkTreeView * ctree, GtkTreeIter *node)
 {
-	TrimmableItem *data;
+	TrimmableItem *data = NULL;
 	gchar *full_name = NULL;
 	gint pointer_count = 0;
 	gint i;
 	gboolean first = TRUE;
-	gchar *t;
-
-	data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) node);
+	gchar *t = NULL;
+	GtkTreeModel *model;
+	GtkTreeIter child = *node; /* Piter initialized to point to required node */
+	GtkTreeIter parent;	
+	GtkTreeIter temp;
+	
+	model = gtk_tree_view_get_model(ctree);
+	gtk_tree_model_get (model, &child, DTREE_ENTRY_COLUMN, &data, -1);
+	
 	if (data->name[0] == '*')
 		pointer_count++;
 	else
@@ -334,12 +384,21 @@ extract_full_name (GtkCTree * ctree, GtkCTreeNode * node)
 		full_name = g_strdup (data->name);
 		first = FALSE;
 	}
-
+	/* go from node to the root */
 	while (data->dataType != TYPE_ROOT)
 	{
-		node = GTK_CTREE_ROW (node)->parent;
-		data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) node);
+		/* get the current node's parent */
+		if (!gtk_tree_model_iter_parent(model,&parent,&child))
+			break;
+		
+		/* piter = &iter2; */
+		
+		gtk_tree_model_get (model, &parent, DTREE_ENTRY_COLUMN, &data, -1);
 
+		temp = child;
+		child = parent;
+		parent = temp;
+		
 		if (data->name[0] == '*')
 		{
 			pointer_count++;
@@ -350,7 +409,6 @@ extract_full_name (GtkCTree * ctree, GtkCTreeNode * node)
 			if (first)
 			{
 				full_name = g_strdup (data->name);
-
 				first = FALSE;
 			}
 			else
@@ -361,28 +419,32 @@ extract_full_name (GtkCTree * ctree, GtkCTreeNode * node)
 			}
 		}
 	}
-
 	for (i = 0; i < pointer_count; i++)
 	{
 		t = full_name;
 		full_name = g_strconcat ("*", full_name, NULL);
 		g_free (t);
 	}
-
 	return full_name;
 }
 
 static void
 parse_pointer_cbs (GList * list, Parsepointer * parse)
 {
+	GtkTreeStore *store;	
 	gchar *pos = NULL;
 	DataType data_type;
 	TrimmableItem *data;
 	gchar *full_output = NULL;
 	gchar *t;
-
-	if (!list)
-		gtk_ctree_node_set_text (parse->ctree, parse->node, 1, "?");
+	gchar *question_mark = "?";
+	GtkTreeModel *model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (parse->tree));
+	store = GTK_TREE_STORE (model);
+	
+	if (!list) 
+		gtk_tree_store_set(store,parse->node, VALUE_COLUMN, question_mark,-1);
 	else
 	{
 		/* Concat the answers of gdb */
@@ -393,81 +455,70 @@ parse_pointer_cbs (GList * list, Parsepointer * parse)
 			pos = g_strconcat (pos, (gchar *) list->data, NULL);
 			g_free (t);
 		}
-
 		full_output = pos;
-
 		/* g_print("PARSEPOINTER1 %s\n", pos); */
-
 		if (pos[0] == '$')
 		{
 			if (!(pos = strchr ((gchar *) pos, '=')))
-			{
 				g_warning ("Format error - cannot find '=' in %s\n",
 						   full_output);
-				g_list_free (list);
-				g_free (parse);
-				g_free (full_output);
-				return;
-			}
-
-			data_type = determine_type (pos);
-			/* g_print("Type of %s is %s\n",pos, type_names[data_type]); */
-			data =
-				gtk_ctree_node_get_row_data (parse->ctree,
-											 (GtkCTreeNode *) parse->node);
-			switch (data_type)
+			else 
 			{
-			case TYPE_ARRAY:
-				/* Changing to array not supported */
-				break;
-			case TYPE_STRUCT:
-				data->dataType = data_type;
-				pos += 3;
-				parse_data (parse->ctree, parse->node, pos);
-				break;
-			case TYPE_POINTER:
-			case TYPE_VALUE:
-				if (parse->is_pointer)
+				data_type = determine_type (pos);
+				/* g_print("Type of %s is %s\n",pos, type_names[data_type]); */
+				gtk_tree_model_get (model, parse->node,
+									DTREE_ENTRY_COLUMN, &data, -1);
+	
+				switch (data_type)
 				{
-					t = full_output;
-					full_output = pos =
-						g_strconcat ("*", data->name, pos, NULL);
-					g_free (t);
-					parse_data (parse->ctree, parse->node, pos);
+				case TYPE_ARRAY:
+					/* Changing to array not supported */
+					break;
+				case TYPE_STRUCT:
+					data->dataType = data_type;
+					pos += 3;
+					parse_data (parse->tree, parse->node, pos);
+					break;
+				case TYPE_POINTER:
+				case TYPE_VALUE:
+					if (parse->is_pointer)
+					{
+						t = full_output;
+						full_output = pos = g_strconcat ("*", data->name,
+														 pos, NULL);
+						g_free (t);
+						parse_data (parse->tree, parse->node, pos);
+					}
+					else
+					{
+						pos += 2;
+						gtk_tree_store_set(store, parse->node,
+										   VALUE_COLUMN, pos, -1);
+					}
+					break;
+				default:
+					parse_data (parse->tree, parse->node, pos);
+					break;
 				}
-				else
-				{
-					pos += 2;
-					gtk_ctree_node_set_text (parse->ctree, parse->node, 1, pos);
-				}
-				break;
-			default:
-				parse_data (parse->ctree, parse->node, pos);
-				break;
-
 			}
-
 		}
 	}
-
-	/* Send the next cmd to gdb */
+	/* Send the next cmd to gdb - if exists */
 	if (parse->next)
 	{
-		data =
-			gtk_ctree_node_get_row_data (parse->ctree,
-										 GTK_CTREE_NODE (parse->next->data));
-		debug_ctree_cmd_gdb (parse->ctree, (parse->next)->data, parse->next,
+		GtkTreeIter* iter = (GtkTreeIter*)parse->next->data;
+		gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);			
+		debug_ctree_cmd_gdb (parse->tree, iter, parse->next,
 							 data->display_type, parse->is_pointer);
+		gtk_tree_iter_free(iter);
 	}
-	else
-		g_list_free (list);
-
 	g_free (full_output);
+	gtk_tree_iter_free(parse->node);
 	g_free (parse);
 }
 
 static void
-debug_ctree_cmd_gdb (GtkCTree * ctree, GtkCTreeNode * node, GList * list,
+debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
 					 gint display_type, gboolean is_pointer)
 {
 	gchar *full_name;
@@ -476,10 +527,11 @@ debug_ctree_cmd_gdb (GtkCTree * ctree, GtkCTreeNode * node, GList * list,
 	gchar *t;
 
 	g_return_if_fail (ctree);
-
+	g_return_if_fail (node);
+	
 	parse = g_new (Parsepointer, 1);
-	parse->ctree = ctree;
-	parse->node = node;
+	parse->tree = ctree;
+	parse->node = gtk_tree_iter_copy(node);
 	parse->is_pointer = is_pointer;
 
 	if (list)
@@ -487,7 +539,7 @@ debug_ctree_cmd_gdb (GtkCTree * ctree, GtkCTreeNode * node, GList * list,
 	else
 		parse->next = NULL;
 
-	comm = get_display_command (display_type);
+	comm = DisplayCommands[display_type];
 
 	/* extract full_name name */
 	full_name = extract_full_name (ctree, node);
@@ -502,7 +554,7 @@ debug_ctree_cmd_gdb (GtkCTree * ctree, GtkCTreeNode * node, GList * list,
 	t = full_name;
 	full_name = g_strconcat (comm, full_name, NULL);
 	g_free (t);
-	/* g_print("gdb comm %s\n", full_name); */
+	g_print("gdb comm %s\n", full_name); 
 	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
 	debugger_put_cmd_in_queqe (full_name, 0, (void *) parse_pointer_cbs, parse);
@@ -511,86 +563,120 @@ debug_ctree_cmd_gdb (GtkCTree * ctree, GtkCTreeNode * node, GList * list,
 	debugger_execute_cmd_in_queqe ();
 
 	g_free (full_name);
-	g_free (comm);
+	/* g_free (comm); */
 }
 
 static void
-debug_ctree_tree_expand (GtkCTree * ctree, GList * node, gpointer user_data)
+on_debug_tree_row_expanded (GtkTreeView * ctree, GtkTreeIter* iter,
+							GtkTreePath* path, gpointer data)
 {
-	GList *expanded_node = NULL;
-
+	GList *expanded_list = NULL;
+	GtkTreeModel* model;	
+	
 	g_return_if_fail (ctree);
-	g_return_if_fail (node);
+	g_return_if_fail (iter);
 
+	model = gtk_tree_view_get_model (ctree);
+	
 	/* Search expanded */
-	gtk_ctree_pre_recursive (ctree, (GtkCTreeNode *) node,
-							 (GtkCTreeFunc) find_expanded, &expanded_node);
+	gtk_tree_model_foreach(model,find_expanded,&expanded_list);	
 
-	if (expanded_node)
+	if (expanded_list)
 	{
 		TrimmableItem *data;
-
-		data =
-			gtk_ctree_node_get_row_data (ctree,
-										 GTK_CTREE_NODE (expanded_node->data));
-		debug_ctree_cmd_gdb (ctree, expanded_node->data, expanded_node,
-							 data->display_type, TRUE);
+		GtkTreeIter* iter = (GtkTreeIter*)expanded_list->data;
+		gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);			
+		debug_ctree_cmd_gdb (ctree,iter,expanded_list,data->display_type,TRUE);
+		gtk_tree_iter_free(iter);
 	}
 }
 
-static void
-debug_ctree_on_select_row (GtkCList * list, gint row, gint column,
-						   GdkEvent * event, GtkCTree * ctree)
+static gboolean
+debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
+						  gpointer user_data)
 {
 	TrimmableItem *data;
-	GtkCTreeNode *node = NULL;
+	GtkTreeView *view;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	
+	g_return_if_fail (GTK_IS_TREE_VIEW (widget));
 
 	/* only when double clicking */
 	if (!(event->type == GDK_2BUTTON_PRESS))
+		return FALSE;
+	
+	view = GTK_TREE_VIEW (widget);
+	model = gtk_tree_view_get_model (view);
+	selection = gtk_tree_view_get_selection (view);
+
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter) || !event)
+	{
+		g_warning("Error getting selection\n");
+		return FALSE;
+	}
+	gtk_tree_model_get (model, &iter, DTREE_ENTRY_COLUMN, &data, -1);
+	
+	if (!data)
+	{
+		g_warning("Unable to get data\n");
 		return;
+	}
 
-	/* extract node */
-	node = gtk_ctree_node_nth (GTK_CTREE (ctree), row);
-	g_return_if_fail (node != NULL);
-
-	data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) node);
 	/* g_print ("SELECT : %p %d %s %s %d %d\n", node, data->dataType,
 	 * data->name, data->value, data->expandable, data->expanded); */
-	if (data && data->expandable)
+	if (data->expandable)
 	{
 		if (!data->expanded)
 		{
-			data->expanded = TRUE;
-			debug_ctree_cmd_gdb (ctree, node, NULL, FORMAT_DEFAULT, TRUE);
-			gtk_ctree_expand (ctree, node);
+			GtkTreePath* path;
+			data->expanded = TRUE;			
+			debug_ctree_cmd_gdb (view, &iter, NULL, FORMAT_DEFAULT, TRUE);
+			path = gtk_tree_model_get_path(model, &iter);
+			if (!path)
+				g_warning("cannot get path\n");
+			else {
+				gtk_tree_view_expand_row(view,path,FALSE);
+				gtk_tree_path_free(path);
+			}
+			/* gtk_ctree_expand (ctree, node); */
 		}
-		else									 // if
-												 // (GTK_CTREE_ROW(node)->is_leaf)
+		else /* if
+			  (GTK_CTREE_ROW(node)->is_leaf) */
 		{
 			/* g_print("EXPFALSE\n"); */
 			data->expanded = FALSE;
-			gtk_ctree_node_set_text (ctree, node, 1, data->value);
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+							   VALUE_COLUMN, data->value,-1);			
 		}
 	}
+	else
+		g_print("% is not expandable\n",data->name);
+	
+	return TRUE;
 }
 
 static void
-parse_data (GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
+parse_data (GtkTreeView* ctree, GtkTreeIter* parent, gchar * buf)
 {
 	TrimmableItem *item;
 	gchar *var_name = NULL;
 	gchar *value = NULL;
 	DataType dataType;
 	gchar *t;
+	GtkTreeView *view;
+	GtkTreeModel *model;
 
-	// g_print ("PARSEDATA %lx %s\n", (long) buf, buf);
 	g_return_if_fail (parent);
 	g_return_if_fail (ctree);
 
 	if (!buf)
 		return;
 
-	item = gtk_ctree_node_get_row_data (ctree, parent);
+	model = gtk_tree_view_get_model (ctree);
+	gtk_tree_model_get (model, parent, DTREE_ENTRY_COLUMN, &item, -1);	
+	/* item = gtk_ctree_node_get_row_data (ctree, parent); */
 	if (item->dataType == TYPE_ARRAY)
 	{
 		parse_array (ctree, parent, buf);
@@ -600,57 +686,56 @@ parse_data (GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
 	while (*buf)
 	{
 		var_name = value = NULL;
-
 		dataType = determine_type (buf);
-
 		if (dataType == TYPE_NAME)
 		{
 			var_name = get_name (&buf);
 			if (!var_name)
 				break;
-
 			dataType = determine_type (buf);
 		}
-
 		value = get_value (&buf);
 		if (!value)
 		{
 			g_free (var_name);
 			break;
 		}
-
 		set_item (ctree, parent, var_name, dataType, value, FALSE);
-
 		g_free (var_name);
 		g_free (value);
 	}
 }
 
 static gboolean
-is_long_array (GtkCTree * ctree, GtkCTreeNode * parent)
+is_long_array (GtkTreeView * ctree, GtkTreeIter* parent)
 {
-	GtkCTreeNode *node;
 	gchar *text;
+	GtkTreeModel* model;
+	GtkTreeIter iter;
+	gboolean success;
 
 	g_return_val_if_fail (ctree, FALSE);
 	g_return_val_if_fail (parent, TRUE);
-
-	node = GTK_CTREE_ROW (parent)->children;
-	while (node)
+	
+	model = gtk_tree_view_get_model (ctree);
+	success = gtk_tree_model_iter_children(model,&iter,parent);
+	while (success)
 	{
-		gtk_ctree_node_get_text (ctree, node, 1, &text);
-		if (strstr (text, "<repeats"))
-			return TRUE;
-		node = GTK_CTREE_ROW (node)->sibling;
+		gtk_tree_model_get(model, &iter, VALUE_COLUMN, &text, -1);
+		if (!text)
+			g_warning("Error getting value\n");
+		else
+			if (strstr (text, "<repeats"))
+				return TRUE;
+		success = gtk_tree_model_iter_next(model, &iter);
 	}
 	return FALSE;
 }
 
 /* FIXME : Analyse of long multidimensionnal arrays */
 /* if the long .. is not the last dimension !!!! */
-
 static void
-parse_array (GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
+parse_array (GtkTreeView* ctree, GtkTreeIter* parent, gchar * buf)
 {
 	TrimmableItem *item;
 	gchar *element_root;
@@ -661,18 +746,20 @@ parse_array (GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
 	gchar *pos;
 	gint i;
 	gboolean long_array;
-
+	GtkTreeModel *model;
+	
 	g_return_if_fail (ctree);
 	g_return_if_fail (parent);
 
-	item = gtk_ctree_node_get_row_data (ctree, parent);
+	/* item = gtk_ctree_node_get_row_data (ctree, parent); */
+	model = gtk_tree_view_get_model (ctree);
+	gtk_tree_model_get (model, parent, DTREE_ENTRY_COLUMN, &item, -1);	
 
 	element_root = item->name;
 	idx = 0;
 
 	while (*buf)
 	{
-
 		buf = skip_next_token_start (buf);
 		if (!*buf)
 			return;
@@ -681,9 +768,7 @@ parse_array (GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
 		value = get_value (&buf);
 
 		var_name = g_strdup_printf ("%s [%d]", element_root, idx);
-
 		long_array = is_long_array (ctree, parent);
-
 		set_item (ctree, parent, var_name, dataType, value, long_array);
 
 		pos = strstr (value, " <repeats");
@@ -699,7 +784,7 @@ parse_array (GtkCTree * ctree, GtkCTreeNode * parent, gchar * buf)
 }
 
 static gchar *
-get_name (gchar ** buf)
+get_name (gchar **buf)
 {
 	gchar *start;
 
@@ -721,7 +806,7 @@ get_name (gchar ** buf)
 }
 
 static gchar *
-get_value (gchar ** buf)
+get_value (gchar **buf)
 {
 	gchar *start;
 	gchar *value;
@@ -741,33 +826,34 @@ get_value (gchar ** buf)
 }
 
 static void
-set_data (GtkCTree * ctree, GtkCTreeNode * node, DataType dataType,
+set_data (GtkTreeView * ctree, GtkTreeIter* iter, DataType dataType,
 		  const gchar * var_name, const gchar * value, gboolean expandable,
 		  gboolean expanded, gboolean analyzed)
 {
 	TrimmableItem *data;
+	GtkTreeModel* model;
 
 	g_return_if_fail (ctree);
-	g_return_if_fail (node);
+	g_return_if_fail (iter);
 
+	model = gtk_tree_view_get_model (ctree);	
+	
 	/* get node private data */
-	data = gtk_ctree_node_get_row_data (ctree, node);
+	gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);
 
 	/* there was a private data object - delete old data */
 	if (data)
 	{
-		if (data->dataType != dataType)
-			g_free (data->name);
+		g_free (data->name);
 		g_free (data->value);
 	}
-	else										 /* first time - allocate
-												  * private data object */
+	else		/* first time - allocate private data object */
 	{
 		data = g_new (TrimmableItem, 1);
 		data->display_type = FORMAT_DEFAULT;
-		gtk_ctree_node_set_row_data (ctree, node, data);
+		gtk_tree_store_set(GTK_TREE_STORE(model), iter,
+						   DTREE_ENTRY_COLUMN, data, -1);		
 	}
-
 	data->name = g_strdup (var_name);
 	data->value = g_strdup (value);
 	data->dataType = dataType;
@@ -777,98 +863,109 @@ set_data (GtkCTree * ctree, GtkCTreeNode * node, DataType dataType,
 }
 
 static void
-set_item (GtkCTree * ctree, GtkCTreeNode * parent, const gchar * var_name,
+set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 		  DataType dataType, const gchar * value, gboolean long_array)
 {
-	GtkCTreeNode *item;
-	GtkCTreeNode *l_item = NULL, *i_item = NULL;
+	GtkTreeIter iter;
 	TrimmableItem *data = NULL;
-	gchar *text[2];
-	GtkStyle *style;
+	//GtkStyle *style;
 	gboolean expanded = FALSE;
+	GtkTreeModel* model;
+	gboolean success, found = FALSE;
 
 	g_return_if_fail (ctree);
 
 	if (!var_name || !*var_name)
 		return;
+	
+	g_print("Setting variable %s with value %s\n",var_name, value);
 
-	item = GTK_CTREE_ROW (parent)->children;
+	model = gtk_tree_view_get_model (ctree);
+	success = gtk_tree_model_iter_children(model,&iter,parent);
 
 	/* find the child of the given parent with the given name */
-	while (item)
+	while (success)
 	{
-		data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) item);
-
-		if (data && g_strcasecmp (var_name, data->name) == 0)
+		gtk_tree_model_get (model, &iter, DTREE_ENTRY_COLUMN, &data, -1);			
+		if (data && g_strcasecmp (var_name, data->name) == 0) {
+			found = TRUE;
 			break;
-		item = GTK_CTREE_ROW (item)->sibling;
+		}
+		success = gtk_tree_model_iter_next(model, &iter);
 	}
 
 	/* child found - update value and change color if value changed */
-	if (item)
+	if (found)
 	{
+		// g_print("Variable %s found - updating\n",var_name);
 		/* Set red color if var modified */
-		if (g_strcasecmp (value, data->value) == 0)
-			style = style_normal;
-		else
-		{
-			style = style_red;
+		// if (g_strcasecmp (value, data->value) == 0)
+		// style = style_normal;
+		// else
+		// {
+		//	style = style_red;
 			/* Destroy following items if long array */
 			/* x <repeats yy times> */
 			if (long_array)
 			{
-				i_item = GTK_CTREE_ROW (item)->sibling;
-				while (i_item)
+				GtkTreeIter* iter2 = gtk_tree_iter_copy(&iter);
+				success = gtk_tree_model_iter_next(model, iter2);
+				while (success)
 				{
-					l_item = i_item;
-					i_item = GTK_CTREE_ROW (i_item)->sibling;
-					destroy_recursive (ctree, l_item, NULL);
+					destroy_recursive (model, NULL,iter2, NULL);
+					success = gtk_tree_model_iter_next(model, iter2);
 				}
 			}
 			if (dataType != TYPE_ARRAY && dataType != TYPE_STRUCT)
 			{
-				gchar *t = g_strdup (value);	/* copy value - orig to be
+				gchar *val = g_strdup (value);	/* copy value - orig to be
 												 * deleted by caller */
-				gtk_ctree_node_set_text (ctree, item, 1, t);
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+								   VALUE_COLUMN, val,-1);
 			}
-		}
-		gtk_ctree_node_set_row_style (ctree, item, style);
-
+		// }
+		// gtk_ctree_node_set_row_style (ctree, item, style);
 		expanded = TRUE;
 	}
-	else										 /* child not found - insert it 
-												  */
+	else		/* child not found - insert it */
 	{
-		text[0] = g_strdup (var_name);
+		char* var = NULL;
+		char* val = NULL;
+		
+		/* g_print("Variable %s not found - inserting\n",var_name); */
+
+		var = g_strdup(var_name);
+
 		if (dataType == TYPE_ARRAY || dataType == TYPE_STRUCT)
-			text[1] = g_strdup ("");
+			val = g_strdup ("");
 		else
-			text[1] = g_strdup (value);
+			val = g_strdup (value);
 
-		item =
-			gtk_ctree_insert_node (ctree, parent, NULL, text, 5, NULL, NULL,
-								   NULL, NULL, FALSE, FALSE);
+		gtk_tree_store_append(GTK_TREE_STORE(model), &iter, parent);
+		gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 
+						   VARIABLE_COLUMN, var, 
+						   VALUE_COLUMN, val, -1);
 	}
-
 	switch (dataType)
 	{
 	case TYPE_POINTER:
-		// g_print ("POINTER %s\n", var_name);
-		set_data (ctree, item, TYPE_POINTER, var_name, value, TRUE, expanded &&
-				  data->expanded, TRUE);
+		//g_print ("POINTER %s\n", var_name);
+		set_data (ctree, &iter, TYPE_POINTER, var_name, value,
+				  TRUE, expanded && data->expanded, TRUE);
 		break;
 
 	case TYPE_STRUCT:
-		set_data (ctree, item, TYPE_STRUCT, var_name, value, FALSE, FALSE,
-				  TRUE);
-		// g_print ("STRUCT %d\n", dataType);
-		parse_data (ctree, item, (gchar *) value);
+		set_data (ctree, &iter, TYPE_STRUCT, var_name, value,
+				  FALSE, FALSE,TRUE);
+		//g_print ("STRUCT %s\n", var_name);
+		parse_data (ctree, &iter, (gchar *) value);
 		break;
 
 	case TYPE_ARRAY:
-		set_data (ctree, item, TYPE_ARRAY, var_name, value, FALSE, FALSE, TRUE);
-		// g_print ("SETITEM2 %d\n", dataType);
-		parse_data (ctree, item, (gchar *) value);
+		set_data (ctree, &iter, TYPE_ARRAY, var_name, value,
+				  FALSE, FALSE, TRUE);
+		//g_print ("ARRAY %s\n", var_name);
+		parse_data (ctree, &iter, (gchar *) value);
 		break;
 
 	case TYPE_REFERENCE:
@@ -876,8 +973,9 @@ set_item (GtkCTree * ctree, GtkCTreeNode * parent, const gchar * var_name,
 		break;
 
 	case TYPE_VALUE:
-		set_data (ctree, item, TYPE_VALUE, var_name, value, FALSE, FALSE, TRUE);
-		// g_print ("SETITEM2 %d\n", dataType);
+		set_data (ctree, &iter, TYPE_VALUE, var_name, value,
+				  FALSE, FALSE, TRUE);
+		//g_print ("VALUE %s\n", var_name);
 		break;
 
 	default:
@@ -993,7 +1091,7 @@ determine_type (gchar * buf)
 }
 
 static gchar *
-skip_string (gchar * buf)
+skip_string (gchar *buf)
 {
 	if (buf && *buf == '\"')
 	{
@@ -1019,7 +1117,7 @@ skip_string (gchar * buf)
 }
 
 static gchar *
-skip_quotes (gchar * buf, gchar quotes)
+skip_quotes (gchar *buf, gchar quotes)
 {
 	if (buf && *buf == quotes)
 	{
@@ -1028,7 +1126,7 @@ skip_quotes (gchar * buf, gchar quotes)
 		while (*buf)
 		{
 			if (*buf == '\\')
-				buf++;							 // skips \" or \' problems
+				buf++; // skips \" or \' problems
 			else if (*buf == quotes)
 				return buf + 1;
 
@@ -1069,7 +1167,6 @@ skip_token_value (gchar * buf)
 
 	if (!buf)
 		return NULL;
-
 	while (TRUE)
 	{
 		buf = skip_token_end (buf);
@@ -1087,7 +1184,6 @@ skip_token_value (gchar * buf)
 
 		buf = end;
 	}
-
 	return buf;
 }
 
@@ -1130,7 +1226,7 @@ skip_next_token_start (gchar * buf)
 	return buf;
 }
 
-static void
+/*static void
 init_style (GtkCTree * ctree)
 {
 	GdkColor red = { 16, -1, 0, 0 };
@@ -1139,136 +1235,194 @@ init_style (GtkCTree * ctree)
 	style_red = gtk_style_copy (style_normal);
 	style_red->fg[GTK_STATE_NORMAL] = red;
 }
+*/
 
 static void
-debug_init (DebugTree * d_tree)
+debug_tree_init (DebugTree * d_tree)
 {
-	gchar *text[2] = { "Local Variables", "" };
+	GtkTreeModel* model;
+	GtkTreeIter iter;
+	static const gchar* var_name = "Local Variables";
+	static const gchar* value = "";
 
 	g_return_if_fail (d_tree);
 
-	if (d_tree->root == NULL)
-	{
-		init_style (GTK_CTREE (d_tree->tree));
-		d_tree->root =
-			gtk_ctree_insert_node (GTK_CTREE (d_tree->tree), NULL, NULL, text,
-								   5, NULL, NULL, NULL, NULL, FALSE, FALSE);
-	}
-	set_data (GTK_CTREE (d_tree->tree), d_tree->root, TYPE_ROOT, "", "", FALSE,
-			  FALSE, FALSE);
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));		
+	
+	/* init_style (GTK_CTREE (d_tree->tree)); */
+
+	gtk_tree_store_append(GTK_TREE_STORE(model), &iter, NULL);
+	gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VARIABLE_COLUMN, var_name
+						, VALUE_COLUMN, value, -1);
+	
+	set_data (GTK_TREE_VIEW(d_tree->tree), &iter, TYPE_ROOT, "", "", FALSE,
+			  FALSE, TRUE);
 }
 
-static void
-set_not_analyzed (GtkCTree * ctree, GtkCTreeNode * node)
+static gboolean
+set_not_analyzed(GtkTreeModel *model, GtkTreePath* path,
+				 GtkTreeIter* iter, gpointer pdata)
 {
 	TrimmableItem *data;
-	gchar *text;
 
-	g_return_if_fail (ctree);
-	g_return_if_fail (node);
+	g_return_val_if_fail (model,TRUE);
+	g_return_val_if_fail (iter,TRUE);
+	
+	gtk_tree_model_get(model, iter, DTREE_ENTRY_COLUMN, &data, -1);
 
-	node = GTK_CTREE_ROW (node)->children;
-	while (node)
+	if (data && data->dataType != TYPE_ROOT)
 	{
-		data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) node);
+		g_print("Setting %s to not analyzed\n",data->name);
+		data->analyzed = FALSE;
+	}
+
+	return FALSE;	
+}
+
+static gboolean
+destroy_recursive(GtkTreeModel *model, GtkTreePath* path,
+				  GtkTreeIter* iter, gpointer pdata)
+{
+	TrimmableItem *data;
+
+	g_return_val_if_fail (model,TRUE);
+	g_return_val_if_fail (iter,TRUE);
+	
+	gtk_tree_model_get(model, iter, DTREE_ENTRY_COLUMN, &data, -1);
+	
+	if (!data) {
+		g_warning("Error getting data\n");
+		return TRUE;
+	}
+	
+	if (data->analyzed == FALSE && data->dataType != TYPE_ROOT)
+	{
+		g_print("Destroying %s\n",data->name);
+		g_free (data->name);
+		g_free (data->value);
+		g_free (data);
+		gtk_tree_store_remove(GTK_TREE_STORE(model), iter);
+	}
+	else
+		g_print("Not destroying %s\n",data->name);
+
+	return FALSE;
+}
+
+
+static void
+destroy_non_analyzed (GtkTreeModel* model, GtkTreeIter* parent)
+{
+	TrimmableItem *data;
+	GtkTreeIter iter;
+	gboolean success;
+	
+	g_return_if_fail (model);
+	g_return_if_fail (parent);
+	
+	success = gtk_tree_model_iter_children(model,&iter,parent);
+	if (!success) {
+		g_warning("Cannot get root\n");
+		return;
+	}
+	do
+	{
+		gtk_tree_model_get(model, &iter, DTREE_ENTRY_COLUMN, &data, -1);
+
 		if (!data)
+		{		
+			g_warning ("Failed getting row data\n");
+			return;
+		}
+		if (!data->analyzed)
 		{
-			gtk_ctree_node_get_text (ctree, node, 1, &text);
-			g_warning ("Failed getting row data for %s\n", text);
+			g_print("destroying %s\n",data->name);
+			g_free (data->name);
+			g_free (data->value);
+			g_free (data);
+			gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);	
 		}
 		else
-			data->analyzed = FALSE;
-		node = GTK_CTREE_ROW (node)->sibling;
+		{
+			g_print("not destroying %s\n",data->name);
+			success = gtk_tree_model_iter_next (model, &iter);
+		}
 	}
+	while (success);
 }
 
-static void
-destroy_recursive (GtkCTree * ctree, GtkCTreeNode * node, gpointer user_data)
+
+static gboolean
+find_expanded (GtkTreeModel *model, GtkTreePath* path,
+			   GtkTreeIter* iter, gpointer pdata)
 {
 	TrimmableItem *data;
+	GList ** list = pdata;
+	
+	g_return_val_if_fail (model,TRUE);
+	g_return_val_if_fail (iter,TRUE);
 
-	g_return_if_fail (ctree);
-	g_return_if_fail (node);
+	gtk_tree_model_get(model, iter, DTREE_ENTRY_COLUMN, &data, -1);	
 
-	data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) node);
+	if (data && data->expanded)
+	{
+		g_print("Appending %s to the expanded list\n",data->name);
+		*list = g_list_prepend (*list, gtk_tree_iter_copy(iter));
+	}
+	return FALSE;
+}
+
+static gboolean
+delete_node(GtkTreeModel *model, GtkTreePath* path,
+			GtkTreeIter* iter, gpointer pdata)
+{
+	TrimmableItem *data;
+	
+	g_return_val_if_fail (model,TRUE);
+	g_return_val_if_fail (iter,TRUE);
+
+	gtk_tree_model_get(model, iter, DTREE_ENTRY_COLUMN, &data, -1);	
+
 	if (data)
 	{
+		g_print("Removing node",data->name);
 		g_free (data->name);
 		g_free (data->value);
 		g_free (data);
 	}
-	gtk_ctree_remove_node (ctree, node);
+	else
+		g_warning("Cannot get data entry\n");
+
+	return FALSE;
 }
 
-static void
-destroy_non_analyzed (GtkCTree * ctree, GtkCTreeNode * node)
-{
-	TrimmableItem *data;
-	GtkCTreeNode *inode;
-	gchar *text = NULL;
-
-	g_return_if_fail (ctree);
-	g_return_if_fail (node);
-
-	node = GTK_CTREE_ROW (node)->children;
-
-	while (node)
-	{
-		data = gtk_ctree_node_get_row_data (ctree, (GtkCTreeNode *) node);
-		if (!data)
-		{
-			gtk_ctree_node_get_text (ctree, node, 1, &text);
-			g_warning ("Failed getting row data for %s\n", text);
-		}
-		inode = node;
-		node = GTK_CTREE_ROW (node)->sibling;
-		if (data && !data->analyzed)
-			gtk_ctree_post_recursive (ctree, inode, destroy_recursive, NULL);
-	}
-}
 
 static void
-find_expanded (GtkCTree * ctree, GtkCTreeNode * node, GList ** list)
+debug_tree_pointer_recursive (GtkTreeView* tree)
 {
-	TrimmableItem *data;
+	GList *list = NULL;
+	TrimmableItem* data;
+	GtkTreeModel* model;
 
-	g_return_if_fail (ctree);
-	g_return_if_fail (node);
-
-	data = gtk_ctree_node_get_row_data (ctree, node);
-	if (data)
-	{
-		if (gtk_ctree_is_viewable (ctree, node) &&
-			GTK_CTREE_ROW (node)->expanded && data->expanded)
-			*list = g_list_prepend (*list, node);
-	}
-}
-
-static void
-debug_tree_pointer_recursive (GtkCTree * ctree, GtkCTreeNode * node)
-{
-	GList *expanded_node = NULL;
-
-	g_return_if_fail (ctree);
-	g_return_if_fail (node);
+	g_return_if_fail (tree);
+	
+	model = gtk_tree_view_get_model(tree);
 
 	/* Search expanded viewable pointers */
-	gtk_ctree_pre_recursive (ctree, node, (GtkCTreeFunc) find_expanded,
-							 &expanded_node);
+	gtk_tree_model_foreach(model,find_expanded,&list);	
 
 	/* send cmd to gdb - Then wait the end of the processing to send the next */
-	if (expanded_node)
+	if (list)
 	{
-		TrimmableItem *data = gtk_ctree_node_get_row_data (ctree,
-														   GTK_CTREE_NODE
-														   (expanded_node->
-															data));
-
-		debug_ctree_cmd_gdb (ctree, expanded_node->data, expanded_node,
-							 data->display_type, TRUE);
+		GtkTreeIter* iter = (GtkTreeIter*)list->data;
+		gtk_tree_model_get(model, iter, DTREE_ENTRY_COLUMN, &data, -1);
+		debug_ctree_cmd_gdb (tree, iter, list, data->display_type, TRUE);
+		gtk_tree_iter_free(iter);
 	}
 }
 
+
+#if 0
 static void
 on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 {
@@ -1296,7 +1450,8 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 		g_free (hexa);
 	}
 }
-#endif /* complete the port of debug tree */
+#endif
+
 
 /* parse debugger output into the debug tree */
 /* param: d_tree - debug tree object */
@@ -1304,36 +1459,34 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 void
 debug_tree_parse_variables (DebugTree * d_tree, GList * list)
 {
-#warning "G2: Debug tree parse variable here"
-#if 0
+	GtkTreeIter iter;
+	GtkTreeModel* model;
+	GtkTreePath* path;
+	
 	g_return_if_fail (d_tree);
-	debug_init (d_tree);
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(d_tree->tree));
+	
 	/* Mark variables as not analyzed */
-	set_not_analyzed (GTK_CTREE (d_tree->tree), d_tree->root);
-
+	gtk_tree_model_foreach(model,set_not_analyzed,NULL);	
+	gtk_tree_model_get_iter_first(model,&iter);	
 	while (list)
 	{
-		parse_data (GTK_CTREE (d_tree->tree), d_tree->root,
-					(gchar *) list->data);
+		parse_data (GTK_TREE_VIEW(d_tree->tree), &iter, (gchar *) list->data);
 		list = g_list_next (list);
 	}
 
 	/* Destroy non used variables (non analyzed) */
-	destroy_non_analyzed (GTK_CTREE (d_tree->tree), d_tree->root);
+	destroy_non_analyzed(model, &iter);
 
 	/* Recursive analyze of Pointers */
-	debug_tree_pointer_recursive (GTK_CTREE (d_tree->tree), d_tree->root);
-
-	gtk_ctree_expand (GTK_CTREE (d_tree->tree), d_tree->root);
-#endif
+	debug_tree_pointer_recursive (GTK_TREE_VIEW(d_tree->tree));
+	
+	path = gtk_tree_model_get_path(model, &iter);
+	gtk_tree_view_expand_row(GTK_TREE_VIEW(d_tree->tree),path,FALSE);
+	gtk_tree_path_free(path);
 }
 
-/* initializes an existing debug tree object. */
-static void
-debug_tree_init (DebugTree * d_tree)
-{
-	//d_tree->root = NULL;
-}
 
 /* return a pointer to a newly allocated DebugTree object */
 /* @param: container - container for new object */
@@ -1349,9 +1502,12 @@ debug_tree_create (GtkWidget * container)
 	gchar *tree_title[] = { _("Variable"), _("Value") };
 	DebugTree *d_tree = g_malloc (sizeof (DebugTree));
 
-	model =
-		GTK_TREE_MODEL (gtk_tree_store_new
-						(N_COLUMNS, GTK_TYPE_STRING, GTK_TYPE_STRING));
+	model = GTK_TREE_MODEL (gtk_tree_store_new
+						   (N_COLUMNS, 
+	                        GTK_TYPE_STRING, 
+	                        GTK_TYPE_STRING,
+						    G_TYPE_POINTER));
+	
 	d_tree->tree = gtk_tree_view_new_with_model (model);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (d_tree->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
@@ -1382,42 +1538,54 @@ debug_tree_create (GtkWidget * container)
 
 	debug_tree_init (d_tree);
 
-#warning "G2: Take care of row expansion and selection changed"
-#if 0
-	g_signal_connect (G_OBJECT (d_tree->tree), "row_expanded",
-					  G_CALLBACK (on_debug_tree_row_expanded), d_tree);
-	g_signal_connect (G_OBJECT (selection), "changed",
-					  G_CALLBACK (on_debug_tree_selection_changed), d_tree);
-#endif
+	g_signal_connect (d_tree->tree, "event", 
+					  G_CALLBACK (debug_tree_on_select_row), NULL);
 
-#warning "G2: Build and Connect event for middle click menu"
-#if 0
-	gtk_signal_connect(GTK_OBJECT(d_tree->tree), "event",
-	GTK_SIGNAL_FUNC(debug_tree_on_middle_click),
-					d_tree);
+	//g_signal_connect (d_tree->tree, "row-deleted",
+	//					G_CALLBACK (debug_tree_on_row_deleted), NULL);
+	//g_signal_handlers_unblock_by_func (d_tree->tree, 
+	//									 G_CALLBACK (debug_tree_on_select_row),
+	//									 NULL);
+	
+	//g_signal_connect_after (G_OBJECT (d_tree->tree), "row_expanded",
+	//						  G_CALLBACK (on_debug_tree_row_expanded), d_tree);
+	//g_signal_connect (G_OBJECT (selection), "changed",
+	//					G_CALLBACK (on_debug_tree_selection_changed), d_tree);
+
+	//g_signal_connect(G_OBJECT(d_tree->tree), "event",
+	//				 G_CALLBACK(debug_tree_on_middle_click), d_tree);
 
 	/* build middle click popup menu */
+	/*
 	d_tree->middle_click_menu = gtk_menu_new ();
-	build_menu_item (_("Default format"), on_format_default_clicked,
+	build_menu_item (_("Default format"),
+					 GTK_SIGNAL_FUNC(on_format_default_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	add_menu_separator (d_tree->middle_click_menu);
-	build_menu_item (_("Binary"), on_format_binary_clicked,
+	build_menu_item (_("Binary"),
+					 GTK_SIGNAL_FUNC(on_format_binary_clicked),
 					 d_tree->middle_click_menu, d_tree);
-	build_menu_item (_("Octal"), on_format_octal_clicked,
+	build_menu_item (_("Octal"),
+					 GTK_SIGNAL_FUNC(on_format_octal_clicked),
 					 d_tree->middle_click_menu, d_tree);
-	build_menu_item (_("Signed decimal"), on_format_signed_decimal_clicked,
+	build_menu_item (_("Signed decimal"),
+					 GTK_SIGNAL_FUNC(on_format_signed_decimal_clicked),
 					 d_tree->middle_click_menu, d_tree);
-	build_menu_item (_("Unsigned decimal"), on_format_unsigned_decimal_clicked,
+	build_menu_item (_("Unsigned decimal"),
+					 GTK_SIGNAL_FUNC(on_format_unsigned_decimal_clicked),
 					 d_tree->middle_click_menu, d_tree);
-	build_menu_item (_("Hex"), on_format_hex_clicked, d_tree->middle_click_menu,
-					 d_tree);
-	build_menu_item (_("Char"), on_format_char_clicked,
+	build_menu_item (_("Hex"),
+					 GTK_SIGNAL_FUNC(on_format_hex_clicked), 
+					 d_tree->middle_click_menu, d_tree);
+	build_menu_item (_("Char"),
+					 GTK_SIGNAL_FUNC(on_format_char_clicked),
 					 d_tree->middle_click_menu, d_tree);
 
 	add_menu_separator (d_tree->middle_click_menu);
-	build_menu_item (_("Inspect memory"), on_inspect_memory_clicked,
+	build_menu_item (_("Inspect memory"),
+					 GTK_SIGNAL_FUNC(on_inspect_memory_clicked),
 					 d_tree->middle_click_menu, d_tree);
-#endif
+	*/
 	return d_tree;
 }
 
@@ -1425,8 +1593,12 @@ debug_tree_create (GtkWidget * container)
 void
 debug_tree_destroy (DebugTree * d_tree)
 {
+	GtkTreeModel* model;
+	
 	g_return_if_fail (d_tree);
-	// gtk_widget_destroy (d_tree->tree);
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));	
+	gtk_tree_store_clear (GTK_TREE_STORE (model));
 	g_free (d_tree);
 }
 
@@ -1436,8 +1608,11 @@ debug_tree_clear (DebugTree * d_tree)
 {
 	GtkTreeModel *model;
 
-	g_return_if_fail (d_tree && d_tree->tree);
+	g_return_if_fail (d_tree);
+	g_return_if_fail(d_tree->tree);
+	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));
+	gtk_tree_model_foreach(model,delete_node,NULL);	
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 	debug_tree_init (d_tree);
 }

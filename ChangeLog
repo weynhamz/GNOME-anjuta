@@ -1,9 +1,30 @@
+2003-02-22  Naba Kumar  <naba@gnome.org>
+
+	* src/debug_tree.[c,h]: GNOME2 port from 
+	Etay Meiri <etay-m@bezeqint.net>
+	
+	* src/an_file_view.c, src/resources.[h,c],
+	data/properties/bash.properties,
+	data/properties/cpp.properties,
+	data/properties/html.properties,
+	data/properties/make.properties,
+	data/properties/others.properties,
+	data/properties/perl.properties,
+	data/properties/props.properties,
+	data/properties/xml.properties: Standarized file icons. Icons are
+	defined in respective .properties file and are retrieved as resource
+	data.
+
+	* anjuta.glade, anjuta_dialogs_strings.c: Removed <span> tags
+	in labels from the commands editor as that would create
+	problems for translators.
+
 2003-02-21  Naba Kumar  <naba@gnome.org>
 
 	* .cvsignore, (new)config.guess, (new)config.sub: Added these files
 	as they should be part of CVS(?).
 
-        * Makefile.am: Corrected a typo for glade generated strings file.
+	* Makefile.am: Corrected a typo for glade generated strings file.
 
 	* configure.in, po/hi.po: Added new Hindi (hi) translation
 	in ALL_LINGUS and added initial Hindi translation.

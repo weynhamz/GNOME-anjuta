@@ -24,9 +24,13 @@ extern "C"
 {
 #endif
 
+#include "properties.h"
+
 GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget,
 									 const gchar *widget_name);
 GtkWidget* anjuta_res_get_image (const gchar* filename);
+	
+/* Do not unref the returned value  */
 GdkPixbuf* anjuta_res_get_pixbuf  (const gchar *filename);
 
 /* All the return strings MUST be freed */
@@ -43,6 +47,9 @@ gchar* anjuta_res_get_help_file (const gchar* helpfile);
 gchar* anjuta_res_get_help_file_locale (const gchar* helpfile,
 										const gchar* locale);
 gchar* anjuta_res_get_doc_file (const gchar* docfile);
+
+/* File type icons 16x16; Do not unref the returned value */
+GdkPixbuf * anjuta_res_get_icon_for_file (PropsID props, const gchar *filename);
 
 /* System Help */
 void anjuta_res_help_search (const gchar * word);
