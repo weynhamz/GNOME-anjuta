@@ -11,8 +11,9 @@
 	* src/compiler_options.c: Fixed a bug where compiler options were always
 	claimed 'modified'.
 
-	* src/build_project.c, data/properties/anjuta.properties: Fixed a bad bug
-	where clean-before-build doesn't work.
+	* src/build_project.c, data/properties/anjuta.properties,
+	src/commands.[h]: Fixed a bad bug where clean-before-build
+	doesn't work.
 	
 	* scintilla/patches/research-cvs-nolog.diff,
 	scintilla/patches/scintilla-ac-gtk2-port.diff,
@@ -25,6 +26,8 @@
 
 	* scintilla/LexMPT.cxx, scintilla/LexMetapost.cxx, scintilla/LexTeX.cxx,
 	scintilla/LexYAML.cxx: Added new scintilla lexers.
+	
+	* TODO, NEWS: Updated.
 
 2003-09-26  Naba Kumar  <naba@gnome.org>
 
