@@ -1,3 +1,9 @@
+2003-03-24  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade, src/anjuta_dialog_strings: Made all un-necessary
+	GtkFrames invisible and adjust border and separation sizes to a
+	resonable 5 points.
+	
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* This is the first release candidate for 1.0.2
 

@@ -1623,7 +1623,7 @@ CVS intl po
 	<class>GtkFrame</class>
 	<name>frame10</name>
 	<label_xalign>0</label_xalign>
-	<shadow_type>GTK_SHADOW_ETCHED_IN</shadow_type>
+	<shadow_type>GTK_SHADOW_NONE</shadow_type>
 	<child>
 	  <padding>0</padding>
 	  <expand>True</expand>
@@ -1645,15 +1645,13 @@ CVS intl po
 	  <widget>
 	    <class>GtkFrame</class>
 	    <name>frame.search.expression</name>
-	    <border_width>10</border_width>
 	    <label></label>
 	    <label_xalign>0</label_xalign>
-	    <shadow_type>GTK_SHADOW_OUT</shadow_type>
+	    <shadow_type>GTK_SHADOW_NONE</shadow_type>
 
 	    <widget>
 	      <class>GtkTable</class>
 	      <name>table3</name>
-	      <border_width>10</border_width>
 	      <rows>4</rows>
 	      <columns>3</columns>
 	      <homogeneous>False</homogeneous>
@@ -1663,7 +1661,7 @@ CVS intl po
 	      <widget>
 		<class>GtkLabel</class>
 		<name>label29</name>
-		<label>Search Expression</label>
+		<label>Search Expression:</label>
 		<justify>GTK_JUSTIFY_CENTER</justify>
 		<wrap>False</wrap>
 		<xalign>0</xalign>
@@ -1903,25 +1901,23 @@ CVS intl po
 	  <widget>
 	    <class>GtkFrame</class>
 	    <name>frame.search.target</name>
-	    <border_width>10</border_width>
 	    <label></label>
 	    <label_xalign>0</label_xalign>
-	    <shadow_type>GTK_SHADOW_OUT</shadow_type>
+	    <shadow_type>GTK_SHADOW_NONE</shadow_type>
 
 	    <widget>
 	      <class>GtkTable</class>
 	      <name>table4</name>
-	      <border_width>10</border_width>
 	      <rows>6</rows>
 	      <columns>3</columns>
 	      <homogeneous>False</homogeneous>
-	      <row_spacing>10</row_spacing>
-	      <column_spacing>10</column_spacing>
+	      <row_spacing>5</row_spacing>
+	      <column_spacing>5</column_spacing>
 
 	      <widget>
 		<class>GtkLabel</class>
 		<name>label30</name>
-		<label>Search In</label>
+		<label>Search In:</label>
 		<justify>GTK_JUSTIFY_CENTER</justify>
 		<wrap>False</wrap>
 		<xalign>0</xalign>
@@ -1933,32 +1929,6 @@ CVS intl po
 		  <right_attach>1</right_attach>
 		  <top_attach>0</top_attach>
 		  <bottom_attach>1</bottom_attach>
-		  <xpad>0</xpad>
-		  <ypad>0</ypad>
-		  <xexpand>False</xexpand>
-		  <yexpand>False</yexpand>
-		  <xshrink>False</xshrink>
-		  <yshrink>False</yshrink>
-		  <xfill>True</xfill>
-		  <yfill>False</yfill>
-		</child>
-	      </widget>
-
-	      <widget>
-		<class>GtkLabel</class>
-		<name>label31</name>
-		<label>Search Action</label>
-		<justify>GTK_JUSTIFY_CENTER</justify>
-		<wrap>False</wrap>
-		<xalign>0</xalign>
-		<yalign>0.5</yalign>
-		<xpad>0</xpad>
-		<ypad>0</ypad>
-		<child>
-		  <left_attach>0</left_attach>
-		  <right_attach>1</right_attach>
-		  <top_attach>4</top_attach>
-		  <bottom_attach>5</bottom_attach>
 		  <xpad>0</xpad>
 		  <ypad>0</ypad>
 		  <xexpand>False</xexpand>
@@ -2014,7 +1984,7 @@ CVS intl po
 	      <widget>
 		<class>GtkLabel</class>
 		<name>label38</name>
-		<label>Search Direction</label>
+		<label>Search Direction:</label>
 		<justify>GTK_JUSTIFY_CENTER</justify>
 		<wrap>False</wrap>
 		<xalign>0</xalign>
@@ -2139,7 +2109,7 @@ CVS intl po
 		<widget>
 		  <class>GtkCombo</class>
 		  <name>search.var.combo</name>
-		  <border_width>10</border_width>
+		  <border_width>5</border_width>
 		  <value_in_list>False</value_in_list>
 		  <ok_if_empty>True</ok_if_empty>
 		  <case_sensitive>False</case_sensitive>
@@ -2186,17 +2156,17 @@ CVS intl po
 		<widget>
 		  <class>GtkTable</class>
 		  <name>table5</name>
-		  <border_width>10</border_width>
+		  <border_width>5</border_width>
 		  <rows>6</rows>
 		  <columns>2</columns>
 		  <homogeneous>False</homogeneous>
-		  <row_spacing>10</row_spacing>
-		  <column_spacing>10</column_spacing>
+		  <row_spacing>5</row_spacing>
+		  <column_spacing>5</column_spacing>
 
 		  <widget>
 		    <class>GtkLabel</class>
 		    <name>label32</name>
-		    <label>Choose Files</label>
+		    <label>Choose Files:</label>
 		    <justify>GTK_JUSTIFY_CENTER</justify>
 		    <wrap>False</wrap>
 		    <xalign>0</xalign>
@@ -2263,7 +2233,7 @@ CVS intl po
 		  <widget>
 		    <class>GtkLabel</class>
 		    <name>label33</name>
-		    <label>Ignore Files</label>
+		    <label>Ignore Files:</label>
 		    <justify>GTK_JUSTIFY_CENTER</justify>
 		    <wrap>False</wrap>
 		    <xalign>0</xalign>
@@ -2348,32 +2318,9 @@ CVS intl po
 		  </widget>
 
 		  <widget>
-		    <class>GtkCheckButton</class>
-		    <name>ignore.binary.files</name>
-		    <can_focus>True</can_focus>
-		    <label>Ignore Binary Files</label>
-		    <active>False</active>
-		    <draw_indicator>True</draw_indicator>
-		    <child>
-		      <left_attach>1</left_attach>
-		      <right_attach>2</right_attach>
-		      <top_attach>2</top_attach>
-		      <bottom_attach>3</bottom_attach>
-		      <xpad>0</xpad>
-		      <ypad>0</ypad>
-		      <xexpand>False</xexpand>
-		      <yexpand>False</yexpand>
-		      <xshrink>False</xshrink>
-		      <yshrink>False</yshrink>
-		      <xfill>True</xfill>
-		      <yfill>False</yfill>
-		    </child>
-		  </widget>
-
-		  <widget>
 		    <class>GtkLabel</class>
 		    <name>label34</name>
-		    <label>Choose Directories</label>
+		    <label>Choose Directories:</label>
 		    <justify>GTK_JUSTIFY_CENTER</justify>
 		    <wrap>False</wrap>
 		    <xalign>0</xalign>
@@ -2436,7 +2383,7 @@ CVS intl po
 		  <widget>
 		    <class>GtkLabel</class>
 		    <name>label35</name>
-		    <label>Ignore Directories</label>
+		    <label>Ignore Directories:</label>
 		    <justify>GTK_JUSTIFY_CENTER</justify>
 		    <wrap>False</wrap>
 		    <xalign>0</xalign>
@@ -2524,6 +2471,29 @@ CVS intl po
 
 		  <widget>
 		    <class>GtkCheckButton</class>
+		    <name>ignore.binary.files</name>
+		    <can_focus>True</can_focus>
+		    <label>Ignore Binary Files</label>
+		    <active>False</active>
+		    <draw_indicator>True</draw_indicator>
+		    <child>
+		      <left_attach>1</left_attach>
+		      <right_attach>2</right_attach>
+		      <top_attach>2</top_attach>
+		      <bottom_attach>3</bottom_attach>
+		      <xpad>0</xpad>
+		      <ypad>0</ypad>
+		      <xexpand>True</xexpand>
+		      <yexpand>False</yexpand>
+		      <xshrink>False</xshrink>
+		      <yshrink>False</yshrink>
+		      <xfill>True</xfill>
+		      <yfill>False</yfill>
+		    </child>
+		  </widget>
+
+		  <widget>
+		    <class>GtkCheckButton</class>
 		    <name>search.dir.recursive</name>
 		    <can_focus>True</can_focus>
 		    <label>Search Recursively</label>
@@ -2536,7 +2506,7 @@ CVS intl po
 		      <bottom_attach>6</bottom_attach>
 		      <xpad>0</xpad>
 		      <ypad>0</ypad>
-		      <xexpand>False</xexpand>
+		      <xexpand>True</xexpand>
 		      <yexpand>False</yexpand>
 		      <xshrink>False</xshrink>
 		      <yshrink>False</yshrink>
@@ -2632,6 +2602,32 @@ CVS intl po
 		  <yfill>False</yfill>
 		</child>
 	      </widget>
+
+	      <widget>
+		<class>GtkLabel</class>
+		<name>label31</name>
+		<label>Search Action:</label>
+		<justify>GTK_JUSTIFY_CENTER</justify>
+		<wrap>False</wrap>
+		<xalign>0</xalign>
+		<yalign>0.5</yalign>
+		<xpad>0</xpad>
+		<ypad>0</ypad>
+		<child>
+		  <left_attach>0</left_attach>
+		  <right_attach>1</right_attach>
+		  <top_attach>4</top_attach>
+		  <bottom_attach>5</bottom_attach>
+		  <xpad>0</xpad>
+		  <ypad>0</ypad>
+		  <xexpand>False</xexpand>
+		  <yexpand>False</yexpand>
+		  <xshrink>False</xshrink>
+		  <yshrink>False</yshrink>
+		  <xfill>True</xfill>
+		  <yfill>False</yfill>
+		</child>
+	      </widget>
 	    </widget>
 	  </widget>
 
@@ -2651,26 +2647,25 @@ CVS intl po
 	  <widget>
 	    <class>GtkFrame</class>
 	    <name>frame.replace</name>
-	    <border_width>10</border_width>
 	    <visible>False</visible>
-	    <label>Replace</label>
+	    <label></label>
 	    <label_xalign>0</label_xalign>
-	    <shadow_type>GTK_SHADOW_OUT</shadow_type>
+	    <shadow_type>GTK_SHADOW_NONE</shadow_type>
 
 	    <widget>
 	      <class>GtkTable</class>
 	      <name>table7</name>
-	      <border_width>10</border_width>
+	      <border_width>5</border_width>
 	      <rows>2</rows>
 	      <columns>2</columns>
 	      <homogeneous>False</homogeneous>
-	      <row_spacing>10</row_spacing>
-	      <column_spacing>10</column_spacing>
+	      <row_spacing>5</row_spacing>
+	      <column_spacing>5</column_spacing>
 
 	      <widget>
 		<class>GtkLabel</class>
 		<name>label37</name>
-		<label>Replace With</label>
+		<label>Replace With:</label>
 		<justify>GTK_JUSTIFY_CENTER</justify>
 		<wrap>False</wrap>
 		<xalign>0</xalign>
@@ -2782,8 +2777,8 @@ CVS intl po
       <widget>
 	<class>GtkHButtonBox</class>
 	<name>hbuttonbox7</name>
-	<layout_style>GTK_BUTTONBOX_SPREAD</layout_style>
-	<spacing>30</spacing>
+	<layout_style>GTK_BUTTONBOX_END</layout_style>
+	<spacing>0</spacing>
 	<child_min_width>85</child_min_width>
 	<child_min_height>27</child_min_height>
 	<child_ipad_x>7</child_ipad_x>
