@@ -505,7 +505,7 @@ text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
 		end = scintilla_send_message (SCINTILLA (te->widgets.editor),
 									  SCI_POSITIONFROMLINE, line+1, 0) - 1;
 	
-		if (end >= start)
+		if (end <= start)
 			return -1;
 
 		do

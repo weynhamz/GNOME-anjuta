@@ -1,3 +1,6 @@
+2003-03-27  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* src/text_editor.c: Fixed error/warning indicators.
+
 2003-03-24  Naba Kumar  <naba@gnome.org>
 
 	* README: Correct version.
