@@ -104,7 +104,10 @@ on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		return;
 	if (te->full_filename == NULL)
 	{
+		gchar *filename;
 		anjuta_set_current_text_editor (te);
+		filename = te->full_filename != NULL ? te->full_filename : te->filename;
+		fileselection_set_filename (app->save_as_fileselection, filename);
 		gtk_widget_show (app->save_as_fileselection);
 		return;
 	}
