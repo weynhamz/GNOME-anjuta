@@ -1301,6 +1301,10 @@ debugger_start_program (void)
 	if (args == NULL)
 		args = g_strdup (" ");
 
+	anjuta_status (_("Starting program in debugger ..."));
+	while (gtk_events_pending())
+		gtk_main_iteration();
+
 	term = debugger_start_terminal ();
 	if (!term)
 	{

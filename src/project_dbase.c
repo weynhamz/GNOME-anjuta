@@ -580,6 +580,10 @@ project_dbase_load_project (ProjectDBase * p, const gchar *project_file,
 		filename = fileselection_get_filename (p->fileselection_open);
 	
 	anjuta_set_busy ();
+	anjuta_status (_("Loading project: %s"), project_file);
+	while (gtk_events_pending())
+		gtk_main_iteration();
+	
 	ret = project_dbase_load_project_file(p, filename);
 	if (ret)
 		project_dbase_load_project_finish(p, show_project);		
@@ -1345,6 +1349,9 @@ project_dbase_close_project (ProjectDBase * p)
 		}
 		gtk_widget_destroy (dialog);
 	}
+	anjuta_status (_("Closing project: %s"), p->proj_filename);
+	while (gtk_events_pending())
+		gtk_main_iteration();
 
 	/* Save session.... */
 	project_dbase_save_session(p);

@@ -730,9 +730,6 @@ fv_add_tree_entry (TMFileEntry *entry,
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree)));
 
-	// while (gtk_events_pending())
-	//	gtk_main_iteration();
-	
 	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
 	gtk_tree_store_append (store, &iter, parent);
 	gtk_tree_store_set (store, &iter,
