@@ -1,0 +1,17 @@
+* Reporter: Stéphane Démurget <demurgets@free.fr>
+
+  Issue : The command line filenames (regular files) aren't opened because
+	  of the gnome_filelist widget, which use chdir () without backuping
+	  its value. 
+ 
+  Severity : Low 
+
+  Why : The g_get_current_dir returns the false directory before opening the
+        file (~fn if opening fn in /usr/share/doc for example). 
+  
+  Field of application : This just apply to relative pathname. 
+  
+  Solution : This widget should list the directory rather than chdir and
+             list it.
+
+  Assigned to : Stéphane Démurget <demurgets@free.fr>
