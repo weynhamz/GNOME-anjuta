@@ -1,3 +1,8 @@
+2002-12-04  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* src/an_symbol_view.c: Remember current selected entry and select
+	it automatically after refresh.
+
 2002-11-26  Murray Cumming  <murrayc@usa.net>
 
 	* src/project_type.c, src/project_dbase.c, src/stock_libs.anj,

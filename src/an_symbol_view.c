@@ -28,6 +28,29 @@ static SymbolFileInfo *symbol_file_info_new(TMSymbol *sym)
 	return sfile;
 }
 
+static SymbolFileInfo *symbol_file_info_dup(SymbolFileInfo *from)
+{
+	if (NULL != from)
+	{
+		SymbolFileInfo *to = g_new0(SymbolFileInfo, 1);
+		if (from->sym_name)
+			to->sym_name = g_strdup(from->sym_name);
+		if (from->def.name)
+		{
+			to->def.name = g_strdup(from->def.name);
+			to->def.line = from->def.line;
+		}
+		if (from->decl.name)
+		{
+			to->decl.name = g_strdup(from->decl.name);
+			to->decl.line = from->decl.line;
+		}
+		return to;
+	}
+	else
+		return NULL;
+}
+
 static void symbol_file_info_free(SymbolFileInfo *sfile)
 {
 	if (sfile)
@@ -306,9 +329,12 @@ sv_on_event(GtkWidget *widget, GdkEvent *event, gpointer user_data)
 	node = gtk_ctree_node_nth(tree,row);
 		
 	if (!node || !event)
-			return FALSE;
-	sv->sinfo = (SymbolFileInfo *) gtk_ctree_node_get_row_data(
-	  GTK_CTREE(sv->tree), GTK_CTREE_NODE(node));
+		return FALSE;
+	if (sv->sinfo)
+		symbol_file_info_free(sv->sinfo);
+	sv->sinfo = symbol_file_info_dup(
+	  (SymbolFileInfo *) gtk_ctree_node_get_row_data(GTK_CTREE(sv->tree)
+	  , GTK_CTREE_NODE(node)));
 
 	if (event->type == GDK_BUTTON_PRESS)
 	{
@@ -358,8 +384,11 @@ static void sv_on_select_row(GtkCList *clist, gint row, gint column
 	GtkCTreeNode *node = gtk_ctree_node_nth(GTK_CTREE(sv->tree), row);
 	if (!node || !event || row < 0 || column < 0)
 		return;
-	sv->sinfo = (SymbolFileInfo *) gtk_ctree_node_get_row_data(
-	  GTK_CTREE(sv->tree), GTK_CTREE_NODE(node));
+	if (sv->sinfo)
+		symbol_file_info_free(sv->sinfo);
+	sv->sinfo = symbol_file_info_dup(
+	  (SymbolFileInfo *) gtk_ctree_node_get_row_data(GTK_CTREE(sv->tree)
+	  , GTK_CTREE_NODE(node)));
 	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
 	{
 		if (sv->sinfo && sv->sinfo->def.name)
@@ -463,6 +492,7 @@ AnSymbolView *sv_populate(gboolean full)
 	SymbolFileInfo *sfile;
 	GtkCTreeNode *root[sv_root_max_t+1];
 	GtkCTreeNode *item, *parent_item, *subitem;
+	GtkCTreeNode *selected_item[] = {NULL, NULL, NULL};
 	SVRootType root_type;
 	gboolean has_children;
 	int i, j;
@@ -528,6 +558,18 @@ AnSymbolView *sv_populate(gboolean full)
 		sfile = symbol_file_info_new(sym);
 		gtk_ctree_node_set_row_data_full(GTK_CTREE(sv->tree), item
 		  , sfile, (GtkDestroyNotify) symbol_file_info_free);
+		if (sv->sinfo && NULL == selected_item[0])
+		{
+			if (0 == strcmp(sv->sinfo->sym_name, sfile->sym_name))
+			{
+				if (0 == strcmp(NVL(sv->sinfo->def.name, "")
+				  , NVL(sfile->def.name, "")))
+				{
+					selected_item[0] = item;
+					selected_item[1] = parent_item;
+				}
+			}
+		}
 		if (has_children)
 		{
 			for (j=0; j < sym->info.children->len; ++j)
@@ -544,6 +586,19 @@ AnSymbolView *sv_populate(gboolean full)
 				  , item, NULL, arr, 5, sv_icons[type], sv_bitmaps[type]
 				  , sv_icons[type], sv_bitmaps[type], TRUE, FALSE);
 				sfile = symbol_file_info_new(sym1);
+				if (sv->sinfo && NULL == selected_item[0])
+				{
+					if (0 == strcmp(sv->sinfo->sym_name, sfile->sym_name))
+					{
+						if (0 == strcmp(NVL(sv->sinfo->def.name, "")
+				  		, NVL(sfile->def.name, "")))
+						{
+							selected_item[0] = subitem;
+							selected_item[1] = item;
+							selected_item[2] = parent_item;
+						}
+					}
+				}
 				gtk_ctree_node_set_row_data_full(GTK_CTREE(sv->tree)
 				  , subitem, sfile, (GtkDestroyNotify) symbol_file_info_free);
 			}
@@ -551,6 +606,19 @@ AnSymbolView *sv_populate(gboolean full)
 	}
 	g_string_free(s, TRUE);
 	tm_symbol_tree_free(symbol_tree);
+	if (selected_item[0])
+	{
+		int i;
+
+		g_message("We have a selected item!");
+		for (i=0; i <3; ++ i)
+		{
+			if (selected_item[i])
+				gtk_ctree_expand((GtkCTree *) sv->tree, selected_item[i]);
+		}
+		gtk_ctree_select((GtkCTree *) sv->tree, selected_item[0]);
+		gtk_ctree_node_moveto((GtkCTree *) sv->tree, selected_item[0], 0, .5, 0);
+	}
 
 clean_leave:
 	sv_connect();
