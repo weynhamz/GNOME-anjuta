@@ -31,6 +31,7 @@
 #include "mainmenu_callbacks.h"
 #include "pixmaps.h"
 #include "resources.h"
+#include "print.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -326,7 +327,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect (GTK_OBJECT (button12), "clicked",
 			    GTK_SIGNAL_FUNC (on_build_project1_activate), te);
 	gtk_signal_connect (GTK_OBJECT (button14), "clicked",
-			    GTK_SIGNAL_FUNC (on_print1_activate), te);
+			    GTK_SIGNAL_FUNC (anjuta_print_cb), NULL);
 	gtk_signal_connect (GTK_OBJECT (button13), "clicked",
 			    GTK_SIGNAL_FUNC (on_text_editor_dock_activate),
 			    te);

@@ -1547,9 +1547,11 @@ anjuta_get_full_filename (gchar * fn)
    fname = extract_filename(fn);
 	
 	/* Next, check if the current text editor buffer matches this name */
-	te = anjuta_get_current_text_editor();
-	if (0 == strcmp(te->filename, fname))
-		return g_strdup(te->full_filename);
+	if (NULL != (te = anjuta_get_current_text_editor()))
+	{
+		if (0 == strcmp(te->filename, fname))
+			return g_strdup(te->full_filename);
+	}
 	/* Next, check if the file is present in the execution directory */
 	if( app->execution_dir)
 	{

@@ -118,9 +118,12 @@ struct _PreferencesWidgets
 	/*
 	 * * Page 4 
 	 */
-	GtkWidget *paperselector;
-	GtkWidget *pr_command_combo;
-	GtkWidget *pr_command_entry;
+	GtkWidget *paper_selector;
+	GtkWidget *print_header;
+	GtkWidget *print_wrap;
+	GtkWidget *print_linenum;
+	GtkWidget *print_linenum_count;
+	GtkWidget *print_landscape;
 
 	/*
 	 * * Page 5 
@@ -315,7 +318,13 @@ void preferences_set_build_options(Preferences* p);
 
 #define AUTOMATIC_TAGS_UPDATE "automatic.tags.update"
 
-#define COMMAND_PRINT "command.print"
+#define PAPER_SIZE "paper.size"
+#define PRINT_HEADER "print.header"
+#define PRINT_WRAP "print.wordwrap"
+#define PRINT_LINENUM "print.linenumber"
+#define PRINT_LINECOUNT "print.linecount"
+#define PRINT_LANDSCAPE "print.landscape"
+
 #define USE_COMPONENTS "components.enable"
 
 #define IDENT_NAME "ident.name"

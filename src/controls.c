@@ -304,6 +304,7 @@ update_main_menubar ()
 
 	gtk_widget_set_sensitive (fm->rename, F);
 	gtk_widget_set_sensitive (fm->print, F);
+	gtk_widget_set_sensitive (fm->print_preview, F);
 
 	gtk_widget_set_sensitive (em->undo, UD);
 	gtk_widget_set_sensitive (em->redo, RD);

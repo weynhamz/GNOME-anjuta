@@ -26,6 +26,10 @@ AC_DEFUN(CHECK_HEADER_DEFINE,
 	$4
 ]) ])
 
+dnl Enable debugging mode
+AC_ARG_ENABLE(debug,
+      [  --enable-debug           Enable debug messages],
+      CFLAGS="$CFLAGS -DDEBUG")
 dnl Initialize xml-i18n-tools
 AM_PROG_XML_I18N_TOOLS
 
@@ -102,10 +106,25 @@ fi
 AM_CONDITIONAL(HAVE_JW, test "x$HAVE_JW" = "xyes")
 AC_SUBST(HAVE_JW)
 
+dnl ******************************
+dnl GnomePrint checking
+dnl ******************************
+AC_MSG_CHECKING(for GnomePrint libraries >= 0.28)
+if gnome-config --libs print > /dev/null 2>&1; then 
+    vers=`gnome-config --modversion print | sed -e "s/gnome-print-//" | \
+        awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
+    if test "$vers" -ge 28; then
+        AC_MSG_RESULT(found)
+    else
+        AC_MSG_ERROR(You need at least GNOME print 0.28 for this version of Anjuta)
+    fi
+else
+    AC_MSG_ERROR(Did not find GnomePrint installed)
+fi
 
 dnl Checks for libraries.
-EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt vfs bonobo`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba zvt vfs bonobo`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt vfs bonobo print`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba zvt vfs bonobo print`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)
@@ -378,6 +397,7 @@ tagmanager/include/Makefile
 global-tags/Makefile
 scintilla/Makefile
 widgets/Makefile
+printing/Makefile
 manuals/Makefile
 omf-install/Makefile
 scintilla/include/Makefile

@@ -186,9 +186,12 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.strip_spaces_check);
 		gtk_widget_unref (pr->widgets.fold_on_open_check);
 
-		gtk_widget_unref (pr->widgets.paperselector);
-		gtk_widget_unref (pr->widgets.pr_command_combo);
-		gtk_widget_unref (pr->widgets.pr_command_entry);
+		gtk_widget_unref (pr->widgets.paper_selector);
+		gtk_widget_unref (pr->widgets.print_header);
+		gtk_widget_unref (pr->widgets.print_wrap);
+		gtk_widget_unref (pr->widgets.print_linenum);
+		gtk_widget_unref (pr->widgets.print_linenum_count);
+		gtk_widget_unref (pr->widgets.print_landscape);
 
 		gtk_widget_unref (pr->widgets.format_style_combo);
 		gtk_widget_unref (pr->widgets.custom_style_entry);
@@ -481,9 +484,26 @@ preferences_sync (Preferences * pr)
 							SAVE_SESSION_TIMER));
 
 /* Page 4 */
-	str = preferences_get (pr, COMMAND_PRINT);
-	gtk_entry_set_text (GTK_ENTRY (pr->widgets.pr_command_entry), str);
+	str = preferences_get(pr, PAPER_SIZE);
+	if (NULL == str)
+		str = g_strdup(gnome_paper_name_default());
+	gnome_paper_selector_set_name(GNOME_PAPER_SELECTOR(pr->widgets.paper_selector), str);
 	g_free (str);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+					(pr->widgets.print_header),
+					preferences_get_int (pr, PRINT_HEADER));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+					(pr->widgets.print_wrap),
+					preferences_get_int (pr, PRINT_WRAP));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+					(pr->widgets.print_linenum),
+					preferences_get_int (pr, PRINT_LINENUM));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.print_linenum_count),
+				   preferences_get_int (pr, PRINT_LINECOUNT));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+					(pr->widgets.print_landscape),
+					preferences_get_int (pr, PRINT_LANDSCAPE));
 
 /* Page 5 */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
@@ -833,8 +853,8 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, SAVE_SESSION_TIMER));
 
 	/* Page 4 */
-	str = preferences_get (pr, COMMAND_PRINT);
-	fprintf (fp, "%s=%s\n", COMMAND_PRINT, str);
+	str = preferences_get(pr, PAPER_SIZE);
+	fprintf(fp, "%s=%s\n", PAPER_SIZE, str);
 	g_free (str);
 
 	/* Page 5 */

@@ -56,9 +56,10 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->file.rename = file1_menu_uiinfo[15].widget;
 	mb->file.page_setup = file1_menu_uiinfo[17].widget;
 	mb->file.print = file1_menu_uiinfo[18].widget;
-	mb->file.recent_files = file1_menu_uiinfo[20].widget;
-	mb->file.recent_projects = file1_menu_uiinfo[21].widget;
-	mb->file.exit = file1_menu_uiinfo[23].widget;
+	mb->file.print_preview = file1_menu_uiinfo[19].widget;
+	mb->file.recent_files = file1_menu_uiinfo[21].widget;
+	mb->file.recent_projects = file1_menu_uiinfo[22].widget;
+	mb->file.exit = file1_menu_uiinfo[24].widget;
 
 	/* Edit submenu */
 	mb->edit.uppercase = transform1_submenu_uiinfo[0].widget;

@@ -87,10 +87,6 @@ on_page_setup1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_print1_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
 on_file2_activate                      (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

@@ -1,4 +1,18 @@
-2002-05-28	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+2002-05-31	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* printing*: CVS added.
+	* printing/*.[ch], printing/Makefile.am, anjuta.spec.in, Makefile.am,
+	  configure.in, src/Makefile.am, src/controls.c, src/main_menubar.[ch],
+	  src/main_menubar_def.h: Gnome Print support
+	* src/anjuta.c: Fixed a crash bug (NULL pointer check).
+	* configure.in: Enable debugging flag option
+	* src/preferences.c, src/preferences.h, src/preferences_gui.c, src/mainmenu_callbacks.c:
+	  Print properties defined.
+	* global-tags/create_global_tags.sh: More GNOME libraries added, cleanups
+	
+2002-05-31	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
 	
@@ -12,6 +26,7 @@
 	* src/help.c: Fix minor memory leak.
 	* src/project_dbase_gui.c: Remove debugging messages.
 	* src/utilities.[ch]: Cleanups and minor fixes.
+	* src/anjuta_gui.c, src/pixmaps.h: Application icon set correctly.
 
 2002-05-30  Naba Kumar <kh_naba@users.sourceforge.net>
 

@@ -4,7 +4,7 @@
 ## 	Please disable it in the Anjuta project configuration
 
 SUBDIRS = intl po macros tagmanager global-tags scintilla \
-	widgets manuals omf-install src pixmaps data \
+	widgets printing manuals omf-install src pixmaps data \
 	doc launcher plugins scripts
 
 anjutadocdir = ${prefix}/doc/anjuta

@@ -1233,67 +1233,97 @@ create_preferences_page3 (Preferences * p)
 static GtkWidget *
 create_preferences_page4 (Preferences * p)
 {
-	GtkWidget *window1;
-	GtkWidget *vbox8;
-	GtkWidget *frame0;
-	GtkWidget *frame1;
-	GtkWidget *paperselector1;
-	GtkWidget *eventbox1;
-	GtkWidget *combo1;
-	GtkWidget *combo_entry1;
-	GList *combo1_items = NULL;
+	GtkWidget *main_frame;
+	GtkWidget *top_vbox;
+	GtkWidget *paper_selector;
+	GtkWidget *opt_frame;
+	GtkWidget *opt_vbox;
+	GtkWidget *opt_top_hbox;
+	GtkWidget *header_chkbtn;
+	GtkWidget *wrap_chkbtn;
+	GtkWidget *opt_bottom_hbox;
+	GtkWidget *linenum_chkbtn;
+	GtkObject *linenum_spinbtn_adj;
+	GtkWidget *linenum_spinbtn;
+	GtkWidget *lines_lab;
+	GtkWidget *bottom_frame;
+	GtkWidget *orient_hbox;
+	GSList *orient_radio_group = NULL;
+	GtkWidget *portrait_rb;
+	GtkWidget *landscape_rb;
 
-	window1 = p->widgets.window;
+	main_frame = gtk_frame_new (_("Print Settings"));
+	gtk_container_set_border_width (GTK_CONTAINER (main_frame), 5);
 
-	frame0 = gtk_frame_new (NULL);
-	gtk_widget_show (frame0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame0), 5);
+	top_vbox = gtk_vbox_new (FALSE, 4);
+	gtk_container_add (GTK_CONTAINER (main_frame), top_vbox);
+	gtk_container_set_border_width (GTK_CONTAINER (top_vbox), 4);
 
-	vbox8 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox8);
-	gtk_container_add (GTK_CONTAINER (frame0), vbox8);
+	paper_selector = gnome_paper_selector_new ();
+	gtk_box_pack_start (GTK_BOX (top_vbox), paper_selector, TRUE, TRUE, 0);
 
-	frame1 = gtk_frame_new (_(" Paper Size"));
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (vbox8), frame1, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+	opt_frame = gtk_frame_new (_("Options"));
+	gtk_box_pack_start (GTK_BOX (top_vbox), opt_frame, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (opt_frame), 5);
 
-	paperselector1 = gnome_paper_selector_new ();
-	gtk_widget_show (paperselector1);
-	gtk_container_add (GTK_CONTAINER (frame1), paperselector1);
-	gtk_container_set_border_width (GTK_CONTAINER (paperselector1), 5);
+	opt_vbox = gtk_vbox_new (TRUE, 0);
+	gtk_container_add (GTK_CONTAINER (opt_frame), opt_vbox);
 
-	frame1 = gtk_frame_new (_(" Print Command "));
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (vbox8), frame1, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+	opt_top_hbox = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (opt_vbox), opt_top_hbox, TRUE, TRUE, 0);
 
-	eventbox1 = gtk_event_box_new ();
-	gtk_widget_show (eventbox1);
-	gtk_container_add (GTK_CONTAINER (frame1), eventbox1);
-	gtk_container_set_border_width (GTK_CONTAINER (eventbox1), 5);
+	header_chkbtn = gtk_check_button_new_with_label (_("Add Header"));
+	gtk_box_pack_start (GTK_BOX (opt_top_hbox), header_chkbtn, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (header_chkbtn), TRUE);
 
-	combo1 = gtk_combo_new ();
-	gtk_widget_show (combo1);
-	gtk_container_add (GTK_CONTAINER (eventbox1), combo1);
-	combo1_items = g_list_append (combo1_items, "lpr");
-	gtk_combo_set_popdown_strings (GTK_COMBO (combo1), combo1_items);
-	g_list_free (combo1_items);
+	wrap_chkbtn = gtk_check_button_new_with_label (_("Enable Word Wrap"));
+	gtk_box_pack_start (GTK_BOX (opt_top_hbox), wrap_chkbtn, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (wrap_chkbtn), TRUE);
 
-	combo_entry1 = GTK_COMBO (combo1)->entry;
-	gtk_widget_show (combo_entry1);
-	gtk_entry_set_text (GTK_ENTRY (combo_entry1), "lpr");
+	opt_bottom_hbox = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (opt_vbox), opt_bottom_hbox, TRUE, TRUE, 0);
 
+	linenum_chkbtn = gtk_check_button_new_with_label (_("Add line numbers every"));
+	gtk_box_pack_start (GTK_BOX (opt_bottom_hbox), linenum_chkbtn, FALSE, FALSE, 0);
 
-	p->widgets.paperselector = paperselector1;
-	p->widgets.pr_command_combo = combo1;
-	p->widgets.pr_command_entry = combo_entry1;
+	linenum_spinbtn_adj = gtk_adjustment_new (1, 0, 100, 1, 10, 10);
+	linenum_spinbtn = gtk_spin_button_new (GTK_ADJUSTMENT (linenum_spinbtn_adj), 1, 0);
+	gtk_box_pack_start (GTK_BOX (opt_bottom_hbox), linenum_spinbtn, FALSE, FALSE, 0);
+	gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (linenum_spinbtn), TRUE);
 
-	gtk_widget_ref (paperselector1);
-	gtk_widget_ref (combo1);
-	gtk_widget_ref (combo_entry1);
+	lines_lab = gtk_label_new (_("lines"));
+	gtk_box_pack_start (GTK_BOX (opt_bottom_hbox), lines_lab, FALSE, FALSE, 5);
+	gtk_misc_set_padding (GTK_MISC (lines_lab), 5, 0);
 
-	return frame0;
+	bottom_frame = gtk_frame_new (_("Orientation"));
+	gtk_box_pack_start (GTK_BOX (top_vbox), bottom_frame, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (bottom_frame), 5);
+
+	orient_hbox = gtk_hbox_new (TRUE, 0);
+	gtk_container_add (GTK_CONTAINER (bottom_frame), orient_hbox);
+
+	portrait_rb = gtk_radio_button_new_with_label (orient_radio_group, _("Portrait"));
+	orient_radio_group = gtk_radio_button_group (GTK_RADIO_BUTTON (portrait_rb));
+	gtk_box_pack_start (GTK_BOX (orient_hbox), portrait_rb, FALSE, FALSE, 0);
+
+	landscape_rb = gtk_radio_button_new_with_label (orient_radio_group, _("Landscape"));
+	orient_radio_group = gtk_radio_button_group (GTK_RADIO_BUTTON (landscape_rb));
+	gtk_box_pack_start (GTK_BOX (orient_hbox), landscape_rb, FALSE, FALSE, 0);
+
+	p->widgets.paper_selector = paper_selector;
+	p->widgets.print_header = header_chkbtn;
+	p->widgets.print_wrap = wrap_chkbtn;
+	p->widgets.print_linenum = linenum_chkbtn;
+	p->widgets.print_linenum_count = linenum_spinbtn;
+	p->widgets.print_landscape = landscape_rb;
+	gtk_widget_ref(p->widgets.paper_selector);
+	gtk_widget_ref(p->widgets.print_header);
+	gtk_widget_ref(p->widgets.print_wrap);
+	gtk_widget_ref(p->widgets.print_linenum);
+	gtk_widget_ref(p->widgets.print_linenum_count);
+	gtk_widget_ref(p->widgets.print_landscape);
+	gtk_widget_show_all(main_frame);
+	return main_frame;
 }
 
 static GtkWidget *
@@ -2175,9 +2205,23 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.fold_on_open_check)));
 /* page 4 */
-	preferences_set (pr, COMMAND_PRINT,
-			 gtk_entry_get_text (GTK_ENTRY
-					     (pr->widgets.pr_command_entry)));
+	preferences_set (pr, PAPER_SIZE, gnome_paper_selector_get_name(
+	  GNOME_PAPER_SELECTOR(pr->widgets.paper_selector)));
+	preferences_set_int (pr, PRINT_HEADER,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.print_header)));
+	preferences_set_int (pr, PRINT_WRAP,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.print_wrap)));
+	preferences_set_int (pr, PRINT_LINENUM,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.print_linenum)));
+	preferences_set_int (pr, PRINT_LINECOUNT,
+			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
+							   (pr->widgets.print_linenum_count)));
+	preferences_set_int (pr, PRINT_LANDSCAPE,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.print_landscape)));
 
 /* Page 5 */
 	preferences_set (pr, AUTOFORMAT_STYLE,

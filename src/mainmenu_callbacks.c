@@ -241,66 +241,6 @@ on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	preferences_show (app->preferences);
 }
 
-static void
-on_print_confirm_yes_clicked (GtkButton * b, gpointer data)
-{
-	gchar *pr_cmd, *cmd;
-	pid_t pid;
-	int status;
-	TextEditor *te;
-
-	te = anjuta_get_current_text_editor ();
-
-	if (!te)
-		return;
-	pr_cmd = preferences_get (app->preferences, COMMAND_PRINT);
-	if (!pr_cmd)
-		pr_cmd = g_strdup ("lpr");
-
-	cmd = g_strconcat (pr_cmd, " ", te->full_filename, NULL);
-	g_free (pr_cmd);
-	pid = gnome_execute_shell (app->dirs->home, cmd);
-	if (pid < 0)
-	{
-		anjuta_system_error (errno, _("Could not execute cmd: %s"), cmd);
-		g_free (cmd);
-		return;
-	}
-	waitpid (pid, &status, 0);
-	if (WEXITSTATUS (status) != 0)
-	{
-		anjuta_error(_("There was an error while printing.\n"
-			"The cmd is: %s"), cmd);
-	}
-	else
-	{
-		messagebox (GNOME_MESSAGE_BOX_INFO,
-			    _("The file has been sent for printing."));
-	}
-	g_free (cmd);
-}
-
-void
-on_print1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-
-	if (!te)
-		return;
-	if (text_editor_is_saved (te) == FALSE)
-	{
-		messagebox (GNOME_MESSAGE_BOX_INFO,
-			    _("You must save the file first and then print"));
-		return;
-	}
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		     _("Are you sure you want to print the current file?"),
-		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-		     on_print_confirm_yes_clicked, NULL, NULL);
-}
-
-
 void
 on_file2_activate (GtkMenuItem * menuitem, gpointer user_data)
 {

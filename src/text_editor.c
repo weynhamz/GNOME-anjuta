@@ -77,6 +77,9 @@ static void check_tm_file(TextEditor *te)
 		  TM_WORK_OBJECT(app->tm_workspace), te->full_filename, FALSE);
 		if (NULL == te->tm_file)
 		{
+#ifdef DEBUG
+			g_message("File %s not found in TM workspace", te->full_filename);
+#endif
 			te->tm_file = tm_source_file_new(te->full_filename, TRUE);
 			if (NULL != te->tm_file)
 				tm_workspace_add_object(te->tm_file);
@@ -727,6 +730,11 @@ save_to_file (TextEditor * te, gchar * fn)
 		gint dos_filter, editor_mode;
 		
 		size = strlen (data);
+		if ((size > 1) && ('\n' != data[size-1]))
+		{
+			data[size] = '\n';
+			++ size;
+		}
 		dos_filter = preferences_get_int( te->preferences, DOS_EOL_CHECK );
 		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_GETEOLMODE, 0, 0);

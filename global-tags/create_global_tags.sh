@@ -4,11 +4,8 @@ PROGDIR=. # `dirname $0`
 GLOBAL_TAGS_FILE=$BASEDIR/system.tags
 CFLAGS=""
 
-
-WX_PREFIX=`wx-config --prefix`
-WX_CONFIG="$WX_PREFIX/bin/wx-config"
-if [ ! -z "$WX_PREFIX" -a -e "$WX_CONFIG" ]
-then
+WX_PREFIX=`wx-config --prefix 2>/dev/null`
+if [ ! -z "$WX_PREFIX" ]; then
   WX_CFLAGS=`wx-config --cxxflags`
   for cflag in $WX_CFLAGS
   do
@@ -25,15 +22,20 @@ fi
 GNOME_PREFIX=`gnome-config --prefix gnome 2>/dev/null`
 if [ ! -z "$GNOME_PREFIX" ]
 then
-  GNOME_MODULES="gnome gnomeui glib gtk gnorba idl"
+  GNOME_MODULES="applets bonobo_conf bonobo bonobox bonobox_print capplet \
+    config_archiver docklets eel gal gdk_pixbuf gdk_pixbuf_xlib gdl \
+    gdome ghttp gnome_build gnomecanvaspixbuf gnomemm gnumeric gpilot \
+    gtkhtml libart libglade libgtop libguppi libIDL libole2 librsvg \
+    nautilus oaf obGnome pong_bonobo pong pong_glade pong_manual \
+    print vfs xml2 xml xslt"
   for file in $GNOME_PREFIX/lib/*Conf.sh
   do
     module=`echo $file | sed 's/^.*\///' | sed 's/Conf\.sh//'`
     GNOME_MODULES="$GNOME_MODULES $module"
   done
-  PKG_CONFIG_MODULES=`pkg-config --list-all | awk '{printf("%s ",  $1);}'`
+  PKG_CONFIG_MODULES=`pkg-config --list-all 2>/dev/null | awk '{printf("%s ",  $1);}'`
   GNOME_CFLAGS=`gnome-config --cflags $GNOME_MODULES`
-  PKG_CONFIG_CFLAGS=`pkg-config --cflags $PKG_CONFIG_MODULES`
+  PKG_CONFIG_CFLAGS=`pkg-config --cflags $PKG_CONFIG_MODULES 2>/dev/null`
   for cflag in $GNOME_CFLAGS $PKG_CONFIG_CFLAGS
   do
     dir=`echo $cflag | sed 's/^-I//'`
@@ -43,8 +45,6 @@ then
     fi
   done
   CFLAGS="$CFLAGS $GNOME_CFLAGS $PGK_CONFIG_CFLAGS"
-#  echo "Files are $FILES"
-#  echo "CFLAGS are $CFLAGS"
 fi
 export CFLAGS
 $PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE "$FILES" 2>/dev/null

@@ -11,6 +11,7 @@ INCLUDES = \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
+	-I$(srcdir)/../printing \
 	-I.. -I.
 
 CFLAGS = -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
@@ -244,6 +245,7 @@ anjuta_LDADD =  \
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\
+	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
 
 echo-includes:
