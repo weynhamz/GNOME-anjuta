@@ -691,6 +691,7 @@ fv_create ()
 	gtk_tree_view_append_column (GTK_TREE_VIEW (fv->tree), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (fv->tree), column);
 
+	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Rev"), renderer,
 							   "text", REV_COLUMN,
 							   NULL);

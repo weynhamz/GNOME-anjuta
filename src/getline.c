@@ -15,7 +15,10 @@
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef FREEBSD
+#include <config.h>
+
+// #ifdef FREEBSD
+#ifndef HAVE_GETLINE
 
 #include <stdio.h>
 #include <string.h>

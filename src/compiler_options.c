@@ -20,13 +20,13 @@
 #  include <config.h>
 #endif
 
+#define _GNU_SOURCE
+#include <stdio.h>
+
 #include <ctype.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
-
-#define _GNU_SOURCE
-#include <stdio.h>
 
 #include <gnome.h>
 #include "anjuta.h"

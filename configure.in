@@ -322,6 +322,7 @@ AC_CHECK_FUNCS(fnmatch)
 AC_CHECK_FUNCS(strstr)
 AC_CHECK_FUNCS(stricmp)
 AC_CHECK_FUNCS(strnicmp)
+AC_CHECK_FUNCS(getline)
 
 AC_CHECK_FUNCS(fgetpos, have_fgetpos=yes)
 
