@@ -252,8 +252,9 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	else
 		on_save_as_overwrite_yes_clicked (NULL, user_data);
 	g_free (filename);
-	if (GTK_CHECK_MENU_ITEM(app->widgets.menubar.format.autoorder_tabs)->active)
-	    anjuta_order_tabs();
+
+	if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
+		anjuta_order_tabs ();
 }
 
 void

@@ -2,12 +2,6 @@
 
         * pt.po: Updated Portuguese translation.
 
-2002-04-17  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.38.
-	* cat-id-tbl.c: Remove file.
-	* stamp-cat-id: Remove file.
-
 2002-04-15  Takeshi Aihana <aihana@gnome.gr.jp>
 
 	* ja.po: Updated Japanese translation.

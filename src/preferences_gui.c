@@ -318,6 +318,7 @@ static GtkWidget *
 create_preferences_page0 (Preferences * pr)
 {
 	GtkWidget *window1;
+	GtkWidget *frame0;
 	GtkWidget *frame1;
 	GtkWidget *vbox1;
 	GtkWidget *entry1, *entry2, *entry3, *entry4;
@@ -344,8 +345,13 @@ create_preferences_page0 (Preferences * pr)
 
 	window1 = pr->widgets.window;
 
+	frame0 = gtk_frame_new (NULL);
+	gtk_widget_show (frame0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame0), 5);
+
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
+	gtk_container_add (GTK_CONTAINER (frame0), vbox1);
 
 	frame1 = gtk_frame_new (_(" Directories "));
 	gtk_widget_show (frame1);
@@ -552,8 +558,7 @@ create_preferences_page0 (Preferences * pr)
 	gtk_widget_ref (checkbutton2);
 	gtk_widget_ref (boxLastPrj);
 	
-
-	return vbox1;
+	return frame0;
 }
 
 static GtkWidget *
@@ -1211,6 +1216,7 @@ create_preferences_page4 (Preferences * p)
 {
 	GtkWidget *window1;
 	GtkWidget *vbox8;
+	GtkWidget *frame0;
 	GtkWidget *frame1;
 	GtkWidget *paperselector1;
 	GtkWidget *eventbox1;
@@ -1220,8 +1226,13 @@ create_preferences_page4 (Preferences * p)
 
 	window1 = p->widgets.window;
 
+	frame0 = gtk_frame_new (NULL);
+	gtk_widget_show (frame0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame0), 5);
+
 	vbox8 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox8);
+	gtk_container_add (GTK_CONTAINER (frame0), vbox8);
 
 	frame1 = gtk_frame_new (_(" Paper Size"));
 	gtk_widget_show (frame1);
@@ -1263,7 +1274,7 @@ create_preferences_page4 (Preferences * p)
 	gtk_widget_ref (combo1);
 	gtk_widget_ref (combo_entry1);
 
-	return vbox8;
+	return frame0;
 }
 
 static GtkWidget *
@@ -1460,32 +1471,31 @@ create_preferences_pagemsg (Preferences* p)
 			  (GtkAttachOptions) (0), 5, 0);
 	gtk_label_set_justify (GTK_LABEL (label2), GTK_JUSTIFY_LEFT);
 
-	
-	frame3 = gtk_frame_new (_(" Notebook tags position "));
+	frame3 = gtk_frame_new (_(" Tabs position "));
 	gtk_widget_show (frame3);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame3, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
 
-	table2 = gtk_table_new (4, 2, FALSE);
+	table2 = gtk_table_new (3, 3, TRUE);
+	gtk_container_set_border_width (GTK_CONTAINER (table2), 5);
 	gtk_widget_show (table2);
 	gtk_container_add (GTK_CONTAINER (frame3), table2);
+
 	radiobutton1 =
 		gtk_radio_button_new_with_label (table2_group, _("Top"));
 	table2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
 	gtk_widget_show (radiobutton1);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton1, 0, 1, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton1, 1, 2, 0, 1,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
 
 	radiobutton2 =
 		gtk_radio_button_new_with_label (table2_group, _("Bottom"));
 	table2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
 	gtk_widget_show (radiobutton2);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton2, 1, 2, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton2, 1, 2, 2, 3,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
 
 	radiobutton3 =
 		gtk_radio_button_new_with_label (table2_group, _("Left"));
@@ -1493,17 +1503,15 @@ create_preferences_pagemsg (Preferences* p)
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
 	gtk_widget_show (radiobutton3);
 	gtk_table_attach (GTK_TABLE (table2), radiobutton3, 0, 1, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
 
 	radiobutton4 =
 		gtk_radio_button_new_with_label (table2_group, _("Right"));
 	table2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
 	gtk_widget_show (radiobutton4);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton4, 1, 2, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton4, 2, 3, 1, 2,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
 
 
 	gtk_widget_ref (checkbutton1);
@@ -1519,15 +1527,17 @@ create_preferences_pagemsg (Preferences* p)
 	p->widgets.tag_pos_msg_radio[1] = radiobutton2;
 	p->widgets.tag_pos_msg_radio[2] = radiobutton3;
 	p->widgets.tag_pos_msg_radio[3] = radiobutton4;
+
 	for (i = 0; i < 4; i++)
 		gtk_widget_ref (p->widgets.tag_pos_msg_radio[i]);
 
 	gtk_signal_connect (GTK_OBJECT (checkbutton1), "clicked",
 			    GTK_SIGNAL_FUNC (on_trunc_mesg_check_clicked), p);
-	
+
 	frame_colors = gtk_frame_new(_("Colors"));
 	table_colors = gtk_table_new(4, 2, FALSE);
-	
+	gtk_container_set_border_width (GTK_CONTAINER (table_colors), 5);
+
 	color_picker_error = gnome_color_picker_new();
 	color_picker_warning = gnome_color_picker_new();
 	color_picker_messages1 = gnome_color_picker_new();
@@ -1576,7 +1586,7 @@ create_preferences_pagemsg (Preferences* p)
 	gtk_container_add(GTK_CONTAINER(frame_colors), table_colors);
 	gtk_container_set_border_width(GTK_CONTAINER(frame_colors), 5);
 	gtk_widget_show_all(frame_colors);
-	gtk_box_pack_end(GTK_BOX(vbox1), frame_colors, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame_colors, FALSE, FALSE, 0);
 	
 	return frame1;
 }
@@ -1587,10 +1597,13 @@ create_preferences_page7 (Preferences * p)
 	GtkWidget *window1;
 	GtkWidget *frame1;
 	GtkWidget *vbox1;
+	GtkWidget *vbox2;
+	GtkWidget *vbox3;
 	GtkWidget *table2;
+	GtkWidget *hbox;
 	GtkWidget *frame3;
+	GtkWidget *frame5;
 	GtkWidget *checkbutton6;
-	GtkWidget *hseparator1;
 	GSList *table2_group = NULL;
 	GtkWidget *radiobutton1;
 	GtkWidget *radiobutton2;
@@ -1598,10 +1611,11 @@ create_preferences_page7 (Preferences * p)
 	GtkWidget *radiobutton4;
 	GtkWidget *frame4;
 	GtkWidget *checkbutton7;
+	GtkWidget *checkbutton8;
 	gint i;
 
 	window1 = p->widgets.window;
-	
+
 	frame1 = gtk_frame_new (NULL);
 	gtk_widget_show (frame1);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
@@ -1609,31 +1623,79 @@ create_preferences_page7 (Preferences * p)
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
 	gtk_container_add (GTK_CONTAINER (frame1), vbox1);
-	
-	frame3 = gtk_frame_new (_(" Notebook tags position "));
+
+	frame3 = gtk_frame_new (_(" Notebook tabs "));
+	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
 	gtk_widget_show (frame3);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame3, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
 
-	table2 = gtk_table_new (4, 2, FALSE);
-	gtk_widget_show (table2);
-	gtk_container_add (GTK_CONTAINER (frame3), table2);
+	vbox2 = gtk_vbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox2), 5);
+	gtk_widget_show (vbox2);
+	gtk_container_add (GTK_CONTAINER (frame3), vbox2);
 
-	checkbutton6 =
-		gtk_check_button_new_with_label (_
-						 ("Do not show notebook title tags"));
+	checkbutton6 = gtk_check_button_new_with_label (_("Do not show"));
 	gtk_widget_show (checkbutton6);
-	gtk_table_attach (GTK_TABLE (table2), checkbutton6, 0, 2, 3, 4,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton6), 5);
+	gtk_box_pack_start (GTK_BOX (vbox2), checkbutton6, FALSE, FALSE, 0);
 
-	hseparator1 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator1);
-	gtk_table_attach (GTK_TABLE (table2), hseparator1, 0, 2, 2, 3,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
+	vbox3 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox3);
+	gtk_box_pack_start (GTK_BOX (vbox2), vbox3, FALSE, FALSE, 0);
 
+	gtk_signal_connect (GTK_OBJECT (checkbutton6), "clicked",
+			    GTK_SIGNAL_FUNC (on_notebook_tag_none_clicked),
+			    vbox3);
+
+	checkbutton8 = gtk_check_button_new_with_label (_("Alphabetical ordering"));
+	gtk_widget_show (checkbutton8);
+	gtk_box_pack_start (GTK_BOX (vbox3), checkbutton8, FALSE, FALSE, 0);
+
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox);
+	gtk_box_pack_start (GTK_BOX (vbox3), hbox, FALSE, FALSE, 0);
+
+	frame5 = gtk_frame_new (_(" Position "));
+	gtk_container_set_border_width (GTK_CONTAINER (frame5), 5);
+	gtk_widget_show (frame5);
+	gtk_box_pack_start (GTK_BOX (hbox), frame5, FALSE, FALSE, 20);
+
+	table2 = gtk_table_new (3, 3, TRUE);
+	gtk_widget_show (table2);
+	gtk_container_add (GTK_CONTAINER (frame5), table2);
+
+	radiobutton1 =
+		gtk_radio_button_new_with_label (table2_group, _("Top"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
+	gtk_widget_show (radiobutton1);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton1, 1, 2, 0, 1,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
+
+	radiobutton2 =
+		gtk_radio_button_new_with_label (table2_group, _("Bottom"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
+	gtk_widget_show (radiobutton2);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton2, 1, 2, 2, 3,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
+
+	radiobutton3 =
+		gtk_radio_button_new_with_label (table2_group, _("Left"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
+	gtk_widget_show (radiobutton3);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton3, 0, 1, 1, 2,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
+
+	radiobutton4 =
+		gtk_radio_button_new_with_label (table2_group, _("Right"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
+	gtk_widget_show (radiobutton4);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton4, 2, 3, 1, 2,
+			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0, 0);
+
+	/* Tags browser */	
 	frame4 = gtk_frame_new (_(" Tags Browser "));
 	gtk_widget_show (frame4);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame4, FALSE, FALSE, 0);
@@ -1646,50 +1708,11 @@ create_preferences_page7 (Preferences * p)
 	gtk_container_add (GTK_CONTAINER (frame4), checkbutton7);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton7), 5);
 
-	gtk_signal_connect (GTK_OBJECT (checkbutton6), "clicked",
-			    GTK_SIGNAL_FUNC (on_notebook_tag_none_clicked),
-			    p);
-	
-	radiobutton1 =
-		gtk_radio_button_new_with_label (table2_group, _("Top"));
-	table2_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
-	gtk_widget_show (radiobutton1);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton1, 0, 1, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	radiobutton2 =
-		gtk_radio_button_new_with_label (table2_group, _("Bottom"));
-	table2_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
-	gtk_widget_show (radiobutton2);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton2, 1, 2, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	radiobutton3 =
-		gtk_radio_button_new_with_label (table2_group, _("Left"));
-	table2_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
-	gtk_widget_show (radiobutton3);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton3, 0, 1, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	radiobutton4 =
-		gtk_radio_button_new_with_label (table2_group, _("Right"));
-	table2_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
-	gtk_widget_show (radiobutton4);
-	gtk_table_attach (GTK_TABLE (table2), radiobutton4, 1, 2, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-	
 	p->widgets.tag_pos_radio[0] = radiobutton1;
 	p->widgets.tag_pos_radio[1] = radiobutton2;
 	p->widgets.tag_pos_radio[2] = radiobutton3;
 	p->widgets.tag_pos_radio[3] = radiobutton4;
+
 	for (i = 0; i < 4; i++)
 		gtk_widget_ref (p->widgets.tag_pos_radio[i]);
 
@@ -1697,6 +1720,8 @@ create_preferences_page7 (Preferences * p)
 	p->widgets.no_tag_check = checkbutton6;
 	gtk_widget_ref (checkbutton7);
 	p->widgets.tags_update_check = checkbutton7;
+	gtk_widget_ref (checkbutton8);
+	p->widgets.tabs_ordering = checkbutton8;
 
 	return frame1;
 }
@@ -2213,14 +2238,15 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 	{
 		preferences_set (pr, EDITOR_TAG_POS, "top");
 	}
+
 	preferences_set_int (pr, EDITOR_TAG_HIDE,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-							   (pr->widgets.
-							    no_tag_check)));
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.no_tag_check)));
+
+	preferences_set_int (pr, EDITOR_TABS_ORDERING,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tabs_ordering)));
+
 	preferences_set_int (pr, AUTOMATIC_TAGS_UPDATE,
-			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-							   (pr->widgets.
-							    tags_update_check)));
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tags_update_check)));
 
 	anjuta_save_settings ();
 	preferences_set_build_options(pr);
@@ -2396,13 +2422,10 @@ on_trunc_mesg_check_clicked (GtkButton * button, gpointer user_data)
 static void
 on_notebook_tag_none_clicked (GtkButton * button, gpointer user_data)
 {
-	gint i, state;
-	Preferences *pr = user_data;
+	g_return_if_fail (GTK_IS_TOGGLE_BUTTON (button));
+	g_return_if_fail (GTK_IS_WIDGET (user_data));
 
-	state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
-	for (i = 0; i < 4; i++)
-		gtk_widget_set_sensitive (pr->widgets.tag_pos_radio[i],
-					  !state);
+	gtk_widget_set_sensitive (GTK_WIDGET (user_data), !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)));
 }
 
 StyleData *

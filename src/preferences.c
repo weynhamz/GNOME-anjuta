@@ -618,6 +618,9 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.no_tag_check),
 				      preferences_get_int (pr,
 							   EDITOR_TAG_HIDE));
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pr->widgets.tabs_ordering), preferences_get_int (pr, EDITOR_TABS_ORDERING));
+
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.tags_update_check),
 				      preferences_get_int (pr,
@@ -865,6 +868,8 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 
 	fprintf (fp, "%s=%d\n", EDITOR_TAG_HIDE,
 		 preferences_get_int (pr, EDITOR_TAG_HIDE));
+	fprintf (fp, "%s=%d\n", EDITOR_TABS_ORDERING,
+		 preferences_get_int (pr, EDITOR_TABS_ORDERING));
 	fprintf (fp, "%s=%d\n", AUTOMATIC_TAGS_UPDATE,
 		 preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE));
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,

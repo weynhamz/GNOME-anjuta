@@ -144,7 +144,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->format.open_folds = format1_menu_uiinfo[9].widget;
 	mb->format.toggle_fold = format1_menu_uiinfo[10].widget;
 	mb->format.detach = format1_menu_uiinfo[12].widget;
-	mb->format.autoorder_tabs = format1_menu_uiinfo[13].widget;
 	
 	/* Build submenu */
 	mb->build.compile = build1_menu_uiinfo[0].widget;

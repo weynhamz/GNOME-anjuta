@@ -158,7 +158,6 @@ struct _FormatSubMenu
 	GtkWidget *close_folds;
 	GtkWidget *toggle_fold;
 	GtkWidget *detach;
-	GtkWidget *autoorder_tabs;
 };
 
 struct _BuildSubMenu

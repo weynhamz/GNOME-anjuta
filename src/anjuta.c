@@ -284,8 +284,9 @@ anjuta_append_text_editor (gchar * filename)
 		g_free (buff);
 		gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook),
 		       0);
-		if (GTK_CHECK_MENU_ITEM(app->widgets.menubar.format.autoorder_tabs)->active)
-			anjuta_order_tabs();
+
+		if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
+			anjuta_order_tabs ();
 		break;
 
 	case TEXT_EDITOR_WINDOWED:
@@ -1157,12 +1158,11 @@ anjuta_apply_preferences (void)
 	app->b_reload_last_project	= preferences_get_int (pr , RELOAD_LAST_PROJECT);
 	
 	no_tag = preferences_get_int (pr, EDITOR_TAG_HIDE);
-	if (no_tag == TRUE)
-	{
-		gtk_notebook_set_show_tabs (GTK_NOTEBOOK
-					    (app->widgets.notebook), FALSE);
-	}
-	else
+
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook),
+				    !no_tag);
+
+	if (!no_tag)
 	{
 		gchar *tag_pos;
 
@@ -1185,14 +1185,17 @@ anjuta_apply_preferences (void)
 						  (app->widgets.notebook),
 						  GTK_POS_TOP);
 		g_free (tag_pos);
-		gtk_notebook_set_show_tabs (GTK_NOTEBOOK
-					    (app->widgets.notebook), TRUE);
+
+		if (preferences_get_int (pr, EDITOR_TABS_ORDERING))
+			anjuta_order_tabs ();
 	}
+
 	anjuta_message_manager_update(app->messages);
 	cvs_apply_preferences(app->cvs, pr->props);
+
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
-		te =	(TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
+		te = (TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
 		text_editor_update_preferences (te);
 		anjuta_refresh_breakpoints (te);
 	}
