@@ -261,13 +261,18 @@ on_anjuta_window_selected (GtkMenuItem * menuitem, gpointer user_data)
 void
 anjuta_remove_current_text_editor ()
 {
-	TextEditor *te;
+	TextEditor* te = anjuta_get_current_text_editor ();
+	anjuta_remove_text_editor (te);
+}
+
+void
+anjuta_remove_text_editor (TextEditor* te)
+{
 	GtkWidget *submenu;
 	GtkWidget *wid;
 
 	gint nb_cur_page_num;
 
-	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
 
@@ -299,9 +304,9 @@ anjuta_remove_current_text_editor ()
 	switch (te->mode)
 	{
 	case TEXT_EDITOR_PAGED:
-		nb_cur_page_num =
-			gtk_notebook_get_current_page (GTK_NOTEBOOK (app->widgets.notebook));
 		wid = te->widgets.client->parent;
+		nb_cur_page_num = 
+			gtk_notebook_page_num (GTK_NOTEBOOK (app->widgets.notebook), wid);
 		if (GTK_IS_CONTAINER (wid))
 			gtk_container_remove (GTK_CONTAINER (wid),
 					      te->widgets.client);

@@ -74,6 +74,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_widget_set_usize (anjuta_gui, 500, 116);
 	gtk_window_set_default_size (GTK_WINDOW (anjuta_gui), 700, 400);
 	gtk_window_set_policy (GTK_WINDOW (anjuta_gui), FALSE, TRUE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (anjuta_gui), "mainide", "Anjuta");
 
 	dock1 = GNOME_APP (anjuta_gui)->dock;
 	gtk_widget_show (dock1);

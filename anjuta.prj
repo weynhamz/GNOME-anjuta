@@ -1,4 +1,4 @@
-# Anjuta Version 0.1.5 
+# Anjuta Version 0.1.6 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -61,7 +61,7 @@ install-data-local:
 
 props.file.type=project
 
-anjuta.version=0.1.5
+anjuta.version=0.1.6
 anjuta.compatibility.level=1
 
 project.name=Anjuta
@@ -96,7 +96,7 @@ module.incude.files=
 
 module.source.name=src
 module.source.type=
-module.source.expanded=1
+module.source.expanded=0
 module.source.files=\
 	aneditor.cxx\
 	aneditor.h\
@@ -435,7 +435,6 @@ compiler.options.library.paths=\
 	../ccview
 
 compiler.options.libraries=\
-	scintilla\
 	*../scintilla/LexCPP.o\
 	*../scintilla/LexConf.o\
 	*../scintilla/LexHTML.o\
@@ -449,7 +448,8 @@ compiler.options.libraries=\
 	*../scintilla/LexAVE.o\
 	widgets\
 	ccview\
-	xml
+	xml\
+	scintilla
 compiler.options.libraries.selected=1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
 
 compiler.options.defines=\
@@ -466,8 +466,8 @@ compiler.options.other.c.options=
 compiler.options.other.l.options=
 
 project.source.paths=\
-	scintilla\
 	launcher\
 	widgets\
-	ccview
+	ccview\
+	scintilla
 

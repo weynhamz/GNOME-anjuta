@@ -1,4 +1,4 @@
-                         Anjuta Version 0.1.6 (devel) Release
+                         Anjuta Version 0.1.6 Release
 
                        Copyright (C) 2000 Kh. Naba Kumar Singh.
                        Home site => http://anjuta.sourceforge.net
@@ -6,27 +6,27 @@
 Introduction:
 -------------
 
-Anjuta is a versatile Integrated Development Environment (IDE) for C and C++
-on GNU/Linux. It has been written for GTK/GNOME, and features a number of
-advanced programming features. Besides many others, it has project management,
-application wizards, an onboard interactive debugger, and a powerful source
+Anjuta is a versatile Integrated Development Environment (IDE) for C and C++ 
+on GNU/Linux. It has been written for GTK/GNOME, and features a number of 
+advanced programming facilities. These include project management, 
+application wizards, an onboard interactive debugger, and a powerful source 
 editor with source browsing and syntax highlighting.
 
-Anjuta is an effort to marry the flexibility and power of text-based
-command-line tools with the ease-of-use of the GNOME graphical user
+Anjuta is an effort to marry the flexibility and power of text-based 
+command-line tools with the ease-of-use of the GNOME graphical user 
 interface. That is why it has been made as user-friendly as possible.
 
-At present, Anjuta is only a beta release and lots of work needs to be done to
-improve it. In the future, Anjuta is going to be much more capable and stable!
-Extensive debugging has not yet been performed, so at the moment it will
-undoubtedly have lots of bugs. It would be great if you use it and report any
-problems to us. That way, you will be helping to improve the software as well
+At present, Anjuta is only a beta release and lots of work needs to be done to 
+improve it. In the future, Anjuta is going to be much more capable and stable! 
+Extensive debugging has not yet been performed, so at the moment it will 
+undoubtedly have lots of bugs. It would be great if you use it and report any 
+problems to us. That way, you will be helping to improve the software as well 
 as helping the Open Source community.
 
 Any sort of suggestions or patches for Anjuta are also most welcome. 
 
-Remember, this program is FREEWARE and not a shareware. 
-Please read the file COPYING for details. 
+Remember, this program is FREEWARE and not shareware. 
+Please read the file COPYRIGHT for details. 
 
 Copyright (C) 2000 Kh. Naba Kumar Singh.
 ----------------------------------------
@@ -60,16 +60,17 @@ Presently available features in Anjuta:
 	
 	2. Each file opened can be operated in either paged mode or windowed mode. 
 	
-	3. Highly interactive source level debugger (built over gdb)
+	3. Highly interactive source level debugger (built over gdb).
 		o Interactive execution.
-		o Breakpoints/watches/signal/stack manipulation.
+		o Breakpoints/watches/signal/stack manupulation.
 		o ... and much more.
 	
-	4. Inbuilt Application wizards to create terminal/GTK/GNOME applications on-the-fly. 
+	4. Inbuilt application wizards to create terminal/GTK/GNOME applications 
+	   on-the-fly. 
 	
 	5. Dynamic Tags browsing.
-		o Function definition, structure, classes, etc. can be reached with 
-		    just two mouse clicks.
+		o Function definition, structure, classes etc. can be reached with just 
+		  two mouse clicks.
 		o Full tags management for project.
 	
 	6. Full project and build files management. 
@@ -79,7 +80,7 @@ Presently available features in Anjuta:
 	7. Basic windows are attachable and detachable.
 
 	9. Support for other languages 
-		o Java, Perl, Pascal ... etc. (only file mode, no project management).
+		o Java, Perl, Pascal ... etc. (only file mode, no project managements).
 
 	10. Interactive messaging system.
 
@@ -89,11 +90,11 @@ Some of the 'immediately' needed features:
 ------------------------------------------
 
     1. Interactive help system. 
-    2. More advanced Interaction (Bonobo component) with Glade to faciliate GUI editing. 
+    2. More advanced interaction (Bonobo component) with Glade to faciliate GUI editing. 
     3. Source code version management system (CVS). 
     4. Support for Help development system with SGML. 
     5. Making it faster.  ??
-
+ 
 Contact Email addresses for Anjuta:
 ---------------------------------
 
@@ -138,13 +139,15 @@ REQUIREMENTS:
 		* GNOME
 		* Automake
 		* GNU C compiler
+		* xml-i18n-tools
 
-	# From Src Rpm:
+	# From Src RPM:
 		< RedHat 6.1 or upwards >
 		* GNOME
 		* Automake
 		* GNU C compiler
 		* RPM
+		* xml-i18n-tools
 
 	# From Rpm Pkg:
 		< RedHat 6.1 or upwards >
@@ -155,11 +158,14 @@ REQUIREMENTS:
 	* GNOME 
 	* Bash command shell
 	* ctags
-	* Indent
+	* indent
 	* gnome-terminal
-	* gnome-help-browser
+	* gnome-help-browser (or Nautilus)
+	* Automake
+	* GNU C compiler
 	* GNU debugger (gdb)
 	* grep
+
 
 INSTALLATION:
 -------------
@@ -196,7 +202,7 @@ INSTALLATION:
 		and '#' is the shell prompt. You must be logged in as root
 		to install Anjuta.
 
-	1) Get the RPM package anjuta-0.1.1-1.i386.rpm (Visit www.sourceforge.net).
+	1) Get the RPM package anjuta-0.1.1-1.i386.rpm (visit www.sourceforge.net).
 
 	2) Change to the directory containing the rpm pakage.
 
@@ -206,15 +212,6 @@ INSTALLATION:
 	Otherwise, some dependency error will come up. You will have
 	to install the required components first. Then repeat the above.
 
-To run Anjuta.
-
-	Type:   #anjuta
-
-If you get the shell error 'Command not found', then make sure your PATH
-variable contains the executable path of Anjuta binary (by default: /usr/local/bin).
-Usually, PATH variable is set in the file /etc/profile. Check it out.
-
-For detailed custom installation, please read the file INSTALL.
 
 Following files will be installed in your system.
 -------------------------------------------------
@@ -228,6 +225,25 @@ Assume that the install dir is /usr/local (this is the default directory).
 /usr/local/share/anjuta/ (All the data files).
 /usr/share/pixmaps/anjuta/ (All the pixmap files).
 /usr/share/gnome/help/anjuta/ (All the help files).
-/usr/share/gnome/apps/Development/Anjuta-IDE.desktop. <Menu entry>
+/usr/share/gnome/apps/Development/anjuta.desktop. <Menu entry>
+
+For detailed custom installation, please read the file INSTALL.
+
+
+RUNNING:
+--------
+
+To run Anjuta, choose Development->Anjuta from the GNOME Main Menu, 
+or type:   #anjuta
+
+If you get the shell error 'Command not found', then make sure your PATH
+variable contains the executable path of Anjuta binary (by default: /usr/local/bin).
+Usually, the PATH variable is set in the file /etc/profile. Check it out.
+
+If you do not want to see the Anjuta splash screen / logo, run Anjuta with 
+the command-line option "--no-splash".
+
+See the User Manual for further instructions.
+
 
 ** Good Luck **

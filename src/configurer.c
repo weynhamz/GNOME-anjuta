@@ -88,6 +88,7 @@ create_configurer_dialog (Configurer * c)
 	gtk_widget_set_usize (dialog2, 400, -2);
 	gtk_window_set_position (GTK_WINDOW (dialog2), GTK_WIN_POS_CENTER);
 	gtk_window_set_policy (GTK_WINDOW (dialog2), FALSE, FALSE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog2), "config", "Anjuta");
 	gnome_dialog_set_close (GNOME_DIALOG (dialog2), TRUE);
 
 	dialog_vbox2 = GNOME_DIALOG (dialog2)->vbox;

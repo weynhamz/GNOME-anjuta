@@ -1,11 +1,17 @@
 figs = \
 	figures/arguments.png\
+	figures/attach.png\
 	figures/brk_add.png\
 	figures/brk_dlg.png\
 	figures/brk_edit.png\
+	figures/ccview_class.png\
+	figures/ccview.png\
+	figures/ccview_struct.png\
 	figures/configure_dlg.png\
 	figures/defines.png\
+	figures/devt_menu.png\
 	figures/evaluate.png\
+	figures/fileview.png\
 	figures/find_files.png\
 	figures/find_replace.png\
 	figures/find_text.png\
@@ -22,19 +28,27 @@ figs = \
 	figures/other_opts.png\
 	figures/project_info.png\
 	figures/project_win.png\
-    figures/registers.png\
+	figures/registers.png\
 	figures/scrshot.png\
+    figures/sharedlibs.png\
 	figures/signal_mod.png\
 	figures/signals.png\
-    figures/sharedlibs.png\
 	figures/stack.png\
+	figures/supports.png\
+	figures/toolbar_browser.png\
+	figures/toolbar_debug.png\
+	figures/toolbar_ext.png\
+	figures/toolbar_format.png\
 	figures/toolbar_main.png\
 	figures/toolbar_tags.png\
-	figures/toolbar_browser.png\
-	figures/supports.png\
 	figures/warnings.png\
+	figures/watch_add.png\
 	figures/watch.png\
-	figures/watch_add.png
+	stylesheet-images/caution.gif\
+	stylesheet-images/important.gif\
+	stylesheet-images/note.gif\
+	stylesheet-images/tip.gif\
+	stylesheet-images/warning.gif
 
 sgml_ents =\
 	chapter01.sgml\

@@ -53,6 +53,7 @@ create_attach_process_gui (AttachProcess* ap)
   gtk_widget_set_usize (dialog1, 509, 309);
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "attach_process", "Anjuta");
 
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);

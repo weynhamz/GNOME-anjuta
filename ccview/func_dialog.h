@@ -21,6 +21,8 @@
 #include <gnome.h>
 #include <string>
 
+using namespace std;
+
 class func_dlg
 {
     string func;

@@ -102,6 +102,7 @@ create_expr_watch_gui (ExprWatch * ew)
   window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_usize (window1, 300, -2);
   gtk_window_set_title (GTK_WINDOW (window1), _("Anjuta: Expression Watch"));
+  gtk_window_set_wmclass (GTK_WINDOW (window1), "expr_watch", "Anjuta");
   gtk_window_set_default_size (GTK_WINDOW (window1), 500, -1);
 
   scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
@@ -177,6 +178,7 @@ create_watch_add_dialog ()
   dialog3 = gnome_dialog_new (_("Anjuta: Add Watch Expression"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
   gnome_dialog_set_close (GNOME_DIALOG (dialog3), TRUE);
 
   dialog_vbox3 = GNOME_DIALOG (dialog3)->vbox;
@@ -240,6 +242,7 @@ create_eval_dialog ()
   dialog4 = gnome_dialog_new (_("Anjuta: Inspect/Evaluate"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog4), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog4), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog4), "inspeval", "Anjuta");
   gnome_dialog_set_close (GNOME_DIALOG (dialog4), TRUE);
 
   dialog_vbox4 = GNOME_DIALOG (dialog4)->vbox;

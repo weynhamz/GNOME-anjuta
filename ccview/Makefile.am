@@ -1,7 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
 INCLUDES = -I$(top_srcdir) -I$(includedir)\
-	$(GNOME_INCLUDEDIR) -DCCVIEW_DEBUG
+	$(GNOME_INCLUDEDIR) -DCCVIEW_DEBUG\
+	-I/usr/local/gcc-3.0/include/g++-v3/ext\
+	-I/usr/gcc-3.0/include/g++-v3/ext
 
 noinst_LIBRARIES = libccview.a
 

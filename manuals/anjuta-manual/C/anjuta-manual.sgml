@@ -1,4 +1,4 @@
-<!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.0//EN"[
+<!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
 <!ENTITY chapter01 SYSTEM "chapter01.sgml">
 <!ENTITY chapter02 SYSTEM "chapter02.sgml">
 <!ENTITY chapter03 SYSTEM "chapter03.sgml">
@@ -20,7 +20,7 @@
 <book id="index">
  <bookinfo>
   <title>Anjuta C/C++ IDE Manual</title>
-  <edition>v0.0.1</edition>
+  <edition>v0.0.2</edition>
   <authorgroup>
    <author>
     <firstname>Naba</firstname>
@@ -73,13 +73,13 @@
 
   <!-- this is the version of manual, not application --> 
   <releaseinfo>
-   This is version 0.0.1 of the Anjuta C/C++ IDE Manual.
+   This is version 0.0.2 of the Anjuta C/C++ IDE Manual.
   </releaseinfo>
  </bookinfo>
  <!-- Document Body -->
  <!-- Introduction -->
  &chapter01;
- <!-- Getting Familier with Anjuta -->
+ <!-- Getting Familiar with Anjuta -->
  &chapter02;
  <!-- File operations -->
  &chapter03;
@@ -89,7 +89,7 @@
  &chapter05;
  <!-- Setting compiler options -->
  &chapter06;
- <!-- Projects Management -->
+ <!-- Project Management -->
  &chapter07;
  <!-- Debugging: Session -->
  &chapter08;

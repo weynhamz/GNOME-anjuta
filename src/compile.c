@@ -33,6 +33,67 @@
 #include "messages.h"
 #include "compile.h"
 
+#if 0
+
+void
+compile_file_with_make ()
+{
+	gchar* src_dir;
+
+	if(app->project_dbase->is_saved == FALSE 
+		&& app->project_dbase->project_is_open==TRUE)
+	{
+		gboolean ret;
+		ret = project_dbase_save_project(app->project_dbase);
+		if (ret == FALSE)
+			return;
+	}
+
+	src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
+	if (src_dir)
+	{
+		gchar *prj_name, *cmd;
+	
+		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_MODULE);
+		if (cmd == NULL)
+		{
+			anjuta_warning (_("Unable to build module. Check Preferences->Commands."));
+			g_free (src_dir);
+			return;
+		}
+		chdir (src_dir);
+		anjuta_set_execution_dir(src_dir);
+		g_free (src_dir);
+	
+		if (launcher_execute
+		    (cmd, build_mesg_arrived, build_mesg_arrived,
+		     build_terminated) == FALSE)
+		{
+			g_free (cmd);
+			return;
+		}
+		anjuta_update_app_status (TRUE, _("Build Project"));
+		messages_clear (app->messages, MESSAGE_BUILD);
+		messages_append (app->messages, _("Building source directory of the project: "),
+				 MESSAGE_BUILD);
+		prj_name = project_dbase_get_proj_name (app->project_dbase);
+		messages_append (app->messages, prj_name, MESSAGE_BUILD);
+		messages_append (app->messages, " ...\n", MESSAGE_BUILD);
+		messages_append (app->messages, cmd, MESSAGE_BUILD);
+		messages_append (app->messages, "\n", MESSAGE_BUILD);
+		messages_show (app->messages, MESSAGE_BUILD);
+		g_free (cmd);
+		g_free (prj_name);
+	}
+	else
+	{
+		/* Single file build */
+		build_file ();
+	}
+}
+
+#endif
+
 void
 compile_file ()
 {

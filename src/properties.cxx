@@ -179,6 +179,7 @@ prop_get(PropsID handle, gchar *key)
 {
   PropSetFile* p;
   SString s;
+  if (!key) return NULL;
   p = get_propset(handle);
   if(!p) return NULL;
   s = p->Get(key);

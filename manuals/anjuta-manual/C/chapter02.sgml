@@ -1,207 +1,228 @@
- <!-- ============= Getting Familier with Anjuta  ============-->
+ <!-- ============= Getting Familiar with Anjuta  ============-->
 
- <chapter id="familier">
-  <title>Getting familier with Anjuta</title>
- <!-- ============= Getting Familier: Menus  ============-->
-  <sect1 id="menu">
-   <title>Menus:</title>
+ <chapter id="familiar">
+  <title>Getting familiar with Anjuta</title>
+ <!-- ============= Getting Familiar: Menus  ============-->
+  <sect1 id="launch">
+   <title>Starting Anjuta</title>
+   <para>To start <application>Anjuta</application>, open the 
+   GNOME <guimenu>Main Menu</guimenu>. <application>Anjuta</application> is 
+   found on the <guisubmenu>Development</guisubmenu> submenu. 
+   </para>
+    <figure id="anjutaicon">
+      <title>Anjuta application icon</title>
+	  <screenshot>
+      <screeninfo>Anjuta application icon on the Development menu</screeninfo>
+       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp"/>
+      </screenshot>
+    </figure>
    <para>
-    The top most part of the Anjuta IDE is the menu bar. Almost all of the
-    functionalities are available by activating the appropriate menu item. The
-    functions have been grouped according to their type of operations. For
-    instance, most of the file and project operations have been grouped in the
-    sub-menu 'File'. Similarly, The other sub-menus contain the operations they
-    are grouped to.
+   Click on the <application>Anjuta</application> icon to start. The IDE (<emphasis>Integrated 
+   Development Environment</emphasis>) will open.
+   </para>
+  </sect1>
+  <sect1 id="menu">
+   <title>Menus</title>
+   <para>
+   At the top of the <application>Anjuta</application> IDE is the menubar. 
+   Almost all of the functions are available by activating the appropriate 
+   menu item. The functions have been grouped according to their type. For 
+   instance, most of the file and project operations have been grouped in 
+   the <guisubmenu>File</guisubmenu> menu, and so on.
+   </para>
     
-    <figure>
-      <title>Anjuta main menubar</title>
-      <screenshot>
-       <graphic fileref="figures/menu_main" format="png" srccredit="mkv"/>
+    <figure id="menubar">
+      <title>Menubar</title>
+	  <screenshot>
+      <screeninfo>Anjuta menubar</screeninfo>
+       <graphic fileref="figures/menu_main" format="png" srccredit="andyp"/>
       </screenshot>
     </figure>
-    
+        
+    <para>
+     Each menu is detachable. Drag them from the main window using the handle 
+	 at the extreme right. Once detached, it will become a floating window.
     </para>
     
-    <figure>
-      <title>Anjuta menu (detached)</title>
+    <figure id="file-menu-detach">
+      <title>File menu (detached)</title>
       <screenshot>
-       <graphic fileref="figures/menu_detached" format="png" srccredit="mkv"/>
+      <screeninfo>File menu (detached)</screeninfo>
+       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"/>
       </screenshot>
     </figure>
     
     <para>
-     The main menu is detachable. Drag it from the
-     main window using the handle at the extreme right. Once it is
-     detached, it will become a floating menu.
-    </para>
-    
-    <para>
-     All the Sub-menus in the main menu are detachable. You can detach
-     it by clicking the detach bar on the sub-menu (just above the first
-     item). Once the sub-menu is detached, it will be shown as an
-     independent window. A detached menu is shown as an illustration.
+     All of the submenus in the main menu are detachable. You can detach them by 
+	 clicking on the detach bar on the submenu (just above the first menu item). 
+	 Once the submenu is detached, it will be shown as an independent window.
     </para>
   </sect1>
 
-<!-- ============= Getting Familier: Toolbars  ============-->
+<!-- ============= Getting Familiar: Toolbars  ============-->
   <sect1 id="toolbars">
    <title>Toolbars</title>
    <para>
-    <figure><title>Anjuta Toolbar (detached)</title>
-      <screenshot><graphic fileref="figures/toolbar_main" format="png" srccredit="mkv"/>
-      </screenshot>
+    <figure id="toolbar-detach">
+	<title>Toolbar (detached)</title>
+     <screenshot>
+     <screeninfo>Main toolbar (detached)</screeninfo>
+	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp"/>
+     </screenshot>
     </figure>
-    To make the life easier, all those operations which are performed very
-    often are made available from the tool-bars. There are basically four
-    tool-bars on the main window.
+    To make life easier, the operations which used most often are made 
+	available from the toolbars. There are six basic toolbars on the 
+	main window.
    </para>
    
    <para>
     <itemizedlist>
-     <listitem><para>Main Toolbar.</para></listitem>
-     <listitem><para>Extended Toolbar.</para></listitem>
-     <listitem><para>Browser Toolbar.</para></listitem>
-     <listitem><para>Tags Toolbar.</para></listitem>
-     <listitem><para>Format Toolbar.</para></listitem>
-     <listitem><para>Debug Toolbar.</para></listitem>
+     <listitem><para><interface>Main Toolbar</interface></para></listitem>
+     <listitem><para><interface>Extended Toolbar</interface></para></listitem>
+     <listitem><para><interface>Browser Toolbar</interface></para></listitem>
+     <listitem><para><interface>Tags Toolbar</interface></para></listitem>
+     <listitem><para><interface>Format Toolbar</interface></para></listitem>
+     <listitem><para><interface>Debug Toolbar</interface></para></listitem>
     </itemizedlist>
    </para>
    
    <para>
-    It would be worth spending some time getting familiar with the toolbar
-    buttons. Tool tips describing the function of the tool-bar buttons will appear
-    as soon as you move the mouse over the buttons. Read and remember them
-    carefully. Tool-bars avoid the unnecessary selection of menu items which are
-    used very often.
+    It would be worth spending some time becoming familiar with the toolbar 
+	buttons. Tooltips describing the function of the buttons will appear 
+	as soon as you move the mouse over them. Toolbars provide rapid access to some 
+	of the more popular menu items.
    </para>
    
    <para>
-    You will find some combo (entry) boxes on the tool-bars. They are explained
-    in the later section.
+    You will find some drop-down combination boxes on the toolbars. They are 
+	explained in a later section.
    </para>
  
    <para>
-    Similarly, to make the life still more easier, short cuts are available for
-    those operations that are performed very often. All the keyboard short cuts
-    are given along with their corresponding menu item. You must remember some of
-    them, for they become handy while you are typing into the editor and you don't
-    want to leave the keyboard.
+    To make life even easier, shortcut keys are available for 
+	the most-used options. All of the shortcut keys are shown along with 
+	their corresponding menu items. You might like to remember some of 
+	them, as they will be handy while you are typing into the editor and you 
+	don't want to leave the keyboard.
    </para>
   </sect1>
 
-<!-- ============= Getting Familier: Main window  ============-->
-  <sect1 id="main_win">
+<!-- ============= Getting Familiar: Main window  ============-->
+  <sect1 id="main-win">
    <title>Main Window</title>
    <para>
-    In the main window, there are three frames that you must be familiar with,
-    before you start doing anything (All of them may not be visible when you start
-    Anjuta). They are called:
+    In the main window, there are three frames that you ought to be familiar 
+	with before you start doing anything (although some of them may not be 
+	visible when you start <application>Anjuta</application>). These are:
    </para>
    
    <para>
     <itemizedlist>
      <listitem>
       <para>
-       Editor window.
+       <interface>Editor window</interface>
       </para>
      </listitem>
      <listitem>
       <para>
-       Project window.
+       <interface>Project window</interface>
       </para>
      </listitem>
      <listitem>
       <para>
-       Message window.
+       <interface>Message window</interface>
       </para>
      </listitem>
     </itemizedlist>
    </para>
    
    <para>
-     The frame on the left is the <citetitle>Project window</citetitle>, on the right is the
-     <citetitle> Editor window</citetitle> and the one at the bottom is the
-     <citetitle>Message window</citetitle>.
-     The project window and the message window can be detached into separate
-     windows instead of docking them into the main window. You can detach them by
-     clicking the the detach button (You will find them along with the frames: the
-     small buttons with the un-docking icon). Similarly, you can hide them, by
-     clicking the hide buttons (small buttons with the red cross). You can make
-     them visible anytime by activating the menu items View/Project listing and
-     View/Message, respectively, or by clicking the corresponding tool-bar buttons
-     in the main tool-bar.
+     The frame on the left is the <interface>Project window</interface>, at the 
+	 right is the <interface>Editor window</interface> and the one at the bottom 
+	 is the <interface>Message window</interface>.
+   </para>
+   <para> 
+     The <interface>Project window</interface> and the 
+	 <interface>Message window</interface> can be detached into separate windows, 
+	 instead of docking them into the main window. You can detach them by clicking 
+	 on the <guibutton>detach</guibutton> button (you will find them along with the 
+	 frames: the small buttons with the un-docking icon). Similarly, you can hide 
+	 them by clicking on the <guibutton>hide</guibutton> buttons (the small buttons 
+	 with the red cross). You can make them visible at any time by choosing the 
+	 menu items <menuchoice><guisubmenu>View</guisubmenu>
+	 <guimenuitem>Project Listing</guimenuitem></menuchoice> 
+	 and <menuchoice><guisubmenu>View</guisubmenu>
+	 <guimenuitem>Messages</guimenuitem></menuchoice>, or by clicking on the 
+	 corresponding toolbar buttons.
    </para>
    
    <para>
     <orderedlist>
      <listitem>
       <para>
-       <citetitle>Editor window</citetitle> is the part of the main window, so you can
-       either detach nor hide it. But, you can always detach the individual
-       documents, which are shown as pages in the editor window. Editor window
-       will have one document active at a time (if there is any file opened). All
-       the file commands are meant for this active document. You can switch to
-       any page by clicking on the page tag. You can do the same by right
-       clicking on the page tags and selecting the document from the pop up menu
-       that will appear. This is especially useful when you have many files
-       opened and all the files not visible in the page tag area.
-      </para>
-     </listitem>
-     <para>
-     </para>
+       The <interface>Editor window</interface> is part of the main window, so 
+	   it cannot be detached or hidden. However, you can always detach the 
+	   individual documents, which are shown as pages in the 
+	   <interface>Editor window</interface>. The <interface>Editor window</interface> 
+	   will have one document active at a time (if there are any files opened). All 
+	   of the file commands will apply to this active document. You can switch to 
+	   any page by clicking on the page tab. You can do the same by right-clicking 
+	   on the page tabs and choosing the document from the pop-up menu that will 
+	   appear. This is especially useful when you have a lot of files opened, but not 
+	   all of them are visible in the page tab area.
+	   </para>
+	 </listitem>
      <listitem>
       <para>
-       <citetitle>Project window</citetitle> shows the project files if you have a
-       project opened. Otherwise, the project window is usually hidden. Double
-       clicking on any item in the project window will open that file.
+       The <interface>Project window</interface> shows a tree of the project files if 
+	   you have a project opened. Otherwise, the <interface>Project window</interface> 
+	   is usually hidden. Double-clicking on any item in the 
+	   <interface>Project window</interface> will open that file.
       </para>
      </listitem>
-     <para>
-     </para>
      <listitem>
       <para>
-      <citetitle>Message window</citetitle> will list all
-       the messages (both stdout and stderr outputs) when an external command is
-       executed. Message window is usually hidden, but appears as soon as the
-       external command is executed, such as during file or project compilation
-       or building, during debugging session, searching in files and many other
-       operations requiring external commands. Anjuta also adds its own messages
-       whenever it becomes necessary.
+      The <interface>Message window</interface> will list all the messages (both 
+	  <filename>stdout</filename> and <filename>stderr</filename> outputs) when an external 
+	  command is executed. The <interface>Message window</interface> is usually hidden, but 
+	  appears as soon as an external command is executed, such as during file or project 
+	  compilation, debugging sessions, searches, and many other operations. 
+	  <application>Anjuta</application> also adds its own messages here when necessary.
       </para>
       <para>
-       The colors with which the messages are displayed in the message window
-       are very important to note. Messages displayed in normal color (usually
-       black) are normal messages. Those displayed in Blue are usually important
-       messages such as error messages or some important information. Messages
-       shown in Red color are <citetitle>Hot linked</citetitle>. That is double
-       clicking on such
-       a message will take you to the particular file and line number specified
-       in the message.
+	  The colors used to display the messages are important. Messages 
+	  displayed in the standard foreground color (usually Black) are normal 
+	  messages. Those displayed in Blue are important messages such as errors or 
+	  other information. Messages shown in Red are <emphasis>Hot Linked</emphasis>. 
+	  Double-clicking on such a message will take you to the particular file and 
+	  line number specified in the message.
       </para>
       <para>
-       For example, when you compile a buggy file, some messages in red will
-       appear in the message window which tell where is the error and what sort
-       of error is that. Double clicking on such messages will open the file and
-       hi-lite the line containing the error.
-      </para>
+      For example, when you compile a file which contains bugs, some red 
+	  messages will appear showing what the problems are, and where they occur. 
+	  Double-clicking on such messages will open the file and highlight the 
+	  line containing the error.
+	  </para>
      </listitem>
     </orderedlist>
    </para>
    <tip>
-   <title>Try resizing and detaching</title>
+   <title>Tip</title>
    <para>
-    All these three frames are resizable and detachable. Try adjusting them by dragging the
-    handle bars separating them. For detaching, click the detach button on the top
-    corner of the windows.
+    All three frames are resizable and detachable. Try adjusting them by 
+	dragging the edges (handles) which separate them. To detach, click on the 
+	<guibutton>detach</guibutton> button at the top corner of the windows.
    </para>
    </tip>
+   <note>
+   <title>Note</title>
    <para>
-    One last thing I should tell you in this section is that, all the settings,
-    including all the window sizes and window positions, are saved when you exit
-    Anjuta  Then they are all set again when you next restart Anjuta  Session
-    management is still under development. So you should not exit Anjuta with any
-    unsaved document. Of course, Anjuta will display a warning if you try to exit
-    Anjuta with unsaved document(s) still opened.
+   All of the settings, including the window sizes and window positions, are 
+   saved when you exit <application>Anjuta</application>. Session management is still 
+   under development, so you should not exit <application>Anjuta</application> with 
+   any unsaved documents. <application>Anjuta</application> will display a warning 
+   if you try to exit with unsaved documents still open.
    </para>
+   </note>
   </sect1>
  </chapter>

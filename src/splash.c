@@ -90,6 +90,7 @@ splash_screen()
 
 	// set the size to that of our splash image.
         gtk_window_set_title (GTK_WINDOW (MainFrame), _("Anjuta"));
+	gtk_window_set_wmclass (GTK_WINDOW (MainFrame), "splash", "Anjuta");
 	// center it on the screen
         gtk_window_set_position(GTK_WINDOW (MainFrame), GTK_WIN_POS_CENTER);
 

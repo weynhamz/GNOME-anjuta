@@ -749,6 +749,7 @@ bool AnEditor::StartAutoComplete() {
 	return true;
 }
 
+#if 0
 const char *strcasestr(const char *str, const char *pattn) {
 	int i;
 	int pattn0 = tolower (pattn[0]);
@@ -764,6 +765,7 @@ const char *strcasestr(const char *str, const char *pattn) {
 	}
 	return NULL;
 }
+#endif
 
 bool AnEditor::StartAutoCompleteWord() {
 	char linebuf[1000];

@@ -4,107 +4,123 @@
   <title>Information</title>
   <!-- ============ Information: Contributions ===================== -->
   <sect1 id="contributions">
-   <title>Author and Contributors</title>
+   <title>Authors and Contributors</title>
    <para>
-    <citetitle>Anjuta IDE</citetitle> and <citetitle>Anjuta Users Manual</citetitle>
+    The <application>Anjuta</application> IDE and this manual
     were written by Naba Kumar <email>kh_naba@123india.com</email>.
     Naba Kumar is from India (Manipur) and got his B.Tech in electronic and
     communication engineering degree from <citetitle>North Eastern Regional
     Institute of Science and Technology (NERIST), India.</citetitle>
    </para>
    <para>
-    For more information on Anjuta, please visit anjuta home site at
-    <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net
-    </ulink>
-   </para>
-   
-   <para>
+    For more information on <application>Anjuta</application>, please visit the project 
+	website at <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>
+	</para>
+ 
+    <para>
     <variablelist>
-     <title>Contribution:</title>
+     <title>Contributors:</title>
+<!--========= Copy and paste from here to add new entry ============
+      <varlistentry>
+       <term><email></email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+-->
+      <varlistentry>
+       <term>Stéphane Démurget <email>demurgets@free.fr</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
 
-     <varlistentry>
-      <term>Max Blagai <email>maximblagai@yahoo.com</email>
-      Short-cuts for notebook, project window</term>
-     </varlistentry>
-     <varlistentry>
-      <term> Misha <email>misha@phreaker.net</email>
-      Anjuta website, New icon set and splash logo</term>
-     </varlistentry>
-     <varlistentry>
-      <term><email></email>
-      </term>
-     </varlistentry>
-	</variablelist>
+      <varlistentry>
+       <term>Luca Bellonda<email>lbell@tsc4.com</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
 
+      <varlistentry>
+       <term>Lord Sibn<email>sibn@utspl.cjb.net</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term>Andy Piper<email>andy.piper@freeuk.com</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+    </variablelist>
    </para>
  
    <para>
     <variablelist>
      <title>Translators:</title>
-
+<!--========= Copy and paste from here to add new entry ============
+      <varlistentry>
+       <term><email></email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+-->
      <varlistentry>
-      <term>Javier Conde Rueda<email>f3285740@est.fib.upc.es</email>
-      Spanish Translation</term>
+      <term>Javier Conde Rueda<email>f3285740@est.fib.upc.es</email></term>
+      <listitem><para>Spanish Translation</para></listitem>
      </varlistentry>
 
      <varlistentry>
-      <term>Stéphane Démurget<email>demurgets@free.fr</email>
-      French Translation</term>
+      <term>Stéphane Démurget<email>demurgets@free.fr</email></term>
+      <listitem><para>French Translation</para></listitem>
      </varlistentry>
 
      <varlistentry>
-      <term>Takeshi Aihana<email>aihana@gnome.gr.jp</email>
-      Japanese Translation</term>
+      <term>Takeshi Aihana<email>aihana@gnome.gr.jp</email></term>
+      <listitem><para>Japanese Translation</para></listitem>
      </varlistentry>
 
      <varlistentry>
-      <term>M.Ali Vardar<email>ali@gelecek.com.tr</email>
-      Turkish Translation</term>
+      <term>M.Ali Vardar<email>ali@gelecek.com.tr</email></term>
+      <listitem><para>Turkish Translation</para></listitem>
      </varlistentry>
      
      <varlistentry>
-      <term>Michele Campeott<email>micampe@f2s.com</email>
-      Italian Translation</term>
+      <term>Michele Campeott<email>micampe@f2s.com</email></term>
+      <listitem><para>Italian Translation</para></listitem>
      </varlistentry>
     </variablelist>
    </para>
+
   </sect1>
 
   <!-- ============ Information: Contacts ======== -->
-  <sect1 id="anjuta_contacts">
+  <sect1 id="anjuta-contacts">
    <title>Contacts</title>
    <para>
     For the time being you can contact me for anything at my personal
     email <email>kh_naba@123india.com</email>. Just make sure your mail
     has a very brief and descriptive subject line. Please do mail me
-    and tell how do you like Anjuta. 
+    and tell how do you like <application>Anjuta</application>. 
    </para>
    <para>
-    You can also visit Anjuta home website at:
-    <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>
-    You will also find the details of Anjuta at Project site:
-    <ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
-    http://www.sourceforge.net/projects/anjuta</ulink>
+    You can visit the website at 
+	<ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>. 
+    You will also find details of <application>Anjuta</application> at the project development site 
+	<ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
+	http://www.sourceforge.net/projects/anjuta</ulink>
    </para>
    <para>
     Available mailing lists:
     <orderedlist>
      <listitem>
       <para>
-       <citetitle><email>anjuta-list@lists.sourceforge.net</email>:</citetitle>
-       For general discussion.
+       <email>anjuta-list@lists.sourceforge.net</email>:
+       General discussion
       </para>
      </listitem>
      <listitem>
       <para>
-       <citetitle><email>anjuta-devel@lists.sourceforge.net</email>:</citetitle>
-       For developmental discussion.
+       <email>anjuta-devel@lists.sourceforge.net</email>:
+       Development discussion
       </para>
      </listitem>
      <listitem>
       <para>
-       <citetitle><email>anjuta-announce@lists.sourceforge.net</email>:</citetitle>
-       For announcement of new releases.
+       <email>anjuta-announce@lists.sourceforge.net</email>:
+       Announcements of new releases
       </para>
      </listitem>
     </orderedlist>
@@ -112,7 +128,7 @@
   </sect1>
   
   <!-- ============ Information: License ======== -->
-  <sect1 id="anjuta_license">
+  <sect1 id="anjuta-license">
    <title>License</title>
    <para>
     This program is free software; you can redistribute it and/or

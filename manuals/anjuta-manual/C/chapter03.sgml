@@ -1,318 +1,348 @@
 <!-- ============= File operations ======================== -->
 
- <chapter id="file_operations">
+ <chapter id="file-operations">
   <title>File Operations</title>
   <!-- ============= File operations: Creating a new file === -->
-  <sect1 id="creating_files">
+  <sect1 id="creating-files">
    <title>Creating a New File</title>
    <para>
-    To create a new file just select the menu file/new or click the new file icon
-    in the main tool-bar. A new page will appear on the editor (or a new window if
-    the parent document is windowed). This new document will be named "newfile#1",
-    "newfile#2", "newfile#3" ... and so on. You must  save new documents as soon
-    as possible to avoid any data loss due to emergency exit or application
-    crash.
+   To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu>
+   <guimenuitem>New</guimenuitem></menuchoice> from the menubar, or click on the 
+   <guibutton>New File</guibutton> button on the toolbar. A new page will 
+   appear in the editor (or a new window if the parent document is windowed). 
+   This new document will be named <filename>newfile#1</filename>, 
+   <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
+   so on. 
    </para>
+   <important>
+   <title>Remember</title>
+   <para>
+   You should save new documents as soon as possible to avoid any data 
+   loss in case of a crash.
+   </para>
+   </important>
   </sect1>
 
  <!-- ============= File operations: Opening and saving files === -->
-  <sect1 id="open_save_files">
+  <sect1 id="open-save-files">
    <title>Opening and Saving Files</title>
    <para>
     <orderedlist>
      <listitem>
       <para>
-       <citetitle>Opening File: </citetitle>
-       To open an already existing file, activate the menu item File/Open or click
-       the open button in the main tool-bar or press Ctrl+O. This will display the
-       open file dialog box.
-       <figure>
-        <title>File open/save dialog</title>
+       <emphasis>Opening a file:</emphasis> 
+	   To open an existing file, choose <menuchoice><guisubmenu>File</guisubmenu>
+	   <guimenuitem>Open</guimenuitem></menuchoice> from the menubar, click on 
+	   the <guibutton>Open</guibutton> button on the toolbar, or press 
+	   <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>. This will 
+	   display the <interface>Open File</interface> dialog.
+       <figure id="open-file">
+        <title>Open File dialog</title>
         <screenshot>
-         <graphic fileref="figures/open_file" format="png" srccredit="mkv"/>
+		<screeninfo>The Open File dialog</screeninfo>
+         <graphic fileref="figures/open_file" format="png" srccredit="andyp"/>
         </screenshot>
        </figure>
+       Select or enter the file you want to open, then click 
+	   <guibutton>OK</guibutton>. If you change your mind, click 
+	   <guibutton>Cancel</guibutton> to dismiss the dialog without opening 
+	   the file.
       </para>
-      <simplelist>
-       <member>Select or enter the file you want to open then click OK.</member>
-       <member>If you change your mind, then click Cancel to dismiss the dialog 
-        box without opening the file.
-       </member>
-      </simplelist>
      </listitem>
      
      <listitem>
       <para>
-       <citetitle>Saving Files: </citetitle>To save a file, activate the menu item
-       File/Save or click the save button in the main tool-bar or press Ctrl+S.
-       This will save the file. If the file is a new file, a save as dialog box
-       will appear. Enter the file name and click OK
-       to save the new file with the file name supplied.
+       <emphasis>Saving a file:</emphasis> 
+	   To save a file, choose <menuchoice><guisubmenu>File</guisubmenu>
+	   <guimenuitem>Save</guimenuitem></menuchoice> from the menubar, click on 
+	   the <guibutton>Save</guibutton> button on the toolbar, or press 
+	   <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. This will 
+	   save the file. If the file is new, a <interface>Save As</interface> dialog will 
+	   appear. Enter a filename and click <guibutton>OK</guibutton> to save the new file 
+	   with the name supplied.
       </para>
-     </listitem><para></para>
+     </listitem>
       
      <listitem>
       <para>
-      <citetitle>Save file as different file: </citetitle>
-      You can explicitly save a file with a new file name. To do this, activate
-      File/Save as. A dialog box for save as will appear prompting you to enter the
-      new file name. Enter the name and click OK.
+      <emphasis>Saving a file with a different name:</emphasis> 
+	  You can explicitly save a file with a new filename. To do this, choose 
+	  <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save As</guimenuitem></menuchoice> 
+	  from the menubar. A <interface>Save As</interface> dialog will appear prompting you to 
+	  enter the new filename. Enter the name and click <guibutton>OK</guibutton>.
       </para>
-      <tip>
-       <title>Note:</title>
+      <note>
+       <title>Note</title>
        <para>
-        Note that when you <citetitle>Save As</citetitle>, the original file is not deleted. It
-        is just left untouched from the last save. More over, if the new file name you
-        have just entered is already existing, it will display a confirmation dialog
-        box to overwrite it. Clicking Yes in this confirmation will overwrite the file
-        with the file you are saving.
+        When you use <guimenuitem>Save As</guimenuitem> with an existing file, 
+		the original is not deleted. It is left unchanged since the last save. 
+		If a file with the new filename already exists, a confirmation dialog 
+		will appear, to ensure that you want to overwrite it. Clicking 
+		<guibutton>Yes</guibutton> will overwrite the file with the file you 
+		are saving.
        </para>
-      </tip>
-     </listitem><para></para>
+      </note>
+     </listitem>
      
      <listitem>
       <para>
-      <citetitle>Closing Files: </citetitle>To close a file, activate File/Close or click
-      close button in the main tool-bar. This will close the current file. If the
-      file is not saved or is a new file, then anjuta will prompt you to save
-      the file before closing it.
+      <emphasis>Closing a file:</emphasis> 
+	  To close a file, choose <menuchoice><guisubmenu>File</guisubmenu>
+	  <guimenuitem>Close</guimenuitem></menuchoice> from the menubar, or click on the 
+	  <guibutton>Close</guibutton> button on the toolbar. This will close the current 
+	  file. If the file is not saved, or is a new file, then 
+	  <application>Anjuta</application> will prompt you to save the file before 
+	  closing it.
       </para>
-     </listitem><para></para>
-    
+     </listitem> 
     </orderedlist>
    </para>
-   <tip>
-   <title>Remember:</title>
+   <note>
+   <title>Remember</title>
     <para>
-     One more thing you must keep in mind is that, if you have enabled
-     auto-save, it will not auto-save any new file(s). You must first save it/them
-     manually. Only then will the auto-save work for them too. Same is applied for
-     the save all. Save all will not save the new file(s), if you haven't saved
-     it/them first manually. i.e. <citetitle>You must save a file manually 
-     before Auto-Save or Save-All will work with it</citetitle>.
-    </para>
-   </tip>
+	If you have enabled auto-save, it will not auto-save any new files. 
+	You must first save them manually. The same applies to the 
+	<guimenuitem>Save All</guimenuitem> option: it will not save new files, 
+	if you haven't saved them first manually. <emphasis>You must save a file manually 
+	before auto-save or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>    
+	</para>
+   </note>
   </sect1>
  
  <!-- ============= File operations: Editing files === -->
-  <sect1 id="editing_files">
+  <sect1 id="editing-files">
    <title>Editing Files</title>
    <para>
-    FIXME:
+    <application>Anjuta</application> has a number of helpful features which aid in 
+    editing and working with source files. The following sections describe how to use 
+	them.
    </para>
   </sect1>
 
- <!-- ============= File operations: Browsing with tags browser ===   -->
-  <sect1 id="browsing_files">
-   <title>Browsing Files with Tags Browser</title>
+ <!-- ============= File operations: Browsing with the tags browser ===   -->
+  <sect1 id="browsing-files">
+   <title>Browsing Files with the Tags Browser</title>
    <para>
-    All C and C++ source and header  files can be browsed using the tags in the files. 
-    All the currently opened C and C++ source and header files are scanned for the 
-    available tags (Tags are nothing but the function definitions, structures, defines etc).
+    All C and C++ source and header files can be browsed using the tags in the files. 
+    All of the open C and C++ source and header files are scanned for available tags 
+	(a "tag" refers to a function definition, structure, macro, etc.).
    </para>
    <para>
-    Select the type of the tag you want to view in the tag pull down menu in the browser 
-    tool-bar. If the tag type is function or class, you will have to further select the file for 
-    which you want to view the tag. Then select the tag (function, class member or the 
-    other tags) from the tag combo box. Then the editor will take you to that particular file 
-    and line and hi-lite the line that contains the tag.
+    Choose the type of the tag you want to view in the <guisubmenu>Tag</guisubmenu> menu on 
+	the <interface>Browser</interface> toolbar. If the tag type is function or class, 
+	you will have to further select the file for which you want to view the tag. Then, 
+	choose the tag (function, class member or the other tags) from the <guilabel>Tag</guilabel> 
+	drop-down combination box. The editor will take you to that particular file and highlight 
+	the line that contains the tag.
    </para>
-   <para>
-    <itemizedlist>
-     <title>Following tags are recorded:</title>
-     <listitem><para>Functions.</para></listitem>
-     <listitem><para>Classes.</para></listitem>
-     <listitem><para>Structures.</para></listitem>
-     <listitem><para>Unions.</para></listitem>
-     <listitem><para>Enumerations.</para></listitem>
-     <listitem><para>Variables [global].</para></listitem>
-     <listitem><para>Macros.</para></listitem>
+   <para>The following tag types are available:</para>
+	<itemizedlist>
+     <listitem><para><emphasis>Functions</emphasis></para></listitem>
+     <listitem><para><emphasis>Classes</emphasis></para></listitem>
+     <listitem><para><emphasis>Structures</emphasis></para></listitem>
+     <listitem><para><emphasis>Unions</emphasis></para></listitem>
+     <listitem><para><emphasis>Enumerations</emphasis></para></listitem>
+     <listitem><para><emphasis>Variables [global]</emphasis></para></listitem>
+     <listitem><para><emphasis>Macros</emphasis></para></listitem>
     </itemizedlist>
     
     <orderedlist>
      <listitem>
-      <para><citetitle>File mode operation: </citetitle>
-       If there is no project opened, then Anjuta is in
-       <citetitle>File mode</citetitle>. In this mode, Anjuta keeps 
-       account of the opened file(s) only. Anjuta will know all the
-       tags availably in these opened file(s).
+      <para><emphasis>File mode operation:</emphasis> 
+       If there is no project open, then <application>Anjuta</application> is in
+       <emphasis>File mode</emphasis>. In this mode, <application>Anjuta</application> 
+	   keeps track of opened files only. <application>Anjuta</application> 
+	   will know all of the tags available in these opened file(s).
       </para>
      </listitem>
-     <para>
-     </para>
      <listitem>
-      <para><citetitle>Project mode operation: </citetitle>
-       If there is a project opened, then instead of scanning for tags only in the currently 
-       opened  files, anjuta will scan all the source and header files of the project. This way 
-       it is possible to go to any function definition, structure definition, class definition etc. 
-       without even opening the file. You don't even have to know in which file that tag is 
-       located (except in function definitions).
+      <para><emphasis>Project mode operation:</emphasis> 
+       If there is a project open, <application>Anjuta</application> will scan for tags 
+	   in all of the source and header files of the project. This way it is possible 
+	   to go to any function definition, structure definition, class definition etc. 
+	   without manually opening the file. You don't even have to know which file that 
+	   tag is found in (except in the case of function definitions).
       </para>
      </listitem>
     </orderedlist>
-   </para>
-   <figure>
-    <title>Tags Toolbar</title>
+   <figure id="tags-toolbar">
+    <title>Tags toolbar</title>
     <screenshot>
-     <graphic fileref="figures/toolbar_tags" format="png" srccredit="mkv"/>
+	 <screeninfo>The Tags toolbar</screeninfo>
+     <graphic fileref="figures/toolbar_tags" format="png" srccredit="andyp"/>
     </screenshot>
    </figure>
    <tip>
-    <title>Don't worry</title>
+    <title>Don't Worry!</title>
     <para>
      You don't have to worry about the synchronization and update of the tag 
-     database. Anjuta will take care of everything. You just have to tell where you want to go, 
-     and loo... you are there.
+     database. <application>Anjuta</application> will take care of everything. 
+	 You just have to decide which tag you want to go to!
     </para>
    </tip>
   </sect1>
 
-  <!-- ============= File operations:Searching and replacing in files === -->
-  <sect1 id="search_replace_files">
-   <title>Searching and Repalacing text in files</title>
+  <!-- ============= File operations: Searching and replacing in files === -->
+  <sect1 id="search-replace-files">
+   <title>Searching for and Replacing text in files</title>
    <sect2 id="searching">
     <title>Searching</title>
-    <figure>
-     <title>Find text dialog</title>
+	
+    <para>
+     To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
+     string in the current file, choose <menuchoice><guisubmenu>Edit</guisubmenu>
+	 <guimenuitem>Find</guimenuitem></menuchoice> or press <keycombo><keycap>Alt</keycap>
+	 <keycap>F</keycap></keycombo>. This will open the <interface>Find</interface> dialog.
+    </para>
+
+    <figure id="find-text">
+     <title>Find Text dialog</title>
      <screenshot>
-       <graphic fileref="figures/find_text" format="png"/>
+	 <screeninfo>Find Text dialog</screeninfo>
+       <graphic fileref="figures/find_text" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
+
     <para>
-     To search a <citetitle>text</citetitle> or <citetitle>Regexp</citetitle>
-     string in the current file, activate Edit/Find 
-     or press Alt+F. This will display the find dialog box.
+     Use the text box to specify the string to search for, and select whether it is a normal 
+	 string or a regular expression (RegExp). It is also possible to specify the direction of 
+	 search, whether the search is case-sensitive or not, and the scope of the search. Click 
+	 <guibutton>OK</guibutton> to start searching.
     </para>
     <para>
-     Enter the string in the entry box and specify if the string is a normal string or 
-     regional expression (REGEXP). Also specify the direction of search, whether 
-     the search is case sensitive or not and the scope of the search. Then click OK 
-     to start searching.
+     If the search is successful, the matched text in the document will be highlighted and 
+     you will be taken to the line containing the match. If the search is not successful, 
+     a <emphasis>match not found</emphasis> message will be displayed.
     </para>
     <para>
-     If the search is successful, the matched text in the document will be hi-lited and 
-     your focus will be taken to the line containing the match. If the search is not successful, 
-     a dialog box for <b>match not found</b> will be displayed.
-    </para>
-    <para>
-    Now if you want to search again, you can do this by clicking find button on the 
-    main tool-bar. This will find the next match in the previously specified direction. 
-    You can even change the search text when you do find again if you so wish. 
-    Enter the new string in the <b>Find string entry box</b> in the main tool-bar.
+    If you want to search again, click on the <guibutton>Find</guibutton> button on the main 
+	toolbar. This will find the next match in the direction of the search. You can even 
+	change the search text when you do this. Enter the new string in the 
+	<guilabel>Find String</guilabel> text box in the main toolbar.
     </para>
    </sect2>
+   
    <sect2 id="replacing">
     <title>Searching and replacing</title>
-    <figure>
-     <title>Find and replace dialog</title>
+    
+	<figure id="find-and-replace">
+     <title>Find and Replace dialog</title>
      <screenshot>
-       <graphic fileref="figures/find_replace" format="png"/>
+	 <screeninfo>Find and Replace dialog</screeninfo>
+       <graphic fileref="figures/find_replace" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
-    <para>
-     The search and replace is similar to the find text, except that you 
-     also specify the replace text in the replace text entry box and whether 
-     you should be prompted before the replace takes place.
+    
+	<para>
+     Search and replace is similar to just finding text, except that you 
+     also specify the replace text in the <guilabel>Replace Text</guilabel> text box, 
+	 and whether or not you want to be prompted before the replace takes place.
     </para>
    </sect2>
   </sect1>
 
  <!-- ============= File operations: Finding in multiple files and folders === -->
-  <sect1 id="multiple_find_files">
+  <sect1 id="multiple-find-files">
    <title>Finding in Multiple Files and Folders</title>
-    <figure>
-     <title>Find and replace dialog</title>
+    <figure id="find-in-files">
+     <title>Find in files dialog</title>
      <screenshot>
-       <graphic fileref="figures/find_files" format="png"/>
+	 <screeninfo>Find in files dialog</screeninfo>
+       <graphic fileref="figures/find_files" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
+	
    <para>
     To find in files and/or folders, add all the files and/or folders
-    you want to search in by entering the files/folders one by one in
-    the entry box and clicking <citetitle>Add</citetitle> button.
+    you want to search in by entering their names in
+    the text box and clicking on the <guibutton>Add</guibutton> button.
    </para>
    <para>
-    Remember directory entries are searched recursively. That is all the files under 
-    this directory and the files under all the sub-directories and the files under all the 
-    sub-sub-directories .... and so on .... are all included in the searched.
+    Remember, directories are searched recursively. All of the files under 
+    the directory, and the files under all the subdirectories, and the files under all 
+	of the sub-subdirectories (and so on) are all included in the search.
    </para>
    <para>
     If you want to remove or edit an entry in the list, select it by clicking on the item. 
-    Click <citetitle>Remove</citetitle> or make changes in the entry box and click
-    <citetitle>Update</citetitle>
+    Click on <guibutton>Remove</guibutton>, or make changes in the text box and click on
+    <guibutton>Update</guibutton>.
    </para>
    <para>
-    Clicking <citetitle>Clear</citetitle> will clear all the entries.
+    Clicking on <guibutton>Clear</guibutton> will clear all the entries.
    </para>
    <para>
-    Enter the text you want to search and specify if the search is case sensitive.
-    Click <citetitle>OK</citetitle> to start searching.
+    Enter the text you want to search and specify whether the search should be case-sensitive.
+    Click <guibutton>OK</guibutton> to start searching.
    </para>
    <para>
     The search results will be listed in the message window. Double clicking on them 
-    will take you to that file and that particular line number where the match has been 
-    found. The matching line is also hi-lited.
+    will take you to the file and particular line number where the match has been 
+    found. The matching line is also highlighted.
    </para>
   </sect1>
 
  <!-- ============= File operations: Other special operations on files === -->
-  <sect1 id="other_operations_files">
+  <sect1 id="other-operations-files">
    <title>Other special operations on files</title>
-   <sect2 id="hiliting">
-   <title>Syntax hiliting</title>
+   <sect2 id="highlighting">
+   <title>Syntax highlighting</title>
    <para>
-    Anjuta can hilite many different languages. This is usually done
-    automatically by determining the filetype from the file extension.
-    If anjuta could not determine the filetype, there will be no hilite
-    done. You can explicitly force a perticular hilite style by selecting
-    the style from the menu <citetitle>Format-&gt;Force Hilite Style</citetitle>.
+    <application>Anjuta</application> can highlight many different languages. 
+	This is usually done automatically by determining the type of the file from the 
+	file extension. If <application>Anjuta</application> cannot determine the type of 
+	the file, there will be no syntax highlighting. You can explicitly force a particular 
+	highlight style by selecting the style from the menu 
+	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Force Highlight Style</guimenuitem></menuchoice>.
    </para>
    </sect2>
    <sect2 id="codefolding">
     <title>Code folding</title>
     <para>
-     Source files which have block coding properties (eg c, c++, pascal, java etc),
-     have the advantage of working with <citetitle>code foldings</citetitle>. All
+     Source files which have block coding properties (such as C, C++, Pascal, Java etc.),
+     have the advantage of working with <emphasis>code folds</emphasis>. All of
      the code blocks in the source file can be folded or unfolded by clicking on the
-     fold points in the editors fold margin (usually a +/- symbol or up/down arrow).
-     These fold points automatically appears for these source files.
+     fold points in the fold margin of the <interface>Editor window</interface> 
+	 (usually a +/- symbol or up/down arrow). These fold points automatically appear for 
+	 source files which use code blocks.
     </para>
     <para>
-     Code folding is especially useful in editing big source files that runs to
-     thousands of lines. Once the folds are closed, the length of the document
-     virtually becomes smaller, facilating easy browsing and editing of the
-     source file.
+     Code folding is especially useful when editing big source files that run to
+     thousands of lines. Once the folds are closed, the document appears to become 
+	 smaller, facilitating easy browsing and editing of the file.
     </para>
    </sect2>
    
-   <sect2 id="">
+   <sect2 id="printing">
     <title>Printing a file</title>
     <para>
      FIXME:
      </para>
      <para>
-     I think Stef would like to write something here about his gnome-print
+     Perhaps Stef would like to write something here about his gnome-print
      implementation.
     </para>
    </sect2>
    
-   <sect2 id="">
-    <title>Auto format source code</title>
+   <sect2 id="autoformat">
+    <title>Auto-formatting source code</title>
     <para>
-    If the current file is C/C++ source or header file, then you can
+    If the current file is a C or C++ source or header file, then it is possible to
     automatically indent (auto-format) the file. This gives a clean look to
-    your source code, increases legibility, reduces chances of syntax errors
-    and above all it saves time. You can do it by clicking the <citetitle>Auto
-    format</citetitle> button in the main tool-bar or activating the auto-format from
-    the menu <citetitle>Format-&gt;Auto format</citetitle> on the document. You can change the
-    style of format by customizing your choice in the preferences.
+    the source code, increases legibility, reduces the likelihood of syntax errors,
+    and above all it saves time. This can be performed by clicking on the 
+	<guibutton>Auto-format</guibutton> button in the main toolbar or choosing 
+	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Auto-format</guimenuitem></menuchoice> 
+	on the menubar. Change the style of formatting by customizing the 
+	choices in the preferences.
     </para>
-    <tip><title>Note:</title>
+    <note>
+	<title>indent</title>
      <para>
-      You should have installed 'indent' to use this feature. Read the info page of Indent
-      for further details.
+      You will need to have the <application>indent</application> utility installed 
+	  in order to use this feature. Read the <ulink type="info" url="info:indent">info page 
+	  for <application>indent</application></ulink> for further details.
      </para>
-    </tip>
+    </note>
    </sect2>
   </sect1>
  </chapter>

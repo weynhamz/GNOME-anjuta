@@ -726,18 +726,30 @@ gboolean
 text_editor_check_disk_status (TextEditor * te)
 {
 	struct stat status;
+	time_t t;
+	
 	gchar *buff;
 	if (!te)
 		return FALSE;
 	if (stat (te->full_filename, &status))
 		return TRUE;
+	t = time(NULL);
+	if (te->modified_time > t || status.st_mtime > t)
+	{
+		/*
+		 * Something is worng with the time stamp. They are refering to the
+		 * future or the system clock is wrong.
+		 * FIXME: Prompt the user about this inconsistency.
+		 */
+		return TRUE;
+	}
 	if (te->modified_time < status.st_mtime)
 	{
 		buff =
 			g_strdup_printf (_
 					 ("WARNING: The file \"%s\" in the disk is more recent "
 					  "than\nthe current buffer.\nDo you want to reload it."),
-te->filename);
+			te->filename);
 		messagebox2 (GNOME_MESSAGE_BOX_WARNING, buff,
 			     GNOME_STOCK_BUTTON_YES,
 			     GNOME_STOCK_BUTTON_NO,

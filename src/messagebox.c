@@ -43,6 +43,7 @@ create_messagebox_gui (MesgBoxData mbd)
   messagebox_gui = gnome_message_box_new (mbd.mesg, mbd.type, NULL);
   gtk_window_set_position (GTK_WINDOW (messagebox_gui), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (messagebox_gui), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (messagebox_gui), "messagebox", "Anjuta");
   gtk_window_set_modal (GTK_WINDOW (messagebox_gui), TRUE);
   gnome_dialog_set_close (GNOME_DIALOG (messagebox_gui), TRUE);
 

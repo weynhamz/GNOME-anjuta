@@ -73,6 +73,7 @@ create_fileselection_gui (FileSelData * fsd)
 	gnome_filelist_set_title (GNOME_FILELIST(fileselection_gui), _(fsd->title));
 	gtk_container_set_border_width (GTK_CONTAINER (fileselection_gui), 10);
 	gtk_window_set_position (GTK_WINDOW (fileselection_gui), GTK_WIN_POS_CENTER);
+	gtk_window_set_wmclass (GTK_WINDOW (fileselection_gui), "filesel", "Anjuta");
 	
 	fileselection_ok = GNOME_FILELIST (fileselection_gui)->ok_button;
 	gtk_widget_show (fileselection_ok);

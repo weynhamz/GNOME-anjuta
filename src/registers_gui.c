@@ -90,6 +90,7 @@ create_cpu_registers_gui(CpuRegisters *cr)
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("CPU Registers"));
+  gtk_window_set_wmclass (GTK_WINDOW (window3), "cpu_registers", "Anjuta");
   gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
 
   scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);

@@ -22,6 +22,9 @@
 #include <list>
 #include <string>
 #include <algo.h>
+
+using namespace std;
+
 // this is really designed for cacheing directory contents.
 template < class T >
 class tree_coll

@@ -29,9 +29,6 @@ BUGS:
 -----
 1) Core dumps on three file imports in a sequence.
 
-2) Gdb Mismatch with Mandrak 8 distribution. Process ID not properly
-recognized with gdb v5.0.
-
 3) In a C++ projects, checking for the gtkmm and gnomemm packages
 
 4) For whatever reason db1-devel_1.85-4mdk was not installed by default and

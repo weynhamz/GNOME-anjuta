@@ -282,6 +282,7 @@ create_find_replace_gui (FindAndReplace * fr)
 
 	dialog2 = gnome_dialog_new (NULL, NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog2), FALSE, FALSE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog2), "find_repl", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog2), TRUE);
 
 	dialog_vbox2 = GNOME_DIALOG (dialog2)->vbox;

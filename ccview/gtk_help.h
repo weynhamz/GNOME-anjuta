@@ -20,6 +20,9 @@
 #include <gnome.h>
 #include <set>
 #include <string>
+
+using namespace std;
+
 void make_image_label(GtkContainer *cont,char **imdat,gchar *txt);
 gchar * bin_get_contained_image_text(GtkBin *bin);
 gchar * bin_get_contained_text(GtkBin *bin);

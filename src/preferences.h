@@ -82,6 +82,16 @@ struct _PreferencesWidgets
 	GtkWidget *font_attrib_use_default_check;
 	GtkWidget *fore_color_use_default_check;
 	GtkWidget *back_color_use_default_check;
+	GtkWidget *caret_fore_color;
+	GtkWidget *selection_fore_color;
+	GtkWidget *selection_back_color;
+	GtkWidget *calltip_back_color;
+
+	/*
+	 * * Page 3 
+	 */
+	GtkWidget *strip_spaces_check;
+	GtkWidget *fold_on_open_check;
 
 	GtkWidget *disable_hilite_check;
 	GtkWidget *auto_save_check;
@@ -94,12 +104,6 @@ struct _PreferencesWidgets
 	GtkWidget *autoindent_size_spin;
 	GtkWidget *linenum_margin_width_spin;
 	GtkWidget *session_timer_spin;
-
-	/*
-	 * * Page 3 
-	 */
-	GtkWidget *strip_spaces_check;
-	GtkWidget *fold_on_open_check;
 
 	/*
 	 * * Page 4 
@@ -254,6 +258,10 @@ void preferences_set_build_options(Preferences* p);
 #define EDITOR_TAG_HIDE "editor.tag.hide"
 #define STRIP_TRAILING_SPACES "strip.trailing.spaces"
 #define FOLD_ON_OPEN "fold.on.open"
+#define CARET_FORE_COLOR "caret.fore"
+#define CALLTIP_BACK_COLOR "calltip.back"
+#define SELECTION_FORE_COLOR "selection.fore"
+#define SELECTION_BACK_COLOR "selection.back"
 
 #define TRUNCAT_MESSAGES "truncat.messages"
 #define TRUNCAT_MESG_FIRST "truncat.mesg.first"
@@ -262,5 +270,8 @@ void preferences_set_build_options(Preferences* p);
 #define AUTOMATIC_TAGS_UPDATE "automatic.tags.update"
 
 #define COMMAND_PRINT "command.print"
+
+void
+ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);
 
 #endif

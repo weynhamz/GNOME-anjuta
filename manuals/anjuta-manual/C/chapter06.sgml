@@ -1,81 +1,92 @@
 <!-- ============= Setting compiler options === -->
 
- <chapter id="setting_compiler_options">
+ <chapter id="setting-compiler-options">
   <title>Setting Compiler Options</title>
   <para>
-   You can customize the the way the compiler will compile your file or Project.
-   Remember, each project will have its own set of compiler settings. That is:
-   what you set for a project is not available to other projects. They will have
-   their own settings. When no project is opened, the settings are saved
-   separately and are meant for compiling and building single files only. These
-   are all transparent to the user. Anjuta handles them automatically.
+   You can customize the the way the compiler will compile your file or project.
+   Remember, each project will have its own set of compiler settings. If the 
+   options are modified when there is no project open, the settings are saved
+   separately and will be used when compiling and building single files only. 
+   These are all transparent to the user: <application>Anjuta</application> handles 
+   them automatically.
   </para>
   
-  <sect1 id="program_support">
+  <sect1 id="program-support">
    <title>Support for your program</title>
    
    <para>
-    You have have seen in the previous sections how to specify the basic compiling 
-    options ( <i>i.e.. includes, library paths, libraries and defines</i>). This process is 
-    a cumbersome when you want to use some of the standard ( meaning popular ) libraries 
-    (Such as gtk libraries, gnome libraries etc. Also it may lead to inconsistencies when you 
-    distribute your project. To facilitate easy implementation of these libraries and to avoid 
-    inconsistencies, the developers of such libraries usually supply  a configuration 
-    program (usually called *-config) along with their libraries.
+    You have have seen in the previous sections how to specify basic compile 
+    options (such as include and library paths, linker settings, and so on). This 
+	process can be cumbersome when you want to use some of the more standard or popular 
+	libraries &mdash; GTK and GNOME, for example. To enable easy implementation of 
+	these libraries and to avoid and inconsistencies, the developers of such 
+	libraries usually supply a configuration program (usually called *-config) 
+	along with their libraries.
    </para>
     
    <para>
-    Well, that's the theory part. Now the practical part. You don't have to bother 
-    about the library config programs. Anjuta will do the difficult parts for you. 
-    You just have to mention the particular <citetitle>support</citetitle> you want to use for 
-    your project.
+    Well, that's the theory. Now for the practical part. <application>Anjuta</application> 
+	will do the difficult parts for you, so you do not need to worry about the 
+	configuration programs for these libraries &mdash; just add the particular 
+	<emphasis>support</emphasis> to your project.
    </para>
 
    <para>
-    To add supports to your program:
+    To add support for a library to your program:
     <orderedlist>
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the 'Supports" page in the settings dialog box.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Supports</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Select the supports for your program by <citetitle>double clicking</citetitle> on them.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Select the supports for your program by double-clicking on them.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Double clicking again on the selected support wil unselect them.
-     </para></listitem>
-    
+     <listitem>
+	 <para>
+      Double-clicking again on any selected supports will unselect them.
+     </para>
+	 </listitem>
     </orderedlist>
    </para>
    
-   <figure>
-    <title>Supports Dialog</title>
+   <figure id="supports">
+    <title>Supports dialog</title>
     <screenshot>
-     <graphic fileref="figures/supports" type="png"/>
+	<screeninfo>Supports dialog</screeninfo>
+     <graphic fileref="figures/supports" format="png" srccredit="andyp"/>
     </screenshot>
    </figure>
    
    <para>
-    Basically, It will automatically set all the include paths and the libraries necessary for 
-    the required support. You don't need to set the include paths and the libraries manually.
-   <para>
+    This will automatically set all the include paths and the libraries necessary 
+	for the options chosen. There will be no need to set the include paths and 
+	libraries manually.
+   </para>
    
+   <important>
+   <title>Important</title>
+   <para>
+    Currently, <application>Anjuta</application> has only a few library support 
+	options &mdash; Glib, GTK, GNOME and Bonobo. Some of these are not yet 
+	fully supported.
    </para>
-    Presently, It has only three supports, namely, glib, gtk, gnome and gnome-bonobo.
-    some of them even are not fully supported.
-    I am planning to add more in the coming releases. Till then be 
-    satisfied with the given three :).
-   </para>
+   </important>
    
    <note>
     <title>Remember</title>
     <para>
-     Once you have specified the support, you no longer need to
-     specify the basic compiler options such as defines, libraries, includes etc (for
-     these supports only). You may need to supply these for the other things you
-     are using besides the standard supports.
+     Once basic library supports have been specified, there is no need to
+     manually set the basic compiler options usually required for these libraries. 
+	 <emphasis>Any other libraries may still need compiler settings to be 
+	 changed.</emphasis>
     </para>
    </note>
   </sect1>
@@ -85,36 +96,48 @@
    <para>
     To set include paths for your program:
     <orderedlist>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Include Paths</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the 'Include Paths" page in the settings dialog box.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Enter each of the paths one by one and click on the
+      <guibutton>Add</guibutton> button for each entry.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Enter all the paths one by one and press the
-      <citetitle>Add</citetitle> button for each entry.
-     </para></listitem>
-     
-     <listitem><para>
+     <listitem>
+	 <para>
       To remove an entry, select the entry in the list
-      and click <citetitle>Remove</citetitle>.
-     </para></listitem>
+      and click on <guibutton>Remove</guibutton>.
+     </para>
+	 </listitem>
      
-     <listitem><para>
+     <listitem>
+	 <para>
       To edit an entry, select the entry, modify it
-      in the entry box and click <citetitle>Update</citetitle>
-     </para></listitem>
+      in the text box and click on <guibutton>Update</guibutton>
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      To clear all the entries, click <citetitle>Clear</citetitle>.
-     </para></listitem>
+     <listitem>
+	 <para>
+      To clear all of the entries, click on <guibutton>Clear</guibutton>.
+     </para>
+	 </listitem>
     </orderedlist>
      
-    <figure>
-     <title>Include Paths Dialog</title>
+    <figure id="include-paths">
+     <title>Include Paths dialog</title>
      <screenshot>
-      <graphic fileref="figures/includes" type="png"/>
+	 <screeninfo>Include Paths dialog</screeninfo>
+      <graphic fileref="figures/includes" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
    </para>
@@ -122,60 +145,74 @@
    <note>
     <title>Things to note</title>
     <para>
-     If the settings are for a project then all the includes path 
-     should be relative to the source directory of the project. There should not 
-     be any absolute path. Otherwise when you distribute the program, people 
-     trying to build your program will find difficulties.
+     If the settings are for a project, then all include paths 
+     should be relative to the source directory of the project. Avoid using absolute 
+	 paths &mdash; otherwise, when you distribute the source code, other people will 
+	 have problems trying to build the program.
      </para>
      <para>
-     If the settings are for the 'no-project', then it doesn't matter if the paths are absolute 
-     or relative (since the settings are local to your machine only and it wouldn't 
-     go anywhere).
+     If the settings are are made outside of a project, then it doesn't matter 
+	 whether the paths are absolute or relative &mdash; the settings will be local to 
+	 your machine only.
     </para>
    </note>
   </sect1>
   
   <sect1 id="libpaths">
-   <title>Library paths</title>
+   <title>Library Paths</title>
    <para>
-     When your program uses external libraries (via libraries in the next section),
-     the linker will search for those libraries in the set of library search paths.
-     these are the paths that we have to set here. System library paths do not need
-     to be set here. Only those library paths should be set which are part of your
-     project or are not system library paths.
+     When your program links to external libraries (specified via the 
+	 <guilabel>Libraries</guilabel> settings in the next section),
+     the linker will search for those libraries in the library search paths.
+     <application>Anjuta</application> will automatically use system library paths, 
+	 but you should add any additional search paths to your project.
    </para>
    <para>
     To set library paths for your program:
     <orderedlist>
      
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the "Library Paths" page in the settings dialog box.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Library Paths</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Enter all the library paths one by one and press the
-      <citetitle>Add</citetitle> button for each entry.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Enter each of the paths one by one and click on the
+      <guibutton>Add</guibutton> button for each entry.
+     </para>
+	 </listitem>
      
-     <listitem><para>
+     <listitem>
+	 <para>
       To remove an entry, select the entry in the list
-      and click <citetitle>Remove</citetitle>.
-     </para></listitem>
+      and click on <guibutton>Remove</guibutton>.
+     </para>
+	 </listitem>
      
-     <listitem><para>
+     <listitem>
+	 <para>
       To edit an entry, select the entry, modify it
-      in the entry box and click <citetitle>Update</citetitle>
-     </para></listitem>
+      in the text box and click on <guibutton>Update</guibutton>
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      To clear all the entries, click <citetitle>Clear</citetitle>.
-     </para></listitem>
+     <listitem>
+	 <para>
+      To clear all of the entries, click on <guibutton>Clear</guibutton>.
+     </para>
+	 </listitem>
     </orderedlist>
-    <figure>
-     <title>Library Paths Dialog</title>
+	
+    <figure id="lib-paths">
+     <title>Library Paths dialog</title>
      <screenshot>
-      <graphic fileref="figures/lib_paths" type="png"/>
+	 <screeninfo>Library Paths dialog</screeninfo>
+      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
    </para>
@@ -183,15 +220,15 @@
    <note>
     <title>Things to note</title>
     <para>
-     Similarly here also, if the settings are for a project then all the library paths
-     should be relative to the source directory of the project. There should not 
-     be any absolute path. Otherwise when you distribute the program, people 
-     trying to build your program will find difficulties.
+     If the settings are for a project, then all library paths 
+     should be relative to the source directory of the project. Avoid using absolute 
+	 paths &mdash; otherwise, when you distribute the source code, other people will 
+	 have problems trying to build the program.
      </para>
      <para>
-     If the settings are for the 'no-project', then it doesn't matter if the paths are absolute 
-     or relative (since the settings are local to your machine only and it wouldn't 
-     go anywhere).
+     If the settings are are made outside of a project, then it doesn't matter 
+	 whether the paths are absolute or relative &mdash; the settings will be local to 
+	 your machine only.
     </para>
    </note>
   </sect1>
@@ -199,86 +236,100 @@
   <sect1 id="libraries">
    <title>Libraries to link</title>
    <para>
-    Libraries are the external modules that either come as different distribution
-    or you build them separately from the source module. They must be link with
-    your program at the final stage of executable (or a library) building in the
-    source module. Linker is given the list of libraries to link with to construct
-    the final target.
+    Libraries are external modules that must be linked with
+    your program at the final stage of the build, to produce another 
+	library or an executable. The linker is passed the list of libraries to 
+	link with to construct the final target.
    </para>
    <para>
-     Additionally, we can also give object modules (*.o files) besides the library
-     modules for linking. Object modules are specified by a special flag (asterisk *)
-     at the start of the object module name (so that anjuta could differenciate
-     them from the library modules). Also, it is needed that object modules be
-     given in full paths (absolute or relative, depending upon the context), because
-     unlike libraries, object modules are not searched in the library search paths.
+     It is also possible to provide the names of object modules
+	 (<filename>*.o</filename> files) along with the libraries to link 
+	 against. Object modules are specified by a special flag (asterisk *)
+     at the start of the object module name (so that 
+	 <application>Anjuta</application> can differentiate
+     them from the library modules). Object modules must be listed with their 
+	 full paths (absolute or relative, depending upon the context), because
+     they will not be searched for on the library search path.
    </para>
    <para>
-    To clear this idea, please look at the figure given below. the first entry 
-    "scintilla" entry is a library, while those starting with "*" are object modules.
+    <emphasis>Example:</emphasis> in the screenshot below, the first entry 
+    "scintilla" is a library, while those starting with "*" are object modules.
    </para>
-   <figure>
-     <title>Libraries Dialog</title>
+   <figure id="libs-link">
+     <title>Libraries dialog</title>
      <screenshot>
-      <graphic fileref="figures/libraries" type="png"/>
+	 <screeninfo>Libraries dialog</screeninfo>
+      <graphic fileref="figures/libraries" format="png" srccredit="andyp"/>
      </screenshot>
    </figure>
    <para>
-    Libraries have the following name format: <citetitle>libXXX.a</citetitle>. While
+    Libraries follow the naming format: <filename>libXXX.a</filename>. When
     specifying libraries in the list, the prefix "lib" and the suffix ".a" are
-    skipped and only the lib name "XXX" is given in the entry.
+    skipped, and only the library name "XXX" is given in the entry.
    </para>
    
    <para>
     To set libraries for your program:
     <orderedlist>
      
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the "Libraries" page in the settings dialog box.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Libraries</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+     </listitem>
      
      <listitem>
+	 <para>
+      Enter each of the library names (and object names, if required) and click on the
+      <guibutton>Add</guibutton> button for each entry.
+     </para>
       <para>
-       Enter all the library name (and object modules, if needed) one by one and
-       press the <citetitle>Add</citetitle> button for each entry.
-      </para>
-      <para>
-       Libraries could be selected from the stock list given in the right pane
-       of the dialog box (if it is available in the stock).
+       Libraries can also be selected from the list shown in the right pane
+       of the dialog. Not all libraries will be available in this list.
       </para>
       <para>
        <note>
         <title>Remember</title>
         <para>
-         Object modules must be specified in full path and must start
+         Object modules must be specified with an explicit path and must start
          with an asterisk (*).
         </para>
        </note>
       </para>
      </listitem>
      
-     <listitem><para>
+     <listitem>
+	 <para>
       To remove an entry, select the entry in the list
-      and click <citetitle>Remove</citetitle>.
-     </para></listitem>
+      and click on <guibutton>Remove</guibutton>.
+     </para>
+     </listitem>
      
-     <listitem><para>
-      To disable an entry, <citetitle>double click</citetitle> on the entry in the list.
-      Double clicking again will re-enable it.
+     <listitem>
+	 <para>
+      To disable an entry, double-click on the entry in the list. To re-enable it, 
+	  double-click again.
      </para>
      <para>
       Entries that are disabled are not included in the the linking process.
-     </para></listitem>
+     </para>
+	 </listitem>
      
-     <listitem><para>
+     <listitem>
+	 <para>
       To edit an entry, select the entry, modify it
-      in the entry box and click <citetitle>Update</citetitle>
-     </para></listitem>
+      in the text box and click on <guibutton>Update</guibutton>
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      To clear all the entries, click <citetitle>Clear</citetitle>.
-     </para></listitem>
+     <listitem>
+	  <para>
+      To clear all of the entries, click on <guibutton>Clear</guibutton>.
+     </para>
+     </listitem>
     </orderedlist>
    </para>
   </sect1>
@@ -287,36 +338,49 @@
    <title>Defining Macros</title>
    <para>
     To define macros for your program:
+
     <orderedlist>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Defines</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the "Defines" page in the settings dialog box.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Enter each macro to define one by one and click on the
+      <guibutton>Add</guibutton> button for each entry.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Enter all the defines one by one and press the
-      <citetitle>Add</citetitle> button for each entry.
-     </para></listitem>
-     
-     <listitem><para>
+     <listitem>
+	 <para>
       To remove an entry, select the entry in the list
-      and click <citetitle>Remove</citetitle>.
-     </para></listitem>
+      and click on <guibutton>Remove</guibutton>.
+     </para>
+	 </listitem>
      
-     <listitem><para>
+     <listitem>	 
+	 <para>
       To edit an entry, select the entry, modify it
-      in the entry box and click <citetitle>Update</citetitle>
-     </para></listitem>
+      in the text box and click on <guibutton>Update</guibutton>
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      To clear all the entries, click <citetitle>Clear</citetitle>.
-     </para></listitem>
+     <listitem>
+	  <para>
+      To clear all of the entries, click on <guibutton>Clear</guibutton>.
+     </para>
+     </listitem>
     </orderedlist>
-    <figure>
-     <title>Defines Dialog</title>
+    <figure id="defines-dialog">
+     <title>Defines dialog</title>
      <screenshot>
-      <graphic fileref="figures/defines" type="png"/>
+	 <screeninfo>Defines dialog</screeninfo>
+      <graphic fileref="figures/defines" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
    </para>
@@ -325,32 +389,42 @@
   <sect1 id="warnings">
    <title>Compiler Warnings</title>
    <para>
-    To set Warnings:
-    <orderedlist>
+    It is possible to tell the compiler how to respond to each different type of warning.
+	<orderedlist>     
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Warnings</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the "Warnings" page in the settings dialog box.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Select the warnings you want to see in the <interface>Message window</interface> 
+	  when you compile or build your file or project.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Check the warnings you want to output in the message box when 
-      you compile or build your file or project.
-     </para></listitem>
+     <listitem>
+	 <para>
+     Selecting <guilabel>No Warnings</guilabel> will disable all warnings.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-     Checking <citetitle>'No warnings'</citetitle> will disable all warnings.
-     </para></listitem>
-     
-     <listitem><para>
-     Similarly, Checking <citetitle>'All warnings'</citetitle> will enable all warnings.
-     </para></listitem>
+     <listitem>
+	 <para>
+     Similarly, selecting <guilabel>All Warnings</guilabel> will enable all warnings.
+     </para>
+	 </listitem>
     </orderedlist>
     
-    <figure>
-     <title>Warnings Dialog</title>
+    <figure id="warn-dialog">
+     <title>Warnings dialog</title>
      <screenshot>
-      <graphic fileref="figures/warnings" type="png"/>
+	 <screeninfo>Warnings dialog</screeninfo>
+      <graphic fileref="figures/warnings" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
    </para>
@@ -359,106 +433,114 @@
   <sect1 id="optimization">
    <title>Code Optimization</title>
    <para>
-    To set Optimization level:
+    To set the level of Optimization for code compilation:
+
     <orderedlist>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Optimization</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
-     <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the "Optimizations" page in the settings dialog box.
-     </para></listitem>
-     
-     <listitem><para>
-      Check the optimization level for your program to build with.
-     </para></listitem>
+     <listitem>
+	 <para>
+      Select the level of optimization required.
+     </para>
+	 </listitem>
     </orderedlist>
     
-    <figure>
-     <title>Optimization Dialog</title>
+    <figure id="optimize">
+     <title>Optimization dialog</title>
      <screenshot>
-      <graphic fileref="figures/optimizations" type="png"/>
+	 <screeninfo>Optimization dialog</screeninfo>
+      <graphic fileref="figures/optimizations" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
    </para>
+   
    <para>
-    Note that you should not enable any short of optimization if you have enabled debug option 
-    in the next page. This won't do any harm to your program if you build 
-    your program with both optimization and debug options enabled, but it 
-    will certainly make your life difficult while debugging the program.
+    Note that it is not a good idea to enable any sort of optimization if 
+	you have also enabled debugging. It will not do any harm to do so, but it 
+    will make life much more difficult when debugging the program. With optimization 
+	enabled, the compiler will modify your code to improve performance. This 
+	sometimes creates confusion during debugging, as the line number that the 
+	debugger refers to will not always correspond to the actual line number in 
+	the source file.
    </para>
+   
    <para>
-    This is because, with optimization enabled, the compiler will modify your code 
-    to improve the performance of your program . This sometimes create 
-    confusions while debugging, as the line number that the debugger refers to, 
-    while your program is being debugged, does not always corresponds to 
-    the actual line number in your source file.
-   </para>
-   <para>
-    Of course, the code optimization takes place during the compilation only 
-    and has nothing to do with the source code in the file.
+    Code optimization takes place during the compilation stage only,
+    and does not affect the source code in the file.
    </para>
   </sect1>
 
   <sect1 id="others">
    <title>Other compiler settings</title>
    <para>
-    To set misc compiler settings:
+    To set miscellaneous compiler settings:
+
     <orderedlist>
+     <listitem>
+	 <para>
+      Choose the menu item <menuchoice><guisubmenu>Settings</guisubmenu>
+      <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>
+      and click on the <guilabel>Others</guilabel> tab in the 
+	  <interface>Compiler Options</interface> dialog.
+     </para>
+	 </listitem>
      
      <listitem><para>
-      Activate the menu item <citetitle>Settings-&gt;Compiler options</citetitle>
-      and Select the "Others" page in the settings dialog box.
-     </para></listitem>
-     
-     <listitem><para>
-      The misc options for compiling are set in this page.
+      Various options for compiling are set on this tabbed section.
      </para></listitem>
     </orderedlist>
     
-    <figure>
-     <title>Other compiler settings Dialog</title>
+    <figure id="other-settings">
+     <title>Other Compiler Settings dialog</title>
      <screenshot>
-      <graphic fileref="figures/other_opts" type="png"/>
+	 <screeninfo>Other Compiler Settings dialog</screeninfo>
+      <graphic fileref="figures/other_opts" format="png" srccredit="andyp"/>
      </screenshot>
     </figure>
    </para>
    <para>
-    The first one is the <citetitle>'Enable Debugging'</citetitle> option.
-    This option tells the compiler 
-    to add extra debug information (such as symbol table), which are 
-    necessary for the program debugging. This makes your program a bit 
-    larger, but that doesn't matters. Does it?
+    The first is the <guilabel>Enable Debugging</guilabel> option.
+    This option tells the compiler to add extra debug information 
+	(such as the symbol table), which is necessary for stepping through the 
+	code. This makes the program slightly larger.
    </para>
    <para>
-    You should enable this option all 
-    the time during the development of your program. When your 
-    program is ready for the release, disable this option and build 
-    your program again. You should clean your project first and then 
-    build, otherwise, because of automatic dependency check, all files 
-    may not be built with this option disabled.
+    This option will be most useful during the development of your 
+	program. When the code is ready for the release, disable this option 
+	and build the program again. The project should be cleaned first before 
+	the rebuild &mdash; otherwise, due to automatic dependency checking, 
+	not all of the files may be built with this option disabled.
    </para>
    <para>
-    Again, do not set the optimization in the previous page with this 
-    option enabled. Why? Just try it out and find it for yourself :^D.
+    Note that it is not a good idea to enable any sort of optimization if 
+	you have also enabled debugging. It will not do any harm to do so, but it 
+    will make life much more difficult when debugging the program. With optimization 
+	enabled, the compiler will modify your code to improve performance. This 
+	sometimes creates confusion during debugging, as the line number that the 
+	debugger refers to will not always correspond to the actual line number in 
+	the source file.
    </para>
    <para>
-    The second option <citetitle>'Enable Profiling'</citetitle> is, more or less, 
-    same as the Debug option, except that, it builds your program 
-    with profiling information. Profiling is not yet implemented in Anjuta. 
-    For the time being, you can use <citetitle>gprof</citetitle>, a console based 
-    profiler. Read the man page for gprof to learn how to profile your 
-    program. One thing you should note here is that, enabling profile 
-    in your program will make it run very slowly (It's a nightmare if 
-    enabled in X programs).
+    The second option <guilabel>Enable Profiling</guilabel> is similar to 
+	the <guilabel>Enable Debugging</guilabel> option, except that it builds 
+	your program with profiling information. Profiling is not yet implemented 
+	in <application>Anjuta</application>. For the time being, you can use 
+	<application>gprof</application>, a console-based 
+    profiler; or <application>MemProf</application>, which is a GUI (GTK) 
+	application. Read the <ulink type="man" url="man:gprof">gprof manual 
+	page</ulink> to learn how to profile your program. Enabling profiling 
+    will make a progam run very slowly, so it should only be used for debugging.
    </para>
    <para>
-    The third option is very obvious. It will <citetitle>show warnings as errors</citetitle>. 
-    Put this on if you are very strict with compiler warnings.
-   </para>
-   <para>
-    Lastly, you can put any other additional compiler options in the entry box marked as 
-    <citetitle>'Other options'</citetitle> which are not handled by Anjuta. I don't think you 
-    will ever come to need this. Only for the sake of flexibility, it has been 
-    added there.
+    Additional options to pass to the compiler and linker can be entered into the 
+	text boxes on this tabbed section.
    </para>
   </sect1>
  </chapter>

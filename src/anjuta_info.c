@@ -49,6 +49,7 @@ create_anjuta_info_dialog_with_less (gint height, gint width)
   if (width < 400)
     width = 400;
   gtk_window_set_default_size (GTK_WINDOW (dialog1), width, height);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "infoless", "Anjuta");
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);
 
@@ -94,6 +95,7 @@ create_anjuta_info_dialog_with_clist (gint height, gint width)
   if (width < 400)
     width = 400;
   gtk_window_set_default_size (GTK_WINDOW (dialog1), width, height);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "infoclist", "Anjuta");
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);
 

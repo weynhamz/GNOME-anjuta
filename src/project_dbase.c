@@ -1054,6 +1054,8 @@ project_dbase_update_tags_image(ProjectDBase* p)
 void
 project_dbase_close_project (ProjectDBase * p)
 {
+	GList *node;
+
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
 	
@@ -1075,10 +1077,32 @@ project_dbase_close_project (ProjectDBase * p)
 				return;
 		}
 	}
-	/* project_dbase_update_menu (p); */
+
+	/* Close all files that are part of the project */
+	node = app->text_editor_list;
+	while (node)
+	{
+		TextEditor* te;
+		GList* next;
+		te = node->data;
+		next = node->next; // Save it now, as we may change it.
+		if(te)
+		{
+			if (text_editor_is_saved (te) && te->full_filename)
+			{
+				if (strncmp(te->full_filename, p->top_proj_dir, strlen(p->top_proj_dir)) ==0)
+				{
+					g_print("Closing file %s\n", te->filename);
+					anjuta_remove_text_editor(te);
+				}
+			}
+		}
+		node = next;
+	}
 	project_dbase_hide (p);
 	project_dbase_clean_left (p);
 	ccview_project_clear(CCVIEW_PROJECT(p->widgets.ccview));
+	project_dbase_update_menu (p);
 }
 
 void

@@ -48,9 +48,11 @@ prog_language_map[]=
 	"Java", "java",
 	"Perl", "perl",
 	"Python", "py",
+	"Pascal", "pascal",
+	"Ada", "ada",
 	"Lua", "lua",
 	"LaTex", "latex",
-	NULL
+	NULL, NULL
 };
 
 /* Command data to be used in command editor */
@@ -539,6 +541,7 @@ create_command_editor_gui (CommandEditor *ce)
 	
 	dialog1 = gnome_dialog_new (_("Anjuta: Commands"), NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "commands", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 	
 	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;

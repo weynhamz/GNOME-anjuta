@@ -1,37 +1,41 @@
  <!-- ============= Introduction ============================== -->
-  <chapter id="introduction">
+ <chapter id="introduction">
   <title>Introduction to Anjuta</title>
   <para>
-   Anjuta is a very versatile Integrated development environment for
-   c and c++ (Gnu/Linux). Written in gtk/gnome and written for gtk/gnome,
-   it features many advanced programming tools and utilities. It is basically
-   a GUI interface for the bunch of command line programming utilities
-   and tools available for Linux, which are usually run in console and
-   are very un-user friendly.
+  <application>Anjuta</application> is a versatile Integrated Development Environment 
+  (IDE) for C and C++ on GNU/Linux. It has been written for GTK/GNOME, and features 
+  a number of advanced programming features. It is basically a GUI interface for the 
+  collection of command line programming utilities and tools available for Linux. 
+  These are usually run via a text console, and can be unfriendly to use.
   </para>
   <para>
-   Anjuta is an effort to marry the flexibility and power of text
-   based command line tools with the ease of graphical user interface
-   of gnome.
+  <application>Anjuta</application> is an effort to marry the flexibility and power 
+  of text-based command line tools with the ease-of-use of GNOME's graphical user 
+  interface. That's why it has been made as user-friendly as possible.
   </para>
   <para>
-   Please have a look at the screen-shot.
+   Please have a look at the screenshot.
   </para>
-
   <para>
-   Presently, Anjuta is only in Beta release and lots of work are to
-   be done to improve it. I hope in the 
-   future Anjuta is going to be much more 
-   capable and stable. Extensive debugging session
-   has not yet been performed.
-   So, undoubtedly, it will have lots of bugs. It will be
-   my pleasure if you use it and
-   report the bugs to us. That way, you will
-   be helping to improve the software as well as helping the open-source community.
+  <figure id="anjuta-scrshot">
+   <title>Anjuta in action</title>
+   <screenshot>
+   <screeninfo>Anjuta in action</screeninfo>
+   <graphic format="png" fileref="figures/scrshot" srccredit="?"/>
+   </screenshot>
+   </figure>
   </para>
 
   <para>
-   Any sort of suggestions or 
-   patches for anjuta are also most welcome.
+  At present, <application>Anjuta</application> is only a beta release and lots of 
+  work needs to be done to improve it. In the future, <application>Anjuta</application> 
+  is going to be much more capable and stable! Extensive debugging has not 
+  yet been performed, so at the moment it will undoubtedly have lots of bugs. 
+  It would be great if you use it and report any problems to us. 
+  That way, you will be helping to improve the software as well as helping the Open 
+  Source community.
+  </para>
+  <para>
+   Any suggestions or patches for <application>Anjuta</application> are also most welcome.
   </para>
  </chapter>

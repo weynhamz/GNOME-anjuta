@@ -63,6 +63,11 @@ debugger_init ()
 		on_debugger_load_core_filesel_ok_clicked,
 		on_debugger_load_core_filesel_cancel_clicked, NULL
 	};
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_init()\n");
+#endif
+	
 	debugger.prog_is_running = FALSE;
 	debugger.starting = FALSE;
 	debugger.gdb_stdo_outputs = NULL;
@@ -97,6 +102,11 @@ debugger_init ()
 gboolean
 debugger_save_yourself (FILE * stream)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_save_yourself()\n");
+#endif
+	
 	if (!breakpoints_dbase_save_yourself
 	    (debugger.breakpoints_dbase, stream))
 		return FALSE;
@@ -118,6 +128,11 @@ debugger_save_yourself (FILE * stream)
 gboolean
 debugger_load_yourself (PropsID stream)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_load_yourself()\n");
+#endif
+	
 	if (!breakpoints_dbase_load_yourself
 	    (debugger.breakpoints_dbase, stream))
 		return FALSE;
@@ -142,6 +157,11 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 {
 	gchar *filename, *command, *dir;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: on_debugger_open_exec_filesel_ok_clicked()\n");
+#endif
+	
 	gtk_widget_hide (debugger.open_exec_filesel);
 	filename = fileselection_get_filename (debugger.open_exec_filesel);
 	if (!filename)
@@ -174,6 +194,11 @@ static void
 on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
 					      gpointer user_data)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: on_debugger_open_exec_filesel_cancel_clicked()\n");
+#endif
+	
 	gtk_widget_hide (debugger.open_exec_filesel);
 }
 
@@ -183,6 +208,11 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 {
 	gchar *filename, *command, *dir;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: on_debugger_load_core_filesel_ok_clicked()\n");
+#endif
+	
 	gtk_widget_hide (debugger.load_core_filesel);
 	filename = fileselection_get_filename (debugger.load_core_filesel);
 	if (!filename)
@@ -214,12 +244,22 @@ static void
 on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
 					      gpointer user_data)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: on_debugger_load_core_filesel_cancel_clicked()\n");
+#endif
+	
 	gtk_widget_hide (debugger.load_core_filesel);
 }
 
 void
 debugger_open_exec_file ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_open_exec_file()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -252,6 +292,11 @@ debugger_open_exec_file ()
 void
 debugger_load_core_file ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_load_core_file()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -282,6 +327,11 @@ debugger_load_core_file ()
 void
 debugger_shutdown ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_shutdown()\n");
+#endif
+	
 	if (debugger.term_is_running)
 	{
 		anjuta_unregister_child_process (debugger.term_pid);
@@ -307,6 +357,11 @@ debugger_shutdown ()
 void
 debugger_set_active (gboolean state)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_set_active()\n");
+#endif
+	
 	debugger.active = state;
 	/* debugger_update_controls (); */
 }
@@ -314,6 +369,11 @@ debugger_set_active (gboolean state)
 void
 debugger_set_ready (gboolean state)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_set_ready()\n");
+#endif
+	
 	debugger.ready = state;
 /*	if (debugger.cmd_queue == NULL) */
 	debugger_update_controls ();
@@ -322,12 +382,22 @@ debugger_set_ready (gboolean state)
 gboolean
 debugger_is_ready ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+//	printf("In function: debugger_is_ready()\n");
+#endif
+	
 	return debugger.ready;
 }
 
 gboolean
 debugger_is_active ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+//	printf("In function: debugger_is_active()\n");
+#endif
+	
 	return debugger.active;
 }
 
@@ -335,6 +405,11 @@ DebuggerCommand *
 debugger_get_next_command ()
 {
 	DebuggerCommand *dc;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_get_next_command()\n");
+#endif
+	
 	if (debugger.cmd_queqe)
 	{
 		dc = g_list_nth_data (debugger.cmd_queqe, 0);
@@ -349,6 +424,11 @@ void
 debugger_set_next_command ()
 {
 	DebuggerCommand *dc;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_set_next_command()\n");
+#endif
+	
 	dc = debugger_get_next_command ();
 	if (!dc)
 	{
@@ -371,6 +451,11 @@ debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
 			   gpointer data)
 {
 	DebuggerCommand *dc;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_put_cmd_in_queqe()\n");
+#endif
+	
 	if (!(debugger_is_active ()) || !(debugger_is_ready ()))
 		return;
 	dc = g_malloc (sizeof (DebuggerCommand));
@@ -389,6 +474,11 @@ debugger_clear_cmd_queqe ()
 {
 	GList *node;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_clear_cmd_queqe()\n");
+#endif
+	
 	node = debugger.cmd_queqe;
 	while (node)
 	{
@@ -409,6 +499,11 @@ debugger_clear_buffers ()
 {
 	gint i;
 	/* Clear the Output Buffer */
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_clear_buffers()\n");
+#endif
+	
 	for (i = 0; i < g_list_length (debugger.gdb_stdo_outputs); i++)
 		g_free (g_list_nth_data (debugger.gdb_stdo_outputs, i));
 	g_list_free (debugger.gdb_stdo_outputs);
@@ -432,6 +527,11 @@ debugger_clear_buffers ()
 void
 debugger_execute_cmd_in_queqe ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_execute_cmd_in_queqe()\n");
+#endif
+	
 	if (debugger_is_active () && debugger_is_ready ())
 	{
 		debugger_clear_buffers ();
@@ -452,6 +552,11 @@ debugger_start (gchar * prog)
 	GList *list;
 	gint i;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_start()\n");
+#endif
+	
 	if (anjuta_is_installed ("gdb", TRUE) == FALSE)
 		return;
 	if (debugger_is_active ())
@@ -577,6 +682,11 @@ gdb_stdout_line_arrived (gchar * chars)
 {
 	gint i;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: gdb_stdout_line_arrived()\n");
+#endif
+	
 	for (i = 0; i < strlen (chars); i++)
 	{
 		if (chars[i] == '\n'
@@ -598,6 +708,11 @@ void
 gdb_stderr_line_arrived (gchar * chars)
 {
 	gint i;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: gdb_stderr_line_arrived()\n");
+#endif
+	
 	for (i = 0; i < strlen (chars); i++)
 	{
 		if (chars[i] == '\n'
@@ -621,6 +736,11 @@ debugger_stdo_flush ()
 	guint lineno;
 	gchar *filename, *line;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_stdo_flush()\n");
+#endif
+	
 	line = debugger.stdo_line;
 	if (strlen (line) == 0)
 	{
@@ -652,8 +772,7 @@ debugger_stdo_flush ()
 		list = debugger.gdb_stdo_outputs;
 		while (list)
 		{
-			if (strstr ((gchar *) list->data, "Program exited") !=
-			    NULL)
+			if (strstr ((gchar *) list->data, "Program exited") != NULL)
 			{
 				debugger_put_cmd_in_queqe ("info program",
 							   DB_CMD_NONE,
@@ -793,6 +912,11 @@ void
 debugger_stde_flush ()
 {
 	gchar *line;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_stde_flush()\n");
+#endif
+	
 	line = debugger.stde_line;
 	if (strlen (line) == 0)
 		return;
@@ -806,6 +930,11 @@ debugger_stde_flush ()
 void
 gdb_terminated (int status, time_t t)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: gdb_terminated()\n");
+#endif
+	
 	/* Clear the command queue & Buffer */
 	debugger_clear_buffers ();
 	debugger_stop_terminal ();
@@ -832,6 +961,11 @@ gdb_terminated (int status, time_t t)
 void
 debugger_command (gchar * com)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_command()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;		/* There is no point in accepting commands when */
 	if (debugger_is_ready () == FALSE)
@@ -843,6 +977,11 @@ debugger_command (gchar * com)
 void
 debugger_update_controls ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_update_controls()\n");
+#endif
+	
 	breakpoints_dbase_update_controls (debugger.breakpoints_dbase);
 	expr_watch_update_controls (debugger.watch);
 	stack_trace_update_controls (debugger.stack);
@@ -853,6 +992,11 @@ debugger_update_controls ()
 void
 debugger_dialog_message (GList * lines, gpointer data)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_dialog_message()\n");
+#endif
+	
 	if (g_list_length (lines) < 1)
 		return;
 	anjuta_info_show_list (lines, 0, 0);
@@ -863,6 +1007,11 @@ debugger_dialog_error (GList * lines, gpointer data)
 {
 	gchar *ptr, *tmp;
 	gint i;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_dialog_error()\n");
+#endif
+	
 	if (g_list_length (lines) < 1)
 		return;
 	ptr = g_strconcat ((gchar *) g_list_nth_data (lines, 0), "\n", NULL);
@@ -882,6 +1031,11 @@ debugger_dialog_error (GList * lines, gpointer data)
 static void
 on_debugger_terminal_terminated (int status, gpointer data)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: on_debugger_terminal_terminated()\n");
+#endif
+	
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
 	if (debugger.prog_is_running)
@@ -896,6 +1050,11 @@ debugger_start_terminal ()
 	FILE *fp;
 	pid_t pid;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_start_terminal()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return NULL;
 	if (debugger_is_ready () == FALSE)
@@ -983,6 +1142,11 @@ debugger_start_terminal ()
 static void
 debugger_stop_terminal ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_stop_terminal()\n");
+#endif
+	
 	if (debugger.term_is_running == FALSE)
 		return;
 	else
@@ -994,6 +1158,11 @@ debugger_start_program (void)
 {
 	gchar *term, *cmd, *args;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_start_program()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1041,6 +1210,11 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 	glong pid;
 	gint i;
 	gboolean error;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: on_debugger_update_prog_status()\n");
+#endif
+	
 	error = FALSE;
 	if (lines == NULL)
 	{
@@ -1059,19 +1233,34 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 		str[i] = tolower (str[i]);
 		i++;
 	}
-	str = strstr (str, "pid ");
-	if (str == NULL)
+	str = strstr (lines->data, "pid ");
+	if (str)
 	{
-		error = TRUE;
-		goto down;
+		if (sscanf (str, "pid %ld", &pid) != 1)
+		{
+			error = TRUE;
+			goto down;
+		}
 	}
-	if (sscanf (str, "pid %ld", &pid) != 1)
+	else /* A quick hack for gdb version 5.0 */
 	{
-		error = TRUE;
-		goto down;
+		str = strstr (lines->data, "process ");
+		if (str)
+		{
+			if (sscanf (str, "process %ld", &pid) != 1)
+			{
+				error = TRUE;
+				goto down;
+			}
+		}
+		else
+		{
+			error = TRUE;
+			goto down;
+		}
 	}
 
-      down:
+ down:
 	if (error)
 	{
 		debugger.prog_is_running = FALSE;
@@ -1106,6 +1295,11 @@ debugger_attach_process_confirmed (GtkWidget * but, gpointer data)
 {
 	pid_t pid;
 	gchar *buf;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_attach_process_confirmed()\n");
+#endif
+	
 	pid = (pid_t) data;
 	if (debugger_is_active () == FALSE)
 		return;
@@ -1127,6 +1321,11 @@ debugger_attach_process_confirmed (GtkWidget * but, gpointer data)
 void
 debugger_attach_process (gint pid)
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_attach_process()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1152,6 +1351,11 @@ debugger_attach_process (gint pid)
 void
 debugger_restart_program ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_restart_program()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE ||
 	    debugger_is_ready () == FALSE
 	    || debugger.prog_is_attached == TRUE)
@@ -1168,6 +1372,11 @@ debugger_restart_program ()
 void
 debugger_stop_program ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_stop_program()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger.prog_is_running == FALSE)
@@ -1203,6 +1412,11 @@ void
 debugger_detach_process ()
 {
 	gchar *buff;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_detach_process()\n");
+#endif
+	
 	if (debugger.prog_is_attached == FALSE)
 		return;
 	if (debugger_is_active () == FALSE)
@@ -1224,6 +1438,11 @@ debugger_detach_process ()
 void
 debugger_stop ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_stop()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1253,6 +1472,11 @@ debugger_stop ()
 void
 debugger_run ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_run()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1287,6 +1511,11 @@ debugger_run ()
 void
 debugger_step_in ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_step_in()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1316,6 +1545,11 @@ debugger_step_in ()
 void
 debugger_step_over ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_step_over()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1339,6 +1573,11 @@ debugger_step_over ()
 void
 debugger_step_out ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_step_out()\n");
+#endif
+	
 	if (debugger.prog_is_running == FALSE)
 		return;
 	if (debugger_is_active () == FALSE)
@@ -1363,6 +1602,11 @@ void debugger_run_to_location(gchar *loc)
 {
 	gchar *buff;
 
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_run_to_location()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1397,6 +1641,11 @@ void
 debugger_enable_breakpoint (gint id)
 {
 	gchar buff[20];
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_enable_breakpoint()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1412,6 +1661,11 @@ debugger_enable_breakpoint (gint id)
 void
 debugger_enable_all_breakpoints ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_enable_all_breakpoints()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1429,6 +1683,11 @@ void
 debugger_disable_breakpoint (gint id)
 {
 	gchar buff[20];
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_disable_breakpoint()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1444,6 +1703,11 @@ debugger_disable_breakpoint (gint id)
 void
 debugger_disable_all_breakpoints ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_disable_all_breakpoints()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1461,6 +1725,11 @@ void
 debugger_delete_breakpoint (gint id)
 {
 	gchar buff[20];
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_delete_breakpoint()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1476,6 +1745,11 @@ debugger_delete_breakpoint (gint id)
 void
 debugger_delete_all_breakpoints ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_delete_all_breakpoints()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1492,6 +1766,11 @@ debugger_delete_all_breakpoints ()
 void
 debugger_custom_command ()
 {
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_custom_command()\n");
+#endif
+	
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
@@ -1499,6 +1778,11 @@ void
 debugger_interrupt ()
 {
 	gchar *buff;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_interrupt()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready ())
@@ -1521,6 +1805,11 @@ debugger_signal (gchar * sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 {
 	gchar *buff;
 	gchar *cmd;
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("In function: debugger_signal()\n");
+#endif
+	
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger.prog_is_running == FALSE)

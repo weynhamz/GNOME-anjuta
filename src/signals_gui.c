@@ -94,6 +94,7 @@ create_signals_gui(Signals *cr)
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
+  gtk_window_set_wmclass (GTK_WINDOW (window3), "signals", "Anjuta");
   gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
 
   scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
@@ -211,6 +212,7 @@ create_signals_set_dialog (Signals *s)
   GTK_WINDOW (dialog1)->type = GTK_WINDOW_DIALOG;
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "set_signal", "Anjuta");
   gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
 
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;

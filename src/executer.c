@@ -85,6 +85,7 @@ create_executer_dialog (Executer * e)
 	dialog1 = gnome_dialog_new (_("Execute"), NULL);
 	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "exec", "Anjuta");
 	gtk_widget_set_usize (dialog1, 400, -2);
 	gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
 

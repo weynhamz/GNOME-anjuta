@@ -142,6 +142,7 @@ create_preferences_gui (Preferences * pr)
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 	window2 = dialog1;
+	gtk_window_set_wmclass (GTK_WINDOW (window2), "preferences", "Anjuta");
 
 	pr->widgets.window = dialog1;
 
@@ -176,7 +177,7 @@ create_preferences_gui (Preferences * pr)
 	page2 = create_preferences_page2 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page2);
 
-	label1 = gtk_label_new (_("Editor (part 1)"));
+	label1 = gtk_label_new (_("Styles"));
 	gtk_widget_show (label1);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
@@ -186,7 +187,7 @@ create_preferences_gui (Preferences * pr)
 	page3 = create_preferences_page3 (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), page3);
 
-	label12 = gtk_label_new (_("Editor (part 2)"));
+	label12 = gtk_label_new (_("Editor"));
 	gtk_widget_show (label12);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
@@ -585,6 +586,7 @@ static GtkWidget *
 create_preferences_page2 (Preferences * p)
 {
 	GtkWidget *window1;
+	GtkWidget *frame;
 	GtkWidget *vbox1;
 	GtkWidget *hbox1;
 	GtkWidget *label2;
@@ -609,35 +611,27 @@ create_preferences_page2 (Preferences * p)
 	GtkWidget *checkbutton6;
 	GtkWidget *checkbutton7;
 	GtkWidget *table2;
-	GtkWidget *checkbutton9;
-	GtkObject *spinbutton2_adj;
-	GtkWidget *spinbutton2;
-	GtkObject *spinbutton3_adj;
-	GtkWidget *spinbutton3;
-	GtkWidget *checkbutton10;
-	GtkWidget *checkbutton12;
-	GtkWidget *checkbutton11;
-	GtkWidget *checkbutton8;
-	GtkObject *spinbutton4_adj;
-	GtkWidget *spinbutton4;
-	GtkWidget *vseparator1;
-	GtkObject *spinbutton5_adj;
-	GtkWidget *spinbutton5;
-	GtkObject *spinbutton6_adj;
-	GtkWidget *spinbutton6;
 	GtkWidget *label6;
 	GtkWidget *label7;
 	GtkWidget *label8;
 	GtkWidget *label9;
-	GtkWidget *label10;
+	GtkWidget *colorpicker3;
+	GtkWidget *colorpicker4;
+	GtkWidget *colorpicker5;
+	GtkWidget *colorpicker6;
 	GtkWidget *fontpicker1;
 	GList *s_list;
 	gint i;
 
 	window1 = p->widgets.window;
 
+	frame = gtk_frame_new (NULL);
+	gtk_widget_show (frame);
+	gtk_container_set_border_width (GTK_CONTAINER (frame), 5);
+	
 	vbox1 = gtk_vbox_new (FALSE, 5);
 	gtk_widget_show (vbox1);
+	gtk_container_add (GTK_CONTAINER(frame), vbox1);
 
 	hbox1 = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox1);
@@ -784,11 +778,157 @@ create_preferences_page2 (Preferences * p)
 			  (GtkAttachOptions) (0), 0, 0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton7), TRUE);
 
-	table2 = gtk_table_new (5, 4, FALSE);
+	table2 = gtk_table_new (4, 4, FALSE);
 	gtk_widget_show (table2);
-	gtk_box_pack_start (GTK_BOX (vbox1), table2, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox1), table2, TRUE, TRUE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (table2), 5);
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table2), 5);
+
+	label6 = gtk_label_new (_("Caret color:"));
+	gtk_widget_show (label6);
+	gtk_misc_set_alignment (GTK_MISC (label6), 0, -1);
+	gtk_table_attach (GTK_TABLE (table2), label6, 0, 1, 0, 1,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	colorpicker3 = gnome_color_picker_new ();
+	gtk_widget_show (colorpicker3);
+	gtk_table_attach (GTK_TABLE (table2), colorpicker3, 1, 2, 0, 1,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	label7 = gtk_label_new (_("Calltip color:"));
+	gtk_widget_show (label7);
+	gtk_misc_set_alignment (GTK_MISC (label7), 0, -1);
+	gtk_table_attach (GTK_TABLE (table2), label7, 0, 1, 1, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	colorpicker4 = gnome_color_picker_new ();
+	gtk_widget_show (colorpicker4);
+	gtk_table_attach (GTK_TABLE (table2), colorpicker4, 1, 2, 1, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	label8 = gtk_label_new (_("Selection Foreground:"));
+	gtk_widget_show (label8);
+	gtk_misc_set_alignment (GTK_MISC (label8), 0, -1);
+	gtk_table_attach (GTK_TABLE (table2), label8, 2, 3, 0, 1,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	colorpicker5 = gnome_color_picker_new ();
+	gtk_widget_show (colorpicker5);
+	gtk_table_attach (GTK_TABLE (table2), colorpicker5, 3, 4, 0, 1,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+	
+	label9 = gtk_label_new (_("Selection Background:"));
+	gtk_widget_show (label9);
+	gtk_misc_set_alignment (GTK_MISC (label9), 0, -1);
+	gtk_table_attach (GTK_TABLE (table2), label9, 2, 3, 1, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	colorpicker6 = gnome_color_picker_new ();
+	gtk_widget_show (colorpicker6);
+	gtk_table_attach (GTK_TABLE (table2), colorpicker6, 3, 4, 1, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+	
+	gtk_signal_connect (GTK_OBJECT (combo_entry2), "changed",
+			    GTK_SIGNAL_FUNC (on_hilite_style_entry_changed), p);
+	gtk_signal_connect (GTK_OBJECT (checkbutton1), "toggled",
+			    GTK_SIGNAL_FUNC (on_use_default_font_toggled), p);
+	gtk_signal_connect (GTK_OBJECT (checkbutton5), "toggled",
+			    GTK_SIGNAL_FUNC (on_use_default_attrib_toggled), p);
+	gtk_signal_connect (GTK_OBJECT (checkbutton6), "toggled",
+			    GTK_SIGNAL_FUNC (on_use_default_fore_toggled), p);
+	gtk_signal_connect (GTK_OBJECT (checkbutton7), "toggled",
+			    GTK_SIGNAL_FUNC (on_use_default_back_toggled), p);
+
+	p->widgets.font_picker = fontpicker1;
+	p->widgets.font_size_spin = spinbutton1;
+	p->widgets.hilite_item_combo = combo2;
+	p->widgets.font_bold_check = checkbutton2;
+	p->widgets.font_italics_check = checkbutton3;
+	p->widgets.font_underlined_check = checkbutton4;
+	p->widgets.fore_colorpicker = colorpicker1;
+	p->widgets.back_colorpicker = colorpicker2;
+	p->widgets.font_use_default_check = checkbutton1;
+	p->widgets.font_attrib_use_default_check = checkbutton5;
+	p->widgets.fore_color_use_default_check = checkbutton6;
+	p->widgets.back_color_use_default_check = checkbutton7;
+	p->widgets.caret_fore_color = colorpicker3;
+	p->widgets.calltip_back_color = colorpicker4;
+	p->widgets.selection_fore_color = colorpicker5;
+	p->widgets.selection_back_color = colorpicker6;
+	
+	gtk_widget_ref (fontpicker1);
+	gtk_widget_ref (combo2);
+	gtk_widget_ref (spinbutton1);
+	gtk_widget_ref (checkbutton1);
+	gtk_widget_ref (checkbutton2);
+	gtk_widget_ref (checkbutton3);
+	gtk_widget_ref (checkbutton4);
+	gtk_widget_ref (checkbutton5);
+	gtk_widget_ref (checkbutton6);
+	gtk_widget_ref (checkbutton7);
+	gtk_widget_ref (colorpicker1);
+	gtk_widget_ref (colorpicker2);
+	gtk_widget_ref (colorpicker3);
+	gtk_widget_ref (colorpicker4);
+	gtk_widget_ref (colorpicker5);
+	gtk_widget_ref (colorpicker6);
+
+	return frame;
+}
+
+static GtkWidget *
+create_preferences_page3 (Preferences * p)
+{
+	GtkWidget *frame1;
+	GtkWidget *vbox2;
+	GtkWidget *table2;
+	GtkWidget *checkbutton9;
+	GtkObject *spinbutton2_adj;
+	GtkWidget *spinbutton2;
+	GtkObject *spinbutton3_adj;
+	GtkWidget *spinbutton3;
+	GtkWidget *checkbutton10;
+	GtkWidget *checkbutton12;
+	GtkWidget *checkbutton11;
+	GtkWidget *checkbutton8;
+	GtkObject *spinbutton4_adj;
+	GtkWidget *spinbutton4;
+	GtkWidget *vseparator1;
+	GtkObject *spinbutton5_adj;
+	GtkWidget *spinbutton5;
+	GtkObject *spinbutton6_adj;
+	GtkWidget *spinbutton6;
+	GtkWidget *label6;
+	GtkWidget *label7;
+	GtkWidget *label8;
+	GtkWidget *label9;
+	GtkWidget *label10;
+	GtkWidget *checkbutton4;
+	GtkWidget *checkbutton5;
+
+	frame1 = gtk_frame_new (NULL);
+	gtk_widget_show (frame1);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+
+	vbox2 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox2);
+	gtk_container_add (GTK_CONTAINER (frame1), vbox2);
+
+	table2 = gtk_table_new (7, 4, FALSE);
+	gtk_widget_show (table2);
+	gtk_box_pack_start (GTK_BOX (vbox2), table2, TRUE, TRUE, 0);
+	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
+	gtk_table_set_col_spacings (GTK_TABLE (table2), 5);
+	gtk_container_set_border_width (GTK_CONTAINER(table2), 5);
 
 	checkbutton8 =
 		gtk_check_button_new_with_label (_
@@ -829,7 +969,7 @@ create_preferences_page2 (Preferences * p)
 
 	vseparator1 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator1);
-	gtk_table_attach (GTK_TABLE (table2), vseparator1, 1, 2, 0, 5,
+	gtk_table_attach (GTK_TABLE (table2), vseparator1, 1, 2, 0, 7,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (GTK_FILL), 6, 0);
 
@@ -908,30 +1048,22 @@ create_preferences_page2 (Preferences * p)
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 5, 0);
 
+	checkbutton4 =
+		gtk_check_button_new_with_label (_
+						 ("Strip trailing spaces on file save"));
+	gtk_widget_show (checkbutton4);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton4, 0, 1, 5, 6,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
 
-	gtk_signal_connect (GTK_OBJECT (combo_entry2), "changed",
-			    GTK_SIGNAL_FUNC (on_hilite_style_entry_changed), p);
-	gtk_signal_connect (GTK_OBJECT (checkbutton1), "toggled",
-			    GTK_SIGNAL_FUNC (on_use_default_font_toggled), p);
-	gtk_signal_connect (GTK_OBJECT (checkbutton5), "toggled",
-			    GTK_SIGNAL_FUNC (on_use_default_attrib_toggled), p);
-	gtk_signal_connect (GTK_OBJECT (checkbutton6), "toggled",
-			    GTK_SIGNAL_FUNC (on_use_default_fore_toggled), p);
-	gtk_signal_connect (GTK_OBJECT (checkbutton7), "toggled",
-			    GTK_SIGNAL_FUNC (on_use_default_back_toggled), p);
+	checkbutton5 =
+		gtk_check_button_new_with_label (_
+						 ("Collapse all folds on file open"));
+	gtk_widget_show (checkbutton5);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton5, 0, 1, 6, 7,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
 
-	p->widgets.font_picker = fontpicker1;
-	p->widgets.font_size_spin = spinbutton1;
-	p->widgets.hilite_item_combo = combo2;
-	p->widgets.font_bold_check = checkbutton2;
-	p->widgets.font_italics_check = checkbutton3;
-	p->widgets.font_underlined_check = checkbutton4;
-	p->widgets.fore_colorpicker = colorpicker1;
-	p->widgets.back_colorpicker = colorpicker2;
-	p->widgets.font_use_default_check = checkbutton1;
-	p->widgets.font_attrib_use_default_check = checkbutton5;
-	p->widgets.fore_color_use_default_check = checkbutton6;
-	p->widgets.back_color_use_default_check = checkbutton7;
 	p->widgets.disable_hilite_check = checkbutton8;
 	p->widgets.auto_save_check = checkbutton9;
 	p->widgets.auto_indent_check = checkbutton10;
@@ -942,68 +1074,22 @@ create_preferences_page2 (Preferences * p)
 	p->widgets.autoindent_size_spin = spinbutton3;
 	p->widgets.linenum_margin_width_spin = spinbutton4;
 	p->widgets.session_timer_spin = spinbutton6;
+	
+	p->widgets.strip_spaces_check = checkbutton4;
+	p->widgets.fold_on_open_check = checkbutton5;
 
-	gtk_widget_ref (fontpicker1);
-	gtk_widget_ref (combo2);
-	gtk_widget_ref (spinbutton1);
 	gtk_widget_ref (spinbutton2);
 	gtk_widget_ref (spinbutton3);
 	gtk_widget_ref (spinbutton4);
 	gtk_widget_ref (spinbutton5);
 	gtk_widget_ref (spinbutton6);
-	gtk_widget_ref (checkbutton1);
-	gtk_widget_ref (checkbutton2);
-	gtk_widget_ref (checkbutton3);
 	gtk_widget_ref (checkbutton4);
 	gtk_widget_ref (checkbutton5);
-	gtk_widget_ref (checkbutton6);
-	gtk_widget_ref (checkbutton7);
 	gtk_widget_ref (checkbutton8);
 	gtk_widget_ref (checkbutton9);
 	gtk_widget_ref (checkbutton10);
 	gtk_widget_ref (checkbutton11);
 	gtk_widget_ref (checkbutton12);
-	gtk_widget_ref (colorpicker1);
-	gtk_widget_ref (colorpicker2);
-
-	return vbox1;
-}
-
-static GtkWidget *
-create_preferences_page3 (Preferences * p)
-{
-	GtkWidget *frame1;
-	GtkWidget *vbox2;
-	GtkWidget *checkbutton4;
-	GtkWidget *checkbutton5;
-
-	frame1 = gtk_frame_new (NULL);
-	gtk_widget_show (frame1);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
-
-	vbox2 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox2);
-	gtk_container_add (GTK_CONTAINER (frame1), vbox2);
-
-	checkbutton4 =
-		gtk_check_button_new_with_label (_
-						 ("Strip trailing spaces on file save"));
-	gtk_widget_show (checkbutton4);
-	gtk_box_pack_start (GTK_BOX (vbox2), checkbutton4, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton4), 5);
-
-	checkbutton5 =
-		gtk_check_button_new_with_label (_
-						 ("Collapse all folds on file open"));
-	gtk_widget_show (checkbutton5);
-	gtk_box_pack_start (GTK_BOX (vbox2), checkbutton5, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton5), 5);
-
-	p->widgets.strip_spaces_check = checkbutton4;
-	p->widgets.fold_on_open_check = checkbutton5;
-
-	gtk_widget_ref (checkbutton4);
-	gtk_widget_ref (checkbutton5);
 
 	return frame1;
 }
@@ -1370,7 +1456,7 @@ IntFromHexDigit (const gchar ch)
 		return 0;
 }
 
-static void
+void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b)
 {
 	*r = IntFromHexDigit (val[1]) * 16 + IntFromHexDigit (val[2]);
@@ -1422,6 +1508,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 {
 	gint i;
 	gchar *str;
+	gint8 r, g, b, a;
 
 	Preferences *pr = (Preferences *) user_data;
 
@@ -1505,7 +1592,44 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 		if (str)
 			g_free (str);
 	}
+	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
+				   (pr->widgets.caret_fore_color), &r,
+				   &g, &b, &a);
+	str = StringFromColor (r, g, b);
+	if(str)
+	{
+		preferences_set(pr, CARET_FORE_COLOR, str);
+		g_free (str);
+	}
+	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
+				   (pr->widgets.calltip_back_color), &r,
+				   &g, &b, &a);
+	str = StringFromColor (r, g, b);
+	if(str)
+	{
+		preferences_set(pr, CALLTIP_BACK_COLOR, str);
+		g_free (str);
+	}
+	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
+				   (pr->widgets.selection_fore_color), &r,
+				   &g, &b, &a);
+	str = StringFromColor (r, g, b);
+	if(str)
+	{
+		preferences_set(pr, SELECTION_FORE_COLOR, str);
+		g_free (str);
+	}
+	gnome_color_picker_get_i8 (GNOME_COLOR_PICKER
+				   (pr->widgets.selection_back_color), &r,
+				   &g, &b, &a);
+	str = StringFromColor (r, g, b);
+	if(str)
+	{
+		preferences_set(pr, SELECTION_BACK_COLOR, str);
+		g_free (str);
+	}
 
+/* page 3 */
 	preferences_set_int (pr, DISABLE_SYNTAX_HILIGHTING,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
@@ -1548,7 +1672,6 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 							       (pr->widgets.
 								session_timer_spin)));
 
-/* page 3 */
 	preferences_set_int (pr, STRIP_TRAILING_SPACES,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.strip_spaces_check)));

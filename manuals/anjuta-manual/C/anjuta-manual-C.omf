@@ -15,8 +15,8 @@
 	<category>GNOME|Development</category>
     </subject>
     <description>
-     This Document describes how Anjuta IDE is used for C/C++ Project developments
-     and how it should be used to for maximum productivity.
+     This document describes how the Anjuta IDE is used for developing C/C++ 
+     projects, and how it should be used for maximum productivity.
     </description>
     <type>
      manual

@@ -736,6 +736,7 @@ create_project_config_gui (ProjectConfig * pc)
 
 	dialog1 = gnome_dialog_new (_("Project configuration"), NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_conf", "Anjuta");
 
 	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
 	gtk_widget_show (dialog_vbox1);

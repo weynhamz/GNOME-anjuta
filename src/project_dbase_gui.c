@@ -475,6 +475,7 @@ create_project_dbase_gui (ProjectDBase * p)
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
+	gtk_window_set_wmclass (GTK_WINDOW (window1), "project_dbase", "Anjuta");
 
 	eventbox1 = gtk_event_box_new ();
 	gtk_widget_show (eventbox1);
@@ -594,6 +595,7 @@ create_project_dbase_info_gui (gchar * lab[])
 	GtkWidget *button1;
 
 	dialog1 = gnome_dialog_new (_("Anjuta: Project Information"), NULL);
+	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_info", "Anjuta");
 	gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
 
 	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;

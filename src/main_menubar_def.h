@@ -1381,6 +1381,44 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
+	{
+	 GNOME_APP_UI_ITEM, N_("Anjuta Home site"),
+	 N_("On-line documentations and resources"),
+	 on_url_activate, "http://anjuta.sourceforge.net", NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_SEPARATOR,
+	{
+	 GNOME_APP_UI_ITEM, N_("Libraries API references"),
+	 N_("On-line Library references for gdk, glib, gnome etc.."),
+	 on_url_activate, "http://www.lidn.org", NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 GNOME_APP_UI_ITEM, N_("Report Bugs"),
+	 N_("Submit a bug report for anjuta."),
+	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 GNOME_APP_UI_ITEM, N_("Request Features"),
+	 N_("Submit a feature request for anjtua"),
+	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 GNOME_APP_UI_ITEM, N_("Submit patches"),
+	 N_("Submit patches for anjuta"),
+	 on_url_activate, "http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse", NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 GNOME_APP_UI_ITEM, N_("Ask a question"),
+	 N_("Submit a question for FAQs"),
+	 on_url_activate, "mailto:anjuta-list@lists.sourceforge.net", NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_SEPARATOR,
 	GNOMEUIINFO_MENU_ABOUT_ITEM (on_about1_activate, NULL),
 	GNOMEUIINFO_END
 };

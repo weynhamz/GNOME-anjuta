@@ -135,8 +135,12 @@ void anjuta_show (void);
 void anjuta_session_restore (GnomeClient* client);
 
 TextEditor *anjuta_append_text_editor (gchar * filename);
+
+void anjuta_remove_text_editor (TextEditor* te);
 void anjuta_remove_current_text_editor (void);
+
 TextEditor *anjuta_get_current_text_editor (void);
+
 void anjuta_set_current_text_editor (TextEditor * te);
 
 GtkWidget *anjuta_get_current_text (void);

@@ -1,11 +1,36 @@
-Please be carefull while using anjuta to develop anjuta
-It is better not to use anjuta for it's own development
+Notes for Developers on contributing to Anjuta
+----------------------------------------------
+
+(TO BE EXPANDED OVER TIME)
+
+
+Tools
+-----
+
+IMPORTANT: please be careful about using Anjuta to develop Anjuta.
+It is probably best not to use Anjuta for its own development,
 as it may break lots of things while developing.
 
-Also when new class or methods are added please try
-to conform with the style I've followed in the source
-files.
 
-I will describe the details later. :-)
+Source structure
+----------------
 
--- Naba
+When editing the code, adding new classes or methods, etc. please 
+conform with the style already followed in the source files.
+
+Key elements:
+* src/ The main Anjuta sources
+* scintilla/ The editor
+* widgets/ Additional widgets used
+* ccview/ The C++ class viewer
+
+
+Documentation
+-------------
+
+The documentation is stored in the manuals/ directory, and consists 
+of a set of SGML sources conforming to the GNOME Documentation Project's
+Style Guide as far as possible.
+
+Translations of application messages are stored in the standard po/ 
+directory structure at the top level of the source tree.

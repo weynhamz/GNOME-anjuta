@@ -57,3 +57,4 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 %{prefix}/share/anjuta
 %{prefix}/share/gnome/help/anjuta
 %{prefix}/share/pixmaps/anjuta
+%{prefix}/share/omf/anjuta

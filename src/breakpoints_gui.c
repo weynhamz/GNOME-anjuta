@@ -62,6 +62,7 @@ create_breakpoints_dbase_gui (BreakpointsDBase *bd)
   dialog1 = gnome_dialog_new (_("Anjuta: Breakpoints"), NULL);
   gtk_widget_set_usize (dialog1, 550, 352);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "breakpoints", "Anjuta");
   gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
@@ -268,6 +269,7 @@ create_bk_add_dialog (BreakpointsDBase *bd)
   dialog1 = gnome_dialog_new (_("Add Breakpoint"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "bk_add", "Anjuta");
 
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);
@@ -396,6 +398,7 @@ create_bk_edit_dialog(BreakpointsDBase * bd)
   dialog1 = gnome_dialog_new (_("Add Breakpoint"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
+  gtk_window_set_wmclass (GTK_WINDOW (dialog1), "bk_edit", "Anjuta");
 
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);

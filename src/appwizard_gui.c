@@ -95,6 +95,7 @@ create_app_wizard_gui (AppWizard * aw)
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1),
 			      _("GNOME Application Wizard"));
+	gtk_window_set_wmclass (GTK_WINDOW (window1), "appwizard", "Anjuta");
 	gtk_window_set_position (GTK_WINDOW (window1), GTK_WIN_POS_CENTER);
 
 	druid1 = gnome_druid_new ();

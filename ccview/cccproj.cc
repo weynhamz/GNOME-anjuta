@@ -94,6 +94,21 @@ file_is_regular (const char * fn)
 	return false;
 }
 
+static bool
+file_is_regular_and_no_link (const char * fn)
+{
+	struct stat st;
+	int ret;
+	if (!fn)
+		return false;
+	ret = stat (fn, &st);
+	if (ret)
+		return false;
+	if (S_ISREG (st.st_mode) && !S_ISLNK (st.st_mode))
+		return true;
+	return false;
+}
+
 const char*
 get_file_extension (const char * file)
 {
@@ -375,7 +390,7 @@ bool memberfunction::is_defined() const
 	if (deffile.empty())
 		return false;
 	string filename = owner->get_absolute_path(deffile);
-	return file_is_regular (filename.c_str());
+	return file_is_regular_and_no_link (filename.c_str());
 }
 
 bool memberfunction::is_declared() const
@@ -383,7 +398,7 @@ bool memberfunction::is_declared() const
 	if (declfile.empty())
 		return false;
 	string filename = owner->get_absolute_path(declfile);
-	return file_is_regular (filename.c_str());
+	return file_is_regular_and_no_link (filename.c_str());
 }
 
 bool memberfunction::save_in_xml (ostream& str, int depth) const
@@ -448,7 +463,7 @@ bool ccclass::is_defined() const
 	if (declfile.empty())
 		return false;
 	filename = owner->get_absolute_path(declfile);
-	return file_is_regular (filename.c_str());
+	return file_is_regular_and_no_link (filename.c_str());
 }
 
 char *  ccclass::get_parents(char *ptr, file_context& context)
@@ -996,7 +1011,7 @@ bool ccproject::glob_scan_dirs_files(list<string>& dlist, list<string>& flist, c
 				{
 					dlist.push_back(eptr->d_name);
 				}
-				else if (file_is_regular(fullname.c_str()))
+				else if (file_is_regular_and_no_link(fullname.c_str()))
 				{
 					flist.push_back(eptr->d_name);
 				}
@@ -1147,11 +1162,89 @@ bool ccproject::scan_file(file_context& context)
     return true;
 }
 
+#if 0
+bool ccproject::scan_file_ctags (gchar * filename)
+{
+	int stdout_pipe[2], pid;
+	FILE *so_file;
+	int status;
+	gchar buffer[FILE_BUFFER_SIZE];
+
+	if (anjuta_is_installed ("ctags", FALSE) == FALSE)
+		return FALSE;
+
+	pipe (stdout_pipe);
+	if ((pid = fork ()) == 0)
+	{
+		close (1);
+		dup (stdout_pipe[1]);
+		close (stdout_pipe[0]);
+		execlp ("ctags", "ctags", "-x",
+			"--c-types=+A-d-e-n+p-s-t-u-v-x",
+			"--kind-long=yes", "--format=2",
+			"--file-scope=yes", "--excmd=numbers",
+			"--sort=no", filename, NULL);
+		g_error (_("Cannot execute ctags"));
+	}
+	close (stdout_pipe[1]);
+	if (pid < 0)
+	{
+		anjuta_system_error (errno, 
+			_("Cannot fork to execute ctags. I donno why!!\nIn %s:%d"),
+			__FILE__, __LINE__);
+		close (stdout_pipe[0]);
+		return FALSE;
+	}
+	so_file = fdopen (stdout_pipe[0], "r");
+	if (so_file == NULL)
+	{
+		tags_manager_thaw (tm);
+		return FALSE;
+	}
+	while (fgets(buffer, FILE_BUFFER_SIZE, so_file))
+	{
+		if (ferror(so_file) || feof(so_file))
+			break;
+		// Skip ctags special comments.
+		if (buffer[0] == '!' && buffer[1] == '_')
+			continue;
+		// Process one tag per line;
+		process_line_ctags (buffer);
+	}
+	waitpid (pid, &status, 0);
+	fclose (so_file);
+	return TRUE;
+}
+
+void
+ccproject::process_line_ctags(const gchar* line)
+{
+	char tag[256];
+	char file[256];
+	char options[256];
+	gint line;
+	
+	char* str = strstr(buffer, ";\"");
+	if (!str) return;
+	char* buff = strndup(line, str-line);
+	if (sscanf(buff, "%s %s %ld", tag, file, &line) < 3)
+	{
+		free(buff);
+		return;
+	}
+	free(buff);
+	str += 2;
+	buff = strdup(str);
+	
+}
+#endif
+
 const char *ccproject::get_file_from_class(const char *cl)
 {
     string name(classes[cl].getdeclfile());
     return name.c_str();
 }
+
 int ccproject::get_line_from_class(const char *cl)
 {
     return classes[cl].getdeclline();
@@ -1269,7 +1362,7 @@ bool ccproject::files_load_from_xml (noconst_dirref dirptr, xmlNode* childs, con
 			}
 			else if(strcmp((const char*)node->name, "file")==0) // file
 			{
-				if(file_is_regular(filename.c_str()))
+				if(file_is_regular_and_no_link(filename.c_str()))
 				{
 					ftimes[newpath] = atol(xml_get_prop(node, "mtime"));
 					dirptr.add_item(name);

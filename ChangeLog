@@ -1,3 +1,60 @@
+2001-07-24  Naba Kumar <kh_naba@123india.com>
+
+	* debugger.c: (debugger_update_prog_status): Fixed
+		the bug with gdb version 5. Debugger starts, when
+		step in/out/over etc are clicked.
+	
+	* debugger.c: All functions: added debugging codes.
+	
+	* breakpoints.c: (breakpoints_dbase_set_all_in_editor):
+	* breakpoints.c: (breakpoints_dbase_add_brkpnt):
+	  Modified to recognize non project files also.
+	  
+	* source.c: (source_write_configure_in):
+	  Added source for 'prefix' counterparts for
+	  no-prefix AC_SUBST.
+	
+2001-07-23  Naba Kumar <kh_naba@123india.com>
+	
+	* anjuta.c: added function anjuta_remove_text_editor();
+	  and suitably modified anjuta_remove_current_text_editor().
+	  
+	* project_dbase.c: project_dbase_close(), Added code to
+	  close all opened files that belong to the project when
+	  the project is closed.
+	 (patch from  "Maxim Blagai" <maximblagai@yahoo.com> and some my codes)
+	
+	* Updated the manuals/anjuta-manual subdir for GDP standards.
+	   (patch from Andy Piper <squiggle@ukgateway.net>)
+	
+	* main_menubar.h, main_menubar.def: Added Menu items to handle
+	  urls for library references, bugs, patches and feature request
+	  submission.
+	
+2001-07-20  Naba Kumar <kh_naba@123india.com>
+	
+	* Set wmclass names in all windows.
+	  (patch from Andy Piper <squiggle@ukgateway.net>)
+	* New splash logo from "Misha" <misha@phreaker.net>);
+
+2001-07-19  Naba Kumar <kh_naba@123india.com>
+	
+	* preferences.[h,c], preferences_gui.c: Added 4 properties to
+	  set caret color, calltip back color and selection fore/back
+	  color.
+
+2001-07-18  Naba Kumar <kh_naba@123india.com>
+	
+	* project_dbase.c: Closes all files when project is closed.
+	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
+	 -- We still need to refine this as it closes all sort of files.
+	
+	* compiler_options.c: Fixed seg-fault bug when last item in
+	  compiler option lists is removed.
+	
+	* Fixed missing newline warnings during compilation.
+	  (patch from Andy Piper <squiggle@ukgateway.net>)
+
 2001-07-17  Fatih Demir <kabalak@gtranslator.org>
 
 	* xml-i18n-*: Blew away the xml-i18n-* files from CVS -- they're
@@ -6,50 +63,71 @@
 	* ccview/.cvsignore: Addition of cvsignore.
 
 2001-07-17  Naba Kumar <kh_naba@123india.com>
+	
 	*GUI fixes and spell corrections
 	(patch from Andy Piper <squiggle@ukgateway.net>)
 
 2001-07-15  Naba Kumar <kh_naba@123india.com>
+	
 	*Fixed double error message for file not found.
+	
 	*Put white backgrounds for png images.
+	
 	*Converted '-' to '_' in sgml files.
 
 2001-07-14  Naba Kumar <kh_naba@123india.com>
+	
 	* project_dbase.c: Short-cut for expand/collasp project tree
+	
 	* project_dbase_gui.c:
 	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
 
 2001-07-13  Naba Kumar <kh_naba@123india.com>
+	
 	* notebook.[h,c]: Added
 	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
 	Project/message window now toggles on control and
 	and notebook switch short-cut
 
 2001-07-7  Naba Kumar <kh_naba@123india.com>
+	
 	* Changed a new icon set which looks more gnomish.
+	
 	* Changed a new anjuta splash logo.
 	(Icons and splash logo created by "Misha" <misha@phreaker.net>)
 
 2001-07-6  Naba Kumar <kh_naba@123india.com>
+	
 	* ccview/*: Integrated ccview for class view and file view
 		in the project Manager.
+	
 	* widgets/gnomefilelist.[h,c]: Added show hidden files options.
 
 2001-07-1  Naba Kumar <kh_naba@123india.com>
+	
 	* scintilla/*: Upgraded Scintilla to version 1.3.7
+	
 	* manuals/anjuta-manual/C/chapter[00-12].sgml: Added many more stuffs.
 	
 2001-06-28  Naba Kumar <kh_naba@123india.com>
+	
 	* src/debugger.c: Correct step-over and step-out swapping.
+	
 	* manuals/anjuta-manual/C/chapter[00-12].sgml: Splitted manual
 	  chapters and added more stuffs.
 
 2001-06-13  Naba Kumar <kh_naba@123india.com>
+	
 	* data/autogen.sh.gtkmm: Added
+	
 	* data/autogen.sh.gnomemm: Added
+	
 	* src/appwiz.c: Added two more application wizard templetes
+	
 	* src/project: for gtk-- and gnome-- and proper support
+	
 	* src/source.c: for c++ in the project configuration.
+	
 	* src/source.h:
 
 2001-05-05  Naba Kumar <kh_naba@123india.com>
@@ -64,6 +142,7 @@
 	* Local installation possible by
 	  manageing our own pixmaps paths
 	  manupulations.
+	
 	* resources.h: Added.
 	* resources.c: Added.
 

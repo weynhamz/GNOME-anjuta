@@ -489,6 +489,7 @@ create_mesg_gui (Messages * m)
 	gtk_widget_ref (mesg_gui);
 	gtk_widget_set_usize (mesg_gui, 200, 70);
 	gtk_window_set_title (GTK_WINDOW (mesg_gui), _("Messages"));
+	gtk_window_set_wmclass (GTK_WINDOW (mesg_gui), "messages", "Anjuta");
 
 	eventbox1 = gtk_event_box_new ();
 	gtk_widget_ref (eventbox1);

@@ -428,7 +428,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 	GdkColor red = { 16, -1, 0, 0 };
 	GdkColor blue = { 16, 0, 0, -1 };
 	GList *node;
-	gchar* full_fname;
+	gchar* full_fname = NULL;
 
 	g_return_if_fail (bd != NULL);
 
@@ -507,7 +507,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 			bi->condition = NULL;
 		}
 		node = app->text_editor_list;
-		full_fname = anjuta_get_full_filename (bi->file);
+/*		full_fname = anjuta_get_full_filename (bi->file); */
 		while (node)
 		{
 			TextEditor* te;
@@ -517,7 +517,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 				node = g_list_next (node);
 				continue;
 			}
-			if (strcmp (te->full_filename, full_fname) == 0)
+			if (strcmp (te->filename, bi->file) == 0)
 			{
 				bi->handle = text_editor_set_marker (te, bi->line, BREAKPOINTS_MARKER);
 				bi->handle_invalid = FALSE;
@@ -556,13 +556,16 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, TextEditor* te)
 	while (node)
 	{
 		BreakpointItem* bi;
-		gchar* full_fname;
+		gchar* full_fname = NULL;
 		
 		bi = node->data;
 		if (bi->line < 0 || bi->handle_invalid == FALSE)
 			break;
+/*
 		full_fname = anjuta_get_full_filename (bi->file);
 		if (strcmp (te->full_filename, full_fname) == 0)
+*/
+		if (strcmp (te->filename, bi->file) == 0)
 		{
 			bi->handle = text_editor_set_marker (te, bi->line, BREAKPOINTS_MARKER);
 			bi->handle_invalid = FALSE;

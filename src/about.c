@@ -34,7 +34,7 @@ GtkWidget*
 create_about_gui ()
 {
 	const gchar *authors[] = {
-		"Naba Kumar",
+		"Naba Kumar <kh_naba@123india.com>",
 		NULL
 	};
 	GtkWidget *about_gui;
@@ -51,7 +51,8 @@ create_about_gui ()
 		g_free (about_imgfile);
 	gtk_window_set_modal (GTK_WINDOW (about_gui), FALSE);
 	gtk_window_set_position (GTK_WINDOW (about_gui), GTK_WIN_POS_CENTER);
-
+	gtk_window_set_wmclass (GTK_WINDOW (about_gui), "about", "Anjuta");
+	
 	vbox1 = GNOME_DIALOG (about_gui)->vbox;
 
 	href1 = gnome_href_new ("http://anjuta.sourceforge.net/", _("Anjuta Home Site"));

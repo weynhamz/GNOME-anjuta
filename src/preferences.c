@@ -168,6 +168,10 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.autoindent_size_spin);
 		gtk_widget_unref (pr->widgets.fore_colorpicker);
 		gtk_widget_unref (pr->widgets.back_colorpicker);
+		gtk_widget_unref (pr->widgets.caret_fore_color);
+		gtk_widget_unref (pr->widgets.calltip_back_color);
+		gtk_widget_unref (pr->widgets.selection_fore_color);
+		gtk_widget_unref (pr->widgets.selection_back_color);
 
 		gtk_widget_unref (pr->widgets.strip_spaces_check);
 		gtk_widget_unref (pr->widgets.fold_on_open_check);
@@ -253,6 +257,7 @@ preferences_sync (Preferences * pr)
 {
 	gchar *str;
 	gint i;
+	gint8 r, g, b;
 
 /* Page 0 */
 	str = preferences_get (pr, PROJECTS_DIRECTORY);
@@ -311,7 +316,7 @@ preferences_sync (Preferences * pr)
 
 /* Page 2 */
 
-/* Never hurts to use gtk_object_*_data as temp hash buffer */
+	/* Never hurts to use gtk_object_*_data as temp hash buffer */
 	for (i = 0;; i += 2)
 	{
 		StyleData *sdata;
@@ -340,6 +345,63 @@ preferences_sync (Preferences * pr)
 					(pr->widgets.hilite_item_combo)->
 					entry), pr);
 
+	str = preferences_get (pr, CARET_FORE_COLOR);
+	if(str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.caret_fore_color), r, g, b, 0);
+		g_free (str);
+	}
+	else
+	{
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.caret_fore_color), 0, 0, 0, 0);
+	}
+
+	str = preferences_get (pr, CALLTIP_BACK_COLOR);
+	if(str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.calltip_back_color), r, g, b, 0);
+		g_free (str);
+	}
+	else
+	{
+		ColorFromString("#E6D6B6", &r, &g, &b);
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.calltip_back_color), r, g, b, 0);
+	}
+	
+	str = preferences_get (pr, SELECTION_FORE_COLOR);
+	if(str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.selection_fore_color), r, g, b, 0);
+		g_free (str);
+	}
+	else
+	{
+		ColorFromString("#FFFFFF", &r, &g, &b);
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.selection_fore_color), r, g, b, 0);
+	}
+	
+	str = preferences_get (pr, SELECTION_BACK_COLOR);
+	if(str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.selection_back_color), r, g, b, 0);
+		g_free (str);
+	}
+	else
+	{
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER(pr->widgets.selection_back_color), 0, 0, 0, 0);
+	}
+
+/* Page 3 */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.strip_spaces_check),
+				      preferences_get_int (pr, STRIP_TRAILING_SPACES));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.fold_on_open_check),
+				      preferences_get_int (pr, FOLD_ON_OPEN));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.disable_hilite_check),
 				      preferences_get_int (pr,
@@ -376,14 +438,6 @@ preferences_sync (Preferences * pr)
 				   (pr->widgets.session_timer_spin),
 				   preferences_get_int (pr,
 							SAVE_SESSION_TIMER));
-
-/* Page 3 */
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-				      (pr->widgets.strip_spaces_check),
-				      preferences_get_int (pr, STRIP_TRAILING_SPACES));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-				      (pr->widgets.fold_on_open_check),
-				      preferences_get_int (pr, FOLD_ON_OPEN));
 
 /* Page 4 */
 	str = preferences_get (pr, COMMAND_PRINT);
@@ -563,6 +617,40 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		else
 			fprintf (fp, "%s=\n", hilite_style[i + 1]);
 	}
+	str = preferences_get (pr, CARET_FORE_COLOR);
+	if(str)
+	{
+		fprintf (fp, "%s=%s\n", CARET_FORE_COLOR, str);
+		g_free (str);
+	}
+
+	str = preferences_get (pr, CALLTIP_BACK_COLOR);
+	if(str)
+	{
+		fprintf (fp, "%s=%s\n", CALLTIP_BACK_COLOR, str);
+		g_free (str);
+	}
+	
+	str = preferences_get (pr, SELECTION_FORE_COLOR);
+	if(str)
+	{
+		fprintf (fp, "%s=%s\n", SELECTION_FORE_COLOR, str);
+		g_free (str);
+	}
+	
+	str = preferences_get (pr, SELECTION_BACK_COLOR);
+	if(str)
+	{
+		fprintf (fp, "%s=%s\n", SELECTION_BACK_COLOR, str);
+		g_free (str);
+	}
+	
+	/* Page 3 */
+	fprintf (fp, "%s=%d\n", STRIP_TRAILING_SPACES,
+		 preferences_get_int (pr, STRIP_TRAILING_SPACES));
+
+	fprintf (fp, "%s=%d\n", FOLD_ON_OPEN,
+		 preferences_get_int (pr, FOLD_ON_OPEN));
 	fprintf (fp, "%s=%d\n", DISABLE_SYNTAX_HILIGHTING,
 		 preferences_get_int (pr, DISABLE_SYNTAX_HILIGHTING));
 	fprintf (fp, "%s=%d\n", SAVE_AUTOMATIC,
@@ -582,13 +670,6 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, MARGIN_LINENUMBER_WIDTH));
 	fprintf (fp, "%s=%d\n", SAVE_SESSION_TIMER,
 		 preferences_get_int (pr, SAVE_SESSION_TIMER));
-	
-	/* Page 3 */
-	fprintf (fp, "%s=%d\n", STRIP_TRAILING_SPACES,
-		 preferences_get_int (pr, STRIP_TRAILING_SPACES));
-
-	fprintf (fp, "%s=%d\n", FOLD_ON_OPEN,
-		 preferences_get_int (pr, FOLD_ON_OPEN));
 
 	/* Page 4 */
 	str = preferences_get (pr, COMMAND_PRINT);

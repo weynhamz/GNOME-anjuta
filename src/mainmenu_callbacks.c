@@ -1769,6 +1769,15 @@ on_search_a_topic1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_url_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	if (user_data)
+	{
+		gnome_url_show(user_data);
+	}
+}
+
+void
 on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	gtk_widget_show (create_about_gui ());
