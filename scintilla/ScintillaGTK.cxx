@@ -41,9 +41,16 @@
 #include "Editor.h"
 #include "SString.h"
 #include "ScintillaBase.h"
+#include "UniConversion.h"
 
 #include "gtk/gtksignal.h"
 #include "gtk/gtkmarshal.h"
+
+#ifdef SCI_LEXER
+#include <glib.h>
+#include <gmodule.h>
+//#include "ExternalLexer.h"
+#endif
 
 #if GTK_MAJOR_VERSION < 2
 #define INTERNATIONAL_INPUT
@@ -93,7 +100,7 @@ class ScintillaGTK : public ScintillaBase {
 	gint wheelMouseIntensity;
 
 	// Private so ScintillaGTK objects can not be copied
-ScintillaGTK(const ScintillaGTK &) : ScintillaBase() {}
+	ScintillaGTK(const ScintillaGTK &) : ScintillaBase() {}
 	ScintillaGTK &operator=(const ScintillaGTK &) { return * this; }
 
 public:
@@ -169,6 +176,7 @@ private:
 	static gint ScrollEvent(GtkWidget *widget, GdkEventScroll *event);
 #endif
 	static gint Motion(GtkWidget *widget, GdkEventMotion *event);
+	gint KeyThis(GdkEventKey *event);
 	static gint KeyPress(GtkWidget *widget, GdkEventKey *event);
 	static gint KeyRelease(GtkWidget *widget, GdkEventKey *event);
 	static void Destroy(GtkObject *object);
@@ -194,7 +202,10 @@ private:
 	                        GtkSelectionData *selection_data, guint info, guint time);
 	static gint TimeOut(ScintillaGTK *sciThis);
 	static void PopUpCB(ScintillaGTK *sciThis, guint action, GtkWidget *widget);
+
 	static gint ExposeCT(GtkWidget *widget, GdkEventExpose *ose, CallTip *ct);
+	static gint PressCT(GtkWidget *widget, GdkEventButton *event, ScintillaGTK *sciThis);
+
 	static sptr_t DirectFunction(ScintillaGTK *sciThis,
 	                             unsigned int iMessage, uptr_t wParam, sptr_t lParam);
 };
@@ -606,6 +617,12 @@ sptr_t ScintillaGTK::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam
 	case SCI_GETDIRECTPOINTER:
 		return reinterpret_cast<sptr_t>(this);
 
+#ifdef SCI_LEXER
+	case SCI_LOADLEXERLIBRARY:
+		//LexerManager::GetInstance()->Load(reinterpret_cast<const char*>( wParam ));
+		break;
+#endif
+
 	default:
 		return ScintillaBase::WndProc(iMessage, wParam, lParam);
 	}
@@ -654,7 +671,7 @@ void ScintillaGTK::FullPaint() {
 	if ((PWidget(wMain))->window) {
 		Surface *sw = Surface::Allocate();
 		if (sw) {
-			sw->Init((PWidget(wMain))->window);
+			sw->Init(PWidget(wMain)->window, PWidget(wMain));
 			Paint(sw, rcPaint);
 			sw->Release();
 			delete sw;
@@ -662,7 +679,9 @@ void ScintillaGTK::FullPaint() {
 	}
 	paintState = notPainting;
 #else
-	wMain.InvalidateAll();
+	rcPaint = GetClientRectangle();
+	wMain.InvalidateRectangle(rcPaint);
+	//wMain.InvalidateAll();
 #endif
 }
 
@@ -691,7 +710,7 @@ void ScintillaGTK::SyncPaint(PRectangle rc) {
 	if ((PWidget(wMain))->window) {
 		Surface *sw = Surface::Allocate();
 		if (sw) {
-			sw->Init((PWidget(wMain))->window);
+			sw->Init(PWidget(wMain)->window, PWidget(wMain));
 			Paint(sw, rc);
 			sw->Release();
 			delete sw;
@@ -711,7 +730,6 @@ void ScintillaGTK::ScrollText(int linesToMove) {
 	//	rc.left, rc.top, rc.right, rc.bottom);
 	GtkWidget *wi = PWidget(wMain);
 	GdkGC *gc = gdk_gc_new(wi->window);
-	GdkEvent* event;
 
 	// Set up gc so we get GraphicsExposures from gdk_draw_pixmap
 	//  which calls XCopyArea
@@ -737,7 +755,9 @@ void ScintillaGTK::ScrollText(int linesToMove) {
 		SyncPaint(PRectangle(0, 0, rc.Width(), -diff));
 	}
 
+#if GTK_MAJOR_VERSION < 2
 	// Look for any graphics expose
+	GdkEvent* event;
 	while ((event = gdk_event_get_graphics_expose(wi->window)) != NULL) {
 		gtk_widget_event(wi, event);
 		if (event->expose.count == 0) {
@@ -746,6 +766,7 @@ void ScintillaGTK::ScrollText(int linesToMove) {
 		}
 		gdk_event_free(event);
 	}
+#endif
 
 	gdk_gc_unref(gc);
 }
@@ -827,9 +848,26 @@ void ScintillaGTK::NotifyURIDropped(const char *list) {
 }
 
 int ScintillaGTK::KeyDefault(int key, int modifiers) {
-	if (!(modifiers & SCI_CTRL) && !(modifiers & SCI_ALT) && (key < 256)) {
-		AddChar(key);
-		return 1;
+	if (!(modifiers & SCI_CTRL) && !(modifiers & SCI_ALT)) {
+#if GTK_MAJOR_VERSION >= 2
+		if (IsUnicodeMode() && (key <= 0xFE00)) {
+			char utfval[4]="\0\0\0";
+			wchar_t wcs[2];
+			wcs[0] = gdk_keyval_to_unicode(key);
+			wcs[1] = 0;
+			UTF8FromUCS2(wcs, 1, utfval, 3);
+			AddCharUTF(utfval,strlen(utfval));
+			return 1;
+		}
+#endif
+		if (key < 256) {
+			AddChar(key);
+			return 1;
+		} else {
+			// Pass up to container in case it is an accelerator
+			NotifyKey(key, modifiers);
+			return 0;
+		}
 	} else {
 		// Pass up to container in case it is an accelerator
 		NotifyKey(key, modifiers);
@@ -861,15 +899,23 @@ void ScintillaGTK::Paste() {
 }
 
 void ScintillaGTK::CreateCallTipWindow(PRectangle rc) {
-	ct.wCallTip = gtk_window_new(GTK_WINDOW_POPUP);
-	ct.wDraw = gtk_drawing_area_new();
-	gtk_container_add(GTK_CONTAINER(PWidget(ct.wCallTip)), PWidget(ct.wDraw));
-	gtk_signal_connect(GTK_OBJECT(PWidget(ct.wDraw)), "expose_event",
-	                   GtkSignalFunc(ScintillaGTK::ExposeCT), &ct);
-	gtk_widget_set_events(PWidget(ct.wDraw), GDK_EXPOSURE_MASK);
+	if (!ct.wCallTip.Created()) {
+		ct.wCallTip = gtk_window_new(GTK_WINDOW_POPUP);
+		ct.wDraw = gtk_drawing_area_new();
+		gtk_container_add(GTK_CONTAINER(PWidget(ct.wCallTip)), PWidget(ct.wDraw));
+		gtk_signal_connect(GTK_OBJECT(PWidget(ct.wDraw)), "expose_event",
+				   GtkSignalFunc(ScintillaGTK::ExposeCT), &ct);
+		gtk_signal_connect(GTK_OBJECT(PWidget(ct.wDraw)), "button_press_event",
+				   GtkSignalFunc(ScintillaGTK::PressCT), static_cast<void *>(this));
+		gtk_widget_set_events(PWidget(ct.wDraw),
+			GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
+	}
 	gtk_drawing_area_size(GTK_DRAWING_AREA(PWidget(ct.wDraw)),
 	                      rc.Width(), rc.Height());
 	ct.wDraw.Show();
+	ct.wCallTip.Show();
+	//gtk_widget_set_usize(PWidget(ct.wCallTip), rc.Width(), rc.Height());
+	gdk_window_resize(PWidget(ct.wCallTip)->window, rc.Width(), rc.Height());
 }
 
 void ScintillaGTK::AddToPopUp(const char *label, int cmd, bool enabled) {
@@ -897,8 +943,9 @@ void ScintillaGTK::AddToPopUp(const char *label, int cmd, bool enabled) {
 }
 
 bool ScintillaGTK::OwnPrimarySelection() {
-	return (gdk_selection_owner_get(GDK_SELECTION_PRIMARY)
-	        == GTK_WIDGET(PWidget(wMain))->window);
+	return ((gdk_selection_owner_get(GDK_SELECTION_PRIMARY)
+		== GTK_WIDGET(PWidget(wMain))->window) &&
+			(GTK_WIDGET(PWidget(wMain))->window != NULL));
 }
 
 void ScintillaGTK::ClaimSelection() {
@@ -1113,10 +1160,10 @@ void ScintillaGTK::Resize(int width, int height) {
 	// These allocations should never produce negative sizes as they would wrap around to huge
 	// unsigned numbers inside GTK+ causing warnings.
 	bool showSBHorizontal = horizontalScrollBarVisible && (wrapState == eWrapNone);
-	int horizontalScrollBarHeight = scrollBarWidth;
+	int horizontalScrollBarHeight = scrollBarHeight;
 	if (!showSBHorizontal)
 		horizontalScrollBarHeight = 0;
-	int verticalScrollBarHeight = scrollBarHeight;
+	int verticalScrollBarHeight = scrollBarWidth;
 	if (!verticalScrollBarVisible)
 		verticalScrollBarHeight = 0;
 
@@ -1146,8 +1193,9 @@ void ScintillaGTK::Resize(int width, int height) {
 		alloc.height = 0;
 	}
 	gtk_widget_size_allocate(GTK_WIDGET(PWidget(scrollbarv)), &alloc);
-
-	ChangeSize();
+	if (GTK_WIDGET_MAPPED(PWidget(wMain))) {
+		ChangeSize();
+	}
 }
 
 static void SetAdjustmentValue(GtkObject *object, int value) {
@@ -1414,8 +1462,7 @@ static int KeyTranslate(int keyIn) {
 	}
 }
 
-gint ScintillaGTK::KeyPress(GtkWidget *widget, GdkEventKey *event) {
-	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
+gint ScintillaGTK::KeyThis(GdkEventKey *event) {
 	//Platform::DebugPrintf("SC-key: %d %x [%s]\n",
 	//	event->keyval, event->state, (event->length > 0) ? event->string : "empty");
 	bool shift = (event->state & GDK_SHIFT_MASK) != 0;
@@ -1428,23 +1475,30 @@ gint ScintillaGTK::KeyPress(GtkWidget *widget, GdkEventKey *event) {
 		key &= 0x7F;
 	// Hack for keys over 256 and below command keys but makes Hungarian work.
 	// This will have to change for Unicode
+	else if (key >= 0xFE00)
+		key = KeyTranslate(key);
+	else if (IsUnicodeMode())
+		;	// No operation
 	else if ((key >= 0x100) && (key < 0x1000))
 		key &= 0xff;
-	else
-		key = KeyTranslate(key);
 
 	bool consumed = false;
-	bool added = sciThis->KeyDown(key, shift, ctrl, alt, &consumed) != 0;
+	bool added = KeyDown(key, shift, ctrl, alt, &consumed) != 0;
 	if (!consumed)
 		consumed = added;
 	//Platform::DebugPrintf("SK-key: %d %x %x\n",event->keyval, event->state, consumed);
 	if (event->keyval == 0xffffff && event->length > 0) {
-		sciThis->ClearSelection();
-		if (sciThis->pdoc->InsertString(sciThis->CurrentPosition(), event->string)) {
-			sciThis->MovePositionTo(sciThis->CurrentPosition() + event->length);
+		ClearSelection();
+		if (pdoc->InsertString(CurrentPosition(), event->string)) {
+			MovePositionTo(CurrentPosition() + event->length);
 		}
 	}
 	return consumed;
+}
+
+gint ScintillaGTK::KeyPress(GtkWidget *widget, GdkEventKey *event) {
+	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
+	return sciThis->KeyThis(event);
 }
 
 gint ScintillaGTK::KeyRelease(GtkWidget *, GdkEventKey * /*event*/) {
@@ -1518,15 +1572,20 @@ gint ScintillaGTK::Expose(GtkWidget *, GdkEventExpose *ose) {
 	paintingAllText = rcPaint.Contains(rcClient);
 	Surface *surfaceWindow = Surface::Allocate();
 	if (surfaceWindow) {
-		surfaceWindow->Init((PWidget(wMain))->window);
+		surfaceWindow->Init(PWidget(wMain)->window, PWidget(wMain));
+
 		// Fill the corner between the scrollbars
-		PRectangle rcCorner = wMain.GetClientPosition();
-		if (verticalScrollBarVisible)
-			rcCorner.left = rcCorner.right - scrollBarWidth + 1;
-		if (horizontalScrollBarVisible && (wrapState == eWrapNone))
-			rcCorner.top = rcCorner.bottom - scrollBarHeight + 1;
-		surfaceWindow->FillRectangle(rcCorner,
-			vs.styles[STYLE_LINENUMBER].back.allocated);
+		if (verticalScrollBarVisible) {
+			if (horizontalScrollBarVisible && (wrapState == eWrapNone)) {
+				PRectangle rcCorner = wMain.GetClientPosition();
+				rcCorner.left = rcCorner.right - scrollBarWidth + 1;
+				rcCorner.top = rcCorner.bottom - scrollBarHeight + 1;
+				//fprintf(stderr, "Corner %0d,%0d %0d,%0d\n",
+				//rcCorner.left, rcCorner.top, rcCorner.right, rcCorner.bottom);
+				surfaceWindow->FillRectangle(rcCorner,
+					vs.styles[STYLE_LINENUMBER].back.allocated);
+			}
+		}
 
 		Paint(surfaceWindow, rcPaint);
 		surfaceWindow->Release();
@@ -1663,10 +1722,27 @@ void ScintillaGTK::PopUpCB(ScintillaGTK *sciThis, guint action, GtkWidget *) {
 	}
 }
 
+gint ScintillaGTK::PressCT(GtkWidget *widget, GdkEventButton *event, ScintillaGTK *sciThis) {
+	if (event->window != widget->window)
+		return FALSE;
+	if (event->type != GDK_BUTTON_PRESS)
+		return FALSE;
+	Point pt;
+	pt.x = int(event->x);
+	pt.y = int(event->y);
+	sciThis->ct.MouseClick(pt);
+	sciThis->CallTipClick();
+#if GTK_MAJOR_VERSION >= 2
+	return TRUE;
+#else
+	return FALSE;
+#endif
+}
+
 gint ScintillaGTK::ExposeCT(GtkWidget *widget, GdkEventExpose * /*ose*/, CallTip *ctip) {
 	Surface *surfaceWindow = Surface::Allocate();
 	if (surfaceWindow) {
-		surfaceWindow->Init(widget->window);
+		surfaceWindow->Init(widget->window, widget);
 		ctip->PaintCT(surfaceWindow);
 		surfaceWindow->Release();
 		delete surfaceWindow;

@@ -30,6 +30,7 @@ libscintilla_a_SOURCES =\
 	LexOthers.cxx \
 	LexPascal.cxx \
 	LexPerl.cxx \
+	LexPOV.cxx \
 	LexPython.cxx \
 	LexSQL.cxx \
 	LexVB.cxx \

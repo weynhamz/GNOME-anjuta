@@ -52,14 +52,14 @@ int LexerModule::GetNumWordLists() const {
 	}
 }
 
-const char * LexerModule::GetWordListDescription(int idx) const {
+const char * LexerModule::GetWordListDescription(int index) const {
 	static const char *emptyStr = "";
 
-	PLATFORM_ASSERT(idx < GetNumWordLists());
-	if (idx >= GetNumWordLists()) {
+	PLATFORM_ASSERT(index < GetNumWordLists());
+	if (index >= GetNumWordLists()) {
 		return emptyStr;
 	} else {
-		return wordListDescriptions[idx];
+		return wordListDescriptions[index];
  	}
 }
  
@@ -171,6 +171,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmLatex);
 	LINK_LEXER(lmPascal);
 	LINK_LEXER(lmPerl);
+	LINK_LEXER(lmPOV);
 	LINK_LEXER(lmPython);
 	LINK_LEXER(lmRuby);
 	LINK_LEXER(lmSQL);

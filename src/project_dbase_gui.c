@@ -471,7 +471,7 @@ on_tree_selection_changed (GtkTreeSelection *selection, ProjectDBase *p)
 	}
 	gtk_tree_model_get (model, &iter, PROJECT_DATA_COLUMN, &info, -1);
 #ifdef DEBUG
-	g_message ("Project tree selection changed to %s", info->full_filename);
+	g_message ("Project tree selection changed to %s", (info && info->full_filename) ? info->full_filename : "NULL");
 #endif
 	p->current_file_data = info;
 }
