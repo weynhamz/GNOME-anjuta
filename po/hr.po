@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0\n"
-"POT-Creation-Date: 2004-03-20 14:41+0100\n"
-"PO-Revision-Date: 2004-03-20 14:41+CET\n"
+"POT-Creation-Date: 2004-03-20 23:07+0100\n"
+"PO-Revision-Date: 2004-03-20 23:07+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -121,7 +121,7 @@ msgstr ""
 
 #: anjuta.glade.h:28
 msgid "Attach to process"
-msgstr ""
+msgstr "Prikvači uz proces"
 
 #: anjuta.glade.h:29
 msgid "Attributes:"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: anjuta.glade.h:81
 msgid "Compiler"
-msgstr ""
+msgstr "Prevodilac"
 
 #: anjuta.glade.h:82
 msgid "Compiler Flags (CFLAGS):"
@@ -545,7 +545,7 @@ msgstr ""
 
 #: anjuta.glade.h:133
 msgid "Execute Program"
-msgstr ""
+msgstr "Izvrši program"
 
 #: anjuta.glade.h:134
 msgid "Expand regex back references"
@@ -805,7 +805,7 @@ msgstr "Biblioteke"
 
 #: anjuta.glade.h:195
 msgid "Library Paths"
-msgstr ""
+msgstr "Putanje do biblioteka"
 
 #: anjuta.glade.h:196
 msgid "Line numbers margin width in pixels"
@@ -975,7 +975,7 @@ msgstr ""
 
 #: anjuta.glade.h:236
 msgid "Optimization"
-msgstr ""
+msgstr "Optimizacija"
 
 #. 15
 #: anjuta.glade.h:237 src/text_editor_menu.c:329
@@ -2647,7 +2647,7 @@ msgstr "_Zamijeni"
 
 #: src/anjuta_cbs.c:545
 msgid "Could not open file for writing"
-msgstr ""
+msgstr "Nisam mogao otvoriti datoteku za pisanje"
 
 #: src/anjuta_cbs.c:569
 msgid ""
@@ -2681,7 +2681,7 @@ msgstr ""
 
 #: src/appwizard_cbs.c:128
 msgid "Project version"
-msgstr ""
+msgstr "Inačica projekta"
 
 #: src/appwizard_cbs.c:224
 msgid ""
@@ -2925,7 +2925,7 @@ msgstr ""
 
 #: src/clean_project.c:76
 msgid "Clean"
-msgstr ""
+msgstr "Očisti"
 
 #: src/clean_project.c:79
 msgid "Cleaning the source directory of the Project: "
@@ -4605,7 +4605,7 @@ msgstr ""
 #. 9
 #: src/main_menubar_def.h:857
 msgid "_Registers"
-msgstr ""
+msgstr "_Registri"
 
 #: src/main_menubar_def.h:858
 msgid "Show CPU registers and their contents"
@@ -5127,7 +5127,7 @@ msgstr ""
 #.  13
 #: src/main_menubar_def.h:1289
 msgid "Clea_n"
-msgstr ""
+msgstr "_Očisti"
 
 #: src/main_menubar_def.h:1290
 msgid "Clean the source directory"
@@ -5266,7 +5266,7 @@ msgstr ""
 #. 4
 #: src/main_menubar_def.h:1393
 msgid "_Run to cursor"
-msgstr ""
+msgstr "_Izvršavaj do pokazivača"
 
 #: src/main_menubar_def.h:1394
 msgid "Run to the cursor"
@@ -5977,7 +5977,7 @@ msgstr "Lokalni"
 
 #: src/message-manager.cc:51
 msgid "Watches"
-msgstr ""
+msgstr "Promatranja"
 
 #: src/message-manager.cc:52
 msgid "Stack"
@@ -6047,7 +6047,7 @@ msgstr "Sve datoteke"
 msgid "Unable to load Project: %s"
 msgstr ""
 
-#: src/project_dbase.c:465 src/project_dbase.c:2483
+#: src/project_dbase.c:465 src/project_dbase.c:2518
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
@@ -6093,11 +6093,11 @@ msgstr "već postoji u projektu"
 msgid "Error while copying the file inside the module."
 msgstr ""
 
-#: src/project_dbase.c:2559 src/project_dbase.c:2562
+#: src/project_dbase.c:2594 src/project_dbase.c:2597
 msgid "Error in loading Project: %s"
 msgstr ""
 
-#: src/project_dbase.c:2583
+#: src/project_dbase.c:2618
 msgid "Project loaded successfully."
 msgstr ""
 
@@ -6506,7 +6506,7 @@ msgstr "Zamijeni"
 
 #: src/search-replace.c:684 src/search-replace.c:1306
 #: src/search-replace.c:1313 src/search-replace.c:1325
-#: src/search-replace.c:1611
+#: src/search-replace.c:1613
 msgid "Search"
 msgstr "&Traži"
 
@@ -6822,7 +6822,7 @@ msgstr "Iskorači"
 
 #: src/text_editor_menu.c:161 src/toolbar.c:526
 msgid "Run to cursor"
-msgstr ""
+msgstr "Izvršavaj do pokazivača"
 
 #: src/text_editor_menu.c:167
 msgid "Run/Continue"
@@ -6944,7 +6944,7 @@ msgstr ""
 
 #: src/toolbar.c:264
 msgid "Run configure"
-msgstr ""
+msgstr "Pokreni postavljanje"
 
 #: src/toolbar.c:276
 msgid "Build current file, or build the source directory of the Project"
@@ -7092,7 +7092,7 @@ msgstr ""
 
 #: src/toolbar.c:653
 msgid "Registers"
-msgstr ""
+msgstr "Registri"
 
 #: src/toolbar.c:654
 msgid "CPU registers and their contents"
