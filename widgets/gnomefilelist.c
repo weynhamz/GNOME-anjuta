@@ -125,7 +125,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_widget_show(main_box);  
 
    toolbar = gtk_toolbar_new(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_ICONS);
-   gtk_box_pack_start(GTK_BOX(main_box), toolbar, TRUE, TRUE, 0);
+   gtk_box_pack_start(GTK_BOX(main_box), toolbar, FALSE, FALSE, 0);
    gtk_widget_show(toolbar);
 
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_BACK, 21, 21);
@@ -168,7 +168,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_box_pack_start (GTK_BOX(hbox), label1, TRUE, TRUE, 3);
 
    util_box = gtk_hbox_new(FALSE, 0);
-   gtk_box_pack_start(GTK_BOX(main_box), util_box, TRUE, TRUE, 0);
+   gtk_box_pack_start(GTK_BOX(main_box), util_box, FALSE, FALSE, 0);
    gtk_widget_show(util_box);
 
    label = gtk_label_new(_("Directory: "));
@@ -252,9 +252,9 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
  
    util_box = gtk_table_new (2, 2, FALSE);  
    
-   gtk_container_add(GTK_CONTAINER(main_box), util_box);
+   //gtk_container_add(GTK_CONTAINER(main_box), util_box);
+   gtk_box_pack_start(GTK_BOX(main_box), util_box, FALSE, FALSE, 0);
    
-
    gtk_table_set_row_spacings (GTK_TABLE (util_box), 7);
    gtk_table_set_col_spacings (GTK_TABLE (util_box), 7);
    
@@ -308,11 +308,11 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
 	
 
    hsep = gtk_hseparator_new();
-   gtk_box_pack_start(GTK_BOX(main_box), hsep, TRUE, TRUE, 10);
+   gtk_box_pack_start(GTK_BOX(main_box), hsep, FALSE, FALSE, 10);
    gtk_widget_show(hsep);
 
    util_box = gtk_hbutton_box_new();
-   gtk_box_pack_start(GTK_BOX(main_box), util_box, FALSE, TRUE, 0);
+   gtk_box_pack_start(GTK_BOX(main_box), util_box, FALSE, FALSE, 0);
    gtk_button_box_set_layout(GTK_BUTTON_BOX(util_box), gnome_preferences_get_button_layout());
    gtk_button_box_set_spacing(GTK_BUTTON_BOX(util_box), GNOME_PAD);
    gtk_widget_show(util_box);

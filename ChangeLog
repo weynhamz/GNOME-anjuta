@@ -3,7 +3,10 @@
 	* plugins/class-gen/clsGen.c:
 	Added c++ support.
 	
-	Patch from: lbell <lbell@tsc4.com>
+	* widgets/gnomefilelist.c:
+	Gives the maximum space to the files section of the open file dialog.
+	
+	Patches from: lbell <lbell@tsc4.com>
 	
 2002-02-18  Naba Kumar <kh_naba@users.sourceforge.net>
 
