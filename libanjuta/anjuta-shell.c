@@ -39,6 +39,20 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 	ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, widget, name,
 						    title, error);
 }
+
+void
+anjuta_shell_remove_widget (AnjutaShell *shell,
+							GtkWidget *widget,
+							GError **error)
+{
+	g_return_if_fail (shell != NULL);
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	g_return_if_fail (widget != NULL);
+	g_return_if_fail (GTK_IS_WIDGET (widget));
+
+	ANJUTA_SHELL_GET_IFACE (shell)->remove_widget (shell, widget, error);
+}
+
 #if 0
 void
 anjuta_shell_add_control       (AnjutaShell   *shell,

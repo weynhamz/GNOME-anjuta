@@ -59,25 +59,13 @@ static EggActionGroupEntry actions_view[] = {
 gpointer parent_class;
 
 static void
-ui_set (AnjutaPlugin *plugin)
-{
-	g_message ("SamplePlugin: UI set");
-}
-
-static void
-prefs_set (AnjutaPlugin *plugin)
-{
-	g_message ("SamplePlugin: Prefs set");
-}
-
-static void
-shell_set (AnjutaPlugin *plugin)
+activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	MessageViewPlugin *mv_plugin;
 	GtkWidget* msgman;
 	
-	g_message ("MessageViewPlugin: Shell set. Activating MessageView plugin ...");
+	g_message ("MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = (MessageViewPlugin*) plugin;
 	ui = plugin->ui;
 	msgman = anjuta_msgman_new(plugin->prefs);
@@ -97,11 +85,20 @@ shell_set (AnjutaPlugin *plugin)
 				  "AnjutaMessageView", _("Messages"), NULL);
 }
 
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	g_message ("MessageViewPlugin: Dectivating message view plugin ...");
+	anjuta_shell_remove_widget (plugin->shell,
+								((MessageViewPlugin*)plugin)->msgman, NULL);
+	anjuta_ui_unmerge (plugin->ui, ((MessageViewPlugin*)plugin)->uiid);
+	return TRUE;
+}
+
 static void
 dispose (GObject *obj)
 {
-	MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
-	anjuta_ui_unmerge (ANJUTA_PLUGIN (obj)->ui, plugin->uiid);
+	// MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
 }
 
 static void
@@ -118,9 +115,8 @@ message_view_plugin_class_init (GObjectClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->shell_set = shell_set;
-	plugin_class->ui_set = ui_set;
-	plugin_class->prefs_set = prefs_set;
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
 }
 

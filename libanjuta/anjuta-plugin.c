@@ -137,9 +137,9 @@ anjuta_plugin_get_property (GObject *object,
 
 static void
 anjuta_plugin_set_property (GObject *object,
-			  guint param_id,
-			  const GValue *value,
-			  GParamSpec *pspec)
+							guint param_id,
+							const GValue *value,
+							GParamSpec *pspec)
 {
 	AnjutaPlugin *tool = ANJUTA_PLUGIN (object);
 	
@@ -149,7 +149,8 @@ anjuta_plugin_set_property (GObject *object,
 		tool->shell = g_value_get_object (value);
 		g_object_ref (tool->shell);
 		
-		ANJUTA_PLUGIN_GET_CLASS (object)->shell_set (tool);
+		if (ANJUTA_PLUGIN_GET_CLASS (object)->activate)
+			ANJUTA_PLUGIN_GET_CLASS (object)->activate (tool);
 
 		g_object_notify (object, "shell");
 		break;
@@ -158,7 +159,7 @@ anjuta_plugin_set_property (GObject *object,
 	  tool->ui = g_value_get_object (value);
 	  g_object_ref (tool->ui);
 
-	  ANJUTA_PLUGIN_GET_CLASS (object)->ui_set (tool);
+	  //ANJUTA_PLUGIN_GET_CLASS (object)->ui_set (tool);
 	  
 	  g_object_notify (object, "ui");
 	  break;
@@ -167,7 +168,7 @@ anjuta_plugin_set_property (GObject *object,
 	  tool->prefs = g_value_get_object (value);
 	  g_object_ref (tool->prefs);
 
-	  ANJUTA_PLUGIN_GET_CLASS (object)->prefs_set (tool);
+	  //ANJUTA_PLUGIN_GET_CLASS (object)->prefs_set (tool);
 
 	  g_object_notify (object, "prefs");
 	  break;
@@ -188,7 +189,8 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 	object_class->get_property = anjuta_plugin_get_property;
 	object_class->set_property = anjuta_plugin_set_property;
 
-	class->shutdown = NULL;
+	class->activate = NULL;
+	class->deactivate = NULL;
 
 	g_object_class_install_property
 		(object_class,

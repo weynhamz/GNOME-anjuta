@@ -79,13 +79,15 @@ on_show_plugins_activate (EggAction *action, AnjutaApp *app)
 {
 	GtkWidget *win, *plg;
 	
-	plg = anjuta_plugins_get_preferences ();
+	plg = anjuta_plugins_get_installed_dialog (ANJUTA_SHELL (app),
+											   app->ui, app->preferences);
 	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (app),
 									   GTK_DIALOG_DESTROY_WITH_PARENT,
 									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
 	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(win)->vbox), plg);
 	gtk_widget_set_usize (win, 300, 400);
 	gtk_dialog_run (GTK_DIALOG (win));
+	gtk_widget_destroy (win);
 }
 
 void

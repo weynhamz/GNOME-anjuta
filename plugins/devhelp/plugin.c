@@ -90,18 +90,6 @@ init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
 		actions[i].user_data = data;
 }
 
-static void
-ui_set (AnjutaPlugin *plugin)
-{
-	g_message ("DevhelpPlugin: UI set");
-}
-
-static void
-prefs_set (AnjutaPlugin *plugin)
-{
-	g_message ("DevhelpPlugin: Prefs set");
-}
-
 static gboolean 
 open_url (DevhelpPlugin *plugin, const gchar *url)
 {
@@ -169,13 +157,13 @@ forward_exists_changed_cb (DhHistory *history,
 }
 
 static void
-shell_set (AnjutaPlugin *plugin)
+activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	DevhelpPlugin *devhelp_plugin;
 	DevhelpPluginPriv *priv;
 	
-	g_message ("DevhelpPlugin: Shell set. Activating Sample plugin ...");
+	g_message ("DevhelpPlugin: Activating Devhelp plugin ...");
 	devhelp_plugin = (DevhelpPlugin*) plugin;
 	ui = plugin->ui;
 	priv = devhelp_plugin->priv;
@@ -194,11 +182,20 @@ shell_set (AnjutaPlugin *plugin)
 				  "AnjutaDevhelpDisplay", _("Help display"), NULL);
 }
 
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	g_message ("DevhelpPlugin: Dectivating Devhelp plugin ...");
+	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->browser_frame, NULL);
+	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->notebook, NULL);
+	anjuta_ui_unmerge (plugin->ui, ((DevhelpPlugin*)plugin)->uiid);
+	return TRUE;
+}
+
 static void
 dispose (GObject *obj)
 {
-	DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
-	anjuta_ui_unmerge (ANJUTA_PLUGIN (obj)->ui, plugin->uiid);
+	// DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
 }
 
 static void
@@ -292,9 +289,8 @@ devhelp_plugin_class_init (GObjectClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->shell_set = shell_set;
-	plugin_class->ui_set = ui_set;
-	plugin_class->prefs_set = prefs_set;
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
 }
 

@@ -57,7 +57,6 @@ struct _AnjutaPlugin {
 	GObject parent;	
 
 	AnjutaShell *shell;
-	// BonoboUIComponent *uic;
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	
@@ -67,10 +66,8 @@ struct _AnjutaPlugin {
 struct _AnjutaPluginClass {
 	GObjectClass parent_class;
 
-	void (*shell_set) (AnjutaPlugin *tool);
-  void (*prefs_set) (AnjutaPlugin *tool);
-  void (*ui_set) (AnjutaPlugin *tool);
-	gboolean (*shutdown) (AnjutaPlugin *tool);
+	void (*activate) (AnjutaPlugin *tool);
+	gboolean (*deactivate) (AnjutaPlugin *tool);
 };
 
 GType anjuta_plugin_get_type   (void);

@@ -16,6 +16,8 @@ gboolean anjuta_plugins_unload (AnjutaShell *shell);
 GObject *anjuta_plugins_get_object (AnjutaShell *shell,
 									const gchar *interface_name);
 
-GtkWidget* anjuta_plugins_get_preferences (void);
+GtkWidget* anjuta_plugins_get_installed_dialog (AnjutaShell *shell,
+												AnjutaUI *ui,
+												AnjutaPreferences *prefs);
 
 #endif

@@ -48,7 +48,7 @@ GtkWidget *anjuta_msgman_new (AnjutaPreferences * pref);
 MessageView *anjuta_msgman_add_view (AnjutaMsgman * msgman,
 				     const gchar * name,
 				     const gchar * pixmap);
-void anjuta_msgman_remove_editor (AnjutaMsgman * msgman, MessageView * view);
+void anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view);
 
 MessageView *anjuta_msgman_get_current_view (AnjutaMsgman * msgman);
 MessageView *anjuta_msgman_get_view_by_name (AnjutaMsgman * msgman,
@@ -57,8 +57,5 @@ MessageView *anjuta_msgman_get_view_by_name (AnjutaMsgman * msgman,
 void anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv);
 
 GList *anjuta_msgman_get_all_views (AnjutaMsgman * msgman);
-
-
-
 
 #endif /* _ANJUTA_MSGMAN_H */

@@ -396,6 +396,34 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	gtk_widget_show_all (item);	
 }
 
+static gboolean
+remove_from_widgets_hash (gpointer key, gpointer value, gpointer data)
+{
+	if (value == data) {
+		g_free (key);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static void 
+anjuta_app_remove_widget (AnjutaShell *shell, 
+						  GtkWidget *w, 
+						  GError **error)
+{
+	AnjutaApp *window = ANJUTA_APP (shell);
+	GtkWidget *dock_item;
+
+	g_return_if_fail (w != NULL);
+
+	g_hash_table_foreach_steal (window->widgets, remove_from_widgets_hash, w);
+
+	dock_item = g_object_get_data (G_OBJECT(w), "dockitem");
+	g_return_if_fail (dock_item != NULL);
+	
+	// egg_dock_remove	(GTK_CONTAINER (window->dock), dock_item);
+}
+
 static void
 anjuta_app_remove_value (AnjutaShell *shell, 
 			    const char *name, 
@@ -605,7 +633,7 @@ static void
 anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
 	iface->add_widget = anjuta_app_add_widget;
-	// iface->add_preferences = anjuta_app_add_preferences;
+	iface->remove_widget = anjuta_app_remove_widget;
 	iface->add_value = anjuta_app_add_value;
 	iface->get_value = anjuta_app_get_value;
 	iface->remove_value = anjuta_app_remove_value;

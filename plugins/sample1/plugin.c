@@ -32,8 +32,6 @@ static void
 on_sample_action_activate (EggAction *action, gpointer data)
 {
 	GObject *obj;
-	gchar *msg;
-	GtkWidget *dlg;
 	SamplePlugin *plugin = (SamplePlugin *)data;
 	
 	IAnjutaEditor *editor;
@@ -43,32 +41,13 @@ on_sample_action_activate (EggAction *action, gpointer data)
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
 									  "IAnjutaDocumentManager", NULL);
 	docman = IANJUTA_DOCUMENT_MANAGER (obj);
-	
-	msg = g_strdup_printf ("Sample plugin: Document manager has been found to be '%X' object",
-						  docman);
-	/* Do whatever with plugin */
-	dlg = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-							GTK_DIALOG_DESTROY_WITH_PARENT,
-							GTK_MESSAGE_INFO,
-							GTK_BUTTONS_NONE,
-							msg);
-	gtk_dialog_run (GTK_DIALOG(dlg));
-	gtk_widget_destroy(dlg);
-	g_free (msg);
-	
 	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
-	msg = g_strdup_printf ("Sample plugin: Current editor is '%X'",
-						  editor);
-						  
+
 	/* Do whatever with plugin */
-	dlg = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-							GTK_DIALOG_DESTROY_WITH_PARENT,
-							GTK_MESSAGE_INFO,
-							GTK_BUTTONS_NONE,
-							msg);
-	gtk_dialog_run (GTK_DIALOG(dlg));
-	gtk_widget_destroy(dlg);
-	g_free (msg);
+	anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+							 "Document manager pointer is: '0x%X'\n"
+							 "Current Editor pointer is: 0x%X", docman,
+							 editor);
 }
 
 static EggActionGroupEntry actions_file[] = {
@@ -86,25 +65,13 @@ init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
 }
 
 static void
-ui_set (AnjutaPlugin *plugin)
-{
-	g_message ("SamplePlugin: UI set");
-}
-
-static void
-prefs_set (AnjutaPlugin *plugin)
-{
-	g_message ("SamplePlugin: Prefs set");
-}
-
-static void
-shell_set (AnjutaPlugin *plugin)
+activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *wid;
 	AnjutaUI *ui;
 	SamplePlugin *sample_plugin;
 	
-	g_message ("SamplePlugin: Shell set. Activating Sample plugin ...");
+	g_message ("SamplePlugin: Activating Sample plugin ...");
 	sample_plugin = (SamplePlugin*) plugin;
 	ui = plugin->ui;
 	wid = gtk_label_new ("This is a sample plugin");
@@ -121,11 +88,20 @@ shell_set (AnjutaPlugin *plugin)
 				  "AnjutaSamplePlugin", _("SamplePlugin"), NULL);
 }
 
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	g_message ("SamplePlugin: Dectivating Sample plugin ...");
+	anjuta_shell_remove_widget (plugin->shell, ((SamplePlugin*)plugin)->widget,
+								NULL);
+	anjuta_ui_unmerge (plugin->ui, ((SamplePlugin*)plugin)->uiid);
+	return TRUE;
+}
+
 static void
 dispose (GObject *obj)
 {
-	SamplePlugin *plugin = (SamplePlugin*)obj;
-	anjuta_ui_unmerge (ANJUTA_PLUGIN (obj)->ui, plugin->uiid);
+	// SamplePlugin *plugin = (SamplePlugin*)obj;
 }
 
 static void
@@ -142,9 +118,8 @@ sample_plugin_class_init (GObjectClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->shell_set = shell_set;
-	plugin_class->ui_set = ui_set;
-	plugin_class->prefs_set = prefs_set;
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
 }
 

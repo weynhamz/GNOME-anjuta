@@ -679,20 +679,16 @@ activate_tool (AnjutaShell *shell, AnjutaUI *ui,
 		types = g_hash_table_new (g_str_hash, g_str_equal);
 	}
 	
-	type = GPOINTER_TO_UINT (g_hash_table_lookup (types, 
-						      tool->id));
+	type = GPOINTER_TO_UINT (g_hash_table_lookup (types, tool->id));
 	
 	if (!type) {
 		char **pieces;
 
 		pieces = g_strsplit (tool->id, ":", -1);
 		type = glue_factory_get_object_type (glue_factory,
-						     pieces[0],
-						     pieces[1]);
-		g_hash_table_insert (types, 
-				     g_strdup (tool->id), 
-				     GUINT_TO_POINTER (type));
-
+										     pieces[0], pieces[1]);
+		g_hash_table_insert (types, g_strdup (tool->id),
+							 GUINT_TO_POINTER (type));
 		g_strfreev (pieces);
 	}
 	
@@ -703,7 +699,6 @@ activate_tool (AnjutaShell *shell, AnjutaUI *ui,
 		ret = g_object_new (type, "ui", ui, "prefs", prefs,
 				    "shell", shell, NULL);
 	}
-	
 	return ret;
 }
 
@@ -807,9 +802,21 @@ tool_set_update (AnjutaShell *shell, AnjutaUI *ui,
 		GObject *tool_obj = g_hash_table_lookup (installed_tools, 
 							 tool);
 		if (tool_obj && !should_load (tool, tool_set)) {
-			g_object_unref (tool_obj);
 			/* FIXME: Unload the class if possible */
-			g_hash_table_remove (installed_tools, tool);
+			gboolean success = TRUE;
+			AnjutaPlugin *anjuta_tool = ANJUTA_PLUGIN (tool_obj);
+			if (ANJUTA_PLUGIN_GET_CLASS (anjuta_tool)->deactivate) {
+				if (!ANJUTA_PLUGIN_GET_CLASS (anjuta_tool)->deactivate (anjuta_tool)) {
+					anjuta_util_dialog_info (GTK_WINDOW (shell),
+											 "Plugin '%s' do not want to be deactivated",
+											 tool->name);
+					success = FALSE;
+				}
+			}
+			if (success) {
+				g_object_unref (tool_obj);
+				g_hash_table_remove (installed_tools, tool);
+			}
 		}
 	}
 	available_tools = g_slist_reverse (available_tools);
@@ -818,8 +825,7 @@ tool_set_update (AnjutaShell *shell, AnjutaUI *ui,
 		AvailableTool *tool = l->data;
 		if (should_load (tool, tool_set)
 		    && !g_hash_table_lookup (installed_tools, tool)) {
-			GObject *tool_obj = activate_tool (shell, ui,
-							   prefs, tool);
+			GObject *tool_obj = activate_tool (shell, ui, prefs, tool);
 			if (tool_obj) {
 				g_hash_table_insert (installed_tools,
 						     tool, tool_obj);
@@ -916,8 +922,8 @@ anjuta_plugins_unload (AnjutaShell *shell)
 							 tool);
 		if (tool_obj) {
 			AnjutaPlugin *anjuta_tool = ANJUTA_PLUGIN (tool_obj);
-			if (ANJUTA_PLUGIN_GET_CLASS (anjuta_tool)->shutdown)
-				if (!ANJUTA_PLUGIN_GET_CLASS (anjuta_tool)->shutdown (anjuta_tool))
+			if (ANJUTA_PLUGIN_GET_CLASS (anjuta_tool)->deactivate)
+				if (!ANJUTA_PLUGIN_GET_CLASS (anjuta_tool)->deactivate (anjuta_tool))
 					return FALSE;
 		}
 	}
@@ -1136,7 +1142,8 @@ populate_plugin_model (GtkListStore *store, ToolSet *set)
 }
 
 static GtkWidget *
-create_plugin_page (ToolSet *set)
+create_plugin_page (ToolSet *set, AnjutaShell *shell,
+					AnjutaUI *ui, AnjutaPreferences *prefs)
 {
 	GtkWidget *vbox;
 	GtkWidget *hbox;
@@ -1177,6 +1184,9 @@ create_plugin_page (ToolSet *set)
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
 					     GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
 	
 	hbox = gtk_hbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox),
@@ -1204,6 +1214,9 @@ create_plugin_page (ToolSet *set)
 			  G_CALLBACK (selection_changed), store);
 
 	g_object_set_data (G_OBJECT (store), "ToolSet", set);
+	g_object_set_data (G_OBJECT (store), "Shell", shell);
+	g_object_set_data (G_OBJECT (store), "UI", ui);
+	g_object_set_data (G_OBJECT (store), "Preferences", prefs);
 
 	gtk_widget_show_all (vbox);
 	gtk_widget_hide (image);
@@ -1245,9 +1258,11 @@ anjuta_plugins_get_object (AnjutaShell *shell,
 }
 
 GtkWidget *
-anjuta_plugins_get_preferences (void)
+anjuta_plugins_get_installed_dialog (AnjutaShell *shell,
+									 AnjutaUI *ui,
+									 AnjutaPreferences *prefs)
 {
 	ToolSet *set = g_hash_table_lookup (tool_sets, "default");
 
-	return create_plugin_page (set);
+	return create_plugin_page (set, shell, ui, prefs);
 }

@@ -493,21 +493,7 @@ init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
 }
 
 static void
-ui_set (AnjutaPlugin *plugin)
-{
-	/* Initialize your UI and merge it */
-	g_message ("EditorPlugin: UI set");
-}
-
-static void
-prefs_set (AnjutaPlugin *plugin)
-{
-	/* Initialize your preferences sub-system */
-	g_message ("EditorPlugin: Prefs set");
-}
-
-static void
-shell_set (AnjutaPlugin *plugin)
+activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *docman;
 	AnjutaUI *ui;
@@ -516,7 +502,7 @@ shell_set (AnjutaPlugin *plugin)
 	EggAction *action;
 	gint i;
 	
-	g_message ("EditorPlugin: Shell set. Activating Editor plugin ...");
+	g_message ("EditorPlugin: Activating Editor plugin ...");
 	editor_plugin = (EditorPlugin*) plugin;
 	ui = plugin->ui;
 	docman = anjuta_docman_new (plugin->prefs);
@@ -578,11 +564,20 @@ shell_set (AnjutaPlugin *plugin)
 				  "AnjutaDocumentManager", _("Documents"), NULL);
 }
 
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	g_message ("EditorPlugin: Dectivating Editor plugin ...");
+	anjuta_shell_remove_widget (plugin->shell, ((EditorPlugin*)plugin)->docman,
+								NULL);
+	anjuta_ui_unmerge (plugin->ui, ((EditorPlugin*)plugin)->uiid);
+	return TRUE;
+}
+
 static void
 dispose (GObject *obj)
 {
-	EditorPlugin *plugin = (EditorPlugin*)obj;
-	anjuta_ui_unmerge (ANJUTA_PLUGIN (obj)->ui, plugin->uiid);
+	// EditorPlugin *plugin = (EditorPlugin*)obj;
 }
 
 static void
@@ -599,9 +594,8 @@ editor_plugin_class_init (GObjectClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->shell_set = shell_set;
-	plugin_class->ui_set = ui_set;
-	plugin_class->prefs_set = prefs_set;
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
 	klass->dispose = dispose;
 }
 

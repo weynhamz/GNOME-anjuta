@@ -1,3 +1,31 @@
+2004-04-08  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/ianjuta-message-view.[c,h], 
+	libanjuta/interfaces/Makefile.am,
+	libanjuta/interfaces/ianjuta-message-manager.[c,h]: Implemented
+	message manager and message view interfaces.
+
+	* libanjuta/anjuta-children.h, libanjuta/anjuta-plugin-parser.h,
+	libanjuta/anjuta-plugin.c, libanjuta/anjuta-plugin.h,
+	libanjuta/anjuta-shell.c, libanjuta/anjuta-shell.h,
+	libanjuta/plugins.c, libanjuta/plugins.h, src/action-callbacks.c,
+	src/anjuta-app.c: Used 'activate' and
+	'deactivate' virtual methods for plugins. Fixed installed plugins
+	dialogs. Added remove_widget() method for AnjutaShell.
+
+	* libanjuta/interfaces/Makefile.am,
+	libanjuta/interfaces/ianjuta-document-manager.c,
+	libanjuta/interfaces/ianjuta-document-manager.h,
+	libanjuta/interfaces/ianjuta-editor.c,
+	libanjuta/interfaces/ianjuta-editor.h: Fixed document manager
+	and editor interfaces.
+
+	* plugins/devhelp/plugin.c,
+	plugins/message-view/anjuta-message-manager.plugin.in,
+	plugins/message-view/anjuta-msgman.h, plugins/message-view/plugin.c,
+	plugins/sample1/plugin.c: Updated plugins implementation to
+	reflect the changes.
+
 2004-04-07  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin.h, libanjuta/anjuta-shell.[c,h],

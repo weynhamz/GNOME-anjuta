@@ -25,16 +25,16 @@
 typedef struct _AnjutaPluginFile AnjutaPluginFile;
 
 typedef void (* AnjutaPluginFileSectionFunc) (AnjutaPluginFile *df,
-					    const char       *name,
-					    gpointer          data);
+											  const char *name,
+											  gpointer data);
 
 /* If @key is %NULL, @value is a comment line. */
 /* @value is raw, unescaped data. */
 typedef void (* AnjutaPluginFileLineFunc) (AnjutaPluginFile *df,
-					 const char       *key,
-					 const char       *locale,
-					 const char       *value,
-					 gpointer          data);
+					 const char *key,
+					 const char *locale,
+					 const char *value,
+					 gpointer   data);
 
 typedef enum 
 {
@@ -46,39 +46,41 @@ typedef enum
 #define ANJUTA_PLUGIN_FILE_PARSE_ERROR anjuta_plugin_file_parse_error_quark()
 GQuark anjuta_plugin_file_parse_error_quark (void);
 
-AnjutaPluginFile *anjuta_plugin_file_new_from_string (char                    *data,
-						  GError                 **error);
-char *          anjuta_plugin_file_to_string       (AnjutaPluginFile          *df);
-void            anjuta_plugin_file_free            (AnjutaPluginFile          *df);
+AnjutaPluginFile *anjuta_plugin_file_new_from_string (char *data, GError **error);
 
+char* anjuta_plugin_file_to_string (AnjutaPluginFile *df);
 
-void                   anjuta_plugin_file_foreach_section (AnjutaPluginFile            *df,
-							 AnjutaPluginFileSectionFunc  func,
-							 gpointer                   user_data);
-void                   anjuta_plugin_file_foreach_key     (AnjutaPluginFile            *df,
-							 const char                *section,
-							 gboolean                   include_localized,
-							 AnjutaPluginFileLineFunc     func,
-							 gpointer                   user_data);
+void anjuta_plugin_file_free (AnjutaPluginFile *df);
 
+void anjuta_plugin_file_foreach_section (AnjutaPluginFile *df,
+							 			 AnjutaPluginFileSectionFunc  func,
+							 			 gpointer user_data);
+
+void anjuta_plugin_file_foreach_key (AnjutaPluginFile *df,
+									 const char *section,
+									 gboolean include_localized,
+									 AnjutaPluginFileLineFunc func,
+									 gpointer user_data);
 
 /* Gets the raw text of the key, unescaped */
-gboolean anjuta_plugin_file_get_raw            (AnjutaPluginFile   *df,
-					      const char       *section,
-					      const char       *keyname,
-					      const char       *locale,
-					      char            **val);
-gboolean anjuta_plugin_file_get_integer        (AnjutaPluginFile   *df,
-					      const char       *section,
-					      const char       *keyname,
-					      int              *val);
-gboolean anjuta_plugin_file_get_string         (AnjutaPluginFile   *df,
-					      const char       *section,
-					      const char       *keyname,
-					      char            **val);
-gboolean anjuta_plugin_file_get_locale_string  (AnjutaPluginFile   *df,
-					      const char       *section,
-					      const char       *keyname,
-					      char            **val);
+gboolean anjuta_plugin_file_get_raw (AnjutaPluginFile   *df,
+					      const char *section,
+					      const char *keyname,
+					      const char *locale,
+					      char **val);
+
+gboolean anjuta_plugin_file_get_integer (AnjutaPluginFile   *df,
+					      const char *section,
+					      const char *keyname,
+					      int *val);
+
+gboolean anjuta_plugin_file_get_string (AnjutaPluginFile   *df,
+										const char *section,
+										const char *keyname,
+										char **val);
+gboolean anjuta_plugin_file_get_locale_string (AnjutaPluginFile   *df,
+											   const char *section,
+											   const char *keyname,
+											   char **val);
 
 #endif /* ANJUTA_PLUGIN_PARSER_H */

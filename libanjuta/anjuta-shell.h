@@ -33,6 +33,9 @@ struct _AnjutaShellIface {
 							   const char   *name,
 							   const char   *title,
 							   GError      **error);
+	void (*remove_widget)     (AnjutaShell  *shell,
+							   GtkWidget    *widget,
+							   GError      **error);
 	void (*add_value)         (AnjutaShell  *shell,
 							   const char   *name,
 							   const GValue *value,
@@ -60,6 +63,9 @@ void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 									 GtkWidget       *widget,
 									 const char      *name,
 									 const char      *title,
+									 GError         **error);
+void   anjuta_shell_remove_widget   (AnjutaShell     *shell,
+									 GtkWidget       *widget,
 									 GError         **error);
 void   anjuta_shell_add_value       (AnjutaShell     *shell,
 									 const char      *name,
