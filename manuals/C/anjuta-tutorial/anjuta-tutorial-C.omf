@@ -1,19 +1,12 @@
 <?xml version="1.0" standalone="no"?>
 <omf>
   <resource>
-    <title>
-     Anjuta Tutorial
-    </title>
-    <creator>
-     <person>
-      <firstName>Ishan</firstName>
-      <lastName>Chattopadhyaya</lastName>
-      <email>ichattopadhyaya@yahoo.com</email> 
-     </person>
-    </creator>
-    <subject>
-	<category>GNOME|Development</category>
-    </subject>
+
+    <creator>ichattopadhyaya@yahoo.com (Ishan Chattopadhyaya)</creator>
+    
+	<title>Anjuta Tutorial</title>
+    <date></date>
+	<subject category="GNOME|Development" />
     <description>
 	This document is a tutorial to help users quickly get started using the Anjuta IDE.
     </description>

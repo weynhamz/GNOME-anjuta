@@ -1,19 +1,12 @@
 <?xml version="1.0" standalone="no"?>
 <omf>
   <resource>
-    <title>
-     Anjuta IDE Manual
-    </title>
-    <creator>
-     <person>
-      <firstName>Naba</firstName>
-      <lastName>Kumar</lastName>
-      <email>naba@gnome.org</email> 
-     </person>
-    </creator>
-    <subject>
-	<category>GNOME|Development</category>
-    </subject>
+    
+    <creator>naba@gnome.org (Naba Kumar)</creator>
+ 	<title>Anjuta IDE Manual</title>
+	<date></date>
+    <subject category="GNOME|Development" />
+
     <description>
      This document describes how the Anjuta IDE is used for developing 
 	 software projects.
