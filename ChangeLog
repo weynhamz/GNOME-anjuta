@@ -1,3 +1,11 @@
+2001-10-17  Stephane Demurget  <demurgets@free.fr>
+
+	* THANKS: added Marc Botermans for his Dutch translation.
+
+	* configure.in: added nl in ALL_LINGUAS.
+
+	* po/nl.po: added.
+
 2001-10-17  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* anjuta.c: Fixed luca's typo.
