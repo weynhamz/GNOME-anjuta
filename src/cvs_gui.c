@@ -299,11 +299,11 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	gtk_box_pack_start_defaults (GTK_BOX(GNOME_DIALOG (gui->dialog)->vbox),
 			table);
 
-	if (bypass_dialog) {
-		on_cvs_diff_ok(gui->diff_button, gui);
-	} else {
-		gtk_widget_show (gui->dialog);
+	if (bypass_dialog) 
+	{
+		gtk_widget_set_sensitive (gui->entry_file, FALSE);
 	}
+	gtk_widget_show (gui->dialog);
 }
 
 void 

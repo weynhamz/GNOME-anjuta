@@ -1,3 +1,17 @@
+2002-04-30  Johannes Schmid  <clubfan@users.sourceforge.net>
+
+	Patch reviewed by Stephane Demurget <demurgets@free.fr> who made
+	replaced the spinbutton with an hscale, and made the UI less "blocky".
+
+	* src/cvs_gui.c: When diffing a project you can choose date and
+ 	release now.
+
+ 	* src/project_dbase.c: Import_file activated again
+
+ 	* configure.in, plugins/Makefile.am: Added patch plugin
+
+ 	* plugins/patch/*: The new patch plugin
+
 2002-04-28  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 
 	Patch reviewed by Stephane Demurget <demurgets@free.fr>.

@@ -2025,7 +2025,7 @@ void
 project_dbase_update_controls (ProjectDBase * pd)
 {
 	gboolean p = pd->project_is_open;
-	gtk_widget_set_sensitive (pd->widgets.menu_import, !p);
+	gtk_widget_set_sensitive (pd->widgets.menu_import, p);
 	gtk_widget_set_sensitive (pd->widgets.menu_view, p);
 	gtk_widget_set_sensitive (pd->widgets.menu_edit, p);
 	gtk_widget_set_sensitive (pd->widgets.menu_remove, p);

@@ -389,5 +389,6 @@ launcher/Makefile
 plugins/Makefile
 plugins/sample1/Makefile
 plugins/class-gen/Makefile
+plugins/patch/Makefile
 anjuta.desktop.in
 ])
