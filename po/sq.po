@@ -1118,9 +1118,10 @@ msgstr ""
 msgid "Recent Projects:"
 msgstr ""
 
+#. GRUT modified this item
 #: anjuta.glade.h:267
 msgid "Regular Expression"
-msgstr ""
+msgstr "Shprehje të rregullta"
 
 #: anjuta.glade.h:268
 msgid "Reload Session Defaults"
@@ -1564,9 +1565,10 @@ msgstr "E ripërmasueshme"
 msgid "If set, the dock item can be resized when docked in a paned"
 msgstr ""
 
+#. GRUT modified this item
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
-msgstr ""
+msgstr "Sjellja e elementit"
 
 #: gdl/gdl-dock-item.c:267
 msgid ""
@@ -1831,9 +1833,10 @@ msgid ""
 "parent %p"
 msgstr ""
 
+#. GRUT modified this item
 #: gdl/gdl-dock-tablabel.c:130
 msgid "Controlling dock item"
-msgstr ""
+msgstr "Duke kontrolluar elementët e qelisë"
 
 #: gdl/gdl-dock-tablabel.c:131
 msgid "Dockitem which 'owns' this tablabel"
