@@ -248,5 +248,3 @@ anjuta_LDADD =  \
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
 
-echo-includes:
-	echo $(EXTRA_GNOME_CFLAGS)

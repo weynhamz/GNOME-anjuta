@@ -184,6 +184,9 @@ gboolean tm_work_object_update(TMWorkObject *work_object, gboolean force
 TMWorkObject *tm_work_object_find(TMWorkObject *work_object, const char *file_name
   , gboolean name_only);
 
+/*! Dumps the contents of a work object - useful for debugging */
+void tm_work_object_dump(const TMWorkObject *w);
+
 #ifdef __cplusplus
 }
 #endif

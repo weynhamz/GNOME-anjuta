@@ -1,6 +1,22 @@
+2002-06-01	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	src/Makefile.am, src/aneditor.cxx, src/anjuta.c, src/anjuta.h
+	src/defaults.c, src/message-manager-private.cc, src/project_dbase.c
+	src/utilities.c, scintilla/PropSet.cxx: Fix memory leaks and other
+	cleanups, remove dead code, GUI cleanupMemory leaks cleanups.
+
+	printing/Makefile.am: Reduced compiler optimizations.
+
+	tagmanager/include/tm_project.h, tagmanager/include/tm_work_object.h, 
+	tagmanager/include/tm_workspace.h, tagmanager/tm_project.c, 
+	tagmanager/tm_source_file.c, tagmanager/tm_work_object.c,
+	tagmanager/tm_workspace.c: TagManager fixes.
+
 2002-06-01  Naba Kumar <kh_naba@users.sourceforge.net>
 
-	* printing/: CVS added. :)
+	* printing/*: CVS added. :)
 	
 2002-05-31	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
 

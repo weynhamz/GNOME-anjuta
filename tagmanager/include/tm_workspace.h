@@ -122,6 +122,9 @@ void tm_workspace_recreate_tags_array(void);
 gboolean tm_workspace_update(TMWorkObject *workspace, gboolean force
   , gboolean recurse, gboolean update_parent);
 
+/*! Dumps the workspace tree - useful for debugging */
+void tm_workspace_dump(void);
+
 /*! Returns all matching tags found in the workspace.
  \param name The name of the tag to find.
  \param type The tag types to return (TMTagType). Can be a bitmask.

@@ -1926,13 +1926,11 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 				{
 					if (!(TM_TAG(typedefs->pdata[i])->atts.entry.scope))
 					{
-						if (!TM_TAG(typedefs->pdata[i])->name)
+						if (TM_TAG(typedefs->pdata[i])->name)
 						{
-							g_warning("NULL tag name encountered!");
-							sleep(10000);
-						}
 						g_string_append(s, TM_TAG(typedefs->pdata[i])->name);
 						g_string_append_c(s, ' ');
+						}
 					}
 				}
 				SendEditorString(SCI_SETKEYWORDS, 1, s->str);

@@ -999,6 +999,7 @@ glist_from_data (guint props, gchar * id)
 
 	str = prop_get (props, id);
 	list = glist_from_string (str);
+	g_free(str);
 	return list;
 }
 
@@ -1249,18 +1250,20 @@ GList*
 scan_files_in_dir (const char *dir, int (*select)(const struct dirent *))
 {
 	struct dirent **namelist;
-	GList *files;
-	int n, i;
+	GList *files = NULL;
+	int n;
 
 	g_return_val_if_fail (dir != NULL, NULL);
-	
-	n = scandir (dir, &namelist, select, alphasort);
-	files = NULL;
-	if (n >= 0)
+	if (0 > (n = scandir (dir, &namelist, select, alphasort)))
+		return NULL;
+	else
 	{
-		for (i = 0; i < n; i++)
-			files = g_list_append (files, g_strdup (namelist[i]->d_name));
-		free (namelist);
+		while (n--)
+		{
+			files = g_list_append (files, g_strdup (namelist[n]->d_name));
+			free(namelist[n]);
+		}
+		free(namelist);
 	}
 	return files;
 }

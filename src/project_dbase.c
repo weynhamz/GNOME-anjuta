@@ -574,14 +574,10 @@ project_dbase_open_project (ProjectDBase * p)
 	gchar *all_projects_dir;
 	
 	project_dbase_make_default_filetype_list(p);
-	
-	all_projects_dir =
-		preferences_get (app->preferences, PROJECTS_DIRECTORY);
+	all_projects_dir = preferences_get (app->preferences, PROJECTS_DIRECTORY);
 	chdir (all_projects_dir);
-	
 	fileselection_set_dir (p->fileselection_open, all_projects_dir);
 	gtk_widget_show (p->fileselection_open);
-
 	g_free (all_projects_dir);
 }
 
@@ -1627,15 +1623,18 @@ project_dbase_get_module_type (ProjectDBase * p, PrjModule module)
 gchar *
 project_dbase_get_module_dir (ProjectDBase * p, PrjModule module)
 {
-	gchar *mod_name, *dir;
+	gchar *mod_name, *dir = NULL;
 
 	g_return_val_if_fail (p != NULL, NULL);
 	g_return_val_if_fail (module < MODULE_END_MARK, NULL);
 
 	if (p->project_is_open == FALSE)
 		return NULL;
-	mod_name = project_dbase_get_module_name (p, module);
+	if (NULL != (mod_name = project_dbase_get_module_name (p, module)))
+	{
 	dir = g_strconcat (p->top_proj_dir, "/", mod_name, NULL);
+		g_free(mod_name);
+	}
 	return dir;
 }
 

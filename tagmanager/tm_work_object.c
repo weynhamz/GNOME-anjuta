@@ -219,3 +219,15 @@ TMWorkObject *tm_work_object_find(TMWorkObject *work_object, const char *file_na
 	}
 	return NULL;
 }
+
+void tm_work_object_dump(const TMWorkObject *w)
+{
+	if (w)
+	{
+		fprintf(stderr, "%s", w->file_name);
+		if (w->parent)
+			fprintf(stderr, " <- %s\n", w->parent->file_name);
+		else
+			fprintf(stderr, " <- NULL\n");
+	}
+}

@@ -18,6 +18,7 @@
 
 #include "tm_tag.h"
 #include "tm_workspace.h"
+#include "tm_project.h"
 
 static TMWorkspace *theWorkspace = NULL;
 guint workspace_class_id = 0;
@@ -156,7 +157,7 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char *in
 	  	echo \"#include \\\"$file\\\"\" >>%s; \
 	  done", includes, temp_file);
 #ifdef DEBUG
-	g_warning("Executing: %s", command);
+	g_message("Executing: %s", command);
 #endif
 	if (0 != system(command))
 	{
@@ -167,7 +168,7 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char *in
 	g_free(command);
 	command = g_strdup_printf("%s %s >%s", pre_process, temp_file, temp_file2);
 #ifdef DEBUG
-	g_warning("Executing: %s", command);
+	g_message("Executing: %s", command);
 #endif
 	system(command);
 	g_free(command);
@@ -304,6 +305,28 @@ gboolean tm_workspace_update(TMWorkObject *workspace, gboolean force
 		tm_workspace_recreate_tags_array();
 	workspace->analyze_time = time(NULL);
 	return update_tags;
+}
+
+void tm_workspace_dump(void)
+{
+	if (theWorkspace)
+	{
+#ifdef DEBUG
+		g_message("Dumping TagManager workspace tree..");
+#endif
+		tm_work_object_dump(TM_WORK_OBJECT(theWorkspace));
+		if (theWorkspace->work_objects)
+		{
+			int i;
+			for (i=0; i < theWorkspace->work_objects->len; ++i)
+			{
+				if (IS_TM_PROJECT(TM_WORK_OBJECT(theWorkspace->work_objects->pdata[i])))
+					tm_project_dump(TM_PROJECT(theWorkspace->work_objects->pdata[i]));
+				else
+					tm_work_object_dump(TM_WORK_OBJECT(theWorkspace->work_objects->pdata[i]));
+			}
+		}
+	}
 }
 
 const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *attrs

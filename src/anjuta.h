@@ -232,8 +232,6 @@ void anjuta_update_title (void);
 void anjuta_update_page_label (TextEditor *te);
 
 void anjuta_set_file_properties (gchar * full_filename);
-void anjuta_open_file (gchar * filename);
-void anjuta_view_file (gchar * filename);
 
 void anjuta_status (gchar * mesg, ...);
 void anjuta_warning (gchar * mesg, ...);

@@ -188,7 +188,7 @@ AnjutaMessageWindow::append_buffer()
 		char * msg = new char[message.length() + 1];
 		strcpy(msg, message.c_str());
 		gtk_clist_append(GTK_CLIST(m_msg_list), &msg);
-		delete msg;
+		delete []msg;
 	}
 	else
 	{

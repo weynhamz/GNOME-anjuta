@@ -328,9 +328,9 @@ void PropSet::Clear() {
 		while (p) {
 			Property *pNext = p->next;
 			p->hash = 0;
-			delete p->key;
+			delete []p->key;
 			p->key = 0;
-			delete p->val;
+			delete []p->val;
 			p->val = 0;
 			delete p;
 			p = pNext;

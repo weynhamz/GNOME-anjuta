@@ -85,6 +85,9 @@ gboolean tm_project_init(TMProject *project, const char *dir
 	tm_project_open(project, force);
 	if (!project->file_list || (0 == project->file_list->len))
 		tm_project_autoscan(project);
+#ifdef DEBUG
+	tm_workspace_dump();
+#endif
 	return TRUE;
 }
 
@@ -132,42 +135,53 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
   ,gboolean update)
 {
 	TMWorkObject *source_file;
+	const TMWorkObject *workspace = TM_WORK_OBJECT(tm_get_workspace());
 	char *path;
-	guint i;
+	gboolean exists = FALSE;
 
 	g_return_val_if_fail((project && file_name), FALSE);
-	if ((project->file_list) && (project->file_list->len > 0))
-	{
 		path = tm_get_real_path(file_name);
-		for (i=0; i < project->file_list->len; ++i)
+	/* Check if the file is already loaded in the workspace */
+	source_file = tm_workspace_find_object(TM_WORK_OBJECT(workspace), path, FALSE);
+	if (NULL != source_file)
 		{
-			source_file = TM_WORK_OBJECT(project->file_list->pdata[i]);
-			if (source_file)
+		if ((workspace == source_file->parent) || (NULL == source_file->parent))
 			{
-				if (0 == strcmp(source_file->file_name, path))
-				{
-					TM_SOURCE_FILE(source_file)->inactive = FALSE;
-					g_free(path);
-#ifdef DEBUG
-					g_message("File %s already exists in project", file_name);
+#ifdef TM_DEBUG
+			g_message("%s moved from workspace to project", path);
 #endif
-					return TRUE;
+			tm_workspace_remove_object(source_file, FALSE);
+		}
+		else if (TM_WORK_OBJECT(project) == source_file->parent)
+				{
+#ifdef TM_DEBUG
+			g_message("%s already exists in project", path);
+#endif
+			exists = TRUE;
 				}
+		else
+		{
+			g_warning("Source file %s is shared among projects - will be duplicated!", path);
+			source_file = NULL;
 			}
 		}
-		g_free(path);
-	}
+	if (NULL == source_file)
+	{
 	if (NULL == (source_file = tm_source_file_new(file_name, TRUE)))
 	{
 		g_warning("Unable to create source file for file %s", file_name);
+			g_free(path);
 		return FALSE;
+	}
 	}
 	source_file->parent = TM_WORK_OBJECT(project);
 	if (NULL == project->file_list)
 		project->file_list = g_ptr_array_new();
+	if (!exists)
 	g_ptr_array_add(project->file_list, source_file);
 	if (update)
 		tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
+	g_free(path);
 	return TRUE;
 }
 
@@ -341,6 +355,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 			}
 			else
 			{
+				source_file->work_object.parent = TM_WORK_OBJECT(project);
 				source_file->work_object.analyze_time = tag->atts.file.timestamp;
 				source_file->lang = tag->atts.file.lang;
 				source_file->inactive = tag->atts.file.inactive;
@@ -433,6 +448,24 @@ gboolean tm_project_autoscan(TMProject *project)
 	tm_file_entry_free(root_dir);
 	tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
 	return TRUE;
+}
+
+void tm_project_dump(const TMProject *p)
+{
+	if (p)
+	{
+		tm_work_object_dump(TM_WORK_OBJECT(p));
+		if (p->file_list)
+		{
+			int i;
+			for (i=0; i < p->file_list->len; ++i)
+			{
+				fprintf(stderr, "->\t");
+				tm_work_object_dump(TM_WORK_OBJECT(p->file_list->pdata[i]));
+			}
+		}
+		fprintf(stderr, "-------------------------\n");
+	}
 }
 
 gboolean tm_project_is_source_file(TMProject *project, const char *file_name)

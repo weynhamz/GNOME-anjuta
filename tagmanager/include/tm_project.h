@@ -170,6 +170,9 @@ void tm_project_recreate_tags_array(TMProject *project);
 */
 gboolean tm_project_autoscan(TMProject *project);
 
+/*! Dumps the current project structure - useful for debugging */
+void tm_project_dump(const TMProject *p);
+
 /*! Returns TRUE if the passed file is a source file as matched by the project
   source extensions (project->extn)
 */
