@@ -8,6 +8,9 @@
 	global-tags/tm_global_tags.c: Fixed infinite loop in system tags
 	generation.
 
+	* Makefile.am: XML merge is broken for .destop in RH 8.0, so
+	temporarily just copy it
+	
 2002-10-24  Naba Kumar <naba@gnome.org>
 
 	* manuals/sgmldocs.make, anuals/C/anjuta-faqs/anjuta-faqs.sgml,
