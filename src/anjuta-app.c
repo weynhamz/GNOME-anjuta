@@ -312,6 +312,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 							  GDL_DOCK_LEFT, FALSE);
 	gdl_dock_placeholder_new ("ph_right", GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_RIGHT, FALSE);
+	gdl_dock_placeholder_new ("ph_center", GDL_DOCK_OBJECT (app->dock),
+							  GDL_DOCK_CENTER, FALSE);
 							  
 	/* Status bar */
 	app->status = ANJUTA_STATUS (anjuta_status_new ());
@@ -459,6 +461,8 @@ anjuta_app_add_widget (AnjutaShell *shell,
 {
 	AnjutaApp *window = ANJUTA_APP (shell);
 	GtkWidget *item;
+	GdlDockPlaceholder* placeholder;
+	const gchar *placeholder_name;
 
 	g_return_if_fail (w != NULL);
 
@@ -473,10 +477,25 @@ anjuta_app_add_widget (AnjutaShell *shell,
 											 GDL_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), w);
 	g_object_set_data (G_OBJECT (w), "dockitem", item);
-	gdl_dock_add_item (GDL_DOCK (window->dock), 
-					   GDL_DOCK_ITEM (item), (GdlDockPlacement)placement);
+	
+	switch (placement)
+	{
+		case GDL_DOCK_TOP: placeholder_name = "ph_top"; break;
+		case GDL_DOCK_BOTTOM: placeholder_name = "ph_bottom"; break;
+		case GDL_DOCK_LEFT: placeholder_name = "ph_left"; break;
+		case GDL_DOCK_RIGHT: placeholder_name = "ph_right"; break;
+		default: placeholder_name = "ph_center";
+	}
+	
+	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (window->dock), 
+													placeholder_name);
+	/* gdl_dock_add_item (GDL_DOCK (window->dock), 
+					   GDL_DOCK_ITEM (item), (GdlDockPlacement)placement); */
+	/* gdl_dock_placeholder_attach (placeholder, GDL_DOCK_OBJECT (item)); */
+	gtk_container_add (GTK_CONTAINER (placeholder), GTK_WIDGET (item));
+	
 	on_add_widget_to_menu ((gpointer)title, w, window);
-	gtk_widget_show_all (item);	
+	gtk_widget_show_all (item);
 }
 
 static gboolean

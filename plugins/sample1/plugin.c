@@ -82,7 +82,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	sample_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "AnjutaSamplePlugin", _("SamplePlugin"), NULL,
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 	return TRUE;
 }
 

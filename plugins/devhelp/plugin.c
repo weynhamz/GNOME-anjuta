@@ -471,7 +471,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	 * faster) by commenting the following line. However, if that is done,
 	 * the window layout gets screwed up when the widgets are added later.
 	 */
-	devhelp_html_initialize (devhelp_plugin);
+	/* devhelp_html_initialize (devhelp_plugin); */
 	
 	/* Add watches */
 	priv->editor_watch_id = 

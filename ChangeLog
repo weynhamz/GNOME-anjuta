@@ -1,3 +1,10 @@
+2004-12-13  Naba Kumar  <naba@gnome.org>
+
+	* plugins/devhelp/plugin.c: Delay widget initialization, now that docking
+	is working.
+	* plugins/sample1/plugin.c: Dock at bottom, mostly for testing.
+	* src/anjuta-app.c, src/layout.xml: Fixed dynamic docking.
+
 2004-12-11  Naba Kumar  <naba@gnome.org>
 
 	* data/properties/anjuta.properties: Fixed font size.
