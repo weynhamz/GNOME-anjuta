@@ -1,3 +1,11 @@
+2003-04-11  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* src/launcher.c: Fix build won't stop problem - TTimo
+	* TODO: Updated
+	* pixmaps/anjuta_splash.c: New splash screen prototype.
+	* src/anjuta-tools.c, src/anjuta.[ch], : Forward port from branch.
+	* src/compiler_options.c: Mute pkgconfig errors.
+	* src/project_config.c. widgets/gnomefilelist.c: Fix leak.
+
 2003-04-10  Naba Kumar  <naba@gnome.org>
 
 	* configurer.[c,h]: Fixed dialog to close properly.

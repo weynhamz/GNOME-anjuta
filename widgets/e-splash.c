@@ -343,7 +343,7 @@ e_splash_new (const char *image_file)
 	new = g_object_new (e_splash_get_type (), NULL);
 	e_splash_construct (new, splash_image_pixbuf);
 
-	/* gdk_pixbuf_unref (splash_image_pixbuf); -- Biswa */
+	gdk_pixbuf_unref (splash_image_pixbuf);
 
 	return GTK_WIDGET (new);
 }

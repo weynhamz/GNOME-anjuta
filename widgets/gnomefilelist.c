@@ -1774,7 +1774,10 @@ build_full_path (const gchar * path, const gchar * selection)
 	}
 
 	offset = strlen (path) - 1;
-	chr = path[offset];
+	if (offset < 0)
+		chr = '\0';
+	else
+		chr = path[offset];
 	malloc_size = strlen (path) + 1;
 	malloc_size += chr == '/' && offset ? 0 : 1;
 	malloc_size += selection ? strlen (selection) : 0;

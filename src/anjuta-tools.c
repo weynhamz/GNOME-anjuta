@@ -158,9 +158,30 @@ static GHashTable *tool_hash = NULL;
 */
 static AnUserTool *current_tool = NULL;
 
+/* The temporary file to use to store standard input */
+static char tmp_file[PATH_MAX] = "";
+
 /* Buffers the output and error lines of the current tool under execution */
 GString *current_tool_output = NULL;
 GString *current_tool_error = NULL;
+
+/* Signal prototypes to fix GCC warnings. Note that we cannot declare
+these as static since then signal autoconnect won't work :-(
+*/
+void on_user_tool_select(GtkCList *clist, gint row, gint column,
+  GdkEventButton *event, gpointer user_data);
+void on_user_tool_unselect(GtkCList *clist, gint row, gint column,
+  GdkEventButton *event, gpointer user_data);
+void on_user_tool_ok_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_edit_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_new_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_delete_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_edit_detached_toggled(GtkToggleButton *tb, gpointer user_data);
+void on_user_tool_edit_input_type_changed(GtkEditable *editable, gboolean user_data);
+void on_user_tool_edit_ok_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_edit_cancel_clicked(GtkButton *button, gpointer user_data);
+gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data);
+void on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data);
 
 /* Destroys memory allocated to an user tool */
 static void an_user_tool_free(AnUserTool *tool, gboolean remove_from_list)
@@ -228,14 +249,14 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 	g_return_val_if_fail (tool_node, NULL);
 	if (!tool_node || !tool_node->name)
 	{
-		g_warning ("Anjuta tools xml parse error: Invalide Node");
+		g_warning ("Anjuta tools xml parse error: Invalid Node");
 		return NULL;
 	}
 	if (xmlIsBlankNode(tool_node) || strcmp (tool_node->name, "text") == 0)
 		return NULL;
 	if (strcmp (tool_node->name, "tool") != 0)
 	{
-		g_warning ("Anjuta tools xml parse error: Invalide Node");
+		g_warning ("Anjuta tools xml parse error: Invalid Node");
 		return NULL;
 	}
 
@@ -256,7 +277,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 		an_user_tool_free(tool, FALSE);
 		return NULL;
 	}
-		
+
 	node = tool_node->children;
 	while (node)
 	{
@@ -355,7 +376,7 @@ static void tool_stdout_handler(gchar *line)
 {
 	if (line && current_tool)
 	{
-		if (current_tool->output <= MESSAGE_MAX)
+		if (current_tool->output <= MESSAGE_MAX  && current_tool->output >= 0)
 		{
 			/* Send the message to the proper message pane */
 			anjuta_message_manager_append (app->messages, line
@@ -378,7 +399,7 @@ static void tool_stderr_handler(gchar *line)
 {
 	if (line && current_tool)
 	{
-		if (current_tool->error <= MESSAGE_MAX)
+		if (current_tool->error <= MESSAGE_MAX  && current_tool->error >= 0)
 		{
 			/* Simply send the message to the proper message pane */
 			anjuta_message_manager_append (app->messages, line
@@ -452,31 +473,33 @@ static void tool_terminate_handler(gint status, time_t time)
 {
 	if (current_tool)
 	{
-		if (current_tool->error <= MESSAGE_MAX)
+		if (current_tool->error <= MESSAGE_MAX  && current_tool->error >= 0)
 		{
 			char line[BUFSIZ];
 			snprintf(line, BUFSIZ, "Tool terminated with status %d\n", status);
 			anjuta_message_manager_append(app->messages, line
 			  , current_tool->error);
 		}
-		else if (current_tool_error && (0 < current_tool_error->len))
+		else if (current_tool_error && (0 < current_tool_error->len)  && current_tool->error >= 0)
 		{
 			handle_tool_output(current_tool->error, current_tool_error, TRUE);
 		}
-		if (current_tool->output <= MESSAGE_MAX)
+		if (current_tool->output <= MESSAGE_MAX  && current_tool->output >= 0)
 		{
 			/* Nothing to do here */
 		}
-		else if (current_tool_output && (0 < current_tool_output->len))
+		else if (current_tool_output && (0 < current_tool_output->len)  && current_tool->output >= 0)
 		{
 			handle_tool_output(current_tool->output, current_tool_output, FALSE);
+		}
+		if ('\0' != tmp_file[0])
+		{
+			unlink(tmp_file);
+			tmp_file[0] = '\0';
 		}
 		current_tool = NULL;
 	}
 }
-
-/* Popup a dialog to ask for user parameters */
-static const gchar *get_user_params(AnUserTool *tool, gint *response_ptr);
 
 /* Menu activate handler which executes the tool. It should do command
 ** substitution, input, output and error redirection, setting the
@@ -496,9 +519,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	/* Ask for user parameters if required */
 	if (tool->user_params)
 	{
-		gint response;
-		params = get_user_params(tool, &response);
-		if (response != GTK_RESPONSE_OK) /* No OK button clicked */
+		if (!anjuta_get_user_params(tool->name, &params))
 			return;
 	}
 	if (tool->autosave)
@@ -506,17 +527,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		anjuta_save_all_files();
 	}
 	/* Expand variables to get the full command */
-	if (app->current_text_editor)
-	{
-		/* Update file level properties */
-		gchar *word;
-		anjuta_set_file_properties(app->current_text_editor->full_filename);
-		word = text_editor_get_current_word(app->current_text_editor);
-		anjuta_preferences_set (ANJUTA_PREFERENCES (app->preferences),
-								"current.file.selection", word?word:"");
-		if (word)
-			g_free(word);
-	}
+	anjuta_set_editor_properties();
 	if (params)
 	{
 		gchar *cmd = g_strconcat(tool->command, " ", params, NULL);
@@ -573,13 +584,12 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	{
 		/* Attached mode - run through launcher */
 		char *buf = NULL;
-		char *tmp = NULL;
 		current_tool = tool;
 		if (current_tool_output)
 			g_string_truncate(current_tool_output, 0);
 		if (current_tool_error)
 			g_string_truncate(current_tool_error, 0);		
-		if (tool->error <= MESSAGE_MAX)
+		if (tool->error <= MESSAGE_MAX  && tool->error >= 0)
 			anjuta_message_manager_clear(app->messages, tool->error);
 		if (tool->input_type == AN_TINP_BUFFER && app->current_text_editor)
 		{
@@ -595,15 +605,34 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		  && '\0' != tool->input[0])
 		{
 			buf = prop_expand(app->project_dbase->props, tool->input);
+			if (NULL == buf)
+				buf = g_strdup("");
 		}
 		if (buf)
 		{
-			gchar* escaped_cmd = anjuta_util_escape_quotes(command);
+			int fd;
+			int buflen = strlen(buf);
+			gchar* escaped_cmd;
+			snprintf(tmp_file, PATH_MAX, "/tmp/anjuta.%d.XXXXXX", getpid());
+			if (0 > (fd = mkstemp(tmp_file)))
+			{
+				anjuta_system_error(errno, "Unable to create temporary file %s!"
+				  , tmp_file);
+				return;
+			}
+			if (buflen != write(fd, buf, buflen))
+			{
+				anjuta_system_error(errno, "Unable to write to temporary file %s."
+				  , tmp_file);
+				return;
+			}
+			close(fd);
+			escaped_cmd = anjuta_util_escape_quotes(command);
 			g_free(command);
-			command = g_strconcat("sh -c \"", escaped_cmd, "<<__EOF__\n"
-			  , buf, "\n__EOF__\n\"", NULL);
+			command = g_strconcat("sh -c \"", escaped_cmd, "<", tmp_file, "\"", NULL);
+			g_free(buf);
 		}
-		if (tool->output <= MESSAGE_MAX)
+		if (tool->output <= MESSAGE_MAX  && tool->output >= 0)
 		{
 			anjuta_message_manager_clear(app->messages, tool->output);
 			anjuta_message_manager_show(app->messages, tool->output);
@@ -614,7 +643,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		if (FALSE == launcher_execute(command, tool_stdout_handler
 	  	  , tool_stderr_handler, tool_terminate_handler))
 		{
-			anjuta_error("%s: Unable to launch!", tool->command);
+			anjuta_error("%s: Unable to launch!", command);
 		}
 		g_free(command);
 	}
@@ -640,6 +669,34 @@ static void an_user_tool_activate(AnUserTool *tool)
 		g_signal_connect (G_OBJECT (tool->menu_item), "activate"
 		  , G_CALLBACK (execute_tool), tool);
 		gtk_menu_append(GTK_MENU(submenu), tool->menu_item);
+		if (tool->shortcut && tool->shortcut[0] != '\0')
+		{
+			guint mask = 0;
+			guint accel_key = '\0';
+			char *c = tool->shortcut;
+			while (*c != '\0')
+			{
+				switch(*c)
+				{
+					case '^':
+						mask |= GDK_CONTROL_MASK;
+						break;
+					case '+':
+						mask |= GDK_SHIFT_MASK;
+						break;
+					case '#':
+						mask |= GDK_MOD1_MASK;
+						break;
+					default:
+						accel_key = *c;
+						break;
+				}
+				++ c;
+			}
+			gtk_widget_add_accelerator(tool->menu_item, "activate", app->accel_group
+			  , accel_key, mask ? mask : GDK_CONTROL_MASK | GDK_SHIFT_MASK
+			  , GTK_ACCEL_VISIBLE);
+		}
 		gtk_widget_show(tool->menu_item);
 	}
 }

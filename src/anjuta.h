@@ -379,6 +379,9 @@ void anjuta_search_sources_for_symbol(const gchar *s);
 void
 anjuta_order_tabs(void);
 
+gboolean anjuta_get_user_params(const gchar *prompt, const char **val);
+gboolean anjuta_set_editor_properties(void);
+
 
 #include "session.h"
 

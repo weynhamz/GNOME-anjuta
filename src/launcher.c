@@ -39,7 +39,6 @@
 #include "global.h"
 #include "pixmaps.h"
 
-#define TERMINATE_CHECK_COUNT 10
 /* #define DEBUG */
 
 #ifdef __FreeBSD__
@@ -131,19 +130,24 @@ static void
 launcher_scan_output ()
 {
   int n;
-  gchar buffer[FILE_BUFFER_SIZE + 1];
+  gchar buffer[FILE_BUFFER_SIZE];
 
-  n = read (launcher.stdout_pipe[0], buffer, FILE_BUFFER_SIZE);
+  n = read (launcher.stdout_pipe[0], buffer, FILE_BUFFER_SIZE-1);
   if (n > 0)			/*    There is output  */
   {
-    *(buffer + n) = '\0';
+    buffer[n] = '\0';
     if (launcher.stdout_arrived)
       (*(launcher.stdout_arrived)) (buffer);
   }
   /* The pipe is closed on the other side */
-  if (n == 0)
+  else if (n == 0)
   {
     launcher.stdout_is_done = TRUE;
+  }
+  /* Error - abort if not related to non blocking read or interrupted syscall */
+  else if (errno != EAGAIN && errno != EINTR) {
+    g_warning(_("launcher.c: error while reading child stdout - %s\n"), strerror(errno));
+    launcher.stdout_is_done = TRUE;      
   }
 }
 
@@ -151,24 +155,27 @@ static void
 launcher_scan_error ()
 {
   int n;
-  gchar buffer[FILE_BUFFER_SIZE + 5];
+  gchar buffer[FILE_BUFFER_SIZE];
 
-  /* we have to read all the error outputs, otherwise we will miss some of them */
-  do
+  n = read (launcher.stderr_pipe[0], buffer, FILE_BUFFER_SIZE-1);
+  if (n > 0)			/*    There is stderr output  */
   {
-    n = read (launcher.stderr_pipe[0], buffer, FILE_BUFFER_SIZE);
-    if (n > 0)			/*    There is stderr output  */
-    {
-      *(buffer + n) = '\0';
-      if (launcher.stderr_arrived)
-	(*(launcher.stderr_arrived)) (buffer);
-    }
-    if (n == 0)			/* The pipe is closed on the other side */
-    {
-      launcher.stderr_is_done = TRUE;
-    }
+    buffer[n] = '\0';
+    if (launcher.stderr_arrived)
+      (*(launcher.stderr_arrived)) (buffer);
   }
-  while (n == FILE_BUFFER_SIZE);
+  else if (n == 0)			/* The pipe is closed on the other side */
+  {
+    #ifdef DEBUG
+      printf("launcher_scan_error - EOF\n");
+    #endif
+    launcher.stderr_is_done = TRUE;
+  }
+  /* Error - abort if not related to non blocking read or interrupted syscall */
+ else if (errno != EAGAIN && errno != EINTR) {
+    g_warning(_("launcher.c: error while reading child stderr - %s\n"), strerror(errno));
+    launcher.stderr_is_done = TRUE;      
+  }
 }
 
 static void
@@ -206,7 +213,7 @@ launcher_scan_pty()
 #ifdef DEBUG
 				g_print("Last line = %s", last_line);
 #endif
-				if (launcher.child_has_terminated < 1)
+				if (!launcher.child_has_terminated) /* TTimo: not sure what this check is really worth */
 					launcher_pty_check_password(last_line);
 				launcher.pty_is_done = launcher_pty_check_child_exit_code(last_line);
 				g_free(last_line);
@@ -217,33 +224,26 @@ launcher_scan_pty()
 	}
 };
 
+/* call regularly scheduled by a gtk_timeout_add - stops upon first FALSE return value */
 static gint launcher_poll_inputs_on_idle (gpointer data)
 {
   gboolean ret;
-  ret = FALSE;
+	
   if (launcher.stderr_is_done == FALSE) {
     launcher_scan_error ();
-    ret = TRUE;
   }
   if (launcher.stdout_is_done == FALSE) {
     launcher_scan_output ();
-    ret = TRUE;
   }
   if (launcher.pty_is_done == FALSE) {
-	launcher_scan_pty();
-	
-	if (launcher.child_has_terminated > 1)
-		launcher.child_has_terminated--;
-	
-	if (launcher.child_has_terminated == 1) {
+	launcher_scan_pty();	
+	if (launcher.child_has_terminated) {
 		launcher.pty_is_done = TRUE;
-		ret = FALSE;
-	} else {
-		ret = TRUE;
 	}
   }
-  
-  return ret;
+
+  /* keep running me as long as there is at least one not done yet */
+  return (!launcher.stderr_is_done || !launcher.stdout_is_done || !launcher.pty_is_done);
 }
 
 void
@@ -371,6 +371,10 @@ launcher_execute (gchar * command_str,
 	g_error (_("Cannot execute command shell"));
   }
   
+#ifdef DEBUG
+  printf("zvt_term_forkpty %d\n", launcher.child_pid);
+#endif  
+  
   close (launcher.stderr_pipe[1]);
   close (launcher.stdout_pipe[1]);
   close (launcher.stdin_pipe[0]);
@@ -385,7 +389,7 @@ launcher_execute (gchar * command_str,
   if ((md = fcntl (launcher.stderr_pipe[0], F_GETFL)) != -1)
     fcntl (launcher.stderr_pipe[0], F_SETFL, O_NONBLOCK | md);
 
-  launcher.poll_id = gtk_timeout_add (50, launcher_poll_inputs_on_idle, NULL);
+  launcher.poll_id = gtk_timeout_add (150, launcher_poll_inputs_on_idle, NULL);
   return TRUE;
 }
 
@@ -393,21 +397,25 @@ static void
 to_terminal_child_terminated (GtkWidget* term, gpointer data)
 {
 #ifdef DEBUG	
-	printf("Terminal child terminated called\n");
+  printf("Terminal child terminated called\n");
 #endif
-	
-	launcher.child_has_terminated = TERMINATE_CHECK_COUNT+1;
-	launcher.idle_id = gtk_timeout_add (50, launcher_execution_done, NULL);
+
+  launcher.child_has_terminated = TRUE;
+  launcher.idle_id = gtk_timeout_add (50, launcher_execution_done, NULL);
 }
 
 static gboolean
 launcher_execution_done (gpointer data)
 {
+#ifdef DEBUG	
+  printf("launcher_execution_done %d %d %d\n", launcher.stdout_is_done ? 1 : 0, launcher.stderr_is_done ? 1 : 0, launcher.pty_is_done ? 1 : 0);
+#endif
+
   if (launcher.stdout_is_done == FALSE ||
 	  launcher.stderr_is_done == FALSE ||
 	  launcher.pty_is_done == FALSE)
     return TRUE; 
-  
+    
   close (launcher.stdin_pipe[1]);
   close (launcher.stdout_pipe[0]);
   close (launcher.stderr_pipe[0]);

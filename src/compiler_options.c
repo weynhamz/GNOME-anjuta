@@ -380,7 +380,7 @@ populate_supports (GtkListStore *tmodel)
 	}
 	/* Now setup all the pkg-config supports */
 	tmpfile = get_a_tmp_file ();
-	pkg_cmd = g_strconcat ("pkg-config --list-all > ", tmpfile, NULL);
+	pkg_cmd = g_strconcat ("pkg-config --list-all > ", tmpfile, " 2>/dev/null", NULL);
 	system (pkg_cmd);
 	pkg_fd = fopen (tmpfile, "r");
 	if (!pkg_fd)
@@ -1541,6 +1541,8 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 			pkg_modules = g_strconcat (tmp, " ", name, NULL);
 			g_free (tmp);
 		}
+		if (name)
+			g_free(name);
 		i++;
 	}
 #ifdef DEBUG

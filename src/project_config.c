@@ -821,10 +821,10 @@ create_project_config_gui (ProjectConfig * pc)
 
 	for(i=0; i< BUILD_FILE_END_MARK; i++)
 	{
-		gchar *key;
-		key = g_strdup_printf ("project_config_build_file_%d", i);
+		gchar *key = g_strdup_printf ("project_config_build_file_%d", i);
 		pc->priv->disable_overwrite_check[i] =
 			glade_xml_get_widget (pc->priv->gxml, key);
+		g_free(key);
 	}
 	pc->priv->version_entry = glade_xml_get_widget (pc->priv->gxml, "project_config_version");
 	pc->priv->target_entry = glade_xml_get_widget (pc->priv->gxml, "project_config_target");
