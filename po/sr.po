@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-26 15:39+0200\n"
-"PO-Revision-Date: 2003-09-26 15:41+0200\n"
+"POT-Creation-Date: 2003-09-27 01:55+0200\n"
+"PO-Revision-Date: 2003-09-27 01:55+0200\n"
 "Last-Translator: Слободан Средојевић <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -6054,6 +6054,10 @@ msgstr "Унесите хексадецималну адресу или изаб
 #: src/memory.c:420
 msgid "Non accessible address !"
 msgstr "Тој адреси се не може приступити!"
+
+#: src/message-manager-private.cc:322
+msgid " warning: "
+msgstr " упозорење: "
 
 #: src/message-manager.cc:44
 msgid "Find"
