@@ -2,11 +2,16 @@
 	* src/aneditor.cxx, src/main_menubar_def.h: Implement comment/
 	uncomment better. Patch from Jean-Noel
 	* src/anjuta-tools.c, src/anjuta_cbs.c, src/preferences.[ch],
-	src/preferences_gui.c:Add preference for MRU notebook tabs.
+	src/preferences_gui.c, src/mainmenu_callbacks.[ch],
+	src/project_dbase.c:Add preferences for MRU notebook tabs, UI
+	builder, documentation browser and debugger.
 	* global-tags/create_global_tags.sh: Fixed SDL warning
 	* TODO: Updated TODO for 1.0.2
 	* plugins/sample1/plugin-sample1.c: Fixed GCC warning
-	* src/anjuta-tools.c: Fix GCC prototype-missing warnings.
+	* src/anjuta-tools.c, src/anjuta.[ch]: Cleanups
+	* src/controls.c, src/debugger.[ch], src/main_menubar.[ch]
+	, src/main_menubar_def.h: Implemented sending custom commands
+	 to the debugger.
 
 2003-03-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* tagmanager/*: Added ignore-list for symbols. This will make
