@@ -7,9 +7,7 @@ TODO List:
 	o Move "Disable syntax hilighting" property from preferences to
 	  style editor.
 	o Support "Style themes".
-	o Save project preferences with project.
 	o Save compiler options settings.
-	o Add "indicator.automatic" pref in message prefs.
 	o Debugger windows should not be updated if it's not shown
 	  --> freeze/thaw.
 	o Anjuta UI (menus and toolbars) -- freeze/thaw.

@@ -1,3 +1,10 @@
+2003-01-29  Naba Kumar <naba@gnome.org>
+	
+	* TODO, po/POTFILES.in: Updated.
+	
+	* anjuta.prj, src/anjuta.glade,
+	* src/anjuta_dialogs_strings.c, src/executer.c: Fixed dialog bugs.
+
 2003-01-28  Naba Kumar <naba@gnome.org>
 	
 	* data/properties/anjuta.properties, src/aneditor.cxx,
