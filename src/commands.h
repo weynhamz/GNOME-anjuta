@@ -23,63 +23,14 @@
 #include <glade/glade.h>
 #include "properties.h"
 
-typedef struct _CommandEditorWidgets CommandEditorWidgets;
 typedef struct _CommandEditor CommandEditor;
-typedef struct _CommandData CommandData;
-
-struct _CommandData
-{
-	gchar* key;
-
-	gchar* compile;
-	gchar* make;
-	gchar* build;
-	gchar* execute;
-};
-
-struct _CommandEditorWidgets
-{
-	GtkWidget *window;
-
-	GtkWidget *pix_editor_entry;
-	GtkWidget *image_editor_entry;
-	GtkWidget *html_editor_entry;
-	GtkWidget *terminal_entry;
-	GtkWidget *language_om;
-	GtkWidget *compile_entry;
-	GtkWidget *build_entry;
-	GtkWidget *execute_entry;
-	GtkWidget *make_entry;
-};
+typedef struct _CommandEditorPriv CommandEditorPriv;
 
 struct _CommandEditor
 {
-	GladeXML *gxml;
-	CommandEditorWidgets widgets;
-	
-	PropsID props;
-	PropsID props_user;
-	PropsID props_global;
-	
-	/*
-	 * Private 
-	 */
-	CommandData *current_command_data;
-	
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y;
-	gint win_width, win_height;
+	/* Private */
+	CommandEditorPriv *priv;
 };
-
-/* Command data to be used in command editor */
-CommandData *command_data_new(void);
-void command_data_destroy (CommandData *cdata);
-
-/* Get the string version of the command */
-gchar* command_data_get (CommandData *cdata, gchar *cmd);
-
-/* String data should use these functions */
-void command_data_set (CommandData *cdata, gchar* cmd, gchar *cmd_str);
 
 /* CommandEditor */
 CommandEditor *command_editor_new (PropsID p_global, PropsID p_user, PropsID p);
@@ -105,9 +56,6 @@ command_editor_get_command_file (CommandEditor* ce, gchar* key, gchar* fname);
 gchar*
 command_editor_get_command (CommandEditor* ce, gchar* key);
 
-/* Save and Load */
-gboolean command_editor_save_yourself (CommandEditor *p, FILE* stream);
-gboolean command_editor_load_yourself (CommandEditor *p, PropsID pr);
 gboolean command_editor_save (CommandEditor *p, FILE* stream);
 gboolean command_editor_load (CommandEditor *p, PropsID pr);
 

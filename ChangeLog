@@ -1,5 +1,10 @@
 2002-01-15  Naba Kumar <naba@gnome.org>
 
+	* src/commands.[c,h], src/anjuta.glade, src/anjuta_dialogs_strings.c:
+	Completed command editor porting.
+	
+	* src/anjuta.c: Removed the use of commands load function (not required).
+
 	* src/text_editor_gui.c, src/test_editor.c: Added back widgets refs
 	and unrefs.
 

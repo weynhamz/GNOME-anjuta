@@ -963,7 +963,6 @@ gboolean anjuta_save_yourself (FILE * stream)
 	if (app->project_dbase->project_is_open == FALSE)
 		compiler_options_save (app->compiler_options, stream);
 
-	command_editor_save_yourself (app->command_editor, stream);
 	command_editor_save (app->command_editor, stream);
 
 	src_paths_save_yourself (app->src_paths, stream);
