@@ -1,0 +1,79 @@
+The Future!
+-----------
+
+On 9th November 2001, it was announced that the two leading GNOME IDE
+projects - Anjuta and gIDE - had merged to work on a new IDE application. 
+The announcement is reproduced below for information purposes.
+
+What does this mean for the current path of Anjuta development? Since it
+is currently a more stable and usable application than Anjuta DevStudio 
+("Anjuta2"), the current Anjuta 1.x series will continue to be maintained 
+and developed. However, there will be a gradual transition where development 
+moves over to the new tree.
+
+-- 
+Andy Piper <andy.piper@freeuk.com>
+Anjuta 1.x maintainer
+
+
+
+8<-----------
+
+[the Anjuta/gIDE merger announcement in full....]
+
+Date:          2001.11.09 04:33
+From:          Naba Kumar <kh_naba@yahoo.com>
+To:            gnome-devtools@gnome.org
+Cc:            anjuta-devel@lists.sourceforge.net
+Subject:       [Anjuta-devel] Anjuta and gIDE merged!
+
+Hi all,
+
+The Anjuta and gIDE projects have merged.  The new product will be
+called Anjuta Dev Studio, and resides in the anjuta2 module on gnome
+cvs.  It is based on the gIDE codebase. The project will be
+co-maintained by:
+
+Naba Kumar <kh_naba@yahoo.com> (the former maintainer of Anjuta).
+JP Rosevear <jpr@ximian.com> (the former maintainer of gIDE).
+
+The lead developers (besides the above two mentioned co-maintainers) who
+will have commit privileges will include:
+
+Dave Camp <dave@ximian.com>,
+Stéphane Démurget <demurgets@free.fr>,
+Dirk Vangestel <dirk.vangestel@advalvas.be>,
+Andy Piper <andy.piper@freeuk.com>.
+
+The rest of the developers from both the sides have to get the patches
+approved from the lead developers (as usual). Also, it is requested that
+the former anjuta developers be careful with commits to the new module
+at first.  We request that changes are discussed with the former gIDE
+developers in order to help familiarize everyone with the architecture
+and get everyone working on the same page.
+
+The maintainership of related modules (gnome-build, gnome-debug, and
+gdl) will remain unchanged.
+
+All developers should read the anjuta2/HACKING file to familiarize
+themselves with the policies of the anjuta2 module. The former Anjuta
+developers should read anjuta2/docs/extending.txt for an overview of the
+gIDE shell and plugin architecture.
+
+Discussion of Anjuta2 development happens on the #devel-apps irc channel
+on irc.gimp.org, and the gnome-devtools@gnome.org mailing list.
+
+The name 'anjuta' was selected for the merged project for the following
+reasons:
+
+1) Anjuta already has a serious userbase. Continuing the development
+under this name will benefit them greatly.
+
+2) Anjuta has a deep emotional significance. It was a gift to Naba's
+girlfriend. Therefore, letting it vanish somewhere means betraying their
+dedication to the community. :)
+
+3) JP and Dave didn't particularly like the gIDE name anyway.
+
+Cheers,
+The New Anjuta Team

@@ -1,7 +1,17 @@
+2001-11-29	Andy Piper	<andy.piper@freeuk.com>
+
+	* tagmanager/tm_workspace.c, src/project_dbase.c: critical
+	  crash bug fix from Biswa.
+	* FUTURE: added Anjuta/gIDE merger information to provide 
+	  details on future direction and status of 1.x stuff
+	* NEWS: prepared for release
+	* po/de.po: update from Jens Georg <mail@jensgeorg>
+
 2001-11-28	Andy Piper	<andy.piper@freeuk.com>
 
 	* multiple minor updates pre-0.1.8
 	* patch from Biswa to fix syntax highlighting and packaging
+	* po/fr.po: update from Stef
 
 2001-11-26 Naba Kumar <kh_naba@users.sourceforge.net>
 

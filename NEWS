@@ -1,3 +1,28 @@
+Anjuta 0.1.8:   (30th November 2001)		-- Andy Piper
+
+   => Release of Anjuta-0.1.8 (stable)
+   
+New: integration of new TagManager library - much improved
+     autocompletion and calltips functionality
+New: multiple file drag-and-drop
+New: ability to save build message output
+New: DOS file (CR/LF) handling
+New: basic plugin hooks added
+New: many new translations - 17 languages now fully or 
+     partially supported
+
+Updated: notebook tabs notify when file has been changed, can be
+         scrolled for browsing
+Updated: improvements to interactive debugger and communication
+         with gdb
+Updated: improved find functionality, better dialogs
+Updated: synced up to version 1.41 of Scintilla, new lexers added
+Updated: new icons
+
+... plus the usual big fixes and minor feature additions.
+
+--------------------------------------------------------------------
+
 Anjuta 0.1.7:   (21st August 2001)              -- Stephane Demurget
 
    => Release of Anjuta-0.1.7 (stable) - bug fixes release

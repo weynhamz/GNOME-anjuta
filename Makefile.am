@@ -16,7 +16,8 @@ anjutadoc_DATA = \
 	INSTALL\
 	NEWS\
 	TODO\
-	ABOUT-NLS
+	ABOUT-NLS\
+	FUTURE
 
 EXTRA_DIST = \
 	anjuta.desktop.in.in \

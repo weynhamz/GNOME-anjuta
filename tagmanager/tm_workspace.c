@@ -320,6 +320,8 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 				if (type & (*match)->type)
 					g_ptr_array_add(tags, *match);
 				++ match;
+				if ((!*match) || (!(*match)->name))
+					break;
 				if (partial)
 				{
 					if (0 != strncmp((*match)->name, name, len))

@@ -1150,7 +1150,14 @@ project_dbase_update_tags_image(ProjectDBase* p)
 	if (p->project_is_open == FALSE)
 		return;
 	if (p->tm_project)
-		tm_project_update(p->tm_project, FALSE, TRUE, TRUE);
+	{
+		if (((NULL == TM_PROJECT(p->tm_project)->file_list) ||
+			(0 == TM_PROJECT(p->tm_project)->file_list->len))
+			&& (p->top_proj_dir))
+			tm_project_autoscan(TM_PROJECT(p->tm_project), p->top_proj_dir);
+		else
+			tm_project_update(p->tm_project, FALSE, TRUE, TRUE);
+	}
 	else if (p->top_proj_dir)
 		p->tm_project = tm_project_new(p->top_proj_dir, NULL);
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
