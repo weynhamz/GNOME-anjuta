@@ -651,6 +651,9 @@ static void create_mesg_terminal(Messages *m)
 	GtkWidget *terminal, *scrollbar;
 	GtkWidget *hbox = gnome_dock_get_client_area(GNOME_DOCK(m->client));
 	
+	/* A quick hack so that we get a beautiful color terminal */
+	setenv("TERM", "xterm", 1);
+	
 	terminal = zvt_term_new();
 	zvt_term_set_font_name(ZVT_TERM(terminal), ZVT_FONT);
 	zvt_term_set_blink(ZVT_TERM(terminal), TRUE);

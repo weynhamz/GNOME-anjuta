@@ -1,6 +1,12 @@
 2001-12-13 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/messages.c
+	  Exported "TERM=xterm" to get a color terminal when
+	  anjuta is not started from within a terminal.
+	  
+2001-12-13 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/messages.c
 	  src/messages.h
 	  Added a frame around zvt terminal.
 	  
