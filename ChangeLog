@@ -1,3 +1,8 @@
+2002-07-31  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* scintilla/PlatGTK.cxx, scintilla/Scintilla.cxx,
+	scintilla/include/ScintillaWidget.h: Made to compile for gtk2.
+	
 2002-07-30  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* configure.in, acconfig.h, Makefile.am, autogen.sh, launcher/Makefile.am,

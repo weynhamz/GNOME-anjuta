@@ -769,13 +769,16 @@ void ListBox::Create(Window &, int) {
 
 void ListBox::SetFont(Font &scint_font) {
 	GtkStyle* style;
-
+	GdkFont* font;
+	
 	style = gtk_widget_get_style(GTK_WIDGET(PWidget(list)));
-	if (!gdk_font_equal(style->font, PFont(scint_font))) {
+	font = gtk_style_get_font(style);
+	
+	if (!gdk_font_equal(font, PFont(scint_font))) {
 		style = gtk_style_copy(style);
-		gdk_font_unref(style->font);
-		style->font = PFont(scint_font);
-		gdk_font_ref(style->font);
+		gdk_font_unref(font);
+		font = PFont(scint_font);
+		gdk_font_ref(font);
 		gtk_widget_set_style(GTK_WIDGET(PWidget(list)), style);
 		gtk_style_unref(style);
 	}
@@ -803,7 +806,7 @@ PRectangle ListBox::GetDesiredRect() {
 		// First calculate height of the clist for our desired visible row count otherwise it tries to expand to the total # of rows
 		height = (rows * GTK_CLIST(list)->row_height
 		          + rows + 1
-		          + 2 * (PWidget(list)->style->klass->ythickness
+		          + 2 * (PWidget(list)->style->ythickness
 		                 + GTK_CONTAINER(PWidget(list))->border_width));
 		gtk_widget_set_usize(GTK_WIDGET(PWidget(list)), -1, height);
 
