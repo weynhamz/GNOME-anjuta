@@ -1,3 +1,10 @@
+2002-05-03  Naba Kumar <kh_naba@users.sourceforge.net>
+
+    * attach_process.c, attach_process_cbs.c: Fixed a dialog
+    hide bug.
+    
+    * about.h: cvs removed.
+    
 2002-05-03  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 
 	Patch reviewed by Stephane Demurget <demurgets@free.fr>.

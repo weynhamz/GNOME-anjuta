@@ -56,7 +56,7 @@ void
 on_attach_process_attach_clicked(GtkWidget* button, gpointer data)
 {
 	AttachProcess* ap = data;
-	attach_process_hide(ap);
+    gnome_dialog_close(GNOME_DIALOG(ap->widgets.window));
 	if(ap->pid < 0) return;
 	debugger_attach_process(ap->pid);
 }
@@ -66,5 +66,5 @@ on_attach_process_cancel_clicked(GtkWidget* button, gpointer data)
 {
 	AttachProcess* ap = data;
 	if (NULL != ap)
-		gnome_dialog_close(GNOME_DIALOG(ap->widgets.window));
+        gnome_dialog_close(GNOME_DIALOG(ap->widgets.window));
 }
