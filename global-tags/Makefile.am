@@ -12,7 +12,7 @@ noinst_PROGRAMS = tm_global_tags
 
 tm_global_tags_SOURCES = tm_global_tags.c
 
-LDADD = -L../tagmanager $(GLIB_LIBS) -lctags
+LDADD = -L$(top_srcdir)/tagmanager $(GLIB_LIBS) -lctags
 
 all-local: system.tags
 

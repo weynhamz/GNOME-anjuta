@@ -8,7 +8,6 @@ scintilla_INCLUDES = \
 	SciLexer.h \
 	Scintilla.h \
 	ScintillaWidget.h \
-	WinDefs.h \
 	WindowAccessor.h \
 	SString.h 
 

@@ -44,3 +44,7 @@ uninstall-local:
 	    rmdir $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@; \
 	  fi; \
 	fi
+
+system.tags:
+	cd $(top_srcdir)/tagmanager && make libctags.a
+	cd $(top_srcdir)/global-tags && make system.tags
