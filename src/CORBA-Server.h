@@ -54,7 +54,7 @@ typedef struct {
 	C_S_Del_F				m_pDelete;
 } C_ServerObj ;
 
-C_ServerObj *C_ServerObjNew();
+C_ServerObj *C_ServerObjNew(void);
 void C_ServerObjInit(C_ServerObj *self);
 void C_ServerObjSetORB(C_ServerObj *self, CORBA_ORB *pORB );
 void C_ServerObjDelete(C_ServerObj *self, const gboolean bFree );

@@ -164,7 +164,7 @@ gladen_add_main_components(void)
 	gladen = GetCorbaManager()->m_gladen ;
 
 	CInitEx( &ev );
-	if (project_dbase_get_project_type (app->project_dbase) == PROJECT_TYPE_GTK)
+	if (project_dbase_get_project_type (app->project_dbase)->id == PROJECT_TYPE_GTK)
 	{
 		Gladen_GladeRef_AddComponent( gladen, "GtkWindow", "MainWnd", &ev );
 	}else
@@ -534,7 +534,6 @@ gboolean
 gladen_write_source( const gchar *szGladeFileName )
 {
 	gchar *dir;
-	pid_t pid;
 	gboolean bRetValue = TRUE ;
 	CORBA_Environment	ev;
 

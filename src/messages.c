@@ -622,7 +622,6 @@ create_mesg_gui (Messages * m)
 	for( i =0 ; i < MESSAGE_TYPE_END; i ++ )
 		button[i] = msg_create_buttons( mesg_gui, toolbar1, i, (MESSAGE_BUILD==i)?TRUE:FALSE );
 
-
 	frame2 = gtk_frame_new (NULL);
 	gtk_widget_show (frame2);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),

@@ -56,7 +56,7 @@ void CInitEx( CORBA_Environment *pev )
 
 /*---------------------------------------------------------------------*/
 
-C_ServerObj *C_ServerObjNew()
+C_ServerObj *C_ServerObjNew(void)
 {
 	C_ServerObj *self = g_new0( C_ServerObj, 1 );
 	if( NULL != self )
@@ -261,7 +261,7 @@ impl_ProjectManager_PrjMan__create(PortableServer_POA poa,
    return retval;
 }
 
-static void
+void
 impl_ProjectManager_PrjMan__destroy(impl_POA_ProjectManager_PrjMan * servant,
 				    CORBA_Environment * ev)
 {
