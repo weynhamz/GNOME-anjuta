@@ -48,7 +48,7 @@
    </para>
   </sect1>
   
-  <sect1 id="">
+  <sect1 id="dbg_step_out">
    <title>Single stepping (step out)</title>
    <para>
     Step out will execute the current function till it is returned. The program

@@ -1,11 +1,11 @@
 <!-- Debugger: Others-->
- <chapter id="debugger-others">
+ <chapter id="debugger_others">
   <title>Debugger: Others</title>
   <para>
    Now let us have a look at the other debugger features which are used
    less frequently, but nevertheless handy.
   </para>
-  <sect1 id="dbg-kernal">
+  <sect1 id="dbg_kernal">
    <title>Kernel Signals</title>
    <para>
     Kernel signals is a way of signaling between processes in Linux. You
@@ -46,7 +46,7 @@
     </listitem>
    </orderedlist>
    
-   <sect2 id="dbg-kernel-beh">
+   <sect2 id="dbg_kernel_beh">
     <title>Changing the behavior</title>
     <para>
      You can change the way debugger behaves when a particular signal is
@@ -63,7 +63,7 @@
      </figure>
     </para>
    </sect2>
-   <sect2 id="dbg-kernel-send">
+   <sect2 id="dbg_kernel_send">
     <title>Sending the signal to the program</title>
     <para>
      You can explicitly sent the signal to the program being debugged. To
@@ -72,7 +72,7 @@
      asked. Click OK to confirm. This will send the signal to the program.
     </para>
    </sect2>
-   <sect2 id="dbg-kernel-update">
+   <sect2 id="dbg_kernel_update">
     <title>Updating the signal list</title>
     <para>
      Activating the menu item <citetitle>Update</citetitle>
@@ -82,7 +82,7 @@
    </sect2>
   </sect1>
  
-  <sect1 id="dbg-registers">
+  <sect1 id="dbg_registers">
    <title>Cpu registers</title>
    <para>
     You can examine the contents of CPU's (microprocessor) internal registers.
@@ -100,7 +100,7 @@
    </para>
   </sect1>
  
-  <sect1 id="dbg-dyna-libs">
+  <sect1 id="dbg_dyna_libs">
    <title>Dynamically loaded Libraries</title>
    <para>
     To get the listing of the dynamic libraries used by you program, activate
@@ -118,7 +118,7 @@
    </para>
   </sect1>
  
-  <sect1 id="dbg-interrupt">
+  <sect1 id="dbg_interrupt">
    <title>Interrupting the program</title>
    <para>
     While the program has got the control, you can not perform any debugging task.

@@ -1,5 +1,5 @@
 <!-- ============= Project management ====================== -->
- <chapter id="project-management">
+ <chapter id="project_management">
   <title>Project Management</title>
   <para>
    If the program you are developing is a small one and it is going to be run on your
@@ -28,7 +28,7 @@
    Those, who are not dare devils, can just relax and let Anjuta do all (eh.. most) of the stuffs.
   </para>
   
-  <sect1 id="new-projects">
+  <sect1 id="new_projects">
    <title>Creating a new project</title>
    <para>
     Activate <citetitle>File-&gt;New Project</citetitle> to start
@@ -69,7 +69,7 @@
    </para>
   </sect1>
   
-  <sect1 id="loadsave-prjs">
+  <sect1 id="loadsave_prjs">
    <title>Loading and Saving projects</title>
    <sect2 id="loadingprj">
     <title>Loading Projects:</title>
@@ -100,7 +100,7 @@
    </sect2>
   </sect1>
   
-  <sect1 id="add-rm-files">
+  <sect1 id="add_rm_files">
    <title>Adding and removing files</title>
    <para>
     There are the different type of files Anjuta will manage for you in the project:
@@ -163,14 +163,14 @@
    </sect2>
   </sect1>
   
-  <sect1 id="project-config">
+  <sect1 id="project_config">
    <title>Project Configuration</title>
    <para>
     FIXME:
    </para>
   </sect1>
   
-  <sect1 id="project-infomations">
+  <sect1 id="project_infomations">
    <title>Getting Project Information</title>
    <para>
     Activate <citetitle>Project-&gt;Project Information</citetitle> and
@@ -179,7 +179,7 @@
    </para>
   </sect1>
   
-  <sect1 id="project-files">
+  <sect1 id="project_files">
    <title>Managing project files</title>
    <para>
     This part is for the <citetitle>dare devils</citetitle>. Others may skip this section.
@@ -222,7 +222,7 @@
    </para>
   </sect1>
   
-  <sect1 id="project-build">
+  <sect1 id="project_build">
    <title>Compiling, Building and Executing project</title>
    <sect2 id="project_basics">
     <title>The basics:</title>

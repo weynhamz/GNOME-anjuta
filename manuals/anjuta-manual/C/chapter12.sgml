@@ -1,8 +1,8 @@
 
 <!-- ============= Debugging: Program Stack ====================== -->
- <chapter id="debugging-stack">
+ <chapter id="debugging_stack">
   <title>Debugging: Stack Trace</title>
-  <sect1 id="stack-win">
+  <sect1 id="stack_win">
    <title>Stack Window</title>
    <para>
     Stack trace window shows the contents of the program stack. It will list all the functions and their arguments
@@ -31,7 +31,7 @@
    </para>
   </sect1>
   
-  <sect1 id="stack-frame">
+  <sect1 id="stack_frame">
    <title>Setting the current frame:</title>
    <para>
     Double clicking on any frame in the stack trace will set the frame as currently selected frame (the
@@ -41,7 +41,7 @@
    </para>
   </sect1>
   
-  <sect1 id="stack-frame-info">
+  <sect1 id="stack_frame-info">
    <title>Information about the current frame:</title>
    <para>
     You can also get the information about the currently selected frame by activating
@@ -58,7 +58,7 @@
    </para>
   </sect1>
   
-  <sect1 id="stack-update">
+  <sect1 id="stack_update">
    <title>Updating Stack trace:</title>
    <para>
     Activating the menu item <citetitle>Update</citetitle> from the

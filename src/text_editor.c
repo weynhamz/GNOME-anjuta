@@ -159,7 +159,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 		g_free (buff);
 		if (text_editor_load_file (te) == FALSE)
 		{
-			anjuta_system_error (errno, _("Couldn't load file: %s."), te->full_filename);
+			/* Unable to load file */
 			text_editor_destroy (te);
 			return NULL;
 		}

@@ -17,6 +17,26 @@
     <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net
     </ulink>
    </para>
+   
+   <para>
+    <variablelist>
+     <title>Contribution:</title>
+
+     <varlistentry>
+      <term>Max Blagai <email>maximblagai@yahoo.com</email>
+      Short-cuts for notebook, project window</term>
+     </varlistentry>
+     <varlistentry>
+      <term> Misha <email>misha@phreaker.net</email>
+      Anjuta website, New icon set and splash logo</term>
+     </varlistentry>
+     <varlistentry>
+      <term><email></email>
+      </term>
+     </varlistentry>
+	</variablelist>
+
+   </para>
  
    <para>
     <variablelist>
@@ -51,7 +71,7 @@
   </sect1>
 
   <!-- ============ Information: Contacts ======== -->
-  <sect1 id="anjuta-contacts">
+  <sect1 id="anjuta_contacts">
    <title>Contacts</title>
    <para>
     For the time being you can contact me for anything at my personal
@@ -92,7 +112,7 @@
   </sect1>
   
   <!-- ============ Information: License ======== -->
-  <sect1 id="anjuta-license">
+  <sect1 id="anjuta_license">
    <title>License</title>
    <para>
     This program is free software; you can redistribute it and/or

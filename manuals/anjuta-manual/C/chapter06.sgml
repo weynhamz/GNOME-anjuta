@@ -1,6 +1,6 @@
 <!-- ============= Setting compiler options === -->
 
- <chapter id="setting-compiler-options">
+ <chapter id="setting_compiler_options">
   <title>Setting Compiler Options</title>
   <para>
    You can customize the the way the compiler will compile your file or Project.
@@ -11,7 +11,7 @@
    are all transparent to the user. Anjuta handles them automatically.
   </para>
   
-  <sect1 id="program-support">
+  <sect1 id="program_support">
    <title>Support for your program</title>
    
    <para>

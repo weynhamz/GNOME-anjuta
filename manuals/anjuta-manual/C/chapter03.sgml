@@ -1,9 +1,9 @@
 <!-- ============= File operations ======================== -->
 
- <chapter id="file-operations">
+ <chapter id="file_operations">
   <title>File Operations</title>
   <!-- ============= File operations: Creating a new file === -->
-  <sect1 id="creating-files">
+  <sect1 id="creating_files">
    <title>Creating a New File</title>
    <para>
     To create a new file just select the menu file/new or click the new file icon
@@ -16,7 +16,7 @@
   </sect1>
 
  <!-- ============= File operations: Opening and saving files === -->
-  <sect1 id="open-save-files">
+  <sect1 id="open_save_files">
    <title>Opening and Saving Files</title>
    <para>
     <orderedlist>
@@ -95,7 +95,7 @@
   </sect1>
  
  <!-- ============= File operations: Editing files === -->
-  <sect1 id="editing-files">
+  <sect1 id="editing_files">
    <title>Editing Files</title>
    <para>
     FIXME:
@@ -103,7 +103,7 @@
   </sect1>
 
  <!-- ============= File operations: Browsing with tags browser ===   -->
-  <sect1 id="browsing-files">
+  <sect1 id="browsing_files">
    <title>Browsing Files with Tags Browser</title>
    <para>
     All C and C++ source and header  files can be browsed using the tags in the files. 
@@ -168,7 +168,7 @@
   </sect1>
 
   <!-- ============= File operations:Searching and replacing in files === -->
-  <sect1 id="search-replace-files">
+  <sect1 id="search_replace_files">
    <title>Searching and Repalacing text in files</title>
    <sect2 id="searching">
     <title>Searching</title>
@@ -218,7 +218,7 @@
   </sect1>
 
  <!-- ============= File operations: Finding in multiple files and folders === -->
-  <sect1 id="multiple-find-files">
+  <sect1 id="multiple_find_files">
    <title>Finding in Multiple Files and Folders</title>
     <figure>
      <title>Find and replace dialog</title>
@@ -256,7 +256,7 @@
   </sect1>
 
  <!-- ============= File operations: Other special operations on files === -->
-  <sect1 id="other-operations-files">
+  <sect1 id="other_operations_files">
    <title>Other special operations on files</title>
    <sect2 id="hiliting">
    <title>Syntax hiliting</title>

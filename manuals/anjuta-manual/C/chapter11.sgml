@@ -1,12 +1,12 @@
 
 <!-- ============= Debugging: Working with expressions ====================== -->
- <chapter id="debugging-exprs">
+ <chapter id="debugging_exprs">
   <title>Debugging: Working with expressions</title>
   <para>
    FIXME:
   </para>
   
-  <sect1 id="expr-eval">
+  <sect1 id="expr_eval">
    <title>Evaluating expressions</title>
    <para>
     When you get back the control, say at a breakpoint, you can evaluate expressions or
@@ -44,7 +44,7 @@
    </para>
   </sect1>
   
-  <sect1 id="expr-watch">
+  <sect1 id="expr_watch">
    <title>Expression Watch</title>
    <para>
     Inspecting or evaluating an expression provides you the result only once. If you want

@@ -1,6 +1,6 @@
 <!-- ============= Debugging: Breakpoints ====================== -->
  
- <chapter id="debugging-breaks">
+ <chapter id="debugging_breaks">
   <title>Debugging: Breakpoints</title>
   <para>
    While you are debugging a program you would like to break the execution of the program at
@@ -71,7 +71,7 @@
    on its first encounter itself.
   </para>
   
-  <sect1 id="breaks-set">
+  <sect1 id="breaks_set">
    <title>Adding or Setting Breakpoints</title>
    <para>
     Bring up the 'Breakpoints editing window' by activating <citetitle>View-&gt;Breakpoints</citetitle>
@@ -99,7 +99,7 @@
    </para>
   </sect1>
   
-  <sect1 id="breaks-edit">
+  <sect1 id="breaks_edit">
    <title>Editing Breakpoints</title>
    <para>
     Bring up the "Breakpoints editing window" by activating <citetitle>View-&gt;Breakpoints</citetitle>
@@ -120,7 +120,7 @@
    </para>
   </sect1>
 
-  <sect1 id="breaks-del">
+  <sect1 id="breaks_del">
    <title>Deleting Breakpoints</title>
    <para>
     Bring up the 'Breakpoints editing window' by activating <citetitle>View-&gt;Breakpoints</citetitle>
@@ -132,7 +132,7 @@
    </para>
   </sect1>
 
-  <sect1 id="breaks-enbdis">
+  <sect1 id="breaks_enbdis">
    <title>Enabling or Disabling Breakpoints</title>
    <para>
     Bring up the 'Breakpoints editing window' by activating <citetitle>View-&gt;Breakpoints</citetitle>

@@ -1,3 +1,8 @@
+2001-05-15  Naba Kumar <kh_naba@123india.com>
+	*Fixed double error message for file not found.
+	*Put white backgrounds for png images.
+	*Converted '-' to '_' in sgml files.
+
 2001-05-14  Naba Kumar <kh_naba@123india.com>
 	* project_dbase.c: Short-cut for expand/collasp project tree
 	* project_dbase_gui.c:
@@ -11,6 +16,8 @@
 
 2001-05-7  Naba Kumar <kh_naba@123india.com>
 	* Changed a new icon set which looks more gnomish.
+	* Changed a new anjuta splash logo.
+	(Icons and splash logo created by "Misha" <misha@phreaker.net>)
 
 2001-07-6  Naba Kumar <kh_naba@123india.com>
 	* ccview/*: Integrated ccview for class view and file view

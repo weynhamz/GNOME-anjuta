@@ -90,7 +90,7 @@
   </sect1>
 
 <!-- ============= Getting Familier: Main window  ============-->
-  <sect1 id="main-win">
+  <sect1 id="main_win">
    <title>Main Window</title>
    <para>
     In the main window, there are three frames that you must be familiar with,
