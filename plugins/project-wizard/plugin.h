@@ -22,6 +22,7 @@
 #define __PROJECT_WIZARD_PLUGIN__
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 typedef struct _NPWPlugin NPWPlugin;
 typedef struct _NPWPluginClass NPWPluginClass;
@@ -31,6 +32,7 @@ struct _NPWPlugin {
 
 	struct _NPWDruid* druid;
 	struct _NPWInstall* install;
+	IAnjutaMessageView* view;
 };
 
 struct _NPWPluginClass {

@@ -1,6 +1,7 @@
 #include <config.h>
 #include <gtk/gtk.h>
 #include <libegg/menu/egg-combo-action.h>
+#include <libegg/menu/egg-recent-action.h>
 //#include <libegg/menu/egg-markup.h>
 
 #ifndef _
@@ -47,9 +48,11 @@ static guint n_entries = G_N_ELEMENTS (entries);
 static const gchar *ui_info =
 "<ui>\n"
 "  <toolbar name=\"toolbar\">\n"
+"    <toolitem name=\"recent\" action=\"ActionRecent\" />\n"
 "    <toolitem name=\"button\" action=\"ActionList\" />\n"
 "    <toolitem name=\"combo\" action=\"ActionCombo\" />\n"
 "    <toolitem name=\"combo2\" action=\"ActionCombo\" />\n"
+"    <toolitem name=\"recent2\" action=\"ActionRecent\" />\n"
 "  </toolbar>\n"
 "</ui>\n";
 
@@ -101,6 +104,19 @@ create_model ()
 	return GTK_TREE_MODEL (store);
 }
 
+
+static EggRecentModel *
+create_recent_model ()
+{
+	EggRecentModel *model;
+	model =
+		egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
+	egg_recent_model_set_limit (model, 15);
+	egg_recent_model_set_filter_groups (model,
+										"anjuta", NULL);
+	return EGG_RECENT_MODEL (model);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -110,7 +126,8 @@ main (int argc, char **argv)
   GtkWidget *box;
   GError *error = NULL;
   GtkTreeModel *model;
-
+  EggRecentModel *rmodel;
+	
   gtk_init (&argc, &argv);
 
   if (g_file_test("accels", G_FILE_TEST_IS_REGULAR))
@@ -132,6 +149,20 @@ main (int argc, char **argv)
   model = create_model ();
   egg_combo_action_set_model (EGG_COMBO_ACTION (action), model);
   g_object_unref (model);
+  /* recent action */
+	action = g_object_new (EGG_TYPE_RECENT_ACTION,
+						   "name", "ActionRecent",
+						   "label", _("Open _Recent"),
+						   "tooltip", _("Open recent files"),
+						   "stock_id", NULL,
+							NULL);
+	g_assert (EGG_IS_RECENT_ACTION (action));
+	//g_signal_connect (action, "activate",
+	//				  G_CALLBACK (activate_action), NULL);
+	gtk_action_group_add_action (action_group, action);
+  rmodel = create_recent_model ();
+  egg_recent_action_set_model (EGG_RECENT_ACTION (action), rmodel);
+  g_object_unref (rmodel);
   
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_show (window);

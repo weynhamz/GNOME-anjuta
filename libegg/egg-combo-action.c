@@ -2,7 +2,7 @@
 
 /* egg-combo-action widget
  *
- * Copyright (C) 2001 Naba Kumar <kh_naba@yahoo.com>
+ * Copyright (C) Naba Kumar <naba@gnome.org>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -231,12 +231,9 @@ egg_combo_action_update (EggComboAction *action)
 static void
 egg_combo_action_finalize (GObject *object)
 {
-	EggComboActionPriv *priv;
-	
-	priv = EGG_COMBO_ACTION (object)->priv;
-	if (priv->model)
-		g_object_unref (priv->model);
-	priv->model = NULL;
+  if (EGG_COMBO_ACTION (object)->priv->active_iter)
+  	gtk_tree_iter_free (EGG_COMBO_ACTION (object)->priv->active_iter);
+  g_free (EGG_COMBO_ACTION (object)->priv);
 	if (parent_class->finalize)
 		(* parent_class->finalize) (object);
 }
@@ -244,9 +241,12 @@ egg_combo_action_finalize (GObject *object)
 static void
 egg_combo_action_dispose (GObject *object)
 {
-  if (EGG_COMBO_ACTION (object)->priv->active_iter)
-  	gtk_tree_iter_free (EGG_COMBO_ACTION (object)->priv->active_iter);
-  g_free (EGG_COMBO_ACTION (object)->priv);
+	EggComboActionPriv *priv;
+	
+	priv = EGG_COMBO_ACTION (object)->priv;
+	if (priv->model)
+		g_object_unref (priv->model);
+	priv->model = NULL;
   if (parent_class->dispose)
     (* parent_class->dispose) (object);
 }

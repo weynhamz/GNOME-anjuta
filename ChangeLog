@@ -1,4 +1,34 @@
-2005-01-18  Johannes Schmid <jhs@cvs.gnome.org>
+2005-01-08  Naba Kumar  <naba@gnome.org>
+	
+	* libegg/Makefile.am, (added) libegg/egg-recent-action.c,
+	libegg/test-actions.c, libegg/menu/Makefile.am,
+	libegg/menu/egg-recent-action.h: Added a new action for
+	recent files.
+
+	* libegg/egg-combo-action.c, libegg/egg-entry-action.c:
+	Fixed dispose. Cleanup.
+	
+	* plugins/file-loader/anjuta-loader-plugin.ui,
+	plugins/file-loader/plugin.c, plugins/file-loader/plugin.h:
+	Use the new action for recent files. Added recent files in
+	toolbar.
+
+	* plugins/project-wizard/druid.c: Show busy cursor and
+	de-sensitize druid buttons during page change.
+	
+	Patch from Sébastien Granjoux  <seb.sfo@free.fr>:
+	* plugins/project-wizard/Makefile.am,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/druid.h,
+	plugins/project-wizard/install.c,
+	plugins/project-wizard/plugin.c,
+	plugins/project-wizard/plugin.h,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	(added) plugins/project-wizard/values.c,
+	(added) plugins/project-wizard/values.h:
+
+2005-01-08  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/macro/plugin.[ch],
 	plugins/macro/macro-dialog.[ch]
@@ -34,9 +64,9 @@
 2005-01-07  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/anjuta-project-wizard.glade,
-	M plugins/project-wizard/druid.c,
-	M plugins/project-wizard/templates/anjuta-plugin.wiz,
-	M plugins/project-wizard/templates/terminal.wiz: Fixed project templates.
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/terminal.wiz: Fixed project templates.
 	Display page description in bold. Fixed mandatory field check.
 
 	* configure.in,

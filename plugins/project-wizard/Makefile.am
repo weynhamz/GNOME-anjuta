@@ -43,6 +43,8 @@ libanjuta_project_wizard_la_SOURCES= \
 	header.h \
 	property.c \
 	property.h \
+	values.c \
+	values.h \
 	file.c \
 	file.h \
 	parser.c \

@@ -1,4 +1,11 @@
-/* gtkcombo_select - combo_select widget for gtk+
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+
+/* eggcomboselect widget
+ *
+ * Copyright (C) Naba Kumar <naba@gnome.org>
+ *
+ * Codes taken from:
+ * gtkcombo_select - combo_select widget for gtk+
  * Copyright 1999-2001 Adrian E. Feiguin <feiguin@ifir.edu.ar>
  *
  * This library is free software; you can redistribute it and/or
@@ -16,7 +23,6 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-
 
 #ifndef __EGG_COMBO_SELECT_H__
 #define __EGG_COMBO_SELECT_H__

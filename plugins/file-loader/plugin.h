@@ -9,6 +9,7 @@ struct _AnjutaFileLoaderPlugin{
 	AnjutaPlugin parent;
 	EggRecentModel *recent_files_model;
 	GtkActionGroup *action_group;
+	GtkActionGroup *recent_group;
 	gchar *fm_current_uri;
 	gint fm_watch_id;
 	gint uiid;

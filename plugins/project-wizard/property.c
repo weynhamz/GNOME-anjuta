@@ -34,6 +34,7 @@ struct _NPWPage
 	GNode* list;
 	GStringChunk* string_pool;
 	GMemChunk* data_pool;
+	NPWPropertyValues* value;
 	gchar* name;
 	gchar* label;
 	gchar* description;
@@ -42,11 +43,10 @@ struct _NPWPage
 struct _NPWProperty {
 	NPWPropertyType type;
 	NPWPropertyOptions options;
-	gchar* name;
 	gchar* label;
 	gchar* description;
 	gchar* defvalue;
-	gchar* value;
+	NPWPropertyKey key;
 	GtkWidget* widget;
 	NPWPage* owner;
 };
@@ -80,7 +80,6 @@ npw_property_destroy(NPWProperty* this)
 		g_node_destroy(node);
 		// Memory allocated in string pool and data pool is not free
 	}
-	if (this->value != NULL) g_free(this->value);
 }
 
 NPWPropertyType
@@ -92,13 +91,13 @@ npw_property_get_type(const NPWProperty* this)
 void
 npw_property_set_name(NPWProperty* this, const gchar* name)
 {
-	this->name = g_string_chunk_insert(this->owner->string_pool, name);
+	this->key = npw_property_values_add(this->owner->value, name);
 }
 
 const gchar*
 npw_property_get_name(const NPWProperty* this)
 {
-	return this->name;
+	return npw_property_values_get_name(this->owner->value, this->key);
 }
 
 void
@@ -144,23 +143,22 @@ npw_property_set_default(NPWProperty* this, const gchar* value)
 }
 
 void
-npw_property_set_value(NPWProperty* this, const gchar* value)
+npw_property_set_value(NPWProperty* this, const gchar* value, gint tag)
 {
-	if (this->value != NULL)
-	{
-		g_free(this->value);
-		this->value = NULL;
-	}
-	if (value != NULL)
-	{
-		this->value = g_strdup(value);
-	}
+	npw_property_values_set(this->owner->value, this->key, value, tag);
 }
 
 const char*
 npw_property_get_value(const NPWProperty* this)
 {
-	return this->value == NULL ? this->defvalue : this->value;
+	if (npw_property_values_get_tag(this->owner->value, this->key) == 0)
+	{
+		return this->defvalue;
+	}
+	else
+	{
+		return npw_property_values_get(this->owner->value, this->key);
+	}	
 }
 
 void
@@ -198,7 +196,7 @@ npw_property_get_options(const NPWProperty* this)
 // Page
 
 NPWPage*
-npw_page_new(void)
+npw_page_new(NPWPropertyValues* value)
 {
 	NPWPage* this;
 
@@ -206,6 +204,7 @@ npw_page_new(void)
 	this->string_pool = g_string_chunk_new(STRING_CHUNK_SIZE);
 	this->data_pool = g_mem_chunk_new("property pool", sizeof(NPWProperty), STRING_CHUNK_SIZE * sizeof(NPWProperty) / 4, G_ALLOC_ONLY);
 	this->list = g_node_new(NULL);
+	this->value = value;
 
 	return this;
 }

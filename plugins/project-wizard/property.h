@@ -21,14 +21,18 @@
 #ifndef __PROPERTY_H__
 #define __PROPERTY_H__
 
+#include <config.h>
+
+#include "values.h"
+
 #include <glib.h>
 #include <gtk/gtk.h>
+
 
 // Project wizard property, used in middle page
 
 typedef struct _NPWProperty NPWProperty;
 typedef struct _NPWPage NPWPage;
-typedef struct _NPWValueList NPWValueList;
 
 // Property
 
@@ -65,7 +69,7 @@ GtkWidget* npw_property_get_widget(const NPWProperty* this);
 
 void npw_property_set_default(NPWProperty* this, const gchar* value);
 
-void npw_property_set_value(NPWProperty* this, const gchar* value);
+void npw_property_set_value(NPWProperty* this, const gchar* value, gint tag);
 const char* npw_property_get_value(const NPWProperty* this);
 
 void npw_property_set_mandatory_option(NPWProperty* this, gboolean value);
@@ -74,7 +78,7 @@ NPWPropertyOptions npw_property_get_options(const NPWProperty* this);
 
 // Page = list of properties
 
-NPWPage* npw_page_new(void);
+NPWPage* npw_page_new(NPWPropertyValues* value);
 
 void npw_page_destroy(NPWPage* this);
 

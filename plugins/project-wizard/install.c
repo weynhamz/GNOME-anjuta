@@ -27,13 +27,14 @@
 #include <sys/types.h>
 
 #include "plugin.h"
-#include "property.h"
 #include "file.h"
 #include "parser.h"
 #include "install.h"
 #include "autogen.h"
 
 
+
+#define NPW_ICON ""
 #define FILE_BUFFER_SIZE	4096
 
 struct _NPWInstall
@@ -43,6 +44,7 @@ struct _NPWInstall
 	NPWFileList* list;
 	const NPWFile* file;
 	NPWPlugin* plugin;
+	IAnjutaMessageView* view;
 };
 
 static void on_install_end_install_file(NPWAutogen* gen, gpointer data);
@@ -58,6 +60,17 @@ NPWInstall* npw_install_new(NPWPlugin* plugin)
 	this = g_new0(NPWInstall, 1);
 	this->gen = npw_autogen_new();
 	this->plugin = plugin;
+	if (this->plugin->view == NULL)
+	{
+		IAnjutaMessageManager* man;
+
+		man = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell, IAnjutaMessageManager, NULL);
+		// Create new view
+		this->plugin->view = ianjuta_message_manager_add_view(man, _("New Project Wizard"), NPW_ICON, NULL); 	
+	}
+	this->view = this->plugin->view;
+	//ianjuta_message_view_append(this->view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, "Hi", "", NULL);
+	//ianjuta_message_view_clear(this->view, NULL);
 
 	plugin->install = this;
 
@@ -165,6 +178,7 @@ on_install_end_install_file(NPWAutogen* gen, gpointer data)
 		if (this->file == NULL)
 		{
 			// All files have been installed
+			ianjuta_message_view_append(this->view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, _("New project has been created successfully"), "", NULL);
 			npw_install_destroy(this);
 			return;
 		}
@@ -198,11 +212,14 @@ npw_install_install_file(NPWInstall* this)
 	guint len;
 	const gchar* destination;
 	const gchar* source;
+	gchar* msg;
 
 	destination = npw_file_get_destination(this->file);
 	source = npw_file_get_source(this->file);
 
-	printf("Autogen %s to %s\n", source, destination);
+	msg = g_strdup_printf(_("Copying %s to %s with AutoGen"), source, destination);
+	ianjuta_message_view_append(this->view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, msg, "", NULL);
+	g_free(msg);
 
 	len = strlen(destination) + 1;	
 	buffer = g_new(gchar, MAX(FILE_BUFFER_SIZE, len));
@@ -213,7 +230,6 @@ npw_install_install_file(NPWInstall* this)
 		// Get directory one by one
 		sep = strstr(sep,G_DIR_SEPARATOR_S);
 		if (sep == NULL) break;
-
 		// Create directory if necessary
 		*sep = '\0';
 		if ((*buffer != '~') && (*buffer != '\0'))

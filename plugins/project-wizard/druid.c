@@ -23,7 +23,6 @@
 #include <gnome.h>
 #include <gtk/gtkactiongroup.h>
 #include <libgnome/gnome-i18n.h>
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <string.h>
 
@@ -74,12 +73,20 @@ struct _NPWDruid
 	
 	guint page;
 	GQueue* page_list;
+	NPWPropertyValues* property_value;
 	NPWPageParser* parser;
 	NPWHeaderList* header_list;
 	NPWHeader* header;
 	NPWAutogen* gen;
 	gboolean busy;
 };
+
+typedef enum {
+	NPW_EMPTY_PROPERTY = 0,
+	NPW_VALID_PROPERTY,
+	NPW_OLD_PROPERTY
+} NPWPropertyValueTag;
+
 
 // libGlade doesn't seem to set this parameter for the start page
 
@@ -303,7 +310,7 @@ npw_druid_add_new_page(NPWDruid* this)
 	if (page == NULL)
 	{
 		// Page not found in cache, create
-		page = npw_page_new();
+		page = npw_page_new(this->property_value);
 
 		// Add page in cache
 		g_queue_push_tail(this->page_list, page);
@@ -365,11 +372,10 @@ npw_druid_fill_property_page(NPWDruid* this, NPWPage* page)
 
 // Save in page all value entered by user
 
-static void
-cb_save_property(NPWProperty* property, gpointer data)
+static const gchar*
+npw_property_get_widget_value(NPWProperty* property)
 {
 	const gchar* value = NULL;
-	NPWPropertyContext *ctx = (NPWPropertyContext *)data;
 
 	switch(npw_property_get_type(property))
 	{
@@ -401,9 +407,20 @@ cb_save_property(NPWProperty* property, gpointer data)
 		value = gnome_file_entry_get_full_path(GNOME_FILE_ENTRY(npw_property_get_widget(property)), FALSE);
 		break;
 	default:
-		return;
+		break;
 	}
-	
+
+	return value;
+}
+
+static void
+cb_save_valid_property(NPWProperty* property, gpointer data)
+{
+	const gchar* value;
+	NPWPropertyContext *ctx = (NPWPropertyContext*)data;
+
+	value = npw_property_get_widget_value(property);
+
 	if ((ctx->required_property == NULL) &&
 		(value == NULL || strlen (value) <= 0) &&
 		(npw_property_get_options (property) & NPW_MANDATORY_OPTION))
@@ -411,12 +428,22 @@ cb_save_property(NPWProperty* property, gpointer data)
 		// Mandatory field not filled.
 		ctx->required_property = npw_property_get_label (property);
 	}
-	npw_property_set_value(property, value);
+	npw_property_set_value(property, value, NPW_VALID_PROPERTY);
+};
+
+static void
+cb_save_old_property(NPWProperty* property, gpointer data)
+{
+	const gchar* value;
+
+	value = npw_property_get_widget_value(property);
+
+	npw_property_set_value(property, value, NPW_OLD_PROPERTY);
 };
 
 /* Returns the first mandatory property which has no value given */
 static gchar*
-npw_druid_save_all_values(NPWDruid* this)
+npw_druid_save_valid_values(NPWDruid* this)
 {
 	NPWPropertyContext ctx;
 	NPWPage* page;
@@ -425,12 +452,26 @@ npw_druid_save_all_values(NPWDruid* this)
 	ctx.druid = this;
 	ctx.page = page;
 	ctx.required_property = NULL;
-	npw_page_foreach_property(page, cb_save_property, &ctx);
+	npw_page_foreach_property(page, cb_save_valid_property, &ctx);
 	if (ctx.required_property)
 	{
 		return g_strdup (ctx.required_property);
+
 	}
 	return NULL;
+}
+
+static void
+npw_druid_save_old_values(NPWDruid* this)
+{
+	NPWPropertyContext ctx;
+	NPWPage* page;
+
+	page = g_queue_peek_nth(this->page_list, this->page - 1);
+	ctx.druid = this;
+	ctx.page = page;
+	
+	npw_page_foreach_property(page, cb_save_old_property, &ctx);
 }
 
 // Clear page in cache up to downto (0 = all pages)
@@ -450,7 +491,7 @@ clear_page_cache(GQueue* cache, guint downto)
 }*/
 
 static void
-npw_destroy_druid(NPWDruid* this)
+npw_druid_destroy(NPWDruid* this)
 {
 	g_return_if_fail(this != NULL);
 
@@ -460,6 +501,10 @@ npw_destroy_druid(NPWDruid* this)
 		this->tooltips = NULL;
 	}
 	if (this->page_list != NULL)
+	if (this->property_value != NULL)
+	{
+		npw_property_values_destroy(this->property_value);
+	}
 	{
 		NPWPage* page;
 
@@ -489,7 +534,7 @@ npw_destroy_druid(NPWDruid* this)
 static gboolean
 on_druid_cancel(GtkWidget* window, NPWDruid* druid)
 {
-	npw_destroy_druid(druid);
+	npw_druid_destroy(druid);
 
 	return TRUE;
 }
@@ -497,7 +542,7 @@ on_druid_cancel(GtkWidget* window, NPWDruid* druid)
 static gboolean
 on_druid_delete(GtkWidget* window, GdkEvent* event, NPWDruid* druid)
 {
-	npw_destroy_druid(druid);
+	npw_druid_destroy(druid);
 
 	return TRUE;
 }
@@ -521,7 +566,7 @@ on_druid_get_new_page(NPWAutogen* gen, gpointer data)
 		// display property page
 		npw_druid_fill_property_page(this, page);
 	}
-	this->busy = FALSE;
+	npw_druid_set_busy (this, FALSE);
 }
 
 static void
@@ -537,6 +582,9 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 {
 	// Skip if busy
 	if (this->busy) return TRUE;
+		
+	/* Set busy */
+	npw_druid_set_busy (this, TRUE);
 
 	this->page++;
 	if (this->page == 1)
@@ -561,7 +609,8 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 		// Current is one of the property page
 		gchar *mandatory_property;
 		
-		mandatory_property = npw_druid_save_all_values(this);
+		// mandatory_property = npw_druid_save_all_values(this);
+		mandatory_property = npw_druid_save_valid_values(this);
 		if (mandatory_property)
 		{
 			// Show error message.
@@ -570,6 +619,9 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 									  mandatory_property);
 			this->page--;
 			g_free (mandatory_property);
+			
+			/* Unset busy */
+			npw_druid_set_busy (this, FALSE);
 			return TRUE;
 		}
 		npw_autogen_add_definition(this->gen, g_queue_peek_nth(this->page_list, this->page - 2));
@@ -580,7 +632,6 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	this->parser = npw_page_parser_new(npw_druid_add_new_page(this), this->project_file, this->page - 1);
 	npw_autogen_set_output_callback(this->gen, on_druid_parse_page, this->parser);
 	npw_autogen_execute(this->gen, on_druid_get_new_page, this);
-	this->busy = TRUE;
 
 	return TRUE;
 }
@@ -594,6 +645,8 @@ on_druid_back(GnomeDruidPage* dpage, GtkWidget* widget, NPWDruid* druid)
 	if (druid->busy) return TRUE;
 
 	g_return_val_if_fail(druid->page > 0, TRUE);
+
+	npw_druid_save_old_values(druid);
 
 	page = npw_druid_remove_current_page(druid);
 	if (page != NULL)
@@ -613,21 +666,6 @@ on_druid_back(GnomeDruidPage* dpage, GtkWidget* widget, NPWDruid* druid)
 static void
 on_druid_finish(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* druid)
 {
-/*	NPWInstall* inst;
-
-	inst =npw_install_new(druid->page_list);
-	druid->page_list = NULL;
-	npw_install_start(npw_header_get_filename(druid->header));
-
-	npw_destroy_druid(druid);*/
-/*	NPWFileList* list;
-
-	list = npw_file_list_new();
-	npw_file_list_read(list, npw_header_get_filename(druid->header));
-	npw_file_list_install(list);
-
-	npw_destroy_druid(druid);*/
-
 	NPWInstall* inst;
 
 	inst = npw_install_new(druid->plugin);
@@ -635,7 +673,7 @@ on_druid_finish(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* druid)
 	npw_install_set_wizard_file(inst, npw_header_get_filename(druid->header));
 	npw_install_launch(inst);
 
-	npw_destroy_druid(druid);
+	npw_druid_destroy(druid);
 }
 
 static void
@@ -667,6 +705,7 @@ npw_druid_new(NPWPlugin* plugin)
 		return NULL;
 	}
 
+	this->property_value = npw_property_values_new();
 	// Get reference on all useful widget
 	this->dialog = glade_xml_get_widget(xml, NEW_PROJECT_DIALOG);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog),
@@ -683,6 +722,9 @@ npw_druid_new(NPWPlugin* plugin)
 	this->page_list = NULL;
 	this->gen = npw_autogen_new();
 	this->plugin = plugin;
+
+	// Add dialog widget to anjuta status.
+	anjuta_status_add_widget (anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL), this->dialog);
 
 	npw_druid_complete_edge_pages(this, xml);
 	npw_druid_connect_all_signal(this, xml);
@@ -708,3 +750,19 @@ npw_druid_show(NPWDruid* this)
 		gtk_window_present(GTK_WINDOW(this->dialog));
 }
 
+void
+npw_druid_set_busy (NPWDruid *this, gboolean busy_state)
+{
+	if (this->busy == busy_state)
+		return;
+	
+	/* Set busy state */
+	gnome_druid_set_buttons_sensitive (GNOME_DRUID (this->druid),
+									   !busy_state, !busy_state,
+									   !busy_state, TRUE);
+	if (busy_state)
+		anjuta_status_busy_push (anjuta_shell_get_status (ANJUTA_PLUGIN(this->plugin)->shell, NULL));
+	else
+		anjuta_status_busy_pop (anjuta_shell_get_status (ANJUTA_PLUGIN(this->plugin)->shell, NULL));
+	this->busy = busy_state;
+}

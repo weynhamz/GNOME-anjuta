@@ -32,8 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
-#include <libegg/recent-files/egg-recent-view.h>
-#include <libegg/recent-files/egg-recent-view-gtk.h>
+#include <libegg/menu/egg-recent-action.h>
 
 #include "plugin.h"
 #include "dnd.h"
@@ -288,17 +287,15 @@ open_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
 }
 
 static gboolean
-on_open_recent_file (EggRecentView *view, EggRecentItem *item,
-					 AnjutaFileLoaderPlugin *plugin)
+on_open_recent_file (EggRecentAction *action, AnjutaFileLoaderPlugin *plugin)
 {
-	gchar *uri;
+	const gchar *uri;
 	GnomeVFSURI *vfs_uri;
 	gboolean ret = TRUE;
-
-	uri = egg_recent_item_get_uri (item);
+	
+	uri = egg_recent_action_get_selected_uri (action);
 	vfs_uri = gnome_vfs_uri_new (uri);
 	open_file (plugin, uri);
-	g_free (uri);
 	gnome_vfs_uri_unref (vfs_uri);
 
 	return ret;
@@ -485,6 +482,7 @@ on_new_activate (GtkAction *action, AnjutaFileLoaderPlugin *loader)
 	g_slist_free (plugin_descs);
 }
 
+/*
 static void
 on_recent_files_tooltip (GtkTooltips *tooltips, GtkWidget *menu_item,
 						 EggRecentItem *item, gpointer user_data)
@@ -498,6 +496,7 @@ on_recent_files_tooltip (GtkTooltips *tooltips, GtkWidget *menu_item,
 
 	g_free (uri);
 }
+*/
 
 static void
 fm_open (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
@@ -587,13 +586,6 @@ static GtkActionEntry actions_file[] = {
 		"<control>o",
 		N_("Open file"),
 		G_CALLBACK (on_open_activate)
-	},
-	{
-		"ActionFileOpenRecent",
-		NULL,
-		N_("Open _Recent"),
-		NULL,
-		N_("Open recent file"), NULL
 	},
 	{
 		"ActionPopupOpen",
@@ -753,8 +745,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *action;
 	AnjutaUI *ui;
 	AnjutaFileLoaderPlugin *loader_plugin;
-	GtkWidget *recent_menu;
-	EggRecentViewGtk *recent_view;
+	// GtkWidget *recent_menu;
+	// EggRecentViewGtk *recent_view;
+	GtkActionGroup *group;
 	
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
@@ -775,29 +768,23 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_set (G_OBJECT (action), "short-label", _("Open"),
 				  "is-important", TRUE, NULL);
 
+	group = gtk_action_group_new ("ActionGroupLoaderRecent");
+	action = g_object_new (EGG_TYPE_RECENT_ACTION,
+						   "name", "ActionFileOpenRecent",
+						   "label", _("Open _Recent"),
+						   "tooltip", _("Open recent file"),
+							NULL);
+	egg_recent_action_set_model (EGG_RECENT_ACTION (action),
+								 loader_plugin->recent_files_model);
+	g_signal_connect (action, "activate",
+					  G_CALLBACK (on_open_recent_file), plugin);
+	gtk_action_group_add_action (group, action);
+	anjuta_ui_add_action_group (ui, "ActionGroupLoaderRecent",
+								N_("Open recent files"), group);
+	loader_plugin->recent_group = group;
+	
 	/* Add UI */
 	loader_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	
-	/* create Recent files menu */
-	recent_menu =
-		gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
-						"/MenuMain/MenuFile/PlaceholderFileMenus/OpenRecent");
-	if (recent_menu)
-	{
-		GtkWidget *submenu;
-		submenu = gtk_menu_new ();
-		gtk_widget_show (submenu);
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM (recent_menu), submenu);
-		recent_view = egg_recent_view_gtk_new (submenu, NULL);
-		egg_recent_view_gtk_set_tooltip_func (recent_view,
-											  on_recent_files_tooltip, NULL);
-		egg_recent_view_set_model (EGG_RECENT_VIEW (recent_view),
-								   loader_plugin->recent_files_model);
-		g_signal_connect (G_OBJECT (recent_view), "activate",
-						  G_CALLBACK (on_open_recent_file), plugin);
-	}
-	else
-		g_warning ("Cannot retrive recent files submenu widget");
 	
 	/* Install drag n drop handler */
 	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
@@ -830,6 +817,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_unmerge (ui, loader_plugin->uiid);
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, loader_plugin->action_group);
+	anjuta_ui_remove_action_group (ui, loader_plugin->recent_group);
 	return TRUE;
 }
 

@@ -34,7 +34,8 @@ libanjuta_egg_la_SOURCES = \
 	eggmarshalers.c \
 	egg-entry-action.c \
 	egg-combo-action.c \
-	eggaccelerators.c     \
+	egg-recent-action.c \
+	eggaccelerators.c \
 	eggcellrendererkeys.c \
 	eggcellrendererpopup.c \
 	egg-cell-renderer-text.c \

@@ -21,6 +21,7 @@
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="New" action="ActionFileNew" />
 			<toolitem name="Open" action="ActionFileOpen" />
+			<toolitem name="OpenRecent" action="ActionFileOpenRecent"/>
 		</placeholder>
 	</toolbar>
 </ui>

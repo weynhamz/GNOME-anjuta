@@ -52,6 +52,7 @@ npw_plugin_instance_init (GObject *obj)
 
 	plugin->druid = NULL;
 	plugin->install = NULL;
+	plugin->view = NULL;
 }
 
 static void
