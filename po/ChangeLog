@@ -1,3 +1,9 @@
+2001-11-05	Andy Piper	<andy.piper@freeuk.com>
+
+	* status.pl: altered the XML format output by the script. It
+	  is now well-formed XML (although no DTD or Schema exists).
+	  Added new countries to the hash table and corrected typos.
+
 2001-11-04  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
