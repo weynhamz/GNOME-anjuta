@@ -22,7 +22,7 @@
 	* Makefile.am: Installs destop file properly.
 	* configure.in: Bumped version to 1.1.97 (RC1 for 1.2.0 stable).
 	* NEWS: Updated for 1.1.97 release.
-	* gdl/Makefile.am, widgets/Makefile.am: Fixed libintl.h include error.
+	* src/main_menubar_def.h: Changed some non working shortcuts.
 	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 

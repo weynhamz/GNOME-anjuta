@@ -853,31 +853,31 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 N_("Show breakpoints editor window"),
 	 on_breakpoints1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F5, GDK_SHIFT_MASK, NULL},
+	 GDK_F2, GDK_SHIFT_MASK, NULL},
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("_Registers"),
 	 N_("Show CPU registers and their contents"),
 	 on_registers1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F6, GDK_SHIFT_MASK, NULL},
+	 GDK_F3, GDK_SHIFT_MASK, NULL},
 	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("Shared _Libraries"),
 	 N_("Show shared libraries loaded by the program"),
 	 on_shared_lib1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F7, GDK_SHIFT_MASK, NULL},
+	 GDK_F5, GDK_SHIFT_MASK, NULL},
 	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("_Kernel Signals"),
 	 N_("Show the kernel signals editor window"),
 	 on_kernal_signals1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F8, GDK_SHIFT_MASK, NULL},
+	 GDK_F7, GDK_SHIFT_MASK, NULL},
 	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("Memory _Dump"),
 	 N_("Show memory dump window"),
 	 on_info_memory_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_F9, GDK_SHIFT_MASK, NULL},
+	 GDK_F8, GDK_SHIFT_MASK, NULL},
 	GNOMEUIINFO_END /*13*/
 };
 
@@ -1790,7 +1790,7 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	 N_("The GNOME API pages"),
 	 on_gnome_pages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
-	 GDK_F1, 0, NULL},
+	 GDK_F1, GDK_SHIFT_MASK, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Browse _Man Pages"),
 	 N_("The good old manual pages"),

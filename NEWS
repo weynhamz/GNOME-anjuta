@@ -33,6 +33,7 @@ Bug fix: Fixed glade/glade-2 confusion in generated projects.
 Bug fix: Multiple file selection works now.
 Bug fix: Fixed failure in poping up search combo puldown (in main menu).
 Bug fix: And many more critical/non-critical bug fixes.
+Bug fix: Fixed non-working shortcuts (changed to working ones).
 
 Anjuta 1.1.1-beta   (05 May 2003)     -- Naba Kumar
 
