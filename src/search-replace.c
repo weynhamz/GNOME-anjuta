@@ -590,7 +590,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 			g_warning("PCRE Match error");
 			return NULL;
 		}
-		else
+		else if (PCRE_ERROR_NOMATCH != status)
 		{
 			mi = g_new0(MatchInfo, 1);
 			mi->pos = s->re->ovector[0];
@@ -1434,7 +1434,7 @@ void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 
 static void search_replace_populate(void)
 {
-	char *s;
+	char *s = NULL;
 	char *max = NULL;
 	
 	if (NULL == sr) /* Create a new SearchReplace instance */

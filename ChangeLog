@@ -1,3 +1,7 @@
+2003-03-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* scripts/anjuta_import.sh.in: Improve project import
+	* src/search-replace.c: Bugfixes.
+
 2003-03-01  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.spec.in, configure.in, data/Makefile.am
 	, data/welcome.txt.in, data/licence.txt, scripts/Makefile.am

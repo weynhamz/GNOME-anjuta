@@ -7,8 +7,14 @@
 
 # Template file is in data dir, so:
 # TEMPLATE="$(dirname $0)/anjuta_project.template"
+
+# Run the user's customized file (if any)
+if [ -s "$HOME/.anjuta/importrc" ]; then
+  . $HOME/.anjuta/anjutarc
+fi
+
 TEMPLATE="@PACKAGE_DATA_DIR@/anjuta_project.template"
-AN_SKIP_DIRS=${AN_SKIP_DIRS:-"intl"}
+AN_SKIP_DIRS=${AN_SKIP_DIRS:-"intl CVS"}
 AN_SOURCE_EXTN=${AN_SOURCE_EXTN:-"c C cpp cxx cc java"}
 AN_HEADER_EXTN=${AN_HEADER_EXTN:-"h H hxx hpp hh"}
 AN_PIXMAP_EXTN=${AN_IMAGE_EXTN:-"jpeg jpg png gif xpm bmp ico tiff"}
@@ -36,6 +42,13 @@ if [ "$DIR" != '.' ]; then
     \rm -f ${TMPFILE}
     exit 1
   fi
+fi
+
+# We are now in the directory which is to be imported.
+# Check fi there is a anjuta customization file here
+# Run it if necessary
+if [ -s ".anjutarc" ]; then
+  . .anjutarc
 fi
 
 if [ -f "configure.in" ]; then
