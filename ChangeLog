@@ -1,3 +1,9 @@
+2004-01-16  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* scintilla/Makefile.am, scintilla/scintilla_marshal.[c/h/list],
+	scintilla/ScintillaGTK.cxx:
+	Hopefully fixed AMD 64 crash bug by using correct marshaller
+
 2004-01-16  Franco Catrin L. <fcatrin@tuxpan.com>
 
 	* Save GtkOptionMenu properties properly

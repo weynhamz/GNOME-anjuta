@@ -45,6 +45,7 @@
 
 #include "gtk/gtksignal.h"
 #include "gtk/gtkmarshal.h"
+#include "scintilla-marshal.h"
 
 #ifdef SCI_LEXER
 #include <glib.h>
@@ -2190,12 +2191,9 @@ void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widge
 
 #if GTK_MAJOR_VERSION < 2
 #define GTK_CLASS_TYPE(c) (c->type)
-#define SIG_MARSHAL gtk_marshal_NONE__INT_POINTER
-#define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_POINTER
-#else
-#define SIG_MARSHAL gtk_marshal_NONE__INT_INT
-#define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_INT
 #endif
+#define SIG_MARSHAL scintilla_marshal_NONE__INT_POINTER
+#define MARSHAL_ARGUMENTS GTK_TYPE_INT, GTK_TYPE_POINTER
 
 static void scintilla_class_init(ScintillaClass *klass) {
 	GtkObjectClass *object_class = (GtkObjectClass*) klass;

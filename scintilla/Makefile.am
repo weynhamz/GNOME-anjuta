@@ -53,6 +53,8 @@ libscintilla_a_SOURCES =\
 	StyleContext.h\
 	XPM.h\
 	XPM.cxx\
+	scintilla-marshal.h\
+	scintilla-marshal.c\
 	$(LEXER_SRCS)
 
 noinst_PROGRAMS = test-scintilla
@@ -94,3 +96,7 @@ update-scintilla:
 	done
 
 EXTRA_DIST=lexers.make
+
+marshallers: scintilla-marshal.list
+	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --header > scintilla-marshal.h
+	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --body > scintilla-marshal.c 
