@@ -1,3 +1,7 @@
+2003-04-09  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* src/anjuta-tools.c: Use CDATA for saving tools data.
+	* anjuta.glade, src/search-replace.c: Port from branch.
+
 2003-04-09  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade: Added (hidden) initial setup-wizard window.
@@ -17,9 +21,6 @@
 	src/watch_cbs.h, src/watch_gui.c: Ports the watch related stuff
 	to HEAD (mostly changing GtkClist to GtkTreeView). Also changed the
 	watch window to a subwindow in the notebook
-
-2003-04-09  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
-	* src/anjuta-tools.c: Use CDATA for saving tools data.
 
 2003-04-03  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* ROADMAP: Updated roadmap.
