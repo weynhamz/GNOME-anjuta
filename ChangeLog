@@ -1,5 +1,7 @@
 2003-09-03  Naba Kumar  <naba@gnome.org>
 
+	* (new) scintilla/LexEScript.cxx, scintilla/LexLout.cxx,
+	src/Makefile.am: Added lexers.
 	* scintilla/*/*: Updated...
 	* src/an_symbol_view.c: Fixed a crash bug.
 	* src/compiler_options.c, src/project_dbase.c: Fixed compile
