@@ -63,6 +63,8 @@ src/controls.h
 src/cvs.c
 src/cvs_cbs.c
 src/cvs_gui.c
+src/debug_tree.c
+src/debug_tree.h
 src/debugger.c
 src/debugger.h
 src/defaults.c
@@ -101,6 +103,8 @@ src/main_menubar.h
 src/main_menubar_def.h
 src/mainmenu_callbacks.c
 src/mainmenu_callbacks.h
+src/memory.c
+src/memory.h
 src/message-manager-dock.c
 src/message-manager-dock.h
 src/message-manager-private.cc

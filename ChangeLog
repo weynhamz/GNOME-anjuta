@@ -1,3 +1,8 @@
+2002-10-29  Naba Kumar <naba@gnome.org>
+
+	* po/POTFILES.in: Updated.
+	* po/POTFILES.skip: Added.
+
 2002-10-28  Naba Kumar <naba@gnome.org>
 	
 	* data/user.properties, data/Makefile.am: Added user properties file
