@@ -511,7 +511,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, GDK_CONTROL_MASK, NULL}, 
     {/*11*/
-	 GNOME_APP_UI_ITEM, N_("Previous occurence"),
+	 GNOME_APP_UI_ITEM, N_("Previous occurrence"),
 	 N_("Find the previous occurrence of current word"),
 	 on_prev_occur, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,

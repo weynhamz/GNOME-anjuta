@@ -3069,7 +3069,7 @@ msgstr "この単語の次の場所を検索します"
 
 #. 21
 #: src/main_menubar_def.h:576
-msgid "Previous occurence"
+msgid "Previous occurrence"
 msgstr "前の場所へ"
 
 #: src/main_menubar_def.h:577

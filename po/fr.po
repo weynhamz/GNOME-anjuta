@@ -3092,7 +3092,7 @@ msgstr "Cherche l'occurence suivante du mot courant"
 
 #. 21
 #: src/main_menubar_def.h:576
-msgid "Previous occurence"
+msgid "Previous occurrence"
 msgstr "Occurence précédente"
 
 #: src/main_menubar_def.h:577
