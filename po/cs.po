@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-24 03:09+0100\n"
-"PO-Revision-Date: 2004-01-27 21:08+0100\n"
+"POT-Creation-Date: 2004-02-17 14:02+0100\n"
+"PO-Revision-Date: 2004-02-17 16:44+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2980,63 +2980,63 @@ msgstr "Dokončeno...úspěšně\n"
 msgid "Completed ... successful"
 msgstr "Dokončeno...úspěšně"
 
-#: src/build_project.c:76 src/compile.c:61
+#: src/build_project.c:77 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Nemohu sestavit modul. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
+#: src/build_project.c:92 src/build_project.c:155 src/compile.c:74
 msgid "Build Project"
 msgstr "Sestavit projekt"
 
-#: src/build_project.c:97 src/compile.c:76
+#: src/build_project.c:94 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "Sestavuji zdrojový adresář projektu: "
 
-#: src/build_project.c:145
+#: src/build_project.c:142
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Nemohu sestavit projekt. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:163
+#: src/build_project.c:158
 msgid "Building the whole Project: "
 msgstr "Sestavuji celý projekt: "
 
-#: src/build_project.c:196
+#: src/build_project.c:191
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr "Nemohu sestavit tarball. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:211
+#: src/build_project.c:204
 msgid "Build Distribution"
 msgstr "Sestavit distribuci"
 
-#: src/build_project.c:215
+#: src/build_project.c:208
 msgid "Building the distribution package of the Project: "
 msgstr "Sestavuji distribuční balíček projektu: "
 
-#: src/build_project.c:247
+#: src/build_project.c:240
 msgid "Do you prefer installing as root ?"
 msgstr "Dáváte přednost instalaci jako root ?"
 
-#: src/build_project.c:285
+#: src/build_project.c:278
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Nemohu automaticky generovat. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:299
+#: src/build_project.c:294
 msgid "Auto generate Project"
 msgstr "Automaticky vygenerovat projekt"
 
-#: src/build_project.c:302
+#: src/build_project.c:297
 msgid "Auto generating the Project: "
 msgstr "Automaticky generuji projekt: "
 
-#: src/build_project.c:324 src/build_project.c:362
+#: src/build_project.c:319 src/build_project.c:354
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Nemohu nainstalovat projekt. Zkontrolujte Nastavení->Příkazy."
 
-#: src/build_project.c:339 src/build_project.c:374
+#: src/build_project.c:331 src/build_project.c:362
 msgid "Install Project"
 msgstr "Nainstalovat projekt"
 
-#: src/build_project.c:341 src/build_project.c:376
+#: src/build_project.c:333 src/build_project.c:364
 msgid "Installing the Project: "
 msgstr "Instaluje projekt: "
 
@@ -7436,7 +7436,7 @@ msgstr "Autodoplnit slovo"
 msgid "There is line number %d in \"%s\"."
 msgstr "V \"%2$s\" je řádek číslo \"%1$d\"."
 
-#: src/utilities.c:736
+#: src/utilities.c:736 src/utilities.c:1246 src/utilities.c:1254
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Nemohu číst soubor: %s."
@@ -7444,6 +7444,11 @@ msgstr "Nemohu číst soubor: %s."
 #: src/utilities.c:778
 msgid "Unable to complete file copy"
 msgstr "Nemohu dokončit kopírování souboru"
+
+#: src/utilities.c:1267
+#, c-format
+msgid "Read-error while comparing %s with %s"
+msgstr "Chyba čtení při porovnávání %s s %s"
 
 #: src/watch_cbs.c:228
 msgid "< Not defined in current context >"
