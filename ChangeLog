@@ -35,6 +35,8 @@
 	libegg/test-dock.c, libegg/dock/*, libegg/Makefile.am,
 	libegg/.cvsignore: Added egg dock widget.
 
+	* gdl/*: Removed as they are now available in libegg.
+	
 2004-02-11  Franco Catrin <fcatrin@tuxpan.com>
 
 	* plugins/editor/anjuta-docman.c:
