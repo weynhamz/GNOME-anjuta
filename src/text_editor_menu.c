@@ -38,29 +38,33 @@
 static void
 on_tem_toggle_linenum_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_check_menu_item_toggled (GTK_CHECK_MENU_ITEM(
-		app->widgets.menubar.view.editor_linenos));
+	gtk_signal_emit_by_name (GTK_OBJECT
+				 (app->widgets.menubar.view.editor_linenos),
+				 "activate");
 }
 
 static void
 on_tem_toggle_marker_margin_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_check_menu_item_toggled (GTK_CHECK_MENU_ITEM(
-		app->widgets.menubar.view.editor_markers));
+	gtk_signal_emit_by_name (GTK_OBJECT
+				 (app->widgets.menubar.view.editor_markers),
+				 "activate");
 }
 
 static void
 on_tem_toggle_code_fold_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_check_menu_item_toggled (GTK_CHECK_MENU_ITEM(
-		app->widgets.menubar.view.editor_folds));
+	gtk_signal_emit_by_name (GTK_OBJECT
+				 (app->widgets.menubar.view.editor_folds),
+				 "activate");
 }
 
 static void
 on_tem_toggle_guides_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_check_menu_item_toggled (GTK_CHECK_MENU_ITEM(
-		app->widgets.menubar.view.editor_indentguides));
+	gtk_signal_emit_by_name (GTK_OBJECT
+				 (app->widgets.menubar.view.editor_indentguides),
+				 "activate");
 }
 
 GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
@@ -379,10 +383,10 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		menu->GUI = text_editor_menu;
 		menu->copy = text_editor_menu_uiinfo[0].widget;
 		menu->cut = text_editor_menu_uiinfo[1].widget;
-		menu->autoformat = text_editor_menu_uiinfo[5].widget;
-		menu->swap = text_editor_menu_uiinfo[6].widget;
-		menu->functions = text_editor_menu_uiinfo[10].widget;
-		menu->debug = text_editor_menu_uiinfo[12].widget;
+		menu->autoformat = text_editor_menu_uiinfo[7].widget;
+		menu->swap = text_editor_menu_uiinfo[8].widget;
+		menu->functions = text_editor_menu_uiinfo[12].widget;
+		menu->debug = text_editor_menu_uiinfo[14].widget;
 
 		gtk_widget_ref (menu->GUI);
 		gtk_widget_ref (menu->copy);

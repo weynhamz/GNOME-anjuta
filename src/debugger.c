@@ -37,6 +37,8 @@
 #include "fileselection.h"
 #include "anjuta_info.h"
 
+/* #define ANJUTA_DEBUG_DEBUGGER */
+
 Debugger debugger;
 
 static void on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
@@ -1233,8 +1235,11 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 		str[i] = tolower (str[i]);
 		i++;
 	}
-	str = strstr (lines->data, "pid ");
-	if (str)
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("Process recognization string: %s\n", str);
+#endif
+	
+	if ((str = strstr (lines->data, "pid "))) /* For gdb version < ver 5.0 */
 	{
 		if (sscanf (str, "pid %ld", &pid) != 1)
 		{
@@ -1242,22 +1247,26 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 			goto down;
 		}
 	}
-	else /* A quick hack for gdb version 5.0 */
+	else if ((str = strstr (lines->data, "process "))) /* A quick hack for gdb version 5.0 */
 	{
-		str = strstr (lines->data, "process ");
-		if (str)
-		{
-			if (sscanf (str, "process %ld", &pid) != 1)
-			{
-				error = TRUE;
-				goto down;
-			}
-		}
-		else
+		if (sscanf (str, "process %ld", &pid) != 1)
 		{
 			error = TRUE;
 			goto down;
 		}
+	}
+	else if ((str = strstr (lines->data, "thread "))) /* A quick hack for threaded program */
+	{
+		if (sscanf (str, "thread %ld", &pid) != 1)
+		{
+			error = TRUE;
+			goto down;
+		}
+	}
+	else /* Nothing known about this perticular process recognization string */
+	{
+		error = TRUE;
+		goto down;
 	}
 
  down:

@@ -966,6 +966,7 @@ on_indent1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (te == NULL)
 		return;
 	text_editor_autoformat (te);
+	anjuta_update_title();
 }
 
 void

@@ -1,3 +1,17 @@
+2001-08-08  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* debugger.c: Fixed a bug associated with debugging threaded
+	  application.
+	
+	* text_editor_menu.c: Fixed broken ui in text editor
+	  pop up menu.
+	  
+	* text_editor_menu.c: Now the option sub menu in text editor pop up
+	  works.
+	
+	* mainmenu_callbacks.c: Fixed "no-modified" bug with autoformat.
+		(suggested by lord sibn <sibn@utspl.cjb.net> )
+	
 2001-08-07  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/text_editor_menu.c: Added menu item for context help
