@@ -55,13 +55,13 @@ enum {
 
 static void locals_update_controls (void);
 static void debugger_info_prg (void);
-static void on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
+static void on_debugger_open_exec_filesel_ok_clicked (GtkDialog *dlg,
 												      gpointer user_data);
-static void on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
+static void on_debugger_load_core_filesel_ok_clicked (GtkDialog *dlg,
 												      gpointer user_data);
-static void on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
+static void on_debugger_open_exec_filesel_cancel_clicked (GtkDialog *dlg,
 														  gpointer user_data);
-static void on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
+static void on_debugger_load_core_filesel_cancel_clicked (GtkDialog *dlg,
 														  gpointer user_data);
 static void debugger_stop_terminal (void);
 static void debugger_info_locals_cb (GList* list, gpointer data);
@@ -185,7 +185,7 @@ debugger_load_yourself (PropsID stream)
 }
 
 static void
-on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
+on_debugger_open_exec_filesel_ok_clicked (GtkDialog *dlg,
 					  gpointer user_data)
 {
 	gchar *filename, *command, *dir;
@@ -222,7 +222,7 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 }
 
 static void
-on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
+on_debugger_open_exec_filesel_cancel_clicked (GtkDialog *dlg,
 					      gpointer user_data)
 {
 
@@ -234,7 +234,7 @@ on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
 }
 
 static void
-on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
+on_debugger_load_core_filesel_ok_clicked (GtkDialog *dlg,
 					  gpointer user_data)
 {
 	gchar *filename, *command, *dir;
@@ -264,7 +264,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 }
 
 static void
-on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
+on_debugger_load_core_filesel_cancel_clicked (GtkDialog *dlg,
 					      gpointer user_data)
 {
 

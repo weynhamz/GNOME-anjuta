@@ -305,14 +305,14 @@ gint on_anjuta_window_key_release_event (GtkWidget   *widget,
 										 GdkEventKey *event,
 										 gpointer     user_data);
                
-void on_open_filesel_ok_clicked (GtkButton * button, gpointer data);
-void on_open_filesel_cancel_clicked (GtkButton * button, gpointer data);
+void on_open_filesel_ok_clicked (GtkDialog *dlg, gpointer data);
+void on_open_filesel_cancel_clicked (GtkDialog *dlg, gpointer data);
 
-void on_save_as_filesel_ok_clicked (GtkButton * button, gpointer data);
-void on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer data);
+void on_save_as_filesel_ok_clicked (GtkDialog *dlg, gpointer data);
+void on_save_as_filesel_cancel_clicked (GtkDialog *dlg, gpointer data);
 
-void on_build_msg_save_ok_clicked (GtkButton * button, gpointer user_data);
-void on_build_msg_save_cancel_clicked (GtkButton * button, gpointer user_data);
+void on_build_msg_save_ok_clicked (GtkDialog *dlg, gpointer user_data);
+void on_build_msg_save_cancel_clicked (GtkDialog *dlg, gpointer user_data);
 
 void on_prj_list_undock_button_clicked (GtkButton * button, gpointer user_data);
 void on_prj_list_hide_button_clicked (GtkButton * button, gpointer user_data);

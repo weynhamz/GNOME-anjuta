@@ -372,7 +372,7 @@ on_anjuta_window_key_release_event (GtkWidget   *widget,
 }
 
 void
-on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
+on_open_filesel_ok_clicked (GtkDialog *dlg, gpointer user_data)
 {
 	gchar *full_filename;
 	gchar *entry_filename = NULL;
@@ -490,7 +490,7 @@ save_as_real (void)
 }
 
 void
-on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
+on_save_as_filesel_ok_clicked (GtkDialog *dlg, gpointer user_data)
 {
 	gchar *filename;
 
@@ -526,7 +526,7 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer user_data)
+on_save_as_filesel_cancel_clicked (GtkDialog *dlg, gpointer user_data)
 {
 	gtk_widget_hide (app->save_as_fileselection);
 	closing_state = FALSE;
@@ -554,7 +554,7 @@ build_msg_save_real (void)
 }
 
 void
-on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
+on_build_msg_save_ok_clicked(GtkDialog *dlg, gpointer user_data)
 {
 	gchar *filename;
 
@@ -586,7 +586,7 @@ on_build_msg_save_ok_clicked(GtkButton * button, gpointer user_data)
 }
 
 void
-on_build_msg_save_cancel_clicked(GtkButton * button, gpointer user_data)
+on_build_msg_save_cancel_clicked(GtkDialog *dlg, gpointer user_data)
 {
 	gtk_widget_hide (app->save_as_build_msg_sel);
 	closing_state = FALSE;

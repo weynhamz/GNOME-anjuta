@@ -303,12 +303,12 @@ void project_dbase_update_docked_status(void);
 /* Callback signals */
 
 /* Project open file selection */
-void on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data);
-void on_open_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data);
+void on_open_prjfilesel_ok_clicked (GtkDialog *dlg, gpointer user_data);
+void on_open_prjfilesel_cancel_clicked (GtkDialog *dlg, gpointer user_data);
 
 /* Add file to project fileselection */
-void on_add_prjfilesel_cancel_clicked (GtkButton * button, gpointer user_data);
-void on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data);
+void on_add_prjfilesel_cancel_clicked (GtkDialog *dlg, gpointer user_data);
+void on_add_prjfilesel_ok_clicked (GtkDialog *dlg, gpointer user_data);
 
 /* Menu callbacks */
 void on_project_add_new1_activate (GtkMenuItem * menuitem, gpointer user_data);

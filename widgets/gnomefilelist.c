@@ -121,7 +121,7 @@ on_row_activated_file  (GtkTreeView     *treeview, GtkTreePath     *arg1,
 
 /* end function declarations */
 
-static GtkWindowClass *parent_class = NULL;
+static GtkDialogClass *parent_class = NULL;
 
 GtkType
 gnome_filelist_get_type (void)
@@ -141,7 +141,7 @@ gnome_filelist_get_type (void)
 			(GtkClassInitFunc) NULL,
 		};
 
-		filelist_type = gtk_type_unique (GTK_TYPE_WINDOW, &filelist_info);
+		filelist_type = gtk_type_unique (GTK_TYPE_DIALOG, &filelist_info);
 	}
 
 	return (filelist_type);
@@ -154,7 +154,7 @@ gnome_filelist_class_init (GnomeFileListClass * klass)
 
 	object_class = (GtkObjectClass *) klass;
 	object_class->destroy = gnome_filelist_destroy;
-	parent_class = gtk_type_class (GTK_TYPE_WINDOW);
+	parent_class = gtk_type_class (GTK_TYPE_DIALOG);
 }
 
 static void
@@ -188,7 +188,7 @@ gnome_filelist_new_with_path (const gchar * path)
 	GtkWidget *paned;
 	GtkWidget *label;
 	GtkWidget *combolabel;
-	GtkWidget *hsep;
+	// GtkWidget *hsep;
 	GtkWidget *parent_button;
 	GtkWidget *refresh_button;
 	GList *combolist = NULL;
@@ -209,7 +209,7 @@ gnome_filelist_new_with_path (const gchar * path)
 	gtk_signal_connect (GTK_OBJECT (file_list), "hide",
 						GTK_SIGNAL_FUNC (gnome_filelist_hide), file_list);
 	main_box = gtk_vbox_new (FALSE, 5);
-	gtk_container_add (GTK_CONTAINER (file_list), main_box);
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(file_list)->vbox), main_box);
 	gtk_widget_show (main_box);
 
 	toolbar = gtk_toolbar_new ();
@@ -480,29 +480,35 @@ gnome_filelist_new_with_path (const gchar * path)
 
 	gtk_widget_show (file_list->filetype_combo);
 
-	hsep = gtk_hseparator_new ();
-	gtk_box_pack_start (GTK_BOX (main_box), hsep, FALSE, FALSE, 10);
-	gtk_widget_show (hsep);
+	// hsep = gtk_hseparator_new ();
+	// gtk_box_pack_start (GTK_BOX (main_box), hsep, FALSE, FALSE, 10);
+	// gtk_widget_show (hsep);
 
-	util_box = gtk_hbutton_box_new ();
-	gtk_box_pack_start (GTK_BOX (main_box), util_box, FALSE, FALSE, 0);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (util_box), GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (util_box), GNOME_PAD);
-	gtk_widget_show (util_box);
+	// util_box = gtk_hbutton_box_new ();
+	// gtk_box_pack_start (GTK_BOX (main_box), util_box, FALSE, FALSE, 0);
+	// gtk_button_box_set_layout (GTK_BUTTON_BOX (util_box), GTK_BUTTONBOX_END);
+	// gtk_button_box_set_spacing (GTK_BUTTON_BOX (util_box), GNOME_PAD);
+	// gtk_widget_show (util_box);
 
-	file_list->cancel_button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
-	gtk_box_pack_start (GTK_BOX (util_box), file_list->cancel_button, FALSE,
-						FALSE, 5);
-	GTK_WIDGET_SET_FLAGS (file_list->cancel_button, GTK_CAN_DEFAULT);
-	gtk_widget_show (file_list->cancel_button);
+	// file_list->cancel_button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+	// gtk_box_pack_start (GTK_BOX (util_box), file_list->cancel_button, FALSE,
+	// 					FALSE, 5);
+	// GTK_WIDGET_SET_FLAGS (file_list->cancel_button, GTK_CAN_DEFAULT);
+	// gtk_widget_show (file_list->cancel_button);
 
-	file_list->ok_button = gtk_button_new_from_stock (GTK_STOCK_OK);
-	gtk_box_pack_start (GTK_BOX (util_box), file_list->ok_button, FALSE, FALSE,
-						5);
-	GTK_WIDGET_SET_FLAGS (file_list->ok_button, GTK_CAN_DEFAULT);
-	gtk_widget_set_sensitive (file_list->ok_button, FALSE);
-	gtk_widget_show (file_list->ok_button);
-
+	// file_list->ok_button = gtk_button_new_from_stock (GTK_STOCK_OK);
+	// gtk_box_pack_start (GTK_BOX (util_box), file_list->ok_button, FALSE, FALSE,
+	// 					5);
+	// GTK_WIDGET_SET_FLAGS (file_list->ok_button, GTK_CAN_DEFAULT);
+	// gtk_widget_set_sensitive (file_list->ok_button, FALSE);
+	// gtk_widget_show (file_list->ok_button);
+	
+	gtk_dialog_add_buttons (GTK_DIALOG (file_list), GTK_STOCK_CANCEL,
+							GTK_RESPONSE_CANCEL, GTK_STOCK_OK,
+							GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (file_list),
+									   GTK_RESPONSE_OK, FALSE);
+	
 	file_list->folder_pixbuf =
 		gdk_pixbuf_new_from_file (FILE_PIXMAP_FOLDER, NULL);
 
@@ -511,8 +517,9 @@ gnome_filelist_new_with_path (const gchar * path)
 
 	file_list->changedironcombo = FALSE;
 
-	gtk_widget_grab_default (file_list->ok_button);
-	gtk_widget_grab_focus (file_list->ok_button);
+	gtk_dialog_set_default_response (GTK_DIALOG (file_list), GTK_RESPONSE_OK);
+	// gtk_widget_grab_default (file_list->ok_button);
+	// gtk_widget_grab_focus (file_list->ok_button);
 
 	return GTK_WIDGET (file_list);
 }
@@ -1085,8 +1092,9 @@ on_row_activated_file  (GtkTreeView     *treeview, GtkTreePath     *arg1,
 						GtkTreeViewColumn *arg2, GnomeFileList   *file_list)
 {
 	set_file_selection (file_list);
-	gtk_signal_emit_by_name (GTK_OBJECT (file_list->ok_button),
-							 "clicked", NULL);
+	gtk_dialog_response (GTK_DIALOG (file_list), GTK_RESPONSE_OK);
+	// gtk_signal_emit_by_name (GTK_OBJECT (file_list->ok_button),
+	//						 "clicked", NULL);
 }
 
 static void
@@ -1684,13 +1692,17 @@ check_ok_button_cb (GtkWidget * widget, GnomeFileList * file_list)
 
 	if (gnome_filelist_check_dir_exists (s))
 	{
-		gtk_widget_set_sensitive (file_list->ok_button, FALSE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (file_list),
+										   GTK_RESPONSE_OK, FALSE);
+		// gtk_widget_set_sensitive (file_list->ok_button, FALSE);
 		gtk_widget_set_sensitive (file_list->delete_button, FALSE);
 		gtk_widget_set_sensitive (file_list->rename_button, FALSE);
 	}
 	else
 	{
-		gtk_widget_set_sensitive (file_list->ok_button, TRUE);
+		gtk_dialog_set_response_sensitive (GTK_DIALOG (file_list),
+										   GTK_RESPONSE_OK, TRUE);
+		// gtk_widget_set_sensitive (file_list->ok_button, TRUE);
 		if (selected && strlen (selected) && check_if_file_exists (s) &&
 			check_can_modify (s))
 		{
@@ -1827,10 +1839,11 @@ check_goto (GtkWidget * widget, GnomeFileList * file_list)
 	selected = gtk_entry_get_text (GTK_ENTRY (file_list->selection_entry));
 	string = build_full_path (path, selected);
 
-	if (!gnome_filelist_set_dir (file_list, string) &&
-		GTK_WIDGET_IS_SENSITIVE (file_list->ok_button))
-		gtk_signal_emit_by_name (GTK_OBJECT (file_list->ok_button), "clicked",
-								 NULL);
+	if (!gnome_filelist_set_dir (file_list, string) /* &&
+		GTK_WIDGET_IS_SENSITIVE (file_list->ok_button) */)
+		gtk_dialog_response (GTK_DIALOG (file_list), GTK_RESPONSE_OK);
+		// gtk_signal_emit_by_name (GTK_OBJECT (file_list->ok_button), "clicked",
+		//						 NULL);
 	else
 		file_list->history_position = -1;
 	g_free (string);

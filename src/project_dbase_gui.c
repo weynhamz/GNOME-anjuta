@@ -126,7 +126,7 @@ on_project_dbase_win_delete_event (GtkWidget * w, GdkEvent * event,
 }
 
 void
-on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
+on_open_prjfilesel_ok_clicked (GtkDialog *dlg, gpointer user_data)
 {
 	ProjectDBase *p = app->project_dbase;
 	if (p->project_is_open)
@@ -1320,7 +1320,7 @@ on_prj_import_confirm_yes (GtkButton * button, gchar* filename,
 }
 
 void
-on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
+on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 {
 	ProjectDBase *p = (ProjectDBase *) user_data;
 	GList *list, *node;

@@ -27,8 +27,8 @@ struct _FileSelData
 {
   char title[MAX_NAME_LENGTH];
   gpointer data;
-  void (*click_ok_callback)(GtkButton*, gpointer);
-  void (*click_cancel_callback)(GtkButton*, gpointer);
+  void (*click_ok_callback)(GtkDialog*, gpointer);
+  void (*click_cancel_callback)(GtkDialog*, gpointer);
   GtkWidget *filesel;
   
 };
