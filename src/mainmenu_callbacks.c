@@ -1798,7 +1798,9 @@ on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
 {
 	gchar* prj;
 	prj = app->project_dbase->top_proj_dir;
-	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, TRUE);
+	
+	/* Do not bypass dialog for commit as we need to get the log */
+	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, prj, FALSE);
 }
 
 void

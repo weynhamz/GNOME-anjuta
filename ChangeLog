@@ -1,5 +1,12 @@
 2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/mainmenu_callbacks.c:
+	
+	  Project commit should not bypass dialog as
+	  we need to get the cvs log from the user.
+	  
+2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/project_dbase.c:
 	
 	  Patch from Roy Wood <roy.wood@filogix.com>
