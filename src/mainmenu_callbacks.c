@@ -1925,6 +1925,15 @@ on_set_preferences1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_edit_user_properties1_activate           (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
+{
+	gchar* user_propfile = g_strconcat (app->dirs->data, "/properties/user.properties", NULL);
+	anjuta_goto_file_line_mark (user_propfile, 1, FALSE);
+	g_free (user_propfile);
+}
+
+void
 on_set_default_preferences1_activate (GtkMenuItem * menuitem,
 				      gpointer user_data)
 {

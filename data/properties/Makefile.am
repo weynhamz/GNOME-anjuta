@@ -5,6 +5,7 @@ properties_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties
 properties_data_DATA = \
 	ada.properties \
 	anjuta.properties \
+	user.properties \
 	cs.properties \
 	make.properties \
 	rc.properties \

@@ -1,4 +1,18 @@
 2002-10-28  Naba Kumar <naba@gnome.org>
+	
+	* data/user.properties, data/Makefile.am: Added user properties file
+	which will be copied in user's ~/.anjuta/user.properties.
+	
+	* data/anjuta.properties: Changed a comment.
+	
+	* macros/gnome-pilot.m4: Upgraged to the cvs head of gnome-macros.
+	
+	* src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h, src/preferences.c:
+	Adde [Settings]->[Preferences]->[Edit user.properties file ...] menu
+	item.
+
+2002-10-28  Naba Kumar <naba@gnome.org>
 
     * manuals/C/anjuta-manual/figures/editor_guides.png,
     manuals/C/anjuta-manual/figures/editor_margins.png,

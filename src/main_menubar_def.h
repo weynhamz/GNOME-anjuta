@@ -1674,7 +1674,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_END,
 };
 
-#define NUM_SETTINGS_SUBMENUS 7
+#define NUM_SETTINGS_SUBMENUS 8
 static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Compiler and Linker Settings ..."),
@@ -1702,18 +1702,24 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
 	 0, 0, NULL},
 	{/*5*/
+	 GNOME_APP_UI_ITEM, N_("_Edit user.properties file ..."),
+	 N_("Edit user properties file"),
+	 on_edit_user_properties1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
+	 0, 0, NULL},
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Set _Default Preferences"),
 	 N_("But I prefer tea."),
 	 on_set_default_preferences1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
 	 0, 0, NULL},
-	{/*6*/
+	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("Customize shortcuts"),
 	 N_("Customize shortcuts associated with menu items"),
 	 on_customize_shortcuts_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END,/*7*/
+	GNOMEUIINFO_END,/*8*/
 };
 
 #define NUM_HELP_SUBMENUS 18

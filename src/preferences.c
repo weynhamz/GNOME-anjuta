@@ -110,6 +110,13 @@ preferences_new ()
 
 		propdir = g_strconcat (app->dirs->home, "/.anjuta/", NULL);
 		propfile = g_strconcat (propdir, "user.properties", NULL);
+		
+		/* Create user.properties file, if it doesn't exist */
+		if (file_is_regular (propfile) == FALSE) {
+			gchar* user_propfile = g_strconcat (app->dirs->data, "/properties/user.properties", NULL);
+			copy_file (user_propfile, propfile, FALSE);
+			g_free (user_propfile);
+		}
 		prop_read (pr->props_local, propfile, propdir);
 		g_free (propdir);
 		g_free (propfile);

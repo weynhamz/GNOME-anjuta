@@ -267,6 +267,7 @@ struct _SettingsSubMenu
 	GtkWidget *src_paths;
 	GtkWidget *commands;
 	GtkWidget *preferences;
+	GtkWidget *user_properties;
 	GtkWidget *default_preferences;
 	GtkWidget *shortcuts;
 };
