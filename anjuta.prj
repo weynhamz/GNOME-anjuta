@@ -462,6 +462,10 @@ module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/warnings.png\
 	manuals/C/anjuta-manual/figures/watch.png\
 	manuals/C/anjuta-manual/figures/watch_add.png\
+	manuals/C/anjuta-tutorial/figures/divided.png\
+	manuals/C/anjuta-tutorial/figures/glade-l.png\
+	manuals/C/anjuta-tutorial/figures/icons.png\
+	manuals/C/anjuta-tutorial/figures/interface.png\
 	pixmaps/add.xpm\
 	pixmaps/anjuta_icon.png\
 	pixmaps/anjuta_logo.png\
@@ -606,7 +610,7 @@ module.pixmap.files=\
 	pixmaps/sv_protected_var.xpm\
 	pixmaps/sv_public_fun.xpm\
 	pixmaps/sv_public_var.xpm\
-	pixmaps/sv_static_fun.xpm\
+	pixmaps/sv_static_fun.xpm\doc
 	pixmaps/sv_static_var.xpm\
 	pixmaps/sv_struct.xpm\
 	pixmaps/sv_unknown.xpm\
@@ -657,6 +661,7 @@ module.doc.files=\
 	manuals/C/anjuta-manual/projects.sgml\
 	manuals/C/anjuta-manual/template.sgml\
 	manuals/C/anjuta-manual/license.sgml\
+	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml\
 	po/ChangeLog\
 	macros/ChangeLog
 
