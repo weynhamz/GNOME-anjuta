@@ -320,7 +320,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 /* Writes tool information to the given file in xml format */
 #define STRWRITE(p) if (tool->p && '\0' != tool->p[0]) \
 	{\
-		if (1 > fprintf(f, "\t\t<%s>%s</%s>\n", #p, tool->p, #p))\
+		if (1 > fprintf(f, "\t\t<%s><![CDATA[%s]]></%s>\n", #p, tool->p, #p))\
 			return FALSE;\
 	}
 #define NUMWRITE(p) if (1 > fprintf(f, "\t\t<%s>%d</%s>\n", #p, tool->p, #p))\
