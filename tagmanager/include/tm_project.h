@@ -129,9 +129,11 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
  called by tm_work_object_find().
  \param project The project in which the file is to be searched.
  \param The name of the file to be searched.
+ \param name_only Whether the comparison is to be only on name (not full path)
  \return Pointer the file (TMSourceFile) in the project. NULL if the file was not found.
 */
-TMWorkObject *tm_project_find_file(TMWorkObject *work_object, const char *file_name);
+TMWorkObject *tm_project_find_file(TMWorkObject *work_object, const char *file_name
+  , gboolean name_only);
 
 /*! Destroys a member object and removes it from the project list.
  \param project The project from the file is to be removed.

@@ -69,10 +69,12 @@ gboolean tm_workspace_add_object(TMWorkObject *work_object);
  overloaded version of tm_work_object_find().
  \param work_object Pointer to the workspace.
  \param file_name The name of the file to search.
+ \param name_only If you want to match just the name and not the full path.
  \return Pointer to the work object matching the file name (NULL if not found).
  \sa tm_work_object_find(), tm_project_find_file().
 */
-TMWorkObject *tm_workspace_find_object(TMWorkObject *work_object, const char *file_name);
+TMWorkObject *tm_workspace_find_object(TMWorkObject *work_object, const char *file_name
+  ,gboolean name_only);
 
 /*! Removes a member object from the workspace if it exists.
  \param work_object Pointer to the work object to be removed.

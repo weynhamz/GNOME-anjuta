@@ -58,6 +58,11 @@ typedef void (*TMFileEntryFunc) (TMFileEntry *entry, gpointer user_data
 /*! Convinience casting macro */
 #define TM_FILE_ENTRY(E) ((TMFileEntry *) (E))
 
+/*! Function that compares two file entries on name and returns the
+ difference
+*/
+gint tm_file_entry_compare(TMFileEntry *e1, TMFileEntry *e2);
+
 /*! Function to create a new file entry structure.
 \param path Path to the file for which the entry is to be created.
 \param parent SHould be NULL for the first call. Since the function calls

@@ -63,10 +63,11 @@ typedef enum
 	tm_tag_union_t = 8192, /*!< Union */
 	tm_tag_variable_t = 16384, /*!< Variable */
 	tm_tag_externvar_t = 32768, /*!< Extern or forward declaration */
-	tm_tag_macro_t = 65536, /*!< Macro (without arguments) */
+	tm_tag_macro_t = 65536, /*!<  Macro (without arguments) */
 	tm_tag_macro_with_arg_t = 131072, /*!< Parameterized macro */
 	tm_tag_file_t = 262144, /*!< File (Pseudo tag) */
-	tm_tag_max_t = 524287 /*!< Maximum value of TMTagType */
+	tm_tag_other_t = 524288, /*!< Other (non C/C++/Java tag) */
+	tm_tag_max_t = 1048575 /*!< Maximum value of TMTagType */
 } TMTagType;
 
 /*!
@@ -94,13 +95,16 @@ typedef enum
 	tm_tag_attr_access_t = 2048, /*!< Access type (public/protected/private) */
 	tm_tag_attr_impl_t = 4096, /*!< Implementation (e.g. virtual) */
 	tm_tag_attr_lang_t = 8192, /*!< Language (File tag only) */
-	tm_tag_attr_max_t = 16383 /*!< Maximum value */
+	tm_tag_attr_inactive_t = 16384, /*!< Inactive file (File tag only) */
+	tm_tag_attr_max_t = 32767 /*!< Maximum value */
 } TMTagAttrType;
 
 /*! Tag access type for C++/Java member functions and variables */
 #define TAG_ACCESS_PUBLIC 'p' /*!< Public member */
 #define TAG_ACCESS_PROTECTED 'r' /*!< Protected member */
 #define TAG_ACCESS_PRIVATE 'v' /*!< Private member */
+#define TAG_ACCESS_FRIEND 'f' /*!< Friend members/functions */
+#define TAG_ACCESS_DEFAULT 'd' /*!< Default access (Java) */
 #define TAG_ACCESS_UNKNOWN 'x' /*!< Unknown access type */
 
 /*! Tag implementation type for functions */
@@ -130,7 +134,7 @@ typedef struct _TMTag
 			char *scope; /*!< Scope of tag */
 			char *inheritance; /*!< Parent classes */
 			char *var_type; /*!< Variable type (maps to struct for typedefs) */
-			char access; /*!< Access type (public/protected/private) */
+			char access; /*!< Access type (public/protected/private/etc.) */
 			char impl; /*!< Implementation (e.g. virtual) */
 		} entry;
 		/*! These are pseudo tag attributes representing a file */
@@ -138,6 +142,7 @@ typedef struct _TMTag
 		{
 			time_t timestamp; /*!< Time of parsing of the file */
 			langType lang; /*!< Programming language of the file */
+			gboolean inactive; /*!< Whether this file is to be parsed */
 		} file;
 	} atts;
 } TMTag;

@@ -56,6 +56,7 @@ typedef struct _TMSourceFile
 {
 	TMWorkObject work_object; /*!< The base work object */
 	langType lang; /*!< Programming language used */
+	gboolean inactive; /*!< Whether this file should be scanned for tags */
 } TMSourceFile;
 
 /*! Initializes a TMSourceFile structure from a file name. */
