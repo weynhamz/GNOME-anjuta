@@ -1,3 +1,14 @@
+2001-12-31  Stephane Demurget  <demurgets@free.fr>
+
+	* plugins/*/.cvsignore: updated.
+
+
+2001-12-31  Stephane Demurget  <demurgets@free.fr>
+
+	* src/syntax.h,
+	  src/text_editor.c,
+	  src/Makefile.am: removed the empty header syntax.h.
+
 2001-12-31  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* main_menubar.c:
