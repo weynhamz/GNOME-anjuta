@@ -1,4 +1,7 @@
 2005-01-27  Naba Kumar  <naba@gnome.org>
+	
+	*libegg/eggcomboselect.c: Fix crash bug during popup close and fixed
+	minimum size request to 200.
 
 	* plugins/symbol-browser/an_symbol_info.c,
 	plugins/symbol-browser/an_symbol_info.h,

@@ -639,6 +639,13 @@ egg_combo_select_popup (EggComboSelect * combo_select)
   					G_CALLBACK (on_treeview_selection_changed), combo_select);
 }
 
+static gboolean
+destroy_widget_on_idle (gpointer data)
+{
+	gtk_widget_destroy (GTK_WIDGET (data));
+	return FALSE;
+}
+
 void
 egg_combo_select_popdown (EggComboSelect *combo_select)
 {
@@ -649,7 +656,7 @@ egg_combo_select_popdown (EggComboSelect *combo_select)
   gtk_widget_hide(combo_select->priv->popwin);
 
   g_object_unref (combo_select->priv->column);
-  gtk_widget_destroy (combo_select->priv->popwin);
+  g_idle_add (destroy_widget_on_idle, combo_select->priv->popwin);
 
   combo_select->priv->popwin = NULL;
   combo_select->priv->treeview = NULL;
@@ -1140,6 +1147,8 @@ egg_combo_select_size_request (GtkWidget *widget,
   widget->requisition.height = size;
   widget->requisition.width = size + combo_select->priv->arrow->requisition.width;
 */
+  if (box_requisition.width < 200)
+	  box_requisition.width = 200;
   widget->requisition.height = box_requisition.height;
   widget->requisition.width = box_requisition.width;
 }
@@ -1170,12 +1179,17 @@ egg_combo_select_size_allocate (GtkWidget     *widget,
   button_allocation.y += (combo_select->priv->button->allocation.height-
                         button_allocation.height) / 2;
 */
-
+  if (button_allocation.width < allocation->width -
+							    combo_select->priv->arrow->requisition.width)
+  {
+	  button_allocation.width =
+		  allocation->width - combo_select->priv->arrow->requisition.width;
+  }
   gtk_widget_size_allocate (combo_select->priv->button, &button_allocation);
 
-  button_allocation.x=combo_select->priv->button->allocation.x +
-                      combo_select->priv->button->allocation.width;
-  button_allocation.width=combo_select->priv->arrow->requisition.width;
+  button_allocation.x = combo_select->priv->button->allocation.x +
+                        combo_select->priv->button->allocation.width;
+  button_allocation.width = combo_select->priv->arrow->requisition.width;
   gtk_widget_size_allocate (combo_select->priv->arrow, &button_allocation);
 }
 
