@@ -220,7 +220,7 @@ anjuta_init_progress (gchar * description, gdouble full_value,
 void anjuta_set_progress (gdouble value);
 
 void anjuta_delete_all_marker (gint marker);
-void anjuta_delete_all_indicators ();
+void anjuta_delete_all_indicators (void);
 
 void anjuta_grab_text_focus (void);
 
@@ -372,7 +372,8 @@ void anjuta_search_sources_for_symbol(const gchar *s);
 
 void
 anjuta_order_tabs(void);
-
+gboolean anjuta_get_user_params(const gchar *prompt, const char **val);
+gboolean anjuta_set_editor_properties(void);
 
 #include "session.h"
 

@@ -1458,7 +1458,7 @@ static GnomeUIInfo info1_submenu_uiinfo[NUM_INFO_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*9*/
 };
 
-#define NUM_DEBUG_SUBMENUS 22
+#define NUM_DEBUG_SUBMENUS 23
 static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Start Debugger"),
@@ -1552,6 +1552,12 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*20*/
 	{/*21*/
+	 GNOME_APP_UI_ITEM, N_("C_ustom Command"),
+	 N_("Send a custom command to the debugger"),
+	 on_debugger_custom_command_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*22*/
 	 GNOME_APP_UI_ITEM, N_("St_op Debugger"),
 	 N_("Say goodbye to the debugger"),
 	 on_debugger_stop_activate, NULL, NULL,

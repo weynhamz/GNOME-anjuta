@@ -460,7 +460,7 @@ debugger_set_next_command ()
 }
 
 void
-debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
+debugger_put_cmd_in_queqe (const gchar cmd[], gint flags,
 			   void (*parser) (GList * outputs, gpointer data),
 			   gpointer data)
 {
@@ -565,16 +565,27 @@ debugger_start (gchar * prog)
 	gboolean ret;
 	GList *list;
 	gint i;
+	gchar *debugger_cmd = NULL;
 
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	printf("In function: debugger_start()\n");
 #endif
-	
-	if (anjuta_is_installed ("gdb", TRUE) == FALSE)
+
+	debugger_cmd = preferences_get(app->preferences, DEBUGGER_COMMAND);
+	if (NULL == debugger_cmd)
+		debugger_cmd = g_strdup("gdb");
+
+	if (anjuta_is_installed (debugger_cmd, TRUE) == FALSE)
+	{
+		g_free(debugger_cmd);
 		return;
+	}
 	if (debugger_is_active ())
+	{
+		g_free(debugger_cmd);
 		return;
+	}
 
 	debugger_set_active (TRUE);
 	debugger_set_ready (FALSE);
@@ -637,14 +648,14 @@ debugger_start (gchar * prog)
 		anjuta_set_execution_dir (tmp);
 		command_str =
 			g_strdup_printf
-			("gdb -q -f -n %s -cd=%s -x %s/gdb.init %s", dir, tmp,
+			("%s -q -f -n %s -cd=%s -x %s/gdb.init %s", debugger_cmd, dir, tmp,
 			 app->dirs->data, prog);
 		g_free (tmp);
 	}
 	else
 	{
 		command_str =
-			g_strdup_printf ("gdb -q -f -n %s -x %s/gdb.init ",
+			g_strdup_printf ("%s -q -f -n %s -x %s/gdb.init ", debugger_cmd,
 					 dir, app->dirs->data);
 	}
 	g_free (dir);
@@ -685,10 +696,11 @@ debugger_start (gchar * prog)
 				 MESSAGE_DEBUG);
 		anjuta_message_manager_append (app->messages,
 				 _
-				 ("Make sure 'gdb' is installed on the system.\n"),
+				 ("Make sure the specified debugger is installed on the system.\n"),
 				 MESSAGE_DEBUG);
 	}
 	anjuta_message_manager_show (app->messages, MESSAGE_DEBUG);
+	g_free(debugger_cmd);
 	g_free (command_str);
 }
 
@@ -1851,18 +1863,23 @@ debugger_delete_all_breakpoints ()
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
 	anjuta_message_manager_append (app->messages, _("All breakpoints deleted:\n"),
-			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
+			 MESSAGE_DEBUG);
+	debugger_execute_cmd_in_queqe ();
 }
 
 void
-debugger_custom_command ()
+debugger_custom_command (void)
 {
-
-#ifdef ANJUTA_DEBUG_DEBUGGER
-	printf("In function: debugger_custom_command()\n");
-#endif
-	
-	anjuta_not_implemented (__FILE__, __LINE__);
+	const gchar *cmd;
+	if (debugger_is_active () == FALSE)
+		return;
+	if (debugger_is_ready () == FALSE)
+		return;
+	if (anjuta_get_user_params(_("Debugger command"), &cmd))
+	{
+		debugger_put_cmd_in_queqe(cmd, DB_CMD_ALL, NULL, NULL);
+		debugger_execute_cmd_in_queqe();
+	}
 }
 
 void

@@ -74,6 +74,8 @@ struct _PreferencesWidgets
 	GtkWidget *build_jobs_spin;
 	GtkWidget *build_autosave_check;
 	GtkWidget *debugger_command;
+	GtkWidget *ui_designer;
+	GtkWidget *help_browser;
 
 	/*
 	 * * page2 
@@ -364,6 +366,8 @@ void preferences_set_build_options(Preferences* p);
 /* Miscellaneous */
 #define CHARACTER_SET "character.set"
 #define DEBUGGER_COMMAND "debugger.command"
+#define UI_DESIGNER "ui.designer"
+#define HELP_BROWSER "help.browser"
 
 /* Terminal preferences */
 #define TERMINAL_FONT			"terminal.font"

@@ -231,6 +231,7 @@ struct _DebugSubMenu
 	GtkWidget *clear_all_breakpoints;
 	GtkWidget *add_watch;
 	GtkWidget *inspect;
+	GtkWidget *custom_cmd;
 	GtkWidget *stop;
 
 	GtkWidget *info_targets;

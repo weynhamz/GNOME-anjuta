@@ -1013,7 +1013,22 @@ on_goto_next_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	project_dbase_summon_glade (app->project_dbase);
+	/* Different project types have different UI builders */
+	if (app->project_dbase->project_is_open)
+	{
+		gchar *ui_command = preferences_get(app->preferences, UI_DESIGNER);
+		if (!ui_command)
+			project_dbase_summon_glade (app->project_dbase);
+		else
+		{
+			gchar *cmd = prop_expand(app->project_dbase->props, ui_command);
+			g_free(ui_command);
+			anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
+			chdir(app->project_dbase->top_proj_dir);
+			gnome_execute_shell(app->project_dbase->top_proj_dir, cmd);
+			g_free(cmd);
+		}
+	}
 }
 
 
@@ -1983,15 +1998,29 @@ on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
 void
 on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor* te;
-	gboolean ret;
-	gchar buffer[1000];
+	gchar *help_cmd = preferences_get(app->preferences, HELP_BROWSER);
+	if (help_cmd)
+	{
+		if (anjuta_set_editor_properties())
+		{
+			gchar *cmd = prop_expand(app->project_dbase->props, help_cmd);
+			gnome_execute_shell(NULL, cmd);
+			g_free(cmd);
+		}
+		g_free(help_cmd);
+	}
+	else
+	{
+		TextEditor* te;
+		gboolean ret;
+		gchar buffer[1000];
 	
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
-	if (ret == FALSE) return;
-	anjuta_help_search(app->help_system, buffer);
+		te = anjuta_get_current_text_editor();
+		if(!te) return;
+		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
+		if (ret == FALSE) return;
+		anjuta_help_search(app->help_system, buffer);
+	}
 }
 
 void

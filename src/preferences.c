@@ -177,7 +177,10 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.build_debug_check);
 		gtk_widget_unref (pr->widgets.build_warn_undef_check);
 		gtk_widget_unref (pr->widgets.build_jobs_spin);
-		
+		gtk_widget_unref (pr->widgets.debugger_command);
+		gtk_widget_unref (pr->widgets.ui_designer);
+		gtk_widget_unref (pr->widgets.help_browser);
+
 		gtk_widget_unref (pr->widgets.auto_save_check);
 		gtk_widget_unref (pr->widgets.auto_indent_check);
 		gtk_widget_unref (pr->widgets.tab_size_spin);
@@ -374,6 +377,23 @@ preferences_sync (Preferences * pr)
 	}
 	else
 		gtk_entry_set_text(GTK_ENTRY(pr->widgets.debugger_command), "gdb");
+
+	str = preferences_get (pr, UI_DESIGNER);
+	if(str)
+	{
+		gtk_entry_set_text(GTK_ENTRY(pr->widgets.ui_designer), str);
+		g_free (str);
+	}
+	else
+		gtk_entry_set_text(GTK_ENTRY(pr->widgets.ui_designer), "glade '$(project.name).glade'");
+	str = preferences_get (pr, HELP_BROWSER);
+	if(str)
+	{
+		gtk_entry_set_text(GTK_ENTRY(pr->widgets.help_browser), str);
+		g_free (str);
+	}
+	else
+		gtk_entry_set_text(GTK_ENTRY(pr->widgets.help_browser), "devhelp -s '$(current.file.selection)'");
 
 /* Page 2 */
 
@@ -894,15 +914,63 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, BUILD_OPTION_JOBS));
 	fprintf (fp, "%s=%d\n", BUILD_OPTION_AUTOSAVE,
 		 preferences_get_int (pr, BUILD_OPTION_AUTOSAVE));
-	str = preferences_get (pr, DEBUGGER_COMMAND);
-	if(str)
+
+	/* UI designer and debugger are project specific or generic */
+	if (app->project_dbase->project_is_open)
 	{
-		fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, str);
-		g_free (str);
+		str = prop_get (pr->props_session, DEBUGGER_COMMAND);
+		if(str)
+		{
+			fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, str);
+			g_free (str);
+		}
+		else
+			fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, "gdb");
+		str = prop_get (pr->props_session, UI_DESIGNER);
+		if(str)
+		{
+			fprintf (fp, "%s=%s\n", UI_DESIGNER, str);
+			g_free (str);
+		}
+		else
+			fprintf (fp, "%s=%s\n", UI_DESIGNER, "glade '$(project.name).glade'");
+		str = prop_get (pr->props_session, HELP_BROWSER);
+		if(str)
+		{
+			fprintf (fp, "%s=%s\n", HELP_BROWSER, str);
+			g_free (str);
+		}
+		else
+			fprintf (fp, "%s=%s\n", HELP_BROWSER, "devhelp -s '$(current.file.selection)'");
 	}
 	else
-		fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, "gdb");
-		
+	{
+		str = preferences_get (pr, DEBUGGER_COMMAND);
+		if(str)
+		{
+			fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, str);
+			g_free (str);
+		}
+		else
+			fprintf (fp, "%s=%s\n", DEBUGGER_COMMAND, "gdb");
+		str = preferences_get (pr, UI_DESIGNER);
+		if(str)
+		{
+			fprintf (fp, "%s=%s\n", UI_DESIGNER, str);
+			g_free (str);
+		}
+		else
+			fprintf (fp, "%s=%s\n", UI_DESIGNER, "glade '$(project.name).glade'");
+		str = preferences_get (pr, HELP_BROWSER);
+		if(str)
+		{
+			fprintf (fp, "%s=%s\n", HELP_BROWSER, str);
+			g_free (str);
+		}
+		else
+			fprintf (fp, "%s=%s\n", HELP_BROWSER, "devhelp -s '$(current.file.selection)'");
+	}
+
 	/* Page 2 */
 	for (i = 0;; i += 2)
 	{

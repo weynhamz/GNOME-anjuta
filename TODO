@@ -8,10 +8,11 @@ Before 1.0.2:
 		o Find Usage (Should this be removed ?)
 		o Switch to header/source
 		o Customize File Browser
-	o Shortcuts for swithcing between editor/ISearch/Project Pane/Message Pane ?
+	o Shortcuts for switching between editor/ISearch/Project Pane/Message Pane ?
 	o Clean up Search/Replace GUI some more
 	o Implement Find Next shortcut for ISearch ?
 	o Restore old Find stuff ?
+	o Stop Build does not work ?
 
 General:
 --------
@@ -98,6 +99,8 @@ General:
 		c) Multi-paned and better integrated with PM (566262)
 		d) Ability to pass custom commands to the debugger and show the output (602798)
 		e) Integrate the watch window in the messages pane after Locals (599543)
+		f) Pass arbitrary user-defined command to the debugger
+		g) allow breakpoint setting when debugger is not active
 	o  More and better tranlations (Korean, etc.)
 	o  Generic GUI/usability improvements:
 		a) Two find-in-files tabs ala VC++
@@ -111,7 +114,10 @@ General:
 		j) Make file and symbol browsers work outside project mode (585416)
 		k) Customizable menus, toolbars and shortcuts (595361, 595363, 596346)
 		l) Display output in message window rather than a console (604179)
+		m) Menu item actions should be context sensitive (e.g. run with/without debugger)
 	o  Make version control more flexible (so that BitKeeper, Arch, Subversion, etc. can be used) (607873)
+		o Segregation of front-end/back-end
+		o More GUI options (for current CVS backend)
 	o  Mono (C#) support (standalone files, projects, class browser, wizards, etc.) (614374)
 	o  gnome-db support (617267)
 	o Comments in source files

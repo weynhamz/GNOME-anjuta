@@ -101,7 +101,7 @@ gboolean debugger_is_ready (void);
 gchar *debugger_start_terminal (void);
 DebuggerCommand *debugger_get_next_command (void);
 void debugger_set_next_command (void);
-void debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
+void debugger_put_cmd_in_queqe (const gchar cmd[], gint flags,
 				void (*parser) (GList * outputs,
 						gpointer data),
 				gpointer data);

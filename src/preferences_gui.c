@@ -662,9 +662,15 @@ create_preferences_page1 (Preferences * p)
 	GtkWidget *hseparator1;
 	GtkWidget *hbox1;
 	GtkWidget *hbox2;
+	GtkWidget *hbox3;
+	GtkWidget *hbox4;
 	GtkWidget *label1;
 	GtkWidget *label2;
+	GtkWidget *label3;
+	GtkWidget *label4;
 	GtkWidget *entry1;
+	GtkWidget *entry2;
+	GtkWidget *entry3;
 	GtkObject *spinbutton1_adj;
 	GtkWidget *spinbutton1;
 
@@ -732,6 +738,7 @@ create_preferences_page1 (Preferences * p)
 	gtk_widget_show (spinbutton1);
 	gtk_box_pack_start (GTK_BOX (hbox1), spinbutton1, FALSE, FALSE, 0);
 
+	/* Debugger */
 	hbox2 = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox2);
 	gtk_box_pack_start (GTK_BOX (vbox1), hbox2, FALSE, TRUE, 0);
@@ -742,9 +749,39 @@ create_preferences_page1 (Preferences * p)
 	gtk_box_pack_start (GTK_BOX (hbox2), label2, FALSE, TRUE, 0);
 	gtk_misc_set_padding (GTK_MISC (label2), 19, 0);
 
-	entry1 = gtk_entry_new_with_max_length(30);
+	entry1 = gtk_entry_new_with_max_length(50);
 	gtk_widget_show(entry1);
-	gtk_box_pack_start (GTK_BOX (hbox2), label2, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox2), entry1, FALSE, TRUE, 0);
+
+	/* UI Designer */
+	hbox3 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox3);
+	gtk_box_pack_start (GTK_BOX (vbox1), hbox3, FALSE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox3), 5);
+
+	label3 = gtk_label_new (_("UI Designer:"));
+	gtk_widget_show (label3);
+	gtk_box_pack_start (GTK_BOX (hbox3), label3, FALSE, TRUE, 0);
+	gtk_misc_set_padding (GTK_MISC (label3), 19, 0);
+
+	entry2 = gtk_entry_new_with_max_length(50);
+	gtk_widget_show(entry2);
+	gtk_box_pack_start (GTK_BOX (hbox3), entry2, FALSE, TRUE, 0);
+
+	/* Help Browser */
+	hbox4 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox4);
+	gtk_box_pack_start (GTK_BOX (vbox1), hbox4, FALSE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox4), 5);
+
+	label4 = gtk_label_new (_("Help Browser:"));
+	gtk_widget_show (label4);
+	gtk_box_pack_start (GTK_BOX (hbox4), label4, FALSE, TRUE, 0);
+	gtk_misc_set_padding (GTK_MISC (label4), 19, 0);
+
+	entry3 = gtk_entry_new_with_max_length(50);
+	gtk_widget_show(entry3);
+	gtk_box_pack_start (GTK_BOX (hbox4), entry3, FALSE, TRUE, 0);
 	
 	p->widgets.build_keep_going_check = checkbutton1;
 	p->widgets.build_silent_check = checkbutton2;
@@ -753,6 +790,8 @@ create_preferences_page1 (Preferences * p)
 	p->widgets.build_jobs_spin = spinbutton1;
 	p->widgets.build_autosave_check = checkbutton7;
 	p->widgets.debugger_command = entry1;
+	p->widgets.ui_designer = entry2;
+	p->widgets.help_browser = entry3;
 
 	gtk_widget_ref (checkbutton1);
 	gtk_widget_ref (checkbutton2);
@@ -761,6 +800,8 @@ create_preferences_page1 (Preferences * p)
 	gtk_widget_ref (spinbutton1);
 	gtk_widget_ref (checkbutton7);
 	gtk_widget_ref (entry1);
+	gtk_widget_ref (entry2);
+	gtk_widget_ref (entry3);	
 	
 	return frame1;
 }
@@ -2263,8 +2304,12 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
 							       (pr->widgets.build_jobs_spin)));
 
-	str = gtk_entry_get_text(pr->widgets.debugger_command);
+	str = gtk_entry_get_text(GTK_ENTRY(pr->widgets.debugger_command));
 	preferences_set(pr, DEBUGGER_COMMAND, str?str:"gdb");
+	str = gtk_entry_get_text(GTK_ENTRY(pr->widgets.ui_designer));
+	preferences_set(pr, UI_DESIGNER, str?str:"glade '$(project.name).glade'");
+	str = gtk_entry_get_text(GTK_ENTRY(pr->widgets.help_browser));
+	preferences_set(pr, HELP_BROWSER, str?str:"devhelp -s '$(current.file.selection)'");
 
 /* page 2 */
 	for (i = 0;; i += 2)

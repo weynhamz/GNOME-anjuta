@@ -372,16 +372,8 @@ static void tool_stdout_handler(gchar *line)
 	{
 		if (current_tool->output <= MESSAGE_MAX && current_tool->output >= 0)
 		{
-			/* Send the message to the proper message pane */
-			switch (current_tool->output)
-			{
-				case MESSAGE_DEBUG:
-					debugger_put_cmd_in_queqe(line, DB_CMD_NONE, NULL, NULL);
-					break;
-				default:
-					anjuta_message_manager_append (app->messages, line
-			  		,current_tool->output);
-			}
+			anjuta_message_manager_append (app->messages, line
+	  		,current_tool->output);
 		}
 		else
 		{
@@ -479,7 +471,7 @@ static void tool_terminate_handler(gint status, time_t time)
 			anjuta_message_manager_append(app->messages, line
 			  , current_tool->error);
 		}
-		else if (current_tool_error && (0 < current_tool_error->len))
+		else if (current_tool_error && (0 < current_tool_error->len) && current_tool->error >= 0)
 		{
 			handle_tool_output(current_tool->error, current_tool_error, TRUE);
 		}
@@ -487,7 +479,7 @@ static void tool_terminate_handler(gint status, time_t time)
 		{
 			/* Nothing to do here */
 		}
-		else if (current_tool_output && (0 < current_tool_output->len))
+		else if (current_tool_output && (0 < current_tool_output->len) && current_tool->output >= 0)
 		{
 			handle_tool_output(current_tool->output, current_tool_output, FALSE);
 		}
@@ -500,9 +492,6 @@ static void tool_terminate_handler(gint status, time_t time)
 	}
 }
 
-/* Popup a dialog to ask for user parameters */
-static char *get_user_params(AnUserTool *tool, gboolean *button);
-
 /* Menu activate handler which executes the tool. It should do command
 ** substitution, input, output and error redirection, setting the
 ** working directory, etc. Currently, it just executes the tool and
@@ -512,7 +501,7 @@ static char *get_user_params(AnUserTool *tool, gboolean *button);
 static void execute_tool(GtkMenuItem *item, gpointer data)
 {
 	AnUserTool *tool = (AnUserTool *) data;
-	char *params = NULL;
+	const char *params = NULL;
 	gchar *command;
 
 #ifdef TOOL_DEBUG
@@ -521,9 +510,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	/* Ask for user parameters if required */
 	if (tool->user_params)
 	{
-		gboolean button;
-		params = get_user_params(tool, &button);
-		if (button != 0) /* No OK button clicked */
+		if (!anjuta_get_user_params(tool->name, &params))
 			return;
 	}
 	if (tool->autosave)
@@ -531,19 +518,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		anjuta_save_all_files();
 	}
 	/* Expand variables to get the full command */
-	if (app->current_text_editor)
-	{
-		/* Update file level properties */
-		gchar *word;
-		anjuta_set_file_properties(app->current_text_editor->full_filename);
-		word = text_editor_get_current_word(app->current_text_editor);
-		prop_set_with_key(app->preferences->props, "current.file.selection"
-		  , word?word:"");
-		if (word)
-			g_free(word);
-		prop_set_int_with_key(app->preferences->props, "current.file.lineno"
-		  , text_editor_get_current_lineno(app->current_text_editor));
-	}
+	anjuta_set_editor_properties();
 	if (params)
 	{
 		gchar *cmd = g_strconcat(tool->command, " ", params, NULL);
@@ -647,8 +622,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 			command = g_strconcat("sh -c \"", escaped_cmd, "<", tmp_file, "\"", NULL);
 			g_free(buf);
 		}
-		if (tool->output <= MESSAGE_MAX && tool->output >= 0 &&
-			tool->output != MESSAGE_DEBUG)
+		if (tool->output <= MESSAGE_MAX && tool->output >= 0)
 		{
 			anjuta_message_manager_clear(app->messages, tool->output);
 			anjuta_message_manager_show(app->messages, tool->output);
@@ -890,24 +864,14 @@ typedef struct _AnToolHelp
 	gboolean busy;
 } AnToolHelp;
 
-typedef struct _AnToolParams
-{
-	GladeXML *xml;
-	GtkWidget *dialog;
-	GtkEditable *params_en;
-	GtkCombo *params_com;
-} AnToolParams;
-
 static AnToolList *tl = NULL;
 static AnToolEditor *ted = NULL;
 static AnToolHelp *th = NULL;
-static AnToolParams *tp = NULL;
 
 #define GLADE_FILE "anjuta.glade"
 #define TOOL_LIST "dialog.tool.list"
 #define TOOL_EDITOR "dialog.tool.edit"
 #define TOOL_HELP "dialog.tool.help"
-#define TOOL_PARAMS "dialog.tool.params"
 #define TOOL_CLIST "tools.clist"
 #define TOOL_HELP_CLIST "tools.help.clist"
 #define OK_BUTTON "button.ok"
@@ -935,8 +899,6 @@ static AnToolParams *tp = NULL;
 #define TOOL_ERROR_COMBO "tool.error.combo"
 #define TOOL_SHORTCUT "tool.shortcut"
 #define TOOL_ICON "tool.icon"
-#define TOOL_PARAMS_EN "tool.params"
-#define TOOL_PARAMS_EN_COMBO "tool.params.combo"
 
 /* Start the tool lister and editor */
 gboolean anjuta_tools_edit(void)
@@ -1496,6 +1458,8 @@ static struct
 , {BUILD_OPTION_JOBS, "Maximum number of build jobs" }
 , {BUILD_OPTION_AUTOSAVE, "Autosave before build"}
 , {DEBUGGER_COMMAND, "Command to fire the debugger"}
+, {UI_DESIGNER, "UI Designer command"}
+, {HELP_BROWSER, "Command to get context help"}
 , {DISABLE_SYNTAX_HILIGHTING, "Disable syntax highlighting for source files"}
 , {SAVE_AUTOMATIC, "Save automatically on a periodic basis"}
 , {INDENT_AUTOMATIC, "Auto-indent"}
@@ -1731,40 +1695,4 @@ void on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
 void anjuta_tools_show_variables()
 {
 	on_user_tool_edit_help_clicked(NULL, NULL);
-}
-
-/* Popup a dialog to ask for user parameters */
-static char *get_user_params(AnUserTool *tool, gboolean *button)
-{
-	if (NULL == tp)
-	{
-		char glade_file[PATH_MAX];
-		char title[256];
-
-		tp = g_new0(AnToolParams, 1);
-		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
-		if (NULL == (tp->xml = glade_xml_new(glade_file, TOOL_PARAMS)))
-		{
-			anjuta_error("Unable to build user interface for tool parameters");
-			g_free(tp);
-			tp = NULL;
-			return FALSE;
-		}
-		tp->dialog = glade_xml_get_widget(tp->xml, TOOL_PARAMS);
-		snprintf(title, 256, _("%s: Command line parameters"), tool->name);
-		gtk_window_set_title (GTK_WINDOW(tp->dialog), title);
-		/* gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
-		  , GTK_WINDOW(app->widgets.window)); */
-		gtk_widget_ref(tp->dialog);
-		tp->params_en = (GtkEditable *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN);
-		gtk_widget_ref((GtkWidget *) tp->params_en);
-		tp->params_com = (GtkCombo *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN_COMBO);
-		gtk_widget_ref((GtkWidget *) tp->params_com);
-		gtk_combo_disable_activate (GTK_COMBO(tp->params_com));
-		gnome_dialog_editable_enters (GNOME_DIALOG (tp->dialog),
-			GTK_EDITABLE(GTK_COMBO(tp->params_com)->entry));
-		glade_xml_signal_autoconnect(tp->xml);
-	}
-	*button = gnome_dialog_run_and_close((GnomeDialog *) tp->dialog);
-	return gtk_editable_get_chars(tp->params_en, 0, -1);
 }

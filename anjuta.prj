@@ -59,10 +59,13 @@ preferences.indent.size=4
 preferences.autoformat.style=Style of Kangleipak
 preferences.autoformat.custom.style= -i8 -sc -bli0 -bl0 -cbi0 -ss
 preferences.autoformat.disable=0
+preferences.debugger.command=gdb
+preferences.ui.designer=glade '$(project.name).glade'
+preferences.help.browser=devhelp-2 -s '$(current.file.selection)'
 
 module.include.name=.
 module.include.type=
-module.include.expanded=0
+module.include.expanded=1
 module.include.files=\
 	acconfig.h\
 	printing/print.h\

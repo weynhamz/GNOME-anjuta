@@ -427,6 +427,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->send_signal, A && Pr);
 	gtk_widget_set_sensitive (dm->inspect, A && R);
 	gtk_widget_set_sensitive (dm->add_watch, A && R);
+	gtk_widget_set_sensitive (dm->custom_cmd, A && R);
 	gtk_widget_set_sensitive (dm->stop, A);
 
 	gtk_widget_set_sensitive (dm->info_targets, A && R);

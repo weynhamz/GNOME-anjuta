@@ -225,7 +225,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->debug.send_signal = debug1_menu_uiinfo[11].widget;
 	mb->debug.inspect = debug1_menu_uiinfo[18].widget;
 	mb->debug.add_watch = debug1_menu_uiinfo[19].widget;
-	mb->debug.stop = debug1_menu_uiinfo[21].widget;
+	mb->debug.custom_cmd = debug1_menu_uiinfo[21].widget;
+	mb->debug.stop = debug1_menu_uiinfo[22].widget;
 
 	/* CVS submenu */
 	mb->cvs.update_file = cvs_menu_uiinfo[0].widget;

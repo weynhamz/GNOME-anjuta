@@ -1,4 +1,7 @@
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* This is the first release candidate for 1.0.2
+
+2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/aneditor.cxx, src/main_menubar_def.h: Implement comment/
 	uncomment better. Patch from Jean-Noel
 	* src/anjuta-tools.c, src/anjuta_cbs.c, src/preferences.[ch],
