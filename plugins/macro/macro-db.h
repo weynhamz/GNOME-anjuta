@@ -18,6 +18,9 @@
 #ifndef MACRO_DB_H
 #define MACRO_DB_H
 
+typedef struct _MacroDB MacroDB;
+typedef struct _MacroDBClass MacroDBClass;
+
 #include "plugin.h"
 
 #define MACRO_DB_TYPE            (macro_db_get_type ())
@@ -25,10 +28,6 @@
 #define MACRO_DB_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), MACRO_DB_TYPE, MacroDBClass))
 #define IS_MACRO_DB(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), MACRO_DB_TYPE))
 #define IS_MACRO_DB_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), MACRO_DB_TYPE))
-
-
-typedef struct _MacroDB MacroDB;
-typedef struct _MacroDBClass MacroDBClass;
 
 struct _MacroDB
 {

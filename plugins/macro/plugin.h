@@ -22,6 +22,8 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
+#include "macro-db.h"
+
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-macro.glade"
 
 typedef struct _MacroPlugin MacroPlugin;
@@ -39,6 +41,7 @@ struct _MacroPlugin
 	GObject *current_editor;
 
 	GtkWidget *macro_dialog;
+	MacroDB *macro_db;
 };
 
 struct _MacroPluginClass

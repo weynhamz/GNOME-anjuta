@@ -156,10 +156,17 @@ macro_edit_fill (MacroEdit * edit, GtkTreeSelection * select)
 	edit->select = select;
 }
 
+void macro_edit_set_macro (MacroEdit* edit, const gchar* macro)
+{
+	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(edit->text));
+	gtk_text_buffer_set_text(buffer, macro, strlen(macro));
+}
+
+
 void
 macro_edit_dispose (GObject * edit)
 {
-	MacroEdit *medit = MACRO_EDIT (edit);
+	//MacroEdit *medit = MACRO_EDIT (edit);
 	//g_object_unref(medit->gxml);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (edit)));
 }
@@ -213,7 +220,6 @@ on_add_ok_clicked (MacroEdit * edit)
 					   child)),
 		      gtk_entry_get_text (GTK_ENTRY (edit->shortcut_entry)),
 		      text);
-	macro_db_save (edit->macro_db);
 	gtk_widget_destroy (GTK_WIDGET (edit));
 }
 
@@ -247,7 +253,6 @@ on_edit_ok_clicked (MacroEdit * edit)
 					      child)),
 			 gtk_entry_get_text (GTK_ENTRY
 					     (edit->shortcut_entry)), text);
-	macro_db_save (edit->macro_db);
 	gtk_widget_destroy (GTK_WIDGET (edit));
 }
 

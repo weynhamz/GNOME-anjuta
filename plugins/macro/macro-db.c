@@ -202,6 +202,7 @@ macro_db_add (MacroDB * db,
 	gtk_tree_model_iter_next (GTK_TREE_MODEL (db->tree_store), &iter);
 	macro_db_add_real (GTK_TREE_STORE (db->tree_store), &iter, name,
 			   category, shortcut, text, FALSE);
+   	macro_db_save(db);
 }
 
 void
@@ -214,6 +215,7 @@ macro_db_change (MacroDB * db, GtkTreeIter * iter,
 
 	macro_db_remove (db, iter);
 	macro_db_add (db, name, category, shortcut, text);
+	macro_db_save(db);
 }
 
 void
@@ -241,6 +243,7 @@ macro_db_remove (MacroDB * db, GtkTreeIter * iter)
 			gtk_tree_store_remove (db->tree_store, &parent);
 	}
 	gtk_tree_path_free (path);
+	macro_db_save(db);
 }
 
 inline GtkTreeModel *
@@ -301,14 +304,6 @@ read_macros (xmlDocPtr doc, xmlNodePtr cur, GtkTreeStore * tree_store,
 			xmlFree(category);
 			xmlFree(shortcut);
 			xmlFree(text);
-		}
-		else
-		{
-#ifdef DEBUG
-			g_warning
-				("Skipping unknown xml field \"%s\"!",
-				 cur->name);
-#endif
 		}
 		cur = cur->next;
 	}

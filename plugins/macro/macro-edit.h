@@ -62,6 +62,7 @@ struct _MacroEditClass
 
 GType macro_edit_get_type (void);
 GtkWidget *macro_edit_new (gint type, MacroDB * db);
-void macro_edit_fill (MacroEdit * edit, GtkTreeSelection * selection);
 
+void macro_edit_fill (MacroEdit * edit, GtkTreeSelection * selection);
+void macro_edit_set_macro (MacroEdit* edit, const gchar* macro);
 #endif

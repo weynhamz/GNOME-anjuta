@@ -30,12 +30,6 @@ static void on_add_clicked (GtkButton * add, MacroDialog * dialog);
 static void on_remove_clicked (GtkButton * remove, MacroDialog * dialog);
 static void on_edit_clicked (GtkButton * edit, MacroDialog * dialog);
 
-static gboolean on_shortcut_pressed (GtkWidget * tree, GdkEventKey * event,
-				     MacroPlugin * plugin);
-
-static gboolean match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
-				gchar key, gchar shortcut);
-
 static void macro_dialog_class_init (MacroDialogClass * klass);
 static void macro_dialog_init (MacroDialog * dialog);
 static void macro_dialog_dispose (GObject * object);
@@ -84,8 +78,6 @@ static void
 macro_dialog_init (MacroDialog * dialog)
 {
 	GtkTreeSelection *select;
-	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *column;
 	dialog->gxml = glade_xml_new (GLADE_FILE, "macro_dialog_table", NULL);
 	GtkWidget *table =
 		glade_xml_get_widget (dialog->gxml, "macro_dialog_table");
@@ -118,8 +110,22 @@ macro_dialog_init (MacroDialog * dialog)
 	gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
 	g_signal_connect (G_OBJECT (select), "changed",
 			  G_CALLBACK (on_macro_selection_changed), dialog);
+}
 
-	dialog->macro_db = macro_db_new ();
+GtkWidget *
+macro_dialog_new (MacroPlugin * plugin)
+{
+	g_return_val_if_fail (plugin != NULL, NULL);
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	MacroDialog *dialog =
+		MACRO_DIALOG (g_object_new (macro_dialog_get_type (), NULL));
+	g_signal_connect (G_OBJECT (dialog), "response",
+			  G_CALLBACK (on_dialog_response), plugin);
+
+	plugin->macro_dialog = GTK_WIDGET (dialog);
+	
+	dialog->macro_db = plugin->macro_db;
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->macro_tree),
 				 macro_db_get_model (dialog->macro_db));
 	renderer = gtk_cell_renderer_text_new ();
@@ -129,22 +135,7 @@ macro_dialog_init (MacroDialog * dialog)
 							   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog->macro_tree),
 				     column);
-}
-
-GtkWidget *
-macro_dialog_new (MacroPlugin * plugin)
-{
-	g_return_val_if_fail (plugin != NULL, NULL);
-	MacroDialog *dialog =
-		MACRO_DIALOG (g_object_new (macro_dialog_get_type (), NULL));
-	g_signal_connect (G_OBJECT (dialog), "response",
-			  G_CALLBACK (on_dialog_response), plugin);
-
-	gtk_widget_grab_focus (dialog->macro_tree);
-	g_signal_connect (G_OBJECT (dialog->macro_tree), "key-press-event",
-			  G_CALLBACK (on_shortcut_pressed), plugin);
-
-	plugin->macro_dialog = GTK_WIDGET (dialog);
+	
 	return GTK_WIDGET (dialog);
 }
 
@@ -335,92 +326,4 @@ on_edit_clicked (GtkButton * ok, MacroDialog * dialog)
 	macro_edit_fill (edit, select);
 	gtk_window_set_modal (GTK_WINDOW (edit), TRUE);
 	gtk_widget_show (GTK_WIDGET (edit));
-}
-
-static gboolean
-on_shortcut_pressed (GtkWidget * tree, GdkEventKey * event,
-		     MacroPlugin * plugin)
-{
-	gchar key;
-	GtkTreeIter parent;
-	GtkTreeIter category;
-	GtkTreeIter macro;
-	MacroDialog *dialog = MACRO_DIALOG (plugin->macro_dialog);
-	GtkTreeModel *model = macro_db_get_model (dialog->macro_db);
-	/* Plase note that this implementation is deprecated but
-	 * I could not figure out how to do this with GtkIMContext as 
-	 * proposed by the gtk docs */
-
-#warning FIXME: Deprecated
-	if (event->length)
-		key = event->string[0];
-	else
-		return TRUE;
-	gtk_tree_model_get_iter_first (model, &parent);
-	do
-	{
-		if (gtk_tree_model_iter_children (model, &category, &parent))
-		{
-			do
-			{
-				gboolean is_category;
-				gchar shortcut;
-				gtk_tree_model_get (model, &category,
-						    MACRO_CATEGORY,
-						    &is_category, -1);
-				if (is_category
-				    && gtk_tree_model_iter_children (model,
-								     &macro,
-								     &category))
-				{
-					do
-					{
-						MacroDialog *dialog =
-							MACRO_DIALOG (plugin->
-								      macro_dialog);
-						gtk_tree_model_get (model,
-								    &macro,
-								    MACRO_SHORTCUT,
-								    &shortcut,
-								    -1);
-						if (match_shortcut
-						    (plugin, &macro, key,
-						     shortcut))
-							return FALSE;
-					}
-					while (gtk_tree_model_iter_next
-					       (model, &macro));
-				}
-				else
-				{
-					gtk_tree_model_get (model, &category,
-							    MACRO_SHORTCUT,
-							    &shortcut, -1);
-					if (match_shortcut
-					    (plugin, &category, key,
-					     shortcut))
-						return FALSE;
-				}
-			}
-			while (gtk_tree_model_iter_next (model, &category));
-		}
-	}
-	while (gtk_tree_model_iter_next (model, &parent));
-	return TRUE;
-}
-
-static gboolean
-match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
-		gchar key, gchar shortcut)
-{
-	MacroDialog *dialog = MACRO_DIALOG (plugin->macro_dialog);
-	if (key == shortcut)
-	{
-		GtkTreeView *tree = GTK_TREE_VIEW (dialog->macro_tree);
-		GtkTreeSelection *select = gtk_tree_view_get_selection (tree);
-		gtk_tree_selection_select_iter (select, iter);
-		on_ok_clicked (plugin);
-		return TRUE;
-	}
-	return FALSE;
 }

@@ -22,5 +22,7 @@
 #include <glade/glade.h>
 
 void on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin);
+void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin);
+void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin);
 
 #endif

@@ -17,6 +17,7 @@
 
 #include "plugin.h"
 #include "macro-actions.h"
+#include "macro-db.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-macro.ui"
 #define ICON_FILE "anjuta-macro.png"
@@ -25,12 +26,33 @@ static gpointer parent_class;
 
 static GtkActionEntry actions_macro[] = {
 	{
-	 "ActionEditMenuInsertMacro",
+	"ActionMenuEditMacro",
 	 NULL,
-	 N_("Insert _Macro"),
+	 N_("Macros"),
 	 NULL,
-	 N_("Insert text user- or pre-defined macro"),
-	 G_CALLBACK (on_menu_insert_macro)}
+	 NULL,
+	 NULL},
+	 {
+	 "ActionEditMacroInsert",
+	 NULL,
+	 N_("_Insert Macro"),
+	 NULL,
+	 N_("Insert a macro using a shortcut"),
+	 G_CALLBACK (on_menu_insert_macro)},
+	 {
+	 "ActionEditMacroAdd",
+	 NULL,
+	 N_("_Add Macro"),
+	 NULL,
+	 N_("Add a macro"),
+	 G_CALLBACK (on_menu_add_macro)},
+	 {
+	 "ActionEditMacroManager",
+	 NULL,
+	 N_("Manage Macros"),
+	 NULL,
+	 N_("Add/Edit/Remove macros"),
+	 G_CALLBACK (on_menu_manage_macro)}
 };
 
 static void
@@ -38,11 +60,24 @@ value_added_current_editor (AnjutaPlugin * plugin, const char *name,
 			    const GValue * value, gpointer data)
 {
 	GObject *editor;
-
+	GtkAction* macro_insert_action;
+	AnjutaUI* ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor = g_value_get_object (value);
 
 	MacroPlugin *macro_plugin = (MacroPlugin *) plugin;
-	macro_plugin->current_editor = editor;
+ 	macro_insert_action = 
+		anjuta_ui_get_action (ui, "ActionGroupMacro", "ActionEditMacroInsert");
+
+	if (editor != NULL)
+	{
+		g_object_set (G_OBJECT (macro_insert_action), "sensitive", TRUE, NULL);
+		macro_plugin->current_editor = editor;
+	}
+	else
+	{
+		g_object_set (G_OBJECT (macro_insert_action), "sensitive", FALSE, NULL);
+		macro_plugin->current_editor = NULL;
+	}
 
 }
 
@@ -64,7 +99,7 @@ activate_plugin (AnjutaPlugin * plugin)
 	MacroPlugin *macro_plugin;
 
 #ifdef DEBUG
-	g_message ("TemplatePlugin: Activating Template plugin ...");
+	g_message ("MacroPlugin: Activating Macro plugin ...");
 #endif
 
 	macro_plugin = (MacroPlugin *) plugin;
@@ -83,6 +118,9 @@ activate_plugin (AnjutaPlugin * plugin)
 					 "document_manager_current_editor",
 					 value_added_current_editor,
 					 value_removed_current_editor, NULL);
+					 
+	macro_plugin->macro_db = macro_db_new();
+	
 	return TRUE;
 }
 
@@ -91,7 +129,7 @@ deactivate_plugin (AnjutaPlugin * plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 #ifdef DEBUG
-	g_message ("TemplatePlugin: Deactivating Macro plugin ...");
+	g_message ("MacroPlugin: Deactivating Macro plugin ...");
 #endif
 	anjuta_ui_unmerge (ui, ((MacroPlugin *) plugin)->uiid);
 	return TRUE;
@@ -109,6 +147,7 @@ dispose (GObject * obj)
 	MacroPlugin *plugin = (MacroPlugin *) obj;
 	if (plugin->macro_dialog != NULL)
 		g_object_unref (plugin->macro_dialog);
+	g_object_unref(plugin->macro_db);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
 }
 

@@ -18,12 +18,148 @@
 #include "macro-actions.h"
 #include "macro-db.h"
 #include "macro-dialog.h"
+#include "macro-edit.h"
 
+static gboolean on_shortcut_pressed (GtkWidget *entry, GdkEventKey* event,
+				     MacroPlugin *plugin);
+
+static gboolean match_shortcut (MacroPlugin *plugin, GtkTreeIter *iter,
+				gchar key);
 
 void
 on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
+{
+	if (plugin->current_editor == NULL)
+		return;
+	
+	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	GtkWidget* entry = gtk_entry_new_with_max_length(1);
+	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut"));
+	GtkWidget* hbox = gtk_hbox_new(FALSE, 0);	
+	
+	gtk_widget_set_size_request(entry, 0, 0);
+	
+	gtk_window_set_title(GTK_WINDOW(window), _("Press shortcut"));
+	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
+
+	gtk_container_add(GTK_CONTAINER(window), hbox);
+	gtk_box_pack_start_defaults(GTK_BOX(hbox), label);
+	gtk_box_pack_end_defaults(GTK_BOX(hbox), entry);
+	g_signal_connect (G_OBJECT (entry), "key-press-event",
+			  G_CALLBACK (on_shortcut_pressed), plugin);
+	gtk_widget_grab_focus (entry);
+	
+	gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+	gtk_widget_show_all(window);
+}
+
+void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
+{
+	MacroEdit* add = MACRO_EDIT(macro_edit_new(MACRO_ADD, plugin->macro_db));
+	gchar* selection = NULL;
+	if (plugin->current_editor != NULL)
+	{
+		selection = 
+			ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
+	}
+	if (selection != NULL && strlen(selection))
+		macro_edit_set_macro(add, selection);
+	gtk_widget_show(GTK_WIDGET(add));
+}
+
+void on_menu_manage_macro (GtkAction * action, MacroPlugin * plugin)
 {
 	if (plugin->macro_dialog == NULL)
 		plugin->macro_dialog = macro_dialog_new (plugin);
 	gtk_widget_show (plugin->macro_dialog);
 }
+
+
+/* Shortcut handling */
+static gboolean
+on_shortcut_pressed (GtkWidget * entry, GdkEventKey * event,
+		     MacroPlugin * plugin)
+{
+	gchar key;
+	GtkTreeIter parent;
+	GtkTreeIter cur_cat;
+	GtkTreeModel *model = macro_db_get_model (plugin->macro_db);
+	GtkWidget* window = gtk_widget_get_parent(gtk_widget_get_parent(entry));
+	/* Plase note that this implementation is deprecated but
+	 * I could not figure out how to do this with GtkIMContext as 
+	 * proposed by the gtk docs */
+#warning FIXME: Deprecated
+	if (event->length)
+		key = event->string[0];
+	else
+		return TRUE;
+	gtk_tree_model_get_iter_first (model, &parent);
+	do
+	{
+		if (gtk_tree_model_iter_children (model, &cur_cat, &parent))
+		{
+		do
+		{
+			GtkTreeIter cur_macro;
+			if (gtk_tree_model_iter_children
+			    (model, &cur_macro, &cur_cat))
+			{
+				do
+				{
+					if (match_shortcut(plugin, &cur_macro, key))
+					{
+						gtk_widget_destroy(window);
+						return TRUE;
+					}
+				}
+				while (gtk_tree_model_iter_next
+				       (model, &cur_macro));
+			}
+			else
+			{
+				gboolean is_category;
+				gtk_tree_model_get (model, &cur_cat,
+						    MACRO_IS_CATEGORY,
+						    &is_category, -1);
+				if (is_category)
+					continue;
+				if (match_shortcut(plugin, &cur_cat, key))
+				{
+					gtk_widget_destroy(window);
+					return TRUE;
+				}
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &cur_cat));
+		}
+	}
+	while (gtk_tree_model_iter_next (model, &parent));
+	gtk_widget_destroy(window);
+	return TRUE;
+}
+
+static gboolean
+match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
+		gchar key)
+{
+	gchar shortcut;
+	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
+		MACRO_SHORTCUT, &shortcut, -1);
+	if (key == shortcut)
+	{
+		const int CURRENT_POS = -1;
+		gchar* text;
+		gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
+			MACRO_TEXT, &text, -1);
+		if (plugin->current_editor != NULL)
+		{
+			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
+					       CURRENT_POS, text, -1, NULL);
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
