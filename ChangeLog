@@ -1,3 +1,8 @@
+2003-11-29  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, anjuta.prj: Bumped version to 1.2.0.
+	* NEWS: Updated.
+
 2003-11-28 Johannes Schmid <clubfan@users.sourceforge.net>
 	
 	* src/main_menubar.c: Now files cannot be opened twice in recently

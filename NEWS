@@ -1,7 +1,8 @@
-Anjuta 1.2.0 (xx Dec 2003) -- Naba Kumar
+Anjuta 1.2.0 (30 Nov 2003) -- Naba Kumar
 
 Updated: Prompts users for unsaved files during project closing.
 Updated: Added checkbox in wizard to enable/disable glade source generation.
+Updated: Scintilla to version 1.57
 Bug fix: Crash on preferences with other locales.
 Bug fix: Freeze ups during build/debugging with other locales.
 Bug fix: Crash with readonly project files (during saves).
@@ -14,6 +15,8 @@ Bug fix: Compilation errors with old gcc.
 Bug fix: Fixed debugger malfunctioning with non-english locales.
 Bug fix: Crash bug during import.
 Bug fix: Dnd file drop.
+Bug fix: Setting breakpoints for c++ files works.
+Bug fix: Crash bug to multiple open of same file fixed.
 
 Anjuta 1.1.98 rc2 for 1.2.0   (07 Nov 2003) -- Naba Kumar
 

@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.1.98
+anjuta.version=1.2.0
 anjuta.compatibility.level=1
 
 project.name=anjuta
