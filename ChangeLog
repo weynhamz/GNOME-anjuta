@@ -1,3 +1,7 @@
+2001-12-19	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/defaults.c: fix bug #494864
+
 2001-12-18	Andy Piper	<andy.piper@freeuk.com>
 
 	* pixmaps/applogo.png, pixmaps/appwizard.png: added new wizard
