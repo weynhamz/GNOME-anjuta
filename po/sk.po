@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2002-02-21 08:27+0100\n"
-"PO-Revision-Date: 2002-02-20 19:34CEST\n"
+"POT-Creation-Date: 2002-03-12 14:43+0100\n"
+"PO-Revision-Date: 2002-03-10 18:56CEST\n"
 "Last-Translator: Martin Lacko <lacko@host.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -23,63 +23,67 @@ msgstr "Anjuta C/C++ IDE"
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostredie"
 
-#: plugins/class-gen/clsGen.c:121 plugins/class-gen/clsGen.c:151
-#: plugins/class-gen/clsGen.c:585
+#: plugins/class-gen/clsGen.c:122 plugins/class-gen/clsGen.c:154
+#: plugins/class-gen/clsGen.c:629
 #, fuzzy
 msgid "Class Creator"
 msgstr "Triedy"
 
-#: plugins/class-gen/clsGen.c:146
+#: plugins/class-gen/clsGen.c:144
+msgid "No project open, can not add class!"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:149
 msgid "Class Creator C/C++ 1.0"
 msgstr ""
 
-#: plugins/class-gen/clsGen.c:222
+#: plugins/class-gen/clsGen.c:225
 msgid "Class name not valid"
 msgstr ""
 
-#: plugins/class-gen/clsGen.c:227
+#: plugins/class-gen/clsGen.c:230
 msgid "Declaration filename not valid"
 msgstr ""
 
-#: plugins/class-gen/clsGen.c:232
+#: plugins/class-gen/clsGen.c:235
 msgid "Implementation filename not valid"
 msgstr ""
 
-#: plugins/class-gen/clsGen.c:548
+#: plugins/class-gen/clsGen.c:590
 #, fuzzy
 msgid "Error importing source file"
 msgstr "Pri zápise do súboru %s nastala chyba."
 
-#: plugins/class-gen/clsGen.c:552
+#: plugins/class-gen/clsGen.c:594
 #, fuzzy
 msgid "Error importing include file"
 msgstr "Pri zápise do súboru %s nastala chyba."
 
-#: plugins/class-gen/clsGen.c:555
+#: plugins/class-gen/clsGen.c:597
 #, fuzzy
 msgid "Error importing files"
 msgstr "Pri zápise do súboru %s nastala chyba."
 
-#: plugins/class-gen/clsGen.c:592
+#: plugins/class-gen/clsGen.c:636
 #, fuzzy
 msgid "New Class :"
 msgstr "Trieda:"
 
-#: plugins/class-gen/clsGen.c:606 plugins/class-gen/clsGen.c:615
+#: plugins/class-gen/clsGen.c:650 plugins/class-gen/clsGen.c:659
 msgid "Browse..."
 msgstr ""
 
-#: plugins/class-gen/clsGen.c:642
+#: plugins/class-gen/clsGen.c:687
 #, fuzzy
 msgid "Class Name:"
 msgstr "Trieda:"
 
-#: plugins/class-gen/clsGen.c:651
+#: plugins/class-gen/clsGen.c:696
 #, fuzzy
 msgid "Declaration File:"
 msgstr "Deklarácie"
 
-#: plugins/class-gen/clsGen.c:660
+#: plugins/class-gen/clsGen.c:705
 #, fuzzy
 msgid "Implementation File:"
 msgstr "Súbor dokumentácie"
@@ -99,7 +103,7 @@ msgstr ""
 #: plugins/sample1/plugin-sample1.c:49
 #, fuzzy
 msgid "Sample plugin"
-msgstr "pluginy"
+msgstr "doplnky"
 
 #: plugins/sample1/plugin-sample1.c:55
 msgid "This is a sample plugin"
@@ -109,7 +113,7 @@ msgstr ""
 msgid "CORBA Module not initialized"
 msgstr ""
 
-#: src/CORBA-Server.c:448 src/project_dbase_gui.c:1225
+#: src/CORBA-Server.c:448 src/project_dbase_gui.c:1220
 msgid "Error while copying the file inside the module."
 msgstr "Chyba pri kopírovaní súboru do modulu."
 
@@ -118,7 +122,9 @@ msgstr "Chyba pri kopírovaní súboru do modulu."
 msgid "Copyright (c) 1999-2002 Naba Kumar"
 msgstr "Copyright (c) 1999-2001 Naba Kumar"
 
-#: src/about.c:82 src/main_menubar_def.h:1529
+#. 8
+#. 9
+#: src/about.c:82 src/main_menubar_def.h:1423
 #, fuzzy
 msgid "Anjuta Home Page"
 msgstr "Domovská stránka Anjuty"
@@ -128,15 +134,22 @@ msgstr "Domovská stránka Anjuty"
 msgid "Unable to open %s in %s"
 msgstr "Nemôžem otvoriť súbor: %s\n"
 
-#: src/an_file_view.c:131 src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/an_file_view.c:94
+#, c-format
+msgid ""
+"No default viewer specified for the mime type %s.\n"
+"Please set it in GNOME control center"
+msgstr ""
+
+#: src/an_file_view.c:136 src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
 msgstr "Otvoriť"
 
-#: src/an_file_view.c:137
+#: src/an_file_view.c:142
 msgid "View in Default Viewer"
 msgstr ""
 
-#: src/an_file_view.c:143 src/an_symbol_view.c:249
+#: src/an_file_view.c:148 src/an_symbol_view.c:249
 msgid "Refresh Tree"
 msgstr ""
 
@@ -174,18 +187,18 @@ msgstr "/Definícia _funkcie"
 msgid "Goto Declaration"
 msgstr "Deklarácie"
 
-#: src/anjuta.c:75 src/anjuta.c:82
+#: src/anjuta.c:73 src/anjuta.c:80
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta zachytila signál %d (%s) !"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:110
+#: src/anjuta.c:108
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:116 src/anjuta.c:121
+#: src/anjuta.c:114 src/anjuta.c:119
 msgid "Save File As"
 msgstr "Uložiť súbor ako"
 
@@ -194,43 +207,43 @@ msgstr "Uložiť súbor ako"
 msgid "Cannot create application... exiting\n"
 msgstr "Nepodarilo sa vytvoriť aplikáciu ... ukončujem \n"
 
-#: src/anjuta.c:277 src/anjuta.c:281 src/anjuta.c:1099 src/anjuta.c:1115
+#: src/anjuta.c:276 src/anjuta.c:280 src/anjuta.c:1101 src/anjuta.c:1117
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:343
+#: src/anjuta.c:334
 msgid "Recent Files "
 msgstr "Nedávne súbory "
 
-#: src/anjuta.c:921
+#: src/anjuta.c:911
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr ""
 "# * NEUPRAVUJTE ALEBO NEPREMENÚVAJTE TENTO SÚBOR ** Vytvorené Anjutou ** \n"
 
-#: src/anjuta.c:1064
+#: src/anjuta.c:1066
 msgid "All files saved ..."
 msgstr "Všetky súbory boli uložené ..."
 
-#: src/anjuta.c:1092
+#: src/anjuta.c:1094
 #, fuzzy, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s(Uložené)"
 
-#: src/anjuta.c:1107
+#: src/anjuta.c:1109
 #, fuzzy, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s(Neuložené)"
 
-#: src/anjuta.c:1132
+#: src/anjuta.c:1134
 msgid "Anjuta: No file"
 msgstr "Anjuta: Súbor neexistuje"
 
-#: src/anjuta.c:1386
+#: src/anjuta.c:1389
 msgid "ERROR: "
 msgstr "CHYBA: "
 
-#: src/anjuta.c:1403
+#: src/anjuta.c:1406
 msgid ""
 "\n"
 "System: "
@@ -238,7 +251,7 @@ msgstr ""
 "\n"
 "Systém: "
 
-#: src/anjuta.c:1667
+#: src/anjuta.c:1670
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -247,11 +260,7 @@ msgstr ""
 "Nie je implementované.\n"
 "Vložiť kód na \"%s:%u\""
 
-#: src/anjuta.c:1883
-msgid "Activate this to select this window"
-msgstr "Aktivovanie na výber tohoto okna"
-
-#: src/anjuta.c:1930
+#: src/anjuta.c:1884
 #, fuzzy, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -260,36 +269,36 @@ msgstr ""
 "Nemáte nainštalovaný \"%s\".\n"
 "Nainštalujte ho a reštartujte Anjutu."
 
-#: src/anjuta.c:1956 src/anjuta.c:2011
+#: src/anjuta.c:1910 src/anjuta.c:1965
 msgid "None"
 msgstr "Žiadny"
 
-#: src/anjuta.c:1966
+#: src/anjuta.c:1920
 msgid "DOS (CRLF)"
 msgstr ""
 
-#: src/anjuta.c:1969 src/anjuta.c:2003
+#: src/anjuta.c:1923 src/anjuta.c:1957
 msgid "Unix (LF)"
 msgstr ""
 
-#: src/anjuta.c:1972
+#: src/anjuta.c:1926
 msgid "Mac (CR)"
 msgstr ""
 
-#: src/anjuta.c:1975
+#: src/anjuta.c:1929
 #, fuzzy
 msgid "Unknown"
 msgstr "Uniony"
 
-#: src/anjuta.c:1992
+#: src/anjuta.c:1946
 msgid "OVR"
 msgstr "CEZ"
 
-#: src/anjuta.c:1996 src/anjuta.c:2002
+#: src/anjuta.c:1950 src/anjuta.c:1956
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2014
+#: src/anjuta.c:1968
 #, fuzzy, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -298,41 +307,41 @@ msgstr ""
 "  Projekt: %s      Lupa: %d      Riadok: %04d      Stĺpec: %03d      %s      "
 "Úloha: %s"
 
-#: src/anjuta.c:2227 src/anjuta.c:2230
+#: src/anjuta.c:2181 src/anjuta.c:2184
 #, fuzzy, c-format
 msgid "Unable to load plugin %s. Error: %s"
 msgstr ""
-"Nepodarilo sa nahrať plugin %s.\n"
+"Nepodarilo sa nahrať doplnok %s.\n"
 "Chyba %s"
 
-#: src/anjuta.c:2233
+#: src/anjuta.c:2187
 #, fuzzy, c-format
 msgid "Plugin protocol %s unknown Error:%s"
 msgstr "Neznámy protokol modulu: %s Chyba: %s"
 
-#: src/anjuta.c:2236
+#: src/anjuta.c:2190
 #, fuzzy, c-format
 msgid "Unable to start plugin %s"
 msgstr "Nepodarilo sa spustiť modul %s"
 
-#: src/anjuta.c:2239
+#: src/anjuta.c:2193
 #, fuzzy, c-format
 msgid "Bad parameters to plugin %s. Error: %s"
-msgstr "Chybné parametre pre plugin %s. Chyba: %s"
+msgstr "Chybné parametre pre doplnok %s. Chyba: %s"
 
-#: src/anjuta.c:2247
+#: src/anjuta.c:2201
 #, fuzzy, c-format
 msgid ""
 "Unable to load plugin %s.\n"
 "Error: %s"
 msgstr ""
-"Nepodarilo sa nahrať plugin %s.\n"
+"Nepodarilo sa nahrať doplnok %s.\n"
 "Chyba %s"
 
-#: src/anjuta.c:2318
+#: src/anjuta.c:2272
 #, fuzzy
 msgid "Out of memory scanning for plugins."
-msgstr "Pri prehĺadávaní pluginov došlo k vyčerpaniu pamäte."
+msgstr "Pri prehĺadávaní doplnkov došlo k vyčerpaniu pamäte."
 
 #: src/anjuta_cbs.c:128
 msgid ""
@@ -342,7 +351,7 @@ msgstr ""
 "Niektoré súbory (alebo projekty) sú neuložené.\n"
 "Chcete aj napriek tomu skončiť?"
 
-#: src/anjuta_cbs.c:208 src/project_dbase_gui.c:1274
+#: src/anjuta_cbs.c:208 src/project_dbase_gui.c:1260
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Nie je regulárny súbor: %s."
@@ -352,7 +361,7 @@ msgstr "Nie je regulárny súbor: %s."
 msgid "No read permission for: %s."
 msgstr "Nemáte právo na čítanie: %s."
 
-#: src/anjuta_cbs.c:251 src/anjuta_cbs.c:479
+#: src/anjuta_cbs.c:243 src/anjuta_cbs.c:506
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -377,19 +386,19 @@ msgstr "Tu kliknite pre skrytie tohoto okna"
 msgid "Information"
 msgstr "Informácia"
 
-#: src/appwizard_cbs.c:106
+#: src/appwizard_cbs.c:118
 msgid "Project name"
 msgstr "Názov projektu"
 
-#: src/appwizard_cbs.c:107
+#: src/appwizard_cbs.c:119
 msgid "Source target name"
 msgstr "Názov zdroja"
 
-#: src/appwizard_cbs.c:108
+#: src/appwizard_cbs.c:120
 msgid "Project version"
 msgstr "Verzia projektu"
 
-#: src/appwizard_cbs.c:203
+#: src/appwizard_cbs.c:216
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -399,19 +408,19 @@ msgstr ""
 "Nusíte ho nahradiť správnym %s políčkom."
 
 #. For the time being
-#: src/appwizard_cbs.c:251 src/project_dbase.c:1339 src/project_dbase.c:1344
+#: src/appwizard_cbs.c:269 src/project_dbase.c:1339 src/project_dbase.c:1344
 #: src/project_dbase.c:1347 src/project_import_cbs.c:218 src/signals_cbs.c:128
 #: src/signals_cbs.c:141 src/signals_cbs.c:154
 msgid "Yes"
 msgstr "Áno"
 
-#: src/appwizard_cbs.c:253 src/project_dbase.c:1341 src/project_dbase.c:1349
+#: src/appwizard_cbs.c:271 src/project_dbase.c:1341 src/project_dbase.c:1349
 #: src/project_import_cbs.c:220 src/signals_cbs.c:130 src/signals_cbs.c:143
 #: src/signals_cbs.c:156
 msgid "No"
 msgstr "Nie"
 
-#: src/appwizard_cbs.c:255 src/project_import_cbs.c:221
+#: src/appwizard_cbs.c:273 src/project_import_cbs.c:221
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -419,35 +428,35 @@ msgstr ""
 "Potvrďte nasledujúcu informáciu:\n"
 "\n"
 
-#: src/appwizard_cbs.c:256 src/project_import_cbs.c:222
+#: src/appwizard_cbs.c:274 src/project_import_cbs.c:222
 msgid "Project Name:    "
 msgstr "Názov projektu:     "
 
-#: src/appwizard_cbs.c:257 src/project_import_cbs.c:223
+#: src/appwizard_cbs.c:275 src/project_import_cbs.c:223
 msgid "Project Type:    "
 msgstr "Typ projektu     "
 
-#: src/appwizard_cbs.c:258 src/project_import_cbs.c:225
+#: src/appwizard_cbs.c:276 src/project_import_cbs.c:225
 msgid "Target Type:     "
 msgstr "Typ zdroja:     "
 
-#: src/appwizard_cbs.c:259 src/project_import_cbs.c:228
+#: src/appwizard_cbs.c:277 src/project_import_cbs.c:228
 msgid "Source Target:   "
 msgstr "Cieľový priečinok zdrojov:   "
 
-#: src/appwizard_cbs.c:260 src/project_import_cbs.c:229
+#: src/appwizard_cbs.c:278 src/project_import_cbs.c:229
 msgid "Version:         "
 msgstr "Verzia:         "
 
-#: src/appwizard_cbs.c:261 src/project_import_cbs.c:230
+#: src/appwizard_cbs.c:279 src/project_import_cbs.c:230
 msgid "Author:          "
 msgstr "Autor:          "
 
-#: src/appwizard_cbs.c:262 src/project_import_cbs.c:231
+#: src/appwizard_cbs.c:280 src/project_import_cbs.c:231
 msgid "Language:        "
 msgstr "Jazyk:        "
 
-#: src/appwizard_cbs.c:263 src/project_import_cbs.c:233
+#: src/appwizard_cbs.c:281 src/project_import_cbs.c:233
 #, fuzzy
 msgid "Gettext Support: "
 msgstr "Podpora gettextu: "
@@ -493,64 +502,65 @@ msgstr "Nemôžem otvoriť súbor: %s\n"
 msgid "Attach to process"
 msgstr "Pripojiť k procesu"
 
-#: src/attach_process_gui.c:61
+#: src/attach_process_gui.c:62
 msgid "Select the process to attach:"
 msgstr "Vyberte proces k pripojeniu:"
 
-#: src/attach_process_gui.c:81
+#: src/attach_process_gui.c:82
 msgid "Pid"
 msgstr "Pid"
 
-#: src/attach_process_gui.c:85
+#: src/attach_process_gui.c:86
 msgid "Owner"
 msgstr "Vlastník"
 
-#: src/attach_process_gui.c:89
+#: src/attach_process_gui.c:90
 msgid "Time"
 msgstr "Čas"
 
-#: src/attach_process_gui.c:93
+#: src/attach_process_gui.c:94
 msgid "Command"
 msgstr "Príkaz"
 
-#: src/attach_process_gui.c:103 src/compiler_options_gui.c:357
-#: src/compiler_options_gui.c:475 src/compiler_options_gui.c:629
-#: src/compiler_options_gui.c:755 src/registers_gui.c:45
-#: src/sharedlib_gui.c:38 src/signals_gui.c:51 src/src_paths_gui.c:172
+#: src/attach_process_gui.c:104 src/compiler_options_gui.c:356
+#: src/compiler_options_gui.c:474 src/compiler_options_gui.c:628
+#: src/compiler_options_gui.c:754 src/registers_gui.c:45
+#: src/sharedlib_gui.c:38 src/signals_gui.c:51 src/src_paths_gui.c:171
 #: src/stack_trace_gui.c:50
 msgid "Update"
 msgstr "Aktualizovať"
 
-#: src/attach_process_gui.c:109 src/text_editor_gui.c:271
+#: src/attach_process_gui.c:110 src/text_editor_gui.c:271
 msgid "Attach"
 msgstr "\bPripojiť"
 
-#: src/breakpoints.c:530
+#: src/breakpoints.c:529
 msgid "Old breakpoints disabled."
 msgstr "Steré zarážky boli vypnuté."
 
-#: src/breakpoints.c:684 src/breakpoints_cbs.c:131
+#: src/breakpoints.c:683 src/breakpoints_cbs.c:134
 msgid "YES"
 msgstr "ÁNO"
 
-#: src/breakpoints.c:690 src/breakpoints_cbs.c:124
+#: src/breakpoints.c:689 src/breakpoints_cbs.c:127
 msgid "NO"
 msgstr "NIE"
 
-#: src/breakpoints.c:700 src/main_menubar_def.h:560 src/text_editor_gui.c:224
+#. 5
+#: src/breakpoints.c:699 src/main_menubar_def.h:544 src/text_editor_gui.c:224
 msgid "0"
 msgstr "0"
 
-#: src/breakpoints.c:866
+#: src/breakpoints.c:865
 #, fuzzy
 msgid "Breakpoint is set, but the ID could not be found."
 msgstr "Sranda, našiel som v zarážku, ale nemôžem nájsť zodpovedajúce ID"
 
-#: src/breakpoints_cbs.c:96
+#: src/breakpoints_cbs.c:99
 msgid "Are you sure you want to delete all breakpoints?"
 msgstr "Ste si istí, že chcete vymazať všetky zarážky?"
 
-#: src/breakpoints_cbs.c:276
+#: src/breakpoints_cbs.c:283
 msgid "You must give a valid location to set the breakpoint."
 msgstr "Zarážku musíte umiestniť na správne miesto."
 
@@ -582,14 +592,14 @@ msgstr "Po prechode"
 msgid "Condition"
 msgstr "Podmienka"
 
-#: src/breakpoints_gui.c:125 src/compiler_options_gui.c:352
-#: src/compiler_options_gui.c:470 src/compiler_options_gui.c:624
-#: src/compiler_options_gui.c:750 src/find_in_files_gui.c:132
-#: src/src_paths_gui.c:167
+#: src/breakpoints_gui.c:125 src/compiler_options_gui.c:351
+#: src/compiler_options_gui.c:469 src/compiler_options_gui.c:623
+#: src/compiler_options_gui.c:749 src/find_in_files_gui.c:133
+#: src/src_paths_gui.c:166
 msgid "Add"
 msgstr "Pridať"
 
-#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:398
+#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:393
 msgid "Edit"
 msgstr "Upraviť"
 
@@ -617,19 +627,19 @@ msgstr "Vymazať všetky"
 msgid "Delete"
 msgstr "Vymazať"
 
-#: src/breakpoints_gui.c:269 src/breakpoints_gui.c:398
+#: src/breakpoints_gui.c:270 src/breakpoints_gui.c:399
 msgid "Add Breakpoint"
 msgstr "Pridať zarážku"
 
-#: src/breakpoints_gui.c:304 src/breakpoints_gui.c:441
+#: src/breakpoints_gui.c:305 src/breakpoints_gui.c:442
 msgid "Location:"
 msgstr "Umiestnenie:"
 
-#: src/breakpoints_gui.c:311 src/breakpoints_gui.c:448
+#: src/breakpoints_gui.c:312 src/breakpoints_gui.c:449
 msgid "Condition:"
 msgstr "Podmienka:"
 
-#: src/breakpoints_gui.c:318 src/breakpoints_gui.c:455 src/signals_gui.c:254
+#: src/breakpoints_gui.c:319 src/breakpoints_gui.c:456 src/signals_gui.c:254
 msgid "Pass:"
 msgstr "Po prechode:"
 
@@ -647,7 +657,7 @@ msgstr "Spustiteĺný súbor je aktuálny. Kompilácia nie je potrebná."
 msgid "No build command has been specified for this type of file."
 msgstr ""
 
-#: src/build_file.c:107 src/message-manager.cc:43 src/preferences_gui.c:180
+#: src/build_file.c:107 src/message-manager.cc:43 src/preferences_gui.c:179
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Kompilovať"
@@ -657,10 +667,10 @@ msgstr "Kompilovať"
 msgid "Building file: %s ...\n"
 msgstr "Kompilujem súbor: %s ...\n"
 
-#: src/build_file.c:130 src/build_project.c:350 src/build_project.c:381
-#: src/build_project.c:418 src/build_project.c:450 src/build_project.c:482
-#: src/clean_project.c:116 src/clean_project.c:196 src/compile.c:193
-#: src/configurer.c:237 src/find_in_files.c:215 src/project_import.c:156
+#: src/build_file.c:130 src/build_project.c:352 src/build_project.c:383
+#: src/build_project.c:417 src/build_project.c:448 src/build_project.c:479
+#: src/clean_project.c:116 src/clean_project.c:196 src/compile.c:195
+#: src/configurer.c:237 src/find_in_files.c:225 src/project_import.c:156
 #, c-format
 msgid "Total time taken: %d secs\n"
 msgstr "Celkom sekundách: %d s\n"
@@ -669,15 +679,15 @@ msgstr "Celkom sekundách: %d s\n"
 msgid "Build completed ... unsuccessful\n"
 msgstr "Kompilácia ukončená ... úspešne\n"
 
-#: src/build_file.c:137
+#: src/build_file.c:138
 msgid "Build completed ... unsuccessful"
 msgstr "Kompilácia ukončená ... neúspešne"
 
-#: src/build_file.c:142
+#: src/build_file.c:143
 msgid "Build completed ... successful\n"
 msgstr "Kompilácia ukončená ... úspešne\n"
 
-#: src/build_file.c:144
+#: src/build_file.c:146
 msgid "Build completed ... successful"
 msgstr "Kompilácia ukončená ... úspešne"
 
@@ -747,40 +757,40 @@ msgstr "Vytváram automagicky generovaný projekt:"
 msgid "Build completed...............Unsuccessful\n"
 msgstr "Kompilácia ukončená .................úspešne\n"
 
-#: src/build_project.c:339
+#: src/build_project.c:340
 msgid "Build terminated with error(s)."
 msgstr "Kompilácia ukončená s chybami."
 
-#: src/build_project.c:345
+#: src/build_project.c:346
 msgid "Build completed...............Successful\n"
 msgstr "Kompilácia ukončená...........................úspešne\n"
 
-#: src/build_project.c:347
+#: src/build_project.c:349
 msgid "Build completed ... successful."
 msgstr "Kompilácia ukončená ... úspešne."
 
-#: src/build_project.c:367
+#: src/build_project.c:369
 msgid "Build All completed...............Unsuccessful\n"
 msgstr "Úplná kompilácia ukončená ....................... neúspešne\n"
 
-#: src/build_project.c:370
+#: src/build_project.c:372
 msgid "Build All completed...............Unsuccessful"
 msgstr "Úplná kompilácia ukončená ....................... neúspešne"
 
-#: src/build_project.c:376
+#: src/build_project.c:377
 msgid "Build All completed...............Successful\n"
 msgstr "Úplná kompilácia ukončená....................úspešne\n"
 
-#: src/build_project.c:378
+#: src/build_project.c:380
 msgid "Build All completed ... successful"
 msgstr "Úplná kompilácia ukončená ... úspešne"
 
-#: src/build_project.c:399
+#: src/build_project.c:400
 #, fuzzy
 msgid "Build Distribution completed...............Unsuccessful\n"
 msgstr "Kompilácia distribúcie ukončená...........Neúspešne\n"
 
-#: src/build_project.c:402
+#: src/build_project.c:403
 #, fuzzy
 msgid "Build Distribution completed ... unsuccessful"
 msgstr "Kompilácia distribúcie ukončená ... neúspešne"
@@ -790,42 +800,42 @@ msgstr "Kompilácia distribúcie ukončená ... neúspešne"
 msgid "Build Distribution completed...............Successful\n"
 msgstr "Kompilácia distribúcia ukončená..............Úspešne\n"
 
-#: src/build_project.c:412
+#: src/build_project.c:411
 #, fuzzy
 msgid ""
 "The source tarball can be found in the top level directory of the project.\n"
 msgstr "Zdrojový tar-balíček môžete nájsť v hlavnom adresári projektu\n"
 
-#: src/build_project.c:415
+#: src/build_project.c:414
 #, fuzzy
 msgid "Build Distribution completed ... successful"
 msgstr "Kompilácia distribúcie ukončená ... úspešne"
 
-#: src/build_project.c:436
+#: src/build_project.c:434
 msgid "Install completed...............Unsuccessful\n"
 msgstr "Inštalácia ukončená..............Neúspešne\n"
 
-#: src/build_project.c:439
+#: src/build_project.c:437
 msgid "Install completed...............Unsuccessful"
 msgstr "Inštalácia ukončená..............Úspešne"
 
-#: src/build_project.c:445
+#: src/build_project.c:442
 msgid "Install completed...............Successful\n"
 msgstr "Inštalácia ukončená...............Úspešne\n"
 
-#: src/build_project.c:447
+#: src/build_project.c:445
 msgid "Install completed ... successful"
 msgstr "Inštalácia ukončená ... úspešne"
 
-#: src/build_project.c:468 src/gnome_project.c:235
+#: src/build_project.c:465 src/gnome_project.c:235
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Automatické vytvorenie ukončené.........Neúspešne\n"
 
-#: src/build_project.c:471
+#: src/build_project.c:468
 msgid "Auto generation completed ... unsuccessful"
 msgstr "Automatické vytvorenie ukončené ... neúspešne"
 
-#: src/build_project.c:477
+#: src/build_project.c:473
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
@@ -833,7 +843,7 @@ msgstr ""
 "Automatické vytvorenie.....................Úspešne\n"
 "Teraz nastavte projekt.\n"
 
-#: src/build_project.c:479
+#: src/build_project.c:476
 msgid "Auto generation completed ... successful"
 msgstr "Automatické vytvorenie ukončené ... úspešne"
 
@@ -851,7 +861,7 @@ msgstr "Vyčistiť"
 msgid "Cleaning the source directory of the Project: "
 msgstr "Čistím zdrojový adresár projektu: "
 
-#: src/clean_project.c:103
+#: src/clean_project.c:102
 msgid "Cleaning completed...............Unsuccessful\n"
 msgstr "Čistenie ukončené...................Neúspešne\n"
 
@@ -859,7 +869,7 @@ msgstr "Čistenie ukončené...................Neúspešne\n"
 msgid "Cleaning completed ... unsuccessful"
 msgstr "Čistenie ukončené ... neúspešne"
 
-#: src/clean_project.c:111
+#: src/clean_project.c:110
 msgid "Cleaning completed...............Successful\n"
 msgstr "Čistenie ukončené...............Úspešne\n"
 
@@ -881,7 +891,7 @@ msgstr "Vyčistiť všetky"
 msgid "Cleaning whole of the Project: "
 msgstr "Čistím celý projetk:"
 
-#: src/clean_project.c:183
+#: src/clean_project.c:182
 #, fuzzy
 msgid "Clean All completed...............Unsuccessful\n"
 msgstr "Čistenie všetkých ukončené.........Neúspešne\n"
@@ -891,7 +901,7 @@ msgstr "Čistenie všetkých ukončené.........Neúspešne\n"
 msgid "Clean All completed ... unsuccessful"
 msgstr "Čistenie všetkých ukončené ... neúspešne"
 
-#: src/clean_project.c:191
+#: src/clean_project.c:190
 #, fuzzy
 msgid "Clean All completed...............Successful\n"
 msgstr "Čistenie všetkých ukončené........Úspešne\n"
@@ -901,56 +911,56 @@ msgstr "Čistenie všetkých ukončené........Úspešne\n"
 msgid "Clean All completed ... successful"
 msgstr "Čistenie všetkých ukončené ... úspešne"
 
-#: src/commands.c:582
+#: src/commands.c:581
 msgid "Commands"
 msgstr "Príkazy"
 
-#: src/commands.c:600
+#: src/commands.c:599
 msgid "Select programming language:"
 msgstr "Vyberte programovací jazyk:"
 
-#: src/commands.c:626
+#: src/commands.c:625
 msgid " Language specific commands "
 msgstr " Príkazy pre jazyk "
 
-#: src/commands.c:640
+#: src/commands.c:639
 msgid "Compile File:"
 msgstr "Kompilovať súbor:"
 
-#: src/commands.c:648
+#: src/commands.c:647
 #, fuzzy
 msgid "Make File:"
 msgstr "Súbory make"
 
-#: src/commands.c:656
+#: src/commands.c:655
 msgid "Build File:"
 msgstr "Zostaviť súbor:"
 
-#: src/commands.c:664
+#: src/commands.c:663
 msgid "Execute File:"
 msgstr "Spustiť súbor:"
 
-#: src/commands.c:696
+#: src/commands.c:695
 msgid " General commands "
 msgstr " Hlavné príkazy "
 
-#: src/commands.c:710
+#: src/commands.c:709
 msgid "Pixmap editor:"
 msgstr "Editor pixmáp:"
 
-#: src/commands.c:718
+#: src/commands.c:717
 msgid "Image editor:"
 msgstr "Editor obrázkov:"
 
-#: src/commands.c:726
+#: src/commands.c:725
 msgid "HTML viewer:"
 msgstr "Prehliadač HTML:"
 
-#: src/commands.c:752
+#: src/commands.c:751
 msgid "Load global defaults"
 msgstr "Nahrať globálne predvolené vlastnosti"
 
-#: src/commands.c:759
+#: src/commands.c:758
 msgid "Load user defaults"
 msgstr "Nahrať používateĺské predvolené vlastnosti"
 
@@ -977,20 +987,20 @@ msgstr "Kompilovať"
 msgid "Compiling file: %s ...\n"
 msgstr "Kompilujem súbor: %s ...\n"
 
-#: src/compile.c:179 src/compile.c:182
+#: src/compile.c:179 src/compile.c:183
 msgid "Compile completed ... unsuccessful"
 msgstr "Kompilácia ukončená ... neúspešne"
 
-#: src/compile.c:187 src/compile.c:190
+#: src/compile.c:188 src/compile.c:192
 msgid "Compile completed ... successful"
 msgstr "Kompilácai ukončená ... úspešne"
 
-#: src/compiler_options_cbs.c:240
+#: src/compiler_options_cbs.c:241
 #, c-format
 msgid "Cannot create: %s."
 msgstr "Nepodarilo sa vytvoriť: %s."
 
-#: src/compiler_options_cbs.c:243
+#: src/compiler_options_cbs.c:244
 #, c-format
 msgid ""
 "Support ID: %s\n"
@@ -999,13 +1009,13 @@ msgstr ""
 "ID podpory: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:244
+#: src/compiler_options_cbs.c:245
 msgid "Description:\n"
 msgstr ""
 "Popis:\n"
 "\n"
 
-#: src/compiler_options_cbs.c:246
+#: src/compiler_options_cbs.c:247
 #, c-format
 msgid ""
 "Dependencies: %s\n"
@@ -1014,12 +1024,12 @@ msgstr ""
 "Závislosti:%s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:247
+#: src/compiler_options_cbs.c:248
 #, fuzzy
 msgid "Macros in configure.in file:\n"
 msgstr "Makrá v súbore configure.in:\n"
 
-#: src/compiler_options_cbs.c:249
+#: src/compiler_options_cbs.c:250
 #, fuzzy, c-format
 msgid ""
 "Variables for cflags: %s\n"
@@ -1028,7 +1038,7 @@ msgstr ""
 "Premenné pre c-značky (cflags): %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:251
+#: src/compiler_options_cbs.c:252
 #, fuzzy, c-format
 msgid ""
 "Variables for libraries: %s\n"
@@ -1037,7 +1047,7 @@ msgstr ""
 "Premenné pre knižnice: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:253
+#: src/compiler_options_cbs.c:254
 #, fuzzy, c-format
 msgid ""
 "Compile time cflags: %s\n"
@@ -1046,7 +1056,7 @@ msgstr ""
 "Kompilovať časové c-značky (cflags): %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:255
+#: src/compiler_options_cbs.c:256
 #, fuzzy, c-format
 msgid ""
 "Compile time libraries: %s\n"
@@ -1055,27 +1065,27 @@ msgstr ""
 "Kompilovať časové kničnice: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:257
+#: src/compiler_options_cbs.c:258
 msgid "Entries in acconfig.h file:\n"
 msgstr "Údaje v súbore acconfig.h:\n"
 
-#: src/compiler_options_cbs.c:259
+#: src/compiler_options_cbs.c:260
 #, fuzzy
 msgid "Installation status:\n"
 msgstr "Stav inštalácie:\n"
 
-#: src/compiler_options_cbs.c:274
+#: src/compiler_options_cbs.c:275
 #, c-format
 msgid "    Installed => %s\n"
 msgstr "     nainštalované => %s\n"
 
-#: src/compiler_options_cbs.c:278
+#: src/compiler_options_cbs.c:279
 msgid "    Not Installed.\n"
 msgstr "   Nenainštalované.\n"
 
-#: src/compiler_options_cbs.c:372 src/compiler_options_cbs.c:470
-#: src/compiler_options_cbs.c:564 src/compiler_options_cbs.c:658
-#: src/src_paths_cbs.c:135
+#: src/compiler_options_cbs.c:373 src/compiler_options_cbs.c:471
+#: src/compiler_options_cbs.c:565 src/compiler_options_cbs.c:659
+#: src/src_paths_cbs.c:137
 msgid "Are you sure you want to clear the list?"
 msgstr "Ste si istí, že chcete vyprázdniť tento zoznam?"
 
@@ -1087,11 +1097,11 @@ msgstr "Možnosti kompilátora"
 msgid "Supports"
 msgstr "Podpora"
 
-#: src/compiler_options_gui.c:92 src/compiler_options_gui.c:330
+#: src/compiler_options_gui.c:92 src/compiler_options_gui.c:329
 msgid "Include Paths"
 msgstr "Vložené cesty"
 
-#: src/compiler_options_gui.c:102 src/compiler_options_gui.c:449
+#: src/compiler_options_gui.c:102 src/compiler_options_gui.c:448
 msgid "Library Paths"
 msgstr "Cesty ku knižniciam"
 
@@ -1099,7 +1109,7 @@ msgstr "Cesty ku knižniciam"
 msgid "Libraries"
 msgstr "Knižnice"
 
-#: src/compiler_options_gui.c:122 src/compiler_options_gui.c:728
+#: src/compiler_options_gui.c:122 src/compiler_options_gui.c:727
 msgid "Defines"
 msgstr "Definície"
 
@@ -1111,133 +1121,134 @@ msgstr "Varovania"
 msgid "Optimization"
 msgstr "Optimalizácia"
 
-#: src/compiler_options_gui.c:251
+#: src/compiler_options_gui.c:250
 #, fuzzy
 msgid "Select the support libraries to add"
 msgstr "Vyberte podporu, ktorú chcete pridať"
 
-#: src/compiler_options_gui.c:260
+#: src/compiler_options_gui.c:259
 msgid "Info"
 msgstr "Informácie"
 
-#: src/compiler_options_gui.c:340 src/compiler_options_gui.c:459
-#: src/compiler_options_gui.c:613 src/compiler_options_gui.c:738
-#: src/src_paths_gui.c:155
+#: src/compiler_options_gui.c:339 src/compiler_options_gui.c:458
+#: src/compiler_options_gui.c:612 src/compiler_options_gui.c:737
+#: src/src_paths_gui.c:154
 msgid "<: Enter here"
 msgstr "<: tu zadajte"
 
-#: src/compiler_options_gui.c:362 src/compiler_options_gui.c:480
-#: src/compiler_options_gui.c:634 src/compiler_options_gui.c:760
-#: src/find_in_files_gui.c:136 src/main_menubar_def.h:760
-#: src/project_dbase_gui.c:405 src/src_paths_gui.c:177 src/watch_gui.c:42
+#. 2
+#: src/compiler_options_gui.c:361 src/compiler_options_gui.c:479
+#: src/compiler_options_gui.c:633 src/compiler_options_gui.c:759
+#: src/find_in_files_gui.c:137 src/main_menubar_def.h:742
+#: src/project_dbase_gui.c:400 src/src_paths_gui.c:176 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: src/compiler_options_gui.c:367 src/compiler_options_gui.c:485
-#: src/compiler_options_gui.c:639 src/compiler_options_gui.c:765
-#: src/find_in_files_gui.c:140 src/src_paths_gui.c:182 src/watch_gui.c:54
+#: src/compiler_options_gui.c:366 src/compiler_options_gui.c:484
+#: src/compiler_options_gui.c:638 src/compiler_options_gui.c:764
+#: src/find_in_files_gui.c:141 src/src_paths_gui.c:181 src/watch_gui.c:54
 msgid "Clear"
 msgstr "Vymazať"
 
-#: src/compiler_options_gui.c:595
+#: src/compiler_options_gui.c:594
 msgid "Added Libraries"
 msgstr "Pridané knižnice"
 
-#: src/compiler_options_gui.c:599
+#: src/compiler_options_gui.c:598
 msgid "Stock"
 msgstr "Úroveň"
 
-#: src/compiler_options_gui.c:603 src/signals_gui.c:126
+#: src/compiler_options_gui.c:602 src/signals_gui.c:126
 msgid "Description"
 msgstr "Popis"
 
-#: src/compiler_options_gui.c:824
+#: src/compiler_options_gui.c:823
 #, fuzzy
 msgid "Treat warnings as errors"
 msgstr "Pokladať varovania za chyby."
 
-#: src/compiler_options_gui.c:843
+#: src/compiler_options_gui.c:842
 msgid "No Warnings"
 msgstr "Bez varovaní"
 
-#: src/compiler_options_gui.c:849
+#: src/compiler_options_gui.c:848
 msgid "All Warnings"
 msgstr "Všetky varovania"
 
-#: src/compiler_options_gui.c:859
+#: src/compiler_options_gui.c:858
 msgid "Warning for implicit declarations"
 msgstr "Varovanie pri implicitnej deklarácii"
 
-#: src/compiler_options_gui.c:867
+#: src/compiler_options_gui.c:866
 msgid "Warning for mismatched return types"
 msgstr "Varovanie pri nezhodujúcich sa návratových typoch"
 
-#: src/compiler_options_gui.c:875
+#: src/compiler_options_gui.c:874
 msgid "Warning for unused variables"
 msgstr "Varovanie pri nepoužitých premenných"
 
-#: src/compiler_options_gui.c:883
+#: src/compiler_options_gui.c:882
 msgid "Warning for unhandled switch case with enums"
 msgstr "Varovanie pri nezachytenom \"switch case\" s \"enums\""
 
-#: src/compiler_options_gui.c:891
+#: src/compiler_options_gui.c:890
 msgid "Warning for nested comment"
 msgstr "Varovanie pri vnorenom komentári"
 
-#: src/compiler_options_gui.c:899
+#: src/compiler_options_gui.c:898
 msgid "Warning for uninitialized variable use"
 msgstr "Varovanie pri použití neinicializovanej premennej"
 
-#: src/compiler_options_gui.c:907
+#: src/compiler_options_gui.c:906
 msgid "Warning for missing parentheses"
 msgstr "Varovanie pri chybných parametroch"
 
-#: src/compiler_options_gui.c:915
+#: src/compiler_options_gui.c:914
 msgid "Warning on differences to traditional syntax"
 msgstr "Varovanie pri odlišnostiach od tradičnej syntaxe"
 
-#: src/compiler_options_gui.c:923
+#: src/compiler_options_gui.c:922
 msgid "Warning for variable shadowing"
 msgstr "Varovanie pri prekrývaní premenných"
 
-#: src/compiler_options_gui.c:931
+#: src/compiler_options_gui.c:930
 msgid "Warning for suspected pointer arithmetic"
 msgstr "Varovanie pri podozrivej pointerovej aritmetike"
 
-#: src/compiler_options_gui.c:939
+#: src/compiler_options_gui.c:938
 msgid "Warning for missing prototypes"
 msgstr "Varovanie pri chýbajúcich prototypoch"
 
-#: src/compiler_options_gui.c:947
+#: src/compiler_options_gui.c:946
 msgid "Warning if declarations cannot be inlined"
 msgstr "Varovanie ak nemôže byť deklarácia vložená \"inline\""
 
-#: src/compiler_options_gui.c:955
+#: src/compiler_options_gui.c:954
 msgid "Warning for overloaded virtuals"
 msgstr "Varovanie pri preťažení virtálnych"
 
-#: src/compiler_options_gui.c:991
+#: src/compiler_options_gui.c:990
 msgid "No optimization"
 msgstr "Neoptimalizovať"
 
-#: src/compiler_options_gui.c:1001
+#: src/compiler_options_gui.c:1000
 msgid "Low-level optimization (machine-dependent)"
 msgstr "Nízkoúrovňová optimalizácia (platformne-závislá)"
 
-#: src/compiler_options_gui.c:1011
+#: src/compiler_options_gui.c:1010
 msgid "Higher-level optimization (without space-speed tradeoff)"
 msgstr "Vysokoúrovňová optimalizácia (without space-speed tradeoff)"
 
-#: src/compiler_options_gui.c:1021
+#: src/compiler_options_gui.c:1020
 #, fuzzy
 msgid "Fastest-code optimization (functions inlined where possible"
 msgstr "Optimalizácia rýchlosti (funkcie vložiť inline vždy, keď je to možné)"
 
-#: src/compiler_options_gui.c:1032
+#: src/compiler_options_gui.c:1031
 msgid "Note"
 msgstr "Poznámka"
 
-#: src/compiler_options_gui.c:1038
+#: src/compiler_options_gui.c:1037
 #, fuzzy
 msgid ""
 "With optimization enabled, you may have some difficulty\n"
@@ -1249,15 +1260,15 @@ msgstr ""
 "pri ladení vášho programu. Takže zapnúť obe možnosti ladenia\n"
 "aj optimalizácie naraz."
 
-#: src/compiler_options_gui.c:1080
+#: src/compiler_options_gui.c:1079
 msgid "Enable Debugging"
 msgstr "Zapnúť ladenie"
 
-#: src/compiler_options_gui.c:1088
+#: src/compiler_options_gui.c:1087
 msgid "Enable Profiling"
 msgstr "Zapnúť profilovanie"
 
-#: src/compiler_options_gui.c:1093 src/wizard_gui.c:535
+#: src/compiler_options_gui.c:1092 src/wizard_gui.c:566
 msgid "Additional Options"
 msgstr "Dodatočné možnosti"
 
@@ -1497,17 +1508,17 @@ msgstr "Spustiť v termináli"
 msgid "Execute"
 msgstr "Spustiť"
 
-#: src/executer.c:257 src/mainmenu_callbacks.c:1612
+#: src/executer.c:257 src/mainmenu_callbacks.c:1568
 #, fuzzy
 msgid "The target executable of this Project is unknown"
 msgstr "Nie je známy cieĺ tohoto projektu"
 
-#: src/executer.c:262 src/mainmenu_callbacks.c:1614
+#: src/executer.c:262 src/mainmenu_callbacks.c:1570
 #, fuzzy
 msgid "The target executable of this Project is not executable"
 msgstr "Cieĺ tohoto projektu nie je spustiteĺný súbor"
 
-#: src/executer.c:267 src/mainmenu_callbacks.c:1618
+#: src/executer.c:267 src/mainmenu_callbacks.c:1574
 #, fuzzy
 msgid "The target executable does not exist for this Project"
 msgstr "Spustiteĺný súbor tohoto projektu neexistuje."
@@ -1517,8 +1528,8 @@ msgstr "Spustiteĺný súbor tohoto projektu neexistuje."
 msgid "No file or Project opened."
 msgstr "Nie je otvorený žiadny súbor alebo projekt."
 
-#: src/executer.c:285 src/executer.c:304 src/mainmenu_callbacks.c:1638
-#: src/mainmenu_callbacks.c:1649
+#: src/executer.c:285 src/executer.c:304 src/mainmenu_callbacks.c:1594
+#: src/mainmenu_callbacks.c:1605
 msgid "No executable for this file."
 msgstr "Žiadny spustiteĺný súbor pre tento súbor."
 
@@ -1540,209 +1551,213 @@ msgstr "Súbor nie je uložený. Najprv ho uložte."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Nepodarilo sa spustiť súbor. Skontrolujte Možnosti->Príkazy."
 
-#: src/find_in_files.c:178 src/find_in_files_gui.c:65
+#: src/find_in_files.c:188 src/find_in_files_gui.c:66
 msgid "Find in Files"
 msgstr "Nájsť v súboroch"
 
-#: src/find_in_files.c:181
+#: src/find_in_files.c:191
 msgid "Finding in Files ....\n"
 msgstr "Hĺadám v súboroch ...\n"
 
-#: src/find_in_files.c:201
+#: src/find_in_files.c:211
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Hĺadanie v súboroch ukončené..........úspešne\n"
 
-#: src/find_in_files.c:204
+#: src/find_in_files.c:214
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Hĺadanie v súboroch ukončené ... neúspešne"
 
-#: src/find_in_files.c:210
+#: src/find_in_files.c:220
 msgid "Find in Files completed...............Successful\n"
 msgstr "Hĺadanie v súboroch ukončené.............úspešne\n"
 
-#: src/find_in_files.c:212
+#: src/find_in_files.c:222
 msgid "Find in Files completed ... successful"
 msgstr "Hĺadanie v súboroch ukončené ... úspešne"
 
-#: src/find_in_files_cbs.c:87
+#: src/find_in_files_cbs.c:86
 msgid "No input files supplied."
 msgstr ""
 
-#: src/find_in_files_cbs.c:94
+#: src/find_in_files_cbs.c:93
 #, fuzzy
 msgid "No search string supplied."
 msgstr "Hľadaný text"
 
-#: src/find_in_files_gui.c:88
+#: src/find_in_files_gui.c:89
 msgid "File/Directory to add:"
 msgstr "Pridať súbor/sdresár:"
 
-#: src/find_in_files_gui.c:119
+#: src/find_in_files_gui.c:120
 msgid "List of Files/Directories to be searched"
 msgstr "Zoznam súborov/adresárov, ktoré budú prehĺadávané"
 
-#: src/find_in_files_gui.c:148
+#: src/find_in_files_gui.c:149
 msgid "Case Sensitive"
 msgstr "Rozlišovať veĺkosť písmen"
 
-#: src/find_in_files_gui.c:153
+#: src/find_in_files_gui.c:154
+#, fuzzy
+msgid "Ignore binary files"
+msgstr "Nájsť v súboroch"
+
+#: src/find_in_files_gui.c:159
 msgid " Search String"
 msgstr "Hľadaný text"
 
-#: src/find_replace.c:332
+#: src/find_replace.c:331
 msgid "Find and Replace"
 msgstr "Nájsť a nahradiť"
 
-#: src/find_replace.c:340 src/find_text.c:259
+#: src/find_replace.c:339 src/find_text.c:261
 msgid " RegExp/String to search "
 msgstr " Nájsť regulárny výraz/text "
 
-#: src/find_replace.c:354
+#: src/find_replace.c:353
 msgid " String to replace "
 msgstr " Nahradiť textom "
 
-#: src/find_replace.c:377 src/find_text.c:280
+#: src/find_replace.c:376 src/find_text.c:282
 msgid " Scope "
 msgstr " Rozsah "
 
-#: src/find_replace.c:390
+#: src/find_replace.c:389
 msgid "Whole Document"
 msgstr "Celý dokument"
 
-#: src/find_replace.c:398
+#: src/find_replace.c:397
 msgid "From Cursor"
 msgstr "Od kurzora"
 
-#: src/find_replace.c:404 src/find_text.c:307
+#: src/find_replace.c:403 src/find_text.c:309
 msgid " Direction "
 msgstr " Smer "
 
-#: src/find_replace.c:416 src/find_text.c:319
+#: src/find_replace.c:415 src/find_text.c:321
 #, fuzzy
 msgid "Forwards"
 msgstr "Dopredu"
 
-#: src/find_replace.c:423 src/find_text.c:326
+#: src/find_replace.c:422 src/find_text.c:328
 #, fuzzy
 msgid "Backwards"
 msgstr "Späť"
 
-#: src/find_replace.c:429 src/find_text.c:332
+#: src/find_replace.c:428 src/find_text.c:334
 msgid "Type"
 msgstr "Typ"
 
-#: src/find_replace.c:441 src/find_text.c:344
+#: src/find_replace.c:440 src/find_text.c:346
 msgid "RegExp"
 msgstr "Regulárny výraz"
 
-#: src/find_replace.c:448 src/find_text.c:351
+#: src/find_replace.c:447 src/find_text.c:353
 msgid "String"
 msgstr "Text"
 
-#: src/find_replace.c:462 src/find_text.c:359
+#: src/find_replace.c:461 src/find_text.c:361
 msgid "Ignore case while searching"
 msgstr "Ingorovať veĺkosť písmen pri hĺadaní"
 
-#: src/find_replace.c:469
+#: src/find_replace.c:468
 msgid "Prompt before Replace"
 msgstr "Opýtať sa pred nahradením"
 
-#: src/find_replace.c:476 src/find_text.c:366
+#: src/find_replace.c:475 src/find_text.c:368
 msgid "Whole word"
 msgstr "Celé slovo"
 
-#: src/find_replace.c:571
+#: src/find_replace.c:569
 msgid "Do you want to replace this?"
 msgstr "Chcete toto nahradiť?"
 
-#: src/find_replace.c:629
+#: src/find_replace.c:628
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Vybraný text neobzahuje reťazec \"%s\""
 
-#: src/find_replace.c:632
+#: src/find_replace.c:631
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Od aktuálneho umiestnenia nebol nájdený text \"%s\""
 
-#: src/find_text.c:251 src/message-manager.cc:43 src/text_editor_gui.c:187
+#: src/find_text.c:253 src/message-manager.cc:43 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "Nájsť"
 
-#: src/find_text.c:293
+#: src/find_text.c:295
 msgid "Whole document"
 msgstr "Celý dokument"
 
-#: src/find_text.c:300
+#: src/find_text.c:302
 msgid "From cursor"
 msgstr "Od kurzora"
 
-#: src/find_text.c:504
+#: src/find_text.c:506
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Zhoda s \"%s\" nebola v dokumente nájdená"
 
-#: src/find_text.c:507
+#: src/find_text.c:509
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Zhoda s \"%s\" nebola vo vybranom texte nájdená"
 
-#: src/find_text.c:510 src/toolbar_callbacks.c:156
+#: src/find_text.c:512 src/toolbar_callbacks.c:156
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Zhoda s \"%s\" nebola od aktuálnej pozície nájdená"
 
-#: src/find_text.c:521
+#: src/find_text.c:526
 msgid "No matches. Wrap search around the document?"
 msgstr "Ziadna zhoda. Otočiť hĺadanie v dokumente?"
 
 #: src/glade_iface.c:72 src/glades.c:69
-#, fuzzy
 msgid "Cannot fork glade."
 msgstr "Nepodarilo sa zahnúť glade."
 
 #: src/glade_iface.c:109 src/glades.c:106
-#, fuzzy
 msgid "Cannot fork glade--."
 msgstr "Nepodarilo sa zahnúť glade--."
 
-#: src/glades.c:210 src/source.c:121 src/source.c:168 src/source.c:206
-#: src/source.c:442 src/source.c:466 src/source.c:551 src/source.c:617
-#: src/source.c:657 src/source.c:672 src/source.c:706 src/source.c:761
-#: src/source.c:833 src/source.c:852 src/source.c:885 src/source.c:905
-#: src/source.c:938 src/source.c:958 src/source.c:989 src/source.c:1007
-#: src/source.c:1037 src/source.c:1055 src/source.c:1082 src/source.c:1135
-#: src/source.c:1211 src/source.c:1343 src/source.c:1416 src/utilities.c:723
+#: src/glades.c:212 src/source.c:121 src/source.c:168 src/source.c:206
+#: src/source.c:446 src/source.c:470 src/source.c:559 src/source.c:626
+#: src/source.c:666 src/source.c:681 src/source.c:715 src/source.c:770
+#: src/source.c:806 src/source.c:860 src/source.c:896 src/source.c:951
+#: src/source.c:1007 src/source.c:1026 src/source.c:1059 src/source.c:1078
+#: src/source.c:1111 src/source.c:1130 src/source.c:1161 src/source.c:1179
+#: src/source.c:1209 src/source.c:1227 src/source.c:1254 src/source.c:1308
+#: src/source.c:1390 src/source.c:1523 src/source.c:1595 src/utilities.c:723
 #, fuzzy, c-format
 msgid "Unable to create file: %s."
 msgstr "Nemôžem otvoriť súbor: %s\n"
 
-#: src/glades.c:392 src/glades.c:402 src/glades.c:412
+#: src/glades.c:394 src/glades.c:404 src/glades.c:414
 msgid "You need to set the Translatable Strings File option"
 msgstr ""
 
-#: src/glades.c:396 src/glades.c:406
+#: src/glades.c:398 src/glades.c:408
 msgid "You need to set the Project Directory option"
 msgstr ""
 
-#: src/glades.c:398 src/glades.c:408
+#: src/glades.c:400 src/glades.c:410
 msgid "You need to set the Project File option"
 msgstr ""
 
-#: src/glades.c:414
+#: src/glades.c:416
 msgid "You need to set the Project Name option"
 msgstr ""
 
-#: src/glades.c:416
+#: src/glades.c:418
 msgid "You need to set the Program Name option"
 msgstr ""
 
-#: src/glades.c:419
+#: src/glades.c:421
 msgid "You need to set the Source Directory option"
 msgstr ""
 
-#: src/glades.c:422
+#: src/glades.c:424
 msgid "You need to set the Pixmaps Directory option"
 msgstr ""
 
@@ -1836,19 +1851,19 @@ msgstr "Projekt bol úspešne automaticky vytvorený."
 msgid " Goto Line number "
 msgstr "Prejsť na riadok číslo "
 
-#: src/help.c:127
+#: src/help.c:136
 msgid "Search Help"
 msgstr "Hľadať pomocníka"
 
-#: src/help.c:147
+#: src/help.c:156
 msgid "Gnome API"
 msgstr "Gnome API"
 
-#: src/help.c:152
+#: src/help.c:161
 msgid "Man pages"
 msgstr "Manuálové stránky"
 
-#: src/help.c:157
+#: src/help.c:166
 msgid "Info pages"
 msgstr "Informačné stránky"
 
@@ -1861,1742 +1876,1849 @@ msgstr "Nepodarilo sa spustiť šelovský príkaz"
 msgid "Do not show the splashscreen"
 msgstr "Neukazovať úvodnú obrazovku"
 
-#: src/main_menubar.c:528
+#: src/main_menubar.c:533
 msgid "Recent Files    "
 msgstr "Nedávne súbory    "
 
-#: src/main_menubar.c:560 src/project_dbase.c:1804
+#: src/main_menubar.c:565 src/project_dbase.c:1806
 msgid "Recent Projects "
 msgstr "Nedávne projekty "
 
-#: src/main_menubar.c:579
-#, fuzzy
-msgid "A Project is already open. Close it first."
-msgstr "Máte otvorený projekt. Najprv ho zatvorte."
-
-#: src/main_menubar_def.h:27
-msgid "project1"
-msgstr "projekt1"
-
-#: src/main_menubar_def.h:37
+#. 0
+#: src/main_menubar_def.h:28
 msgid "_New"
 msgstr "_Nový"
 
-#: src/main_menubar_def.h:38
+#: src/main_menubar_def.h:29
 #, fuzzy
 msgid "New file"
 msgstr "Otvoriť súbor"
 
-#: src/main_menubar_def.h:43
+#. 1
+#: src/main_menubar_def.h:34
 msgid "_Open ..."
 msgstr "_Otvoriť ..."
 
-#: src/main_menubar_def.h:44 src/toolbar.c:120
+#: src/main_menubar_def.h:35 src/toolbar.c:120
 msgid "Open file"
 msgstr "Otvoriť súbor"
 
-#: src/main_menubar_def.h:49
+#. 2
+#: src/main_menubar_def.h:40
 msgid "_Save"
 msgstr "_Uložiť"
 
-#: src/main_menubar_def.h:50 src/toolbar.c:133
+#: src/main_menubar_def.h:41 src/toolbar.c:133
 msgid "Save current file"
 msgstr "Uložiť aktuálny súbor"
 
-#: src/main_menubar_def.h:55
+#. 3
+#: src/main_menubar_def.h:46
 msgid "Save _As ..."
 msgstr "Uložiť _ako ..."
 
-#: src/main_menubar_def.h:56
+#: src/main_menubar_def.h:47
 msgid "Save the current file with a different name"
 msgstr "Uložiť aktuálny súbor s novým menom"
 
-#: src/main_menubar_def.h:61
+#. 4
+#: src/main_menubar_def.h:52
 msgid "Save A_ll"
 msgstr "Uložiť všet_ko"
 
-#: src/main_menubar_def.h:62 src/toolbar.c:146
+#: src/main_menubar_def.h:53 src/toolbar.c:146
 msgid "Save all currently open files, except new files"
 msgstr "Uložiť všetky aktuálne otvorené súbory, okrem nových súborov"
 
-#: src/main_menubar_def.h:67
+#. 5
+#: src/main_menubar_def.h:58
 msgid "_Close File"
 msgstr "_Zatvoriť súbor"
 
-#: src/main_menubar_def.h:68 src/toolbar.c:158
+#: src/main_menubar_def.h:59 src/toolbar.c:158
 msgid "Close current file"
 msgstr "Zatvoriť aktuálny súbor"
 
-#: src/main_menubar_def.h:73
+#. 6
+#: src/main_menubar_def.h:64
 msgid "Close All Files"
 msgstr "Zatvoriť všetky súbory"
 
-#: src/main_menubar_def.h:74
+#: src/main_menubar_def.h:65
 msgid "Close all files"
 msgstr "Zatvoriť všetky súbory"
 
-#: src/main_menubar_def.h:79
+#. 7
+#: src/main_menubar_def.h:70
 msgid "Reload F_ile"
 msgstr "Obnov_iť súbor"
 
-#: src/main_menubar_def.h:80 src/toolbar.c:169
+#: src/main_menubar_def.h:71 src/toolbar.c:169
 msgid "Reload current file"
 msgstr "Obnoviť aktuálny súbor"
 
-#: src/main_menubar_def.h:86
+#. 8
+#. 9
+#: src/main_menubar_def.h:77
 msgid "N_ew Project ..."
 msgstr "Nový proj_ekt ..."
 
-#: src/main_menubar_def.h:87
+#: src/main_menubar_def.h:78
 #, fuzzy
 msgid "Create a Project using the Application Wizard"
 msgstr "Vytvoriť projekt použitím sprievodcu aplikáciou"
 
-#: src/main_menubar_def.h:92
+#. 10
+#: src/main_menubar_def.h:83
 #, fuzzy
 msgid "_Import Project ..."
 msgstr "Nový proj_ekt ..."
 
-#: src/main_menubar_def.h:93
+#: src/main_menubar_def.h:84
 msgid "Import an existing code project using the Project Import Wizard"
 msgstr ""
 
-#: src/main_menubar_def.h:98
+#. 11
+#: src/main_menubar_def.h:89
 msgid "Open P_roject ..."
 msgstr "Otvoriť p_rojekt ..."
 
-#: src/main_menubar_def.h:99 src/toolbar.c:414
+#: src/main_menubar_def.h:90 src/toolbar.c:414
 msgid "Open a Project"
 msgstr "Otvoriť projekt"
 
-#: src/main_menubar_def.h:104
+#. 12
+#: src/main_menubar_def.h:95
 msgid "Sa_ve Project"
 msgstr "Uložiť projek_t"
 
-#: src/main_menubar_def.h:105 src/toolbar.c:425
+#: src/main_menubar_def.h:96 src/toolbar.c:425
 msgid "Save the current Project"
 msgstr "Uložiť aktuálny projekt"
 
-#: src/main_menubar_def.h:110
+#. 13
+#: src/main_menubar_def.h:101
 msgid "Close Pro_ject"
 msgstr "Zatvoriť pro_jekt"
 
-#: src/main_menubar_def.h:111 src/toolbar.c:438
+#: src/main_menubar_def.h:102 src/toolbar.c:438
 msgid "Close the current Project"
 msgstr "Zatvoriť aktuálny projekt"
 
-#: src/main_menubar_def.h:117
+#. 14
+#. 15
+#: src/main_menubar_def.h:108
 msgid "Rena_me ..."
 msgstr "Pre_menovať ..."
 
-#: src/main_menubar_def.h:118
+#: src/main_menubar_def.h:109
 msgid "Rename the current file"
 msgstr "Premenovať aktuálny súbor"
 
-#: src/main_menubar_def.h:124
+#. 16
+#. 17
+#: src/main_menubar_def.h:115
 msgid "Page Set_up ..."
 msgstr "Na_stavenie strany ..."
 
-#: src/main_menubar_def.h:125
+#: src/main_menubar_def.h:116
 msgid "Page setup for printing"
 msgstr "Nastavenie tlačovej strany"
 
-#: src/main_menubar_def.h:130
+#. 18
+#: src/main_menubar_def.h:121
 msgid "_Print ..."
 msgstr "_Tlač ..."
 
-#: src/main_menubar_def.h:131 src/toolbar.c:219
+#: src/main_menubar_def.h:122 src/toolbar.c:219
 msgid "Print the current file"
 msgstr "Tlačiť aktuálny súbor"
 
-#: src/main_menubar_def.h:137
+#. 19
+#. 20
+#: src/main_menubar_def.h:128
 msgid "Recent _Files"
 msgstr "Ned_ávne súbory"
 
-#: src/main_menubar_def.h:143
+#. 21
+#: src/main_menubar_def.h:134
 msgid "Recent Projec_ts"
 msgstr "Nedávne projekt_y"
 
 #. 0
-#: src/main_menubar_def.h:157
+#: src/main_menubar_def.h:148
 msgid "_Make Selection Uppercase"
 msgstr "Z_meniť výber na veĺké"
 
-#: src/main_menubar_def.h:158
+#: src/main_menubar_def.h:149
 msgid "Make the selected text uppercase"
 msgstr "Zmeniť vybraný text na veĺké písmená"
 
 #. 1
-#: src/main_menubar_def.h:164
+#: src/main_menubar_def.h:155
 msgid "Make Selection Lowercase"
 msgstr "Zmeniť výber na malé"
 
-#: src/main_menubar_def.h:165
+#: src/main_menubar_def.h:156
 msgid "Make the selected text lowercase"
 msgstr "Zmeniť vybraný text na malé písmená"
 
 #. 3
-#: src/main_menubar_def.h:173
+#: src/main_menubar_def.h:164
 #, fuzzy
 msgid "Convert EOL chars to CRLF"
 msgstr "Zmeniť znaky EOL na LF"
 
-#: src/main_menubar_def.h:174
+#: src/main_menubar_def.h:165
 #, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
 
 #. 4
-#: src/main_menubar_def.h:180
+#: src/main_menubar_def.h:171
 msgid "Convert EOL chars to LF"
 msgstr "Zmeniť znaky EOL na LF"
 
-#: src/main_menubar_def.h:181
+#: src/main_menubar_def.h:172
 #, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
 
 #. 5
-#: src/main_menubar_def.h:187
+#: src/main_menubar_def.h:178
 #, fuzzy
 msgid "Convert EOL chars to CR"
 msgstr "Zmeniť znaky EOL na LF"
 
-#: src/main_menubar_def.h:188
+#: src/main_menubar_def.h:179
 #, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
 
 #. 6
-#: src/main_menubar_def.h:194
+#: src/main_menubar_def.h:185
 #, fuzzy
 msgid "Convert EOL chars to majority EOL"
 msgstr "Zmeniť znaky EOL na LF"
 
-#: src/main_menubar_def.h:195
+#: src/main_menubar_def.h:186
 #, fuzzy
-msgid "Convert End Of Line characters to mojority of the EOL found in the file"
+msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
 
-#: src/main_menubar_def.h:205
+#. 0
+#: src/main_menubar_def.h:197
 msgid "_Select All"
 msgstr "_Vybrať všetko"
 
-#: src/main_menubar_def.h:206
+#: src/main_menubar_def.h:198
 msgid "Select all text in the editor"
 msgstr "Vybrať celý dokument"
 
-#: src/main_menubar_def.h:211
+#. 1
+#: src/main_menubar_def.h:203
 msgid "Select to _Brace"
 msgstr "Vybrať po _zátvorku"
 
-#: src/main_menubar_def.h:212
+#: src/main_menubar_def.h:204
 msgid "Select the text in the matching braces"
 msgstr "Vybrať text vo vybranej zátvorke"
 
-#: src/main_menubar_def.h:217
+#. 2
+#: src/main_menubar_def.h:209
 msgid "Select Code Block"
 msgstr "Vybrať blok kódu"
 
-#: src/main_menubar_def.h:218
+#: src/main_menubar_def.h:210
 msgid "Select the current code block"
 msgstr "Vybrať aktuálny blok kódu"
 
-#: src/main_menubar_def.h:227
+#. 0
+#: src/main_menubar_def.h:220
 msgid "/* GPL Notice */"
 msgstr "/* GPL poznámka */"
 
-#: src/main_menubar_def.h:228
+#: src/main_menubar_def.h:221
 msgid "Insert GPL notice with C style comments"
 msgstr "Vložiť GPL poznámku v C štýle"
 
-#: src/main_menubar_def.h:233
+#. 1
+#: src/main_menubar_def.h:226
 msgid "// GPL Notice"
 msgstr "// GPL poznámka"
 
-#: src/main_menubar_def.h:234
+#: src/main_menubar_def.h:227
 msgid "Insert GPL notice with C++ style comments"
 msgstr "Vložiť GPL poznámku v C++ štýle"
 
-#: src/main_menubar_def.h:239
+#. 2
+#: src/main_menubar_def.h:232
 #, fuzzy
 msgid "# GPL Notice"
 msgstr "// GPL poznámka"
 
-#: src/main_menubar_def.h:240
+#: src/main_menubar_def.h:233
 #, fuzzy
 msgid "Insert GPL notice with Python style comments"
 msgstr "Vložiť GPL poznámku v C štýle"
 
-#: src/main_menubar_def.h:245
+#. 3
+#: src/main_menubar_def.h:238
 #, fuzzy
 msgid "Current Username"
 msgstr "Informácie _aktuálneho rámu"
 
-#: src/main_menubar_def.h:246
+#: src/main_menubar_def.h:239
 #, fuzzy
 msgid "Insert name of current user"
 msgstr "Premenovať aktuálny súbor"
 
-#: src/main_menubar_def.h:251
+#. 4
+#: src/main_menubar_def.h:244
 msgid "Current Date & Time"
 msgstr "Aktuálny dátum a čas"
 
-#: src/main_menubar_def.h:252
+#: src/main_menubar_def.h:245
 msgid "Insert current date & time"
 msgstr "Vložiť aktuálny dátum a čas"
 
-#: src/main_menubar_def.h:257
+#. 5
+#: src/main_menubar_def.h:250
 msgid "Header File Template"
 msgstr ""
 
-#: src/main_menubar_def.h:258
+#: src/main_menubar_def.h:251
 msgid "Insert a standard header file template"
 msgstr ""
 
-#: src/main_menubar_def.h:268
+#. 0
+#: src/main_menubar_def.h:261
 #, fuzzy
 msgid "_Goto Line number ..."
 msgstr "_Prejsť na riadok ..."
 
-#: src/main_menubar_def.h:269
+#: src/main_menubar_def.h:262
 msgid "Go to a particular line in the editor"
 msgstr "Prejsť na zadaný riadok v dokumente"
 
-#: src/main_menubar_def.h:274
+#. 1
+#: src/main_menubar_def.h:267
 msgid "Goto Matching _Brace"
 msgstr "Prejsť na vybranú _zátvorku"
 
-#: src/main_menubar_def.h:275
+#: src/main_menubar_def.h:268
 msgid "Go to the matching brace in the editor"
 msgstr "Prejde na vybranú zátvorku v editore"
 
-#: src/main_menubar_def.h:280
+#. 2
+#: src/main_menubar_def.h:273
 msgid "_Goto start of block"
 msgstr "_Prejsť na začiatok bloku"
 
-#: src/main_menubar_def.h:281
+#: src/main_menubar_def.h:274
 msgid "Go to the start of the current block"
 msgstr "Prejde na začiatok aktuálneho bloku"
 
-#: src/main_menubar_def.h:286
+#. 3
+#: src/main_menubar_def.h:279
 msgid "_Goto end of block"
 msgstr "_Prejsť na koniec bloku"
 
-#: src/main_menubar_def.h:287
+#: src/main_menubar_def.h:280
 msgid "Go to the end of the current block"
 msgstr "Prejde na koniec aktuálneho bloku"
 
-#: src/main_menubar_def.h:292
+#. 4
+#: src/main_menubar_def.h:285
 msgid "_Goto previous mesg"
 msgstr "_Prejsť na predchádzajúcu správu"
 
-#: src/main_menubar_def.h:293
+#: src/main_menubar_def.h:286
 msgid "Go to previous message"
 msgstr "Prejde na predchádzajúcu správu"
 
-#: src/main_menubar_def.h:298
+#. 5
+#: src/main_menubar_def.h:291
 msgid "_Goto next mesg"
 msgstr "_Prejsť na ďalšiu správu"
 
-#: src/main_menubar_def.h:299
+#: src/main_menubar_def.h:292
 msgid "Go to next message"
 msgstr "Prejde na ďalšiu správu"
 
 #. 0
-#: src/main_menubar_def.h:310
+#: src/main_menubar_def.h:303
 msgid "U_ndo"
 msgstr "S_päť"
 
-#: src/main_menubar_def.h:311 src/toolbar.c:182
+#: src/main_menubar_def.h:304 src/toolbar.c:182
 msgid "Undo the last action"
 msgstr "Vrátiť poslednú činnosť"
 
 #. 1
-#: src/main_menubar_def.h:317
+#: src/main_menubar_def.h:310
 msgid "_Redo"
 msgstr "_Opakovať"
 
-#: src/main_menubar_def.h:318 src/toolbar.c:193
+#: src/main_menubar_def.h:311 src/toolbar.c:193
 msgid "Redo the last undone action"
 msgstr "Opakovať poslednú vrátenú činnosť"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:326
+#: src/main_menubar_def.h:319
 msgid "C_ut"
 msgstr "V_ystrihnúť"
 
-#: src/main_menubar_def.h:327
+#: src/main_menubar_def.h:320
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Vystrihnúť vybraný text z editora do schránky"
 
 #. 4
-#: src/main_menubar_def.h:333
+#: src/main_menubar_def.h:326
 msgid "_Copy"
 msgstr "_Kopírovať"
 
-#: src/main_menubar_def.h:334
+#: src/main_menubar_def.h:327
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopírovať vybraný text do schránky"
 
 #. 5
-#: src/main_menubar_def.h:340
+#: src/main_menubar_def.h:333
 msgid "_Paste"
 msgstr "_Vložiť"
 
-#: src/main_menubar_def.h:341
+#: src/main_menubar_def.h:334
 msgid "Paste the content of clipboard at the current position"
 msgstr "Vložiť obsah schránky na aktuálnu pozíciu"
 
 #. 6
-#: src/main_menubar_def.h:347
+#: src/main_menubar_def.h:340
 msgid "C_lear"
 msgstr "Vymaz_ať"
 
-#: src/main_menubar_def.h:348
+#: src/main_menubar_def.h:341
 msgid "Delete the selected text from the editor"
 msgstr "Vymazať text z dokumentu"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:356
+#: src/main_menubar_def.h:349
 msgid "_Transform"
 msgstr "_Zmeniť"
 
 #. 9
-#: src/main_menubar_def.h:363
+#: src/main_menubar_def.h:356
 msgid "_Select"
 msgstr "Vy_brať"
 
 #. 10
-#: src/main_menubar_def.h:370
+#: src/main_menubar_def.h:363
 msgid "_Insert text"
 msgstr "Vlož_iť text"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:379
+#: src/main_menubar_def.h:372
 msgid "_AutoComplete"
 msgstr "_Automaticky doplniť"
 
-#: src/main_menubar_def.h:380
+#: src/main_menubar_def.h:373
 msgid "AutoComplete the current word"
 msgstr "Automaticky doplniť aktuálne slovo"
 
 #. 13
-#: src/main_menubar_def.h:386
+#: src/main_menubar_def.h:379
 msgid "S_how calltip"
 msgstr "Uká_zať typ"
 
-#: src/main_menubar_def.h:387
+#: src/main_menubar_def.h:380
 msgid "Show calltip for the function"
 msgstr "Ukazovať typ funkcie"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:395
+#: src/main_menubar_def.h:388
 msgid "_Find ..."
 msgstr "_Nájsť..."
 
-#: src/main_menubar_def.h:396
+#: src/main_menubar_def.h:389
 #, fuzzy
 msgid "Search for a string or regular expression in the editor"
 msgstr "Nájsť v editore text alebo výraz"
 
 #. 16
-#: src/main_menubar_def.h:402
+#: src/main_menubar_def.h:395
 #, fuzzy
 msgid "Fin_d in Files ..."
 msgstr "Nájsť v sú_boroch ..."
 
-#: src/main_menubar_def.h:403
+#: src/main_menubar_def.h:396
 msgid "Search for a string in multiple files or directories"
 msgstr "Hĺadať reťazec v súboroch alebo adresároch"
 
 #. 17
-#: src/main_menubar_def.h:409
+#: src/main_menubar_def.h:402
 msgid "Find and R_eplace ..."
 msgstr "Nájsť a nahrad_iť..."
 
-#: src/main_menubar_def.h:410
+#: src/main_menubar_def.h:403
 #, fuzzy
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr "Nájsť a nahradiť reťazec alebo výraz v inom reťazci"
 
 #. 18
-#: src/main_menubar_def.h:416
+#: src/main_menubar_def.h:409
 msgid "Find _Next"
 msgstr "_Nájsť ďalší"
 
-#: src/main_menubar_def.h:417
+#: src/main_menubar_def.h:410
 #, fuzzy
 msgid "Repeat the last Find command"
 msgstr "Opakovať posledné hĺadanie"
 
 #. 19
-#: src/main_menubar_def.h:423
+#: src/main_menubar_def.h:416
 msgid "G_o to"
 msgstr "Prejsť n_a"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:432
+#: src/main_menubar_def.h:425
 msgid "Ed_it Application GUI ..."
 msgstr "Uprav_iť GUI aplikácie ..."
 
-#: src/main_menubar_def.h:433
+#: src/main_menubar_def.h:426
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "Upraviť GUI aplikácie v editore Glade"
 
-#. 22
-#. 23
-#: src/main_menubar_def.h:441
-msgid "Save Build Messages"
-msgstr "Uložiť kompilačné správy"
-
-#: src/main_menubar_def.h:442
-msgid "Save build messages to file"
-msgstr "Uložiť kompilačné správy do súboru"
-
-#: src/main_menubar_def.h:452
+#. 0
+#: src/main_menubar_def.h:438
 msgid "_Main Toolbar"
 msgstr "Hla_vný panel"
 
-#: src/main_menubar_def.h:453
+#: src/main_menubar_def.h:439
 msgid "Hide/Unhide Main toolbar"
 msgstr "Skryť/ukázať hlavný panel"
 
-#: src/main_menubar_def.h:459
+#. 1
+#: src/main_menubar_def.h:444
 msgid "_Extended Toolbar"
 msgstr "Rozšír_ený"
 
-#: src/main_menubar_def.h:460
+#: src/main_menubar_def.h:445
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Skryť/ukázať rozšírený panel"
 
-#: src/main_menubar_def.h:466
+#. 2
+#: src/main_menubar_def.h:450
 msgid "_Debug Toolbar"
 msgstr "La_diť"
 
-#: src/main_menubar_def.h:467
+#: src/main_menubar_def.h:451
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Skryť/ukázať panel ladenia"
 
-#: src/main_menubar_def.h:473
+#. 3
+#: src/main_menubar_def.h:456
 msgid "_Browser Toolbar"
 msgstr "Prehli_adač"
 
-#: src/main_menubar_def.h:474
+#: src/main_menubar_def.h:457
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Skryť/ukázať panel prehliadača"
 
-#: src/main_menubar_def.h:480
+#. 4
+#: src/main_menubar_def.h:462
 msgid "_Format Toolbar"
 msgstr "_Formát"
 
-#: src/main_menubar_def.h:481
+#: src/main_menubar_def.h:463
 msgid "Hide/Unhide Format toolbar"
 msgstr "Skryť/ukázať formátovací panel"
 
-#: src/main_menubar_def.h:490
+#. 0
+#: src/main_menubar_def.h:473
 msgid "_Line numbers margin"
 msgstr "Čís_lovanie riadkov"
 
-#: src/main_menubar_def.h:491
+#: src/main_menubar_def.h:474
 msgid "Show/Hide line numbers"
 msgstr "Ukázať/skryť čísla riadkov"
 
-#: src/main_menubar_def.h:496
+#. 1
+#: src/main_menubar_def.h:479
 msgid "_Markers Margin"
 msgstr "Z_načkovací okraj"
 
-#: src/main_menubar_def.h:497
+#: src/main_menubar_def.h:480
 msgid "Show/Hide markers margin"
 msgstr "Ukázať/skryť značkovací okraj"
 
-#: src/main_menubar_def.h:502
+#. 2
+#: src/main_menubar_def.h:485
 msgid "_Code fold margin"
 msgstr "_Kódový okraj"
 
-#: src/main_menubar_def.h:503
+#: src/main_menubar_def.h:486
 msgid "Show/Hide code fold margin"
 msgstr "Ukázať/skryť kódový okraj"
 
-#: src/main_menubar_def.h:508
+#. 3
+#: src/main_menubar_def.h:491
 msgid "_Indentation guides"
 msgstr "Odsadzovan_ie"
 
-#: src/main_menubar_def.h:509
+#: src/main_menubar_def.h:492
 msgid "Show/Hide undentation guides"
 msgstr "Ukázať/skryť odsadzovanie"
 
-#: src/main_menubar_def.h:514
+#. 4
+#: src/main_menubar_def.h:497
 msgid "_White spaces"
 msgstr "_Biele znaky"
 
-#: src/main_menubar_def.h:515
+#: src/main_menubar_def.h:498
 msgid "Show/Hide white spaces"
 msgstr "Ukázať/skryť biele znaky"
 
-#: src/main_menubar_def.h:520
+#. 5
+#: src/main_menubar_def.h:503
 msgid "_Line end characters"
 msgstr "Ria_dok a znaky"
 
-#: src/main_menubar_def.h:521
+#: src/main_menubar_def.h:504
 msgid "Show/Hide line end characters"
 msgstr "Ukázať/skryť ziadok a znaky"
 
-#: src/main_menubar_def.h:530
+#. 0
+#: src/main_menubar_def.h:514
 msgid "++ Zoom"
 msgstr "++ lupa"
 
-#: src/main_menubar_def.h:531
+#: src/main_menubar_def.h:515
 msgid "Increase text zoom by 1 unit"
 msgstr "Priblížiť text o 1 jednotku"
 
-#: src/main_menubar_def.h:536
+#. 1
+#: src/main_menubar_def.h:520
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:537
+#: src/main_menubar_def.h:521
 msgid "Zoom factor +8"
 msgstr "Lupa +8"
 
-#: src/main_menubar_def.h:542
+#. 2
+#: src/main_menubar_def.h:526
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:543
+#: src/main_menubar_def.h:527
 msgid "Zoom factor +6"
 msgstr "Lupa +6"
 
-#: src/main_menubar_def.h:548
+#. 3
+#: src/main_menubar_def.h:532
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:549
+#: src/main_menubar_def.h:533
 msgid "Zoom factor +4"
 msgstr "Lupa +4"
 
-#: src/main_menubar_def.h:554
+#. 4
+#: src/main_menubar_def.h:538
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:555
+#: src/main_menubar_def.h:539
 msgid "Zoom factor +2"
 msgstr "Lupa +2"
 
-#: src/main_menubar_def.h:561
+#: src/main_menubar_def.h:545
 msgid "Zoom factor 0"
 msgstr "Lupa 0"
 
-#: src/main_menubar_def.h:566
+#. 6
+#: src/main_menubar_def.h:550
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:567
+#: src/main_menubar_def.h:551
 msgid "Zoom factor -2"
 msgstr "Lupa -2"
 
-#: src/main_menubar_def.h:572
+#. 7
+#: src/main_menubar_def.h:556
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:573
+#: src/main_menubar_def.h:557
 msgid "Zoom factor -4"
 msgstr "Lupa -4"
 
-#: src/main_menubar_def.h:578
+#. 8
+#: src/main_menubar_def.h:562
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:579
+#: src/main_menubar_def.h:563
 msgid "Zoom factor -6"
 msgstr "Lupa -6"
 
-#: src/main_menubar_def.h:584
+#. 9
+#: src/main_menubar_def.h:568
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:585
+#: src/main_menubar_def.h:569
 msgid "Zoom factor -8"
 msgstr "Lupa -8"
 
-#: src/main_menubar_def.h:590
+#. 10
+#: src/main_menubar_def.h:574
 msgid "-- Zoom"
 msgstr "-- lupa"
 
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:575
 msgid "Reduce text zoom by 1 unit"
 msgstr "Oddialiť text o 1 jednotku"
 
 #. 0
-#: src/main_menubar_def.h:601
+#: src/main_menubar_def.h:585
 msgid "_Messages"
 msgstr "_Správy"
 
-#: src/main_menubar_def.h:602
+#: src/main_menubar_def.h:586
 msgid "Show/Hide the Message window"
 msgstr "Ukázať/skryť okno správ"
 
 #. 1
-#: src/main_menubar_def.h:607
+#: src/main_menubar_def.h:591
 msgid "_Project Listing"
 msgstr "Výpis _projektu"
 
-#: src/main_menubar_def.h:608 src/toolbar.c:284
+#: src/main_menubar_def.h:592 src/toolbar.c:284
 msgid "Show/Hide the Project window"
 msgstr "Ukázať/skryť okno projektu"
 
 #. 2
-#: src/main_menubar_def.h:613
+#: src/main_menubar_def.h:597
 msgid "B_ookmarks"
 msgstr "Zál_ožky"
 
-#: src/main_menubar_def.h:614
+#: src/main_menubar_def.h:598
 msgid "Show the Bookmark window"
 msgstr "Ukázať okno záložiek"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:620
+#: src/main_menubar_def.h:604
 msgid "_Toolbars"
 msgstr "_Panely"
 
 #. 5
-#. 6
-#: src/main_menubar_def.h:627
+#: src/main_menubar_def.h:610
 msgid "_Editor"
 msgstr "_Editor"
 
-#. 7
-#. 8
-#: src/main_menubar_def.h:634
+#. 6
+#: src/main_menubar_def.h:616
 msgid "_Zoom text"
 msgstr "_Lupa"
 
-#. 9
-#. 10
-#: src/main_menubar_def.h:641 src/main_menubar_def.h:1333
+#. 7
+#. 8
+#: src/main_menubar_def.h:623 src/main_menubar_def.h:1304
 msgid "_Breakpoints"
 msgstr "Z_arážky"
 
-#: src/main_menubar_def.h:642
+#: src/main_menubar_def.h:624
 msgid "Show breakpoints editor window"
 msgstr "Ukázať okno zarážok"
 
-#. 11
-#. 12
-#: src/main_menubar_def.h:648
+#. 9
+#: src/main_menubar_def.h:629
 msgid "_Watch Window"
 msgstr "Po_hĺady"
 
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:630
 msgid "Show expression watch window"
 msgstr "Ukázať okno pohĺadov"
 
-#. 13
-#: src/main_menubar_def.h:654
+#. 10
+#: src/main_menubar_def.h:635
 msgid "_Registers"
 msgstr "_Registre"
 
-#: src/main_menubar_def.h:655
+#: src/main_menubar_def.h:636
 msgid "Show CPU registers and their contents"
 msgstr "Ukázať CPU registre a ich obsah"
 
-#. 14
-#: src/main_menubar_def.h:660
+#. 11
+#: src/main_menubar_def.h:641
 msgid "Program _Stack"
 msgstr "Zá_sobník"
 
-#: src/main_menubar_def.h:661
+#: src/main_menubar_def.h:642
 msgid "Show stack trace of the program"
 msgstr "Ukázať výpis zásobníka programu"
 
-#. 15
-#: src/main_menubar_def.h:666
+#. 12
+#: src/main_menubar_def.h:647
 msgid "Shared _Libraries"
 msgstr "Zdieĺané kn_ižnice"
 
-#: src/main_menubar_def.h:667
+#: src/main_menubar_def.h:648
 msgid "Show shared libraries loaded by the program"
 msgstr "Ukázať zdieĺané knižnice nahrané programom"
 
-#. 16
-#: src/main_menubar_def.h:672
+#. 13
+#: src/main_menubar_def.h:653
 msgid "_Kernel Signals"
 msgstr "Signály jad_ra"
 
-#: src/main_menubar_def.h:673
+#: src/main_menubar_def.h:654
 msgid "Show the kernel signals editor window"
 msgstr "Ukázať okno signálov jadra"
 
-#. 17
-#: src/main_menubar_def.h:678
+#. 14
+#: src/main_menubar_def.h:659
 msgid "_Dump Window"
 msgstr "_Výpis"
 
-#: src/main_menubar_def.h:679
+#: src/main_menubar_def.h:660
 msgid "Show memory dump window"
 msgstr "Ukázať okno s výpisom pamäte"
 
-#. 18
-#. 19
-#: src/main_menubar_def.h:685
+#. 15
+#. 16
+#: src/main_menubar_def.h:666
 msgid "_Console"
 msgstr "_Konzola"
 
-#: src/main_menubar_def.h:686
+#: src/main_menubar_def.h:667
 msgid "Show the console where the program runs"
 msgstr "Ukázať okno konzoly počas behu programu"
 
-#. 20
-#: src/main_menubar_def.h:691
+#. 17
+#: src/main_menubar_def.h:672
 msgid "Show _Locals"
 msgstr "Ukázať prem_enné"
 
-#: src/main_menubar_def.h:692
+#: src/main_menubar_def.h:673
 #, fuzzy
 msgid "Show/Hide Local variables in Message window"
 msgstr "Ukázať/skryť lokálne premenné v okne správ"
 
-#: src/main_menubar_def.h:701 src/project_dbase_gui.c:333
+#. 0
+#: src/main_menubar_def.h:683 src/project_dbase_gui.c:328
 msgid "Include file"
 msgstr "Vložiť súbor"
 
-#: src/main_menubar_def.h:707 src/project_dbase_gui.c:339
+#. 1
+#: src/main_menubar_def.h:689 src/project_dbase_gui.c:334
 msgid "Source file"
 msgstr "Zdrojový súbor"
 
-#: src/main_menubar_def.h:713 src/project_dbase_gui.c:345
+#. 2
+#: src/main_menubar_def.h:695 src/project_dbase_gui.c:340
 msgid "Help file"
 msgstr "Pomocník"
 
-#: src/main_menubar_def.h:719 src/project_dbase_gui.c:351
+#. 3
+#: src/main_menubar_def.h:701 src/project_dbase_gui.c:346
 msgid "Data file"
 msgstr "Dátový súbor"
 
-#: src/main_menubar_def.h:725 src/project_dbase_gui.c:357
+#. 4
+#: src/main_menubar_def.h:707 src/project_dbase_gui.c:352
 msgid "Pixmap file"
 msgstr "Súbor pixmapy"
 
-#: src/main_menubar_def.h:731 src/project_dbase_gui.c:363
+#. 5
+#: src/main_menubar_def.h:713 src/project_dbase_gui.c:358
 msgid "Translation file"
 msgstr "Prekladový súbor"
 
-#: src/main_menubar_def.h:737
+#. 6
+#: src/main_menubar_def.h:719
 msgid "Documentation file"
 msgstr "Súbor dokumentácie"
 
-#: src/main_menubar_def.h:747 src/project_dbase_gui.c:379
+#. 0
+#: src/main_menubar_def.h:730 src/project_dbase_gui.c:374
 msgid "Add New"
 msgstr "Pridať nový"
 
-#: src/main_menubar_def.h:753 src/project_dbase_gui.c:385
+#. 1
+#: src/main_menubar_def.h:736 src/project_dbase_gui.c:380
 msgid "Import File"
 msgstr "Importovať súbor"
 
-#: src/main_menubar_def.h:761
+#: src/main_menubar_def.h:743
 #, fuzzy
 msgid "Remove the current file from the Project"
 msgstr "Odstrániť aktuálny súbor z projektu"
 
-#: src/main_menubar_def.h:768
-#, fuzzy
-msgid "Open the README file of the Project"
-msgstr "Otvoriť README súbor projektu"
-
-#: src/main_menubar_def.h:774
-#, fuzzy
-msgid "Open the TODO file of the Project"
-msgstr "Otvoriť TODO súbor projektu"
-
-#: src/main_menubar_def.h:780
-#, fuzzy
-msgid "Open the ChangeLog file of the Project"
-msgstr "Otvoriť súbor zmien (ChangeLog) projektu"
-
-#: src/main_menubar_def.h:786
-#, fuzzy
-msgid "Open the NEWS file of the Project"
-msgstr "Otvoriť NEWS súbor projektu"
-
-#: src/main_menubar_def.h:792
+#. 3
+#. 4
+#: src/main_menubar_def.h:749
 msgid "Project _Configuration ..."
 msgstr "_Nastavenie projektu ..."
 
-#: src/main_menubar_def.h:793
+#: src/main_menubar_def.h:750
 #, fuzzy
 msgid "Edit the configuration of the Project"
 msgstr "Upraviť nastavenie projektu"
 
-#: src/main_menubar_def.h:798
+#. 5
+#: src/main_menubar_def.h:755
 msgid "Project _Information"
 msgstr "_Informácie o projekte"
 
-#: src/main_menubar_def.h:799
+#: src/main_menubar_def.h:756
 #, fuzzy
 msgid "Detailed information about the Project"
 msgstr "Detailné informácie o projekte"
 
-#: src/main_menubar_def.h:808
+#. 0
+#: src/main_menubar_def.h:766
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: src/main_menubar_def.h:809
+#: src/main_menubar_def.h:767
 msgid "Automatically determine the highlight style"
 msgstr "Automaticky rozoznať štýl zvýrazňovania"
 
-#: src/main_menubar_def.h:814
+#. 1
+#: src/main_menubar_def.h:772
 msgid "No Highlight style"
 msgstr "Nezvýrazňovať"
 
-#: src/main_menubar_def.h:815
+#: src/main_menubar_def.h:773
 msgid "Force the highlight style to None"
 msgstr "Nezvýrazňovať text"
 
-#: src/main_menubar_def.h:820
+#. 2
+#: src/main_menubar_def.h:778
 msgid "C and C++"
 msgstr "C a C++"
 
-#: src/main_menubar_def.h:821
+#: src/main_menubar_def.h:779
 msgid "Force the highlight style to C and C++"
 msgstr "Povoliť štýl zvýraznenia pre C a C++"
 
-#: src/main_menubar_def.h:826
+#. 3
+#: src/main_menubar_def.h:784
 msgid "C and C++ with GNOME"
 msgstr "C a C++ s GNOME"
 
-#: src/main_menubar_def.h:827
+#: src/main_menubar_def.h:785
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Povoliť štýl zvýrazňovania C a C++ s GNOME"
 
-#: src/main_menubar_def.h:832
+#. 4
+#: src/main_menubar_def.h:790
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:833
+#: src/main_menubar_def.h:791
 msgid "Force the highlight style to HTML"
 msgstr "Povoliť štýl zvýrazňovania pre HTML"
 
-#: src/main_menubar_def.h:838
+#. 5
+#: src/main_menubar_def.h:796
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:839
+#: src/main_menubar_def.h:797
 msgid "Force the highlight style to XML"
 msgstr "Povoliť štýl zvýrazňovania pre XML"
 
-#: src/main_menubar_def.h:844
+#. 6
+#: src/main_menubar_def.h:802
 msgid "Javascript"
 msgstr "Javascript"
 
-#: src/main_menubar_def.h:845
+#: src/main_menubar_def.h:803
 msgid "Force the highlight style to Javascript"
 msgstr "Povoliť štýl zvýrazňovania pre Javascript"
 
-#: src/main_menubar_def.h:850
+#. 7
+#: src/main_menubar_def.h:808
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:851
+#: src/main_menubar_def.h:809
 msgid "Force the highlight style to WScript"
 msgstr "povoliť štýl zvýrazňovania pre WScript"
 
-#: src/main_menubar_def.h:856
+#. 8
+#: src/main_menubar_def.h:814
 msgid "Makefile"
 msgstr "Súbory make"
 
-#: src/main_menubar_def.h:857
+#: src/main_menubar_def.h:815
 msgid "Force the highlight style to Makefile"
 msgstr "Povoliť štýl zobrazenia pre Makefile"
 
-#: src/main_menubar_def.h:862
+#. 9
+#: src/main_menubar_def.h:820
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:863
+#: src/main_menubar_def.h:821
 msgid "Force the highlight type to Java"
 msgstr "Povoliť štýl zvýrazňovania pre Javu"
 
-#: src/main_menubar_def.h:868
+#. 10
+#: src/main_menubar_def.h:826
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:869
+#: src/main_menubar_def.h:827
 msgid "Force the highlight style to LUA"
 msgstr "Povoliť štýl zvýrazňovania pre LUA"
 
-#: src/main_menubar_def.h:874
+#. 11
+#: src/main_menubar_def.h:832
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:875
+#: src/main_menubar_def.h:833
 msgid "Force the highlight style to Python"
 msgstr "Povoliť štýl zvýrazňovania pre Python"
 
-#: src/main_menubar_def.h:880
+#. 12
+#: src/main_menubar_def.h:838
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:881
+#: src/main_menubar_def.h:839
 msgid "Force the highlight style to Perl"
 msgstr "Povoliť štýl zvýrazňovania pre Perl"
 
-#: src/main_menubar_def.h:886
+#. 13
+#: src/main_menubar_def.h:844
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:887
+#: src/main_menubar_def.h:845
 msgid "Force the highlight style to SQL"
 msgstr "Povoliť štýl zvýrazňovania pre SQL"
 
-#: src/main_menubar_def.h:892
+#. 14
+#: src/main_menubar_def.h:850
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:893
+#: src/main_menubar_def.h:851
 msgid "Force the highlight style to PL/SQL"
 msgstr "Povoliť štýl zvýrazňovania pre PL/SQL"
 
-#: src/main_menubar_def.h:898
+#. 15
+#: src/main_menubar_def.h:856
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:899
+#: src/main_menubar_def.h:857
 msgid "Force the highlight style to PHP"
 msgstr "Povoliť štýl zvýrazňovania pre PHP"
 
-#: src/main_menubar_def.h:904
+#. 16
+#: src/main_menubar_def.h:862
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:905
+#: src/main_menubar_def.h:863
 msgid "Force the highlight style to LaTex"
 msgstr "Povoliť štýl zvýrazňovania pre LaTex"
 
-#: src/main_menubar_def.h:910
+#. 17
+#: src/main_menubar_def.h:868
 msgid "Diff"
 msgstr "Diff"
 
-#: src/main_menubar_def.h:911
+#: src/main_menubar_def.h:869
 msgid "Force the highlight style to Diff"
 msgstr "Povoliť štýl zvýrazňovania pre Diff"
 
-#: src/main_menubar_def.h:916
+#. 18
+#: src/main_menubar_def.h:874
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:917
+#: src/main_menubar_def.h:875
 msgid "Force the highlight style to Pascal"
 msgstr "Povoliť štýl zvýrazňovania pre Pascal"
 
-#: src/main_menubar_def.h:922
+#. 19
+#: src/main_menubar_def.h:880
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:923
+#: src/main_menubar_def.h:881
 msgid "Force the highlight style to Xcode"
 msgstr "Povoliť štýl zvýrazňovania pre Xcode"
 
-#: src/main_menubar_def.h:928
+#. 20
+#: src/main_menubar_def.h:886
 msgid "Prj/Properties"
 msgstr "Prj/Vlastnosti"
 
-#: src/main_menubar_def.h:929
+#: src/main_menubar_def.h:887
 msgid "Force the highlight style to project/properties files"
 msgstr "Povoli zvýrazňovanie pre súbory vlastností projektu"
 
-#: src/main_menubar_def.h:934
+#. 21
+#: src/main_menubar_def.h:892
 msgid "Conf"
 msgstr "Konfiguračný súbor"
 
-#: src/main_menubar_def.h:935
+#: src/main_menubar_def.h:893
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Pvovoliť zvýraznenie UNIXových konfiguračných súborov"
 
-#: src/main_menubar_def.h:940
+#. 22
+#: src/main_menubar_def.h:898
 #, fuzzy
 msgid "Ada"
 msgstr "Pridať"
 
-#: src/main_menubar_def.h:941
+#: src/main_menubar_def.h:899
 #, fuzzy
 msgid "Force the highlight style to Ada"
 msgstr "Povoliť štýl zvýrazňovania pre LUA"
 
-#: src/main_menubar_def.h:946
+#. 23
+#: src/main_menubar_def.h:904
 msgid "Baan"
 msgstr ""
 
-#: src/main_menubar_def.h:947
+#: src/main_menubar_def.h:905
 #, fuzzy
 msgid "Force the highlight style to Baan"
 msgstr "Povoliť štýl zvýrazňovania pre Pascal"
 
-#: src/main_menubar_def.h:956
+#. 0
+#: src/main_menubar_def.h:915
 msgid "Auto _Format"
 msgstr "Automatický _formát"
 
-#: src/main_menubar_def.h:957
+#: src/main_menubar_def.h:916
 msgid "Autoformat C and C++ source files"
 msgstr "Automatické formátovanie zdrojových súborov C a C++"
 
-#: src/main_menubar_def.h:962
+#. 1
+#: src/main_menubar_def.h:921
 msgid "_Increase Indent"
 msgstr "Zväčš_iť odsadenie"
 
-#: src/main_menubar_def.h:963
+#: src/main_menubar_def.h:922
 msgid "Increase indentation of line/selection"
 msgstr "Zväčšiť odsadenie riadku/výberu"
 
-#: src/main_menubar_def.h:968
+#. 2
+#: src/main_menubar_def.h:927
 msgid "_Decrease Indent"
 msgstr "Zmenšiť o_dsadenie"
 
-#: src/main_menubar_def.h:969
+#: src/main_menubar_def.h:928
 msgid "Decrease indentation of line/selection"
 msgstr "Zmenšiť odsadenie riadku/výberu"
 
-#: src/main_menubar_def.h:975
+#. 3
+#. 4
+#: src/main_menubar_def.h:934
 msgid "_Update tags image"
 msgstr "Akt_ualizovať vzhĺad tagov"
 
-#: src/main_menubar_def.h:976
+#: src/main_menubar_def.h:935
 msgid "Update the tags image of the project/opened files"
 msgstr "Aktualizovať vzhĺad tagov pre otvorené súbory projektu"
 
-#: src/main_menubar_def.h:982
+#. 5
+#. 6
+#: src/main_menubar_def.h:941
 msgid "Force _Highlight Style"
 msgstr "Povoliť zvýrazn_enie"
 
-#: src/main_menubar_def.h:989
+#. 7
+#. 8
+#: src/main_menubar_def.h:948
 msgid "_Close All Folds"
 msgstr "_Zatvoriť všetky priečinky"
 
-#: src/main_menubar_def.h:990
+#: src/main_menubar_def.h:949
 msgid "Close all code folds in the editor"
 msgstr "Zatvoriť všetky priečinky v editore"
 
-#: src/main_menubar_def.h:995
+#. 9
+#: src/main_menubar_def.h:954
 msgid "_Open All Folds"
 msgstr "_Otvoriť všetky priečinky"
 
-#: src/main_menubar_def.h:996
+#: src/main_menubar_def.h:955
 msgid "Open all code folds of the editor"
 msgstr "Otvoriť všetky priečinky kódu v editore"
 
-#: src/main_menubar_def.h:1001
+#. 10
+#: src/main_menubar_def.h:960
 msgid "_Toggle Current Fold"
 msgstr "Označiť ak_tuálny priečinok"
 
-#: src/main_menubar_def.h:1002
+#: src/main_menubar_def.h:961
 msgid "Toggle current code fold of the editor"
 msgstr "Označiť aktuálny priečinok kódov v editore"
 
-#: src/main_menubar_def.h:1008
+#. 11
+#. 12
+#: src/main_menubar_def.h:967
 msgid "D_etach Current Document"
 msgstr "Odd_eliť aktuálnz dokument"
 
-#: src/main_menubar_def.h:1009
+#: src/main_menubar_def.h:968
 msgid "Detach the current editor into a separate window"
 msgstr "Oddeliť aktuálny dokument do samostatného okna"
 
-#: src/main_menubar_def.h:1019
+#. 0
+#: src/main_menubar_def.h:978
 msgid "_Compile"
 msgstr "_Kompilovať"
 
-#: src/main_menubar_def.h:1020
+#: src/main_menubar_def.h:979
 msgid "Compile the current source file"
 msgstr "Kompilovať aktuálny zdrojový súbor"
 
-#: src/main_menubar_def.h:1025
+#. 1
+#: src/main_menubar_def.h:984
 #, fuzzy
 msgid "Compile With _Make"
 msgstr "Kompilovať súbor:"
 
-#: src/main_menubar_def.h:1026
+#: src/main_menubar_def.h:985
 #, fuzzy
 msgid "Compile the current source file using Make"
 msgstr "Kompilovať aktuálny zdrojový súbor"
 
-#: src/main_menubar_def.h:1031 src/main_menubar_def.h:1587
+#. 2
+#: src/main_menubar_def.h:990 src/main_menubar_def.h:1481
 msgid "_Build"
 msgstr "_Zostaviť"
 
-#: src/main_menubar_def.h:1032
+#: src/main_menubar_def.h:991
 #, fuzzy
 msgid "Build the source directory of the Project/current source file"
 msgstr "Skompilovať zdrojový adresár projektu/aktuálny zdrojový súbor"
 
-#: src/main_menubar_def.h:1037
+#. 3
+#: src/main_menubar_def.h:996
 msgid "Build _All"
 msgstr "Kompilov_ať všetky"
 
-#: src/main_menubar_def.h:1038
+#: src/main_menubar_def.h:997
 #, fuzzy
 msgid "Build the whole Project"
 msgstr "Kompilovať celý projekt"
 
-#: src/main_menubar_def.h:1044
+#. 4
+#. 5
+#: src/main_menubar_def.h:1003
+msgid "Save Build Messages"
+msgstr "Uložiť kompilačné správy"
+
+#: src/main_menubar_def.h:1004
+msgid "Save build messages to file"
+msgstr "Uložiť kompilačné správy do súboru"
+
+#. 6
+#. 7
+#: src/main_menubar_def.h:1010
 msgid "_Install"
 msgstr "_Inštalovať"
 
-#: src/main_menubar_def.h:1045
+#: src/main_menubar_def.h:1011
 #, fuzzy
 msgid "Install the Project on your system"
 msgstr "Inštalovať projekt do vašeho systému"
 
-#: src/main_menubar_def.h:1050
+#. 8
+#: src/main_menubar_def.h:1016
 msgid "Build _Distribution"
 msgstr "Kompilovať _distribúciu"
 
-#: src/main_menubar_def.h:1051
+#: src/main_menubar_def.h:1017
 #, fuzzy
 msgid "Build the distribution tarball of the Project"
 msgstr "Kompilovať distribučný tar-balíček projektu"
 
-#: src/main_menubar_def.h:1057
+#. 9
+#. 10
+#: src/main_menubar_def.h:1023
 msgid "Con_figure ..."
 msgstr "Kon_figurovať ..."
 
-#: src/main_menubar_def.h:1058
+#: src/main_menubar_def.h:1024
 #, fuzzy
 msgid "Configure the Project"
 msgstr "Konfigurovať projekt"
 
-#: src/main_menubar_def.h:1063
+#. 11
+#: src/main_menubar_def.h:1029
 msgid "Auto _generate ..."
 msgstr "Automaticky vyt_voriť ..."
 
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1030
 msgid "Auto generate all the build files"
 msgstr "Automaticky vytvoriť všetky kompilačné súbory"
 
-#: src/main_menubar_def.h:1070
+#. 12
+#. 13
+#: src/main_menubar_def.h:1036
 msgid "Clea_n"
 msgstr "Vyčis_tiť"
 
-#: src/main_menubar_def.h:1071
+#: src/main_menubar_def.h:1037
 msgid "Clean the source directory"
 msgstr "Vyčistiť všetky zdrojové adresáre"
 
-#: src/main_menubar_def.h:1076
+#. 14
+#: src/main_menubar_def.h:1042
 msgid "Clean A_ll"
 msgstr "Vyči_stiť všetko"
 
-#: src/main_menubar_def.h:1077
+#: src/main_menubar_def.h:1043
 #, fuzzy
 msgid "Clean the whole Project directory"
 msgstr "Vyčistiť celý adresár projektu"
 
-#: src/main_menubar_def.h:1083
+#. 15
+#. 16
+#: src/main_menubar_def.h:1049
 msgid "_Stop Build"
 msgstr "_Stop"
 
-#: src/main_menubar_def.h:1084
+#: src/main_menubar_def.h:1050
 msgid "Stop the current compile or build process"
 msgstr "Zastaví aktuálny kompilačný proces"
 
-#: src/main_menubar_def.h:1090
+#. 17
+#. 18
+#: src/main_menubar_def.h:1056
 msgid "_Execute"
 msgstr "_Spustiť"
 
-#: src/main_menubar_def.h:1091 src/toolbar.c:501
+#: src/main_menubar_def.h:1057 src/toolbar.c:501
 msgid "Execute the program"
 msgstr "Spustiť program"
 
-#: src/main_menubar_def.h:1096
+#. 19
+#: src/main_menubar_def.h:1062
 msgid "Set _Program params ..."
 msgstr "Nastaviť programové _parametre ..."
 
-#: src/main_menubar_def.h:1097
+#: src/main_menubar_def.h:1063
 msgid "Set the execution parameters of the program"
 msgstr "Nastaviť parametre spustenia programu"
 
-#: src/main_menubar_def.h:1106
+#. 0
+#: src/main_menubar_def.h:1073
 msgid "_Toggle bookmark"
 msgstr "Prepnúť záložk_u"
 
-#: src/main_menubar_def.h:1113
+#. 1
+#. 2
+#: src/main_menubar_def.h:1080
 msgid "_First bookmark"
 msgstr "Prvá záložk_a"
 
-#: src/main_menubar_def.h:1119
+#. 3
+#: src/main_menubar_def.h:1086
 msgid "_Previous bookmark"
 msgstr "Predchádzajúca záložka"
 
-#: src/main_menubar_def.h:1125
+#. 4
+#: src/main_menubar_def.h:1092
 msgid "_Next bookmark"
 msgstr "Ďalš_ia záložka"
 
-#: src/main_menubar_def.h:1131
+#. 5
+#: src/main_menubar_def.h:1098
 msgid "_Last bookmark"
 msgstr "Pos_ledná záložka"
 
-#: src/main_menubar_def.h:1138
+#. 6
+#. 7
+#: src/main_menubar_def.h:1105
 msgid "_Clear all bookmarks"
 msgstr "_Vymazať všetky záložky"
 
-#: src/main_menubar_def.h:1148
+#. 0
+#: src/main_menubar_def.h:1116
 msgid "Run/_Continue"
 msgstr "Spustiť/P_okračovať"
 
-#: src/main_menubar_def.h:1149
+#: src/main_menubar_def.h:1117
 msgid "Continue the execution of the program"
 msgstr "Pokračovať v spúšťaní programu"
 
-#: src/main_menubar_def.h:1154
+#. 1
+#: src/main_menubar_def.h:1122
 msgid "Step _In"
 msgstr "Krok _do"
 
-#: src/main_menubar_def.h:1155
+#: src/main_menubar_def.h:1123
 msgid "Single step into function"
 msgstr "Vstúpiť do funkcie"
 
-#: src/main_menubar_def.h:1160
+#. 2
+#: src/main_menubar_def.h:1128
 msgid "Step O_ver"
 msgstr "Krok ce_z"
 
-#: src/main_menubar_def.h:1161
+#: src/main_menubar_def.h:1129
 msgid "Single step over function"
 msgstr "Preskočiť funkciu"
 
-#: src/main_menubar_def.h:1166
+#. 3
+#: src/main_menubar_def.h:1134
 msgid "Step _Out"
 msgstr "Krok _von"
 
-#: src/main_menubar_def.h:1167
+#: src/main_menubar_def.h:1135
 msgid "Single step out of the function"
 msgstr "Vyskočiť z funkcie"
 
-#: src/main_menubar_def.h:1172
+#. 4
+#: src/main_menubar_def.h:1140
 msgid "_Run to cursor"
 msgstr "_Spustiť ku kurzoru"
 
-#: src/main_menubar_def.h:1173
+#: src/main_menubar_def.h:1141
 msgid "Run to the cursor"
 msgstr "Prejsť ku kurzoru"
 
-#: src/main_menubar_def.h:1182 src/text_editor_menu.c:138
+#. 0
+#: src/main_menubar_def.h:1151 src/text_editor_menu.c:138
 msgid "Toggle breakpoint"
 msgstr "Prepnúť zarážku"
 
-#: src/main_menubar_def.h:1183
+#: src/main_menubar_def.h:1152
 msgid "Toggle breakpoint at the current location"
 msgstr "Označiť zarážku na aktuálnej pozícii"
 
-#: src/main_menubar_def.h:1188
+#. 1
+#: src/main_menubar_def.h:1157
 msgid "Set Breakpoint ..."
 msgstr "Nastaviť zarážku ..."
 
-#: src/main_menubar_def.h:1189
+#: src/main_menubar_def.h:1158
 msgid "Set a breakpoint"
 msgstr "Nastaviť zarážku"
 
-#: src/main_menubar_def.h:1195
+#. 2
+#. 3
+#: src/main_menubar_def.h:1164
 msgid "_Breakpoints ..."
 msgstr "Za_rážky ..."
 
-#: src/main_menubar_def.h:1196
+#: src/main_menubar_def.h:1165
 msgid "Edit breakpoints"
 msgstr "Upraviť zarážky"
 
-#: src/main_menubar_def.h:1201
+#. 4
+#: src/main_menubar_def.h:1170
 msgid "Disable all Breakpoints"
 msgstr "Vypnúť všetky zarážky"
 
-#: src/main_menubar_def.h:1202
+#: src/main_menubar_def.h:1171
 msgid "Deactivate all breakpoints"
 msgstr "Deaktivovať všetky zarážky"
 
-#: src/main_menubar_def.h:1207
+#. 5
+#: src/main_menubar_def.h:1176
 msgid "C_lear all Breakpoints"
 msgstr "Vyči_stiť všetky zarážky"
 
-#: src/main_menubar_def.h:1208
+#: src/main_menubar_def.h:1177
 msgid "Delete all breakpoints"
 msgstr "Vymazať všetky zarážky"
 
-#: src/main_menubar_def.h:1217
+#. 0
+#: src/main_menubar_def.h:1187
 msgid "Info _Target Files"
 msgstr "In_formácie o zdrojových súboroch"
 
-#: src/main_menubar_def.h:1218
+#: src/main_menubar_def.h:1188
 msgid "Display information on the files the debugger is active with"
 msgstr "Zobraziť informácie o aktuálnych súboroch v odlaďovači"
 
-#: src/main_menubar_def.h:1223
+#. 1
+#: src/main_menubar_def.h:1193
 msgid "Info _Program"
 msgstr "Informácie o _programe"
 
-#: src/main_menubar_def.h:1224
+#: src/main_menubar_def.h:1194
 msgid "Display information on the execution status of the program"
 msgstr "Zobraziť informácie o stave spusteného programu"
 
-#: src/main_menubar_def.h:1229
+#. 2
+#: src/main_menubar_def.h:1199
 msgid "Info _Kernel User Struct"
 msgstr "Informácie o použití _jadra"
 
-#: src/main_menubar_def.h:1230
+#: src/main_menubar_def.h:1200
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Zobraziť podrobnosti o 'struct user' jadra pre aktuálneho potomka"
 
-#: src/main_menubar_def.h:1235
+#. 3
+#: src/main_menubar_def.h:1205
 msgid "Info _Threads"
 msgstr "Informácie o _vláknach"
 
-#: src/main_menubar_def.h:1236
+#: src/main_menubar_def.h:1206
 msgid "Display the IDs of currently known threads"
 msgstr "Zobraziť ID známych vlákien"
 
-#: src/main_menubar_def.h:1241
+#. 4
+#: src/main_menubar_def.h:1211
 msgid "Info _Global variables"
 msgstr "Informácie o _globnych premenných"
 
-#: src/main_menubar_def.h:1242
+#: src/main_menubar_def.h:1212
 msgid "Display all global and static variables of the program"
 msgstr "Zobrazenie všetkých globálnych a statických premenných programu"
 
-#: src/main_menubar_def.h:1247
+#. 5
+#: src/main_menubar_def.h:1217
 msgid "Info _Local variables"
 msgstr "Informácie _lokálnych premenných"
 
-#: src/main_menubar_def.h:1248
+#: src/main_menubar_def.h:1218
 msgid "Display local variables of the current frame"
 msgstr "Zobrazenie lokálnych premenných aktuálneho rámu"
 
-#: src/main_menubar_def.h:1253
+#. 6
+#: src/main_menubar_def.h:1223
 msgid "Info _Current Frame"
 msgstr "Informácie _aktuálneho rámu"
 
-#: src/main_menubar_def.h:1254
+#: src/main_menubar_def.h:1224
 msgid "Display information about the current frame of execution"
 msgstr "Zobrazenie informácií o aktuálnom spustenom ráme"
 
-#: src/main_menubar_def.h:1259
+#. 7
+#: src/main_menubar_def.h:1229
 msgid "Info Function _Arguments"
 msgstr "Informácie o _argumentoch funkcií"
 
-#: src/main_menubar_def.h:1260
+#: src/main_menubar_def.h:1230
 msgid "Display function arguments of the current frame"
 msgstr "Zobrazenie argumentov funkcií aktuálneho rámu"
 
-#: src/main_menubar_def.h:1269
+#. 0
+#: src/main_menubar_def.h:1240
 msgid "_Start Debugger"
 msgstr "_Spustiť odlaďovač"
 
-#: src/main_menubar_def.h:1270
+#: src/main_menubar_def.h:1241
 msgid "Start the debugging session"
 msgstr "Začať ladiaci proces"
 
-#: src/main_menubar_def.h:1276
+#. 1
+#. 2
+#: src/main_menubar_def.h:1247
 msgid "Load E_xecutable ..."
 msgstr "Nahrať spust_iteĺný ..."
 
-#: src/main_menubar_def.h:1277
+#: src/main_menubar_def.h:1248
 msgid "Open the executable for debugging"
 msgstr "Otvoriť spustiteĺný súbor na ladenie"
 
-#: src/main_menubar_def.h:1282
+#. 3
+#: src/main_menubar_def.h:1253
 msgid "Load _Core file ..."
 msgstr "Nahrať _core súbor ..."
 
-#: src/main_menubar_def.h:1283
+#: src/main_menubar_def.h:1254
 msgid "Load a core file to dissect"
 msgstr "Nahrať core súbor na rozobratie"
 
-#: src/main_menubar_def.h:1288
+#. 4
+#: src/main_menubar_def.h:1259
 msgid "_Attach to Process ..."
-msgstr "Pripojiť sa k procesu ..."
+msgstr "\bPripojiť sa k procesu ..."
 
-#: src/main_menubar_def.h:1289
+#: src/main_menubar_def.h:1260
 msgid "Attach to a running program"
-msgstr "Pripojiť sa k bežiacemu programu"
+msgstr "\bPripojiť sa k bežiacemu programu"
 
-#: src/main_menubar_def.h:1295
+#. 5
+#. 6
+#: src/main_menubar_def.h:1266
 msgid "_Restart Program"
 msgstr "_Reštartovať program"
 
-#: src/main_menubar_def.h:1296
+#: src/main_menubar_def.h:1267
 msgid "Stop and restart the program"
 msgstr "Zastaviť a reštartovať program"
 
-#: src/main_menubar_def.h:1301
+#. 7
+#: src/main_menubar_def.h:1272
 msgid "S_top Program"
 msgstr "Zas_taviť program"
 
-#: src/main_menubar_def.h:1302
+#: src/main_menubar_def.h:1273
 msgid "Stop the program being debugged"
 msgstr "Zastaví ladený program"
 
-#: src/main_menubar_def.h:1307
+#. 8
+#: src/main_menubar_def.h:1278
 msgid "_Detach Debugger"
 msgstr "O_dpojiť odlaďovač"
 
-#: src/main_menubar_def.h:1308
+#: src/main_menubar_def.h:1279
 msgid "Detach from an attached program"
 msgstr "Odpojiť sa z pripojeného programu"
 
-#: src/main_menubar_def.h:1314
+#. 9
+#. 10
+#: src/main_menubar_def.h:1285
 msgid "I_nterrupt Program"
 msgstr "P_rerušiť program"
 
-#: src/main_menubar_def.h:1315 src/toolbar.c:925
+#: src/main_menubar_def.h:1286 src/toolbar.c:925
 msgid "Interrupt execution of the program"
 msgstr "Prerušiť beh programu"
 
-#: src/main_menubar_def.h:1320
+#. 11
+#: src/main_menubar_def.h:1291
 msgid "Si_gnal to Process"
 msgstr "Poslať si_gnál"
 
-#: src/main_menubar_def.h:1321
+#: src/main_menubar_def.h:1292
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Poslať sygnál jadra ladenému procesu"
 
-#: src/main_menubar_def.h:1327
+#. 12
+#. 13
+#: src/main_menubar_def.h:1298
 msgid "_Execution"
 msgstr "_Spustiť"
 
-#: src/main_menubar_def.h:1340
+#. 15
+#. 16
+#: src/main_menubar_def.h:1311
 msgid "_Information"
 msgstr "_Informácie"
 
-#: src/main_menubar_def.h:1347
+#. 17
+#. 18
+#: src/main_menubar_def.h:1318
 msgid "Ins_pect/Evaluate ..."
 msgstr "S_kontrolovať/Vyhodnotiť ..."
 
-#: src/main_menubar_def.h:1348
+#: src/main_menubar_def.h:1319
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Skontrolovať alebo vyhodnotiť výraz alebo premennú"
 
-#: src/main_menubar_def.h:1353
+#. 19
+#: src/main_menubar_def.h:1324
 msgid "Add Expression in _Watch ..."
 msgstr "Pridať výraz v po_hĺadoch ..."
 
-#: src/main_menubar_def.h:1354
+#: src/main_menubar_def.h:1325
 msgid "Add expression or variable to the watch"
 msgstr "Pridať výraz alebo premennú do pohĺadov"
 
-#: src/main_menubar_def.h:1360
+#. 20
+#. 21
+#: src/main_menubar_def.h:1331
 msgid "St_op Debugger"
 msgstr "Zastaviť _odlaďovač"
 
-#: src/main_menubar_def.h:1361
+#: src/main_menubar_def.h:1332
 msgid "Say goodbye to the debugger"
 msgstr "Rozlúčiť sa s odlaďovačom"
 
-#: src/main_menubar_def.h:1370
+#. 0
+#: src/main_menubar_def.h:1342
 msgid "plugins"
-msgstr "pluginy"
+msgstr "doplnky"
 
-#: src/main_menubar_def.h:1380
-msgid "Grep Utility"
-msgstr "Grep"
-
-#: src/main_menubar_def.h:1386
-msgid "Compare two files"
-msgstr "Porovnať dva súbory"
-
-#: src/main_menubar_def.h:1392
-msgid "Diff Utility"
-msgstr "Diff"
-
-#: src/main_menubar_def.h:1398
-msgid "File View (Char/Octal/Hex)"
-msgstr "Zobrazenie súboru (znak/oktal/hex)"
-
-#: src/main_menubar_def.h:1405
-msgid "Declarations"
-msgstr "Deklarácie"
-
-#: src/main_menubar_def.h:1411
-msgid "C Flow"
-msgstr "C tok"
-
-#: src/main_menubar_def.h:1417
-msgid "C Cross-reference"
-msgstr ""
-
-#: src/main_menubar_def.h:1423
-#, fuzzy
-msgid "C Trace"
-msgstr "C trasa"
-
-#: src/main_menubar_def.h:1430
-msgid "Backup Manager"
-msgstr "Správca záloh"
-
-#: src/main_menubar_def.h:1440
-#, fuzzy
-msgid "_Create new window"
-msgstr "_Vytvoriť nové okno"
-
-#: src/main_menubar_def.h:1441
-msgid "Open a new file window"
-msgstr "Otvoriť nové okno súboru"
-
-#: src/main_menubar_def.h:1451
-msgid "Close current document window"
-msgstr "Zatvoriť okno aktuálneho dokumentu"
-
-#: src/main_menubar_def.h:1460
+#. 0
+#: src/main_menubar_def.h:1353
 msgid "_Compiler and Linker Settings ..."
-msgstr "Nastavenia _kompilátora a linkera ..."
+msgstr "Možnosti. _kompilátora a linkera ..."
 
-#: src/main_menubar_def.h:1461
+#: src/main_menubar_def.h:1354
 msgid "Settings for the compiler and linker"
 msgstr "Nastavenia pre kompilátor a linker"
 
-#: src/main_menubar_def.h:1466
+#. 1
+#: src/main_menubar_def.h:1359
 msgid "_Source Paths ..."
 msgstr "_Zdrojové cesty ..."
 
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1360
 #, fuzzy
 msgid "Specify the source paths for Anjuta to search"
-msgstr "Zadať zdrojové cesty, v ktorých bude Anjuta vyhľadávať"
+msgstr "Zadať zdrojové cesty, v ktorých bude Anjuta vyhĺadávať"
 
-#: src/main_menubar_def.h:1472
+#. 2
+#: src/main_menubar_def.h:1365
 msgid "_Commands ..."
 msgstr "_Príkazy ..."
 
-#: src/main_menubar_def.h:1473
+#: src/main_menubar_def.h:1366
 msgid "Specify the various commands for use"
 msgstr "Zadať rôzne príkazy"
 
-#: src/main_menubar_def.h:1479
+#. 3
+#. 4
+#: src/main_menubar_def.h:1372
 msgid "_Preferences ..."
 msgstr "_Možnosti ..."
 
-#: src/main_menubar_def.h:1480
+#: src/main_menubar_def.h:1373
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Dávate prednosť káve pred čajom? Vyberte si."
 
-#: src/main_menubar_def.h:1485
+#. 5
+#: src/main_menubar_def.h:1378
 msgid "Set _Default Preferences"
 msgstr "Nastaviť pre_dvolené možnosti"
 
-#: src/main_menubar_def.h:1486
+#: src/main_menubar_def.h:1379
 msgid "But I prefer tea."
 msgstr "Ale ja dávam prednosť čaju."
 
-#: src/main_menubar_def.h:1497
+#. 0
+#. 1
+#. 2
+#: src/main_menubar_def.h:1391
 #, fuzzy
 msgid "Browse GNOME API Pages"
 msgstr "Prezerať API stránky Gnome"
 
-#: src/main_menubar_def.h:1498
+#: src/main_menubar_def.h:1392
 #, fuzzy
 msgid "The GNOME API pages"
 msgstr "API stránky gnome"
 
-#: src/main_menubar_def.h:1503
+#. 3
+#: src/main_menubar_def.h:1397
 msgid "Browse Man Pages"
 msgstr "Prezerať manuálové stránky"
 
-#: src/main_menubar_def.h:1504
+#: src/main_menubar_def.h:1398
 msgid "The good old manual pages"
 msgstr "Staré dobré manuálové stránky"
 
-#: src/main_menubar_def.h:1509
+#. 4
+#: src/main_menubar_def.h:1403
 msgid "Browse Info Pages"
 msgstr "Prezerať informačné stránky"
 
-#: src/main_menubar_def.h:1510
+#: src/main_menubar_def.h:1404
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Info stránky, kde môžete nájsť to, čo hĺadáte"
 
-#. 4
-#: src/main_menubar_def.h:1516 src/text_editor_menu.c:267
+#. 5
+#. 6
+#: src/main_menubar_def.h:1410 src/text_editor_menu.c:267
 msgid "Context Help"
 msgstr "Kontextový pomocník"
 
-#: src/main_menubar_def.h:1517
+#: src/main_menubar_def.h:1411
 msgid "Search help for the current word in the editor"
 msgstr "Hľadať pomoc pre aktuálne slovo v editore"
 
-#: src/main_menubar_def.h:1522
+#. 7
+#: src/main_menubar_def.h:1416
 msgid "Search a topic"
 msgstr "Hľadať tému"
 
-#: src/main_menubar_def.h:1523
+#: src/main_menubar_def.h:1417
 msgid "May I help you?"
 msgstr "Môžem Vám pomôcť?"
 
-#: src/main_menubar_def.h:1530
+#: src/main_menubar_def.h:1424
 msgid "Online documentation and resources"
 msgstr "Online dokumentácia a zdroje"
 
-#: src/main_menubar_def.h:1536
+#. 10
+#. 11
+#: src/main_menubar_def.h:1430
 msgid "Libraries API references"
 msgstr "Odkazy na API knižnice"
 
-#: src/main_menubar_def.h:1537
+#: src/main_menubar_def.h:1431
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online knižnica odkazov pre GDK, GLib, GNOME a iné.."
 
-#: src/main_menubar_def.h:1542
+#. 12
+#: src/main_menubar_def.h:1436
 msgid "Report Bugs"
 msgstr "Ohlásiť chyby"
 
-#: src/main_menubar_def.h:1543
+#: src/main_menubar_def.h:1437
 msgid "Submit a bug report for Anjuta"
 msgstr "Odoslať správu o chybe Anjuty"
 
-#: src/main_menubar_def.h:1548
+#. 13
+#: src/main_menubar_def.h:1442
 msgid "Request Features"
 msgstr "Funkcie žiadosti"
 
-#: src/main_menubar_def.h:1549
+#: src/main_menubar_def.h:1443
 #, fuzzy
 msgid "Submit a feature request for Anjuta"
-msgstr "Odoslať žiadosť o funkciu Anjuty"
+msgstr "Odoslať žiadosť o funkcii Anjuty"
 
-#: src/main_menubar_def.h:1554
+#. 14
+#: src/main_menubar_def.h:1448
 msgid "Submit patches"
 msgstr "Odoslať opravy"
 
-#: src/main_menubar_def.h:1555
+#: src/main_menubar_def.h:1449
 msgid "Submit patches for Anjuta"
 msgstr "Odoslať opravy Anjuty"
 
-#: src/main_menubar_def.h:1560
+#. 15
+#: src/main_menubar_def.h:1454
 msgid "Ask a question"
 msgstr "Položiť otázku"
 
-#: src/main_menubar_def.h:1561
+#: src/main_menubar_def.h:1455
 msgid "Submit a question for FAQs"
 msgstr "Odoslať otázku do FAQ"
 
-#: src/main_menubar_def.h:1575
+#: src/main_menubar_def.h:1469
 msgid "_Project"
 msgstr "_Projekt"
 
-#: src/main_menubar_def.h:1581
+#: src/main_menubar_def.h:1475
 msgid "For_mat"
 msgstr "For_mát"
 
-#: src/main_menubar_def.h:1593
+#: src/main_menubar_def.h:1487
 msgid "Bookmar_k"
 msgstr "Zálož_ka"
 
-#: src/main_menubar_def.h:1599
+#: src/main_menubar_def.h:1493
 msgid "_Debug"
 msgstr "La_diť"
 
-#: src/main_menubar_def.h:1605
+#: src/main_menubar_def.h:1499
 #, fuzzy
 msgid "Plug_ins"
-msgstr "pluginy"
+msgstr "doplnky"
 
-#: src/main_menubar_def.h:1611
-msgid "_Utilities"
-msgstr "P_omôcky"
-
-#: src/main_menubar_def.h:1627
+#: src/main_menubar_def.h:1505
 msgid "_Settings"
 msgstr "_Možnosti"
 
@@ -3618,12 +3740,12 @@ msgstr ""
 "Ste si istí, že chcete obnoviť %s?\n"
 "Stratíte tým všetky neuložené zmeny."
 
-#: src/mainmenu_callbacks.c:258
+#: src/mainmenu_callbacks.c:264
 #, c-format
 msgid "Could not execute cmd: %s"
 msgstr "Nepodarilo sa spustiť príkaz: %s"
 
-#: src/mainmenu_callbacks.c:265
+#: src/mainmenu_callbacks.c:271
 #, c-format
 msgid ""
 "There was an error while printing.\n"
@@ -3632,28 +3754,28 @@ msgstr ""
 "Počas tlače sa vyskytla chyba. \n"
 "Príkaz je: %s"
 
-#: src/mainmenu_callbacks.c:271
+#: src/mainmenu_callbacks.c:277
 msgid "The file has been sent for printing."
 msgstr "Súbor bol odoslaný do tlače."
 
-#: src/mainmenu_callbacks.c:287
+#: src/mainmenu_callbacks.c:293
 msgid "You must save the file first and then print"
 msgstr "Pred tlačou musíte súbor uložiť."
 
-#: src/mainmenu_callbacks.c:291
+#: src/mainmenu_callbacks.c:297
 msgid "Are you sure you want to print the current file?"
 msgstr "Ste si istí, že chcete vytlačiť aktuálny súbor?"
 
-#: src/mainmenu_callbacks.c:1644
+#: src/mainmenu_callbacks.c:1600
 #, fuzzy
 msgid "The executable is not up-to-date."
 msgstr "Spustiteĺný súbor nie je aktuálny."
 
-#: src/mainmenu_callbacks.c:1669
+#: src/mainmenu_callbacks.c:1625
 msgid "Debugger is not running. Start it first."
 msgstr "Odlaďovač nebeží. Najprv ho spustite."
 
-#: src/mainmenu_callbacks.c:1705
+#: src/mainmenu_callbacks.c:1661
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3661,7 +3783,7 @@ msgstr ""
 "Ste pripojení na program\n"
 "Naozaj chcete vypnúť odlaďovač?"
 
-#: src/mainmenu_callbacks.c:1715
+#: src/mainmenu_callbacks.c:1671
 #, fuzzy
 msgid ""
 "Program is RUNNING.\n"
@@ -3688,16 +3810,16 @@ msgstr "Lokálne premenné"
 msgid "Terminal"
 msgstr "Spustiť v termináli"
 
-#: src/message-manager.cc:146 src/project_dbase_gui.c:425
+#: src/message-manager.cc:147 src/project_dbase_gui.c:420
 msgid "Dock/Undock"
 msgstr "Dokovať/Osamostatniť"
 
-#: src/message-manager.cc:266
+#: src/message-manager.cc:271
 #, fuzzy, c-format
 msgid "Could not find message type %s!\n"
 msgstr "Nepodarilo sa nájsť súbor gnome pixmapy: %s"
 
-#: src/message-manager.cc:478 src/preferences_gui.c:230 src/toolbar.c:294
+#: src/message-manager.cc:483 src/preferences_gui.c:229 src/toolbar.c:294
 msgid "Messages"
 msgstr "Správy"
 
@@ -3710,7 +3832,7 @@ msgid ""
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
 
-#: src/preferences.c:637
+#: src/preferences.c:642
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -3718,243 +3840,248 @@ msgstr ""
 "Ste si istí, že chcete vrátiť nastavenia na\n"
 "ich predvolené hodnoty?"
 
-#: src/preferences_gui.c:151
+#: src/preferences_gui.c:150
 msgid "Preferences"
 msgstr "Možnosti"
 
-#: src/preferences_gui.c:170 src/project_config.c:793
+#: src/preferences_gui.c:169 src/project_config.c:804
 msgid "General"
 msgstr "Hlavné"
 
-#: src/preferences_gui.c:190
+#: src/preferences_gui.c:189
 msgid "Styles"
 msgstr "Štýly"
 
-#: src/preferences_gui.c:200
+#: src/preferences_gui.c:199
 msgid "Editor"
 msgstr "Editor"
 
-#: src/preferences_gui.c:210
+#: src/preferences_gui.c:209
 msgid "Print Setup"
 msgstr "Nastavenie tlače"
 
-#: src/preferences_gui.c:220
+#: src/preferences_gui.c:219
 msgid "Auto Format"
 msgstr "Automatický formát"
 
-#: src/preferences_gui.c:240
+#: src/preferences_gui.c:239
 msgid "misc"
 msgstr "rôzne"
 
-#: src/preferences_gui.c:249
+#: src/preferences_gui.c:248
 msgid "Components"
 msgstr "Komponenty"
 
-#: src/preferences_gui.c:334
+#: src/preferences_gui.c:335
 msgid " Directories "
 msgstr " Adresáre "
 
-#: src/preferences_gui.c:370
+#: src/preferences_gui.c:371
 msgid "Projects:"
 msgstr "Projekty:"
 
-#: src/preferences_gui.c:377
+#: src/preferences_gui.c:378
 msgid "Tarballs:"
 msgstr "Balíčky tar:"
 
-#: src/preferences_gui.c:384
+#: src/preferences_gui.c:385
 #, fuzzy
 msgid "RPMs:"
 msgstr "Rpm:"
 
-#: src/preferences_gui.c:391
+#: src/preferences_gui.c:392
 msgid "SRPMs:"
 msgstr ""
 
-#: src/preferences_gui.c:398
+#: src/preferences_gui.c:399
 msgid " History size "
 msgstr " Veĺkosť histórie "
 
-#: src/preferences_gui.c:407
+#: src/preferences_gui.c:408
 msgid "Recent Projects:"
 msgstr "Nedávne projekty:"
 
-#: src/preferences_gui.c:414
+#: src/preferences_gui.c:415
 msgid "Recent Files:"
 msgstr "Nedávne súbory:"
 
-#: src/preferences_gui.c:421
+#: src/preferences_gui.c:422
 msgid "Combo Popdown:"
 msgstr "Vysunutie roletky:"
 
-#: src/preferences_gui.c:479
+#: src/preferences_gui.c:429
+#, fuzzy
+msgid "Load automatically last project"
+msgstr "Automaticky formátovať kód"
+
+#: src/preferences_gui.c:492
 msgid " Job Options "
 msgstr " Nastavenie úloh "
 
-#: src/preferences_gui.c:489
+#: src/preferences_gui.c:502
 msgid "Beep on job complete"
 msgstr "Pípnuť po dokončení úlohy"
 
-#: src/preferences_gui.c:498
+#: src/preferences_gui.c:511
 msgid "Dialog on job complete"
 msgstr "Po dokončení úlohy zobraziť dialóg"
 
-#: src/preferences_gui.c:554
+#: src/preferences_gui.c:570
 msgid "Keep going when some targets cannot be made"
 msgstr "Pokračovať, aj v prípade, že sa nepodarí vytvoriť niektorý z cieĺov"
 
-#: src/preferences_gui.c:561
+#: src/preferences_gui.c:577
 #, fuzzy
 msgid "Silent: do not echo commands"
 msgstr "Ticho: Neukazovať príkazy"
 
-#: src/preferences_gui.c:568
+#: src/preferences_gui.c:584
 msgid "Produce debugging outputs"
 msgstr "Vytvárať odlaďovací výstup"
 
-#: src/preferences_gui.c:575
+#: src/preferences_gui.c:591
 msgid "Warn when an undefined variable is referenced"
 msgstr "Varovať pri odkazovaní sa na nedefinovanú premennú"
 
-#: src/preferences_gui.c:582
+#: src/preferences_gui.c:598
 msgid "Autosave before Build"
 msgstr ""
 
-#: src/preferences_gui.c:597
+#: src/preferences_gui.c:613
 #, fuzzy
 msgid "Max number of jobs:"
 msgstr "Maximum úloh:"
 
-#: src/preferences_gui.c:680
+#: src/preferences_gui.c:696
 msgid "Select Highlight item to edit:"
 msgstr "Vyberte položku:"
 
-#: src/preferences_gui.c:704
+#: src/preferences_gui.c:720
 msgid " Highlight Style "
 msgstr " Štýl zvýraznenia "
 
-#: src/preferences_gui.c:735 src/preferences_gui.c:760
-#: src/preferences_gui.c:807 src/preferences_gui.c:814
+#: src/preferences_gui.c:751 src/preferences_gui.c:776
+#: src/preferences_gui.c:823 src/preferences_gui.c:830
 msgid "Use default"
 msgstr "Použiť predvolené"
 
-#: src/preferences_gui.c:748
+#: src/preferences_gui.c:764
 msgid "Bold"
 msgstr "Široké"
 
-#: src/preferences_gui.c:752
+#: src/preferences_gui.c:768
 msgid "Italic"
 msgstr "Šikmé"
 
-#: src/preferences_gui.c:756
+#: src/preferences_gui.c:772
 msgid "Underlined"
 msgstr "Podčiarknuté"
 
-#: src/preferences_gui.c:767
+#: src/preferences_gui.c:783
 msgid "Font:"
 msgstr "Písmo:"
 
-#: src/preferences_gui.c:774
+#: src/preferences_gui.c:790
 msgid "Attribute:"
 msgstr "Vlastnosť:"
 
-#: src/preferences_gui.c:781
+#: src/preferences_gui.c:797
 msgid "Fore color:"
 msgstr "Farba popredia:"
 
-#: src/preferences_gui.c:788
+#: src/preferences_gui.c:804
 msgid "Back color:"
 msgstr "Farba pozadia:"
 
-#: src/preferences_gui.c:828
+#: src/preferences_gui.c:844
 msgid "Caret color:"
 msgstr "Farba vsuvky:"
 
-#: src/preferences_gui.c:841
+#: src/preferences_gui.c:857
 msgid "Calltip color:"
 msgstr "Farba typu:"
 
-#: src/preferences_gui.c:854
+#: src/preferences_gui.c:870
 msgid "Selection Foreground:"
 msgstr "Výber popredia:"
 
-#: src/preferences_gui.c:867
+#: src/preferences_gui.c:883
 msgid "Selection Background:"
 msgstr "Výber pozadia:"
 
-#: src/preferences_gui.c:976
+#: src/preferences_gui.c:992
 msgid "Disable syntax highlighting"
 msgstr "Nepoužívať zvýraznenie syntaxe"
 
-#: src/preferences_gui.c:983
+#: src/preferences_gui.c:999
 msgid "Enable Auto save"
 msgstr "Automatické ukladanie"
 
-#: src/preferences_gui.c:990
+#: src/preferences_gui.c:1006
 msgid "Enable Auto indent"
 msgstr "Automatické odsadzovanie"
 
-#: src/preferences_gui.c:998
+#: src/preferences_gui.c:1014
 msgid "Use tabs for indentation"
 msgstr "Používať tabulátory pre odsadzovanie"
 
-#: src/preferences_gui.c:1005
+#: src/preferences_gui.c:1021
 msgid "Enable braces check"
 msgstr "Kontrola zátvoriek"
 
-#: src/preferences_gui.c:1012
+#: src/preferences_gui.c:1028
 msgid "Filter extraneous chars in DOS mode"
 msgstr ""
 
-#: src/preferences_gui.c:1064
+#: src/preferences_gui.c:1080
 msgid "Tab size in spaces"
 msgstr "Veľkosť tabulátora v medzerách"
 
-#: src/preferences_gui.c:1071
+#: src/preferences_gui.c:1087
 msgid "Auto save timer interval in minutes"
 msgstr "Interval automatického ukladania v minútach"
 
-#: src/preferences_gui.c:1078
+#: src/preferences_gui.c:1094
 msgid "Auto indent size in spaces"
 msgstr "Veĺkosť medzier automatického odasdzovania"
 
-#: src/preferences_gui.c:1085
+#: src/preferences_gui.c:1101
 msgid "Line number margin width in pixels"
 msgstr "Širka číslovača riadkov v pixeloch"
 
-#: src/preferences_gui.c:1092
+#: src/preferences_gui.c:1108
 msgid "Save session time interval"
 msgstr "Uložiť časový interval sedenia"
 
-#: src/preferences_gui.c:1101
+#: src/preferences_gui.c:1117
 msgid "Strip trailing spaces on file save"
 msgstr "Odstrániť nadbytočné medzery pri ukladaní súboru"
 
-#: src/preferences_gui.c:1109
+#: src/preferences_gui.c:1125
 msgid "Collapse all folds on file open"
 msgstr "Zabaliť všetky priečinky pri otváraní súboru"
 
-#: src/preferences_gui.c:1164
+#: src/preferences_gui.c:1180
 msgid " Paper Size"
 msgstr " Veĺkosť papieru"
 
-#: src/preferences_gui.c:1174
+#: src/preferences_gui.c:1190
 msgid " Print Command "
 msgstr " Príkaz tlače "
 
-#: src/preferences_gui.c:1236
+#: src/preferences_gui.c:1252
 msgid "Disable Auto format"
 msgstr "Vypnúť automatické formátovanie"
 
-#: src/preferences_gui.c:1240
+#: src/preferences_gui.c:1256
 msgid " Format Style "
 msgstr " Štýl formátovania"
 
-#: src/preferences_gui.c:1263
+#: src/preferences_gui.c:1279
 msgid " Custom Style "
 msgstr " Vlastný štýl "
 
-#: src/preferences_gui.c:1274
+#: src/preferences_gui.c:1290
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3963,222 +4090,222 @@ msgstr ""
 "Ak potrebujete poradiť, tak si prečítajte informačné stránky programu "
 "'indent'."
 
-#: src/preferences_gui.c:1348
+#: src/preferences_gui.c:1364
 msgid " Messages"
 msgstr " Správy"
 
-#: src/preferences_gui.c:1360
+#: src/preferences_gui.c:1376
 msgid "Truncate long messages"
 msgstr "Skrátiť dlhé správy"
 
-#: src/preferences_gui.c:1387
+#: src/preferences_gui.c:1403
 msgid "Number of first characters to show"
 msgstr "Počet prvých znakov, ktoré sa majú zobraziť"
 
-#: src/preferences_gui.c:1394
+#: src/preferences_gui.c:1410
 msgid "Number of last characters to show"
 msgstr "Počet posledných znakov, ktoré sa majú zobraziť"
 
-#: src/preferences_gui.c:1402 src/preferences_gui.c:1551
+#: src/preferences_gui.c:1418 src/preferences_gui.c:1567
 msgid " Notebook tags position "
 msgstr " Pozícia záložiek "
 
-#: src/preferences_gui.c:1411 src/preferences_gui.c:1592
+#: src/preferences_gui.c:1427 src/preferences_gui.c:1608
 msgid "Top"
 msgstr "Hore"
 
-#: src/preferences_gui.c:1420 src/preferences_gui.c:1601
+#: src/preferences_gui.c:1436 src/preferences_gui.c:1617
 msgid "Bottom"
 msgstr "Dolu"
 
-#: src/preferences_gui.c:1429 src/preferences_gui.c:1610
+#: src/preferences_gui.c:1445 src/preferences_gui.c:1626
 msgid "Left"
 msgstr "Vľavo"
 
-#: src/preferences_gui.c:1438 src/preferences_gui.c:1619
+#: src/preferences_gui.c:1454 src/preferences_gui.c:1635
 msgid "Right"
 msgstr "Vpravo"
 
-#: src/preferences_gui.c:1466
+#: src/preferences_gui.c:1482
 #, fuzzy
 msgid "Colors"
 msgstr "Zatvoriť"
 
-#: src/preferences_gui.c:1474
+#: src/preferences_gui.c:1490
 #, fuzzy
 msgid "Errors:"
 msgstr "Chyba: "
 
-#: src/preferences_gui.c:1475
+#: src/preferences_gui.c:1491
 #, fuzzy
 msgid "Warnings:"
 msgstr "Varovania"
 
-#: src/preferences_gui.c:1476
+#: src/preferences_gui.c:1492
 #, fuzzy
 msgid "Program messages:"
 msgstr "Názov programu:"
 
-#: src/preferences_gui.c:1477
+#: src/preferences_gui.c:1493
 #, fuzzy
 msgid "Other messages:"
 msgstr "Správy ladenia"
 
-#: src/preferences_gui.c:1562
+#: src/preferences_gui.c:1578
 msgid "Do not show notebook title tags"
 msgstr "Neukazovať titulky záložiek"
 
-#: src/preferences_gui.c:1575
+#: src/preferences_gui.c:1591
 msgid " Tags Browser "
 msgstr " Prehliadač tagov"
 
-#: src/preferences_gui.c:1582
+#: src/preferences_gui.c:1598
 msgid "Update tags image automatically"
 msgstr "Automatická aktualizácia vzhĺadu tagov"
 
-#: src/preferences_gui.c:1676
+#: src/preferences_gui.c:1692
 msgid " Components"
 msgstr " Komponenty"
 
-#: src/preferences_gui.c:1688
+#: src/preferences_gui.c:1704
 msgid "Use Glade Components (experimental)"
 msgstr "Používať komponenty Gladu (experimentálne)"
 
-#: src/project_config.c:761
+#: src/project_config.c:771
 msgid "Project configuration"
 msgstr "Nastavenie projektu"
 
-#: src/project_config.c:772 src/wizard_gui.c:412
+#: src/project_config.c:783 src/wizard_gui.c:462
 msgid "Project Description"
 msgstr "Popis projektu"
 
-#: src/project_config.c:800
+#: src/project_config.c:811
 #, fuzzy
 msgid "Disable overwriting Project files"
 msgstr "Vypnúť prepisovanie súborov projektu"
 
-#: src/project_config.c:810
+#: src/project_config.c:821
 #, fuzzy
 msgid "Project configure.in"
 msgstr "configure.in projektu"
 
-#: src/project_config.c:816
+#: src/project_config.c:827
 msgid "Top level Makefile.am"
 msgstr "Hlavný súbor Makefile.am"
 
-#: src/project_config.c:822
+#: src/project_config.c:833
 msgid "Source module Makefile.am"
 msgstr "Zdrojový modul Makefile.am"
 
-#: src/project_config.c:828
+#: src/project_config.c:839
 msgid "Include module Makefile.am"
 msgstr "Vložený modul Makefile.am"
 
-#: src/project_config.c:834
+#: src/project_config.c:845
 msgid "Help module Makefile.am"
 msgstr "Pomocý modul Makefile.am"
 
-#: src/project_config.c:840
+#: src/project_config.c:851
 msgid "Pixmap module Makefile.am"
 msgstr "Modul pixmáp Makefile.am"
 
-#: src/project_config.c:845
+#: src/project_config.c:856
 msgid "Data module Makefile.am"
 msgstr "Modul dát Makefile.am"
 
-#: src/project_config.c:850
+#: src/project_config.c:861
 msgid "Doc module Makefile.am"
 msgstr "Modul dokumentácie Makefile.am"
 
-#: src/project_config.c:855
+#: src/project_config.c:866
 msgid "Po module (translation) Makefile.am"
 msgstr "Po modul (prekladový) Makefile.am"
 
-#: src/project_config.c:860
+#: src/project_config.c:871
 msgid "Build files"
 msgstr "Kompilovať súbory"
 
-#: src/project_config.c:878
+#: src/project_config.c:889
 msgid "Check for programs in config.in"
 msgstr "Skontrolovať programy v config.in"
 
-#: src/project_config.c:895
+#: src/project_config.c:906
 msgid "Program checks"
 msgstr "Kontrola programov"
 
-#: src/project_config.c:902
+#: src/project_config.c:913
 #, fuzzy
 msgid "Check for libraries in config.in"
 msgstr "Skontrolovať knižnice v config.in"
 
-#: src/project_config.c:919
+#: src/project_config.c:930
 msgid "Library checks"
 msgstr "Kontrola knižníc"
 
-#: src/project_config.c:928
+#: src/project_config.c:939
 msgid "Check for header files in config.in"
 msgstr "Skontrolovať hlavičkové súbory v config.in"
 
-#: src/project_config.c:945
+#: src/project_config.c:956
 msgid "Header checks"
 msgstr "Kontrola hlavičiek"
 
-#: src/project_config.c:954
+#: src/project_config.c:965
 msgid "Checks for typedefs, structures, and compiler characteristics"
 msgstr "Kontrola definícií typov, štruktúr a charakteristík kompilátora"
 
-#: src/project_config.c:971
+#: src/project_config.c:982
 msgid "Characteristics check"
 msgstr "Kontrola charakteristík"
 
-#: src/project_config.c:980
+#: src/project_config.c:991
 #, fuzzy
 msgid "Check for library functions in config.in"
 msgstr "Skontrolovať knižničné funkcie v config.in"
 
-#: src/project_config.c:997
+#: src/project_config.c:1008
 #, fuzzy
 msgid "Function checks"
 msgstr "Knotrola knižničných funkcií"
 
-#: src/project_config.c:1004
+#: src/project_config.c:1015
 msgid "Additional scripts in config.in"
 msgstr "Pomocné skripty v config.in"
 
-#: src/project_config.c:1021
+#: src/project_config.c:1032
 msgid "Additional script"
 msgstr "Pomocný skript"
 
-#: src/project_config.c:1028 src/project_config.c:1045
+#: src/project_config.c:1039 src/project_config.c:1056
 msgid "Files to configure"
 msgstr "Konfigurované súbory"
 
-#: src/project_config.c:1060
+#: src/project_config.c:1071
 msgid "Auto scan the project"
 msgstr "Automaticky prehliadať projekt"
 
-#: src/project_config.c:1065
+#: src/project_config.c:1076
 msgid "Configuration scripts"
 msgstr "Konfiguračné skripty"
 
-#: src/project_config.c:1079
+#: src/project_config.c:1090
 msgid "Extra modules to be built before source module:"
 msgstr "Extra moduly, ktoré budú vytvorené pred zdrojovým modulom:"
 
-#: src/project_config.c:1099
+#: src/project_config.c:1110
 msgid "Extra modules to be built after source module:"
 msgstr "Extra moduly, ktoré budú vytvorené po zdrojovom module:"
 
-#: src/project_config.c:1113
+#: src/project_config.c:1124
 msgid "Modules"
 msgstr "Moduly"
 
-#: src/project_config.c:1119
+#: src/project_config.c:1130
 #, fuzzy
 msgid "Extra scripts at the end of top level Makefile.am"
 msgstr "Extra skripty na konci hlavného Makefile.am"
 
-#: src/project_config.c:1136
+#: src/project_config.c:1147
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
@@ -4193,7 +4320,7 @@ msgstr "Otvoriť projekt"
 msgid "Add to Project"
 msgstr "Pridať do projektu"
 
-#: src/project_dbase.c:358 src/project_dbase.c:490 src/project_dbase_gui.c:475
+#: src/project_dbase.c:358 src/project_dbase.c:490 src/project_dbase_gui.c:470
 msgid "Project: None"
 msgstr "Projekt: žiadny"
 
@@ -4202,7 +4329,7 @@ msgstr "Projekt: žiadny"
 msgid "Anjuta project files"
 msgstr "Anjuta: Súbor neexistuje"
 
-#: src/project_dbase.c:560 widgets/gnomefilelist.c:413
+#: src/project_dbase.c:560 widgets/gnomefilelist.c:538
 #, fuzzy
 msgid "All files"
 msgstr "Kompilovať súbory"
@@ -4233,7 +4360,7 @@ msgstr "Projekt bol úspešne uložený"
 msgid "Unable to save the Project."
 msgstr "Nepodarilo sa uložiť projekt."
 
-#: src/project_dbase.c:1403 src/project_dbase.c:1436
+#: src/project_dbase.c:1402 src/project_dbase.c:1438
 #, fuzzy
 msgid ""
 "A .glade file does not\n"
@@ -4241,11 +4368,11 @@ msgid ""
 msgstr "V hlavném adresári projektu neexistuje glade súbor."
 
 #. Set project title
-#: src/project_dbase.c:1843
+#: src/project_dbase.c:1845
 msgid "Project: "
 msgstr "Projekt:"
 
-#: src/project_dbase.c:2095
+#: src/project_dbase.c:2097
 #, fuzzy, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
@@ -4257,12 +4384,12 @@ msgstr ""
 "Aktualizujte si prosím Vašu Anjutu na ostatnú verziu (viac informácií "
 "nájdete v pomocníkovi)."
 
-#: src/project_dbase.c:2164 src/project_dbase.c:2168
+#: src/project_dbase.c:2166 src/project_dbase.c:2170
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Počas nahrávania projektu %s nastala chyba"
 
-#: src/project_dbase.c:2187
+#: src/project_dbase.c:2189
 msgid "Project loaded successfully."
 msgstr "Projekt bol úspešne nahraný."
 
@@ -4275,117 +4402,117 @@ msgstr ""
 "Ste si istí, že chcete vymazať položku\n"
 "\"%s\" z databázy projektu?"
 
-#: src/project_dbase_gui.c:250
+#: src/project_dbase_gui.c:251
 #, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
 msgstr "Už je otvorený projekt. Chcete ho najskôr ukončiť?"
 
-#: src/project_dbase_gui.c:369
+#: src/project_dbase_gui.c:364
 msgid "Doc file"
 msgstr "Dokumentačný súbor"
 
-#: src/project_dbase_gui.c:392
+#: src/project_dbase_gui.c:387
 msgid "View"
 msgstr "Zobraziť"
 
-#: src/project_dbase_gui.c:412
+#: src/project_dbase_gui.c:407
 msgid "Configure Project"
 msgstr "Konfigurovať projekt"
 
-#: src/project_dbase_gui.c:418
+#: src/project_dbase_gui.c:413
 msgid "Project Info"
 msgstr "Informácie o projekte"
 
-#: src/project_dbase_gui.c:431 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/project_dbase_gui.c:426 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/toolbar.c:308
 #: src/watch_gui.c:67
 msgid "Help"
 msgstr "Pomocník"
 
-#: src/project_dbase_gui.c:487 widgets/gnomefilelist.c:250
+#: src/project_dbase_gui.c:482 widgets/gnomefilelist.c:274
 msgid "Files"
 msgstr "Súbory"
 
-#: src/project_dbase_gui.c:491
+#: src/project_dbase_gui.c:486
 #, fuzzy
 msgid "Symbols"
 msgstr "Štýly"
 
-#: src/project_dbase_gui.c:498 src/toolbar.c:283
+#: src/project_dbase_gui.c:493 src/toolbar.c:283
 msgid "Project"
 msgstr "Projekt"
 
-#: src/project_dbase_gui.c:597
+#: src/project_dbase_gui.c:592
 msgid "Project Information"
 msgstr "Informácie o projekte"
 
-#: src/project_dbase_gui.c:604
+#: src/project_dbase_gui.c:599
 msgid " Project Information "
 msgstr " Informácie o projekte "
 
-#: src/project_dbase_gui.c:640
+#: src/project_dbase_gui.c:635
 msgid "Author:"
 msgstr "Autor:"
 
-#: src/project_dbase_gui.c:648 src/wizard_gui.c:280
+#: src/project_dbase_gui.c:643 src/wizard_gui.c:291
 msgid "Project Name:"
 msgstr "Názov projektu:"
 
-#: src/project_dbase_gui.c:727
+#: src/project_dbase_gui.c:722
 msgid "Program Name:"
 msgstr "Názov programu:"
 
-#: src/project_dbase_gui.c:734
+#: src/project_dbase_gui.c:729
 #, fuzzy
 msgid "Source files:"
 msgstr "Zdrojový súbor"
 
-#: src/project_dbase_gui.c:741
+#: src/project_dbase_gui.c:736
 #, fuzzy
 msgid "Help files:"
 msgstr "Pomocník"
 
-#: src/project_dbase_gui.c:748
+#: src/project_dbase_gui.c:743
 #, fuzzy
 msgid "Data files:"
 msgstr "Dátový súbor"
 
-#: src/project_dbase_gui.c:755
+#: src/project_dbase_gui.c:750
 #, fuzzy
 msgid "Pixmap files:"
 msgstr "Súbor pixmapy"
 
-#: src/project_dbase_gui.c:762
+#: src/project_dbase_gui.c:757
 #, fuzzy
 msgid "Doc files:"
 msgstr "Dokumentačný súbor"
 
-#: src/project_dbase_gui.c:783
+#: src/project_dbase_gui.c:778
 #, fuzzy
 msgid "Po files:"
 msgstr "Dokumentačný súbor"
 
-#: src/project_dbase_gui.c:790
+#: src/project_dbase_gui.c:785
 msgid "Version:"
 msgstr "Verzia:"
 
-#: src/project_dbase_gui.c:813
+#: src/project_dbase_gui.c:808
 msgid "GUI editable by Glade:"
 msgstr "Upraviteĺné GUI v Glade:"
 
-#: src/project_dbase_gui.c:835
+#: src/project_dbase_gui.c:830
 msgid "Makefiles managed:"
 msgstr "Spravované make súbory:"
 
-#: src/project_dbase_gui.c:877
+#: src/project_dbase_gui.c:872
 msgid "Gettext support:"
 msgstr "Podpora gettextu:"
 
-#: src/project_dbase_gui.c:935
+#: src/project_dbase_gui.c:930
 msgid "Project Type:"
 msgstr "Typ projektu:"
 
-#: src/project_dbase_gui.c:978
+#: src/project_dbase_gui.c:973
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -4393,138 +4520,138 @@ msgstr ""
 "Projekt nie je uložený.\n"
 "Chcete ho prek ukončením uložiť?"
 
-#: src/project_dbase_gui.c:995 src/project_dbase_gui.c:1115
+#: src/project_dbase_gui.c:990 src/project_dbase_gui.c:1110
 msgid "Breton"
 msgstr "Bretónsky"
 
-#: src/project_dbase_gui.c:996
+#: src/project_dbase_gui.c:991
 msgid "Catalan"
 msgstr "Katalánsky"
 
-#: src/project_dbase_gui.c:997
+#: src/project_dbase_gui.c:992
 msgid "Czech"
 msgstr "Český"
 
-#: src/project_dbase_gui.c:998
+#: src/project_dbase_gui.c:993
 msgid "Danish"
 msgstr "Dánsky"
 
-#: src/project_dbase_gui.c:999
+#: src/project_dbase_gui.c:994
 msgid "German"
 msgstr "Nemecký"
 
-#: src/project_dbase_gui.c:1000
+#: src/project_dbase_gui.c:995
 msgid "Greek"
 msgstr "Grécky"
 
-#: src/project_dbase_gui.c:1001
+#: src/project_dbase_gui.c:996
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1002
+#: src/project_dbase_gui.c:997
 msgid "Spanish"
 msgstr "Španielský"
 
-#: src/project_dbase_gui.c:1003
+#: src/project_dbase_gui.c:998
 msgid "Finnish"
 msgstr "Fínsky"
 
-#: src/project_dbase_gui.c:1004
+#: src/project_dbase_gui.c:999
 msgid "French"
 msgstr "Francúzsky"
 
-#: src/project_dbase_gui.c:1005
+#: src/project_dbase_gui.c:1000
 msgid "Herbrew"
 msgstr "Hebrejský"
 
-#: src/project_dbase_gui.c:1006 src/project_dbase_gui.c:1010
+#: src/project_dbase_gui.c:1001 src/project_dbase_gui.c:1005
 msgid "Croatian"
 msgstr "Chorvátsky"
 
-#: src/project_dbase_gui.c:1007
+#: src/project_dbase_gui.c:1002
 msgid "Hungarian"
 msgstr "Maďarský"
 
-#: src/project_dbase_gui.c:1008
+#: src/project_dbase_gui.c:1003
 msgid "Islandic"
 msgstr "Islandský"
 
-#: src/project_dbase_gui.c:1009
+#: src/project_dbase_gui.c:1004
 msgid "Italian"
 msgstr "Taliansky"
 
-#: src/project_dbase_gui.c:1011
+#: src/project_dbase_gui.c:1006
 msgid "Korean"
 msgstr "Kórejský"
 
-#: src/project_dbase_gui.c:1012
+#: src/project_dbase_gui.c:1007
 msgid "Macedonian"
 msgstr "Macedónsky"
 
-#: src/project_dbase_gui.c:1013
+#: src/project_dbase_gui.c:1008
 msgid "Dutch"
 msgstr "Holandský"
 
-#: src/project_dbase_gui.c:1014
+#: src/project_dbase_gui.c:1009
 msgid "Norwegian"
 msgstr "Nórsky"
 
-#: src/project_dbase_gui.c:1015
+#: src/project_dbase_gui.c:1010
 msgid "Polish"
 msgstr "Poľský"
 
-#: src/project_dbase_gui.c:1016
+#: src/project_dbase_gui.c:1011
 msgid "Portuguese"
 msgstr "Portugalský"
 
-#: src/project_dbase_gui.c:1017
+#: src/project_dbase_gui.c:1012
 msgid "Romanian"
 msgstr "Rumunský"
 
-#: src/project_dbase_gui.c:1018
+#: src/project_dbase_gui.c:1013
 msgid "Russian"
 msgstr "Ruský"
 
-#: src/project_dbase_gui.c:1019
+#: src/project_dbase_gui.c:1014
 msgid "Slovak"
 msgstr "Slovenský"
 
-#: src/project_dbase_gui.c:1020
+#: src/project_dbase_gui.c:1015
 msgid "Turkish"
 msgstr "Turečtina"
 
-#: src/project_dbase_gui.c:1021
+#: src/project_dbase_gui.c:1016
 msgid "Simplified Chinese"
 msgstr "Jednoduchá Čínština"
 
-#: src/project_dbase_gui.c:1022
+#: src/project_dbase_gui.c:1017
 msgid "Chinese"
 msgstr "Čínsky"
 
-#: src/project_dbase_gui.c:1023
+#: src/project_dbase_gui.c:1018
 msgid "Estonian"
 msgstr "Estónsky"
 
-#: src/project_dbase_gui.c:1067
+#: src/project_dbase_gui.c:1062
 msgid "Select regional language"
 msgstr "Vyberte regionálny jazyk"
 
-#: src/project_dbase_gui.c:1083
+#: src/project_dbase_gui.c:1078
 #, fuzzy
 msgid "Select regional language:"
 msgstr "Vyberte regionálny jazyk"
 
-#: src/project_dbase_gui.c:1123 src/support.c:100 src/support.c:138
+#: src/project_dbase_gui.c:1118 src/support.c:100 src/support.c:138
 #, fuzzy, c-format
 msgid "Unable to find pixmap file: %s"
 msgstr "Nemôžem nájsť súbor pixmapy: %s"
 
-#: src/project_dbase_gui.c:1195
+#: src/project_dbase_gui.c:1190
 #, fuzzy
 msgid "This file has already been added to the Project"
 msgstr "Tento súbor už je obsiahnutý v projekte."
 
-#: src/project_dbase_gui.c:1282
+#: src/project_dbase_gui.c:1268
 #, fuzzy, c-format
 msgid ""
 "\"%s\"\n"
@@ -4741,12 +4868,12 @@ msgstr " Tlačiť: "
 msgid "Error writing to file: %s."
 msgstr "Pri zápise do súboru %s nastala chyba."
 
-#: src/source.c:1294
+#: src/source.c:1474
 #, fuzzy, c-format
 msgid "Error writing to: %s."
 msgstr "Pri zápise do %s nastala chyba."
 
-#: src/source.c:1510
+#: src/source.c:1689
 #, fuzzy
 msgid "Project type does not support Glade."
 msgstr "Typ projektu nepodporuje glade."
@@ -4760,7 +4887,7 @@ msgstr "Anjuta"
 msgid "Source files paths"
 msgstr "Cesty k zdrojovým súborom"
 
-#: src/src_paths_gui.c:145
+#: src/src_paths_gui.c:144
 msgid "Search Paths"
 msgstr "Prehĺadávať cesty"
 
@@ -5494,234 +5621,251 @@ msgstr "Bonobo komponent"
 msgid "LibGlade project"
 msgstr "Kompilovať pojekt"
 
-#: src/wizard_gui.c:243
+#: src/wizard_gui.c:254
 #, fuzzy
 msgid "Basic Information"
 msgstr "Informácia"
 
-#: src/wizard_gui.c:264
+#: src/wizard_gui.c:275
 msgid "Enter the basic Project information"
 msgstr "Zadajte základné informácie o projekte"
 
-#: src/wizard_gui.c:287
+#: src/wizard_gui.c:298
 msgid "Project Version:"
 msgstr "Verzia projektu:"
 
-#: src/wizard_gui.c:294
+#: src/wizard_gui.c:305
 msgid "Project Author:"
 msgstr "Autor projektu:"
 
-#: src/wizard_gui.c:301
+#: src/wizard_gui.c:312
 msgid "Project Target:"
 msgstr "Cieľový priečinok projektu:"
 
-#: src/wizard_gui.c:332
+#: src/wizard_gui.c:343
 msgid "Programming language"
 msgstr "Programovací jazyk"
 
-#: src/wizard_gui.c:343
+#: src/wizard_gui.c:354
 msgid "C"
 msgstr "C"
 
-#: src/wizard_gui.c:351
+#: src/wizard_gui.c:362
 msgid "C++"
 msgstr "C++"
 
-#: src/wizard_gui.c:360
+#: src/wizard_gui.c:371
 msgid "Both C and C++"
 msgstr "Oba C aj C++"
 
-#: src/wizard_gui.c:433
+#: src/wizard_gui.c:378
+#, fuzzy
+msgid "Target type"
+msgstr "Typ zdroja:     "
+
+#: src/wizard_gui.c:394
+msgid "Executable target"
+msgstr "Spustiteľný súbor"
+
+#: src/wizard_gui.c:401
+msgid "Static library target"
+msgstr "Statická knižnica"
+
+#: src/wizard_gui.c:407
+msgid "Dynamic library target"
+msgstr "Dinamická knižnica"
+
+#: src/wizard_gui.c:483
 #, fuzzy
 msgid "Enter a short description of the Project"
 msgstr "Zadajte krátky popis projektu"
 
-#: src/wizard_gui.c:556
+#: src/wizard_gui.c:587
 #, fuzzy
 msgid "Enter any additional Project options"
 msgstr "Zadajte základné informácie o projekte"
 
-#: src/wizard_gui.c:573
+#: src/wizard_gui.c:604
 msgid " Project Options "
 msgstr " Nastavenie projektu "
 
-#: src/wizard_gui.c:584
+#: src/wizard_gui.c:615
 msgid "Include GNU Copyright statement in file headings"
 msgstr "Vložiť GNU Copyright do hlavičky súboru"
 
-#: src/wizard_gui.c:591
+#: src/wizard_gui.c:622
 msgid "Enable Gettext Support"
 msgstr "Zapnúť podporu gettextu"
 
-#: src/wizard_gui.c:598
+#: src/wizard_gui.c:629
 msgid "GNOME Menu Entry"
 msgstr "Položka GNOME menu"
 
-#: src/wizard_gui.c:608
+#: src/wizard_gui.c:639
 msgid "Entry name:"
 msgstr "Názov položky:"
 
-#: src/wizard_gui.c:615
+#: src/wizard_gui.c:646
 msgid "Comment:"
 msgstr "Komentár:"
 
-#: src/wizard_gui.c:622
+#: src/wizard_gui.c:653
 msgid "Group:"
 msgstr "Skupina:"
 
-#: src/wizard_gui.c:664
+#: src/wizard_gui.c:695
 msgid "Needs terminal"
 msgstr "Potrebuje terminál"
 
-#: src/wizard_gui.c:708
+#: src/wizard_gui.c:739
 msgid "Summary"
 msgstr ""
 
-#: widgets/gnomefilelist.c:132
+#: widgets/gnomefilelist.c:159
 #, fuzzy
 msgid "Go to the previous directory"
 msgstr "Prejde na predchádzajúcu správu"
 
-#: widgets/gnomefilelist.c:137
+#: widgets/gnomefilelist.c:164
 #, fuzzy
 msgid "Go to home directory"
 msgstr "Vyčistiť všetky zdrojové adresáre"
 
-#: widgets/gnomefilelist.c:140
+#: widgets/gnomefilelist.c:167
 #, fuzzy
 msgid "Go to parent directory"
 msgstr "Vyčistiť celý adresár projektu"
 
-#: widgets/gnomefilelist.c:142
+#: widgets/gnomefilelist.c:169
 msgid "Refresh listing"
 msgstr ""
 
-#: widgets/gnomefilelist.c:145
+#: widgets/gnomefilelist.c:172
 #, fuzzy
 msgid "Delete file"
 msgstr "Vymazať všetky"
 
-#: widgets/gnomefilelist.c:147
+#: widgets/gnomefilelist.c:174
 #, fuzzy
 msgid "Rename file"
 msgstr "Otvoriť súbor"
 
-#: widgets/gnomefilelist.c:149
+#: widgets/gnomefilelist.c:176
 #, fuzzy
 msgid "Create new folder"
 msgstr "_Vytvoriť nové okno"
 
-#: widgets/gnomefilelist.c:155
+#: widgets/gnomefilelist.c:182
 #, fuzzy
 msgid "Show hidden files and directories"
 msgstr "Ukázať/skryť ziadok a znaky"
 
-#: widgets/gnomefilelist.c:166
+#: widgets/gnomefilelist.c:193
 msgid "Show Hidden"
 msgstr ""
 
-#: widgets/gnomefilelist.c:174
+#: widgets/gnomefilelist.c:201
 #, fuzzy
 msgid "Directory: "
 msgstr " Adresáre "
 
-#: widgets/gnomefilelist.c:216
+#: widgets/gnomefilelist.c:242
 #, fuzzy
 msgid "Directories"
 msgstr " Adresáre "
 
-#: widgets/gnomefilelist.c:263 widgets/gnomefilelist.c:1123
+#: widgets/gnomefilelist.c:287 widgets/gnomefilelist.c:1293
 #, fuzzy
 msgid "Selection: "
 msgstr "Vybrať"
 
-#: widgets/gnomefilelist.c:287
+#: widgets/gnomefilelist.c:311
 #, fuzzy
 msgid "File type: "
 msgstr "Súbor:"
 
-#: widgets/gnomefilelist.c:415
+#: widgets/gnomefilelist.c:540
 #, fuzzy
 msgid "C/C++ source files"
 msgstr "Zdrojový súbor"
 
-#: widgets/gnomefilelist.c:416
+#: widgets/gnomefilelist.c:541
 #, fuzzy
 msgid "Java files"
 msgstr "Dátový súbor"
 
-#: widgets/gnomefilelist.c:417
+#: widgets/gnomefilelist.c:542
 #, fuzzy
 msgid "Pascal files"
 msgstr "Pascal"
 
-#: widgets/gnomefilelist.c:418
+#: widgets/gnomefilelist.c:543
 #, fuzzy
 msgid "PHP files"
 msgstr "Pomocník"
 
-#: widgets/gnomefilelist.c:419
+#: widgets/gnomefilelist.c:544
 #, fuzzy
 msgid "Perl files"
 msgstr "Pomocník"
 
-#: widgets/gnomefilelist.c:420
+#: widgets/gnomefilelist.c:545
 #, fuzzy
 msgid "Python files"
 msgstr "Python"
 
-#: widgets/gnomefilelist.c:421
+#: widgets/gnomefilelist.c:546
 msgid "Hyper Text Markup files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:422
+#: widgets/gnomefilelist.c:547
 #, fuzzy
 msgid "Shell Script files"
 msgstr "Uložiť aktuálny súbor"
 
-#: widgets/gnomefilelist.c:423
+#: widgets/gnomefilelist.c:548
 #, fuzzy
 msgid "Config files"
 msgstr "Konfigurovať"
 
-#: widgets/gnomefilelist.c:424
+#: widgets/gnomefilelist.c:549
 msgid "Visual Basic files"
 msgstr ""
 
-#: widgets/gnomefilelist.c:425
+#: widgets/gnomefilelist.c:550
 #, fuzzy
 msgid "Properties files"
 msgstr "Prj/Vlastnosti"
 
-#: widgets/gnomefilelist.c:426
+#: widgets/gnomefilelist.c:551
 #, fuzzy
 msgid ".mak files"
 msgstr "Súbory make"
 
-#: widgets/gnomefilelist.c:427
+#: widgets/gnomefilelist.c:552
 #, fuzzy
 msgid ".lua files"
 msgstr "Kompilovať súbory"
 
-#: widgets/gnomefilelist.c:428
+#: widgets/gnomefilelist.c:553
 #, fuzzy
 msgid "Diff files"
 msgstr "Dokumentačný súbor"
 
-#: widgets/gnomefilelist.c:1118
+#: widgets/gnomefilelist.c:1287
 msgid "Multiple selection mode"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1451
+#: widgets/gnomefilelist.c:1606
 msgid "New folder"
 msgstr ""
 
-#: widgets/gnomefilelist.c:1459
+#: widgets/gnomefilelist.c:1614
 #, fuzzy
 msgid "Folder name:"
 msgstr "Názov položky:"
 
-#: widgets/gnomefilelist.c:1519
+#: widgets/gnomefilelist.c:1674
 msgid "Creating folder failed."
 msgstr ""
 
@@ -5737,7 +5881,6 @@ msgstr ""
 #~ msgid "Cannot execute ctags"
 #~ msgstr "Nemôžem spustiť ctags"
 
-#, fuzzy
 #~ msgid ""
 #~ "Cannot fork to execute ctags. I donno why!!\n"
 #~ "In %s:%d"
@@ -5768,15 +5911,6 @@ msgstr ""
 
 #~ msgid "GNOME-- project"
 #~ msgstr "GNOME-- projekt"
-
-#~ msgid "Executable target"
-#~ msgstr "Spustiteľný súbor"
-
-#~ msgid "Static library target"
-#~ msgstr "Statická knižnica"
-
-#~ msgid "Dynamic library target"
-#~ msgstr "Dinamická knižnica"
 
 #~ msgid "Application Wizard:     Page 1 of 6"
 #~ msgstr "Sprievodca aplikáciou:   Strana 1 zo 6"
@@ -5827,9 +5961,6 @@ msgstr ""
 #~ msgid "You FOOL! I can not attach to myself."
 #~ msgstr "Nerobte zo mňa hlupáka! Nemôžem sa pripojiť sám na seba."
 
-#~ msgid "Find in files"
-#~ msgstr "Nájsť v súboroch"
-
 #~ msgid ""
 #~ "ERROR: No input files supplied.\n"
 #~ "I am wondering where will I search."
@@ -5851,16 +5982,67 @@ msgstr ""
 #~ msgstr "Automatické vytvorenie ukončené ..............neúspešne\n"
 
 #~ msgid "Plug Ins"
-#~ msgstr "Pluginy"
+#~ msgstr "Doplnky"
+
+#~ msgid "You have a project opened. Close it first."
+#~ msgstr "Máte otvorený projekt. Najprv ho zatvorte."
+
+#~ msgid "project1"
+#~ msgstr "projekt1"
 
 #~ msgid "_Plug Ins"
-#~ msgstr "_Pluginy"
+#~ msgstr "Do_plnky"
 
 #~ msgid "_Tags Toolbar"
 #~ msgstr "_Tagy"
 
 #~ msgid "Hide/Unhide Tags toolbar"
 #~ msgstr "Skryť/ukázať panel tagov"
+
+#~ msgid "Open the README file of the project"
+#~ msgstr "Otvoriť README súbor projektu"
+
+#~ msgid "Open the TODO file of the project"
+#~ msgstr "Otvoriť TODO súbor projektu"
+
+#~ msgid "Open the ChangeLog file of the project"
+#~ msgstr "Otvoriť súbor zmien (ChangeLog) projektu"
+
+#~ msgid "Open the NEWS file of the project"
+#~ msgstr "Otvoriť NEWS súbor projektu"
+
+#~ msgid "Grep Utility"
+#~ msgstr "Grep"
+
+#~ msgid "Compare two files"
+#~ msgstr "Porovnať dva súbory"
+
+#~ msgid "Diff Utility"
+#~ msgstr "Diff"
+
+#~ msgid "File View (Char/Octal/Hex)"
+#~ msgstr "Zobrazenie súboru (znak/oktal/hex)"
+
+#~ msgid "C Flow"
+#~ msgstr "C tok"
+
+#~ msgid "C Cross-reference"
+#~ msgstr "Referenčná príručka jazyka C"
+
+#~ msgid "C Trace"
+#~ msgstr "C trasa"
+
+#~ msgid "Backup Manager"
+#~ msgstr "Správca záloh"
+
+#~ msgid "Open a new file window"
+#~ msgstr "Otvoriť nové okno súboru"
+
+#~ msgid "Close current document window"
+#~ msgstr "Zatvoriť okno aktuálneho dokumentu"
+
+#~ msgid "_Utilities"
+#~ msgstr "P_omôcky"
 
 #~ msgid "Tags image update successfully."
 #~ msgstr "Vzhĺad tagov bol úspešne aktualizovaný."
@@ -5998,6 +6180,9 @@ msgstr ""
 
 #~ msgid "CVS is not yet implemented. :-(\n"
 #~ msgstr "CVS nie je momentálne implementované :-( \n"
+
+#~ msgid "Activate this to select this window"
+#~ msgstr "Aktivovanie na výber tohoto okna"
 
 #~ msgid "Unable to Load Plug in Module %s. Err: %s"
 #~ msgstr "Nepodarilo sa nahrať modul %s. Chyba: %s"
