@@ -30,8 +30,8 @@
  * Modification history:
  *
  * $Log$
- * Revision 1.1  2001/04/23 21:49:40  stef
- * Initial revision
+ * Revision 1.1.1.1  2001/04/23 21:49:40  stef
+ * Anjuta import
  *
  * Revision 1.4  2001/04/13 03:52:13  nyamatongwe
  * Added URL to find original code to comments.
