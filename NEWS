@@ -6,6 +6,8 @@ New: Class browser and file browser added in the project manager.
 New: GDP standardized docbook documentations.
 New: Anjuta faqs documentation.
 New: New gnomish icon set and splashscreen.
+New: Context sensitive help and gnome api browser
+     (need Devhelp and the dev books to be installed).
 
 Added: Preferences for setting caret and selection colors.
 Fix for gdb version 5.
