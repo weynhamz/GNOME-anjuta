@@ -1,3 +1,7 @@
+2004-03-28  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* src/fileselection.[ch], src/mainmenu_callbacks.c
+	Fixed bug #908941  ('Open' starts in wrong directory)
+	
 2004-03-26  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.h, src/message-manager-private.[h,cc]: Fixed

@@ -102,6 +102,21 @@ on_file_selection_response (GtkDialog *dlg, gint response, gpointer data)
 	return;
 }
 
+void
+fileselection_update_dir(GtkWidget *filesel)
+{
+	ProjectDBase *pdb = app->project_dbase;
+	
+	if (pdb && pdb->project_is_open)
+	{
+		if (!strcmp (last_dir, g_get_home_dir()) )
+		{
+			g_snprintf(last_dir, PATH_MAX, pdb->top_proj_dir);
+		}
+		gnome_filelist_set_dir (GNOME_FILELIST(filesel), last_dir);
+	}
+}
+
 GtkWidget *
 create_fileselection_gui (FileSelData * fsd)
 {

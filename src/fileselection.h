@@ -33,6 +33,8 @@ struct _FileSelData
   
 };
   
+void fileselection_update_dir(GtkWidget *filesel);
+
 GtkWidget* create_fileselection_gui (FileSelData *fd);
 
 /* Free the return */

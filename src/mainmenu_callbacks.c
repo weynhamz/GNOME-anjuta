@@ -84,6 +84,7 @@ on_new_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_open1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
+	fileselection_update_dir(app->fileselection);
 	gtk_widget_show (app->fileselection);
 }
 
