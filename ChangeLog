@@ -1,5 +1,7 @@
 2001-07-31  Stephane Demurget <demurgets@free.fr>
 
+	* NEWS, THANKS: updated.
+
 	* src/anjuta.c: (anjuta_fatal_signal_handler), (anjuta_exit_signal_handler):
 	  fixed to show the correct kernel signal number and its description.
 

@@ -5,12 +5,19 @@ Anjuta 0.1.6:	(31st July 2001)		-- Nabakumar.
 New: Class browser and file browser added in the project manager.
 New: GDP standardized docbook documentations.
 New: Anjuta faqs documentation.
-New: New gnomish icon set.
+New: New gnomish icon set and splashscreen.
 
 Added: Preferences for setting caret and selection colors.
 Fix for gdb version 5.
 Closes all files when project is closed.
 And many big fixes and minor feature additions.
+French translation updated.
+
+Note : the major part of the new project manager has been written but
+it needs time to be integrated and tested. That's why it's not present in
+this release. 
+
+--------------------------------------------------------------------
 
 Anjuta 0.1.4:	(25nd Mar 2001)		-- Nabakumar. 
 
