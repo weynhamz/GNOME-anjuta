@@ -1,3 +1,9 @@
+2002-01-05  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* text_editor_menu.c
+	  Fixed misalignment of the function sub menu
+	  in the text editor pop up menu.
+	  
 2002-01-04  Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	* src/text_editor.c: Fixed a compiler warning.

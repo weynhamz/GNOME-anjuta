@@ -199,6 +199,7 @@ GnomeUIInfo text_editor_menu_options_submenu_uiinfo[] = {
 
 GnomeUIInfo text_editor_menu_uiinfo[] = {
 	{
+	 /* 0 */
 	 GNOME_APP_UI_ITEM, N_("Cut"),
 	 NULL,
 	 on_cut1_activate, NULL, NULL,
@@ -206,6 +207,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{
+	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Copy"),
 	 NULL,
 	 on_copy1_activate, NULL, NULL,
@@ -213,14 +215,17 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{
+	 /* 2 */
 	 GNOME_APP_UI_ITEM, N_("Paste"),
 	 NULL,
 	 on_paste1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_v, GDK_CONTROL_MASK, NULL}
 	,
+	/* 3 */
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 4 */
 	 GNOME_APP_UI_ITEM, N_("Context Help"),
 	 NULL,
 	 on_context_help_activate, NULL, NULL,
@@ -228,14 +233,17 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
  	 0, 0, NULL}
 	 ,
 	{
+	 /* 5 */
 	 GNOME_APP_UI_ITEM, N_("Goto Tag"),
 	 NULL,
 	 on_goto_tag_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
  	 0, 0, NULL}
 	 ,
+	/* 6 */
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 7 */
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
 	 NULL,
 	 on_book_toggle1_activate, NULL, NULL,
@@ -243,6 +251,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{
+	 /* 8 */
 	 GNOME_APP_UI_ITEM, N_("Auto format"),
 	 NULL,
 	 on_indent1_activate, NULL, NULL,
@@ -250,52 +259,62 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 0, 0, NULL}
 	,
 	{
+	 /* 9 */
 	 GNOME_APP_UI_ITEM, N_("Swap .h/.c"),
 	 NULL,
 	 on_text_editor_menu_swap_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
+	 /* 10 */
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 11 */
 	 GNOME_APP_UI_SUBTREE, N_("Goto"),
 	 NULL,
 	 text_editor_menu_goto_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 12 */
 	 GNOME_APP_UI_ITEM, N_("Function"),
 	 NULL,
 	 NULL, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
+	 /* 13 */
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 14 */
 	 GNOME_APP_UI_SUBTREE, N_("Debug"),
 	 NULL,
 	 text_editor_menu_debug_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
+	 /* 15 */
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 16 */
 	 GNOME_APP_UI_SUBTREE, N_("Options"),
 	 NULL,
 	 text_editor_menu_options_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
+	 /* 17 */
 	GNOMEUIINFO_SEPARATOR,
 	{
+	 /* 18 */
 	 GNOME_APP_UI_ITEM, N_("Close"),
 	 NULL,
 	 on_close_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
+	 /* 19 */
 	GNOMEUIINFO_END
 };
 
@@ -390,8 +409,8 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		menu->GUI = text_editor_menu;
 		menu->copy = text_editor_menu_uiinfo[0].widget;
 		menu->cut = text_editor_menu_uiinfo[1].widget;
-		menu->autoformat = text_editor_menu_uiinfo[7].widget;
-		menu->swap = text_editor_menu_uiinfo[8].widget;
+		menu->autoformat = text_editor_menu_uiinfo[8].widget;
+		menu->swap = text_editor_menu_uiinfo[9].widget;
 		menu->functions = text_editor_menu_uiinfo[12].widget;
 		menu->debug = text_editor_menu_uiinfo[14].widget;
 
