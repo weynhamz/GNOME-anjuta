@@ -102,7 +102,7 @@ npw_header_list_readdir (NPWHeaderList* this, const gchar* path)
 	g_return_val_if_fail (this != NULL, FALSE);
 	g_return_val_if_fail (path != NULL, FALSE);
 
-	// Read all project template files
+	/* Read all project template files */
 	dir = g_dir_open (path, 0, NULL);
 	if (!dir) return FALSE;
 
@@ -116,7 +116,7 @@ npw_header_list_readdir (NPWHeaderList* this, const gchar* path)
 			{
 				if (npw_header_list_read (this, filename))
 				{
-					// Read at least one project file
+					/* Read at least one project file */
 					ok = TRUE;
 				}
 			}
@@ -139,11 +139,11 @@ parse_tag (const char* name)
 	{
 		return NPW_PROJECT_WIZARD_TAG;
 	}
-	else if (strcmp ("name", name) == 0)
+	else if ((strcmp ("_name", name) == 0) || (strcmp ("name", name) == 0))
 	{
 		return NPW_NAME_TAG;
 	}
-	else if (strcmp ("description", name) == 0)
+	else if ((strcmp ("_description", name) == 0) || (strcmp ("description", name) == 0))
 	{
 		return NPW_DESCRIPTION_TAG;
 	}
@@ -297,26 +297,40 @@ parser_warning (GMarkupParseContext* ctx, const gchar* format,...)
 	g_free (msg);
 }
 
+static void
+parser_critical (GMarkupParseContext* ctx, const gchar* format,...)
+{
+	va_list args;
+	gchar* msg;
+	gint line;
+
+	g_markup_parse_context_get_position (ctx, &line, NULL);
+	msg = g_strdup_printf ("line %d: %s", line, format);
+	va_start (args, format);
+	g_logv (G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, msg, args);
+	va_end (args);
+	g_free (msg);
+}
 /* Parse project wizard block
  *---------------------------------------------------------------------------*/
 
-#define NPW_HEADER_PARSER_MAX_LEVEL	2	// Maximum number of nested elements
+#define NPW_HEADER_PARSER_MAX_LEVEL	2	/* Maximum number of nested elements */
 
 typedef struct _NPWHeaderParser
 {
-	// Type of parser (not used)
+	/* Type of parser (not used) */
 	NPWParser type;
 	GMarkupParseContext* ctx;
-	// Known element stack
+	/* Known element stack */
 	NPWTag tag[NPW_HEADER_PARSER_MAX_LEVEL + 1];
 	NPWTag* last;
-	// Unknown element stack
+	/* Unknown element stack */
 	guint unknown;
-	// List where should be added the header
+	/* List where should be added the header */
 	NPWHeaderList* list;
-	// Current header 
+	/* Current header */
 	NPWHeader* header;
-	// Name of file read
+	/* Name of file read */
 	gchar* filename;
 } NPWHeaderParser;
 
@@ -332,15 +346,15 @@ parse_header_start (GMarkupParseContext* context,
 	NPWTag tag;
 	gboolean known = FALSE;
 
-	// Recognize element
+	/* Recognize element */
 	if (parser->unknown == 0)
 	{
-		// Not inside an unknown element
+		/* Not inside an unknown element */
 		tag = parse_tag (name);
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
-			// Top level element
+			/* Top level element */
 			switch (tag)
 			{
 			case NPW_PROJECT_WIZARD_TAG:
@@ -356,7 +370,7 @@ parse_header_start (GMarkupParseContext* context,
 			}
 			break;
 		case NPW_PROJECT_WIZARD_TAG:
-			// Necessary to avoid neested PROJECT_WIZARD element
+			/* Necessary to avoid neested PROJECT_WIZARD element */
 			switch (tag)
 			{
 			case NPW_NAME_TAG:
@@ -376,10 +390,10 @@ parse_header_start (GMarkupParseContext* context,
 		}
 	}
 
-	// Push element
+	/* Push element */
 	if (known)
 	{
-		// Know element stack overflow
+		/* Know element stack overflow */
 		g_return_if_fail ((parser->last - parser->tag) <= NPW_HEADER_PARSER_MAX_LEVEL);
 		parser->last++;
 		*parser->last = tag;
@@ -400,29 +414,36 @@ parse_header_end (GMarkupParseContext* context,
 	
 	if (parser->unknown > 0)
 	{
-		// Pop unknown element
+		/* Pop unknown element */
 		parser->unknown--;
 	}
 	else if (*parser->last != NPW_NO_TAG)
 	{
-		// Pop known element
+		/* Pop known element */
 		parser->last--;
 		if (parser->last[1] == NPW_PROJECT_WIZARD_TAG)
 		{
-			// Stop parsing after first project wizard block
-			// Remaining file need to be passed through autogen
-			//  to be a valid xml file
+			/* Check if the element is valid */
+			if (parser->header && !npw_header_get_name (parser->header))
+			{
+				parser_critical (parser->ctx, "Missing name attribute");
+				npw_header_free (parser->header);
+			}
 
-			// error should be available to stop parsing
+			/* Stop parsing after first project wizard block
+			 * Remaining file need to be passed through autogen
+			 *  to be a valid xml file */
+
+			/* error should be available to stop parsing */
 			g_return_if_fail (error != NULL);
 		
-			// Send an error	
+			/* Send an error */	
 			*error = g_error_new_literal (parser_error_quark (), NPW_STOP_PARSING, "");
 		}
 	}
 	else
 	{
-		// Know element stack underflow
+		/* Know element stack underflow */
 		g_return_if_reached ();
 	}
 }
@@ -441,31 +462,57 @@ parse_header_text (GMarkupParseContext* context,
 		switch (*parser->last)
 		{
 		case NPW_NAME_TAG:
-			npw_header_set_name (parser->header, text);
+			if (npw_header_get_name (parser->header) == NULL)
+			{
+				npw_header_set_name (parser->header, text);
+			}
+			else
+			{
+				parser_critical (parser->ctx, "Duplicated name tag");
+			}
 			break;
 		case NPW_DESCRIPTION_TAG:
-			npw_header_set_description (parser->header, text);
+			if (npw_header_get_description (parser->header) == NULL)
+			{
+				npw_header_set_description (parser->header, text);
+			}
+			else
+			{
+				parser_critical (parser->ctx, "Duplicated description tag");
+			}
 			break;
 		case NPW_ICON_TAG:
-		{
-			char* filename;
-			char* path;
+			if (npw_header_get_iconfile (parser->header) == NULL)
+			{
+				char* filename;
+				char* path;
 
-			path = g_path_get_dirname (parser->filename);
-			filename = g_build_filename (path, text, NULL);
-			npw_header_set_iconfile (parser->header, filename);
-			g_free (path);
-			g_free (filename);
+				path = g_path_get_dirname (parser->filename);
+				filename = g_build_filename (path, text, NULL);
+				npw_header_set_iconfile (parser->header, filename);
+				g_free (path);
+				g_free (filename);
+			}
+			else
+			{
+				parser_critical (parser->ctx, "Duplicated icon tag");
+			}
 			break;
-		}
 		case NPW_CATEGORY_TAG:
-			npw_header_set_category (parser->header, text);
+			if (npw_header_get_category (parser->header) == NULL)
+			{
+				npw_header_set_category (parser->header, text);
+			}
+			else
+			{
+				parser_critical (parser->ctx, "Duplicated category tag");
+			}
 			break;
 		case NPW_PROJECT_WIZARD_TAG:
-			// Nothing to do
+			/* Nothing to do */
 			break;
 		default:
-			// Unknown tag
+			/* Unknown tag */
 			g_return_if_reached ();
 			break;
 		}
@@ -523,13 +570,13 @@ npw_header_parser_parse (NPWHeaderParser* this, const gchar* text, gssize len, G
 	return g_markup_parse_context_parse (this->ctx, text, len, error);
 }
 
-// Not used
-//
-//static gboolean
-//npw_header_parser_end_parse (NPWHeaderParser* this, GError** error)
-//{
-//	return g_markup_parse_context_end_parse (this->ctx, error);
-//}
+/* Not used
+
+static gboolean
+npw_header_parser_end_parse (NPWHeaderParser* this, GError** error)
+{
+	return g_markup_parse_context_end_parse (this->ctx, error);
+}*/
 
 gboolean
 npw_header_list_read (NPWHeaderList* this, const gchar* filename)
@@ -553,22 +600,22 @@ npw_header_list_read (NPWHeaderList* this, const gchar* filename)
 	parser = npw_header_parser_new (this, filename);
 
 	npw_header_parser_parse (parser, content, len, &err);
-	// Parse only a part of the file, so need to call parser_end_parse
+	/* Parse only a part of the file, so need to call parser_end_parse */
        
 	npw_header_parser_free (parser);
 	g_free (content);
 
 	if (err == NULL)
 	{
-		// Parsing must end with an error
-		//  generated at the end of the project wizard block
+		/* Parsing must end with an error
+		 *  generated at the end of the project wizard block */
 		g_warning ("Missing project wizard block in %s", filename);
 
 		return FALSE;
 	}
 	if (g_error_matches (err, parser_error_quark (), NPW_STOP_PARSING) == FALSE)
 	{
-		// Parsing error
+		/* Parsing error */
 		g_warning (err->message);
 		g_error_free (err);
 
@@ -583,23 +630,23 @@ npw_header_list_read (NPWHeaderList* this, const gchar* filename)
 /* Parse page block
  *---------------------------------------------------------------------------*/
 
-#define NPW_PAGE_PARSER_MAX_LEVEL	3	// Maximum number of nested elements
+#define NPW_PAGE_PARSER_MAX_LEVEL	3	/* Maximum number of nested elements */
 
 struct _NPWPageParser
 {
-	// Type of parser (not used)
+	/* Type of parser (not used) */
 	NPWParser type;
 	GMarkupParseContext* ctx;
-	// Known element stack
+	/* Known element stack */
 	NPWTag tag[NPW_PAGE_PARSER_MAX_LEVEL + 1];
 	NPWTag* last;
-	// Unknown element stack
+	/* Unknown element stack */
 	guint unknown;
-	// page number to read
+	/* page number to read */
 	gint count;
-	// Current page object
+	/* Current page object */
 	NPWPage* page;
-	// Current property object
+	/* Current property object */
 	NPWProperty* property;
 };
 
@@ -610,14 +657,14 @@ parse_page (NPWPageParser* this,
 {
 	if (this->count != 0)
 	{
-		// Skip this page
+		/* Skip this page */
 		if (this->count > 0) this->count--;
 
 		return FALSE;
 	}
 	else
 	{
-		// Read this page
+		/* Read this page */
 		while (*attributes != NULL)
 		{
 			switch (parse_attribute (*attributes))
@@ -740,15 +787,15 @@ parse_page_start (GMarkupParseContext* context,
 	NPWTag tag;
 	gboolean known = FALSE;
 
-	// Recognize element
+	/* Recognize element */
 	if (parser->unknown == 0)
 	{
-		// Not inside an unknown element
+		/* Not inside an unknown element */
 		tag = parse_tag (name);
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
-			// Top level element
+			/* Top level element */
 			switch (tag)
 			{
 			case NPW_PAGE_TAG:
@@ -762,7 +809,7 @@ parse_page_start (GMarkupParseContext* context,
 			}
 			break;
 		case NPW_PAGE_TAG:
-			// Necessary to avoid neested page element
+			/* Necessary to avoid neested page element */
 			switch (tag)
 			{
 			case NPW_PROPERTY_TAG:
@@ -774,7 +821,7 @@ parse_page_start (GMarkupParseContext* context,
 			}
 			break;
 		case NPW_PROPERTY_TAG:
-			// Necessary to avoid neested page & property element
+			/* Necessary to avoid neested page & property element */
 			switch (tag)
 			{
 			case NPW_ITEM_TAG:
@@ -791,10 +838,10 @@ parse_page_start (GMarkupParseContext* context,
 		}
 	}
 	
-	// Push element
+	/* Push element */
 	if (known)
 	{
-		// Know element stack overflow
+		/* Know element stack overflow */
 		g_return_if_fail ((parser->last - parser->tag) <= NPW_PAGE_PARSER_MAX_LEVEL);
 		parser->last++;
 		*parser->last = tag;
@@ -815,17 +862,17 @@ parse_page_end (GMarkupParseContext* context,
 	
 	if (parser->unknown > 0)
 	{
-		// Pop unknown element
+		/* Pop unknown element */
 		parser->unknown--;
 	}
 	else if (*parser->last != NPW_NO_TAG)
 	{
-		// Pop known element
+		/* Pop known element */
 		parser->last--;
 	}
 	else
 	{
-		// Know element stack underflow
+		/* Know element stack underflow */
 		g_return_if_reached ();
 	}
 }
@@ -915,7 +962,7 @@ npw_page_read (NPWPage* this, const gchar* filename, gint count)
 
 	if (err != NULL)
 	{
-		// Parsing error
+		/* Parsing error */
 		g_warning (err->message);
 		g_error_free (err);
 
@@ -929,8 +976,8 @@ npw_page_read (NPWPage* this, const gchar* filename, gint count)
 /* Parse content block
  *---------------------------------------------------------------------------*/
 
-#define NPW_FILE_PARSER_DEFAULT_LEVEL	4	// Default number of nested elements
-						// Dynamically allocated (no maximum)
+#define NPW_FILE_PARSER_DEFAULT_LEVEL	4	/* Default number of nested elements
+						 * Dynamically allocated (no maximum) */
 typedef struct _NPWFileTag
 {
 	NPWTag tag;
@@ -940,35 +987,35 @@ typedef struct _NPWFileTag
 
 struct _NPWFileListParser
 {
-	// Type of parser (not used);
+	/* Type of parser (not used) */
 	NPWParser type;
 	GMarkupParseContext* ctx;
-	// Known element stack
+	/* Known element stack */
 	GQueue* tag;
 	GStringChunk* str_pool;
 	GMemChunk* tag_pool;
 	NPWFileTag root;
-	// Unknown element stack
+	/* Unknown element stack */
 	guint unknown;
-	// Current file list
+	/* Current file list */
 	NPWFileList* list;
 };
 
-// concatenate two directories names, return value must be freed if
-// not equal to path1 or path2
+/* concatenate two directories names, return value must be freed if
+ * not equal to path1 or path2 */
 
 static gchar*
 concat_directory (const gchar* path1, const gchar* path2)
 {
 	const gchar* ptr;
 
-	// Check for not supported . and .. directory name in path2
+	/* Check for not supported . and .. directory name in path2 */
 	for (ptr = path2; ptr != '\0';)
 	{
 		ptr = strchr (ptr, '.');
 		if (ptr == NULL) break;
 
-		// Exception "." only is allowed
+		/* Exception "." only is allowed */
 		if ((ptr == path2) && (ptr[1] == '\0')) break;
 
 		if ((ptr == path2) || (ptr[- 1] == G_DIR_SEPARATOR))
@@ -1009,11 +1056,11 @@ parse_directory (NPWFileListParser* this, NPWFileTag* child, const gchar** attri
 	const gchar* destination;
 	char* path;
 
-	// Set default values
+	/* Set default values */
 	source = NULL;
 	destination = NULL;
 
-	// Read all attributes
+	/* Read all attributes */
 	while (*attributes != NULL)
 	{
 		switch (parse_attribute (*attributes))
@@ -1032,7 +1079,7 @@ parse_directory (NPWFileListParser* this, NPWFileTag* child, const gchar** attri
 		values++;
 	}
 
-	// Need source or destination
+	/* Need source or destination */
 	if ((source == NULL) && (destination != NULL))
 	{
 		source = destination;
@@ -1091,7 +1138,7 @@ parse_file (NPWFileListParser* this, NPWFileTag* child, const gchar** attributes
 	gboolean autogen_set;
 	NPWFile* file;
 
-	// Set default values
+	/* Set default values */
 	source = NULL;
 	destination = NULL;
 	execute = FALSE;
@@ -1186,10 +1233,10 @@ parse_file_start (GMarkupParseContext* context,
 
 	child.tag = NPW_NO_TAG;
 
-	// Recognize element
+	/* Recognize element */
 	if (parser->unknown  == 0)
 	{
-		// Not inside an unknown element
+		/* Not inside an unknown element */
 		tag = parse_tag (name);
 
 		parent = g_queue_peek_head (parser->tag);
@@ -1198,7 +1245,7 @@ parse_file_start (GMarkupParseContext* context,
 		switch (parent->tag)
 		{
 		case NPW_NO_TAG:
-			// Top level element
+			/* Top level element */
 			switch (tag)
 			{
 			case NPW_CONTENT_TAG:
@@ -1245,7 +1292,7 @@ parse_file_start (GMarkupParseContext* context,
 		}
 	}
 
-	// Push element
+	/* Push element */
 	if (child.tag != NPW_NO_TAG)
 	{
 		NPWFileTag* new_child;
@@ -1270,17 +1317,17 @@ parse_file_end (GMarkupParseContext* context,
 
 	if (parser->unknown > 0)
 	{
-		// Pop unknown element
+		/* Pop unknown element */
 		parser->unknown--;
 	}
 	else if (((NPWFileTag *)g_queue_peek_head (parser->tag))->tag != NPW_NO_TAG)
 	{
-		// Pop known element
+		/* Pop known element */
 		g_mem_chunk_free (parser->tag_pool, g_queue_pop_head (parser->tag));
 	}
 	else
 	{
-		// Know stack underflow
+		/* Know stack underflow */
 		g_return_if_reached ();
 	}
 }
@@ -1312,7 +1359,7 @@ npw_file_list_parser_new (NPWFileList* list, const gchar* filename)
 	this->tag_pool = g_mem_chunk_new ("file tag pool", sizeof (NPWFileTag), NPW_FILE_PARSER_DEFAULT_LEVEL  * sizeof (NPWFileTag) , G_ALLOC_AND_FREE);
 	this->root.tag = NPW_NO_TAG;
 	this->root.destination = ".";
-	// Use .wiz file path as base source directory
+	/* Use .wiz file path as base source directory */
 	path = g_path_get_dirname (filename);
       	this->root.source = g_string_chunk_insert (this->str_pool, path);
 	g_free (path);	
@@ -1379,7 +1426,7 @@ npw_file_list_read (NPWFileList* this, const gchar* filename)
 
 	if (err != NULL)
 	{
-		// Parsing error
+		/* Parsing error */
 		g_warning (err->message);
 		g_error_free (err);
 		
@@ -1392,19 +1439,19 @@ npw_file_list_read (NPWFileList* this, const gchar* filename)
 /* Parse action block
  *---------------------------------------------------------------------------*/
 
-#define NPW_ACTION_PARSER_MAX_LEVEL	2	// Maximum number of nested elements
+#define NPW_ACTION_PARSER_MAX_LEVEL	2	/* Maximum number of nested elements */
 
 struct _NPWActionListParser
 {
-	// Type of parser (not used)
+	/* Type of parser (not used) */
 	NPWParser type;
 	GMarkupParseContext* ctx;
-	// Known element stack
+	/* Known element stack */
 	NPWTag tag[NPW_ACTION_PARSER_MAX_LEVEL + 1];
 	NPWTag* last;
-	// Unknown element stack
+	/* Unknown element stack */
 	guint unknown;
-	// Current action list object
+	/* Current action list object */
 	NPWActionList* list;
 };
 
@@ -1486,15 +1533,15 @@ parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar
 	NPWTag tag;
 	gboolean known = FALSE;
 
-	// Recognize element
+	/* Recognize element */
 	if (parser->unknown == 0)
 	{
-		// Not inside an unknown element
+		/* Not inside an unknown element */
 		tag = parse_tag (name);
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
-			// Top level element
+			/* Top level element */
 			switch (tag)
 			{
 			case NPW_ACTION_TAG:
@@ -1508,7 +1555,7 @@ parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar
 			}
 			break;
 		case NPW_ACTION_TAG:
-			// Necessary to avoid neested page element
+			/* Necessary to avoid neested page element */
 			switch (tag)
 			{
 			case NPW_RUN_TAG:
@@ -1528,10 +1575,10 @@ parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar
 		}
 	}
 	
-	// Push element
+	/* Push element */
 	if (known)
 	{
-		// Know element stack overflow
+		/* Know element stack overflow */
 		g_return_if_fail ((parser->last - parser->tag) <= NPW_ACTION_PARSER_MAX_LEVEL);
 		parser->last++;
 		*parser->last = tag;
@@ -1549,17 +1596,17 @@ parse_action_end (GMarkupParseContext* context, const gchar* name, gpointer data
 	
 	if (parser->unknown > 0)
 	{
-		// Pop unknown element
+		/* Pop unknown element */
 		parser->unknown--;
 	}
 	else if (*parser->last != NPW_NO_TAG)
 	{
-		// Pop known element
+		/* Pop known element */
 		parser->last--;
 	}
 	else
 	{
-		// Know element stack underflow
+		/* Know element stack underflow */
 		g_return_if_reached ();
 	}
 }

@@ -18,14 +18,20 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+/*
+ * Plugins functions
+ *
+ *---------------------------------------------------------------------------*/
+
 #include <config.h>
-#include <libanjuta/interfaces/ianjuta-wizard.h>
 
 #include "plugin.h"
 
 #include "druid.h"
 
-#define NPW_ICON ""
+#include <libanjuta/interfaces/ianjuta-wizard.h>
+
+/*---------------------------------------------------------------------------*/
 
 /* Used in dispose */
 static gpointer parent_class;
@@ -58,7 +64,6 @@ npw_plugin_dispose (GObject *obj)
 }
 
 /* finalize used to free object created with instance init is not used */
-
 
 static gboolean
 npw_plugin_activate (AnjutaPlugin *plugin)
@@ -135,9 +140,8 @@ ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (NPWPlugin, npw_plugin);
 
-/*****************************************************************************/
-
-/* Control access to anjuta message view to avoid a closed view */
+/* Control access to anjuta message view to avoid a closed view
+ *---------------------------------------------------------------------------*/
 
 IAnjutaMessageView* 
 npw_plugin_create_view (NPWPlugin* this)
@@ -147,7 +151,7 @@ npw_plugin_create_view (NPWPlugin* this)
 		IAnjutaMessageManager* man;
 
 		man = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaMessageManager, NULL);
-		this->view = ianjuta_message_manager_add_view (man, _("New Project Wizard"), NPW_ICON, NULL);
+		this->view = ianjuta_message_manager_add_view (man, _("New Project Wizard"), ICON_FILE, NULL);
 		if (this->view != NULL)
 		{
 			g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);

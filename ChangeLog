@@ -1,3 +1,38 @@
+2005-02-07  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/action.c,
+	plugins/project-wizard/action.h,
+	plugins/project-wizard/autogen.c,
+	plugins/project-wizard/autogen.h,
+	plugins/project-wizard/file.c,
+	plugins/project-wizard/file.h,
+	plugins/project-wizard/install.c,
+	plugins/project-wizard/install.h,
+	plugins/project-wizard/parser.h,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/plugin.h,
+	plugins/project-wizard/plugin.c,
+	plugins/project-wizard/values.c,
+	plugins/project-wizard/values.h:
+	Replace C++ comments by C comments
+
+	* plugins/project-wizard/autogen.c,
+	plugins/project-wizard/autogen.h:
+	Add a run time check of autogen version.
+	Add UserName variable.
+
+	* plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/header.c,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/druid.h:
+	Sort project in alphabetic order.
+	Correct selection troubles in notebooks.
+
+	* plugins/project-wizard/parser.c:
+	Add some check when reading the project header block.
+
 2005-02-05  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/action.c,

@@ -68,9 +68,8 @@
 #define DRUID_BACK_SIGNAL "on_druid_back"
 #define DRUID_NEXT_SIGNAL "on_druid_next"
 #define DRUID_FINISH_SIGNAL "on_druid_finish"
-#define DRUID_PROJECT_SWITCH_SIGNAL "on_druid_project_switch"
 #define DRUID_PROJECT_SELECT_ICON_SIGNAL "on_druid_project_select_icon"
-#define DRUID_PROJECT_SELECT_PAGE_SIGNAL "on_druid_project_select_page"
+#define DRUID_PROJECT_SELECT_PAGE_SIGNAL "on_druid_project_map_page"
 
 /*---------------------------------------------------------------------------*/
 
@@ -109,6 +108,7 @@ typedef struct _NPWDruidAndTextBuffer
 {
 	NPWDruid* druid;
 	GtkTextBuffer* buffer;
+	NPWHeader* header;
 } NPWDruidAndTextBuffer;
 
 typedef union _NPWDruidStuff
@@ -117,7 +117,7 @@ typedef union _NPWDruidStuff
 } NPWDruidStuff;
 
 
-/* Start and finish pages
+/* Create start and finish pages
  *---------------------------------------------------------------------------*/
 
 /* libGlade doesn't seem to set these parameters for the start and end page */
@@ -183,7 +183,7 @@ npw_druid_fill_summary (NPWDruid* this)
 }
 
 
-/* Project selection page
+/* Create project selection page
  *---------------------------------------------------------------------------*/
 
 /* Display project information */
@@ -194,15 +194,30 @@ on_druid_project_select_icon (GnomeIconList* iconlist, gint idx, GdkEvent* event
 	NPWDruidAndTextBuffer* data = (NPWDruidAndTextBuffer *)user_data;
 
 	header = (NPWHeader*)gnome_icon_list_get_icon_data (iconlist, idx);
+	data->header = header;
 
 	/* As the icon list is in Browse mode, this function is called after inserting the 
 	 * first item but before setting the associated data, so header could be NULL */
 	if (header != NULL)
-	{	       
+	{
 		gtk_text_buffer_set_text (data->buffer, _(npw_header_get_description (header)), -1);
 		data->druid->header = header;
 	}
 }
+
+/* Reselect default icon in page */
+static void
+on_druid_project_select_page (GtkWidget* widget, gpointer user_data)
+{
+	NPWHeader* header;
+	NPWDruidAndTextBuffer* data = (NPWDruidAndTextBuffer *)user_data;
+
+	g_return_if_fail (data->header != NULL);
+
+	gtk_text_buffer_set_text (data->buffer, _(npw_header_get_description (data->header)), -1);
+	data->druid->header = data->header;
+}
+
 
 /* Add a project in the icon list */
 static void
@@ -247,7 +262,9 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 	data = g_chunk_new (NPWDruidAndTextBuffer, this->pool);
 	data->druid = this;
 	data->buffer = desc;
+	data->header = (NPWHeader*)gnome_icon_list_get_icon_data (list, 0);
 	glade_xml_signal_connect_data (xml, DRUID_PROJECT_SELECT_ICON_SIGNAL, GTK_SIGNAL_FUNC (on_druid_project_select_icon), data);
+	glade_xml_signal_connect_data (xml, DRUID_PROJECT_SELECT_PAGE_SIGNAL, GTK_SIGNAL_FUNC (on_druid_project_select_page), data);
 
 	g_object_unref (xml);
 
@@ -255,9 +272,6 @@ cb_druid_insert_project_page (NPWHeader* header, gpointer user_data)
 	label = gtk_label_new(npw_header_get_category(header));
 
 	gtk_notebook_append_page (this->project_book, frame, label);
-
-	/* Select first project by default */
-	gnome_icon_list_select_icon (list, 0);
 }
 
 /* Fill project selection page */
@@ -265,7 +279,7 @@ static gboolean
 npw_druid_fill_selection_page (NPWDruid* this)
 {
 	/* Create list of projects */
-	if (this->header_list != NULL) npw_header_list_destroy (this->header_list);
+	if (this->header_list != NULL) npw_header_list_free (this->header_list);
 	this->header_list = npw_header_list_new ();	
 
 	/* Fill list with all project in directory */
@@ -282,7 +296,7 @@ npw_druid_fill_selection_page (NPWDruid* this)
 	return TRUE;
 }
 
-/* Properties pages
+/* Create properties pages
  *---------------------------------------------------------------------------*/
 
 /* Group infomation need by the following call back function */
@@ -314,11 +328,11 @@ cb_druid_add_property (NPWProperty* property, gpointer data)
 	entry = npw_property_create_widget (property);
 	if (entry != NULL)
 	{
-		// Not hidden property
+		/* Not hidden property */
 		description = npw_property_get_description (property);
 	
-		// Set description tooltip
-		if (description && strlen (description) > 0)
+		/* Set description tooltip */
+		if (description && (*description != '\0'))
 		{
 			GtkTooltips *tooltips;
 		
@@ -333,7 +347,7 @@ cb_druid_add_property (NPWProperty* property, gpointer data)
 			gtk_tooltips_set_tip (tooltips, entry, description, NULL);
 		}
 
-		// Add label and entry
+		/* Add label and entry */
 		gtk_table_resize (ctx->druid->property_table, ctx->row + 1, 2);
 		label = gtk_label_new (_(npw_property_get_label (property)));
 		gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
@@ -352,20 +366,20 @@ npw_druid_add_new_page (NPWDruid* this)
 {
 	NPWPage* page;
 
-	// Create cache if not here
+	/* Create cache if not here */
 	if (this->page_list == NULL)
 	{
 		this->page_list = g_queue_new ();
 	}
 	
-	// Get page in cache
+	/* Get page in cache */
 	page = g_queue_peek_nth (this->page_list, this->page - 1);
 	if (page == NULL)
 	{
-		// Page not found in cache, create
+		/* Page not found in cache, create */
 		page = npw_page_new (this->property_value);
 
-		// Add page in cache
+		/* Add page in cache */
 		g_queue_push_tail (this->page_list, page);
 	}
 
@@ -382,7 +396,7 @@ npw_druid_remove_current_page (NPWDruid* this)
 	page = g_queue_pop_tail (this->page_list);
 	if (page != NULL)
 	{
-		npw_page_destroy (page);
+		npw_page_free (page);
 		npw_autogen_remove_definition (this->gen, page);
 	}
 
@@ -396,10 +410,10 @@ npw_druid_fill_property_page (NPWDruid* this, NPWPage* page)
 	PangoAttribute* attr;
 	PangoAttrList* attr_list;
 	
-	// Remove previous widgets
+	/* Remove previous widgets */
 	gtk_container_foreach (GTK_CONTAINER (this->property_table), cb_druid_destroy_widget, NULL);
 
-	// Update title	
+	/* Update title	*/
 	gnome_druid_page_standard_set_title (this->property_page, _(npw_page_get_label (page)));
 	gtk_label_set_text (this->property_label, _(npw_page_get_description (page)));
 	attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
@@ -410,20 +424,21 @@ npw_druid_fill_property_page (NPWDruid* this, NPWPage* page)
 	gtk_label_set_attributes (this->property_label, attr_list);
 	pango_attr_list_unref (attr_list);
 	
-	// Add new widget
+	/* Add new widget */
 	ctx.druid = this;
 	ctx.page = page;
 	ctx.row = 0;
 	npw_page_foreach_property (page, cb_druid_add_property, &ctx);
 
-	// Change page only if current is project selection page
+	/* Change page only if current is project selection page */
 	gnome_druid_set_page (this->druid, GNOME_DRUID_PAGE (this->property_page));
 	gtk_widget_show_all (this->dialog);
 
 	return TRUE;
 }
 
-// Save in page all value entered by user
+/* Save properties
+ *---------------------------------------------------------------------------*/
 
 static void
 cb_save_valid_property (NPWProperty* property, gpointer data)
@@ -438,7 +453,7 @@ cb_save_valid_property (NPWProperty* property, gpointer data)
 		(value == NULL || strlen (value) <= 0) &&
 		(npw_property_get_options (property) & NPW_MANDATORY_OPTION))
 	{
-		// Mandatory field not filled.
+		/* Mandatory field not filled. */
 		ctx->required_property = npw_property_get_label (property);
 	}
 };
@@ -462,12 +477,7 @@ npw_druid_save_valid_values (NPWDruid* this)
 	ctx.page = page;
 	ctx.required_property = NULL;
 	npw_page_foreach_property (page, cb_save_valid_property, &ctx);
-//	if (ctx.required_property)
-//	{
-//		return g_strdup (ctx.required_property);
-//
-//	}
-//	return NULL;
+	
 	return ctx.required_property;
 }
 
@@ -484,7 +494,23 @@ npw_druid_save_old_values (NPWDruid* this)
 	npw_page_foreach_property (page, cb_save_old_property, &ctx);
 }
 
-// Clear page in cache up to downto (0 = all pages)
+static void
+npw_druid_set_busy (NPWDruid *this, gboolean busy_state)
+{
+	if (this->busy == busy_state)
+		return;
+	
+	/* Set busy state */
+	gnome_druid_set_buttons_sensitive (GNOME_DRUID (this->druid),
+									   !busy_state, !busy_state,
+									   !busy_state, TRUE);
+	if (busy_state)
+		anjuta_status_busy_push (anjuta_shell_get_status (ANJUTA_PLUGIN (this->plugin)->shell, NULL));
+	else
+		anjuta_status_busy_pop (anjuta_shell_get_status (ANJUTA_PLUGIN (this->plugin)->shell, NULL));
+	this->busy = busy_state;
+}
+/* Clear page in cache up to downto (0 = all pages) */
 
 /*static void
 clear_page_cache (GQueue* cache, guint downto)
@@ -496,51 +522,12 @@ clear_page_cache (GQueue* cache, guint downto)
 	while (g_queue_get_length (cache) > downto)
 	{
 		page = g_queue_pop_tail (cache);
-		npw_page_destroy (page);
+		npw_page_free (page);
 	}
 }*/
 
-static void
-npw_druid_free (NPWDruid* this)
-{
-	g_return_if_fail (this != NULL);
-
-	if (this->tooltips)
-	{
-		g_object_unref (this->tooltips);
-		this->tooltips = NULL;
-	}
-	if (this->page_list != NULL)
-	{
-		NPWPage* page;
-
-		// Delete page list
-		while ((page = (NPWPage *)g_queue_pop_tail (this->page_list)) != NULL)
-		{
-			npw_page_destroy (page);
-		}
-		g_queue_free (this->page_list);
-	}
-	if (this->property_value != NULL)
-	{
-		npw_property_values_destroy (this->property_value);
-	}
-	if (this->gen != NULL)
-	{
-		npw_autogen_destroy (this->gen);
-	}
-	if (this->parser != NULL)
-	{
-		npw_page_parser_free (this->parser);
-	}
-	g_mem_chunk_destroy(this->pool);
-	npw_header_list_destroy (this->header_list);
-	gtk_widget_destroy (this->dialog);
-	this->plugin->druid = NULL;
-	g_free (this);
-}
-
-// Call back
+/* Druid call backs
+ *---------------------------------------------------------------------------*/
 
 static gboolean
 on_druid_cancel (GtkWidget* window, NPWDruid* druid)
@@ -568,13 +555,13 @@ on_druid_get_new_page (NPWAutogen* gen, gpointer data)
 
 	if (npw_page_get_name (page) == NULL)
 	{
-		// no page, display finish page
+		/* no page, display finish page */
 		npw_druid_fill_summary (this);
 		gnome_druid_set_page (this->druid, this->finish_page);
 	}
 	else
 	{
-		// display property page
+		/* display property page */
 		npw_druid_fill_property_page (this, page);
 	}
 	npw_druid_set_busy (this, FALSE);
@@ -591,7 +578,7 @@ on_druid_parse_page (const gchar* output, gpointer data)
 static gboolean
 on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 {
-	// Skip if busy
+	/* Skip if busy */
 	if (this->busy) return TRUE;
 		
 	/* Set busy */
@@ -600,12 +587,7 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	this->page++;
 	if (this->page == 1)
 	{
-		// Current is Select project page
-		guint idx;
-
-		//idx = (gint)gnome_icon_list_get_selection (GNOME_ICON_LIST (this->icon_list))->data;
-		//header = (NPWHeader*)gnome_icon_list_get_icon_data (GNOME_ICON_LIST (this->icon_list), idx);
-
+		/* Current is Select project page */
 		this->project_file = npw_header_get_filename (this->header);
 		if (this->gen == NULL)
 			this->gen = npw_autogen_new ();
@@ -615,19 +597,17 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	}
 	else
 	{
-		// Current is one of the property page
+		/* Current is one of the property page */
 		const gchar *mandatory_property;
 		
-		// mandatory_property = npw_druid_save_all_values (this);
 		mandatory_property = npw_druid_save_valid_values (this);
 		if (mandatory_property)
 		{
-			// Show error message.
+			/* Show error message. */
 			anjuta_util_dialog_error (GTK_WINDOW (this->dialog),
 									  _("Field \"%s\" is mandatory. Please enter it."),
 									  mandatory_property);
 			this->page--;
-			// g_free (mandatory_property);
 			
 			/* Unset busy */
 			npw_druid_set_busy (this, FALSE);
@@ -640,7 +620,7 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 		npw_page_parser_free (this->parser);
 	this->parser = npw_page_parser_new (npw_druid_add_new_page (this), this->project_file, this->page - 1);
 	npw_autogen_set_output_callback (this->gen, on_druid_parse_page, this->parser);
-	npw_autogen_execute (this->gen, on_druid_get_new_page, this);
+	npw_autogen_execute (this->gen, on_druid_get_new_page, this, NULL);
 
 	return TRUE;
 }
@@ -650,7 +630,7 @@ on_druid_back (GnomeDruidPage* dpage, GtkWidget* widget, NPWDruid* druid)
 {
 	NPWPage* page;
 
-	// Skip if busy
+	/* Skip if busy */
 	if (druid->busy) return TRUE;
 
 	g_return_val_if_fail (druid->page > 0, TRUE);
@@ -660,12 +640,12 @@ on_druid_back (GnomeDruidPage* dpage, GtkWidget* widget, NPWDruid* druid)
 	page = npw_druid_remove_current_page (druid);
 	if (page != NULL)
 	{
-		// Create property pahe
+		/* Create property page */
 		npw_druid_fill_property_page (druid, page);
 	}
 	else
 	{
-		// Go back to project selection page
+		/* Go back to project selection page */
 		gnome_druid_set_page (druid->druid, druid->selection_page);
 	}
 
@@ -695,6 +675,9 @@ npw_druid_connect_all_signal (NPWDruid* this, GladeXML* xml)
 	glade_xml_signal_connect_data (xml, DRUID_BACK_SIGNAL, GTK_SIGNAL_FUNC (on_druid_back), this);
 }
 
+/* Druid public functions
+ *---------------------------------------------------------------------------*/
+
 NPWDruid*
 npw_druid_new (NPWPlugin* plugin)
 {
@@ -704,6 +687,13 @@ npw_druid_new (NPWPlugin* plugin)
 
 	/* Skip if already created */
 	if (plugin->druid != NULL) return plugin->druid;
+
+	/* Check if autogen is present */
+	if (!npw_check_autogen())
+	{
+		anjuta_util_dialog_error (NULL, _("Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"));
+		return NULL;
+	}	
 
 	this = g_new0(NPWDruid, 1);
 	xml = glade_xml_new (GLADE_FILE, NEW_PROJECT_DIALOG, NULL);
@@ -742,16 +732,16 @@ npw_druid_new (NPWPlugin* plugin)
 
 	if (!npw_druid_fill_selection_page (this))
 	{
-		// No project available
+		/* No project available */
 		npw_druid_free (this);
 
 		return NULL;
 	}
 
-	// Add dialog widget to anjuta status.
+	/* Add dialog widget to anjuta status. */
 	anjuta_status_add_widget (anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL), this->dialog);
 
-	// Needed by GnomeDruid widget
+	/* Needed by GnomeDruid widget */
 	gtk_widget_show_all (this->dialog);
 
 
@@ -761,28 +751,45 @@ npw_druid_new (NPWPlugin* plugin)
 }
 
 void
+npw_druid_free (NPWDruid* this)
+{
+	g_return_if_fail (this != NULL);
+
+	if (this->tooltips)
+	{
+		g_object_unref (this->tooltips);
+		this->tooltips = NULL;
+	}
+	if (this->page_list != NULL)
+	{
+		NPWPage* page;
+
+		/* Delete page list */
+		while ((page = (NPWPage *)g_queue_pop_tail (this->page_list)) != NULL)
+		{
+			npw_page_free (page);
+		}
+		g_queue_free (this->page_list);
+	}
+	if (this->property_value != NULL)
+	{
+		npw_property_values_free (this->property_value);
+	}
+	npw_autogen_free (this->gen);
+	if (this->parser != NULL) npw_page_parser_free (this->parser);
+	g_mem_chunk_destroy(this->pool);
+	npw_header_list_free (this->header_list);
+	gtk_widget_destroy (this->dialog);
+	this->plugin->druid = NULL;
+	g_free (this);
+}
+
+void
 npw_druid_show (NPWDruid* this)
 {
 	g_return_if_fail (this);
 
-	// Display dialog box
+	/* Display dialog box */
 	if (this->dialog)
 		gtk_window_present (GTK_WINDOW (this->dialog));
-}
-
-void
-npw_druid_set_busy (NPWDruid *this, gboolean busy_state)
-{
-	if (this->busy == busy_state)
-		return;
-	
-	/* Set busy state */
-	gnome_druid_set_buttons_sensitive (GNOME_DRUID (this->druid),
-									   !busy_state, !busy_state,
-									   !busy_state, TRUE);
-	if (busy_state)
-		anjuta_status_busy_push (anjuta_shell_get_status (ANJUTA_PLUGIN (this->plugin)->shell, NULL));
-	else
-		anjuta_status_busy_pop (anjuta_shell_get_status (ANJUTA_PLUGIN (this->plugin)->shell, NULL));
-	this->busy = busy_state;
 }

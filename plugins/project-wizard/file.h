@@ -23,14 +23,11 @@
 
 #include <glib.h>
 
-// file and list of files 
-
 typedef struct _NPWFile NPWFile;
 typedef struct _NPWFileList NPWFileList;
 
 typedef enum {
 	NPW_FILE,
-	NPW_SCRIPT,
 	NPW_DIRECTORY
 } NPWFileType;
 
@@ -41,7 +38,7 @@ typedef enum {
 } NPWFileBooleanValue;
 
 NPWFile* npw_file_new (NPWFileList* owner);
-void npw_file_destroy (NPWFile* this);
+void npw_file_free (NPWFile* this);
 
 void npw_file_set_type (NPWFile* this, NPWFileType type);
 NPWFileType npw_file_get_type (const NPWFile* this);
@@ -64,8 +61,7 @@ NPWFileBooleanValue npw_file_get_autogen (const NPWFile* this);
 const NPWFile* npw_file_next (const NPWFile* this);
 
 NPWFileList* npw_file_list_new (void);
-
-void npw_file_list_destroy (NPWFileList* this);
+void npw_file_list_free (NPWFileList* this);
 
 typedef void (*NPWFileForeachFunc) (NPWFile* file);
 

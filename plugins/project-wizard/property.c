@@ -17,7 +17,11 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-//	Project property data
+
+/*
+ * Project properties, used in middle pages
+ *
+ *---------------------------------------------------------------------------*/
 
 #include <config.h>
 
@@ -31,9 +35,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+/*---------------------------------------------------------------------------*/
+
 #define STRING_CHUNK_SIZE	256
 
-// Property and Page
+/*---------------------------------------------------------------------------*/
 
 struct _NPWPage
 {
@@ -72,7 +78,8 @@ static const gchar* NPWPropertyTypeString[] = {"hidden",
 						"directory",
 						"file"};
 
-// Property
+/* Property object
+ *---------------------------------------------------------------------------*/
 
 static NPWPropertyType
 npw_property_type_from_string (const gchar* type)
@@ -112,14 +119,14 @@ npw_property_new (NPWPage* owner)
 	this->owner = owner;
 	this->type = NPW_UNKNOWN_PROPERTY;
 	this->item = NULL;
-	// value is set to NULL
+	/* value is set to NULL */
 	g_node_append_data (owner->list, this);
 
 	return this;
 }
 
 void
-npw_property_destroy (NPWProperty* this)
+npw_property_free (NPWProperty* this)
 {
 	GNode* node;
 
@@ -131,7 +138,7 @@ npw_property_destroy (NPWProperty* this)
 	if (node != NULL)
 	{
 		g_node_destroy (node);
-		// Memory allocated in string pool and data pool is not free
+		/* Memory allocated in string pool and data pool is not free */
 	}
 }
 
@@ -338,7 +345,7 @@ npw_property_set_value_from_widget (NPWProperty* this, gint tag)
 		break;
 	}
 	default:
-		// Do nothing (for hidden property)
+		/* Do nothing (for hidden property) */
 		return;
 	}
 
@@ -423,7 +430,8 @@ npw_property_get_options (const NPWProperty* this)
 	return this->options;
 }
 
-// Page
+/* Page object = list of properties
+ *---------------------------------------------------------------------------*/
 
 NPWPage*
 npw_page_new (NPWPropertyValues* value)
@@ -441,7 +449,7 @@ npw_page_new (NPWPropertyValues* value)
 }
 
 void
-npw_page_destroy (NPWPage* this)
+npw_page_free (NPWPage* this)
 {
 	g_return_if_fail (this != NULL);
 

@@ -17,14 +17,24 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-//	Project property data
+
+/*
+ * Project property values (only names and values without other informations
+ *  like associated widget or attributes)
+ *
+ *---------------------------------------------------------------------------*/
 
 #include <config.h>
-#include <string.h>
 
 #include "values.h"
 
+#include <string.h>
+
+/*---------------------------------------------------------------------------*/
+
 #define STRING_CHUNK_SIZE	256
+
+/*---------------------------------------------------------------------------*/
 
 struct _NPWPropertyValues
 {
@@ -42,6 +52,8 @@ typedef struct _NPWValue
 } NPWValue;
 
 
+/* Contains value of all properties
+ *---------------------------------------------------------------------------*/
 
 NPWPropertyValues*
 npw_property_values_new (void)
@@ -57,7 +69,7 @@ npw_property_values_new (void)
 }
 
 void
-npw_property_values_destroy (NPWPropertyValues* this)
+npw_property_values_free (NPWPropertyValues* this)
 {
 	GSList* node;
 	g_return_if_fail (this != NULL);

@@ -23,15 +23,11 @@
 
 #include <glib.h>
 
-// Properties of a project
-
 typedef struct _NPWPropertyValues NPWPropertyValues;
 typedef GSList* NPWPropertyKey;
 
-//  Property list
-
 NPWPropertyValues* npw_property_values_new (void);
-void npw_property_values_destroy (NPWPropertyValues* this);
+void npw_property_values_free (NPWPropertyValues* this);
 
 NPWPropertyKey npw_property_values_add (NPWPropertyValues* this, const gchar* name);
 const gchar* npw_property_values_get_name (const NPWPropertyValues* this, NPWPropertyKey key);

@@ -23,11 +23,8 @@
 
 #include <glib.h>
 
-// Project wizard header, used in the first page (project selection)
-
 typedef struct _NPWHeader NPWHeader;
 typedef struct _NPWHeaderList NPWHeaderList;
-
 
 NPWHeader* npw_header_new (NPWHeaderList* owner);
 void npw_header_free (NPWHeader* this);
@@ -49,10 +46,10 @@ const gchar* npw_header_get_iconfile (const NPWHeader* this);
 
 gboolean npw_header_is_leaf(const NPWHeader* this);
 
-
 NPWHeaderList* npw_header_list_new (void);
 
-void npw_header_list_destroy (NPWHeaderList* this);
+NPWHeaderList* npw_header_list_new (void);
+void npw_header_list_free (NPWHeaderList* this);
 
 void npw_header_list_organize(NPWHeaderList* this, const gchar* category, NPWHeader* header);
 

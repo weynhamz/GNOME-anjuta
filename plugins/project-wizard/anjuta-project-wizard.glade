@@ -239,6 +239,7 @@
 				  <property name="homogeneous">True</property>
 				  <property name="row_spacing">5</property>
 				  <property name="column_spacing">0</property>
+				  <signal name="map" handler="on_druid_project_map_page" last_modification_time="Sun, 06 Feb 2005 10:33:42 GMT"/>
 
 				  <child>
 				    <widget class="GtkFrame" id="frame16">

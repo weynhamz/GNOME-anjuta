@@ -17,13 +17,19 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-//	Project header data
+
+/*
+ * header data read in .wiz file, used in the first page (project selection)
+ *
+ *---------------------------------------------------------------------------*/
 
 #include <config.h>
 
 #include "header.h"
 
 #include <glib/gdir.h>
+
+/*---------------------------------------------------------------------------*/
 
 #define STRING_CHUNK_SIZE	256
 
@@ -64,15 +70,15 @@ npw_header_new (NPWHeaderList* owner)
 }
 
 void
-npw_header_destroy (NPWHeader* this)
+npw_header_free (NPWHeader* this)
 {
 	GNode* node;
 
-	node = g_node_find_child (this->owner->list, G_TRAVERSE_ALL, this);
+	node = g_node_find (this->owner->list, G_IN_ORDER, G_TRAVERSE_ALL, this);
 	if (node != NULL)
 	{
 		g_node_destroy (node);
-		// Memory allocated in string pool and project pool is not free
+		/* Memory allocated in string pool and project pool is not free */
 	}
 }
 
@@ -148,19 +154,53 @@ npw_header_is_leaf(const NPWHeader* this)
  *---------------------------------------------------------------------------*/
 
 static GNode*
-npw_header_list_find_parent(const NPWHeaderList* this, const gchar* category)
+npw_header_list_find_parent(NPWHeaderList* this, const gchar* category, gboolean create)
 {
 	GNode* node;
+	gint order;
 
 	for (node = g_node_first_child(this->list); node != NULL; node = g_node_next_sibling(node))
 	{
 		const char* s;
 
 		s = ((NPWHeader *)node->data)->category;
-		if ((s != NULL) && (strcmp(s, category) == 0))
+		if (s != NULL)
 		{
-			break;
+			order = g_ascii_strcasecmp (s, category);
+			if (order == 0)
+			{
+				/* Find right category */
+				break;
+			}
+			else if (order > 0)
+			{
+				if (create == TRUE)
+				{
+					/* Category doesn't exist create a new node */
+					NPWHeader* new_parent;
+
+					new_parent = npw_header_new (this);
+					new_parent->category = g_string_chunk_insert (this->string_pool, category);
+					g_node_unlink (this->list);
+					g_node_insert_before (this->list, node, new_parent->node);
+					node = new_parent->node;
+				}
+				else
+				{
+					node = NULL;
+				}
+				break;
+			}
 		}
+	}
+
+	if (create && (node == NULL))
+	{
+		NPWHeader* new_parent;
+
+		new_parent = npw_header_new (this);
+		new_parent->category = g_string_chunk_insert (this->string_pool, category);
+		node = new_parent->node;
 	}
 
 	return node;
@@ -211,7 +251,7 @@ npw_header_list_new (void)
 }
 
 void
-npw_header_list_destroy (NPWHeaderList* this)
+npw_header_list_free (NPWHeaderList* this)
 {
 	g_return_if_fail (this != NULL);
 
@@ -224,28 +264,30 @@ npw_header_list_destroy (NPWHeaderList* this)
 void
 npw_header_list_organize(NPWHeaderList* this, const gchar* category, NPWHeader* header)
 {
+	GNode* parent;
 	GNode* node;
+	const gchar* name;
 
 	/* node without a category stay on top */
 	if ((category == NULL) || (*category == '\0')) return;
-	
+
 	/* Detach the node */
 	g_node_unlink(header->node);
 
 	/* Find parent */
-	node = npw_header_list_find_parent(this, category);
-	if (node == NULL)
-	{
-		NPWHeader* new_parent;
-
-		/* Create a new parent */
-		new_parent = npw_header_new(this);
-		new_parent->category = g_string_chunk_insert (this->string_pool, category);
-		node = new_parent->node;
-	}
+	parent = npw_header_list_find_parent(this, category, TRUE);
 	
-	/* Insert node as a child */
-	g_node_insert(node, -1, header->node);
+	/* Insert node as a child in alphabetic order*/
+	name = npw_header_get_name (header);
+	for (node = g_node_first_child(parent); node != NULL; node = g_node_next_sibling(node))
+	{
+		if (g_ascii_strcasecmp (npw_header_get_name ((NPWHeader *)node->data), name) > 0)
+		{
+			g_node_insert_before (parent, node, header->node);
+			return;
+		}
+	}
+	g_node_insert(parent, -1, header->node);
 }
 
 gboolean
@@ -259,7 +301,7 @@ npw_header_list_foreach_project_in (const NPWHeaderList* this, const gchar* cate
 {
 	GNode* node;
 
-	node = npw_header_list_find_parent(this, category);
+	node = npw_header_list_find_parent(this, category, FALSE);
 	if (node == NULL) return FALSE;
 
 	return npw_header_list_foreach_node (node, func, data, G_TRAVERSE_LEAFS);

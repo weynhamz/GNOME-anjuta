@@ -30,7 +30,7 @@ typedef void (*NPWAutogenFunc) (NPWAutogen* autogen, gpointer data);
 typedef void (*NPWAutogenOutputFunc) (const gchar* output, gpointer data);
 
 NPWAutogen* npw_autogen_new (void);
-void npw_autogen_destroy (NPWAutogen* this);
+void npw_autogen_free (NPWAutogen* this);
 
 gboolean npw_autogen_add_default_definition (NPWAutogen* this, AnjutaPreferences* pref);
 gboolean npw_autogen_add_definition (NPWAutogen* this, NPWPage* page);
@@ -41,6 +41,8 @@ gboolean npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, co
 gboolean npw_autogen_set_output_file (NPWAutogen* this, const gchar* filename);
 gboolean npw_autogen_set_output_callback (NPWAutogen* this, NPWAutogenOutputFunc func, gpointer data);
 
-gboolean npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data);
+gboolean npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GError** error);
+
+gboolean npw_check_autogen(void);
 
 #endif

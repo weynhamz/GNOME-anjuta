@@ -23,8 +23,6 @@
 
 #include <glib.h>
 
-// action and list of actions 
-
 typedef struct _NPWAction NPWAction;
 typedef struct _NPWActionList NPWActionList;
 

@@ -29,16 +29,12 @@
 #include <gtk/gtk.h>
 
 
-// Project wizard property, used in middle page
-
 typedef struct _NPWProperty NPWProperty;
 typedef struct _NPWPage NPWPage;
 typedef struct _NPWItem NPWItem;
 
-// Property
-
-// Update the NPWPropertyTypeString array in the .c file, after changing the
-//  NPWPropertyType enum 
+/* You should update the NPWPropertyTypeString array in the .c file,
+ * after changing the NPWPropertyType enum */
 typedef enum {
 	NPW_UNKNOWN_PROPERTY = 0,
 	NPW_HIDDEN_PROPERTY,
@@ -58,7 +54,7 @@ typedef enum {
 } NPWPropertyOptions;
 
 NPWProperty* npw_property_new (NPWPage* owner);
-void npw_property_destroy (NPWProperty* this);
+void npw_property_free (NPWProperty* this);
 
 void npw_property_set_type (NPWProperty* this, NPWPropertyType type);
 void npw_property_set_string_type (NPWProperty* this, const gchar* type);
@@ -90,11 +86,9 @@ void npw_property_set_summary_option (NPWProperty* this, gboolean value);
 void npw_property_set_editable_option (NPWProperty* this, gboolean value);
 NPWPropertyOptions npw_property_get_options (const NPWProperty* this);
 
-// Page = list of properties
 
 NPWPage* npw_page_new (NPWPropertyValues* value);
-
-void npw_page_destroy (NPWPage* this);
+void npw_page_free (NPWPage* this);
 
 typedef void (*NPWPropertyForeachFunc) (NPWProperty* head, gpointer data);
 

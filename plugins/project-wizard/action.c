@@ -17,7 +17,11 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-//	Action data read in .wiz file
+
+/*
+ * Actions data read in .wiz file
+ *
+ *---------------------------------------------------------------------------*/
 
 #include <config.h>
 
@@ -25,9 +29,11 @@
 
 #include <glib/gdir.h>
 
+/*---------------------------------------------------------------------------*/
+
 #define STRING_CHUNK_SIZE	256
 
-// Action and Action List
+/*---------------------------------------------------------------------------*/
 
 struct _NPWActionList
 {
@@ -43,7 +49,8 @@ struct _NPWAction {
 	GList* node;
 };
 
-// Action
+/* Action object
+ *---------------------------------------------------------------------------*/
 
 NPWAction*
 npw_action_new (NPWActionList* owner, NPWActionType type)
@@ -64,7 +71,7 @@ npw_action_new (NPWActionList* owner, NPWActionType type)
 void
 npw_action_free (NPWAction* this)
 {
-	// Memory allocated in string pool and project pool is not free
+	/* Memory allocated in string pool and project pool is not free */
 }
 
 NPWActionType
@@ -105,6 +112,9 @@ npw_action_next (const NPWAction* this)
 	return node == NULL ? NULL : (NPWAction *)node->data;
 }
 
+
+/* Action list object
+ *---------------------------------------------------------------------------*/
 
 NPWActionList*
 npw_action_list_new (void)

@@ -29,10 +29,9 @@
 struct _NPWPlugin;
 typedef struct _NPWDruid NPWDruid;
 
-void npw_druid_show (NPWDruid* this);
-
 NPWDruid* npw_druid_new (struct _NPWPlugin* plugin);
+void npw_druid_free (NPWDruid* this);
 
-void npw_druid_set_busy (NPWDruid *this, gboolean busy_state);
+void npw_druid_show (NPWDruid* this);
 
 #endif

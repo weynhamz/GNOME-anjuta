@@ -17,7 +17,11 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-//	File data read in .wiz file
+
+/*
+ * File data read in .wiz file
+ *
+ *---------------------------------------------------------------------------*/
 
 #include <config.h>
 
@@ -25,9 +29,11 @@
 
 #include <glib/gdir.h>
 
+/*---------------------------------------------------------------------------*/
+
 #define STRING_CHUNK_SIZE	256
 
-// File and File List
+/*---------------------------------------------------------------------------*/
 
 struct _NPWFileList
 {
@@ -37,7 +43,7 @@ struct _NPWFileList
 };
 
 struct _NPWFile {
-	NPWFileType type;
+NPWFileType type;
 	gchar* source;
 	gchar* destination;
 	gint attribute;
@@ -52,7 +58,8 @@ typedef enum {
 	NPW_AUTOGEN_FILE = 1 << 3
 } NPWFileAttributes;
 
-// File
+/* File object
+ *---------------------------------------------------------------------------*/
 
 NPWFile*
 npw_file_new (NPWFileList* owner)
@@ -70,7 +77,7 @@ npw_file_new (NPWFileList* owner)
 }
 
 void
-npw_file_destroy (NPWFile* this)
+npw_file_free (NPWFile* this)
 {
 	GNode* node;
 
@@ -78,7 +85,7 @@ npw_file_destroy (NPWFile* this)
 	if (node != NULL)
 	{
 		g_node_destroy (node);
-		// Memory allocated in string pool and project pool is not free
+		/* Memory allocated in string pool and project pool is not free */
 	}
 }
 
@@ -188,6 +195,8 @@ npw_file_next (const NPWFile* this)
 	return node == NULL ? NULL : (NPWFile *)node->data;
 }
 
+/* File list object
+ *---------------------------------------------------------------------------*/
 
 NPWFileList*
 npw_file_list_new (void)
@@ -203,7 +212,7 @@ npw_file_list_new (void)
 }
 
 void
-npw_file_list_destroy (NPWFileList* this)
+npw_file_list_free (NPWFileList* this)
 {
 	g_return_if_fail (this != NULL);
 
@@ -228,7 +237,7 @@ npw_file_list_foreach_file (const NPWFileList* this, NPWFileForeachFunc func)
 const NPWFile*
 npw_file_list_first (const NPWFileList* this)
 {
-	// Work even if first child is NULL
+	/* Should work even if first child is NULL (empty list) */
 	GNode* node = g_node_first_child (this->list);
 
 	return node == NULL ? NULL : (NPWFile *)node->data;

@@ -18,21 +18,29 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+/*
+ * Execute autogen program
+ *
+ *---------------------------------------------------------------------------*/
+
 #include <config.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "autogen.h"
 
 #include <libanjuta/anjuta-launcher.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/*---------------------------------------------------------------------------*/
 
 #define TMP_DEF_FILENAME "NPWDEFXXXXXX"
 #define TMP_TPL_FILENAME "NPWTPLXXXXXX"
 
 #define FILE_BUFFER_SIZE	4096
 
-// AutoGen object
+/*---------------------------------------------------------------------------*/
 
 struct _NPWAutogen
 {
@@ -56,10 +64,12 @@ typedef struct _NPWDefinitionPage
 	NPWPage* page;
 } NPWDefinitionPage;
 
+/*---------------------------------------------------------------------------*/
 
-
-void npw_autogen_destroy (NPWAutogen* this)
+void npw_autogen_free (NPWAutogen* this)
 {
+	g_return_if_fail(this != NULL);
+
 	if (this->launcher != NULL)
 	{
 		g_object_unref (this->launcher);
@@ -69,7 +79,7 @@ void npw_autogen_destroy (NPWAutogen* this)
 		GList* node;
 		NPWDefinitionPage* page;
 
-		// Delete definition list
+		/* Delete definition list */
 		for (node = this->definition; node != NULL; node = node->next)
 		{
 			page = (NPWDefinitionPage *)node->data;
@@ -101,20 +111,21 @@ npw_autogen_add_default_definition (NPWAutogen* this, AnjutaPreferences* pref)
 	NPWDefinitionPage* def;
 	const gchar* value;
 
-	// Remove previous definition if exist
+	/* Remove previous definition if exist */
 	npw_autogen_remove_definition (this, NULL);
 
-	// Add new node
+	/* Add new node */
 	def = g_new (NPWDefinitionPage, 1);
 	def->data = g_string_new ("");
 	def->page = NULL;
 	this->definition = g_list_append (this->definition, def);
 	this->cached = FALSE;
 
-	// Add project directory
+	/* Add project directory */
 	value = anjuta_preferences_get (pref, "anjuta.project.directory");
-//	value = "~/Projects";
 	g_string_append_printf (def->data,"%s = \"%s\";\n", "AnjutaProjectDirectory", value);
+	value = g_get_real_name();
+	g_string_append_printf (def->data,"%s = \"%s\";\n", "UserName", value);
 
 	return TRUE;
 }
@@ -140,17 +151,17 @@ npw_autogen_add_definition (NPWAutogen* this, NPWPage* page)
 {
 	NPWDefinitionPage* def;
 
-	// Remove old page if exist
+	/* Remove old page if exist */
 	npw_autogen_remove_definition (this, page);
 
-	// Add new node
+	/* Add new node */
 	def = g_new (NPWDefinitionPage, 1);
 	def->data = g_string_new ("");
 	def->page = page;
 	this->definition = g_list_append (this->definition, def);
 	this->cached = FALSE;
 
-	// Generate definition data for autogen
+	/* Generate definition data for autogen */
 	npw_page_foreach_property (page, cb_autogen_add_definition, def);
 
 	return TRUE;
@@ -186,7 +197,7 @@ npw_autogen_write_definition_file (NPWAutogen* this)
 	GList* node;
 	NPWDefinitionPage* page;
 
-	// Definition file have already been written
+	/* Definition file have already been written */
 	if (this->cached == TRUE) return TRUE;
 
 	def = fopen (this->deffilename, "wt");
@@ -224,28 +235,28 @@ npw_autogen_set_input_file (NPWAutogen* this, const gchar* filename, const gchar
 	}
 	if ((start_macro == NULL) && (end_macro == NULL))
 	{
-		// input file is really an autogen file
+		/* input file is really an autogen file */
 		this->tplfilename = filename;
 
 		return TRUE;
 	}
 
-	// Autogen definition is missing
+	/* Autogen definition is missing */
 
-	// Create temporary file
+	/* Create temporary file */
 	this->temptplfilename = g_build_filename (g_get_tmp_dir (), TMP_TPL_FILENAME, NULL);
 	mktemp (this->temptplfilename);
 	this->tplfilename = this->temptplfilename;
 	tpl = fopen (this->tplfilename, "wt");
 	if (tpl == NULL) return FALSE;
 
-	// Add autogen definition
+	/* Add autogen definition */
 	fputs (start_macro, tpl);
 	fputs (" autogen5 template ", tpl);
 	fputs (end_macro, tpl);
 	fputc ('\n', tpl);
 
-	// Copy source file into this new file
+	/* Copy source file into this new file */
 	src = fopen (filename, "rb");
 	if (src == NULL) return FALSE;
 
@@ -299,6 +310,7 @@ on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, cons
 {
 	NPWAutogen* this = (NPWAutogen*)data;
 
+	printf("OUTPUT: \"%s\"\n", output);
 	if (this->outfilename != NULL)
 	{
 		if (this->output == NULL)
@@ -332,14 +344,14 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 }
 
 gboolean
-npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data) 
+npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GError** error) 
 {
 	gchar* args[] = {"autogen", "-T", NULL, NULL, NULL};
 
 	g_return_val_if_fail (this, FALSE);
 	g_return_val_if_fail (this->launcher, FALSE);
 
-	// Write definition file
+	/* Write definition file */
 	npw_autogen_write_definition_file (this);
 
 	if (func != NULL)
@@ -350,11 +362,12 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data)
 	args[2] = (gchar *)this->tplfilename;
 	args[3] = (gchar *)this->deffilename;
 
-	//printf ("EXECUTE %s %s %s %s\n", args[0], args[1], args[2], args[3]);	
 	if (!anjuta_launcher_execute_v (this->launcher, args, on_autogen_output, this))
 	{
+		printf("anjuta launcher return FALSE\n");
 		return FALSE;
 	}
+	printf("anjuta launcher return TRUE\n");
 
 	return TRUE;
 }
@@ -371,4 +384,31 @@ NPWAutogen* npw_autogen_new (void)
 	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_autogen_terminated), this);
 
 	return this;
+}
+
+gboolean
+npw_check_autogen (void)
+{
+	gchar* args[] = {"autogen", "-v", NULL};
+	gchar* output;
+
+	if (g_spawn_sync (NULL, args, NULL, G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL,
+		NULL, NULL, &output, NULL, NULL, NULL))
+	{
+		gint ver[3];
+		gchar* ptr;
+
+		/* Check autogen */
+		if (strstr(output, "The Automated Program Generator") == NULL) return FALSE;
+
+		/* Get version number */
+		ptr = strstr(output, "Ver. ");
+	       	if (ptr == NULL) return FALSE;
+		ptr += 5;
+		sscanf(ptr,"%d.%d.%d", &ver[0], &ver[1], &ver[2]);
+
+		return (ver[0] == 5);
+	}
+
+	return FALSE;
 }
