@@ -1,0 +1,89 @@
+<!-- ##### SECTION Title ##### -->
+
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_DOCUMENT_MANAGER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaDocumentManager ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaDocumentManagerIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@goto_file_line: 
+@get_current_editor: 
+@set_current_editor: 
+@get_editors: 
+
+<!-- ##### FUNCTION ianjuta_document_manager_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_goto_file_line ##### -->
+<para>
+
+</para>
+
+@docman: 
+@file: 
+@lineno: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_get_current_editor ##### -->
+<para>
+
+</para>
+
+@docman: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_set_current_editor ##### -->
+<para>
+
+</para>
+
+@docman: 
+@editor: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_get_editors ##### -->
+<para>
+
+</para>
+
+@docman: 
+@e: 
+@Returns: 
+
+

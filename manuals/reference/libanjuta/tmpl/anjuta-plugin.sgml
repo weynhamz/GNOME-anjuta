@@ -6,51 +6,78 @@ Anjuta plugin base class from which all plugins are derived.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-Anjuta plugins are components which are loaded in Anjuta IDE shell
-either on startup or on demand to perform various subtasks. Plugins are
-specialized in doing only a very special task and can let other plugins
-interract with it using interfaces.
-</para><para>
-A plugin class is derived from #AnjutaPlugin class, which will be used by
-the shell to instanciate any number of plugin objects. Three member data
-in #AnjutaPlugin are directly accessible from outside (usually accessed
-by the plugin and it's associated interface implementationsonly ). They are:
+	Anjuta plugins are components which are loaded in Anjuta IDE shell
+	either on startup or on demand to perform various subtasks. Plugins are
+	specialized in doing only a very specific task and can let other plugins
+	interract with it using interfaces.
+</para>
+<para>
+	A plugin class is derived from #AnjutaPlugin class and will be used by
+	shell to instanciate any number of plugin objects. Three member data
+	in #AnjutaPlugin are directly accessible from outside (usually accessed
+	by the plugin and it's associated interface implementations only ).
+	They are:
 
-<orderedlist>
-<listitem><para>plugin->shell: It is the shell in which the plugin is
-loaded. </para></listitem>
-<listitem><para>plugin->ui: It is the UI manager where the plugin will
-merge or unmerge it's UI elements (menus, toolbars and popup menus).
-</para></listitem>
-<listitem><para>plugin->prefs: A #AnjutaPreferences object, where the plugin can
-register it's prefereces.</para></listitem>
-</orderedlist>
+	<orderedlist>
+		<listitem>
+			<para>
+				plugin->shell: It is the shell in which the plugin is loaded.
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				plugin->ui: It is the UI manager where the plugin will
+				merge or unmerge it's UI elements (menus, toolbars and popup
+				menus).
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				plugin->prefs: A #AnjutaPreferences object, where the plugin
+				can register it's prefereces.
+			</para>
+		</listitem>
+	</orderedlist>
 </para>
 <para>
-When a plugin class is derived from #AnjutaPlugin, the virtual mehtods 
-<emphasis>activate</emphasis> and <emphasis>deactivate</emphasis> must 
-be implemented. The <emphasis>activate</emphasis> method is used to
-activate the plugin. Note that plugin activation is different from plugin
-instance initialization. Instance initialization is use to do internal
-initialization, while <emphasis>activate</emphasis> method is used to setup the
-plugin in shell, UI and preferences. Other plugins can also be queried in
-<emphasis>activate</emphasis> method.
+	When a plugin class is derived from #AnjutaPlugin, the virtual mehtods 
+	<emphasis>activate</emphasis> and <emphasis>deactivate</emphasis> must 
+	be implemented. The <emphasis>activate</emphasis> method is used to
+	activate the plugin. Note that plugin activation is different from plugin
+	instance initialization. Instance initialization is use to do internal
+	initialization, while <emphasis>activate</emphasis> method is used to
+	setup the plugin in shell, UI and preferences. Other plugins can also
+	be queried in <emphasis>activate</emphasis> method.
 </para>
 <para>
-Following things should be done in <emphasis>activate</emphasis> method.
-<orderedlist>
-<listitem><para>Register UI Actions: Use anjuta_ui_add_action_group_entries() or 
-anjuta_ui_add_toggle_action_group_entries() to add your action groups.
-</para>
-</listitem>
-<listitem><para>Merge UI definition file: Use anjuta_ui_merge() to merge a UI
-file. See #AnjutaUI for more detail.
-</para></listitem>
-<listitem><para>Add widgets to Anjuta Shell: If the plugin has one or more
-widgets as it's User Interface, they can be added with anjuta_shell_add_widget().
-</para></listitem>
-<listitem><para>Setup value watches with anjuta_plugin_add_watch().</para></listitem>
-</orderedlist>
+	Following things should be done in <emphasis>activate</emphasis> method.
+	<orderedlist>
+		<listitem>
+			<para>
+				Register UI Actions: Use anjuta_ui_add_action_group_entries() or 
+				anjuta_ui_add_toggle_action_group_entries() to add your action
+				groups.
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Merge UI definition file: Use anjuta_ui_merge() to merge a UI
+				file. See #AnjutaUI for more detail.
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Add widgets to Anjuta Shell: If the plugin has one or more
+				widgets as it's User Interface, they can be added with
+				anjuta_shell_add_widget().
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Setup value watches with anjuta_plugin_add_watch().
+			</para>
+		</listitem>
+	</orderedlist>
 <programlisting>
 static void
 on_action_activate (GtkAction *action, SamplePlugin *plugin)
@@ -90,34 +117,40 @@ activate_plugin (AnjutaPlugin *plugin)
 </programlisting>
 </para>
 <para>
-Plugins interact with each other using interfaces. A plugin can export an
-interface which will let other plugins find it. Only one interface can be
-exported by a plugin, although it can implement any number of interfaces. This
-exported interface is called <emphasis>Primary</emphasis> interface of the
-plugin. The rest are called <emphasis>Secondary</emphasis> interfaces.
-Secondary interfaces are generally works along side the primary interface.
-For example, #IAnjutaEditor is the primary interface of anjuta-editor plugin,
-but it also implements secondary interfaces #IAnjutaEditorGutter and
-#IAnjutaEditorBuffer. The purpose of distinguishing between primary and
-secondary interfaces is only at the plugin level. At code level, they behave
-just the same and there is no difference.
-</para><para>
-So, a natural sequence for a plugin to communicate with another plugin is:
-<orderedlist>
-<listitem><para>Query the shell for the plugin implemeting the primary interface
-with call to anjuta_shell_get_object(). It will return a GObject which is
-guranteed to be an implementor of the primary interface. Do not save this
-object for long use, because the implementor plugin can change anytime and
-a different plugin implementing the same primary interface may be activated.
-<programlisting>
+	<emphasis>deactivate</emphasis> method undos all the above. That is, it
+	removes widgets from the shell, unmerges UI and removes the action groups.
+</para>
+<para>
+	Plugins interact with each other using interfaces. A plugin can export an
+	interface which will let other plugins find it. Only one interface can be
+	exported by a plugin, although it can implement any number of interfaces. This
+	exported interface is called <emphasis>Primary</emphasis> interface of the
+	plugin. The rest are called <emphasis>Secondary</emphasis> interfaces.
+	Secondary interfaces generally work along side the primary interface.
+	For example, #IAnjutaEditor is the primary interface of anjuta-editor plugin,
+	but it also implements secondary interfaces #IAnjutaEditorGutter and
+	#IAnjutaEditorBuffer. The purpose of distinguishing between primary and
+	secondary interfaces is only at the plugin level. At code level, they behave
+	just the same and there is no difference.
+</para>
+<para>
+	So, a natural sequence for a plugin to communicate with another plugin is:
+	<orderedlist>
+		<listitem>
+			<para>
+				Query the shell for the plugin implemeting the primary interface
+				with call to anjuta_shell_get_interface(). It will return an
+				implemetation of the interface (or NULL if not found).
+				Do not save this object for long use, because the implementor
+				plugin can change anytime and a different plugin implementing
+				the same primary interface may be activated.
+					<programlisting>
 GError *err = NULL;
-GObject *object;
 IAnjutaDocumentManager *docman;
 IAnjutaEditor *editor;
 
-object = anjuta_shell_get_object(ANJUTA_PLUGIN(plugin)->shell,
-                                 "IAnjutaDocumentManager", &amp;err);
-docman = IANJUTA_DOCUMENT_MANAGER (object);
+docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
+                                     IAnjutaDocumentManager, &amp;err);
 if (err)
 {
 	g_warning ("Error encountered: %s", err->message);
@@ -135,13 +168,16 @@ if (err)
 /* Do anything with editor object */
 ianjuta_editor_goto_line (editor, 200);
 ...
-</programlisting>
-</para></listitem>
-<listitem><para>The primary interface can be directly used on this object, but
-to use a secondary interface, make sure to check if the plugin object implements
-it. For example, to check if the editor plugin implements the IAnjutaEditoerGutter
-interface, do something like:
-<programlisting>
+				</programlisting>
+			</para>
+	</listitem>
+	<listitem>
+		<para>
+		The primary interface can be directly used on this object, but
+		to use a secondary interface, make sure to check if the plugin
+		object implements it. For example, to check if the editor plugin
+		implements IAnjutaEditoerGutter	interface, do something like:
+			<programlisting>
 /* Check if the plugin implements IAnjutaEditorGutter interface */
 if (IANJUTA_IS_EDITOR_GUTTER(editor))
 {
@@ -155,45 +191,66 @@ else
 	/* plugin does not implement it */
 	/* Do something else */
 }
-</programlisting>
-</para></listitem>
-</orderedlist>
+				</programlisting>
+			</para>
+		</listitem>
+	</orderedlist>
 </para>
 <para>
-Plugins can also communicate with outside using Shell's <emphasis>Values
-system</emphasis>. Values are objects exported by plugins to make them
-available to other plugins. Read the documentation of #AnjutaShell for more
-details on <emphasis>Values system</emphasis>. A plugin can set up watches
-to get notifications for values exported by other plugins.
+	Plugins can also communicate with outside using Shell's <emphasis>Values
+	System</emphasis>. Values are objects exported by plugins to make them
+	available to other plugins. Read the documentation of #AnjutaShell for more
+	details on <emphasis>Values System</emphasis>. A plugin can set up watches
+	with anjuta_plugin_add_watch() to get notifications for values exported
+	by other plugins.
 </para>
 <para>
-Values are very unreliable way of passing objects between plugins, but are
-nevertheless very useful (and quicker to code). It must be used with care.
-As a rule of thumb, a plugin should only watch the values of other trusted
-plugins. For example, a group of plugins forming a subsystem can comfortably
-use values to pass objects and notifications. Use anjuta_plugin_add_watch()
-and anjuta_plugin_remove_watch() to add or remove value watches.
+	Values are very unreliable way of passing objects between plugins, but are
+	nevertheless very useful (and quicker to code). It must be used with care.
+	As a rule of thumb, a plugin should only watch the values of other trusted
+	plugins. For example, a group of plugins forming a subsystem can comfortably
+	use values to pass objects and notifications. Use anjuta_plugin_add_watch()
+	and anjuta_plugin_remove_watch() to add or remove value watches.
 </para>
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
 
-<!-- ##### STRUCT AnjutaPluginPrivate ##### -->
+<!-- ##### STRUCT AnjutaPlugin ##### -->
 <para>
 
 </para>
 
+
+<!-- ##### ARG AnjutaPlugin:prefs ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AnjutaPlugin:shell ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AnjutaPlugin:ui ##### -->
+<para>
+
+</para>
 
 <!-- ##### USER_FUNCTION AnjutaPluginValueAdded ##### -->
 <para>
 
 </para>
 
-@tool: 
+@plugin: 
 @name: 
 @value: 
+@user_data: 
+<!-- # Unused Parameters # -->
 @data: 
+@tool: 
 
 
 <!-- ##### USER_FUNCTION AnjutaPluginValueRemoved ##### -->
@@ -201,9 +258,12 @@ and anjuta_plugin_remove_watch() to add or remove value watches.
 
 </para>
 
-@tool: 
+@plugin: 
 @name: 
+@user_data: 
+<!-- # Unused Parameters # -->
 @data: 
+@tool: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_add_watch ##### -->
@@ -211,12 +271,14 @@ and anjuta_plugin_remove_watch() to add or remove value watches.
 
 </para>
 
-@tool: 
+@plugin: 
 @name: 
 @added: 
 @removed: 
 @user_data: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@tool: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_remove_watch ##### -->
@@ -224,9 +286,27 @@ and anjuta_plugin_remove_watch() to add or remove value watches.
 
 </para>
 
-@tool: 
+@plugin: 
 @id: 
 @send_remove: 
+<!-- # Unused Parameters # -->
+@tool: 
+
+
+<!-- ##### MACRO ANJUTA_PLUGIN_BEGIN ##### -->
+<para>
+
+</para>
+
+@class_name: 
+@prefix: 
+
+
+<!-- ##### MACRO ANJUTA_PLUGIN_END ##### -->
+<para>
+
+</para>
+
 
 
 <!-- ##### MACRO ANJUTA_PLUGIN_BOILERPLATE ##### -->
@@ -244,4 +324,6 @@ and anjuta_plugin_remove_watch() to add or remove value watches.
 </para>
 
 @class_name: 
-@prefix:
+@prefix: 
+
+

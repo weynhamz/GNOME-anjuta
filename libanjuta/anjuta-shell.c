@@ -392,7 +392,19 @@ anjuta_shell_remove_value (AnjutaShell *shell,
  * from the pool of plugin objects loaded in this shell and can only search
  * by primary interface. If there are more objects implementing this primary
  * interface, user might be prompted to select one from them (and might give
- * the option to use it as default for future queries).
+ * the option to use it as default for future queries). A typical usage of this
+ * function is:
+ * <programlisting>
+ * GObject *docman =
+ *     anjuta_shell_get_object (shell, "IAnjutaDocumentManager", error);
+ * </programlisting>
+ * Notice that this function takes the interface name string as string, unlike
+ * anjuta_shell_get_interface() which takes the type directly.
+ *
+ * @error is set to ANJUTA_SHELL_ERROR_DOESNT_EXIST, if a plugin implementing
+ * the interface is not found and NULL is returned.
+ *
+ * Return value: A plugin object implementing the primary interface or NULL.
  */
 GObject*
 anjuta_shell_get_object     (AnjutaShell     *shell,

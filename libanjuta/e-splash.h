@@ -56,11 +56,11 @@ struct _ESplashClass {
 
 GtkType    e_splash_get_type            (void);
 void       e_splash_construct           (ESplash   *splash,
-					 GdkPixbuf *splash_image);
+					 GdkPixbuf *splash_image_pixbuf);
 GtkWidget *e_splash_new                 (const char *image_file);
 
 int        e_splash_add_icon            (ESplash   *splash,
-					 GdkPixbuf *icon);
+					 GdkPixbuf *icon_pixbuf);
 void       e_splash_set_icon_highlight  (ESplash   *splash,
 					 int        num,
 					 gboolean   highlight);

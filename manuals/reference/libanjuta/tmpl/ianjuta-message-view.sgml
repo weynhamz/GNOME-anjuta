@@ -1,0 +1,119 @@
+<!-- ##### SECTION Title ##### -->
+
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_MESSAGE_VIEW_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaMessageView ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaMessageViewIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@message_clicked: 
+@append: 
+@clear: 
+@select_next: 
+@select_previous: 
+@get_line: 
+@get_message: 
+@get_all_messages: 
+
+<!-- ##### FUNCTION ianjuta_message_view_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_append ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@message: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_clear ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_select_next ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_select_previous ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_get_line ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_get_message ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_get_all_messages ##### -->
+<para>
+
+</para>
+
+@message_view: 
+@e: 
+@Returns: 
+
+

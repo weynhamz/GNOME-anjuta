@@ -1,0 +1,66 @@
+<!-- ##### SECTION Title ##### -->
+ESplash
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT ESplash ##### -->
+<para>
+
+</para>
+
+@parent: 
+@priv: 
+
+<!-- ##### FUNCTION e_splash_construct ##### -->
+<para>
+
+</para>
+
+@splash: 
+@splash_image_pixbuf: 
+<!-- # Unused Parameters # -->
+@splash_image: 
+
+
+<!-- ##### FUNCTION e_splash_new ##### -->
+<para>
+
+</para>
+
+@image_file: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_splash_add_icon ##### -->
+<para>
+
+</para>
+
+@splash: 
+@icon_pixbuf: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@icon: 
+
+
+<!-- ##### FUNCTION e_splash_set_icon_highlight ##### -->
+<para>
+
+</para>
+
+@splash: 
+@num: 
+@highlight: 
+
+

@@ -25,7 +25,15 @@
 #include <sys/wait.h>
 #include <glib.h>
 
-typedef  void (*AnjutaChildTerminatedCallback) (int s, gpointer d);
+/**
+ * AnjutaChildTerminatedCallback:
+ * @exit_staus: Exit status of the child.
+ * @user_data: User data
+ *
+ * Callback function definition for child termination.
+ */
+typedef  void (*AnjutaChildTerminatedCallback) (int exit_staus,
+												gpointer user_data);
 
 void anjuta_children_init(void);
 void anjuta_children_register (pid_t pid,

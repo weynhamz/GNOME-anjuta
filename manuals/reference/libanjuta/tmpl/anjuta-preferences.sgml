@@ -61,11 +61,23 @@ Anjuta Prefereces system.
 @Returns: 
 
 
-<!-- ##### STRUCT AnjutaPreferencesPriv ##### -->
+<!-- ##### STRUCT AnjutaPreferences ##### -->
 <para>
 
 </para>
 
+@props_built_in: 
+@props_global: 
+@props_local: 
+@props_session: 
+@props: 
+
+<!-- ##### SIGNAL AnjutaPreferences::changed ##### -->
+<para>
+
+</para>
+
+@anjutapreferences: the object which received the signal.
 
 <!-- ##### USER_FUNCTION AnjutaPreferencesCallback ##### -->
 <para>
@@ -282,4 +294,6 @@ Anjuta Prefereces system.
 @key: 
 @Returns: 
 <!-- # Unused Parameters # -->
-@p:
+@p: 
+
+

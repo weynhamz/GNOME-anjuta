@@ -20,12 +20,6 @@ Underlying plugin factory
 </para>
 
 
-<!-- ##### STRUCT GlueFactoryClass ##### -->
-<para>
-
-</para>
-
-
 <!-- ##### FUNCTION glue_factory_new ##### -->
 <para>
 
@@ -64,4 +58,6 @@ Underlying plugin factory
 @component_name: 
 @type_name: 
 @Varargs: 
-@Returns:
+@Returns: 
+
+

@@ -329,6 +329,7 @@ e_splash_construct (ESplash *splash,
 
 /**
  * e_splash_new:
+ * @image_file: Splash image file
  *
  * Create a new ESplash widget.
  * 

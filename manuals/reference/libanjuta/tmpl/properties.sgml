@@ -175,29 +175,3 @@ Properties system
 @p2: 
 
 
-<!-- ##### FUNCTION ReadLine ##### -->
-<para>
-
-</para>
-
-@data: 
-@ifIsTrue: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ReadFromMemory ##### -->
-<para>
-
-</para>
-
-@data: 
-@len: 
-
-
-<!-- ##### FUNCTION Read ##### -->
-<para>
-
-</para>
-
-@filename: 
-@directoryForImports:

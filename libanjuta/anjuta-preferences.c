@@ -373,7 +373,7 @@ set_property_value_as_int (AnjutaProperty *prop, gint value)
 
 static gboolean
 save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
-			   FILE *fp, AnjutaPreferencesFilterType filter)
+			   FILE *stream, AnjutaPreferencesFilterType filter)
 {
 	gchar *value;
 	gboolean return_value;
@@ -392,9 +392,9 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 		value = prop_get (pr->props, prop->key);
 	}
 	if (value)
-		return_value = fprintf (fp, "%s=%s\n", prop->key, value);
+		return_value = fprintf (stream, "%s=%s\n", prop->key, value);
 	else
-		return_value = fprintf (fp, "%s=\n", prop->key);
+		return_value = fprintf (stream, "%s=\n", prop->key);
 #ifdef DEBUG
 	if (return_value <= 0)
 		g_warning ("Error saving property '%s'", prop->key);
@@ -591,7 +591,7 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
  * but you want them to be part of preferences system.
  */
 void
-anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
+anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences *pr,
 														   GladeXML *gxml,
 														   GtkWidget *parent)
 {
@@ -641,48 +641,49 @@ anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr
 }
 
 inline gchar *
-anjuta_preferences_get (AnjutaPreferences * p, gchar * key)
+anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 {
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (p), NULL);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
 	g_return_val_if_fail (key != NULL, NULL);
-	return prop_get (p->props, key);
+	return prop_get (pr->props, key);
 }
 
 inline gint
-anjuta_preferences_get_int (AnjutaPreferences * p, gchar * key)
+anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 {
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (p), 0);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	return prop_get_int (p->props, key, 0);
+	return prop_get_int (pr->props, key, 0);
 }
 
 inline gint
-anjuta_preferences_get_int_with_default (AnjutaPreferences * p,
-										 gchar * key, gint default_value)
+anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
+										 const gchar *key, gint default_value)
 {
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (p), 0);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	return prop_get_int (p->props, key, default_value);
+	return prop_get_int (pr->props, key, default_value);
 }
 
 inline gchar *
-anjuta_preferences_default_get (AnjutaPreferences * p, gchar * key)
+anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
 {
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (p), NULL);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
 	g_return_val_if_fail (key != NULL, NULL);
-	return prop_get (p->props_local, key);
+	return prop_get (pr->props_local, key);
 }
 
 inline gint
-anjuta_preferences_default_get_int (AnjutaPreferences * p, gchar * key)
+anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
 {
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (p), 0);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
 	g_return_val_if_fail (key != NULL, 0);
-	return prop_get_int (p->props_local, key, 0);
+	return prop_get_int (pr->props_local, key, 0);
 }
 
 inline void
-anjuta_preferences_set (AnjutaPreferences * pr, gchar * key, gchar * value)
+anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
+						const gchar *value)
 {
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
@@ -694,7 +695,8 @@ anjuta_preferences_set (AnjutaPreferences * pr, gchar * key, gchar * value)
 }
 
 inline void
-anjuta_preferences_set_int (AnjutaPreferences * pr, gchar * key, gint value)
+anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
+							gint value)
 {
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
@@ -776,7 +778,7 @@ anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
 
 /* Save excluding the filtered properties */
 void
-anjuta_preferences_foreach (AnjutaPreferences * pr,
+anjuta_preferences_foreach (AnjutaPreferences *pr,
 							AnjutaPreferencesFilterType filter,
 							AnjutaPreferencesCallback callback,
 							gpointer data)
@@ -805,7 +807,7 @@ anjuta_preferences_foreach (AnjutaPreferences * pr,
 
 /* Save excluding the filtered properties */
 gboolean
-anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
+anjuta_preferences_save_filtered (AnjutaPreferences *pr, FILE *stream,
 								  AnjutaPreferencesFilterType filter)
 {
 	AnjutaProperty *p;
@@ -813,13 +815,13 @@ anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
 	gboolean ret_val = TRUE;
 	
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (fp != NULL, FALSE);
+	g_return_val_if_fail (stream != NULL, FALSE);
 	
 	node = pr->priv->properties;
 	while (node)
 	{
 		p = node->data;
-		if (save_property (pr, p, fp, filter) == FALSE)
+		if (save_property (pr, p, stream, filter) == FALSE)
 			ret_val = FALSE;
 		node = g_list_next (node);
 	}
@@ -840,7 +842,7 @@ anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
 gboolean
 anjuta_preferences_save (AnjutaPreferences *pr, FILE *stream)
 {
-	return anjuta_preferences_save_filtered (pr, fp,
+	return anjuta_preferences_save_filtered (pr, stream,
 											 ANJUTA_PREFERENCES_FILTER_NONE);	
 }
 
@@ -909,8 +911,9 @@ preferences_prop_to_objects (AnjutaPreferences *pr)
  * The glade dialog will contain the layout of the preferences widgets.
  * The widgets which are preference widgets (e.g. toggle button) should have
  * widget names of the form:
+ *
  * <programlisting>
- *              preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
+ *     preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
  *     where,
  *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color' or 'font'.
  *       DATATYPE   is 'bool', 'int', 'float', 'text', 'color' or 'font'.

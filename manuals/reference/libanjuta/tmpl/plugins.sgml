@@ -47,4 +47,27 @@ Plugins management and activation
 </para>
 
 @shell: 
-@Returns:
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_object ##### -->
+<para>
+
+</para>
+
+@shell: 
+@interface_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_installed_dialog ##### -->
+<para>
+
+</para>
+
+@shell: 
+@ui: 
+@prefs: 
+@Returns: 
+
+

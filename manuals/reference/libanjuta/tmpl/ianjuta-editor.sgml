@@ -1,0 +1,104 @@
+<!-- ##### SECTION Title ##### -->
+
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_EDITOR_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaEditor ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaEditorIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@save_point: 
+@get_selection: 
+@get_filename: 
+@get_text: 
+@get_attributes: 
+@goto_line: 
+
+<!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_selection ##### -->
+<para>
+
+</para>
+
+@editor: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->
+<para>
+
+</para>
+
+@editor: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_goto_line ##### -->
+<para>
+
+</para>
+
+@editor: 
+@lineno: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_text ##### -->
+<para>
+
+</para>
+
+@editor: 
+@start: 
+@end: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
+<para>
+
+</para>
+
+@editor: 
+@start: 
+@end: 
+@e: 
+@Returns: 
+
+

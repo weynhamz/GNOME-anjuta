@@ -14,6 +14,15 @@ Underlying glue plugin
 
 </para>
 
+<!-- ##### STRUCT GluePlugin ##### -->
+<para>
+
+</para>
+
+@parent: 
+@module: 
+@path: 
+
 <!-- ##### STRUCT GluePluginComponent ##### -->
 <para>
 
@@ -61,4 +70,6 @@ Underlying glue plugin
 
 </para>
 
-@components:
+@components: 
+
+

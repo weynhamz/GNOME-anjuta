@@ -1,0 +1,61 @@
+<!-- ##### STRUCT AnjutaPluginPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AnjutaPreferencesDialogPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AnjutaPreferencesPriv ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AnjutaUIPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT ESplashPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT GlueFactoryClass ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION Read ##### -->
+<para>
+
+</para>
+
+@filename: 
+@directoryForImports: 
+
+<!-- ##### FUNCTION ReadFromMemory ##### -->
+<para>
+
+</para>
+
+@data: 
+@len: 
+
+<!-- ##### FUNCTION ReadLine ##### -->
+<para>
+
+</para>
+
+@data: 
+@ifIsTrue: 
+@Returns: 
+

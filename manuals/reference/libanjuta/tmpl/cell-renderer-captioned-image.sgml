@@ -1,8 +1,8 @@
 <!-- ##### SECTION Title ##### -->
-Detault properties
+AnjutaCellRendererCaptionedImage
 
 <!-- ##### SECTION Short_Description ##### -->
-Built in default properties
+Captioned image cell renderer.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -14,15 +14,20 @@ Built in default properties
 
 </para>
 
-<!-- ##### VARIABLE default_project ##### -->
+<!-- ##### STRUCT AnjutaCellRendererCaptionedImage ##### -->
 <para>
 
 </para>
 
+@parent: 
+@image: 
+@caption: 
 
-<!-- ##### VARIABLE default_settings ##### -->
+<!-- ##### FUNCTION anjuta_cell_renderer_captioned_image_new ##### -->
 <para>
 
 </para>
+
+@Returns: 
 
 

@@ -6,20 +6,55 @@ Application shell interface
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+	Shell is the playground where plugins are loaded and their UI
+	widgets shown. It is also a place where plugins export objects for letting
+	other pluings to use. Widget placement in the shell is not covered by
+	#AnjutaShell api and, therefore, is the responsibility of the
+	shell implementor. Plugins can add widgets in the shell with
+	anjuta_shell_add_widget() and remove with anjuta_shell_remove_widget()
+	functions.
+</para>
+<para>
+	In Anjuta, shell is implemented using an advanced widget docking system,
+	allowing plugin widgets to dock, undock and layout in any fashion. Dock
+	layout is also maintained internally and is transparent to plugin
+	implementations.
+</para>
+<para>
+	#AnjutaShell allows plugins to export arbitrary objects as <emphasis>
+	values</emphasis> in it's <emphasis>Values System</emphasis>. "value_added"
+	and "value_removed" signals are emitted when a value is added to or
+	removed from the <emphasis>Values System</emphasis>, hence notifying the
+	plugins of its state. However, plugins should really not connect directly
+	to these signals, because they are emitted for all values
+	and not just for the values the plugin is interested in. Instead,
+	to monitor specific <emphasis>Values</emphasis>, plugins should
+	setup watches using anjuta_plugin_add_watch().
+</para>
+<para>
+	<emphasis>Values</emphasis> are added, get or removed with
+	anjuta_shell_add_value() and anjuta_shell_get_value() or
+	anjuta_shell_remove_value(). There multi-valued equivalent functions
+	can be used to manipulate multiple values at once.
+</para>
+<para>
+	<emphasis>Values</emphasis> are identified with names. Since <emphasis>
+	Values</emphasis> are effectively variables, their names should follow
+	the standard GNOME variable naming convention and should be as descriptive
+	as possible (e.g project_root_directory, project_name etc.). It is also
+	essential that meaningful prefix be given to names so that <emphasis>
+	Values</emphasis> are easily grouped (e.g all values exported by a 
+	project manager should start with project_ prefix).
+</para>
+<para>
+	Plugins can find other plugins with anjuta_shell_get_object() or 
+	anjuta_shell_get_interface() based on their primary interface.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
-
-<!-- ##### MACRO ANJUTA_SHELL_ERROR ##### -->
-<para>
-
-</para>
-
-
 
 <!-- ##### STRUCT AnjutaShell ##### -->
 <para>
@@ -44,6 +79,20 @@ Application shell interface
 @remove_value: 
 @get_object: 
 
+<!-- ##### ENUM AnjutaShellError ##### -->
+<para>
+
+</para>
+
+@ANJUTA_SHELL_ERROR_DOESNT_EXIST: 
+
+<!-- ##### MACRO ANJUTA_SHELL_ERROR ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### FUNCTION anjuta_shell_error_quark ##### -->
 <para>
 
@@ -61,6 +110,16 @@ Application shell interface
 @widget: 
 @name: 
 @title: 
+@error: 
+
+
+<!-- ##### FUNCTION anjuta_shell_remove_widget ##### -->
+<para>
+
+</para>
+
+@shell: 
+@widget: 
 @error: 
 
 
@@ -137,4 +196,27 @@ Application shell interface
 
 @shell: 
 @name: 
-@error:
+@error: 
+
+
+<!-- ##### FUNCTION anjuta_shell_get_object ##### -->
+<para>
+
+</para>
+
+@shell: 
+@iface_name: 
+@error: 
+@Returns: 
+
+
+<!-- ##### MACRO anjuta_shell_get_interface ##### -->
+<para>
+
+</para>
+
+@shell: 
+@iface_type: 
+@error: 
+
+

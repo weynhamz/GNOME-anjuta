@@ -97,6 +97,23 @@ GObject*   anjuta_shell_get_object  (AnjutaShell     *shell,
 									 const char      *iface_name,
 									 GError         **error);
 
+/**
+ * anjuta_shell_get_interface:
+ * @shell: A #AnjutaShell object
+ * @iface_type: The interface type implemented by the object to be found
+ * @error: Error propagation object.
+ *
+ * Equivalent to anjuta_shell_get_object(), but additionally typecasts returned
+ * object to the interface type. It also takes interface type directly. A
+ * usage of this function is:
+ * <programlisting>
+ * IAnjutaDocumentManager *docman =
+ *     anjuta_shell_get_interface (shell, IAnjutaDocumentManager, error);
+ * </programlisting>
+ */
+#define anjuta_shell_get_interface(shell, iface_type, error) \
+	(((iface_type)*) anjuta_shell_get_object((shell), #iface_type, (error))
+
 G_END_DECLS
 
 #endif

@@ -1,0 +1,112 @@
+<!-- ##### SECTION Title ##### -->
+
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_MESSAGE_MANAGER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaMessageManager ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaMessageManagerIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@add_view: 
+@remove_view: 
+@get_current_view: 
+@get_view_by_name: 
+@get_all_views: 
+@set_current_view: 
+
+<!-- ##### FUNCTION ianjuta_message_manager_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_manager_add_view ##### -->
+<para>
+
+</para>
+
+@msgman: 
+@file: 
+@icon: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_manager_remove_view ##### -->
+<para>
+
+</para>
+
+@msgman: 
+@view: 
+@e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_manager_get_current_view ##### -->
+<para>
+
+</para>
+
+@msgman: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_manager_get_view_by_name ##### -->
+<para>
+
+</para>
+
+@msgman: 
+@name: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_manager_get_all_views ##### -->
+<para>
+
+</para>
+
+@msgman: 
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_message_manager_set_current_view ##### -->
+<para>
+
+</para>
+
+@msgman: 
+@message_view: 
+@e: 
+
+

@@ -20,12 +20,6 @@ User Interface manager
 </para>
 
 
-<!-- ##### STRUCT AnjutaUIPrivate ##### -->
-<para>
-
-</para>
-
-
 <!-- ##### FUNCTION anjuta_ui_new ##### -->
 <para>
 
@@ -64,6 +58,20 @@ User Interface manager
 <!-- # Unused Parameters # -->
 @group_name: 
 @group_label: 
+
+
+<!-- ##### FUNCTION anjuta_ui_add_toggle_action_group_entries ##### -->
+<para>
+
+</para>
+
+@ui: 
+@action_group_name: 
+@action_group_label: 
+@entries: 
+@num_entries: 
+@user_data: 
+@Returns: 
 
 
 <!-- ##### FUNCTION anjuta_ui_add_action_group ##### -->
@@ -165,4 +173,6 @@ User Interface manager
 
 </para>
 
-@ui:
+@ui: 
+
+

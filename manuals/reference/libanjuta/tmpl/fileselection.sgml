@@ -32,6 +32,46 @@ File selection dialog (deprecated)
 @click_cancel_callback: 
 @filesel: 
 
+<!-- ##### STRUCT GnomeFileList ##### -->
+<para>
+
+</para>
+
+@window: 
+@back_button: 
+@forward_button: 
+@home_button: 
+@delete_button: 
+@rename_button: 
+@show_hidden_button: 
+@history_combo: 
+@directory_list: 
+@file_list: 
+@filter_combo: 
+@selection_label: 
+@selection_entry: 
+@ok_button: 
+@cancel_button: 
+@filetype_combo: 
+@createdir_button: 
+@scrolled_window_dir: 
+@scrolled_window_file: 
+@file_scrollbar_value: 
+@dir_scrollbar_value: 
+@dirpattern: 
+@filepattern: 
+@files_matched: 
+@dirs_matched: 
+@show_hidden: 
+@path: 
+@selected: 
+@history_position: 
+@history: 
+@filetypes: 
+@folder_pixbuf: 
+@changedironcombo: 
+@entry_text: 
+
 <!-- ##### FUNCTION create_fileselection_gui ##### -->
 <para>
 
@@ -163,4 +203,6 @@ File selection dialog (deprecated)
 </para>
 
 @filesel: 
-@Returns:
+@Returns: 
+
+

@@ -73,42 +73,42 @@ destroy_watch (Watch *watch)
 static void
 anjuta_plugin_dispose (GObject *object)
 {
-	AnjutaPlugin *tool = ANJUTA_PLUGIN (object);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (object);
 	
-	if (tool->priv->watches) {
+	if (plugin->priv->watches) {
 		GList *l;
 
-		for (l = tool->priv->watches; l != NULL; l = l->next) {
+		for (l = plugin->priv->watches; l != NULL; l = l->next) {
 			Watch *watch = (Watch *)l->data;
 
 			if (watch->removed && watch->need_remove) {
-				watch->removed (tool, 
+				watch->removed (plugin, 
 						watch->name, 
 						watch->user_data);
 			}
 			
 			destroy_watch (watch);
 		}
-		g_list_free (tool->priv->watches);
-		tool->priv->watches = NULL;
+		g_list_free (plugin->priv->watches);
+		plugin->priv->watches = NULL;
 	}
 
-	if (tool->shell) {
-		g_object_unref (tool->shell);
-		tool->shell = NULL;
+	if (plugin->shell) {
+		g_object_unref (plugin->shell);
+		plugin->shell = NULL;
 	}
 }
 
 static void
 anjuta_plugin_finalize (GObject *object) 
 {
-	AnjutaPlugin *tool = ANJUTA_PLUGIN (object);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (object);
 /*	
-	if (tool->uic) {
+	if (plugin->uic) {
 		g_warning ("UI not unmerged\n");
 	}
 */
-	g_free (tool->priv);
+	g_free (plugin->priv);
 }
 
 static void
@@ -117,17 +117,17 @@ anjuta_plugin_get_property (GObject *object,
 			  GValue *value,
 			  GParamSpec *pspec)
 {
-	AnjutaPlugin *tool = ANJUTA_PLUGIN (object);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (object);
 	
 	switch (param_id) {
 	case PROP_SHELL:
-		g_value_set_object (value, tool->shell);
+		g_value_set_object (value, plugin->shell);
 		break;
 	case PROP_UI:
-	  g_value_set_object (value, tool->ui);
+	  g_value_set_object (value, plugin->ui);
 	  break;
 	case PROP_PREFS:
-	  g_value_set_object (value, tool->prefs);
+	  g_value_set_object (value, plugin->prefs);
 	  break;
 	default :
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
@@ -141,34 +141,34 @@ anjuta_plugin_set_property (GObject *object,
 							const GValue *value,
 							GParamSpec *pspec)
 {
-	AnjutaPlugin *tool = ANJUTA_PLUGIN (object);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (object);
 	
 	switch (param_id) {
 	case PROP_SHELL:
-		g_return_if_fail (tool->shell == NULL);
-		tool->shell = g_value_get_object (value);
-		g_object_ref (tool->shell);
+		g_return_if_fail (plugin->shell == NULL);
+		plugin->shell = g_value_get_object (value);
+		g_object_ref (plugin->shell);
 		
 		if (ANJUTA_PLUGIN_GET_CLASS (object)->activate)
-			ANJUTA_PLUGIN_GET_CLASS (object)->activate (tool);
+			ANJUTA_PLUGIN_GET_CLASS (object)->activate (plugin);
 
 		g_object_notify (object, "shell");
 		break;
 	case PROP_UI:
-	  g_return_if_fail (tool->ui == NULL);
-	  tool->ui = g_value_get_object (value);
-	  g_object_ref (tool->ui);
+	  g_return_if_fail (plugin->ui == NULL);
+	  plugin->ui = g_value_get_object (value);
+	  g_object_ref (plugin->ui);
 
-	  //ANJUTA_PLUGIN_GET_CLASS (object)->ui_set (tool);
+	  //ANJUTA_PLUGIN_GET_CLASS (object)->ui_set (plugin);
 	  
 	  g_object_notify (object, "ui");
 	  break;
 	case PROP_PREFS:
-	  g_return_if_fail (tool->prefs == NULL);
-	  tool->prefs = g_value_get_object (value);
-	  g_object_ref (tool->prefs);
+	  g_return_if_fail (plugin->prefs == NULL);
+	  plugin->prefs = g_value_get_object (value);
+	  g_object_ref (plugin->prefs);
 
-	  //ANJUTA_PLUGIN_GET_CLASS (object)->prefs_set (tool);
+	  //ANJUTA_PLUGIN_GET_CLASS (object)->prefs_set (plugin);
 
 	  g_object_notify (object, "prefs");
 	  break;
@@ -197,7 +197,7 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 		 PROP_SHELL,
 		 g_param_spec_object ("shell",
 				      _("Anjuta Shell"),
-				      _("Anjuta shell that will contain the tool"),
+				      _("Anjuta shell that will contain the plugin"),
 				      ANJUTA_TYPE_SHELL,
 				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property
@@ -205,7 +205,7 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 		 PROP_UI,
 		 g_param_spec_object ("ui",
 				      _("Anjuta UI"),
-				      _("Anjuta UI that will contain Menus and toolbars"),
+				      _("Anjuta UI that will contain Menus and pluginbars"),
 				      ANJUTA_TYPE_UI,
 				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 	g_object_class_install_property
@@ -219,53 +219,10 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 }
 
 static void
-anjuta_plugin_instance_init (AnjutaPlugin *tool)
+anjuta_plugin_instance_init (AnjutaPlugin *plugin)
 {
-	tool->priv = g_new0 (AnjutaPluginPrivate, 1);
+	plugin->priv = g_new0 (AnjutaPluginPrivate, 1);
 }
-
-#if 0
-void
-anjuta_plugin_merge_ui (AnjutaPlugin *tool, 
-		      const char *name, 
-		      const char *datadir, 
-		      const char *xmlfile, 
-		      BonoboUIVerb *verbs,
-		      gpointer user_data)
-{
-	BonoboWindow *window;
-	BonoboUIContainer *container;
-
-	if (tool->uic) {
-		anjuta_plugin_unmerge_ui (tool);
-	}
-	
-	g_return_if_fail (tool->shell != NULL);
-	
-	window = BONOBO_WINDOW (tool->shell);
-	container = bonobo_window_get_ui_container (window);
-	
-	tool->uic = bonobo_ui_component_new (name);
-	bonobo_ui_component_set_container (tool->uic, 
-					   BONOBO_OBJREF (container), 
-					   NULL);
-	bonobo_ui_util_set_ui (tool->uic, datadir, xmlfile, name, NULL);
-	bonobo_ui_component_add_verb_list_with_data (tool->uic, 
-						     verbs,
-						     user_data);
-}
-
-void
-anjuta_plugin_unmerge_ui (AnjutaPlugin *tool)
-{
-	if (tool->uic) {
-		bonobo_ui_component_unset_container (tool->uic, NULL);
-		bonobo_object_unref (tool->uic);
-		tool->uic = NULL;
-	}
-}
-
-#endif
 
 static void
 value_added_cb (AnjutaShell *shell,
@@ -273,14 +230,14 @@ value_added_cb (AnjutaShell *shell,
 		const GValue *value,
 		gpointer user_data)
 {
-	AnjutaPlugin *tool = ANJUTA_PLUGIN (user_data);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (user_data);
 	GList *l;
 	
-	for (l = tool->priv->watches; l != NULL; l = l->next) {
+	for (l = plugin->priv->watches; l != NULL; l = l->next) {
 		Watch *watch = (Watch *)l->data;
 		if (!strcmp (watch->name, name)) {
 			if (watch->added) {
-				watch->added (tool, 
+				watch->added (plugin, 
 					      name, 
 					      value, 
 					      watch->user_data);
@@ -296,14 +253,14 @@ value_removed_cb (AnjutaShell *shell,
 		  const char *name,
 		  gpointer user_data)
 {
-	AnjutaPlugin *tool = ANJUTA_PLUGIN (user_data);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (user_data);
 	GList *l;
 
-	for (l = tool->priv->watches; l != NULL; l = l->next) {
+	for (l = plugin->priv->watches; l != NULL; l = l->next) {
 		Watch *watch = (Watch *)l->data;
 		if (!strcmp (watch->name, name)) {
 			if (watch->removed) {
-				watch->removed (tool, name, watch->user_data);
+				watch->removed (plugin, name, watch->user_data);
 			}
 			if (!watch->need_remove) {
 				g_warning ("watch->need_remove FALSE when it should be TRUE");
@@ -314,69 +271,93 @@ value_removed_cb (AnjutaShell *shell,
 	}
 }
 
+/**
+ * anjuta_plugin_add_watch:
+ * @plugin: a #AnjutaPlugin derived class object.
+ * @name: Name of the value to watch.
+ * @added: Callback to call when the value is added.
+ * @removed: Callback to call when the value is removed.
+ * @user_data: User data to pass to callbacks.
+ * 
+ * Adds a watch for @name value. When the value is added in shell, the @added
+ * callback will be called and when it is removed, the @removed callback will
+ * be called. The returned ID is used to remove the watch later.
+ * 
+ * Return value: Watch ID.
+ */
 guint
-anjuta_plugin_add_watch (AnjutaPlugin *tool, 
-		       const char *name,
-		       AnjutaPluginValueAdded added,
-		       AnjutaPluginValueRemoved removed,
-		       gpointer user_data)
+anjuta_plugin_add_watch (AnjutaPlugin *plugin, 
+						 const gchar *name,
+						 AnjutaPluginValueAdded added,
+						 AnjutaPluginValueRemoved removed,
+						 gpointer user_data)
 {
 	Watch *watch;
 	GValue value = {0, };
 	GError *error = NULL;
 
-	g_return_val_if_fail (tool != NULL, -1);
-	g_return_val_if_fail (ANJUTA_IS_PLUGIN (tool), -1);
+	g_return_val_if_fail (plugin != NULL, -1);
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (plugin), -1);
 	g_return_val_if_fail (name != NULL, -1);
 
 	watch = g_new0 (Watch, 1);
 	
-	watch->id = ++tool->priv->watch_num;
+	watch->id = ++plugin->priv->watch_num;
 	watch->name = g_strdup (name);
 	watch->added = added;
 	watch->removed = removed;
 	watch->need_remove = FALSE;
 	watch->user_data = user_data;
 
-	tool->priv->watches = g_list_prepend (tool->priv->watches,
+	plugin->priv->watches = g_list_prepend (plugin->priv->watches,
 					      watch);
 
-	anjuta_shell_get_value (tool->shell, name, &value, &error);
+	anjuta_shell_get_value (plugin->shell, name, &value, &error);
 	if (!error) {
 		if (added) {
-			watch->added (tool, name, &value, user_data);
+			watch->added (plugin, name, &value, user_data);
 		}
 		
 		watch->need_remove = TRUE;
 	}
 
-	if (!tool->priv->added_signal_id) {
-		tool->priv->added_signal_id = 
-			g_signal_connect (tool->shell,
+	if (!plugin->priv->added_signal_id) {
+		plugin->priv->added_signal_id = 
+			g_signal_connect (plugin->shell,
 					  "value_added",
 					  G_CALLBACK (value_added_cb),
-					  tool);
+					  plugin);
 
-		tool->priv->added_signal_id = 
-			g_signal_connect (tool->shell,
+		plugin->priv->added_signal_id = 
+			g_signal_connect (plugin->shell,
 					  "value_removed",
 					  G_CALLBACK (value_removed_cb),
-					  tool);
+					  plugin);
 	}
 
 	return watch->id;
 }
 
+/**
+ * anjuta_plugin_remove_watch:
+ * @plugin: a #AnjutaPlugin derived class object.
+ * @id: Watch id to remove.
+ * @send_remove: If true, calls value_removed callback.
+ *
+ * Removes the watch represented by @id (which was returned by
+ * anjuta_plugin_add_watch()).
+ */
 void
-anjuta_plugin_remove_watch (AnjutaPlugin *tool, guint id, gboolean send_remove)
+anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
+							gboolean send_remove)
 {
 	GList *l;
 	Watch *watch = NULL;
 	
-	g_return_if_fail (tool != NULL);
-	g_return_if_fail (ANJUTA_IS_PLUGIN (tool));
+	g_return_if_fail (plugin != NULL);
+	g_return_if_fail (ANJUTA_IS_PLUGIN (plugin));
 
-	for (l = tool->priv->watches; l != NULL; l = l->next) {
+	for (l = plugin->priv->watches; l != NULL; l = l->next) {
 		watch = l->data;
 		
 		if (watch->id == id) {
@@ -390,9 +371,9 @@ anjuta_plugin_remove_watch (AnjutaPlugin *tool, guint id, gboolean send_remove)
 	}
 
 	if (send_remove && watch->need_remove && watch->removed) {
-		watch->removed (tool, watch->name, watch->user_data);
+		watch->removed (plugin, watch->name, watch->user_data);
 	}
 	
-	g_list_remove (tool->priv->watches, watch);
+	g_list_remove (plugin->priv->watches, watch);
 	destroy_watch (watch);
 }

@@ -1,3 +1,46 @@
+2004-04-25  Naba Kumar  <naba@gnome.org>
+
+	*  libanjuta/anjuta-children.h,
+	libanjuta/anjuta-plugin.c,
+	libanjuta/anjuta-plugin.h,
+	libanjuta/anjuta-preferences.c,
+	libanjuta/anjuta-shell.c,
+	libanjuta/anjuta-shell.h,
+	libanjuta/e-splash.c,
+	libanjuta/e-splash.h,
+	manuals/reference/libanjuta/Makefile.am,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/tmpl/anjuta-children.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-encodings.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-marshal.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin-parser.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences-dialog.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-stock.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-ui.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-utils.sgml,
+	manuals/reference/libanjuta/tmpl/defaults.sgml,
+	manuals/reference/libanjuta/tmpl/fileselection.sgml,
+	manuals/reference/libanjuta/tmpl/glue-factory.sgml,
+	manuals/reference/libanjuta/tmpl/glue-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/gnomefilelist.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	manuals/reference/libanjuta/tmpl/pixmaps.sgml,
+	manuals/reference/libanjuta/tmpl/plugins.sgml,
+	manuals/reference/libanjuta/tmpl/properties.sgml,
+	manuals/reference/libanjuta/tmpl/resources.sgml,
+	manuals/reference/libanjuta/tmpl/cell-renderer-captioned-image.sgml,
+	manuals/reference/libanjuta/tmpl/e-splash.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-document-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-message-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-message-view.sgml:
+
+	Added more template files and wrote more documentation.
+
 2004-04-24  Andras Timar  <timar@gnome.hu>
 
 	* configure.in: Added hu to ALL_LINGUAS.

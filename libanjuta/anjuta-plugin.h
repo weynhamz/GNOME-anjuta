@@ -30,20 +30,40 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/glue-plugin.h>
 
-//#include <bonobo/bonobo-ui-component.h>
-
 G_BEGIN_DECLS
 
 typedef struct _AnjutaPlugin        AnjutaPlugin;
 typedef struct _AnjutaPluginClass   AnjutaPluginClass;
 typedef struct _AnjutaPluginPrivate AnjutaPluginPrivate;
-typedef void (*AnjutaPluginValueAdded) (AnjutaPlugin *tool, 
-				      const char *name,
-				      const GValue *value,
-				      gpointer data);
-typedef void (*AnjutaPluginValueRemoved) (AnjutaPlugin *tool, 
-					const char *name,
-					gpointer data);
+
+/**
+ * AnjutaPluginValueAdded:
+ * @plugin: The #AnjutaPlugin based plugin
+ * @name: name of value being added.
+ * @value: value of value being added.
+ * @user_data: User data set during anjuta_plugin_add_watch()
+ *
+ * The callback to pass to anjuta_plugin_add_watch(). When a @name value
+ * is added to shell by another plugin, this callback will be called.
+ */
+typedef void (*AnjutaPluginValueAdded) (AnjutaPlugin *plugin, 
+										const char *name,
+										const GValue *value,
+										gpointer user_data);
+
+/**
+ * AnjutaPluginValueRemoved:
+ * @plugin: The #AnjutaPlugin based plugin
+ * @name: name of value being added.
+ * @user_data: User data set during anjuta_plugin_add_watch()
+ *
+ * The callback to pass to anjuta_plugin_add_watch(). When the @name value
+ * is removed from the shell (by the plugin exporting this value), this
+ * callback will be called.
+ */
+typedef void (*AnjutaPluginValueRemoved) (AnjutaPlugin *plugin, 
+										  const char *name,
+										  gpointer user_data);
 
 
 #define ANJUTA_TYPE_PLUGIN         (anjuta_plugin_get_type ())
@@ -56,40 +76,52 @@ typedef void (*AnjutaPluginValueRemoved) (AnjutaPlugin *tool,
 struct _AnjutaPlugin {
 	GObject parent;	
 
+	/* The shell in which the plugin has been added */
 	AnjutaShell *shell;
+	
+	/* UI manager */
 	AnjutaUI *ui;
+	
+	/* Preferences system  */
 	AnjutaPreferences *prefs;
 	
+	/*< private >*/
 	AnjutaPluginPrivate *priv;
 };
 
 struct _AnjutaPluginClass {
 	GObjectClass parent_class;
 
-	void (*activate) (AnjutaPlugin *tool);
-	gboolean (*deactivate) (AnjutaPlugin *tool);
+	/* Virtual functions */
+	void (*activate) (AnjutaPlugin *plugin);
+	gboolean (*deactivate) (AnjutaPlugin *plugin);
 };
 
 GType anjuta_plugin_get_type   (void);
 
-/*
-void  anjuta_plugin_merge_ui   (AnjutaPlugin   *tool,
-			      const char   *name,
-			      const char   *datadir,
-			      const char   *xmlfile,
-			      BonoboUIVerb *verbs,
-			      gpointer      user_data);
-void  anjuta_plugin_unmerge_ui (AnjutaPlugin   *tool);
-*/
-guint anjuta_plugin_add_watch (AnjutaPlugin *tool, 
-			     const char *name,
-			     AnjutaPluginValueAdded added,
-			     AnjutaPluginValueRemoved removed,
-			     gpointer user_data);
-void anjuta_plugin_remove_watch (AnjutaPlugin *tool,
-			       guint id,
-			       gboolean send_remove);
+guint anjuta_plugin_add_watch (AnjutaPlugin *plugin, 
+							   const gchar *name,
+							   AnjutaPluginValueAdded added,
+							   AnjutaPluginValueRemoved removed,
+							   gpointer user_data);
 
+void anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
+								 gboolean send_remove);
+
+/**
+ * ANJUTA_PLUGIN_BEGIN:
+ * @class_name: Name of the class. e.g. EditorPlugin
+ * @prefix: prefix of member function names. e.g. editor_plugin
+ * 
+ * This is a convienient macro defined to make it easy to write plugin
+ * classes . This macro begins the class type definition. member function
+ * @prefix _class_init and @prefix _instance_init should be statically defined
+ * before using this macro.
+ *
+ * The class type definition is finished with ANJUTA_PLUGIN_END() macro. In
+ * between which any number of interface definitions could be added with
+ * ANJUTA_INTERFACE_MACRO().
+ */
 #define ANJUTA_PLUGIN_BEGIN(class_name, prefix) \
 static GType \
 prefix##_get_type (GluePlugin *plugin) \
@@ -111,15 +143,38 @@ prefix##_get_type (GluePlugin *plugin) \
 						    ANJUTA_TYPE_PLUGIN, \
 						    #class_name, \
 						    &type_info, 0);
+/**
+ * ANJUTA_PLUGIN_END:
+ * 
+ * Ends the plugin class type definition started with ANJUTA_PLUGIN_BEGIN()
+ */
 #define ANJUTA_PLUGIN_END \
 	} \
 	return type; \
 }
 
+/**
+ * ANJUTA_PLUGIN_BOILERPLATE:
+ * @class_name: Name of the class. e.g EditorPlugin
+ * @prefix: prefix of member function names. e.g. editor_plugin
+ * 
+ * This macro is similar to using ANJUTA_PLUGIN_BEGIN() and then immediately
+ * using ANJUTA_PLUGIN_END(). It is basically a plugin type definition macro
+ * that does not have any interface implementation.
+ */
 #define ANJUTA_PLUGIN_BOILERPLATE(class_name, prefix) \
 ANJUTA_PLUGIN_BEGIN(class_name, prefix); \
 ANJUTA_PLUGIN_END
 
+/**
+ * ANJUTA_SIMPLE_PLUGIN:
+ * @class_name: Name of the class. e.g. EditorPlugin
+ * @prefix: prefix of member function names. e.g. editor_plugin
+ * 
+ * Sets up necessary codes for the plugin factory to know the class type of
+ * of the plugin. This macro is generally used at the end of plugin class
+ * and member functions definitions. 
+ */
 #define ANJUTA_SIMPLE_PLUGIN(class_name, prefix) \
 G_MODULE_EXPORT void glue_register_components (GluePlugin *plugin); \
 G_MODULE_EXPORT GType glue_get_component_type (GluePlugin *plugin, const char *name); \

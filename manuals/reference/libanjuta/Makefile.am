@@ -22,8 +22,8 @@ MKDB_OPTIONS = --sgml-mode --output-format=xml
 FIXXREF_OPTIONS=
 
 # Used for dependencies
-HFILE_GLOB=$(top_srcdir)/libanjuta/anjuta-*.h
-CFILE_GLOB=$(top_srcdir)/libanjuta/anjuta-*.c
+HFILE_GLOB=$(top_srcdir)/libanjuta/*.h
+CFILE_GLOB=$(top_srcdir)/libanjuta/*.c
 
 # Header files to ignore when scanning
 IGNORE_HFILES=egg* glue* gnomefilelist.* fileselection.* e-*

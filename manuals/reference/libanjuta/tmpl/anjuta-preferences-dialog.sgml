@@ -14,7 +14,7 @@ Preferences dialog
 
 </para>
 
-<!-- ##### STRUCT AnjutaPreferencesDialogPrivate ##### -->
+<!-- ##### STRUCT AnjutaPreferencesDialog ##### -->
 <para>
 
 </para>
@@ -45,4 +45,6 @@ Preferences dialog
 </para>
 
 @dlg: 
-@name:
+@name: 
+
+
