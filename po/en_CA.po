@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-17 20:02-0500\n"
-"PO-Revision-Date: 2004-12-17 12:57-0400\n"
+"POT-Creation-Date: 2004-12-23 10:30-0500\n"
+"PO-Revision-Date: 2004-12-23 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,6 @@ msgid "    "
 msgstr "    "
 
 #: anjuta.glade.h:2 libegg/layout.glade.h:1
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:1
 #: plugins/editor/anjuta-document-manager.glade.h:8
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
@@ -138,7 +137,7 @@ msgid "CPU Registers"
 msgstr "CPU Registers"
 
 #. 2
-#: anjuta.glade.h:26 plugins/cvs-plugin/cvs-execute.c:200
+#: anjuta.glade.h:26 plugins/cvs-plugin/cvs-execute.c:230
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:344
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
@@ -224,7 +223,7 @@ msgstr "Data module Makefile.am"
 
 #. 13
 #: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:321
-#: plugins/gdb/plugin.c:35 plugins/gdb/utilities.c:2017 src/toolbar.c:306
+#: plugins/gdb/plugin.c:37 plugins/gdb/utilities.c:2017 src/toolbar.c:306
 msgid "Debug"
 msgstr "Debug"
 
@@ -519,8 +518,8 @@ msgid "Open existing file or create a new file."
 msgstr "Open existing file or create a new file."
 
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:338
-#: plugins/file-loader/plugin.c:428 plugins/file-loader/plugin.c:585
-#: plugins/file-loader/plugin.c:599 src/toolbar.c:80
+#: plugins/file-loader/plugin.c:430 plugins/file-loader/plugin.c:587
+#: plugins/file-loader/plugin.c:601 src/toolbar.c:80
 msgid "Open file"
 msgstr "Open file"
 
@@ -573,7 +572,7 @@ msgid "Programs"
 msgstr "Programs"
 
 #: anjuta.glade.h:122 plugins/project-manager/plugin.c:344
-#: plugins/project-manager/plugin.c:716 plugins/project-manager/plugin.c:919
+#: plugins/project-manager/plugin.c:716 plugins/project-manager/plugin.c:924
 #: plugins/project-manager/project_dbase_gui.c:581 src/anjuta_gui.c:114
 #: src/toolbar.c:150
 msgid "Project"
@@ -1045,19 +1044,19 @@ msgid "Anjuta Preferences"
 msgstr "Anjuta Preferences"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: libanjuta/anjuta-ui.c:812
+#: libanjuta/anjuta-ui.c:811
 msgid "Action"
 msgstr "Action"
 
-#: libanjuta/anjuta-ui.c:830
+#: libanjuta/anjuta-ui.c:829
 msgid "Visible"
 msgstr "Visible"
 
-#: libanjuta/anjuta-ui.c:841
+#: libanjuta/anjuta-ui.c:840
 msgid "Sensitive"
 msgstr "Sensitive"
 
-#: libanjuta/anjuta-ui.c:850
+#: libanjuta/anjuta-ui.c:849
 msgid "Shortcut"
 msgstr "Shortcut"
 
@@ -1141,11 +1140,11 @@ msgstr "Pixbuf Object"
 msgid "The pixbuf to render."
 msgstr "The pixbuf to render."
 
-#: libanjuta/plugins.c:925
+#: libanjuta/plugins.c:930
 msgid "Load"
 msgstr "Load"
 
-#: libanjuta/plugins.c:944 libanjuta/plugins.c:1348
+#: libanjuta/plugins.c:949 libanjuta/plugins.c:1353
 msgid "Available Plugins"
 msgstr "Available Plugins"
 
@@ -1806,7 +1805,7 @@ msgstr "Class Builder"
 #. 7
 #. 9
 #: plugins/class-gen/clsGen.c:1360 plugins/devhelp/plugin.c:246
-#: plugins/devhelp/plugin.c:450 plugins/devhelp/plugin.c:463
+#: plugins/devhelp/plugin.c:454 plugins/devhelp/plugin.c:467
 #: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
 #: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:381
 #: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
@@ -1952,17 +1951,21 @@ msgstr "GTK+ Class"
 msgid "Select the type of class you would like to create."
 msgstr "Select the type of class you would like to create."
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 msgid "/usr/bin/cvs"
 msgstr "/usr/bin/cvs"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "<b>CVS Options</b>"
 msgstr "<b>CVS Options</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 msgid "<b>Options:</b>"
 msgstr "<b>Options:</b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+msgid "<b>Options</b>"
+msgstr "<b>Options</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
 msgid ""
@@ -1974,9 +1977,8 @@ msgid ""
 msgstr ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. The file "
-"will not be removed from CVS until you run CVS Commit. <b>You have been warned!"
-"</b>"
+"Pressing OK will delete the file from disk and from CVS. The file will not "
+"be removed from CVS until you run CVS Commit. <b>You have been warned!</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "Be verbose"
@@ -1999,88 +2001,96 @@ msgid "CVS: Diff file/directory"
 msgstr "CVS: Diff file/directory"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
+msgid "CVS: Log file/directory"
+msgstr "CVS: Log file/directory"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Remove file/directory"
 msgstr "CVS: Remove file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 #: plugins/cvs-plugin/cvs_gui.c:80
 msgid "CVS: Status"
 msgstr "CVS: Status"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Status from file/directory"
 msgstr "CVS: Status from file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
 msgid "CVS: Update file/directory"
 msgstr "CVS: Update file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "Choose file or directory to add:"
 msgstr "Choose file or directory to add:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
 msgid "Choose file or directory to commit:"
 msgstr "Choose file or directory to commit:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 msgid "Choose file or directory to diff:"
 msgstr "Choose file or directory to diff:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
+msgid "Choose file or directory to get log:"
+msgstr "Choose file or directory to get log:"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "Choose file or directory to get the status from:"
 msgstr "Choose file or directory to get the status from:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 msgid "Choose file or directory to remove:"
 msgstr "Choose file or directory to remove:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to update:"
 msgstr "Choose file or directory to update:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Compression Level (0=off, 10=max):"
 msgstr "Compression Level (0=off, 10=max):"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Create new directories"
 msgstr "Create new directories"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 msgid "Delete empty directories"
 msgstr "Delete empty directories"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 msgid "Do not act recursively"
 msgstr "Do not act recursively"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 msgid "File is binary"
 msgstr "File is binary"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Ignore .cvsrc file (recommend)"
 msgstr "Ignore .cvsrc file (recommend)"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 msgid "Log message:"
 msgstr "Log message:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "Path to \"cvs\" command"
 msgstr "Path to \"cvs\" command"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Reset sticky tags"
 msgstr "Reset sticky tags"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 #: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
 msgid "Revision: "
 msgstr "Revision: "
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
 msgid ""
 "Standard diff\n"
 "Patch-Style diff"
@@ -2088,11 +2098,15 @@ msgstr ""
 "Standard diff\n"
 "Patch-Style diff"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:37
 msgid "Unified format instead of context format"
 msgstr "Unified format instead of context format"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:36
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
+msgid "Use revision/tag: "
+msgstr "Use revision/tag: "
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
 msgid "Use revision: "
 msgstr "Use revision: "
 
@@ -2161,26 +2175,30 @@ msgstr "Updating versions in file tree..."
 msgid "done\n"
 msgstr "done\n"
 
-#: plugins/cvs-plugin/cvs-actions.c:197
+#: plugins/cvs-plugin/cvs-actions.c:219
 msgid "Unable to delete file"
 msgstr "Unable to delete file"
 
-#: plugins/cvs-plugin/cvs-execute.c:100
+#: plugins/cvs-plugin/cvs-execute.c:130
 msgid "CVS command failed! - See above for details"
 msgstr "CVS command failed! - See above for details"
 
-#: plugins/cvs-plugin/cvs-execute.c:105
+#: plugins/cvs-plugin/cvs-execute.c:135
 #, c-format
 msgid "CVS command successful! - Time taken %ld secs."
 msgstr "CVS command successful! - Time taken: %ld seconds."
 
-#: plugins/cvs-plugin/cvs-execute.c:193
+#: plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "CVS command is running - please wait until it finishes!"
 
-#: plugins/cvs-plugin/cvs-execute.c:256
+#: plugins/cvs-plugin/cvs-execute.c:286
 msgid "cvs.diff"
 msgstr "cvs.diff"
+
+#: plugins/cvs-plugin/cvs-execute.c:299
+msgid "cvs.log"
+msgstr "cvs.log"
 
 #: plugins/cvs-plugin/cvs_cbs.c:41
 msgid "You do not need to login to a local server"
@@ -2414,16 +2432,28 @@ msgstr "Show the status of a file/directory"
 #. Action name
 #. Stock icon, if any
 #: plugins/cvs-plugin/plugin.c:93
+msgid "_Show Log"
+msgstr "_Show Log"
+
+#. Display label
+#. short-cut
+#: plugins/cvs-plugin/plugin.c:95
+msgid "Show the log of a file/directory"
+msgstr "Show the log of a file/directory"
+
+#. Action name
+#. Stock icon, if any
+#: plugins/cvs-plugin/plugin.c:101
 msgid "_Import Tree"
 msgstr "_Import Tree"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:95
+#: plugins/cvs-plugin/plugin.c:103
 msgid "Import a new source tree to CVS"
 msgstr "Import a new source tree to CVS"
 
-#: plugins/cvs-plugin/plugin.c:121
+#: plugins/cvs-plugin/plugin.c:129
 msgid "CVS operations"
 msgstr "CVS operations"
 
@@ -2451,7 +2481,7 @@ msgstr "Load Executable File"
 msgid "Load Core File"
 msgstr "Load Core File"
 
-#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:334
+#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:336
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2602,60 +2632,60 @@ msgstr "Cannot execute command: \"%s\""
 msgid "Contents"
 msgstr "Contents"
 
-#: plugins/devhelp/plugin.c:249 plugins/devhelp/plugin.c:466
+#: plugins/devhelp/plugin.c:249 plugins/devhelp/plugin.c:470
 msgid "Help display"
 msgstr "Help display"
 
-#: plugins/devhelp/plugin.c:329
+#: plugins/devhelp/plugin.c:333
 msgid "Search Help:"
 msgstr "Search Help:"
 
-#: plugins/devhelp/plugin.c:347 plugins/editor/plugin.c:202
+#: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:202
 #: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:169
 msgid "_Goto"
 msgstr "_Goto"
 
-#: plugins/devhelp/plugin.c:355
+#: plugins/devhelp/plugin.c:359
 msgid "Previous Help"
 msgstr "Previous Help"
 
-#: plugins/devhelp/plugin.c:357
+#: plugins/devhelp/plugin.c:361
 msgid "Go to previous help page"
 msgstr "Go to previous help page"
 
-#: plugins/devhelp/plugin.c:363
+#: plugins/devhelp/plugin.c:367
 msgid "Next Help"
 msgstr "Next Help"
 
-#: plugins/devhelp/plugin.c:365
+#: plugins/devhelp/plugin.c:369
 msgid "Go to next help page"
 msgstr "Go to next help page"
 
-#: plugins/devhelp/plugin.c:371
+#: plugins/devhelp/plugin.c:375
 msgid "_API references"
 msgstr "_API references"
 
-#: plugins/devhelp/plugin.c:373
+#: plugins/devhelp/plugin.c:377
 msgid "Browse API Pages"
 msgstr "Browse API Pages"
 
-#: plugins/devhelp/plugin.c:379
+#: plugins/devhelp/plugin.c:383
 msgid "_Context Help"
 msgstr "_Context Help"
 
-#: plugins/devhelp/plugin.c:381
+#: plugins/devhelp/plugin.c:385
 msgid "Search help for the current word in the editor"
 msgstr "Search help for the current word in the editor"
 
-#: plugins/devhelp/plugin.c:387
+#: plugins/devhelp/plugin.c:391
 msgid "_Search Help"
 msgstr "_Search Help"
 
-#: plugins/devhelp/plugin.c:389
+#: plugins/devhelp/plugin.c:393
 msgid "Search for a term in help"
 msgstr "Search for a term in help"
 
-#: plugins/devhelp/plugin.c:444
+#: plugins/devhelp/plugin.c:448
 msgid "Devhelp navigation operations"
 msgstr "Devhelp navigation operations"
 
@@ -4577,7 +4607,7 @@ msgstr "Close"
 msgid "Docked"
 msgstr "Docked"
 
-#: plugins/file-loader/plugin.c:99
+#: plugins/file-loader/plugin.c:101
 #, c-format
 msgid ""
 "<b>Can not open \"%s\"</b>.\n"
@@ -4596,112 +4626,113 @@ msgstr ""
 "\n"
 "Mime type: %s.\n"
 "\n"
-"You may choose to try opening it with any of the following plugins or applications."
+"You may choose to try opening it with any of the following plugins or "
+"applications."
 
-#: plugins/file-loader/plugin.c:111
+#: plugins/file-loader/plugin.c:113
 msgid "Open with:"
 msgstr "Open with:"
 
 #. Document manager plugin
-#: plugins/file-loader/plugin.c:119
+#: plugins/file-loader/plugin.c:121
 msgid "Document Manager"
 msgstr "Document Manager"
 
-#: plugins/file-loader/plugin.c:339
+#: plugins/file-loader/plugin.c:341
 msgid "Anjuta Projects"
 msgstr "Anjuta Projects"
 
-#: plugins/file-loader/plugin.c:345
+#: plugins/file-loader/plugin.c:347
 #: plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "C/C++ source files"
 
-#: plugins/file-loader/plugin.c:357
+#: plugins/file-loader/plugin.c:359
 msgid "C# source files"
 msgstr "C# source files"
 
-#: plugins/file-loader/plugin.c:363
+#: plugins/file-loader/plugin.c:365
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Java source files"
 
-#: plugins/file-loader/plugin.c:369
+#: plugins/file-loader/plugin.c:371
 msgid "Pascal source files"
 msgstr "Pascal source files"
 
-#: plugins/file-loader/plugin.c:374
+#: plugins/file-loader/plugin.c:376
 msgid "PHP source files"
 msgstr "PHP source files"
 
-#: plugins/file-loader/plugin.c:381
+#: plugins/file-loader/plugin.c:383
 msgid "Perl source files"
 msgstr "Perl source files"
 
-#: plugins/file-loader/plugin.c:387
+#: plugins/file-loader/plugin.c:389
 msgid "Python source files"
 msgstr "Python source files"
 
-#: plugins/file-loader/plugin.c:392
+#: plugins/file-loader/plugin.c:394
 msgid "Hyper text markup files"
 msgstr "Hypertext markup files"
 
-#: plugins/file-loader/plugin.c:401
+#: plugins/file-loader/plugin.c:403
 msgid "Shell scripts files"
 msgstr "Shell scripts files"
 
-#: plugins/file-loader/plugin.c:406
+#: plugins/file-loader/plugin.c:408
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: plugins/file-loader/plugin.c:412
+#: plugins/file-loader/plugin.c:414
 msgid "Lua files"
 msgstr "Lua files"
 
-#: plugins/file-loader/plugin.c:417
+#: plugins/file-loader/plugin.c:419
 msgid "Diff files"
 msgstr "Diff files"
 
-#: plugins/file-loader/plugin.c:575
+#: plugins/file-loader/plugin.c:577
 msgid "_New ..."
 msgstr "_New ..."
 
-#: plugins/file-loader/plugin.c:577
+#: plugins/file-loader/plugin.c:579
 msgid "New file, project and project components."
 msgstr "New file, project and project components."
 
-#: plugins/file-loader/plugin.c:583
+#: plugins/file-loader/plugin.c:585
 msgid "_Open ..."
 msgstr "_Open ..."
 
-#: plugins/file-loader/plugin.c:591
+#: plugins/file-loader/plugin.c:593
 msgid "Open _Recent"
 msgstr "Open _Recent"
 
-#: plugins/file-loader/plugin.c:593
+#: plugins/file-loader/plugin.c:595
 msgid "Open recent file"
 msgstr "Open recent file"
 
-#: plugins/file-loader/plugin.c:598
+#: plugins/file-loader/plugin.c:600
 msgid "_Open"
 msgstr "_Open"
 
-#: plugins/file-loader/plugin.c:605
+#: plugins/file-loader/plugin.c:607
 msgid "Open _With"
 msgstr "Open _With"
 
-#: plugins/file-loader/plugin.c:606
+#: plugins/file-loader/plugin.c:608
 msgid "Open with"
 msgstr "Open with"
 
-#: plugins/file-loader/plugin.c:759
+#: plugins/file-loader/plugin.c:761
 msgid "File Loader"
 msgstr "File Loader"
 
-#: plugins/file-loader/plugin.c:764
+#: plugins/file-loader/plugin.c:766
 msgid "New"
 msgstr "New"
 
-#: plugins/file-loader/plugin.c:766
+#: plugins/file-loader/plugin.c:768
 msgid "Open"
 msgstr "Open"
 
@@ -6744,16 +6775,16 @@ msgstr "Project manager actions"
 msgid "Project manager popup actions"
 msgstr "Project manager popup actions"
 
-#: plugins/project-manager/plugin.c:807
+#: plugins/project-manager/plugin.c:812
 msgid "Loading project. Please wait ..."
 msgstr "Loading project. Please wait ..."
 
-#: plugins/project-manager/plugin.c:878
+#: plugins/project-manager/plugin.c:883
 #, c-format
 msgid "Loading project: %s"
 msgstr "Loading project: %s"
 
-#: plugins/project-manager/plugin.c:889
+#: plugins/project-manager/plugin.c:894
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Failed to load project %s: %s"
@@ -7686,23 +7717,23 @@ msgstr "Find usage of symbol in project"
 msgid "Refresh symbol browser tree"
 msgstr "Refresh symbol browser tree"
 
-#: plugins/symbol-browser/plugin.c:551
+#: plugins/symbol-browser/plugin.c:593
 msgid "Symbol browser popup actions"
 msgstr "Symbol browser popup actions"
 
-#: plugins/symbol-browser/plugin.c:558
+#: plugins/symbol-browser/plugin.c:600
 msgid "Goto symbol"
 msgstr "Go to symbol"
 
-#: plugins/symbol-browser/plugin.c:559
+#: plugins/symbol-browser/plugin.c:601
 msgid "Select the symbol to go"
 msgstr "Select the symbol to go to"
 
-#: plugins/symbol-browser/plugin.c:567
+#: plugins/symbol-browser/plugin.c:609
 msgid "Symbol navigations"
 msgstr "Symbol navigations"
 
-#: plugins/symbol-browser/plugin.c:576
+#: plugins/symbol-browser/plugin.c:618
 msgid "Symbols"
 msgstr "Symbols"
 
