@@ -254,7 +254,7 @@ on_page2_back (GnomeDruidPage * page2, gpointer arg1, gpointer data)
 gboolean
 on_page3_back (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 {
-	gnome_ok_dialog (_("Sorry, this is a point of no return"));
+	anjuta_error (_("The import operation has already begun.\nClick Cancel to skip the customisation stage, or Next to continue."));
 	return TRUE;
 }
 

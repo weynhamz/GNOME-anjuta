@@ -34,10 +34,10 @@ void create_import_wizard_page_finish (ProjectImportWizard * piw);
 static gchar *
 greetings_text ()
 {
-	return _("The Import Project Wizard scans the directory of an\n"
-		 "existing project and tries to import the project structure\n"
-		 "into an anjuta project. You can adjust the autodetected\n"
-		 "values later.\n"
+	return _("The Project Import Wizard scans the directory of an\n"
+		 "existing code project, and attempts to import the structure\n"
+		 "into an Anjuta Project. There will be a chance to update\n"
+	     "any autodetected values during the import process.\n\n"
 		 "THIS IS AN EXPERIMENTAL FEATURE\n");
 }
 
@@ -178,12 +178,12 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 	gtk_container_add (GTK_CONTAINER (frame), vbox2);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox2), 5);
 
-	label1 = gtk_label_new (_("Select project toplevel directory:"));
+	label1 = gtk_label_new (_("Select top level directory of an existing project"));
 	gtk_widget_show (label1);
 
 	piw->widgets.file_entry = gnome_file_entry_new ("project_import",
 							_
-							("Select project toplevel directory"));
+							("Select existing project directory"));
 	gtk_widget_show (piw->widgets.file_entry);
 	gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, TRUE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.file_entry,
@@ -195,7 +195,7 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 			    FALSE, TRUE, 5);
 	
 	piw->widgets.label =
-		gtk_label_new (_("Press \"Next\" to start import"));
+		gtk_label_new (_("Click Next to begin the import"));
 	gtk_widget_show (piw->widgets.label);
 	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.label, FALSE, TRUE,
 			    40);

@@ -1,3 +1,13 @@
+2002-01-30  Andy Piper <andy.piper@freeuk.com>
+
+	* src/appwizard_cbs.c, project_import_cbs.c, 
+	  main_menubar_def.h, project_import_gui.c: 
+	  updates to message strings and layout for the 
+	  import wizard.
+	  
+	* text_editor_cbs.c: fix for the tab menu entries for 
+	  redocked windows (Dan Elphick <dre00r@ecs.soton.ac.uk>)
+
 2002-01-30  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/toolbars.c,
