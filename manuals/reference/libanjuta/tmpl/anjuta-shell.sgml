@@ -239,6 +239,16 @@ Application shell interface
 @Returns: 
 
 
+<!-- ##### FUNCTION anjuta_shell_get_status ##### -->
+<para>
+
+</para>
+
+@shell: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_shell_get_object ##### -->
 <para>
 
@@ -259,6 +269,16 @@ Application shell interface
 
 @shell: 
 @iface_type: 
+@error: 
+
+
+<!-- ##### FUNCTION anjuta_shell_present_widget ##### -->
+<para>
+
+</para>
+
+@shell: 
+@widget: 
 @error: 
 
 

@@ -78,3 +78,33 @@ ianjuta-buildable
 @err: 
 
 
+<!-- ##### FUNCTION ianjuta_buildable_configure ##### -->
+<para>
+
+</para>
+
+@obj: 
+@directory: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_buildable_generate ##### -->
+<para>
+
+</para>
+
+@obj: 
+@directory: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_buildable_install ##### -->
+<para>
+
+</para>
+
+@obj: 
+@directory: 
+@err: 
+
+

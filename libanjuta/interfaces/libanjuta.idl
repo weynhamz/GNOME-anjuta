@@ -494,7 +494,6 @@ interface IAnjutaMessageManager
 	 *
 	 * Return value: The new message-view
 	 */
-	 
 	IAnjutaMessageView* add_view (const gchar *name, const gchar *icon);
 	
 	/**
@@ -507,7 +506,6 @@ interface IAnjutaMessageManager
 	 * will become invalid.
 	 *
 	 */
-	
 	void remove_view (IAnjutaMessageView *view);
 	
 	/**
@@ -517,8 +515,10 @@ interface IAnjutaMessageManager
 	 *
 	 * Get the view with is currently on top of 
 	 * the notebook or NULL if the message-manager is empty.
+	 *
+	 * Return value: Current view; #IAnjutaMessageView object.
+	 * NULL, if there is no views.
 	 */
-	 
 	IAnjutaMessageView* get_current_view ();
 	
 	/**
@@ -532,12 +532,10 @@ interface IAnjutaMessageManager
 	 *
 	 * Return value: The message-view or NULL
 	 */
-	 
 	IAnjutaMessageView* get_view_by_name (const gchar *name);
 	
 	/**
 	 * ianjuta_message_manager_get_all_views:
-	 * @name: Name of the view you want to get
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
@@ -546,7 +544,6 @@ interface IAnjutaMessageManager
 	 * Return value: A GList* of all views. You must not
 	 * manipulate the list.
 	 */
-	
 	GList* get_all_views ();
 	
 	/**
@@ -558,7 +555,6 @@ interface IAnjutaMessageManager
 	 * Set view to be on top of the notebook.
 	 *
 	 */
-	
 	void set_current_view (IAnjutaMessageView *view);
 }
 

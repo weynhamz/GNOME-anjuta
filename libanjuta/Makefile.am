@@ -35,8 +35,6 @@ libanjuta_la_SOURCES= \
 	anjuta-children.c \
 	resources.c \
 	resources.h \
-	defaults.h \
-	defaults.c \
 	glue-plugin.c \
 	glue-factory.c \
 	plugins.c \
@@ -45,6 +43,8 @@ libanjuta_la_SOURCES= \
 ##	properties.cxx \
 ##	properties.h \
 ##	properties_cxx.h \
+##	defaults.h \
+##	defaults.c \
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \

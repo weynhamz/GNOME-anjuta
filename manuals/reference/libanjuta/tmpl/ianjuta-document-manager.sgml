@@ -83,6 +83,17 @@
 @e: 
 
 
+<!-- ##### FUNCTION ianjuta_document_manager_get_full_filename ##### -->
+<para>
+
+</para>
+
+@obj: 
+@file: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION ianjuta_document_manager_goto_file_line ##### -->
 <para>
 
@@ -97,6 +108,18 @@
 @e: 
 
 
+<!-- ##### FUNCTION ianjuta_document_manager_goto_file_line_mark ##### -->
+<para>
+
+</para>
+
+@obj: 
+@file: 
+@lineno: 
+@mark: 
+@err: 
+
+
 <!-- ##### FUNCTION ianjuta_document_manager_set_current_editor ##### -->
 <para>
 
@@ -108,5 +131,28 @@
 <!-- # Unused Parameters # -->
 @docman: 
 @e: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_add_buffer ##### -->
+<para>
+
+</para>
+
+@obj: 
+@name: 
+@content: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_find_editor_with_path ##### -->
+<para>
+
+</para>
+
+@obj: 
+@file_path: 
+@err: 
+@Returns: 
 
 

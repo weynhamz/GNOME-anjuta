@@ -26,12 +26,13 @@
 
 #include <gnome.h>
 
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/e-splash.h>
 
 #include "anjuta.h"
+
+#define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
 /* Command line options */
 static gboolean no_splash = 0;

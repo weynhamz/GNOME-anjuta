@@ -1,3 +1,53 @@
+2005-01-16  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/Makefile.am, libanjuta/anjuta-debug.h,
+	libanjuta/anjuta-launcher.c, libanjuta/anjuta-plugin-description.c,
+	libanjuta/anjuta-plugin.c, libanjuta/anjuta-preferences.c,
+	(removed) libanjuta/anjuta-stock.h, libanjuta/anjuta-ui.c,
+	(removed) libanjuta/defaults.c, libanjuta/defaults.h,
+	(removed) libanjuta/pixmaps.h, libanjuta/resources.c,
+	libanjuta/resources.h,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/editor/plugin.c, plugins/editor/text_editor.c,
+	plugins/file-manager/an_file_view.c, plugins/gdb/stack_trace.c,
+	plugins/gtodo/plugin.c, src/Makefile.am,
+	src/about.c, src/anjuta-app.c, src/anjuta-app.h, src/anjuta.c,
+	src/main.c, (removed) src/preferences.c, (removed) src/preferences.h:
+	Removed deprecated APIs; pixmaps, stock icons, defaults etc. They
+	should be handled in respective plugins. Added API documentations.
+
+	* libanjuta-docs.sgml, libanjuta-sections.txt,
+	libanjuta.types,
+	(added) tmpl/anjuta-debug.sgml,
+	(added) tmpl/anjuta-launcher.sgml,
+	tmpl/anjuta-plugin.sgml,
+	tmpl/anjuta-preferences.sgml,
+	tmpl/anjuta-shell.sgml,
+	(added) tmpl/anjuta-status.sgml,
+	(removed) tmpl/anjuta-stock.sgml,
+	tmpl/anjuta-utils.sgml,
+	(removed) tmpl/defaults.sgml,
+	(removed) tmpl/fileselection.sgml,
+	(removed) tmpl/gnomefilelist.sgml,
+	tmpl/ianjuta-buildable.sgml,
+	(added) tmpl/ianjuta-debugger-manager.sgml,
+	(added) tmpl/ianjuta-debugger.sgml,
+	tmpl/ianjuta-document-manager.sgml,
+	tmpl/ianjuta-editor.sgml,
+	tmpl/ianjuta-file.sgml,
+	tmpl/ianjuta-loader.sgml,
+	tmpl/ianjuta-markable.sgml,
+	tmpl/ianjuta-message-view.sgml,
+	(added) tmpl/ianjuta-project-manager.sgml,
+	(added) tmpl/ianjuta-todo.sgml,
+	(added) tmpl/ianjuta-wizard.sgml,
+	tmpl/libanjuta-iface-marshallers.sgml,
+	tmpl/libanjuta-unused.sgml,
+	(removed) tmpl/pixmaps.sgml,
+	tmpl/plugins.sgml,
+	(removed) tmpl/properties.sgml,
+	tmpl/resources.sgml: Updated API documentations.
+
 2005-01-15  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-launcher.c: Added API docs.

@@ -1,8 +1,8 @@
 <!-- ##### SECTION Title ##### -->
-GnomeFileList
+anjuta-debug
 
 <!-- ##### SECTION Short_Description ##### -->
-Gnome file selector (deprecated)
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -13,4 +13,11 @@ Gnome file selector (deprecated)
 <para>
 
 </para>
+
+<!-- ##### MACRO DEBUG_PRINT ##### -->
+<para>
+
+</para>
+
+
 

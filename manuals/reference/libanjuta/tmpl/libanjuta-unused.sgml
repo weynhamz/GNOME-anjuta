@@ -18,6 +18,46 @@ Parser for parsing plugins meta data
 Plugin parser
 
 
+<!-- ##### SECTION ./tmpl/anjuta-stock.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/anjuta-stock.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/anjuta-stock.sgml:Short_Description ##### -->
+Some predefined stock icons
+
+
+<!-- ##### SECTION ./tmpl/anjuta-stock.sgml:Title ##### -->
+Anjuta stock icons
+
+
+<!-- ##### SECTION ./tmpl/defaults.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/defaults.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/defaults.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/defaults.sgml:Title ##### -->
+Sytem built-in defaults
+
+
 <!-- ##### SECTION ./tmpl/fileselection.sgml:Long_Description ##### -->
 <para>
 
@@ -58,6 +98,46 @@ Gnome file selector (deprecated)
 GnomeFileList
 
 
+<!-- ##### SECTION ./tmpl/pixmaps.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/pixmaps.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/pixmaps.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/pixmaps.sgml:Title ##### -->
+Image definitions
+
+
+<!-- ##### SECTION ./tmpl/properties.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/properties.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/properties.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/properties.sgml:Title ##### -->
+Properties
+
+
 <!-- ##### MACRO ANJUTA_INTERFACE ##### -->
 <para>
 
@@ -65,6 +145,126 @@ GnomeFileList
 
 @prefix: 
 @interface_type: 
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APPWIZ_LOGO ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APPWIZ_WATERMARK ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_COMPONENT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GENERIC ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOME ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOME2 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOMEMM ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOMEMM2 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTK ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTK2 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTKMM ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTKMM2 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_LIBGLADE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_LIBGLADE2 ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_OPENGL ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_QT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_SDL ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_WXWIN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_XWIN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_XWINDOCKAPP ##### -->
+<para>
+
+</para>
+
 
 <!-- ##### MACRO ANJUTA_PIXMAP_AUTOCOMPLETE ##### -->
 <para>
@@ -126,7 +326,79 @@ GnomeFileList
 </para>
 
 
+<!-- ##### MACRO ANJUTA_PIXMAP_BREAKPOINT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BUILD ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BUILD_ALL ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_PIXMAP_CALLTIP ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CLOSED_FOLDER ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CLOSE_FILE_SMALL ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CLOSE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_COMPILE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CONFIGURE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CONTINUE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_DEBUG ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_DEBUG_STOP ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_DOCK ##### -->
 <para>
 
 </para>
@@ -162,6 +434,24 @@ GnomeFileList
 </para>
 
 
+<!-- ##### MACRO ANJUTA_PIXMAP_FRAME ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_HELP ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_ICON ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_PIXMAP_INDENT ##### -->
 <para>
 
@@ -186,7 +476,169 @@ GnomeFileList
 </para>
 
 
+<!-- ##### MACRO ANJUTA_PIXMAP_INSPECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INTERRUPT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_LOGO ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_PIXMAP_MESSAGES ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_BUILD ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_CVS ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_DEBUG ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_DOCK ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_FIND ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_LOCALS ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_MODULES ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_TERMINAL ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_NEW_FOLDER ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_NEW_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_OPEN_FOLDER ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_OPEN_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_PASSWORD ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_POINTER ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_PROJECT_LISTING ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_REGISTERS ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_RUN_TO_CURSOR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SAVE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SPLASH_SCREEN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STACK ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STEP_IN ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STEP_OUT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STEP_OVER ##### -->
 <para>
 
 </para>
@@ -288,6 +740,18 @@ GnomeFileList
 </para>
 
 
+<!-- ##### MACRO ANJUTA_PIXMAP_WATCH ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_WIZARD ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_PLUGIN_FILE_PARSE_ERROR ##### -->
 <para>
 
@@ -319,6 +783,42 @@ GnomeFileList
 
 
 <!-- ##### MACRO ANJUTA_STOCK_BLOCK_START ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BUILD ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BUILD_ALL ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_CLOSE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_COMPILE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_CONFIGURE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_DEBUG ##### -->
 <para>
 
 </para>
@@ -378,6 +878,12 @@ GnomeFileList
 </para>
 
 
+<!-- ##### MACRO ANJUTA_STOCK_OPEN_PROJECT ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO ANJUTA_STOCK_PREV_BRACE ##### -->
 <para>
 
@@ -385,6 +891,18 @@ GnomeFileList
 
 
 <!-- ##### MACRO ANJUTA_STOCK_PREV_MESSAGE ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_PROJECT ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO ANJUTA_STOCK_SAVE_PROJECT ##### -->
 <para>
 
 </para>
@@ -772,6 +1290,14 @@ GnomeFileList
 @filename: 
 @Returns: 
 
+<!-- ##### FUNCTION anjuta_res_get_pixbuf ##### -->
+<para>
+
+</para>
+
+@filename: 
+@Returns: 
+
 <!-- ##### FUNCTION anjuta_ui_get_menu_merge ##### -->
 <para>
 
@@ -1073,15 +1599,6 @@ GnomeFileList
 </para>
 
 @filetypes: 
-@Returns: 
-
-<!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->
-<para>
-
-</para>
-
-@editor: 
-@e: 
 @Returns: 
 
 <!-- ##### FUNCTION ianjuta_file_get_filename ##### -->

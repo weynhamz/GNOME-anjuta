@@ -24,9 +24,7 @@
 
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
-#include <libanjuta/anjuta-stock.h>
 #include <libanjuta/anjuta-launcher.h>
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>

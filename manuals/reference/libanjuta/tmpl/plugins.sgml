@@ -98,6 +98,16 @@ Plugins management and activation
 @interface_name: 
 
 
+<!-- ##### FUNCTION anjuta_plugins_get_plugin_by_location ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_location: 
+@Returns: 
+
+
 <!-- ##### MACRO anjuta_plugins_get_interface ##### -->
 <para>
 
@@ -118,5 +128,25 @@ Plugins management and activation
 <!-- # Unused Parameters # -->
 @ui: 
 @prefs: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_unload_all ##### -->
+<para>
+
+</para>
+
+@shell: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_select ##### -->
+<para>
+
+</para>
+
+@shell: 
+@title: 
+@description: 
+@plugin_descriptions: 
+@Returns: 
 
 

@@ -305,7 +305,9 @@ e_splash_new (const char *image_file)
  * e_splash_add_icon:
  * @splash: A pointer to an ESplash widget
  * @icon_pixbuf: Pixbuf for the icon to be added
- * 
+ * @title: Title.
+ * @desc: Description.
+ *
  * Add @icon_pixbuf to the @splash.
  * 
  * Return value: The total number of icons in the splash after the new icon has

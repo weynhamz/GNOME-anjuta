@@ -20,6 +20,12 @@
 #ifndef __ANJUTA_DEBUG__
 #define __ANJUTA_DEBUG__
 
+/**
+ * DEBUG_PRINT:
+ * 
+ * Equivalent to g_message(), except it has only effect when DEBUG is
+ * defined. Used for printing debug messages.
+ */
 #ifdef DEBUG
 #  define DEBUG_PRINT g_message
 #else

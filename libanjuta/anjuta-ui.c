@@ -35,7 +35,6 @@
 #include <libgnome/libgnome.h>
 #include <libegg/treeviewutils/eggcellrendererkeys.h>
 
-#include "pixmaps.h"
 #include "resources.h"
 #include "anjuta-ui.h"
 #include "anjuta-debug.h"
@@ -488,7 +487,8 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	actions = gtk_action_group_list_actions (action_group);
 	gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 						   &parent, NULL);
-	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+/*	pixbuf = anjuta_res_get_pixbuf (PACKAGE_PIXMAPS_DIR"/directory.png");*/
+	pixbuf = NULL;
 	gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &parent,
 						COLUMN_PIXBUF, pixbuf,
 						COLUMN_ACTION, action_group_label,

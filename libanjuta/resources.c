@@ -23,7 +23,6 @@
 
 #include <gnome.h>
 
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 
 GtkWidget *
@@ -49,40 +48,6 @@ anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
 	if (!found_widget)
 		g_warning (_("Widget not found: %s"), widget_name);
 	return found_widget;
-}
-
-GdkPixbuf *
-anjuta_res_get_pixbuf (const gchar * filename)
-{
-	GdkPixbuf *image;
-	gchar *pathname;
-	GError *error = NULL;
-	static GHashTable *pixbuf_hash;
-	
-	if (pixbuf_hash == NULL)
-	{
-#ifdef DEBUG
-		g_message ("Creating pixbuf hash table");
-#endif
-		pixbuf_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
-											 (GDestroyNotify)g_free,
-											 (GDestroyNotify)gdk_pixbuf_unref);
-	}
-	pathname = anjuta_res_get_pixmap_file (filename);
-	if (pathname == NULL)
-	{
-		g_warning (_("Could not find application image file: %s"), filename);
-		return NULL;
-	}
-
-	image = g_hash_table_lookup (pixbuf_hash, pathname);
-	if (image == NULL)
-	{
-		image = gdk_pixbuf_new_from_file (pathname, &error);
-		g_hash_table_insert (pixbuf_hash, g_strdup(pathname), image);
-	}
-	g_free (pathname);
-	return image;
 }
 
 GtkWidget *

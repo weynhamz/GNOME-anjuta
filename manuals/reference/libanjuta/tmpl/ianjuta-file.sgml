@@ -56,3 +56,13 @@ ianjuta-file
 @filename: 
 
 
+<!-- ##### FUNCTION ianjuta_file_get_uri ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+

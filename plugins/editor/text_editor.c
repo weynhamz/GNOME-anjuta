@@ -29,7 +29,6 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <errno.h>
 
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-encodings.h>

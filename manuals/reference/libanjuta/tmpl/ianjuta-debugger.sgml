@@ -1,0 +1,149 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-debugger
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO IANJUTA_DEBUGGER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaDebugger ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaDebuggerIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@is_active: 
+@load_core: 
+@load_executable: 
+@run_continue: 
+@start: 
+@step_in: 
+@step_out: 
+@step_over: 
+@toggle_breakpoint: 
+@toggle_breakpoint1: 
+
+<!-- ##### FUNCTION ianjuta_debugger_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_is_active ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_load_core ##### -->
+<para>
+
+</para>
+
+@obj: 
+@core: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_load_executable ##### -->
+<para>
+
+</para>
+
+@obj: 
+@prog: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_run_continue ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_start ##### -->
+<para>
+
+</para>
+
+@obj: 
+@prog: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_step_in ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_step_out ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_step_over ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_toggle_breakpoint ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_toggle_breakpoint1 ##### -->
+<para>
+
+</para>
+
+@obj: 
+@line: 
+@err: 
+
+

@@ -27,9 +27,7 @@
 #include <gdl/gdl-dock-layout.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-ui.h>
-
-#include "toolbar.h"
-#include "preferences.h"
+#include <libanjuta/anjuta-preferences.h>
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \

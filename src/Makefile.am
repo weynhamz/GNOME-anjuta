@@ -28,8 +28,6 @@ anjuta_SOURCES = \
 	anjuta-actions.h \
 	action-callbacks.h \
 	action-callbacks.c \
-	preferences.c \
-	preferences.h \
 	main.c
 
 anjuta_LDADD =  \

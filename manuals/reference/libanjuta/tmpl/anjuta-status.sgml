@@ -1,0 +1,116 @@
+<!-- ##### SECTION Title ##### -->
+AnjutaStatus
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AnjutaStatus ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL AnjutaStatus::busy ##### -->
+<para>
+
+</para>
+
+@anjutastatus: the object which received the signal.
+@arg1: 
+
+<!-- ##### STRUCT AnjutaStatusClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@busy: 
+
+<!-- ##### STRUCT AnjutaStatusPriv ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION anjuta_status_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_status_set ##### -->
+<para>
+
+</para>
+
+@status: 
+@mesg: 
+@Varargs: 
+
+
+<!-- ##### FUNCTION anjuta_status_push ##### -->
+<para>
+
+</para>
+
+@status: 
+@mesg: 
+@Varargs: 
+
+
+<!-- ##### MACRO anjuta_status_pop ##### -->
+<para>
+
+</para>
+
+@obj: 
+
+
+<!-- ##### FUNCTION anjuta_status_busy_push ##### -->
+<para>
+
+</para>
+
+@status: 
+
+
+<!-- ##### FUNCTION anjuta_status_busy_pop ##### -->
+<para>
+
+</para>
+
+@status: 
+
+
+<!-- ##### FUNCTION anjuta_status_set_default ##### -->
+<para>
+
+</para>
+
+@status: 
+@label: 
+@value_format: 
+@Varargs: 
+
+
+<!-- ##### FUNCTION anjuta_status_add_widget ##### -->
+<para>
+
+</para>
+
+@status: 
+@widget: 
+
+

@@ -349,6 +349,16 @@ anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
 	destroy_watch (watch);
 }
 
+/**
+ * anjuta_plugin_activate:
+ * @plugin: a #AnjutaPlugin derived class object.
+ *
+ * Activates the plugin by calling activate() virtual method. All plugins
+ * should derive their classes from this virtual class and implement this
+ * method.
+ *
+ * Return value: TRUE if sucessfully activated, FALSE otherwise.
+ */
 gboolean
 anjuta_plugin_activate (AnjutaPlugin *plugin)
 {
@@ -365,6 +375,16 @@ anjuta_plugin_activate (AnjutaPlugin *plugin)
 	return plugin->priv->activated;
 }
 
+/**
+ * anjuta_plugin_deactivate:
+ * @plugin: a #AnjutaPlugin derived class object.
+ *
+ * Deactivates the plugin by calling deactivate() virtual method. All plugins
+ * should derive their classes from this virtual class and implement this
+ * method.
+ *
+ * Return value: TRUE if sucessfully activated, FALSE otherwise.
+ */
 gboolean
 anjuta_plugin_deactivate (AnjutaPlugin *plugin)
 {
@@ -383,6 +403,14 @@ anjuta_plugin_deactivate (AnjutaPlugin *plugin)
 	return success;
 }
 
+/**
+ * anjuta_plugin_is_active:
+ * @plugin: a #AnjutaPlugin derived class object.
+ *
+ * Returns TRUE if the plugin has been activated.
+ *
+ * Return value: TRUE if activated, FALSE otherwise.
+ */
 gboolean
 anjuta_plugin_is_active (AnjutaPlugin *plugin)
 {

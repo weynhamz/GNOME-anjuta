@@ -36,21 +36,12 @@
 #include <gdl/gdl-icons.h>
 
 #include <libanjuta/resources.h>
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
-
-// #include "anjuta.h"
-// #include "resources.h"
-// #include "mainmenu_callbacks.h"
-// #include "pixmaps.h"
-// #include "cvs_gui.h"
-// #include "properties.h"
-// #include "an_file_view.h"
 
 #include "plugin.h"
 
@@ -532,6 +523,7 @@ fv_connect (FileManagerPlugin *fv)
 									   NULL);
 }
 
+#if 0
 static gboolean
 file_entry_apply_filter (const char *name, GList *match, GList *unmatch,
 						 gboolean ignore_hidden)
@@ -563,6 +555,7 @@ file_entry_apply_filter (const char *name, GList *match, GList *unmatch,
 	}
 	return matched;	
 }
+#endif
 
 static void
 fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
@@ -1066,13 +1059,14 @@ fv_refresh (FileManagerPlugin *fv)
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
 	store = GTK_TREE_STORE (model);
 
-	pixbuf = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_CLOSED_FOLDER);
+	pixbuf = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
 	gtk_tree_store_append (store, &iter, NULL);
 	gtk_tree_store_set (store, &iter,
 				PIXBUF_COLUMN, pixbuf,
 				FILENAME_COLUMN, project_dir,
 				REV_COLUMN, "",
 				-1);
+	g_object_unref (pixbuf);
 	g_free (project_dir);
 	
 	gtk_tree_store_append (store, &sub_iter, &iter);

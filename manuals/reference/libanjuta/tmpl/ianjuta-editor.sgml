@@ -105,6 +105,59 @@
 @e: 
 
 
+<!-- ##### FUNCTION ianjuta_editor_get_lineno ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_length ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_current_word ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@editor: 
+@e: 
+
+
 <!-- ##### FUNCTION ianjuta_editor_goto_line ##### -->
 <para>
 
@@ -116,5 +169,27 @@
 <!-- # Unused Parameters # -->
 @editor: 
 @e: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_goto_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_insert ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@text: 
+@length: 
+@err: 
 
 

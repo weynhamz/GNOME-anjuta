@@ -14,6 +14,39 @@ libanjuta-iface-marshallers
 
 </para>
 
+<!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__BOOLEAN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION libanjuta_iface_cclosure_marshal_VOID__BOOLEAN_INT ##### -->
+<para>
+
+</para>
+
+@closure: 
+@return_value: 
+@n_param_values: 
+@param_values: 
+@invocation_hint: 
+@marshal_data: 
+
+
+<!-- ##### FUNCTION libanjuta_iface_cclosure_marshal_VOID__INT_CHAR ##### -->
+<para>
+
+</para>
+
+@closure: 
+@return_value: 
+@n_param_values: 
+@param_values: 
+@invocation_hint: 
+@marshal_data: 
+
+
 <!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__STRING ##### -->
 <para>
 
@@ -21,7 +54,7 @@ libanjuta-iface-marshallers
 
 
 
-<!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__BOOLEAN ##### -->
+<!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__VOID ##### -->
 <para>
 
 </para>

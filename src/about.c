@@ -23,9 +23,9 @@
 #endif
 
 #include <gnome.h>
-#include <libanjuta/pixmaps.h>
-#include <libanjuta/resources.h>
 #include "about.h"
+
+#define ANJUTA_PIXMAP_LOGO                "anjuta_logo1.png"
 
 static const char *authors[] = {
 	"Founder and lead developer:",
@@ -91,11 +91,12 @@ about_box_new ()
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
 	
-	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_LOGO);
+	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO, NULL);
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
 							  authors, documentors, NULL, pix);
+	g_object_unref (pix);
 #if 0
 	/* GTK provides a new about dialog now, please activate
 	when we swith to GTK 2.6 */

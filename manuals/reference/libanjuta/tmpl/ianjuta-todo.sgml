@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-ianjuta-loader
+ianjuta-todo
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -14,28 +14,28 @@ ianjuta-loader
 
 </para>
 
-<!-- ##### MACRO IANJUTA_LOADER_ERROR ##### -->
+<!-- ##### MACRO IANJUTA_TODO_ERROR ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### STRUCT IAnjutaLoader ##### -->
+<!-- ##### STRUCT IAnjutaTodo ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### STRUCT IAnjutaLoaderIface ##### -->
+<!-- ##### STRUCT IAnjutaTodoIface ##### -->
 <para>
 
 </para>
 
 @g_iface: 
-@find_plugins: 
+@load: 
 
-<!-- ##### FUNCTION ianjuta_loader_error_quark ##### -->
+<!-- ##### FUNCTION ianjuta_todo_error_quark ##### -->
 <para>
 
 </para>
@@ -43,13 +43,13 @@ ianjuta-loader
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_loader_find_plugins ##### -->
+<!-- ##### FUNCTION ianjuta_todo_load ##### -->
 <para>
 
 </para>
 
 @obj: 
+@uri: 
 @err: 
-@Returns: 
 
 

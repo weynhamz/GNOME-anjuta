@@ -29,7 +29,7 @@
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-gtodo.ui"
-#define ICON_FILE "anjuta-gtodo-plugin.png"
+#define ICON_FILE PACKAGE_PIXMAPS_DIR"/anjuta-gtodo-plugin.png"
 
 static gpointer parent_class;
 
@@ -156,11 +156,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!initialized)
 	{
-		pixbuf = anjuta_res_get_pixbuf (ICON_FILE);
+		pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
 		gtodo_plugin->prefs = preferences_widget();
 		anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
 											"Todo Manager",
 											pixbuf, gtodo_plugin->prefs);
+		g_object_unref (pixbuf);
 	}
 	/* Add all our editor actions */
 	gtodo_plugin->action_group = 

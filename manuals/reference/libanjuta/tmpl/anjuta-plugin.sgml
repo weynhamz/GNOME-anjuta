@@ -344,6 +344,15 @@ else
 
 
 
+<!-- ##### MACRO ANJUTA_PLUGIN_ADD_INTERFACE ##### -->
+<para>
+
+</para>
+
+@prefix: 
+@interface_type: 
+
+
 <!-- ##### MACRO ANJUTA_PLUGIN_BOILERPLATE ##### -->
 <para>
 

@@ -89,3 +89,36 @@ ianjuta-markable
 @err: 
 
 
+<!-- ##### FUNCTION ianjuta_markable_is_marker_set ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
+@marker: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_location_from_handle ##### -->
+<para>
+
+</para>
+
+@obj: 
+@handle: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_delete_all_markers ##### -->
+<para>
+
+</para>
+
+@obj: 
+@marker: 
+@err: 
+
+

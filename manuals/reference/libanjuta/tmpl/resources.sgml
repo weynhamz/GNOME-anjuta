@@ -33,12 +33,14 @@ Application resource management
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_res_get_pixbuf ##### -->
+<!-- ##### FUNCTION anjuta_res_get_image_sized ##### -->
 <para>
 
 </para>
 
 @filename: 
+@width: 
+@height: 
 @Returns: 
 
 

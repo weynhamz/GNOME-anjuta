@@ -20,6 +20,8 @@
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/plugins.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 
 #include "anjuta.h"
@@ -113,7 +115,7 @@ on_anjuta_restore_session_on_idle (gpointer data)
 {
 	GList *args;
 	AnjutaApp *app = (AnjutaApp*)data;
-	GnomeClient* client = gnome_master_client();
+	// GnomeClient* client = gnome_master_client();
 	
 	args = g_object_get_data (G_OBJECT(app), "command-args");
 	if (!args)

@@ -34,8 +34,6 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
-#include <libanjuta/defaults.h>
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/anjuta-debug.h>
 
 struct _AnjutaProperty
@@ -64,22 +62,6 @@ struct _AnjutaPreferencesPriv
 	GConfClient *gclient;
 	GList       *properties;
 	gboolean     is_showing;
-};
-
-/** 
- * AnjutaPreferences::changed:
- * @pref: The #AnjutaPreferences object which emitted the signal.
- * 
- * This signal is emitted when preferences is changed. Note that for
- * now, it is only emitted when 'Apply' is clicked on the preferences
- * dialog. In future, it is meant to be emitted when any set value
- * is called on a preference key (and if value is different from the
- *	old value.
- */
-enum
-{
-	CHANGED,
-	SIGNALS_END
 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
@@ -673,6 +655,7 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
  * @object: Object to register.
  * @key: Property key.
  * @default_value: Default value of the key.
+ * @data_type: property data type.
  * @flags: Flags
  * @set_property: Set property to widget callback.
  * @get_property: Get property from widget callback.
@@ -1282,6 +1265,7 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	GtkWidget *parent;
 	GtkWidget *page;
 	GdkPixbuf *pixbuf;
+	gchar *image_path;
 	
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (glade_widget_name != NULL);
@@ -1305,11 +1289,14 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 			gtk_container_remove (GTK_CONTAINER (parent), page);
 		}
 	}
-	pixbuf = anjuta_res_get_pixbuf (icon_filename);
+	image_path = anjuta_res_get_pixmap_file (icon_filename);
+	pixbuf = gdk_pixbuf_new_from_file (image_path, NULL);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr),
 										glade_widget_name, pixbuf, page);
 	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml, page);
 	g_object_unref (page);
+	g_free (image_path);
+	g_object_unref (pixbuf);
 }
 
 static void anjuta_preferences_class_init    (AnjutaPreferencesClass *class);
@@ -1456,7 +1443,7 @@ anjuta_preferences_new ()
  * @pr: A #AnjutaPreferences object.
  * @key: Key to monitor.
  * @func: User callback function.
- * @data: User data passed to @callback
+ * @data: User data passed to @func
  * @destroy_notify: Destroy notify function - called when notify is removed.
  *
  * This is similar to gconf_client_notify_add(), except that the key is not
@@ -1478,7 +1465,7 @@ anjuta_preferences_notify_add (AnjutaPreferences *pr,
 }
 
 /**
- * anjuta_preferences_notify_add:
+ * anjuta_preferences_notify_remove:
  * @pr: A #AnjutaPreferences object.
  * @notify_id: Notify ID returned by anjuta_preferences_notify_add().
  *
@@ -1491,7 +1478,7 @@ anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id)
 }
 
 /**
- * anjuta_preferences_notify_add:
+ * anjuta_preferences_get_prefix:
  * @pr: A #AnjutaPreferences object.
  *
  * Returns the gconf key prefix used by anjuta to store its preferences.

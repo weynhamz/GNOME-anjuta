@@ -37,8 +37,6 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
-#include <libanjuta/pixmaps.h>
-#include <libanjuta/anjuta-stock.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -52,32 +50,6 @@ static gboolean anjuta_app_save_layout_to_file (AnjutaApp *app);
 static void on_toggle_widget_view (GtkCheckMenuItem *menuitem, GtkWidget *dockitem);
 
 static gpointer parent_class = NULL;
-
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = anjuta_res_get_pixbuf (icon); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	//g_object_unref (pixbuf);
-
-static void
-create_stock_icons (AnjutaUI *ui)
-{
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
-	
-	icon_factory = anjuta_ui_get_icon_factory (ui);
-	
-//	REGISTER_ICON (ANJUTA_PIXMAP_PROJECT, ANJUTA_STOCK_PROJECT);
-//	REGISTER_ICON (ANJUTA_PIXMAP_OPEN_PROJECT, ANJUTA_STOCK_OPEN_PROJECT);
-//	REGISTER_ICON (ANJUTA_PIXMAP_CLOSE_PROJECT, ANJUTA_STOCK_CLOSE_PROJECT);
-//	REGISTER_ICON (ANJUTA_PIXMAP_SAVE_PROJECT, ANJUTA_STOCK_SAVE_PROJECT);
-//	REGISTER_ICON (ANJUTA_PIXMAP_COMPILE, ANJUTA_STOCK_COMPILE);
-//	REGISTER_ICON (ANJUTA_PIXMAP_BUILD, ANJUTA_STOCK_BUILD);
-//	REGISTER_ICON (ANJUTA_PIXMAP_BUILD_ALL, ANJUTA_STOCK_BUILD_ALL);
-//	REGISTER_ICON (ANJUTA_PIXMAP_CONFIGURE, ANJUTA_STOCK_CONFIGURE);
-//	REGISTER_ICON (ANJUTA_PIXMAP_DEBUG, ANJUTA_STOCK_DEBUG);
-}
 
 static void 
 layout_dirty_notify (GObject    *object,
@@ -153,7 +125,6 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		const gchar *toolbarname;
 		gchar* key;
 		AnjutaPreferences *pr;
-		GtkAction *action;
 		GtkWidget *menuitem;
 		
 		/* gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
@@ -274,8 +245,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	
 	/* Preferencesnces */
 	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
-	anjuta_preferences_initialize (app->preferences);
-	g_object_add_weak_pointer (G_OBJECT (app->preferences), (gpointer*)&app->preferences);
+	g_object_add_weak_pointer (G_OBJECT (app->preferences),
+							   (gpointer*)&app->preferences);
 
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
@@ -286,9 +257,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  app);
 	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer*)&app->ui);
 	
-	/* Create stock icons */
-	create_stock_icons (app->ui);
-
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
 										menu_entries_file,
@@ -431,7 +399,6 @@ anjuta_app_remove_value (AnjutaShell *shell, const char *name, GError **error)
 {
 	AnjutaApp *app;
 	GValue *value;
-	GtkWidget *w;
 	char *key;
 	
 	g_return_if_fail (ANJUTA_IS_APP (shell));
@@ -654,29 +621,29 @@ static GObject*
 anjuta_app_get_object  (AnjutaShell *shell, const char *iface_name,
 					    GError **error)
 {
-	g_return_if_fail (ANJUTA_IS_APP (shell));
-	g_return_if_fail (iface_name != NULL);
+	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
+	g_return_val_if_fail (iface_name != NULL, NULL);
 	return anjuta_plugins_get_plugin (shell, iface_name);
 }
 
 static AnjutaStatus*
 anjuta_app_get_status (AnjutaShell *shell, GError **error)
 {
-	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
 	return ANJUTA_APP (shell)->status;
 }
 
 static AnjutaUI *
 anjuta_app_get_ui  (AnjutaShell *shell, GError **error)
 {
-	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
 	return ANJUTA_APP (shell)->ui;
 }
 
 static AnjutaPreferences *
 anjuta_app_get_preferences  (AnjutaShell *shell, GError **error)
 {
-	g_return_if_fail (ANJUTA_IS_APP (shell));
+	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
 	return ANJUTA_APP (shell)->preferences;
 }
 
@@ -736,7 +703,6 @@ update_widget_view_menuitem (gpointer key, gpointer wid, gpointer data)
 static gboolean
 anjuta_app_save_layout_to_file (AnjutaApp *app)
 {
-	GList *node;
 	char *dir;
 	char *filename;
 
@@ -852,12 +818,11 @@ anjuta_app_finalize (GObject *widget)
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
 }
 
+#if 0
 static void
 anjuta_app_show (GtkWidget *widget)
 {
 	AnjutaApp *app;
-	// PropsID pr;
-	GtkAction *action;
 
 	g_return_if_fail (ANJUTA_IS_APP (widget));
 	
@@ -870,6 +835,7 @@ anjuta_app_show (GtkWidget *widget)
 	//start_with_dialog_show (GTK_WINDOW (app),
 	//						app->preferences, FALSE);
 }
+#endif
 
 static void
 anjuta_app_class_init (AnjutaAppClass *class)

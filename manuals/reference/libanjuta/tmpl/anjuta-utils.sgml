@@ -121,6 +121,17 @@ Utility functions
 @Returns: 
 
 
+<!-- ##### FUNCTION anjuta_util_dialog_input ##### -->
+<para>
+
+</para>
+
+@parent: 
+@label: 
+@value: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_util_prog_is_installed ##### -->
 <para>
 
@@ -260,6 +271,33 @@ Utility functions
 @Returns: 
 
 
+<!-- ##### FUNCTION anjuta_util_parse_args_from_string ##### -->
+<para>
+
+</para>
+
+@string: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_util_convert_to_utf8 ##### -->
+<para>
+
+</para>
+
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_util_escape_quotes ##### -->
+<para>
+
+</para>
+
+@str: 
+@Returns: 
+
+
 <!-- ##### MACRO ANJUTA_TYPE_BEGIN ##### -->
 <para>
 
@@ -275,5 +313,24 @@ Utility functions
 
 </para>
 
+
+
+<!-- ##### MACRO ANJUTA_TYPE_ADD_INTERFACE ##### -->
+<para>
+
+</para>
+
+@prefix: 
+@interface_type: 
+
+
+<!-- ##### MACRO ANJUTA_TYPE_BOILERPLATE ##### -->
+<para>
+
+</para>
+
+@class_name: 
+@prefix: 
+@parent_type: 
 
 

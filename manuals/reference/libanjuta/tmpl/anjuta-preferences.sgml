@@ -253,3 +253,34 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @pr: 
 
 
+<!-- ##### FUNCTION anjuta_preferences_notify_add ##### -->
+<para>
+
+</para>
+
+@pr: 
+@key: 
+@func: 
+@data: 
+@destroy_notify: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_preferences_notify_remove ##### -->
+<para>
+
+</para>
+
+@pr: 
+@notify_id: 
+
+
+<!-- ##### FUNCTION anjuta_preferences_get_prefix ##### -->
+<para>
+
+</para>
+
+@pr: 
+@Returns: 
+
+

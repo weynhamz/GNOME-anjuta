@@ -26,11 +26,13 @@
 #include <ctype.h>
 #include <gnome.h>
 
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 
 #include "debugger.h"
 #include "utilities.h"
+
+#define ANJUTA_PIXMAP_POINTER PACKAGE_PIXMAPS_DIR"/pointer.xpm"
+
 /* TODO #include "anjuta.h" */
 
 typedef struct _StackTraceGui StackTraceGui;
@@ -61,7 +63,7 @@ enum {
 };
 
 /* Pointer pixbuf */
-GdkPixbuf *pointer_pix;
+GdkPixbuf *pointer_pix = NULL;
 
 /*
  * returns the current stack frame or -1 on error
@@ -538,7 +540,9 @@ stack_trace_new ()
 		st->current_frame_iter = NULL;
 		st->current_index_iter = NULL;
 		
-		pointer_pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_POINTER);
+		if (pointer_pix)
+			g_object_unref (pointer_pix);
+		pointer_pix = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
 	}
 	return st;
 }
@@ -617,7 +621,8 @@ stack_trace_destroy (StackTrace * st)
 		gtk_widget_unref (st->widgets.menu_info);
 		gtk_widget_unref (st->widgets.menu_update);
 		gtk_widget_unref (st->widgets.menu_view);
-
+		if (pointer_pix)
+			g_object_unref (pointer_pix);
 		g_free (st);
 	}
 }

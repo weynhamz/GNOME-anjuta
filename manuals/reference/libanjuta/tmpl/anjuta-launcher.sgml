@@ -1,0 +1,204 @@
+<!-- ##### SECTION Title ##### -->
+AnjutaLauncher
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AnjutaLauncher ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL AnjutaLauncher::busy ##### -->
+<para>
+
+</para>
+
+@anjutalauncher: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL AnjutaLauncher::child-exited ##### -->
+<para>
+
+</para>
+
+@anjutalauncher: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
+<!-- ##### STRUCT AnjutaLauncherClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@child_exited_signal: 
+@busy_signal: 
+
+<!-- ##### STRUCT AnjutaLauncherPriv ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM AnjutaLauncherOutputType ##### -->
+<para>
+
+</para>
+
+@ANJUTA_LAUNCHER_OUTPUT_STDOUT: 
+@ANJUTA_LAUNCHER_OUTPUT_STDERR: 
+@ANJUTA_LAUNCHER_OUTPUT_PTY: 
+
+<!-- ##### USER_FUNCTION AnjutaLauncherOutputCallback ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@output_type: 
+@chars: 
+@user_data: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_is_busy ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_execute ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@command_str: 
+@callback: 
+@callback_data: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@command: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_execute_v ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@argv: 
+@callback: 
+@callback_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_set_encoding ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@charset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_send_stdin ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@input_str: 
+<!-- # Unused Parameters # -->
+@in: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_send_ptyin ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@input_str: 
+<!-- # Unused Parameters # -->
+@in: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_get_child_pid ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_reset ##### -->
+<para>
+
+</para>
+
+@launcher: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_signal ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@sig: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_set_buffered_output ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@buffered: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_set_check_passwd_prompt ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@buffered: 
+
+
+<!-- ##### FUNCTION anjuta_launcher_set_terminal_echo ##### -->
+<para>
+
+</para>
+
+@launcher: 
+@echo_on: 
+@Returns: 
+
+

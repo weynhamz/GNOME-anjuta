@@ -25,11 +25,17 @@
 #include <libanjuta/interfaces/ianjuta-stream-savable.h>
 #include <libanjuta/interfaces/ianjuta-transformable.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-manager.h>
+#include <libanjuta/interfaces/ianjuta-todo.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 anjuta_shell_get_type
 anjuta_preferences_get_type
 anjuta_preferences_dialog_get_type
 anjuta_ui_get_type
+anjuta_status_get_type
+anjuta_launcher_get_type
 anjuta_plugin_get_type
 ianjuta_editor_get_type
 ianjuta_buildable_get_type
@@ -57,3 +63,8 @@ ianjuta_stream_loader_get_type
 ianjuta_stream_savable_get_type
 ianjuta_transformable_get_type
 ianjuta_terminal_get_type
+ianjuta_todo_get_type
+ianjuta_project_manager_get_type
+ianjuta_wizard_get_type
+ianjuta_debugger_get_type
+ianjuta_debugger_manager_get_type

@@ -23,6 +23,7 @@ anjuta_shell_error_quark (void)
  * @widget: Then widget to add
  * @name: Name of the widget. None translated string used to identify it in 
  * the shell.
+ * @stock_id: Icon stock ID. Could be null.
  * @title: Translated string which is displayed along side the widget when
  * required (eg. as window title or notebook tab label).
  * @placement: Placement of the widget in shell.

@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-ianjuta-loader
+ianjuta-project-manager
 
 <!-- ##### SECTION Short_Description ##### -->
 
@@ -14,28 +14,28 @@ ianjuta-loader
 
 </para>
 
-<!-- ##### MACRO IANJUTA_LOADER_ERROR ##### -->
+<!-- ##### MACRO IANJUTA_PROJECT_MANAGER_ERROR ##### -->
 <para>
 
 </para>
 
 
 
-<!-- ##### STRUCT IAnjutaLoader ##### -->
+<!-- ##### STRUCT IAnjutaProjectManager ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### STRUCT IAnjutaLoaderIface ##### -->
+<!-- ##### STRUCT IAnjutaProjectManagerIface ##### -->
 <para>
 
 </para>
 
 @g_iface: 
-@find_plugins: 
+@configure: 
 
-<!-- ##### FUNCTION ianjuta_loader_error_quark ##### -->
+<!-- ##### FUNCTION ianjuta_project_manager_error_quark ##### -->
 <para>
 
 </para>
@@ -43,13 +43,12 @@ ianjuta-loader
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_loader_find_plugins ##### -->
+<!-- ##### FUNCTION ianjuta_project_manager_configure ##### -->
 <para>
 
 </para>
 
 @obj: 
 @err: 
-@Returns: 
 
 

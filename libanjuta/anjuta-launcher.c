@@ -34,11 +34,11 @@
 #include "anjuta-children.h"
 #include "anjuta-utils.h"
 #include "anjuta-marshal.h"
-#include "pixmaps.h"
 #include "resources.h"
 #include "anjuta-launcher.h"
 #include "anjuta-debug.h"
 
+#define ANJUTA_PIXMAP_PASSWORD "password.png"
 #define FILE_BUFFER_SIZE 1024
 /*
 static gboolean
@@ -283,7 +283,7 @@ anjuta_launcher_init (AnjutaLauncher * obj)
 
 /**
  * anjuta_launcher_is_busy:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  *
  * Tells if the laucher is currently executing any command.
  *
@@ -306,7 +306,7 @@ anjuta_launcher_set_busy (AnjutaLauncher *launcher, gboolean flag)
 
 /**
  * anjuta_launcher_send_stdin:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * @input_str: The string to send to STDIN of the process.
  * 
  * Sends a string to Standard input of the process currently being executed.
@@ -322,7 +322,7 @@ anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 
 /**
  * anjuta_launcher_send_ptyin:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * @input_str: The string to send to PTY of the process.
  * 
  * Sends a string to TTY input of the process currently being executed.
@@ -351,7 +351,7 @@ anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 
 /**
  * anjuta_launcher_reset:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * 
  * Resets the launcher and kills (SIGTERM) current process, if it is still
  * executing.
@@ -364,9 +364,10 @@ anjuta_launcher_reset (AnjutaLauncher *launcher)
 }
 
 /**
- * anjuta_launcher_send_stdin:
- * @launcher: a AnjutaLancher object.
- * 
+ * anjuta_launcher_signal:
+ * @launcher: a #AnjutaLancher object.
+ * @sig: kernel signal ID (e.g. SIGTERM).
+ *
  * Sends a kernel signal to the process that is being executed.
  */
 void
@@ -377,7 +378,7 @@ anjuta_launcher_signal (AnjutaLauncher *launcher, int sig)
 
 /**
  * anjuta_launcher_get_child_pid:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * 
  * Gets the Process ID of the child being executed.
  *
@@ -828,7 +829,7 @@ anjuta_launcher_child_terminated (int status, gpointer data)
 
 /**
  * anjuta_launcher_set_encoding:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * @charset: Character set to use for Input/Output with the process.
  * 
  * Sets the character set to use for Input/Output with the process.
@@ -985,8 +986,8 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 
 /**
  * anjuta_launcher_execute_v:
- * @launcher: a AnjutaLancher object.
- * @args: Command args.
+ * @launcher: a #AnjutaLancher object.
+ * @argv: Command args.
  * @callback: The callback for delivering output from the process.
  * @callback_data: Callback data for the above callback.
  * 
@@ -996,7 +997,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
  * Return value: TRUE if successfully launched, otherwise FALSE.
  */
 gboolean
-anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[],
+anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
 						   AnjutaLauncherOutputCallback callback,
 						   gpointer callback_data)
 {
@@ -1015,7 +1016,7 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[],
 	launcher->priv->callback_data = callback_data;
 	
 	/* On a fork error perform a cleanup and return */
-	if (anjuta_launcher_fork (launcher, args) < 0)
+	if (anjuta_launcher_fork (launcher, argv) < 0)
 	{
 		anjuta_launcher_initialize (launcher);
 		return FALSE;
@@ -1025,7 +1026,7 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[],
 
 /**
  * anjuta_launcher_execute:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * @command_str: The command to execute.
  * @callback: The callback for delivering output from the process.
  * @callback_data: Callback data for the above callback.
@@ -1070,7 +1071,7 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 
 /**
  * anjuta_launcher_echo:
- * @launcher: a AnjutaLancher object.
+ * @launcher: a #AnjutaLancher object.
  * @echo_on: Echo ON flag.
  * 
  * Sets if input (those given in STDIN) should enabled or disabled. By default,
@@ -1093,7 +1094,7 @@ anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
  * Sets if input (those given in STDIN) should enabled or disabled. By default,
  * it is disabled.
  *
- * Return value: a new instance of AnjutaLancher class.
+ * Return value: a new instance of #AnjutaLancher class.
  */
 AnjutaLauncher*
 anjuta_launcher_new ()

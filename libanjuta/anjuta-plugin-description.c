@@ -122,6 +122,11 @@ anjuta_plugin_description_section_free (AnjutaPluginDescriptionSection *section)
   g_free (section->lines);
 }
 
+/* anjuta_plugin_description_free:
+ * @df: an #AnjutaPluginDescription object
+ *
+ * Frees the #AnjutaPluginDescription instance.
+ */
 void
 anjuta_plugin_description_free (AnjutaPluginDescription *df)
 {
@@ -544,7 +549,15 @@ report_error (AnjutaPluginDescriptionParser *parser,
     }
 }
 
-
+/* anjuta_plugin_description_new_from_string:
+ * @data: The data to parse. The format of the data is .ini style.
+ *
+ * Parses the given plugin description data (usally read from the plugin
+ * description file and creates an instance of #AnjutaPluginDescription.
+ * The format of the content string is similar to .ini format.
+ *
+ * Return value: a new #AnjutaPluginDescription object
+ */
 AnjutaPluginDescription *
 anjuta_plugin_description_new_from_string (char *data, GError **error)
 {
@@ -580,6 +593,15 @@ anjuta_plugin_description_new_from_string (char *data, GError **error)
   return parser.df;
 }
 
+/* anjuta_plugin_description_to_string:
+ * @df: an #AnjutaPluginDescription object.
+ *
+ * Converts the description detains into string format, usually for
+ * saving it in a file.
+ *
+ * Return value: The string representation of the description. The
+ * returned values must be freed after use.
+ */
 char *
 anjuta_plugin_description_to_string (AnjutaPluginDescription *df)
 {
@@ -683,6 +705,18 @@ lookup_line (AnjutaPluginDescription        *df,
   return NULL;
 }
 
+/* anjuta_plugin_description_get_raw:
+ * @df: an #AnjutaPluginDescription object.
+ * @section_name: Name of the section.
+ * @keyname: Name of the key.
+ * @locale: The locale for which the value is to be retrieved.
+ * @val: Pointer to the variable to store the string value.
+ *
+ * Retrieves the value of a key (in the given section) for the given locale.
+ * The value returned in @val must be freed after use.
+ *
+ * Return value: TRUE if sucessful, otherwise FALSE.
+ */
 gboolean
 anjuta_plugin_description_get_raw (AnjutaPluginDescription  *df,
 			    const char    *section_name,
@@ -712,7 +746,13 @@ anjuta_plugin_description_get_raw (AnjutaPluginDescription  *df,
   return TRUE;
 }
 
-
+/* anjuta_plugin_description_foreach_section:
+ * @df: an #AnjutaPluginDescription object.
+ * @func: Callback function.
+ * @user_data: User data to pass to @func.
+ *
+ * Calls @func for each of the sections in the description.
+ */
 void
 anjuta_plugin_description_foreach_section (AnjutaPluginDescription            *df,
 				  AnjutaPluginDescriptionSectionFunc  func,
@@ -730,6 +770,17 @@ anjuta_plugin_description_foreach_section (AnjutaPluginDescription            *d
   return;
 }
 
+/* anjuta_plugin_description_foreach_key:
+ * @df: an #AnjutaPluginDescription object.
+ * @section_name: Name of the section.
+ * @include_localized: Whether each localized key should be called separately.
+ * @func: The callback function.
+ * @user_data: User data to pass to @func.
+ *
+ * Calls @func for each of the keys in the given section. @include_localized,
+ * if set to TRUE will make it call @func for the localized keys also, otherwise
+ * only one call is made for the key in current locale.
+ */
 void
 anjuta_plugin_description_foreach_key (AnjutaPluginDescription            *df,
 			      const char                  *section_name,
@@ -789,6 +840,16 @@ calculate_locale (AnjutaPluginDescription   *df)
     }
 }
 
+/* anjuta_plugin_description_get_locale_string:
+ * @df: an #AnjutaPluginDescription object.
+ * @section: Section name.
+ * @keyname: Key name.
+ * @val: Pointer to value to store retured value.
+ * 
+ * Returns the value of key in the given section in current locale.
+ *
+ * Return value: TRUE if sucessful, otherwise FALSE.
+ */
 gboolean
 anjuta_plugin_description_get_locale_string  (AnjutaPluginDescription  *df,
 				     const char      *section,
@@ -819,6 +880,16 @@ anjuta_plugin_description_get_locale_string  (AnjutaPluginDescription  *df,
   return anjuta_plugin_description_get_raw (df, section, keyname, NULL, val);
 }
 
+/* anjuta_plugin_description_get_string:
+ * @df: an #AnjutaPluginDescription object.
+ * @section: Section name.
+ * @keyname: Key name.
+ * @val: Pointer to value to store retured value.
+ * 
+ * Returns the value of key in the given section.
+ *
+ * Return value: TRUE if sucessful, otherwise FALSE.
+ */
 gboolean
 anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
 			     const char       *section,
@@ -828,6 +899,16 @@ anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
   return anjuta_plugin_description_get_raw (df, section, keyname, NULL, val);
 }
 
+/* anjuta_plugin_description_get_integer:
+ * @df: an #AnjutaPluginDescription object.
+ * @section: Section name.
+ * @keyname: Key name.
+ * @val: Pointer to value to store retured value.
+ * 
+ * Returns the value of key as integer in the given section in current locale.
+ *
+ * Return value: TRUE if sucessful, otherwise FALSE.
+ */
 gboolean
 anjuta_plugin_description_get_integer (AnjutaPluginDescription   *df,
 			      const char       *section,
