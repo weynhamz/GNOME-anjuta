@@ -66,6 +66,8 @@ create_find_in_files_gui (FindInFiles *sf)
 		glade_xml_get_widget (sf->gxml, "find_in_files_regex_entry");
 	sf->widgets.regexp_combo =
 		glade_xml_get_widget (sf->gxml, "find_in_files_regex_combo");
+		
+	gtk_combo_set_case_sensitive (GTK_COMBO (sf->widgets.regexp_combo), TRUE);	
 	
 	/* Set up list of files */
 	list_store = gtk_list_store_new (1, G_TYPE_STRING);

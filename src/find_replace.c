@@ -321,7 +321,9 @@ create_find_replace_gui (FindAndReplace * fr)
 	                  G_CALLBACK (on_replace_dialog_response), fr);
 	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "key-press-event",
 	                  G_CALLBACK (on_replace_dialog_key_press), fr);
-
+					  
+	gtk_combo_set_case_sensitive (GTK_COMBO (fr->r_gui.find_combo), TRUE);
+	gtk_combo_set_case_sensitive (GTK_COMBO (fr->r_gui.replace_combo), TRUE);
 	gtk_widget_grab_focus (fr->r_gui.find_entry);
 }
 
@@ -442,7 +444,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 			if (fr->replace_prompt)
 				but = gtk_dialog_run (GTK_DIALOG (dialog));
 			else
-				but = 1;
+				but = GTK_RESPONSE_YES;
 			gtk_widget_destroy (dialog);
 			
 			switch (but)

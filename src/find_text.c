@@ -240,6 +240,7 @@ create_find_text_gui (FindText * ft)
 	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "key-press-event",
 	                  G_CALLBACK (on_find_text_dialog_key_press), ft);
 
+	gtk_combo_set_case_sensitive (GTK_COMBO (ft->f_gui.combo), TRUE);
 	gtk_widget_grab_focus (ft->f_gui.entry);
 }
 

@@ -1,5 +1,15 @@
 2003-09-08  Naba Kumar  <naba@gnome.org>
 
+	Patch from Johannes Schmid  <clubfan@users.sourceforge.net>
+	* src/find_in_files.c, src/find_replace.c, src/search_replace.c:
+	Fixed bug #798717, Find - Find&Replace - Find in files bug;
+	The combo entries were updated if the same data with a different
+	case exist in the combo list. The combo entries are now case sensitive. 
+	Search&Replace bug; First search ,max actions = 0 ==> now max
+	actions = 100.
+	
+2003-09-08  Naba Kumar  <naba@gnome.org>
+
 	* TODO: Updated.
 	* src/utilities.[c,h]: a function takes contant args.
 	* src/anjuta.[c,h]: Fixed child registering/unregistering routine.

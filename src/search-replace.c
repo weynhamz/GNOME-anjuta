@@ -1302,7 +1302,6 @@ static GladeWidget glade_widgets[] = {
 };
 
 
-
 static void populate_value(const char *name, gpointer val_ptr)
 {
 	StringMap *map;
@@ -1647,6 +1646,8 @@ search_replace_populate(void)
 	{
 		populate_value(ACTIONS_MAX, &(max));
 		sr->search.expr.actions_max = atoi(max);
+		if (sr->search.expr.actions_max == 0)
+			sr->search.expr.actions_max = 100;
 		g_free(max);
 	}
 
