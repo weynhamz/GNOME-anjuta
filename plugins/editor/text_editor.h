@@ -48,7 +48,7 @@ struct _TextEditor
 
 	gchar *filename;
 	gchar *uri;
-	TMWorkObject *tm_file;
+	// TMWorkObject *tm_file;
 	time_t modified_time;
 	gint force_hilite;
 

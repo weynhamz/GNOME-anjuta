@@ -16,7 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
+#include <config.h>
+#include <libgnomevfs/gnome-vfs-ops.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
 
@@ -1372,7 +1373,129 @@ on_calltip1_activate (GtkAction * action, gpointer user_data)
 {
 }
 
-void
-on_detach1_activate  (GtkAction * action, gpointer user_data)
+/* Gets the swapped (c/h) file names */
+static gchar*
+get_swapped_filename (const gchar* filename)
 {
+	size_t len;
+	gchar *newfname;
+	GnomeVFSURI *vfs_uri;
+
+	g_return_val_if_fail (filename != NULL, NULL);
+
+	len = strlen (filename);
+	newfname = g_malloc (len+5); /* to be on the safer side */
+	while (len)
+	{
+		if (filename[len] == '.')
+			break;
+		len--;
+	}
+	len++;
+	strcpy (newfname, filename);
+	if (strncasecmp (&filename[len], "h", 1) == 0)
+	{
+		strcpy (&newfname[len], "cc");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		strcpy (&newfname[len], "cpp");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		strcpy (&newfname[len], "cxx");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		strcpy (&newfname[len], "c");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{ 
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+	}
+	else if (strncasecmp (&filename[len], "c", 1)==0 )
+	{
+		strcpy (&newfname[len], "h");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{ 
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		strcpy (&newfname[len], "hh");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		strcpy (&newfname[len], "hxx");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		strcpy (&newfname[len], "hpp");
+		vfs_uri = gnome_vfs_uri_new (newfname);
+		if (gnome_vfs_uri_exists (vfs_uri))
+		{
+			gnome_vfs_uri_unref (vfs_uri);
+			return newfname;
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+	}
+	g_free (newfname);	
+	return NULL;
+}
+
+void
+on_swap_activate (GtkAction *action, gpointer user_data)
+{
+	gchar *newfname;
+	const gchar *uri;
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+	te = anjuta_docman_get_current_editor (docman);
+	if (!te)
+		return;
+	uri = te->uri;
+	if (!uri)
+		return;
+	newfname = get_swapped_filename (uri);
+	if (newfname)
+	{
+		anjuta_docman_goto_file_line (docman, newfname, -1);
+		g_free (newfname);
+	}
+	return;
 }

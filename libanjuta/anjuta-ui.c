@@ -38,6 +38,7 @@
 #include "pixmaps.h"
 #include "resources.h"
 #include "anjuta-ui.h"
+#include "anjuta-debug.h"
 
 struct _AnjutaUIPrivate {
 	GtkIconFactory *icon_factory;
@@ -564,10 +565,8 @@ on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 {
 	if (data == value)
 	{
-#ifdef DEBUG
-		g_message ("Removing action group from hash: %s",
+		DEBUG_PRINT ("Removing action group from hash: %s",
 				   gtk_action_group_get_name (GTK_ACTION_GROUP (data)));
-#endif
 		return TRUE;
 	}
 	else
@@ -604,7 +603,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		gtk_tree_model_get (model, &iter, COLUMN_GROUP, &group, -1);
 		group_name = gtk_action_group_get_name (GTK_ACTION_GROUP (action_group));
 		
-		g_message ("%s == %s", group, group_name);
+		DEBUG_PRINT ("%s == %s", group, group_name);
 		if (group_name == NULL || group == NULL)
 		{
 			valid = gtk_tree_model_iter_next (model, &iter);
@@ -904,6 +903,6 @@ anjuta_ui_dump_tree (AnjutaUI *ui)
 	
 	gtk_ui_manager_ensure_update (GTK_UI_MANAGER (ui));
 	ui_str = gtk_ui_manager_get_ui (GTK_UI_MANAGER (ui));
-	printf("%s", ui_str);
+	DEBUG_PRINT ("%s", ui_str);
 	g_free (ui_str);
 }

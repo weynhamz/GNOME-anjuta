@@ -41,7 +41,7 @@
 #define ICON_FILE "anjuta-document-manager.png"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_UNDOCK              "undock.png"
+#define ANJUTA_PIXMAP_SWAP                "undock.png"
 #define ANJUTA_PIXMAP_INDENT              "indent.xpm"
 #define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark_toggle.xpm"
@@ -69,7 +69,7 @@
 #define ANJUTA_PIXMAP_AUTOCOMPLETE        "autocomplete.png"
 
 /* Stock icons */
-#define ANJUTA_STOCK_UNDOCK                   "anjuta-undock"
+#define ANJUTA_STOCK_SWAP                     "anjuta-swap"
 #define ANJUTA_STOCK_FOLD_TOGGLE              "anjuta-fold-toggle"
 #define ANJUTA_STOCK_FOLD_OPEN                "anjuta-fold-open"
 #define ANJUTA_STOCK_FOLD_CLOSE               "anjuta-fold-close"
@@ -105,6 +105,9 @@ static GtkActionEntry actions_file[] = {
   { "ActionFileReload", N_("Reload F_ile"), GTK_STOCK_REVERT_TO_SAVED, NULL,
 	N_("Reload current file"),
     G_CALLBACK (on_reload_file1_activate)},
+  { "ActionFileSwap", N_("Swap .h/.c"), ANJUTA_STOCK_SWAP, NULL,
+	N_("Swap c header and source file"),
+    G_CALLBACK (on_swap_activate)},
   { "ActionMenuFileRecentFiles", N_("Recent _Files"),  NULL, NULL, NULL, NULL},
 };
 
@@ -402,10 +405,6 @@ static GtkActionEntry actions_format[] = {
 	ANJUTA_STOCK_FOLD_TOGGLE, NULL,
 	N_("Toggle current code fold in the editor"),
     G_CALLBACK (on_editor_command_toggle_fold_activate)},
-  { "ActionFormatEditorDetach", N_("D_etach Current Document"),
-	ANJUTA_STOCK_UNDOCK, NULL,
-	N_("Detach the current document into a separate editor window"),
-    G_CALLBACK (on_detach1_activate)}
 };
 
 static GtkActionEntry actions_bookmark[] = {
@@ -643,7 +642,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
 	REGISTER_ICON (ICON_FILE, "editor-plugin-icon");
-	REGISTER_ICON (ANJUTA_PIXMAP_UNDOCK, ANJUTA_STOCK_UNDOCK);
+	REGISTER_ICON (ANJUTA_PIXMAP_SWAP, ANJUTA_STOCK_SWAP);
 	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
 	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
 	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);

@@ -25,8 +25,12 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
-#include <libanjuta/plugins.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
+#include <libanjuta/plugins.h>
+#include <libegg/menu/egg-combo-action.h>
 #include "plugin.h"
 #include "an_symbol_view.h"
 
@@ -40,9 +44,20 @@ static void treeview_signals_block (SymbolBrowserPlugin *sv_plugin);
 static void treeview_signals_unblock (SymbolBrowserPlugin *sv_plugin);
 
 static void
-goto_file_line (const gchar *file, gint line)
+goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 {
-	g_warning ("TODO: Goto file line unimplemented");
+	gchar *uri;
+	IAnjutaFileLoader *loader;
+	
+	g_return_if_fail (filename != NULL);
+		
+	/* Go to file and line number */
+	loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
+										 NULL);
+		
+	uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
+	ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+	g_free (uri);
 }
 
 static void
@@ -56,7 +71,7 @@ on_goto_def_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 													 &file, &line);
 	if (ret)
 	{
-		goto_file_line (file, line);
+		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
 	}
 }
 
@@ -71,7 +86,7 @@ on_goto_decl_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 													  &file, &line);
 	if (ret)
 	{
-		goto_file_line (file, line);
+		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
 	}
 }
 
@@ -258,12 +273,97 @@ treeview_signals_unblock (SymbolBrowserPlugin *sv_plugin)
 									 G_CALLBACK (on_treeview_event), NULL);
 }
 
+static void
+on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
+{
+	GtkTreeIter iter;
+	
+	if (egg_combo_action_get_active_iter (EGG_COMBO_ACTION (action), &iter))
+	{
+		gint line;
+		line = anjuta_symbol_view_workspace_get_line (ANJUTA_SYMBOL_VIEW
+													  (sv_plugin->sv),
+													  &iter);
+		if (line > 0 && sv_plugin->current_editor)
+		{
+			/* Goto line number */
+			ianjuta_editor_goto_line (IANJUTA_EDITOR (sv_plugin->current_editor),
+									  line, NULL);
+		}
+	}
+}
+
+static void
+value_added_current_editor (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	gchar *uri;
+	GObject *editor;
+	
+	editor = g_value_get_object (value);
+	
+	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin*)plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	if (sv_plugin->current_editor)
+		g_object_unref (sv_plugin->current_editor);
+	sv_plugin->current_editor = editor;
+	
+	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	if (uri)
+	{
+		gchar *filename;
+		GtkTreeModel *file_symbol_model;
+		GtkAction *action;
+		
+		filename = gnome_vfs_get_local_path_from_uri (uri);
+		g_return_if_fail (filename != NULL);
+		
+		anjuta_symbol_view_workspace_add_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+											   uri);
+		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
+									   "ActionGotoSymbol");
+		file_symbol_model =
+			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
+		g_free (uri);
+		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
+			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		else
+			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	}
+}
+
+static void
+value_removed_current_editor (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	AnjutaUI *ui;
+	SymbolBrowserPlugin *sv_plugin;
+	GtkAction *action;
+
+	sv_plugin = (SymbolBrowserPlugin*)plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
+								   "ActionGotoSymbol");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	if (sv_plugin->current_editor)
+		g_object_unref (sv_plugin->current_editor);
+	sv_plugin->current_editor = NULL;
+	
+	/* FIXME: Signal should be connected and symbols removed when
+	the editor is destroyed */
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	GtkActionGroup *group;
+	GtkAction *action;
 	SymbolBrowserPlugin *sv_plugin;
 	
-	g_message ("SymbolBrowserPlugin: Activating File Manager plugin ...");
+	g_message ("SymbolBrowserPlugin: Activating Symbol Manager plugin ...");
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
 	sv_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	sv_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -276,6 +376,21 @@ activate_plugin (AnjutaPlugin *plugin)
 											popup_actions,
 											G_N_ELEMENTS (popup_actions),
 											plugin);
+	group = gtk_action_group_new ("ActionGroupSymbolNavigation");
+	action = g_object_new (EGG_TYPE_COMBO_ACTION,
+						   "name", "ActionGotoSymbol",
+						   "label", _("Goto symbol"),
+						   "tooltip", _("Select the symbol to go"),
+						   "stock_id", GTK_STOCK_JUMP_TO,
+							NULL);
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	g_signal_connect (action, "activate",
+					  G_CALLBACK (on_symbol_selected), sv_plugin);
+	gtk_action_group_add_action (group, action);
+	anjuta_ui_add_action_group (sv_plugin->ui, "ActionGroupSymbolNavigation",
+								N_("Symbol navigations"), group);
+	sv_plugin->action_group_nav = group;
+	
 	/* Add UI */
 	sv_plugin->merge_id = 
 		anjuta_ui_merge (sv_plugin->ui, UI_FILE);
@@ -291,6 +406,10 @@ activate_plugin (AnjutaPlugin *plugin)
 									"project_root_uri",
 									project_root_added,
 									project_root_removed, NULL);
+	sv_plugin->editor_watch_id = 
+		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+								 value_added_current_editor,
+								 value_removed_current_editor, NULL);
 	return TRUE;
 }
 
@@ -302,6 +421,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, sv_plugin->root_watch_id, FALSE);
+	anjuta_plugin_remove_watch (plugin, sv_plugin->editor_watch_id, TRUE);
 	
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sw, NULL);
@@ -311,6 +431,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Remove action group */
 	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->action_group);
+	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->action_group_nav);
 	
 	sv_plugin->root_watch_id = 0;
 	return TRUE;
@@ -344,6 +465,8 @@ static void
 symbol_browser_plugin_instance_init (GObject *obj)
 {
 	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
+	plugin->current_editor = NULL;
+	
 	plugin->sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (plugin->sw),
 										 GTK_SHADOW_IN);

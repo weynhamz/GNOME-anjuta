@@ -78,7 +78,7 @@ text_editor_instance_init (TextEditor *te)
 {
 	te->filename = NULL;
 	te->uri = NULL;
-	te->tm_file = NULL;
+	// te->tm_file = NULL;
 	te->popup_menu = NULL;
 	
 	te->modified_time = time (NULL);
@@ -114,6 +114,7 @@ static glong marker_prop[] =
 	MARKER_PROP_END,	                        /* end */
 };
 
+#if 0
 static void
 check_tm_file(TextEditor *te)
 {
@@ -130,6 +131,7 @@ check_tm_file(TextEditor *te)
 		}
 	}
 }
+#endif
 
 static void
 initialize_markers (TextEditor* te)
@@ -1143,7 +1145,7 @@ text_editor_load_file (TextEditor * te)
 	}
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS,
 							0, 0);
-	check_tm_file(te);
+	// check_tm_file(te);
 	// FIXME: anjuta_set_active ();
 	text_editor_thaw (te);
 	scintilla_send_message (SCINTILLA (te->scintilla),
@@ -1875,8 +1877,10 @@ itext_editor_get_length (IAnjutaEditor *editor, GError **e)
 static gchar*
 itext_editor_get_current_word (IAnjutaEditor *editor, GError **e)
 {
-	return (gchar*)aneditor_command (TEXT_EDITOR (editor)->editor_id,
-									 ANE_GETCURRENTWORD, 0, 0);
+	gchar buffer[512];
+	aneditor_command (TEXT_EDITOR (editor)->editor_id,
+					  ANE_GETCURRENTWORD, (glong) buffer, 512);
+	return g_strdup (buffer);
 }
 
 static void

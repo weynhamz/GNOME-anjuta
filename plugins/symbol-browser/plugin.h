@@ -16,9 +16,12 @@ struct _SymbolBrowserPlugin{
 	GtkWidget *sw;
 	GtkWidget *sv;
 	GtkActionGroup *action_group;
+	GtkActionGroup *action_group_nav;
 	gint merge_id;
 	gchar *top_dir;
+	GObject *current_editor;
 	guint root_watch_id;
+	guint editor_watch_id;
 };
 
 struct _SymbolBrowserPluginClass{

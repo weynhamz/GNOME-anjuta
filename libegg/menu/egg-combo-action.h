@@ -51,5 +51,7 @@ struct _EggComboActionClass
 GType    egg_combo_action_get_type (void);
 void     egg_combo_action_set_model (EggComboAction *action, GtkTreeModel *model);
 GtkTreeModel* egg_combo_action_get_model (EggComboAction *action);
+gboolean egg_combo_action_get_active_iter (EggComboAction *action,
+										   GtkTreeIter *iter);
 
 #endif

@@ -63,6 +63,14 @@ gboolean anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView *sv,
 gboolean anjuta_symbol_view_get_current_symbol_decl (AnjutaSymbolView *sv,
 													 const gchar** const file,
 													 gint *line);
+GtkTreeModel *anjuta_symbol_view_get_file_symbol_model (AnjutaSymbolView *sv);
+void anjuta_symbol_view_workspace_add_file (AnjutaSymbolView *sv,
+											const gchar *uri);
+void anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView *sv,
+											   const gchar *uri);
+gint anjuta_symbol_view_workspace_get_line (AnjutaSymbolView *sv,
+											GtkTreeIter *iter);
+
 G_END_DECLS
 
 #endif /* AN_SYMBOL_VIEW_H */

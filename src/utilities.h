@@ -85,9 +85,6 @@ typedef enum _FileExtType FileExtType;
 /* Removes while spaces in the text */
 gchar* remove_white_spaces(gchar* text);
 
-/* Gets the swapped (c/h) file names */
-gchar* get_swapped_filename(gchar* filename);
-
 /* Get a unique temporary filename */
 /* This filename is not valid beyond the present session */
 gchar* get_a_tmp_file(void);

@@ -123,7 +123,6 @@ main (int argc, char **argv)
 						   "label", _("Search"),
 						   "tooltip", _("Incremental search"),
 						   "stock_id", GTK_STOCK_JUMP_TO,
-						   "width", 150,
 							NULL);
 	g_assert (EGG_IS_COMBO_ACTION (action));
 	g_signal_connect (action, "activate",

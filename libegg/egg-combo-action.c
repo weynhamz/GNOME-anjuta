@@ -30,6 +30,7 @@ struct _EggComboActionPriv
 {
 	GtkTreeModel *model;
 	GtkTreeIter *active_iter;
+	gint active_index;
 	gint width;
 };
 
@@ -48,7 +49,7 @@ static void connect_proxy                  (GtkAction *action,
 static void disconnect_proxy               (GtkAction *action,
 										    GtkWidget *proxy);
 static void egg_combo_action_finalize      (GObject *object);
-static void egg_combo_action_despose       (GObject *object);
+static void egg_combo_action_dispose       (GObject *object);
 static void egg_combo_action_update        (EggComboAction *combo);
 static void egg_combo_action_set_property  (GObject *object,
 											guint prop_id,
@@ -101,7 +102,7 @@ egg_combo_action_class_init (EggComboActionClass *class)
   object_class = G_OBJECT_CLASS (class);
 
   object_class->finalize     = egg_combo_action_finalize;
-  object_class->finalize     = egg_combo_action_despose;
+  object_class->dispose     = egg_combo_action_dispose;
   object_class->set_property = egg_combo_action_set_property;
   object_class->get_property = egg_combo_action_get_property;
  
@@ -117,7 +118,7 @@ egg_combo_action_class_init (EggComboActionClass *class)
 											_("Model"),
 											_("Model for the combo box"),
 											G_PARAM_READWRITE |
-											G_PARAM_CONSTRUCT_ONLY));
+											G_PARAM_READWRITE));
   g_object_class_install_property (object_class,
 								   PROP_WIDTH,
 								   g_param_spec_int ("width",
@@ -205,8 +206,8 @@ egg_combo_action_update (EggComboAction *action)
 				g_signal_handlers_block_by_func (combo,
 												 G_CALLBACK (on_change),
 												 action);
-				gtk_combo_box_set_active_iter (GTK_COMBO_BOX (combo),
-											   action->priv->active_iter);
+				gtk_combo_box_set_active (GTK_COMBO_BOX (combo),
+										  action->priv->active_index);
 				g_signal_handlers_unblock_by_func (combo,
 												   G_CALLBACK (on_change),
 												   action);
@@ -240,7 +241,7 @@ egg_combo_action_finalize (GObject *object)
 }
 
 static void
-egg_combo_action_despose (GObject *object)
+egg_combo_action_dispose (GObject *object)
 {
   if (EGG_COMBO_ACTION (object)->priv->active_iter)
   	gtk_tree_iter_free (EGG_COMBO_ACTION (object)->priv->active_iter);
@@ -257,8 +258,25 @@ on_change (GtkComboBox *combo, EggComboAction *action)
 		gtk_tree_iter_free (action->priv->active_iter);
 	gtk_combo_box_get_active_iter (combo, &iter);
 	action->priv->active_iter = gtk_tree_iter_copy (&iter);
+	action->priv->active_index = gtk_combo_box_get_active (combo);
 	egg_combo_action_update (action);
 	gtk_action_activate (GTK_ACTION (action));
+}
+
+static GtkTreeModel *
+create_dummy_model ()
+{
+	GtkTreeIter iter, *parent;
+	GtkTreeStore *store;
+
+	parent = NULL;
+	store = gtk_tree_store_new (3, GDK_TYPE_PIXBUF,
+								G_TYPE_STRING, G_TYPE_INT);
+	gtk_tree_store_append (store, &iter, NULL);
+	gtk_tree_store_set (store, &iter,
+						1, "----------------------------",
+						-1);
+	return GTK_TREE_MODEL (store);
 }
 
 static GtkWidget *
@@ -274,9 +292,19 @@ create_tool_item (GtkAction *action)
   combo = gtk_combo_box_new ();
   gtk_widget_show (combo);
   if (EGG_COMBO_ACTION (action)->priv->model)
+  {
 	  gtk_combo_box_set_model (GTK_COMBO_BOX (combo),
 							   EGG_COMBO_ACTION (action)->priv->model);
-
+	  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+  }
+  else
+  {
+	  /* Create a dummy model */
+	  GtkTreeModel *dummy_model;
+	  dummy_model = create_dummy_model ();
+	  gtk_combo_box_set_model (GTK_COMBO_BOX (combo), dummy_model);
+	  g_object_unref (dummy_model);
+  }
   renderer = gtk_cell_renderer_pixbuf_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo),
 							  renderer, FALSE);
@@ -293,6 +321,7 @@ create_tool_item (GtkAction *action)
 								  NULL);
 
   gtk_container_add (GTK_CONTAINER (item), combo);
+  // gtk_widget_set_size_request (combo, 80, -1);
   gtk_widget_show(GTK_WIDGET (item));
   return GTK_WIDGET (item);
 }
@@ -315,9 +344,13 @@ connect_proxy (GtkAction *action, GtkWidget *proxy)
       if (GTK_IS_COMBO_BOX (combo))
 		{
 		  if (EGG_COMBO_ACTION (action)->priv->model)
+		  {
+			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), -1);
 			  gtk_combo_box_set_model (GTK_COMBO_BOX (combo),
 									   EGG_COMBO_ACTION (action)->priv->model);
-			  g_signal_connect (G_OBJECT (combo), "changed",
+			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+		  }
+		  g_signal_connect (G_OBJECT (combo), "changed",
 								G_CALLBACK (on_change), action);
 		}
     }
@@ -357,6 +390,7 @@ egg_combo_action_set_model (EggComboAction *action, GtkTreeModel *model)
   GSList *slist;
 
   g_return_if_fail (EGG_IS_COMBO_ACTION (action));
+  g_return_if_fail (GTK_IS_TREE_MODEL (model));
 
   if (action->priv->model) {
 	  g_object_unref (action->priv->model);
@@ -379,9 +413,11 @@ egg_combo_action_set_model (EggComboAction *action, GtkTreeModel *model)
 	  {
 		  GtkWidget *combo;
 		  combo = gtk_bin_get_child (GTK_BIN (proxy));
-		  if (GTK_IS_COMBO (combo))
+		  if (GTK_IS_COMBO_BOX (combo))
 			{
+			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), -1);
 			  gtk_combo_box_set_model (GTK_COMBO_BOX (combo), model);
+			  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
 			}
 		  else
 			{
@@ -402,4 +438,15 @@ GtkTreeModel*
 egg_combo_action_get_model (EggComboAction *action)
 {
 	return action->priv->model;
+}
+
+gboolean
+egg_combo_action_get_active_iter (EggComboAction *action, GtkTreeIter *iter)
+{
+	if (action->priv->active_iter)
+	{
+		*iter = *(action->priv->active_iter);
+		return TRUE;
+	}
+	return FALSE;
 }

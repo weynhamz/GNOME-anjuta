@@ -146,8 +146,6 @@
 				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
 				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
 				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
-				<separator name="separator3" />
-				<menuitem name="EditorDetach" action="ActionFormatEditorDetach" />
 			</menu>
 		</placeholder>
 	</menubar>
@@ -167,6 +165,7 @@
 			<toolitem name="GotoLine" action="ActionEditGotoLineActivate" />
 			<toolitem name="GotoLineEntry" action="ActionEditGotoLineEntry" />
 			<separator name="separator5"/>
+			<toolitem name="Swap" action="ActionFileSwap" />
 		</placeholder>
 	</toolbar>
 	<toolbar name="ToolbarBrowser">
@@ -202,12 +201,12 @@
 		<menuitem name="Paste" action="ActionEditPaste" />
 		<separator name="separator2"/>
 		<menuitem name="Autoformat" action="ActionFormatAutoformat" />
+		<menuitem name="Swap" action="ActionFileSwap" />
 		<menuitem name="Toggle" action="ActionBookmarkToggle" />
 		<menu name="Goto" action="ActionMenuGoto">
 				<separator name="separator1" />
 				<menuitem name="Previous" action="ActionBookmarkPrevious" />
 				<menuitem name="Next" action="ActionBookmarkNext" />
-				<separator name="separator1" />
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menuitem name="LineNumbersMargin" action="ActionViewEditorLinenumbers" />

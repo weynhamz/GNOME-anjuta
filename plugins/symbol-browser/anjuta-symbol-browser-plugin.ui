@@ -6,4 +6,7 @@
 		<separator/>
 		<menuitem name="Refresh" action="ActionPopupSymbolBrowserRefresh"/>
 	</popup>
+	<toolbar name="ToolbarBrowser">
+		<toolitem name="Symbol" action="ActionGotoSymbol"/>
+	</toolbar>
 </ui>
