@@ -42,11 +42,7 @@ libanjuta_la_SOURCES= \
 	glue-plugin.c \
 	glue-factory.c \
 	plugins.c \
-	plugins.h \
-	gnomefilelist.c \
-	gnomefilelist.h \
-	fileselection.c \
-	fileselection.h
+	plugins.h 
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \
@@ -61,7 +57,8 @@ libanjutainclude_HEADERS = \
 	anjuta-ui.h \
 	anjuta-children.h \
 	properties.h \
-	glue-plugin.h
+	glue-plugin.h \
+	resources.h
 	
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h

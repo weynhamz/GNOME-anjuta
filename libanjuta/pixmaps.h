@@ -143,7 +143,7 @@
 #define ANJUTA_PIXMAP_SV_VARIABLE         "sv_variable.xpm"
 
 /* Common */
-#define ANJUTA_PIXMAP_CLOSED_FOLDER       "bfoldc.xpm"
-#define ANJUTA_PIXMAP_OPEN_FOLDER         "bfoldo.xpm"
+#define ANJUTA_PIXMAP_CLOSED_FOLDER       "directory.png"
+#define ANJUTA_PIXMAP_OPEN_FOLDER         "directory-accept.png"
 
 #endif

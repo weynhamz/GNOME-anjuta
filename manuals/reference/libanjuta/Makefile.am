@@ -26,7 +26,7 @@ HFILE_GLOB=$(top_srcdir)/libanjuta/*.h
 CFILE_GLOB=$(top_srcdir)/libanjuta/*.c
 
 # Header files to ignore when scanning
-IGNORE_HFILES=egg* glue* gnomefilelist.* fileselection.* e-*
+IGNORE_HFILES=egg* glue* e-*
 
 # Images to copy into HTML directory
 HTML_IMAGES = anjuta-architecture.png

@@ -558,29 +558,6 @@ ANJUTA_STOCK_AUTOCOMPLETE
 </SECTION>
 
 <SECTION>
-<FILE>fileselection</FILE>
-MAX_NAME_LENGTH
-FileSelData
-GnomeFileList
-<TITLE>File selection dialog</TITLE>
-create_fileselection_gui
-fileselection_get_filename
-fileselection_get_path
-fileselection_set_title
-fileselection_set_dir
-fileselection_set_filename
-fileselection_get_filelist
-fileselection_hide_widget
-fileselection_storetypes
-fileselection_addtype_f
-fileselection_addtype
-fileselection_getcombolist
-fileselection_set_combolist
-fileselection_clearfiletypes
-fileselection_update_dir
-</SECTION>
-
-<SECTION>
 <FILE>ianjuta-editor</FILE>
 IAnjutaEditorError
 IANJUTA_EDITOR_ERROR

@@ -71,7 +71,6 @@
     <xi:include href="xml/cell-renderer-captioned-image.xml"/>
     <xi:include href="xml/defaults.xml"/>
     <xi:include href="xml/pixmaps.xml"/>
-    <xi:include href="xml/fileselection.xml"/>
   </chapter>
   <chapter id="plugin-interfaces">
     <title>Plugin interfaces</title>

@@ -1,3 +1,13 @@
+2004-05-14	Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* libanjuta/fileselection.[ch], gnomefilelist.[ch]: Removed,
+	they are not longer needed.
+	* manuals/reference/libanjuta/Makefile.am, anjuta-docs.sgml,
+	anjuta-sections.txt: Remove references to the files
+	* libanjuta/pixmaps.h, pixmaps/directory(-accept).png:
+	Use new nautilus icons for file-manager, looks incredible
+	cool!
+
 2004-05-14  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/editor/anjuta-docman.c: gchar* to 

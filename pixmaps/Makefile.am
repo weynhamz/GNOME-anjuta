@@ -32,8 +32,6 @@ anjuta_pixmaps_DATA = \
 	appwiz_xlib.png \
 	autocomplete-16.png \
 	autocomplete.png \
-	bfoldc.xpm \
-	bfoldo.xpm \
 	blank.xpm \
 	block-end-16.png \
 	block-end.png \
@@ -61,6 +59,8 @@ anjuta_pixmaps_DATA = \
 	debug_stop.xpm \
 	debug.xpm \
 	dock.xpm \
+	directory.png \
+	directory-accept.png
 	error-next-16.png \
 	error-next.png \
 	error-prev-16.png \

@@ -101,7 +101,71 @@ Plugin parser
 </para>
 
 
+<!-- ##### STRUCT FileSelData ##### -->
+<para>
+
+</para>
+
+@title: 
+@data: 
+@click_ok_callback: 
+@click_cancel_callback: 
+@filesel: 
+
 <!-- ##### STRUCT GlueFactoryClass ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT GnomeFileList ##### -->
+<para>
+
+</para>
+
+@dialog: 
+@back_button: 
+@forward_button: 
+@home_button: 
+@delete_button: 
+@rename_button: 
+@show_hidden_button: 
+@history_combo: 
+@directory_list: 
+@file_list: 
+@filter_combo: 
+@selection_label: 
+@selection_entry: 
+@filetype_combo: 
+@createdir_button: 
+@scrolled_window_dir: 
+@scrolled_window_file: 
+@file_scrollbar_value: 
+@dir_scrollbar_value: 
+@dirpattern: 
+@filepattern: 
+@files_matched: 
+@dirs_matched: 
+@show_hidden: 
+@path: 
+@selected: 
+@history_position: 
+@history: 
+@filetypes: 
+@folder_pixbuf: 
+@changedironcombo: 
+@entry_text: 
+
+<!-- ##### STRUCT GnomeFileListType ##### -->
+<para>
+
+</para>
+
+@description: 
+@extentions: 
+@pattern: 
+
+<!-- ##### MACRO MAX_NAME_LENGTH ##### -->
 <para>
 
 </para>
@@ -243,6 +307,292 @@ Plugin parser
 </para>
 
 @ui: 
+@Returns: 
+
+<!-- ##### FUNCTION create_fileselection_gui ##### -->
+<para>
+
+</para>
+
+@fd: 
+@parent: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_addtype ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@extentions: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_addtype_f ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@Varargs: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_clearfiletypes ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_get_filelist ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_get_filename ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_get_path ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_getcombolist ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@filetypes: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_hide_widget ##### -->
+<para>
+
+</para>
+
+@widget: 
+
+<!-- ##### FUNCTION fileselection_set_combolist ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@combolist: 
+
+<!-- ##### FUNCTION fileselection_set_dir ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@dir: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_set_filename ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@fname: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_set_title ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@title: 
+
+<!-- ##### FUNCTION fileselection_storetypes ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@filetypes: 
+@Returns: 
+
+<!-- ##### FUNCTION fileselection_update_dir ##### -->
+<para>
+
+</para>
+
+@filesel: 
+
+<!-- ##### FUNCTION gnome_filelist_get_filelist ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_get_filename ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_get_path ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_new_with_path ##### -->
+<para>
+
+</para>
+
+@path: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_set_combolist ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@combolist: 
+
+<!-- ##### FUNCTION gnome_filelist_set_dir ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@path: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_set_filename ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@fname: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelist_set_selection_mode ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@mode: 
+
+<!-- ##### FUNCTION gnome_filelist_set_show_hidden ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@show_hidden: 
+
+<!-- ##### FUNCTION gnome_filelist_set_title ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@title: 
+
+<!-- ##### FUNCTION gnome_filelisttype_addtype ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@extentions: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_addtype_f ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@Varargs: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_clearfiletypes ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_getcombolist ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_getdescriptions ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_getextentions ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_getfiletype ##### -->
+<para>
+
+</para>
+
+@file_list: 
+@description: 
+@Returns: 
+
+<!-- ##### FUNCTION gnome_filelisttype_makedefaultlist ##### -->
+<para>
+
+</para>
+
+@filetypes: 
 @Returns: 
 
 <!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->

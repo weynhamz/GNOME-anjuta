@@ -158,7 +158,6 @@ static AnjutaDocmanPage *
 anjuta_docman_page_new (GtkWidget *editor, AnjutaDocman* docman)
 {
 	AnjutaDocmanPage *page;
-	// gchar *lab;
 	
 	page = g_new0 (AnjutaDocmanPage, 1);
 	page->widget = GTK_WIDGET (editor);
@@ -232,8 +231,6 @@ save_as_real (AnjutaDocman *docman)
 {
 	TextEditor *te;
 	gchar *uri, *saved_filename, *saved_uri, *filename;
-	/*gint page_num;
-	GtkWidget *child;*/
 	gint status;
 	uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection));
 	if (!uri)
@@ -274,7 +271,6 @@ save_as_real (AnjutaDocman *docman)
 		{
 			text_editor_set_hilite_type(te);
 		}
-		// anjuta_update_title ();
 	}
 }
 
@@ -378,10 +374,6 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
 	docman->priv->fileselection =
 		create_file_open_dialog_gui(GTK_WINDOW (parent), docman);
-	/* Set to the current dir */
-	/* Spends too much time */
-	/* getcwd(wd, PATH_MAX);
-	   fileselection_set_dir (app->fileselection, wd); */
 	docman->priv->save_as_fileselection =
 		create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
 	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection, TRUE);
@@ -425,7 +417,6 @@ on_notebook_switch_page (GtkNotebook * notebook,
 	{
 		gtk_notebook_reorder_child (notebook, widget, 0);
 	}
-	// anjuta_docman_grab_text_focus ();
 }
 
 TextEditor *
@@ -434,7 +425,6 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 	GtkWidget *te;
 	AnjutaDocmanPage *page;
 
-	// cur_page = anjuta_docman_get_current_editor ();
 	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
 						  uri, name);
 	/* File cannot be loaded, texteditor brings up an error dialog */
@@ -448,8 +438,6 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 	
 	anjuta_docman_set_current_editor (docman, TEXT_EDITOR (te));
 	docman->priv->editors = g_list_append (docman->priv->editors, (gpointer)page);
-	
-	// breakpoints_dbase_set_all_in_editor (debugger.breakpoints_dbase, te);
 	
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (docman), te, page->box);
 	gtk_notebook_set_menu_label_text(GTK_NOTEBOOK (docman), te,
@@ -598,14 +586,6 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor * te)
 					GTK_SIGNAL_FUNC (on_notebook_switch_page),
 					docman);
 	}
-	/*
-	main_toolbar_update ();
-	extended_toolbar_update ();
-	format_toolbar_update ();
-	browser_toolbar_update ();
-	anjuta_update_title ();
-	anjuta_update_app_status (FALSE, NULL);
-	*/
 	if (te == NULL)
 	{
 		const gchar *dir = g_get_home_dir();
