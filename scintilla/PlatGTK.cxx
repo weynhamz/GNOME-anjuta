@@ -270,7 +270,7 @@ static const char *CharacterSetName(int characterSet) {
 	case SC_CHARSET_DEFAULT:
 		return "iso8859-*";
 	case SC_CHARSET_BALTIC:
-		return "*-*";
+		return "iso8859-13";
 	case SC_CHARSET_CHINESEBIG5:
 		return "*-*";
 	case SC_CHARSET_EASTEUROPE:
@@ -727,7 +727,7 @@ const char *CharacterSetID(int characterSet) {
 	case SC_CHARSET_DEFAULT:
 		return "LATIN1";
 	case SC_CHARSET_BALTIC:
-		return "BALTIC";
+		return "ISO8859-13";
 	case SC_CHARSET_CHINESEBIG5:
 		return "BIG-5";
 	case SC_CHARSET_EASTEUROPE:
@@ -1233,11 +1233,17 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 			if (et == UTF8) {
 				// Simple and direct as UTF-8 is native Pango encoding
 				pango_layout_set_text(layout, s, len);
+				PangoLayoutIter *iter = pango_layout_get_iter (layout);
 				int i = 0;
-				while (i < len) {
-					pango_layout_index_to_pos(layout, i+1, &pos);
-					positions[i++] = PANGO_PIXELS(pos.x);
+				while (pango_layout_iter_next_cluster (iter)) {
+					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
+					int position = PANGO_PIXELS(pos.x);
+					int curIndex = pango_layout_iter_get_index (iter);
+					while (i < curIndex) {
+						positions[i++] = position;
+					}
 				}
+				pango_layout_iter_free (iter);
 			} else {
 				int wclen = 0;
 				if (et == dbcs) {
@@ -1251,15 +1257,17 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						char *utfForm = UTF8FromGdkWChar(wctext, wclen);
 						pango_layout_set_text(layout, utfForm, strlen(utfForm));
 						int i = 0;
-						int iU = 0;
-						while (i < len) {
-							iU += UTF8Len(utfForm[iU]);
-							pango_layout_index_to_pos(layout, iU, &pos);
+						PangoLayoutIter *iter = pango_layout_get_iter (layout);
+						while (pango_layout_iter_next_cluster (iter)) {
 							size_t lenChar = mblen(s+i, MB_CUR_MAX);
+							pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
+							int position = PANGO_PIXELS(pos.x);
+							positions[i++] = position;
 							while (lenChar--) {
-								positions[i++] = PANGO_PIXELS(pos.x);
+								positions[i++] = position;
 							}
 						}
+						pango_layout_iter_free (iter);
 						delete []utfForm;
 					}
 					delete []wctext;
@@ -1279,12 +1287,12 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					}
 					pango_layout_set_text(layout, utfForm, strlen(utfForm));
 					int i = 0;
-					int iU = 0;
-					while (i < len) {
-						iU += UTF8Len(utfForm[iU]);
-						pango_layout_index_to_pos(layout, iU, &pos);
+					PangoLayoutIter *iter = pango_layout_get_iter (layout);
+					while (pango_layout_iter_next_cluster (iter)) {
+						pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
 						positions[i++] = PANGO_PIXELS(pos.x);
 					}
+					pango_layout_iter_free (iter);
 					if (useGFree) {
 						g_free(utfForm);
 					} else {
@@ -1379,14 +1387,14 @@ int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
 				pango_layout_set_text(layout, utfForm, strlen(utfForm));
 				len = strlen(utfForm);
 			}
-			pango_layout_index_to_pos(layout, len, &pos);
-			int width = PANGO_PIXELS(pos.x);
+			PangoLayoutLine *pangoLine = pango_layout_get_line(layout, 0);
+			pango_layout_line_get_extents (pangoLine, NULL, &pos);
 			if (useGFree) {
 				g_free(utfForm);
 			} else {
 				delete []utfForm;
 			}
-			return width;
+			return PANGO_PIXELS(pos.width);
 		}
 #endif
 		if (et == UTF8) {
@@ -1627,7 +1635,7 @@ void Window::InvalidateRectangle(PRectangle rc) {
 }
 
 void Window::SetFont(Font &) {
-	// TODO
+	// Can not be done generically but only needed for ListBox
 }
 
 void Window::SetCursor(Cursor curs) {
@@ -1802,14 +1810,22 @@ void ListBoxX::SetFont(Font &scint_font) {
 	}
 #else
 	GtkStyle *styleCurrent = gtk_widget_get_style(GTK_WIDGET(PWidget(list)));
-	GdkFont *fontCurrent = gtk_style_get_font(styleCurrent);
 	if (PFont(scint_font)->pfont) {
+		// Current font is GDK font
+		GdkFont *fontCurrent = gtk_style_get_font(styleCurrent);
 		if (!gdk_font_equal(fontCurrent, PFont(scint_font)->pfont)) {
 			GtkStyle *styleNew = gtk_style_copy(styleCurrent);
 			gtk_style_set_font(styleNew, PFont(scint_font)->pfont);
 			gtk_widget_set_style(GTK_WIDGET(PWidget(list)), styleNew);
 			gtk_style_unref(styleCurrent);
 		}
+	} else if (PFont(scint_font)->pfd) {
+		// Current font is Pango font
+		GtkStyle *styleNew = gtk_style_copy(styleCurrent);
+		pango_font_description_free(styleNew->font_desc);
+		styleNew->font_desc = pango_font_description_copy(PFont(scint_font)->pfd);
+		gtk_widget_set_style(GTK_WIDGET(PWidget(list)), styleNew);
+		gtk_style_unref(styleCurrent);
 	}
 #endif
 }

@@ -1,0 +1,444 @@
+diff -r -u scintilla/Editor.cxx scintilla-new/Editor.cxx
+--- scintilla/Editor.cxx	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/Editor.cxx	2003-09-17 11:31:58.000000000 +0530
+@@ -35,6 +35,9 @@
+ Timer::Timer() :
+ ticking(false), ticksToWait(0), tickerID(0) {}
+ 
++Idler::Idler() :
++state(false), idlerID(0) {}
++
+ LineLayout::LineLayout(int maxLineLength_) :
+ 	lineStarts(0),
+ 	lenLineStarts(0),
+@@ -375,6 +378,7 @@
+ 	wrapState = eWrapNone;
+ 	wrapWidth = LineLayout::wrapWidthInfinite;
+ 	docLineLastWrapped = -1;
++	docLastLineToWrap = -1;
+ 
+ 	hsStart = -1;
+ 	hsEnd = -1;
+@@ -387,6 +391,7 @@
+ 	pdoc->Release();
+ 	pdoc = 0;
+ 	DropGraphics();
++	/* 	SetIdle(false) must be called in a platform independent way */
+ 	delete pixmapLine;
+ 	delete pixmapSelMargin;
+ 	delete pixmapSelPattern;
+@@ -395,6 +400,7 @@
+ }
+ 
+ void Editor::Finalise() {
++	SetIdle(false);
+ 	CancelModes();
+ }
+ 
+@@ -1300,18 +1306,59 @@
+ 		InvalidateRange(currentPos, currentPos + 1);
+ }
+ 
+-void Editor::NeedWrapping(int docLineStartWrapping) {
++void Editor::NeedWrapping(int docLineStartWrapping, int docLineEndWrapping) {
++
++	bool noWrap = (docLastLineToWrap == docLineLastWrapped);
+ 	if (docLineLastWrapped > (docLineStartWrapping - 1)) {
+ 		docLineLastWrapped = docLineStartWrapping - 1;
+ 		if (docLineLastWrapped < -1)
+ 			docLineLastWrapped = -1;
+ 		llc.Invalidate(LineLayout::llPositions);
+ 	}
++	if (noWrap) {
++		docLastLineToWrap = docLineEndWrapping;
++		if (docLastLineToWrap < -1)
++			docLastLineToWrap = -1;
++		if (docLastLineToWrap > pdoc->LinesTotal())
++			docLastLineToWrap = pdoc->LinesTotal();
++	} else if (docLastLineToWrap < docLineEndWrapping) {
++		docLastLineToWrap = docLineEndWrapping + 1;
++		if (docLastLineToWrap < -1)
++			docLastLineToWrap = -1;
++		if (docLastLineToWrap > pdoc->LinesTotal())
++			docLastLineToWrap = pdoc->LinesTotal();
++	}
++	// Wrap lines during idle.
++	if (docLastLineToWrap != docLineLastWrapped)
++		SetIdle(true);
+ }
+ 
+ // Check if wrapping needed and perform any needed wrapping.
++// fullwrap: if true, all lines which need wrapping will be done,
++//           in this single call.
++// priorityWrapLineStart: If greater than zero, all lines starting from
++//           here to 100 lines past will be wrapped (even if there are
++//           more lines under wrapping process in idle).
++// If it is neither fullwrap, nor priorityWrap, then 100 lines will be
++// wrapped, if there are any wrapping going on in idle. (Generally this
++// condition is called only from idler).
+ // Return true if wrapping occurred.
+-bool Editor::WrapLines() {
++bool Editor::WrapLines(bool fullWrap, int priorityWrapLineStart) {
++	// If there are any pending wraps do them during idle.
++	if (wrapState != eWrapNone) {
++		if (docLineLastWrapped < docLastLineToWrap)
++			SetIdle(true);
++		if (!fullWrap && priorityWrapLineStart >= 0 &&
++			// .. and if the paint window is outside pending wraps
++			(((priorityWrapLineStart + 100) < docLineLastWrapped) ||
++			 (priorityWrapLineStart > docLastLineToWrap))) {
++			// No priority wrap pending
++			return false;
++		}
++	} else {
++		// If there is no wrap, disable the idle call.
++		SetIdle(false);
++	}
+ 	int goodTopLine = topLine;
+ 	bool wrapOccurred = false;
+ 	if (docLineLastWrapped < pdoc->LinesTotal()) {
+@@ -1336,19 +1383,42 @@
+ 			pdoc->EnsureStyledTo(pdoc->Length());
+ 			AutoSurface surface(this);
+ 			if (surface) {
+-				int lastLineToWrap = pdoc->LinesTotal();
+-				while (docLineLastWrapped <= lastLineToWrap) {
+-					docLineLastWrapped++;
+-					AutoLineLayout ll(llc, RetrieveLineLayout(docLineLastWrapped));
++				bool priorityWrap = false;
++				int lastLineToWrap = docLastLineToWrap;
++				int firstLineToWrap = docLineLastWrapped;
++				if (!fullWrap) {
++					if (priorityWrapLineStart >= 0) {
++						// This is a priority wrap.
++						firstLineToWrap = priorityWrapLineStart;
++						lastLineToWrap = firstLineToWrap + 100;
++						priorityWrap = true;
++					} else {
++						// This is idle wrap.
++						lastLineToWrap = docLineLastWrapped + 100;
++						if (lastLineToWrap >= docLastLineToWrap)
++							lastLineToWrap = docLastLineToWrap;
++					}
++				} // else do a fullWrap.
++				
++				// printf("Wraplines: full = %d, priorityStart = %d (wrapping: %d to %d)\n", fullWrap, priorityWrapLineStart, firstLineToWrap, lastLineToWrap);
++				// printf("Pending wraps: %d to %d\n", docLineLastWrapped, docLastLineToWrap);
++				while (firstLineToWrap <= lastLineToWrap) {
++					firstLineToWrap++;
++					if (!priorityWrap)
++						docLineLastWrapped++;
++					AutoLineLayout ll(llc, RetrieveLineLayout(firstLineToWrap));
+ 					int linesWrapped = 1;
+ 					if (ll) {
+-						LayoutLine(docLineLastWrapped, surface, vs, ll, wrapWidth);
++						LayoutLine(firstLineToWrap, surface, vs, ll, wrapWidth);
+ 						linesWrapped = ll->lines;
+ 					}
+-					if (cs.SetHeight(docLineLastWrapped, linesWrapped)) {
++					if (cs.SetHeight(firstLineToWrap, linesWrapped)) {
+ 						wrapOccurred = true;
+ 					}
+ 				}
++				// If wrapping is done, bring it to resting position
++				if (docLineLastWrapped > docLastLineToWrap)
++					docLineLastWrapped = docLastLineToWrap = -1;
+ 			}
+ 			goodTopLine = cs.DisplayFromDoc(lineDocTop);
+ 			if (subLineTop < cs.GetHeight(lineDocTop))
+@@ -2365,9 +2435,15 @@
+ 
+ 	PaintSelMargin(surfaceWindow, rcArea);
+ 
+-	if (WrapLines()) {
+-		// The wrapping process has changed the height of some lines so abandon this
+-		// paint for a complete repaint.
++	// Call priority lines wrap on a window of lines which are likely
++	// to rendered with the following paint (that is wrap the visible
++	// 	lines first).
++	int startLineToWrap = cs.DocFromDisplay(topLine) - 5;
++	if (startLineToWrap < 0)
++		startLineToWrap = 0;
++	if (WrapLines(false, startLineToWrap)) {
++		// The wrapping process has changed the height of some lines so
++		// abandon this paint for a complete repaint.
+ 		if (AbandonPaint()) {
+ 			return;
+ 		}
+@@ -3245,14 +3320,14 @@
+ 				if (surface && ll) {
+ 					LayoutLine(lineDoc, surface, vs, ll, wrapWidth);
+ 					if (cs.GetHeight(lineDoc) != ll->lines) {
+-						NeedWrapping(lineDoc - 1);
++						NeedWrapping(lineDoc - 1, lineDoc + 1);
+ 						Redraw();
+ 					}
+ 				} else {
+-					NeedWrapping(lineDoc);
++					NeedWrapping(lineDoc, lineDoc + 1);
+ 				}
+ 			} else {
+-				NeedWrapping(lineDoc);
++				NeedWrapping(lineDoc, lineDoc + 1);
+ 			}
+ 		}
+ 	}
+@@ -4750,6 +4826,23 @@
+ 	}
+ }
+ 
++bool Editor::Idle() {
++	
++	bool idleDone = false;
++	// Wrap lines during idle.
++	WrapLines(false, -1);
++	// No more wrapping
++	if (docLineLastWrapped == docLastLineToWrap)
++		idleDone = true;
++	
++	// Add more idle things to do here, but make sure idleDone is
++	// set correctly before the function returns. returning
++	// false will stop calling this idle funtion until SetIdle() is
++	// called again.
++	
++	return !idleDone;
++}
++
+ void Editor::SetFocusState(bool focusState) {
+ 	hasFocus = focusState;
+ 	NotifyFocus(hasFocus);
+@@ -4963,7 +5056,7 @@
+ void Editor::EnsureLineVisible(int lineDoc, bool enforcePolicy) {
+ 
+ 	// In case in need of wrapping to ensure DisplayFromDoc works.
+-	WrapLines();
++	WrapLines(true, -1);
+ 
+ 	if (!cs.GetVisible(lineDoc)) {
+ 		int lineParent = pdoc->GetFoldParent(lineDoc);
+diff -r -u scintilla/Editor.h scintilla-new/Editor.h
+--- scintilla/Editor.h	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/Editor.h	2003-09-16 20:53:53.000000000 +0530
+@@ -33,6 +33,16 @@
+ 
+ /**
+  */
++class Idler {
++public:
++	bool state;
++	IdlerID idlerID;
++
++	Idler();
++};
++
++/**
++ */
+ class LineLayout {
+ private:
+ 	friend class LineLayoutCache;
+@@ -208,6 +218,8 @@
+ 	Timer autoScrollTimer;
+ 	enum { autoScrollDelay = 200 };
+ 
++	Idler idler;
++
+ 	Point lastClick;
+ 	unsigned int lastClickTime;
+ 	int dwellDelay;
+@@ -273,6 +285,7 @@
+ 	enum { eWrapNone, eWrapWord } wrapState;
+ 	int wrapWidth;
+ 	int docLineLastWrapped;
++	int docLastLineToWrap;
+ 
+ 	Document *pdoc;
+ 
+@@ -332,8 +345,8 @@
+ 	void DropCaret();
+ 	void InvalidateCaret();
+ 
+-	void NeedWrapping(int docLineStartWrapping=0);
+-	bool WrapLines();
++	void NeedWrapping(int docLineStartWrapping = 0, int docLineEndWrapping = 0x7ffffff);
++	bool WrapLines(bool fullWrap, int priorityWrapLineStart);
+ 	void LinesJoin();
+ 	void LinesSplit(int pixelWidth);
+ 
+@@ -451,7 +464,9 @@
+ 	void ButtonUp(Point pt, unsigned int curTime, bool ctrl);
+ 
+ 	void Tick();
++	bool Idle();
+ 	virtual void SetTicking(bool on) = 0;
++	virtual void SetIdle(bool on) = 0;
+ 	virtual void SetMouseCapture(bool on) = 0;
+ 	virtual bool HaveMouseCapture() = 0;
+ 	void SetFocusState(bool focusState);
+diff -r -u scintilla/include/Platform.h scintilla-new/include/Platform.h
+--- scintilla/include/Platform.h	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/include/Platform.h	2003-09-16 20:53:53.000000000 +0530
+@@ -53,6 +53,7 @@
+ typedef void *MenuID;
+ typedef void *TickerID;
+ typedef void *Function;
++typedef void *IdlerID;
+ 
+ /**
+  * A geometric point class.
+diff -r -u scintilla/PlatGTK.cxx scintilla-new/PlatGTK.cxx
+--- scintilla/PlatGTK.cxx	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/PlatGTK.cxx	2003-09-18 11:57:06.000000000 +0530
+@@ -1233,11 +1233,17 @@
+ 			if (et == UTF8) {
+ 				// Simple and direct as UTF-8 is native Pango encoding
+ 				pango_layout_set_text(layout, s, len);
++				PangoLayoutIter *iter = pango_layout_get_iter (layout);
+ 				int i = 0;
+-				while (i < len) {
+-					pango_layout_index_to_pos(layout, i+1, &pos);
+-					positions[i++] = PANGO_PIXELS(pos.x);
++				while (pango_layout_iter_next_cluster (iter)) {
++					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
++					int position = PANGO_PIXELS(pos.x);
++					int curIndex = pango_layout_iter_get_index (iter);
++					while (i < curIndex) {
++						positions[i++] = position;
++					}
+ 				}
++				pango_layout_iter_free (iter);
+ 			} else {
+ 				int wclen = 0;
+ 				if (et == dbcs) {
+@@ -1251,15 +1257,17 @@
+ 						char *utfForm = UTF8FromGdkWChar(wctext, wclen);
+ 						pango_layout_set_text(layout, utfForm, strlen(utfForm));
+ 						int i = 0;
+-						int iU = 0;
+-						while (i < len) {
+-							iU += UTF8Len(utfForm[iU]);
+-							pango_layout_index_to_pos(layout, iU, &pos);
++						PangoLayoutIter *iter = pango_layout_get_iter (layout);
++						while (pango_layout_iter_next_cluster (iter)) {
+ 							size_t lenChar = mblen(s+i, MB_CUR_MAX);
++							pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
++							int position = PANGO_PIXELS(pos.x);
++							positions[i++] = position;
+ 							while (lenChar--) {
+-								positions[i++] = PANGO_PIXELS(pos.x);
++								positions[i++] = position;
+ 							}
+ 						}
++						pango_layout_iter_free (iter);
+ 						delete []utfForm;
+ 					}
+ 					delete []wctext;
+@@ -1279,12 +1287,12 @@
+ 					}
+ 					pango_layout_set_text(layout, utfForm, strlen(utfForm));
+ 					int i = 0;
+-					int iU = 0;
+-					while (i < len) {
+-						iU += UTF8Len(utfForm[iU]);
+-						pango_layout_index_to_pos(layout, iU, &pos);
++					PangoLayoutIter *iter = pango_layout_get_iter (layout);
++					while (pango_layout_iter_next_cluster (iter)) {
++						pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
+ 						positions[i++] = PANGO_PIXELS(pos.x);
+ 					}
++					pango_layout_iter_free (iter);
+ 					if (useGFree) {
+ 						g_free(utfForm);
+ 					} else {
+@@ -1379,14 +1387,14 @@
+ 				pango_layout_set_text(layout, utfForm, strlen(utfForm));
+ 				len = strlen(utfForm);
+ 			}
+-			pango_layout_index_to_pos(layout, len, &pos);
+-			int width = PANGO_PIXELS(pos.x);
++			PangoLayoutLine *pangoLine = pango_layout_get_line(layout, 0);
++			pango_layout_line_get_extents (pangoLine, NULL, &pos);
+ 			if (useGFree) {
+ 				g_free(utfForm);
+ 			} else {
+ 				delete []utfForm;
+ 			}
+-			return width;
++			return PANGO_PIXELS(pos.width);
+ 		}
+ #endif
+ 		if (et == UTF8) {
+diff -r -u scintilla/ScintillaGTK.cxx scintilla-new/ScintillaGTK.cxx
+--- scintilla/ScintillaGTK.cxx	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/ScintillaGTK.cxx	2003-09-16 20:53:53.000000000 +0530
+@@ -127,6 +127,7 @@
+ private:
+ 	virtual sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
+ 	virtual void SetTicking(bool on);
++	virtual void SetIdle(bool on);
+ 	virtual void SetMouseCapture(bool on);
+ 	virtual bool HaveMouseCapture();
+ 	void FullPaint();
+@@ -209,6 +210,7 @@
+ 	static void DragDataGet(GtkWidget *widget, GdkDragContext *context,
+ 	                        GtkSelectionData *selection_data, guint info, guint time);
+ 	static gint TimeOut(ScintillaGTK *sciThis);
++	static gint IdleCallback(ScintillaGTK *sciThis);
+ 	static void PopUpCB(ScintillaGTK *sciThis, guint action, GtkWidget *widget);
+ 
+ 	gint ExposeTextThis(GtkWidget *widget, GdkEventExpose *ose);
+@@ -668,6 +670,23 @@
+ 	timer.ticksToWait = caret.period;
+ }
+ 
++void ScintillaGTK::SetIdle(bool on) {
++	if (on) {
++		// Start idler, if it's not running.
++		if (idler.state == false) {
++			idler.state = true;
++			idler.idlerID = reinterpret_cast<IdlerID>
++				(gtk_idle_add((GtkFunction)IdleCallback, this));
++		}
++	} else {
++		// Stop idler, if it's running
++		if (idler.state == true) {
++			idler.state = false;
++			gtk_idle_remove(GPOINTER_TO_UINT(idler.idlerID));
++		}
++	}
++}
++
+ void ScintillaGTK::SetMouseCapture(bool on) {
+ 	if (mouseDownCaptures) {
+ 		if (on) {
+@@ -1952,6 +1970,19 @@
+ 	return 1;
+ }
+ 
++int ScintillaGTK::IdleCallback(ScintillaGTK *sciThis) {
++	// Idler will be automatically stoped, if there is nothing
++	// to do while idle.
++	bool ret = sciThis->Idle();
++	if (ret == false) {
++		// FIXME: This will remove the idler from GTK, we don't want to 
++		// remove it as it is removed automatically when this function
++		// returns false (although, it should be harmless).
++		sciThis->SetIdle(false);
++	}
++	return ret;
++}
++
+ void ScintillaGTK::PopUpCB(ScintillaGTK *sciThis, guint action, GtkWidget *) {
+ 	if (action) {
+ 		sciThis->Command(action);
+diff -r -u scintilla/XPM.cxx scintilla-new/XPM.cxx
+--- scintilla/XPM.cxx	2003-09-18 12:44:09.000000000 +0530
++++ scintilla-new/XPM.cxx	2003-09-16 20:53:53.000000000 +0530
+@@ -239,7 +239,7 @@
+ 	width = -1;
+ 
+ 	// Replace if this id already present
+-	for (int i = 0; i < maximum; i++) {
++	for (int i = 0; i < len; i++) {
+ 		if (set[i]->GetId() == id) {
+ 			set[i]->Init(textForm);
+ 			return;

@@ -29,6 +29,18 @@
  *
  * Modification history:
  *
+ * $Log$
+ * Revision 1.14.2.2  2003/09/18 07:46:30  naba
+ * 	* scintilla/*/*, src/scintilla/Makefile.am, src/Makefile.am,
+ * 	(new) lexers.make, (new) lexers: Update scintilla to latest
+ * 	scintilla CVS (2003-09-18), added new lexers, automated
+ * 	lexers makefiles sections and scintilla	update. Added
+ * 	patches. Optimized pango rendering. Fixed a crash bug
+ * 	in scintilla.
+ *
+ * Revision 1.10  2003/08/26 11:45:22  nyamatongwe
+ * Fixed bug that ignored high bit of characters in comparisons.
+ *
  * Revision 1.9  2003/03/21 10:36:08  nyamatongwe
  * Detect patterns too long in regular expression search.
  *
@@ -257,7 +269,7 @@
  * The following defines are not meant to be changeable.
  * They are for readability only.
  */
-#define BLKIND	0170
+#define BLKIND	0370
 #define BITIND	07
 
 #define ASCIIB	0177

@@ -27,7 +27,7 @@ CLEANFILES = \
 $(srcdir)/anjuta-marshalers.h: stamp-anjuta-marshalers.h
 	@true
 stamp-anjuta-marshalers.h: anjuta-marshalers.list
-	cd $(srcdir) \                                                                            \
+	cd $(srcdir) \
 	&& @GLIB_GENMARSHAL@ --prefix=anjuta_cclosure_marshal \
 	anjuta-marshalers.list --header >> xgen-gmlh \
 	&& (cmp -s xgen-gmlh anjuta-marshalers.h || \
@@ -42,32 +42,7 @@ $(srcdir)/anjuta-marshalers.c: anjuta-marshalers.list
 	&& cp xgen-gmlc anjuta-marshalers.c \
 	&& rm -f xgen-gmlc
 
-SCILEXERS =\
-	$(top_srcdir)/scintilla/StyleContext.o\
-	$(top_srcdir)/scintilla/LexCPP.o\
-	$(top_srcdir)/scintilla/LexConf.o\
-	$(top_srcdir)/scintilla/LexHTML.o\
-	$(top_srcdir)/scintilla/LexLua.o\
-	$(top_srcdir)/scintilla/LexOthers.o\
-	$(top_srcdir)/scintilla/LexPerl.o\
-	$(top_srcdir)/scintilla/LexPython.o\
-	$(top_srcdir)/scintilla/LexSQL.o\
-	$(top_srcdir)/scintilla/LexVB.o\
-	$(top_srcdir)/scintilla/LexPascal.o\
-	$(top_srcdir)/scintilla/LexAVE.o\
-	$(top_srcdir)/scintilla/LexCrontab.o\
-	$(top_srcdir)/scintilla/LexEiffel.o\
-	$(top_srcdir)/scintilla/LexLisp.o\
-	$(top_srcdir)/scintilla/LexRuby.o\
-	$(top_srcdir)/scintilla/LexBullant.o\
-	$(top_srcdir)/scintilla/LexAda.o\
-	$(top_srcdir)/scintilla/LexBaan.o\
-	$(top_srcdir)/scintilla/LexMatlab.o \
-	$(top_srcdir)/scintilla/LexAsm.o \
-	$(top_srcdir)/scintilla/LexFortran.o \
-	$(top_srcdir)/scintilla/LexCSS.o \
-	$(top_srcdir)/scintilla/LexEScript.o \
-	$(top_srcdir)/scintilla/LexLout.o
+include $(top_srcdir)/scintilla/lexers.make
 
 bin_PROGRAMS = anjuta
 
@@ -268,6 +243,6 @@ anjuta_LDADD =  \
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
-	$(SCILEXERS)
+	$(LEXER_OBJS)
 
 EXTRA_DIST = anjuta-marshalers.list

@@ -1,3 +1,12 @@
+2003-09-18  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/*/*, src/scintilla/Makefile.am, src/Makefile.am,
+	(new) lexers.make, (new) lexers: Update scintilla to latest
+	scintilla CVS (2003-09-18), added new lexers, automated
+	lexers makefiles sections and scintilla	update. Added
+	patches. Optimized pango rendering. Fixed a crash bug
+	in scintilla.
+	
 2003-09-15  Naba Kumar  <naba@gnome.org>
 
 	* src/text_editor.[c,h], src/anjuta.c, src/breakpoints.c,
