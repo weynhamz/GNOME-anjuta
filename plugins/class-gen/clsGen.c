@@ -141,7 +141,7 @@ void Activate( GModule *self, void *pUserData, AnjutaApp* p)
 	if( p && p->project_dbase && p->project_dbase->project_is_open )
 		CreateCodeClass( p->project_dbase );
 	else
-		MessageBox(_("No project open, can not add class!"));
+		MessageBox(_("No Project open, unable to add class!"));
 }
 
 gchar *GetMenuTitle( GModule *self, void *pUserData )
@@ -633,7 +633,7 @@ create_dlgClass ( CG_Creator *self )
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dialog_vbox1", self->dialog_vbox1);
   gtk_widget_show (self->dialog_vbox1);
 
-  self->frame1 = gtk_frame_new (_("New Class :"));
+  self->frame1 = gtk_frame_new (_("New Class: "));
   gtk_widget_ref (self->frame1);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "frame1", self->frame1,
                             (GtkDestroyNotify) gtk_widget_unref);
