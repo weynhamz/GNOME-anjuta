@@ -50,4 +50,7 @@ gboolean fileselection_set_dir (GtkWidget* filesel, gchar* dir);
 gboolean
 fileselection_set_filename (GtkWidget* filesel, gchar* fname);
 
+GList *
+fileselection_get_filelist(GtkWidget * filesel);
+
 #endif

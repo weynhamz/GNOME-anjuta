@@ -55,11 +55,13 @@ struct _GnomeFileList {
    gboolean show_hidden;
    gchar *path;
    gchar *selected;
+//	GtkList *list;
    gint history_position;
    GList *history;
    gint selected_row;
    GnomePixmap *folder;
    GnomePixmap *file;
+	gboolean multiple_selection;
 
    gchar *entry_text;
 };
@@ -79,11 +81,13 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path);
 /* get the current selection...make sure to free it with g_free() */
 gchar *gnome_filelist_get_filename(GnomeFileList *file_list);
 gchar *gnome_filelist_get_path(GnomeFileList *file_list);
+GList * gnome_filelist_get_filelist(GnomeFileList * file_list);
 
 void gnome_filelist_set_title(GnomeFileList *file_list, gchar *title);
 gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar *path);
 gboolean gnome_filelist_set_filename (GnomeFileList *file_list, gchar *fname);
 void gnome_filelist_set_show_hidden (GnomeFileList *file_list, gboolean show_hidden);
+void gnome_filelist_set_selection_mode (GnomeFileList *file_list, GtkSelectionMode mode);
 
 #ifdef __cplusplus /* cpp compatibility */
 }

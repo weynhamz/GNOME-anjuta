@@ -111,6 +111,12 @@ fileselection_get_filename (GtkWidget* filesel)
 	return gnome_filelist_get_filename (GNOME_FILELIST(filesel));
 }
 
+GList *
+fileselection_get_filelist(GtkWidget * filesel)
+{
+	 return gnome_filelist_get_filelist (GNOME_FILELIST(filesel));
+}
+
 /* Free the return */
 gchar*
 fileselection_get_path (GtkWidget* filesel)
