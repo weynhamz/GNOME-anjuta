@@ -1,3 +1,24 @@
+2005-01-18  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/macro/plugin.[ch],
+	plugins/macro/macro-dialog.[ch]
+	plugins/macro/macro-edit.[ch]
+	plugins/macro/macro-db.[ch]
+	plugins/macro/macro-actions.[ch]
+	plugins/macro/anjuta-macro.plugin.in
+	plugins/macro/anjuta-macro.glade
+	plugins/macro/anjuta-macro.png
+	plugins/macro/Makefile.am
+	plugins/macro/macros.xml
+	plugins/macro/anjuta-macro.ui (all added)
+	configure.in
+	plugins/Makefile.am:
+	Added new macro plugins
+	
+	* plugins/cvs-plugin/anjuta-cvs-plugin.png:
+	New icon
+
+
 2005-01-07  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/anjuta-project-wizard.glade,

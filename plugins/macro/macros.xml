@@ -1,0 +1,93 @@
+<anjuta-macros>
+	<macro>
+		<name>switch</name>
+		<category>C-Template</category>
+		<shortcut></shortcut>
+		<macro-text>switch ()
+{
+	case  :
+		;
+		break;
+	case  :
+		;
+		break;
+	default:
+		;
+		break;
+}</macro-text>
+	</macro>
+	<macro>
+		<name>while</name>
+		<category>C-Template</category>
+		<shortcut></shortcut>
+		<macro-text>while ()
+{
+	;
+}</macro-text>
+	</macro>
+	<macro>
+		<name>for</name>
+		<category>C-Template</category>
+		<shortcut></shortcut>
+		<macro-text>for</macro-text>
+	</macro>
+	<macro>
+		<name>if...else</name>
+		<category>C-Template</category>
+		<shortcut></shortcut>
+		<macro-text>if ()
+{
+	;
+}
+else
+{
+	;
+}
+</macro-text>
+	</macro>
+	<macro>
+		<name>Date</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Date$</macro-text>
+	</macro>
+	<macro>
+		<name>Log</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Log$
+		<macro-text>Revision 1.1  2005/01/08 15:08:32  jhs
+		<macro-text>New macro plugin
+		<macro-text></macro-text>
+	</macro>
+	<macro>
+		<name>Name</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Name$</macro-text>
+	</macro>
+	<macro>
+		<name>Revision</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Revision$</macro-text>
+	</macro>
+	<macro>
+		<name>Source</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Source$</macro-text>
+	</macro>
+	<macro>
+		<name>Author</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Author$</macro-text>
+	</macro>
+	<macro>
+		<name>Header</name>
+		<category>CVS keyword</category>
+		<shortcut></shortcut>
+		<macro-text>$Header$</macro-text>
+	</macro>
+</anjuta-macros>

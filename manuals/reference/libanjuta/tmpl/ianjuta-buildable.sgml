@@ -36,6 +36,8 @@ ianjuta-buildable
 @build: 
 @clean: 
 @compile: 
+@configure: 
+@generate: 
 @install: 
 
 <!-- ##### FUNCTION ianjuta_buildable_error_quark ##### -->
@@ -52,6 +54,7 @@ ianjuta-buildable
 </para>
 
 @obj: 
+@directory: 
 @err: 
 
 
@@ -61,6 +64,7 @@ ianjuta-buildable
 </para>
 
 @obj: 
+@directory: 
 @err: 
 
 

@@ -1,5 +1,6 @@
 
 
+
 ## The '.' is to make sure install-data-hook rule is executed first
 SUBDIRS = . \
 	gtodo \
@@ -18,7 +19,8 @@ SUBDIRS = . \
 	symbol-browser \
 	sample1 \
 	cvs-plugin \
-	project-wizard
+	project-wizard \
+	macro
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left
