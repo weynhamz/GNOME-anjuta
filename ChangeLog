@@ -1,3 +1,7 @@
+2004-02-25  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* anjuta.glade  src/search-replace.c
+	Reduced Search&Replace dialog  :  bug #902636
+	
 2004-02-23  Naba Kumar  <naba@gnome.or>
 
 	* manuals/C/anjuta-tutorial/anjuta-tutorial.xml: Fixed a typo

@@ -1327,6 +1327,8 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 			search_set_action(SA_REPLACEALL);	
 	}
 	reset_flags_and_search_button();
+	/*  Resize dialog  */
+	gtk_window_resize(GTK_WINDOW(sg->dialog), 10, 10);
 }
 
 
