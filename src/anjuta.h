@@ -123,8 +123,6 @@ struct _FileLineInfo
 };
 
 extern AnjutaApp *app;
-extern int arg_c;
-extern char **arg_v;
 
 void create_anjuta_gui (AnjutaApp * appl);
 

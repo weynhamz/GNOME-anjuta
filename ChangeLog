@@ -1,3 +1,11 @@
+2001-04-27  Stéphane Démurget <demurgets@free.fr>
+
+	* src/main.c,
+	  src/anjuta.c,
+	  src/anjuta.h: Polished the command line parsing.
+
+	* BUGS: Need to clean that damn gnome_filelist widget.
+
 2001-04-25  Stéphane Démurget <demurgets@free.fr>
 
 	* src/registers.c,
@@ -8,7 +16,6 @@
 
 	* src/compiler_options_gui.c: Cleaned up a part of the GUI,
 	  create_compiler_options_page? () declared static.
-
 	* src/main.c,
 	  src/anjuta.c: Put a command line option for disabling
 	  the splashscreen.

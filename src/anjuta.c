@@ -47,12 +47,10 @@
 #include "properties.h"
 #include "commands.h"
 
-extern const struct poptOption anjuta_options[];
 extern gboolean closing_state;
 static GdkCursor *app_cursor;
 
 void anjuta_child_terminated (int t);
-static void anjuta_load_cmdline_files (void);
 static void on_anjuta_window_selected (GtkMenuItem * menuitem,
 				       gpointer user_data);
 static void anjuta_clear_windows_menu (void);
@@ -98,7 +96,6 @@ anjuta_new ()
 
 		signal (SIGCHLD, anjuta_child_terminated);
 		create_anjuta_gui (app);
-
 		app->dirs = anjuta_dirs_new ();
 		app->fileselection = create_fileselection_gui (&fsd1);
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
@@ -559,7 +556,7 @@ anjuta_show ()
 	update_gtk ();
 	messages_append (app->messages,
 			 _("CVS is not yet implemented. :-(\n"), MESSAGE_CVS);
-	anjuta_load_cmdline_files ();
+	
 	if (app->dirs->first_time)
 	{
 		gchar *file;
@@ -1372,53 +1369,6 @@ anjuta_child_terminated (int t)
 	if (callback)
 		(*callback) (status, cb_data);
 	anjuta_unregister_child_process (pid);
-}
-
-static void
-anjuta_load_cmdline_files ()
-{
-	int i, j, skip;
-	gchar *option;
-	
-	for (i = 1; i < arg_c; i++) {
-		skip = 0;
-
-		/* FIXME: ugly hack waiting a nice implementation parsing the
-		   poptable and passing the filenames to this fonction */
-		for (j = 0; anjuta_options[j].longName || 
-		            anjuta_options[j].shortName != '\0'; j++) {
-			option = g_strconcat ("--", anjuta_options[j].longName, NULL);
-			if (!strcmp (option, arg_v[i]))
-				skip = 1;		
-			g_free (option);
-
-			if (!skip && 
-			    arg_v[i][0] == '-' && 
-			    arg_v[i][1] == anjuta_options[j].shortName) 
-				skip = 1;
-
-			if (skip) break;
-		}
-
-		if (skip)
-			continue;
-
-		switch (get_file_ext_type (arg_v[i]))
-		{
-		case FILE_TYPE_IMAGE:
-			continue;
-		case FILE_TYPE_PROJECT:
-			if (!app->project_dbase->project_is_open)
-			{
-				fileselection_set_filename (app->project_dbase->fileselection_open, arg_v[i]);
-				project_dbase_load_project (app->project_dbase, TRUE);
-			}
-			continue;
-		default:
-			anjuta_goto_file_line (arg_v[i], -1);
-			continue;
-		}
-	}
 }
 
 static void

@@ -25,24 +25,25 @@
 #include "splash.h"
 #include "resources.h"
 #include "anjuta.h"
+#include "utilities.h"
+#include "fileselection.h"
 
 /* One and only one instance of AnjutaApp. */
 AnjutaApp *app;			
-
-int arg_c;
-char **arg_v;
 
 gboolean no_splash = 0;
 
 /* command line options table */
 const struct poptOption anjuta_options[] = {
 	{"no-splash", 's', POPT_ARG_NONE, &no_splash, 0, N_("Don't show the splashscreen"), NULL},
-	{NULL, '\0', 0, NULL, 0}
+	POPT_AUTOHELP {NULL}
 };
 
 int
 main (int argc, char *argv[])
 {
+	poptContext context;
+	char *filename;
 
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
@@ -50,18 +51,38 @@ main (int argc, char *argv[])
 #endif
 
 	gnome_init_with_popt_table ("anjuta", VERSION, argc, argv,
-				    anjuta_options, 0, NULL);
+				    anjuta_options, 0, &context);
 	
 	/* Session management is under development */
 	gnome_client_disable_master_connection ();
-	arg_c = argc;
-	arg_v = argv;
 
 	if (!no_splash)
 		splash_screen ();
 
 	anjuta_new ();
 	anjuta_show ();
+
+	/* Open the files given on the command line */
+	while ((filename = poptGetArg (context)) != NULL)
+		switch (get_file_ext_type (filename)) {
+			case FILE_TYPE_IMAGE:
+				break;
+				
+			case FILE_TYPE_PROJECT: 
+				if (!app->project_dbase->project_is_open) {
+					fileselection_set_filename (app->project_dbase->fileselection_open, filename);
+					project_dbase_load_project (app->project_dbase, TRUE);
+				}
+				
+				break;
+
+			default:
+				anjuta_goto_file_line (filename, -1);
+		}
+		
+	poptFreeContext (context);
+	
 	gtk_main ();
+	
 	return 0;
 }
