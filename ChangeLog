@@ -1,3 +1,8 @@
+2005-03-08  Adam Weinberger  <adamw@gnome.org>
+
+	* plugins/class-gen/anjuta-class-gen-plugin.glade: Fix grammar
+	  error
+
 2005-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/macro/macro-actions.c, plugins/macro/macro-db.[ch],
