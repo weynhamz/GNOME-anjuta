@@ -776,25 +776,26 @@ source_write_executable_source_files (ProjectDBase * data)
 	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CFLAGS =");
+		fprintf (fp, "%s_CFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CXXFLAGS =");
+		fprintf (fp, "%s_CXXFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	fprintf (fp, "bin_PROGRAMS = %s\n\n", target);
 	fprintf (fp, "%s_SOURCES = \\\n", target);
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
@@ -867,25 +868,26 @@ source_write_static_lib_source_files (ProjectDBase * data)
 	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CFLAGS =");
+		fprintf (fp, "%s_CFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CXXFLAGS =");
+		fprintf (fp, "%s_CXXFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	fprintf (fp, "lib_LIBRARIES = %s%s\n\n", target, ".a");
 	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "a");
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
@@ -957,25 +959,26 @@ source_write_dynamic_lib_source_files (ProjectDBase * data)
 	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
 	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	
 	lang = project_dbase_get_language(data);
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CFLAGS =");
+		fprintf (fp, "%s_CFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
 		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
 	{
-		fprintf (fp, "CXXFLAGS =");
+		fprintf (fp, "%s_CXXFLAGS =", target);
 		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 		fprintf (fp, "\n\n");
 	}
 	
-	target =
-		prop_get (data->props, "project.source.target");
-	g_strdelimit (target, "-", '_');
 	fprintf (fp, "lib_LTLIBRARIES = %s%s\n\n", target, ".la");
 	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "la");
 	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);

@@ -1,3 +1,14 @@
+2003-06-13  Naba Kumar  <naba@gnome.org>
+
+	* src/stack_trace_cbs.c: Moved variable declaration at the
+	top of the block (bug #737867)
+	
+	* src/source.c: use target_CFLAGS and target_CXXFLAGS instead of
+	just CFLAGS and CXXFLAGS (bug #743617).
+	
+	* src/create_global_tags.sh: Fixed shell script to properly
+	detect installed *-config files.
+	
 2003-06-12  Naba Kumar  <naba@gnome.org>
 
 	* src/preferences.[c,h]: Added methods for custom widgets in

@@ -42,6 +42,8 @@ on_stack_trace_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 	{
 		/* update the current index iterator and number in the stack trace object */
 		GtkTreeIter iter;
+		GdkEventButton *bevent;
+		
 		if (!get_current_iter (st,&iter))
 			return FALSE;
 		
@@ -49,7 +51,7 @@ on_stack_trace_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 		st->current_index_iter = gtk_tree_iter_copy (&iter);		
 		st->current_index = get_index_from_iter (st,&iter);
 				
-		GdkEventButton *bevent = (GdkEventButton *) event;
+		bevent = (GdkEventButton *) event;
 		if (bevent->button != 3)
 			return FALSE;
 		bevent->button = 1;
