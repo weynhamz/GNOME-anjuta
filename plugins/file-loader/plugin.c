@@ -676,10 +676,23 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	gchar *mime_type;
 	GSList *plugin_descs = NULL;
 	GObject *plugin = NULL;	
+	gchar *new_uri;
+	GnomeVFSURI* vfs_uri;
 	
 	g_return_val_if_fail (uri != NULL, NULL);
-	mime_type = gnome_vfs_get_mime_type (uri);
-	g_return_val_if_fail (mime_type != NULL, NULL);
+	vfs_uri = gnome_vfs_uri_new (uri);
+	new_uri = gnome_vfs_uri_to_string (vfs_uri,
+									   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
+	mime_type = gnome_vfs_get_mime_type (new_uri);
+	
+	if (mime_type == NULL)
+	{
+		launch_application_failure ((AnjutaFileLoaderPlugin*)(ANJUTA_PLUGIN (loader)),
+									new_uri, GNOME_VFS_ERROR_NOT_FOUND);
+		g_free (new_uri);
+		return NULL;
+	}
+	g_free (new_uri);
 	
 	g_message ("Opening URI: %s", uri);
 	plugin_descs = anjuta_plugins_query (ANJUTA_PLUGIN(loader)->shell,

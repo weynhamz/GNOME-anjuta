@@ -450,7 +450,6 @@ gchar *gtodo_todo_item_get_due_date_as_string(GTodoItem *item)
 	return buffer;
 }
 
-
 /* should not be used by the user. internal function */	
 GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr node)
 {
@@ -771,8 +770,26 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error)
 int gtodo_client_reload(GTodoClient *cl)
 {
 	/* fixme */
-	xmlFreeDoc(cl->gtodo_doc);
+	if (cl->gtodo_doc)
+		xmlFreeDoc(cl->gtodo_doc);
 	cl->root = NULL;
+	if(gtodo_client_check_file(cl, NULL))
+	{
+		if(debug)g_print("Failed to reload the file\n");
+		return FALSE;
+	}
+	return TRUE;
+}
+
+int gtodo_client_load(GTodoClient *cl, const gchar *xml_path)
+{
+	/* fixme */
+	if (cl->gtodo_doc)
+		xmlFreeDoc(cl->gtodo_doc);
+	cl->root = NULL;
+	if (cl->xml_path)
+		g_free (cl->xml_path);
+	cl->xml_path = g_strdup (xml_path);
 	if(gtodo_client_check_file(cl, NULL))
 	{
 		if(debug)g_print("Failed to reload the file\n");

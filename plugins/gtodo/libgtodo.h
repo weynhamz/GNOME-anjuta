@@ -274,6 +274,9 @@ int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error);
 /* reloads the client backend data*/
 int gtodo_client_reload(GTodoClient *cl);
 
+/* Loads a file */
+int gtodo_client_load(GTodoClient *cl, const gchar *xml_path);
+
 /* creates a new GTodoClient that opens the default backend */
 GTodoClient * gtodo_client_new_default(GError **error);
 

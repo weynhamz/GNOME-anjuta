@@ -23,7 +23,7 @@ GdkEventMotion *ovent;
 sets settings;
 GConfClient* client;    
 
-static void stock_icons();
+static void stock_icons(void);
 
 static void backend_changed()
 {
@@ -129,6 +129,9 @@ GtkWidget * gui_create_todo_widget()
 	/* used for the buttons @ the bottom */
 	GtkSizeGroup *sgroup;
 	/* TODO: make this compile time  (path is now)*/
+	
+	if (!cl)
+		cl = gtodo_client_new_default (NULL);
 	stock_icons();
 	/* add an verticall box */
 	mw.vbox = gtk_vbox_new(FALSE, 0);
@@ -233,7 +236,7 @@ GtkWidget * gui_create_todo_widget()
 
 	g_signal_connect(G_OBJECT (mw.treeview), "row-activated", G_CALLBACK (gui_add_todo_item), GINT_TO_POINTER(1));
 	// FIXME: set_sorting_menu_item();
-	// gtodo_update_settings();
+	gtodo_update_settings();
 	return mw.vbox;
 }
 

@@ -95,6 +95,30 @@ static GtkToggleActionEntry actions_view[] = {
 	}
 };
 
+static void
+project_root_added (AnjutaPlugin *plugin, const gchar *name,
+					const GValue *value, gpointer user_data)
+{
+	const gchar *root_uri;
+
+	root_uri = g_value_get_string (value);
+	
+	if (root_uri)
+	{
+		gchar *todo_file;
+		
+		todo_file = g_strconcat (root_uri, "/TODO.tasks", NULL);
+		gtodo_client_load (cl, todo_file);
+		g_free (todo_file);
+	}
+}
+
+static void
+project_root_removed (AnjutaPlugin *plugin, const gchar *name,
+					  gpointer user_data)
+{
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -136,6 +160,11 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaTodoPlugin", _("Tasks"),
 							 "gtodo", /* Icon stock */
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	/* set up project directory watch */
+	gtodo_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
+													"project_root_uri",
+													project_root_added,
+													project_root_removed, NULL);
 	return TRUE;
 }
 
@@ -147,6 +176,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_remove_widget (plugin->shell, ((GTodoPlugin*)plugin)->widget,
 								NULL);
 	anjuta_ui_unmerge (ui, ((GTodoPlugin*)plugin)->uiid);
+	anjuta_plugin_remove_watch (plugin,
+								((GTodoPlugin*)plugin)->root_watch_id, TRUE);
 	return TRUE;
 }
 
@@ -178,6 +209,8 @@ gtodo_plugin_class_init (GObjectClass *klass)
 static void
 itodo_load (IAnjutaTodo *profile, gchar *filename, GError **err)
 {
+	g_return_if_fail (filename != NULL);
+	gtodo_client_load (cl, filename);
 }
 
 static void

@@ -9,6 +9,7 @@ struct _GTodoPlugin{
 	GtkWidget *widget;
 	GtkWidget *prefs;
 	gint uiid;
+	gint root_watch_id;
 };
 
 struct _GTodoPluginClass{

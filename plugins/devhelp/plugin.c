@@ -307,8 +307,7 @@ on_context_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
 		return;
 	}
 	editor = IANJUTA_EDITOR (dh_plugin->priv->editor);
-	// FIXME: current_word = ianjuta_editor_get_current_word (editor, NULL);
-	current_word = g_strdup ("gnome_vfs_");
+	current_word = ianjuta_editor_get_current_word (editor, NULL);
 	if (current_word)
 	{
 		devhelp_html_initialize (dh_plugin);

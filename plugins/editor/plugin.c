@@ -967,7 +967,7 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 }
 
 static void
-isavable_save_as(IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
+isavable_save_as (IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
 {
 	g_warning("save_as: Not implemented	in EditorPlugin");
 }

@@ -158,7 +158,7 @@ static int nmenu_items = sizeof (menu_items) / sizeof (menu_items[0]);
 
 GtkWidget* gui_create_main_window() {
 
-    	GtkWidget *window;
+   	GtkWidget *window;
 	GtkWidget *gtodo;
 	GtkIconSet *set;
 	GdkPixbuf *pixbuf;

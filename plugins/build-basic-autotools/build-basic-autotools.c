@@ -29,6 +29,7 @@
 #include <libanjuta/pixmaps.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 
@@ -151,14 +152,14 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 		return NULL;
 	
 	rc = pcre_exec(
-			bp->regex,             /* result of pcre_compile() */
-			NULL,           /* we didn’t study the pattern */
-			details,        /* the subject string */
+			bp->regex,       /* result of pcre_compile() */
+			NULL,            /* we didn’t study the pattern */
+			details,         /* the subject string */
 			strlen (details),/* the length of the subject string */
-			0,              /* start at offset 0 in the subject */
-			bp->options,              /* default options */
-			ovector,        /* vector for substring information */
-			30);            /* number of elements in the vector */
+			0,               /* start at offset 0 in the subject */
+			bp->options,     /* default options */
+			ovector,         /* vector for substring information */
+			30);             /* number of elements in the vector */
 	
 	if (rc < 0)
 		return NULL;
@@ -173,7 +174,6 @@ build_get_summary (const gchar *details, BuildPattern* bp)
 			
 			temp[0] = *(iter + 1);
 			int idx = atoi (temp);
-			// g_message ("dodo: %d, %d, %d", idx, ovector[2*idx], ovector[2*idx+1]);
 			ret = g_string_append_len (ret, details + ovector[2*idx],
 									   ovector[2*idx+1] - ovector[2*idx]);
 			iter += 2;
@@ -332,8 +332,17 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 	gint lineno;
 	if (parse_error_line (line, &filename, &lineno))
 	{
+		gchar *uri;
+		IAnjutaFileLoader *loader;
+		
 		/* Go to file and line number */
-		g_message ("Go to %s: %d", filename, lineno);
+		loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
+											 NULL);
+		
+		/* FIXME: Determine full file path */
+		uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
+		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+		g_free (uri);
 	}
 }
 

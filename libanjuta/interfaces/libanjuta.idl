@@ -353,13 +353,15 @@ interface IAnjutaEditor
 		DOESNT_EXIST
 	}
 	
+	void   insert (int position, const gchar *text, gint length);
 	void   goto_line (gint lineno);
 	void   goto_position (gint position);
 	gchar* get_selection ();
 	gchar* get_text (gint start, gint end);
 	gchar* get_attributes (gint start, gint end);
 	gint   get_position ();
-	void   insert (int position, const gchar *text, gint length);
+	gint   get_length ();
+	gchar* get_current_word ();
 }
 
 interface IAnjutaDocumentManager

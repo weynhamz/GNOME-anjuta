@@ -637,11 +637,13 @@ anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *fname, glong li
 
 TextEditor *
 anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
-								   glong lineno, gboolean mark)
+								   glong line, gboolean mark)
 {
 	gchar *uri;
 	GnomeVFSURI* vfs_uri;
 	GList *node;
+	const gchar *linenum;
+	glong lineno;
 
 	TextEditor *te;
 
@@ -650,7 +652,17 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	/* FIXME: */
 	/* filename = anjuta_docman_get_full_filename (docman, fname); */
 	vfs_uri = gnome_vfs_uri_new (fname);
-	uri = gnome_vfs_uri_to_string (vfs_uri, GNOME_VFS_URI_HIDE_NONE);
+	
+	/* Extract linenum which comes as fragement identifier */
+	linenum = gnome_vfs_uri_get_fragment_identifier (vfs_uri);
+	if (linenum)
+		lineno = atoi (linenum);
+	else
+		lineno = line;
+	
+	/* Restore URI without fragement identifier (linenum) */
+	uri = gnome_vfs_uri_to_string (vfs_uri,
+								   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
 	gnome_vfs_uri_unref (vfs_uri);
 	/* g_free(filename); */
 

@@ -835,8 +835,8 @@ imessage_view_select_previous (IAnjutaMessageView * message_view,
  * returned message must not be freed.
  */
 static const gchar *
-imessage_view_get_message (IAnjutaMessageView * message_view,
-						   GError ** e)
+imessage_view_get_current_message (IAnjutaMessageView * message_view,
+								   GError ** e)
 {
 	MessageView *view;
 	GtkTreeIter iter;
@@ -848,27 +848,36 @@ imessage_view_get_message (IAnjutaMessageView * message_view,
 	
 	view = MESSAGE_VIEW (message_view);
 	select = gtk_tree_view_get_selection (GTK_TREE_VIEW
-					      (view->privat->tree_view));
+									      (view->privat->tree_view));
 
 	if (!gtk_tree_selection_get_selected (select, &model, &iter))
 	{
-		if (gtk_tree_model_get_iter_first
-		    (GTK_TREE_MODEL (model), &iter))
+		if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter))
 		{
 			gtk_tree_model_get (GTK_TREE_MODEL (model),
-					    &iter, COLUMN_MESSAGE, &message,
-					    -1);
-			return message->details;
+								&iter, COLUMN_MESSAGE, &message, -1);
+			if (message)
+			{
+				if (message->details && strlen (message->details) > 0)
+					return message->details;
+				else
+					return message->summary;
+			}
 		}
-		else
-			return NULL;
 	}
 	else
 	{
 		gtk_tree_model_get (GTK_TREE_MODEL (model),
-				    &iter, COLUMN_MESSAGE, &message, -1);
-		return message->details;
+						    &iter, COLUMN_MESSAGE, &message, -1);
+		if (message)
+		{
+			if (message->details && strlen (message->details) > 0)
+				return message->details;
+			else
+				return message->summary;
+		}
 	}
+	return NULL;
 }
 
 /* Returns a GList which contains all messages, the GList itself
@@ -912,7 +921,7 @@ imessage_view_iface_init (IAnjutaMessageViewIface *iface)
 	iface->clear = imessage_view_clear;
 	iface->select_next = imessage_view_select_next;
 	iface->select_previous = imessage_view_select_previous;
-	iface->get_current_message = imessage_view_get_message;
+	iface->get_current_message = imessage_view_get_current_message;
 	iface->get_all_messages = imessage_view_get_all_messages;
 }
 

@@ -1818,6 +1818,7 @@ text_editor_get_props (TextEditor *te)
 }
 
 /* IAnjutaEditor interface implementation */
+
 static gchar*
 itext_editor_get_selection (IAnjutaEditor *editor, GError **error)
 {
@@ -1854,6 +1855,7 @@ static gchar*
 itext_editor_get_attributes (IAnjutaEditor *editor, gint start,
 							   gint end, GError **e)
 {
+	g_warning("get_attributes: Not yet implemented in EditorPlugin");
 	return NULL;
 }
 
@@ -1861,6 +1863,20 @@ static gint
 itext_editor_get_position (IAnjutaEditor *editor, GError **e)
 {
 	return text_editor_get_current_position (TEXT_EDITOR(editor));
+}
+
+static gint
+itext_editor_get_length (IAnjutaEditor *editor, GError **e)
+{
+	return aneditor_command (TEXT_EDITOR (editor)->editor_id,
+							 ANE_GETLENGTH, 0, 0);
+}
+
+static gchar*
+itext_editor_get_current_word (IAnjutaEditor *editor, GError **e)
+{
+	return (gchar*)aneditor_command (TEXT_EDITOR (editor)->editor_id,
+									 ANE_GETCURRENTWORD, 0, 0);
 }
 
 static void
@@ -1880,6 +1896,8 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_selection = itext_editor_get_selection;
 	iface->get_attributes = itext_editor_get_attributes;
 	iface->get_position = itext_editor_get_position;
+	iface->get_length = itext_editor_get_length;
+	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
 }
 
@@ -1941,9 +1959,7 @@ isavable_is_dirty (IAnjutaFileSavable* editor, GError** e)
 static void
 isavable_set_dirty (IAnjutaFileSavable* editor, gboolean dirty, GError** e)
 {
-	#ifdef DEBUG
 	g_warning("set_dirty: Not implemented in EditorPlugin");
-	#endif
 }
 
 

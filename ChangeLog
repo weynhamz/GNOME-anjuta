@@ -1,3 +1,37 @@
+2004-10-06  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/plugins.c: Shows plugins in a nicer dialog.
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor.c: Added get_length()
+	and get_current_word() methods in IAnjutaEditor interface.
+	
+	* libegg/Makefile.am: Added test_actions target.
+	
+	* libegg/egg-combo-action.c: Fixed combo-action and made it usable.
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/file-loader/plugin.c,
+	plugins/message-view/message-view.c: Added code to go to file and
+	line number,
+	
+	* plugins/devhelp/plugin.c: Context sensitive help now works.
+	* plugins/editor/anjuta-docman.c: Reads the fragment id from file
+	uri as line number and goes to that line number.
+	
+	* plugins/gtodo/interface.c, plugins/gtodo/libgtodo.c,
+	plugins/gtodo/plugin.c: Creates a default gtodo client and implemented
+	gtodo_client_load() method to load from a diffrent file. Watched 
+	project root directory in plugin to open TODO.tasks of the project.
+	
+	* plugins/project-manager/plugin.c: Updates project UI
+	sensitive/insensitive.
+
+	* src/Makefile.am, src/shell.[c,h], src/anjuta-shell.ui: Added
+	anjuta-shell program to test plugins.
+	
+	* src/anjuta-app.c: Registered UI accels.
+	
 2004-09-28  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-shell.[c,h]: Added anjuta_shell_present_widget()

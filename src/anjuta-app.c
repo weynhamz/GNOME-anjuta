@@ -330,6 +330,9 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
 	
+	gtk_window_add_accel_group (GTK_WINDOW (app),
+								anjuta_ui_get_accel_group (app->ui));
+	
 	/* Create stock icons */
 	create_stock_icons (app->ui);
 

@@ -53,8 +53,10 @@ typedef struct {
 
 enum {
 	COL_ENABLED,
+	COL_ICON,
 	COL_NAME,
-	COL_TOOL
+	COL_TOOL,
+	N_COLS
 };
 
 static GList *plugin_dirs = NULL;
@@ -768,6 +770,7 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 	gtk_tree_path_free (path);
 }
 
+#if 0
 static void
 selection_changed (GtkTreeSelection *selection, GtkListStore *store)
 {
@@ -796,6 +799,7 @@ selection_changed (GtkTreeSelection *selection, GtkListStore *store)
 		}
 	}
 }
+#endif
 
 static GtkWidget *
 create_plugin_tree (void)
@@ -805,28 +809,39 @@ create_plugin_tree (void)
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
-	store = gtk_list_store_new (3, 
-				    G_TYPE_BOOLEAN, 
-				    G_TYPE_STRING, 
-				    G_TYPE_POINTER);
+	store = gtk_list_store_new (N_COLS,
+								G_TYPE_BOOLEAN,
+								GDK_TYPE_PIXBUF,
+								G_TYPE_STRING,
+								G_TYPE_POINTER);
 	tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
 
 	renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (G_OBJECT (renderer), "toggled",
 			  G_CALLBACK (plugin_toggled), store);
 	column = gtk_tree_view_column_new_with_attributes (_("Load"),
-							   renderer,
-							   "active", 
-							   COL_ENABLED, NULL);
-	
+													   renderer,
+													   "active", 
+													   COL_ENABLED, NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
+	gtk_tree_view_column_set_sizing (column,
+									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
+										COL_ICON);
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes (_("Plugin"),
-							   renderer,
-							   "text", 
-							   COL_NAME, NULL);
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "markup",
+										COL_NAME);
+	gtk_tree_view_column_set_sizing (column,
+									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Available Plugins"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree), column);
+
 	g_object_unref (store);
 	return tree;
 }
@@ -838,7 +853,6 @@ populate_plugin_model (GtkListStore *store,
 {
 	GSList *l;
 	for (l = available_tools; l != NULL; l = l->next) {
-		GtkTreeIter iter;
 		AvailableTool *tool = l->data;
 		
 		/* If tools to show is NULL, show all available tools */
@@ -849,13 +863,32 @@ populate_plugin_model (GtkListStore *store,
 			if (g_hash_table_lookup (installed_tools, tool))
 				enable = TRUE;
 			
-			gtk_list_store_append (store, &iter);
-			gtk_list_store_set (store, &iter,
-						COL_ENABLED, 
-						enable,
-						COL_NAME, tool->name,
-						COL_TOOL, tool,
-						-1);
+			if (tool->name && tool->description)
+			{
+				GtkTreeIter iter;
+				gchar *text;
+				
+				text = g_markup_printf_escaped ("<span size=\"larger\" weight=\"bold\">%s</span>\n%s", tool->name, tool->about);
+
+				gtk_list_store_append (store, &iter);
+				gtk_list_store_set (store, &iter,
+									COL_ENABLED, 
+									enable,
+									COL_NAME, text,
+									COL_TOOL, tool,
+									-1);
+				if (tool->icon_path) {
+					GdkPixbuf *icon;
+					icon = gdk_pixbuf_new_from_file_at_size (tool->icon_path,
+															 48, 48, NULL);
+					if (icon) {
+						gtk_list_store_set (store, &iter,
+											COL_ICON, icon, -1);
+						gdk_pixbuf_unref (icon);
+					}
+				}
+				g_free (text);
+			}
 		}
 	}
 }
@@ -864,80 +897,41 @@ static GtkWidget *
 create_plugin_page (AnjutaShell *shell)
 {
 	GtkWidget *vbox;
-	GtkWidget *hbox;
-	GtkWidget *image;
-	GtkWidget *label;
 	GtkWidget *tree;
-	GtkWidget *frame;
-	GtkWidget *text;
 	GtkWidget *scrolled;
 	GtkListStore *store;
-	GtkTreeSelection *selection;
 	GHashTable *installed_tools;
 
 	vbox = gtk_vbox_new (FALSE, 0);
-
-	hbox = gtk_hbox_new (FALSE, GNOME_PAD_SMALL);
-
-	image = anjuta_res_get_image ("plugins.png");
-	gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 3);
-
-	label = gtk_label_new (_("This dialog displays all the available plugins for Anjuta.  You can select which plugins you want to use by clicking on the plugin in the list."));
-	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-
-	gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 3);
-
+	
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
-					     GTK_SHADOW_IN);
+									     GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
 	
-	gtk_box_pack_start (GTK_BOX (vbox),
-			    scrolled, TRUE, TRUE, 3);
 	tree = create_plugin_tree ();
-	store = GTK_LIST_STORE(gtk_tree_view_get_model (GTK_TREE_VIEW (tree)));
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree)));
 
 	installed_tools = g_object_get_data (G_OBJECT(shell), "InstalledTools");
+	
+	/* FIXME: This should be moved to a proper location */
+	if (!installed_tools)
+	{
+		installed_tools = g_hash_table_new (g_str_hash, g_str_equal);
+		g_object_set_data (G_OBJECT (shell), "InstalledTools",
+						   installed_tools);
+	}
+
 	populate_plugin_model (GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree))),
 						   NULL, installed_tools);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled), tree);
- 	
-	scrolled = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
-					     GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-	
-	hbox = gtk_hbox_new (FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (vbox),
-			    hbox, TRUE, TRUE, 3);
-
-	frame = gtk_frame_new ("About");
-	gtk_box_pack_start (GTK_BOX (hbox),
-			    frame, TRUE, TRUE, 3);
-	gtk_container_add (GTK_CONTAINER (frame), scrolled);
-
-	text = gtk_text_view_new ();
-	gtk_container_add (GTK_CONTAINER (scrolled), text);
-	g_object_set_data (G_OBJECT (store), "AboutText", text);
-
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
-	gtk_box_pack_start (GTK_BOX (hbox), frame, FALSE, FALSE, 3);
-	image = gtk_image_new ();
-	gtk_container_add (GTK_CONTAINER (frame), image);
-	g_object_set_data (G_OBJECT (store), "Icon", image);
-
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	g_signal_connect (G_OBJECT (selection), "changed",
-			  G_CALLBACK (selection_changed), store);
-
 	g_object_set_data (G_OBJECT (store), "Shell", shell);
 
 	gtk_widget_show_all (vbox);
-	gtk_widget_hide (image);
 	
 	return vbox;
 }
@@ -1220,9 +1214,8 @@ anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 										   GTK_RESPONSE_CANCEL,
 										   GTK_STOCK_OK, GTK_RESPONSE_OK,
 										   NULL);
-		gtk_widget_show (dlg);
 		gtk_widget_set_size_request (dlg, 400, 300);
-		gtk_window_set_default_size (GTK_WINDOW (dlg), 600, 500);
+		gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
 
 		label = gtk_label_new (description);
 		gtk_widget_show (label);

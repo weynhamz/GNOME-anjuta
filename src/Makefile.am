@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
-anjuta_ui_DATA =  anjuta.ui
+anjuta_ui_DATA = anjuta.ui anjuta-shell.ui
 
 anjuta_layoutdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
 anjuta_layout_DATA = layout.xml
@@ -24,7 +24,7 @@ INCLUDES = \
 
 include $(top_srcdir)/scintilla/lexers.make
 
-bin_PROGRAMS = anjuta
+bin_PROGRAMS = anjuta anjuta-shell
 
 anjuta_SOURCES = \
 	about.c \
@@ -40,7 +40,7 @@ anjuta_SOURCES = \
 	action-callbacks.c \
 	preferences.c \
 	preferences.h \
-	main.cpp
+	main.c
 
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) $(GDL_LIBS) -lutil\
@@ -62,3 +62,8 @@ anjuta_LDADD =  \
 #	$(top_builddir)/libanjuta/libanjuta.la
 #	$(top_builddir)/libegg/menu/libegg-menu.a \
 #	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a
+
+anjuta_shell_SOURCES = shell.c
+anjuta_shell_LDADD =  \
+	$(ANJUTA_LIBS) -lutil \
+	$(top_builddir)/libanjuta/libanjuta.la

@@ -34,6 +34,8 @@
 
 gpointer parent_class;
 
+static void update_ui (ProjectManagerPlugin *plugin);
+
 static void refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 }
@@ -101,6 +103,7 @@ on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		g_object_unref (plugin->project);
 		plugin->project = NULL;
 		g_object_set (G_OBJECT (plugin->model), "project", NULL, NULL);
+		update_ui (plugin);
 	}
 }
 
@@ -140,6 +143,36 @@ static GtkActionEntry popup_actions[] =
 		G_CALLBACK (refresh)
 	}
 };
+
+static void
+update_ui (ProjectManagerPlugin *plugin)
+{
+	AnjutaUI *ui;
+	gint j;
+	GtkAction *action;
+			
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	for (j = 0; j < G_N_ELEMENTS (pm_actions); j++)
+	{
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+									   pm_actions[j].name);
+		if (pm_actions[j].callback)
+		{
+			g_object_set (G_OBJECT (action), "sensitive",
+						  (plugin->project != NULL), NULL);
+		}
+	}
+	for (j = 0; j < G_N_ELEMENTS (popup_actions); j++)
+	{
+		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+									   popup_actions[j].name);
+		if (popup_actions[j].callback)
+		{
+			g_object_set (G_OBJECT (action), "sensitive",
+						  (plugin->project != NULL), NULL);
+		}
+	}
+}
 
 #if 0
 static void
@@ -234,12 +267,16 @@ activate_plugin (AnjutaPlugin *plugin)
 											G_N_ELEMENTS(pm_actions), plugin);
 	pm_plugin->popup_action_group = 
 		anjuta_ui_add_action_group_entries (pm_plugin->ui,
-											"ActionGroupProjectManager",
+											"ActionGroupProjectManagerPopup",
 											_("Project manager popup actions"),
-											popup_actions, 1, plugin);
+											popup_actions,
+											G_N_ELEMENTS (popup_actions),
+											plugin);
 	/* Merge UI */
 	pm_plugin->merge_id = 
 		anjuta_ui_merge (pm_plugin->ui, UI_FILE);
+	
+	update_ui (pm_plugin);
 	
 	/* Added widget in shell */
 	anjuta_shell_add_widget (plugin->shell, pm_plugin->scrolledwindow,
@@ -364,6 +401,7 @@ ifile_open (IAnjutaFile *project_manager,
 	g_value_init (value, G_TYPE_STRING);
 	g_value_take_string (value, vfs_dir);
 	
+	update_ui (pm_plugin);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (pm_plugin)->shell,
 								 pm_plugin->scrolledwindow,
 								 NULL);

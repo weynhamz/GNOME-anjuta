@@ -50,7 +50,8 @@ libanjuta_egg_la_SOURCES = \
 noinst_PROGRAMS = \
 	test-tree-utils \
 	test-multi-drag \
-	test-union
+	test-union \
+	test-actions
 
 test_tree_utils_SOURCES = test-tree-utils.c
 test_tree_utils_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
@@ -63,6 +64,10 @@ test_multi_drag_DEPENDENCIES = libanjuta-egg.la
 test_union_SOURCES = test-union.c
 test_union_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
 test_union_DEPENDENCIES = libanjuta-egg.la
+
+test_actions_SOURCES = test-actions.c
+test_actions_LDADD = libanjuta-egg.la $(ANJUTA_LIBS)
+test_actions_DEPENDENCIES = libanjuta-egg.la
 
 EXTRA_DIST = \
 	eggmarshalers.list \
