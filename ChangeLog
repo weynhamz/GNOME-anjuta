@@ -1,6 +1,7 @@
 2003-06-23  Naba Kumar  <naba@gnome.org>
 
 	* widgets/e-splash.c: Removed border around the splash image.
+	* anjuta.spec: correct libgnomeprintui22 name in depencencies.
 	
 2003-06-21  Naba Kumar  <naba@gnome.org>
 
