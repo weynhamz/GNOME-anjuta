@@ -269,13 +269,19 @@ on_edit_cancel_clicked (MacroEdit * edit)
 	on_add_cancel_clicked (edit);
 }
 
+
 gboolean
 on_macro_edit_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                gpointer user_data)
 {
 	if (event->keyval == GDK_Escape)
+	{
 		gtk_widget_hide (widget);
+		return TRUE;
+	}
+	return FALSE;
 }
+
 
 static void
 fill_category_combo (MacroEdit * edit, GtkWidget * combo)

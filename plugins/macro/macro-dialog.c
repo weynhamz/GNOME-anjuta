@@ -275,13 +275,18 @@ on_ok_clicked (MacroPlugin * plugin)
 	}
 }
 
+
 gboolean
 on_macro_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                MacroPlugin * plugin)
 {
 	if (event->keyval == GDK_Escape)
+	{
 		gtk_widget_hide (GTK_WIDGET (plugin->macro_dialog));
+		return TRUE;
+	}
 }
+
 
 static void
 on_cancel_clicked (MacroPlugin * plugin)
