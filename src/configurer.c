@@ -69,7 +69,7 @@ configurer_show (Configurer * c)
 	gtk_widget_show (create_configurer_dialog (c));
 }
 
-GtkWidget *
+static GtkWidget *
 create_configurer_dialog (Configurer * c)
 {
 	GtkWidget *dialog2;
@@ -151,7 +151,7 @@ create_configurer_dialog (Configurer * c)
 	return dialog2;
 }
 
-void
+static void
 on_configurer_entry_changed (GtkEditable * editable, gpointer user_data)
 {
 	Configurer *c = user_data;
@@ -164,7 +164,7 @@ on_configurer_entry_changed (GtkEditable * editable, gpointer user_data)
 		prop_set_with_key (c->props, "project.configure.options", "");
 }
 
-void
+static void
 on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	Configurer *cof;
@@ -205,13 +205,13 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	messages_show (app->messages, MESSAGE_BUILD);
 }
 
-void
+static void
 conf_mesg_arrived (gchar * mesg)
 {
 	messages_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
-void
+static void
 conf_terminated (int status, time_t time)
 {
 	gchar *buff1;

@@ -243,7 +243,7 @@ find_replace_hide (FindAndReplace * fr)
 					       replace_prompt_check));
 }
 
-void
+static void
 create_find_replace_gui (FindAndReplace * fr)
 {
 	GtkWidget *dialog2;
@@ -506,7 +506,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	gtk_widget_grab_focus (combo_entry2);
 }
 
-GtkWidget *
+static GtkWidget *
 create_replace_messagebox ()
 {
 	GtkWidget *replace_mesgbox;
@@ -550,7 +550,7 @@ create_replace_messagebox ()
 	return replace_mesgbox;
 }
 
-void
+static void
 on_replace_text_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te;
@@ -630,19 +630,19 @@ on_replace_text_ok_clicked (GtkButton * button, gpointer user_data)
 	}
 }
 
-void
+static void
 on_replace_text_cancel_clicked (GtkButton * button, gpointer user_data)
 {
 	find_replace_hide ((FindAndReplace *) user_data);
 }
 
-void
+static void
 on_replace_text_help_clicked (GtkButton * button, gpointer user_data)
 {
 
 }
 
-gboolean
+static gboolean
 on_replace_text_delete_event (GtkWidget * widget,
 			      GdkEvent * event, gpointer user_data)
 {

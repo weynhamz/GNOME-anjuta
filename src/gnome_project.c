@@ -140,7 +140,7 @@ create_new_project (AppWidzard * aw)
 	}
 	fclose(fp);
 	messages_append (app->messages, _("Loading  project ...\n"), MESSAGE_BUILD);
-
+	
 	if(project_dbase_load_project(app->project_dbase, FALSE)==FALSE)
 		return FALSE;
 	messages_append (app->messages, _("Saving  project ...\n"), MESSAGE_BUILD);
@@ -148,7 +148,6 @@ create_new_project (AppWidzard * aw)
 	if (project_dbase_save_project(app->project_dbase)==FALSE)
 		return FALSE;
 
-	
 	/*  Source codes are generated */
 	messages_append (app->messages, _("Generating  source codes ...\n"), MESSAGE_BUILD);
 	if (project_dbase_generate_source_code (app->project_dbase)==FALSE)

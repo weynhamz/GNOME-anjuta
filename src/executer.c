@@ -67,7 +67,7 @@ executer_show (Executer * e)
 	gtk_widget_show (create_executer_dialog (e));
 }
 
-GtkWidget *
+static GtkWidget *
 create_executer_dialog (Executer * e)
 {
 	GtkWidget *dialog1;
@@ -154,7 +154,7 @@ create_executer_dialog (Executer * e)
 }
 
 
-void
+static void
 on_executer_entry_changed (GtkEditable * editable, gpointer user_data)
 {
 	Executer *e = user_data;
@@ -166,7 +166,7 @@ on_executer_entry_changed (GtkEditable * editable, gpointer user_data)
 		prop_set_with_key (e->props, EXECUTER_PROGRAM_ARGS_KEY, "");
 }
 
-void
+static void
 on_executer_checkbutton_toggled (GtkToggleButton * togglebutton,
 				 gpointer user_data)
 {

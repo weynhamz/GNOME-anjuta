@@ -136,7 +136,7 @@ debugger_load_yourself (PropsID stream)
 	return TRUE;
 }
 
-void
+static void
 on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 					  gpointer user_data)
 {
@@ -170,14 +170,14 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 	g_free (filename);
 }
 
-void
+static void
 on_debugger_open_exec_filesel_cancel_clicked (GtkButton * button,
 					      gpointer user_data)
 {
 	gtk_widget_hide (debugger.open_exec_filesel);
 }
 
-void
+static void
 on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 					  gpointer user_data)
 {
@@ -210,7 +210,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 	g_free (filename);
 }
 
-void
+static void
 on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
 					      gpointer user_data)
 {
@@ -980,7 +980,7 @@ debugger_start_terminal ()
 	return NULL;
 }
 
-void
+static void
 debugger_stop_terminal ()
 {
 	if (debugger.term_is_running == FALSE)

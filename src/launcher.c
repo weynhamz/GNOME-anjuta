@@ -98,7 +98,7 @@ gboolean launcher_is_busy ()
   return launcher.busy;
 }
 
-void
+static void
 launcher_set_busy (gboolean flag)
 {
   launcher.busy = flag;
@@ -240,7 +240,7 @@ launcher_execute (gchar * command_str,
   return TRUE;
 }
 
-gint launcher_poll_inputs_on_idle (gpointer data)
+static gint launcher_poll_inputs_on_idle (gpointer data)
 {
   gboolean ret;
   ret = FALSE;
@@ -270,7 +270,7 @@ pid_t launcher_get_child_pid ()
     return -1;
 }
 
-void
+static void
 to_launcher_child_terminated (int status, gpointer data)
 {
   close (launcher.stdin_pipe[1]);
@@ -279,7 +279,7 @@ to_launcher_child_terminated (int status, gpointer data)
   launcher.idle_id = gtk_idle_add (launcher_execution_done, NULL);
 }
 
-gboolean launcher_execution_done (gpointer data)
+static gboolean launcher_execution_done (gpointer data)
 {
   if (launcher.stdout_is_done == FALSE || launcher.stderr_is_done == FALSE)
     return TRUE;

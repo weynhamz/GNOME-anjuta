@@ -1144,7 +1144,7 @@ on_mesg_win_but_event (GtkWidget * widget,
 		return FALSE;
 }
 
-void
+static void
 on_mesg_win_orien_changed (GtkToolbar * t, GtkOrientation or, gpointer data)
 {
 }

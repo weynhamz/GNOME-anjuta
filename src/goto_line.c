@@ -90,7 +90,7 @@ create_goto_line_dialog ()
   return dialog4;
 }
 
-void
+static void
 on_go_to_line_ok_clicked               (GtkButton       *button,
                                         gpointer         user_data)
 {

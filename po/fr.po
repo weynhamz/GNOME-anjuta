@@ -2421,7 +2421,7 @@ msgstr "Compile le fichier source courant"
 
 #: src/main_menubar_def.h:910 src/main_menubar_def.h:1405
 msgid "_Build"
-msgstr "C_onstruire"
+msgstr "_Construire"
 
 #: src/main_menubar_def.h:911
 msgid "Build the source directory of the project/current source file"
@@ -2917,7 +2917,7 @@ msgstr "_Utilitaires"
 
 #: src/main_menubar_def.h:1439
 msgid "_Settings"
-msgstr "Pré_férences"
+msgstr "P_références"
 
 #: src/mainmenu_callbacks.c:116
 msgid "All files saved ..."
@@ -4323,7 +4323,7 @@ msgstr "Va au dernier signet du document"
 
 #: src/toolbar.c:816
 msgid "Goto previous message in this document"
-msgstr "Va au dernier message du document"
+msgstr "Va au message précédant message du document"
 
 #: src/toolbar.c:829
 msgid "Goto next message in this document"

@@ -641,7 +641,7 @@ gboolean preferences_load_yourself (Preferences * pr, PropsID props)
 	return TRUE;
 }
 
-void
+static void
 on_preferences_reset_default_yes_clicked (GtkButton * button,
 					  gpointer user_data)
 {

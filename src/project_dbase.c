@@ -614,7 +614,7 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 	error_shown = FALSE;
 	syserr = FALSE;
 	pos = 0;
-
+	
 	if (p->project_is_open == TRUE)
 		project_dbase_clean_left (p);
 
@@ -1695,7 +1695,6 @@ project_dbase_update_tree (ProjectDBase * p)
 
 	/* Add the root in the ctree */
 	gtk_clist_freeze (GTK_CLIST (p->widgets.ctree));
-
 	project_dbase_clear_ctree(p);
 	get_pixmask_on_file_type (FILE_TYPE_DIR, p->widgets.window, &pix_c,
 				  &mask_c, &pix_o, &mask_o);

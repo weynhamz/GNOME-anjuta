@@ -1,3 +1,18 @@
+2001-05-02  Stéphane Démurget <demurgets@free.fr>
+
+	* Makefile.am: Added ChangeLog in local data list, becaused it's
+	  needed to create a new project.
+	  
+	* po/fr.po: minor fixes.
+
+	* src/build_file.c, src/configurer.c, src/debugger.c,
+	  src/executer.c, src/find_replace.c, src/gnome_project.c,
+	  src/goto_line.c, src/launcher.c, src/messages.c, 
+	  src/preferences.c src/project_dbase.c: functions declared static.
+	  
+	* widgets/gnomefilelist.c: Fixed a project creation bug,
+	  introduced with latest changes.
+
 2001-05-01  Stéphane Démurget <demurgets@free.fr>
 
 	* widgets/gnomefilelist.c,

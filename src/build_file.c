@@ -115,13 +115,13 @@ build_file ()
 	g_free (buff);
 }
 
-void
+static void
 build_file_mesg_arrived (gchar * mesg)
 {
 	messages_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
-void
+static void
 build_file_terminated (int status, time_t time)
 {
 	gchar *buff1;
