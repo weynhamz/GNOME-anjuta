@@ -10,6 +10,9 @@
 	* src/message-manager-private.cc: Fixed to properly jump at
 	the right file:line.
 	
+	* src/appwiz_page1.c: Fixed to correctly determine the project
+	trpe from the wizard.
+	
 2003-06-20  Naba Kumar  <naba@gnome.org>
 
 	* src/message-manager.cc, mainmenu_callbacks.c: Code cleanup.

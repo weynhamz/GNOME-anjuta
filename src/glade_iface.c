@@ -168,7 +168,7 @@ glade_iface_generate_source_code(gchar* glade_file)
 				}
 				if(pid <1)
 				{
-					anjuta_system_error (errno, _("Cannot fork glade."));
+					anjuta_system_error (errno, _("Cannot fork glade-2."));
 					return FALSE;
 				}
 				waitpid (pid, &status, 0);
