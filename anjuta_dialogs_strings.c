@@ -47,6 +47,7 @@ gchar *s = N_("*");
 gchar *s = N_("Load _global defaults");
 gchar *s = N_("Load _user defaults");
 gchar *s = N_("Compiler and linker options");
+gchar *s = N_("Supports are only available to File mode compilation and build.");
 gchar *s = N_("Supports");
 gchar *s = N_("Update");
 gchar *s = N_("*");

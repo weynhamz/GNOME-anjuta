@@ -1,5 +1,8 @@
 2004-03-31  Naba Kumar  <naba@gnome.org>
 
+	* anjuta.glade: Added a note on compiler options dialog ->support
+	dialog telling that supports are only available for file mode.
+
 	* src/anjuta.[c,h], src/project_dbase.[h,c], src/main.c,
 	src/anjuta_cbs.c:
 	Improved shutdown time delay by bypassing project closing
