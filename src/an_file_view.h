@@ -10,19 +10,19 @@ extern "C"
 {
 #endif
 
-typedef struct _AnFileView
-{
+typedef struct _AnFileView {
 	GtkWidget *win;
 	GtkWidget *tree;
+
 	TMFileEntry *file_tree;
 	TMFileEntry *curr_entry;
-	struct
-	{
+
+	struct {
 		GtkWidget *top;
 		GtkWidget *open;
 		GtkWidget *view;
-		struct
-		{
+
+		struct {
 			GtkWidget *top;
 			GtkWidget *update;
 			GtkWidget *commit;
@@ -32,14 +32,15 @@ typedef struct _AnFileView
 			GtkWidget *remove;
 			GtkWidget *diff;
 		} cvs;
+
 		GtkWidget *refresh;
 		GtkWidget *docked;
 	} menu;
 } AnFileView;
 
-AnFileView *fv_populate(gboolean full);
-void fv_clear(void);
-gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta);
+AnFileView *fv_populate (gboolean full);
+void	    fv_clear (void);
+gboolean    anjuta_fv_open_file (const char *path, gboolean use_anjuta);
 
 #ifdef __cplusplus
 }

@@ -42,7 +42,8 @@ static GdkPixbuf **fv_pixbufs = NULL;
 	fv_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
 	g_free (pix_file);
 
-static void fv_load_pixmaps(void)
+static void
+fv_load_pixmaps ()
 {
 	char *pix_file;
 
@@ -64,7 +65,8 @@ static void fv_load_pixmaps(void)
 	fv_pixbufs[fv_max_t] = NULL;
 }
 
-static FVFileType fv_get_file_type(const char *name)
+static FVFileType
+fv_get_file_type (const char *name)
 {
 	const char *mime_type = gnome_vfs_mime_type_from_name(name);
 
@@ -76,11 +78,13 @@ static FVFileType fv_get_file_type(const char *name)
 		return fv_exec_t;
 	else if (0 == strcmp(mime_type, "application/x-core-file"))
 		return fv_core_t;
-	else
-		return fv_unknown_t;
+
+	return fv_unknown_t;
 }
 
-gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
+gboolean
+anjuta_fv_open_file (const char *path,
+		     gboolean    use_anjuta)
 {
 	gboolean status = FALSE;
 	const char *mime_type = gnome_vfs_get_file_mime_type(path, NULL, FALSE);
@@ -118,17 +122,19 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 	return status;
 }
 
-typedef enum
-{
+typedef enum {
 	OPEN,
 	VIEW,
 	REFRESH,
 	MENU_MAX
 } FVSignal;
 
-static void on_file_view_cvs_event(GtkMenuItem *item, gpointer user_data)
+static void
+on_file_view_cvs_event (GtkMenuItem *item,
+			gpointer     user_data)
 {
 	int action = (int) user_data;
+
 	if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
 	{
 		switch (action)
@@ -150,11 +156,13 @@ static void on_file_view_cvs_event(GtkMenuItem *item, gpointer user_data)
 	}
 }
 
-static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
+static void
+fv_context_handler (GtkMenuItem *item,
+		    gpointer     user_data)
 {
 	FVSignal signal = (FVSignal) user_data;
-	switch (signal)
-	{
+
+	switch (signal) {
 		case OPEN:
 			if ((fv->curr_entry) && (tm_file_regular_t == fv->curr_entry->type))
 				anjuta_fv_open_file(fv->curr_entry->path, TRUE);
@@ -264,20 +272,24 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	GNOMEUIINFO_END /* 6 */
 };
 
-static void fv_create_context_menu(void)
+static void
+fv_create_context_menu ()
 {
 	int i;
 
 	fv->menu.top = gtk_menu_new();
 	gtk_widget_ref(fv->menu.top);
-	gnome_app_fill_menu(GTK_MENU_SHELL(fv->menu.top), an_file_view_menu_uiinfo
-	  , NULL, FALSE, 0);
+
+	gnome_app_fill_menu (GTK_MENU_SHELL(fv->menu.top), an_file_view_menu_uiinfo,
+			     NULL, FALSE, 0);
+
 	for (i=0; i < sizeof(an_file_view_menu_uiinfo)/sizeof(an_file_view_menu_uiinfo[0])
 	  ; ++i)
 		gtk_widget_ref(an_file_view_menu_uiinfo[i].widget);
 	for (i=0; i < sizeof(an_file_view_cvs_uiinfo)/sizeof(an_file_view_cvs_uiinfo[0])
 	  ; ++i)
 		gtk_widget_ref(an_file_view_cvs_uiinfo[i].widget);
+
 	fv->menu.open = an_file_view_menu_uiinfo[0].widget;
 	fv->menu.view = an_file_view_menu_uiinfo[1].widget;
 	fv->menu.cvs.top = an_file_view_menu_uiinfo[2].widget;
@@ -290,6 +302,7 @@ static void fv_create_context_menu(void)
 	fv->menu.cvs.diff = an_file_view_cvs_uiinfo[6].widget;
 	fv->menu.refresh = an_file_view_menu_uiinfo[3].widget;
 	fv->menu.docked = an_file_view_menu_uiinfo[5].widget;
+
 	gtk_widget_show_all(fv->menu.top);
 }
 
@@ -352,7 +365,7 @@ fv_on_event (GtkWidget *widget,
 }
 
 static void
-fv_disconnect (void)
+fv_disconnect ()
 {
 	g_return_if_fail (fv != NULL);
 
@@ -360,14 +373,35 @@ fv_disconnect (void)
 }
 
 static void
-fv_connect (void)
+on_file_view_row_expanded (GtkTreeView *view
+			   GtkTreeIter *iter,
+			   GtkTreePath *path)
+{
+	gtk_tree_store_set (store, &iter,
+			    PIXBUF_COLUMN, fv_pixbufs[fv_ofolder_t],
+			    -1);
+}
+
+static void
+on_file_view_row_collapsed (GtkTreeView *view
+			   GtkTreeIter *iter,
+			   GtkTreePath *path)
+{
+	gtk_tree_store_set (store, &iter,
+			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
+			    -1);
+}
+
+static void
+fv_connect ()
 {
 	g_return_if_fail (fv != NULL && fv->tree);
 
 	g_signal_connect (fv->tree, "event", G_CALLBACK (fv_on_event), NULL);
 }
 
-static void fv_create(void)
+static void
+fv_create ()
 {
 	GtkTreeStore *store;
 	GtkTreeViewColumn *column;
@@ -394,6 +428,8 @@ static void fv_create(void)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (fv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (fv->win), fv->tree);
+	g_signal_connect (fv->tree, "row_expanded", G_CALLBACK (on_file_view_row_expanded), NULL);
+	g_signal_connect (fv->tree, "row_collapsed", G_CALLBACK (on_file_view_row_collapsed), NULL);
 	gtk_widget_show (fv->tree);
 
 	g_object_unref (G_OBJECT (store));
@@ -421,8 +457,8 @@ static void fv_create(void)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (fv->tree), column);
 
 	/* The remaining bits */
-	if (!fv_icons)
-		fv_load_pixmaps();
+	if (!fv_pixbufs)
+		fv_load_pixmaps ();
 
 	fv_create_context_menu ();
 	fv_connect ();
@@ -432,7 +468,7 @@ static void fv_create(void)
 }
 
 void
-fv_clear (void)
+fv_clear ()
 {
 	GtkTreeModel *model;
 
@@ -461,47 +497,32 @@ fv_add_tree_entry (TMFileEntry *entry,
 
 	gtk_tree_store_append (store, &iter, &parent);
 	gtk_tree_store_set (store, &iter,
-/*			    PIXBUF_COLUMN, // FIXME */
+			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
 			    FILENAME_COLUMN, entry->name,
 			    REV_COLUMN, entry->version ? entry->version : "",
 			    TMFILE_ENTRY_COLUMN, entry,
 			    -1);
 
-	/* FIXME: add a destroyer for TMFILE_ENTRY_COLUMN when the row is removed.
-		  There's not an already running facility for this ATM I believe. */
+	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
+		TMFileEntry *child = (TMFileEntry *) tmp->data;
 
-	/* FIXME: add support for opened and closed directories pixbufs */
-
-#error "this really needs to be finished before even hoping to compile it ;)"
-
-	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
-	{
-	TMFileEntry *child;
-		child = (TMFileEntry *) tmp->data;
 		if (tm_file_dir_t == entry->type)
-			fv_add_tree_entry(child, parent);
+			fv_add_tree_entry (child, &parent);
 	}
-	for (tmp = entry->children; tmp; tmp = g_slist_next(tmp))
-	{
-	TMFileEntry *child;
-		child = (TMFileEntry *) tmp->data;
-		if (tm_file_regular_t == child->type)
-		{
+
+	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
+		TMFileEntry *child = (TMFileEntry *) tmp->data;
+
+		if (tm_file_regular_t == child->type) {
 			FVFileType type = fv_get_file_type(child->name);
-			closed_icon = fv_icons[type];
-			closed_bitmap = fv_bitmaps[type];
-			open_icon = fv_icons[type];
-			open_bitmap = fv_bitmaps[type];
-			arr[0] = child->name;
-			if (child->version)
-				arr[1] = child->version;
-			else
-				arr[1] = "";
-			item = gtk_ctree_insert_node(GTK_CTREE(fv->tree), parent, NULL
-			  , arr, 5, closed_icon, closed_bitmap, open_icon, open_bitmap
-			  , TRUE, FALSE);
-			gtk_ctree_node_set_row_data_full(GTK_CTREE(fv->tree), item
-			  , child, NULL);
+
+			gtk_tree_store_append (store, &iter, &parent);
+			gtk_tree_store_set (store, &iter,
+					    PIXBUF_COLUMN, fv_pixbufs[type],
+					    FILENAME_COLUMN, child->name,
+					    REV_COLUMN, child->version ? child->version : "",
+					    TMFILE_ENTRY_COLUMN, child,
+					    -1);
 		}
 	}
 }
@@ -510,9 +531,11 @@ AnFileView *
 fv_populate (gboolean full)
 {
 	static const char *ignore[] = {"CVS", NULL};
+
 #ifdef DEBUG
 	g_message ("Populating file view..");
 #endif
+
 	if (!fv)
 		fv_create ();
 
@@ -533,7 +556,7 @@ fv_populate (gboolean full)
 	fv_add_tree_entry (fv->file_tree, NULL);
 
 clean_leave:
-	fv_connect();
+	fv_connect ();
 
 	return fv;
 }
