@@ -1,5 +1,14 @@
 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* widgets/gnomedirlist.c
+	widgets/gnomedirlist.h
+	widgets/gnomefilelist.c
+	widgets/gnomefilelist.h:
+
+	Added GPL headings in the file.
+
+Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/attach_process.c
 	src/attach_process_cbs.c
 	src/attach_process_cbs.h
