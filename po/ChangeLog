@@ -1,3 +1,13 @@
+2002-01-26  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated Swedish translation, and resolved cvs conflict
+	resulting from previous commit to the po file.
+
+	Yes, it's normal for make dist to touch the po files, but
+	please don't commit these changes. It is almost always unnecessary,
+	clutters cvs history for the files, and increases the danger for
+	unnecessary cvs conflicts for translators working on a translation.
+
 2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* po/*.po: They seem to have updated (merged with

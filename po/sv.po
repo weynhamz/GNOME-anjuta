@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2002-01-26 19:53+0530\n"
-"PO-Revision-Date: 2002-01-21 18:41+0100\n"
+"POT-Creation-Date: 2002-01-26 16:29+0100\n"
+"PO-Revision-Date: 2002-01-26 16:29+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -200,20 +200,19 @@ msgstr "Ingen"
 
 #: src/anjuta.c:1886
 msgid "Dos (CRLF)"
-msgstr ""
+msgstr "Dos (CRLF)"
 
 #: src/anjuta.c:1889 src/anjuta.c:1923
 msgid "Unix (LF)"
-msgstr ""
+msgstr "Unix (LF)"
 
 #: src/anjuta.c:1892
 msgid "Mac (CR)"
-msgstr ""
+msgstr "Mac (CR)"
 
 #: src/anjuta.c:1895
-#, fuzzy
 msgid "Unknown"
-msgstr "Unioner"
+msgstr "Okänd"
 
 #: src/anjuta.c:1912
 msgid "OVR"
@@ -224,13 +223,13 @@ msgid "INS"
 msgstr "INS"
 
 #: src/anjuta.c:1934
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
-"  Projekt: %s       Zoom: %d       Rad: %04d       Kolumn: %03d      %s      "
-"Jobb: %s"
+"  Projekt: %s       Zoom: %d       Rad: %04d        Kolumn: %03d    %s      "
+"Jobb: %s      Läge: %s"
 
 #: src/anjuta.c:2147 src/anjuta.c:2150
 #, c-format
@@ -325,14 +324,12 @@ msgid "GNOME project"
 msgstr "GNOME-projekt"
 
 #: src/appwiz_page1.c:146
-#, fuzzy
 msgid "GTKmm project"
-msgstr "GTK-projekt"
+msgstr "GTKmm-projekt"
 
 #: src/appwiz_page1.c:150
-#, fuzzy
 msgid "GNOMEmm project"
-msgstr "GNOME-projekt"
+msgstr "GNOMEmm-projekt"
 
 #: src/appwiz_page1.c:154
 msgid "Bonobo component"
@@ -2051,14 +2048,12 @@ msgstr "Gör den markerade texten till gemener"
 
 #. 3
 #: src/main_menubar_def.h:167
-#, fuzzy
 msgid "Convert EOL chars to CRLF"
-msgstr "Konvertera EOL-tecken till LF"
+msgstr "Konvertera EOL-tecken till CRLF"
 
 #: src/main_menubar_def.h:168
-#, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "Konvertera radslutstecken till UNIX EOL (radmatning: LF)"
+msgstr "Konvertera radslutstecken till UNIX EOL (CRLF)"
 
 #. 4
 #: src/main_menubar_def.h:174
@@ -2066,31 +2061,27 @@ msgid "Convert EOL chars to LF"
 msgstr "Konvertera EOL-tecken till LF"
 
 #: src/main_menubar_def.h:175
-#, fuzzy
 msgid "Convert End Of Line characters to UNIX EOL (LF)"
-msgstr "Konvertera radslutstecken till UNIX EOL (radmatning: LF)"
+msgstr "Konvertera radslutstecken till UNIX EOL (LF)"
 
 #. 5
 #: src/main_menubar_def.h:181
-#, fuzzy
 msgid "Convert EOL chars to CR"
-msgstr "Konvertera EOL-tecken till LF"
+msgstr "Konvertera EOL-tecken till CR"
 
 #: src/main_menubar_def.h:182
-#, fuzzy
 msgid "Convert End Of Line characters to MacOS EOL (CR)"
-msgstr "Konvertera radslutstecken till UNIX EOL (radmatning: LF)"
+msgstr "Konvertera radslutstecken till MacOS EOL (CR)"
 
 #. 6
 #: src/main_menubar_def.h:188
-#, fuzzy
 msgid "Convert EOL chars to majority EOL"
-msgstr "Konvertera EOL-tecken till LF"
+msgstr "Konvertera EOL-tecken till majoritets-EOL"
 
 #: src/main_menubar_def.h:189
-#, fuzzy
 msgid "Convert End Of Line characters to mojority of the EOL found in the file"
-msgstr "Konvertera radslutstecken till UNIX EOL (radmatning: LF)"
+msgstr ""
+"Konvertera radslutstecken till de EOL-tecken som är i majoritet i filen"
 
 #: src/main_menubar_def.h:199
 msgid "_Select All"
@@ -3688,9 +3679,9 @@ msgid "Dock/Undock"
 msgstr "Docka/Koppla loss"
 
 #: src/message-manager.cc:266
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find message type %s!\n"
-msgstr "Kunde inte hitta gnome pixmap-fil: %s"
+msgstr "Kunde inte hitta meddelandetypen %s!\n"
 
 #: src/message-manager.cc:472 src/preferences_gui.c:230 src/toolbar.c:294
 msgid "Messages"
@@ -3900,7 +3891,7 @@ msgstr "Aktivera klammerkontroll"
 
 #: src/preferences_gui.c:1012
 msgid "Filter extrageneous chars in DOS mode"
-msgstr ""
+msgstr "Filtrera onödiga tecken i DOS-läge"
 
 #: src/preferences_gui.c:1064
 msgid "Tab size in spaces"
@@ -5601,7 +5592,8 @@ msgstr "Lägg till i bevakare"
 
 #~ msgid "Open an executable or attach to a process to start debuging.\n"
 #~ msgstr ""
-#~ "Öppna en körbar fil eller anslut till en process för att starta felsökning.\n"
+#~ "Öppna en körbar fil eller anslut till en process för att starta "
+#~ "felsökning.\n"
 
 #~ msgid "_Main Tolbar"
 #~ msgstr "_Huvudverktygsrad"
