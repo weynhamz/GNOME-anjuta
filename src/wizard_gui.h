@@ -35,13 +35,13 @@ GtkWidget *create_project_props_page (GnomeDruid * druid,
 				      GtkWidget ** target,
 				      GtkWidget ** language_c_radio,
 				      GtkWidget ** language_cpp_radio,
-				      GtkWidget ** language_c_cpp_radio);
+				      GtkWidget ** language_c_cpp_radio,
+					  GtkWidget ** target_exec_radio,
+					  GtkWidget ** target_slib_radio,
+					  GtkWidget ** target_dlib_radio);
 
 GtkWidget *create_project_description_page (GnomeDruid * druid,
-					    GtkWidget ** description,
-					    GtkWidget ** target_exec_radio,
-					    GtkWidget ** target_slib_radio,
-					    GtkWidget ** target_dlib_radio);
+					    GtkWidget ** description);
 
 GtkWidget *create_project_menu_page (GnomeDruid * druid,
 				     GtkWidget ** menu_frame,

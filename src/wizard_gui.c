@@ -202,7 +202,10 @@ create_project_props_page (GnomeDruid * druid,
 			   GtkWidget ** target,
 			   GtkWidget ** language_c_radio,
 			   GtkWidget ** language_cpp_radio,
-			   GtkWidget ** language_c_cpp_radio)
+			   GtkWidget ** language_c_cpp_radio,
+			   GtkWidget ** target_exec_radio,
+			   GtkWidget ** target_slib_radio,
+			   GtkWidget ** target_dlib_radio)
 {
 	GtkWidget *frame;
 	GtkWidget *vbox3;
@@ -223,7 +226,15 @@ create_project_props_page (GnomeDruid * druid,
 	GtkWidget *radiobutton4;
 	GtkWidget *radiobutton5;
 	GtkWidget *radiobutton6;
-
+	
+	GtkWidget *radiobutton1;
+	GtkWidget *radiobutton2;
+	GtkWidget *radiobutton3;
+	GtkWidget *frame3;
+	GtkWidget *hbox4;
+	GtkWidget *hbox5;
+	GSList *hbox5_group = NULL;
+	
 	GdkColor page_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_title_color = { 0, 65535, 65535, 65535 };
@@ -272,7 +283,7 @@ create_project_props_page (GnomeDruid * druid,
 	gtk_widget_show (hbox2);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
 
-	table1 = gtk_table_new (5, 2, FALSE);
+	table1 = gtk_table_new (6, 2, FALSE);
 	gtk_widget_show (table1);
 	gtk_box_pack_start (GTK_BOX (hbox2), table1, TRUE, TRUE, 4);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
@@ -363,6 +374,41 @@ create_project_props_page (GnomeDruid * druid,
 	gtk_widget_show (radiobutton6);
 	gtk_box_pack_start (GTK_BOX (hbox3), radiobutton6, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton6), 5);
+	
+	frame3 = gtk_frame_new (_("Target type"));
+	gtk_widget_show (frame3);
+	gtk_table_attach (GTK_TABLE (table1), frame3, 1, 2, 5, 6,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
+	
+	hbox4 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox4);
+	gtk_container_add (GTK_CONTAINER (frame3), hbox4);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox4), 5);
+	
+	hbox5 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox5);
+	gtk_box_pack_start (GTK_BOX (hbox4), hbox5, TRUE, TRUE, 0);
+	
+	radiobutton1 = gtk_radio_button_new_with_label (hbox5_group, _("Executable target"));
+	hbox5_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
+	gtk_widget_show (radiobutton1);
+	gtk_box_pack_start (GTK_BOX (hbox5), radiobutton1, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (radiobutton1), 5);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radiobutton1), TRUE);
+	
+	radiobutton2 = gtk_radio_button_new_with_label (hbox5_group, _("Static library target"));
+	hbox5_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
+	gtk_widget_show (radiobutton2);
+	gtk_box_pack_start (GTK_BOX (hbox5), radiobutton2, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (radiobutton2), 5);
+	
+	radiobutton3 = gtk_radio_button_new_with_label (hbox5_group, _("Dynamic library target"));
+	hbox5_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
+	gtk_widget_show (radiobutton3);
+	gtk_box_pack_start (GTK_BOX (hbox5), radiobutton3, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (radiobutton3), 5);
 
 	*prj_name = prj_name_entry;
 	*author = author_entry;
@@ -371,16 +417,24 @@ create_project_props_page (GnomeDruid * druid,
 	*language_c_radio = radiobutton4;
 	*language_cpp_radio = radiobutton5;
 	*language_c_cpp_radio = radiobutton6;
-
+	
+	if (target_exec_radio != NULL)
+	{
+		*target_exec_radio = radiobutton1;
+		*target_slib_radio = radiobutton2;
+		*target_dlib_radio = radiobutton3;
+	}
+	else
+	{
+		gtk_widget_set_sensitive(frame3, FALSE);
+	}
+	
 	return page;
 }
 
 GtkWidget *
 create_project_description_page (GnomeDruid * druid,
-				 GtkWidget ** description,
-				 GtkWidget ** target_exec_radio,
-				 GtkWidget ** target_slib_radio,
-				 GtkWidget ** target_dlib_radio)
+				 GtkWidget ** description)
 {
 	GdkColor page_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
@@ -393,15 +447,6 @@ create_project_description_page (GnomeDruid * druid,
 	GtkWidget *scrolledwindow1;
 	GtkWidget *description_text;
 	GtkWidget *druid_vbox3;
-	
-	GtkWidget *frame2;
-	GtkWidget *hbox1;
-	GtkWidget *hbox2;
-	GSList *hbox2_group = NULL;
-	GtkWidget *radiobutton1;
-	GtkWidget *radiobutton2;
-	GtkWidget *radiobutton3;
-	
 	GtkWidget *page = gnome_druid_page_standard_new_with_vals ("", NULL);
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
@@ -454,50 +499,7 @@ create_project_description_page (GnomeDruid * druid,
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), description_text);
 	gtk_text_set_editable (GTK_TEXT (description_text), TRUE);
 
-	frame2 = gtk_frame_new (NULL);
-	gtk_widget_show (frame2);
-	gtk_box_pack_start (GTK_BOX (vbox3), frame2, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
-	
-	hbox1 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox1);
-	gtk_container_add (GTK_CONTAINER (frame2), hbox1);
-	gtk_container_set_border_width (GTK_CONTAINER (hbox1), 5);
-	
-	hbox2 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox2);
-	gtk_box_pack_start (GTK_BOX (hbox1), hbox2, TRUE, TRUE, 0);
-	
-	radiobutton1 = gtk_radio_button_new_with_label (hbox2_group, _("Executable target"));
-	hbox2_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
-	gtk_widget_show (radiobutton1);
-	gtk_box_pack_start (GTK_BOX (hbox2), radiobutton1, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (radiobutton1), 5);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radiobutton1), TRUE);
-	
-	radiobutton2 = gtk_radio_button_new_with_label (hbox2_group, _("Static library target"));
-	hbox2_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
-	gtk_widget_show (radiobutton2);
-	gtk_box_pack_start (GTK_BOX (hbox2), radiobutton2, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (radiobutton2), 5);
-	
-	radiobutton3 = gtk_radio_button_new_with_label (hbox2_group, _("Dynamic library target"));
-	hbox2_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
-	gtk_widget_show (radiobutton3);
-	gtk_box_pack_start (GTK_BOX (hbox2), radiobutton3, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (radiobutton3), 5);
-	
 	*description = description_text;
-	if (target_exec_radio != NULL)
-	{
-		*target_exec_radio = radiobutton1;
-		*target_slib_radio = radiobutton2;
-		*target_dlib_radio = radiobutton3;
-	}
-	else
-	{
-		gtk_widget_set_sensitive(frame2, FALSE);
-	}
 	return page;
 }
 

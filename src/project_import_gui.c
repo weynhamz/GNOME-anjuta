@@ -226,7 +226,8 @@ create_import_wizard_page4 (ProjectImportWizard * piw)
 					   &piw->widgets.target_entry,
 					   &piw->widgets.language_c_radio,
 					   &piw->widgets.language_cpp_radio,
-					   &piw->widgets.language_c_cpp_radio);
+					   &piw->widgets.language_c_cpp_radio,
+						NULL, NULL, NULL);
 
 	gtk_signal_connect (GTK_OBJECT (piw->widgets.prj_name_entry), "focus_out_event",
 			    GTK_SIGNAL_FUNC(on_prj_name_entry_focus_out_event), piw);
@@ -259,7 +260,7 @@ void
 create_import_wizard_page5 (ProjectImportWizard * piw)
 {
 	piw->widgets.page[4] = create_project_description_page(GNOME_DRUID(piw->widgets.druid),
-			&piw->widgets.description_text, NULL, NULL, NULL);
+			&piw->widgets.description_text);
 }
 
 void create_import_wizard_page6 (ProjectImportWizard * piw)

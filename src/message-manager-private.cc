@@ -143,7 +143,7 @@ AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type
 	
 	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), m_scrolled_win, label);
 	
-	m_cur_line = 0;
+	set_cur_line(0);
 }
 
 const vector<string>& 
@@ -250,6 +250,7 @@ AnjutaMessageWindow::clear()
 {
 	m_messages.clear();
 	gtk_clist_clear(GTK_CLIST(m_msg_list));
+	set_cur_line(0);
 }
 
 void

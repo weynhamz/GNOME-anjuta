@@ -1,3 +1,16 @@
+2002-02-25  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/appwizard_gui.c, src/appwizard_cbs.c
+	  src/wizard_gui.c/h, src/appwiz_page3.c,
+	  src/project_import_gui.c:
+	  
+	Moved target type radiobuttons to appwiz. page 2
+	
+	* src/message-manager-private.cc
+	Fixed a bug which caused a crash if next message function was used
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>.
+
 2002-02-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.h, anjuta.c, anjuta_cbs.c:
@@ -11,6 +24,8 @@
 
 	* widgets/gnomefilelist.c, gnomefilelist.h:
 	  Added filecompletion
+	  
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>.
 
 2002-02-21  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 

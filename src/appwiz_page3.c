@@ -72,6 +72,8 @@ on_target_dlib_toggled                 (GtkToggleButton *togglebutton,
 void
 create_app_wizard_page3 (AppWizard * aw)
 {
+	// Do not get confused, the radiobuttons are on page 2 now but
+	// the callbacks are connected here...
 	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_exec_radio),
 			"toggled", GTK_SIGNAL_FUNC (on_target_exec_toggled),
 		      aw);

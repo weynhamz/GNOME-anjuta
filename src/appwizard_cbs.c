@@ -89,6 +89,18 @@ on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 		   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(aw->widgets.language_c_radio), TRUE);
 		   gtk_widget_set_sensitive (GTK_WIDGET(aw->widgets.language_c_radio), TRUE);
 	}
+	
+	if (aw->prj_type != PROJECT_TYPE_GENERIC)
+	{
+		gtk_widget_set_sensitive(aw->widgets.target_slib_radio, FALSE);
+		gtk_widget_set_sensitive(aw->widgets.target_dlib_radio, FALSE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive(aw->widgets.target_slib_radio, TRUE);
+		gtk_widget_set_sensitive(aw->widgets.target_dlib_radio, TRUE);
+	}
+	
 	gtk_widget_grab_focus (aw->widgets.prj_name_entry);
 	return FALSE;
 }
@@ -110,18 +122,6 @@ on_druidpagestandard2_next (GnomeDruidPage *
 
 	aw = user_data;
 	g_return_val_if_fail (aw != NULL, FALSE);
-	
-	if (aw->prj_type != PROJECT_TYPE_GENERIC)
-	{
-		gtk_widget_set_sensitive(aw->widgets.target_slib_radio, FALSE);
-		gtk_widget_set_sensitive(aw->widgets.target_dlib_radio, FALSE);
-	}
-	else
-	{
-		gtk_widget_set_sensitive(aw->widgets.target_slib_radio, TRUE);
-		gtk_widget_set_sensitive(aw->widgets.target_dlib_radio, TRUE);
-	}
-	
 	error_no = 0;
 	/*
 	 * Check for valid Project name
