@@ -5,7 +5,8 @@
 	* configure.in: Bumped version to 1.1.98 rc2
 	* NEWS: Updated.
 	* anjuta.spec.in: Fixed scrollkeepr-update command.
-	
+	* anjuta.spce.in: Fixed file permissions.
+
 2003-11-06  Naba Kumar  <naba@gnome.org>
 
 	* src/mainmenu_callback.[c,h], src/main_menubar_def.h: Added help

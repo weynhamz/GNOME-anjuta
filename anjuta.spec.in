@@ -81,13 +81,14 @@ rm -fr %{buildroot}/var/scrollkeeper
 %clean
 rm -rf %{buildroot}
 
-%post
+%post docs
 if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 
-%postun
+%postun docs
 if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 
 %files
+%defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
 %doc doc/ScintillaDoc.html
 
