@@ -594,6 +594,18 @@ on_druid_delete (GtkWidget* window, GdkEvent* event, NPWDruid* druid)
 	return TRUE;
 }
 
+static gboolean
+on_project_wizard_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                               NPWDruid* druid)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		npw_druid_free (druid);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static void
 on_druid_get_new_page (NPWAutogen* gen, gpointer data)
 {
@@ -843,6 +855,9 @@ npw_druid_new (NPWPlugin* plugin)
 	/* Needed by GnomeDruid widget */
 	gtk_widget_show_all (this->dialog);
 
+	g_signal_connect(G_OBJECT(this->dialog), "key-press-event",
+			G_CALLBACK(on_project_wizard_key_press_event), this);
+	
 	plugin->druid = this;
 	npw_druid_add_default_property (this);
 

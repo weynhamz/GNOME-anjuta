@@ -25,6 +25,8 @@
 #include "plugin.h"
 
 gint on_delete_event (GtkWidget* widget, GdkEvent* event, AnjutaClassGenPlugin *plugin);
+gboolean on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                                           AnjutaClassGenPlugin *plugin);
 void on_header_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
 void on_source_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
 void on_class_name_changed (GtkEditable* editable, AnjutaClassGenPlugin *plugin);

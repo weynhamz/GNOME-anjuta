@@ -34,6 +34,19 @@ on_delete_event (GtkWidget* widget, GdkEvent* event, AnjutaClassGenPlugin *plugi
 	return FALSE;	
 }
 
+gboolean
+on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                                  AnjutaClassGenPlugin *plugin)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		class_gen_del (plugin);
+		gtk_widget_destroy (GTK_WIDGET (plugin->dlgClass));
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void
 on_header_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin)
 {

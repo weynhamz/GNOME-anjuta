@@ -1158,6 +1158,9 @@ class_gen_create_dialog_class (AnjutaClassGenPlugin* plugin)
   g_signal_connect (G_OBJECT (plugin->dlgClass), "delete_event",
 					  GTK_SIGNAL_FUNC (on_delete_event),
 					  plugin);
+  g_signal_connect (G_OBJECT (plugin->dlgClass), "key-press-event",
+					  GTK_SIGNAL_FUNC (on_class_gen_key_press_event),
+					  plugin);
   g_signal_connect (G_OBJECT (plugin->button_browse_header_file), "clicked",
                       GTK_SIGNAL_FUNC (on_header_browse_clicked),
                       plugin);
