@@ -55,10 +55,6 @@ AC_SUBST(GNOMEBUILD_REQUIRED)
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
 
-# Environment
-dnl GNOME_COMMON_INIT
-dnl GNOME_COMPILE_WARNINGS(maximum)
-
 dnl Define convenience macros
 dnl -------------------------
 dnl CHECK_HEADER_DEFINE(LABEL, HEADER [,ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND ] ])
@@ -122,9 +118,6 @@ AC_SUBST(PREF_SUFFIX)
 AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
-
-dnl Initialize xml-i18n-tools
-AC_PROG_INTLTOOL
 
 AC_PROG_CC
 AC_PROG_CPP
@@ -302,7 +295,6 @@ GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
-dnl AC_PROG_INTLTOOL
 
 # gtk-doc
 # GTK_DOC_CHECK([1.0])

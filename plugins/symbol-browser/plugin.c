@@ -33,8 +33,12 @@
 
 #include <libanjuta/plugins.h>
 #include <libegg/menu/egg-combo-action.h>
-#include "plugin.h"
+
+#include <tm_tagmanager.h>
 #include "an_symbol_view.h"
+#include "an_symbol_search.h"
+#include "an_symbol_info.h"
+#include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-browser-plugin.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
@@ -42,8 +46,18 @@
 
 static gpointer parent_class = NULL;
 
-static void treeview_signals_block (SymbolBrowserPlugin *sv_plugin);
-static void treeview_signals_unblock (SymbolBrowserPlugin *sv_plugin);
+//static void treeview_signals_block (SymbolBrowserPlugin *sv_plugin);
+//static void treeview_signals_unblock (SymbolBrowserPlugin *sv_plugin);
+
+// these will block signals on treeview and treesearch callbacks functions
+static void trees_signals_block (SymbolBrowserPlugin *sv_plugin);
+static void trees_signals_unblock (SymbolBrowserPlugin *sv_plugin);
+
+
+static void on_treesearch_symbol_selected_event( AnjutaSymbolSearch *search, 
+																 AnjutaSymbolInfo *sym, 
+																 SymbolBrowserPlugin *sv_plugin );
+
 
 static void
 goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
@@ -70,7 +84,7 @@ goto_file_tag (SymbolBrowserPlugin *sv_plugin, const char *symbol,
 	gint line;
 	gboolean ret;
 	
-	ret = anjuta_symbol_view_get_file_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+	ret = anjuta_symbol_view_get_file_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 											  symbol, prefer_definition,
 											  &file, &line);
 	if (ret)
@@ -87,7 +101,7 @@ on_goto_def_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	gint line;
 	gboolean ret;
 	
-	ret = anjuta_symbol_view_get_current_symbol_def (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+	ret = anjuta_symbol_view_get_current_symbol_def (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 													 &file, &line);
 	if (ret)
 	{
@@ -102,7 +116,7 @@ on_goto_decl_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	gint line;
 	gboolean ret;
 	
-	ret = anjuta_symbol_view_get_current_symbol_decl (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+	ret = anjuta_symbol_view_get_current_symbol_decl (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 													  &file, &line);
 	if (ret)
 	{
@@ -152,7 +166,7 @@ static void
 on_find_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
 	const gchar *symbol;
-	symbol = anjuta_symbol_view_get_current_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+	symbol = anjuta_symbol_view_get_current_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 	if (symbol)
 	{
 		g_warning ("TODO: Unimplemented");
@@ -162,7 +176,7 @@ on_find_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 static void
 on_refresh_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
-	anjuta_symbol_view_update (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+	anjuta_symbol_view_update (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 }
 
 static GtkActionEntry popup_actions[] = 
@@ -218,6 +232,9 @@ static GtkActionEntry popup_actions[] =
 	}
 };
 
+
+
+// add a new project
 static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
@@ -232,13 +249,30 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
 		if (root_dir)
 		{
-			treeview_signals_block (sv_plugin);
-			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
-									 root_dir);
-			treeview_signals_unblock (sv_plugin);
+			trees_signals_block (sv_plugin);
+			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), root_dir);
+			
+			//
+			// FIXME: should it be better to pass just an AnjutaSymbolView object to
+			// for example anjuta_symbol_search_set_variables() and let it calls 
+			// anjuta_symbol_view_get_* functions?
+			//
+			// set some variables on anjuta_symbol_search
+			
+			// setting keywords_symbols
+			anjuta_symbol_search_set_keywords_symbols( ANJUTA_SYMBOL_SEARCH( sv_plugin->ss), 
+						anjuta_symbol_view_get_keywords_symbols( ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree)));
+			
+			// setting pixbufs
+			anjuta_symbol_search_set_pixbufs( ANJUTA_SYMBOL_SEARCH( sv_plugin->ss), 
+						anjuta_symbol_view_get_pixbuf( ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree)));
+
+			
+			trees_signals_unblock (sv_plugin);
 		}
 	}
 }
+
 
 static void
 project_root_removed (AnjutaPlugin *plugin, const gchar *name,
@@ -247,8 +281,10 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	SymbolBrowserPlugin *sv_plugin;
 	
 	sv_plugin = (SymbolBrowserPlugin *)plugin;
-	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
+	// FIXME: add anjuta_search cleanings... check to g_free() the sfiles too on anjuta_symbol_view
 }
+
 
 static gboolean
 on_treeview_event (GtkWidget *widget,
@@ -317,6 +353,8 @@ on_treeview_event (GtkWidget *widget,
 	return FALSE;
 }
 
+
+
 static void
 on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 						   GtkTreeViewColumn *arg2,
@@ -335,17 +373,25 @@ on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 }
 
 static void
-treeview_signals_block (SymbolBrowserPlugin *sv_plugin)
+trees_signals_block (SymbolBrowserPlugin *sv_plugin)
 {
-	g_signal_handlers_block_by_func (G_OBJECT (sv_plugin->sv),
+	g_signal_handlers_block_by_func (G_OBJECT (sv_plugin->sv_tree),
 									 G_CALLBACK (on_treeview_event), NULL);
+
+	g_signal_handlers_block_by_func (G_OBJECT (sv_plugin->ss),
+									 G_CALLBACK (on_treesearch_symbol_selected_event), NULL);
+	
 }
 
 static void
-treeview_signals_unblock (SymbolBrowserPlugin *sv_plugin)
+trees_signals_unblock (SymbolBrowserPlugin *sv_plugin)
 {
-	g_signal_handlers_block_by_func (G_OBJECT (sv_plugin->sv),
+	g_signal_handlers_unblock_by_func (G_OBJECT (sv_plugin->sv_tree),
 									 G_CALLBACK (on_treeview_event), NULL);
+	
+	g_signal_handlers_unblock_by_func (G_OBJECT (sv_plugin->ss),
+									 G_CALLBACK (on_treesearch_symbol_selected_event), NULL);
+	
 }
 
 static void
@@ -357,8 +403,9 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	{
 		gint line;
 		line = anjuta_symbol_view_workspace_get_line (ANJUTA_SYMBOL_VIEW
-													  (sv_plugin->sv),
+													  (sv_plugin->sv_tree),
 													  &iter);
+
 		if (line > 0 && sv_plugin->current_editor)
 		{
 			/* Goto line number */
@@ -368,6 +415,7 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 			{
 				ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sv_plugin->current_editor),
 								IANJUTA_MARKABLE_BASIC, NULL);
+
 				ianjuta_markable_mark (IANJUTA_MARKABLE (sv_plugin->current_editor),
 								line, IANJUTA_MARKABLE_BASIC, NULL);
 			}
@@ -375,18 +423,44 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	}
 }
 
+
+// -----------------------------------------------------------------------------
+// will manage the click of mouse and other events on search->hitlist treeview
+//
+
+static void
+on_treesearch_symbol_selected_event( AnjutaSymbolSearch *search, 
+												 AnjutaSymbolInfo *sym, 
+												 SymbolBrowserPlugin *sv_plugin ) {
+	
+	gboolean ret;
+	gint line;
+	const gchar *file;
+	
+	ret = anjuta_symbol_view_get_file_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
+											  sym->sym_name, TRUE,
+											  &file, &line);
+	if (ret)
+	{
+		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
+	}
+	
+	
+}
+
+
 static void
 on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
 	
-	if (!sv_plugin->editor_connected || !sv_plugin->sv)
+	if (!sv_plugin->editor_connected || !sv_plugin->sv_tree)
 		return;
 	uri = g_hash_table_lookup (sv_plugin->editor_connected, G_OBJECT (editor));
 	if (uri && strlen (uri) > 0)
 	{
 		DEBUG_PRINT ("Removing file tags of %s", uri);
-		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 											   uri);
 	}
 	g_hash_table_remove (sv_plugin->editor_connected, G_OBJECT (editor));
@@ -423,7 +497,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		
 		if (old_uri && strlen (old_uri) <= 0)
 			old_uri = NULL;
-		anjuta_symbol_view_workspace_update_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+		anjuta_symbol_view_workspace_update_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 												  old_uri, saved_uri);
 		g_hash_table_insert (sv_plugin->editor_connected, editor,
 							 g_strdup (saved_uri));
@@ -433,7 +507,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
 		file_symbol_model =
-			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -475,7 +549,7 @@ on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
 	if (uri && strlen (uri) > 0)
 	{
 		DEBUG_PRINT ("Removing file tags of %s", uri);
-		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 											   uri);
 	}
 }
@@ -514,13 +588,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_return_if_fail (local_filename != NULL);
 		g_free (local_filename);
 		
-		anjuta_symbol_view_workspace_add_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
-											   uri);
+		anjuta_symbol_view_workspace_add_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), uri);
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
+		
+//		g_message( "adding file_symbol_model to egg_combo_action..........." );
 		file_symbol_model =
-			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv));
+			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
+		
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
+		
+		
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		else
@@ -563,9 +641,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 								   "ActionGotoSymbol");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	sv_plugin->current_editor = NULL;
-	
-	/* FIXME: Signal should be dis-connected and symbols removed when
-	the editor is destroyed */
 }
 
 static gboolean
@@ -581,26 +656,56 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 
 	/* Create widgets */
-	sv_plugin->sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sw),
-										 GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sw),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
+	sv_plugin->sw = gtk_notebook_new();
 	
-	sv_plugin->sv = anjuta_symbol_view_new ();
-	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv),
-							   (gpointer*)&sv_plugin->sv);
+	//
+	// anjuta symbol view
+	//
+
+	// create symbol-view scrolled window	
+	sv_plugin->sv = gtk_scrolled_window_new (NULL, NULL);
+	sv_plugin->sv_tab_label = gtk_label_new( _("Tree" ));
+	// setting up some properties
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sv), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (	GTK_SCROLLED_WINDOW (sv_plugin->sv),
+												GTK_POLICY_AUTOMATIC,
+												GTK_POLICY_AUTOMATIC);
 	
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv), FALSE);
-	gtk_container_add (GTK_CONTAINER (sv_plugin->sw), sv_plugin->sv);
-	
-	g_signal_connect (G_OBJECT (sv_plugin->sv), "event-after",
+	sv_plugin->sv_tree = anjuta_symbol_view_new ();
+	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv_tree),
+							   (gpointer*)&sv_plugin->sv_tree);
+
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv_tree), TRUE);
+
+	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "event-after",
 					  G_CALLBACK (on_treeview_event), plugin);
-	g_signal_connect (G_OBJECT (sv_plugin->sv), "row_activated",
+	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "row_activated",
 					  G_CALLBACK (on_treeview_row_activated), plugin);
 
+	gtk_container_add( GTK_CONTAINER(sv_plugin->sv), sv_plugin->sv_tree );
+	// add the scrolled window to the notebook
+	gtk_notebook_append_page( GTK_NOTEBOOK(sv_plugin->sw), sv_plugin->sv, sv_plugin->sv_tab_label );
+
+
+	//
+	// anjuta symbol search 
+	//
+	
+	sv_plugin->ss = anjuta_symbol_search_new( );
+	sv_plugin->ss_tab_label = gtk_label_new( _("Search" ));	
+
+	g_object_add_weak_pointer (G_OBJECT (sv_plugin->ss),
+							   (gpointer*)&sv_plugin->ss);
+
+	gtk_notebook_append_page( GTK_NOTEBOOK(sv_plugin->sw), sv_plugin->ss, sv_plugin->ss_tab_label );
+
 	gtk_widget_show_all (sv_plugin->sw);
+
+	// connect some signals
+	g_signal_connect (G_OBJECT (sv_plugin->ss), "symbol_selected",
+					  G_CALLBACK (on_treesearch_symbol_selected_event), plugin);
+
+
 
 	/* Add action group */
 	sv_plugin->action_group = 
@@ -611,6 +716,8 @@ activate_plugin (AnjutaPlugin *plugin)
 											G_N_ELEMENTS (popup_actions),
 											plugin);
 	group = gtk_action_group_new ("ActionGroupSymbolNavigation");
+
+	// create a new combobox in style of libegg... 
 	action = g_object_new (EGG_TYPE_COMBO_ACTION,
 						   "name", "ActionGotoSymbol",
 						   "label", _("Goto symbol"),
@@ -681,7 +788,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->editor_watch_id = 0;
 	sv_plugin->merge_id = 0;
 	sv_plugin->sw = NULL;
-	sv_plugin->sv = NULL;
+	sv_plugin->sv_tree = NULL;
+	
+	
+// FIXME: destroy all the others objects on sv_plugin and symbol_search...
+	
+	
 	return TRUE;
 }
 

@@ -13,8 +13,18 @@ struct _SymbolBrowserPlugin{
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	
-	GtkWidget *sw;
-	GtkWidget *sv;
+	GtkWidget *sw;							// symbol main window [gtk_notebook]
+	
+	GtkWidget *sv;							// symbol view scrolledwindow
+	GtkWidget *sv_tree;					// 				anjuta_symbol_view
+	GtkWidget *sv_tab_label;
+	
+	GtkWidget *ss;							// symbol search
+	GtkWidget *ss_tab_label;
+//	GtkWidget *ss_entrybox;
+//	GtkWidget *ss_hitlist;				
+		
+	
 	GtkActionGroup *action_group;
 	GtkActionGroup *action_group_nav;
 	gint merge_id;

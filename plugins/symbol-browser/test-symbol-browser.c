@@ -3,9 +3,9 @@
 
 int
 main (int argc, char *argv[]) {
-	
+	/*/
 	GtkWidget *sv;
-	GkkWidget *sw;
+	GtkWidget *sw;
 	GtkWidget *win;
 	
 	gtk_init (&argc, &argv);
@@ -22,4 +22,5 @@ main (int argc, char *argv[]) {
 	gtk_widget_show_all (win);
 	
 	gtk_main();
+	/*/
 }

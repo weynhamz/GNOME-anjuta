@@ -488,16 +488,19 @@ on_notebook_switch_page (GtkNotebook * notebook,
 {
 	GtkWidget *widget;
 	DEBUG_PRINT ("Switching notebook page");
-	/* TTimo: reorder so that the most recently used files are always
-	 * at the beginning of the tab list
-	 */
-	widget = gtk_notebook_get_nth_page (notebook, page_num);
-	anjuta_docman_set_current_editor (docman, TEXT_EDITOR (widget));
-	if (!g_tabbing &&
-		!anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_ORDERING) && 
-		anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+	if (docman->priv->shutingdown == FALSE)
 	{
-		gtk_notebook_reorder_child (notebook, widget, 0);
+		/* TTimo: reorder so that the most recently used files are always
+		 * at the beginning of the tab list
+		 */
+		widget = gtk_notebook_get_nth_page (notebook, page_num);
+		anjuta_docman_set_current_editor (docman, TEXT_EDITOR (widget));
+		if (!g_tabbing &&
+			!anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_ORDERING) && 
+			anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+		{
+			gtk_notebook_reorder_child (notebook, widget, 0);
+		}
 	}
 }
 

@@ -34,7 +34,7 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(GDL_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	-I$(top_srcdir)/tagmanager/include
+	-I$(top_srcdir)/tagmanager/include 
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -44,11 +44,16 @@ plugin_LTLIBRARIES = libanjuta-symbol-browser.la
 
 # Plugin sources
 libanjuta_symbol_browser_la_SOURCES = \
+	an_symbol_info.c \
+	an_symbol_info.h \
 	an_symbol_view.h \
 	an_symbol_view.c \
-	plugin.c
+	an_symbol_search.h \
+	an_symbol_search.c \
+	plugin.c 
 
 libanjuta_symbol_browser_la_LDFLAGS = -module
+
 
 # Plugin dependencies
 libanjuta_symbol_browser_la_LIBADD = \
@@ -56,6 +61,7 @@ libanjuta_symbol_browser_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
+ 
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(symbol_browser_plugin_DATA) \
