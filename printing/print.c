@@ -406,13 +406,18 @@ anjuta_print_show_header (PrintJobInfo * pji)
 }
 
 void
-anjuta_print_show_linenum (PrintJobInfo * pji, guint line)
+anjuta_print_show_linenum (PrintJobInfo * pji, guint line, guint padding)
 {
-	guchar *text = g_strdup_printf (_("%04u"), line);
-	gchar  *ch;
+	guchar *line_num = g_strdup_printf ("%u", line);
+	guchar *ch, *pad_str, *text;
 	gboolean save_wrapping;
 	gfloat save_x, save_y;
-	
+		
+	pad_str = g_strnfill(padding - strlen(line_num), AN_PRINT_LINENUM_PADDING);
+	text = g_strconcat(pad_str, line_num, NULL);	
+	g_free(pad_str);
+	g_free(line_num);	
+		
 	save_wrapping = pji->wrapping;
 	save_x = pji->cursor_x;
 	save_y = pji->cursor_y;
@@ -632,7 +637,7 @@ anjuta_print_set_buffer_as_range (PrintJobInfo *pji)
 
 void anjuta_print_document(PrintJobInfo * pji)
 {
-	guint i, ret, current_line;
+	guint i, ret, current_line, num_lines, padding;
 
 	current_line = 1;
 	
@@ -651,10 +656,15 @@ void anjuta_print_document(PrintJobInfo * pji)
 		default:
 	}
 	
+	num_lines = text_editor_get_total_lines (pji->te)+1;
+	
+	for (padding = 1; num_lines >= 10; padding++)
+		num_lines /= 10;
+	
 	anjuta_print_begin (pji);
 	
 	if (pji->print_line_numbers > 0)
-		anjuta_print_show_linenum (pji, current_line);
+		anjuta_print_show_linenum (pji, current_line, padding);
 	
 	for (i=0; i<pji->buffer_size; i++ ) {
 		gchar text;
@@ -684,7 +694,7 @@ void anjuta_print_document(PrintJobInfo * pji)
 			current_line++;
 			if (pji->print_line_numbers > 0 &&
 					((current_line+1) % pji->print_line_numbers == 0))
-				anjuta_print_show_linenum (pji, current_line);
+				anjuta_print_show_linenum (pji, current_line, padding);
 		}
 		if (i % 50 ==  0) anjuta_print_progress_tick (pji, i);
 		if (pji->canceled)

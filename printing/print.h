@@ -49,7 +49,7 @@ typedef enum _AnPrintOrientation
 #define AN_PRINT_MAX_STYLES 256
 #define AN_PRINT_LINENUMBER_STYLE 33
 #define AN_PRINT_DEFAULT_TEXT_STYLE 32
-#define AN_PRINT_LINENUMBER_WIDTH 4
+#define AN_PRINT_LINENUM_PADDING '0'
 
 /* Boiler plate */
 #define TEXT_AT(buf, index)  (buf)[(index)*2]
@@ -134,7 +134,7 @@ gfloat anjuta_print_get_width (PrintJobInfo *pji, gint style, const char *str, g
 void anjuta_print_new_line (PrintJobInfo *pji);
 void anjuta_print_new_page (PrintJobInfo *pji);
 gint anjuta_print_show_char_styled (PrintJobInfo *pji, const char ch, const char style);
-void anjuta_print_show_linenum (PrintJobInfo * pji, guint line);
+void anjuta_print_show_linenum (PrintJobInfo * pji, guint line, guint padding);
 
 #ifdef __cplusplus
 }

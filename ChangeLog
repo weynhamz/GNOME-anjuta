@@ -1,3 +1,8 @@
+2002-06-11  Sébastien Côté <cots01@gel.usherb.ca>
+
+	* printing/print.c, printing/print.h: Dynamically calculate
+	the line number width in print.
+	
 2002-06-11  Johannes Schmid <clubfan@users.sourceforge.net>
 	
 	* src/cvs.c: FileView is automatically updated after a 
