@@ -4,7 +4,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 0.1.8\n"
+"Project-Id-Version: anjuta 0.1.9\n"
 "POT-Creation-Date: 2002-01-26 19:53+0530\n"
 "PO-Revision-Date: 2002-01-26 23:03+0100\n"
 "Last-Translator: Stéphane Démurget <demurgets@free.fr>\n"
