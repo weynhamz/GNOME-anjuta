@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta HEAD\n"
-"POT-Creation-Date: 2003-09-14 16:07+0800\n"
-"PO-Revision-Date: 2003-09-04 08:50+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-05 23:37+0800\n"
+"PO-Revision-Date: 2003-11-03 10:50+0800\n"
 "Last-Translator: MIMOS Open Source Development Group <ismas@mimos.my>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -785,9 +786,8 @@ msgid "Ignore files"
 msgstr "Abaikan fail"
 
 #: anjuta.glade.h:185
-#, fuzzy
 msgid "Ignore files and directories"
-msgstr "Fail dan direktori Ignome"
+msgstr "Abaikan fail dan direktori"
 
 #: anjuta.glade.h:186
 msgid "Import Wizard"
@@ -1764,7 +1764,6 @@ msgstr ""
 "torehannya adalah '%s'"
 
 #: gdl/gdl-dock-layout.c:1303
-#, fuzzy
 msgid "Layout managment"
 msgstr "Pengurusan bentangan"
 
@@ -1923,7 +1922,6 @@ msgid "Controlling dock item"
 msgstr "Mengawal item dok"
 
 #: gdl/gdl-dock-tablabel.c:131
-#, fuzzy
 msgid "Dockitem which 'owns' this tablabel"
 msgstr "Item dok yang 'memiliki' label tab ini"
 
@@ -1985,7 +1983,6 @@ msgid "Icon zoom"
 msgstr "Zum ikon"
 
 #: gdl/layout.glade.h:3
-#, fuzzy
 msgid "Layout Managment"
 msgstr "Pengurusan Bentangan"
 
@@ -2696,52 +2693,44 @@ msgid "Unable to create settings directory.\n"
 msgstr "Tidak dapat mewujudkan direktori seting.\n"
 
 #: src/anjuta_gui.c:109
-#, fuzzy
 msgid "Transform"
-msgstr "_Jelma"
+msgstr "Jelma"
 
 #: src/anjuta_gui.c:112 src/toolbar.c:810
 msgid "Select"
 msgstr "Pilih"
 
 #: src/anjuta_gui.c:115
-#, fuzzy
 msgid "Insert"
-msgstr "Periksa"
+msgstr "Sisip"
 
 #: src/anjuta_gui.c:118
-#, fuzzy
 msgid "Comment"
-msgstr "Komen:"
+msgstr "Komen"
 
 #: src/anjuta_gui.c:124
 msgid "Navigate"
-msgstr ""
+msgstr "Pandu arah"
 
 #: src/anjuta_gui.c:136
-#, fuzzy
 msgid "Syntax hilighting styles"
-msgstr "Seting tonjolan sintaks"
+msgstr "Gaya tonjolan sintaks"
 
 #: src/anjuta_gui.c:156
-#, fuzzy
 msgid "Goto line"
-msgstr "Pergi ke Pengisytiharan"
+msgstr "Pergi ke baris"
 
 #: src/anjuta_gui.c:157
-#, fuzzy
 msgid "Enter the line number to jump and press enter"
-msgstr "Masukkan nombor baris untuk pergi ke"
+msgstr "Masukkan nombor baris untuk lompat dan tekan enter"
 
 #: src/anjuta_gui.c:168
-#, fuzzy
 msgid "Incremental search"
-msgstr "Bantuan carian Anjuta"
+msgstr "Carian tambahan"
 
 #: src/anjuta_gui.c:183
-#, fuzzy
 msgid "Navigation"
-msgstr "Konfigurasi"
+msgstr "Pemanduan arah"
 
 #: src/anjuta_gui.c:195 src/main_menubar.c:383
 msgid "Recent Files    "
@@ -6568,7 +6557,6 @@ msgid "French"
 msgstr "bahasa Perancis"
 
 #: src/project_dbase_gui.c:1133
-#, fuzzy
 msgid "Herbrew"
 msgstr "bahasa Ibrani"
 
@@ -7484,9 +7472,9 @@ msgid "Autocomplete word"
 msgstr "Autocomplete kata"
 
 #: src/toolbar_callbacks.c:326
-#, fuzzy, c-format
+#, c-format
 msgid "There is no line number %d in \"%s\"."
-msgstr "Terdapat nombor baris %d dalam \"%s\"."
+msgstr "Tidak ada nombor baris %d dalam \"%s\"."
 
 #: src/utilities.c:736
 #, c-format
