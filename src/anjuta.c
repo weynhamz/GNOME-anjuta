@@ -201,8 +201,6 @@ anjuta_new ()
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		gtk_window_set_modal ((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
-		app->find_replace = find_replace_new ();
-		app->find_in_files = find_in_files_new ();
 		app->compiler_options =	compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
 		app->messages = AN_MESSAGE_MANAGER (an_message_manager_new ());
@@ -1037,8 +1035,6 @@ anjuta_save_yourself (FILE * stream)
 	if (app->project_dbase->project_is_open == FALSE)
 		src_paths_save (app->src_paths, stream);
 
-	find_replace_save_yourself (app->find_replace, stream);
-    find_in_files_save_yourself (app->find_in_files, stream);
 	debugger_save_yourself (stream);
 	cvs_save_yourself(app->cvs, stream);
 	style_editor_save_yourself (app->style_editor, stream);
@@ -1087,8 +1083,6 @@ gboolean anjuta_load_yourself (PropsID pr)
 	compiler_options_load_yourself (app->compiler_options, pr);
 	compiler_options_load (app->compiler_options, pr);
 	src_paths_load (app->src_paths, pr);
-	find_replace_load_yourself (app->find_replace, pr);
-    find_in_files_load_yourself(app->find_in_files, pr);
 	debugger_load_yourself (pr);
 	return TRUE;
 }
@@ -2404,12 +2398,12 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	snprintf(command, BUFSIZ, "grep -FInHr --exclude=\"CVS\" --exclude=\"tm.tags\" --exclude=\"tags.cache\" --exclude=\".*\" --exclude=\"*~\" --exclude=\"*.o\" '%s' %s", s,
 			 project_dbase_get_dir(app->project_dbase));
 	
-	g_signal_connect (app->launcher, "child-exited",
-					  G_CALLBACK (find_in_files_terminated), NULL);
+	//~ g_signal_connect (app->launcher, "child-exited",
+					  //~ G_CALLBACK (find_in_files_terminated), NULL);
 	
-	if (anjuta_launcher_execute (app->launcher, command,
-								 find_in_files_mesg_arrived, NULL) == FALSE)
-		return;
+	//~ if (anjuta_launcher_execute (app->launcher, command,
+								 //~ find_in_files_mesg_arrived, NULL) == FALSE)
+		//~ return;
 	
 	anjuta_update_app_status (TRUE, _("Looking up symbol"));
 	an_message_manager_clear (app->messages, MESSAGE_FIND);

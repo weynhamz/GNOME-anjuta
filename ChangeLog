@@ -1,9 +1,27 @@
+2004-01-07  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+
+	* Added: search-replace_backend.[ch], search_incremental[ch]
+	
+	* Removed: find_text.[ch], find_in_files.[ch], find_in_files_cbs.[ch],
+	find_replace.[ch]
+	
+	* anjuta.glade, src/search-replace.c, src/search-replace.h,
+	src/search-replace_backend.c, src/search-replace_backend.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h,
+	src/anjuta.c, src/anjuta.h, src/project_dbase.c, src/project_dbase.h,
+	src/toolbar_callbacks.c, src/Makefile.am
+	
+	* The advanced Search/Replace functionality now replaces the older
+	Find/Replace stuff.
+	* The Search/Replace functionality can be interrupted during a long
+	Search/Replace.
+
 2004-01-02  Dan Elphick <dre00r@ecs.soton.ac.uk>
 
  	* widgets/gnomefilesel.c: Fix use of previously freed memory on
  	selecting ".." and "." from file selector. 
 
-2003-01-02  Johannes Schmid <jhs@cvs.gnome.org>
+2004-01-02  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* anjuta.glade: Fixed wrong "fold.symbols" property
 

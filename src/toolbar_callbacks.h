@@ -65,19 +65,6 @@ void
 on_toolbar_detach_clicked                (GtkButton       *button,
                                         gpointer         user_data);
 
-gboolean
-on_toolbar_find_incremental_start (GtkEntry *entry,
-								  GdkEvent* e, gpointer user_data);
-gboolean
-on_toolbar_find_incremental_end (GtkEntry *entry,
-								  GdkEvent*e, gpointer user_data);
-void
-on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data);
-
-void
-on_toolbar_find_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
-
 void
 on_toolbar_goto_clicked                (GtkButton       *button,
                                         gpointer         user_data);
@@ -247,6 +234,7 @@ on_format_calltip_clicked   (GtkButton       *button,
 void
 on_format_autocomplete_clicked   (GtkButton       *button,
                   gpointer         user_data);
+
 
 #ifdef __cplusplus
 }

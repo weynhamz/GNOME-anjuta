@@ -421,7 +421,7 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*3*/
 };
 
-#define NUM_FIND_SUBMENUS 8
+#define NUM_FIND_SUBMENUS 6
 static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Find ..."),
@@ -440,7 +440,7 @@ static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Find Previous"),
 	 N_("Search Backward"),
-	 on_findnext1_activate, GINT_TO_POINTER(FALSE), NULL,
+	 on_findprevious1_activate, GINT_TO_POINTER(FALSE), NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
 	 GDK_G, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
 	 
@@ -464,17 +464,8 @@ static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	 on_enterselection, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_CONTROL_MASK, NULL},
-	
-	 GNOMEUIINFO_SEPARATOR, /*6*/
-
-	{/*7*/
-	 GNOME_APP_UI_ITEM, N_("Advanced search and re_place"),
-	 N_("Advanced Search And Replace"),
-	 anjuta_search_replace_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	
-	GNOMEUIINFO_END/*8*/
+		
+	GNOMEUIINFO_END/*6*/
 };
 
 #define NUM_GOTO_SUBMENUS 12

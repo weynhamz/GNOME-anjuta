@@ -45,6 +45,8 @@ void on_editor_select_line (GtkMenuItem * menuitem, gpointer user_data);
 void on_transform_eolchars1_activate (GtkMenuItem * menuitem,
 									  gpointer user_data);
 void on_find1_activate (GtkMenuItem * menuitem, gpointer user_data);
+void on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data);
+void on_findprevious1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_autocomplete1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_calltip1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_find_in_files1_activate (GtkMenuItem * menuitem, gpointer user_data);
@@ -244,7 +246,6 @@ void on_insert_username (GtkMenuItem * menuitem, gpointer user_data);
 void on_save_build_messages_activate (GtkMenuItem * menuitem,
 									  gpointer user_data);
 
-void on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_enterselection (GtkMenuItem * menuitem, gpointer user_data);
 void on_customize_shortcuts_activate (GtkMenuItem * menuitem,
 									  gpointer user_data);

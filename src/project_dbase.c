@@ -42,7 +42,6 @@
 #include "compatibility_0.h"
 #include "defaults.h"
 #include "debugger.h"
-#include "find_replace.h"
 #include "executer.h"
 
 #include "an_file_view.h"
@@ -563,9 +562,7 @@ project_dbase_reload_session (ProjectDBase * p)
 		fv_populate(build_fv);
 	}
 	session_load_node_expansion_states (p);
-	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
-	find_in_files_load_session( app->find_in_files, p );
 	p->clean_before_build = 
 		session_get_bool (p, SECSTR (SECTION_PROJECT_STATE),
 						  "clean before build", FALSE);
@@ -1303,9 +1300,7 @@ project_dbase_save_session (ProjectDBase * p)
 	project_dbase_save_session_files (p);
 	fv_session_save (p);
 	session_save_node_expansion_states (p);
-	find_replace_save_session (app->find_replace, p);
 	executer_save_session (app->executer, p);
-	find_in_files_save_session (app->find_in_files, p);
 	/* session_clear_section (p, SECSTR (SECTION_PROJECT_STATE)); */
 	session_save_bool(p, SECSTR (SECTION_PROJECT_STATE), "clean before build",
 					  p->clean_before_build);

@@ -62,6 +62,7 @@
 #include "fileselection.h"
 #include "anjuta-tools.h"
 #include "search-replace.h"
+#include "search_incremental.h"
 #include "anjuta_info.h"
 #include "watch_gui.h"
 #include "signals_cbs.h"
@@ -506,24 +507,32 @@ on_calltip1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_find1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	find_text_show (app->find_replace->find_text);
+	anjuta_search_replace_activate(FALSE, FALSE);
 }
 
+void
+on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	search_replace_next();	
+}
+
+void
+on_findprevious1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	search_replace_previous();	
+}
 
 void
 on_find_in_files1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	find_in_files_show (app->find_in_files);
+	anjuta_search_replace_activate(FALSE, TRUE);
 }
-
 
 void
 on_find_and_replace1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	find_replace_show (app->find_replace);
+	anjuta_search_replace_activate(TRUE, FALSE);
 }
-
-
 
 void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -1653,13 +1662,6 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	GtkWidget *about_dlg = about_box_new ();
 	gtk_widget_show (about_dlg);
-}
-
-/*  *user_data : TRUE=Forward  False=Backward  */
-void
-on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	on_toolbar_find_clicked ( NULL, user_data);	
 }
 
 void
