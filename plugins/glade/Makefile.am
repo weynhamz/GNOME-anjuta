@@ -25,6 +25,8 @@ INCLUDES = \
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
 
+if HAVE_PLUGIN_GLADE
+
 # The plugin
 plugin_LTLIBRARIES = libanjuta-glade.la
 
@@ -35,6 +37,8 @@ libanjuta_glade_la_SOURCES = plugin.c plugin.h
 libanjuta_glade_la_LIBADD = \
 	$(PLUGIN_GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
+
+endif
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

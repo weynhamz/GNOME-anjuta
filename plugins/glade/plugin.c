@@ -526,6 +526,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (G_OBJECT (priv->gpw), "update-ui",
 					  G_CALLBACK (glade_update_ui), plugin);
 	
+	gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor (priv->gpw)),
+								 TRUE);
+	gtk_notebook_popup_enable (GTK_NOTEBOOK (glade_app_get_editor (priv->gpw)));
+
 	/* Add action group */
 	priv->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupGlade",

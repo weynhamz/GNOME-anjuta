@@ -22,7 +22,8 @@ SUBDIRS = . \
 	class-gen \
 	patch \
 	subversion \
-	project-import
+	project-import \
+	glade
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

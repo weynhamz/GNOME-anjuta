@@ -1,3 +1,10 @@
+2005-03-09  Naba Kumar  <naba@gnome.org>
+
+	* plugins/Makefile.am, plugins/glade/Makefile.am,
+	plugins/glade/plugin.c: Now that glade3 cvs head has been fixed,
+	enabled glade plugin in Anjuta. The plugin is built only when
+	glade3 is installed.
+	
 2005-03-09  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/project-wizard/templates/java.wiz
