@@ -55,6 +55,7 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	GtkWidget *label_file;
 	GtkWidget *label_branch;
 	GtkWidget *label_msg;
+	GtkWidget *label_misc = NULL;
 	GtkWidget *table;
 	GtkWidget *gtkentry;
 
@@ -87,6 +88,10 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	case CVS_ACTION_REMOVE:
 		title = _("CVS: Remove file");
 		button_label = _("Remove");
+		label_misc = gtk_label_new (
+		_("WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+		"to apply to the repository. It will still be possible to retrieve older revisions of the file."));
+		gtk_widget_show (label_misc);
 		break;
 	default:
 		return;
@@ -100,7 +105,7 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-file",
 				"anjuta");
 
-	table = gtk_table_new (4, 2, FALSE);
+	table = gtk_table_new (5, 2, FALSE);
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
@@ -161,7 +166,12 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 			gui->text_message,
 			1, 2, 2, 3,
 			GTK_FILL | GTK_EXPAND, 0, 3, 3);
-
+	if (label_misc != NULL)
+		gtk_table_attach (GTK_TABLE (table),
+				label_misc,
+				0, 2, 3, 4,
+				GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	
 	gtkentry =
 		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
 					    (gui->entry_file));

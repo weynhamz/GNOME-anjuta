@@ -408,7 +408,7 @@ cvs_remove_file (CVS * cvs, gchar * filename)
 	dir = extract_directory (filename);
 
 	compression = add_compression (cvs);
-	command = g_strconcat ("cvs ", compression, " remove ", file, NULL);
+	command = g_strconcat ("cvs ", compression, " remove -f ", file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, _("CVS Removing "), MESSAGE_CVS);
