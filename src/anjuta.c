@@ -121,7 +121,6 @@ anjuta_new ()
 		};
 		app->size = sizeof(AnjutaApp);
 		app->addIns_list	= NULL ;
-		app->szDirPlugInDir	= PACKAGE_DATA_DIR "/plugins" ;
 		app->bUseComponentUI	= FALSE ;
 		app->shutdown_in_progress = FALSE;
 		app->registered_windows = NULL;
@@ -194,7 +193,7 @@ anjuta_new ()
 		anjuta_update_title ();
 		launcher_init ();
 		debugger_init ();
-		app->addIns_list = scan_AddIns_in_directory( app, app->szDirPlugInDir, NULL );
+		app->addIns_list = scan_AddIns_in_directory( app, PACKAGE_PLUGIN_DIR, NULL );
 		{		
 			gchar *plugin_dir;
 			char const * const home_dir = getenv ("HOME");
@@ -2029,8 +2028,9 @@ scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
 			
 		entry_name = (const char*) node->data;
 		node = g_list_next (node);
-			
-		if ((NULL != entry_name) && strlen (entry_name) > 3 && (NULL != strstr (entry_name, ".so")))
+
+		if ((NULL != entry_name) && strlen (entry_name) > 3
+			&& (0 == strcmp (&entry_name[strlen(entry_name)-3], ".so")))
 		{
 			/* FIXME: e questo ? bah library_file = g_module_build_path (module_dir, module_file); */
 			gchar *pPIPath = g_strdup_printf ("%s/%s", szDirName, entry_name);

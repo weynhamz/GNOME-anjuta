@@ -58,6 +58,7 @@ scrollkeeper-update
 %defattr(-,root,root)
 %{prefix}/bin/anjuta
 %{prefix}/bin/anjuta_launcher
+%{prefix}/lib/anjuta
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
 %{prefix}/share/anjuta
 %{prefix}/share/gnome/help/anjuta

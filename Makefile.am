@@ -5,7 +5,7 @@
 
 SUBDIRS = intl po macros tagmanager global-tags scintilla ccview \
 	widgets manuals omf-install src pixmaps data \
-	doc launcher
+	doc launcher plugins
 
 anjutadocdir = ${prefix}/doc/anjuta
 anjutadoc_DATA = \

@@ -1,3 +1,35 @@
+2001-12-29 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/main_menubar_def.h, main_menubar.h, main_menubar.c:
+	  Shifted plugin menu from Edit submenu to main menu.
+	
+	* po/POTFILES.in:
+	  Added plugins/sample1/plugin-sample1.c
+	  
+	* plugins/sample1/plugin-sample1.c:
+	  Added localization and used anjuta_info, instead of anjuta_error.
+	  
+	* plugins/.cvsignore, plugins/sample1/.cvsignore:
+	  Added cvs ignores.
+	  
+2001-12-28 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* configure.in, acconfig.h: Added definition for PACKAGE_PLUGIN_DIR
+	  for plugin dir.
+	
+	* Makefile.am: Added module plugins.
+	
+	* plugins, plugins/Makefile.am, plugins/sample1/*:
+	  Created plugins modules.
+	  
+	* src/anjuta.h, src/anjuta.c: Removed app->szAddinDir and 
+	  Defined PACKAGE_PLUGIN_DIR directly and properly. Fixed
+	  to load plugins of *.so only and not *.so* (which results
+	  in duplicates).
+	
+	* anjuta.spec.in: added %{prefix}/lib/anjuta to take care of 
+	  plugins during packaging.
+
 2001-12-27  Simos Xenitellis  <simos@hellug.gr>
 
 	*  configure.in: Added Greek (el) to ALL_LINGUAS.

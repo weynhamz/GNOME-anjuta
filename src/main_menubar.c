@@ -111,7 +111,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.goto_next_mesg = goto1_submenu_uiinfo[5].widget;
 	mb->edit.repeat_find = edit1_menu_uiinfo[18].widget;
 	mb->edit.edit_app_gui = edit1_menu_uiinfo[22].widget;
-	mb->edit.plugins = edit1_menu_uiinfo[24].widget;
 	for (i = 0; i < NUM_EDIT_MENUES ; i++)
 	{
 		gtk_widget_ref (edit1_menu_uiinfo[i].widget);
@@ -142,7 +141,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(editor1_submenu_uiinfo[i].widget));
 	}
 
-	
 	mb->view.messages = view1_menu_uiinfo[0].widget;
 	mb->view.project_listing = view1_menu_uiinfo[1].widget;
 	mb->view.bookmarks = view1_menu_uiinfo[2].widget;
@@ -349,7 +347,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	}
 	
 	/* unimplemented */
-	gtk_widget_hide (menubar1_uiinfo[8].widget);
+	gtk_widget_hide (menubar1_uiinfo[9].widget);
 
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_files), "realize",
 			    GTK_SIGNAL_FUNC (on_file_menu_realize), NULL);
@@ -357,7 +355,8 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_projects), "realize",
 			    GTK_SIGNAL_FUNC (on_project_menu_realize), NULL);
 	
-	gtk_signal_connect (GTK_OBJECT (mb->edit.plugins), "realize",
+	/* Plugin Menu */
+	gtk_signal_connect (GTK_OBJECT (menubar1_uiinfo[8].widget), "realize",
 			    GTK_SIGNAL_FUNC (on_plugins_menu_realize), NULL);
 }
 
@@ -532,7 +531,6 @@ on_plugins_menu_realize (GtkWidget * widget, gpointer data)
 				GTK_SIGNAL_FUNC
 				(on_plugins_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
-	app->widgets.menubar.edit.plugins = widget;
 }
 
 static void

@@ -90,7 +90,6 @@ struct _EditSubMenu
 	GtkWidget *goto_next_mesg;
 
 	GtkWidget *edit_app_gui;
-	GtkWidget *plugins;
 };
 
 struct _ViewSubMenu

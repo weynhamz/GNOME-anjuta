@@ -165,7 +165,6 @@ struct _AnjutaApp
 	gboolean shutdown_in_progress;
 	gboolean	bUseComponentUI;	/* use glade or the CORBA objects ? */
 	GList	*addIns_list;
-	gchar	*szDirPlugInDir;
 };
 
 struct _FileLineInfo
