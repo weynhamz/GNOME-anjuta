@@ -555,6 +555,7 @@ anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile
 manuals/C/anjuta-tutorial/Makefile
+manuals/C/anjuta-advanced-tutorial/Makefile
 manuals/C/anjuta-faqs/Makefile
 manuals/C/anjuta-manual/Makefile
 manuals/de/Makefile

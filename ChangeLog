@@ -1,4 +1,12 @@
+2004-03-26  Naba Kumar  <naba@gnome.org>
+
+	* src/main_menubar_def.h, configure.in, manuals/C/Makefile.am,
+	(new) manuals/C/anjuta-advanced-tutorial/*:
+	Added menu entry for 'Anjuta Advanced Tutorial'
+	written by Olivier Pinçon  <opincon _at_ wanadoo.fr>.
+
 2004-03-28  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	
 	* src/fileselection.[ch], src/mainmenu_callbacks.c:
 	Fixed bug #908941  ('Open' starts in wrong directory)
 	

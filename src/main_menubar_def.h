@@ -1780,7 +1780,7 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 GNOMEUIINFO_END,/*14*/
 };
 
-#define NUM_HELP_SUBMENUS 20
+#define NUM_HELP_SUBMENUS 21
 static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Anjuta Manual"),
@@ -1795,84 +1795,90 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
 	 0, 0, NULL},
 	{/*2*/
+	 GNOME_APP_UI_ITEM, N_("Anjuta Advanced Tutorial"),
+	 N_("Anjuta IDE Advanced Tutorial"),
+	 on_help_activate, "anjuta-advanced-tutorial.xml", NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
+	 0, 0, NULL},
+	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Anjuta Faqs"),
 	 N_("Anjuta IDE Faqs"),
 	 on_help_activate, "anjuta-faqs.xml", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*3*/
-	{/*4*/
+	GNOMEUIINFO_SEPARATOR,/*4*/
+	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Browse GNOME _API Pages"),
 	 N_("The GNOME API pages"),
 	 on_gnome_pages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 GDK_F1, GDK_SHIFT_MASK, NULL},
-	{/*5*/
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Browse _Man Pages"),
 	 N_("The good old manual pages"),
 	 on_url_activate, "man:man", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 0, 0, NULL},
-	{/*6*/
+	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("Browse _Info Pages"),
 	 N_("Browse Info pages"),
 	 on_url_activate, "info:info", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*7*/
-	{/*8*/
+	GNOMEUIINFO_SEPARATOR,/*8*/
+	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("_Context Help"),
 	 N_("Search help for the current word in the editor"),
 	 on_context_help_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
  	 GDK_H, GDK_CONTROL_MASK, NULL},
-	{/*9*/
+	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("_Search a topic"),
 	 N_("May I help you?"),
 	 on_search_a_topic1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*10*/
-	{/*11*/
+	GNOMEUIINFO_SEPARATOR,/*11*/
+	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("Anjuta _Home Page"),
 	 N_("Online documentation and resources"),
 	 on_url_activate, "http://anjuta.org", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*12*/
-	{/*13*/
+	GNOMEUIINFO_SEPARATOR,/*13*/
+	{/*14*/
 	 GNOME_APP_UI_ITEM, N_("_Libraries API references"),
 	 N_("Online reference library for GDK, GLib, GNOME etc.."),
 	 on_url_activate, "http://lidn.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*14*/
+	{/*15*/
 	 GNOME_APP_UI_ITEM, N_("Report _Bugs"),
 	 N_("Submit a bug report for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*15*/
+	{/*16*/
 	 GNOME_APP_UI_ITEM, N_("Request _Features"),
 	 N_("Submit a feature request for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*16*/
+	{/*17*/
 	 GNOME_APP_UI_ITEM, N_("Submit _patches"),
 	 N_("Submit patches for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*17*/
+	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("Ask a _question"),
 	 N_("Submit a question for FAQs"),
 	 on_url_activate, "mailto:anjuta-list@lists.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*18*/
-	GNOMEUIINFO_MENU_ABOUT_ITEM (on_about1_activate, NULL),/*19*/
-	GNOMEUIINFO_END/*20*/
+	GNOMEUIINFO_SEPARATOR,/*19*/
+	GNOMEUIINFO_MENU_ABOUT_ITEM (on_about1_activate, NULL),/*20*/
+	GNOMEUIINFO_END/*21*/
 };
 
 #define NUM_TOPLEVEL_SUBMENUS 11
