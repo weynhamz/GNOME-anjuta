@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-22 13:59+0200\n"
-"PO-Revision-Date: 2004-07-05 01:28+0800\n"
+"PO-Revision-Date: 2004-07-11 16:43+0800\n"
 "Last-Translator: Noah Bentusi <blue_atlantis400@hotmai..com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,6 @@ msgid "Additional"
 msgstr "额外"
 
 #: anjuta.glade.h:22
-#, fuzzy
 msgid "Additional Libraries (LDADD):"
 msgstr "附加库(LDADD)："
 
@@ -96,11 +95,11 @@ msgstr "额外选项"
 
 #: anjuta.glade.h:24
 msgid "Additional build options:"
-msgstr "附加的生成选项"
+msgstr "附加的生成选项："
 
 #: anjuta.glade.h:25
 msgid "Always save in UTF-8 encoding (faster)"
-msgstr ""
+msgstr "总是以 UTF-8 编码保存(更快)"
 
 #: anjuta.glade.h:26
 msgid "Anjuta help search"
@@ -108,7 +107,7 @@ msgstr "Anjuta 帮助搜索"
 
 #: anjuta.glade.h:27
 msgid "Anjuta start with dialog"
-msgstr ""
+msgstr "Anjuta 启动方式对话框"
 
 #: anjuta.glade.h:28 plugins/project-wizard/appwizard_gui.c:77
 #: plugins/project-wizard/appwizard_gui.c:91
@@ -132,14 +131,12 @@ msgid "Attributes:"
 msgstr "属性："
 
 #: anjuta.glade.h:33
-#, fuzzy
 msgid "Autocomplete XML/HTML closing tags"
-msgstr "自动完成 XML/HTML 关闭标签"
+msgstr "自动补全 XML/HTML 关闭标签"
 
 #: anjuta.glade.h:34
-#, fuzzy
 msgid "Autocompletion"
-msgstr "自动完成"
+msgstr "自动补全"
 
 #: anjuta.glade.h:35
 msgid "Autocompletion pop up choices"
@@ -254,20 +251,17 @@ msgstr "插入点(光标)号颜色："
 msgid "Caret blink period in milli-seconds"
 msgstr "插入点闲烁周期(毫秒)"
 
-# msgstr "最大可能匹配"??
 #: anjuta.glade.h:63
 msgid "Case insensitive"
 msgstr "不区分大小写"
 
 #: anjuta.glade.h:64
-#, fuzzy
 msgid "Choose Directories:"
-msgstr "选择目录"
+msgstr "选择目录："
 
 #: anjuta.glade.h:65
-#, fuzzy
 msgid "Choose Files:"
-msgstr "选择文件"
+msgstr "选择文件："
 
 #: anjuta.glade.h:66
 msgid "Choose autocomplete for single match"
@@ -286,9 +280,8 @@ msgid "Circular"
 msgstr ""
 
 #: anjuta.glade.h:70
-#, fuzzy
 msgid "Code folding"
-msgstr "代码展叠区(_C)"
+msgstr "代码展叠"
 
 #: anjuta.glade.h:71
 msgid "Collapse all code folds on file open"
@@ -335,7 +328,6 @@ msgid "Compiler"
 msgstr "编译器"
 
 #: anjuta.glade.h:82
-#, fuzzy
 msgid "Compiler Flags (CFLAGS):"
 msgstr "编译器标志(CFLAGS)："
 
@@ -356,7 +348,6 @@ msgid "Configure Parameters"
 msgstr "配置参数"
 
 #: anjuta.glade.h:87
-#, fuzzy
 msgid "Costom style"
 msgstr "自定义样式"
 
@@ -429,9 +420,8 @@ msgid "Disable syntax highlighting"
 msgstr "禁用语法高亮"
 
 #: anjuta.glade.h:105
-#, fuzzy
 msgid "Display process _tree"
-msgstr "显示可访问内存"
+msgstr "显示进程树(_T)"
 
 #: anjuta.glade.h:106
 msgid "Do not show hidden directories"
@@ -446,16 +436,14 @@ msgid "Do not show start with dialog again."
 msgstr ""
 
 #: anjuta.glade.h:109
-#, fuzzy
 msgid "Do not show tabs"
-msgstr "不显示"
+msgstr "不显示标签"
 
 #: anjuta.glade.h:110
 msgid "Document module Makefile.am"
 msgstr "文档模块内的 Makefile.am"
 
 #: anjuta.glade.h:111
-#, fuzzy
 msgid "Draw line below folded lines"
 msgstr "在折起行下方绘制一条线"
 
@@ -464,14 +452,12 @@ msgid "Edit"
 msgstr "编辑"
 
 #: anjuta.glade.h:113
-#, fuzzy
 msgid "Editor caret (cursor) width in pixels"
 msgstr "编辑器插入点(光标)的宽度(像素)"
 
 #: anjuta.glade.h:114
-#, fuzzy
 msgid "Editor tabs"
-msgstr "编辑器选项"
+msgstr "编辑器标签"
 
 #: anjuta.glade.h:115
 msgid "Enable Debugging"
@@ -481,8 +467,6 @@ msgstr "允许调试"
 msgid "Enable HTML tags folding"
 msgstr "充许 HTML 标签折叠"
 
-# Profiling=监管, 来自The Linux GCC HOWTO中译版V0.2
-# GCC-HOWTO-5.html
 #: anjuta.glade.h:117
 msgid "Enable Profiling"
 msgstr "生成监管信息"
@@ -533,7 +517,7 @@ msgstr "已启用"
 
 #: anjuta.glade.h:129
 msgid "Encoding to use when saving files"
-msgstr ""
+msgstr "保存文件时所用的编码"
 
 #: anjuta.glade.h:130
 msgid "Enter a Hexa adress or select one in the data"
@@ -564,7 +548,6 @@ msgid "Execute Program"
 msgstr "执行程序"
 
 #: anjuta.glade.h:137
-#, fuzzy
 msgid "Expand regex back references"
 msgstr "在引用后扩展正则表达式"
 
@@ -587,14 +570,12 @@ msgid "File level"
 msgstr "文件级别"
 
 #: anjuta.glade.h:142
-#, fuzzy
 msgid "File name:"
-msgstr "文件夹名："
+msgstr "文件名："
 
 #: anjuta.glade.h:143
-#, fuzzy
 msgid "File type:"
-msgstr "文件类型:"
+msgstr "文件类型："
 
 #: anjuta.glade.h:144
 msgid "Filter extraneous characters in DOS mode"
@@ -633,9 +614,8 @@ msgid "GNU coding style"
 msgstr "GNU 代码样式"
 
 #: anjuta.glade.h:153
-#, fuzzy
 msgid "GPL Notice"
-msgstr "# GPL 通告"
+msgstr "GPL 通告"
 
 #: anjuta.glade.h:154
 msgid "GUI editor command:"
@@ -701,7 +681,7 @@ msgstr "帮助模块内的 Makefile.am"
 
 #: anjuta.glade.h:166
 msgid "Hide process para_meters"
-msgstr ""
+msgstr "隐藏进程参数(_M)"
 
 #: anjuta.glade.h:167
 msgid "High-Level Optimization (Functions inlined wherever possible)"
@@ -720,14 +700,12 @@ msgid "Ignore Binary Files"
 msgstr "忽略二进制文件"
 
 #: anjuta.glade.h:171
-#, fuzzy
 msgid "Ignore Directories:"
-msgstr "忽略目录"
+msgstr "忽略目录："
 
 #: anjuta.glade.h:172
-#, fuzzy
 msgid "Ignore Files:"
-msgstr "忽略文件"
+msgstr "忽略文件："
 
 #: anjuta.glade.h:173
 msgid "Ignore Hidden Directories"
@@ -746,14 +724,12 @@ msgid "Ignore files"
 msgstr "忽略文件"
 
 #: anjuta.glade.h:177
-#, fuzzy
 msgid "Ignore files and directories"
 msgstr "忽略文件和目录"
 
 #: anjuta.glade.h:178
-#, fuzzy
 msgid "Import Wizard"
-msgstr "工程导入向导"
+msgstr "导入向导"
 
 #: anjuta.glade.h:179
 msgid ""
@@ -831,7 +807,6 @@ msgid "Library Paths"
 msgstr "函数库路径"
 
 #: anjuta.glade.h:197
-#, fuzzy
 msgid "Line numbers margin width in pixels"
 msgstr "行号区的宽度(像素单位)"
 
@@ -1143,12 +1118,10 @@ msgid "Save all files"
 msgstr "保存全部文件"
 
 #: anjuta.glade.h:273
-#, fuzzy
 msgid "Save files interval in minutes"
 msgstr "自动保存计时器间隔(分钟)"
 
 #: anjuta.glade.h:274
-#, fuzzy
 msgid "Save session interval in minutes"
 msgstr "会话计时器间隔(分钟)"
 
@@ -1231,13 +1204,12 @@ msgid "Sorted by most recent use"
 msgstr ""
 
 #: anjuta.glade.h:294
-#, fuzzy
 msgid "Sorted in alphabetical order"
 msgstr "以字母序排序"
 
 #: anjuta.glade.h:295
 msgid "Sorted in the order you open them"
-msgstr ""
+msgstr "以您打开的顺序排序"
 
 #: anjuta.glade.h:296
 msgid "Source Directories"
@@ -1475,9 +1447,8 @@ msgid "_Execute:"
 msgstr "执行(_E)："
 
 #: anjuta.glade.h:353
-#, fuzzy
 msgid "_Hide paths"
-msgstr "包含路径"
+msgstr "隐藏路径(_H)"
 
 #: anjuta.glade.h:354
 msgid "_Image editor:"
@@ -1525,18 +1496,17 @@ msgstr "更新(_U)"
 
 #: libanjuta/anjuta-encodings.c:131 libanjuta/anjuta-encodings.c:157
 #: libanjuta/anjuta-encodings.c:198 libanjuta/anjuta-encodings.c:239
-#, fuzzy
 msgid "Western"
-msgstr "寄存器"
+msgstr "西方"
 
 #: libanjuta/anjuta-encodings.c:133 libanjuta/anjuta-encodings.c:200
 #: libanjuta/anjuta-encodings.c:235
 msgid "Central European"
-msgstr ""
+msgstr "中欧"
 
 #: libanjuta/anjuta-encodings.c:135
 msgid "South European"
-msgstr ""
+msgstr "南欧"
 
 #: libanjuta/anjuta-encodings.c:137 libanjuta/anjuta-encodings.c:153
 #: libanjuta/anjuta-encodings.c:249
@@ -1605,7 +1575,7 @@ msgstr "罗马尼亚文"
 #: libanjuta/anjuta-encodings.c:173 libanjuta/anjuta-encodings.c:175
 #: libanjuta/anjuta-encodings.c:184
 msgid "Chinese Traditional"
-msgstr ""
+msgstr "繁体中文"
 
 #: libanjuta/anjuta-encodings.c:177
 #, fuzzy
@@ -1615,7 +1585,7 @@ msgstr "俄罗斯文"
 #: libanjuta/anjuta-encodings.c:180 libanjuta/anjuta-encodings.c:211
 #: libanjuta/anjuta-encodings.c:224
 msgid "Japanese"
-msgstr ""
+msgstr "日文"
 
 #: libanjuta/anjuta-encodings.c:182 libanjuta/anjuta-encodings.c:213
 #: libanjuta/anjuta-encodings.c:217 libanjuta/anjuta-encodings.c:230
@@ -1626,7 +1596,7 @@ msgstr "朝鲜文"
 #: libanjuta/anjuta-encodings.c:187 libanjuta/anjuta-encodings.c:189
 #: libanjuta/anjuta-encodings.c:191 libanjuta/anjuta-encodings.c:195
 msgid "Chinese Simplified"
-msgstr ""
+msgstr "简体中文"
 
 #: libanjuta/anjuta-encodings.c:193
 #, fuzzy
@@ -1651,18 +1621,16 @@ msgid "Stock Encodings"
 msgstr ""
 
 #: libanjuta/anjuta-plugin.c:199
-#, fuzzy
 msgid "Anjuta Shell"
-msgstr "Anjuta"
+msgstr "Anjuta Shell"
 
 #: libanjuta/anjuta-plugin.c:200
 msgid "Anjuta shell that will contain the tool"
 msgstr ""
 
 #: libanjuta/anjuta-plugin.c:207
-#, fuzzy
 msgid "Anjuta UI"
-msgstr "Anjuta"
+msgstr "Anjuta UI"
 
 #: libanjuta/anjuta-plugin.c:208
 msgid "Anjuta UI that will contain Menus and toolbars"
@@ -1691,9 +1659,8 @@ msgid ""
 msgstr "您确定想要将首选项重置为默认设置吗？"
 
 #: libanjuta/anjuta-preferences.c:701
-#, fuzzy
 msgid "_Reset"
-msgstr "寄存器(_R)"
+msgstr "重置(_R)"
 
 #: libanjuta/anjuta-preferences.c:970
 #, c-format
@@ -1709,30 +1676,25 @@ msgstr ""
 "Anjuta 将回设为内建设置"
 
 #: libanjuta/anjuta-ui.c:297
-#, fuzzy
 msgid "Action"
-msgstr "函数"
+msgstr "动作"
 
 #: libanjuta/anjuta-ui.c:315 libegg/egg-action.c:158
 #: libegg/egg-dock-layout.c:680
-#, fuzzy
 msgid "Visible"
-msgstr "变量"
+msgstr "可见"
 
 #: libanjuta/anjuta-ui.c:326 libegg/egg-action.c:150
-#, fuzzy
 msgid "Sensitive"
-msgstr "区分大小写"
+msgstr "敏感"
 
 #: libanjuta/anjuta-ui.c:335
-#, fuzzy
 msgid "Shortcut"
-msgstr "快捷方式："
+msgstr "快捷方式"
 
 #: libanjuta/anjuta-ui.c:436
-#, fuzzy
 msgid "Anjuta User Interface"
-msgstr "Anjuta 帮助搜索"
+msgstr "Anjuta 用户界面"
 
 #: libanjuta/anjuta-utils.c:54 src/utilities.c:697
 #, c-format
@@ -1763,7 +1725,7 @@ msgstr "无法读取文件：%s"
 #: src/utilities.c:705
 #, c-format
 msgid "Unable to create file: %s."
-msgstr "无法建立文件：%s"
+msgstr "无法创建文件：%s"
 
 #: libanjuta/anjuta-utils.c:100 src/utilities.c:739
 msgid "Unable to complete file copy"
@@ -1778,13 +1740,13 @@ msgstr ""
 "系统："
 
 #: libanjuta/anjuta-utils.c:341
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
 "尚未安装工具“%s”。\n"
-"请安装该工具，然后重新启动 Anjuta。"
+"请安装该工具。"
 
 #: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:109
 #: libegg/test-actions.c:130
@@ -1833,19 +1795,19 @@ msgstr "重命名文件"
 
 #: libanjuta/gnomefilelist.c:257 libanjuta/gnomefilelist.c:1988
 msgid "Create new folder"
-msgstr "建立新文件夹"
+msgstr "创建新文件夹"
 
 #: libanjuta/gnomefilelist.c:262
 msgid "Show Hidden"
-msgstr "显示隐藏的"
+msgstr "显示隐藏"
 
 #: libanjuta/gnomefilelist.c:266
 msgid "Show hidden files"
-msgstr "显示隐藏的文件"
+msgstr "显示隐藏文件"
 
 #: libanjuta/gnomefilelist.c:274
 msgid "Directory: "
-msgstr "目录"
+msgstr "目录："
 
 #: libanjuta/gnomefilelist.c:403
 msgid "Files"
@@ -1853,11 +1815,11 @@ msgstr "文件"
 
 #: libanjuta/gnomefilelist.c:430
 msgid "Selection: "
-msgstr "选择:"
+msgstr "选择："
 
 #: libanjuta/gnomefilelist.c:458
 msgid "File type: "
-msgstr "文件类型:"
+msgstr "文件类型："
 
 #: libanjuta/gnomefilelist.c:714 plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
@@ -1901,7 +1863,7 @@ msgstr "Python 文件"
 
 #: libanjuta/gnomefilelist.c:733
 msgid "Hyper Text Markup files"
-msgstr "HTM文件"
+msgstr "HTML 文件"
 
 #: libanjuta/gnomefilelist.c:736
 #: plugins/project-manager/project_dbase_gui.c:167
@@ -1937,33 +1899,31 @@ msgstr "Diff 文件"
 #: libanjuta/gnomefilelist.c:1854
 #, c-format
 msgid "Really delete %s?"
-msgstr "确定删除 %s?"
+msgstr "确定删除 %s 吗？"
 
 #: libanjuta/gnomefilelist.c:1901
 msgid "Rename file to:"
-msgstr "重命名文件为:"
+msgstr "重命名文件为："
 
 #: libanjuta/gnomefilelist.c:1927
 #, c-format
 msgid "Renaming file failed '%s': %s"
-msgstr "文件重命名失败 '%s': %s"
+msgstr "文件重命名失败“%s”：%s"
 
 #: libanjuta/gnomefilelist.c:1960
 #, c-format
 msgid "Creating folder failed '%s': %s"
-msgstr "建立文件失败 '%s' : %s"
+msgstr "创建文件夹失败“%s”：%s"
 
 #: libanjuta/gnomefilelist.c:2000
 msgid "Folder name:"
 msgstr "文件夹名："
 
 #: libanjuta/plugins.c:1109
-#, fuzzy
 msgid "Load"
-msgstr "本地"
+msgstr "装入"
 
 #: libanjuta/plugins.c:1117
-#, fuzzy
 msgid "Plugin"
 msgstr "插件"
 
@@ -1976,17 +1936,17 @@ msgstr ""
 #: libanjuta/resources.c:50
 #, c-format
 msgid "Widget not found: %s"
-msgstr "无法找到组件：%s"
+msgstr "找不到组件：%s"
 
 #: libanjuta/resources.c:74
 #, c-format
 msgid "Could not find application image file: %s"
-msgstr "无法找到程序图像文件：%s"
+msgstr "找不到程序图像文件：%s"
 
 #: libanjuta/resources.c:100
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "无法找到程序位图文件：%s"
+msgstr "找不到程序位图文件：%s"
 
 #: libanjuta/resources.c:263 libanjuta/resources.c:271
 msgid "Cannot execute Devhelp. Make sure it is installed"
@@ -1994,7 +1954,7 @@ msgstr "无法执行 Devhelp 程序。请确定程序已安装"
 
 #: libegg/egg-accel-dialog.c:114 libegg/egg-accel-dialog.c:115
 msgid "Menu Merge"
-msgstr ""
+msgstr "菜单合并"
 
 #: libegg/egg-action.c:114 libegg/egg-dock-layout.c:737
 #: libegg/egg-dock-object.c:121 plugins/build/compiler_options.c:798
@@ -2023,9 +1983,8 @@ msgid "A shorter label that may be used on toolbar buttons."
 msgstr ""
 
 #: libegg/egg-action.c:136
-#, fuzzy
 msgid "Tooltip"
-msgstr "工具"
+msgstr "工具提示"
 
 #: libegg/egg-action.c:137
 #, fuzzy
@@ -2131,9 +2090,8 @@ msgid "Unsupported docking strategy %s in dock object of type %s"
 msgstr ""
 
 #: libegg/egg-dock-item.c:1238
-#, fuzzy
 msgid "Hide"
-msgstr "文件头"
+msgstr "隐藏"
 
 #: libegg/egg-dock-item.c:1244
 #, fuzzy
@@ -2229,7 +2187,7 @@ msgstr ""
 #: libegg/egg-dock-notebook.c:135
 #, fuzzy
 msgid "Page"
-msgstr "粘贴"
+msgstr "页面"
 
 #: libegg/egg-dock-notebook.c:136
 #, fuzzy
@@ -2246,7 +2204,7 @@ msgid "Long name"
 msgstr "项名称:"
 
 #: libegg/egg-dock-object.c:130
-msgid "Human readable name for the dock object"
+msgid "Humanreadable name for the dock object"
 msgstr ""
 
 #: libegg/egg-dock-object.c:136
@@ -2283,9 +2241,8 @@ msgid ""
 msgstr ""
 
 #: libegg/egg-dock-paned.c:134
-#, fuzzy
 msgid "Position"
-msgstr "位置："
+msgstr "位置"
 
 #: libegg/egg-dock-paned.c:135
 msgid "Position of the divider in pixels"
@@ -4050,7 +4007,7 @@ msgstr "重新载入"
 #: plugins/editor/action-callbacks.c:814
 #, fuzzy, c-format
 msgid "There is no line number %d in \"%s\"."
-msgstr "在文件 \"%2$s\" 内，无法找到行号 %1$d。"
+msgstr "在文件 \"%2$s\" 内，找不到行号 %1$d。"
 
 #: plugins/editor/action-callbacks.c:1363
 msgid "No matches. Wrap search around the document?"
@@ -5690,15 +5647,14 @@ msgstr "工程成功保存"
 msgid "Unable to save the Project."
 msgstr "无法保存工程。"
 
-# ===========================
 #: plugins/project-manager/project_dbase.c:1543
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
-"在工程顶级目录中不存在.glade文件. 如果您不使用glade来进行GUI编辑,请在[工程]->"
-"[工程配置]->[GUI编辑器命令]中设置一个自定义命令."
+"在工程顶级目录中不存在 .glade 文件。如果您不使用 glade 来进行 GUI 编辑，请在[工程]->"
+"[工程配置]->[GUI 编辑器命令]中设置一个自定义命令。"
 
 #: plugins/project-manager/project_dbase.c:1605
 msgid ""
@@ -5706,7 +5662,7 @@ msgid ""
 "exist in the top level Project directory."
 msgstr ""
 "在工程顶级目录中\n"
-"不存在.glade文件."
+"不存在 .glade 文件。"
 
 #: plugins/project-manager/project_dbase.c:2021 src/anjuta_gui.c:146
 #: src/main_menubar.c:394
@@ -5723,16 +5679,16 @@ msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
 msgstr ""
-"无法打开相对路径文件:%s \n"
+"无法获取 %s 的相对路径文件名\n"
 " 在 %s 中"
 
 #: plugins/project-manager/project_dbase.c:2241
 msgid " already exists in the project"
-msgstr "在工程中已经存在"
+msgstr " 已经存在于工程中"
 
 #: plugins/project-manager/project_dbase.c:2274
 msgid "Error while copying the file inside the module."
-msgstr "复制文件到工程的模块内时发生错误。"
+msgstr "复制模块中的文件时出错。"
 
 #: plugins/project-manager/project_dbase.c:2537
 #: plugins/project-manager/project_dbase.c:2540
@@ -5742,7 +5698,7 @@ msgstr "载入工程时发生错误：%s"
 
 #: plugins/project-manager/project_dbase.c:2561
 msgid "Project loaded successfully."
-msgstr "载入工程完成。"
+msgstr "工程载入完成。"
 
 #: plugins/project-manager/project_dbase_gui.c:76
 #, c-format
@@ -5750,12 +5706,11 @@ msgid ""
 "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
 msgstr ""
-"是否确定将 \"%s\" \n"
-"从项目内删除？"
+"您确定想要从工程中删除项目“%s”吗？"
 
 #: plugins/project-manager/project_dbase_gui.c:118
 msgid "There is already a Project open.Do you want to close it first?"
-msgstr "有一个项目已经打开。是否先将它关闭？"
+msgstr "已经打开了一个工程。是否先将其关闭？"
 
 #: plugins/project-manager/project_dbase_gui.c:152
 msgid "Help files"
@@ -5807,7 +5762,7 @@ msgstr "C/C++ 头文件"
 
 #: plugins/project-manager/project_dbase_gui.c:250
 msgid "Add file to module: "
-msgstr "添加文件到模块:"
+msgstr "将文件添加到模块："
 
 #: plugins/project-manager/project_dbase_gui.c:259
 msgid "Include file"
@@ -5851,7 +5806,7 @@ msgstr "工程信息"
 
 #: plugins/project-manager/project_dbase_gui.c:677
 msgid "Project Information"
-msgstr "工程信息 ..."
+msgstr "工程信息"
 
 #: plugins/project-manager/project_dbase_gui.c:685
 msgid " Project Information "
@@ -5859,52 +5814,52 @@ msgstr " 工程信息 "
 
 #: plugins/project-manager/project_dbase_gui.c:721
 msgid "Author:"
-msgstr " 作者："
+msgstr "作者："
 
 #: plugins/project-manager/project_dbase_gui.c:729
 #: plugins/project-wizard/wizard_gui.c:299
 msgid "Project Name:"
-msgstr "工程名称:"
+msgstr "工程名称："
 
 #: plugins/project-manager/project_dbase_gui.c:808
 msgid "Program Name:"
-msgstr "程序名称:"
+msgstr "程序名称："
 
 #: plugins/project-manager/project_dbase_gui.c:815
 msgid "Source files:"
-msgstr "源文件:"
+msgstr "源文件："
 
 #: plugins/project-manager/project_dbase_gui.c:822
 msgid "Help files:"
-msgstr "帮助文件:"
+msgstr "帮助文件："
 
 #: plugins/project-manager/project_dbase_gui.c:829
 msgid "Data files:"
-msgstr "数据文件:"
+msgstr "数据文件："
 
 #: plugins/project-manager/project_dbase_gui.c:836
 msgid "Pixmap files:"
-msgstr "位图文件:"
+msgstr "位图文件："
 
 #: plugins/project-manager/project_dbase_gui.c:843
 msgid "Doc files:"
-msgstr "文档文件:"
+msgstr "文档文件："
 
 #: plugins/project-manager/project_dbase_gui.c:864
 msgid "Po files:"
-msgstr "Po 文件:"
+msgstr "Po 文件："
 
 #: plugins/project-manager/project_dbase_gui.c:894
 msgid "GUI editable by Glade:"
-msgstr "可用 Glade 编辑图形界面: "
+msgstr "可用 Glade 编辑 GUI："
 
 #: plugins/project-manager/project_dbase_gui.c:916
 msgid "Makefiles managed:"
-msgstr "可管理 Makefiles:"
+msgstr "可管理 Makefiles："
 
 #: plugins/project-manager/project_dbase_gui.c:958
 msgid "Gettext support:"
-msgstr "Gettext 支持:"
+msgstr "Gettext 支持："
 
 #: plugins/project-manager/project_dbase_gui.c:1016
 msgid "Project Type:"
@@ -6018,16 +5973,16 @@ msgstr "爱沙尼亚文"
 
 #: plugins/project-manager/project_dbase_gui.c:1148
 msgid "Select regional language"
-msgstr "选取地区语言"
+msgstr "选择地区语言"
 
 #: plugins/project-manager/project_dbase_gui.c:1164
 msgid "Select regional language:"
-msgstr "选取地区语言"
+msgstr "选择地区语言："
 
 #: plugins/project-manager/project_dbase_gui.c:1204
 #, c-format
 msgid "Unable to find pixmap file: %s"
-msgstr "无法找到位图文件：%s"
+msgstr "找不到位图文件：%s"
 
 #: plugins/project-manager/project_dbase_gui.c:1281
 #, c-format
@@ -6036,8 +5991,8 @@ msgid ""
 "does not exist.\n"
 "Do you want to create it now ?"
 msgstr ""
-"文件 \"%s\" 不存在。\n"
-"是否新建它？"
+"文件“%s”不存在。\n"
+"您是否想要现在创建？"
 
 #: plugins/project-manager/project_dbase_gui.c:1299
 #, c-format
@@ -6051,56 +6006,56 @@ msgid ""
 "does not exist in the current module directory.\n"
 "Do you want to IMPORT (copy) it into the module?"
 msgstr ""
-"\"%s\"\n"
-"这个文件不在工程的目录内。\n"
-"是否要向模块导入 (复制) 这个文件？"
+"“%s”\n"
+"未在当前模块目录中找到。\n"
+"您想要将其导入(复制)到此模块？"
 
 #: plugins/project-manager/project_import.c:89
 #, c-format
 msgid "Unable to find import script %s"
-msgstr "无法找到导入脚本%s"
+msgstr "找不到导入脚本 %s"
 
 #: plugins/project-manager/project_import.c:94
 #, c-format
 msgid "%s: Not a regular file"
-msgstr "不是一个正常的文件：%s。"
+msgstr "%s：不是普通文件"
 
 #: plugins/project-manager/project_import.c:109
 #, c-format
 msgid "Importing Project from %s ...\n"
-msgstr "正在从%s导入工程 ...\n"
+msgstr "正在从 %s 导入工程 ...\n"
 
 #: plugins/project-manager/project_import.c:119
 msgid "Could not launch script!\n"
-msgstr "不能执行脚本!\n"
+msgstr "无法执行脚本！\n"
 
 #: plugins/project-manager/project_import.c:130
 msgid "Importing Project...please wait"
-msgstr "请稍候, 正在导入工程 ..."
+msgstr "正在导入工程...请稍候"
 
 #: plugins/project-manager/project_import.c:188
 msgid "Project import completed...successful\n"
-msgstr "工程导入完成 ...成功\n"
+msgstr "工程导入完成...成功\n"
 
 #: plugins/project-manager/project_import.c:190
 msgid "Project import completed...successful"
-msgstr "工程导入完成 ...成功"
+msgstr "工程导入完成...成功"
 
 #: plugins/project-manager/project_import.c:206
 msgid "Could not import Project: no project file found!"
-msgstr "不能导入工程: 没有找到工程文件"
+msgstr "无法导入工程：没有找到工程文件！"
 
 #: plugins/project-manager/project_import.c:213
 msgid "Opening Project...please wait"
-msgstr "请稍候...正在找开工程"
+msgstr "正在打开工程...请稍候"
 
 #: plugins/project-manager/project_import.c:216
 msgid "Could not open generated Project file"
-msgstr "不能打开已创建的工程文件"
+msgstr "无法打开生成的工程文件"
 
 #: plugins/project-manager/project_import_cbs.c:126
 msgid "Please complete all of the required fields"
-msgstr "请完成所有的字段"
+msgstr "请填完所需的全部字段"
 
 #: plugins/project-manager/project_import_cbs.c:230
 #: plugins/project-wizard/appwizard_cbs.c:286
@@ -6156,8 +6111,8 @@ msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
-"导入动作已经开始.\n"
-"点击取消customisation步骤,或者点击下一步继续."
+"导入动作已经开始。\n"
+"单击取消可跳过自定义阶段，或者单击下一步继续。"
 
 #: plugins/project-manager/project_import_gui.c:46
 msgid ""
@@ -6168,11 +6123,11 @@ msgid ""
 "\n"
 "THIS IS AN EXPERIMENTAL FEATURE\n"
 msgstr ""
-"工程导入向导描述已存在的代码工程目录, 并尝试将其结构\n"
-"导入一个anjuta工程. 在导入过程中,一部分自动检测数据将会\n"
-"被更新.\n"
+"工程导入向导将会扫描已有代码工程所在目录，并尝试将其结构\n"
+"导入 Anjuta 工程。在导入过程中，您有机会更新任何自动检测\n"
+"的值。\n"
 "\n"
-"这是一个实验功能.\n"
+"这是一个实验特性\n"
 
 #: plugins/project-manager/project_import_gui.c:74
 #: plugins/project-manager/project_import_gui.c:159
@@ -6185,30 +6140,29 @@ msgstr "选择目录"
 
 #: plugins/project-manager/project_import_gui.c:207
 msgid "Select top level directory of an existing project"
-msgstr "选择现存工程的顶级目录"
+msgstr "选择已有工程的顶级目录"
 
 #: plugins/project-manager/project_import_gui.c:211
 msgid "Select existing project directory"
-msgstr "选择现存工程的目录"
+msgstr "选择已有工程的目录"
 
 #: plugins/project-manager/project_import_gui.c:225
-#, fuzzy
 msgid "Click Forward to begin the import"
 msgstr "点击下一步开始导入"
 
 #: plugins/project-manager/source.c:112
 #, c-format
 msgid "Error writing to file: %s."
-msgstr "写入%s文件时发生错误。"
+msgstr "写入文件时出错：%s。"
 
 #: plugins/project-manager/source.c:1614 plugins/project-manager/source.c:1734
 #, c-format
 msgid "Error writing to: %s."
-msgstr "写入%s 时发生错误。"
+msgstr "写入时出错：%s。"
 
 #: plugins/project-manager/src_paths.c:263
 msgid "Source Paths"
-msgstr "源代码路径(_S)..."
+msgstr "源代码路径"
 
 #: plugins/project-wizard/appwizard_cbs.c:126
 msgid "Project name"
@@ -6228,8 +6182,8 @@ msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
 msgstr ""
-"无效的“%s”：\n"
-"您必须提供一个有效“%s”的字段才可继续。"
+"无效的 %s 域：\n"
+"您必须提供一个有效 %s 的字段才可继续。"
 
 #: plugins/project-wizard/appwizard_gui.c:41
 msgid ""
@@ -6381,23 +6335,23 @@ msgstr "基本信息"
 
 #: plugins/project-wizard/wizard_gui.c:283
 msgid "Enter the basic Project information"
-msgstr "输入基本的工程信息"
+msgstr "输入工程的基本信息"
 
 #: plugins/project-wizard/wizard_gui.c:306
 msgid "Project Version:"
-msgstr "工程版本:"
+msgstr "工程版本："
 
 #: plugins/project-wizard/wizard_gui.c:313
 msgid "Project Author:"
-msgstr "工程作者:"
+msgstr "工程作者："
 
 #: plugins/project-wizard/wizard_gui.c:320
 msgid "Project Target:"
-msgstr "目标程序:"
+msgstr "工程目标："
 
 #: plugins/project-wizard/wizard_gui.c:351
 msgid "Programming language"
-msgstr "程序语言"
+msgstr "编程语言"
 
 #: plugins/project-wizard/wizard_gui.c:362
 msgid "C"
@@ -6413,23 +6367,23 @@ msgstr "C 及 C++"
 
 #: plugins/project-wizard/wizard_gui.c:386
 msgid "Target type"
-msgstr "目的文件类型："
+msgstr "目的类型"
 
 #: plugins/project-wizard/wizard_gui.c:402
 msgid "Executable target"
-msgstr "可执行的程序"
+msgstr "可执行目标"
 
 #: plugins/project-wizard/wizard_gui.c:409
 msgid "Static library target"
-msgstr "静态函数库"
+msgstr "静态库目标"
 
 #: plugins/project-wizard/wizard_gui.c:415
 msgid "Dynamic library target"
-msgstr "动态函数库"
+msgstr "动态库目标"
 
 #: plugins/project-wizard/wizard_gui.c:491
 msgid "Enter a short description of the Project"
-msgstr "请输入工程的简短描述"
+msgstr "请输入工程的简要描述"
 
 #: plugins/project-wizard/wizard_gui.c:597
 msgid "Enter any additional Project options"
@@ -6437,19 +6391,19 @@ msgstr "输入额外的工程信息"
 
 #: plugins/project-wizard/wizard_gui.c:614
 msgid " Project Options "
-msgstr " 工程选项"
+msgstr " 工程选项 "
 
 #: plugins/project-wizard/wizard_gui.c:625
 msgid "Include GNU Copyright statement in file headings"
-msgstr "加入 GNU 版权声明到文件的起首"
+msgstr "在文件头加入 GNU 版权声明"
 
 #: plugins/project-wizard/wizard_gui.c:632
 msgid "Enable Gettext Support"
-msgstr "启用Gettext支持"
+msgstr "启用 Gettext 支持"
 
 #: plugins/project-wizard/wizard_gui.c:640
 msgid "Generate source code using glade or glademm"
-msgstr ""
+msgstr "使用 glade 或 glademm 生成源代码"
 
 #: plugins/project-wizard/wizard_gui.c:647
 msgid "GNOME Menu Entry"
@@ -6457,15 +6411,15 @@ msgstr "GNOME 菜单项"
 
 #: plugins/project-wizard/wizard_gui.c:657
 msgid "Entry name:"
-msgstr "项名称:"
+msgstr "项名称："
 
 #: plugins/project-wizard/wizard_gui.c:664
 msgid "Comment:"
-msgstr "注释:"
+msgstr "注释："
 
 #: plugins/project-wizard/wizard_gui.c:671
 msgid "Group:"
-msgstr "小组:"
+msgstr "小组："
 
 #: plugins/project-wizard/wizard_gui.c:713
 msgid "Needs terminal"
@@ -6476,22 +6430,18 @@ msgid "Summary"
 msgstr "概要"
 
 #: plugins/sample1/plugin.c:54
-#, fuzzy
 msgid "_Sample action"
-msgstr "示例插件"
+msgstr "示例动作(_S)"
 
 #: plugins/sample1/plugin.c:55
-#, fuzzy
 msgid "Sample action"
-msgstr "示例插件"
+msgstr "示例动作"
 
 #: plugins/sample1/plugin.c:83
-#, fuzzy
 msgid "Sample file operations"
-msgstr "编译器和链接器选项"
+msgstr "示例文件操作"
 
 #: plugins/sample1/plugin.c:88
-#, fuzzy
 msgid "SamplePlugin"
 msgstr "示例插件"
 
@@ -6532,7 +6482,7 @@ msgid "Unable to build user interface for tool editor"
 msgstr "无法为工具编程器生成用户界面"
 
 #: plugins/tools/anjuta-tools.c:1385
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "您确定想要删除工具“%s”吗？"
 
@@ -6567,20 +6517,18 @@ msgid "%s: Command line parameters"
 msgstr "%s：命令行参数"
 
 #: src/about.c:95
-#, fuzzy
 msgid "Copyright (c) Naba Kumar"
-msgstr "版权所有 (c) 1999-2001 Naba Kumar"
+msgstr "版权 (c) Naba Kumar"
 
 #: src/action-callbacks.c:84
-#, fuzzy
 msgid "Anjuta Plugins"
-msgstr "Anjuta 窗口"
+msgstr "Anjuta 插件"
 
 #: src/action-callbacks.c:98 src/mainmenu_callbacks.c:836
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
-msgstr ""
+msgstr "无法显示帮助。请确定已经安装了 Anjuta 文档包。您可从 http://anjuta.org 下载。"
 
 #: src/anjuta-actions.h:24
 msgid "_Quit"
@@ -6632,7 +6580,7 @@ msgstr "布局管理器"
 
 #: src/anjuta-actions.h:54
 msgid "Manipulate layout manager items"
-msgstr ""
+msgstr "操纵布局管理器项目"
 
 #: src/anjuta-actions.h:56
 msgid "Plugins manager"
@@ -6640,7 +6588,7 @@ msgstr "插件管理器"
 
 #: src/anjuta-actions.h:58
 msgid "Manipulate plugins manager items"
-msgstr ""
+msgstr "操纵插件管理器项目"
 
 #: src/anjuta-actions.h:64
 msgid "The GNOME API pages"
@@ -6778,7 +6726,7 @@ msgstr "无法创建设置目录。\n"
 
 #: src/anjuta_gui.c:108
 msgid "Navigate"
-msgstr ""
+msgstr "导航"
 
 #: src/anjuta_gui.c:137 src/main_menubar.c:383
 msgid "Recent Files    "
@@ -6790,7 +6738,7 @@ msgstr "信息"
 
 #: src/controls.c:210
 msgid "No tags"
-msgstr ""
+msgstr "无标签"
 
 #: src/dnd.c:104
 #, c-format
@@ -6809,6 +6757,9 @@ msgid ""
 "gtkmm/gnomemm projects) is not installed.\n"
 "Warning: Your generated project will still be fine, though.\n"
 msgstr ""
+"警告：无法生成 C/C++ 源代码。\n"
+"警告：可能是由于未安装 glade(对 gtk/gnome 工程)或 gladmm(对 gtkmm/gnomemm 工程)。\n"
+"警告：您生成的工程仍然没有问题。\n"
 
 #: src/glade_iface.c:108
 msgid "Cannot fork glade."
@@ -6824,11 +6775,11 @@ msgstr "无法启动 glade-2。"
 
 #: src/main.c:50
 msgid "Specify the size and location of the main window"
-msgstr ""
+msgstr "指定主窗口的大小和位置"
 
 #: src/main.c:51
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr ""
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: src/main.c:56 src/main.cpp:51
 msgid "Do not show the splashscreen"
@@ -6845,15 +6796,15 @@ msgstr "调试器尚未启动。请先将它启动。"
 #: src/support.c:60 src/support.c:85
 #, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "无法找到位图文件：%s"
+msgstr "找不到位图文件：%s"
 
 #: src/toolbar.c:105
 msgid "Detach"
-msgstr "分离"
+msgstr "漂移"
 
 #: src/toolbar.c:106
 msgid "Detach the current page"
-msgstr "分离当前页面"
+msgstr "漂移当前页面"
 
 #: src/toolbar.c:115
 msgid "Search for the given string in the current file"
@@ -6865,7 +6816,7 @@ msgstr "输入要查找的字符串"
 
 #: src/toolbar.c:137
 msgid "Go to the given line number in the current file"
-msgstr "转到指定行号"
+msgstr "转到当前文档中的指定行号"
 
 #: src/toolbar.c:144
 msgid "Enter the line number to go to"
@@ -6885,7 +6836,7 @@ msgstr "显示/隐藏信息窗口"
 
 #: src/toolbar.c:160
 msgid "Context sensitive help"
-msgstr "即时说明"
+msgstr "上下文敏感帮助"
 
 #: src/toolbar.c:214
 msgid "Open a Project"
@@ -6997,7 +6948,7 @@ msgstr "转到当前代码块的结尾"
 
 #: src/toolbar.c:446
 msgid "Tags:"
-msgstr "标识符"
+msgstr "标识符："
 
 #: src/toolbar.c:455
 msgid "Search for the given tag in the current file"
@@ -7060,9 +7011,8 @@ msgid "Signals"
 msgstr "信号"
 
 #: src/toolbar.c:641
-#, fuzzy
 msgid "kernel signals of the program"
-msgstr "程序的堆栈追踪"
+msgstr "程序的内核信号"
 
 #: src/toolbar.c:652
 msgid "Registers"
