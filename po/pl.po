@@ -9,9 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-07-18 10:52+0200\n"
-"PO-Revision-Date: 2003-07-18 11:01+0100\n"
-"Last-Translator: Gnome PL Team <translators@gnome.pl>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-27 23:42+0200\n"
+"PO-Revision-Date: 2003-07-18 01:07+0100\n"
+"Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -962,7 +963,7 @@ msgid ""
 msgstr ""
 "Uwaga: jeśli jest otwarty jakiś projekt, preferencje na tej stronie są "
 "preferencjami projektu i zostaną one wczytane z projektu i zapisane do "
-"niego. Jeśli nie jest otwarty żadny projekt, będą one preferencjami "
+"niego. Jeśli nie jest otwarty żaden projekt, będą one preferencjami "
 "globalnymi."
 
 #: anjuta.glade.h:211 anjuta_dialogs_strings.c:427
@@ -1049,11 +1050,11 @@ msgstr "Naciśnięcie tego przycisku zamyka okno dialogowe"
 
 #: anjuta.glade.h:229 anjuta_dialogs_strings.c:406
 msgid "Pressing backspace un-indents"
-msgstr "Wciśnięcie backspace usuwa wcięcie"
+msgstr "Wciśnięcie Backspace usuwa wcięcie"
 
 #: anjuta.glade.h:230 anjuta_dialogs_strings.c:405
 msgid "Pressing tab indents"
-msgstr "Wciśnięcie tab tworzy wcięcie"
+msgstr "Wciśnięcie Tab tworzy wcięcie"
 
 #: anjuta.glade.h:231 anjuta_dialogs_strings.c:424
 msgid "Print options"
@@ -1434,7 +1435,7 @@ msgstr "Nazwa użytkownika:"
 #: anjuta.glade.h:319 anjuta_dialogs_strings.c:264
 #: anjuta_dialogs_strings.c:265
 msgid "Variable list"
-msgstr "Lista zmiennnych"
+msgstr "Lista zmiennych"
 
 #: anjuta.glade.h:320 anjuta_dialogs_strings.c:186 src/project_dbase_gui.c:932
 msgid "Version:"
@@ -5928,7 +5929,7 @@ msgstr "Różnice diff p_rojektu"
 #: src/main_menubar_def.h:1689
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
-msgstr "Tworzy różnice pomiędzy kopią roboczą projektu a reporytorium"
+msgstr "Tworzy różnice pomiędzy kopią roboczą projektu a repozytorium"
 
 #. 15
 #: src/main_menubar_def.h:1696
@@ -6244,7 +6245,7 @@ msgstr ""
 "Należy uruchomić gconf-editor, wyszukać klucz \"desktop/gnome/interface/"
 "can_change_accels\" i ustawić ten przycisk przełączania na WŁĄCZONY. "
 "Następnie można przeciągnąć wskaźnik myszy nad dowolną pozycją menu i "
-"nacisnąć klawisz skrótu powiązując go z nią."
+"nacisnąć klawisz skrótu wiążąc go z nią."
 
 #: src/memory.c:111
 msgid "Unable to build user interface for Memory\n"
