@@ -70,7 +70,7 @@ on_popup_clicked (GtkWidget* widget, GdkEvent * event,
 	AnMessageManagerPrivate* intern);
 // Intern functions:
 
-GtkWidgetClass *parent_class;
+GtkFrameClass *parent_class;
 
 GtkWidget *
 an_message_manager_new ()
@@ -100,7 +100,7 @@ an_message_manager_get_type (void)
 			(GInstanceInitFunc) an_message_manager_init,
 			NULL            /* value_table */
 		};
-		type = g_type_register_static (GTK_TYPE_WIDGET,
+		type = g_type_register_static (GTK_TYPE_FRAME,
 									   "AnMessageManager",
 									   &info, (GTypeFlags)0);
 	}
@@ -113,7 +113,7 @@ an_message_manager_class_init (AnMessageManagerClass * klass)
 	GObjectClass *object_class =
 		reinterpret_cast < GObjectClass * >(klass);
 
-	parent_class = reinterpret_cast < GtkWidgetClass * >(klass);
+	parent_class = reinterpret_cast < GtkFrameClass * >(klass);
 	object_class->finalize = an_message_manager_finalize;
 }
 

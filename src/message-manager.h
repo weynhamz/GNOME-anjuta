@@ -56,14 +56,14 @@ typedef struct _AnMessageManagerPrivate AnMessageManagerPrivate;
 
 struct _AnMessageManager
 {
-	GtkWidget parent;
+	GtkFrame parent;
 	
 	AnMessageManagerPrivate* intern;
 };
 
 struct _AnMessageManagerClass
 {
-	GtkWidgetClass parent_class;
+	GtkFrameClass parent_class;
 };
 
 // Public functions

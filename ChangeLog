@@ -5,7 +5,7 @@
 	selection dialog).
 	
 	* src/message-manger.[h,cc]: Made AnMessageManager
-	derived from GtkWidget
+	derived from GtkFrame and removed deprecated code.
 	
 	* src/breakpoints.c, src/search-replace.c, src/source.c: Fixed
 	compiler warnings.
