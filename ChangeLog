@@ -1,3 +1,10 @@
+2005-01-02  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/file-wizard/action-callbacks.c,
+	plugins/file-wizard/anjuta-file-wizard.glade,
+	plugins/file-wizard/file.c, plugins/file-wizard/file.h :
+	Insert Licence, copyright, header template ...
+	
 2005-01-02  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-status.c, libanjuta/anjuta-status.h,

@@ -12,6 +12,11 @@
   <property name="modal">False</property>
   <property name="resizable">False</property>
   <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="has_separator">False</property>
   <signal name="delete_event" handler="on_new_file_cancelbutton_clicked" last_modification_time="Tue, 02 Dec 2003 13:32:37 GMT"/>
 
@@ -34,6 +39,7 @@
 	      <property name="label">gtk-cancel</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
 	      <property name="response_id">-6</property>
 	      <signal name="clicked" handler="on_new_file_cancelbutton_clicked" last_modification_time="Sat, 29 Nov 2003 07:12:53 GMT"/>
 	    </widget>
@@ -47,6 +53,7 @@
 	      <property name="label">gtk-ok</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
 	      <property name="response_id">-5</property>
 	      <signal name="clicked" handler="on_new_file_okbutton_clicked" last_modification_time="Sat, 29 Nov 2003 07:12:25 GMT"/>
 	    </widget>
@@ -325,16 +332,17 @@ The extension will be added according to the type.</property>
 		      <property name="column_spacing">6</property>
 
 		      <child>
-			<widget class="GtkCheckButton" id="new.file.gpl">
+			<widget class="GtkCheckButton" id="new.file.license">
 			  <property name="visible">True</property>
-			  <property name="sensitive">False</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Add License Information (GPL)</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
+			  <signal name="toggled" handler="on_new_file_license_toggled" last_modification_time="Wed, 29 Dec 2004 18:05:52 GMT"/>
 			</widget>
 			<packing>
 			  <property name="left_attach">0</property>
@@ -394,32 +402,14 @@ The extension will be added according to the type.</property>
 		      </child>
 
 		      <child>
-			<widget class="GtkOptionMenu" id="optionmenu1">
+			<widget class="GtkOptionMenu" id="new.file.menu.license">
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
 			  <property name="can_focus">True</property>
-			  <property name="history">0</property>
+			  <property name="history">-1</property>
 
 			  <child>
 			    <widget class="GtkMenu" id="menu9">
-
-			      <child>
-				<widget class="GtkMenuItem" id="general_public_license_(gpl)1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_General Public License (GPL)</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_general_public_license_(gpl)1_activate" last_modification_time="Wed, 28 Apr 2004 20:14:33 GMT"/>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkMenuItem" id="lesser_general_public_license_(lgpl)1">
-				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">_Lesser General Public License (LGPL)</property>
-				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_lesser_general_public_license_(lgpl)1_activate" last_modification_time="Wed, 28 Apr 2004 20:14:33 GMT"/>
-				</widget>
-			      </child>
 			    </widget>
 			  </child>
 			</widget>
@@ -438,7 +428,7 @@ The extension will be added according to the type.</property>
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
 			  <property name="can_focus">True</property>
-			  <property name="history">0</property>
+			  <property name="history">2</property>
 
 			  <child>
 			    <widget class="GtkMenu" id="menu10">
@@ -448,7 +438,6 @@ The extension will be added according to the type.</property>
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">_C: /* comment */</property>
 				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_c:_/*_comment_*/1_activate" last_modification_time="Wed, 28 Apr 2004 20:15:52 GMT"/>
 				</widget>
 			      </child>
 
@@ -457,7 +446,6 @@ The extension will be added according to the type.</property>
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">C++: // comment</property>
 				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_c++:_//_comment1_activate" last_modification_time="Wed, 28 Apr 2004 20:15:52 GMT"/>
 				</widget>
 			      </child>
 
@@ -466,7 +454,6 @@ The extension will be added according to the type.</property>
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">Shell: # comment</property>
 				  <property name="use_underline">True</property>
-				  <signal name="activate" handler="on_shell:_#_comment1_activate" last_modification_time="Wed, 28 Apr 2004 20:15:52 GMT"/>
 				</widget>
 			      </child>
 			    </widget>
@@ -489,6 +476,7 @@ The extension will be added according to the type.</property>
 			  <property name="label" translatable="yes">Create corresponding header file</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
@@ -506,10 +494,12 @@ The extension will be added according to the type.</property>
 		      <child>
 			<widget class="GtkCheckButton" id="new.file.template">
 			  <property name="visible">True</property>
+			  <property name="sensitive">False</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Use Template for the Header file</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>

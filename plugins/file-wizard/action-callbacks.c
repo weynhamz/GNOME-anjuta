@@ -36,12 +36,6 @@ get_current_editor (AnjutaPlugin *plugin)
 	return editor;
 }
 
-static AnjutaPreferences *
-get_preferences (AnjutaPlugin *plugin)
-{
-	return anjuta_shell_get_preferences (plugin->shell, NULL);
-}
-
 void
 on_insert_c_gpl_notice(GtkAction * action, gpointer user_data)
 {
@@ -117,7 +111,7 @@ on_insert_header(GtkAction * action, gpointer user_data)
 	prefs = get_preferences (ANJUTA_PLUGIN (user_data));
 	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
 	if(editor)
-		insert_header(editor, prefs);
+		insert_header(editor, prefs, CMT_C);
 }
 
 void
