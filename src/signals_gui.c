@@ -87,7 +87,11 @@ create_signals_gui(Signals *cr)
   GtkWidget *clist4;
   GtkWidget *label6, *label7, *label8, *label9, *label10;
 
-  window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  window3 = gtk_dialog_new_with_buttons (_("Kernel signals"),
+										 GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_STOCK_CLOSE,
+										 GTK_RESPONSE_CLOSE, NULL);
   gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app->widgets.window));
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
@@ -96,8 +100,10 @@ create_signals_gui(Signals *cr)
   gnome_window_icon_set_from_default(GTK_WINDOW(window3));
 
   scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow4), 5);
+  // gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow4), GTK_SHADOW_IN);
   gtk_widget_show (scrolledwindow4);
-  gtk_container_add (GTK_CONTAINER (window3), scrolledwindow4);
+  gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(window3)->vbox), scrolledwindow4);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
   clist4 = gtk_clist_new (5);
@@ -132,14 +138,18 @@ create_signals_gui(Signals *cr)
   gtk_widget_show (label10);
   gtk_clist_set_column_widget (GTK_CLIST (clist4), 4, label10);
 
-  gtk_signal_connect (GTK_OBJECT (window3), "delete_event",
-                             GTK_SIGNAL_FUNC (on_signals_delete_event), cr);
+  g_signal_connect (G_OBJECT (window3), "delete_event",
+                             G_CALLBACK (on_signals_delete_event), cr);
+  g_signal_connect (G_OBJECT (window3), "close",
+                             G_CALLBACK (on_signals_close), cr);
+  g_signal_connect (G_OBJECT (window3), "response",
+                             G_CALLBACK (on_signals_response), cr);
 
-  gtk_signal_connect (GTK_OBJECT (clist4), "event",
-                      GTK_SIGNAL_FUNC (on_signals_event),
+  g_signal_connect (G_OBJECT (clist4), "event",
+                      G_CALLBACK (on_signals_event),
                       cr);
-  gtk_signal_connect (GTK_OBJECT (clist4), "select_row",
-                      GTK_SIGNAL_FUNC (on_signals_clist_select_row),
+  g_signal_connect (G_OBJECT (clist4), "select_row",
+                      G_CALLBACK (on_signals_clist_select_row),
                       cr);
 
   cr->widgets.window = window3;

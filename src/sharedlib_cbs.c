@@ -34,6 +34,20 @@ on_sharedlibs_delete_event (GtkWidget *w, GdkEvent *event, gpointer data)
 }
 
 void
+on_sharedlibs_close(GtkWidget* w, gpointer data)
+{
+  Sharedlibs* sl = data;
+  sharedlibs_hide(sl);
+}
+
+void
+on_sharedlibs_response(GtkWidget* w, gint res, gpointer data)
+{
+  Sharedlibs* sl = data;
+  sharedlibs_hide(sl);
+}
+
+void
 on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
   debugger_put_cmd_in_queqe("info sharedlibrary", DB_CMD_NONE,

@@ -101,6 +101,8 @@ create_cpu_registers_gui(CpuRegisters *cr)
 				"debugger.registers.tv"));
 	g_object_unref (gxml);
 
+	gtk_dialog_add_button (GTK_DIALOG (topwindow), GTK_STOCK_CLOSE,
+						   GTK_RESPONSE_CLOSE);
 	// top level window
 	gtk_window_set_transient_for(GTK_WINDOW (topwindow),
 				GTK_WINDOW (app->widgets.window));
@@ -138,6 +140,10 @@ create_cpu_registers_gui(CpuRegisters *cr)
 				GTK_SIGNAL_FUNC (on_registers_clist_select_row), cr);
 	gtk_signal_connect (GTK_OBJECT (topwindow), "delete_event",
 				GTK_SIGNAL_FUNC (on_registers_delete_event), cr);
+	gtk_signal_connect (GTK_OBJECT (topwindow), "close",
+				GTK_SIGNAL_FUNC (on_registers_close), cr);
+	gtk_signal_connect (GTK_OBJECT (topwindow), "response",
+				GTK_SIGNAL_FUNC (on_registers_response), cr);
 	gtk_signal_connect (GTK_OBJECT (view), "event",
 				GTK_SIGNAL_FUNC (on_register_event), cr);
 

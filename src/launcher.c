@@ -428,7 +428,7 @@ anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 	
 	if (last_line) {
 #ifdef DEBUG
-		g_message ("(In password) Last line = %s", last_line);
+		// g_message ("(In password) Last line = %s", last_line);
 #endif
 		if (strlen (last_line) < strlen (prompt))
 			return;
@@ -472,7 +472,7 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 	if (!chars || strlen(chars) <= 0)
 		return;
 #ifdef DEBUG
-	g_message("Chars buffer = %s", chars);
+	// g_message("Chars buffer = %s", chars);
 #endif
 	start = end = strlen (chars);
 	while (start > 0 && chars[start-1] != '\n') start--;
@@ -482,7 +482,7 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 		last_line = g_strndup (&chars[start], end - start + 1);
 
 #ifdef DEBUG
-		g_message ("Last line = %s", last_line);
+		// g_message ("Last line = %s", last_line);
 #endif
 		/* Checks for password, again */
 		anjuta_launcher_check_password_real (launcher, last_line);
@@ -544,7 +544,7 @@ anjuta_launcher_buffered_output (AnjutaLauncher *launcher,
 	{
 		*buffer = g_strdup (incomplete_line);
 #ifdef DEBUG
-		g_message ("Line buffer for %d: %s", output_type, incomplete_line);
+		// g_message ("Line buffer for %d: %s", output_type, incomplete_line);
 #endif
 	}
 	/* Check for password prompt */

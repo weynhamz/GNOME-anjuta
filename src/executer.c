@@ -198,6 +198,14 @@ on_executer_dialog_response (GtkDialog *dialog, gint response,
 	}
 }
 
+/*
+static void
+on_executer_dialog_close (GtkDialog *dialog, gpointer user_data)
+{
+	gtk_dialog_response (dialog, GTK_RESPONSE_NONE);
+}
+*/
+
 static void
 on_executer_entry_changed (GtkEditable * editable, gpointer user_data)
 {

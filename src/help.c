@@ -108,7 +108,7 @@ on_response (GtkDialog *dialog, gint response, AnjutaHelp *help)
 }
 
 static gboolean
-on_delete_event (GtkWidget *w, AnjutaHelp *help)
+on_delete_event (GtkWidget *w, GdkEvent *event, AnjutaHelp *help)
 {
 	anjuta_help_hide(help);
 	return TRUE;

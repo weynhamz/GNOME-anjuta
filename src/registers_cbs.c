@@ -34,6 +34,20 @@ on_registers_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
 }
 
 void
+on_registers_close(GtkWidget* w, gpointer data)
+{
+  CpuRegisters* cr = data;
+  cpu_registers_hide(cr);
+}
+
+void
+on_registers_response(GtkWidget* w, gint res, gpointer data)
+{
+  CpuRegisters* cr = data;
+  cpu_registers_hide(cr);
+}
+
+void
 on_registers_clist_select_row          (GtkCList        *clist,
                                         gint             row,
                                         gint             column,

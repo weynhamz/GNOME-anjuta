@@ -544,6 +544,15 @@ on_compt_response (GtkWidget *widget, gint response, gpointer data)
 }
 
 static void
+on_compt_close (GtkWidget *widget, gpointer data)
+{
+	CompilerOptions *co = data;
+	g_return_if_fail (co);	
+	on_comp_finish (co);
+	compiler_options_hide (co);
+}
+
+static void
 on_toggle_clist_row_activated          (GtkTreeView     *treeview,
                                         GtkTreePath     *arg1,
                                         GtkTreeViewColumn *arg2,
@@ -958,6 +967,8 @@ void create_compiler_options_gui (CompilerOptions *co)
 					  G_CALLBACK (on_compt_delete_event), co);
 	g_signal_connect (G_OBJECT (co->priv->widgets.window), "response",
 					  G_CALLBACK (on_compt_response), co);
+	g_signal_connect (G_OBJECT (co->priv->widgets.window), "close",
+					  G_CALLBACK (on_compt_close), co);
 	
 	/* Connect toggle signals */
 	g_signal_connect (G_OBJECT (co->priv->widgets.supp_clist), "row_activated",

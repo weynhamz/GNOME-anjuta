@@ -29,7 +29,8 @@ enum {
 gboolean on_file_filter_delete_event (GtkWidget *widget,
 									  GdkEventCrossing *event,
 									  gpointer user_data);
-void on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data);
+void on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data);
+void on_file_filter_close (GtkWidget *dlg, gpointer user_data);
 
 static AnFileView *fv = NULL;
 
@@ -113,7 +114,6 @@ typedef struct _FileFilter
 	GtkCombo *dir_match_combo;
 	GtkCombo *dir_unmatch_combo;
 	GtkToggleButton *ignore_hidden_dirs_tb;
-	GtkButton *ok_button;
 	GList *file_match;
 	GList *file_unmatch;
 	GList *dir_match;
@@ -248,7 +248,17 @@ on_file_filter_delete_event (GtkWidget *widget, GdkEventCrossing *event,
 }
 
 void
-on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data)
+on_file_filter_close (GtkWidget *widget, gpointer user_data)
+{
+	if (ff->showing)
+	{
+		gtk_widget_hide((GtkWidget *) ff->dialog);
+		ff->showing = FALSE;
+	}
+}
+
+void
+on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data)
 {
 	if (ff->showing)
 	{
@@ -284,7 +294,6 @@ void fv_customize(gboolean really_show)
 		SET_WIDGET(dir_unmatch_en, GtkEditable, DIR_FILTER_UNMATCH);
 		SET_WIDGET(dir_unmatch_combo, GtkCombo, DIR_FILTER_UNMATCH_COMBO);
 		SET_WIDGET(ignore_hidden_dirs_tb, GtkToggleButton, DIR_FILTER_IGNORE_HIDDEN);
-		SET_WIDGET(ok_button, GtkButton, OK_BUTTON);
 		gtk_window_set_transient_for (GTK_WINDOW(ff->dialog)
 		  , GTK_WINDOW(app->widgets.window));
 		glade_xml_signal_autoconnect(ff->xml);

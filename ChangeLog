@@ -5,6 +5,19 @@
 	src/anjuta_cbs.c, src/project_database.h: Subclasses GtkDialog
 	instead of GtkWindow (Part of bug #671596).
 	
+	* anjuta.glade, src/breakpoints.c, src/anjuta_info.c,
+	src/registers_gui.c, src/registers_cbs.[h,c],
+	src/sharedlib_gui.c, src/sharedlib_cbs.[c,h],
+	src/signals_cbs.[h,c], src/signals_gui.c, src/executer.c,
+	src/compiler_options.c, src/an_file_view.c, start-with.c,
+	src/anjuta-tools.c, help.c:
+
+	Added "close" buttons on all
+	dialogs (HIG) and fixed to properly response to ESC close
+	(Part of bug #671596).
+
+	* src/launcher.c: Disabled printing of long debug lines.
+	
 	* src/utilities.h: Fixed a compiler warning.
 	
 2004-02-17  Franco Catrin  <fcatrin@tuxpan.com>

@@ -95,6 +95,9 @@ create_sharedlibs_gui(Sharedlibs *sl)
 	view = GTK_TREE_VIEW (glade_xml_get_widget (gxml,
 				"debugger.sharedlibs.tv"));
 	g_object_unref (gxml);
+	
+	gtk_dialog_add_button (GTK_DIALOG (topwindow), GTK_STOCK_CLOSE,
+						   GTK_RESPONSE_CLOSE);
 
 	// top level window
 	gtk_window_set_transient_for(GTK_WINDOW (topwindow),
@@ -131,6 +134,10 @@ create_sharedlibs_gui(Sharedlibs *sl)
 	// signals
 	gtk_signal_connect (GTK_OBJECT (topwindow), "delete_event",
 				GTK_SIGNAL_FUNC (on_sharedlibs_delete_event), sl);
+	gtk_signal_connect (GTK_OBJECT (topwindow), "close",
+				GTK_SIGNAL_FUNC (on_sharedlibs_close), sl);
+	gtk_signal_connect (GTK_OBJECT (topwindow), "response",
+				GTK_SIGNAL_FUNC (on_sharedlibs_response), sl);
 	gtk_signal_connect (GTK_OBJECT (view), "event",
 				GTK_SIGNAL_FUNC (on_sharedlibs_event), sl);
 

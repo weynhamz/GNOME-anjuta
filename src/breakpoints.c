@@ -856,6 +856,18 @@ on_bk_window_delete_event (GtkWindow *win, GdkEvent *event, BreakpointsDBase *bd
 	return TRUE;
 }
 
+static void
+on_bk_window_response (GtkWindow *win, gint res, BreakpointsDBase *bd)
+{
+	breakpoints_dbase_hide (bd);
+}
+
+static void
+on_bk_window_close (GtkWindow *win, BreakpointsDBase *bd)
+{
+	breakpoints_dbase_hide (bd);
+}
+
 BreakpointsDBase *
 breakpoints_dbase_new ()
 {
@@ -878,6 +890,8 @@ breakpoints_dbase_new ()
 		bd->priv->window = glade_xml_get_widget (bd->priv->gxml,
 												 "breakpoints_dialog");
 		gtk_widget_hide (bd->priv->window);
+		gtk_dialog_add_button (GTK_DIALOG (bd->priv->window), GTK_STOCK_CLOSE,
+							   GTK_RESPONSE_CLOSE);
 		gtk_window_set_transient_for (GTK_WINDOW (bd->priv->window),
 									  GTK_WINDOW (app->widgets.window));
 		bd->priv->treeview = glade_xml_get_widget (bd->priv->gxml,
@@ -952,6 +966,10 @@ breakpoints_dbase_new ()
 						  G_CALLBACK (on_bk_treeview_selection_changed), bd);
 		g_signal_connect (G_OBJECT (bd->priv->window), "delete_event",
 				  G_CALLBACK (on_bk_window_delete_event), bd);
+		g_signal_connect (G_OBJECT (bd->priv->window), "response",
+						  G_CALLBACK (on_bk_window_response), bd);
+		g_signal_connect (G_OBJECT (bd->priv->window), "close",
+						  G_CALLBACK (on_bk_window_close), bd);
 
 		bd->priv->cond_history = NULL;
 		bd->priv->pass_history = NULL;

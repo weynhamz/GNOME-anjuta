@@ -93,9 +93,9 @@ on_do_not_show_again_toggled (GtkToggleButton *button, AnjutaPreferences *p)
 }
 
 static void
-on_dialog_response (GtkWidget *dialog, gint response, gpointer data)
+on_dialog_response (GtkDialog *dlg, gint res, gpointer data)
 {
-	gtk_widget_destroy (dialog);
+	gtk_widget_destroy (GTK_WIDGET (dlg));
 }
 
 void
@@ -128,7 +128,7 @@ start_with_dialog_show (GtkWindow *parent, AnjutaPreferences *pref,
 	dialog = glade_xml_get_widget (gxml, "start_with_dialog");
 	gtk_window_set_transient_for (GTK_WINDOW (dialog), parent);
 	g_signal_connect (G_OBJECT (dialog), "response",
-					  G_CALLBACK (on_dialog_response), pref);
+					  G_CALLBACK (on_dialog_response), NULL);
 	
 	button = glade_xml_get_widget (gxml, "application_wizard_button");
 	g_signal_connect (G_OBJECT (button), "clicked",

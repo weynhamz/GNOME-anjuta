@@ -22,6 +22,10 @@
 
 gint
 on_registers_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
+void
+on_registers_close(GtkWidget* w, gpointer data);
+void
+on_registers_response(GtkWidget* w, gint res, gpointer data);
 
 void
 on_registers_clist_select_row          (GtkCList        *clist,

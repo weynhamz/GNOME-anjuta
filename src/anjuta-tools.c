@@ -871,7 +871,6 @@ on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl);
 static gint
 on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
 						   gpointer user_data);
-
 static void
 on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data);
 
@@ -1285,6 +1284,24 @@ on_user_tool_selection_changed (GtkTreeSelection *sel, AnToolList *tl)
 	}
 }
 
+static void
+destroy_tools_list ()
+{
+	GSList *tmp;
+	AnUserTool *tool;
+	anjuta_tools_save();
+	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
+	{
+		tool = (AnUserTool *) tmp->data;
+		if (NULL == tool->menu_item)
+			an_user_tool_activate(tool);
+		gtk_widget_destroy (tl->dialog);
+	}
+	anjuta_tools_sensitize();
+	g_free (tl);
+	tl = NULL;
+}
+	
 gboolean
 on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
 						   gpointer user_data)
@@ -1292,19 +1309,7 @@ on_user_tool_delete_event (GtkWindow *window, GdkEvent* event,
 	/* Don't hide the tool list if a tool is being edited */
 	if (!ted)
 	{
-		GSList *tmp;
-		AnUserTool *tool;
-		anjuta_tools_save();
-		for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
-		{
-			tool = (AnUserTool *) tmp->data;
-			if (NULL == tool->menu_item)
-				an_user_tool_activate(tool);
-			gtk_widget_destroy (tl->dialog);
-		}
-		anjuta_tools_sensitize();
-		g_free (tl);
-		tl = NULL;
+		destroy_tools_list();
 		return FALSE;
 	}
 	return TRUE;
@@ -1352,6 +1357,16 @@ on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 	
 	switch (res)
 	{
+	case GTK_RESPONSE_CANCEL:
+		/* Close */
+		/* Don't hide the tool list if a tool is being edited */
+		if (!ted)
+		{
+			destroy_tools_list();
+			gtk_widget_destroy (GTK_WIDGET(dialog));
+		}
+		return;
+	
 	case GTK_RESPONSE_APPLY:
 		/* Make sure no tool is selected, so that the edit form is cleared
 		when a new tool is created */
@@ -1775,6 +1790,12 @@ enum {
 	N_AN_TOOLS_HELP_COLUMNS,
 };
 
+static void
+on_tool_help_response (GtkWidget *wid, gint rest, gpointer data)
+{
+	gtk_widget_destroy (wid);
+}
+
 void anjuta_tools_show_variables()
 {
 	int len;
@@ -1796,6 +1817,8 @@ void anjuta_tools_show_variables()
 	gtk_widget_show (dialog);
 	gtk_window_set_transient_for (GTK_WINDOW(dialog)
 	  , GTK_WINDOW(app->widgets.window));
+	g_signal_connect (G_OBJECT (dialog), "response",
+					  G_CALLBACK (on_tool_help_response), NULL);
 	
 	clist = (GtkWidget *) glade_xml_get_widget(xml, TOOL_HELP_CLIST);
 	model = GTK_TREE_MODEL(gtk_list_store_new (N_AN_TOOLS_HELP_COLUMNS,

@@ -22,6 +22,10 @@
 
 gint
 on_sharedlibs_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
+void
+on_sharedlibs_close(GtkWidget* w, gpointer data);
+void
+on_sharedlibs_response(GtkWidget* w, gint res, gpointer data);
 
 void
 on_sharedlibs_update_activate            (GtkMenuItem     *menuitem,

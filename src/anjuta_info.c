@@ -33,6 +33,12 @@
 #include "utilities.h"
 #include "anjuta_info.h"
 
+static void
+on_response (GtkWidget *dlg, gint res, gpointer data)
+{
+	gtk_widget_destroy (dlg);
+}
+
 static GtkWidget *
 create_dialog_with_textview (GtkWindow *parent, gint width,
 					 gint height)
@@ -49,7 +55,7 @@ create_dialog_with_textview (GtkWindow *parent, gint width,
 
 	dialog = gtk_dialog_new_with_buttons (_("Information"), parent,
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
-										  GTK_STOCK_CLOSE, GTK_RESPONSE_NONE,
+										  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
 										  NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
@@ -57,7 +63,7 @@ create_dialog_with_textview (GtkWindow *parent, gint width,
 	gtk_widget_show (dialog);
 	/* Auto close */
 	g_signal_connect (G_OBJECT (dialog), "response",
-					 G_CALLBACK (gtk_widget_destroy), NULL);
+					 G_CALLBACK (on_response), NULL);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),
@@ -99,7 +105,7 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 
 	dialog = gtk_dialog_new_with_buttons (_("Information"), parent,
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
-										  GTK_STOCK_CLOSE, GTK_RESPONSE_NONE,
+										  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
 										  NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
@@ -107,7 +113,7 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 	gtk_widget_show (dialog);
 	/* Auto close */
 	g_signal_connect (G_OBJECT (dialog), "response",
-					 G_CALLBACK (gtk_widget_destroy), NULL);
+					 G_CALLBACK (on_response), NULL);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),

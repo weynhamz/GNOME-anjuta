@@ -46,6 +46,20 @@ on_signals_delete_event(GtkWidget* w, GdkEvent *event, gpointer data)
 }
 
 void
+on_signals_close (GtkWidget* w, gpointer data)
+{
+  Signals* cr = data;
+  signals_hide(cr);
+}
+
+void
+on_signals_response (GtkWidget* w, gint res, gpointer data)
+{
+  Signals* cr = data;
+  signals_hide(cr);
+}
+
+void
 on_signals_modify_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
