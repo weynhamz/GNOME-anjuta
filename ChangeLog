@@ -1,3 +1,8 @@
+2004-12-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/cvs-plugin/cvs-actions.c: Use current editor filename as 
+	default
+
 2004-12-20  Naba Kumar  <naba@gnome.org>
 	
 	*libanjuta/plugins.c, plugins/file-loader/plugin.c:

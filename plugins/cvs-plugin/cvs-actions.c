@@ -33,7 +33,8 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
 
-/* cvs /command independant options/ /command/ /command options/ /command_arguments/ */
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 enum
 {
@@ -121,6 +122,25 @@ static void diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
 		gtk_combo_box_set_active(combo, DIFF_STANDARD);
 }
 
+static void set_editor_filename (CVSPlugin* plugin, GtkWidget* entry)
+{
+	IAnjutaDocumentManager* docman;
+	IAnjutaEditor* cur_editor;
+	
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+	                                     IAnjutaDocumentManager, NULL);
+	cur_editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+	if (!cur_editor)
+		return;
+	else
+	{
+		const gchar* file = ianjuta_editor_get_filename(cur_editor, NULL);
+		const gchar* filename = ianjuta_document_manager_get_full_filename(docman, file, NULL);
+		if (filename)
+			gtk_entry_set_text(GTK_ENTRY(entry), filename);
+	}
+}
+
 void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin)
 {
 	GladeXML* gxml;
@@ -132,6 +152,7 @@ void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_add");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
 	binary = glade_xml_get_widget(gxml, "cvs_binary");
 
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -179,6 +200,7 @@ void on_cvs_remove_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_remove");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
 
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -225,6 +247,7 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_commit");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -307,6 +330,7 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_update");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -373,6 +397,7 @@ void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_diff");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
 	diff_type = glade_xml_get_widget(gxml, "cvs_diff_type");
 	unified_diff = glade_xml_get_widget(gxml, "cvs_unified");
 	gtk_combo_box_set_active(GTK_COMBO_BOX(diff_type), DIFF_PATCH);
@@ -455,6 +480,7 @@ void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_status");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
