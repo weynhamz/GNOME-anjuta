@@ -234,10 +234,11 @@ on_anjuta_window_focus_in_event (GtkWidget * widget,
 }
 
 enum {
-	m__ = 0,
-	mS_ = GDK_SHIFT_MASK,
-	m_C = GDK_CONTROL_MASK,
-	mSC = GDK_SHIFT_MASK | GDK_CONTROL_MASK
+	m___ = 0,
+	mS__ = GDK_SHIFT_MASK,
+	m_C_ = GDK_CONTROL_MASK,
+	m__M = GDK_MOD1_MASK,
+	mSC_ = GDK_SHIFT_MASK | GDK_CONTROL_MASK,
 };
 
 enum {
@@ -253,18 +254,18 @@ typedef struct {
 } ShortcutMapping;
 
 static ShortcutMapping global_keymap[] = {
-	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
-	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
-	{ m_C, GDK_1, ID_FIRSTBUFFER },
-	{ m_C, GDK_2, ID_FIRSTBUFFER + 1},
-	{ m_C, GDK_3, ID_FIRSTBUFFER + 2},
-	{ m_C, GDK_4, ID_FIRSTBUFFER + 3},
-	{ m_C, GDK_5, ID_FIRSTBUFFER + 4},
-	{ m_C, GDK_6, ID_FIRSTBUFFER + 5},
-	{ m_C, GDK_7, ID_FIRSTBUFFER + 6},
-	{ m_C, GDK_8, ID_FIRSTBUFFER + 7},
-	{ m_C, GDK_9, ID_FIRSTBUFFER + 8},
-	{ m_C, GDK_0, ID_FIRSTBUFFER + 9},
+	{ m_C_, GDK_Tab,		 ID_NEXTBUFFER },
+	{ mSC_, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	{ m__M, GDK_1, ID_FIRSTBUFFER },
+	{ m__M, GDK_2, ID_FIRSTBUFFER + 1},
+	{ m__M, GDK_3, ID_FIRSTBUFFER + 2},
+	{ m__M, GDK_4, ID_FIRSTBUFFER + 3},
+	{ m__M, GDK_5, ID_FIRSTBUFFER + 4},
+	{ m__M, GDK_6, ID_FIRSTBUFFER + 5},
+	{ m__M, GDK_7, ID_FIRSTBUFFER + 6},
+	{ m__M, GDK_8, ID_FIRSTBUFFER + 7},
+	{ m__M, GDK_9, ID_FIRSTBUFFER + 8},
+	{ m__M, GDK_0, ID_FIRSTBUFFER + 9},
 	{ 0,   0,		 0 }
 };
 
@@ -280,7 +281,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 	g_return_val_if_fail (GNOME_IS_APP (widget), FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
 
-	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
   
 	for (i = 0; global_keymap[i].id; i++)
 		if (event->keyval == global_keymap[i].gdk_key &&

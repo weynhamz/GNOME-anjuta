@@ -1,3 +1,8 @@
+2003-10-15  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta_cbs.c: Used ALT+number for editor tab browsing, instead
+	of CTRL+number.
+	
 2003-10-09  Naba Kumar  <naba@gnome.org>
 
 	* src/cvs_gui.c: Fixed a UI bug (hides the unwanted frame).
