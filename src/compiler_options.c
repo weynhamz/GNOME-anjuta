@@ -1730,9 +1730,6 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 			g_free(name);
 		i++;
 	}
-#ifdef DEBUG
-	g_message ("Support flags: %s", str);
-#endif
 	if (has_pkg_modules)
 	{
 		gchar *text, *tmp;

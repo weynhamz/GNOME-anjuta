@@ -81,7 +81,9 @@ struct _AnjutaAppGui
 
 struct _AnjutaApp
 {
-	glong	size;	/* sizeof() used as version # for components */
+	/* sizeof() used as version # for components */
+	glong	size;
+	
 	AnjutaAppGui widgets;
 	GdlIcons *icon_set;
 	GtkWidget *fileselection;
@@ -102,7 +104,6 @@ struct _AnjutaApp
 	Executer *executer;
 	Configurer *configurer;
 	FindInFiles *find_in_files;
-	AnjutaWindowsDialog *windows_dialog;
 	const TMWorkspace *tm_workspace;
 	AnjutaHelp* help_system;
 	CVS* cvs;
@@ -126,9 +127,11 @@ struct _AnjutaApp
 	gboolean in_progress;
 	gint busy_count;
 	gboolean first_time_expose;
-	gboolean has_devhelp; /* If Devhelp is installed, Context Help should be enabled */
+	
+	/* If Devhelp is installed, Context Help should be enabled */
+	gboolean has_devhelp;
 
-	/* dir where command executes */
+	/* Dir where command executes */
 	gchar *execution_dir;
 
 	/* Current Job */
@@ -142,10 +145,15 @@ struct _AnjutaApp
 	 * is no garrantee that the object to be accessed is still alive.
 	 */
 	gboolean shutdown_in_progress;
-	gboolean bUseComponentUI;	/* use glade or the CORBA objects ? */
+	
+	/* Plugins */
 	GList *addIns_list;
-	gboolean b_reload_last_project;	/* To be set in preferences */
-	gchar *last_open_project;	/* Last session open project file name if any */
+	
+	/* To be set in preferences */
+	gboolean b_reload_last_project;
+	
+	/* Last session open project file name if any */
+	gchar *last_open_project;
 };
 
 struct _FileLineInfo

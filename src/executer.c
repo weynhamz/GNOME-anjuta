@@ -186,15 +186,16 @@ on_executer_dialog_response (GtkDialog *dialog, gint response,
 {
 	Executer	*e =(Executer*) user_data ;
 
+	e->is_showing = FALSE;
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 	if (response == GTK_RESPONSE_OK)
 	{		
 		g_return_if_fail( NULL != user_data );
 		e->m_PgmArgs = update_string_list ( e->m_PgmArgs,
 							   gtk_entry_get_text (GTK_ENTRY (e->m_gui.combo_entry1)),
 								COMBO_LIST_LENGTH);
+		executer_execute (e);
 	}
-	e->is_showing = FALSE;
-	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static void

@@ -1727,11 +1727,8 @@ static gboolean create_dialog(void)
 
 static void show_dialog()
 {
-	if (!sg->showing)
-	{
-		gtk_widget_show(sg->dialog);
-		sg->showing = TRUE;
-	}
+	gtk_window_present (GTK_WINDOW (sg->dialog));
+	sg->showing = TRUE;
 }
 
 static gboolean word_in_list(GList *list, gchar *word)

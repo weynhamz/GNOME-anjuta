@@ -205,8 +205,6 @@ anjuta_SOURCES = \
 	watch_cbs.h\
 	watch_gui.c\
 	watch_gui.h\
-	windows-dialog.c\
-	windows-dialog.h\
 	wizard_gui.h\
 	wizard_gui.c\
 	appwiz_page4.c\

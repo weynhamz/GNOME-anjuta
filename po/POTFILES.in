@@ -195,7 +195,6 @@ src/watch_gui.c
 src/watch_gui.h
 src/widget-registry.c
 src/widget-registry.h
-src/windows-dialog.c
 src/wizard_gui.c
 src/wizard_gui.h
 widgets/cell-renderer-captioned-image.c

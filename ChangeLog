@@ -1,3 +1,21 @@
+2003-06-24  Naba Kumar  <naba@gnome.org>
+
+	* src/search-replace.c: Shows the dialog properly, even when it is
+	hidden behind another window.
+	
+	* (removed) src/windows-dialog.[c,h], src/Makefile.am, po/POTFILES.in,
+	src/anjuta.[c,h], (removed) pixmaps/windows-style-*.png,
+	pixmaps/Makefile.am: Removed windows-dialog and setup wizard files
+	and code clean up.
+	
+	* anjuta.glade, anjuta_dialog_strings.c: Removed windows-dialog and
+	setup wizard dialogs.
+	
+	* src/debugger.c: Removed a redundant call to
+	debugger_update_controls().
+	* src/compiler_options.c, src/launcher.c: code cleanup.
+	* src/executer.c: Fixed execution bug with 'Set Program params...".
+	
 2003-06-23  Naba Kumar  <naba@gnome.org>
 
 	* widgets/e-splash.c: Removed border around the splash image.

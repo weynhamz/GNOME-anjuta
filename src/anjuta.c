@@ -120,7 +120,6 @@ anjuta_new ()
 		};
 		app->size = sizeof(AnjutaApp);
 		app->addIns_list	= NULL ;
-		app->bUseComponentUI	= FALSE ;
 		app->shutdown_in_progress = FALSE;
 		app->registered_windows = NULL;
 		app->registered_child_processes = NULL;
@@ -143,7 +142,7 @@ anjuta_new ()
 		app->hpaned_width = app->win_width / 4;
 		
 		app->in_progress = FALSE;
-		app->has_devhelp = anjuta_is_installed("devhelp", FALSE);
+		app->has_devhelp = anjuta_is_installed ("devhelp", FALSE);
 		app->auto_gtk_update = TRUE;
 		app->busy_count = 0;
 		app->execution_dir = NULL;
@@ -157,95 +156,81 @@ anjuta_new ()
 		app->fileselection = create_fileselection_gui (&fsd1);
 		
 		/* Set to the current dir */
-		getcwd(wd, PATH_MAX);
-		fileselection_set_dir (app->fileselection, wd);
+		/* Spends too much time */
+		/* getcwd(wd, PATH_MAX);
+		fileselection_set_dir (app->fileselection, wd); */
 		
 		app->b_reload_last_project	= TRUE ;
+		
+		/* Preferencesnces */
 		app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
-		app->windows_dialog =
-			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
-								   (app->preferences->props));
-		/* Editor encodings */
-		anjuta_encodings_init (app->preferences);
-		
-		/* Register main window */
-		anjuta_windows_register_window (app->windows_dialog,
-										GTK_WINDOW (app->widgets.window),
-										"Anjuta Main Window",
-										ANJUTA_PIXMAP_ICON,
-										NULL);
-		/* Register main window */
-		anjuta_windows_register_window (app->windows_dialog,
-										GTK_WINDOW (app->preferences),
-										"Preferences Dialog",
-										ANJUTA_PIXMAP_ICON,
-										GTK_WINDOW (app->widgets.window));
-		
 		gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 									  GTK_WINDOW (app->widgets.window));
 		gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
 									app->accel_group);
 		g_signal_connect (G_OBJECT (app->preferences), "changed",
 						  G_CALLBACK (anjuta_apply_preferences), app);
+		
+		/* Editor encodings */
+		anjuta_encodings_init (app->preferences);
+		
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		gtk_window_set_modal ((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
-		app->compiler_options =
-			compiler_options_new (ANJUTA_PREFERENCES (app->preferences)->props);
+		app->compiler_options =	compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
 		app->messages = AN_MESSAGE_MANAGER (an_message_manager_new ());
 		create_default_types (app->messages);
-		app->project_dbase =
-			project_dbase_new (app->preferences->props);
+		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
 		app->command_editor =
 			command_editor_new (app->preferences->props_global,
-					app->preferences->props_local,
-					app->project_dbase->props);
+								app->preferences->props_local,
+								app->project_dbase->props);
 		app->tm_workspace = tm_get_workspace();
 		if (TRUE != tm_workspace_load_global_tags(PACKAGE_DATA_DIR "/system.tags"))
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 		app->cvs = cvs_new(app->preferences->props);
-		app->style_editor =
-			style_editor_new (app->preferences->props_global,
-							  app->preferences->props_local,
-							  app->preferences->props_session,
-							  app->preferences->props);
+		app->style_editor =	style_editor_new (app->preferences->props_global,
+											  app->preferences->props_local,
+											  app->preferences->props_session,
+											  app->preferences->props);
+		
+		/* Set up docking */
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
-				   app->widgets.notebook);
-		gtk_notebook_popup_enable (GTK_NOTEBOOK
-					   (app->widgets.notebook));
+						   app->widgets.notebook);
+		gtk_notebook_popup_enable (GTK_NOTEBOOK (app->widgets.notebook));
 		gtk_box_pack_start (GTK_BOX (app->widgets.mesg_win_container),
-				    GTK_WIDGET(app->messages), TRUE, TRUE, 0);
-		gtk_box_pack_start (GTK_BOX
-				    (app->widgets.
-				     project_dbase_win_container),
-				    app->project_dbase->widgets.client, TRUE,
-				    TRUE, 0);
+						    GTK_WIDGET(app->messages), TRUE, TRUE, 0);
+		gtk_box_pack_start (GTK_BOX(app->widgets.project_dbase_win_container),
+						    app->project_dbase->widgets.client, TRUE, TRUE, 0);
 		project_dbase_hide (app->project_dbase);
 		gtk_widget_hide(GTK_WIDGET(app->messages));
 		gtk_paned_set_position (GTK_PANED (app->widgets.vpaned),
-					app->vpaned_height);
+								app->vpaned_height);
 		gtk_paned_set_position (GTK_PANED (app->widgets.hpaned),
-					app->hpaned_width);
+								app->hpaned_width);
+		
 		anjuta_update_title ();
+		
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
+		
 		launcher_init ();
 		debugger_init ();
 		anjuta_plugins_load();
 		anjuta_tools_load();
 		anjuta_load_yourself (ANJUTA_PREFERENCES (app->preferences)->props);
 		gtk_widget_set_uposition (app->widgets.window, app->win_pos_x,
-					  app->win_pos_y);
+								  app->win_pos_y);
 		gtk_window_set_default_size (GTK_WINDOW (app->widgets.window),
-					     app->win_width, app->win_height);
+								     app->win_width, app->win_height);
 		main_toolbar_update ();
 		extended_toolbar_update ();
 		debug_toolbar_update ();
@@ -1065,9 +1050,9 @@ gboolean anjuta_load_yourself (PropsID pr)
 #ifdef	USE_STD_PREFERENCES
 	app->recent_projects = glist_from_data (pr, "anjuta.recent.projects");
 #else
-	app->recent_projects = anjuta_session_load_strings( SECSTR(SECTION_RECENTPROJECTS), NULL );
+	app->recent_projects = anjuta_session_load_strings (SECSTR(SECTION_RECENTPROJECTS), NULL );
 #endif
-	app->last_open_project = prop_get( pr, ANJUTA_LAST_OPEN_PROJECT );
+	app->last_open_project = prop_get (pr, ANJUTA_LAST_OPEN_PROJECT);
 
 	an_message_manager_load_yourself (app->messages, pr);
 	project_dbase_load_yourself (app->project_dbase, pr);
@@ -1234,14 +1219,12 @@ anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app)
 	gint no_tag;
 	gint show_tooltips;
 
-	app->bUseComponentUI = anjuta_preferences_get_int (pr, USE_COMPONENTS);
 	app->b_reload_last_project =
-		anjuta_preferences_get_int (pr , RELOAD_LAST_PROJECT);
+		anjuta_preferences_get_int (pr, RELOAD_LAST_PROJECT);
 	
 	no_tag = anjuta_preferences_get_int (pr, EDITOR_TABS_HIDE);
 
-	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook),
-				    !no_tag);
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook), !no_tag);
 
 	if (!no_tag)
 	{
@@ -1281,7 +1264,6 @@ anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app)
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
 		te = (TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
-		// text_editor_update_preferences (te);
 		anjuta_refresh_breakpoints (te);
 	}
 	show_tooltips = anjuta_preferences_get_int (pr, SHOW_TOOLTIPS);

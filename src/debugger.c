@@ -134,7 +134,8 @@ debugger_init ()
 	debugger_set_active (FALSE);
 	debugger_set_ready (TRUE);
 	
-	debugger_update_controls ();
+	/* Redundant. Alread called in _set_ready() */
+	/* debugger_update_controls (); */
 }
 
 gboolean

@@ -112,6 +112,11 @@ struct				/* Launcher */
 void
 launcher_init ()
 {
+  time_t start_time, end_time;
+  start_time = time(NULL);
+#ifdef DEBUG
+  g_message ("Initializing launcher");
+#endif
   launcher.terminal = zvt_term_new ();
   zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);
   gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
@@ -126,7 +131,9 @@ launcher_init ()
 	  gtk_widget_show_all(win);
   }
 #endif
-  
+  end_time = time(NULL);
+  g_message ("Launcher initialization took horrible %ld secs [FIXME in libzvt].",
+ 			 end_time - start_time);
   launcher_set_busy (FALSE);
 }
 
