@@ -29,7 +29,7 @@ void
 Activate( GModule *self, void *pUserData, AnjutaApp* p)
 {
 	GList* mesg = NULL;
-	mesg = g_list_append (mesg, _("Hello world!."));
+	mesg = g_list_append (mesg, _("Hello world!"));
 	mesg = g_list_append (mesg, _("Sample plugin!"));
 	
 	anjuta_info_show_list (mesg, 0, 0);

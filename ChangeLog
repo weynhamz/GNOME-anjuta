@@ -1,5 +1,27 @@
 2001-12-29  Stephane Demurget  <demurgets@free.fr>
 
+	Polished the plugins menu behaviour and added a tearoff
+	menuitem to the recent entries submenu.
+
+	Note: The recent entries list seems to be too height
+	      with all these superfluous hseparators.
+
+	* src/main_menubar.c: Polished, making some
+	  functions declarations static and cleaning some code.
+
+	  (create_submenu_plugin): removed the extra
+	  plugins entry and the horizontal separators.
+
+	  (on_plugins_menu_realize): the plugins menu is only
+	  shown if there's at least one available.
+
+	  (create_submenu*): added a tearoff menuitem to have
+	  a more homogeneous menu style. For now, it doesn't
+	  take care of user settings (but it was even worse
+	  before :).
+
+2001-12-29  Stephane Demurget  <demurgets@free.fr>
+
 	* configure.in: added the packageplugindir variable to avoid
 	  installing the plugins in $(prefix). It's not the same path as
 	  anjuta 2 to allow parallel installation.
