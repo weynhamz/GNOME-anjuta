@@ -1229,6 +1229,7 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 void
 on_calltip1_activate (GtkAction * action, gpointer user_data)
 {
+	on_editor_command_activate (action, ANE_COMPLETECALLTIP, user_data);
 }
 
 /* Gets the swapped (c/h) file names */

@@ -64,6 +64,7 @@
 			</placeholder>
 			<separator name="separator3"/>
 			<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
+			<menuitem name="Calltip" action="ActionEditCalltip" />
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menu name="MenuViewEditor" action="ActionMenuViewEditor">

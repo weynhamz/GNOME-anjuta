@@ -305,6 +305,7 @@ protected:
 	void ResumeCallTip(bool pop_from_stack = true);
 	void ShutDownCallTip();
 	void SetCallTipDefaults( );
+	void CompleteCallTip();
 
 	TMTag ** FindTypeInLocalWords(GPtrArray *CurrentFileTags, const char *root,
 								  const bool type, bool *retptr, int *count);

@@ -18,6 +18,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#include <libanjuta/anjuta-debug.h>
 #include "aneditor-priv.h"
 
 bool AnEditor::StartCallTip_new() {
@@ -30,7 +31,7 @@ bool AnEditor::StartCallTip_new() {
 	int current = GetCaretInLine();
 	call_tip_node.start_pos = SendEditor(SCI_GETCURRENTPOS);
 	call_tip_node.call_tip_start_pos = current;
-	
+
 	int braces;
 	do {
 		braces = 0;
@@ -297,4 +298,46 @@ void AnEditor::SetCallTipDefaults( ) {
 	call_tip_node.rootlen = 0;
 	call_tip_node.startCalltipWord = 0;	
 	call_tip_node.call_tip_start_pos = 0;
+}
+
+//------------------------------------------------------------------------------
+// gives a list of calltips which match the word on the current caret and display 
+// them
+
+void AnEditor::CompleteCallTip() {
+	char expr[256];
+	TMTagAttrType attrs[] = {tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
+	int caret_position = SendEditor(SCI_GETCURRENTPOS);
+	
+	if (SendEditor(SCI_CALLTIPACTIVE))
+ 		return;
+ 
+	// get the current word
+	GetWordAtPosition(expr, sizeof(expr), caret_position);
+	DEBUG_PRINT("completecalltip: on word %s and caret_position %d", expr, caret_position);
+	
+	const GPtrArray *tags = tm_workspace_find(expr,
+											  tm_tag_prototype_t |
+											  tm_tag_function_t |
+											  tm_tag_macro_with_arg_t,
+											  attrs, FALSE);
+	
+	// we'll provide a function calltip
+	if (tags && (tags->len > 0))
+	{
+		TMTag *tag = (TMTag *) tags->pdata[0];
+		SString definition;
+		char *tmp;
+		
+		tmp = g_strdup_printf("%s %s%s", NVL(tag->atts.entry.var_type, ""),
+							  tag->name, NVL(tag->atts.entry.arglist, ""));
+		definition = tmp;
+		g_free(tmp);
+		
+		char *real_tip;
+		real_tip = g_strdup (definition.c_str());
+		
+		SendEditorString(SCI_CALLTIPSHOW, caret_position, real_tip);
+		g_free (real_tip);
+	}
 }

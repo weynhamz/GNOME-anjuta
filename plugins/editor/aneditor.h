@@ -122,6 +122,8 @@ extern "C" {
 #define   ANE_SETFOLDUNDERLINE          (ANE_COMMAND_BASE+85)
 #define   ANE_SETLINENUMWIDTH            (ANE_COMMAND_BASE+86)
 
+#define   ANE_COMPLETECALLTIP           (ANE_COMMAND_BASE+87)
+
 typedef guint AnEditorID;
 extern const AnEditorID ANE_ID_INVALID;
 

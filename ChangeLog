@@ -1,4 +1,16 @@
-2005-03-1t  Naba Kumar  <naba@gnome.org>
+2005-03-18  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Massimo Cora' <maxcvs@email.it>:
+
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/aneditor-calltip.cxx,
+	plugins/editor/aneditor-priv.h,
+	plugins/editor/aneditor.cxx,
+	plugins/editor/aneditor.h,
+	plugins/editor/anjuta-document-manager.ui: Added calltip
+	activation from menu.
+
+2005-03-16  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Massimo Cora' <maxcvs@email.it>:
 	
