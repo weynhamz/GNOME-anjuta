@@ -1,0 +1,89 @@
+#include "{{HEADER_FILE_NAME}}"
+ 
+static void {{FUNCTION_PREFIX}}_class_init({{BASE_CLASS}}Class *klass);
+static void {{FUNCTION_PREFIX}}_init({{BASE_CLASS}} *sp);
+static void {{FUNCTION_PREFIX}}_finalize(GObject *object);
+
+struct {{BASE_CLASS}}Private {
+	/* Place Private Members Here */
+};
+
+typedef enum {
+	/* Place Signal Types Here */
+	SIGNAL_TYPE_EXAMPLE,
+	LAST_SIGNAL
+} {{BASE_CLASS}}SignalType;
+
+typedef struct {
+	{{BASE_CLASS}} *object;
+} {{BASE_CLASS}}Signal;
+
+static guint {{FUNCTION_PREFIX}}_signals[LAST_SIGNAL] = { 0 };
+static GObjectClass *parent_class = NULL;
+
+GType
+{{FUNCTION_PREFIX}}_get_type()
+{
+	static GType type = 0;
+
+	if(type == 0) {
+		static const GTypeInfo our_info = {
+			sizeof ({{BASE_CLASS}}Class),
+			NULL,
+			NULL,
+			(GClassInitFunc){{FUNCTION_PREFIX}}_class_init,
+			NULL,
+			NULL,
+			sizeof ({{BASE_CLASS}}),
+			0,
+			(GInstanceInitFunc){{FUNCTION_PREFIX}}_init,
+		};
+
+		type = g_type_register_static(G_TYPE_OBJECT, 
+			"{{BASE_CLASS}}", &our_info, 0);
+	}
+
+	return type;
+}
+
+static void
+{{FUNCTION_PREFIX}}_class_init({{BASE_CLASS}}Class *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+
+	parent_class = g_type_class_peek_parent(klass);
+	object_class->finalize = {{FUNCTION_PREFIX}}_finalize;
+	
+	/* Create signals here:
+	   {{FUNCTION_PREFIX}}_signals[SIGNAL_TYPE_EXAMPLE] = g_signal_new(...)
+ 	*/
+}
+
+static void
+{{FUNCTION_PREFIX}}_init({{BASE_CLASS}} *obj)
+{
+	obj->priv = g_new0({{BASE_CLASS}}Private, 1);
+	/* Initialize private members, etc. */
+}
+
+static void
+{{FUNCTION_PREFIX}}_finalize(GObject *object)
+{
+	{{BASE_CLASS}} *cobj;
+	cobj = {{GTYPE_PREFIX}}_{{GTYPE_NAME}}(object);
+	
+	/* Free private members, etc. */
+		
+	g_free(cobj->priv);
+	G_OBJECT_CLASS(parent_class)->finalize(object);
+}
+
+{{BASE_CLASS}} *
+{{FUNCTION_PREFIX}}_new()
+{
+	{{BASE_CLASS}} *obj;
+	
+	obj = {{GTYPE_PREFIX}}_{{GTYPE_NAME}}(g_object_new({{GTYPE_PREFIX}}_TYPE_{{GTYPE_NAME}}, NULL));
+	
+	return obj;
+}

@@ -25,300 +25,290 @@
 #include "plugin.h"
 
 
-gint
-on_delete_event (GtkWidget* widget, GdkEvent* event, AnjutaClassGenPlugin *plugin)
-{	
-	/* free up the strings and destroy the window */
-	class_gen_del (plugin);
-	gtk_widget_destroy (GTK_WIDGET (plugin->dlgClass));
-	return FALSE;	
+void on_cc_button_browse_header_clicked (GtkButton *button, GladeXML* gxml) {
+	
+	GtkWidget *header_file_widget;
+	GtkWidget *source_file_widget;
+	const gchar *header_file, *source_file;
+	
+	/* get the header displaying a browsing window */
+	header_file = browse_for_file(_("Select header file"));
+	
+	if ( header_file == NULL )
+		return;
+
+	header_file_widget = glade_xml_get_widget (gxml, "cc_header_file");
+	source_file_widget = glade_xml_get_widget (gxml, "cc_source_file");
+	
+	source_file = gtk_entry_get_text (GTK_ENTRY (source_file_widget));
+	
+	/* let's set the header in the entry */
+	gtk_entry_set_text(GTK_ENTRY (header_file_widget), header_file);
+	
+	/* is source_file is void then fill it with a "header_file".c */
+	if( strlen (source_file) == 0) {
+		gchar *s = g_strdup(header_file), *t, *p = strrchr(s, '.');
+		if (p == NULL) {
+			g_free (s);
+			return;
+		}
+		
+		s[strlen(s) - strlen(p)] = '\0';
+		t = g_strdup_printf("%s.c", s);
+		gtk_entry_set_text (GTK_ENTRY (source_file_widget), t);
+		g_free(t);
+		g_free(s);
+	}
+	
 }
+
+void on_cc_button_browse_source_clicked (GtkButton *button, GladeXML* gxml) {
+
+	GtkWidget *header_file_widget;
+	GtkWidget *source_file_widget;
+	const gchar *header_file, *source_file;
+	
+	source_file = browse_for_file(_("Select source file"));
+	
+	if (source_file == NULL)
+		return;
+
+	header_file_widget = glade_xml_get_widget (gxml, "cc_header_file");
+	source_file_widget = glade_xml_get_widget (gxml, "cc_source_file");
+	
+	header_file = gtk_entry_get_text( GTK_ENTRY(header_file_widget));	
+	gtk_entry_set_text (GTK_ENTRY (source_file_widget), source_file);
+	
+	if(strlen(header_file) == 0) {
+		gchar *s = g_strdup(source_file), *t, *p = strrchr(s, '.');
+		if (p == NULL) {
+			g_free (s);
+			return;
+		}
+
+		s[strlen(s) - strlen(p)] = '\0';
+		t = g_strdup_printf("%s.h", s);
+		gtk_entry_set_text (GTK_ENTRY (header_file_widget), t);
+		g_free(t);
+		g_free(s);
+	}	
+}
+
+void on_go_button_browse_header_clicked (GtkButton *button, GladeXML* gxml) {
+	
+	GtkWidget *header_file_widget;
+	GtkWidget *source_file_widget;
+	const gchar *header_file, *source_file;
+	
+	/* get the header displaying a browsing window */
+	header_file = browse_for_file(_("Select header file"));
+	
+	if ( header_file == NULL )
+		return;
+
+	header_file_widget = glade_xml_get_widget (gxml, "go_header_file");
+	source_file_widget = glade_xml_get_widget (gxml, "go_source_file");
+	
+	source_file = gtk_entry_get_text (GTK_ENTRY (source_file_widget));
+	
+	/* let's set the header in the entry */
+	gtk_entry_set_text(GTK_ENTRY (header_file_widget), header_file);
+	
+	/* is source_file is void then fill it with a "header_file".c */
+	if( strlen (source_file) == 0) {
+		gchar *s = g_strdup(header_file), *t, *p = strrchr(s, '.');
+		if (p == NULL) {
+			g_free (s);
+			return;
+		}
+		s[strlen(s) - strlen(p)] = '\0';
+		t = g_strdup_printf("%s.c", s);
+		gtk_entry_set_text (GTK_ENTRY (source_file_widget), t);
+		g_free(t);
+		g_free(s);
+	}
+}
+
+void on_go_button_browse_source_clicked (GtkButton *button, GladeXML* gxml) {
+
+	GtkWidget *header_file_widget;
+	GtkWidget *source_file_widget;
+	const gchar *header_file, *source_file;
+	
+	source_file = browse_for_file(_("Select source file"));
+	
+	if (source_file == NULL)
+		return;
+
+	header_file_widget = glade_xml_get_widget (gxml, "go_header_file");
+	source_file_widget = glade_xml_get_widget (gxml, "go_source_file");
+	
+	header_file = gtk_entry_get_text( GTK_ENTRY(header_file_widget));	
+	gtk_entry_set_text (GTK_ENTRY (source_file_widget), source_file);
+	
+	if( strlen(header_file) == 0 ) {
+		gchar *s = g_strdup(source_file), *t, *p = strrchr(s, '.');
+		if (p == NULL) {
+			g_free (s);
+			return;
+		}
+		s[strlen(s) - strlen(p)] = '\0';
+		t = g_strdup_printf("%s.h", s);
+		gtk_entry_set_text (GTK_ENTRY (header_file_widget), t);
+		g_free(t);
+		g_free(s);
+	}	
+}
+
+
+void on_create_button_clicked (GtkButton *button, ClassGenData* data) {
+	
+	GtkWidget *classgen_widget;
+	GtkWidget *notebook;
+	gint active_page;
+	gboolean can_close;
+	
+	classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");
+
+	/* check which page is active, whether generic class builder or gobject builder */
+	notebook = glade_xml_get_widget (data->gxml, "notebook");
+	active_page = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
+
+	can_close = FALSE;
+	
+	if (active_page == 0) {				// generic c++ class builder
+		can_close = generic_cpp_class_create_code (data);		
+	}
+	else if (active_page == 1) {		// gobject class builder
+		can_close = gobject_class_create_code (data);
+	}
+	
+	if (can_close) {
+		DEBUG_PRINT ("going to destroy widget main" );
+		gtk_widget_destroy (classgen_widget);
+		g_free (data);
+	}
+}
+
+void on_cancel_button_clicked (GtkButton *button, ClassGenData *data) {
+	GtkWidget *classgen_widget;
+	
+	classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");
+	gtk_widget_destroy (classgen_widget);
+	
+	g_free (data);
+}
+
+void on_inline_toggled (GtkToggleButton *buttom, ClassGenData *data) {
+	GtkWidget *cc_inline;
+	GtkWidget *source_file_widget;
+	GtkWidget *source_button;
+	gboolean is_inline;
+
+	source_file_widget = glade_xml_get_widget (data->gxml, "cc_source_file");
+	source_button = glade_xml_get_widget (data->gxml, "cc_button_browse_source");
+	cc_inline = glade_xml_get_widget (data->gxml, "cc_inline");
+	
+	is_inline = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (cc_inline));
+	if(!is_inline) {
+		/* set the source file entry and browse buttons sensitive */
+		gtk_widget_set_sensitive (source_file_widget, TRUE);
+		gtk_widget_set_sensitive (source_button, TRUE);
+	}
+	else {
+		/* set the source file entry and browse buttons insensitive */
+		gtk_widget_set_sensitive (source_file_widget, FALSE);
+		gtk_widget_set_sensitive (source_button, FALSE);
+	}
+}
+
+/*----------------------------------------------------------------------------
+ * Create the main widget and connect signals to buttons/etc.
+ */
+ 
+void
+on_classgen_new (AnjutaClassGenPlugin* plugin) {
+	GladeXML* gxml;
+	GtkWidget *classgen_widget;
+	GtkWidget *create_button;
+	GtkWidget *cancel_button;
+	GtkWidget *cc_button_browse_source;
+	GtkWidget *cc_button_browse_header;
+	GtkWidget *cc_inheritance;
+	GtkWidget *cc_inline;
+	GtkWidget *go_button_browse_source;
+	GtkWidget *go_button_browse_header;
+	ClassGenData *data;
+	
+	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
+	g_return_if_fail (gxml != NULL );
+	
+	classgen_widget = glade_xml_get_widget (gxml, "classgen_main" );
+	
+	cc_button_browse_source = 
+					glade_xml_get_widget (gxml, "cc_button_browse_source");
+	cc_button_browse_header = 
+					glade_xml_get_widget (gxml, "cc_button_browse_header");
+	
+	cc_inheritance = glade_xml_get_widget (gxml, "cc_inheritance");
+	cc_inline = glade_xml_get_widget (gxml, "cc_inline");
+	
+	go_button_browse_source = 
+					glade_xml_get_widget (gxml, "go_button_browse_source");
+	go_button_browse_header = 
+					glade_xml_get_widget (gxml, "go_button_browse_header");
+	
+	create_button = glade_xml_get_widget (gxml, "create_button");
+	cancel_button = glade_xml_get_widget (gxml, "cancel_button");
+	
+	gtk_combo_box_set_active (GTK_COMBO_BOX(cc_inheritance), 0);
+	
+	/* connect signals */
+	data = g_new0 (ClassGenData, 1);
+	data->gxml = gxml;
+	data->plugin = plugin;
+
+	g_signal_connect (G_OBJECT (cc_button_browse_header), "clicked",
+		G_CALLBACK (on_cc_button_browse_header_clicked), gxml);
+		
+	g_signal_connect (G_OBJECT (cc_button_browse_source), "clicked",
+		G_CALLBACK (on_cc_button_browse_source_clicked), gxml);
+
+	g_signal_connect (G_OBJECT (go_button_browse_header), "clicked",
+		G_CALLBACK (on_go_button_browse_header_clicked), gxml);
+
+	g_signal_connect (G_OBJECT (go_button_browse_source), "clicked",
+		G_CALLBACK (on_go_button_browse_source_clicked), gxml);
+
+	g_signal_connect (G_OBJECT (create_button), "clicked",
+		G_CALLBACK (on_create_button_clicked), data);
+
+	g_signal_connect (G_OBJECT (cancel_button), "clicked",
+		G_CALLBACK (on_cancel_button_clicked), data);
+		
+	g_signal_connect (G_OBJECT (cc_inline), "toggled",
+		G_CALLBACK (on_inline_toggled), data);
+
+	g_signal_connect (G_OBJECT (classgen_widget), "key-press-event",
+					  GTK_SIGNAL_FUNC (on_class_gen_key_press_event),
+					  data);
+
+	gtk_widget_show (classgen_widget);
+}
+
 
 gboolean
 on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
-                                  AnjutaClassGenPlugin *plugin)
+                                  ClassGenData *data)
 {
 	if (event->keyval == GDK_Escape)
 	{
-		class_gen_del (plugin);
-		gtk_widget_destroy (GTK_WIDGET (plugin->dlgClass));
+		GtkWidget *classgen_widget;
+	
+		classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");
+		gtk_widget_destroy (classgen_widget);
+		g_free (data);
 		return TRUE;
 	}
 	return FALSE;
-}
-
-void
-on_header_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin)
-{
-	plugin->header_file_selection = gtk_file_selection_new _("Select header file.");
-	gtk_window_set_modal (GTK_WINDOW (plugin->header_file_selection), FALSE);
-	g_signal_connect(G_OBJECT (GTK_FILE_SELECTION (plugin->header_file_selection)->ok_button),
-						"clicked", GTK_SIGNAL_FUNC (on_header_file_selection), plugin);
-	
-	g_signal_connect(G_OBJECT (GTK_FILE_SELECTION (plugin->header_file_selection)->cancel_button),
-						"clicked", GTK_SIGNAL_FUNC (on_header_file_selection_cancel), plugin);
-
-	gtk_file_selection_complete (GTK_FILE_SELECTION (plugin->header_file_selection), "*.h");
-	gtk_widget_show (plugin->header_file_selection);
-}
-
-void
-on_source_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin)
-{
-	plugin->source_file_selection = gtk_file_selection_new _("Select source file.");
-	gtk_window_set_modal(GTK_WINDOW(plugin->source_file_selection), FALSE);
-	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(plugin->source_file_selection)->ok_button),
-						"clicked", GTK_SIGNAL_FUNC(on_source_file_selection), plugin);
-	
-	g_signal_connect(G_OBJECT (GTK_FILE_SELECTION(plugin->source_file_selection)->cancel_button),
-						"clicked", GTK_SIGNAL_FUNC(on_source_file_selection_cancel), plugin);
-	
-	SAFE_FREE (plugin->m_szClassType);
-	plugin->m_szClassType = gtk_editable_get_chars (GTK_EDITABLE (plugin->combo_class_type_entry),0, -1);
-	
-	if(strcmp (plugin->m_szClassType, "Generic C++ Class") == 0)
-	{
-		gtk_file_selection_complete(GTK_FILE_SELECTION(plugin->source_file_selection), "*.cc");
-	}
-	else if (strcmp (plugin->m_szClassType, "GTK+ Class") == 0)
-	{
-		gtk_file_selection_complete (GTK_FILE_SELECTION (plugin->source_file_selection), "*.c");
-	}
-
-	gtk_widget_show (plugin->source_file_selection);
-}
-
-
-void
-on_class_name_changed (GtkEditable* editable, AnjutaClassGenPlugin *plugin)
-{	
-	gchar buf[1024];
-
-	SAFE_FREE (plugin->m_szClassName);
-	SAFE_FREE (plugin->m_szDeclFile);
-	SAFE_FREE (plugin->m_szImplFile);
-
-	/* get the new class name */
-	plugin->m_szClassName = gtk_editable_get_chars (GTK_EDITABLE (plugin->entry_class_name),0, -1);
-	
-	if (strlen (plugin->m_szClassName) > 0)
-	{
-		if (!plugin->m_bUserSelectedHeader)
-		{
-			/* set the header file name */
-			memset(buf, 0, 1024 * sizeof(gchar));
-			sprintf (buf, "%s.h", plugin->m_szClassName);
-			gtk_entry_set_text (GTK_ENTRY (plugin->entry_header_file), buf);
-		}
-		
-		if(!plugin->m_bUserSelectedSource)
-		{
-			SAFE_FREE (plugin->m_szClassType);
-			plugin->m_szClassType = gtk_editable_get_chars (GTK_EDITABLE (plugin->combo_class_type_entry),0, -1);
-			
-			if (strcmp (plugin->m_szClassType, "Generic C++ Class") == 0)
-			{
-				/* set the cc file name */
-				memset (buf, 0, 1024 * sizeof(gchar));
-				sprintf (buf, "%s.cc", plugin->m_szClassName);
-				gtk_entry_set_text (GTK_ENTRY (plugin->entry_source_file), buf);
-			}
-			else if (strcmp (plugin->m_szClassType, "GTK+ Class") == 0)
-			{
-				/* set the cc file name */
-				memset (buf, 0, 1024 * sizeof(gchar));
-				sprintf (buf, "%s.c", plugin->m_szClassName);
-				gtk_entry_set_text (GTK_ENTRY (plugin->entry_source_file), buf);
-			}
-		}
-		
-		/* set the browse buttons to sensitive */
-		gtk_widget_set_sensitive (plugin->button_browse_header_file, TRUE);
-		if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->checkbutton_inline)))
-			gtk_widget_set_sensitive (plugin->button_browse_source_file, TRUE);
-		
-		plugin->m_bUserEdited = TRUE;
-		gtk_widget_set_sensitive (GTK_WIDGET (plugin->button_finish), TRUE);
-	}
-	else
-	{
-		/* set the header and cc file names to null and set the buttons to insensitive */
-		if(!plugin->m_bUserSelectedHeader)
-		{
-			gtk_entry_set_text (GTK_ENTRY (plugin->entry_header_file), "");
-			gtk_widget_set_sensitive (plugin->button_browse_header_file, FALSE);
-		}
-		
-		if(!plugin->m_bUserSelectedSource)
-		{
-			gtk_entry_set_text (GTK_ENTRY (plugin->entry_source_file), "");
-			gtk_widget_set_sensitive (plugin->button_browse_source_file, FALSE);
-		}
-		
-		plugin->m_bUserEdited = FALSE;
-		gtk_widget_set_sensitive (GTK_WIDGET (plugin->button_finish), FALSE);
-	}
-		
-	/* get the chars from the entries */
-	plugin->m_szDeclFile = gtk_editable_get_chars (GTK_EDITABLE (plugin->entry_header_file), 0, -1);
-	plugin->m_szImplFile = gtk_editable_get_chars (GTK_EDITABLE (plugin->entry_source_file), 0, -1);
-}
-
-
-void
-on_class_type_changed (GtkEditable* editable, AnjutaClassGenPlugin *plugin)
-{	
-	gchar buf = '\0';
-	SAFE_FREE(plugin->m_szClassType);
-	
-	/* get the new class name */
-	plugin->m_szClassType = gtk_editable_get_chars (GTK_EDITABLE (plugin->combo_class_type_entry),0, -1);
-	
-	if (strlen (plugin->m_szClassType) > 0)
-	{
-		if (strcmp (plugin->m_szClassType, "Generic C++ Class") == 0)
-		{
-			/* tailor the interface to c++ */
-			gtk_widget_set_sensitive (plugin->combo_access, TRUE);
-			gtk_widget_set_sensitive (plugin->checkbutton_virtual_destructor, TRUE);
-			gtk_widget_set_sensitive (plugin->entry_base_class, TRUE);
-			gtk_widget_set_sensitive (plugin->label_base_class, TRUE);
-			gtk_widget_set_sensitive (plugin->label_access, TRUE);
-		}
-		else if (strcmp (plugin->m_szClassType, "GTK+ Class") == 0)
-		{
-			/* tailor the interface to GTK+ c */
-			gtk_widget_set_sensitive (plugin->combo_access, FALSE);
-			gtk_widget_set_sensitive (plugin->checkbutton_virtual_destructor, FALSE);
-			gtk_widget_set_sensitive (plugin->entry_base_class, FALSE);
-			gtk_widget_set_sensitive (plugin->label_base_class, FALSE);
-			gtk_widget_set_sensitive (plugin->label_access, FALSE);
-			gtk_entry_set_text (GTK_ENTRY (plugin->entry_base_class), &buf);
-			
-			SAFE_FREE (plugin->m_szBaseClassName);
-			plugin->m_szBaseClassName = gtk_editable_get_chars (GTK_EDITABLE (plugin->entry_base_class),0, -1);
-		}
-	}
-}
-
-
-void
-on_finish_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin)
-{
-	DEBUG_PRINT	("on_finish_clicked");
-	class_gen_get_strings (plugin);
-	if (!is_legal_class_name (plugin->m_szClassName))
-	{
-		class_gen_message_box(_("Class name not valid"));
-		return;
-	}
-	if (strlen (plugin->m_szBaseClassName) > 0)
-	{
-		if (!is_legal_class_name (plugin->m_szBaseClassName))
-		{
-			class_gen_message_box (_("Base class name not valid"));
-			return;
-		}
-	}
-	if (!is_legal_file_name (plugin->m_szDeclFile))
-	{
-		class_gen_message_box (_("Declaration file name not valid"));
-		return;
-	}
-	if (!is_legal_file_name (plugin->m_szImplFile))
-	{
-		class_gen_message_box (_("Implementation file name not valid"));
-		return;
-	}
-	class_gen_generate (plugin);
-	class_gen_del (plugin);
-	gtk_widget_destroy (GTK_WIDGET (plugin->dlgClass));
-}
-
-
-void
-on_cancel_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin)
-{		
-	/* free up the strings and destroy the window */
-	class_gen_del (plugin);
-	gtk_widget_destroy (GTK_WIDGET (plugin->dlgClass));
-}
-
-
-void
-on_help_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin)
-{
-}
-
-
-void
-on_inline_toggled (GtkToggleButton* button, AnjutaClassGenPlugin *plugin)
-{
-	plugin->m_bInline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(plugin->checkbutton_inline));
-	
-	if(!plugin->m_bInline)
-	{
-		/* set the source file entry and browse buttons sensitive */
-		gtk_widget_set_sensitive (plugin->entry_source_file, TRUE);
-		if (plugin->m_bUserEdited)
-			gtk_widget_set_sensitive (plugin->button_browse_source_file, TRUE);
-	}
-	else
-	{
-		/* set the source file entry and browse buttons insensitive */
-		gtk_widget_set_sensitive (plugin->entry_source_file, FALSE);
-		gtk_widget_set_sensitive (plugin->button_browse_source_file, FALSE);
-	}
-}
-
-
-void
-on_header_file_selection_cancel (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin)
-{
-	DEBUG_PRINT ("header cancel");
-	gtk_widget_destroy (plugin->header_file_selection);
-	plugin->header_file_selection = NULL;
-}
-
-
-void
-on_source_file_selection_cancel (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin)
-{
-	DEBUG_PRINT ("source cancel");
-	gtk_widget_destroy (plugin->source_file_selection);
-	plugin->source_file_selection = NULL;
-}
-
-
-void 
-on_header_file_selection (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin)
-{
-	SAFE_FREE (plugin->m_szDeclFile);
-	plugin->m_szDeclFile = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (plugin->header_file_selection)));
-	gtk_entry_set_text (GTK_ENTRY (plugin->entry_header_file), plugin->m_szDeclFile);
-	
-	if (strlen (plugin->m_szDeclFile) > 0)
-		plugin->m_bUserSelectedHeader = TRUE;
-	else
-		plugin->m_bUserSelectedHeader = FALSE;
-	
-	gtk_widget_destroy (plugin->header_file_selection);
-	plugin->header_file_selection = NULL;
-}
-
-
-void
-on_source_file_selection (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin)
-{
-	SAFE_FREE (plugin->m_szImplFile);
-	plugin->m_szImplFile = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (plugin->source_file_selection)));
-	gtk_entry_set_text (GTK_ENTRY (plugin->entry_source_file), plugin->m_szImplFile);
-
-	if (strlen (plugin->m_szImplFile) > 0)
-		plugin->m_bUserSelectedSource = TRUE;
-	else
-		plugin->m_bUserSelectedSource = FALSE;
-	
-	gtk_widget_destroy (plugin->source_file_selection);
-	plugin->source_file_selection = NULL;
 }

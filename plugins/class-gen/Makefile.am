@@ -1,3 +1,13 @@
+# Plugin glade file
+clsgen_gladedir = $(anjuta_glade_dir)
+clsgen_glade_DATA = anjuta-class-gen-plugin.glade
+
+# Templates
+clsgen_appdatadir = "$(datadir)/anjuta/class-templates/"
+clsgen_appdata_DATA = \
+	goc_template_header \
+	goc_template_source 
+
 # Plugin Icon file
 plugin_in_files = anjuta-class-gen.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -33,4 +43,6 @@ libanjuta_class_gen_la_SOURCES= \
 	action-callbacks.h 
 	
 EXTRA_DIST = \
-	$(clsgen_pixmaps_DATA)
+	$(clsgen_pixmaps_DATA) \
+	$(clsgen_glade_DATA) \
+	$(clsgen_appdata_DATA)

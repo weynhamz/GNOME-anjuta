@@ -1,6 +1,7 @@
 /*
  * clsGen.h Copyright (C) 2002  Dave Huseby
  * class_gen.c Copyright (C) 2005 Massimo Cora' [porting to Anjuta 2.x plugin style]
+ * 
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free 
@@ -16,8 +17,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc., 59 
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
-
-
 /*
  * V 0.0.2 -- Generic Class Generator Plugins
  *	Author: Dave Huseby (huseby@linuxprogrammer.org)
@@ -32,6 +31,7 @@
  *	JP Rosevear (jpr@arcavia.com)
  *
  */
+
 
 #include "class_gen.h"
 #include "action-callbacks.h"
@@ -55,9 +55,22 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 
-#define IDENT_NAME	"ident.name"
-#define IDENT_EMAIL	"ident.email"
 
+#define GPL_HEADING "/*\n" \
+" *  This program is free software; you can redistribute it and/or modify\n" \
+" *  it under the terms of the GNU General Public License as published by\n" \
+" *  the Free Software Foundation; either version 2 of the License, or\n" \
+" *  (at your option) any later version.\n" \
+" *\n" \
+" *  This program is distributed in the hope that it will be useful,\n" \
+" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n" \
+" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n" \
+" *  GNU Library General Public License for more details.\n" \
+" *\n" \
+" *  You should have received a copy of the GNU General Public License\n" \
+" *  along with this program; if not, write to the Free Software\n" \
+" *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n" \
+" */\n\n" 
 
 /*
  *------------------------------------------------------------------------------
@@ -65,75 +78,328 @@
  *------------------------------------------------------------------------------
  */
 
-gchar* GetDescr(void);
-glong GetVersion(void);
-gchar* GetMenuTitle(GModule* plugin, void* pUserData);
-gchar* GetTooltipText(GModule* plugin, void* pUserData);
-gchar *GetMenu(void);
 
 static struct tm* GetNowTime(void);
-static void generate_header (AnjutaClassGenPlugin * plugin, FILE* fpOut);
-static void generate_source (AnjutaClassGenPlugin* plugin, FILE* fpOut);
+static void generate_header (ClassGenData* data, gboolean is_inline, FILE* fpOut);
+static void generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut);
 
 
-gchar*
-GetDescr()
+
+gchar *
+browse_for_file (gchar *title)
 {
-	return g_strdup("Class Builder");
-}
-
-glong
-GetVersion()
-{
-	return 0x10000L; 
-}
-
-gchar *GetMenu(void)
-{
-	return g_strdup("project");
-}
-
-gchar*
-GetMenuTitle( GModule *plugin, void *pUserData )
-{
-	return g_strdup("Class Builder");
-}
-
-gchar*
-GetTooltipText( GModule *plugin, void *pUserData ) 
-{
-   return g_strdup("Class Builder");
-}
-
-void
-class_gen_message_box(const char* szMsg)
-{
-	/* Create the dialog using a couple of stock buttons */
-	GtkWidget * msgBox = gnome_message_box_new
-	(
-		szMsg, 
-		GNOME_MESSAGE_BOX_QUESTION,
-		GNOME_STOCK_BUTTON_OK,
-		NULL
-	);
+	GtkWidget *dialog;
+	gchar *filename = NULL;
 	
-	gnome_dialog_run_and_close (GNOME_DIALOG (msgBox));
+	dialog = gtk_file_chooser_dialog_new (title,
+		NULL,
+		GTK_FILE_CHOOSER_ACTION_SAVE,
+		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+		GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+		NULL);
+	
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+	
+	gtk_widget_destroy(dialog);
+	
+	return filename;
 }
 
-void 
-class_gen_set_root (AnjutaClassGenPlugin* plugin, gchar* root_dir) 
+
+
+/*
+ *------------------------------------------------------------------------------
+ * GObject Builder
+ *------------------------------------------------------------------------------
+ */
+
+gboolean
+gobject_class_create_code (ClassGenData* data) {
+	
+	GtkWidget *classgen_widget;	
+	gchar *trans_table[8];
+	gboolean a, b;
+	const gchar *base_class = FETCH_STRING (data->gxml, "go_base_class");
+	const gchar *gtype_name = FETCH_STRING (data->gxml, "go_type_name");
+	const gchar *gtype_prefix = FETCH_STRING (data->gxml, "go_type_prefix");
+	const gchar *class_function_prefix = FETCH_STRING (data->gxml, "go_class_func_prefix");
+	const gchar *source_file = FETCH_STRING (data->gxml, "go_source_file");
+	const gchar *header_file = FETCH_STRING (data->gxml, "go_header_file");
+	const gchar *author_name = FETCH_STRING (data->gxml, "go_author_name");
+	const gchar *author_email = FETCH_STRING (data->gxml, "go_author_email");
+	gboolean date_output = FETCH_BOOLEAN (data->gxml, "go_date_output");
+	gboolean gpl_output = FETCH_BOOLEAN (data->gxml, "go_gpl_output");
+
+	gchar *header_file_base; 
+	gchar *header_define;
+	gchar *t; 
+	AnjutaClassGenPlugin *plugin;
+	IAnjutaProjectManager *pm;
+
+	plugin = data->plugin;
+	
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaProjectManager, NULL);
+
+	classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");	
+	
+	/* check whether all required fields are filled or not */
+	if ( g_str_equal (base_class, "") || g_str_equal (gtype_name, "") ||
+		  g_str_equal (gtype_prefix, "") || g_str_equal (class_function_prefix, "") ||
+		  g_str_equal (source_file, "") || g_str_equal (header_file, "") ) {
+		anjuta_util_dialog_error (NULL, _("Please check your fields."));
+		return FALSE;
+	}
+		
+	header_file_base = g_path_get_basename(header_file);
+	header_define = cstr_replace_all(header_file_base, "-", "_");
+	t = header_define;
+	header_define = cstr_replace_all(t, ".", "_");
+	g_free(t);		
+	
+	t = g_ascii_strup (header_define, strlen(header_define));
+	g_free (header_define);
+	header_define = t;
+	
+	trans_table[0] = (gchar *)base_class;
+	trans_table[1] = (gchar *)gtype_name;
+	trans_table[2] = (gchar *)gtype_prefix;
+	trans_table[3] = (gchar *)class_function_prefix;
+	trans_table[4] = header_file_base;
+	trans_table[5] = header_define;
+
+	/* act with templates... */
+	a = transform_file(CLASS_TEMPLATE"/"CLASS_GOC_HEADER_TEMPLATE, 
+					header_file, trans_table, author_name, author_email, 
+					date_output, gpl_output);
+					
+	b = transform_file(CLASS_TEMPLATE"/"CLASS_GOC_SOURCE_TEMPLATE, 
+					source_file, trans_table, author_name, author_email, 
+					date_output, gpl_output);
+
+	gtk_widget_hide (classgen_widget);
+	
+	if(a && b) {
+		ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
+		ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+	} else {
+		anjuta_util_dialog_error (NULL,
+							  _("An error occured when trying to write GObject Class Template. Check file permissions."));
+	}
+	
+	g_free(header_file_base);
+	g_free(header_define);	
+	return TRUE;
+}
+
+gchar *
+cstr_replace_all(gchar *search, const gchar *find, const gchar *replace)
 {
-	if (!plugin->top_dir || 0 != strcmp(plugin->top_dir, root_dir))
-	{
-		if (plugin->top_dir)
-			g_free(plugin->top_dir);
-		plugin->top_dir = g_strdup(root_dir);
-	}	
+	gint searchLen,
+		findLen,
+		replaceLen,
+		zBufSize,
+		skip;
+	gchar *buffer = 0,
+		*scan = 0,
+		*curstr = 0;
+
+	if(search == NULL)
+		return NULL;
+	
+	searchLen = strlen(search);
+	findLen = strlen(find);
+	replaceLen = strlen(replace);
+
+	zBufSize = searchLen + searchLen * replaceLen + 1;
+	buffer = (gchar *)malloc(zBufSize);
+	scan = buffer;
+
+	if(buffer == 0)
+		return 0;
+
+	*scan = 0;
+
+	while(1) {
+		curstr = strstr(search, find);
+		if(curstr == 0) {
+			strcat(scan, search);
+			break;
+		} else {
+			skip = curstr - search;
+			memcpy(scan, search, skip);
+			memcpy(scan + skip, replace, replaceLen);
+			search = curstr + findLen;
+			scan = scan + skip + replaceLen;
+			*scan = 0;
+		}
+	}
+
+	return (gchar *)realloc(buffer, strlen(buffer) + 1);
+}
+
+
+gboolean 
+transform_file(const gchar *input_file, const gchar *output_file, 
+	gchar **replace_table, const gchar *author, const gchar *email, 
+	gboolean date_output, gboolean gpl_output)
+{
+	gchar *contents;
+	gchar *working;
+	gsize length;
+	gint i, st_size;
+	FILE *out;
+	
+	gchar *search_table[] = {
+		"{{BASE_CLASS}}", 
+		"{{GTYPE_NAME}}",
+		"{{GTYPE_PREFIX}}",
+		"{{FUNCTION_PREFIX}}",
+		"{{HEADER_FILE_NAME}}",
+		"{{HEADER_DEFINE}}",
+		NULL
+	};
+	
+	if((out = fopen(output_file, "w+")) == NULL) {
+		g_printerr("Could not open %s for writing\n", output_file);
+		return FALSE;
+	}
+	
+	for(st_size = 0; search_table[st_size] != NULL; st_size++); 
+	
+	if(!g_file_get_contents(input_file, &contents, &length, NULL)) {
+		g_printerr("Could not read %s\n", input_file);
+		return FALSE;
+	}
+
+	for(i = 0; replace_table[i] != NULL; i++) {
+		if(i >= st_size)
+			break;
+			
+		working = cstr_replace_all(contents, search_table[i], replace_table[i]);
+		g_free(contents);
+		contents = working;
+	}
+	
+	if(date_output) {
+		gchar *basename = g_path_get_basename(output_file);
+		gchar buf[128], year[5];
+		time_t curtime = time(NULL);
+		struct tm *lt = localtime(&curtime);
+		
+		strftime(buf, sizeof(buf), "%a %b %e %T %Y", lt);
+		strftime(year, sizeof(year), "%Y", lt);
+		
+		fputs("/***************************************************************************\n", out);
+		fprintf(out, "*            %s\n", basename);
+		fputs("*\n", out);
+		fprintf(out, "*  %s\n", buf);
+		fprintf(out, "*  Copyright  %s  %s\n", year, author);
+		fprintf(out, "*  %s\n", email);
+		fputs("****************************************************************************/\n\n", out);
+		
+		g_free(basename);
+	}
+	
+	
+			   
+	if(gpl_output) {
+		fputs(GPL_HEADING, out);
+	}
+	
+	fputs(contents, out);
+	fclose(out);
+	
+	g_free(contents);
+	
+	return TRUE;
+}
+
+
+
+/*
+ *------------------------------------------------------------------------------
+ * Generic C++ Class
+ *------------------------------------------------------------------------------
+ */
+
+/*------------------------------------------------------------------------------
+ * returns TRUE: if the main widget can be closed, FALSE: if it should be taken 
+ * opened.
+ */
+
+gboolean
+generic_cpp_class_create_code (ClassGenData *data) {
+	AnjutaClassGenPlugin *plugin;	
+	const gchar *source_file = FETCH_STRING (data->gxml, "cc_source_file");
+	const gchar *header_file = FETCH_STRING (data->gxml, "cc_header_file");
+	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
+	gboolean is_inline = FETCH_BOOLEAN (data->gxml, "cc_inline");
+	FILE* header_fd;
+	FILE* source_fd;
+	gboolean bOK = FALSE;
+	IAnjutaProjectManager *pm;
+
+	plugin = data->plugin;
+	
+	/* check whether all required fields are filled or not */
+	if ( g_str_equal (source_file, "") || g_str_equal (header_file, "") ||
+		  g_str_equal (class_name, "")) {
+		anjuta_util_dialog_error (NULL, _("Please check your fields."));
+		return FALSE;
+	}
+	
+	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaProjectManager, NULL);
+	
+	g_return_val_if_fail(pm != NULL, FALSE);
+	
+	if (!is_inline) {	/* not inlined */
+		header_fd = fopen (header_file, "at");
+		if (header_fd != NULL) {
+			generate_header (data, is_inline, header_fd);
+			fflush (header_fd);
+			bOK = !ferror (header_fd);
+			fclose (header_fd);
+			header_fd = NULL;
+		}
+		
+		source_fd = fopen (source_file, "at");
+		if (source_fd != NULL) {
+			generate_source (data, is_inline, header_file, source_fd);
+			fflush (source_fd);
+			bOK = !ferror (source_fd);
+			fclose (source_fd);
+			source_fd = NULL;
+		}
+	}
+	else 	{				/* inlined */
+		header_fd = fopen (header_file, "at");
+		if (header_fd != NULL) {
+			generate_header (data, is_inline, header_fd);
+			generate_source (data, is_inline, header_file, header_fd);
+			fflush (header_fd);
+			bOK = !ferror (header_fd);
+			fclose (header_fd);
+			header_fd = NULL;
+		}
+	}
+	
+	if (bOK) {
+		if (!is_inline) 
+			ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
+		ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+	}
+	else
+		anjuta_util_dialog_error (NULL, _("Error in writing files"));
+
+	return TRUE;
 }
 
 
 static struct tm*
-GetNowTime(void)
+GetNowTime(void)	
 {
 	time_t l_time;
 
@@ -142,1049 +408,220 @@ GetNowTime(void)
 }
 
 
-gboolean
-is_legal_class_name (const char *szClassName)
-{
-	int nLen, i;
-	
-	if(NULL == szClassName)
-		return FALSE;
-	
-	nLen = strlen(szClassName);
-	if(!nLen)
-		return FALSE;
-	
-	if(!isalpha(szClassName[0]))
-		return FALSE;
-	
-	for(i = 1; i < nLen; i ++)
-	{
-		if(!isalnum(szClassName[i]))
-			return FALSE;
-	}
-	
-	return TRUE;
-}
-
-
-gboolean
-is_legal_file_name (const char *szFileName)
-{
-	int nLen;
-	
-	if(NULL == szFileName)
-		return FALSE;
-	
-	nLen = strlen(szFileName);
-	if(!nLen)
-		return FALSE;
-	
-	return TRUE;
-}
-
-
-void
-class_gen_generate (AnjutaClassGenPlugin *plugin)
-{
-	gboolean bOK = FALSE;
-	gchar* szSrcDir; 
-	gchar* szfNameHeader;
-	gchar* szfNameSource;
-	FILE* fpHeader;
-	FILE* fpSource;
-	IAnjutaProjectManager *pm;
-	
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										 IAnjutaProjectManager, NULL);
-	
-	g_return_if_fail(pm != NULL);
-	
-	/* set the root dir */
-	szSrcDir = plugin->top_dir;
-	
-	/* FIXME?: we redirect both the source_module and the include_module
-	into the same szSrcDir. Is this what we want? */
-	if (!plugin->m_bUserSelectedHeader)
-		szfNameHeader = g_strdup_printf ("%s/%s", szSrcDir
-	  , plugin->m_szDeclFile);
-	else
-		szfNameHeader = g_strdup (plugin->m_szImplFile);
-	
-	if (!plugin->m_bUserSelectedSource)
-		szfNameSource = g_strdup_printf ("%s/%s", szSrcDir
-	  , plugin->m_szImplFile);
-	else
-		szfNameSource = g_strdup (plugin->m_szImplFile);
-
-	if (!plugin->m_bInline)
-	{
-		if (file_is_directory (szSrcDir) == FALSE)
-			mkdir (szSrcDir, 0755);
-		
-		fpHeader = fopen (szfNameHeader, "at");
-		if (fpHeader != NULL)
-		{
-			generate_header (plugin, fpHeader);
-			fflush (fpHeader);
-			bOK = !ferror (fpHeader);
-			fclose (fpHeader);
-			fpHeader = NULL;
-		}
-		
-		fpSource = fopen (szfNameSource, "at");
-		if(fpSource != NULL)
-		{
-			generate_source (plugin, fpSource);
-			fflush (fpSource);
-			bOK = !ferror (fpSource);
-			fclose (fpSource);
-			fpSource = NULL;
-		}
-	}
-	else
-	{	
-		if (file_is_directory (szSrcDir) == FALSE)
-			mkdir (szSrcDir, 0755);
-		
-		fpHeader = fopen (szfNameHeader, "at");
-		if(fpHeader != NULL)
-		{
-			generate_header (plugin, fpHeader);
-			generate_source (plugin, fpHeader);
-			fflush (fpHeader);
-			bOK = !ferror (fpHeader);
-			fclose (fpHeader);
-			fpHeader = NULL;
-		}
-	}
-	
-	if(bOK)
-	{
-		if(!plugin->m_bInline) 
-			ianjuta_project_manager_add_source (pm, szfNameSource, szfNameSource, NULL);
-		ianjuta_project_manager_add_source (pm, szfNameHeader, szfNameHeader, NULL);
-	}
-	else
-		class_gen_message_box(_("Error in importing files"));
-	
-	g_free(szfNameHeader);
-	g_free(szfNameSource);
-}
-
-
 static void
-generate_header (AnjutaClassGenPlugin*plugin, FILE* fpOut)
-{
-	int i;
-	gchar* all_uppers = (gchar*)malloc((strlen(plugin->m_szClassName) + 1) * sizeof(gchar));
-	strcpy(all_uppers, plugin->m_szClassName);
-	for(i = 0; i < strlen(all_uppers); i++)
-	{
-		all_uppers[i] = toupper(all_uppers[i]);
-	}
-
-	if(strcmp (plugin->m_szClassType, "Generic C++ Class") == 0)
-	{
-		/* output a C++ header */
-		fprintf(fpOut, "//\n// File: %s\n", plugin->m_szDeclFile);
+generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {
+	
+	GtkWidget *combo;
+	const gchar *base_class = FETCH_STRING (data->gxml, "cc_base_class");	
+	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
+	const gchar *author_name = FETCH_STRING (data->gxml, "cc_author_name");
+	const gchar *author_email = FETCH_STRING (data->gxml, "cc_author_email");
+	gboolean is_virtual_destructor = FETCH_BOOLEAN (data->gxml, "cc_virtual_destructor");
+	
+	combo = glade_xml_get_widget (data->gxml, "cc_inheritance");
+	const gchar *access_inheritance = gtk_editable_get_chars (GTK_EDITABLE (combo), 0, -1);
+	
+	gchar* class_name_all_uppers = g_utf8_strup (class_name, strlen (class_name));
+	struct tm *t = GetNowTime();
 		
-		{
-			gchar* username = anjuta_preferences_get (plugin->prefs, IDENT_NAME);
-			gchar* email =	anjuta_preferences_get (plugin->prefs, IDENT_EMAIL);
-			
-			fprintf( fpOut, "// Created by: %s <%s>\n"
-			  , username?username:"", email?email:"" );
-			SAFE_FREE(username);
-			SAFE_FREE(email);
-		}
-
-		{
-			struct tm *t = GetNowTime();
-			fprintf( fpOut, "// Created on: %s//\n\n", asctime(t) );
-		}
-
-		fprintf
-		(
-			fpOut,
-			"#ifndef _%s_H_\n"
-			"#define _%s_H_\n"
-			"\n"
-			"\n",
-			all_uppers, 
-			all_uppers
-		);
+	/* output a C++ header */
+	fprintf (fpOut, "//\n// Class: %s\n", class_name);
+	fprintf (fpOut, "// Created by: %s <%s>\n", author_name, author_email);
+	fprintf (fpOut, "// Created on: %s//\n\n", asctime(t));
 		
-		if(plugin->m_bInline)
-		{
-			/* output some nice deliniation comments */
-			fprintf
-			(
-				fpOut,
-				"//------------------------------------------------------------------------------\n"
-				"// %s Declaration\n"
-				"//------------------------------------------------------------------------------\n"
+	fprintf (fpOut,
+				"#ifndef _%s_H_\n"
+				"#define _%s_H_\n"
 				"\n"
 				"\n",
-				plugin->m_szClassName
-			);
-		}
+				class_name_all_uppers,
+				class_name_all_uppers
+			  );
 		
-		if (strlen (plugin->m_szBaseClassName) > 0)
-		{
-			/* output class with inheritence */
-			fprintf
-			(
-				fpOut, 
-				"class %s : %s %s\n"
-				"{\n"
-				"\tpublic:\n"
-				"\t\t%s();\n",
-				plugin->m_szClassName, 
-				plugin->m_szAccess,
-				plugin->m_szBaseClassName,
-				plugin->m_szClassName
-			);
-		}
-		else
-		{
-			/* output class without inheritence */
-			fprintf
-			(
-				fpOut, 
-				"class %s\n"
-				"{\n"
-				"\tpublic:\n"
-				"\t\t%s();\n",
-				plugin->m_szClassName, 
-				plugin->m_szClassName
-			);
-		}
-		
-		if (plugin->m_bVirtualDestructor)
-		{
-			/* output virtual destructor */
-			fprintf
-			(
-				fpOut,
-				"\t\tvirtual ~%s();\n",
-				plugin->m_szClassName
-			);
-		}
-		else
-		{
-			/* output non-virtual destructor */
-			fprintf
-			(
-				fpOut,
-				"\t\t ~%s();\n",
-				plugin->m_szClassName
-			);
-		}
-		
+	if (is_inline) {
+		/* output some nice deliniation comments */
 		fprintf
 		(
 			fpOut,
-			"\t\n"
-			"\t\t// %s interface\n"
-			"\t\n"
-			"\t\t// TODO: add member function declarations...\n"
-			"\t\n"
-			"\tprotected:\n"
-			"\t\t// %s variables\n"
-			"\t\n"
-			"\t\t// TODO: add member variables...\n"
-			"\t\n"
-			"};\n"
+			"//------------------------------------------------------------------------------\n"
+			"// %s Declaration\n"
+			"//------------------------------------------------------------------------------\n"
 			"\n"
 			"\n",
-			plugin->m_szClassName,
-			plugin->m_szClassName
+			class_name
 		);
-		
-		if(!plugin->m_bInline)
-		{
-			fprintf
-			(
-				fpOut,
-				"#endif	//_%s_H_\n"
-				"\n",
-				all_uppers
-			);
-		}
 	}
-	else if (strcmp (plugin->m_szClassType, "GTK+ Class") == 0)
-	{
-		/* output a GTK+ class header */
-		fprintf (fpOut, "/*\n * File: %s\n", plugin->m_szDeclFile);
 		
-		{
-			gchar* username = anjuta_preferences_get (plugin->prefs, IDENT_NAME);
-			gchar* email= anjuta_preferences_get (plugin->prefs, IDENT_EMAIL);
-			
-			fprintf( fpOut, " * Created by: %s <%s>\n"
-			  , username?username:"", email?email:"" );
-			SAFE_FREE(username);
-			SAFE_FREE(email);
-		}
-		
-		{
-			struct tm *t = GetNowTime();
-			fprintf( fpOut, " * Created on: %s */\n\n", asctime(t) );
-		}
-		
-		
-		fprintf
-		(
-			fpOut,
-			"#ifndef _%s_H_\n"
-			"#define _%s_H_\n"
-			"\n",
-			all_uppers, 
-			all_uppers
-		);
-		
-		/* output the includes */
-		fprintf
-		(
-			fpOut,
-			"#ifdef HAVE_CONFIG_H\n"
-			"#  include <config.h>\n"
-			"#endif\n"
-			"\n"
-			"#include <sys/types.h>\n"
-			"#include <sys/stat.h>\n"
-			"#include <unistd.h>\n"
-			"#include <string.h>\n"
-			"\n"
-			"#include <gnome.h>\n"
-			"\n"
-			"\n"
-		);
-		
-		if(plugin->m_bInline)
-		{
-			/* output some nice deliniation comments */
-			fprintf
-			(
-				fpOut,
-				"/*\n"
-				" * %s Declaration\n"
-				" */\n"
-				"\n",
-				plugin->m_szClassName
-			);
-		}
-		
-		fprintf
-		(
-			fpOut,
-			"typedef struct td_test {\n"
-			"\t/* TODO: put your data here */\n"
-			"} %s, *%sPtr;\n"
-			"\n"
-			"\n",
-			plugin->m_szClassName,
-			plugin->m_szClassName
-		);
-		
-		if(plugin->m_bInline)
-		{
-			fprintf
-			(
-				fpOut,
-				"/*\n"
-				" * %s Forward Declarations\n"
-				" */\n"
-				"\n",
-				plugin->m_szClassName
-			);
-		}
-		
-		fprintf
-		(
-			fpOut,
-			"%s* %s_new(void);\n"
-			"void %s_delete(%s* self);\n"
-			"gboolean %s_init(%s* self);\n"
-			"void %s_end(%s* self);\n"
-			"\n"
-			"\n",
-			plugin->m_szClassName,
-			plugin->m_szClassName,
-			plugin->m_szClassName,
-			plugin->m_szClassName,
-			plugin->m_szClassName,
-			plugin->m_szClassName,
-			plugin->m_szClassName,
-			plugin->m_szClassName
-		);
-		
-		if (!plugin->m_bInline)
-		{
-			fprintf
-			(
-				fpOut,
-				"#endif	/*_%s_H_*/\n"
-				"\n",
-				all_uppers
-			);
-		}
-	}	
-	free (all_uppers);
-}
-
-static void
-generate_source (AnjutaClassGenPlugin *plugin, FILE* fpOut)
-{
-	int i;
-	gchar* all_uppers = (gchar*)malloc((strlen(plugin->m_szClassName) + 1) * sizeof(gchar));
-	strcpy(all_uppers, plugin->m_szClassName);
-	for(i = 0; i < strlen(all_uppers); i++)
-	{
-		all_uppers[i] = toupper(all_uppers[i]);
-	}
-	
-	if(strcmp(plugin->m_szClassType, "Generic C++ Class") == 0)
-	{
-		if(!plugin->m_bInline)
-		{
-			fprintf(fpOut, "//\n// File: %s\n", plugin->m_szImplFile);
-			
-			{
-				gchar* username =	anjuta_preferences_get (plugin->prefs, IDENT_NAME);
-				gchar* email =  anjuta_preferences_get (plugin->prefs, IDENT_EMAIL);
-				
-				fprintf( fpOut, "// Created by: %s <%s>\n"
-				, username?username:"", email?email:"");
-				SAFE_FREE(username);
-				SAFE_FREE(email);
-			}
-			
-			{
-				struct tm *t = GetNowTime();
-				fprintf( fpOut, "// Created on: %s//\n\n", asctime(t) );
-			}
-			
-			fprintf
-			(
-				fpOut,
-				"#include \"%s\"\n"
-				"\n"
-				"\n",
-				plugin->m_szDeclFile
-			);
-		}
-		else
-		{
-			fprintf
-			(
-				fpOut,
-				"//------------------------------------------------------------------------------\n"
-				"// %s Implementation\n"
-				"//------------------------------------------------------------------------------\n"
-				"\n\n",
-				plugin->m_szClassName
-			);
-		}
-		
-		if(strlen(plugin->m_szBaseClassName) > 0)
-		{
-			/* output constructor with inheritence */
-			fprintf
-			(
-				fpOut,
-				"%s::%s() : %s()\n",
-				plugin->m_szClassName,
-				plugin->m_szClassName,
-				plugin->m_szBaseClassName
-			);
-		}
-		else
-		{
-			/* output constructor without inheritence */
-			fprintf
-			(
-				fpOut,
-				"%s::%s()\n",
-				plugin->m_szClassName,
-				plugin->m_szClassName
-			);	
-		}
-	
+	if (strlen (base_class) > 0)	{
+		/* output class with inheritance */
 		fprintf
 		(
 			fpOut, 
+			"class %s : %s %s\n"
 			"{\n"
-			"\t// TODO: put constructor code here\n"
-			"}\n"
-			"\n"
-			"\n"
-			"%s::~%s()\n"
-			"{\n"
-			"\t// TODO: put destructor code here\n"
-			"}\n"
-			"\n"
-			"\n", 
-			plugin->m_szClassName, 
-			plugin->m_szClassName
+			"\tpublic:\n"
+			"\t\t%s();\n",
+			class_name, 
+			access_inheritance,
+			base_class,
+			class_name
 		);
-		
-		if(plugin->m_bInline)
-		{
-			fprintf
-			(
-				fpOut,
-				"#endif	//_%s_H_\n"
-				"\n",
-				all_uppers
-			);
-		}
 	}
-	else if (strcmp (plugin->m_szClassType, "GTK+ Class") == 0)
+	else {
+		/* output class without inheritance */
+		fprintf
+		(
+			fpOut, 
+			"class %s\n"
+			"{\n"
+			"\tpublic:\n"
+			"\t\t%s();\n",
+			class_name, 
+			class_name
+		);
+	}
+		
+	if (is_virtual_destructor)
 	{
-		if (!plugin->m_bInline)
-		{
-			fprintf(fpOut, "/*\n * File: %s\n", plugin->m_szDeclFile);
-			
-			{
-				gchar* username = anjuta_preferences_get (plugin->prefs, IDENT_NAME);
-				gchar* email = anjuta_preferences_get (plugin->prefs, IDENT_EMAIL);
-				
-				fprintf( fpOut, " * Created by: %s <%s>\n"
-				  , username?username:"", email?email:"");
-			}
+		/* output virtual destructor */
+		fprintf
+		(
+			fpOut,
+			"\t\tvirtual ~%s();\n",
+			class_name
+		);
+	}
+	else
+	{
+		/* output non-virtual destructor */
+		fprintf
+		(
+			fpOut,
+			"\t\t ~%s();\n",
+			class_name
+		);
+	}
+		
+	fprintf
+	(
+		fpOut,
+		"\t\n"
+		"\t\t// %s interface\n"
+		"\t\n"
+		"\t\t// TODO: add member function declarations...\n"
+		"\t\n"
+		"\tprotected:\n"
+		"\t\t// %s variables\n"
+		"\t\n"
+		"\t\t// TODO: add member variables...\n"
+		"\t\n"
+		"};\n"
+		"\n"
+		"\n",
+		class_name,
+		class_name
+	);
+		
+	if(!is_inline)
+	{
+		fprintf
+		(
+			fpOut,
+			"#endif	//_%s_H_\n"
+			"\n",
+			class_name_all_uppers
+		);
+	}
+	
+	g_free (class_name_all_uppers);
+}
 
-			{
-				struct tm *t = GetNowTime();
-				fprintf( fpOut, " * Created on: %s */\n\n", asctime(t) );
-			}
-			
-			fprintf
-			(
+static void
+generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut)
+{
+	GtkWidget *combo;
+	const gchar *base_class = FETCH_STRING (data->gxml, "cc_base_class");	
+	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
+	const gchar *author_name = FETCH_STRING (data->gxml, "cc_author_name");
+	const gchar *author_email = FETCH_STRING (data->gxml, "cc_author_email");
+	gboolean is_virtual_destructor = FETCH_BOOLEAN (data->gxml, "cc_virtual_destructor");
+	struct tm *t = GetNowTime();	
+	
+	gchar* class_name_all_uppers = g_utf8_strup (class_name, strlen (class_name));
+
+	if(!is_inline)	{
+		fprintf (fpOut, "//\n// Class: %s\n", class_name);
+		fprintf (fpOut, "// Created by: %s <%s>\n", author_name, author_email);
+		fprintf (fpOut, "// Created on: %s//\n\n", asctime(t) );
+		
+		fprintf (
 				fpOut,
 				"#include \"%s\"\n"
 				"\n"
 				"\n",
-				plugin->m_szDeclFile
+				header_file
 			);
-		}
-		else
-		{
-			/* output some nice deliniation comments */
-			fprintf
-			(
-				fpOut,
-				"/*\n"
-				" * %s Implementation\n"
-				" */\n"
-				"\n",
-				plugin->m_szClassName
-			);
-		}
-		
+	}
+	else 	{
 		fprintf
 		(
 			fpOut,
-			
-			/* output constructor */
-			"%s* %s_new(void)\n"
-			"{\n"
-			"\t%s* self;\n"
-			"\tself = g_new(%s, 1);\n"
-			"\tif(NULL != self)\n"
-			"\t{\n"
-			"\t\tif(!%s_init(self))\n"
-			"\t\t{\n"
-			"\t\t\tg_free(self);\n"
-			"\t\t\tself = NULL;\n"
-			"\t\t}\n"
-			"\t}\n"
-			"\treturn self;\n"
-			"}\n"
-			"\n"
-			"\n"
-			
-			/* output destructor */
-			"void %s_delete(%s* self)\n"
-			"{\n"
-			"\tg_return_if_fail(NULL != self);\n"
-			"\t%s_end(self);\n"
-			"\tg_free(self);\n"
-			"}\n"
-			"\n"
-			"\n"
-			
-			/* output init */
-			"gboolean %s_init(%s* self)\n"
-			"{\n"
-			"\t/* TODO: put init code here */\n"
-			"\n"
-			"\treturn TRUE;\n"
-			"}\n"
-			"\n"
-			"\n"
-			
-			/* output deinit */
-			"void %s_end(%s* self)\n"
-			"{\n"
-			"\t/* TODO: put deinit code here */\n"
-			"}\n"
-			"\n"
-			"\n",
-			plugin->m_szClassName, 
-			plugin->m_szClassName,
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName, 
-			plugin->m_szClassName,
-			plugin->m_szClassName
+			"//------------------------------------------------------------------------------\n"
+			"// %s Implementation\n"
+			"//------------------------------------------------------------------------------\n"
+			"\n\n",
+			class_name
 		);
-		
-		if(plugin->m_bInline)
-		{
-			fprintf
-			(
-				fpOut,
-				"#endif	/*_%s_H_*/\n"
-				"\n",
-				all_uppers
-			);
-		}
 	}
-	free(all_uppers);
-}
-
-
-void
-class_gen_get_strings (AnjutaClassGenPlugin *plugin)
-{
-	SAFE_FREE(plugin->m_szClassName);
-	SAFE_FREE(plugin->m_szDeclFile);
-	SAFE_FREE(plugin->m_szImplFile);
-	SAFE_FREE(plugin->m_szBaseClassName);
-	SAFE_FREE(plugin->m_szAccess);
-	SAFE_FREE(plugin->m_szClassType);
-	plugin->m_szClassName = gtk_editable_get_chars(GTK_EDITABLE(plugin->entry_class_name),0, -1);
-	plugin->m_szDeclFile = gtk_editable_get_chars(GTK_EDITABLE(plugin->entry_header_file),0, -1);
-	plugin->m_szImplFile = gtk_editable_get_chars(GTK_EDITABLE(plugin->entry_source_file),0, -1);
-	plugin->m_szBaseClassName = gtk_editable_get_chars(GTK_EDITABLE(plugin->entry_base_class), 0, -1);
-	plugin->m_szAccess = gtk_editable_get_chars(GTK_EDITABLE(plugin->combo_access_entry), 0, -1);
-	plugin->m_szClassType = gtk_editable_get_chars(GTK_EDITABLE(plugin->combo_class_type_entry), 0, -1);
-	plugin->m_bVirtualDestructor = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(plugin->checkbutton_virtual_destructor));
-	plugin->m_bInline = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(plugin->checkbutton_inline));
-}
-
-
-void
-class_gen_init (AnjutaClassGenPlugin *plugin)
-{
-	plugin->m_bOK = FALSE;
-	plugin->m_bUserEdited = FALSE;
-	plugin->m_bUserSelectedHeader = FALSE;
-	plugin->m_bUserSelectedSource = FALSE;
-	plugin->m_bVirtualDestructor = FALSE;
-	plugin->m_bInline = FALSE;
-	plugin->m_szClassName = NULL;
-	plugin->m_szDeclFile= NULL;
-	plugin->m_szImplFile= NULL;
-	plugin->m_szBaseClassName = NULL;
-	plugin->m_szAccess = NULL;
-	plugin->m_szClassType = NULL;
-}
-
-
-void
-class_gen_del(AnjutaClassGenPlugin* plugin)
-{
-	SAFE_FREE(plugin->m_szClassName);
-	SAFE_FREE(plugin->m_szDeclFile);
-	SAFE_FREE(plugin->m_szImplFile);
-	SAFE_FREE(plugin->m_szBaseClassName);
-	SAFE_FREE(plugin->m_szAccess);
-	SAFE_FREE(plugin->m_szClassType);
-}
-
-
-void
-class_gen_show (AnjutaClassGenPlugin* plugin)
-{
-	if(NULL != class_gen_create_dialog_class (plugin))
-	{
-		gtk_widget_show (plugin->dlgClass);
-		gtk_widget_grab_focus(plugin->entry_class_name);
-		gtk_widget_set_sensitive(plugin->button_browse_header_file, FALSE);
-		gtk_widget_set_sensitive(plugin->button_browse_source_file, FALSE);
-		gtk_widget_set_sensitive(plugin->button_finish, FALSE);
+	
+	if (strlen (base_class) > 0)	{
+		/* output constructor with inheritence */
+		fprintf
+		(
+			fpOut,
+			"%s::%s() : %s()\n",
+			class_name,
+			class_name,
+			base_class
+		);
 	}
-}
+	else	{
+		/* output constructor without inheritence */
+		fprintf
+		(
+			fpOut,
+			"%s::%s()\n",
+			class_name,
+			class_name
+		);	
+	}
 
-
-void
-class_gen_create_code_class (AnjutaClassGenPlugin *plugin)
-{
-	class_gen_init (plugin);
-	class_gen_show (plugin);
-}
-
-
-GtkWidget* 
-class_gen_create_dialog_class (AnjutaClassGenPlugin* plugin)
-{
-  plugin->combo_access_items = NULL;
-  plugin->combo_class_type_items = NULL;
-  plugin->header_file_selection = NULL;
-  plugin->source_file_selection = NULL;
-  plugin->tooltips = gtk_tooltips_new ();
+	fprintf
+	(
+		fpOut, 
+		"{\n"
+		"\t// TODO: put constructor code here\n"
+		"}\n"
+		"\n"
+		"\n"
+		"%s::~%s()\n"
+		"{\n"
+		"\t// TODO: put destructor code here\n"
+		"}\n"
+		"\n"
+		"\n", 
+		class_name, 
+		class_name
+	);
 	
-  plugin->dlgClass = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gnome_window_icon_set_from_default((GtkWindow *) plugin->dlgClass);
-  gtk_object_set_data (GTK_OBJECT (plugin->dlgClass), "dlgClass", plugin->dlgClass);
-  gtk_window_set_title (GTK_WINDOW (plugin->dlgClass), _("Class Builder"));
-  gtk_window_set_default_size (GTK_WINDOW (plugin->dlgClass), 640, 480);
-	
-  plugin->fixed = gtk_fixed_new ();
-  gtk_widget_ref (plugin->fixed);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "fixed", plugin->fixed,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->fixed);
-  gtk_container_add (GTK_CONTAINER (plugin->dlgClass), plugin->fixed);
-
-  plugin->button_help = gtk_button_new_with_label (_("Help"));
-  gtk_widget_ref (plugin->button_help);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "button_help", plugin->button_help,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->button_help);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->button_help, 544, 424);
-  gtk_widget_set_uposition (plugin->button_help, 544, 424);
-  gtk_widget_set_usize (plugin->button_help, 80, 24);
-
-  plugin->button_cancel = gtk_button_new_with_label (_("Cancel"));
-  gtk_widget_ref (plugin->button_cancel);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "button_cancel", plugin->button_cancel,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->button_cancel);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->button_cancel, 448, 424);
-  gtk_widget_set_uposition (plugin->button_cancel, 448, 424);
-  gtk_widget_set_usize (plugin->button_cancel, 80, 24);
-
-  plugin->button_finish = gtk_button_new_with_label (_("Finish"));
-  gtk_widget_ref (plugin->button_finish);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "button_finish", plugin->button_finish,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->button_finish);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->button_finish, 352, 424);
-  gtk_widget_set_uposition (plugin->button_finish, 352, 424);
-  gtk_widget_set_usize (plugin->button_finish, 80, 24);
-
-  plugin->entry_class_name = gtk_entry_new ();
-  gtk_widget_ref (plugin->entry_class_name);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "entry_class_name", plugin->entry_class_name,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->entry_class_name);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->entry_class_name, 24, 152);
-  gtk_widget_set_uposition (plugin->entry_class_name, 24, 152);
-  gtk_widget_set_usize (plugin->entry_class_name, 184, 24);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->entry_class_name, _("Enter the name for the class you want to add."), NULL);
-
-  plugin->entry_header_file = gtk_entry_new ();
-  gtk_widget_ref (plugin->entry_header_file);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "entry_header_file", plugin->entry_header_file,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->entry_header_file);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->entry_header_file, 232, 152);
-  gtk_widget_set_uposition (plugin->entry_header_file, 232, 152);
-  gtk_widget_set_usize (plugin->entry_header_file, 160, 24);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->entry_header_file, _("Enter the declaration file name."), NULL);
-
-  plugin->entry_source_file = gtk_entry_new ();
-  gtk_widget_ref (plugin->entry_source_file);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "entry_source_file", plugin->entry_source_file,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->entry_source_file);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->entry_source_file, 440, 152);
-  gtk_widget_set_uposition (plugin->entry_source_file, 440, 152);
-  gtk_widget_set_usize (plugin->entry_source_file, 160, 24);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->entry_source_file, _("Enter the implementation file name."), NULL);
-
-  plugin->button_browse_header_file = gtk_button_new_with_label (_("..."));
-  gtk_widget_ref (plugin->button_browse_header_file);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "button_browse_header_file", plugin->button_browse_header_file,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->button_browse_header_file);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->button_browse_header_file, 392, 152);
-  gtk_widget_set_uposition (plugin->button_browse_header_file, 392, 152);
-  gtk_widget_set_usize (plugin->button_browse_header_file, 24, 24);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->button_browse_header_file, _("Browse for the declaration file name."), NULL);
-
-  plugin->button_browse_source_file = gtk_button_new_with_label (_("..."));
-  gtk_widget_ref (plugin->button_browse_source_file);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "button_browse_source_file", plugin->button_browse_source_file,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->button_browse_source_file);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->button_browse_source_file, 600, 152);
-  gtk_widget_set_uposition (plugin->button_browse_source_file, 600, 152);
-  gtk_widget_set_usize (plugin->button_browse_source_file, 24, 24);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->button_browse_source_file, _("Browse for the implementation file name."), NULL);
-
-  plugin->entry_base_class = gtk_entry_new ();
-  gtk_widget_ref (plugin->entry_base_class);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "entry_base_class", plugin->entry_base_class,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->entry_base_class);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->entry_base_class, 24, 200);
-  gtk_widget_set_uposition (plugin->entry_base_class, 24, 200);
-  gtk_widget_set_usize (plugin->entry_base_class, 184, 24);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->entry_base_class, _("Enter the name of the class your new class will inherit from."), NULL);
-
-  plugin->colormap = gtk_widget_get_colormap(plugin->dlgClass);
-  plugin->gdkpixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL, plugin->colormap, &plugin->mask,
-						    NULL, class_logo_xpm);
-  plugin->pixmap_logo = gtk_pixmap_new(plugin->gdkpixmap, plugin->mask);
-  gdk_pixmap_unref(plugin->gdkpixmap);
-  gdk_bitmap_unref(plugin->mask);
-  gtk_widget_ref (plugin->pixmap_logo);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "pixmap_logo", plugin->pixmap_logo,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->pixmap_logo);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->pixmap_logo, 568, 8);
-  gtk_widget_set_uposition (plugin->pixmap_logo, 568, 8);
-  gtk_widget_set_usize (plugin->pixmap_logo, 64, 64);
-
-  plugin->hseparator1 = gtk_hseparator_new ();
-  gtk_widget_ref (plugin->hseparator1);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "hseparator1", plugin->hseparator1,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->hseparator1);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->hseparator1, 0, 72);
-  gtk_widget_set_uposition (plugin->hseparator1, 0, 72);
-  gtk_widget_set_usize (plugin->hseparator1, 640, 16);
-
-  plugin->label_description = gtk_label_new (_("This plugin will create a class of the type you specify and add it to your project. "));
-  gtk_widget_ref (plugin->label_description);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_description", plugin->label_description,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_description);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_description, 32, 40);
-  gtk_widget_set_uposition (plugin->label_description, 32, 40);
-
-  plugin->label_class_name = gtk_label_new (_("Class name: "));
-  gtk_widget_ref (plugin->label_class_name);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_class_name", plugin->label_class_name,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_class_name);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_class_name, 24, 136);
-  gtk_widget_set_uposition (plugin->label_class_name, 24, 136);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_class_name), GTK_JUSTIFY_LEFT);
-
-  plugin->label_header_file = gtk_label_new (_("Header file:  "));
-  gtk_widget_ref (plugin->label_header_file);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_header_file", plugin->label_header_file,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_header_file);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_header_file, 232, 136);
-  gtk_widget_set_uposition (plugin->label_header_file, 232, 136);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_header_file), GTK_JUSTIFY_LEFT);
-
-  plugin->label_source_file = gtk_label_new (_("Source file:  "));
-  gtk_widget_ref (plugin->label_source_file);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_source_file", plugin->label_source_file,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_source_file);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_source_file, 440, 136);
-  gtk_widget_set_uposition (plugin->label_source_file, 440, 136);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_source_file), GTK_JUSTIFY_LEFT);
-
-  plugin->label_base_class = gtk_label_new (_("Base class:   "));
-  gtk_widget_ref (plugin->label_base_class);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_base_class", plugin->label_base_class,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_base_class);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_base_class, 24, 184);
-  gtk_widget_set_uposition (plugin->label_base_class, 24, 184);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_base_class), GTK_JUSTIFY_LEFT);
-
-  plugin->label_access = gtk_label_new (_("Base class inheritance: "));
-  gtk_widget_ref (plugin->label_access);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_access", plugin->label_access,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_access);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_access, 232, 184);
-  gtk_widget_set_uposition (plugin->label_access, 232, 184);
-
-  plugin->hseparator3 = gtk_hseparator_new ();
-  gtk_widget_ref (plugin->hseparator3);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "hseparator3", plugin->hseparator3,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->hseparator3);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->hseparator3, 0, 232);
-  gtk_widget_set_uposition (plugin->hseparator3, 0, 232);
-  gtk_widget_set_usize (plugin->hseparator3, 640, 16);
-
-  plugin->hseparator2 = gtk_hseparator_new ();
-  gtk_widget_ref (plugin->hseparator2);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "hseparator2", plugin->hseparator2,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->hseparator2);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->hseparator2, 0, 400);
-  gtk_widget_set_uposition (plugin->hseparator2, 0, 400);
-  gtk_widget_set_usize (plugin->hseparator2, 640, 16);
-
-  plugin->hseparator4 = gtk_hseparator_new ();
-  gtk_widget_ref (plugin->hseparator4);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "hseparator4", plugin->hseparator4,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->hseparator4);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->hseparator4, 0, 456);
-  gtk_widget_set_uposition (plugin->hseparator4, 0, 456);
-  gtk_widget_set_usize (plugin->hseparator4, 640, 16);
-
-  plugin->checkbutton_inline = gtk_check_button_new_with_label (_("Inline the declaration and implementation"));
-  gtk_widget_ref (plugin->checkbutton_inline);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "checkbutton_inline", plugin->checkbutton_inline,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->checkbutton_inline);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->checkbutton_inline, 232, 104);
-  gtk_widget_set_uposition (plugin->checkbutton_inline, 232, 104);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->checkbutton_inline, _("If checked, the plugin will generate both the declaration and implementation in the header file and will not create a source file."), NULL);
-
-  plugin->label_author = gtk_label_new (_("By:  Dave Huseby <huseby@linuxprogrammer.org>"));
-  gtk_widget_ref (plugin->label_author);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_author", plugin->label_author,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_author);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_author, 0, 464);
-  gtk_widget_set_uposition (plugin->label_author, 0, 464);
-  gtk_widget_set_sensitive (plugin->label_author, FALSE);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_author), GTK_JUSTIFY_LEFT);
-
-  plugin->label_version = gtk_label_new (_("V 0.0.2 (June 11, 2002)"));
-  gtk_widget_ref (plugin->label_version);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_version", plugin->label_version,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_version);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_version, 528, 464);
-  gtk_widget_set_uposition (plugin->label_version, 528, 464);
-  gtk_widget_set_sensitive (plugin->label_version, FALSE);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_version), GTK_JUSTIFY_RIGHT);
-
-  plugin->label_todo = gtk_label_new (_("TODO: add the ability to declare member functions and their parameters here."));
-  gtk_widget_ref (plugin->label_todo);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_todo", plugin->label_todo,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_todo);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_todo, 120, 312);
-  gtk_widget_set_uposition (plugin->label_todo, 120, 312);
-  gtk_widget_set_sensitive (plugin->label_todo, FALSE);
-
-  plugin->label_welcome = gtk_label_new (_("Welcome to the Anjuta Class Builder. "));
-  gtk_widget_ref (plugin->label_welcome);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_welcome", plugin->label_welcome,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_welcome);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_welcome, 32, 16);
-  gtk_widget_set_uposition (plugin->label_welcome, 32, 16);
-
-  plugin->label_class_type = gtk_label_new (_("Class type:   "));
-  gtk_widget_ref (plugin->label_class_type);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "label_class_type", plugin->label_class_type,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->label_class_type);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->label_class_type, 24, 88);
-  gtk_widget_set_uposition (plugin->label_class_type, 24, 88);
-  gtk_label_set_justify (GTK_LABEL (plugin->label_class_type), GTK_JUSTIFY_LEFT);
-
-  plugin->combo_access = gtk_combo_new ();
-  gtk_widget_ref (plugin->combo_access);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "combo_access", plugin->combo_access,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->combo_access);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->combo_access, 232, 200);
-  gtk_widget_set_uposition (plugin->combo_access, 232, 200);
-  gtk_widget_set_usize (plugin->combo_access, 184, 24);
-  plugin->combo_access_items = g_list_append (plugin->combo_access_items, (gpointer) _("public"));
-  plugin->combo_access_items = g_list_append (plugin->combo_access_items, (gpointer) _("protected"));
-  plugin->combo_access_items = g_list_append (plugin->combo_access_items, (gpointer) _("private"));
-  gtk_combo_set_popdown_strings (GTK_COMBO (plugin->combo_access), plugin->combo_access_items);
-  g_list_free (plugin->combo_access_items);
-
-  plugin->combo_access_entry = GTK_COMBO (plugin->combo_access)->entry;
-  gtk_widget_ref (plugin->combo_access_entry);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "combo_access_entry", plugin->combo_access_entry,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->combo_access_entry);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->combo_access_entry, _("Choose the type of inheritence from the base class."), NULL);
-  gtk_entry_set_editable (GTK_ENTRY (plugin->combo_access_entry), FALSE);
-  gtk_entry_set_text (GTK_ENTRY (plugin->combo_access_entry), _("public"));
-
-  plugin->checkbutton_virtual_destructor = gtk_check_button_new_with_label (_("Virtual destructor"));
-  gtk_widget_ref (plugin->checkbutton_virtual_destructor);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "checkbutton_virtual_destructor", plugin->checkbutton_virtual_destructor,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->checkbutton_virtual_destructor);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->checkbutton_virtual_destructor, 440, 200);
-  gtk_widget_set_uposition (plugin->checkbutton_virtual_destructor, 440, 200);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->checkbutton_virtual_destructor, _("If checked, the destructor of your class will be declared virtual."), NULL);
-
-  plugin->combo_class_type = gtk_combo_new ();
-  gtk_widget_ref (plugin->combo_class_type);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "combo_class_type", plugin->combo_class_type,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->combo_class_type);
-  gtk_fixed_put (GTK_FIXED (plugin->fixed), plugin->combo_class_type, 24, 104);
-  gtk_widget_set_uposition (plugin->combo_class_type, 24, 104);
-  gtk_widget_set_usize (plugin->combo_class_type, 184, 24);
-  plugin->combo_class_type_items = g_list_append (plugin->combo_class_type_items, (gpointer) _("Generic C++ Class"));
-  plugin->combo_class_type_items = g_list_append (plugin->combo_class_type_items, (gpointer) _("GTK+ Class"));
-  gtk_combo_set_popdown_strings (GTK_COMBO (plugin->combo_class_type), plugin->combo_class_type_items);
-  g_list_free (plugin->combo_class_type_items);
-
-  plugin->combo_class_type_entry = GTK_COMBO (plugin->combo_class_type)->entry;
-  gtk_widget_ref (plugin->combo_class_type_entry);
-  gtk_object_set_data_full (GTK_OBJECT (plugin->dlgClass), "combo_class_type_entry", plugin->combo_class_type_entry,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (plugin->combo_class_type_entry);
-  gtk_tooltips_set_tip (plugin->tooltips, plugin->combo_class_type_entry, _("Select the type of class you would like to create."), NULL);
-  gtk_entry_set_editable (GTK_ENTRY (plugin->combo_class_type_entry), FALSE);
-  gtk_entry_set_text (GTK_ENTRY (plugin->combo_class_type_entry), _("Generic C++ Class"));
-
-  gtk_object_set_data (GTK_OBJECT (plugin->dlgClass), "tooltips", plugin->tooltips);
-
-  /* setup callbacks */
-  g_signal_connect (G_OBJECT (plugin->dlgClass), "delete_event",
-					  GTK_SIGNAL_FUNC (on_delete_event),
-					  plugin);
-  g_signal_connect (G_OBJECT (plugin->dlgClass), "key-press-event",
-					  GTK_SIGNAL_FUNC (on_class_gen_key_press_event),
-					  plugin);
-  g_signal_connect (G_OBJECT (plugin->button_browse_header_file), "clicked",
-                      GTK_SIGNAL_FUNC (on_header_browse_clicked),
-                      plugin);
-  g_signal_connect (G_OBJECT (plugin->button_browse_source_file), "clicked",
-                      GTK_SIGNAL_FUNC (on_source_browse_clicked),
-                      plugin);
-  g_signal_connect (G_OBJECT (plugin->button_finish), "clicked",
-					  GTK_SIGNAL_FUNC (on_finish_clicked),
-					  plugin);
-  g_signal_connect (G_OBJECT (plugin->button_cancel), "clicked",
-					  GTK_SIGNAL_FUNC (on_cancel_clicked),
-					  plugin);
-  g_signal_connect (G_OBJECT (plugin->button_help), "clicked",
-					  GTK_SIGNAL_FUNC (on_help_clicked),
-					  plugin);
-  g_signal_connect (G_OBJECT (plugin->entry_class_name), "changed",
-                      GTK_SIGNAL_FUNC (on_class_name_changed),
-                      plugin);
-  g_signal_connect (G_OBJECT (plugin->combo_class_type_entry), "changed",
-                      GTK_SIGNAL_FUNC (on_class_type_changed),
-                      plugin);
-  g_signal_connect (G_OBJECT (plugin->checkbutton_inline), "toggled",
-					  GTK_SIGNAL_FUNC (on_inline_toggled),
-					  plugin);
-  gtk_widget_grab_focus(plugin->entry_class_name);
-  return plugin->dlgClass;
+	if (is_inline)	{
+		fprintf
+		(
+			fpOut,
+			"#endif	//_%s_H_\n"
+			"\n",
+			class_name_all_uppers
+		);
+	}
+	g_free (class_name_all_uppers);
 }

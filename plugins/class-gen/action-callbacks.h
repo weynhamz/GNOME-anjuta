@@ -24,21 +24,20 @@
 #include <glib.h>
 #include "plugin.h"
 
-gint on_delete_event (GtkWidget* widget, GdkEvent* event, AnjutaClassGenPlugin *plugin);
-gboolean on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
-                                           AnjutaClassGenPlugin *plugin);
-void on_header_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
-void on_source_browse_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
-void on_class_name_changed (GtkEditable* editable, AnjutaClassGenPlugin *plugin);
-void on_class_type_changed (GtkEditable* editable, AnjutaClassGenPlugin *plugin);
-void on_finish_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
-void on_cancel_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
-void on_help_clicked (GtkButton* button, AnjutaClassGenPlugin *plugin);
-void on_inline_toggled (GtkToggleButton* button, AnjutaClassGenPlugin *plugin);
-void on_header_file_selection_cancel (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin);
-void on_source_file_selection_cancel (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin);
-void on_header_file_selection (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin); 
-void on_source_file_selection (GtkFileSelection* selection, AnjutaClassGenPlugin *plugin); 
+typedef struct _ClassGenData
+{
+	GladeXML* gxml;
+	AnjutaClassGenPlugin* plugin;
+} ClassGenData;
 
+void on_classgen_new (AnjutaClassGenPlugin* plugin);
+void on_cc_button_browse_header_clicked (GtkButton *button, GladeXML* gxml);
+void on_cc_button_browse_source_clicked (GtkButton *button, GladeXML* gxml);
+void on_go_button_browse_header_clicked (GtkButton *button, GladeXML* gxml);
+void on_go_button_browse_source_clicked (GtkButton *button, GladeXML* gxml);
+void on_create_button_clicked (GtkButton *button, ClassGenData* data);
+void on_cancel_button_clicked (GtkButton *button, ClassGenData *data);
+gboolean on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                                           ClassGenData *data);
 
 #endif

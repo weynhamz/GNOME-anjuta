@@ -45,7 +45,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 {
 	AnjutaClassGenPlugin *cg_plugin;
 	const gchar *root_uri;
-	
+
 	cg_plugin = (AnjutaClassGenPlugin*) plugin;
 	root_uri = g_value_get_string (value);
 	
@@ -54,7 +54,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
 		if (root_dir)
 		{	
-			class_gen_set_root (cg_plugin, root_dir);
+			cg_plugin->top_dir = g_strdup(root_dir);
 		}
 		else
 			cg_plugin->top_dir = NULL;
@@ -81,8 +81,9 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaClassGenPlugin *cg_plugin;
-	DEBUG_PRINT ("AnjutaClassGenPlugin: Activating ClassGen plugin...");
 	
+	DEBUG_PRINT ("AnjutaClassGenPlugin: Activating ClassGen plugin...");
+	return TRUE;
 	cg_plugin = (AnjutaClassGenPlugin *)plugin;
 	cg_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
@@ -144,7 +145,7 @@ iwizard_activate (IAnjutaWizard *wiz, GError **err)
 	
 	/* check if the top_dir is setted, i.e. a project is loaded */
 	if (cg_plugin->top_dir != NULL ) 
-		class_gen_create_code_class ((AnjutaClassGenPlugin*)wiz);
+		on_classgen_new ((AnjutaClassGenPlugin*)wiz);
 	else
 		anjuta_util_dialog_error (NULL,
 								  _("A project must be open before creating a class"));
@@ -172,7 +173,6 @@ finalize (GObject *obj)
 	if (cg_plugin->top_dir)
 		g_free (cg_plugin->top_dir);
 	
-	class_gen_del (cg_plugin);	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 

@@ -20,22 +20,29 @@
 #define __CLASS_GEN_H__
 
 #include "plugin.h"
+#include "action-callbacks.h"
 
-#define SAFE_FREE(x) { if(x != NULL) g_free(x); }
+#define SAFE_FREE(x) { \
+	if(x != NULL) \
+		g_free(x); \
+	}
 
-GtkWidget* class_gen_create_dialog_class (AnjutaClassGenPlugin* plugin);
-void class_gen_create_code_class (AnjutaClassGenPlugin* plugin);
-void class_gen_init (AnjutaClassGenPlugin* plugin);
-void class_gen_del (AnjutaClassGenPlugin* plugin);
-void class_gen_show (AnjutaClassGenPlugin* plugin);
-void class_gen_get_strings (AnjutaClassGenPlugin* plugin);
-void class_gen_generate (AnjutaClassGenPlugin *plugin);
-void class_gen_set_root (AnjutaClassGenPlugin* plugin, gchar* root_dir);
-void class_gen_message_box(const char* szMsg);
+#define FETCH_STRING(gxml, str) \
+		gtk_entry_get_text (GTK_ENTRY (glade_xml_get_widget (gxml, str)));
+		
+#define FETCH_BOOLEAN(gxml, str) \
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, str)));
 
-gboolean is_legal_class_name (const char* szClassName); 
-gboolean is_legal_file_name (const char* szFileName);
 
+gchar *browse_for_file (gchar *title);	
+	
+gboolean gobject_class_create_code (ClassGenData* data);
+gboolean transform_file (const gchar *input_file, const gchar *output_file, 
+					gchar **replace_table, const gchar *author, const gchar *email, 
+					gboolean date_output, gboolean gpl_output);
+gchar *cstr_replace_all (gchar *search, const gchar *find, const gchar *replace);
+
+gboolean generic_cpp_class_create_code (ClassGenData *data);
 
 
 #endif

@@ -1,3 +1,21 @@
+2005-03-04  Naba Kumar  <naba@gnome.org>
+
+	Patch from Massimo Cora' <maxcvs@email.it>:
+
+	* plugins/class-gen/Makefile.am,
+	plugins/class-gen/action-callbacks.c,
+	plugins/class-gen/action-callbacks.h,
+	(added) plugins/class-gen/anjuta-class-gen-plugin.glade,
+	plugins/class-gen/anjuta-class-gen.plugin.in,
+	plugins/class-gen/class_gen.c,
+	plugins/class-gen/class_gen.h,
+	(removed) plugins/class-gen/clsGen.c,
+	(added) plugins/class-gen/goc_template_header,
+	(added) plugins/class-gen/goc_template_source,
+	plugins/class-gen/plugin.c,
+	plugins/class-gen/plugin.h: Refactored class gen code.
+	Added GOCBuilder code. Fixed UI. Implemented plugin.
+
 2005-03-03  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/project-wizard/property.c
