@@ -232,7 +232,7 @@ create_eval_dialog ()
   GtkWidget *button21;
   GtkWidget *button22;
   GtkWidget *button23;
-	GtkWidget *addWatchButton;
+  GtkWidget *addWatchButton;
 
   dialog4 = gnome_dialog_new (_("Inspect/Evaluate"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog4), GTK_WIN_POS_MOUSE);
@@ -251,24 +251,21 @@ create_eval_dialog ()
   entry_set_text_n_select (entry8, eval_entry_history, TRUE);
   gtk_widget_show (entry8);
   gtk_box_pack_start (GTK_BOX (dialog_vbox4), entry8, FALSE, FALSE, 0);
-
+  
+  addWatchButton = gtk_button_new_with_label(_("Add To Watch"));
+  gtk_widget_show(addWatchButton);
+  gtk_box_pack_end(GTK_BOX (dialog_vbox4), addWatchButton, FALSE, FALSE, 0);
+  
   dialog_action_area4 = GNOME_DIALOG (dialog4)->action_area;
   gtk_widget_show (dialog_action_area4);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4),
 			     GTK_BUTTONBOX_END);
   gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area4), 8);
-
   gnome_dialog_append_button (GNOME_DIALOG (dialog4),
 			      GNOME_STOCK_BUTTON_HELP);
   button21 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
   gtk_widget_show (button21);
   GTK_WIDGET_SET_FLAGS (button21, GTK_CAN_DEFAULT);
-
-  gnome_dialog_append_button (GNOME_DIALOG (dialog4),
-			      _("Add To Watch"));
-  addWatchButton = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
-  gtk_widget_show (addWatchButton);
-  GTK_WIDGET_SET_FLAGS (addWatchButton, GTK_CAN_DEFAULT);
 
   gnome_dialog_append_button (GNOME_DIALOG (dialog4), GNOME_STOCK_BUTTON_CANCEL);
   button22 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;

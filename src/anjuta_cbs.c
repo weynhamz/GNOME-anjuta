@@ -173,12 +173,23 @@ void
 on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	gchar *full_filename;
+	gchar *entry_filename = NULL;
 	int i;
 	GList * list;
 	int elements;
 	
 	list = fileselection_get_filelist(app->fileselection);
 	elements = g_list_length(list);
+	/* If filename is only only written in entry but not selected (Bug #506441) */
+	if (elements == 0)
+	{
+		entry_filename = fileselection_get_filename(app->fileselection);
+		if (entry_filename)
+		{
+			list = g_list_append(list, entry_filename);
+			elements++;
+		}
+	}
 	for(i=0;i<elements;i++)
 	{
 		/*  full_filename = fileselection_get_filename (app->fileselection); */
@@ -212,6 +223,11 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		g_free (full_filename);
 	}
 	fileselection_hide_widget(app->fileselection);
+	if (entry_filename)
+	{
+		g_list_remove(list, entry_filename);
+		g_free(entry_filename);
+	}
 	/* g_free(list); */
 }
 

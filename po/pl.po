@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-12-31 17:13+0100\n"
+"POT-Creation-Date: 2002-01-25 12:14+0530\n"
 "PO-Revision-Date: 2001-12-31 17:00+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -18,86 +18,247 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
-msgid "Anjuta C/C++ IDE"
+#, fuzzy
+msgid "Anjuta IDE"
 msgstr "Anjuta C/C++ IDE"
 
-#: anjuta.desktop.in.in.h:1
+#: anjuta.desktop.in.in.h:2
 msgid "Integrated Development Environment"
 msgstr "Zintegrowane ¶rodowisko programistyczne"
 
-#: ccview/cccmd.cc:1
-msgid "/_Class Definition"
-msgstr "/Definicja _klasy"
-
-#: ccview/cccmd.cc:1
-msgid "/_Function Definition"
-msgstr "/Definicja f_unkcji"
-
-#: ccview/cccmd.cc:1
-msgid "/Function _Declaration"
-msgstr "/Deklaracja fun_kcji"
-
-#: ccview/cccmd.cc:1
-msgid "/_Shell here"
-msgstr "/_Pow³oka w tym miejscu"
-
-#: ccview/cccmd.cc:1
-msgid "/_Open"
-msgstr "/_Otwórz"
-
-#: ccview/cccproj.cc:1 src/tags_manager.c:1
-msgid "Cannot execute ctags"
-msgstr "Nie mo¿na uruchomiæ ctags"
-
-#: ccview/cccproj.cc:1 src/tags_manager.c:1
-#, c-format
-msgid ""
-"Cannot fork to execute ctags. I donno why!!\n"
-"In %s:%d"
+#: plugins/class-gen/clsGen.c:197
+msgid "Class name not valid"
 msgstr ""
-"Nie mo¿na stworzyæ procesu, aby uruchomiæ ctags. Przyczyna nieznana.\n"
-"W %s:%d"
 
-#: ccview/cccproj.cc:1
-msgid "Scanning and Updating files. Please Wait ..."
-msgstr "Analizowanie i aktualizowanie plików. Poczekaj chwilê ..."
+#: plugins/class-gen/clsGen.c:202
+msgid "Declaration filename not valid"
+msgstr ""
 
-#: ccview/cccproj.cc:1
-msgid "Updating file:"
-msgstr "Aktualizowanie pliku:"
+#: plugins/class-gen/clsGen.c:207
+msgid "Implementation filename not valid"
+msgstr ""
 
-#: ccview/cccproj.cc:1 ccview/cccproj.cc:1
-msgid "Updating file: "
-msgstr "Aktualizowanie pliku: "
+#: plugins/class-gen/clsGen.c:506
+#, fuzzy
+msgid "Error in importing source file"
+msgstr "B³±d przy zapisie do pliku: %s."
 
-#: ccview/ccview_main.cc:1 src/toolbar.c:1
-msgid "Classes"
+#: plugins/class-gen/clsGen.c:510
+msgid "Error in importing include file"
+msgstr ""
+
+#: plugins/class-gen/clsGen.c:513
+#, fuzzy
+msgid "Error in importing files"
+msgstr "B³±d przy zapisie do pliku: %s."
+
+#: plugins/class-gen/clsGen.c:542
+#, fuzzy
+msgid "Class Creator"
 msgstr "Klasy"
 
-#: ccview/ccview_main.cc:1
-msgid "Files"
-msgstr "Pliki"
+#: plugins/class-gen/clsGen.c:549
+#, fuzzy
+msgid "New Class "
+msgstr "Klasa:"
 
-#: ccview/func_dialog.cc:1
-msgid "Add Function"
-msgstr "Nowa funkcja"
+#: plugins/class-gen/clsGen.c:563 plugins/class-gen/clsGen.c:572
+msgid "Browse..."
+msgstr ""
 
-#: ccview/func_dialog.cc:1
-msgid "Function declaration:"
-msgstr "Deklaracja funkcji:"
+#: plugins/class-gen/clsGen.c:599
+#, fuzzy
+msgid "Class Name:"
+msgstr "Klasa:"
 
-#: ccview/support.c:1 ccview/support.c:1 src/appwiz_page3.c:1
-#: src/project_dbase_gui.c:1
+#: plugins/class-gen/clsGen.c:608
+#, fuzzy
+msgid "Declaration File:"
+msgstr "Deklaracje"
+
+#: plugins/class-gen/clsGen.c:617
+#, fuzzy
+msgid "Implementation File:"
+msgstr "Plik dokumentacji"
+
+#: plugins/sample1/plugin-sample1.c:8
+msgid "Sample Plugin Description. Holla!"
+msgstr "Opis przyk³adowej wtyczki."
+
+#: plugins/sample1/plugin-sample1.c:32
+msgid "Hello world!"
+msgstr "Witaj ¶wiecie!"
+
+#: plugins/sample1/plugin-sample1.c:33
+msgid "Sample plugin!"
+msgstr "Przyk³adowa wtyczka!"
+
+#: plugins/sample1/plugin-sample1.c:41
+msgid "Sample plugin"
+msgstr "Przyk³adowa wtyczka"
+
+#: plugins/sample1/plugin-sample1.c:47
+msgid "This is a sample plugin"
+msgstr "To jest przyk³adowa wtyczka"
+
+#: src/CORBA-Server.c:196
+msgid "CORBA Module not Initialized"
+msgstr ""
+
+#: src/CORBA-Server.c:448 src/project_dbase_gui.c:1225
+msgid "Error while copying the file inside the module."
+msgstr "B³±d przy kopiowaniu pliku wewn±trz modu³u."
+
+#: src/about.c:68
+#, fuzzy
+msgid "Copyright (c) 1999-2002 Naba Kumar"
+msgstr "Copyright (c) 1999-2001 Naba Kumar"
+
+#: src/about.c:79
+msgid "Anjuta Home Site"
+msgstr "Witryna domowa Anjunty"
+
+#: src/anjuta.c:75 src/anjuta.c:82
 #, c-format
-msgid "Couldn't find pixmap file: %s"
-msgstr "Nie mo¿na odnale¼æ pliku z piksmap±: %s"
+msgid "Anjuta: Caught signal %d (%s) !"
+msgstr "Anjuta: Otrzymano sygna³ %d (%s)!"
 
-#: ccview/support.c:1
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:110
+msgid "Open File"
+msgstr "Wybór otwieranego pliku"
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:116 src/anjuta.c:121
+msgid "Save File As"
+msgstr "Zapis pliku pod podan± nazw±"
+
+#: src/anjuta.c:227
+msgid "Cannot create application... exiting\n"
+msgstr "Nie mo¿na stworzyæ aplikacji... zakoñczenie\n"
+
+#: src/anjuta.c:278 src/anjuta.c:282 src/anjuta.c:1028 src/anjuta.c:1044
 #, c-format
-msgid "Couldn't create pixmap from file: %s"
-msgstr "Nie mo¿na stworzyæ piksmapy z pliku: %s"
+msgid "Anjuta: %s"
+msgstr "Anjuta: %s"
 
-#: src/anjuta_cbs.c:1
+#: src/anjuta.c:344
+msgid "Recent Files "
+msgstr "Ostatnie pliki "
+
+#: src/anjuta.c:844
+msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
+msgstr ""
+"# * NIE MODYFIKUJ ANI NIE ZMIENIAJ NAZWY TEGO PLIKU ** Wygenerowany przez "
+"Anjutê **\n"
+
+#: src/anjuta.c:993
+msgid "All files saved ..."
+msgstr "Wszystkie pliki zapisane ..."
+
+#: src/anjuta.c:1021
+#, c-format
+msgid "Anjuta: %s (Saved)"
+msgstr "Anjuta: %s (zapisany)"
+
+#: src/anjuta.c:1036
+#, c-format
+msgid "Anjuta: %s (Unsaved)"
+msgstr "Anjuta: %s (niezapisany)"
+
+#: src/anjuta.c:1063
+msgid "Anjuta: No file"
+msgstr "Anjuta: Brak pliku"
+
+#: src/anjuta.c:1321
+msgid "ERROR: "
+msgstr "B£¡D: "
+
+#: src/anjuta.c:1338
+msgid ""
+"\n"
+"System: "
+msgstr ""
+"\n"
+"System: "
+
+#: src/anjuta.c:1572
+#, c-format
+msgid ""
+"Not yet implemented.\n"
+"Insert code at \"%s:%u\""
+msgstr ""
+"Jeszcze nie zaimplementowano.\n"
+"Wstaw kod w \"%s:%u\""
+
+#: src/anjuta.c:1788
+msgid "Activate this to select this window"
+msgstr ""
+
+#: src/anjuta.c:1835
+#, c-format
+msgid ""
+"The \"%s\" utility is not installed.\n"
+"Install it and then restart Anjuta."
+msgstr ""
+"W systemie nie jest zainstalowane narzêdzie \"%s\".\n"
+"Zainstaluj je i ponownie uruchom Anjutê."
+
+#: src/anjuta.c:1861 src/anjuta.c:1896
+msgid "None"
+msgstr "Brak"
+
+#: src/anjuta.c:1878
+msgid "OVR"
+msgstr "NDP"
+
+#: src/anjuta.c:1882 src/anjuta.c:1888
+msgid "INS"
+msgstr "WST"
+
+#: src/anjuta.c:1899
+#, c-format
+msgid ""
+"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
+"Job: %s"
+msgstr ""
+"  Projekt: %s      Powiêkszenie: %d    Wiersz: %04d    Kolumna: %03d       "
+"%s     Zadanie: %s"
+
+#: src/anjuta.c:2111 src/anjuta.c:2114
+#, c-format
+msgid "Unable to Load Plug in Module %s. Err: %s"
+msgstr "Nie mo¿na za³adowaæ modu³u wtyczki %s. B³±d: %s"
+
+#: src/anjuta.c:2117
+#, c-format
+msgid "Plug in Module protocol unknown %s Err:%s"
+msgstr "Modu³ wtyczki %s ma niew³a¶ciwy format. B³±d: %s"
+
+#: src/anjuta.c:2120
+#, c-format
+msgid "Unable to Start Plug in Module %s"
+msgstr "Nie mo¿na uruchomiæ modu³u wtyczki %s"
+
+#: src/anjuta.c:2123
+#, c-format
+msgid "Bad Parameters to Plug in %s. Err: %s"
+msgstr "Niepoprawne parametry dla wtyczki %s. B³±d: %s"
+
+#: src/anjuta.c:2131
+#, c-format
+msgid ""
+"Unable to load plugin %s.\n"
+"Error %s"
+msgstr ""
+"Nie mo¿na za³adowaæ wtyczki %s.\n"
+"B³±d %s"
+
+#: src/anjuta.c:2202
+msgid "Out of Memory scanning for plugins."
+msgstr "Przy wyszukiwaniu wtyczek zabrak³o pamiêci."
+
+#: src/anjuta_cbs.c:128
 msgid ""
 "Some files (or the project) are not saved.\n"
 "Do you still want to exit?"
@@ -105,17 +266,17 @@ msgstr ""
 "Niektóre z plików (lub sam projekt) nie zosta³y zapisane.\n"
 "Czy nadal chcesz zakoñczyæ pracê?"
 
-#: src/anjuta_cbs.c:1 src/project_dbase_gui.c:1
+#: src/anjuta_cbs.c:197 src/project_dbase_gui.c:1273
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "To nie jest zwyk³y plik: %s."
 
-#: src/anjuta_cbs.c:1
+#: src/anjuta_cbs.c:203
 #, c-format
 msgid "No read permission for: %s."
 msgstr "Brak uprawnieñ do odczytu: %s."
 
-#: src/anjuta_cbs.c:1 src/anjuta_cbs.c:1
+#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:455
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -124,107 +285,158 @@ msgstr ""
 "Plik \"%s\" ju¿ istnieje.\n"
 "Czy chcesz go nadpisaæ?."
 
-#: src/anjuta_dirs.c:1
+#: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
 msgstr "Nie mo¿na stworzyæ katalogu z ustawieniami.\n"
 
-#: src/anjuta_info.c:1 src/anjuta_info.c:1
+#: src/anjuta_gui.c:207 src/anjuta_gui.c:296
+msgid "Click here to undock this window"
+msgstr "Aby od³±czyæ to okno, kliknij tutaj"
+
+#: src/anjuta_gui.c:241 src/anjuta_gui.c:263
+msgid "Click here to hide this window"
+msgstr "Aby ukryæ to okno, kliknij tutaj"
+
+#: src/anjuta_info.c:43 src/anjuta_info.c:89
 msgid "Information"
 msgstr "Informacja"
 
-#: src/appwiz_page1.c:1
+#: src/appwiz_page1.c:98
 msgid "Select the type of application to be developed"
 msgstr "Wybierz typ aplikacji, któr± chcesz stworzyæ"
 
-#: src/appwiz_page1.c:1
+#: src/appwiz_page1.c:134
 msgid "Generic/Terminal project"
 msgstr "Projekt ogólny/terminalowy"
 
-#: src/appwiz_page1.c:1
+#: src/appwiz_page1.c:138
 msgid "GTK project"
 msgstr "Projekt GTK+"
 
-#: src/appwiz_page1.c:1
+#: src/appwiz_page1.c:142
 msgid "GNOME project"
 msgstr "Projekt GNOME"
 
-#: src/appwiz_page1.c:1
-msgid "GTK-- project"
-msgstr "Projekt GTK--"
+#: src/appwiz_page1.c:146
+#, fuzzy
+msgid "GTKmm project"
+msgstr "Projekt GTK+"
 
-#: src/appwiz_page1.c:1
-msgid "GNOME-- project"
-msgstr "Projekt GNOME--"
+#: src/appwiz_page1.c:150
+#, fuzzy
+msgid "GNOMEmm project"
+msgstr "Projekt GNOME"
 
-#: src/appwiz_page1.c:1
+#: src/appwiz_page1.c:154
 msgid "Bonobo component"
 msgstr "Komponent Bonobo"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page1.c:158
+#, fuzzy
+msgid "LibGlade project"
+msgstr "Budowanie projektu"
+
+#: src/appwiz_page2.c:154
 msgid "Enter the basic Project information"
 msgstr "Wprowad¼ podstawowe informacje o projekcie"
 
-#: src/appwiz_page2.c:1 src/project_dbase_gui.c:1
+#: src/appwiz_page2.c:170 src/project_dbase_gui.c:648
 msgid "Project Name:"
 msgstr "Nazwa projektu:"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:177
 msgid "Project Version:"
 msgstr "Wersja projektu:"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:184
 msgid "Project Author:"
 msgstr "Autor projektu:"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:191
 msgid "Project Target:"
 msgstr "Obiekt docelowy projektu:"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:222
 msgid "Programming language"
 msgstr "Jêzyk programowania"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:233
 msgid "C"
 msgstr "C"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:239
 msgid "C++"
 msgstr "C++"
 
-#: src/appwiz_page2.c:1
+#: src/appwiz_page2.c:245
 msgid "Both C and C++"
 msgstr "C oraz C++"
 
-#: src/appwiz_page3.c:1
+#: src/appwiz_page3.c:112
 msgid "Enter a short description of the Project"
 msgstr "Wprowad¼ krótki opis projektu"
 
-#: src/appwiz_page3.c:1
+#: src/appwiz_page3.c:163
 msgid "Executable target"
 msgstr "Docelowy plik wykonywalny"
 
-#: src/appwiz_page3.c:1
+#: src/appwiz_page3.c:170
 msgid "Static library target"
 msgstr "Docelowa biblioteka statyczna"
 
-#: src/appwiz_page3.c:1
+#: src/appwiz_page3.c:176
 msgid "Dynamic library target"
 msgstr "Docelowa biblioteka dynamiczna"
 
-#: src/appwizard_cbs.c:1
+#: src/appwiz_page4.c:109
+msgid "Enter any additional Project options"
+msgstr "Wprowad¼ dodatkowe opcje projektu"
+
+#: src/appwiz_page4.c:126
+msgid " Project Options "
+msgstr " Opcje projektu "
+
+#: src/appwiz_page4.c:137
+msgid "Include GNU Copyright statement in file headings"
+msgstr "Do³±czanie informacji dotycz±cej licencji GNU w nag³ówkach plików"
+
+#: src/appwiz_page4.c:144
+msgid "Enable Gettext Support"
+msgstr "Obs³uga biblioteki gettext"
+
+#: src/appwiz_page4.c:151
+msgid "GNOME Menu Entry"
+msgstr "Wpis menu GNOME"
+
+#: src/appwiz_page4.c:161
+msgid "Entry name:"
+msgstr "Nazwa wpisu:"
+
+#: src/appwiz_page4.c:168
+msgid "Comment:"
+msgstr "Komentarz:"
+
+#: src/appwiz_page4.c:175
+msgid "Group:"
+msgstr "Grupa:"
+
+#: src/appwiz_page4.c:216
+msgid "Needs terminal"
+msgstr "Wymaga terminala"
+
+#: src/appwizard_cbs.c:106
 msgid "Project name"
 msgstr "Nazwa projektu"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:107
 msgid "Source target name"
 msgstr "Nazwa docelowego pliku ¼ród³owego"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:108
 msgid "Project version"
 msgstr "Wersja projektu"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:203
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -234,18 +446,18 @@ msgstr ""
 "Aby kontynuowaæ, musisz podaæ poprawne pole %s."
 
 #. For the time being
-#: src/appwizard_cbs.c:1 src/project_dbase.c:1 src/project_dbase.c:1
-#: src/project_dbase.c:1 src/signals_cbs.c:1 src/signals_cbs.c:1
-#: src/signals_cbs.c:1
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1435 src/project_dbase.c:1440
+#: src/project_dbase.c:1443 src/signals_cbs.c:128 src/signals_cbs.c:141
+#: src/signals_cbs.c:154
 msgid "Yes"
 msgstr "Tak"
 
-#: src/appwizard_cbs.c:1 src/project_dbase.c:1 src/project_dbase.c:1
-#: src/signals_cbs.c:1 src/signals_cbs.c:1 src/signals_cbs.c:1
+#: src/appwizard_cbs.c:253 src/project_dbase.c:1437 src/project_dbase.c:1445
+#: src/signals_cbs.c:130 src/signals_cbs.c:143 src/signals_cbs.c:156
 msgid "No"
 msgstr "Nie"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:255
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -253,39 +465,39 @@ msgstr ""
 "Potwierd¼ nastêpuj±ce informacje:\n"
 "\n"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:256
 msgid "Project Name:    "
 msgstr "Nazwa projektu:  "
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:257
 msgid "Project Type:    "
 msgstr "Typ projektu:    "
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:258
 msgid "Target Type:     "
 msgstr "Docelowy typ:"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:259
 msgid "Source Target:   "
 msgstr "Docelowe ¿ród³o:"
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:260
 msgid "Version:         "
 msgstr "Wersja:          "
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:261
 msgid "Author:          "
 msgstr "Autor:           "
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:262
 msgid "Language:        "
 msgstr "Jêzyk:           "
 
-#: src/appwizard_cbs.c:1
+#: src/appwizard_cbs.c:263
 msgid "Gettext Support: "
 msgstr "Obs³uga biblioteki gettext: "
 
-#: src/appwizard_gui.c:1
+#: src/appwizard_gui.c:38
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -306,366 +518,367 @@ msgstr ""
 "zmiana pewnych ustawieñ pocz±tkowych mo¿e byæ\n"
 "pó¼niej niemo¿liwa."
 
-#: src/appwizard_gui.c:1 src/appwizard_gui.c:1
+#: src/appwizard_gui.c:101 src/appwizard_gui.c:133
 msgid "Application Wizard"
 msgstr "Druid aplikacji"
 
-#: src/appwizard_gui.c:1
+#: src/appwizard_gui.c:163
 msgid "Project Type"
 msgstr "Typ projektu"
 
-#: src/appwizard_gui.c:1
+#: src/appwizard_gui.c:188
 msgid "Basic Information"
 msgstr "Podstawowe informacje"
 
-#: src/appwizard_gui.c:1 src/project_config.c:1
+#: src/appwizard_gui.c:214 src/project_config.c:748
 msgid "Project Description"
 msgstr "Opis projektu"
 
-#: src/appwizard_gui.c:1 src/compiler_options_gui.c:1
+#: src/appwizard_gui.c:239 src/compiler_options_gui.c:1104
 msgid "Additional Options"
 msgstr "Dodatkowe opcje"
 
-#: src/appwizard_gui.c:1
+#: src/appwizard_gui.c:267
 msgid "Summary"
 msgstr "Podsumowanie"
 
-#: src/attach_process.c:1
+#: src/attach_process.c:118
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Nie mo¿na wykonaæ: %s."
 
-#: src/attach_process.c:1
+#: src/attach_process.c:127
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Nie mo¿na otworzyæ pliku: %s\n"
 
-#: src/attach_process_gui.c:1
+#: src/attach_process_gui.c:52
 msgid "Attach to process"
 msgstr "Przy³±czanie do procesu"
 
-#: src/attach_process_gui.c:1
+#: src/attach_process_gui.c:61
 msgid "Select the process to attach:"
 msgstr "Wybierz proces, do którego chcesz siê przy³±czyæ:"
 
-#: src/attach_process_gui.c:1
+#: src/attach_process_gui.c:81
 msgid "Pid"
 msgstr "Pid"
 
-#: src/attach_process_gui.c:1
+#: src/attach_process_gui.c:85
 msgid "Owner"
 msgstr "W³a¶ciciel"
 
-#: src/attach_process_gui.c:1
+#: src/attach_process_gui.c:89
 msgid "Time"
 msgstr "Czas"
 
-#: src/attach_process_gui.c:1
+#: src/attach_process_gui.c:93
 msgid "Command"
 msgstr "Polecenie:"
 
-#: src/attach_process_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/registers_gui.c:1
-#: src/sharedlib_gui.c:1 src/signals_gui.c:1 src/src_paths_gui.c:1
-#: src/stack_trace_gui.c:1
+#: src/attach_process_gui.c:103 src/compiler_options_gui.c:359
+#: src/compiler_options_gui.c:479 src/compiler_options_gui.c:636
+#: src/compiler_options_gui.c:764 src/registers_gui.c:45
+#: src/sharedlib_gui.c:38 src/signals_gui.c:51 src/src_paths_gui.c:172
+#: src/stack_trace_gui.c:50
 msgid "Update"
 msgstr "Od¶wie¿"
 
-#: src/attach_process_gui.c:1 src/text_editor_gui.c:1
+#: src/attach_process_gui.c:109 src/text_editor_gui.c:271
 msgid "Attach"
 msgstr "Przy³±cz"
 
-#: src/breakpoints.c:1
+#: src/breakpoints.c:530
 msgid "Old breakpoints disabled."
 msgstr "Stare punkty przerwania zablokowane."
 
-#: src/breakpoints.c:1 src/breakpoints_cbs.c:1
+#: src/breakpoints.c:684 src/breakpoints_cbs.c:131
 msgid "YES"
 msgstr "TAK"
 
-#: src/breakpoints.c:1 src/breakpoints_cbs.c:1
+#: src/breakpoints.c:690 src/breakpoints_cbs.c:124
 msgid "NO"
 msgstr "NIE"
 
-#: src/breakpoints.c:1 src/main_menubar_def.h:1 src/text_editor_gui.c:1
+#: src/breakpoints.c:700 src/main_menubar_def.h:534 src/text_editor_gui.c:224
 msgid "0"
 msgstr "0"
 
-#: src/breakpoints.c:1
+#: src/breakpoints.c:866
 msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
 msgstr ""
 "Zabawne, punkt przerwania jest ustawiony w dokumencie, lecz nie mo¿na "
 "odnale¼æ ID"
 
-#: src/breakpoints_cbs.c:1
+#: src/breakpoints_cbs.c:96
 msgid "Are you sure you want to delete all breakpoints?"
 msgstr "Czy na pewno chcesz usun±æ wszystkie punkty przerwania?"
 
-#: src/breakpoints_cbs.c:1
+#: src/breakpoints_cbs.c:276
 msgid "You must give a valid location to set the breakpoint."
 msgstr "Aby ustawiæ punkt przerwania, nale¿y podaæ poprawne po³o¿enie."
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:62
 msgid "Breakpoints"
 msgstr "Punkty przerwania"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:93
 msgid "Enabled"
 msgstr "Aktywny"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:97
 msgid "File"
 msgstr "Plik"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:101
 msgid "Line"
 msgstr "Wiersz"
 
-#: src/breakpoints_gui.c:1 src/text_editor_menu.c:1
+#. 11
+#: src/breakpoints_gui.c:105 src/text_editor_menu.c:304
 msgid "Function"
 msgstr "Funkcja"
 
-#: src/breakpoints_gui.c:1 src/signals_gui.c:1
+#: src/breakpoints_gui.c:109 src/signals_gui.c:122
 msgid "Pass"
 msgstr "Przebieg"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:113
 msgid "Condition"
 msgstr "Warunek"
 
-#: src/breakpoints_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/find_in_files_gui.c:1
-#: src/src_paths_gui.c:1
+#: src/breakpoints_gui.c:125 src/compiler_options_gui.c:354
+#: src/compiler_options_gui.c:474 src/compiler_options_gui.c:631
+#: src/compiler_options_gui.c:759 src/find_in_files_gui.c:132
+#: src/src_paths_gui.c:167
 msgid "Add"
 msgstr "Dodaj"
 
-#: src/breakpoints_gui.c:1 src/project_dbase_gui.c:1
+#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:398
 msgid "Edit"
 msgstr "Edycja"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:139
 msgid "Toggle Enable"
 msgstr "Prze³±czanie mo¿liwe"
 
-#: src/breakpoints_gui.c:1 src/stack_trace_gui.c:1
+#: src/breakpoints_gui.c:146 src/stack_trace_gui.c:57
 msgid "View Source"
 msgstr "Widok ¼ród³a"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:153
 msgid "Disable All"
 msgstr "Zablokuj wszystkie"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:160
 msgid "Enable All"
 msgstr "Odblokuj wszystkie"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:167
 msgid "Delete All"
 msgstr "Usuñ wszystkie"
 
-#: src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:174
 msgid "Delete"
 msgstr "Usuñ"
 
-#: src/breakpoints_gui.c:1 src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:269 src/breakpoints_gui.c:398
 msgid "Add Breakpoint"
 msgstr "Dodaj punkt przerwania"
 
-#: src/breakpoints_gui.c:1 src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:304 src/breakpoints_gui.c:441
 msgid "Location:"
 msgstr "Lokalizacja:"
 
-#: src/breakpoints_gui.c:1 src/breakpoints_gui.c:1
+#: src/breakpoints_gui.c:311 src/breakpoints_gui.c:448
 msgid "Condition:"
 msgstr "Warunek:"
 
-#: src/breakpoints_gui.c:1 src/breakpoints_gui.c:1 src/signals_gui.c:1
+#: src/breakpoints_gui.c:318 src/breakpoints_gui.c:455 src/signals_gui.c:254
 msgid "Pass:"
 msgstr "Przebieg:"
 
-#: src/build_file.c:1
+#: src/build_file.c:51
 msgid "File is not saved. Save it and build."
 msgstr "Plik nie jest zapisany. Zapisz go i rozpocznij budowanie."
 
-#: src/build_file.c:1
+#: src/build_file.c:76
 msgid "The executable is up-to-date. No need to build again."
 msgstr "Plik wykonywalny jest aktualny, nie trzeba go przebudowywaæ."
 
-#: src/build_file.c:1
+#: src/build_file.c:92
 msgid "I do not really know how to build this file."
 msgstr "Nie wiadomo w jaki sposób zbudowaæ ten plik."
 
-#: src/build_file.c:1 src/messages.c:1 src/preferences_gui.c:1
-#: src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/build_file.c:107 src/message-manager.cc:43 src/preferences_gui.c:180
+#: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Budowanie"
 
-#: src/build_file.c:1
+#: src/build_file.c:109
 #, c-format
 msgid "Building file: %s ...\n"
 msgstr "Budowanie pliku: %s ...\n"
 
-#: src/build_file.c:1 src/build_project.c:1 src/build_project.c:1
-#: src/build_project.c:1 src/build_project.c:1 src/build_project.c:1
-#: src/clean_project.c:1 src/clean_project.c:1 src/compile.c:1
-#: src/configurer.c:1 src/find_in_files.c:1
+#: src/build_file.c:130 src/build_project.c:350 src/build_project.c:381
+#: src/build_project.c:418 src/build_project.c:450 src/build_project.c:482
+#: src/clean_project.c:116 src/clean_project.c:196 src/compile.c:193
+#: src/configurer.c:237 src/find_in_files.c:215
 #, c-format
 msgid "Total time taken: %d secs\n"
 msgstr "Ca³kowity czas: %d sek.\n"
 
-#: src/build_file.c:1
+#: src/build_file.c:135
 msgid "Build completed ... unsuccessful\n"
 msgstr "Budowanie zakoñczone ... niepowodzeniem\n"
 
-#: src/build_file.c:1
+#: src/build_file.c:137
 msgid "Build completed ... unsuccessful"
 msgstr "Budowanie zakoñczone ... niepowodzeniem"
 
-#: src/build_file.c:1
+#: src/build_file.c:142
 msgid "Build completed ... successful\n"
 msgstr "Budowanie zakoñczone ... powodzeniem\n"
 
-#: src/build_file.c:1
+#: src/build_file.c:144
 msgid "Build completed ... successful"
 msgstr "Budowanie zakoñczone ... powodzeniem"
 
-#: src/build_project.c:1 src/compile.c:1
+#: src/build_project.c:60 src/compile.c:60
 msgid "Unable to build module. Check Preferences->Commands."
 msgstr "Nie mo¿na zbudowaæ modu³u. Sprawd¼ Preferencje->Polecenia."
 
-#: src/build_project.c:1 src/build_project.c:1 src/compile.c:1
+#: src/build_project.c:80 src/build_project.c:137 src/compile.c:75
 msgid "Build Project"
 msgstr "Budowanie projektu"
 
-#: src/build_project.c:1
+#: src/build_project.c:82
 msgid "Building source directory of the Project: "
 msgstr "Budowanie katalogu ¼ród³owego projektu: "
 
-#: src/build_project.c:1
+#: src/build_project.c:119
 msgid "Unable to build Project. Check Preferences->Commands."
 msgstr "Nie mo¿na zbudowaæ projektu. Sprawd¼ Preferencje->Polecenia."
 
-#: src/build_project.c:1
+#: src/build_project.c:140
 msgid "Building the whole Project: "
 msgstr "Budowanie ca³ego projektu: "
 
-#: src/build_project.c:1
+#: src/build_project.c:173
 msgid "Unable to build tarball. Check Preferences->Commands."
 msgstr "Nie mo¿na zbudowaæ archiwum tar. Sprawd¼ Preferencje->Polecenia."
 
-#: src/build_project.c:1
+#: src/build_project.c:191
 msgid "Build Distribution"
 msgstr "Budowanie dystrybucji"
 
-#: src/build_project.c:1
+#: src/build_project.c:195
 msgid "Building the distribution package of the Project: "
 msgstr "Budowanie pakietu dystrybucyjnego projektu: "
 
-#: src/build_project.c:1
+#: src/build_project.c:228
 msgid "Unable to Install Project. Check Preferences->Commands."
 msgstr "Nie mo¿na zainstalowaæ projektu. Sprawd¼ Preferencje->Polecenia."
 
-#: src/build_project.c:1
+#: src/build_project.c:246
 msgid "Install Project"
 msgstr "Instalowanie projektu"
 
-#: src/build_project.c:1
+#: src/build_project.c:248
 msgid "Installing the Project: "
 msgstr "Instalowanie projektu: "
 
-#: src/build_project.c:1
+#: src/build_project.c:289
 msgid "Unable to auto generate. Check Preferences->Commands."
 msgstr ""
 "Nie mo¿na automatycznie wygenerowaæ projektu. Sprawd¼ Ustawienia->Polecenia"
 
-#: src/build_project.c:1
+#: src/build_project.c:306
 msgid "Autogen Project"
 msgstr ""
 
-#: src/build_project.c:1
+#: src/build_project.c:309
 msgid "Auto generating the Project: "
 msgstr "Automatyczna generacja projektu: "
 
-#: src/build_project.c:1
+#: src/build_project.c:337
 msgid "Build completed...............Unsuccessful\n"
 msgstr "Budowanie zakoñczone..............Niepowodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:339
 msgid "Build terminated with error(s)."
 msgstr "Budowanie zakoñczy³o siê z b³êdami."
 
-#: src/build_project.c:1
+#: src/build_project.c:345
 msgid "Build completed...............Successful\n"
 msgstr "Budowanie zakoñczone...............Powodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:347
 msgid "Build completed ... successful."
 msgstr "Budowanie zakoñczone ... powodzeniem."
 
-#: src/build_project.c:1
+#: src/build_project.c:367
 msgid "Build All completed...............Unsuccessful\n"
 msgstr "Budowanie wszystkich plików zakoñczone.....Powodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:370
 msgid "Build All completed...............Unsuccessful"
 msgstr "Budowanie wszystkich plików zakoñczone....Niepowodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:376
 msgid "Build All completed...............Successful\n"
 msgstr "Budowanie wszystkich plików zakoñczone......Powodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:378
 msgid "Build All completed ... successful"
 msgstr "Budowanie wszystkich plików zakoñczone ... powodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:399
 msgid "Build-Distribution completed...............Unsuccessful\n"
 msgstr "Budowanie dystrybucji zakoñczone...............niepowodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:402
 msgid "Build-Distribution completed ... unsuccessful"
 msgstr "Budowanie dystrybucji zakoñczone ... niepowodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:408
 msgid "Build-Distribution completed...............Successful\n"
 msgstr "Budowanie dystrybucji zakoñczone...............powodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:412
 msgid ""
 "You will find the source tarball in the top level directory of the project\n"
 msgstr "Archiwum tar odnajdziesz w g³ównym katalogu projektu\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:415
 msgid "Build-Distribution completed ... successful"
 msgstr "Budowanie dystrybucji zakoñczone ... powodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:436
 msgid "Install completed...............Unsuccessful\n"
 msgstr "Instalacja zakoñczona..............Niepowodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:439
 msgid "Install completed...............Unsuccessful"
 msgstr "Instalacja zakoñczona..............Niepowodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:445
 msgid "Install completed...............Successful\n"
 msgstr "Instalacja zakoñczona..............Powodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:447
 msgid "Install completed ... successful"
 msgstr "Instalacja zakoñczona ... powodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:468
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Automatyczna generacja zakoñczona............niepowodzeniem\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:471
 msgid "Auto generation completed ... unsuccessful"
 msgstr "Automatyczna generacja zakoñczona ... niepowodzeniem"
 
-#: src/build_project.c:1
+#: src/build_project.c:477
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
@@ -673,153 +886,158 @@ msgstr ""
 "Automatyczna generacja zakoñczona.............powodzeniem\n"
 "Teraz skonfiguruj projekt.\n"
 
-#: src/build_project.c:1
+#: src/build_project.c:479
 msgid "Auto generation completed ... successful"
 msgstr "Automatyczna generacja zakoñczona ... powodzeniem"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:61
 msgid "Unable to clean project. Check Preferences->Commands."
 msgstr "Nie mo¿na wyczy¶ciæ projektu. Sprawd¼ Ustawienia->Polecenia."
 
-#: src/clean_project.c:1
+#: src/clean_project.c:72
 msgid "Clean"
 msgstr "Wyczy¶æ"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:75
 msgid "Cleaning the source directory of the project: "
 msgstr "Czyszczenie katalogu ¼ród³owego projektu: "
 
-#: src/clean_project.c:1
+#: src/clean_project.c:103
 msgid "Cleaning completed...............Unsuccessful\n"
 msgstr "Czyszczenie zakoñczone.............Niepowodzeniem\n"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:105
 msgid "Cleaning completed ... unsuccessful"
 msgstr "Czyszczenie zakoñczone ... niepowodzeniem"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:111
 msgid "Cleaning completed...............Successful\n"
 msgstr "Czyszczenie zakoñczone..............Powodzeniem\n"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:113
 msgid "Cleaning completed ... successful"
 msgstr "Czyszczenie zakoñczone ... powodzeniem"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:147
 msgid "Unable to clean all project. Check Preferences->Commands."
 msgstr "Nie mo¿na wyczy¶ciæ ca³ego projektu. Sprawd¼ Ustawienia->Polecenia."
 
-#: src/clean_project.c:1
+#: src/clean_project.c:158
 msgid "Clean All"
 msgstr "Wyczy¶æ wszystko"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:161
 msgid "Cleaning whole of the project: "
 msgstr "Czyszczenie ca³ego projektu: "
 
-#: src/clean_project.c:1
+#: src/clean_project.c:183
 msgid "Clean all completed...............Unsuccessful\n"
 msgstr "Czyszczenie ca³ego projektu zakoñczone.....Niepowodzeniem\n"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:185
 msgid "Clean all completed ... unsuccessful"
 msgstr "Czyszczenie ca³ego projektu zakoñczone ... niepowodzeniem"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:191
 msgid "Clean all completed...............Successful\n"
 msgstr "Czyszczenie ca³ego projektu zakoñczone.....Powodzeniem\n"
 
-#: src/clean_project.c:1
+#: src/clean_project.c:193
 msgid "Clean all completed ... successful"
 msgstr "Czyszczenie ca³ego projektu zakoñczone ... powodzeniem"
 
-#: src/commands.c:1
+#: src/commands.c:582
 msgid "Commands"
 msgstr "Polecenia"
 
-#: src/commands.c:1
+#: src/commands.c:600
 msgid "Select programming language:"
 msgstr "Wybierz jêzyk programowania:"
 
-#: src/commands.c:1
+#: src/commands.c:626
 msgid " Language specific commands "
 msgstr " Polecenia specyficzne dla jêzyka "
 
-#: src/commands.c:1
+#: src/commands.c:640
 msgid "Compile File:"
 msgstr "Kompilacja pliku:"
 
-#: src/commands.c:1
+#: src/commands.c:648
+#, fuzzy
+msgid "Make File:"
+msgstr "Makefile"
+
+#: src/commands.c:656
 msgid "Build File:"
 msgstr "Budowanie pliku:"
 
-#: src/commands.c:1
+#: src/commands.c:664
 msgid "Execute File:"
 msgstr "Wykonanie pliku:"
 
-#: src/commands.c:1
+#: src/commands.c:696
 msgid " General commands "
 msgstr " Ogólne polecenia "
 
-#: src/commands.c:1
+#: src/commands.c:710
 msgid "Pixmap editor:"
 msgstr "Edytor piksmap:"
 
-#: src/commands.c:1
+#: src/commands.c:718
 msgid "Image editor:"
 msgstr "Program graficzny:"
 
-#: src/commands.c:1
+#: src/commands.c:726
 msgid "HTML viewer:"
 msgstr "Przegl±darka HTML-a:"
 
-#: src/commands.c:1
+#: src/commands.c:752
 msgid "Load global defaults"
 msgstr "Wczytaj domy¶lne ustawienia globalne"
 
-#: src/commands.c:1
+#: src/commands.c:759
 msgid "Load user defaults"
 msgstr "Wczytaj domy¶lne ustawienia u¿ytkownika"
 
-#: src/compile.c:1
+#: src/compile.c:77
 msgid "Building source directory of the project: "
 msgstr "Budowanie katalogu ¼ród³owego dla projektu: "
 
-#: src/compile.c:1
+#: src/compile.c:108
 msgid "This file is not saved. Save it first and then compile."
 msgstr "Ten plik nie zosta³ zapisany. Zapisz go najpierw a potem skompiluj."
 
-#: src/compile.c:1
+#: src/compile.c:129
 msgid "The object file is up to date. No need to compile again."
 msgstr "Plik obiektowy jest aktualny. Nie ma potrzeby ponownej kompilacji."
 
-#: src/compile.c:1
+#: src/compile.c:141
 msgid "I do not really know how to compile this file."
 msgstr "Program nie wie jak skompilowaæ ten plik."
 
-#: src/compile.c:1 src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/compile.c:154 src/text_editor_gui.c:235 src/toolbar.c:451
 msgid "Compile"
 msgstr "Skompiluj"
 
-#: src/compile.c:1
+#: src/compile.c:156
 #, c-format
 msgid "Compiling file: %s ...\n"
 msgstr "Kompilowanie pliku: %s ...\n"
 
-#: src/compile.c:1 src/compile.c:1
+#: src/compile.c:179 src/compile.c:182
 msgid "Compile completed ... unsuccessful"
 msgstr "Kompilacja zakoñczona ... niepowodzeniem"
 
-#: src/compile.c:1 src/compile.c:1
+#: src/compile.c:187 src/compile.c:190
 msgid "Compile completed ... successful"
 msgstr "Kompilacja zakoñczona ... powodzeniem"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:240
 #, c-format
 msgid "Cannot create: %s."
 msgstr "Nie mo¿na stworzyæ: %s."
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:243
 #, c-format
 msgid ""
 "Support ID: %s\n"
@@ -828,11 +1046,11 @@ msgstr ""
 "ID obs³ugiwanego elementu: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:244
 msgid "Description:\n"
 msgstr "Opis:\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:246
 #, c-format
 msgid ""
 "Dependencies: %s\n"
@@ -841,11 +1059,11 @@ msgstr ""
 "Zale¿no¶ci: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:247
 msgid "Macros in configure.in fie:\n"
 msgstr "Makra w pliku configure.in:\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:249
 #, c-format
 msgid ""
 "Variable(s) for cflags: %s\n"
@@ -854,7 +1072,7 @@ msgstr ""
 "Zmienna(e) dla cflag: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:251
 #, c-format
 msgid ""
 "Variable(s) for Libs: %s\n"
@@ -863,7 +1081,7 @@ msgstr ""
 "Zmienna(e) dla Bibliotek: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:253
 #, c-format
 msgid ""
 "Compile time Cflags: %s\n"
@@ -872,7 +1090,7 @@ msgstr ""
 "Czas kompilacji Cflag: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:255
 #, c-format
 msgid ""
 "Compile time Libs: %s\n"
@@ -881,192 +1099,192 @@ msgstr ""
 "Czas kompilacji Bibliotek: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:257
 msgid "Entries in acconfig.h file:\n"
 msgstr "Wpisy w pliku acconfig.h:\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:259
 msgid "Installed status:\n"
 msgstr "Stan instalacji:\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:274
 #, c-format
 msgid "    Installed => %s\n"
 msgstr "    Zainstalowano => %s\n"
 
-#: src/compiler_options_cbs.c:1
+#: src/compiler_options_cbs.c:278
 msgid "    Not Installed.\n"
 msgstr "    Nie zainstalowano.\n"
 
-#: src/compiler_options_cbs.c:1 src/compiler_options_cbs.c:1
-#: src/compiler_options_cbs.c:1 src/compiler_options_cbs.c:1
-#: src/src_paths_cbs.c:1
+#: src/compiler_options_cbs.c:367 src/compiler_options_cbs.c:460
+#: src/compiler_options_cbs.c:554 src/compiler_options_cbs.c:643
+#: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
 msgstr "Czy na pewno chcesz wyczy¶ciæ listê?"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:65
 msgid "Compiler Options"
 msgstr "Opcje kompilatora"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:82
 msgid "Supports"
 msgstr "Obs³ugiwane elementy"
 
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:92 src/compiler_options_gui.c:332
 msgid "Include Paths"
 msgstr "¦cie¿ki do plików nag³ówkowych"
 
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:102 src/compiler_options_gui.c:453
 msgid "Library Paths"
 msgstr "¦cie¿ki do bibliotek"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:112
 msgid "Libraries"
 msgstr "Biblioteki"
 
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:122 src/compiler_options_gui.c:737
 msgid "Defines"
 msgstr "Definicje"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:132
 msgid "Warnings"
 msgstr "Ostrze¿enia"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:142
 msgid "Optimization"
 msgstr "Optymalizacje"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:152
 msgid "Others"
 msgstr "Inne"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:249
 msgid "Select the Supports to add"
 msgstr "Wybierz wykorzystywane elementy"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:258
 msgid "Info"
 msgstr "Pliki Info"
 
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/src_paths_gui.c:1
+#: src/compiler_options_gui.c:342 src/compiler_options_gui.c:463
+#: src/compiler_options_gui.c:620 src/compiler_options_gui.c:747
+#: src/src_paths_gui.c:155
 msgid "<: Enter here"
 msgstr "<: Wprowad¼ tutaj"
 
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/find_in_files_gui.c:1 src/main_menubar_def.h:1
-#: src/project_dbase_gui.c:1 src/src_paths_gui.c:1 src/watch_gui.c:1
+#: src/compiler_options_gui.c:364 src/compiler_options_gui.c:484
+#: src/compiler_options_gui.c:641 src/compiler_options_gui.c:769
+#: src/find_in_files_gui.c:136 src/main_menubar_def.h:734
+#: src/project_dbase_gui.c:405 src/src_paths_gui.c:177 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Usuñ"
 
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/compiler_options_gui.c:1 src/compiler_options_gui.c:1
-#: src/find_in_files_gui.c:1 src/src_paths_gui.c:1 src/watch_gui.c:1
+#: src/compiler_options_gui.c:369 src/compiler_options_gui.c:489
+#: src/compiler_options_gui.c:646 src/compiler_options_gui.c:774
+#: src/find_in_files_gui.c:140 src/src_paths_gui.c:182 src/watch_gui.c:54
 msgid "Clear"
 msgstr "Wyczy¶æ"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:602
 msgid "Added Libraries"
 msgstr "Dodane biblioteki"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:606
 msgid "Stock"
 msgstr "Spis"
 
-#: src/compiler_options_gui.c:1 src/signals_gui.c:1
+#: src/compiler_options_gui.c:610 src/signals_gui.c:126
 msgid "Description"
 msgstr "Opis"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:835
 msgid "Treat warnings as errors."
 msgstr "Traktowanie ostrze¿eñ jak b³êdów."
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:854
 msgid "No Warnings"
 msgstr "Bez ostrze¿eñ"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:860
 msgid "All Warnings"
 msgstr "Wszystkie ostrze¿enia"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:870
 msgid "Warning for implicit declarations"
 msgstr "Ostrze¿enia o domniemanych deklaracjach"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:878
 msgid "Warning for mismatched return types"
 msgstr "Ostrze¿enia o niepasuj±cych zwracanych typach zmiennych"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:886
 msgid "Warning for unused variables"
 msgstr "Ostrze¿enia o nieu¿ywanych zmiennych"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:894
 msgid "Warning for unhandled switch case with enums"
 msgstr ""
 "Ostrze¿enia o nieobs³u¿onych przypadkach w instrukcjach switch z wyliczeniami"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:902
 msgid "Warning for nested comment"
 msgstr "Ostrze¿enia o zagnie¿d¿onych komentarzach"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:910
 msgid "Warning for uninitialized variable use"
 msgstr "Ostrze¿enia o u¿yciu niezainicjowanych zmiennych"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:918
 msgid "Warning for missing parentheses"
 msgstr "Ostrze¿enia o brakuj±cych nawiasach"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:926
 msgid "Warning on differences to traditional syntax"
 msgstr "Ostrze¿enia przy napotkaniu sk³adni innej od tradycyjnej"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:934
 msgid "Warning for variable shadowing"
 msgstr "Ostrze¿enia o przykrywaniu zmiennych"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:942
 msgid "Warning for suspected pointer arithmetic"
 msgstr "Ostrze¿enia o podejrzanej arytmetyce na wska¼nikach"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:950
 msgid "Warning for missing prototypes"
 msgstr "Ostrze¿enia o brakuj±cych prototypach"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:958
 msgid "Warning if declarations cannot be inlined"
 msgstr "Ostrze¿enia o niemo¿no¶ci rozwiniêcia deklaracji"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:966
 msgid "Warning for overloaded virtuals"
 msgstr "Ostrze¿enia o przeci±¿onych metodach wirtualnych"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1002
 msgid "No optimization"
 msgstr "Bez optymalizacji"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1012
 msgid "Low-level optimization (machine-dependent)"
 msgstr "Optymalizacja niskopoziomowa (zale¿na od maszyny)"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1022
 msgid "Higher-level optimization (without space-speed tradeoff)"
 msgstr "Optymalizacja wysokopoziomowa (bez zamiany zajêto¶ci pamiêci na czas)"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1032
 msgid "Fastest-code optimization (functions inlined whereever possible"
 msgstr ""
 "Optymalizacja pod k±tem najszybszego kodu (rozwijanie funkcji gdzie to tylko "
 "mo¿liwe)"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1043
 msgid "Note"
 msgstr "Notka"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1049
 msgid ""
 "With optimization enabled, you might have some difficulty\n"
 "debugging your program. So it is not a good idea to enable\n"
@@ -1078,23 +1296,23 @@ msgstr ""
 "debugowania i optymalizacji nie jest wiêc zalecane, chyba,\n"
 "¿e rzeczywi¶cie chcesz debugowaæ zoptymalizowany kod programu."
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1091
 msgid "Enable Debugging"
 msgstr "Z mo¿liwo¶ci± debugowania"
 
-#: src/compiler_options_gui.c:1
+#: src/compiler_options_gui.c:1099
 msgid "Enable Profiling"
 msgstr "Z mo¿liwo¶ci± profilowania"
 
-#: src/configurer.c:1 src/configurer.c:1 src/toolbar.c:1
+#: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
 msgid "Configure"
 msgstr "Konfiguracja"
 
-#: src/configurer.c:1
+#: src/configurer.c:106
 msgid "Configure Options (if any)"
 msgstr ""
 
-#: src/configurer.c:1
+#: src/configurer.c:182
 msgid ""
 "Project does not have executable configure script.\n"
 "You need to autogen the project first."
@@ -1102,45 +1320,45 @@ msgstr ""
 "Projekt nie posiada skryptu konfiguracyjnego pliku wykonywalnego.\n"
 "Powinien on zostaæ najpierw poddany automatycznej generacji."
 
-#: src/configurer.c:1
+#: src/configurer.c:205
 msgid "Configuring the project ....\n"
 msgstr "Konfigurowanie projektu ....\n"
 
-#: src/configurer.c:1
+#: src/configurer.c:224
 msgid "Configure completed...............Unsuccessful\n"
 msgstr "Konfigurowanie zakoñczone..............Niepowodzeniem\n"
 
-#: src/configurer.c:1
+#: src/configurer.c:226
 msgid "Configure completed ... unsuccessful"
 msgstr "Konfigurowanie zakoñczone ... niepowodzeniem"
 
-#: src/configurer.c:1
+#: src/configurer.c:232
 msgid "Configure completed...............Successful\n"
 msgstr "Konfigurowanie zakoñczone..............Powodzeniem\n"
 
-#: src/configurer.c:1
+#: src/configurer.c:234
 msgid "Configure completed ... successful"
 msgstr "Konfigurowanie zakoñczone ... powodzeniem"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:1
+#: src/debugger.c:64
 msgid "Load Executable File"
 msgstr "Odczyt pliku wykonywalnego"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:1
+#: src/debugger.c:70
 msgid "Load Core File"
 msgstr "Odczyt pliku core"
 
-#: src/debugger.c:1 src/debugger.c:1
+#: src/debugger.c:177 src/debugger.c:647
 msgid "Loading Executable: "
 msgstr "Wczytywanie pliku wykonywalnego: "
 
-#: src/debugger.c:1
+#: src/debugger.c:228
 msgid "Loading Core: "
 msgstr "Wczytywanie pliku core: "
 
-#: src/debugger.c:1
+#: src/debugger.c:274
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -1148,7 +1366,7 @@ msgstr ""
 "Pozosta³ jeszcze proces PRZY£¡CZONY do debugera.\n"
 "Przed uruchomieniem pliku wykonywalnego nale¿y go od³±czyæ."
 
-#: src/debugger.c:1
+#: src/debugger.c:282
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -1156,7 +1374,7 @@ msgstr ""
 "Pozosta³ jeszcze proces DZIA£AJ¡CY pod debugerem.\n"
 "Przed uruchomieniem pliku wykonywalnego nale¿y go od³±czyæ."
 
-#: src/debugger.c:1
+#: src/debugger.c:310
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the core file."
@@ -1164,7 +1382,7 @@ msgstr ""
 "Pozosta³ jeszcze proces PRZY£¡CZONY do debugera.\n"
 "Przed odczytem pliku core nale¿y go od³±czyæ."
 
-#: src/debugger.c:1
+#: src/debugger.c:318
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the core file."
@@ -1172,7 +1390,7 @@ msgstr ""
 "Pozosta³ jeszcze proces DZIA£AJ¡CY pod debugerem.\n"
 "Przed odczytem pliku core nale¿y go od³±czyæ."
 
-#: src/debugger.c:1
+#: src/debugger.c:575
 #, c-format
 msgid ""
 "I can not find: %s.\n"
@@ -1183,41 +1401,41 @@ msgstr ""
 "Nie mo¿na zainicjowaæ debugera. :-(\n"
 "Upewnij siê, ¿e program jest poprawnie zainstalowany."
 
-#: src/debugger.c:1
+#: src/debugger.c:642
 msgid "Debugger"
 msgstr "Debuger"
 
-#: src/debugger.c:1
+#: src/debugger.c:645
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Przygotowanie do rozpoczêcia sesji debugowania ...\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:657
 msgid "No executable specified\n"
 msgstr "Nie okre¶lono pliku wykonywalnego\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:661
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Aby rozpocz±æ debugowanie, otwórz plik wykonywalny lub przy³±cz siê do "
 "procesu.\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:669
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Podczas uruchamiania debugera wyst±pi³ b³±d.\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:673
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Upewnij siê, ¿e 'gdb' zosta³ zainstalowany w systemie.\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:813
 msgid "Error: "
 msgstr "B³±d: "
 
-#: src/debugger.c:1
+#: src/debugger.c:838
 msgid "Debugger is ready.\n"
 msgstr "Debuger jest gotowy.\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:945
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -1227,30 +1445,30 @@ msgstr ""
 "No i co, znalaz³e¶ jaki¶ B³±d? Sesja debugowania zakoñczona.\n"
 "\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1100
 msgid "Cannot execute gnome-terminal"
 msgstr "Nie mo¿na uruchomiæ programu gnome-terminal"
 
-#: src/debugger.c:1
+#: src/debugger.c:1135
 msgid "Error: Cannot start terminal for debugging."
 msgstr "B³±d: Nie mo¿na uruchomiæ terminala do debugowania."
 
-#: src/debugger.c:1
+#: src/debugger.c:1182
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
 "Ostrze¿enie: Brak terminalu debugowania. Przekierowanie wyj¶cia "
 "standardowego na /dev/null.\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1200
 msgid "Running program ... \n"
 msgstr "Uruchamianie programu ...\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1306
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Przy³±czanie do procesu: %d\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1334
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -1258,120 +1476,120 @@ msgstr ""
 "Proces ju¿ pracuje.\n"
 "Czy chcesz go zakoñczyæ i przy³±czyæ siê do nowego procesu?"
 
-#: src/debugger.c:1
+#: src/debugger.c:1342
 msgid "Anjuta is unable to attach to itself."
 msgstr ""
 
-#: src/debugger.c:1
+#: src/debugger.c:1425
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Od³±czanie procesu: %d\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1630
 msgid "All breakpoints enabled:\n"
 msgstr "Wszystkie aktywne punkty przerwania:\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1672
 msgid "All breakpoints disabled:\n"
 msgstr "Wszystkie nieaktywn punkty przerwania:\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1714
 msgid "All breakpoints deleted:\n"
 msgstr "Wszystkie usuniête punkty przerwania:\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1747
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Przerywanie procesu: %d\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1776
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Wysy³anie sygna³u %s do procesu: %d\n"
 
-#: src/debugger.c:1
+#: src/debugger.c:1806
 msgid "There was an error whilst signalling the process."
 msgstr "Podczas wysy³ania sygna³u do procesu wyst±pi³ b³±d."
 
-#: src/executer.c:1
+#: src/executer.c:119
 msgid "Execute with arguments"
 msgstr "Uruchomienie z argumentami"
 
-#: src/executer.c:1
+#: src/executer.c:133
 msgid "Command arguments"
 msgstr "Argumenty polecenia"
 
-#: src/executer.c:1
+#: src/executer.c:147
 msgid "Run in Terminal"
 msgstr "Uruchamianie w oknie Terminala"
 
 #. FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog
-#: src/executer.c:1 src/toolbar.c:1
+#: src/executer.c:187 src/toolbar.c:500
 msgid "Execute"
 msgstr "Wykonaj"
 
-#: src/executer.c:1 src/mainmenu_callbacks.c:1
+#: src/executer.c:234 src/mainmenu_callbacks.c:1633
 msgid "Target of this project is unknown"
 msgstr "Plik docelowy dla tego projektu jest nieznany"
 
-#: src/executer.c:1 src/mainmenu_callbacks.c:1
+#: src/executer.c:239 src/mainmenu_callbacks.c:1635
 msgid "Target of this project is not executable"
 msgstr "Plik docelowy dla tego projektu nie jest plikiem wykonywalnym"
 
-#: src/executer.c:1 src/mainmenu_callbacks.c:1
+#: src/executer.c:244 src/mainmenu_callbacks.c:1639
 msgid "Executable does not exist for this project."
 msgstr "Nie istnieje powi±zany z tym projektem plik wykonywalny."
 
-#: src/executer.c:1
+#: src/executer.c:257
 msgid "No file or project opened."
 msgstr "Brak otwartego pliku lub projektu."
 
-#: src/executer.c:1 src/executer.c:1 src/mainmenu_callbacks.c:1
-#: src/mainmenu_callbacks.c:1
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1659
+#: src/mainmenu_callbacks.c:1670
 msgid "No executable for this file."
 msgstr "Brak pliku wykonywalnego dla bie¿±cego pliku."
 
-#: src/executer.c:1 src/mainmenu_callbacks.c:1
+#: src/executer.c:286 src/mainmenu_callbacks.c:1665
 msgid "Executable is not up-to-date."
 msgstr "Plik wykonywalny nie jest aktualny."
 
-#: src/executer.c:1
+#: src/executer.c:298
 msgid "Unable to execute project. Check Settings->Commands."
 msgstr "Nie mo¿na uruchomiæ projektu. Sprawd¼ Ustawienia->Polecenia."
 
-#: src/executer.c:1
+#: src/executer.c:312
 msgid "This file is not saved. Save it first."
 msgstr "Plik nie zosta³ zapisany. Zapisz go najpierw."
 
-#: src/executer.c:1
+#: src/executer.c:320
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Nie mo¿na uruchomiæ pliku. Sprawd¼ Ustawienia->Polecenia."
 
-#: src/find_in_files.c:1
+#: src/find_in_files.c:178
 msgid "Find in files"
 msgstr "Znajd¼ w plikach"
 
-#: src/find_in_files.c:1
+#: src/find_in_files.c:181
 msgid "Finding in Files ....\n"
 msgstr "Przeszukiwanie plików ...\n"
 
-#: src/find_in_files.c:1
+#: src/find_in_files.c:201
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Przeszukiwanie plików zakoñczone..........niepowodzeniem\n"
 
-#: src/find_in_files.c:1
+#: src/find_in_files.c:204
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Przeszukiwanie plików zakoñczone ... niepowodzeniem"
 
-#: src/find_in_files.c:1
+#: src/find_in_files.c:210
 msgid "Find in Files completed...............Successful\n"
 msgstr "Przeszukiwanie plików zakoñczone...........powodzeniem\n"
 
-#: src/find_in_files.c:1
+#: src/find_in_files.c:212
 msgid "Find in Files completed ... successful"
 msgstr "Przeszukiwanie plików zakoñczone ... powodzeniem"
 
-#: src/find_in_files_cbs.c:1
+#: src/find_in_files_cbs.c:87
 msgid ""
 "ERROR: No input files supplied.\n"
 "I am wondering where will I search."
@@ -1379,7 +1597,7 @@ msgstr ""
 "B£¡D: Pliki wej¶ciowe nie zosta³y podane.\n"
 "Program nie ma informacji gdzie ma szukaæ."
 
-#: src/find_in_files_cbs.c:1
+#: src/find_in_files_cbs.c:95
 msgid ""
 "ERROR: No search string supplied.\n"
 "I am wondering what to search."
@@ -1387,133 +1605,180 @@ msgstr ""
 "B£¡D: Tekst do poszukiwania nie zosta³ wprowadzony.\n"
 "Program nie ma informacji czego ma szukaæ."
 
-#: src/find_in_files_gui.c:1
+#: src/find_in_files_gui.c:65
 msgid "Find in Files"
 msgstr "Wyszukiwanie w plikach"
 
-#: src/find_in_files_gui.c:1
+#: src/find_in_files_gui.c:88
 msgid "File/Directory to add:"
 msgstr "Dodawany plik/katalog"
 
-#: src/find_in_files_gui.c:1
+#: src/find_in_files_gui.c:119
 msgid "List of Files/Directories to be searched"
 msgstr "Lista przeszukiwanych plików/katalogów"
 
-#: src/find_in_files_gui.c:1
+#: src/find_in_files_gui.c:148
 msgid "Case Sensitive"
 msgstr "Uwzglêdniaj wielko¶æ liter"
 
-#: src/find_in_files_gui.c:1
+#: src/find_in_files_gui.c:153
 msgid " Search String"
 msgstr " Wyszukiwanie napisu"
 
-#: src/find_replace.c:1
+#: src/find_replace.c:332
 msgid "Find and Replace"
 msgstr "Wyszukiwanie i zmiana"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:340 src/find_text.c:259
 msgid " RegExp/String to search "
 msgstr " Wyszukiwany napis lub wyra¿enie regularne "
 
-#: src/find_replace.c:1
+#: src/find_replace.c:354
 msgid " String to replace "
 msgstr " Zamienny napis napis "
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:377 src/find_text.c:280
 msgid " Scope "
 msgstr " Zasiêg "
 
-#: src/find_replace.c:1
+#: src/find_replace.c:390
 msgid "Whole Document"
 msgstr "Ca³y dokument"
 
-#: src/find_replace.c:1
+#: src/find_replace.c:398
 msgid "From Cursor"
 msgstr "Od kursora"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:404 src/find_text.c:307
 msgid " Direction "
 msgstr " Kierunek "
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:416 src/find_text.c:319 src/text_editor_menu.c:79
 msgid "Forward"
 msgstr "Naprzód"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:423 src/find_text.c:326
 msgid "Backward"
 msgstr "Wstecz"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:429 src/find_text.c:332
 msgid "Type"
 msgstr "Typ"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:441 src/find_text.c:344
 msgid "RegExp"
 msgstr "Wyra¿enie regularne"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:448 src/find_text.c:351
 msgid "String"
 msgstr "Ci±g znaków"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:462 src/find_text.c:359
 msgid "Ignore case while searching"
 msgstr "Bez rozró¿niania ma³ych i wielkich liter"
 
-#: src/find_replace.c:1
+#: src/find_replace.c:469
 msgid "Prompt before Replace"
 msgstr "Potwierdzanie przed zmianami"
 
-#: src/find_replace.c:1 src/find_text.c:1
+#: src/find_replace.c:476 src/find_text.c:366
 msgid "Whole word"
 msgstr "Ca³y wyraz"
 
-#: src/find_replace.c:1
+#: src/find_replace.c:571
 msgid "Do you want to replace this?"
 msgstr "Czy chcesz to zast±piæ?"
 
-#: src/find_replace.c:1
+#: src/find_replace.c:629
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Nie odnaleziono w zaznaczonym tek¶cie napisu \"%s\""
 
-#: src/find_replace.c:1
+#: src/find_replace.c:632
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Tekst \"%s\" nie zosta³ odnaleziony z bie¿±cej lokalizacji"
 
-#: src/find_text.c:1 src/messages.c:1 src/text_editor_gui.c:1
-#: src/toolbar.c:1
+#: src/find_text.c:251 src/message-manager.cc:43 src/text_editor_gui.c:187
+#: src/toolbar.c:231
 msgid "Find"
 msgstr "Znajd¼"
 
-#: src/find_text.c:1
+#: src/find_text.c:293
 msgid "Whole document"
 msgstr "Ca³y dokument"
 
-#: src/find_text.c:1
+#: src/find_text.c:300
 msgid "From cursor"
 msgstr "Od kursora"
 
-#: src/find_text.c:1
+#: src/find_text.c:504
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Wyra¿enie \"%s\" nie zosta³o odnalezione w ca³ym dokumencie"
 
-#: src/find_text.c:1
+#: src/find_text.c:507
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Wyra¿enie \"%s\" nie zosta³o odnalezione w zaznaczonym bloku tekstu"
 
-#: src/find_text.c:1 src/toolbar_callbacks.c:1
+#: src/find_text.c:510 src/toolbar_callbacks.c:158
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Wyra¿enie \"%s\" nie zosta³o odnalezione z bie¿±cej lokalizacji"
 
-#: src/find_text.c:1
+#: src/find_text.c:521
 msgid "No matches. Wrap search around the document?"
 msgstr "Brak pasuj±cych wyra¿eñ. Przejrzeæ dokument od pocz±tku?"
 
-#: src/gnome_project.c:1
+#: src/glade_iface.c:72 src/glades.c:69
+msgid "Cannot fork glade."
+msgstr "Nie mo¿na stworzyæ procesu dla glade."
+
+#: src/glade_iface.c:109 src/glades.c:106
+msgid "Cannot fork glade--."
+msgstr "Nie mo¿na stworzyæ procesu dla glade--."
+
+#: src/glades.c:210 src/source.c:121 src/source.c:168 src/source.c:206
+#: src/source.c:442 src/source.c:466 src/source.c:551 src/source.c:617
+#: src/source.c:657 src/source.c:672 src/source.c:705 src/source.c:741
+#: src/source.c:813 src/source.c:832 src/source.c:865 src/source.c:885
+#: src/source.c:918 src/source.c:938 src/source.c:969 src/source.c:987
+#: src/source.c:1017 src/source.c:1035 src/source.c:1062 src/source.c:1115
+#: src/source.c:1191 src/source.c:1323 src/source.c:1396 src/utilities.c:705
+#, c-format
+msgid "Couldn't create file: %s."
+msgstr "Nie mo¿na stworzyæ pliku: %s."
+
+#: src/glades.c:392 src/glades.c:402 src/glades.c:412
+msgid "You need to set the Translatable Strings File option"
+msgstr ""
+
+#: src/glades.c:396 src/glades.c:406
+msgid "You need to set the Project Directory option"
+msgstr ""
+
+#: src/glades.c:398 src/glades.c:408
+msgid "You need to set the Project File option"
+msgstr ""
+
+#: src/glades.c:414
+msgid "You need to set the Project Name option"
+msgstr ""
+
+#: src/glades.c:416
+msgid "You need to set the Program Name option"
+msgstr ""
+
+#: src/glades.c:419
+msgid "You need to set the Source Directory option"
+msgstr ""
+
+#: src/glades.c:422
+msgid "You need to set the Pixmaps Directory option"
+msgstr ""
+
+#: src/gnome_project.c:60
 msgid ""
 "The Project already exist.\n"
 "Project creation aborted."
@@ -1521,62 +1786,62 @@ msgstr ""
 "Projekt ju¿ istnieje.\n"
 "Zrezygnowano ze stworzenia projektu."
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:75
 msgid "Generating  project ...\n"
 msgstr "Generowanie projektu ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:81
 #, c-format
 msgid "Cannot create file: %s"
 msgstr "Nie mo¿na stworzyæ pliku: %s"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:150
 msgid "Loading  project ...\n"
 msgstr "Wczytywanie projektu ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:154
 msgid "Saving  project ...\n"
 msgstr "Zapisywanie projektu ...\n"
 
 #. Source codes are generated
-#: src/gnome_project.c:1
+#: src/gnome_project.c:160
 msgid "Generating  source codes ...\n"
 msgstr "Generacja kodów ¼ród³owych ...\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:1
+#: src/gnome_project.c:165
 msgid "Copying icon file ...\n"
 msgstr "Kopiowanie pliku z ikon± ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:176
 msgid "Could not create icon file ...\n"
 msgstr "Nie mo¿na stworzyæ pliku z ikon± ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:189
 msgid "Locating files ...\n"
 msgstr "Lokalizowanie plików ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:205
 msgid "Again saving  project ...\n"
 msgstr "Ponowne zapisywanie projektu ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:208
 msgid "Updating  project ...\n"
 msgstr "Uaktualnianie projektu ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:210
 msgid "Running  autogen.sh ...\n"
 msgstr "Uruchamianie ...\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:219
 msgid "App Wizard"
 msgstr "Druid aplikacji"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:235
 msgid "Autogeneration completed...............Unsuccessful\n"
 msgstr "Automatyczna generacja zakoñczona.........niepowodzeniem\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:238
 msgid ""
 "The Project was not successfully autogenerated.\n"
 "I think you have to do it manually."
@@ -1584,7 +1849,7 @@ msgstr ""
 "Automatyczna generacja projektu nie powiod³a siê.\n"
 "Chyba musisz zrobiæ to rêcznie."
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:244
 msgid ""
 "Autogeneration completed...............Successful\n"
 "Now Build the project to have a LOOK at it\n"
@@ -1592,1670 +1857,1718 @@ msgstr ""
 "Automatyczna generacja zakoñczona...............powodzeniem\n"
 "Teraz Zbuduj projekt, aby móc go obejrzeæ\n"
 
-#: src/gnome_project.c:1
+#: src/gnome_project.c:247
 msgid "Project was successfully autogenerated."
 msgstr "Automatyczna generacja projektu powiod³a siê."
 
-#: src/goto_line.c:1
+#: src/goto_line.c:109
 msgid " Goto Line No. "
 msgstr " Przej¶cie do wybranego wiersza "
 
-#: src/help.c:1
+#: src/help.c:127
 msgid "Search Help"
 msgstr "Przeszukiwanie pomocy"
 
-#: src/help.c:1
+#: src/help.c:147
 msgid "Gnome API"
 msgstr "API GNOME"
 
-#: src/help.c:1
+#: src/help.c:152
 msgid "Man pages"
 msgstr "Strony podrêczników"
 
-#: src/help.c:1
+#: src/help.c:157
 msgid "Info pages"
 msgstr "Strony info"
 
-#: src/launcher.c:1 src/text_editor.c:1
+#: src/launcher.c:220 src/text_editor.c:1106
 msgid "Cannot execute command shell"
 msgstr "Nie mo¿na wykonaæ polecena pow³oki"
 
-#: src/main.c:1
+#: src/main.c:46
 msgid "Don't show the splashscreen"
 msgstr "Nie wy¶wietla okna powitalnego"
 
-#: src/main_menubar.c:1
+#: src/main_menubar.c:501
 msgid "Recent Files    "
 msgstr "Ostatnie pliki  "
 
-#: src/main_menubar.c:1 src/project_dbase.c:1
+#: src/main_menubar.c:533 src/project_dbase.c:1912
 msgid "Recent Projects "
 msgstr "Ostatnie projekty "
 
-#: src/main_menubar.c:1
+#: src/main_menubar.c:552
 msgid "You have a project opened. Close it first."
 msgstr "Otwarty jest projekt. Najpierw do zamknij."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:27
 msgid "project1"
 msgstr "projekt1"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:37
 msgid "_New"
 msgstr "_Nowy"
 
-#: src/main_menubar_def.h:1 src/text_editor_gui.c:1 src/toolbar.c:1
-msgid "New Text File"
-msgstr "Nowy plik tekstowy"
+#: src/main_menubar_def.h:38
+#, fuzzy
+msgid "New file"
+msgstr "Otwiera plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:43
 msgid "_Open ..."
 msgstr "_Otwórz ..."
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:44 src/toolbar.c:120
 msgid "Open file"
 msgstr "Otwiera plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:49
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:50 src/toolbar.c:133
 msgid "Save current file"
 msgstr "Zapisuje bie¿±cy plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:55
 msgid "Save _As ..."
 msgstr "Z_apisz jako ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:56
 msgid "Save the current file with a different name"
 msgstr "Zapisuje bie¿±cy plik pod inn± nazw±"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:61
 msgid "Save A_ll"
 msgstr "Zapisz _wszystkie"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:62 src/toolbar.c:146
 msgid "Save all currently open files, except new files"
 msgstr "Zapisuje wszystkie otwarte pliki, za wyj±tkiem nowych"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:67
 msgid "_Close File"
 msgstr "Za_mknij plik"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:68 src/toolbar.c:158
 msgid "Close current file"
 msgstr "Zamyka bie¿±cy plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:73
 msgid "Close All Files"
 msgstr "Zamknij wszystkie pliki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:74
 msgid "Close all files"
 msgstr "Zamyka wszystkie pliki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:79
 msgid "Reload F_ile"
 msgstr "P_rze³aduj plik"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:80 src/toolbar.c:169
 msgid "Reload current file"
 msgstr "Ponownie odczytuje bie¿±cy plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:86
 msgid "N_ew Project ..."
 msgstr "N_owy projekt..."
 
-#: src/main_menubar_def.h:1
-msgid "Create a Project using application wizard"
+#: src/main_menubar_def.h:87
+#, fuzzy
+msgid "Create a Project using the application wizard"
 msgstr "Tworzy nowy projekt przy u¿yciu druida aplikacji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:92
 msgid "Open P_roject ..."
 msgstr "O_twórz projekt..."
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:93 src/toolbar.c:414
 msgid "Open a Project"
 msgstr "Otwiera projekt"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:98
 msgid "Sa_ve Project"
 msgstr "Zapisz proj_ekt"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:99 src/toolbar.c:425
 msgid "Save the current Project"
 msgstr "Zapisuje bie¿±cy projekt"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:104
 msgid "Close Pro_ject"
 msgstr "Za_mknij projekt"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:105 src/toolbar.c:438
 msgid "Close the current Project"
 msgstr "Zamyka bie¿±cy projekt"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:111
 msgid "Rena_me ..."
 msgstr "Zm_ieñ nazwê ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:112
 msgid "Rename the current file"
 msgstr "Zmienia nazwê bie¿±cego pliku"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:118
 msgid "Page Set_up ..."
 msgstr "_Ustawienia strony ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:119
 msgid "Page setup for printing"
 msgstr "Ustawienia strony do drukowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:124
 msgid "_Print ..."
 msgstr "Wy_drukuj..."
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:125 src/toolbar.c:219
 msgid "Print the current file"
 msgstr "Drukuje bie¿±cy plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:131
 msgid "Recent _Files"
 msgstr "Ostatnie _pliki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:137
 msgid "Recent Projec_ts"
 msgstr "Ostatnie projek_ty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:149
 msgid "_Make Selection Uppercase"
 msgstr "_Du¿e litery w zaznaczonym tek¶cie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:150
 msgid "Make the selected text uppercase"
 msgstr "Zapisuje zaznaczony tekst du¿ymi literami"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:155
 msgid "Make Selection Lowercase"
 msgstr "Ma³e litery w zaznaczonym tek¶cie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:156
 msgid "Make the selected text lowercase"
 msgstr "Zapisuje zaznaczony tekst ma³ymi literami"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:161
 msgid "Convert EOL chars to LF"
 msgstr "Przekonwertuj znaki EOL na LF"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:162
 msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
 msgstr "Konwertuje znaki koñca wiersza na standard uniksowy (znak LF)"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:171
 msgid "_Select All"
 msgstr "Zaznacz w_szystko"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:172
 msgid "Select all text in the editor"
 msgstr "Zaznaczna ca³y tekst w edytorze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:177
 msgid "Select to _Brace"
 msgstr "Zaznacz do _nawiasu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:178
 msgid "Select the text in the matching braces"
 msgstr "Zaznacza tekst pomiêdzy pasuj±cymi nawiasami"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:183
 msgid "Select Code Block"
 msgstr "Zaznacz blok kodu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:184
 msgid "Select the current code block"
 msgstr "Zaznacza bie¿±cy blok kodu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:193
 msgid "/* GPL Notice */"
 msgstr "/* Notka GPL */"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:194
 msgid "Insert GPL notice with C style comments"
 msgstr "Wstawia notkê GPL (GNU Public Licence) z komentarzami jêzyka C"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:199
 msgid "// GPL Notice"
 msgstr "// Notka GPL"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:200
 msgid "Insert GPL notice with C++ style comments"
 msgstr "Wstawia notkê GPL (GNU Public Licence) z komentarzami jêzyka C++"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:205
+#, fuzzy
+msgid "# GPL Notice"
+msgstr "// Notka GPL"
+
+#: src/main_menubar_def.h:206
+#, fuzzy
+msgid "Insert GPL notice with Python style comments"
+msgstr "Wstawia notkê GPL (GNU Public Licence) z komentarzami jêzyka C"
+
+#: src/main_menubar_def.h:211
+#, fuzzy
+msgid "Current Username"
+msgstr "Informacje o _bie¿±cej ramce"
+
+#: src/main_menubar_def.h:212
+#, fuzzy
+msgid "Insert name of current user"
+msgstr "Zmienia nazwê bie¿±cego pliku"
+
+#: src/main_menubar_def.h:217
 msgid "Current Date & Time"
 msgstr "Bie¿±ca data & czas"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:218
 msgid "Insert current date & time"
 msgstr "Wstawia bie¿±c± datê & czas"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:223
+msgid "Header File Template"
+msgstr ""
+
+#: src/main_menubar_def.h:224
+msgid "Insert a standard header file template"
+msgstr ""
+
+#: src/main_menubar_def.h:234
 msgid "_Goto Line no ..."
 msgstr "Przejd¼ do wybranego _wiersza ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:235
 msgid "Go to a particular line in the editor"
 msgstr "Przechodzi do wiersza o podanym numerze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:240
 msgid "Goto Matching _Brace"
 msgstr "Przejd¼ do pasuj±cego _nawiasu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:241
 msgid "Go to the matching brace in the editor"
 msgstr "Przechodzi do pasuj±cego nawiasu w edytorze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:246
 msgid "_Goto start of block"
 msgstr "Przejd¼ na pocz±tek _bloku"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:247
 msgid "Go to the start of the current block"
 msgstr "Przechodzi na pocz±tek bie¿±cego bloku"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:252
 msgid "_Goto end of block"
 msgstr "Przejd¼ na koniec b_loku"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:253
 msgid "Go to the end of the current block"
 msgstr "Przechodzi na koniec bie¿±cego bloku"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:258
 msgid "_Goto previous mesg"
 msgstr "Przejd¼ do poprzedniego _komunikatu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:259
 msgid "Go to previous message"
 msgstr "Przechodzi do poprzedniego komunikatu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:264
 msgid "_Goto next mesg"
 msgstr "Przejd¼ do nastêpnego k_omunikatu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:265
 msgid "Go to next message"
 msgstr "Przechodzi do nastêpnego komunikatu"
 
 #. 0
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:277
 msgid "U_ndo"
 msgstr "_Cofnij"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:278 src/toolbar.c:182
 msgid "Undo the last action"
 msgstr "Cofa ostatni± czynno¶æ"
 
 #. 1
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:284
 msgid "_Redo"
 msgstr "_Ponów"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:285 src/toolbar.c:193
 msgid "Redo the last undone action"
 msgstr "Ponawia ostatnio cofniêt± akcjê"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:293
 msgid "C_ut"
 msgstr "_Wytnij"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:294
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Usuwa zaznaczony tekst z edytora i przenosi do schowka"
 
 #. 4
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:300
 msgid "_Copy"
 msgstr "S_kopiuj"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:301
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopiuje zaznaczony tekst do schowka"
 
 #. 5
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:307
 msgid "_Paste"
 msgstr "Wk_lej"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:308
 msgid "Paste the content of clipboard at the current position"
 msgstr "Wkleja zawarto¶æ schowka do bie¿±cej pozycji dokumentu"
 
 #. 6
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:314
 msgid "C_lear"
 msgstr "Wyc_zy¶æ"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:315
 msgid "Delete the selected text from the editor"
 msgstr "Usuwa zaznaczony tekst z edytora"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:323
 msgid "_Transform"
 msgstr "P_rzekszta³æ"
 
 #. 9
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:330
 msgid "_Select"
 msgstr "Z_aznacz"
 
 #. 10
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:337
 msgid "_Insert text"
 msgstr "W_staw tekst"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:346
 msgid "_AutoComplete"
 msgstr "Uzupe³nij au_tomatycznie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:347
 msgid "AutoComplete the current word"
 msgstr "Autouzupe³nia aktualne s³owo"
 
 #. 13
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:353
 msgid "S_how calltip"
 msgstr "Wy¶wi_etl podpowied¼"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:354
 msgid "Show calltip for the function"
 msgstr "Pokazuje podpowied¼ dla funkcji"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:362
 msgid "_Find ..."
 msgstr "Z_najd¼ ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:363
 msgid "Search for a string or regexp in the editor"
 msgstr "Szuka ci±gu znaków lub wyra¿eñ regularnych w edytorze"
 
 #. 16
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:369
 msgid "Fin_d in files ..."
 msgstr "Znajd¼ w plikac_h ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:370
 msgid "Search for a string in multiple files or directories"
 msgstr "Szuka ci±gów znaków w wielu plikach lub katalogach"
 
 #. 17
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:376
 msgid "Find and R_eplace ..."
 msgstr "Znajd¼ i za_mieñ ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:377
 msgid "Search for and replace a string or regexp with another string"
 msgstr "Szuka i zamienia ci±g znaków lub wyra¿enie regularne na inny ci±g"
 
 #. 18
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:383
 msgid "Find _Next"
 msgstr "Znaj_d¼ nastêpny"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:384
 msgid "Repeat the Last Find command"
 msgstr "Powtarza ostatnie polecenie przeszukiwania"
 
 #. 19
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:390
 msgid "G_o to"
 msgstr "Przejd¼ d_o"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:399
 msgid "Ed_it Application GUI ..."
 msgstr "Zmodyfikuj _GUI aplikacji..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:400
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "Modyfikuje GUI aplikacji za pomoc± Glade"
 
 #. 22
 #. 23
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:408
 msgid "Save Build Messages"
 msgstr "Zapisz komunikaty dotycz±ce budowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:409
 msgid "Save build messages to file"
 msgstr "Zapisuje komunikaty dotycz±ce budowania do pliku"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:419
 msgid "_Main Toolbar"
 msgstr "_G³owny pasek narzêdziowy"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:420
 msgid "Hide/Unhide Main toolbar"
 msgstr "Ukrywa/Wy¶wietla g³ówny pasek narzêdziowy"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:426
 msgid "_Extended Toolbar"
 msgstr "Rozsz_erzony pasek narzêdzi"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:427
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Pokazuje/ukrywa rozszerzony pasek narzêdzi"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:433
 msgid "_Tags Toolbar"
 msgstr "Pasek _znaczników"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:434
 msgid "Hide/Unhide Tags toolbar"
 msgstr "Pokazuje/ukrywa pasek znaczników"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:440
 msgid "_Debug Toolbar"
 msgstr "Pasek _debugowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:441
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Pokazuje/ukrywa pasek debugowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:447
 msgid "_Browser Toolbar"
 msgstr "Pasek nawi_gacji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:448
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Pokazuje/ukrywa pasek nawigacji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:454
 msgid "_Format Toolbar"
 msgstr "Pasek _formatowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:455
 msgid "Hide/Unhide Format toolbar"
 msgstr "Ukrywa/Pokazuje pasek narzêdzi formatowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:464
 msgid "_Line numbers margin"
 msgstr "Nume_rowanie wierszy"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:465
 msgid "Show/Hide line numbers"
 msgstr "Pokazuje/ukrywa numery wierszy"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:470
 msgid "_Markers Margin"
 msgstr "Znaczniki na _marginesie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:471
 msgid "Show/Hide markers margin"
 msgstr "Wy¶wietla/ukrywa znaczniki na marginesie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:476
 msgid "_Code fold margin"
 msgstr "Margines sekcji _kodu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:477
 msgid "Show/Hide code fold margin"
 msgstr "Wy¶wietla/ukrywa margines sekcji kodu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:482
 msgid "_Indentation guides"
 msgstr "Prowadnice _wciêæ"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:483
 msgid "Show/Hide undentation guides"
 msgstr "Prze³±cza wy¶wietlanie prowadnic wciêæ"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:488
 msgid "_White spaces"
 msgstr "_Widzialne spacje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:489
 msgid "Show/Hide white spaces"
 msgstr "Wy¶wietla/ukrywa widzialne spacje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:494
 msgid "_Line end characters"
 msgstr "Znaki koñ_ca wiersza"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:495
 msgid "Show/Hide line end characters"
 msgstr "Wy¶wietla/ukrywa znaki koñca wiersza"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:504
 msgid "++ Zoom"
 msgstr "++ Powiêkszenie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:505
 msgid "Increase text zoom by 1 unit"
 msgstr "Zwiêksza rozmiar tekstu o 1 jednostkê"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:510
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:511
 msgid "Zoom factor +8"
 msgstr "Wspó³czynnik powiêkszenia +8"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:516
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:517
 msgid "Zoom factor +6"
 msgstr "Wspó³czynnik powiêkszenia +6"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:522
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:523
 msgid "Zoom factor +4"
 msgstr "Wspó³czynnik powiêkszenia +4"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:528
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:529
 msgid "Zoom factor +2"
 msgstr "Wspó³czynnik powiêkszenia +2"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:535
 msgid "Zoom factor 0"
 msgstr "Wspó³czynnik powiêkszenia 0"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:540
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:541
 msgid "Zoom factor -2"
 msgstr "Wspó³czynnik powiêkszenia -2"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:546
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:547
 msgid "Zoom factor -4"
 msgstr "Wspó³czynnik powiêkszenia -4"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:552
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:553
 msgid "Zoom factor -6"
 msgstr "Wspó³czynnik powiêkszenia -6"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:558
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:559
 msgid "Zoom factor -8"
 msgstr "Wspó³czynnik powiêkszenia -8"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:564
 msgid "-- Zoom"
 msgstr "-- Pomniejszenie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:565
 msgid "Reduce text zoom by 1 unit"
 msgstr "Zmniejszenie wspó³czynnika wymiaru tekstu o 1 jednostkê"
 
 #. 0
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:575
 msgid "_Messages"
 msgstr "_Komunikaty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:576
 msgid "Show/Hide the Message window"
 msgstr "Wy¶wietla/ukrywa okno komunikatów"
 
 #. 1
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:581
 msgid "_Project Listing"
 msgstr "_Listing projektu"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:582 src/toolbar.c:284
 msgid "Show/Hide the Project window"
 msgstr "Wy¶wietla/ukrywa okno projektu"
 
 #. 2
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:587
 msgid "B_ookmarks"
 msgstr "Zak³a_dki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:588
 msgid "Show the Bookmark window"
 msgstr "Wy¶wietla okno zak³adek"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:594
 msgid "_Toolbars"
 msgstr "Pa_sek narzêdzi"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:601
 msgid "_Editor"
 msgstr "_Edytor"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:608
 msgid "_Zoom text"
 msgstr "_Rozmiar tekstu"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1 src/main_menubar_def.h:1
+#: src/main_menubar_def.h:615 src/main_menubar_def.h:1307
 msgid "_Breakpoints"
 msgstr "Pr_zerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:616
 msgid "Show breakpoints editor window"
 msgstr "Wy¶wietla okno edytora punktów przerwania"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:622
 msgid "_Watch Window"
 msgstr "Okno o_bserwacji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:623
 msgid "Show expression watch window"
 msgstr "Wy¶wietla okno obserwacji wyra¿enia"
 
 #. 13
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:628
 msgid "_Registers"
 msgstr "_Rejestry"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:629
 msgid "Show CPU registers and their contents"
 msgstr "Wy¶wietla rejestry procesora (CPU) oraz ich zawarto¶æ"
 
 #. 14
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:634
 msgid "Program _Stack"
 msgstr "_Stos programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:635
 msgid "Show stack trace of the program"
 msgstr "Wy¶wietla stan stosu programu"
 
 #. 15
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:640
 msgid "Shared _Libraries"
 msgstr "Bib_lioteki dzielone"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:641
 msgid "Show shared libraries loaded by the program"
 msgstr "Wy¶wietla listê bibliotek dzielonych za³adowanych przez program"
 
 #. 16
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:646
 msgid "_Kernel Signals"
 msgstr "_Sygna³y j±dra systemu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:647
 msgid "Show the kernel signals editor window"
 msgstr "Wy¶wietla okno edytora sygna³ów j±dra systemu"
 
 #. 17
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:652
 msgid "_Dump Window"
 msgstr "Okno z_rzutu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:653
 msgid "Show memory dump window"
 msgstr "Wy¶wietla okno zrzutu pamiêci"
 
 #. 18
 #. 19
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:659
 msgid "_Console"
 msgstr "_Konsola"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:660
 msgid "Show the console where the program runs"
 msgstr "Wy¶wietla konsolê, na której program dzia³a"
 
 #. 20
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:665
 msgid "Show _Locals"
 msgstr "Poka¿ zmienne _lokalne"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:666
 msgid "Show/Hide Local Variables in MessagePane"
 msgstr "Wy¶wietla/ukrywa zmienne lokalne w oknie komunikatów"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:675 src/project_dbase_gui.c:333
 msgid "Include file"
 msgstr "Do³±cz plik"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:681 src/project_dbase_gui.c:339
 msgid "Source file"
 msgstr "Plik ¼ród³owy"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:687 src/project_dbase_gui.c:345
 msgid "Help file"
 msgstr "Plik pomocy"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:693 src/project_dbase_gui.c:351
 msgid "Data file"
 msgstr "Plik danych"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:699 src/project_dbase_gui.c:357
 msgid "Pixmap file"
 msgstr "Plik obrazu"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:705 src/project_dbase_gui.c:363
 msgid "Translation file"
 msgstr "Plik t³umaczenia"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:711
 msgid "Documentation file"
 msgstr "Plik dokumentacji"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:721 src/project_dbase_gui.c:379
 msgid "Add New"
 msgstr "Dodaj nowy"
 
-#: src/main_menubar_def.h:1 src/project_dbase_gui.c:1
+#: src/main_menubar_def.h:727 src/project_dbase_gui.c:385
 msgid "Import File"
 msgstr "Zaimportuj plik"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:735
 msgid "Remove the current file from the project"
 msgstr "Usuwa bie¿±cy plik z projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:742
 msgid "Open the README file of the project"
 msgstr "Otwiera plik README projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:748
 msgid "Open the TODO file of the project"
 msgstr "Otwiera plik TODO projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:754
 msgid "Open the ChangeLog file of the project"
 msgstr "Otwiera plik ChangeLog projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:760
 msgid "Open the NEWS file of the project"
 msgstr "Otwiera plik NEWS projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:766
 msgid "Project _Configuration ..."
 msgstr "Konfigura_cja projektu ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:767
 msgid "Edit the configuration of the project"
 msgstr "Zmienia opcje konfiguracji projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:772
 msgid "Project _Information"
 msgstr "_Informacje o projekcie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:773
 msgid "Detailed information about the project"
 msgstr "Szczegó³owe informacje o projekcie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:782
 msgid "Automatic"
 msgstr "Automatycznie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:783
 msgid "Automatically determine the highlight style"
 msgstr "Automatyczne ustawianie stylu pod¶wietlania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:788
 msgid "No Highlight style"
 msgstr "Brak stylu pod¶wietlania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:789
 msgid "Force the highlight style to None"
 msgstr "Wymusza brak stylu pod¶wietlania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:794
 msgid "C and C++"
 msgstr "C oraz C++"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:795
 msgid "Force the highlight style to C and C++"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla C oraz C++"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:800
 msgid "C and C++ with GNOME"
 msgstr "C oraz C++ z GNOME"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:801
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla C oraz C++ z GNOME"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:806
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:807
 msgid "Force the highlight style to HTML"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla HTML-a"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:812
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:813
 msgid "Force the highlight style to XML"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla XML-a"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:818
 msgid "Javascript"
 msgstr "JavaScript"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:819
 msgid "Force the highlight style to Javascript"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka JavaScript"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:824
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:825
 msgid "Force the highlight style to WScript"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka WScript"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:830
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:831
 msgid "Force the highlight style to Makefile"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla pliku Makefile"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:836
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:837
 msgid "Force the highlight type to Java"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka Java"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:842
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:843
 msgid "Force the highlight style to LUA"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla LUA"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:848
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:849
 msgid "Force the highlight style to Python"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka Python"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:854
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:855
 msgid "Force the highlight style to Perl"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka Perl"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:860
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:861
 msgid "Force the highlight style to SQL"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka SQL"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:866
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:867
 msgid "Force the highlight style to PL/SQL"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka PL/SQL"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:872
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:873
 msgid "Force the highlight style to PHP"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka PHP"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:878
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:879
 msgid "Force the highlight style to LaTex"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla LaTex-a"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:884
 msgid "Diff"
 msgstr "Diff"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:885
 msgid "Force the highlight style to Diff"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla Diff-a"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:890
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:891
 msgid "Force the highlight style to Pascal"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla jêzyka Pascal"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:896
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:897
 msgid "Force the highlight style to Xcode"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla Xcode"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:902
 msgid "Prj/Properties"
 msgstr "Projekt/w³a¶ciwo¶ci"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:903
 msgid "Force the highlight style to project/properties files"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla plików projektu/w³a¶ciwo¶ci"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:908
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:909
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Wymusza styl pod¶wietlania sk³adni dla uniksowych plików conf"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:914
+#, fuzzy
+msgid "Ada"
+msgstr "Dodaj"
+
+#: src/main_menubar_def.h:915
+#, fuzzy
+msgid "Force the highlight style to Ada"
+msgstr "Wymusza styl pod¶wietlania sk³adni dla LUA"
+
+#: src/main_menubar_def.h:920
 msgid "Baan"
 msgstr ""
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:921
 msgid "Force the highlight style to Baan"
 msgstr ""
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:930
 msgid "Auto _Format"
 msgstr "Automatyczne _formatowanie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:931
 msgid "Autoformat C and C++ source files"
 msgstr "Automatycznie formatuje pliki ¼ród³owe C i C++"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:936
 msgid "_Increase Indent"
 msgstr "Zw_iêksz wciêcie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:937
 msgid "Increase indentation of line/selection"
 msgstr "Zwiêksza wciêcie wiersza/zaznaczenia"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:942
 msgid "_Decrease Indent"
 msgstr "Z_mniejsz wciêcie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:943
 msgid "Decrease indentation of line/selection"
 msgstr "Zmniejsza wciêcie wiersza/zaznaczenia"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:949
 msgid "_Update tags image"
 msgstr "_Uaktualnij obraz znaczników"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:950
 msgid "Update the tags image of the project/opened files"
 msgstr "Uaktualnia obraz znaczników projektu/otwartych plików"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:956
 msgid "Force _Highlight Style"
 msgstr "Wymu¶ styl pod¶_wietlania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:963
 msgid "_Close All Folds"
 msgstr "Za_mknij wszystkie sekcje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:964
 msgid "Close all code folds in the editor"
 msgstr "Zamyka wszystkie sekcje kodu w edytorze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:969
 msgid "_Open All Folds"
 msgstr "_Otwórz wszystkie sekcje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:970
 msgid "Open all code folds of the editor"
 msgstr "Otwiera wszystkie sekcje kodu w edytorze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:975
 msgid "_Toggle Current Fold"
 msgstr "Prze³±_cz bie¿±c± sekcjê"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:976
 msgid "Toggle current code fold of the editor"
 msgstr "Prze³±cza bie¿±c± sekcjê kodu w edytorze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:982
 msgid "D_etach Current Document"
 msgstr "Od³±cz bi_e¿±cy dokument"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:983
 msgid "Detach the current editor into a separate window"
 msgstr "Od³±cza bie¿±cy dokument od okna edytora i przenosi do osobnego okna"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:993
 msgid "_Compile"
 msgstr "S_kompiluj"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:994
 msgid "Compile the current source file"
 msgstr "Kompiluje bie¿±cy plik ¼ród³owy"
 
-#: src/main_menubar_def.h:1 src/main_menubar_def.h:1
+#: src/main_menubar_def.h:999
+#, fuzzy
+msgid "Compile With _Make"
+msgstr "Kompilacja pliku:"
+
+#: src/main_menubar_def.h:1000
+#, fuzzy
+msgid "Compile the current source file using Make"
+msgstr "Kompiluje bie¿±cy plik ¼ród³owy"
+
+#: src/main_menubar_def.h:1005 src/main_menubar_def.h:1561
 msgid "_Build"
 msgstr "_Budowanie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1006
 msgid "Build the source directory of the project/current source file"
 msgstr "Budije katalog ¼ród³owy projektu/bie¿±cego pliku ¼ród³owego"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1011
 msgid "Build _All"
 msgstr "Buduj w_szystko"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1012
 msgid "Build the whole project"
 msgstr "Buduje ca³y projekt"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1018
 msgid "_Install"
 msgstr "_Instaluj"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1019
 msgid "Install the project on your system"
 msgstr "Instaluje projekt na twoim systemie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1024
 msgid "Build _Distribution"
 msgstr "Buduj _dystrybucjê"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1025
 msgid "Build the distribution tarball of the project"
 msgstr "Buduje tarball dystrybucji projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1031
 msgid "Con_figure ..."
 msgstr "Kon_figuruj ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1032
 msgid "Configure the project"
 msgstr "Konfiguruje projekt"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1037
 msgid "Auto _generate ..."
 msgstr "Auto_generuj ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1038
 msgid "Auto generate all the build files"
 msgstr "Autogenerowanie wszystkich plików budowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1044
 msgid "Clea_n"
 msgstr "Wyc_zy¶æ"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1045
 msgid "Clean the source directory"
 msgstr "Czy¶ci katalog ¼ród³owy"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1050
 msgid "Clean A_ll"
 msgstr "Wyczy¶æ wszys_tko"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1051
 msgid "Clean the whole project directory"
 msgstr "Czy¶ci ca³y katalog projektu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1057
 msgid "_Stop Build"
 msgstr "Prze_rwij budowanie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1058
 msgid "Stop the current compile or build process"
 msgstr "Przerywa bie¿±cy proces kompilacji oraz budowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1064
 msgid "_Execute"
 msgstr "Uruch_om"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:1065 src/toolbar.c:501
 msgid "Execute the program"
 msgstr "Uruchamia program"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1070
 msgid "Set _Program params ..."
 msgstr "Ustaw _parametry programu ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1071
 msgid "Set the execution parameters of the program"
 msgstr "Ustawia parametry uruchamiania programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1080
 msgid "_Toggle bookmark"
 msgstr "Prz_e³±cz zak³adkê"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1087
 msgid "_First bookmark"
 msgstr "P_ierwsza zak³adka"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1093
 msgid "_Previous bookmark"
 msgstr "_Poprzednia zak³adka"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1099
 msgid "_Next bookmark"
 msgstr "_Nastêpna zak³adka"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1105
 msgid "_Last bookmark"
 msgstr "_Ostatnia zak³adka"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1112
 msgid "_Clear all bookmarks"
 msgstr "_Wyczy¶æ wszystkie zak³adki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1122
 msgid "Run/_Continue"
 msgstr "Uruchom/_kontunuuj"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1123
 msgid "Continue the execution of the program"
 msgstr "Kontunuuje wynokanie programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1128
 msgid "Step _In"
 msgstr "Krok z _wej¶ciem"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1129
 msgid "Single step into function"
 msgstr "Pojedynczy krok z wej¶ciem do funkcji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1134
 msgid "Step O_ver"
 msgstr "Krok _nad"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1135
 msgid "Single step over function"
 msgstr "Pojedynczy krok z pominiêciem funkcji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1140
 msgid "Step _Out"
 msgstr "Krok z _wyj¶ciem"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1141
 msgid "Single step out of the function"
 msgstr "Pojedynczy krok z wyj¶ciem z funkcji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1146
 msgid "_Run to cursor"
 msgstr "P_rzejd¼ do kursora"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1147
 msgid "Run to the cursor"
 msgstr "Przechodzi do kursora"
 
-#: src/main_menubar_def.h:1 src/text_editor_menu.c:1
+#: src/main_menubar_def.h:1156 src/text_editor_menu.c:131
 msgid "Toggle breakpoint"
 msgstr "Prze³±cz punkt przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1157
 msgid "Toggle breakpoint at the current location"
 msgstr "Prze³±cza punkt przerwania na bie¿±cym po³o¿eniu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1162
 msgid "Set Breakpoint ..."
 msgstr "Ustaw punkt przerwania ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1163
 msgid "Set a breakpoint"
 msgstr "Ustawia punkt przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1169
 msgid "_Breakpoints ..."
 msgstr "_Punkty przerwania ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1170
 msgid "Edit breakpoints"
 msgstr "Modyfikuje punkty przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1175
 msgid "Disable all Breakpoints"
 msgstr "Unieaktywnij wszystkie punkty przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1176
 msgid "Deactivate all breakpoints"
 msgstr "Unieaktywnia wszystkie punkty przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1181
 msgid "C_lear all Breakpoints"
 msgstr "_Usuñ wszystkie punkty przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1182
 msgid "Delete all breakpoints"
 msgstr "Usuwa wszystkie punkty przerwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1191
 msgid "Info _Target Files"
 msgstr "Informacje o plikach d_ocelowych"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1192
 msgid "Display information on the files the debugger is active with"
 msgstr "Wy¶wietla informacje o plikach, dla których debuger jest aktywny"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1197
 msgid "Info _Program"
 msgstr "Informacje o _programie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1198
 msgid "Display information on the execution status of the program"
 msgstr "Wy¶wietla informacje o statusie wykonywania programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1203
 msgid "Info _Kernel User Struct"
 msgstr "Informacje o Strukturze U¿ytkownika j±dra"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1204
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 "Wy¶wietla zawarto¶æ 'struktury u¿ytkownika' j±dra dla bie¿±cego procesu "
 "potomnego"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1209
 msgid "Info _Threads"
 msgstr "Informacje o _w±tkach"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1210
 msgid "Display the IDs of currently known threads"
 msgstr "Wy¶wietla identyfikatory aktualnie znanych w±tków"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1215
 msgid "Info _Global variables"
 msgstr "Informacje o zmiennych _globalnych"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1216
 msgid "Display all global and static variables of the program"
 msgstr "Wy¶wietla wszystkie globalne i statyczne zmienne programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1221
 msgid "Info _Local variables"
 msgstr "Informacje o zmiennych _lokalnych"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1222
 msgid "Display local variables of the current frame"
 msgstr "Wy¶wietla zmienne lokalne bie¿±cej ramki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1227
 msgid "Info _Current Frame"
 msgstr "Informacje o _bie¿±cej ramce"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1228
 msgid "Display information about the current frame of execution"
 msgstr "Wy¶wietla informacje o bie¿±cej ramce wykonania programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1233
 msgid "Info Function _Arguments"
 msgstr "Informacje o argumentach _funkcji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1234
 msgid "Display function arguments of the current frame"
 msgstr "Wy¶wietla argumenty funkcji bie¿±cej ramki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1243
 msgid "_Start Debugger"
 msgstr "_Uruchom debuger"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1244
 msgid "Start the debugging session"
 msgstr "Rozpoczyna sesjê debugowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1250
 msgid "Load E_xecutable ..."
 msgstr "Wczytaj p_lik wykonywalny ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1251
 msgid "Open the executable for debugging"
 msgstr "Otwiera plik wykonywalny do debugowania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1256
 msgid "Load _Core file ..."
 msgstr "Wczytaj plik _Core"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1257
 msgid "Load a core file to dissect"
 msgstr "Wczytuje plik zrzutu pamiêci do przebadania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1262
 msgid "_Attach to Process ..."
 msgstr "Do³±cz do pr_ocesu ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1263
 msgid "Attach to a running program"
 msgstr "Do³±cza do dzia³aj±cego programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1269
 msgid "_Restart Program"
 msgstr "Z_restartuj program"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1270
 msgid "Stop and restart the program"
 msgstr "Zatrzymuje i ponownie uruchamia program"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1275
 msgid "S_top Program"
 msgstr "Za_trzymaj program"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1276
 msgid "Stop the program being debugged"
 msgstr "Zatrzymuje debugowany program"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1281
 msgid "_Detach Debugger"
 msgstr "O_d³±cz debuger"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1282
 msgid "Detach from an attached program"
 msgstr "Od³±cza od do³±czonego programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1288
 msgid "I_nterrupt Program"
 msgstr "Przer_wij program"
 
-#: src/main_menubar_def.h:1 src/toolbar.c:1
+#: src/main_menubar_def.h:1289 src/toolbar.c:996
 msgid "Interrupt execution of the program"
 msgstr "Przerywa wykonywanie programu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1294
 msgid "Si_gnal to Process"
 msgstr "Sy_gna³ do procesu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1295
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Wysy³a sygna³ j±dra systemu do debugowanego procesu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1301
 msgid "_Execution"
 msgstr "Wyko_nywanie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1314
 msgid "_Information"
 msgstr "_Informacje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1321
 msgid "Ins_pect/Evaluate ..."
 msgstr "Zbadaj/O_bejrzyj ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1322
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Bada lub ogl±da wyra¿enie lub zmienn±"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1327
 msgid "Add Expression in _Watch ..."
 msgstr "Dodaj _wyra¿enie do okna obserwacji ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1328
 msgid "Add expression or variable to the watch"
 msgstr "Dodaje wyra¿enie lub zmienn± do okna obserwacji"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1334
 msgid "St_op Debugger"
 msgstr "Zatrz_ymaj debuger"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1335
 msgid "Say goodbye to the debugger"
 msgstr "Mówi debugerowi do widzenia"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1344
 msgid "plugins"
 msgstr "wtyczki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1354
 msgid "Grep Utility"
 msgstr "Narzêdzie grep"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1360
 msgid "Compare two files"
 msgstr "Porównaj dwa pliki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1366
 msgid "Diff Utility"
 msgstr "Narzêdzie diff"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1372
 msgid "File View (Char/Octal/Hex)"
 msgstr "Podgl±d pliku (Znak/ósemkowo/hex)"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1379
 msgid "Declarations"
 msgstr "Deklaracje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1385
 msgid "C Flow"
 msgstr ""
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1391
 msgid "C Cross-reference"
 msgstr ""
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1397
 msgid "C Trace"
 msgstr ""
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1404
 msgid "Backup Manager"
 msgstr "Mened¿er kopii zapasowych"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1414
 msgid "_Create New Window"
 msgstr "_Stwórz nowe okno"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1415
 msgid "Open a new file window"
 msgstr "Otwiera nowy plik okna"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1425
 msgid "Close current document window"
 msgstr "Zamyka bie¿±ce okno dokumentu"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1434
 msgid "_Compiler and Linker Settings ..."
 msgstr "Ustawienia _kompilatora i linkera ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1435
 msgid "Settings for the compiler and linker"
 msgstr "Ustawienia dla kompilatora i linkera"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1440
 msgid "_Source Paths ..."
 msgstr "¦cie¿ki ¼ró_d³owe ..."
 
-#: src/main_menubar_def.h:1
-msgid "Specify the source paths for the Anjuta to search"
+#: src/main_menubar_def.h:1441
+#, fuzzy
+msgid "Specify the source paths for Anjuta to search"
 msgstr "Wybiera ¶cie¿ki ¼ród³owe dla programu Anjuta do przeszukiwania"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1446
 msgid "_Commands ..."
 msgstr "Po_lecenia ..."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1447
 msgid "Specify the various commands for use"
 msgstr "Wybiera ró¿ne polecenia, które mog± byæ u¿yte"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1453
 msgid "_Preferences ..."
 msgstr "_Ustawienia"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1454
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Wolisz kawê, czy herbatê? Sprawd¼ to."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1459
 msgid "Set _Default Preferences"
 msgstr "Ustaw _domy¶lne preferencje"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1460
 msgid "But I prefer tea."
 msgstr "Ale ja wolê herbatê."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1471
 msgid "Browse Gnome API Pages"
 msgstr "Przegl±daj strony Gnome API"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1472
 msgid "The gnome API pages"
 msgstr "strony gnome API"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1477
 msgid "Browse Man Pages"
 msgstr "Przegl±daj strony manuala"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1478
 msgid "The good old manual pages"
 msgstr "Stare dobre strony podrêcznikowe"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1483
 msgid "Browse Info Pages"
 msgstr "Przegl±daj strony info"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1484
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Strony info, gdy szukasz czego¶, a nie mo¿esz znale¼æ"
 
-#: src/main_menubar_def.h:1 src/text_editor_menu.c:1
+#. 4
+#: src/main_menubar_def.h:1490 src/text_editor_menu.c:260
 msgid "Context Help"
 msgstr "Pomoc kontekstowa"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1491
 msgid "Search help for the current word in the editor"
 msgstr "Przeszukuje pomoc pod k±tem wybranego s³owa w edytorze"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1496
 msgid "Search a topic"
 msgstr "Przeszukaj temat"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1497
 msgid "May I help you?"
 msgstr "W czym mo¿na ci pomóc?"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1503
 msgid "Anjuta Home site"
 msgstr "Witryna domowa Anjuty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1504
 msgid "Online documentation and resources"
 msgstr "Dokumentacja i zasoby przez sieæ Internet"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1510
 msgid "Libraries API references"
 msgstr "Opis bibliotek API"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1511
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Internetowy opis bibliotek GTK, GLib, GNOME itd.."
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1516
 msgid "Report Bugs"
 msgstr "Zg³o¶ b³êdy"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1517
 msgid "Submit a bug report for Anjuta"
 msgstr "Wysy³a raport b³êdów dla Anjuty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1522
 msgid "Request Features"
 msgstr "Wy¶lij propozycjê"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1523
 msgid "Submit a feature request for Anjtua"
 msgstr "Wysy³a propozycjê ulepszenia Ajuty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1528
 msgid "Submit patches"
 msgstr "Wy¶lij ³aty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1529
 msgid "Submit patches for Anjuta"
 msgstr "Wysy³a ³aty do Anjuty"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1534
 msgid "Ask a question"
 msgstr "Zadaj pytanie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1535
 msgid "Submit a question for FAQs"
 msgstr "Wysy³a pytanie dla FAQ"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1549
 msgid "_Project"
 msgstr "P_rojekt"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1555
 msgid "For_mat"
 msgstr "For_matowanie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1567
 msgid "Bookmar_k"
 msgstr "Za_k³adki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1573
 msgid "_Debug"
 msgstr "¦_ledzenie"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1579
 msgid "Plug_ins"
 msgstr "_Wtyczki"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1585
 msgid "_Utilities"
 msgstr "_Narzêdzia"
 
-#: src/main_menubar_def.h:1
+#: src/main_menubar_def.h:1601
 msgid "_Settings"
 msgstr "_Ustawienia"
 
-#: src/mainmenu_callbacks.c:1
-msgid "All files saved ..."
-msgstr "Wszystkie pliki zapisane ..."
-
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:130
 #, c-format
 msgid ""
 "The file \"%s\" is not saved.\n"
@@ -3264,7 +3577,7 @@ msgstr ""
 "Plik \"%s\" nie zosta³ zapisany.\n"
 "Czy chcesz go zapisaæ przed zamkniêciem?"
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:181
 #, c-format
 msgid ""
 "Are you sure you want to reload %s.\n"
@@ -3273,12 +3586,12 @@ msgstr ""
 "Czy na pewno chcesz ponownie wczytaæ %s?\n"
 "Stracisz wszystkie niezapisane modyfikacje."
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:251
 #, c-format
 msgid "Could not execute cmd: %s"
 msgstr "Nie mo¿na wykonaæ polecenia: %s"
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:258
 #, c-format
 msgid ""
 "There was an error while printing.\n"
@@ -3287,27 +3600,27 @@ msgstr ""
 "Podczas drukowania wyst±pi³ b³±d.\n"
 "Wykonane polecenie: %s"
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:264
 msgid "The file has been sent for printing."
 msgstr "Plik zosta³ wys³any do wydruku."
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:280
 msgid "You must save the file first and then print"
 msgstr "Przed wydrukiem nale¿y zapisac plik"
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:284
 msgid "Are you sure you want to print the current file?"
 msgstr "Czy na pewno chcesz wydrukowaæ bie¿±cy plik?"
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:1220
 msgid "Tags image update successfully."
 msgstr "Obraz znaczników uaktualniony z powodzeniem."
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:1690
 msgid "Debugger is not running. Start it first."
 msgstr "Debuger nie jest uruchomiony. Uruchom go najpierw."
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:1726
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3315,7 +3628,7 @@ msgstr ""
 "Program jest DO£¡CZONY.\n"
 "Czy wci±¿ chcesz zatrzymaæ debuger?"
 
-#: src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:1736
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3323,68 +3636,52 @@ msgstr ""
 "Program jest wykonywany.\n"
 "Czy wci±¿ chcesz zatrzymaæ debuger?"
 
-#: src/mainmenu_callbacks.c:1 src/mainmenu_callbacks.c:1
-#: src/mainmenu_callbacks.c:1 src/mainmenu_callbacks.c:1
+#: src/mainmenu_callbacks.c:1915 src/mainmenu_callbacks.c:1933
+#: src/mainmenu_callbacks.c:1961 src/mainmenu_callbacks.c:1979
 msgid "Cannot launch gnome-help-browser"
 msgstr "Nie mo¿ña uruchomiæ programu gnome-help-browser"
 
-#: src/messages.c:1
-msgid "Unknown type in Message window\n"
-msgstr "Nieznany typ w oknie komunikatów\n"
-
-#: src/messages.c:1
-msgid "Build messages"
-msgstr "Komunikaty dotycz±ce budowania"
-
-#: src/messages.c:1
-msgid "Debug messages"
-msgstr "Komunikaty dotycz±ce ¶ledzenia"
-
-#: src/messages.c:1
-msgid "Find messages"
-msgstr "Komunikaty dotycz±ce przeszukiwania"
-
-#: src/messages.c:1
-msgid "CVS messages"
-msgstr "Komunikaty CVS-a"
-
-#: src/messages.c:1
-msgid "Debug Locals Listing"
-msgstr ""
-
-#: src/messages.c:1
-msgid "Embedded Terminal"
-msgstr "Zagnie¿d¿ony terminal"
-
-#: src/messages.c:1 src/text_editor_menu.c:1 src/toolbar.c:1
+#. 13
+#: src/message-manager.cc:43 src/text_editor_menu.c:314 src/toolbar.c:511
 msgid "Debug"
 msgstr "¦ledzenie"
 
-#: src/messages.c:1
+#: src/message-manager.cc:43
 msgid "CVS"
 msgstr "CVS"
 
-#: src/messages.c:1
+#: src/message-manager.cc:43
 msgid "Locals"
 msgstr "Lokalne"
 
-#: src/messages.c:1
-msgid "Term"
-msgstr ""
+#: src/message-manager.cc:44
+#, fuzzy
+msgid "Terminal"
+msgstr "Uruchamianie w oknie Terminala"
 
-#: src/messages.c:1 src/toolbar.c:1
+#: src/message-manager.cc:146 src/project_dbase_gui.c:425
+msgid "Dock/Undock"
+msgstr "Przy³±cz/Od³±cz"
+
+#: src/message-manager.cc:266
+#, fuzzy, c-format
+msgid "Could not find message type %s!\n"
+msgstr "Nie mo¿na odnale¼æ pliku z piksmap± GNOME: %s"
+
+#: src/message-manager.cc:472 src/preferences_gui.c:230 src/toolbar.c:294
 msgid "Messages"
 msgstr "Komunikaty"
 
-#: src/messages.c:1
-msgid "Dock window"
+#: src/preferences.c:101
+#, c-format
+msgid ""
+"Cannot load Global defaults and configuration files:\n"
+"%s.\n"
+"This may result in improper behaviour or instabilities.\n"
+"Anjuta will fall back to built in (limited) settings"
 msgstr ""
 
-#: src/messages.c:1
-msgid "Dock"
-msgstr "Zadokuj"
-
-#: src/preferences.c:1
+#: src/preferences.c:626
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -3392,236 +3689,240 @@ msgstr ""
 "Czy na pewno chcesz nadaæ wszystkim ustawieniom\n"
 "warto¶ci domy¶lne?"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:151
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: src/preferences_gui.c:1 src/project_config.c:1
+#: src/preferences_gui.c:170 src/project_config.c:769
 msgid "General"
 msgstr "Ogólne"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:190
 msgid "Styles"
 msgstr "Style"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:200
 msgid "Editor"
 msgstr "Edytor"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:210
 msgid "Print Setup"
 msgstr "Ustawienia wydruku"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:220
 msgid "Auto Format"
 msgstr "Autoformatowanie"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:240
 msgid "misc"
 msgstr "Ró¿ne"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:249
 msgid "Components"
 msgstr "Komponenty"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:334
 msgid " Directories "
 msgstr " Katalogi "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:370
 msgid "Projects:"
 msgstr "Projekty:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:377
 msgid "Tarballs:"
 msgstr "Tarball-e:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:384
 msgid "Rpms:"
 msgstr "Rpm-y:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:391
 msgid "Srpms:"
 msgstr "Srpm-y:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:398
 msgid " History size "
 msgstr " Rozmiar historii "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:407
 msgid "Recent Projects:"
 msgstr "Ostatnie projekty:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:414
 msgid "Recent Files:"
 msgstr "Ostatnie pliki:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:421
 msgid "Combo Popdown:"
 msgstr "Pozycje listy rozwijanej:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:479
 msgid " Job Options "
 msgstr " Opcje zadania "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:489
 msgid "Beep on job complete"
 msgstr "Sygna³ d¼wiêkowy po zakoñczeniu zadania"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:498
 msgid "Dialog on job complete"
 msgstr "Okno dialogowe po zakoñczeniu zadania"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:554
 msgid "Keep going when some targets cannot be made"
 msgstr "Kontynuuj, nawet je¶li pewne cele nie mog± zostaæ wykonane"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:561
 msgid "Silent: Don't echo commands"
 msgstr "Tryb silent: polecenia nie s± wy¶wietlane na ekranie"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:568
 msgid "Produce debugging outputs"
 msgstr "Tworzenie danych o b³êdach"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:575
 msgid "Warn when an undefined variable is referenced"
 msgstr "Ostrzeganie przy odwo³aniu do niezadeklarowanej zmiennej"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:582
+msgid "Autosave Before Build"
+msgstr ""
+
+#: src/preferences_gui.c:597
 msgid "Max no of jobs:"
 msgstr "Maksymalna liczba zadañ:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:680
 msgid "Select Highlight item to edit:"
 msgstr "Wybierz wy¶wietlany obiekt do edycji:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:704
 msgid " Highlight Style "
 msgstr " Styl wy¶wietlania "
 
-#: src/preferences_gui.c:1 src/preferences_gui.c:1
-#: src/preferences_gui.c:1 src/preferences_gui.c:1
+#: src/preferences_gui.c:735 src/preferences_gui.c:760
+#: src/preferences_gui.c:807 src/preferences_gui.c:814
 msgid "Use default"
 msgstr "Domy¶lne ustaw."
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:748
 msgid "Bold"
 msgstr "Pogrubienie"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:752
 msgid "Italic"
 msgstr "Pochylenie"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:756
 msgid "Underlined"
 msgstr "Podkre¶lenie"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:767
 msgid "Font:"
 msgstr "Czcionka:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:774
 msgid "Attribute:"
 msgstr "Atrybut:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:781
 msgid "Fore color:"
 msgstr "Kolor g³ówny:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:788
 msgid "Back color:"
 msgstr "Kolor t³a:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:828
 msgid "Caret color:"
 msgstr "Kolor karetki:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:841
 msgid "Calltip color:"
 msgstr "Kolor podpowiedzi:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:854
 msgid "Selection Foreground:"
 msgstr "Kolor zaznaczenia:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:867
 msgid "Selection Background:"
 msgstr "T³o zaznaczenia:"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:976
 msgid "Disable syntax highlighting"
 msgstr "Pod¶wietlanie sk³adni wy³±czone"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:983
 msgid "Enable Auto save"
 msgstr "Automatyczny zapis"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:990
 msgid "Enable Auto indent"
 msgstr "Automatyczne wciêcia"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:998
 msgid "Use tabs for indentation"
 msgstr "Wciêcia przy u¿yciu tabulacji"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1005
 msgid "Enable braces check"
 msgstr "Sprawdzanie parowania nawiasów"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1012
 msgid "Save in DOS format"
 msgstr "Zapis w formacie DOS"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1064
 msgid "Tab size in spaces"
 msgstr "Rozmiar tabulacji w spacjach"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1071
 msgid "Auto save timer interval in minutes"
 msgstr "Okres dla autom. zapisu w minutach"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1078
 msgid "Auto indent size in spaces"
 msgstr "Rozmiar automatycznych wciêæ w spacjach"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1085
 msgid "Line number margin width in pixels"
 msgstr "Szeroko¶æ marginesu numeracji wierszy (w pikselach)"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1092
 msgid "Save session time interval"
 msgstr "Okres dla zapisu sesji"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1101
 msgid "Strip trailing spaces on file save"
 msgstr "Usuwanie koñcowych spacji przy zapisie pliku"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1109
 msgid "Collapse all folds on file open"
 msgstr "Zwijanie sekcji opcjonalnych po otwarciu pliku"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1164
 msgid " Paper Size"
 msgstr " Rozmiar papieru "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1174
 msgid " Print Command "
 msgstr " Polecenie drukowania "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1236
 msgid "Disable Auto format"
 msgstr "Automatyczne formatowanie wy³±czone"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1240
 msgid " Format Style "
 msgstr " Styl formatowania"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1263
 msgid " Custom Style "
 msgstr " W³asny styl "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1274
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3629,123 +3930,276 @@ msgstr ""
 "Wprowad¼ argumenty wiersza poleceñ dla programu 'indent'.\n"
 "Przeczytaj stronê info programu 'indent', aby uzyskaæ wiêcej szczegó³ów."
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1348
 msgid " Messages"
 msgstr " Komunikaty "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1360
 msgid "Truncate long messages"
 msgstr "Obcinanie d³ugich komunikatów"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1387
 msgid "Number of first characters to show"
 msgstr "Liczba pocz±tkowych znaków do pokazania"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1394
 msgid "Number of last characters to show"
 msgstr "Liczba koñcowych znaków do pokazania"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1402 src/preferences_gui.c:1551
 msgid " Notebook tags position "
 msgstr " Po³o¿enie zak³adek notatnika "
 
-#: src/preferences_gui.c:1
-msgid "Do not show notebook title tags"
-msgstr "Wy¶wietlanie zak³adek notatnika wy³±czone"
-
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1411 src/preferences_gui.c:1592
 msgid "Top"
 msgstr "Góra"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1420 src/preferences_gui.c:1601
 msgid "Bottom"
 msgstr "Dó³"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1429 src/preferences_gui.c:1610
 msgid "Left"
 msgstr "Lewa"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1438 src/preferences_gui.c:1619
 msgid "Right"
 msgstr "Prawa"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1466
+#, fuzzy
+msgid "Colors"
+msgstr "Zamknij"
+
+#: src/preferences_gui.c:1474
+#, fuzzy
+msgid "Errors:"
+msgstr "B³±d: "
+
+#: src/preferences_gui.c:1475
+#, fuzzy
+msgid "Warnings:"
+msgstr "Ostrze¿enia"
+
+#: src/preferences_gui.c:1476
+#, fuzzy
+msgid "Program messages:"
+msgstr "Nazwa programu:"
+
+#: src/preferences_gui.c:1477
+#, fuzzy
+msgid "Other messages:"
+msgstr "Komunikaty dotycz±ce ¶ledzenia"
+
+#: src/preferences_gui.c:1562
+msgid "Do not show notebook title tags"
+msgstr "Wy¶wietlanie zak³adek notatnika wy³±czone"
+
+#: src/preferences_gui.c:1575
 msgid " Tags Browser "
 msgstr " Przegl±darka znaczników "
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1582
 msgid "Update tags image automatically"
 msgstr "Automatyczne uaktualnianie obrazu znaczników"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1676
 msgid " Components"
 msgstr " Komponenty"
 
-#: src/preferences_gui.c:1
+#: src/preferences_gui.c:1688
 msgid "Use Glade Components (experimental)"
 msgstr ""
 
+#: src/project_config.c:737
+msgid "Project configuration"
+msgstr "Konfiguracja projektu"
+
+#: src/project_config.c:776
+msgid "Disable Overwriting project files"
+msgstr "Blokada nadpisywania plików projektu"
+
+#: src/project_config.c:786
+msgid "Project's configure.in"
+msgstr "Plik configure.in projektu"
+
+#: src/project_config.c:792
+msgid "Top level Makefile.am"
+msgstr "Nadrzêdny Makefile.am"
+
+#: src/project_config.c:798
+msgid "Source module Makefile.am"
+msgstr "Modu³ ¼ród³a Makefile.am"
+
+#: src/project_config.c:804
+msgid "Include module Makefile.am"
+msgstr "Modu³ do³±czania Makefile.am"
+
+#: src/project_config.c:810
+msgid "Help module Makefile.am"
+msgstr "Modu³ pomocy Makefile.am"
+
+#: src/project_config.c:816
+msgid "Pixmap module Makefile.am"
+msgstr "Modu³ piksmapy Makefile.am"
+
+#: src/project_config.c:821
+msgid "Data module Makefile.am"
+msgstr "Modu³ danych Makefile.am"
+
+#: src/project_config.c:826
+msgid "Doc module Makefile.am"
+msgstr "Modu³ dokumentacji Makefile.am"
+
+#: src/project_config.c:831
+msgid "Po module (translation) Makefile.am"
+msgstr "Modu³ po (t³umaczenia) Makefile.am"
+
+#: src/project_config.c:836
+msgid "Build files"
+msgstr "Pliki budowania"
+
+#: src/project_config.c:854
+msgid "Check for programs in config.in"
+msgstr "Sprawdzanie programów w config.in"
+
+#: src/project_config.c:871
+msgid "Program checks"
+msgstr "Programy"
+
+#: src/project_config.c:878
+msgid "Check for libs in config.in"
+msgstr "Sprawdzanie bibliotek w config.in"
+
+#: src/project_config.c:895
+msgid "Library checks"
+msgstr "Biblioteki"
+
+#: src/project_config.c:904
+msgid "Check for header files in config.in"
+msgstr "Sprawdzanie plików nag³ówkowych w config.in"
+
+#: src/project_config.c:921
+msgid "Header checks"
+msgstr "Nag³ówki"
+
+#: src/project_config.c:930
+msgid "Checks for typedefs, structures, and compiler characteristics"
+msgstr "Sprawdzanie definicji typów, struktur i kompilatora"
+
+#: src/project_config.c:947
+msgid "Characteristics check"
+msgstr "Charakterystyki"
+
+#: src/project_config.c:956
+msgid "Check for lib functions in config.in"
+msgstr "Sprawdzanie funkcji bibliotecznych w config.in"
+
+#: src/project_config.c:973
+msgid "Lib functions checks"
+msgstr "Funkcje biblioteczne"
+
+#: src/project_config.c:980
+msgid "Additional scripts in config.in"
+msgstr "Dodatkowe skrypty w config.in"
+
+#: src/project_config.c:997
+msgid "Additional script"
+msgstr "Dodatkowy skrypt"
+
+#: src/project_config.c:1004 src/project_config.c:1021
+msgid "Files to configure"
+msgstr "Pliki do konfiguracji"
+
+#: src/project_config.c:1036
+msgid "Auto scan the project"
+msgstr "Automatyczne skanowanie projektu"
+
+#: src/project_config.c:1041
+msgid "Configuration scripts"
+msgstr "Skrypty konfiguracyjne"
+
+#: src/project_config.c:1055
+msgid "Extra modules to be built before source module:"
+msgstr "Dodatkowe modu³y budowane przed modu³em ¼ród³owym:"
+
+#: src/project_config.c:1075
+msgid "Extra modules to be built after source module:"
+msgstr "Dodatkowe modu³y budowane po module ¼ród³owym:"
+
+#: src/project_config.c:1089
+msgid "Modules"
+msgstr "Modu³y"
+
+#: src/project_config.c:1095
+msgid "Extra scripts at the end of Top Makefile.am"
+msgstr "Dodatkowe skrypty na koñcu nag³ówka Makefile.am"
+
+#: src/project_config.c:1112
+msgid "Makefile.am"
+msgstr "Makefile.am"
+
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:1 src/toolbar.c:1
+#: src/project_dbase.c:310 src/toolbar.c:413
 msgid "Open Project"
 msgstr "Otwórz projekt"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:1
+#: src/project_dbase.c:317
 msgid "Add To Project"
 msgstr "Dodaj do projektu"
 
-#: src/project_dbase.c:1 src/project_dbase.c:1 src/project_dbase_gui.c:1
+#: src/project_dbase.c:352 src/project_dbase.c:480 src/project_dbase_gui.c:475
 msgid "Project: None"
 msgstr "Projekt: Brak"
 
-#: src/project_dbase.c:1 src/project_dbase.c:1
-#, c-format
-msgid "Couldn't load project: %s"
+#: src/project_dbase.c:616 src/project_dbase.c:635
+#, fuzzy, c-format
+msgid "Unable to load project: %s"
 msgstr "Nie mo¿na wczytaæ projektu: %s"
 
-#: src/project_dbase.c:1
-#, c-format
+#: src/project_dbase.c:627
+#, fuzzy, c-format
 msgid ""
 "Error: You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
-"For the time being, I am too old to load it.:-("
+"For the time being, I am too old to load it."
 msgstr ""
 "B³±d: Anjuta w wersji %s lub nowszy wymagana do otwarcia tego projektu.\n"
 "Proszê uaktualnij program do najnowszej wersji (W menu Pomoc wiêcej "
 "informacji).\n"
 "Czas nie stoi w miejscu, program siê rozwija :-)"
 
-#: src/project_dbase.c:1
-#, c-format
+#: src/project_dbase.c:782
+#, fuzzy, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
-"For the time being, I am too old to load it. :-("
+"For the time being, I am too old to load it."
 msgstr ""
 "B³±d: Anjuta w wersji %s lub nowszy wymagana do otwarcia tego projektu.\n"
 "Proszê uaktualnij program do najnowszej wersji (W menu Pomoc wiêcej "
 "informacji).\n"
 "Czas nie stoi w miejscu, program siê rozwija :-)"
 
-#: src/project_dbase.c:1
+#: src/project_dbase.c:841
 msgid "Project loaded successfully."
 msgstr "Projekt zosta³ wczytany."
 
-#: src/project_dbase.c:1 src/project_dbase.c:1
+#: src/project_dbase.c:856 src/project_dbase.c:860
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "B³±d przy wczytywaniu projektu: %s"
 
-#: src/project_dbase.c:1
+#: src/project_dbase.c:1091
 msgid "Project Saved Successfully"
 msgstr "Projekt zosta³ zapisany"
 
-#: src/project_dbase.c:1 src/project_dbase.c:1
+#: src/project_dbase.c:1097 src/project_dbase.c:1099
 msgid "Unable to save the project."
 msgstr "Nie mo¿na zapisaæ projektu."
 
-#: src/project_dbase.c:1 src/project_dbase.c:1
+#: src/project_dbase.c:1499 src/project_dbase.c:1532
 msgid ""
 "The Project glade file does not\n"
 "exist in the top level project directory."
@@ -3754,139 +4208,11 @@ msgstr ""
 "w nadrzêdnym katalogu projektu."
 
 #. Set project title
-#: src/project_dbase.c:1
+#: src/project_dbase.c:1951
 msgid "Project: "
 msgstr "Projekt: "
 
-#: src/project_config.c:1
-msgid "Project configuration"
-msgstr "Konfiguracja projektu"
-
-#: src/project_config.c:1
-msgid "Disable Overwriting project files"
-msgstr "Blokada nadpisywania plików projektu"
-
-#: src/project_config.c:1
-msgid "Project's configure.in"
-msgstr "Plik configure.in projektu"
-
-#: src/project_config.c:1
-msgid "Top level Makefile.am"
-msgstr "Nadrzêdny Makefile.am"
-
-#: src/project_config.c:1
-msgid "Source module Makefile.am"
-msgstr "Modu³ ¼ród³a Makefile.am"
-
-#: src/project_config.c:1
-msgid "Include module Makefile.am"
-msgstr "Modu³ do³±czania Makefile.am"
-
-#: src/project_config.c:1
-msgid "Help module Makefile.am"
-msgstr "Modu³ pomocy Makefile.am"
-
-#: src/project_config.c:1
-msgid "Pixmap module Makefile.am"
-msgstr "Modu³ piksmapy Makefile.am"
-
-#: src/project_config.c:1
-msgid "Data module Makefile.am"
-msgstr "Modu³ danych Makefile.am"
-
-#: src/project_config.c:1
-msgid "Doc module Makefile.am"
-msgstr "Modu³ dokumentacji Makefile.am"
-
-#: src/project_config.c:1
-msgid "Po module (translation) Makefile.am"
-msgstr "Modu³ po (t³umaczenia) Makefile.am"
-
-#: src/project_config.c:1
-msgid "Build files"
-msgstr "Pliki budowania"
-
-#: src/project_config.c:1
-msgid "Check for programs in config.in"
-msgstr "Sprawdzanie programów w config.in"
-
-#: src/project_config.c:1
-msgid "Program checks"
-msgstr "Programy"
-
-#: src/project_config.c:1
-msgid "Check for libs in config.in"
-msgstr "Sprawdzanie bibliotek w config.in"
-
-#: src/project_config.c:1
-msgid "Library checks"
-msgstr "Biblioteki"
-
-#: src/project_config.c:1
-msgid "Check for header files in config.in"
-msgstr "Sprawdzanie plików nag³ówkowych w config.in"
-
-#: src/project_config.c:1
-msgid "Header checks"
-msgstr "Nag³ówki"
-
-#: src/project_config.c:1
-msgid "Checks for typedefs, structures, and compiler characteristics"
-msgstr "Sprawdzanie definicji typów, struktur i kompilatora"
-
-#: src/project_config.c:1
-msgid "Characteristics check"
-msgstr "Charakterystyki"
-
-#: src/project_config.c:1
-msgid "Check for lib functions in config.in"
-msgstr "Sprawdzanie funkcji bibliotecznych w config.in"
-
-#: src/project_config.c:1
-msgid "Lib functions checks"
-msgstr "Funkcje biblioteczne"
-
-#: src/project_config.c:1
-msgid "Additional scripts in config.in"
-msgstr "Dodatkowe skrypty w config.in"
-
-#: src/project_config.c:1
-msgid "Additional script"
-msgstr "Dodatkowy skrypt"
-
-#: src/project_config.c:1 src/project_config.c:1
-msgid "Files to configure"
-msgstr "Pliki do konfiguracji"
-
-#: src/project_config.c:1
-msgid "Auto scan the project"
-msgstr "Automatyczne skanowanie projektu"
-
-#: src/project_config.c:1
-msgid "Configuration scripts"
-msgstr "Skrypty konfiguracyjne"
-
-#: src/project_config.c:1
-msgid "Extra modules to be built before source module:"
-msgstr "Dodatkowe modu³y budowane przed modu³em ¼ród³owym:"
-
-#: src/project_config.c:1
-msgid "Extra modules to be built after source module:"
-msgstr "Dodatkowe modu³y budowane po module ¼ród³owym:"
-
-#: src/project_config.c:1
-msgid "Modules"
-msgstr "Modu³y"
-
-#: src/project_config.c:1
-msgid "Extra scripts at the end of Top Makefile.am"
-msgstr "Dodatkowe skrypty na koñcu nag³ówka Makefile.am"
-
-#: src/project_config.c:1
-msgid "Makefile.am"
-msgstr "Makefile.am"
-
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:83
 #, c-format
 msgid ""
 "Are you sure you want to remove the item\n"
@@ -3895,102 +4221,106 @@ msgstr ""
 "Czy na pewno chcesz usun±æ obiekt\n"
 "\"%s\" z bazy danych projektu?"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:250
 msgid "There is already a project opened.Do you want to close it first?"
 msgstr "Jest ju¿ jeden otwarty projekt. Czy chcesz go najpierw zamkn±æ?"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:369
 msgid "Doc file"
 msgstr "Plik dokumentacji"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:392
 msgid "View"
 msgstr "Podgl±d"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:412
 msgid "Configure Project"
 msgstr ""
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:418
 msgid "Project Info"
 msgstr "Informacje o projekcie"
 
-#: src/project_dbase_gui.c:1 src/registers_gui.c:1 src/sharedlib_gui.c:1
-#: src/signals_gui.c:1 src/stack_trace_gui.c:1 src/watch_gui.c:1
-msgid "Dock/Undock"
-msgstr "Przy³±cz/Od³±cz"
-
-#: src/project_dbase_gui.c:1 src/registers_gui.c:1 src/sharedlib_gui.c:1
-#: src/signals_gui.c:1 src/stack_trace_gui.c:1 src/toolbar.c:1
-#: src/watch_gui.c:1
+#: src/project_dbase_gui.c:431 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/toolbar.c:308
+#: src/watch_gui.c:67
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/project_dbase_gui.c:1 src/toolbar.c:1
+#: src/project_dbase_gui.c:487
+msgid "Files"
+msgstr "Pliki"
+
+#: src/project_dbase_gui.c:491
+#, fuzzy
+msgid "Symbols"
+msgstr "Style"
+
+#: src/project_dbase_gui.c:498 src/toolbar.c:283
 msgid "Project"
 msgstr "Projekt"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:597
 msgid "Project Information"
 msgstr "Informacje o projekcie"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:604
 msgid " Project Information "
 msgstr " Informacje o projekcie "
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:640
 msgid "Author:"
 msgstr "Autor:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:727
 msgid "Program Name:"
 msgstr "Nazwa programu:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:734
 msgid "No of src files:"
 msgstr "Liczba plików ¼ród³owych:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:741
 msgid "No of help files:"
 msgstr "Liczba plików pomocy:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:748
 msgid "No of data files:"
 msgstr "Liczba plików z danymi:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:755
 msgid "No of pix files:"
 msgstr "Liczba plików graficznych:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:762
 msgid "No of doc files:"
 msgstr "Liczba plików z dokumentacj±:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:783
 msgid "No of po files:"
 msgstr "Liczba plików .po:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:790
 msgid "Version:"
 msgstr "Wersja:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:813
 msgid "GUI editable by Glade:"
 msgstr "GUI modyfikowalne poprzez Glade:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:835
 msgid "Makefiles managed:"
 msgstr "Zarz±dzane pliki Makefile:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:877
 msgid "Gettext support:"
 msgstr "Obs³uga gettext:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:935
 msgid "Project Type:"
 msgstr "Typ projektu:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:978
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -3998,135 +4328,136 @@ msgstr ""
 "Projekt nie jest zapisany.\n"
 "Czy chcesz go zapisaæ przed zamkniêciem?"
 
-#: src/project_dbase_gui.c:1 src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:995 src/project_dbase_gui.c:1115
 msgid "Breton"
 msgstr "Bretoñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:996
 msgid "Catalan"
 msgstr "Kataloñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:997
 msgid "Czech"
 msgstr "Czeski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:998
 msgid "Danish"
 msgstr "Duñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:999
 msgid "German"
 msgstr "Niemiecki"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1000
 msgid "Greek"
 msgstr "Grecki"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1001
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1002
 msgid "Spanish"
 msgstr "Hiszpañski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1003
 msgid "Finnish"
 msgstr "Fiñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1004
 msgid "French"
 msgstr "Francuski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1005
 msgid "Herbrew"
 msgstr "Hebrajski"
 
-#: src/project_dbase_gui.c:1 src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1006 src/project_dbase_gui.c:1010
 msgid "Croatian"
 msgstr "Chorwacki"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1007
 msgid "Hungarian"
 msgstr "Wêgierski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1008
 msgid "Islandic"
 msgstr "Islandzki"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1009
 msgid "Italian"
 msgstr "W³oski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1011
 msgid "Korean"
 msgstr "Koreañski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1012
 msgid "Macedonian"
 msgstr "Macedoñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1013
 msgid "Dutch"
 msgstr "Holenderski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1014
 msgid "Norwegian"
 msgstr "Norweski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1015
 msgid "Polish"
 msgstr "Polski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1016
 msgid "Portuguese"
 msgstr "Portugalski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1017
 msgid "Romanian"
 msgstr "Estoñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1018
 msgid "Russian"
 msgstr "Rosyjski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1019
 msgid "Slovak"
 msgstr "S³oweñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1020
 msgid "Turkish"
 msgstr "Turecki"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1021
 msgid "Simplified Chinese"
 msgstr "Uproszczony chiñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1022
 msgid "Chinese"
 msgstr "Chiñskie"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1023
 msgid "Estonian"
 msgstr "Estoñski"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1067
 msgid "Select regional language"
 msgstr "Wybierz jêzyk"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1083
 msgid "Select Regional Language:"
 msgstr "Wybierz ustawienia jêzykowe:"
 
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1123 src/support.c:100 src/support.c:138
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "Nie mo¿na odnale¼æ pliku z piksmap±: %s"
+
+#: src/project_dbase_gui.c:1195
 msgid "This file has already been added to the project."
 msgstr "Ten plik zosta³ ju¿ dodany do projektu."
 
-#: src/project_dbase_gui.c:1
-msgid "Error while copying the file inside the module."
-msgstr "B³±d przy kopiowaniu pliku wewn±trz modu³u."
-
-#: src/project_dbase_gui.c:1
+#: src/project_dbase_gui.c:1281
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -4137,188 +4468,255 @@ msgstr ""
 "nie istnieje w bie¿±cym katalogu modu³ów.\n"
 "Czy chcesz ZAIMPORTOWAÆ (skopiowaæ) modu³?"
 
-#: src/registers_gui.c:1
+#: src/registers_gui.c:38
 msgid "Modify"
 msgstr "Zmodyfikuj"
 
-#: src/registers_gui.c:1
+#: src/registers_gui.c:85
 msgid "CPU Registers"
 msgstr "Rejestry CPU"
 
-#: src/registers_gui.c:1
+#: src/registers_gui.c:103
 msgid "Register"
 msgstr "Rejestr"
 
-#: src/registers_gui.c:1
+#: src/registers_gui.c:107
 msgid "Hex"
 msgstr "Hex"
 
-#: src/registers_gui.c:1
+#: src/registers_gui.c:111
 msgid "Decimal"
 msgstr "Dziesiêtnie"
 
-#: src/sharedlib_gui.c:1
+#: src/resources.c:58
+msgid "Could not create replacement pixmap."
+msgstr "Nie mo¿na stworzyæ zastêpczej piksmapy."
+
+#: src/resources.c:86
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Nie odnaleziono widgetu: %s"
+
+#: src/resources.c:99
+#, c-format
+msgid "Could not find application image file: %s"
+msgstr "Nie mo¿na odnale¼æ pliku z obrazem aplikacji: %s"
+
+#: src/resources.c:121
+#, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr "Nie mo¿na odnale¼æ pliku z piksmap± aplikacji: %s"
+
+#: src/resources.c:132
+#, c-format
+msgid "Could not find gnome pixmap file: %s"
+msgstr "Nie mo¿na odnale¼æ pliku z piksmap± GNOME: %s"
+
+#: src/resources.c:149
+#, c-format
+msgid "Could not create pixmap from file: %s"
+msgstr "Nie mo¿na stworzyæ piksmapy z pliku: %s"
+
+#: src/resources.c:295 src/resources.c:303
+msgid "Cannot execute Devhelp. Make sure it is installed"
+msgstr ""
+"Nie mo¿na uruchomiæ programu DevHelp. Upewnij siê, ¿e jest on zainstalowany."
+
+#: src/sharedlib_gui.c:76
 msgid "Shared libraries"
 msgstr "Biblioteki dzielone"
 
-#: src/sharedlib_gui.c:1
+#: src/sharedlib_gui.c:96
 msgid "  Shared Object  "
 msgstr "  Obiekt dzielony  "
 
-#: src/sharedlib_gui.c:1
+#: src/sharedlib_gui.c:100
 msgid "From"
 msgstr "Z"
 
-#: src/sharedlib_gui.c:1
+#: src/sharedlib_gui.c:104
 msgid "To"
 msgstr "Do"
 
-#: src/sharedlib_gui.c:1
+#: src/sharedlib_gui.c:108
 msgid "Sysm Read"
 msgstr ""
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:37
 msgid "Modify Signal"
 msgstr "Zmodyfikuj sygna³"
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:44
 msgid "Send to process"
 msgstr "Wy¶lij do procesu"
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:89
 msgid "Kernel signals"
 msgstr "Sygna³y j±dra"
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:110
 msgid "Signal"
 msgstr "Sygna³"
 
-#: src/signals_gui.c:1 src/toolbar.c:1 src/toolbar.c:1
+#: src/signals_gui.c:114 src/toolbar.c:522 src/toolbar.c:1088
 msgid "Stop"
 msgstr "Zatrzymaj"
 
-#: src/signals_gui.c:1 src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/signals_gui.c:118 src/text_editor_gui.c:260 src/toolbar.c:218
 msgid "Print"
 msgstr "Wydrukuj"
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:204
 msgid "Set Signal Property"
 msgstr "Ustawienie w³a¶ciwo¶ci sygna³u"
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:246
 msgid " Stop: "
 msgstr " Zatrzymanie: "
 
-#: src/signals_gui.c:1
+#: src/signals_gui.c:250
 msgid " Print: "
 msgstr " Wypisanie: "
 
+#: src/source.c:113
+#, c-format
+msgid "Error writing to file: %s."
+msgstr "B³±d przy zapisie do pliku: %s."
+
+#: src/source.c:1274
+#, c-format
+msgid "Error writing to : %s."
+msgstr "B³±d przy zapisie do : %s."
+
+#: src/source.c:1485
+msgid "Project type does not support glade."
+msgstr "Ten typ projektu nie obs³uguje glade."
+
 #. set the size to that of our splash image.
-#: src/splash.c:1
+#: src/splash.c:92
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: src/src_paths_gui.c:1
+#: src/src_paths_gui.c:49
 msgid "Source files paths"
 msgstr "¦cie¿ki plików ¼ród³owych"
 
-#: src/src_paths_gui.c:1
+#: src/src_paths_gui.c:145
 msgid "Search Paths"
 msgstr "¦cie¿ki przeszukiwania"
 
-#: src/stack_trace_gui.c:1
+#: src/stack_trace_gui.c:36
 msgid "Frame set"
 msgstr "Ustawienia ramki"
 
-#: src/stack_trace_gui.c:1
+#: src/stack_trace_gui.c:43
 msgid "Frame info"
 msgstr "Informacje o ramce"
 
-#: src/stack_trace_gui.c:1
+#: src/stack_trace_gui.c:98
 msgid "Stack Trace"
 msgstr "Stan stosu"
 
-#: src/stack_trace_gui.c:1 src/toolbar.c:1
+#: src/stack_trace_gui.c:119 src/toolbar.c:1033
 msgid "Frame"
 msgstr "Ramka"
 
-#: src/stack_trace_gui.c:1 src/toolbar.c:1
+#: src/stack_trace_gui.c:123 src/toolbar.c:1061
 msgid "Stack"
 msgstr "Stos"
 
-#: src/tags_manager.c:1
+#: src/support.c:116
+#, c-format
+msgid "Couldn't create pixmap from file: %s"
+msgstr "Nie mo¿na stworzyæ piksmapy z pliku: %s"
+
+#: src/tags_manager.c:187
 msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
 msgstr "# ****** NIE MODYFIKUJ ANI NIE ZMIENIAJ NAZWY TEGO PLIKU ******\n"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:190
 msgid ""
 "# ******************* Created by  Anjuta ********************************\n"
 msgstr ""
 "# ********** Stworzone za pomoc± programu Anjuta ************************\n"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:193
 msgid "# ***************** Anjuta Tags cache file ********************\n"
 msgstr ""
 
-#: src/tags_manager.c:1 src/toolbar.c:1
+#: src/tags_manager.c:503 src/toolbar.c:610
 msgid "File:"
 msgstr "Plik:"
 
-#: src/tags_manager.c:1 src/toolbar.c:1
+#: src/tags_manager.c:506 src/toolbar.c:633
 msgid "Function:"
 msgstr "Funkcja:"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:543
 msgid "Class:"
 msgstr "Klasa:"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:546
 msgid "Mem Func:"
 msgstr "Funkcja klasy:"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:587
 msgid "Tag:"
 msgstr "Znacznik:"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:641
+msgid "Cannot execute ctags"
+msgstr "Nie mo¿na uruchomiæ ctags"
+
+#: src/tags_manager.c:646
+#, c-format
+msgid ""
+"Cannot fork to execute ctags. I donno why!!\n"
+"In %s:%d"
+msgstr ""
+"Nie mo¿na stworzyæ procesu, aby uruchomiæ ctags. Przyczyna nieznana.\n"
+"W %s:%d"
+
+#: src/tags_manager.c:765
 msgid "Synchronizing and updating Tags Image ... hold on"
 msgstr "Synchronizacja i uaktualnianie obrazu znaczników ... chwileczkê"
 
-#: src/tags_manager.c:1
+#: src/tags_manager.c:797
 msgid "Updating Tags image completed"
 msgstr "Uaktualnianie obrazu znaczników zakoñczone"
 
-#: src/tags_manager.c:1
-msgid "Syncdronization of Tags image failed"
+#: src/tags_manager.c:833
+#, fuzzy
+msgid "Synchronization of Tags image failed"
 msgstr "Synchronizacja obrazu znaczników nie powiod³a siê"
 
-#: src/text_editor.c:1
+#: src/text_editor.c:781
 msgid "Loading file ..."
 msgstr "Wczytywanie pliku ..."
 
-#: src/text_editor.c:1
+#: src/text_editor.c:787
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Nie mo¿na wczytaæ pliku: %s"
 
-#: src/text_editor.c:1
+#: src/text_editor.c:816
 msgid "File loaded successfully"
 msgstr "Plik zosta³ wczytany"
 
-#: src/text_editor.c:1
+#: src/text_editor.c:831
 msgid "Saving file ..."
 msgstr "Zapisywanie pliku ..."
 
-#: src/text_editor.c:1
+#: src/text_editor.c:836
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nie mo¿na zapisaæ pliku: %s."
 
-#: src/text_editor.c:1
+#: src/text_editor.c:863
 msgid "File saved successfully"
 msgstr "Plik zosta³ zapisany"
 
-#: src/text_editor.c:1
+#: src/text_editor.c:958
 #, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
@@ -4329,219 +4727,243 @@ msgstr ""
 "znajduj±cy siê w bie¿±cym buforze.\n"
 "Czy chcesz go prze³adowaæ?"
 
-#: src/text_editor.c:1
+#: src/text_editor.c:1074
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Opcja automatycznego formatowania jest wy³±czona. Je¶li jej potrzebujesz "
 "w³±cz j± w menu ustawieñ"
 
-#: src/text_editor.c:1
+#: src/text_editor.c:1080
 msgid "Auto formatting ..."
 msgstr "Automatyczne formatowanie ..."
 
-#: src/text_editor.c:1 src/text_editor.c:1
+#: src/text_editor.c:1090 src/text_editor.c:1117
 msgid "Error in auto formatting ..."
 msgstr "Podczas automatycznego formatowania wyst±pi³ b³±d ..."
 
-#: src/text_editor.c:1
+#: src/text_editor.c:1123
 msgid "Auto formatting completed"
 msgstr "Zakoñczono automatyczne formatowanie"
 
-#: src/text_editor_cbs.c:1
+#: src/text_editor_cbs.c:187
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Automatycznie zapisano \"%s\""
 
-#: src/text_editor_cbs.c:1
+#: src/text_editor_cbs.c:191
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Automatyczny zapis \"%s\" -- bez powodzenia"
 
-#: src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/text_editor_gui.c:112 src/toolbar.c:109
 msgid "New"
 msgstr "Nowy"
 
-#: src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/text_editor_gui.c:112 src/toolbar.c:109
+msgid "New Text File"
+msgstr "Nowy plik tekstowy"
+
+#: src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
 msgstr "Otwórz"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:122
 msgid "Open Text File"
 msgstr "Otwiera plik tekstowy"
 
-#: src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/text_editor_gui.c:134 src/toolbar.c:133
 msgid "Save"
 msgstr "Zapisz"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:134
 msgid "Save Current File"
 msgstr "Zapisuje bie¿±cy plik"
 
-#: src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/text_editor_gui.c:144 src/toolbar.c:168
 msgid "Reload"
 msgstr "Od¶wie¿"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:145
 msgid "Reload Current File"
 msgstr "Ponownie odczytuje bie¿±cy plik"
 
-#: src/text_editor_gui.c:1 src/text_editor_menu.c:1
+#. 0
+#: src/text_editor_gui.c:156 src/text_editor_menu.c:234
 msgid "Cut"
 msgstr "Wytnij"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:156
 msgid "Cut to clipboard"
 msgstr "Wycina do schowka"
 
-#: src/text_editor_gui.c:1 src/text_editor_menu.c:1
+#. 1
+#: src/text_editor_gui.c:165 src/text_editor_menu.c:242
 msgid "Copy"
 msgstr "Skopiuj"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:166
 msgid "Copy to clipboard"
 msgstr "Kopiuje do schowka"
 
-#: src/text_editor_gui.c:1 src/text_editor_menu.c:1
+#. 2
+#: src/text_editor_gui.c:175 src/text_editor_menu.c:250
 msgid "Paste"
 msgstr "Wklej"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:176
 msgid "Paste from clipboard"
 msgstr "Wkleja ze schowka"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:188
 msgid "Search the given string"
 msgstr "Wyszukuje zadany tekst"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:198
 msgid "Replace"
 msgstr "Zast±p"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:200
 msgid "Search and replace the given string"
 msgstr "Wyszukuje i zastêpuje zadany tekst"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:220
 msgid "line: "
 msgstr "wiersz: "
 
-#: src/text_editor_gui.c:1 src/toolbar.c:1
+#: src/text_editor_gui.c:236 src/toolbar.c:452
 msgid "Compile the current file"
 msgstr "Kompiluje bie¿±cy plik"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:248
 msgid "Build current File or Build the source directory of the Project"
 msgstr "Buduje bie¿±cy plik lub buduje katalog ¼ród³owy projektu"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:261
 msgid "Print the current File"
 msgstr "Drukuje bie¿±cy plik"
 
-#: src/text_editor_gui.c:1
+#: src/text_editor_gui.c:273
 msgid "Attach the editor window as paged editor"
 msgstr "Do³±cza okno edytora jako edytor stronnicowy"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:72
+#, fuzzy
+msgid "Back"
+msgstr "Wstecz"
+
+#: src/text_editor_menu.c:86
+#, fuzzy
+msgid "History"
+msgstr " Rozmiar historii "
+
+#: src/text_editor_menu.c:95
+#, fuzzy
+msgid "Symbol Definition"
+msgstr "/Definicja _klasy"
+
+#: src/text_editor_menu.c:103
 msgid "Prev mesg"
 msgstr "Poprzeni komunikat"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:109
 msgid "Next mesg"
 msgstr "Nastêpny komunikat"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:115
 msgid "Prev bookmark"
 msgstr "Poprzednia zak³adka"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:121
 msgid "Next bookmark"
 msgstr "Nastêpna zak³adka"
 
-#: src/text_editor_menu.c:1 src/toolbar.c:1
+#: src/text_editor_menu.c:138 src/toolbar.c:957
 msgid "Step in"
 msgstr "Krok z wej¶ciem"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:144
 msgid "Step over"
 msgstr "Krok nad"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:150
 msgid "Step out"
 msgstr "Krok z wyj¶ciem"
 
-#: src/text_editor_menu.c:1 src/toolbar.c:1
+#: src/text_editor_menu.c:156 src/toolbar.c:946
 msgid "Run to cursor"
 msgstr "Przechodzi do kursora"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:162
 msgid "Run/Continue"
 msgstr "Uruchamia/kontynuuje"
 
-#: src/text_editor_menu.c:1 src/toolbar.c:1
+#: src/text_editor_menu.c:169 src/toolbar.c:1020
 msgid "Inspect"
 msgstr "Bada"
 
-#: src/text_editor_menu.c:1 src/toolbar.c:1
+#: src/text_editor_menu.c:176 src/toolbar.c:994
 msgid "Interrupt"
 msgstr "Przerwanie"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:186
 msgid "Toggle Linenums"
 msgstr "Prze³±cz numeracjê wierszy"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:193
 msgid "Toggle Marker Margin"
 msgstr "Prze³±cz znaczniki na marginesie"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:200
 msgid "Toggle Fold Margin"
 msgstr "Prze³±cz margines sekcji"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:207
 msgid "Toggle Guides"
 msgstr "Prze³±cz prowadnice"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:215
 msgid "++Zoom"
 msgstr "Powiêkszenie tekstu"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:222
 msgid "--Zoom"
 msgstr "Zmniejszenie tekstu"
 
-#: src/text_editor_menu.c:1
-msgid "Goto Tag"
-msgstr ""
-
-#: src/text_editor_menu.c:1
+#. 6
+#: src/text_editor_menu.c:270
 msgid "Toggle Bookmark"
 msgstr "Prze³±cz zak³adkê"
 
-#: src/text_editor_menu.c:1
+#. 7
+#: src/text_editor_menu.c:278
 msgid "Auto format"
 msgstr "Autoformatuj"
 
-#: src/text_editor_menu.c:1
+#. 8
+#: src/text_editor_menu.c:286
 msgid "Swap .h/.c"
 msgstr "Zamieñ .h/.c"
 
-#: src/text_editor_menu.c:1
-msgid "Goto"
-msgstr "Przejd¼ do"
+#. 10
+#: src/text_editor_menu.c:296 src/toolbar.c:933
+msgid "Go"
+msgstr "Przejd¼"
 
-#: src/text_editor_menu.c:1
+#. 15
+#: src/text_editor_menu.c:324
 msgid "Options"
 msgstr "Opcje"
 
-#: src/text_editor_menu.c:1 src/toolbar.c:1
+#. 17
+#: src/text_editor_menu.c:334 src/toolbar.c:157
 msgid "Close"
 msgstr "Zamknij"
 
-#: src/text_editor_menu.c:1
+#: src/text_editor_menu.c:394
 msgid "Functions "
 msgstr "Funkcje"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:98
 msgid ""
 "Status LED: \n"
 "1) Red is busy.2)Green is ready.\n"
@@ -4551,680 +4973,458 @@ msgstr ""
 "1) Kolor czerwony oznacza zajêto¶æ.2)Kolor zielony oznacza gotowo¶æ.\n"
 "3) Migotanie oznacza gotowo¶æ, lecz z prac± w tle."
 
-#: src/toolbar.c:1
+#: src/toolbar.c:144
 msgid "Save All"
 msgstr ""
 
-#: src/toolbar.c:1
+#: src/toolbar.c:181
 msgid "Undo"
 msgstr "Cofnij"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:192
 msgid "Redo"
 msgstr "Ponów"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:206
 msgid "Detach"
 msgstr "Od³±cz"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:207
 msgid "Detach the current page"
 msgstr "Od³±cza bie¿±c± stronê"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:232
 msgid "Search for the given string in the current file"
 msgstr "Szuka zadanego tekstu w bie¿±cym pliku"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:250
 msgid "Enter the string to search for"
 msgstr "Wprowad¼ wyszukiwany napis"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:260
 msgid "Go To"
 msgstr "Przejd¼ do"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:261
 msgid "Go to the given line number in the current file"
 msgstr "Przechodzi w bie¿±cym pliku do wiersza o podanym numerze"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:272
 msgid "Enter the line number to go to"
 msgstr "Wprowad¼ numer wiersza, do którego chcesz przej¶æ"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:295
 msgid "Compile/Build/Debug Messages"
 msgstr "Komunikaty kompilacji/budowania/debugowania"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:309
 msgid "Context sensitive help"
 msgstr "Pomoc kontekstowa"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:424
 msgid "Save Project"
 msgstr "Zapisuje projekt"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:437
 msgid "Close Project"
 msgstr "Zamyka projekt"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:464
 msgid "Run configure"
 msgstr "Uruchamia konfigurowanie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:476
 msgid "Build current file, or build the source directory of the Project"
 msgstr "Buduje bie¿±cy plik, lub buduje katalog ¼ród³owy projektu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:487
 msgid "Build_all"
 msgstr ""
 
-#: src/toolbar.c:1
+#: src/toolbar.c:489
 msgid "Build from the top directory of the Project"
 msgstr ""
 
-#: src/toolbar.c:1
+#: src/toolbar.c:512
 msgid "Start the Debugger"
 msgstr "Uruchamia debuger"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:523
 msgid "Stop/interrupt compile or build"
 msgstr "Zatrzymuje/wstrzymuje kompilacjê lub budowanie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:604
 msgid "Select the type of tag"
 msgstr ""
 
-#: src/toolbar.c:1
+#: src/toolbar.c:628
 msgid "Source File"
 msgstr "Plik ¼ród³owy"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:651
 msgid "Tag in the file"
 msgstr "Znacznik w pliku"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:662
 msgid "wizard"
 msgstr "druid"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:662
 msgid "The Wizard"
 msgstr "Druid"
 
-#: src/toolbar.c:1 src/toolbar.c:1
+#: src/toolbar.c:740 src/toolbar.c:1185
 msgid "Toggle"
 msgstr "Prze³±cz"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:742
 msgid "Toggle bookmark at current location"
 msgstr "Prze³±cza zak³adkê na bie¿±cej lokalizacji"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:754
 msgid "First"
 msgstr "Pierw"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:756
 msgid "Goto first bookmark in this document"
 msgstr "Przechodzi do pierwszej zak³adki dokumentu"
 
-#: src/toolbar.c:1 src/toolbar.c:1
+#: src/toolbar.c:768 src/toolbar.c:811
 msgid "Prev"
 msgstr "Poprz"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:770
 msgid "Goto previous bookmark in this document"
 msgstr "Przechodzi do poprzedniej zak³adki dokumentu"
 
-#: src/toolbar.c:1 src/toolbar.c:1
+#: src/toolbar.c:782 src/toolbar.c:824
 msgid "Next"
 msgstr "Nast"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:784
 msgid "Goto next bookmark in this document"
 msgstr "Przechodzi do nastêpnej zak³adki dokumentu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:796
 msgid "Last"
 msgstr "Ostat"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:798
 msgid "Goto last bookmark in this document"
 msgstr "Przechodzi do ostatniej zak³adki dokumentu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:813
 msgid "Goto previous message in this document"
 msgstr "Przechodzi do poprzedniego komunikatu w tym dokumencie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:826
 msgid "Goto next message in this document"
 msgstr "Przechodzi do nastêpnego komunikatu w tym dokumencie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:840
 msgid "Start"
 msgstr "Pocz"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:842
 msgid "Goto start of current code block"
 msgstr "Przechodzi na pocz±tek bie¿±cego bloku kodu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:853
 msgid "End"
 msgstr "Koniec"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:855
 msgid "Goto end of current code block"
 msgstr "Przechodzi na koniec bie¿±cego bloku kodu"
 
-#: src/toolbar.c:1
-msgid "Go"
-msgstr "Przejd¼"
-
-#: src/toolbar.c:1
+#: src/toolbar.c:934
 msgid "Go or continue execution"
 msgstr "Idzie lub kontynuuje wykonanie programu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:945
 msgid "Run"
 msgstr "Uruchom"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:958
 msgid "Single step in execution"
 msgstr "Pojedynczy krok w wykonywaniu programu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:969
 msgid "Step Over"
 msgstr "Krok nad"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:970
 msgid "Step over the function"
 msgstr "Krok nad funkcj±"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:980
 msgid "Step Out"
 msgstr "Krok z wyj¶ciem"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:981
 msgid "Step out of the function"
 msgstr "Krok z wyj¶ciem z funkcji"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1009
 msgid "Breakpoint"
 msgstr "Punkt przerwania"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1010
 msgid "Toggle breakpoint at cursor"
 msgstr "Prze³±cza punkt przerwania na pozycji kursora"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1022
 msgid "Inspect or evaluate an expression"
 msgstr "Bada lub ocenia wyra¿enie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1035
 msgid "Display the current frame information"
 msgstr "Wy¶wietla informacje o bie¿±cej ramce"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1048
 msgid "Watch"
 msgstr "Obserwuj"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1050
 msgid "Watch expressions during execution"
 msgstr "Obserwacja wyra¿eñ w trakcie wykonywania"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1062
 msgid "Stack trace of the program"
 msgstr "Stan stosu programu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1073
 msgid "Registers"
 msgstr "Rejestry"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1075
 msgid "CPU registers and their contents"
 msgstr "Rejestry CPU i ich zawarto¶æ"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1089
 msgid "End the debugging session"
 msgstr "Koñczy sesjê debugowania"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1187
 msgid "Toggle current code fold hide/show"
 msgstr "Wy¶wietla/ukrywa bie¿±c± sekcjê kodu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1198
 msgid "Close all"
 msgstr "Zamknij wszystkie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1200
 msgid "Close all code folds in this document"
 msgstr "Zamyka wszystkie sekcje kodu w tym dokumencie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1211
 msgid "Open all"
 msgstr "Otwórz wszystkie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1213
 msgid "Open all code folds in this document"
 msgstr "Otwiera wszystkie sekcje kodu w tym dokumencie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1227
 msgid "Select"
 msgstr "Zaznacz"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1228
 msgid "Select current code block"
 msgstr "Zaznacza bie¿±cy blok programu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1239
 msgid "Indent inc"
 msgstr "Zwiêksz wciêcie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1241
 msgid "Increase indentation of block/line"
 msgstr "Zwiêksza wciêcie bloku lub wiersza"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1252
 msgid "Indent dcr"
 msgstr "Zmniejsz wciêcie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1254
 msgid "Decrease indentation of block/line"
 msgstr "Zmniejsza wciêcie bloku lub wiersza"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1268
 msgid "Autoformat"
 msgstr "Autoformatowanie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1270
 msgid "Automatically format the code"
 msgstr "Automatycznie formatuje kod programu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1282
 msgid "Format style"
 msgstr "Styl formatowania"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1283
 msgid "Configure style to use for auto format"
 msgstr "Ustawia styl u¿ywany przy automatycznym formatowaniu"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1296
 msgid "Calltip"
 msgstr "Podpowied¼"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1296
 msgid "Show Calltip"
 msgstr "Wy¶wietla podpowied¼"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1310
 msgid "Autocomplete"
 msgstr "Autouzupe³nianie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1311
 msgid "Autocomplete word"
 msgstr "Automatycznie uzupe³nia s³owo"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1364
 msgid "Functions"
 msgstr "Funkcje"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1371
+msgid "Classes"
+msgstr "Klasy"
+
+#: src/toolbar.c:1378
 msgid "Structs"
 msgstr "Struktury"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1385
 msgid "Unions"
 msgstr "Unie"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1392
 msgid "Enums"
 msgstr "Wyliczenia"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1399
 msgid "Variables"
 msgstr "Zmienne"
 
-#: src/toolbar.c:1
+#: src/toolbar.c:1406
 msgid "Macros"
 msgstr "Makra"
 
 # [cyba] A niby autor powinien wiedzieæ, co pisze...
-#: src/toolbar_callbacks.c:1
+#: src/toolbar_callbacks.c:183
 #, c-format
 msgid "There is line no. %d in \"%s\"."
 msgstr "Wiersz o numerze %d nie wystêpuje w pliku \"%s\"."
 
-#: src/utilities.c:1
+#: src/utilities.c:697
 #, c-format
 msgid "Couldn't read file: %s."
 msgstr "Nie mo¿na odczytaæ pliku: %s"
 
-#: src/source.c:1 src/source.c:1 src/source.c:1 src/source.c:1
-#: src/source.c:1 src/source.c:1 src/source.c:1 src/source.c:1
-#: src/source.c:1 src/source.c:1 src/source.c:1 src/source.c:1
-#: src/source.c:1 src/source.c:1 src/source.c:1 src/source.c:1
-#: src/source.c:1 src/source.c:1 src/source.c:1 src/source.c:1
-#: src/source.c:1 src/source.c:1 src/source.c:1 src/source.c:1
-#: src/source.c:1 src/utilities.c:1
-#, c-format
-msgid "Couldn't create file: %s."
-msgstr "Nie mo¿na stworzyæ pliku: %s."
-
-#: src/utilities.c:1
+#: src/utilities.c:739
 msgid "Couldn't complete file copy"
 msgstr "Nie mo¿na zakoñczyæ kopiowania pliku"
 
-#: src/watch.c:1
+#: src/watch.c:90
 msgid "< Not defined in current context >"
 msgstr "< Niezdefiniowane w bie¿±cym kontek¶cie >"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:36
 msgid "Add expression"
 msgstr "Dodaj wyra¿enie"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:48
 msgid "Update all"
 msgstr "Uaktualnij wszystko"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:60
 msgid "Toggle enable"
 msgstr "Prze³±czanie mo¿liwe"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:98
 msgid "Expression Watch"
 msgstr "Okno obserwacji"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:118
 msgid "Expression"
 msgstr "Wyra¿enie"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:124
 msgid "Value"
 msgstr "Warto¶æ"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:172
 msgid "Add Watch Expression"
 msgstr "Dodaje wyra¿enie do okna obserwacji"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:181
 msgid "Add expression to watch"
 msgstr ""
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:237
 msgid "Inspect/Evaluate"
 msgstr "Zbadaj/Obejrzyj"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:246
 msgid "Inspect/Evaluate Expression"
 msgstr "Umo¿liwia badanie/ogl±danie wyra¿enia"
 
-#: src/watch_gui.c:1
+#: src/watch_gui.c:268
 msgid "Add To Watch"
 msgstr ""
 
-#: src/about.c:1
-msgid "Copyright (c) 1999-2001 Naba Kumar"
-msgstr "Copyright (c) 1999-2001 Naba Kumar"
+#~ msgid "/_Function Definition"
+#~ msgstr "/Definicja f_unkcji"
 
-#: src/about.c:1
-msgid "Anjuta Home Site"
-msgstr "Witryna domowa Anjunty"
+#~ msgid "/Function _Declaration"
+#~ msgstr "/Deklaracja fun_kcji"
 
-#: src/appwiz_page4.c:1
-msgid "Enter any additional Project options"
-msgstr "Wprowad¼ dodatkowe opcje projektu"
+#~ msgid "/_Shell here"
+#~ msgstr "/_Pow³oka w tym miejscu"
 
-#: src/appwiz_page4.c:1
-msgid " Project Options "
-msgstr " Opcje projektu "
+#~ msgid "/_Open"
+#~ msgstr "/_Otwórz"
 
-#: src/appwiz_page4.c:1
-msgid "Include GNU Copyright statement in file headings"
-msgstr "Do³±czanie informacji dotycz±cej licencji GNU w nag³ówkach plików"
+#~ msgid "Scanning and Updating files. Please Wait ..."
+#~ msgstr "Analizowanie i aktualizowanie plików. Poczekaj chwilê ..."
 
-#: src/appwiz_page4.c:1
-msgid "Enable Gettext Support"
-msgstr "Obs³uga biblioteki gettext"
+#~ msgid "Updating file:"
+#~ msgstr "Aktualizowanie pliku:"
 
-#: src/appwiz_page4.c:1
-msgid "GNOME Menu Entry"
-msgstr "Wpis menu GNOME"
+#~ msgid "Updating file: "
+#~ msgstr "Aktualizowanie pliku: "
 
-#: src/appwiz_page4.c:1
-msgid "Entry name:"
-msgstr "Nazwa wpisu:"
+#~ msgid "Add Function"
+#~ msgstr "Nowa funkcja"
 
-#: src/appwiz_page4.c:1
-msgid "Comment:"
-msgstr "Komentarz:"
+#~ msgid "Function declaration:"
+#~ msgstr "Deklaracja funkcji:"
 
-#: src/appwiz_page4.c:1
-msgid "Group:"
-msgstr "Grupa:"
+#~ msgid "GTK-- project"
+#~ msgstr "Projekt GTK--"
 
-#: src/appwiz_page4.c:1
-msgid "Needs terminal"
-msgstr "Wymaga terminala"
+#~ msgid "GNOME-- project"
+#~ msgstr "Projekt GNOME--"
 
-#: src/source.c:1
-#, c-format
-msgid "Error writing to file: %s."
-msgstr "B³±d przy zapisie do pliku: %s."
+#~ msgid "Unknown type in Message window\n"
+#~ msgstr "Nieznany typ w oknie komunikatów\n"
 
-#: src/source.c:1
-#, c-format
-msgid "Error writing to : %s."
-msgstr "B³±d przy zapisie do : %s."
+#~ msgid "Build messages"
+#~ msgstr "Komunikaty dotycz±ce budowania"
 
-#: src/source.c:1
-msgid "Project type does not support glade."
-msgstr "Ten typ projektu nie obs³uguje glade."
+#~ msgid "Find messages"
+#~ msgstr "Komunikaty dotycz±ce przeszukiwania"
 
-#: src/anjuta.c:1 src/anjuta.c:1
-#, c-format
-msgid "Anjuta: Caught signal %d (%s) !"
-msgstr "Anjuta: Otrzymano sygna³ %d (%s)!"
+#~ msgid "CVS messages"
+#~ msgstr "Komunikaty CVS-a"
 
-#. Must declare static, because it will be used forever
-#: src/anjuta.c:1
-msgid "Open File"
-msgstr "Wybór otwieranego pliku"
+#~ msgid "Embedded Terminal"
+#~ msgstr "Zagnie¿d¿ony terminal"
 
-#. Must declare static, because it will be used forever
-#: src/anjuta.c:1 src/anjuta.c:1
-msgid "Save File As"
-msgstr "Zapis pliku pod podan± nazw±"
+#~ msgid "Dock"
+#~ msgstr "Zadokuj"
 
-#: src/anjuta.c:1
-msgid "Cannot create application... exiting\n"
-msgstr "Nie mo¿na stworzyæ aplikacji... zakoñczenie\n"
+#~ msgid "Goto"
+#~ msgstr "Przejd¼ do"
 
-#: src/anjuta.c:1 src/anjuta.c:1 src/anjuta.c:1 src/anjuta.c:1
-#, c-format
-msgid "Anjuta: %s"
-msgstr "Anjuta: %s"
-
-#: src/anjuta.c:1
-msgid "Recent Files "
-msgstr "Ostatnie pliki "
-
-#: src/anjuta.c:1
-msgid "CVS is not yet implemented. :-(\n"
-msgstr "CVS nie zosta³ jeszcze zaimplementowany. :-(\n"
-
-#: src/anjuta.c:1
-msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
-msgstr ""
-"# * NIE MODYFIKUJ ANI NIE ZMIENIAJ NAZWY TEGO PLIKU ** Wygenerowany przez "
-"Anjutê **\n"
-
-#: src/anjuta.c:1
-#, c-format
-msgid "Anjuta: %s (Saved)"
-msgstr "Anjuta: %s (zapisany)"
-
-#: src/anjuta.c:1
-#, c-format
-msgid "Anjuta: %s (Unsaved)"
-msgstr "Anjuta: %s (niezapisany)"
-
-#: src/anjuta.c:1
-msgid "Anjuta: No file"
-msgstr "Anjuta: Brak pliku"
-
-#: src/anjuta.c:1
-msgid "ERROR: "
-msgstr "B£¡D: "
-
-#: src/anjuta.c:1
-msgid ""
-"\n"
-"System: "
-msgstr ""
-"\n"
-"System: "
-
-#: src/anjuta.c:1
-#, c-format
-msgid ""
-"Not yet implemented.\n"
-"Insert code at \"%s:%u\""
-msgstr ""
-"Jeszcze nie zaimplementowano.\n"
-"Wstaw kod w \"%s:%u\""
-
-#: src/anjuta.c:1
-msgid "Activate this to select this window"
-msgstr ""
-
-#: src/anjuta.c:1
-#, c-format
-msgid ""
-"The \"%s\" utility is not installed.\n"
-"Install it and then restart Anjuta."
-msgstr ""
-"W systemie nie jest zainstalowane narzêdzie \"%s\".\n"
-"Zainstaluj je i ponownie uruchom Anjutê."
-
-#: src/anjuta.c:1 src/anjuta.c:1
-msgid "None"
-msgstr "Brak"
-
-#: src/anjuta.c:1
-msgid "OVR"
-msgstr "NDP"
-
-#: src/anjuta.c:1 src/anjuta.c:1
-msgid "INS"
-msgstr "WST"
-
-#: src/anjuta.c:1
-#, c-format
-msgid ""
-"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
-"Job: %s"
-msgstr ""
-"  Projekt: %s      Powiêkszenie: %d    Wiersz: %04d    Kolumna: %03d       "
-"%s     Zadanie: %s"
-
-#: src/anjuta.c:1 src/anjuta.c:1
-#, c-format
-msgid "Unable to Load Plug in Module %s. Err: %s"
-msgstr "Nie mo¿na za³adowaæ modu³u wtyczki %s. B³±d: %s"
-
-#: src/anjuta.c:1
-#, c-format
-msgid "Plug in Module protocol unknown %s Err:%s"
-msgstr "Modu³ wtyczki %s ma niew³a¶ciwy format. B³±d: %s"
-
-#: src/anjuta.c:1
-#, c-format
-msgid "Unable to Start Plug in Module %s"
-msgstr "Nie mo¿na uruchomiæ modu³u wtyczki %s"
-
-#: src/anjuta.c:1
-#, c-format
-msgid "Bad Parameters to Plug in %s. Err: %s"
-msgstr "Niepoprawne parametry dla wtyczki %s. B³±d: %s"
-
-#: src/anjuta.c:1
-#, c-format
-msgid ""
-"Unable to load plugin %s.\n"
-"Error %s"
-msgstr ""
-"Nie mo¿na za³adowaæ wtyczki %s.\n"
-"B³±d %s"
-
-#: src/anjuta.c:1
-msgid "Out of Memory scanning for plugins."
-msgstr "Przy wyszukiwaniu wtyczek zabrak³o pamiêci."
-
-#: src/anjuta_gui.c:1 src/anjuta_gui.c:1
-msgid "Click here to undock this window"
-msgstr "Aby od³±czyæ to okno, kliknij tutaj"
-
-#: src/anjuta_gui.c:1 src/anjuta_gui.c:1
-msgid "Click here to hide this window"
-msgstr "Aby ukryæ to okno, kliknij tutaj"
-
-#: src/glade_iface.c:1
-msgid "Cannot fork glade."
-msgstr "Nie mo¿na stworzyæ procesu dla glade."
-
-#: src/glade_iface.c:1
-msgid "Cannot fork glade--."
-msgstr "Nie mo¿na stworzyæ procesu dla glade--."
-
-#: src/resources.c:1
-msgid "Could not create replacement pixmap."
-msgstr "Nie mo¿na stworzyæ zastêpczej piksmapy."
-
-#: src/resources.c:1
-#, c-format
-msgid "Widget not found: %s"
-msgstr "Nie odnaleziono widgetu: %s"
-
-#: src/resources.c:1
-#, c-format
-msgid "Could not find application image file: %s"
-msgstr "Nie mo¿na odnale¼æ pliku z obrazem aplikacji: %s"
-
-#: src/resources.c:1
-#, c-format
-msgid "Could not find application pixmap file: %s"
-msgstr "Nie mo¿na odnale¼æ pliku z piksmap± aplikacji: %s"
-
-#: src/resources.c:1
-#, c-format
-msgid "Could not find gnome pixmap file: %s"
-msgstr "Nie mo¿na odnale¼æ pliku z piksmap± GNOME: %s"
-
-#: src/resources.c:1
-#, c-format
-msgid "Could not create pixmap from file: %s"
-msgstr "Nie mo¿na stworzyæ piksmapy z pliku: %s"
-
-#: src/resources.c:1 src/resources.c:1
-msgid "Cannot execute Devhelp. Make sure it is installed"
-msgstr ""
-"Nie mo¿na uruchomiæ programu DevHelp. Upewnij siê, ¿e jest on zainstalowany."
-
-#: plugins/sample1/plugin-sample1.c:1
-msgid "Sample Plugin Description. Holla!"
-msgstr "Opis przyk³adowej wtyczki."
-
-#: plugins/sample1/plugin-sample1.c:1
-msgid "Hello world!"
-msgstr "Witaj ¶wiecie!"
-
-#: plugins/sample1/plugin-sample1.c:1
-msgid "Sample plugin!"
-msgstr "Przyk³adowa wtyczka!"
-
-#: plugins/sample1/plugin-sample1.c:1
-msgid "Sample plugin"
-msgstr "Przyk³adowa wtyczka"
-
-#: plugins/sample1/plugin-sample1.c:1
-msgid "This is a sample plugin"
-msgstr "To jest przyk³adowa wtyczka"
+#~ msgid "CVS is not yet implemented. :-(\n"
+#~ msgstr "CVS nie zosta³ jeszcze zaimplementowany. :-(\n"

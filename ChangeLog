@@ -1,3 +1,13 @@
+2002-01-24	Johannes Schmid <clubfan@users.sourceforge.net>
+	* src/anjuta_cbs.c: Fixed bug #506441
+	* src/watch_gui.c: Changed layout of eval dialog so that
+	it fits on a 800x600 desktop with German translation. 
+
+2002-01-24	Johannes Schmid <clubfan@users.sourceforge.net>
+	* src/anjuta_cbs.c: Fixed bug #506441
+	* src/watch_gui.c: Changed layout of eval dialog so that
+	it fits on a 800x600 desktop with German translation. 
+
 2002-01-23	Andy Piper <andy.piper@freeuk.com>
 
 	* src/project_dbase.c: completed string updates for GTKmm and GNOMEmm

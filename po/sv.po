@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2002-01-21 18:41+0100\n"
+"POT-Creation-Date: 2002-01-25 12:14+0530\n"
 "PO-Revision-Date: 2002-01-21 18:41+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -100,11 +100,11 @@ msgstr "CORBA-modulen är inte initierad"
 msgid "Error while copying the file inside the module."
 msgstr "Fel vid kopiering av filen inuti modulen."
 
-#: src/about.c:66
+#: src/about.c:68
 msgid "Copyright (c) 1999-2002 Naba Kumar"
 msgstr "Copyright © 1999-2002 Naba Kumar"
 
-#: src/about.c:77
+#: src/about.c:79
 msgid "Anjuta Home Site"
 msgstr "Hemsida för Anjuta"
 
@@ -308,12 +308,14 @@ msgid "GNOME project"
 msgstr "GNOME-projekt"
 
 #: src/appwiz_page1.c:146
-msgid "GTK-- project"
-msgstr "Projekt med GTK--"
+#, fuzzy
+msgid "GTKmm project"
+msgstr "GTK-projekt"
 
 #: src/appwiz_page1.c:150
-msgid "GNOME-- project"
-msgstr "Projekt med GNOME--"
+#, fuzzy
+msgid "GNOMEmm project"
+msgstr "GNOME-projekt"
 
 #: src/appwiz_page1.c:154
 msgid "Bonobo component"
@@ -3627,11 +3629,16 @@ msgstr "Lokala variabler"
 msgid "Terminal"
 msgstr "Terminal"
 
-#: src/message-manager.cc:144
-msgid "/Dock | Undock"
-msgstr "/Docka | Koppla loss"
+#: src/message-manager.cc:146 src/project_dbase_gui.c:425
+msgid "Dock/Undock"
+msgstr "Docka/Koppla loss"
 
-#: src/message-manager.cc:469 src/preferences_gui.c:230 src/toolbar.c:294
+#: src/message-manager.cc:266
+#, fuzzy, c-format
+msgid "Could not find message type %s!\n"
+msgstr "Kunde inte hitta gnome pixmap-fil: %s"
+
+#: src/message-manager.cc:472 src/preferences_gui.c:230 src/toolbar.c:294
 msgid "Messages"
 msgstr "Meddelanden"
 
@@ -4200,10 +4207,6 @@ msgstr "Konfigurera projekt"
 #: src/project_dbase_gui.c:418
 msgid "Project Info"
 msgstr "Projektinformation"
-
-#: src/project_dbase_gui.c:425
-msgid "Dock/Undock"
-msgstr "Docka/Koppla loss"
 
 #: src/project_dbase_gui.c:431 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/toolbar.c:308
@@ -5329,6 +5332,15 @@ msgstr "Inspektera/Evaluera uttryck"
 msgid "Add To Watch"
 msgstr "Lägg till i bevakare"
 
+#~ msgid "GTK-- project"
+#~ msgstr "Projekt med GTK--"
+
+#~ msgid "GNOME-- project"
+#~ msgstr "Projekt med GNOME--"
+
+#~ msgid "/Dock | Undock"
+#~ msgstr "/Docka | Koppla loss"
+
 #~ msgid "CVS is not yet implemented. :-(\n"
 #~ msgstr "CVS är ännu inte implementerat. :-(\n"
 
@@ -5532,8 +5544,7 @@ msgstr "Lägg till i bevakare"
 
 #~ msgid "Open an executable or attach to a process to start debuging.\n"
 #~ msgstr ""
-#~ "Öppna en körbar fil eller anslut till en process för att starta "
-#~ "felsökning.\n"
+#~ "Öppna en körbar fil eller anslut till en process för att starta felsökning.\n"
 
 #~ msgid "_Main Tolbar"
 #~ msgstr "_Huvudverktygsrad"

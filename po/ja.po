@@ -2,11 +2,10 @@
 # Copyright (C) 2001,2002 Free Software Foundation, Inc.
 # Takeshi Aihana <aihana@gnome.gr.jp>, 2001, 2002.
 #
-#, no-wrap
 msgid ""
 msgstr ""
 "Project-Id-Version: anjyuta 0.1.9-pre\n"
-"POT-Creation-Date: 2002-01-22 00:37+0900\n"
+"POT-Creation-Date: 2002-01-25 12:14+0530\n"
 "PO-Revision-Date: 2002-01-22 00:35+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -98,11 +97,11 @@ msgstr "CORBA モジュールが初期化されていません"
 msgid "Error while copying the file inside the module."
 msgstr "モジュール内部でのファイルのコピー中にエラーが発生しました。"
 
-#: src/about.c:66
+#: src/about.c:68
 msgid "Copyright (c) 1999-2002 Naba Kumar"
 msgstr "Copyright (C) 1999-2002 Naba Kumar"
 
-#: src/about.c:77
+#: src/about.c:79
 msgid "Anjuta Home Site"
 msgstr "Anjuta ホームページへどうぞ"
 
@@ -304,12 +303,14 @@ msgid "GNOME project"
 msgstr "GNOME プロジェクト"
 
 #: src/appwiz_page1.c:146
-msgid "GTK-- project"
-msgstr "GTK-- プロジェクト"
+#, fuzzy
+msgid "GTKmm project"
+msgstr "GTK+ プロジェクト"
 
 #: src/appwiz_page1.c:150
-msgid "GNOME-- project"
-msgstr "GNOME-- プロジェクト"
+#, fuzzy
+msgid "GNOMEmm project"
+msgstr "GNOME プロジェクト"
 
 #: src/appwiz_page1.c:154
 msgid "Bonobo component"
@@ -589,8 +590,8 @@ msgstr "0"
 #: src/breakpoints.c:866
 msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
 msgstr ""
-"おっと、ブレークポイントは doc にセットされますが、その ID が見つかりませんで"
-"した"
+"おっと、ブレークポイントは doc にセットされますが、その ID "
+"が見つかりませんでした"
 
 #: src/breakpoints_cbs.c:96
 msgid "Are you sure you want to delete all breakpoints?"
@@ -741,8 +742,7 @@ msgstr "プロジェクトのソースディレクトリのビルド: "
 
 #: src/build_project.c:119
 msgid "Unable to build Project. Check Preferences->Commands."
-msgstr ""
-"プロジェクトをビルドできません。\"設定 -> コマンド\" を確認して下さい。"
+msgstr "プロジェクトをビルドできません。\"設定 -> コマンド\" を確認して下さい。"
 
 #: src/build_project.c:140
 msgid "Building the whole Project: "
@@ -906,8 +906,7 @@ msgstr "Clean 完了 ... 成功"
 #: src/clean_project.c:147
 msgid "Unable to clean all project. Check Preferences->Commands."
 msgstr ""
-"全てのプロジェクトを Clean できません。\"設定 -> コマンド\" を確認して下さ"
-"い。"
+"全てのプロジェクトを Clean できません。\"設定 -> コマンド\" を確認して下さい。"
 
 #: src/clean_project.c:158
 msgid "Clean All"
@@ -992,8 +991,7 @@ msgstr "プロジェクトのソースディレクトリのビルド: "
 #: src/compile.c:108
 msgid "This file is not saved. Save it first and then compile."
 msgstr ""
-"このファイルは保存されていません。まず最初に保存してからコンパイルして下さ"
-"い。"
+"このファイルは保存されていません。まず最初に保存してからコンパイルして下さい。"
 
 #: src/compile.c:129
 msgid "The object file is up to date. No need to compile again."
@@ -1402,8 +1400,8 @@ msgstr "このファイルは実行形式ではありません。\n"
 #: src/debugger.c:661
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
-"デバッグを開始するには、実行ファイルを開くかまたはプロセスを取り込んで下さ"
-"い。\n"
+"デバッグを開始するには、実行ファイルを開くかまたはプロセスを取り込んで下さい。"
+"\n"
 
 #: src/debugger.c:669
 msgid "There was an error whilst launching the debugger.\n"
@@ -1442,8 +1440,8 @@ msgstr "エラー: デバッグ用端末を起動できません。"
 #: src/debugger.c:1182
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
-"警告: デバッグ用端末がありません。標準入力から /dev/null にリダイレクトしま"
-"す。\n"
+"警告: デバッグ用端末がありません。標準入力から /dev/null "
+"にリダイレクトします。\n"
 
 #: src/debugger.c:1200
 msgid "Running program ... \n"
@@ -2043,8 +2041,8 @@ msgstr "EOL 文字を LF に"
 #: src/main_menubar_def.h:162
 msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
 msgstr ""
-"行末文字 EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) に変換"
-"します"
+"行末文字 EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) "
+"に変換します"
 
 #: src/main_menubar_def.h:171
 msgid "_Select All"
@@ -3634,11 +3632,16 @@ msgstr "ローカル変数"
 msgid "Terminal"
 msgstr "端末"
 
-#: src/message-manager.cc:144
-msgid "/Dock | Undock"
-msgstr "/ドック | ドック解除"
+#: src/message-manager.cc:146 src/project_dbase_gui.c:425
+msgid "Dock/Undock"
+msgstr "ドック/ドック解除"
 
-#: src/message-manager.cc:469 src/preferences_gui.c:230 src/toolbar.c:294
+#: src/message-manager.cc:266
+#, fuzzy, c-format
+msgid "Could not find message type %s!\n"
+msgstr "GNOME アイコンファイルが見つかりませんでした: %s"
+
+#: src/message-manager.cc:472 src/preferences_gui.c:230 src/toolbar.c:294
 msgid "Messages"
 msgstr "メッセージ"
 
@@ -4134,8 +4137,8 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it."
 msgstr ""
-"エラー: このプロジェクトは Anjuta %s またはそれ以降のバージョンで開く必要があ"
-"ります。\n"
+"エラー: このプロジェクトは Anjuta %s "
+"またはそれ以降のバージョンで開く必要があります。\n"
 "Anjuta を最新版にアップデートして下さい (ヘルプにその詳細な情報あります)。\n"
 "今のところ、このプロジェクトを読み込むには古すぎます。"
 
@@ -4146,10 +4149,10 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it."
 msgstr ""
-"このプロジェクトは Anjuta %s またはそれ以降のバージョンで開く必要がありま"
-"す。\n"
-"Anjuta を最新版にアップデートして下さい (ヘルプにその詳細な情報がありま"
-"す)。\n"
+"このプロジェクトは Anjuta %s "
+"またはそれ以降のバージョンで開く必要があります。\n"
+"Anjuta を最新版にアップデートして下さい "
+"(ヘルプにその詳細な情報があります)。\n"
 "今のところ、このプロジェクトを読み込むには古すぎます。"
 
 #: src/project_dbase.c:841
@@ -4210,10 +4213,6 @@ msgstr "configure プロジェクト"
 #: src/project_dbase_gui.c:418
 msgid "Project Info"
 msgstr "プロジェクト情報"
-
-#: src/project_dbase_gui.c:425
-msgid "Dock/Undock"
-msgstr "ドック/ドック解除"
 
 #: src/project_dbase_gui.c:431 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/toolbar.c:308
@@ -5339,3 +5338,12 @@ msgstr "式の検証/評価"
 #: src/watch_gui.c:268
 msgid "Add To Watch"
 msgstr "監視へ追加"
+
+#~ msgid "GTK-- project"
+#~ msgstr "GTK-- プロジェクト"
+
+#~ msgid "GNOME-- project"
+#~ msgstr "GNOME-- プロジェクト"
+
+#~ msgid "/Dock | Undock"
+#~ msgstr "/ドック | ドック解除"
