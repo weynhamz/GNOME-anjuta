@@ -1,5 +1,9 @@
 2004-12-18  Naba Kumar  <naba@gnome.org>
 
+	* plugins/devhelp/plugin.c: Fixed loading/unloading bug.
+	
+2004-12-18  Naba Kumar  <naba@gnome.org>
+
 	* plugins/file-loader/plugin.c: Fixed loading bug.
 	
 	*plugins/debug-manager/plugin.c, plugins/debug-manager/plugin.h,

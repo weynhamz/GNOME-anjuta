@@ -249,6 +249,10 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 							 "AnjutaDevhelpDisplay", _("Help display"),
 							 GTK_STOCK_HELP,
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	
+	g_object_ref (priv->browser_frame);
+	g_object_ref (priv->notebook);
+	
 /*
  	g_signal_connect_swapped (priv->html, 
 				  "uri_selected", 
@@ -498,20 +502,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	if (priv->html)
 	{
-		g_object_unref (priv->html);
-		g_object_unref (priv->base);
-		
 		/* Remove widgets */
 		anjuta_shell_remove_widget (plugin->shell, priv->browser_frame, NULL);
 		anjuta_shell_remove_widget (plugin->shell, priv->notebook, NULL);
-		
-		priv->browser_frame = NULL;
-		priv->notebook = NULL;
-		priv->base = NULL;
-		priv->html = NULL;
-		priv->html_view = NULL;
-		priv->book_tree = NULL;
-		priv->search = NULL;
 	}
 	
 	/* Remove UI */
@@ -531,11 +524,35 @@ deactivate_plugin (AnjutaPlugin *plugin)
 }
 
 static void
-dispose (GObject *obj)
+devhelp_plugin_dispose (GObject *obj)
 {
-	// DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
+	DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
+	
 	/* Devhelp widgets should be destroyed */
+	if (plugin->priv->html_view)
+	{
+		g_object_unref (plugin->priv->html);
+		g_object_unref (plugin->priv->base);
+		g_object_unref (plugin->priv->notebook);
+		g_object_unref (plugin->priv->browser_frame);
+		
+		plugin->priv->browser_frame = NULL;
+		plugin->priv->notebook = NULL;
+		plugin->priv->base = NULL;
+		plugin->priv->html = NULL;
+		plugin->priv->html_view = NULL;
+		plugin->priv->book_tree = NULL;
+		plugin->priv->search = NULL;
+	}		
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+}
+
+static void
+devhelp_plugin_finalize (GObject *obj)
+{
+	DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
+	g_free (plugin->priv);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
@@ -559,7 +576,8 @@ devhelp_plugin_class_init (GObjectClass *klass)
 
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
-	klass->dispose = dispose;
+	klass->dispose = devhelp_plugin_dispose;
+	klass->dispose = devhelp_plugin_finalize;
 }
 
 static void
