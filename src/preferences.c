@@ -100,10 +100,10 @@ preferences_new ()
 		    || file_is_readable (propfile) == FALSE)
 		{
 			anjuta_error
-				("Cannot load Global defaults and internal configuration files:\n"
+				(_("Cannot load Global defaults and internal configuration files:\n"
 				 "%s.\n%s.\n"
 				 "This may result in improper behaviour or instabilities.\n"
-				 "Anjuta will fall back to build in (limited) settings",
+				 "Anjuta will fall back to built in (limited) settings"),
 				 propfile, internfile);
 		}
 		prop_read (pr->props_global, propfile, propdir);

@@ -1,3 +1,12 @@
+2002-01-01  Stephane Demurget  <demurgets@free.fr>
+
+	* src/aneditor.cxx: readded the baan lexer. 
+
+	* src/preferences.c: fixed translated messages and a typo.
+
+	* desktop.in.in: changed the name to Anjuta C|C++ IDE, since the / was
+	  confusing the regexp usage in xml-i18-merge.
+
 2002-01-01	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/project_dbase.c: tidied some messages, and spotted a typo in
