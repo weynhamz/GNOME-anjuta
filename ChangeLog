@@ -1,5 +1,7 @@
 2003-05-05  Naba Kumar  <naba@gnome.org>
 
+	* src/watch_gui.h: CVS added new file.
+
 	* scintilla/ExterLexer.[cxx,h]: CVS added new files.
 
 	Patch from Etay Meiri <etay-m@bezeqint.net>
