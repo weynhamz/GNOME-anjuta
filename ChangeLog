@@ -1,3 +1,18 @@
+2003-02-24  Naba Kumar  <naba@gnome.org>
+
+	* (new)src/preferences-dialog.[c,h], preferences.[h,c],src/Makefile.am,
+	(new)widgets/cell-renderer-captioned-image.[h,c], widgets/Makefile.am,
+	(new)pixmaps/preferences-*.png, pixmaps/Makefile.am, anjuta.glade,
+	po/POTFILES.in, anjuta_dialogs_strings.c: Implemented new
+	preferences dialog.
+
+	* TODO: Updated.
+
+	* src/message-manager-private.[cc,h]: Fixed VTE terminal for
+	text selection and child re-spawning.
+
+	* src/pixmaps.h: Removed unused pixmaps definitions.
+	
 2003-02-23  Naba Kumar  <naba@gnome.org>
 
 	* src/project_dbase.[h,c], src/project_dbase_gui.c: GNOME2 ported

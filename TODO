@@ -1,16 +1,10 @@
 TODO List:
 ----------
 
-	o Save tree expand/collapse status of project/symbol/file trees in 
-	  session.
 	o s/zvt/vte/ terminal.
-	o File browser icons -- use gnome2ish icons.
 	o Breakpoints does not get reloaded from session.
-	o Terminal text selection not implemented yet.
 	o Terminal properties not properly setting.
-	o Terminal callback for child death not working.
 	o Print preview fonts not proper.
-	o Debug tree disabled.
 	o Busy indicator (flashing LED) not yet implemented.
 	
 	o Anjuta can open same file in multiple text editors.

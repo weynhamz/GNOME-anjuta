@@ -140,6 +140,8 @@ anjuta_SOURCES = \
 	pixmaps.h\
 	preferences.c\
 	preferences.h\
+	preferences-dialog.c\
+	preferences-dialog.h\
 	project_config.c\
 	project_config.h\
 	project_dbase.c\

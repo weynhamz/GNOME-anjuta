@@ -124,6 +124,14 @@ anjuta_pixmaps_DATA = \
 	open_project.png \
 	password.png \
 	pointer.xpm \
+	preferences-build.png\
+	preferences-indentation.png\
+	preferences-cvs.png\
+	preferences-messages.png\
+	preferences-editor.png\
+	preferences-print.png\
+	preferences-general.png\
+	preferences-terminal.png\
 	print_color.xpm \
 	print_landscape.xpm \
 	print_layout.xpm \

@@ -148,12 +148,18 @@ class TerminalWindow : public MessageSubwindow
 		GtkWidget* m_terminal;
 		GtkWidget* m_scrollbar;
 		char termenv[255];
-		pid_t child_pid;
+		pid_t m_child_pid;
     
-		static gboolean zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data);
-		static void zvterm_reinit_child(VteTerminal* term);
-		static void zvterm_terminate(VteTerminal* term);
-		static int zvterm_focus_in(VteTerminal* term, GdkEventFocus* event); 
+		static gboolean zvterm_mouse_clicked (GtkWidget *widget,
+											  GdkEvent *event,
+											  TerminalWindow *tw);
+		static void zvterm_reinit_child (VteTerminal* term,
+										 TerminalWindow *tw);
+		static void zvterm_terminate (VteTerminal* term,
+									  TerminalWindow *tw);
+		static gboolean zvterm_focus_in (VteTerminal* term,
+										 GdkEventFocus* event,
+										 TerminalWindow *tw); 
 };
 
 class LocalsWindow : public MessageSubwindow

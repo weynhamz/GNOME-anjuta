@@ -323,10 +323,13 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 							   string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {
-	GdkColor color_white = {(guint32)-1,(guint32)-1,(guint32)-1,0};
+	GdkColor color_white = {(guint32)-1, (guint32)-1, (guint32)-1, 0};
+	GdkColor color_black = {(guint32)0, (guint32)0, (guint32)0, 0};
 	
 	g_return_if_fail(p_amm != NULL);
 
+	m_child_pid = 0;
+	
 	/* Set terminal preferences */
 	gchar *font = preferences_get(get_preferences(), TERMINAL_FONT);
 	if (!font) font = g_strdup(DEFAULT_ZVT_FONT);
@@ -335,7 +338,7 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 		scrollsize = DEFAULT_ZVT_SCROLLSIZE;
 	if (scrollsize > MAX_ZVT_SCROLLSIZE)
 		scrollsize = MAX_ZVT_SCROLLSIZE;
-	gchar *term = preferences_get(get_preferences(), TERMINAL_TERM);
+	gchar *term = preferences_get (get_preferences(), TERMINAL_TERM);
     if (!term) term = g_strdup(DEFAULT_ZVT_TERM);
 	guchar *wordclass = (guchar *) preferences_get(get_preferences(), TERMINAL_WORDCLASS);
 	if (!wordclass) wordclass = (guchar *) g_strdup(DEFAULT_ZVT_WORDCLASS);
@@ -379,39 +382,13 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 	vte_terminal_set_scroll_on_output (VTE_TERMINAL (m_terminal)
 	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_OUTPUT
 	  ) ? TRUE : FALSE);
+	vte_terminal_set_color_foreground (VTE_TERMINAL (m_terminal), &color_black);
 	vte_terminal_set_color_background (VTE_TERMINAL (m_terminal), &color_white);
 	vte_terminal_set_word_chars (VTE_TERMINAL (m_terminal), (gchar*) wordclass);
 	g_free(wordclass);
 	vte_terminal_match_add	(VTE_TERMINAL (m_terminal),
-							 "^[-A-Za-z0-9_\\/.]+:[0-9]+:.*$");
+							 "^[-A-Za-z0-9_\\/.]+\\:[0-9]+\\:");
 
-#if 0	
-	m_terminal = zvt_term_new();
-	gtk_widget_show(m_terminal);
-	gtk_box_pack_start(GTK_BOX(m_hbox), m_terminal, TRUE, TRUE, 0);
-	
-	zvt_term_set_font_name(ZVT_TERM(m_terminal), font);
-	g_free(font);
-	zvt_term_set_blink(ZVT_TERM(m_terminal), preferences_get_int(
-	  get_preferences(), TERMINAL_BLINK) ? TRUE : FALSE);
-	zvt_term_set_bell(ZVT_TERM(m_terminal), preferences_get_int(
-	  get_preferences(), TERMINAL_BELL) ? TRUE : FALSE);
-	zvt_term_set_scrollback(ZVT_TERM(m_terminal), scrollsize);
-	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m_terminal)
-	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_KEY
-	  ) ? TRUE : FALSE);
-	zvt_term_set_scroll_on_output(ZVT_TERM(m_terminal)
-	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_OUTPUT
-	  ) ? TRUE : FALSE);
-	zvt_term_set_background(ZVT_TERM(m_terminal), NULL, 0, 0);
-	zvt_term_set_wordclass(ZVT_TERM(m_terminal), wordclass);
-	g_free(wordclass);
-#ifdef ZVT_TERM_MATCH_SUPPORT
-	zvt_term_match_add	(ZVT_TERM(m_terminal),
-		"^[-A-Za-z0-9_\\/.]+:[0-9]+:.*$",
-		VTATTR_UNDERLINE, NULL);
-#endif
-#endif /* 0 */
 	m_scrollbar = gtk_vscrollbar_new (GTK_ADJUSTMENT(
 	  VTE_TERMINAL (m_terminal)->adjustment));
 	gtk_widget_show (m_scrollbar);
@@ -419,14 +396,14 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 	gtk_box_pack_start (GTK_BOX(m_hbox), m_scrollbar, FALSE, TRUE, 0);
 
 	//zvterm_reinit_child(ZVT_TERM(m_terminal));
-	gtk_signal_connect(GTK_OBJECT(m_terminal), "button_press_event",
-	    GTK_SIGNAL_FUNC(TerminalWindow::zvterm_mouse_clicked), m_terminal);
-	gtk_signal_connect (GTK_OBJECT(m_terminal), "child_exited_signal",
-	    GTK_SIGNAL_FUNC (TerminalWindow::zvterm_reinit_child), NULL);
-	gtk_signal_connect (GTK_OBJECT (m_terminal),"destroy",
-	    GTK_SIGNAL_FUNC (TerminalWindow::zvterm_terminate), NULL);
-	gtk_signal_connect (GTK_OBJECT (m_terminal), "focus_in_event",
-		GTK_SIGNAL_FUNC (TerminalWindow::zvterm_focus_in), NULL);
+	//g_signal_connect (G_OBJECT (m_terminal), "button_press_event",
+	//    G_CALLBACK (TerminalWindow::zvterm_mouse_clicked), m_terminal);
+	g_signal_connect (G_OBJECT (m_terminal), "child_exited",
+	    G_CALLBACK (TerminalWindow::zvterm_reinit_child), this);
+	g_signal_connect (G_OBJECT (m_terminal), "destroy",
+	    G_CALLBACK (TerminalWindow::zvterm_terminate), this);
+	g_signal_connect (G_OBJECT (m_terminal), "focus_in_event",
+		G_CALLBACK (TerminalWindow::zvterm_focus_in), this);
 }
 
 void TerminalWindow::show()
@@ -463,58 +440,63 @@ void TerminalWindow::hide()
 	}
 }
 
+#if 0
 void mouse_to_char(VteTerminal *term, int mousex, int mousey, int *x, int *y)
 {
 	*x = mousex/term->char_width;
 	*y = mousey/term->char_height;
 }
+#endif
 
 extern "C" void anjuta_goto_file_line (gchar * fname, glong lineno);
 
-gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget,
-											  GdkEvent* event,
-											  gpointer user_data)
+gboolean TerminalWindow::zvterm_mouse_clicked (GtkWidget* widget,
+											   GdkEvent* event,
+											   TerminalWindow *tw)
 {
-  glong x,y;
-  gchar *line = NULL;
-  gchar *filename;
-  gchar *procpath;
-  int lineno;
-  GtkWidget* terminal = GTK_WIDGET (user_data);
-  VteTerminal *term = VTE_TERMINAL (terminal);
-  gtk_widget_grab_focus(terminal);
-  // double left button click
-  if (event->type == GDK_2BUTTON_PRESS && event->button.button==1)
-  {
-    // mouse_to_char(term, (int)event->button.x, (int)event->button.y, &x, &y);
-	vte_terminal_get_cursor_position (term, &x, &y);
-    // line = vte_terminal_get_buffer (term, NULL, VT_SELTYPE_LINE, 0, y+term->vx->vt.scrollbackoffset, 0, y+term->vx->vt.scrollbackoffset);
+	glong x,y;
+	gchar *line = NULL;
+	gchar *filename;
+	gchar *procpath;
+	int lineno;
+	GtkWidget* terminal = widget;
+	VteTerminal *term = VTE_TERMINAL (terminal);
+	gtk_widget_grab_focus(terminal);
+	
+	// double left button click
+	if (event->type == GDK_2BUTTON_PRESS && event->button.button==1)
+	{
+		// mouse_to_char(term, (int)event->button.x, (int)event->button.y, &x, &y);
+		vte_terminal_get_cursor_position (term, &x, &y);
+		// line = vte_terminal_get_buffer (term, NULL, VT_SELTYPE_LINE, 0, y+term->vx->vt.scrollbackoffset, 0, y+term->vx->vt.scrollbackoffset);
 #warning "G2: get the buffer from the terminal";
-	line = "_FIXME_";	  
-    DEBUG_PRINT("got line: '%s'", line);
-    filename = NULL;
-    if (parse_error_line(line, &filename, &lineno))
-    {
-      DEBUG_PRINT("parse_error_line: '%s' %d", filename, lineno);
-      // look for the file in the cwd
-      if (filename[0]!='/')
-		  ;
-        //procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
-      else
-        procpath = g_strdup(filename);
-      DEBUG_PRINT("full linked path: %s", procpath);
-      anjuta_goto_file_line (procpath, lineno);
-      g_free(procpath);
-      g_free(filename);
-    }
-    g_free(line);
-  }
+		line = "_FIXME_";	  
+		DEBUG_PRINT("got line: '%s'", line);
+		filename = NULL;
+		if (parse_error_line(line, &filename, &lineno))
+		{
+			DEBUG_PRINT("parse_error_line: '%s' %d", filename, lineno);
+			// look for the file in the cwd
+			if (filename[0]!='/')
+				procpath = g_strdup_printf ("/proc/%d/cwd/%s",
+											tw->m_child_pid,
+											filename);
+			else
+				procpath = g_strdup (filename);
+			DEBUG_PRINT("full linked path: %s", procpath);
+			anjuta_goto_file_line (procpath, lineno);
+			g_free(procpath);
+			g_free(filename);
+		}
+		g_free(line);
+	}
 	return TRUE;
 }
 
 extern char **environ;
 
-void TerminalWindow::zvterm_reinit_child(VteTerminal* term)
+void TerminalWindow::zvterm_reinit_child (VteTerminal* term,
+										  TerminalWindow *tw)
 {
 	struct passwd *pw;
 	static GString *shell = NULL;
@@ -538,9 +520,11 @@ void TerminalWindow::zvterm_reinit_child(VteTerminal* term)
 	}
 	vte_terminal_reset (term, TRUE, FALSE);
  	pid = vte_terminal_fork_command (term, shell->str, NULL, NULL);
+	tw->m_child_pid = pid;
 }
 
-void TerminalWindow::zvterm_terminate (VteTerminal* term)
+void TerminalWindow::zvterm_terminate (VteTerminal* term,
+									   TerminalWindow *tw)
 {
 	gtk_signal_disconnect_by_func(GTK_OBJECT(term),
 						  GTK_SIGNAL_FUNC(TerminalWindow::zvterm_reinit_child),
@@ -548,15 +532,17 @@ void TerminalWindow::zvterm_terminate (VteTerminal* term)
 	// vte_terminal_closepty (term);
 }
 
-int TerminalWindow::zvterm_focus_in(VteTerminal* term, GdkEventFocus* event)
+gboolean TerminalWindow::zvterm_focus_in (VteTerminal* term,
+										  GdkEventFocus* event,
+										  TerminalWindow *tw)
 {
 	static bool need_init = true;
 	if (need_init)
 	{
-		zvterm_reinit_child(term);
+		zvterm_reinit_child (term, tw);
 		need_init = false;
 	}
-	return true;
+	return FALSE;
 }
 
 LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,

@@ -5,7 +5,6 @@ plugins/class-gen/clsGen.c
 plugins/patch/patch-plugin.c
 plugins/sample1/plugin-sample1.c
 printing/print.c
-widgets/gnomefilelist.c
 src/aneditor.h
 src/an_file_view.c
 src/an_file_view.h
@@ -111,6 +110,8 @@ src/message-manager-private.h
 src/pixmaps.h
 src/preferences.c
 src/preferences.h
+src/preferences-dialog.c
+src/preferences-dialog.h
 src/project_config.c
 src/project_config.h
 src/project_dbase.c
@@ -181,3 +182,6 @@ src/widget-registry.c
 src/widget-registry.h
 src/wizard_gui.c
 src/wizard_gui.h
+widgets/gnomefilelist.c
+widgets/cell-renderer-captioned-image.c
+widgets/cell-renderer-captioned-image.h

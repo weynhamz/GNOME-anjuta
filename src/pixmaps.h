@@ -102,7 +102,6 @@
 /* definitions for the project wizard */
 #define ANJUTA_PIXMAP_APPWIZ_WATERMARK    "appwizard.png"
 #define ANJUTA_PIXMAP_APPWIZ_LOGO         "applogo.png"
-#define ANJUTA_PIXMAP_APPWIZ_GEAR         "appwid_gear.xpm"
 #define ANJUTA_PIXMAP_APP_COMPONENT       "appwiz_bonobo.png"
 #define ANJUTA_PIXMAP_APP_GENERIC         "appwiz_terminal.png"
 #define ANJUTA_PIXMAP_APP_GTK             "appwiz_gtk.png"

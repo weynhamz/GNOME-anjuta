@@ -1,6 +1,6 @@
 /*
  * preferences.c
- * Copyright (C) 2000  Naba Kumar <gnome.org>
+ * Copyright (C) 2000 - 2003  Naba Kumar <naba@gnome.org>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,45 +27,16 @@
 #include <gnome.h>
 #include "resources.h"
 #include "preferences.h"
+#include "preferences-dialog.h"
 #include "anjuta.h"
 //#include "commands.h"
 #include "defaults.h"
-
-typedef enum
-{
-	ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-	ANJUTA_PROPERTY_OBJECT_TYPE_SPIN,
-	ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY,
-	ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
-	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR,
-	ANJUTA_PROPERTY_OBJECT_TYPE_FONT
-} AnjutaPropertyObjectType;
-
-typedef enum
-{
-	ANJUTA_PROPERTY_DATA_TYPE_BOOL,
-	ANJUTA_PROPERTY_DATA_TYPE_INT,
-	ANJUTA_PROPERTY_DATA_TYPE_TEXT,
-	ANJUTA_PROPERTY_DATA_TYPE_COLOR,
-	ANJUTA_PROPERTY_DATA_TYPE_FONT
-} AnjutaPropertyDataType;
-
-typedef struct {
-	GtkWidget                *object;
-	AnjutaPropertyObjectType  object_type;
-	AnjutaPropertyDataType    data_type;
-	gchar                    *key;
-	gchar                    *default_value;
-	guint                     flags;
-} AnjutaProperty;
+#include "pixmaps.h"
 
 struct _PreferencesPriv {
-	GList    *properties;
-	GladeXML *gxml;
-	
+	GList     *properties;
 	GtkWidget *dialog;
-	GtkWidget *notebook;
-	gboolean is_showing;
+	gboolean   is_showing;
 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
@@ -323,10 +294,10 @@ save_property (Preferences *pr, AnjutaProperty *prop,
 
 gboolean
 preferences_register_property_raw (Preferences *pr, GtkWidget *object,
-                          AnjutaPropertyObjectType object_type,
-                          AnjutaPropertyDataType  data_type,
-                          const gchar *key, const gchar *default_value,
-                          guint flags)
+								   AnjutaPropertyObjectType object_type,
+								   AnjutaPropertyDataType  data_type,
+								   const gchar *key, const gchar *default_value,
+								   guint flags)
 {
 	AnjutaProperty *p;
 	
@@ -650,30 +621,106 @@ on_style_editor_clicked (GtkWidget *button, Preferences *pr)
 						   "activate", NULL);
 }
 
+void
+preferences_add_page (Preferences* pr, GladeXML *gxml,
+					  const char* glade_widget_name,
+					  const gchar *icon_filename)
+{
+	GtkWidget *parent;
+	GtkWidget *page;
+	GdkPixbuf *pixbuf;
+	
+	page = glade_xml_get_widget (gxml, glade_widget_name);
+	g_object_ref (page);
+	g_return_if_fail (GTK_IS_WIDGET (page));
+	parent = gtk_widget_get_parent (page);
+	if (parent && GTK_IS_CONTAINER (parent))
+	{
+		if (GTK_IS_NOTEBOOK (parent))
+		{
+			gint page_num;
+			
+			page_num = gtk_notebook_page_num (GTK_NOTEBOOK (parent), page);
+			gtk_notebook_remove_page (GTK_NOTEBOOK (parent), page_num);
+		}
+		else
+		{
+			gtk_container_remove (GTK_CONTAINER (parent), page);
+		}
+	}
+	pixbuf = anjuta_res_get_pixbuf (icon_filename);
+	anjuta_preferences_dialog_add_page (glade_widget_name, pixbuf, page);
+	g_object_unref (page);
+	preferences_register_all_properties_from_glade_xml (pr, gxml);
+}
+
+static void
+add_all_default_pages (Preferences *pr)
+{
+	GtkWidget *button;
+	GladeXML *gxml;
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_general", NULL);
+	preferences_add_page (pr, gxml, "General", "preferences-general.png");
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_editor", NULL);
+	preferences_add_page (pr, gxml, "Editor", "preferences-editor.png");
+	button = glade_xml_get_widget (gxml, "edit_syntax_highlighting");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_style_editor_clicked), pr);
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_indentation", NULL);
+	preferences_add_page (pr, gxml, "Indentation", "preferences-indentation.png");
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_build", NULL);
+	preferences_add_page (pr, gxml, "Build", "preferences-build.png");
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_print", NULL);
+	preferences_add_page (pr, gxml, "Print", "preferences-print.png");
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_messages", NULL);
+	preferences_add_page (pr, gxml, "Messages", "preferences-messages.png");
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_cvs", NULL);
+	preferences_add_page (pr, gxml, "CVS", "preferences-cvs.png");
+	g_object_unref (gxml);
+	
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_terminal", NULL);
+	preferences_add_page (pr, gxml, "Terminal", "preferences-terminal.png");
+	g_object_unref (gxml);
+}
+			
 static void
 create_preferences_gui (Preferences * pr)
 {
 	GtkWidget *button;
-	pr->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA,
-									"preferences_dialog", NULL);
-	glade_xml_signal_autoconnect (pr->priv->gxml);
-	pr->priv->dialog = glade_xml_get_widget (pr->priv->gxml,
-											 "preferences_dialog");
-	gtk_widget_hide (pr->priv->dialog);
+	
+	pr->priv->dialog = anjuta_preferences_dialog_get ();
 	gtk_window_set_transient_for (GTK_WINDOW (pr->priv->dialog),
 								  GTK_WINDOW (app->widgets.window));
-	pr->priv->notebook = glade_xml_get_widget (pr->priv->gxml,
-											   "preferences_notebook");
 	gtk_window_add_accel_group (GTK_WINDOW (pr->priv->dialog),
 								app->accel_group);
+	
+	/* Add buttons: Cancel/Apply/Ok */
+	gtk_dialog_add_button (GTK_DIALOG (pr->priv->dialog),
+				       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button (GTK_DIALOG (pr->priv->dialog),
+				       GTK_STOCK_APPLY, GTK_RESPONSE_APPLY);
+	gtk_dialog_add_button (GTK_DIALOG (pr->priv->dialog),
+				       GTK_STOCK_OK, GTK_RESPONSE_OK);
 
-	button = glade_xml_get_widget (pr->priv->gxml, "edit_syntax_highlighting");
-	g_signal_connect (G_OBJECT (button), "clicked",
-			    G_CALLBACK (on_style_editor_clicked), pr);
 	g_signal_connect (G_OBJECT (pr->priv->dialog), "delete_event",
-			    G_CALLBACK (on_preferences_dialog_delete_event), pr);
+					  G_CALLBACK (on_preferences_dialog_delete_event), pr);
 	g_signal_connect (G_OBJECT (pr->priv->dialog), "response",
-			    G_CALLBACK (on_preferences_dialog_response), pr);
+					  G_CALLBACK (on_preferences_dialog_response), pr);
+	
+	add_all_default_pages (pr);
 }
 
 Preferences *
@@ -785,7 +832,7 @@ preferences_new ()
 		//preferences_set_build_options (pr);
 		pr->priv->is_showing = FALSE;
 		create_preferences_gui (pr);
-		preferences_register_all_properties_from_glade_xml (pr, pr->priv->gxml);
+		// preferences_register_all_properties_from_glade_xml (pr, pr->priv->gxml);
 		preferences_prop_to_objects (pr);
 	}
 	return pr;
@@ -803,7 +850,6 @@ preferences_destroy (Preferences * pr)
 		prop_set_destroy (pr->props);
 		g_list_foreach (pr->priv->properties, (GFunc)property_destroy, NULL);
 		gtk_widget_destroy (pr->priv->dialog);
-		g_object_unref (pr->priv->gxml);
 		g_free (pr);
 		pr = NULL;
 	}

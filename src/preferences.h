@@ -1,6 +1,6 @@
 /*
  * preferences.h
- * Copyright (C) 2000  Kh. Naba Kumar Singh
+ * Copyright (C) 2000 - 2003  Naba Kumar  <naba@gnome.org>
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,9 +30,37 @@ extern "C"
 
 typedef enum
 {
+	ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
+	ANJUTA_PROPERTY_OBJECT_TYPE_SPIN,
+	ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY,
+	ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
+	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR,
+	ANJUTA_PROPERTY_OBJECT_TYPE_FONT
+} AnjutaPropertyObjectType;
+
+typedef enum
+{
+	ANJUTA_PROPERTY_DATA_TYPE_BOOL,
+	ANJUTA_PROPERTY_DATA_TYPE_INT,
+	ANJUTA_PROPERTY_DATA_TYPE_TEXT,
+	ANJUTA_PROPERTY_DATA_TYPE_COLOR,
+	ANJUTA_PROPERTY_DATA_TYPE_FONT
+} AnjutaPropertyDataType;
+
+typedef enum
+{
 	PREFERENCES_FILTER_NONE = 0,
 	PREFERENCES_FILTER_PROJECT = 1
 } PreferencesFilterType;
+
+typedef struct {
+	GtkWidget                *object;
+	AnjutaPropertyObjectType  object_type;
+	AnjutaPropertyDataType    data_type;
+	gchar                    *key;
+	gchar                    *default_value;
+	guint                     flags;
+} AnjutaProperty;
 
 typedef struct _Preferences Preferences;
 typedef struct _PreferencesPriv PreferencesPriv;
@@ -53,10 +81,69 @@ typedef gboolean (*PreferencesCallback) (Preferences *pr, const gchar *key,
 /* Preferences */
 Preferences *preferences_new (void);
 
+/* Add a page to the preferences sytem.
+ * gxml: The GladeXML object of the glade dialog containing the page widget.
+ *     The glade dialog will contain the layout of the preferences widgets.
+ *     The widgets which are preference widgets (e.g. toggle button) should have
+ *     widget names of the form:
+ *              preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
+ *     where,
+ *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color' or 'font'.
+ *       DATATYPE   is 'bool', 'int', 'float', 'text', 'color' or 'font'.
+ *       DEFAULT    is the default value (in the appropriate format). The format
+ *                     for color is '#XXXXXX' representing RGB value and for
+ *                     font, it is the pango font description.
+ *       FLAGS      is any flag associated with the property. Currently it
+ *                     has only two values -- 0 and 1. For normal preference
+ *                     property which is saved/retrieved globally, the flag = 0.
+ *                     For preference property which is also saved/retrieved
+ *                     along with the project, the flag = 1.
+ *       PROPERTYKEY is the property key. e.g - 'tab.size'.
+ *
+ *     All widgets having the above names in the gxml tree will be registered
+ *     and will become part of auto saving/loading. For example, refer to
+ *     anjuta preferences dialogs and study the widget names.
+ *
+ * glade_widget_name: Page widget name (as give with glade interface editor).
+ * 	   The widget will be searched with the given name and detached
+ *     (that is, removed from the container, if present) from it's parent.
+ *
+ * icon_filename: File name (of the form filename.png) of the icon representing
+ *     the preference page.
+ */
+void preferences_add_page (Preferences* pr, GladeXML *gxml,
+						   const char* glade_widget_name,
+						   const gchar *icon_filename);
+
+/* This will register all the properties names of the format described above
+ * without considering the UI. Useful if you have the widgets shown elsewhere
+ * but you want them to be part of preferences system.
+ */
+void preferences_register_all_properties_from_glade_xml (Preferences* pr,
+														 GladeXML *gxml);
+/* This registers only one widget. The widget could be shown elsewhere.
+ * the property_description should be of the form described before.
+ */
+gboolean
+preferences_register_property_from_string (Preferences *pr,
+                                           GtkWidget *object,
+                                           const gchar *property_description);
+
+/* This also registers only one widget, but instead of supplying the property
+ * parameters as a single parsable string (as done in previous method), it
+ * takes them separately.
+ */
+gboolean
+preferences_register_property_raw (Preferences *pr, GtkWidget *object,
+								   AnjutaPropertyObjectType object_type,
+								   AnjutaPropertyDataType  data_type,
+								   const gchar *key, const gchar *default_value,
+								   guint flags);
+
 /* Resets the default values into the keys */
 void preferences_reset_defaults (Preferences *);
 
-/* ----- */
+/* General show/hide/destroy fundas */
 void preferences_hide (Preferences *);
 void preferences_show (Preferences *);
 void preferences_destroy (Preferences *);
@@ -64,19 +151,22 @@ void preferences_destroy (Preferences *);
 /* Save and (Loading is done in _new()) */
 gboolean preferences_save (Preferences * p, FILE * stream);
 
-/* Save excluding the filtered properties */
+/* Save excluding the filtered properties. This will save only those
+ * properties which DOES NOT have the flags set to values given by the filter.
+ */
 gboolean preferences_save_filtered (Preferences * p, FILE * stream,
 									PreferencesFilterType filter);
 
-/* Save excluding the filtered properties */
+/* Calls the callback function for each of the properties with the flags
+ * matching with the given filter 
+ */
 void
 preferences_foreach (Preferences * pr, PreferencesFilterType filter,
 					 PreferencesCallback callback, gpointer data);
 
 /* This will transfer all the properties values from the main
 properties database to the parent session properties database */
-void
-preferences_sync_to_session (Preferences *pr);
+void preferences_sync_to_session (Preferences *pr);
 
 /* Sets the value (string) of a key */
 void preferences_set (Preferences *, gchar * key, gchar * value);
@@ -167,8 +257,8 @@ gint preferences_default_get_int (Preferences * p, gchar * key);
 #define MESSAGES_INDICATORS_AUTOMATIC "indicators.automatic"
 
 #define AUTOMATIC_TAGS_UPDATE   "automatic.tags.update"
-#define BUILD_SYMBOL_BROWSER	 "build.symbol.browser"
-#define BUILD_FILE_BROWSER	 "build.file.browser"
+#define BUILD_SYMBOL_BROWSER    "build.symbol.browser"
+#define BUILD_FILE_BROWSER      "build.file.browser"
 #define SHOW_TOOLTIPS           "show.tooltips"
 
 #define PRINT_PAPER_SIZE        "print.paper.size"
