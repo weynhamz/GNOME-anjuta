@@ -516,19 +516,26 @@ anjuta_app_add_widget (AnjutaShell *shell,
 											 GDL_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), widget);
 	
-	switch (placement)
+	if (placement != GDL_DOCK_FLOATING)
 	{
-		case GDL_DOCK_TOP: placeholder_name = "ph_top"; break;
-		case GDL_DOCK_BOTTOM: placeholder_name = "ph_bottom"; break;
-		case GDL_DOCK_LEFT: placeholder_name = "ph_left"; break;
-		case GDL_DOCK_RIGHT: placeholder_name = "ph_right"; break;
-		default: placeholder_name = "ph_center";
+		switch (placement)
+		{
+			case GDL_DOCK_TOP: placeholder_name = "ph_top"; break;
+			case GDL_DOCK_BOTTOM: placeholder_name = "ph_bottom"; break;
+			case GDL_DOCK_LEFT: placeholder_name = "ph_left"; break;
+			case GDL_DOCK_RIGHT: placeholder_name = "ph_right"; break;
+			default: placeholder_name = "ph_center";
+		}
+		
+		placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock), 
+														placeholder_name);
+		gtk_container_add (GTK_CONTAINER (placeholder), GTK_WIDGET (item));
 	}
-	
-	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock), 
-													placeholder_name);
-	gtk_container_add (GTK_CONTAINER (placeholder), GTK_WIDGET (item));
-	
+	else
+	{
+        gdl_dock_add_item (GDL_DOCK (app->dock),
+                           GDL_DOCK_ITEM (item), GDL_DOCK_FLOATING);
+	}
 	gtk_widget_show_all (item);
 	
 	/* Add toggle button for the widget */

@@ -1,5 +1,16 @@
 2005-01-27  Naba Kumar  <naba@gnome.org>
 
+	* configure.in, plugins/Makefile.am, src/anjuta-app.c,
+	src/anjuta.ui, (new) plugins/glade/.cvsignore,
+	(new) plugins/glade/Makefile.am,
+	(new) plugins/glade/anjuta-glade-plugin.png,
+	(new) plugins/glade/anjuta-glade.plugin.in,
+	(new) plugins/glade/anjuta-glade.ui,
+	(new) plugins/glade/plugin.c,
+	(new) plugins/glade/plugin.h,
+	(new) plugins/profile-default/plugin.c:  Glade plugin. Disabled for
+	now until glade3 works properly.
+
 	* libanjuta/anjuta-marshal.[c,h]: Removed from cvs, because
 	they are generated.
 	

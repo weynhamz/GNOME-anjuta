@@ -27,6 +27,7 @@ PCRE_REQUIRED=3.9
 LIBDEVHELP_REQUIRED=0.9
 LIBGTODO_REQUIRED=0.15
 GNOMEBUILD_REQUIRED=0.1.0
+LIBGLADEUI_REQUIRED=0.1
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GOBJECT_REQUIRED)
@@ -51,6 +52,7 @@ AC_SUBST(PCRE_REQUIRED)
 AC_SUBST(LIBDEVHELP_REQUIRED)
 AC_SUBST(LIBGTODO_REQUIRED)
 AC_SUBST(GNOMEBUILD_REQUIRED)
+AC_SUBST(LIBGLADEUI_REQUIRED)
 
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
@@ -254,6 +256,13 @@ dnl ---------------------
 PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
 AC_SUBST(PLUGIN_GNOMEBUILD_CFLAGS)
 AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
+
+dnl Check for Glade3
+dnl ---------------------
+PKG_CHECK_MODULES(PLUGIN_GLADE, libgladeui-1.0 >= $LIBGLADEUI_REQUIRED, [libgladeui_found="yes"], [libgladeui_found="no"])
+AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [text x$libgladeui_found = xyes])
+AC_SUBST(PLUGIN_GLADE_CFLAGS)
+AC_SUBST(PLUGIN_GLADE_LIBS)
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
@@ -713,6 +722,7 @@ plugins/message-view/Makefile
 plugins/gdb/Makefile
 plugins/debug-manager/Makefile
 plugins/devhelp/Makefile
+plugins/glade/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile
 plugins/file-wizard/Makefile

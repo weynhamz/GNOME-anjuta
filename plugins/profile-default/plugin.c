@@ -76,7 +76,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 	{
 		"IAnjutaFileLoader",
 		"IAnjutaDocumentManager",
-		"IAnjutaWizard",
+		"anjuta-file-wizard:AnjutaFileWizardPlugin",
 		"IAnjutaHelp",
 		// "IAnjutaMessageManager",
 		"IAnjutaFileManager",
