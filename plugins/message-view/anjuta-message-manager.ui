@@ -1,0 +1,14 @@
+<!--*- xml -*-->
+<Root>
+	<menu name="MenuMain">
+		<submenu name="MenuEdit" verb="ActionMenuEdit">
+			<submenu name="Goto" verb="ActionMenuEditGoto">
+					<menuitem name="NextMessage" verb="ActionMessageNext" />
+					<menuitem name="PrevMessage" verb="ActionMessagePrev" />
+			</submenu>
+		</submenu>
+		<submenu name="MenuView" verb="ActionMenuView">	
+				<menuitem name="Show Messages" verb="ActionViewMessageShow" />
+		</submenu>
+	</menu>
+</Root>

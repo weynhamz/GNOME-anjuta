@@ -17,12 +17,12 @@
 #ifndef _ANJUTA_MSGMAN_H
 #define _ANJUTA_MSGMAN_H
 
-#include <gtk/gtkwidget.h>
+#include <gtk/gtknotebook.h>
 #include <libanjuta/anjuta-preferences.h>
 #include "message-view.h"
 
 #define ANJUTA_TYPE_MSGMAN        (anjuta_msgman_get_type ())
-#define ANJUTA_MSGMAN(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_DOCMAN, AnjutaMsgman))
+#define ANJUTA_MSGMAN(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_MSGMAN, AnjutaMsgman))
 #define ANJUTA_MSGMAN_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_MSGMAN, AnjutaMsgmanClass))
 #define ANJUTA_IS_MSGMAN(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_MSGMAN))
 #define ANJUTA_IS_MSGMAN_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_MSGMAN))
@@ -33,13 +33,13 @@ typedef struct _AnjutaMsgmanClass AnjutaMsgmanClass;
 
 struct _AnjutaMsgman
 {
-	GtkWidget parent;
+	GtkNotebook parent;
 	AnjutaMsgmanPriv *priv;
 };
 
 struct _AnjutaMsgmanClass
 {
-	GtkWidgetClass parent_class;
+	GtkNotebookClass parent_class;
 };
 
 GType anjuta_msgman_get_type (void);

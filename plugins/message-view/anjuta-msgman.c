@@ -98,12 +98,23 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 {
 	g_signal_connect (GTK_NOTEBOOK (msgman), "switch-page",
 			  G_CALLBACK (on_notebook_switch_page), msgman);
+	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 }
 
 static void
 anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 {
+	
+}
 
+GtkWidget*
+anjuta_msgman_new (AnjutaPreferences *pref)
+{
+	GtkWidget *msgman = NULL;
+	msgman = gtk_widget_new (ANJUTA_TYPE_MSGMAN, NULL);
+	if (msgman)
+	    ANJUTA_MSGMAN (msgman)->priv->preferences = pref;
+	return msgman;
 }
 
 ANJUTA_TYPE_BEGIN (AnjutaMsgman, anjuta_msgman, GTK_TYPE_NOTEBOOK);

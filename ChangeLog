@@ -1,3 +1,8 @@
+2004-02-09  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/message-view/*: MessageView plugin is now loaded
+	The menu items are still dummies.
+
 2004-02-09  Naba Kumar  <naba@gnome.org>
 
 	* Makefile.am, autogen.sh, configure.in: Added proper gtkdoc
