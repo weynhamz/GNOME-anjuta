@@ -22,6 +22,15 @@
 
 #define	INIT(x)	CG_Creator	*self = (CG_Creator*)x
 
+gchar   *GetDescr       (void);
+glong    GetVersion     (void);
+gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
+void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
+void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);
+gchar   *GetMenuTitle   (GModule *self, void *pUserData);
+gchar   *GetTooltipText (GModule *self, void *pUserData);
+
+
 gboolean
 ImportFileInProject ( const gchar * p_szModule, const gchar *p_szFileName );
 
@@ -90,6 +99,11 @@ create_dlgClass ( CG_Creator *self );
 
 void CreateCodeClass( ProjectDBase *self );
 
+/* << private >> */
+static void MessageBox( const char* szMsg );
+static struct tm *GetNowTime( void );
+static void GeneraH( CG_Creator *self, FILE* fpOut );
+static void GeneraC( CG_Creator *self, FILE* fpOut );
 
 /* Get module description */
 gchar	*GetDescr()
@@ -130,7 +144,7 @@ gchar *GetTooltipText( GModule *self, void *pUserData )
 static gboolean IsLegalClassName( const char *szClassName ); 
 static gboolean IsLegalFileName( const char *szFileName );
 
-void MessageBox( const char* szMsg )
+static void MessageBox( const char* szMsg )
 {
 	GtkWidget * msgBox = 
 
@@ -338,7 +352,8 @@ InsertTemplateInFile( const gchar *szTemplateFileName, FILE* fpOut, const gchar 
 	return bOK ;
 }
 */
-struct tm *GetNowTime( void )
+
+static struct tm *GetNowTime( void )
 {
 	time_t l_time;
 
@@ -347,7 +362,7 @@ struct tm *GetNowTime( void )
 }
 
 
-void GeneraH( CG_Creator *self, FILE* fpOut )
+static void GeneraH( CG_Creator *self, FILE* fpOut )
 {
 	//InsertTemplateInFile( "HeaderH", fpOut, szMainFileName );
 	fprintf( fpOut, "/*\n FILE:%s\n", self->m_szDeclFile );
@@ -395,7 +410,7 @@ void GeneraH( CG_Creator *self, FILE* fpOut )
 	
 }
 	
-void GeneraC( CG_Creator *self, FILE* fpOut )
+static void GeneraC( CG_Creator *self, FILE* fpOut )
 {
 	//InsertTemplateInFile( "HeaderH", fpOut, szMainFileName );
 	fprintf( fpOut, "/*\n FILE:%s\n", self->m_szDeclFile );

@@ -50,7 +50,7 @@ clean-local:
 	@rm -f system.tags
 
 system.tags:
-	cd $(top_srcdir)/tagmanager && make libctags.a
-	cd $(top_srcdir)/global-tags && make system.tags
-	mv $(top_srcdir)/global-tags/system.tags .
+	cd $(top_builddir)/tagmanager && make libctags.a
+	cd $(top_builddir)/global-tags && make system.tags
+	mv $(top_builddir)/global-tags/system.tags .
 

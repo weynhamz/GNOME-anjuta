@@ -1,3 +1,27 @@
+2002-02-13  Stephane Demurget  <demurgets@free.fr>
+
+	Various cleanups and fixes for the next release to be able to make
+	distcheck.
+
+	* plugins/*/*.c: added missing prototypes causing gcc to speak to
+	  much and make some tweaks plus cleanups.
+
+	* widgets/scroll-menu.c: made compare_menu_items use gconstpointers
+	  args to remove some warnings.
+
+	* global-tags/Makefile.am,
+	  data/Makefile.am,
+	  src/Makefile.am: link against Anjuta static libs using the
+	  $(top_builddir) dir, not anymore on $(top_srcdir) to make
+	  distcheck happy.
+
+	* src/Makefile.am: ditto with all the Anjuta static libs.
+
+	* src/main_menubar.c: removed the widgets/ dir from the scroll-menu.c
+	  include, as we already include the whole directory for the build.
+
+	* src/text_editor_cbs.c: included dnd.h for scintilla_uri_dropped ().
+	  
 2002-02-13	Andy Piper	<andy.piper@freeuk.com>
 
 	* pixmaps/Makefile.am: icon for libglade project now installed

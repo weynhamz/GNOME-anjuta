@@ -234,9 +234,9 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
-	$(top_srcdir)/scintilla/libscintilla.a\
-	$(top_srcdir)/tagmanager/libctags.a\
-	$(top_srcdir)/widgets/libwidgets.a\
+	$(top_builddir)/scintilla/libscintilla.a\
+	$(top_builddir)/tagmanager/libctags.a\
+	$(top_builddir)/widgets/libwidgets.a\
 	$(SCILEXERS)
 
 echo-includes:

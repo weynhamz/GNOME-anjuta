@@ -1,9 +1,17 @@
-
 #include "../../src/anjuta.h"
 #include "../../src/anjuta_info.h"
 
+gchar   *GetDescr       (void);
+glong    GetVersion     (void);
+gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
+void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
+void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);
+gchar   *GetMenuTitle   (GModule *self, void *pUserData);
+gchar   *GetTooltipText (GModule *self, void *pUserData);
+
 /* Get module description */
-gchar	*GetDescr()
+gchar *
+GetDescr()
 {
 	return g_strdup(_("Sample Plugin Description. Holla!"));
 }

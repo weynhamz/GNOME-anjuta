@@ -30,6 +30,7 @@
 #include "text_editor_gui.h"
 #include "mainmenu_callbacks.h"
 #include "resources.h"
+#include "dnd.h"
 #include "Scintilla.h"
 
 void

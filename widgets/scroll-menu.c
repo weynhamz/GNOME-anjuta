@@ -23,7 +23,7 @@ static gboolean scroll_menu_enter_notify(GtkWidget        *widget,
 					 GdkEventCrossing *event);
 static gboolean scroll_menu_leave_notify(GtkWidget        *widget,
 					 GdkEventCrossing *event);
-static gint compare_menu_items          (gpointer p1, gpointer p2);
+static gint compare_menu_items          (gconstpointer p1, gconstpointer p2);
 
 static GtkMenuClass *parent_class = NULL;
 
@@ -642,7 +642,7 @@ scroll_menu_new (void)
 
 /* Return > 0 if p1 > p2 */
 gint 
-compare_menu_items (gpointer p1, gpointer p2)
+compare_menu_items (gconstpointer p1, gconstpointer p2)
 {
   GtkWidget *m1 = (GtkWidget *) p1;
   GtkWidget *m2 = (GtkWidget *) p2;
@@ -673,7 +673,7 @@ void
 scroll_menu_insert_sorted (GtkMenu *menu,
 			   GtkWidget    *child)
 {
-  GtkMenuShell2 *m = (GtkMenuShell *) menu;
+  GtkMenuShell2 *m = (GtkMenuShell2 *) menu;
   
   g_return_if_fail (m != NULL);
   g_return_if_fail (GTK_IS_MENU_SHELL (m));
