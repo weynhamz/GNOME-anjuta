@@ -1,3 +1,8 @@
+2001-08-09  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	src/source.c: Fixed a bug that fails new gnome projects to get created.
+	src/project_manager.c: Fixed a bug that disables storing recent project history.
+
 2001-08-14  Stephane Demurget <demurgets@free.fr>
 
 	* data/Makefile.am: added some rules to support the gnome/ macros
