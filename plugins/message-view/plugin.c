@@ -94,7 +94,7 @@ shell_set (AnjutaPlugin *plugin)
 	
 	mv_plugin->uiid = anjuta_ui_merge (plugin->ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, msgman,
-				  "AnjutaMessageViewPlugin", _("MessageViewPlugin"), NULL);
+				  "AnjutaMessageView", _("Messages"), NULL);
 }
 
 static void

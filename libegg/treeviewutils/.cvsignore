@@ -6,4 +6,4 @@ Makefile
 Makefile.in
 test-multi-drag
 test-tree-utils
-
+test-union

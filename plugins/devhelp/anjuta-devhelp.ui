@@ -1,0 +1,17 @@
+<!--*- xml -*-->
+<Root>
+	<menu name="MenuMain">
+		<submenu name="MenuEdit" verb="ActionMenuEdit">
+			<submenu name="Goto" verb="ActionMenuEditGoto">
+				<placeholder name="PlaceholderGotoMenus">
+						<menuitem name="BackHelp" verb="ActionDevhelpBack" />
+						<menuitem name="ForwardHelp" verb="ActionDevhelpForward" />
+				</placeholder>
+			</submenu>
+		</submenu>
+	</menu>
+	<dockitem name="ToolbarBrowser">
+		<toolitem name="BackHelp" verb="ActionDevhelpBack" />
+		<toolitem name="ForwardHelp" verb="ActionDevhelpForward" />
+	</dockitem>
+</Root>

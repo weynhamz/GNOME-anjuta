@@ -3,6 +3,9 @@
 anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
 anjuta_ui_DATA =  anjuta.ui
 
+anjuta_layoutdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
+anjuta_layout_DATA = layout.xml
+
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	$(PCRE_CFLAGS)\

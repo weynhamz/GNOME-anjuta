@@ -173,10 +173,10 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 		{
 			pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences)->props;
 			key = g_strconcat (toolbarname, ".visible", NULL);
-			action = anjuta_ui_get_action (ANJUTA_APP(ui_container)->ui, "ActionGroupView",
-										   action_name[count]);
-			egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
-										  prop_get_int (pr, key, 1));
+			// action = anjuta_ui_get_action (ANJUTA_APP(ui_container)->ui, "ActionGroupView",
+			//							   action_name[count]);
+			// egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+			//							  prop_get_int (pr, key, 1));
 			g_free (key);
 		} else {
 			item = gnome_app_get_dock_item_by_name (GNOME_APP (ui_container),
@@ -291,8 +291,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 
 	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 								  GTK_WINDOW (app));
-	gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
-								app->accel_group);
+	// gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
+	//							app->accel_group);
 	// g_signal_connect (G_OBJECT (app->preferences), "changed",
 	//				  G_CALLBACK (anjuta_apply_preferences), app);
 
@@ -315,7 +315,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	// anjuta_apply_preferences(ANJUTA_PREFERENCES (app->preferences), app);
 	
 	/* Load layout */
-	anjuta_app_load_layout (app, NULL);
+	// anjuta_app_load_layout (app, NULL);
 
 	g_signal_connect (G_OBJECT (app), "delete-event",
 					  G_CALLBACK (on_anjuta_app_delete_event),
@@ -536,6 +536,7 @@ anjuta_app_show (GtkWidget *wid)
 	//						app->preferences, FALSE);
 
 	/* Editor stuffs */
+#if 0 /* FIXME */
 	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
 								   "ActionViewEditorLinenumbers");
 	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
@@ -578,6 +579,7 @@ anjuta_app_show (GtkWidget *wid)
 								  prop_get_int (pr,
 												"view.line.wrap",
 												1));
+#endif
 }
 
 static void

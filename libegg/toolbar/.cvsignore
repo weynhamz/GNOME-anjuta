@@ -6,4 +6,4 @@ Makefile
 Makefile.in
 gtkexample
 test-toolbar
-
+test-drag

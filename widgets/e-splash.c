@@ -54,7 +54,7 @@ GNOME_CLASS_BOILERPLATE (ESplash, e_splash, GtkWindow, GTK_TYPE_WINDOW);
 
 /* Layout constants.  These need to be changed if the splash changes.  */
 
-#define ICON_Y    290
+#define ICON_Y    100
 #define ICON_SIZE 48
 
 
@@ -70,6 +70,7 @@ create_darkened_pixbuf (GdkPixbuf *pixbuf)
 	int i, j;
 
 	new = gdk_pixbuf_copy (pixbuf);
+	
 	if (! gdk_pixbuf_get_has_alpha (new))
 		return new;
 

@@ -220,7 +220,6 @@ main (int argc, char *argv[])
 	/* Initialize plugins */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
 	anjuta_plugins_init (plugins_dirs);
-	gtk_widget_show (anjuta_plugins_get_preferences ());
 	
 	/* Initialize application */
 	app = ANJUTA_APP (anjuta_app_new ());
@@ -229,7 +228,8 @@ main (int argc, char *argv[])
 	anjuta_plugins_load (ANJUTA_SHELL (app), 
 			     app->ui, app->preferences,
 			     E_SPLASH (splash), "default");
-
+	gtk_widget_show (anjuta_plugins_get_preferences ());
+	anjuta_app_load_layout (app, NULL);
 	//	while (gtk_events_pending ())
 	//	gtk_main_iteration ();
 	

@@ -171,6 +171,10 @@ PKG_CHECK_MODULES(LIBANJUTA, \
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
 
+dnl PKG_CHECK_MODULES(PLUGIN_DEVHELP, devhelp >= 0.0.6)
+dnl AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
+dnl AC_SUBST(PLUGIN_DEVHELP_LIBS)
+
 dnl ***************************************************************************
 dnl Check for old vte version
 dnl ***************************************************************************
@@ -616,6 +620,7 @@ plugins/class-gen/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile
+plugins/devhelp/Makefile
 template/Makefile
 anjuta.desktop.in
 manuals/Makefile

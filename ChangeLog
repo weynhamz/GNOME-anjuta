@@ -1,3 +1,26 @@
+2004-02-12  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, plugins/Makefile.am, plugins/devhelp/*:
+	Added devhelp plugin, but it can't be used without a
+	patch in devhelp. So it's disabled for now.
+
+	* libanjuta/.cvsignore, libegg/toolbar/.cvsignore,
+	libegg/treeviewutils/.cvsignore, plugins/editor/.cvsignore,
+	plugins/message-view/.cvsignore, plugins/sample1/.cvsignore:
+	Update cvsignore files.
+
+	* M libanjuta/plugins.c, widgets/e-splash.c:
+	Fixed plugins loading to show splash icons.
+	
+	* plugins/message-view/anjuta-message-manager.plugin.in,
+	plugins/message-view/plugin.c: Fixed plugin registered name.
+
+	* plugins/message-view/anjuta-message-view.png,
+	plugins/sample1/anjuta-sample-plugin.png: Update images.
+
+	* src/Makefile.am, src/anjuta-app.c, src/layout.xml,
+	src/main.c: Fixed layout loading.
+
 2004-02-11  Franco Catrin <fcatrin@tuxpan.com>
 
 	* plugins/editor/anjuta-docman.c:

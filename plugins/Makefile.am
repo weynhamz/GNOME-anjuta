@@ -1,1 +1,1 @@
-SUBDIRS = sample1 message-view editor
+SUBDIRS = sample1 message-view editor # devhelp

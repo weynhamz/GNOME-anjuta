@@ -822,8 +822,8 @@ anjuta_plugins_load (AnjutaShell *shell, AnjutaUI *ui,
 					g_free (tool->icon_path);
 					tool->icon_path = NULL;
 				}
-				while (gtk_events_pending ())
-					gtk_main_iteration ();
+				//while (gtk_events_pending ())
+				//	gtk_main_iteration ();
 			}
 		}
 	}
@@ -846,8 +846,8 @@ anjuta_plugins_load (AnjutaShell *shell, AnjutaUI *ui,
 							     image_index++, 
 							     TRUE);
 			}
-			// while (gtk_events_pending ())
-			//	gtk_main_iteration ();
+			while (gtk_events_pending ())
+				gtk_main_iteration ();
 		}
 	}
 
