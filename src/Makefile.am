@@ -201,8 +201,6 @@ anjuta_SOURCES = \
 	about.h\
 	resources.c\
 	resources.h\
-	notebook.c\
-	notebook.h\
 	CORBA-Server.c\
 	CORBA-Server.h\
 	Gladen-common.c\

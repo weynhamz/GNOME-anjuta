@@ -199,3 +199,79 @@ FIXME.
 When Anjuta was started, there were not many application support libraries.
 To cope up with the requirements, anjuta had to implement the supports within
 itself. And it is still going.
+
+5) Global shortcut keys:
+-----------------------
+
+The following callback (located in anjuta.c) :
+
+gint
+on_anjuta_window_key_press_event (GtkWidget   *widget,
+				  GdkEventKey *event,
+				  gpointer     user_data)
+
+is called when some key is pressed in the whole environnement, because the
+event is triggered off by the main GtkWindow. It has been created for navigating
+between the different buffers (Ctrl-[Shift]-Tab).
+
+It's aim is to implement global shortcut keys. For now on, it only works in the main window.
+
+Note : It's possible to install such an handler in the other windows if it's
+really needed, so the new callback can propagate the event to app (the GnomeApp)
+and we'll have a central place for those shortcuts.
+
+How to add a global shortcut :
+- - - - - - - - - - - - - - 
+
+It's pretty self-explainatory, but here's the "howto" :
+
+Just before the callback, you have some GDK modifiers "shortcuts", just because
+it's a pain to write this each time, and the mxy make you see in an instant
+which modifiers are used (Shift or Control) :
+
+enum {
+	m__ = 0,
+	mS_ = GDK_SHIFT_MASK,
+	m_C = GDK_CONTROL_MASK,
+	mSC = GDK_SHIFT_MASK | GDK_SHIFT_MASK
+};
+
+These are to ease filling the structure (1) : 
+
+You add an id for your shortcut in the enum : 
+
+enum {
+	ID_NEXTBUFFER = 0,
+	ID_PREVBUFFER = 1
+	...
+};
+
+Then, you add a line with the modifiers used, the GDK corresponding key, and the
+shortcut id.
+
+(1):
+
+static ShortcutMapping global_keymap[] = {
+	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
+	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	...
+	{ 0,   0		 0 }
+};
+
+Finally, you add a case in the callback's switch :
+
+gint
+on_anjuta_window_key_press_event (GtkWidget   *widget,
+	...
+
+	switch (global_keymap[i].id) {
+	case ID_xxx:
+		<statements>
+
+		break;
+	}
+	default:
+		return FALSE;
+	}
+
+	...

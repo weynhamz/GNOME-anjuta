@@ -345,6 +345,84 @@ on_anjuta_window_focus_in_event (GtkWidget * widget,
 	return FALSE;
 }
 
+enum {
+	m__ = 0,
+	mS_ = GDK_SHIFT_MASK,
+	m_C = GDK_CONTROL_MASK,
+	mSC = GDK_SHIFT_MASK | GDK_SHIFT_MASK
+};
+
+enum {
+	ID_NEXTBUFFER = 1, /* Note: the value mustn't be 0 ! */
+	ID_PREVBUFFER
+};
+
+typedef struct {
+	int modifiers;
+	unsigned int gdk_key;
+	int id;
+} ShortcutMapping;
+
+static ShortcutMapping global_keymap[] = {
+	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
+	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	{ 0,   0,		 0 }
+};
+
+gint
+on_anjuta_window_key_press_event (GtkWidget   *widget,
+				  GdkEventKey *event,
+				  gpointer     user_data)
+{
+	int modifiers;
+	int i;
+
+	g_return_val_if_fail (widget != NULL, FALSE);
+	g_return_val_if_fail (GNOME_IS_APP (widget), FALSE);
+	g_return_val_if_fail (event != NULL, FALSE);
+
+	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+
+	for (i = 0; global_keymap[i].id; i++)
+		if (event->keyval == global_keymap[i].gdk_key &&
+		    modifiers == global_keymap[i].modifiers)
+			break;
+
+	if (!global_keymap[i].id)
+		return FALSE;
+
+	switch (global_keymap[i].id) {
+	case ID_NEXTBUFFER:
+	case ID_PREVBUFFER: {
+		GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+		int pages_nb;
+		int cur_page;
+
+		if (!notebook->children)
+			return FALSE;
+
+		pages_nb = g_list_length (notebook->children);
+		cur_page = gtk_notebook_get_current_page (notebook);
+
+		if (global_keymap[i].id == ID_NEXTBUFFER)
+			cur_page = (cur_page < pages_nb - 1) ? cur_page + 1 : 0;
+		else
+			cur_page = cur_page ? cur_page - 1 : pages_nb -1;
+
+		gtk_notebook_set_page (notebook, cur_page);
+
+		break;
+	}
+	default:
+		return FALSE;
+	}
+
+	/* Note: No reason for a shortcut to do more than one thing a time */
+	gtk_signal_emit_stop_by_name (GTK_OBJECT (widget), "key_press_event");
+
+	return TRUE;
+}
+
 void
 on_save_as_filesel_cancel_clicked (GtkButton * button, gpointer user_data)
 {

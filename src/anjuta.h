@@ -289,6 +289,7 @@ void
 on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 				GtkNotebookPage * page,
 				gint page_num, gpointer user_data);
+
 void
 on_anjuta_dnd_drop (gchar* filename, gpointer data);
 
@@ -297,6 +298,10 @@ void anjuta_refresh_breakpoints (TextEditor* te);
 gboolean
 on_anjuta_window_focus_in_event (GtkWidget * w, GdkEventFocus * e,
 				 gpointer d);
+
+gint on_anjuta_window_key_press_event (GtkWidget   *widget,
+				       GdkEventKey *event,
+				       gpointer     user_data);
 
 void on_open_filesel_ok_clicked (GtkButton * button, gpointer data);
 

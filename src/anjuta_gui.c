@@ -28,7 +28,6 @@
 #include "anjuta.h"
 #include "resources.h"
 #include "main_menubar.h"
-#include "notebook.h"
 #include "dnd.h"
 
 
@@ -301,7 +300,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button2), pixmap);
 
-	anjuta_notebook = notebook_new ();
+	anjuta_notebook = gtk_notebook_new ();
 	gtk_widget_ref (anjuta_notebook);
 	gtk_widget_show (anjuta_notebook);
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (anjuta_notebook), TRUE);
@@ -316,7 +315,9 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "focus_in_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_window_focus_in_event),
 			    NULL);
-
+	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_press_event",
+			    GTK_SIGNAL_FUNC (on_anjuta_window_key_press_event),
+			    NULL);
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "delete_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_delete), NULL);
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "destroy",

@@ -1,3 +1,18 @@
+2001-12-29  Stephane Demurget  <demurgets@free.fr>
+
+	Fix a reopened part of bug #440676: keyboard navigation between the
+	different text buffers.	Changed to a more global approch. 
+
+	* src/notebook.[ch]: removed.
+
+	* src/Makefile.am: removed notebook.[ch]
+
+	* src/anjuta_{gui,cbs}.c, src/anjuta.h:
+	  (on_anjuta_window_key_press_event): added to fulfill the global
+	  shorcuts handling.
+
+	* HACKING: updated according to the new global shortcuts handling.
+
 2001-12-29 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/main_menubar_def.h, main_menubar.h, main_menubar.c:
