@@ -121,6 +121,7 @@ src/memory.c
 src/memory.h
 src/message-manager-dock.c
 src/message-manager-dock.h
+src/message-manager-private.cc
 src/message-manager-private.h
 src/message-manager.cc
 src/message-manager.h
