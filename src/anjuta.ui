@@ -42,7 +42,6 @@
 					<separator name="separator1" />
 					<menuitem name="AnjutaHome" action="ActionHelpAnjutaHome" />
 					<separator name="separator2" />
-					<menuitem name="Lidn" action="ActionHelpLidn" />
 					<menuitem name="BugReport" action="ActionHelpBugReport" />
 					<menuitem name="FetureRequest" action="ActionHelpFeatureRequest" />
 					<menuitem name="SubmitPatch" action="ActionHelpSubmitPatch" />

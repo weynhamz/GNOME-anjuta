@@ -1,13 +1,9 @@
 <?xml version="1.0"?>
 <gtodo>
   <category title="Unfiled" place="0">
-    <item>
-      <attribute id="1098255975" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098256194"/>
-      <summary>Anjuta 2.0 write up</summary>
-      <comment>Write a publication describing what's happening with anjuta
-development and what's new in Anjuta 2.0 release.</comment>
-    </item>
-  </category>
+    
+  <item><attribute id="1098255975" priority="2" done="1" start_date="731874" completed_date="731972" notify="0" last_edited="1106752594"/><summary>Anjuta 2.0 write up</summary><comment>Write a publication describing what's happening with anjuta
+development and what's new in Anjuta 2.0 release.</comment></item></category>
   <category title="libanjuta" place="1">
     <item>
       <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255692"/>
@@ -66,17 +62,13 @@ accordingly update undo/redo ui sensitivity.</comment>
 Export currenct selected target or source.
 Added context menu based on current selected target or source.</comment>
     </item>
-    <item>
-      <attribute id="1100059875" priority="1" done="0" start_date="731895" enddate="99999999" notify="0" endtime="-60" last_edited="1100059875"/>
-      <summary>Error messages for loading project</summary>
-      <comment>Display error messages after loading of project fails.</comment>
-    </item>
+    
     <item>
       <attribute id="1100059926" priority="1" done="0" start_date="731895" enddate="99999999" notify="0" endtime="-60" last_edited="1100059926"/>
       <summary>Display progress window</summary>
       <comment>Display a "Loading project" window before loading a project and update gtk events.</comment>
     </item>
-  </category>
+  <item><attribute id="1100059875" priority="1" done="1" start_date="731895" completed_date="731972" notify="0" last_edited="1106752638"/><summary>Error messages for loading project</summary><comment>Display error messages after loading of project fails.</comment></item></category>
   <category title="Plugin: File Manager" place="5"/>
   <category title="Plugin: Automake Build" place="2">
     <item>

@@ -1,3 +1,11 @@
+2005-01-26  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* src/action-callback.[ch], src/anjuta-actions.h:
+	Changed bug and feature request urls to bugzilla.gnome.org and removed LIDN
+	because it has not been updated for years and we know have a devhelp plugin
+	which can do the job much better.
+	* TODO.tasks: Updated done items
+
 2005-01-25  Naba Kumar  <naba@gnome.org>
 
 	* autogen.sh: Fixed to generate interface files.

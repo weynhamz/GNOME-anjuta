@@ -137,25 +137,19 @@ on_url_info_activate (GtkAction * action, gpointer user_data)
 void
 on_url_home_activate (GtkAction * action, gpointer user_data)
 {
-	anjuta_res_url_show("http://anjuta.org");
-}
-
-void
-on_url_libs_activate (GtkAction * action, gpointer user_data)
-{
-	anjuta_res_url_show("http://lidn.sourceforge.net");
+	anjuta_res_url_show("http://www.anjuta.org");
 }
 
 void
 on_url_bugs_activate (GtkAction * action, gpointer user_data)
 {
-	anjuta_res_url_show("http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse");
+	anjuta_res_url_show("http://bugzilla.gnome.org/simple-bug-guide.cgi");
 }
 
 void
 on_url_features_activate (GtkAction * action, gpointer user_data)
 {
-	anjuta_res_url_show("http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse");
+	anjuta_res_url_show("http://bugzilla.gnome.org/simple-bug-guide.cgi");
 }
 
 void

@@ -39,7 +39,6 @@ void on_info_pages1_activate (GtkAction * action, AnjutaApp *app);
 void on_url_man_activate (GtkAction * action, gpointer user_data);
 void on_url_info_activate (GtkAction * action, gpointer user_data);
 void on_url_home_activate (GtkAction * action, gpointer user_data);
-void on_url_libs_activate (GtkAction * action, gpointer user_data);
 void on_url_bugs_activate (GtkAction * action, gpointer user_data);
 void on_url_features_activate (GtkAction * action, gpointer user_data);
 void on_url_patches_activate (GtkAction * action, gpointer user_data);
