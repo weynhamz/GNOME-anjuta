@@ -1,3 +1,10 @@
+2005-02-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/project-wizard/templates/terminal/src/main.c, 
+	plugins/project-wizard/templates/terminal/src/main.c,
+	plugins/project-wizard/templates/terminal/src/main.[ch] :
+	Insert License in projects
+	
 2005-02-11  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Added message manager task.
