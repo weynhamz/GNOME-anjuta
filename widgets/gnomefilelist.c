@@ -407,7 +407,7 @@ gnome_filelisttype_addtype(GList *filetypes, gchar *description, GList *extentio
 
 GList * 
 gnome_filelisttype_makedefaultlist(GList *filetypes)
-{	
+{		
 	GList *ftypes=filetypes;
 
 	ftypes = gnome_filelisttype_addtype(ftypes, _("All files"), NULL);
@@ -415,6 +415,7 @@ gnome_filelisttype_makedefaultlist(GList *filetypes)
 	ftypes = gnome_filelisttype_addtype_f(ftypes, _("C/C++ source files"), ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".hpp", ".h", ".hh", NULL);
 	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Java files"), ".java", ".js", NULL);   
 	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Pascal files"), ".pas", NULL);
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("PHP files"), ".php", ".php?", ".phtml", NULL);	
 	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Perl files"), ".pl", NULL);
 	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Python files"), ".py", NULL);
 	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Hyper Text Markup files"), ".htm", ".html", ".css", NULL);

@@ -1,3 +1,8 @@
+2002-02-19  Philip Van Hoof <freax@pandora.be>
+
+	* widgets/gnomefilelist.c
+	Added PHP filetype.
+
 2002-02-19  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* plugins/class-gen/clsGen.c:
