@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-11 02:59+0100\n"
-"PO-Revision-Date: 2003-11-11 12:51+0100\n"
+"POT-Creation-Date: 2003-11-12 02:58+0100\n"
+"PO-Revision-Date: 2003-11-12 11:31+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -733,7 +733,10 @@ msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data loss or modification done to the project."
-msgstr "Importovat existující projekt. Kouzelník importu vás provede importem existujícího projektu do Anjuty a jeho konverzí do projektu Anjuty. V projektu nedojde k žádné ztrátě dat nebo změnám."
+msgstr ""
+"Importovat existující projekt. Kouzelník importu vás provede importem "
+"existujícího projektu do Anjuty a jeho konverzí do projektu Anjuty. V "
+"projektu nedojde k žádné ztrátě dat nebo změnám."
 
 #: anjuta.glade.h:172
 msgid "Include Paths"
@@ -1277,7 +1280,9 @@ msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
-msgstr "Začít s novým projektem. Kouzelník aplikace vás provede vytvořením projektu. S kouzelníkem aplikace budete moci vytvořit kostru různých typů projektů."
+msgstr ""
+"Začít s novým projektem. Kouzelník aplikace vás provede vytvořením projektu. "
+"S kouzelníkem aplikace budete moci vytvořit kostru různých typů projektů."
 
 #: anjuta.glade.h:304
 msgid "Strike-Out"
@@ -3642,15 +3647,26 @@ msgstr "Hledané \"%s\" nebylo nalezeno v aktuálním umístění"
 msgid "No matches found. Wrap search around the document?"
 msgstr "Nenalezen žádný výsledek. Hledat od druhého konce dokumentu?"
 
-#: src/glade_iface.c:99
+#: src/glade_iface.c:69
+msgid ""
+"Warning: Can not generate c/c++ source code.\n"
+"Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
+"gtkmm/gnomemm projects) is not installed.\n"
+"Warning: Your generated project will still be fine, though.\n"
+msgstr ""
+"Varování: Nemohu vygenerovat zdrojový kód v c/c++.\n"
+"Varování: To je způsobeno tím, že buď glade (pro projekty gtk/gnome) nebo glademm (pro projekty gtkmm/gnomemm) není nainstalováno.\n"
+"Varování: Váš vygenerovaný projekt bude přesto v pořádku.\n"
+
+#: src/glade_iface.c:108
 msgid "Cannot fork glade."
 msgstr "Nemohu fork glade."
 
-#: src/glade_iface.c:136 src/glade_iface.c:211
+#: src/glade_iface.c:148 src/glade_iface.c:229
 msgid "Cannot fork glade--."
 msgstr "Nemohu fork glade--."
 
-#: src/glade_iface.c:174
+#: src/glade_iface.c:189
 msgid "Cannot fork glade-2."
 msgstr "Nemohu fork glade-2."
 
