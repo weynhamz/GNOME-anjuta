@@ -59,12 +59,10 @@ static gchar *file_insert_header_c( TextEditor *te);
 
 /* Callbacks */
 gboolean
-on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
-			                     gboolean user_data);
-
-gboolean
-on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
-			                 gboolean user_data);
+on_new_file_delete_event (GtkDialog *window, GdkEvent *event,
+						  gpointer user_data);
+void
+on_new_file_response (GtkDialog *window, gint response, gpointer user_data);
 
 void
 on_new_file_entry_changed (GtkEditable *entry, gpointer user_data);
@@ -163,25 +161,12 @@ create_new_file_dialog(void)
 	gtk_window_set_transient_for (GTK_WINDOW(nfg->dialog),
 		                          GTK_WINDOW(app->widgets.window)); 
 
+	gtk_dialog_set_default_response (GTK_DIALOG(nfg->dialog), GTK_RESPONSE_OK);
 	glade_xml_signal_autoconnect(nfg->xml);
 	gtk_signal_emit_by_name(GTK_OBJECT (optionmenu), "changed");
 	
 	return TRUE;
 }
-
-
-gboolean
-on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
-			                     gboolean user_data)
-{
-	if (nfg->showing)
-	{
-		gtk_widget_hide(nfg->dialog);
-		nfg->showing = FALSE;
-	}
-	return TRUE;
-}
-
 
 //~ Offset<0 	:	Move cursor to the end of txt
 //~ Offset >=0 	:	Move cursor + offset
@@ -204,10 +189,20 @@ file_insert_text(gchar *txt, gint offset)
 		aneditor_command (te->editor_id, ANE_GOTOPOS, caret + offset, -1);
 }
 
-
 gboolean
-on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
-			                 gboolean user_data)
+on_new_file_delete_event (GtkDialog *window, GdkEvent *event,
+						  gpointer user_data)
+{
+	if (nfg->showing)
+	{
+		gtk_widget_hide(nfg->dialog);
+		nfg->showing = FALSE;
+	}
+	return TRUE;
+}
+
+void
+on_new_file_response (GtkDialog *window, gint response, gpointer user_data)
 {
 	GtkWidget *entry;
 	GtkWidget *checkbutton;
@@ -215,57 +210,59 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	gchar *name;
 	gint sel;
 	TextEditor *te;
-	
-	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
-	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
-	if ( strlen(name) > 0)
-		anjuta_append_text_editor (NULL, name);
-	else
-		anjuta_append_text_editor (NULL, NULL);
-	g_free(name);
-	
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return FALSE;
 
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
-		file_insert_header();	
-	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_GPL);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
-	{
-		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
-		sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
-		switch (new_file_type[sel].type)
-		{
-			case CMT_C: 
-				file_insert_c_gpl_notice();	
-				break;
-			case CMT_CPP:
-				file_insert_cpp_gpl_notice();	
-				break;
-			case CMT_PY:
-				file_insert_py_gpl_notice();
-				break;
-			default:
-				g_warning("Not known type\n");
-		}
-	}
-	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
-	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
-			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
-		file_insert_header_template();
+	if (response == GTK_RESPONSE_OK)
+	{		
+		entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
+		name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+		if ( strlen(name) > 0)
+			anjuta_append_text_editor (NULL, name);
+		else
+			anjuta_append_text_editor (NULL, NULL);
+		g_free(name);
 		
-	gtk_widget_hide(nfg->dialog);
-	nfg->showing = FALSE;
+		te = anjuta_get_current_text_editor ();
+		if (te == NULL)
+			return;
 	
-	return TRUE;
+		checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
+		if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+			file_insert_header();	
+		
+		checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_GPL);
+		if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+		{
+			optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
+			sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
+			switch (new_file_type[sel].type)
+			{
+				case CMT_C: 
+					file_insert_c_gpl_notice();	
+					break;
+				case CMT_CPP:
+					file_insert_cpp_gpl_notice();	
+					break;
+				case CMT_PY:
+					file_insert_py_gpl_notice();
+					break;
+				default:
+					g_warning("Not known type\n");
+			}
+		}
+		
+		checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
+		if (GTK_WIDGET_SENSITIVE(checkbutton) && 
+				gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+			file_insert_header_template();
+	}
+	if (nfg->showing)
+	{
+		gtk_widget_hide(nfg->dialog);
+		nfg->showing = FALSE;
+	}
 }
-
 
 void
 on_new_file_entry_changed (GtkEditable *entry, gpointer user_data)

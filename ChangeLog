@@ -1,3 +1,10 @@
+2004-03-24  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade, anjuta_dialog_strings.c, src/file.c:
+	Aligned buttons in the New file dialog,
+	set default response to OK, entry box activates default response,
+	ESC closes dialog and hides on delet_event.
+
 2004-03-19  Naba Kumar  <naba@gnome.org>
 
 	* src/project_dbase.c: fixed bug #893400 ("Remove file" in project
