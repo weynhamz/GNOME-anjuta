@@ -16,6 +16,7 @@
  */
 
 #include "macro-util.h"
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 static char *
 get_date_time(void)
@@ -90,15 +91,57 @@ get_email(MacroPlugin * plugin)
 	return email;
 }
 	
+static IAnjutaEditor*
+get_current_editor (AnjutaPlugin *plugin)
+{
+	IAnjutaEditor *editor;
+	IAnjutaDocumentManager* docman;
+	docman = anjuta_shell_get_interface (plugin->shell,
+										 IAnjutaDocumentManager,
+										 NULL);
+	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+	return editor;
+}
+
+static gchar *
+get_filename(MacroPlugin * plugin)
+{
+	IAnjutaEditor *te;
+	gchar *filename;
+	
+	te = get_current_editor (plugin);
+	filename = ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL);	
+
+	return filename;
+}
+
+static gchar *
+get_filename_up(MacroPlugin * plugin)
+{
+	gchar *filename = get_filename(plugin);
+	return g_ascii_strup(get_filename(plugin), -1);
+}
+
+static gchar *
+get_filename_up_prefix(MacroPlugin * plugin)
+{
+	gchar *name;
+	
+	gchar *filename = get_filename_up(plugin);
+	name = g_strndup(filename, strlen(filename) - 2);
+	g_free(filename);
+	return name;
+}
+
 
 static gboolean
 expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 {
-	enum {_DATETIME = 0, _DATE_YMD, _DATE_Y, _USER_NAME , _FILE_NAME, _EMAIL, 
-		  _ENDKEYW };		
+	enum {_DATETIME = 0, _DATE_YMD, _DATE_Y, _USER_NAME , _FILE_NAME,  _FILE_NAME_UP, 
+			_FILE_NAME_UP_PREFIX, _EMAIL, _ENDKEYW };		
 	gchar *tabkey[_ENDKEYW] =
 		{"@DATE_TIME@", "@DATE_YMD@", "@DATE_Y@", "@USER_NAME@", "@FILE_NAME@",
-		 "@EMAIL@" };
+		 "@FILE_NAME_UP@", "@FILE_NAME_UP_PREFIX@", "@EMAIL@" };
 	gint key;
 		
 	for (key=0; key<_ENDKEYW; key++)
@@ -120,7 +163,13 @@ expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 			*expand = get_username(plugin);
 			break;
 		case _FILE_NAME :
-			//*expand = 
+			*expand = get_filename(plugin);
+			break;
+		case _FILE_NAME_UP :
+			*expand = get_filename_up(plugin);
+			break;
+		case _FILE_NAME_UP_PREFIX :
+			*expand = get_filename_up_prefix(plugin);
 			break;
 		case _EMAIL :
 			*expand = get_email(plugin);

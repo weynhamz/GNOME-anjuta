@@ -97,9 +97,17 @@ void
 on_insert_header_template(GtkAction * action, gpointer user_data)
 {
 	IAnjutaEditor *editor;
+	gchar *filename;
+
 	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_header_template(editor);
+	filename = ianjuta_editor_get_filename (editor , NULL);	
+	if ( g_strcasecmp((filename) + strlen(filename) - 2, ".h") == 0)
+	{
+		IAnjutaMacro *macro = get_macro(user_data);
+		if (macro)
+			ianjuta_macro_insert (macro, "Header_h", NULL);	
+	}
+	g_free(filename);
 }
 
 void

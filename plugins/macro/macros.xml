@@ -84,6 +84,9 @@ else
 <macro _name="cvs_revision" _category="CVS" _shortcut=""><![CDATA[Revision:]]></macro>
 <macro _name="cvs_source" _category="CVS" _shortcut=""><![CDATA[Source:]]></macro>
 
+<macro _name="File_Name" _category="Basic" _shortcut=""><![CDATA[@FILE_NAME@]]></macro>
+<macro _name="File_Name_Up" _category="Basic" _shortcut=""><![CDATA[@FILE_NAME_UP@]]></macro>
+<macro _name="File_Name_Up_Prefix" _category="Basic" _shortcut=""><![CDATA[@FILE_NAME_UP_PREFIX@]]></macro>
 <macro _name="Date_Time" _category="Basic" _shortcut=""><![CDATA[@DATE_TIME@]]></macro>
 <macro _name="Date_Ymd" _category="Basic" _shortcut=""><![CDATA[@DATE_YMD@]]></macro>
 <macro _name="Date_Y" _category="Basic" _shortcut=""><![CDATA[@DATE_Y@]]></macro>
@@ -92,6 +95,22 @@ else
 
 <macro _name="Copyright" _category="EXPAND" _shortcut=""><![CDATA[Copyright  @DATE_Y@  @USER_NAME@]]></macro>
 <macro _name="Changelog" _category="EXPAND" _shortcut=""><![CDATA[@DATE_YMD@  @USER_NAME@  <@EMAIL@>
+]]></macro>
+<macro _name="Header_h" _category="EXPAND" _shortcut=""><![CDATA[#ifndef _@FILE_NAME_UP_PREFIX@_H
+#define _@FILE_NAME_UP_PREFIX@_H
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _@FILE_NAME_UP_PREFIX@_H */
 ]]></macro>
 
 </anjuta-macros>

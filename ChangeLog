@@ -1,3 +1,11 @@
+2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/file-wizard/action-callbacks.c, 
+	plugins/file-wizard/file.c, plugins/macro/macro-util.c
+	plugins/macro/macros.xml :
+	
+	Added FileName, Header template macros.
+	
 2005-02-24  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/patch/patch-plugin.c: Fixed a function call.

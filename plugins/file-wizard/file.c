@@ -1,5 +1,7 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+
 /***************************************************************************
- *            file_insert.c
+ *            file.c
  *
  *  Sun Nov 30 17:46:54 2003
  *  Copyright  2003  Jean-Noel Guiheneuf
@@ -272,8 +274,10 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
+	{
+//FIXME : call ianjuta_macro_insert( ...., "Date_Time", NULL)
 		insert_header_template (te);
-		
+	}		
 	gtk_widget_hide(nfg->dialog);
 	nfg->showing = FALSE;
 	
