@@ -4,15 +4,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta IDE\n"
-"POT-Creation-Date: 2001-03-27 17:24+0530\n"
-"PO-Revision-Date: 2001-03-29 23:29+04:00\n"
+"POT-Creation-Date: 2001-07-25 23:09+0400\n"
+"PO-Revision-Date: 2001-08-10 15:46+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/anjuta_cbs.c:77
+#: src/anjuta_cbs.c:128
 msgid ""
 "Some files (or the project) are not saved.\n"
 "Do you still want to exit?"
@@ -20,26 +20,26 @@ msgstr ""
 "Некоторые файлы (или проект) не были сохранены.\n"
 "Хотите выйти?"
 
-#: src/anjuta_cbs.c:126 src/project_dbase_gui.c:1195
+#: src/anjuta_cbs.c:180 src/project_dbase_gui.c:1252
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Не обычный файл: %s."
 
-#: src/anjuta_cbs.c:131
+#: src/anjuta_cbs.c:186
 #, c-format
 msgid "No read permission for: %s."
 msgstr "Нет прав на чтение: %s."
 
-#: src/anjuta_cbs.c:157
+#: src/anjuta_cbs.c:211
 #, c-format
 msgid ""
-"The file \"%s\" already exist.\n"
+"The file \"%s\" already exists.\n"
 "Do you want to overwrite it?."
 msgstr ""
 "Файл \"%s\" уже существует.\n"
 "Хотите переписать его?"
 
-#: src/anjuta_dirs.c:54
+#: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
 msgstr "Не удалось создать каталог настроек.\n"
 
@@ -47,96 +47,104 @@ msgstr "Не удалось создать каталог настроек.\n"
 msgid "Anjuta: Information"
 msgstr "Anjuta: Информация"
 
-#: src/appwidz_page1.c:89
+#: src/appwiz_page1.c:95
 msgid "Select the type of application you want to develop"
 msgstr "Выберите тип для приложения, которое вы хотите разрабытывать"
 
-#: src/appwidz_page1.c:122
-msgid "Generic/Terminal based Project"
+#: src/appwiz_page1.c:130
+msgid "Generic/Terminal-based Project"
 msgstr "Обычный/Терминальный проект"
 
-#: src/appwidz_page1.c:126
-msgid "Gtk based Project"
+#: src/appwiz_page1.c:134
+msgid "GTK-based Project"
 msgstr "Проект основанный на GTK"
 
-#: src/appwidz_page1.c:130
-msgid "Gnome based Project"
+#: src/appwiz_page1.c:138
+msgid "GNOME-based Project Project"
 msgstr "Проект основанный на GNOME"
 
-#: src/appwidz_page1.c:134
-msgid "Gnome Bonobo component"
+#: src/appwiz_page1.c:142
+msgid "GTK-- based project"
+msgstr "Проект основанный на GTK--"
+
+#: src/appwiz_page1.c:146
+msgid "GNOME-- based project"
+msgstr "Проект основанный на GNOME--"
+
+#: src/appwiz_page1.c:150
+msgid "GNOME Bonobo component"
 msgstr "Компонет Bonobo для GNOME"
 
-#: src/appwidz_page2.c:148 src/appwidz_page4.c:109
+#: src/appwiz_page2.c:148 src/appwiz_page4.c:109
 msgid "Enter the basic Project information"
 msgstr "Введите основную информацию о проекте"
 
-#: src/appwidz_page2.c:164 src/project_dbase_gui.c:591
+#: src/appwiz_page2.c:164 src/project_dbase_gui.c:646
 msgid "Project Name:"
 msgstr "Название проекта"
 
-#: src/appwidz_page2.c:171
+#: src/appwiz_page2.c:171
 msgid "Project Version:"
 msgstr "Версия проекта:"
 
-#: src/appwidz_page2.c:178
+#: src/appwiz_page2.c:178
 msgid "Project Author:"
 msgstr "Автор проекта:"
 
-#: src/appwidz_page2.c:185
+#: src/appwiz_page2.c:185
 msgid "Project Target:"
 msgstr "Цель проекта:"
 
-#: src/appwidz_page2.c:216
+#: src/appwiz_page2.c:216
 msgid "Programming language"
 msgstr "Язык программирования"
 
-#: src/appwidz_page2.c:227
+#: src/appwiz_page2.c:227
 msgid "C"
 msgstr "C"
 
-#: src/appwidz_page2.c:233
+#: src/appwiz_page2.c:233
 msgid "C++"
 msgstr "C++"
 
-#: src/appwidz_page2.c:239
+#: src/appwiz_page2.c:239
 msgid "Both C and C++"
 msgstr "Как C так и C++"
 
-#: src/appwidz_page3.c:112
+#: src/appwiz_page3.c:112
 msgid "Enter a short project description"
 msgstr "Введите краткое описание проекта"
 
-#: src/appwidz_page3.c:147 src/project_dbase_gui.c:1066
+#: src/appwiz_page3.c:147 src/project_dbase_gui.c:1121
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Не удалось найти файл изображения: %s"
 
-#: src/appwidz_page3.c:160
+#: src/appwiz_page3.c:160
 msgid "Executable target."
 msgstr ""
 
-#: src/appwidz_page3.c:167
+#: src/appwiz_page3.c:167
 msgid "Static library target."
 msgstr ""
 
-#: src/appwidz_page3.c:173
+#: src/appwiz_page3.c:173
 msgid "Dynamic library target."
 msgstr ""
 
-#: src/appwidzard_cbs.c:94
+#: src/appwizard_cbs.c:104
 msgid "Project name"
 msgstr "Название проекта"
 
-#: src/appwidzard_cbs.c:95
+#: src/appwizard_cbs.c:105
 msgid "Source target name"
 msgstr ""
 
-#: src/appwidzard_cbs.c:96
+#: src/appwizard_cbs.c:106
 msgid "Project Version"
 msgstr "Версия проекта"
 
-#: src/appwidzard_cbs.c:191
+#: src/appwizard_cbs.c:201
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -144,81 +152,83 @@ msgid ""
 msgstr ""
 
 #. For the time being
-#: src/appwidzard_cbs.c:239 src/project_dbase.c:1189 src/project_dbase.c:1194
+#: src/appwizard_cbs.c:249 src/project_dbase.c:1189 src/project_dbase.c:1194
 #: src/project_dbase.c:1197 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "Да"
 
-#: src/appwidzard_cbs.c:241 src/project_dbase.c:1191 src/project_dbase.c:1199
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1191 src/project_dbase.c:1199
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "Нет"
 
-#: src/appwidzard_cbs.c:243
+#: src/appwizard_cbs.c:253
 msgid ""
 "Confirm the following information:\n"
 "\n"
-msgstr "Подтвердите следующую информацию:\n\n"
+msgstr ""
+"Подтвердите следующую информацию:\n"
+"\n"
 
-#: src/appwidzard_cbs.c:244
+#: src/appwizard_cbs.c:254
 msgid "Project Name:    "
 msgstr "Название проекта:    "
 
-#: src/appwidzard_cbs.c:245
+#: src/appwizard_cbs.c:255
 msgid "Project Type:    "
 msgstr "Тип проекта:    "
 
-#: src/appwidzard_cbs.c:246
+#: src/appwizard_cbs.c:256
 msgid "Target Type:     "
 msgstr ""
 
-#: src/appwidzard_cbs.c:247
+#: src/appwizard_cbs.c:257
 msgid "Source Target:   "
 msgstr ""
 
-#: src/appwidzard_cbs.c:248
+#: src/appwizard_cbs.c:258
 msgid "Version:         "
 msgstr "Версия:         "
 
-#: src/appwidzard_cbs.c:249
+#: src/appwizard_cbs.c:259
 msgid "Author:          "
 msgstr "Автор:          "
 
-#: src/appwidzard_cbs.c:250
-msgid "Prog. Language:  "
+#: src/appwizard_cbs.c:260
+msgid "Language:        "
 msgstr "Язык программирования: "
 
-#: src/appwidzard_cbs.c:251
+#: src/appwizard_cbs.c:261
 msgid "Gettext support: "
 msgstr "Поддержка gettext: "
 
-#: src/appwidzard_gui.c:97
-msgid "Gnome Application Widzard"
+#: src/appwizard_gui.c:97
+msgid "GNOME Application Wizard"
 msgstr "Помощник приложения GNOME"
 
-#: src/appwidzard_gui.c:122
-msgid "Gnome Application Widzard:     Page 1 of 6"
+#: src/appwizard_gui.c:122
+msgid "GNOME Application Wizard:     Page 1 of 6"
 msgstr "Помощник приложения GNOME:      Страница 1 из 6"
 
-#: src/appwidzard_gui.c:153
-msgid "Gnome Application Widzard:     Page 2 of 6"
+#: src/appwizard_gui.c:151
+msgid "GNOME Application Wizard:     Page 2 of 6"
 msgstr "Помощник приложения GNOME:      Страница 2 из 6"
 
-#: src/appwidzard_gui.c:178
-msgid "Gnome Application Widzard:     Page 3 of 6"
+#: src/appwizard_gui.c:175
+msgid "GNOME Application Wizard:     Page 3 of 6"
 msgstr "Помощник приложения GNOME:      Страница 3 из 6"
 
-#: src/appwidzard_gui.c:204
-msgid "Gnome Application Widzard:     Page 4 of 6"
+#: src/appwizard_gui.c:200
+msgid "GNOME Application Wizard:     Page 4 of 6"
 msgstr "Помощник приложения GNOME:      Страница 4 из 6"
 
-#: src/appwidzard_gui.c:229
-msgid "Gnome Application Widzard:     Page 5 of 6"
+#: src/appwizard_gui.c:224
+msgid "GNOME Application Wizard:     Page 5 of 6"
 msgstr "Помощник приложения GNOME:      Страница 5 из 6"
 
-#: src/appwidzard_gui.c:253
-msgid "Gnome Application Widzard:     Page 6 of 6"
+#: src/appwizard_gui.c:247
+msgid "GNOME Application Wizard:     Page 6 of 6"
 msgstr "Помощник приложения GNOME:      Страница 6 из 6"
 
 #: src/attach_process.c:118
@@ -259,7 +269,7 @@ msgstr "Команда"
 msgid "Update"
 msgstr "Обновить"
 
-#: src/attach_process_gui.c:108 src/text_editor_gui.c:271
+#: src/attach_process_gui.c:108 src/text_editor_gui.c:270
 msgid "Attach"
 msgstr "Подключить"
 
@@ -275,7 +285,7 @@ msgstr "ДА"
 msgid "NO"
 msgstr "НЕТ"
 
-#: src/breakpoints.c:489 src/main_menubar_def.h:463 src/text_editor_gui.c:224
+#: src/breakpoints.c:489 src/main_menubar_def.h:463 src/text_editor_gui.c:223
 msgid "0"
 msgstr "0"
 
@@ -303,7 +313,7 @@ msgstr "Файл"
 msgid "Line"
 msgstr "Строка"
 
-#: src/breakpoints_gui.c:104 src/text_editor_menu.c:222
+#: src/breakpoints_gui.c:104 src/text_editor_menu.c:250
 msgid "Function"
 msgstr "Функция"
 
@@ -322,7 +332,7 @@ msgstr "Условие"
 msgid "Add"
 msgstr "Добавить"
 
-#: src/breakpoints_gui.c:131 src/project_dbase_gui.c:364
+#: src/breakpoints_gui.c:131 src/project_dbase_gui.c:401
 msgid "Edit"
 msgstr "Правка"
 
@@ -378,8 +388,8 @@ msgstr ""
 msgid "I do not really know how to build this file."
 msgstr ""
 
-#: src/build_file.c:107 src/messages.c:534 src/preferences_gui.c:169
-#: src/text_editor_gui.c:246 src/toolbar.c:477
+#: src/build_file.c:107 src/messages.c:533 src/preferences_gui.c:169
+#: src/text_editor_gui.c:245 src/toolbar.c:477
 msgid "Build"
 msgstr "Собрать"
 
@@ -611,63 +621,67 @@ msgstr ""
 msgid "Clean all completed ... successful"
 msgstr ""
 
-#: src/commands.c:531
+#: src/commands.c:540
+msgid "Anjuta: Commands"
+msgstr "Anjuta: Команды"
+
+#: src/commands.c:557
 msgid "Select programming language:"
 msgstr "Выбрать язык программирования:"
 
-#: src/commands.c:557
+#: src/commands.c:583
 msgid " Language specific commands "
 msgstr " Команды специфические для языка "
 
-#: src/commands.c:571
+#: src/commands.c:597
 msgid "Compile File:"
 msgstr ""
 
-#: src/commands.c:579
+#: src/commands.c:605
 msgid "Build File:"
 msgstr ""
 
-#: src/commands.c:587
+#: src/commands.c:613
 msgid "Execute File:"
 msgstr ""
 
-#: src/commands.c:613
+#: src/commands.c:639
 msgid " General commands "
 msgstr " Общие команды "
 
-#: src/commands.c:627
+#: src/commands.c:653
 msgid "Pixmap editor:"
 msgstr "Редактор растровых изображений:"
 
-#: src/commands.c:635
+#: src/commands.c:661
 msgid "Image editor:"
 msgstr "Редактор изображений:"
 
-#: src/commands.c:643
-msgid "Html viewer:"
-msgstr "Просмотр html:"
-
 #: src/commands.c:669
-msgid "Load global defaults"
-msgstr ""
+msgid "HTML viewer:"
+msgstr "Просмотр HTML:"
 
-#: src/commands.c:676
+#: src/commands.c:695
+msgid "Load global defaults"
+msgstr "Загрузить глобальные исходные значения"
+
+#: src/commands.c:702
 msgid "Load user defaults"
-msgstr ""
+msgstr "Загрузить исходные значения пользователя"
 
 #: src/compile.c:47
 msgid "This file is not saved. Save it first and then compile."
-msgstr ""
+msgstr "Файл не сохранён. Сохраните его перед компиляцией."
 
 #: src/compile.c:68
 msgid "The object file is up to date. No need to compile again."
-msgstr ""
+msgstr "Не требуется перекомпиляции объектного файла."
 
 #: src/compile.c:82
 msgid "I do not really know how to compile this file."
-msgstr ""
+msgstr "Нет информации о том как компилировать этот файл."
 
-#: src/compile.c:95 src/text_editor_gui.c:235 src/toolbar.c:454
+#: src/compile.c:95 src/text_editor_gui.c:234 src/toolbar.c:454
 msgid "Compile"
 msgstr "Скомпилировать"
 
@@ -684,80 +698,82 @@ msgstr ""
 msgid "Compile completed ... successful"
 msgstr ""
 
-#: src/compiler_options_cbs.c:216
+#: src/compiler_options_cbs.c:232
 #, c-format
 msgid "Cannot create: %s."
 msgstr "Невозможно создать: %s."
 
-#: src/compiler_options_cbs.c:219
+#: src/compiler_options_cbs.c:235
 #, c-format
 msgid ""
 "Support ID: %s\n"
 "\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:220
+#: src/compiler_options_cbs.c:236
 msgid "Description:\n"
 msgstr "Описание:\n"
 
-#: src/compiler_options_cbs.c:222
+#: src/compiler_options_cbs.c:238
 #, c-format
 msgid ""
 "Dependencies: %s\n"
 "\n"
-msgstr "Зависимости: %s\n\n"
+msgstr ""
+"Зависимости: %s\n"
+"\n"
 
-#: src/compiler_options_cbs.c:223
+#: src/compiler_options_cbs.c:239
 msgid "Macros in configure.in fie:\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:225
+#: src/compiler_options_cbs.c:241
 #, c-format
 msgid ""
 "Variable(s) for cflags: %s\n"
 "\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:227
+#: src/compiler_options_cbs.c:243
 #, c-format
 msgid ""
 "Variable(s) for Libs: %s\n"
 "\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:229
+#: src/compiler_options_cbs.c:245
 #, c-format
 msgid ""
 "Compile time Cflags: %s\n"
 "\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:231
+#: src/compiler_options_cbs.c:247
 #, c-format
 msgid ""
 "Compile time Libs: %s\n"
 "\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:233
+#: src/compiler_options_cbs.c:249
 msgid "Entries in acconfig.h file:\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:235
+#: src/compiler_options_cbs.c:251
 msgid "Installed status:\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:250
+#: src/compiler_options_cbs.c:266
 #, c-format
 msgid "    Installed => %s\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:254
+#: src/compiler_options_cbs.c:270
 msgid "    Not Installed.\n"
 msgstr ""
 
-#: src/compiler_options_cbs.c:314 src/compiler_options_cbs.c:377
-#: src/compiler_options_cbs.c:441 src/compiler_options_cbs.c:500
+#: src/compiler_options_cbs.c:330 src/compiler_options_cbs.c:393
+#: src/compiler_options_cbs.c:457 src/compiler_options_cbs.c:516
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
 msgstr ""
@@ -815,7 +831,7 @@ msgstr ""
 #: src/compiler_options_gui.c:363 src/compiler_options_gui.c:483
 #: src/compiler_options_gui.c:640 src/compiler_options_gui.c:768
 #: src/find_in_files_gui.c:135 src/main_menubar_def.h:656
-#: src/project_dbase_gui.c:371 src/src_paths_gui.c:176 src/watch_gui.c:42
+#: src/project_dbase_gui.c:408 src/src_paths_gui.c:176 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Удалить"
 
@@ -915,28 +931,38 @@ msgstr "Высокоуровневая оптимизация (без недостатков космических скоростей)"
 
 #: src/compiler_options_gui.c:1031
 msgid "Fastest code optimization (Function inlined where ever possible"
-msgstr "Наибыстрейшая оптимизация кода (Встраивание функций везде где это возможно)"
+msgstr ""
+"Наибыстрейшая оптимизация кода (Встраивание функций везде где это возможно)"
+
+#: src/compiler_options_gui.c:1042
+msgid "Note"
+msgstr "Примечание"
 
 #: src/compiler_options_gui.c:1048
 msgid ""
-"Note: With optimization enabled, you might have some difficulty in debugging "
-"your program. So it is not a good idea to enable both debug and optimization "
-"options, unless what you want is to debug the optimized code."
+"With optimization enabled, you might have some difficulty\n"
+"debugging your program. So it is not a good idea to enable\n"
+"both debug and optimization options, unless what you want\n"
+"is to debug the optimized code."
 msgstr ""
+"Если разрешить оптимизацию, то возможны сложности при\n"
+"отладке программы. Не стоит включать одновременно и\n"
+"оптимизацию и отладку, если только вы не хотите\n"
+"отлаживать оптимизированный код."
 
-#: src/compiler_options_gui.c:1091
+#: src/compiler_options_gui.c:1088
 msgid "Enable Debugging"
 msgstr "Включить отладку"
 
-#: src/compiler_options_gui.c:1099
+#: src/compiler_options_gui.c:1096
 msgid "Enable Profiling"
 msgstr "Включить профилирование"
 
-#: src/compiler_options_gui.c:1110
+#: src/compiler_options_gui.c:1107
 msgid "Additional compiler options (command line options)"
 msgstr "Дополнительные параметры компилятора (параметры командной строки)"
 
-#: src/compiler_options_gui.c:1126
+#: src/compiler_options_gui.c:1123
 msgid "Additional linker options (command line options)"
 msgstr "Дополнительные параметры линковщика (параметры командной строки)"
 
@@ -956,23 +982,23 @@ msgstr ""
 
 #: src/configurer.c:204
 msgid "Configuring the project ....\n"
-msgstr ""
+msgstr "Конфигурирование проекта...\n"
 
 #: src/configurer.c:223
 msgid "Configure completed...............Unsuccessful\n"
-msgstr ""
+msgstr "Конфигурирование закончено.... С ошибкой\n"
 
 #: src/configurer.c:225
 msgid "Configure completed ... unsuccessful"
-msgstr ""
+msgstr "Конфигурирование закончено.... С ошибкой"
 
 #: src/configurer.c:231
 msgid "Configure completed...............Successful\n"
-msgstr ""
+msgstr "Конфигурирование закончено.... Успешно\n"
 
 #: src/configurer.c:233
 msgid "Configure completed ... successful"
-msgstr ""
+msgstr "Конфигурирование закончено.... успешно"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:56
@@ -984,11 +1010,11 @@ msgstr "Загрузить исполняемый файл"
 msgid "Load Core Dump File"
 msgstr "Загрузить файл дампа ядра"
 
-#: src/debugger.c:150 src/debugger.c:542
+#: src/debugger.c:149 src/debugger.c:542
 msgid "Loading Executable: "
 msgstr "Загрузка исполняемого файла: "
 
-#: src/debugger.c:191
+#: src/debugger.c:190
 msgid "Loading Core: "
 msgstr "Загрузка дампа: "
 
@@ -1137,11 +1163,11 @@ msgstr ""
 msgid "Run in Terminal"
 msgstr "Запустить в терминале"
 
-#: src/executer.c:192 src/mainmenu_callbacks.c:1409
+#: src/executer.c:192 src/mainmenu_callbacks.c:1422
 msgid "Target of this project is unknown"
 msgstr ""
 
-#: src/executer.c:197 src/mainmenu_callbacks.c:1411
+#: src/executer.c:197 src/mainmenu_callbacks.c:1424
 msgid "Target of this project is not executable"
 msgstr ""
 
@@ -1149,38 +1175,30 @@ msgstr ""
 msgid "Executable does not exsits for this project."
 msgstr ""
 
-#: src/executer.c:218
+#: src/executer.c:215
 msgid "No file or project opened."
 msgstr ""
 
-#: src/executer.c:223 src/executer.c:234 src/mainmenu_callbacks.c:1435
-#: src/mainmenu_callbacks.c:1446
+#: src/executer.c:220 src/executer.c:239 src/mainmenu_callbacks.c:1448
+#: src/mainmenu_callbacks.c:1459
 msgid "No executable for this file."
 msgstr ""
 
-#: src/executer.c:240 src/mainmenu_callbacks.c:1441
+#: src/executer.c:244 src/mainmenu_callbacks.c:1454
 msgid "Executable is not up-to-date."
 msgstr ""
 
-#: src/executer.c:251
+#: src/executer.c:256
 msgid "Unable to execute project. Check Settings->Commands."
 msgstr ""
 
-#: src/executer.c:265
+#: src/executer.c:270
 msgid "This file is not saved. Save it first."
 msgstr ""
 
-#: src/executer.c:273
+#: src/executer.c:278
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr ""
-
-#: src/fileselection.c:111
-msgid "File type filter:"
-msgstr "Фильтр типов файлов:"
-
-#: src/fileselection.c:127
-msgid "Home"
-msgstr "Домашний каталог"
 
 #: src/find_in_files.c:161
 msgid "Find in files"
@@ -1239,8 +1257,8 @@ msgid " Search String"
 msgstr " Поиск строки"
 
 #: src/find_replace.c:290 src/find_text.c:246
-msgid " Regexp/String to search "
-msgstr ""
+msgid " RegExp/String to search "
+msgstr "Поиск строки/рег.выражения "
 
 #: src/find_replace.c:304
 msgid " String to replace "
@@ -1275,7 +1293,7 @@ msgid "Type"
 msgstr "Тип"
 
 #: src/find_replace.c:391 src/find_text.c:331
-msgid "Regexp"
+msgid "RegExp"
 msgstr "Рег.выражение"
 
 #: src/find_replace.c:398 src/find_text.c:338
@@ -1301,7 +1319,7 @@ msgstr "Хотите заменить это?"
 #: src/find_replace.c:578
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
-msgstr "Строка \"%s\" не была найдена в выделенном тексте"
+msgstr "Строка \"%s\" в выделенном тексте не найдена"
 
 #: src/find_replace.c:581
 #, c-format
@@ -1331,7 +1349,7 @@ msgstr ""
 msgid "The match \"%s\" was not found from the current location"
 msgstr ""
 
-#: src/gnome_project.c:56
+#: src/gnome_project.c:59
 msgid ""
 "The Project already exist.\n"
 "Project creation aborted."
@@ -1339,75 +1357,75 @@ msgstr ""
 "Проект уже существует.\n"
 "Создание проекта прервано."
 
-#: src/gnome_project.c:70
+#: src/gnome_project.c:74
 msgid "Generating  project ...\n"
 msgstr "Создание проекта ...\n"
 
-#: src/gnome_project.c:76
+#: src/gnome_project.c:80
 #, c-format
 msgid "Cannot create file: %s"
 msgstr "Невозможно создать файл: %s"
 
-#: src/gnome_project.c:134
+#: src/gnome_project.c:150
 msgid "Loading  project ...\n"
 msgstr "Загрузка проекта ...\n"
 
-#: src/gnome_project.c:138
+#: src/gnome_project.c:154
 msgid "Saving  project ...\n"
 msgstr "Сохранение проекта ...\n"
 
 #. Source codes are generated
-#: src/gnome_project.c:145
+#: src/gnome_project.c:160
 msgid "Generating  source codes ...\n"
-msgstr ""
+msgstr "Создание исходных текстов...\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:150
+#: src/gnome_project.c:165
 msgid "Copying icon file ...\n"
 msgstr "Копирование файла пиктограммы ...\n"
 
-#: src/gnome_project.c:162
+#: src/gnome_project.c:177
 msgid "Could not create icon file ...\n"
 msgstr "Не удалось создать файл пиктограммы ...\n"
 
 #. Scanning for created files in every module
-#: src/gnome_project.c:169
+#: src/gnome_project.c:184
 msgid "Locating files ...\n"
 msgstr ""
 
-#: src/gnome_project.c:185
+#: src/gnome_project.c:200
 msgid "Again saving  project ...\n"
 msgstr "Повторное сохранение проекта ...\n"
 
-#: src/gnome_project.c:188
+#: src/gnome_project.c:203
 msgid "Updating  project ...\n"
 msgstr "Обновление проекта ...\n"
 
-#: src/gnome_project.c:190
+#: src/gnome_project.c:205
 msgid "Running  autogen.sh ...\n"
 msgstr "Запуск autogen.sh ...\n"
 
-#: src/gnome_project.c:199
-msgid "App Widzard"
+#: src/gnome_project.c:214
+msgid "App Wizard"
 msgstr "Помощник приложения"
 
-#: src/gnome_project.c:215
+#: src/gnome_project.c:230
 msgid "Autogeneration completed...............Unsuccessful\n"
 msgstr ""
 
-#: src/gnome_project.c:218
+#: src/gnome_project.c:233
 msgid ""
 "The Project was not successfully autogenerated.\n"
 "I think you have to do it manually."
 msgstr ""
 
-#: src/gnome_project.c:224
+#: src/gnome_project.c:239
 msgid ""
 "Autogeneration completed...............Successful\n"
 "Now Build the project to have a LOOK at it\n"
 msgstr ""
 
-#: src/gnome_project.c:227
+#: src/gnome_project.c:242
 msgid "Project was successfully autogenerated."
 msgstr ""
 
@@ -1419,15 +1437,19 @@ msgstr "Перейти к строке #"
 msgid "Cannot execute command shell"
 msgstr ""
 
-#: src/main_menubar.c:393
-msgid "Resent Files    "
+#: src/main.c:44
+msgid "Don't show the splashscreen"
 msgstr ""
 
-#: src/main_menubar.c:404 src/project_dbase.c:1659
+#: src/main_menubar.c:388
+msgid "Recent Files    "
+msgstr ""
+
+#: src/main_menubar.c:399 src/project_dbase.c:1659
 msgid "Recent Projects "
 msgstr ""
 
-#: src/main_menubar.c:423
+#: src/main_menubar.c:418
 msgid "You have a project opened. Close it first."
 msgstr ""
 
@@ -1439,7 +1461,7 @@ msgstr "проект1"
 msgid "_New"
 msgstr "Новый"
 
-#: src/main_menubar_def.h:38 src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/main_menubar_def.h:38 src/text_editor_gui.c:111 src/toolbar.c:109
 msgid "New Text File"
 msgstr "Новый текстовый файл"
 
@@ -1447,7 +1469,7 @@ msgstr "Новый текстовый файл"
 msgid "_Open ..."
 msgstr "Открыть ..."
 
-#: src/main_menubar_def.h:44 src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/main_menubar_def.h:44 src/text_editor_gui.c:121 src/toolbar.c:120
 msgid "Open Text File"
 msgstr "Открыть текстовый файл"
 
@@ -1455,7 +1477,7 @@ msgstr "Открыть текстовый файл"
 msgid "_Save"
 msgstr "Сохранить"
 
-#: src/main_menubar_def.h:50 src/text_editor_gui.c:134 src/toolbar.c:133
+#: src/main_menubar_def.h:50 src/text_editor_gui.c:133 src/toolbar.c:133
 msgid "Save Current File"
 msgstr "Сохранить текущий файл"
 
@@ -1464,31 +1486,31 @@ msgid "Save _As ..."
 msgstr "Сохранить как ..."
 
 #: src/main_menubar_def.h:56
-msgid "Save the current File to a different file"
+msgid "Save the current file to a different file"
 msgstr "Сохранить текущий файл под другим именем"
 
 #: src/main_menubar_def.h:61
 msgid "Save A_ll"
 msgstr "Сохранить всё"
 
-#: src/main_menubar_def.h:62 src/toolbar.c:146
-msgid "Save all currently opened Files, execpt Newfiles"
-msgstr ""
+#: src/main_menubar_def.h:62
+msgid "Save all currently opened files, except new files"
+msgstr "Сохранить все открытые файлы, кроме новых файлов"
 
 #: src/main_menubar_def.h:67
 msgid "_Close File"
 msgstr "Закрыть файл"
 
-#: src/main_menubar_def.h:68 src/toolbar.c:158
-msgid "Close Current File"
+#: src/main_menubar_def.h:68
+msgid "Close current file"
 msgstr "Закрыть текущий файл"
 
 #: src/main_menubar_def.h:73
 msgid "Reload F_ile"
 msgstr "Перезагрузить файл"
 
-#: src/main_menubar_def.h:74 src/text_editor_gui.c:145 src/toolbar.c:169
-msgid "Reload Current File"
+#: src/main_menubar_def.h:74
+msgid "Reload current file"
 msgstr "Перезагрузить текущий файл"
 
 #: src/main_menubar_def.h:80
@@ -1496,8 +1518,8 @@ msgid "N_ew Project ..."
 msgstr "Новый проект ..."
 
 #: src/main_menubar_def.h:81
-msgid "Create a project using application widzard"
-msgstr ""
+msgid "Create a Project using application wizard"
+msgstr "Создать проект использующий помощника приложения"
 
 #: src/main_menubar_def.h:86
 msgid "Open P_roject ..."
@@ -1543,40 +1565,40 @@ msgstr "Настройка страницы для печати"
 msgid "_Print ..."
 msgstr "Печать ..."
 
-#: src/main_menubar_def.h:119 src/text_editor_gui.c:261 src/toolbar.c:219
-msgid "Print the current File"
+#: src/main_menubar_def.h:119
+msgid "Print the current file"
 msgstr "Печать текущего файла"
 
 #: src/main_menubar_def.h:125
 msgid "Recent _Files"
-msgstr ""
+msgstr "Последние файлы"
 
 #: src/main_menubar_def.h:131
 msgid "Recent Projec_ts"
-msgstr ""
+msgstr "Последние проекты"
 
 #: src/main_menubar_def.h:143
 msgid "_Make Selection Uppercase"
-msgstr ""
+msgstr "Заглавные буквы в выделении"
 
 #: src/main_menubar_def.h:144
-msgid "Make the selected text to uppercase"
-msgstr ""
+msgid "Make the selected text uppercase"
+msgstr "Преобразовать буквы выделения в заглавные"
 
 #: src/main_menubar_def.h:149
 msgid "Make Selection Lowercase"
-msgstr ""
+msgstr "Строчные буквы в выделении"
 
 #: src/main_menubar_def.h:150
-msgid "Make the selected text to lowercase"
-msgstr ""
+msgid "Make the selected text lowercase"
+msgstr "Преобразовать буквы выделения в строчные"
 
 #: src/main_menubar_def.h:155
 msgid "Convert EOL chars to LF"
 msgstr "Преобразовать символы EOL в LF"
 
 #: src/main_menubar_def.h:156
-msgid "Convert End of line characters to unix EOL (line feed: LF)"
+msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
 msgstr ""
 
 #: src/main_menubar_def.h:165
@@ -1608,8 +1630,8 @@ msgid "_Goto Line no ..."
 msgstr "Перейти к строке ..."
 
 #: src/main_menubar_def.h:188
-msgid "Go to a perticular line no. in the editor"
-msgstr ""
+msgid "Go to a particular line in the editor"
+msgstr "Перейти в редакторе к указанной строке"
 
 #: src/main_menubar_def.h:193
 msgid "Goto Matching _Brace"
@@ -1663,8 +1685,8 @@ msgstr "Отменить последнее действие"
 msgid "_Redo"
 msgstr "Возврат"
 
-#: src/main_menubar_def.h:235 src/toolbar.c:193
-msgid "Redo the last udone action"
+#: src/main_menubar_def.h:235
+msgid "Redo the last undone action"
 msgstr "Вернуть последнее отмененное действие"
 
 #: src/main_menubar_def.h:243
@@ -1756,11 +1778,11 @@ msgid "Ed_it Application GUIs ..."
 msgstr "Правка графического интерфейса приложения ..."
 
 #: src/main_menubar_def.h:338
-msgid "Edit your application GUIs with glade GUI editor"
+msgid "Edit your application GUIs with Glade GUI editor"
 msgstr "Правка графического интерфейса приложения с помощью редактора Glade"
 
 #: src/main_menubar_def.h:348
-msgid "_Main Tolbar"
+msgid "_Main Toolbar"
 msgstr "Главная панель"
 
 #: src/main_menubar_def.h:349
@@ -1768,7 +1790,7 @@ msgid "Hide/Unhide main toolbar"
 msgstr "Скрыть/Показать главную панель"
 
 #: src/main_menubar_def.h:355
-msgid "_Exended Toolbar"
+msgid "_Extended Toolbar"
 msgstr "Дополнительная панель"
 
 #: src/main_menubar_def.h:356
@@ -1940,16 +1962,16 @@ msgid "_Messages"
 msgstr "Сообщения"
 
 #: src/main_menubar_def.h:504
-msgid "Show the message window"
-msgstr "Показать окно сообщений"
+msgid "Show/Hide the message window"
+msgstr "Показать/Скрыть окно сообщений"
 
 #: src/main_menubar_def.h:509
 msgid "_Project Listing"
 msgstr "Листинг проекта"
 
 #: src/main_menubar_def.h:510
-msgid "Show the project window"
-msgstr "Показать окно проекта"
+msgid "Show/Hide the project window"
+msgstr "Показать/Скрыть окно проекта"
 
 #: src/main_menubar_def.h:515
 msgid "B_ookmarks"
@@ -1992,7 +2014,7 @@ msgid "_Registers"
 msgstr "Регистры"
 
 #: src/main_menubar_def.h:557
-msgid "Show cpu registers and their contents"
+msgid "Show CPU registers and their contents"
 msgstr "Показать регистры ЦПУ и их содержимое"
 
 #: src/main_menubar_def.h:562
@@ -2012,20 +2034,20 @@ msgid "Show shared libraries loaded by the program"
 msgstr "Показать разделяемые библиотеки загруженные программой"
 
 #: src/main_menubar_def.h:574
-msgid "_Kernal Signals"
+msgid "_Kernel Signals"
 msgstr "Сигналы ядра"
 
 #: src/main_menubar_def.h:575
-msgid "Show the kernal signals editor window"
+msgid "Show the kernel signals editor window"
 msgstr "Показать окно редактора сигналов ядра"
 
 #: src/main_menubar_def.h:580
 msgid "_Dump Window"
-msgstr ""
+msgstr "Окно дампа"
 
 #: src/main_menubar_def.h:581
-msgid "Show Memory dump window"
-msgstr ""
+msgid "Show memory dump window"
+msgstr "Показать окно дампа памяти"
 
 #: src/main_menubar_def.h:587
 msgid "_Console"
@@ -2035,57 +2057,57 @@ msgstr "Консоль"
 msgid "Show the console where the program runs"
 msgstr "Показать консоль, в которой запущена программа"
 
-#: src/main_menubar_def.h:597 src/project_dbase_gui.c:299
+#: src/main_menubar_def.h:597 src/project_dbase_gui.c:336
 msgid "Include file"
 msgstr ""
 
-#: src/main_menubar_def.h:603 src/project_dbase_gui.c:305
+#: src/main_menubar_def.h:603 src/project_dbase_gui.c:342
 msgid "Source file"
 msgstr "Файл исх.текста"
 
-#: src/main_menubar_def.h:609 src/project_dbase_gui.c:311
+#: src/main_menubar_def.h:609 src/project_dbase_gui.c:348
 msgid "Help file"
 msgstr "Файл справки"
 
-#: src/main_menubar_def.h:615 src/project_dbase_gui.c:317
+#: src/main_menubar_def.h:615 src/project_dbase_gui.c:354
 msgid "Data file"
 msgstr "Файл данных"
 
-#: src/main_menubar_def.h:621 src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:621 src/project_dbase_gui.c:360
 msgid "Pixmap file"
 msgstr "Файл растрового изображения"
 
-#: src/main_menubar_def.h:627 src/project_dbase_gui.c:329
+#: src/main_menubar_def.h:627 src/project_dbase_gui.c:366
 msgid "Translation file"
 msgstr "Файл перевода"
 
-#: src/main_menubar_def.h:633 src/project_dbase_gui.c:335
+#: src/main_menubar_def.h:633 src/project_dbase_gui.c:372
 msgid "Doc file"
 msgstr "Файл документации"
 
-#: src/main_menubar_def.h:643 src/project_dbase_gui.c:345
+#: src/main_menubar_def.h:643 src/project_dbase_gui.c:382
 msgid "Add New"
 msgstr "Добавить новый"
 
-#: src/main_menubar_def.h:649 src/project_dbase_gui.c:351
+#: src/main_menubar_def.h:649 src/project_dbase_gui.c:388
 msgid "Import File"
 msgstr "Импортировать файл"
 
 #: src/main_menubar_def.h:664
-msgid "Open the readme file of the project"
-msgstr "Открыть файл readme проекта"
+msgid "Open the README file of the project"
+msgstr "Открыть файл README проекта"
 
 #: src/main_menubar_def.h:670
-msgid "Open the todo file of the project"
-msgstr "Открыть файл todo проекта"
+msgid "Open the TODO file of the project"
+msgstr "Открыть файл TODO проекта"
 
 #: src/main_menubar_def.h:676
-msgid "Open the changelog file of the project"
-msgstr "Открыть файл changelog проекта"
+msgid "Open the ChangeLog file of the project"
+msgstr "Открыть файл Сhangelog проекта"
 
 #: src/main_menubar_def.h:682
-msgid "Open the news file of the project"
-msgstr "Открыть файл news проекта"
+msgid "Open the NEWS file of the project"
+msgstr "Открыть файл NEWS проекта"
 
 #: src/main_menubar_def.h:688
 msgid "Project _Configuration ..."
@@ -2108,15 +2130,15 @@ msgid "Automatic"
 msgstr "Автоматически"
 
 #: src/main_menubar_def.h:705
-msgid "Automatically determine the hilite style"
+msgid "Automatically determine the highlight style"
 msgstr ""
 
 #: src/main_menubar_def.h:710
-msgid "No Hilite style"
+msgid "No Highlight style"
 msgstr ""
 
 #: src/main_menubar_def.h:711
-msgid "Force the hilite style to None"
+msgid "Force the highlight style to None"
 msgstr ""
 
 #: src/main_menubar_def.h:716
@@ -2124,155 +2146,167 @@ msgid "C and C++"
 msgstr "C и С++"
 
 #: src/main_menubar_def.h:717
-msgid "Force the hilite style to C and CPP"
+msgid "Force the highlight style to C and C++"
 msgstr ""
 
 #: src/main_menubar_def.h:722
-msgid "C and C++ with Gnome"
+msgid "C and C++ with GNOME"
 msgstr "C и C++ с GNOME"
 
 #: src/main_menubar_def.h:723
-msgid "Force the hilite style to C and C++ with Gnome"
-msgstr ""
+msgid "Force the highlight style to C and C++ with GNOME"
+msgstr "Принудительное подсвечивание стиля C и С++ в GNOME"
 
 #: src/main_menubar_def.h:728
-msgid "Html"
+msgid "HTML"
 msgstr "HTML"
 
 #: src/main_menubar_def.h:729
-msgid "Force the hilite style to Html"
-msgstr ""
+msgid "Force the highlight style to HTML"
+msgstr "Принудительное подсвечивание стиля HTML"
 
 #: src/main_menubar_def.h:734
-msgid "Xml"
+msgid "XML"
 msgstr "XML"
 
 #: src/main_menubar_def.h:735
-msgid "Force the hilite style to Xml"
-msgstr ""
+msgid "Force the highlight style to XML"
+msgstr "Принудительное подсвечивание стиля XML"
 
 #: src/main_menubar_def.h:740
-msgid "Java Scricpts"
+msgid "Javascript"
 msgstr "JavaScript"
 
-#: src/main_menubar_def.h:741 src/main_menubar_def.h:747
-msgid "Force the hilite style to Java scripts"
-msgstr ""
+#: src/main_menubar_def.h:741
+msgid "Force the highlight style to Javascript"
+msgstr "Принудительное подсвечивание стиля Javascript"
 
 #: src/main_menubar_def.h:746
 msgid "WScript"
 msgstr "WScript"
 
+#: src/main_menubar_def.h:747
+msgid "Force the highlight style to WScript"
+msgstr "Принудительное подсвечивание стиля WScript"
+
 #: src/main_menubar_def.h:752
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:753 src/main_menubar_def.h:777
-msgid "Force the hilite style to Perl"
-msgstr ""
+#: src/main_menubar_def.h:753
+msgid "Force the highlight style to Makefile"
+msgstr "Принудительное подсвечивание стиля Makefile"
 
 #: src/main_menubar_def.h:758
 msgid "Java"
 msgstr "Java"
 
 #: src/main_menubar_def.h:759
-msgid "Force the hilite type to Java"
-msgstr ""
+msgid "Force the highlight type to Java"
+msgstr "Принудительное подсвечивание стиля Java"
 
 #: src/main_menubar_def.h:764
 msgid "LUA"
 msgstr "LUA"
 
 #: src/main_menubar_def.h:765
-msgid "Force the hilite style to LUA"
-msgstr ""
+msgid "Force the highlight style to LUA"
+msgstr "Принудительное подсвечивание стиля LUA"
 
 #: src/main_menubar_def.h:770
 msgid "Python"
 msgstr "Python"
 
 #: src/main_menubar_def.h:771
-msgid "Force the hilite style to Python"
-msgstr ""
+msgid "Force the highlight style to Python"
+msgstr "Принудительное подсвечивание стиля Python"
 
 #: src/main_menubar_def.h:776
 msgid "Perl"
 msgstr "Perl"
 
+#: src/main_menubar_def.h:777
+msgid "Force the highlight style to Perl"
+msgstr "Принудительное подсвечивание стиля Perl"
+
 #: src/main_menubar_def.h:782
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:783 src/main_menubar_def.h:795
-msgid "Force the hilite style to SQL"
-msgstr ""
+#: src/main_menubar_def.h:783
+msgid "Force the highlight style to SQL"
+msgstr "Принудительное подсвечивание стиля SQL"
 
 #: src/main_menubar_def.h:788
-msgid "PLSQL"
-msgstr "PLSQL"
+msgid "PL/SQL"
+msgstr "PL/SQL"
 
 #: src/main_menubar_def.h:789
-msgid "Force the hilite style to PLSQL"
-msgstr ""
+msgid "Force the highlight style to PL/SQL"
+msgstr "Принудительное подсвечивание стиля PL/SQL"
 
 #: src/main_menubar_def.h:794
 msgid "PHP"
 msgstr "PHP"
+
+#: src/main_menubar_def.h:795
+msgid "Force the highlight style to PHP"
+msgstr "Принудительное подсвечивание стиля PHP"
 
 #: src/main_menubar_def.h:800
 msgid "LaTex"
 msgstr "LaTex"
 
 #: src/main_menubar_def.h:801
-msgid "Force the hilite style to LaTex"
-msgstr ""
+msgid "Force the highlight style to LaTex"
+msgstr "Принудительное подсвечивание стиля LaTeX"
 
 #: src/main_menubar_def.h:806
 msgid "Diff"
 msgstr "Diff"
 
 #: src/main_menubar_def.h:807
-msgid "Force the hilite style to Diff"
-msgstr ""
+msgid "Force the highlight style to Diff"
+msgstr "Принудительное подсвечивание стиля Diff"
 
 #: src/main_menubar_def.h:812
 msgid "Pascal"
 msgstr "Pascal"
 
 #: src/main_menubar_def.h:813
-msgid "Force the hilite type to Pascal"
-msgstr ""
+msgid "Force the highlight style to Pascal"
+msgstr "Принудительное подсвечивание стиля Pascal"
 
 #: src/main_menubar_def.h:818
 msgid "Xcode"
 msgstr "Xcode"
 
 #: src/main_menubar_def.h:819
-msgid "Force the hilite style to Xcode"
-msgstr ""
+msgid "Force the highlight style to Xcode"
+msgstr "Принудительное подсвечивание стиля Xcode"
 
 #: src/main_menubar_def.h:824
 msgid "Prj/Properties"
 msgstr "Проект/Свойства"
 
 #: src/main_menubar_def.h:825
-msgid "Force the hilite style to project/properties files"
-msgstr ""
+msgid "Force the highlight style to project/properties files"
+msgstr "Принудительное подсвечивание стиля файлов проекта/свойств"
 
 #: src/main_menubar_def.h:830
 msgid "Conf"
 msgstr "Conf"
 
 #: src/main_menubar_def.h:831
-msgid "Force the hilite style to Unix conf files"
-msgstr ""
+msgid "Force the highlight style to UNIX conf files"
+msgstr "Принудительное подсвечивание стиля файлов UNIX conf"
 
 #: src/main_menubar_def.h:840
 msgid "Auto _Format"
 msgstr "Автоформатирование"
 
 #: src/main_menubar_def.h:841
-msgid "This will autoformate C and C++ source file"
+msgid "This will autoformat C and C++ source files"
 msgstr "Включает автоматическое форматирование файлов исходных текстов C и C++"
 
 #: src/main_menubar_def.h:846
@@ -2300,7 +2334,7 @@ msgid "This will update the tags image of the project/opened files"
 msgstr ""
 
 #: src/main_menubar_def.h:866
-msgid "Force _Hilite Style"
+msgid "Force _Highlight Style"
 msgstr ""
 
 #: src/main_menubar_def.h:873
@@ -2495,7 +2529,7 @@ msgstr ""
 msgid "Run to the cursor"
 msgstr ""
 
-#: src/main_menubar_def.h:1061 src/text_editor_menu.c:68
+#: src/main_menubar_def.h:1061 src/text_editor_menu.c:96
 msgid "Toggle breakpoint"
 msgstr ""
 
@@ -2552,7 +2586,7 @@ msgid "Get the information about the execution status of the program"
 msgstr ""
 
 #: src/main_menubar_def.h:1108
-msgid "Info _Kernal User Struct"
+msgid "Info _Kernel User Struct"
 msgstr ""
 
 #: src/main_menubar_def.h:1109
@@ -2612,15 +2646,15 @@ msgid "Load E_xecutable ..."
 msgstr "Загрузить исполняемый код ..."
 
 #: src/main_menubar_def.h:1156
-msgid "Open the executable for debuging"
+msgid "Open the executable for debugging"
 msgstr "Открыть исполняемый файл для отладки"
 
 #: src/main_menubar_def.h:1161
 msgid "Load _Core file ..."
-msgstr ""
+msgstr "Загрузить файл Core ..."
 
 #: src/main_menubar_def.h:1162
-msgid "Load a core file to disect"
+msgid "Load a core file to dissect"
 msgstr ""
 
 #: src/main_menubar_def.h:1167
@@ -2684,7 +2718,7 @@ msgid "Ins_pect/Evaluate ..."
 msgstr ""
 
 #: src/main_menubar_def.h:1227
-msgid "Inspect or evaluate an expression or a variable"
+msgid "Inspect or evaluate an expression or variable"
 msgstr ""
 
 #: src/main_menubar_def.h:1232
@@ -2692,7 +2726,7 @@ msgid "Add Expression in _Watch ..."
 msgstr ""
 
 #: src/main_menubar_def.h:1233
-msgid "Add expression or a variable in the watch"
+msgid "Add expression or variable to the watch"
 msgstr ""
 
 #: src/main_menubar_def.h:1239
@@ -2700,12 +2734,12 @@ msgid "St_op Debugger"
 msgstr "Остановить отладчик"
 
 #: src/main_menubar_def.h:1240
-msgid "Say good bye to the debugger"
-msgstr "Остановить отладчик"
+msgid "Say goodbye to the debugger"
+msgstr "Выйти из отладчика"
 
 #: src/main_menubar_def.h:1249
 msgid "Grep Utility"
-msgstr ""
+msgstr "Утилита grep"
 
 #: src/main_menubar_def.h:1255
 msgid "Compare two files"
@@ -2713,7 +2747,7 @@ msgstr "Сравнить два файла"
 
 #: src/main_menubar_def.h:1261
 msgid "Diff Utility"
-msgstr ""
+msgstr "Утилита Diff"
 
 #: src/main_menubar_def.h:1267
 msgid "File View (Char/Octal/Hex)"
@@ -2881,76 +2915,76 @@ msgstr "Вы должны сохранить файл перед печатью"
 msgid "Are you sure you want to print the current file?"
 msgstr "Вы уверены, что хотите напечатать текущий файл?"
 
-#: src/mainmenu_callbacks.c:1002
+#: src/mainmenu_callbacks.c:1015
 msgid "Tags image update successfully."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:1415
+#: src/mainmenu_callbacks.c:1428
 msgid "Executable does not exsits this project."
 msgstr ""
 
-#: src/mainmenu_callbacks.c:1466
+#: src/mainmenu_callbacks.c:1479
 msgid "Debugger is not running. Start it first."
 msgstr "Отладчик не запущен. Запустите его сначала."
 
-#: src/mainmenu_callbacks.c:1502
+#: src/mainmenu_callbacks.c:1515
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:1512
+#: src/mainmenu_callbacks.c:1525
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
 
-#: src/mainmenu_callbacks.c:1691 src/mainmenu_callbacks.c:1709
-#: src/mainmenu_callbacks.c:1728 src/mainmenu_callbacks.c:1746
+#: src/mainmenu_callbacks.c:1704 src/mainmenu_callbacks.c:1722
+#: src/mainmenu_callbacks.c:1741 src/mainmenu_callbacks.c:1759
 msgid "Cannot launch gnome-help-browser"
 msgstr ""
 
-#: src/messages.c:222
+#: src/messages.c:221
 msgid "Unknown type in Message window\n"
 msgstr ""
 
-#: src/messages.c:492 src/toolbar.c:294
+#: src/messages.c:491 src/toolbar.c:294
 msgid "Messages"
 msgstr "Сообщения"
 
-#: src/messages.c:524
+#: src/messages.c:523
 msgid "Build messages"
 msgstr ""
 
-#: src/messages.c:541
+#: src/messages.c:540
 msgid "Debug messages"
 msgstr ""
 
-#: src/messages.c:550 src/text_editor_menu.c:230 src/toolbar.c:514
+#: src/messages.c:549 src/text_editor_menu.c:258 src/toolbar.c:514
 msgid "Debug"
 msgstr "Отладка"
 
-#: src/messages.c:557
+#: src/messages.c:556
 msgid "Find messages"
 msgstr ""
 
-#: src/messages.c:566 src/text_editor_gui.c:187 src/toolbar.c:231
+#: src/messages.c:565 src/text_editor_gui.c:186 src/toolbar.c:231
 msgid "Find"
 msgstr "Поиск"
 
-#: src/messages.c:573
+#: src/messages.c:572
 msgid "CVS messages"
 msgstr ""
 
-#: src/messages.c:582
+#: src/messages.c:581
 msgid "CVS"
 msgstr "CVS"
 
-#: src/messages.c:589
+#: src/messages.c:588
 msgid "Dock window"
 msgstr ""
 
-#: src/messages.c:598
+#: src/messages.c:597
 msgid "Dock"
 msgstr ""
 
@@ -3037,7 +3071,7 @@ msgid "Dialog on job complete"
 msgstr ""
 
 #: src/preferences_gui.c:523
-msgid "Keep going when some targets can't be made."
+msgid "Keep going when some targets cannot be made"
 msgstr ""
 
 #: src/preferences_gui.c:530
@@ -3045,11 +3079,11 @@ msgid "Silent: Don't echo commands"
 msgstr ""
 
 #: src/preferences_gui.c:537
-msgid "Produce debugging outputs."
+msgid "Produce debugging outputs"
 msgstr ""
 
 #: src/preferences_gui.c:544
-msgid "Warn when an undefined variable is referenced."
+msgid "Warn when an undefined variable is referenced"
 msgstr ""
 
 #: src/preferences_gui.c:558
@@ -3057,12 +3091,13 @@ msgid "Max no of jobs:"
 msgstr ""
 
 #: src/preferences_gui.c:646
-msgid "Select Hilite item to edit:"
-msgstr ""
+#, fuzzy
+msgid "Select Highlight item to edit:"
+msgstr "Выделить весь текст в редакторе"
 
 #: src/preferences_gui.c:670
-msgid " Hilite Style "
-msgstr ""
+msgid " Highlight Style "
+msgstr " Стиль подсветки "
 
 #: src/preferences_gui.c:701 src/preferences_gui.c:726
 #: src/preferences_gui.c:773 src/preferences_gui.c:780
@@ -3098,7 +3133,7 @@ msgid "Back color:"
 msgstr "Цвет фона:"
 
 #: src/preferences_gui.c:795
-msgid "Disable Syntax hilighting"
+msgid "Disable syntax highlighting"
 msgstr "Отключить подсветку синтаксиса"
 
 #: src/preferences_gui.c:802
@@ -3107,43 +3142,44 @@ msgstr "Включить автосохранение"
 
 #: src/preferences_gui.c:809
 msgid "Enable Auto indent"
-msgstr ""
+msgstr "Включить автоотступы"
 
 #: src/preferences_gui.c:817
 msgid "Use tabs for indentation"
-msgstr ""
+msgstr "Использовать табуляторы для отступов"
 
 #: src/preferences_gui.c:824
 msgid "Enable braces check"
-msgstr ""
+msgstr "Включить проверку скобок"
 
 #: src/preferences_gui.c:876
 msgid "Tab size in spaces"
-msgstr ""
+msgstr "Размер табуляции в пробелах"
 
 #: src/preferences_gui.c:883
 msgid "Auto save timer interval in minutes"
-msgstr ""
+msgstr "Интервал автосохранения в минутах"
 
 #: src/preferences_gui.c:890
 msgid "Auto indent size in spaces"
-msgstr ""
+msgstr "Размер автоотступа в пробелах"
 
 #: src/preferences_gui.c:897
 msgid "Line number margin width in pixels"
-msgstr ""
+msgstr "Ширина отступа номеров строк в точках растра"
 
 #: src/preferences_gui.c:904
 msgid "Save session time interval"
-msgstr ""
+msgstr "Интервал сохранения сеанса"
 
 #: src/preferences_gui.c:990
-msgid "Strip trailing spaces on file save."
-msgstr ""
+msgid "Strip trailing spaces on file save"
+msgstr "Отсекать конечные пробелы при сохранении файла"
 
 #: src/preferences_gui.c:997
-msgid "Collapse all folds on file open."
-msgstr ""
+#, fuzzy
+msgid "Collapse all folds on file open"
+msgstr "Закрыть все папки кода в редакторе"
 
 #: src/preferences_gui.c:1028
 msgid " Paper Size"
@@ -3155,85 +3191,81 @@ msgstr " Команда печати"
 
 #: src/preferences_gui.c:1100
 msgid "Disable Auto format"
-msgstr ""
+msgstr "Отключить автоформатирование"
 
 #: src/preferences_gui.c:1104
 msgid " Format Style "
-msgstr ""
+msgstr " Стиль формата"
 
 #: src/preferences_gui.c:1127
 msgid " Custom Style "
-msgstr ""
+msgstr " Другой стиль"
 
 #: src/preferences_gui.c:1138
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
-"Read the info page for the 'indent' for more details."
+"Read the info page for 'indent' for more details."
 msgstr ""
 
-#: src/preferences_gui.c:1209
+#: src/preferences_gui.c:1207
 msgid " Messages"
 msgstr " Сообщения"
 
-#: src/preferences_gui.c:1221
+#: src/preferences_gui.c:1219
 msgid "Truncate long messages"
+msgstr " Обрезать длинные сообщения"
+
+#: src/preferences_gui.c:1246
+msgid "Number of first characters to show"
 msgstr ""
 
-#: src/preferences_gui.c:1248 src/preferences_gui.c:1254
-msgid "characters"
-msgstr "символов"
+#: src/preferences_gui.c:1253
+msgid "Number of last characters to show"
+msgstr ""
 
 #: src/preferences_gui.c:1260
-msgid "Show first"
-msgstr "Показать первое"
-
-#: src/preferences_gui.c:1267
-msgid "Show last"
-msgstr "Показать последнее"
-
-#: src/preferences_gui.c:1273
 msgid " Notebook tags position "
-msgstr ""
+msgstr " Положение ярлыков записной книжки"
 
-#: src/preferences_gui.c:1284
+#: src/preferences_gui.c:1271
 msgid "Do not show notebook title tags"
 msgstr ""
 
-#: src/preferences_gui.c:1298
+#: src/preferences_gui.c:1285
 msgid "Top"
 msgstr "Сверху"
 
-#: src/preferences_gui.c:1307
+#: src/preferences_gui.c:1294
 msgid "Bottom"
 msgstr "Снизу"
 
-#: src/preferences_gui.c:1316
+#: src/preferences_gui.c:1303
 msgid "Left"
 msgstr "Слева"
 
-#: src/preferences_gui.c:1325
+#: src/preferences_gui.c:1312
 msgid "Right"
 msgstr "Справа"
 
-#: src/preferences_gui.c:1333
+#: src/preferences_gui.c:1320
 msgid " Tags Browser "
 msgstr ""
 
-#: src/preferences_gui.c:1340
+#: src/preferences_gui.c:1327
 msgid "Update tags image automatically"
 msgstr ""
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:283 src/toolbar.c:416
+#: src/project_dbase.c:286 src/toolbar.c:416
 msgid "Open Project"
 msgstr "Открыть проект"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:290
+#: src/project_dbase.c:293
 msgid "Add To Project"
 msgstr "Добавить к проекту"
 
-#: src/project_dbase.c:304 src/project_dbase.c:448 src/project_dbase_gui.c:438
+#: src/project_dbase.c:307 src/project_dbase.c:449 src/project_dbase_gui.c:477
 msgid "Project: None"
 msgstr "Проект: нет"
 
@@ -3250,7 +3282,7 @@ msgid ""
 "For the time being, I am too old to load it.:-("
 msgstr ""
 
-#: src/project_dbase.c:667
+#: src/project_dbase.c:665
 #, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
@@ -3267,11 +3299,11 @@ msgstr "Проект успешно загружен."
 msgid "Error in loading Project: %s"
 msgstr "Ошибка при загрузке проекта: %s"
 
-#: src/project_dbase.c:969
+#: src/project_dbase.c:971
 msgid "Project Saved Successfully"
 msgstr "Проект успешно сохранен."
 
-#: src/project_dbase.c:975 src/project_dbase.c:977
+#: src/project_dbase.c:977 src/project_dbase.c:979
 msgid "Unable to save the project."
 msgstr "Не удалось сохранить проект."
 
@@ -3418,235 +3450,239 @@ msgstr ""
 msgid "Makefile.am"
 msgstr ""
 
-#: src/project_dbase_gui.c:78
+#: src/project_dbase_gui.c:87
 #, c-format
 msgid ""
 "Are you sure you want to remove the item\n"
 "\"%s\" from the Project Data Base?"
 msgstr ""
 
-#: src/project_dbase_gui.c:241
+#: src/project_dbase_gui.c:254
 msgid "There is already a project opened.Do you want to close it first?"
 msgstr ""
 
-#: src/project_dbase_gui.c:358
+#: src/project_dbase_gui.c:395
 msgid "View"
 msgstr "Просмотр"
 
-#: src/project_dbase_gui.c:378
+#: src/project_dbase_gui.c:415
 msgid "Configure Project"
 msgstr "Настроить проект"
 
-#: src/project_dbase_gui.c:384
+#: src/project_dbase_gui.c:421
 msgid "Project Info"
 msgstr "Информация о проекте"
 
-#: src/project_dbase_gui.c:391 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/project_dbase_gui.c:428 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/watch_gui.c:67
 msgid "Dock/Undock"
 msgstr ""
 
-#: src/project_dbase_gui.c:397 src/registers_gui.c:60 src/sharedlib_gui.c:53
+#: src/project_dbase_gui.c:434 src/registers_gui.c:60 src/sharedlib_gui.c:53
 #: src/signals_gui.c:66 src/stack_trace_gui.c:72 src/toolbar.c:309
 #: src/watch_gui.c:73
 msgid "Help"
 msgstr "Справка"
 
-#: src/project_dbase_gui.c:541
+#: src/project_dbase_gui.c:495 src/toolbar.c:283
+msgid "Project"
+msgstr "Проект"
+
+#: src/project_dbase_gui.c:596
 msgid "Anjuta: Project Information"
 msgstr "Anjuta: Информация о проекте"
 
-#: src/project_dbase_gui.c:547
+#: src/project_dbase_gui.c:602
 msgid " Project Information "
 msgstr " Информация о проекте "
 
-#: src/project_dbase_gui.c:583
+#: src/project_dbase_gui.c:638
 msgid "Author:"
 msgstr "Автор:"
 
-#: src/project_dbase_gui.c:670
+#: src/project_dbase_gui.c:725
 msgid "Program Name:"
 msgstr "Название программы:"
 
-#: src/project_dbase_gui.c:677
+#: src/project_dbase_gui.c:732
 msgid "No of src files:"
 msgstr "Число файлов исх.текстов:"
 
-#: src/project_dbase_gui.c:684
+#: src/project_dbase_gui.c:739
 msgid "No of help files::"
 msgstr "Число файлов справки:"
 
-#: src/project_dbase_gui.c:691
+#: src/project_dbase_gui.c:746
 msgid "No of data files:"
 msgstr "Число файлов данных:"
 
-#: src/project_dbase_gui.c:698
+#: src/project_dbase_gui.c:753
 msgid "No of pix files:"
 msgstr "Число файлов изображений:"
 
-#: src/project_dbase_gui.c:705
+#: src/project_dbase_gui.c:760
 msgid "No of doc files:"
 msgstr "Число файлов документации:"
 
-#: src/project_dbase_gui.c:726
+#: src/project_dbase_gui.c:781
 msgid "No of PO files:"
 msgstr "Число PO-файлов:"
 
-#: src/project_dbase_gui.c:733
+#: src/project_dbase_gui.c:788
 msgid "Version:"
 msgstr "Версия:"
 
-#: src/project_dbase_gui.c:756
+#: src/project_dbase_gui.c:811
 msgid "Gui editable by Glade:"
 msgstr ""
 
-#: src/project_dbase_gui.c:778
+#: src/project_dbase_gui.c:833
 msgid "Makefiles managed:"
 msgstr ""
 
-#: src/project_dbase_gui.c:820
+#: src/project_dbase_gui.c:875
 msgid "Gettext support:"
 msgstr "Поддержка gettext:"
 
-#: src/project_dbase_gui.c:878
+#: src/project_dbase_gui.c:933
 msgid "Project Type:"
 msgstr "Тип проекта:"
 
-#: src/project_dbase_gui.c:921
+#: src/project_dbase_gui.c:976
 msgid ""
 "Project is not saved.\n"
 "Doy you want to save it before closing?"
 msgstr ""
 
-#: src/project_dbase_gui.c:938 src/project_dbase_gui.c:1058
+#: src/project_dbase_gui.c:993 src/project_dbase_gui.c:1113
 msgid "Breton"
 msgstr ""
 
-#: src/project_dbase_gui.c:939
+#: src/project_dbase_gui.c:994
 msgid "Catalan"
 msgstr ""
 
-#: src/project_dbase_gui.c:940
+#: src/project_dbase_gui.c:995
 msgid "Czech"
 msgstr "Чешский"
 
-#: src/project_dbase_gui.c:941
+#: src/project_dbase_gui.c:996
 msgid "Danish"
 msgstr "Датский"
 
-#: src/project_dbase_gui.c:942
+#: src/project_dbase_gui.c:997
 msgid "German"
 msgstr "Немецкий"
 
-#: src/project_dbase_gui.c:943
+#: src/project_dbase_gui.c:998
 msgid "Greek"
 msgstr "Греческий"
 
-#: src/project_dbase_gui.c:944
+#: src/project_dbase_gui.c:999
 msgid "Esperanto"
 msgstr "Эсперанто"
 
-#: src/project_dbase_gui.c:945
+#: src/project_dbase_gui.c:1000
 msgid "Spanish"
 msgstr "Испанский"
 
-#: src/project_dbase_gui.c:946
+#: src/project_dbase_gui.c:1001
 msgid "Finnish"
 msgstr "Финский"
 
-#: src/project_dbase_gui.c:947
+#: src/project_dbase_gui.c:1002
 msgid "French"
 msgstr "Французский"
 
-#: src/project_dbase_gui.c:948
+#: src/project_dbase_gui.c:1003
 msgid "Herbrew"
 msgstr "Иврит"
 
-#: src/project_dbase_gui.c:949 src/project_dbase_gui.c:953
+#: src/project_dbase_gui.c:1004 src/project_dbase_gui.c:1008
 msgid "Croatian"
 msgstr "Хорватский"
 
-#: src/project_dbase_gui.c:950
+#: src/project_dbase_gui.c:1005
 msgid "Hungarian"
 msgstr "Венгерский"
 
-#: src/project_dbase_gui.c:951
+#: src/project_dbase_gui.c:1006
 msgid "Islandic"
 msgstr "Исландский"
 
-#: src/project_dbase_gui.c:952
+#: src/project_dbase_gui.c:1007
 msgid "Italian"
 msgstr "Итальянский"
 
-#: src/project_dbase_gui.c:954
+#: src/project_dbase_gui.c:1009
 msgid "Korean"
 msgstr "Корейский"
 
-#: src/project_dbase_gui.c:955
+#: src/project_dbase_gui.c:1010
 msgid "Macedonian"
 msgstr "Македонский"
 
-#: src/project_dbase_gui.c:956
+#: src/project_dbase_gui.c:1011
 msgid "Dutch"
 msgstr "Голандский"
 
-#: src/project_dbase_gui.c:957
+#: src/project_dbase_gui.c:1012
 msgid "Norwegian"
 msgstr "Норвежский"
 
-#: src/project_dbase_gui.c:958
+#: src/project_dbase_gui.c:1013
 msgid "Polish"
 msgstr "Польский"
 
-#: src/project_dbase_gui.c:959
+#: src/project_dbase_gui.c:1014
 msgid "Portuguese"
 msgstr "Португальский"
 
-#: src/project_dbase_gui.c:960
+#: src/project_dbase_gui.c:1015
 msgid "Romanian"
 msgstr "Румынский"
 
-#: src/project_dbase_gui.c:961
+#: src/project_dbase_gui.c:1016
 msgid "Russian"
 msgstr "Русский"
 
-#: src/project_dbase_gui.c:962
+#: src/project_dbase_gui.c:1017
 msgid "Slovak"
 msgstr "Словацкий"
 
-#: src/project_dbase_gui.c:963
+#: src/project_dbase_gui.c:1018
 msgid "Turkish"
 msgstr "Турецкий"
 
-#: src/project_dbase_gui.c:964
+#: src/project_dbase_gui.c:1019
 msgid "Simplified Chinese"
 msgstr "Упрощенный китайский"
 
-#: src/project_dbase_gui.c:965
+#: src/project_dbase_gui.c:1020
 msgid "Chinese"
 msgstr "Китайский"
 
-#: src/project_dbase_gui.c:966
+#: src/project_dbase_gui.c:1021
 msgid "Estonian"
 msgstr "Эстонский"
 
-#: src/project_dbase_gui.c:1010
+#: src/project_dbase_gui.c:1065
 msgid "Select regional language"
 msgstr ""
 
-#: src/project_dbase_gui.c:1026
+#: src/project_dbase_gui.c:1081
 msgid "Select Regional Language:"
+msgstr ""
+
+#: src/project_dbase_gui.c:1193
+msgid "This file has already been added to the project."
 msgstr "Этот файл уже был добавлен к проекту."
 
-#: src/project_dbase_gui.c:1138
-msgid "This file has already been added to the project."
-msgstr ""
-
-#: src/project_dbase_gui.c:1163
+#: src/project_dbase_gui.c:1223
 msgid "Error while copying the file inside the module."
-msgstr ""
+msgstr "Ошибка при копировании файла в модуль."
 
-#: src/project_dbase_gui.c:1209
+#: src/project_dbase_gui.c:1260
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -3703,7 +3739,7 @@ msgid "Send to process"
 msgstr "Послать процессу"
 
 #: src/signals_gui.c:96
-msgid "Kernal signals"
+msgid "Kernel signals"
 msgstr "Сигналы ядра"
 
 #: src/signals_gui.c:116
@@ -3714,7 +3750,7 @@ msgstr "Сигнал"
 msgid "Stop"
 msgstr "Стоп"
 
-#: src/signals_gui.c:124 src/text_editor_gui.c:260 src/toolbar.c:218
+#: src/signals_gui.c:124 src/text_editor_gui.c:259 src/toolbar.c:218
 msgid "Print"
 msgstr "Печать"
 
@@ -3731,17 +3767,17 @@ msgid " Print: "
 msgstr " Печать: "
 
 #. set the size to that of our splash image.
-#: src/anjuta_gui.c:71 src/splash.c:91
+#: src/anjuta_gui.c:72 src/splash.c:92
 msgid "Anjuta"
 msgstr "Anjuta"
 
 #: src/src_paths_gui.c:49
 msgid "Source files paths"
-msgstr ""
+msgstr "Путь к файлам исх.текстов"
 
 #: src/src_paths_gui.c:144
 msgid "Search Paths"
-msgstr ""
+msgstr "Пути для поиска"
 
 #: src/stack_trace_gui.c:36
 msgid "Frame set"
@@ -3763,25 +3799,6 @@ msgstr ""
 msgid "Stack"
 msgstr "Стэк"
 
-#: src/support.c:56
-#, c-format
-msgid "Widget not found: %s"
-msgstr "Виджет не найден: %s"
-
-#: src/support.c:89
-msgid "Could not create replacement pixmap."
-msgstr ""
-
-#: src/support.c:111 src/support.c:149
-#, c-format
-msgid "Could not find pixmap file: %s"
-msgstr "Не удалось найти файл изображений: %s"
-
-#: src/support.c:127
-#, c-format
-msgid "Could not create pixmap from file: %s"
-msgstr "Не удалось создать изображение из файла: %s"
-
 #: src/tags_manager.c:185
 msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
 msgstr "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
@@ -3789,7 +3806,8 @@ msgstr "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
 #: src/tags_manager.c:188
 msgid ""
 "# ******************* Created by  Anjuta ********************************\n"
-msgstr "# ******************* Created by  Anjuta ********************************\n"
+msgstr ""
+"# ******************* Created by  Anjuta ********************************\n"
 
 #: src/tags_manager.c:191
 msgid "# ***************** Anjuta Tags cache file ********************\n"
@@ -3815,33 +3833,28 @@ msgstr ""
 msgid "Tag:"
 msgstr ""
 
-#: src/tags_manager.c:635
+#: src/tags_manager.c:638
 msgid "Cannot execute ctags"
 msgstr ""
 
-#: src/tags_manager.c:640
+#: src/tags_manager.c:643
 #, c-format
 msgid ""
 "Cannot fork to execute ctags. I donno why!!\n"
 "In %s:%d"
 msgstr ""
 
-#: src/tags_manager.c:739
+#: src/tags_manager.c:759
 msgid "Synchronizing and updating Tags Image ... hold on"
 msgstr ""
 
-#: src/tags_manager.c:759
+#: src/tags_manager.c:786
 msgid "Updating Tags image completed"
 msgstr ""
 
-#: src/tags_manager.c:785
+#: src/tags_manager.c:815
 msgid "Syncdronization of Tags image failed"
 msgstr ""
-
-#: src/text_editor.c:162
-#, c-format
-msgid "Couldn't load file: %s."
-msgstr "Не удалось загрузить файл: %s."
 
 #: src/text_editor.c:582
 msgid "Loading File ..."
@@ -3903,167 +3916,175 @@ msgstr "Автосохранён \"%s\""
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Автосохранение \"%s\" -- Сбой"
 
-#: src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/text_editor_gui.c:111 src/toolbar.c:109
 msgid "New"
 msgstr "Новый"
 
-#: src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/text_editor_gui.c:121 src/toolbar.c:120
 msgid "Open"
 msgstr "Открыть"
 
-#: src/text_editor_gui.c:134 src/toolbar.c:133
+#: src/text_editor_gui.c:133 src/toolbar.c:133
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/text_editor_gui.c:144 src/toolbar.c:168
+#: src/text_editor_gui.c:143 src/toolbar.c:168
 msgid "Reload"
 msgstr "Перезагрузить"
 
-#: src/text_editor_gui.c:156 src/text_editor_menu.c:170
+#: src/text_editor_gui.c:144 src/toolbar.c:169
+msgid "Reload Current File"
+msgstr "Перезагрузить текущий файл"
+
+#: src/text_editor_gui.c:155 src/text_editor_menu.c:198
 msgid "Cut"
 msgstr "Вырезать"
 
-#: src/text_editor_gui.c:156
+#: src/text_editor_gui.c:155
 msgid "Cut to clipboard"
 msgstr "Вырезать в буфер обмена"
 
-#: src/text_editor_gui.c:165 src/text_editor_menu.c:177
+#: src/text_editor_gui.c:164 src/text_editor_menu.c:205
 msgid "Copy"
 msgstr "Скопировать"
 
-#: src/text_editor_gui.c:166
+#: src/text_editor_gui.c:165
 msgid "Copy to clipboard"
 msgstr "Скопировать в буфер обмена"
 
-#: src/text_editor_gui.c:175 src/text_editor_menu.c:184
+#: src/text_editor_gui.c:174 src/text_editor_menu.c:212
 msgid "Paste"
 msgstr "Вставить"
 
-#: src/text_editor_gui.c:176
+#: src/text_editor_gui.c:175
 msgid "Paste from clipboard"
 msgstr "Вставить из буфера обмена"
 
-#: src/text_editor_gui.c:188 src/toolbar.c:232
+#: src/text_editor_gui.c:187 src/toolbar.c:232
 msgid "Search the given string"
 msgstr "Поиск заданной строки"
 
-#: src/text_editor_gui.c:198
+#: src/text_editor_gui.c:197
 msgid "Replace"
 msgstr "Заменить"
 
-#: src/text_editor_gui.c:200
+#: src/text_editor_gui.c:199
 msgid "Search and replace the given string"
 msgstr "Поиск и замена заданной строки"
 
-#: src/text_editor_gui.c:220
+#: src/text_editor_gui.c:219
 msgid "line: "
 msgstr "строка: "
 
-#: src/text_editor_gui.c:236 src/toolbar.c:455
+#: src/text_editor_gui.c:235 src/toolbar.c:455
 msgid "Compile the current file"
 msgstr "Скомпилировать текущий файл"
 
-#: src/text_editor_gui.c:248 src/toolbar.c:479
+#: src/text_editor_gui.c:247 src/toolbar.c:479
 msgid "Build current File or Build the source directory of the Project"
 msgstr ""
 
-#: src/text_editor_gui.c:273
+#: src/text_editor_gui.c:260 src/toolbar.c:219
+msgid "Print the current File"
+msgstr "Печать текущего файла"
+
+#: src/text_editor_gui.c:272
 msgid "Attach the editor window as paged editor"
 msgstr ""
 
-#: src/text_editor_menu.c:40
+#: src/text_editor_menu.c:68
 msgid "Prev mesg"
 msgstr "Пред. сообщ."
 
-#: src/text_editor_menu.c:46
+#: src/text_editor_menu.c:74
 msgid "Next mesg"
 msgstr "След. сообщ."
 
-#: src/text_editor_menu.c:52
+#: src/text_editor_menu.c:80
 msgid "Prev bookmark"
 msgstr "Пред. закладка"
 
-#: src/text_editor_menu.c:58
+#: src/text_editor_menu.c:86
 msgid "Next bookmark"
 msgstr "След. закладка"
 
-#: src/text_editor_menu.c:75 src/toolbar.c:960
+#: src/text_editor_menu.c:103 src/toolbar.c:960
 msgid "Step in"
 msgstr ""
 
-#: src/text_editor_menu.c:81
+#: src/text_editor_menu.c:109
 msgid "Step over"
 msgstr ""
 
-#: src/text_editor_menu.c:87
+#: src/text_editor_menu.c:115
 msgid "Step out"
 msgstr ""
 
-#: src/text_editor_menu.c:93 src/toolbar.c:949
+#: src/text_editor_menu.c:121 src/toolbar.c:949
 msgid "Run to cursor"
 msgstr ""
 
-#: src/text_editor_menu.c:99
+#: src/text_editor_menu.c:127
 msgid "Run/Continue"
 msgstr "Запустить/Продолжить"
 
-#: src/text_editor_menu.c:106 src/toolbar.c:1023
+#: src/text_editor_menu.c:134 src/toolbar.c:1023
 msgid "Inspect"
 msgstr ""
 
-#: src/text_editor_menu.c:113 src/toolbar.c:997
+#: src/text_editor_menu.c:141 src/toolbar.c:997
 msgid "Interrupt"
 msgstr "Прерывание"
 
-#: src/text_editor_menu.c:123
+#: src/text_editor_menu.c:151
 msgid "Toggle Linenums"
 msgstr ""
 
-#: src/text_editor_menu.c:130
+#: src/text_editor_menu.c:158
 msgid "Toggle Marker Margin"
 msgstr ""
 
-#: src/text_editor_menu.c:137
+#: src/text_editor_menu.c:165
 msgid "Toggle Fold Margin"
 msgstr ""
 
-#: src/text_editor_menu.c:144
+#: src/text_editor_menu.c:172
 msgid "Toggle Guides"
 msgstr ""
 
-#: src/text_editor_menu.c:152
+#: src/text_editor_menu.c:180
 msgid "++Zoom"
 msgstr "++ Масштаб"
 
-#: src/text_editor_menu.c:159
+#: src/text_editor_menu.c:187
 msgid "--Zoom"
 msgstr "-- Масштаб"
 
-#: src/text_editor_menu.c:192
+#: src/text_editor_menu.c:220
 msgid "Toggle Bookmark"
 msgstr "Переключить закладку"
 
-#: src/text_editor_menu.c:199
+#: src/text_editor_menu.c:227
 msgid "Auto format"
 msgstr "Автоформатирование"
 
-#: src/text_editor_menu.c:206
+#: src/text_editor_menu.c:234
 msgid "Swap .h/.c"
 msgstr ""
 
-#: src/text_editor_menu.c:214
+#: src/text_editor_menu.c:242
 msgid "Goto"
 msgstr "Перейти"
 
-#: src/text_editor_menu.c:238
+#: src/text_editor_menu.c:266
 msgid "Options"
 msgstr "Параметры"
 
-#: src/text_editor_menu.c:246 src/toolbar.c:157
+#: src/text_editor_menu.c:274 src/toolbar.c:157
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/text_editor_menu.c:308
+#: src/text_editor_menu.c:336
 msgid "Functions "
 msgstr "Функции"
 
@@ -4078,6 +4099,14 @@ msgstr ""
 msgid "Save All"
 msgstr "Сохранить все"
 
+#: src/toolbar.c:146
+msgid "Save all currently opened Files, execpt Newfiles"
+msgstr ""
+
+#: src/toolbar.c:158
+msgid "Close Current File"
+msgstr "Закрыть текущий файл"
+
 #: src/toolbar.c:181
 msgid "Undo"
 msgstr "Откат"
@@ -4085,6 +4114,10 @@ msgstr "Откат"
 #: src/toolbar.c:192
 msgid "Redo"
 msgstr "Возврат"
+
+#: src/toolbar.c:193
+msgid "Redo the last udone action"
+msgstr "Вернуть последнее отмененное действие"
 
 #: src/toolbar.c:206
 msgid "Detach"
@@ -4096,7 +4129,7 @@ msgstr ""
 
 #: src/toolbar.c:250
 msgid "Enter the string to be searched in the current file"
-msgstr ""
+msgstr "Введите строку для поиска в текущем файле"
 
 #: src/toolbar.c:260
 msgid "Go To"
@@ -4104,15 +4137,11 @@ msgstr "Перейти"
 
 #: src/toolbar.c:261
 msgid "Go to the given line number"
-msgstr ""
+msgstr "Перейти к строке с указанным номером"
 
 #: src/toolbar.c:272
 msgid "Enter the line no. to go in the current file"
-msgstr ""
-
-#: src/toolbar.c:283
-msgid "Project"
-msgstr "Проект"
+msgstr "Введите номер строки, к которой требуется перейти"
 
 #: src/toolbar.c:284
 msgid "Project Listing"
@@ -4120,7 +4149,7 @@ msgstr "Листинг проекта"
 
 #: src/toolbar.c:295
 msgid "Compile/Build/Debug Messages"
-msgstr ""
+msgstr "Сообщения компиляции/сборки/отладки"
 
 #: src/toolbar.c:310
 msgid "Context sensitive help"
@@ -4136,7 +4165,7 @@ msgstr "Закрыть проект"
 
 #: src/toolbar.c:467
 msgid "Run Configure"
-msgstr ""
+msgstr "Запустить Configure"
 
 #: src/toolbar.c:490
 msgid "Build_all"
@@ -4171,11 +4200,11 @@ msgid "Tag in the file"
 msgstr ""
 
 #: src/toolbar.c:665
-msgid "widzard"
+msgid "wizard"
 msgstr "помощник"
 
 #: src/toolbar.c:665
-msgid "The Widzard"
+msgid "The Wizard"
 msgstr "Помощник"
 
 #: src/toolbar.c:743 src/toolbar.c:1188
@@ -4232,7 +4261,7 @@ msgstr "Начало"
 
 #: src/toolbar.c:845
 msgid "Goto start of current code block"
-msgstr ""
+msgstr "Перейти к началу текущего блока кода"
 
 #: src/toolbar.c:856
 msgid "End"
@@ -4240,15 +4269,15 @@ msgstr "Конец"
 
 #: src/toolbar.c:858
 msgid "Goto end of current code block"
-msgstr ""
+msgstr "Перейти к концу текущего блока кода"
 
 #: src/toolbar.c:936
 msgid "Go"
-msgstr ""
+msgstr "Перейти"
 
 #: src/toolbar.c:937
 msgid "Go or continue execution"
-msgstr ""
+msgstr "Перейти или продолжить выполнение"
 
 #: src/toolbar.c:948
 msgid "Run"
@@ -4344,7 +4373,7 @@ msgstr "Выделить"
 
 #: src/toolbar.c:1231
 msgid "Select current code block"
-msgstr ""
+msgstr "Выделить текущий блок кода"
 
 #: src/toolbar.c:1242
 msgid "Indent inc"
@@ -4368,15 +4397,15 @@ msgstr "Автоформатирование"
 
 #: src/toolbar.c:1273
 msgid "Automatically format the codes"
-msgstr ""
+msgstr "Форматировать код автоматически"
 
 #: src/toolbar.c:1285
 msgid "Format style"
-msgstr ""
+msgstr "Стиль форматирования"
 
 #: src/toolbar.c:1286
 msgid "Select autoformat style"
-msgstr ""
+msgstr "Выбрать стиль автоформатирования"
 
 #: src/toolbar.c:1299
 msgid "Calltip"
@@ -4392,7 +4421,7 @@ msgstr "Автодополнение"
 
 #: src/toolbar.c:1314
 msgid "Autocomplete word"
-msgstr ""
+msgstr "Автодополнение слов"
 
 #: src/toolbar.c:1367
 msgid "Functions"
@@ -4408,11 +4437,11 @@ msgstr "Структуры"
 
 #: src/toolbar.c:1388
 msgid "Unions"
-msgstr ""
+msgstr "Модули"
 
 #: src/toolbar.c:1395
 msgid "Enums"
-msgstr ""
+msgstr "Перечисления"
 
 #: src/toolbar.c:1402
 msgid "Variables"
@@ -4427,23 +4456,23 @@ msgstr "Макросы"
 msgid "There is line no. %d in \"%s\"."
 msgstr ""
 
-#: src/utilities.c:668
+#: src/utilities.c:673
 #, c-format
 msgid "Couldn't read file: %s."
 msgstr "Не удалось прочесть файл: %s."
 
-#: src/source.c:120 src/source.c:182 src/source.c:217 src/source.c:421
-#: src/source.c:444 src/source.c:521 src/source.c:584 src/source.c:624
-#: src/source.c:639 src/source.c:672 src/source.c:730 src/source.c:800
-#: src/source.c:819 src/source.c:852 src/source.c:878 src/source.c:910
-#: src/source.c:936 src/source.c:966 src/source.c:984 src/source.c:1014
-#: src/source.c:1032 src/source.c:1059 src/source.c:1107 src/source.c:1175
-#: src/source.c:1294 src/utilities.c:676
+#: src/source.c:120 src/source.c:188 src/source.c:226 src/source.c:490
+#: src/source.c:513 src/source.c:600 src/source.c:665 src/source.c:705
+#: src/source.c:720 src/source.c:753 src/source.c:819 src/source.c:889
+#: src/source.c:908 src/source.c:941 src/source.c:960 src/source.c:992
+#: src/source.c:1011 src/source.c:1041 src/source.c:1059 src/source.c:1089
+#: src/source.c:1107 src/source.c:1134 src/source.c:1186 src/source.c:1254
+#: src/source.c:1373 src/utilities.c:681
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Не удалось создать файл: %s."
 
-#: src/utilities.c:710
+#: src/utilities.c:715
 msgid "Couldn't complete file copy"
 msgstr ""
 
@@ -4491,43 +4520,43 @@ msgstr ""
 msgid "Inspect/Evaluate Expression"
 msgstr ""
 
-#: src/about.c:45
-msgid "Copyright (c) 1999 Naba Kumar"
-msgstr "Авторское право (С) 1999 Naba Kumar"
+#: src/about.c:47
+msgid "Copyright (c) 1999-2001 Naba Kumar"
+msgstr "Авторское право (С) 1999-2001 Naba Kumar"
 
-#: src/about.c:55
+#: src/about.c:57
 msgid "Anjuta Home Site"
 msgstr "Домашняя страница Anjuta"
 
-#: src/appwidz_page4.c:126
+#: src/appwiz_page4.c:126
 msgid " Project Options "
 msgstr " Параметры проекта "
 
-#: src/appwidz_page4.c:137
+#: src/appwiz_page4.c:137
 msgid "Include GNU Copyright statement in files heading"
 msgstr "Включать текст GNU Copiright в заголовок файла"
 
-#: src/appwidz_page4.c:144
-msgid "Gettext Support Enable"
-msgstr "Включить поддержку gettext"
+#: src/appwiz_page4.c:144
+msgid "Enable Gettext Support"
+msgstr "Включить поддержку gettext:"
 
-#: src/appwidz_page4.c:151
-msgid " Gnome Menu Entry"
+#: src/appwiz_page4.c:151
+msgid "GNOME Menu Entry"
 msgstr "Элемент меню GNOME"
 
-#: src/appwidz_page4.c:161
+#: src/appwiz_page4.c:161
 msgid "Entry name:"
 msgstr "Название элемента:"
 
-#: src/appwidz_page4.c:168
+#: src/appwiz_page4.c:168
 msgid "Comment:"
 msgstr "Комментарий:"
 
-#: src/appwidz_page4.c:175
+#: src/appwiz_page4.c:175
 msgid "Group:"
 msgstr "Группа:"
 
-#: src/appwidz_page4.c:216
+#: src/appwiz_page4.c:216
 msgid "Needs terminal"
 msgstr ""
 
@@ -4536,56 +4565,61 @@ msgstr ""
 msgid "Error writing to file: %s."
 msgstr "Ошибка записи в файл: %s."
 
-#: src/source.c:1360
+#: src/source.c:1440
 msgid "Unkown project type."
 msgstr "Неизвестный тип проекта."
 
+#: src/anjuta.c:64 src/anjuta.c:71
+#, c-format
+msgid "Anjuta: Caught signal %i!"
+msgstr ""
+
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:68
+#: src/anjuta.c:98
 msgid "Open File"
 msgstr "Открыть файл"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:74
+#: src/anjuta.c:104
 msgid "Save File As"
 msgstr "Сохранить файл как"
 
-#: src/anjuta.c:155
+#: src/anjuta.c:183
 msgid "Cannot create application...exiting\n"
 msgstr ""
 
-#: src/anjuta.c:196 src/anjuta.c:200 src/anjuta.c:751 src/anjuta.c:760
+#: src/anjuta.c:230 src/anjuta.c:234 src/anjuta.c:784 src/anjuta.c:793
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:257
+#: src/anjuta.c:291
 msgid "Recent Files "
 msgstr ""
 
-#: src/anjuta.c:560
+#: src/anjuta.c:594
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS еще не реализован =(\n"
 
-#: src/anjuta.c:605
+#: src/anjuta.c:639
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 
-#: src/anjuta.c:748
+#: src/anjuta.c:781
 #, c-format
 msgid "Anjuta: %s(Saved)"
 msgstr "Anjuta: %s(Сохранено)"
 
-#: src/anjuta.c:757
+#: src/anjuta.c:790
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
 msgstr "Anjuta: %s(Не сохранено)"
 
-#: src/anjuta.c:776
+#: src/anjuta.c:809
 msgid "Anjuta: No file"
 msgstr "Anjuta: Нет файла"
 
-#: src/anjuta.c:1226
+#: src/anjuta.c:1259
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -4594,46 +4628,44 @@ msgstr ""
 "Ещё не реализовано.\n"
 "Вставьте код в \"%s:%u\""
 
-#: src/anjuta.c:1434
+#: src/anjuta.c:1475
 msgid "Activate this to select this window"
 msgstr ""
 
-#: src/anjuta.c:1481
+#: src/anjuta.c:1522
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
 "Install it and then restart Anjuta."
 msgstr ""
 
-#: src/anjuta.c:1507 src/anjuta.c:1542
+#: src/anjuta.c:1548 src/anjuta.c:1583
 msgid "None"
 msgstr "Нет"
 
-#: src/anjuta.c:1524
+#: src/anjuta.c:1565
 msgid "OVR"
 msgstr "ЗАМ"
 
-#: src/anjuta.c:1528 src/anjuta.c:1534
+#: src/anjuta.c:1569 src/anjuta.c:1575
 msgid "INS"
 msgstr "ВСТ"
 
-#: src/anjuta.c:1545
+#: src/anjuta.c:1586
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s"
-msgstr "  Проект: %s    Масштаб: %d     Строка: %04d    Столбец: %03d   %s      Задание: %s"
+msgstr ""
+"  Проект: %s    Масштаб: %d     Строка: %04d    Столбец: %03d   %s      "
+"Задание: %s"
 
-#: src/anjuta_gui.c:200
+#: src/anjuta_gui.c:201 src/anjuta_gui.c:290
 msgid "Click here to undock this window"
 msgstr ""
 
-#: src/anjuta_gui.c:234 src/anjuta_gui.c:256
+#: src/anjuta_gui.c:235 src/anjuta_gui.c:257
 msgid "Click here to hide this window"
-msgstr ""
-
-#: src/anjuta_gui.c:289
-msgid "Click Here to undock this window"
 msgstr ""
 
 #: src/glade_iface.c:66
@@ -4644,3 +4676,31 @@ msgstr ""
 msgid "Cannot fork glade--."
 msgstr ""
 
+#: src/resources.c:58
+msgid "Could not create replacement pixmap."
+msgstr ""
+
+#: src/resources.c:86
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Виджет не найден: %s"
+
+#: src/resources.c:99
+#, c-format
+msgid "Could not find application image file: %s"
+msgstr "Не удалось найти файл изображения для приложения: %s"
+
+#: src/resources.c:121
+#, fuzzy, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr "Не удалось найти файл изображений: %s"
+
+#: src/resources.c:132
+#, fuzzy, c-format
+msgid "Could not find gnome pixmap file: %s"
+msgstr "Не удалось найти файл изображений: %s"
+
+#: src/resources.c:149
+#, c-format
+msgid "Could not create pixmap from file: %s"
+msgstr "Не удалось создать изображение из файла: %s"
