@@ -44,6 +44,8 @@ struct  _FindInFilesGui
   GtkWidget *help;
   GtkWidget *ok;
   GtkWidget *cancel;
+  /* append messages/clear message window on new search */
+  GtkWidget *append_messages;
 };
 
 struct _FindInFiles
@@ -77,7 +79,7 @@ gboolean
 find_in_files_save_yourself(FindInFiles* fr, FILE* stream);
 
 gboolean
-find_in_files_load_yourself(FindInFiles* fr, FILE* stream);
+find_in_files_load_yourself(FindInFiles* fr, PropsID props);
 
 /* private */
 

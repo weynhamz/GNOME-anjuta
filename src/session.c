@@ -26,6 +26,8 @@
 #include "utilities.h"
 #include "session.h"
 
+static gchar * GetConfigFile();
+
 
 /* Id2String */
 const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
@@ -60,6 +62,12 @@ const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
 		return "RecentFiles"; break;
 	case SECTION_RECENTPROJECTS:
 		return "RecentProjects"; break;
+	case SECTION_FIND_IN_FILES_SETTINGS:
+		return "FindInFilesSettings"; break;
+	case SECTION_FIND_IN_FILES_PROFILES:		
+		return "FindInFilesProfiles"; break;
+	case SECTION_GENERAL:
+		return "General"; break;
 	}
 }
 
@@ -138,20 +146,24 @@ GetSessionFile( ProjectDBase * p )
 	return szReturn ;
 }
 
-void
+
+gboolean
 session_clear_section( ProjectDBase * p, const gchar *szSection )
 {
+	gboolean	bOK = FALSE ;
 	gchar *szFile = GetSessionFile( p );
 	gchar *szSect = NULL ;
-	g_return_if_fail( (NULL != szSection) );
+	g_return_val_if_fail( (NULL != szSection), FALSE );
 	/* Now appends the item and the specific data... */
 	szSect = g_strdup_printf( "%s/%s", szFile, szSection );
 	if( NULL !=  szSect )
 	{
 		gnome_config_clean_section(szSect);
+		bOK = TRUE ;
 	}
 	g_free( szFile );
 	g_free( szSect );
+	return bOK ;
 }
 
 
@@ -172,13 +184,29 @@ session_save_long_n( ProjectDBase * p, const gchar *szSection, const gint nItem,
 }
 
 void
-session_save_string( ProjectDBase * p, const gchar *szSection, const gint nItem, const gchar *szValue )
+session_save_string_n( ProjectDBase * p, const gchar *szSection, const gint nItem, const gchar *szValue )
 {
 	gchar *szFile = GetSessionFile( p );
 	gchar *szSect = NULL ;
 	g_return_if_fail( (NULL != szSection) );
 	/* Now appends the item and the specific data... */
 	szSect = g_strdup_printf( "%s/%s/%d", szFile, szSection, nItem );
+	g_free( szFile );
+	if( NULL !=  szSect )
+	{
+		gnome_config_set_string( szSect, szValue );
+	}
+	g_free( szSect );	
+}
+
+void
+session_save_string( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gchar *szValue )
+{
+	gchar *szFile = GetSessionFile( p );
+	gchar *szSect = NULL ;
+	g_return_if_fail( (NULL != szSection) );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "%s/%s/%s", szFile, szSection, szItem );
 	g_free( szFile );
 	if( NULL !=  szSect )
 	{
@@ -223,6 +251,23 @@ session_get_string_n( ProjectDBase * p, const gchar *szSection, const gint nItem
 	return szRet ;
 }
 
+gchar*
+session_get_string( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gchar *szValue )
+{
+	gchar	*szFile = GetSessionFile( p );
+	gchar	*szSect = NULL ;
+	gchar	*szRet = NULL ;
+	g_return_val_if_fail( (NULL!=szFile ) && (NULL != szSection), g_strdup(szValue) );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "%s/%s/%s=%s", szFile, szSection, szItem, szValue );
+	g_free( szFile );
+	if( NULL !=  szSect )
+	{
+		szRet = gnome_config_get_string( szSect );
+	}
+	g_free( szSect );	
+	return szRet ;
+}
 
 
 void
@@ -289,7 +334,7 @@ session_save_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings 
 			szFnd = (gchar*)g_list_nth (pLStrings, i)->data ;
 			/*gchar *WriteBufS( gchar* szDst, const gchar* szVal );*/
 			if( szFnd && szFnd[0] )
-				session_save_string( p, szSession, i, szFnd );
+				session_save_string_n( p, szSession, i, szFnd );
 		}
 	}
 }
@@ -322,17 +367,158 @@ session_load_strings(ProjectDBase * p, const gchar *szSection, GList *pList )
 	return pList ;
 }
 
+
+void
+session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bVal )
+{
+	gchar *szFile = GetSessionFile( p );
+	gchar *szSect = NULL ;
+	g_return_if_fail( (NULL != szSection) );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "%s/%s/%s", szFile, szSection, szItem );
+	if( NULL !=  szSect )
+	{
+		gnome_config_set_bool( szSect, bVal );
+	}
+	g_free( szFile );
+	g_free( szSect );
+
+}
+
+gboolean
+session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bValDefault )
+{
+	gchar		*szFile = GetSessionFile( p );
+	gchar		*szSect = NULL ;
+	gboolean	bRet = bValDefault ;
+		
+	g_return_val_if_fail( (NULL != szSection), bValDefault );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "%s/%s/%s=%d", szFile, szSection, szItem, (int)bValDefault );
+	g_free( szFile );
+	if( NULL !=  szSect )
+	{
+		bRet = gnome_config_get_bool( szSect );
+	}
+	g_free( szSect );	
+	return bRet ;
+}
+
+/*-------------------------------------------------------------------------------------------------------*/
+gboolean
+anjuta_session_clear_section( const gchar *szSection )
+{
+	gchar 	*szSect = NULL ;
+	gboolean	bOK = FALSE ;
+	g_return_val_if_fail( (NULL != szSection), FALSE );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "/anjuta/%s", szSection );
+	if( NULL !=  szSect )
+	{
+		bOK = TRUE ;
+		gnome_config_private_clean_section(szSect);
+	}
+	g_free( szSect );
+	return bOK ;
+}
+
+gboolean
+anjuta_session_save_strings( const gchar *szSection, GList *pLStrings )
+{
+	gboolean	bOK = TRUE ;
+	g_return_val_if_fail( NULL != szSection, FALSE );
+	
+	anjuta_session_clear_section( szSection );
+	if( pLStrings )
+	{
+		const gchar *szValue ;
+		int 			i;
+		int			nLen = g_list_length (pLStrings); 
+		for (i = 0; i < nLen ; i++)
+		{
+			szValue = (gchar*)g_list_nth (pLStrings, i)->data ;
+			/*gchar *WriteBufS( gchar* szDst, const gchar* szVal );*/
+			if( szValue && szValue[0] )
+			{
+				gchar	szCounter[40];
+				sprintf( szCounter, "%d", i );
+				bOK = WriteProfileString( szSection, szCounter, szValue ) && bOK ;
+			}
+		}
+	}
+	return bOK;
+}
+
+
+gpointer
+anjuta_session_get_iterator( const gchar *szSection )
+{
+	gchar	*szSect = NULL ;
+	gpointer	gIterator = NULL ;
+	
+	g_return_val_if_fail( (NULL != szSection), NULL );
+	/* Now appends the item and the specific data... */
+	szSect = g_strdup_printf( "/anjuta/%s", szSection );
+	if( NULL !=  szSect )
+	{
+		gIterator = gnome_config_private_init_iterator(szSect);
+	}
+	g_free( szSect );
+	return gIterator ;
+}
+
 // The session strings iterated are in this format: 0,1,..n="string"
 // they must be loaded in the correct order
 //that is we must build a sort routine with a structure......
 // this is dependent on how gnome config is implemented....
+/*
+vecchia implementazione
+GList*
+anjuta_session_load_strings( const gchar *szSection, GList *pList )
+{
+	gpointer	config_iterator;
+	g_return_val_if_fail( szSection != NULL, NULL );
+
+	free_string_list ( pList );
+	pList = NULL ;
+
+	config_iterator = anjuta_session_get_iterator( szSection );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szData;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szData )))
+		{
+			if( ( NULL != szData ) )
+			{
+				pList = g_list_prepend(pList, g_strdup (szData) );
+				//debug....printf( "%s->%s\n", szItem, szData);
+			}
+			g_free( szItem );
+			g_free( szData );
+		}
+	}
+	return pList ;
+}
+*/
 
 typedef struct {
-	long			m_Key ;
+	long		m_Key ;
 	const gchar	*m_szStr ;
 } sortKey ;
 
-
+/*
+sortKey* new_sort_key( const long nKey, const gchar *szString )
+{
+	sortKey	self = (sortKey*)alloca( sizeof(sortKey) );
+	if( NULL != self )
+	{
+		self->m_Key		= nKey ;
+		self->m_szStr	= szString ;
+	}
+	return self;
+}
+*/
 static gint cmp_sort_k( gconstpointer p1, gconstpointer p2 )
 {
 	sortKey	*s1 = (sortKey*)p1;
@@ -389,7 +575,7 @@ anjuta_session_load_strings( const gchar *szSection, GList *pList )
 				for (i = 0; i < nMax ; i++)
 				{
 					sortKey	*pSort = (sortKey*) g_list_nth ( pListSorted, i ) -> data ;
-					pList = g_list_append( pList, (gpointer)pSort->m_szStr );
+					pList = g_list_append( pList, pSort->m_szStr );
 					g_free( pSort );
 				}
 			}
@@ -401,7 +587,7 @@ anjuta_session_load_strings( const gchar *szSection, GList *pList )
 			for (i = 0; i < nMax ; i++)
 			{
 				sortKey	*pSort = (sortKey*) g_list_nth ( pList, i ) -> data ;
-				g_free( (gpointer)pSort->m_szStr );
+				g_free( pSort->m_szStr );
 				g_free( pSort );
 			}
 		}
@@ -412,99 +598,92 @@ anjuta_session_load_strings( const gchar *szSection, GList *pList )
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-void
-session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bVal )
+static gchar * 
+GetConfigFile()
 {
-	gchar *szFile = GetSessionFile( p );
-	gchar *szSect = NULL ;
-	g_return_if_fail( (NULL != szSection) );
-	/* Now appends the item and the specific data... */
-	szSect = g_strdup_printf( "%s/%s/%s", szFile, szSection, szItem );
-	if( NULL !=  szSect )
-	{
-		gnome_config_set_bool( szSect, bVal );
-	}
-	g_free( szFile );
-	g_free( szSect );
-
+	gchar *szReturn;
+	szReturn  = g_strdup_printf( "=%s/anjuta.ini=", PACKAGE_DATA_DIR );
+	return szReturn ;
 }
-
-gboolean
-session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bValDefault )
-{
-	gchar		*szFile = GetSessionFile( p );
-	gchar		*szSect = NULL ;
-	gboolean	bRet = bValDefault ;
-		
-	g_return_val_if_fail( (NULL != szSection), bValDefault );
-	/* Now appends the item and the specific data... */
-	szSect = g_strdup_printf( "%s/%s/%s=%d", szFile, szSection, szItem, (int)bValDefault );
-	g_free( szFile );
-	if( NULL !=  szSect )
-	{
-		bRet = gnome_config_get_bool( szSect );
-	}
-	g_free( szSect );	
-	return bRet ;
-}
-
-/*-------------------------------------------------------------------------------------------------------*/
-void
-anjuta_session_clear_section( const gchar *szSection )
-{
-	gchar *szSect = NULL ;
-	g_return_if_fail( (NULL != szSection) );
-	/* Now appends the item and the specific data... */
-	szSect = g_strdup_printf( "/anjuta/%s", szSection );
-	if( NULL !=  szSect )
-	{
-		gnome_config_private_clean_section(szSect);
-	}
-	g_free( szSect );
-}
-
-gboolean
-anjuta_session_save_strings( const gchar *szSection, GList *pLStrings )
-{
-	gboolean	bOK = TRUE ;
-	g_return_val_if_fail( NULL != szSection, FALSE );
-	
-	anjuta_session_clear_section( szSection );
-	if( pLStrings )
-	{
-		const gchar *szValue ;
-		int 			i;
-		int			nLen = g_list_length (pLStrings); 
-		for (i = 0; i < nLen ; i++)
-		{
-			szValue = (gchar*)g_list_nth (pLStrings, i)->data ;
-			/*gchar *WriteBufS( gchar* szDst, const gchar* szVal );*/
-			if( szValue && szValue[0] )
-			{
-				gchar	szCounter[40];
-				sprintf( szCounter, "%d", i );
-				bOK = WriteProfileString( szSection, szCounter, szValue ) && bOK ;
-			}
-		}
-	}
-	return bOK;
-}
-
 
 gpointer
-anjuta_session_get_iterator( const gchar *szSection )
+config_get_iterator( const gchar *szSection )
 {
-	gchar	*szSect = NULL ;
+	gchar		*szFile = GetConfigFile();
+	gchar		*szSect = NULL ;
 	gpointer	gIterator = NULL ;
 	
 	g_return_val_if_fail( (NULL != szSection), NULL );
+	g_return_val_if_fail( (NULL != szFile ), NULL );
 	/* Now appends the item and the specific data... */
-	szSect = g_strdup_printf( "/anjuta/%s", szSection );
+	szSect = g_strdup_printf( "%s/%s", szFile, szSection );
 	if( NULL !=  szSect )
 	{
-		gIterator = gnome_config_private_init_iterator(szSect);
+		gIterator = gnome_config_init_iterator(szSect);
 	}
+
+	g_free( szFile );
 	g_free( szSect );
 	return gIterator ;
 }
 
+
+
+
+GList*
+config_load_strings( const gchar *szSection, GList *pList )
+{
+	gpointer	config_iterator;
+	
+	g_return_val_if_fail( szSection != NULL, NULL );
+
+	free_string_list ( pList );
+	pList = NULL ;
+
+	config_iterator = config_get_iterator( szSection );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szData;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szData )))
+		{
+			if( ( NULL != szData ) )
+			{
+				pList = g_list_append(pList, g_strdup (szData) );
+			}
+			g_free( szItem );
+			g_free( szData );
+		}
+	}
+	return pList ;
+}
+
+/* From global to local */
+gboolean
+config_copy_strings( const gchar *szSection )
+{
+	gpointer	config_iterator;
+	gboolean	bRet = FALSE ;
+	
+	g_return_val_if_fail( szSection != NULL, FALSE );
+
+	config_iterator = config_get_iterator( szSection );
+	if ( config_iterator !=  NULL )
+	{
+		gchar * szItem, *szData;
+		
+		bRet = TRUE ;
+		while ((config_iterator = gnome_config_iterator_next( config_iterator,
+									&szItem, &szData )))
+		{
+			if( ( NULL != szData ) && ( NULL != szItem ) )
+			{
+				if( !WriteProfileString( szSection, szItem, szData ) )
+					bRet = FALSE ;
+			}
+			g_free( szItem );
+			g_free( szData );
+		}
+	}
+	return bRet ;
+}

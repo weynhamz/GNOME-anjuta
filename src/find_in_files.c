@@ -73,6 +73,8 @@ find_in_files_destroy (FindInFiles * ff)
 		gtk_widget_unref (ff->widgets.help);
 		gtk_widget_unref (ff->widgets.ok);
 		gtk_widget_unref (ff->widgets.cancel);
+        gtk_widget_unref (ff->widgets.append_messages);
+
 		if (ff->widgets.window)
 			gtk_widget_destroy (ff->widgets.window);
 		for (i = 0; i < g_list_length (ff->regexp_history); i++)
@@ -81,6 +83,20 @@ find_in_files_destroy (FindInFiles * ff)
 			g_list_free (ff->regexp_history);
 		g_free (ff);
 	}
+}
+
+gboolean
+find_in_files_save_yourself(FindInFiles* ff, FILE* stream)
+{
+    /* FIXME: Please save properties here */
+    return TRUE;
+}
+
+gboolean
+find_in_files_load_yourself(FindInFiles* ff, PropsID props)
+{
+    /* FIXME: Please load properties here */
+    return TRUE;
 }
 
 void
@@ -186,11 +202,14 @@ find_in_files_process (FindInFiles * ff)
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Find in Files"));
-	g_free (command);
-	anjuta_message_manager_clear (app->messages, MESSAGE_FIND);
+	if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(ff->widgets.append_messages)))
+	{
+		anjuta_message_manager_clear (app->messages, MESSAGE_FIND);
+	}
 	anjuta_message_manager_append (app->messages, _("Finding in Files ....\n"),
 			 MESSAGE_FIND);
 	anjuta_message_manager_show (app->messages, MESSAGE_FIND);
+	g_free (command);
 }
 
 void

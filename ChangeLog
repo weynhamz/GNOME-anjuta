@@ -1,3 +1,20 @@
+2002-05-03 Naba Kumar <kh_naba@users.sourceforge.net>
+
+    Patch from lbell <lbell@tsc4.com>
+    
+    * src/find_in_files.c, src/find_in_files.h,
+    src/anjuta.c: Added save_yourself, load_yourself routines.
+    
+    * src/find_in_files.{h,c}, src/find_in_files_gui.c:
+    Added "Append messages" toggle button. This will enable
+    the search results to be appended to the already existing
+    results.
+    
+    * src/debugger.c: Fixed a typo.
+    
+    * src/find_text.c, src/breakpoints.c, src/project_dbase.c,
+    src/session.c, src/session.h: Improved session management.
+
 2002-05-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
     * THANKS, FUTURE, AUTHORS: Changed my email and

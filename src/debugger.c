@@ -1847,7 +1847,7 @@ locals_update_controls(void)
 	debugger_put_cmd_in_queqe ("info locals",
 				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
 				   debugger_info_locals_cb, NULL);
-	debugger_put_cmd_in_queqe ("set verbosme on", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
 				   NULL);
 }

@@ -156,6 +156,13 @@ create_find_in_files_gui (FindInFiles *sf)
   gtk_box_pack_start (GTK_BOX (vbox4), checkbutton4, FALSE, FALSE, 0);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton4), TRUE);
 
+
+  sf->widgets.append_messages = gtk_check_button_new_with_label (_("Append Messages"));
+  gtk_widget_show (sf->widgets.append_messages);
+  gtk_box_pack_start (GTK_BOX (vbox4), sf->widgets.append_messages, FALSE, FALSE, 0);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sf->widgets.append_messages), FALSE);
+  gtk_widget_ref(sf->widgets.append_messages);
+
   frame5 = gtk_frame_new (_(" Search String"));
   gtk_widget_show (frame5);
   gtk_box_pack_start (GTK_BOX (vbox3), frame5, FALSE, FALSE, 0);

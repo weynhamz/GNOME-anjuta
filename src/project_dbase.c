@@ -1121,7 +1121,7 @@ project_dbase_save_session_files (ProjectDBase * p)
 		{
 			if ( te->full_filename )
 			{
-				session_save_string( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
+				session_save_string_n( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
 				session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
 				project_dbase_save_markers( p, te, nIndex );
 				nIndex++;
@@ -1155,9 +1155,9 @@ project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem )
 			if( nIndex > nMarks )
 				break;
 		}
-		session_save_string( p, SECSTR(SECTION_FILEMARKERS), nItem, szSaveStr );
+		session_save_string_n( p, SECSTR(SECTION_FILEMARKERS), nItem, szSaveStr );
 	} else
-		session_save_string( p, SECSTR(SECTION_FILEMARKERS), nItem, "" );
+		session_save_string_n( p, SECSTR(SECTION_FILEMARKERS), nItem, "" );
 	g_free( szSaveStr );
 }
 

@@ -144,8 +144,9 @@ breakpoint_item_save ( BreakpointItem * bi, ProjectDBase * pdb, const gint nBrea
 	szDst = WriteBufS( szDst, bi->function );	
 	szDst = WriteBufS( szDst, bi->info );	
 	szDst = WriteBufUL( szDst, (gulong)bi->time );
-	
-	session_save_string( pdb, SECSTR(SECTION_BREAKPOINTS), nBreak, szStrSave );
+
+	session_save_string_n( pdb, SECSTR(SECTION_BREAKPOINTS), nBreak, szStrSave );
+
 	g_free( szStrSave );
 };
 

@@ -212,7 +212,7 @@ find_text_save_session ( FindText * ft, ProjectDBase *p )
 		{
 			szFnd = (gchar*)g_list_nth (ft->find_history, i)->data ;
 			if( szFnd && szFnd[0] )
-				session_save_string( p, SECTION_SEARCH, i, szFnd );
+				session_save_string_n( p, SECTION_SEARCH, i, szFnd );
 		}
 	}*/
 	return TRUE;

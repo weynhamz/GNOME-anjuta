@@ -976,6 +976,7 @@ gboolean anjuta_save_yourself (FILE * stream)
 		src_paths_save (app->src_paths, stream);
 
 	find_replace_save_yourself (app->find_replace, stream);
+    find_in_files_save_yourself (app->find_in_files, stream);
 	debugger_save_yourself (stream);
 	cvs_save_yourself(app->cvs, stream);
 	preferences_save_yourself (app->preferences, stream);
@@ -1024,6 +1025,7 @@ gboolean anjuta_load_yourself (PropsID pr)
 	src_paths_load_yourself (app->src_paths, pr);
 	src_paths_load (app->src_paths, pr);
 	find_replace_load_yourself (app->find_replace, pr);
+    find_in_files_load_yourself(app->find_in_files, pr);
 	debugger_load_yourself (pr);
 	return TRUE;
 }
