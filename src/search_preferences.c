@@ -480,7 +480,7 @@ on_setting_pref_add_clicked(GtkButton *button, gpointer user_data)
 	{
 		dialog = gtk_message_dialog_new(GTK_WINDOW (sr_dialog),
 				GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
-		        _("This name is alredady used."));
+		        _("This name is already used."));
 		gtk_dialog_run(GTK_DIALOG(dialog));
 		gtk_widget_destroy(dialog);
 		return;
