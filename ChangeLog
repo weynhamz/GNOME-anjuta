@@ -3,6 +3,8 @@
 	* src/scintilla/patches/scintilla-ac-gtk2-port.diff,
 	scintilla/PlatGTK.cxx: Ported autocomplete window to gtk2 by removing
 	GtkCList and using GtkTreeView instead. Added the patch.
+	* src/scintilla/patches/scintilla-ac-sort-fix.diff,
+	scintilla/PlatGTK.cxx: Fixes sorting bug in AC.
 	
 2003-09-19  Naba Kumar  <naba@gnome.org>
 

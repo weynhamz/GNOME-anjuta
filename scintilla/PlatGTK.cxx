@@ -2189,8 +2189,12 @@ void ListBoxX::GetValue(int n, char *value, int len) {
 void ListBoxX::Sort() {
 #if GTK_MAJOR_VERSION < 2
 	gtk_clist_sort(GTK_CLIST(list));
-#endif
-	// Column is auto-sort for gtk2.
+#else
+	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW(list));
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(model),
+										  TEXT_COLUMN, GTK_SORT_ASCENDING);
+	
+#endif	
 }
 
 // g_return_if_fail causes unnecessary compiler warning in release compile.
