@@ -2,7 +2,8 @@
 	* manuals/*: Added capability to generate PDF and PS.
 	* src/debugger.c, data/gdb.init: Solaris GDB fixes.
 	* TODO, TODO.biswa: Intergated TODO list.
-	* src/project_dbase.c: Patch by TTimo (pref saving)
+	* src/project_dbase.c: Patch by TTimo (pref saving), bug #636542
+	* src/dnd.c: Fix typo
 
 2002-12-18  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 

@@ -2604,11 +2604,19 @@ go_error:
 gboolean
 project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 {
+	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+
 	/* Now Project setup */
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
 	if (preferences_get_int (app->preferences, AUTOMATIC_TAGS_UPDATE) == 1)
 		project_dbase_update_tags_image(p, TRUE);
+	else
+	{
+		sv_populate(build_sv);
+		fv_populate(build_fv);
+	}
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
