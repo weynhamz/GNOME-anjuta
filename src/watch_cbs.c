@@ -119,12 +119,6 @@ on_watch_update_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_watch_dock_undock_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-void
 on_watch_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 

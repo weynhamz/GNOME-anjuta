@@ -140,18 +140,6 @@ on_stack_view_src_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-
-void
-on_stack_dock_undock_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	StackTrace *cr;
-	cr = debugger.stack;
-	if (cr->is_docked)
-		stack_trace_undock (cr);
-	else
-		stack_trace_dock (cr);
-}
-
 void
 on_stack_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 {

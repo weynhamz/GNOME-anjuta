@@ -43,7 +43,6 @@ struct _StackTrace
   gint current_index;
   gint current_frame;
   gboolean is_showing;
-  gboolean is_docked;
   gint win_pos_x, win_pos_y, win_width, win_height;
 };
 
@@ -68,13 +67,5 @@ gboolean stack_trace_load_yourself (StackTrace * st, PropsID props);
 void stack_trace_show (StackTrace * st);
 
 void stack_trace_hide (StackTrace * st);
-
-void stack_trace_attach (StackTrace * st);
-
-void stack_trace_detach (StackTrace * st);
-
-void stack_trace_dock (StackTrace * st);
-
-void stack_trace_undock (StackTrace * st);
 
 #endif

@@ -40,7 +40,6 @@ struct _CpuRegisters
   CpuRegistersGui  widgets;
   gint                      current_index;
   gboolean             is_showing;
-  gboolean             is_docked;
   gint             win_pos_x, win_pos_y, win_width, win_height;
 };
 
@@ -73,18 +72,6 @@ cpu_registers_show(CpuRegisters * ew);
 
 void
 cpu_registers_hide(CpuRegisters * ew);
-
-void
-cpu_registers_attach(CpuRegisters * ew);
-
-void
-cpu_registers_detach(CpuRegisters * ew);
-
-void
-cpu_registers_dock(CpuRegisters * ew);
-
-void
-cpu_registers_undock(CpuRegisters * ew);
 
 void
 registers_update_controls(CpuRegisters* ew);

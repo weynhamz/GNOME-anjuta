@@ -40,7 +40,6 @@ struct _Signals
 {
   SignalsGui  widgets;
   gboolean         is_showing;
-  gboolean         is_docked;
   gint             win_pos_x, win_pos_y, win_width, win_height;
   gint		index;
   gchar		*signal;
@@ -78,18 +77,6 @@ signals_show(Signals * ew);
 
 void
 signals_hide(Signals * ew);
-
-void
-signals_attach(Signals * ew);
-
-void
-signals_detach(Signals * ew);
-
-void
-signals_dock(Signals * ew);
-
-void
-signals_undock(Signals * ew);
 
 void
 signals_update_controls(Signals* ew);

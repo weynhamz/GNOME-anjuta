@@ -38,7 +38,6 @@ signals_new ()
   ew = g_malloc (sizeof (Signals));
   if (ew)
   {
-    ew->is_docked = FALSE;
     ew->is_showing = FALSE;
     ew->win_width = 460;
     ew->win_height = 320;
@@ -116,22 +115,14 @@ signals_show (Signals * ew)
   {
     if (ew->is_showing)
     {
-      if (ew->is_docked == FALSE)
-	gdk_window_raise (ew->widgets.window->window);
-      return;
+		gdk_window_raise (ew->widgets.window->window);
+		return;
     }
-    if (ew->is_docked)
-    {
-      signals_attach (ew);
-    }
-    else			/* Is not docked */
-    {
-      gtk_widget_set_uposition (ew->widgets.window, ew->win_pos_x,
+    gtk_widget_set_uposition (ew->widgets.window, ew->win_pos_x,
 				ew->win_pos_y);
-      gtk_window_set_default_size (GTK_WINDOW (ew->widgets.window),
+    gtk_window_set_default_size (GTK_WINDOW (ew->widgets.window),
 				   ew->win_width, ew->win_height);
-      gtk_widget_show (ew->widgets.window);
-    }
+    gtk_widget_show (ew->widgets.window);
     ew->is_showing = TRUE;
   }
 }
@@ -143,44 +134,13 @@ signals_hide (Signals * ew)
   {
     if (ew->is_showing == FALSE)
       return;
-    if (ew->is_docked == TRUE)
-    {
-      signals_detach (ew);
-    }
-    else			/* Is not docked */
-    {
-      gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
-				  &ew->win_pos_y);
-      gdk_window_get_size (ew->widgets.window->window, &ew->win_width,
-			   &ew->win_height);
-      gtk_widget_hide (ew->widgets.window);
-    }
+    gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
+		  &ew->win_pos_y);
+    gdk_window_get_size (ew->widgets.window->window, &ew->win_width,
+	   &ew->win_height);
+    gtk_widget_hide (ew->widgets.window);
     ew->is_showing = FALSE;
   }
-}
-
-void
-signals_attach (Signals * ew)
-{
-
-}
-
-void
-signals_detach (Signals * ew)
-{
-
-}
-
-void
-signals_dock (Signals * ew)
-{
-
-}
-
-void
-signals_undock (Signals * ew)
-{
-
 }
 
 gboolean
@@ -188,8 +148,7 @@ signals_save_yourself (Signals * ew, FILE * stream)
 {
 	if (!ew) return FALSE;
 
-	fprintf(stream, "signals.is.docked=%d\n", ew->is_docked);
-	if (ew->is_showing && !ew->is_docked)
+	if (ew->is_showing)
 	{
 		gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
 		      &ew->win_pos_y);
@@ -205,18 +164,12 @@ signals_save_yourself (Signals * ew, FILE * stream)
 gboolean
 signals_load_yourself (Signals * ew, PropsID props)
 {
-	gboolean dock_flag;
 	if (!ew) return FALSE;
 	
-	dock_flag = prop_get_int (props, "signals.is.docked", 0);
 	ew->win_pos_x = prop_get_int (props, "signals.win.pos.x", 460);
 	ew->win_pos_y = prop_get_int (props, "signals.win.pos.y", 320);
 	ew->win_width = prop_get_int (props, "signals.win.width", 50);
 	ew->win_height = prop_get_int (props, "signals.win.height", 130);
-	if (dock_flag)
-		signals_dock (ew);
-	else
-		signals_undock (ew);
 	return TRUE;
 }
 

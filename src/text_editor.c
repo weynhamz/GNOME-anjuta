@@ -1200,6 +1200,8 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	GtkWidget *label;
 	GtkWidget *box;
 	GtkRequisition r;
+	GtkStyle *style;
+	GdkColor color;
 	
 	g_return_val_if_fail(te != NULL, NULL);
 	
@@ -1213,7 +1215,6 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	button15 = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
 	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
-	gtk_widget_show (button15);
 	
 	close_pixmap = anjuta_res_get_pixmap_widget (te->widgets.window,
 		ANJUTA_PIXMAP_CLOSE_FILE_SMALL, FALSE);
@@ -1223,11 +1224,22 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	
 	label = gtk_label_new (te->filename);
 	gtk_widget_show (label);
-		
+	
+	color.red = 0;
+	color.green = 0;
+	color.blue = 0;
+	
+	style = gtk_widget_get_style(button15);
+	style->fg[GTK_STATE_NORMAL] = color;
+	gtk_widget_set_style(button15, style);
+	gtk_widget_show(button15);
+	
+	
 	box = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(box), button15, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(box), close_pixmap, FALSE, FALSE, 0);
+	
 	gtk_widget_show(box);
 
 	gtk_signal_connect (GTK_OBJECT (button15), "clicked",

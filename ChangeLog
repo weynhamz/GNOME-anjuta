@@ -1,3 +1,38 @@
+2002-01-21  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/registers.c
+	  src/registers.h
+	  src/registers_cbs.c
+	  src/registers_cbs.h
+	  src/registers_gui.c
+	  src/sharedlib.c
+	  src/sharedlib.h
+	  src/sharedlib_cbs.c
+	  src/sharedlib_cbs.h
+	  src/sharedlib_gui.c
+	  src/signals.c
+	  src/signals.h
+	  src/signals_cbs.c
+	  src/signals_cbs.h
+	  src/signals_gui.c
+	  src/stack_trace.c
+	  src/stack_trace.h
+	  src/stack_trace_cbs.c
+	  src/stack_trace_cbs.h
+	  src/stack_trace_gui.c
+	  src/text_editor.c
+	  src/watch.c
+	  src/watch.h
+	  src/watch_cbs.c
+	  src/watch_cbs.h
+	  src/watch_gui.c
+	  
+	  Fixed bug #496290: Attach/detach removed from these
+	  windows as they are never implemented.
+	  
+	  Patch submitted by:
+	  Johannes Schmid <johannes.schmid@gmx.de>
+	  
 2002-01-18	Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c,

@@ -60,18 +60,6 @@ on_register_update_activate            (GtkMenuItem     *menuitem,
  debugger_execute_cmd_in_queqe();
 }
 
-
-void
-on_register_dock_undock_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-   CpuRegisters *cr;
-    cr = debugger.cpu_registers;
-    if(cr->is_docked) cpu_registers_undock(cr);
-    else cpu_registers_dock(cr);
-}
-
-
 void
 on_register_help_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)

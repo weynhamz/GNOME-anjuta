@@ -53,7 +53,6 @@ stack_trace_new ()
 		st->current_index = -1;
 		st->current_frame = 0;
 		st->is_showing = FALSE;
-		st->is_docked = FALSE;
 		st->win_pos_x = 30;
 		st->win_pos_y = 200;
 		st->win_width = 400;
@@ -179,25 +178,17 @@ stack_trace_show (StackTrace * st)
 	{
 		if (st->is_showing)
 		{
-			if (st->is_docked == FALSE)
-				gdk_window_raise (st->widgets.window->window);
+			gdk_window_raise (st->widgets.window->window);
 			return;
 		}
-		if (st->is_docked)
-		{
-			stack_trace_attach (st);
-		}
-		else		/* Is not docked */
-		{
-			gtk_widget_set_uposition (st->widgets.window,
+		gtk_widget_set_uposition (st->widgets.window,
 						  st->win_pos_x,
 						  st->win_pos_y);
-			gtk_window_set_default_size (GTK_WINDOW
+		gtk_window_set_default_size (GTK_WINDOW
 						     (st->widgets.window),
 						     st->win_width,
 						     st->win_height);
-			gtk_widget_show (st->widgets.window);
-		}
+		gtk_widget_show (st->widgets.window);
 		st->is_showing = TRUE;
 	}
 }
@@ -209,45 +200,14 @@ stack_trace_hide (StackTrace * st)
 	{
 		if (st->is_showing == FALSE)
 			return;
-		if (st->is_docked == TRUE)
-		{
-			stack_trace_detach (st);
-		}
-		else		/* Is not docked */
-		{
-			gdk_window_get_root_origin (st->widgets.window->
+		gdk_window_get_root_origin (st->widgets.window->
 						    window, &st->win_pos_x,
 						    &st->win_pos_y);
-			gdk_window_get_size (st->widgets.window->window,
-					     &st->win_width, &st->win_height);
-			gtk_widget_hide (st->widgets.window);
-		}
+		gdk_window_get_size (st->widgets.window->window,
+						 &st->win_width, &st->win_height);
+		gtk_widget_hide (st->widgets.window);
 		st->is_showing = FALSE;
 	}
-}
-
-void
-stack_trace_attach (StackTrace * st)
-{
-
-}
-
-void
-stack_trace_detach (StackTrace * st)
-{
-
-}
-
-void
-stack_trace_dock (StackTrace * st)
-{
-
-}
-
-void
-stack_trace_undock (StackTrace * st)
-{
-
 }
 
 gboolean
@@ -256,8 +216,7 @@ stack_trace_save_yourself (StackTrace * st, FILE * stream)
 	if (!st)
 		return FALSE;
 
-	fprintf (stream, "stack.trace.is.docked=%d\n", st->is_docked);
-	if (st->is_showing && !st->is_docked)
+	if (st->is_showing)
 	{
 		gdk_window_get_root_origin (st->widgets.window->window,
 					    &st->win_pos_x, &st->win_pos_y);
@@ -274,19 +233,13 @@ stack_trace_save_yourself (StackTrace * st, FILE * stream)
 gboolean
 stack_trace_load_yourself (StackTrace * st, PropsID props)
 {
-	gboolean dock_flag;
 	if (!st)
 		return FALSE;
 
-	dock_flag = prop_get_int (props, "stack.trace.is.docked", 0);
 	st->win_pos_x = prop_get_int (props, "stack.trace.win.pos.x", 30);
 	st->win_pos_y = prop_get_int (props, "stack.trace.win.pos.y", 200);
 	st->win_width = prop_get_int (props, "stack.trace.win.width", 400);
 	st->win_height = prop_get_int (props, "stack.trace.win.height", 150);
-	if (dock_flag)
-		stack_trace_dock (st);
-	else
-		stack_trace_undock (st);
 	return TRUE;
 }
 

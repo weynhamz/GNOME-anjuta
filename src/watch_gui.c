@@ -64,12 +64,6 @@ static GnomeUIInfo watch_menu_uiinfo[] = {
    0, 0, NULL},
   GNOMEUIINFO_SEPARATOR,
   {
-	GNOME_APP_UI_ITEM, N_("Dock/Undock"),
-   NULL,
-   on_watch_dock_undock_activate, NULL, NULL,
-   GNOME_APP_PIXMAP_NONE, NULL,
-   0, 0, NULL},
-  {
    GNOME_APP_UI_ITEM, N_("Help"),
    NULL,
    on_watch_help_activate, NULL, NULL,

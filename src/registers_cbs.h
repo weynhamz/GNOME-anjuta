@@ -38,10 +38,6 @@ on_register_update_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_register_dock_undock_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
 on_register_help_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 gboolean

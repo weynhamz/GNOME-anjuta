@@ -41,18 +41,6 @@ on_sharedlibs_update_activate            (GtkMenuItem     *menuitem,
   debugger_execute_cmd_in_queqe();
 }
 
-
-void
-on_sharedlibs_dock_undock_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-   Sharedlibs *sl;
-    sl = debugger.sharedlibs;
-    if(sl->is_docked) sharedlibs_undock(sl);
-    else sharedlibs_dock(sl);
-}
-
-
 void
 on_sharedlibs_help_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)

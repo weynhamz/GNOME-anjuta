@@ -39,7 +39,6 @@ CpuRegisters* cpu_registers_new()
      create_cpu_registers_gui(ew);
      ew->current_index = 0;
      ew->is_showing = FALSE;
-     ew->is_docked   = FALSE;
      ew->win_pos_x = 250;
      ew->win_pos_y = 100;
      ew->win_width = 200;
@@ -89,20 +88,11 @@ cpu_registers_show(CpuRegisters* ew)
   {
      if(ew->is_showing)
      {
-          if(ew->is_docked == FALSE)
-               gdk_window_raise(ew->widgets.window->window);
-          return;
+		 gdk_window_raise(ew->widgets.window->window);
      }
-     if(ew->is_docked)
-     {
-        cpu_registers_attach(ew);
-     }
-     else    /* Is not docked */
-     {
-        gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x, ew->win_pos_y);
-        gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
-        gtk_widget_show(ew->widgets.window);
-     }
+     gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x, ew->win_pos_y);
+     gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
+     gtk_widget_show(ew->widgets.window);
      ew->is_showing = TRUE;
   }
 }
@@ -113,42 +103,11 @@ cpu_registers_hide(CpuRegisters* ew)
   if(ew)
   {
      if(ew->is_showing == FALSE) return;
-     if(ew->is_docked == TRUE)
-     {
-       cpu_registers_detach(ew);
-     }
-     else  /* Is not docked */
-     {
-        gdk_window_get_root_origin(ew ->widgets.window->window, &ew->win_pos_x, &ew->win_pos_y);
-        gdk_window_get_size(ew ->widgets.window->window, &ew->win_width, &ew->win_height);
-        gtk_widget_hide(ew->widgets.window);
-     }
+     gdk_window_get_root_origin(ew ->widgets.window->window, &ew->win_pos_x, &ew->win_pos_y);
+     gdk_window_get_size(ew ->widgets.window->window, &ew->win_width, &ew->win_height);
+     gtk_widget_hide(ew->widgets.window);
      ew->is_showing = FALSE;
   }
-}
-
-void
-cpu_registers_attach(CpuRegisters* ew)
-{
-
-}
- 
-void
-cpu_registers_detach(CpuRegisters* ew)
-{
-
-}
-
-void
-cpu_registers_dock(CpuRegisters* ew)
-{
-
-}
-
-void
-cpu_registers_undock(CpuRegisters* ew)
-{
-
 }
 
 gboolean
@@ -156,8 +115,7 @@ cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream)
 {
 	if (!ew) return FALSE;
 
-	fprintf(stream, "registers.is.docked=%d\n", ew->is_docked);
-	if (ew->is_showing && !ew->is_docked)
+	if (ew->is_showing)
 	{
 		gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
 		      &ew->win_pos_y);
@@ -173,18 +131,12 @@ cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream)
 gboolean
 cpu_registers_load_yourself(CpuRegisters* ew, PropsID props)
 {
-	gboolean dock_flag;
 	if (!ew) return FALSE;
 	
-	dock_flag = prop_get_int (props, "registers.is.docked", 0);
 	ew->win_pos_x = prop_get_int (props, "registers.win.pos.x", 250);
 	ew->win_pos_y = prop_get_int (props, "registers.win.pos.y", 100);
 	ew->win_width = prop_get_int (props, "registers.win.width", 200);
 	ew->win_height = prop_get_int (props, "registers.win.height", 300);
-	if (dock_flag)
-		cpu_registers_dock (ew);
-	else
-		cpu_registers_undock (ew);
 	return TRUE;
 }
 

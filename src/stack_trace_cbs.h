@@ -52,10 +52,6 @@ on_stack_trace_help_clicked                 (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_stack_trace_dock_clicked                 (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
 on_stack_frame_set_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -69,10 +65,6 @@ on_stack_update_activate               (GtkMenuItem     *menuitem,
 
 void
 on_stack_view_src_activate             (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_stack_dock_undock_activate                 (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void

@@ -43,13 +43,6 @@ static GnomeUIInfo sharedlibs_menu_uiinfo[] =
   },
   GNOMEUIINFO_SEPARATOR,
   {
-    GNOME_APP_UI_ITEM, N_("Dock/Undock"),
-    NULL,
-    on_sharedlibs_dock_undock_activate, NULL, NULL,
-    GNOME_APP_PIXMAP_NONE, NULL,
-    0, 0, NULL
-  },
-  {
     GNOME_APP_UI_ITEM, N_("Help"),
     NULL,
     on_sharedlibs_help_activate, NULL, NULL,

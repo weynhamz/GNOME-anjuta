@@ -45,7 +45,6 @@ struct _ExprWatch
   gint                      current_index;
   gint                      count;
   gboolean             is_showing;
-  gboolean             is_docked;
   gint                     win_pos_x, win_pos_y;
   gint                     win_width, win_height;
 };
@@ -91,18 +90,6 @@ expr_watch_show(ExprWatch * ew);
 
 void
 expr_watch_hide(ExprWatch * ew);
-
-void
-expr_watch_attach(ExprWatch * ew);
-
-void
-expr_watch_detach(ExprWatch * ew);
-
-void
-expr_watch_dock(ExprWatch * ew);
-
-void
-expr_watch_undock(ExprWatch * ew);
 
 void
 eval_output_arrived(GList *outputs, gpointer data);

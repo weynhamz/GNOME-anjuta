@@ -38,7 +38,6 @@ struct _Sharedlibs
 {
   SharedlibsGui  widgets;
   gboolean         is_showing;
-  gboolean         is_docked;
   gint             win_pos_x, win_pos_y, win_width, win_height;
 };
 
@@ -71,18 +70,6 @@ sharedlibs_show(Sharedlibs * ew);
 
 void
 sharedlibs_hide(Sharedlibs * ew);
-
-void
-sharedlibs_attach(Sharedlibs * ew);
-
-void
-sharedlibs_detach(Sharedlibs * ew);
-
-void
-sharedlibs_dock(Sharedlibs * ew);
-
-void
-sharedlibs_undock(Sharedlibs * ew);
 
 void
 sharedlibs_update_controls(Sharedlibs* ew);

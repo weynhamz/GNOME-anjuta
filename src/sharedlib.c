@@ -36,7 +36,8 @@ Sharedlibs* sharedlibs_new()
   ew = g_malloc(sizeof(Sharedlibs));
   if(ew)
   {
-     ew->win_width = 410;
+     ew->is_showing = FALSE;
+	 ew->win_width = 410;
      ew->win_height = 370;
      ew->win_pos_x = 120;
      ew->win_pos_x = 140;
@@ -87,20 +88,12 @@ sharedlibs_show(Sharedlibs* ew)
   {
      if(ew->is_showing)
      {
-          if(ew->is_docked == FALSE)
-               gdk_window_raise(ew->widgets.window->window);
-          return;
-     }
-     if(ew->is_docked)
-     {
-        sharedlibs_attach(ew);
-     }
-     else    /* Is not docked */
-     {
-        gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x, ew->win_pos_y);
-        gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
-        gtk_widget_show(ew->widgets.window);
-     }
+         gdk_window_raise(ew->widgets.window->window);
+		 return;
+	 }
+     gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x, ew->win_pos_y);
+     gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
+     gtk_widget_show(ew->widgets.window);
      ew->is_showing = TRUE;
   }
 }
@@ -111,42 +104,11 @@ sharedlibs_hide(Sharedlibs* ew)
   if(ew)
   {
      if(ew->is_showing == FALSE) return;
-     if(ew->is_docked == TRUE)
-     {
-       sharedlibs_detach(ew);
-     }
-     else  /* Is not docked */
-     {
-        gdk_window_get_root_origin(ew ->widgets.window->window, &ew->win_pos_x, &ew->win_pos_y);
-        gdk_window_get_size(ew ->widgets.window->window, &ew->win_width, &ew->win_height);
-        gtk_widget_hide(ew->widgets.window);
-     }
+     gdk_window_get_root_origin(ew ->widgets.window->window, &ew->win_pos_x, &ew->win_pos_y);
+     gdk_window_get_size(ew ->widgets.window->window, &ew->win_width, &ew->win_height);
+     gtk_widget_hide(ew->widgets.window);
      ew->is_showing = FALSE;
   }
-}
-
-void
-sharedlibs_attach(Sharedlibs* ew)
-{
-
-}
- 
-void
-sharedlibs_detach(Sharedlibs* ew)
-{
-
-}
-
-void
-sharedlibs_dock(Sharedlibs* ew)
-{
-
-}
-
-void
-sharedlibs_undock(Sharedlibs* ew)
-{
-
 }
 
 gboolean
@@ -154,8 +116,7 @@ sharedlibs_save_yourself(Sharedlibs* ew, FILE* stream)
 {
 	if (!ew) return FALSE;
 
-	fprintf(stream, "sharedlibs.is.docked=%d\n", ew->is_docked);
-	if (ew->is_showing && !ew->is_docked)
+	if (ew->is_showing)
 	{
 		gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
 		      &ew->win_pos_y);
@@ -171,18 +132,12 @@ sharedlibs_save_yourself(Sharedlibs* ew, FILE* stream)
 gboolean
 sharedlibs_load_yourself(Sharedlibs* ew, PropsID props)
 {
-	gboolean dock_flag;
 	if (!ew) return FALSE;
 	
-	dock_flag = prop_get_int (props, "sharedlibs.is.docked", 0);
 	ew->win_pos_x = prop_get_int (props, "sharedlibs.win.pos.x", 410);
 	ew->win_pos_y = prop_get_int (props, "sharedlibs.win.pos.y", 370);
 	ew->win_width = prop_get_int (props, "sharedlibs.win.width", 120);
 	ew->win_height = prop_get_int (props, "sharedlibs.win.height", 140);
-	if (dock_flag)
-		sharedlibs_dock (ew);
-	else
-		sharedlibs_undock (ew);
 	return TRUE;
 }
 

@@ -93,18 +93,6 @@ on_signals_update_activate            (GtkMenuItem     *menuitem,
  debugger_execute_cmd_in_queqe();
 }
 
-
-void
-on_signals_dock_undock_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-   Signals *cr;
-    cr = debugger.signals;
-    if(cr->is_docked) signals_undock(cr);
-    else signals_dock(cr);
-}
-
-
 void
 on_signals_help_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data)

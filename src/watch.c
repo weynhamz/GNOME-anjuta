@@ -42,7 +42,6 @@ expr_watch_new ()
     ew->exprs = NULL;
     ew->count = ew->current_index = 0;
     ew->is_showing = FALSE;
-    ew->is_docked = FALSE;
     ew->win_pos_x = 20;
     ew->win_pos_y = 325;
     ew->win_width = 400;
@@ -175,79 +174,40 @@ expr_watch_show (ExprWatch * ew)
   {
     if (ew->is_showing)
     {
-      if (ew->is_docked == FALSE)
-	gdk_window_raise (ew->widgets.window->window);
-      return;
+		gdk_window_raise (ew->widgets.window->window);
+		return;
     }
-    if (ew->is_docked)
-    {
-      expr_watch_attach (ew);
-    }
-    else			/* Is not docked */
-    {
-      gtk_widget_set_uposition (ew->widgets.window, ew->win_pos_x,
+    gtk_widget_set_uposition (ew->widgets.window, ew->win_pos_x,
 				ew->win_pos_y);
-      gtk_window_set_default_size (GTK_WINDOW (ew->widgets.window),
+    gtk_window_set_default_size (GTK_WINDOW (ew->widgets.window),
 				   ew->win_width, ew->win_height);
-      gtk_widget_show (ew->widgets.window);
-    }
+    gtk_widget_show (ew->widgets.window);
     ew->is_showing = TRUE;
-  }
+	}
 }
 
 void
 expr_watch_hide (ExprWatch * ew)
 {
-  if (ew)
-  {
-    if (ew->is_showing == FALSE)
-      return;
-    if (ew->is_docked == TRUE)
-    {
-      expr_watch_detach (ew);
-    }
-    else			/* Is not docked */
-    {
-      gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
-				  &ew->win_pos_y);
-      gdk_window_get_size (ew->widgets.window->window, &ew->win_width,
-			   &ew->win_height);
-      gtk_widget_hide (ew->widgets.window);
-    }
-    ew->is_showing = FALSE;
-  }
-}
-
-void
-expr_watch_attach (ExprWatch * ew)
-{
-
-}
-
-void
-expr_watch_detach (ExprWatch * ew)
-{
-
-}
-
-void
-expr_watch_dock (ExprWatch * ew)
-{
-
-}
-
-void
-expr_watch_undock (ExprWatch * ew)
-{
-
+	if (ew)
+	{
+		if (ew->is_showing == FALSE)
+			return;
+		gdk_window_get_root_origin (ew->widgets.window->
+						    window, &ew->win_pos_x,
+						    &ew->win_pos_y);
+		gdk_window_get_size (ew->widgets.window->window,
+						 &ew->win_width, &ew->win_height);
+		gtk_widget_hide (ew->widgets.window);
+		ew->is_showing = FALSE;
+	}
 }
 
 gboolean expr_watch_save_yourself (ExprWatch * ew, FILE * stream)
 {
 	if (!ew) return FALSE;
 
-	fprintf(stream, "expr.watch.is.docked=%d\n", ew->is_docked);
-	if (ew->is_showing && !ew->is_docked)
+	if (ew->is_showing)
 	{
 		gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
 		      &ew->win_pos_y);
@@ -262,18 +222,12 @@ gboolean expr_watch_save_yourself (ExprWatch * ew, FILE * stream)
 
 gboolean expr_watch_load_yourself (ExprWatch * ew, PropsID props)
 {
-	gboolean dock_flag;
 	if (!ew) return FALSE;
 	
-	dock_flag = prop_get_int (props, "expr.watch.is.docked", 0);
 	ew->win_pos_x = prop_get_int (props, "expr.watch.win.pos.x", 20);
 	ew->win_pos_y = prop_get_int (props, "expr.watch.win.pos.y", 323);
 	ew->win_width = prop_get_int (props, "expr.watch.win.width", 400);
 	ew->win_height = prop_get_int (props, "expr.watch.win.height", 120);
-	if (dock_flag)
-		expr_watch_dock (ew);
-	else
-		expr_watch_undock (ew);
 	return TRUE;
 }
 
