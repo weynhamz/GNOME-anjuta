@@ -1,5 +1,10 @@
 2003-04-15  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* scintilla/*, data/properties/*: Scintilla CVS merge
+	* anjuta.prj: Removed unnecessary files.
+	* scintilla/PlatGTK.cxx: Force Pango fonts always
+	* src/anjuta-plugins.c, src/anjuta_dirs.c, src/main.c,
+	src/mainmenu_callbacks.c src/preferences.c: Use versionsed directory
+	for preferences.
 
 2003-04-15  Naba Kumar  <naba@gnome.org>
 
