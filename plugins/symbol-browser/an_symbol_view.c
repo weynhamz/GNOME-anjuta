@@ -280,7 +280,8 @@ sv_create (AnjutaSymbolView * sv)
 				    G_TYPE_STRING, ANJUTA_TYPE_SYMBOL_INFO, G_TYPE_POINTER);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (sv), GTK_TREE_MODEL (store));
-	/* gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (sv), TRUE); */
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv), FALSE);
+	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 

@@ -881,7 +881,8 @@ fv_init (FileManagerPlugin *fv)
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (fv->scrolledwindow);
-
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (fv->scrolledwindow),
+										 GTK_SHADOW_IN);
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMNS_NB,
 								GDK_TYPE_PIXBUF,
@@ -892,7 +893,8 @@ fv_init (FileManagerPlugin *fv)
 								compare_iter, fv, NULL);
 
 	fv->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-	/* gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (fv->tree), TRUE); */
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (fv->tree), FALSE);
+	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (fv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (fv->scrolledwindow), fv->tree);

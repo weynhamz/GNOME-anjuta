@@ -788,9 +788,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv_tree),
 							   (gpointer*)&sv_plugin->sv_tree);
 
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv_tree),
-									   TRUE);
-
 	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "event-after",
 					  G_CALLBACK (on_treeview_event), plugin);
 	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "row_activated",
