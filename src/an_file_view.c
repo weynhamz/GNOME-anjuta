@@ -359,6 +359,16 @@ fv_on_event (GtkWidget *widget,
 
 			return TRUE;
 		}
+	} else if (event->type == GDK_KEY_PRESS) {
+		GdkEventKey *e = (GdkEventKey *) event;
+
+		switch (e->keyval) {
+			case GDK_Return:
+				if (!gtk_tree_model_iter_has_child (model, &iter))
+					anjuta_fv_open_file (fv->curr_entry->path, TRUE);
+
+				break;
+		}
 	}
 
 	return FALSE;
@@ -373,21 +383,25 @@ fv_disconnect ()
 }
 
 static void
-on_file_view_row_expanded (GtkTreeView *view
+on_file_view_row_expanded (GtkTreeView *view,
 			   GtkTreeIter *iter,
 			   GtkTreePath *path)
 {
-	gtk_tree_store_set (store, &iter,
+	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
+
+	gtk_tree_store_set (store, iter,
 			    PIXBUF_COLUMN, fv_pixbufs[fv_ofolder_t],
 			    -1);
 }
 
 static void
-on_file_view_row_collapsed (GtkTreeView *view
+on_file_view_row_collapsed (GtkTreeView *view,
 			   GtkTreeIter *iter,
 			   GtkTreePath *path)
 {
-	gtk_tree_store_set (store, &iter,
+	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
+
+	gtk_tree_store_set (store, iter,
 			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
 			    -1);
 }
@@ -493,7 +507,7 @@ fv_add_tree_entry (TMFileEntry *entry,
 	if (tm_file_dir_t != entry->type || !entry->children)
 		return;
 
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (fv->tree));
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree)));
 
 	gtk_tree_store_append (store, &iter, &parent);
 	gtk_tree_store_set (store, &iter,
