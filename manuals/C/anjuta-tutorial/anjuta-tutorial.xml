@@ -141,7 +141,7 @@
 
 <!-- ============= Designing the Interface ==================== -->
 <sect1 id="interface">
-  <title>Desingning the Interface </title>
+  <title>Designing the Interface </title>
 	<para>
 		After the wizard is complete, <application>Anjuta</application> takes some time to create the directory structure of your project, to run the configuration scripts and to create the project files etc. You can view the processes in the lower half of the <application>Anjuta</application> environment. After this is complete, the left half of your screen shows the Project tree which contain your source files, documentation files and pixmap files.
 	</para>
