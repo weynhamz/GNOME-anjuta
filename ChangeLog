@@ -1,8 +1,9 @@
 2004-11-28  Jean-Noel GUIHENEUF <guiheneuf.jean-noel@wanadoo.fr>
 	
 	* plugins/editor/anjuta-document-manager.glade,
-	  plugins/editor/search-replace.[c,h], plugins/editor/search-replace.c
-	  plugins/editor/search-replace.[c,h] :
+	  plugins/editor/search-replace.[c,h], 
+	  plugins/editor/search-replace_backend.h
+	  plugins/editor/search-preferences.[c,h] :
 	  Saved Search-Preferences (gconf),
 	  Basic search by default.
 
