@@ -498,7 +498,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	GTK_WIDGET_SET_FLAGS (button10, GTK_CAN_DEFAULT);
 
 	gnome_dialog_append_button (GNOME_DIALOG (dialog2),
-				    "Replace");
+				    _("Replace"));
 	button11 = g_list_last (GNOME_DIALOG (dialog2)->buttons)->data;
 	gtk_widget_show (button11);
 	GTK_WIDGET_SET_FLAGS (button11, GTK_CAN_DEFAULT);
@@ -703,3 +703,4 @@ on_replace_text_close (GtkWidget * widget,
 	return FALSE;
 }
 */
+

@@ -193,7 +193,7 @@ create_find_in_files_gui (FindInFiles *sf)
   gtk_widget_show (button8);
   GTK_WIDGET_SET_FLAGS (button8, GTK_CAN_DEFAULT);
 
-  gnome_dialog_append_button (GNOME_DIALOG (dialog3), "Find");
+  gnome_dialog_append_button (GNOME_DIALOG (dialog3), _("Find"));
   button9 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
   gtk_widget_show (button9);
   GTK_WIDGET_SET_FLAGS (button9, GTK_CAN_DEFAULT);
@@ -246,3 +246,4 @@ create_find_in_files_gui (FindInFiles *sf)
 
 	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window), GTK_WINDOW(app->widgets.window));
 }
+

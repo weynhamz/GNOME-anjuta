@@ -16,6 +16,10 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
 
@@ -312,3 +316,4 @@ create_import_wizard_page_finish (ProjectImportWizard * piw)
 {
 	piw->widgets.page[6] = create_project_finish_page(GNOME_DRUID(piw->widgets.druid));
 }
+

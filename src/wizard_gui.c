@@ -17,6 +17,10 @@
 
 /* Here is the code stored which is shared between appwizard and importwizard */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include "wizard_gui.h"
 #include "anjuta.h"
 #include "pixmaps.h"
@@ -796,3 +800,4 @@ create_project_finish_page (GnomeDruid * druid)
 
 	return page;
 }
+

@@ -16,6 +16,10 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -325,3 +329,4 @@ project_import_save_values (ProjectImportWizard * piw)
 	// Do not allow anjuta to change Makefiles
 	prop_set_with_key (p->props, "project.config.blocked", "1");
 }
+

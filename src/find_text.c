@@ -391,7 +391,7 @@ create_find_text_gui (FindText * ft)
 	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
 
 	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    "Find");
+				    _("Find"));
 	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
 	gtk_widget_show (button3);
 	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
@@ -603,3 +603,4 @@ gchar *selectionText = NULL;
                g_free (selectionText);
        }       
 }
+

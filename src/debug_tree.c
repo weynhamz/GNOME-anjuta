@@ -21,6 +21,10 @@
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
 #include <string.h>
 #include <ctype.h>
 #include "debug_tree.h"
@@ -116,7 +120,7 @@ static GtkStyle *style_normal;
 /* @param: title - title of tree root */
 DebugTree * debug_tree_create (GtkWidget * container)
 {
-	gchar *tree_title[] = { "Variable", "Value" };
+	gchar *tree_title[] = { _("Variable"), _("Value") };
 	DebugTree *d_tree = g_malloc (sizeof (DebugTree));
 	d_tree->tree = gtk_ctree_new_with_titles (2, 0, tree_title);
 
@@ -1451,4 +1455,5 @@ void on_inspect_memory_clicked(GtkMenuItem* menu_item, gpointer data)
     g_free(hexa);
   }
 }
+
 
