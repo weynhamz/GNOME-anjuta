@@ -61,6 +61,7 @@ struct _TrimmableItem
 	gboolean expandable;
 	gboolean expanded;
 	gboolean analyzed;
+	gboolean modified;
 	gint display_type;	
 };
 

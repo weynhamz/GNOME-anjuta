@@ -305,8 +305,8 @@ GtkWidget * anjuta_util_toolbar_append_button (GtkWidget *toolbar,
 											   gpointer user_data);
 GtkWidget *
 anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
-								  const gchar *label, const gchar *tooltip,
-								  GtkSignalFunc callback, gpointer user_data);
+								  const gchar *tooltip, GtkSignalFunc callback, 
+								  gpointer user_data);
 
 GtkWidget*
 anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text,

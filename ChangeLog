@@ -1,5 +1,24 @@
+2003-09-24  Pavol Bosik  <bosikp@frcatel.fri.utc.sk>
+
+	Reviewed by 2003-09-24  Naba Kumar  <naba@gnome.org>
+  	* src/debug_tree.c, src/debug_tree.h: Fixed color of modified
+	variables in Locals window.
+
+2003-09-24  Frederic RUAUDEL <grumz@users.sourceforge.net>
+
+	Reviewed by 2003-09-24  Naba Kumar  <naba@gnome.org>
+	* src/utilities.[ch] : Fix a tooltip bug in 
+	anjuta_util_toolbar_append_stock(), the label appeared instead of
+	the tooltip text. Remove label from arguments of the function
+	because label is included in the stock icon data.
+	* src/toolbar.c : Fix call to anjuta_util_toolbar_append_stock().
+	* src/text_editor_gui.c : Fix call to anjuta_util_toolbar_append_stock().
+	* FIXME: translation file should be updated because of label text removal.
+
 2003-09-24  Naba Kumar  <naba@gnome.org>
 
+	* scintilla/PlatGTK.cxx: Fixed font setting in widget style.
+	
 	* src/launcher.[c,h], plugins/patch/patch-plugin.c, src/anjuta-tools.c,
 	src/build_file.c, src/cvs.c, src/find_in_files.c, src/gnome_project.c,
 	src/project-import.c, src/anjuta.c: Implemented buffered outputs for

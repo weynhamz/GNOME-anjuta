@@ -1810,14 +1810,14 @@ anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
 
 GtkWidget *
 anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
-					   const gchar *label, const gchar *tooltip,
-					   GtkSignalFunc callback, gpointer user_data)
+								const gchar *tooltip, GtkSignalFunc callback, 
+								gpointer user_data)
 {
 	GtkWidget *item;
 	item =
 		gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
 					    stock_icon,
-					    label, tooltip,
+					    tooltip, NULL,
 					    callback, user_data, -1);
 	gtk_widget_ref (item);
 	gtk_widget_show (item);

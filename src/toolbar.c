@@ -72,32 +72,32 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	//gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 #endif
 	toolbar->novus = 
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, _("New"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, 
 							  _("New file"),
 							  G_CALLBACK (on_toolbar_new_clicked), NULL);
 	toolbar->open = 
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_OPEN, _("Open"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_OPEN, 
 							  _("Open file"),
 							  G_CALLBACK (on_toolbar_open_clicked), NULL);
 	toolbar->save = 
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_SAVE, _("Save"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_SAVE, 
 							  _("Save current file"),
 							  G_CALLBACK (on_toolbar_save_clicked), NULL);
 	toolbar->reload =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REVERT_TO_SAVED, _("Reload"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REVERT_TO_SAVED, 
 						   _("Reload current file"),
 						   G_CALLBACK (on_toolbar_reload_clicked), NULL);
 	toolbar->close =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CLOSE, _("Close"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CLOSE, 
 						   _("Close current file"),
 						   G_CALLBACK (on_toolbar_close_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 	toolbar->undo =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_UNDO, _("Undo"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_UNDO, 
 						   _("Undo the last action"),
 						   G_CALLBACK (on_toolbar_undo_clicked), NULL);
 	toolbar->redo =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REDO, _("Redo"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REDO, 
 						   _("Redo the last undone action"),
 						   G_CALLBACK (on_toolbar_redo_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
@@ -106,12 +106,12 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 						   _("Detach the current page"),
 						   G_CALLBACK (on_toolbar_detach_clicked), NULL);
 	toolbar->print =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, _("Print"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, 
 						   _("Print the current file"),
 						   G_CALLBACK (on_toolbar_print_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 	toolbar->find =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, _("Find"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, 
 						   _("Search for the given string in the current file"),
 						   G_CALLBACK (on_toolbar_find_clicked), NULL);
 
@@ -132,7 +132,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 	toolbar->go_to =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_JUMP_TO, _("Go To"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_JUMP_TO, 
 						   _("Go to the given line number in the current file"),
 						   G_CALLBACK (on_toolbar_goto_clicked), NULL);
 
@@ -156,7 +156,6 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 	toolbar->help =
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_HELP,
-						   _("Help"),
 						   _("Context sensitive help"),
 						   G_CALLBACK (on_toolbar_help_clicked), NULL);
 	
@@ -291,7 +290,6 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 
 	toolbar_exec =
 		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_EXECUTE,
-										  _("Execute"),
 										  _("Execute the program"),
 										  NULL, NULL);
 	gtk_widget_ref (toolbar_exec);
@@ -310,7 +308,6 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 
 	toolbar_stop =
 		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_STOP,
-										  _("Stop"),
 										  _("Stop/interrupt compile or build"),
 										  NULL, NULL);
 	gtk_widget_ref (toolbar_stop);
@@ -387,26 +384,22 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 
 	toolbar->first_bookmark =
 		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GOTO_FIRST,
-						   _("First"),
 						   _("Goto first bookmark in this document"),
 						   G_CALLBACK (on_browser_first_bookmark_clicked),
 						   NULL);
 	
 	toolbar->prev_bookmark =
 		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GO_BACK,
-						   _("Prev"),
 						   _("Goto previous bookmark in this document"),
 						   G_CALLBACK (on_browser_prev_bookmark_clicked),
 						   NULL);
 	toolbar->next_bookmark =
 		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GO_FORWARD,
-						   _("Next"),
 						   _("Goto next bookmark in this document"),
 						   G_CALLBACK (on_browser_next_bookmark_clicked),
 						   NULL);
 	toolbar->last_bookmark =
 		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_GOTO_LAST,
-						   _("Last"),
 						   _("Goto last bookmark in this document"),
 						   G_CALLBACK (on_browser_last_bookmark_clicked),
 						   NULL);
@@ -456,7 +449,6 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	toolbar->tag =
 		anjuta_util_toolbar_append_stock (toolbar2,
 						   GTK_STOCK_JUMP_TO,
-						   _("Goto Tag"),
 						   _("Search for the given tag in the current file"),
 						   G_CALLBACK (on_toolbar_tag_clicked), NULL);
 

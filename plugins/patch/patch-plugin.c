@@ -184,13 +184,12 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	an_message_manager_append (app->messages,
 			_("Patching...\n"), MESSAGE_BUILD);
 
-	g_signal_connect (app->launcher, "output-arrived",
-					  G_CALLBACK (on_msg_arrived), NULL);
 	g_signal_connect (app->launcher, "child-exited",
 					  G_CALLBACK (on_patch_terminated), NULL);
 	
 	if (!anjuta_launcher_is_busy (app->launcher))
-		anjuta_launcher_execute (app->launcher, command->str);
+		anjuta_launcher_execute (app->launcher, command->str,
+								 on_msg_arrived, NULL);
 	else
 		gnome_ok_dialog (
 			_("There are unfinished jobs, please wait until they are finished"));
@@ -218,9 +217,6 @@ static void on_patch_terminated (AnjutaLauncher *launcher,
 								 gint child_pid, gint status, gulong time_taken,
 								 gpointer data)
 {
-	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
-										  G_CALLBACK (on_msg_arrived),
-										  NULL);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_patch_terminated),
 										  NULL);

@@ -93,51 +93,49 @@ create_text_editor_gui (TextEditor * te)
 	gtk_container_add (GTK_CONTAINER (dock_item1), toolbar1);
 	
 	te->buttons.novus = 
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, _("New"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, 
 							  _("New file"),
 							  G_CALLBACK (on_new_file1_activate), te);
 	te->buttons.open = 
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_OPEN, _("Open"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_OPEN, 
 							  _("Open file"),
 							  G_CALLBACK (on_open1_activate), te);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	te->buttons.save = 
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_SAVE, _("Save"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_SAVE, 
 							  _("Save current file"),
 							  G_CALLBACK (on_save1_activate), te);
 	te->buttons.reload =
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REVERT_TO_SAVED,
-						   _("Reload"),
 						   _("Reload current file"),
 						   G_CALLBACK (on_reload_file1_activate), te);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	te->buttons.cut =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CUT, _("Cut"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CUT, 
 						   _("Cut to clipboard"),
 						   G_CALLBACK (on_editor_command_activate),
 						   (gpointer) ANE_CUT);
 	te->buttons.copy =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_COPY, _("Copy"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_COPY, 
 						   _("Copy to clipboard"),
 						   G_CALLBACK (on_editor_command_activate),
 						   (gpointer) ANE_COPY);
 	te->buttons.paste =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PASTE, _("Paste"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PASTE, 
 						   _("Paste from clipboard"),
 						   G_CALLBACK (on_editor_command_activate),
 						   (gpointer) ANE_PASTE);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	te->buttons.find =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, _("Find"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, 
 						   _("Search string"),
 						   G_CALLBACK (on_find1_activate), te);
 	te->buttons.replace =
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND_AND_REPLACE,
-						   _("Replace"),
 						   _("Search and replace string"),
 						   G_CALLBACK (on_find_and_replace1_activate), te);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
@@ -165,17 +163,17 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	te->buttons.compile =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CONVERT, _("Compile"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CONVERT, 
 						   _("Compile the current file"),
 						   G_CALLBACK (on_compile1_activate), te);
 	te->buttons.build =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_EXECUTE, _("Build"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_EXECUTE, 
 						   _("Build current file or the source directory of the Project"),
 						   G_CALLBACK (on_build_project1_activate), te);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	te->buttons.print =
-		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, _("Print"),
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, 
 						   _("Print the current file"),
 						   G_CALLBACK (anjuta_print_cb), te);
 	te->buttons.attach =

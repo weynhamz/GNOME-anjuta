@@ -102,6 +102,9 @@ enum {
 	N_COLUMNS
 };
 
+static gchar *tree_title[] = {
+	N_("Variable"), N_("Value")
+};
 
 /* build a menu item for the middle-click button @param menutext text to
  * display on the menu item @param signalhandler signal handler for item
@@ -808,6 +811,7 @@ set_data (GtkTreeView * ctree, GtkTreeIter* iter, DataType dataType,
 	{
 		data = g_new (TrimmableItem, 1);
 		data->display_type = FORMAT_DEFAULT;
+		data->modified = FALSE;
 		gtk_tree_store_set(GTK_TREE_STORE(model), iter,
 						   DTREE_ENTRY_COLUMN, data, -1);		
 	}
@@ -872,9 +876,9 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 			gchar *val = g_strdup (value);	/* copy value - orig to be
 											 * deleted by caller */
 			/* Set red color if var modified */
-			if (g_strcasecmp (value, data->value) != 0)				
-				val=g_strconcat("<span color=\"red\">", val ,"</span>", NULL);
-				gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
+			data->modified =
+					(g_strcasecmp (value, data->value) != 0) ? TRUE : FALSE;
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
 								   VALUE_COLUMN, val,-1);
 		}
 		expanded = TRUE;
@@ -1178,31 +1182,18 @@ skip_next_token_start (gchar * buf)
 	return buf;
 }
 
-/*static void
-init_style (GtkCTree * ctree)
-{
-	GdkColor red = { 16, -1, 0, 0 };
-
-	style_normal = gtk_style_copy (gtk_widget_get_style (GTK_WIDGET (ctree)));
-	style_red = gtk_style_copy (style_normal);
-	style_red->fg[GTK_STATE_NORMAL] = red;
-}
-*/
-
 static void
 debug_tree_init (DebugTree * d_tree)
 {
 	GtkTreeModel* model;
 	GtkTreeIter iter;
-	static const gchar* var_name = "Local Variables";
+	gchar* var_name = _("Local Variables");
 	static const gchar* value = "";
 
 	g_return_if_fail (d_tree);
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));		
 	
-	/* init_style (GTK_CTREE (d_tree->tree)); */
-
 	gtk_tree_store_append(GTK_TREE_STORE(model), &iter, NULL);
 	gtk_tree_store_set(GTK_TREE_STORE(model), &iter, VARIABLE_COLUMN, var_name
 						, VALUE_COLUMN, value, -1);
@@ -1440,6 +1431,26 @@ debug_tree_parse_variables (DebugTree * d_tree, GList * list)
 	gtk_tree_path_free(path);
 }
 
+static void
+debug_tree_cell_data_func (GtkTreeViewColumn *tree_column,
+					GtkCellRenderer *cell, GtkTreeModel *tree_model,
+					GtkTreeIter *iter, gpointer data)
+{
+	gchar *value;
+	static const gchar *colors[] = {"black", "red"};
+	GValue gvalue = {0, };
+	TrimmableItem *item_data;
+
+	gtk_tree_model_get (tree_model, iter, VALUE_COLUMN, &value, -1);
+	g_value_init (&gvalue, G_TYPE_STRING);
+	g_value_set_static_string (&gvalue, value);
+	g_object_set_property (G_OBJECT (cell), "text", &gvalue);
+
+	gtk_tree_model_get (tree_model, iter, DTREE_ENTRY_COLUMN, &item_data, -1);
+	g_value_reset (&gvalue);
+	g_value_set_static_string (&gvalue, colors[item_data->modified ? 1 : 0]);
+	g_object_set_property (G_OBJECT (cell), "foreground", &gvalue);
+}
 
 /* return a pointer to a newly allocated DebugTree object */
 DebugTree *
@@ -1469,16 +1480,17 @@ debug_tree_create ()
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",	VARIABLE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Variable"));
+	gtk_tree_view_column_set_title (column, _(tree_title[0]));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (d_tree->tree), column);
 
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text", VALUE_COLUMN);
+	gtk_tree_view_column_set_cell_data_func (column, renderer,
+					debug_tree_cell_data_func, NULL, NULL);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Value"));
+	gtk_tree_view_column_set_title (column, _(tree_title[1]));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);
 
 	debug_tree_init (d_tree);
