@@ -319,13 +319,14 @@ install_as_root (GtkWidget* button, gpointer data)
 				("Unable to install Project. Check Settings->Commands."));
 		return;
 	}
-	cmd = g_strconcat ("su --command='", build_cmd, "'", NULL);
-	g_free(build_cmd);
 	
 	chdir (app->project_dbase->top_proj_dir);
 	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 	
-	cmd = prepare_build(cmd);
+	build_cmd = prepare_build(build_cmd);
+	
+	cmd = g_strconcat ("su --command='", build_cmd, "'", NULL);
+	g_free(build_cmd);
 
 	anjuta_update_app_status (TRUE, _("Install Project"));
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
