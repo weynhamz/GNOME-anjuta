@@ -1,0 +1,25 @@
+<library-template>
+	<name>GLib</name>
+	<description>
+	GLib is the low-level core library that forms the basis of 
+	GTK+ and GNOME. It provides data structure handling for C, 
+	portability wrappers, and interfaces for such runtime functionality
+	as an event loop, threads, dynamic loading, and an object system.
+	</description>
+	<version>2.0</version>
+	<language>C</language>
+	<autotools>
+		<autoconf>
+			<pkgconfig>
+				<package>glib-2.0</package>
+				<pkgversion>2.0</pkgversion>
+			</pkgconfig>
+			<pkgconfig>
+				<package>Test</package>
+				<pkgversion>1.0</pkgversion>
+			</pkgconfig>
+		</autoconf>
+		<automake>
+		</automake>
+	</autotools>
+</library-template>

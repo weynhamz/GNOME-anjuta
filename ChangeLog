@@ -1,3 +1,10 @@
+2004-02-08  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* template/*: Added new xml based template system
+	* template/dtds/*: Dtds to validate xml files of the template systems
+	* data/template/*: Some sample template files
+	Still needs some work but builds fine!
+
 2004-01-06  Naba Kumar  <naba@gnome.org>
 
 	* cofigure.in, manuals/Makefile.am,

@@ -1,0 +1,14 @@
+<language-template>
+	<name>C</name>
+	<description>The C Programming Language</description>
+	<autotools>
+		<autoconf>
+			<macros>AC_PROG_CC</macros>
+			<macros>AC_PROG_CPP</macros>
+			<macros>AC_ISC_POSIX</macros>
+			<macros>AC_HEADER_STDC</macros>
+		</autoconf>
+		<automake>
+		</automake>
+	</autotools>
+</language-template>

@@ -1,0 +1,15 @@
+<project-template>
+	<name>Terminal</name>
+	<description>Terminal based project</description>
+	<language>C</language>
+	<target>exec</target>
+	<libs></libs>
+	<autotools>
+		<autoconf>
+		</autoconf>
+		<automake>
+		</automake>
+	</autotools>
+	<init_script>test.sh</init_script>
+	<init_tarball>test.tar.gz</init_tarball>
+</project-template>

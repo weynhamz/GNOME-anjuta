@@ -1,0 +1,9 @@
+<!ELEMENT autotools (autoconf, automake)>
+	<!ELEMENT autoconf (macros*, pkgconfig*)>
+		<!ELEMENT macros (#PCDATA)>
+		<!ELEMENT pkgconfig (package, pkgversion)>
+			<!ELEMENT package (#PCDATA)>
+			<!ELEMENT pkgversion (#PCDATA)>
+	<!ELEMENT automake (include, ldpath, ldadd)*>
+		<!ELEMENT include (#PCDATA)>
+		<!ELEMENT ldadd (#PCDATA)>

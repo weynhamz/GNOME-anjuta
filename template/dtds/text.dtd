@@ -1,0 +1,5 @@
+<!ELEMENT text-template (name, description, language, content)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT description (#PCDATA)>
+	<!ELEMENT language (#PCDATA)>
+	<!ELEMENT content (#PCDATA)>

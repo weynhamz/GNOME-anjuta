@@ -1,0 +1,12 @@
+<!ENTITY % atools SYSTEM "autotools.dtd">
+%atools;
+<!ELEMENT project-template (name, description, language, target, 
+		autotools, libs, init_script, init_tarball)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT description (#PCDATA)>
+	<!ELEMENT language (#PCDATA)>
+	<!ELEMENT target (#PCDATA)>
+	<!ELEMENT libs (library)*>
+		<!ELEMENT library (#PCDATA)>
+	<!ELEMENT init_script (#PCDATA)>
+	<!ELEMENT init_tarball (#PCDATA)>

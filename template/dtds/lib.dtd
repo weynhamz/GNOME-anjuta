@@ -1,0 +1,7 @@
+<!ENTITY % autotools SYSTEM "autotools.dtd" >
+%autotools;
+<!ELEMENT library-template (name, description, version, language, autotools)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT description (#PCDATA)>
+	<!ELEMENT version (#PCDATA)>
+	<!ELEMENT language (#PCDATA)>

@@ -605,6 +605,7 @@ plugins/class-gen/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile
+template/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile
