@@ -1,3 +1,11 @@
+2004-01-06  Naba Kumar  <naba@gnome.org>
+
+	* cofigure.in, manuals/Makefile.am,
+	(added) manuals/reference/*: Added API documentation
+	structure (gtk-doc based).
+
+	* libanjuta/libanjuta.h: Updated
+	
 2004-01-05  Naba Kumar  <naba@gnome.org>
 	
 	* configure.in: Sets correct dependencies and

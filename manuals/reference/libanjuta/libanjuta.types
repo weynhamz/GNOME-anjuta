@@ -1,0 +1,5 @@
+#include <libanjuta/libanjuta.h>
+
+anjuta_plugin_get_type
+anjuta_shell_get_type
+anjuta_preferences_get_type

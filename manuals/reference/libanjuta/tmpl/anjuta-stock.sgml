@@ -1,0 +1,205 @@
+<!-- ##### SECTION Title ##### -->
+anjuta-stock
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO ANJUTA_STOCK_UNDOCK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_MESSAGES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_TOGGLE_BOOKMARK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_PREV_MESSAGE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_NEXT_MESSAGE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_PREV_BRACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_NEXT_BRACE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BLOCK_START ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BLOCK_END ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_COMPILE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BUILD ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BUILD_ALL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_CONFIGURE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_DEBUG ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_OPEN_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_CLOSE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_SAVE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_FOLD_TOGGLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_FOLD_OPEN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_FOLD_CLOSE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_BLOCK_SELECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_INDENT_INC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_INDENT_DCR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_INDENT_AUTO ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_AUTOFORMAT_SETTINGS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_STOCK_AUTOCOMPLETE ##### -->
+<para>
+
+</para>
+
+
+

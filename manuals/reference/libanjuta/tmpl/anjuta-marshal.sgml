@@ -1,0 +1,82 @@
+<!-- ##### SECTION Title ##### -->
+anjuta-marshal
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO anjuta_cclosure_marshal_VOID__BOOLEAN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION anjuta_cclosure_marshal_VOID__INT_STRING ##### -->
+<para>
+
+</para>
+
+@closure: 
+@return_value: 
+@n_param_values: 
+@param_values: 
+@invocation_hint: 
+@marshal_data: 
+
+
+<!-- ##### FUNCTION anjuta_cclosure_marshal_VOID__INT_INT_ULONG ##### -->
+<para>
+
+</para>
+
+@closure: 
+@return_value: 
+@n_param_values: 
+@param_values: 
+@invocation_hint: 
+@marshal_data: 
+
+
+<!-- ##### FUNCTION anjuta_cclosure_marshal_VOID__STRING_POINTER ##### -->
+<para>
+
+</para>
+
+@closure: 
+@return_value: 
+@n_param_values: 
+@param_values: 
+@invocation_hint: 
+@marshal_data: 
+
+
+<!-- ##### MACRO anjuta_cclosure_marshal_VOID__STRING ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION anjuta_cclosure_marshal_VOID__STRING_BOXED ##### -->
+<para>
+
+</para>
+
+@closure: 
+@return_value: 
+@n_param_values: 
+@param_values: 
+@invocation_hint: 
+@marshal_data: 
+
+

@@ -1,0 +1,60 @@
+<!-- ##### SECTION Title ##### -->
+plugins
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION anjuta_plugins_init ##### -->
+<para>
+
+</para>
+
+@plugin_dirs: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_finalize ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION anjuta_plugins_load ##### -->
+<para>
+
+</para>
+
+@shell: 
+@ui: 
+@prefs: 
+@splash: 
+@name: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_unload ##### -->
+<para>
+
+</para>
+
+@shell: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_preferences ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+

@@ -1,0 +1,157 @@
+<!-- ##### SECTION Title ##### -->
+resources
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION anjuta_res_lookup_widget ##### -->
+<para>
+
+</para>
+
+@widget: 
+@widget_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_image ##### -->
+<para>
+
+</para>
+
+@filename: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_pixbuf ##### -->
+<para>
+
+</para>
+
+@filename: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_pixmap_dir ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_data_dir ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_help_dir ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_help_dir_locale ##### -->
+<para>
+
+</para>
+
+@locale: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_doc_dir ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_pixmap_file ##### -->
+<para>
+
+</para>
+
+@pixfile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_data_file ##### -->
+<para>
+
+</para>
+
+@pixfile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_help_file ##### -->
+<para>
+
+</para>
+
+@helpfile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_help_file_locale ##### -->
+<para>
+
+</para>
+
+@helpfile: 
+@locale: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_doc_file ##### -->
+<para>
+
+</para>
+
+@docfile: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_get_icon_for_file ##### -->
+<para>
+
+</para>
+
+@props: 
+@filename: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_res_help_search ##### -->
+<para>
+
+</para>
+
+@word: 
+
+
+<!-- ##### FUNCTION anjuta_res_url_show ##### -->
+<para>
+
+</para>
+
+@url: 
+
+

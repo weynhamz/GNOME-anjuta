@@ -1,0 +1,140 @@
+<!-- ##### SECTION Title ##### -->
+anjuta-shell
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO ANJUTA_SHELL_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT AnjutaShell ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AnjutaShellIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@value_added: 
+@value_removed: 
+@session_load: 
+@session_save: 
+@add_widget: 
+@add_value: 
+@get_value: 
+@remove_value: 
+
+<!-- ##### FUNCTION anjuta_shell_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_shell_add_widget ##### -->
+<para>
+
+</para>
+
+@shell: 
+@widget: 
+@name: 
+@title: 
+@error: 
+
+
+<!-- ##### FUNCTION anjuta_shell_add_value ##### -->
+<para>
+
+</para>
+
+@shell: 
+@name: 
+@value: 
+@error: 
+
+
+<!-- ##### FUNCTION anjuta_shell_add_valist ##### -->
+<para>
+
+</para>
+
+@shell: 
+@first_name: 
+@first_type: 
+@var_args: 
+
+
+<!-- ##### FUNCTION anjuta_shell_add ##### -->
+<para>
+
+</para>
+
+@shell: 
+@first_name: 
+@first_type: 
+@Varargs: 
+
+
+<!-- ##### FUNCTION anjuta_shell_get_value ##### -->
+<para>
+
+</para>
+
+@shell: 
+@name: 
+@value: 
+@error: 
+
+
+<!-- ##### FUNCTION anjuta_shell_get_valist ##### -->
+<para>
+
+</para>
+
+@shell: 
+@first_name: 
+@first_type: 
+@var_args: 
+
+
+<!-- ##### FUNCTION anjuta_shell_get ##### -->
+<para>
+
+</para>
+
+@shell: 
+@first_name: 
+@first_type: 
+@Varargs: 
+
+
+<!-- ##### FUNCTION anjuta_shell_remove_value ##### -->
+<para>
+
+</para>
+
+@shell: 
+@name: 
+@error: 
+
+

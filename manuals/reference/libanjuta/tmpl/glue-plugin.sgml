@@ -1,0 +1,66 @@
+<!-- ##### SECTION Title ##### -->
+GluePlugin
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT GluePluginComponent ##### -->
+<para>
+
+</para>
+
+@name: 
+@get_type_func: 
+
+<!-- ##### USER_FUNCTION GluePluginComponentGetTypeFunc ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION glue_plugin_new ##### -->
+<para>
+
+</para>
+
+@module: 
+@Returns: 
+
+
+<!-- ##### MACRO GLUE_PLUGIN_MODULE ##### -->
+<para>
+
+</para>
+
+@components: 
+
+
+<!-- ##### MACRO GLUE_REGISTER_COMPONENTS ##### -->
+<para>
+
+</para>
+
+@components: 
+
+
+<!-- ##### MACRO GLUE_GET_COMPONENT_TYPE ##### -->
+<para>
+
+</para>
+
+@components: 
+
+

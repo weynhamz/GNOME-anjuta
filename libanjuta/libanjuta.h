@@ -3,13 +3,15 @@
 
 #include "anjuta-utils.h"
 #include "anjuta-plugin.h"
-
-#define ANJUTA_WINDOW_LOC_TOP       GNOME_Development_Shell_LOC_TOP
-#define ANJUTA_WINDOW_LOC_BOTTOM    GNOME_Development_Shell_LOC_BOTTOM
-#define ANJUTA_WINDOW_LOC_LEFT      GNOME_Development_Shell_LOC_LEFT
-#define ANJUTA_WINDOW_LOC_RIGHT     GNOME_Development_Shell_LOC_RIGHT
-#define ANJUTA_WINDOW_LOC_CENTER    GNOME_Development_Shell_LOC_CENTER
-#define ANJUTA_WINDOW_LOC_FLOATING  GNOME_Development_Shell_LOC_FLOATING
-#define ANJUTA_WINDOW_LOC_LAST      GNOME_Development_Shell_LOC_LAST
+#include "anjuta-preferences.h"
+#include "anjuta-ui.h"
+#include "anjuta-shell.h"
+#include "anjuta-children.h"
+#include "anjuta-encodings.h"
+#include "anjuta-marshal.h"
+#include "anjuta-stock.h"
+#include "plugins.h"
+#include "properties.h"
+#include "resources.h"
 
 #endif

@@ -1,0 +1,168 @@
+<!-- ##### SECTION Title ##### -->
+fileselection
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO MAX_NAME_LENGTH ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT FileSelData ##### -->
+<para>
+
+</para>
+
+@title: 
+@data: 
+@click_ok_callback: 
+@click_cancel_callback: 
+@filesel: 
+
+<!-- ##### FUNCTION create_fileselection_gui ##### -->
+<para>
+
+</para>
+
+@fd: 
+@parent: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_get_filename ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_get_path ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_set_title ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@title: 
+
+
+<!-- ##### FUNCTION fileselection_set_dir ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@dir: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_set_filename ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@fname: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_get_filelist ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_hide_widget ##### -->
+<para>
+
+</para>
+
+@widget: 
+
+
+<!-- ##### FUNCTION fileselection_storetypes ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@filetypes: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_addtype_f ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@Varargs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_addtype ##### -->
+<para>
+
+</para>
+
+@filetypes: 
+@description: 
+@extentions: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_getcombolist ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@filetypes: 
+@Returns: 
+
+
+<!-- ##### FUNCTION fileselection_set_combolist ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@combolist: 
+
+
+<!-- ##### FUNCTION fileselection_clearfiletypes ##### -->
+<para>
+
+</para>
+
+@filesel: 
+@Returns: 
+
+

@@ -1,0 +1,723 @@
+<!-- ##### SECTION Title ##### -->
+pixmaps
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### MACRO ANJUTA_PIXMAP_LOGO ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_ICON ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SPLASH_SCREEN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_NEW_FOLDER ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CLOSE_FILE_SMALL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_NEW_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_OPEN_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SAVE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CLOSE_PROJECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SYNTAX ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MESSAGES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_PROJECT_LISTING ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BREAKPOINT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_WATCH ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_REGISTERS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STACK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INSPECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FRAME ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INTERRUPT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_COMPILE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CONFIGURE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BUILD ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_DEBUG ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BUILD_ALL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_HELP ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_DOCK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_UNDOCK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CONTINUE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_RUN_TO_CURSOR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STEP_IN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STEP_OVER ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_STEP_OUT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_DEBUG_STOP ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_POINTER ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_WIZARD ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_PASSWORD ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_BUILD ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_DEBUG ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_FIND ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_CVS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_LOCALS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_TERMINAL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_DOCK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_MINI_MODULES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APPWIZ_WATERMARK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APPWIZ_LOGO ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_COMPONENT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GENERIC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTK ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOME ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTKMM ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOMEMM ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_LIBGLADE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_LIBGLADE2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_WXWIN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTK2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GTKMM2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOME2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_GNOMEMM2 ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_OPENGL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_SDL ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_XWIN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_XWINDOCKAPP ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_APP_QT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_TOGGLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_FIRST ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_PREV ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_NEXT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BOOKMARK_LAST ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_ERROR_PREV ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_ERROR_NEXT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_TOGGLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_CLOSE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_FOLD_OPEN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_SELECT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_START ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_BLOCK_END ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_INC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_DCR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_INDENT_AUTO ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_AUTOFORMAT_SETTING ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CALLTIP ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_AUTOCOMPLETE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_UNKNOWN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_CLASS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_FUNCTION ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_MACRO ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PRIVATE_FUN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PRIVATE_VAR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PROTECTED_FUN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PROTECTED_VAR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PUBLIC_FUN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_PUBLIC_VAR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_STATIC_FUN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_STATIC_VAR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_STRUCT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_SV_VARIABLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_CLOSED_FOLDER ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ANJUTA_PIXMAP_OPEN_FOLDER ##### -->
+<para>
+
+</para>
+
+
+

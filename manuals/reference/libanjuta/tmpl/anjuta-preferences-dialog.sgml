@@ -1,0 +1,50 @@
+<!-- ##### SECTION Title ##### -->
+AnjutaPreferencesDialog
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AnjutaPreferencesDialogPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION anjuta_preferences_dialog_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_preferences_dialog_add_page ##### -->
+<para>
+
+</para>
+
+@dlg: 
+@name: 
+@icon: 
+@page: 
+
+
+<!-- ##### FUNCTION anjuta_preferences_dialog_remove_page ##### -->
+<para>
+
+</para>
+
+@dlg: 
+@name: 
+
+

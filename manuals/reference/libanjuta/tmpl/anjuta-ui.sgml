@@ -1,0 +1,150 @@
+<!-- ##### SECTION Title ##### -->
+AnjutaUI
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AnjutaUIPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION anjuta_ui_new ##### -->
+<para>
+
+</para>
+
+@ui_container: 
+@add_widget: 
+@remove_widget: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_icon_factory ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_add_action_group_entries ##### -->
+<para>
+
+</para>
+
+@ui: 
+@group_name: 
+@group_label: 
+@entries: 
+@num_entries: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_add_action_group ##### -->
+<para>
+
+</para>
+
+@ui: 
+@group_name: 
+@group_label: 
+@action_group: 
+
+
+<!-- ##### FUNCTION anjuta_ui_remove_action_group ##### -->
+<para>
+
+</para>
+
+@ui: 
+@action_group: 
+
+
+<!-- ##### FUNCTION anjuta_ui_merge ##### -->
+<para>
+
+</para>
+
+@ui: 
+@filename: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_unmerge ##### -->
+<para>
+
+</para>
+
+@ui: 
+@id: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_accel_group ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_menu_merge ##### -->
+<para>
+
+</para>
+
+@ui: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_get_action ##### -->
+<para>
+
+</para>
+
+@ui: 
+@group_name: 
+@action_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_ui_activate_action_by_path ##### -->
+<para>
+
+</para>
+
+@ui: 
+@action_path: 
+
+
+<!-- ##### FUNCTION anjuta_ui_activate_action_by_group ##### -->
+<para>
+
+</para>
+
+@ui: 
+@action_group: 
+@action_name: 
+
+
+<!-- ##### FUNCTION anjuta_ui_dump_tree ##### -->
+<para>
+
+</para>
+
+@ui: 
+
+

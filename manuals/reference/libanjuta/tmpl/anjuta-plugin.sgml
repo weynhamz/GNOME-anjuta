@@ -1,0 +1,84 @@
+<!-- ##### SECTION Title ##### -->
+AnjutaPlugin
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AnjutaPluginPrivate ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### USER_FUNCTION AnjutaPluginValueAdded ##### -->
+<para>
+
+</para>
+
+@tool: 
+@name: 
+@value: 
+@data: 
+
+
+<!-- ##### USER_FUNCTION AnjutaPluginValueRemoved ##### -->
+<para>
+
+</para>
+
+@tool: 
+@name: 
+@data: 
+
+
+<!-- ##### FUNCTION anjuta_plugin_add_watch ##### -->
+<para>
+
+</para>
+
+@tool: 
+@name: 
+@added: 
+@removed: 
+@user_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugin_remove_watch ##### -->
+<para>
+
+</para>
+
+@tool: 
+@id: 
+@send_remove: 
+
+
+<!-- ##### MACRO ANJUTA_PLUGIN_BOILERPLATE ##### -->
+<para>
+
+</para>
+
+@class_name: 
+@prefix: 
+
+
+<!-- ##### MACRO ANJUTA_SIMPLE_PLUGIN ##### -->
+<para>
+
+</para>
+
+@class_name: 
+@prefix: 
+
+

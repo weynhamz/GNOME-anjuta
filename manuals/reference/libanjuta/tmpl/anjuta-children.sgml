@@ -1,0 +1,66 @@
+<!-- ##### SECTION Title ##### -->
+anjuta-children
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### USER_FUNCTION AnjutaChildTerminatedCallback ##### -->
+<para>
+
+</para>
+
+@s: 
+@d: 
+
+
+<!-- ##### FUNCTION anjuta_children_init ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION anjuta_children_register ##### -->
+<para>
+
+</para>
+
+@pid: 
+@Param2: 
+@data: 
+
+
+<!-- ##### FUNCTION anjuta_children_unregister ##### -->
+<para>
+
+</para>
+
+@pid: 
+
+
+<!-- ##### FUNCTION anjuta_children_foreach ##### -->
+<para>
+
+</para>
+
+@cb: 
+@data: 
+
+
+<!-- ##### FUNCTION anjuta_children_finalize ##### -->
+<para>
+
+</para>
+
+
+
