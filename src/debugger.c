@@ -679,7 +679,7 @@ gdb_stdout_line_arrived (const gchar * chars)
 	gint i = 0;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	g_message ("In function: gdb_stdout_line_arrived()");
+	// g_message ("In function: gdb_stdout_line_arrived()");
 #endif
 	while (chars[i])
 	{
@@ -705,7 +705,7 @@ gdb_stderr_line_arrived (const gchar * chars)
 	gint i;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	g_message ("In function: gdb_stderr_line_arrived()");
+	// g_message ("In function: gdb_stderr_line_arrived()");
 #endif
 	
 	for (i = 0; i < strlen (chars); i++)
@@ -732,7 +732,7 @@ debugger_stdo_flush ()
 	gchar *filename, *line;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	g_message ("In function: debugger_stdo_flush()");
+	// g_message ("In function: debugger_stdo_flush()");
 #endif
 	
 	line = debugger.stdo_line;
@@ -905,7 +905,7 @@ debugger_stde_flush ()
 	gchar *line;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	g_message ("In function: debugger_stde_flush()");
+	// g_message ("In function: debugger_stde_flush()");
 #endif
 	
 	line = debugger.stde_line;

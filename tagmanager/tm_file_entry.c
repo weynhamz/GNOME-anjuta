@@ -121,6 +121,8 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	if (tm_file_entry_type(path) == tm_file_link_t)
 		return NULL;
 	real_path = tm_get_real_path(path);
+	if (!real_path)
+		return NULL;
 	FILE_NEW(entry);
 	entry->type = tm_file_entry_type(real_path);
 	entry->parent = parent;

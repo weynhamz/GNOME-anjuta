@@ -15,6 +15,10 @@
 	data/properties/anjuta.properties, data/properties/Makefile.am:
 	Added CSS syntax hiliting properties.
 	
+	* tagmanager/tm_file_entry.c: Fixed a possible bug.
+	* src/debugger.c: Clean ups.
+	* src/lexer.h: Added CSS lexer definition.
+	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
 	* src/search-replace.c: Shows the dialog properly, even when it is
