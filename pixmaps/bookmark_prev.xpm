@@ -2,7 +2,7 @@
 static char * bookmark_prev_xpm[] = {
 "22 22 2 1",
 " 	c None",
-".	c #000000",
+".	c #105292",
 "                      ",
 "                      ",
 "                      ",
