@@ -8,7 +8,6 @@ typedef struct _DevhelpPluginClass DevhelpPluginClass;
 struct _DevhelpPlugin{
 	AnjutaPlugin parent;
 	DevhelpPluginPriv *priv;
-	gint uiid;
 };
 
 struct _DevhelpPluginClass{

@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 Location=anjuta-gtodo:GTodoPlugin
 Icon=anjuta-gtodo-plugin.png
-_Name=Todo Plugin
+_Name=Task Manager
 _Description=Todo Plugin for Anjuta.
 Interfaces=IAnjutaTodo

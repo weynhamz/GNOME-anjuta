@@ -195,6 +195,7 @@ static GtkActionEntry actions_comment[] = {
 };
 
 static GtkActionEntry actions_navigation[] = {
+  { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL},
   { "ActionEditGotoLineActivate", N_("_Goto Line number"),
 	GTK_STOCK_JUMP_TO, NULL,
 	N_("Go to a particular line in the editor"),
@@ -527,6 +528,98 @@ ui_states_init (AnjutaPlugin *plugin)
 	}
 }
 
+static void
+ui_give_shorter_names (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+			
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
+								   "ActionFileSave");
+	g_object_set (G_OBJECT (action), "short-label", _("Save"),
+				  "is-important", TRUE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
+								   "ActionFileReload");
+	g_object_set (G_OBJECT (action), "short-label", _("Reload"), NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditUndo");
+	g_object_set (G_OBJECT (action), "is-important", TRUE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorSearch",
+								   "ActionEditSearchFindNext");
+	g_object_set (G_OBJECT (action), "short-label", _("Find"), NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorNavigate",
+								   "ActionEditGotoLineActivate");
+	g_object_set (G_OBJECT (action), "short-label", _("Goto"), NULL);
+}
+
+static void
+update_editor_ui_enable_all (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	gint i, j;
+	GtkAction *action;
+			
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
+	{
+		for (j = 0; j < action_groups[i].size; j++)
+		{
+			action = anjuta_ui_get_action (ui, action_groups[i].name,
+										   action_groups[i].group[j].name);
+			if (action_groups[i].group[j].callback)
+			{
+				g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+			}
+		}
+	}
+	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+								   "ActionEditGotoLineEntry");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+
+	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+								   "ActionEditSearchEntry");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+}
+
+static void
+update_editor_ui_disable_all (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	gint i, j;
+	GtkAction *action;
+			
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
+	{
+		for (j = 0; j < action_groups[i].size; j++)
+		{
+			action = anjuta_ui_get_action (ui, action_groups[i].name,
+										   action_groups[i].group[j].name);
+			if (action_groups[i].group[j].callback)
+			{
+				g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+			}
+		}
+	}
+	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+								   "ActionEditGotoLineEntry");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+
+	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+								   "ActionEditSearchEntry");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+}
+
+static void
+update_editor_ui (AnjutaPlugin *plugin, TextEditor *editor)
+{
+	if (editor)
+		update_editor_ui_enable_all (plugin);
+	else
+		update_editor_ui_disable_all (plugin);
+}
+
 #define REGISTER_ICON(icon, stock_id) \
 	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
 	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
@@ -569,6 +662,7 @@ static void
 on_editor_changed (AnjutaDocman *docman, TextEditor *te,
 				   AnjutaPlugin *plugin)
 {
+	update_editor_ui (plugin, te);
 	if (te)
 	{
 		GValue *value = g_new0 (GValue, 1);
@@ -668,7 +762,7 @@ activate_plugin (AnjutaPlugin *plugin)
 						   "width", 50,
 							NULL);
 	g_signal_connect (action, "activate",
-					  G_CALLBACK (on_toolbar_goto_clicked), ui);
+					  G_CALLBACK (on_toolbar_goto_clicked), plugin);
 	gtk_action_group_add_action (group, action);
 	
 	action = g_object_new (EGG_TYPE_ENTRY_ACTION,
@@ -692,12 +786,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_add_action_group (ui, "ActionGroupNavigation",
 								N_("Editor quick navigations"), group);
 	
+	/* Add UI */
 	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, docman,
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL); 
 	ui_states_init(plugin);
+	ui_give_shorter_names (plugin);
+	update_editor_ui (plugin, NULL);
 	
 	/* Setup popup menu */
 	popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),

@@ -1,5 +1,5 @@
 [Anjuta Plugin]
-_Name=Project Manager Plugin
+_Name=Project Manager
 _Description=Project Manager Plugin for Anjuta.
 Location=anjuta-project-manager:ProjectManagerPlugin
 Icon=anjuta-project-manager-plugin.png

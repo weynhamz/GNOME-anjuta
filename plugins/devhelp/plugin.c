@@ -22,13 +22,13 @@
 #include <gtk/gtk.h>
 
 #include <devhelp/dh-book-tree.h>
-// #include <devhelp/dh-history.h>
 #include <devhelp/dh-html.h>
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 #include "plugin.h"
 
@@ -39,9 +39,12 @@ gpointer parent_class;
 /* This is variable required from libdevhelp */
 gchar *geometry = NULL;
 
-struct _DevhelpPluginPriv {
+struct _DevhelpPluginPriv
+{
+	gint uiid;
+	
+	/* Devhelp widgets */
 	DhBase         *base;
-	//	DhHistory      *history;
 	DhHtml         *html;
 	GtkActionGroup *action_group;
 	GtkWidget      *notebook;
@@ -49,62 +52,47 @@ struct _DevhelpPluginPriv {
 	GtkWidget      *search;
 	GtkWidget      *html_view;
 	GtkWidget      *browser_frame;
-};
-
-static void
-activate_action (GtkAction *action, DevhelpPlugin *plugin)
-{
-	DevhelpPluginPriv *priv;
-	const gchar  *name = gtk_action_get_name (action);
 	
-	priv = plugin->priv;
-	if (strcmp (name, "ActionDevhelpBack") == 0) {
-		dh_html_go_back (priv->html);
-		// if (uri) {
-		//	dh_html_open_uri (priv->html, uri);
-		//	g_free (uri);
-		//}
-	}
-	else if (strcmp (name, "ActionDevhelpForward") == 0) {
-		dh_html_go_forward (priv->html);
-		//if (uri) {
-		//	dh_html_open_uri (priv->html, uri);
-		//	g_free (uri);
-		//}
-	} else {
-		g_message ("Unhandled action '%s'", name);
-	}
-}
-
-static GtkActionEntry actions[] = {
-	/* Go menu */
-	{ "ActionDevhelpBack", GTK_STOCK_GO_BACK, NULL, NULL, NULL,
-	  G_CALLBACK (activate_action)},
-	{ "ActionDevhelpForward", GTK_STOCK_GO_FORWARD, NULL, NULL, NULL,
-	  G_CALLBACK (activate_action)},
+	/* Watched values */
+	gint editor_watch_id;
+	GObject *editor;
 };
 
+/* Devhelp stuffs */
 static void
-check_history (DevhelpPlugin *plugin)
+devhelp_check_history (DevhelpPlugin *plugin)
 {
 	DevhelpPluginPriv *priv;
 	GtkAction *action;
 		
 	priv = plugin->priv;
 	
-	action = gtk_action_group_get_action (priv->action_group, 
-					      "ActionDevhelpForward");
-	
-	g_object_set (action, "sensitive", 
-		      dh_html_can_go_forward (priv->html), NULL);
-	action = gtk_action_group_get_action (priv->action_group,
-					      "ActionDevhelpBack");
-	g_object_set (action, "sensitive",
-		      dh_html_can_go_back (priv->html), NULL);
+	if (priv->html)
+	{
+		action = gtk_action_group_get_action (priv->action_group, 
+							  "ActionDevhelpForward");
+		
+		g_object_set (action, "sensitive", 
+				  dh_html_can_go_forward (priv->html), NULL);
+		action = gtk_action_group_get_action (priv->action_group,
+							  "ActionDevhelpBack");
+		g_object_set (action, "sensitive",
+				  dh_html_can_go_back (priv->html), NULL);
+	}
+	else
+	{
+		action = gtk_action_group_get_action (priv->action_group, 
+							  "ActionDevhelpForward");
+		
+		g_object_set (action, "sensitive", FALSE, NULL);
+		action = gtk_action_group_get_action (priv->action_group,
+							  "ActionDevhelpBack");
+		g_object_set (action, "sensitive", FALSE, NULL);
+	}
 }
 
 static gboolean 
-open_url (DevhelpPlugin *plugin, const gchar *url)
+devhelp_open_url (DevhelpPlugin *plugin, const gchar *url)
 {
 	DevhelpPluginPriv *priv;
 	
@@ -114,21 +102,21 @@ open_url (DevhelpPlugin *plugin, const gchar *url)
 
 	dh_html_open_uri (priv->html, url);
 	dh_book_tree_show_uri (DH_BOOK_TREE (priv->book_tree), url);
-	check_history (plugin);
+	devhelp_check_history (plugin);
 	
 	return TRUE;
 }
 
 static void
-location_changed_cb (DhHtml      *html,
+devhelp_location_changed_cb (DhHtml      *html,
 					 const gchar *location,
 					 DevhelpPlugin *plugin)
 {
-	check_history (plugin);
+	devhelp_check_history (plugin);
 }
 
 static void
-link_selected_cb (GObject *ignored, DhLink *link, DevhelpPlugin *plugin)
+devhelp_link_selected_cb (GObject *ignored, DhLink *link, DevhelpPlugin *plugin)
 {
 	DevhelpPluginPriv   *priv;
 
@@ -136,119 +124,7 @@ link_selected_cb (GObject *ignored, DhLink *link, DevhelpPlugin *plugin)
 	
 	priv = plugin->priv;
 
-	open_url (plugin, link->uri);
-}
-
-static void
-back_exists_changed_cb (DhHtml *history, 
-						gboolean   exists,
-						DevhelpPlugin  *plugin)
-{
-/*
-	DevhelpPluginPriv *priv;
-	EggAction *action;
-		
-	g_return_if_fail (DH_IS_HISTORY (history));
-	
-	priv = plugin->priv;
-	
-	action = egg_action_group_get_action (priv->action_group, 
-					      "ActionDevhelpBack");
-	g_object_set (action, "sensitive", exists, NULL);
-*/
-}
-
-static void
-forward_exists_changed_cb (DhHtml *history, 
-							gboolean   exists, 
-							DevhelpPlugin  *plugin)
-{
-/*
-	DevhelpPluginPriv *priv;
-	EggAction *action;
-		
-	g_return_if_fail (DH_IS_HISTORY (history));
-	
-	priv = plugin->priv;
-	action = egg_action_group_get_action (priv->action_group, 
-					      "ActionDevhelpForward");
-	g_object_set (action, "sensitive", exists, NULL);
-*/
-}
-
-#if 0
-static void
-html_initialize (GtkWidget *widget, DevhelpPlugin *plugin)
-{
-	gtk_widget_show_all (GTK_WIDGET (widget));
-
-	/* Make sure that the HTML widget is realized before trying to 
-	 * clear it. Solves bug #147343.
-	 */
-	while (g_main_context_pending (NULL)) {
-		g_main_context_iteration (NULL, FALSE);
-	}
-
-	dh_html_clear (plugin->priv->html);
-}
-#endif
-
-static gboolean
-activate_plugin (AnjutaPlugin *plugin)
-{
-	AnjutaUI *ui;
-	DevhelpPlugin *devhelp_plugin;
-	DevhelpPluginPriv *priv;
-	
-	g_message ("DevhelpPlugin: Activating Devhelp plugin ...");
-	devhelp_plugin = (DevhelpPlugin*) plugin;
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	priv = devhelp_plugin->priv;
-	
-	/* Add action group */
-	priv->action_group = 
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
-										_("Devhelp navigation operations"),
-										actions,
-										G_N_ELEMENTS (actions),
-										devhelp_plugin);
-	/* Adde UI */
-	devhelp_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	
-	/* Add widgets */
-	anjuta_shell_add_widget (plugin->shell, priv->notebook,
-							 "AnjutaDevhelpIndex", _("Help"), GTK_STOCK_HELP,
-							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-	anjuta_shell_add_widget (plugin->shell, priv->browser_frame,
-							 "AnjutaDevhelpDisplay", _("Help display"),
-							 GTK_STOCK_HELP,
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
-	return TRUE;
-}
-
-static gboolean
-deactivate_plugin (AnjutaPlugin *plugin)
-{
-	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("DevhelpPlugin: Dectivating Devhelp plugin ...");
-	
-	/* Remove widgets */
-	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->browser_frame, NULL);
-	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->notebook, NULL);
-	
-	/* Remove UI */
-	anjuta_ui_unmerge (ui, ((DevhelpPlugin*)plugin)->uiid);
-	
-	/* Remove action group */
-	anjuta_ui_remove_action_group (ui, ((DevhelpPlugin*)plugin)->priv->action_group);
-	
-	return TRUE;
-}
-
-static void
-dispose (GObject *obj)
-{
-	// DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
+	devhelp_open_url (plugin, link->uri);
 }
 
 /* The ugliest hack. When switching tabs, the selection and cursor is changed
@@ -256,7 +132,7 @@ dispose (GObject *obj)
  * switch.
  */
 static void
-notebook_switch_page_cb (GtkWidget       *notebook,
+devhelp_notebook_switch_page_cb (GtkWidget       *notebook,
 						GtkNotebookPage *page,
 						guint            page_num,
 						DevhelpPlugin   *plugin)
@@ -265,11 +141,11 @@ notebook_switch_page_cb (GtkWidget       *notebook,
 	priv = plugin->priv;
 
 	g_signal_handlers_block_by_func (priv->book_tree, 
-					 link_selected_cb, plugin);
+					 devhelp_link_selected_cb, plugin);
 }
 
 static void
-notebook_switch_page_after_cb (GtkWidget       *notebook,
+devhelp_notebook_switch_page_after_cb (GtkWidget       *notebook,
 							GtkNotebookPage *page,
 							guint            page_num,
 							DevhelpPlugin   *plugin)
@@ -279,37 +155,27 @@ notebook_switch_page_after_cb (GtkWidget       *notebook,
 	priv = plugin->priv;
 	
 	g_signal_handlers_unblock_by_func (priv->book_tree, 
-					   link_selected_cb, plugin);
+					   devhelp_link_selected_cb, plugin);
 }
 
 static void
-devhelp_plugin_instance_init (GObject *obj)
+devhelp_html_initialize (DevhelpPlugin *plugin)
 {
 	GtkWidget    *html_sw;
 	GtkWidget    *book_tree_sw;
 	GNode        *contents_tree;
 	GList        *keywords = NULL;
-	// GError       *error = NULL;
 	DevhelpPluginPriv *priv;
-	DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
 	
-	plugin->uiid = 0;
-	plugin->priv = (DevhelpPluginPriv *) g_new0 (DevhelpPluginPriv, 1);
 	priv = plugin->priv;
 	
-	g_message ("Intializing Devhelp plugin");
+	if (priv->html)
+		return;
 	
 	/* Create plugin widgets */
-	// priv->history = dh_history_new ();
-
-	// g_signal_connect (priv->history, "forward_exists_changed",
-	//				  G_CALLBACK (forward_exists_changed_cb), obj);
-	// g_signal_connect (priv->history, "back_exists_changed",
-	//				  G_CALLBACK (back_exists_changed_cb), obj);
-	
 	priv->html      = dh_html_new ();
 	g_signal_connect (priv->html, "location-changed",
-					  G_CALLBACK (location_changed_cb), obj);
+					  G_CALLBACK (devhelp_location_changed_cb), plugin);
 	
 	priv->notebook  = gtk_notebook_new ();
 	priv->html_view = dh_html_get_widget (priv->html);
@@ -329,10 +195,6 @@ devhelp_plugin_instance_init (GObject *obj)
 	
 	priv->browser_frame = html_sw;
 	
-	//priv->browser_frame = gtk_frame_new (NULL);
-	//gtk_container_add (GTK_CONTAINER (priv->browser_frame), html_sw);
-	//gtk_frame_set_shadow_type (GTK_FRAME (priv->browser_frame), GTK_SHADOW_OUT);
-
 	priv->base    = dh_base_new ();
 	contents_tree = dh_base_get_book_tree (priv->base);
 	keywords      = dh_base_get_keywords  (priv->base);
@@ -345,7 +207,7 @@ devhelp_plugin_instance_init (GObject *obj)
 					  gtk_label_new (_("Search")));
 
 		g_signal_connect (priv->search, "link_selected",
-				  G_CALLBACK (link_selected_cb),
+				  G_CALLBACK (devhelp_link_selected_cb),
 				  plugin);
 	}
 
@@ -359,29 +221,308 @@ devhelp_plugin_instance_init (GObject *obj)
 					  book_tree_sw,
 					  gtk_label_new (_("Contents")));
 		g_signal_connect (priv->book_tree, "link_selected", 
-				  G_CALLBACK (link_selected_cb),
+				  G_CALLBACK (devhelp_link_selected_cb),
 				  plugin);
 	}
 	
-//	g_signal_connect (G_OBJECT (priv->browser_frame), "realize",
-//					  G_CALLBACK (html_initialize), obj);
 	gtk_widget_show_all (priv->browser_frame);
 	gtk_widget_show_all (priv->notebook);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
 	g_signal_connect (priv->notebook, "switch_page",
-			  G_CALLBACK (notebook_switch_page_cb),
-			  obj);
+			  G_CALLBACK (devhelp_notebook_switch_page_cb),
+			  plugin);
 
 	g_signal_connect_after (priv->notebook, "switch_page",
-				G_CALLBACK (notebook_switch_page_after_cb),
-				obj);
+				G_CALLBACK (devhelp_notebook_switch_page_after_cb),
+				plugin);
 
+	/* Add widgets to shell */
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell, priv->notebook,
+							 "AnjutaDevhelpIndex", _("Help"), GTK_STOCK_HELP,
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell, priv->browser_frame,
+							 "AnjutaDevhelpDisplay", _("Help display"),
+							 GTK_STOCK_HELP,
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 /*
  	g_signal_connect_swapped (priv->html, 
 				  "uri_selected", 
 				  G_CALLBACK (open_url),
 				  plugin);
 */
+#if 0
+	gtk_widget_show_all (GTK_WIDGET (widget));
+
+	/* Make sure that the HTML widget is realized before trying to 
+	 * clear it. Solves bug #147343.
+	 */
+	while (g_main_context_pending (NULL)) {
+		g_main_context_iteration (NULL, FALSE);
+	}
+
+	dh_html_clear (plugin->priv->html);
+#endif
+}
+
+/* Action callbacks */
+static void
+on_go_back_activate (GtkAction *action, DevhelpPlugin *plugin)
+{
+	devhelp_html_initialize (plugin);
+	dh_html_go_back (plugin->priv->html);
+}
+
+static void
+on_go_forward_activate (GtkAction *action, DevhelpPlugin *plugin)
+{
+	devhelp_html_initialize (plugin);
+	dh_html_go_forward (plugin->priv->html);
+}
+
+static void
+on_api_reference_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+{
+	devhelp_html_initialize (dh_plugin);
+}
+
+static void
+on_context_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+{
+	IAnjutaEditor *editor;
+	gchar *current_word;
+	
+	if(dh_plugin->priv->editor == NULL)
+		return;
+
+	if (IANJUTA_IS_EDITOR (dh_plugin->priv->editor) == FALSE)
+	{
+		g_warning ("Current Editor does not support IAnjutaEditor interface");
+		return;
+	}
+	editor = IANJUTA_EDITOR (dh_plugin->priv->editor);
+	// FIXME: current_word = ianjuta_editor_get_current_word (editor, NULL);
+	current_word = g_strdup ("gnome_vfs_");
+	if (current_word)
+	{
+		devhelp_html_initialize (dh_plugin);
+		ianjuta_help_search (IANJUTA_HELP (dh_plugin), current_word, NULL);
+		g_free (current_word);
+	}
+}
+
+static void
+on_search_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+{
+	GtkWindow *parent;
+	gboolean status;
+	gchar *search_term = NULL;
+	
+	parent = GTK_WINDOW (ANJUTA_PLUGIN (dh_plugin)->shell);
+	status =
+		anjuta_util_dialog_input (parent, _("Search Help:"), &search_term);
+	if (status)
+	{
+		if (search_term && strlen (search_term) > 0)
+		{
+			devhelp_html_initialize (dh_plugin);
+			ianjuta_help_search (IANJUTA_HELP (dh_plugin), search_term, NULL);
+		}
+	}
+	g_free (search_term);
+}
+
+/* Action definitions */
+static GtkActionEntry actions[] = {
+	/* Go menu */
+	{
+		"ActionMenuGoto",
+		NULL,
+		N_("_Goto"),
+		NULL,
+		NULL,
+		NULL
+	},
+	{
+		"ActionDevhelpBack",
+		GTK_STOCK_GO_BACK,
+		N_("Previous Help"),
+		NULL,
+		N_("Go to previous help page"),
+		G_CALLBACK (on_go_back_activate)
+	},
+	{
+		"ActionDevhelpForward",
+		GTK_STOCK_GO_FORWARD,
+		N_("Next Help"),
+		NULL,
+		N_("Go to next help page"),
+		G_CALLBACK (on_go_forward_activate)
+	},
+	{
+		"ActionHelpApi",
+		GTK_STOCK_HELP,
+		N_("_API references"),
+		NULL,
+		N_("Browse API Pages"),
+		G_CALLBACK (on_api_reference_activate)
+	},
+	{
+		"ActionHelpContext",
+		GTK_STOCK_HELP,
+		N_("_Context Help"),
+		"<control>h",
+		N_("Search help for the current word in the editor"),
+		G_CALLBACK (on_context_help_activate)
+	},
+	{
+		"ActionHelpSearch",
+		GTK_STOCK_FIND,
+		N_("_Search Help"),
+		NULL,
+		N_("Search for a term in help"),
+		G_CALLBACK (on_search_help_activate)
+	}
+};
+
+/* Watches callbacks */
+
+static void
+value_added_current_editor (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer dh_plugin)
+{
+	GtkAction *action;
+	GObject *editor;
+	DevhelpPluginPriv *priv;
+	
+	priv = ((DevhelpPlugin*)dh_plugin)->priv;
+	editor = g_value_get_object (value);
+	priv->editor = editor;
+	action = gtk_action_group_get_action (priv->action_group,
+										  "ActionHelpContext");
+	g_object_set (action, "sensitive", TRUE, NULL);
+}
+
+static void
+value_removed_current_editor (AnjutaPlugin *plugin,
+							  const char *name, gpointer dh_plugin)
+{
+	GtkAction *action;
+	DevhelpPluginPriv *priv;
+	
+	priv = ((DevhelpPlugin*)dh_plugin)->priv;
+	priv->editor = NULL;
+	action = gtk_action_group_get_action (priv->action_group,
+										  "ActionHelpContext");
+	g_object_set (action, "sensitive", FALSE, NULL);
+}
+
+static gboolean
+activate_plugin (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	DevhelpPlugin *devhelp_plugin;
+	DevhelpPluginPriv *priv;
+	GtkAction *action;
+	
+	g_message ("DevhelpPlugin: Activating Devhelp plugin ...");
+	devhelp_plugin = (DevhelpPlugin*) plugin;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	priv = devhelp_plugin->priv;
+	
+	/* Add action group */
+	priv->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
+										_("Devhelp navigation operations"),
+										actions,
+										G_N_ELEMENTS (actions),
+										devhelp_plugin);
+	action = anjuta_ui_get_action (ui, "ActionGroupDevhelp",
+								   "ActionHelpContext");
+	g_object_set (G_OBJECT (action), "short-label", _("Help"), NULL);
+	
+	/* Add UI */
+	priv->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
+	action = gtk_action_group_get_action (priv->action_group,
+										  "ActionHelpContext");
+	g_object_set (action, "sensitive", FALSE, NULL);
+
+	if (priv->html)
+	{
+		/* Add widgets */
+		anjuta_shell_add_widget (plugin->shell, priv->notebook,
+								 "AnjutaDevhelpIndex", _("Help"), GTK_STOCK_HELP,
+								 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+		anjuta_shell_add_widget (plugin->shell, priv->browser_frame,
+								 "AnjutaDevhelpDisplay", _("Help display"),
+								 GTK_STOCK_HELP,
+								 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	}
+	
+	/* FIXME:
+	 * We can delay devhelp initialization (hence making the initial startup
+	 * faster) by commenting the following line. However, if that is done,
+	 * the window layout gets screwed up when the widgets are added later.
+	 */
+	devhelp_html_initialize (devhelp_plugin);
+	
+	/* Add watches */
+	priv->editor_watch_id = 
+		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
+								 value_added_current_editor,
+								 value_removed_current_editor,
+								 plugin);
+	devhelp_check_history (devhelp_plugin);
+	return TRUE;
+}
+
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	DevhelpPluginPriv *priv;
+	
+	priv = ((DevhelpPlugin*)plugin)->priv;
+	
+	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	g_message ("DevhelpPlugin: Dectivating Devhelp plugin ...");
+	
+	if (priv->html)
+	{
+		/* Remove widgets */
+		anjuta_shell_remove_widget (plugin->shell, priv->browser_frame, NULL);
+		anjuta_shell_remove_widget (plugin->shell, priv->notebook, NULL);
+	}
+	
+	/* Remove UI */
+	anjuta_ui_unmerge (ui, priv->uiid);
+	
+	/* Remove action group */
+	anjuta_ui_remove_action_group (ui, priv->action_group);
+	
+	/* Remove watch */
+	anjuta_plugin_remove_watch (plugin, priv->editor_watch_id, TRUE);
+	
+	return TRUE;
+}
+
+static void
+dispose (GObject *obj)
+{
+	// DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
+	/* Devhelp widgets should be destroyed */
+}
+
+static void
+devhelp_plugin_instance_init (GObject *obj)
+{
+	DevhelpPluginPriv *priv;
+	DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
+	
+	plugin->priv = (DevhelpPluginPriv *) g_new0 (DevhelpPluginPriv, 1);
+	priv = plugin->priv;
+	
+	g_message ("Intializing Devhelp plugin");
 }
 
 static void
@@ -399,7 +540,11 @@ devhelp_plugin_class_init (GObjectClass *klass)
 static void
 ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 {
-
+	DevhelpPluginPriv *priv;
+	
+	priv = ((DevhelpPlugin*)help)->priv;
+	dh_search_set_search_string (DH_SEARCH (priv->search), query);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 1);
 }
 
 static void

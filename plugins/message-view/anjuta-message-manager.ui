@@ -1,13 +1,11 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
-		<menu name="MenuEdit" action="ActionMenuEdit">
-			<menu name="Goto" action="ActionMenuEditGoto">
-				<placeholder name="PlaceholderGotoMenus">
-						<menuitem name="NextMessage" action="ActionMessageNext" />
-						<menuitem name="PrevMessage" action="ActionMessagePrev" />
-				</placeholder>
+		<placeholder name="PlaceholderGotoMenus">
+			<menu name="Goto" action="ActionMenuGoto">
+					<menuitem name="NextMessage" action="ActionMessageNext" />
+					<menuitem name="PrevMessage" action="ActionMessagePrev" />
 			</menu>
-		</menu>
+		</placeholder>
 	</menubar>
 </ui>

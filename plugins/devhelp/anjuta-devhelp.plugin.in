@@ -1,5 +1,5 @@
 [Anjuta Plugin]
-_Name=Devhelp Plugin
+_Name=API Help
 _Description=Devhelp Plugin for Anjuta.
 Location=anjuta-devhelp:DevhelpPlugin
 Icon=anjuta-devhelp-plugin.png

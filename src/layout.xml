@@ -14,11 +14,11 @@
 					<notebook orientation="vertical" locked="no" page="0">
 						<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
+						<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
 						<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
 					</notebook>
 				</paned>
 				<notebook orientation="vertical" locked="no" page="0">
-					<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
 					<item name="AnjutaTerminal" orientation="horizontal" locked="no"/>
 					<item name="AnjutaMessageView" orientation="horizontal" locked="no">
 						<placeholder name="ph_bottom" next-placement="bottom"/>

@@ -433,21 +433,39 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 }
 
 static GtkActionEntry actions_file[] = {
-  { "ActionFileNew", GTK_STOCK_NEW, N_("_New ..."), "<control>n",
-	N_("New file, project and project components."),
-    G_CALLBACK (on_new_activate)},
-  { "ActionFileOpen", GTK_STOCK_OPEN, N_("_Open ..."), "<control>o",
-	N_("Open file"), G_CALLBACK (on_open_activate)},
-  { "ActionFileOpenRecent", NULL, N_("Open _Recent"), NULL,
-	N_("Open recent file"), NULL},
 	{
-		"ActionPopupOpen", GTK_STOCK_OPEN,
+		"ActionFileNew",
+		GTK_STOCK_NEW,
+		N_("_New ..."),
+		"<control>n",
+		N_("New file, project and project components."),
+		G_CALLBACK (on_new_activate)
+	},
+	{
+		"ActionFileOpen",
+		GTK_STOCK_OPEN,
+		N_("_Open ..."),
+		"<control>o",
+		N_("Open file"),
+		G_CALLBACK (on_open_activate)
+	},
+	{
+		"ActionFileOpenRecent",
+		NULL,
+		N_("Open _Recent"),
+		NULL,
+		N_("Open recent file"), NULL
+	},
+	{
+		"ActionPopupOpen",
+		GTK_STOCK_OPEN,
 		N_("_Open"), NULL,
 		N_("Open file"),
 		G_CALLBACK (fm_open)
 	},
 	{
-		"ActionPopupOpenWith", NULL,
+		"ActionPopupOpenWith",
+		NULL,
 		N_("Open _With"), NULL,
 		N_("Open with"), NULL
 	}
@@ -544,6 +562,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	GtkAction *action;
 	AnjutaUI *ui;
 	AnjutaFileLoaderPlugin *loader_plugin;
 	GtkWidget *recent_menu;
@@ -562,6 +581,12 @@ activate_plugin (AnjutaPlugin *plugin)
 											actions_file,
 											G_N_ELEMENTS (actions_file),
 											plugin);
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionFileNew");
+	g_object_set (G_OBJECT (action), "short-label", _("New"), NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionFileOpen");
+	g_object_set (G_OBJECT (action), "short-label", _("Open"),
+				  "is-important", TRUE, NULL);
+
 	/* Add UI */
 	loader_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	

@@ -12,13 +12,11 @@
 			<placeholder name="PlaceholderSelectMenus"/>
 			<placeholder name="PlaceholderInsertMenus"/>
 			<placeholder name="PlaceholderSearchMenus"/>
-			<menu name="Goto" action="ActionMenuEditGoto">
-				<placeholder name="PlaceholderGotoMenus"/>
-			</menu>
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menuitem name="Toolbars" action="ActionViewToolbars"/>
 		</menu>
+		<placeholder name="PlaceholderGotoMenus"/>
 		<placeholder name="PlaceHolderProjectMenus"/>
 		<placeholder name="PlaceHolderFormatMenus"/>
 		<placeholder name="PlaceHolderBuildMenus"/>
@@ -30,24 +28,29 @@
 			<menuitem name="Layout Manager" action="ActionSettingsLayout" />
 			<menuitem name="Plugins Manager" action="ActionSettingsPlugins" />
 		</menu>
-		<menu name="MenuHelp" action="ActionMenuHelp" >
-			<menuitem name="Gnome" action="ActionHelpGnome" />
-			<menuitem name="Man" action="ActionHelpMan" />
-			<menuitem name="Info" action="ActionHelpInfo" />
-			<separator name="separator1" />
-			<menuitem name="Context" action="ActionHelpContext" />
-			<menuitem name="Search" action="ActionHelpSearch" />
-			<separator name="separator2" />
-			<menuitem name="AnjutaHome" action="ActionHelpAnjutaHome" />
-			<separator name="separator3" />
-			<menuitem name="Lidn" action="ActionHelpLidn" />
-			<menuitem name="BugReport" action="ActionHelpBugReport" />
-			<menuitem name="FetureRequest" action="ActionHelpFeatureRequest" />
-			<menuitem name="SubmitPatch" action="ActionHelpSubmitPatch" />
-			<menuitem name="Faq" action="ActionHelpFaq" />
-			<separator name="separator4" />
-			<menuitem name="AboutAnjuta" action="ActionAboutAnjuta" />
-		</menu>
+		<placeholder name="PlaceHolderHelpMenus" >
+			<menu name="MenuHelp" action="ActionMenuHelp" >
+				<placeholder name="PlaceHolderHelpDevel" >
+						<separator name="separator1" />
+						<menuitem name="Man" action="ActionHelpMan" />
+						<menuitem name="Info" action="ActionHelpInfo" />
+				</placeholder>
+				<placeholder name="PlaceHolderHelpWeb" >
+					<separator name="separator1" />
+					<menuitem name="AnjutaHome" action="ActionHelpAnjutaHome" />
+					<separator name="separator2" />
+					<menuitem name="Lidn" action="ActionHelpLidn" />
+					<menuitem name="BugReport" action="ActionHelpBugReport" />
+					<menuitem name="FetureRequest" action="ActionHelpFeatureRequest" />
+					<menuitem name="SubmitPatch" action="ActionHelpSubmitPatch" />
+					<menuitem name="Faq" action="ActionHelpFaq" />
+				</placeholder>
+				<placeholder name="PlaceHolderHelpAbout" >
+					<separator name="separator1" />
+					<menuitem name="AboutAnjuta" action="ActionAboutAnjuta" />
+				</placeholder>
+			</menu>
+		</placeholder>
 		<placeholder name="TestPlaceholder" />
 	</menubar>
 	<toolbar name="ToolbarMain"></toolbar>

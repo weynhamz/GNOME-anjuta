@@ -158,8 +158,8 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		GtkAction *action;
 		GtkWidget *menuitem;
 		
-		gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
-								   GTK_ICON_SIZE_SMALL_TOOLBAR);
+		/* gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
+								   GTK_ICON_SIZE_SMALL_TOOLBAR); */
 		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
 		
 		toolbarname = gtk_widget_get_name (widget);

@@ -62,19 +62,6 @@
 					<menuitem name="ISearch" action="ActionEditSearchSelectionISearch"/>
 				</menu>
 			</placeholder>
-			<menu name="Goto" action="ActionMenuEditGoto">
-				<placeholder name="PlaceholderGotoMenus">
-					<menuitem name="Line" action="ActionEditGotoLine" />
-					<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
-					<separator name="separator1"/>
-					<menuitem name="BlockStart" action="ActionEditGotoBlockStart" />
-					<menuitem name="BlockEnd" action="ActionEditGotoBlockEnd" />
-					<separator name="separator2"/>
-					<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
-					<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
-					<separator name="separator3"/>
-				</placeholder>
-			</menu>
 			<separator name="separator3"/>
 			<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
 		</menu>
@@ -95,6 +82,31 @@
 				<separator name="separator3"/>
 			</placeholder>
 		</menu>
+		<placeholder name="PlaceholderGotoMenus">
+			<menu name="Goto" action="ActionMenuGoto">
+				<placeholder name="PlaceHolderBookmarkMenus">
+					<menu name="MenuBookmark" action="ActionMenuBookmark">
+						<menuitem name="Toggle" action="ActionBookmarkToggle" />
+						<separator name="separator1" />
+						<menuitem name="First" action="ActionBookmarkFirst" />
+						<menuitem name="Previous" action="ActionBookmarkPrevious" />
+						<menuitem name="Next" action="ActionBookmarkNext" />
+						<menuitem name="Last" action="ActionBookmarkLast" />
+						<separator name="separator1" />
+						<menuitem name="Clear" action="ActionBookmarkClear" />
+					</menu>
+				</placeholder>
+				<menuitem name="Line" action="ActionEditGotoLine" />
+				<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
+				<separator name="separator1"/>
+				<menuitem name="BlockStart" action="ActionEditGotoBlockStart" />
+				<menuitem name="BlockEnd" action="ActionEditGotoBlockEnd" />
+				<separator name="separator2"/>
+				<menuitem name="PreviousOccurance" action="ActionEditGotoOccurancePrev" />
+				<menuitem name="NextOccurance" action="ActionEditGotoOccuranceNext" />
+				<separator name="separator3"/>
+			</menu>
+		</placeholder>
 		<placeholder name="PlaceHolderFormatMenus">
 			<menu name="MenuFormat" action="ActionMenuFormat">
 				<menuitem name="Autoformat" action="ActionFormatAutoformat" />
@@ -136,18 +148,6 @@
 				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
 				<separator name="separator3" />
 				<menuitem name="EditorDetach" action="ActionFormatEditorDetach" />
-			</menu>
-		</placeholder>
-		<placeholder name="PlaceHolderBookmarkMenus">
-			<menu name="MenuBookmark" action="ActionMenuBookmark">
-				<menuitem name="Toggle" action="ActionBookmarkToggle" />
-				<separator name="separator1" />
-				<menuitem name="First" action="ActionBookmarkFirst" />
-				<menuitem name="Previous" action="ActionBookmarkPrevious" />
-				<menuitem name="Next" action="ActionBookmarkNext" />
-				<menuitem name="Last" action="ActionBookmarkLast" />
-				<separator name="separator1" />
-				<menuitem name="Clear" action="ActionBookmarkClear" />
 			</menu>
 		</placeholder>
 	</menubar>
@@ -203,7 +203,7 @@
 		<separator name="separator2"/>
 		<menuitem name="Autoformat" action="ActionFormatAutoformat" />
 		<menuitem name="Toggle" action="ActionBookmarkToggle" />
-		<menu name="Goto" action="ActionMenuEditGoto">
+		<menu name="Goto" action="ActionMenuGoto">
 				<separator name="separator1" />
 				<menuitem name="Previous" action="ActionBookmarkPrevious" />
 				<menuitem name="Next" action="ActionBookmarkNext" />

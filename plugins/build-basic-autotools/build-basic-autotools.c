@@ -130,7 +130,8 @@ build_regex_init ()
 			   &erroffset,       /* for error offset */
 			   NULL);            /* use default character tables */
 		if (pattern->regex == NULL) {
-			g_warning ("PCRE compilarion failed: %s: %d", error, erroffset);
+			g_warning ("PCRE compilarion failed: %s: regex \"%s\" at char %d",
+						pattern->pattern, error, erroffset);
 		}
 		node = g_list_next (node);
 	}

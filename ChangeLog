@@ -1,3 +1,39 @@
+2004-09-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-utils.c: Added a border in input dialog entry box.
+	
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in,
+	plugins/devhelp/anjuta-devhelp.plugin.in,
+	plugins/file-loader/anjuta-loader.plugin.in,
+	plugins/file-manager/anjuta-file-manager.plugin.in,
+	plugins/gtodo/anjuta-gtodo.plugin.in,
+	plugins/project-manager/anjuta-project-manager.plugin.in,
+	plugins/terminal/anjuta-terminal.plugin.in:
+	Gave proper plugin names.
+
+	* plugins/build-basic-autotools/build-basic-autotools.c: Detailed
+	error when regex fail.
+	
+	* plugins/devhelp/anjuta-devhelp.ui, plugins/devhelp/plugin.[c,h]:
+	Added help and context search. Watches current editor. More menus
+	in Help submenu. Update UI (sensitive when required) properly.
+	
+	* plugins/editor/anjuta-document-manager.ui,
+	plugins/devhelp/anjuta-devhelp.ui,
+	plugins/message-view/anjuta-message-manager.ui,
+	src/anjuta.ui: Goto menu actions are in separate submenu.
+	
+	* src/anjuta.ui, src/action-callbacks.[c,h], src/anjuta-actions.h:
+	Removed unimplemented UI elements.
+	
+	* src/anjuta-app.c: Larger (and normal) icon size.
+	
+	* src/layout.xml: Task manager plugin along with document (in middle).
+	
+	* plugins/editor/plugin.c, plugins/file-loader.c,
+	plugins/devhelp/plugin.c: Gives short-labels and is-important flag
+	in gtkactions. Enable/disable UI properly.
+	
 2004-09-26  Naba Kumar  <naba@gnome.org>
 
 	* po/POTFILES.in: Updated, added missing files.

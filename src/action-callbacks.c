@@ -111,36 +111,6 @@ on_help_activate (GtkAction *action, gpointer data)
 }
 
 void
-on_gnome_pages1_activate (GtkAction *action, AnjutaApp *app)
-{
-	if (anjuta_util_prog_is_installed ("devhelp", TRUE))
-	{
-		anjuta_res_help_search (NULL);
-	}
-}
-
-void
-on_context_help_activate (GtkAction * action, AnjutaApp *app)
-{
-  /*	TextEditor* te;
-	gboolean ret;
-	gchar buffer[1000];
-	
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
-	if (ret == FALSE) return;
-	anjuta_help_search(app->help_system, buffer);
-  */
-}
-
-void
-on_search_a_topic1_activate (GtkAction * action, AnjutaApp *app)
-{
-  //anjuta_help_show (app->help_system);
-}
-
-void
 on_url_man_activate (GtkAction * action, gpointer user_data)
 {
 	anjuta_res_url_show("man:man");

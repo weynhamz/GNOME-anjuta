@@ -27,8 +27,7 @@ static GtkActionEntry menu_entries_file[] = {
 };
 
 static GtkActionEntry menu_entries_edit[] = {
-  { "ActionMenuEdit", NULL, N_("_Edit")},
-  { "ActionMenuEditGoto", NULL, N_("G_oto")}
+  { "ActionMenuEdit", NULL, N_("_Edit")}
 };
 
 static GtkActionEntry menu_entries_view[] = {
@@ -62,10 +61,6 @@ static GtkActionEntry menu_entries_settings[] = {
 
 static GtkActionEntry menu_entries_help[] = {
   { "ActionMenuHelp", NULL, N_("_Help")},
-  { "ActionHelpGnome", GTK_STOCK_DIALOG_INFO,
-    N_("The GNOME API pages"), NULL,
-	N_("Browse GNOME _API Pages"),
-    G_CALLBACK (on_gnome_pages1_activate)},
   { "ActionHelpMan", GTK_STOCK_DIALOG_INFO,
     N_("Browse _Man Pages"), NULL,
 	N_("The good old manual pages"),
@@ -74,14 +69,6 @@ static GtkActionEntry menu_entries_help[] = {
     N_("Browse _Info Pages"), NULL,
 	N_("The good info pages"),
     G_CALLBACK (on_url_info_activate)},
-  { "ActionHelpContext", GTK_STOCK_HELP,
-    N_("_Context Help"), "<control>h",
-	N_("Search help for the current word in the editor"),
-    G_CALLBACK (on_context_help_activate)},
-  { "ActionHelpSearch", GTK_STOCK_FIND,
-    N_("_Search a topic"), NULL,
-	N_("May I help you?"),
-    G_CALLBACK (on_search_a_topic1_activate)},
   { "ActionHelpAnjutaHome", GTK_STOCK_HOME,
     N_("Anjuta _Home Page"), NULL,
 	N_("Online documentation and resources"),

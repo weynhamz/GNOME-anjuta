@@ -332,7 +332,7 @@ gboolean
 anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 						  gchar **return_value)
 {
-	GtkWidget *dialog, *label, *frame, *entry, *dialog_vbox;
+	GtkWidget *dialog, *label, *frame, *entry, *dialog_vbox, *vbox;
 	gint res;
 	gchar *markup;
 
@@ -341,6 +341,7 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 										  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 										  GTK_STOCK_OK, GTK_RESPONSE_OK,
 										  NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 	dialog_vbox = GTK_DIALOG (dialog)->vbox;
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, -1);
 	gtk_widget_show (dialog_vbox);
@@ -358,9 +359,15 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	gtk_widget_show (frame);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
 
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
+	
 	entry = gtk_entry_new ();
 	gtk_widget_show (entry);
-	gtk_container_add (GTK_CONTAINER (frame), entry);
+	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+	gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
 
 	res = gtk_dialog_run (GTK_DIALOG (dialog));
 	
