@@ -1,3 +1,15 @@
+2004-03-31  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* src/debugger.c: fixed core file loading
+	* src/aneditor.cxx, scintilla/include/SString.h: fixed HANGUP bug
+	for long lines (bugs #700968)
+	* scintilla/ScintillaGTK.cxx, scintilla/PlatGTK.cxx: partially fixed bug
+	#917982
+
+ 2004-03-26  Naba Kumar  <naba@gnome.org>
+ 
+ 	* anjuta.h, src/message-manager-private.[h,cc]: Fixed
+
 2004-03-30  Naba Kumar  <naba@gnome.org>
 
 	* THANKS, anjuta.prj: Removed and moved all credits to AUTHORS file.

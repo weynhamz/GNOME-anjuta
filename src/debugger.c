@@ -252,7 +252,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkDialog *dlg,
 	an_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
 	an_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
-	command = g_strconcat ("core file ", filename, NULL);
+	command = g_strconcat ("core ", filename, NULL);
 	dir = extract_directory (filename);
 	anjuta_set_execution_dir(dir);
 	g_free (dir);

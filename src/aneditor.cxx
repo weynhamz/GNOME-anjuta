@@ -237,9 +237,9 @@ protected:
 
 	int LengthDocument();
 	int GetCaretInLine();
-	void GetLine(char *text, int sizeText, int line=-1);
+	void GetLine(SString & text, int line = -1);
 	void GetRange(Window &win, int start, int end, char *text);
-	int IsLinePreprocessorCondition(char *line);
+	int IsLinePreprocessorCondition(const char *line);
 	bool FindMatchingPreprocessorCondition(int &curLine, int direction, int condEnd1, int condEnd2);
 	bool FindMatchingPreprocCondPosition(bool isForward, int &mppcAtCaret, int &mppcMatch);
 	bool FindMatchingBracePosition(bool editor, int &braceAtCaret, int &braceOpposite, bool sloppy);
@@ -247,7 +247,7 @@ protected:
 
 	bool GetCurrentWord(char* buffer, int maxlength);
 
-	bool FindWordInRegion(char *buffer, int maxlength, char *linebuf, int current);
+	bool FindWordInRegion(char *buffer, int maxlength, SString &linebuf, int current);
 	bool GetWordAtPosition(char* buffer, int maxlength, int pos);
 
 	void IndentationIncrease();
@@ -549,16 +549,16 @@ int AnEditor::GetCaretInLine() {
 	return caret - lineStart;
 }
 
-void AnEditor::GetLine(char *text, int sizeText, int line) {
+void AnEditor::GetLine(SString & text, int line) {
 	if (line < 0)
 		line = GetCurrentLineNumber();
 	int lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
 	int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
-	int lineMax = lineStart + sizeText - 1;
-	if (lineEnd > lineMax)
-		lineEnd = lineMax;
-	GetRange(wEditor, lineStart, lineEnd, text);
-	text[lineEnd - lineStart] = '\0';
+	int len = lineEnd - lineStart + 1;
+	char *text_buffer = SString::StringAllocate (len);
+	GetRange(wEditor, lineStart, lineEnd, text_buffer);
+	text_buffer[len] = '\0';
+	text.attach(text_buffer, len);
 }
 
 void AnEditor::GetRange(Window &win, int start, int end, char *text) {
@@ -584,8 +584,8 @@ void AnEditor::GetRange(guint start, guint end, gchar *text, gboolean styled) {
  * Check if the given line is a preprocessor condition line.
  * @return The kind of preprocessor condition (enum values).
  */
-int AnEditor::IsLinePreprocessorCondition(char *line) {
-	char *currChar = line;
+int AnEditor::IsLinePreprocessorCondition(const char *line) {
+	const char *currChar = line;
 	char word[32];
 	int i = 0;
 
@@ -629,14 +629,14 @@ bool AnEditor::FindMatchingPreprocessorCondition(
     int condEnd2) {		///< Second one
 
 	bool isInside = false;
-	char line[80];
+	SString line;
 	int status, level = 0;
 	int maxLines = SendEditor(SCI_GETLINECOUNT);
 
 	while (curLine < maxLines && curLine > 0 && !isInside) {
 		curLine += direction;	// Increment or decrement
-		GetLine(line, sizeof(line), curLine);
-		status = IsLinePreprocessorCondition(line);
+		GetLine(line, curLine);
+		status = IsLinePreprocessorCondition(line.c_str());
 
 		if ((direction == 1 && status == ppcStart) || (direction == -1 && status == ppcEnd)) {
 			level++;
@@ -666,13 +666,13 @@ bool AnEditor::FindMatchingPreprocCondPosition(
 
 	bool isInside = false;
 	int curLine;
-	char line[80];	// Probably no need to get more characters, even if the line is longer, unless very strange layout...
+	SString line;
 	int status;
 
 	// Get current line
 	curLine = SendEditor(SCI_LINEFROMPOSITION, mppcAtCaret);
-	GetLine(line, sizeof(line), curLine);
-	status = IsLinePreprocessorCondition(line);
+	GetLine(line, curLine);
+	status = IsLinePreprocessorCondition(line.c_str());
 
 	switch (status) {
 	case ppcStart:
@@ -997,8 +997,8 @@ void AnEditor::BookmarkClear() {
 
 bool AnEditor::StartCallTip() {
 	TMTagAttrType attrs[] = { tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
-	char linebuf[1000];
-	GetLine(linebuf, sizeof(linebuf));
+	SString linebuf;
+	GetLine(linebuf);
 	int current = GetCaretInLine();
 	int pos = SendEditor(SCI_GETCURRENTPOS);
 	int braces;
@@ -1030,10 +1030,10 @@ bool AnEditor::StartCallTip() {
 			calltipWordCharacters.contains(linebuf[startCalltipWord - 1]))
 		startCalltipWord--;
 
-	linebuf[current] = '\0';
+	linebuf.change(current, '\0');
 	int rootlen = current - startCalltipWord;
 	functionDefinition = "";
-	const GPtrArray *tags = tm_workspace_find(linebuf+startCalltipWord, tm_tag_prototype_t
+	const GPtrArray *tags = tm_workspace_find(linebuf.c_str() + startCalltipWord, tm_tag_prototype_t
 	  | tm_tag_function_t | tm_tag_macro_with_arg_t, attrs, FALSE);
 	if (tags && (tags->len > 0))
 	{
@@ -1053,8 +1053,8 @@ static bool IsCallTipSeparator(char ch) {
 }
 
 void AnEditor::ContinueCallTip() {
-	char linebuf[1000];
-	GetLine(linebuf, sizeof(linebuf));
+	SString linebuf;
+	GetLine(linebuf);
 	int current = GetCaretInLine();
 
 	int commas = 0;
@@ -1086,8 +1086,8 @@ void AnEditor::ContinueCallTip() {
 }
 
 bool AnEditor::StartAutoComplete() {
-	char linebuf[1000];
-	GetLine(linebuf, sizeof(linebuf));
+	SString linebuf;
+	GetLine(linebuf);
 	int current = GetCaretInLine();
 
 	int startword = current;
@@ -1095,8 +1095,8 @@ bool AnEditor::StartAutoComplete() {
 	        (wordCharacters.contains(linebuf[startword - 1]) ||
 	         autoCompleteStartCharacters.contains(linebuf[startword - 1])))
 		startword--;
-	linebuf[current] = '\0';
-	const char *root = linebuf + startword;
+	linebuf.change(current, '\0');
+	const char *root = linebuf.c_str() + startword;
 	int rootlen = current - startword;
 	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
 	if (NULL != tags)
@@ -1117,13 +1117,13 @@ bool AnEditor::StartAutoComplete() {
 }
 
 bool AnEditor::GetCurrentWord(char* buffer, int length) {
-	char linebuf[1000];
-	GetLine(linebuf, sizeof(linebuf));
+	SString linebuf;
+	GetLine(linebuf);
 	int current = GetCaretInLine();
 	return FindWordInRegion(buffer, length, linebuf, current);
 }
 
-bool AnEditor::FindWordInRegion(char *word, int maxlength, char *region, int offset) {
+bool AnEditor::FindWordInRegion(char *word, int maxlength, SString &region, int offset) {
 /*
 	Tries to find a word in the region designated by 'region'
 	around the position given by 'offset' in that region.
@@ -1142,9 +1142,9 @@ bool AnEditor::FindWordInRegion(char *word, int maxlength, char *region, int off
 	if(startword == endword)
 		return false;
 	
-	region[endword] = '\0';
+	region.change(endword, '\0');
 	int cplen = (maxlength < (endword-startword+1))?maxlength:(endword-startword+1);
-	strncpy (word, &region[startword], cplen);
+	strncpy (word, region.c_str() + startword, cplen);
 	return true;
 }
 
@@ -1159,9 +1159,12 @@ bool AnEditor::GetWordAtPosition(char* buffer, int maxlength, int pos) {
 	int start = (pos >= radius ? pos - radius : 0);
 	int doclen = LengthDocument();
 	int end = (doclen - pos >= radius ? pos + radius : doclen);
-	char chunk[2 * radius + 1];
+	char *chunk = SString::StringAllocate(2 * radius);
 	GetRange(start, end, chunk, false);
-	return FindWordInRegion(buffer, maxlength, chunk, pos - start);
+	chunk[2 * radius] = '\0';
+	SString region;
+	region.attach(chunk);
+	return FindWordInRegion(buffer, maxlength, region, pos - start);
 }
 
 static void free_word(gpointer key, gpointer value, gpointer user_data)
@@ -1172,7 +1175,7 @@ static void free_word(gpointer key, gpointer value, gpointer user_data)
 #define TYPESEP '?'
 
 bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
-	char linebuf[1000];
+	SString linebuf;
 	int nwords = 0;
 	int minWordLength = 0;
 	int wordlen = 0;
@@ -1180,7 +1183,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
 	GString *words = g_string_sized_new(256);
 	
-	GetLine(linebuf, sizeof(linebuf));
+	GetLine(linebuf);
 	int current = GetCaretInLine();
 
 	bool isNum = true;
@@ -1198,8 +1201,8 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	if (isNum)
 		return true;
 	
-	linebuf[current] = '\0';
-	const char *root = linebuf + startword;
+	linebuf.change(current, '\0');
+	const char *root = linebuf.c_str() + startword;
 	int rootlen = current - startword;
 	
 	/* TagManager autocompletion - only for C/C++/Java */
@@ -1663,8 +1666,8 @@ bool AnEditor::StartStreamComment() {
 		int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, selLine);
 		if (RangeIsAllWhitespace(lineIndent, lineEnd))
 			return true; // we are not dealing with empty lines
-		char linebuf[1000];
-		GetLine(linebuf, sizeof(linebuf));
+		SString linebuf;
+		GetLine(linebuf);
 		int current = GetCaretInLine();
 		// checking if we are not inside a word
 		if (!wordCharacters.contains(linebuf[current]))
