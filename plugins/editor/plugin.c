@@ -933,12 +933,18 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	eplugin = (EditorPlugin*)plugin;
 
+	anjuta_shell_remove_value (plugin->shell,
+							   "document_manager_current_editor", NULL);
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (status),
 										  G_CALLBACK (anjuta_docman_set_busy),
 										  eplugin->docman);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (eplugin->docman),
+										  G_CALLBACK (on_editor_changed),
+										  plugin);
 	
 	// anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
 	gtk_widget_destroy (eplugin->docman);

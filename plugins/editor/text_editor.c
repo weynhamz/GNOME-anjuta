@@ -197,21 +197,17 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	gtk_widget_set_usize (te->scintilla, 50, 50);
 	gtk_widget_show (te->scintilla);
 	
-	g_object_ref (G_OBJECT (te->scintilla));
-	
 	gtk_container_add (GTK_CONTAINER (te), te->scintilla);
 
-	gtk_signal_connect (GTK_OBJECT (te->scintilla), "event",
-			    GTK_SIGNAL_FUNC (on_text_editor_text_event), te);
-	gtk_signal_connect (GTK_OBJECT (te->scintilla), "button_press_event",
-			    GTK_SIGNAL_FUNC
-			    (on_text_editor_text_buttonpress_event), te);
-	gtk_signal_connect_after (GTK_OBJECT (te->scintilla), "size_allocate",
-			    GTK_SIGNAL_FUNC
-			    (on_text_editor_scintilla_size_allocate), te);
-	gtk_signal_connect (GTK_OBJECT (te->scintilla), "sci-notify",
-			    GTK_SIGNAL_FUNC (on_text_editor_scintilla_notify),
-			    te);
+	g_signal_connect (G_OBJECT (te->scintilla), "event",
+			    G_CALLBACK (on_text_editor_text_event), te);
+	g_signal_connect (G_OBJECT (te->scintilla), "button_press_event",
+			    G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+	g_signal_connect_after (G_OBJECT (te->scintilla), "size_allocate",
+			    G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
+	g_signal_connect (G_OBJECT (te->scintilla), "sci-notify",
+			    G_CALLBACK (on_text_editor_scintilla_notify), te);
+
 #ifdef DEBUG
 	g_object_weak_ref (G_OBJECT (te->scintilla), on_scintila_already_destroyed, te);
 	g_object_weak_ref (G_OBJECT (te), on_te_already_destroyed, te);
@@ -268,7 +264,14 @@ text_editor_dispose (GObject *obj)
 	}
 	if (te->scintilla)
 	{
-		g_object_unref (G_OBJECT (te->scintilla));
+		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+					G_CALLBACK (on_text_editor_text_event), te);
+		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+					G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+					G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
+		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+					G_CALLBACK (on_text_editor_scintilla_notify), te);
 		te->scintilla = NULL;
 	}
 	if (te->editor_id)

@@ -1,3 +1,25 @@
+2005-01-04  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-status.c: Use weak ref instead of hard ref on
+	added widgets.
+	
+	* plugins/editor/aneditor.cxx,
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/plugin.c,
+	plugins/editor/text_editor.c:
+	Removed unnecessary ref/unref of scintilla.
+	
+	* plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/message-view.c: Removed unnecessary refs/unrefs and
+	make close button similar to document manager.
+	
+	* plugins/project-manager/plugin.c,
+	plugins/project-manager/plugin.h: Removed dead codes. Removed
+	unnecessary ref/unref.
+	
+	* plugins/symbol-browser/plugin.c: Use weak refs on AnjutaEditor objects
+	instead of hard refs.
+
 2005-01-03  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: Added configure() and

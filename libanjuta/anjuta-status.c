@@ -241,7 +241,7 @@ anjuta_status_set_default (AnjutaStatus *status, const gchar *label,
 }
 
 static void
-on_widget_destroy (GtkWidget *widget, AnjutaStatus *status)
+on_widget_destroy (AnjutaStatus *status, GObject *widget)
 {
 	if (g_hash_table_lookup (status->priv->widgets, widget))
 		g_hash_table_remove (status->priv->widgets, widget);
@@ -255,13 +255,11 @@ anjuta_status_add_widget (AnjutaStatus *status, GtkWidget *widget)
 	
 	if (status->priv->widgets == NULL)
 		status->priv->widgets =
-			g_hash_table_new_full (g_direct_hash, g_direct_equal,
-								   g_object_unref, NULL);
+			g_hash_table_new (g_direct_hash, g_direct_equal);
 	
-	g_object_ref (G_OBJECT (widget));
 	g_hash_table_insert (status->priv->widgets, widget, widget);
-	g_signal_connect (G_OBJECT (widget), "destroy",
-					  G_CALLBACK (on_widget_destroy), status);
+	g_object_weak_ref (G_OBJECT (widget),
+					   (GWeakNotify) (on_widget_destroy), status);
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GNOME_TYPE_APPBAR);

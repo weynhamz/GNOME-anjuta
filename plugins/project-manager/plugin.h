@@ -35,21 +35,4 @@ struct _ProjectManagerPluginClass{
 	AnjutaPluginClass parent_class;
 };
 
-void pm_init (ProjectManagerPlugin *fv);
-void pm_finalize (ProjectManagerPlugin *fv);
-
-void       pm_set_root (ProjectManagerPlugin *fv, const gchar *root_dir);
-void       pm_clear    (ProjectManagerPlugin *fv);
-GList*     pm_get_node_expansion_states (ProjectManagerPlugin *fv);
-void       pm_set_node_expansion_states (ProjectManagerPlugin *fv,
-									  GList *expansion_states);
-gchar*     pm_get_selected_file_path (ProjectManagerPlugin *fv);
-
-void       pm_refresh (ProjectManagerPlugin *fv);
-
-// void        pm_customize(gboolean really_show);
-// gboolean   pm_open_file (const char *path, gboolean use_anjuta);
-// void        pm_session_save (ProjectDBase *p);
-// void        pm_session_load (ProjectDBase *p);
-
 #endif

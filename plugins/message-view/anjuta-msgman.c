@@ -55,10 +55,11 @@ static AnjutaMsgmanPage *
 anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 			const gchar * pixmap, AnjutaMsgman * msgman)
 {
+	AnjutaMsgmanPage *page;
+	int h, w;
+	
 	g_return_val_if_fail (view != NULL, NULL);
 
-	AnjutaMsgmanPage *page;
-	
 	page = g_new0 (AnjutaMsgmanPage, 1);
 	page->widget = GTK_WIDGET (view);
 	
@@ -68,29 +69,25 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	if (pixmap  && strlen(pixmap))
 	{
 		page->pixmap = anjuta_res_get_image_sized (pixmap, 16, 16);
-		g_object_ref (page->pixmap);
-		gtk_box_pack_start_defaults (GTK_BOX (page->box), page->pixmap);
+		gtk_box_pack_start (GTK_BOX (page->box), page->pixmap, FALSE, FALSE, 0);
 	}
-	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->label);
-	page->close_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_SMALL_TOOLBAR);
-	gtk_widget_set_size_request(page->close_icon, 16,16);
-	//gtk_widget_show(page->close_icon);
+	gtk_box_pack_start (GTK_BOX (page->box), page->label, TRUE, TRUE, 0);
+	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
+	page->close_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE,
+												GTK_ICON_SIZE_MENU);
+	gtk_widget_set_size_request(page->close_icon, w, h);
+	
+	/* gtk_widget_show(page->close_icon); */
 	page->button = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(page->button), page->close_icon);
 	gtk_button_set_relief(GTK_BUTTON(page->button), GTK_RELIEF_NONE);
-	gtk_widget_set_size_request (page->button, 16, 16);
-	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->button);
+	gtk_widget_set_size_request (page->button, w, h);
+	gtk_box_pack_start (GTK_BOX (page->box), page->button, FALSE, FALSE, 0);
 	
 	g_object_set_data (G_OBJECT (page->button), "message_view", page->widget);
 	gtk_signal_connect (GTK_OBJECT (page->button), "clicked",
 						GTK_SIGNAL_FUNC(on_msgman_close_page),
 						msgman);
-	
-	g_object_ref (page->label);
-	g_object_ref (page->box);
-	g_object_ref (page->button);
-	g_object_ref (page->close_icon);	
-	g_object_ref (G_OBJECT (page->widget));
 	
 	gtk_widget_show_all (page->box);
 	return page;
@@ -99,19 +96,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 static void
 anjuta_msgman_page_destroy (AnjutaMsgmanPage * page)
 {
-	g_object_unref (G_OBJECT (page->label));
-	g_object_unref (G_OBJECT (page->close_icon));
-	g_object_unref (G_OBJECT (page->button));
-	if (page->pixmap)
-	{
-		// gtk_container_remove (GTK_CONTAINER (page->box), page->pixmap);
-		g_object_unref (G_OBJECT (page->pixmap));
-	}
-	// gtk_container_remove (GTK_CONTAINER (page->box), page->label);
-	// gtk_container_remove (GTK_CONTAINER (page->button), page->close_icon);
-	// gtk_container_remove (GTK_CONTAINER (page->box), page->button);
-	g_object_unref (G_OBJECT (page->box));
-	g_object_unref (G_OBJECT (page->widget));
 	g_free (page);
 }
 

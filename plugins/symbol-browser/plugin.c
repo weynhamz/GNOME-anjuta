@@ -376,14 +376,14 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 }
 
 static void
-on_editor_destroy (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
+on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
 	
 	if (!sv_plugin->editor_connected)
 		return;
-	uri = g_object_get_data (G_OBJECT (editor), "LastSavedUri");
-	if (uri)
+	uri = g_hash_table_lookup (sv_plugin->editor_connected, G_OBJECT (editor));
+	if (uri && strlen (uri) > 0)
 	{
 		DEBUG_PRINT ("Removing file tags of %s", uri);
 		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
@@ -419,12 +419,14 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		if (!sv_plugin->editor_connected)
 			return;
 	
-		old_uri = g_object_get_data (G_OBJECT (editor), "LastSavedUri");
+		old_uri = g_hash_table_lookup (sv_plugin->editor_connected, editor);
 		
+		if (old_uri && strlen (old_uri) <= 0)
+			old_uri = NULL;
 		anjuta_symbol_view_workspace_update_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
 												  old_uri, saved_uri);
-		g_object_set_data_full (G_OBJECT (editor), "LastSavedUri",
-								g_strdup (saved_uri), g_free);
+		g_hash_table_insert (sv_plugin->editor_connected, editor,
+							 g_strdup (saved_uri));
 		
 		/* Update File symbol view */
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
@@ -461,11 +463,11 @@ on_editor_foreach (gpointer key, gpointer value, gpointer user_data)
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
 										  G_CALLBACK (on_editor_saved),
 										  user_data);
-	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
-										  G_CALLBACK (on_editor_destroy),
-										  user_data);
-	uri = g_object_get_data (G_OBJECT (key), "LastSavedUri");
-	if (uri)
+	g_object_weak_unref (G_OBJECT(key),
+						 (GWeakNotify) (on_editor_destroy),
+						 user_data);
+	uri = (const gchar *)value;
+	if (uri && strlen (uri) > 0)
 	{
 		DEBUG_PRINT ("Removing file tags of %s", uri);
 		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
@@ -489,14 +491,11 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	if (!sv_plugin->editor_connected)
 	{
-		sv_plugin->editor_connected = g_hash_table_new (NULL, NULL);
+		sv_plugin->editor_connected = g_hash_table_new_full (g_direct_hash,
+															 g_direct_equal,
+															 NULL, g_free);
 	}
-	
-	if (sv_plugin->current_editor)
-		g_object_unref (sv_plugin->current_editor);
-	
 	sv_plugin->current_editor = editor;
-	g_object_ref (sv_plugin->current_editor);
 	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri)
@@ -524,14 +523,18 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	}
 	if (g_hash_table_lookup (sv_plugin->editor_connected, editor) == NULL)
 	{
-		gint id = g_signal_connect (G_OBJECT (editor), "destroy",
-									G_CALLBACK (on_editor_destroy),
-									sv_plugin);
-		g_hash_table_insert (sv_plugin->editor_connected, editor, (gpointer)id);
+		g_object_weak_ref (G_OBJECT (editor),
+						   (GWeakNotify) (on_editor_destroy),
+						   sv_plugin);
 		if (uri)
 		{
-			g_object_set_data_full (G_OBJECT (editor), "LastSavedUri",
-									g_strdup (uri), g_free);
+			g_hash_table_insert (sv_plugin->editor_connected, editor,
+								 g_strdup (uri));
+		}
+		else
+		{
+			g_hash_table_insert (sv_plugin->editor_connected, editor,
+								 g_strdup (""));
 		}
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
@@ -554,8 +557,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 								   "ActionGotoSymbol");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-	if (sv_plugin->current_editor)
-		g_object_unref (sv_plugin->current_editor);
 	sv_plugin->current_editor = NULL;
 	
 	/* FIXME: Signal should be dis-connected and symbols removed when

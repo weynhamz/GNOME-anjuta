@@ -660,9 +660,7 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* create model & view and bind them */
 	model = gbf_project_model_new (NULL);
-	/* We already get a ref on model */
 	view = gbf_project_view_new ();
-	g_object_ref (view);
 	
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view),
 							 GTK_TREE_MODEL (model));
@@ -751,15 +749,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										"ActionProjectCloseProject");
 	
 	g_object_unref (G_OBJECT (pm_plugin->model));
-	g_object_unref (G_OBJECT (pm_plugin->view));
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, pm_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, pm_plugin->editor_watch_id, TRUE);
 	
-	// pm_finalize(pm_plugin);
-	/* Widget is destroyed when removed from the shell */
-	anjuta_shell_remove_widget (plugin->shell, pm_plugin->scrolledwindow, NULL);
+	/* Widget is removed from the shell when destroyed */
+	gtk_widget_destroy (pm_plugin->scrolledwindow);
 	
 	anjuta_ui_unmerge (pm_plugin->ui, pm_plugin->merge_id);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pm_action_group);

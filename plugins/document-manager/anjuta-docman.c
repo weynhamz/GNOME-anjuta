@@ -81,10 +81,6 @@ editor_tab_widget_destroy (AnjutaDocmanPage* page)
 	g_return_if_fail(page != NULL);
 	g_return_if_fail(page->close_button != NULL);
 
-	// g_object_unref (G_OBJECT (page->close_button));
-	// g_object_unref (G_OBJECT (page->close_image));
-	// g_object_unref (G_OBJECT (page->label));
-	
 	page->close_image = NULL;
 	page->close_button = NULL;
 	page->label = NULL;
@@ -148,10 +144,6 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	page->close_image = close_pixmap;
 	page->close_button = button15;
 	page->label = label;
-	
-	// g_object_ref (page->close_button);
-	// g_object_ref (page->close_image);
-	// g_object_ref (page->label);
 
 	return box;
 }
@@ -163,7 +155,6 @@ anjuta_docman_page_new (GtkWidget *editor, AnjutaDocman* docman)
 	
 	page = g_new0 (AnjutaDocmanPage, 1);
 	page->widget = GTK_WIDGET (editor);
-	// g_object_ref (G_OBJECT (page->widget));
 	page->box = editor_tab_widget_new (page, docman);
 	return page;
 }
@@ -172,7 +163,6 @@ static void
 anjuta_docman_page_destroy (AnjutaDocmanPage *page)
 {
 	editor_tab_widget_destroy (page);
-	// g_object_unref (G_OBJECT (page->widget));
 	g_free (page);
 }
 
@@ -388,15 +378,28 @@ anjuta_docman_dispose (GObject *obj)
 	}
 	if (docman->priv->editors)
 	{
+		/* Destroy all text editors. Note that by call gtk_widget_destroy,
+		   we are ensuring "destroy" signal is emitted in case other plugins
+		   hold refs on the editors
+		*/
+		GList *editors;
+		editors = NULL;
 		node = docman->priv->editors;
 		while (node)
 		{
 			AnjutaDocmanPage *page;
 			page = (AnjutaDocmanPage*)node->data;
-			anjuta_docman_page_destroy (page);
+			editors = g_list_prepend (editors, page->widget);
+			node = g_list_next (node);
+		}
+		node = editors;
+		while (node)
+		{
+			gtk_widget_destroy (node->data);
 			node = g_list_next (node);
 		}
 		g_list_free (docman->priv->editors);
+		g_list_free (editors);
 		docman->priv->editors = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
