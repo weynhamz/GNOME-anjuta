@@ -1,5 +1,8 @@
 2004-03-24  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta.c: Fixed to get correct child exit status
+	using mask.
+	
 	* anjuta.glade, anjuta_dialog_strings.c, src/file.c:
 	Aligned buttons in the New file dialog,
 	set default response to OK, entry box activates default response,

@@ -1995,7 +1995,7 @@ anjuta_child_terminated (int t)
 	
 	cb_data = g_list_nth_data (app->registered_child_processes_cb_data, idx);
 	if (callback)
-		(*callback) (status, cb_data);
+		(*callback) (WEXITSTATUS(status), cb_data);
 	anjuta_unregister_child_process (pid);
 	signal(SIGCHLD, anjuta_child_terminated);
 }
