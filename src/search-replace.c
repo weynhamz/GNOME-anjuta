@@ -754,6 +754,7 @@ static void search_and_replace(void)
 	FileBuffer *fb;
 	MatchInfo *mi;
 	Search *s;
+	gint offset;
 
 	g_return_if_fail(sr);
 	s = &(sr->search);
@@ -773,6 +774,7 @@ static void search_and_replace(void)
 		if (fb)
 		{
 			fb->pos = se->start_pos;
+			offset=0;
 			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr))))
 				&& (se->end_pos == -1 || mi->pos+mi->len <= se->end_pos) )
 			{
@@ -801,14 +803,24 @@ static void search_and_replace(void)
 						anjuta_message_manager_append(app->messages, buf
 						  , MESSAGE_FIND);
 						break;
-					case SA_REPLACE: /* FIXME */
-					case SA_REPLACEALL: /* FIXME */
+					case SA_REPLACE:
+					case SA_REPLACEALL:
+						if (fb->te)
+						{
+							scintilla_send_message(SCINTILLA(
+							  fb->te->widgets.editor), SCI_SETSEL, mi->pos - offset
+							  , (mi->pos + mi->len - offset));
+							scintilla_send_message(SCINTILLA(
+							  fb->te->widgets.editor), SCI_REPLACESEL, 0
+							  ,(long) sr->replace.repl_str);                  
+							offset += mi->len - strlen(sr->replace.repl_str ) ;
+						}
 						break;
 					default:
 						break;
 				}
 				match_info_free(mi);
-				if (SA_SELECT == s->action)
+				if (SA_SELECT == s->action || SA_REPLACE == s->action)
 					break;
 			}
 		}

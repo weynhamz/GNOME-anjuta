@@ -1006,7 +1006,7 @@ create_compiler_options_page6 (CompilerOptions * co)
 	radiobutton[3] =
 		gtk_radio_button_new_with_label (vbox2_group,
 						 _
-						 ("Fastest-code optimization (functions inlined where possible"));
+						 ("Fastest-code optimization (functions inlined where possible)"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton[3]));
 	gtk_widget_show (radiobutton[3]);
