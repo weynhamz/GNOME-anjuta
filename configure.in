@@ -878,6 +878,7 @@ plugins/symbol-browser/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile
+plugins/subversion/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
