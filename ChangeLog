@@ -1,3 +1,7 @@
+2003-03-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.spec.in, global-tags/Makefile.am, src/launcher.c:
+	Minor bugfixes.
+
 2003-03-05  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* SEARCH-REPLACE, THANKS, TODO: Updated docs
 	* src/*, plugins/*, printing/*: Floating windows should hide

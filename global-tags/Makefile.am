@@ -12,8 +12,7 @@ noinst_PROGRAMS = tm_global_tags
 
 tm_global_tags_SOURCES = tm_global_tags.c
 
-LDADD = $(top_builddir)/tagmanager/libctags.a
-LDFLAGS = $(GLIB_LIBS)
+LDADD = $(top_builddir)/tagmanager/libctags.a $(GLIB_LIBS)
 
 system.tags: create_global_tags.sh tm_global_tags
 	echo "Detecting header files and Generating global symbols ....."

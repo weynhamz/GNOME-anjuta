@@ -319,6 +319,8 @@ launcher_execute (gchar * command_str,
   launcher.char_pos = 1;
 
   shell = gnome_util_user_shell();
+  if (NULL == shell || '\0' == shell[0])
+	  shell = "sh";
   
   /* A launcher should not be using more than one terminal */
   if (launcher.terminal)
