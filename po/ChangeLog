@@ -1,3 +1,9 @@
+2001-11-05  Andy Piper  <andy.piper@freeuk.com>
+
+	* status.pl: another tweak to the format (changed country 
+	 attribute to language) and now populates application 
+	 element.
+
 2001-11-01 Naba kumar <kh_naba@users.sourceforge.net>
 
 	* pt_BR.po: Added new translation file for
@@ -8,7 +14,7 @@
 	* pl.po: Updated Polish translation by
 	GNOME PL Team <translators@gnome.pl>.
 
-2001-11-05	Andy Piper	<andy.piper@freeuk.com>
+2001-11-05  Andy Piper  <andy.piper@freeuk.com>
 
 	* status.pl: altered the XML format output by the script. It
 	  is now well-formed XML (although no DTD or Schema exists).
