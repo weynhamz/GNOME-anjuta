@@ -1,3 +1,19 @@
+2005-01-21  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugin/macro/plugin.c
+	plugin/macro/anjuta-macro-plugin.ui
+	plugin/macro/macro-db.[ch]
+	plugin/macro/macro-dialog.[ch]
+	plugin/macro/macro-actions.[ch]
+	plugin/macro/macro-edit.[ch]
+	plugin/macro/plugin.[ch]:
+	
+	Implemented three menu items as Naba proposed:
+	Edit->Macro->
+		Insert Macro: Pops of a border-less window to enter a shortcut
+		Add Macro: Same as Manage Macro => New
+		Manage Macros: Full-features macro dialog
+	
 2005-01-20  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-marshal.c, libanjuta/anjuta-marshal.h,
