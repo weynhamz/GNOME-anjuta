@@ -407,18 +407,18 @@ gnome_filelisttype_makedefaultlist(GList *filetypes)
 
 	ftypes = gnome_filelisttype_addtype(ftypes, _("All files"), NULL);
 	/* ftypes = gnome_filelisttype_addtype_f(ftypes, _("Anjuta project files"), 1, "prj"); */
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("C/C++ source files"), 9, "c", "cc", "cxx", "cpp", "c++", "cs", "hpp", "h", "hh");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Java files"), 2, "java", "js");   
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Pascal files"), 1, "pas");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Perl files"), 1, "pl");   
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Python files"), 1, "py");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Hyper Text Markup files"), 3, "htm", "html", "css", "htm");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Shell Script files"), 1, "sh");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Config files"), 1, "conf");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Visual Basic files"), 2, "vb", "vbs");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Properties files"), 1, "properties");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".mak files"), 1, "mak");
-	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".lua files"), 1, "lua");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("C/C++ source files"), 9, ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".hpp", ".h", ".hh");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Java files"), 2, ".java", ".js");   
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Pascal files"), 1, ".pas");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Perl files"), 1, ".pl");   
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Python files"), 1, ".py");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Hyper Text Markup files"), 3, ".htm", ".html", ".css", ".htm");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Shell Script files"), 1, ".sh");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Config files"), 1, ".conf");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Visual Basic files"), 2, ".vb", ".vbs");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _("Properties files"), 1, ".properties");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".mak files"), 1, ".mak");
+	ftypes = gnome_filelisttype_addtype_f(ftypes, _(".lua files"), 1, ".lua");
 
 	return ftypes;
 }

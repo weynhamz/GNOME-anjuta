@@ -1,3 +1,8 @@
+2002-02-17  Stephane Demurget  <demurgets@free.fr>
+
+	* widgets/gnomefilelist.c: (gnome_filelisttype_makedefaultlist):
+	  changed all extensions to begin with a dot.
+
 2002-02-16  Philip Van Hoof  <freax@pandora.be>
 
 	Patch reviewed by Stephane Demurget <demurgets@free.fr>.
