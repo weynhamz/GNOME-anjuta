@@ -330,6 +330,11 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	zvt_term_set_scroll_on_output(ZVT_TERM(m_terminal), FALSE);
 	zvt_term_set_background(ZVT_TERM(m_terminal), NULL, 0, 0);
 	zvt_term_set_wordclass(ZVT_TERM(m_terminal), (unsigned char*) "-A-Za-z0-9/_:.,?+%=");
+#ifdef ZVT_TERM_MATCH_SUPPORT
+	zvt_term_match_add	(ZVT_TERM(m_terminal),
+		"^[-A-Za-z0-9_\\.]+:[0-9]+:.*$",
+		VTATTR_UNDERLINE, NULL);
+#endif
 	gtk_widget_show(m_terminal);
 
 	m_scrollbar = gtk_vscrollbar_new(GTK_ADJUSTMENT(

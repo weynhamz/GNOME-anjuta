@@ -12,6 +12,10 @@
 	* pixmaps/anjuta_icon.png: Changed to the new icon.
 	from Todd Goyen <goyen@mbi-berlin.de>
 	
+	* src/message-manager-private.cc: Added regex to 
+	recognize (underline hilite) the parsable outputs
+	from the zvt terminal.
+	
 2002-04-11 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	Patch from: Tina Hirsch <tehirsch@arcor.de>
