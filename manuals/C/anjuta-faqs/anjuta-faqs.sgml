@@ -46,7 +46,7 @@
   </legalnotice>
 
   <releaseinfo>
-   This is version 1.0 of the Anjuta FAQ
+   This is version 1.1 of the Anjuta FAQ
   </releaseinfo>
  </artheader>
 
@@ -91,7 +91,7 @@
      <answer>
       <para>
       It stands for nothing. Naba Kumar started writing <application>Anjuta</application>, 
-      and named it after his girlfriend&mdash; this software is dedicated to her.
+      and named it after his girlfriend &mdash; this software is dedicated to her.
       </para>
       </answer>
      </qandaentry>
@@ -132,6 +132,37 @@
       <filename>libgnomeui</filename>). You should upgrade to gnome-libs-1.0.55 or 
       better (<application>Anjuta</application> is currently developed using 
       gnome-1.0.55-12, so you should consider above) and rebuild the source
+      </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      When I try to build <application>Anjuta</application> from source, 
+	  <application>make</application> fails in the <filename class="directory">intl</filename> 
+	  directory. 
+      </para>
+     </question>
+     <answer>
+      <para>
+      Look at the output from <application>configure</application>. There may be 
+	  errors like:
+	  <screen>
+      checking for xgettext... (cached) /usr/bin/xgettext
+      checking for catalogs to be installed...  es fr it ja pl ru sv tr uk
+      sed: can't read ./intl/po2tbl.sed.in: No such file or directory
+      creating ./config.status
+      creating Makefile
+      creating intl/Makefile
+      sed: can't read ./intl/Makefile.in: No such file or directory
+      creating po/Makefile.in
+      </screen>
+	  This means that the build failure is probably due to the infamous 
+	  <application>gettext</application> bug. This sometimes causes the files required 
+	  to build message translations to be destroyed (note: this is not an 
+	  <application>Anjuta</application> issue!). You should reinstall 
+	  <application>gettext</application>.
       </para>
       </answer>
      </qandaentry>

@@ -4,11 +4,11 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 0.1.6\n"
-"POT-Creation-Date: 2001-08-08 11:43+0200\n"
-"PO-Revision-Date: 2001-08-08 17:42+0200\n"
+"Project-Id-Version: anjuta 0.1.7\n"
+"POT-Creation-Date: 2001-08-21 14:49+0200\n"
+"PO-Revision-Date: 2001-08-21 14:17+0200\n"
 "Last-Translator: Stéphane Démurget <demurgets@free.fr>\n"
-"Language-Team: (null)\n"
+"Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,8 +45,8 @@ msgid "Unable to create settings directory.\n"
 msgstr "Impossible de créer le répertoire des préférences.\n"
 
 #: src/anjuta_info.c:43 src/anjuta_info.c:89
-msgid "Anjuta: Information"
-msgstr "Anjuta | Information"
+msgid "Information"
+msgstr "Information"
 
 #: src/appwiz_page1.c:95
 msgid "Select the type of application you want to develop"
@@ -73,7 +73,7 @@ msgid "GNOME-- project"
 msgstr "Projet GNOME--"
 
 #: src/appwiz_page1.c:150
-msgid "GNOME Bonobo component"
+msgid "Bonobo component"
 msgstr "Composant Bonobo"
 
 #: src/appwiz_page2.c:148 src/appwiz_page4.c:109
@@ -123,15 +123,15 @@ msgid "Couldn't find pixmap file: %s"
 msgstr "Impossible de trouver l'image %s"
 
 #: src/appwiz_page3.c:160
-msgid "Executable target."
+msgid "Executable target"
 msgstr "Cible d'exécution"
 
 #: src/appwiz_page3.c:167
-msgid "Static library target."
+msgid "Static library target"
 msgstr "Cible de librairie statique"
 
 #: src/appwiz_page3.c:173
-msgid "Dynamic library target."
+msgid "Dynamic library target"
 msgstr "Cible de librairie dynamique"
 
 #: src/appwizard_cbs.c:104
@@ -143,7 +143,7 @@ msgid "Source target name"
 msgstr "Nom de la cible source"
 
 #: src/appwizard_cbs.c:106
-msgid "Project Version"
+msgid "Project version"
 msgstr "Version du projet"
 
 #: src/appwizard_cbs.c:201
@@ -208,32 +208,32 @@ msgid "Gettext support: "
 msgstr "Support de gettext : "
 
 #: src/appwizard_gui.c:97
-msgid "GNOME Application Wizard"
-msgstr "Assistant de création d'une application Gnome"
+msgid "Application Wizard"
+msgstr "Assistant de création d'une application"
 
 #: src/appwizard_gui.c:123
-msgid "GNOME Application Wizard:     Page 1 of 6"
-msgstr "Assistant de création d'une application Gnome    (1/6)"
+msgid "Application Wizard:     Page 1 of 6"
+msgstr "Assistant de création d'une application     (1/6)"
 
 #: src/appwizard_gui.c:152
-msgid "GNOME Application Wizard:     Page 2 of 6"
-msgstr "Assistant de création d'une application Gnome    (2/6)"
+msgid "Application Wizard:     Page 2 of 6"
+msgstr "Assistant de création d'une application    (2/6)"
 
 #: src/appwizard_gui.c:176
-msgid "GNOME Application Wizard:     Page 3 of 6"
-msgstr "Assistant de création d'une application Gnome    (3/6)"
+msgid "Application Wizard:     Page 3 of 6"
+msgstr "Assistant de création d'une application    (3/6)"
 
 #: src/appwizard_gui.c:201
-msgid "GNOME Application Wizard:     Page 4 of 6"
-msgstr "Assistant de création d'une application Gnome    (4/6)"
+msgid "Application Wizard:     Page 4 of 6"
+msgstr "Assistant de création d'une application    (4/6)"
 
 #: src/appwizard_gui.c:225
-msgid "GNOME Application Wizard:     Page 5 of 6"
-msgstr "Assistant de création d'une application Gnome    (5/6)"
+msgid "Application Wizard:     Page 5 of 6"
+msgstr "Assistant de création d'une application    (5/6)"
 
 #: src/appwizard_gui.c:248
-msgid "GNOME Application Wizard:     Page 6 of 6"
-msgstr "Assistant de création d'une application Gnome    (6/6)"
+msgid "Application Wizard:     Page 6 of 6"
+msgstr "Assistant de création d'une application    (6/6)"
 
 #: src/attach_process.c:118
 #, c-format
@@ -245,9 +245,13 @@ msgstr "Impossible d'exécuter : %s"
 msgid "Unable to open the file: %s\n"
 msgstr "Impossible d'ouvrir le fichier : %s\n"
 
+#: src/attach_process_gui.c:52
+msgid "Attach to process"
+msgstr "_Attacher processus"
+
 #: src/attach_process_gui.c:61
-msgid "Select the Process to attach:"
-msgstr "Sélectionnez le processus à attacher au débogage :"
+msgid "Select the process to attach:"
+msgstr "Sélectionnez le processus à attacher au débogueur :"
 
 #: src/attach_process_gui.c:81
 msgid "Pid"
@@ -308,8 +312,8 @@ msgid "You must give a valid location to set the breakpoint."
 msgstr "Vous devez placer les points d'arrêts à des endroits valides."
 
 #: src/breakpoints_gui.c:62
-msgid "Anjuta: Breakpoints"
-msgstr "Anjuta | Points d'arrêts"
+msgid "Breakpoints"
+msgstr "P_oints d'arrêt"
 
 #: src/breakpoints_gui.c:93
 msgid "Enabled"
@@ -651,8 +655,8 @@ msgid "Clean all completed ... successful"
 msgstr "Le nettoyage complet a réussi"
 
 #: src/commands.c:542
-msgid "Anjuta: Commands"
-msgstr "Anjuta: Commandes"
+msgid "Commands"
+msgstr "Commandes"
 
 #: src/commands.c:560
 msgid "Select programming language:"
@@ -1054,7 +1058,7 @@ msgstr "Charger un exécutable"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:64
-msgid "Load Core Dump File"
+msgid "Load Core File"
 msgstr "Charger une image mémoire"
 
 #: src/debugger.c:171 src/debugger.c:649
@@ -1067,32 +1071,32 @@ msgstr "Chargement de l'image :"
 
 #: src/debugger.c:276
 msgid ""
-"You have a process ATTACHED under debugger.\n"
-"Please detach it first and then load the EXEC file."
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the executable file."
 msgstr ""
 "Un processus est attaché au débogueur.\n"
 "Veuillez le détacher avant de charger l'exécutable."
 
 #: src/debugger.c:284
 msgid ""
-"You have a process RUNNING under debugger.\n"
-"Please stop it first and then load the EXEC file."
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the executable file."
 msgstr ""
 "Un processus s'exécute dans le débogueur.\n"
 "Veuillez stopper son exécution avant de charger l'exécutable."
 
 #: src/debugger.c:312
 msgid ""
-"You have a process ATTACHED under debugger.\n"
-"Please detach it first and then load the CORE file."
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the core file."
 msgstr ""
 "Un processus est attaché au débogueur.\n"
 "Veuillez le détacher avant de charger l'image mémoire."
 
 #: src/debugger.c:320
 msgid ""
-"You have a process RUNNING under debugger.\n"
-"Please stop it first and then load the CORE file."
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the core file."
 msgstr ""
 "Un processus s'exécute dans le débogueur.\n"
 "Veuillez stopper son exécution avant de charger l'image mémoire."
@@ -1102,12 +1106,10 @@ msgstr ""
 msgid ""
 "I can not find: %s.\n"
 "Unable to initialize Debugger. :-(\n"
-"Make sure you have installed Anjuta properly."
+"Make sure Anjuta is installed correctly."
 msgstr ""
-"Impossible de trouver %s\n"
-", et donc\n"
-"d'initialiser le débogueur. Vérifiez que vous avez installé\n"
-"Anjuta correctement."
+"Impossible de trouver %s, et donc d'initialiser le débogueur.\n"
+"Vérifiez que vous avez installé Anjuta correctement."
 
 #: src/debugger.c:644
 msgid "Debugger"
@@ -1118,21 +1120,21 @@ msgid "Getting ready to start debugging session ...\n"
 msgstr "Préparation de la session de débogage ...\n"
 
 #: src/debugger.c:659
-msgid "No where\n"
-msgstr "Aucun positionnement particulier\n"
+msgid "No executable specified\n"
+msgstr "Fichier non exécutable.\n"
 
 #: src/debugger.c:663
-msgid "Open an executable or attach to a process to start debuging.\n"
+msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 "Il faut ouvrir un exécutable ou attacher un\n"
-"processus au débogueur avant de pouvoir débuter le débogage.\n"
+"processus au débogueur avant de pouvoir débuter une session de débogage.\n"
 
 #: src/debugger.c:671
-msgid "There was an error while launching Debugger!!\n"
-msgstr "Une erreur est survenue lors du lancement du débogeur !!\n"
+msgid "There was an error whilst launching the debugger!!\n"
+msgstr "Une erreur est survenue lors du lancement du débogueur !!\n"
 
 #: src/debugger.c:675
-msgid "Make sure you have 'gdb' installed in your box.\n"
+msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Vérifiez que 'gdb' est installé sur votre machine.\n"
 
 #: src/debugger.c:815
@@ -1165,8 +1167,8 @@ msgstr "Erreur : impossible d'ouvrir un terminal pour le débogage."
 #: src/debugger.c:1184
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
-"Avertissement : Aucun terminal de débogage. Redirection de la sortie vers "
-"/dev/null.\n"
+"Avertissement : Aucun terminal de débogage. Redirection de la sortie vers /"
+"dev/null.\n"
 
 #: src/debugger.c:1202
 msgid "Running program ... \n"
@@ -1180,7 +1182,7 @@ msgstr "Attachement au processus de PID %d\n"
 #: src/debugger.c:1345
 msgid ""
 "A process is already running.\n"
-"Do you want to terminate it and attach the new process?"
+"Would you like to terminate it and attach the new process?"
 msgstr ""
 "Un processus s'exécute déjà.\n"
 "Voulez-vous le tuer et attacher le nouveau processus ?"
@@ -1188,8 +1190,9 @@ msgstr ""
 #: src/debugger.c:1353
 msgid "You FOOL! I can not attach to myself."
 msgstr ""
-"A mon avis, vous devez être plus que largement positif au moindre alcootest "
-"!\nComment voulez-vous que je m'attache en plein exécution ?"
+"A mon avis, vous devez être plus que largement positif au moindre "
+"alcootest !\n"
+"Comment voulez-vous que je m'attache en plein exécution ?"
 
 #: src/debugger.c:1436
 #, c-format
@@ -1219,7 +1222,7 @@ msgid "Sending signal %s to the process: %d\n"
 msgstr "Envoi du signal %s au processus de PID %d\n"
 
 #: src/debugger.c:1863
-msgid "There was some error while signaling the process."
+msgid "There was an error whilst signaling the process."
 msgstr "Une erreur est survenue lors de l'envoi du signal au processus."
 
 #: src/executer.c:85 src/toolbar.c:500
@@ -1312,8 +1315,8 @@ msgid ""
 msgstr "Il faut fournir une chaîne à rechercher."
 
 #: src/find_in_files_gui.c:65
-msgid "Search in Files"
-msgstr "Chercher dans des fichiers"
+msgid "Find in Files"
+msgstr "Rechercher dans des fichiers"
 
 #: src/find_in_files_gui.c:88
 msgid "File/Directory to add:"
@@ -1330,6 +1333,10 @@ msgstr "Respect de la casse"
 #: src/find_in_files_gui.c:153
 msgid " Search String"
 msgstr " Rechercher une chaîne "
+
+#: src/find_replace.c:283
+msgid "Find and Replace"
+msgstr "Chercher et _remplacer ..."
 
 #: src/find_replace.c:291 src/find_text.c:247
 msgid " RegExp/String to search "
@@ -1401,9 +1408,10 @@ msgstr "La chaîne \"%s\" n'a pas été trouvé dans le texte sélectionné"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "La chaîne \"%s\" n'a pas été trouvé à partir de la position courante"
 
-#: src/find_text.c:239
-msgid "Anjuta: Find"
-msgstr "Anjuta: Recherche"
+#: src/find_text.c:239 src/messages.c:566 src/text_editor_gui.c:187
+#: src/toolbar.c:231
+msgid "Find"
+msgstr "Chercher"
 
 #: src/find_text.c:281
 msgid "Whole document"
@@ -1507,13 +1515,17 @@ msgstr ""
 msgid "Project was successfully autogenerated."
 msgstr "Le projet a correctement été autogénéré."
 
+#: src/goto_line.c:46
+msgid "Goto line"
+msgstr " Aller à une ligne"
+
 #: src/goto_line.c:54
-msgid " Go to Line No. "
+msgid " Goto Line No. "
 msgstr " Aller à la ligne n° "
 
 #: src/help.c:127
-msgid "Anjuta: Search Help"
-msgstr "Anjuta : Recherche d'aide"
+msgid "Search Help"
+msgstr "Recherche d'aide"
 
 #: src/help.c:147
 msgid "Gnome API"
@@ -2884,8 +2896,8 @@ msgid "_Create New Window"
 msgstr "_Nouvelle fenêtre"
 
 #: src/main_menubar_def.h:1310
-msgid "Start another Anjuta application"
-msgstr "Crée une nouvelle fenêtre"
+msgid "Open a new file window"
+msgstr "Ouvrir une nouvelle fenêtre d'édition"
 
 #: src/main_menubar_def.h:1320
 msgid "Close current document window"
@@ -3148,10 +3160,6 @@ msgstr "Débogage"
 #: src/messages.c:557
 msgid "Find messages"
 msgstr "Chercher un message"
-
-#: src/messages.c:566 src/text_editor_gui.c:187 src/toolbar.c:231
-msgid "Find"
-msgstr "Chercher"
 
 #: src/messages.c:573
 msgid "CVS messages"
@@ -3484,7 +3492,8 @@ msgstr ""
 "Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure "
 "d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
+"d'infos).\n"
+"En attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:665
 #, c-format
@@ -3495,7 +3504,8 @@ msgid ""
 msgstr ""
 "Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
+"d'infos).\n"
+"En attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:725
 msgid "Project loaded successfully."
@@ -3552,7 +3562,7 @@ msgid "Source module Makefile.am"
 msgstr "Makefile.am des sources"
 
 #: src/project_config.c:804
-msgid "Inlcude module Makefile.am"
+msgid "Include module Makefile.am"
 msgstr "Makefile.am du module d'inclusion"
 
 #: src/project_config.c:810
@@ -3580,49 +3590,49 @@ msgid "Build files"
 msgstr "Fichiers à écrire"
 
 #: src/project_config.c:854
-msgid "Check for programs in configuration.in"
-msgstr "Vérification des programmes installés"
+msgid "Check for programs in config.in"
+msgstr "Vérification des programmes installés dans config.in"
 
 #: src/project_config.c:871
-msgid "Program ckecks"
-msgstr "Programmes"
+msgid "Program checks"
+msgstr "Vérification des programmes"
 
 #: src/project_config.c:878
-msgid "Check for libs in configuration.in"
-msgstr "Vérification des librairies installées"
+msgid "Check for libs in config.in"
+msgstr "Vérification des librairies installées dans config.in"
 
 #: src/project_config.c:895
 msgid "Library checks"
 msgstr "Librairies"
 
 #: src/project_config.c:904
-msgid "Check for header files in configuration.in"
-msgstr "Vérification des en-têtes installés"
+msgid "Check for header files in config.in"
+msgstr "Vérification des en-têtes installés dans config.in"
 
 #: src/project_config.c:921
-msgid "Headear checks"
-msgstr "En-têtes"
+msgid "Header checks"
+msgstr "Vérification des en-têtes"
 
 #: src/project_config.c:930
-msgid "Checks for typedefs, structures, and compiler characteristics."
+msgid "Checks for typedefs, structures, and compiler characteristics"
 msgstr ""
-"Vérification des caractéristiques des typedefs, structures et compilateurs"
+"Vérification des caractéristiques des typedefs, structures et du compilateur"
 
 #: src/project_config.c:947
-msgid "characteristics check"
-msgstr "Caractéristiques"
+msgid "Characteristics check"
+msgstr "Vérification des caractéristiques"
 
 #: src/project_config.c:956
-msgid "Check for lib functions  in configuration.in"
-msgstr "Vérification de la présence de fonctions dans des librairies"
+msgid "Check for lib functions in config.in"
+msgstr "Vérification de la présence de fonctions/librairies dans config.in"
 
 #: src/project_config.c:973
 msgid "Lib functions checks"
 msgstr "Fonctions des librairies"
 
 #: src/project_config.c:980
-msgid "Additional scripts  in configuration.in"
-msgstr "Scripts additionnels"
+msgid "Additional scripts in config.in"
+msgstr "Scripts additionnels dans config.in"
 
 #: src/project_config.c:997
 msgid "Additional script"
@@ -3645,7 +3655,7 @@ msgid "Extra modules to be built before source module:"
 msgstr "Modules supplémentaires à construire avant le module source :"
 
 #: src/project_config.c:1075
-msgid "Extra modules to be built after source modules:"
+msgid "Extra modules to be built after source module:"
 msgstr "Modules supplémentaires à construire après le module source :"
 
 #: src/project_config.c:1089
@@ -3705,8 +3715,8 @@ msgid "Project"
 msgstr "Projet"
 
 #: src/project_dbase_gui.c:658
-msgid "Anjuta: Project Information"
-msgstr "Anjuta : Informations du projet"
+msgid "Project Information"
+msgstr "Informations du projet"
 
 #: src/project_dbase_gui.c:665
 msgid " Project Information "
@@ -3725,7 +3735,7 @@ msgid "No of src files:"
 msgstr "Nb de fichiers source :"
 
 #: src/project_dbase_gui.c:802
-msgid "No of help files::"
+msgid "No of help files:"
 msgstr "Nb de fichiers d'aide :"
 
 #: src/project_dbase_gui.c:809
@@ -3741,7 +3751,7 @@ msgid "No of doc files:"
 msgstr "Nb de fichiers de documentation :"
 
 #: src/project_dbase_gui.c:844
-msgid "No of PO files:"
+msgid "No of po files:"
 msgstr "Nb de fichiers de traduction :"
 
 #: src/project_dbase_gui.c:851
@@ -3749,7 +3759,7 @@ msgid "Version:"
 msgstr "Version :"
 
 #: src/project_dbase_gui.c:874
-msgid "Gui editable by Glade:"
+msgid "GUI editable by Glade:"
 msgstr "IHM éditable sous Glade :"
 
 #: src/project_dbase_gui.c:896
@@ -3905,10 +3915,10 @@ msgstr "Erreur lors de la copie du fichier dans le module."
 msgid ""
 "\"%s\"\n"
 "does not exist in the current module directory.\n"
-"Do you want to IMPORT (ie copy) into the module?"
+"Do you want to IMPORT (copy) into the module?"
 msgstr ""
 "\"%s\" n'existe pas dans le module courant.\n"
-"Voulez-vous l'importer (copier) dans le module ?"
+"Voulez-vous l'importer (i.e. copier) dans le module ?"
 
 #: src/registers_gui.c:38
 msgid "Modify"
@@ -3986,7 +3996,8 @@ msgstr " Stopper :"
 msgid " Print: "
 msgstr " Imprimer :"
 
-#. set the size to that of our splash image.#: src/splash.c:92
+#. set the size to that of our splash image.
+#: src/splash.c:92
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -4007,8 +4018,8 @@ msgid "Frame info"
 msgstr "Info sur l'image"
 
 #: src/stack_trace_gui.c:105
-msgid "Anjuta: Stack Trace"
-msgstr "Anjuta : Trace de la pile"
+msgid "Stack Trace"
+msgstr "Trace de la pile"
 
 #: src/stack_trace_gui.c:126 src/toolbar.c:1033
 msgid "Frame"
@@ -4684,11 +4695,11 @@ msgstr "Impossible de lire le fichier : %s."
 
 #: src/source.c:120 src/source.c:188 src/source.c:226 src/source.c:500
 #: src/source.c:523 src/source.c:610 src/source.c:675 src/source.c:715
-#: src/source.c:730 src/source.c:763 src/source.c:829 src/source.c:899
-#: src/source.c:918 src/source.c:951 src/source.c:970 src/source.c:1002
-#: src/source.c:1021 src/source.c:1051 src/source.c:1069 src/source.c:1099
-#: src/source.c:1117 src/source.c:1144 src/source.c:1196 src/source.c:1264
-#: src/source.c:1383 src/utilities.c:681
+#: src/source.c:730 src/source.c:763 src/source.c:830 src/source.c:900
+#: src/source.c:919 src/source.c:952 src/source.c:971 src/source.c:1003
+#: src/source.c:1022 src/source.c:1052 src/source.c:1070 src/source.c:1100
+#: src/source.c:1118 src/source.c:1145 src/source.c:1197 src/source.c:1265
+#: src/source.c:1384 src/utilities.c:681
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Impossible de créer le fichier : %s."
@@ -4714,8 +4725,8 @@ msgid "Toggle enable"
 msgstr "(Dés)activer"
 
 #: src/watch_gui.c:104
-msgid "Anjuta: Expression Watch"
-msgstr "Anjuta : Inspecteur d'expressions"
+msgid "Expression Watch"
+msgstr "Inspecteur d'expressions"
 
 #: src/watch_gui.c:124
 msgid "Expression"
@@ -4726,16 +4737,16 @@ msgid "Value"
 msgstr "Valeur"
 
 #: src/watch_gui.c:178
-msgid "Anjuta: Add Watch Expression"
-msgstr "Anjuta : Ajout d'une expression dans l'inspecteur"
+msgid "Add Watch Expression"
+msgstr "Ajout d'une expression dans l'inspecteur"
 
 #: src/watch_gui.c:187
 msgid "Add expression to watch"
 msgstr "Ajouter l'expression à l'inspecteur"
 
 #: src/watch_gui.c:242
-msgid "Anjuta: Inspect/Evaluate"
-msgstr "Anjuta : Inspecter/Evaluer"
+msgid "Inspect/Evaluate"
+msgstr "_Inspecter/Evaluer"
 
 #: src/watch_gui.c:251
 msgid "Inspect/Evaluate Expression"
@@ -4754,7 +4765,7 @@ msgid " Project Options "
 msgstr " Options du projet "
 
 #: src/appwiz_page4.c:137
-msgid "Include GNU Copyright statement in files heading"
+msgid "Include GNU Copyright statement in file headings"
 msgstr "Inclure la notice de copyright du GNU dans l'en-tête des fichiers"
 
 #: src/appwiz_page4.c:144
@@ -4786,7 +4797,7 @@ msgstr "Nécessite un terminal"
 msgid "Error writing to file: %s."
 msgstr "Erreur lors de l'écriture dans le fichier : %s."
 
-#: src/source.c:1450
+#: src/source.c:1451
 msgid "Unkown project type."
 msgstr "Type de projet inconnu."
 
@@ -5000,6 +5011,36 @@ msgstr "Déclarations de la fonction : "
 #, c-format
 msgid "Couldn't create pixmap from file: %s"
 msgstr "Impossible de créer l'image à partir du fichier : %s"
+
+#~ msgid "Anjuta: Information"
+#~ msgstr "Anjuta | Information"
+
+#~ msgid "Anjuta: Breakpoints"
+#~ msgstr "Anjuta | Points d'arrêts"
+
+#~ msgid "Anjuta: Commands"
+#~ msgstr "Anjuta: Commandes"
+
+#~ msgid "No where\n"
+#~ msgstr "Aucun positionnement particulier\n"
+
+#~ msgid "Search in Files"
+#~ msgstr "Chercher dans des fichiers"
+
+#~ msgid "Anjuta: Find"
+#~ msgstr "Anjuta: Recherche"
+
+#~ msgid "Start another Anjuta application"
+#~ msgstr "Crée une nouvelle fenêtre"
+
+#~ msgid "Anjuta: Project Information"
+#~ msgstr "Anjuta : Informations du projet"
+
+#~ msgid "No of PO files:"
+#~ msgstr "Nb de fichiers de traduction :"
+
+#~ msgid "Anjuta: Inspect/Evaluate"
+#~ msgstr "Anjuta : Inspecter/Evaluer"
 
 #~ msgid "Gtk based Project"
 #~ msgstr "Project GTK"

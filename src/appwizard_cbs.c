@@ -103,7 +103,7 @@ on_druidpagestandard2_next (GnomeDruidPage *
 	gchar error_mesg[6][32] = {
 		N_("Project name"),
 		N_("Source target name"),
-		N_("Project Version")
+		N_("Project version")
 	};
 
 	aw = user_data;

@@ -1,3 +1,15 @@
+Anjuta 0.1.7:   (21st August 2001)              -- Stephane Demurget
+
+   => Release of Anjuta-0.1.7 (stable) - bug fixes release
+
+Fixed: Two nasty bugs preventing to use the wizards (macros dir copy and
+       src/source.c).
+Fixed: Interface clean up.
+Updated: HACKING, doc, and others
+Updated: french, spanish, turk and japan translations fully up-to-date.
+
+--------------------------------------------------------------------
+
 Anjuta 0.1.6:	(31st July 2001)		-- Nabakumar. 
 
    => Release of Anjuta-0.1.6 (stable).

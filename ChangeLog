@@ -1,3 +1,18 @@
+2001-08-21  Stephane Demurget <demurgets@free.fr>
+
+	* configure.in, NEWS, README: bumped anjuta version to 0.1.7.
+
+	* HACKING,
+	  manuals/C/anjuta-faqs/anjuta-faqs.sgml,
+	  src/appwizard_cbs.c,
+	  src/appwizard_gui.c: Applied UI/docs cleanup patch from
+	  Andy Piper <andy.piper@freeuk.com>
+
+	* po/fr.po: updated to latest sources.
+
+	* Makefile.am: removed anjuta.prj from EXTRA_DIST.
+
+
 2001-08-18  Andy Piper <andy.piper@freeuk.com>
 
 	* Fixed bugs #450280 and #448845

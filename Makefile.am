@@ -18,7 +18,6 @@ anjutadoc_DATA = \
 
 EXTRA_DIST = \
 	anjuta.desktop.in.in \
-	anjuta.prj \
 	anjuta.spec.in \
 	xml-i18n-extract.in \
 	xml-i18n-merge.in \

@@ -1,7 +1,8 @@
 Notes for Developers on contributing to Anjuta
 ----------------------------------------------
 
-(TO BE EXPANDED OVER TIME)
+(TO BE EXPANDED OVER TIME - please post submissions to the Anjuta 
+Development mailing list)
 
 
 Tools
@@ -11,18 +12,34 @@ IMPORTANT: please be careful about using Anjuta to develop Anjuta.
 It is probably best not to use Anjuta for its own development,
 as it may break lots of things while developing.
 
+Anjuta is written using a mixture of C and C++.
 
-Source structure
-----------------
+
+General source structure
+------------------------
 
 When editing the code, adding new classes or methods, etc. please 
 conform with the style already followed in the source files.
 
+Conventions:
+* _cbs suffix - callbacks
+* _gui suffix - UI definitions for windows, dialogs etc.
+
 Key elements:
-* src/ The main Anjuta sources
-* scintilla/ The editor
-* widgets/ Additional widgets used
-* ccview/ The C++ class viewer
+* src/ - the main Anjuta sources
+* scintilla/ - the editor
+* widgets/ - additional widgets used
+* ccview/ - the C++ class viewer
+* launcher/ - launcher wrapper used by the debugger
+
+
+Config management
+-----------------
+
+Anjuta does not use gnome-config, and instead has its own config 
+manager / properties manager. The source for this is in 
+src/properties.cxx. There are several advantages to using this over 
+gnome-config, including the ability to do variable substitution.
 
 
 Documentation
@@ -30,7 +47,11 @@ Documentation
 
 The documentation is stored in the manuals/ directory, and consists 
 of a set of SGML sources conforming to the GNOME Documentation Project's
-Style Guide as far as possible.
+Style Guide. Please ensure that all additions also follow these guidelines.
+
+Screenshots used in the manual are processed using The Gimp. Single dialogs
+and menus are converted to RGB and the Script-Fu Drop Shadow effect applied 
+(with the default settings). All documentation images are in PNG format.
 
 Translations of application messages are stored in the standard po/ 
 directory structure at the top level of the source tree.
