@@ -1304,20 +1304,24 @@ project_dbase_close_project (ProjectDBase * p)
 	
 	if (p->is_saved == FALSE)
 	{
+		GtkWidget *dialog;
 		gint but;
 		
-		but = gnome_dialog_run (GNOME_DIALOG (create_project_confirm_dlg()));
+		dialog = GTK_DIALOG (create_project_confirm_dlg (p->widgets.window));
+		but = gtk_dialog_run (GTK_DIALOG (dialog));
 		switch (but)
 		{
-			case 0:
+			case GTK_RESPONSE_YES:
 				project_dbase_save_project (p);
 				break;
-			case 1:
+			case GTK_RESPONSE_NO:
 				p->is_saved = TRUE;
 				break;
 			default:
+				gtk_widget_destroy (dialog);
 				return;
 		}
+		gtk_widget_destroy (dialog);
 	}
 
 	/* Save session.... */

@@ -32,20 +32,20 @@
 
 static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 {
-	GnomeDialog *dialog;
+	GtkDialog *dialog;
 	gint selection_flag;
 
 	if (text_editor_has_selection (pji->te))
 		selection_flag = GNOME_PRINT_RANGE_SELECTION;
 	else
 		selection_flag = GNOME_PRINT_RANGE_SELECTION_UNSENSITIVE;
-	dialog = (GnomeDialog *) gnome_print_dialog_new(_("Print Document"),
+	dialog = (GtkDialog *) gnome_print_dialog_new(_("Print Document"),
 		GNOME_PRINT_DIALOG_RANGE);
 	gnome_print_dialog_construct_range_page ((GnomePrintDialog *) dialog,
 		GNOME_PRINT_RANGE_ALL | GNOME_PRINT_RANGE_RANGE | selection_flag,
 		1, text_editor_get_total_lines(pji->te), "A", _("Lines"));
 	
-	switch (gnome_dialog_run(GNOME_DIALOG (dialog)))
+	switch (gtk_dialog_run(GTK_DIALOG (dialog)))
 	{
 		case GNOME_PRINT_DIALOG_RESPONSE_PRINT:
 			break;
@@ -55,7 +55,7 @@ static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 		case -1:
 			return TRUE;
 		default:
-			gnome_dialog_close(GNOME_DIALOG (dialog));
+			gtk_widget_destroy (GTK_WIDGET (dialog));
 			return TRUE;
 	}
 	
@@ -68,7 +68,7 @@ static gboolean anjuta_print_run_dialog(PrintJobInfo *pji)
 						&pji->range_start_line,
 						&pji->range_end_line);
 	
-	gnome_dialog_close (GNOME_DIALOG (dialog));
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 	return FALSE;
 }
 

@@ -229,7 +229,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect_after (GTK_OBJECT (editor1), "size_allocate",
 			    GTK_SIGNAL_FUNC
 			    (on_text_editor_scintilla_size_allocate), te);
-	gtk_signal_connect (GTK_OBJECT (editor1), "notify",
+	gtk_signal_connect (GTK_OBJECT (editor1), "sci-notify",
 			    GTK_SIGNAL_FUNC (on_text_editor_scintilla_notify),
 			    te);
 

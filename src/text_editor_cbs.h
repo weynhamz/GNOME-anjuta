@@ -61,18 +61,19 @@ void
 on_text_editor_text_changed            (GtkEditable     *editable,
                                         gpointer         user_data);
 void
-on_text_editor_notebook_close_page		(GtkNotebook * notebook,
-										 GtkNotebookPage * page,
-										 gint page_num, gpointer user_data);
+on_text_editor_notebook_close_page		(GtkNotebook    *notebook,
+										 GtkNotebookPage *page,
+										 gint page_num,
+										 gpointer user_data);
 gboolean
-on_text_editor_auto_save    (gpointer         user_data);
+on_text_editor_auto_save               (gpointer         user_data);
 
 gboolean
-on_text_editor_window_focus_in_event               (GtkWidget       *widget,
+on_text_editor_window_focus_in_event   (GtkWidget       *widget,
                                         GdkEventFocus   *event,
                                         gpointer         user_data);
 gboolean
-on_text_editor_window_delete               (GtkWidget       *widget,
+on_text_editor_window_delete           (GtkWidget       *widget,
                                         GdkEventFocus   *event,
                                         gpointer         user_data);
 gboolean
@@ -81,45 +82,40 @@ on_text_editor_text_event              (GtkWidget       *widget,
                                         gpointer         user_data);
 
 gboolean
-on_text_editor_text_buttonpress_event               (GtkWidget       *widget,
+on_text_editor_text_buttonpress_event  (GtkWidget       *widget,
                                         GdkEventButton  *event,
                                         gpointer         user_data);
 
 void
-on_text_editor_check_yes_clicked(GtkButton *button, TextEditor *te);
-
-void
-on_text_editor_check_no_clicked(GtkButton *button, TextEditor *te);
-
-void
-on_text_editor_insert_text( GtkEditable *editable,
+on_text_editor_insert_text   (GtkEditable *editable,
   							  const gchar *text,
 							  gint length,
 							  gint *position,
 							  TextEditor *te);
 gint
-on_text_editor_insert_text_after ( GtkEditable *editable,
-  							  const gchar *text,
-							  gint length,
-							  gint *position,
-							  TextEditor *te);
+on_text_editor_insert_text_after (GtkEditable *editable,
+  								  const gchar *text,
+								  gint length,
+								  gint *position,
+								  TextEditor *te);
 
 void
-on_text_editor_delete_text( GtkEditable *editable,
-							  gint start_pos,
-							  gint end_pos,
-							  TextEditor *te );
+on_text_editor_delete_text (GtkEditable *editable,
+							gint start_pos,
+							gint end_pos,
+							TextEditor *te );
 
 void
-on_text_editor_scintilla_notify(GtkWidget* sci,
-		gint wParam, gpointer lParam, gpointer data);
+on_text_editor_scintilla_notify(GtkWidget* sci,	gint wParam,
+								gpointer lParam, gpointer data);
+
+void
+on_text_editor_scintilla_command(GtkWidget* sci, gint wParam,
+								 gpointer lParam, gpointer data);
 
 void
 on_text_editor_scintilla_size_allocate (GtkWidget *widget,
-			GtkAllocation *allocation, gpointer data);
-
-void
-on_text_editor_scintilla_command(GtkWidget* sci,
-		gint wParam, gpointer lParam, gpointer data);
+										GtkAllocation *allocation,
+										gpointer data);
 
 #endif

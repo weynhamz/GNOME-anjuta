@@ -98,7 +98,6 @@ gotoline_init (GotoLine * obj)
   gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (obj), FALSE, FALSE, FALSE);
   gtk_window_set_title (GTK_WINDOW (obj), "Goto Line ...");
-  //gtk_dialog_set_close (GNOME_DIALOG (obj), TRUE);
 
   dialog_vbox = GTK_DIALOG (obj)->vbox;
   gtk_widget_show (dialog_vbox);

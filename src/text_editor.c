@@ -1298,6 +1298,7 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	gtk_widget_set_sensitive(close_pixmap, FALSE);
 	
 	label = gtk_label_new (te->filename);
+	gtk_misc_set_alignment (GTK_MISC (label), 0, -1);
 	gtk_widget_show (label);
 	
 	color.red = 0;

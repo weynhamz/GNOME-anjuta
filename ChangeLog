@@ -1,7 +1,31 @@
+2003-01-24  Naba Kumar <naba@gnome.org>
+
+	* src/text_editor_gui.c, src/toolbar.c,
+	src/text_editor.c, src/text_editor_cbs.h:
+	Used correct notification signal name for scintilla
+	(gtk2) and fixed UI.
+	
+	* src/controls.c: Does not hide tags combo. Simply makes it insensitive
+	when not required.
+	
+	* printing/print-doc.c,
+	printing/print.c,,
+	src/anjuta-tools.c,
+	src/find_replace.c,
+	src/goto_line.c,
+	src/launcher.c,
+	src/mainmenu_callbacks.c,
+	src/project_dbase.c,
+	src/project_dbase.h,
+	src/project_dbase_gui.c: Used GtkDialogs instead of GnomeDialog.
+	src/text_editor.c,
+	src/text_editor_cbs.h:
+
+
 2003-01-23  Naba Kumar <naba@gnome.org>
 
 	* src/compiler_options.c, src/pixmaps.h, src/toolbar.c: Fixed to use
-	correct stock icons.
+	correct stock icons and organized pixmap macros.
 	
 	Makefile.am: Removed non-generated files.
 	

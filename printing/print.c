@@ -209,12 +209,12 @@ anjuta_print_get_text_width (PrintJobInfo *pji, gint style,
 	
 	style_info = anjuta_print_get_style (pji, style);
 	if (style_info) {
-		if (utf8) {
+//		if (utf8) {
 			width = gnome_font_get_width_utf8 (style_info->font, buff);
 #warning "G2: Is it safe to ignore non-utf8 chars here? verify it."
 //		} else {
 //			width = gnome_font_get_width_string (style_info->font, buff);
-		}
+//		}
 	} else {
 		width = aneditor_command(pji->te->editor_id,
 				ANE_TEXTWIDTH, style, (long)buff);

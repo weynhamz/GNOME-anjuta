@@ -154,7 +154,7 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 			_("The editor is being used as output buffer for an operation.\n"
 			"Closing it will result in stopping the process.\n"
 			"Do you still want close the editor?"));
-		value = gnome_dialog_run (GNOME_DIALOG(dialog));
+		value = gtk_dialog_run (GTK_DIALOG(dialog));
 		gtk_widget_destroy (dialog);
 		if (value == 1) return;
 	}

@@ -180,7 +180,8 @@ browser_toolbar_update()
 	BrowserToolbar *bt;
 	gboolean F, FLD;
 	TextEditor *te;
-
+	GList *dummy_list;
+	
 	if (app->shutdown_in_progress)
 		return;
 	bt = &(app->widgets.toolbar.browser_toolbar);
@@ -202,26 +203,21 @@ browser_toolbar_update()
 	/* Goto Tag Stuff */
 	gtk_widget_set_sensitive (bt->tag, F);
 	gtk_widget_set_sensitive (bt->tag_combo, F);
+	dummy_list = g_list_append (NULL, "");
+	gtk_combo_set_popdown_strings (GTK_COMBO (bt->tag_combo), dummy_list);
+	gtk_entry_set_text (GTK_ENTRY (bt->tag_entry), _("No tags"));
+	g_list_free (dummy_list);
 	if (F)
 	{
 		const GList *tags = anjuta_get_tag_list(te, tm_tag_max_t);
-		if (tags)
-		{
-			gtk_signal_disconnect_by_func(GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list)
+		gtk_signal_disconnect_by_func(GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list)
 			  , GTK_SIGNAL_FUNC(on_toolbar_tag_clicked), NULL);
+		if (tags)
 			gtk_combo_set_popdown_strings(GTK_COMBO(bt->tag_combo), (GList *) tags);
-			gtk_signal_connect (GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list),
-			    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
-			gtk_widget_show(bt->tag_combo);
-			gtk_widget_show(bt->tag);
-			gtk_label_set_text(GTK_LABEL(bt->tag_label), _("Tags: "));
-		}
-		else
-		{
-			gtk_widget_hide(bt->tag_combo);
-			gtk_widget_hide(bt->tag);
-			gtk_label_set_text(GTK_LABEL(bt->tag_label), _("No Tags"));
-		}
+		gtk_widget_set_sensitive (bt->tag, (tags != NULL));
+		gtk_widget_set_sensitive (bt->tag_combo, (tags != NULL));
+		gtk_signal_connect (GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list),
+		    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
 	}
 }
 

@@ -166,7 +166,7 @@ project_file_data_destroy (ProjectFileData * pfd);
 /* Project data base system */
 void create_project_dbase_gui (ProjectDBase* p);
 GtkWidget * create_project_dbase_info_gui (gchar * lab[]);
-GtkWidget * create_project_confirm_dlg (void);
+GtkWidget * create_project_confirm_dlg (GtkWidget *parent);
 
 ProjectDBase *
 project_dbase_new (PropsID pr_props);

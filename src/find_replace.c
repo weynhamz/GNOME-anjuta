@@ -197,7 +197,8 @@ find_replace_show (FindAndReplace * fr)
 				      fr->replace_prompt);
 
 	gtk_widget_grab_focus (fr->r_gui.find_entry);
-	gnome_dialog_set_default (GNOME_DIALOG (fr->r_gui.GUI), 3);
+	gtk_dialog_set_default_response (GTK_DIALOG (fr->r_gui.GUI),
+									 GTK_RESPONSE_OK);
 	entry_set_text_n_select (fr->r_gui.find_entry, NULL, TRUE);
 	entry_set_text_n_select (fr->r_gui.replace_entry, NULL, FALSE);
 

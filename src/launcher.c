@@ -483,8 +483,8 @@ launcher_pty_check_password(gchar* last_line)
 			const gchar* passwd;
 			gchar* line;
 			
-			dialog = create_password_dialog(last_line);
-			button = gnome_dialog_run(GNOME_DIALOG(dialog));
+			dialog = create_password_dialog (last_line);
+			button = gtk_dialog_run(GTK_DIALOG(dialog));
 			switch(button) {
 				case 0:
 					passwd = gtk_entry_get_text(

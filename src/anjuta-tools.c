@@ -1819,8 +1819,8 @@ get_user_params(AnUserTool *tool, gint *response_ptr)
 	params_en = (GtkEntry *) glade_xml_get_widget(xml, TOOL_PARAMS_EN);
 	params_com = (GtkCombo *) glade_xml_get_widget(xml, TOOL_PARAMS_EN_COMBO);
 	gtk_combo_disable_activate (GTK_COMBO(params_com));
-	gnome_dialog_editable_enters (GNOME_DIALOG (dialog),
-		GTK_EDITABLE(GTK_COMBO(params_com)->entry));
+	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO(params_com)->entry),
+									 TRUE);
 	glade_xml_signal_autoconnect(xml);
 	g_object_unref (xml);
 	*response_ptr = gtk_dialog_run ((GtkDialog *) dialog);

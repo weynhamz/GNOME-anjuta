@@ -989,24 +989,22 @@ create_project_dbase_info_gui (gchar * lab[])
 }
 
 GtkWidget *
-create_project_confirm_dlg ()
+create_project_confirm_dlg (GtkWidget *parent)
 {
 	GtkWidget *mesgbox;
 	GtkWidget *dialog_vbox9;
 
-	mesgbox = gnome_message_box_new (
-		_("Project is not saved.\n"
-		"Do you want to save it before closing?"),
-	       GNOME_MESSAGE_BOX_QUESTION, NULL);
-	gtk_window_set_policy (GTK_WINDOW (mesgbox), FALSE, FALSE, FALSE);
-	dialog_vbox9 = GNOME_DIALOG (mesgbox)->vbox;
-	gtk_widget_show (dialog_vbox9);
-	gnome_dialog_append_button (GNOME_DIALOG (mesgbox),
-				    GNOME_STOCK_BUTTON_YES);
-	gnome_dialog_append_button (GNOME_DIALOG (mesgbox),
-				    GNOME_STOCK_BUTTON_NO);
-	gnome_dialog_append_button (GNOME_DIALOG (mesgbox),
-				    GNOME_STOCK_BUTTON_CANCEL);
+	mesgbox = gtk_message_dialog_new (GTK_WINDOW (parent),
+									  GTK_DIALOG_DESTROY_WITH_PARENT,
+									  GTK_MESSAGE_QUESTION,
+									  GTK_BUTTONS_NONE,
+									  _("Project is not saved.\n"
+								"Do you want to save it before closing?"));
+	
+	gtk_dialog_add_buttons (GTK_DIALOG (mesgbox),
+							GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+							GTK_STOCK_NO, GTK_RESPONSE_NO,
+							GTK_STOCK_YES, GTK_RESPONSE_YES);
 	return mesgbox;
 }
 
