@@ -1,8 +1,7 @@
 /*
- * Chaînes de caractères à traduire générées par
- * Glade. Ajouter ce fichier au fichier POTFILE.in
- * de votre projet. NE PAS compiler ce fichier
- * avec le reste de votre application.
+ * Archivo de cadenas traducibles generado por Glade.
+ * Añada este archivo a su POTFILES.in de su proyecto.
+ * NO lo compile como parte de su aplicación.
  */
 
 gchar *s = N_("Attach to process");
@@ -496,3 +495,5 @@ gchar *s = N_("File type:");
 gchar *s = N_("Header");
 gchar *s = N_("GPL Notice");
 gchar *s = N_("Header File Template");
+gchar *s = N_("CPU registers");
+gchar *s = N_("Shared libraries");

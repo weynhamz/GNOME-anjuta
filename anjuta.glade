@@ -12454,7 +12454,7 @@ Todo :
 	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
 
 	      <child>
-		<widget class="GtkOptionMenu" id="preferences_menu:text:Style of Kangleipak,Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Hello World stlye,Crazy boy style:1:autoformat.style">
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Style of Kangleipak,Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley style,Hello World style,Crazy boy style:1:autoformat.style">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="history">0</property>

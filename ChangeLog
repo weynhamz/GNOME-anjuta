@@ -1,3 +1,10 @@
+2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* anjuta.glade, src/text_editor.c
+	Fixed a typo in Hello World indentation style 
+	Fixed misuse of translated strings when looking for style
+	This entry fix bug #876037
+
 2004-02-16  Naba Kumar  <naba@gnome.org>
 
 	* src/utilities.c: Fixed return value when dest file could
@@ -8,16 +15,18 @@
 	internal function to compare files.
 	
 2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
-        * src/message-manager-private.cc
-        Set bold color as foreground color in terminal
-        (fix bug #864924)
 
-        * src/aneditor.cxx
-        Use font style defined for message indicators in
-        preferences/messages
-        (fix bug #885032)
+	* src/message-manager-private.cc
+	Set bold color as foreground color in terminal
+	(fix bug #864924)
+
+	* src/aneditor.cxx
+	Use font style defined for message indicators in
+	preferences/messages
+	(fix bug #885032)
 
 2004-02-13  Franco Catrin  <fcatrin@tuxpan.com>
+
 	* src/build_project.c
 	Use build.silent option from preferences (fix bug #895726)
 	

@@ -1491,7 +1491,7 @@ get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
 		return anjuta_preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
 	for (n=0; n < (sizeof(indentstyle)/sizeof(IndentStyle)); n++)
 	{		
-		if (g_strcasecmp (name_style, _(indentstyle[n].name)) == 0)
+		if (g_strcasecmp (name_style, (indentstyle[n].name)) == 0)
 			return g_strdup(indentstyle[n].style);
 	}
 	return NULL;
