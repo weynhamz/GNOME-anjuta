@@ -2,6 +2,8 @@
 
 	* plugins/cvs-plugin/plugin.c: Fixed crash bug
 	* plugins/cvs-plugin/cvs-execute.c:
+	Fix cvs_log which did not work because of some
+	glade problem
 	Patch from Mark R. Pariente <markpariente@cmu.edu>
 	- Fix message highlighting
 

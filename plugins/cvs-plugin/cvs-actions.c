@@ -593,9 +593,9 @@ void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 	GtkWidget* fileentry;
 	
 	gint result;
-	gxml = glade_xml_new(GLADE_FILE, "cvs_log", NULL);
+	gxml = glade_xml_new(GLADE_FILE, "cvs_logdialog", NULL);
 	
-	dialog = glade_xml_get_widget(gxml, "cvs_log");
+	dialog = glade_xml_get_widget(gxml, "cvs_logdialog");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
 	if (filename)
 		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
@@ -712,7 +712,7 @@ void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
 			GtkWidget* vendortag;
 			GtkWidget* releasetag;
 			GtkWidget* logtext;
-			gchar* cvsroot;
+			gchar* cvsroot = NULL;
 			gchar* cvs_command;
 			gchar* log;
 			GString* options;

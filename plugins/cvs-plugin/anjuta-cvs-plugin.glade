@@ -1711,7 +1711,7 @@ Patch-Style diff</property>
   </child>
 </widget>
 
-<widget class="GtkDialog" id="cvs_log">
+<widget class="GtkDialog" id="cvs_logdialog">
   <property name="border_width">10</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">CVS: Log file/directory</property>
