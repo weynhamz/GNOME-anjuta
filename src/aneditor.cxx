@@ -1143,6 +1143,9 @@ int ControlIDOfCommand(unsigned long wParam) {
 
 long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	switch (cmdID) {
+	case ANE_INSERTTEXT:
+		SendEditor(SCI_INSERTTEXT,wParam,lParam);
+		break;
 	case ANE_UNDO:
 		SendEditor(SCI_UNDO);
 		break;

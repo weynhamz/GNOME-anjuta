@@ -66,6 +66,9 @@ struct _EditSubMenu
 	GtkWidget *uppercase;
 	GtkWidget *lowercase;
 	GtkWidget *convert;
+    GtkWidget *insert_c_gpl;
+    GtkWidget *insert_cpp_gpl;
+    GtkWidget *insert_datetime;
 
 	GtkWidget *select_all;
 	GtkWidget *select_brace;

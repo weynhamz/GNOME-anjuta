@@ -179,7 +179,7 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		/*  full_filename = fileselection_get_filename (app->fileselection); */
 		/*	full_filename = (gchar *)g_list_nth_data(list,i); */
 		full_filename = g_strdup(g_list_nth_data(list,i));
-		printf("Filename retrived = %s\n",full_filename);
+		/* printf("Filename retrived = %s\n",full_filename); */
 		if (!full_filename)
 			return;
 		if (strlen (extract_filename (full_filename)) == 0)
@@ -199,9 +199,9 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 			g_free (full_filename);
 			return;
 		}
-		printf("I have reached this point\n");
+		/* printf("I have reached this point\n"); */
 		anjuta_goto_file_line (full_filename, -1);
-		printf("I have reached this point goto line\n");
+		/* printf("I have reached this point goto line\n"); */
 		gtk_widget_hide (app->fileselection);
 		g_free (full_filename);
 	}

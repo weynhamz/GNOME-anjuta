@@ -188,6 +188,29 @@ static GnomeUIInfo select1_submenu_uiinfo[] = {
 	GNOMEUIINFO_END
 };
 
+static GnomeUIInfo inserttext1_submenu_uiinfo[] = {
+       {
+        GNOME_APP_UI_ITEM, N_("/* GPL Notice */"),
+        N_("Insert GPL notice with C style comments"),
+        on_insert_c_gpl_notice, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
+       {
+        GNOME_APP_UI_ITEM, N_("// GPL Notice"),
+        N_("Insert GPL notice with C++ style comments"),
+        on_insert_cpp_gpl_notice, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
+       { 
+        GNOME_APP_UI_ITEM, N_("Current Date & Time"),
+        N_("Insert current date & time"),
+        on_insert_date_time, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
+       GNOMEUIINFO_END
+};
+
+
 static GnomeUIInfo goto1_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_Goto Line no ..."),
@@ -286,6 +309,13 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("_Select"),
 	 NULL,
 	 select1_submenu_uiinfo, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	
+	{
+	 GNOME_APP_UI_SUBTREE, N_("_Insert text"),
+	 NULL,
+	 inserttext1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	

@@ -68,6 +68,12 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.convert = transform1_submenu_uiinfo[2].widget;
 	for (i = 0; i < 3; i++)
 		gtk_widget_ref (transform1_submenu_uiinfo[i].widget);
+	
+	mb->edit.insert_c_gpl = inserttext1_submenu_uiinfo[0].widget;
+	mb->edit.insert_cpp_gpl = inserttext1_submenu_uiinfo[1].widget;
+	mb->edit.insert_datetime = inserttext1_submenu_uiinfo[2].widget;
+	for (i = 0; i < 3; i++)
+		gtk_widget_ref (inserttext1_submenu_uiinfo[i].widget);
 
 	mb->edit.undo = edit1_menu_uiinfo[0].widget;
 	mb->edit.redo = edit1_menu_uiinfo[1].widget;
@@ -78,20 +84,20 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.select_all = select1_submenu_uiinfo[0].widget;
 	mb->edit.select_brace = select1_submenu_uiinfo[1].widget;
 	mb->edit.select_block = select1_submenu_uiinfo[2].widget;
-	mb->edit.autocomplete = edit1_menu_uiinfo[11].widget;
-	mb->edit.calltip = edit1_menu_uiinfo[12].widget;
+	mb->edit.autocomplete = edit1_menu_uiinfo[12].widget;
+	mb->edit.calltip = edit1_menu_uiinfo[13].widget;
 	
-	mb->edit.find = edit1_menu_uiinfo[14].widget;
-	mb->edit.find_in_files = edit1_menu_uiinfo[15].widget;
-	mb->edit.find_replace = edit1_menu_uiinfo[16].widget;
+	mb->edit.find = edit1_menu_uiinfo[15].widget;
+	mb->edit.find_in_files = edit1_menu_uiinfo[16].widget;
+	mb->edit.find_replace = edit1_menu_uiinfo[17].widget;
 	mb->edit.goto_line = goto1_submenu_uiinfo[0].widget;
 	mb->edit.goto_brace = goto1_submenu_uiinfo[1].widget;
 	mb->edit.goto_block_start = goto1_submenu_uiinfo[2].widget;
 	mb->edit.goto_block_end = goto1_submenu_uiinfo[3].widget;
 	mb->edit.goto_prev_mesg = goto1_submenu_uiinfo[4].widget;
 	mb->edit.goto_next_mesg = goto1_submenu_uiinfo[5].widget;
-	mb->edit.edit_app_gui = edit1_menu_uiinfo[20].widget;
-	for (i = 0; i < 21; i++)
+	mb->edit.edit_app_gui = edit1_menu_uiinfo[21].widget;
+	for (i = 0; i < 22; i++)
 		gtk_widget_ref (edit1_menu_uiinfo[i].widget);
 
 	mb->view.main_toolbar = toolbar1_submenu_uiinfo[0].widget;
@@ -301,7 +307,9 @@ main_menu_unref ()
 		gtk_widget_unref (select1_submenu_uiinfo[i].widget);
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (goto1_submenu_uiinfo[i].widget);
-	for (i = 0; i < 20; i++)
+	for (i = 0; i < 3; i++)
+		gtk_widget_unref (insert1_menu_uiinfo[i].widget);
+	for (i = 0; i < 22; i++)
 		gtk_widget_unref (edit1_menu_uiinfo[i].widget);
 	for (i = 0; i < 11; i++)
 		gtk_widget_unref (toolbar1_submenu_uiinfo[i].widget);

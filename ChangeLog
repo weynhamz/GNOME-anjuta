@@ -1,10 +1,32 @@
+2001-08-29  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/aneditor.cxx
+	  src/aneditor.h
+	  src/anjuta_cbs.c
+	  src/controls.c
+	  src/main_menubar.c
+	  src/main_menubar.h
+	  src/main_menubar_def.h
+	  src/mainmenu_callbacks.c
+	  src/mainmenu_callbacks.h:
+		Applied the patch that addes menu items which allow users to
+		insert GPL notice and date time in current document.
+		patch from: Rick Patel <rikul@shreve.net>	
+	
+2001-08-28  Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* widgets/gnomefileselection.c:
+	  Applied the patch for fixing multiple selection of file open funcion,
+	  which will deselect the files selected.
+	  patch from: venugopal gummuluru <vgummuluru@yahoo.com>
+
 2001-08-27  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* widgets/gnomefileselection.h, widgets/gnomefileselection.c, src/fileselection.h,
 	  src/fileselection.c, src/anjuta_cbs.c:
-	  Applied the patch from venugopal gummuluru <vgummuluru@yahoo.com>	for
-	    multiple selection of file open.
-	
+	  Applied the patch	for multiple selection of file open.
+	  patch from: venugopal gummuluru <vgummuluru@yahoo.com>
+	  
 2001-08-27  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Removed "-f" option in call to devhelp, because devhelp no longer

@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <string.h>
 #include <sched.h>
+#include <time.h>
 #include <sys/wait.h>
 #include <errno.h>
 
@@ -404,6 +405,77 @@ on_transform_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (te == NULL)
 		return;
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, 0, 0);
+}
+
+
+void
+on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
+{
+       TextEditor *te;
+       char *GPLNotice = "/*
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+ ";
+
+       te = anjuta_get_current_text_editor ();
+       if (te == NULL)
+               return;
+       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+}
+
+void
+on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
+{
+       TextEditor *te;
+       char *GPLNotice = "// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Library General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+";
+
+       te = anjuta_get_current_text_editor ();
+       if (te == NULL)
+               return;
+       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+}
+
+
+void
+on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data)
+{
+       TextEditor *te;
+       time_t cur_time = time(NULL);
+       char DateTime[256] = {0};
+       
+       sprintf(DateTime,ctime(&cur_time));
+       DateTime[strlen(DateTime)-1] = '\0';    // strip the \n that ctime appends
+               
+       te = anjuta_get_current_text_editor ();
+       if (te == NULL)
+               return;
+       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)DateTime);
 }
 
 void

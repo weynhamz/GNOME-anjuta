@@ -646,5 +646,14 @@ void
 on_reload_yes_clicked                  (GtkButton       *button,
                                         gpointer         data);
                                         
-                                        
+void
+on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
+
+
+void
+on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data);
+
 #endif

@@ -505,20 +505,24 @@ GList * gnome_filelist_get_filelist(GnomeFileList * file_list)
 	gchar * path = NULL;
 	gchar * full = NULL;
 	GList * list = NULL;
+	int num_elements;
 	GList * temp = GTK_CLIST(file_list->file_list)->selection;
-	int i;
-	int num_elements = g_list_length(temp);
-	for(i=0;i<num_elements;i++)
+	num_elements = g_list_length(temp);
+	
+	while(num_elements!=0)
 	{
 		gchar *text;
-		GtkCTreeNode * node = g_list_nth_data(temp,i);
-   if(gtk_ctree_node_get_pixtext(GTK_CTREE(file_list->file_list), node, 0, &text, NULL, NULL, NULL))
+		GtkCTreeNode * node = g_list_nth_data(temp,0);
+	
+		if(gtk_ctree_node_get_pixtext(GTK_CTREE(file_list->file_list), node, 0, &text, NULL, NULL, NULL))
 		{
-   			path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
+			path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
 			full = g_strconcat(path,text,NULL);
 			list = g_list_append(list, full);
 		}
-		
+		gtk_ctree_unselect(GTK_CTREE(file_list->file_list), node);
+		temp = GTK_CLIST(file_list->file_list)->selection;
+		num_elements--;
 	}
 	return list;
 }
@@ -621,7 +625,7 @@ void gnome_filelist_set_selection_mode(GnomeFileList *file_list, GtkSelectionMod
 	g_return_if_fail(file_list->file_list != NULL);
 	g_return_if_fail(GTK_IS_CTREE(file_list->file_list));
 	gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), mode);
-	printf("I am here\n");
+	/* printf("I am here\n"); */
 }
 
 static gboolean gnome_filelist_check_dir_exists(gchar *path)
