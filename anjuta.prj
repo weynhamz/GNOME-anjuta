@@ -24,13 +24,13 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=0.1.9.99
+anjuta.version=0.9.99
 anjuta.compatibility.level=1
 
 project.name=anjuta
 project.type=GNOME
 project.target.type=EXECUTABLE
-project.version=1.0-pre
+project.version=1.0-beta
 project.author=naba
 project.source.target=src/anjuta
 
@@ -654,6 +654,7 @@ module.doc.files=\
 	THANKS\
 	TODO\
 	doc/anjuta.1.in\
+	doc/anjuta_launcher.1.in\
 	doc/ScintillaDoc.html\
 	manuals/C/anjuta-faqs/anjuta-faqs.sgml\
 	manuals/C/anjuta-manual/anjuta-manual.sgml\

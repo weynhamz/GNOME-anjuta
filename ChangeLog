@@ -1,6 +1,6 @@
 2002-08-01	Andy Piper	<andy.piper@freeuk.com>
 
-	* NEWS: updated for 1.0-RC release
+	* NEWS: updated for 1.0-beta release
 	* widgets/e-shell-about-box.c, manuals/C/anjuta-manual/authors.sgml, 
 	  THANKS: credited new contributors
 
