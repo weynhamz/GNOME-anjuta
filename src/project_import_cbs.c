@@ -353,6 +353,9 @@ on_wizard_import_icon_select (GnomeIconList * gil,
 	case 6:
 		piw->prj_type = PROJECT_TYPE_LIBGLADE;
 		break;
+	case 7:
+		piw->prj_type = PROJECT_TYPE_WXWIN;
+		break;
 	default:		/* Invalid project type */
 		piw->prj_type = PROJECT_TYPE_END_MARK;
 		break;

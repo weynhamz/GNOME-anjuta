@@ -77,7 +77,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	GtkWidget *druid_vbox1;
 
 	gchar *icon1_file, *icon2_file, *icon3_file, *icon4_file, *icon5_file,
-		*icon6_file, *icon7_file;
+		*icon6_file, *icon7_file, *icon8_file;
 
 	GdkColor page_bg_color = { 0, 15616, 33280, 46848 };
 	GdkColor page_logo_bg_color = { 0, 15616, 33280, 46848 };
@@ -153,6 +153,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	icon5_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM);
 	icon6_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
 	icon7_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE);
+	icon8_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_WXWIN);
 	if (icon1_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon1_file,
@@ -181,6 +182,9 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	if (icon7_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon7_file, _("LibGlade project"));
+	if (icon8_file)
+		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
+					icon8_file, _("wxWindows project"));
 
 	g_free (icon1_file);
 	g_free (icon2_file);
@@ -189,6 +193,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	g_free (icon5_file);
 	g_free (icon6_file);
 	g_free (icon7_file);
+	g_free (icon8_file);
 
 	*iconlist = iconlist1;
 	return page;

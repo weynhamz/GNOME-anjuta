@@ -4,6 +4,24 @@ PROGDIR=. # `dirname $0`
 GLOBAL_TAGS_FILE=$BASEDIR/system.tags
 CFLAGS=""
 
+
+WX_PREFIX=`wx-config --prefix`
+WX_CONFIG="$WX_PREFIX/bin/wx-config"
+if [ ! -z "$WX_PREFIX" -a -e "$WX_CONFIG" ]
+then
+  WX_CFLAGS=`wx-config --cxxflags`
+  for cflag in $WX_CFLAGS
+  do
+    dir=`echo $cflag | sed 's/^-I//'`
+    if [ -d "$dir" -a ! -e "$dir/wx/setup.h" ]
+    then
+      FILES="$FILES $dir/wx/*.h $dir/wx/*/*.h"
+    fi
+  done
+  CFLAGS="$CFLAGS $WX_CFLAGS"
+fi
+
+
 GNOME_PREFIX=`gnome-config --prefix gnome 2>/dev/null`
 if [ ! -z "$GNOME_PREFIX" ]
 then
@@ -24,7 +42,7 @@ then
       FILES="$FILES $dir/*.h $dir/*/*.h"
     fi
   done
-  CFLAGS="$GNOME_CFLAGS $PGK_CONFIG_CFLAGS"
+  CFLAGS="$CFLAGS $GNOME_CFLAGS $PGK_CONFIG_CFLAGS"
 #  echo "Files are $FILES"
 #  echo "CFLAGS are $CFLAGS"
 fi

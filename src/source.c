@@ -1645,6 +1645,64 @@ source_write_libglade_main_c (ProjectDBase *data)
 	return TRUE;
 }
 
+
+gboolean
+source_write_wxwin_main_c (ProjectDBase *data)
+{
+	FILE *fp;
+	gchar *filename, *src_dir;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (data->project_is_open, FALSE);
+
+	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
+	if (!src_dir)
+		return FALSE;
+	force_create_dir (src_dir);
+
+	filename = g_strconcat (src_dir, "/main.cc", NULL);
+	g_free (src_dir);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	fprintf(fp,
+		"#ifdef HAVE_CONFIG_H\n"
+		"#  include <config.h>\n"
+		"#endif\n"
+		"#include <wx/wx.h>\n\n"
+	      	"class MyApp : public wxApp\n"
+	      	"{\n"
+	      	"  public:\n"
+	      	"    virtual bool OnInit();\n"
+	      	"};\n\n"
+	      	"IMPLEMENT_APP(MyApp)\n\n"
+	      	"bool MyApp::OnInit()\n"
+	      	"{\n"
+	      	"  wxFrame *frame = new wxFrame((wxFrame *)NULL, -1, \"Hello World\",\n"
+	      	"                               wxPoint(50, 50), wxSize(450, 340));\n\n"
+	      	"  frame->Show(TRUE);\n"
+	      	"  return TRUE;\n"
+	      	"}\n");
+	fclose (fp);
+	return TRUE;
+}
+
 gboolean
 source_write_build_files (ProjectDBase * data)
 {

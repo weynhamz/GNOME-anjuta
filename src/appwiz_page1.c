@@ -59,6 +59,9 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
   case 6:
     aw->prj_type = PROJECT_TYPE_LIBGLADE;
     break;
+  case 7:
+    aw->prj_type = PROJECT_TYPE_WXWIN;
+    break;
  default: /* Invalid project type */
     aw->prj_type = PROJECT_TYPE_END_MARK;
     break;

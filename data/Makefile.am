@@ -18,7 +18,8 @@ anjuta_data_DATA = \
 	autogen.sh.gtk\
 	autogen.sh.generic\
 	autogen.sh.gtkmm\
-	autogen.sh.gnomemm
+	autogen.sh.gnomemm\
+	autogen.sh.wxwin
 
 EXTRA_DIST = $(anjuta_data_DATA)
 

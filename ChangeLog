@@ -1,3 +1,26 @@
+2002-03-23 Tina Hirsch <cevina@users.sourceforge.net>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* data: Added file autogen.sh.wxwin 
+	* data/Makefile.am: Added entry for autogen.sh.wxwin
+	* pixmaps: Added project image appwiz_wxwin.png
+	* pixmaps/Makefile.am: Added entry for appwiz_wxwin.png
+	* src/appwizard_cbs
+	  src/compiler_options.c
+	  src/pixmaps.h
+	  src/project_dbase.c
+	  src/project_dbase.h
+	  src/project_import_cbs.c
+	  src/project_type.c
+	  src/source.c
+	  src/source.h
+	  src/wizard_gui.c: Added everything necessary for new
+	                    project type 'wxWindows (wxGTK)
+	* src/project_dbase.c: Fixed a bug that caused every project
+	                       to be a glade project in dialog
+						   'Project information'.
+
 2002-03-25 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	Patch submitted by Roy Wood <roy.wood@filogix.com>

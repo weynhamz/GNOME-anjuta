@@ -123,6 +123,18 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "",
 	 "libglade-config --version"}
 	 ,
+	{
+	 "WXWINDOWS",
+	 "C++ program using wxWindows (wxGTK) toolkit",
+	 "",
+	 "",
+	 "$(WX_CXXFLAGS)",
+	 "$(WX_LIBS)",
+	 "`wx-config --cxxflags`",
+	 "`wx-config --libs`",
+	 "",
+	 "wx-config --version"}
+	,
 	ANJUTA_SUPPORTS_END
 };
 

@@ -26,6 +26,9 @@ gboolean
 source_write_generic_main_c (ProjectDBase *data);
 
 gboolean
+source_write_wxwin_main_c (ProjectDBase *data);
+
+gboolean
 source_write_libglade_main_c (ProjectDBase *data);
 
 gboolean

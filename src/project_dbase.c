@@ -97,6 +97,7 @@ gchar *project_type_map[]=
 	"GTKmm",
 	"GNOMEmm",
 	"LIBGLADE",
+	"wxWINDOWS",
 	NULL
 };
 
@@ -1335,7 +1336,8 @@ project_dbase_show_info (ProjectDBase * p)
 	str[0] = project_dbase_get_proj_name(p);
 	str[1] = prop_get (p->props, "project.version");
 	str[2] = prop_get (p->props, "project.author");
-	if (project_dbase_get_project_type(p) != PROJECT_TYPE_GENERIC)
+	if (project_dbase_get_project_type(p)->id != PROJECT_TYPE_GENERIC
+		&& project_dbase_get_project_type(p)->id != PROJECT_TYPE_WXWIN)
 		str[3] = g_strdup (_("Yes"));
 	else
 		str[3] = g_strdup (_("No"));
@@ -1420,6 +1422,14 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	if (p->project_is_open == FALSE)
 		return FALSE;
 
+	/* wxWindows has a special 'main program' equivalent,
+	 * so use an extra function for writing its main.cc */
+	if(project_dbase_get_project_type(p)->id == PROJECT_TYPE_WXWIN)
+	{
+		return source_write_wxwin_main_c(p);
+	}
+
+	
 	if (project_dbase_get_project_type (p)->id == PROJECT_TYPE_GENERIC
 		|| project_dbase_get_target_type(p) != PROJECT_TARGET_TYPE_EXECUTABLE)
 	{

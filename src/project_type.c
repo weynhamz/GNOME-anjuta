@@ -163,6 +163,53 @@ gchar* project_type_bonobo[] =
 	"1",
 };
 
+gchar* project_type_wxwin[] = 
+{
+	"WXWINDOWS",
+	  
+	" \\\n\t$(WX_CXXFLAGS)",
+	" \\\n\t$(WX_LIBS)",
+	  
+	"\n"
+	"AM_OPTIONS_WXCONFIG\n"
+	"AM_PATH_WXCONFIG(2.3.2, wxWin=1)\n"
+	"        if test \"$wxWin\" != 1; then\n"
+	"        AC_MSG_ERROR([\n"
+	"                wxWindows must be installed on your system\n"
+	"                but wx-config script couldn't be found.\n"
+	"\n"     
+	"                Please check that wx-config is in path, the directory\n"
+	"                where wxWindows libraries are installed (returned by\n"
+	"                'wx-config --libs' or 'wx-config --static --libs' command)\n"
+	"                is in LD_LIBRARY_PATH or equivalent variable and\n"
+	"                wxWindows version is 2.3.2 or above.\n"
+	"                ])\n"
+	"        else\n"
+	"               dnl Quick hack until wx-config does it\n"
+	"               ac_save_LIBS=$LIBS\n"
+	"               ac_save_CXXFLAGS=$CXXFLAGS\n"
+	"               LIBS=$WX_LIBS\n"
+	"               CXXFLAGS=$WX_CXXFLAGS\n"
+	"               AC_LANG_SAVE\n"
+	"               AC_LANG_CPLUSPLUS\n"
+	"               AC_TRY_LINK([#include <wx/wx.h>],\n"
+	"               [wxString test=""],\n"
+	"               ,[WX_LIBS=$WX_LIBS_STATIC])\n"
+	"               echo \"WX_LIBS $WX_LIBS\"\n"
+	"               AC_LANG_RESTORE\n"
+	"               LIBS=$ac_save_LIBS\n"
+	"               CXXFLAGS=$ac_save_CXXFLAGS\n"
+	"        fi\n"
+	"\n"
+	"AM_PATH_GTK(1.2.7, ,\n"
+	"            AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?),\n"
+	"            gthread)\n",
+	
+	"/autogen.sh.wxwin",
+
+	"0",
+	"0",
+};
 
 
 
@@ -207,6 +254,11 @@ Project_Type* load_project_type(gint id)
 		case PROJECT_TYPE_LIBGLADE:
 		{
 			type = load_type_from_data(project_type_libglade, id);
+			break;
+		}
+		case PROJECT_TYPE_WXWIN:
+		{
+			type = load_type_from_data(project_type_wxwin, id);
 			break;
 		}
 		default:
