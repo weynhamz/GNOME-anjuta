@@ -218,27 +218,6 @@ on_executer_checkbutton_toggled (GtkToggleButton * togglebutton,
 	e->terminal = gtk_toggle_button_get_active (togglebutton);
 }
 
-static gchar*
-escape_quotes(gchar* str)
-{
-		gchar buffer[2048];
-		gint index;
-		gchar *s = str;
-		
-		index = 0;
-		
-		while(s) {
-			if (index > 2040)
-				break;
-			if (*s == '\"' || *s == '\'')
-				buffer[index++] = '\\';
-			buffer[index++] = *s;
-			s++;
-		}
-		buffer[index] = '\0';
-		return g_strdup(buffer);
-}
-
 void
 executer_execute (Executer * e)
 {
@@ -356,7 +335,7 @@ executer_execute (Executer * e)
 	if(e->terminal)
 	{
 		gchar* escaped_cmd;
-		escaped_cmd = escape_quotes(command);
+		escaped_cmd = anjuta_util_escape_quotes(command);
 		prop_set_with_key (e->props, "anjuta.current.command", escaped_cmd);
 
 #ifdef DEBUG

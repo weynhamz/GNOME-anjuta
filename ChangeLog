@@ -1,5 +1,16 @@
 2002-04-11 Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/utilities.[c,h]: Added a utility funtion
+	that escapes the single and double quotes in a
+	given string. Useful for passing command line
+	args with quotes.
+	
+	* src/cvs.c: Escaped the cvs log message before
+	passing it to cvs command line to avoid ambiguties
+	with quotes in the message.
+	
+2002-04-11 Naba Kumar <kh_naba@users.sourceforge.net>
+
 	Patch from: Tina Hirsch <tehirsch@arcor.de>
 	
 	* src/project_type.c:

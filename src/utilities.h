@@ -241,4 +241,10 @@ gchar *WriteBufS( gchar* szDst, const gchar* szVal );
 void
 free_string_list ( GList * pList );
 
+/********************************************************
+ * Escapes single and double quotes in the given string *
+ * Return string must be g_freed()                      *
+ ********************************************************/
+gchar* anjuta_util_escape_quotes(gchar* str);
+
 #endif

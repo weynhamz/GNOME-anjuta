@@ -1477,3 +1477,24 @@ gchar* GetStrCod( const gchar *szIn )
 	return szRet ;
 }
 
+gchar*
+anjuta_util_escape_quotes(gchar* str)
+{
+		gchar buffer[2048];
+		gint index;
+		gchar *s = str;
+		
+		index = 0;
+		
+		while(s) {
+			if (index > 2040)
+				break;
+			if (*s == '\"' || *s == '\'')
+				buffer[index++] = '\\';
+			buffer[index++] = *s;
+			s++;
+		}
+		buffer[index] = '\0';
+		return g_strdup(buffer);
+}
+

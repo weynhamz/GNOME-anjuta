@@ -223,6 +223,7 @@ cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 	gchar *compression;
 	gchar *file;
 	gchar *dir;
+	gchar *escaped_message;
 
 	g_return_if_fail (cvs != NULL);
 
@@ -239,7 +240,10 @@ cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 	if (revision != NULL && strlen (revision) > 0)
 		command = g_strconcat (command, "-r ", revision, " ", NULL);
 
-	command = g_strconcat (command, "-m \"", message, "\" ",NULL);
+	escaped_message = anjuta_util_escape_quotes(message);
+	command = g_strconcat (command, "-m \"", escaped_message, "\" ",NULL);
+	g_free(escaped_message);
+	
 	if (file) 
 		command = g_strconcat (command, file, NULL);
 
@@ -266,6 +270,7 @@ cvs_add_file (CVS * cvs, gchar * filename, gchar * message)
 	gchar *dir;
 	gchar *compression;
 	gchar *command;
+	gchar *escaped_message;
 
 	g_return_if_fail (cvs != NULL);
 
@@ -274,9 +279,11 @@ cvs_add_file (CVS * cvs, gchar * filename, gchar * message)
 
 	compression = add_compression (cvs);
 	command = g_strconcat ("cvs ", compression, " add ", NULL);
-	if (message != NULL && strlen (message) > 0)
-		command =
-			g_strconcat (command, "-m \"", message, "\" ", NULL);
+	if (message != NULL && strlen (message) > 0) {
+		escaped_message = anjuta_util_escape_quotes(message);
+		command = g_strconcat (command, "-m \"", escaped_message, "\" ", NULL);
+		g_free(escaped_message);
+	}
 	command = g_strconcat (command, file, NULL);
 
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
