@@ -1,3 +1,7 @@
+2001-10-02  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Added "no" to ALL_LINGUAS.
+	
 2001-09-29  Naba Kumar <kh_naba@users.sourceforge.net>
 
     * Patch from lbell <lbell@tsc4.com>
