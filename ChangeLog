@@ -1,5 +1,9 @@
 2004-12-07  Naba Kumar  <naba@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/automake-c.filters: Completed directory
+	tracking. Double click on Errors and warnings now work as expected.
+
 	* plugins/build-basic-autotools.c: Added codes to track build directory
 	so that absolute path of the files could be determined.
 

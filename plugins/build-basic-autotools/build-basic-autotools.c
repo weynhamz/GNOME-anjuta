@@ -28,6 +28,7 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/pixmaps.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
@@ -37,7 +38,7 @@
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
-#define MAKE_COMMAND "make -s"
+#define MAKE_COMMAND "make -s -w"
 
 static gpointer parent_class;
 
@@ -52,6 +53,7 @@ typedef struct
 /* Command processing */
 typedef struct
 {
+	AnjutaPlugin *plugin;
 	gchar *command;
 	IAnjutaMessageView *message_view;
 	AnjutaLauncher *launcher;
@@ -97,6 +99,7 @@ build_context_pop_dir (BuildContext *context, const gchar *key,
 						const gchar *dir)
 {
 	GSList *dir_stack;
+	gchar *top_dir;
 	
 	if (context->build_dir_stack == NULL)
 		return;
@@ -105,8 +108,16 @@ build_context_pop_dir (BuildContext *context, const gchar *key,
 		return;
 	
 	g_hash_table_steal (context->build_dir_stack, key);
-	dir_stack =	g_slist_remove (dir_stack, dir_stack->data);
-	g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);	
+	top_dir = dir_stack->data;
+	dir_stack =	g_slist_remove (dir_stack, top_dir);
+	
+	if (strcmp (top_dir, dir) != 0)
+	{
+		g_warning ("Directory stack misaligned!!");
+	}
+	g_free (top_dir);
+	if (dir_stack)
+		g_hash_table_insert (context->build_dir_stack, (gpointer)key, dir_stack);	
 }
 
 static const gchar *
@@ -344,25 +355,73 @@ parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 }
 
 static void
-on_build_mesg_format (IAnjutaMessageView *view, const gchar *line,
-					  AnjutaPlugin *plugin)
+on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
+					  BuildContext *context)
 {
-	gchar *dummy_fn, *summary;
+	gchar *dummy_fn, *summary, *line;
 	gint dummy_int;
 	IAnjutaMessageViewType type;
 	GList *node;
+	gchar dir[2048];
 	
 	g_return_if_fail (line != NULL);
+	
+	/* FIXME: What about translations in the following sscanf strings */
+	if ((sscanf (one_line, "make[%d]: Entering directory `%s'", &dummy_int, dir) == 2) ||
+		(sscanf (one_line, "make: Entering directory `%s'", dir) == 1))
+	{
+		/* FIXME: Hack to remove the last ' */
+		gchar *idx = strchr (dir, '\'');
+		if (idx != NULL)
+		{
+			*idx = '\0';
+		}
+		DEBUG_PRINT ("Entering: %s", dir);
+		build_context_push_dir (context, "default", dir);
+		return;
+	}
+	if ((sscanf (one_line, "make[%d]: Leaving directory `%s'", &dummy_int, dir) == 2) ||
+		(sscanf (one_line, "make: Leaving directory `%s'", dir) == 1))
+	{
+		/* FIXME: Hack to remove the last ' */
+		gchar *idx = strchr (dir, '\'');
+		if (idx != NULL)
+		{
+			*idx = '\0';
+		}
+		DEBUG_PRINT ("Leaving: %s", dir);
+		build_context_pop_dir (context, "default", dir);
+		return;
+	}
+	
+	line = g_strdup (one_line);
 	
 	type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 	if (parse_error_line(line, &dummy_fn, &dummy_int))
 	{
+		gchar *start_str, *end_str, *mid_str;
+		
 		if (strstr (line, _("warning:")) != NULL)
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 		else
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
 		
-		g_free(dummy_fn);
+		mid_str = strstr (line, dummy_fn);
+		start_str = g_strndup (line, mid_str - line);
+		end_str = line + strlen (start_str) + strlen (dummy_fn);
+		mid_str = g_build_filename (build_context_get_dir (context, "default"),
+									dummy_fn, NULL);
+		if (mid_str)
+		{
+			line = g_strconcat (start_str, mid_str, end_str, NULL);
+		}
+		else
+		{
+			line = g_strconcat (start_str, dummy_fn, end_str, NULL);
+		}
+		g_free (start_str);
+		g_free (mid_str);
+		g_free (dummy_fn);
 	}
 	else if (strstr (line, ":") != NULL)
 	{
@@ -386,11 +445,12 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *line,
 	}
 	else
 		ianjuta_message_view_append (view, type, line, "", NULL);
+	g_free (line);
 }
 
 static void
 on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
-					 AnjutaPlugin *plugin)
+					 BuildContext *context)
 {
 	gchar *filename;
 	gint lineno;
@@ -400,7 +460,8 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 		IAnjutaFileLoader *loader;
 		
 		/* Go to file and line number */
-		loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
+		loader = anjuta_shell_get_interface (context->plugin->shell,
+											 IAnjutaFileLoader,
 											 NULL);
 		
 		/* FIXME: Determine full file path */
@@ -454,6 +515,8 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 	IAnjutaMessageManager *mesg_manager;
 	BuildContext *context;
 	gchar mname[128];
+	gchar *subdir;
+	
 	static gint message_pane_count = 0;
 	
 	g_return_if_fail (command != NULL);
@@ -461,22 +524,29 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 	build_regex_init();
 	
 	context = g_new0 (BuildContext, 1);
+	context->plugin = ANJUTA_PLUGIN(plugin);
 	
 	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											   IAnjutaMessageManager, NULL);
-	snprintf (mname, 128, _("Build %d"), ++message_pane_count);
+	subdir = g_path_get_basename (dir);
+	snprintf (mname, 128, _("Build %d: %s"), ++message_pane_count, subdir);
+	g_free (subdir);
+	
 	context->message_view =
 		ianjuta_message_manager_add_view (mesg_manager, mname,
 										  ICON_FILE, NULL);
 	g_signal_connect (G_OBJECT (context->message_view), "buffer_flushed",
-					  G_CALLBACK (on_build_mesg_format), plugin);
+					  G_CALLBACK (on_build_mesg_format), context);
 	g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
-					  G_CALLBACK (on_build_mesg_parse), plugin);
+					  G_CALLBACK (on_build_mesg_parse), context);
 	
 	context->launcher = anjuta_launcher_new ();
 	
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
+	ianjuta_message_view_buffer_append (context->message_view, "Building in directory: ", NULL);
+	ianjuta_message_view_buffer_append (context->message_view, dir, NULL);
+	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	chdir (dir);
