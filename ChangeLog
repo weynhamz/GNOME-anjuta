@@ -1,4 +1,7 @@
 2003-05-26  Naba Kumar  <naba@gnome.org>
+
+	* src/text_editor.c, src/anjuta_cbs.c: Better error reporting when
+	a file could not be loaded.
 	
 	* src/project_dbase.c: Fixed a bug with GUI editor command
 	where empty string is returned.

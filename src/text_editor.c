@@ -862,7 +862,7 @@ convert_to_utf8 (const gchar *content, gsize len,
 }
 
 static gboolean
-load_from_file (TextEditor *te, gchar *fn)
+load_from_file (TextEditor *te, gchar *fn, gchar **err)
 {
 	FILE *fp;
 	gchar *buffer;
@@ -873,6 +873,7 @@ load_from_file (TextEditor *te, gchar *fn)
 	if (stat (fn, &st) != 0)
 	{
 		g_warning ("Could not stat the file %s", fn);
+		*err = g_strdup (g_strerror (errno));
 		return FALSE;
 	}
 	size = st.st_size;
@@ -883,12 +884,14 @@ load_from_file (TextEditor *te, gchar *fn)
 	{
 		/* This is funny in linux, but never hurts */
 		g_warning ("This file is too big. Unable to allocate memory.");
+		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
 		return FALSE;
 	}
 	fp = fopen (fn, "rb");
 	if (!fp)
 	{
 		g_free (buffer);
+		*err = g_strdup (g_strerror (errno));
 		return FALSE;
 	}
 	/* Crude way of loading, but faster */
@@ -927,6 +930,9 @@ load_from_file (TextEditor *te, gchar *fn)
 			{
 				/* bail out */
 				g_free (buffer);
+				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
+								   "Please check if the encoding of file is in the supported encodings list."
+								   " If not, add it from the preferences."));
 				fclose (fp);
 				return FALSE;
 			}
@@ -948,6 +954,7 @@ load_from_file (TextEditor *te, gchar *fn)
 	if (ferror (fp))
 	{
 		fclose (fp);
+		*err = g_strdup (g_strerror (errno));
 		return FALSE;
 	}
 	fclose (fp);
@@ -1088,6 +1095,8 @@ save_to_file (TextEditor * te, gchar * fn)
 gboolean
 text_editor_load_file (TextEditor * te)
 {
+	gchar *err = NULL;
+	
 	if (te == NULL || te->filename == NULL)
 		return FALSE;
 	if (IS_SCINTILLA (te->widgets.editor) == FALSE)
@@ -1096,10 +1105,11 @@ text_editor_load_file (TextEditor * te)
 	text_editor_freeze (te);
 	anjuta_set_busy ();
 	te->modified_time = time (NULL);
-	if (load_from_file (te, te->full_filename) == FALSE)
+	if (load_from_file (te, te->full_filename, &err) == FALSE)
 	{
-		anjuta_system_error (errno, _("Could not load file: %s"),
-							 te->full_filename);
+		anjuta_error (_("Could not load file: %s\n\nDetails: %s"),
+					  te->filename, err);
+		g_free (err);
 		anjuta_set_active ();
 		text_editor_thaw (te);
 		return FALSE;
@@ -1408,6 +1418,7 @@ text_editor_autoformat (TextEditor * te)
 	gchar *cmd, *file, *fopts, *shell;
 	pid_t pid;
 	int status;
+	gchar *err;
 
 	if (anjuta_is_installed ("indent", TRUE) == FALSE)
 		return;
@@ -1454,9 +1465,10 @@ text_editor_autoformat (TextEditor * te)
 				SCI_GETCURRENTPOS, 0, 0);
 	scintilla_send_message (SCINTILLA (te->widgets.editor),
 				SCI_BEGINUNDOACTION, 0, 0);
-	if (load_from_file (te, file) == FALSE)
+	if (load_from_file (te, file, &err) == FALSE)
 	{
-		anjuta_warning (_("Error in auto formatting ..."));
+		anjuta_warning (_("Error in auto formatting ...\nDetails: %s"), err);
+		g_free (err);
 	}
 	else
 	{

@@ -377,7 +377,7 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	
 	list = fileselection_get_filelist(app->fileselection);
 	elements = g_list_length(list);
-	/* If filename is only only written in entry but not selected (Bug #506441) */
+	/* If filename is only written in entry but not selected (Bug #506441) */
 	if (elements == 0)
 	{
 		entry_filename = fileselection_get_filename(app->fileselection);
@@ -389,33 +389,10 @@ on_open_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	}
 	for(i=0;i<elements;i++)
 	{
-		/*  full_filename = fileselection_get_filename (app->fileselection); */
-		/*	full_filename = (gchar *)g_list_nth_data(list,i); */
 		full_filename = g_strdup(g_list_nth_data(list,i));
-		/*printf("Filename retrived = %s\n",full_filename);*/
 		if (!full_filename)
 			return;
-		if (strlen (extract_filename (full_filename)) == 0)
-		{
-			g_free (full_filename);
-			return;
-		}
-		if (file_is_regular (full_filename) == FALSE)
-		{
-			anjuta_error (_("Not a regular file: %s."), full_filename);
-			g_free (full_filename);
-			return;
-		}
-		if (file_is_readable (full_filename) == FALSE)
-		{
-			anjuta_error (_("No read permission for: %s."), full_filename);
-			g_free (full_filename);
-			return;
-		}
-		/*printf("I have reached this point\n");*/
 		anjuta_goto_file_line (full_filename, -1);
-		/*printf("I have reached this point goto line\n");*/
-		//gtk_widget_hide (app->fileselection);
 		g_free (full_filename);
 	}
 
