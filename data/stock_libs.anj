@@ -20,7 +20,7 @@ balsasrv
 bfd
 bsd-compat
 bsd
-bz2 Bzip2 data compression
+bz2 bzip2 data compression
 c
 c_nonshared
 c_p
@@ -45,8 +45,8 @@ dl
 dl_p
 e2p
 ecpg
-efence
-elf
+efence Electric Fence Malloc Debugger
+elf Functions for accessing the internals of ELF object files
 esd Support for the Enlightened Sound Daemon 
 esddsp
 expect5.28
@@ -57,11 +57,11 @@ fl Flex
 form
 g
 gck
-gdbm
+gdbm GNU database indexing library
 gdk
 gdk_im
 gdkcardimage
-ghttp
+ghttp GNOME library for making HTTP 1.1 requests
 gif
 gimp
 gimpui
@@ -71,14 +71,14 @@ glade-gnomemm
 glade Dynamic creation of widgets from *.glade files
 g
 gmodule
-gmp
+gmp Arbitrary precision arithmetic functions
 gnome
 gnomecanvaspixbuf
 gnomemm
 gnomeole2
-gnomeprint
+gnomeprint GNOME print library
 gnomesupport
-gnomeui
+gnomeui GNOME user interface library
 gnomevfs
 gnomevfs-pthread
 gnorba
@@ -87,19 +87,19 @@ gpc
 gpm
 grove
 gthread
-gtk
+gtk Gimp Toolkit GUI library
 gtkxmhtml
-gtop
+gtop Function for accessing information on the running system 
 gtop_common
 gtop_guile
 gtop_guile_names
 gtop_names
 gtop_suid_common
 gtop_sysdeps
-guile
-history
+guile Implementation of the Scheme programming language
+history Functions for editing command lines (readlines)
 iberty
-icq
+icq GAIM GTK Instant Messenger functions 
 ieee
 im-bmp
 im-gif
@@ -111,14 +111,14 @@ im-tiff
 im-xpm
 inn
 isapnp
-jpeg
+jpeg Functions for manipulating JPEG images
 kdlgloader
 kpathsea
 kplunger
 kudzu
 l
-lber
-ldap
+lber Lightweight Directory Access Protocol functions (openldap)
+ldap Lightweight Directory Access Protocol functions
 linuxconf
 ltdl
 m
@@ -127,47 +127,48 @@ mcheck
 md5
 megawidget
 mej
-memintercept
-menu
+memintercept Functions for profiling memory usage and detecting memory leaks
+menu Screen handling and optimization menu routines (ncurses)
 mikmod
 modules
 name-server
 ncur194
-ncurses
+ncurses Screen handling and optimization routines
 ndbm
-newt
+newt Library for color text mode, widget-based user interfaces
 nsl
 nsl_p
 obgnome
 obgtk
 opcodes
 orbit-c-backend
+ostyle OpenJade DSSSL library functions
 p2c
 panel
 panel_applet
-pbm
-pcap
-pci
-pgm
+pbm Support functions for handling portable bitmap (.pbm) files
+pcap Portable framework for low-level network monitoring
+pci Function for inspecting and setting devices on the PCI bus
+pgm Support functions for handling portable greymap (.pgm) files
 pgtcl
 picc
 pics
 pisock
-png
-pnm
-popt
+png Functions for creating and manipulating Portable Network Graphics (.png) files
+pnm Support functions for handling portable anymap (.pnm) files
+popt Library for parsing command line parameters
 posix
-ppm
+ppm Support functions for handling portable pixmap (.ppm) files
 pq++
 pq
 psqlodbc
 pthread
 pthread_p
 puke
-readline
+readline Functions for editing command lines
 resolv
 resolv_p
-rle
+rle Utah Raster Toolkit RLE functions
 rpcsvc
 rpcsvc_p
 rpm
@@ -177,7 +178,7 @@ rt_p
 scg
 schily SCSI user level transport without device drivers
 slang S-Lang extension language
-snmp
+snmp UCD-SNMP project network management tools
 sp
 spgrove
 ss
@@ -188,17 +189,17 @@ tclx8.0.4
 termcap
 tiff
 tkx8.0.4
-ttf
+ttf Portable TrueType font rendering engine
 ucdagent
-ucdmibs
-ungif
+ucdmibs UCD-SNMP project network management tools
+ungif Functions for loading and saving GIF files
 util
 util_p
-uuid
+uuid DCE-compatible Universally Unique Identifier library
 versit
 vga
 vgagl
-wrap
+wrap TCP wrappers for filtering incoming network services requests
 wwwapp
 wwwcache
 wwwcore
