@@ -40,6 +40,18 @@ fi
 SCROLLKEEPER_REQUIRED=0.1.4
 AC_SUBST(SCROLLKEEPER_REQUIRED)
 
+dnl ***************************************************************************
+dnl Test whether jw is installed
+dnl ***************************************************************************
+AC_PATH_PROG(JW,jw,no)
+if test x$JW = xno; then
+  HAVE_JW="no"
+else
+  HAVE_JW="yes"
+fi
+AM_CONDITIONAL(HAVE_JW, test "x$HAVE_JW" = "xyes")
+AC_SUBST(HAVE_JW)
+
 
 dnl Checks for libraries.
 

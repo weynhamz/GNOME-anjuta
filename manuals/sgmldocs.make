@@ -1,4 +1,5 @@
 # Stollen from scrollekeeper.
+# Hacked according to requirements for anjuta.
 #
 # To use this template:
 #     1) Manually change 'docdir' below as necessary
@@ -60,8 +61,12 @@ $(docname).sgml: $(sgml_ents)
 # The weird srcdir trick is because the db2html from the Cygnus RPMs
 # cannot handle relative filenames
 $(docname)/index.html: $(srcdir)/$(docname).sgml
-	-srcdir=`cd $(srcdir) && pwd`; \
-	db2html $$srcdir/$(docname).sgml
+	-srcdir=`cd $(srcdir) && pwd`;			\
+	if test "$(HAVE_JW)" = 'yes' ; then 		\
+		jw -c /etc/sgml/catalog $$srcdir/$(docname).sgml -o $$srcdir/$(docname); \
+	else 						\
+		db2html $$srcdir/$(docname).sgml; 	\
+	 fi
 
 app-dist-hook: index.html
 	-$(mkinstalldirs) $(distdir)/$(docname)/stylesheet-images
