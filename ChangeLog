@@ -1,3 +1,8 @@
+2002-10-07  Naba Kumar <naba@gnome.org>
+
+	* src/main_menubar_def.h: Changed status bar message for Help->
+	Browse info pages. Bug #603308
+
 2002-10-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* macros/autogen.sh: Require gettext 0.10.x for autogen

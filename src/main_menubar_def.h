@@ -1734,7 +1734,7 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("Browse Info Pages"),
-	 N_("Info pages, where you cannot find what you are looking for"),
+	 N_("Browse Info pages"),
 	 on_url_activate, "info:info", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 0, 0, NULL},
