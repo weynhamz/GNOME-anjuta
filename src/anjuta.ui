@@ -27,6 +27,7 @@
 			<menuitem name="Defaults" verb="ActionSettingsDefaults" />
 			<menuitem name="Shortcuts" verb="ActionSettingsShortcuts" />
 			<menuitem name="Layout Manager" verb="ActionSettingsLayout" />
+			<menuitem name="Plugins Manager" verb="ActionSettingsPlugins" />
 		</submenu>
 		<submenu name="MenuHelp" verb="ActionMenuHelp" >
 			<menuitem name="Gnome" verb="ActionHelpGnome" />

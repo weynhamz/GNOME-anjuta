@@ -1,3 +1,17 @@
+2004-02-23  Naba Kumar  <naba@gnome.org>
+
+	* src/actions-callbacks.[c,h], src/anjuta-actions.h, src/anjuta.ui:
+	Added plugins manager dialog.
+	
+	* plugins/editor/Makefile.am: Added libanjuta-interface.la to the
+	library dependencies.
+	
+	* src/Makefile.am, src/action-callbacks.c, src/action-callbacks.h,
+	src/anjuta-actions.h, src/anjuta-app.c, src/anjuta-app.h,
+	src/anjuta-callbacks.c,	src/anjuta_cbs.c, src/main.c.
+	(new) src/anjuta.[c,h]: Organized session and winodw callbacks. Added
+	geometry command line option.
+	
 2004-02-16  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, libanjuta/Makefile.am, libanjuta/interface/*:

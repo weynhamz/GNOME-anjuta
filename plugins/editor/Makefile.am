@@ -28,6 +28,7 @@ INCLUDES = \
 libanjuta_editor_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la \
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
         $(top_builddir)/tagmanager/libanjuta-ctags.la
 

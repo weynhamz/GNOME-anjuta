@@ -41,62 +41,6 @@
 /* Blurb ?? */
 extern gboolean closing_state;
 
-gint
-on_anjuta_session_die(GnomeClient * client, gpointer data)
-{
-	gtk_main_quit();
-	return FALSE;
-}
-
-/* Saves the current anjuta session */
-gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
-									  GnomeSaveStyle s_style, gint shutdown,
-									  GnomeInteractStyle i_style, gint fast,
-									  gpointer data)
-{
-	gchar *argv[] = { "rm",	"-rf", NULL};
-	const gchar *prefix;
-	gchar **res_argv;
-	gint res_argc, counter;
-	GList* node;
-
-#ifdef DEBUG
-	g_message ("Going to save session ...");
-#endif
-	prefix = gnome_client_get_config_prefix (client);
-	argv[2] = gnome_config_get_real_path (prefix);
-	gnome_client_set_discard_command (client, 3, argv);
-
-	res_argc = g_list_length (app->text_editor_list) + 1;
-	if (app->project_dbase->project_is_open)
-		res_argc++;
-	res_argv = g_malloc (res_argc * sizeof (char*));
-	res_argv[0] = data;
-	counter = 1;
-	if (app->project_dbase->project_is_open)
-	{
-		res_argv[counter] = app->project_dbase->proj_filename;
-		counter++;
-	}
-	node = app->text_editor_list;
-	while (node)
-	{
-		TextEditor* te;
-		
-		te = node->data;
-		if (te->full_filename)
-		{
-			res_argv[counter] = te->full_filename;
-			counter++;
-		}
-		node = g_list_next (node);
-	}
-	gnome_client_set_restart_command(client, res_argc, res_argv);
-	g_free (res_argv);
-	anjuta_save_settings ();	
-	return TRUE;
-}
-
 gint on_anjuta_delete (GtkWidget *w, GdkEvent *event, gpointer data)
 {
 	AnjutaApp *app;

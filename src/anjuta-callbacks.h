@@ -21,18 +21,7 @@
 #define _ANJUTA_CALLBACKS_H_
 
 /* Private callbacks */
-void on_anjuta_app_destroy_event (GtkWidget * w, gpointer data);
-
-gint on_anjuta_app_delete_event (GtkWidget * w, GdkEvent * event,
-								 gpointer data);
-
 #if 0
-gint on_anjuta_session_die(GnomeClient * client, gpointer data);
-gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
-									  GnomeSaveStyle s_style, gint shutdown,
-									  GnomeInteractStyle i_style,
-									  gint fast, gpointer data);
-
 void on_anjuta_exit_yes_clicked (GtkButton * b, gpointer data);
 
 void on_anjuta_notebook_switch_page (GtkNotebook * notebook,

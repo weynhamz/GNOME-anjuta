@@ -34,17 +34,19 @@
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
+#include <libanjuta/plugins.h>
 
 #include "anjuta-app.h"
 #include "help.h"
 #include "about.h"
 #include "action-callbacks.h"
+#include "anjuta.h"
 
 void
 on_exit1_activate (EggAction * action, GObject *app)
 {
-	if (on_anjuta_app_delete_event (app, NULL, NULL) == FALSE)
-		on_anjuta_app_destroy_event (app, NULL);
+	if (on_anjuta_delete_event (GTK_WIDGET (app), NULL, app) == FALSE)
+		on_anjuta_destroy (GTK_WIDGET (app), app);
 }
 
 void
@@ -70,6 +72,20 @@ void
 on_layout_manager_activate(EggAction *action, AnjutaApp *app)
 {
 	egg_dock_layout_run_manager (app->layout_manager);
+}
+
+void
+on_show_plugins_activate (EggAction *action, AnjutaApp *app)
+{
+	GtkWidget *win, *plg;
+	
+	plg = anjuta_plugins_get_preferences ();
+	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (app),
+									   GTK_DIALOG_DESTROY_WITH_PARENT,
+									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(win)->vbox), plg);
+	gtk_widget_set_usize (win, 300, 400);
+	gtk_dialog_run (GTK_DIALOG (win));
 }
 
 void

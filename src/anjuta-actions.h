@@ -53,6 +53,10 @@ static EggActionGroupEntry menu_entries_settings[] = {
 	NULL, NULL,
 	N_("Manipulate layout manager items"),
     G_CALLBACK (on_layout_manager_activate), NULL},
+  { "ActionSettingsPlugins", N_("Plugins manager"),
+	NULL, NULL,
+	N_("Manipulate plugins manager items"),
+    G_CALLBACK (on_show_plugins_activate), NULL},
 };
 
 static EggActionGroupEntry menu_entries_help[] = {

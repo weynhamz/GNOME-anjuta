@@ -150,6 +150,8 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 		gchar* key;
 		PropsID pr;
 		EggAction *action;
+		GtkWidget *menuitem;
+		
 		egg_toolbar_set_icon_size (EGG_TOOLBAR (widget),
 								   GTK_ICON_SIZE_SMALL_TOOLBAR);
  		//egg_toolbar_set_show_arrow (EGG_TOOLBAR (widget), TRUE);
@@ -166,7 +168,11 @@ on_add_merge_widget (GtkWidget *merge, GtkWidget *widget,
 							  toolbarname,
 							  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
 							  BONOBO_DOCK_TOP, count + 1, 0, 0);
-		
+		if (ANJUTA_APP (ui_container)->toolbars_menu)
+			ANJUTA_APP (ui_container)->toolbars_menu = gtk_menu_new ();
+		menuitem = gtk_menu_item_new_with_label (toolbarname);
+		gtk_menu_append (GTK_MENU (ANJUTA_APP (ui_container)->toolbars_menu),
+						 menuitem);
 		// Show/hide toolbar
 		gtk_widget_show (widget);
 		if (count < 5)
@@ -315,13 +321,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	
 	/* Load layout */
 	// anjuta_app_load_layout (app, NULL);
-
-	g_signal_connect (G_OBJECT (app), "delete-event",
-					  G_CALLBACK (on_anjuta_app_delete_event),
-					  app);
-	g_signal_connect (G_OBJECT (app), "destroy",
-					  G_CALLBACK (on_anjuta_app_destroy_event),
-					  app);
 }
 
 static void

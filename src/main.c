@@ -28,17 +28,13 @@
 #include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/plugins.h>
-
-#include "anjuta-app.h"
-// #include "utilities.h"
-// #include "fileselection.h"
 #include <libanjuta/e-splash.h>
 
-/* One and only one instance of AnjutaApp. */
-// AnjutaApp *app;			
+#include "anjuta.h"
 
+/* Command line options */
 gboolean no_splash = 0;
-GList* command_args;
+gchar *anjuta_geometry = NULL;
 
 /* The static variables used in the poptTable.*/
 /* anjuta's option table */
@@ -48,78 +44,20 @@ poptOption anjuta_options[] = {
 	 	NULL, '\0', POPT_ARG_INTL_DOMAIN, PACKAGE,
 	 	0, NULL, NULL
 	},
-	{"no-splash", 's', POPT_ARG_NONE, &no_splash, 0, N_("Do not show the splashscreen"), NULL},
+	{
+		"geometry", 'g', POPT_ARG_STRING,
+		&anjuta_geometry, 0,
+		N_("Specify the size and location of the main window"),
+		N_("WIDTHxHEIGHT+XOFF+YOFF")
+	},
+	{
+		"no-splash", 's', POPT_ARG_NONE,
+		&no_splash, 0,
+		N_("Do not show the splashscreen"),
+		NULL
+	},
 	POPT_AUTOHELP {NULL}
 };
-
-/*
- * This is work around function to make sure that the users get a 
- * smooth transition from 0.1.8 to 0.1.9 version. It works by
- * detecting the version of the old config file and deleting
- * ~/.gnome/Anjuta if it is lesser than 0.1.9.
-*/
-static void delete_old_config_file (void)
-{
-	gchar *config_file, *config_dir;
-	gchar *config_version;
-	PropsID prop;
-	
-	config_dir = g_strconcat(g_get_home_dir(), "/.anjuta" PREF_SUFFIX, NULL);
-	config_file = g_strconcat(config_dir, "/session.properties", NULL);
-	
-	prop = prop_set_new();
-	prop_read (prop, config_file, config_dir);
-	g_free (config_dir);
-	g_free (config_file);
-	
-	config_version = prop_get(prop, "anjuta.version");
-	if (config_version) {
-		gint last_ver;
-		if(1 > sscanf(config_version, "0.1.%d", &last_ver))
-			last_ver = 10;
-#ifdef DEBUG
-		g_message ("Old Version = %d", last_ver);
-#endif
-		if (last_ver < 9) {
-			gchar* conf_file;
-			conf_file = g_strconcat (g_get_home_dir(), "/.gnome/Anjuta", NULL);
-#ifdef DEBUG
-			g_message("Old config file %s found: Removing it", conf_file);
-#endif
-			remove(conf_file);
-			g_free(conf_file);
-		}
-		g_free(config_version);
-	}
-}
-
-static gint
-restore_session_on_idle (gpointer data)
-{
-	// GnomeClient* client = data;
-	//while (gtk_events_pending ())
-	//{
-	//	gtk_main_iteration ();
-	//}
-	// FIXME: anjuta_session_restore(client);
-	return FALSE;
-}
-
-static gint
-load_command_lines_on_idle(gpointer data)
-{
-	// int argc = (int)data;
-	// while (gtk_events_pending ())
-	//{
-	//	gtk_main_iteration ();
-	//}
-	// FIXME: anjuta_load_cmdline_files();
-	// FIXME: if( ( 1 == argc ) &&	app->b_reload_last_project )
-	//{
-		// FIXME: anjuta_load_last_project();
-  //}
-	return FALSE;
-}
 
 static gchar *get_real_path(const gchar *file_name)
 {
@@ -159,17 +97,13 @@ get_command_line_args (GnomeProgram *program)
 int
 main (int argc, char *argv[])
 {
-  AnjutaApp *app;
+	AnjutaApp *app;
 	GtkWidget *splash = NULL;
 	GnomeProgram *program;
-	GnomeClient *client;
-	GnomeClientFlags flags;
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
+	GList* command_args;
 
-	/* Before anything starts */
-	delete_old_config_file();
-	
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -187,19 +121,8 @@ main (int argc, char *argv[])
 		            _("Integrated Development Environment"),
 			    GNOME_PARAM_APP_DATADIR, data_dir,
 			    NULL);
-#ifdef DEBUG
-	g_message ("Anjuta data directory set to: %s", data_dir);
-#endif
 	g_free (data_dir);
 	
-	/* Session management */
-	client = gnome_master_client();
-	// gtk_signal_connect(GTK_OBJECT(client), "save_yourself",
-	//		   GTK_SIGNAL_FUNC(on_anjuta_session_save_yourself),
-	//		   (gpointer) argv[0]);
-	// gtk_signal_connect(GTK_OBJECT(client), "die",
-	//		   GTK_SIGNAL_FUNC(on_anjuta_session_die), NULL);
-
 	/* Get the command line files */
 	command_args = get_command_line_args (program);
 
@@ -220,38 +143,17 @@ main (int argc, char *argv[])
 	/* Initialize plugins */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
 	anjuta_plugins_init (plugins_dirs);
-	
-	/* Initialize application */
-	app = ANJUTA_APP (anjuta_app_new ());
-	
-	/* Load plugins */
-	anjuta_plugins_load (ANJUTA_SHELL (app), 
-			     app->ui, app->preferences,
-			     E_SPLASH (splash), "default");
-	gtk_widget_show (anjuta_plugins_get_preferences ());
-	anjuta_app_load_layout (app, NULL);
-	//	while (gtk_events_pending ())
-	//	gtk_main_iteration ();
-	
-	gtk_widget_show (GTK_WIDGET (app));
 
+	app = anjuta_new (argv[0], command_args, E_SPLASH (splash));
+	if (anjuta_geometry)
+		gtk_window_parse_geometry (GTK_WINDOW (app), anjuta_geometry);
+	
 	if (splash) {
 		gtk_widget_unref (splash);
         	gtk_widget_destroy (splash);
 	}
 
-	flags = gnome_client_get_flags(client);
-	if (flags & GNOME_CLIENT_RESTORED) {
-		/* Restore session */
-		gtk_idle_add(restore_session_on_idle, client);
-	} else {
-		/* Load commandline args */
-		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
-	}
-	
-	/* Connect the necessary kernal signals */
-	// FIXME: anjuta_kernel_signals_connect ();
-
+	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
 	
 	// FIXME: anjuta_application_exit();

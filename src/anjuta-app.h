@@ -55,7 +55,7 @@ typedef struct _FileLineInfo FileLineInfo;
 struct _AnjutaApp
 {
 	GnomeApp parent;
-	
+	GtkWidget *toolbars_menu;
 	GtkWidget *dock;
  	EggDockLayout *layout_manager;
 

@@ -28,6 +28,8 @@ bin_PROGRAMS = anjuta
 anjuta_SOURCES = \
 	about.c \
 	about.h \
+	anjuta.c \
+	anjuta.h \
 	anjuta-app.c \
 	anjuta-app.h \
 	anjuta-callbacks.h \

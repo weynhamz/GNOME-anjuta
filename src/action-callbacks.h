@@ -26,6 +26,7 @@ void on_set_default_preferences1_activate (EggAction *action,
 					   AnjutaApp *app);
 void on_customize_shortcuts_activate (EggAction * action, AnjutaApp *app);
 void on_layout_manager_activate(EggAction *action, AnjutaApp *app);
+void on_show_plugins_activate(EggAction *action, AnjutaApp *app);
 
 /*****************************************************************************/
 void on_help_activate (EggAction * action, gpointer url);
