@@ -37,6 +37,8 @@ gnomemenudir = $(datadir)/applications
 gnomemenu_premerge_file = anjuta.desktop.in
 gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)
 
+DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+
 # Copy all the spec files. Of course, only one is actually used.
 dist-hook:
 	for specfile in *.spec; do \

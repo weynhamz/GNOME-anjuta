@@ -273,7 +273,7 @@ on_editor_command_activate (EggAction * action, gpointer user_data)
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	
-	plugin = (EditorPlugin *) user_data;
+	plugin = (EditorPlugin *) g_object_get_data (G_OBJECT (action), "Plugin");
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
@@ -294,7 +294,6 @@ on_editor_select_function (EggAction *action, gpointer user_data)
 		return;
 	function_select(te);
 }
-
 
 void on_editor_select_word (EggAction *action, gpointer user_data)
 {
@@ -327,15 +326,16 @@ on_transform_eolchars1_activate (EggAction * action, gpointer user_data)
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
+	glong mode;
+	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-#if 0 //FIXME:
-	mode = (glong)user_data;
+
+	mode = (glong)g_object_get_data (G_OBJECT (user_data), "user_data");
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
-#endif
 }
 
 void
@@ -1044,13 +1044,15 @@ on_editor_linewrap1_activate (EggAction * action, gpointer user_data)
 void
 on_zoom_text_activate (EggAction * action, gpointer user_data)
 {
-	AnjutaPreferences *p = ANJUTA_PREFERENCES (ANJUTA_PLUGIN (user_data)->prefs);
+	AnjutaPlugin *plugin;
+	AnjutaPreferences *p;
 	gint zoom;
 	gchar buf[20];
+	const gchar *zoom_text;
 	
-	// FIXME: 
-	// const gchar *zoom_text = (const gchar *) user_data;
-	const gchar *zoom_text = "0";
+	plugin = (AnjutaPlugin *) g_object_get_data (G_OBJECT (action), "Plugin");
+	p = ANJUTA_PREFERENCES (plugin->prefs);
+	zoom_text = (const gchar *) user_data;
 	
 	if (!zoom_text)
 		zoom = 0;
@@ -1066,7 +1068,7 @@ on_zoom_text_activate (EggAction * action, gpointer user_data)
 		zoom = MIN_ZOOM_FACTOR;
 	g_snprintf(buf, 20, "%d", zoom);
 	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, buf);
-	// FIXME: anjuta_docman_set_zoom_factor(zoom);
+	anjuta_docman_set_zoom_factor(zoom);
 }
 
 void
@@ -1076,12 +1078,12 @@ on_force_hilite1_activate (EggAction * action, gpointer user_data)
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	
-	plugin = (EditorPlugin *) user_data;
+	plugin = (EditorPlugin *) g_object_get_data (G_OBJECT(action), "Plugin");
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	// FIXME: te->force_hilite = (gint) user_data;
+	te->force_hilite = (gint) user_data;
 	text_editor_set_hilite_type (te);
 }
 

@@ -33,13 +33,7 @@ struct _AnjutaShellIface {
 				   const char   *name,
 				   const char   *title,
 				   GError      **error);
-/*	void (*add_preferences)   (AnjutaShell  *shell,
-				   GtkWidget    *page,
-				   const char   *name,
-				   const char   *title,
-				   GdkPixbuf    *icon,
-				   GError      **error);
-*/	void (*add_value)         (AnjutaShell  *shell,
+	void (*add_value)         (AnjutaShell  *shell,
 				   const char   *name,
 				   const GValue *value,
 				   GError       **error);

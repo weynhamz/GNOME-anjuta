@@ -98,14 +98,28 @@ typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
 
 GType anjuta_preferences_get_type (void);
 
-/* Preferences */
+/**
+ * anjuta_preferences_new:
+ * 
+ * Creates a new #AnjutaPreferences object
+ */
 GtkWidget *anjuta_preferences_new (void);
 
-/* Add a page to the preferences sytem.
- * gxml: The GladeXML object of the glade dialog containing the page widget.
- *     The glade dialog will contain the layout of the preferences widgets.
- *     The widgets which are preference widgets (e.g. toggle button) should have
- *     widget names of the form:
+/**
+ * anjuta_preferences_add_page:
+ * @pr: a #AnjutaPreferences object
+ * @gxml: #GladeXML object containing the preferences page
+ * @glade_widget_name: Page widget name (as give with glade interface editor).
+ * The widget will be searched with the given name and detached
+ * (that is, removed from the container, if present) from it's parent.
+ * @icon_filename: File name (of the form filename.png) of the icon representing
+ * the preference page.
+ * 
+ * Add a page to the preferences sytem.
+ * gxml is the GladeXML object of the glade dialog containing the page widget.
+ * The glade dialog will contain the layout of the preferences widgets.
+ * The widgets which are preference widgets (e.g. toggle button) should have
+ * widget names of the form:
  *              preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
  *     where,
  *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color' or 'font'.
@@ -120,29 +134,36 @@ GtkWidget *anjuta_preferences_new (void);
  *                     along with the project, the flag = 1.
  *       PROPERTYKEY is the property key. e.g - 'tab.size'.
  *
- *     All widgets having the above names in the gxml tree will be registered
- *     and will become part of auto saving/loading. For example, refer to
- *     anjuta preferences dialogs and study the widget names.
+ * All widgets having the above names in the gxml tree will be registered
+ * and will become part of auto saving/loading. For example, refer to
+ * anjuta preferences dialogs and study the widget names.
  *
- * glade_widget_name: Page widget name (as give with glade interface editor).
- * 	   The widget will be searched with the given name and detached
- *     (that is, removed from the container, if present) from it's parent.
- *
- * icon_filename: File name (of the form filename.png) of the icon representing
- *     the preference page.
+ * Returns: void
  */
 void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 								  const char* glade_widget_name,
 								  const gchar *icon_filename);
 
-/* This will register all the properties names of the format described above
+/**
+ * anjuta_preferences_register_all_properties_from_glade_xml:
+ * @pr: a #AnjutaPreferences Object
+ * @gxml: GladeXML object containing the properties widgets.
+ * @parent: Parent widget in the gxml object
+ *
+ * This will register all the properties names of the format described above
  * without considering the UI. Useful if you have the widgets shown elsewhere
  * but you want them to be part of preferences system.
  */
 void anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
 																GladeXML *gxml,
 																GtkWidget *parent);
-/* This registers only one widget. The widget could be shown elsewhere.
+/**
+ * anjuta_preferences_register_property_from_string:
+ * @pr: a #AnjutaPreferences object
+ * @object: Widget to register
+ * @property_desc: Property description (see anjuta_preferences_add_pag())
+ *
+ * This registers only one widget. The widget could be shown elsewhere.
  * the property_description should be of the form described before.
  */
 gboolean
@@ -150,7 +171,17 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 												  GtkWidget *object,
 												  const gchar *property_desc);
 
-/* This also registers only one widget, but instead of supplying the property
+/**
+ * anjuta_preferences_register_property_raw:
+ * @pr: a #AnjutaPreferences object
+ * @object: Widget to register
+ * @key: Property key
+ * @default_value: Default value of the key
+ * @flags: Flags
+ * @object_type: Object type of widget
+ * @data_type: Data type of the property
+ *
+ * This also registers only one widget, but instead of supplying the property
  * parameters as a single parsable string (as done in previous method), it
  * takes them separately.
  */
@@ -162,7 +193,15 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr, GtkWidget *obje
 										  AnjutaPropertyObjectType object_type,
 										  AnjutaPropertyDataType  data_type);
 
-/* This is meant for complex widgets which can not be set/get with the
+/**
+ * anjuta_preferences_register_property_custom:
+ * @pr: a #AnjutaPreferences object.
+ * @object: Object to register.
+ * @key: Property key.
+ * @default_value: Default value of the key.
+ * @flags: Flags
+ *
+ * This is meant for complex widgets which can not be set/get with the
  * standard object set/get methods. Custom set/get methods are passed for
  * the property to set/get the value to/from the widget.
  */
@@ -175,8 +214,13 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
 		gchar * (*get_property) (AnjutaProperty *));
 
-/* Resets the default values into the keys */
-void anjuta_preferences_reset_defaults (AnjutaPreferences *);
+/**
+ * anjuta_preferences_reset_defaults:
+ * @pr: a #AnjutaPreferences object.
+ *
+ * Resets the default values into the keys
+ */
+void anjuta_preferences_reset_defaults (AnjutaPreferences *pr);
 
 /* Save and (Loading is done in _new()) */
 gboolean anjuta_preferences_save (AnjutaPreferences * p, FILE * stream);

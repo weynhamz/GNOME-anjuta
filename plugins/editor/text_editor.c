@@ -167,7 +167,11 @@ text_editor_new (AnjutaPreferences *eo, gchar *filename, gchar *name)
 			  (glong) app->accel_group, 0);
 	*/
 	te->scintilla = aneditor_get_widget (te->editor_id);
+	gtk_widget_set_usize (te->scintilla, 50, 50);
 	gtk_widget_show (te->scintilla);
+	
+	g_object_ref (G_OBJECT (te->scintilla));
+	
 	gtk_container_add (GTK_CONTAINER (te), te->scintilla);
 
 	gtk_signal_connect (GTK_OBJECT (te->scintilla), "event",
@@ -214,7 +218,8 @@ text_editor_destroy (GObject *obj)
 	TextEditor *te = TEXT_EDITOR (obj);
 	if (te->autosave_on)
 		gtk_timeout_remove (te->autosave_id);
-
+	g_object_unref (G_OBJECT (te->scintilla));
+	
 #warning "G2: Strange we are missing one _unref() somewhere"
 	// gtk_widget_unref (te->scintilla);
 	

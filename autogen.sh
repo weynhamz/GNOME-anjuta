@@ -19,4 +19,7 @@ which gnome-autogen.sh || {
     exit 1
 }
 
-USE_GNOME2_MACROS=1 . gnome-autogen.sh
+USE_GNOME2_MACROS=1 NOCONFIGURE=1 . gnome-autogen.sh
+conf_flags="--enable-maintainer-mode --enable-compile-warnings=yes --enable-gtk-doc --enable-debug"
+echo $srcdir/configure $conf_flags "$@"
+$srcdir/configure $conf_flags "$@"

@@ -457,23 +457,52 @@ static EggActionGroupEntry actions_bookmark[] = {
     G_CALLBACK (on_editor_command_activate), (gpointer) ANE_BOOKMARK_CLEAR},
 };
 
+struct ActionGroupInfo {
+	EggActionGroupEntry *group;
+	gint size;
+	gchar *name;
+	gchar *label;
+};
+
+static struct ActionGroupInfo action_groups[] = {
+	{ actions_file, G_N_ELEMENTS (actions_file), "ActionGroupEditorFile",  N_("Editor file operations")},
+	{ actions_print, G_N_ELEMENTS (actions_print), "ActionGroupEditorPrint",  N_("Editor print operations")},
+	{ actions_transform, G_N_ELEMENTS (actions_transform), "ActionGroupEditorTransform", N_("Editor text transformation") },
+	{ actions_select, G_N_ELEMENTS (actions_select), "ActionGroupEditorSelect", N_("Editor text selection") },
+	{ actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
+	{ actions_search, G_N_ELEMENTS (actions_search), "ActionGroupEditorSearch", N_("Editor text searching") },
+	{ actions_comment, G_N_ELEMENTS (actions_comment), "ActionGroupEditorComment", N_("Editor code commenting") },
+	{ actions_navigation, G_N_ELEMENTS (actions_navigation), "ActionGroupEditorNavigate", N_("Editor navigations") },
+	{ actions_edit, G_N_ELEMENTS (actions_edit), "ActionGroupEditorEdit", N_("Editor edit operations") },
+	{ actions_view, G_N_ELEMENTS (actions_view), "ActionGroupEditorView", N_("Editor view settings") },
+	{ actions_style, G_N_ELEMENTS (actions_style), "ActionGroupEditorStyle", N_("Editor syntax highlighting styles") },
+	{ actions_format, G_N_ELEMENTS (actions_format), "ActionGroupEditorFormat", N_("Editor text formating") },
+	{ actions_bookmark, G_N_ELEMENTS (actions_bookmark), "ActionGroupEditorBookmark", N_("Editor bookmarks") }
+};
+
 static void
 init_user_data (EggActionGroupEntry* actions, gint size, gpointer data)
 {
 	int i;
 	for (i = 0; i < size; i++)
-		actions[i].user_data = data;
+	{
+		gpointer user_data = actions[i].user_data;
+		if (!user_data)
+			actions[i].user_data = data;
+	}
 }
 
 static void
 ui_set (AnjutaPlugin *plugin)
 {
+	/* Initialize your UI and merge it */
 	g_message ("EditorPlugin: UI set");
 }
 
 static void
 prefs_set (AnjutaPlugin *plugin)
 {
+	/* Initialize your preferences sub-system */
 	g_message ("EditorPlugin: Prefs set");
 }
 
@@ -485,6 +514,7 @@ shell_set (AnjutaPlugin *plugin)
 	EditorPlugin *editor_plugin;
 	EggActionGroup *group;
 	EggAction *action;
+	gint i;
 	
 	g_message ("EditorPlugin: Shell set. Activating Editor plugin ...");
 	editor_plugin = (EditorPlugin*) plugin;
@@ -493,72 +523,22 @@ shell_set (AnjutaPlugin *plugin)
 	editor_plugin->docman = docman;
 	
 	/* Add all our editor actions */
-	init_user_data (actions_file, G_N_ELEMENTS (actions_file), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorFile",
-										_("Editor file operations"),
-										actions_file,
-										G_N_ELEMENTS (actions_file));
-	init_user_data (actions_print, G_N_ELEMENTS (actions_print), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorPrint",
-										_("Editor print operations"),
-										actions_print,
-										G_N_ELEMENTS (actions_print));
-	init_user_data (actions_edit, G_N_ELEMENTS (actions_edit), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorEdit",
-										_("Editor edit operations"),
-										actions_edit,
-										G_N_ELEMENTS (actions_edit));
-	init_user_data (actions_transform, G_N_ELEMENTS (actions_transform), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorTransform",
-										_("Editor text transformation"),
-										actions_transform,
-										G_N_ELEMENTS (actions_transform));
-	init_user_data (actions_select, G_N_ELEMENTS (actions_select), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorSelect",
-										_("Editor text selection"),
-										actions_select,
-										G_N_ELEMENTS (actions_select));
-	init_user_data (actions_insert, G_N_ELEMENTS (actions_insert), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorInsert",
-										_("Editor text insertions"),
-										actions_insert,
-										G_N_ELEMENTS (actions_insert));
-	init_user_data (actions_comment, G_N_ELEMENTS (actions_comment), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorComment",
-										_("Editor code commenting"),
-										actions_comment,
-										G_N_ELEMENTS (actions_comment));
-	init_user_data (actions_search, G_N_ELEMENTS (actions_search), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorSearch",
-										_("Editor text searching"),
-										actions_search,
-										G_N_ELEMENTS (actions_search));
-	init_user_data (actions_navigation, G_N_ELEMENTS (actions_navigation), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorNavigate",
-										_("Editor navigations"),
-										actions_navigation,
-										G_N_ELEMENTS (actions_navigation));
-	init_user_data (actions_view, G_N_ELEMENTS (actions_view), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorView",
-										_("Editor view settings"),
-										actions_view,
-										G_N_ELEMENTS (actions_view));
-	init_user_data (actions_style, G_N_ELEMENTS (actions_style), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorFormatStyle",
-										_("Editor syntax highlighting styles"),
-										actions_style,
-										G_N_ELEMENTS (actions_style));
-	init_user_data (actions_format, G_N_ELEMENTS (actions_format), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorFormat",
-										_("Editor text formating"),
-										actions_format,
-										G_N_ELEMENTS (actions_format));
-	init_user_data (actions_bookmark, G_N_ELEMENTS (actions_bookmark), editor_plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupEditorBookmark",
-										_("Editor bookmarks"),
-										actions_bookmark,
-										G_N_ELEMENTS (actions_bookmark));
-	/* Navigation items */
+	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
+	{
+		GList *actions, *act;
+		init_user_data (action_groups[i].group, action_groups[i].size, editor_plugin);
+		group = anjuta_ui_add_action_group_entries (ui, 
+													action_groups[i].name,
+													_(action_groups[i].label),
+													action_groups[i].group,
+													action_groups[i].size);
+		actions = egg_action_group_list_actions (group);
+		act = actions;
+		while (act) {
+			g_object_set_data (G_OBJECT (act->data), "Plugin", editor_plugin);
+			act = g_list_next (act);
+		}
+	}
 	group = egg_action_group_new ("ActionGroupNavigation");
 	
 	action = g_object_new (EGG_TYPE_ENTRY_ACTION,

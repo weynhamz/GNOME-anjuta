@@ -10,12 +10,11 @@ libanjuta.hierarchy
 libanjuta.interfaces
 libanjuta.prerequisites
 libanjuta.signals
-libanjuta-docs.sgml
 deprecated
 html
-sgml
 xml
 *.stamp
 *.lo
 .libs
 version.xml
+gtkdoc-scangobj

@@ -1,3 +1,46 @@
+2004-02-09  Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am, autogen.sh, configure.in: Added proper gtkdoc
+	generation.
+	
+	* libanjuta/anjuta-preferences.h: Added some documentation.
+	
+	* libanjuta/anjuta-shell.h: Removed dead codes.
+	
+	* (removed) manuals/reference/gtkdoc-scangobj,
+	manuals/reference/gtkdoc-scangobj.diff,
+	manuals/reference/libanjuta/.cvsignore,
+	manuals/reference/libanjuta/Makefile.am,
+	manuals/reference/libanjuta/README.inline-doc,
+	manuals/reference/libanjuta/README.sections,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/tmpl/anjuta-children.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-encodings.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-marshal.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin-parser.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-stock.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-ui.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-utils.sgml,
+	manuals/reference/libanjuta/tmpl/defaults.sgml,
+	manuals/reference/libanjuta/tmpl/fileselection.sgml,
+	manuals/reference/libanjuta/tmpl/glue-factory.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	manuals/reference/libanjuta/tmpl/pixmaps.sgml,
+	manuals/reference/libanjuta/tmpl/plugins.sgml,
+	manuals/reference/libanjuta/tmpl/properties.sgml,
+	manuals/reference/libanjuta/tmpl/resources.sgml: Fixed c++ compilation
+	of scan program. Updated templates.
+
+	plugins/editor/action-callbacks.c, plugins/editor/plugin.c: Fixed
+	editor action callbacks data.
+	
+	plugins/editor/text_editor.c: Fixed scintilla height problem. Added
+	scintilla object ref/unref.
+
 2004-02-08  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* template/*: Added new xml based template system
@@ -5,7 +48,7 @@
 	* data/template/*: Some sample template files
 	Still needs some work but builds fine!
 
-2004-01-06  Naba Kumar  <naba@gnome.org>
+2004-02-06  Naba Kumar  <naba@gnome.org>
 
 	* cofigure.in, manuals/Makefile.am,
 	(added) manuals/reference/*: Added API documentation
@@ -13,7 +56,7 @@
 
 	* libanjuta/libanjuta.h: Updated
 	
-2004-01-05  Naba Kumar  <naba@gnome.org>
+2004-02-05  Naba Kumar  <naba@gnome.org>
 	
 	* configure.in: Sets correct dependencies and
 	uses gdl external library.
@@ -75,7 +118,7 @@
 
 	* global-tags/Makefile.am: Fixed build error.
 
-2004-01-03  Naba Kumar  <naba@gnome.org>
+2004-02-03  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Users GDL from external package.
 	* plugins/*: Added many new plugins (not ready though).

@@ -82,3 +82,18 @@ AnjutaPlugin
 @prefix: 
 
 
+<!-- ##### ARG AnjutaPlugin:prefs ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AnjutaPlugin:shell ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AnjutaPlugin:ui ##### -->
+<para>
+
+</para>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book id="index" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <bookinfo>
+    <title>Anjuta API Reference Manual</title>
+  </bookinfo>
+
+  <chapter>
+    <title>libanjuta API</title>
+    <xi:include href="xml/glue-factory.xml"/>
+    <xi:include href="xml/glue-plugin.xml"/>
+    <xi:include href="xml/anjuta-plugin.xml"/>
+    <xi:include href="xml/anjuta-shell.xml"/>
+    <xi:include href="xml/anjuta-preferences.xml"/>
+    <xi:include href="xml/anjuta-preferences-dialog.xml"/>
+    <xi:include href="xml/anjuta-ui.xml"/>
+    <xi:include href="xml/gnomefilelist.xml"/>
+    <xi:include href="xml/anjuta-marshal.xml"/>
+    <xi:include href="xml/defaults.xml"/>
+    <xi:include href="xml/properties.xml"/>
+    <xi:include href="xml/resources.xml"/>
+    <xi:include href="xml/pixmaps.xml"/>
+    <xi:include href="xml/anjuta-utils.xml"/>
+    <xi:include href="xml/plugins.xml"/>
+    <xi:include href="xml/anjuta-plugin-parser.xml"/>
+    <xi:include href="xml/anjuta-children.xml"/>
+    <xi:include href="xml/anjuta-encodings.xml"/>
+    <xi:include href="xml/anjuta-stock.xml"/>
+    <xi:include href="xml/fileselection.xml"/>
+  </chapter>
+</book>

@@ -1,0 +1,50 @@
+--- gtkdoc-scangobj.old	2004-02-09 12:20:20.000000000 +0530
++++ gtkdoc-scangobj	2004-02-09 12:22:44.000000000 +0530
+@@ -879,7 +879,7 @@
+ static void
+ output_widget_args (FILE *fp, GType object_type)
+ {
+-  GObjectClass *class;
++  GObjectClass *klass;
+   const gchar *object_class_name;
+   gint arg;
+   gchar flags[16], *pos;
+@@ -891,13 +891,13 @@
+   if (!G_TYPE_IS_CLASSED (object_type))
+     return;
+ 
+-  class = g_type_class_peek (object_type);
+-  if (!class)
++  klass = g_type_class_peek (object_type);
++  if (!klass)
+     return;
+ 
+   object_class_name = g_type_name (object_type);
+ 
+-  properties = g_object_class_list_properties (class, &n_properties);
++  properties = g_object_class_list_properties (klass, &n_properties);
+ 
+   child_prop = FALSE;
+   style_prop = FALSE;
+@@ -945,8 +945,8 @@
+     g_free (properties);
+ 
+ #ifdef GTK_IS_CONTAINER_CLASS
+-    if (!child_prop && GTK_IS_CONTAINER_CLASS (class)) {
+-      properties = gtk_container_class_list_child_properties (class, &n_properties);
++    if (!child_prop && GTK_IS_CONTAINER_CLASS (klass)) {
++      properties = gtk_container_class_list_child_properties (klass, &n_properties);
+       child_prop = TRUE;
+       continue;
+     }
+@@ -954,8 +954,8 @@
+ 
+ #ifdef GTK_IS_WIDGET_CLASS
+ #if GTK_CHECK_VERSION(2,1,0)
+-    if (!style_prop && GTK_IS_WIDGET_CLASS (class)) {
+-      properties = gtk_widget_class_list_style_properties (GTK_WIDGET_CLASS (class), &n_properties);
++    if (!style_prop && GTK_IS_WIDGET_CLASS (klass)) {
++      properties = gtk_widget_class_list_style_properties (GTK_WIDGET_CLASS (klass), &n_properties);
+       style_prop = TRUE;
+       continue;
+     }
