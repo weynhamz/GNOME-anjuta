@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-13 14:29+0100\n"
-"PO-Revision-Date: 2003-11-13 14:34+0100\n"
+"PO-Revision-Date: 2003-11-20 13:45+0100\n"
 "Last-Translator: Xavier A. Conde Rueda <xaviconde@eresmas.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -301,7 +301,7 @@ msgstr "Color"
 
 #: anjuta.glade.h:66
 msgid "Column at edge indicator"
-msgstr ""
+msgstr "Indicació de fi límit de columnes"
 
 #: anjuta.glade.h:67
 msgid "Combo Popdown:"
