@@ -2,7 +2,10 @@
 	
 	* Remove help dir from cvs, because it is no longer
 	  needed.
-	  
+	
+	* Remove manuals/anjuta-manual dir from cvs, because it is no longer
+	  needed.
+
 2001-07-24  Naba Kumar <kh_naba@123india.com>
 
 	* debugger.c: (debugger_update_prog_status): Fixed
