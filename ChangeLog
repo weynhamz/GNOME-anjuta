@@ -1,3 +1,9 @@
+2003-04-25  Naba Kumar  <naba@gnome.org>
+	
+	* anjuta.prj: Updated.
+	* src/anjuta_info.c: Fixed text wrapping and column view.
+	* data/welcome.txt.in: Removed unaligned characters.
+	
 2003-04-24  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/main_menubar.c: Disable setup dialog.
 

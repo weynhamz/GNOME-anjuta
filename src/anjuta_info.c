@@ -70,6 +70,8 @@ create_dialog_with_textview (GtkWindow *parent, gint width,
 	gtk_widget_show (scrolledwindow);
 	
 	textview = gtk_text_view_new ();
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview), FALSE);
+	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (textview), GTK_WRAP_WORD);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
 	gtk_widget_show (textview);
 
@@ -85,6 +87,8 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 	GtkWidget *dialog;
 	GtkWidget *scrolledwindow;
 	GtkTreeModel *model;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
 	GtkWidget *treeview;
 
 	if (height < 250)
@@ -118,6 +122,11 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 
 	treeview = gtk_tree_view_new_with_model (model);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Lines"), renderer,
+													   "text", 0, NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(treeview), column);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW(treeview), FALSE);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow), treeview);
 	gtk_widget_show (treeview);
 	g_object_unref (G_OBJECT (model));
