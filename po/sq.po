@@ -3262,9 +3262,10 @@ msgstr ""
 msgid "CVS Login"
 msgstr ""
 
+#. GRUT modified this item
 #: src/cvs_gui.c:337
 msgid "Login"
-msgstr ""
+msgstr "Futu"
 
 #: src/cvs_gui.c:347 src/cvs_gui.c:440
 msgid "Server type: "
@@ -3327,9 +3328,10 @@ msgstr ""
 msgid "Binary"
 msgstr "Binar"
 
+#. GRUT modified this item
 #: src/debug_tree.c:1511
 msgid "Octal"
-msgstr ""
+msgstr "Tetor"
 
 #: src/debug_tree.c:1514
 msgid "Signed decimal"
