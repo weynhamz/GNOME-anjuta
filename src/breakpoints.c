@@ -553,13 +553,14 @@ on_bk_add_clicked (GtkWidget *button, gpointer   data)
 	GladeXML *gxml;
 	BreakpointsDBase *bd;
 	GtkWidget *dialog;
+	BreakpointItem *bid;
 
 	bd = (BreakpointsDBase *) data;
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA,
 						  "breakpoint_properties_dialog", NULL);
 	dialog = glade_xml_get_widget (gxml, "breakpoint_properties_dialog");
 	
-	BreakpointItem *bid = breakpoint_item_new ();
+	bid = breakpoint_item_new ();
 	bid->bd = bd;
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
 	{

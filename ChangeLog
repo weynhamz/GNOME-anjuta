@@ -1,6 +1,7 @@
 2003-04-22  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/breakpoints.c; Fixed compilation with older GCC
 	* src/preferences.c: Fixed crash with G_DISABLE_CHECKS
+	* HACKING: Spelling fixes (Suggested by Stephen Knight)
 
 2003-04-18  Naba Kumar  <naba@gnome.org>
 

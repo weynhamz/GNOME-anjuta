@@ -785,11 +785,11 @@ add_all_default_pages (AnjutaPreferences *pr)
 			}
 		node = g_list_next (node);
 	}
-	
+#if 0
 	button = glade_xml_get_widget (gxml, "edit_syntax_highlighting");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_style_editor_clicked), pr);
-	
+#endif
 	g_object_unref (gxml);
 }
 

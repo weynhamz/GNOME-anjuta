@@ -12,29 +12,29 @@ a component/OOP freak, or are hear to teach yourself good GNOME
 programming, anjuta2 might be the right place. OTOH, Anjuta has many
 more features and is (arguably) more actively developed and maintained.
 So, if you want to contribute to an IDE that works now and use it
-yourself, IMO you're better off contrinuting to Anjuta. There are plans
+yourself, IMO you're better off contributing to Anjuta. There are plans
 for a merge of some sort in the future.
 
-Second thing to do is to get a build working. Both anjuta and anjuta2are
-buildable using jhbuild, which is the recommended way to build GNOME
+Second thing to do is to get a build working. Both anjuta and anjuta2 can be
+built using jhbuild, which is the recommended way to build GNOME
 2.2. and Anjuta(2). It is advisable to use '--enable-warnings
 --enable-debug' with configure while building anjuta if you want to hack
-on it. Anjuta can be used to hack on Anjuta, and there is a anjuta/prj
+on it. Anjuta can be used to hack on Anjuta, and there is a anjuta.prj
 file in CVS for this purpose.
 
 Once you have got anjuta built and loaded in itself, the most important
 thing is to decide what to work on (the TODO, as you say). There are
 many directions you can take. I'm listing some of the more common ones
-in order fo difficulty.
+in order of difficulty.
 
 0. Use it, test it, report bug, request features, etc. In short, become
 an active user. That is how most people become anjuta developers.
 
 1. Documentation and translation. While this might not be a very
 attractive option, it has many benefits for newbie developers. You get
-to know the codebase and featuresets better, and learn the way GNOME
+to know the code and feature set better, and learn the way GNOME
 projects are developed. Also, you will be helping a lot of people to use
-Anjuta better. You can use the wiki or update teh manuals, DAQ, etc.
+Anjuta better. You can use the wiki or update the manuals, DAQ, etc.
 that are supplied with the source.
 
 2. Scratch your itch. This is probably the most attractive option for a
@@ -44,7 +44,7 @@ devel list saying that you'd want to work on it (this is essential to
 avoid duplication). Then send us patches !
 
 3. Fixing bugs and implementing feature requests. You can find our bug
-and RFE database at the sourceforge page (sf.net/projects/anjuta). You
+and RFE database at the sourceforge page (http://sf.net/projects/anjuta). You
 can also have a look at the reasonably up-to-date TODO file we maintain
 in the source code.
 
@@ -54,7 +54,7 @@ newbie developers.
 
 5. Working on porting anjuta2 architecture to anjuta. This is probably
 the most difficult one. However, if you are an experienced developer,
-you'll find this enormously rewarding and very challanging. Read the
+you'll find this enormously rewarding and very challenging. Read the
 ROADMAP file that comes with the source code to understand where we are
 and where we want to be in the long term. Then pick up one of the action
 points and try to implement it.
@@ -79,7 +79,7 @@ IMPORTANT: please be careful about using Anjuta to develop Anjuta.
 Any instabilities in the development version may cause problems.
 
 Anjuta is written using a mixture of C and C++. You will require
-the standard GNU toolchain and current stable GNOME libraries to 
+the standard GNU tool chain and current stable GNOME libraries to 
 build and work with the Anjuta sources.
 
 
@@ -99,7 +99,7 @@ The six-step plan to patching happiness is as follows:
 with the command "diff -u" or "cvs diff -u"). 
 
 Make your changes in all files (including the ChangeLog file) and run
-"cvs diff -u > patch.diff" in the toplevel anjuta/ directory. This diff
+"cvs diff -u > patch.diff" in the top level anjuta/ directory. This diff
 file will contain patches for all of the files together.
 
 Remember to run the cvs diff for the *top* project directory. It will
@@ -132,7 +132,7 @@ command "host annocvs.gnome.org"
 
 4) If the patch is big or is not high priority (i.e. things other than 
 stability patches), then either send it to the lead developers directly 
-(ccing them together is a nice idea), or post it on the SourceForge page. 
+(cc-ing them together is a nice idea), or post it on the sourceforge page. 
 *Never* post big patches to the mailing lists, since they will annoy 
 subscribers and are liable to be rejected by the list server. Send
 a reference email to the list mentioning that you have sent a patch.
@@ -176,7 +176,7 @@ Scintilla
 
 The editing component in Anjuta is Scintilla (www.scintilla.org). 
 The Scintilla sources are imported to the scintilla/ directory in the
-Anjuta source tree - some reorganisation is required:
+Anjuta source tree - some reorganization is required:
 
 Scintilla		Anjuta
 ---------		------
@@ -274,13 +274,13 @@ undergoing to change this. Please have a look at the ROADMAP file for details.
 ----------------
 
 When Anjuta was first designed, the primary goal was to enable the use of 
-external unix commnads in a more productive and intutive way. Therefore,
-anjuta follows non-blocking input/output operations aggresively. This means
+external unix commands in a more productive and intuitive way. Therefore,
+anjuta follows non-blocking input/output operations aggressively. This means
 that anjuta UI will not freeze while it performs a lengthy task. All such
-jobs are event-driven (I am not refering to the gtk-events here) and works
+jobs are event-driven (I am not referring to the gtk-events here) and works
 on asynchronous basis. The example jobs are compilation, debugging, file search,
-class updates etc. While aynchronous event-driven implementation is more
-complex than it's synchronous counter part, it gives a smooth and non-frustrative
+class updates etc. While asynchronous event-driven implementation is more
+complex than it's synchronous counter part, it gives a smooth and non frustrative
 operation. :-)
 
 1a) Executing external commands in non-blocking mode:
@@ -322,7 +322,7 @@ normal fork. For shorter execution wait() system call would suffice it's
 synchronization when the process ends, but for longer jobs, asynchronous
 notification is suggested.
 
-For asynchronos notification of child termination, a few additional steps
+For asynchronous notification of child termination, a few additional steps
 are needed to be done just after the fork() call. Register the child pid
 with the call to anjuta_register_child(). It takes two arguments, first the
 child pid and second, the callback to be called when the process with that
@@ -414,7 +414,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 				  GdkEventKey *event,
 				  gpointer     user_data)
 
-is called when some key is pressed in the whole environnement, because the
+is called when some key is pressed in the whole environement, because the
 event is triggered off by the main GtkWindow. It has been created for navigating
 between the different buffers (Ctrl-[Shift]-Tab).
 
@@ -427,10 +427,10 @@ and we'll have a central place for those shortcuts.
 6a) How to add a global shortcut:
 ---------------------------------
 
-It's pretty self-explainatory, but here's the "howto" :
+It's pretty self-explanatory, but here's the "how to" :
 
 Just before the callback, you have some GDK modifiers "shortcuts", just because
-it's a pain to write this each time, and the mxy make you see in an instant
+it's a pain to write this each time, and the 'm_' stuff makes you see in an instant
 which modifiers are used (Shift or Control) :
 
 enum {
@@ -503,8 +503,8 @@ the mailing list)
 
 So that was the easy part ;-)
 
-Now search for every occurence of PROJECT_TYPE_* and project_type_* in 
-the codebase, and decide if you have anything to add (there are about 
+Now search for every occurrence of PROJECT_TYPE_* and project_type_* in 
+the code, and decide if you have anything to add (there are about 
 10 places where it occurs).
 
 Good luck!
