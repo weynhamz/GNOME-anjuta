@@ -1,4 +1,21 @@
 2005-01-08  Naba Kumar  <naba@gnome.org>
+
+	* libegg/egg-recent-action.c, libegg/test-actions.c,
+	libegg/menu/egg-recent-action.h: Recent Action now takes multiple
+	recent files models.
+	
+	* plugins/file-loader/plugin.c,	plugins/file-loader/plugin.h: Have
+	two models -- one for projects and other for regular files and show
+	both in recent files menu. Changed recent files group from "anjuta"
+	to "anjuta-projects" and "anjuta-files" respectively. Set mime types
+	when adding the URI in recent files.
+	
+	* plugins/macro/anjuta-macro.glade: Beautified insert macro dialog.
+	* plugins/macro/anjuta-macro.plugin.in: Proper plugin name.
+	* plugins/macro/macro-dialog.c: Fixed dispose() method.
+	* plugins/macro/macros.xml: Fixed xml errors.
+
+2005-01-08  Naba Kumar  <naba@gnome.org>
 	
 	* libegg/Makefile.am, (added) libegg/egg-recent-action.c,
 	libegg/test-actions.c, libegg/menu/Makefile.am,

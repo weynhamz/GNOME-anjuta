@@ -42,14 +42,26 @@
 static gpointer parent_class;
 
 static void
-set_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri)
+set_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
+				 const gchar *mime)
 {
 	EggRecentItem *recent_item;
-	
+	DEBUG_PRINT ("Adding recent item of mimi-type: %s", mime);
 	recent_item = egg_recent_item_new ();
 	egg_recent_item_set_uri (recent_item, uri);
-	egg_recent_item_add_group (recent_item, "anjuta");
-	egg_recent_model_add_full (plugin->recent_files_model, recent_item);
+	egg_recent_item_set_mime_type (recent_item, mime);
+	if (strcmp (mime, "application/x-anjuta") == 0)
+	{
+		egg_recent_item_add_group (recent_item, "anjuta-projects");
+		egg_recent_model_add_full (plugin->recent_files_model_top,
+								   recent_item);
+	}
+	else
+	{
+		egg_recent_item_add_group (recent_item, "anjuta-files");
+		egg_recent_model_add_full (plugin->recent_files_model_bottom,
+								   recent_item);
+	}
 }
 
 static void
@@ -205,7 +217,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				if (loaded_plugin)
 				{
 					ianjuta_file_open (IANJUTA_FILE (loaded_plugin), uri, NULL);
-					set_recent_file (plugin, uri);
+					set_recent_file (plugin, uri, mime_type);
 				}
 				else
 				{
@@ -228,7 +240,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 			if (res != GNOME_VFS_OK)
 				launch_application_failure (plugin, uri, res);
 			else
-				set_recent_file (plugin, uri);
+				set_recent_file (plugin, uri, mime_type);
 			g_list_free (uris);
 		}
 	}
@@ -522,7 +534,6 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 														 "desc");
 	mime_type = gnome_vfs_get_mime_type (uri);
 	mime_apps = gnome_vfs_mime_get_all_applications (mime_type);
-	g_free (mime_type);
 	
 	/* Open with plugin */
 	if (desc)
@@ -542,7 +553,7 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 			if (loaded_plugin)
 			{
 				ianjuta_file_open (IANJUTA_FILE (loaded_plugin), uri, NULL);
-				set_recent_file (plugin, uri);
+				set_recent_file (plugin, uri, mime_type);
 			}
 			else
 			{
@@ -564,10 +575,11 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 		if (res != GNOME_VFS_OK)
 			launch_application_failure (plugin, uri, res);
 		else
-			set_recent_file (plugin, uri);
+			set_recent_file (plugin, uri, mime_type);
 		g_list_free (uris);
 	}
 	gnome_vfs_mime_application_list_free (mime_apps);
+	g_free (mime_type);
 }
 
 static GtkActionEntry actions_file[] = {
@@ -774,8 +786,10 @@ activate_plugin (AnjutaPlugin *plugin)
 						   "label", _("Open _Recent"),
 						   "tooltip", _("Open recent file"),
 							NULL);
-	egg_recent_action_set_model (EGG_RECENT_ACTION (action),
-								 loader_plugin->recent_files_model);
+	egg_recent_action_add_model (EGG_RECENT_ACTION (action),
+								 loader_plugin->recent_files_model_top);
+	egg_recent_action_add_model (EGG_RECENT_ACTION (action),
+								 loader_plugin->recent_files_model_bottom);
 	g_signal_connect (action, "activate",
 					  G_CALLBACK (on_open_recent_file), plugin);
 	gtk_action_group_add_action (group, action);
@@ -825,10 +839,15 @@ static void
 dispose (GObject *obj)
 {
 	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
-	if (plugin->recent_files_model)
+	if (plugin->recent_files_model_top)
 	{
-		g_object_unref (plugin->recent_files_model);
-		plugin->recent_files_model = NULL;
+		g_object_unref (plugin->recent_files_model_top);
+		plugin->recent_files_model_top = NULL;
+	}
+	if (plugin->recent_files_model_bottom)
+	{
+		g_object_unref (plugin->recent_files_model_bottom);
+		plugin->recent_files_model_bottom = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -838,11 +857,16 @@ anjuta_file_loader_plugin_instance_init (GObject *obj)
 {
 	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
 	plugin->fm_current_uri = NULL;
-	plugin->recent_files_model =
+	plugin->recent_files_model_top =
 		egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
-	egg_recent_model_set_limit (plugin->recent_files_model, 15);
-	egg_recent_model_set_filter_groups (plugin->recent_files_model,
-										"anjuta", NULL);
+	egg_recent_model_set_limit (plugin->recent_files_model_top, 5);
+	egg_recent_model_set_filter_groups (plugin->recent_files_model_top,
+										"anjuta-projects", NULL);
+	plugin->recent_files_model_bottom =
+		egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
+	egg_recent_model_set_limit (plugin->recent_files_model_bottom, 15);
+	egg_recent_model_set_filter_groups (plugin->recent_files_model_bottom,
+										"anjuta-files", NULL);
 }
 
 static void
@@ -922,7 +946,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	if (plugin)
 		ianjuta_file_open (IANJUTA_FILE(plugin), uri, NULL);
 	
-	set_recent_file ((AnjutaFileLoaderPlugin*)loader, new_uri);
+	set_recent_file ((AnjutaFileLoaderPlugin*)loader, new_uri, mime_type);
 	
 	if (plugin_descs)
 		g_slist_free (plugin_descs);

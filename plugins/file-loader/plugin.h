@@ -7,7 +7,8 @@ typedef struct _AnjutaFileLoaderPluginClass AnjutaFileLoaderPluginClass;
 
 struct _AnjutaFileLoaderPlugin{
 	AnjutaPlugin parent;
-	EggRecentModel *recent_files_model;
+	EggRecentModel *recent_files_model_top;
+	EggRecentModel *recent_files_model_bottom;
 	GtkActionGroup *action_group;
 	GtkActionGroup *recent_group;
 	gchar *fm_current_uri;

@@ -50,8 +50,7 @@ struct _EggRecentActionClass
 };
 
 GType    egg_recent_action_get_type (void);
-void     egg_recent_action_set_model (EggRecentAction *action, EggRecentModel *model);
-EggRecentModel* egg_recent_action_get_model (EggRecentAction *action);
+void     egg_recent_action_add_model (EggRecentAction *action, EggRecentModel *model);
 const gchar* egg_recent_action_get_selected_uri (EggRecentAction *action);
 
 #endif

@@ -93,9 +93,9 @@ macro_dialog_init (MacroDialog * dialog)
 	g_return_if_fail (dialog != NULL);
 
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
-	gtk_dialog_add_buttons (GTK_DIALOG (dialog), GTK_STOCK_OK, OK,
+	gtk_dialog_add_buttons (GTK_DIALOG (dialog), "Insert", OK,
 				GTK_STOCK_CANCEL, CANCEL, NULL);
-	gtk_window_set_default_size (GTK_WINDOW (dialog), 500, 300);
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 300);
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Insert macro"));
 
 	dialog->macro_tree =
@@ -152,8 +152,16 @@ void
 macro_dialog_dispose (GObject * object)
 {
 	MacroDialog *dialog = MACRO_DIALOG (object);
-	g_object_unref (dialog->gxml);
-	g_object_unref (dialog->macro_db);
+	if (dialog->gxml)
+	{
+		g_object_unref (dialog->gxml);
+		dialog->gxml = NULL;
+	}
+	if (dialog->macro_db)
+	{
+		g_object_unref (dialog->macro_db);
+		dialog->macro_db = NULL;
+	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (object)));
 }
 

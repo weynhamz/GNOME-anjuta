@@ -161,7 +161,9 @@ main (int argc, char **argv)
 	//				  G_CALLBACK (activate_action), NULL);
 	gtk_action_group_add_action (action_group, action);
   rmodel = create_recent_model ();
-  egg_recent_action_set_model (EGG_RECENT_ACTION (action), rmodel);
+  egg_recent_action_add_model (EGG_RECENT_ACTION (action), rmodel);
+  egg_recent_action_add_model (EGG_RECENT_ACTION (action), rmodel);
+  egg_recent_action_add_model (EGG_RECENT_ACTION (action), rmodel);
   g_object_unref (rmodel);
   
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
