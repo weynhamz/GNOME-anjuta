@@ -1824,7 +1824,7 @@ on_debugger_inspect_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_add_watch_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_watch_add_activate (NULL, NULL);
+	on_watch_add_activate (NULL, debugger.watch);
 }
 
 void

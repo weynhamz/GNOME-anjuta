@@ -1,3 +1,10 @@
+2003-11-05  Naba Kumar  <naba@gnome.org>
+
+	* src/mainmenu_callbacks.c, src/watch_cbs.c, src/message-manager.[cc,h]:
+	Fixed a crash bug with 'Add expression in watch'. Bug #822017
+	
+	* NEWS: Updated.
+	
 2003-11-04  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/Makefile.am, widgets/Makefile.am: Fixed distribution

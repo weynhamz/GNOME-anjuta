@@ -293,6 +293,43 @@ an_message_manager_append (AnMessageManager * amm,
 	return true;
 }
 
+gboolean
+an_message_manager_show_pane (AnMessageManager* amm, gint type_name)
+{
+	g_return_val_if_fail (amm != NULL, false);
+	
+	string type = labels[type_name];
+	
+	vector < MessageSubwindow * >::iterator cur_win;
+
+	if (!amm->intern->msg_windows.empty ())
+	{
+		bool found = false;
+		for (cur_win = amm->intern->msg_windows.begin ();
+		     cur_win != amm->intern->msg_windows.end (); cur_win++)
+		{
+			if ((*cur_win)->get_type () == type)
+			{
+				found = true;
+				if (!dynamic_cast < AnMessageWindow * >(*cur_win))
+					return false;
+				if (!(*cur_win)->is_shown ())
+				{
+					(*cur_win)->activate ();
+				}
+				break;
+			}
+		}
+		if (!found)
+		{
+			g_warning (_("Could not find message type %s!\n"),
+				   type.c_str ());
+			return false;
+		}
+	}
+	return true;
+}
+
 // Returns the subwindow according to the requested type
 MessageSubwindow *
 an_message_manager_get_window(AnMessageManager * amm,gint type_name)

@@ -3,7 +3,8 @@ Anjuta 1.1.98 rc2 for 1.2.0   (xx July 2003) -- Naba Kumar
 New: Double click on margin toggles bookmark.
 New: Double click on margin (debugger mode) adds/removes breakpoints.
 New: Single click on margin (debugger mode) enables/disables breakpoints
-New: Fined previous added.
+New: Find previous added.
+New: Emacs style file modeline in files.
 Updated: Removed 'page setup' item from the file menu.
 Updated: Scintilla (cvs 2003-09-29 -- ver 1.55+)
 Updated: No libzvt dependency (means faster operation).
@@ -16,6 +17,9 @@ Bug fix: Printing in proper UTF8
 Bug fix: Fixed crash bug during project creation.
 Bug fix: Fixed clean-before-build bug.
 Bug fix: Fixed find in files bugs.
+Bug fix: Fixed gettext bug with projects.
+Bug fix: Fixed Autoformat
+Bug fix: Fixed crash bug with 'Add watch expression'
 
 Anjuta 1.1.97 rc1 for 1.2.0   (26 June 2003) -- Naba Kumar
 
