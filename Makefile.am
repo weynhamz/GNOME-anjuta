@@ -11,7 +11,7 @@ anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjutadoc_DATA = \
 	README\
 	COPYING\
-	AUTHORS.xml\
+	AUTHORS\
 	ChangeLog\
 	INSTALL\
 	NEWS\

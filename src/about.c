@@ -23,191 +23,67 @@
 #endif
 
 #include <gnome.h>
-
-#include <libxml/parser.h>
-
 #include "about.h"
 
-#define ANJUTA_PIXMAP_LOGO			"anjuta_logo2.png"
-#define ABOUT_AUTHORS				"AUTHORS.xml"						
-#define MAX_CREDIT 500
+#define ANJUTA_PIXMAP_LOGO                "anjuta_logo2.png"
 
-const gchar *authors[MAX_CREDIT];
-const gchar *documenters[MAX_CREDIT];
-gchar *translators;
+static const char *authors[] = {
+	"Founder and lead developer:",
+	"Naba Kumar <naba@gnome.org>",
+	"",
+	"Developers:",
+	"Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>",
+	"Johannes Schmid <johannes.schmid@gmx.de>",
+	"Stephane Demurget <demurgets@free.fr>",
+	"Hector Rivera Falu <misha@phreaker.net> [Website]", 
+	"Andy Piper <andy.piper@freeuk.com> [Retired]",
+	"",
+	"Contributors:",
+	"Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>",
+	"Timothee Besset <timo@qeradiant.com>",
+	"Etay Meiri <etay-m@bezeqint.net>",
+	"Dan Elphick <dre00r@ecs.soton.ac.uk>",
+	"Michael Tindal <etherscape@paradoxpoint.com>",
+	"Jakub Steiner <jimmac * ximian * com>",
+	"Luca Bellonda <lbell@tsc4.com>",
+	"Rick Patel <rikul@bellsouth.net>", 
+	"Max Blagai <maximblagai@yahoo.com>", 
+	"Venugopal Gummuluru <vgummuluru@yahoo.com>",
+	"Archit Baweja <bighead@crosswinds.net>", 
+	"Fatih Demir <kabalak@gtranslator.org>",
+	"Martyn Bone <mbone@brightstar.u-net.com>",
+	"Denis Boehme <boehme@synci.de>",
+	"Gregory Schmitt <gregory.schmitt@free.fr>",
+	"Yannick Koehler <yannick.koehler@colubris.com>", 
+	"Giovanni Corriga <valkadesh@libero.it>",
+	"Jens Georg <mail@jensgeorg.de>",
+	"Dick Knol <dknol@gmx.net>",
+	"Jason Williams <jason_williams@suth.com>",
+	"Philip Van Hoof <freax@pandora.be>",
+	"Vadim Berezniker <vadim@berezniker.com>",
+	"Rob Bradford <robster@debian.org>",
+	"Roel Vanhout <roel@stack.be>",
+	"Roy Wood <roy.wood@filogix.com>",
+	"Tina Hirsch <cevina@users.sourceforge.net>",
+	"Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>",
+	"Todd Goyen <goyen@mbi-berlin.de>",
+	"Nick Dowell <nixx@nixx.org.uk>",
+	"Benke Laszlo <decike@freemail.hu>",
+	"Pierre Sarrazin <sarrazip@sympatico.ca>",
+	"Kelly Bergougnoux <three3@users.sourceforge.net>",
+	"Dave Huseby <huseby@shockfusion.com>",
+	"Sebastien Cote <cots01@gel.usherb.ca>",
+	"Stephen Knight <steven.knight@unh.edu>",
+	NULL
+};
 
-
-static gboolean
-about_parse_xml_file (xmlDocPtr * doc, xmlNodePtr * cur, const gchar * filename)
-{
-	*doc = xmlParseFile (filename);
-
-	if (*doc == NULL)
-		return FALSE;
-	*cur = xmlDocGetRootElement (*doc);
-
-	if (*cur == NULL)
-	{
-		xmlFreeDoc (*doc);
-		return FALSE;
-	}
-
-	if (xmlStrcmp ((*cur)->name, (const xmlChar *) "credit"))
-	{
-		xmlFreeDoc (*doc);
-		return FALSE;
-	}
-	return TRUE;
-}
-	
-static gint
-about_read_authors (xmlDocPtr doc, xmlNodePtr cur, gint index, const gchar **tab)
-{
-	xmlChar *title;
-	
-	title = xmlGetProp(cur, "_title");
-	tab[index++] = g_strdup_printf("%s",title);
-	xmlFree(title);
-	
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL && (index < MAX_CREDIT - 3))
-	{
-		if ((!xmlStrcmp (cur->name, (const xmlChar *) "author")))
-		{
-			xmlChar *name;
-			xmlChar *email;
-			xmlChar *country;
-			
-			name = xmlGetProp(cur, "_name");
-			email = xmlGetProp(cur, "_email");
-			country = xmlGetProp(cur, "_country");		
-			tab[index] = g_strdup_printf("%s  ", name);
-			xmlFree(name);
-			if (email)
-				tab[index] = g_strconcat(tab[index], "<", email, ">    ", NULL);
-			xmlFree(email);
-			if (country)
-				tab[index] = g_strconcat(tab[index], "(", country, ")", NULL);
-			xmlFree(country);
-			index++;
-		}
-		cur = cur->next;
-	}
-	tab[index++] = g_strdup_printf(" ");
-	return index;
-}
-
-static gint
-about_read_note (xmlDocPtr doc, xmlNodePtr cur, gint index, const gchar **tab)
-{
-	xmlChar *title;
-	
-	title = xmlGetProp(cur, "_title");
-	tab[index++] = g_strdup_printf("%s",title);
-	xmlFree(title);
-	
-	cur = cur->xmlChildrenNode;
-	while ((cur != NULL) && (index < MAX_CREDIT - 3))
-	{
-		if ((!xmlStrcmp (cur->name, (const xmlChar *) "ntxt")))
-		{
-			xmlChar *text = xmlGetProp(cur, "_text");
-			tab[index++] = g_strdup_printf("%s", text);
-			xmlFree(text);
-		}
-		cur = cur->next;
-	}
-	tab[index++] = g_strdup_printf(" ");
-	return index;
-}
-
-static void
-about_read_translators (xmlDocPtr doc, xmlNodePtr cur)
-{	
-	gchar *env_lang = getenv("LANG");
-	
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL)
-	{
-		if ((!xmlStrcmp (cur->name, (const xmlChar *) "author")))
-		{
-			xmlChar *name;
-			xmlChar *email;
-			xmlChar *lang;
-			
-			lang = xmlGetProp(cur, "_lang");
-			if (lang && (strcmp (env_lang, lang) == 0) )
-			{
-				name = xmlGetProp(cur, "_name");
-				translators = g_strdup_printf("\n\n%s  ", name);
-				xmlFree(name);
-				email = xmlGetProp(cur, "_email");
-				if (email)
-					translators = g_strconcat(translators, "<", email, ">", NULL);
-				xmlFree(email);
-				xmlFree(lang);
-				return;
-			}
-			xmlFree(lang);
-		}
-		cur = cur->next;
-	}
-}
-
-static void
-about_read_contrib (xmlDocPtr doc, xmlNodePtr cur)
-{
-	gint i_auth = 0;
-	gint i_doc = 0;
-	
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL)
-	{
-		if ((!xmlStrcmp (cur->name, (const xmlChar *) "founder")) ||
-			(!xmlStrcmp (cur->name, (const xmlChar *) "present_developers")) ||
-			(!xmlStrcmp (cur->name, (const xmlChar *) "past_developers")) ||
-			(!xmlStrcmp (cur->name, (const xmlChar *) "contributors"))  )
-		{
-			i_auth = about_read_authors (doc, cur, i_auth, authors);
-		}
-		
-		else if ((!xmlStrcmp (cur->name, (const xmlChar *) "documenters")) ||
-				(!xmlStrcmp (cur->name, (const xmlChar *) "website")))
-			i_doc = about_read_authors (doc, cur, i_doc, documenters);
-		else if ((!xmlStrcmp (cur->name, (const xmlChar *) "translators")))
-			about_read_translators (doc, cur);
-		else if ((!xmlStrcmp (cur->name, (const xmlChar *) "note")))
-			i_auth = about_read_note (doc, cur, i_auth, authors);
-		
-		cur = cur->next;
-	}
-	authors[i_auth] = NULL;
-	documenters[i_doc] = NULL;
-}
-
-static void
-about_read_authors_file(void)
-{
-	xmlDocPtr doc = NULL;
-	xmlNodePtr cur = NULL;
-	
-	if (about_parse_xml_file (&doc, &cur, PACKAGE_DOC_DIR"/"ABOUT_AUTHORS))
-		about_read_contrib (doc, cur);
-}
-
-static void
-about_free_credit(void)
-{
-	gint i;
-	
-	gchar** ptr = (gchar**) authors;
-	for(i=0; ptr[i]; i++)
-		g_free (ptr[i]);
-	ptr = (gchar**) documenters;
-	for(i=0; ptr[i]; i++)
-		g_free (ptr[i]);
-	g_free(translators);
-}
+static const char *documentors[] = {
+	"Naba Kumar <naba@gnome.org>",
+	"Andy Piper <andy.piper@freeuk.com> [Retired]",
+	"Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>",
+	"Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>",
+	NULL
+};
 
 GtkWidget *
 about_box_new ()
@@ -215,14 +91,11 @@ about_box_new ()
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
 	
-	/*  Parse AUTHOR.xml file  */
-	about_read_authors_file();
-
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO, NULL);
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
-							  authors, documenters, translators, pix);
+							  authors, documentors, NULL, pix);
 	g_object_unref (pix);
 #if 0
 	/* GTK provides a new about dialog now, please activate
@@ -245,7 +118,6 @@ about_box_new ()
 	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), ???);
 	gtk_about_dialog_set_artists(GTK_ABOUT_DIALOG(dialog), ???);*/
 #endif
-	/* Free authors, documenters, translators */
-	about_free_credit();
+	
 	return dialog;
 }
