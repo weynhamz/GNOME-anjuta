@@ -93,16 +93,11 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.select_all = select1_submenu_uiinfo[0].widget;
 	mb->edit.select_brace = select1_submenu_uiinfo[1].widget;
 	mb->edit.select_block = select1_submenu_uiinfo[2].widget;
+	mb->edit.select_function = select1_submenu_uiinfo[3].widget;
 	
 	mb->edit.comment_block = comment_submenu_uiinfo[0].widget;
 	mb->edit.comment_box = comment_submenu_uiinfo[1].widget;
 	mb->edit.comment_stream = comment_submenu_uiinfo[1].widget;
-	
-	mb->edit.find = find_submenu_uiinfo[0].widget;
-	mb->edit.find_next = find_submenu_uiinfo[1].widget;
-	mb->edit.find_replace = find_submenu_uiinfo[2].widget;
-	mb->edit.find_in_files = find_submenu_uiinfo[3].widget;
-	mb->edit.enter_selection = find_submenu_uiinfo[4].widget;
 	
 	mb->edit.goto_line = goto1_submenu_uiinfo[0].widget;
 	mb->edit.goto_brace = goto1_submenu_uiinfo[1].widget;
@@ -121,6 +116,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.copy = edit1_menu_uiinfo[4].widget;
 	mb->edit.paste = edit1_menu_uiinfo[5].widget;
 	mb->edit.clear = edit1_menu_uiinfo[6].widget;
+	mb->edit.find_replace = edit1_menu_uiinfo[12].widget;
 	mb->edit.autocomplete = edit1_menu_uiinfo[15].widget;
 	mb->edit.calltip = edit1_menu_uiinfo[16].widget;
 	

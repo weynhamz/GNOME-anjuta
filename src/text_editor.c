@@ -248,7 +248,6 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_unref (te->buttons.cut);
 		gtk_widget_unref (te->buttons.copy);
 		gtk_widget_unref (te->buttons.paste);
-		gtk_widget_unref (te->buttons.find);
 		gtk_widget_unref (te->buttons.replace);
 		gtk_widget_unref (te->buttons.compile);
 		gtk_widget_unref (te->buttons.build);

@@ -198,7 +198,7 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	GNOMEUIINFO_END
 };
 
-#define NUM_SELECT_SUBMENUS 3
+#define NUM_SELECT_SUBMENUS 4
 static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Select All"),
@@ -211,14 +211,20 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	 N_("Select the text in the matching braces"),
 	 on_editor_command_activate, (gpointer) ANE_SELECTTOBRACE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_A, GDK_MOD1_MASK, NULL},
+	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Select Code Block"),
 	 N_("Select the current code block"),
 	 on_editor_command_activate, (gpointer) ANE_SELECTBLOCK, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_B, GDK_MOD1_MASK, NULL},
-	GNOMEUIINFO_END/*3*/
+	{/*3*/
+	 GNOME_APP_UI_ITEM, N_("Current Function"),
+	 N_("Select the current function"),
+	 on_editor_select_function , NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*4*/
 };
 
 #define NUM_INSERTTEXT_SUBMENUS 7
@@ -402,45 +408,6 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*10*/
 };
 
-#define NUM_FIND_SUBMENUS 5
-static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
-	{/*0*/
-	 GNOME_APP_UI_ITEM, N_("_Find ..."),
-	 N_("Search for a string or regular expression in the editor"),
-	 on_find1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F, GDK_CONTROL_MASK, NULL},
-	
-	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("Find _Next"),
-	 N_("Repeat the last Find command"),
-	 on_findnext1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F6, GDK_SHIFT_MASK, NULL},
-	 
-	{/*2*/
-	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
-	N_("Search for and replace a string or regular expression with another string"),
-	on_find_and_replace1_activate, NULL, NULL,
-	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
-	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
- 
-	{/*3*/
-	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
-	 N_("Search for a string in multiple files or directories"),
-	 on_find_in_files1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	
-	{/*4*/
-	 GNOME_APP_UI_ITEM, N_("_Enter Selection/I-Search"),
-	 N_("Enter the selected text as the search target"),
-	 on_enterselection, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_E, GDK_CONTROL_MASK, NULL},
-	
-	GNOMEUIINFO_END/*5*/
-};
 
 #define NUM_GOTO_SUBMENUS 12
 static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
@@ -520,7 +487,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*12*/
 };
 
-#define	NUM_EDIT_SUBMENUS 18
+#define	NUM_EDIT_SUBMENUS 17
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -596,11 +563,11 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
     {/*12*/
-	 GNOME_APP_UI_SUBTREE, N_("_Search"),
-	 NULL,
-	 find_submenu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
+		 GNOME_APP_UI_ITEM, N_("Find/Replace"),
+	 N_("Search for and replace a string or regular expression with another string"),
+	 anjuta_search_replace_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GDK_F, GDK_CONTROL_MASK, NULL},
     {/*13*/
 	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
 	 NULL,
@@ -623,14 +590,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 on_calltip1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-
-	{/*17*/
-	 GNOME_APP_UI_ITEM, N_("Search And Replace"),
-	 N_("New Search And Replace stuff"),
-	 anjuta_search_replace_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	/*18*/
+	/*17*/
 	GNOMEUIINFO_END
 };
 
@@ -1898,7 +1858,6 @@ static GnomeUIInfo* anjuta_menus_uiinfo[] = {
 	transform1_submenu_uiinfo,
 	select1_submenu_uiinfo,
 	comment_submenu_uiinfo,
-	find_submenu_uiinfo,
 	goto1_submenu_uiinfo,
 	insert_template_c_uiinfo,
 	inserttext1_submenu_uiinfo,

@@ -64,6 +64,7 @@
 #include "memory.h"
 #include "fileselection.h"
 #include "anjuta-tools.h"
+#include "search-replace.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -299,6 +300,16 @@ on_editor_command_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (te == NULL)
 		return;
 	aneditor_command (te->editor_id, (gint) user_data, 0, 0);
+}
+
+void
+on_editor_select_function (GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor *te;
+	te = anjuta_get_current_text_editor ();
+	if (te == NULL)
+		return;
+	function_select(te);
 }
 
 void
@@ -864,27 +875,6 @@ on_calltip1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
-
-void
-on_find1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	find_text_show (app->find_replace->find_text);
-}
-
-
-void
-on_find_in_files1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	find_in_files_show (app->find_in_files);
-}
-
-
-void
-on_find_and_replace1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	find_replace_show (app->find_replace);
-}
-
 
 
 void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
@@ -2129,18 +2119,6 @@ on_reload_yes_clicked (GtkButton * button, gpointer te_data)
 {
 	text_editor_load_file ((TextEditor *) te_data);
 	anjuta_update_title ();
-}
-void
-on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	on_toolbar_find_clicked ( NULL, NULL );
-}
-
-void
-on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
-{
-    enter_selection_as_search_target();
-	gtk_widget_grab_focus (app->widgets.toolbar.main_toolbar.find_entry);
 }
 
 void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)

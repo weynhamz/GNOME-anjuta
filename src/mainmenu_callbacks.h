@@ -99,6 +99,9 @@ void
 on_editor_command_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 void
+on_editor_select_function              (GtkMenuItem * menuitem,
+                                        gpointer user_data);
+void
 on_transform_eolchars1_activate        (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

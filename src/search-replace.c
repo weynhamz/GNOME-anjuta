@@ -998,7 +998,7 @@ static void search_and_replace(void)
 					case SA_SELECT:
 						if (NULL == fb->te)
 						{
-							fb->te = anjuta_append_text_editor(fb->path);
+							fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
 						}
 						scintilla_send_message(SCINTILLA(
 						  fb->te->widgets.editor), SCI_SETSEL, mi->pos

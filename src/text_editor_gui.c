@@ -40,6 +40,7 @@
 #include "ScintillaWidget.h"
 #include "properties.h"
 #include "aneditor.h"
+#include "search-replace.h"
 
 #include <libgnomeui/gnome-window-icon.h>
 
@@ -62,7 +63,6 @@ create_text_editor_gui (TextEditor * te)
 	GtkWidget *button6;
 	GtkWidget *button7;
 	GtkWidget *button8;
-	GtkWidget *button9;
 	GtkWidget *button10;
 	GtkWidget *frame1;
 	GtkWidget *hbox1;
@@ -185,22 +185,11 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SEARCH, FALSE);
-	button9 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Find"),
-					    _("Search the given string"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button9);
-
-	tmp_toolbar_icon =
 		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_FIND_REPLACE, FALSE);
 	button10 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Replace"),
+					    _("Find/Replace"),
 					    _
 					    ("Search and replace the given string"),
 					    NULL, tmp_toolbar_icon, NULL,
@@ -324,11 +313,9 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect (GTK_OBJECT (button8), "clicked",
 			    GTK_SIGNAL_FUNC (on_editor_command_activate)
 				, (gpointer) ANE_PASTE);
-	gtk_signal_connect (GTK_OBJECT (button9), "clicked",
-			    GTK_SIGNAL_FUNC (on_find1_activate), te);
 	gtk_signal_connect (GTK_OBJECT (button10), "clicked",
-			    GTK_SIGNAL_FUNC (on_find_and_replace1_activate),
-			    te);
+			    GTK_SIGNAL_FUNC (anjuta_search_replace_activate),
+			    NULL);
 	gtk_signal_connect (GTK_OBJECT (button11), "clicked",
 			    GTK_SIGNAL_FUNC (on_compile1_activate), te);
 	gtk_signal_connect (GTK_OBJECT (button12), "clicked",
@@ -378,7 +365,6 @@ create_text_editor_gui (TextEditor * te)
 	te->buttons.cut = button6;
 	te->buttons.copy = button7;
 	te->buttons.paste = button8;
-	te->buttons.find = button9;
 	te->buttons.replace = button10;
 	te->buttons.compile = button11;
 	te->buttons.build = button12;
@@ -393,7 +379,6 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_ref (te->buttons.cut);
 	gtk_widget_ref (te->buttons.copy);
 	gtk_widget_ref (te->buttons.paste);
-	gtk_widget_ref (te->buttons.find);
 	gtk_widget_ref (te->buttons.replace);
 	gtk_widget_ref (te->buttons.compile);
 	gtk_widget_ref (te->buttons.build);

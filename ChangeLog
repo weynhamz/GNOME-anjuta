@@ -1,3 +1,9 @@
+2003-02-28  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.glade, src/controls.c, src/main_menubar.[ch]
+	, src/main_menubar_def.h, src/mainmenu_callbasks.[ch]
+	, src/search-replace.[ch], More Search/Replace and GUIi
+	 cleanups from Jean-Noel and me.
+
 2003-02-27  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* src/project_dbase.c, src/anjuta.c, src/launcher.c: Bug fixes.
 
