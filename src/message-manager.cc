@@ -211,7 +211,17 @@ anjuta_message_manager_add_type (AnjutaMessageManager * amm, gint type_name,
 	}
 
 	MessageSubwindow *sub_win;
-	if (type_name != MESSAGE_TERMINAL)
+	if (type_name == MESSAGE_TERMINAL)
+	{
+		TerminalWindow *window = new TerminalWindow (amm, type_name, type, pixmap);
+		sub_win = window;
+	}
+	else if (type_name == MESSAGE_LOCALS)
+	{
+	    LocalsWindow* window = new LocalsWindow(amm, type_name, type, pixmap);
+	    sub_win = window;
+	}
+	else 
 	{
 		AnjutaMessageWindow *window =
 			new AnjutaMessageWindow (amm, type_name, type, pixmap);
@@ -223,12 +233,6 @@ anjuta_message_manager_add_type (AnjutaMessageManager * amm, gint type_name,
 				    "event",
 				    GTK_SIGNAL_FUNC (on_mesg_event),
 				    window);
-		sub_win = window;
-	}
-	else
-	{
-		TerminalWindow *window =
-			new TerminalWindow (amm, type_name, type, pixmap);
 		sub_win = window;
 	}
 	amm->intern->msg_windows.push_back (sub_win);
@@ -292,6 +296,51 @@ anjuta_message_manager_append (AnjutaMessageManager * amm,
 		}
 	}
 	return true;
+}
+
+// Returns the subwindow according to the requested type
+MessageSubwindow *
+anjuta_message_manager_get_window(AnjutaMessageManager * amm,gint type_name)
+{
+	if (!amm)
+	  return NULL;
+	
+	string type = labels[type_name];
+	vector < MessageSubwindow * >::iterator cur_win;
+
+	if (!amm->intern->msg_windows.empty ())
+	{
+		bool found = false;
+		for (cur_win = amm->intern->msg_windows.begin ();
+		     cur_win != amm->intern->msg_windows.end (); cur_win++)
+		{
+			if ((*cur_win)->get_type () == type)
+			{
+				found = true;
+				//				if (!dynamic_cast < AnjutaMessageWindow * >(*cur_win))
+				//return NULL;
+				if (!(*cur_win)->is_shown ())
+				{
+					(*cur_win)->activate ();
+				}
+				break;
+			}
+		}
+		if (!found)
+		{
+			g_warning (_("Could not find message type %s!\n"),
+				   type.c_str ());
+			return NULL;
+		}
+	}
+	else
+	{
+		return NULL;
+	}
+	//	AnjutaMessageWindow *window =
+	//dynamic_cast < AnjutaMessageWindow * >(*cur_win);
+	//return window;
+	return *cur_win;
 }
 
 // Sent a "message_click" event as if the next message was clicked
@@ -424,13 +473,19 @@ anjuta_message_manager_info_locals (AnjutaMessageManager * amm, GList * lines,
 	g_return_if_fail (amm != NULL);
 	if (g_list_length (lines) < 1)
 		return;
-	while (lines)
+	MessageSubwindow* window = anjuta_message_manager_get_window(amm,MESSAGE_LOCALS);
+	if (!window) 
 	{
-		anjuta_message_manager_append (amm, (char *) lines->data,
-					       MESSAGE_LOCALS);
-		anjuta_message_manager_append (amm, "\n", MESSAGE_LOCALS);
-		lines = g_list_next (lines);
+		// printf("anjuta_message_manager_get_window error\n");
+		return;
 	}
+	LocalsWindow* locals_window = dynamic_cast<LocalsWindow*>(window);
+	if (!locals_window)
+	{
+		// printf("dynamic cast to locals window error\n");
+		return;
+	}
+	locals_window->update_view(lines);
 }
 
 void

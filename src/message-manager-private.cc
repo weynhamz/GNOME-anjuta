@@ -20,6 +20,8 @@
 #include "message-manager-private.h"
 #include "message-manager-dock.h"
 #include "preferences.h"
+#include "debug_tree.h"
+#include "watch.h"
 
 extern "C"
 {
@@ -500,3 +502,110 @@ int TerminalWindow::zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event)
 	}
 	return true;
 }
+
+LocalsWindow::LocalsWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
+	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
+{
+	g_return_if_fail(p_amm != NULL);
+
+	m_scrollbar = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(m_scrollbar),
+                                    GTK_POLICY_AUTOMATIC, 
+									GTK_POLICY_AUTOMATIC);
+	gtk_widget_show(m_scrollbar);
+	m_debug_tree = debug_tree_create(m_scrollbar,"Local Variables");
+	m_frame = gtk_frame_new(NULL);
+	gtk_widget_show (m_frame);
+	gtk_frame_set_shadow_type(GTK_FRAME(m_frame), GTK_SHADOW_IN);
+	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), 
+							 m_frame,
+							 create_label());
+
+	gtk_container_add(GTK_CONTAINER(m_frame),m_scrollbar);
+}
+
+void LocalsWindow::show()
+{
+	if (!m_is_shown)
+    {
+		GtkWidget* label = create_label();
+      
+		gtk_notebook_append_page(GTK_NOTEBOOK(m_parent->intern->notebook), 
+								 m_frame, label);
+		gtk_widget_unref(m_frame);
+      
+		GList* children = gtk_container_children(GTK_CONTAINER(m_parent->intern->notebook));
+		for (uint i = 0; i < g_list_length(children); i++)
+		{
+			if (g_list_nth(children, i)->data == m_frame)
+			{
+				m_page_num = i;
+				break;
+			}
+		}
+		m_is_shown = true;
+    }
+}
+
+void LocalsWindow::hide()
+{
+	if (m_is_shown)
+	{
+		gtk_widget_ref(m_frame);
+		gtk_container_remove(GTK_CONTAINER(m_parent->intern->notebook), m_frame);
+		m_is_shown = false;
+	}
+}
+
+void LocalsWindow::update_view(GList* list)
+{
+	gchar* title[1];
+	title[0] = g_strdup("Local Variables");	
+	debug_tree_clear(m_debug_tree);
+	m_debug_tree->root = gtk_ctree_insert_node(GTK_CTREE(m_debug_tree->tree),
+											   NULL,              /* parent */
+											   NULL,              /* sibling */
+											   &title[0],
+											   5,
+											   NULL,
+											   NULL,
+											   NULL,
+											   NULL,
+											   FALSE,             /* is leaf */
+											   TRUE);
+	debug_tree_parse_variables(m_debug_tree,list,m_debug_tree->root);	
+}
+
+#if 0
+// return TRUE when str is gdb's notation of a pointer: 
+// $1 = (struct foo *) 0x12345678	
+gboolean LocalsWindow::is_pointer(gchar* str,gint len)
+{
+	gint type;
+	g_scanner_input_text(m_parser,str,len);
+
+	type = g_scanner_get_next_token(m_parser);
+	type = g_scanner_get_next_token(m_parser);
+	type = g_scanner_get_next_token(m_parser);
+
+	if (type != G_TOKEN_LEFT_PAREN)
+		return FALSE;
+
+	type = g_scanner_get_next_token(m_parser);
+	type = g_scanner_get_next_token(m_parser);
+	type = g_scanner_get_next_token(m_parser);
+
+	if (type != G_TOKEN_RIGHT_PAREN)
+	{
+		type = g_scanner_get_next_token(m_parser);
+		if (type != G_TOKEN_RIGHT_PAREN)
+			return FALSE;
+	}
+
+	type = g_scanner_get_next_token(m_parser);
+	if (type != G_TOKEN_INT)
+		return FALSE;
+
+	return TRUE;
+}
+#endif

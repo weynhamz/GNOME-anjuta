@@ -22,6 +22,9 @@ New: compilation warning/error navigation from terminal
 New: better find functionality
 New: enhanced file selection widget
 New: enhanced Evolution-style about dialog
+New: Automatic Variable display when mouse hovered on the
+     variable name (in dubugger mode).
+New: Raw memory veiw for debugger (somewhat resembling ghex).
 
 Updated: synced to Scintilla 1.46
 Updated: many usability improvements to the GUI and menus

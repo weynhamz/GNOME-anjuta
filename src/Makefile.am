@@ -102,6 +102,8 @@ anjuta_SOURCES = \
 	cvs_cbs.h\
 	debugger.c\
 	debugger.h\
+	debug_tree.c\
+	debug_tree.h\
 	dnd.c\
 	dnd.h\
 	executer.c\
