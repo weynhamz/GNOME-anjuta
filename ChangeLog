@@ -3,6 +3,13 @@
 	* src/cvs.c: The diff editor is set to hilite as
 	diff syntax hiliting.
 	
+	* configure.in, manual/Makefile.am:
+	Added a new manual module for ja language.
+	
+	* manual/ja/*/*/*: New module and files for the
+	ja translation for the anjuta documentation
+	from Takeshi AIHANA <aihana@jcom.home.ne.jp>
+	
 2002-04-17 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/launcher.c: Made a very messy work around

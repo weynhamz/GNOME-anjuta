@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<omf>
+  <resource>
+    <title>
+     Anjuta IDE マニュアル
+    </title>
+    <creator>
+     <person>
+      <firstName>Naba</firstName>
+      <lastName>Kumar</lastName>
+      <email>kh_naba@users.sourceforge.net</email> 
+     </person>
+    </creator>
+    <subject>
+	<category>GNOME|Development</category>
+    </subject>
+    <description>
+     このドキュメントはソフトウェア・プロジェクトを開発するために Anjuta IDE の使い方を紹介したものです。
+    </description>
+    <type>
+     manual
+    </type>
+    <format mime="text/sgml"/>
+    <identifier url="anjuta-manual.sgml"/>
+    <language code="ja_JP.eucJP"/>
+  </resource>
+</omf>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<omf>
+ <resource>
+  <title>
+   Anjuta FAQ
+  </title>
+   <creator>
+	<person>
+	 <firstName>Andy</firstName>
+	 <lastName>Piper</lastName>
+	 <email>andy.piper@freeuk.com</email> 
+	</person>
+   </creator>
+  <subject>
+  <category>GNOME|Development</category>
+  </subject>
+    <description>
+     このドキュメントは Anjuta C/C++ 統合開発環境についてのよくある質問とその回答をまとめたＱ＆Ａ集です。
+    </description>
+    <type>
+     article
+    </type>
+  <format mime="text/sgml"/>
+  <identifier url="anjuta-faq.sgml"/>
+  <language code="ja_JP.eucJP"/>
+ </resource>
+</omf>
+

@@ -1,0 +1,25 @@
+ <!-- ============= Introduction ============================== -->
+ <chapter id="introduction">
+  <title>はじめに</title>
+  <para>
+  <application>Anjuta</application> は C/C++ 向けに多彩な機能を搭載した統合開発環境 (IDE) です。これは GTK+/GNOME アプリケーションの一つで、たくさんの先進的なプログラミング機能を提供します。Linux や UNIX システムで利用可能な、たくさんのコマンドラインのプログラミング・ツールをグラフィカルなインタフェースで提供します。コマンドラインのプログラミング・ツールは常にテキスト端末上で実行し、さらに使い勝手があまり良くありません。
+  </para>
+
+  <para>
+  <application>Anjuta</application> は使いやすい GNOME グラフィカル・ユーザ・インタフェースを採用し、その柔軟な操作性とパワフルなコマンドライン・ツールを融合させたものです。可能な限りユーザフレンドリに設計されています。
+  </para>
+
+  <para>
+  <figure id="anjuta-scrshot">
+   <title>動作中の Anjuta IDE</title>
+   <screenshot>
+   <screeninfo>動作中の Anjuta IDE</screeninfo>
+   <graphic format="png" fileref="figures/scrshot" srccredit="andyp"></graphic>
+   </screenshot>
+   </figure>
+  </para>
+
+  <para>
+  <application>Anjuta</application> を使っている最中に発生した問題を報告して下さい - これはソフトウェアを改善することへの助けになり、同様にオープンソース・コミュニティへの支援にもなります。
+  </para>
+ </chapter>
