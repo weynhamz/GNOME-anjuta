@@ -1,5 +1,10 @@
 2003-06-20  Naba Kumar  <naba@gnome.org>
 
+	* pixmaps/anjuta_splash.png: New splash.
+	from Jean Schurger  <yshartk@schurger.org>
+	
+2003-06-20  Naba Kumar  <naba@gnome.org>
+
 	* src/message-manager.cc, mainmenu_callbacks.c: Code cleanup.
 	* src/watch_gui.c: Code cleanups.
 	* src/debugger.[c,h], src/stack_trace.[c,h],
