@@ -1,3 +1,26 @@
+Anjuta 1.0:		(xth June 2002)				-- Andy Piper
+
+   => Release of Anjuta-1.0 (stable)
+
+New: CVS support for Projects and individual files
+New: Gnome Print support (including syntax colouring)
+New: Patch plugin to apply diffs
+New: Application Wizard support for wxWindows, Xlib, GNOME2 and 
+     Gtk2 Projects, plus support for dynamic and static 
+	 libraries in generic Projects
+New: user identity preferences enabling new editor functions
+New: better find functionality
+New: enhanced file selection widget
+New: enhanced about dialog
+New: better GNOME integration, now uses configured GNOME URL 
+     handlers
+New: Anjuta kickstart tutorial
+
+Updated: synced to Scintilla 1.46
+Updated: many reorganisations to the GUI and menus
+
+--------------------------------------------------------------------
+
 Anjuta 0.1.9:   (14th February 2002)		-- Andy Piper
 
    => Release of Anjuta-0.1.9 (stable)

@@ -1,5 +1,19 @@
 2002-06-04	Andy Piper	<andy.piper@freeuk.com>
 
+	* data/properties/{xml,html,other}.properties: changed some file 
+	associations
+	
+	* data/anjuta.mime: oops! cvs added
+	
+	* src/RESearch.cxx: fixed up a problem with comments
+	
+	* global-tags/create_global_tags.sh: redirect errors to /dev/null
+	to avoid messages about missing libs
+	
+	* NEWS: started the release notes
+
+2002-06-04	Andy Piper	<andy.piper@freeuk.com>
+
 	* HACKING: updated with new information on printing, patch naming
 	
 	* TODO: removed completed tasks
@@ -84,7 +98,7 @@
 	pixmaps/print_layout.xpm, pixmaps/print_nocolor.xpm,
 	pixmaps/print_portrait.xpm: CVS added printer setup pixmap files.
 
-	* pixmaps/Makefile.am, src/pixmaps.h, anjuta.prj: Added the new pixmaps referencences.
+	* pixmaps/Makefile.am, src/pixmaps.h, anjuta.prj: Added the new pixmaps references.
 	
 2002-06-01	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
 
@@ -164,7 +178,7 @@
 	it seems to have been removed by scintilla people.
 	
 	* data/properties/anjuta.properties: Set default line wrap to false, as
-	is noticiably slow with big files.
+	is noticably slow with big files.
 	
 2002-05-27	Jean-Noel Guiheneuf	<jnoel@saudionline.com.sa>
 
