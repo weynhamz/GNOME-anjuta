@@ -892,6 +892,12 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[] = {
 	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_CONF), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
+	{
+	 GNOME_APP_UI_ITEM, N_("Baan"),
+	 N_("Force the highlight style to Baan"),
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
 	GNOMEUIINFO_END
 };
 

@@ -125,7 +125,18 @@ create_new_project (AppWizard * aw)
 	fprintf(fp, "project.menu.entry=%s\n", aw->menu_entry);
 	fprintf(fp, "project.menu.group=%s\n", aw->app_group);
 	fprintf(fp, "project.menu.comment=%s\n", aw->menu_comment);
-	fprintf(fp, "project.menu.icon=%s_icon.%s\n", aw->target, get_file_extension(aw->icon_file));
+
+	if (aw->icon_file) {
+		gchar *ext = get_file_extension (aw->icon_file);
+		fprintf (fp, "project.menu.icon=%s_icon", aw->target);
+
+		if (ext)
+			fprintf (fp, ".%s", ext);
+
+		fprintf (fp, "\n");
+	} else
+		fprintf (fp, "project.menu.icon=\n");
+
 	fprintf(fp, "project.menu.need.terminal=%d\n\n", aw->need_terminal);
 	
 	type = load_project_type(aw->prj_type);

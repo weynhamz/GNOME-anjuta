@@ -2013,7 +2013,6 @@ scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
 	g_return_val_if_fail (pApp != NULL, pList);
 	g_return_val_if_fail (((NULL != szDirName) && strlen(szDirName)), pList);
 
-g_print ("> scanning %s for plugins...\n", szDirName);
 	files = NULL;
 
 	/* Can not use p->top_proj_dir yet. */

@@ -1765,10 +1765,12 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		lexLanguage = SCLEX_DIFF;
 	} else if (language == "container") {
 		lexLanguage = SCLEX_CONTAINER;
-	} else if(language == "conf") {
+	} else if (language == "conf") {
 		lexLanguage = SCLEX_CONF;
-	} else if(language == "pascal") {
+	} else if (language == "pascal") {
 		lexLanguage = SCLEX_PASCAL;
+	} else if (language == "baan") {
+		lexLanguage = SCLEX_BAAN;
 	} else {
 		lexLanguage = SCLEX_NULL;
 	}

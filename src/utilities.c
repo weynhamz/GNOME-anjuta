@@ -336,6 +336,10 @@ FileExtType get_file_ext_type (gchar * file)
 	{
 		filetype = FILE_TYPE_VB;
 	}
+	else if (strcmp (filetype_str, "baan") == 0)
+	{
+		filetype = FILE_TYPE_BAAN;
+	}
 	else if (strcmp (filetype_str, "wscript") == 0)
 	{
 		filetype = FILE_TYPE_WSCRIPT;

@@ -1,3 +1,18 @@
+2001-12-31  Stephane Demurget  <demurgets@free.fr>
+
+	Fixed a crash on Solaris reported by Holder Burde, thanks to him
+	for the backtrace.
+
+	* src/gnome_project.c: (create_new_project): if the user doesn't
+	  select any icon, it doesn't have any extension and thus we can't
+	  use it in printf on Solaris, since the %s modifier use strlen to
+	  know the string length and then crash. On Linux, gcc checks the value
+	  of the pointer to be NULL and write "(null)" if necessary. We can't
+	  rely on that.
+
+	* src/source.c: (source_write_desktop_entry): if there's no icon, we
+	  don't need to have the directory icon but the generic one.
+
 2001-12-30  Stephane Demurget  <demurgets@free.fr>
 
 	Merged with latest (1.42) scintilla.
@@ -37,6 +52,17 @@
 	  should have been told to the scintilla team. We're lucky I read the
 	  ChangeLog and the modifications of the lexer (thanks to the Gnome
 	  bonsai for this ;)
+
+	* data/internal.properties: added Baan definitions.
+	  Fixed some issues for C such as *_cast directive, that are only
+	  available with C++.
+	  Updated C++, HTML and shell scripts definitions.
+	  Updated Ada and Bullant, that have been forgotten.
+
+	* src/main_menubar_def.[ch],
+	  src/lexer.h,
+	  src/aneditor.cxx,
+	  src/utilities.[ch]: added support for the Baan highlight style.
 
 2001-12-29  Stephane Demurget  <demurgets@free.fr>
 

@@ -1091,6 +1091,7 @@ source_write_desktop_entry (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *target, *name, *comment, *term, *icon;
 	gint t;
+	gboolean has_icon;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 
@@ -1122,6 +1123,7 @@ source_write_desktop_entry (ProjectDBase * data)
 	if (!comment)
 		comment = g_strdup ("No comment");
 	icon = prop_get (data->props, "project.menu.icon");
+	has_icon = (gboolean) icon;
 	if (!icon)
 		icon = g_strdup (" ");
 	t = prop_get_int (data->props, "project.menu.need.terminal", 1);
@@ -1135,11 +1137,15 @@ source_write_desktop_entry (ProjectDBase * data)
 		"Name=%s\n"
 		"Comment=%s\n"
 		"Exec=%s\n"
-		"Icon=@PACKAGE_PIXMAPS_DIR@/%s\n"
+		"Icon=%s%s\n"
 		"Terminal=%s\n"
 		"MultipleArgs=false\n"
 		"Type=Application\n\n",
-		name, comment, target, icon, term);
+		name, comment, target,
+		icon ? "@PACKAGE_PIXMAPS_DIR@/" : "",
+		icon ? icon : "",
+		term);
+
 	fclose (fp);
 
 	g_free (filename);
