@@ -310,11 +310,15 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 	SVRootType i;
 
 	g_message("Populating symbol view..");
+
+g_print ("> sv_populate (): a\n"); fflush (stdout);
 	if (!sv)
 		sv_create();
+g_print ("> sv_populate (): b\n"); fflush (stdout);
 	sv_disconnect();
 	sv_freeze();
 	sv_clear();
+g_print ("> sv_populate (): c\n"); fflush (stdout);
 	if (!tm_proj || !IS_TM_PROJECT((TMWorkObject *) tm_proj))
 	{
 		sv_connect();
@@ -323,6 +327,7 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 		return sv;
 	}
 
+g_print ("> sv_populate (): d\n"); fflush (stdout);
 	if (!tm_proj->symbol_tree)
 	{
 		g_message("Updating project..");
@@ -336,17 +341,21 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 		}
 	}
 
+g_print ("> sv_populate (): e\n"); fflush (stdout);
 	sv->project = tm_proj;
 	root[sv_root_none_t] = NULL;
 	for (i = sv_root_class_t; i < sv_root_max_t; ++i)
 		CREATE_SV_NODE(i)
 	root[sv_root_max_t] = NULL;
 
+g_print ("> sv_populate (): f\n"); fflush (stdout);
 	s = g_string_sized_new(255);
 	if (!tm_proj->symbol_tree->children)
 	{
 		g_message("No symbols found!");
 	}
+
+g_print ("> sv_populate (): g\n"); fflush (stdout);
 	for (parent = tm_proj->symbol_tree->children; parent
 	  ; parent = g_slist_next(parent))
 	{
@@ -394,8 +403,10 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 			  , subitem, h_file, (GtkDestroyNotify) an_hist_file_free);
 		}
 	}
+g_print ("> sv_populate (): h\n"); fflush (stdout);
 	g_string_free(s, TRUE);
 	sv_connect();
 	sv_thaw();
+g_print ("> sv_populate (): i\n"); fflush (stdout);
 	return sv;
 }

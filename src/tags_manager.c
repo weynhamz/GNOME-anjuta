@@ -734,6 +734,8 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 		return TRUE;
 	if (tm->update_in_progress)
 		return FALSE;
+
+g_print ("> ENTERING in tags_manager_update_image ()\n"); fflush (stdout);
 	/*
 	if (g_list_length (files) == g_list_length (tm->file_list))
 		return TRUE;
@@ -742,18 +744,25 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 	tags_manager_freeze (tm);
 	tm->update_file_list = NULL;
 	node = files;
-	while (node)
-	{
-		gchar* fn =	anjuta_get_full_filename (node->data);
-		if(!fn) {node = g_list_next(node); continue;}
+
+	for (node = files; node; node = g_list_next (node)) {
+		gchar *fn = anjuta_get_full_filename (node->data);
+
+		if (!fn)
+			continue;
+
 		if (tags_manager_check_update (tm, fn) == FALSE)
-		{
 			tm->update_file_list = 
 				g_list_append(tm->update_file_list, g_strdup(node->data));
-		}
+
 		g_free (fn);
-		node = g_list_next(node);
 	}
+
+for (node = tm->update_file_list; node; node = g_list_next (node))
+	g_print ("> NEED TO UPDATE (%s)\n", (gchar *) node->data);
+
+fflush (stdout);
+
 	if (tm->update_file_list)
 	{
 		tm->update_counter = 0;
@@ -769,9 +778,13 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 		tags_manager_thaw(tm);
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
+
+g_print ("> tags_manager_update_image (): a\n"); fflush (stdout);
 		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
+g_print ("> tags_manager_update_image (): b\n"); fflush (stdout);
 		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
 	}
+g_print ("> EXITING from tags_manager_update_image ()\n"); fflush (stdout);
 	return TRUE;
 }
 
@@ -785,6 +798,7 @@ on_tags_manager_on_idle (gpointer data)
 		goto error;
 	if (tm->update_in_progress == FALSE)
 		goto error;
+g_print ("> ENTERING IN tags_manager_on_idle ()\n"); fflush (stdout);
 	if (tm->update_counter >= g_list_length (tm->update_file_list))
 	{
 		tags_manager_thaw (tm);
@@ -795,8 +809,12 @@ on_tags_manager_on_idle (gpointer data)
 		tags_manager_save(tm);
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
+
+g_print ("> tags_manager_on_idle (): a\n"); fflush (stdout);
 		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
+g_print ("> tags_manager_on_idle (): b\n"); fflush (stdout);
 		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
+g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
 		return FALSE;
 	}
 	if (app->project_dbase->project_is_open == FALSE)
@@ -808,21 +826,25 @@ on_tags_manager_on_idle (gpointer data)
 					   tm->update_counter));
 	if (!fn)
 		goto error;
+
+g_print ("> tags_manager_on_idle (): going to update (%s)\n", fn);
 	if (tags_manager_update (tm, fn) == FALSE)
 		goto error;
 	g_free (fn);
 	tm->update_counter++;
 	anjuta_set_progress (tm->update_counter);
+g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
 	return TRUE;
 
       error:
 	if (fn)
 		g_free (fn);
 	tags_manager_thaw (tm);
-	anjuta_done_progress (_("Syncdronization of Tags image failed"));
+	anjuta_done_progress (_("Synchronization of Tags image failed"));
 	glist_strings_free (tm->update_file_list);
 	tm->update_file_list = NULL;
 	tm->update_in_progress = FALSE;
+g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
 	return FALSE;
 }
 

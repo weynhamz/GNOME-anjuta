@@ -485,6 +485,7 @@ create_project_dbase_gui (ProjectDBase * p)
 	fv = fv_populate(TM_PROJECT(p->tm_project));
 	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), fv->win
 	  , gtk_label_new(_("Files")));
+
 	sv = sv_populate(TM_PROJECT(p->tm_project));
 	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), sv->win
 	  , gtk_label_new(_("Symbols")));

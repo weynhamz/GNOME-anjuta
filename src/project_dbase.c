@@ -835,7 +835,11 @@ done:
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
 	tags_manager_load (app->tags_manager);
+
+g_print ("> project_dbase_load_project (): a\n");
 	project_dbase_update_tags_image(p);
+g_print ("> project_dbase_load_project (): b\n");
+
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
 	if (show_project)
@@ -1149,10 +1153,14 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 void
 project_dbase_update_tags_image(ProjectDBase* p)
 {
-	GList *src_files;
 	gchar* src_dir;
+
+	g_return_if_fail (p != NULL);
+
 	if (p->project_is_open == FALSE)
 		return;
+
+g_print ("> project_dbase_update_tags_image (): a\n"); fflush (stdout);
 	if (p->tm_project)
 	{
 		if (((NULL == TM_PROJECT(p->tm_project)->file_list) ||
@@ -1164,13 +1172,20 @@ project_dbase_update_tags_image(ProjectDBase* p)
 	}
 	else if (p->top_proj_dir)
 		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE, TRUE);
+
+g_print ("> project_dbase_update_tags_image (): b\n"); fflush (stdout);
 	sv_populate(TM_PROJECT(p->tm_project));
+g_print ("> project_dbase_update_tags_image (): c\n"); fflush (stdout);
 	fv_populate(TM_PROJECT(p->tm_project));
+g_print ("> project_dbase_update_tags_image (): d\n"); fflush (stdout);
+
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
+
 	if (src_dir)
 	{
 		gchar* src_path;
-		
+		GList *src_files;
+
 		src_path = g_strconcat (src_dir, "/", NULL);
 		src_files = glist_from_data (p->props, "module.source.files");
 		glist_strings_prefix (src_files, src_path);
@@ -1178,7 +1193,11 @@ project_dbase_update_tags_image(ProjectDBase* p)
 		glist_strings_free (src_files);
 		g_free (src_path);
 		g_free (src_dir);
+
 	}
+
+g_print ("> project_dbase_update_tags_image (): e\n"); fflush (stdout);
+return;
 }
 
 static void
