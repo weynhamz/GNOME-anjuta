@@ -141,15 +141,24 @@
 	* plugins/macro/macro-dialog.c, plugins/macro/macro-edit.c :
 	Fixed bug (Closed macro dialogs with Esc key).
 	
-2005-02-19  Naba Kumar  <naba@gnome.org>
-
-	Patch from Sebastien Granjoux  <seb.sfo@free.fr>
-
-	* configure.in, plugins/project-wizard/templates/Makefile.am,
-	(new) plugins/project-wizard/templates/xlib*,
-	(new) plugins/project-wizard/templates/xlib-dock*,
-	(new) plugins/project-wizard/templates/wxwin*: Added project templates for
-	xlib, xlib-dock and wxWidgets.
+2005-02-19  Sebastien Granjoux  <seb.sfo@free.fr>
+	
+	* plugins/project-wizard/xlib.wiz,
+	plugins/project-wizard/xlib-logo.png,
+	plugins/project-wizard/xlib/*:
+	Port old xlib anjuta project on new project wizard
+	
+	* plugins/project-wizard/xlib-dock.wiz,
+	plugins/project-wizard/xlib-dock/*:
+	Port old xlib dock anjuta project on new project wizard
+	
+	* plugins/project-wizard/wxwin.wiz,
+	plugins/project-wizard/wxwin-logo.png,
+	plugins/project-wizard/wxwin/*:
+	Port old wxwin anjuta project on new project wizard
+	
+	* configure.in, plugins/project-wizard/templates/Makefile.am: Other
+	necessary changes for the new templates.
 	
 2005-02-18  Naba Kumar  <naba@gnome.org>
 
