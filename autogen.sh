@@ -96,6 +96,11 @@ if test -z "$*"; then
   echo
 fi
 
+echo "Generating initial interface files"
+sh -c "cd $srcdir/libanjuta/interfaces && \
+perl anjuta-idl-compiler.pl libanjuta && \
+touch iface-built.stamp"
+
 case $CC in
 xlc )
   am_opt=--include-deps;;

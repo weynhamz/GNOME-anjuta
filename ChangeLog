@@ -1,5 +1,7 @@
 2005-01-25  Naba Kumar  <naba@gnome.org>
 
+	* autogen.sh: Fixed to generate interface files.
+
 	* plugins/editor/plugin.c, plugins/project-manager/plugin.c: Fixed
 	session save filenames.
 	
