@@ -9,7 +9,7 @@
 #include "widget-registry.h"
 #include "anjuta-plugins.h"
 
-#define	LOCALS_PLUGIN_DIR	"/.anjuta/plugins"
+#define	LOCALS_PLUGIN_DIR	"/.anjuta-" VERSION "/plugins"
 
 static AnjutaPlugIn *plug_in_new(void)
 {

@@ -5,6 +5,7 @@
 	* src/anjuta-plugins.c, src/anjuta_dirs.c, src/main.c,
 	src/mainmenu_callbacks.c src/preferences.c: Use versionsed directory
 	for preferences.
+	* configure.in: Change version no. for 1.1.1 (alpha release)
 
 2003-04-15  Naba Kumar  <naba@gnome.org>
 

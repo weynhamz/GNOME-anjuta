@@ -63,7 +63,7 @@ static void delete_old_config_file (void)
 	gchar *config_version;
 	PropsID prop;
 	
-	config_dir = g_strconcat(g_get_home_dir(), "/.anjuta", NULL);
+	config_dir = g_strconcat(g_get_home_dir(), "/.anjuta-" VERSION, NULL);
 	config_file = g_strconcat(config_dir, "/session.properties", NULL);
 	
 	prop = prop_set_new();
