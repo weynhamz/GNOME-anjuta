@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.7\n"
-"POT-Creation-Date: 2001-10-19 11:23-0800\n"
-"PO-Revision-Date: 2001-10-24 16:12+0800\n"
+"POT-Creation-Date: 2001-11-09 12:21+0800\n"
+"PO-Revision-Date: 2001-11-09 12:28+0800\n"
 "Last-Translator: Joe Man <trmetal@yahoo.com.hk>\n"
 "Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -989,12 +989,12 @@ msgstr "編譯完成 ... 失敗"
 msgid "Compile completed ... successful"
 msgstr "編譯完成 ...順利完成"
 
-#: src/compiler_options_cbs.c:232
+#: src/compiler_options_cbs.c:240
 #, c-format
 msgid "Cannot create: %s."
 msgstr "無法建立：%s。"
 
-#: src/compiler_options_cbs.c:235
+#: src/compiler_options_cbs.c:243
 #, c-format
 msgid ""
 "Support ID: %s\n"
@@ -1005,7 +1005,7 @@ msgstr ""
 "\n"
 ""
 
-#: src/compiler_options_cbs.c:236
+#: src/compiler_options_cbs.c:244
 msgid ""
 "Description:\n"
 ""
@@ -1013,7 +1013,7 @@ msgstr ""
 "描述：\n"
 ""
 
-#: src/compiler_options_cbs.c:238
+#: src/compiler_options_cbs.c:246
 #, c-format
 msgid ""
 "Dependencies: %s\n"
@@ -1024,7 +1024,7 @@ msgstr ""
 "\n"
 ""
 
-#: src/compiler_options_cbs.c:239
+#: src/compiler_options_cbs.c:247
 msgid ""
 "Macros in configure.in fie:\n"
 ""
@@ -1032,7 +1032,7 @@ msgstr ""
 "在 configure.in 內的巨集：\n"
 ""
 
-#: src/compiler_options_cbs.c:241
+#: src/compiler_options_cbs.c:249
 #, c-format
 msgid ""
 "Variable(s) for cflags: %s\n"
@@ -1043,7 +1043,7 @@ msgstr ""
 "\n"
 ""
 
-#: src/compiler_options_cbs.c:243
+#: src/compiler_options_cbs.c:251
 #, c-format
 msgid ""
 "Variable(s) for Libs: %s\n"
@@ -1054,7 +1054,7 @@ msgstr ""
 "\n"
 ""
 
-#: src/compiler_options_cbs.c:245
+#: src/compiler_options_cbs.c:253
 #, c-format
 msgid ""
 "Compile time Cflags: %s\n"
@@ -1065,7 +1065,7 @@ msgstr ""
 "\n"
 ""
 
-#: src/compiler_options_cbs.c:247
+#: src/compiler_options_cbs.c:255
 #, c-format
 msgid ""
 "Compile time Libs: %s\n"
@@ -1076,7 +1076,7 @@ msgstr ""
 "\n"
 ""
 
-#: src/compiler_options_cbs.c:249
+#: src/compiler_options_cbs.c:257
 msgid ""
 "Entries in acconfig.h file:\n"
 ""
@@ -1084,7 +1084,7 @@ msgstr ""
 "acconfig.h 檔內的項目：\n"
 ""
 
-#: src/compiler_options_cbs.c:251
+#: src/compiler_options_cbs.c:259
 msgid ""
 "Installed status:\n"
 ""
@@ -1092,7 +1092,7 @@ msgstr ""
 "安裝狀況：\n"
 ""
 
-#: src/compiler_options_cbs.c:266
+#: src/compiler_options_cbs.c:274
 #, c-format
 msgid ""
 "    Installed => %s\n"
@@ -1101,7 +1101,7 @@ msgstr ""
 "    已安裝 => %s\n"
 ""
 
-#: src/compiler_options_cbs.c:270
+#: src/compiler_options_cbs.c:278
 msgid ""
 "    Not Installed.\n"
 ""
@@ -1109,10 +1109,10 @@ msgstr ""
 "    尚未安裝。\n"
 ""
 
-#: src/compiler_options_cbs.c:359
-#: src/compiler_options_cbs.c:452
-#: src/compiler_options_cbs.c:546
-#: src/compiler_options_cbs.c:635
+#: src/compiler_options_cbs.c:367
+#: src/compiler_options_cbs.c:460
+#: src/compiler_options_cbs.c:554
+#: src/compiler_options_cbs.c:643
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
 msgstr "是否確定清除清單？"
@@ -1224,55 +1224,55 @@ msgid "All Warnings"
 msgstr "顯示全部警告訊息"
 
 #: src/compiler_options_gui.c:870
-msgid "Warning for Implicit declarations"
+msgid "Warning for implicit declarations"
 msgstr "發現有隱含宣告時發出警告"
 
 #: src/compiler_options_gui.c:878
-msgid "Warning for mismached Return types"
+msgid "Warning for mismatched return types"
 msgstr "發現有不符合的回傳資料型態時發出警告"
 
 #: src/compiler_options_gui.c:886
-msgid "Warning for Unused Variables"
+msgid "Warning for unused variables"
 msgstr "發現有未使用的變數時發出警告"
 
 #: src/compiler_options_gui.c:894
-msgid "Warning for unhandled Switch case with enums"
+msgid "Warning for unhandled switch case with enums"
 msgstr "發現有未處理的枚舉型 Switch case 時發出警告"
 
 #: src/compiler_options_gui.c:902
-msgid "Warning for nested Comment"
+msgid "Warning for nested comment"
 msgstr "發現有巢式備註時發出警告"
 
 #: src/compiler_options_gui.c:910
-msgid "Warning for Uninitialized variable use"
+msgid "Warning for uninitialized variable use"
 msgstr "發現有未初始化的變數時發出警告"
 
 #: src/compiler_options_gui.c:918
-msgid "Warning for missing Parentheses"
+msgid "Warning for missing parentheses"
 msgstr "發現未有適當使用括號時發出警告"
 
 #: src/compiler_options_gui.c:926
-msgid "Warning for Un-Traditional syntax"
+msgid "Warning on differences to traditional syntax"
 msgstr "發現有非傳統的語法時發出警告"
 
 #: src/compiler_options_gui.c:934
-msgid "Warning for Variable Shadowing"
+msgid "Warning for variable shadowing"
 msgstr "發現有相同變數時發出警告"
 
 #: src/compiler_options_gui.c:942
-msgid "Warning for suspected Pointer-arith"
+msgid "Warning for suspected pointer arithmetic"
 msgstr "發現有可疑的指標大小計算時發出警告"
 
 #: src/compiler_options_gui.c:950
-msgid "Warning for Missing-prototypes"
+msgid "Warning for missing prototypes"
 msgstr "發現函式未有原型宣告發出警告"
 
 #: src/compiler_options_gui.c:958
-msgid "Warning for Un-Inline-able declarations"
+msgid "Warning if declarations cannot be inlined"
 msgstr "發現有不可 inline 的函式宣告為 inline 時發出警告"
 
 #: src/compiler_options_gui.c:966
-msgid "Warning for Overloaded-virtuals"
+msgid "Warning for overloaded virtuals"
 msgstr "發現有Overloaded-virtual 時發出警告"
 
 #: src/compiler_options_gui.c:1002
@@ -1280,15 +1280,15 @@ msgid "No optimization"
 msgstr "停用最佳化"
 
 #: src/compiler_options_gui.c:1012
-msgid "Low level optimization (Machine dependent)"
+msgid "Low-level optimization (machine-dependent)"
 msgstr "低階最佳化 ( 使用 gcc 的 -O1 選項 )"
 
 #: src/compiler_options_gui.c:1022
-msgid "Higher level optimization (without space-speed tradeoff)"
+msgid "Higher-level optimization (without space-speed tradeoff)"
 msgstr "高階最佳化 ( 使用 gcc 的 -O2 選項 )"
 
 #: src/compiler_options_gui.c:1032
-msgid "Fastest code optimization (Function inlined where ever possible"
+msgid "Fastest-code optimization (functions inlined whereever possible"
 msgstr "原始碼最佳化 ( 使用 gcc 的 -O3 選項 )"
 
 #: src/compiler_options_gui.c:1043
@@ -1307,21 +1307,17 @@ msgstr ""
 "最佳化及產生除錯資料這兩個選項。\n"
 "除非，您是要跟佳化了的原始碼除錯。"
 
-#: src/compiler_options_gui.c:1089
+#: src/compiler_options_gui.c:1091
 msgid "Enable Debugging"
 msgstr "啟用產生可幫助除錯的資料"
 
-#: src/compiler_options_gui.c:1097
+#: src/compiler_options_gui.c:1099
 msgid "Enable Profiling"
 msgstr "啟用產生可幫助優化的資料"
 
-#: src/compiler_options_gui.c:1108
-msgid "Additional compiler options (command line options)"
-msgstr "編譯器其它選項 (指令行選項)"
-
-#: src/compiler_options_gui.c:1124
-msgid "Additional linker options (command line options)"
-msgstr "連結器其它選項 (指令行選項)"
+#: src/compiler_options_gui.c:1104
+msgid "Additional Options"
+msgstr "其它選項"
 
 #: src/configurer.c:87
 #: src/configurer.c:203
@@ -1640,7 +1636,8 @@ msgid "Target of this project is not executable"
 msgstr "專案的目的檔類別並非可執行檔"
 
 #: src/executer.c:244
-msgid "Executable does not exsits for this project."
+#: src/mainmenu_callbacks.c:1553
+msgid "Executable does not exist for this project."
 msgstr "在這個專案內找不到執行檔。"
 
 #: src/executer.c:257
@@ -2029,21 +2026,21 @@ msgid "Don't show the splashscreen"
 msgstr "不要顯示程式啟動時的起始圖像"
 
 # src/menus.c:92
-#: src/main_menubar.c:458
+#: src/main_menubar.c:520
 msgid "Recent Files    "
 msgstr "最近開啟檔案"
 
-#: src/main_menubar.c:469
+#: src/main_menubar.c:531
 msgid "Plug Ins"
 msgstr "增效模組"
 
 # src/menus.c:92
-#: src/main_menubar.c:486
+#: src/main_menubar.c:548
 #: src/project_dbase.c:1873
 msgid "Recent Projects "
 msgstr "最近開啟專案"
 
-#: src/main_menubar.c:505
+#: src/main_menubar.c:567
 msgid "You have a project opened. Close it first."
 msgstr "已有專案開啟。請先將它關閉。"
 
@@ -3681,7 +3678,7 @@ msgid "_Preferences ..."
 msgstr "偏好設定 (_P)..."
 
 #: src/main_menubar_def.h:1427
-msgid "Do your prefer coffee to tea? Check it out."
+msgid "Do you prefer coffee to tea? Check it out."
 msgstr "編輯本程式的有關設定。"
 
 #: src/main_menubar_def.h:1432
@@ -3860,10 +3857,6 @@ msgstr "是否確定要列印目前檔案的內容？"
 #: src/mainmenu_callbacks.c:1140
 msgid "Tags image update successfully."
 msgstr "更新原始碼索引順利完成。"
-
-#: src/mainmenu_callbacks.c:1553
-msgid "Executable does not exsits this project."
-msgstr "沒有可執行檔在這個專案內。"
 
 #: src/mainmenu_callbacks.c:1604
 msgid "Debugger is not running. Start it first."
@@ -5633,21 +5626,21 @@ msgstr "無法讀取檔案：%s。"
 #: src/source.c:657
 #: src/source.c:672
 #: src/source.c:705
-#: src/source.c:734
-#: src/source.c:805
-#: src/source.c:824
-#: src/source.c:857
-#: src/source.c:877
-#: src/source.c:910
-#: src/source.c:930
-#: src/source.c:961
-#: src/source.c:979
-#: src/source.c:1009
-#: src/source.c:1027
-#: src/source.c:1054
-#: src/source.c:1106
-#: src/source.c:1177
-#: src/source.c:1309
+#: src/source.c:741
+#: src/source.c:813
+#: src/source.c:832
+#: src/source.c:865
+#: src/source.c:885
+#: src/source.c:918
+#: src/source.c:938
+#: src/source.c:969
+#: src/source.c:987
+#: src/source.c:1017
+#: src/source.c:1035
+#: src/source.c:1062
+#: src/source.c:1114
+#: src/source.c:1185
+#: src/source.c:1317
 #: src/utilities.c:697
 #, c-format
 msgid "Couldn't create file: %s."
@@ -5706,11 +5699,11 @@ msgstr "驗証及測試表示式"
 msgid "Add To Watch"
 msgstr "新增到監察"
 
-#: src/about.c:47
+#: src/about.c:64
 msgid "Copyright (c) 1999-2001 Naba Kumar"
 msgstr "版權所有 (c) 1999-2001 Naba Kumar"
 
-#: src/about.c:58
+#: src/about.c:75
 msgid "Anjuta Home Site"
 msgstr "Anjuta 主網頁"
 
@@ -5752,12 +5745,12 @@ msgstr "需要終端機"
 msgid "Error writing to file: %s."
 msgstr "寫入資料到檔案：%s 時發生錯誤。"
 
-#: src/source.c:1260
+#: src/source.c:1268
 #, c-format
 msgid "Error writing to : %s."
 msgstr "寫入資料到：%s 時發生錯誤。"
 
-#: src/source.c:1376
+#: src/source.c:1384
 msgid "Project type does not support glade."
 msgstr "專案類別並不支換 glade。"
 
