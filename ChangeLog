@@ -1,4 +1,11 @@
-2004-03-26  Naba Kumar  <naba@gnome.org>
+2004-03-29  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* anjuta/src/search-replace.c: fixed another crash bug in
+	"Find Usage"
+	* anjuta/src/debugger.c: wrong breakpoint condition gives error message,
+	breakpoint property fix
+
+2004-03-29  Naba Kumar  <naba@gnome.org>
 
 	* src/main_menubar_def.h, configure.in, manuals/C/Makefile.am,
 	(new) manuals/C/anjuta-advanced-tutorial/*:

@@ -925,6 +925,7 @@ create_dialog(void)
 	int i;
 
 	g_return_val_if_fail(NULL != sr, FALSE);
+	if (NULL != sg) return TRUE;
 	sg = g_new0(SearchReplaceGUI, 1);
 	snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
 	if (NULL == (sg->xml = glade_xml_new(GLADE_FILE_ANJUTA, SEARCH_REPLACE_DIALOG, NULL)))
@@ -1435,7 +1436,7 @@ void search_replace_find_usage(const gchar *symbol)
 	sr->search.expr.regex = FALSE;
 	sr->search.expr.greedy = FALSE;
 	sr->search.expr.ignore_case = FALSE;
-	sr->search.expr.whole_word = FALSE;
+	sr->search.expr.whole_word = TRUE;
 	sr->search.expr.whole_line = FALSE;
 	sr->search.expr.word_start = FALSE;
 	sr->search.expr.no_limit = TRUE;
@@ -1463,6 +1464,8 @@ void search_replace_find_usage(const gchar *symbol)
 	sr->search.expr_history = NULL;
 	sr->search.incremental_pos = 0;
 	sr->search.incremental_wrap = TRUE;
+
+	create_dialog ();
 
 	search_and_replace();
 
@@ -1565,12 +1568,8 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	
 	sr = create_search_replace_instance();
 
-	if (NULL == sg)
-	{
-		if (! create_dialog())
-			return;
-    }
-	
+	create_dialog ();
+
 	te = anjuta_get_current_text_editor();
 	search_update_dialog();
 

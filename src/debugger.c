@@ -804,24 +804,11 @@ debugger_stdo_flush ()
 			}
 			list = g_list_next (list);
 		}
-		if (strcmp (debugger.current_cmd.cmd, "") != 0
-		    && debugger.current_cmd.parser != NULL)
-			debugger.current_cmd.parser (debugger.
-						     gdb_stdo_outputs,
-						     debugger.current_cmd.
-						     data);
 
-		/* Clear the Output Buffer */
-		list = debugger.gdb_stdo_outputs;
-		while (list)
-		{
-			if (list->data)
-				g_free (list->data);
-			list = g_list_next (list);
-		}
-		g_list_free (debugger.gdb_stdo_outputs);
-		debugger.gdb_stdo_outputs = NULL;
-
+		/* First show errors if any
+		   (the following processing of the output can require to execute
+			additional commands (e.g. setting of a breakpoint), which
+			would as a side effect clear current error buffer) */
 		if (debugger.current_cmd.flags & DB_CMD_SE_DIALOG)
 			debugger_dialog_error (debugger.gdb_stde_outputs,
 					       NULL);
@@ -846,6 +833,25 @@ debugger_stdo_flush ()
 		}
 		g_list_free (debugger.gdb_stde_outputs);
 		debugger.gdb_stde_outputs = NULL;
+
+		/* Process output */
+		if (strcmp (debugger.current_cmd.cmd, "") != 0
+		    && debugger.current_cmd.parser != NULL)
+			debugger.current_cmd.parser (debugger.
+						     gdb_stdo_outputs,
+						     debugger.current_cmd.
+						     data);
+
+		/* Clear the Output Buffer */
+		list = debugger.gdb_stdo_outputs;
+		while (list)
+		{
+			if (list->data)
+				g_free (list->data);
+			list = g_list_next (list);
+		}
+		g_list_free (debugger.gdb_stdo_outputs);
+		debugger.gdb_stdo_outputs = NULL;
 
 		if (debugger.starting)
 		{
