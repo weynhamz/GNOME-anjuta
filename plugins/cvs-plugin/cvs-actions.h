@@ -29,8 +29,8 @@ void on_cvs_remove_activate (GtkAction* action, CVSPlugin* plugin);
 void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin);
 void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin);
 
-void on_cvs_diff_file_activate (GtkAction* action, CVSPlugin* plugin);
-void on_cvs_diff_tree_activate (GtkAction* action, CVSPlugin* plugin);
+void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin);
+void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin);
 
 void on_cvs_import_activate (GtkAction* action, CVSPlugin* plugin);
 

@@ -10,8 +10,8 @@
 				<menuitem name="AddFile" action="ActionCVSAdd" />
 				<menuitem name="RemoveFile" action="ActionCVSRemove" />
 				<separator name="separator2"/>
-				<menuitem name="DiffFile" action="ActionCVSDiffFile" />
-				<menuitem name="DiffTree" action="ActionCVSDiffTree" />
+				<menuitem name="Diff" action="ActionCVSDiff" />
+				<menuitem name="Status" action="ActionCVSStatus" />
 				<separator name="separator3"/>
 				<menuitem name="ImportTree" action="ActionCVSImport" />
 			</placeholder>

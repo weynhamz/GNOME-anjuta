@@ -1,3 +1,10 @@
+2004-13-02  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Added cvs update and commit
+	* plugins/cvs-plugin/plugin.c, plugins/cvs-plugin/cvs-action.[ch],
+	plugins/cvs-plugin/anjuta-cvs.ui:
+	Implemented update/commit and changed menu layout 
+
 2004-12-02  Naba Kumar  <naba@gnome.org>
 
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: Fixed prefernce

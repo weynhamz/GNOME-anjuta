@@ -42,17 +42,17 @@ static GtkActionEntry actions_cvs[] = {
 	{
 		"ActionCVSAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add File/Directory"),                     /* Display label */
+		N_("_Add"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Add a new file to the CVS tree"),                      /* Tooltip */
+		N_("Add a new file/directory to the CVS tree"),                      /* Tooltip */
 		G_CALLBACK (on_cvs_add_activate)    /* action callback */
 	},
 	{
 		"ActionCVSRemove",                       /* Action name */
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
-		N_("_Remove File"),                     /* Display label */
+		N_("_Remove"),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Remove a file from CVS tree"),                      /* Tooltip */
+		N_("Remove a file/directory from CVS tree"),                      /* Tooltip */
 		G_CALLBACK (on_cvs_remove_activate)    /* action callback */
 	},
 	{
@@ -72,20 +72,20 @@ static GtkActionEntry actions_cvs[] = {
 		G_CALLBACK (on_cvs_update_activate)    /* action callback */
 	},
 	{
-		"ActionCVSDiffFile",                       /* Action name */
+		"ActionCVSDiff",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_Diff File"),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Show differences between a file in your local copy and the tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_diff_file_activate)    /* action callback */
-	},
-	{
-		"ActionCVSDiffTree",                       /* Action name */
-		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("Diff Tree"),                     /* Display label */
+		N_("_Diff"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Show differences between your local copy and the tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_diff_tree_activate)    /* action callback */
+		G_CALLBACK (on_cvs_diff_activate)    /* action callback */
+	},
+	{
+		"ActionCVSStatus",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Show Status"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show the status of a file/directory"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_status_activate)    /* action callback */
 	},
 	{
 		"ActionCVSImport",                       /* Action name */
