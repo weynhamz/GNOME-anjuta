@@ -1,3 +1,7 @@
+2004-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* src/search-replace.c
+	"Replace All" in not opened files (All Project files, File List ...).
+	
 2004-02-26  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* src/search-replace.c : improved Search&Replace
 	For the moment "Replace All" does not work with non opened files

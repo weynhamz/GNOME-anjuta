@@ -175,6 +175,8 @@ static GladeWidget glade_widgets[] = {
 
 /***********************************************************/
 
+static void save_not_opened_files(FileBuffer *fb);
+static gboolean replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str);
 static void search_set_action(SearchAction action);
 static void search_set_target(SearchRangeType target);
 static void search_set_direction(SearchDirection dir);
@@ -235,6 +237,7 @@ search_and_replace (void)
 	static long start_sel = 0;
 	static long end_sel = 0;
 	static gchar *ch= NULL;
+	gboolean save_file = FALSE;
 	
 	g_return_if_fail(sr);
 	s = &(sr->search);
@@ -377,9 +380,8 @@ search_and_replace (void)
 							sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
 						if (fb->te == NULL) /* NON OPENED FILES */
 						{
-							// FIXME ....
-							//fb->te = anjuta_append_text_editor(se->path, NULL);
-							
+							if (replace_in_not_opened_files(fb, mi, sr->replace.repl_str))
+								save_file = TRUE;
 						}
 						else
 						{
@@ -411,6 +413,12 @@ search_and_replace (void)
 			
 		}  // if (fb)
 		
+		if (save_file)
+		{
+			save_not_opened_files(fb);
+			save_file = FALSE;
+		}
+		
 		file_buffer_free(fb);
 		g_free(se);
 		if (SA_SELECT == s->action && nb_results > 0)
@@ -440,6 +448,47 @@ search_and_replace (void)
 	search_make_sensitive(TRUE);
 	return;
 }
+
+static void
+save_not_opened_files(FileBuffer *fb)
+{
+	FILE *fp;
+
+	fp = fopen(fb->path, "wb");	
+	if (!fp)
+			return;
+	fwrite(fb->buf, fb->len, 1, fp);
+	fclose(fp);
+}
+
+static gboolean
+replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str)
+{
+	gint l;
+	
+	if (strlen(repl_str) > mi->len)
+	{
+		l = fb->len - mi->pos;
+		fb->len = fb->len + strlen(repl_str) - mi->len;
+		if ( (fb->buf = g_realloc(fb->buf, fb->len)) == NULL )
+			return FALSE;
+		memmove((fb->buf) + mi->pos + strlen(repl_str) - mi->len, fb->buf + mi->pos,l);
+	}
+	if  (strlen(repl_str) < mi->len)
+	{
+		l = fb->len - mi->pos - mi->len ;
+		memmove((fb->buf) + mi->pos + strlen(repl_str), fb->buf + mi->pos + mi->len,l);
+		fb->len = fb->len + strlen(repl_str) - mi->len;
+		if ( (fb->buf = g_realloc(fb->buf, fb->len)) == NULL)
+			return FALSE;
+	}
+
+	for (l=0; l < strlen(repl_str); l++)
+		(fb->buf)[(mi->pos)+l] = repl_str [l];
+		
+	return TRUE;
+}
+
 
 static void
 search_replace_next_previous(SearchDirection dir)
