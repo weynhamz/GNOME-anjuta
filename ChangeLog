@@ -1,5 +1,7 @@
 2005-02-01  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks, TODO: Updated todo tasks.
+	
 	* plugins/editor/anjuta-document-manager.glade: Improved search
 	relace dialog.
 	

@@ -8,7 +8,7 @@
 development and what's new in Anjuta 2.0 release.</comment>
     </item>
   </category>
-  <category title="libanjuta" place="1">
+  <category title="libanjuta" place="2">
     <item>
       <attribute id="1098253934" priority="1" done="1" start_date="731874" completed_date="731901" notify="0" last_edited="1100584623"/>
       <summary>Key notification API</summary>
@@ -36,8 +36,15 @@ by CVS surgery into editor plugin.</comment>
 registered during preferences registeration. This results in gconf type
 mismatch when the keys are queried.</comment>
     </item>
+    <item>
+      <attribute id="1107253918" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107254014"/>
+      <summary>Progress bar</summary>
+      <comment>Implement  multiple progress bars in AnjutaStatus class. Any
+number of progressbar should be acceptable. All of them
+should be shown side-by-side in status bar.</comment>
+    </item>
   </category>
-  <category title="Plugin: Editor" place="4">
+  <category title="Plugin: Editor" place="5">
     <item>
       <attribute id="1098255400" priority="1" done="1" start_date="731874" completed_date="731902" notify="0" last_edited="1100696776"/>
       <summary>Add "saved" signal</summary>
@@ -88,8 +95,14 @@ not by add/remove) into plugins/editor/ directory.</comment>
       <comment>Add editor view using gtk_idle_add() to minimize UI freeze. Also set
 busy/unbusy on AnjutaStatus during split operation</comment>
     </item>
+    <item>
+      <attribute id="1107253663" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253663"/>
+      <summary>gnome vfs notification for 'File changed on disk'</summary>
+      <comment>Implement gnome vfs monitor for file changed on disk and
+prompt user to reload it.</comment>
+    </item>
   </category>
-  <category title="Plugin: Project Manager" place="7">
+  <category title="Plugin: Project Manager" place="8">
     <item>
       <attribute id="1098254033" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098254070"/>
       <summary>Context menu</summary>
@@ -113,8 +126,8 @@ Added context menu based on current selected target or source.</comment>
       <comment>Implemente IAnjutaProjectManager interface.</comment>
     </item>
   </category>
-  <category title="Plugin: File Manager" place="6"/>
-  <category title="Plugin: Automake Build" place="3">
+  <category title="Plugin: File Manager" place="7"/>
+  <category title="Plugin: Automake Build" place="4">
     <item>
       <attribute id="1098254207" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255751"/>
       <summary>Project manager watch</summary>
@@ -134,7 +147,7 @@ user should be prompted to create a Makefile (possibly filling it
 up with some template contents).</comment>
     </item>
   </category>
-  <category title="Plugin: Symbol Browser" place="9">
+  <category title="Plugin: Symbol Browser" place="10">
     <item>
       <attribute id="1098255485" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255485"/>
       <summary>Updated tags image on file save</summary>
@@ -186,15 +199,20 @@ Investigate it in tag-manager/ directory.
       <summary>Possible memory leak</summary>
       <comment>Investigate possible memory lead on load/unload of symbol-browser.</comment>
     </item>
+    <item>
+      <attribute id="1107253892" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253892"/>
+      <summary>Refresh symbol-view on idle</summary>
+      <comment>Implement symbol-view refresh on idle and show progress in a progress bar.</comment>
+    </item>
   </category>
-  <category title="Documentation" place="11">
+  <category title="Documentation" place="12">
     <item>
       <attribute id="1098255636" priority="1" done="0" start_date="731874" notify="0" last_edited="1101603303"/>
       <summary>Update</summary>
       <comment>All documents need update.</comment>
     </item>
   </category>
-  <category title="Plugin: File Loader" place="5">
+  <category title="Plugin: File Loader" place="6">
     <item>
       <attribute id="1098254131" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098256394"/>
       <summary>Project manager watch</summary>
@@ -207,14 +225,14 @@ with context menu in project manager.</comment>
       <comment>Add open with plugins menus along with open with programs menus.</comment>
     </item>
   </category>
-  <category title="libanjuta-interfaces" place="2">
+  <category title="libanjuta-interfaces" place="3">
     <item>
       <attribute id="1107240705" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240705"/>
       <summary>Documentation</summary>
       <comment>Add gdoc API documentation in libanjuta.idl.</comment>
     </item>
   </category>
-  <category title="Plugin: Task Manager" place="10">
+  <category title="Plugin: Task Manager" place="11">
     <item>
       <attribute id="1107240955" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240955"/>
       <summary>Proper deactivation</summary>
@@ -244,8 +262,13 @@ during save.</comment>
       <comment>Remove text nodes between tags that do not have text contents.
 It can be done either during save or load. Without this fix, the save xml is distorted.</comment>
     </item>
+    <item>
+      <attribute id="1107253814" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253814"/>
+      <summary>Column sorting</summary>
+      <comment>Implement column sorting (ala evolution).</comment>
+    </item>
   </category>
-  <category title="Plugin: Project Wizard" place="8">
+  <category title="Plugin: Project Wizard" place="9">
     <item>
       <attribute id="1107241611" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241611"/>
       <summary>Proper message output</summary>
@@ -263,6 +286,18 @@ instead of full path names.</comment>
       <summary>Prompt error when autogen could not be found</summary>
       <comment>Prompt user with an error when 'autogen' could not be found and
 abort the process.</comment>
+    </item>
+  </category>
+  <category title="anjuta" place="1">
+    <item>
+      <attribute id="1107253737" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253737"/>
+      <summary>Save and load user sessions</summary>
+      <comment>Save and load user sessions</comment>
+    </item>
+    <item>
+      <attribute id="1107253772" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253772"/>
+      <summary>Show toolbars</summary>
+      <comment>Show toolbars that were shown in last session.</comment>
     </item>
   </category>
 </gtodo>
