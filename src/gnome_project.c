@@ -27,7 +27,7 @@
 #include <errno.h>
 #include <gnome.h>
 
-#include "appwidzard.h"
+#include "appwizard.h"
 #include "anjuta.h"
 #include "preferences.h"
 #include "launcher.h"
@@ -39,7 +39,7 @@ static void new_prj_mesg_arrived (gchar * mesg);
 static void new_prj_terminated (int status, time_t t);
 
 gboolean
-create_new_project (AppWidzard * aw)
+create_new_project (AppWizard * aw)
 {
 	gchar *all_prj_dir, *top_dir, *prj_file;
 	GList* list;
@@ -211,7 +211,7 @@ create_new_project (AppWidzard * aw)
 		anjuta_error ("Could not run ./autogen.sh");
 		return FALSE;
 	}
-	anjuta_update_app_status (TRUE, _("App Widzard"));
+	anjuta_update_app_status (TRUE, _("App Wizard"));
 	return TRUE;
 }
 

@@ -93,7 +93,7 @@ create_signals_gui(Signals *cr)
 
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_usize (window3, 170, -2);
-  gtk_window_set_title (GTK_WINDOW (window3), _("Kernal signals"));
+  gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
   gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
 
   scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);

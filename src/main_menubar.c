@@ -271,8 +271,6 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->help.about = help1_menu_uiinfo[7].widget;
 	for (i = 1; i < 8; i++)
 		gtk_widget_ref (help1_menu_uiinfo[i].widget);
-	gtk_menu_item_right_justify (GTK_MENU_ITEM
-				     (menubar1_uiinfo[11].widget));
 
 	/* unimplemented */
 	gtk_widget_hide (menubar1_uiinfo[8].widget);
@@ -387,7 +385,7 @@ void
 on_file_menu_realize (GtkWidget * widget, gpointer data)
 {
 	GtkWidget *submenu =
-		create_submenu (_("Resent Files    "), app->recent_files,
+		create_submenu (_("Recent Files    "), app->recent_files,
 				GTK_SIGNAL_FUNC
 				(on_recent_files_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);

@@ -1,5 +1,5 @@
 /*
-    appwidzard.c
+    appwizard.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -30,12 +30,12 @@
 #include "anjuta.h"
 #include "messagebox.h"
 #include "resources.h"
-#include "appwidzard.h"
+#include "appwizard.h"
 
-AppWidzard *
-app_widzard_new (void)
+AppWizard *
+app_wizard_new (void)
 {
-	AppWidzard *aw = g_malloc (sizeof (AppWidzard));
+	AppWizard *aw = g_malloc (sizeof (AppWizard));
 	if (aw)
 	{
 		gchar* username;
@@ -64,27 +64,27 @@ app_widzard_new (void)
 		aw->use_header = TRUE;
 		aw->language = PROJECT_PROGRAMMING_LANGUAGE_C;
 
-		create_app_widzard_gui (aw);
-		create_app_widzard_page1 (aw);
-		create_app_widzard_page2 (aw);
-		create_app_widzard_page3 (aw);
-		create_app_widzard_page4 (aw);
+		create_app_wizard_gui (aw);
+		create_app_wizard_page1 (aw);
+		create_app_wizard_page2 (aw);
+		create_app_wizard_page3 (aw);
+		create_app_wizard_page4 (aw);
 	}
 	return aw;
 }
 
 void
-app_widzard_proceed (void)
+app_wizard_proceed (void)
 {
-	AppWidzard *aw;
+	AppWizard *aw;
 
-	aw = app_widzard_new ();
+	aw = app_wizard_new ();
 	g_return_if_fail (GTK_IS_WIDGET (aw->widgets.window));
 	gtk_widget_show (aw->widgets.window);
 }
 
 void
-app_widzard_destroy (AppWidzard * aw)
+app_wizard_destroy (AppWizard * aw)
 {
 	gint i;
 	

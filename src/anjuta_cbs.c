@@ -208,7 +208,7 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 	{
 		buff =
 			g_strdup_printf (_
-					 ("The file \"%s\" already exist.\nDo you want to overwrite it?."),
+					 ("The file \"%s\" already exists.\nDo you want to overwrite it?."),
 					 filename);
 		messagebox2 (GNOME_MESSAGE_BOX_QUESTION, buff,
 			     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,

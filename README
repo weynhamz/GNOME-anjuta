@@ -6,24 +6,27 @@
 Introduction:
 -------------
 
-Anjuta is a very versatile Integrated development environment for c and c++ (Linux).
-Written in gtk/gnome and written for gtk/gnome, it features many advanced programming
-tools and utilities. Besides many other, it has project management, application widzards,
-onboard interactive debugger, and a powerful source editor with source browsing.
+Anjuta is a versatile Integrated Development Environment (IDE) for C and C++
+on GNU/Linux. It has been written for GTK/GNOME, and features a number of
+advanced programming features. Besides many others, it has project management,
+application wizards, an onboard interactive debugger, and a powerful source
+editor with source browsing and syntax highlighting.
 
-Anjuta is an effort to marry the flexibility and power of text based command line tools
-with the ease of graphical user interface of gnome. Please have a look at the screenshot. 
+Anjuta is an effort to marry the flexibility and power of text-based
+command-line tools with the ease-of-use of the GNOME graphical user
+interface. That is why it has been made as user-friendly as possible.
 
-Presently, Anjuta is only in Beta release and lots of work are to be done to improve it.
-I hope, in future, Anjuta is going to be much more capable and stable. Extensive
-debugging session has not yet been performed. So, undoubtedly, it will have lots of bugs.
-It will be my pleasure if you use it and report the bugs to us. That way, you will
-be helping to improve the software as well as helping the open-source community. 
+At present, Anjuta is only a beta release and lots of work needs to be done to
+improve it. In the future, Anjuta is going to be much more capable and stable!
+Extensive debugging has not yet been performed, so at the moment it will
+undoubtedly have lots of bugs. It would be great if you use it and report any
+problems to us. That way, you will be helping to improve the software as well
+as helping the Open Source community.
 
-Any sort of suggestions or patches for anjuta are also most welcome. 
+Any sort of suggestions or patches for Anjuta are also most welcome. 
 
-Remember, this program is a FREEWARE and not a shareware. 
-Please read the file COPYRIGHT for details. 
+Remember, this program is FREEWARE and not a shareware. 
+Please read the file COPYING for details. 
 
 Copyright (C) 2000 Kh. Naba Kumar Singh.
 ----------------------------------------
@@ -44,52 +47,52 @@ Boston, MA 02111-1307 USA
 Presently available features in Anjuta:
 ---------------------------------------
 
-	1. Fully contomizable integrated editor.
+	1. Fully customizable integrated editor.
 		o Automatic syntax hilighting.
-		o Automatic code formating.
+		o Automatic code formatting.
 		o Code folding/hiding.
-		o Linenumbers/markers display.
-		o Text zoomming.
-		o Text autocompletion
-		o Calltips for Linux/Gnome function prototypes.
+		o Line numbers/markers display.
+		o Text zooming.
+		o Code autocompletion
+		o Calltips for Linux/GNOME function prototypes.
 		o Automatic indentation and indentation guides
 		o ... and much more.
 	
 	2. Each file opened can be operated in either paged mode or windowed mode. 
 	
-	3. Highly interactable source level debugger (build over gdb).
+	3. Highly interactive source level debugger (built over gdb)
 		o Interactive execution.
-		o Breakpoints/watches/signal/stack manupulation.
+		o Breakpoints/watches/signal/stack manipulation.
 		o ... and much more.
 	
-	4. Inbuilt Application widzards to create terminal/gtk/gnome applications on the fly. 
+	4. Inbuilt Application wizards to create terminal/GTK/GNOME applications on-the-fly. 
 	
 	5. Dynamic Tags browsing.
-		o Function definition, structure, classes ..etc
-			can be reached with just two mouse clicks.
+		o Function definition, structure, classes, etc. can be reached with 
+		    just two mouse clicks.
 		o Full tags management for project.
 	
-	6. Full project and build files managment. 
+	6. Full project and build files management. 
 	
-	6. Bookmark managment.
+	6. Bookmark management.
 	
 	7. Basic windows are attachable and detachable.
 
 	9. Support for other languages 
-		o Such as java, perl, pascal ... etc (only file mode, no project managements).
+		o Java, Perl, Pascal ... etc. (only file mode, no project management).
 
 	10. Interactive messaging system.
 
 	11. Above all, she is beautiful. 
 	
-Some of the 'immidiately' needed features:
+Some of the 'immediately' needed features:
 ------------------------------------------
 
-    1.Interactive help system. 
-    2.More advanced Interaction (bonobo component) with Glade to faciliate GUI editing. 
-    4.Source code version management system (CVS). 
-    5.Support for Help development system with SGML. 
-    7.Making it faster.  ??
+    1. Interactive help system. 
+    2. More advanced Interaction (Bonobo component) with Glade to faciliate GUI editing. 
+    3. Source code version management system (CVS). 
+    4. Support for Help development system with SGML. 
+    5. Making it faster.  ??
 
 Contact Email addresses for Anjuta:
 ---------------------------------
@@ -103,23 +106,27 @@ Anjuta Home site:	http://anjuta.sourceforge.net.
 Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
 	For all project activities and downloads.
 
-For general discussions and queries use the discussion forums (two forums) at the project site.
-Please report bugs at the projects bug tracking system or the mailing lists at the project site:
-News of anjuta is also available at the project site.
+For general discussions and queries use the discussion forums (two forums) 
+at the project site.
+Please report bugs at the projects bug tracking system or the mailing 
+lists at the project site.
+News of Anjuta is also available at the project site.
 
-To subsicribe to one or more of the mailing lists, visit [ http://www.sourceforge.net/mail/?group_id=14222 ].
-or send a mail at <listname>-request@lists.sourceforge.net with a subject just "subscribe".
-where, <listname> is anjuta-list, anjuta-devel or anjuta-announce.
+To subscribe to one or more of the mailing lists, visit 
+[ http://www.sourceforge.net/mail/?group_id=14222 ].
+or send a mail at <listname>-request@lists.sourceforge.net with a subject 
+just "subscribe".
+Where, <listname> is anjuta-list, anjuta-devel or anjuta-announce.
 
 Mailing lists:
 	o anjuta-list@lists.anjuta.sourceforge.net
 		For general discussion.
 	
 	o anjuta-devel@lists.anjuta.sourceforge.net
-		For developmental discussion.
+		For development discussion.
 
 	o anjuta-announce@lists.anjuta.sourceforge.net
-		For announcement of new releases.
+		For announcements of new releases.
 
 --------------
 REQUIREMENTS:
@@ -127,31 +134,31 @@ REQUIREMENTS:
 
 1) Installation
 	# From Tarball:
-		< RedHad 6.1 or upward >
-		* Gnome
+		< RedHat 6.1 or upwards >
+		* GNOME
 		* Automake
-		* Gnu C compiler
+		* GNU C compiler
 
 	# From Src Rpm:
-		< RedHad 6.1 or upward >
-		* Gnome
+		< RedHat 6.1 or upwards >
+		* GNOME
 		* Automake
-		* Gnu C compiler
-		* rpm
+		* GNU C compiler
+		* RPM
 
 	# From Rpm Pkg:
-		< RedHad 6.1 or upward >
-		* rpm
+		< RedHat 6.1 or upwards >
+		* RPM
 				
 2) Running
-	< RedHad 6.1 or upward >
-	* Gnome 
+	< RedHat 6.1 or upwards >
+	* GNOME 
 	* Bash command shell
 	* ctags
 	* Indent
 	* gnome-terminal
 	* gnome-help-browser
-	* Gnu debugger (gdb)
+	* GNU debugger (gdb)
 	* grep
 
 INSTALLATION:
@@ -159,9 +166,9 @@ INSTALLATION:
 
 # From Tarball:
 	Note:-
-		The pakage as an example is taken as anjuta-0.1.1.tar.gz
+		The package as an example is taken as anjuta-0.1.1.tar.gz
 		and '#' is the shell prompt. You must be logged in as root
-		to install anjuta.
+		to install Anjuta.
 
 	1) Get the tarball anjuta-0.1.1.tar.gz
 
@@ -183,13 +190,13 @@ INSTALLATION:
 	If not, then please check that you have the latest libgnome and libgnomeui
 	installed. Get them if you don't have and repeat the above steps.
 
-# From Rpm Pkg:
+# From RPM Pkg:
 	Note:-
-		The pakage as an example is taken as anjuta-0.1.1-1.i386.rpm
+		The package as an example is taken as anjuta-0.1.1-1.i386.rpm
 		and '#' is the shell prompt. You must be logged in as root
-		to install anjuta.
+		to install Anjuta.
 
-	1) Get the rpm pakage anjuta-0.1.1-1.i386.rpm (Visit www.sourceforge.net).
+	1) Get the RPM package anjuta-0.1.1-1.i386.rpm (Visit www.sourceforge.net).
 
 	2) Change to the directory containing the rpm pakage.
 

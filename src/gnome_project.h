@@ -21,6 +21,6 @@
 #define _GNOME_PROJECT_H_
 
 gboolean
-create_new_project (AppWidzard * aw);
+create_new_project (AppWizard * aw);
 
 #endif

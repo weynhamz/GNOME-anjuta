@@ -1,5 +1,5 @@
 /*
-    appwidz_page1.c
+    appwiz_page1.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -29,8 +29,8 @@
 
 #include "resources.h"
 #include "utilities.h"
-#include "appwidzard.h"
-#include "appwidzard_cbs.h"
+#include "appwizard.h"
+#include "appwizard_cbs.h"
 
 static void
 on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
@@ -38,7 +38,7 @@ on_prj_name_entry_changed (GtkEditable * editable, gpointer user_data)
 	gchar *text;
 	gint i;
 	
-	AppWidzard *aw = user_data;
+	AppWizard *aw = user_data;
 	text = g_strdup (gtk_entry_get_text (GTK_ENTRY (editable)));
 	for (i = 0; i <strlen (text); i++)
 		text[i] = tolower (text[i]);
@@ -55,7 +55,7 @@ on_prj_name_entry_focus_out_event (GtkWidget * widget,
 				   GdkEventFocus * event, gpointer user_data)
 {
 	gchar *temp;
-	AppWidzard *aw = user_data;
+	AppWizard *aw = user_data;
 	if (aw->prj_name)
 	{
 		aw->prj_name[0] = toupper (aw->prj_name[0]);
@@ -72,7 +72,7 @@ static void
 on_lang_c_toggled                      (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
-	AppWidzard* aw;
+	AppWizard* aw;
 	aw = user_data;
 	
 	g_return_if_fail (aw != NULL);
@@ -84,7 +84,7 @@ static void
 on_lang_cpp_toggled                    (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
-	AppWidzard* aw;
+	AppWizard* aw;
 	aw = user_data;
 	
 	g_return_if_fail (aw != NULL);
@@ -96,7 +96,7 @@ static void
 on_lang_c_cpp_toggled                  (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
-	AppWidzard* aw;
+	AppWizard* aw;
 	aw = user_data;
 	
 	g_return_if_fail (aw != NULL);
@@ -105,7 +105,7 @@ on_lang_c_cpp_toggled                  (GtkToggleButton *togglebutton,
 }
 
 void
-create_app_widzard_page2 (AppWidzard * aw)
+create_app_wizard_page2 (AppWizard * aw)
 {
 	GtkWidget *window1;
 	GtkWidget *frame;

@@ -287,7 +287,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_box_pack_start (GTK_BOX (vbox2), button2, FALSE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (button2), 1);
 	gtk_tooltips_set_tip (tooltips, button2,
-			      _("Click Here to undock this window"), NULL);
+			      _("Click here to undock this window"), NULL);
 
 	pixmap =
 		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm", FALSE);

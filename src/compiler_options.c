@@ -41,7 +41,7 @@
 gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	{
 	 "GLIB",
-	 "Glib library for most c utillities",
+	 "Glib library for most C utilities",
 	 "",
 	 "AM_MISSING_PROG(GLIB_CONFIG, glib-config, $mising_dir)\n",
 	 "`glib-config --cflags`",
@@ -53,7 +53,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	 "GTK",
-	 "Gimp Toolkit Kit library for GUI developnemt",
+	 "Gimp Toolkit library for GUI development",
 	 "",
 	 "",
 	 "gtk-config --cflags",
@@ -65,7 +65,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	 "GNOME",
-	 "Gnome is computing made easy",
+	 "GNOME is Computing Made Easy",
 	 "",
 	 "",
 	 "$(GNOME_INCLUDESDIR)",
@@ -77,7 +77,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	 "BONOBO",
-	 "Gnome Bonobo component for fast integration",
+	 "GNOME Bonobo component for fast integration",
 	 "",
 	 "",
 	 "$(BONOBO_CFLAGS)",

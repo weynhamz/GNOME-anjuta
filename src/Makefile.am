@@ -24,14 +24,14 @@ anjuta_SOURCES = \
 	anjuta_dirs.h\
 	anjuta_info.c\
 	anjuta_info.h\
-	appwidz_page1.c\
-	appwidz_page2.c\
-	appwidz_page3.c\
-	appwidzard.c\
-	appwidzard.h\
-	appwidzard_cbs.c\
-	appwidzard_cbs.h\
-	appwidzard_gui.c\
+	appwiz_page1.c\
+	appwiz_page2.c\
+	appwiz_page3.c\
+	appwizard.c\
+	appwizard.h\
+	appwizard_cbs.c\
+	appwizard_cbs.h\
+	appwizard_gui.c\
 	attach_process.c\
 	attach_process.h\
 	attach_process_cbs.c\
@@ -155,7 +155,7 @@ anjuta_SOURCES = \
 	watch_cbs.h\
 	watch_gui.c\
 	about.c\
-	appwidz_page4.c\
+	appwiz_page4.c\
 	source.c\
 	anjuta.c\
 	anjuta_gui.c\

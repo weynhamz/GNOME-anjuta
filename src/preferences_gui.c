@@ -39,7 +39,7 @@ gchar *format_style[] = {
 	"Kernighan & Ritchie style", " -kr",
 	"Original Berkeley style", " -orig",
 	"Style of Kangleipak", " -i8 -sc -bli0 -bl0 -cbi0 -ss",
-	"Hello world style", "  -gnu -i0 -bli0 -cbi0 -cdb -sc -bl0 -ss",
+	"Hello World style", "  -gnu -i0 -bli0 -cbi0 -cdb -sc -bl0 -ss",
 	"Crazy boy style", " ",
 	NULL, NULL
 };
@@ -520,7 +520,7 @@ create_preferences_page1 (Preferences * p)
 
 	checkbutton1 =
 		gtk_check_button_new_with_label (_
-						 ("Keep going when some targets can't be made."));
+						 ("Keep going when some targets cannot be made"));
 	gtk_widget_show (checkbutton1);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton1, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton1), 5);
@@ -534,14 +534,14 @@ create_preferences_page1 (Preferences * p)
 
 	checkbutton3 =
 		gtk_check_button_new_with_label (_
-						 ("Produce debugging outputs."));
+						 ("Produce debugging outputs"));
 	gtk_widget_show (checkbutton3);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton3, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton3), 5);
 
 	checkbutton6 =
 		gtk_check_button_new_with_label (_
-						 ("Warn when an undefined variable is referenced."));
+						 ("Warn when an undefined variable is referenced"));
 	gtk_widget_show (checkbutton6);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton6, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton6), 5);
@@ -643,7 +643,7 @@ create_preferences_page2 (Preferences * p)
 	gtk_widget_show (hbox1);
 	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, FALSE, TRUE, 0);
 
-	label2 = gtk_label_new (_("Select Hilite item to edit:"));
+	label2 = gtk_label_new (_("Select Highlight item to edit:"));
 	gtk_widget_show (label2);
 	gtk_box_pack_start (GTK_BOX (hbox1), label2, FALSE, FALSE, 0);
 	gtk_misc_set_padding (GTK_MISC (label2), 5, 0);
@@ -667,7 +667,7 @@ create_preferences_page2 (Preferences * p)
 	combo_entry2 = GTK_COMBO (combo2)->entry;
 	gtk_widget_show (combo_entry2);
 
-	frame1 = gtk_frame_new (_(" Hilite Style "));
+	frame1 = gtk_frame_new (_(" Highlight Style "));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, FALSE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
@@ -792,7 +792,7 @@ create_preferences_page2 (Preferences * p)
 
 	checkbutton8 =
 		gtk_check_button_new_with_label (_
-						 ("Disable Syntax hilighting"));
+						 ("Disable syntax highlighting"));
 	gtk_widget_show (checkbutton8);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton8, 0, 1, 0, 1,
 			  (GtkAttachOptions) (GTK_FILL),
@@ -987,14 +987,14 @@ create_preferences_page3 (Preferences * p)
 
 	checkbutton4 =
 		gtk_check_button_new_with_label (_
-						 ("Strip trailing spaces on file save."));
+						 ("Strip trailing spaces on file save"));
 	gtk_widget_show (checkbutton4);
 	gtk_box_pack_start (GTK_BOX (vbox2), checkbutton4, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton4), 5);
 
 	checkbutton5 =
 		gtk_check_button_new_with_label (_
-						 ("Collapse all folds on file open."));
+						 ("Collapse all folds on file open"));
 	gtk_widget_show (checkbutton5);
 	gtk_box_pack_start (GTK_BOX (vbox2), checkbutton5, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton5), 5);
@@ -1136,7 +1136,7 @@ create_preferences_page5 (Preferences * p)
 	label1 =
 		gtk_label_new (_
 			       ("Enter the command line arguments for the 'indent' program."
-				"\nRead the info page for the 'indent' for more details."));
+				"\nRead the info page for 'indent' for more details."));
 	gtk_widget_show (label1);
 	gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, FALSE, 5);
 	gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_LEFT);
@@ -1243,14 +1243,14 @@ create_preferences_page6 (Preferences * p)
 	gtk_widget_set_usize (spinbutton2, 60, -2);
 	gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spinbutton2), TRUE);
 		
-	label1 = gtk_label_new (_("Number of first caracters to show"));
+	label1 = gtk_label_new (_("Number of first characters to show"));
 	gtk_widget_show (label1);
 	gtk_table_attach (GTK_TABLE (table1), label1, 1, 2, 1, 2,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 5, 0);
 	gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_LEFT);
 
-	label2 = gtk_label_new (_("Number of last caracters to show"));
+	label2 = gtk_label_new (_("Number of last characters to show"));
 	gtk_widget_show (label2);
 	gtk_table_attach (GTK_TABLE (table1), label2, 1, 2, 2, 3,
 			  (GtkAttachOptions) (0),

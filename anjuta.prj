@@ -2,14 +2,14 @@
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
-Anjuta is a very versatile Integrated development environment
-for c and c++ (Linux). Written in gtk/gnome and written for gtk/gnome,
-it features many advanced programming tools and utilities.
-Besides many other, it has project management, application widzards,
-onboard interactive debugger, and a powerful source editor with source browsing.
+Anjuta is a versatile Integrated Development Environment (IDE) for C and C++
+on GNU/Linux. It has been written for GTK/GNOME, and features a number of
+advanced programming features. Besides many others, it has project management,
+application wizards, an onboard interactive debugger, and a powerful source
+editor with source browsing and syntax highlighting.
 
-Anjuta is an effort to marry the flexibility and power of text based
-command line tools with the ease of graphical user interface of gnome.
+Anjuta is an effort to marry the flexibility and power of text-based
+command-line tools with the ease-of-use of the GNOME GUI.
 <PROJECT_DESCRIPTION_END>
 <CONFIG_PROGS_START>
 dnl ***************************************************************************
@@ -106,14 +106,14 @@ module.source.files=\
 	anjuta_dirs.h\
 	anjuta_info.c\
 	anjuta_info.h\
-	appwidz_page1.c\
-	appwidz_page2.c\
-	appwidz_page3.c\
-	appwidzard.c\
-	appwidzard.h\
-	appwidzard_cbs.c\
-	appwidzard_cbs.h\
-	appwidzard_gui.c\
+	appwiz_page1.c\
+	appwiz_page2.c\
+	appwiz_page3.c\
+	appwizard.c\
+	appwizard.h\
+	appwizard_cbs.c\
+	appwizard_cbs.h\
+	appwizard_gui.c\
 	attach_process.c\
 	attach_process.h\
 	attach_process_cbs.c\
@@ -237,7 +237,7 @@ module.source.files=\
 	watch_cbs.h\
 	watch_gui.c\
 	about.c\
-	appwidz_page4.c\
+	appwiz_page4.c\
 	source.c\
 	anjuta.c\
 	anjuta_gui.c\
@@ -261,7 +261,7 @@ module.pixmap.files=\
 	add.xpm\
 	anjuta_icon.xpm\
 	anjuta_logo.png\
-	app_widzard.jpg\
+	app_wizard.jpg\
 	appwid_blank.xpm\
 	appwid_book.xpm\
 	appwid_cd.xpm\
@@ -376,7 +376,7 @@ module.pixmap.files=\
 	undo.xpm\
 	undock.xpm\
 	watch.xpm\
-	widzard.xpm\
+	wizard.xpm\
 	file_icon.xpm\
 	file_html.xpm\
 	run_to_cursor.xpm\

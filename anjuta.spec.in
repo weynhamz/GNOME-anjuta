@@ -4,7 +4,7 @@
 %define	serial		1
 %define	prefix		/usr
 
-Summary:		Integrated development environment for c and c++ (Linux)
+Summary:		Linux IDE for C and C++
 Name:			%{name}
 Version:		%{version}
 Release:		%{release}
@@ -20,12 +20,11 @@ Distribution:	sourceforge
 Packager:		Naba kumar <kh_naba@users.sourceforge.net>
 
 %description
-Anjuta is a very versatile Integrated development environment for 
-c and c++ (Gnu/Linux). Written in gtk/gnome and written for gtk/gnome, 
-it features many advanced programming tools and utilities. It is 
-basically a GUI interface for the bunch of command line programming 
-utilites and tools available for Linux, which are usually run in console and 
-are very un-userfriendly.
+Anjuta is a versatile Integrated Development Environment (IDE) for C and C++ 
+on GNU/Linux. It has been written for GTK/GNOME, and features a number of 
+advanced programming features. It is basically a GUI interface for the 
+collection of command line programming utilities and tools available for Linux. 
+These are usually run via a text console, and can be unfriendly to use.
 
 %prep
 %setup

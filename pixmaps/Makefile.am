@@ -10,7 +10,7 @@ anjuta_pixmaps_DATA = \
 	add.xpm\
 	anjuta_icon.xpm\
 	anjuta_logo.png\
-	app_widzard.jpg\
+	app_wizard.jpg\
 	appwid_blank.xpm\
 	appwid_book.xpm\
 	appwid_cd.xpm\
@@ -125,7 +125,7 @@ anjuta_pixmaps_DATA = \
 	undo.xpm\
 	undock.xpm\
 	watch.xpm\
-	widzard.xpm\
+	wizard.xpm\
 	file_icon.xpm\
 	file_html.xpm\
 	run_to_cursor.xpm\

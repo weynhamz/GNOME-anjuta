@@ -1,5 +1,5 @@
 /*
-    appwidz_page1.c
+    appwiz_page1.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -29,15 +29,15 @@
 
 #include "resources.h"
 #include "utilities.h"
-#include "appwidzard.h"
-#include "appwidzard_cbs.h"
+#include "appwizard.h"
+#include "appwizard_cbs.h"
 #include "pixmaps.h"
 
 static void
 on_target_exec_toggled                 (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
-	AppWidzard* aw;
+	AppWizard* aw;
 	aw = user_data;
 	
 	g_return_if_fail (aw != NULL);
@@ -49,7 +49,7 @@ static void
 on_target_slib_toggled                 (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
-	AppWidzard* aw;
+	AppWizard* aw;
 	aw = user_data;
 	
 	g_return_if_fail (aw != NULL);
@@ -61,7 +61,7 @@ static void
 on_target_dlib_toggled                 (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
-	AppWidzard* aw;
+	AppWizard* aw;
 	aw = user_data;
 	
 	g_return_if_fail (aw != NULL);
@@ -70,7 +70,7 @@ on_target_dlib_toggled                 (GtkToggleButton *togglebutton,
 }
 
 void
-create_app_widzard_page3 (AppWidzard * aw)
+create_app_wizard_page3 (AppWizard * aw)
 {
 	GtkWidget *window1;
 	GtkWidget *frame;
@@ -140,7 +140,7 @@ create_app_widzard_page3 (AppWidzard * aw)
 	gtk_container_set_border_width (GTK_CONTAINER (hbox1), 5);
 	
 	pixmap1 = gtk_type_new (gnome_pixmap_get_type ());
-	pixmap1_filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APPWIDZ_GEAR);
+	pixmap1_filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APPWIZ_GEAR);
 	if (pixmap1_filename)
 	gnome_pixmap_load_file_at_size (GNOME_PIXMAP (pixmap1), pixmap1_filename, 100, 100);
 	else

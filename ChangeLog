@@ -1,20 +1,20 @@
-2001-05-15  Naba Kumar <kh_naba@123india.com>
+2001-07-15  Naba Kumar <kh_naba@123india.com>
 	*Fixed double error message for file not found.
 	*Put white backgrounds for png images.
 	*Converted '-' to '_' in sgml files.
 
-2001-05-14  Naba Kumar <kh_naba@123india.com>
+2001-07-14  Naba Kumar <kh_naba@123india.com>
 	* project_dbase.c: Short-cut for expand/collasp project tree
 	* project_dbase_gui.c:
 	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
 
-2001-05-13  Naba Kumar <kh_naba@123india.com>
+2001-07-13  Naba Kumar <kh_naba@123india.com>
 	* notebook.[h,c]: Added
 	 (patch applied from  "Maxim Blagai" <maximblagai@yahoo.com>)
 	Project/message window now toggles on control and
 	and notebook switch short-cut
 
-2001-05-7  Naba Kumar <kh_naba@123india.com>
+2001-07-7  Naba Kumar <kh_naba@123india.com>
 	* Changed a new icon set which looks more gnomish.
 	* Changed a new anjuta splash logo.
 	(Icons and splash logo created by "Misha" <misha@phreaker.net>)
@@ -36,7 +36,7 @@
 2001-06-13  Naba Kumar <kh_naba@123india.com>
 	* data/autogen.sh.gtkmm: Added
 	* data/autogen.sh.gnomemm: Added
-	* src/appwidz.c: Added two more application wizard templetes
+	* src/appwiz.c: Added two more application wizard templetes
 	* src/project: for gtk-- and gnome-- and proper support
 	* src/source.c: for c++ in the project configuration.
 	* src/source.h:

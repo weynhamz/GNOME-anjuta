@@ -37,7 +37,7 @@ New Features in Anjuta 0.1.3:
 		* Provides project configuration.
 		* Added two more modules in project management:
 			(Help module and Transtaltion module).
-		* Added BONOBO support and BONOBO application widzard.
+		* Added BONOBO support and BONOBO application wizard.
 		
 	=> Java style Properties management:
 	-----------------------------------

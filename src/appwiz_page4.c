@@ -1,5 +1,5 @@
 /*
-    appwidz_page2.c
+    appwiz_page2.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -27,8 +27,8 @@
 #include <gnome.h>
 
 #include "resources.h"
-#include "appwidzard.h"
-#include "appwidzard_cbs.h"
+#include "appwizard.h"
+#include "appwizard_cbs.h"
 
 static gchar *app_group[] = {
 	"Applications", "Games", "Graphics", "Internet", "Multimedia",
@@ -39,7 +39,7 @@ static gchar *app_group[] = {
 static void
 on_gpl_checkbutton_toggled (GtkToggleButton * tb, gpointer user_data)
 {
-	AppWidzard *aw = user_data;
+	AppWizard *aw = user_data;
 	aw->use_header = gtk_toggle_button_get_active (tb);
 }
 
@@ -47,7 +47,7 @@ static void
 on_gettext_support_checkbutton_toggled (GtkToggleButton * togglebutton,
 					gpointer user_data)
 {
-	AppWidzard *aw;
+	AppWizard *aw;
 	aw = user_data;
 	aw->gettext_support = gtk_toggle_button_get_active (togglebutton);
 }
@@ -56,12 +56,12 @@ on_gettext_support_checkbutton_toggled (GtkToggleButton * togglebutton,
 static void
 on_need_term_checkbutton_toggled (GtkToggleButton * tb, gpointer user_data)
 {
-	AppWidzard *aw = user_data;
+	AppWizard *aw = user_data;
 	aw->need_terminal = gtk_toggle_button_get_active (tb);
 }
 
 void
-create_app_widzard_page4 (AppWidzard * aw)
+create_app_wizard_page4 (AppWizard * aw)
 {
 	GtkWidget *window3;
 	GtkWidget *frame;
@@ -141,14 +141,14 @@ create_app_widzard_page4 (AppWidzard * aw)
 				      TRUE);
 
 	gettext_support_checkbutton =
-		gtk_check_button_new_with_label (_("Gettext Support Enable"));
+		gtk_check_button_new_with_label (_("Enable Gettext Support"));
 	gtk_widget_show (gettext_support_checkbutton);
 	gtk_box_pack_start (GTK_BOX (vbox2), gettext_support_checkbutton,
 			    TRUE, TRUE, 0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (gettext_support_checkbutton), TRUE);
 
-	frame1 = gtk_frame_new (_(" Gnome Menu Entry"));
+	frame1 = gtk_frame_new (_("GNOME Menu Entry"));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);

@@ -91,7 +91,7 @@
 # define ANJUTA_PIXMAP_STEP_OUT "step_out.xpm"
 # define ANJUTA_PIXMAP_DEBUG_STOP "debug_stop.xpm"
 # define ANJUTA_PIXMAP_POINTER "pointer.xpm"
-# define ANJUTA_PIXMAP_WIDZARD "widzard.xpm"
+# define ANJUTA_PIXMAP_WIZARD "wizard.xpm"
 
 # define ANJUTA_PIXMAP_MINI_BUILD "mini_build.xpm"
 # define ANJUTA_PIXMAP_MINI_DEBUG "mini_debug.xpm"
@@ -116,7 +116,7 @@
 # define ANJUTA_PIXMAP_OFOLDER_BLUE "bfoldo.xpm"
 # define ANJUTA_PIXMAP_CFOLDER_BLUE "bfoldc.xpm"
 
-# define ANJUTA_PIXMAP_APPWIDZ_GEAR "appwid_gear.xpm"
+# define ANJUTA_PIXMAP_APPWIZ_GEAR "appwid_gear.xpm"
 
 # define ANJUTA_PIXMAP_APP_COMPONENT "appwid_blank.xpm"
 # define ANJUTA_PIXMAP_APP_GENERIC "appwid_console.xpm"

@@ -180,7 +180,7 @@ on_member_combo_list_select_child                  (GtkList         *list,
                                         GtkWidget       *widget,
                                         gpointer         user_data);
 void
-on_browser_widzard_clicked  (GtkButton       *button,
+on_browser_wizard_clicked  (GtkButton       *button,
                                         gpointer         user_data);
 void
 on_browser_toggle_bookmark_clicked  (GtkButton       *button,

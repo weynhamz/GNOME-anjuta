@@ -528,7 +528,7 @@ on_member_combo_list_select_child (GtkList * list,
 }
 
 void
-on_browser_widzard_clicked (GtkButton * button, gpointer user_data)
+on_browser_wizard_clicked (GtkButton * button, gpointer user_data)
 {
 
 }

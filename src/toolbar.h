@@ -154,7 +154,7 @@ struct _TagsToolbar
 	GtkWidget *member_label;
 	GtkWidget *member_combo;
 	GtkWidget *member_entry;
-	GtkWidget *widzard;
+	GtkWidget *wizard;
 };
 
 struct _Toolbar
@@ -177,7 +177,7 @@ GtkWidget *create_extended_toolbar (GtkWidget * window,
 				    ExtendedToolbar * extended_toolbar);
 
 GtkWidget *create_browser_toolbar (GtkWidget * window,
-				   BrowserToolbar * widzard_toolbar);
+				   BrowserToolbar * wizard_toolbar);
 
 GtkWidget *create_debug_toolbar (GtkWidget * window,
 				 DebugToolbar * debug_toolbar);

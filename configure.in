@@ -5,6 +5,7 @@ dnl 	Please disable it in the Anjtua Project configuration
 
 AC_INIT(configure.in)
 AM_INIT_AUTOMAKE(anjuta, 0.1.6)
+AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
 AC_ISC_POSIX

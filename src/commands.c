@@ -666,7 +666,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_widget_set_usize (label6, 120, -2);
 	gtk_misc_set_alignment (GTK_MISC (label6), 0, -1);
 
-	label7 = gtk_label_new (_("Html viewer:"));
+	label7 = gtk_label_new (_("HTML viewer:"));
 	gtk_widget_show (label7);
 	gtk_table_attach (GTK_TABLE (table4), label7, 0, 1, 2, 3,
 		    (GtkAttachOptions) (0),

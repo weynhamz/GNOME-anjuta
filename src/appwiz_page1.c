@@ -1,5 +1,5 @@
 /*
-    appwidz_page0.c
+    appwiz_page0.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -27,15 +27,15 @@
 #include <gnome.h>
 
 #include "resources.h"
-#include "appwidzard.h"
+#include "appwizard.h"
 #include "pixmaps.h"
 #include "utilities.h"
 
 static void
-on_widzard_app_icon_select (GnomeIconList * gil, gint num,
+on_wizard_app_icon_select (GnomeIconList * gil, gint num,
 			    GdkEvent * event, gpointer user_data)
 {
-  AppWidzard *aw = user_data;
+  AppWizard *aw = user_data;
   switch (num)
   {
   case 0:
@@ -63,7 +63,7 @@ on_widzard_app_icon_select (GnomeIconList * gil, gint num,
 }
 
 void
-create_app_widzard_page1 (AppWidzard * aw)
+create_app_wizard_page1 (AppWizard * aw)
 {
   GtkWidget *frame;
   GtkWidget *frame3;
@@ -127,27 +127,27 @@ create_app_widzard_page1 (AppWidzard * aw)
 
   if (icon1_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon1_file, _("Generic/Terminal based Project"));
+			  icon1_file, _("Generic/Terminal-based Project"));
 
   if (icon2_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon2_file, _("Gtk based Project"));
+			  icon2_file, _("GTK-based Project"));
 
   if (icon3_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon3_file, _("Gnome based Project"));
+			  icon3_file, _("GNOME-based Project Project"));
 
   if (icon4_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon4_file, _("Gtk-- based project"));
+			  icon4_file, _("GTK-- based project"));
   
   if (icon5_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
- 			  icon5_file, _("Gnome-- based project"));
+ 			  icon5_file, _("GNOME-- based project"));
   
   if (icon6_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon6_file, _("Gnome Bonobo component"));
+			  icon6_file, _("GNOME Bonobo component"));
 
   string_free  (icon1_file);
   string_free (icon2_file);
@@ -157,6 +157,6 @@ create_app_widzard_page1 (AppWidzard * aw)
   string_free (icon6_file);
 
   gtk_signal_connect (GTK_OBJECT (iconlist1), "select_icon",
-		      GTK_SIGNAL_FUNC (on_widzard_app_icon_select), aw);
+		      GTK_SIGNAL_FUNC (on_wizard_app_icon_select), aw);
   gnome_icon_list_select_icon (GNOME_ICON_LIST (iconlist1), 2);
 }

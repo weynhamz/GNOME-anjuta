@@ -48,96 +48,96 @@ msgstr "設定ファイル用のディレクトリを作成できません。\n"
 msgid "Anjuta: Information"
 msgstr "Anjuta: 情報"
 
-#: src/appwidz_page1.c:89
+#: src/appwiz_page1.c:89
 msgid "Select the type of application you want to develop"
 msgstr "開発するアプリケーションの種類を選択して下さい。"
 
-#: src/appwidz_page1.c:122
+#: src/appwiz_page1.c:122
 msgid "Generic/Terminal based Project"
 msgstr "一般なコマンド・ベースのプロジェクト"
 
-#: src/appwidz_page1.c:126
+#: src/appwiz_page1.c:126
 msgid "Gtk based Project"
 msgstr "GTK+ ベースのプロジェクト"
 
-#: src/appwidz_page1.c:130
+#: src/appwiz_page1.c:130
 msgid "Gnome based Project"
 msgstr "GNOME ベースのプロジェクト"
 
-#: src/appwidz_page1.c:134
+#: src/appwiz_page1.c:134
 msgid "Gnome Bonobo component"
 msgstr "GNOME Bonobo コンポーネント"
 
-#: src/appwidz_page2.c:148 src/appwidz_page4.c:109
+#: src/appwiz_page2.c:148 src/appwiz_page4.c:109
 msgid "Enter the basic Project information"
 msgstr "プロジェクトの基本的な情報を入力して下さい。"
 
-#: src/appwidz_page2.c:164 src/project_dbase_gui.c:591
+#: src/appwiz_page2.c:164 src/project_dbase_gui.c:591
 msgid "Project Name:"
 msgstr "プロジェクト名:"
 
-#: src/appwidz_page2.c:171
+#: src/appwiz_page2.c:171
 msgid "Project Version:"
 msgstr "プロジェクトバージョン:"
 
-#: src/appwidz_page2.c:178
+#: src/appwiz_page2.c:178
 msgid "Project Author:"
 msgstr "プロジェクト開発者:"
 
-#: src/appwidz_page2.c:185
+#: src/appwiz_page2.c:185
 msgid "Project Target:"
 msgstr "プログラム名:"
 
-#: src/appwidz_page2.c:216
+#: src/appwiz_page2.c:216
 msgid "Programming language"
 msgstr "使用するプログラミング言語"
 
-#: src/appwidz_page2.c:227
+#: src/appwiz_page2.c:227
 msgid "C"
 msgstr "C 言語"
 
-#: src/appwidz_page2.c:233
+#: src/appwiz_page2.c:233
 msgid "C++"
 msgstr "C++ 言語"
 
-#: src/appwidz_page2.c:239
+#: src/appwiz_page2.c:239
 msgid "Both C and C++"
 msgstr "C/C++ 言語の両方"
 
-#: src/appwidz_page3.c:112
+#: src/appwiz_page3.c:112
 msgid "Enter a short project description"
 msgstr "プロジェクトの短い説明、紹介を入力して下さい。"
 
-#: src/appwidz_page3.c:147 src/project_dbase_gui.c:1066
+#: src/appwiz_page3.c:147 src/project_dbase_gui.c:1066
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Pixmap ファイルが見つかりませんでした: %s"
 
-#: src/appwidz_page3.c:160
+#: src/appwiz_page3.c:160
 msgid "Executable target."
 msgstr "対象は実行形式プログラム"
 
-#: src/appwidz_page3.c:167
+#: src/appwiz_page3.c:167
 msgid "Static library target."
 msgstr "対象は静的 (Static) ライブラリ"
 
-#: src/appwidz_page3.c:173
+#: src/appwiz_page3.c:173
 msgid "Dynamic library target."
 msgstr "対象は動的 (Dinamic) ライブラリ"
 
-#: src/appwidzard_cbs.c:94
+#: src/appwizard_cbs.c:94
 msgid "Project name"
 msgstr "プロジェクト名"
 
-#: src/appwidzard_cbs.c:95
+#: src/appwizard_cbs.c:95
 msgid "Source target name"
 msgstr "対象ソース名"
 
-#: src/appwidzard_cbs.c:96
+#: src/appwizard_cbs.c:96
 msgid "Project Version"
 msgstr "プロジェクトのバージョン"
 
-#: src/appwidzard_cbs.c:191
+#: src/appwizard_cbs.c:191
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -147,18 +147,18 @@ msgstr ""
 "先に進むには正しい \"%s\" を入力して下さい。"
 
 #. For the time being
-#: src/appwidzard_cbs.c:239 src/project_dbase.c:1189 src/project_dbase.c:1194
+#: src/appwizard_cbs.c:239 src/project_dbase.c:1189 src/project_dbase.c:1194
 #: src/project_dbase.c:1197 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "はい"
 
-#: src/appwidzard_cbs.c:241 src/project_dbase.c:1191 src/project_dbase.c:1199
+#: src/appwizard_cbs.c:241 src/project_dbase.c:1191 src/project_dbase.c:1199
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "いいえ"
 
-#: src/appwidzard_cbs.c:243
+#: src/appwizard_cbs.c:243
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -166,64 +166,64 @@ msgstr ""
 "下記の情報を確認して下さい:\n"
 "\n"
 
-#: src/appwidzard_cbs.c:244
+#: src/appwizard_cbs.c:244
 msgid "Project Name:    "
 msgstr "プロジェクト名:\t"
 
-#: src/appwidzard_cbs.c:245
+#: src/appwizard_cbs.c:245
 msgid "Project Type:    "
 msgstr "プロジェクトの種類:\t"
 
-#: src/appwidzard_cbs.c:246
+#: src/appwizard_cbs.c:246
 msgid "Target Type:     "
 msgstr "対象となる種類:\t"
 
-#: src/appwidzard_cbs.c:247
+#: src/appwizard_cbs.c:247
 msgid "Source Target:   "
 msgstr "対象となるソース:\t"
 
-#: src/appwidzard_cbs.c:248
+#: src/appwizard_cbs.c:248
 msgid "Version:         "
 msgstr "バージョン:\t\t"
 
-#: src/appwidzard_cbs.c:249
+#: src/appwizard_cbs.c:249
 msgid "Author:          "
 msgstr "作者:\t\t\t"
 
-#: src/appwidzard_cbs.c:250
+#: src/appwizard_cbs.c:250
 msgid "Prog. Language:  "
 msgstr "使用する言語:\t\t"
 
-#: src/appwidzard_cbs.c:251
+#: src/appwizard_cbs.c:251
 msgid "Gettext support: "
 msgstr "GNU Gettext サポート:"
 
-#: src/appwidzard_gui.c:97
-msgid "Gnome Application Widzard"
+#: src/appwizard_gui.c:97
+msgid "Gnome Application Wizard"
 msgstr "GNOME アプリケーション・ウィザード"
 
-#: src/appwidzard_gui.c:122
-msgid "Gnome Application Widzard:     Page 1 of 6"
+#: src/appwizard_gui.c:122
+msgid "Gnome Application Wizard:     Page 1 of 6"
 msgstr "GNOME アプリケーション・ウィザード: 1/6 ページ"
 
-#: src/appwidzard_gui.c:153
-msgid "Gnome Application Widzard:     Page 2 of 6"
+#: src/appwizard_gui.c:153
+msgid "Gnome Application Wizard:     Page 2 of 6"
 msgstr "GNOME アプリケーション・ウィザード: 2/6 ページ"
 
-#: src/appwidzard_gui.c:178
-msgid "Gnome Application Widzard:     Page 3 of 6"
+#: src/appwizard_gui.c:178
+msgid "Gnome Application Wizard:     Page 3 of 6"
 msgstr "GNOME アプリケーション・ウィザード: 3/6 ページ"
 
-#: src/appwidzard_gui.c:204
-msgid "Gnome Application Widzard:     Page 4 of 6"
+#: src/appwizard_gui.c:204
+msgid "Gnome Application Wizard:     Page 4 of 6"
 msgstr "GNOME アプリケーション・ウィザード: 4/6 ページ"
 
-#: src/appwidzard_gui.c:229
-msgid "Gnome Application Widzard:     Page 5 of 6"
+#: src/appwizard_gui.c:229
+msgid "Gnome Application Wizard:     Page 5 of 6"
 msgstr "GNOME アプリケーション・ウィザード: 5/6 ページ"
 
-#: src/appwidzard_gui.c:253
-msgid "Gnome Application Widzard:     Page 6 of 6"
+#: src/appwizard_gui.c:253
+msgid "Gnome Application Wizard:     Page 6 of 6"
 msgstr "GNOME アプリケーション・ウィザード: 6/6 ページ"
 
 #: src/attach_process.c:118
@@ -1448,7 +1448,7 @@ msgid "Running  autogen.sh ...\n"
 msgstr "'autogen.sh' の実行 ...\n"
 
 #: src/gnome_project.c:199
-msgid "App Widzard"
+msgid "App Wizard"
 msgstr "アプリ・ウィザード"
 
 #: src/gnome_project.c:215
@@ -1560,7 +1560,7 @@ msgid "N_ew Project ..."
 msgstr "新規プロジェクト(_E) ..."
 
 #: src/main_menubar_def.h:81
-msgid "Create a project using application widzard"
+msgid "Create a project using application wizard"
 msgstr "アプリケーション・ウィザードを使って新規プロジェクトを作成します"
 
 #: src/main_menubar_def.h:86
@@ -4280,11 +4280,11 @@ msgid "Tag in the file"
 msgstr "ファイルの中のタグ"
 
 #: src/toolbar.c:665
-msgid "widzard"
+msgid "wizard"
 msgstr "ウィザード"
 
 #: src/toolbar.c:665
-msgid "The Widzard"
+msgid "The Wizard"
 msgstr "ウィザード"
 
 #: src/toolbar.c:743 src/toolbar.c:1188
@@ -4608,35 +4608,35 @@ msgstr "Copyright (C) 1999-2001 Naba Kumar"
 msgid "Anjuta Home Site"
 msgstr "Anjuta ホームページへどうぞ"
 
-#: src/appwidz_page4.c:126
+#: src/appwiz_page4.c:126
 msgid " Project Options "
 msgstr " プロジェクトオプション "
 
-#: src/appwidz_page4.c:137
+#: src/appwiz_page4.c:137
 msgid "Include GNU Copyright statement in files heading"
 msgstr "ファイルの先頭に GNU Copyright 条文を挿入する"
 
-#: src/appwidz_page4.c:144
+#: src/appwiz_page4.c:144
 msgid "Gettext Support Enable"
 msgstr "Gettext 化サポートを有効にする"
 
-#: src/appwidz_page4.c:151
+#: src/appwiz_page4.c:151
 msgid " Gnome Menu Entry"
 msgstr " GNOME メニューエントリ "
 
-#: src/appwidz_page4.c:161
+#: src/appwiz_page4.c:161
 msgid "Entry name:"
 msgstr "エントリ名:"
 
-#: src/appwidz_page4.c:168
+#: src/appwiz_page4.c:168
 msgid "Comment:"
 msgstr "コメント:"
 
-#: src/appwidz_page4.c:175
+#: src/appwiz_page4.c:175
 msgid "Group:"
 msgstr "グループ:"
 
-#: src/appwidz_page4.c:216
+#: src/appwiz_page4.c:216
 msgid "Needs terminal"
 msgstr "ターミナルから起動する"
 

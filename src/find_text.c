@@ -243,7 +243,7 @@ create_find_text_gui (FindText * ft)
 	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
 	gtk_widget_show (dialog_vbox1);
 
-	frame1 = gtk_frame_new (_(" Regexp/String to search "));
+	frame1 = gtk_frame_new (_(" RegExp/String to search "));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1), frame1, TRUE, TRUE, 0);
 
@@ -328,7 +328,7 @@ create_find_text_gui (FindText * ft)
 	gtk_container_add (GTK_CONTAINER (frame5), vbox3);
 
 	radiobutton6 =
-		gtk_radio_button_new_with_label (vbox3_group, _("Regexp"));
+		gtk_radio_button_new_with_label (vbox3_group, _("RegExp"));
 	vbox3_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton6));
 	gtk_widget_show (radiobutton6);

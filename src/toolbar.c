@@ -658,11 +658,11 @@ create_tags_toolbar (GtkWidget * anjuta_gui, TagsToolbar * toolbar)
 	combo_list2 = GTK_COMBO (combo2)->list;
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_WIDZARD, FALSE);
+		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_WIZARD, FALSE);
 	button1 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("widzard"), _("The Widzard"),
+					    _("wizard"), _("The Wizard"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (button1);
@@ -684,7 +684,7 @@ create_tags_toolbar (GtkWidget * anjuta_gui, TagsToolbar * toolbar)
 			    GTK_SIGNAL_FUNC
 			    (on_member_combo_list_select_child), NULL);
 	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC (on_browser_widzard_clicked),
+			    GTK_SIGNAL_FUNC (on_browser_wizard_clicked),
 			    NULL);
 
 
@@ -697,7 +697,7 @@ create_tags_toolbar (GtkWidget * anjuta_gui, TagsToolbar * toolbar)
 	toolbar->member_label = label2;
 	toolbar->member_combo = combo2;
 	toolbar->member_entry = combo_entry2;
-	toolbar->widzard = button1;
+	toolbar->wizard = button1;
 
 	return toolbar1;
 }

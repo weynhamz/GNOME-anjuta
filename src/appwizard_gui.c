@@ -1,5 +1,5 @@
 /*
-    appwidzard_gui.c
+    appwizard_gui.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -26,31 +26,31 @@
 
 #include <gnome.h>
 #include "anjuta.h"
-#include "appwidzard.h"
-#include "appwidzard_cbs.h"
+#include "appwizard.h"
+#include "appwizard_cbs.h"
 #include "resources.h"
 
-#define WIDZARD_START_MESG \
-"Application Wizard  will generate the basic\n\
-skelleton  for  your  application  including  all\n\
-the build  files. It  will promt you for the basic\n\
+#define WIZARD_START_MESG \
+"The Application Wizard  will generate the basic\n\
+skeleton  for  your  application  including  all\n\
+the build  files. It  will prompt you for the basic\n\
 initial  structure for  the application you want\n\
 to develop.\n\n\
 Please answer the queries carefully, for you\n\
 may not have the liberty to change some of\n\
 them later.\n\n\
-Click Next to Proceed ..."
+Click Next to proceed ..."
 
-void create_new_project (AppWidzard * aw);
-void create_app_widzard_gui (AppWidzard * aw);
-void create_app_widzard_page0 (AppWidzard * aw);
-void create_app_widzard_page1 (AppWidzard * aw);
-void create_app_widzard_page2 (AppWidzard * aw);
-void create_app_widzard_page3 (AppWidzard * aw);
-void create_app_widzard_page4 (AppWidzard * aw);
+void create_new_project (AppWizard * aw);
+void create_app_wizard_gui (AppWizard * aw);
+void create_app_wizard_page0 (AppWizard * aw);
+void create_app_wizard_page1 (AppWizard * aw);
+void create_app_wizard_page2 (AppWizard * aw);
+void create_app_wizard_page3 (AppWizard * aw);
+void create_app_wizard_page4 (AppWizard * aw);
 
 void
-create_app_widzard_gui (AppWidzard * aw)
+create_app_wizard_gui (AppWizard * aw)
 {
 	GtkWidget *window1;
 	GtkWidget *druid1;
@@ -94,7 +94,7 @@ create_app_widzard_gui (AppWidzard * aw)
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (window1),
-			      _("Gnome Application Wizard"));
+			      _("GNOME Application Wizard"));
 	gtk_window_set_position (GTK_WINDOW (window1), GTK_WIN_POS_CENTER);
 
 	druid1 = gnome_druid_new ();
@@ -119,17 +119,17 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_start_set_title (GNOME_DRUID_PAGE_START
 					  (druidpagestart1),
 					  _
-					  ("Gnome Application Wizard:     Page 1 of 6"));
+					  ("GNOME Application Wizard:     Page 1 of 6"));
 	gnome_druid_page_start_set_text (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
-					 WIDZARD_START_MESG);
+					 WIZARD_START_MESG);
 
 	gnome_druid_page_start_set_logo (GNOME_DRUID_PAGE_START
 					 (druidpagestart1),
 					 anjuta_res_get_image ("interface.xpm"));
 	gnome_druid_page_start_set_watermark (GNOME_DRUID_PAGE_START
 					      (druidpagestart1),
-					      anjuta_res_get_image ("app_widzard.jpg"));
+					      anjuta_res_get_image ("app_wizard.jpg"));
 
 	druidpagestandard1 =
 		gnome_druid_page_standard_new_with_vals ("", NULL);
@@ -148,7 +148,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard1),
 					     _
-					     ("Gnome Application Wizard:     Page 2 of 6"));
+					     ("GNOME Application Wizard:     Page 2 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard1),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -172,7 +172,7 @@ create_app_widzard_gui (AppWidzard * aw)
 						   &druidpagestandard2_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard2),
-					     _("Gnome Application Wizard:     Page 3 of 6"));
+					     _("GNOME Application Wizard:     Page 3 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard2),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -197,7 +197,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard3),
 					     _
-					     ("Gnome Application Wizard:     Page 4 of 6"));
+					     ("GNOME Application Wizard:     Page 4 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard3),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -221,7 +221,7 @@ create_app_widzard_gui (AppWidzard * aw)
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (druidpagestandard4),
 					     _
-					     ("Gnome Application Wizard:     Page 5 of 6"));
+					     ("GNOME Application Wizard:     Page 5 of 6"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (druidpagestandard4),
 					    anjuta_res_get_image  ("interface.xpm"));
@@ -244,13 +244,13 @@ create_app_widzard_gui (AppWidzard * aw)
 						 &druidpagefinish1_title_color);
 	gnome_druid_page_finish_set_title (GNOME_DRUID_PAGE_FINISH
 					   (druidpagefinish1),
-					   _("Gnome Application Wizard:     Page 6 of 6"));
+					   _("GNOME Application Wizard:     Page 6 of 6"));
 	gnome_druid_page_finish_set_logo (GNOME_DRUID_PAGE_FINISH
 					  (druidpagefinish1),
 					    anjuta_res_get_image  ("interface.xpm"));
 	gnome_druid_page_finish_set_watermark (GNOME_DRUID_PAGE_FINISH
 					       (druidpagefinish1),
-					       anjuta_res_get_image ("app_widzard.jpg"));
+					       anjuta_res_get_image ("app_wizard.jpg"));
 
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
 

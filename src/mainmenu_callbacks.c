@@ -40,7 +40,7 @@
 #include "messages.h"
 #include "compile.h"
 #include "launcher.h"
-#include "appwidzard.h"
+#include "appwizard.h"
 #include "project_dbase.h"
 #include "debugger.h"
 #include "breakpoints_cbs.h"
@@ -169,7 +169,7 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_new_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	app_widzard_proceed ();
+	app_wizard_proceed ();
 }
 
 void

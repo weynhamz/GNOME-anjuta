@@ -47,96 +47,96 @@ msgstr "No puedo crear el directorio de configuración.\n"
 msgid "Anjuta: Information"
 msgstr "Anjuta: Información"
 
-#: src/appwidz_page1.c:89
+#: src/appwiz_page1.c:89
 msgid "Select the type of application you want to develop"
 msgstr "Seleccione el tipo de aplicación que desea desarrollar"
 
-#: src/appwidz_page1.c:122
+#: src/appwiz_page1.c:122
 msgid "Generic/Terminal based Project"
 msgstr "Genérico/Proyecto basado en un Terminal"
 
-#: src/appwidz_page1.c:126
+#: src/appwiz_page1.c:126
 msgid "Gtk based Project"
 msgstr "Proyecto basado en Gtk"
 
-#: src/appwidz_page1.c:130
+#: src/appwiz_page1.c:130
 msgid "Gnome based Project"
 msgstr "Proyecto basado en Gnome"
 
-#: src/appwidz_page1.c:134
+#: src/appwiz_page1.c:134
 msgid "Gnome Bonobo component"
 msgstr "Componente Bonobo de Gnome"
 
-#: src/appwidz_page2.c:148 src/appwidz_page4.c:109
+#: src/appwiz_page2.c:148 src/appwiz_page4.c:109
 msgid "Enter the basic Project information"
 msgstr "Introduzca la información básica del Proyecto"
 
-#: src/appwidz_page2.c:164 src/project_dbase_gui.c:592
+#: src/appwiz_page2.c:164 src/project_dbase_gui.c:592
 msgid "Project Name:"
 msgstr "Nombre del Proyecto:"
 
-#: src/appwidz_page2.c:171
+#: src/appwiz_page2.c:171
 msgid "Project Version:"
 msgstr "Versión del Proyecto:"
 
-#: src/appwidz_page2.c:178
+#: src/appwiz_page2.c:178
 msgid "Project Author:"
 msgstr "Autor del Proyecto:"
 
-#: src/appwidz_page2.c:185
+#: src/appwiz_page2.c:185
 msgid "Project Target:"
 msgstr "Resultado del Proyecto:"
 
-#: src/appwidz_page2.c:216
+#: src/appwiz_page2.c:216
 msgid "Programming language"
 msgstr "Lenguaje de programación"
 
-#: src/appwidz_page2.c:227
+#: src/appwiz_page2.c:227
 msgid "C"
 msgstr "C"
 
-#: src/appwidz_page2.c:233
+#: src/appwiz_page2.c:233
 msgid "C++"
 msgstr "C++"
 
-#: src/appwidz_page2.c:239
+#: src/appwiz_page2.c:239
 msgid "Both C and C++"
 msgstr "C y C++"
 
-#: src/appwidz_page3.c:112
+#: src/appwiz_page3.c:112
 msgid "Enter a short project description"
 msgstr "Introduzca una breve descripción del proyecto"
 
-#: src/appwidz_page3.c:147 src/project_dbase_gui.c:1067
+#: src/appwiz_page3.c:147 src/project_dbase_gui.c:1067
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "No puedo encontrar el archivo de imagen: %s"
 
-#: src/appwidz_page3.c:160
+#: src/appwiz_page3.c:160
 msgid "Executable target."
 msgstr "Ejecutable."
 
-#: src/appwidz_page3.c:167
+#: src/appwiz_page3.c:167
 msgid "Static library target."
 msgstr "Biblioteca estática."
 
-#: src/appwidz_page3.c:173
+#: src/appwiz_page3.c:173
 msgid "Dynamic library target."
 msgstr "Biblioteca dinámica."
 
-#: src/appwidzard_cbs.c:94
+#: src/appwizard_cbs.c:94
 msgid "Project name"
 msgstr "Nombre del proyecto"
 
-#: src/appwidzard_cbs.c:95
+#: src/appwizard_cbs.c:95
 msgid "Source target name"
 msgstr "Nombre del archivo fuente"
 
-#: src/appwidzard_cbs.c:96
+#: src/appwizard_cbs.c:96
 msgid "Project Version"
 msgstr "Versión del Proyecto"
 
-#: src/appwidzard_cbs.c:191
+#: src/appwizard_cbs.c:191
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -146,18 +146,18 @@ msgstr ""
 "Debe introducir un campo %s válido para poder continuar."
 
 #. For the time being
-#: src/appwidzard_cbs.c:239 src/project_dbase.c:1183 src/project_dbase.c:1188
+#: src/appwizard_cbs.c:239 src/project_dbase.c:1183 src/project_dbase.c:1188
 #: src/project_dbase.c:1191 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "Sí"
 
-#: src/appwidzard_cbs.c:241 src/project_dbase.c:1185 src/project_dbase.c:1193
+#: src/appwizard_cbs.c:241 src/project_dbase.c:1185 src/project_dbase.c:1193
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "No"
 
-#: src/appwidzard_cbs.c:243
+#: src/appwizard_cbs.c:243
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -165,64 +165,64 @@ msgstr ""
 "Confirme la siguiente información:\n"
 "\n"
 
-#: src/appwidzard_cbs.c:244
+#: src/appwizard_cbs.c:244
 msgid "Project Name:    "
 msgstr "Nombre del proyecto:    "
 
-#: src/appwidzard_cbs.c:245
+#: src/appwizard_cbs.c:245
 msgid "Project Type:    "
 msgstr "Tipo del Proyecto:    "
 
-#: src/appwidzard_cbs.c:246
+#: src/appwizard_cbs.c:246
 msgid "Target Type:     "
 msgstr "Tipo de objeto generado:    "
 
-#: src/appwidzard_cbs.c:247
+#: src/appwizard_cbs.c:247
 msgid "Source Target:   "
 msgstr "Fuente del Proyecto"
 
-#: src/appwidzard_cbs.c:248
+#: src/appwizard_cbs.c:248
 msgid "Version:         "
 msgstr "Versión:         "
 
-#: src/appwidzard_cbs.c:249
+#: src/appwizard_cbs.c:249
 msgid "Author:          "
 msgstr "Autor:          "
 
-#: src/appwidzard_cbs.c:250
+#: src/appwizard_cbs.c:250
 msgid "Prog. Language:  "
 msgstr "Lenguaje: "
 
-#: src/appwidzard_cbs.c:251
+#: src/appwizard_cbs.c:251
 msgid "Gettext support: "
 msgstr "Soporte para gettext: "
 
-#: src/appwidzard_gui.c:97
-msgid "Gnome Application Widzard"
+#: src/appwizard_gui.c:97
+msgid "Gnome Application Wizard"
 msgstr "Asistente para Aplicaciones Gnome"
 
-#: src/appwidzard_gui.c:122
-msgid "Gnome Application Widzard:     Page 1 of 6"
+#: src/appwizard_gui.c:122
+msgid "Gnome Application Wizard:     Page 1 of 6"
 msgstr "Asistente para Aplicaciones Gnome:   Página 1 de 6"
 
-#: src/appwidzard_gui.c:153
-msgid "Gnome Application Widzard:     Page 2 of 6"
+#: src/appwizard_gui.c:153
+msgid "Gnome Application Wizard:     Page 2 of 6"
 msgstr "Asistente para Aplicaciones Gnome:   Página 2 de 6"
 
-#: src/appwidzard_gui.c:178
-msgid "Gnome Application Widzard:     Page 3 of 6"
+#: src/appwizard_gui.c:178
+msgid "Gnome Application Wizard:     Page 3 of 6"
 msgstr "Asistente para Aplicaciones Gnome:   Página 3 de 6"
 
-#: src/appwidzard_gui.c:204
-msgid "Gnome Application Widzard:     Page 4 of 6"
+#: src/appwizard_gui.c:204
+msgid "Gnome Application Wizard:     Page 4 of 6"
 msgstr "Asistente para Aplicaciones Gnome:   Página 4 de 6"
 
-#: src/appwidzard_gui.c:229
-msgid "Gnome Application Widzard:     Page 5 of 6"
+#: src/appwizard_gui.c:229
+msgid "Gnome Application Wizard:     Page 5 of 6"
 msgstr "Asistente para Aplicaciones Gnome:   Página 5 de 6"
 
-#: src/appwidzard_gui.c:253
-msgid "Gnome Application Widzard:     Page 6 of 6"
+#: src/appwizard_gui.c:253
+msgid "Gnome Application Wizard:     Page 6 of 6"
 msgstr "Asistente para Aplicaciones Gnome:   Página 6 de 6"
 
 #: src/attach_process.c:118
@@ -1426,7 +1426,7 @@ msgid "Running  autogen.sh ...\n"
 msgstr "Ejecutando autogen.sh ...\n"
 
 #: src/gnome_project.c:198
-msgid "App Widzard"
+msgid "App Wizard"
 msgstr "Asistente para Aplicaciones"
 
 #: src/gnome_project.c:214
@@ -1538,7 +1538,7 @@ msgid "N_ew Project ..."
 msgstr "Nu_evo Proyecto ..."
 
 #: src/main_menubar_def.h:81
-msgid "Create a project using application widzard"
+msgid "Create a project using application wizard"
 msgstr "Crear un nuevo proyecto usando el asistente para aplicaciones"
 
 #: src/main_menubar_def.h:86
@@ -4254,11 +4254,11 @@ msgid "Tag in the file"
 msgstr "Etiqueta en archivo"
 
 #: src/toolbar.c:665
-msgid "widzard"
+msgid "wizard"
 msgstr "Asistente"
 
 #: src/toolbar.c:665
-msgid "The Widzard"
+msgid "The Wizard"
 msgstr "El Asistente"
 
 #: src/toolbar.c:743 src/toolbar.c:1188
@@ -4582,35 +4582,35 @@ msgstr "Copyright (c) 1999 Naba Kumar"
 msgid "Anjuta Home Site"
 msgstr "Página web de Anjuta"
 
-#: src/appwidz_page4.c:126
+#: src/appwiz_page4.c:126
 msgid " Project Options "
 msgstr " Opciones de Proyecto"
 
-#: src/appwidz_page4.c:137
+#: src/appwiz_page4.c:137
 msgid "Include GNU Copyright statement in files heading"
 msgstr "Incluir cláusula de copyright GNU en las cabeceras"
 
-#: src/appwidz_page4.c:144
+#: src/appwiz_page4.c:144
 msgid "Gettext Support Enable"
 msgstr "Activar Soporte para Gettext"
 
-#: src/appwidz_page4.c:151
+#: src/appwiz_page4.c:151
 msgid " Gnome Menu Entry"
 msgstr " Entrada de Menú Gnome"
 
-#: src/appwidz_page4.c:161
+#: src/appwiz_page4.c:161
 msgid "Entry name:"
 msgstr "Nombre de entrada:"
 
-#: src/appwidz_page4.c:168
+#: src/appwiz_page4.c:168
 msgid "Comment:"
 msgstr "Comentario:"
 
-#: src/appwidz_page4.c:175
+#: src/appwiz_page4.c:175
 msgid "Group:"
 msgstr "Grupo:"
 
-#: src/appwidz_page4.c:216
+#: src/appwiz_page4.c:216
 msgid "Needs terminal"
 msgstr "Requiere terminal"
 

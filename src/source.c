@@ -17,7 +17,7 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* Most of the codes stollen from glade and modified */
+/* Most of the code stolen from Glade and modified */
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -134,7 +134,7 @@ source_write_no_modify_warning (ProjectDBase * data, FILE * fp)
 	fprintf (fp,
 	"## Created by Anjuta - will be overwritten\n"
 	"## If you don't want it to overwrite it,\n"
-	"## \tPlease disable it in the Anjtua Project configuration\n\n");
+	"## \tPlease disable it in the Anjuta project configuration\n\n");
 	return TRUE;
 }
 
@@ -239,7 +239,7 @@ source_write_configure_in (ProjectDBase * data)
 		 "dnl Process this file with autoconf to produce a configure script.\n"
 		 "dnl Created by Anjuta - will be overwritten\n"
 		 "dnl If you don't want it to overwrite it,\n"
-		 "dnl \tPlease disable it in the Anjtua Project configuration\n"
+		 "dnl \tPlease disable it in the Anjuta project configuration\n"
 		 "\n"
 		 "AC_INIT(configure.in)\n"
 		 "AM_INIT_AUTOMAKE(%s, %s)\n"
@@ -271,10 +271,10 @@ source_write_configure_in (ProjectDBase * data)
 	case PROJECT_TYPE_GNOMEMM:
 		fprintf (fp,
 			 "\n"
-			 "dnl Pick up the Gnome macros.\n"
+			 "dnl Pick up the GNOME macros.\n"
 			 "AM_ACLOCAL_INCLUDE(macros)\n"
 			 "\n"
-			 "dnl Gnome macros.\n"
+			 "dnl GNOME macros.\n"
 			 "GNOME_INIT\n"
 			 "GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n");
 		if (type == PROJECT_TYPE_GNOMEMM)

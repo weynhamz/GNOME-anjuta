@@ -1,5 +1,5 @@
 /*
-    appwidzard.h
+    appwizard.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,14 +17,14 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _APP_WIDZARD_H_
-#define _APP_WIDZARD_H_
+#ifndef _APP_WIZARD_H_
+#define _APP_WIZARD_H_
 
 #include "project_dbase.h"
-typedef struct _AppWidzardGui AppWidzardGui;
-typedef struct _AppWidzard AppWidzard;
+typedef struct _AppWizardGui AppWizardGui;
+typedef struct _AppWizard AppWizard;
 
-struct _AppWidzardGui
+struct _AppWizardGui
 {
 	GtkWidget *window;
 	GtkWidget *druid;
@@ -58,9 +58,9 @@ struct _AppWidzardGui
 	GtkWidget *term_check;
 };
 
-struct _AppWidzard
+struct _AppWizard
 {
-	AppWidzardGui widgets;
+	AppWizardGui widgets;
 	gint cur_page;
 
 	gint  prj_type;
@@ -84,15 +84,15 @@ struct _AppWidzard
 	gboolean use_header;
 };
 
-AppWidzard *app_widzard_new (void);
-void app_widzard_proceed (void);
-void app_widzard_destroy (AppWidzard * aw);
+AppWizard *app_wizard_new (void);
+void app_wizard_proceed (void);
+void app_wizard_destroy (AppWizard * aw);
 
 /* Private */
-void create_app_widzard_gui (AppWidzard * aw);
-void create_app_widzard_page1 (AppWidzard * aw);
-void create_app_widzard_page2 (AppWidzard * aw);
-void create_app_widzard_page3 (AppWidzard * aw);
-void create_app_widzard_page4 (AppWidzard * aw);
+void create_app_wizard_gui (AppWizard * aw);
+void create_app_wizard_page1 (AppWizard * aw);
+void create_app_wizard_page2 (AppWizard * aw);
+void create_app_wizard_page3 (AppWizard * aw);
+void create_app_wizard_page4 (AppWizard * aw);
 
 #endif

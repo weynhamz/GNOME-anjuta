@@ -1,5 +1,5 @@
 /*
-    appwidzard_cbs.c
+    appwizard_cbs.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -28,8 +28,8 @@
 
 #include <gnome.h>
 #include "anjuta.h"
-#include "appwidzard.h"
-#include "appwidzard_cbs.h"
+#include "appwizard.h"
+#include "appwizard_cbs.h"
 #include "gnome_project.h"
 
 void
@@ -59,14 +59,14 @@ on_aw_text_entry_realize (GtkWidget * widget, gpointer user_data)
 void
 on_druid1_cancel (GnomeDruid * gnomedruid, gpointer user_data)
 {
-	app_widzard_destroy ((AppWidzard *) user_data);
+	app_wizard_destroy ((AppWizard *) user_data);
 }
 
 gboolean
 on_druidpagestandard1_next (GnomeDruidPage * gnomedruidpage,
 			    gpointer arg1, gpointer user_data)
 {
-	AppWidzard *aw;
+	AppWizard *aw;
 	aw = user_data;
 	if ( !(aw->prj_type == PROJECT_TYPE_GENERIC
  		|| aw->prj_type == PROJECT_TYPE_GTK
@@ -98,7 +98,7 @@ on_druidpagestandard2_next (GnomeDruidPage *
 	gchar *temp;
 	gint i;
 	gint error_no;
-	AppWidzard *aw;
+	AppWizard *aw;
 	gchar buffer[256];
 	gchar error_mesg[6][32] = {
 		N_("Project name"),
@@ -211,7 +211,7 @@ gboolean
 on_druidpagestandard3_next (GnomeDruidPage *
 			    gnomedruidpage, gpointer arg1, gpointer user_data)
 {
-	AppWidzard *aw;
+	AppWizard *aw;
 	aw = user_data;
 
 
@@ -224,7 +224,7 @@ gboolean
 on_druidpagestandard4_next (GnomeDruidPage *
 			    gnomedruidpage, gpointer arg1, gpointer user_data)
 {
-	AppWidzard *aw;
+	AppWizard *aw;
 	gchar *text, *gt_support, *icon;
 	aw = user_data;
 	icon =
@@ -257,7 +257,7 @@ on_druidpagestandard4_next (GnomeDruidPage *
 			_("Source Target:   "), aw->target, "\n",
 			_("Version:         "), aw->version,"\n",
 			_("Author:          "), aw->author, "\n", 
-			_("Prog. Language:  "), programming_language_map[aw->language], "\n", 
+			_("Language:        "), programming_language_map[aw->language], "\n", 
 			_("Gettext support: "), gt_support,"\n",
 			NULL);
 	gnome_druid_page_finish_set_text (GNOME_DRUID_PAGE_FINISH
@@ -270,10 +270,10 @@ void
 on_druidpagefinish1_finish (GnomeDruidPage *
 			    gnomedruidpage, gpointer arg1, gpointer user_data)
 {
-	AppWidzard *aw = user_data;
+	AppWizard *aw = user_data;
 	gtk_widget_hide (aw->widgets.window);
 	create_new_project (aw);
-	app_widzard_destroy (aw);
+	app_wizard_destroy (aw);
 }
 
 gboolean

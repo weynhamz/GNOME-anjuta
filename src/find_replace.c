@@ -287,7 +287,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	dialog_vbox2 = GNOME_DIALOG (dialog2)->vbox;
 	gtk_widget_show (dialog_vbox2);
 
-	frame8 = gtk_frame_new (_(" Regexp/String to search "));
+	frame8 = gtk_frame_new (_(" RegExp/String to search "));
 	gtk_widget_show (frame8);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox2), frame8, TRUE, TRUE, 0);
 
@@ -388,7 +388,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	gtk_container_add (GTK_CONTAINER (frame13), vbox7);
 
 	radiobutton20 =
-		gtk_radio_button_new_with_label (vbox7_group, _("Regexp"));
+		gtk_radio_button_new_with_label (vbox7_group, _("RegExp"));
 	vbox7_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton20));
 	gtk_widget_show (radiobutton20);
