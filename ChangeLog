@@ -1,3 +1,7 @@
+2002-10-23  Naba Kumar <naba@gnome.org>
+
+	* autogen.sh: Prevented Users from building HEAD cvs.
+	
 2002-09-16  Stephane Demurget  <demurgets@free.fr>
 
 	* src/anjuta.glade: added the compiler options dialog, hopefully
