@@ -286,8 +286,9 @@ FIXME.
 -------------------------------------------------------
 There are 6 files which need to be updated.
 
-* main_menubar_def.h - update inserttext1_submenu_uiinfo to add the item, help text 
-and name of the callback function.
+* main_menubar_def.h - update insert_submenu_uiinfo (and others 
+e.g. inserttext1_submenu_uiinfo) to add the item, help text and name of the 
+callback function.
 * main_menubar.h - update struct _EditSubMenu with the name of the menu widget
 * main_menubar.c - update the array of items referenced around mb->edit.insert_*
 * mainmenu_callbacks.h, mainmenu_callbacks.c - declare the name of the new callback 
