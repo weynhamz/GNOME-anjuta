@@ -7,6 +7,10 @@
 	* ChangeLog:
 	  Correct todays date. :)
 	  
+	* scripts/Makefile.am:
+	  Installs anjuta_import.sh in $(prefix)/bin dir and
+	  is treated as an executable.
+	  
 2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Fix for bug #499373
