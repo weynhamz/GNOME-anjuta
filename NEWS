@@ -1,4 +1,38 @@
-Anjuta 1.2.0-beta   (05 May 2003)     -- Naba Kumar
+Anjuta 1.1.97 rc1 for 1.2.0   (26 June 2003) -- Naba Kumar
+
+New: Support for all text file encodings (can be customized in preferences).
+New: Line and word selection menu entries (setting shortcuts possible).
+New: Added *.css files highlighting.
+Updated: Project window and message window no longer always float above the main window.
+Updated: Reorganized messages tabs in more sensible order.
+Updated: Better 'Customize menu' message.
+Updated: Prompts for 'clean' for modified compiler options.
+Updated: Deprecated GNOME 1.x project wizards. It can still open older projects.
+Updated: Speedier startup (but needs more optimization todo).
+Updated: New splash.
+Updated: Some re-organization and cleanups.
+Updated: Better debugger operations.
+Bug fix: Separated -dP and -A flags of CVS update into different options.
+Bug fix: No more file corruption for non-utf-8 encodings.
+Bug fix: Removed references to older automake/autoconf in generated projects.
+Bug fix: Fixed automake errors with old automake in generated projects.
+Bug fix: Tcl/tk properties fix (all keywords will be recognized).
+Bug fix: Red color editor tab for modified files now consistent in inactive state also.
+Bug fix: Backward search works correctly.
+Bug fix: Fixed shell script to properly detect installed *-config files.
+Bug fix: Corrected many project generation codes.
+Bug fix: Fixed compiler errors associated with older gcc.
+Bug fix: Stack trace output can be activated with double-click.
+Bug fix: Properly closes automatic debugger-tip (was very annoying before).
+Bug fix: Properly jumps to correct file/line from build messages.
+Bug fix: CVS dialogs bug fixes.
+Bug fix: Fixed gnome-print, zvt and pcre dependencies in configure and rpm spec file.
+Bug fix: Fixed glade/glade-2 confusion in generated projects.
+Bug fix: Multiple file selection works now.
+Bug fix: Fixed failure in poping up search combo puldown (in main menu).
+Bug fix: And many more critical/non-critical bug fixes.
+
+Anjuta 1.1.1-beta   (05 May 2003)     -- Naba Kumar
 
 New: Ported to GNOME2:
 New: New Preferences management.
@@ -273,4 +307,3 @@ Anjuta 0.1.1: (01rd Nov 2000)	-- Nabakumar.
   => Release of first version (Beta) with lots of bugs.
 	
 --------------------------------------------------------------------
-

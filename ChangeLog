@@ -1,4 +1,4 @@
-2003-06-24  Naba Kumar  <naba@gnome.org>
+2003-06-26  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.h: Removed reference to windows-dialog.h.
 	* src/message-manager-private.[cc,h]: Fixed doulbe click
@@ -21,6 +21,7 @@
 	
 	* Makefile.am: Installs destop file properly.
 	* configure.in: Bumped version to 1.1.97 (RC1 for 1.2.0 stable).
+	* NEWS: Updated for 1.1.97 release.
 	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
