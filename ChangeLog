@@ -1,3 +1,14 @@
+2002-02-12  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	*src/message-manager-private.cc:
+	The horizontal scrollbar now shows properly on demand.
+	
+2002-02-08  Johannes Schmid <clubfan@users.sourceforge.net>
+	* src/dnd.c fixed some warnings
+	* src/message-manager-private.cc: Horizontal scrollbar is now shown and 
+	works. It is shown always at the moment but before it was shown 
+	on demand and did never work. 
+
 2002-02-07  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c: Fixed a crash bug.

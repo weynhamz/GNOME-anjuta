@@ -129,16 +129,16 @@ AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type
 {
 	g_return_if_fail(p_amm != NULL);
 
-	m_msg_list = gtk_clist_new(1);
-	gtk_widget_show(m_msg_list);
-	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
-	
 	m_scrolled_win = gtk_scrolled_window_new(NULL, NULL);
 	gtk_widget_show(m_scrolled_win);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(m_scrolled_win),
-						      GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
+	m_msg_list = gtk_clist_new(1);
 	gtk_container_add(GTK_CONTAINER(m_scrolled_win), m_msg_list);
+	gtk_widget_show(m_msg_list);
+	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
+	
 	GtkWidget* label = create_label();
 	
 	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), m_scrolled_win, label);
@@ -228,6 +228,7 @@ AnjutaMessageWindow::append_buffer()
 	delete dummy_fn;
 	
 	gtk_clist_thaw(GTK_CLIST(m_msg_list));
+	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
 	if (update_adj) 
 		gtk_adjustment_set_value (adj, adj->upper - adj->page_size);
 }
