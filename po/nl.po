@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-18 19:00+0200\n"
-"PO-Revision-Date: 2004-04-19 21:42+0200\n"
+"PO-Revision-Date: 2004-05-05 18:03+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1131,7 +1131,6 @@ msgid "Save all files"
 msgstr "Alle bestanden opslaan"
 
 #: anjuta.glade.h:273
-#, fuzzy
 msgid "Save files interval in minutes"
 msgstr "Autosave tijdsinterval in minuten"
 
@@ -1266,15 +1265,11 @@ msgid "Standard output:"
 msgstr "Standaarduitvoer:"
 
 #: anjuta.glade.h:306
-#, fuzzy
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
-msgstr ""
-" Start met een nieuw project. De applicatie-"
-"assistent zal u helpen bij het aanmaken van het project. Met de applicatie-"
-"assistent kunt op eenvoudige wijze de kapstok voor diverse typen projecten opbouwen."
+msgstr "Start met een nieuw project. De toepassing-assistent zal u helpen bij het aanmaken van het project. Met de toepassing-assistent kunt op eenvoudige wijze een sjabloon voor verschillende soorten projecten opbouwen."
 
 #: anjuta.glade.h:307
 msgid "Strike-Out"
@@ -1345,19 +1340,17 @@ msgid "Try to save in original encoding"
 msgstr "Probeer op te slaan in originele codering"
 
 #: anjuta.glade.h:324
-#, fuzzy
 msgid "Underline Plain"
-msgstr "Onderstreept"
+msgstr "Onderstrepen normaal"
 
 #: anjuta.glade.h:325
-#, fuzzy
 msgid "Underline Squiggle"
-msgstr "Onderstreept"
+msgstr "Onderstrepen gegolfd"
 
+# wat betekent TT?
 #: anjuta.glade.h:326
-#, fuzzy
 msgid "Underline-TT"
-msgstr "Onderstreept"
+msgstr "Onderstrepen TT"
 
 #: anjuta.glade.h:327
 msgid "Underlined"
@@ -1467,13 +1460,12 @@ msgid "_Execute:"
 msgstr "_Uitvoeren:"
 
 #: anjuta.glade.h:353
-#, fuzzy
 msgid "_Hide paths"
-msgstr "Include paden"
+msgstr "Paden _verbergen"
 
 #: anjuta.glade.h:354
 msgid "_Image editor:"
-msgstr "_Afbeeldings-editor:"
+msgstr "_Afbeelding-editor:"
 
 #: anjuta.glade.h:355
 msgid "_Language:"
@@ -1630,27 +1622,27 @@ msgid "Thai"
 msgstr "Thai"
 
 #: libanjuta/anjuta-encodings.c:702
-#, fuzzy
 msgid "Stock Encodings"
-msgstr "Definities"
+msgstr "Standaard coderingen"
 
+# opdrachtregel?
 #: libanjuta/anjuta-plugin.c:199
-#, fuzzy
 msgid "Anjuta Shell"
-msgstr "Doorzoek de hulp bij Anjuta"
+msgstr "Anjuta shell"
 
 #: libanjuta/anjuta-plugin.c:200
 msgid "Anjuta shell that will contain the tool"
-msgstr ""
+msgstr "Anjuta shell die het werktuig zla bevatten"
 
+# gebruikersinterface
+# grafische bediening
 #: libanjuta/anjuta-plugin.c:207
-#, fuzzy
 msgid "Anjuta UI"
-msgstr "Anjuta IDE"
+msgstr "Anjuta UI"
 
 #: libanjuta/anjuta-plugin.c:208
 msgid "Anjuta UI that will contain Menus and toolbars"
-msgstr ""
+msgstr "Anjuta UI dat de menus en werkbalken zal bevatten"
 
 #: libanjuta/anjuta-plugin.c:215 libanjuta/anjuta-preferences.c:1096
 msgid "Anjuta Preferences"
@@ -1658,16 +1650,15 @@ msgstr "Anjuta voorkeuren"
 
 #: libanjuta/anjuta-plugin.c:216
 msgid "Anjuta preferences that will contain preferences"
-msgstr ""
+msgstr "Anjuta voorkeuren die de voorkeuren zal bevatten"
 
 #: libanjuta/anjuta-preferences-dialog.c:127
 msgid "Category"
 msgstr "Categorie"
 
 #: libanjuta/anjuta-preferences-dialog.c:227
-#, fuzzy
 msgid "Anjuta Preferences Dialog"
-msgstr "Instellingen"
+msgstr "Anjuta voorkeuren dialoogvenster"
 
 #: libanjuta/anjuta-preferences.c:697
 msgid ""
@@ -1677,10 +1668,10 @@ msgstr ""
 "Weet u zeker dat de instellingen wilt resetten naar\n"
 "hun fabrieksinstellingen?"
 
+# Herstellen?
 #: libanjuta/anjuta-preferences.c:701
-#, fuzzy
 msgid "_Reset"
-msgstr "Registers"
+msgstr "_Resetten"
 
 #: libanjuta/anjuta-preferences.c:970
 #, c-format
@@ -1701,10 +1692,10 @@ msgstr "Actie"
 msgid "Visible"
 msgstr "Zichtbaar"
 
+# hoofdlettergevoelig?
 #: libanjuta/anjuta-ui.c:326 libegg/egg-action.c:150
-#, fuzzy
 msgid "Sensitive"
-msgstr "Hoofdlettergevoelig"
+msgstr "Gevoelig"
 
 #: libanjuta/anjuta-ui.c:335
 msgid "Shortcut"
@@ -1713,9 +1704,8 @@ msgstr "Snelkoppeling"
 # gebruikers interface
 # bediening
 #: libanjuta/anjuta-ui.c:436
-#, fuzzy
 msgid "Anjuta User Interface"
-msgstr "Doorzoek de hulp bij Anjuta"
+msgstr "Anjuta gebruikersinterface"
 
 #: libanjuta/anjuta-utils.c:54 src/utilities.c:697
 #, c-format
@@ -1749,9 +1739,8 @@ msgid "Unable to create file: %s."
 msgstr "Kan bestand %s niet aanmaken."
 
 #: libanjuta/anjuta-utils.c:100 src/utilities.c:739
-#, fuzzy
 msgid "Unable to complete file copy"
-msgstr "Kon kopieeren bestand niet afronden"
+msgstr "Kon kopiëren van bestand niet voltooien"
 
 #: libanjuta/anjuta-utils.c:291
 msgid ""
@@ -1762,13 +1751,13 @@ msgstr ""
 "Systeem: "
 
 #: libanjuta/anjuta-utils.c:341
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
 "U heeft \"%s\" niet geinstalleerd op uw computer.\n"
-"Installeer het en herstart Anjuta."
+"Installeer het alstublieft."
 
 #: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:109
 #: libegg/test-actions.c:130
@@ -1986,7 +1975,7 @@ msgstr "Naam"
 
 #: libegg/egg-action.c:115
 msgid "A unique name for the action."
-msgstr ""
+msgstr "Een unieke naam voor de actie."
 
 #: libegg/egg-action.c:122 libegg/eggtoolbutton.c:137
 msgid "Label"
@@ -1994,42 +1983,39 @@ msgstr "Label"
 
 #: libegg/egg-action.c:123
 msgid "The label used for menu items and buttons that activate this action."
-msgstr ""
+msgstr "Het label dat gebruikt wordt voor menu-items en knoppen die deze acite activeren."
 
 #: libegg/egg-action.c:129
 msgid "Short label"
-msgstr ""
+msgstr "Kort label"
 
 #: libegg/egg-action.c:130
 msgid "A shorter label that may be used on toolbar buttons."
-msgstr ""
+msgstr "Een korter label dat op de werkbalk-knoppen kan worden gebruikt."
 
 #: libegg/egg-action.c:136
 msgid "Tooltip"
 msgstr "Tooltip"
 
 #: libegg/egg-action.c:137
-#, fuzzy
 msgid "A tooltip for this action."
-msgstr "Toont de tip om de functie aan te roepen"
+msgstr "Een tooltip voor deze actie."
 
 #: libegg/egg-action.c:143
-#, fuzzy
 msgid "Stock Icon"
-msgstr "Definities"
+msgstr "Standaard pictogram"
 
 #: libegg/egg-action.c:144
 msgid "The stock icon displayed in widgets representing this action."
 msgstr ""
 
 #: libegg/egg-action.c:151
-#, fuzzy
 msgid "Whether the action is enabled."
-msgstr "Geef de naam van het declaratiebestand."
+msgstr "Of de actie is aangezet."
 
 #: libegg/egg-action.c:159
 msgid "Whether the action is visible."
-msgstr ""
+msgstr "Of de actie zichtbaar is."
 
 #: libegg/egg-dock-item.c:243 libegg/eggtoolbar.c:364
 msgid "Orientation"
@@ -2097,13 +2083,11 @@ msgid "Preferred height for the dock item"
 msgstr "Gewenste hoogte van het aangekoppelde item"
 
 #: libegg/egg-dock-item.c:547
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a EggDock or "
 "some other compound dock object."
-msgstr ""
-" U kunt een aangekoppeld object (%p van type %s) niet toevoegen aan een %s. "
-"Gebruik GdlDock of een ander samengesteld aangekoppeld object."
+msgstr " U kunt een aangekoppeld object (%p van type %s) niet toevoegen binnnen een %s. Gebruik een EggDock of een ander samengesteld aangekoppeld object."
 
 #: libegg/egg-dock-item.c:554
 #, c-format
@@ -2141,9 +2125,8 @@ msgid "Master"
 msgstr "Meester"
 
 #: libegg/egg-dock-layout.c:126
-#, fuzzy
 msgid "EggDockMaster object which the layout object is attached to"
-msgstr "GdlDockMaster-object waaraan het layout-object is gebonden"
+msgstr "EggDockMaster-object waaraan het layout-object is gebonden"
 
 #: libegg/egg-dock-layout.c:133
 msgid "Dirty"
@@ -2256,13 +2239,11 @@ msgid "Dock master this dock object is bound to"
 msgstr "Meester aan welke dit object is gebonden"
 
 #: libegg/egg-dock-object.c:406
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Call to egg_dock_object_dock in a dock object %p (object type is %s) which "
 "hasn't implemented this method"
-msgstr ""
-"Aanroep naar gdl_dock_object_dock ine en dok-object %p (object-type is %s) "
-"welke deze methode niet heeft geïmplementeerd"
+msgstr "Aanroep naar egg_dock_object_dock in een dok-object %p (object-type is %s) welke deze methode niet heeft geïmplementeerd"
 
 #: libegg/egg-dock-object.c:535
 #, c-format
@@ -2316,9 +2297,8 @@ msgid "The dock object this placeholder is attached to"
 msgstr "Het aangekoppelde object waaraan deze plaatshouder is gebonden"
 
 #: libegg/egg-dock-placeholder.c:141
-#, fuzzy
 msgid "Next placement"
-msgstr "Volgende boodschap"
+msgstr "Volgende plaatsing"
 
 #: libegg/egg-dock-placeholder.c:142
 msgid ""
@@ -2406,27 +2386,26 @@ msgid "Dock #%d"
 msgstr "Dok #%d"
 
 #: libegg/egg-entry-action.c:110
-#, fuzzy
 msgid "Text in the entry"
-msgstr "Weer te geven tekst"
+msgstr "Tekst in het invoerveld"
 
 #: libegg/egg-entry-action.c:118
 msgid "Width of the entry."
-msgstr ""
+msgstr "Breedte van het invoerveld."
 
 #: libegg/egg-markup.c:268 libegg/egg-menu-merge.c:599
 #, c-format
 msgid "Unknown attribute '%s' on line %d char %d"
-msgstr ""
+msgstr "Onbekend attribuut '%s' op regel %d teken %d"
 
 #: libegg/egg-markup.c:275 libegg/egg-menu-merge.c:606
 #, c-format
 msgid "Unknown tag '%s' on line %d char %d"
-msgstr ""
+msgstr "Onbekende tag '%s' op regel %d teken %d"
 
 #: libegg/eggcellrendererkeys.c:160 libegg/eggcellrendererkeys.c:161
 msgid "Accelerator key"
-msgstr ""
+msgstr "Sneltoets"
 
 #: libegg/eggcellrendererkeys.c:170 libegg/eggcellrendererkeys.c:171
 msgid "Accelerator modifiers"
@@ -2438,7 +2417,7 @@ msgstr ""
 
 #: libegg/eggcellrendererkeys.c:181
 msgid "The type of accelerator."
-msgstr ""
+msgstr "Het type sneltoets."
 
 #: libegg/eggcellrendererkeys.c:219
 msgid "Disabled"
@@ -2446,11 +2425,11 @@ msgstr "Uitgeschakeld"
 
 #: libegg/eggcellrendererkeys.c:330 libegg/eggcellrendererkeys.c:564
 msgid "Type a new accelerator, or press Backspace to clear"
-msgstr ""
+msgstr "Typ een nieuwe sneltoets of toets op Backspace om te wissen"
 
 #: libegg/eggcellrendererkeys.c:567
 msgid "Type a new accelerator"
-msgstr ""
+msgstr "Typ een nieuwe sneltoets"
 
 #: libegg/eggtoolbar.c:365
 msgid "The orientation of the toolbar"
@@ -2461,35 +2440,32 @@ msgid "Toolbar Style"
 msgstr "Werkbalkstijl"
 
 #: libegg/eggtoolbar.c:374
-#, fuzzy
 msgid "How to draw the toolbar"
-msgstr "Werkbalk lokoppelen"
+msgstr "Hoe de werkbalk moet worden weergegeven"
 
 #: libegg/eggtoolbar.c:381
-#, fuzzy
 msgid "Show Arrow"
-msgstr "Toon aanroeptip"
+msgstr "Pijl tonen"
 
 #: libegg/eggtoolbar.c:382
 msgid "If an arrow should be shown if the toolbar doesn't fit"
-msgstr ""
+msgstr "Of een pijl wordt getoond als de werkbalk niet past"
 
 #: libegg/eggtoolbar.c:390
-#, fuzzy
 msgid "Expand"
-msgstr "Eind"
+msgstr "Verbreden"
 
 #: libegg/eggtoolbar.c:391
 msgid "Whether the item should receive extra space when the toolbar grows"
-msgstr ""
+msgstr "Of een item extra ruimte krijgt als de werkbalk groter wordt"
 
 #: libegg/eggtoolbar.c:398
 msgid "Homogeneous"
-msgstr ""
+msgstr "Homogeen"
 
 #: libegg/eggtoolbar.c:399
 msgid "Whether the item should be the same size as other homogeneous items"
-msgstr ""
+msgstr "Of het item dezelfde afmeting moet hebben als andere homogene items"
 
 #: libegg/eggtoolbar.c:406
 msgid "Pack End"
@@ -2500,48 +2476,44 @@ msgid "Whether the item is positioned at the end of the toolbar"
 msgstr ""
 
 #: libegg/eggtoolbar.c:414
-#, fuzzy
 msgid "Spacer size"
-msgstr "Pictogramafmeting"
+msgstr "'Spacer' grootte"
 
 #: libegg/eggtoolbar.c:415
-#, fuzzy
 msgid "Size of spacers"
-msgstr "Tabgrootte in spaties:"
+msgstr "De afmetingen van 'spacers'"
 
 #: libegg/eggtoolbar.c:423
 msgid "Internal padding"
-msgstr ""
+msgstr "Interne opvulling"
 
 #: libegg/eggtoolbar.c:424
 msgid "Amount of border space between the toolbar shadow and the buttons"
 msgstr ""
 
 #: libegg/eggtoolbar.c:432
-#, fuzzy
 msgid "Space style"
-msgstr "Manier van zoeken"
+msgstr "'Spacer' stijl"
 
 #: libegg/eggtoolbar.c:433
 msgid "Whether spacers are vertical lines or just blank"
-msgstr ""
+msgstr "Of 'spacers' verticale lijnen zijn of gewoon blanco"
 
 #: libegg/eggtoolbar.c:440
 msgid "Button relief"
-msgstr ""
+msgstr "Knopreliëf"
 
 #: libegg/eggtoolbar.c:441
 msgid "Type of bevel around toolbar buttons"
-msgstr ""
+msgstr "Soort rand rondom werkbalkknoppen"
 
 #: libegg/eggtoolbar.c:447
-#, fuzzy
 msgid "Shadow type"
-msgstr "Manier van zoeken"
+msgstr "Schaduwtype"
 
 #: libegg/eggtoolbar.c:448
 msgid "Style of bevel around the toolbar"
-msgstr ""
+msgstr "Stijl van de rand rond de werkbalk"
 
 #: libegg/eggtoolbar.c:454
 msgid "Toolbar style"
@@ -2550,25 +2522,23 @@ msgstr "Werkbalkstijl"
 #: libegg/eggtoolbar.c:455
 msgid ""
 "Whether default toolbars have text only, text and icons, icons only, etc."
-msgstr ""
+msgstr "Of standaard werkbalken alleen tekst tonen, tekst en pictogrammen, alleen pictogrammen, enz."
 
 #: libegg/eggtoolbar.c:461
-#, fuzzy
 msgid "Toolbar icon size"
-msgstr "Pictogramafmeting"
+msgstr "Grootte van werkbalkpictogram"
 
 #: libegg/eggtoolbar.c:462
 msgid "Size of icons in default toolbars"
-msgstr ""
+msgstr "Grootte van pictogrammen in standaard werkbalken"
 
 #: libegg/eggtoolbutton.c:138
 msgid "Text to show in the item."
 msgstr ""
 
 #: libegg/eggtoolbutton.c:144
-#, fuzzy
 msgid "Use underline"
-msgstr "Onderstreept"
+msgstr "Onderstreept gebruiken"
 
 #: libegg/eggtoolbutton.c:145
 msgid "Interpret underlines in the item label"
@@ -2576,20 +2546,19 @@ msgstr ""
 
 #: libegg/eggtoolbutton.c:151
 msgid "Label widget"
-msgstr ""
+msgstr "Label widget"
 
 #: libegg/eggtoolbutton.c:152
 msgid "Widget to use as the item label"
 msgstr ""
 
 #: libegg/eggtoolbutton.c:158
-#, fuzzy
 msgid "Stock Id"
-msgstr "Voorraad"
+msgstr "Standaard Id"
 
 #: libegg/eggtoolbutton.c:159
 msgid "The stock icon displayed on the item"
-msgstr ""
+msgstr "Het standaard pictogram dat op het item wordt getoond"
 
 #: libegg/eggtoolbutton.c:165
 msgid "Icon set"
@@ -2597,12 +2566,11 @@ msgstr "Pictogramverzameling"
 
 #: libegg/eggtoolbutton.c:166
 msgid "Icon set to use to draw the item's icon"
-msgstr ""
+msgstr "Te gebruiken pictogramverzameling voor het pictogram van het item"
 
 #: libegg/eggtoolbutton.c:172
-#, fuzzy
 msgid "Icon widget"
-msgstr "Pictogramafmeting"
+msgstr "Pictogram widget"
 
 #: libegg/eggtoolbutton.c:173
 msgid "Icon widget to display in the item"
@@ -2645,68 +2613,68 @@ msgid "The virtual root (relative to the child model) for this filtermodel"
 msgstr ""
 
 #: libegg/eggtreeviewstate.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "Line %d character %d: %s"
-msgstr "_Regeleinde karakters"
+msgstr "Regel %d teken %d: %s"
 
+# ontleden
 #: libegg/eggtreeviewstate.c:109
 #, c-format
 msgid "Could not parse \"%s\" as an integer"
-msgstr ""
+msgstr "Kon \"%s\" niet als een geheel getal verwerken"
 
 #: libegg/eggtreeviewstate.c:118
 #, c-format
 msgid "Did not understand trailing characters \"%s\" in string \"%s\""
-msgstr ""
+msgstr "Kon de laatste tekens \"%s\" in de tekenreeks \"%s\" niet begrijpen"
 
 #: libegg/eggtreeviewstate.c:127
 #, c-format
 msgid "Integer %ld must be positive"
-msgstr ""
+msgstr "Geheel getal %ld moet positief zijn"
 
 #: libegg/eggtreeviewstate.c:135
 #, c-format
 msgid "Integer %ld is too large, current max is %d"
-msgstr ""
+msgstr "Geheel getal %ld is te groot, huidig maximum is %d"
 
 #: libegg/eggtreeviewstate.c:181
 #, c-format
 msgid "Boolean values must be \"true\" or \"false\" not \"%s\""
-msgstr ""
+msgstr "Boolese waarden moeten zijn: \"waar\" of \"onwaar\" en niet \"%s\""
 
 #: libegg/eggtreeviewstate.c:204
-#, fuzzy, c-format
+#, c-format
 msgid "The value \"%s\" is not part of the enum \"%s\""
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
+msgstr "De waarde \"%s\" is geen deel van de 'enum' \"%s\""
 
 #: libegg/eggtreeviewstate.c:234
 #, c-format
 msgid "The type \"%s\" can't be parsed from a string"
-msgstr ""
+msgstr "Het type \"%s\" kan niet worden ontleed uit een tekenreeks"
 
 #: libegg/eggtreeviewstate.c:255
 #, c-format
 msgid "The property \"%s\" does not exist"
-msgstr ""
+msgstr "De eigenschap \"%s\" bestaat niet"
 
 #: libegg/eggtreeviewstate.c:310
 msgid "The type attribute can only be specified once."
-msgstr ""
+msgstr "Het type attribuut kan slechts één keer worden gespecificeerd."
 
 #: libegg/eggtreeviewstate.c:319
-#, fuzzy, c-format
+#, c-format
 msgid "The type \"%s\" is not a valid type."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
+msgstr "Het type \"%s\" is geen geldig type."
 
 #: libegg/eggtreeviewstate.c:327
-#, fuzzy, c-format
+#, c-format
 msgid "The type \"%s\" is not a cell renderer type."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
+msgstr "Het type \"%s\" is geen cel-renderer type."
 
 #: libegg/eggtreeviewstate.c:339
-#, fuzzy
 msgid "No type attribute specified."
-msgstr "Geen uitvoerbaar bestand gespecificeerd\n"
+msgstr "Geen type attribuut aangegeven."
 
 #: libegg/eggtreeviewstate.c:457
 #, c-format
@@ -2756,17 +2724,14 @@ msgstr "Menu _1"
 msgid "Menu _2"
 msgstr "Menu _2"
 
-# Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Knip
 #: libegg/test-actions.c:93 plugins/editor/plugin.c:261
 msgid "C_ut"
 msgstr "K_nippen"
 
 #: libegg/test-actions.c:94
-#, fuzzy
 msgid "Cut the selected text to the clipboard"
-msgstr "De geselecteerde tekst naar het klembord kopiÃ«ren"
+msgstr "De geselecteerde tekst naar het klembord wegknippen"
 
-# Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Kopieer
 #: libegg/test-actions.c:96 plugins/editor/plugin.c:264
 msgid "_Copy"
 msgstr "_Kopiëren"
@@ -2781,18 +2746,16 @@ msgid "_Paste"
 msgstr "_Plakken"
 
 #: libegg/test-actions.c:100
-#, fuzzy
 msgid "Paste the text from the clipboard"
-msgstr "Plakken vanuit klembord"
+msgstr "De tekst plakken vanuit klembord"
 
 #: libegg/test-actions.c:102
 msgid "_Bold"
 msgstr "_Vet"
 
 #: libegg/test-actions.c:103
-#, fuzzy
 msgid "Change to bold face"
-msgstr "Item aanpassen"
+msgstr "Omzetten naar vet lettertype"
 
 #: libegg/test-actions.c:106
 msgid "_Left"
@@ -2800,16 +2763,15 @@ msgstr "_Links"
 
 #: libegg/test-actions.c:107 libegg/test-merge.c:101
 msgid "Left justify the text"
-msgstr ""
+msgstr "De tekst links uitlijnen"
 
 #: libegg/test-actions.c:109
-#, fuzzy
 msgid "C_enter"
-msgstr "_Wissen"
+msgstr "_Centreren"
 
 #: libegg/test-actions.c:110 libegg/test-merge.c:104
 msgid "Center justify the text"
-msgstr ""
+msgstr "De tekst centreren"
 
 #: libegg/test-actions.c:112
 msgid "_Right"
@@ -2817,7 +2779,7 @@ msgstr "_Rechts"
 
 #: libegg/test-actions.c:113 libegg/test-merge.c:107
 msgid "Right justify the text"
-msgstr ""
+msgstr "De tekst rechts uitlijnen"
 
 #: libegg/test-actions.c:115
 msgid "_Fill"
@@ -2825,29 +2787,27 @@ msgstr "_Vullen"
 
 #: libegg/test-actions.c:116 libegg/test-merge.c:110
 msgid "Fill justify the text"
-msgstr ""
+msgstr "De tekst uitvullen"
 
 #: libegg/test-actions.c:119
 msgid "Quit the application"
-msgstr ""
+msgstr "De toepassing sluiten"
 
 #: libegg/test-actions.c:121
 msgid "Enable Cut/Copy/Paste"
-msgstr ""
+msgstr "Knippen/Kopiëren/Plakken mogelijk maken"
 
 #: libegg/test-actions.c:122
 msgid "Change the sensitivity of the cut, copy and paste actions"
-msgstr ""
+msgstr "De gevoeligheid van de acities knippen, kopiëren en plakken aanpassen"
 
 #: libegg/test-actions.c:124
-#, fuzzy
 msgid "Customise _Accels"
-msgstr "Aanpassen"
+msgstr "S_neltoetsen aanpassen"
 
 #: libegg/test-actions.c:125
-#, fuzzy
 msgid "Customise keyboard shortcuts"
-msgstr "Snelkoppelingen _aanpassen"
+msgstr "Snelkoppelingen aanpassen"
 
 #: libegg/test-actions.c:127
 msgid "Icons"
@@ -2859,7 +2819,7 @@ msgstr "Beide"
 
 #: libegg/test-actions.c:136
 msgid "Both Horizontal"
-msgstr ""
+msgstr "Beide horizontaal"
 
 #: libegg/test-actions.c:139
 msgid "Small Icons"
@@ -2881,39 +2841,34 @@ msgstr "_Hulp"
 msgid "Test"
 msgstr "Test"
 
-# Marc says: I did not translate because it would change the wellthought hotkeys. The dutch word is Knip
 #: libegg/test-merge.c:112 src/anjuta-actions.h:104
-#, fuzzy
 msgid "_About"
-msgstr "K_nippen"
+msgstr "In_fo"
 
 #: libegg/test-merge.c:437
-#, fuzzy
 msgid "line entry"
-msgstr "ChangeLog onderdeel"
+msgstr "regel invoer"
 
+# voer het regelnummer in
 #: libegg/test-merge.c:438
-#, fuzzy
 msgid "Enter the line number"
-msgstr "Voer het regelnummer in waar naar toegegaan moet worden"
+msgstr "Het regelnummer invoeren"
 
 #: libegg/test-merge.c:450
 msgid "combo"
-msgstr ""
+msgstr "combo"
 
 #: libegg/test-merge.c:451
 msgid "line number"
-msgstr "Regelnummer"
+msgstr "regelnummer"
 
 #: plugins/build/build_file.c:48
-#, fuzzy
 msgid "This file has not been saved. Save it first and then build."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst en compileer dan."
+msgstr "Dit bestand is niet opgeslagen. Sla het eerst op en bouw daarna."
 
 #: plugins/build/build_file.c:73
-#, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "Het doelbestand is al bijgewerkt. Geen reden om opnieuw te bouwen."
+msgstr "Het uitvoerbare bestand is up-to-date, er is geen reden om opnieuw te bouwen."
 
 #: plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
@@ -2926,34 +2881,29 @@ msgstr "Bouwen van bestand: %s ...\n"
 
 #: plugins/build/build_file.c:132 plugins/cvs-plugin/cvs.c:776
 #: plugins/project-manager/project_import.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "Total time taken: %lu secs\n"
-msgstr "Totale bouwtijd: %d seconden\n"
+msgstr "Totale verlopen tijd: %lu seconden\n"
 
 #: plugins/build/build_file.c:136
-#, fuzzy
 msgid "Completed ... unsuccessful\n"
-msgstr "Bouwen compleet ...niet succesvol\n"
+msgstr "Voltooid ... niet succesvol\n"
 
 #: plugins/build/build_file.c:140
-#, fuzzy
 msgid "Completed ... unsuccessful"
-msgstr "Compileer compleet ... niet succesvol"
+msgstr "Voltooid ... niet succesvol"
 
 #: plugins/build/build_file.c:145
-#, fuzzy
 msgid "Completed ... successful\n"
-msgstr "Bouwen compleet ... succesvol\n"
+msgstr "Voltooid ... succesvol\n"
 
 #: plugins/build/build_file.c:149
-#, fuzzy
 msgid "Completed ... successful"
-msgstr "Compileer compleet ... succesvol"
+msgstr "Voltooid ... succesvol"
 
 #: plugins/build/build_project.c:76 plugins/build/compile.c:61
-#, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "Kan module niet bouwen. Controleer Instellingen->Commando."
+msgstr "Kan module niet bouwen. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/build_project.c:95 plugins/build/build_project.c:160
 #: plugins/build/compile.c:74
@@ -2962,22 +2912,19 @@ msgstr "Bouw project"
 
 #: plugins/build/build_project.c:97 plugins/build/compile.c:76
 msgid "Building source directory of the Project: "
-msgstr "Bouwen bronmap van het project:"
+msgstr "Bouwen bronmap van het project: "
 
 #: plugins/build/build_project.c:145
-#, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
+msgstr "Kan project niet bouwen. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/build_project.c:163
 msgid "Building the whole Project: "
-msgstr "Bouw het hele project: "
+msgstr "Het hele project bouwen: "
 
 #: plugins/build/build_project.c:196
-#, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr ""
-"Niet in staat om een tarball te bouwen. Controleer Instellingen->Commando."
+msgstr "Niet in staat om een tarball te bouwen. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/build_project.c:211
 msgid "Build Distribution"
@@ -2992,45 +2939,43 @@ msgid "Do you prefer installing as root ?"
 msgstr "Wilt u liever als supergebruiker (root) installeren?"
 
 #: plugins/build/build_project.c:285
-#, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
-msgstr "Kan niet automatisch genereren. Controleer Instellingen->Commando."
+msgstr "Kan niet automatisch genereren. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/build_project.c:299
-#, fuzzy
 msgid "Auto generate Project"
-msgstr "Automatische generatie van project: "
+msgstr "Project automatisch genereren"
 
 #: plugins/build/build_project.c:302
 msgid "Auto generating the Project: "
 msgstr "Automatische generatie van project: "
 
 #: plugins/build/build_project.c:324 plugins/build/build_project.c:362
-#, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
+msgstr "Kan het project niet installeren. Controleer Instellingen->Opdrachten. "
 
 #: plugins/build/build_project.c:339 plugins/build/build_project.c:374
 msgid "Install Project"
-msgstr "Installeer project"
+msgstr "Project installeren"
 
 #: plugins/build/build_project.c:341 plugins/build/build_project.c:376
 msgid "Installing the Project: "
 msgstr "Bezig met installeren van project: "
 
+# schonen
 #: plugins/build/clean_project.c:61
-#, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
-msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
+msgstr "Kan het project niet opruimen. Controleer Instellingen->Opdrachten. "
 
+# schonen
 #: plugins/build/clean_project.c:76
 msgid "Clean"
 msgstr "Opruimen"
 
+# schonen
 #: plugins/build/clean_project.c:79
-#, fuzzy
 msgid "Cleaning the source directory of the Project: "
-msgstr "Opruimen van de brondirectory van het project: "
+msgstr "De bronmap van het project opruimen: "
 
 #: plugins/build/clean_project.c:115
 #, fuzzy
@@ -3042,20 +2987,16 @@ msgid "Clean All"
 msgstr "Alles opruimen"
 
 #: plugins/build/clean_project.c:127
-#, fuzzy
 msgid "Cleaning whole of the Project: "
-msgstr "Alles uit het project opruimen: "
+msgstr "Het gehele project opruimen: "
 
 #: plugins/build/compile.c:107
-#, fuzzy
 msgid "This file has not been saved. Save it first and then compile."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst en compileer dan."
+msgstr "Dit bestand is niet opgeslagen. Sla het eerst op compileer daarna."
 
 #: plugins/build/compile.c:128
-#, fuzzy
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr ""
-"Het objectbestand is al bijgewerkt. Geen reden om opnieuw te compileren."
+msgstr "Het objectbestand is al up-to-date. Geen reden om opnieuw te compileren."
 
 #: plugins/build/compile.c:140
 msgid "No compile command has been specified for this type of file."
@@ -3082,9 +3023,8 @@ msgstr ""
 
 #: plugins/build/compiler_options.c:726
 #: plugins/project-manager/src_paths.c:218
-#, fuzzy
 msgid "Do you want to clear the list?"
-msgstr "Weet u zeker dat u de lijst leeg wilt maken?"
+msgstr "Weet u zeker dat u de lijst wilt leegmaken?"
 
 #: plugins/build/compiler_options.c:805 plugins/build/compiler_options.c:881
 #: plugins/build/compiler_options.c:904 plugins/build/compiler_options.c:949
@@ -3093,70 +3033,60 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: plugins/build/compiler_options.c:820
-#, fuzzy
 msgid "Include paths"
-msgstr "Include paden"
+msgstr "'Include'-paden"
 
 #: plugins/build/compiler_options.c:835
-#, fuzzy
 msgid "Libraries paths"
 msgstr "Bibliotheekpaden"
 
 #: plugins/build/compiler_options.c:858
-#, fuzzy
 msgid "Libraries and modules"
-msgstr "Bibliotheken"
+msgstr "Bibliotheken en modules"
 
 #: plugins/build/compiler_options.c:874
 msgid "Stock"
 msgstr "Voorraad"
 
 #: plugins/build/compiler_options.c:919
-#, fuzzy
 msgid "Stock Defines"
-msgstr "Definities"
+msgstr "Voorrad-definities"
 
 #: plugins/build/compiler_options.c:942
 msgid "Warning"
 msgstr "Waarschuwing"
 
 #: plugins/build/configurer.c:158
-#, fuzzy
 msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
 msgstr ""
-"Project heeft geen uitvoerbaar configuratie script.\n"
-"U moet het project eerst automatisch genereren. "
+"Project heeft geen uitvoerbaar configuratiescript.\n"
+"U moet het project eerst automatisch genereren."
 
 #: plugins/build/configurer.c:189 src/toolbar.c:262
 msgid "Configure"
 msgstr "Configureren"
 
 #: plugins/build/configurer.c:191
-#, fuzzy
 msgid "Configuring the Project ....\n"
 msgstr "Configureren van het project ....\n"
 
 #: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
-#, fuzzy
 msgid "The target executable of this Project is unknown"
-msgstr "Doelbestand van dit project is onbekend"
+msgstr "Het uitvoerbare doelbestand van dit project is onbekend"
 
 #: plugins/build/executer.c:59 src/mainmenu_callbacks.c:515
-#, fuzzy
 msgid "The target executable of this Project is not executable"
-msgstr "Doelbestand van dit project is niet uitvoerbaar"
+msgstr "Het doelbestand van dit project is niet uitvoerbaar"
 
 #: plugins/build/executer.c:64 src/mainmenu_callbacks.c:519
-#, fuzzy
 msgid "The target executable does not exist for this Project"
-msgstr "Uitvoerbaar bestand bestaat niet voor dit project. "
+msgstr "Het uitvoerbare doelbestand bestaat niet voor dit project"
 
 #: plugins/build/executer.c:77
-#, fuzzy
 msgid "No file or Project opened."
-msgstr "Geen bestand of project geopend. "
+msgstr "Geen bestand of project geopend."
 
 #: plugins/build/executer.c:82 plugins/build/executer.c:101
 #: src/mainmenu_callbacks.c:539 src/mainmenu_callbacks.c:550
@@ -3168,14 +3098,12 @@ msgid "Executable is not up-to-date."
 msgstr "Uitvoerbaar bestand is niet up-to-date."
 
 #: plugins/build/executer.c:118
-#, fuzzy
 msgid "Unable to execute Project. Check Settings->Commands."
-msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
+msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/executer.c:132
-#, fuzzy
 msgid "This file has not been saved. Save it first."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
+msgstr "Dit bestand is niet opgeslagen. Sla het eerst op."
 
 #: plugins/build/executer.c:140
 msgid "Unable to execute file. Check Settings->Commands."
@@ -3354,26 +3282,26 @@ msgstr "GTK+ klasse"
 msgid "Select the type of class you would like to create."
 msgstr "Selecteer het type klasse dat u wilt ontwikkelen."
 
+# bijwerken
 #: plugins/cvs-plugin/cvs.c:262
-#, fuzzy
 msgid "CVS Updating "
-msgstr "Bijwerken bestand:"
+msgstr "CVS updaten "
 
 #: plugins/cvs-plugin/cvs.c:312
 msgid "CVS Committing "
-msgstr "CVS Committen"
+msgstr "CVS committen"
 
 #: plugins/cvs-plugin/cvs.c:373
 msgid "CVS Importing...\n"
-msgstr "CVS Importeren...\n"
+msgstr "CVS importeren...\n"
 
 #: plugins/cvs-plugin/cvs.c:413
 msgid "CVS Adding "
-msgstr "CVS Toevoegen "
+msgstr "CVS toevoegen "
 
 #: plugins/cvs-plugin/cvs.c:445
 msgid "CVS Removing "
-msgstr "CVS Verwijderen "
+msgstr "CVS verwijderen "
 
 #: plugins/cvs-plugin/cvs.c:486
 msgid "Getting CVS status "
@@ -3390,11 +3318,11 @@ msgstr "Ophalen van CVS-logboek"
 
 #: plugins/cvs-plugin/cvs.c:620
 msgid "CVS diffing "
-msgstr "CVS Verschillen opzoeken"
+msgstr "CVS verschillen opzoeken"
 
 #: plugins/cvs-plugin/cvs.c:667
 msgid "CVS login "
-msgstr "CVS Aanmelden"
+msgstr "CVS aanmelden"
 
 #: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
 #, fuzzy
@@ -3563,9 +3491,8 @@ msgid "Directory on the server: "
 msgstr "Map op de server: "
 
 #: plugins/cvs-plugin/cvs_gui.c:427
-#, fuzzy
 msgid "CVS: Import Project"
-msgstr "Sluit project"
+msgstr "CVS: project importeren"
 
 #: plugins/cvs-plugin/cvs_gui.c:431
 msgid "Import"
@@ -3900,7 +3827,7 @@ msgstr "Kon geen gebruikersinterface maken voor Memory\n"
 
 #: plugins/debugger/memory.c:410
 msgid "Enter a Hexa address or Select one in the data"
-msgstr ""
+msgstr "Voer een Hexa adres in of selecteer er een in de data"
 
 #: plugins/debugger/memory.c:417
 msgid "Non accessible address !"
@@ -4447,18 +4374,16 @@ msgid "Insert name of current user"
 msgstr "Naam van huidige gebruiker invoegen"
 
 #: plugins/editor/plugin.c:133
-#, fuzzy
 msgid "Current _Date & Time"
-msgstr "Huidige Datum & Tijd"
+msgstr "Huidige _Datum & Tijd"
 
 #: plugins/editor/plugin.c:134
 msgid "Insert current date & time"
 msgstr "Huidige datum & tijd invoegen"
 
 #: plugins/editor/plugin.c:136
-#, fuzzy
 msgid "Header File _Template"
-msgstr "Sjabloon headerbestand"
+msgstr "Headerbestand _sjabloon"
 
 #: plugins/editor/plugin.c:137
 msgid "Insert a standard header file template"
@@ -4472,9 +4397,10 @@ msgstr "ChangeLog onderdeel"
 msgid "Insert a ChangeLog entry"
 msgstr "Een ChangeLog onderdeel invoeren"
 
+# dit is een programmeerterm, moet niet vertaald worden
 #: plugins/editor/plugin.c:142
 msgid "_switch"
-msgstr ""
+msgstr "_switch"
 
 #: plugins/editor/plugin.c:143
 msgid "Insert a switch template"
@@ -4482,16 +4408,15 @@ msgstr "Een switch-sjabloon invoegen"
 
 #: plugins/editor/plugin.c:145
 msgid "_for"
-msgstr ""
+msgstr "_for"
 
 #: plugins/editor/plugin.c:146
 msgid "Insert a for template"
 msgstr "Een for-sjabloon invoegen"
 
 #: plugins/editor/plugin.c:148
-#, fuzzy
 msgid "_while"
-msgstr "Bestand"
+msgstr "_while"
 
 #: plugins/editor/plugin.c:149
 msgid "Insert a while template"
@@ -4499,7 +4424,7 @@ msgstr "Een while-sjabloon invoegen"
 
 #: plugins/editor/plugin.c:151
 msgid "_if...else"
-msgstr ""
+msgstr "_if...else"
 
 #: plugins/editor/plugin.c:152
 msgid "Insert an if...else template"
@@ -4531,14 +4456,12 @@ msgid "_Id"
 msgstr "_Id"
 
 #: plugins/editor/plugin.c:164
-#, fuzzy
 msgid "Insert the CVS Id keyword (file revision, date, author)"
-msgstr "CVS-ID invoegen (bestand, revisie, datum, auteur)"
+msgstr "Het CVS-Id sleutelwoord invoegen (bestand, revisie, datum, auteur)"
 
 #: plugins/editor/plugin.c:166
-#, fuzzy
 msgid "_Log"
-msgstr "_Aanmelden"
+msgstr "_Loggen"
 
 #: plugins/editor/plugin.c:167
 msgid "Insert the CVS Log keyword (log message)"
@@ -4585,18 +4508,16 @@ msgid "Find _Next"
 msgstr "Vo_lgende zoeken"
 
 #: plugins/editor/plugin.c:186 plugins/editor/plugin.c:190
-#, fuzzy
 msgid "Repeat the last Find command"
-msgstr "Doe de laatste ongedane aktie opnieuw"
+msgstr "De vorige zoekopdracht herhalen"
 
 #: plugins/editor/plugin.c:188
-#, fuzzy
 msgid "Find _Previous"
-msgstr "Vorige zoeken"
+msgstr "Vo_rige zoeken"
 
 #: plugins/editor/plugin.c:192
 msgid "Find and R_eplace ..."
-msgstr "Zoek en V_ervang ..."
+msgstr "Zoeken en V_ervangen ..."
 
 #: plugins/editor/plugin.c:194
 #, fuzzy
@@ -4634,9 +4555,8 @@ msgid "Search for a string in multiple files or directories"
 msgstr "Zoek naar een tekst in meerdere bestanden of directories"
 
 #: plugins/editor/plugin.c:210
-#, fuzzy
 msgid "Co_mment code"
-msgstr "Commentaar:"
+msgstr "Co_mmentaarcode"
 
 #: plugins/editor/plugin.c:211
 #, fuzzy
@@ -4678,9 +4598,8 @@ msgid "Go to a particular line in the editor"
 msgstr "Ga naar een specifieke regel in de tekstverwerker"
 
 #: plugins/editor/plugin.c:227
-#, fuzzy
 msgid "_Line number ..."
-msgstr "_Ga naar regel ..."
+msgstr "_Regelnummer ..."
 
 #: plugins/editor/plugin.c:231
 #, fuzzy
@@ -4692,36 +4611,32 @@ msgid "Go to the matching brace in the editor"
 msgstr "Ga naar naar het bijpassende haakje in de tekstverwerker"
 
 #: plugins/editor/plugin.c:235
-#, fuzzy
 msgid "_Start of block"
-msgstr "_Ga naar begin van blok"
+msgstr "_Begin van blok"
 
 #: plugins/editor/plugin.c:237
 msgid "Go to the start of the current block"
 msgstr "Ga naar het begin van het huidige blok"
 
 #: plugins/editor/plugin.c:239
-#, fuzzy
 msgid "_End of block"
-msgstr "_Ga eind van blok"
+msgstr "_Eind van blok"
 
 #: plugins/editor/plugin.c:241
 msgid "Go to the end of the current block"
-msgstr "Ga naar het eind van het huidig blok"
+msgstr "Ga naar het einde van het huidige blok"
 
 #: plugins/editor/plugin.c:243
-#, fuzzy
 msgid "Ne_xt occurrence"
-msgstr "Volgende overeenkomende"
+msgstr "Vo_lgende overeenkomst"
 
 #: plugins/editor/plugin.c:245
 msgid "Find the next occurrence of current word"
 msgstr "De volgende overeenkomende tekenreeks opzoeken"
 
 #: plugins/editor/plugin.c:247
-#, fuzzy
 msgid "Pre_vious occurrence"
-msgstr "Vorige overeenkomende"
+msgstr "Vo_rige overeenkomst"
 
 #: plugins/editor/plugin.c:249
 msgid "Find the previous occurrence of current word"
@@ -4730,7 +4645,7 @@ msgstr "De vorige overeenkomende tekenreeks opzoeken"
 #. { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL, NULL },
 #: plugins/editor/plugin.c:255
 msgid "U_ndo"
-msgstr "_Ongedaan"
+msgstr "_Ongedaan maken"
 
 #: plugins/editor/plugin.c:256 src/toolbar.c:97
 msgid "Undo the last action"
@@ -4806,28 +4721,27 @@ msgstr "Toon/Verberg code omloop marge"
 
 #: plugins/editor/plugin.c:293
 msgid "_Indentation guides"
-msgstr "_Inspring regels"
+msgstr "_Inspringregels"
 
 #: plugins/editor/plugin.c:294
-#, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr "Toon/Verberg uitspringregels"
+msgstr "Inspringregels tonen/verbergen"
 
 #: plugins/editor/plugin.c:296
 msgid "_White spaces"
-msgstr "_Witregels"
+msgstr "_Spatiëring"
 
 #: plugins/editor/plugin.c:297
 msgid "Show/Hide white spaces"
-msgstr "Toon/Verberg witregels"
+msgstr "Spatiëring tonen/verbergen"
 
 #: plugins/editor/plugin.c:299
 msgid "_Line end characters"
-msgstr "_Regeleinde karakters"
+msgstr "_Regeleinde tekens"
 
 #: plugins/editor/plugin.c:300
 msgid "Show/Hide line end characters"
-msgstr "Toon/Verberg regeleinde karakters"
+msgstr "Regeleindetekens tonen/verbergen"
 
 #: plugins/editor/plugin.c:302
 msgid "Line _wrapping"
@@ -5074,30 +4988,28 @@ msgid "Autoformat the current source file"
 msgstr "Het huidige broncodebestand autmatisch opmaken"
 
 #: plugins/editor/plugin.c:402
-#, fuzzy
 msgid "Autoformat _settings"
-msgstr "Automatisch opmaken  ..."
+msgstr "Autoformaat in_stellingen"
 
 #: plugins/editor/plugin.c:404
-#, fuzzy
 msgid "Autoformat settings"
-msgstr "Automatisch opmaken  ..."
+msgstr "Autoformaat instellingen"
 
 #: plugins/editor/plugin.c:406
 msgid "_Increase Indent"
-msgstr "Verh_oog Inspringen"
+msgstr "_Meer inspringen"
 
 #: plugins/editor/plugin.c:408
 msgid "Increase indentation of line/selection"
-msgstr "Verhoog inspringen van regel/selectie"
+msgstr "Inspringen van regel/selectie vergroten"
 
 #: plugins/editor/plugin.c:410
 msgid "_Decrease Indent"
-msgstr "Verl_aag Inspringen"
+msgstr "Mi_nder Inspringen"
 
 #: plugins/editor/plugin.c:412
 msgid "Decrease indentation of line/selection"
-msgstr "Verlaag inspringen van regel/selectie"
+msgstr "Inspringen van regel/selectie verkleinen"
 
 #: plugins/editor/plugin.c:414
 msgid "_Close All Folds"
@@ -5176,62 +5088,52 @@ msgid "Clear bookmarks"
 msgstr "_Opruimen bladwijzers"
 
 #: plugins/editor/plugin.c:468
-#, fuzzy
 msgid "Editor file operations"
-msgstr "Extra bouw-opties:"
+msgstr "Editor bestandsbewerkingen"
 
 #: plugins/editor/plugin.c:469
-#, fuzzy
 msgid "Editor print operations"
-msgstr "Afdrukopties"
+msgstr "Editr afdrukbewerkingen"
 
 #: plugins/editor/plugin.c:470
-#, fuzzy
 msgid "Editor text transformation"
-msgstr "Projectinformatie"
+msgstr "Editor teksttransformaties"
 
 #: plugins/editor/plugin.c:471
-#, fuzzy
 msgid "Editor text selection"
-msgstr "Fout bij verkrijgen selectie\n"
+msgstr "Editor tekstselectie"
 
 #: plugins/editor/plugin.c:472
-#, fuzzy
 msgid "Editor text insertions"
-msgstr "Fout bij verkrijgen selectie\n"
+msgstr "Editor tekstinvoeging"
 
 #: plugins/editor/plugin.c:473
 msgid "Editor text searching"
-msgstr ""
+msgstr "Editor tekst zoeken"
 
 #: plugins/editor/plugin.c:474
 msgid "Editor code commenting"
-msgstr ""
+msgstr "Editor code becommentariëren"
 
 #: plugins/editor/plugin.c:475
-#, fuzzy
 msgid "Editor navigations"
-msgstr "Editor tabs"
+msgstr "Editor navigeren"
 
 #: plugins/editor/plugin.c:476
-#, fuzzy
 msgid "Editor edit operations"
-msgstr "Afdrukopties"
+msgstr "Editor bewerkingen"
 
 #: plugins/editor/plugin.c:477
-#, fuzzy
 msgid "Editor view settings"
-msgstr "_Instellingen"
+msgstr "Editor beeldinstelingen"
 
 #: plugins/editor/plugin.c:478
-#, fuzzy
 msgid "Editor syntax highlighting styles"
-msgstr "Belichtingsstijl instellingen"
+msgstr "Editor syntax oplichtstijlen"
 
 #: plugins/editor/plugin.c:479
-#, fuzzy
 msgid "Editor text formating"
-msgstr "Fout bij automatisch opmaken ..."
+msgstr "Editor tekstopmaak"
 
 #: plugins/editor/plugin.c:480
 msgid "Editor bookmarks"
@@ -5256,9 +5158,8 @@ msgid "Editor quick navigations"
 msgstr ""
 
 #: plugins/editor/plugin.c:564
-#, fuzzy
 msgid "Documents"
-msgstr "Gehele document"
+msgstr "Documenten"
 
 #: plugins/editor/print.c:484
 msgid "No file to print!"
@@ -5300,14 +5201,14 @@ msgid "Replace All"
 msgstr "Alles vervangen"
 
 #: plugins/editor/search-replace.c:754
-#, fuzzy, c-format
+#, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "Geen overeenkomsten. Zoeken van het het begin van het document?"
+msgstr "De tekst \"%s\" is niet gevonden. Doorgaan met zoeken vanaf het het begin van het document?"
 
 #: plugins/editor/search-replace.c:777
-#, fuzzy, c-format
+#, c-format
 msgid "The match \"%s\" was not found."
-msgstr "De tekst \"%s\" was niet gevonden in de selectie"
+msgstr "De tekst \"%s\" is niet aangetroffen."
 
 #: plugins/editor/search-replace.c:795
 msgid "The maximum number of results has been reached."
@@ -5364,21 +5265,19 @@ msgstr ""
 "Wilt u het opnieuw laden?"
 
 #: plugins/editor/text_editor.c:1471
-#, fuzzy
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr ""
-"Autoformaat is uitgeschakeld. Indien gewenst, aanzetten in Instellingen."
+msgstr "Autoformaat is momenteel uitgeschakeld. U kunt het aanzetten in Voorkeuren."
 
 #: plugins/editor/text_editor.c:1490
-#, fuzzy
 msgid "Error in auto formatting ..."
 msgstr "Fout bij automatisch opmaken ..."
 
+# Anjuta kent geen %s
 #. FIXME: anjuta_set_active ();
 #: plugins/editor/text_editor.c:1506
 #, c-format
 msgid "Anjuta does not know %s!"
-msgstr "Anjuta begrijpt %s niet!"
+msgstr "Anjuta kent %s niet!"
 
 #: plugins/editor/text_editor.c:1524 plugins/launcher/launcher.c:854
 #: src/launcher.c:853
@@ -5386,11 +5285,13 @@ msgid "Cannot execute command shell"
 msgstr "Kan commando schil niet uitvoeren"
 
 #: plugins/editor/text_editor.c:1538
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error in auto formatting ...\n"
 "Details: %s"
-msgstr "Fout bij automatisch opmaken ..."
+msgstr ""
+"Fout bij automatisch opmaken ...\n"
+"Details: %s"
 
 #: plugins/editor/text_editor_cbs.c:108
 #, c-format
@@ -5547,9 +5448,9 @@ msgid "Docked"
 msgstr "Aangemeerd"
 
 #: plugins/file-manager/an_file_view.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open %s in %s"
-msgstr "Kan het bestand %s niet openen\n"
+msgstr "Kan %s niet in %s openen"
 
 #: plugins/file-manager/an_file_view.c:74
 #, c-format
@@ -5566,9 +5467,8 @@ msgstr "Kan gebruikersinterface voor bestandsfilter niet opbouwen"
 
 #. 0
 #: plugins/file-manager/an_file_view.c:355
-#, fuzzy
 msgid "Update file"
-msgstr "Bijwerken bestand:"
+msgstr "Bestand bijwerken"
 
 #: plugins/file-manager/an_file_view.c:356
 msgid "Update current working copy"
@@ -5589,20 +5489,17 @@ msgid "Status of file"
 msgstr "Status van bestand"
 
 #: plugins/file-manager/an_file_view.c:370
-#, fuzzy
 msgid "Print the status of the current file"
-msgstr "Druk het huidige bestand af"
+msgstr "De status van het huidige bestand afdrukken"
 
 #. 3
 #: plugins/file-manager/an_file_view.c:376
-#, fuzzy
 msgid "Get file log"
-msgstr "Open bestand"
+msgstr "Logboek ophalen"
 
 #: plugins/file-manager/an_file_view.c:377
-#, fuzzy
 msgid "Print the CVS log for the current file"
-msgstr "Druk het huidige bestand af"
+msgstr "Het CVS logboek voor het huidige bestand afdrukken"
 
 #. 4
 #: plugins/file-manager/an_file_view.c:383
@@ -5691,7 +5588,7 @@ msgstr "launcher.c: PTY pipe fout!"
 
 #: plugins/launcher/launcher.c:804 src/launcher.c:803
 msgid "launcher.c: Failed to set channel encoding!"
-msgstr ""
+msgstr "launcher.c: Kanaal-codering instellen mislukt!"
 
 #: plugins/message-view/message-view.c:349
 msgid "error:"
@@ -5727,13 +5624,12 @@ msgid "Patch"
 msgstr "Patchen"
 
 #: plugins/patch/patch-plugin.c:110
-#, fuzzy
 msgid "Selected directory to patch"
-msgstr "Selecteer het te verbinden proces:  "
+msgstr "Geselecteerde map voor patchen"
 
 #: plugins/patch/patch-plugin.c:112
 msgid "Selected patch file"
-msgstr "Kies patchbestand"
+msgstr "Geselecteerde patch"
 
 #: plugins/patch/patch-plugin.c:148
 msgid "Patch plugin"
@@ -5785,9 +5681,9 @@ msgstr "Anjuta projectbestanden"
 
 #: plugins/project-manager/project_dbase.c:444
 #: plugins/project-manager/project_dbase.c:462
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load Project: %s"
-msgstr "Kon project %s niet laden"
+msgstr "Kan project %s niet laden"
 
 #: plugins/project-manager/project_dbase.c:455
 #: plugins/project-manager/project_dbase.c:2461
@@ -6771,7 +6667,7 @@ msgstr "Zet _Default Instellingen"
 # Marc says: How did you guys know I don't drink coffee ???
 #: src/anjuta-actions.h:46
 msgid "But I prefer tea."
-msgstr "Maar ik geef de voorkeur aan thee"
+msgstr "Maar ik geef de voorkeur aan thee."
 
 #: src/anjuta-actions.h:48
 msgid "C_ustomize shortcuts"
@@ -6786,17 +6682,18 @@ msgstr "Aan menu-opties gekoppelde sneltoetsen bewerken"
 msgid "Layout manager"
 msgstr "Opmaakbeheer"
 
+# layout: indeling?opmaak?layout
 #: src/anjuta-actions.h:54
 msgid "Manipulate layout manager items"
-msgstr ""
+msgstr "Opmaakbeheer-items manipuleren"
 
 #: src/anjuta-actions.h:56
 msgid "Plugins manager"
-msgstr ""
+msgstr "Plugins beheer"
 
 #: src/anjuta-actions.h:58
 msgid "Manipulate plugins manager items"
-msgstr ""
+msgstr "Pluginbeheer-items manipuleren"
 
 #: src/anjuta-actions.h:64
 msgid "The GNOME API pages"
@@ -6889,11 +6786,11 @@ msgstr "Stuur een vraag voor FAQs"
 
 #: src/anjuta-actions.h:106
 msgid "About Anjuta"
-msgstr ""
+msgstr "Over Anjuta"
 
 #: src/anjuta-app.c:366
 msgid "Value doesn't exist"
-msgstr ""
+msgstr "Waarde bestaat niet"
 
 #: src/anjuta-app.c:687
 #, c-format
@@ -6938,7 +6835,7 @@ msgstr "Kon de voorkeurenmap niet aanmaken\n"
 
 #: src/anjuta_gui.c:108
 msgid "Navigate"
-msgstr ""
+msgstr "Navigeren"
 
 #: src/anjuta_gui.c:137 src/main_menubar.c:383
 msgid "Recent Files    "
@@ -6948,20 +6845,20 @@ msgstr "Recente bestanden   "
 msgid "Information"
 msgstr "Informatie"
 
+# tags?
 #: src/controls.c:210
-#, fuzzy
 msgid "No tags"
-msgstr "Geen waarschuwingen"
+msgstr "Geen tags"
 
 #: src/dnd.c:104
-#, fuzzy, c-format
+#, c-format
 msgid "File %s is not local."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
+msgstr "Bestand %s is niet lokaal."
 
 #: src/dnd.c:112
 #, c-format
 msgid "Invalid filename %s."
-msgstr ""
+msgstr "Ongeldige bestandsnaam %s."
 
 #: src/glade_iface.c:69
 msgid ""
@@ -6970,6 +6867,9 @@ msgid ""
 "gtkmm/gnomemm projects) is not installed.\n"
 "Warning: Your generated project will still be fine, though.\n"
 msgstr ""
+"Waarschuwing: Kan geen c/c++ broncode genereren.\n"
+"Waarschuwing: Dit komt omdat glade (voor gtk/gnome projecten) of glademm (voor gtkmm/gnomemm projecten) niet is geïnstalleerd.\n"
+"Waarschuwing: Uw gegenereerde project zal desondanks toch in orde zijn.\n"
 
 #: src/glade_iface.c:108
 msgid "Cannot fork glade."
@@ -6980,17 +6880,16 @@ msgid "Cannot fork glade--."
 msgstr "Kan glade-- niet forken"
 
 #: src/glade_iface.c:189
-#, fuzzy
 msgid "Cannot fork glade-2."
-msgstr "Kan glade-- niet forken"
+msgstr "Kan glade-2 niet forken"
 
 #: src/main.c:50
 msgid "Specify the size and location of the main window"
-msgstr ""
+msgstr "Specificeer de afmeting en lokatie van het hoofdvenster"
 
 #: src/main.c:51
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
-msgstr ""
+msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: src/main.c:56 src/main.cpp:51
 msgid "Do not show the splashscreen"
