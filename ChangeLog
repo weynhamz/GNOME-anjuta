@@ -1,3 +1,10 @@
+2001-12-24  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* global-tags/.cvsignore
+	tagmanager/.cvsignore
+	tagmanager/include/.cvsignore:
+	Added cvs ignore files.
+	
 2001-12-23	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/debugger.c, src/text_editor.c, src/anjuta.c, 
