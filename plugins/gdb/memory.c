@@ -216,7 +216,7 @@ init_event_memory (MemApp *memapp)
 	gtk_signal_connect (GTK_OBJECT (memapp->button_inspect), "clicked",
 						GTK_SIGNAL_FUNC (on_button_inspect_clicked), memapp);
 	gtk_signal_connect (GTK_OBJECT (memapp->button_quit), "clicked",
-						GTK_SIGNAL_FUNC (on_button_quit_clicked), memapp);
+						GTK_SIGNAL_FUNC (on_button_quit_clicked), memapp);	
 	gtk_signal_connect (GTK_OBJECT (memapp->adr_entry), "insert_text",
 						GTK_SIGNAL_FUNC (on_adr_entry_insert_text), NULL);
 	gtk_signal_connect (GTK_OBJECT (memapp->dialog), "destroy",
@@ -616,6 +616,11 @@ static gboolean
 on_text1_key_press_event (GtkWidget *widget, GdkEventKey *event,
 						  MemApp *memapp)
 {
+	if (event->keyval == GDK_Escape)
+	{
+		gtk_widget_destroy (memapp->dialog);
+		return TRUE;
+	}
 	switch (event->keyval & 0xff)
 	{
 	case 82:

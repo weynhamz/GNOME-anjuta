@@ -1,8 +1,10 @@
 2005-02-27  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/class-gen/action-callbacks.[ch],
-	plugins/class-gen/class_gen.c plugins/project-wizard/druid.c :
-	Closed Wizard project & Class gen dialogs with Escape key.
+	plugins/class-gen/class_gen.c plugins/project-wizard/druid.c,
+	plugins/gdb/breakpoints.c plugins/gdb/memory.c:
+	Closed Wizard project, Class gen, Inspect memory, Breakpoints dialogs 
+	with Escape key.
 
 2005-02-26  Sebastien Granjoux  <seb.sfo@free.fr>
 	

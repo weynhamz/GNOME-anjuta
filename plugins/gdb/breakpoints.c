@@ -900,6 +900,18 @@ on_bk_window_delete_event (GtkWindow *win, GdkEvent *event, BreakpointsDBase *bd
 	return TRUE;
 }
 
+static gboolean
+on_breakpoints_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                               BreakpointsDBase *bd)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		breakpoints_dbase_hide (bd);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 BreakpointsDBase *
 breakpoints_dbase_new (AnjutaPlugin *plugin)
 {
@@ -1000,6 +1012,9 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 						  G_CALLBACK (on_bk_treeview_selection_changed), bd);
 		g_signal_connect (G_OBJECT (bd->priv->window), "delete_event",
 				  G_CALLBACK (on_bk_window_delete_event), bd);
+		g_signal_connect (G_OBJECT (bd->priv->window), "key-press-event",
+					  GTK_SIGNAL_FUNC (on_breakpoints_key_press_event), bd);
+
 
 		bd->priv->cond_history = NULL;
 		bd->priv->pass_history = NULL;
