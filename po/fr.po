@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.6\n"
-"POT-Creation-Date: 2001-08-03 01:03+0200\n"
-"PO-Revision-Date: 2001-07-30 23:40+0200\n"
+"POT-Creation-Date: 2001-08-07 21:21+0200\n"
+"PO-Revision-Date: 2001-08-07 21:26+0200\n"
 "Last-Translator: Stéphane Démurget <demurgets@free.fr>\n"
-"Language-Team: French\n"
+"Language-Team: (null)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Certains fichiers n'ont pas été enregistrés.\n"
 "Voulez-vous vraiment quitter ?"
 
-#: src/anjuta_cbs.c:180 src/project_dbase_gui.c:1254
+#: src/anjuta_cbs.c:180 src/project_dbase_gui.c:1315
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "%s n'est pas un fichier régulier."
@@ -86,7 +86,7 @@ msgstr "Composant Bonobo"
 msgid "Enter the basic Project information"
 msgstr "Saisissez les informations basiques sur le projet"
 
-#: src/appwiz_page2.c:164 src/project_dbase_gui.c:648
+#: src/appwiz_page2.c:164 src/project_dbase_gui.c:709
 msgid "Project Name:"
 msgstr "Nom :"
 
@@ -123,7 +123,7 @@ msgid "Enter a short project description"
 msgstr "Entrez une courte description du projet"
 
 #: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
-#: src/project_dbase_gui.c:1123
+#: src/project_dbase_gui.c:1184
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Impossible de trouver l'image %s"
@@ -307,6 +307,12 @@ msgstr "Non"
 msgid "0"
 msgstr "0"
 
+#: src/breakpoints.c:655
+msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
+msgstr ""
+"Marrant, le point d'arrêt est positionné dans le\n"
+"document, mais je n'arrive pas à en trouver l'identifiant."
+
 #: src/breakpoints_cbs.c:96
 msgid "Are you sure you want to delete all breakpoints?"
 msgstr "Voulez-vous vraiment supprimer tous les points d'arrêts ?"
@@ -350,7 +356,7 @@ msgstr "Condition"
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:401
+#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:456
 msgid "Edit"
 msgstr "Editer"
 
@@ -407,7 +413,7 @@ msgid "I do not really know how to build this file."
 msgstr "Je ne sais pas comment construire ce fichier."
 
 #: src/build_file.c:107 src/messages.c:534 src/preferences_gui.c:170
-#: src/text_editor_gui.c:246 src/toolbar.c:477
+#: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Commandes"
 
@@ -743,7 +749,7 @@ msgstr ""
 msgid "I do not really know how to compile this file."
 msgstr "Je ne sais pas comment compiler ce fichier."
 
-#: src/compile.c:156 src/text_editor_gui.c:235 src/toolbar.c:454
+#: src/compile.c:156 src/text_editor_gui.c:235 src/toolbar.c:451
 msgid "Compile"
 msgstr "Compiler"
 
@@ -901,7 +907,7 @@ msgstr "<: Entrez les infos ici"
 #: src/compiler_options_gui.c:364 src/compiler_options_gui.c:484
 #: src/compiler_options_gui.c:641 src/compiler_options_gui.c:769
 #: src/find_in_files_gui.c:136 src/main_menubar_def.h:656
-#: src/project_dbase_gui.c:408 src/src_paths_gui.c:177 src/watch_gui.c:42
+#: src/project_dbase_gui.c:463 src/src_paths_gui.c:177 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Retirer"
 
@@ -1038,7 +1044,7 @@ msgstr "Options de compilation supplémentaires"
 msgid "Additional linker options (command line options)"
 msgstr "Options de liaison supplémentaires"
 
-#: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:466
+#: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
 msgid "Configure"
 msgstr "Configurer"
 
@@ -1192,8 +1198,8 @@ msgstr "Erreur : impossible d'ouvrir un terminal pour le débogage."
 #: src/debugger.c:1182
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
-"Avertissement : Aucun terminal de débogage. Redirection de la sortie vers /"
-"dev/null.\n"
+"Avertissement : Aucun terminal de débogage. Redirection de la sortie vers "
+"/dev/null.\n"
 
 #: src/debugger.c:1200
 msgid "Running program ... \n"
@@ -1215,9 +1221,8 @@ msgstr ""
 #: src/debugger.c:1344
 msgid "You FOOL! I can not attach to myself."
 msgstr ""
-"A mon avis, vous devez être plus que largement positif au moindre "
-"alcootest !\n"
-"Comment voulez-vous que je m'attache en plein exécution ?"
+"A mon avis, vous devez être plus que largement positif au moindre alcootest "
+"!\nComment voulez-vous que je m'attache en plein exécution ?"
 
 #: src/debugger.c:1427
 #, c-format
@@ -1250,7 +1255,7 @@ msgstr "Envoi du signal %s au processus de PID %d\n"
 msgid "There was some error while signaling the process."
 msgstr "Une erreur est survenue lors de l'envoi du signal au processus."
 
-#: src/executer.c:85 src/toolbar.c:503
+#: src/executer.c:85 src/toolbar.c:500
 msgid "Execute"
 msgstr "Exécuter"
 
@@ -1262,11 +1267,11 @@ msgstr "Arguments de la commande"
 msgid "Run in Terminal"
 msgstr "Démarrer dans un terminal"
 
-#: src/executer.c:193 src/mainmenu_callbacks.c:1422
+#: src/executer.c:193 src/mainmenu_callbacks.c:1423
 msgid "Target of this project is unknown"
 msgstr "La cible de ce projet est inconnue"
 
-#: src/executer.c:198 src/mainmenu_callbacks.c:1424
+#: src/executer.c:198 src/mainmenu_callbacks.c:1425
 msgid "Target of this project is not executable"
 msgstr "La cible de ce projet n'est pas exécutable"
 
@@ -1278,12 +1283,12 @@ msgstr "L'exécutable n'existe pas pour ce projet."
 msgid "No file or project opened."
 msgstr "Aucun fichier ou projet ouvert."
 
-#: src/executer.c:221 src/executer.c:240 src/mainmenu_callbacks.c:1448
-#: src/mainmenu_callbacks.c:1459
+#: src/executer.c:221 src/executer.c:240 src/mainmenu_callbacks.c:1449
+#: src/mainmenu_callbacks.c:1460
 msgid "No executable for this file."
 msgstr "Fichier non-exécutable."
 
-#: src/executer.c:245 src/mainmenu_callbacks.c:1454
+#: src/executer.c:245 src/mainmenu_callbacks.c:1455
 msgid "Executable is not up-to-date."
 msgstr "L'exécutable n'est pas à jour."
 
@@ -1541,6 +1546,25 @@ msgstr "Le projet a correctement été autogénéré."
 msgid " Go to Line No. "
 msgstr " Aller à la ligne n° "
 
+#: src/help.c:127
+#, fuzzy
+msgid "Anjuta: Search Help"
+msgstr "Anjuta : Trace de la pile"
+
+#: src/help.c:147
+msgid "Gnome API"
+msgstr "API Gnome"
+
+#: src/help.c:152
+#, fuzzy
+msgid "Man pages"
+msgstr "Consulter pages des manuels"
+
+#: src/help.c:157
+#, fuzzy
+msgid "Info pages"
+msgstr "Consulter pages d'infos"
+
 #: src/launcher.c:220 src/text_editor.c:897
 msgid "Cannot execute command shell"
 msgstr "Impossible de lancer un interpréteur de commande"
@@ -1641,7 +1665,7 @@ msgstr "Crée un projet à l'aide de l'assistant"
 msgid "Open P_roject ..."
 msgstr "Ouvrir un p_rojet ..."
 
-#: src/main_menubar_def.h:87 src/toolbar.c:417
+#: src/main_menubar_def.h:87 src/toolbar.c:414
 msgid "Open a Project"
 msgstr "Ouvre un projet"
 
@@ -1649,7 +1673,7 @@ msgstr "Ouvre un projet"
 msgid "Sa_ve Project"
 msgstr "En_registrer"
 
-#: src/main_menubar_def.h:93 src/toolbar.c:428
+#: src/main_menubar_def.h:93 src/toolbar.c:425
 msgid "Save the current Project"
 msgstr "Enregistre le projet courant"
 
@@ -1657,7 +1681,7 @@ msgstr "Enregistre le projet courant"
 msgid "Close Pro_ject"
 msgstr "_Fermer"
 
-#: src/main_menubar_def.h:99 src/toolbar.c:441
+#: src/main_menubar_def.h:99 src/toolbar.c:438
 msgid "Close the current Project"
 msgstr "Ferme le projet courant"
 
@@ -2214,27 +2238,27 @@ msgstr "_Console"
 msgid "Show the console where the program runs"
 msgstr "Affiche la console où s'exécute le programme"
 
-#: src/main_menubar_def.h:597 src/project_dbase_gui.c:336
+#: src/main_menubar_def.h:597 src/project_dbase_gui.c:391
 msgid "Include file"
 msgstr "Fichier d'en-tête"
 
-#: src/main_menubar_def.h:603 src/project_dbase_gui.c:342
+#: src/main_menubar_def.h:603 src/project_dbase_gui.c:397
 msgid "Source file"
 msgstr "Fichier source"
 
-#: src/main_menubar_def.h:609 src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:609 src/project_dbase_gui.c:403
 msgid "Help file"
 msgstr "Fichier d'aide"
 
-#: src/main_menubar_def.h:615 src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:615 src/project_dbase_gui.c:409
 msgid "Data file"
 msgstr "Fichier de données"
 
-#: src/main_menubar_def.h:621 src/project_dbase_gui.c:360
+#: src/main_menubar_def.h:621 src/project_dbase_gui.c:415
 msgid "Pixmap file"
 msgstr "Image"
 
-#: src/main_menubar_def.h:627 src/project_dbase_gui.c:366
+#: src/main_menubar_def.h:627 src/project_dbase_gui.c:421
 msgid "Translation file"
 msgstr "Traduction"
 
@@ -2243,11 +2267,11 @@ msgstr "Traduction"
 msgid "Documentation file"
 msgstr "Traduction"
 
-#: src/main_menubar_def.h:643 src/project_dbase_gui.c:382
+#: src/main_menubar_def.h:643 src/project_dbase_gui.c:437
 msgid "Add New"
 msgstr "Ajouter"
 
-#: src/main_menubar_def.h:649 src/project_dbase_gui.c:388
+#: src/main_menubar_def.h:649 src/project_dbase_gui.c:443
 msgid "Import File"
 msgstr "Importer"
 
@@ -2574,7 +2598,7 @@ msgstr "_Compiler"
 msgid "Compile the current source file"
 msgstr "Compile le fichier source courant"
 
-#: src/main_menubar_def.h:910 src/main_menubar_def.h:1443
+#: src/main_menubar_def.h:910 src/main_menubar_def.h:1456
 msgid "_Build"
 msgstr "_Construire"
 
@@ -2653,7 +2677,7 @@ msgstr "Stoppe la compilation ou la construction en cours"
 msgid "_Execute"
 msgstr "_Exécuter"
 
-#: src/main_menubar_def.h:970 src/toolbar.c:504
+#: src/main_menubar_def.h:970 src/toolbar.c:501
 msgid "Execute the program"
 msgstr "Exécute un programme"
 
@@ -2913,7 +2937,7 @@ msgstr "Recommence l'exécution du programme partir de son début"
 msgid "I_nterrupt Program"
 msgstr "Interrompre programme"
 
-#: src/main_menubar_def.h:1194 src/toolbar.c:999
+#: src/main_menubar_def.h:1194 src/toolbar.c:996
 #, fuzzy
 msgid "Interrupt execution of the program"
 msgstr "Continue l'exécution du programme"
@@ -3053,108 +3077,127 @@ msgid "But I prefer tea."
 msgstr "Mais moi je préfère les brunes :)"
 
 #: src/main_menubar_def.h:1366
+#, fuzzy
+msgid "Browse Gnome API Pages"
+msgstr "Consulter pages d'infos"
+
+#: src/main_menubar_def.h:1367
+msgid "The gnome API pages"
+msgstr "Pages de l'API de Gnome"
+
+#: src/main_menubar_def.h:1372
 msgid "Browse Man Pages"
 msgstr "Consulter pages des manuels"
 
-#: src/main_menubar_def.h:1367
+#: src/main_menubar_def.h:1373
 msgid "The good old manual pages"
 msgstr "Haaa, ces bonnes vieilles pages de manuels ..."
 
-#: src/main_menubar_def.h:1372
+#: src/main_menubar_def.h:1378
 msgid "Browse Info Pages"
 msgstr "Consulter pages d'infos"
 
-#: src/main_menubar_def.h:1373
+#: src/main_menubar_def.h:1379
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Les pages d'infos, c'est détaillé, mais ya jamais ce dont on a besoin"
 
-#: src/main_menubar_def.h:1378
+#: src/main_menubar_def.h:1385
+#, fuzzy
+msgid "Context Help"
+msgstr "Aide contextuelle"
+
+#: src/main_menubar_def.h:1386
+#, fuzzy
+msgid "Search help for the current word in the editor"
+msgstr "Cherche une chaîne ou une expression regulière dans le document"
+
+#: src/main_menubar_def.h:1391
 msgid "Search a topic"
 msgstr "Chercher sujet"
 
-#: src/main_menubar_def.h:1379
+#: src/main_menubar_def.h:1392
 msgid "May I help you?"
 msgstr "Je peux peut-être vous aider ?"
 
-#: src/main_menubar_def.h:1385
+#: src/main_menubar_def.h:1398
 #, fuzzy
 msgid "Anjuta Home site"
 msgstr "Site web d'Anjuta"
 
-#: src/main_menubar_def.h:1386
+#: src/main_menubar_def.h:1399
 msgid "Online documentation and resources"
 msgstr "Documentation et ressources en ligne"
 
-#: src/main_menubar_def.h:1392
+#: src/main_menubar_def.h:1405
 #, fuzzy
 msgid "Libraries API references"
 msgstr "Préférences"
 
-#: src/main_menubar_def.h:1393
+#: src/main_menubar_def.h:1406
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Reference en ligne des librairies Gdk, GLib, Gnome, ... etc"
 
-#: src/main_menubar_def.h:1398
+#: src/main_menubar_def.h:1411
 msgid "Report Bugs"
 msgstr "Transmettre des rapports d'anomalie"
 
-#: src/main_menubar_def.h:1399
+#: src/main_menubar_def.h:1412
 msgid "Submit a bug report for Anjuta"
 msgstr "Envoie un rapport d'anomalie pour Anjuta"
 
-#: src/main_menubar_def.h:1404
+#: src/main_menubar_def.h:1417
 msgid "Request Features"
 msgstr "Demander des fonctionnalités"
 
-#: src/main_menubar_def.h:1405
+#: src/main_menubar_def.h:1418
 msgid "Submit a feature request for Anjtua"
 msgstr "Envoie une demande pour une nouvelle fonctionnalité dans Anjuta"
 
-#: src/main_menubar_def.h:1410
+#: src/main_menubar_def.h:1423
 msgid "Submit patches"
 msgstr "Envoyer des patches"
 
-#: src/main_menubar_def.h:1411
+#: src/main_menubar_def.h:1424
 msgid "Submit patches for Anjuta"
 msgstr "Envoie un patch pour Anjuta"
 
-#: src/main_menubar_def.h:1416
+#: src/main_menubar_def.h:1429
 msgid "Ask a question"
 msgstr "Poser une question"
 
-#: src/main_menubar_def.h:1417
+#: src/main_menubar_def.h:1430
 msgid "Submit a question for FAQs"
 msgstr "Envoie une question pour la foire aux questions"
 
-#: src/main_menubar_def.h:1431
+#: src/main_menubar_def.h:1444
 msgid "_Project"
 msgstr "_Projet"
 
-#: src/main_menubar_def.h:1437
+#: src/main_menubar_def.h:1450
 msgid "For_mat"
 msgstr "For_mat"
 
-#: src/main_menubar_def.h:1449
+#: src/main_menubar_def.h:1462
 msgid "Bookmar_k"
 msgstr "_Signets"
 
-#: src/main_menubar_def.h:1455
+#: src/main_menubar_def.h:1468
 msgid "_Debug"
 msgstr "_Débogage"
 
-#: src/main_menubar_def.h:1461
+#: src/main_menubar_def.h:1474
 msgid "_Utilities"
 msgstr "_Utilitaires"
 
-#: src/main_menubar_def.h:1477
+#: src/main_menubar_def.h:1490
 msgid "_Settings"
 msgstr "P_références"
 
-#: src/mainmenu_callbacks.c:116
+#: src/mainmenu_callbacks.c:117
 msgid "All files saved ..."
 msgstr "Tous les fichiers ont été enregistrés ..."
 
-#: src/mainmenu_callbacks.c:133
+#: src/mainmenu_callbacks.c:134
 #, c-format
 msgid ""
 "The file \"%s\" is not saved.\n"
@@ -3163,7 +3206,7 @@ msgstr ""
 "Le fichier \"%s\" n'est pas enregistré.\n"
 "Voulez-vous l'enregistrer avant de le fermer ?"
 
-#: src/mainmenu_callbacks.c:161
+#: src/mainmenu_callbacks.c:162
 #, c-format
 msgid ""
 "Are you sure you want to reload %s.\n"
@@ -3172,12 +3215,12 @@ msgstr ""
 "Vous·allez perdre toute modification non enregistrée.\n"
 "Voulez-vous vraiment recharger %s ?"
 
-#: src/mainmenu_callbacks.c:231
+#: src/mainmenu_callbacks.c:232
 #, c-format
 msgid "Could not execute cmd: %s"
 msgstr "Impossible d'exécuter la commande : %s"
 
-#: src/mainmenu_callbacks.c:238
+#: src/mainmenu_callbacks.c:239
 #, c-format
 msgid ""
 "There was an error while printing.\n"
@@ -3186,31 +3229,31 @@ msgstr ""
 "Une erreur est survenue lors de l'impression.\n"
 "Commande lancée : %s"
 
-#: src/mainmenu_callbacks.c:244
+#: src/mainmenu_callbacks.c:245
 msgid "The file has been sent for printing."
 msgstr "Le fichier a été placé sur la file d'impression."
 
-#: src/mainmenu_callbacks.c:260
+#: src/mainmenu_callbacks.c:261
 msgid "You must save the file first and then print"
 msgstr "Vous devez d'abord enregistrer le fichier"
 
-#: src/mainmenu_callbacks.c:264
+#: src/mainmenu_callbacks.c:265
 msgid "Are you sure you want to print the current file?"
 msgstr "Vous êtes sûr de vouloir imprimer ce fichier ?"
 
-#: src/mainmenu_callbacks.c:1015
+#: src/mainmenu_callbacks.c:1016
 msgid "Tags image update successfully."
 msgstr "La liste des balises a été correctement mise à jour."
 
-#: src/mainmenu_callbacks.c:1428
+#: src/mainmenu_callbacks.c:1429
 msgid "Executable does not exsits this project."
 msgstr "L'exécutable du projet n'a pas encore été construit."
 
-#: src/mainmenu_callbacks.c:1479
+#: src/mainmenu_callbacks.c:1480
 msgid "Debugger is not running. Start it first."
 msgstr "Vous devez d'abord démarrer le débogueur."
 
-#: src/mainmenu_callbacks.c:1515
+#: src/mainmenu_callbacks.c:1516
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3218,7 +3261,7 @@ msgstr ""
 "Le débogueur est attaché à un processus.\n"
 "Voulez-vous vraiment le stopper ?"
 
-#: src/mainmenu_callbacks.c:1525
+#: src/mainmenu_callbacks.c:1526
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3226,8 +3269,8 @@ msgstr ""
 "Le débogueur exécute le programme.\n"
 "Voulez-vous vraiment le stopper ?"
 
-#: src/mainmenu_callbacks.c:1704 src/mainmenu_callbacks.c:1722
-#: src/mainmenu_callbacks.c:1741 src/mainmenu_callbacks.c:1759
+#: src/mainmenu_callbacks.c:1705 src/mainmenu_callbacks.c:1723
+#: src/mainmenu_callbacks.c:1751 src/mainmenu_callbacks.c:1769
 msgid "Cannot launch gnome-help-browser"
 msgstr "Impossible de lancer gnome-help-browser"
 
@@ -3247,7 +3290,7 @@ msgstr "Messages des commandes"
 msgid "Debug messages"
 msgstr "Messages de débogage"
 
-#: src/messages.c:550 src/text_editor_menu.c:258 src/toolbar.c:514
+#: src/messages.c:550 src/text_editor_menu.c:258 src/toolbar.c:511
 msgid "Debug"
 msgstr "Débogage"
 
@@ -3575,7 +3618,7 @@ msgid "Update tags image automatically"
 msgstr "Mettre à jour automatiquement"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:286 src/toolbar.c:416
+#: src/project_dbase.c:286 src/toolbar.c:413
 msgid "Open Project"
 msgstr "Ouvrir projet"
 
@@ -3584,7 +3627,7 @@ msgstr "Ouvrir projet"
 msgid "Add To Project"
 msgstr "Ajouter au projet"
 
-#: src/project_dbase.c:307 src/project_dbase.c:449 src/project_dbase_gui.c:477
+#: src/project_dbase.c:307 src/project_dbase.c:449 src/project_dbase_gui.c:532
 msgid "Project: None"
 msgstr "Projet: Aucun"
 
@@ -3603,8 +3646,7 @@ msgstr ""
 "Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure "
 "d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\n"
-"En attendant, je suis trop vieux pour le charger. =("
+"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:665
 #, fuzzy, c-format
@@ -3615,8 +3657,7 @@ msgid ""
 msgstr ""
 "Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\n"
-"En attendant, je suis trop vieux pour le charger. =("
+"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:725
 msgid "Project loaded successfully."
@@ -3781,7 +3822,7 @@ msgstr "Scripts supplémentaires à la fin du Makefile.am principal"
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: src/project_dbase_gui.c:87
+#: src/project_dbase_gui.c:142
 #, c-format
 msgid ""
 "Are you sure you want to remove the item\n"
@@ -3790,102 +3831,102 @@ msgstr ""
 "Etes-vous sûr de vouloir supprimer l'élément\n"
 "\"%s\" de la base de données du projet ?"
 
-#: src/project_dbase_gui.c:254
+#: src/project_dbase_gui.c:309
 msgid "There is already a project opened.Do you want to close it first?"
 msgstr "Un projet est déjà ouvert. Voulez-vous le fermer ?"
 
-#: src/project_dbase_gui.c:372
+#: src/project_dbase_gui.c:427
 msgid "Doc file"
 msgstr "Document"
 
-#: src/project_dbase_gui.c:395
+#: src/project_dbase_gui.c:450
 msgid "View"
 msgstr "Vue"
 
-#: src/project_dbase_gui.c:415
+#: src/project_dbase_gui.c:470
 msgid "Configure Project"
 msgstr "Configuration du projet"
 
-#: src/project_dbase_gui.c:421
+#: src/project_dbase_gui.c:476
 msgid "Project Info"
 msgstr "Informations du projet"
 
-#: src/project_dbase_gui.c:428 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/project_dbase_gui.c:483 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/watch_gui.c:67
 msgid "Dock/Undock"
 msgstr "Attacher/Détacher"
 
-#: src/project_dbase_gui.c:434 src/registers_gui.c:60 src/sharedlib_gui.c:53
-#: src/signals_gui.c:66 src/stack_trace_gui.c:72 src/toolbar.c:309
+#: src/project_dbase_gui.c:489 src/registers_gui.c:60 src/sharedlib_gui.c:53
+#: src/signals_gui.c:66 src/stack_trace_gui.c:72 src/toolbar.c:308
 #: src/watch_gui.c:73
 msgid "Help"
 msgstr "Aide"
 
-#: src/project_dbase_gui.c:496 src/toolbar.c:283
+#: src/project_dbase_gui.c:551 src/toolbar.c:283
 msgid "Project"
 msgstr "Projet"
 
-#: src/project_dbase_gui.c:597
+#: src/project_dbase_gui.c:658
 msgid "Anjuta: Project Information"
 msgstr "Anjuta : Informations du projet"
 
-#: src/project_dbase_gui.c:604
+#: src/project_dbase_gui.c:665
 msgid " Project Information "
 msgstr " Informations du projet "
 
-#: src/project_dbase_gui.c:640
+#: src/project_dbase_gui.c:701
 msgid "Author:"
 msgstr "Auteur :"
 
-#: src/project_dbase_gui.c:727
+#: src/project_dbase_gui.c:788
 msgid "Program Name:"
 msgstr "Nom du programme :"
 
-#: src/project_dbase_gui.c:734
+#: src/project_dbase_gui.c:795
 msgid "No of src files:"
 msgstr "Nb de fichiers source :"
 
-#: src/project_dbase_gui.c:741
+#: src/project_dbase_gui.c:802
 msgid "No of help files::"
 msgstr "Nb de fichiers d'aide :"
 
-#: src/project_dbase_gui.c:748
+#: src/project_dbase_gui.c:809
 msgid "No of data files:"
 msgstr "Nb de fichiers de données :"
 
-#: src/project_dbase_gui.c:755
+#: src/project_dbase_gui.c:816
 msgid "No of pix files:"
 msgstr "Nb d'images :"
 
-#: src/project_dbase_gui.c:762
+#: src/project_dbase_gui.c:823
 msgid "No of doc files:"
 msgstr "Nb de fichiers de documentation :"
 
-#: src/project_dbase_gui.c:783
+#: src/project_dbase_gui.c:844
 msgid "No of PO files:"
 msgstr "Nb de fichiers de traduction :"
 
-#: src/project_dbase_gui.c:790
+#: src/project_dbase_gui.c:851
 msgid "Version:"
 msgstr "Version :"
 
-#: src/project_dbase_gui.c:813
+#: src/project_dbase_gui.c:874
 msgid "Gui editable by Glade:"
 msgstr "IHM éditable sous Glade :"
 
-#: src/project_dbase_gui.c:835
+#: src/project_dbase_gui.c:896
 msgid "Makefiles managed:"
 msgstr "Makefiles gérés :"
 
-#: src/project_dbase_gui.c:877
+#: src/project_dbase_gui.c:938
 msgid "Gettext support:"
 msgstr "Support de Gettext :"
 
-#: src/project_dbase_gui.c:935
+#: src/project_dbase_gui.c:996
 msgid "Project Type:"
 msgstr "Type de projet :"
 
-#: src/project_dbase_gui.c:978
+#: src/project_dbase_gui.c:1039
 #, fuzzy
 msgid ""
 "Project is not saved.\n"
@@ -3894,135 +3935,135 @@ msgstr ""
 "Le projet n'est pas enregistré.\n"
 "Voulez-vous le faire avant de le fermer ?"
 
-#: src/project_dbase_gui.c:995 src/project_dbase_gui.c:1115
+#: src/project_dbase_gui.c:1056 src/project_dbase_gui.c:1176
 msgid "Breton"
 msgstr "Breton"
 
-#: src/project_dbase_gui.c:996
+#: src/project_dbase_gui.c:1057
 msgid "Catalan"
 msgstr "Catalan"
 
-#: src/project_dbase_gui.c:997
+#: src/project_dbase_gui.c:1058
 msgid "Czech"
 msgstr "Tchèque"
 
-#: src/project_dbase_gui.c:998
+#: src/project_dbase_gui.c:1059
 msgid "Danish"
 msgstr "Danois"
 
-#: src/project_dbase_gui.c:999
+#: src/project_dbase_gui.c:1060
 msgid "German"
 msgstr "Allemand"
 
-#: src/project_dbase_gui.c:1000
+#: src/project_dbase_gui.c:1061
 msgid "Greek"
 msgstr "Grec"
 
-#: src/project_dbase_gui.c:1001
+#: src/project_dbase_gui.c:1062
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1002
+#: src/project_dbase_gui.c:1063
 msgid "Spanish"
 msgstr "Espagnol"
 
-#: src/project_dbase_gui.c:1003
+#: src/project_dbase_gui.c:1064
 msgid "Finnish"
 msgstr "Finlandais"
 
-#: src/project_dbase_gui.c:1004
+#: src/project_dbase_gui.c:1065
 msgid "French"
 msgstr "Français"
 
-#: src/project_dbase_gui.c:1005
+#: src/project_dbase_gui.c:1066
 msgid "Herbrew"
 msgstr "Hebreu"
 
-#: src/project_dbase_gui.c:1006 src/project_dbase_gui.c:1010
+#: src/project_dbase_gui.c:1067 src/project_dbase_gui.c:1071
 msgid "Croatian"
 msgstr "Croate"
 
-#: src/project_dbase_gui.c:1007
+#: src/project_dbase_gui.c:1068
 msgid "Hungarian"
 msgstr "Hongrois"
 
-#: src/project_dbase_gui.c:1008
+#: src/project_dbase_gui.c:1069
 msgid "Islandic"
 msgstr "Islandais"
 
-#: src/project_dbase_gui.c:1009
+#: src/project_dbase_gui.c:1070
 msgid "Italian"
 msgstr "Italie"
 
-#: src/project_dbase_gui.c:1011
+#: src/project_dbase_gui.c:1072
 msgid "Korean"
 msgstr "Koréen"
 
-#: src/project_dbase_gui.c:1012
+#: src/project_dbase_gui.c:1073
 msgid "Macedonian"
 msgstr "Macédonien"
 
-#: src/project_dbase_gui.c:1013
+#: src/project_dbase_gui.c:1074
 msgid "Dutch"
 msgstr "Allemand"
 
-#: src/project_dbase_gui.c:1014
+#: src/project_dbase_gui.c:1075
 msgid "Norwegian"
 msgstr "Norvège"
 
-#: src/project_dbase_gui.c:1015
+#: src/project_dbase_gui.c:1076
 msgid "Polish"
 msgstr "Polonais"
 
-#: src/project_dbase_gui.c:1016
+#: src/project_dbase_gui.c:1077
 msgid "Portuguese"
 msgstr "Portugais"
 
-#: src/project_dbase_gui.c:1017
+#: src/project_dbase_gui.c:1078
 msgid "Romanian"
 msgstr "Romain"
 
-#: src/project_dbase_gui.c:1018
+#: src/project_dbase_gui.c:1079
 msgid "Russian"
 msgstr "Russe"
 
-#: src/project_dbase_gui.c:1019
+#: src/project_dbase_gui.c:1080
 msgid "Slovak"
 msgstr "Slovaque"
 
-#: src/project_dbase_gui.c:1020
+#: src/project_dbase_gui.c:1081
 msgid "Turkish"
 msgstr "Turc"
 
-#: src/project_dbase_gui.c:1021
+#: src/project_dbase_gui.c:1082
 msgid "Simplified Chinese"
 msgstr "Chinois simplifié"
 
-#: src/project_dbase_gui.c:1022
+#: src/project_dbase_gui.c:1083
 msgid "Chinese"
 msgstr "Chinois"
 
-#: src/project_dbase_gui.c:1023
+#: src/project_dbase_gui.c:1084
 msgid "Estonian"
 msgstr "Estonien"
 
-#: src/project_dbase_gui.c:1067
+#: src/project_dbase_gui.c:1128
 msgid "Select regional language"
 msgstr "Sélectionnez la langue"
 
-#: src/project_dbase_gui.c:1083
+#: src/project_dbase_gui.c:1144
 msgid "Select Regional Language:"
 msgstr "Sélectionnez la langue :"
 
-#: src/project_dbase_gui.c:1195
+#: src/project_dbase_gui.c:1256
 msgid "This file has already been added to the project."
 msgstr "Ce fichier a déjà été ajouté au projet."
 
-#: src/project_dbase_gui.c:1225
+#: src/project_dbase_gui.c:1286
 msgid "Error while copying the file inside the module."
 msgstr "Erreur lors de la copie du fichier dans le module."
 
-#: src/project_dbase_gui.c:1262
+#: src/project_dbase_gui.c:1323
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -4089,7 +4130,7 @@ msgstr "Signaux kernel"
 msgid "Signal"
 msgstr "Signal"
 
-#: src/signals_gui.c:121 src/toolbar.c:525 src/toolbar.c:1091
+#: src/signals_gui.c:121 src/toolbar.c:522 src/toolbar.c:1088
 msgid "Stop"
 msgstr "Stopper"
 
@@ -4109,8 +4150,7 @@ msgstr " Stopper :"
 msgid " Print: "
 msgstr " Imprimer :"
 
-#. set the size to that of our splash image.
-#: src/anjuta_gui.c:72 src/splash.c:92
+#. set the size to that of our splash image.#: src/splash.c:92
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -4134,11 +4174,11 @@ msgstr "Info sur l'image"
 msgid "Anjuta: Stack Trace"
 msgstr "Anjuta : Trace de la pile"
 
-#: src/stack_trace_gui.c:126 src/toolbar.c:1036
+#: src/stack_trace_gui.c:126 src/toolbar.c:1033
 msgid "Frame"
 msgstr "Image"
 
-#: src/stack_trace_gui.c:130 src/toolbar.c:1064
+#: src/stack_trace_gui.c:130 src/toolbar.c:1061
 msgid "Stack"
 msgstr "Pile"
 
@@ -4156,11 +4196,11 @@ msgstr ""
 msgid "# ***************** Anjuta Tags cache file ********************\n"
 msgstr "# ********** Fichier de cache des balises d'Anjuta ************\n"
 
-#: src/tags_manager.c:501 src/toolbar.c:613
+#: src/tags_manager.c:501 src/toolbar.c:610
 msgid "File:"
 msgstr "Fichier :"
 
-#: src/tags_manager.c:504 src/toolbar.c:636
+#: src/tags_manager.c:504 src/toolbar.c:633
 msgid "Function:"
 msgstr "Fonction :"
 
@@ -4333,7 +4373,7 @@ msgstr "Cherche et remplace la chaîne"
 msgid "line: "
 msgstr "ligne :"
 
-#: src/text_editor_gui.c:236 src/toolbar.c:455
+#: src/text_editor_gui.c:236 src/toolbar.c:452
 msgid "Compile the current file"
 msgstr "Compile le fichier courant"
 
@@ -4365,7 +4405,7 @@ msgstr "Signet précédant"
 msgid "Next bookmark"
 msgstr "Signet suivant"
 
-#: src/text_editor_menu.c:103 src/toolbar.c:960
+#: src/text_editor_menu.c:103 src/toolbar.c:957
 msgid "Step in"
 msgstr "Avancer en entrant"
 
@@ -4377,7 +4417,7 @@ msgstr "Avancer en sautant"
 msgid "Step out"
 msgstr "Sortir"
 
-#: src/text_editor_menu.c:121 src/toolbar.c:949
+#: src/text_editor_menu.c:121 src/toolbar.c:946
 msgid "Run to cursor"
 msgstr "Exécuter jusqu'au curseur"
 
@@ -4385,11 +4425,11 @@ msgstr "Exécuter jusqu'au curseur"
 msgid "Run/Continue"
 msgstr "Exécuter/Continuer"
 
-#: src/text_editor_menu.c:134 src/toolbar.c:1023
+#: src/text_editor_menu.c:134 src/toolbar.c:1020
 msgid "Inspect"
 msgstr "Inspecter"
 
-#: src/text_editor_menu.c:141 src/toolbar.c:997
+#: src/text_editor_menu.c:141 src/toolbar.c:994
 msgid "Interrupt"
 msgstr "Interrompre"
 
@@ -4504,306 +4544,306 @@ msgstr "Entrez le numéro de la ligne où positionner le curseur"
 msgid "Compile/Build/Debug Messages"
 msgstr "Messages de compilation/construction/débogage"
 
-#: src/toolbar.c:310
+#: src/toolbar.c:309
 msgid "Context sensitive help"
 msgstr "Aide contextuelle"
 
-#: src/toolbar.c:427
+#: src/toolbar.c:424
 msgid "Save Project"
 msgstr "Enregistre le projet"
 
-#: src/toolbar.c:440
+#: src/toolbar.c:437
 msgid "Close Project"
 msgstr "Ferme le projet"
 
-#: src/toolbar.c:467
+#: src/toolbar.c:464
 #, fuzzy
 msgid "Run configure"
 msgstr "Démarre configure"
 
-#: src/toolbar.c:479
+#: src/toolbar.c:476
 #, fuzzy
 msgid "Build current file, or build the source directory of the Project"
 msgstr "Contruit le fichier courant ou le répertoire des sources du projet"
 
-#: src/toolbar.c:490
+#: src/toolbar.c:487
 msgid "Build_all"
 msgstr "Construit tout"
 
-#: src/toolbar.c:492
+#: src/toolbar.c:489
 msgid "Build from the top directory of the Project"
 msgstr "Construit depuis le répertoire racine du projet"
 
-#: src/toolbar.c:515
+#: src/toolbar.c:512
 msgid "Start the Debugger"
 msgstr "Démarre le débogueur"
 
-#: src/toolbar.c:526
+#: src/toolbar.c:523
 #, fuzzy
 msgid "Stop/interrupt compile or build"
 msgstr "Stoppe la compilation/construction"
 
-#: src/toolbar.c:607
+#: src/toolbar.c:604
 #, fuzzy
 msgid "Select the type of tag"
 msgstr "Sélectionnez les supports à ajouter"
 
-#: src/toolbar.c:631
+#: src/toolbar.c:628
 msgid "Source File"
 msgstr "Fichier source"
 
-#: src/toolbar.c:654
+#: src/toolbar.c:651
 msgid "Tag in the file"
 msgstr "Balise dans le fichier"
 
-#: src/toolbar.c:665
+#: src/toolbar.c:662
 msgid "wizard"
 msgstr "Assistant"
 
-#: src/toolbar.c:665
+#: src/toolbar.c:662
 msgid "The Wizard"
 msgstr "L'assistant"
 
-#: src/toolbar.c:743 src/toolbar.c:1188
+#: src/toolbar.c:740 src/toolbar.c:1185
 msgid "Toggle"
 msgstr "Ajouter/Supprimer"
 
-#: src/toolbar.c:745
+#: src/toolbar.c:742
 msgid "Toggle bookmark at current location"
 msgstr "Ajoute/Supprime le signet de cette position"
 
-#: src/toolbar.c:757
+#: src/toolbar.c:754
 msgid "First"
 msgstr "Premier"
 
-#: src/toolbar.c:759
+#: src/toolbar.c:756
 msgid "Goto first bookmark in this document"
 msgstr "Va au premier signet du document"
 
-#: src/toolbar.c:771 src/toolbar.c:814
+#: src/toolbar.c:768 src/toolbar.c:811
 msgid "Prev"
 msgstr "Précédant"
 
-#: src/toolbar.c:773
+#: src/toolbar.c:770
 msgid "Goto previous bookmark in this document"
 msgstr "Va au signet précédant du document"
 
-#: src/toolbar.c:785 src/toolbar.c:827
+#: src/toolbar.c:782 src/toolbar.c:824
 msgid "Next"
 msgstr "Suivant"
 
-#: src/toolbar.c:787
+#: src/toolbar.c:784
 msgid "Goto next bookmark in this document"
 msgstr "Va au signet suivant du document"
 
-#: src/toolbar.c:799
+#: src/toolbar.c:796
 msgid "Last"
 msgstr "Dernier"
 
-#: src/toolbar.c:801
+#: src/toolbar.c:798
 msgid "Goto last bookmark in this document"
 msgstr "Va au dernier signet du document"
 
-#: src/toolbar.c:816
+#: src/toolbar.c:813
 msgid "Goto previous message in this document"
 msgstr "Va au message précédant message du document"
 
-#: src/toolbar.c:829
+#: src/toolbar.c:826
 msgid "Goto next message in this document"
 msgstr "Va au message suivant du document"
 
-#: src/toolbar.c:843
+#: src/toolbar.c:840
 msgid "Start"
 msgstr "Début"
 
-#: src/toolbar.c:845
+#: src/toolbar.c:842
 msgid "Goto start of current code block"
 msgstr "Va au début du bloc de code courant"
 
-#: src/toolbar.c:856
+#: src/toolbar.c:853
 msgid "End"
 msgstr "Fin"
 
-#: src/toolbar.c:858
+#: src/toolbar.c:855
 msgid "Goto end of current code block"
 msgstr "Va à la fin du bloc de code courant"
 
-#: src/toolbar.c:936
+#: src/toolbar.c:933
 msgid "Go"
 msgstr "Continuer"
 
-#: src/toolbar.c:937
+#: src/toolbar.c:934
 msgid "Go or continue execution"
 msgstr "Démarre ou continue l'exécution"
 
-#: src/toolbar.c:948
+#: src/toolbar.c:945
 msgid "Run"
 msgstr "Exécuter"
 
-#: src/toolbar.c:961
+#: src/toolbar.c:958
 msgid "Single step in execution"
 msgstr "Avance d'un pas en entrant dans les fonctions"
 
-#: src/toolbar.c:972
+#: src/toolbar.c:969
 msgid "Step Over"
 msgstr "Avancer en sautant"
 
-#: src/toolbar.c:973
+#: src/toolbar.c:970
 #, fuzzy
 msgid "Step over the function"
 msgstr "Avance d'un pas sans entrer dans les fonctions"
 
-#: src/toolbar.c:983
+#: src/toolbar.c:980
 msgid "Step Out"
 msgstr "Sortir fonction"
 
-#: src/toolbar.c:984
+#: src/toolbar.c:981
 #, fuzzy
 msgid "Step out of the function"
 msgstr "Sort de la fonction courante"
 
-#: src/toolbar.c:1012
+#: src/toolbar.c:1009
 msgid "Breakpoint"
 msgstr "Point d'arrêt"
 
-#: src/toolbar.c:1013
+#: src/toolbar.c:1010
 msgid "Toggle breakpoint at cursor"
 msgstr "(Dés)activer le point d'arrêt au niveau du curseur"
 
-#: src/toolbar.c:1025
+#: src/toolbar.c:1022
 msgid "Inspect or evaluate an expression"
 msgstr "Inspecte ou évalue une expression"
 
-#: src/toolbar.c:1038
+#: src/toolbar.c:1035
 msgid "Display the current frame information"
 msgstr "Affiche des informations sur l'exécution"
 
-#: src/toolbar.c:1051
+#: src/toolbar.c:1048
 msgid "Watch"
 msgstr "Inspecteur d'expressions"
 
-#: src/toolbar.c:1053
+#: src/toolbar.c:1050
 msgid "Watch expresions during execution"
 msgstr "Inspecte des expressions lors de l'exécution"
 
-#: src/toolbar.c:1065
+#: src/toolbar.c:1062
 msgid "Stack trace of the program"
 msgstr "Trace de la pile du programme"
 
-#: src/toolbar.c:1076
+#: src/toolbar.c:1073
 msgid "Registers"
 msgstr "Registres"
 
-#: src/toolbar.c:1078
+#: src/toolbar.c:1075
 msgid "CPU registers and their contents"
 msgstr "Registres CPU et leurs contenus"
 
-#: src/toolbar.c:1092
+#: src/toolbar.c:1089
 msgid "End the debugging session"
 msgstr "Find de la session de débogage"
 
-#: src/toolbar.c:1190
+#: src/toolbar.c:1187
 msgid "Toggle current code fold hide/show"
 msgstr "Ouvre/Ferme le battant courant du code"
 
-#: src/toolbar.c:1201
+#: src/toolbar.c:1198
 msgid "Close all"
 msgstr "Ferme tout"
 
-#: src/toolbar.c:1203
+#: src/toolbar.c:1200
 msgid "Close all code folds in this document"
 msgstr "Ferme tous les battants du document"
 
-#: src/toolbar.c:1214
+#: src/toolbar.c:1211
 msgid "Open all"
 msgstr "Ouvre tout"
 
-#: src/toolbar.c:1216
+#: src/toolbar.c:1213
 msgid "Open all code folds in this document"
 msgstr "Ouvre tous les battants du document"
 
-#: src/toolbar.c:1230
+#: src/toolbar.c:1227
 msgid "Select"
 msgstr "Sélectionne"
 
-#: src/toolbar.c:1231
+#: src/toolbar.c:1228
 msgid "Select current code block"
 msgstr "Sélectionne le bloc de code courant"
 
-#: src/toolbar.c:1242
+#: src/toolbar.c:1239
 msgid "Indent inc"
 msgstr "Augmente l'indentation"
 
-#: src/toolbar.c:1244
+#: src/toolbar.c:1241
 msgid "Increase indentation of block/line"
 msgstr "Augmente l'indentation du bloc/ligne"
 
-#: src/toolbar.c:1255
+#: src/toolbar.c:1252
 msgid "Indent dcr"
 msgstr "Décrémente l'indentation"
 
-#: src/toolbar.c:1257
+#: src/toolbar.c:1254
 msgid "Decrease indentation of block/line"
 msgstr "Décrémente·l'indentation du bloc/ligne"
 
-#: src/toolbar.c:1271
+#: src/toolbar.c:1268
 msgid "Autoformat"
 msgstr "Formate automatiquement"
 
-#: src/toolbar.c:1273
+#: src/toolbar.c:1270
 #, fuzzy
 msgid "Automatically format the code"
 msgstr "Formatte automatiquement le code source"
 
-#: src/toolbar.c:1285
+#: src/toolbar.c:1282
 msgid "Format style"
 msgstr "Style de formatage"
 
-#: src/toolbar.c:1286
+#: src/toolbar.c:1283
 msgid "Configure style to use for auto format"
 msgstr "Configuration du style à utiliser pour l'autoformatage"
 
-#: src/toolbar.c:1299
+#: src/toolbar.c:1296
 msgid "Calltip"
 msgstr "Prototype d'appel"
 
-#: src/toolbar.c:1299
+#: src/toolbar.c:1296
 msgid "Show Calltip"
 msgstr "Affiche le prototype d'appel"
 
-#: src/toolbar.c:1313
+#: src/toolbar.c:1310
 msgid "Autocomplete"
 msgstr "Autocomplète"
 
-#: src/toolbar.c:1314
+#: src/toolbar.c:1311
 msgid "Autocomplete word"
 msgstr "Autocomplèté le mot"
 
-#: src/toolbar.c:1367
+#: src/toolbar.c:1364
 msgid "Functions"
 msgstr "Fonctions"
 
-#: ccview/ccview_main.cc:49 src/toolbar.c:1374
+#: ccview/ccview_main.cc:49 src/toolbar.c:1371
 msgid "Classes"
 msgstr "Classes"
 
-#: src/toolbar.c:1381
+#: src/toolbar.c:1378
 msgid "Structs"
 msgstr "Structures"
 
-#: src/toolbar.c:1388
+#: src/toolbar.c:1385
 msgid "Unions"
 msgstr "Unions"
 
-#: src/toolbar.c:1395
+#: src/toolbar.c:1392
 msgid "Enums"
 msgstr "Enums"
 
-#: src/toolbar.c:1402
+#: src/toolbar.c:1399
 msgid "Variables"
 msgstr "Variables"
 
-#: src/toolbar.c:1409
+#: src/toolbar.c:1406
 msgid "Macros"
 msgstr "Macros"
 
@@ -4943,42 +4983,54 @@ msgstr "Ouvrir fichier"
 msgid "Save File As"
 msgstr "Enregistrer fichier sous"
 
-#: src/anjuta.c:183
+#: src/anjuta.c:184
 msgid "Cannot create application...exiting\n"
 msgstr "Impossible de créer l'application ... sortie\n"
 
-#: src/anjuta.c:230 src/anjuta.c:234 src/anjuta.c:789 src/anjuta.c:798
+#: src/anjuta.c:231 src/anjuta.c:235 src/anjuta.c:790 src/anjuta.c:799
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta : %s"
 
-#: src/anjuta.c:296
+#: src/anjuta.c:297
 msgid "Recent Files "
 msgstr "Fichiers récents "
 
-#: src/anjuta.c:599
+#: src/anjuta.c:600
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "L'utilisation de CVS n'est pas encore implémentée. =(\n"
 
-#: src/anjuta.c:644
+#: src/anjuta.c:645
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * NE PAS EDITER OU RENOMMER CE FICHIER ** Généré par Anjuta **\n"
 
-#: src/anjuta.c:786
+#: src/anjuta.c:787
 #, c-format
 msgid "Anjuta: %s(Saved)"
 msgstr "Anjuta : %s (Enregistré)"
 
-#: src/anjuta.c:795
+#: src/anjuta.c:796
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
 msgstr "Anjuta : %s (Non enregistré)"
 
-#: src/anjuta.c:814
+#: src/anjuta.c:815
 msgid "Anjuta: No file"
 msgstr "Anjuta : Aucun fichier"
 
-#: src/anjuta.c:1264
+#: src/anjuta.c:1014
+msgid "ERROR: "
+msgstr "ERREUR: "
+
+#: src/anjuta.c:1031
+msgid ""
+"\n"
+"System: "
+msgstr ""
+"\n"
+"Système: "
+
+#: src/anjuta.c:1265
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -4987,11 +5039,11 @@ msgstr ""
 "Fonction non implémentée.\n"
 "Le code doit être inséré au point \"%s:%u\""
 
-#: src/anjuta.c:1480
+#: src/anjuta.c:1481
 msgid "Activate this to select this window"
 msgstr "Sélectionne cette fenêtre"
 
-#: src/anjuta.c:1527
+#: src/anjuta.c:1528
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
@@ -5000,19 +5052,19 @@ msgstr ""
 "\"%s\" n'est pas installé sur votre machine.\n"
 "Installez-le puis redémarrer Anjuta."
 
-#: src/anjuta.c:1553 src/anjuta.c:1588
+#: src/anjuta.c:1554 src/anjuta.c:1589
 msgid "None"
 msgstr "Aucun"
 
-#: src/anjuta.c:1570
+#: src/anjuta.c:1571
 msgid "OVR"
 msgstr "ECR"
 
-#: src/anjuta.c:1574 src/anjuta.c:1580
+#: src/anjuta.c:1575 src/anjuta.c:1581
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1591
+#: src/anjuta.c:1592
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5066,17 +5118,21 @@ msgstr "Impossible de trouver l'image : %s"
 msgid "Could not create pixmap from file: %s"
 msgstr "Impossible de créer l'image à partir du fichier : %s"
 
+#: src/resources.c:295 src/resources.c:303
+msgid "Cannot execute Devhelp. Make sure it is installed"
+msgstr "Impossible d'exécuter devhelp. Vérifiez que cet outil est installé."
+
 #: anjuta.desktop.in.h:1
 msgid "Anjuta C/C++ IDE"
-msgstr ""
+msgstr "EDI Anjuta C/C++"
 
 #: anjuta.desktop.in.h:2
 msgid "Integrated Development Environment"
-msgstr ""
+msgstr "Environnement de développement intégré"
 
 #: ccview/cccmd.cc:27
 msgid "/_Class Definition"
-msgstr ""
+msgstr "_Définition de la classe"
 
 #: ccview/cccmd.cc:28
 #, fuzzy
@@ -5090,16 +5146,25 @@ msgstr "Déclarations"
 
 #: ccview/cccmd.cc:36
 msgid "/_Shell here"
-msgstr ""
+msgstr "/_Interpréteur de cmd"
 
 #: ccview/cccmd.cc:37
 #, fuzzy
 msgid "/_Open"
 msgstr "Ouvrir"
 
+#: ccview/cccproj.cc:1453
+msgid "Scanning and Updating files. Please Wait ..."
+msgstr "Analyse et mise à jour des balises. Veuillez patienter ..."
+
 #: ccview/cccproj.cc:1471
 #, fuzzy
 msgid "Updating file:"
+msgstr "Ouvrir fichier"
+
+#: ccview/cccproj.cc:1532 ccview/cccproj.cc:1558
+#, fuzzy
+msgid "Updating file: "
 msgstr "Ouvrir fichier"
 
 #: ccview/ccview_main.cc:51

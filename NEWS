@@ -13,7 +13,7 @@ Added: Preferences for setting caret and selection colors.
 Fix for gdb version 5.
 Closes all files when project is closed.
 And many big fixes and minor feature additions.
-French translation updated.
+Translations updated.
 
 Note : the major part of the new project manager has been written but
 it needs time to be integrated and tested. That's why it's not present in
