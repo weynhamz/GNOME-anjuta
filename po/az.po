@@ -1776,7 +1776,7 @@ msgid "Got a detach signal from an object (%p) who is not our host %p"
 msgstr "Obyektdən (%p) ayırma siqnalı alındı, ancaq bu bizim %p qovşağı deyil"
 
 #: gdl/gdl-dock-placeholder.c:440
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Something weird happened while getting the child placement for %p from "
 "parent %p"
