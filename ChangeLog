@@ -1,3 +1,9 @@
+2002-06-05  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/project_dbase.c: Fixed the file-path-corruption bug
+	and the cannot-import-file-in-project bug. (follow-up with
+	the last commit from Stef).
+	
 2002-06-05  Stephane Demurget  <demurgets@free.fr>
 
 	* src/project_dbase.c (project_dbase_add_file_to_module): fixed a

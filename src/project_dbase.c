@@ -2058,8 +2058,10 @@ void
 project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 				  gchar * filename)
 {
-	gchar *mod_files, *file_list, *new_file_list, *comp_dir, *relative_fn;
-
+	gchar *mod_files, *file_list, *new_file_list, *comp_dir;
+	/* gchar *relative_fn; */
+	gchar *short_file_name;
+	
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->sel_module < MODULE_END_MARK);
 
@@ -2068,30 +2070,33 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 		g_warning("Unable to get component directory!");
 		return;
 	}
+	/*
 	relative_fn = get_relative_file_name(comp_dir, filename);
 	if (!relative_fn)
 	{
-		anjuta_error(_("Unable to get relative file name for %s in %s"), filename, comp_dir);
+		anjuta_error(_("Unable to get relative file name for %s\n in %s"), filename, comp_dir);
 		g_free(comp_dir);
 		return;
-	}
+	}*/
+	short_file_name = extract_filename(filename);
 	g_free(comp_dir);
 
 	if (NULL == (mod_files = g_strconcat ("module.", module_map[module], ".files", NULL)))
 	{
 		g_warning("mod_files for %s is NULL", module_map[module]);
-		g_free(relative_fn);
+		/* g_free(relative_fn); */
 		return;
 	}
 	file_list = prop_get (p->props, mod_files);
 	if (!file_list)
 		file_list = g_strdup ("");
-	new_file_list =	g_strconcat (file_list, " ", relative_fn, NULL);
+	/* new_file_list =	g_strconcat (file_list, " ", relative_fn, NULL); */
+	new_file_list =	g_strconcat (file_list, " ", short_file_name, NULL);
 	prop_set_with_key (p->props, mod_files, new_file_list);
 	g_free (new_file_list);
 	g_free (file_list);
 	g_free (mod_files);
-	g_free(relative_fn);
+	/* g_free(relative_fn); */
 	if ((MODULE_INCLUDE == module) || (MODULE_SOURCE == module))
 		tm_project_add_file(TM_PROJECT(p->tm_project), filename, TRUE);
 	project_dbase_update_tree (p);
