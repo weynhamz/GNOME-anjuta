@@ -515,9 +515,9 @@ LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,
 					GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (m_scrollbar);
 	m_debug_tree = debug_tree_create (m_scrollbar, "Local Variables");
-	m_frame = gtk_frame_new (NULL);
+	m_frame = gtk_event_box_new ();
 	gtk_widget_show (m_frame);
-	gtk_frame_set_shadow_type (GTK_FRAME (m_frame), GTK_SHADOW_IN);
+	//gtk_frame_set_shadow_type (GTK_FRAME (m_frame), GTK_SHADOW_IN);
 	gtk_notebook_append_page (GTK_NOTEBOOK (p_amm->intern->notebook),
 				  m_frame, create_label ());
 

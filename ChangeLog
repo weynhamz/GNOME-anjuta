@@ -10,6 +10,10 @@
 	* src/utilities.c (anjuta_util_escape_quotes): Fixed a fatal
 	bug with quotes escaping in quotes.
 	
+	* src/message-manager-private.cc: Used event box instead
+	of frame for local message pane, so that the borders appear
+	properly and nicely.
+	
 2002-08-27	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/main_menubar_def.h: implement feature request #595356, patch #597161
