@@ -659,4 +659,8 @@ on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data);
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data);
 
+void
+on_findnext1_activate                   (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
 #endif

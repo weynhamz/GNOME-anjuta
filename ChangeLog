@@ -1,3 +1,20 @@
+2001-09-14  Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* anjuta.c, anjuta.h, main.c, main_menubar.c, main_menubar_def.h,
+	mainmenu_callbacks.c, mainmenu_callbacks.h, messages.c:
+	
+	1) Restore the error color to red (waiting for a configurable one )
+	2) Saving projects settings if you exit anjuta without closing an open
+	saved project
+	3) New Menu 'repaeat search' to search with a keystroke without pressing
+	the toolbar button
+	4) some define in the menus to better handle menu item update
+	
+	Patch from: lbell <lbell@tsc4.com>
+	
+	* main_menubar_def.h, main_menubar.c: Change the position of
+	"Repeat find" menu position.
+
 2001-09-13  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	 project_type.h, project_type.c, source.c: Applied patch.

@@ -78,6 +78,7 @@ struct _EditSubMenu
 	GtkWidget *calltip;
 
 	GtkWidget *find;
+	GtkWidget *repeat_find;	
 	GtkWidget *find_in_files;
 	GtkWidget *find_replace;
 

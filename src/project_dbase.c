@@ -1277,6 +1277,7 @@ project_dbase_close_project (ProjectDBase * p)
 	project_dbase_update_menu (p);	
 	project_dbase_clean_left (p);
 	ccview_project_clear(CCVIEW_PROJECT(p->widgets.ccview));
+	p->project_is_open = FALSE;
 }
 
 void

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.7\n"
-"POT-Creation-Date: 2001-09-03 20:28+0200\n"
+"POT-Creation-Date: 2001-09-11 20:09+0200\n"
 "Last-Translator: Jens Georg <mail@jensgeorg.de>\n"
 "Language-Team: german <mail@jensgeorg.de>\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgid "Function declaration:"
 msgstr "Funktionendeklaration:"
 
 #: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
-#: src/project_dbase_gui.c:1184
+#: src/project_dbase_gui.c:1185
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Konnte Pixmap-Datei %s nicht finden"
@@ -105,17 +105,17 @@ msgstr ""
 "Einige Dateien (bzw. das Projekt) wurden noch nicht gespeichert.\n"
 "Soll anjuta immer noch beendet werden?"
 
-#: src/anjuta_cbs.c:192 src/project_dbase_gui.c:1315
+#: src/anjuta_cbs.c:197 src/project_dbase_gui.c:1331
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "%s ist keine normale Datei."
 
-#: src/anjuta_cbs.c:198
+#: src/anjuta_cbs.c:203
 #, c-format
 msgid "No read permission for: %s."
 msgstr "Keine Leserechte für %s vorhanden."
 
-#: src/anjuta_cbs.c:227
+#: src/anjuta_cbs.c:235
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -164,7 +164,7 @@ msgstr "Bonobo-Komponente"
 msgid "Enter the basic Project information"
 msgstr "Eingabe der grundlegenden Projekt-Informationen"
 
-#: src/appwiz_page2.c:170 src/project_dbase_gui.c:709
+#: src/appwiz_page2.c:170 src/project_dbase_gui.c:710
 msgid "Project Name:"
 msgstr "Projektname:"
 
@@ -289,31 +289,57 @@ msgstr "Sprache:         "
 msgid "Gettext support: "
 msgstr "Unterstützung von Gettext:"
 
-#: src/appwizard_gui.c:97
+#: src/appwizard_gui.c:36
+msgid ""
+"The Application Wizard will generate a basic\n"
+"skeleton for your application, including all\n"
+"the build files. It will ask you for the basic\n"
+"initial structure for the application you want\n"
+"to develop.\n"
+"\n"
+"Please answer the questions carefully, as it\n"
+"may not be possible to change some of the\n"
+"settings later.\n"
+"\n"
+"Click Next to proceed ..."
+msgstr ""
+"Der Apllikationswizard generiert ein Skelett\n"
+"für Ihre Applikation, inklusive aller zu einem\n"
+"Build benötigten Dateien. Er fragt Sie nach der\n"
+"grundlegenden Struktur der Anwendung, die Sie\n"
+"entwickeln wollen.\n"
+"\n"
+"Bitte beantworten Sie die Fragen sorgfältig, da\n"
+"es später nicht mehr möglich ist, einige der\n"
+"Einstellungen zu ändern.\n"
+"\n"
+"Klicken Sie auf Weiter, um fortzufahren ..."
+
+#: src/appwizard_gui.c:100
 msgid "Application Wizard"
 msgstr "Applikationswizard"
 
-#: src/appwizard_gui.c:123
+#: src/appwizard_gui.c:126
 msgid "Application Wizard:     Page 1 of 6"
 msgstr "Applikationswizard:     Seite 1 von 6"
 
-#: src/appwizard_gui.c:152
+#: src/appwizard_gui.c:155
 msgid "Application Wizard:     Page 2 of 6"
 msgstr "Applikationswizard:     Seite 2 von 6"
 
-#: src/appwizard_gui.c:176
+#: src/appwizard_gui.c:179
 msgid "Application Wizard:     Page 3 of 6"
 msgstr "Applikationswizard:     Seite 3 von 6"
 
-#: src/appwizard_gui.c:201
+#: src/appwizard_gui.c:204
 msgid "Application Wizard:     Page 4 of 6"
 msgstr "Applikationswizard:     Seite 4 von 6"
 
-#: src/appwizard_gui.c:225
+#: src/appwizard_gui.c:228
 msgid "Application Wizard:     Page 5 of 6"
 msgstr "Applikationswizard:     Seite 5 von 6"
 
-#: src/appwizard_gui.c:248
+#: src/appwizard_gui.c:251
 msgid "Application Wizard:     Page 6 of 6"
 msgstr "Applikationswizard:     Seite 6 von 6"
 
@@ -332,9 +358,8 @@ msgid "Attach to process"
 msgstr "An Prozess anhängen"
 
 #: src/attach_process_gui.c:61
-#, fuzzy
 msgid "Select the process to attach:"
-msgstr "Wählen Sie den Prozess, an den attacht werden soll:"
+msgstr "Wählen Sie den anzuhängenden Prozess:"
 
 # --
 #: src/attach_process_gui.c:81
@@ -432,7 +457,7 @@ msgstr "Bedingung"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:456
+#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:457
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -661,7 +686,7 @@ msgstr "autogen beendet ... gescheitert"
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
-msgstr
+msgstr ""
 "autogen beendet...............erfolgreich\n"
 "Das Projekt sollte nun Konfiguriert werden.\n"
 
@@ -891,8 +916,8 @@ msgstr "    Installiert => %s\n"
 msgid "    Not Installed.\n"
 msgstr "    Nicht installiert.\n"
 
-#: src/compiler_options_cbs.c:330 src/compiler_options_cbs.c:393
-#: src/compiler_options_cbs.c:457 src/compiler_options_cbs.c:516
+#: src/compiler_options_cbs.c:359 src/compiler_options_cbs.c:452
+#: src/compiler_options_cbs.c:546 src/compiler_options_cbs.c:635
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
 msgstr "Soll die Liste wirklich geleert werden?"
@@ -950,7 +975,7 @@ msgstr "<: Hier eintragen"
 #: src/compiler_options_gui.c:364 src/compiler_options_gui.c:484
 #: src/compiler_options_gui.c:641 src/compiler_options_gui.c:769
 #: src/find_in_files_gui.c:136 src/main_menubar_def.h:692
-#: src/project_dbase_gui.c:463 src/src_paths_gui.c:177 src/watch_gui.c:42
+#: src/project_dbase_gui.c:464 src/src_paths_gui.c:177 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1587,11 +1612,11 @@ msgstr ""
 msgid "Project was successfully autogenerated."
 msgstr "Projekt wurde erfolgreich autogeneriert."
 
-#: src/goto_line.c:46
+#: src/goto_line.c:54
 msgid "Goto line"
 msgstr "Gehe zu Zeile"
 
-#: src/goto_line.c:54
+#: src/goto_line.c:62
 msgid " Goto Line No. "
 msgstr " Gehe zu Zeile Nr."
 
@@ -1661,7 +1686,7 @@ msgstr "Aktuelle Datei speichern"
 
 #: src/main_menubar_def.h:55
 msgid "Save _As ..."
-msgstr "Speichern _Unter ..."
+msgstr "Speichern _unter ..."
 
 #: src/main_menubar_def.h:56
 msgid "Save the current file with a different name"
@@ -1677,7 +1702,7 @@ msgstr "Alle momentan geöffneten Dateien speichern, außer neue Dateien"
 
 #: src/main_menubar_def.h:67
 msgid "_Close File"
-msgstr "Datei S_chließen"
+msgstr "Datei s_chließen"
 
 #: src/main_menubar_def.h:68 src/toolbar.c:158
 msgid "Close current file"
@@ -1717,7 +1742,7 @@ msgstr "Ein Projekt öffnen"
 
 #: src/main_menubar_def.h:98
 msgid "Sa_ve Project"
-msgstr "Projekt Speic_hern"
+msgstr "Projekt speic_hern"
 
 #: src/main_menubar_def.h:99 src/toolbar.c:425
 msgid "Save the current Project"
@@ -1789,7 +1814,7 @@ msgstr "Konvertiert EOL nach UNIX EOL (line feed: LF)"
 
 #: src/main_menubar_def.h:171
 msgid "_Select All"
-msgstr "Alle_s Auswählen"
+msgstr "Alle_s auswählen"
 
 #: src/main_menubar_def.h:172
 msgid "Select all text in the editor"
@@ -2280,27 +2305,27 @@ msgstr "Konsole"
 msgid "Show the console where the program runs"
 msgstr "Konsole des laufenden Programms anzeigen"
 
-#: src/main_menubar_def.h:633 src/project_dbase_gui.c:391
+#: src/main_menubar_def.h:633 src/project_dbase_gui.c:392
 msgid "Include file"
 msgstr "Includedatei"
 
-#: src/main_menubar_def.h:639 src/project_dbase_gui.c:397
+#: src/main_menubar_def.h:639 src/project_dbase_gui.c:398
 msgid "Source file"
 msgstr "Sourcedatei"
 
-#: src/main_menubar_def.h:645 src/project_dbase_gui.c:403
+#: src/main_menubar_def.h:645 src/project_dbase_gui.c:404
 msgid "Help file"
 msgstr "Hilfedatei"
 
-#: src/main_menubar_def.h:651 src/project_dbase_gui.c:409
+#: src/main_menubar_def.h:651 src/project_dbase_gui.c:410
 msgid "Data file"
 msgstr "Datendatei"
 
-#: src/main_menubar_def.h:657 src/project_dbase_gui.c:415
+#: src/main_menubar_def.h:657 src/project_dbase_gui.c:416
 msgid "Pixmap file"
 msgstr "Bilddatei"
 
-#: src/main_menubar_def.h:663 src/project_dbase_gui.c:421
+#: src/main_menubar_def.h:663 src/project_dbase_gui.c:422
 msgid "Translation file"
 msgstr "Übersetzungsdatei"
 
@@ -2308,11 +2333,11 @@ msgstr "Übersetzungsdatei"
 msgid "Documentation file"
 msgstr "Dokumentationsdatei"
 
-#: src/main_menubar_def.h:679 src/project_dbase_gui.c:437
+#: src/main_menubar_def.h:679 src/project_dbase_gui.c:438
 msgid "Add New"
 msgstr "Neue Datei hinzufügen"
 
-#: src/main_menubar_def.h:685 src/project_dbase_gui.c:443
+#: src/main_menubar_def.h:685 src/project_dbase_gui.c:444
 msgid "Import File"
 msgstr "Datei importieren"
 
@@ -2610,7 +2635,8 @@ msgstr "_Generieren"
 
 #: src/main_menubar_def.h:947
 msgid "Build the source directory of the project/current source file"
-msgstr "Übersetzt das Sourceverzeichnis des Projekts/der aktuellen Quelldateien"
+msgstr ""
+"Übersetzt das Sourceverzeichnis des Projekts/der aktuellen Quelldateien"
 
 #: src/main_menubar_def.h:952
 msgid "Build _All"
@@ -3004,7 +3030,7 @@ msgstr "Backup-Manager"
 
 #: src/main_menubar_def.h:1345
 msgid "_Create New Window"
-msgstr "Neues Fenster öffenen"
+msgstr "Neues Fenster öffnen"
 
 #: src/main_menubar_def.h:1346
 msgid "Open a new file window"
@@ -3103,7 +3129,6 @@ msgid "Online documentation and resources"
 msgstr "Online-Dokumentation und Ressourcen"
 
 #: src/main_menubar_def.h:1441
-#, fuzzy
 msgid "Libraries API references"
 msgstr "API-Referenz für Libraries"
 
@@ -3597,7 +3622,7 @@ msgstr "Projekt öffnen"
 msgid "Add To Project"
 msgstr "Zum Projekt hinzufügen"
 
-#: src/project_dbase.c:307 src/project_dbase.c:449 src/project_dbase_gui.c:532
+#: src/project_dbase.c:307 src/project_dbase.c:449 src/project_dbase_gui.c:533
 msgid "Project: None"
 msgstr "Projekt: Keins"
 
@@ -3807,99 +3832,99 @@ msgstr ""
 msgid "There is already a project opened.Do you want to close it first?"
 msgstr "Ein Projekt ist bereite geöffnet. Soll es vorher geschlossen werden?"
 
-#: src/project_dbase_gui.c:427
+#: src/project_dbase_gui.c:428
 msgid "Doc file"
 msgstr "Dokumentationsdatei"
 
-#: src/project_dbase_gui.c:450
+#: src/project_dbase_gui.c:451
 msgid "View"
 msgstr "Ansicht"
 
-#: src/project_dbase_gui.c:470
+#: src/project_dbase_gui.c:471
 msgid "Configure Project"
 msgstr "Projekt Konfigurieren"
 
-#: src/project_dbase_gui.c:476
+#: src/project_dbase_gui.c:477
 msgid "Project Info"
 msgstr "Projektinformationen"
 
-#: src/project_dbase_gui.c:483 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/project_dbase_gui.c:484 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/watch_gui.c:67
 msgid "Dock/Undock"
 msgstr "Andocken/Herauslösen"
 
-#: src/project_dbase_gui.c:489 src/registers_gui.c:60 src/sharedlib_gui.c:53
+#: src/project_dbase_gui.c:490 src/registers_gui.c:60 src/sharedlib_gui.c:53
 #: src/signals_gui.c:66 src/stack_trace_gui.c:72 src/toolbar.c:308
 #: src/watch_gui.c:73
 msgid "Help"
 msgstr "Hilfe"
 
-#: src/project_dbase_gui.c:551 src/toolbar.c:283
+#: src/project_dbase_gui.c:552 src/toolbar.c:283
 msgid "Project"
 msgstr "Projekt"
 
-#: src/project_dbase_gui.c:658
+#: src/project_dbase_gui.c:659
 msgid "Project Information"
 msgstr "Projektinformationen"
 
-#: src/project_dbase_gui.c:665
+#: src/project_dbase_gui.c:666
 msgid " Project Information "
 msgstr "Information zum Projekt"
 
-#: src/project_dbase_gui.c:701
+#: src/project_dbase_gui.c:702
 msgid "Author:"
 msgstr "Autor:"
 
-#: src/project_dbase_gui.c:788
+#: src/project_dbase_gui.c:789
 msgid "Program Name:"
 msgstr "Programmname"
 
-#: src/project_dbase_gui.c:795
+#: src/project_dbase_gui.c:796
 msgid "No of src files:"
 msgstr "Anzahl der Quelldateien"
 
-#: src/project_dbase_gui.c:802
+#: src/project_dbase_gui.c:803
 msgid "No of help files:"
 msgstr "Anzahl der Hilfedateien:"
 
-#: src/project_dbase_gui.c:809
+#: src/project_dbase_gui.c:810
 msgid "No of data files:"
 msgstr "Anzahl der Datendateien:"
 
-#: src/project_dbase_gui.c:816
+#: src/project_dbase_gui.c:817
 msgid "No of pix files:"
 msgstr "Anzahl der Pixmaps:"
 
-#: src/project_dbase_gui.c:823
+#: src/project_dbase_gui.c:824
 msgid "No of doc files:"
 msgstr "Anzahl der Dokumentationsdateien:"
 
-#: src/project_dbase_gui.c:844
+#: src/project_dbase_gui.c:845
 msgid "No of po files:"
 msgstr "Anzahl der Übersetzungsdateien:"
 
 # --
-#: src/project_dbase_gui.c:851
+#: src/project_dbase_gui.c:852
 msgid "Version:"
 msgstr ""
 
-#: src/project_dbase_gui.c:874
+#: src/project_dbase_gui.c:875
 msgid "GUI editable by Glade:"
 msgstr "GUI durch Glade editierbar:"
 
-#: src/project_dbase_gui.c:896
+#: src/project_dbase_gui.c:897
 msgid "Makefiles managed:"
 msgstr "Makefiles verwaltet:"
 
-#: src/project_dbase_gui.c:938
+#: src/project_dbase_gui.c:939
 msgid "Gettext support:"
 msgstr "Unterstützung von Gettext:"
 
-#: src/project_dbase_gui.c:996
+#: src/project_dbase_gui.c:997
 msgid "Project Type:"
 msgstr "Typ des Projekts:"
 
-#: src/project_dbase_gui.c:1039
+#: src/project_dbase_gui.c:1040
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -3907,136 +3932,136 @@ msgstr ""
 "Das Projekt ist nicht gespeichert.\n"
 "Soll es vor dem dem Schließen gespeichert werden?"
 
-#: src/project_dbase_gui.c:1056 src/project_dbase_gui.c:1176
+#: src/project_dbase_gui.c:1057 src/project_dbase_gui.c:1177
 msgid "Breton"
 msgstr "Bretonisch"
 
-#: src/project_dbase_gui.c:1057
+#: src/project_dbase_gui.c:1058
 msgid "Catalan"
 msgstr "Katalanisch"
 
-#: src/project_dbase_gui.c:1058
+#: src/project_dbase_gui.c:1059
 msgid "Czech"
 msgstr "Tschechisch"
 
-#: src/project_dbase_gui.c:1059
+#: src/project_dbase_gui.c:1060
 msgid "Danish"
 msgstr "Dänisch"
 
-#: src/project_dbase_gui.c:1060
+#: src/project_dbase_gui.c:1061
 msgid "German"
 msgstr "Deutsch"
 
-#: src/project_dbase_gui.c:1061
+#: src/project_dbase_gui.c:1062
 msgid "Greek"
 msgstr "Griechisch"
 
-#: src/project_dbase_gui.c:1062
+#: src/project_dbase_gui.c:1063
 msgid "Esperanto"
 msgstr ""
 
-#: src/project_dbase_gui.c:1063
+#: src/project_dbase_gui.c:1064
 msgid "Spanish"
 msgstr "Spanisch"
 
-#: src/project_dbase_gui.c:1064
+#: src/project_dbase_gui.c:1065
 msgid "Finnish"
 msgstr "Finnisch"
 
-#: src/project_dbase_gui.c:1065
+#: src/project_dbase_gui.c:1066
 msgid "French"
 msgstr "Französisch"
 
-#: src/project_dbase_gui.c:1066
+#: src/project_dbase_gui.c:1067
 msgid "Herbrew"
 msgstr "Hebräisch"
 
-#: src/project_dbase_gui.c:1067 src/project_dbase_gui.c:1071
+#: src/project_dbase_gui.c:1068 src/project_dbase_gui.c:1072
 msgid "Croatian"
 msgstr "Kroatisch"
 
-#: src/project_dbase_gui.c:1068
+#: src/project_dbase_gui.c:1069
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: src/project_dbase_gui.c:1069
+#: src/project_dbase_gui.c:1070
 msgid "Islandic"
 msgstr "Isländisch"
 
-#: src/project_dbase_gui.c:1070
+#: src/project_dbase_gui.c:1071
 msgid "Italian"
 msgstr "Italienisch"
 
-#: src/project_dbase_gui.c:1072
+#: src/project_dbase_gui.c:1073
 msgid "Korean"
 msgstr "Koreanisch"
 
-#: src/project_dbase_gui.c:1073
+#: src/project_dbase_gui.c:1074
 msgid "Macedonian"
 msgstr "Mazedonisch"
 
-#: src/project_dbase_gui.c:1074
+#: src/project_dbase_gui.c:1075
 msgid "Dutch"
 msgstr "Holländisch"
 
-#: src/project_dbase_gui.c:1075
+#: src/project_dbase_gui.c:1076
 msgid "Norwegian"
 msgstr "Norwegisch"
 
-#: src/project_dbase_gui.c:1076
+#: src/project_dbase_gui.c:1077
 msgid "Polish"
 msgstr "Polnisch"
 
-#: src/project_dbase_gui.c:1077
+#: src/project_dbase_gui.c:1078
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: src/project_dbase_gui.c:1078
+#: src/project_dbase_gui.c:1079
 msgid "Romanian"
 msgstr "Rumänisch"
 
-#: src/project_dbase_gui.c:1079
+#: src/project_dbase_gui.c:1080
 msgid "Russian"
 msgstr "Russisch"
 
-#: src/project_dbase_gui.c:1080
+#: src/project_dbase_gui.c:1081
 msgid "Slovak"
 msgstr "Slovakisch"
 
-#: src/project_dbase_gui.c:1081
+#: src/project_dbase_gui.c:1082
 msgid "Turkish"
 msgstr "Türkisch"
 
-#: src/project_dbase_gui.c:1082
+#: src/project_dbase_gui.c:1083
 msgid "Simplified Chinese"
 msgstr "Vereinfachtes Chinesisch"
 
-#: src/project_dbase_gui.c:1083
+#: src/project_dbase_gui.c:1084
 msgid "Chinese"
 msgstr "Chinesisch"
 
-#: src/project_dbase_gui.c:1084
+#: src/project_dbase_gui.c:1085
 msgid "Estonian"
 msgstr "Estnisch"
 
-#: src/project_dbase_gui.c:1128
+#: src/project_dbase_gui.c:1129
 msgid "Select regional language"
 msgstr "Regionalsprache auswählen"
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1145
 msgid "Select Regional Language:"
 msgstr "Regionalsprache auswählen:"
 
-#: src/project_dbase_gui.c:1256
+#: src/project_dbase_gui.c:1257
 msgid "This file has already been added to the project."
 msgstr "Diese Datei wurde bereits zum Projekt hinzugefügt"
 
-#: src/project_dbase_gui.c:1286
+#: src/project_dbase_gui.c:1287
 msgid "Error while copying the file inside the module."
 msgstr "Fehler beim Kopieren der Datei in das Modul"
 
 # c-format
-#: src/project_dbase_gui.c:1323
+#: src/project_dbase_gui.c:1339
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -4154,6 +4179,7 @@ msgstr ""
 #: src/stack_trace_gui.c:105
 msgid "Stack Trace"
 msgstr ""
+
 # ??
 #: src/stack_trace_gui.c:126 src/toolbar.c:1033
 msgid "Frame"
@@ -4346,7 +4372,8 @@ msgstr "Aktuelle Datei compilieren"
 
 #: src/text_editor_gui.c:248
 msgid "Build current File or Build the source directory of the Project"
-msgstr "Die aktuelle Datei oder das Sourcen-Verzeichnis des Projekts übersetzen"
+msgstr ""
+"Die aktuelle Datei oder das Sourcen-Verzeichnis des Projekts übersetzen"
 
 #: src/text_editor_gui.c:261
 msgid "Print the current File"
@@ -4810,13 +4837,13 @@ msgstr "Da ist Zeile nummer %d in \"%s\"."
 msgid "Couldn't read file: %s."
 msgstr "Konnte Datei %s nicht lesen."
 
-#: src/source.c:120 src/source.c:188 src/source.c:226 src/source.c:500
-#: src/source.c:523 src/source.c:610 src/source.c:675 src/source.c:715
-#: src/source.c:730 src/source.c:763 src/source.c:830 src/source.c:900
-#: src/source.c:919 src/source.c:952 src/source.c:971 src/source.c:1003
-#: src/source.c:1022 src/source.c:1052 src/source.c:1070 src/source.c:1100
-#: src/source.c:1118 src/source.c:1145 src/source.c:1197 src/source.c:1265
-#: src/source.c:1384 src/utilities.c:681
+#: src/source.c:120 src/source.c:188 src/source.c:226 src/source.c:504
+#: src/source.c:527 src/source.c:614 src/source.c:679 src/source.c:719
+#: src/source.c:734 src/source.c:767 src/source.c:842 src/source.c:912
+#: src/source.c:931 src/source.c:964 src/source.c:983 src/source.c:1015
+#: src/source.c:1034 src/source.c:1064 src/source.c:1082 src/source.c:1112
+#: src/source.c:1130 src/source.c:1157 src/source.c:1209 src/source.c:1277
+#: src/source.c:1396 src/utilities.c:681
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Konnte Datei %s nicht erstellen."
@@ -4914,7 +4941,7 @@ msgstr "Benötigt Terminal:"
 msgid "Error writing to file: %s."
 msgstr "Fehler beim Schreiben in Datei %s."
 
-#: src/source.c:1451
+#: src/source.c:1463
 msgid "Unkown project type."
 msgstr "Unbekannter Projekttyp."
 
@@ -5020,11 +5047,11 @@ msgid ""
 msgstr ""
 "  Projekt: %s       Zoom: %d       Zeile: %04d      Spalte: %03d    %s       "
 
-#: src/anjuta_gui.c:202 src/anjuta_gui.c:291
+#: src/anjuta_gui.c:207 src/anjuta_gui.c:296
 msgid "Click here to undock this window"
 msgstr "Hier klicken, um das Fenster zu entdocken"
 
-#: src/anjuta_gui.c:236 src/anjuta_gui.c:258
+#: src/anjuta_gui.c:241 src/anjuta_gui.c:263
 msgid "Click here to hide this window"
 msgstr "Hier klicken, um das Fenster zu verstecken"
 
@@ -5067,5 +5094,5 @@ msgstr ""
 
 #: src/resources.c:295 src/resources.c:303
 msgid "Cannot execute Devhelp. Make sure it is installed"
-msgstr "Kann Devhelp nicht ausführen. Stellen Sie sicher, daß es installiert ist."
-
+msgstr ""
+"Kann Devhelp nicht ausführen. Stellen Sie sicher, daß es installiert ist."

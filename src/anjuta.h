@@ -167,6 +167,8 @@ gboolean anjuta_save_yourself (FILE * stream);
 
 gboolean anjuta_load_yourself (PropsID pr);
 
+void anjuta_application_exit(void);
+
 void anjuta_clean_exit (void);
 
 void anjuta_update_title (void);

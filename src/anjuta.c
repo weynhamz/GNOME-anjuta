@@ -901,6 +901,17 @@ anjuta_refresh_breakpoints (TextEditor* te)
 }
 
 void
+anjuta_application_exit(void)
+{
+	g_return_if_fail(app != NULL );
+	if(		( NULL != app->project_dbase )
+		&&	(app->project_dbase->project_is_open ) )
+	{
+		project_dbase_close_project(app->project_dbase) ;
+	}
+}
+
+void
 anjuta_clean_exit ()
 {
 	gchar *tmp;
@@ -917,7 +928,7 @@ anjuta_clean_exit ()
 
 /* Is it necessary to free up all the memos on exit? */
 /* Assuming that it is not, I am disabling the following */
-/* Basicaly, because it is faster */
+/* Basically, because it is faster */
 
 #if 0				/* From here */
 	if (app->project_dbase->project_is_open)

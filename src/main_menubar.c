@@ -60,7 +60,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->file.recent_files = file1_menu_uiinfo[19].widget;
 	mb->file.recent_projects = file1_menu_uiinfo[20].widget;
 	mb->file.exit = file1_menu_uiinfo[22].widget;
-	for (i = 0; i < 23; i++)
+	for (i = 0; i < 23 ; i++)
 		gtk_widget_ref (file1_menu_uiinfo[i].widget);
 
 	mb->edit.uppercase = transform1_submenu_uiinfo[0].widget;
@@ -96,8 +96,10 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.goto_block_end = goto1_submenu_uiinfo[3].widget;
 	mb->edit.goto_prev_mesg = goto1_submenu_uiinfo[4].widget;
 	mb->edit.goto_next_mesg = goto1_submenu_uiinfo[5].widget;
-	mb->edit.edit_app_gui = edit1_menu_uiinfo[21].widget;
-	for (i = 0; i < 22; i++)
+	mb->edit.repeat_find = edit1_menu_uiinfo[18].widget;
+	mb->edit.edit_app_gui = edit1_menu_uiinfo[22].widget;
+
+	for (i = 0; i < NUM_EDIT_MENUES ; i++)
 		gtk_widget_ref (edit1_menu_uiinfo[i].widget);
 
 	mb->view.main_toolbar = toolbar1_submenu_uiinfo[0].widget;
@@ -309,7 +311,7 @@ main_menu_unref ()
 		gtk_widget_unref (goto1_submenu_uiinfo[i].widget);
 	for (i = 0; i < 3; i++)
 		gtk_widget_unref (inserttext1_submenu_uiinfo[i].widget);
-	for (i = 0; i < 22; i++)
+	for (i = 0; i < NUM_EDIT_MENUES ; i++)
 		gtk_widget_unref (edit1_menu_uiinfo[i].widget);
 	for (i = 0; i < 11; i++)
 		gtk_widget_unref (toolbar1_submenu_uiinfo[i].widget);

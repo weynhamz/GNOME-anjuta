@@ -115,6 +115,7 @@ main (int argc, char *argv[])
 		anjuta_load_cmdline_files();
 	//gtk_main ();
 	retCode = MainLoop( &argc, argv, corb );
+	anjuta_application_exit();
 	write_config();
 	return retCode ;
 //	return 0;

@@ -55,6 +55,8 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
+void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
+
 gboolean closing_state;		/* Do not temper with this variable  */
 
 void
@@ -1935,4 +1937,9 @@ on_reload_yes_clicked (GtkButton * button, gpointer te_data)
 {
 	text_editor_load_file ((TextEditor *) te_data);
 	anjuta_update_title ();
+}
+void
+on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	on_toolbar_find_clicked ( NULL, NULL );
 }

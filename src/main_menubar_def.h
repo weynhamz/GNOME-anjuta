@@ -251,134 +251,144 @@ static GnomeUIInfo goto1_submenu_uiinfo[] = {
 	GNOMEUIINFO_END
 };
 
-static GnomeUIInfo edit1_menu_uiinfo[] = {
-	{
+
+#define	NUM_EDIT_MENUES	(25)
+
+static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES] = {
+	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
 	 N_("Undo the last action"),
 	 on_undo1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_UNDO,
 	 GDK_Z, GDK_CONTROL_MASK, NULL},
 
-	{
+	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Redo"),
 	 N_("Redo the last undone action"),
 	 on_redo1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REDO,
 	 GDK_R, GDK_CONTROL_MASK, NULL},
 
-	 GNOMEUIINFO_SEPARATOR,
+	 GNOMEUIINFO_SEPARATOR,/*2*/
 	
-	{
+	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("C_ut"),
 	 N_("Cut the selected text from the editor to the clipboard"),
 	 on_cut1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CUT,
 	 GDK_X, GDK_CONTROL_MASK, NULL},
 	
-	{
+	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Copy"),
 	 N_("Copy the selected text to the clipboard"),
 	 on_copy1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
 	 GDK_C, GDK_CONTROL_MASK, NULL},
 	
-	{
+	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Paste"),
 	 N_("Paste the content of clipboard at the current position"),
 	 on_paste1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
 	 GDK_V, GDK_CONTROL_MASK, NULL},
 	
-	{
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("C_lear"),
 	 N_("Delete the selected text from the editor"),
 	 on_clear1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Delete, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_SEPARATOR,/*7*/
 	
-	{
+	{/*8*/
 	 GNOME_APP_UI_SUBTREE, N_("_Transform"),
 	 NULL,
 	 transform1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	{
+	{/*9*/
 	 GNOME_APP_UI_SUBTREE, N_("_Select"),
 	 NULL,
 	 select1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	{
+	{/*10*/
 	 GNOME_APP_UI_SUBTREE, N_("_Insert text"),
 	 NULL,
 	 inserttext1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_SEPARATOR,/*11*/
 	
-	{
+	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("_AutoComplete"),
 	 N_("AutoComplete the current word"),
 	 on_autocomplete1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Return, GDK_CONTROL_MASK, NULL},
 	
-	{
+	{/*13*/
 	 GNOME_APP_UI_ITEM, N_("S_how calltip"),
 	 N_("Show calltip for the function"),
 	 on_calltip1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 
-	 GNOMEUIINFO_SEPARATOR,
+	 GNOMEUIINFO_SEPARATOR,/*14*/
 	
-	{
+	{/*15*/
 	 GNOME_APP_UI_ITEM, N_("_Find ..."),
 	 N_("Search for a string or regexp in the editor"),
 	 on_find1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 GDK_F, GDK_CONTROL_MASK, NULL},
 	
-	{
+	{/*16*/
 	 GNOME_APP_UI_ITEM, N_("Fin_d in files ..."),
 	 N_("Search for a string in multiple files or directories"),
 	 on_find_in_files1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	{
+	{/*17*/
 	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
 	N_("Search for and replace a string or regexp with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
 	GDK_R, GDK_CONTROL_MASK, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,
+	{/*18*/
+	 GNOME_APP_UI_ITEM, N_("_Repeat Find"),
+	 N_("Repeat the Last Find command"),
+	 on_findnext1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GDK_P, GDK_CONTROL_MASK, NULL},
+	 
+	GNOMEUIINFO_SEPARATOR,/*19*/
 	
-	{
+	{/*20*/
 	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
 	 NULL,
 	 goto1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_SEPARATOR,/*21*/
 	
-	{
+	{/*22*/
 	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUI ..."),
 	 N_("Edit application GUI with the Glade GUI editor"),
 	 on_edit_app_gui1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_MOD1_MASK, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_SEPARATOR,/*23*/
 	
-	{
+	{/*24*/
 	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
 	 N_("Save build messages to file"),
 	 on_save_build_messages_activate, NULL, NULL,
