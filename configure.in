@@ -84,8 +84,8 @@ dnl Enable stripped and optimized release builds
 AC_ARG_ENABLE(final,
       [  --enable-final           Build release executables (GCC only)],
       if test "x$GCC" != xyes; then
-        CFLAGS="$CFLAGS -DNDEBUG -Os -s"
-        CXXFLAGS="$CXXFLAGS -DNDEBUG -Os -s -fno-exceptions -fno-check-new"
+        CFLAGS="$CFLAGS -DNDEBUG -Os -s -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
+        CXXFLAGS="$CXXFLAGS -DNDEBUG -Os -s -fno-exceptions -fno-check-new -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
       fi)
 
 dnl Enable compiler warnings

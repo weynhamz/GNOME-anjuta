@@ -1,3 +1,7 @@
+2003-04-17  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+	* HACKING: Updated
+	* configure.in: Disable cast checks on final build.
+
 2003-04-17  Naba Kumar  <naba@gnome.org>
 
 	* src/build_project.c: Fixed a compilation error.
