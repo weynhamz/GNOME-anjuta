@@ -49,6 +49,7 @@ libanjuta_la_SOURCES= \
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \
+	anjuta-debug.h \
 	anjuta-shell.h \
 	anjuta-encodings.h \
 	anjuta-plugin.h \

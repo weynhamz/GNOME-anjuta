@@ -7,8 +7,8 @@
 #include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 
-#include "anjuta.h"
-#include "mainmenu_callbacks.h"
+// #include "anjuta.h"
+// #include "mainmenu_callbacks.h"
 
 #include "an_symbol_view.h"
 

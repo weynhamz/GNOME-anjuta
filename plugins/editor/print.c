@@ -34,6 +34,7 @@
 #include <libgnomeprintui/gnome-print-job-preview.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-debug.h>
 
 #define GTK
 #undef PLAT_GTK
@@ -43,12 +44,6 @@
 #include "ScintillaWidget.h"
 #include "print.h"
 #include "properties.h"
-
-#ifdef DEBUG
-#  define DEBUG_PRINT g_message
-#else
-#  define DEBUG_PRINT(...)
-#endif
 
 #define AN_PRINT_FONT_BODY_DEFAULT   "courier"
 #define AN_PRINT_FONT_HEADER_DEFAULT "helvetica"

@@ -60,7 +60,7 @@ on_save1_activate (GtkAction *action, gpointer user_data)
 	if (te->uri == NULL)
 	{
 		anjuta_docman_set_current_editor (docman, te);
-		// FIXME: gtk_widget_show (app->save_as_fileselection);
+		anjuta_docman_save_as_file (docman);
 		return;
 	}
 	ret = text_editor_save_file (te, TRUE);
@@ -84,7 +84,28 @@ on_save_as1_activate (GtkAction * action, gpointer user_data)
 void
 on_save_all1_activate (GtkAction * action, gpointer user_data)
 {
-	// anjuta_docman_save_all_files();
+	GList *node;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+	node = anjuta_docman_get_all_editors (docman);
+	while (node)
+	{
+		TextEditor* te;
+		GList* next;
+		te = node->data;
+		next = node->next;
+		if(te)
+		{
+			if (!text_editor_is_saved (te) && te->uri)
+			{
+				text_editor_save_file (te, TRUE);
+			}
+		}
+		node = next;
+	}
 }
 
 void
@@ -170,7 +191,7 @@ on_close_all_file1_activate (GtkAction * action, gpointer user_data)
 		TextEditor* te;
 		GList* next;
 		te = node->data;
-		next = node->next; // Save it now, as we may change it.
+		next = node->next; /* Save it now, as we may change it. */
 		if(te)
 		{
 			if (text_editor_is_saved (te))
@@ -217,7 +238,7 @@ on_reload_file1_activate (GtkAction * action, gpointer user_data)
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 	{
 		text_editor_load_file (te);
-		// anjuta_update_title ();
+		/* FIXME: anjuta_update_title (); */
 	}
 	gtk_widget_destroy (dialog);
 }
@@ -443,7 +464,6 @@ void on_editor_select_line (GtkAction *action, gpointer user_data)
 void
 on_transform_eolchars1_activate (GtkAction * action, gpointer user_data)
 {
-	// glong mode;
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
@@ -458,268 +478,6 @@ on_transform_eolchars1_activate (GtkAction * action, gpointer user_data)
 	mode = (glong)g_object_get_data (G_OBJECT (user_data), "user_data");
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
 }
-
-#if 0
-void
-on_insert_c_gpl_notice(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_c_gpl_notice(te);
-}
-
-void
-on_insert_cpp_gpl_notice(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cpp_gpl_notice(te);
-}
-
-void
-on_insert_py_gpl_notice(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_py_gpl_notice(te);
-}
-
-void
-on_insert_username(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_username(te);
-}
-
-void
-on_insert_changelog_entry(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_changelog_entry(te);
-}
-
-void
-on_insert_date_time(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_date_time(te);
-}
-
-void
-on_insert_header_template(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_header_template(te);
-}
-
-void
-on_insert_header(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_header(te);
-}
-
-void
-on_insert_switch_template(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_switch_template(te);
-}
-
-void
-on_insert_for_template(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_for_template(te);
-}
-
-void
-on_insert_while_template(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_while_template(te);
-}
-
-void
-on_insert_ifelse_template(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_ifelse_template(te);
-}
-
-void
-on_insert_cvs_author(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_author(te);
-}
-
-void
-on_insert_cvs_date(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_date(te);
-}
-
-void
-on_insert_cvs_header(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_header(te);
-}
-
-void
-on_insert_cvs_id(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_id(te);
-}
-
-void
-on_insert_cvs_log(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_log(te);
-}
-
-void
-on_insert_cvs_name(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_name(te);
-}
-
-void
-on_insert_cvs_revision(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_revision(te);
-}
-
-void
-on_insert_cvs_source(GtkAction * action, gpointer user_data)
-{
-    TextEditor* te;
-	AnjutaDocman *docman;
-	EditorPlugin *plugin;
-	plugin = (EditorPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-	insert_cvs_source(te);
-}
-#endif
 
 void
 on_autocomplete1_activate (GtkAction * action, gpointer user_data)
@@ -1400,121 +1158,115 @@ on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 										 "activate");
 }
 
+/* Incremental search */
+
+typedef struct
+{
+	gint pos;
+	gboolean wrap;
+	
+} IncrementalSearch;
+
 gboolean
 on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 {
-	// gchar *string;
-	// const gchar *string1;
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	// EggEntryAction *entry_action;
+	IncrementalSearch *search_params;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 
 	if (!te) return FALSE;
-#if 0 //FIXME:
-	/* Updated find combo history */
-	string1 =
-		gtk_entry_get_text (GTK_ENTRY
-				    (app->toolbar.main_toolbar.find_entry));
-	if (string1 && strlen (string1) > 0)
+	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
+	if (!search_params)
 	{
-		string = g_strdup (string1);
-		app->find_replace->find_text->find_history =
-			update_string_list (app->find_replace->find_text->
-						find_history, string, COMBO_LIST_LENGTH);
-		gtk_combo_set_popdown_strings (GTK_COMBO
-						   (app->toolbar.main_toolbar.find_combo),
-						   app->find_replace->find_text->find_history);
-		g_free (string);
+		search_params = g_new0 (IncrementalSearch, 1);
+		g_object_set_data_full (G_OBJECT (te), "incremental_search",
+								search_params, (GDestroyNotify)g_free);
 	}
 	/* Prepare to begin incremental search */	
-	app->find_replace->find_text->incremental_pos =
-		text_editor_get_current_position(te);
-	app->find_replace->find_text->incremental_wrap = FALSE;
-#endif 
+	search_params->pos = text_editor_get_current_position(te);
+	search_params->wrap = FALSE;
 	return FALSE;
 }
 
 gboolean
 on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 {
-#if 0 /* Ambiguity during merge */
-	app->find_replace->find_text->incremental_pos = -1;
-	if (EGG_IS_ENTRY_ACTION (action))
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	IncrementalSearch *search_params;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+
+	if (!te) return FALSE;
+	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
+	if (search_params)
 	{
-		string1 = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+		search_params->pos = -1;
+		search_params->wrap = FALSE;
 	}
-	else
-	{
-		EggEntryAction *entry_action;
-		AnjutaUI *ui = ANJUTA_ui (g_object_get_data (G_BOJECT (user_data), "ui"));
-		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		string1 = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	if (!string1 || strlen (string1) == 0)
-		return FALSE;
-	string = g_strdup (string1);
-	app->find_replace->find_text->find_history =
-		update_string_list (app->find_replace->find_text->
-				    find_history, string, COMBO_LIST_LENGTH);
-	/*
-	gtk_combo_set_popdown_strings (GTK_COMBO
-				       (app->widgets.toolbar.main_toolbar.
-					find_combo),
-				       app->find_replace->find_text->
-				       find_history);
-	*/
-	g_free (string);
-#endif
 	return FALSE;
 }
 
 void
 on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 {
-#if 0
 	const gchar *entry_text;
-	TextEditor *te = anjuta_get_current_text_editor();
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	IncrementalSearch *search_params;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+	
 	if (!te)
 		return;
-	if (app->find_replace->find_text->incremental_pos < 0)
+	
+	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
+	if (!search_params)
+	{
+		search_params = g_new0 (IncrementalSearch, 1);
+		g_object_set_data_full (G_OBJECT (te), "incremental_search",
+								search_params, (GDestroyNotify)g_free);
+	}
+	
+	if (search_params->pos < 0)
 		return;
 	
-	text_editor_goto_point (te, app->find_replace->find_text->incremental_pos);
-
 	if (EGG_IS_ENTRY_ACTION (action))
 	{
 		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
 	}
 	else
 	{
-		EggEntryAction *entry_action;
-		AnjutaUI *ui = ANJUTA_ui (g_object_get_data (G_BOJECT (user_data), "ui"));
-		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+		AnjutaUI *ui;
+		GtkAction *entry_action;
+		
+		ui = ANJUTA_UI (g_object_get_data (G_OBJECT (user_data), "ui"));
+		entry_action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+											 "ActionEditSearchEntry");
+		g_return_if_fail (EGG_IS_ENTRY_ACTION (entry_action));
+		entry_text =
+			egg_entry_action_get_text (EGG_ENTRY_ACTION (entry_action));
 	}
 	if (!entry_text || strlen(entry_text) < 1) return;
 	
-	/* 2 is passed to indicate the call is from incremental and at the
-	   same time the search is forward */
-	on_toolbar_find_clicked (NULL, GINT_TO_POINTER(2));
-#endif
+	text_editor_goto_point (te, search_params->pos);
+	on_toolbar_find_clicked (NULL, user_data);
 }
 
-#if 0 //FIXME:
-/*  *user_data : TRUE=Forward  False=Backward  */
 static void
 on_toolbar_find_start_over (GtkAction * action, gpointer user_data)
 {
-	long length;
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
@@ -1523,29 +1275,21 @@ on_toolbar_find_start_over (GtkAction * action, gpointer user_data)
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
 	
-	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
-
-	if (GPOINTER_TO_INT(user_data))
-		/* search from doc start */
-		text_editor_goto_point (te, 0);
-	else
-		/* search from doc end */
-		text_editor_goto_point (te, length);
-
+	/* search from doc start */
+	text_editor_goto_point (te, 0);
 	on_toolbar_find_clicked (action, user_data);
 }
-#endif
 
-/*  *user_data : TRUE=Forward  False=Backward  */
 void
-on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
+on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 {
 	const gchar *string;
-	// gint ret;
+	gint ret;
 	TextEditor *te;
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
-	// gboolean search_wrap = FALSE;
+	IncrementalSearch *search_params;
+	gboolean search_wrap = FALSE;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
@@ -1554,6 +1298,13 @@ on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
 	if (!te)
 		return;
 
+	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
+	if (!search_params)
+	{
+		search_params = g_new0 (IncrementalSearch, 1);
+		g_object_set_data_full (G_OBJECT (te), "incremental_search",
+								search_params, (GDestroyNotify)g_free);
+	}
 	if (EGG_IS_ENTRY_ACTION (action))
 	{
 		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
@@ -1561,48 +1312,29 @@ on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
 	else
 	{
 		GtkAction *entry_action;
-		entry_action = anjuta_ui_get_action (plugin->ui, "ActionGroupNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+		entry_action = anjuta_ui_get_action (plugin->ui,
+											 "ActionGroupNavigation",
+											 "ActionEditSearchEntry");
+		g_return_if_fail (EGG_IS_ENTRY_ACTION (entry_action));
+		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (entry_action));
 	}
-#if 0 //FIXME:	
-	/* The 2 below is checked to make sure the wrapping is only done when
-	  it is called by 'activate' (and not 'changed') signal */ 
-	if (app->find_replace->find_text->incremental_pos >= 0 &&
-		(app->find_replace->find_text->incremental_wrap == 2 ||
-		 (app->find_replace->find_text->incremental_wrap == 1 &&
-		  GPOINTER_TO_INT (user_data) < 2)))
+	if (search_params->pos >= 0 && search_params->wrap)
 	{
 		/* If incremental search wrap requested, so wrap it. */
 		search_wrap = TRUE;
-		app->find_replace->find_text->incremental_wrap = 2;
 	}
-	if (app->find_replace->find_text->incremental_pos >= 0)
-	{
-		/* If incremental search */
-		ret = text_editor_find (te, string,
-					TEXT_EDITOR_FIND_SCOPE_CURRENT,
-					GPOINTER_TO_INT(user_data), /* Forward - Backward */
-					FALSE, TRUE, FALSE, search_wrap);
-	}
-	else
-	{
-		/* Normal search */
-		ret = text_editor_find (te, string,
-					TEXT_EDITOR_FIND_SCOPE_CURRENT,
-					GPOINTER_TO_INT(user_data), /* Forward - Backward */
-					app->find_replace->find_text->regexp,
-					app->find_replace->find_text->ignore_case,
-					app->find_replace->find_text->whole_word,
-					FALSE);
-	}
+	ret = text_editor_find (te, string,
+							TEXT_EDITOR_FIND_SCOPE_CURRENT,
+							TRUE, /* Forward */
+							FALSE, TRUE, FALSE, search_wrap);
 	if (ret < 0) {
-		if (app->find_replace->find_text->incremental_pos < 0)
+		if (search_params->pos < 0)
 		{
+			GtkWindow *parent;
 			GtkWidget *dialog;
-			// Dialog to be made HIG compliant.
-			dialog = gtk_message_dialog_new (GTK_WINDOW (app),
+			
+			parent = GTK_WINDOW (ANJUTA_PLUGIN(user_data)->shell);
+			dialog = gtk_message_dialog_new (parent,
 											 GTK_DIALOG_DESTROY_WITH_PARENT,
 											 GTK_MESSAGE_QUESTION,
 											 GTK_BUTTONS_YES_NO,
@@ -1615,21 +1347,24 @@ on_toolbar_find_clicked (GtkAction * action, gpointer user_data)
 		{
 			if (search_wrap == FALSE)
 			{
+#if 0 /* FIXME */
 				anjuta_status(
 				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
 				string);
-				app->find_replace->find_text->incremental_wrap = TRUE;
+				search_params->wrap = 1;
 				if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
 											BEEP_ON_BUILD_COMPLETE))
+#endif
 					gdk_beep();
 			}
+#if 0 /* FIXME */
 			else
 			{
 				anjuta_status ("Failling Overwrapped I-Search: %s.", string);
 			}
+#endif
 		}
 	}
-#endif
 }
 
 void

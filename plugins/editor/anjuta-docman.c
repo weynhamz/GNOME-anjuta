@@ -528,25 +528,6 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 										  G_CALLBACK (on_editor_save_point),
 										  docman);
 #if 0 // FIXME
-	if (te->uri != NULL)
-	{
-		gint max_recent_files;
-		GtkWidget *recent_submenu;
-
-		max_recent_files =
-			anjuta_preferences_get_int (app->preferences,
-					     MAXIMUM_RECENT_FILES);
-		app->recent_files =
-			glist_path_dedup(update_string_list (dockman->priv->recent_files,
-					    te->uri, max_recent_files));
-		submenu =
-			create_submenu (_("Recent Files "), app->recent_files,
-					GTK_SIGNAL_FUNC (on_recent_files_menu_item_activate));
-		
-		recent_submenu = egg_menu_merge_get_widget (anjuta_ui_get_menu_merge (docman->ui),
-													"/MenuMain/MenuFile/RecentFiles");
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM(recent_submenu), submenu);
-	}
 	breakpoints_dbase_clear_all_in_editor (debugger.breakpoints_dbase, te);
 #endif
 	
@@ -663,10 +644,11 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 
 	g_return_val_if_fail (fname, NULL);
 	
-	/*filename = anjuta_docman_get_full_filename (docman, fname);*/
-	vfs_uri = gnome_vfs_uri_new(fname);
-	uri = gnome_vfs_uri_to_string(vfs_uri, GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref(vfs_uri);
+	/* FIXME: */
+	/* filename = anjuta_docman_get_full_filename (docman, fname); */
+	vfs_uri = gnome_vfs_uri_new (fname);
+	uri = gnome_vfs_uri_to_string (vfs_uri, GNOME_VFS_URI_HIDE_NONE);
+	gnome_vfs_uri_unref (vfs_uri);
 	/* g_free(filename); */
 
 	g_return_val_if_fail (uri != NULL, NULL);
@@ -799,7 +781,6 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 	}
 }
 
-// FIXME: Should be called from a te callback
 static void
 anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te)
 {
@@ -829,7 +810,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te)
 }
 
 #if 0
-void anjuta_set_zoom_factor(gint zoom)
+void anjuta_set_zoom_factor (gint zoom)
 {
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (te)

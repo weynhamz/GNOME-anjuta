@@ -1,3 +1,24 @@
+2004-09-28  Naba Kumar  <naba@gnome.org>
+	
+	* libanjuta/anjuta-debug.h, libanjuta/Makefile.am: Added debug
+	print code.
+	
+	* libanjuta/e-splash.c, Fixed compiler error and reduced progress bar
+	size to 5 pix.
+	
+	* libegg/egg-entry-action.c: Takes GtkEditable rather than GtkEntry
+	in changed signal callback.
+	
+	* plugins/editor/action-callbacks.c: Implemented save_all action
+	callback. Removed dead code. Do save_as when saving a new file.
+	Implemented incremental search.
+	
+	* plugins/editor/anjuta-docman.c: Removed dead code and formated code.
+	
+	* plugins/editor/plugin.c, plugins/editor/print.c: Used debug prints.
+	
+	* src/anjuta-app.c: Registers UI accelerators.
+	
 2004-09-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-utils.c: Added a border in input dialog entry box.

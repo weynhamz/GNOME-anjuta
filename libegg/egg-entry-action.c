@@ -60,8 +60,8 @@ static void connect_proxy                  (GtkAction *action,
 										    GtkWidget *proxy);
 static void disconnect_proxy               (GtkAction *action,
 										    GtkWidget *proxy);
-static void entry_changed		   (GtkEntry *entry,
-								    EggEntryAction *entry_action);
+static void entry_changed                  (GtkEditable *editable,
+										    EggEntryAction *entry_action);
 static void entry_focus_in                 (GtkEntry *entry, GdkEvent *event,
 										    EggEntryAction *action);
 static void entry_focus_out                (GtkEntry *entry, GdkEvent *event,
@@ -333,11 +333,11 @@ disconnect_proxy (GtkAction *action, GtkWidget *proxy)
 }
 
 static void
-entry_changed (GtkEntry *entry, EggEntryAction *entry_action)
+entry_changed (GtkEditable *editable, EggEntryAction *entry_action)
 {
   if (entry_action->text)
     g_free (entry_action->text);
-  entry_action->text = g_strdup (gtk_entry_get_text (entry));
+  entry_action->text = g_strdup (gtk_entry_get_text (GTK_ENTRY (editable)));
   egg_entry_action_changed (entry_action);
 }
 

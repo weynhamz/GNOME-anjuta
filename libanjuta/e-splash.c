@@ -57,6 +57,7 @@ GNOME_CLASS_BOILERPLATE (ESplash, e_splash, GtkWindow, GTK_TYPE_WINDOW);
 #define ICON_Y    100
 #define ICON_X    15
 #define ICON_SIZE 48
+#define PROGRESS_SIZE 5
 
 /* Icon management.  */
 
@@ -107,7 +108,8 @@ icon_new (ESplash *splash,
 
 	icon = g_new (Icon, 1);
 
-	icon->pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, ICON_SIZE, ICON_SIZE);
+	icon->pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE,
+								   8, ICON_SIZE, ICON_SIZE);
 	gdk_pixbuf_scale (image_pixbuf, icon->pixbuf,
 			  0, 0,
 			  ICON_SIZE, ICON_SIZE,
@@ -242,28 +244,26 @@ e_splash_construct (ESplash *splash,
 			       NULL);
 	priv->canvas_icon = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
 						   GNOME_TYPE_CANVAS_PIXBUF,
-						   "pixbuf", NULL,
 						   "x", (double) (ICON_X),
 						   "y", (double) (ICON_Y),
 						   NULL);
 	priv->canvas_text  = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
 						   GNOME_TYPE_CANVAS_TEXT,
-						   "text", NULL,
 						   "fill_color", "black",
 						   "size_points", (double)12,
 						   "anchor", GTK_ANCHOR_SOUTH_WEST,
 						   "x", (double)(ICON_X + ICON_SIZE + 10),
-						   "y", (double)(ICON_Y + ICON_SIZE - 8),
+						   "y", (double)(ICON_Y + ICON_SIZE - PROGRESS_SIZE),
 						   NULL);
 	priv->canvas_line  = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
 						   GNOME_TYPE_CANVAS_LINE,
 						   "fill_color", "black",
-						   "width_pixels", 8,
+						   "width_pixels", PROGRESS_SIZE,
 						   NULL);
 	priv->canvas_line_back  = gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
 						   GNOME_TYPE_CANVAS_LINE,
 						   "fill_color", "blue",
-						   "width_pixels", 8,
+						   "width_pixels", PROGRESS_SIZE,
 						   NULL);
 	g_signal_connect (G_OBJECT (splash), "button-press-event",
 			  G_CALLBACK (button_press_event), splash);

@@ -324,6 +324,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
+	gtk_window_add_accel_group (GTK_WINDOW (app),
+								anjuta_ui_get_accel_group (app->ui));
 	g_signal_connect (G_OBJECT (app->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);

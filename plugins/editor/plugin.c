@@ -22,8 +22,8 @@
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-stock.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libegg/menu/egg-entry-action.h>
-// #include <libegg/toolbar/eggtoolbar.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
@@ -671,13 +671,13 @@ on_editor_changed (AnjutaDocman *docman, TextEditor *te,
 		anjuta_shell_add_value (plugin->shell,
 								"document_manager_current_editor",
 								value, NULL);
-		g_message ("Editor Added");
+		DEBUG_PRINT ("Editor Added");
 	}
 	else
 	{
 		anjuta_shell_remove_value (plugin->shell,
 								   "document_manager_current_editor", NULL);
-		g_message ("Editor Removed");
+		DEBUG_PRINT ("Editor Removed");
 	}
 }
 
@@ -692,7 +692,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GladeXML *gxml;
 	gint i;
 	
-	g_message ("EditorPlugin: Activating Editor plugin ...");
+	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin ...");
 	editor_plugin = (EditorPlugin*) plugin;
 	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -772,6 +772,7 @@ activate_plugin (AnjutaPlugin *plugin)
 						   "stock_id", GTK_STOCK_JUMP_TO,
 						   "width", 150,
 							NULL);
+	g_assert (EGG_IS_ENTRY_ACTION (action));
 	g_signal_connect (action, "activate",
 					  G_CALLBACK (on_toolbar_find_clicked), plugin);
 	
@@ -815,7 +816,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	eplugin = (EditorPlugin*)plugin;
 	
-	g_message ("EditorPlugin: Dectivating Editor plugin ...");
+	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	
@@ -966,9 +967,7 @@ isaveable_save(IAnjutaFileSavable* plugin, GError** e)
 static void
 isavable_save_as(IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
 {
-#ifdef DEBUG
 	g_warning("save_as: Not implemented	in EditorPlugin");
-#endif
 }
 
 static gboolean
@@ -998,9 +997,7 @@ isavable_is_dirty(IAnjutaFileSavable* plugin, GError** e)
 static void
 isavable_set_dirty(IAnjutaFileSavable* plugin, gboolean dirty, GError** e)
 {
-#ifdef DEBUG
 	g_warning("set_dirty: Not implemented in EditorPlugin");
-#endif	
 }
 
 static void
