@@ -108,7 +108,7 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dial
 	                              GTK_WINDOW(app->widgets.window));
 	
 	table = gtk_table_new (5, 2, FALSE);
-	gtk_container_add (GTK_CONTAINER (gui->dialog), table);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (gui->dialog)->vbox), table);
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
@@ -221,7 +221,7 @@ create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
 	                              GTK_WINDOW(app->widgets.window));
 
 	table = gtk_table_new (3, 2, FALSE);
-	gtk_container_add (GTK_CONTAINER (gui->dialog), table);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (gui->dialog)->vbox), table);
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
@@ -345,7 +345,7 @@ create_cvs_login_gui (CVS *cvs)
 	gtk_misc_set_alignment(GTK_MISC(dir_label), 0, -1);	
 
 	table = gtk_table_new (4, 2, FALSE);
-	gtk_container_add (GTK_CONTAINER(gui->dialog), table);
+	gtk_container_add (GTK_CONTAINER(GTK_DIALOG (gui->dialog)->vbox), table);
 	gtk_table_attach (GTK_TABLE (table),
 	                  type_label,
 	                  0, 1, 0, 1,
@@ -424,7 +424,7 @@ void create_cvs_import_gui (CVS *cvs)
 	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
 	
 	table = gtk_table_new (2, 1, FALSE);
-	gtk_container_add (GTK_CONTAINER (gui->dialog), table);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (gui->dialog)->vbox), table);
 	server_table = gtk_table_new (4, 2, FALSE);
 	import_table = gtk_table_new (5, 2, FALSE);
 	

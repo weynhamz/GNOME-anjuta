@@ -28,7 +28,6 @@
 
 #include "anjuta.h"
 #include "text_editor.h"
-//#include "messagebox.h"
 #include "utilities.h"
 #include "executer.h"
 #include "resources.h"

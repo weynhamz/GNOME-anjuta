@@ -39,23 +39,25 @@ typedef enum
 	ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
 	ANJUTA_PROPERTY_OBJECT_TYPE_SPIN,
 	ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY,
-	ANJUTA_PROPERTY_OBJECT_TYPE_TEXT
+	ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
+	ANJUTA_PROPERTY_OBJECT_TYPE_COLOR
 } AnjutaPropertyObjectType;
 
 typedef enum
 {
 	ANJUTA_PROPERTY_DATA_TYPE_BOOL,
 	ANJUTA_PROPERTY_DATA_TYPE_INT,
-	ANJUTA_PROPERTY_DATA_TYPE_TEXT
+	ANJUTA_PROPERTY_DATA_TYPE_TEXT,
+	ANJUTA_PROPERTY_DATA_TYPE_COLOR
 } AnjutaPropertyDataType;
 
 typedef struct {
 	GtkWidget                *object;
-	AnjutaPropertyObjectType object_type;
-	AnjutaPropertyDataType   data_type;
+	AnjutaPropertyObjectType  object_type;
+	AnjutaPropertyDataType    data_type;
 	gchar                    *key;
 	gchar                    *default_value;
-	guint                    flags;
+	guint                     flags;
 } AnjutaProperty;
 
 struct _PreferencesPriv {
@@ -90,6 +92,8 @@ get_object_type_from_string (const gchar* object_type)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE;
 	else if (strcmp (object_type, "text") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_TEXT;
+	else if (strcmp (object_type, "color") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_COLOR;
 	else
 		return (AnjutaPropertyObjectType)(-1);
 }
@@ -103,6 +107,8 @@ get_data_type_from_string (const gchar* data_type)
 		return ANJUTA_PROPERTY_DATA_TYPE_INT;
 	else if (strcmp (data_type, "text") == 0)
 		return ANJUTA_PROPERTY_DATA_TYPE_TEXT;
+	else if (strcmp (data_type, "color") == 0)
+		return ANJUTA_PROPERTY_DATA_TYPE_COLOR;
 	else
 		return (AnjutaPropertyDataType)(-1);
 }
@@ -143,6 +149,14 @@ get_property_value_as_string (AnjutaProperty *prop)
 				gtk_text_buffer_get_text (buffer, &start_iter, &end_iter, TRUE);
 			break;
 		}
+	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
+		{
+			guint8 r, g, b, a;
+			gnome_color_picker_get_i8 (GNOME_COLOR_PICKER (prop->object),
+									   &r, &g, &b, &a);
+			text_value = anjuta_util_string_from_color (r, g, b);
+		}
+		break;
 	}
 	return text_value;
 }
@@ -200,6 +214,21 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 				gtk_text_buffer_set_text (buffer, (gchar*) prop->default_value,
 										  -1);
 			break;
+		}
+	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
+		{
+			guint8 r, g, b;
+			
+			if (value)
+				anjuta_util_color_from_string (value, &r, &g, &b);
+			else if (prop->default_value)
+				anjuta_util_color_from_string (prop->default_value,
+											   &r, &g, &b);
+			else
+				r = g = b = 0;
+			
+			gnome_color_picker_set_i8 (GNOME_COLOR_PICKER (prop->object),
+									   r, g, b, 8);
 		}
 	}
 }

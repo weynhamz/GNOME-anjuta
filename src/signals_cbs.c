@@ -23,7 +23,6 @@
 #include <gnome.h>
 #include "signals.h"
 #include "signals_cbs.h"
-//#include "messagebox.h"
 #include "debugger.h"
 
 void
@@ -56,17 +55,9 @@ on_signals_modify_activate            (GtkMenuItem     *menuitem,
   if(dialog) gtk_widget_show(dialog);
 }
 
-static void
-on_signals_send_confirmed            (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
-{
-  debugger_signal(user_data, TRUE);
-  g_free(user_data);
-}
-
 void
 on_signals_send_activate            (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
+                                     gpointer         user_data)
 {
   Signals *s = debugger.signals;
   gchar* msg;
@@ -77,12 +68,8 @@ on_signals_send_activate            (GtkMenuItem     *menuitem,
   if (debugger.child_pid < 1) return;
 
   signals_show(s);
-  gtk_clist_get_text( GTK_CLIST(s->widgets.clist), s->index, 0, &sig);
-  msg = g_strdup_printf( "Send signal %s to the process %d?", sig, debugger.child_pid);
-  messagebox2(GNOME_MESSAGE_BOX_QUESTION, msg,
-      GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-      on_signals_send_confirmed, NULL, g_strdup(sig));
-  g_free(msg);
+  gtk_clist_get_text(GTK_CLIST (s->widgets.clist), s->index, 0, &sig);
+  debugger_signal(sig, TRUE);
 }
 
 void

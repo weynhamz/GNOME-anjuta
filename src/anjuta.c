@@ -1364,6 +1364,26 @@ anjuta_status (gchar * mesg, ...)
 }
 
 void
+anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+	GtkWidget *dialog;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_INFO,
+									 GTK_BUTTONS_CLOSE, message);
+	g_signal_connect (G_OBJECT (dialog), "response",
+					  G_CALLBACK (gtk_widget_destroy), NULL);
+	gtk_widget_show (dialog);
+	g_free (message);
+}
+
+void
 anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...)
 {
 	gchar* message;
@@ -1420,6 +1440,26 @@ anjuta_system_error_parented (GtkWidget* parent, gint errnum, gchar * mesg, ... 
 	else
 		gnome_error_dialog_parented (tot_mesg, GTK_WINDOW(app->widgets.window));
 	g_free (tot_mesg);
+}
+
+void
+anjuta_information (gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+	GtkWidget *dialog;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window), 
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_INFO,
+									 GTK_BUTTONS_CLOSE, message);
+	g_signal_connect (G_OBJECT (dialog), "response",
+					  G_CALLBACK (gtk_widget_destroy), NULL);
+	gtk_widget_show (dialog);
+	g_free (message);
 }
 
 void

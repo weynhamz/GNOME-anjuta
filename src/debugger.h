@@ -151,7 +151,7 @@ void debugger_delete_all_breakpoints (void);
 
 void debugger_interrupt (void);
 void debugger_frame (void);
-void debugger_signal (gchar * sig, gboolean show_error);	/*eg:- "SIGTERM" */
+void debugger_signal (const gchar * sig, gboolean show_error);/*eg: "SIGTERM"*/
 void debugger_custom_command (void);
 void debugger_shared_library (void);
 

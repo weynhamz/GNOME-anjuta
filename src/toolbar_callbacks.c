@@ -30,7 +30,6 @@
 #include "text_editor.h"
 #include "mainmenu_callbacks.h"
 #include "toolbar_callbacks.h"
-//#include "messagebox.h"
 #include "debugger.h"
 
 
@@ -226,19 +225,22 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 	if (ret < 0) {
 		if (app->find_replace->find_text->incremental_pos < 0)
 		{
-			messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-					_("No matches. Wrap search around the document?"),
-					GNOME_STOCK_BUTTON_NO,
-					GNOME_STOCK_BUTTON_YES,
-					NULL, GTK_SIGNAL_FUNC(on_toolbar_find_start_over), 
-					NULL);
+			GtkWidget *dialog;
+			dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+											 GTK_DIALOG_DESTROY_WITH_PARENT,
+											 GTK_MESSAGE_QUESTION,
+											 GTK_BUTTONS_YES_NO,
+					_("No matches. Wrap search around the document?"));
+			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+				on_toolbar_find_start_over (NULL, NULL);
+			gtk_widget_destroy (dialog);
 		}
 		else
 		{
 			if (!app->find_replace->find_text->incremental_wrap)
 			{
 				anjuta_status(
-				"Failling I-Search: %s. Press Enter or click Find to overwrap.",
+				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
 				string);
 				app->find_replace->find_text->incremental_wrap = TRUE;
 				if (preferences_get(app->preferences, BEEP_ON_BUILD_COMPLETE))

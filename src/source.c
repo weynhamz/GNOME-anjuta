@@ -31,7 +31,6 @@
 #include "anjuta.h"
 #include "utilities.h"
 #include "source.h"
-#include "glades.h"
 
 /*************************************************************************
  * Build Files.
@@ -1604,13 +1603,6 @@ source_write_glade_file (ProjectDBase * data)
 	}
 	fclose (fp);
 
-#ifdef USE_GLADEN
-	if( bOK )
-	{
-		gladen_load_project(filename);
-		gladen_add_main_components();
-	}
-#endif /* USE_GLADEN */
 	g_free( filename );
 	return bOK ;
 }

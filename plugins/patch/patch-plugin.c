@@ -209,7 +209,9 @@ static void on_patch_terminate (int status, time_t time)
 	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
-			_("Patch failed.\nPlease review the failure messages.\nExamine and remove any rejected files.\n"), MESSAGE_BUILD);
+			_("Patch failed.\nPlease review the failure messages.\n"
+			"Examine and remove any rejected files.\n"),
+			MESSAGE_BUILD);
 	}
 	else
 	{

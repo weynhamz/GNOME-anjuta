@@ -287,20 +287,15 @@ debugger_open_exec_file ()
 
 	if (debugger.prog_is_running == TRUE)
 	{
+		gchar *mesg;
+		
 		if (debugger.prog_is_attached == TRUE)
-		{
-			messagebox (GTK_MESSAGE_INFO,
-				    _
-				    ("You have a process ATTACHED under the debugger.\n"
-				     "Please detach it first and then load the executable file."));
-		}
+			mesg = _("You have a process ATTACHED under the debugger.\n"
+				   "Please detach it first and then load the executable file.");
 		else
-		{
-			messagebox (GTK_MESSAGE_INFO,
-				    _
-				    ("You have a process RUNNING under the debugger.\n"
-				     "Please stop it first and then load the executable file."));
-		}
+			mesg = _("You have a process RUNNING under the debugger.\n"
+				     "Please stop it first and then load the executable file.");
+		anjuta_information (mesg);
 		return;
 	}
 
@@ -321,20 +316,14 @@ debugger_load_core_file ()
 		return;
 	if (debugger.prog_is_running == TRUE)
 	{
+		gchar *mesg;
 		if (debugger.prog_is_attached == TRUE)
-		{
-			messagebox (GTK_MESSAGE_INFO,
-				    _
-				    ("You have a process ATTACHED under the debugger.\n"
-				     "Please detach it first and then load the core file."));
-		}
+			mesg = _("You have a process ATTACHED under the debugger.\n"
+				   "Please detach it first and then load the executable file.");
 		else
-		{
-			messagebox (GTK_MESSAGE_INFO,
-				    _
-				    ("You have a process RUNNING under the debugger.\n"
-				     "Please stop it first and then load the core file."));
-		}
+			mesg = _("You have a process RUNNING under the debugger.\n"
+				     "Please stop it first and then load the executable file.");
+		anjuta_information (mesg);
 		return;
 	}
 	gtk_widget_show (debugger.load_core_filesel);
@@ -1421,16 +1410,14 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 }
 
 static void
-debugger_attach_process_confirmed (GtkWidget * but, gpointer data)
+debugger_attach_process_real (pid_t pid)
 {
-	pid_t pid;
 	gchar *buf;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	printf("In function: debugger_attach_process_confirmed()\n");
 #endif
 	
-	pid = (pid_t) data;
 	if (debugger_is_active () == FALSE)
 		return;
 	if (debugger_is_ready () == FALSE)
@@ -1462,12 +1449,17 @@ debugger_attach_process (gint pid)
 		return;
 	if (debugger.prog_is_running == TRUE)
 	{
-		messagebox2 (GTK_MESSAGE_QUESTION,
-			     _("A process is already running.\n"
-			       "Would you like to terminate it and attach the new process?"),
-			     GTK_STOCK_YES, GTK_STOCK_NO,
-			     debugger_attach_process_confirmed, NULL,
-			     (gpointer) pid);
+		gchar *mesg;
+		GtkWidget *dialog;
+		mesg = _("A process is already running.\n"
+			   "Would you like to terminate it and attach the new process?"),
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_YES_NO, mesg);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			debugger_attach_process_real (pid);
+		gtk_widget_destroy (dialog);
 	}
 	else if (getpid () == pid || launcher_get_child_pid () == pid)
 	{
@@ -1475,7 +1467,7 @@ debugger_attach_process (gint pid)
 		return;
 	}
 	else
-		debugger_attach_process_confirmed (NULL, (gpointer) pid);
+		debugger_attach_process_real (pid);
 }
 
 void
@@ -1568,10 +1560,10 @@ debugger_detach_process ()
 	debugger_execute_cmd_in_queqe ();
 }
 
-void
-debugger_stop ()
+static void
+debugger_stop_real (void)
 {
-
+	
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	printf("In function: debugger_stop()\n");
 #endif
@@ -1602,6 +1594,34 @@ debugger_stop ()
 	}
 	debugger.stack->current_frame = 0;
 	debugger_stop_terminal();
+}
+
+void
+debugger_stop ()
+{
+	if (debugger.prog_is_running == TRUE)
+	{
+		GtkWidget *dialog;
+		gchar *mesg;
+		
+		if (debugger.prog_is_attached == TRUE)
+			mesg = _("Program is ATTACHED.\n"
+				   "Do you still want to stop Debugger?");
+		else
+			mesg = _("Program is RUNNING.\n"
+				   "Do you still want to stop Debugger?");
+		
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_YES_NO, mesg);
+		
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			debugger_stop_real ();
+		gtk_widget_destroy (dialog);
+	}
+	else
+		debugger_stop_real ();
 }
 
 void
@@ -1902,7 +1922,7 @@ debugger_interrupt ()
 }
 
 void
-debugger_signal (gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
+debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 {
 	gchar *buff;
 	gchar *cmd;
@@ -1943,8 +1963,7 @@ debugger_signal (gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 	{
 		int status = anjuta_util_kill (debugger.child_pid, sig);
 		if (status != 0 && show_msg)
-			messagebox (GTK_MESSAGE_ERROR,
-				    _("There was an error whilst signalling the process."));
+			anjuta_error (_("Error whilst signalling the process."));
 	}
 }
 

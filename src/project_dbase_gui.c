@@ -39,9 +39,6 @@
 
 extern gchar *module_map[];
 
-static void on_project_dbase_remove_confirm_yes_clicked (GtkButton * button,
-							 gpointer user_data);
-
 void
 on_project_view1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -66,6 +63,8 @@ void
 on_project_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	gchar *buff;
+	GtkWidget *dialog;
+	
 	ProjectDBase *p;
 	p = app->project_dbase;
 
@@ -74,13 +73,16 @@ on_project_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (p->current_file_data->filename == NULL)
 		return;
 	buff =
-		g_strdup_printf (_
-				 ("Are you sure you want to remove the item\n\"%s\""
-				  " from the Project?"),
-extract_filename (p->current_file_data->filename));
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION, buff, GNOME_STOCK_BUTTON_YES,
-		     GNOME_STOCK_BUTTON_NO,
-		     on_project_dbase_remove_confirm_yes_clicked, NULL, p);
+		g_strdup_printf (_("Are you sure you want to remove the item\n"
+				  		 "'%s' from the Project?"),
+	extract_filename (p->current_file_data->filename));
+	dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_QUESTION,
+									 GTK_BUTTONS_YES_NO, buff);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+		project_dbase_remove_file (p);
+	gtk_widget_destroy (dialog);
 	g_free (buff);
 }
 
@@ -120,15 +122,6 @@ on_project_dbase_win_delete_event (GtkWidget * w, GdkEvent * event,
 	ProjectDBase *p = data;
 	project_dbase_hide (p);
 	return TRUE;
-}
-
-static void
-on_project_dbase_remove_confirm_yes_clicked (GtkButton * button,
-					     gpointer user_data)
-{
-	ProjectDBase *p;
-	p = user_data;
-	project_dbase_remove_file (p);
 }
 
 static void
@@ -172,29 +165,26 @@ on_project_dbase_clist_select_row (GtkCList * clist,
 	}
 }
 
-static void
-on_project_dbase_close_load_yes_clicked (GtkButton * b, gpointer data)
-{
-	ProjectDBase *p = data;
-	gtk_widget_hide (app->project_dbase->fileselection_open);
-	project_dbase_close_project (p);
-	project_dbase_load_project (p, TRUE);
-}
-
 void
 on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	ProjectDBase *p = app->project_dbase;
 	if (p->project_is_open)
 	{
-		messagebox2 (GNOME_MESSAGE_BOX_WARNING,
-			     _("There is already a Project open." \
-			       "Do you want to close it first?"),
-			     GNOME_STOCK_BUTTON_YES,
-			     GNOME_STOCK_BUTTON_NO,
-			     GTK_SIGNAL_FUNC
-			     (on_project_dbase_close_load_yes_clicked), NULL,
-			     p);
+		GtkWidget *dialog;
+		gchar *buff = _("There is already a Project open."
+					    "Do you want to close it first?");
+		dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_YES_NO, buff);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+		{
+			gtk_widget_hide (app->project_dbase->fileselection_open);
+			project_dbase_close_project (p);
+			project_dbase_load_project (p, TRUE);
+		}
+		gtk_widget_destroy (dialog);
 		return;
 	}
 	gtk_widget_hide (p->fileselection_open);

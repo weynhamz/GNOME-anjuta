@@ -27,7 +27,6 @@
 #include <gnome.h>
 #include "resources.h"
 #include "debugger.h"
-//#include "messagebox.h"
 #include "utilities.h"
 
 /* Including pixmaps at compile time */

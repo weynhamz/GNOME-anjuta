@@ -1,3 +1,51 @@
+2002-01-22  Naba Kumar <naba@gnome.org>
+	
+	* plugins/patch/patch-plugin.c: Bug fix.
+	
+	* src/anjuta-tools.c,
+	src/anjuta.c,
+	src/anjuta.glade,
+	src/anjuta.h,
+	src/anjuta_dialogs_strings.c,
+	src/breakpoints.c,
+	src/cvs_gui.c,
+	src/debugger.c,
+	src/debugger.h,
+	src/executer.c,
+	src/glade_iface.c,
+	src/main.c,
+	src/mainmenu_callbacks.c,
+	src/mainmenu_callbacks.h,
+	src/preferences.c,
+	src/project_dbase.c,
+	src/project_dbase_gui.c,
+	src/registers.c,
+	src/sharedlib.c,
+	src/signals.c,
+	src/signals_cbs.c,
+	src/source.c,
+	src/stack_trace.c,
+	src/toolbar_callbacks.c,
+	src/utilities.c,
+	src/utilities.h,
+	src/watch.c: Used GtkDialog instead of messagebox. GNOME2 porting.
+	
+	* src/Makefile.am,
+	(removed) src/CORBA-Server.c,
+	(removed) src/CORBA-Server.h,
+	(removed) src/Gladen-common.c,
+	(removed) src/Gladen-stubs.c,
+	(removed) src/Gladen.h,
+	(removed) src/Prj-common.c,
+	(removed) src/Prj-skelimpl.c,
+	(removed) src/Prj-skels.c,
+	(removed) src/Prj-stubs.c,
+	(removed) src/Prj.h,
+	(removed) src/glades.c,
+	(removed) src/glades.h,
+	(removed) src/messagebox.c,
+	(removed) src/messagebox.h: Removed because no longer used.
+
 2002-01-21  Naba Kumar <naba@gnome.org>
 
 	* src/anjuta-tools.c,

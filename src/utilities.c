@@ -1523,7 +1523,7 @@ gboolean is_file_in_dir(const gchar *file, const gchar *dir)
 }
 
 gint
-anjuta_util_kill(pid_t process_id, gchar* signal)
+anjuta_util_kill (pid_t process_id, const gchar* signal)
 {
 	int status;
 	gchar *cmd;

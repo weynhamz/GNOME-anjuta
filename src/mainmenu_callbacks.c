@@ -34,7 +34,6 @@
 
 #include "anjuta.h"
 #include "text_editor.h"
-//#include "messagebox.h"
 #include "mainmenu_callbacks.h"
 #include "build_project.h"
 #include "clean_project.h"
@@ -162,19 +161,35 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}
 	if (text_editor_is_saved (te) == FALSE)
 	{
+		gchar *mesg;
+		GtkWidget *dialog;
+		gint res;
+		
 		closing_state = TRUE;
-		sprintf (mesg,
-			 _
-			 ("The file \"%s\" is not saved.\nDo you want to save it before closing?"),
-			 te->filename);
-
-		messagebox3 (GTK_MESSAGE_QUESTION, mesg,
-			     GTK_STOCK_YES,
-			     GTK_STOCK_NO,
-			     GTK_STOCK_CANCEL,
-			     on_save1_activate,
-			     on_save_on_close_no_clicked,
-			     on_save_on_close_cancel_clicked, te);
+		sprintf (mesg, _("The file '%s' is not saved.\n"
+						 "Do you want to save it before closing?"),
+			 	 te->filename);
+		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE, mesg);
+		gtk_dialog_add_buttons (GTK_DIALOG (dialog), 
+								GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+								GTK_STOCK_NO, GTK_RESPONSE_NO,
+								GTK_STOCK_YES, GTK_RESPONSE_YES);
+		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+										 GTK_RESPONSE_CANCEL);
+		res = gtk_dialog_run (GTK_DIALOG (dialog));
+		if (res == GTK_RESPONSE_YES)
+			on_save1_activate (NULL, te);
+		else if (res == GTK_RESPONSE_NO)
+		{
+			anjuta_remove_current_text_editor ();
+			closing_state = FALSE;
+		}
+		else
+			closing_state = FALSE;
+		gtk_widget_destroy (dialog);
 	}
 	else
 		anjuta_remove_text_editor (te);
@@ -209,19 +224,28 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
 	gchar mesg[256];
+	GtkWidget *dialog;
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
 
-	sprintf (mesg,
-		 _
-		 ("Are you sure you want to reload %s?\nAny unsaved changes will be lost."),
-		 te->filename);
+	sprintf (mesg, _("Are you sure you want to reload '%s'?\n"
+					 "Any unsaved changes will be lost."),
+			 te->filename);
 
-	messagebox2 (GTK_MESSAGE_QUESTION, mesg,
-		     GTK_STOCK_YES,
-		     GTK_STOCK_NO, on_reload_yes_clicked, NULL, te);
+	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_QUESTION,
+									 GTK_BUTTONS_YES_NO, mesg);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+									 GTK_RESPONSE_NO);
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+	{
+		text_editor_load_file (te);
+		anjuta_update_title ();
+	}
+	gtk_widget_destroy (dialog);
 }
 
 void
@@ -582,9 +606,9 @@ insert_header_template(TextEditor *te)
 		name = g_strndup(te->filename, i - 2);
 	else
 	{
-		sprintf(mesg, _("The file \"%s\" is not a header file."), te->filename);
-		messagebox1(GTK_MESSAGE_WARNING, mesg, GTK_STOCK_OK ,
-		            NULL, NULL);
+		sprintf(mesg, _("The file \"%s\" is not a header file."),
+				te->filename);
+		anjuta_warning (mesg);
 		return NULL;
 	}
 	g_strup(name);  /* do not use with GTK2 */
@@ -1750,31 +1774,7 @@ on_debugger_detach_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_stop_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	if (debugger.prog_is_running == TRUE)
-	{
-		if (debugger.prog_is_attached == TRUE)
-		{
-			messagebox2 (GTK_MESSAGE_QUESTION,
-				     _
-				     ("Program is ATTACHED.\nDo you still want to stop Debugger?"),
-				     GTK_STOCK_YES,
-				     GTK_STOCK_NO,
-				     on_debugger_confirm_stop_yes_clicked,
-				     NULL, NULL);
-		}
-		else
-		{
-			messagebox2 (GTK_MESSAGE_QUESTION,
-				     _
-				     ("Program is RUNNING.\nDo you still want to stop Debugger?"),
-				     GTK_STOCK_YES,
-				     GTK_STOCK_NO,
-				     on_debugger_confirm_stop_yes_clicked,
-				     NULL, NULL);
-		}
-	}
-	else
-		debugger_stop ();
+	debugger_stop ();
 }
 
 void
@@ -2116,25 +2116,6 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_save_on_close_no_clicked (GtkButton * button, gpointer data)
-{
-	anjuta_remove_current_text_editor ();
-	closing_state = FALSE;
-}
-
-void
-on_save_on_close_cancel_clicked (GtkButton * button, gpointer data)
-{
-	closing_state = FALSE;
-}
-
-void
-on_reload_yes_clicked (GtkButton * button, gpointer te_data)
-{
-	text_editor_load_file ((TextEditor *) te_data);
-	anjuta_update_title ();
-}
-void
 on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	on_toolbar_find_clicked ( NULL, NULL );
@@ -2149,9 +2130,10 @@ on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
 
 void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
 {
+	GtkWidget *dialog;
 	gchar *message = _("Hover the mouse pointer over any menu item and press"
-	  "\n" "the shortcut key to associate with it.");
-	messagebox (GTK_MESSAGE_INFO, GTK_STOCK_OK, NULL, NULL);
+					"\n the shortcut key to associate with it.");
+	anjuta_information (message);
 }
 
 void on_tool_editor_activate(GtkMenuItem *menuitem, gpointer user_data)

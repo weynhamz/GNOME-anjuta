@@ -129,8 +129,6 @@ anjuta_SOURCES = \
 	mainmenu_callbacks.h\
 	memory.c\
 	memory.h\
-	messagebox.c\
-	messagebox.h\
 	message-manager.cc\
 	message-manager.h\
 	message-manager-private.cc\
@@ -230,17 +228,4 @@ anjuta_LDADD =  \
 anjuta_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 anjuta_glade_file_DATA = anjuta.glade
 
-EXTRA_DIST = \
-	anjuta_dialog_strings.c\
-	glades.h\
-	glades.c\
-	Prj-skelimpl.c\
-	Prj-skels.c\
-	Prj-stubs.c \
-	CORBA-Server.c\
-	CORBA-Server.h\
-	Gladen-common.c\
-	Gladen.h\
-	Prj.h\
-	Prj-common.c\
-	Gladen-stubs.c
+EXTRA_DIST = anjuta_dialog_strings.c

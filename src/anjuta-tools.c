@@ -392,8 +392,10 @@ static void handle_tool_output(int type, GString *s, gboolean is_error)
 
 	if (AN_TBUF_POPUP == type)
 	{
-		messagebox(is_error ? GTK_MESSAGE_ERROR : GTK_MESSAGE_INFO
-		  , s->str);
+		if (is_error)
+			anjuta_error (s->str);
+		else
+			anjuta_information (s->str);
 		return;
 	}
 	if (AN_TBUF_NEW == type || (NULL == app->current_text_editor))
@@ -835,8 +837,8 @@ static AnToolEditor *ted = NULL;
 #define TOOL_PARAMS_EN_COMBO "tool.params.combo"
 
 enum {
-	AN_TOOLS_NAME_COLUMN,
 	AN_TOOLS_ENABLED_COLUMN,
+	AN_TOOLS_NAME_COLUMN,
 	AN_TOOLS_DATA_COLUMN,
 	N_AN_TOOLS_COLUMNS
 };
@@ -849,8 +851,6 @@ gboolean anjuta_tools_edit(void)
 {
 	GladeXML *xml;
 	GSList *tmp;
-	char *s[2];
-	int row;
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
@@ -871,28 +871,33 @@ gboolean anjuta_tools_edit(void)
 	  , GTK_WINDOW(app->widgets.window));
 	
 	tl->clist = (GtkWidget *) glade_xml_get_widget(xml, TOOL_CLIST);
-	model = (GtkTreeModel*)gtk_list_store_new (N_AN_TOOLS_COLUMNS, G_TYPE_STRING,
-						G_TYPE_STRING, G_TYPE_POINTER);
+	model = (GtkTreeModel*)gtk_list_store_new (N_AN_TOOLS_COLUMNS,
+											   G_TYPE_BOOLEAN,
+											   G_TYPE_STRING,
+											   G_TYPE_POINTER);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (tl->clist), model);
+	
+	renderer = gtk_cell_renderer_toggle_new ();
+	column = gtk_tree_view_column_new_with_attributes ("", renderer,
+													   "active",
+													   AN_TOOLS_ENABLED_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
+	
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Tool"), renderer,
 													   "text",
 													   AN_TOOLS_NAME_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
-	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes (_("Enabled"), renderer,
-													   "text",
-													   AN_TOOLS_ENABLED_COLUMN,
-													   NULL);
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
-										 GTK_RESPONSE_APPLY, FALSE);
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
-										 GTK_RESPONSE_NO, FALSE);
+	g_object_unref (model);
 	
-	
-	gtk_tree_view_append_column (GTK_TREE_VIEW(tl->clist), column);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(tl->clist));
+	
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+									   GTK_RESPONSE_APPLY, FALSE);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (tl->dialog),
+									   GTK_RESPONSE_NO, FALSE);
 	
 	g_signal_connect (G_OBJECT (selection), "changed",
 					  G_CALLBACK (on_user_tool_selection_changed), tl);
@@ -905,25 +910,22 @@ gboolean anjuta_tools_edit(void)
 
 	g_object_unref (xml);
 	
-	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(tl->clist))));
-	s[1] = "";
-	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tl->clist));
+	gtk_list_store_clear (GTK_LIST_STORE(model));
+	tmp = tool_list;
+	while (tmp)
 	{
-		GtkTreeModel *model;
 		GtkTreeIter iter;
 		
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW(tl->clist));
-		s[0] = ((AnUserTool *) tmp->data)->name;
-		if (((AnUserTool *) tmp->data)->enabled)
-			s[1] = "Enabled";
-		else
-			s[1] = "";
 		gtk_list_store_append (GTK_LIST_STORE(model), &iter);
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter,
-				AN_TOOLS_NAME_COLUMN, s[0],
-				AN_TOOLS_ENABLED_COLUMN, s[1],
-				AN_TOOLS_DATA_COLUMN, tmp->data,
-				-1);
+							AN_TOOLS_ENABLED_COLUMN,
+							((AnUserTool *) tmp->data)->enabled,
+							AN_TOOLS_NAME_COLUMN,
+							((AnUserTool *) tmp->data)->name,
+							AN_TOOLS_DATA_COLUMN, tmp->data,
+							-1);
+		tmp = g_slist_next(tmp);
 	}
 	return TRUE;
 }
@@ -1390,8 +1392,6 @@ on_user_tool_edit_response (GtkDialog *dialog, gint response,
 	GtkTreeModel *model;
 	AnUserTool *tool, *tool1 = NULL;
 	GSList *tmp;
-	int row;
-	char *s[2];
 
 	switch (response)
 	{
@@ -1446,19 +1446,15 @@ on_user_tool_edit_response (GtkDialog *dialog, gint response,
 											  GTK_RESPONSE_NO, FALSE);
 			model = gtk_tree_view_get_model (GTK_TREE_VIEW(tl->clist));
 			gtk_list_store_clear (GTK_LIST_STORE (model));
-			s[1] = "";
 			for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
 			{
 				GtkTreeIter iter;
-				s[0] = ((AnUserTool *) tmp->data)->name;
-				if (((AnUserTool *) tmp->data)->enabled)
-					s[1] = _("Enabled");
-				else
-					s[1] = "";
 				gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 				gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-									AN_TOOLS_NAME_COLUMN, s[0],
-									AN_TOOLS_ENABLED_COLUMN, s[1],
+									AN_TOOLS_ENABLED_COLUMN,
+									((AnUserTool *) tmp->data)->enabled,
+									AN_TOOLS_NAME_COLUMN,
+									((AnUserTool *) tmp->data)->name,
 									AN_TOOLS_DATA_COLUMN, tmp->data,
 									-1);
 			}
@@ -1753,7 +1749,7 @@ void anjuta_tools_show_variables()
 													   AN_TOOLS_HELP_VALUE_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(clist), column);
-	
+	g_object_unref (model);
 	g_object_unref (xml);
 	
 	gtk_list_store_clear (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(clist))));

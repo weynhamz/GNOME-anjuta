@@ -32,7 +32,6 @@
 #include "project_dbase.h"
 #include "mainmenu_callbacks.h"
 #include "utilities.h"
-//#include "messagebox.h"
 #include "fileselection.h"
 #include "resources.h"
 #include "controls.h"
@@ -42,8 +41,6 @@
 #include "glade_iface.h"
 #include "compatibility_0.h"
 #include "defaults.h"
-#include "glades.h"
-#include "CORBA-Server.h"
 #include "debugger.h"
 #include "find_replace.h"
 #include "executer.h"
@@ -2299,8 +2296,10 @@ project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod, gchar* filena
 			/*
 			 * file has already been added. So skip with a message 
 			 */
-			gchar *message = g_strconcat(real_modfile, _(" already exists in the project"), NULL); 
-			messagebox(GNOME_MESSAGE_BOX_INFO, message);
+			gchar *message = g_strconcat(real_modfile,
+										 _(" already exists in the project"),
+										 NULL); 
+			anjuta_information (message);
 			g_free(message);
 			g_free (comp_dir);
 			g_free(real_modfile);
@@ -2330,8 +2329,8 @@ project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod, gchar* filena
 			g_free (comp_dir);
 			g_free (fn);
 			g_free(real_fn);
-			messagebox (GNOME_MESSAGE_BOX_INFO,
-				    _("Error while copying the file inside the module."));
+			anjuta_information (_
+					("Error while copying the file inside the module."));
 			return;
 		}
 		g_free(real_fn);
@@ -2625,9 +2624,5 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 		project_dbase_show (p);
 	project_dbase_reload_session(p);
 
-#ifdef USE_GLADEN
-	if( IsGladen() )
-		project_dbase_summon_glade ( p );
-#endif /* USE_GLADEN */
 	return TRUE;
 }

@@ -532,18 +532,6 @@ on_url_activate                     (GtkMenuItem     *menuitem,
 void
 on_about1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-void
-on_save_on_close_no_clicked            (GtkButton       *button,
-                                        gpointer         data);
-
-
-void
-on_save_on_close_cancel_clicked    (GtkButton* button, 
-                                                                  gpointer data);
-
-void
-on_reload_yes_clicked                  (GtkButton       *button,
-                                        gpointer         data);
 
 void
 on_insert_header(GtkMenuItem * menuitem, gpointer user_data);

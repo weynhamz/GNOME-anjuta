@@ -254,7 +254,7 @@ gchar* anjuta_util_escape_quotes(const gchar* str);
  * because normally kill() wouldn't work                *
  * Returns: status of the kill                          *
  ********************************************************/
-gint  anjuta_util_kill(pid_t process_id, gchar* signal_name);
+gint  anjuta_util_kill(pid_t process_id, const gchar* signal_name);
 
 /********************************************************
  * This function parses a string and returns a GList of *

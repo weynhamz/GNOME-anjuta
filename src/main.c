@@ -30,12 +30,6 @@
 #include "utilities.h"
 #include "fileselection.h"
 
-#ifdef USE_GLADEN
-#  include "CORBA-Server.h"
-#endif
-
-/* #define DEBUG */
-
 /* One and only one instance of AnjutaApp. */
 AnjutaApp *app;			
 

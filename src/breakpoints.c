@@ -306,7 +306,6 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 
 	if (g_list_length (outputs) != 1)
 	{
-		GtkWidget *dialog;
 		gchar *msg, *tmp;
 		gint i;
 
@@ -322,15 +321,7 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 					     NULL);
 			g_free (tmp);
 		}
-
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-										 GTK_DIALOG_MODAL |
-											GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_INFO,
-										 GTK_BUTTONS_CLOSE,
-										 msg,
-										 NULL);
-		gtk_dialog_run (GTK_DIALOG (dialog));
+		anjuta_information (msg);
 		g_free (msg);
 		g_list_free (outputs);
 		return;
@@ -338,18 +329,8 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 
 	if (strstr ((gchar *) outputs->data, "Will ignore next") == NULL) 
 	{
-		GtkWidget *dialog;
-		dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
-										 GTK_DIALOG_MODAL |
-											GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_INFO,
-										 GTK_BUTTONS_CLOSE,
-										 (gchar *) g_list_nth_data (outputs, 0),
-										 NULL);
-
-		gtk_dialog_run (GTK_DIALOG (dialog));
+		anjuta_information((gchar *) g_list_nth_data (outputs, 0));
 		g_list_free (outputs);
-
 		return;
 	}
 }
