@@ -1,13 +1,15 @@
 Anjuta 1.2.1 (? Jan 2004) -- Naba Kumar, Johannes Schmid
 
 New: "New File" with some options for newly created files
-Bug fix: #849914, #840159
+Bug fix: #849914, #840159, #864922, #849928, #846386, #845782
+Bug fix: #860906, #859329, #858993
+Bug fix: 169058@bugs.debian.org
 Bug fix: compile file works with shell expression line `command` now
 Bug fix: Buildiing on SMP systems
 Bug fix: debugger improvements & cleanups
 Bug fix: Sample file confirms to C++-Standard now
 
-Thanks to Pavol Bosik, Jean-Noel Guiheneuf, Dan Elphick 
+Thanks to Pavol Bosik, Andreas Volz, grzegol@pld-linux.org, Dan Elphick 
 and Stefano Vallarino for their patches.
 
 From this release on anjuta has two new development responsibilities
