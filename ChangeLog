@@ -22,7 +22,7 @@
 	* Makefile.am: Installs destop file properly.
 	* configure.in: Bumped version to 1.1.97 (RC1 for 1.2.0 stable).
 	* NEWS: Updated for 1.1.97 release.
-	* gdl/Makefile.am: Fixed libintl.h include file in gdl.
+	* gdl/Makefile.am, widgets/Makefile.am: Fixed libintl.h include error.
 	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
