@@ -154,6 +154,9 @@ on_build_terminated (AnjutaLauncher *launcher,
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
+	
+	/* Goto the first error if it exists */
+	an_message_manager_next(app->messages);
 }
 
 gboolean
