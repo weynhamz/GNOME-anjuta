@@ -1,3 +1,7 @@
+2003-03-31  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* src/configure.in: Report vfs configure error properly.
+
+============== Anjuta 1.0.2 released =====================
 2003-03-27  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* NEWS: Updated for 1.0.2 release
 	* src/text_editor.c: Fixed indicators.
