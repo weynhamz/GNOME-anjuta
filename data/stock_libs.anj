@@ -9,7 +9,7 @@ Fn
 IDL Create trees of CORBA Interface Definition Language files
 IIOP
 Im
-ORBit High-performance CORBA object request broker
+ORBit High-performance CORBA Object Request Broker
 ORBitCosNaming
 ORBitutil
 PropList GNUstep-compatible preferences maintenance
@@ -25,7 +25,7 @@ c
 c_nonshared
 c_p
 c_stubs
-capi20
+capi20 ISDN CAPI2.0 functions
 capplet Support for GNOME Control Center capplets
 cfont
 com_err Common error display handling
@@ -47,13 +47,13 @@ e2p
 ecpg
 efence
 elf
-esd
+esd Support for the Enlightened Sound Daemon 
 esddsp
 expect5.28
-ext2fs
+ext2fs Functions to manipulate an ext2fs filesystem
 fbm
 fish_applet
-fl
+fl Flex
 form
 g
 gck
@@ -175,8 +175,8 @@ rpmbuild
 rt
 rt_p
 scg
-schily
-slang
+schily SCSI user level transport without device drivers
+slang S-Lang extension language
 snmp
 sp
 spgrove
