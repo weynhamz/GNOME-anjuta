@@ -1,0 +1,563 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.1.1">
+  <!ENTITY manrevision "0.1">
+  <!ENTITY date "September 2003">
+  <!ENTITY app "anjuta">
+]>
+
+<article id="index">
+
+ <!-- ============= Document Header ============================= -->
+ <articleinfo> 
+  <title>Der Anfang mit Anjuta</title>
+  
+  <copyright><year>2002, 2003</year><holder>Ishan Chattopadhyaya und Ulrich Gehring</holder></copyright>
+
+  <legalnotice>
+   <para>
+    Permission is granted to copy, distribute and/or modify this
+    document under the terms of the <citetitle>GNU Free Documentation
+    License</citetitle>, Version 1.1 or any later version published
+    by the Free Software Foundation with no Invariant Sections, no
+    Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy
+    of the <citetitle>GNU Free Documentation License</citetitle> from
+    the Free Software Foundation by visiting <ulink type="http"
+    url="http://www.fsf.org">their Web site</ulink> or by writing to:
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+   </para>
+   <para>
+    Many of the names used by companies to distinguish their products and
+    services are claimed as trademarks. Where those names appear in any
+    GNOME documentation, and those trademarks are made aware to the members
+    of the GNOME Documentation Project, the names have been printed in caps
+    or initial caps.
+   </para>
+  </legalnotice>
+
+  <releaseinfo>
+   This is version 1.1 of 'Starting Off in Anjuta'.
+  </releaseinfo>
+ </articleinfo>
+
+
+ 
+<!-- ============= Building Glade ========================== -->
+  <sect1 id="intro">
+	   <title>Einf&uuml;hrung</title>
+	   <para>
+		Fr&uuml;her war unter Linux das Entwickeln von grafischen Bedieneroberfl&auml;chen problematisch. Durch die Entwicklung des GIMP Toolkits (GTK, oder kurz Gimp) wurde dies entscheidend einfacher.
+		Noch einfacher wurde die Entwicklung von GUI-Programmen (Graphical User Interface / Bedienoberfl&auml;che) durch <application>Glade</application>. Es ist ein Programm mit dem leicht das GUI f&uuml;r GTK-Programme erstellt werden kann. Es wurde von Damon Chaplin entwickelt.
+		Aber <application>Glade</application> ist keine IDE (Integrated Development Environment) wie z.B. Visual Basic (u.a.). Dadurch kann der Programmierer den von <application>Glade</application> erzeugten Code nicht direkt editieren. Hier setzt <application>Anjuta</application> an!
+	   </para>
+	   <para>
+		<application>Anjuta</application> nutzt die F&auml;higkeiten von <application>Glade</application> (leichte Erstellung von GUIs) und kombiniert dies mit den F&auml;higkeiten eines guten Editors. Das Ergebnis ist eine leistungsf&auml;hige Entwicklungsumgebung f&uuml;r eine z&uuml;gige Softwareentwicklung. <application>Anjuta</application> RAD (rapid application development), denn <application>The best is in you...</application>.
+		Fr&uuml;her nutzte man <application>Glade</application> fuer das Erstellen des GUIs, einen Editor um den Programmcode zu editieren und verschiedene Terminals zum Kompilieren des Projektscodes. Das alles ist nun dank <application>Anjuta</application> in einer intuitiv zu bebienenden Oberfl&auml;che vereint. Das ist alles was ein gutes Softwaretool k&ouml;nnen mu&szlig;.
+	   </para>
+	   <para>
+		Also verschwenden Sie nicht mehr Zeit und starten in die Welt von <application>Anjuta</application>. Erstellen Sie ein einfaches Hello World-Programm.
+	   </para>
+	   <para>
+		Es sei angemerkt, dass diese Einf&uuml;hrung st&auml;rker auf das Erstellen der Anwendung und weniger auf die GTK-Programmierung eingeht. F&uuml;r mehr Details &uuml;ber GTK besuchen Sie die <ulink type="http" url="http://www.gtk.org">GTK</ulink>-Seite.
+	  </para>
+ </sect1>
+
+ 
+<!-- ============= Creating a new Project ==================== -->
+ <sect1 id="project">
+ 	<title>Ein neues Projekt erstellen</title>
+ 	<para>
+		Beachte:
+		Diese Einf&uuml;hrung wurde erstellt mit Anjuta 1.1.97 unter Slackware 9.0 mit Gnome2.2 und DropLinie Gnome. 
+		Bei anderen Versionen dieser Programme sollten keine wesentlichen Unterschiede bestehen.
+ 	</para>
+	<para>
+		Unser Ziel ist das Erstellen eines kleinen Programms, dass uns nach Eingabe unseres Namens freundlich begr&uuml;&szlig;t.
+	</para>
+	<figure	id="interface-run2-de">
+	   <title>Unsere Anwendung</title>
+	   <screenshot>
+	     <screeninfo>Die laufende Anwendung</screeninfo>
+	     <graphic fileref="images/interface_run2_de.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+	   </screenshot>
+	</figure>
+
+ 	<para>
+		Zun&auml;chst starten wir mal <application>Anjuta</application>. Es &ouml;ffnet sich der <guimenuitem>Startdialog</guimenuitem>:
+		<figure id="startdialog">
+			<title>Anjuta - Startdialog</title>
+			<screenshot>
+				<screeninfo>startdialog</screeninfo>
+				<graphic fileref="images/startdialog.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+		Da wir ein neues Projekt erstellen wollen, w&auml;hlen wir den Anwendungsdruiden <inlinemediaobject><imageobject><imagedata fileref="images/key_anwendungsdruide.png" format="PNG"></imagedata></imageobject></inlinemediaobject> aus.
+		<figure id="anwendungsdruidestart">
+			<title>Anwendungsdruide - 1. Schritt</title>
+			<screenshot>
+				<screeninfo>anwendungsdruide, start</screeninfo>
+				<graphic fileref="images/druide1.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+		Es ist allgemein &uuml;blich das geschriebene nicht zu lesen und so dr&uuml;cken wir einfach auf 
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_vor.png" format="PNG"></imagedata></imageobject></inlinemediaobject> ([Vor]). Jedoch sollten wir im Folgenden nicht un&uuml;berlegt handeln.
+		Der zweite Schritt ist entscheidend. Hier k&ouml;nnen wir den Typ der Anwendung w&auml;hlen. F&uuml;r unseren Zweck w&uuml;hlen wir &quot;<guimenuitem>GNOME 2.0 Projekt</guimenuitem>&quot;...
+		<figure id="anwendungsdruide2">
+			<title>Anwendungsdruide - 2. Schritt</title>
+			<screenshot>
+				<screeninfo>anwendungsdruide 2</screeninfo>
+				<graphic fileref="images/druide2.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+		...und best&auml;tigen mit der Taste  
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_vor.png" format="PNG"></imagedata></imageobject></inlinemediaobject> ([Vor]).
+	</para>
+
+	<para>
+		Im dritten Schritt geben wir einige Informationen zu unserem Programm ein...
+ 	</para>
+
+	<itemizedlist>
+		<listitem><para><guilabel>Projektname</guilabel>: hallo</para></listitem>
+		<listitem><para><guilabel>Version des Projekts</guilabel>: 0.1</para></listitem>
+		<listitem><para><guilabel>Author des Projekts</guilabel>: <emphasis>Ihr Name</emphasis></para></listitem>
+		<listitem><para><guilabel>Ziel des Projekts</guilabel>: hallo</para></listitem>
+		<listitem><para><guilabel>Programmiersprache</guilabel>: C</para></listitem>
+	</itemizedlist>
+	
+	<para>
+		<figure id="anwendungsdruide3">
+			<title>Anwendungsdruide - 3. Schritt</title>
+			<screenshot>
+				<screeninfo>anwendungsdruide 3</screeninfo>
+				<graphic fileref="images/druide3.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+	</para>
+	<para>
+		...und dr&uuml;cken die Taste 
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_vor.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Vor]).
+	</para>
+
+ 	<para>
+		Im n&auml;chsten Schritt, hier Schritt 4, geben wir eine Beschreibung unseres Projektes ein. Also z.B. &quot;<emphasis>Ein kleines Hallo Welt Programm</emphasis>&quot;.
+		Und weiter geht&apos;s mit der Taste 
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_vor.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Vor]).
+	</para>
+	<para>
+		Im f&uuml;nften Schritt schalten wir &quot;<emphasis>Unterstuetzung f&uuml;r Gettext</emphasis>&quot; aus. Gettext-Unterst&uuml;tzung (Internationalisierung) ist hier nicht n&ouml;tig...
+	</para>
+	<para>
+		<figure id="anwendungsdruide5">
+			<title>Anwendungsdruide - 5. Schritt</title>
+			<screenshot>
+				<screeninfo>anwendungsdruide 5</screeninfo>
+				<graphic fileref="images/druide5.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+	</para>
+	<para>
+		...und dr&uuml;cken die Taste 
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_vor.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Vor]).
+	</para>
+	<para>
+		Nun wird eine kurze Zusammenfassung unserer Angaben angezeigt. Sind wir mit allem zufrieden, so dr&uuml;cken wir zum Abschlu&szlig; die Taste 
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_anwenden.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Anwenden]) und <application>Anjuta</application> erstellt die Projektdateien.
+		Sind alle Projektdateien erstellt, dies kann etwas dauern, erscheint im Message-Fenster die Meldung:
+ 	</para>
+
+ 	<para>
+		<emphasis>Auto generation completed...............Successful, Now Build the Project to have a LOOK at it</emphasis>
+ 	</para>
+
+	<figure	id="hello-1">
+	   <title>Projektdateien erstellt</title>
+	   <screenshot>
+	     <screeninfo>projektdateien fertig erstellt</screeninfo>
+	     <graphic fileref="images/projektdateien.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+	   </screenshot>
+	</figure>
+
+</sect1>
+
+
+<!-- ============= Designing the Interface ==================== -->
+<sect1 id="interface">
+  <title>Entwurf der Bedienoberfl&auml;che</title>
+	<para>
+		<application>Anjuta</application> braucht einige Zeit um die Verzeichnisstruktur des Projekts anzulegen, die Konfigurationsscripte ablaufen zu lassen und zum Erzeugen der Projektdateien. Im Messagefenster kann der Erstellungsprozess verfolgt werden.
+		Nachdem der Erstellungsprozess abgelaufen ist sind im Projektfenster
+		(Men&uuml;: <menuchoice>
+			<guisubmenu>Ansicht</guisubmenu>
+				<guimenuitem>Projektfenster</guimenuitem>
+		</menuchoice>)
+		die Quellcode-Dateien, Dokumentationsdateien und Pixmap-Dateien aufgelistet.
+	</para>
+	<para>
+		Von besonderem Interesse ist die Datei: interface.c. In dieser Datei befinden sich die Deklarationen der GUI-Elemente unserer Anwendung. Diese Datei (u.a.) wird dann sp&auml;ter von <application>Glade</application> ver&auml;ndert.
+	</para>
+	<para>
+		Jetzt starten wir aber erst mal <application>Glade</application> und entwerfen die Anwendung (GUI).
+		Men&uuml;: <menuchoice>
+			<guisubmenu>Projekt</guisubmenu>
+				<guimenuitem>GUI der Anwendung editieren</guimenuitem>
+		</menuchoice> bzw. [Alt]+[G].
+		Nachdem <application>Glade</application> gestartet ist sind idealerweise drei Fenster zu sehen:
+	</para>
+	<para>
+		1) das Hauptfenster von <application>Glade</application>
+		<figure	id="glade_hauptfenster">
+			<title>Glade Hauptfenster</title>
+			<screenshot>
+				<screeninfo>glade hauptfenster</screeninfo>
+				<graphic fileref="images/glade_hauptfenster.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+		2) die Palette mit den Werkzeugen (Widgets, Tools)
+		<figure	id="glade_widgets">
+			<title>Glade Widgets</title>
+			<screenshot>
+				<screeninfo>glade widgets</screeninfo>
+				<graphic fileref="images/glade_widgets.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+		3) das Eigenschaften-Fenster
+		<figure	id="glade_eigenschaften">
+			<title>Glade Eigenschaften-Fenster</title>
+			<screenshot>
+				<screeninfo>glade eigenschaften</screeninfo>
+				<graphic fileref="images/glade_eigenschaften.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+	</para>
+
+	<para>
+		Im <application>Glade</application> Hauptfenster klicken wir auf &quot;<emphasis>window1</emphasis>&quot; doppelt, so dass sich ein neues Fenster, das Hauptfenster unserer (noch leeren) Anwendung, &ouml;ffnet.
+		Im Eigenschaftsfenster tragen wir dann ein f&uuml;r die &Uuml;berschrift: <guimenuitem>Hallo Linux Welt.</guimenuitem> Beachte: Der Eintrag &quot;window1&quot; unter &quot;Name:&quot; darf nicht ge&auml;ndert werden.
+		<figure	id="gui1">
+			<title>GUI - Eigenschaften</title>
+			<screenshot>
+				<screeninfo>gui eigenschaften</screeninfo>
+				<graphic fileref="images/gui1.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+
+		Um bei einer Ver&auml;nderung der Fenstergr&ouml;&szlig;e unserer Anwendung die enthaltenen Elemente (z.B. Kn&ouml;pfe, Listen, usw.) automatisch anzupassen, werden alle Elemente in sgn. "Container" eingelagert. 
+		Zun&auml;chst w&auml;hlen wir also einen solchen. Hier ein &quot;vertikales Feld&quot; 
+		<inlinemediaobject><imageobject><imagedata fileref="images/vertikale_box.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		(Vertical Box Container) von der Werkzeugleiste durch anklicken und klicken dann auf unser Hauptfenster. Die Zeilenanzahl stellen wir auf 2 ein.
+		<figure id="zeilenzahl2">
+		<title>Zeilenzahl</title>
+		<screenshot>
+		<screeninfo>zeilenzahl</screeninfo>
+			<graphic fileref="images/zeilenzahl2.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+		</screenshot>
+	</figure>
+	</para>
+	<para>
+		Dies teilt unser Anwendungsfenster in zwei H&auml;ften. 
+		In gleicher Weise w&auml;hlen wir f&uuml;r die so entstandene obere und untere H&auml;lfte je ein &quot;horizontales Feld&quot; 
+		<inlinemediaobject><imageobject><imagedata fileref="images/horizontal_box.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		mit zwei Spalten. Nun sollte unsere Anwendung folgendes Aussehen haben:
+		<figure	id="gui2">
+			<title>Unsere Anwendung (Zwischenschritt)</title>
+			<screenshot>
+			<screeninfo>gui2</screeninfo>
+				<graphic fileref="images/gui2.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+	</para>
+	<para>
+		Zum Bedienen unserer Anwendung ben&ouml;tigen wir zwei Kn&ouml;pfe. Den ersten wollen wir im Feld unten links, den zweiten im Feld unten rechts plazieren. Dazu OK_Knopf 
+		<inlinemediaobject><imageobject><imagedata fileref="images/key_ok.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		in der Werkzeigleiste anklicken und danach auf das gew&uuml;nschte Feld in unserer Anwendung klicken. &Auml;ndere die Eigenschaften der Kn&ouml;pfe wie folgt:
+	</para>
+	<para>
+		<programlisting>
+		Linker Knopf: 
+		 	Name: key_OK
+		 	Randbreite: 7
+		 	Repertoire-Knopf: An_wenden
+		 	Beschriftung: OK
+		Rechter Knopf: 
+		 	Name: key_Ende
+		 	Randbreite: 7
+		 	Repertoire-Knopf: _Beenden
+			Beschriftung: Ende
+		</programlisting>
+		<figure	id="gui3">
+			<title>Eigenschaften key_OK</title>
+			<screenshot>
+			<screeninfo>gui3</screeninfo>
+				<graphic fileref="images/gui3.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+	</para>
+
+	<para>
+		In gleicher Weise f&uuml;gen wir im oberen linken Feld unserer Anwendung ein Beschriftungsfeld 
+		<inlinemediaobject><imageobject><imagedata fileref="images/label.png" format="PNG"></imagedata></imageobject></inlinemediaobject>
+		ein. 
+		Im oberen rechten Feld ein Texteingabefeld 
+		<inlinemediaobject><imageobject><imagedata fileref="images/entry.png" format="PNG"></imagedata></imageobject></inlinemediaobject>
+		. &Auml;ndere die Eigenschaften wie folgt:
+	</para>
+	<para>
+		<programlisting>
+		Beschriftungsfeld: 
+		 	Name: <emphasis>beliebig</emphasis>
+			Beschriftung: Dein Name:
+			Polsterung: 7
+		Eingabefeld: 
+		 	Name: eingabe
+		 	Beschriftung: <emphasis>keine</emphasis>
+			Polsterung: 7
+		</programlisting>
+	</para>
+	<para>
+		Nun stellen wir noch f&uuml;r alle Elemente (Kn&ouml;pfe, Eingabefeld und Beschriftungsfeld) im Register Packen 
+		<inlinemediaobject><imageobject><imagedata fileref="images/packen.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		die Eigenschaft &quot;<emphasis>Ausdehnend</emphasis>&quot; und &quot;<emphasis>F&uuml;llend</emphasis>&quot; auf &quot;<guimenuitem>Ja</guimenuitem>&quot;.
+	</para>
+	<para>
+		<guimenuitem>Signale der Objekte</guimenuitem>
+	</para>
+	<para>
+		Jetzt verbinden wir die Signale der Objekte &quot;<emphasis>key_Ende</emphasis>&quot; und &quot;<emphasis>key_OK</emphasis>&quot; mit zweckm&auml;&szlig;igen Callback-Funktionen:
+	</para>
+
+	<para>
+		Dazu &quot;<emphasis>key_Ende</emphasis>&quot; anklicken. Dann im Eigenschaften-Fenster den Reiter Signale 
+		<inlinemediaobject><imageobject><imagedata fileref="images/signale.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Signale]) w&auml;hlen und unter dem Parameter <emphasis>Signal</emphasis> den Knopf 
+		<inlinemediaobject><imageobject><imagedata fileref="images/knopf_punkt_punkt_punkt.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([...]) bet&auml;tigen. 
+		Signal &quot;<emphasis>clicked</emphasis>&quot; mit Doppelklick ausw&auml;hlen. Der von <application>Glade</application> gew&auml;hlte &quot;<emphasis>Handler</emphasis>&quot; &quot;<emphasis>on_key_Ende_clicked</emphasis>&quot; &uuml;bernehmer wir unver&auml;ndert. 
+		Dann mit 
+		<inlinemediaobject><imageobject><imagedata fileref="images/hinzufuegen.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Hinzuf&uuml;gen]) die beiden Parameter &uuml;bernehmen.
+		<figure	id="signal-key_ende">
+			<title>Signal von key_Ende</title>
+			<screenshot>
+			<screeninfo>signal von key_ende</screeninfo>
+				<graphic fileref="images/signal_key_ende.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+
+		Mit dem Knopf &quot;<emphasis>key_OK</emphasis>&quot; verfahren wir in gleicher Weise.
+	</para>
+
+	<para>
+		Sollte Ihnen das Design unserer Anwendung noch nicht zusagen, so k&ouml;nnen Sie mit den verschiedenen Eigenschaften das Design ver&auml;ndern.
+		Dazu sind unter der Registrierkarte 
+		<inlinemediaobject><imageobject><imagedata fileref="images/packen.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Packen]) die Eigenschaften &quot;<emphasis>Ausdehnend</emphasis>&quot; und &quot;<emphasis>F&uuml;llend</emphasis>&quot; sowie &quot;<emphasis>Randbreite</emphasis>&quot; und &quot;<emphasis>Polsterung</emphasis>&quot; sehr n&uuml;tzlich.
+		Soll beispielsweise unser Programmfenster in seiner Gr&ouml;&szlig;e nicht ver&auml;nderbar sein, so setzen Sie die Eigenschaft &quot;<emphasis>Gr&ouml;&szlig;e &auml;nderbar</emphasis>&quot; des Widgets &quot;<emphasis>window1</emphasis>&quot; (Registrierkarte Widget) auf &quot;Nein&quot;.
+		Eine ebenfalls n&uuml;tzliche Hilfe ist die Darstellung der Widgets im Widgetbaum.
+		Sie erhalten diese Ansicht durch das
+		Men&uuml;: <menuchoice>
+			<guisubmenu>Ansicht</guisubmenu>
+				<guimenuitem>Widgetbaum</guimenuitem>
+		</menuchoice>
+		im <application>Glade</application>-Hauptfenster.
+	</para>
+	<para>
+		Nachdem alle Einstellungen gemacht sind, sollte unsere Programmoberfl&auml;che ungef&auml;hr wie hier gezeigt aussehen:
+		<figure	id="interface-de">
+			<title>Widgetbaum und fertige Programmoberfl&auml;che</title>
+			<screenshot>
+			<screeninfo>Fertige Programmoberflaeche</screeninfo>
+				<graphic fileref="images/interface_de.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+	</para>
+	<para>
+		Wenn Sie mit allem zufrieden sind schalten Sie auf das <application>Glade</application>-Hauptfenster und stellen sicher, dass die Option C-Code erzeugen aktiviert ist - das ist i.d.R. die Standard-Einstellung -
+		(<application>Glade</application>-Hauptfenster: Men&uuml;: <menuchoice>
+			<guisubmenu>Datei</guisubmenu>
+				<guimenuitem>Projekt Optionen...</guimenuitem>
+		</menuchoice>),
+		dann dr&uuml;cken Sie den Knopf 
+		<inlinemediaobject><imageobject><imagedata fileref="images/erstellen.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Erstellen]) wodurch die GUI-Dateien erstellt werden und dann 
+		<inlinemediaobject><imageobject><imagedata fileref="images/speichern.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		([Speichern]) um diese dann auf die Festplatte zu schreiben. Dadurch werden einige Dateien im Quellcodeverzeichnis (src) unserer (Anjuta-)Anwendung ver&auml;ndert.
+	</para>
+	<para>
+		Wir beenden <application>Glade</application> und kehren zu <application>Anjuta</application> zur&uuml;ck um unser Programm &quot;mit Leben zu f&uuml;llen&quot;.
+	</para>
+
+</sect1>
+
+
+
+<!-- ================= EDITING THE CODE ================= -->
+<sect1 id="code">
+	<title>Eingabe des Programmcodes</title>
+
+	<para>
+		Nun, da wir zur <application>Anjuta</application> Entwicklungsumgebung zur&uuml;ckgekehrt sind, wollen wir unser Programm mal in Aktion betrachten. Dazu w&auml;hlen wir im
+		Men&uuml;: <menuchoice>
+			<guisubmenu>Generieren</guisubmenu>
+				<guimenuitem>Generieren</guimenuitem>
+		</menuchoice>) ([F11]) und dann
+		Men&uuml;: <menuchoice>
+			<guisubmenu>Generieren</guisubmenu>
+				<guimenuitem>Ausf&uuml;hren</guimenuitem>
+		</menuchoice>) ([F3]).
+
+		<figure	id="interface-run-de">
+			<title>Unsere Anwendung besch&auml;ftigungslos</title>
+			<screenshot>
+			<screeninfo>Fertige Programmoberflaeche</screeninfo>
+				<graphic fileref="images/interface_run_de.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+			</screenshot>
+		</figure>
+		Funktionalit&auml;t hat unsere Anwendung freilich noch nicht; das kommt jetzt...
+	</para>
+
+	<para>
+		Im Projekt-Fenster sind auf der Registrierkarte Projekt alle wichtigen Quellcode-Dateien aufgelistet. 
+		Durch Doppelklick auf die gew&uuml;nschte Datei (hier: <emphasis>callbacks.c</emphasis>) &ouml;ffnet sich diese.
+		<itemizedlist>
+		<listitem>
+		<para>
+			Es ist einfacher und motivierender, wenn Dinge farbig sind. Darum ist in <application>Anjuta</application> &quot;<emphasis>SyntaxHighlighting</emphasis>&quot; und viele andere n&uuml;tzliche Dinge integriert.
+			Nehmen Sie sich etwas Zeit und schauen Sie sich die vielf&auml;ltigen Einstellungsm&ouml;glichkeiten an.
+		</para>
+		</listitem>
+		</itemizedlist>
+
+		Im Quellcode von &quot;<emphasis>callbacks.c</emphasis>&quot; sind zwei callback-Funktionen:
+		&quot;<emphasis>on_key_OK_clicked()</emphasis>&quot; und &quot;<emphasis>on_key_Ende_clicked()</emphasis>&quot;. 
+		In der zweiten f&uuml;gen wir den Funktionsaufruf &quot;<emphasis>gtk_main_quit()</emphasis>&quot; hinzu:
+	</para>
+	<para>
+	<programlisting>
+	void 
+	on_key_Ende_clicked (GtkButton *button, gpointer user_data) 
+	{ 
+		gtk_main_quit(); 
+	}
+	</programlisting>
+	</para>
+	<para>
+		Dadurch wird beim Klicken auf den Knopf 
+		<inlinemediaobject><imageobject><imagedata fileref="images/beenden.png" format="PNG"></imagedata></imageobject></inlinemediaobject> 
+		[Beenden] unser Programm beendet.
+	</para>
+	<para>
+		Nur zu - versuchen Sie es: -&gt; [Stgr] + [S], -&gt;[F11], -&gt; [F3]
+	</para>
+
+	<para>
+		In gleicher Weise f&uuml;gen wir folgenden Code zur Funktion &quot;<emphasis>on_key_OK_clicked()</emphasis>&quot; hinzu:
+	</para>
+
+	<programlisting>
+	void
+	on_key_OK_clicked (GtkButton *button, gpointer user_data) 
+	{
+		/* Konstruktor Eingabefeld */
+		GtkWidget *eingabe = lookup_widget (GTK_WIDGET(button), "eingabe");
+ 
+		/* Name auslesen */
+		const char *text2 = gtk_entry_get_text (GTK_ENTRY(eingabe));
+		/* Anmerkung: An Stelle von char kann auch gchar benutzt werden */
+ 
+		/* Konstruktor MessageBox */
+		GtkWidget *msgbox = gnome_app_new("",""); 
+		
+		/* String zusammenbasteln */
+		char text[88];
+		strcpy(text,"Hallo ");
+		strcat(text,text2);
+		strcat(text," :-)");
+		
+		/* MessageBox anzeigen */
+		gnome_app_message (GNOME_APP(msgbox),text);	
+	}
+	</programlisting>
+
+	<para>
+		Nun k&ouml;nnen wir unser Werk speichern und zum spannensten Punkt schreiten...
+	</para>
+	<para>
+		-&gt; [Stgr] + [S], -&gt;[F11], -&gt; [F3]
+	</para>
+
+	<figure	id="interface-run21-de">
+		<title>Unsere Anwendung in voller Aktion</title>
+		<screenshot>
+		<screeninfo>Laufendes Programm</screeninfo>
+			<graphic fileref="images/interface_run2_de.png" format="PNG" srccredit="Ulrich Gehring"></graphic>
+		</screenshot>
+	</figure>
+	<para>
+	:-)
+	</para>
+
+</sect1>
+
+
+
+<!-- ======= BUILDING, EXECUTING & DISTRIBUTING ======= -->
+<sect1 id="building">
+	<title>Erzeugen und ausf&uuml;hren des Programmcodes, Distribution erstellen</title>
+
+	<para>
+		Den erfreulichsten Moment beim Entwickeln unseres Programms haben wir schon im letzten Kapitel genossen. Nun erstellen wir alle zu einer Distribution geh&ouml;renden Dateien:
+		Men&uuml;:
+		<menuchoice>
+		<guimenu>Generieren</guimenu><guimenuitem>Alles generieren</guimenuitem>
+		</menuchoice>.
+		Dies erzeugt die ausf&uuml;hrbare Datei im src-Verzeichnis und die Dateien: viz., main.c, interface.c, support.c and callbacks.c. &Uuml;blicherweise wird dazu der gcc-Kompiler benutzt.
+		Wenn alles ohne Fehlermeldungen abgeschlossen wird und das Austesten
+		(Men&uuml;: 
+		<menuchoice>
+		<guimenu>Generieren</guimenu><guimenuitem>Ausf&uuml;hren</guimenuitem>
+		</menuchoice>) unseres Programms ebenfalls gl&uuml;cklich verl&auml;uft, dann freuen Sie sich dar&uuml;ber! Ihre Arbeit hat sich gelohnt!
+	</para>
+	<para>
+		Nun k&ouml;nnen Sie Ihr Programm in Ihr System installieren:
+		Men&uuml;: 
+		<menuchoice>
+		<guimenu>Generieren</guimenu><guimenuitem>Installieren</guimenuitem>
+		</menuchoice>.
+		Dazu brauchen Sie aber i.d.R. auf verschiedene Verzeichnisse root-Rechte.
+	</para>
+	<para>
+		Bevor Sie Ihr Programm ver&ouml;ffentlichen, vergessen Sie nicht die Dateien TODO, ChangeLog, INSTALL und README auszuf&uuml;llen.
+		Um eine Distribution zu erstellen gehen Sie folgenderma&szlig;en vor:
+		Men&uuml;: 
+		<menuchoice>
+		<guimenu>Generieren</guimenu><guimenuitem>Distribution generieren</guimenuitem>
+		</menuchoice>. Es wird etwas dauern bis die Datei &quot;<emphasis>hallo-0.1.tar.gz</emphasis>&quot; im Verzeichnis &quot;<emphasis>/home/(username)/Projects/hallo/</emphasis>&quot; erzeugt ist.
+		Wenn Sie diese Datei dann an einen guten Bekannten weitergeben, wird es sich zeigen ob sich die M&uuml;he gelohnt hat ;-) 
+	</para>
+
+</sect1>
+
+<sect1 id="conclusion">
+	<title>Hinweise</title>
+
+	<para>
+		Nun, dies ist nur eine einfache Einf&uuml;hrung wie <application>Anjuta</application> zu benutzen ist. Aber wir hoffen, dass sie Anf&auml;ngern auf dem Weg in die Programmierung hilfreich ist. Wir werden weiterf&uuml;hrende Dokumentationen entwikeln und ver&ouml;ffentlichen.
+		Der Originaltext wurde von einem 16-j&auml;hrigen High School Studenten in Allahabad, Indien verfa&szlig;t. Er schreibt dazu: You may contact me with your suggestions at: <email>ichattopadhyaya@hclinfinet.com</email>.
+		Mich k&ouml;nnen Sie freilich auch kontaktieren <email>ufg@hosengummi.de</email> - obwohl ich schon eher zu den EDV-&quot;Fossilien&quot; geh&ouml;re.
+		Alle anderen Fragen welche n&ouml;tig sind k&ouml;nnen an die <application>Anjuta</application> Mailing-Liste gestellt werden. Sie k&ouml;nnen sich auf der <application>Anjuta</application>-Webseite <ulink type="http" url="http://anjuta.sourceforge.net">anjuta.sourceforge.net</ulink> registrieren.
+	</para>
+	<para>
+		Good luck and enjoy Anjuta!
+	</para>
+
+</sect1>
+
+</article>

@@ -1,3 +1,7 @@
+2003-11-28  Naba Kumar  <naba@gnome.org>
+
+	* Merged changes from cvs branch ANJUTA_1_2_0 (tag: MERGE_LEVEL_2)
+
 2003-11-05  Hasbullah Bin Pit <sebol@ikhlas.com>
                                                                                 
         * ms.po: Updated Malay translation by
@@ -882,4 +886,3 @@
 	* ja.po: Copied japanese translation from 0.1.4 tarball.
 	* Added stuff.
 	* I sent mail to Naba about this event.
-	
