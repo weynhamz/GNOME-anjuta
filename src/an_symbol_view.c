@@ -2,23 +2,39 @@
 #include <config.h>
 #endif
 
-#include "an_symbol_view.h"
-#include "file_history.h"
 #include "anjuta.h"
+#include "resources.h"
+#include "pixmaps.h"
 
-#include "cfolder.xpm"
-#include "ofolder.xpm"
-#include "class.xpm"
-#include "struct.xpm"
-#include "function.xpm"
-#include "variable.xpm"
-#include "macro.xpm"
-#include "private_func.xpm"
-#include "private_var.xpm"
-#include "protected_func.xpm"
-#include "protected_var.xpm"
-#include "public_func.xpm"
-#include "public_var.xpm"
+#include "an_symbol_view.h"
+
+static SymbolFileInfo *symbol_file_info_new(TMSymbol *sym)
+{
+	SymbolFileInfo *sfile = g_new0(SymbolFileInfo, 1);
+	if (sym && sym->tag && sym->tag->atts.entry.file)
+	{
+		sfile->def.name = g_strdup(sym->tag->atts.entry.file->work_object.file_name);
+		sfile->def.line = sym->tag->atts.entry.line;
+		if ((tm_tag_function_t == sym->tag->type) && sym->info.equiv)
+		{
+			sfile->decl.name = g_strdup(sym->info.equiv->atts.entry.file->work_object.file_name);
+			sfile->decl.line = sym->info.equiv->atts.entry.line;
+		}
+	}
+	return sfile;
+}
+
+static void symbol_file_info_free(SymbolFileInfo *sfile)
+{
+	if (sfile)
+	{
+		if (sfile->def.name)
+			g_free(sfile->def.name);
+		if (sfile->decl.name)
+			g_free(sfile->decl.name);
+		g_free(sfile);
+	}
+}
 
 typedef enum
 {
@@ -34,8 +50,8 @@ typedef enum
 	sv_protected_var_t,
 	sv_public_func_t,
 	sv_public_var_t,
-	sv_closed_folder_t,
-	sv_open_folder_t,
+	sv_cfolder_t,
+	sv_ofolder_t,
 	sv_max_t
 } SVNodeType;
 
@@ -51,8 +67,8 @@ typedef enum
 } SVRootType;
 
 static char *sv_root_names[] = {
-	"None", "Classes", "Structs", "Functions", "Variables"
-	, "Macros", "None"
+	"Others", "Classes", "Structs", "Functions",
+	"Variables", "Macros", NULL
 };
 
 static GdkPixmap **sv_icons = NULL;
@@ -62,8 +78,11 @@ static AnSymbolView *sv = NULL;
 static SVNodeType sv_get_node_type(TMSymbol *sym)
 {
 	SVNodeType type;
+	char access;
 
-	g_return_val_if_fail(sym && sym->tag, sv_none_t);
+	if (!sym || !sym->tag || (tm_tag_file_t == sym->tag->type))
+		return sv_none_t;
+	access = sym->tag->atts.entry.access;
 	switch (sym->tag->type)
 	{
 		case tm_tag_class_t:
@@ -73,39 +92,45 @@ static SVNodeType sv_get_node_type(TMSymbol *sym)
 			type = sv_struct_t;
 			break;
 		case tm_tag_function_t:
-			if (sym->tag->atts.entry.scope)
+		case tm_tag_prototype_t:
+			if ((sym->info.equiv) && (TAG_ACCESS_UNKNOWN == access))
+				access = sym->info.equiv->atts.entry.access;
+			switch (access)
 			{
-				if (sym->tag->atts.entry.access == TAG_ACCESS_PRIVATE)
+				case TAG_ACCESS_PRIVATE:
 					type = sv_private_func_t;
-				if (sym->tag->atts.entry.access == TAG_ACCESS_PROTECTED)
+					break;
+				case TAG_ACCESS_PROTECTED:
 					type = sv_protected_func_t;
-				else
+					break;
+				case TAG_ACCESS_PUBLIC:
 					type = sv_public_func_t;
+					break;
+				default:
+					type = sv_function_t;
+					break;
 			}
-			else
-				type = sv_function_t;
 			break;
 		case tm_tag_member_t:
-			if (sym->tag->atts.entry.access == TAG_ACCESS_PRIVATE)
-				type = sv_private_var_t;
-			if (sym->tag->atts.entry.access == TAG_ACCESS_PROTECTED)
-				type = sv_protected_var_t;
-			else
-				type = sv_private_var_t;
+			switch (access)
+			{
+				case TAG_ACCESS_PRIVATE:
+					type = sv_private_var_t;
+					break;
+				case TAG_ACCESS_PROTECTED:
+					type = sv_protected_var_t;
+					break;
+				case TAG_ACCESS_PUBLIC:
+					type = sv_public_var_t;
+					break;
+				default:
+					type = sv_variable_t;
+					break;
+			}
 			break;
 		case tm_tag_externvar_t:
 		case tm_tag_variable_t:
-			if (sym->tag->atts.entry.scope)
-			{
-			if (sym->tag->atts.entry.access == TAG_ACCESS_PRIVATE)
-				type = sv_private_var_t;
-			if (sym->tag->atts.entry.access == TAG_ACCESS_PROTECTED)
-				type = sv_protected_var_t;
-			else
-				type = sv_private_var_t;
-			}
-			else
-				type = sv_variable_t;
+			type = sv_variable_t;
 			break;
 		case tm_tag_macro_t:
 		case tm_tag_macro_with_arg_t:
@@ -120,95 +145,135 @@ static SVNodeType sv_get_node_type(TMSymbol *sym)
 
 static SVRootType sv_get_root_type(SVNodeType type)
 {
-	g_return_val_if_fail(sv || (sv_none_t == type), sv_root_none_t);
-	if (sv_class_t == type)
-		return sv_root_class_t;
-	else if (sv_struct_t == type)
-		return sv_root_struct_t;
-	else if (sv_function_t == type)
-		return sv_root_function_t;
-	else if (sv_variable_t == type)
-		return sv_root_variable_t;
-	else if (sv_macro_t == type)
-		return sv_root_macro_t;
-	else
+	if (!sv || (sv_none_t == type))
 		return sv_root_none_t;
+	switch (type)
+	{
+		case sv_class_t:
+			return sv_root_class_t;
+		case sv_struct_t:
+			return sv_root_struct_t;
+		case sv_function_t:
+			return sv_root_function_t;
+		case sv_variable_t:
+			return sv_root_variable_t;
+		case sv_macro_t:
+			return sv_root_macro_t;
+		default:
+			return sv_root_none_t;
+	}
 }
+
+#define CREATE_SV_ICON(N, F) sv_icons[(N)] = gdk_pixmap_colormap_create_from_xpm(\
+  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[(N)],\
+  NULL, anjuta_res_get_pixmap_file(F));
 
 static void sv_load_pixmaps(void)
 {
 	if (sv_icons)
 		return;
-	sv_icons = g_new(GdkPixmap *, sv_max_t);
-	sv_bitmaps = g_new(GdkBitmap *, sv_max_t);
+	sv_icons = g_new(GdkPixmap *, (sv_max_t+1));
+	sv_bitmaps = g_new(GdkBitmap *, (sv_max_t+1));
 
-	g_return_if_fail(sv && sv->win);
-	sv_icons[sv_none_t] = NULL;
-	sv_icons[sv_class_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_class_t]
-	  , NULL, class_xpm);
-	sv_icons[sv_struct_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_struct_t]
-	  , NULL, struct_xpm);
-	sv_icons[sv_function_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_function_t]
-	  , NULL, function_xpm);
-	sv_icons[sv_variable_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_variable_t]
-	  , NULL, variable_xpm);
-	sv_icons[sv_macro_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_macro_t]
-	  , NULL, macro_xpm);
-	sv_icons[sv_private_func_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_private_func_t]
-	  , NULL, private_func_xpm);
-	sv_icons[sv_private_var_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_private_var_t]
-	  , NULL, private_var_xpm);
-	sv_icons[sv_protected_func_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_protected_func_t]
-	  , NULL, protected_func_xpm);
-	sv_icons[sv_protected_var_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_protected_var_t]
-	  , NULL, protected_var_xpm);
-	sv_icons[sv_public_func_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_public_func_t]
-	  , NULL, public_func_xpm);
-	sv_icons[sv_public_var_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_public_var_t]
-	  , NULL, public_var_xpm);
-	sv_icons[sv_closed_folder_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_closed_folder_t]
-	  , NULL, cfolder_xpm);
-	sv_icons[sv_open_folder_t] = gdk_pixmap_colormap_create_from_xpm_d(
-	  NULL,	gtk_widget_get_colormap(sv->win), &sv_bitmaps[sv_open_folder_t]
-	  , NULL, ofolder_xpm);
+	if (!sv || !sv->win)
+		return;
+	CREATE_SV_ICON(sv_none_t, ANJUTA_PIXMAP_SV_UNKNOWN);
+	CREATE_SV_ICON(sv_class_t, ANJUTA_PIXMAP_SV_CLASS);
+	CREATE_SV_ICON(sv_struct_t, ANJUTA_PIXMAP_SV_STRUCT);
+	CREATE_SV_ICON(sv_function_t, ANJUTA_PIXMAP_SV_FUNCTION);
+	CREATE_SV_ICON(sv_variable_t, ANJUTA_PIXMAP_SV_VARIABLE);
+	CREATE_SV_ICON(sv_macro_t, ANJUTA_PIXMAP_SV_MACRO);
+	CREATE_SV_ICON(sv_private_func_t, ANJUTA_PIXMAP_SV_PRIVATE_FUN);
+	CREATE_SV_ICON(sv_private_var_t, ANJUTA_PIXMAP_SV_PRIVATE_VAR);
+	CREATE_SV_ICON(sv_protected_func_t, ANJUTA_PIXMAP_SV_PROTECTED_FUN);
+	CREATE_SV_ICON(sv_protected_var_t, ANJUTA_PIXMAP_SV_PROTECTED_VAR);
+	CREATE_SV_ICON(sv_public_func_t, ANJUTA_PIXMAP_SV_PUBLIC_FUN);
+	CREATE_SV_ICON(sv_public_var_t, ANJUTA_PIXMAP_SV_PUBLIC_VAR);
+	CREATE_SV_ICON(sv_cfolder_t, ANJUTA_PIXMAP_CLOSED_FOLDER);
+	CREATE_SV_ICON(sv_ofolder_t, ANJUTA_PIXMAP_OPEN_FOLDER);
 	sv_icons[sv_max_t] = NULL;
 	sv_bitmaps[sv_max_t] = NULL;
+}
+
+typedef enum
+{
+	GOTO_DEFINITION,
+	GOTO_DECLARATION,
+	REFRESH,
+	MENU_MAX
+} SVSignal;
+
+static void sv_context_handler(GtkMenuItem *item, gpointer user_data)
+{
+	SVSignal signal = (SVSignal) user_data;
+	switch (signal)
+	{
+		case GOTO_DEFINITION:
+			if (sv->sinfo && sv->sinfo->def.name)
+				anjuta_goto_file_line_mark(sv->sinfo->def.name
+				  , sv->sinfo->def.line, TRUE);
+			break;
+		case GOTO_DECLARATION:
+			if (sv->sinfo && sv->sinfo->decl.name)
+				anjuta_goto_file_line_mark(sv->sinfo->decl.name
+				  , sv->sinfo->decl.line, TRUE);
+			break;
+		case REFRESH:
+			sv_populate();
+			break;
+		default:
+			break;
+	}
+}
+
+static void sv_create_context_menu(void)
+{
+	GtkWidget *item;
+	sv->menu = gtk_menu_new();
+	gtk_widget_ref(sv->menu);
+	gtk_widget_show(sv->menu);
+	item = gtk_menu_item_new_with_label("Goto Definition");
+	gtk_signal_connect(GTK_OBJECT(item), "activate"
+	  , GTK_SIGNAL_FUNC(sv_context_handler)
+	  , (gpointer) GOTO_DEFINITION);
+	gtk_widget_show(item);
+	gtk_menu_append(GTK_MENU(sv->menu), item);
+	item = gtk_menu_item_new_with_label("Goto Declaration");
+	gtk_signal_connect(GTK_OBJECT(item), "activate"
+	  , GTK_SIGNAL_FUNC(sv_context_handler)
+	  , (gpointer) GOTO_DECLARATION);
+	gtk_widget_show(item);
+	gtk_menu_append(GTK_MENU(sv->menu), item);
+	item = gtk_menu_item_new_with_label("Refresh Tree");
+	gtk_signal_connect(GTK_OBJECT(item), "activate"
+	  , GTK_SIGNAL_FUNC(sv_context_handler)
+	  , (gpointer) REFRESH);
+	gtk_widget_show(item);
+	gtk_menu_append(GTK_MENU(sv->menu), item);
 }
 
 static void sv_on_button_press(GtkWidget *widget
   , GdkEventButton *event, gpointer user_data)
 {
+	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3))
+		gtk_menu_popup(GTK_MENU(sv->menu), NULL, NULL, NULL, NULL
+		  , event->button, event->time);
 }
 
 static void sv_on_select_row(GtkCList *clist, gint row, gint column
   , GdkEventButton *event, gpointer user_data)
 {
-	GtkCTreeNode *node;
-	AnHistFile *h_file;
-
-	node = gtk_ctree_node_nth(GTK_CTREE(sv->tree), row);
+	GtkCTreeNode *node = gtk_ctree_node_nth(GTK_CTREE(sv->tree), row);
 	if (!node || !event || row < 0 || column < 0)
 		return;
-	if (event->type != GDK_2BUTTON_PRESS)
-		return;
-	if (event->button != 1)
-		return;
-	h_file = (AnHistFile *) gtk_ctree_node_get_row_data(
+	sv->sinfo = (SymbolFileInfo *) gtk_ctree_node_get_row_data(
 	  GTK_CTREE(sv->tree), GTK_CTREE_NODE(node));
-	if (h_file && h_file->name)
-		anjuta_goto_file_line_mark(h_file->name, h_file->line, TRUE);
+	if ((event->type == GDK_2BUTTON_PRESS) && (event->button == 1))
+	{
+		if (sv->sinfo && sv->sinfo->def.name)
+			anjuta_goto_file_line_mark(sv->sinfo->def.name
+			  , sv->sinfo->def.line, TRUE);
+	}
 }
 
 static void sv_disconnect(void)
@@ -231,8 +296,7 @@ static void sv_connect(void)
 
 static void sv_create(void)
 {
-	sv = g_new(AnSymbolView, 1);
-	sv->project = NULL;
+	sv = g_new0(AnSymbolView, 1);
 	sv->win=gtk_scrolled_window_new(NULL,NULL);
 	gtk_widget_ref(sv->win);
 	gtk_widget_show(sv->win);
@@ -249,6 +313,7 @@ static void sv_create(void)
 	gtk_container_add (GTK_CONTAINER(sv->win), sv->tree);
 	if (!sv_icons)
 		sv_load_pixmaps();
+	sv_create_context_menu();
 	sv_connect();
 }
 
@@ -268,7 +333,6 @@ void sv_clear(void)
 {
 	g_return_if_fail(sv && sv->tree);
 	gtk_clist_clear(GTK_CLIST(sv->tree));
-	sv->project = NULL;
 }
 
 static void sv_assign_node_name(TMSymbol *sym, GString *s)
@@ -293,23 +357,26 @@ static void sv_assign_node_name(TMSymbol *sym, GString *s)
 #define CREATE_SV_NODE(T) {\
 	arr[0] = sv_root_names[(T)];\
 	root[(T)] = gtk_ctree_insert_node(GTK_CTREE(sv->tree),\
-	  NULL, NULL, arr, 5, sv_icons[sv_closed_folder_t],\
-	  sv_bitmaps[sv_closed_folder_t], sv_icons[sv_open_folder_t],\
-	  sv_bitmaps[sv_open_folder_t], FALSE, FALSE);}
+	  NULL, NULL, arr, 5, sv_icons[sv_cfolder_t],\
+	  sv_bitmaps[sv_cfolder_t], sv_icons[sv_ofolder_t],\
+	  sv_bitmaps[sv_ofolder_t], FALSE, FALSE);}
 
-AnSymbolView *sv_populate(TMProject *tm_proj)
+AnSymbolView *sv_populate(void)
 {
 	GString *s;
 	char *arr[1];
-	GSList *parent, *child;
-	TMSymbol *sym;
+	TMSymbol *sym, *sym1, *symbol_tree;
 	SVNodeType type;
-	AnHistFile *h_file;
-	GtkCTreeNode *root[sv_root_max_t];
+	SymbolFileInfo *sfile;
+	GtkCTreeNode *root[sv_root_max_t+1];
 	GtkCTreeNode *item, *parent_item, *subitem;
-	SVRootType i;
+	SVRootType root_type;
+	gboolean has_children;
+	int i, j;
 
+#ifdef TM_DEBUG
 	g_message("Populating symbol view..");
+#endif
 
 	if (!sv)
 		sv_create();
@@ -318,46 +385,29 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 	sv_freeze();
 	sv_clear();
 
-	if (!tm_proj || !IS_TM_PROJECT((TMWorkObject *) tm_proj))
-	{
-		sv_connect();
-		sv_thaw();
-		/* g_warning("No project. Returning.."); */
-		return sv;
-	}
+	if (!app || !app->project_dbase || !app->project_dbase->tm_project ||
+	  !app->project_dbase->tm_project->tags_array ||
+	  (0 == app->project_dbase->tm_project->tags_array->len))
+		goto clean_leave;
 
-	if (!tm_proj->symbol_tree)
-	{
-		g_message("Updating project..");
-		tm_project_update(TM_WORK_OBJECT(tm_proj), TRUE, TRUE, TRUE);
-		if (!tm_proj->symbol_tree)
-		{
-			sv_connect();
-			sv_thaw();
-			/* g_warning("No symbol tree. Returning.."); */
-			return sv;
-		}
-	}
+	if (!(symbol_tree = tm_symbol_tree_new(app->project_dbase->tm_project->tags_array)))
+		goto clean_leave;
 
-	sv->project = tm_proj;
-	root[sv_root_none_t] = NULL;
-	for (i = sv_root_class_t; i < sv_root_max_t; ++i)
-		CREATE_SV_NODE(i)
+	for (root_type = sv_root_none_t; root_type < sv_root_max_t; ++root_type)
+		CREATE_SV_NODE(root_type)
 	root[sv_root_max_t] = NULL;
 
-	s = g_string_sized_new(255);
-	if (!tm_proj->symbol_tree->children)
+	if (!symbol_tree->info.children || (0 == symbol_tree->info.children->len))
 	{
-		g_message("No symbols found!");
+		tm_symbol_tree_free(symbol_tree);
+		goto clean_leave;
 	}
 
-	for (parent = tm_proj->symbol_tree->children; parent
-	  ; parent = g_slist_next(parent))
+	s = g_string_sized_new(255);
+	for (i=0; i < symbol_tree->info.children->len; ++i)
 	{
-		if (!parent->data)
-			continue;
-		sym = TM_SYMBOL(parent->data);
-		if (!sym || ! sym->tag || ! sym->tag->atts.entry.file)
+		sym = TM_SYMBOL(symbol_tree->info.children->pdata[i]);
+		if (!sym || ! sym->tag || !sym->tag->atts.entry.file)
 			continue;
 		type = sv_get_node_type(sym);
 		if (sv_none_t == type)
@@ -366,42 +416,43 @@ AnSymbolView *sv_populate(TMProject *tm_proj)
 		if (!parent_item)
 			continue;
 		sv_assign_node_name(sym, s);
-		
-		/* Disabling high volume debug output */
-		/* g_message("Got node %s", s->str); */
-		
 		arr[0] = s->str;
+		if ((tm_tag_function_t != sym->tag->type) &&
+			(sym->info.children) && (sym->info.children->len > 0))
+			has_children = TRUE;
+		else
+			has_children = FALSE;
 		item = gtk_ctree_insert_node(GTK_CTREE(sv->tree)
 		  , parent_item, NULL, arr, 5, sv_icons[type], sv_bitmaps[type]
-		  , sv_icons[type], sv_bitmaps[type], (sym->children)?FALSE:TRUE
-		  , FALSE);
-		h_file = an_hist_file_new((sym->tag->atts.entry.file)->work_object.file_name
-		  , sym->tag->atts.entry.line);
+		  , sv_icons[type], sv_bitmaps[type], !has_children, FALSE);
+		sfile = symbol_file_info_new(sym);
 		gtk_ctree_node_set_row_data_full(GTK_CTREE(sv->tree), item
-		  , h_file, (GtkDestroyNotify) an_hist_file_free);
-        for (child = sym->children; child; child = g_slist_next(child))
+		  , sfile, (GtkDestroyNotify) symbol_file_info_free);
+		if (has_children)
 		{
-			sym = TM_SYMBOL(child->data);
-			if (!sym || ! sym->tag || ! sym->tag->atts.entry.file)
-				continue;
-			type = sv_get_node_type(sym);
-			if (sv_none_t == type)
-				continue;
-			sv_assign_node_name(sym, s);
-			arr[0] = s->str;
-			subitem = gtk_ctree_insert_node(GTK_CTREE(sv->tree)
-			  , item, NULL, arr, 5, sv_icons[type], sv_bitmaps[type]
-			  , sv_icons[type], sv_bitmaps[type], TRUE, FALSE);
-			h_file = an_hist_file_new((sym->tag->atts.entry.file)->work_object.file_name
-			  , sym->tag->atts.entry.line);
-			gtk_ctree_node_set_row_data_full(GTK_CTREE(sv->tree)
-			  , subitem, h_file, (GtkDestroyNotify) an_hist_file_free);
+			for (j=0; j < sym->info.children->len; ++j)
+			{
+				sym1 = TM_SYMBOL(sym->info.children->pdata[j]);
+				if (!sym1 || ! sym1->tag || ! sym1->tag->atts.entry.file)
+					continue;
+				type = sv_get_node_type(sym1);
+				if (sv_none_t == type)
+					continue;
+				sv_assign_node_name(sym1, s);
+				arr[0] = s->str;
+				subitem = gtk_ctree_insert_node(GTK_CTREE(sv->tree)
+				  , item, NULL, arr, 5, sv_icons[type], sv_bitmaps[type]
+				  , sv_icons[type], sv_bitmaps[type], TRUE, FALSE);
+				sfile = symbol_file_info_new(sym1);
+				gtk_ctree_node_set_row_data_full(GTK_CTREE(sv->tree)
+				  , subitem, sfile, (GtkDestroyNotify) symbol_file_info_free);
+			}
 		}
 	}
-
 	g_string_free(s, TRUE);
+
+clean_leave:
 	sv_connect();
 	sv_thaw();
-
 	return sv;
 }

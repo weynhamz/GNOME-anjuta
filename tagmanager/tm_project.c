@@ -1,3 +1,12 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,28 +15,31 @@
 
 #include "tm_tag.h"
 #include "tm_workspace.h"
+#include "tm_source_file.h"
+#include "tm_file_entry.h"
 #include "tm_project.h"
 
 #define TM_FILE_NAME ".tm_project.cache"
 
-static const char *default_source_extn[] = { "*.c" /* C files */
+static const char *s_sources[] = { "*.c" /* C files */
 	, "*.C", "*.cpp", "*.cc", "*.cxx" /* C++ files */
 	, "*.h", "*.hh", "*.hpp" /* Header files */
+#if 0
 	, "*.oaf", "*.gob", "*.idl" /* CORBA/Bonobo files */
 	, "*.l", "*.y" /* Lex/Yacc files */
 	, "*.ui", "*.moc" /* KDE/QT Files */
 	, "*.glade" /* UI files */
+#endif
 	, "*.java", "*.pl", "*.py" /* Other languages */
 	, NULL /* Must terminate with NULL */
 };
 
-static const char *default_ignore_list[] = { "CVS", NULL };
+static const char *s_ignore[] = { "\\.*", "CVS", "intl", "po", NULL };
 
 guint project_class_id = 0;
 
 gboolean tm_project_init(TMProject *project, const char *dir
-  , const char **extn, const char **ignore_list, gboolean ignore_hidden
-  , gboolean force)
+  , const char **sources, const char **ignore, gboolean force)
 {
 	struct stat s;
 	char path[PATH_MAX];
@@ -53,31 +65,20 @@ gboolean tm_project_init(TMProject *project, const char *dir
 		return FALSE;
 	}
 	project->dir = g_strdup(path);
-	project->name = NULL;
-	project->version = NULL;
-	if (extn)
-		project->extn = extn;
+	if (sources)
+		project->sources = sources;
 	else
-		project->extn = default_source_extn;
-	if (ignore_list)
-		project->ignore_list = ignore_list;
+		project->sources = s_sources;
+	if (ignore)
+		project->ignore = ignore;
 	else
-		project->ignore_list = default_ignore_list;
-	project->ignore_hidden = ignore_hidden;
+		project->ignore = s_ignore;
 	project->file_list = NULL;
-	project->symbol_tree = NULL;
-	project->file_tree = tm_file_entry_new(project->dir, NULL
-	  , TRUE, NULL, project->ignore_list, ignore_hidden);
-	if (!project->file_tree)
-	{
-		g_free(project->dir);
-		return FALSE;
-	}
 	g_snprintf(path, PATH_MAX, "%s/%s", project->dir, TM_FILE_NAME);
 	if ((0 != stat(path, &s)) || (0 == s.st_size))
 		force = TRUE;
 	if (FALSE == tm_work_object_init(&(project->work_object),
-		  project_class_id, path, TRUE))
+		  project_class_id, path, force))
 	{
 		g_warning("Unable to init project file %s", path);
 		g_free(project->dir);
@@ -90,12 +91,11 @@ gboolean tm_project_init(TMProject *project, const char *dir
 	return TRUE;
 }
 
-TMWorkObject *tm_project_new(const char *dir, const char **extn
-  , const char **ignore_list, gboolean ignore_hidden, gboolean force)
+TMWorkObject *tm_project_new(const char *dir, const char **sources
+  , const char **ignore, gboolean force)
 {
 	TMProject *project = g_new(TMProject, 1);
-	if (FALSE == tm_project_init(project, dir, extn, ignore_list
-	  , ignore_hidden, force))
+	if (FALSE == tm_project_init(project, dir, sources, ignore, force))
 	{
 		g_free(project);
 		return NULL;
@@ -110,20 +110,15 @@ void tm_project_destroy(TMProject *project)
 	g_message("Destroying project: %s", project->work_object.file_name);
 #endif
 
-	tm_project_save(project);
-	if (NULL != project->file_list)
+	if (project->file_list)
 	{
 		int i;
 		for (i = 0; i < project->file_list->len; ++i)
-			tm_source_file_free(TM_SOURCE_FILE(project->file_list->pdata[i]));
+			tm_source_file_free(project->file_list->pdata[i]);
 		g_ptr_array_free(project->file_list, TRUE);
 	}
 	tm_workspace_remove_object(TM_WORK_OBJECT(project), FALSE);
-	g_free(project->name);
-	g_free(project->version);
 	g_free(project->dir);
-	tm_symbol_tree_free(project->symbol_tree);
-	tm_file_entry_free(project->file_tree);
 	tm_work_object_destroy(&(project->work_object));
 }
 
@@ -131,29 +126,31 @@ void tm_project_free(gpointer project)
 {
 	if (NULL != project)
 	{
-		tm_project_destroy(project);
+		tm_project_destroy(TM_PROJECT(project));
 		g_free(project);
 	}
 }
 
-gboolean tm_project_add_file(TMProject *project, const char *file_name, gboolean update)
+gboolean tm_project_add_file(TMProject *project, const char *file_name
+  ,gboolean update)
 {
 	TMWorkObject *source_file;
 	g_return_val_if_fail((project && file_name), FALSE);
 	if (NULL != tm_project_find_file(TM_WORK_OBJECT(project), file_name))
 		return TRUE;
-	if (NULL == (source_file = tm_source_file_new(file_name, update)))
+	if (NULL == (source_file = tm_source_file_new(file_name, TRUE)))
 		return FALSE;
 	source_file->parent = TM_WORK_OBJECT(project);
 	if (NULL == project->file_list)
 		project->file_list = g_ptr_array_new();
 	g_ptr_array_add(project->file_list, source_file);
 	if (update)
-		tm_project_update(TM_WORK_OBJECT(project), FALSE, TRUE, TRUE);
+		tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
 	return TRUE;
 }
 
-TMWorkObject *tm_project_find_file(TMWorkObject *work_object, const char *file_name)
+TMWorkObject *tm_project_find_file(TMWorkObject *work_object
+  , const char *file_name)
 {
 	TMProject *project;
 	if ((NULL == work_object) || (NULL == file_name))
@@ -203,8 +200,6 @@ void tm_project_recreate_tags_array(TMProject *project)
 {
 	int i, j;
 	TMWorkObject *source_file;
-	TMTagAttrType sort_attrs[] = { tm_tag_attr_name_t, tm_tag_attr_scope_t,
-		tm_tag_attr_type_t, 0};
 
 	g_assert(project);
 #ifdef TM_DEBUG
@@ -216,6 +211,8 @@ void tm_project_recreate_tags_array(TMProject *project)
 	else
 		project->work_object.tags_array = g_ptr_array_new();
 
+	if (!project->file_list)
+		return;
 	for (i=0; i < project->file_list->len; ++i)
 	{
 		source_file = TM_WORK_OBJECT(project->file_list->pdata[i]);
@@ -229,9 +226,7 @@ void tm_project_recreate_tags_array(TMProject *project)
 			}
 		}
 	}
-	tm_tags_sort(project->work_object.tags_array, sort_attrs, TRUE);
-	project->symbol_tree = tm_symbol_tree_update(project->symbol_tree
-	  , project->work_object.tags_array);
+	tm_tags_sort(project->work_object.tags_array, NULL, FALSE);
 }
 
 gboolean tm_project_update(TMWorkObject *work_object, gboolean force
@@ -241,7 +236,11 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 	int i;
 	gboolean update_tags = force;
 
-	g_return_val_if_fail(IS_TM_PROJECT(work_object), FALSE);
+	if (!work_object || !IS_TM_PROJECT(work_object))
+	{
+		g_warning("Non project pointer passed to project update");
+		return FALSE;
+	}
 
 #ifdef TM_DEBUG
 	g_message("Updating project: %s", work_object->file_name);
@@ -262,12 +261,6 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 		if (update_tags)
 			tm_project_recreate_tags_array(project);
 	}
-	if ((recurse) || (!project->file_tree))
-	{
-		tm_file_entry_free(project->file_tree);
-		project->file_tree = tm_file_entry_new(project->dir, NULL, TRUE
-		  , NULL, project->ignore_list, project->ignore_hidden);
-	}
 	work_object->analyze_time = time(NULL);
 	if ((work_object->parent) && (update_parent) && (update_tags))
 		tm_workspace_update(work_object->parent, TRUE, FALSE, FALSE);
@@ -280,15 +273,21 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 	TMSourceFile *source_file = NULL;
 	TMTag *tag;
 
-	g_assert(project);
+	if (!project || !IS_TM_PROJECT(TM_WORK_OBJECT(project)))
+		return FALSE;
+#ifdef TM_DEBUG
+	g_message("Opening project %s", project->work_object.file_name);
+#endif
 	if (NULL == (fp = fopen(project->work_object.file_name, "r")))
 		return FALSE;
 	while (NULL != (tag = tm_tag_new_from_file(source_file, fp)))
 	{
 		if (tm_tag_file_t == tag->type)
 		{
-			if (FALSE == tm_project_add_file(project, tag->name, FALSE))
+			if (!(source_file = TM_SOURCE_FILE(
+			  tm_source_file_new(tag->name, FALSE))))
 			{
+				g_warning("Unable to create source file %s", tag->name);
 				if (!force)
 				{
 					tm_tag_free(tag);
@@ -300,9 +299,11 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 			}
 			else
 			{
-				source_file = TM_SOURCE_FILE(
-				  project->file_list->pdata[project->file_list->len - 1]);
 				source_file->work_object.analyze_time = tag->atts.file.timestamp;
+				source_file->lang = tag->atts.file.lang;
+				if (!project->file_list)
+					project->file_list = g_ptr_array_new();
+				g_ptr_array_add(project->file_list, source_file);
 			}
 			tm_tag_free(tag);
 		}
@@ -326,7 +327,8 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 			}
 		}
 	}
-	return tm_project_update(TM_WORK_OBJECT(project), TRUE, TRUE, TRUE);
+	tm_project_recreate_tags_array(project);
+	return TRUE;
 }
 
 gboolean tm_project_save(TMProject *project)
@@ -334,10 +336,14 @@ gboolean tm_project_save(TMProject *project)
 	int i;
 	FILE *fp;
 
-	g_assert(project);
-	tm_project_update(TM_WORK_OBJECT(project), FALSE, TRUE, TRUE);
-	if (NULL == (fp = fopen(project->work_object.file_name, "w")))
+	if (!project)
 		return FALSE;
+	if (NULL == (fp = fopen(project->work_object.file_name, "w")))
+	{
+		g_warning("Unable to save project %s"
+		  , project->work_object.file_name);
+		return FALSE;
+	}
 	if (project->file_list)
 	{
 		for (i=0; i < project->file_list->len; ++i)
@@ -354,25 +360,31 @@ gboolean tm_project_save(TMProject *project)
 	return TRUE;
 }
 
+static void tm_project_add_file_recursive(TMFileEntry *entry, gpointer user_data
+  , guint level)
+{
+	TMProject *project;
+	if (!user_data || !entry || (tm_file_dir_t == entry->type))
+		return;
+	project = TM_PROJECT(user_data);
+	tm_project_add_file(project, entry->path, FALSE);
+}
+
 gboolean tm_project_autoscan(TMProject *project)
 {
-	static char *extn[] = {"*.h", "*.c", "*.cpp", "*.cc", "*.cxx", "*.C" };
 	static char *makefile[] = { "Makefile.am", "Makefile.in", "Makefile" };
-	struct stat s;
-	int i;
-	int len;
-	char buf[BUFSIZ];
-	FILE *p;
-	char *dir_name;
+	char buf[PATH_MAX];
 	gboolean status = FALSE;
+	TMFileEntry *root_dir;
+	int i;
+	struct stat s;
 
-	g_return_val_if_fail(project, FALSE);
-	g_return_val_if_fail(project->dir, FALSE);
-	
-	dir_name = project->dir;
+	if (!project || !IS_TM_PROJECT(TM_WORK_OBJECT(project))
+	  || (!project->dir))
+		return FALSE;
 	for (i = 0; i < sizeof(makefile)/sizeof(char *); ++i)
 	{
-		g_snprintf(buf, BUFSIZ, "%s/%s", dir_name, makefile[i]);
+		g_snprintf(buf, PATH_MAX, "%s/%s", project->dir, makefile[i]);
 		if (0 == stat(buf, &s) && S_ISREG(s.st_mode))
 		{
 			status = TRUE;
@@ -381,24 +393,19 @@ gboolean tm_project_autoscan(TMProject *project)
 	}
 	if (!status)
 	{
-		/* g_warning("%s if not a top level project directory", dir_name); */
+		g_warning("%s if not a top level project directory", project->dir);
 		return FALSE;
 	}
-	for (i=0; i < sizeof(extn)/sizeof(char *); ++i)
+	if (!(root_dir = tm_file_entry_new(project->dir, NULL, TRUE
+		, project->sources, project->ignore, TRUE)))
 	{
-		g_snprintf(buf, BUFSIZ, "find %s -name \"%s\" -type f -print", dir_name, extn[i]);
-		if (NULL != (p = popen(buf, "r")))
-		{
-			while (NULL != fgets(buf, BUFSIZ, p))
-			{
-				len = strlen(buf);
-				if ('\n' == buf[len - 1])
-					buf[len-1] = '\0';
-				tm_project_add_file(project, buf, FALSE);
-			}
-		}
+		g_warning("Unable to create file entry");
+		return FALSE;
 	}
-	tm_project_update(TM_WORK_OBJECT(project), TRUE, TRUE, TRUE);
+	tm_file_entry_foreach(root_dir, tm_project_add_file_recursive
+	  , project, 0, FALSE);
+	tm_file_entry_free(root_dir);
+	tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
 	return TRUE;
 }
 
@@ -406,9 +413,10 @@ gboolean tm_project_is_source_file(TMProject *project, const char *file_name)
 {
 	const char **pr_extn;
 
-	g_return_val_if_fail(project && IS_TM_PROJECT(TM_WORK_OBJECT(project))
-	  && file_name && project->extn, FALSE);
-	for (pr_extn = project->extn; *pr_extn; ++ pr_extn)
+	if (!(project && IS_TM_PROJECT(TM_WORK_OBJECT(project))
+	  && file_name && project->sources))
+		return FALSE;
+	for (pr_extn = project->sources; pr_extn && *pr_extn; ++ pr_extn)
 	{
 		if (0 == fnmatch(*pr_extn, file_name, 0))
 			return TRUE;

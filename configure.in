@@ -53,24 +53,15 @@ AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
 
 dnl we need to check the lib first
-EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba`
-
-AC_SUBST(EXTRA_GNOME_LIBS)
-AC_SUBST(EXTRA_GNOME_CFLAGS)
-
-dnl we need to check the lib first
 AC_PATH_PROG(EXTRA_ORBIT_CONFIG, orbit-config,no)
 if test x$EXTRA_ORBIT_CONFIG = xno; then
   AC_MSG_ERROR(Couldn't find orbit-config, please install the ORBit package.)
 fi
-EXTRA_ORBIT_LIBS=`orbit-config --libs client`
-EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
 
-AC_SUBST(EXTRA_ORBIT_LIBS)
-AC_SUBST(EXTRA_ORBIT_CFLAGS)
-
-IDL_CFLAGS=`gnome-config --cflags idl`
+AC_PATH_PROG(EXTRA_VFS_CONFIG, gnome-vfs-config,no)
+if test x$EXTRA_VFS_CONFIG = xno; then
+  AC_MSG_ERROR(Couldn't find gnome-vfs-config, please install the Gnome VFS package.)
+fi
 
 dnl Checks for programs.
 dnl ***************************************************************************
@@ -83,10 +74,16 @@ dnl Check for ScrollKeeper
 dnl ***************************************************************************
 AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
 if test x$SCROLLKEEPER_CONFIG = xno; then
-  AC_MSG_ERROR(Couldn't find scrollkeeper-config, please install the scrollkeeper package. You can get it from ht)
+  AC_MSG_ERROR(Couldn't find scrollkeeper-config, please install the scrollkeeper package. You can get it from http://scrollkeeper.sourceforge.net/)
 fi
 SCROLLKEEPER_REQUIRED=0.1.4
 AC_SUBST(SCROLLKEEPER_REQUIRED)
+
+dnl Check for pkg-config
+AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
+if test x$PKGCONFIG_CONFIG = xno; then
+  AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
+fi
 
 dnl ***************************************************************************
 dnl Test whether jw is installed
@@ -102,7 +99,19 @@ AC_SUBST(HAVE_JW)
 
 
 dnl Checks for libraries.
+EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt vfs bonobo`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba zvt vfs bonobo`
 
+AC_SUBST(EXTRA_GNOME_LIBS)
+AC_SUBST(EXTRA_GNOME_CFLAGS)
+
+EXTRA_ORBIT_LIBS=`orbit-config --libs client`
+EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
+
+AC_SUBST(EXTRA_ORBIT_LIBS)
+AC_SUBST(EXTRA_ORBIT_CFLAGS)
+
+IDL_CFLAGS=`gnome-config --cflags idl`
 
 dnl Checks for header files.
 AC_CHECK_HEADERS(dirent.h fcntl.h fnmatch.h stat.h stdlib.h string.h)
@@ -294,6 +303,7 @@ fi
 dnl Set PACKAGE DATA & DOC DIR
 packagedatadir=share/${PACKAGE}
 packagedocdir=doc/${PACKAGE}
+packageplugindir=lib/${PACKAGE}/plugins/${VERSION}
 
 dnl Set PACKAGE DIRs in config.h.
 packagepixmapsdir=share/pixmaps/${PACKAGE}
@@ -369,6 +379,7 @@ pixmaps/Makefile
 data/Makefile
 data/properties/Makefile
 doc/Makefile
+scripts/Makefile
 launcher/Makefile
 plugins/Makefile
 plugins/sample1/Makefile

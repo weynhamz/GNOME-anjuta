@@ -1,5 +1,4 @@
 /*
-*   $Id$
 *
 *   Copyright (c) 1996-2001, Darren Hiebert
 *
@@ -44,7 +43,7 @@ tagEntryFunction TagEntryFunction = NULL;
 extern void makeSimpleTag (const vString* const name,
 			   kindOption* const kinds, const int kind)
 {
-    if (kinds [kind].enabled  &&  name != NULL  &&  vStringLength (name) > 0)
+    if (name != NULL  &&  vStringLength (name) > 0)
     {
         tagEntryInfo e;
         initTagEntry (&e, vStringValue (name));
@@ -628,21 +627,22 @@ extern boolean parseFile (const char *const fileName)
     if (Option.language == LANG_AUTO)
 	language = getFileLanguage (fileName);
     Assert (language != LANG_AUTO);
-    if (language == LANG_IGNORE) {
-		/* verbose ("ignoring %s (unknown language)\n", fileName); */
-	} else if (! LanguageTable [language]->enabled) {
-		/* verbose ("ignoring %s (language disabled)\n", fileName); */
-	} else {
-		if (Option.filter)
-			openTagFile ();
-	
-		tagFileResized = createTagsWithFallback (fileName, language);
-	
-		if (Option.filter)
-			closeTagFile (tagFileResized);
-		addTotals (1, 0L, 0L);
-	
-		return tagFileResized;
+    if (language == LANG_IGNORE)
+	verbose ("ignoring %s (unknown language)\n", fileName);
+    else if (! LanguageTable [language]->enabled)
+	verbose ("ignoring %s (language disabled)\n", fileName);
+    else
+    {
+	if (Option.filter)
+	    openTagFile ();
+
+	tagFileResized = createTagsWithFallback (fileName, language);
+
+	if (Option.filter)
+	    closeTagFile (tagFileResized);
+	addTotals (1, 0L, 0L);
+
+	return tagFileResized;
     }
     return tagFileResized;
 }

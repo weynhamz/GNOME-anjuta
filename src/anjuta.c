@@ -103,7 +103,7 @@ void
 anjuta_new ()
 {
 	char wd[PATH_MAX];
-	app = (AnjutaApp *) g_malloc (sizeof (AnjutaApp));
+	app = (AnjutaApp *) g_malloc0(sizeof (AnjutaApp));
 	if (app)
 	{
 		/* Must declare static, because it will be used forever */
@@ -481,13 +481,15 @@ anjuta_goto_file_line (gchar * fname, glong lineno)
 TextEditor *
 anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 {
-	gchar *fn;
+	gchar *fn, *dummy;
 	GList *node;
 
 	TextEditor *te;
 
 	g_return_val_if_fail (fname != NULL, NULL);
-	fn = anjuta_get_full_filename (fname);
+	dummy = anjuta_get_full_filename (fname);
+	fn = resolved_file_name(dummy);
+	g_free(dummy);
 	g_return_val_if_fail (fname != NULL, NULL);
 	node = app->text_editor_list;
 	while (node)

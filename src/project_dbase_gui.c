@@ -482,11 +482,11 @@ create_project_dbase_gui (ProjectDBase * p)
 	notebook1 = gtk_notebook_new();
 	gtk_widget_show(notebook1);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook1), GTK_POS_BOTTOM);
-	fv = fv_populate(TM_PROJECT(p->tm_project));
+	fv = fv_populate();
 	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), fv->win
 	  , gtk_label_new(_("Files")));
 
-	sv = sv_populate(TM_PROJECT(p->tm_project));
+	sv = sv_populate();
 	gtk_notebook_prepend_page(GTK_NOTEBOOK(notebook1), sv->win
 	  , gtk_label_new(_("Symbols")));
 
@@ -1227,8 +1227,8 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 		}
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
-		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
-		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
+		sv_populate();
+		fv_populate();
 		g_free(fn);
 	}
 	project_dbase_add_file_to_module (p, p->sel_module, filename);

@@ -304,7 +304,7 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	g_return_if_fail(p_amm != NULL);
 	
 	/* A quick hack so that we get a beautiful color terminal */
-	setenv("TERM", "xterm", 1);
+    putenv("TERM=xterm");
 	
 	m_terminal = zvt_term_new();
 	zvt_term_set_font_name(ZVT_TERM(m_terminal), ZVT_FONT);

@@ -1,3 +1,12 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -136,7 +145,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		g_message("Recursing into %s", entry->path);
 #endif
 		dir = opendir(entry->path);
-		while (NULL != (dir_entry = readdir(dir)))
+		while (dir && (dir_entry = readdir(dir)))
 		{
 			if ((0 != strcmp(dir_entry->d_name, "."))
 				&& (0 != strcmp(dir_entry->d_name, "..")))
@@ -163,6 +172,7 @@ void tm_file_entry_free(gpointer entry)
 			GSList *tmp;
 			for (tmp = file_entry->children; tmp; tmp = g_slist_next(tmp))
 				tm_file_entry_free(tmp->data);
+			g_slist_free(file_entry->children);
 		}
 		g_free(file_entry->path);
 		FILE_FREE(file_entry);

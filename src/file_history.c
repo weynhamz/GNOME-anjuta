@@ -20,13 +20,13 @@ static void an_file_history_init()
 	s_history->current = NULL;
 }
 
-AnHistFile *an_hist_file_new(const char *name, gint line)
+AnHistFile *an_hist_file_new(const char *name, glong line)
 {
 	AnHistFile *h_file;
 
 	g_return_val_if_fail(name, NULL);
 	h_file= g_new(AnHistFile, 1);
-	h_file->name = g_strdup(name);
+	h_file->file = g_strdup(name);
 	h_file->line = line;
 	return h_file;
 }
@@ -34,7 +34,7 @@ AnHistFile *an_hist_file_new(const char *name, gint line)
 void an_hist_file_free(AnHistFile *h_file)
 {
 	g_return_if_fail(h_file);
-	g_free(h_file->name);
+	g_free(h_file->file);
 	g_free(h_file);
 }
 
@@ -57,7 +57,7 @@ void an_file_history_reset(void)
 	s_history->current = NULL;
 }
 
-void an_file_history_push(const char *filename, gint line)
+void an_file_history_push(const char *filename, glong line)
 {
 	AnHistFile *h_file;
 
@@ -67,7 +67,7 @@ void an_file_history_push(const char *filename, gint line)
 	if (s_history->current)
 	{
 		AnHistFile *current = (AnHistFile *) s_history->current->data;
-		if ((0 == strcmp(filename, current->name)) &&
+		if ((0 == strcmp(filename, current->file)) &&
 			((current->line < 1) || (line == current->line)))
 		{
 			current->line = line;
@@ -105,7 +105,7 @@ void an_file_history_back(void)
 
 	s_history->current = s_history->current->next;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_goto_file_line_mark(h_file->name, h_file->line, FALSE);
+	anjuta_goto_file_line_mark(h_file->file, h_file->line, FALSE);
 }
 
 void an_file_history_forward(void)
@@ -117,7 +117,7 @@ void an_file_history_forward(void)
 
 	s_history->current = s_history->current->prev;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_goto_file_line_mark(h_file->name, h_file->line, FALSE);
+	anjuta_goto_file_line_mark(h_file->file, h_file->line, FALSE);
 }
 
 void an_file_history_dump(void)
@@ -130,7 +130,7 @@ void an_file_history_dump(void)
 	for (tmp = s_history->items; tmp; tmp = g_list_next(tmp))
 	{
 		h_file = (AnHistFile *) tmp->data;
-		fprintf(stderr, "%s:%d", h_file->name, h_file->line);
+		fprintf(stderr, "%s:%ld", h_file->file, h_file->line);
 		if (tmp == s_history->current)
 			fprintf(stderr, " (*)");
 		fprintf(stderr, "\n");

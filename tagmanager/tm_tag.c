@@ -1,3 +1,12 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -8,15 +17,15 @@
 #define LIBCTAGS_DEFINED
 #include "tm_tag.h"
 
-static GMemChunk *tag_mem_chunk = NULL;
+static GMemChunk *s_tag_mem_chunk = NULL;
 
 #define TAG_NEW(T) {\
-	if (!tag_mem_chunk) \
-		tag_mem_chunk = g_mem_chunk_new("TMTag memChunk", sizeof(TMTag), 1024 \
+	if (!s_tag_mem_chunk) \
+		s_tag_mem_chunk = g_mem_chunk_new("TMTag memChunk", sizeof(TMTag), 1024 \
 		  , G_ALLOC_AND_FREE); \
-	(T) = g_chunk_new0(TMTag, tag_mem_chunk);}
+	(T) = g_chunk_new0(TMTag, s_tag_mem_chunk);}
 
-#define TAG_FREE(T) g_mem_chunk_free(tag_mem_chunk, (T))
+#define TAG_FREE(T) g_mem_chunk_free(s_tag_mem_chunk, (T))
 
 /* Note: To preserve binary compatibility, it is very important
 	that you only *append* to this list ! */
@@ -25,7 +34,7 @@ enum
 	TA_NAME = 200,
 	TA_LINE,
 	TA_LOCAL,
-	TA_POS,
+	TA_POS, /* Obsolete */
 	TA_TYPE,
 	TA_ARGLIST,
 	TA_SCOPE,
@@ -33,20 +42,70 @@ enum
 	TA_INHERITS,
 	TA_TIME,
 	TA_ACCESS,
-	TA_IMPL
+	TA_IMPL,
+	TA_LANG
 };
 
 static guint *s_sort_attrs = NULL;
 static gboolean s_partial = FALSE;
 
-static TMTagType tag_types[] = {
-	tm_tag_undef_t, tm_tag_class_t, tm_tag_enum_t, tm_tag_enumerator_t,
-	tm_tag_field_t,	tm_tag_function_t, tm_tag_interface_t, tm_tag_member_t,
-	tm_tag_method_t, tm_tag_namespace_t, tm_tag_package_t, tm_tag_prototype_t,
-	tm_tag_struct_t, tm_tag_typedef_t, tm_tag_union_t, tm_tag_variable_t,
-	tm_tag_externvar_t,	tm_tag_macro_t,	tm_tag_macro_with_arg_t,
-	tm_tag_file_t, tm_tag_max_t
+static const char *s_tag_type_names[] = {
+	"class", /* classes */
+	"enum", /* enumeration names */
+	"enumerator", /* enumerators (values inside an enumeration) */
+	"externvar", /* external variable declarations */
+	"field", /* fields */
+	"function", /*  function definitions */
+	"interface", /* interfaces */
+	"macro", /* macro definitions */
+	"member", /* class, struct, and union members */
+	"method", /* methods */
+	"namespace", /* namespaces */
+	"package", /* packages */
+	"prototype", /* function prototypes */
+	"struct", /* structure names */
+	"typedef", /* typedefs */
+	"union", /* union names */
+	"variable", /* variable definitions */
 };
+
+static int s_tag_types[] = {
+	tm_tag_class_t,
+	tm_tag_enum_t,
+	tm_tag_enumerator_t,
+	tm_tag_externvar_t,
+	tm_tag_field_t,
+	tm_tag_function_t,
+	tm_tag_interface_t,
+	tm_tag_macro_t,
+	tm_tag_member_t,
+	tm_tag_method_t,
+	tm_tag_namespace_t,
+	tm_tag_package_t,
+	tm_tag_prototype_t,
+	tm_tag_struct_t,
+	tm_tag_typedef_t,
+	tm_tag_union_t,
+	tm_tag_variable_t
+};
+
+static int get_tag_type(const char *tag_name)
+{
+	int i, cmp;
+	g_return_val_if_fail(tag_name, 0);
+	for (i=0; i < sizeof(s_tag_type_names)/sizeof(char *); ++i)
+	{
+		cmp = strcmp(tag_name, s_tag_type_names[i]);
+		if (0 == cmp)
+			return s_tag_types[i];
+		else if (cmp < 0)
+			break;
+	}
+#ifdef TM_DEBUG
+	fprintf(stderr, "Unknown tag type %s\n", tag_name);
+#endif
+	return tm_tag_undef_t;
+}
 
 gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_entry)
 {
@@ -67,15 +126,12 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 	else
 	{
 		/* This is a normal tag entry */
-		if ((tag_entry->type <= TAG_UNDEFINED) || (tag_entry->type >= TAG_COUNT))
-			return FALSE;
 		if (NULL == tag_entry->name)
 			return FALSE;
 		tag->name = g_strdup(tag_entry->name);
-		tag->type = tag_types[tag_entry->type];
+		tag->type = get_tag_type(tag_entry->kindName);
 		tag->atts.entry.local = tag_entry->isFileScope;
 		tag->atts.entry.line = tag_entry->lineNumber;
-		tag->atts.entry.pos = tag_entry->seekPosition;
 		if (NULL != tag_entry->extensionFields.arglist)
 			tag->atts.entry.arglist = g_strdup(tag_entry->extensionFields.arglist);
 		if ((NULL != tag_entry->extensionFields.scope[1]) &&
@@ -165,9 +221,6 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 				case TA_LOCAL:
 					tag->atts.entry.local = atoi(start + 1);
 					break;
-				case TA_POS:
-					tag->atts.entry.pos = atol(start + 1);
-					break;
 				case TA_TYPE:
 					tag->type = (TMTagType) atoi(start + 1);
 					break;
@@ -191,6 +244,15 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 					}
 					else
 						tag->atts.file.timestamp = atol(start + 1);
+					break;
+				case TA_LANG:
+					if (tm_tag_file_t != tag->type)
+					{
+						g_warning("Got lang attribute for non-file tag %s", tag->name);
+						return FALSE;
+					}
+					else
+						tag->atts.file.lang = atoi(start + 1);
 					break;
 				case TA_ACCESS:
 					tag->atts.entry.access = *(start + 1);
@@ -234,6 +296,8 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 	{
 		if (attrs & tm_tag_attr_time_t)
 			fprintf(fp, "%c%ld", TA_TIME, tag->atts.file.timestamp);
+		if (attrs & tm_tag_attr_lang_t)
+			fprintf(fp, "%c%d", TA_LANG, tag->atts.file.lang);
 	}
 	else
 	{
@@ -243,8 +307,6 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 			fprintf(fp, "%c%ld", TA_LINE, tag->atts.entry.line);
 		if (attrs & tm_tag_attr_local_t)
 			fprintf(fp, "%c%d", TA_LOCAL, tag->atts.entry.local);
-		if (attrs & tm_tag_attr_pos_t)
-			fprintf(fp, "%c%ld", TA_POS, tag->atts.entry.pos);
 		if ((attrs & tm_tag_attr_scope_t) && (NULL != tag->atts.entry.scope))
 			fprintf(fp, "%c%s", TA_SCOPE, tag->atts.entry.scope);
 		if ((attrs & tm_tag_attr_inheritance_t) && (NULL != tag->atts.entry.inheritance))
@@ -465,7 +527,7 @@ TMTag **tm_tags_find(GPtrArray *sorted_tags_array, const char *name, gboolean pa
 	return (TMTag **) result;
 }
 
-const char *tm_tag_type_name(TMTag *tag)
+static const char *tm_tag_type_name(TMTag *tag)
 {
 	g_return_val_if_fail(tag, NULL);
 	switch(tag->type)
@@ -494,7 +556,7 @@ const char *tm_tag_type_name(TMTag *tag)
 	return NULL;
 }
 
-const char *tm_tag_impl_name(TMTag *tag)
+static const char *tm_tag_impl_name(TMTag *tag)
 {
 	g_return_val_if_fail(tag && (tm_tag_file_t != tag->type), NULL);
 	if (TAG_IMPL_VIRTUAL == tag->atts.entry.impl)
@@ -503,7 +565,7 @@ const char *tm_tag_impl_name(TMTag *tag)
 		return NULL;
 }
 
-const char *tm_tag_access_name(TMTag *tag)
+static const char *tm_tag_access_name(TMTag *tag)
 {
 	g_return_val_if_fail(tag && (tm_tag_file_t != tag->type), NULL);
 	if (TAG_ACCESS_PUBLIC == tag->atts.entry.access)
@@ -519,7 +581,8 @@ const char *tm_tag_access_name(TMTag *tag)
 void tm_tag_print(TMTag *tag, FILE *fp)
 {
 	const char *access, *impl, *type;
-	g_return_if_fail(tag && fp);
+	if (!tag || !fp)
+		return;
 	if (tm_tag_file_t == tag->type)
 	{
 		fprintf(fp, "%s\n", tag->name);
@@ -553,10 +616,25 @@ void tm_tags_array_print(GPtrArray *tags, FILE *fp)
 {
 	int i;
 	TMTag *tag;
-	g_return_if_fail(tags && (tags->len > 0) && fp);
+	if (!(tags && (tags->len > 0) && fp))
+		return;
 	for (i = 0; i < tags->len; ++i)
 	{
 		tag = TM_TAG(tags->pdata[i]);
 		tm_tag_print(tag, fp);
 	}
+}
+
+gint tm_tag_scope_depth(const TMTag *t)
+{
+	gint depth;
+	char *s;
+	if(!(t && t->atts.entry.scope))
+		return 0;
+	for (s = t->atts.entry.scope, depth = 0; s; s = strstr(s, "::"))
+	{
+		++ depth;
+		++ s;
+	}
+	return depth;
 }

@@ -5,7 +5,7 @@
 
 SUBDIRS = intl po macros tagmanager global-tags scintilla \
 	widgets manuals omf-install src pixmaps data \
-	doc launcher plugins
+	doc launcher plugins scripts
 
 anjutadocdir = ${prefix}/doc/anjuta
 anjutadoc_DATA = \
@@ -25,6 +25,7 @@ EXTRA_DIST = \
 	xml-i18n-extract.in \
 	xml-i18n-merge.in \
 	xml-i18n-update.in \
+	autogen.sh \
 	$(anjutadoc_DATA)
 
 @XML_I18N_MERGE_DESKTOP_RULE@

@@ -1,3 +1,12 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -99,7 +108,7 @@ gboolean tm_workspace_remove_object(TMWorkObject *w, gboolean free)
 			if (free)
 				tm_work_object_free(w);
 			g_ptr_array_remove_index_fast(theWorkspace->work_objects, i);
-			tm_workspace_update(TM_WORK_OBJECT(theWorkspace), TRUE, TRUE, FALSE);
+			tm_workspace_update(TM_WORK_OBJECT(theWorkspace), TRUE, FALSE, FALSE);
 			return TRUE;
 		}
 	}

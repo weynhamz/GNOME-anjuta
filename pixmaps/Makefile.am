@@ -18,7 +18,6 @@ anjuta_pixmaps_DATA = \
 	appwiz_gnomemm.png\
 	appwiz_gtk.png\
 	appwiz_gtkmm.png\
-	appwiz_libglade.png\
 	appwiz_terminal.png\
 	autocomplete.xpm\
 	bfoldc.xpm\
@@ -122,26 +121,27 @@ anjuta_pixmaps_DATA = \
 	file_html.xpm\
 	run_to_cursor.xpm\
 	file_i18n.xpm\
-	fv_unknown.xpm\
-	fv_source.xpm\
-	fv_image.xpm\
-	fv_i18n.xpm\
+	fv_core.xpm\
 	fv_exec.xpm\
-	fv_doc.xpm\
-	fv_autofile.xpm\
-	variable.xpm\
-	struct.xpm\
-	public_var.xpm\
-	public_func.xpm\
-	protected_var.xpm\
-	protected_func.xpm\
-	private_var.xpm\
-	private_func.xpm\
-	ofolder.xpm\
-	macro.xpm\
-	function.xpm\
-	class.xpm\
-	cfolder.xpm
+	fv_unknown.xpm\
+	fv_image.xpm\
+	fv_text.xpm\
+	sv_private_fun.xpm\
+	sv_public_fun.xpm\
+	sv_struct.xpm\
+	sv_class.xpm\
+	sv_private_var.xpm\
+	sv_public_var.xpm\
+	sv_unknown.xpm\
+	sv_function.xpm\
+	sv_protected_fun.xpm\
+	sv_static_fun.xpm\
+	sv_variable.xpm\
+	sv_macro.xpm\
+	sv_protected_var.xpm\
+	sv_static_var.xpm\
+	cfolder.xpm\
+	ofolder.xpm
 
 EXTRA_DIST = $(anjuta_pixmaps_DATA)
 

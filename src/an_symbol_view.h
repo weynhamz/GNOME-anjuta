@@ -9,14 +9,30 @@
 extern "C"
 {
 #endif
+
+typedef struct _SymbolFileInfo
+{
+	struct
+	{
+		char *name;
+		glong line;
+	} def;
+	struct
+	{
+		char *name;
+		glong line;
+	} decl;
+} SymbolFileInfo;
+
 typedef struct _AnSymbolView
 {
-	TMProject *project;
 	GtkWidget *win;
 	GtkWidget *tree;
+	GtkWidget *menu;
+	SymbolFileInfo *sinfo;
 } AnSymbolView;
 
-AnSymbolView *sv_populate(TMProject *tm_proj);
+AnSymbolView *sv_populate(void);
 void sv_clear(void);
 
 #ifdef __cplusplus

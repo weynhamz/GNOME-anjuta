@@ -1,4 +1,14 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #include <stdio.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,17 +25,25 @@
 guint source_file_class_id = 0;
 static TMSourceFile *current_source_file = NULL;
 
-gboolean tm_source_file_init(TMSourceFile *source_file, const char *file_name, gboolean update)
+gboolean tm_source_file_init(TMSourceFile *source_file, const char *file_name
+  , gboolean update)
 {
+	char file_path[PATH_MAX];
+	if (0 == source_file_class_id)
+		source_file_class_id = tm_work_object_register(tm_source_file_free
+		  , tm_source_file_update, NULL);
+	if(!realpath(file_name, file_path))
+	{
+		perror(file_name);
+		return FALSE;
+	}
+
 #ifdef TM_DEBUG
 	g_message("Source File init: %s", file_name);
 #endif
 
-	if (0 == source_file_class_id)
-		source_file_class_id = tm_work_object_register(tm_source_file_free
-		  , tm_source_file_update, NULL);
 	if (FALSE == tm_work_object_init(&(source_file->work_object),
-		  source_file_class_id, file_name, FALSE))
+		  source_file_class_id, file_path, FALSE))
 		return FALSE;
 	source_file->lang = LANG_AUTO;
 	if (update)
@@ -92,11 +110,11 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 	current_source_file = source_file;
 	if (LANG_AUTO == source_file->lang)
 		source_file->lang = getFileLanguage (file_name);
-	if (source_file->lang == LANG_IGNORE) {
-		/* g_warning("ignoring %s (unknown language)\n", file_name); */
-	} else if (! LanguageTable [source_file->lang]->enabled) {
-		/* g_warning("ignoring %s (language disabled)\n", file_name); */
-	} else
+	if (source_file->lang == LANG_IGNORE)
+		g_warning("ignoring %s (unknown language)\n", file_name);
+	else if (! LanguageTable [source_file->lang]->enabled)
+		g_warning("ignoring %s (language disabled)\n", file_name);
+	else
 	{
 		int passCount = 0;
 		if (LanguageTable[source_file->lang]->initialize != NULL)
@@ -159,7 +177,6 @@ gboolean tm_source_file_write(TMWorkObject *source_file, FILE *fp, guint attrs)
 
 	if (NULL != source_file)
 	{
-		tm_source_file_update(source_file, FALSE, FALSE, TRUE);
 		if (NULL != (tag = tm_tag_new(TM_SOURCE_FILE(source_file), NULL)))
 		{
 			tm_tag_write(tag, fp, tm_tag_attr_max_t);

@@ -279,7 +279,7 @@ project_file_data_new (GtkCTreeNode * parent, PrjModule mod, gchar * full_fname)
 {
 	ProjectFileData *pfd;
 
-	pfd = g_malloc (sizeof (ProjectFileData));
+	pfd = g_malloc0 (sizeof (ProjectFileData));
 	if (!pfd)
 		return NULL;
 
@@ -320,7 +320,7 @@ project_dbase_new (PropsID pr_props)
 		NULL
 	};
 
-	p = g_malloc (sizeof (ProjectDBase));
+	p = g_malloc0(sizeof (ProjectDBase));
 	if (!p) return NULL;
 	p->size = sizeof(ProjectDBase);
 	
@@ -1168,10 +1168,10 @@ project_dbase_update_tags_image(ProjectDBase* p)
 			tm_project_update(p->tm_project, FALSE, TRUE, TRUE);
 	}
 	else if (p->top_proj_dir)
-		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE, TRUE);
+		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE);
 
-	sv_populate(TM_PROJECT(p->tm_project));
-	fv_populate(TM_PROJECT(p->tm_project));
+	sv_populate();
+	fv_populate();
 
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
 

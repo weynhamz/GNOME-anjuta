@@ -18,8 +18,7 @@ anjuta_data_DATA = \
 	autogen.sh.gtk\
 	autogen.sh.generic\
 	autogen.sh.gtkmm\
-	autogen.sh.gnomemm\
-	system.tags
+	autogen.sh.gnomemm
 
 EXTRA_DIST = $(anjuta_data_DATA)
 
@@ -31,12 +30,14 @@ MACROS = \
 
 MACROS_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome
 
-install-data-local:
+install-data-local: system.tags
 	mkdir -p $(MACROS_dir)
 	$(INSTALL_DATA) $(MACROS:%=$(top_srcdir)/macros/%) $(MACROS_dir)
+	$(INSTALL_DATA) system.tags $(anjuta_datadir)
 
 uninstall-local:
 	@rm -fv $(MACROS:%=$(MACROS_dir)/%)
+	@rm -fv $(anjuta_datadir)/system.tags
 	if test -d $(MACROS_dir); then \
 	  rmdir $(MACROS_dir); \
 	  \
@@ -48,3 +49,5 @@ uninstall-local:
 system.tags:
 	cd $(top_srcdir)/tagmanager && make libctags.a
 	cd $(top_srcdir)/global-tags && make system.tags
+	mv $(top_srcdir)/global-tags/system.tags .
+

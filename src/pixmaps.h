@@ -116,22 +116,6 @@
 #define ANJUTA_PIXMAP_MINI_DOCK "mini_dock.xpm"
 #define ANJUTA_PIXMAP_MINI_MODULES "mini_modules.xpm"
 
-/* file icons for ccview */
-#define ANJUTA_PIXMAP_FILE_FILE "file_file.xpm"
-#define ANJUTA_PIXMAP_FILE_H "file_h.xpm"
-#define ANJUTA_PIXMAP_FILE_C "file_c.xpm"
-#define ANJUTA_PIXMAP_FILE_CPP "file_cpp.xpm"
-#define ANJUTA_PIXMAP_FILE_ASM "file_asm.xpm"
-#define ANJUTA_PIXMAP_FILE_PIX "file_pix.xpm"
-#define ANJUTA_PIXMAP_FILE_XPM "file_pix.xpm"
-#define ANJUTA_PIXMAP_FILE_EXE "file_exe.xpm"
-#define ANJUTA_PIXMAP_FILE_UNKOWN "file_unkown.xpm"
-#define ANJUTA_PIXMAP_FILE_ARCHIVE "file_archive.xpm"
-#define ANJUTA_PIXMAP_FILE_PROJECT "file_project.xpm"
-
-#define ANJUTA_PIXMAP_OFOLDER_BLUE "bfoldo.xpm"
-#define ANJUTA_PIXMAP_CFOLDER_BLUE "bfoldc.xpm"
-
 /* definitions for the project wizard */
 #define ANJUTA_PIXMAP_APPWIZ_WATERMARK "appwizard.png"
 #define ANJUTA_PIXMAP_APPWIZ_LOGO "applogo.png"
@@ -171,5 +155,33 @@
 
 #define ANJUTA_PIXMAP_CALLTIP "calltip.xpm"
 #define ANJUTA_PIXMAP_AUTOCOMPLETE "autocomplete.xpm"
+
+/* Pixmaps for file and symbol browsers */
+/* Symbol browser */
+#define ANJUTA_PIXMAP_SV_UNKNOWN "fv_unknown.xpm"
+#define ANJUTA_PIXMAP_SV_CLASS "sv_class.xpm"
+#define ANJUTA_PIXMAP_SV_FUNCTION "sv_function.xpm"
+#define ANJUTA_PIXMAP_SV_MACRO "sv_macro.xpm"
+#define ANJUTA_PIXMAP_SV_PRIVATE_FUN "sv_private_fun.xpm"
+#define ANJUTA_PIXMAP_SV_PRIVATE_VAR "sv_private_var.xpm"
+#define ANJUTA_PIXMAP_SV_PROTECTED_FUN "sv_protected_fun.xpm"
+#define ANJUTA_PIXMAP_SV_PROTECTED_VAR "sv_protected_var.xpm"
+#define ANJUTA_PIXMAP_SV_PUBLIC_FUN "sv_public_fun.xpm"
+#define ANJUTA_PIXMAP_SV_PUBLIC_VAR "sv_public_var.xpm"
+#define ANJUTA_PIXMAP_SV_STATIC_FUN "sv_static_fun.xpm"
+#define ANJUTA_PIXMAP_SV_STATIC_VAR "sv_static_var.xpm"
+#define ANJUTA_PIXMAP_SV_STRUCT "sv_struct.xpm"
+#define ANJUTA_PIXMAP_SV_VARIABLE "sv_variable.xpm"
+
+/* Common */
+#define ANJUTA_PIXMAP_CLOSED_FOLDER "cfolder.xpm"
+#define ANJUTA_PIXMAP_OPEN_FOLDER "ofolder.xpm"
+
+/* File browser */
+#define ANJUTA_PIXMAP_FV_UNKNOWN "fv_unknown.xpm"
+#define ANJUTA_PIXMAP_FV_TEXT "fv_text.xpm"
+#define ANJUTA_PIXMAP_FV_IMAGE "fv_image.xpm"
+#define ANJUTA_PIXMAP_FV_EXECUTABLE "fv_exec.xpm"
+#define ANJUTA_PIXMAP_FV_CORE "fv_core.xpm"
 
 #endif

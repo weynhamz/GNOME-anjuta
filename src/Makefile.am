@@ -229,7 +229,12 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
-	-L../scintilla -L../tagmanager -L../widgets\
-	-lwidgets -lxml\
-	-lscintilla -lctags\
+	$(top_srcdir)/scintilla/libscintilla.a\
+	$(top_srcdir)/tagmanager/libctags.a\
+	$(top_srcdir)/widgets/libwidgets.a\
 	$(SCILEXERS)
+
+anjuta_LDFLAGS = -lxml -ldmalloc
+
+echo-includes:
+	echo $(EXTRA_GNOME_CFLAGS)

@@ -12,12 +12,11 @@ noinst_PROGRAMS = tm_global_tags
 
 tm_global_tags_SOURCES = tm_global_tags.c
 
-LDADD = -L$(top_srcdir)/tagmanager $(GLIB_LIBS) -lctags
-
-all-local: system.tags
+LDADD = $(top_srcdir)/tagmanager/libctags.a
+LDFLAGS = $(GLIB_LIBS)
 
 system.tags: create_global_tags.sh tm_global_tags
 	echo "Detecting header files and Generating global symbols ....."
 	chmod +x $(srcdir)/create_global_tags.sh
 	$(srcdir)/create_global_tags.sh
-	cp $(srcdir)/system.tags $(top_srcdir)/data
+

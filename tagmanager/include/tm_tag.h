@@ -1,3 +1,12 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #ifndef TM_TAG_H
 #define TM_TAG_H
 
@@ -75,7 +84,7 @@ typedef enum
 	tm_tag_attr_type_t = 2, /*!< Tag Type */
 	tm_tag_attr_file_t = 4, /*!< File in which tag exists */
 	tm_tag_attr_line_t = 8, /*!< Line number of tag */
-	tm_tag_attr_pos_t = 16, /*!< Byte position of tag in the file */
+	tm_tag_attr_pos_t = 16, /*!< Byte position of tag in the file (Obsolete) */
 	tm_tag_attr_scope_t = 32, /*!< Scope of the tag */
 	tm_tag_attr_inheritance_t = 64, /*!< Parent classes */
 	tm_tag_attr_arglist_t = 128, /*!< Argument list */
@@ -84,7 +93,8 @@ typedef enum
 	tm_tag_attr_vartype_t = 1024, /*!< Variable Type */
 	tm_tag_attr_access_t = 2048, /*!< Access type (public/protected/private) */
 	tm_tag_attr_impl_t = 4096, /*!< Implementation (e.g. virtual) */
-	tm_tag_attr_max_t = 2047 /*!< Maximum value */
+	tm_tag_attr_lang_t = 8192, /*!< Language (File tag only) */
+	tm_tag_attr_max_t = 16383 /*!< Maximum value */
 } TMTagAttrType;
 
 /*! Tag access type for C++/Java member functions and variables */
@@ -115,7 +125,6 @@ typedef struct _TMTag
 		{
 			TMSourceFile *file; /*!< File in which the tag occurs */
 			gulong line; /*!< Line number of the tag */
-			gulong pos; /*!< Seek position of the tag */
 			gboolean local; /*!< Is the tag of local scope */
 			char *arglist; /*!< Argument list (functions/prototypes/macros) */
 			char *scope; /*!< Scope of tag */
@@ -298,6 +307,11 @@ void tm_tag_print(TMTag *tag, FILE *fp);
   Prints info about all tags in the array to the given file pointer.
 */
 void tm_tags_array_print(GPtrArray *tags, FILE *fp);
+
+/*!
+  Returns the depth of tag scope (useful for finding tag hierarchy
+*/
+gint tm_tag_scope_depth(const TMTag *t);
 
 #ifdef __cplusplus
 }

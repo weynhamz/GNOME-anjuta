@@ -1,5 +1,4 @@
 /*
-*   $Id$
 *
 *   Copyright (c) 1996-2001, Darren Hiebert
 *
@@ -192,6 +191,29 @@ typedef struct sStatementInfo {
 	tokenInfo* firstToken; /* First token in the statement */
 } statementInfo;
 
+/*  Describes the type of tag being generated.
+ */
+typedef enum eTagType {
+    TAG_UNDEFINED,
+    TAG_CLASS,			/* class name */
+    TAG_ENUM,			/* enumeration name */
+    TAG_ENUMERATOR,		/* enumerator (enumeration value) */
+    TAG_FIELD,			/* field (Java) */
+    TAG_FUNCTION,		/* function definition */
+    TAG_INTERFACE,		/* interface declaration */
+    TAG_MEMBER,			/* structure, class or interface member */
+    TAG_METHOD,			/* method declaration */
+    TAG_NAMESPACE,		/* namespace name */
+    TAG_PACKAGE,		/* package name */
+    TAG_PROTOTYPE,		/* function prototype or declaration */
+    TAG_STRUCT,			/* structure name */
+    TAG_TYPEDEF,		/* typedef name */
+    TAG_UNION,			/* union name */
+    TAG_VARIABLE,		/* variable definition */
+    TAG_EXTERN_VAR,		/* external variable declaration */
+	TAG_MACRO,			/* #define s */
+    TAG_COUNT			/* must be last */
+} tagType;
 
 typedef struct sParenInfo {
     boolean isPointer;
@@ -2266,7 +2288,8 @@ static void tagCheck (statementInfo *const st)
 	    {
 		if (isContextualKeyword (prev2))
 		    st->scope = SCOPE_EXTERN;
-		qualifyVariableTag (st, prev);
+		else
+			qualifyVariableTag (st, prev);
 	    }
 	    else if (isType (prev, TOKEN_ARGS)  &&  isType (prev2, TOKEN_NAME))
 	    {

@@ -108,7 +108,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 	TextEditor *te;
 	static guint new_file_count;
 
-	te = (TextEditor *) g_malloc (sizeof (TextEditor));
+	te = (TextEditor *) g_malloc0(sizeof (TextEditor));
 	if (te == NULL)
 		return NULL;
 	te->size	= sizeof(TextEditor);
@@ -171,7 +171,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 		if (te->full_filename)
 			g_free (te->full_filename);
 		te->filename = g_strdup (extract_filename (filename));
-		te->full_filename = g_strdup (filename);
+		te->full_filename = resolved_file_name(filename);
 		buff = g_strdup_printf ("Anjuta: %s", te->full_filename);
 		gtk_window_set_title (GTK_WINDOW (te->widgets.window), buff);
 		g_free (buff);
@@ -634,7 +634,7 @@ load_from_file (TextEditor * te, gchar * fn)
 
 	if (stat (fn, &st) != 0)
 	{
-		g_warning ("Could not stat the file");
+		g_warning ("Could not stat the file %s", fn);
 		return FALSE;
 	}
 	size = st.st_size;
@@ -792,14 +792,14 @@ text_editor_load_file (TextEditor * te)
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GOTOPOS,
 				0, 0);
 	tags_update = preferences_get_int (te->preferences, AUTOMATIC_TAGS_UPDATE);
-	if (app->project_dbase->project_is_open == FALSE && tags_update)
+	if (tags_update)
 	{
-		tags_manager_update (app->tags_manager, te->full_filename);
-	}
-	else if (project_dbase_is_file_in_module
-		    (app->project_dbase, MODULE_SOURCE, te->full_filename) && tags_update)
-	{
-		tags_manager_update (app->tags_manager, te->full_filename);
+		if ((app->project_dbase->project_is_open == FALSE)
+		  || (project_dbase_is_file_in_module(app->project_dbase
+		  , MODULE_SOURCE, te->full_filename)))
+		{
+			tags_manager_update (app->tags_manager, te->full_filename);
+		}
 	}
 	check_tm_file(te);
 	anjuta_set_active ();
@@ -842,19 +842,19 @@ text_editor_save_file (TextEditor * te)
 		tags_update =
 			preferences_get_int (te->preferences,
 					     AUTOMATIC_TAGS_UPDATE);
-		if (app->project_dbase->project_is_open == FALSE
-		    && tags_update)
-			tags_manager_update (app->tags_manager,
-					     te->full_filename);
-		else
-			if (project_dbase_is_file_in_module
-			    (app->project_dbase, MODULE_SOURCE, te->full_filename)
-			    && tags_update)
-			tags_manager_update (app->tags_manager,
-					     te->full_filename);
-		check_tm_file(te);
-		if (te->tm_file)
-			tm_source_file_update(TM_WORK_OBJECT(te->tm_file), FALSE, FALSE, TRUE);
+		if (tags_update)
+		{
+			if ((app->project_dbase->project_is_open == FALSE)
+			  || (project_dbase_is_file_in_module
+			    (app->project_dbase, MODULE_SOURCE, te->full_filename)))
+			{
+				tags_manager_update (app->tags_manager, te->full_filename);
+				check_tm_file(te);
+				if (te->tm_file)
+					tm_source_file_update(TM_WORK_OBJECT(te->tm_file)
+					  , FALSE, FALSE, TRUE);
+			}
+		}
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
 		scintilla_send_message (SCINTILLA (te->widgets.editor),

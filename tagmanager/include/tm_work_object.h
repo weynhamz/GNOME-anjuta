@@ -1,3 +1,12 @@
+/*
+*
+*   Copyright (c) 2001-2002, Biswapesh Chattopadhyay
+*
+*   This source code is released for free distribution under the terms of the
+*   GNU General Public License.
+*
+*/
+
 #ifndef TM_WORK_OBJECT_H
 #define TM_WORK_OBJECT_H
 
@@ -11,7 +20,7 @@ extern "C"
 #endif
 
 /*! Evaluates to X is X is defined, else evaluates to Y */
-#define NVL(X,Y) (X)?(X):(Y)
+#define NVL(X,Y) ((X)?(X):(Y))
 
 /*! Macro to cast a pointer to (TMWorkObject *) */
 #define TM_WORK_OBJECT(work_object) ((TMWorkObject *) work_object)

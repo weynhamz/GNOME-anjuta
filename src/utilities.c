@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <limits.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <glib.h>
@@ -56,6 +57,21 @@ extract_filename (gchar * full_filename)
 	if (i == 0 && full_filename[0] != '/')
 		return full_filename;
 	return &full_filename[++i];
+}
+
+#define NSTR(S) ((S)?(S):"NULL")
+gchar *
+resolved_file_name(gchar *full_filename)
+{
+	char real_filename[PATH_MAX], *final_filename;
+	if (!full_filename)
+		final_filename = NULL;
+	else if (realpath(full_filename, real_filename))
+		final_filename = g_strdup(real_filename);
+	else
+		final_filename = g_strdup(full_filename);
+	g_message("%s -> %s", NSTR(full_filename), NSTR(final_filename));
+	return final_filename;
 }
 
 GList *

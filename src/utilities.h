@@ -86,6 +86,9 @@ gchar* get_swapped_filename(gchar* filename);
 /* This filename is not valid beyond the present session */
 gchar* get_a_tmp_file(void);
 
+/* Gets a resolved file name with extra '/', '..', etc. removed */
+gchar *resolved_file_name(gchar *full_filename);
+
 /* Retruns the contents of the file a buffer */
 gchar* get_file_as_buffer (gchar* filename);
 

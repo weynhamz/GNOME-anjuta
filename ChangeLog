@@ -1,3 +1,77 @@
+2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	Patch submitted by:
+	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* Makefile.am
+	  configure.in
+	  data/Makefile.am
+	  data/properties/Makefile.am
+	  global-tags/Makefile.am
+	  pixmaps/Makefile.am
+	  src/Makefile.am
+	  src/an_file_view.c
+	  src/an_file_view.h
+	  src/an_symbol_view.c
+	  src/an_symbol_view.h
+	  src/anjuta.c
+	  src/anjuta_cbs.c
+	  src/file_history.c
+	  src/file_history.h
+	  src/message-manager-private.cc
+	  src/pixmaps.h
+	  src/project_dbase.c
+	  src/project_dbase_gui.c
+	  src/tags_manager.c
+	  src/text_editor.c
+	  src/utilities.c
+	  src/utilities.h
+	  src/watch_gui.c:
+	
+	  Modified files.
+	
+	* scripts/*
+	  pixmaps/sv_class.xpm
+	  pixmaps/sv_function.xpm
+	  pixmaps/sv_macro.xpm
+	  pixmaps/sv_private_fun.xpm
+	  pixmaps/sv_private_var.xpm
+	  pixmaps/sv_protected_fun.xpm
+	  pixmaps/sv_protected_var.xpm
+	  pixmaps/sv_public_fun.xpm
+	  pixmaps/sv_public_var.xpm
+	  pixmaps/sv_static_fun.xpm
+	  pixmaps/sv_static_var.xpm
+	  pixmaps/sv_struct.xpm
+	  pixmaps/sv_unknown.xpm
+	  pixmaps/sv_variable.xpm
+	  pixmaps/fv_core.xpm
+	  pixmaps/fv_text.xpm
+	  pixmaps/filestoremove.txt:
+	
+	  New files.
+	
+	* pixmaps/class.xpm
+	  pixmaps/function.xpm
+	  pixmaps/fv_autofile.xpm
+	  pixmaps/fv_doc.xpm
+	  pixmaps/fv_i18n.xpm
+	  pixmaps/fv_source.xpm
+	  pixmaps/private_func.xpm
+	  pixmaps/private_var.xpm
+	  pixmaps/protected_func.xpm
+	  pixmaps/protected_var.xpm
+	  pixmaps/public_func.xpm
+	  pixmaps/public_var.xpm
+	  pixmaps/struct.xpm
+	  pixmaps/variable.xpm
+	
+	  Removed files.
+	
+	* tagmanager/*/*:
+	
+	  Upgraded to tagmanager-0.7
+
 2002-01-24	Johannes Schmid <clubfan@users.sourceforge.net>
 	* src/anjuta_cbs.c: Fixed bug #506441
 	* src/watch_gui.c: Changed layout of eval dialog so that

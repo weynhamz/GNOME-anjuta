@@ -773,8 +773,8 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
 
-		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
-		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
+		sv_populate();
+		fv_populate();
 	}
 
 	return TRUE;
@@ -802,8 +802,8 @@ on_tags_manager_on_idle (gpointer data)
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
 
-		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
-		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
+		sv_populate();
+		fv_populate();
 
 		return FALSE;
 	}

@@ -1,5 +1,4 @@
 /*
-*   $Id$
 *
 *   Copyright (c) 1996-2001, Darren Hiebert
 *
@@ -306,7 +305,6 @@ static void makeDefineTag (const char *const name, boolean parameterized)
 	e.truncateLine	= TRUE;
 	e.kindName	= "macro";
 	e.kind		= 'd';
-	e.type = TAG_MACRO;
 	if (parameterized)
 		e.extensionFields.arglist = getArglistFromPos(getInputFilePosition(), e.name, TRUE);
 	makeTagEntry (&e);
