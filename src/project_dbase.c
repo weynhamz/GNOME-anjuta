@@ -382,17 +382,16 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
-	p->excluded_modules = NULL;
 	
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->fileselection_open = create_fileselection_gui (&fsd1);
 	p->fileselection_add_file = create_fileselection_gui (&fsd2);
-	p->project_config = project_config_new ();
 	p->sel_module = MODULE_SOURCE;
 	p->props = prop_set_new ();
 	prop_set_parent (p->props, pr_props);
+	p->project_config = project_config_new (p->props);
 
 	closed_folder_pix =
 		gdk_pixmap_colormap_create_from_xpm_d(NULL,
@@ -514,10 +513,6 @@ project_dbase_clear (ProjectDBase * p)
 	string_assign (&p->top_proj_dir, NULL);
 	string_assign (&p->proj_filename, NULL);
 	prop_clear (p->props);
-	if (p->excluded_modules) {
-		glist_strings_free(p->excluded_modules);
-		p->excluded_modules = NULL;
-	}
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
@@ -859,36 +854,51 @@ project_dbase_save_project (ProjectDBase * p)
 
 	str = prop_get (p->props, "project.source.target");
 	if (!str) str = g_strdup ("dummytarget");
-	if (fprintf (fp, "project.source.target=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.source.target=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
-	fprintf (fp, "project.excluded.modules=");
-	if (p->excluded_modules) {
-		GList* node;
-		node = p->excluded_modules;
-		while (node)
-		{
-			if (node->data)
-				if (fprintf (fp, "\\\n\t%s", (gchar*)node->data) < 1)
-					goto error_show;
-			node = g_list_next (node);
-		}
-	}
-	fprintf (fp, "\n\n");
-
 	str = prop_get (p->props, "project.has.gettext");
 	if (!str) str = g_strdup ("1");
-	if (fprintf (fp, "project.has.gettext=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.has.gettext=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
 	str = prop_get (p->props, "project.programming.language");
 	if (!str) str = g_strdup (programming_language_map[PROJECT_PROGRAMMING_LANGUAGE_C]);
-	if (fprintf (fp, "project.programming.language=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.programming.language=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
+	str = prop_get (p->props, "project.excluded.modules");
+	if (!str) str = g_strdup ("intl");
+	if (fprintf (fp, "project.excluded.modules=%s\n\n", str) < 1)
+		goto error_show;
+	g_free (str); str = NULL;
+	
+	str = prop_get (p->props, "project.config.extra.modules.before");
+	if (str)
+	{
+		fprintf (fp, "project.config.extra.modules.before=%s\n", str);
+		g_free (str);
+		str = NULL;
+	}
+	else
+		fprintf (fp, "project.config.extra.modules.before=\n");
+
+	str = prop_get (p->props, "project.config.extra.modules.after");
+	if (str)
+	{
+		fprintf (fp, "project.config.extra.modules.after=%s\n", str);
+		g_free (str);
+		str = NULL;
+	}
+	else
+		fprintf (fp, "project.config.extra.modules.after=\n");
+	
+	if (project_config_save (p->project_config, fp)== FALSE)
+		goto error_show;
+        
 	str = prop_get (p->props, "project.menu.entry");
 	if (!str) str = prop_get (p->props, "project.name");
 	if (!str) str = g_strdup ("Unknown Project");
@@ -922,20 +932,17 @@ project_dbase_save_project (ProjectDBase * p)
 
 	str = prop_get (p->props, "project.configure.options");
 	if (!str) str = g_strdup ("");
-	if (fprintf (fp, "project.configure.options=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.configure.options=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
 	/* Yes, from the preferences */
 	str = prop_get (app->preferences->props, "anjuta.program.arguments");
 	if (!str) str = g_strdup ("");
-	if (fprintf (fp, "anjuta.program.arguments=%s\n\n", str) < 1)
+	if (fprintf (fp, "anjuta.program.arguments=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
-
-	if (project_config_save (p->project_config, fp)== FALSE)
-		goto error_show;
-        
+	
 	/* Save the editor preferences if present */
 #ifdef DEBUG
 	printf("Saving editor preferences in the project file\n");
@@ -2492,11 +2499,6 @@ done:
 	*(strrchr(p->top_proj_dir, '/')) = '\0';
 	prop_set_with_key (p->props, "top.proj.dir", p->top_proj_dir);
 	p->has_cvs = is_cvs_active_for_dir(p->top_proj_dir);
-	/* Load excluded modules */
-	if (p->excluded_modules) {
-		glist_strings_free(p->excluded_modules);
-	}
-	p->excluded_modules = glist_from_data(p->props, "project.excluded.modules");
 
 	compiler_options_load (app->compiler_options, p->props);
 	src_paths_load (app->src_paths, p->props);

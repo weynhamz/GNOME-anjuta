@@ -225,7 +225,7 @@ gchar* project_type_gnomemm2[] =
 	"\\\n\t$(GNOMEMM_CFLAGS)",
 	"\\\n\t$(GNOMEMM_LIBS)",
 	
-	"PKG_CHECK_MODULES(GNOME, libgnomeuimm-2.0,,exit)\n"
+	"PKG_CHECK_MODULES(GNOMEMM, libgnomeuimm-2.0,,exit)\n"
 	"AC_SUBST(GNOMEMM_LIBS)\n"
 	"AC_SUBST(GNOMEMM_CFLAGS)",
 	

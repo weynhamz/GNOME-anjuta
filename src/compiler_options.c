@@ -467,7 +467,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			}
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 	
 	length = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
 	fprintf (s, "compiler.options.include.paths=");
@@ -479,7 +479,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	length =
 		g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->
@@ -494,7 +494,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	length = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
 	fprintf (s, "compiler.options.libraries=");
@@ -519,7 +519,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	length = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
 	fprintf (s, "compiler.options.defines=");
@@ -532,34 +532,31 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.warning.buttons=");
 	for (i = 0; i < 16; i++)
 		fprintf (s, "%d ", (int) co->warning_button_state[i]);
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.optimize.buttons=");
 	for (i = 0; i < 4; i++)
 		fprintf (s, "%d ", (int) co->optimize_button_state[i]);
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.other.buttons=");
 	for (i = 0; i < 2; i++)
 		fprintf (s, "%d ", (int) co->other_button_state[i]);
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
-	fprintf (s, "compiler.options.other.c.flags=%s",
+	fprintf (s, "compiler.options.other.c.flags=%s\n",
 		 co->other_c_flags);
 	
-	fprintf (s, "\n\n");
-	fprintf (s, "compiler.options.other.l.flags=%s",
+	fprintf (s, "compiler.options.other.l.flags=%s\n",
 		 co->other_l_flags);
-	fprintf (s, "\n\n");
 	
-	fprintf (s, "compiler.options.other.l.libs=%s",
+	fprintf (s, "compiler.options.other.l.libs=%s\n",
 		 co->other_l_libs);
-	fprintf (s, "\n\n");
 
 	return TRUE;
 }

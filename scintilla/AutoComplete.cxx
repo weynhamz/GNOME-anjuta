@@ -95,7 +95,7 @@ void AutoComplete::SetList(const char *list) {
 				if (numword)
 					*numword = '\0';
 				lb.Append(startword, numword?atoi(numword + 1):0);
-				printf("word = %s, num = %s\n", startword, numword?(numword+1):"NULL");
+				/* printf("word = %s, num = %s\n", startword, numword?(numword+1):"NULL"); */
 				startword = words + i + 1;
 				numword = NULL;
 			}
@@ -106,7 +106,7 @@ void AutoComplete::SetList(const char *list) {
 			if (numword)
 				*numword = '\0';
 			lb.Append(startword, numword?atoi(numword + 1):0);
-			printf("word = %s, num = %s\n", startword, numword?(numword+1):"NULL");
+			/* printf("word = %s, num = %s\n", startword, numword?(numword+1):"NULL"); */
 		}
 		delete []words;
 	}

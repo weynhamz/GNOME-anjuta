@@ -661,6 +661,7 @@ void anjuta_print_document(PrintJobInfo * pji)
 			current_line = pji->range_start_line;
 			break;
 		default:
+			break;
 	}
 	
 	num_lines = text_editor_get_total_lines (pji->te)+1;

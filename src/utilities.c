@@ -1553,7 +1553,7 @@ anjuta_util_parse_args_from_string (gchar* string)
 	
 	index = 0;
 	escaped = FALSE;
-	quote = -1;
+	quote = (gchar)-1;
 	s = string;
 	
 	while (*s) {
@@ -1572,14 +1572,14 @@ anjuta_util_parse_args_from_string (gchar* string)
 			escaped = TRUE;
 		} else if (*s == quote) {
 			/* Current char ends a quotation */
-			quote = -1;
+			quote = (gchar)-1;
 			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
 				/* If there is no space after the quotation or it is not
 				   the end of the string */
 				g_warning ("Parse error while parsing program arguments");
 			}
 		} else if ((*s == '\"' || *s == '\'')) {
-			if (quote == -1) {
+			if (quote == (gchar)-1) {
 				/* Current char starts a quotation */
 				quote = *s;
 			} else {
@@ -1621,8 +1621,13 @@ anjuta_util_parse_args_from_string (gchar* string)
 gint 
 anjuta_util_check_gnome_terminal (void)
 {
+#ifdef DEBUG
     gchar* term_command = "gnome-terminal --version";
     gchar* term_command2 = "gnome-terminal --diable-factory --version";
+#else
+    gchar* term_command = "gnome-terminal --version > /dev/null 2> /dev/null";
+    gchar* term_command2 = "gnome-terminal --diable-factory --version > /dev/null 2> /dev/null";
+#endif
     gint retval;
     
     retval = system (term_command);

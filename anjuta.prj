@@ -33,13 +33,14 @@ project.target.type=EXECUTABLE
 project.version=1.0.1
 project.author=naba
 project.source.target=src/anjuta
-
-project.excluded.modules=\
-	intl
-
 project.has.gettext=1
-
 project.programming.language=C_C++
+project.excluded.modules=intl
+
+project.config.extra.modules.before=
+project.config.extra.modules.after=
+project.config.blocked=1
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 
 project.menu.entry=Anjuta IDE
 project.menu.group=Application
@@ -48,15 +49,7 @@ project.menu.icon=pixmaps/anjuta_icon.png
 project.menu.need.terminal=0
 
 project.configure.options=
-
 anjuta.program.arguments=
-
-project.config.blocked=1
-
-project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
-project.config.extra.modules.before=
-project.config.extra.modules.after=
-
 preferences.indent.automatic=1
 preferences.use.tabs=1
 preferences.indent.opening=0
@@ -702,31 +695,20 @@ module.po.files=\
 	zh_TW.po
 
 compiler.options.supports=
-
 compiler.options.include.paths=\
 	.\
 	..
-
 compiler.options.library.paths=
-
 compiler.options.libraries=
 compiler.options.libraries.selected=
-
 compiler.options.defines=\
 	HAVE_CONFIG_H
-
 compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
-
 compiler.options.optimize.buttons=0 0 1 0 
-
 compiler.options.other.buttons=1 0 
-
 compiler.options.other.c.flags=
-
 compiler.options.other.l.flags=
-
 compiler.options.other.l.libs=
-
 project.source.paths=\
 	src\
 	widgets\

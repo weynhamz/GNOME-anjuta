@@ -1,3 +1,22 @@
+2002-11-26  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	* project_type.c: Fixed Gnomemm2 project type
+
+2002-11-25  Naba Kumar <naba@gnome.org>
+
+	* printing/print.c: Fixed a compile warning.
+	* scintilla/Autocomplete.cxx: Applied missing patch from Biswa
+	* src/utilities.c: Fixed a compile warning in sparc, hides the
+	terminal check error output from the user.
+	* project_config.[ch], project_dbase.[ch], source.c: Added project
+	version, exclude modules configuration and reordered other config
+	properties. Changed some strings to more descriptive text.
+	* src/compiler_opitions.c: Removed extra newlines from .prj file
+	save.
+	* anjuta.prj: Converted to new format (only reorganised properties
+	and removed extra newlines ... nothing else).
+	* NEWS: updated
+	
 2002-11-21  Naba Kumar <naba@gnome.org>
 
 	* Editor.cxx, Editor.h, include/SciLexer.h, include/Scintilla.h,

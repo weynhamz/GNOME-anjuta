@@ -387,7 +387,7 @@ source_write_configure_in (ProjectDBase * data)
 		fprintf (fp, "macros/Makefile\n");
 	}
 
-	list = glist_from_string (data->project_config->extra_modules_before);
+	list = glist_from_data (data->props, "project.config.extra.modules.before");
 	node = list;
 	while (node)
 	{
@@ -426,7 +426,7 @@ source_write_configure_in (ProjectDBase * data)
 		}
 	}
 
-	list = glist_from_string (data->project_config->extra_modules_after);
+	list = glist_from_data (data->props, "project.config.extra.modules.after");
 	node = list;
 	while (node)
 	{
@@ -460,6 +460,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *actual_file, *target, *prj_name;
 	gint i;
+	gchar *str;
 	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -486,8 +487,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	if (type->gnome_support)
 		fprintf (fp, " macros");
 
-	if (data->project_config->extra_modules_before)
-		fprintf (fp, " %s", data->project_config->extra_modules_before);
+	str = prop_get (data->props, "project.config.extra.modules.before");
+	if (str) {
+		fprintf (fp, " %s", str);
+		g_free (str);
+	}
 
 	for (i = 0; i < MODULE_END_MARK; i++)
 	{
@@ -506,8 +510,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		}
 	}
 
-	if (data->project_config->extra_modules_after)
-		fprintf (fp, " %s", data->project_config->extra_modules_after);
+	str = prop_get (data->props, "project.config.extra.modules.after");
+	if (str) {
+		fprintf (fp, " %s", str);
+		g_free (str);
+	}
 
 	fprintf (fp, "\n\n");
 
