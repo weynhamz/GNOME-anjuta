@@ -132,7 +132,6 @@ src/stack_trace.h
 src/stack_trace_cbs.c
 src/stack_trace_cbs.h
 src/stack_trace_gui.c
-src/syntax.h
 src/tags_manager.c
 src/tags_manager.h
 src/text_editor.c

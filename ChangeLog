@@ -1,3 +1,11 @@
+2002-01-01	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/project_dbase.c: tidied some messages, and spotted a typo in
+	  the reading of properties which prevented the project version from
+	  ever being reported in the Project Information window - fixed :)
+
+	* po/POTFILES.in: removed syntax.h
+
 2001-12-31  Stephane Demurget  <demurgets@free.fr>
 
 	* data/internal.properties: fixed baan properties.

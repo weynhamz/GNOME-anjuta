@@ -1,3 +1,7 @@
+2002-01-01  Andy Piper <andy.piper@freeuk.com>
+
+	* POTFILES.in: removed syntax.h 
+
 2001-12-31  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* pl.po: Updated Polish translation by

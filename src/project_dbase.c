@@ -605,7 +605,7 @@ load_from_buffer (ProjectDBase* p, gchar* prj_buff, gint loc)
 		temp = g_strdup (" ");
 	if (strcmp (temp, "project") != 0)
 	{
-		anjuta_error (_("Couldn't load project: %s"), p->proj_filename);
+		anjuta_error (_("Unable to load project: %s"), p->proj_filename);
 		g_free (temp);
 		return FALSE;
 	}
@@ -618,13 +618,13 @@ load_from_buffer (ProjectDBase* p, gchar* prj_buff, gint loc)
 		anjuta_error(_
 					 ("Error: You need Anjuta version %s or later to open this project.\n"
 					  "Please upgrade Anjuta to the latest version (Help for more information).\n"
-					  "For the time being, I am too old to load it.:-("), ver);
+					  "For the time being, I am too old to load it."), ver);
 		g_free (ver);
 		return FALSE;
 	}
 	if (project_config_load(p->project_config, p->props)== FALSE)
 	{
-		anjuta_error (_("Couldn't load project: %s"), p->proj_filename);
+		anjuta_error (_("Unable to load project: %s"), p->proj_filename);
 		return FALSE;
 	}
 	return TRUE;
@@ -775,7 +775,7 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 		"open this project.\n"
 		"Please upgrade Anjuta to the latest version "
 		"(Help for more information).\n"
-		"For the time being, I am too old to load it. :-("), buff);
+		"For the time being, I am too old to load it."), buff);
 		error_shown = TRUE;
 		goto go_error;
 	}
@@ -1412,7 +1412,7 @@ project_dbase_show_info (ProjectDBase * p)
 	g_return_if_fail (p->project_is_open == TRUE);
 
 	str[0] = project_dbase_get_proj_name(p);
-	str[1] = prop_get (p->props, "project.verson");
+	str[1] = prop_get (p->props, "project.version");
 	str[2] = prop_get (p->props, "project.author");
 	if (project_dbase_get_project_type(p) != PROJECT_TYPE_GENERIC)
 		str[3] = g_strdup (_("Yes"));
