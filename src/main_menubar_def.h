@@ -1547,7 +1547,7 @@ static GnomeUIInfo menubar1_uiinfo[] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
-	 GNOME_APP_UI_SUBTREE, N_("Plug _Ins"),
+	 GNOME_APP_UI_SUBTREE, N_("Plug_ins"),
 	 NULL,
 	 plugins_menu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
