@@ -35,8 +35,6 @@
 #include "lexer.h"
 #include "an_file_view.h"
 
-#define DEBUG
-
 /* struct is private, use functions to access members */
 struct _CVS
 {

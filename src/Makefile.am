@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-EXTRA_DIST = glades.h Prj-skelimpl.c Prj-skels.c Prj-stubs.c
-
 INCLUDES = \
 	-I$(top_srcdir)/intl \
 	$(GNOME_INCLUDEDIR)\
@@ -222,14 +220,6 @@ anjuta_SOURCES = \
 	defaults.h\
 	resources.c\
 	resources.h\
-	CORBA-Server.c\
-	CORBA-Server.h\
-	Gladen-common.c\
-	Gladen.h\
-	Prj.h\
-	glades.c\
-	Prj-common.c\
-	Gladen-stubs.c\
 	session.c\
 	session.h
 
@@ -245,3 +235,17 @@ anjuta_LDADD =  \
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
 
+
+EXTRA_DIST = \
+	glades.h\
+	glades.c\
+	Prj-skelimpl.c\
+	Prj-skels.c\
+	Prj-stubs.c
+	CORBA-Server.c\
+	CORBA-Server.h\
+	Gladen-common.c\
+	Gladen.h\
+	Prj.h\
+	Prj-common.c\
+	Gladen-stubs.c

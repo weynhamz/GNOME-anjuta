@@ -91,6 +91,7 @@ create_configurer_dialog (Configurer * c)
 	gchar* options;
 
 	dialog2 = gnome_dialog_new (_("Configure"), NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog2), GTK_WINDOW(app->widgets.window));
 	gtk_widget_set_usize (dialog2, 400, -2);
 	gtk_window_set_position (GTK_WINDOW (dialog2), GTK_WIN_POS_CENTER);
 	gtk_window_set_policy (GTK_WINDOW (dialog2), FALSE, FALSE, FALSE);

@@ -623,6 +623,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gint label_max_width;
 
 	dialog1 = gnome_dialog_new (_("Commands"), NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "commands", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);

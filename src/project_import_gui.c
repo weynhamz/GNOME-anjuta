@@ -60,6 +60,8 @@ create_project_import_gui (void)
 	piw->filename = NULL;
 
 	piw->widgets.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_transient_for(GTK_WINDOW(piw->widgets.window),
+			GTK_WINDOW(app->widgets.window));
 	gtk_window_set_title (GTK_WINDOW (piw->widgets.window),
 			      _("Project Import Wizard"));
 	gtk_window_set_wmclass (GTK_WINDOW (piw->widgets.window),

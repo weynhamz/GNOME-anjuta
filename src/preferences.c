@@ -708,13 +708,17 @@ preferences_sync (Preferences * pr)
 	
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (pr->widgets.spin_compression),
 			cvs_get_compression (app->cvs));
-	
+#ifdef USE_GLADEN	
 	/* Page Components */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.use_components),
 				      preferences_get_int (pr,
 							   USE_COMPONENTS));
-
+#else /* USE_GLADEN */
+	/* Page Components */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.use_components), FALSE);
+#endif /* USE_GLADEN */
 	/* Page Identification */
 	str = preferences_get (pr, IDENT_NAME);
 	if (!str) {
@@ -1036,9 +1040,12 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		 preferences_get_int (pr, BUILD_FILE_BROWSER));
 	fprintf (fp, "%s=%d\n", SHOW_TOOLTIPS,
 		 preferences_get_int (pr, SHOW_TOOLTIPS));
+#ifdef USE_GLADEN
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,
 		 preferences_get_int (pr, USE_COMPONENTS));
-	
+#else /* USE_GLADEN */
+	fprintf (fp, "%s=%d\n", USE_COMPONENTS, 0);
+#endif
 	/* Miscellaneous */
 	str = preferences_get(pr, CHARACTER_SET);
 	if (str)

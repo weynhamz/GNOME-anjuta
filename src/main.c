@@ -124,8 +124,11 @@ main (int argc, char *argv[])
 	GnomeClientFlags flags;
 	poptContext context;
 	const char** args;
+
+#ifdef USE_GLADEN
 	CORBA_Environment ev;
 	CORBA_ORB corb ;
+#endif /* USE_GLADEN */
 	int retCode ;
 
 
@@ -139,12 +142,17 @@ main (int argc, char *argv[])
 	
 	/* Connect the necessary kernal signals */
 	anjuta_connect_kernel_signals();
-	
+
+#ifdef USE_GLADEN
 	CInitEx( &ev );
 	corb = gnome_CORBA_init_with_popt_table(PACKAGE, VERSION, &argc, argv,
 					   anjuta_options, 0, &context,
 					   GNORBA_INIT_SERVER_FUNC, &ev );
-	
+#else /* USE_GLADEN */
+	retCode = gnome_init_with_popt_table (PACKAGE, VERSION, argc,
+					   argv, anjuta_options, 0, &context);
+#endif /*USE_GLADEN */
+
 	/* Session management */
 	client = gnome_master_client();
 	gtk_signal_connect(GTK_OBJECT(client), "save_yourself",
@@ -179,7 +187,13 @@ main (int argc, char *argv[])
 		/* Load commandline args */
 		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
 	}
+
+#ifdef USE_GLADEN
 	retCode = MainLoop( &argc, argv, corb );
+#else /* USE_GLADEN */
+	gtk_main();
+#endif /* USE_GLADEN */
+	
 	anjuta_application_exit();
 	write_config();
 	return retCode ;

@@ -237,6 +237,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 
 	toolbar_find_combo = gtk_combo_new ();
 	gtk_widget_ref (toolbar_find_combo);
+	gtk_combo_disable_activate (GTK_COMBO (toolbar_find_combo));
 	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar_find_combo), TRUE);
 	gtk_widget_show (toolbar_find_combo);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_find_combo,

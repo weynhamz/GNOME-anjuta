@@ -251,6 +251,7 @@ create_find_text_gui (FindText * ft)
 	GtkWidget *button3;
 
 	dialog1 = gnome_dialog_new (_("Find"), NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "find", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
@@ -524,10 +525,10 @@ on_find_text_ok_clicked (GtkButton * button, gpointer user_data)
 			// Ask if user wants to wrap around the doc
 			messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
 					_("No matches. Wrap search around the document?"),
-					GNOME_STOCK_BUTTON_YES,
 					GNOME_STOCK_BUTTON_NO,
-					GTK_SIGNAL_FUNC(on_find_text_start_over), 
+					GNOME_STOCK_BUTTON_YES,
 					GTK_SIGNAL_FUNC(on_find_text_cancel_clicked),
+					GTK_SIGNAL_FUNC(on_find_text_start_over), 
 					user_data);
 		}
 		else

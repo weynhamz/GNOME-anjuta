@@ -1,3 +1,52 @@
+2002-11-15  Naba Kumar <naba@gnome.org>
+
+	* plugins/class-gen/clsGen.c: Fixed to use project function
+	to import files. Create non-existent directories before the
+	sources are written.
+	
+	* configure.in, src/Makefile.am, src/main.c, src/preferences_gui.c,
+	src/preferences.c, src/CORBA-Server.c,src/CORBA-Server.h, src/glade_iface.c,
+	src/glades.c: Excluded gladen files from build. This
+	will fix the unnecessary dependency on libssl.
+	
+	* src/project_dbase.[c,h], src/project_dbase_gui.c: Refined
+	file import funtion.
+	
+	* src/message_manager_private.cc: Fixed a compiler warning with
+	DEBUG preprocessor macro.
+	
+	* src/text_editor_cbs.c, src/main_menu_callbacks.c: Fixed a bug where
+	wrong (undocked) editor window was closed on clicking close on an
+	undocked editor window.
+	
+	* src/debugger.c: Fixed a bad bug where debugger terminal won't
+	start correctly if the executable was run before with 'F3'.
+	
+	* src/toolbar_callbacks.c: Wrap around find next.
+	* src/toolbar.c: Disable combo activate.
+	* src/find_text.c (on_find_text_ok_clicked): Swapped 'yes' and 'no'
+	button positions to get	'yes' as default.
+
+	* anjuta.spec.in: Updated.
+	
+	* src/anjuta_info.c, src/appwizard_gui.c,
+	src/attach_process_gui.c, src/breakpoints_gui.c,
+	src/commands.c, src/compiler_options_gui.c, src/configurer.c,
+	src/cvs.c, src/cvs_gui.c, src/debugger.c, src/executer.c,
+	src/find_in_files_gui.c, src/find_replace.c, src/find_text.c,
+	src/help.c, src/launcher.c, src/main.c, src/mainmenu_callbacks.c,
+	src/memory.c, src/message-manager-private.cc, src/message-manager.cc,
+	src/preferences.c, src/preferences_gui.c, src/project_config.c,
+	src/project_dbase.c, src/project_dbase.h, src/project_dbase_gui.c,
+	src/project_import_gui.c, src/registers_gui.c, src/sharedlib_gui.c,
+	src/signals_gui.c, src/source.c, src/src_paths_gui.c,
+	src/stack_trace_gui.c, src/text_editor_cbs.c, src/text_editor_gui.c,
+	src/toolbar.c, src/toolbar_callbacks.c, src/watch.h, 
+	src/watch_cbs.c, src/watch_gui.c, plugins/class-gen/clsGen.c,
+	plugins/patch/patch-plugin.c, printing/print-util.c:
+	Set all windows and dialogs transient
+	to their parents so that they remain floated above their parents.
+	
 2002-11-13  Naba Kumar <naba@gnome.org>
 
 	* printing/print.c: Fixed a leak and bug #634819 (print/preview does not

@@ -119,6 +119,7 @@ create_executer_dialog (Executer * e)
 	gchar* options;
 
 	e->m_gui.dialog = gnome_dialog_new (_("Execute with arguments"), NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(e->m_gui.dialog), GTK_WINDOW(app->widgets.window));
 	gtk_window_set_position (GTK_WINDOW (e->m_gui.dialog), GTK_WIN_POS_CENTER);
 	gtk_window_set_policy (GTK_WINDOW (e->m_gui.dialog), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (e->m_gui.dialog), "exec", "Anjuta");

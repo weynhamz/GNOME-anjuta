@@ -421,11 +421,10 @@ void TerminalWindow::hide()
 	}
 }
 
-//#define ZVT_DBG
-#ifdef ZVT_DBG
-  #define DEBUG g_message
+#ifdef DEBUG
+  #define DEBUG_PRINT g_message
 #else
-  #define DEBUG(ARGS...)
+  #define DEBUG_PRINT(ARGS...)
 #endif
 
 void mouse_to_char(ZvtTerm *term, int mousex, int mousey, int *x, int *y)
@@ -450,16 +449,16 @@ gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event
   if (event->type == GDK_2BUTTON_PRESS && event->button.button==1)
   {
     mouse_to_char(term, (int)event->button.x, (int)event->button.y, &x, &y);
-    DEBUG("coord: %d %d, scrollbackoffset: %d", x, y, term->vx->vt.scrollbackoffset);
+    DEBUG_PRINT("coord: %d %d, scrollbackoffset: %d", x, y, term->vx->vt.scrollbackoffset);
     line = zvt_term_get_buffer(term, NULL, VT_SELTYPE_LINE, 0, y+term->vx->vt.scrollbackoffset, 0, y+term->vx->vt.scrollbackoffset);
-    DEBUG("got line: '%s'", line);
+    DEBUG_PRINT("got line: '%s'", line);
     filename = NULL;
     if (parse_error_line(line, &filename, &lineno))
     {
-      DEBUG("parse_error_line: '%s' %d", filename, lineno);
+      DEBUG_PRINT("parse_error_line: '%s' %d", filename, lineno);
       // look for the file in the cwd
       procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
-      DEBUG("full linked path: %s", procpath);
+      DEBUG_PRINT("full linked path: %s", procpath);
       anjuta_goto_file_line (procpath, lineno);
       g_free(procpath);
       g_free(filename);
@@ -502,7 +501,7 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 			}
 			execle (shell->str, name->str, NULL, environ);
 		default:
-      DEBUG("zvt terminal shell pid: %d\n", pid);
+      DEBUG_PRINT("zvt terminal shell pid: %d\n", pid);
 			break;
 	}
 }

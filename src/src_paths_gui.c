@@ -47,6 +47,7 @@ create_src_paths_gui (SrcPaths* co)
   GtkWidget *tmp_widget;
 
   dialog1 = gnome_dialog_new (_("Source files paths"), NULL);
+  gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog1), "src_paths", "Anjuta");
   gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);

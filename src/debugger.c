@@ -1109,7 +1109,7 @@ debugger_start_terminal ()
 	debugger.term_is_running = TRUE;
 	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
 	encoded_cmd = anjuta_util_escape_quotes(cmd);
-	prop_set_with_key (app->preferences->props, "anjuta.current.command", encoded_cmd);
+	prop_set_with_key (app->project_dbase->props, "anjuta.current.command", encoded_cmd);
 	g_free (encoded_cmd);
 	g_free (cmd);
 	

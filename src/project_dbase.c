@@ -2125,6 +2125,74 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 }
 
 void
+project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod, gchar* filename)
+{
+	gchar *comp_dir;
+	GList *list, *mod_files;
+	gchar full_fn[PATH_MAX];
+	gchar *real_fn;
+	gchar *real_modfile;
+
+	selMod = p->sel_module;
+	comp_dir = project_dbase_get_module_dir (p, selMod);
+	mod_files = project_dbase_get_module_files (p, selMod);
+	real_fn = tm_get_real_path(filename);
+	list = mod_files;
+	while (list)
+	{
+		g_snprintf(full_fn, PATH_MAX, "%s/%s", comp_dir, (gchar *) list->data);
+		real_modfile = tm_get_real_path(full_fn);
+		if (0 == strcmp(real_modfile, real_fn))
+		{
+			/*
+			 * file has already been added. So skip with a message 
+			 */
+			gchar *message = g_strconcat(real_modfile, _(" already exists in the project"), NULL); 
+			messagebox(GNOME_MESSAGE_BOX_INFO, message);
+			g_free(message);
+			g_free (comp_dir);
+			g_free(real_modfile);
+			g_free(real_fn);
+			glist_strings_free (mod_files);
+			return;
+		}
+		g_free(real_modfile);
+		list = g_list_next (list);
+	}
+	glist_strings_free (mod_files);
+	/*
+	 * File has not been added. So add it 
+	 */
+	if (!is_file_in_dir(filename, comp_dir))
+	{
+		gchar* fn;
+		/*
+		 * File does not exist in the corroeponding dir. So, import it. 
+		 */
+		fn =
+			g_strconcat (comp_dir, "/",
+				     extract_filename (filename), NULL);
+		force_create_dir (comp_dir);
+		if (!copy_file (filename, fn, TRUE))
+		{
+			g_free (comp_dir);
+			g_free (fn);
+			g_free(real_fn);
+			messagebox (GNOME_MESSAGE_BOX_INFO,
+				    _("Error while copying the file inside the module."));
+			return;
+		}
+		g_free(real_fn);
+		real_fn = tm_get_real_path(fn);
+		g_free(fn);
+	}
+	project_dbase_add_file_to_module (p, selMod, real_fn);
+	g_free (comp_dir);
+	g_free(real_fn);
+	return;
+}
+
+void
 project_dbase_remove_file (ProjectDBase * p)
 {
 	gchar *key, *fn, *files, *pos;
@@ -2381,7 +2449,10 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 	if (show_project)
 		project_dbase_show (p);
 	project_dbase_reload_session(p);
+
+#ifdef USE_GLADEN
 	if( IsGladen() )
 		project_dbase_summon_glade ( p );
+#endif /* USE_GLADEN */
 	return TRUE;
 }

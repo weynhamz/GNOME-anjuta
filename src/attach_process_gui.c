@@ -50,6 +50,7 @@ create_attach_process_gui (AttachProcess* ap)
   GtkWidget *button3;
 
   dialog1 = gnome_dialog_new (_("Attach to process"), NULL);
+  gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
   gtk_widget_set_usize (dialog1, 509, 309);
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);

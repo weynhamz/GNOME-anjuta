@@ -88,7 +88,10 @@ gboolean
 on_text_editor_window_delete (GtkWidget * widget,
 			      GdkEventFocus * event, gpointer user_data)
 {
-	on_close_file1_activate (NULL, NULL);
+#ifdef DEBUG
+	g_message ("Text editor window about to close: 0x%x", user_data);
+#endif
+	on_close_file1_activate (NULL, user_data);
 	return TRUE;
 }
 

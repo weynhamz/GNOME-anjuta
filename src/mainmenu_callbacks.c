@@ -92,18 +92,23 @@ on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	gboolean ret;
 	TextEditor *te;
 
-	te = anjuta_get_current_text_editor ();
+	if (user_data != NULL) {
+		te = (TextEditor*)user_data;
+	} else {
+		te = anjuta_get_current_text_editor ();
+	};
 	if (te == NULL)
 		return;
 	if (te->full_filename == NULL)
 	{
+		anjuta_set_current_text_editor (te);
 		gtk_widget_show (app->save_as_fileselection);
 		return;
 	}
 	ret = text_editor_save_file (te);
 	if (closing_state && ret == TRUE)
 	{
-		anjuta_remove_current_text_editor ();
+		anjuta_remove_text_editor (te);
 		closing_state = FALSE;
 	}
 }
@@ -112,12 +117,12 @@ on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_save_as1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-TextEditor *te;
+	TextEditor *te;
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
-  fileselection_set_filename (app->save_as_fileselection, te->full_filename);
+	fileselection_set_filename (app->save_as_fileselection, te->full_filename);
 	gtk_widget_show (app->save_as_fileselection);
 }
 
@@ -133,7 +138,11 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	TextEditor *te;
 	gchar mesg[256];
 
-	te = anjuta_get_current_text_editor ();
+	if (user_data != NULL) {
+		te = (TextEditor*)user_data;
+	} else {
+		te = anjuta_get_current_text_editor ();
+	};
 	if (te == NULL)
 		return;
 	
@@ -163,10 +172,10 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 			     GNOME_STOCK_BUTTON_CANCEL,
 			     on_save1_activate,
 			     on_save_on_close_no_clicked,
-			     on_save_on_close_cancel_clicked, NULL);
+			     on_save_on_close_cancel_clicked, te);
 	}
 	else
-		anjuta_remove_current_text_editor ();
+		anjuta_remove_text_editor (te);
 }
 
 void
@@ -1756,7 +1765,7 @@ on_debugger_signal_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_inspect_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	GtkWidget *w = create_eval_dialog ();
+	GtkWidget *w = create_eval_dialog (GTK_WINDOW(app->widgets.window));
 	gtk_widget_show (w);
 }
 
@@ -2076,6 +2085,7 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
         gtk_widget_show (about_box);
 
         about_box_window = gtk_window_new (GTK_WINDOW_DIALOG);
+		gtk_window_set_transient_for(GTK_WINDOW(about_box_window), GTK_WINDOW(app->widgets.window));
 		gnome_window_icon_set_from_default((GtkWindow *) about_box_window);
         gtk_window_set_policy (GTK_WINDOW (about_box_window), FALSE, FALSE, FALSE);
         gtk_signal_connect (GTK_OBJECT (about_box_window), "button_press_event",

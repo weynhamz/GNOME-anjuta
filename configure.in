@@ -154,19 +154,22 @@ else
 fi
 
 dnl Checks for libraries.
-EXTRA_GNOME_LIBS=`gnome-config --libs gnorba zvt vfs bonobo print gdk_pixbuf`
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba zvt vfs bonobo print gdk_pixbuf`
+EXTRA_GNOME_LIBS=`gnome-config --libs zvt vfs print gdk_pixbuf`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags zvt vfs print gdk_pixbuf`
 
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 
-EXTRA_ORBIT_LIBS=`orbit-config --libs client`
-EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
-
+dnl Gladen not used, so no need to link orbit
+dnl EXTRA_ORBIT_LIBS=`orbit-config --libs client`
+dnl EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
+EXTRA_ORBIT_LIBS=""
+EXTRA_ORBIT_CFLAGS=""
 AC_SUBST(EXTRA_ORBIT_LIBS)
 AC_SUBST(EXTRA_ORBIT_CFLAGS)
 
-IDL_CFLAGS=`gnome-config --cflags idl`
+dnl IDL_CFLAGS=`gnome-config --cflags idl`
+IDL_CFLAGS=""
 
 dnl Checks for header files.
 AC_CHECK_HEADERS(dirent.h fcntl.h fnmatch.h stat.h stdlib.h string.h)

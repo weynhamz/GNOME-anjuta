@@ -1,6 +1,6 @@
 %define	name		anjuta
 %define	version		@VERSION@
-%define	release		1
+%define	release		2
 %define	serial		1
 %define	prefix		/usr
 
@@ -30,11 +30,11 @@ of command line programming utilities and tools available for the GNU system.
 These are usually run via a text console, and can be unfriendly to use.
 
 %package i18n
-Summary: Translations
+Summary: Anjuta i18n Translations
 Group: Development/Tools
 
 %description i18n
-Translations of UI elements in various languages.
+Translations of Anjuta UI elements in various languages.
 
 %package docs-en
 Summary: Anjuta docuemntation in English.
@@ -90,15 +90,17 @@ scrollkeeper-update || :
 %{prefix}/share/anjuta
 %{prefix}/share/pixmaps/anjuta
 %{prefix}/share/doc/anjuta
+%{prefix}/share/mime-info/anjuta.mime
+%{prefix}/share/mimelnk/application/x-anjuta-project.desktop
+%{prefix}/man/man1/anjuta.1.gz
+%{prefix}/man/man1/anjuta_launcher.1.gz
 
 %files i18n
 %defattr(-, root, root)
-
 %{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
 
 %files docs-en
 %defattr(-, root, root)
-
 %{prefix}/share/gnome/help/anjuta/C
 %{prefix}/share/omf/anjuta/anjuta-tutorial-C.omf
 %{prefix}/share/omf/anjuta/anjuta-faqs-C.omf
@@ -106,7 +108,6 @@ scrollkeeper-update || :
 
 %files docs-ja
 %defattr(-, root, root)
-
 %{prefix}/share/gnome/help/anjuta/ja
 %{prefix}/share/omf/anjuta/anjuta-faqs-ja_JP.eucJP.omf
 %{prefix}/share/omf/anjuta/anjuta-manual-ja_JP.eucJP.omf

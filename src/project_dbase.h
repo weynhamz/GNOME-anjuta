@@ -308,6 +308,11 @@ project_dbase_clean_left (ProjectDBase * p);
 void
 project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module, gchar * filename);
 
+/* Really adds the file. The file physically copied in the right */
+/* place and modules are updated */
+void
+project_dbase_import_file_real (ProjectDBase * p, PrjModule module, gchar * filename);
+
 /* remove file form the module */
 void
 project_dbase_remove_file (ProjectDBase * p);

@@ -22,11 +22,11 @@
 #ifndef	ANJ_CORBA_SERVER_H
 #define	ANJ_CORBA_SERVER_H
 
+#ifdef USE_GLADEN
+
 #include <libgnorba/gnorba.h>
 #include "Gladen.h"
 #include "Prj.h"
-
-//#define	USE_GLADEN
 
 /*----------------------------------------------------------------------*/
 // Utilities
@@ -147,4 +147,5 @@ LocalServer *GetCorbaManager();
 
 void MessageBox( const char* szMsg );
 
+#endif /* USE_GLADEN */
 #endif	/*ANJ_CORBA_SERVER_H*/

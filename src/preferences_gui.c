@@ -149,6 +149,7 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *preferences_cancel;
 
 	dialog1 = gnome_dialog_new (_("Preferences"), NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, TRUE);
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 	window2 = dialog1;
@@ -558,7 +559,9 @@ create_preferences_page0 (Preferences * pr)
 
 	checkbutton10=
 		gtk_check_button_new_with_label (_("Use Glade Components (experimental)"));
+#ifdef USE_GLADEN
 	gtk_widget_show (checkbutton10);
+#endif /* USE_GLADEN */
 	gtk_table_attach (GTK_TABLE (table2), checkbutton10, 1, 2, 3, 4,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
@@ -2475,11 +2478,14 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.option_context)));
 	
 /* Page Components */
+#ifdef USE_GLADEN
 	preferences_set_int (pr, USE_COMPONENTS,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    use_components)));
-
+#else /* USE_GLADEN */
+	preferences_set_int (pr, USE_COMPONENTS, 0);
+#endif /* USE_GLADEN */	
 	if (gtk_toggle_button_get_active
 	    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_radio[0])) == TRUE)
 	{

@@ -60,13 +60,13 @@ void
 create_expr_watch_gui(ExprWatch* ew);
 
 GtkWidget*
-create_watch_add_dialog(void);
+create_watch_add_dialog(GtkWindow* parent);
 
 GtkWidget*
-create_watch_change_dialog(void);
+create_watch_change_dialog(GtkWindow* parent);
 
 GtkWidget*
-create_eval_dialog(void);
+create_eval_dialog(GtkWindow* parent);
 
 void
 expr_watch_clear(ExprWatch *ew);

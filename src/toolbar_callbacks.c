@@ -119,12 +119,27 @@ on_toolbar_detach_clicked (GtkButton * button, gpointer user_data)
 				 "activate");
 }
 
+static void
+on_toolbar_find_start_over (GtkButton * button, gpointer user_data)
+{
+	TextEditor *te = anjuta_get_current_text_editor();
+	long length;
+
+	length = aneditor_command(te->editor_id, ANE_GETLENGTH, 0, 0);
+	
+	if (app->find_replace->find_text->forward == TRUE)		
+		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0); // search from doc start
+	else
+		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0); // search from doc end
+
+	on_toolbar_find_clicked (NULL, NULL);
+}
+
 void
 on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *string, *string1;
-	gchar buff[512];
 	gint ret;
 
 	te = anjuta_get_current_text_editor ();
@@ -153,9 +168,14 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 				app->find_replace->find_text->ignore_case,
 				app->find_replace->find_text->whole_word);
 
-	sprintf (buff, _("The match \"%s\" was not found from the current location"), string);
-	if (ret < 0)
-		anjuta_error (buff);
+	if (ret < 0) {
+		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
+				_("No matches. Wrap search around the document?"),
+				GNOME_STOCK_BUTTON_NO,
+				GNOME_STOCK_BUTTON_YES,
+				NULL, GTK_SIGNAL_FUNC(on_toolbar_find_start_over), 
+				NULL);
+	}
 	g_free (string);
 }
 

@@ -1591,15 +1591,19 @@ source_write_glade_file (ProjectDBase * data)
 	free_project_type(type);
 	fflush( fp );
 	if( ferror( fp ) )
-	{		anjuta_system_error (errno, _("Error writing to: %s."), filename);
+	{
+		anjuta_system_error (errno, _("Error writing to: %s."), filename);
 		bOK = FALSE ;
 	}
 	fclose (fp);
+
+#ifdef USE_GLADEN
 	if( bOK )
 	{
 		gladen_load_project(filename);
 		gladen_add_main_components();
 	}
+#endif /* USE_GLADEN */
 	g_free( filename );
 	return bOK ;
 }

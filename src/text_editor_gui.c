@@ -78,6 +78,7 @@ create_text_editor_gui (TextEditor * te)
 	static guint current_id;
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
 	gnome_window_icon_set_from_default((GtkWindow *) window1);
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "editor", "Anjuta");
 	gtk_widget_set_usize (window1, 200, 200);

@@ -154,13 +154,6 @@ void Activate(GModule* self, void* pUserData, AnjutaApp* p);
 gchar* GetMenuTitle(GModule* self, void* pUserData);
 gchar* GetTooltipText(GModule* self, void* pUserData);
 
-
-/*
- * External Helper Function
- */
-gboolean ImportFileInProject(const gchar* p_szModule, const gchar* p_szFileName);
-
-
 /*
  * Event Callbacks
  */
@@ -674,6 +667,11 @@ Generate(CG_Creator *self)
 
 	if(!self->m_bInline)
 	{
+		if(file_is_directory(szIncDir) == FALSE)
+			mkdir (szIncDir, 0755);
+		if(file_is_directory(szSrcDir) == FALSE)
+			mkdir (szSrcDir, 0755);
+		
 		fpHeader = fopen(szfNameHeader, "at");
 		if(fpHeader != NULL)
 		{
@@ -696,6 +694,9 @@ Generate(CG_Creator *self)
 	}
 	else
 	{
+		if(file_is_directory(szIncDir) == FALSE)
+			mkdir (szIncDir, 0755);
+		
 		fpHeader = fopen(szfNameHeader, "at");
 		if(fpHeader != NULL)
 		{
@@ -711,11 +712,9 @@ Generate(CG_Creator *self)
 	if(bOK)
 	{
 		if(!self->m_bInline)
-			if(!ImportFileInProject("source", szfNameSource))
-				MessageBox(_("Error in importing source file"));
+			project_dbase_import_file_real (self->m_pDB, MODULE_SOURCE, szfNameSource);
 		
-		if(!ImportFileInProject("include", szfNameHeader))
-			MessageBox(_("Error in importing include file"));
+		project_dbase_import_file_real (self->m_pDB, MODULE_INCLUDE, szfNameHeader);
 	}
 	else
 		MessageBox(_("Error in importing files"));
@@ -1307,7 +1306,8 @@ CreateDialogClass(CG_Creator *self)
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dlgClass", self->dlgClass);
   gtk_window_set_title (GTK_WINDOW (self->dlgClass), _("Class Builder"));
   gtk_window_set_default_size (GTK_WINDOW (self->dlgClass), 640, 480);
-
+  gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window));
+	
   self->fixed = gtk_fixed_new ();
   gtk_widget_ref (self->fixed);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "fixed", self->fixed,

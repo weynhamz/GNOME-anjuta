@@ -27,6 +27,7 @@
 
 #include <gnome.h>
 
+#include "anjuta.h"
 #include "resources.h"
 #include "utilities.h"
 #include "anjuta_info.h"
@@ -41,6 +42,7 @@ create_anjuta_info_dialog_with_less (gint height, gint width)
   GtkWidget *button1;
 
   dialog1 = gnome_dialog_new (_("Information"), NULL);
+  gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
   gtk_widget_set_usize (dialog1, 400, 250);
   gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
@@ -87,6 +89,7 @@ create_anjuta_info_dialog_with_clist (gint height, gint width)
   GdkFont   *font;
 
   dialog1 = gnome_dialog_new (_("Information"), NULL);
+  gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
   gtk_widget_set_usize (dialog1, 400, 250);
   gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
