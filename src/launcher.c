@@ -26,6 +26,7 @@
 #include <pty.h>
 #include <assert.h>
 #include <gnome.h>
+#include <termios.h>
 
 #include "pixmaps.h"
 #include "launcher.h"
@@ -803,6 +804,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	int pty_master_fd, pty_slave_fd, md;
 	int stdout_pipe[2], stderr_pipe[2]/*, stdin_pipe[2]*/;
 	pid_t child_pid;
+	struct termios termios_flags;
 	
 	working_dir = g_get_current_dir ();
 	
@@ -875,7 +877,11 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->stdout_channel = g_io_channel_unix_new (stdout_pipe[0]);
 	// launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
-	
+
+	tcgetattr(pty_master_fd, &termios_flags);
+	termios_flags.c_lflag &= ~ECHO;
+	tcsetattr(pty_master_fd, TCSANOW, &termios_flags);
+
 	launcher->priv->stdout_watch = 
 		g_io_add_watch (launcher->priv->stdout_channel,
 						G_IO_IN | G_IO_ERR | G_IO_HUP,

@@ -8,6 +8,9 @@
 	
 	* NEWS: Updated.
 	
+	Patch from: Bosik Pavol  <Pavol.Bosik@siemens.com>
+	src/launcher.c: Turns off echo in spawned pty to fix debugger.
+
 2003-11-04  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/Makefile.am, widgets/Makefile.am: Fixed distribution
@@ -24,7 +27,7 @@
 	
 	Patch from: Karl-Heinz Brünen  <k.bruenen@eprosoft.de
 	* scintilla/Makefile.am: Fixed compiler option.
-
+	
 2003-10-16  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Jean-Noel Guiheneuf <jnoel@saudionline.com.sa
