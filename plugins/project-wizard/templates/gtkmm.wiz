@@ -1,0 +1,70 @@
+<project-wizard>
+	<name>GTKmm</name>
+	<description>A Generic GTKmm (C++) project</description>
+	<icon>gtkmm-logo.png</icon>
+	<category>C++</category>
+</project-wizard>
+
+<page name="basic" _label="Basic information" _description="General Project Infromation">
+	<property type="string" name="Name" _label="Project Name:" _description="project name" default="gtk-foobar" summary="yes" mandatory="yes"/>
+	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
+	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
+	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
+	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
+</page>
+
+<page name="options" _label="Project options" _description="Options for project build system">
+	<property type="hidden" name="NameUpper" default="[+(string-upcase (get "Name"))+]"/>
+	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
+	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
+	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
+	<property type="hidden" name="HavePackage" default="1"/>
+	<property type="hidden" name="PackageModule1" default="gtkmm-2.4 libglademm-2.4"/>
+	<property type="boolean" name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
+	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
+	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds supports for building shared libraries in your project" default="0"/>
+	<property type="boolean" name="HaveGtkDoc" _label="Add gtk-doc system:" _description="gtk-doc is used to compile API documentations for GObject based classes" default="0"/>
+	<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
+</page>
+
+[+IF (=(get "HavePackageExtra") "1")+]
+<page name="packages" _label="Configure external packages" _description="Configure external packages">
+	<property type="string" name="PackageModule2" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'" mandatory="yes"/>
+	<property type="string" name="PackageModule3" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<property type="string" name="PackageModule4" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<property type="string" name="PackageModule5" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+</page>
+[+ENDIF+]
+
+<content>
+	<directory source="." destination="[+Destination+]">
+		<directory source="terminal" destination="[+NameLower+]">
+			<file source="AUTHORS"/>
+			<file source="ChangeLog"/>
+			<file source="Makefile.am.tpl" destination="Makefile.am"/>
+			<file source="NEWS"/>
+			<file source="README"/>
+			<file source="autogen.sh" executable="yes"/>
+			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+			[+IF (=(get "HaveI18n") "1") +]
+			<directory source="po">
+				<file source="ChangeLog"/>
+				<file source="POTFILES.in"/>
+			</directory>
+			[+ENDIF+]
+		</directory>
+		<directory source="gtkmm" destination="[+NameLower+]">
+			<file source="configure.in.tpl" destination="configure.in"/>
+			<directory source="src">
+				<file source="main.cc"/>
+				<file source="project.glade" destination="[+NameLower+].glade"/>
+				<file source="Makefile.am.tpl" destination="Makefile.am"/>
+			</directory>
+		</directory>
+	</directory>
+</content>
+
+<action>
+	<run command="sh -c 'cd [+Destination+]/[+NameLower+] &amp;&amp; ./autogen.sh'"/>
+	<open file="[+Destination+]/[+NameLower+]/[+NameLower+].anjuta"/>
+</action>

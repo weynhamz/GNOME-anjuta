@@ -1,3 +1,11 @@
+2005-02-16	Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/project-wizard/gtkmm.wiz
+	plugins/project-wizard/gtkmm-logo.png (from pixmaps/)
+	plugins/project-wizard/gtkmm/*
+	
+	Added GTKmm (C++) project type
+
 2005-02-15  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/message-view/plugin.c
