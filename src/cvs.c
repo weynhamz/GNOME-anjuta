@@ -549,7 +549,7 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 		g_free (time_str);
 	}
 	if (file)
-		command = g_strconcat (command, file, NULL);
+		command = g_strconcat (command, " ", file, NULL);
 	
 	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, _("CVS diffing "), MESSAGE_CVS);
