@@ -1,25 +1,26 @@
 # anjuta.ANJUTA_1_2_0.az.po faylının Azərbaycan dilinə tərcüməsi
 # Copyright (C) 2003 Free Software Foundation, Inc.
+# Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>, 2002
 # Mətin Əmirov <metin@karegen.com>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.ANJUTA_1_2_0.az\n"
-"POT-Creation-Date: 2003-08-23 03:26+0200\n"
-"PO-Revision-Date: 2003-08-23 11:50+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-09-24 19:15+0200\n"
+"PO-Revision-Date: 2003-09-25 10:05+0300\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
-"Language-Team: Azerbaijani <gnome@azitt.com>\n"
+"Language-Team: Azərbaycan <gnome@azitt.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.1\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2
-#: src/about.c:96
-#: src/main.c:173
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:171
 msgid "Integrated Development Environment"
 msgstr "İnteqrasiya Edilmiş İnkişaf Vasitəsi"
 
@@ -31,8 +32,7 @@ msgstr "    "
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: anjuta.glade.h:3
-#: gdl/layout.glade.h:1
+#: anjuta.glade.h:3 gdl/layout.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -41,8 +41,12 @@ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: anjuta.glade.h:5
-msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
-msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
+msgid ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+msgstr ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
 
 #: anjuta.glade.h:6
 msgid "*.so *.o *.a *.la"
@@ -72,8 +76,7 @@ msgstr "Əlavə"
 msgid "Additional Libraries (LDADD):"
 msgstr "Əlavə Kitabxanalar (LDADD):"
 
-#: anjuta.glade.h:13
-#: src/wizard_gui.c:573
+#: anjuta.glade.h:13 src/wizard_gui.c:573
 msgid "Additional Options"
 msgstr "Əlavə Seçənəklər"
 
@@ -97,9 +100,7 @@ msgstr "Dialoqlu Anjuta başlanğıcı"
 msgid "Append messages"
 msgstr "İsmarışları sona əlavə et"
 
-#: anjuta.glade.h:19
-#: src/appwizard_gui.c:76
-#: src/appwizard_gui.c:90
+#: anjuta.glade.h:19 src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
 msgstr "Proqram tə'minatı Sehirbazı"
 
@@ -133,7 +134,7 @@ msgstr "Son layihəni avtomatik yüklə"
 
 #: anjuta.glade.h:27
 msgid "Autosave"
-msgstr "Avtomatik qeyd et"
+msgstr "Avtomatik Qeyd"
 
 #: anjuta.glade.h:28
 msgid "Autosave editor files before build starts"
@@ -141,7 +142,7 @@ msgstr "Editor fayllarını inşa başlamadan əvvəl avtomatik qeyd et"
 
 #: anjuta.glade.h:29
 msgid "Back color:"
-msgstr "Arxa rəngi:"
+msgstr "Arxa rəng:"
 
 #: anjuta.glade.h:30
 msgid "Backwards"
@@ -149,7 +150,7 @@ msgstr "Arxaya doğru"
 
 #: anjuta.glade.h:31
 msgid "Beep on job complete"
-msgstr "Vəzifə qurtaranda səs ver"
+msgstr "Vəzifə qurtaranda səs çal"
 
 #: anjuta.glade.h:32
 msgid "Bold"
@@ -165,15 +166,12 @@ msgstr "Qırma nöqtəsi xassələri"
 
 #: anjuta.glade.h:35
 msgid "Breakpoints"
-msgstr "Qırma Nöqtələrə"
+msgstr "Qırma Nöqtələri"
 
-#: anjuta.glade.h:36
-#: src/build_file.c:107
-#: src/message-manager.cc:43
-#: src/text_editor_gui.c:172
-#: src/toolbar.c:271
+#: anjuta.glade.h:36 src/build_file.c:102 src/message-manager.cc:43
+#: src/toolbar.c:270
 msgid "Build"
-msgstr "Yarat"
+msgstr "İnşa Et"
 
 #: anjuta.glade.h:37
 msgid "Build command:"
@@ -189,16 +187,14 @@ msgstr "Faylları inşa et"
 
 #: anjuta.glade.h:40
 msgid "Build options"
-msgstr "İnşa etmə qurğuları"
+msgstr "İnşa qurğuları"
 
 #: anjuta.glade.h:41
 msgid "Build symbol browser automatically"
 msgstr "Simvol səyyahını avtomatik inşa et"
 
 #. 2
-#: anjuta.glade.h:42
-#: src/an_file_view.c:414
-#: src/message-manager.cc:45
+#: anjuta.glade.h:42 src/an_file_view.c:420 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
@@ -236,19 +232,19 @@ msgstr "Seçki arxa planı:"
 
 #: anjuta.glade.h:51
 msgid "Caret (cursor) color:"
-msgstr "Caret (kursor) rəngi:"
+msgstr "Karet (kursor) rəngi:"
 
 #: anjuta.glade.h:52
 msgid "Caret blink period in milli-seconds"
-msgstr "millisaniyə olaraq karetin yanıb sönmə aralığı"
+msgstr "Millisaniyə olaraq karetin yanıb sönmə aralığı"
 
 #: anjuta.glade.h:53
 msgid "Case insensitive"
-msgstr "Böyük kiçik hərfə həssas deyil"
+msgstr "Böyük-kiçik hərfə qeyri-həssas"
 
 #: anjuta.glade.h:54
 msgid "Case sensitive"
-msgstr "Böyük kiçik hərfə həssas"
+msgstr "Böyük-kiçik hərfə həssas"
 
 #: anjuta.glade.h:55
 msgid "Choose Directories:"
@@ -288,7 +284,7 @@ msgstr "Sütun kənarda göstəricisi"
 
 #: anjuta.glade.h:64
 msgid "Combo Popdown:"
-msgstr "Kombo Popdoun:"
+msgstr "Kombo Popdown:"
 
 #: anjuta.glade.h:65
 msgid "Command Line Parameters"
@@ -340,11 +336,15 @@ msgstr "Parametrləri Quraşdır"
 
 #: anjuta.glade.h:77
 msgid "Custom style"
-msgstr "Xüsusi tərz "
+msgstr "Xüsusi tərz"
 
 #: anjuta.glade.h:78
-msgid "Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley style,Style of Kangleipak,Hello World style,Crazy boy style"
-msgstr "Xüsüsu tərz,GNU kodlama tərzi,Kernighan və Ritchie tərzi,Oricinal Berkeley tərzi,Kangleipak tərzi,Xoş Gördük Dünya tərzi,Dəli Oğlan tərzi"
+msgid ""
+"Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
+"style,Style of Kangleipak,Hello World style,Crazy boy style"
+msgstr ""
+"Xüsüsu tərz,GNU kodlama tərzi,Kernighan və Ritchie tərzi,Oricinal Berkeley "
+"tərzi,Kangleipak tərzi,Xoş Gördük Dünya tərzi,Dəli Oğlan tərzi"
 
 #: anjuta.glade.h:79
 msgid "Customize File Browser"
@@ -359,10 +359,8 @@ msgid "Data module Makefile.am"
 msgstr "Verilənlər modulu Makefile.am"
 
 #. 13
-#: anjuta.glade.h:82
-#: src/message-manager.cc:49
-#: src/text_editor_menu.c:319
-#: src/toolbar.c:305
+#: anjuta.glade.h:82 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: src/toolbar.c:303
 msgid "Debug"
 msgstr "Xəta həlli"
 
@@ -390,8 +388,7 @@ msgstr "Vəzifə qurtaranda dialoq göstər"
 msgid "Direction"
 msgstr "İstiqamət"
 
-#: anjuta.glade.h:89
-#: widgets/gnomefilelist.c:342
+#: anjuta.glade.h:89 widgets/gnomefilelist.c:342
 msgid "Directories"
 msgstr "Cərgələr "
 
@@ -499,8 +496,7 @@ msgstr "Python qeydlərinin boğçalanmasını fəallaşdır"
 msgid "Enable python quoted strings folding"
 msgstr "Python dırnaq arası qatarlarının boğçalanmasını fəallaşdır"
 
-#: anjuta.glade.h:116
-#: src/breakpoints.c:111
+#: anjuta.glade.h:116 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "Fəal"
 
@@ -513,8 +509,12 @@ msgid "Enter a Hexa adress or select one in the data"
 msgstr "Bir Hexa ünvanı daxil edin ya da mə'lumatın içindən birini seçin"
 
 #: anjuta.glade.h:119
-msgid "Enter the command line arguments for the 'indent' program. Read the info page for 'indent' for more details"
-msgstr "'indent' proqramı əmr sətiri arqumentlərini gir. Daha ətraflı mə'lumat üçün 'indent' info səhifəsini oxuyun."
+msgid ""
+"Enter the command line arguments for the 'indent' program. Read the info "
+"page for 'indent' for more details"
+msgstr ""
+"'indent' proqramı əmr sətiri arqumentlərini gir. Daha ətraflı mə'lumat üçün "
+"'indent' info səhifəsini oxuyun."
 
 #: anjuta.glade.h:120
 msgid "Error message indicator style:"
@@ -532,9 +532,7 @@ msgstr "Proqramı İcra Et"
 msgid "Expand regex back references"
 msgstr "Regex arxa referenslərini genişlət"
 
-#: anjuta.glade.h:124
-#: src/an_file_view.c:665
-#: src/breakpoints.c:111
+#: anjuta.glade.h:124 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "Fayl"
 
@@ -566,8 +564,7 @@ msgstr "Tap və Əvəz Et"
 msgid "Find and replace"
 msgstr "Tap və əvəz et"
 
-#: anjuta.glade.h:132
-#: src/find_in_files.c:301
+#: anjuta.glade.h:132 src/find_in_files.c:302
 msgid "Find in Files"
 msgstr "Fayllarda Axtar"
 
@@ -587,8 +584,7 @@ msgstr "Ön rəngi:"
 msgid "Format"
 msgstr "Şəkil"
 
-#: anjuta.glade.h:137
-#: src/toolbar.c:861
+#: anjuta.glade.h:137 src/toolbar.c:853
 msgid "Format style"
 msgstr "Şəkilləndirmə tərzi"
 
@@ -600,8 +596,7 @@ msgstr "İrəli"
 msgid "From cursor"
 msgstr "Oxdan etibarən"
 
-#: anjuta.glade.h:140
-#: src/an_symbol_view.c:54
+#: anjuta.glade.h:140 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Funksiyalar"
 
@@ -610,18 +605,31 @@ msgid "GUI editor command:"
 msgstr "GUI editoru (ara üz tərtib edici) əmri:"
 
 #. 3
-#: anjuta.glade.h:142
-#: src/main_menubar_def.h:392
+#: anjuta.glade.h:142 src/main_menubar_def.h:386
 msgid "General"
 msgstr "Ümumi"
 
 #: anjuta.glade.h:143
-msgid "Give a space separated list of directories to be built after source module. This will be set in configure and Makefiles will be generated for them. They will be built after the source (src/) directory during \"make\"."
-msgstr "Mənbə modulundan sonra inşa ediləcək cərgələri aralarında boşluq qoyaraq bildirin. Bu, configure faylında işarələnəcək və onlar üçün Makefile'lar yaradılacaq. Onlar, \"make\" sırasında mənbə cərgəsindən (src/) sonra inşa ediləcəklər."
+msgid ""
+"Give a space separated list of directories to be built after source module. "
+"This will be set in configure and Makefiles will be generated for them. They "
+"will be built after the source (src/) directory during \"make\"."
+msgstr ""
+"Mənbə modulundan sonra inşa ediləcək cərgələri aralarında boşluq qoyaraq "
+"bildirin. Bu, configure faylında işarələnəcək və onlar üçün Makefile'lar "
+"yaradılacaq. Onlar, \"make\" sırasında mənbə cərgəsindən (src/) sonra inşa "
+"ediləcəklər."
 
 #: anjuta.glade.h:144
-msgid "Give a space separated list of directories to be built before source module. This will be set in configure.in and Makefiles will be generated for them. They will be built before the source (src/) directory during \"make\"."
-msgstr "Mənbə modulundan əvvəl inşa ediləcək cərgələri aralarında boşluq qoyaraq bildirin. Bu, configure faylında işarələnəcək və onlar üçün Makefile'lar yaradılacaq. Onlar, \"make\" sırasında mənbə cərgəsindən (src/) əvvəl inşa ediləcəklər."
+msgid ""
+"Give a space separated list of directories to be built before source module. "
+"This will be set in configure.in and Makefiles will be generated for them. "
+"They will be built before the source (src/) directory during \"make\"."
+msgstr ""
+"Mənbə modulundan əvvəl inşa ediləcək cərgələri aralarında boşluq qoyaraq "
+"bildirin. Bu, configure faylında işarələnəcək və onlar üçün Makefile'lar "
+"yaradılacaq. Onlar, \"make\" sırasında mənbə cərgəsindən (src/) əvvəl inşa "
+"ediləcəklər."
 
 #: anjuta.glade.h:145
 msgid "Gnome API"
@@ -704,8 +712,14 @@ msgid "Import Wizard"
 msgstr "İdxal Sehirbazı"
 
 #: anjuta.glade.h:165
-msgid "Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data lose or modification done to the project."
-msgstr "Mövcud layihəni idxal et. İdxal Etmə Sehirbazı sizə mövcud olan layihəni idxal edərək onu Anjuta layihəsinə çevirməyə yardım edəcək. İdxal sırasında layihənizdən heç bir fayl silinməyəcək və dəyişdirilməyəcək."
+msgid ""
+"Import existing project. The Import Wizard will guide you to import an "
+"existing Project into Anjuta and convert it into Anjuta Project. There will "
+"be no data lose or modification done to the project."
+msgstr ""
+"Mövcud layihəni idxal et. İdxal Etmə Sehirbazı sizə mövcud olan layihəni "
+"idxal edərək onu Anjuta layihəsinə çevirməyə yardım edəcək. İdxal sırasında "
+"layihənizdən heç bir fayl silinməyəcək və dəyişdirilməyəcək."
 
 #: anjuta.glade.h:166
 msgid "Include Paths"
@@ -743,9 +757,7 @@ msgstr "İnfo Səhifləri"
 msgid "Input string:"
 msgstr "Giriş qatarı:"
 
-#: anjuta.glade.h:175
-#: src/text_editor_menu.c:174
-#: src/toolbar.c:604
+#: anjuta.glade.h:175 src/text_editor_menu.c:174 src/toolbar.c:596
 msgid "Inspect"
 msgstr "Təftiş Et"
 
@@ -773,9 +785,7 @@ msgstr "Kitabxana Cığırları"
 msgid "Line numbers margin width in pixels"
 msgstr "Piksel olaraq sətir nömrəsi kənarları"
 
-#: anjuta.glade.h:182
-#: printing/print.c:1055
-#: src/anjuta_info.c:126
+#: anjuta.glade.h:182 printing/print.c:1011 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "Sətirlər"
 
@@ -867,9 +877,7 @@ msgstr "Monoxrom"
 msgid "Name:"
 msgstr "Ad:"
 
-#: anjuta.glade.h:205
-#: src/main_menubar_def.h:30
-#: src/text_editor_gui.c:97
+#: anjuta.glade.h:205 src/main_menubar_def.h:30 src/text_editor_gui.c:97
 #: src/toolbar.c:76
 msgid "New file"
 msgstr "Yeni faul"
@@ -891,8 +899,13 @@ msgid "Normal messages:"
 msgstr "Normal ismarışlar:"
 
 #: anjuta.glade.h:210
-msgid "Note: If there is a project open, the preferences in this page are project preferences and will be loaded from and saved with the project. If there is no project open, they will be global preferences."
-msgstr "Qeyd: Açıq layihə varsa, bu səhifədəki qurğular layihə ilə bərabər qeyd edilib açılacaq. Əgər açıq layihə yoxdursa, onlar ümumi qurğular olacaq."
+msgid ""
+"Note: If there is a project open, the preferences in this page are project "
+"preferences and will be loaded from and saved with the project. If there is "
+"no project open, they will be global preferences."
+msgstr ""
+"Qeyd: Açıq layihə varsa, bu səhifədəki qurğular layihə ilə bərabər qeyd "
+"edilib açılacaq. Əgər açıq layihə yoxdursa, onlar ümumi qurğular olacaq."
 
 #: anjuta.glade.h:211
 msgid "Number of first characters to show:"
@@ -903,9 +916,7 @@ msgid "Number of last characters to show:"
 msgstr "Göstəriləcək son hərf miqdarı:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:213
-#: src/project_dbase.c:220
-#: src/toolbar.c:211
+#: anjuta.glade.h:213 src/project_dbase.c:197 src/toolbar.c:210
 msgid "Open Project"
 msgstr "Layihə Aç"
 
@@ -917,9 +928,7 @@ msgstr "Mövcud Layihəni Aç."
 msgid "Open existing file or create a new file."
 msgstr "Mövcud faylı aç ya da yeni fayl yarat."
 
-#: anjuta.glade.h:216
-#: src/main_menubar_def.h:36
-#: src/text_editor_gui.c:101
+#: anjuta.glade.h:216 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:80
 msgid "Open file"
 msgstr "Faylı aç"
@@ -933,8 +942,7 @@ msgid "Optimization"
 msgstr "Yaxşılaşdırma"
 
 #. 15
-#: anjuta.glade.h:219
-#: src/text_editor_menu.c:329
+#: anjuta.glade.h:219 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Seçənəklər"
 
@@ -946,8 +954,7 @@ msgstr "Digər rənglər"
 msgid "Other messages:"
 msgstr "Digər ismarışlar:"
 
-#: anjuta.glade.h:222
-#: src/an_symbol_view.c:54
+#: anjuta.glade.h:222 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "Başqaları"
 
@@ -991,9 +998,7 @@ msgstr "Çap qurğuları"
 msgid "Programs"
 msgstr "Proqramlar"
 
-#: anjuta.glade.h:233
-#: src/project_dbase_gui.c:610
-#: src/project_dbase_gui.c:627
+#: anjuta.glade.h:233 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
 #: src/toolbar.c:149
 msgid "Project"
 msgstr "Layihə"
@@ -1002,8 +1007,7 @@ msgstr "Layihə"
 msgid "Project Configuration"
 msgstr "Layihə Qurğuları"
 
-#: anjuta.glade.h:235
-#: src/wizard_gui.c:469
+#: anjuta.glade.h:235 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Lahiyə Təsviri"
 
@@ -1103,10 +1107,8 @@ msgstr "Scope"
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Üst səviyyə Makefile.am faylının sonundakı skriptlər"
 
-#: anjuta.glade.h:260
-#: src/search-replace.c:1332
-#: src/search-replace.c:1495
-#: src/search-replace.c:1501
+#: anjuta.glade.h:260 src/search-replace.c:1361 src/search-replace.c:1527
+#: src/search-replace.c:1533
 msgid "Search"
 msgstr "Axtar"
 
@@ -1204,19 +1206,27 @@ msgstr "Qaynaq modulu Makefile.am"
 
 #: anjuta.glade.h:284
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Rədd ediləcək cərgə adı şablonlarının, arasında boşluqlar qoyularaq yaradılan siyahısı"
+msgstr ""
+"Rədd ediləcək cərgə adı şablonlarının, arasında boşluqlar qoyularaq "
+"yaradılan siyahısı"
 
 #: anjuta.glade.h:285
 msgid "Space-seperated list of directory name patterns to match"
-msgstr "Uyğun gətiriləcək cərgə adı şablonlarının, arasında boşluqlar qoyularaq yaradılan siyahısı"
+msgstr ""
+"Uyğun gətiriləcək cərgə adı şablonlarının, arasında boşluqlar qoyularaq "
+"yaradılan siyahısı"
 
 #: anjuta.glade.h:286
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Rədd ediləcək fayl adı şablonlarının, arasında boşluqlar qoyularaq yaradılan siyahısı"
+msgstr ""
+"Rədd ediləcək fayl adı şablonlarının, arasında boşluqlar qoyularaq yaradılan "
+"siyahısı"
 
 #: anjuta.glade.h:287
 msgid "Space-seperated list of file name patterns to match"
-msgstr "Uyğun gətiriləcək fayl adı şablonlarının, arasında boşluqlar qoyularaq yaradılan siyahısı"
+msgstr ""
+"Uyğun gətiriləcək fayl adı şablonlarının, arasında boşluqlar qoyularaq "
+"yaradılan siyahısı"
 
 #: anjuta.glade.h:288
 msgid "Standard error:"
@@ -1231,8 +1241,14 @@ msgid "Standard output:"
 msgstr "Standart çıxış:"
 
 #: anjuta.glade.h:291
-msgid "Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skelleton of various types of Project."
-msgstr "Yeni layihə ilə başla. Tə'minat Sehirbazı layihə yaratma sırasında sizə yardımçı olacaq. Onunla siz, müxtəlif növ layihələrin skeletini yarada biləcəksiniz."
+msgid ""
+"Start with a new Project. Application wizard will guide you with Project "
+"creation. With the Application Wizard, you will be able to create the "
+"skelleton of various types of Project."
+msgstr ""
+"Yeni layihə ilə başla. Tə'minat Sehirbazı layihə yaratma sırasında sizə "
+"yardımçı olacaq. Onunla siz, müxtəlif növ layihələrin skeletini yarada "
+"biləcəksiniz."
 
 #: anjuta.glade.h:292
 msgid "String"
@@ -1246,8 +1262,7 @@ msgstr "Əvəz ediləcək qatar"
 msgid "Strip trailling spaces on file save"
 msgstr "Fayl qeyd ediləndə sondakı boşluqları sil"
 
-#: anjuta.glade.h:295
-#: src/anjuta-encodings.c:723
+#: anjuta.glade.h:295 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Dəstəklənən Kodlamalar"
 
@@ -1303,12 +1318,8 @@ msgstr "Oricinal kodlamada qeyd etməyə cəhd et"
 msgid "Underlined"
 msgstr "Altı Cızılı"
 
-#: anjuta.glade.h:309
-#: src/cvs_gui.c:73
-#: src/registers_gui.c:47
-#: src/sharedlib_gui.c:40
-#: src/signals_gui.c:54
-#: src/stack_trace.c:370
+#: anjuta.glade.h:309 src/cvs_gui.c:73 src/registers_gui.c:47
+#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
 msgstr "Güncəllə"
 
@@ -1352,8 +1363,7 @@ msgstr "İstifadəçi adı:"
 msgid "Variable list"
 msgstr "Dəyişənlər siyahısı"
 
-#: anjuta.glade.h:320
-#: src/project_dbase_gui.c:932
+#: anjuta.glade.h:320 src/project_dbase_gui.c:932
 msgid "Version:"
 msgstr "Buraxılış:"
 
@@ -1490,7 +1500,9 @@ msgid "Item behavior"
 msgstr "Üzv davranışı"
 
 #: gdl/gdl-dock-item.c:267
-msgid "General behavior for the dock item (i.e. whether it can float, if it's locked, etc.)"
+msgid ""
+"General behavior for the dock item (i.e. whether it can float, if it's "
+"locked, etc.)"
 msgstr "Yapışan üzvün ümumi davranışı (mis. üzə bilir mi, ya da qıfıllı mı, vs.)"
 
 #: gdl/gdl-dock-item.c:275
@@ -1501,8 +1513,7 @@ msgstr "Qulp böyüklüyü"
 msgid "Size in pixels of the grip to drag the dock item"
 msgstr "Yapışan üzvü daşımaq üçün qulpun piksel olaraq böyüklüyü"
 
-#: gdl/gdl-dock-item.c:282
-#: gdl/gdl-dock-master.c:143
+#: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
 msgid "Locked"
 msgstr "Qıfıllı"
 
@@ -1528,13 +1539,22 @@ msgstr "Yapışan üzv üçün seçilən hündürlük"
 
 #: gdl/gdl-dock-item.c:546
 #, c-format
-msgid "You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or some other compound dock object."
-msgstr "%3$s içinə yapışan obyekt (%2$s növündən %1$p) əlavə edə bilməzsiniz. Bunun yerinə GdDock ya da başqa yapışan obyekt işlədin."
+msgid ""
+"You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
+"some other compound dock object."
+msgstr ""
+"%3$s içinə yapışan obyekt (%2$s növündən %1$p) əlavə edə bilməzsiniz. Bunun "
+"yerinə GdDock ya da başqa yapışan obyekt işlədin."
 
 #: gdl/gdl-dock-item.c:553
 #, c-format
-msgid "Attempting to add a widget with type %s to a %s, but it can only contain one widget at a time; it already contains a widget of type %s"
-msgstr "%2$s'ə %1$s növündə bir widget əlavə edilməyə cəhd edilir, yalnız o bir dəfədə ancaq bir widget daxil edə bilər; o onsuzda %3$s növündə bir widget daxil edir."
+msgid ""
+"Attempting to add a widget with type %s to a %s, but it can only contain one "
+"widget at a time; it already contains a widget of type %s"
+msgstr ""
+"%2$s'ə %1$s növündə bir widget əlavə edilməyə cəhd edilir, yalnız o bir "
+"dəfədə ancaq bir widget daxil edə bilər; o onsuzda %3$s növündə bir widget "
+"daxil edir."
 
 #: gdl/gdl-dock-item.c:1149
 #, c-format
@@ -1590,33 +1610,33 @@ msgstr "Görünən"
 msgid "Item"
 msgstr "Üzv"
 
-#: gdl/gdl-dock-layout.c:737
-#: gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:816
+#: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
+#: src/compiler_options.c:796
 msgid "Name"
 msgstr "Ad"
 
-#: gdl/gdl-dock-layout.c:776
-#: gdl/layout.glade.h:2
+#: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
 msgid "Dock items"
 msgstr "Üzvləri yapışdır"
 
-#: gdl/gdl-dock-layout.c:782
-#: gdl/layout.glade.h:4
+#: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
 msgstr "Qeyd edilmiş düzülüşlər"
 
 #: gdl/gdl-dock-layout.c:824
 #, c-format
-msgid "While loading layout: don't know how to create a dock object whose nick is '%s'"
-msgstr "Ara üz yüklənirkən: ləqəbi '%s' olan yapışan obyektin necə yaradılacağı bilinmir"
+msgid ""
+"While loading layout: don't know how to create a dock object whose nick is '%"
+"s'"
+msgstr ""
+"Ara üz yüklənirkən: ləqəbi '%s' olan yapışan obyektin necə yaradılacağı "
+"bilinmir"
 
 #: gdl/gdl-dock-layout.c:1303
 msgid "Layout managment"
 msgstr "Düzülüş idarəsi"
 
-#: gdl/gdl-dock-master.c:136
-#: gdl/gdl-dock.c:185
+#: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
 msgid "Default title"
 msgstr "Əsası başlıq"
 
@@ -1625,18 +1645,30 @@ msgid "Default title for newly created floating docks"
 msgstr "Yeni yaradılan üzən yapışan üzvlər üçün əsas başlıq"
 
 #: gdl/gdl-dock-master.c:144
-msgid "If is set to 1, all the dock items bound to the master are locked; if it's 0, all are unlocked; -1 indicates inconsistency among the items"
-msgstr "Əgər 1 müəyyən edilibsə, ustaya bağlı olan bütün yapışan üzvlər qıfıllıdır. 0 isə hamısı açıqdır; -1 isə üzvlər bir birinə uyğun gəlmir"
+msgid ""
+"If is set to 1, all the dock items bound to the master are locked; if it's "
+"0, all are unlocked; -1 indicates inconsistency among the items"
+msgstr ""
+"Əgər 1 müəyyən edilibsə, ustaya bağlı olan bütün yapışan üzvlər qıfıllıdır. "
+"0 isə hamısı açıqdır; -1 isə üzvlər bir birinə uyğun gəlmir"
 
 #: gdl/gdl-dock-master.c:736
 #, c-format
-msgid "master %p: unable to add object %p[%s] to the hash.  There already is an item with that name (%p)."
-msgstr "usta %p: %p[%s] obyekti hash'ə əlavə oluna bilmədi. Onsuzda o adla bir üzv movcuddur (%p)."
+msgid ""
+"master %p: unable to add object %p[%s] to the hash.  There already is an "
+"item with that name (%p)."
+msgstr ""
+"usta %p: %p[%s] obyekti hash'ə əlavə oluna bilmədi. Onsuzda o adla bir üzv "
+"movcuddur (%p)."
 
 #: gdl/gdl-dock-master.c:906
 #, c-format
-msgid "The new dock controller %p is automatic.  Only manual dock objects should be named controller."
-msgstr "Yeni %p yapışan idarəçi avtomatikdir. Ancaq əllə yerləşdirilən yapışan obyektlər adlandırılmış idarəçi olmalıdır."
+msgid ""
+"The new dock controller %p is automatic.  Only manual dock objects should be "
+"named controller."
+msgstr ""
+"Yeni %p yapışan idarəçi avtomatikdir. Ancaq əllə yerləşdirilən yapışan "
+"obyektlər adlandırılmış idarəçi olmalıdır."
 
 #: gdl/gdl-dock-notebook.c:134
 msgid "Page"
@@ -1668,13 +1700,21 @@ msgstr "Bu yapışan üzvün bağlandığı yapışan usta"
 
 #: gdl/gdl-dock-object.c:405
 #, c-format
-msgid "Call to gdl_dock_object_dock in a dock object %p (object type is %s) which hasn't implemented this method"
-msgstr "%p obyekti  içində (obyekt növü %s) gdl_dock_object_dock çağırışı oldu. Bu yöntəm hələ yazılmayıb"
+msgid ""
+"Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
+"hasn't implemented this method"
+msgstr ""
+"%p obyekti  içində (obyekt növü %s) gdl_dock_object_dock çağırışı oldu. Bu "
+"yöntəm hələ yazılmayıb"
 
 #: gdl/gdl-dock-object.c:534
 #, c-format
-msgid "Dock operation requested in a non-bound object %p. The application might crash"
-msgstr "Bağlı olmayan obyek %p'də yapışma əməliyyatı tələb edildi. Tə'minat iflas edə bilər"
+msgid ""
+"Dock operation requested in a non-bound object %p. The application might "
+"crash"
+msgstr ""
+"Bağlı olmayan obyek %p'də yapışma əməliyyatı tələb edildi. Tə'minat iflas "
+"edə bilər"
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
@@ -1684,7 +1724,9 @@ msgstr "%p %p'yə yapışdırıla bilməz ona görə ki onlar fərqli ustalara a
 #: gdl/gdl-dock-object.c:583
 #, c-format
 msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
-msgstr "Onsuzda bağlı olan %2$p yapışan üzvü (hazırkı usta: %3$p) %1$p'yə bağlama cəhdi"
+msgstr ""
+"Onsuzda bağlı olan %2$p yapışan üzvü (hazırkı usta: %3$p) %1$p'yə bağlama "
+"cəhdi"
 
 #: gdl/gdl-dock-paned.c:134
 msgid "Position"
@@ -1699,8 +1741,12 @@ msgid "Sticky"
 msgstr "Yapışan"
 
 #: gdl/gdl-dock-placeholder.c:128
-msgid "Whether the placeholder will stick to its host or move up the hierarchy when the host is redocked"
-msgstr "Sahənin qovşağına yapışması ya da qovşaq yenidən yapışdırılanda hiyerarxiyanı bir üstə daşıması"
+msgid ""
+"Whether the placeholder will stick to its host or move up the hierarchy when "
+"the host is redocked"
+msgstr ""
+"Sahənin qovşağına yapışması ya da qovşaq yenidən yapışdırılanda "
+"hiyerarxiyanı bir üstə daşıması"
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
@@ -1715,7 +1761,9 @@ msgid "Next placement"
 msgstr "Sonrakı yerləşdirmə"
 
 #: gdl/gdl-dock-placeholder.c:144
-msgid "The position an item will be docked to our host if a request is made to dock to us"
+msgid ""
+"The position an item will be docked to our host if a request is made to dock "
+"to us"
 msgstr "Bizə yapışdırma tələbi alınarsa üzv bizim qovşağa yapışdırılacaq"
 
 #: gdl/gdl-dock-placeholder.c:305
@@ -1729,8 +1777,12 @@ msgstr "Obyektdən (%p) ayırma siqnalı alındı, ancaq bu bizim %p qovşağı 
 
 #: gdl/gdl-dock-placeholder.c:440
 #, c-format
-msgid "Something weird happened while getting the child placement for %p from parent %p"
-msgstr "%2$p valideynindən %2$p üçün törəmə yerləşdirilməsi alınarkən dəlicə bir şey baş verdi"
+msgid ""
+"Something weird happened while getting the child placement for %p from "
+"parent %p"
+msgstr ""
+"%2$p valideynindən %2$p üçün törəmə yerləşdirilməsi alınarkən dəlicə bir şey "
+"baş verdi"
 
 #: gdl/gdl-dock-tablabel.c:130
 msgid "Controlling dock item"
@@ -1789,13 +1841,11 @@ msgstr "Üzən yapışan üzv üçün Y mövqeyi"
 msgid "Dock #%d"
 msgstr "Yapışan üzv #%d"
 
-#: gdl/gdl-icons.c:141
-#: gdl/gdl-icons.c:142
+#: gdl/gdl-icons.c:141 gdl/gdl-icons.c:142
 msgid "Icon size"
 msgstr "Timsal böyüklüyü"
 
-#: gdl/gdl-icons.c:147
-#: gdl/gdl-icons.c:148
+#: gdl/gdl-icons.c:147 gdl/gdl-icons.c:148
 msgid "Icon zoom"
 msgstr "Timsal yaxınlaşdırması"
 
@@ -1837,20 +1887,13 @@ msgstr "Sinif İnşa Edicisi"
 
 #. 13
 #. 14
-#: plugins/class-gen/clsGen.c:1343
-#: src/main_menubar_def.h:998
-#: src/project_dbase_gui.c:367
-#: src/registers_gui.c:55
-#: src/sharedlib_gui.c:48
-#: src/signals_gui.c:62
-#: src/stack_trace.c:385
-#: src/toolbar.c:159
-#: src/watch_gui.c:74
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:992
+#: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
 msgstr "Yardım"
 
-#: plugins/class-gen/clsGen.c:1352
-#: plugins/patch/patch-plugin.c:103
+#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:107
 msgid "Cancel"
 msgstr "Ləğv Et"
 
@@ -1870,8 +1913,7 @@ msgstr "Deklarasiya adını daxil edin."
 msgid "Enter the implementation file name."
 msgstr "İmplementasiya fayl adını daxil et"
 
-#: plugins/class-gen/clsGen.c:1400
-#: plugins/class-gen/clsGen.c:1410
+#: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
 msgid "..."
 msgstr "..."
 
@@ -1888,8 +1930,12 @@ msgid "Enter the name of the class your new class will inherit from."
 msgstr "Yeni sinifinizin hansı sinifdən miras alacağını tə'yin edin."
 
 #: plugins/class-gen/clsGen.c:1453
-msgid "This plugin will create a class of the type you specify and add it to your project. "
-msgstr "Bu sehirbaz sizin istədiyiniz növdə sinif yaradacaq və onu layihənizə əlavə edəcək."
+msgid ""
+"This plugin will create a class of the type you specify and add it to your "
+"project. "
+msgstr ""
+"Bu sehirbaz sizin istədiyiniz növdə sinif yaradacaq və onu layihənizə əlavə "
+"edəcək."
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
@@ -1918,8 +1964,12 @@ msgstr "Bildiriş və yerinə yetirişi sətir içi et"
 
 #. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
 #: plugins/class-gen/clsGen.c:1546
-msgid "If checked, the plugin will generate both the declaration and implementation in the header file and will not create a source file."
-msgstr "Seçilidirsə, əlavə həm bildiriş həm də yerinə yetirişi başlıq faylında yaradacaq və mənbə faylı yaratmayacaq."
+msgid ""
+"If checked, the plugin will generate both the declaration and implementation "
+"in the header file and will not create a source file."
+msgstr ""
+"Seçilidirsə, əlavə həm bildiriş həm də yerinə yetirişi başlıq faylında "
+"yaradacaq və mənbə faylı yaratmayacaq."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
@@ -1931,7 +1981,9 @@ msgstr "V 0.0.2 (June 11, 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
 msgid "TODO: add the ability to declare member functions and their parameters here."
-msgstr "EDİLƏCƏKLƏR: buraya üzv funksiyalarını və onların parametrlərini bildirmə bacarığı əlavə et.."
+msgstr ""
+"EDİLƏCƏKLƏR: buraya üzv funksiyalarını və onların parametrlərini bildirmə "
+"bacarığı əlavə et.."
 
 #: plugins/class-gen/clsGen.c:1580
 msgid "Welcome to the Anjuta Class Builder. "
@@ -1942,8 +1994,7 @@ msgstr "Anjuta Sinif İnşa Edicisinə Xoş Gəlmişsiniz! "
 msgid "Class type:   "
 msgstr "Sinif növü:"
 
-#: plugins/class-gen/clsGen.c:1607
-#: plugins/class-gen/clsGen.c:1620
+#: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
 msgstr "ümumi"
 
@@ -1968,8 +2019,7 @@ msgstr "Virtual ayırıcı (destructor)"
 msgid "If checked, the destructor of your class will be declared virtual."
 msgstr "Əgər işarəlidirsə, sinifinizin ayırıcısı virtual olaraq tanımlanacaq."
 
-#: plugins/class-gen/clsGen.c:1640
-#: plugins/class-gen/clsGen.c:1652
+#: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
 msgid "Generic C++ Class"
 msgstr "Ümumi C++ Sinifi"
 
@@ -1981,64 +2031,64 @@ msgstr "GTK+ Sinifi"
 msgid "Select the type of class you would like to create."
 msgstr "Yaratmaq istədiyiniz sinif növünü seçin."
 
-#: plugins/patch/patch-plugin.c:60
+#: plugins/patch/patch-plugin.c:64
 msgid "Interface to patch Projects or individual files"
 msgstr "Yamaq layihələrinə ya da individual fayllar üçün ara üz "
 
-#: plugins/patch/patch-plugin.c:96
+#: plugins/patch/patch-plugin.c:100
 msgid "File/Dir to patch"
 msgstr "Yamaqlanacaq Fayl/Qovluq "
 
-#: plugins/patch/patch-plugin.c:97
+#: plugins/patch/patch-plugin.c:101
 msgid "Patch file"
 msgstr "Yamaq faylı"
 
-#: plugins/patch/patch-plugin.c:98
+#: plugins/patch/patch-plugin.c:102
 msgid "Patch level (-p)"
 msgstr "Yamaq səviyyəsi (-p)"
 
-#: plugins/patch/patch-plugin.c:103
+#: plugins/patch/patch-plugin.c:107
 msgid "Patch Plugin"
 msgstr "Yamaq Əlavəsi"
 
-#: plugins/patch/patch-plugin.c:103
+#: plugins/patch/patch-plugin.c:107
 msgid "Patch"
 msgstr "Yamaq"
 
-#: plugins/patch/patch-plugin.c:106
+#: plugins/patch/patch-plugin.c:110
 msgid "Selected directory to patch"
 msgstr "Yamaqlanacaq qovluğu seçin"
 
-#: plugins/patch/patch-plugin.c:108
+#: plugins/patch/patch-plugin.c:112
 msgid "Selected patch file"
 msgstr "Seçili yamaq faylı"
 
-#: plugins/patch/patch-plugin.c:144
+#: plugins/patch/patch-plugin.c:148
 msgid "Patch plugin"
 msgstr "Yamaq əlavəsi"
 
-#: plugins/patch/patch-plugin.c:150
+#: plugins/patch/patch-plugin.c:154
 msgid "The patch plugin"
 msgstr "Yamaq əlavəsi"
 
-#: plugins/patch/patch-plugin.c:168
+#: plugins/patch/patch-plugin.c:172
 msgid "Please select the directory where the patch should be applied"
 msgstr "Xahiş edirik, yamağın tədbiq ediləcəyi cərgəni seçin"
 
-#: plugins/patch/patch-plugin.c:175
+#: plugins/patch/patch-plugin.c:179
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "%2$s istifadə edilərək %1$s yamanır\n"
 
-#: plugins/patch/patch-plugin.c:181
+#: plugins/patch/patch-plugin.c:185
 msgid "Patching...\n"
 msgstr "Yamanır...\n"
 
-#: plugins/patch/patch-plugin.c:188
+#: plugins/patch/patch-plugin.c:195
 msgid "There are unfinished jobs, please wait until they are finished"
 msgstr "Bitməyən vəzifələr var, xahiş edirik, onlar bitənə qədər gözləyin"
 
-#: plugins/patch/patch-plugin.c:212
+#: plugins/patch/patch-plugin.c:226
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -2048,64 +2098,61 @@ msgstr ""
 "Xahiş edirik, iflas ismarışlarını gözdən keçirin.\n"
 "Rədd edilən bütün faylları yoxlayın və silin.\n"
 
-#: plugins/patch/patch-plugin.c:219
+#: plugins/patch/patch-plugin.c:233
 msgid "Patch successful.\n"
 msgstr "Yamaq müvəffəqiyyətlə tədbiq edildi.\n"
 
-#: plugins/sample1/plugin-sample1.c:17
+#: plugins/sample1/plugin-sample1.c:18
 msgid "Sample Plugin Description. Holla!"
 msgstr "Nümunəvi Əlavə İzahatı. Holla!"
 
-#: plugins/sample1/plugin-sample1.c:47
+#: plugins/sample1/plugin-sample1.c:49
 msgid "Hello world!"
 msgstr "Xoş Gördük Dünya!"
 
-#: plugins/sample1/plugin-sample1.c:48
+#: plugins/sample1/plugin-sample1.c:50
 msgid "Sample plugin!"
 msgstr "Nümunəvi əlavə!"
 
-#: plugins/sample1/plugin-sample1.c:56
+#: plugins/sample1/plugin-sample1.c:58
 msgid "Sample plugin"
 msgstr "Şablon əlavəsi"
 
-#: plugins/sample1/plugin-sample1.c:62
+#: plugins/sample1/plugin-sample1.c:64
 msgid "This is a sample plugin"
 msgstr "Bu nümunəvi əlavədir"
 
-#: printing/print.c:535
+#: printing/print.c:484
 msgid "No file to print!"
 msgstr "Çap etməyə fayl yoxdur!"
 
-#: printing/print.c:558
+#: printing/print.c:517
 msgid "Unable to get text buffer for printing"
 msgstr "Çap üçün mətn ara yaddaşı alına bilmədi"
 
-#: printing/print.c:789
+#: printing/print.c:731
 #, c-format
 msgid "File: %s"
 msgstr "Fayl: %s"
 
-#: printing/print.c:790
+#: printing/print.c:732
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: printing/print.c:910
+#: printing/print.c:844
 msgid "Printing .."
 msgstr "Çap edilir .."
 
-#: printing/print.c:922
+#: printing/print.c:856
 msgid "Printing ..."
 msgstr "Çap edilir ..."
 
-#: printing/print.c:1046
-#: src/signals_gui.c:123
-#: src/text_editor_gui.c:178
-#: src/toolbar.c:109
+#: printing/print.c:1002 src/signals_gui.c:123
 msgid "Print"
 msgstr "Çap Et"
 
-#: printing/print.c:1082
+#: printing/print.c:1038
 msgid "Print Preview"
 msgstr "Çap Nümayişi"
 
@@ -2113,139 +2160,128 @@ msgstr "Çap Nümayişi"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Tə'lif Hüququ (c) Naba Kumar"
 
-#: src/an_file_view.c:57
+#: src/an_file_view.c:63
 #, c-format
 msgid "Unable to open %s in %s"
 msgstr "%2$s içindəki %1$s faylı açıla bilmir"
 
-#: src/an_file_view.c:67
+#: src/an_file_view.c:73
 #, c-format
-msgid "No default viewer specified for the mime type %s.\n"
+msgid ""
+"No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
-msgstr "%s mime növü üçün heç bir əsas nümayişçi tə'yin edilməyib.\n"
+msgstr ""
+"%s mime növü üçün heç bir əsas nümayişçi tə'yin edilməyib.\n"
 "Xahiş edirik, GNOME idarə mərkəzindən seçin"
 
-#: src/an_file_view.c:267
+#: src/an_file_view.c:273
 msgid "Unable to build user interface for file filter"
 msgstr "Fayl filtri üçün istifadəçi ara üzü yaradıla bilmir"
 
 #. 0
-#: src/an_file_view.c:348
+#: src/an_file_view.c:354
 msgid "Update file"
 msgstr "Faylı yenilə (update)"
 
-#: src/an_file_view.c:349
-#: src/main_menubar_def.h:1604
+#: src/an_file_view.c:355 src/main_menubar_def.h:1598
 msgid "Update current working copy"
 msgstr "Hazırkı iş cərgəsini yenilə"
 
 #. 1
-#: src/an_file_view.c:355
+#: src/an_file_view.c:361
 msgid "Commit file"
 msgstr "Faylı göndər (commit)"
 
-#: src/an_file_view.c:356
-#: src/main_menubar_def.h:1611
+#: src/an_file_view.c:362 src/main_menubar_def.h:1605
 msgid "Commit changes to the repository"
 msgstr "Dəyişiklikləri saxlanan yerə (repository) göndər (commit)"
 
 #. 2
-#: src/an_file_view.c:362
+#: src/an_file_view.c:368
 msgid "Status of file"
 msgstr "Faylın vəziyyəti"
 
-#: src/an_file_view.c:363
-#: src/main_menubar_def.h:1618
+#: src/an_file_view.c:369 src/main_menubar_def.h:1612
 msgid "Print the status of the current file"
 msgstr "Hazırkı faylın vəziyyəti çap et"
 
 #. 3
-#: src/an_file_view.c:369
+#: src/an_file_view.c:375
 msgid "Get file log"
 msgstr "File qeydini (loq) al"
 
-#: src/an_file_view.c:370
-#: src/main_menubar_def.h:1625
+#: src/an_file_view.c:376 src/main_menubar_def.h:1619
 msgid "Print the CVS log for the current file"
 msgstr "Hazırkı faylı üçün CVS loq çap et"
 
 #. 4
-#: src/an_file_view.c:376
+#: src/an_file_view.c:382
 msgid "Add file"
 msgstr "Fayl əlavə et (Add)"
 
-#: src/an_file_view.c:377
-#: src/main_menubar_def.h:1632
+#: src/an_file_view.c:383 src/main_menubar_def.h:1626
 msgid "Add the current file to the repository"
 msgstr "Hazırkı faylı saxlanılan yerə (repository) əlavə et (add)"
 
 #. 5
-#: src/an_file_view.c:383
+#: src/an_file_view.c:389
 msgid "Remove file"
 msgstr "Faylı sil (remove)"
 
-#: src/an_file_view.c:384
-#: src/main_menubar_def.h:1639
+#: src/an_file_view.c:390 src/main_menubar_def.h:1633
 msgid "Remove the current file from the repository"
 msgstr "Hazırkı faylı saxlanılan yerdən (repository) sil (remove)"
 
 #. 6
-#: src/an_file_view.c:390
+#: src/an_file_view.c:396
 msgid "Diff file"
 msgstr "Diff faylı"
 
-#: src/an_file_view.c:391
-#: src/main_menubar_def.h:1646
+#: src/an_file_view.c:397 src/main_menubar_def.h:1640
 msgid "Create a diff between the working copy and the repository"
-msgstr "Hazırda işlədilən nüsxə ilə saxlanılan yerdəki (repository) nesxə arasında fərq (diff) faylı yarat"
+msgstr ""
+"Hazırda işlədilən nüsxə ilə saxlanılan yerdəki (repository) nesxə arasında "
+"fərq (diff) faylı yarat"
 
 #. 0
-#: src/an_file_view.c:400
-#: src/main_menubar_def.h:946
+#: src/an_file_view.c:406 src/main_menubar_def.h:940
 #: src/project_dbase_gui.c:335
 msgid "Open in Anjuta"
 msgstr "Anjuta'da Aç"
 
 #. 1
-#: src/an_file_view.c:407
-#: src/main_menubar_def.h:940
+#: src/an_file_view.c:413 src/main_menubar_def.h:934
 #: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
 msgstr "Əsas nümayişçidə aç"
 
 #. 3
-#: src/an_file_view.c:421
-#: src/an_symbol_view.c:302
+#: src/an_file_view.c:427 src/an_symbol_view.c:302
 msgid "Refresh"
 msgstr "Təzələ"
 
 #. 4
 #. 5
-#: src/an_file_view.c:429
-#: src/an_symbol_view.c:309
-#: src/main_menubar_def.h:972
-#: src/message-manager.cc:144
-#: src/project_dbase_gui.c:361
+#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:966
+#: src/message-manager.cc:143 src/project_dbase_gui.c:361
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "Yapışıq"
 
-#: src/an_file_view.c:430
-#: src/an_symbol_view.c:310
-#: src/main_menubar_def.h:973
+#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:967
 msgid "Dock/Undock the Project Window"
 msgstr "Layihə Pəncərəsini Yapışdır/Qopart"
 
 #. 6
-#: src/an_file_view.c:436
+#: src/an_file_view.c:442
 msgid "Customize"
 msgstr "Xüsusiləşdir"
 
-#: src/an_file_view.c:437
+#: src/an_file_view.c:443
 msgid "Customize the file browser"
 msgstr "Fayl səyyahını xüsusiləşdir"
 
-#: src/an_file_view.c:678
+#: src/an_file_view.c:684
 msgid "Rev"
 msgstr "Rev"
 
@@ -2276,8 +2312,7 @@ msgid "Goto Declaration"
 msgstr "Deklarasiyaya Get"
 
 #. 2
-#: src/an_symbol_view.c:295
-#: src/text_editor_menu.c:339
+#: src/an_symbol_view.c:295 src/text_editor_menu.c:339
 msgid "Find Usage"
 msgstr "İstifadə Qaydasını Tap"
 
@@ -2285,15 +2320,12 @@ msgstr "İstifadə Qaydasını Tap"
 msgid "Symbol"
 msgstr "Simvol"
 
-#: src/anjuta-encodings.c:131
-#: src/anjuta-encodings.c:157
-#: src/anjuta-encodings.c:198
-#: src/anjuta-encodings.c:239
+#: src/anjuta-encodings.c:131 src/anjuta-encodings.c:157
+#: src/anjuta-encodings.c:198 src/anjuta-encodings.c:239
 msgid "Western"
 msgstr "Qərb dilləri"
 
-#: src/anjuta-encodings.c:133
-#: src/anjuta-encodings.c:200
+#: src/anjuta-encodings.c:133 src/anjuta-encodings.c:200
 #: src/anjuta-encodings.c:235
 msgid "Central European"
 msgstr "Mərkəzi Avropa dilləri"
@@ -2302,28 +2334,23 @@ msgstr "Mərkəzi Avropa dilləri"
 msgid "South European"
 msgstr "Cənubi Avropa dilləri"
 
-#: src/anjuta-encodings.c:137
-#: src/anjuta-encodings.c:153
+#: src/anjuta-encodings.c:137 src/anjuta-encodings.c:153
 #: src/anjuta-encodings.c:249
 msgid "Baltic"
 msgstr "Baltik dillər"
 
-#: src/anjuta-encodings.c:139
-#: src/anjuta-encodings.c:202
-#: src/anjuta-encodings.c:215
-#: src/anjuta-encodings.c:219
+#: src/anjuta-encodings.c:139 src/anjuta-encodings.c:202
+#: src/anjuta-encodings.c:215 src/anjuta-encodings.c:219
 #: src/anjuta-encodings.c:237
 msgid "Cyrillic"
 msgstr "Kiril dilləri"
 
-#: src/anjuta-encodings.c:141
-#: src/anjuta-encodings.c:208
+#: src/anjuta-encodings.c:141 src/anjuta-encodings.c:208
 #: src/anjuta-encodings.c:247
 msgid "Arabic"
 msgstr "Ərəb dili"
 
-#: src/anjuta-encodings.c:143
-#: src/anjuta-encodings.c:241
+#: src/anjuta-encodings.c:143 src/anjuta-encodings.c:241
 #: src/project_dbase_gui.c:1142
 msgid "Greek"
 msgstr "Yunanca"
@@ -2332,16 +2359,13 @@ msgstr "Yunanca"
 msgid "Hebrew Visual"
 msgstr "Əyani Yəhudi dili"
 
-#: src/anjuta-encodings.c:147
-#: src/anjuta-encodings.c:206
+#: src/anjuta-encodings.c:147 src/anjuta-encodings.c:206
 #: src/anjuta-encodings.c:245
 msgid "Hebrew"
 msgstr "Yəhudi dili"
 
-#: src/anjuta-encodings.c:149
-#: src/anjuta-encodings.c:204
-#: src/anjuta-encodings.c:243
-#: src/project_dbase_gui.c:1162
+#: src/anjuta-encodings.c:149 src/anjuta-encodings.c:204
+#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1162
 msgid "Turkish"
 msgstr "Türkcə"
 
@@ -2353,15 +2377,12 @@ msgstr "Nordik dili"
 msgid "Celtic"
 msgstr "Seltik dili"
 
-#: src/anjuta-encodings.c:159
-#: src/project_dbase_gui.c:1159
+#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1159
 msgid "Romanian"
 msgstr "Rumınca"
 
-#: src/anjuta-encodings.c:162
-#: src/anjuta-encodings.c:164
-#: src/anjuta-encodings.c:166
-#: src/anjuta-encodings.c:168
+#: src/anjuta-encodings.c:162 src/anjuta-encodings.c:164
+#: src/anjuta-encodings.c:166 src/anjuta-encodings.c:168
 msgid "Unicode"
 msgstr "Yunikod"
 
@@ -2369,8 +2390,7 @@ msgstr "Yunikod"
 msgid "Armenian"
 msgstr "Erməni dili"
 
-#: src/anjuta-encodings.c:173
-#: src/anjuta-encodings.c:175
+#: src/anjuta-encodings.c:173 src/anjuta-encodings.c:175
 #: src/anjuta-encodings.c:184
 msgid "Chinese Traditional"
 msgstr "Ənənəvi Çin dili"
@@ -2379,24 +2399,19 @@ msgstr "Ənənəvi Çin dili"
 msgid "Cyrillic/Russian"
 msgstr "Kiril/Rus dili"
 
-#: src/anjuta-encodings.c:180
-#: src/anjuta-encodings.c:211
+#: src/anjuta-encodings.c:180 src/anjuta-encodings.c:211
 #: src/anjuta-encodings.c:224
 msgid "Japanese"
 msgstr "Yapon dili"
 
-#: src/anjuta-encodings.c:182
-#: src/anjuta-encodings.c:213
-#: src/anjuta-encodings.c:217
-#: src/anjuta-encodings.c:230
+#: src/anjuta-encodings.c:182 src/anjuta-encodings.c:213
+#: src/anjuta-encodings.c:217 src/anjuta-encodings.c:230
 #: src/project_dbase_gui.c:1153
 msgid "Korean"
 msgstr "Koreyaca"
 
-#: src/anjuta-encodings.c:187
-#: src/anjuta-encodings.c:189
-#: src/anjuta-encodings.c:191
-#: src/anjuta-encodings.c:195
+#: src/anjuta-encodings.c:187 src/anjuta-encodings.c:189
+#: src/anjuta-encodings.c:191 src/anjuta-encodings.c:195
 msgid "Chinese Simplified"
 msgstr "Bəsidləşdirilmiş Çin dili"
 
@@ -2408,8 +2423,7 @@ msgstr "Gürcü dili"
 msgid "Cyrillic/Ukrainian"
 msgstr "Kiril/Ukrayna dili"
 
-#: src/anjuta-encodings.c:226
-#: src/anjuta-encodings.c:232
+#: src/anjuta-encodings.c:226 src/anjuta-encodings.c:232
 #: src/anjuta-encodings.c:251
 msgid "Vietnamese"
 msgstr "Vyetnam dili"
@@ -2418,12 +2432,11 @@ msgstr "Vyetnam dili"
 msgid "Thai"
 msgstr "Tay dili"
 
-#: src/anjuta-encodings.c:704
+#: src/anjuta-encodings.c:702
 msgid "Stock Encodings"
 msgstr "Stok Kodlamaları"
 
-#: src/anjuta-plugins.c:115
-#: src/anjuta-plugins.c:118
+#: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
 #, c-format
 msgid "Unable to load plugin %s. Error: %s"
 msgstr "%s əlavəsi yüklənə bilmir. Xəta: %s"
@@ -2445,7 +2458,8 @@ msgstr "%s əlavəsi üçün səhv paramterlər. Xəta: %s"
 
 #: src/anjuta-plugins.c:134
 #, c-format
-msgid "Unable to load plugin %s.\n"
+msgid ""
+"Unable to load plugin %s.\n"
 "Error: %s"
 msgstr "%s əlavəsi yüklənə bilmir. Xəta: %s"
 
@@ -2453,198 +2467,193 @@ msgstr "%s əlavəsi yüklənə bilmir. Xəta: %s"
 msgid "Out of memory scanning for plugins."
 msgstr "Əlavələr daranırkən yaddaş çatmadı."
 
-#: src/anjuta-tools.c:979
+#: src/anjuta-tools.c:1005
 msgid "Tool"
 msgstr "Vasitə"
 
-#: src/anjuta-tools.c:1163
+#: src/anjuta-tools.c:1189
 msgid "Unable to build user interface for tool editor"
 msgstr "Vasitə editoru üçün istifadəçi ara üzü yaradıla bilmir"
 
-#: src/anjuta-tools.c:1359
+#: src/anjuta-tools.c:1385
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "'%s' vasitəsini həqiqətən də silmək istəyirsiniz?"
 
-#: src/anjuta-tools.c:1461
+#: src/anjuta-tools.c:1487
 msgid "You must provide a tool name!"
 msgstr "Vasitə adı bildirməlisiniz!"
 
-#: src/anjuta-tools.c:1467
+#: src/anjuta-tools.c:1493
 msgid "You must provide a tool command!"
 msgstr "Vasitə əmri bildirməlisiniz!"
 
-#: src/anjuta-tools.c:1482
+#: src/anjuta-tools.c:1508
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr "'%s' adında vasitə onsuzda mövcuddur!"
 
-#: src/anjuta-tools.c:1766
+#: src/anjuta-tools.c:1792
 msgid "Unable to build user interface for tool help"
 msgstr "Vasitə yardımı üçün istifadəçi ara üzü yaradıla bilmir"
 
-#: src/anjuta-tools.c:1781
-#: src/debug_tree.c:1454
-#: src/debug_tree.c:1474
-#: src/watch_gui.c:127
+#: src/anjuta-tools.c:1807 src/debug_tree.c:106 src/watch_gui.c:125
 msgid "Variable"
 msgstr "Dəyişən"
 
-#: src/anjuta-tools.c:1787
+#: src/anjuta-tools.c:1813
 msgid "Meaning"
 msgstr "Mə'na"
 
-#: src/anjuta-tools.c:1793
-#: src/debug_tree.c:1454
-#: src/debug_tree.c:1483
-#: src/watch_gui.c:136
+#: src/anjuta-tools.c:1819 src/debug_tree.c:106 src/watch_gui.c:134
 msgid "Value"
 msgstr "Qiymət"
 
-#: src/anjuta-tools.c:1856
+#: src/anjuta-tools.c:1882
 msgid "Unable to build user interface for tool parameters"
 msgstr "Vasitə parametrləri üçün istifadəçi ara üzü yaradıla bilmir"
 
-#: src/anjuta-tools.c:1860
+#: src/anjuta-tools.c:1886
 #, c-format
 msgid "%s: Command line parameters"
 msgstr "%s: Əmr sətiri parametrləri"
 
-#: src/anjuta.c:71
-#: src/anjuta.c:78
+#: src/anjuta.c:71 src/anjuta.c:78
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: %d (%s) siqnalı alındı !"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:106
+#: src/anjuta.c:127
 msgid "Open File"
 msgstr "Fayl Aç"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:112
-#: src/anjuta.c:117
+#: src/anjuta.c:133 src/anjuta.c:138
 msgid "Save File As"
 msgstr "Faylı Fərqli Qeyd Et"
 
-#: src/anjuta.c:244
+#: src/anjuta.c:267
 msgid "Cannot create application... exiting\n"
 msgstr "Tə'minat yaradıla bilmir...çıxılır\n"
 
-#: src/anjuta.c:294
-#: src/anjuta.c:298
-#: src/anjuta.c:1119
-#: src/anjuta.c:1135
+#: src/anjuta.c:317 src/anjuta.c:321 src/anjuta.c:1142 src/anjuta.c:1158
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:355
+#: src/anjuta.c:378
 msgid "Recent Files "
 msgstr "Axırıncı Fayllar"
 
-#: src/anjuta.c:908
+#: src/anjuta.c:931
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
-msgstr "# * BU FAYLI DƏYİŞDİRMƏYİN VƏ YENİDƏN ADLANDIRMAYIN ** Anjuta tərəfindən yaradılıb**\n"
+msgstr ""
+"# * BU FAYLI DƏYİŞDİRMƏYİN VƏ YENİDƏN ADLANDIRMAYIN ** Anjuta tərəfindən "
+"yaradılıb**\n"
 
-#: src/anjuta.c:1084
+#: src/anjuta.c:1107
 msgid "All files saved ..."
 msgstr "Bütün fayllar qeyd edildi ..."
 
-#: src/anjuta.c:1112
+#: src/anjuta.c:1135
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (Qeyd edilib)"
 
-#: src/anjuta.c:1127
+#: src/anjuta.c:1150
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (Qeyd edilməyib)"
 
-#: src/anjuta.c:1152
+#: src/anjuta.c:1175
 msgid "Anjuta: No file"
 msgstr "Anjuta: Fayl yoxdur"
 
-#: src/anjuta.c:1465
-#: src/anjuta.c:1567
+#: src/anjuta.c:1480 src/anjuta.c:1582
 msgid "ERROR: "
 msgstr "XƏTA: "
 
-#: src/anjuta.c:1486
-#: src/anjuta.c:1586
-msgid "\n"
+#: src/anjuta.c:1501 src/anjuta.c:1601
+msgid ""
+"\n"
 "System: "
-msgstr "\n"
+msgstr ""
+"\n"
 "Sistem: "
 
-#: src/anjuta.c:2059
+#: src/anjuta.c:2081
 #, c-format
-msgid "The \"%s\" utility is not installed.\n"
+msgid ""
+"The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
-msgstr "Sisteminizdə \"%s\" qurulu deyil.\n"
+msgstr ""
+"Sisteminizdə \"%s\" qurulu deyil.\n"
 "Bunu qurun və Anjuta'nı yenidən başladın."
 
-#: src/anjuta.c:2085
-#: src/anjuta.c:2141
+#: src/anjuta.c:2107 src/anjuta.c:2163
 msgid "None"
 msgstr "Heç biri"
 
-#: src/anjuta.c:2096
+#: src/anjuta.c:2118
 msgid "DOS (CRLF)"
 msgstr "DOS (CRLF)"
 
-#: src/anjuta.c:2099
-#: src/anjuta.c:2133
+#: src/anjuta.c:2121 src/anjuta.c:2155
 msgid "Unix (LF)"
 msgstr "Unix (LF)"
 
-#: src/anjuta.c:2102
+#: src/anjuta.c:2124
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2105
+#: src/anjuta.c:2127
 msgid "Unknown"
 msgstr "Namə'lum"
 
-#: src/anjuta.c:2122
+#: src/anjuta.c:2144
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:2126
-#: src/anjuta.c:2132
+#: src/anjuta.c:2148 src/anjuta.c:2154
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:2144
+#: src/anjuta.c:2166
 #, c-format
-msgid "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       Job: %s       Mode: %s"
-msgstr "  Layihə: %s       Yaxınlıq: %d       Sətir: %04d       Süt: %03d       %s       Vəzifə: %s       Mod: %s"
+msgid ""
+"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
+"Job: %s       Mode: %s"
+msgstr ""
+"  Layihə: %s       Yaxınlıq: %d       Sətir: %04d       Süt: %03d       %"
+"s       Vəzifə: %s       Mod: %s"
 
-#: src/anjuta.c:2381
+#: src/anjuta.c:2408
 msgid "Looking up symbol"
 msgstr "Simvol axtarılır"
 
-#: src/anjuta.c:2383
-#: src/find_in_files.c:306
+#: src/anjuta.c:2410 src/find_in_files.c:308
 msgid "Finding in Files ....\n"
 msgstr "Fayllarda Axtarılır ....\n"
 
 #: src/anjuta_cbs.c:145
-msgid "One or more files are not saved.\n"
+msgid ""
+"One or more files are not saved.\n"
 "Do you still want to exit?"
-msgstr "Bəzi fayllar qeyd edilməyib.\n"
+msgstr ""
+"Bəzi fayllar qeyd edilməyib.\n"
 "Yenə də çıxmaq istəyirsiniz?"
 
 #: src/anjuta_cbs.c:504
 #, c-format
-msgid "The file '%s' already exists.\n"
+msgid ""
+"The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
-msgstr "'%s' faylı onsuz da mövcuddur.\n"
+msgstr ""
+"'%s' faylı onsuz da mövcuddur.\n"
 "Onu qeyd etdiyinizlə əvəz etmək istəyirsiniz?"
 
-#: src/anjuta_cbs.c:511
-#: src/anjuta_cbs.c:575
-#: src/find_replace.c:343
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:344
 msgid "_Replace"
 msgstr "Ə_vəz Et"
 
@@ -2654,27 +2663,26 @@ msgstr "Fayl yazılmaq üçün açıla bilmədi"
 
 #: src/anjuta_cbs.c:568
 #, c-format
-msgid "The file '%s' already exists.\n"
+msgid ""
+"The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?."
-msgstr "'%s' faylı onsuz da mövcuddur.\n"
+msgstr ""
+"'%s' faylı onsuz da mövcuddur.\n"
 "Onu qeyd etdiyinizlə əvəz etmək istəyirsiniz?"
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
 msgstr "Qurğular cərgəsi yaradıla bilmir.\n"
 
-#: src/anjuta_gui.c:191
-#: src/anjuta_gui.c:280
+#: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
 msgstr "Pəncərəni ayırmaq üçün tıqlayın"
 
-#: src/anjuta_gui.c:225
-#: src/anjuta_gui.c:247
+#: src/anjuta_gui.c:225 src/anjuta_gui.c:247
 msgid "Click here to hide this window"
 msgstr "Pəncərəni gizləmək üçün tıqlayın"
 
-#: src/anjuta_info.c:50
-#: src/anjuta_info.c:100
+#: src/anjuta_info.c:50 src/anjuta_info.c:100
 msgid "Information"
 msgstr "Mə'lumat"
 
@@ -2692,77 +2700,63 @@ msgstr "Layihə buraxılışı"
 
 #: src/appwizard_cbs.c:224
 #, c-format
-msgid "Invalid %s field:\n"
+msgid ""
+"Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
-msgstr "Hökmsüz %s sahəsi:\n"
+msgstr ""
+"Hökmsüz %s sahəsi:\n"
 "Davam etmək üçün hökmlü %s sahəsi əlavə etməlisiniz."
 
 #. For the time being
-#: src/appwizard_cbs.c:277
-#: src/project_dbase.c:1510
-#: src/project_dbase.c:1516
-#: src/project_dbase.c:1519
-#: src/project_import_cbs.c:221
-#: src/signals_cbs.c:115
-#: src/signals_cbs.c:128
-#: src/signals_cbs.c:141
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
+#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:115
+#: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Bəli"
 
-#: src/appwizard_cbs.c:279
-#: src/project_dbase.c:1512
-#: src/project_dbase.c:1521
-#: src/project_import_cbs.c:223
-#: src/signals_cbs.c:117
-#: src/signals_cbs.c:130
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
+#: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
 msgstr "Xeyir"
 
-#: src/appwizard_cbs.c:281
-#: src/project_import_cbs.c:224
-msgid "Confirm the following information:\n"
+#: src/appwizard_cbs.c:286 src/project_import_cbs.c:230
+msgid ""
+"Confirm the following information:\n"
 "\n"
-msgstr "Aşağıdakı mə'lumatı təsdiqləyin:\n"
+msgstr ""
+"Aşağıdakı mə'lumatı təsdiqləyin:\n"
 "\n"
 
-#: src/appwizard_cbs.c:282
-#: src/project_import_cbs.c:225
+#: src/appwizard_cbs.c:287 src/project_import_cbs.c:231
 msgid "Project Name:    "
 msgstr "Layihə Adı:    "
 
-#: src/appwizard_cbs.c:283
-#: src/project_import_cbs.c:226
+#: src/appwizard_cbs.c:288 src/project_import_cbs.c:232
 msgid "Project Type:    "
 msgstr "Layihə Növü:    "
 
-#: src/appwizard_cbs.c:284
-#: src/project_import_cbs.c:228
+#: src/appwizard_cbs.c:289 src/project_import_cbs.c:234
 msgid "Target Type:     "
 msgstr "Hədəf Növü:     "
 
-#: src/appwizard_cbs.c:285
-#: src/project_import_cbs.c:231
+#: src/appwizard_cbs.c:290 src/project_import_cbs.c:237
 msgid "Source Target:   "
 msgstr "Hədəf Mənbə:   "
 
-#: src/appwizard_cbs.c:286
-#: src/project_import_cbs.c:232
+#: src/appwizard_cbs.c:291 src/project_import_cbs.c:238
 msgid "Version:         "
 msgstr "Buraxılış:         "
 
-#: src/appwizard_cbs.c:287
-#: src/project_import_cbs.c:233
+#: src/appwizard_cbs.c:292 src/project_import_cbs.c:239
 msgid "Author:          "
 msgstr "Müəllif:           "
 
-#: src/appwizard_cbs.c:288
-#: src/project_import_cbs.c:234
+#: src/appwizard_cbs.c:293 src/project_import_cbs.c:240
 msgid "Language:        "
 msgstr "Dil:          "
 
-#: src/appwizard_cbs.c:289
-#: src/project_import_cbs.c:236
+#: src/appwizard_cbs.c:294 src/project_import_cbs.c:242
 msgid "Gettext Support: "
 msgstr "Gettext Dəstəyi: "
 
@@ -2785,28 +2779,28 @@ msgstr ""
 "Xahiş edirik, suallara diqqətlə cavab verin. Sonradan\n"
 "bəzilərində dəyişiklik apara bilməyəcəksiniz."
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "Pid"
 msgstr "Pid"
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "User"
 msgstr "İstifadəçi"
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "Time"
 msgstr "Vaxt"
 
-#: src/attach_process.c:46
+#: src/attach_process.c:47
 msgid "Command"
 msgstr "Əmr"
 
-#: src/attach_process.c:130
+#: src/attach_process.c:131
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "İcra edilə bimir: %s."
 
-#: src/attach_process.c:140
+#: src/attach_process.c:141
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Fayl açıla bilmir: %s\n"
@@ -2819,8 +2813,7 @@ msgstr "Sətir"
 msgid "Function"
 msgstr "Funksiya"
 
-#: src/breakpoints.c:112
-#: src/signals_gui.c:127
+#: src/breakpoints.c:112 src/signals_gui.c:127
 msgid "Pass"
 msgstr "Pass"
 
@@ -2833,8 +2826,7 @@ msgstr "Şərt"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166
-#: src/debugger.c:1814
+#: src/breakpoints.c:169 src/debugger.c:1845
 msgid "All breakpoints enabled:\n"
 msgstr "Bütün qırma nöqtələri fəallaşdırıldı:\n"
 
@@ -2843,12 +2835,11 @@ msgstr "Bütün qırma nöqtələri fəallaşdırıldı:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184
-#: src/debugger.c:1860
+#: src/breakpoints.c:187 src/debugger.c:1891
 msgid "All breakpoints disabled:\n"
 msgstr "Bütün qırma nöqtələri qeyri-fəallaşdırıldı:\n"
 
-#: src/breakpoints.c:649
+#: src/breakpoints.c:651
 msgid "You must give a valid location to set the breakpoint."
 msgstr "Qırma möqtəsi üşün hökmlü yer bildirməlisiniz."
 
@@ -2856,311 +2847,162 @@ msgstr "Qırma möqtəsi üşün hökmlü yer bildirməlisiniz."
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Bütün qırma nöqtələrii həqiqətən də silmək istəyirsiniz?"
 
-#: src/breakpoints.c:1304
+#: src/breakpoints.c:1296
 msgid "Old breakpoints disabled."
 msgstr "Köhnə qırma nüqtələri fəaliyyətdən salındı"
 
 #. 5
-#: src/breakpoints.c:1446
-#: src/main_menubar_def.h:773
-#: src/text_editor_gui.c:161
+#: src/breakpoints.c:1438 src/main_menubar_def.h:767 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
-#: src/build_file.c:51
+#: src/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
 msgstr "Bu fayl qeyd edilməyib. Əvvəlcə qeyd edin, sonra dərləyin."
 
-#: src/build_file.c:76
+#: src/build_file.c:73
 msgid "The executable is up-to-date, there is no need to build it again."
 msgstr "İcra edilən fayl təzədir. Yenidən inşa etmək lüzumsuzdur."
 
-#: src/build_file.c:91
+#: src/build_file.c:88
 msgid "No build command has been specified for this type of file."
 msgstr "Bu fayl növü üçün heç bir inşa əmri tə'yin edilməyib."
 
-#: src/build_file.c:109
+#: src/build_file.c:104
 #, c-format
 msgid "Building file: %s ...\n"
 msgstr "Fayl inşa edilir: %s ...\n"
 
-#: src/build_file.c:130
-#: src/build_project.c:355
-#: src/build_project.c:392
-#: src/build_project.c:430
-#: src/build_project.c:464
-#: src/build_project.c:498
-#: src/clean_project.c:178
-#: src/clean_project.c:219
-#: src/compile.c:201
-#: src/configurer.c:223
-#: src/cvs.c:765
-#: src/find_in_files.c:341
-#: src/project_import.c:179
+#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:346
+#: src/project_import.c:192
 #, c-format
-msgid "Total time taken: %d secs\n"
-msgstr "Keçən bütün vaxt: %d san\n"
+msgid "Total time taken: %lu secs\n"
+msgstr "Sərf edilən toplam vaxt: %lu san\n"
 
-#: src/build_file.c:135
-msgid "Build completed ... unsuccessful\n"
-msgstr "İnşa qurtardı.... uğursuz\n"
+#: src/build_file.c:136
+msgid "Completed ... unsuccessful\n"
+msgstr "Qurtardı .... uğursuz\n"
 
-#: src/build_file.c:139
-msgid "Build completed ... unsuccessful"
-msgstr "İnşa qurtardı.... uğursuz"
+#: src/build_file.c:140
+msgid "Completed ... unsuccessful"
+msgstr "Qurtardı .... uğursuz"
 
-#: src/build_file.c:144
-msgid "Build completed ... successful\n"
-msgstr "İnşa qurtardı.... uğurlu\n"
+#: src/build_file.c:145
+msgid "Completed ... successful\n"
+msgstr "Qurtardı .... uğurlu\n"
 
-#: src/build_file.c:148
-msgid "Build completed ... successful"
-msgstr "İnşa qurtardı.... uğurlu"
+#: src/build_file.c:149
+msgid "Completed ... successful"
+msgstr "Qurtardı .... uğurlu"
 
-#: src/build_project.c:79
-#: src/compile.c:63
+#: src/build_project.c:72 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Modul inşa edilə bilmir.  Qurğular->Əmrlər'i yoxlayın."
 
-#: src/build_project.c:100
-#: src/build_project.c:163
-#: src/compile.c:78
+#: src/build_project.c:91 src/build_project.c:152 src/compile.c:74
 msgid "Build Project"
 msgstr "Layihəni İnşa et"
 
-#: src/build_project.c:102
-#: src/compile.c:80
+#: src/build_project.c:93 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "Layihənin mənbə cərgəsi inşa edilir: "
 
-#: src/build_project.c:146
+#: src/build_project.c:137
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Layihə inşa edilə bilmir. Qurğular->Əmrlər'i yoxlayın."
 
-#: src/build_project.c:166
+#: src/build_project.c:155
 msgid "Building the whole Project: "
 msgstr "Bütün Layihə inşa edilir: "
 
-#: src/build_project.c:199
+#: src/build_project.c:188
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr "Tarbol inşa edilə bilmir. Qurğular->Əmrlər'i yoxlayın."
 
-#: src/build_project.c:216
+#: src/build_project.c:203
 msgid "Build Distribution"
 msgstr "Distribusiyanı İnşa Et"
 
-#: src/build_project.c:220
+#: src/build_project.c:207
 msgid "Building the distribution package of the Project: "
 msgstr "Layihənin distribusiya paketi inşa edilir: "
 
-#: src/build_project.c:252
+#: src/build_project.c:239
 msgid "Do you prefer installing as root ?"
 msgstr "Ali istifadəçi olaraq qurmaq istəyirsiniz ?"
 
-#: src/build_project.c:291
+#: src/build_project.c:277
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Avtomatik yaratma (auto generate) edilə bilmir. Qurğular->Əmrlər'i yoxlayın."
 
-#: src/build_project.c:307
+#: src/build_project.c:291
 msgid "Auto generate Project"
 msgstr "Layihəni Avtomatik Yarat (auto generate)"
 
-#: src/build_project.c:310
+#: src/build_project.c:294
 msgid "Auto generating the Project: "
 msgstr "Layihə Avtomatik Yaradılır: "
 
-#: src/build_project.c:338
-msgid "Build completed...............Unsuccessful\n"
-msgstr "İnşa qurtardı..................Uğursuz\n"
-
-#: src/build_project.c:342
-msgid "Build terminated with error(s)."
-msgstr "İnşa xəta(lar)la sonlandı."
-
-#: src/build_project.c:348
-msgid "Build completed...............Successful\n"
-msgstr "İnşa qurtardı.....................Uğurlu\n"
-
-#: src/build_project.c:352
-msgid "Build completed ... successful."
-msgstr "İnşa qurtardı .... uğurlu."
-
-#: src/build_project.c:376
-msgid "Build All completed...............Unsuccessful\n"
-msgstr "Hamısını inşa et qurtardı....................Uğursuz\n"
-
-#: src/build_project.c:380
-msgid "Build All completed...............Unsuccessful"
-msgstr "Hamısını inşa et qurtardı ....................Uğursuz"
-
-#: src/build_project.c:385
-msgid "Build All completed...............Successful\n"
-msgstr "Hamısını inşa et qurtardı .... Uğurlu\n"
-
-#: src/build_project.c:389
-msgid "Build All completed ... successful"
-msgstr "Hamısını inşa et qurtardı .... uğurlu"
-
-#: src/build_project.c:411
-msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "Distribusiya inşası qurtardı..................Uğursuz\n"
-
-#: src/build_project.c:415
-msgid "Build Distribution completed ... unsuccessful"
-msgstr "Distribusiya inşası qurtardı ... uğursuz"
-
-#: src/build_project.c:420
-msgid "Build Distribution completed...............Successful\n"
-msgstr "Distribusiya inşası qurtardı.................Uğurlu\n"
-
-#: src/build_project.c:423
-msgid "The source tarball can be found in the top level directory of the Project.\n"
-msgstr "Mənbə tarbolunu layihənin üst səviyyə cərgəsində tapa bilərsiniz.\n"
-
-#: src/build_project.c:427
-msgid "Build Distribution completed ... successful"
-msgstr "Distribusiya inşası qurtardı ... uğurlu"
-
-#: src/build_project.c:448
-msgid "Install completed...............Unsuccessful\n"
-msgstr "Qurma tamamlandı.....................Uğursuz\n"
-
-#: src/build_project.c:452
-msgid "Install completed...............Unsuccessful"
-msgstr "Qurma tamamlandı.....................Uğursuz"
-
-#: src/build_project.c:457
-msgid "Install completed...............Successful\n"
-msgstr "Qurma tamamlandı.....................Uğurlu\n"
-
-#: src/build_project.c:461
-msgid "Install completed ... successful"
-msgstr "Qurma tamamlandı ... Uğurlu"
-
-#: src/build_project.c:482
-#: src/gnome_project.c:259
-msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "Avtomatik yaratma tamamlandı....................Uğursuz\n"
-
-#: src/build_project.c:486
-msgid "Auto generation completed ... unsuccessful"
-msgstr "Qurma tamamlandı.....................uğursuz"
-
-#: src/build_project.c:491
-msgid "Auto generation completed...............Successful\n"
-"Now Configure the Project.\n"
-msgstr "Qurma tamamlandı.....................Uğurlu\n"
-" İndi Layihəni Quraşdır \n"
-
-#: src/build_project.c:495
-msgid "Auto generation completed ... successful"
-msgstr "Qurma tamamlandı ... uğurlu"
-
-#: src/build_project.c:516
-#: src/build_project.c:561
+#: src/build_project.c:316 src/build_project.c:354
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Layihə qurula bilmir. Qurğular->Əmrlər'i yoxlayın."
 
-#: src/build_project.c:538
-#: src/build_project.c:580
+#: src/build_project.c:331 src/build_project.c:366
 msgid "Install Project"
 msgstr "Layihəni Sistemə Qur"
 
-#: src/build_project.c:540
-#: src/build_project.c:582
+#: src/build_project.c:333 src/build_project.c:368
 msgid "Installing the Project: "
 msgstr "Layihə Qurulur: "
 
-#: src/clean_project.c:65
+#: src/clean_project.c:61
 msgid "Unable to clean Project. Check Settings->Commands."
 msgstr "Layihə təmizlənə bilmir. Qurğular->Əmrləri yoxla."
 
-#: src/clean_project.c:81
+#: src/clean_project.c:76
 msgid "Clean"
 msgstr "Təmizlə"
 
-#: src/clean_project.c:84
+#: src/clean_project.c:79
 msgid "Cleaning the source directory of the Project: "
 msgstr "Layihənin mənbə cərgəsi təmizlənir: "
 
-#: src/clean_project.c:120
+#: src/clean_project.c:115
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "Layihə üçün Hamısını Təmizlə (Clean All) bacarılmır. Qurğular->Əmrlər'i yoxlayın."
+msgstr ""
+"Layihə üçün Hamısını Təmizlə (Clean All) bacarılmır. Qurğular->Əmrlər'i "
+"yoxlayın."
 
-#: src/clean_project.c:131
+#: src/clean_project.c:124
 msgid "Clean All"
 msgstr "Hamısını Təmizlə"
 
-#: src/clean_project.c:134
+#: src/clean_project.c:127
 msgid "Cleaning whole of the Project: "
 msgstr "Bütün layihə təmizlənir: "
 
-#: src/clean_project.c:162
-msgid "Cleaning completed...............Unsuccessful\n"
-msgstr "Təmizləmə tamamlandı..................Uğursuz\n"
-
-#: src/clean_project.c:165
-msgid "Cleaning completed ... unsuccessful"
-msgstr "Təmizləmə tamamlandı ... uğursuz"
-
-#: src/clean_project.c:172
-msgid "Cleaning completed...............Successful\n"
-msgstr "Təmizləmə tamamlandı..................Uğurlu\n"
-
-#: src/clean_project.c:175
-msgid "Cleaning completed ... successful"
-msgstr "Təmizləmə tamamlandı ... uğurlu"
-
-#: src/clean_project.c:205
-msgid "Clean All completed...............Unsuccessful\n"
-msgstr "Hamısını təmizlə qurtardı..........Uğursuz\n"
-
-#: src/clean_project.c:209
-msgid "Clean All completed ... unsuccessful"
-msgstr "Hamısını təmizlə qurtardı ... uğursuz"
-
-#: src/clean_project.c:214
-msgid "Clean All completed...............Successful\n"
-msgstr "Hamısını təmizlə qurtardı..........Uğurlu\n"
-
-#: src/clean_project.c:217
-msgid "Clean All completed ... successful"
-msgstr "Hamısını təmizlə qurtardı ... uğurlu"
-
-#: src/compile.c:111
+#: src/compile.c:107
 msgid "This file has not been saved. Save it first and then compile."
 msgstr "Bu fayl qeyd edilməyib. Əvvəlcə qeyd edin, sonra dərləyin."
 
-#: src/compile.c:132
+#: src/compile.c:128
 msgid "The object file is up-to-date, there is no need to compile it again."
 msgstr "Fayl təzədir. Yenidən dərləməyə lüzum yoxdur."
 
-#: src/compile.c:144
+#: src/compile.c:140
 msgid "No compile command has been specified for this type of file."
 msgstr "Bu fayl növü üçün heç bir dərləmə əmri tə'yin edilməyib."
 
-#: src/compile.c:158
-#: src/text_editor_gui.c:168
-#: src/toolbar.c:248
+#: src/compile.c:153 src/toolbar.c:247
 msgid "Compile"
 msgstr "Dərlə"
 
-#: src/compile.c:160
+#: src/compile.c:155
 #, c-format
 msgid "Compiling file: %s ...\n"
 msgstr "Fayl dərlənir: %s ...\n"
 
-#: src/compile.c:183
-#: src/compile.c:188
-msgid "Compile completed ... unsuccessful"
-msgstr "Dərləmə qurtardı ... uğursuz"
-
-#: src/compile.c:193
-#: src/compile.c:198
-msgid "Compile completed ... successful"
-msgstr "Dərləmə qurtardı ... uğurlu"
-
-#: src/compiler_options.c:521
+#: src/compiler_options.c:501
 msgid ""
 "You have changed some of the compiler options of the project,\n"
 "would you like the next build action to perform a complete\n"
@@ -3170,148 +3012,124 @@ msgstr ""
 "növbəti inşa əməliyyatının layihənin tamamını başdan\n"
 "inşa etməsini istəyirsiniz?"
 
-#: src/compiler_options.c:743
-#: src/src_paths.c:218
+#: src/compiler_options.c:724 src/src_paths.c:217
 msgid "Do you want to clear the list?"
 msgstr "Siyahını təmizləmək istəyirsiniz?"
 
-#: src/compiler_options.c:823
-#: src/compiler_options.c:899
-#: src/compiler_options.c:922
-#: src/compiler_options.c:967
-#: src/signals_gui.c:131
+#: src/compiler_options.c:803 src/compiler_options.c:879
+#: src/compiler_options.c:902 src/compiler_options.c:947 src/signals_gui.c:131
 msgid "Description"
 msgstr "İzahat"
 
-#: src/compiler_options.c:838
+#: src/compiler_options.c:818
 msgid "Include paths"
 msgstr "Daxil Etmə Cığırları (Include paths)"
 
-#: src/compiler_options.c:853
+#: src/compiler_options.c:833
 msgid "Libraries paths"
 msgstr "Kitabxana Cığırları (Libraries paths)"
 
-#: src/compiler_options.c:876
+#: src/compiler_options.c:856
 msgid "Libraries and modules"
 msgstr "Kitabxanalar və Modullar"
 
-#: src/compiler_options.c:892
+#: src/compiler_options.c:872
 msgid "Stock"
 msgstr "Stok"
 
-#: src/compiler_options.c:937
+#: src/compiler_options.c:917
 msgid "Stock Defines"
 msgstr "Stok Tə'yinləri (Stock Defines)"
 
-#: src/compiler_options.c:960
+#: src/compiler_options.c:940
 msgid "Warning"
 msgstr "Xəbərdarlıq"
 
-#: src/configurer.c:155
-msgid "Project does not have an executable configure script.\n"
+#: src/configurer.c:157
+msgid ""
+"Project does not have an executable configure script.\n"
 "Auto generate the Project first."
-msgstr "Layihənin icra edilə bilən quraşdırma skripti yoxdur.\n"
+msgstr ""
+"Layihənin icra edilə bilən quraşdırma skripti yoxdur.\n"
 "Əvvəlcə layihəni avtmatik yaradın (auto generate)."
 
-#: src/configurer.c:187
-#: src/toolbar.c:260
+#: src/configurer.c:188 src/toolbar.c:259
 msgid "Configure"
 msgstr "Quraşdır"
 
-#: src/configurer.c:189
+#: src/configurer.c:190
 msgid "Configuring the Project ....\n"
 msgstr "Layihə Quraşdırılır ....\n"
-
-#: src/configurer.c:210
-msgid "Configure completed...............Unsuccessful\n"
-msgstr "Quraşdırma tamamlandı............Uğursuz\n"
-
-#: src/configurer.c:212
-msgid "Configure completed ... unsuccessful"
-msgstr "Quraşdırma tamamlandı ... Uğursuz"
-
-#: src/configurer.c:218
-msgid "Configure completed...............Successful\n"
-msgstr "Quraşdırma tamamlandı............Uğurlu\n"
-
-#: src/configurer.c:220
-msgid "Configure completed ... successful"
-msgstr "Quraşdırma tamamlandı ... uğurlu"
 
 #: src/controls.c:208
 msgid "No tags"
 msgstr "Taq yoxdur"
 
-#: src/cvs.c:254
+#: src/cvs.c:262
 msgid "CVS Updating "
 msgstr "CVS Yenilənir (updating) "
 
-#: src/cvs.c:304
+#: src/cvs.c:312
 msgid "CVS Committing "
 msgstr "CVS Göndərilir (committing) "
 
-#: src/cvs.c:365
+#: src/cvs.c:373
 msgid "CVS Importing...\n"
 msgstr "CVS İdxal edilir (importing)...\n"
 
-#: src/cvs.c:405
+#: src/cvs.c:413
 msgid "CVS Adding "
 msgstr "CVS Əlavə edilir (adding) "
 
-#: src/cvs.c:437
+#: src/cvs.c:445
 msgid "CVS Removing "
 msgstr "CVS Silinir (removing) "
 
-#: src/cvs.c:478
+#: src/cvs.c:486
 msgid "Getting CVS status "
 msgstr "CVS vəziyyəti alınır "
 
-#: src/cvs.c:493
-#: src/cvs.c:544
-#: src/cvs.c:620
-#: src/cvs.c:860
+#: src/cvs.c:501 src/cvs.c:556 src/cvs.c:635 src/cvs.c:891
 msgid "There are jobs running, please wait until they are finished"
 msgstr "İşləyən vəzifələr var, xahiş edirik, onlar bitənə qədər gözləyin"
 
-#: src/cvs.c:529
+#: src/cvs.c:541
 msgid "Getting CVS log "
 msgstr "CVS qeydi (log) alınır "
 
-#: src/cvs.c:605
+#: src/cvs.c:620
 msgid "CVS diffing "
 msgstr "CVS fərq seçilir (diffing) "
 
-#: src/cvs.c:649
+#: src/cvs.c:667
 msgid "CVS login "
 msgstr "CVS giriş (login) "
 
-#: src/cvs.c:753
-#: src/project_import.c:167
+#: src/cvs.c:765 src/project_import.c:181
 msgid "Project import completed...unsuccessful\n"
 msgstr "Layihə idxalı qurtardı.............uğursuz\n"
 
-#: src/cvs.c:755
-#: src/project_import.c:169
+#: src/cvs.c:767 src/project_import.c:183
 msgid "Project import completed...unsuccessful"
 msgstr "Layihə idxalı qurtardı............uğursuz"
 
-#: src/cvs.c:761
+#: src/cvs.c:772
 msgid "CVS completed...successful\n"
 msgstr "CVS qurtardı........uğurlu\n"
 
-#: src/cvs.c:763
+#: src/cvs.c:774
 msgid "CVS completed...successful"
 msgstr "CVS qurtardı........uğurlu"
 
-#: src/cvs.c:771
+#: src/cvs.c:782
 msgid "Updating versions in file tree..."
 msgstr "Fayl ağacındakı buraxılışlar yenilənir..."
 
-#: src/cvs.c:773
+#: src/cvs.c:784
 msgid "done\n"
 msgstr "bitdi\n"
 
-#: src/cvs_cbs.c:40
+#: src/cvs_cbs.c:41
 msgid "You do not need to login to a local server"
 msgstr "Yerli vericiyə giriş etmək məcburiyyətində deyilsiniz"
 
@@ -3372,20 +3190,21 @@ msgid "CVS: Remove file"
 msgstr "CVS: Faylı sil (remove)"
 
 #. 3
-#: src/cvs_gui.c:93
-#: src/project_dbase_gui.c:341
-#: src/watch_gui.c:43
+#: src/cvs_gui.c:93 src/project_dbase_gui.c:341 src/watch_gui.c:43
 msgid "Remove"
 msgstr "Sil"
 
 #: src/cvs_gui.c:95
-msgid "WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
-"to apply to the repository. It will still be possible to retrieve older revisions of the file."
-msgstr "DİQQƏT: Fayl diskdən silinəcək. Saxlanılan yerə tədbiq etmək üçün\n"
-"\"cvs commit\" işlədin. Faylın daha əvvəlki buraxılışları yenə də alına biləcək."
+msgid ""
+"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+"to apply to the repository. It will still be possible to retrieve older "
+"revisions of the file."
+msgstr ""
+"DİQQƏT: Fayl diskdən silinəcək. Saxlanılan yerə tədbiq etmək üçün\n"
+"\"cvs commit\" işlədin. Faylın daha əvvəlki buraxılışları yenə də alına "
+"biləcək."
 
-#: src/cvs_gui.c:120
-#: src/cvs_gui.c:239
+#: src/cvs_gui.c:120 src/cvs_gui.c:238
 msgid "File: "
 msgstr "Fayl:"
 
@@ -3393,161 +3212,158 @@ msgstr "Fayl:"
 msgid "Branch: "
 msgstr "Budaq:"
 
-#: src/cvs_gui.c:124
-#: src/cvs_gui.c:292
+#: src/cvs_gui.c:124 src/cvs_gui.c:291
 msgid "Revision: "
 msgstr "Reviziya:"
 
-#: src/cvs_gui.c:125
-#: src/cvs_gui.c:475
+#: src/cvs_gui.c:125 src/cvs_gui.c:470
 msgid "Log message: "
 msgstr "Loq ismarışı:"
 
-#: src/cvs_gui.c:128
-#: src/cvs_gui.c:242
+#: src/cvs_gui.c:128 src/cvs_gui.c:241
 msgid "Select file"
 msgstr "Fayl seç"
 
-#: src/cvs_gui.c:226
+#: src/cvs_gui.c:225
 msgid "CVS: Diff file"
 msgstr "CVS: Fərq (diff) faylı"
 
 #. 17
-#: src/cvs_gui.c:230
-#: src/main_menubar_def.h:1111
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1105
 msgid "Diff"
 msgstr "Diff"
 
-#: src/cvs_gui.c:266
+#: src/cvs_gui.c:265
 msgid "Date: "
 msgstr "Tarix :"
 
-#: src/cvs_gui.c:336
+#: src/cvs_gui.c:333
 msgid "CVS Login"
 msgstr "CVS Giriş (Login)"
 
-#: src/cvs_gui.c:340
+#: src/cvs_gui.c:337
 msgid "Login"
 msgstr "Giriş"
 
-#: src/cvs_gui.c:350
-#: src/cvs_gui.c:445
+#: src/cvs_gui.c:347 src/cvs_gui.c:440
 msgid "Server type: "
 msgstr "Verici növü:"
 
-#: src/cvs_gui.c:351
-#: src/cvs_gui.c:448
+#: src/cvs_gui.c:348 src/cvs_gui.c:443
 msgid "Username: "
 msgstr "İstifadəçi adı:"
 
-#: src/cvs_gui.c:352
-#: src/cvs_gui.c:446
+#: src/cvs_gui.c:349 src/cvs_gui.c:441
 msgid "Server: "
 msgstr "Verici:"
 
-#: src/cvs_gui.c:353
+#: src/cvs_gui.c:350
 msgid "Directory on the server: "
 msgstr "Vericidəki lüğət:"
 
-#: src/cvs_gui.c:432
+#: src/cvs_gui.c:427
 msgid "CVS: Import Project"
 msgstr "CVS: Layihə İdaxal Et"
 
-#: src/cvs_gui.c:436
+#: src/cvs_gui.c:431
 msgid "Import"
 msgstr "İdxal Et"
 
-#: src/cvs_gui.c:447
+#: src/cvs_gui.c:442
 msgid "Dir on the server: "
 msgstr "Vericidəki cərgə:"
 
-#: src/cvs_gui.c:472
+#: src/cvs_gui.c:467
 msgid "Module name: "
 msgstr "Modul adı:"
 
-#: src/cvs_gui.c:473
+#: src/cvs_gui.c:468
 msgid "Release name: "
 msgstr "Buraxılış adı:"
 
-#: src/cvs_gui.c:474
+#: src/cvs_gui.c:469
 msgid "Vendor tag: "
 msgstr "E'malatçı taqı:"
 
-#: src/cvs_gui.c:530
+#: src/cvs_gui.c:525
 msgid "Server settings"
 msgstr "Verici qurğuları"
 
-#: src/cvs_gui.c:534
+#: src/cvs_gui.c:529
 msgid "Import settings"
 msgstr "İdxal etmə qurğuları"
 
-#: src/debug_tree.c:1494
+#: src/debug_tree.c:1190
+msgid "Local Variables"
+msgstr "Yerli Dəyişənlər"
+
+#: src/debug_tree.c:1504
 msgid "Default format"
 msgstr "Əsas format"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1508
 msgid "Binary"
 msgstr "İkili"
 
-#: src/debug_tree.c:1501
+#: src/debug_tree.c:1511
 msgid "Octal"
 msgstr "Səkkizli"
 
-#: src/debug_tree.c:1504
+#: src/debug_tree.c:1514
 msgid "Signed decimal"
 msgstr "İşarəli onluq"
 
-#: src/debug_tree.c:1507
+#: src/debug_tree.c:1517
 msgid "Unsigned decimal"
 msgstr "İşarəsiz onluq"
 
-#: src/debug_tree.c:1510
-#: src/registers_gui.c:111
+#: src/debug_tree.c:1520 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Səkkizlik"
 
-#: src/debug_tree.c:1513
+#: src/debug_tree.c:1523
 msgid "Char"
 msgstr "Char"
 
-#: src/debug_tree.c:1518
+#: src/debug_tree.c:1528
 msgid "Inspect memory"
 msgstr "Yaddaşı təftiş et"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:85
+#: src/debugger.c:91
 msgid "Load Executable File"
 msgstr "İcraçı Faylı Yüklə"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:91
+#: src/debugger.c:97
 msgid "Load Core File"
 msgstr "Çökmə Faylını Yüklə"
 
-#: src/debugger.c:197
-#: src/debugger.c:646
+#: src/debugger.c:203 src/debugger.c:655
 msgid "Loading Executable: "
 msgstr "İcraçı Yeklənir: "
 
-#: src/debugger.c:248
+#: src/debugger.c:254
 msgid "Loading Core: "
 msgstr "Çöküntü Yüklənir: "
 
-#: src/debugger.c:293
-#: src/debugger.c:321
-msgid "You have a process ATTACHED under the debugger.\n"
+#: src/debugger.c:299 src/debugger.c:327
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
-msgstr "Xəta ayıqlayıcı altında TAXILI gedişatınız var.\n"
+msgstr ""
+"Xəta ayıqlayıcı altında TAXILI gedişatınız var.\n"
 "Xahiş edirik, sərbət buraxıb icraçı faylı yükləyin."
 
-#: src/debugger.c:296
-#: src/debugger.c:324
-msgid "You have a process RUNNING under the debugger.\n"
+#: src/debugger.c:302 src/debugger.c:330
+msgid ""
+"You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
-msgstr "Xəta ayıqlayıcı altında İŞLƏYƏN gedişatınız var.\n"
+msgstr ""
+"Xəta ayıqlayıcı altında İŞLƏYƏN gedişatınız var.\n"
 "Xahiş edirik, sərbət buraxıb icraçı faylı yükləyin."
 
-#: src/debugger.c:573
+#: src/debugger.c:577
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3558,39 +3374,39 @@ msgstr ""
 "Xəta ayırıcı (debugger) hazırlana bilmir.\n"
 "Anjuta'nın düzgün qurulduğunu yoxlayın."
 
-#: src/debugger.c:642
+#: src/debugger.c:651
 msgid "Debugger"
 msgstr "Xəta Ayıqlayıcı"
 
-#: src/debugger.c:644
+#: src/debugger.c:653
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Xəta ayıqlama iclasına hazırlaşıram ...\n"
 
-#: src/debugger.c:657
+#: src/debugger.c:666
 msgid "No executable specified\n"
 msgstr "İcraçı bildirilməyib\n"
 
-#: src/debugger.c:660
+#: src/debugger.c:669
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Xəta ayıqlamaya soxulacaq icraçını açın.\n"
 
-#: src/debugger.c:667
+#: src/debugger.c:676
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Xəta ayırıcı açıldığı vaxt xəta oldu.\n"
 
-#: src/debugger.c:670
+#: src/debugger.c:679
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Sistemdə 'gdb' qurulu olub olmadığlnı yoxlayın.\n"
 
-#: src/debugger.c:832
+#: src/debugger.c:859
 msgid "Error: "
 msgstr "Xəta: "
 
-#: src/debugger.c:853
+#: src/debugger.c:880
 msgid "Debugger is ready.\n"
 msgstr "Xəta ayıqlayıcı hazırdır.\n"
 
-#: src/debugger.c:957
+#: src/debugger.c:988
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3600,52 +3416,60 @@ msgstr ""
 "Hmm, XƏTA tapdınız? :: Xəta ayırma iclası qurtardı.\n"
 "\n"
 
-#: src/debugger.c:1192
+#: src/debugger.c:1222
 msgid "Cannot execute gnome-terminal"
 msgstr "Gnome-terminal icra edilə bilmir"
 
-#: src/debugger.c:1227
+#: src/debugger.c:1257
 msgid "Cannot start terminal for debugging."
 msgstr "Xəta ayırma üçün terminal açıla bilmir."
 
-#: src/debugger.c:1291
+#: src/debugger.c:1321
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr "Xəbərdarlıq: Xəta ayıqlama terminalı yoxdur. Stdio /dev/null avadanlığına istiqamətləndirilir.\n"
+msgstr ""
+"Xəbərdarlıq: Xəta ayıqlama terminalı yoxdur. Stdio /dev/null avadanlığına "
+"istiqamətləndirilir.\n"
 
-#: src/debugger.c:1310
+#: src/debugger.c:1340
 msgid "Running program ... \n"
 msgstr "Proqram icra edilir...\n"
 
-#: src/debugger.c:1440
+#: src/debugger.c:1470
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Gedişata ilişdirilir: %d\n"
 
-#: src/debugger.c:1470
-msgid "A process is already running.\n"
+#: src/debugger.c:1500
+msgid ""
+"A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
-msgstr "Gedişat onsuz da işləməkdədir.\n"
+msgstr ""
+"Gedişat onsuz da işləməkdədir.\n"
 "Onu sonlandırmamı, yoxsa yeni gedişat ilişdirməkmi istəyərdiniz?"
 
-#: src/debugger.c:1482
+#: src/debugger.c:1513
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta özünə ilişdirə bilməz."
 
-#: src/debugger.c:1568
+#: src/debugger.c:1599
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Gedişat sökülür: %d\n"
 
-#: src/debugger.c:1624
-msgid "Program is ATTACHED.\n"
+#: src/debugger.c:1655
+msgid ""
+"Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
-msgstr "Proqram İLİŞDİRİLİB.\n"
+msgstr ""
+"Proqram İLİŞDİRİLİB.\n"
 "Hələ də Xəta Ayıqlayıcını dayandıraq istəyirsiniz?"
 
-#: src/debugger.c:1627
-msgid "Program is RUNNING.\n"
+#: src/debugger.c:1658
+msgid ""
+"Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
-msgstr "Proqram İŞLƏYİR.\n"
+msgstr ""
+"Proqram İŞLƏYİR.\n"
 "Yenə də Xəta Ayırıcını dayandıraq istəyirsiniz?"
 
 #.
@@ -3653,36 +3477,33 @@ msgstr "Proqram İŞLƏYİR.\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1906
+#: src/debugger.c:1937
 msgid "All breakpoints deleted:\n"
 msgstr "Bütün qırma nöqtələri silindi:\n"
 
-#: src/debugger.c:1939
+#: src/debugger.c:1970
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Gedişat kəsilir: %d\n"
 
-#: src/debugger.c:1971
+#: src/debugger.c:2002
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Gedişata %s siqnalı göndərilir: %d\n"
 
-#: src/debugger.c:1992
+#: src/debugger.c:2023
 msgid "Error whilst signalling the process."
 msgstr "Gedişat siqnallanarkən xəta oldu."
 
-#: src/executer.c:53
-#: src/mainmenu_callbacks.c:1706
+#: src/executer.c:53 src/mainmenu_callbacks.c:1701
 msgid "The target executable of this Project is unknown"
 msgstr "Bu layihənin hədəf icra edilə biləni namə'lumdur"
 
-#: src/executer.c:58
-#: src/mainmenu_callbacks.c:1708
+#: src/executer.c:58 src/mainmenu_callbacks.c:1703
 msgid "The target executable of this Project is not executable"
 msgstr "Bu layihənin hədəf icra edilə biləni icra edilə bilən deyil"
 
-#: src/executer.c:63
-#: src/mainmenu_callbacks.c:1712
+#: src/executer.c:63 src/mainmenu_callbacks.c:1707
 msgid "The target executable does not exist for this Project"
 msgstr "Bu lahiyə üçün hədəf icra edilə bilən mövcud deyil"
 
@@ -3690,10 +3511,8 @@ msgstr "Bu lahiyə üçün hədəf icra edilə bilən mövcud deyil"
 msgid "No file or Project opened."
 msgstr "Heç bir fayl ya da layihə açılmayıb."
 
-#: src/executer.c:81
-#: src/executer.c:100
-#: src/mainmenu_callbacks.c:1732
-#: src/mainmenu_callbacks.c:1743
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1727
+#: src/mainmenu_callbacks.c:1738
 msgid "No executable for this file."
 msgstr "Bu fayl üçün icraçı yoxdur."
 
@@ -3713,19 +3532,19 @@ msgstr "Fayl qeyd edilməyib. Əvvəlcə qeyd edin."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Fayl icra edilə bilmir. Qurğular->Əmrləri yoxla."
 
-#: src/find_in_files.c:327
+#: src/find_in_files.c:335
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Fayllarda Axtarma qurtardı...................Uğursuz\n"
 
-#: src/find_in_files.c:330
+#: src/find_in_files.c:337
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Fayllarda Axtarma qurtardı ... uğursuz"
 
-#: src/find_in_files.c:336
+#: src/find_in_files.c:342
 msgid "Find in Files completed...............Successful\n"
 msgstr "Fayllarda Axtarma qurtardı...................Uğurlu\n"
 
-#: src/find_in_files.c:338
+#: src/find_in_files.c:344
 msgid "Find in Files completed ... successful"
 msgstr "Fayllarda Axtarma qurtardı ... uğurlu"
 
@@ -3737,16 +3556,16 @@ msgstr "Heç bir giriş faylları verilməyib."
 msgid "No search string supplied."
 msgstr "Heç bir axtarış qatarı verilməyib."
 
-#: src/find_replace.c:337
+#: src/find_replace.c:338
 msgid "Do you want to replace this occurence?"
 msgstr "Bunu əvəz etmək istəyirsiniz?"
 
-#: src/find_replace.c:399
+#: src/find_replace.c:400
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "\"%s\" kəlməsi seçili mətndə tapıla bilmədi"
 
-#: src/find_replace.c:404
+#: src/find_replace.c:405
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "\"%s\" kəlməsi oxdan etibarən tapıla bilmədi"
@@ -3770,104 +3589,125 @@ msgstr "\"%s\" uyğun kəlməsi hazırkı yerdən etibarən tapıla bilmədi"
 msgid "No matches found. Wrap search around the document?"
 msgstr "Uyğun gələn yoxdur. Axtarış sənəd ətrafında genişləndirilsin?"
 
-#: src/glade_iface.c:96
+#: src/glade_iface.c:99
 msgid "Cannot fork glade."
 msgstr "Glade fork edilə bilmir."
 
-#: src/glade_iface.c:133
-#: src/glade_iface.c:208
+#: src/glade_iface.c:136 src/glade_iface.c:211
 msgid "Cannot fork glade--."
 msgstr "Glade fork edilə bilmir--."
 
-#: src/glade_iface.c:171
+#: src/glade_iface.c:174
 msgid "Cannot fork glade-2."
 msgstr "Glade-2 fork edilə bilmir."
 
-#: src/gnome_project.c:62
-msgid "A project or file with the same name.already exists.\n"
+#: src/gnome_project.c:65
+msgid ""
+"A project or file with the same name.already exists.\n"
 "Project creation aborted."
-msgstr "Bu adlı layihə onsuz da mövcuddur.\n"
+msgstr ""
+"Bu adlı layihə onsuz da mövcuddur.\n"
 "Layihə yaradılması ləğv edildi."
 
-#: src/gnome_project.c:78
+#: src/gnome_project.c:81
 msgid "Generating Project ...\n"
 msgstr "Layihə Yaradılır ...\n"
 
-#: src/gnome_project.c:85
+#: src/gnome_project.c:88
 #, c-format
 msgid "Cannot create file: %s"
 msgstr "%s: faylı yaradıla bilmir"
 
-#: src/gnome_project.c:154
+#: src/gnome_project.c:157
 msgid "Loading Project ...\n"
 msgstr "Layihə Yüklənir ...\n"
 
-#: src/gnome_project.c:165
-#: src/gnome_project.c:225
+#: src/gnome_project.c:168 src/gnome_project.c:228
 msgid "Saving Project ...\n"
 msgstr "Layihə Qeyd Edilir ...\n"
 
-#: src/gnome_project.c:173
+#: src/gnome_project.c:176
 msgid "Generating source codes ...\n"
 msgstr "Mənbə kodları yaradılır ...\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:179
+#: src/gnome_project.c:182
 msgid "Copying icon file ...\n"
 msgstr "Timsal faylı köçürülür ...\n"
 
-#: src/gnome_project.c:193
+#: src/gnome_project.c:196
 msgid "Could not create icon file ...\n"
 msgstr "Timsal faylı yaradıla bilmədi ...\n"
 
-#: src/gnome_project.c:207
+#: src/gnome_project.c:210
 msgid "Locating files ...\n"
 msgstr "faylların yeri müəyyənləşdirilir ...\n"
 
-#: src/gnome_project.c:229
+#: src/gnome_project.c:232
 msgid "Updating Project ...\n"
 msgstr "Layihə Yenilənir ...\n"
 
-#: src/gnome_project.c:232
+#: src/gnome_project.c:235
 msgid "Running autogen.sh ...\n"
 msgstr "autogen.sh icra edilir ...\n"
 
-#: src/gnome_project.c:243
+#: src/gnome_project.c:247
 msgid "App Wizard"
 msgstr "Prq Sehirbazı"
 
-#: src/gnome_project.c:262
-msgid "The Project was not successfully auto generated.\n"
+#: src/gnome_project.c:272
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr "Avtomatik yaratma tamamlandı....................Uğursuz\n"
+
+#: src/gnome_project.c:275
+msgid ""
+"The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
-msgstr "Layihə avotmatik olaraq yaradıla bilmədi.\n"
+msgstr ""
+"Layihə avotmatik olaraq yaradıla bilmədi.\n"
 "Xahiş edirik, autogen.sh faylını əllə icra edin."
 
-#: src/gnome_project.c:268
-msgid "Auto generation completed...............Successful\n"
+#: src/gnome_project.c:281
+msgid ""
+"Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
-msgstr "Avtomatik yaratma qurtardı...............Uğurlu\n"
+msgstr ""
+"Avtomatik yaratma qurtardı...............Uğurlu\n"
 "İndi isə layihəni GÖRMƏK üçün, onu inşa edin\n"
 
-#: src/gnome_project.c:271
+#: src/gnome_project.c:284
 msgid "Project was successfully auto generated."
 msgstr "Lahiyə müvəffəqiyyətlə avtomatik olaraq yaradıldı."
 
-#: src/goto_line.c:106
+#: src/goto_line.c:105
 msgid " Goto Line number "
 msgstr " Sətir nömrəsinə get."
 
-#: src/launcher.c:173
-#, c-format
-msgid "launcher.c: error while reading child stdout - %s\n"
-msgstr "launcher.c: stdout törəməsi oxunarkən xəta- %s\n"
+#: src/launcher.c:596
+msgid "launcher.c: Error while reading child stdout\n"
+msgstr "launcher.c: stdout törəməsi oxunurkən xəta\n"
 
-#: src/launcher.c:200
-#, c-format
-msgid "launcher.c: error while reading child stderr - %s\n"
-msgstr "launcher.c: stderr törəməsi oxunarkən xəta- %s\n"
+#: src/launcher.c:608
+msgid "launcher.c: STDOUT pipe closed"
+msgstr "launcher.c: STDOUT borusu bağlıdır"
 
-#: src/launcher.c:377
-#: src/text_editor.c:1468
+#: src/launcher.c:644
+msgid "launcher.c: Error while reading child stderr"
+msgstr "launcher.c: stderr törəməsi oxunurkən xəta"
+
+#: src/launcher.c:656
+msgid "launcher.c: STDERR pipe closed"
+msgstr "launcher.c: STDERR borusu bağlıdır"
+
+#: src/launcher.c:697
+msgid "launcher.c: Error while reading child pty\n"
+msgstr "launcher.c: pty törəməsi oxunurkən xəta\n"
+
+#: src/launcher.c:715
+msgid "launcher.c: PTY pipe error!"
+msgstr "launcher.c: PTY boru xətası!"
+
+#: src/launcher.c:842 src/text_editor.c:1485
 msgid "Cannot execute command shell"
 msgstr "Əmr qabığı icra edilə bilmir"
 
@@ -3875,12 +3715,11 @@ msgstr "Əmr qabığı icra edilə bilmir"
 msgid "Do not show the splashscreen"
 msgstr "Başlanğıcda sıçrayan ekranı göstərmə"
 
-#: src/main_menubar.c:381
+#: src/main_menubar.c:380
 msgid "Recent Files    "
 msgstr "Axırıncı Fayllar   "
 
-#: src/main_menubar.c:392
-#: src/project_dbase.c:2060
+#: src/main_menubar.c:391 src/project_dbase.c:2033
 msgid "Recent Projects "
 msgstr "Axırıncı Layihələr "
 
@@ -3899,9 +3738,7 @@ msgstr "_Aç ..."
 msgid "_Save"
 msgstr "_Qeyd Et"
 
-#: src/main_menubar_def.h:42
-#: src/text_editor_gui.c:107
-#: src/toolbar.c:84
+#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:84
 msgid "Save current file"
 msgstr "Hazırkı faylı qeyd et"
 
@@ -3928,8 +3765,7 @@ msgstr "Hazırda açıq fayları qeyd et, yeniləri xaric"
 msgid "_Close File"
 msgstr "Faylı _bağla"
 
-#: src/main_menubar_def.h:60
-#: src/toolbar.c:92
+#: src/main_menubar_def.h:60 src/toolbar.c:92
 msgid "Close current file"
 msgstr "Hazırkı faylı bağla"
 
@@ -3947,9 +3783,7 @@ msgstr "Bütün faylları bağla"
 msgid "Reload F_ile"
 msgstr "Faylı Yen_idən Yüklə"
 
-#: src/main_menubar_def.h:72
-#: src/text_editor_gui.c:112
-#: src/toolbar.c:88
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:88
 msgid "Reload current file"
 msgstr "Hazırkı faylı yenidən yüklə"
 
@@ -3977,8 +3811,7 @@ msgstr "Lahiyə İdxalı Sehirbazı ilə mövcud kod layihəsini idxal edin"
 msgid "Open P_roject ..."
 msgstr "La_yihə Aç ..."
 
-#: src/main_menubar_def.h:91
-#: src/toolbar.c:212
+#: src/main_menubar_def.h:91 src/toolbar.c:211
 msgid "Open a Project"
 msgstr "Layihə aç"
 
@@ -3987,8 +3820,7 @@ msgstr "Layihə aç"
 msgid "Sa_ve Project"
 msgstr "Layihəni Qe_yd Et"
 
-#: src/main_menubar_def.h:97
-#: src/toolbar.c:223
+#: src/main_menubar_def.h:97 src/toolbar.c:222
 msgid "Save the current Project"
 msgstr "Hazırkı Layihəni qeyd et"
 
@@ -3997,8 +3829,7 @@ msgstr "Hazırkı Layihəni qeyd et"
 msgid "Close Pro_ject"
 msgstr "Layi_həni bağla"
 
-#: src/main_menubar_def.h:103
-#: src/toolbar.c:235
+#: src/main_menubar_def.h:103 src/toolbar.c:234
 msgid "Close the current Project"
 msgstr "Hazırkı Layihəni bağla"
 
@@ -4015,2115 +3846,2088 @@ msgstr "Hazırkı faylı yenidən adlandır"
 #. 16
 #. 17
 #: src/main_menubar_def.h:116
-msgid "Page Set_up ..."
-msgstr "Səhifə Q_uraşdırılması ..."
-
-#: src/main_menubar_def.h:117
-msgid "Page setup for printing"
-msgstr "Çap üçün səhifə quraşdırılması"
-
-#. 18
-#: src/main_menubar_def.h:122
 msgid "_Print"
 msgstr "_Çap Et"
 
-#: src/main_menubar_def.h:123
-#: src/text_editor_gui.c:179
-#: src/toolbar.c:110
+#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:110
 msgid "Print the current file"
 msgstr "Hazırkı faylı çap et"
 
-#. 19
-#: src/main_menubar_def.h:128
+#. 18
+#: src/main_menubar_def.h:122
 msgid "_Print Preview"
 msgstr "_Çap Nümayişi"
 
-#: src/main_menubar_def.h:129
+#: src/main_menubar_def.h:123
 msgid "Print preview of the current file"
 msgstr "Hazırkı faylın çap nümayişi"
 
+#. 19
 #. 20
-#. 21
-#: src/main_menubar_def.h:135
+#: src/main_menubar_def.h:129
 msgid "Recent _Files"
 msgstr "Axırıncı _Fayllar"
 
-#. 22
-#: src/main_menubar_def.h:141
+#. 21
+#: src/main_menubar_def.h:135
 msgid "Recent Projec_ts"
 msgstr "Axırıncı Layi_hələr"
 
 #. 0
-#: src/main_menubar_def.h:155
+#: src/main_menubar_def.h:149
 msgid "_Make Selection Uppercase"
 msgstr "Seçimi Böyük Hərfə _Çevir"
 
-#: src/main_menubar_def.h:156
+#: src/main_menubar_def.h:150
 msgid "Make the selected text uppercase"
 msgstr "Seçili mətni böyük hərfə çevir"
 
 #. 1
-#: src/main_menubar_def.h:162
+#: src/main_menubar_def.h:156
 msgid "Make Selection Lowercase"
 msgstr "Seçimi Kiçik Hərfə Çevir"
 
-#: src/main_menubar_def.h:163
+#: src/main_menubar_def.h:157
 msgid "Make the selected text lowercase"
 msgstr "Seçili mətni kiçik hərfə çevir"
 
 #. 3
-#: src/main_menubar_def.h:171
+#: src/main_menubar_def.h:165
 msgid "Convert EOL chars to CRLF"
 msgstr "EOL formatını LF formatına dönüşdür"
 
-#: src/main_menubar_def.h:172
+#: src/main_menubar_def.h:166
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Sətir Sonu formatını DOS EOL (CRLF) formatına çevir"
 
 #. 4
-#: src/main_menubar_def.h:178
+#: src/main_menubar_def.h:172
 msgid "Convert EOL chars to LF"
 msgstr "EOL xarakterlərini LF olaraq dönüşdür"
 
-#: src/main_menubar_def.h:179
+#: src/main_menubar_def.h:173
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Sətir Sonu formatını UNIX EOL (LF) formatına çevir"
 
 #. 5
-#: src/main_menubar_def.h:185
+#: src/main_menubar_def.h:179
 msgid "Convert EOL chars to CR"
 msgstr "EOL formatını LF formatına dönüşdür"
 
-#: src/main_menubar_def.h:186
+#: src/main_menubar_def.h:180
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Sətir Sonu formatını Mac OS EOL (CR) formatına çevir"
 
 #. 6
-#: src/main_menubar_def.h:192
+#: src/main_menubar_def.h:186
 msgid "Convert EOL chars to majority EOL"
 msgstr "EOL formatını əksəriyyət EOL formatına dönüşdür"
 
-#: src/main_menubar_def.h:193
+#: src/main_menubar_def.h:187
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr "Sətir Sonu formatını fayldakı əksəriyyət EOL formatına çevir"
 
 #. 0
-#: src/main_menubar_def.h:204
+#: src/main_menubar_def.h:198
 msgid "_Select All"
 msgstr "_Hamısını Seç"
 
-#: src/main_menubar_def.h:205
+#: src/main_menubar_def.h:199
 msgid "Select all text in the editor"
 msgstr "Editordakı bütün mətni seç"
 
 #. 1
-#: src/main_menubar_def.h:210
+#: src/main_menubar_def.h:204
 msgid "Select to _Brace"
 msgstr "_Mötərizələnəcəyi Seçin"
 
-#: src/main_menubar_def.h:211
+#: src/main_menubar_def.h:205
 msgid "Select the text in the matching braces"
 msgstr "Mötərizələr içindəki mətni seçin"
 
 #. 2
-#: src/main_menubar_def.h:216
+#: src/main_menubar_def.h:210
 msgid "Select Code Block"
 msgstr "Kod Blokunu Seç"
 
-#: src/main_menubar_def.h:217
+#: src/main_menubar_def.h:211
 msgid "Select the current code block"
 msgstr "Hazırkı kod blokunu seç"
 
 #. 3
-#: src/main_menubar_def.h:222
+#: src/main_menubar_def.h:216
 msgid "Current Function"
 msgstr "Hazırkı Funksiya"
 
-#: src/main_menubar_def.h:223
+#: src/main_menubar_def.h:217
 msgid "Select the current function"
 msgstr "Hazırkı funksiyanı seç"
 
 #. 4
-#: src/main_menubar_def.h:228
+#: src/main_menubar_def.h:222
 msgid "Current Line"
 msgstr "Hazırkı Sətir"
 
-#: src/main_menubar_def.h:229
+#: src/main_menubar_def.h:223
 msgid "Select the current line"
 msgstr "Hazırkı sətiri seç"
 
 #. 5
-#: src/main_menubar_def.h:234
+#: src/main_menubar_def.h:228
 msgid "Current Word"
 msgstr "Hazırkı Kəlmə"
 
-#: src/main_menubar_def.h:235
+#: src/main_menubar_def.h:229
 msgid "Select the current word"
 msgstr "Hazırkı kəlməni seç"
 
 #. 0
-#: src/main_menubar_def.h:245
+#: src/main_menubar_def.h:239
 msgid "/* GPL Notice */"
 msgstr "/* GPL Xəbərdarlığı */"
 
-#: src/main_menubar_def.h:246
+#: src/main_menubar_def.h:240
 msgid "Insert GPL notice with C style comments"
 msgstr "C şərh tərzində GPL xəbərdarlığını daxil et"
 
 #. 1
-#: src/main_menubar_def.h:251
+#: src/main_menubar_def.h:245
 msgid "// GPL Notice"
 msgstr "// GPL Xəbərdarlığı"
 
-#: src/main_menubar_def.h:252
+#: src/main_menubar_def.h:246
 msgid "Insert GPL notice with C++ style comments"
 msgstr "C++ şərh tərzində GPL xəbərdarlığını daxil et"
 
 #. 2
-#: src/main_menubar_def.h:257
+#: src/main_menubar_def.h:251
 msgid "# GPL Notice"
 msgstr "# GPL Qeydi"
 
-#: src/main_menubar_def.h:258
+#: src/main_menubar_def.h:252
 msgid "Insert GPL notice with Python style comments"
 msgstr "GPL qeydini Python şərhləri tərzində daxil et"
 
 #. 3
-#: src/main_menubar_def.h:263
+#: src/main_menubar_def.h:257
 msgid "Current Username"
 msgstr "Hazırkı İstifadəçi Adı"
 
-#: src/main_menubar_def.h:264
+#: src/main_menubar_def.h:258
 msgid "Insert name of current user"
 msgstr "Hazırkı istifadəçinin adını daxil et"
 
 #. 4
-#: src/main_menubar_def.h:269
+#: src/main_menubar_def.h:263
 msgid "Current Date & Time"
 msgstr "Hazırkı Tarix və Vaxt"
 
-#: src/main_menubar_def.h:270
+#: src/main_menubar_def.h:264
 msgid "Insert current date & time"
 msgstr "Hazırkı tarix və vaxtı daxil et"
 
 #. 5
-#: src/main_menubar_def.h:275
+#: src/main_menubar_def.h:269
 msgid "Header File Template"
 msgstr "Başlıq Faylı Şablonu"
 
-#: src/main_menubar_def.h:276
+#: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
 msgstr "Standart başlıq faylı şablonu daxil et"
 
 #. 6
-#: src/main_menubar_def.h:281
+#: src/main_menubar_def.h:275
 msgid "ChangeLog entry"
 msgstr "ChangeLog girişi"
 
-#: src/main_menubar_def.h:282
+#: src/main_menubar_def.h:276
 msgid "Insert a ChangeLog entry"
 msgstr "ChangeLog girişi daxil et"
 
-#: src/main_menubar_def.h:293
+#: src/main_menubar_def.h:287
 msgid "Insert a switch template"
 msgstr "switch şablonu daxil et"
 
-#: src/main_menubar_def.h:299
+#: src/main_menubar_def.h:293
 msgid "Insert a for template"
 msgstr "for şablonu daxil et"
 
-#: src/main_menubar_def.h:305
+#: src/main_menubar_def.h:299
 msgid "Insert a while template"
 msgstr "while şablonu daxil et"
 
-#: src/main_menubar_def.h:311
+#: src/main_menubar_def.h:305
 msgid "Insert an if...else template"
 msgstr "if...else şablonu daxil et"
 
-#: src/main_menubar_def.h:322
+#: src/main_menubar_def.h:316
 msgid "Insert the CVS Author keyword (author of the change)"
 msgstr "CVS Author açar kəlməsini daxil et (dəyişikliyin müəllifi)"
 
-#: src/main_menubar_def.h:328
+#: src/main_menubar_def.h:322
 msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "CVS Date açar kəlməsini daxil et (dəyişikliyin tarixi və saatı)"
 
-#: src/main_menubar_def.h:334
+#: src/main_menubar_def.h:328
 msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
-msgstr "CVS Header açar kəlməsini daxil et (tam cığır, reviziya, tarix, müəllif, vəziyyət)"
+msgstr ""
+"CVS Header açar kəlməsini daxil et (tam cığır, reviziya, tarix, müəllif, "
+"vəziyyət)"
 
-#: src/main_menubar_def.h:340
+#: src/main_menubar_def.h:334
 msgid "Insert the CVS Id keyword (file, revision, date, author)"
 msgstr "CVS Id açar kəlməsini daxil et (file, reviziya, tarix, müəllif)"
 
-#: src/main_menubar_def.h:346
+#: src/main_menubar_def.h:340
 msgid "Insert the CVS Log keyword (log message)"
 msgstr "CVS Loq açar kəlməsini daxil et (qeyd ismarışı)"
 
-#: src/main_menubar_def.h:352
+#: src/main_menubar_def.h:346
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
 msgstr "CVS Name açar kəlməsini daxil et (yapışan taqın adı)"
 
-#: src/main_menubar_def.h:358
+#: src/main_menubar_def.h:352
 msgid "Insert the CVS Revision keyword (revision number)"
 msgstr "CVS Yoxlama (revision) açar kəlməsi daxil et (yoxlama nömrəsi)"
 
-#: src/main_menubar_def.h:364
+#: src/main_menubar_def.h:358
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "CVS Source açar kəlməsini daxil et (tam cığır)"
 
 #. 0
-#: src/main_menubar_def.h:374
+#: src/main_menubar_def.h:368
 msgid "Header"
 msgstr "Başlıq"
 
-#: src/main_menubar_def.h:375
+#: src/main_menubar_def.h:369
 msgid "Insert a file header"
 msgstr "Fayl başlığı (header) daxil et "
 
 #. 1
-#: src/main_menubar_def.h:380
+#: src/main_menubar_def.h:374
 msgid "C template"
 msgstr "C şablonu"
 
-#: src/main_menubar_def.h:381
+#: src/main_menubar_def.h:375
 msgid "Insert a C template"
 msgstr "C şablonu daxil et"
 
 #. 2
-#: src/main_menubar_def.h:386
+#: src/main_menubar_def.h:380
 msgid "CVS keyword"
 msgstr "CVS açar kəlmə"
 
 #. 0
-#: src/main_menubar_def.h:403
+#: src/main_menubar_def.h:397
 msgid "Block Comment/Uncomment"
 msgstr "Qutu qeydinə çevir/geri al"
 
-#: src/main_menubar_def.h:404
+#: src/main_menubar_def.h:398
 msgid "Block comment/uncomment the selected text"
 msgstr "Seçili mətni blok qeydinə çevir/geri al"
 
 #. 1
-#: src/main_menubar_def.h:409
+#: src/main_menubar_def.h:403
 msgid "Box Comment/Uncomment"
 msgstr "Qutu qeydinə çevir/geri al"
 
-#: src/main_menubar_def.h:410
+#: src/main_menubar_def.h:404
 msgid "Box comment/uncomment the selected text"
 msgstr "Seçili mətni qutu qeydinə çevir/geri al"
 
 #. 2
-#: src/main_menubar_def.h:415
+#: src/main_menubar_def.h:409
 msgid "Stream Comment/Uncomment"
 msgstr "Axın qeydinə çevir/geri al"
 
-#: src/main_menubar_def.h:416
+#: src/main_menubar_def.h:410
 msgid "Stream comment/uncomment the selected text"
 msgstr "Seçili mətni axın qeydinə çevir/geri al"
 
 #. 0
-#: src/main_menubar_def.h:426
+#: src/main_menubar_def.h:420
 msgid "_Find ..."
 msgstr "_Axtar..."
 
-#: src/main_menubar_def.h:427
+#: src/main_menubar_def.h:421
 msgid "Search for a string or regular expression in the editor"
 msgstr "Editorda qatar ya da qaydalı ifadə axtar"
 
 #. 1
-#: src/main_menubar_def.h:433
+#: src/main_menubar_def.h:427
 msgid "Find _Next"
 msgstr "_Sonrakını Axtar"
 
-#: src/main_menubar_def.h:434
+#: src/main_menubar_def.h:428
 msgid "Repeat the last Find command"
 msgstr "Son işlədilən Tap əmrini təkrarla"
 
 #. 2
-#: src/main_menubar_def.h:440
+#: src/main_menubar_def.h:434
 msgid "Find and R_eplace ..."
 msgstr "Axtar və Ə_vəz Et"
 
-#: src/main_menubar_def.h:441
+#: src/main_menubar_def.h:435
 msgid "Search for and replace a string or regular expression with another string"
 msgstr "Qatarı ya da qaydalı ifadəni axtararaq başqası ilə əvəz et"
 
 #. 3
-#: src/main_menubar_def.h:447
+#: src/main_menubar_def.h:441
 msgid "Fin_d in Files ..."
 msgstr "Fayllarda _Tap ...."
 
-#: src/main_menubar_def.h:448
+#: src/main_menubar_def.h:442
 msgid "Search for a string in multiple files or directories"
 msgstr "Qatarı çoxlu fayl ya da cərgələrdə axtar"
 
 #. 4
-#: src/main_menubar_def.h:454
+#: src/main_menubar_def.h:448
 msgid "_Enter Selection/I-Search"
 msgstr "_Seçimi Daxil Et/I-Axtarış"
 
-#: src/main_menubar_def.h:455
+#: src/main_menubar_def.h:449
 msgid "Enter the selected text as the search target"
 msgstr "Seçili mətni axtarış hədəfi olaraq daxil et"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:463
+#: src/main_menubar_def.h:457
 msgid "Advanced search and re_place"
 msgstr "Ətraflı axtar və ə_vəz et"
 
-#: src/main_menubar_def.h:464
+#: src/main_menubar_def.h:458
 msgid "Advanced Search And Replace"
 msgstr "Ətraflı Axtar və Əvəz Et"
 
 #. 0
-#: src/main_menubar_def.h:475
+#: src/main_menubar_def.h:469
 msgid "_Goto Line number ..."
 msgstr "Sətir Nömrəsinə _Get ..."
 
-#: src/main_menubar_def.h:476
+#: src/main_menubar_def.h:470
 msgid "Go to a particular line in the editor"
 msgstr "Editordakı xüsusi sətirə get"
 
 #. 1
-#: src/main_menubar_def.h:481
+#: src/main_menubar_def.h:475
 msgid "Goto Matching _Brace"
 msgstr "_Mötərizəyə Get"
 
-#: src/main_menubar_def.h:482
+#: src/main_menubar_def.h:476
 msgid "Go to the matching brace in the editor"
 msgstr "Editordakı mötərizəyə get"
 
 #. 2
-#: src/main_menubar_def.h:487
+#: src/main_menubar_def.h:481
 msgid "_Goto start of block"
 msgstr "Blok başına _get"
 
-#: src/main_menubar_def.h:488
+#: src/main_menubar_def.h:482
 msgid "Go to the start of the current block"
 msgstr "Hazırkı blokun başına get"
 
 #. 3
-#: src/main_menubar_def.h:493
+#: src/main_menubar_def.h:487
 msgid "_Goto end of block"
 msgstr "Blok sonuna _get"
 
-#: src/main_menubar_def.h:494
+#: src/main_menubar_def.h:488
 msgid "Go to the end of the current block"
 msgstr "Hazırkı blokun sonuna get"
 
 #. 4
-#: src/main_menubar_def.h:499
+#: src/main_menubar_def.h:493
 msgid "_Goto previous mesg"
 msgstr "Əvvəlki ismarışa _get"
 
-#: src/main_menubar_def.h:500
+#: src/main_menubar_def.h:494
 msgid "Go to previous message"
 msgstr "Əvvəlki ismarışa get"
 
 #. 5
-#: src/main_menubar_def.h:505
+#: src/main_menubar_def.h:499
 msgid "_Goto next mesg"
 msgstr "Sonrakı ismarışa _get"
 
-#: src/main_menubar_def.h:506
+#: src/main_menubar_def.h:500
 msgid "Go to next message"
 msgstr "Sonrakı ismarışa get"
 
 #. 6
-#: src/main_menubar_def.h:511
+#: src/main_menubar_def.h:505
 msgid "_Go Back"
 msgstr "_Geri Get"
 
-#: src/main_menubar_def.h:512
+#: src/main_menubar_def.h:506
 msgid "Go back"
 msgstr "Geri get"
 
 #. 7
-#: src/main_menubar_def.h:517
+#: src/main_menubar_def.h:511
 msgid "_Go Forward"
 msgstr "_İrəli Get"
 
-#: src/main_menubar_def.h:518
+#: src/main_menubar_def.h:512
 msgid "Go forward"
 msgstr "İrəli get"
 
 #. 8
-#: src/main_menubar_def.h:523
-#: src/text_editor_menu.c:93
+#: src/main_menubar_def.h:517 src/text_editor_menu.c:93
 msgid "Tag Definition"
 msgstr "Taq Təsviri"
 
-#: src/main_menubar_def.h:524
+#: src/main_menubar_def.h:518
 msgid "Goto tag definition"
 msgstr "Taq təsvirinə get"
 
 #. 9
-#: src/main_menubar_def.h:529
-#: src/text_editor_menu.c:100
+#: src/main_menubar_def.h:523 src/text_editor_menu.c:100
 msgid "Tag Declaration"
 msgstr "Taq Deklarasiyası"
 
-#: src/main_menubar_def.h:530
+#: src/main_menubar_def.h:524
 msgid "Goto tag declaration"
 msgstr "Taq deklarasiyasına get"
 
 #. 10
-#: src/main_menubar_def.h:535
+#: src/main_menubar_def.h:529
 msgid "Next occurrence"
 msgstr "Növbəti təsadüf"
 
-#: src/main_menubar_def.h:536
+#: src/main_menubar_def.h:530
 msgid "Find the next occurrence of current word"
 msgstr "Hazırkı kəlmənin sonrakı təsadüfünü tap"
 
 #. 11
-#: src/main_menubar_def.h:541
+#: src/main_menubar_def.h:535
 msgid "Previous occurrence"
 msgstr "Əvvəlki təsadüf"
 
-#: src/main_menubar_def.h:542
+#: src/main_menubar_def.h:536
 msgid "Find the previous occurrence of current word"
 msgstr "Hazırkı kəlmənin əvvəlki təsadüfünü tap"
 
 #. 0
-#: src/main_menubar_def.h:553
+#: src/main_menubar_def.h:547
 msgid "U_ndo"
 msgstr "Qa_ytar"
 
-#: src/main_menubar_def.h:554
-#: src/toolbar.c:97
+#: src/main_menubar_def.h:548 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Axırıncı əməliyyatınızdan arxaya dönün"
 
 #. 1
-#: src/main_menubar_def.h:560
+#: src/main_menubar_def.h:554
 msgid "_Redo"
 msgstr "_Yenidən Et"
 
-#: src/main_menubar_def.h:561
-#: src/toolbar.c:101
+#: src/main_menubar_def.h:555 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Axırıncı gedişi geri təkrarla"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:569
+#: src/main_menubar_def.h:563
 msgid "C_ut"
 msgstr "Kə_s"
 
-#: src/main_menubar_def.h:570
+#: src/main_menubar_def.h:564
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Seçili mətni editordan ara yaddaşa kəs"
 
 #. 4
-#: src/main_menubar_def.h:576
+#: src/main_menubar_def.h:570
 msgid "_Copy"
 msgstr "_Köçür"
 
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:571
 msgid "Copy the selected text to the clipboard"
 msgstr "Seçili mətni ara yaddaşa köçür"
 
 #. 5
-#: src/main_menubar_def.h:583
+#: src/main_menubar_def.h:577
 msgid "_Paste"
 msgstr "_Yapışdır"
 
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:578
 msgid "Paste the content of clipboard at the current position"
 msgstr "Ara yaddaş məzmunu hazırkı yerə yapışdırın"
 
 #. 6
-#: src/main_menubar_def.h:590
+#: src/main_menubar_def.h:584
 msgid "C_lear"
 msgstr "T_əmizlə"
 
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:585
 msgid "Delete the selected text from the editor"
 msgstr "Seçili mətni editordan silin"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:599
+#: src/main_menubar_def.h:593
 msgid "_Transform"
 msgstr "_Dönüşdür"
 
 #. 9
-#: src/main_menubar_def.h:606
+#: src/main_menubar_def.h:600
 msgid "_Select"
 msgstr "_Seç"
 
 #. 10
-#: src/main_menubar_def.h:613
+#: src/main_menubar_def.h:607
 msgid "_Insert text"
 msgstr "Mətn dax_il Et"
 
 #. 11
-#: src/main_menubar_def.h:620
+#: src/main_menubar_def.h:614
 msgid "Co_mment code"
 msgstr "Kodu _qeydə çevir"
 
 #. 12
-#: src/main_menubar_def.h:626
+#: src/main_menubar_def.h:620
 msgid "S_earch"
 msgstr "_Axtar"
 
 #. 13
-#: src/main_menubar_def.h:632
+#: src/main_menubar_def.h:626
 msgid "G_o to"
 msgstr "G_et"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:641
+#: src/main_menubar_def.h:635
 msgid "_AutoComplete"
 msgstr "_AvtoTamamlala"
 
-#: src/main_menubar_def.h:642
+#: src/main_menubar_def.h:636
 msgid "AutoComplete the current word"
 msgstr "HAzırkı sözü öz özünə tamamla"
 
 #. 16
-#: src/main_menubar_def.h:648
+#: src/main_menubar_def.h:642
 msgid "S_how calltip"
 msgstr "İp ucunu g_östər"
 
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:643
 msgid "Show calltip for the function"
 msgstr "Funksiyanın çağırış ip ucunu göstər"
 
 #. 0
-#: src/main_menubar_def.h:661
+#: src/main_menubar_def.h:655
 msgid "_Main Toolbar"
 msgstr "_Ana Vasitə Çubuğu"
 
-#: src/main_menubar_def.h:662
+#: src/main_menubar_def.h:656
 msgid "Hide/Unhide Main toolbar"
 msgstr "Ana vasitə çubuğunu Gizlə/Göstər"
 
 #. 1
-#: src/main_menubar_def.h:667
+#: src/main_menubar_def.h:661
 msgid "_Extended Toolbar"
 msgstr "Tə_fsilatlı Vasitə Çubuğu"
 
-#: src/main_menubar_def.h:668
+#: src/main_menubar_def.h:662
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Təfsilatlı vasitə çubuğunu Gizlə/Göstər"
 
 #. 2
-#: src/main_menubar_def.h:673
+#: src/main_menubar_def.h:667
 msgid "_Debug Toolbar"
 msgstr "_Xəta Ayıqlama Vasitə Çubuğu"
 
-#: src/main_menubar_def.h:674
+#: src/main_menubar_def.h:668
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Xəta ayıqlama vasitə çubuğunu Gizlə/Göstər"
 
 #. 3
-#: src/main_menubar_def.h:679
+#: src/main_menubar_def.h:673
 msgid "_Browser Toolbar"
 msgstr "_Səyahət Vasitə Çubuğu"
 
-#: src/main_menubar_def.h:680
+#: src/main_menubar_def.h:674
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Səyyah vasitə çubuğunu Gizlə/Göstər"
 
 #. 4
-#: src/main_menubar_def.h:685
+#: src/main_menubar_def.h:679
 msgid "_Format Toolbar"
 msgstr "_Şəkilləndirmə Vasitə Çubuğu"
 
-#: src/main_menubar_def.h:686
+#: src/main_menubar_def.h:680
 msgid "Hide/Unhide Format toolbar"
 msgstr "Format vasitə çubuğunu Gizlə/Göstər"
 
 #. 0
-#: src/main_menubar_def.h:696
+#: src/main_menubar_def.h:690
 msgid "_Line numbers margin"
 msgstr "_Sətir nömrələri hüdudları"
 
-#: src/main_menubar_def.h:697
+#: src/main_menubar_def.h:691
 msgid "Show/Hide line numbers"
 msgstr "Sətir nömrələrini Göstər/Gizlət"
 
 #. 1
-#: src/main_menubar_def.h:702
+#: src/main_menubar_def.h:696
 msgid "_Markers Margin"
 msgstr "_İşarəçilər Hüdudu"
 
-#: src/main_menubar_def.h:703
+#: src/main_menubar_def.h:697
 msgid "Show/Hide markers margin"
 msgstr "İşarəçilər hüdudunu Göstər/Gizlət"
 
 #. 2
-#: src/main_menubar_def.h:708
+#: src/main_menubar_def.h:702
 msgid "_Code fold margin"
 msgstr "_Kod saxlama kənarı"
 
-#: src/main_menubar_def.h:709
+#: src/main_menubar_def.h:703
 msgid "Show/Hide code fold margin"
 msgstr "Kod saxlama kənarını Göstər/Gizlət"
 
 #. 3
-#: src/main_menubar_def.h:714
+#: src/main_menubar_def.h:708
 msgid "_Indentation guides"
 msgstr "_Çərtmə bələdçiləri"
 
-#: src/main_menubar_def.h:715
+#: src/main_menubar_def.h:709
 msgid "Show/Hide indentation guides"
 msgstr "Çərtmə bələdçilərini Göstər/Gizlət"
 
 #. 4
-#: src/main_menubar_def.h:720
+#: src/main_menubar_def.h:714
 msgid "_White spaces"
 msgstr "A_ğ boşluqlar"
 
-#: src/main_menubar_def.h:721
+#: src/main_menubar_def.h:715
 msgid "Show/Hide white spaces"
 msgstr "Ağ boşluqları Göstər/Gizlət"
 
 #. 5
-#: src/main_menubar_def.h:726
+#: src/main_menubar_def.h:720
 msgid "_Line end characters"
 msgstr "_Sətir sonu xarakterləri"
 
-#: src/main_menubar_def.h:727
+#: src/main_menubar_def.h:721
 msgid "Show/Hide line end characters"
 msgstr "Sətir sonu xarakterlərini Göstər/Gizlət"
 
 #. 6
-#: src/main_menubar_def.h:732
+#: src/main_menubar_def.h:726
 msgid "Line _wrapping"
 msgstr "Sətir _qırması"
 
-#: src/main_menubar_def.h:733
+#: src/main_menubar_def.h:727
 msgid "Enable/disable line wrapping"
 msgstr "Sətir qırmasını fəallaşdır/qeyri-fəallaşdır"
 
 #. 0
-#: src/main_menubar_def.h:743
+#: src/main_menubar_def.h:737
 msgid "++ Zoom"
 msgstr "++ Yaxınlıq"
 
-#: src/main_menubar_def.h:744
+#: src/main_menubar_def.h:738
 msgid "Increase text zoom by 1 unit"
 msgstr "Mətn yaxınlığını 1 vahid artır"
 
 #. 1
-#: src/main_menubar_def.h:749
+#: src/main_menubar_def.h:743
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:750
+#: src/main_menubar_def.h:744
 msgid "Zoom factor +8"
 msgstr "Yaxınlıq faktoru +8"
 
 #. 2
-#: src/main_menubar_def.h:755
+#: src/main_menubar_def.h:749
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:756
+#: src/main_menubar_def.h:750
 msgid "Zoom factor +6"
 msgstr "Yaxınlıq faktoru +6"
 
 #. 3
-#: src/main_menubar_def.h:761
+#: src/main_menubar_def.h:755
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:762
+#: src/main_menubar_def.h:756
 msgid "Zoom factor +4"
 msgstr "Yaxınlıq faktoru +4"
 
 #. 4
-#: src/main_menubar_def.h:767
+#: src/main_menubar_def.h:761
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:768
+#: src/main_menubar_def.h:762
 msgid "Zoom factor +2"
 msgstr "Yaxınlıq faktoru +2"
 
-#: src/main_menubar_def.h:774
+#: src/main_menubar_def.h:768
 msgid "Zoom factor 0"
 msgstr "Yaxınlıq faktoru 0"
 
 #. 6
-#: src/main_menubar_def.h:779
+#: src/main_menubar_def.h:773
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:780
+#: src/main_menubar_def.h:774
 msgid "Zoom factor -2"
 msgstr "Yaxınlıq faktoru -2"
 
 #. 7
-#: src/main_menubar_def.h:785
+#: src/main_menubar_def.h:779
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:786
+#: src/main_menubar_def.h:780
 msgid "Zoom factor -4"
 msgstr "Yaxınlıq faktoru -4"
 
 #. 8
-#: src/main_menubar_def.h:791
+#: src/main_menubar_def.h:785
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:792
+#: src/main_menubar_def.h:786
 msgid "Zoom factor -6"
 msgstr "Yaxınlıq faktoru -6"
 
 #. 9
-#: src/main_menubar_def.h:797
+#: src/main_menubar_def.h:791
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:798
+#: src/main_menubar_def.h:792
 msgid "Zoom factor -8"
 msgstr "Yaxınlıq faktoru -8"
 
 #. 10
-#: src/main_menubar_def.h:803
+#: src/main_menubar_def.h:797
 msgid "-- Zoom"
 msgstr "-- Yaxınlıq"
 
-#: src/main_menubar_def.h:804
+#: src/main_menubar_def.h:798
 msgid "Reduce text zoom by 1 unit"
 msgstr "Mətn yaxınlığını 1 vahid azalt"
 
 #. 0
-#: src/main_menubar_def.h:814
+#: src/main_menubar_def.h:808
 msgid "_Message window"
 msgstr "_İsmarış pəncərəsi"
 
-#: src/main_menubar_def.h:815
-#: src/toolbar.c:154
+#: src/main_menubar_def.h:809 src/toolbar.c:154
 msgid "Show/Hide the Message window"
 msgstr "İsmarış pəncərəsini Göstər/Gizlət"
 
 #. 1
-#: src/main_menubar_def.h:820
+#: src/main_menubar_def.h:814
 msgid "_Project window"
 msgstr "_Layihə pəncərəsi"
 
-#: src/main_menubar_def.h:821
-#: src/toolbar.c:150
+#: src/main_menubar_def.h:815 src/toolbar.c:150
 msgid "Show/Hide the Project window"
 msgstr "Lahiyə pəncərəsini Göstər/Gizlət"
 
 #. 2
-#: src/main_menubar_def.h:826
+#: src/main_menubar_def.h:820
 msgid "B_ookmarks"
 msgstr "_Nişanlar"
 
-#: src/main_menubar_def.h:827
+#: src/main_menubar_def.h:821
 msgid "Show the Bookmark window"
 msgstr "Nişan pəncərəsini Göstər/Nişanlar"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:833
+#: src/main_menubar_def.h:827
 msgid "_Toolbars"
 msgstr "_Vasitə Çubuqları"
 
 #. 5
-#: src/main_menubar_def.h:839
+#: src/main_menubar_def.h:833
 msgid "_Editor"
 msgstr "_Editor"
 
 #. 6
-#: src/main_menubar_def.h:845
+#: src/main_menubar_def.h:839
 msgid "_Zoom text"
 msgstr "Mətni _yaxınlaşdır"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:852
-#: src/main_menubar_def.h:1564
+#: src/main_menubar_def.h:846 src/main_menubar_def.h:1558
 msgid "_Breakpoints"
 msgstr "_Qırma Nöqtələri"
 
-#: src/main_menubar_def.h:853
+#: src/main_menubar_def.h:847
 msgid "Show breakpoints editor window"
 msgstr "Qırma nöqtələri editor pəncərəsini göstər"
 
 #. 9
-#: src/main_menubar_def.h:858
+#: src/main_menubar_def.h:852
 msgid "_Registers"
 msgstr "_Registerlər"
 
-#: src/main_menubar_def.h:859
+#: src/main_menubar_def.h:853
 msgid "Show CPU registers and their contents"
 msgstr "CPU registerləri və məzmunu göstər"
 
 #. 10
-#: src/main_menubar_def.h:864
+#: src/main_menubar_def.h:858
 msgid "Shared _Libraries"
 msgstr "Paylaşılmiş _Kitabxanalar"
 
-#: src/main_menubar_def.h:865
+#: src/main_menubar_def.h:859
 msgid "Show shared libraries loaded by the program"
 msgstr "Proqramın yüklədiyi paylaşılan kitabxanaları göstər"
 
 #. 11
-#: src/main_menubar_def.h:870
+#: src/main_menubar_def.h:864
 msgid "_Kernel Signals"
 msgstr "Çə_kirdək Siqnalları"
 
-#: src/main_menubar_def.h:871
+#: src/main_menubar_def.h:865
 msgid "Show the kernel signals editor window"
 msgstr "Çəkirdək siqnallarını göstər"
 
 #. 12
-#: src/main_menubar_def.h:876
+#: src/main_menubar_def.h:870
 msgid "Memory _Dump"
 msgstr "Yaddaş _Qalığı (Memory Dump)"
 
-#: src/main_menubar_def.h:877
+#: src/main_menubar_def.h:871
 msgid "Show memory dump window"
 msgstr "Yaddaş yekun pəncərəsini göstər"
 
 #. 0
-#: src/main_menubar_def.h:887
-#: src/project_dbase_gui.c:277
+#: src/main_menubar_def.h:881 src/project_dbase_gui.c:277
 msgid "Include file"
 msgstr "Faylı daxil et"
 
 #. 1
-#: src/main_menubar_def.h:893
-#: src/project_dbase_gui.c:283
+#: src/main_menubar_def.h:887 src/project_dbase_gui.c:283
 msgid "Source file"
 msgstr "Qaynaq faylı"
 
 #. 2
-#: src/main_menubar_def.h:899
-#: src/project_dbase_gui.c:289
+#: src/main_menubar_def.h:893 src/project_dbase_gui.c:289
 msgid "Help file"
 msgstr "Yardım faylı"
 
 #. 3
-#: src/main_menubar_def.h:905
-#: src/project_dbase_gui.c:295
+#: src/main_menubar_def.h:899 src/project_dbase_gui.c:295
 msgid "Data file"
 msgstr "Verilənlər  faylı"
 
 #. 4
-#: src/main_menubar_def.h:911
-#: src/project_dbase_gui.c:301
+#: src/main_menubar_def.h:905 src/project_dbase_gui.c:301
 msgid "Pixmap file"
 msgstr "Piksməp faylı"
 
 #. 5
-#: src/main_menubar_def.h:917
-#: src/project_dbase_gui.c:307
+#: src/main_menubar_def.h:911 src/project_dbase_gui.c:307
 msgid "Translation file"
 msgstr "Tərcümə faylı"
 
 #. 6
-#: src/main_menubar_def.h:923
-#: src/project_dbase_gui.c:313
+#: src/main_menubar_def.h:917 src/project_dbase_gui.c:313
 msgid "Doc file"
 msgstr "Doc faylı"
 
 #. 0
-#: src/main_menubar_def.h:934
-#: src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:928 src/project_dbase_gui.c:323
 msgid "Add File"
 msgstr "Fayl Əlavə Et"
 
 #. 3
-#: src/main_menubar_def.h:952
+#: src/main_menubar_def.h:946
 msgid "Remove File"
 msgstr "Fayl Sil"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:959
-#: src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:953 src/project_dbase_gui.c:348
 msgid "Configure Project"
 msgstr "Laihəni Quraşdır"
 
-#: src/main_menubar_def.h:960
+#: src/main_menubar_def.h:954
 msgid "Configure options for the current Project"
 msgstr "Hazırkı Layihənin qurğularını dəyişdir"
 
 #. 6
-#: src/main_menubar_def.h:965
-#: src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:959 src/project_dbase_gui.c:354
 msgid "Project Info"
 msgstr "Lahiyə İnfosu"
 
-#: src/main_menubar_def.h:966
+#: src/main_menubar_def.h:960
 msgid "Display the Project information"
 msgstr "Layihə mə'lumatını göstər"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:979
+#: src/main_menubar_def.h:973
 msgid "_Update tags image"
 msgstr "taq rəsmlərini _güncəllə"
 
-#: src/main_menubar_def.h:980
+#: src/main_menubar_def.h:974
 msgid "Update the tags image of the Project/opened files"
 msgstr "Layihə/açıq faylların taq rəsmlərini yenilə"
 
 #. 11
-#: src/main_menubar_def.h:985
+#: src/main_menubar_def.h:979
 msgid "Rebuild tags image"
 msgstr "Taq rəsmlərini yenidən inşa et"
 
-#: src/main_menubar_def.h:986
+#: src/main_menubar_def.h:980
 msgid "Rebuild the tags image of the Project"
 msgstr "Layihənin taq rəsmlərini yenidən inşa et"
 
 #. 12
-#: src/main_menubar_def.h:991
+#: src/main_menubar_def.h:985
 msgid "Ed_it Application GUI ..."
 msgstr "Təm_inat GUI-ni Düzəlt ..."
 
-#: src/main_menubar_def.h:992
+#: src/main_menubar_def.h:986
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "tə'minat ara üzünü Glade GUI editoru ilə düzəlt"
 
 #. 0
-#: src/main_menubar_def.h:1009
+#: src/main_menubar_def.h:1003
 msgid "Automatic"
 msgstr "Avtomatik"
 
-#: src/main_menubar_def.h:1010
+#: src/main_menubar_def.h:1004
 msgid "Automatically determine the highlight style"
 msgstr "İşıqlandırma tərzini avtomatik olaraq təsbit et"
 
 #. 1
-#: src/main_menubar_def.h:1015
+#: src/main_menubar_def.h:1009
 msgid "No Highlight style"
 msgstr "İşıqlandırma Tərzi Olmsaın"
 
-#: src/main_menubar_def.h:1016
+#: src/main_menubar_def.h:1010
 msgid "Remove the current highlight style"
 msgstr "Hazırkı işıqlandırma tərzini sil"
 
 #. 2
-#: src/main_menubar_def.h:1021
+#: src/main_menubar_def.h:1015
 msgid "C and C++"
 msgstr "C və C++"
 
-#: src/main_menubar_def.h:1022
+#: src/main_menubar_def.h:1016
 msgid "Force the highlight style to C and C++"
 msgstr "İşıqlandırma tərzini C və C++ə məcbur et"
 
 #. 3
-#: src/main_menubar_def.h:1027
+#: src/main_menubar_def.h:1021
 msgid "C and C++ with GNOME"
 msgstr "GNOME ilə birlikdə C və C++"
 
-#: src/main_menubar_def.h:1028
+#: src/main_menubar_def.h:1022
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "İşıqlandırma tərzini GNOME ilə birlikdə C və C++ə məcbur et"
 
 #. 4
-#: src/main_menubar_def.h:1033
+#: src/main_menubar_def.h:1027
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:1034
+#: src/main_menubar_def.h:1028
 msgid "Force the highlight style to HTML"
 msgstr "İşıqlandırma tərzini HTML-yə məcbur et"
 
 #. 5
-#: src/main_menubar_def.h:1039
+#: src/main_menubar_def.h:1033
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:1040
+#: src/main_menubar_def.h:1034
 msgid "Force the highlight style to XML"
 msgstr "İşıqlandırma tərzini XML-ə məcbur et"
 
 #. 6
-#: src/main_menubar_def.h:1045
+#: src/main_menubar_def.h:1039
 msgid "Javascript"
 msgstr "Javascript"
 
-#: src/main_menubar_def.h:1046
+#: src/main_menubar_def.h:1040
 msgid "Force the highlight style to Javascript"
 msgstr "İşıqlandırma tərzini Javascript-ə məcbur et"
 
 #. 7
-#: src/main_menubar_def.h:1051
+#: src/main_menubar_def.h:1045
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:1052
+#: src/main_menubar_def.h:1046
 msgid "Force the highlight style to WScript"
 msgstr "İşıqlandırma tərzini WScript-ə məcbur et"
 
 #. 8
-#: src/main_menubar_def.h:1057
+#: src/main_menubar_def.h:1051
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:1058
+#: src/main_menubar_def.h:1052
 msgid "Force the highlight style to Makefile"
 msgstr "İşıqlandırma tərzini Makefile-a məcbur et"
 
 #. 9
-#: src/main_menubar_def.h:1063
+#: src/main_menubar_def.h:1057
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1058
 msgid "Force the highlight type to Java"
 msgstr "İşıqlandırma tərzini Java-ya məcbur et"
 
 #. 10
-#: src/main_menubar_def.h:1069
+#: src/main_menubar_def.h:1063
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:1070
+#: src/main_menubar_def.h:1064
 msgid "Force the highlight style to LUA"
 msgstr "İşıqlandırma tərzini LUA-ya məcbur et"
 
 #. 11
-#: src/main_menubar_def.h:1075
+#: src/main_menubar_def.h:1069
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:1076
+#: src/main_menubar_def.h:1070
 msgid "Force the highlight style to Python"
 msgstr "İşıqlandırma tərzini Python-a məcbur et"
 
 #. 12
-#: src/main_menubar_def.h:1081
+#: src/main_menubar_def.h:1075
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:1082
+#: src/main_menubar_def.h:1076
 msgid "Force the highlight style to Perl"
 msgstr "İşıqlandırma tərzini PERL-ə məcbur et"
 
 #. 13
-#: src/main_menubar_def.h:1087
+#: src/main_menubar_def.h:1081
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:1088
+#: src/main_menubar_def.h:1082
 msgid "Force the highlight style to SQL"
 msgstr "İşıqlandırma tərzini SQL-a məcbur et"
 
 #. 14
-#: src/main_menubar_def.h:1093
+#: src/main_menubar_def.h:1087
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1094
+#: src/main_menubar_def.h:1088
 msgid "Force the highlight style to PL/SQL"
 msgstr "İşıqlandırma tərzini PL/SQL-a məcbur et"
 
 #. 15
-#: src/main_menubar_def.h:1099
+#: src/main_menubar_def.h:1093
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:1100
+#: src/main_menubar_def.h:1094
 msgid "Force the highlight style to PHP"
 msgstr "İşıqlandırma tərzini PHP-yə məcbur et"
 
 #. 16
-#: src/main_menubar_def.h:1105
+#: src/main_menubar_def.h:1099
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:1106
+#: src/main_menubar_def.h:1100
 msgid "Force the highlight style to LaTex"
 msgstr "İşıqlandırma tərzini LaTex-ə məcbur et"
 
-#: src/main_menubar_def.h:1112
+#: src/main_menubar_def.h:1106
 msgid "Force the highlight style to Diff"
 msgstr "İşıqlandırma tərzini Diff-ə məcbur et"
 
 #. 18
-#: src/main_menubar_def.h:1117
+#: src/main_menubar_def.h:1111
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:1118
+#: src/main_menubar_def.h:1112
 msgid "Force the highlight style to Pascal"
 msgstr "İşıqlandırma tərzini Pascal-a məcbur et"
 
 #. 19
-#: src/main_menubar_def.h:1123
+#: src/main_menubar_def.h:1117
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:1124
+#: src/main_menubar_def.h:1118
 msgid "Force the highlight style to Xcode"
 msgstr "İşıqlandırma tərzini Xcode-a məcbur et"
 
 #. 20
-#: src/main_menubar_def.h:1129
+#: src/main_menubar_def.h:1123
 msgid "Prj/Properties"
 msgstr "Lay/Xassələr"
 
-#: src/main_menubar_def.h:1130
+#: src/main_menubar_def.h:1124
 msgid "Force the highlight style to project/properties files"
 msgstr "İşıqlandırma tərzini layihə tərzi fayllarına məcbur et"
 
 #. 21
-#: src/main_menubar_def.h:1135
+#: src/main_menubar_def.h:1129
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:1136
+#: src/main_menubar_def.h:1130
 msgid "Force the highlight style to UNIX conf files"
 msgstr "İşıqlandırma tərzini UNIX quraşdırma fayllarına məcbur et"
 
 #. 22
-#: src/main_menubar_def.h:1141
+#: src/main_menubar_def.h:1135
 msgid "Ada"
 msgstr "Ada"
 
-#: src/main_menubar_def.h:1142
+#: src/main_menubar_def.h:1136
 msgid "Force the highlight style to Ada"
 msgstr "İşıqlandırma tərzini ADA olaraq seç"
 
 #. 23
-#: src/main_menubar_def.h:1147
+#: src/main_menubar_def.h:1141
 msgid "Baan"
 msgstr "Baan"
 
-#: src/main_menubar_def.h:1148
+#: src/main_menubar_def.h:1142
 msgid "Force the highlight style to Baan"
 msgstr "İşıqlandırma tərzini Baan olaraq seç"
 
 #. 24
-#: src/main_menubar_def.h:1153
+#: src/main_menubar_def.h:1147
 msgid "Lisp"
 msgstr "Lisp"
 
-#: src/main_menubar_def.h:1154
+#: src/main_menubar_def.h:1148
 msgid "Force the highlight style to Lisp"
 msgstr "İşıqlandırma tərzini Lisp olaraq seç"
 
 #. 25
-#: src/main_menubar_def.h:1159
+#: src/main_menubar_def.h:1153
 msgid "Ruby"
 msgstr "Ruby"
 
-#: src/main_menubar_def.h:1160
+#: src/main_menubar_def.h:1154
 msgid "Force the highlight style to Ruby"
 msgstr "İşıqlandırma tərzini Ruby olaraq seç"
 
 #. 26
-#: src/main_menubar_def.h:1165
+#: src/main_menubar_def.h:1159
 msgid "Matlab"
 msgstr "Matlab"
 
-#: src/main_menubar_def.h:1166
+#: src/main_menubar_def.h:1160
 msgid "Force the highlight style to Matlab"
 msgstr "İşıqlandırma tərzini Matlab olaraq seç"
 
 #. 0
-#: src/main_menubar_def.h:1176
+#: src/main_menubar_def.h:1170
 msgid "Auto _Format"
 msgstr "Avtomatik _Şəkilləndirmə"
 
-#: src/main_menubar_def.h:1177
+#: src/main_menubar_def.h:1171
 msgid "Autoformat the current source file"
 msgstr "Hazırkı mənbə kodunu avtomatik şəkilləndir"
 
 #. 1
-#: src/main_menubar_def.h:1182
+#: src/main_menubar_def.h:1176
 msgid "_Increase Indent"
 msgstr "İndenti A_rtır"
 
-#: src/main_menubar_def.h:1183
+#: src/main_menubar_def.h:1177
 msgid "Increase indentation of line/selection"
 msgstr "Sətir/seçki çərtilməsini artır"
 
 #. 2
-#: src/main_menubar_def.h:1188
+#: src/main_menubar_def.h:1182
 msgid "_Decrease Indent"
 msgstr "İndenti A_zalt"
 
-#: src/main_menubar_def.h:1189
+#: src/main_menubar_def.h:1183
 msgid "Decrease indentation of line/selection"
 msgstr "Sətir/seçki çərtilməsini azalt"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1195
+#: src/main_menubar_def.h:1189
 msgid "Force _Highlight Style"
 msgstr "_İşıqlandırma Tərzini Məcbur Et"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1202
+#: src/main_menubar_def.h:1196
 msgid "_Close All Folds"
 msgstr "Bütün Qovluqları _bağla"
 
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1197
 msgid "Close all code folds in the editor"
 msgstr "Editordakı bütün kod qovluqlarını bağla"
 
 #. 7
-#: src/main_menubar_def.h:1208
+#: src/main_menubar_def.h:1202
 msgid "_Open All Folds"
 msgstr "Bütün Qovluqları _Aç"
 
-#: src/main_menubar_def.h:1209
+#: src/main_menubar_def.h:1203
 msgid "Open all code folds in the editor"
 msgstr "Editordakı bütün kod boğçalarını aç"
 
 #. 8
-#: src/main_menubar_def.h:1214
+#: src/main_menubar_def.h:1208
 msgid "_Toggle Current Fold"
 msgstr "Hazırkı Qovluğu Gizlə_t/Göstər"
 
-#: src/main_menubar_def.h:1215
+#: src/main_menubar_def.h:1209
 msgid "Toggle current code fold in the editor"
 msgstr "Editordakı hazırkı kod boğçasını aç"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1221
+#: src/main_menubar_def.h:1215
 msgid "D_etach Current Document"
 msgstr "Hazırkı Sənədi _Qopart"
 
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1216
 msgid "Detach the current document into a separate editor window"
 msgstr "Hazırkı sənədi ayrı bir editor pəncərəsinə ayır"
 
 #. 0
-#: src/main_menubar_def.h:1232
+#: src/main_menubar_def.h:1226
 msgid "_Compile"
 msgstr "_Dərlə"
 
-#: src/main_menubar_def.h:1233
+#: src/main_menubar_def.h:1227
 msgid "Compile the current source file"
 msgstr "Hazırkı qaynaq kodu dərlə"
 
 #. 1
-#: src/main_menubar_def.h:1238
+#: src/main_menubar_def.h:1232
 msgid "Compile With _Make"
 msgstr "_Make İlə Dərlə"
 
-#: src/main_menubar_def.h:1239
+#: src/main_menubar_def.h:1233
 msgid "Compile the current source file using Make"
 msgstr "Hazırkı mənbə faylını Make işlədərək dərlə"
 
 #. 2
-#: src/main_menubar_def.h:1244
-#: src/main_menubar_def.h:1880
+#: src/main_menubar_def.h:1238 src/main_menubar_def.h:1874
 msgid "_Build"
 msgstr "_Quraşdır"
 
-#: src/main_menubar_def.h:1245
+#: src/main_menubar_def.h:1239
 msgid "Build the source directory of the Project or the current source file"
 msgstr "Layihə ya da hazırkı mənbə faylının mənbə cərgəsini inşa et"
 
 #. 3
-#: src/main_menubar_def.h:1250
+#: src/main_menubar_def.h:1244
 msgid "Build _All"
 msgstr "_Hamısını İnşa Et"
 
-#: src/main_menubar_def.h:1251
+#: src/main_menubar_def.h:1245
 msgid "Build the whole Project"
 msgstr "Bütün layihəni inşa et"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:1257
+#: src/main_menubar_def.h:1251
 msgid "Save Build Messages"
 msgstr "İnşa İsmarışlarını Qeyd Et"
 
-#: src/main_menubar_def.h:1258
+#: src/main_menubar_def.h:1252
 msgid "Save build messages to a file"
 msgstr "İnşa ismarışlarını fayla qeyd et"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1264
+#: src/main_menubar_def.h:1258
 msgid "_Install"
 msgstr "_Qur"
 
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1259
 msgid "Install the Project on your system"
 msgstr "Layihəni sistemə qur"
 
 #. 8
-#: src/main_menubar_def.h:1270
+#: src/main_menubar_def.h:1264
 msgid "Build _Distribution"
 msgstr "_Distribusiyanı İnaşa Et"
 
-#: src/main_menubar_def.h:1271
+#: src/main_menubar_def.h:1265
 msgid "Build the distribution tarball of the Project"
 msgstr "Layihənin distribusiya tarbolunu inşa et"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1277
+#: src/main_menubar_def.h:1271
 msgid "Con_figure ..."
 msgstr "_Quraşdır ..."
 
-#: src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:1272
 msgid "Configure the Project"
 msgstr "Layihəni Quraşdır"
 
 #. 11
-#: src/main_menubar_def.h:1283
+#: src/main_menubar_def.h:1277
 msgid "Auto _generate ..."
 msgstr "Avtomatik _yarat ..."
 
-#: src/main_menubar_def.h:1284
+#: src/main_menubar_def.h:1278
 msgid "Auto generate all the build files for the Project"
 msgstr "Layinənin bütün inşa fayllarını avtomatik yarat"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1290
+#: src/main_menubar_def.h:1284
 msgid "Clea_n"
 msgstr "Təmi_zlə"
 
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1285
 msgid "Clean the source directory"
 msgstr "Mənbə cərgəsini təmizlə"
 
 #. 14
-#: src/main_menubar_def.h:1296
+#: src/main_menubar_def.h:1290
 msgid "Clean A_ll"
 msgstr "Hamısını Təmiz_lə"
 
-#: src/main_menubar_def.h:1297
+#: src/main_menubar_def.h:1291
 msgid "Clean the whole Project directory"
 msgstr "Bütün layihə cərgəsini təmizlə"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1303
+#: src/main_menubar_def.h:1297
 msgid "_Stop Build"
 msgstr "İnşanı _Dayandır"
 
-#: src/main_menubar_def.h:1304
+#: src/main_menubar_def.h:1298
 msgid "Stop the current compile or build process"
 msgstr "Hazırkı inşa ya da dərləmə gedişatını dayandır"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1310
+#: src/main_menubar_def.h:1304
 msgid "_Execute"
 msgstr "_İşə Sal"
 
-#: src/main_menubar_def.h:1311
-#: src/toolbar.c:295
+#: src/main_menubar_def.h:1305 src/toolbar.c:293
 msgid "Execute the program"
 msgstr "Proqramı işə sal"
 
 #. 19
-#: src/main_menubar_def.h:1316
+#: src/main_menubar_def.h:1310
 msgid "Set _Program params ..."
 msgstr "_Proqram parametrlərini ver ..."
 
-#: src/main_menubar_def.h:1317
+#: src/main_menubar_def.h:1311
 msgid "Set the execution parameters of the program"
 msgstr "Proqramın icra parametrlərini ver"
 
 #. 0
-#: src/main_menubar_def.h:1327
+#: src/main_menubar_def.h:1321
 msgid "_Toggle bookmark"
 msgstr "Nişanı gizlə_t/göstər"
 
-#: src/main_menubar_def.h:1328
+#: src/main_menubar_def.h:1322
 msgid "Toggle a bookmark at the current line position"
 msgstr "Sətirin hazırkı yerində nişanı aç"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1334
+#: src/main_menubar_def.h:1328
 msgid "_First bookmark"
 msgstr "_İlk nişan"
 
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1329
 msgid "Jump to the first bookmark in the file"
 msgstr "Sənəddəki ilk nişana sıçra"
 
 #. 3
-#: src/main_menubar_def.h:1340
+#: src/main_menubar_def.h:1334
 msgid "_Previous bookmark"
 msgstr "_Əvvəlki nişan"
 
-#: src/main_menubar_def.h:1341
+#: src/main_menubar_def.h:1335
 msgid "Jump to the previous bookmark in the file"
 msgstr "Sənəddəki əvvəlki nişana sıçra"
 
 #. 4
-#: src/main_menubar_def.h:1346
+#: src/main_menubar_def.h:1340
 msgid "_Next bookmark"
 msgstr "So_nrakı nişan"
 
-#: src/main_menubar_def.h:1347
+#: src/main_menubar_def.h:1341
 msgid "Jump to the next bookmark in the file"
 msgstr "Sənəddəki növbəti nişana sıçra"
 
 #. 5
-#: src/main_menubar_def.h:1352
+#: src/main_menubar_def.h:1346
 msgid "_Last bookmark"
 msgstr "S_on nişan"
 
-#: src/main_menubar_def.h:1353
+#: src/main_menubar_def.h:1347
 msgid "Jump to the last bookmark in the file"
 msgstr "Sənəddəki son nişana sıçra"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1359
+#: src/main_menubar_def.h:1353
 msgid "_Clear all bookmarks"
 msgstr "Bütün nişanları _təmizlə"
 
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1354
 msgid "Clear bookmarks"
 msgstr "Nişanları təmizlə"
 
 #. 0
-#: src/main_menubar_def.h:1370
+#: src/main_menubar_def.h:1364
 msgid "Run/_Continue"
 msgstr "İşlə/_Davam Et"
 
-#: src/main_menubar_def.h:1371
+#: src/main_menubar_def.h:1365
 msgid "Continue the execution of the program"
 msgstr "proqram icrasına davam et"
 
 #. 1
-#: src/main_menubar_def.h:1376
+#: src/main_menubar_def.h:1370
 msgid "Step _In"
 msgstr "_İçə Addım"
 
-#: src/main_menubar_def.h:1377
+#: src/main_menubar_def.h:1371
 msgid "Single step into function"
 msgstr "Funksiya içinə tək addım"
 
 #. 2
-#: src/main_menubar_def.h:1382
+#: src/main_menubar_def.h:1376
 msgid "Step O_ver"
 msgstr "_Üstündən Addım"
 
-#: src/main_menubar_def.h:1383
+#: src/main_menubar_def.h:1377
 msgid "Single step over function"
 msgstr "Funksiya üstündən tək addım"
 
 #. 3
-#: src/main_menubar_def.h:1388
+#: src/main_menubar_def.h:1382
 msgid "Step _Out"
 msgstr "_Çölə Addım"
 
-#: src/main_menubar_def.h:1389
+#: src/main_menubar_def.h:1383
 msgid "Single step out of the function"
 msgstr "Funksiyadan çölə tək addım"
 
 #. 4
-#: src/main_menubar_def.h:1394
+#: src/main_menubar_def.h:1388
 msgid "_Run to cursor"
 msgstr "Oxa icra _et"
 
-#: src/main_menubar_def.h:1395
+#: src/main_menubar_def.h:1389
 msgid "Run to the cursor"
 msgstr "Oxa tərəf qaç"
 
 #. 0
-#: src/main_menubar_def.h:1405
-#: src/text_editor_menu.c:136
+#: src/main_menubar_def.h:1399 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
 msgstr "Qırma nöqtəsini gizlət/göstər"
 
-#: src/main_menubar_def.h:1406
+#: src/main_menubar_def.h:1400
 msgid "Toggle breakpoint at the current location"
 msgstr "Hazırkı yerdəki qırma nöqtəsini gizlət/göstər"
 
 #. 1
-#: src/main_menubar_def.h:1411
+#: src/main_menubar_def.h:1405
 msgid "Set Breakpoint ..."
 msgstr "Qırma Nöqtəsi Qur ..."
 
-#: src/main_menubar_def.h:1412
+#: src/main_menubar_def.h:1406
 msgid "Set a breakpoint"
 msgstr "Kəsmə seç"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1418
+#: src/main_menubar_def.h:1412
 msgid "_Breakpoints ..."
 msgstr "_Qırma Nöqtələri ..."
 
-#: src/main_menubar_def.h:1419
+#: src/main_menubar_def.h:1413
 msgid "Edit breakpoints"
 msgstr "Qırma nöqtələrini düzəlt"
 
 #. 4
-#: src/main_menubar_def.h:1424
+#: src/main_menubar_def.h:1418
 msgid "Disable all Breakpoints"
 msgstr "Bütün Qırma Nöqtələrini Bağla"
 
-#: src/main_menubar_def.h:1425
+#: src/main_menubar_def.h:1419
 msgid "Deactivate all breakpoints"
 msgstr "Bütün qırma nöqtələrini fəalliyyətdən sal"
 
 #. 5
-#: src/main_menubar_def.h:1430
+#: src/main_menubar_def.h:1424
 msgid "C_lear all Breakpoints"
 msgstr "Bütün qırma nöqtələrini təmiz_lə"
 
-#: src/main_menubar_def.h:1431
+#: src/main_menubar_def.h:1425
 msgid "Delete all breakpoints"
 msgstr "Bütün qırma nöqtələrini sil"
 
 #. 0
-#: src/main_menubar_def.h:1441
+#: src/main_menubar_def.h:1435
 msgid "Info _Target Files"
 msgstr "_Hədəf Fayllar İnfosu"
 
-#: src/main_menubar_def.h:1442
+#: src/main_menubar_def.h:1436
 msgid "Display information on the files the debugger is active with"
 msgstr "Xəta ayıqlayıcının fəal olduğu fayl mə'lumatlarını göstər"
 
 #. 1
-#: src/main_menubar_def.h:1447
+#: src/main_menubar_def.h:1441
 msgid "Info _Program"
 msgstr "_Proqram İnfosu"
 
-#: src/main_menubar_def.h:1448
+#: src/main_menubar_def.h:1442
 msgid "Display information on the execution status of the program"
 msgstr "Proqramın icra vəziyyəti haqqında mə'lumat göstər"
 
 #. 2
-#: src/main_menubar_def.h:1453
+#: src/main_menubar_def.h:1447
 msgid "Info _Kernel User Struct"
 msgstr "Çə_kirdək İstifadəçi Quruluşu İnfosu"
 
-#: src/main_menubar_def.h:1454
+#: src/main_menubar_def.h:1448
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "hazırkı törəmənin çəkirdək 'struct user'-ı haqqında mə'lumat göstər"
 
 #. 3
-#: src/main_menubar_def.h:1459
+#: src/main_menubar_def.h:1453
 msgid "Info _Threads"
 msgstr "_İlgək İnfosu"
 
-#: src/main_menubar_def.h:1460
+#: src/main_menubar_def.h:1454
 msgid "Display the IDs of currently known threads"
 msgstr "Hazırda bilinən ilgəklərin ID-lərini göstər"
 
 #. 4
-#: src/main_menubar_def.h:1465
+#: src/main_menubar_def.h:1459
 msgid "Info _Global variables"
 msgstr "_Qlobal Dəyişənlər İnfosu"
 
-#: src/main_menubar_def.h:1466
+#: src/main_menubar_def.h:1460
 msgid "Display all global and static variables of the program"
 msgstr "Proqramın qlobal və sabit dəyişənləri vəziyyətini göstər"
 
 #. 5
-#: src/main_menubar_def.h:1471
+#: src/main_menubar_def.h:1465
 msgid "Info _Local variables"
 msgstr "Yer_li Dəyişənlər İnfosu"
 
-#: src/main_menubar_def.h:1472
+#: src/main_menubar_def.h:1466
 msgid "Display local variables of the current frame"
 msgstr "Hazırkı çərçivənin yerli dəyişənlərini göstər"
 
 #. 6
-#: src/main_menubar_def.h:1477
+#: src/main_menubar_def.h:1471
 msgid "Info _Current Frame"
 msgstr "_Hazırkı Çərçivə İnfosu"
 
-#: src/main_menubar_def.h:1478
+#: src/main_menubar_def.h:1472
 msgid "Display information about the current frame of execution"
 msgstr "İcranın hazırkı çərçivəsinin mə'lumatlarını göstər"
 
 #. 7
-#: src/main_menubar_def.h:1483
+#: src/main_menubar_def.h:1477
 msgid "Info Function _Arguments"
 msgstr "Funksiy_a Arqumentləri İnfosu"
 
-#: src/main_menubar_def.h:1484
+#: src/main_menubar_def.h:1478
 msgid "Display function arguments of the current frame"
 msgstr "Hazırkı çərçivənin funksiya arqumentlərini göstər"
 
 #. 8
-#: src/main_menubar_def.h:1489
+#: src/main_menubar_def.h:1483
 msgid "Info _Memory"
 msgstr "_Mə'lumat Yaddaşı"
 
-#: src/main_menubar_def.h:1490
+#: src/main_menubar_def.h:1484
 msgid "Display accessible memory"
 msgstr "Yetişilə bilən yaddaşı göstər"
 
 #. 0
-#: src/main_menubar_def.h:1500
+#: src/main_menubar_def.h:1494
 msgid "_Start Debugger"
 msgstr "Xəta Ayıqladıcını _Başlat"
 
-#: src/main_menubar_def.h:1501
+#: src/main_menubar_def.h:1495
 msgid "Start the debugging session"
 msgstr "Xəta ayıqlama gedişatını başlat"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1507
+#: src/main_menubar_def.h:1501
 msgid "Load E_xecutable ..."
 msgstr "İc_raçıları Yüklə ..."
 
-#: src/main_menubar_def.h:1508
+#: src/main_menubar_def.h:1502
 msgid "Open the executable for debugging"
 msgstr "Xətası ayıqlanacaq icraçını aç"
 
 #. 3
-#: src/main_menubar_def.h:1513
+#: src/main_menubar_def.h:1507
 msgid "Load _Core file ..."
 msgstr "Ç_öküntü Faylını Yüklə ..."
 
-#: src/main_menubar_def.h:1514
+#: src/main_menubar_def.h:1508
 msgid "Load a core file to dissect"
 msgstr "İncələnəcək çöküntü faylını yüklə"
 
 #. 4
-#: src/main_menubar_def.h:1519
+#: src/main_menubar_def.h:1513
 msgid "_Attach to Process ..."
 msgstr "Gedişata _İlişdir ..."
 
-#: src/main_menubar_def.h:1520
+#: src/main_menubar_def.h:1514
 msgid "Attach to a running program"
 msgstr "İşləyən proqrama ilişdir"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1526
+#: src/main_menubar_def.h:1520
 msgid "_Restart Program"
 msgstr "Proqramı _Yenidən Başlat"
 
-#: src/main_menubar_def.h:1527
+#: src/main_menubar_def.h:1521
 msgid "Stop and restart the program"
 msgstr "Proqrqmı dayandır və yenidən başlat"
 
 #. 7
-#: src/main_menubar_def.h:1532
+#: src/main_menubar_def.h:1526
 msgid "S_top Program"
 msgstr "Proqramı Da_yandır"
 
-#: src/main_menubar_def.h:1533
+#: src/main_menubar_def.h:1527
 msgid "Stop the program being debugged"
 msgstr "Proqram xəta ayıqlanmasını dayandır"
 
 #. 8
-#: src/main_menubar_def.h:1538
+#: src/main_menubar_def.h:1532
 msgid "_Detach Debugger"
 msgstr "Xəta Ayıqlayıcını Q_opart"
 
-#: src/main_menubar_def.h:1539
+#: src/main_menubar_def.h:1533
 msgid "Detach from an attached program"
 msgstr "İlişdirilmiş gedişatdan qopar"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1545
+#: src/main_menubar_def.h:1539
 msgid "Pa_use Program"
 msgstr "Proqramı _Fasiləyə Sal"
 
-#: src/main_menubar_def.h:1546
+#: src/main_menubar_def.h:1540
 msgid "Pauses the execution of the program"
 msgstr "Proqram icrasına fasilə verər"
 
 #. 11
-#: src/main_menubar_def.h:1551
+#: src/main_menubar_def.h:1545
 msgid "Si_gnal to Process"
 msgstr "Gedişata Si_qnal"
 
-#: src/main_menubar_def.h:1552
+#: src/main_menubar_def.h:1546
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Xətası ayıqlanan gedişata çəkirdək siqnalı yolla"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1558
+#: src/main_menubar_def.h:1552
 msgid "_Execution"
 msgstr "_İcra"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1571
+#: src/main_menubar_def.h:1565
 msgid "_Information"
 msgstr "_mə'lumat"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1578
+#: src/main_menubar_def.h:1572
 msgid "Ins_pect/Evaluate ..."
 msgstr "Tə_ftiş/İstifadə Et ..."
 
-#: src/main_menubar_def.h:1579
+#: src/main_menubar_def.h:1573
 msgid "Inspect or evaluate an expression or variable"
 msgstr "İfadə ya da dəyişəni təftiə ya da istifadə et"
 
 #. 19
-#: src/main_menubar_def.h:1584
+#: src/main_menubar_def.h:1578
 msgid "Add Expression in _Watch ..."
 msgstr "İ_zləməyə İfadə Əlavə Et ..."
 
-#: src/main_menubar_def.h:1585
+#: src/main_menubar_def.h:1579
 msgid "Add expression or variable to the watch"
 msgstr "İzləməyə ifadə əlavə et"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1591
+#: src/main_menubar_def.h:1585
 msgid "St_op Debugger"
 msgstr "Xəta Ayıqlayıcını Da_yandırın"
 
-#: src/main_menubar_def.h:1592
+#: src/main_menubar_def.h:1586
 msgid "Say goodbye to the debugger"
 msgstr "Xəta ayıqlayıcını yola salın"
 
 #. 0
-#: src/main_menubar_def.h:1603
+#: src/main_menubar_def.h:1597
 msgid "U_pdate file"
 msgstr "Faylı _yenilə (Update)"
 
 #. 1
-#: src/main_menubar_def.h:1610
+#: src/main_menubar_def.h:1604
 msgid "C_ommit file"
 msgstr "Faylı _göndər (Commit)"
 
 #. 2
-#: src/main_menubar_def.h:1617
+#: src/main_menubar_def.h:1611
 msgid "S_tatus of file"
 msgstr "Faylın _vəziyyəti"
 
 #. 3
-#: src/main_menubar_def.h:1624
+#: src/main_menubar_def.h:1618
 msgid "G_et file log"
 msgstr "Fayl qeydini (log) _al"
 
 #. 4
-#: src/main_menubar_def.h:1631
+#: src/main_menubar_def.h:1625
 msgid "_Add file"
 msgstr "Faylı ə_lavə et (Add)"
 
 #. 5
-#: src/main_menubar_def.h:1638
+#: src/main_menubar_def.h:1632
 msgid "_Remove file"
 msgstr "Faylı _sil (Remove)"
 
 #. 6
-#: src/main_menubar_def.h:1645
+#: src/main_menubar_def.h:1639
 msgid "D_iff file"
 msgstr "D_iff faylı"
 
 #. 8
-#: src/main_menubar_def.h:1653
+#: src/main_menubar_def.h:1647
 msgid "_Update Project"
 msgstr "Layihəni _Yenilə"
 
-#: src/main_menubar_def.h:1654
+#: src/main_menubar_def.h:1648
 msgid "Update the working copy of a Project"
 msgstr "Layihənin hazırkı nüsxəsini yenilə"
 
 #. 9
-#: src/main_menubar_def.h:1660
+#: src/main_menubar_def.h:1654
 msgid "_Commit Project"
 msgstr "Layihəni _Göndər (Commit)"
 
-#: src/main_menubar_def.h:1661
+#: src/main_menubar_def.h:1655
 msgid "Commit local changes to the repository"
 msgstr "Yerli dəyişiklikləri saxlanılan yerə (repository) göndər (commit)"
 
 #. 10
-#: src/main_menubar_def.h:1667
+#: src/main_menubar_def.h:1661
 msgid "_Import Project"
 msgstr "Layihəni _İdxal Et"
 
-#: src/main_menubar_def.h:1668
+#: src/main_menubar_def.h:1662
 msgid "Import Project as a new module in the repository"
 msgstr "Layihəni saxlanılan yerdə (repository) yeni bir modul olaraq idxal et"
 
 #. 11
-#: src/main_menubar_def.h:1674
+#: src/main_menubar_def.h:1668
 msgid "_Status of Project"
 msgstr "Layihənin _Vəziyyəti"
 
-#: src/main_menubar_def.h:1675
+#: src/main_menubar_def.h:1669
 msgid "Print the status of the Project"
 msgstr "Layihənin vəziyyətini çap et"
 
 #. 12
-#: src/main_menubar_def.h:1681
+#: src/main_menubar_def.h:1675
 msgid "Get Project _log"
 msgstr "Layihə _qeydini al (Project log)"
 
-#: src/main_menubar_def.h:1682
+#: src/main_menubar_def.h:1676
 msgid "Print the CVS log of the Project"
 msgstr "Layihənin CVS loq faylını çap et"
 
 #. 13
-#: src/main_menubar_def.h:1688
+#: src/main_menubar_def.h:1682
 msgid "_Diff Project"
 msgstr "_Layihəni Diff'lə (fərqini çıxart)"
 
-#: src/main_menubar_def.h:1689
+#: src/main_menubar_def.h:1683
 msgid "Create a diff between the working copy of the Project and the repository"
-msgstr "Layihənin işlədilən nüsxəsi ilə saxlanılan yer (repository) arasında fərq (diff) faylı yarat"
+msgstr ""
+"Layihənin işlədilən nüsxəsi ilə saxlanılan yer (repository) arasında fərq "
+"(diff) faylı yarat"
 
 #. 15
-#: src/main_menubar_def.h:1696
+#: src/main_menubar_def.h:1690
 msgid "_Login"
 msgstr "_Giriş"
 
-#: src/main_menubar_def.h:1697
+#: src/main_menubar_def.h:1691
 msgid "Login to a CVS server"
 msgstr "CVS vericiyə giriş et"
 
 #. 0
-#: src/main_menubar_def.h:1708
+#: src/main_menubar_def.h:1702
 msgid "_Compiler and Linker Settings ..."
 msgstr "_Dərləyici və Körpüləyici Qurğuları ..."
 
-#: src/main_menubar_def.h:1709
+#: src/main_menubar_def.h:1703
 msgid "Settings for the compiler and linker"
 msgstr "Dərləyici və körpüləyici qurğuları"
 
 #. 1
-#: src/main_menubar_def.h:1714
+#: src/main_menubar_def.h:1708
 msgid "_Source Paths ..."
 msgstr " _Qaynaq Cığırları ..."
 
-#: src/main_menubar_def.h:1715
+#: src/main_menubar_def.h:1709
 msgid "Specify the source paths for Anjuta to search"
 msgstr "Anjuta üçün axtarış cığırlarını müəyyən et"
 
 #. 2
-#: src/main_menubar_def.h:1720
+#: src/main_menubar_def.h:1714
 msgid "Co_mmands ..."
 msgstr "Ə_mrlər ..."
 
-#: src/main_menubar_def.h:1721
+#: src/main_menubar_def.h:1715
 msgid "Specify the various commands for use"
 msgstr "İstifadə ediləcək bir neçə əmri bildir"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1727
+#: src/main_menubar_def.h:1721
 msgid "_Preferences ..."
 msgstr "_Xassələr ..."
 
-#: src/main_menubar_def.h:1728
+#: src/main_menubar_def.h:1722
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Çaymı qəhvəmi istəyərdiniz? Bir baxın."
 
 #. 5
-#: src/main_menubar_def.h:1733
+#: src/main_menubar_def.h:1727
 msgid "_Editor colors and fonts ..."
 msgstr "_Editor rəngləri və yazı növləri ..."
 
-#: src/main_menubar_def.h:1734
+#: src/main_menubar_def.h:1728
 msgid "Syntax highlighting settings"
 msgstr "Sintaksis işıqlandırması qurğuları"
 
 #. 6
-#: src/main_menubar_def.h:1739
+#: src/main_menubar_def.h:1733
 msgid "File view filters ..."
 msgstr "Fayl nümayiş filtrləri ..."
 
-#: src/main_menubar_def.h:1740
+#: src/main_menubar_def.h:1734
 msgid "Edit file view filters"
 msgstr "Fayl nümayiş filtrlərini dəyişdir"
 
 #. 7
-#: src/main_menubar_def.h:1745
+#: src/main_menubar_def.h:1739
 msgid "_Edit user.properties file ..."
 msgstr "user.properties faylını _dəyişdir ..."
 
-#: src/main_menubar_def.h:1746
+#: src/main_menubar_def.h:1740
 msgid "Edit user properties file"
 msgstr "İstifadəçi xassələri faylını dəyişdir"
 
 #. 8
-#: src/main_menubar_def.h:1751
+#: src/main_menubar_def.h:1745
 msgid "Set _Default Preferences"
 msgstr "_Əsas Xassələri Qeu"
 
-#: src/main_menubar_def.h:1752
+#: src/main_menubar_def.h:1746
 msgid "But I prefer tea."
 msgstr "Amma mən çay sevirəm axı."
 
 #. 9
-#: src/main_menubar_def.h:1757
+#: src/main_menubar_def.h:1751
 msgid "C_ustomize shortcuts"
 msgstr "Qısa yolları _xüsusiləşdir"
 
-#: src/main_menubar_def.h:1758
+#: src/main_menubar_def.h:1752
 msgid "Customize shortcuts associated with menu items"
 msgstr "Menyu üzvləri ilə əlaqələndirilmiş qısa yolları xüsusiləşdir"
 
 #. 10
-#: src/main_menubar_def.h:1763
+#: src/main_menubar_def.h:1757
 msgid "_Tools Editor"
 msgstr "_Vasitə Editoru"
 
-#: src/main_menubar_def.h:1764
+#: src/main_menubar_def.h:1758
 msgid "Customize user-defined tools"
 msgstr "İstifadəçi tə'yinli vasitələri xüsusiləşdir"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1770
+#: src/main_menubar_def.h:1764
 msgid "St_art-with dialog"
 msgstr "Dialoq ilə _başla"
 
-#: src/main_menubar_def.h:1771
+#: src/main_menubar_def.h:1765
 msgid "Show start-with dialog"
 msgstr "Dialoqlu başlama göstər"
 
 #. 13
-#: src/main_menubar_def.h:1776
+#: src/main_menubar_def.h:1770
 msgid "An_juta setup wizard"
 msgstr "An_juta qurulum sehirbazı"
 
-#: src/main_menubar_def.h:1777
+#: src/main_menubar_def.h:1771
 msgid "Setup wizard for first time run"
 msgstr "İlk istifadə qurğu sehirbazı"
 
 #. 0
 #. 1
 #. 2
-#: src/main_menubar_def.h:1789
+#: src/main_menubar_def.h:1783
 msgid "Browse GNOME _API Pages"
 msgstr "Gnome _API Səhifələrini Gəz"
 
-#: src/main_menubar_def.h:1790
+#: src/main_menubar_def.h:1784
 msgid "The GNOME API pages"
 msgstr "Gnome API səhifləri"
 
 #. 3
-#: src/main_menubar_def.h:1795
+#: src/main_menubar_def.h:1789
 msgid "Browse _Man Pages"
 msgstr "_Man Səhifələrini Gəz"
 
-#: src/main_menubar_def.h:1796
+#: src/main_menubar_def.h:1790
 msgid "The good old manual pages"
 msgstr "Qızıl kimi köhnə bələdçi səhiflər"
 
 #. 4
-#: src/main_menubar_def.h:1801
+#: src/main_menubar_def.h:1795
 msgid "Browse _Info Pages"
 msgstr "_İnfo Səhifələrini Gəz"
 
-#: src/main_menubar_def.h:1802
+#: src/main_menubar_def.h:1796
 msgid "Browse Info pages"
 msgstr "İnfo səhifələrini gəz"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1808
+#: src/main_menubar_def.h:1802
 msgid "_Context Help"
 msgstr "_Məzmun Yardımı"
 
-#: src/main_menubar_def.h:1809
+#: src/main_menubar_def.h:1803
 msgid "Search help for the current word in the editor"
 msgstr "Editorda hazırkı söxü axtar"
 
 #. 7
-#: src/main_menubar_def.h:1814
+#: src/main_menubar_def.h:1808
 msgid "_Search a topic"
 msgstr "_Mövzu axtar"
 
-#: src/main_menubar_def.h:1815
+#: src/main_menubar_def.h:1809
 msgid "May I help you?"
 msgstr "Sizə kömək edə bilərəm?"
 
 #. 8
 #. 9
-#: src/main_menubar_def.h:1821
+#: src/main_menubar_def.h:1815
 msgid "Anjuta _Home Page"
 msgstr "Anjuta _Ev Səhifəsi"
 
-#: src/main_menubar_def.h:1822
+#: src/main_menubar_def.h:1816
 msgid "Online documentation and resources"
 msgstr "Xətdəki sənəd və mənbələr"
 
 #. 10
 #. 11
-#: src/main_menubar_def.h:1828
+#: src/main_menubar_def.h:1822
 msgid "_Libraries API references"
 msgstr "_Kitabxana API referensləri"
 
-#: src/main_menubar_def.h:1829
+#: src/main_menubar_def.h:1823
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Xətdəki GDK, GLib, GNOME vs. haqqında sənədlər.."
 
 #. 12
-#: src/main_menubar_def.h:1834
+#: src/main_menubar_def.h:1828
 msgid "Report _Bugs"
 msgstr "_Xəta Bildir"
 
-#: src/main_menubar_def.h:1835
+#: src/main_menubar_def.h:1829
 msgid "Submit a bug report for Anjuta"
 msgstr "Anjuta-nın xətasını bildir"
 
 #. 13
-#: src/main_menubar_def.h:1840
+#: src/main_menubar_def.h:1834
 msgid "Request _Features"
 msgstr "_Qabiliyyət İstə"
 
-#: src/main_menubar_def.h:1841
+#: src/main_menubar_def.h:1835
 msgid "Submit a feature request for Anjuta"
 msgstr "Anjuta üçün yeni qabiliyyət istəyi göndər"
 
 #. 14
-#: src/main_menubar_def.h:1846
+#: src/main_menubar_def.h:1840
 msgid "Submit _patches"
 msgstr "_Yamaqlar göndər"
 
-#: src/main_menubar_def.h:1847
+#: src/main_menubar_def.h:1841
 msgid "Submit patches for Anjuta"
 msgstr "Anjuta üçün yamaqları göndər"
 
 #. 15
-#: src/main_menubar_def.h:1852
+#: src/main_menubar_def.h:1846
 msgid "Ask a _question"
 msgstr "_Sual soruş"
 
-#: src/main_menubar_def.h:1853
+#: src/main_menubar_def.h:1847
 msgid "Submit a question for FAQs"
 msgstr "SSS (FAQ) üçün sual yolla"
 
-#: src/main_menubar_def.h:1868
+#: src/main_menubar_def.h:1862
 msgid "_Project"
 msgstr "_Layihə"
 
-#: src/main_menubar_def.h:1874
+#: src/main_menubar_def.h:1868
 msgid "For_mat"
 msgstr "For_mat"
 
-#: src/main_menubar_def.h:1886
+#: src/main_menubar_def.h:1880
 msgid "Bookmar_k"
 msgstr "Ni_şan"
 
-#: src/main_menubar_def.h:1892
+#: src/main_menubar_def.h:1886
 msgid "_Debug"
 msgstr "_Həll Et"
 
-#: src/main_menubar_def.h:1898
+#: src/main_menubar_def.h:1892
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1904
+#: src/main_menubar_def.h:1898
 msgid "_Settings"
 msgstr "_Qurğular"
 
-#: src/mainmenu_callbacks.c:156
+#: src/mainmenu_callbacks.c:159
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
@@ -6133,70 +5937,78 @@ msgstr ""
 "Onu bağlamaq gedişatı sonlandıracaq.\n"
 "Hələ də editoru bağlamaq istəyirsiniz?"
 
-#: src/mainmenu_callbacks.c:170
+#: src/mainmenu_callbacks.c:173
 #, c-format
-msgid "The file '%s' is not saved.\n"
+msgid ""
+"The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
-msgstr "%s faylı qeyd edilməyib.\n"
+msgstr ""
+"%s faylı qeyd edilməyib.\n"
 "Bağlamadan əvvəl onu qeyd etmək istəyirsiniz?"
 
-#: src/mainmenu_callbacks.c:180
-#: src/project_dbase_gui.c:1127
+#: src/mainmenu_callbacks.c:183 src/project_dbase_gui.c:1127
 msgid "Do_n't save"
 msgstr "Qeyd et_mə"
 
-#: src/mainmenu_callbacks.c:237
+#: src/mainmenu_callbacks.c:240
 #, c-format
-msgid "Are you sure you want to reload '%s'?\n"
+msgid ""
+"Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
-msgstr "%s'i yenidən yükləmək istəyirsiniz?\n"
+msgstr ""
+"%s'i yenidən yükləmək istəyirsiniz?\n"
 "Qeyd edilməmiş dəyişiklikləri itirəcəksiniz."
 
-#: src/mainmenu_callbacks.c:248
-#: src/text_editor.c:1308
+#: src/mainmenu_callbacks.c:250 src/text_editor.c:1325
 msgid "_Reload"
 msgstr "_Yenilə (Reload)"
 
-#: src/mainmenu_callbacks.c:556
+#: src/mainmenu_callbacks.c:551
 msgid "%Y"
 msgstr "%Y"
 
-#: src/mainmenu_callbacks.c:575
+#: src/mainmenu_callbacks.c:570
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
-#: src/mainmenu_callbacks.c:650
+#: src/mainmenu_callbacks.c:645
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "\"%s\" başlıq faylı deyil."
 
-#: src/mainmenu_callbacks.c:1738
+#: src/mainmenu_callbacks.c:1733
 msgid "The executable is not up-to-date."
 msgstr "İcra edilə bilən təzə deyil."
 
-#: src/mainmenu_callbacks.c:1763
+#: src/mainmenu_callbacks.c:1758
 msgid "Debugger is not running. Start it first."
 msgstr "Xəta ayıqlayıcı işləmir. Əvvəlcə başladın."
 
-#: src/mainmenu_callbacks.c:2152
-msgid "You need to run gconf-editor, look for the key 'desktop/gnome/interface/can_change_accels' and set this toggle button ON. Then you can hover the mouse pointer over any menu item and press the shortcut key to associate with it."
-msgstr "gconf-editor proqramını icra edib, 'desktop/gnome/interface/can_change_accels' açarına gedin. Sonra açma düyməsini fəal vəziyyətə gətirin. Bundan sonra istədiyiniz menyunun qısa yollarını siçan ilə üstünə gəlib yeni klaviatura qısa yollarına basaraq dəyişdirə bilərsiniz."
+#: src/mainmenu_callbacks.c:2147
+msgid ""
+"You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
+"can_change_accels' and set this toggle button ON. Then you can hover the "
+"mouse pointer over any menu item and press the shortcut key to associate "
+"with it."
+msgstr ""
+"gconf-editor proqramını icra edib, 'desktop/gnome/interface/"
+"can_change_accels' açarına gedin. Sonra açma düyməsini fəal vəziyyətə "
+"gətirin. Bundan sonra istədiyiniz menyunun qısa yollarını siçan ilə üstünə "
+"gəlib yeni klaviatura qısa yollarına basaraq dəyişdirə bilərsiniz."
 
 #: src/memory.c:111
 msgid "Unable to build user interface for Memory\n"
 msgstr "Yaddaş üçün istifadəçi ara üzü yaradıla bilmir\n"
 
-#: src/memory.c:414
+#: src/memory.c:413
 msgid "Enter a Hexa address or Select one in the data"
 msgstr "Bir Hexa ünvanı daxil edin ya da mə'lumatın içindən birini seçin"
 
-#: src/memory.c:421
+#: src/memory.c:420
 msgid "Non accessible address !"
 msgstr "Qəbul edilə bilən ünvan yoxdur !"
 
 #: src/message-manager.cc:44
-#: src/text_editor_gui.c:135
-#: src/toolbar.c:114
 msgid "Find"
 msgstr "Axtar"
 
@@ -6224,14 +6036,12 @@ msgstr "İzləmələr"
 msgid "Stack"
 msgstr "Kötük"
 
-#: src/message-manager.cc:268
-#: src/message-manager.cc:323
+#: src/message-manager.cc:271 src/message-manager.cc:326
 #, c-format
 msgid "Could not find message type %s!\n"
 msgstr "%s ismarış növü tapıla bilmir!\n"
 
-#: src/message-manager.cc:552
-#: src/toolbar.c:153
+#: src/message-manager.cc:555 src/toolbar.c:153
 msgid "Messages"
 msgstr "İsmarıclar"
 
@@ -6243,17 +6053,19 @@ msgstr "Kateqoriya"
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta Qurğular Dialoqu"
 
-#: src/preferences.c:689
-msgid "Are you sure you want to reset the preferences to\n"
+#: src/preferences.c:692
+msgid ""
+"Are you sure you want to reset the preferences to\n"
 "their default settings?"
-msgstr "Xassələrə əsas qiymətlərini həqiqətən də\n"
+msgstr ""
+"Xassələrə əsas qiymətlərini həqiqətən də\n"
 "fəallaşdırmaq istəyirsiniz?"
 
-#: src/preferences.c:692
+#: src/preferences.c:695
 msgid "_Reset"
 msgstr "_Sıfırla"
 
-#: src/preferences.c:1084
+#: src/preferences.c:1079
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6266,105 +6078,111 @@ msgstr ""
 "Bu proqramın düzgün işləməməsinə səbəb ola bilər.\n"
 "Anjuta məhdud edilmiş daxili qurğularla işləyəcək"
 
-#: src/preferences.c:1216
+#: src/preferences.c:1211
 msgid "Anjuta Preferences"
 msgstr "Anjuta Qurğuları"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:227
+#: src/project_dbase.c:204
 msgid "Add to Project"
 msgstr "Layihəyə Əlavə Et"
 
-#: src/project_dbase.c:256
-#: src/project_dbase.c:327
-#: src/project_dbase_gui.c:586
+#: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:586
 msgid "Project: None"
 msgstr "Lahiyə: Heç"
 
-#: src/project_dbase.c:396
+#: src/project_dbase.c:373
 msgid "Anjuta project files"
 msgstr "Anjuta layihə faylları"
 
-#: src/project_dbase.c:397
-#: src/project_dbase_gui.c:170
-#: src/project_dbase_gui.c:188
-#: src/project_dbase_gui.c:200
-#: src/project_dbase_gui.c:208
-#: src/project_dbase_gui.c:220
-#: src/project_dbase_gui.c:229
-#: src/project_dbase_gui.c:238
+#: src/project_dbase.c:374 src/project_dbase_gui.c:170
+#: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
+#: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
+#: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
 #: widgets/gnomefilelist.c:714
 msgid "All files"
 msgstr "Bütün fayllar"
 
-#: src/project_dbase.c:478
-#: src/project_dbase.c:496
+#: src/project_dbase.c:455 src/project_dbase.c:473
 #, c-format
 msgid "Unable to load Project: %s"
 msgstr "Layihə yüklənə bilmir: %s"
 
-#: src/project_dbase.c:489
-#: src/project_dbase.c:2499
+#: src/project_dbase.c:466 src/project_dbase.c:2472
 #, c-format
-msgid "Anjuta version %s or later is required to open this Project.\n"
+msgid ""
+"Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
-msgstr "Bu layihəni açmaq üçün Anjuta buraxılış %s və ya daha üstünə ehtiyacınız var.\n"
-"Xahiş edirik Anjuta'nın ən son buraxılışını qurun. Ətraflı mə'lumat üçün yardıma baxın."
+msgstr ""
+"Bu layihəni açmaq üçün Anjuta buraxılış %s və ya daha üstünə ehtiyacınız "
+"var.\n"
+"Xahiş edirik Anjuta'nın ən son buraxılışını qurun. Ətraflı mə'lumat üçün "
+"yardıma baxın."
 
-#: src/project_dbase.c:874
+#: src/project_dbase.c:846
 msgid "Project saved successfully"
 msgstr "Layihə müvəffəqiyyətlə qeyd edildi"
 
-#: src/project_dbase.c:880
-#: src/project_dbase.c:882
+#: src/project_dbase.c:852 src/project_dbase.c:854
 msgid "Unable to save the Project."
 msgstr "Lahiyə qeyd edilə bilmir."
 
-#: src/project_dbase.c:1587
-msgid "A .glade file does not exist in the top level Project directory. If you do not use glade for GUI editing,  please specify a custom command for it in [Project]->[Project Configuration]->[GUI editor command]"
-msgstr "Üst səviyyə layihə cərgəsində .glade faylı mövcud deyil. Əgər ara üz işləri üçün Glade'i işlətmirsinizsə işlətdiyiniz proqram üçün xüsusi əmri [Layihə]->[Layihə Qurğuları]->[GUI editoru əmri]'də tə'yin edin."
+#: src/project_dbase.c:1561
+msgid ""
+"A .glade file does not exist in the top level Project directory. If you do "
+"not use glade for GUI editing,  please specify a custom command for it in "
+"[Project]->[Project Configuration]->[GUI editor command]"
+msgstr ""
+"Üst səviyyə layihə cərgəsində .glade faylı mövcud deyil. Əgər ara üz işləri "
+"üçün Glade'i işlətmirsinizsə işlətdiyiniz proqram üçün xüsusi əmri [Layihə]->"
+"[Layihə Qurğuları]->[GUI editoru əmri]'də tə'yin edin."
 
-#: src/project_dbase.c:1649
-msgid "A .glade file does not\n"
+#: src/project_dbase.c:1623
+msgid ""
+"A .glade file does not\n"
 "exist in the top level Project directory."
-msgstr "Layihənin üst cərgəsində\n"
+msgstr ""
+"Layihənin üst cərgəsində\n"
 "glade faylı mövcud deyil."
 
 #. Set project title
-#: src/project_dbase.c:2097
+#: src/project_dbase.c:2070
 msgid "Project: "
 msgstr "Lahiyə: "
 
-#: src/project_dbase.c:2214
+#: src/project_dbase.c:2187
 #, c-format
-msgid "Unable to get relative file name for %s\n"
+msgid ""
+"Unable to get relative file name for %s\n"
 " in %s"
-msgstr "%2$s içində %1$s üçün nisbi fayl adı\n"
+msgstr ""
+"%2$s içində %1$s üçün nisbi fayl adı\n"
 "alına bilmir"
 
-#: src/project_dbase.c:2279
+#: src/project_dbase.c:2252
 msgid " already exists in the project"
 msgstr " onsuzda layihədə mövcuddur"
 
-#: src/project_dbase.c:2312
+#: src/project_dbase.c:2285
 msgid "Error while copying the file inside the module."
 msgstr "Faylın modul içinə gətirilməsi sırasında xəta."
 
-#: src/project_dbase.c:2575
-#: src/project_dbase.c:2578
+#: src/project_dbase.c:2548 src/project_dbase.c:2551
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Lahiyə yüklənərkən xəta oldu: %s"
 
-#: src/project_dbase.c:2599
+#: src/project_dbase.c:2572
 msgid "Project loaded successfully."
 msgstr "Lahiyə müvəffəqiyyətlə yükləndi."
 
 #: src/project_dbase_gui.c:74
 #, c-format
-msgid "Are you sure you want to remove the item\n"
+msgid ""
+"Are you sure you want to remove the item\n"
 "'%s' from the Project?"
-msgstr "%s üzvünü layihənizdən çıxartmaq\n"
+msgstr ""
+"%s üzvünü layihənizdən çıxartmaq\n"
 "istədiyinizdən əminsiniz?"
 
 #: src/project_dbase_gui.c:135
@@ -6375,13 +6193,11 @@ msgstr "Onsuz da açıq layihə var. Əvvəlcə bunu bağlamaq istəyirsiniz?"
 msgid "Help files"
 msgstr "Yardım faylları"
 
-#: src/project_dbase_gui.c:178
-#: src/project_dbase_gui.c:237
+#: src/project_dbase_gui.c:178 src/project_dbase_gui.c:237
 msgid "C/C++ Headers"
 msgstr "C/C++ Başlıqları"
 
-#: src/project_dbase_gui.c:179
-#: widgets/gnomefilelist.c:717
+#: src/project_dbase_gui.c:179 widgets/gnomefilelist.c:717
 msgid "C/C++ source files"
 msgstr "C/C++ mənbə faylları"
 
@@ -6389,38 +6205,31 @@ msgstr "C/C++ mənbə faylları"
 msgid "Java source files"
 msgstr "Java mənbə faylları"
 
-#: src/project_dbase_gui.c:181
-#: widgets/gnomefilelist.c:724
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:724
 msgid "Pascal files"
 msgstr "Pascal mənbə faylları"
 
-#: src/project_dbase_gui.c:182
-#: widgets/gnomefilelist.c:726
+#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:726
 msgid "PHP files"
 msgstr "PHP faylları"
 
-#: src/project_dbase_gui.c:183
-#: widgets/gnomefilelist.c:729
+#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:729
 msgid "Perl files"
 msgstr "Perl faylları"
 
-#: src/project_dbase_gui.c:184
-#: widgets/gnomefilelist.c:731
+#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:731
 msgid "Python files"
 msgstr "Python faylları"
 
-#: src/project_dbase_gui.c:185
-#: widgets/gnomefilelist.c:736
+#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:736
 msgid "Shell Script files"
 msgstr "Qabıq Skripti faylları"
 
-#: src/project_dbase_gui.c:186
-#: widgets/gnomefilelist.c:741
+#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:741
 msgid "Visual Basic files"
 msgstr "Visual Basic faylları"
 
-#: src/project_dbase_gui.c:187
-#: widgets/gnomefilelist.c:749
+#: src/project_dbase_gui.c:187 widgets/gnomefilelist.c:749
 msgid ".lua files"
 msgstr ".lua faylları"
 
@@ -6464,8 +6273,7 @@ msgstr "PO faylları"
 msgid "Add file to module: "
 msgstr "Faylı bu modula əlavə et:"
 
-#: src/project_dbase_gui.c:598
-#: widgets/gnomefilelist.c:403
+#: src/project_dbase_gui.c:598 widgets/gnomefilelist.c:403
 msgid "Files"
 msgstr "Fayllar"
 
@@ -6485,8 +6293,7 @@ msgstr " Lahiyə mə'lumatı "
 msgid "Author:"
 msgstr "Müəllif:"
 
-#: src/project_dbase_gui.c:790
-#: src/wizard_gui.c:298
+#: src/project_dbase_gui.c:790 src/wizard_gui.c:298
 msgid "Project Name:"
 msgstr "Layihə Adı:"
 
@@ -6535,13 +6342,14 @@ msgid "Project Type:"
 msgstr "Lahiyə Növü:"
 
 #: src/project_dbase_gui.c:1122
-msgid "Project is not saved.\n"
+msgid ""
+"Project is not saved.\n"
 "Do you want to save it before closing?"
-msgstr "Layihə qeyd edilmədi.\n"
+msgstr ""
+"Layihə qeyd edilmədi.\n"
 "bağlamadan əvvəl qeyd etmək istəyirsiniz?"
 
-#: src/project_dbase_gui.c:1137
-#: src/project_dbase_gui.c:1257
+#: src/project_dbase_gui.c:1137 src/project_dbase_gui.c:1257
 msgid "Breton"
 msgstr "Breton"
 
@@ -6581,8 +6389,7 @@ msgstr "Fransızca"
 msgid "Herbrew"
 msgstr "İvrit"
 
-#: src/project_dbase_gui.c:1148
-#: src/project_dbase_gui.c:1152
+#: src/project_dbase_gui.c:1148 src/project_dbase_gui.c:1152
 msgid "Croatian"
 msgstr "Xırvatça"
 
@@ -6688,36 +6495,36 @@ msgstr "%s idxal skripti tapıla bilmədi"
 msgid "%s: Not a regular file"
 msgstr "%s: Sıravi fayl deyil."
 
-#: src/project_import.c:106
+#: src/project_import.c:109
 #, c-format
 msgid "Importing Project from %s ...\n"
 msgstr "Layihəni %s'dən İdxal Et ...\n"
 
-#: src/project_import.c:116
+#: src/project_import.c:119
 msgid "Could not launch script!\n"
 msgstr "Skript icra edilə bilmədi!\n"
 
-#: src/project_import.c:127
+#: src/project_import.c:130
 msgid "Importing Project...please wait"
 msgstr "layihə idxal edilir... xahiş edirik gözləyin"
 
-#: src/project_import.c:175
+#: src/project_import.c:188
 msgid "Project import completed...successful\n"
 msgstr "Layihə idxalı qurtardı...........uğurlu\n"
 
-#: src/project_import.c:177
+#: src/project_import.c:190
 msgid "Project import completed...successful"
 msgstr "Layihə idxalı qurtardı...........uğurlu"
 
-#: src/project_import.c:189
+#: src/project_import.c:206
 msgid "Could not import Project: no project file found!"
 msgstr "Layihə idxal edilə bilmədi: layihə faylı tapılmadı!"
 
-#: src/project_import.c:196
+#: src/project_import.c:213
 msgid "Opening Project...please wait"
 msgstr "Layihə açılır... xahiş edirik gözləyin"
 
-#: src/project_import.c:199
+#: src/project_import.c:216
 msgid "Could not open generated Project file"
 msgstr "Yaradılmış layihə faylı açıla bilmir"
 
@@ -6726,8 +6533,9 @@ msgid "Please complete all of the required fields"
 msgstr "Xahiş edirik, məcburi olan bütün sahələri doldurun"
 
 #. We should never come here because this button is disabled
-#: src/project_import_cbs.c:278
-msgid "The import operation has already begun.\n"
+#: src/project_import_cbs.c:285
+msgid ""
+"The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
 "İdxal etmə əməliyyatı onsuzda başlayıb.\n"
@@ -6750,25 +6558,24 @@ msgstr ""
 "\n"
 "BU EKSPERİMENTAL XÜSUSİYYƏTDİR\n"
 
-#: src/project_import_gui.c:70
-#: src/project_import_gui.c:151
+#: src/project_import_gui.c:73 src/project_import_gui.c:158
 msgid "Project Import Wizard"
 msgstr "Lahiyə İdxalı Sehirbazı"
 
-#: src/project_import_gui.c:182
+#: src/project_import_gui.c:189
 msgid "Select directory"
 msgstr "Cərgəni seçin"
 
-#: src/project_import_gui.c:199
+#: src/project_import_gui.c:206
 msgid "Select top level directory of an existing project"
 msgstr "Mövcud layihənin üst səviyyə cərgəsini seçin"
 
-#: src/project_import_gui.c:203
+#: src/project_import_gui.c:210
 msgid "Select existing project directory"
 msgstr "Mövcud layihə cərgəsini seçin"
 
-#: src/project_import_gui.c:217
-msgid "Click Next to begin the import"
+#: src/project_import_gui.c:224
+msgid "Click Forward to begin the import"
 msgstr "İdxala başlamaq üçün Sonrakı düyməsinə basın"
 
 #: src/registers_gui.c:40
@@ -6802,35 +6609,32 @@ msgstr "tə'minat rəsm faylı tapıla bilmir: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "tə'minat rəsm faylı tapıla bilmir: %s"
 
-#: src/resources.c:263
-#: src/resources.c:271
+#: src/resources.c:263 src/resources.c:271
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Devhelp icra edilə bilmir. Qurulu olduğundan əmin olun"
 
-#: src/search-replace.c:1058
-#: src/text_editor_gui.c:140
+#: src/search-replace.c:1087
 msgid "Replace"
 msgstr "Əvəz Et"
 
-#: src/search-replace.c:1334
-#: src/search-replace.c:1497
+#: src/search-replace.c:1363 src/search-replace.c:1529
 msgid "Replace All"
 msgstr "Hamısını Əvəz Et"
 
-#: src/search-replace.c:1342
+#: src/search-replace.c:1371
 msgid "No matches."
 msgstr "Heç bir təsadüf tapılmadı."
 
-#: src/search-replace.c:1352
+#: src/search-replace.c:1381
 msgid "The maximum number of results has been reached."
 msgstr "Maksimal nəticə ədədinə çatıldı."
 
-#: src/search-replace.c:1362
+#: src/search-replace.c:1391
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "%d təsadüf əvəz edildi."
 
-#: src/search-replace.c:1704
+#: src/search-replace.c:1748
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Axtar və Əvəz Et üçün istifadəçi ara üzü inşa edilə bilmədi"
 
@@ -6870,9 +6674,7 @@ msgstr "Çəyirdək siqnalları"
 msgid "Signal"
 msgstr "Siqnal"
 
-#: src/signals_gui.c:119
-#: src/toolbar.c:313
-#: src/toolbar.c:671
+#: src/signals_gui.c:119 src/toolbar.c:663
 msgid "Stop"
 msgstr "Dayan"
 
@@ -6897,118 +6699,90 @@ msgstr "Keç:"
 msgid "Error writing to file: %s."
 msgstr "Fayla yazma xətası: %s."
 
-#: src/source.c:120
-#: src/source.c:167
-#: src/source.c:205
-#: src/source.c:453
-#: src/source.c:478
-#: src/source.c:573
-#: src/source.c:671
-#: src/source.c:711
-#: src/source.c:726
-#: src/source.c:760
-#: src/source.c:816
-#: src/source.c:852
-#: src/source.c:907
-#: src/source.c:943
-#: src/source.c:999
-#: src/source.c:1055
-#: src/source.c:1074
-#: src/source.c:1107
-#: src/source.c:1126
-#: src/source.c:1159
-#: src/source.c:1178
-#: src/source.c:1209
-#: src/source.c:1227
-#: src/source.c:1257
-#: src/source.c:1275
-#: src/source.c:1304
-#: src/source.c:1353
-#: src/source.c:1390
-#: src/source.c:1434
-#: src/source.c:1515
-#: src/source.c:1647
-#: src/source.c:1687
-#: src/source.c:1777
-#: src/source.c:1850
-#: src/source.c:1944
-#: src/source.c:2025
-#: src/source.c:2083
-#: src/source.c:2197
-#: src/source.c:2260
-#: src/source.c:2566
-#: src/source.c:2701
-#: src/utilities.c:744
+#: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:455
+#: src/source.c:480 src/source.c:575 src/source.c:673 src/source.c:713
+#: src/source.c:728 src/source.c:762 src/source.c:818 src/source.c:854
+#: src/source.c:909 src/source.c:945 src/source.c:1001 src/source.c:1057
+#: src/source.c:1076 src/source.c:1109 src/source.c:1128 src/source.c:1161
+#: src/source.c:1180 src/source.c:1211 src/source.c:1229 src/source.c:1259
+#: src/source.c:1277 src/source.c:1306 src/source.c:1355 src/source.c:1392
+#: src/source.c:1436 src/source.c:1517 src/source.c:1649 src/source.c:1689
+#: src/source.c:1779 src/source.c:1852 src/source.c:1946 src/source.c:2027
+#: src/source.c:2085 src/source.c:2199 src/source.c:2262 src/source.c:2568
+#: src/source.c:2703 src/utilities.c:744
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "Fayl yaradıla bilmir: %s."
 
-#: src/source.c:1612
-#: src/source.c:1732
+#: src/source.c:1614 src/source.c:1734
 #, c-format
 msgid "Error writing to: %s."
 msgstr "Buraya yazma xətası: %s."
 
-#: src/src_paths.c:264
+#: src/src_paths.c:262
 msgid "Source Paths"
 msgstr "Mənbə Cığırları"
 
-#: src/stack_trace.c:321
+#: src/stack_trace.c:315
 msgid "Error getting selection\n"
 msgstr "Seçim alınırkən xəta\n"
 
-#: src/stack_trace.c:332
+#: src/stack_trace.c:326
 msgid "Error getting source location from stack frame"
 msgstr "Stack çərçivəsindən mənbə mövqeyi alınırkən xəta"
 
-#: src/stack_trace.c:349
+#: src/stack_trace.c:343
 msgid "Frame set"
 msgstr "Çərçivə dəstəsi"
 
-#: src/stack_trace.c:356
+#: src/stack_trace.c:350
 msgid "Frame info"
 msgstr "Çərçivə infosu"
 
-#: src/stack_trace.c:363
+#: src/stack_trace.c:357
 msgid "Frame args"
 msgstr "Çərçivə arqumentləri"
 
-#: src/stack_trace.c:377
+#: src/stack_trace.c:371
 msgid "View Source"
 msgstr "Mənbəni Göstər"
 
-#: src/stack_trace.c:444
+#: src/stack_trace.c:438
 msgid "Active"
 msgstr "Fəal"
 
-#: src/stack_trace.c:455
+#: src/stack_trace.c:449
 msgid "Count"
 msgstr "Say"
 
-#: src/stack_trace.c:470
-#: src/toolbar.c:617
+#: src/stack_trace.c:464 src/toolbar.c:609
 msgid "Frame"
 msgstr "Çərçivə növü"
 
-#: src/support.c:60
-#: src/support.c:85
+#: src/support.c:60 src/support.c:85
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Rəsm faylını tapa bilmədim: %s"
 
-#: src/text_editor.c:887
+#: src/text_editor.c:905
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Bu fayl çox böyükdür. Yaddaş ayrıla bilmədi."
 
-#: src/text_editor.c:933
-msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
-msgstr "Fayl mətn faylına oxşamır ya da onun kodlaması dəstəklənmir. PXahiş edirik faylın kodlamasını dəstəklənən kodlamalar siyahısında olduğunu yoxlayın. Əgər yoxdursa, xassələrdən onu əlavə edin."
+#: src/text_editor.c:950
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
+msgstr ""
+"Fayl mətn faylına oxşamır ya da onun kodlaması dəstəklənmir. PXahiş edirik "
+"faylın kodlamasını dəstəklənən kodlamalar siyahısında olduğunu yoxlayın. "
+"Əgər yoxdursa, xassələrdən onu əlavə edin."
 
-#: src/text_editor.c:1106
+#: src/text_editor.c:1123
 msgid "Loading file ..."
 msgstr "Fayl yüklənir ..."
 
-#: src/text_editor.c:1112
+#: src/text_editor.c:1129
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -7019,24 +6793,24 @@ msgstr ""
 "\n"
 "Ətraflı: %s"
 
-#: src/text_editor.c:1133
+#: src/text_editor.c:1150
 msgid "File loaded successfully"
 msgstr "Fayl müvəffəqiyyətlə yükləndi"
 
-#: src/text_editor.c:1148
+#: src/text_editor.c:1165
 msgid "Saving file ..."
 msgstr "Fayl qeyd edilir ..."
 
-#: src/text_editor.c:1153
+#: src/text_editor.c:1170
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Fayl qeyd edilə bilmədi: %s."
 
-#: src/text_editor.c:1193
+#: src/text_editor.c:1210
 msgid "File saved successfully"
 msgstr "Fayl müvəffəqiyyətlə qeyd edildi"
 
-#: src/text_editor.c:1291
+#: src/text_editor.c:1308
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7047,115 +6821,80 @@ msgstr ""
 "daha yenidir.\n"
 "Onu yenidən yükləmək istəyirsiniz?"
 
-#: src/text_editor.c:1436
+#: src/text_editor.c:1453
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr "Avtomatik şəkilləndirmə hazırda bağlıdır. Qurğular menyusunda dəyişikliklər edin."
+msgstr ""
+"Avtomatik şəkilləndirmə hazırda bağlıdır. Qurğular menyusunda dəyişikliklər "
+"edin."
 
-#: src/text_editor.c:1442
+#: src/text_editor.c:1459
 msgid "Auto formatting ..."
 msgstr "Avtomatik şəkilləndirilir ..."
 
-#: src/text_editor.c:1452
+#: src/text_editor.c:1469
 msgid "Error in auto formatting ..."
 msgstr "Avtomatik şəkilləndirmədə xəta ..."
 
-#: src/text_editor.c:1479
+#: src/text_editor.c:1496
 #, c-format
-msgid "Error in auto formatting ...\n"
+msgid ""
+"Error in auto formatting ...\n"
 "Details: %s"
-msgstr "Avtomatik şəkilləndirmədə xəta ...\n"
+msgstr ""
+"Avtomatik şəkilləndirmədə xəta ...\n"
 "Ətraflı: %s"
 
-#: src/text_editor.c:1486
+#: src/text_editor.c:1503
 msgid "Auto formatting completed"
 msgstr "Avtomatik şəkilləndirmə qurtardı"
 
-#: src/text_editor_cbs.c:186
+#: src/text_editor_cbs.c:183
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "Avtomatik qeyd edildi \"%s\""
 
-#: src/text_editor_cbs.c:190
+#: src/text_editor_cbs.c:187
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Avtomatik qeyd \"%s\" -- Bacarılmadı"
 
-#: src/text_editor_gui.c:96
-#: src/toolbar.c:75
-msgid "New"
-msgstr "Yeni"
-
-#: src/text_editor_gui.c:100
-#: src/toolbar.c:79
-msgid "Open"
-msgstr "Aç"
-
-#: src/text_editor_gui.c:106
-#: src/toolbar.c:83
-msgid "Save"
-msgstr "Qeyd Et"
-
-#: src/text_editor_gui.c:111
-#: src/toolbar.c:87
-msgid "Reload"
-msgstr "Yenilə"
-
-#. 0
 #: src/text_editor_gui.c:118
-#: src/text_editor_menu.c:239
-msgid "Cut"
-msgstr "Kəs"
-
-#: src/text_editor_gui.c:119
 msgid "Cut to clipboard"
 msgstr "Ara yaddaşa kəs"
 
-#. 1
 #: src/text_editor_gui.c:123
-#: src/text_editor_menu.c:247
-msgid "Copy"
-msgstr "Köçür"
-
-#: src/text_editor_gui.c:124
 msgid "Copy to clipboard"
 msgstr "Ara yaddaşa köçür"
 
-#. 2
 #: src/text_editor_gui.c:128
-#: src/text_editor_menu.c:255
-msgid "Paste"
-msgstr "Yapışdır"
-
-#: src/text_editor_gui.c:129
 msgid "Paste from clipboard"
 msgstr "Ara yaddaşdan yapışdır"
 
-#: src/text_editor_gui.c:136
+#: src/text_editor_gui.c:135
 msgid "Search string"
 msgstr "Qatarı axtar"
 
-#: src/text_editor_gui.c:141
+#: src/text_editor_gui.c:139
 msgid "Search and replace string"
 msgstr "Qatarı axtar və əvəz et"
 
-#: src/text_editor_gui.c:157
+#: src/text_editor_gui.c:155
 msgid "line: "
 msgstr "sətir: "
 
-#: src/text_editor_gui.c:169
-#: src/toolbar.c:249
+#: src/text_editor_gui.c:167 src/toolbar.c:248
 msgid "Compile the current file"
 msgstr "Hazırkı faylı dərlə"
 
-#: src/text_editor_gui.c:173
+#: src/text_editor_gui.c:171
 msgid "Build current file or the source directory of the Project"
 msgstr "Hazırkı faylı ya da layihənin mənbə cərgəsini inşa et"
 
-#: src/text_editor_gui.c:182
+#: src/text_editor_gui.c:180
 msgid "Attach"
 msgstr "Əlavə Et"
 
-#: src/text_editor_gui.c:183
+#: src/text_editor_gui.c:181
 msgid "Attach the current page"
 msgstr "Hazırkı səhifəni ilişdir"
 
@@ -7183,8 +6922,7 @@ msgstr "Əvvəlki nişan"
 msgid "Next bookmark"
 msgstr "Sonrakı nişan"
 
-#: src/text_editor_menu.c:143
-#: src/toolbar.c:541
+#: src/text_editor_menu.c:143 src/toolbar.c:533
 msgid "Step in"
 msgstr "İçəri addım"
 
@@ -7196,8 +6934,7 @@ msgstr "İçə addım"
 msgid "Step out"
 msgstr "Çölə addım"
 
-#: src/text_editor_menu.c:161
-#: src/toolbar.c:530
+#: src/text_editor_menu.c:161 src/toolbar.c:522
 msgid "Run to cursor"
 msgstr "Oxa tərəf get"
 
@@ -7205,8 +6942,7 @@ msgstr "Oxa tərəf get"
 msgid "Run/Continue"
 msgstr "İşlə/Davam Et"
 
-#: src/text_editor_menu.c:181
-#: src/toolbar.c:578
+#: src/text_editor_menu.c:181 src/toolbar.c:570
 msgid "Interrupt"
 msgstr "Kəs"
 
@@ -7234,6 +6970,21 @@ msgstr "++Yaxınlıq"
 msgid "--Zoom"
 msgstr "--Yaxınlıq"
 
+#. 0
+#: src/text_editor_menu.c:239
+msgid "Cut"
+msgstr "Kəs"
+
+#. 1
+#: src/text_editor_menu.c:247
+msgid "Copy"
+msgstr "Köçür"
+
+#. 2
+#: src/text_editor_menu.c:255
+msgid "Paste"
+msgstr "Yapışdır"
+
 #. 4
 #: src/text_editor_menu.c:265
 msgid "Context Help"
@@ -7255,30 +7006,19 @@ msgid "Swap .h/.c"
 msgstr "Swap .h/.c"
 
 #. 10
-#: src/text_editor_menu.c:301
-#: src/toolbar.c:517
+#: src/text_editor_menu.c:301 src/toolbar.c:509
 msgid "Go"
 msgstr "Get"
 
 #. 11
-#: src/text_editor_menu.c:309
-#: src/text_editor_menu.c:431
+#: src/text_editor_menu.c:309 src/text_editor_menu.c:431
 msgid "Tags"
 msgstr "Taqlar"
 
 #. 18
 #: src/text_editor_menu.c:347
-#: src/toolbar.c:91
 msgid "Close"
 msgstr "bağla"
-
-#: src/toolbar.c:96
-msgid "Undo"
-msgstr "Geri al"
-
-#: src/toolbar.c:100
-msgid "Redo"
-msgstr "Yenidən Et"
 
 #: src/toolbar.c:105
 msgid "Detach"
@@ -7296,10 +7036,6 @@ msgstr "Hazırkı faylda verilən sözü axtar"
 msgid "Enter the string to search for"
 msgstr "Axtarılacaq kəlməni gir"
 
-#: src/toolbar.c:135
-msgid "Go To"
-msgstr "Get"
-
 #: src/toolbar.c:136
 msgid "Go to the given line number in the current file"
 msgstr "Hazırkı fayldakı bildirlən sətir nömrəsinə get"
@@ -7308,266 +7044,247 @@ msgstr "Hazırkı fayldakı bildirlən sətir nömrəsinə get"
 msgid "Enter the line number to go to"
 msgstr "Gediləcək sətir nömrəsini gir"
 
-#: src/toolbar.c:160
+#: src/toolbar.c:159
 msgid "Context sensitive help"
 msgstr "Məzmuna həssas yardım"
 
-#: src/toolbar.c:222
+#: src/toolbar.c:221
 msgid "Save Project"
 msgstr "Layihəni Qeyd Et"
 
-#: src/toolbar.c:234
+#: src/toolbar.c:233
 msgid "Close Project"
 msgstr "Layihəni bağla"
 
-#: src/toolbar.c:261
+#: src/toolbar.c:260
 msgid "Run configure"
 msgstr "Quraşdırmanı işə sal"
 
-#: src/toolbar.c:273
+#: src/toolbar.c:272
 msgid "Build current file, or build the source directory of the Project"
 msgstr "Hazırkı faylı inaş et, ya da Layihənin mənbə cərgəsin eyni şeyi et"
 
-#: src/toolbar.c:284
+#: src/toolbar.c:283
 msgid "Build_all"
 msgstr "Hamısını_inşaet"
 
-#: src/toolbar.c:286
+#: src/toolbar.c:285
 msgid "Build from the top directory of the Project"
 msgstr "Layihənin zirvəsindən etibarən inşa et"
 
-#: src/toolbar.c:294
-msgid "Execute"
-msgstr "İşə sal"
-
-#: src/toolbar.c:306
+#: src/toolbar.c:304
 msgid "Start the Debugger"
 msgstr "Xəta Ayıqladıcını Başlat"
 
-#: src/toolbar.c:314
+#: src/toolbar.c:311
 msgid "Stop/interrupt compile or build"
 msgstr "Dərləmə ya da inçanı dayandır/kəs"
 
-#: src/toolbar.c:383
-#: src/toolbar.c:767
+#: src/toolbar.c:380 src/toolbar.c:759
 msgid "Toggle"
 msgstr "Gizlət/Göstər"
 
-#: src/toolbar.c:384
+#: src/toolbar.c:381
 msgid "Toggle bookmark at current location"
 msgstr "Hazırkı yerdəki nişanı gizlət/göstər"
 
-#: src/toolbar.c:390
-msgid "First"
-msgstr "İlk"
-
-#: src/toolbar.c:391
+#: src/toolbar.c:387
 msgid "Goto first bookmark in this document"
 msgstr "Sənəddəki ilk nişana get"
 
-#: src/toolbar.c:397
-#: src/toolbar.c:419
-msgid "Prev"
-msgstr "Əvvəlki"
-
-#: src/toolbar.c:398
+#: src/toolbar.c:393
 msgid "Goto previous bookmark in this document"
 msgstr "Sənəddəki əvvəlki nişana get"
 
-#: src/toolbar.c:403
-#: src/toolbar.c:426
-msgid "Next"
-msgstr "Sonrakı"
-
-#: src/toolbar.c:404
+#: src/toolbar.c:398
 msgid "Goto next bookmark in this document"
 msgstr "Sənəddəki sonrakı nişana get"
 
-#: src/toolbar.c:409
-msgid "Last"
-msgstr "Axırıncı"
-
-#: src/toolbar.c:410
+#: src/toolbar.c:403
 msgid "Goto last bookmark in this document"
 msgstr "Sənəddəki son nişana get"
 
-#: src/toolbar.c:420
+#: src/toolbar.c:412
+msgid "Prev"
+msgstr "Əvvəlki"
+
+#: src/toolbar.c:413
 msgid "Goto previous message in this document"
 msgstr "Sənəddəki əvvəlki ismarışa get"
 
-#: src/toolbar.c:427
+#: src/toolbar.c:419
+msgid "Next"
+msgstr "Sonrakı"
+
+#: src/toolbar.c:420
 msgid "Goto next message in this document"
 msgstr "Sənəddəki sonrakı ismarışa get"
 
-#: src/toolbar.c:435
+#: src/toolbar.c:428
 msgid "Start"
 msgstr "Başla"
 
-#: src/toolbar.c:436
+#: src/toolbar.c:429
 msgid "Goto start of current code block"
 msgstr "Hazırkı kod blokunun başına get"
 
-#: src/toolbar.c:442
+#: src/toolbar.c:435
 msgid "End"
 msgstr "Son"
 
-#: src/toolbar.c:443
+#: src/toolbar.c:436
 msgid "Goto end of current code block"
 msgstr "Hazırkı kod blokunun sonuna get"
 
-#: src/toolbar.c:450
+#: src/toolbar.c:443
 msgid "Tags:"
 msgstr "Taqlar:"
 
-#: src/toolbar.c:459
-msgid "Goto Tag"
-msgstr "Taqa Get"
-
-#: src/toolbar.c:460
+#: src/toolbar.c:452
 msgid "Search for the given tag in the current file"
 msgstr "Hazırkı faylda verilən taqı axtar"
 
-#: src/toolbar.c:475
+#: src/toolbar.c:467
 msgid "Enter the tag to jump to"
 msgstr "Sıçranacaq taqı girin"
 
-#: src/toolbar.c:518
+#: src/toolbar.c:510
 msgid "Go or continue execution"
 msgstr "İcraya davam et və ya başlat"
 
-#: src/toolbar.c:529
+#: src/toolbar.c:521
 msgid "Run"
 msgstr "İşə Sal"
 
-#: src/toolbar.c:542
+#: src/toolbar.c:534
 msgid "Single step in execution"
 msgstr "İcrada tək addım"
 
-#: src/toolbar.c:553
+#: src/toolbar.c:545
 msgid "Step Over"
 msgstr "Üstündən Addım"
 
-#: src/toolbar.c:554
+#: src/toolbar.c:546
 msgid "Step over the function"
 msgstr "Funksiya üstündən addım"
 
-#: src/toolbar.c:564
+#: src/toolbar.c:556
 msgid "Step Out"
 msgstr "Çölə Addım"
 
-#: src/toolbar.c:565
+#: src/toolbar.c:557
 msgid "Step out of the function"
 msgstr "Funksiyadan çölə addım"
 
-#: src/toolbar.c:580
+#: src/toolbar.c:572
 msgid "Interrupt execution of the program"
 msgstr "Proqramın icrasını kəs"
 
-#: src/toolbar.c:593
+#: src/toolbar.c:585
 msgid "Breakpoint"
 msgstr "Qırma Nöqtəsi"
 
-#: src/toolbar.c:594
+#: src/toolbar.c:586
 msgid "Toggle breakpoint at cursor"
 msgstr "Oxdakı qırma nöqtəsini gizlət/göstər"
 
-#: src/toolbar.c:606
+#: src/toolbar.c:598
 msgid "Inspect or evaluate an expression"
 msgstr "İfadəni təftiş et ya da işlət"
 
-#: src/toolbar.c:619
+#: src/toolbar.c:611
 msgid "Display the current frame information"
 msgstr "Hazırkı çərçivə mə'lumatını göstər"
 
-#: src/toolbar.c:645
+#: src/toolbar.c:637
 msgid "Signals"
 msgstr "Siqnallar"
 
-#: src/toolbar.c:646
+#: src/toolbar.c:638
 msgid "kernel signals of the program"
 msgstr "Proqramın çəyirdək siqnalları"
 
-#: src/toolbar.c:657
+#: src/toolbar.c:649
 msgid "Registers"
 msgstr "Qeydiyyatçılar"
 
-#: src/toolbar.c:658
+#: src/toolbar.c:650
 msgid "CPU registers and their contents"
 msgstr "CPU registerləri və məzmunları"
 
-#: src/toolbar.c:672
+#: src/toolbar.c:664
 msgid "End the debugging session"
 msgstr "Xəta ayıqlama iclasını sonlandır"
 
-#: src/toolbar.c:769
+#: src/toolbar.c:761
 msgid "Toggle current code fold hide/show"
 msgstr "Hazırkı kod qovluğunu gizlət/göstər"
 
-#: src/toolbar.c:780
+#: src/toolbar.c:772
 msgid "Close all"
 msgstr "Hamısını bağla"
 
-#: src/toolbar.c:782
+#: src/toolbar.c:774
 msgid "Close all code folds in this document"
 msgstr "Bu sənəddəki bütün kod qovluqlarını bağla"
 
-#: src/toolbar.c:793
+#: src/toolbar.c:785
 msgid "Open all"
 msgstr "Hamısını aç"
 
-#: src/toolbar.c:795
+#: src/toolbar.c:787
 msgid "Open all code folds in this document"
 msgstr "Bu sənəddəki bütün kod qovluqlarını aç"
 
-#: src/toolbar.c:808
+#: src/toolbar.c:800
 msgid "Select"
 msgstr "Seç"
 
-#: src/toolbar.c:809
+#: src/toolbar.c:801
 msgid "Select current code block"
 msgstr "Hazırkı kod blokunu seç"
 
-#: src/toolbar.c:820
+#: src/toolbar.c:812
 msgid "Indent inc"
 msgstr "Çərtmə art"
 
-#: src/toolbar.c:822
+#: src/toolbar.c:814
 msgid "Increase indentation of block/line"
 msgstr "Blok/sətir çərtilməsini artır"
 
-#: src/toolbar.c:833
+#: src/toolbar.c:825
 msgid "Indent dcr"
 msgstr "Çərtmə azl"
 
-#: src/toolbar.c:835
+#: src/toolbar.c:827
 msgid "Decrease indentation of block/line"
 msgstr "Blok/sətir çərtilməsini azalat"
 
-#: src/toolbar.c:848
+#: src/toolbar.c:840
 msgid "Autoformat"
 msgstr "AvtŞəkilləndir"
 
-#: src/toolbar.c:850
+#: src/toolbar.c:842
 msgid "Automatically format the code"
 msgstr "Kodu avtomatik şəkilləndir"
 
-#: src/toolbar.c:862
+#: src/toolbar.c:854
 msgid "Configure style to use for auto format"
 msgstr "Avtomatik şəkilləndirmə üçün işlədiləcək tərzu quraşdır"
 
-#: src/toolbar.c:875
+#: src/toolbar.c:867
 msgid "Calltip"
 msgstr "Çağırış İp Ucu"
 
-#: src/toolbar.c:875
+#: src/toolbar.c:867
 msgid "Show Calltip"
 msgstr "Çağırış İp Uclarını Göstər"
 
-#: src/toolbar.c:888
+#: src/toolbar.c:880
 msgid "Autocomplete"
 msgstr "Tamamlama"
 
-#: src/toolbar.c:889
+#: src/toolbar.c:881
 msgid "Autocomplete word"
 msgstr "Kəlmə tamamlanması"
 
@@ -7589,7 +7306,7 @@ msgstr "Fayl oxuna bilmir: %s"
 msgid "Unable to complete file copy"
 msgstr "Fayl köçürməsi tamamlana bilmir"
 
-#: src/watch_cbs.c:236
+#: src/watch_cbs.c:235
 msgid "< Not defined in current context >"
 msgstr "< Hazırkı məzmunda müəyyənləşdiriməyib >"
 
@@ -7613,31 +7330,31 @@ msgstr "Gizlət/Göstər fəal"
 msgid "Change item"
 msgstr "Üzvü dəyişdir"
 
-#: src/watch_gui.c:174
+#: src/watch_gui.c:172
 msgid "Add Watch Expression"
 msgstr "İzləmə İfadəsi Əlavə Et"
 
-#: src/watch_gui.c:184
+#: src/watch_gui.c:182
 msgid "Add expression to watch"
 msgstr "İzlənəcək ifadəni əlavə et"
 
-#: src/watch_gui.c:240
+#: src/watch_gui.c:238
 msgid "Modify Watch Expression"
 msgstr "İzləmə İfadəsini Dəyişdir"
 
-#: src/watch_gui.c:250
+#: src/watch_gui.c:248
 msgid "Modify watched expression"
 msgstr "İzlənən ifadəni dəyişdir"
 
-#: src/watch_gui.c:307
+#: src/watch_gui.c:305
 msgid "Inspect/Evaluate"
 msgstr "Təftiş/İstifadə Et"
 
-#: src/watch_gui.c:317
+#: src/watch_gui.c:315
 msgid "Inspect/Evaluate Expression"
 msgstr "İfadəni Təftiş/İstifadə et"
 
-#: src/watch_gui.c:327
+#: src/watch_gui.c:325
 msgid "Add To Watch"
 msgstr "İzlənmək üçün Əlavə Et"
 
@@ -7825,13 +7542,11 @@ msgstr "Siyahını təzələ"
 msgid "Delete file"
 msgstr "Faylı sil"
 
-#: widgets/gnomefilelist.c:253
-#: widgets/gnomefilelist.c:1891
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
 msgid "Rename file"
 msgstr "Faylı yenidən adlandır"
 
-#: widgets/gnomefilelist.c:257
-#: widgets/gnomefilelist.c:1990
+#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
 msgid "Create new folder"
 msgstr "Yeni qovluq yarat"
 
@@ -7879,26 +7594,26 @@ msgstr ".mak faylları"
 msgid "Diff files"
 msgstr "Diff faylları"
 
-#: widgets/gnomefilelist.c:1856
+#: widgets/gnomefilelist.c:1854
 #, c-format
 msgid "Really delete %s?"
 msgstr "%s həqiqətən də silinsin?"
 
-#: widgets/gnomefilelist.c:1903
+#: widgets/gnomefilelist.c:1901
 msgid "Rename file to:"
 msgstr "Faylı yenidən adlandır:"
 
-#: widgets/gnomefilelist.c:1929
+#: widgets/gnomefilelist.c:1927
 #, c-format
 msgid "Renaming file failed '%s': %s"
 msgstr "Faylın yenidən adlandırılması bacarılmadı '%s': %s"
 
-#: widgets/gnomefilelist.c:1962
+#: widgets/gnomefilelist.c:1960
 #, c-format
 msgid "Creating folder failed '%s': %s"
 msgstr "Qovluğun yaradılması bacarılmadı '%s': %s"
 
-#: widgets/gnomefilelist.c:2002
+#: widgets/gnomefilelist.c:2000
 msgid "Folder name:"
 msgstr "Qovluq adı:"
 
