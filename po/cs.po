@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-26 02:59+0100\n"
-"PO-Revision-Date: 2004-02-26 11:18+0100\n"
+"POT-Creation-Date: 2004-03-09 03:03+0100\n"
+"PO-Revision-Date: 2004-03-09 20:46+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6735,40 +6735,40 @@ msgstr "Nemohu najít soubor pixmapy aplikace: %s"
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Nemohu spustit Devhelp. Přesvědčte se, že je nainstalován"
 
-#: src/search-replace.c:339
+#: src/search-replace.c:342
 msgid "Replace"
 msgstr "Nahradit"
 
-#: src/search-replace.c:624 src/search-replace.c:1251
-#: src/search-replace.c:1258 src/search-replace.c:1270
-#: src/search-replace.c:1514
+#: src/search-replace.c:684 src/search-replace.c:1306
+#: src/search-replace.c:1313 src/search-replace.c:1325
+#: src/search-replace.c:1569
 msgid "Search"
 msgstr "Hledat"
 
-#: src/search-replace.c:627 src/search-replace.c:1265
+#: src/search-replace.c:687 src/search-replace.c:1320
 msgid "Replace All"
 msgstr "Nahradit vše"
 
-#: src/search-replace.c:663
+#: src/search-replace.c:723
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr "Hledané \"%s\" nebylo nalezeno. Hledat od druhého konce dokumentu?"
 
-#: src/search-replace.c:686
+#: src/search-replace.c:746
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr "Hledané \"%s\" nebylo nalezeno."
 
-#: src/search-replace.c:704
+#: src/search-replace.c:764
 msgid "The maximum number of results has been reached."
 msgstr "Byl dosažen maximální počet výsledků."
 
-#: src/search-replace.c:717
+#: src/search-replace.c:777
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "Bylo nahrazeno %d výsledků."
 
-#: src/search-replace.c:874
+#: src/search-replace.c:932
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
@@ -6781,7 +6781,7 @@ msgid "The maximum number of settings has been reached."
 msgstr "Byl dosažen maximální počet nastavení."
 
 #: src/search_preferences.c:483
-msgid "This name is alredady used."
+msgid "This name is already used."
 msgstr "Tento název se již používá."
 
 #: src/sharedlib_gui.c:44
