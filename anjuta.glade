@@ -15874,7 +15874,7 @@
 	<widget class="GnomeDruidPageStandard" id="druidpagestandard1">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Windows style</property>
-	  <property name="logo_background">#c568084ce8fc</property>
+	  <property name="logo_background">#c440084ceacc</property>
 	  <property name="logo">applogo.png</property>
 
 	  <child internal-child="vbox">
@@ -15891,7 +15891,7 @@
 		  <property name="n_columns">2</property>
 		  <property name="homogeneous">False</property>
 		  <property name="row_spacing">0</property>
-		  <property name="column_spacing">5</property>
+		  <property name="column_spacing">10</property>
 
 		  <child>
 		    <widget class="GtkImage" id="image26">
@@ -16011,7 +16011,7 @@ main window.</property>
 		  </child>
 
 		  <child>
-		    <widget class="GtkRadioButton" id="radiobutton5">
+		    <widget class="GtkRadioButton" id="dock_radio">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Docked style</property>
@@ -16032,7 +16032,7 @@ main window.</property>
 		  </child>
 
 		  <child>
-		    <widget class="GtkRadioButton" id="dock_radio">
+		    <widget class="GtkRadioButton" id="undock_radio">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Undocked style</property>
@@ -16041,7 +16041,7 @@ main window.</property>
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
-		      <property name="group">radiobutton5</property>
+		      <property name="group">dock_radio</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">1</property>
@@ -16065,53 +16065,12 @@ main window.</property>
       </child>
 
       <child>
-	<widget class="GnomeDruidPageStandard" id="druidpagestandard2">
-	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Syntax highlighting style</property>
-	  <property name="logo">applogo.png</property>
-
-	  <child internal-child="vbox">
-	    <widget class="GtkVBox" id="druid-vbox2">
-	      <property name="border_width">16</property>
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">6</property>
-
-	      <child>
-		<placeholder/>
-	      </child>
-	    </widget>
-	  </child>
-	</widget>
-      </child>
-
-      <child>
-	<widget class="GnomeDruidPageStandard" id="druidpagestandard3">
-	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Helper applications</property>
-	  <property name="logo">applogo.png</property>
-
-	  <child internal-child="vbox">
-	    <widget class="GtkVBox" id="druid-vbox3">
-	      <property name="border_width">16</property>
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">6</property>
-
-	      <child>
-		<placeholder/>
-	      </child>
-	    </widget>
-	  </child>
-	</widget>
-      </child>
-
-      <child>
 	<widget class="GnomeDruidPageEdge" id="druidpagefinish1">
 	  <property name="visible">True</property>
 	  <property name="position">GNOME_EDGE_FINISH</property>
 	  <property name="title" translatable="yes">Summary</property>
-	  <property name="text" translatable="yes">Anjuta Dev Studio
+	  <property name="text" translatable="yes">
+Anjuta Dev Studio
 Copyright (C) Naba Kumar
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. 
@@ -16119,8 +16078,7 @@ This program is free software; you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. 
 
 You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
-
-If you do not agree, click 'Cancel'.</property>
+</property>
 	  <property name="logo">applogo.png</property>
 	</widget>
       </child>

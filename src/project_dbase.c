@@ -573,14 +573,26 @@ project_reload_session_files(ProjectDBase * p)
 static void
 project_dbase_reload_session (ProjectDBase * p)
 {
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
+	gboolean build_sv = anjuta_preferences_get_int (pr, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
+	gboolean auto_update = anjuta_preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE);
+
 	g_return_if_fail( NULL != p );
 	debugger_reload_session_breakpoints(p);	
 	project_reload_session_files(p);
+	fv_session_load (p);
+	if (auto_update)
+		project_dbase_update_tags_image(p, TRUE);
+	else
+	{
+		sv_populate(build_sv);
+		fv_populate(build_fv);
+	}
 	session_load_node_expansion_states (p);
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
-	fv_session_load (p);
 	p->m_prj_ShowLocal = session_get_bool (p, SECSTR(SECTION_PROJECTDBASE),
 										   szShowLocalsItem,
 										   SHOW_LOCALS_DEFAULT );
@@ -1317,13 +1329,13 @@ project_dbase_save_session (ProjectDBase * p)
 {
 	debugger_save_session_breakpoints (p);
 	project_dbase_save_session_files (p);
+	fv_session_save (p);
+	session_save_node_expansion_states (p);
 	find_replace_save_session (app->find_replace, p);
 	executer_save_session (app->executer, p);
 	find_in_files_save_session (app->find_in_files, p);
-	fv_session_save (p);
 	session_save_bool (p, SECSTR (SECTION_PROJECTDBASE),
 					   szShowLocalsItem, p->m_prj_ShowLocal );
-	session_save_node_expansion_states (p);
 	session_sync();
 }
 
@@ -2590,27 +2602,15 @@ go_error:
 gboolean
 project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 {
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
-	gboolean build_sv = anjuta_preferences_get_int (pr, BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
-	gboolean auto_update = anjuta_preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE);
-
 	/* Now Project setup */
 	project_dbase_update_tree (p);
+	if (show_project)
+		project_dbase_show (p);
 	extended_toolbar_update ();
-	if (auto_update)
-		project_dbase_update_tags_image(p, TRUE);
-	else
-	{
-		sv_populate(build_sv);
-		fv_populate(build_fv);
-	}
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
 	project_dbase_update_docked_status();
-	if (show_project)
-		project_dbase_show (p);
 	project_dbase_reload_session(p);
 
 	return TRUE;

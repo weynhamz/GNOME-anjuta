@@ -201,7 +201,7 @@ void on_edit_user_properties1_activate (GtkMenuItem * menuitem,
 										gpointer user_data);
 void on_set_preferences1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_set_style_editor_activate (GtkMenuItem * menuitem, gpointer user_data);
-void on_windows_settings_activate (GtkMenuItem * menuitem, gpointer user_data);
+void on_file_view_filters_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_set_default_preferences1_activate (GtkMenuItem * menuitem,
 										   gpointer user_data);
 void on_start_with_dialog_activate (GtkMenuItem * menuitem, gpointer user_data);

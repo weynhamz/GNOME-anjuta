@@ -43,6 +43,7 @@ typedef struct _AnFileView {
 
 AnFileView *fv_populate (gboolean full);
 void	    fv_clear (void);
+void        fv_customize(gboolean really_show);
 gboolean    anjuta_fv_open_file (const char *path, gboolean use_anjuta);
 
 void        fv_session_save (ProjectDBase *p);

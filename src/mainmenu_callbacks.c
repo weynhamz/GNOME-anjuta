@@ -55,6 +55,7 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 #include "about.h"
+#include "an_file_view.h"
 
 #include "tm_tagmanager.h"
 #include "file_history.h"
@@ -1976,9 +1977,9 @@ on_set_style_editor_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_windows_settings_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_file_view_filters_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	gtk_widget_show (GTK_WIDGET (app->windows_dialog));
+	fv_customize(TRUE);
 }
 
 void

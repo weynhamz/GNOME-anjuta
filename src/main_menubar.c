@@ -251,7 +251,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->settings.commands = settings1_menu_uiinfo[2].widget;
 	mb->settings.preferences = settings1_menu_uiinfo[4].widget;
 	mb->settings.style_editor = settings1_menu_uiinfo[5].widget;
-	mb->settings.windows_dialog = settings1_menu_uiinfo[6].widget;
+	mb->settings.file_view_filters = settings1_menu_uiinfo[6].widget;
 	mb->settings.user_properties = settings1_menu_uiinfo[7].widget;
 	mb->settings.default_preferences = settings1_menu_uiinfo[8].widget;
 	mb->settings.shortcuts = settings1_menu_uiinfo[9].widget;

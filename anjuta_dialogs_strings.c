@@ -517,10 +517,9 @@ gchar *s = N_("Docked style presents Anjuta \n"
               "main window.");
 gchar *s = N_("Docked style");
 gchar *s = N_("Undocked style");
-gchar *s = N_("Syntax highlighting style");
-gchar *s = N_("Helper applications");
 gchar *s = N_("Summary");
-gchar *s = N_("Anjuta Dev Studio\n"
+gchar *s = N_("\n"
+              "Anjuta Dev Studio\n"
               "Copyright (C) Naba Kumar\n"
               "\n"
               "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. \n"
@@ -528,5 +527,4 @@ gchar *s = N_("Anjuta Dev Studio\n"
               "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. \n"
               "\n"
               "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA \n"
-              "\n"
-              "If you do not agree, click 'Cancel'.");
+              "");

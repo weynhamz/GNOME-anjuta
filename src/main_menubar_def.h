@@ -1728,15 +1728,15 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
 	 0, 0, NULL},
 	{/*5*/
-	 GNOME_APP_UI_ITEM, N_("Syntax _highlighting ..."),
+	 GNOME_APP_UI_ITEM, N_("_Editor colors and fonts ..."),
 	 N_("Syntax highlighting settings"),
 	 on_set_style_editor_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
 	 0, 0, NULL},
 	{/*6*/
-	 GNOME_APP_UI_ITEM, N_("Windows settings ..."),
-	 N_("Edit windows settings"),
-	 on_windows_settings_activate, NULL, NULL,
+	 GNOME_APP_UI_ITEM, N_("File view filters ..."),
+	 N_("Edit file view filters"),
+	 on_file_view_filters_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
 	 0, 0, NULL},
 	{/*7*/

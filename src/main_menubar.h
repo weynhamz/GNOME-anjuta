@@ -268,7 +268,7 @@ struct _SettingsSubMenu
 	GtkWidget *commands;
 	GtkWidget *preferences;
 	GtkWidget *style_editor;
-	GtkWidget *windows_dialog;
+	GtkWidget *file_view_filters;
 	GtkWidget *user_properties;
 	GtkWidget *default_preferences;
 	GtkWidget *shortcuts;

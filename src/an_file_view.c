@@ -26,6 +26,7 @@ enum {
 };
 
 static AnFileView *fv = NULL;
+
 gboolean
 anjuta_fv_open_file (const char *path,
 		     gboolean    use_anjuta)
@@ -209,9 +210,6 @@ void fv_session_load (ProjectDBase *p)
 	gchar *key;
 	gpointer config_iterator;
 	
-	if (!ff)
-		return;
-	
 	config_iterator = session_get_iterator (p, SECSTR (SECTION_FILE_VIEW));
 	if (config_iterator !=  NULL)
 	{
@@ -228,6 +226,8 @@ void fv_session_load (ProjectDBase *p)
 			szValue = NULL;
 		}
 	}
+	if (!ff)
+		fv_customize(FALSE);
 	fv_prefs_load();
 }
 
@@ -257,7 +257,7 @@ void on_file_filter_ok_button_clicked (GtkButton *button, gpointer user_data)
 	ff->xml, name); \
 	gtk_widget_ref((GtkWidget *) ff->var)
 
-static void fv_customize(gboolean really_show)
+void fv_customize(gboolean really_show)
 {
 	if (NULL == ff)
 	{
