@@ -266,6 +266,18 @@ anjuta_shell_remove_value (AnjutaShell *shell,
 	ANJUTA_SHELL_GET_IFACE (shell)->remove_value (shell, name, error);
 }
 
+GObject*
+anjuta_shell_get_object     (AnjutaShell     *shell,
+							 const char      *iface_name,
+							 GError         **error)
+{
+	g_return_val_if_fail (shell != NULL, NULL);
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+	g_return_val_if_fail (iface_name != NULL, NULL);
+
+	return ANJUTA_SHELL_GET_IFACE (shell)->get_object (shell, iface_name, error);
+}
+
 static void
 anjuta_shell_base_init (gpointer gclass)
 {

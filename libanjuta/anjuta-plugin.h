@@ -27,6 +27,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/glue-plugin.h>
 
 //#include <bonobo/bonobo-ui-component.h>
@@ -92,7 +93,7 @@ void anjuta_plugin_remove_watch (AnjutaPlugin *tool,
 			       guint id,
 			       gboolean send_remove);
 
-#define ANJUTA_PLUGIN_BOILERPLATE(class_name, prefix) \
+#define ANJUTA_PLUGIN_BEGIN(class_name, prefix) \
 static GType \
 prefix##_get_type (GluePlugin *plugin) \
 { \
@@ -112,10 +113,15 @@ prefix##_get_type (GluePlugin *plugin) \
 		type = g_type_module_register_type (G_TYPE_MODULE (plugin), \
 						    ANJUTA_TYPE_PLUGIN, \
 						    #class_name, \
-						    &type_info, 0); \
+						    &type_info, 0);
+#define ANJUTA_PLUGIN_END \
 	} \
 	return type; \
 }
+
+#define ANJUTA_PLUGIN_BOILERPLATE(class_name, prefix) \
+ANJUTA_PLUGIN_BEGIN(class_name, prefix); \
+ANJUTA_PLUGIN_END
 
 #define ANJUTA_SIMPLE_PLUGIN(class_name, prefix) \
 G_MODULE_EXPORT void glue_register_components (GluePlugin *plugin); \

@@ -38,6 +38,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/pixmaps.h>
 #include <libanjuta/anjuta-stock.h>
+#include <libanjuta/plugins.h>
 
 #include "anjuta-app.h"
 #include "anjuta-callbacks.h"
@@ -423,6 +424,13 @@ anjuta_app_remove_value (AnjutaShell *shell,
 	}
 }
 
+static GObject*
+anjuta_app_get_object  (AnjutaShell *shell, const char *iface_name,
+					    GError **error)
+{
+	return anjuta_plugins_get_object (shell, iface_name);
+}
+
 static void
 ensure_layout_manager (AnjutaApp *window)
 {
@@ -601,6 +609,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->add_value = anjuta_app_add_value;
 	iface->get_value = anjuta_app_get_value;
 	iface->remove_value = anjuta_app_remove_value;
+	iface->get_object = anjuta_app_get_object;
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GNOME_TYPE_APP);

@@ -1,3 +1,16 @@
+2004-04-07  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-plugin.h, libanjuta/anjuta-shell.[c,h],
+	libanjuta/plugins.[c,h], libanjuta/interfaces/Makefile.am,
+	libanjuta/interfaces/ianjuta-editor.h,
+	(added) libanjuta/interfaces/ianjuta-document-manager.[c,h],
+	plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-document-manager.plugin.in,
+	plugins/editor/plugin.c, plugins/sample1/plugin.c,
+	src/anjuta-app.c: Implemented IAnjutaDocumentManager interface.
+	Added supported interfaces for plugins. Tested plugin interfaces
+	through sample plugin.
+	
 2004-02-29  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* template/Makefile.am, data/templates/library/Makefile.am

@@ -24,6 +24,7 @@
 
 #include <libegg/menu/egg-entry-action.h>
 #include <libegg/toolbar/eggtoolbar.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "print.h"
 #include "anjuta-docman.h"
@@ -560,6 +561,7 @@ shell_set (AnjutaPlugin *plugin)
 							NULL);
 	g_signal_connect (action, "activate",
 					  G_CALLBACK (on_toolbar_find_clicked), plugin);
+	
 	g_signal_connect (action, "changed",
 					  G_CALLBACK (on_toolbar_find_incremental), plugin);
 	g_signal_connect (action, "focus-in",
@@ -603,5 +605,47 @@ editor_plugin_class_init (GObjectClass *klass)
 	klass->dispose = dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (EditorPlugin, editor_plugin);
+/* Implement interfaces */
+static IAnjutaEditor*
+ianjuta_docman_get_current_editor (IAnjutaDocumentManager *plugin, GError **e)
+{
+	TextEditor *te;
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	te = anjuta_docman_get_current_editor (ANJUTA_DOCMAN (docman));
+	return IANJUTA_EDITOR (te);
+}
+
+/* Implement interfaces */
+static void
+ianjuta_docman_set_current_editor (IAnjutaDocumentManager *plugin,
+								   IAnjutaEditor *editor, GError **e)
+{
+
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	anjuta_docman_set_current_editor (ANJUTA_DOCMAN (docman),
+									  TEXT_EDITOR (editor));
+}
+
+static GList*
+ianjuta_docman_get_editors (IAnjutaDocumentManager *plugin, GError **e)
+{
+	AnjutaDocman *docman;
+	GList * editors = NULL;
+	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
+	editors = anjuta_docman_get_all_editors (docman);
+	return editors;
+}
+
+static void
+ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
+{
+	iface->get_current_editor = ianjuta_docman_get_current_editor;
+	iface->set_current_editor = ianjuta_docman_set_current_editor;
+	iface->get_editors = ianjuta_docman_get_editors;
+}
+
+ANJUTA_PLUGIN_BEGIN (EditorPlugin, editor_plugin);
+ANJUTA_INTERFACE(ianjuta_document_manager, IANJUTA_TYPE_DOCUMENT_MANAGER);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (EditorPlugin, editor_plugin);

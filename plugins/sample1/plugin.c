@@ -20,6 +20,8 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-sample.ui"
@@ -29,13 +31,44 @@ gpointer parent_class;
 static void
 on_sample_action_activate (EggAction *action, gpointer data)
 {
+	GObject *obj;
+	gchar *msg;
+	GtkWidget *dlg;
 	SamplePlugin *plugin = (SamplePlugin *)data;
+	
+	IAnjutaEditor *editor;
+	IAnjutaDocumentManager *docman;
+	
+	/* Query for object implementing IAnjutaDocumentManager interface */
+	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
+									  "IAnjutaDocumentManager", NULL);
+	docman = IANJUTA_DOCUMENT_MANAGER (obj);
+	
+	msg = g_strdup_printf ("Sample plugin: Document manager has been found to be '%X' object",
+						  docman);
 	/* Do whatever with plugin */
-	gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (plugin->widget)),
+	dlg = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 							GTK_DIALOG_DESTROY_WITH_PARENT,
 							GTK_MESSAGE_INFO,
 							GTK_BUTTONS_NONE,
-							"This is a sample action for sample plugin");
+							msg);
+	gtk_dialog_run (GTK_DIALOG(dlg));
+	gtk_widget_destroy(dlg);
+	g_free (msg);
+	
+	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+	msg = g_strdup_printf ("Sample plugin: Current editor is '%X'",
+						  editor);
+						  
+	/* Do whatever with plugin */
+	dlg = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+							GTK_DIALOG_DESTROY_WITH_PARENT,
+							GTK_MESSAGE_INFO,
+							GTK_BUTTONS_NONE,
+							msg);
+	gtk_dialog_run (GTK_DIALOG(dlg));
+	gtk_widget_destroy(dlg);
+	g_free (msg);
 }
 
 static EggActionGroupEntry actions_file[] = {

@@ -390,9 +390,6 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 
 }
 
-ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_NOTEBOOK);
-ANJUTA_TYPE_END;
-
 GtkWidget*
 anjuta_docman_new (AnjutaPreferences *pref)
 {
@@ -1008,3 +1005,6 @@ anjuta_docman_get_all_editors (AnjutaDocman *docman)
 	editors = g_list_reverse (editors);
 	return editors;
 }
+
+ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_NOTEBOOK);
+ANJUTA_TYPE_END;

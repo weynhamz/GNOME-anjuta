@@ -1,5 +1,5 @@
-#ifndef _ANJUTA_SHELL_H
-#define _ANJUTA_SHELL_H
+#ifndef _IANJUTA_EDITOR_H_
+#define _IANJUTA_EDITOR_H_
 
 #include <glib-object.h>
 #include <gtk/gtkwidget.h>

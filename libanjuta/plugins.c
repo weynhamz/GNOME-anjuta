@@ -30,6 +30,12 @@ typedef struct {
 	/* The dependencies listed in the oaf file */
 	GSList *dependency_names;
 
+	/* Interfaces exported by this plugin */
+	GSList *interfaces;
+	
+	/* Attributes defined for this plugin */
+	GHashTable *attributes;
+	
 	/* The keys of these tables represent the dependencies and dependents
 	 * of the module.  The values point back at the tool */
 	GHashTable *dependencies;
@@ -44,8 +50,7 @@ typedef struct {
 } AvailableTool;
 
 typedef struct {
-	char *name;
-
+	gchar *name;
 	GHashTable *tools;
 } ToolSet;
 
@@ -61,6 +66,7 @@ static GConfClient *gconf_client = NULL;
 
 static GList *plugin_dirs = NULL;
 static GSList *available_tools = NULL;
+static GHashTable *tools_by_interfaces = NULL;
 static GHashTable *tools_by_name = NULL;
 static GHashTable *tool_sets = NULL;
 static GlueFactory *glue_factory = NULL;
@@ -395,7 +401,15 @@ tool_from_file (AnjutaPluginFile *file)
 		tool->dependency_names = property_to_slist (str);
 		g_free (str);
 	}
-	
+
+	if (anjuta_plugin_file_get_string (file, 
+					   "Anjuta Plugin",
+					   "Interfaces",
+					   &str)) {
+		tool->interfaces = property_to_slist (str);
+		g_free (str);
+	}
+
 	tool->resolve_pass = -1;
 
 	tool->dependencies = g_hash_table_new (g_direct_hash, 
@@ -421,12 +435,37 @@ load_tool (AnjutaPluginFile *file)
 		if (g_hash_table_lookup (tools_by_name, tool->id)) {
 			destroy_tool (tool);
 		} else {
-			available_tools = g_slist_prepend (available_tools,
-							   tool);
+			GSList *node;
+			available_tools = g_slist_prepend (available_tools, tool);
 			g_hash_table_insert (tools_by_name, tool->id, tool);
+			node = tool->interfaces;
+			/* Map interfaces exported by this plugin */
+			while (node) {
+				GSList *objs;
+				gchar *iface;
+				GSList *obj_node;
+				gboolean found;
+				
+				iface = node->data;
+				objs = g_hash_table_lookup (tools_by_interfaces, iface);
+				
+				obj_node = objs;
+				found = FALSE;
+				while (obj_node) {
+					if (obj_node->data == tool) {
+						found = TRUE;
+						break;
+					}
+					obj_node = g_slist_next (obj_node);
+				}
+				if (!found) {
+					objs = g_slist_prepend (objs, tool);
+					g_hash_table_insert (tools_by_interfaces, iface, objs);
+				}
+				node = g_slist_next (node);
+			}
 		}
 	}
-
 	return;
 }
 
@@ -483,7 +522,8 @@ load_available_tools (void)
 	GSList *cycles;
 	GList *l;
 	tools_by_name = g_hash_table_new (g_str_hash, g_str_equal);
-	
+	tools_by_interfaces = g_hash_table_new (g_str_hash, g_str_equal);
+
 	for (l = plugin_dirs; l != NULL; l = l->next) {
 		load_tools_from_directory ((char*)l->data);
 	}
@@ -1169,6 +1209,39 @@ create_plugin_page (ToolSet *set)
 	gtk_widget_hide (image);
 	
 	return vbox;
+}
+
+GObject *
+anjuta_plugins_get_object (AnjutaShell *shell,
+						   const gchar *iface_name)
+{
+	AvailableTool *tool;
+	GSList *valid_tools;
+	GHashTable *installed_tools;
+	
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+	g_return_val_if_fail (iface_name != NULL, NULL);
+	
+	tool = NULL;
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	valid_tools = g_hash_table_lookup (tools_by_interfaces, iface_name);
+	if (valid_tools) {
+		/* Just return the first tool. */
+		tool = valid_tools->data;
+	}
+	
+	if (tool) {
+		GObject *obj;
+		obj = g_hash_table_lookup (installed_tools, tool);
+		if (obj) {
+			return obj;
+		} else {
+			/* FIXME: Activate this tool */
+			return NULL;
+		}
+	}
+	g_warning ("No tool found implementing %s Interface.", iface_name);
+	return NULL;
 }
 
 GtkWidget *

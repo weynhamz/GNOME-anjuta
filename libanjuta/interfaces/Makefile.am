@@ -9,8 +9,10 @@ libanjuta_interfaces_la_LIADD = $(LIBANJUTA_LIBS)
 libanjuta_interfaces_la_LIBADD =
 
 libanjuta_interfaces_la_SOURCES= \
-	ianjuta-editor.c
+	ianjuta-editor.c \
+	ianjuta-document-manager.c
 
 libanjuta_interfaces_includedir=$(includedir)/libanjuta-1.0/libanjuta/interfaces
 libanjuta_interfaces_include_HEADERS = \
-	ianjuta-editor.h
+	ianjuta-editor.h \
+	ianjuta-document-manager.h
