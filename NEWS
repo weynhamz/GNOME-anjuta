@@ -1,4 +1,4 @@
-Anjuta 1.2.0 (6 Dec 2003) -- Naba Kumar
+Anjuta 1.2.0 (8 Dec 2003) -- Naba Kumar
 
 Updated: Prompts users for unsaved files during project closing.
 Updated: Added checkbox in wizard to enable/disable glade source generation.
@@ -23,6 +23,8 @@ Bug fix: Fixed build failure with no 'intl' directory.
 Bug fix: Added filters to find in files.
 Bug fix: Fixed tutorial
 Bug fix: Added horizontal scrollbar to description text in wizard.
+Bug fix: Installs properly even when system.tags file could not be generated.
+Bug fix: Compiler error with old gcc.
 
 Anjuta 1.1.98 rc2 for 1.2.0   (07 Nov 2003) -- Naba Kumar
 

@@ -1,3 +1,13 @@
+
+---- Released version 1.2.0 ---
+
+2003-12-08  Naba Kumar  <naba@gnome.org>
+
+	* src/preferences.c: Fixed compiler error.
+	* global_tags/create_global_tags.sh: Fixed to install properly
+	even when system.tags could not be generated.
+	* NEWS: Updated.
+
 2003-12-06  Naba Kumar  <naba@gnome.org>
 
 	* setup-gettext: Fixed to not generate intl directory with gettextize.

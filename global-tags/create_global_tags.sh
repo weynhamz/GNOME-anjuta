@@ -61,3 +61,10 @@ echo "[. Generating System tags. This may take several minutes (1 min to 20 mins
 echo "[. You can go out, have a coffee and return back in 20 mins.]...............]"
 echo "[...........................................................................]"
 $PROGDIR/tm_global_tags $GLOBAL_TAGS_FILE $FILES 2>/dev/null
+
+# If global tags file could not be generated
+if [ ! -e $GLOBAL_TAGS_FILE ] ; then
+	echo "WARNING: No system tags generated!!!"
+	echo "WARNING: Please check your pkg-config path"
+	touch $GLOBAL_TAGS_FILE
+fi
