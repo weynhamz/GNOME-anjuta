@@ -22,7 +22,7 @@
 	<property type="string" name="PluginDescription" _label="Plugin Description:" _description="Display description of the plugin" default="A sample demonstration plugin for Anjuta" summary="yes" mandatory="yes"/>
 	<property type="string" name="PluginClass" _label="Plugin Class Name:" _description="Plugin class name" default="AnjutaFoobarPlugin" summary="yes" mandatory="yes"/>
 	<property type="string" name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes"/>
-	<property type="file" name="IconFile" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
+	<property type="iconfile" name="IconFile" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
 	<property type="boolean" name="HasGladeFile" _label="Create glade interface file" _description="Create a template glade interface file" default="1"/>
 	<property type="boolean" name="HasUI" _label="Plugin has menus or/and toolbars" _description="Whether the plugin has menus or toolbars" default="1"/>
 	<property type="hidden" name="HaveI18n" default="1"/>
