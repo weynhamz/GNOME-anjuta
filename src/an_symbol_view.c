@@ -69,8 +69,8 @@ typedef enum
 } SVRootType;
 
 static char *sv_root_names[] = {
-	"Others", "Classes", "Structs", "Functions",
-	"Variables", "Macros", NULL
+	N_("Others"), N_("Classes"), N_("Structs"), N_("Functions"),
+	N_("Variables"), N_("Macros"), NULL
 };
 
 static GdkPixmap **sv_icons = NULL;
@@ -234,19 +234,19 @@ static void sv_create_context_menu(void)
 	sv->menu = gtk_menu_new();
 	gtk_widget_ref(sv->menu);
 	gtk_widget_show(sv->menu);
-	item = gtk_menu_item_new_with_label("Goto Definition");
+	item = gtk_menu_item_new_with_label(N_("Goto Definition"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(sv_context_handler)
 	  , (gpointer) GOTO_DEFINITION);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(sv->menu), item);
-	item = gtk_menu_item_new_with_label("Goto Declaration");
+	item = gtk_menu_item_new_with_label(N_("Goto Declaration"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(sv_context_handler)
 	  , (gpointer) GOTO_DECLARATION);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(sv->menu), item);
-	item = gtk_menu_item_new_with_label("Refresh Tree");
+	item = gtk_menu_item_new_with_label(N_("Refresh Tree"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(sv_context_handler)
 	  , (gpointer) REFRESH);

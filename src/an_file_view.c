@@ -85,7 +85,7 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 			argv[1] = (char *) path;
 			argv[2] = NULL;
 			if (-1 == gnome_execute_async(NULL, 2, argv))
-				anjuta_warning("Unable to open %s in %s", path, app->command);
+				anjuta_warning(N_("Unable to open %s in %s"), path, app->command);
 			gnome_vfs_mime_application_free(app);
 			status = TRUE;
 		}
@@ -128,19 +128,19 @@ static void fv_create_context_menu(void)
 	fv->menu = gtk_menu_new();
 	gtk_widget_ref(fv->menu);
 	gtk_widget_show(fv->menu);
-	item = gtk_menu_item_new_with_label("Open");
+	item = gtk_menu_item_new_with_label(N_("Open"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(fv_context_handler)
 	  , (gpointer) OPEN);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(fv->menu), item);
-	item = gtk_menu_item_new_with_label("View in Default Viewer");
+	item = gtk_menu_item_new_with_label(N_("View in Default Viewer"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(fv_context_handler)
 	  , (gpointer) VIEW);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(fv->menu), item);
-	item = gtk_menu_item_new_with_label("Refresh Tree");
+	item = gtk_menu_item_new_with_label(N_("Refresh Tree"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(fv_context_handler)
 	  , (gpointer) REFRESH);

@@ -398,7 +398,7 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	if (local_tags)
 	{
 		submenu =
-			create_submenu (_("Tags"), (GList *) local_tags,
+			create_submenu (N_("Tags"), (GList *) local_tags,
 					GTK_SIGNAL_FUNC
 					(on_text_editor_menu_tags_activate));
 		gtk_menu_item_set_submenu (GTK_MENU_ITEM
