@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-18 17:50+0100\n"
-"PO-Revision-Date: 2004-01-18 17:50+0100\n"
+"POT-Creation-Date: 2004-01-24 02:07+0100\n"
+"PO-Revision-Date: 2004-01-24 02:07+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -6821,6 +6821,14 @@ msgstr "No se pudo compilar el interfaz de usuario para buscar y reemplazar"
 #: src/search_incremental.c:256
 msgid "No matches. Wrap search around the document?"
 msgstr "No se encontró nada. ¿Quiere buscar desde el principio del documento?"
+
+#: src/search_preferences.c:474
+msgid "The maximum number of settings has been reached."
+msgstr "El máximo número de configuraciónes se ha alcanzado"
+
+#: src/search_preferences.c:483
+msgid "This name is alredady used."
+msgstr "Este nombre ya está usado."
 
 #: src/sharedlib_gui.c:44
 msgid "Shared Object"
