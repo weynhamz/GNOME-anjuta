@@ -88,8 +88,8 @@ PKG_CHECK_MODULES(ANJUTA, \
 	libglade-2.0 >= $LIBGLADE_REQUIRED \
 	libgnome-2.0 >= $GNOME_REQUIRED \
 	libgnomeui-2.0 >= $GNOME_UI_REQUIRED \
-	libgnomeprint-2.0 >= $GNOME_PRINT_REQUIRED \
-	libgnomeprintui-2.0 >= $GNOME_PRINT_UI_REQUIRED \
+	libgnomeprint-2.2 >= $GNOME_PRINT_REQUIRED \
+	libgnomeprintui-2.2 >= $GNOME_PRINT_UI_REQUIRED \
 	libzvt-2.0 >= $LIBZVT_REQUIRED \
 	gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED \
 	gnome-vfs-module-2.0 >= $GNOME_VFS_REQUIRED)

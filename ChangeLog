@@ -1,9 +1,29 @@
+2003-01-31  Naba Kumar <naba@gnome.org>
+
+	* configure.in: Upgraded to use libgnomeprint-2.2
+	
+	* printing/Makefile.am: Updated
+	
+	*(removed) printing/print-doc.c, printing/print-doc.h,
+	printing/print-util.c, printing/print-util.h: Removed because already
+	merged with print.c.
+	
+	* printing/print.c, printing/print.h: Upgraded to use libgnomeprint-2.2
+	and libgnomeprintui-2.2 and fixed rendering problems.
+	
+	* src/anjuta.glade, src/anjuta_dialogs_strings.c: Removed
+	uneccessary print properties, as they are separately taken
+	care in gnomeprint.
+	
+	* po/POTFILES.in: Update.
+
 2003-01-30  Naba Kumar <naba@gnome.org>
 
 	* (new) src/about.[c,h], pixmaps/anjuta_logo1.png: Added new files
 	for about dialog box.
 	
-	* src/Makefile.am, pixmaps/Makefile.am: Modified for the above additions.
+	* src/Makefile.am, pixmaps/Makefile.am, src/mainmenu_callbacks.c,
+	src/pixmaps.h: Modified for the above additions for about dialog.
 
 2003-01-29  Naba Kumar <naba@gnome.org>
 

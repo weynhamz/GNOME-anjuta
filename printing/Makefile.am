@@ -10,8 +10,4 @@ INCLUDES = \
 noinst_LIBRARIES = libanjutaprint.a
 libanjutaprint_a_SOURCES = \
 	print.c\
-	print-doc.c\
-	print-doc.h\
-	print.h\
-	print-util.c\
-	print-util.h
+	print.h
