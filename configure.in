@@ -719,6 +719,15 @@ plugins/project-wizard/templates/gnome/po/Makefile
 plugins/project-wizard/templates/gtkmm/Makefile
 plugins/project-wizard/templates/gtkmm/src/Makefile
 plugins/project-wizard/templates/gtkmm/po/Makefile
+plugins/project-wizard/templates/wxwin/Makefile
+plugins/project-wizard/templates/wxwin/src/Makefile
+plugins/project-wizard/templates/wxwin/po/Makefile
+plugins/project-wizard/templates/xlib/Makefile
+plugins/project-wizard/templates/xlib/src/Makefile
+plugins/project-wizard/templates/xlib/po/Makefile
+plugins/project-wizard/templates/xlib-dock/Makefile
+plugins/project-wizard/templates/xlib-dock/src/Makefile
+plugins/project-wizard/templates/xlib-dock/po/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile
