@@ -247,7 +247,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
 	g_object_add_weak_pointer (G_OBJECT (app->preferences),
 							   (gpointer*)&app->preferences);
-
+	anjuta_status_add_widget (ANJUTA_STATUS (app->status),
+							  GTK_WIDGET (app->preferences));
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
 	gtk_window_add_accel_group (GTK_WINDOW (app),

@@ -1,3 +1,12 @@
+2005-02-08  Naba Kumar  <naba@gnome.org>
+
+	* plugins/symbol-browser/an_symbol_prefs.[ch]: Added missing files.
+	
+	* plugins/symbol-browser/an_symbol_prefs.c, src/anjuta-app.c:
+	Show busy cursur when updating global tags in preferences.
+
+	* configure.in: Fixed.
+	
 2005-02-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl

@@ -240,9 +240,9 @@ AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
 
 dnl Check for Glade3
 dnl ---------------------
-PKG_CHECK_MODULES(PLUGIN_GLADE, libgladeui-1.0 >= $LIBGLADEUI_REQUIRED, [libgladeui_found="yes"], [libgladeui_found="no"])
+PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 >= $LIBGLADEUI_REQUIRED], [libgladeui_found="yes"], [libgladeui_found="no"])
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$libgladeui_found = xyes])
-AC_SUBST(PLUGIN_GLADE_CFLAGS)
+AC_SUBST(PLUGIN_GLADE_CFLAGS)	  
 AC_SUBST(PLUGIN_GLADE_LIBS)
 
 dnl Setup Anjuta Library flags
