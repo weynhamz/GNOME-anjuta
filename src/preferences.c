@@ -464,6 +464,94 @@ preferences_sync (Preferences * pr)
 	g_free (str);
 
 /* Page 6 */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.truncat_mesg_check),
+				      preferences_get_int (pr,
+							   TRUNCAT_MESSAGES));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.mesg_first_spin),
+				   preferences_get_int (pr,
+							TRUNCAT_MESG_FIRST));
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON
+				   (pr->widgets.mesg_last_spin),
+				   preferences_get_int (pr,
+							TRUNCAT_MESG_LAST));
+	
+	str = preferences_get (pr, MESSAGES_TAG_POS);
+	if (str != NULL)
+	{
+		if (strcmp (str, "bottom") == 0)
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+							  (pr->widgets.tag_pos_msg_radio[1]),
+							  TRUE);
+		}
+		else if (strcmp (str, "left") == 0)
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+							  (pr->widgets.tag_pos_msg_radio[2]),
+							  TRUE);
+		}
+		else if (strcmp (str, "right") == 0)
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+							  (pr->widgets.tag_pos_msg_radio[3]),
+							  TRUE);
+		}
+		else
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+							  (pr->widgets.tag_pos_msg_radio[2]),
+							  TRUE);
+		}
+		g_free (str);
+	}
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+							(pr->widgets.tag_pos_msg_radio[2]), TRUE);
+
+	str = preferences_get(pr, MESSAGES_COLOR_ERROR);
+	if (str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[0]), r, g, b, 0);
+		g_free(str);
+	}
+	else
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[0]), 255, 0, 0, 0);
+	
+		str = preferences_get(pr, MESSAGES_COLOR_WARNING);
+	if (str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[1]), r, g, b, 0);
+		g_free(str);	
+	}
+	else
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[1]), 0, 127, 0, 0);
+
+	str = preferences_get(pr, MESSAGES_COLOR_MESSAGES1);
+	if (str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[2]), r, g, b, 0);
+		g_free(str);
+	}
+	else
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[2]), 0, 0, 255, 0);
+
+	str = preferences_get(pr, MESSAGES_COLOR_MESSAGES2);
+	if (str)
+	{
+		ColorFromString(str, &r, &g, &b);
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[3]), r, g, b, 0);
+		g_free(str);
+	}
+	else
+		gnome_color_picker_set_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[3]), 0, 0, 0, 0);
+
+	
+/* Page 7 */
 	str = preferences_get (pr, EDITOR_TAG_POS);
 	if (strcmp (str, "bottom") == 0)
 	{
@@ -495,18 +583,6 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.no_tag_check),
 				      preferences_get_int (pr,
 							   EDITOR_TAG_HIDE));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-				      (pr->widgets.truncat_mesg_check),
-				      preferences_get_int (pr,
-							   TRUNCAT_MESSAGES));
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON
-				   (pr->widgets.mesg_first_spin),
-				   preferences_get_int (pr,
-							TRUNCAT_MESG_FIRST));
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON
-				   (pr->widgets.mesg_last_spin),
-				   preferences_get_int (pr,
-							TRUNCAT_MESG_LAST));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.tags_update_check),
 				      preferences_get_int (pr,
@@ -696,20 +772,42 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	str = preferences_get (pr, AUTOFORMAT_STYLE);
 	fprintf (fp, "%s=%s\n", AUTOFORMAT_STYLE, str);
 	g_free (str);
-
+	
 	/* Page 6 */
-	str = preferences_get (pr, EDITOR_TAG_POS);
-	fprintf (fp, "%s=%s\n", EDITOR_TAG_POS, str);
-	g_free (str);
-
-	fprintf (fp, "%s=%d\n", EDITOR_TAG_HIDE,
-		 preferences_get_int (pr, EDITOR_TAG_HIDE));
 	fprintf (fp, "%s=%d\n", TRUNCAT_MESSAGES,
 		 preferences_get_int (pr, TRUNCAT_MESSAGES));
 	fprintf (fp, "%s=%d\n", TRUNCAT_MESG_FIRST,
 		 preferences_get_int (pr, TRUNCAT_MESG_FIRST));
 	fprintf (fp, "%s=%d\n", TRUNCAT_MESG_LAST,
 		 preferences_get_int (pr, TRUNCAT_MESG_LAST));
+	
+	fprintf (fp, "%s=%d\n", MESSAGES_TAG_POS,
+		 preferences_get_int (pr, MESSAGES_TAG_POS));
+
+	str = preferences_get (pr, MESSAGES_COLOR_ERROR);
+	fprintf (fp, "%s=%s\n", MESSAGES_COLOR_ERROR, str);
+	g_free(str);
+	
+	str = preferences_get (pr, MESSAGES_COLOR_WARNING);
+	fprintf (fp, "%s=%s\n", MESSAGES_COLOR_WARNING, str);
+	g_free(str);
+
+	
+	str = preferences_get (pr, MESSAGES_COLOR_MESSAGES1);
+	fprintf (fp, "%s=%s\n", MESSAGES_COLOR_MESSAGES1, str);
+	g_free(str);
+
+	str = preferences_get (pr, MESSAGES_COLOR_MESSAGES2);
+	fprintf (fp, "%s=%s\n", MESSAGES_COLOR_MESSAGES2, str);
+	g_free(str);
+	
+	/* Page 7 */
+	str = preferences_get (pr, EDITOR_TAG_POS);
+	fprintf (fp, "%s=%s\n", EDITOR_TAG_POS, str);
+	g_free (str);
+
+	fprintf (fp, "%s=%d\n", EDITOR_TAG_HIDE,
+		 preferences_get_int (pr, EDITOR_TAG_HIDE));
 	fprintf (fp, "%s=%d\n", AUTOMATIC_TAGS_UPDATE,
 		 preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE));
 	fprintf (fp, "%s=%d\n", USE_COMPONENTS,

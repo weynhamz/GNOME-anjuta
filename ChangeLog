@@ -1,3 +1,38 @@
+2002-01-09	Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/message-manager-dock.c
+	  src/message-manager-private.cc
+	  src/message-manager-private.h
+	  src/message-manager.cc
+	  src/preferences.c
+	  src/preferences.h
+	  src/preferences_gui.c:
+	  
+	  Patch submitted by: 
+	  Johannes Schmid <johannes.schmid@gmx.de>
+	  
+	  This patch adds a tab to the notebook of the preferences-dialog
+	  where you can change the colors, the tab position of the new
+	  message manager. Also the truncate messages stuff has moved
+	  from misc tab to messages tab.
+
+	  Also improved the remembering position stuff of message manager.
+	  
+	* data/internal.properties,
+	  Added definitions for messages colors and tag position.
+	  
+	* src/message_manager.cc:
+	  Fixed a bug that never lets the messages panes to get cleared.
+	  Added wmclass setting for the message window. Fixed a bug in
+	  which the message window was not being shown.
+	
+	* src/tag_manager.c: Fixed printing of (NULL) in the debug
+	  output and disabled it.
+
+	* src/anjuta.c: Preferences created and loaded before anything else.
+	  anjuta now recognizes messages colors on startup and initializes
+	  them.
+	
 2002-01-09	Andy Piper	<andy.piper@freeuk.com>
 
 	* src/project_dbase.c: fix bug #492923 (thanks to Johannes Schmid)

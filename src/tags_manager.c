@@ -1062,10 +1062,12 @@ tags_manager_set_filename (TagsManager * tm, gchar * fn)
 
 	if (tm && fn)
 	{
-		g_message("Files are %s and %s", tm->cur_file, fn);
 		if (tm->cur_file)
+		{
+			/* g_message("Files are %s and %s", tm->cur_file, fn); */
 			if (strcmp (tm->cur_file, extract_filename (fn)) == 0)
 				return;
+		}
 
 		list = tm->file_list;
 		while (list)

@@ -129,28 +129,6 @@ anjuta_message_manager_init (GtkObject * obj)
 	amm->intern->last_page = -1;
 	amm->intern->cur_msg_win = 0;
 
-	// Colors
-	amm->intern->color_red.pixel = 16;
-	amm->intern->color_red.red = (guint16) - 1;
-	amm->intern->color_red.green = 0;
-	amm->intern->color_red.blue = 0;
-	amm->intern->color_green.pixel = 16;
-	amm->intern->color_green.red = 0;
-	amm->intern->color_green.green = (guint16) - 1;
-	amm->intern->color_green.blue = 0;
-	amm->intern->color_blue.pixel = 16;
-	amm->intern->color_blue.red = 0;
-	amm->intern->color_blue.green = 0;
-	amm->intern->color_blue.blue = (guint16) - 1;
-	amm->intern->color_black.pixel = 16;
-	amm->intern->color_black.red = 0;
-	amm->intern->color_black.green = 0;
-	amm->intern->color_black.blue = 0;
-	amm->intern->color_white.pixel = 16;
-	amm->intern->color_white.red = (guint16) - 1;
-	amm->intern->color_white.green = (guint16) - 1;
-	amm->intern->color_white.blue = (guint16) - 1;
-
 	// Create Widgets
 	amm->intern->notebook = gtk_notebook_new ();
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK (amm->intern->notebook),
@@ -403,7 +381,11 @@ anjuta_message_manager_show (AnjutaMessageManager * amm, gint type_name)
 		}
 	}
 	if (anjuta_message_manager_is_shown (amm))
+	{
+		if (!amm->intern->is_docked && amm->intern->window)
+			gdk_window_raise(amm->intern->window->window);
 		return;
+	}
 	if (amm->intern->is_docked)
 	{
 		amm_show_docked ();
@@ -412,8 +394,11 @@ anjuta_message_manager_show (AnjutaMessageManager * amm, gint type_name)
 	else
 	{
 		if (amm->intern->window == 0)
-			amm_undock (GTK_WIDGET (amm), &amm->intern->window);
-		gtk_widget_show_all (amm->intern->window);
+		{
+			amm->intern->is_docked = true;
+			anjuta_message_manager_undock (amm);
+		}
+		gtk_widget_show_all(amm->intern->window);
 	}
 }
 
@@ -442,7 +427,7 @@ anjuta_message_manager_clear (AnjutaMessageManager * amm, gint type_name)
 	for (I cur_win = amm->intern->msg_windows.begin ();
 	     cur_win != amm->intern->msg_windows.end (); cur_win++)
 	{
-		if ((*cur_win)->get_type () != string (labels[type_name]))
+		if ((*cur_win)->get_type () == string (labels[type_name]))
 		{
 			AnjutaMessageWindow *win = dynamic_cast < AnjutaMessageWindow * >(*cur_win);
 			if (win != 0)
@@ -478,6 +463,13 @@ anjuta_message_manager_undock (AnjutaMessageManager * amm)
 	if (amm->intern->is_docked)
 	{
 		amm->intern->is_docked = false;
+		
+		amm->intern->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+		gtk_window_set_wmclass(GTK_WINDOW(amm->intern->window), "message-manager", "anjuta");
+		gtk_window_set_title(GTK_WINDOW(amm->intern->window), _("Messages"));
+		gtk_window_set_default_size(GTK_WINDOW(amm->intern->window), amm->intern->width, amm->intern->height);
+		gtk_widget_set_uposition(amm->intern->window, amm->intern->xpos, amm->intern->ypos);
+		
 		amm_undock (GTK_WIDGET (amm), &amm->intern->window);
 		if (amm->intern->is_shown)
 			gtk_widget_show (GTK_WIDGET (amm->intern->window));
@@ -513,6 +505,7 @@ anjuta_message_manager_save_yourself (AnjutaMessageManager * amm,
 	fprintf (stream, "messages.win.pos.y=%d\n", amm->intern->ypos);
 	fprintf (stream, "messages.win.width=%d\n", amm->intern->width);
 	fprintf (stream, "messages.win.height=%d\n", amm->intern->height);
+	
 	return true;
 }
 
@@ -532,6 +525,9 @@ anjuta_message_manager_load_yourself (AnjutaMessageManager * amm,
 	amm->intern->width = prop_get_int (props, "messages.win.width", 600);
 	amm->intern->height =
 		prop_get_int (props, "messages.win.height", 300);
+	
+	anjuta_message_manager_update(amm);
+	
 	amm_hide_docked ();
 	if (!dock_flag)
 		anjuta_message_manager_undock (amm);
@@ -544,6 +540,64 @@ void
 anjuta_message_manager_update(AnjutaMessageManager* amm)
 {
 	g_return_if_fail(amm != NULL);
+	
+	Preferences* p = get_preferences();
+	
+	char* tag_pos = preferences_get(p, MESSAGES_TAG_POS);
+	if (tag_pos != NULL)
+	{
+		if (strcmp(tag_pos, "top")==0)
+			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_TOP);
+		else if (strcmp(tag_pos, "left")==0)
+			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_LEFT);
+		if (strcmp(tag_pos, "bottom")==0)
+			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_BOTTOM);
+		if (strcmp(tag_pos, "right")==0)
+			gtk_notebook_set_tab_pos(GTK_NOTEBOOK(amm->intern->notebook), GTK_POS_RIGHT);
+		g_free(tag_pos);
+	}
+	
+	guint8 r, g, b;
+	guint factor = ((guint16) -1) / ((guint8) -1);
+	char* color;
+	color = preferences_get(p, MESSAGES_COLOR_ERROR);
+	if (color)
+	{
+		ColorFromString(color, &r, &g, &b);
+		amm->intern->color_error.red = r * factor;
+		amm->intern->color_error.green = g * factor;
+		amm->intern->color_error.blue = b * factor;
+		g_free(color);
+	}
+	
+	color = preferences_get(p, MESSAGES_COLOR_WARNING);
+	if (color)
+	{
+		ColorFromString(color, &r, &g, &b);
+		amm->intern->color_warning.red = r * factor;
+		amm->intern->color_warning.green = g * factor;
+		amm->intern->color_warning.blue = b * factor;
+		g_free(color);
+	}
+	color = preferences_get(p, MESSAGES_COLOR_MESSAGES1);
+	if (color)
+	{
+		ColorFromString(color, &r, &g, &b);
+		amm->intern->color_message1.red = r * factor;
+		amm->intern->color_message1.green = g * factor;
+		amm->intern->color_message1.blue = b * factor;
+		g_free(color);
+	}
+	color = preferences_get(p, MESSAGES_COLOR_MESSAGES2);
+	if (color)
+	{
+		ColorFromString(color, &r, &g, &b);
+		amm->intern->color_message2.red = r * factor;
+		amm->intern->color_message2.green = g * factor;
+		amm->intern->color_message2.blue = b * factor;
+		g_free(color);
+	}
+	
 	typedef vector < MessageSubwindow * >::iterator I;
 	for (I cur_win = amm->intern->msg_windows.begin ();
 	     cur_win != amm->intern->msg_windows.end (); cur_win++)
@@ -625,6 +679,7 @@ anjuta_message_manager_show_impl (GtkWidget * widget)
 		gtk_window_set_default_size (GTK_WINDOW (amm->intern->window),
 					     amm->intern->width,
 					     amm->intern->height);
+		gtk_widget_show(amm->intern->window);
 	}
 	amm->intern->is_shown = true;
 }

@@ -50,11 +50,10 @@ struct _AnjutaMessageManagerPrivate
 	gint width;
 	gint height;
 		
-	GdkColor color_red;
-	GdkColor color_green;
-	GdkColor color_blue;
-	GdkColor color_white;
-	GdkColor color_black;
+	GdkColor color_error;
+	GdkColor color_warning;
+	GdkColor color_message1;
+	GdkColor color_message2;
 	
 	bool is_docked;
 	bool is_shown;

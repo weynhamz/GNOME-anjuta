@@ -130,12 +130,22 @@ struct _PreferencesWidgets
 	/*
 	 * * Page 6 
 	 */
+		
 	GtkWidget *truncat_mesg_check;
 	GtkWidget *mesg_first_spin;
 	GtkWidget *mesg_last_spin;
+	GtkWidget *tag_pos_msg_radio[4];
+	GtkWidget *color_picker[4];
+	
+	
+	/*
+	 * * Page 7
+	 */
+	
 	GtkWidget *tag_pos_radio[4];
 	GtkWidget *no_tag_check;
 	GtkWidget *tags_update_check;
+	
 	/* Page Comps */
 	GtkWidget *use_components;
 };
@@ -275,6 +285,12 @@ void preferences_set_build_options(Preferences* p);
 #define TRUNCAT_MESSAGES "truncat.messages"
 #define TRUNCAT_MESG_FIRST "truncat.mesg.first"
 #define TRUNCAT_MESG_LAST "truncat.mesg.last"
+#define MESSAGES_TAG_POS "messages.tag.position"
+
+#define MESSAGES_COLOR_ERROR "messages.color.error"
+#define MESSAGES_COLOR_WARNING "messages.color.warning"
+#define MESSAGES_COLOR_MESSAGES1 "messages.color.messages1"
+#define MESSAGES_COLOR_MESSAGES2 "messages.color.messages2"
 
 #define AUTOMATIC_TAGS_UPDATE "automatic.tags.update"
 

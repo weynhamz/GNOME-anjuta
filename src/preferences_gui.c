@@ -114,7 +114,9 @@ static GtkWidget *create_preferences_page4 (Preferences * p);
 
 static GtkWidget *create_preferences_page5 (Preferences * p);
 
-static GtkWidget *create_preferences_page6 (Preferences * p);
+static GtkWidget *create_preferences_pagemsg (Preferences * p);
+
+static GtkWidget *create_preferences_page7 (Preferences * p);
 
 static GtkWidget *create_preferences_pageComp (Preferences * p);
 
@@ -132,13 +134,15 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *page3;
 	GtkWidget *page4;
 	GtkWidget *page5;
-	GtkWidget *page6;
+	GtkWidget *pagemsg;
+	GtkWidget *page7;
 	GtkWidget *pageComponents;
 	GtkWidget *label102;
 	GtkWidget *label103;
 	GtkWidget *label1;
 	GtkWidget *label12;
 	GtkWidget *label15;
+	GtkWidget* labelmsg;
 	GtkWidget *labelComps;	
 	GtkWidget *preferences_ok;
 	GtkWidget *preferences_apply;
@@ -219,16 +223,26 @@ create_preferences_gui (Preferences * pr)
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
 							       5), label102);
-
-	page6 = create_preferences_page6 (pr);
-	gtk_container_add (GTK_CONTAINER (notebook2), page6);
+	
+	pagemsg = create_preferences_pagemsg (pr);
+	gtk_container_add (GTK_CONTAINER (notebook2), pagemsg);
+	
+	labelmsg = gtk_label_new (_("Messages"));
+	gtk_widget_show (labelmsg);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
+				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
+							       (notebook2),
+							       6), labelmsg);
+	
+	page7 = create_preferences_page7 (pr);
+	gtk_container_add (GTK_CONTAINER (notebook2), page7);
 
 	label103 = gtk_label_new (_("misc"));
 	gtk_widget_show (label103);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
-							       6), label103);
+							       7), label103);
 	pageComponents = create_preferences_pageComp (pr);
 	gtk_container_add (GTK_CONTAINER (notebook2), pageComponents);
 
@@ -237,7 +251,7 @@ create_preferences_gui (Preferences * pr)
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
-							       7), labelComps);
+							       8), labelComps);
 
 	dialog_action_area2 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area2);
@@ -1278,9 +1292,8 @@ create_preferences_page5 (Preferences * p)
 }
 
 static GtkWidget *
-create_preferences_page6 (Preferences * p)
+create_preferences_pagemsg (Preferences* p)
 {
-	GtkWidget *window1;
 	GtkWidget *frame1;
 	GtkWidget *vbox1;
 	GtkWidget *frame2;
@@ -1294,19 +1307,25 @@ create_preferences_page6 (Preferences * p)
 	GtkWidget *label2;
 	GtkWidget *frame3;
 	GtkWidget *table2;
-	GtkWidget *checkbutton6;
-	GtkWidget *hseparator1;
-	GSList *table2_group = NULL;
 	GtkWidget *radiobutton1;
 	GtkWidget *radiobutton2;
 	GtkWidget *radiobutton3;
 	GtkWidget *radiobutton4;
-	GtkWidget *frame4;
-	GtkWidget *checkbutton7;
+	GSList *table2_group = NULL;
+	GtkWidget* frame_colors;
+	GtkWidget* table_colors;
+	GtkWidget* color_picker_error;
+	GtkWidget* color_picker_warning;
+	GtkWidget* color_picker_messages1;
+	GtkWidget* color_picker_messages2;
+	GtkWidget* label3;
+	GtkWidget* label4;
+	GtkWidget* label5;
+	GtkWidget* label6;
+	
+	
 	gint i;
-
-	window1 = p->widgets.window;
-
+	
 	frame1 = gtk_frame_new (NULL);
 	gtk_widget_show (frame1);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
@@ -1368,6 +1387,7 @@ create_preferences_page6 (Preferences * p)
 			  (GtkAttachOptions) (0), 5, 0);
 	gtk_label_set_justify (GTK_LABEL (label2), GTK_JUSTIFY_LEFT);
 
+	
 	frame3 = gtk_frame_new (_(" Notebook tags position "));
 	gtk_widget_show (frame3);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame3, FALSE, FALSE, 0);
@@ -1376,22 +1396,6 @@ create_preferences_page6 (Preferences * p)
 	table2 = gtk_table_new (4, 2, FALSE);
 	gtk_widget_show (table2);
 	gtk_container_add (GTK_CONTAINER (frame3), table2);
-
-	checkbutton6 =
-		gtk_check_button_new_with_label (_
-						 ("Do not show notebook title tags"));
-	gtk_widget_show (checkbutton6);
-	gtk_table_attach (GTK_TABLE (table2), checkbutton6, 0, 2, 3, 4,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton6), 5);
-
-	hseparator1 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator1);
-	gtk_table_attach (GTK_TABLE (table2), hseparator1, 0, 2, 2, 3,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
 	radiobutton1 =
 		gtk_radio_button_new_with_label (table2_group, _("Top"));
 	table2_group =
@@ -1428,6 +1432,135 @@ create_preferences_page6 (Preferences * p)
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
+
+	gtk_widget_ref (checkbutton1);
+	p->widgets.truncat_mesg_check = checkbutton1;
+	gtk_widget_ref (spinbutton1);
+	p->widgets.mesg_first_spin = spinbutton1;
+	gtk_widget_ref (spinbutton2);
+	p->widgets.mesg_last_spin = spinbutton2;
+
+	on_trunc_mesg_check_clicked (GTK_BUTTON (p->widgets.truncat_mesg_check), p);
+	
+	p->widgets.tag_pos_msg_radio[0] = radiobutton1;
+	p->widgets.tag_pos_msg_radio[1] = radiobutton2;
+	p->widgets.tag_pos_msg_radio[2] = radiobutton3;
+	p->widgets.tag_pos_msg_radio[3] = radiobutton4;
+	for (i = 0; i < 4; i++)
+		gtk_widget_ref (p->widgets.tag_pos_msg_radio[i]);
+
+	gtk_signal_connect (GTK_OBJECT (checkbutton1), "clicked",
+			    GTK_SIGNAL_FUNC (on_trunc_mesg_check_clicked), p);
+	
+	frame_colors = gtk_frame_new(_("Colors"));
+	table_colors = gtk_table_new(4, 2, FALSE);
+	
+	color_picker_error = gnome_color_picker_new();
+	color_picker_warning = gnome_color_picker_new();
+	color_picker_messages1 = gnome_color_picker_new();
+	color_picker_messages2 = gnome_color_picker_new();
+
+	label3 = gtk_label_new(_("Errors:"));
+	label4 = gtk_label_new(_("Warnings:"));
+	label5 = gtk_label_new(_("Program messages:"));
+	label6 = gtk_label_new(_("Other messages:"));
+	
+	gtk_table_attach (GTK_TABLE (table_colors), label3, 0, 1, 0, 1,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	gtk_table_attach (GTK_TABLE (table_colors), label4, 0, 1, 1, 2,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	gtk_table_attach (GTK_TABLE (table_colors), label5, 2, 3, 0, 1,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	gtk_table_attach (GTK_TABLE (table_colors), label6, 2, 3, 1, 2,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+
+	gtk_table_attach (GTK_TABLE (table_colors), color_picker_error, 1, 2, 0, 1,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	gtk_table_attach (GTK_TABLE (table_colors), color_picker_warning, 1, 2, 1, 2,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	gtk_table_attach (GTK_TABLE (table_colors), color_picker_messages1, 3, 4, 0, 1,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	gtk_table_attach (GTK_TABLE (table_colors), color_picker_messages2, 3, 4, 1, 2,
+			  (GtkAttachOptions) (0),
+			  (GtkAttachOptions) (0), 5, 0);
+	
+	gtk_widget_ref(color_picker_error);
+	p->widgets.color_picker[0] = color_picker_error;
+	gtk_widget_ref(color_picker_warning);
+	p->widgets.color_picker[1] = color_picker_warning;
+	gtk_widget_ref(color_picker_messages1);
+	p->widgets.color_picker[2] = color_picker_messages1;
+	gtk_widget_ref(color_picker_messages2);
+	p->widgets.color_picker[3] = color_picker_messages2;
+	
+	gtk_container_add(GTK_CONTAINER(frame_colors), table_colors);
+	gtk_container_set_border_width(GTK_CONTAINER(frame_colors), 5);
+	gtk_widget_show_all(frame_colors);
+	gtk_box_pack_end(GTK_BOX(vbox1), frame_colors, FALSE, FALSE, 0);
+	
+	return frame1;
+}
+
+static GtkWidget *
+create_preferences_page7 (Preferences * p)
+{
+	GtkWidget *window1;
+	GtkWidget *frame1;
+	GtkWidget *vbox1;
+	GtkWidget *table2;
+	GtkWidget *frame3;
+	GtkWidget *checkbutton6;
+	GtkWidget *hseparator1;
+	GSList *table2_group = NULL;
+	GtkWidget *radiobutton1;
+	GtkWidget *radiobutton2;
+	GtkWidget *radiobutton3;
+	GtkWidget *radiobutton4;
+	GtkWidget *frame4;
+	GtkWidget *checkbutton7;
+	gint i;
+
+	window1 = p->widgets.window;
+	
+	frame1 = gtk_frame_new (NULL);
+	gtk_widget_show (frame1);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+
+	vbox1 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (vbox1);
+	gtk_container_add (GTK_CONTAINER (frame1), vbox1);
+	
+	frame3 = gtk_frame_new (_(" Notebook tags position "));
+	gtk_widget_show (frame3);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame3, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
+
+	table2 = gtk_table_new (4, 2, FALSE);
+	gtk_widget_show (table2);
+	gtk_container_add (GTK_CONTAINER (frame3), table2);
+
+	checkbutton6 =
+		gtk_check_button_new_with_label (_
+						 ("Do not show notebook title tags"));
+	gtk_widget_show (checkbutton6);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton6, 0, 2, 3, 4,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (checkbutton6), 5);
+
+	hseparator1 = gtk_hseparator_new ();
+	gtk_widget_show (hseparator1);
+	gtk_table_attach (GTK_TABLE (table2), hseparator1, 0, 2, 2, 3,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
 	frame4 = gtk_frame_new (_(" Tags Browser "));
 	gtk_widget_show (frame4);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame4, FALSE, FALSE, 0);
@@ -1440,20 +1573,45 @@ create_preferences_page6 (Preferences * p)
 	gtk_container_add (GTK_CONTAINER (frame4), checkbutton7);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton7), 5);
 
-	gtk_signal_connect (GTK_OBJECT (checkbutton1), "clicked",
-			    GTK_SIGNAL_FUNC (on_trunc_mesg_check_clicked), p);
 	gtk_signal_connect (GTK_OBJECT (checkbutton6), "clicked",
 			    GTK_SIGNAL_FUNC (on_notebook_tag_none_clicked),
 			    p);
+	
+	radiobutton1 =
+		gtk_radio_button_new_with_label (table2_group, _("Top"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
+	gtk_widget_show (radiobutton1);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton1, 0, 1, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
 
-	gtk_widget_ref (checkbutton1);
-	p->widgets.truncat_mesg_check = checkbutton1;
-	gtk_widget_ref (spinbutton1);
-	p->widgets.mesg_first_spin = spinbutton1;
-	gtk_widget_ref (spinbutton2);
-	p->widgets.mesg_last_spin = spinbutton2;
+	radiobutton2 =
+		gtk_radio_button_new_with_label (table2_group, _("Bottom"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
+	gtk_widget_show (radiobutton2);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton2, 1, 2, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
 
-	on_trunc_mesg_check_clicked (GTK_BUTTON (p->widgets.truncat_mesg_check), p);
+	radiobutton3 =
+		gtk_radio_button_new_with_label (table2_group, _("Left"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
+	gtk_widget_show (radiobutton3);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton3, 0, 1, 1, 2,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	radiobutton4 =
+		gtk_radio_button_new_with_label (table2_group, _("Right"));
+	table2_group =
+		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
+	gtk_widget_show (radiobutton4);
+	gtk_table_attach (GTK_TABLE (table2), radiobutton4, 1, 2, 1, 2,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
 	
 	p->widgets.tag_pos_radio[0] = radiobutton1;
 	p->widgets.tag_pos_radio[1] = radiobutton2;
@@ -1783,7 +1941,7 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 							   (pr->widgets.
 							    format_disable_check)));
 
-/* Page 6 */
+/* Page Messages */
 	preferences_set_int (pr, TRUNCAT_MESG_FIRST,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
 							       (pr->widgets.
@@ -1796,6 +1954,71 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    truncat_mesg_check)));
+								
+	if (gtk_toggle_button_get_active
+	    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_msg_radio[0])) == TRUE)
+	{
+		preferences_set (pr, MESSAGES_TAG_POS, "top");
+	}
+	else
+		if (gtk_toggle_button_get_active
+		    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_msg_radio[1])) ==
+		    TRUE)
+	{
+		preferences_set (pr, MESSAGES_TAG_POS, "bottom");
+	}
+	else
+		if (gtk_toggle_button_get_active
+		    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_msg_radio[2])) ==
+		    TRUE)
+	{
+		preferences_set (pr, MESSAGES_TAG_POS, "left");
+	}
+	else
+		if (gtk_toggle_button_get_active
+		    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_msg_radio[3])) ==
+		    TRUE)
+	{
+		preferences_set (pr, MESSAGES_TAG_POS, "right");
+	}
+	else
+	{
+		preferences_set (pr, MESSAGES_TAG_POS, "top");
+	}
+	
+	gnome_color_picker_get_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[0]), &r, &g, &b, &a);
+	str = StringFromColor(r, g, b);
+	if (str)
+	{
+		preferences_set(pr, MESSAGES_COLOR_ERROR, str);
+		g_free(str);
+	}
+	
+	gnome_color_picker_get_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[1]), &r, &g, &b, &a);
+	str = StringFromColor(r, g, b);
+	if (str)
+	{
+		preferences_set(pr, MESSAGES_COLOR_WARNING, str);
+		g_free(str);
+	}
+
+	gnome_color_picker_get_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[2]), &r, &g, &b, &a);
+	str = StringFromColor(r, g, b);
+	if (str)
+	{
+		preferences_set(pr, MESSAGES_COLOR_MESSAGES1, str);
+		g_free(str);
+	}
+
+	gnome_color_picker_get_i8(GNOME_COLOR_PICKER(pr->widgets.color_picker[3]), &r, &g, &b, &a);
+	str = StringFromColor(r, g, b);
+	if (str)
+	{
+		preferences_set(pr, MESSAGES_COLOR_MESSAGES2, str);
+		g_free(str);
+	}
+
+	
 /* Page Components */
 	preferences_set_int (pr, USE_COMPONENTS,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON

@@ -201,22 +201,22 @@ AnjutaMessageWindow::append_buffer()
 	{
 		if (message.find(" warning: ") != message.npos)
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_green);
+			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_warning);
 		}
 		else
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_red);
+			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_error);
 		}
 	}
 	else
 	{
 		if (message.find(':') != message.npos)
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_blue);
+			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_message1);
 		}
 		else
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_black);
+			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_message2);
 		}
 	}
 	delete dummy_fn;

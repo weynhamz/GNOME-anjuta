@@ -154,11 +154,11 @@ anjuta_new ()
 		getcwd(wd, PATH_MAX);
 		fileselection_set_dir (app->fileselection, wd);
 		
+		app->preferences = preferences_new ();
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
-		app->preferences = preferences_new ();
 		app->compiler_options = compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
 		app->messages = ANJUTA_MESSAGE_MANAGER(anjuta_message_manager_new ());
@@ -927,6 +927,8 @@ gboolean anjuta_load_yourself (PropsID pr)
 {
 	gint length;
 
+	preferences_load_yourself (app->preferences, pr);
+	
 	app->win_pos_x = prop_get_int (pr, "anjuta.win.pos.x", 10);
 	app->win_pos_y = prop_get_int (pr, "anjuta.win.pos.y", 10);
 	app->win_width =
@@ -956,7 +958,6 @@ gboolean anjuta_load_yourself (PropsID pr)
 #endif
 	anjuta_message_manager_load_yourself (app->messages, pr);
 	project_dbase_load_yourself (app->project_dbase, pr);
-	preferences_load_yourself (app->preferences, pr);
 	compiler_options_load_yourself (app->compiler_options, pr);
 	compiler_options_load (app->compiler_options, pr);
 	src_paths_load_yourself (app->src_paths, pr);

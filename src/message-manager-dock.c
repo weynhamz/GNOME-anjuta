@@ -30,8 +30,6 @@ amm_undock(GtkWidget* amm, GtkWidget** window)
 	if (amm->parent != NULL)
 		amm_hide_docked();
 	
-	*window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title(GTK_WINDOW(*window), _("Messages"));
 	gtk_signal_connect(GTK_OBJECT(*window), "delete_event", GTK_SIGNAL_FUNC(on_delete_event), amm);
 
 	gtk_widget_ref(amm);
