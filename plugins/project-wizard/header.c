@@ -181,7 +181,7 @@ npw_header_list_find_parent(NPWHeaderList* this, const gchar* category, gboolean
 
 					new_parent = npw_header_new (this);
 					new_parent->category = g_string_chunk_insert (this->string_pool, category);
-					g_node_unlink (this->list);
+					g_node_unlink (new_parent->node);
 					g_node_insert_before (this->list, node, new_parent->node);
 					node = new_parent->node;
 				}
@@ -276,7 +276,7 @@ npw_header_list_organize(NPWHeaderList* this, const gchar* category, NPWHeader* 
 
 	/* Find parent */
 	parent = npw_header_list_find_parent(this, category, TRUE);
-	
+
 	/* Insert node as a child in alphabetic order*/
 	name = npw_header_get_name (header);
 	for (node = g_node_first_child(parent); node != NULL; node = g_node_next_sibling(node))
@@ -300,8 +300,11 @@ gboolean
 npw_header_list_foreach_project_in (const NPWHeaderList* this, const gchar* category, NPWHeaderForeachFunc func, gpointer data)
 {
 	GNode* node;
-
-	node = npw_header_list_find_parent(this, category, FALSE);
+	
+	/* FIXME: const modified has been removed because the find function
+	 * with TRUE as the third argument could create a parent if it
+	 * doesn't exist. It could be better to split this function in two */
+	node = npw_header_list_find_parent((NPWHeaderList*)this, category, FALSE);
 	if (node == NULL) return FALSE;
 
 	return npw_header_list_foreach_node (node, func, data, G_TRAVERSE_LEAFS);

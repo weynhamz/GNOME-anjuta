@@ -18,7 +18,8 @@ SUBDIRS = . \
 	symbol-browser \
 	sample1 \
 	cvs-plugin \
-	macro
+	macro \
+	class-gen
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

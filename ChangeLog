@@ -1,4 +1,13 @@
-2005-02-17  Naba Kumar  <naba@gnome.org>
+2005-02-18  Naba Kumar  <naba@gnome.org>
+
+	* plugins/Makefile.am: Added class-gen
+	
+2005-02-17  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/header.c:
+	Fix a bug in sorting of project categories
+
+2005-02-18  Naba Kumar  <naba@gnome.org>
 
 	Patch from Massimo Cora  <maxcvs@email.it>:
 	
