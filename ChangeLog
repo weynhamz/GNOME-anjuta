@@ -5,6 +5,7 @@
 	* src/project_dbase.c: Patch by TTimo (pref saving), bug #636542
 	* src/dnd.c: Fix typo
 	* src/an_[symbol|file]_view.c: Hide when updating (reduced flicker)
+	* src/anjuta.c: Bug #568895
 
 2002-12-18  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
