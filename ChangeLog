@@ -1,3 +1,11 @@
+2005-02-14  Naba Kumar  <naba@gnome.org>
+	
+	* mime/gnome-mime-application-x-anjuta.png,
+	pixmaps/anjuta_icon.png,
+	(new) pixmaps/anjuta_icon.svg: New svg icon and derived png icons
+	done by 9-speed at:
+	http://cvs.freedesktop.org/svg-icons/lila/gnome/scalable/apps/anjuta_icon.svg?rev=1.2&view=log
+	
 2005-02-14  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* configure.in,
@@ -7,7 +15,7 @@
 	Add Glade2 project
 
 
-2005-02-13  Naba Kumar  <naba@gnome.org>
+2005-02-14  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.
 	
