@@ -1100,9 +1100,17 @@ anjuta_save_all_files()
 	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
 		te = (TextEditor *) tmp->data;
-		/* Save the file if necessary but do not update highlighting. */ 
-		if (te->full_filename && !text_editor_is_saved (te))
+
+		if (te->full_filename == NULL)
+		{
+			anjuta_set_current_text_editor (te);
+			gtk_widget_show (app->save_as_fileselection);
+		} 
+		else if (!text_editor_is_saved (te))
+		{
+			/* Save the file but do not update highlighting. */ 
 			text_editor_save_file (te, FALSE);
+		}
 	}
 	/* Update the highlighting after all the files are saved. */
 	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))

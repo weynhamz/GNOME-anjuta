@@ -1,4 +1,10 @@
-2004-02-14  Franco Catrin  <fcatrin@tuxpan.com>
+2004-02-17  Franco Catrin  <fcatrin@tuxpan.com>
+
+	* src/anjuta.c
+	"Save all" action now asks for filenames for new files
+	(fix bug #898111)
+
+2004-02-16  Franco Catrin  <fcatrin@tuxpan.com>
 
 	* anjuta.glade, src/text_editor.c
 	Fixed a typo in Hello World indentation style 
