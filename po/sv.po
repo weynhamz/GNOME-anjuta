@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-10-24 14:12+0200\n"
-"PO-Revision-Date: 2001-10-24 14:12+0200\n"
+"POT-Creation-Date: 2001-10-29 14:54+0100\n"
+"PO-Revision-Date: 2001-10-29 14:54+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -820,12 +820,12 @@ msgstr "Kompilering färdig... misslyckades"
 msgid "Compile completed ... successful"
 msgstr "Kompilering färdig... lyckades"
 
-#: src/compiler_options_cbs.c:232
+#: src/compiler_options_cbs.c:240
 #, c-format
 msgid "Cannot create: %s."
 msgstr "Kan inte skapa: %s."
 
-#: src/compiler_options_cbs.c:235
+#: src/compiler_options_cbs.c:243
 #, c-format
 msgid ""
 "Support ID: %s\n"
@@ -834,11 +834,11 @@ msgstr ""
 "Stöd-ID: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:236
+#: src/compiler_options_cbs.c:244
 msgid "Description:\n"
 msgstr "Beskrivning:\n"
 
-#: src/compiler_options_cbs.c:238
+#: src/compiler_options_cbs.c:246
 #, c-format
 msgid ""
 "Dependencies: %s\n"
@@ -847,11 +847,11 @@ msgstr ""
 "Beroenden: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:239
+#: src/compiler_options_cbs.c:247
 msgid "Macros in configure.in fie:\n"
 msgstr "Makron i filen configure.in:\n"
 
-#: src/compiler_options_cbs.c:241
+#: src/compiler_options_cbs.c:249
 #, c-format
 msgid ""
 "Variable(s) for cflags: %s\n"
@@ -860,7 +860,7 @@ msgstr ""
 "Variabler för cflags: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:243
+#: src/compiler_options_cbs.c:251
 #, c-format
 msgid ""
 "Variable(s) for Libs: %s\n"
@@ -869,7 +869,7 @@ msgstr ""
 "Variabler för Libs: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:245
+#: src/compiler_options_cbs.c:253
 #, c-format
 msgid ""
 "Compile time Cflags: %s\n"
@@ -878,7 +878,7 @@ msgstr ""
 "Cflags vid kompilering: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:247
+#: src/compiler_options_cbs.c:255
 #, c-format
 msgid ""
 "Compile time Libs: %s\n"
@@ -887,25 +887,25 @@ msgstr ""
 "Libs vid kompilering: %s\n"
 "\n"
 
-#: src/compiler_options_cbs.c:249
+#: src/compiler_options_cbs.c:257
 msgid "Entries in acconfig.h file:\n"
 msgstr "Poster i filen acconfig.h:\n"
 
-#: src/compiler_options_cbs.c:251
+#: src/compiler_options_cbs.c:259
 msgid "Installed status:\n"
 msgstr "Installationsstatus:\n"
 
-#: src/compiler_options_cbs.c:266
+#: src/compiler_options_cbs.c:274
 #, c-format
 msgid "    Installed => %s\n"
 msgstr "    Installerad => %s\n"
 
-#: src/compiler_options_cbs.c:270
+#: src/compiler_options_cbs.c:278
 msgid "    Not Installed.\n"
 msgstr "    Inte installerad.\n"
 
-#: src/compiler_options_cbs.c:359 src/compiler_options_cbs.c:452
-#: src/compiler_options_cbs.c:546 src/compiler_options_cbs.c:635
+#: src/compiler_options_cbs.c:367 src/compiler_options_cbs.c:460
+#: src/compiler_options_cbs.c:554 src/compiler_options_cbs.c:643
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
 msgstr "Är du säker på att du vill tömma listan?"
@@ -1081,21 +1081,17 @@ msgstr ""
 "felsökning och optimering, såvida det du vill felsöka inte\n"
 "är den optimerade koden."
 
-#: src/compiler_options_gui.c:1089
+#: src/compiler_options_gui.c:1091
 msgid "Enable Debugging"
 msgstr "Aktivera felsökning"
 
-#: src/compiler_options_gui.c:1097
+#: src/compiler_options_gui.c:1099
 msgid "Enable Profiling"
 msgstr "Aktivera profilering"
 
-#: src/compiler_options_gui.c:1108
-msgid "Additional compiler options (command line options)"
-msgstr "Ytterligare kompilatoralternativ (kommandoradsflaggor)"
-
-#: src/compiler_options_gui.c:1124
-msgid "Additional linker options (command line options)"
-msgstr "Ytterligare länkaralternativ (kommandoradsflaggor)"
+#: src/compiler_options_gui.c:1104
+msgid "Additional Options"
+msgstr "Ytterligare alternativ"
 
 #: src/configurer.c:87 src/configurer.c:203 src/toolbar.c:463
 msgid "Configure"
@@ -1633,19 +1629,19 @@ msgstr "Kan inte köra kommandoskal"
 msgid "Don't show the splashscreen"
 msgstr "Visa inte startbilden"
 
-#: src/main_menubar.c:458
+#: src/main_menubar.c:520
 msgid "Recent Files    "
 msgstr "Senaste filer   "
 
-#: src/main_menubar.c:469
+#: src/main_menubar.c:531
 msgid "Plug Ins"
 msgstr "Insticksmoduler"
 
-#: src/main_menubar.c:486 src/project_dbase.c:1873
+#: src/main_menubar.c:548 src/project_dbase.c:1873
 msgid "Recent Projects "
 msgstr "Senaste projekt "
 
-#: src/main_menubar.c:505
+#: src/main_menubar.c:567
 msgid "You have a project opened. Close it first."
 msgstr "Du har ett projekt öppet. Stäng det först."
 
@@ -4900,11 +4896,11 @@ msgstr "Kunde inte läsa fil: %s."
 
 #: src/source.c:121 src/source.c:168 src/source.c:206 src/source.c:442
 #: src/source.c:466 src/source.c:551 src/source.c:617 src/source.c:657
-#: src/source.c:672 src/source.c:705 src/source.c:734 src/source.c:805
-#: src/source.c:824 src/source.c:857 src/source.c:877 src/source.c:910
-#: src/source.c:930 src/source.c:961 src/source.c:979 src/source.c:1009
-#: src/source.c:1027 src/source.c:1054 src/source.c:1106 src/source.c:1177
-#: src/source.c:1309 src/utilities.c:697
+#: src/source.c:672 src/source.c:705 src/source.c:741 src/source.c:813
+#: src/source.c:832 src/source.c:865 src/source.c:885 src/source.c:918
+#: src/source.c:938 src/source.c:969 src/source.c:987 src/source.c:1017
+#: src/source.c:1035 src/source.c:1062 src/source.c:1114 src/source.c:1185
+#: src/source.c:1317 src/utilities.c:697
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Kunde inte skapa fil: %s."
@@ -4961,11 +4957,11 @@ msgstr "Inspektera/Evaluera uttryck"
 msgid "Add To Watch"
 msgstr "Lägg till i bevakare"
 
-#: src/about.c:47
+#: src/about.c:63
 msgid "Copyright (c) 1999-2001 Naba Kumar"
 msgstr "Copyright © 1999-2001 Naba Kumar"
 
-#: src/about.c:58
+#: src/about.c:74
 msgid "Anjuta Home Site"
 msgstr "Hemsida för Anjuta"
 
@@ -5006,12 +5002,12 @@ msgstr "Behöver terminal"
 msgid "Error writing to file: %s."
 msgstr "Fel vid skrivning till fil: %s."
 
-#: src/source.c:1260
+#: src/source.c:1268
 #, c-format
 msgid "Error writing to : %s."
 msgstr "Fel vid skrivning till: %s."
 
-#: src/source.c:1376
+#: src/source.c:1384
 msgid "Project type does not support glade."
 msgstr "Projekttypen stöder inte glade."
 
@@ -5203,6 +5199,12 @@ msgstr "Kunde inte skapa pixmap från fil: %s"
 #: src/resources.c:295 src/resources.c:303
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
+
+#~ msgid "Additional compiler options (command line options)"
+#~ msgstr "Ytterligare kompilatoralternativ (kommandoradsflaggor)"
+
+#~ msgid "Additional linker options (command line options)"
+#~ msgstr "Ytterligare länkaralternativ (kommandoradsflaggor)"
 
 #~ msgid "_Repeat Find"
 #~ msgstr "_Upprepa sökning"
