@@ -1,3 +1,11 @@
+2002-01-27  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/message-manager-private.h, message-manager-private.cc,
+	  message-manger.cc:
+	  
+	  Added freeze() and thaw() for the message window class to
+	  speed up the message manager update.
+	  
 2002-01-26  Stephane Demurget  <demurgets@free.fr>
 
 	* po/fr.po: updated to the latest sources.

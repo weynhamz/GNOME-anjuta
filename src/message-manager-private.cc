@@ -251,6 +251,18 @@ AnjutaMessageWindow::clear()
 	gtk_clist_clear(GTK_CLIST(m_msg_list));
 }
 
+void
+AnjutaMessageWindow::freeze()
+{
+	gtk_clist_freeze(GTK_CLIST(m_msg_list));
+}
+
+void
+AnjutaMessageWindow::thaw()
+{
+	gtk_clist_thaw(GTK_CLIST(m_msg_list));
+}
+
 void 
 AnjutaMessageWindow::show()
 {

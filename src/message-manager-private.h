@@ -112,7 +112,8 @@ class AnjutaMessageWindow : public MessageSubwindow
 		unsigned int get_cur_line() const;
 		
 		void clear();
-	
+		void freeze();
+		void thaw();
 		void show();
 		void hide();
 		

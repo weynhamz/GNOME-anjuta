@@ -165,7 +165,7 @@ tags_manager_save (TagsManager * tm)
 	GList *list;
 	FILE *stream;
 	gchar *text;
-
+	
 	if (tm == NULL)
 		return FALSE;
 	if (app->project_dbase->project_is_open == FALSE)

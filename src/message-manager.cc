@@ -634,6 +634,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 			break;
 		
 		vector<string> messages = win->get_messages();
+		win->freeze();
 		win->clear();
 		int type = win->get_type_id();
 		
@@ -643,6 +644,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 			string msg = *cur_msg + "\n";
 			anjuta_message_manager_append(amm, msg.c_str(), type);
 		}
+		win->thaw();
 	}
 }
 
