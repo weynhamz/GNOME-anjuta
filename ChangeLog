@@ -1,6 +1,14 @@
 2003-09-19  Naba Kumar  <naba@gnome.org>
 
+	* src/scintilla/patches/scintilla-ac-gtk2-port.diff,
+	scintilla/PlatGTK.cxx: Ported autocomplete window to gtk2 by removing
+	GtkCList and using GtkTreeView instead. Added the patch.
+	
+2003-09-19  Naba Kumar  <naba@gnome.org>
+
 	* printing/print.c: Proper UTF8 printing support.
+	* src/main.c: moved kernel signal connects at the
+	end of application initialization.
 	
 2003-09-18  Naba Kumar  <naba@gnome.org>
 
