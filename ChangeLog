@@ -12,6 +12,9 @@
 	Adde [Settings]->[Preferences]->[Edit user.properties file ...] menu
 	item.
 
+	* src/mainmenu_callbacks.c: Fixed a bug that loads system properties file
+	instead of user properties file.
+	
 2002-10-28  Naba Kumar <naba@gnome.org>
 
     * manuals/C/anjuta-manual/figures/editor_guides.png,
