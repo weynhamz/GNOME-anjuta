@@ -16,8 +16,7 @@ anjutadoc_DATA = \
 	INSTALL\
 	NEWS\
 	TODO\
-	ABOUT-NLS\
-	FUTURE
+	ABOUT-NLS
 
 anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
 

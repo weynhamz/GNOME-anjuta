@@ -122,10 +122,7 @@
      </question>
      <answer>
       <para>
-	  A GNOME2 port was started but it has stagnated due to lack of interest.
-	  Besides, there is already Anjuta2 (a completely different project) which
-	  works on GNOME2. However, the Anjuta development team welcomes any effort
-	  to port Anjuta to GNOME2.
+        GNOME 2 port of anjuta is under development.
      </para>
       </answer>
      </qandaentry>
@@ -391,22 +388,6 @@
     <qandaentry>
      <question>
       <para>
-      I am a hacker - should I start with Anjuta or Anjuta2 ?
-      </para>
-     </question>
-     <answer>
-      <para>
-		Start with Anjuta2. You will need a full GNOME2 installation. Asking quesitons
-		on gnome-devtools list is a good way to start. Currently, Anjuta2 is
-		missing lots of Anjuta features. A good way to get involved is to port
-		you favourite missing feature from Anjuta to Anjuta2.
-	  </para>
-      </answer>
-     </qandaentry>
-
-    <qandaentry>
-     <question>
-      <para>
       I have added this cool feature to my copy of Anjuta - where do I send a patch ?
       </para>
      </question>
@@ -449,8 +430,7 @@
     </question>
     <answer>
      <para>
-		This is curently not possible with the existing project manager. Anjuta2
-		will have the ability to organize code into multiple subdirectories. A
+		This is curently not possible with the existing project manager. A
 		future version of Anjuta will also hopefully have this ability.
      </para>
     </answer>
@@ -818,28 +798,7 @@
 	</para>
     </answer>
    </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		Should I use Anjuta 1 or Anjuta 2 ?
-    </para>
-    </question>
-    <answer>
-     <para>
-	Currently, Anjuta is more usable than Anjuta2. However, most of the development effort is
-	concentrated on Anjuta2, so if you're looking for powerful new features, Anjuta2 is the
-	likely candidate for implementation. Also, Anjuta2 is a full GNOME2 application while Anjuta
-	is dependent on GNOME1 libraries. For long-term investment, Anjuta2 is a better option.
-	</para>
-	<para>
-	Ultimately, it is all about what works best at a particular time for a particular
-	scenario for you. You'll need to use both and make an informed decision.
-	</para>
-    </answer>
-   </qandaentry>
-
-	</qandadiv>
+ </qandadiv>
 </qandaset>
  <!-- ============= Authors ================================ -->
 
