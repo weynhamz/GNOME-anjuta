@@ -921,8 +921,7 @@ on_session_save (AnjutaShell *shell, GQueue *commandline_args,
 		TextEditor *te;
 		te = TEXT_EDITOR (node->data);
 		if (te->uri)
-			g_queue_push_tail (commandline_args,
-							   g_strdup_printf ("'%s'", te->uri));
+			g_queue_push_tail (commandline_args, g_strdup (te->uri));
 		node = g_list_next (node);
 	}
 	g_list_free (editors);

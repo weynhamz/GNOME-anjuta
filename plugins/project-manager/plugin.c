@@ -647,8 +647,7 @@ on_session_save (AnjutaShell *shell, GQueue *commandline_args,
 {
 	if (plugin->project_uri)
 	{
-		g_queue_push_tail (commandline_args, g_strdup_printf ("'%s'",
-						   plugin->project_uri));
+		g_queue_push_tail (commandline_args, g_strdup (plugin->project_uri));
 	}
 }
 

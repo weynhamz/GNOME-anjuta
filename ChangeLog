@@ -1,3 +1,23 @@
+2005-01-25  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/plugin.c, plugins/project-manager/plugin.c: Fixed
+	session save filenames.
+	
+	* plugins/editor/anjuta-docman.c: Lazy create fileselection dialogs.
+	
+2005-01-24  Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/project-wizard/Makefile.am,
+	plugins/project-wizard/install.c,
+	plugins/project-wizard/install.h,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/parser.h,
+	plugins/project-wizard/templates/terminal.wiz:
+	Add action list block in wizard template
+	* plugins/project-wizard/file.c,
+	plugins/project-wizard/autogen.c:
+	Small fixes
+
 2005-01-23  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Fixed build error.

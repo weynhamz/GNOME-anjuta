@@ -33,6 +33,7 @@
 #include "action-callbacks.h"
 
 static gboolean closing_state;
+static gpointer parent_class;
 
 struct _AnjutaDocmanPriv {
 	AnjutaPreferences *preferences;
@@ -164,32 +165,6 @@ anjuta_docman_page_destroy (AnjutaDocmanPage *page)
 {
 	editor_tab_widget_destroy (page);
 	g_free (page);
-}
-
-void
-anjuta_docman_open_file (AnjutaDocman *docman)
-{
-	gtk_widget_show (docman->priv->fileselection);
-}
-
-void
-anjuta_docman_save_as_file (AnjutaDocman *docman)
-{
-	TextEditor *te;
-
-	te = anjuta_docman_get_current_editor (docman);
-	if (te == NULL)
-		return;
-	if (te->uri)
-		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-									te->uri);
-	else if (te->filename)
-		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-											te->filename);
-	else
-		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-										  "");
-	gtk_widget_show (docman->priv->save_as_fileselection);
 }
 
 static void
@@ -362,7 +337,47 @@ create_file_save_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
 	return dialog;
 }
 
-static gpointer parent_class;
+void
+anjuta_docman_open_file (AnjutaDocman *docman)
+{
+	if (!docman->priv->fileselection)
+	{
+		GtkWidget *parent;
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+		docman->priv->fileselection =
+			create_file_open_dialog_gui(GTK_WINDOW (parent), docman);
+	}
+	gtk_widget_show (docman->priv->fileselection);
+}
+
+void
+anjuta_docman_save_as_file (AnjutaDocman *docman)
+{
+	TextEditor *te;
+	
+	if (!docman->priv->save_as_fileselection)
+	{
+		GtkWidget *parent;
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+		docman->priv->save_as_fileselection =
+			create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
+		gtk_window_set_modal (GTK_WINDOW (docman->priv->save_as_fileselection),
+							  TRUE);
+	}
+	te = anjuta_docman_get_current_editor (docman);
+	if (te == NULL)
+		return;
+	if (te->uri)
+		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
+									te->uri);
+	else if (te->filename)
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
+											te->filename);
+	else
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
+										  "");
+	gtk_widget_show (docman->priv->save_as_fileselection);
+}
 
 static void
 anjuta_docman_dispose (GObject *obj)
@@ -410,8 +425,10 @@ anjuta_docman_finalize (GObject *obj)
 	docman = ANJUTA_DOCMAN (obj);
 	if (docman->priv)
 	{
-		gtk_widget_destroy (docman->priv->fileselection);
-		gtk_widget_destroy (docman->priv->save_as_fileselection);
+		if (docman->priv->fileselection)
+			gtk_widget_destroy (docman->priv->fileselection);
+		if (docman->priv->save_as_fileselection)
+			gtk_widget_destroy (docman->priv->save_as_fileselection);
 		g_free (docman->priv);
 		docman->priv = NULL;
 	}
@@ -421,19 +438,10 @@ anjuta_docman_finalize (GObject *obj)
 static void
 anjuta_docman_instance_init (AnjutaDocman *docman)
 {
-	GtkWidget *parent;
-
-	/* FIXME: */
-	// parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
-	parent = NULL;
 	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
 	docman->priv->popup_menu = NULL;
-	docman->priv->fileselection =
-		create_file_open_dialog_gui(GTK_WINDOW (parent), docman);
-	docman->priv->save_as_fileselection =
-		create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
-	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection,
-						  TRUE);
+	docman->priv->fileselection = NULL;
+	docman->priv->save_as_fileselection = NULL;
 	
 	gtk_notebook_popup_enable (GTK_NOTEBOOK (docman));
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
