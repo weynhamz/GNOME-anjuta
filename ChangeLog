@@ -1,3 +1,12 @@
+2005-02-23  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/macro/macro-actions.c, plugins/macro/macro-db.[ch],
+	plugins/macro/macro-dialog.c, plugins/macro/macro-util.[ch],
+	plugins/macro/macros.xml, plugins/macro/plugin.[ch],
+	plugins/file-wizard/action-callbacks.c, plugins/file-wizard/file.c :
+
+	Added Copyright, Changelog macros.
+		
 2005-02-23  Naba Kumar  <naba@gnome.org>
 
 	Patch from Massimo Cora' <maxcvs@email.it>:

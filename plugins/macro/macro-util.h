@@ -20,6 +20,6 @@
 
 #include "plugin.h"
 
-gchar *expand_macro(gchar *txt);
+gchar *expand_macro(MacroPlugin * plugin, gchar *txt);
 
 #endif

@@ -500,11 +500,11 @@ static gchar *get_username(AnjutaPreferences *prefs)
 	return Username;
 }
 
-void
-insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
-	file_insert_text(te, get_username(prefs), -1);
-}
+//~ void
+//~ insert_username(IAnjutaEditor *te, AnjutaPreferences *prefs)
+//~ {
+	//~ file_insert_text(te, get_username(prefs), -1);
+//~ }
 
 static gchar *insert_email(AnjutaPreferences *prefs)
 {
@@ -540,37 +540,37 @@ insert_copyright(AnjutaPreferences *prefs)
 	return copyright;
 }
 
-static gchar *
-insert_changelog(AnjutaPreferences *prefs)
-{
-	gchar *Username;
-	gchar *email;
-	gchar *CLEntry;
-	gchar datetime[20];
-	struct tm *lt;
-	time_t cur_time = time(NULL);
+//~ static gchar *
+//~ insert_changelog(AnjutaPreferences *prefs)
+//~ {
+	//~ gchar *Username;
+	//~ gchar *email;
+	//~ gchar *CLEntry;
+	//~ gchar datetime[20];
+	//~ struct tm *lt;
+	//~ time_t cur_time = time(NULL);
 
-	CLEntry = g_new(gchar, 200);
-	lt = localtime(&cur_time);
-	strftime (datetime, 20, N_("%Y-%m-%d"), lt);
+	//~ CLEntry = g_new(gchar, 200);
+	//~ lt = localtime(&cur_time);
+	//~ strftime (datetime, 20, N_("%Y-%m-%d"), lt);
 
-	Username =  get_username(prefs);
-	email = insert_email(prefs);
-	sprintf(CLEntry,"%s  %s <%s>\n", datetime, Username, email);
-	g_free(email);
+	//~ Username =  get_username(prefs);
+	//~ email = insert_email(prefs);
+	//~ sprintf(CLEntry,"%s  %s <%s>\n", datetime, Username, email);
+	//~ g_free(email);
   	
-	return  CLEntry;
-}
+	//~ return  CLEntry;
+//~ }
 
-void
-insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs)
-{
-	gchar *changelog;
-	changelog = insert_changelog(prefs);
-	file_insert_text(te, changelog, -1);
+//~ void
+//~ insert_changelog_entry(IAnjutaEditor *te, AnjutaPreferences *prefs)
+//~ {
+	//~ gchar *changelog;
+	//~ changelog = insert_changelog(prefs);
+	//~ file_insert_text(te, changelog, -1);
 
-	g_free(changelog);
-}
+	//~ g_free(changelog);
+//~ }
 
 static gchar*
 insert_header_file_copyright_email (IAnjutaEditor *te, AnjutaPreferences *prefs)

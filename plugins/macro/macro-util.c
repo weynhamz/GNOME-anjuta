@@ -17,7 +17,7 @@
 
 #include "macro-util.h"
 
-static gchar *
+static char *
 get_date_time(void)
 {
 	time_t cur_time = time(NULL);
@@ -35,22 +35,70 @@ get_date_Ymd(void)
 	struct tm *lt;
 		
 	time_t cur_time = time(NULL);
-    datetime = g_new(gchar, 20);
+	datetime = g_new(gchar, 20);
 	lt = localtime(&cur_time);
-	//strftime (datetime, 20, N_("%Y-%m-%d"), lt);
-	strftime (datetime, 20, "%Y-%m-%d", lt);
+	strftime (datetime, 20, N_("%Y-%m-%d"), lt);
 	return datetime;
 }
   	
+static gchar *
+get_date_Y(void)
+{
+	gchar *datetime;
+	struct tm *lt;
+		
+	time_t cur_time = time(NULL);
+	datetime = g_new(gchar, 20);
+	lt = localtime(&cur_time);
+	strftime (datetime, 20, N_("%Y"), lt);
+	return datetime;
+}
+
+static gchar *
+get_username(MacroPlugin * plugin)
+{
+	AnjutaPreferences *prefs;
+	gchar *username;
+	
+	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
+	username = anjuta_preferences_get (prefs, "anjuta.project.user");
+	if (!username || strlen(username) == 0)
+		username = getenv("USERNAME");
+	if (!username || strlen(username) == 0)
+		username = getenv("USER");
+	return username;
+}	
+
+
+static gchar *
+get_email(MacroPlugin * plugin)
+{
+	AnjutaPreferences *prefs;
+	gchar *email;
+	gchar *username;
+	
+	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
+	email = anjuta_preferences_get (prefs, "anjuta.project.email");
+	if (!email || strlen(email) == 0)
+	{
+		email = getenv("HOSTNAME");
+		if (!(username = getenv("USERNAME")) || strlen(username) == 0)
+			username = getenv("USER");
+		email = g_strconcat(username, "@", email, NULL);
+		g_free(username);
+	}
+	return email;
+}
 	
 
 static gboolean
-expand_keyword(gchar *keyword, gchar **expand)
+expand_keyword(MacroPlugin * plugin, gchar *keyword, gchar **expand)
 {
-	enum {_DATETIME = 0, _DATE_YMD, _USER_NAME , _FILE_NAME, _EMAIL, 
+	enum {_DATETIME = 0, _DATE_YMD, _DATE_Y, _USER_NAME , _FILE_NAME, _EMAIL, 
 		  _ENDKEYW };		
 	gchar *tabkey[_ENDKEYW] =
-		{"@DATE_TIME@", "@DATE_YMD@", "@USER_NAME@", "@FILE_NAME@", "@EMAIL@" };
+		{"@DATE_TIME@", "@DATE_YMD@", "@DATE_Y@", "@USER_NAME@", "@FILE_NAME@",
+		 "@EMAIL@" };
 	gint key;
 		
 	for (key=0; key<_ENDKEYW; key++)
@@ -65,14 +113,17 @@ expand_keyword(gchar *keyword, gchar **expand)
 		case _DATE_YMD :
 		    *expand = get_date_Ymd();
 		    break;
+		case _DATE_Y :
+		    *expand = get_date_Y();
+		    break;
 		case _USER_NAME :
-			//*expand = 
+			*expand = get_username(plugin);
 			break;
 		case _FILE_NAME :
 			//*expand = 
 			break;
 		case _EMAIL :
-			//*expand = 
+			*expand = get_email(plugin);
 			break;
 		default:
 			//*expand = 
@@ -86,7 +137,7 @@ expand_keyword(gchar *keyword, gchar **expand)
 
 
 gchar*
-expand_macro(gchar *txt)
+expand_macro(MacroPlugin * plugin, gchar *txt)
 {
 	gchar *ptr = txt;
 	gchar *c = txt;
@@ -109,7 +160,7 @@ expand_macro(gchar *txt)
 				{
 					keyword = g_strndup(begin, c-begin+1);
 				
-					if (expand_keyword(keyword, &expand))
+					if (expand_keyword(plugin, keyword, &expand))
 					{
 						buf = g_strndup(ptr, begin - ptr);
 						buffer = g_strconcat(buffer, buf, expand, NULL);

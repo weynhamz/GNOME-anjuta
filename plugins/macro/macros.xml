@@ -74,25 +74,24 @@ else
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 ]]></macro>
-<macro _name="cvs_author" _category="CVS" _shortcut=""><![CDATA[$Author$
+
+<macro _name="cvs_author" _category="CVS" _shortcut=""><![CDATA[Author:]]></macro>
+<macro _name="cvs_date" _category="CVS" _shortcut=""><![CDATA[Date:]]></macro>
+<macro _name="cvs_header" _category="CVS" _shortcut=""><![CDATA[Header:]]></macro>
+<macro _name="cvs_id" _category="CVS" _shortcut=""><![CDATA[Id:]]></macro>
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Log:]]></macro>
+<macro _name="cvs_name" _category="CVS" _shortcut=""><![CDATA[Name:]]></macro>
+<macro _name="cvs_revision" _category="CVS" _shortcut=""><![CDATA[Revision:]]></macro>
+<macro _name="cvs_source" _category="CVS" _shortcut=""><![CDATA[Source:]]></macro>
+
+<macro _name="Date_Time" _category="Basic" _shortcut=""><![CDATA[@DATE_TIME@]]></macro>
+<macro _name="Date_Ymd" _category="Basic" _shortcut=""><![CDATA[@DATE_YMD@]]></macro>
+<macro _name="Date_Y" _category="Basic" _shortcut=""><![CDATA[@DATE_Y@]]></macro>
+<macro _name="UserName" _category="Basic" _shortcut=""><![CDATA[@USER_NAME@]]></macro>
+<macro _name="Email" _category="Basic" _shortcut=""><![CDATA[@EMAIL@]]></macro>
+
+<macro _name="Copyright" _category="EXPAND" _shortcut=""><![CDATA[Copyright  @DATE_Y@  @USER_NAME@]]></macro>
+<macro _name="Changelog" _category="EXPAND" _shortcut=""><![CDATA[@DATE_YMD@  @USER_NAME@  <@EMAIL@>
 ]]></macro>
-<macro _name="cvs_date" _category="CVS" _shortcut=""><![CDATA[$Date$
-]]></macro>
-<macro _name="cvs_header" _category="CVS" _shortcut=""><![CDATA[$Header$
-]]></macro>
-<macro _name="cvs_id" _category="CVS" _shortcut=""><![CDATA[$Id$
-]]></macro>
-<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[$Log$
-<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Revision 1.10  2005/02/22 19:48:36  jnoel
-<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[*** empty log message ***
-<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[
-]]></macro>
-<macro _name="cvs_name" _category="CVS" _shortcut=""><![CDATA[$Name$
-]]></macro>
-<macro _name="cvs_revision" _category="CVS" _shortcut=""><![CDATA[$Revision$
-]]></macro>
-<macro _name="cvs_source" _category="CVS" _shortcut=""><![CDATA[$Source$
-]]></macro>
-<macro _name="Expand_Test" _category="EXPAND" _shortcut=""><![CDATA[Date: <@DATE_YMD@>
-]]></macro>
+
 </anjuta-macros>

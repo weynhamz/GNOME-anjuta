@@ -72,32 +72,25 @@ on_insert_py_gpl_notice(GtkAction * action, gpointer user_data)
 void
 on_insert_username(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	AnjutaPreferences *prefs;
-	prefs = get_preferences (ANJUTA_PLUGIN (user_data));
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_username(editor, prefs);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "UserName", NULL);
 }
 
 void
 on_insert_changelog_entry(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	AnjutaPreferences *prefs;
-	prefs = get_preferences (ANJUTA_PLUGIN (user_data));
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_changelog_entry(editor, prefs);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "Changelog", NULL);
 }
 
 void
 on_insert_date_time(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_date_time(editor);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "Date_Time", NULL);	
 }
 
 void

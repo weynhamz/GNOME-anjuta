@@ -410,7 +410,7 @@ macro_db_get_model (MacroDB * db)
 	return GTK_TREE_MODEL (db->tree_store);
 }
 
-gchar* macro_db_get_macro(MacroDB * db, GtkTreeIter* iter)
+gchar* macro_db_get_macro(MacroPlugin * plugin, MacroDB * db, GtkTreeIter* iter)
 {
 	g_return_val_if_fail (db != NULL, NULL);
 	g_return_val_if_fail (iter != NULL, NULL);
@@ -424,7 +424,7 @@ gchar* macro_db_get_macro(MacroDB * db, GtkTreeIter* iter)
 		return NULL;
 	else
 	{
-		gchar* buffer = expand_macro(text);
+		gchar* buffer = expand_macro(plugin, text);
 		return buffer;
 	}
 }

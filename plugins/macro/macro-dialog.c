@@ -54,7 +54,7 @@ on_ok_clicked (MacroPlugin * plugin)
 
 	if (!gtk_tree_selection_get_selected(selection, &model, &iter))
 		return;
-	text = macro_db_get_macro(dialog->macro_db, &iter);
+	text = macro_db_get_macro(plugin, dialog->macro_db, &iter);
 	if (text)
 	{
 		const int CURRENT_POS = -1;
@@ -140,8 +140,7 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 
 			gtk_label_set_text (GTK_LABEL (dialog->details_label),
 					    details_utf8);
-			
-			text = macro_db_get_macro(dialog->macro_db, &iter);
+			text = macro_db_get_macro(dialog->plugin, dialog->macro_db, &iter);
 			if (text != NULL)
 			{
 				gtk_text_buffer_set_text (text_buffer, text, -1);
@@ -313,7 +312,7 @@ macro_dialog_new (MacroPlugin * plugin)
 			G_CALLBACK(on_macro_dialog_key_press_event), plugin);
 	
 	plugin->macro_dialog = GTK_WIDGET (dialog);
-	
+	dialog->plugin = plugin;	
 	dialog->macro_db = plugin->macro_db;
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dialog->macro_tree),
 				 macro_db_get_model (dialog->macro_db));
