@@ -628,7 +628,6 @@ module.doc.files=\
 	INSTALL\
 	NEWS\
 	README\
-	THANKS\
 	TODO\
 	doc/anjuta.1.in\
 	doc/anjuta_launcher.1.in\

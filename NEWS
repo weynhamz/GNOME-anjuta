@@ -1,4 +1,57 @@
-Anjuta 1.2.1 (? Jan 2004) -- Naba Kumar, Johannes Schmid
+Anjuta 1.2.2 (? Apr 2004) -- Naba Kumar
+
+New: Anjuta advanced tutorial
+Bug fix: Use build.silent option from preferences (bug #895726)
+Bug fix: Use font style defined for message indicators (bug #885032)
+Bug fix: Set bold color as foreground color in terminal (bug #864924)
+Bug fix: Removed 'cmp' dependency and used internal function to compare files.
+Bug fix: Fixed return value when dest file could not be created.
+Bug fix: Fixed a typo in Hello World indentation style.
+Bug fix: Fixed misuse of translated strings when looking for style (bug #876037)
+Bug fix: Save-all action now asks for filenames for new files (bug #898111)
+Bug fix: Fixed a compiler warnings.
+Bug fix: Disabled printing of long debug lines.
+Bug fix: Close buttons on all dialogs (HIG) and ESC closes them (bug #671596).
+Bug fix: Fixed a program execution crash bug.
+Bug fix: Fixed Crash on Find & Replace (#887833)
+Bug fix: Use defined file name when saving new files (fixes bug #898105).
+Bug fix: Don't change filename when clicking on a directory.
+Bug fix: Implemented keypress ctrl-c and ctrl-d for terminal (bug #878357).
+Bug fix: Do not reload new files (bug #900897).
+Bug fix: Disconnects menuitem signal properly (bug #901723).
+Bug fix: Fixed bugs #890609 and #890609, #900903.
+Bug fix: Fixed a typo in tutorial (bug #866143).
+Bug fix: Reduced size of Search and Replace dialog (bug #902636).
+Bug fix: Fixed a runtime warning (bug #900087).
+Bug fix: Changed build shortcut to F11 (bug #877683).
+Bug fix: Do not defualt to -k make option (bug #875486).
+Bug fix: CFLAGS passed correctly (bug #816130, #801056, #782798, #773459)
+Bug fix: Improved Search and Replace. Fixed crash bug.
+Bug fix: Fixed bug #910097 (Insert comment).
+Bug fix: Find-Usage rework (bug #890609).
+Bug fix: Generated projects read m4 directory. Project generation works. (bug #917781).
+Bug fix: Fixed Find-Usage crash when no project open
+Bug fix: Fixed bug #893400 ("Remove file" in project tree).
+Bug fix: Aligned buttons in the New file dialog and HIG compliance.
+Bug fix: Fixed to get correct child exit status	using mask (bug #905738).
+Bug fix: Goto the first error if it exists (bug #874380).
+Bug fix: Save-all for 1 file opened (bug #912618).
+Bug fix: Fixed conditional breakpoints.
+Bug fix: Fixed debugger calltips displayed for wrong file.
+Bug fix: Fixed delete breakpoints.
+Bug fix: Fixed Breakpoint setting bugs (bug #895536).
+Bug fix: Fixed a crash bug with debugger attach process dialog
+Bug fix: Fixed freeze-ups during build terminations (bug #905738).
+Bug fix: Fixed a memory corruption (bug #921893).
+Bug fix: Open file starts in right directory (bug #908941).
+Bug fix: Fixed another crash bug in Find-Usage.
+Bug fix: Correctly prompts and reponds passwords (bug #894533).
+Bug fix: Fixed 'remove' and 'clear' of Defines list in compiler options (bug #883837).
+Bug fix: Installs .glade file of libgllade projects (bug #861038).
+Bug fix: Glade based projects can now find installed pixmaps (bug #919903).
+Bug fix: Fixed ADA syntax highlighting (bug #923474).
+
+Anjuta 1.2.1 (29 Jan 2004) -- Naba Kumar, Johannes Schmid
 
 New: "New File" with some options for newly created files
 Bug fix: #849914, #840159, #864922, #849928, #846386, #845782

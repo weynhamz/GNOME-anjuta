@@ -21,9 +21,13 @@
 # include <config.h>
 #endif
 
+#define _GNU_SOURCE
+#include <stdio.h>
+
 #include <gnome.h>
 #include "pixmaps.h"
 #include "resources.h"
+#include "utilities.h"
 #include "about.h"
 
 static const char *authors[] = {
@@ -89,11 +93,68 @@ about_box_new ()
 {
 	GtkWidget *dialog;
 	GdkPixbuf *pix;
+	FILE *infile;
+	char **names;
+	GList *list;
+	gboolean allocated = FALSE;
 	
+	infile = fopen (PACKAGE_DOC_DIR"/AUTHORS", "r");
+	if (infile == NULL)
+	{
+		g_warning ("Can not open AUTHORS file for reading");
+		names = (char **)authors;
+	}
+	else
+	{
+		GList *node;
+		char *line;
+		char *utfline;
+		int count;
+		
+		list = NULL;
+		while (!feof(infile) && !ferror (infile))
+		{
+			line = NULL;
+			getline (&line, &count, infile);
+			if (feof(infile) || ferror (infile))
+				break;
+			if (count > 0 && strstr (line, "---") == NULL)
+			{
+				if (line[strlen(line) - 1] == '\n')
+					line[strlen(line) - 1] = '\0';
+				if (line[0] == '\t')
+					line[0] = ' ';
+				utfline = anjuta_util_convert_to_utf8 (line);
+				if (utfline != NULL)
+					list = g_list_prepend (list, utfline);
+			}
+			g_free (line);
+		}
+		list = g_list_reverse (list);
+		if (g_list_length(list) > 0)
+		{
+			names = g_new0 (char *, g_list_length (list) + 1);
+			node = list;
+			count = 0;
+			while (node) {
+				names[count++] = (char *) node->data;
+				node = g_list_next (node);
+			}
+			names[count] = NULL;
+			allocated = TRUE;
+		}
+		else
+		{
+			g_warning ("Can not parse AUTHORS file for reading");
+			names = (char **)authors;
+		}
+	}
 	pix = anjuta_res_get_pixbuf (ANJUTA_PIXMAP_LOGO);
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
-							  authors, documentors, NULL, pix);
+							  (const char **)names, documentors, NULL, pix);
+	if (allocated)
+		glist_strings_free (list);
 	return dialog;
 }

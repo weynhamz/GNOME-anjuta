@@ -1,3 +1,12 @@
+2004-03-30  Naba Kumar  <naba@gnome.org>
+
+	* THANKS, anjuta.prj: Removed and moved all credits to AUTHORS file.
+	* AUTHORS: Updated with all contributors names.
+	* NEWS: Updated.
+	* src/about.c: Reads contributors names from AUTHORS file.
+	* manuals/C/anjuta-manual/authors.xml: Points to online
+	contributors list.
+	
 2004-03-29  Naba Kumar  <naba@gnome.org>
 
 	* data/properties/ada.properties: Fixed syntax colors. Patch
