@@ -48,7 +48,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Add"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a new file/directory to the CVS tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_add_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_add)    /* action callback */
 	},
 	{
 		"ActionCVSRemove",                       /* Action name */
@@ -56,7 +56,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Remove"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove a file/directory from CVS tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_remove_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_remove)    /* action callback */
 	},
 	{
 		"ActionCVSCommit",                       /* Action name */
@@ -64,7 +64,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Commit"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Commit your changes to the CVS tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_commit_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_commit)    /* action callback */
 	},
 	{
 		"ActionCVSUpdate",                       /* Action name */
@@ -72,7 +72,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Update"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Sync your local copy with the CVS tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_update_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_update)    /* action callback */
 	},
 	{
 		"ActionCVSDiff",                       /* Action name */
@@ -80,7 +80,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Diff"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Show differences between your local copy and the tree"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_diff_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_diff)    /* action callback */
 	},
 	{
 		"ActionCVSStatus",                       /* Action name */
@@ -88,7 +88,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Show Status"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Show the status of a file/directory"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_status_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_status)    /* action callback */
 	},
 	{
 		"ActionCVSLog",                       /* Action name */
@@ -96,7 +96,7 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Show Log"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Show the log of a file/directory"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_log_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_log)    /* action callback */
 	},
 	{
 		"ActionCVSImport",                       /* Action name */
@@ -104,7 +104,55 @@ static GtkActionEntry actions_cvs[] = {
 		N_("_Import Tree"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Import a new source tree to CVS"),                      /* Tooltip */
-		G_CALLBACK (on_cvs_import_activate)    /* action callback */
+		G_CALLBACK (on_menu_cvs_import)    /* action callback */
+	},
+	{
+		"ActionPopupCVS",                       /* Action name */
+		NULL,                            /* Stock icon, if any */
+		N_("_CVS"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                      /* Tooltip */
+		NULL
+	},
+		{
+		"ActionPopupCVSCommit",                       /* Action name */
+		GTK_STOCK_YES,                            /* Stock icon, if any */
+		N_("_Commit"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Commit your changes to the CVS tree"),                      /* Tooltip */
+		G_CALLBACK (on_fm_cvs_commit)    /* action callback */
+	},
+	{
+		"ActionPopupCVSUpdate",                       /* Action name */
+		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
+		N_("_Update"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Sync your local copy with the CVS tree"),                      /* Tooltip */
+		G_CALLBACK (on_fm_cvs_update)    /* action callback */
+	},
+	{
+		"ActionPopupCVSDiff",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Diff"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show differences between your local copy and the tree"),                      /* Tooltip */
+		G_CALLBACK (on_fm_cvs_diff)    /* action callback */
+	},
+	{
+		"ActionPopupCVSStatus",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Show Status"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show the status of a file/directory"),                      /* Tooltip */
+		G_CALLBACK (on_fm_cvs_status)    /* action callback */
+	},
+	{
+		"ActionPopupCVSLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Show Log"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show the log of a file/directory"),                      /* Tooltip */
+		G_CALLBACK (on_fm_cvs_log)    /* action callback */
 	}
 };
 

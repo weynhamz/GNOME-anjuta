@@ -18,10 +18,6 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* Note on GnomeVFS
-	The CVS plugin currently does not use GnomeVFS for file access because this would
-	be overkill in my opinion. CVS currently only support real files.
-*/
 
 #include "cvs-actions.h"
 #include "cvs-execute.h"
@@ -33,24 +29,40 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
 
+void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+void cvs_commit_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+void cvs_update_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+void cvs_diff_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+void cvs_status_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+void cvs_log_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
+
 enum
 {
 	DIFF_STANDARD = 0,
 	DIFF_PATCH = 1
 };
 
-static gchar* create_cvs_command(AnjutaPreferences* prefs,
+enum
+{
+	SERVER_LOCAL = 0,
+	SERVER_EXTERN = 1,
+	SERVER_PASSWORD = 2,
+};
+
+static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
 								const gchar* action, 
 								const gchar* command_options,
-								const gchar* command_arguments)
+								const gchar* command_arguments,
+								const gchar* cvsroot)
 {
 	gchar* cvs;
 	gchar* global_options = NULL;
 	gboolean ignorerc;
 	gint compression;
 	gchar* command;
-	/* command global_options action command_options command_arguments */
-	gchar* CVS_FORMAT = "%s %s %s %s %s";
+	/* command global_options cvsroot action command_options command_arguments */
+	gchar* CVS_FORMAT = "%s %s %s %s %s %s";
 	
 	g_return_val_if_fail (prefs != NULL, NULL);
 	g_return_val_if_fail (action != NULL, NULL);
@@ -66,8 +78,11 @@ static gchar* create_cvs_command(AnjutaPreferences* prefs,
 		global_options = g_strdup_printf("-z%d", compression);
 	else /* if (ignorerc */
 		global_options = g_strdup("-f");
-	
-	command = g_strdup_printf(CVS_FORMAT, cvs, global_options, action,  
+	if (cvsroot == NULL)
+	{
+		cvsroot = "";
+	}
+	command = g_strdup_printf(CVS_FORMAT, cvs, global_options, cvsroot, action,  
 								command_options, command_arguments);
 	
 	g_free (global_options);
@@ -105,7 +120,16 @@ static gboolean is_directory(const gchar* filename)
 		return FALSE;
 }
 
-static void diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
+inline static gchar* create_cvs_command(AnjutaPreferences* prefs,
+								const gchar* action, 
+								const gchar* command_options,
+								const gchar* command_arguments)
+{
+	return create_cvs_command_with_cvsroot(prefs, action, command_options,
+		command_arguments, NULL);
+}
+
+static void on_diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
 {
 	if (gtk_combo_box_get_active(combo) == DIFF_STANDARD)
 	{
@@ -119,15 +143,53 @@ static void diff_type_changed(GtkComboBox* combo, GtkWidget* unified_check)
 		gtk_combo_box_set_active(combo, DIFF_STANDARD);
 }
 
-static void set_editor_filename (CVSPlugin* plugin, GtkWidget* entry)
+static void on_server_type_changed(GtkComboBox* combo, GladeXML* gxml)
 {
-	if (plugin->current_editor_filename)
+	GtkWidget* username;
+	GtkWidget* password;
+	
+	username = glade_xml_get_widget(gxml, "cvs_username");
+	password = glade_xml_get_widget(gxml, "cvs_password");
+	
+	switch (gtk_combo_box_get_active(combo))
 	{
-		gtk_entry_set_text(GTK_ENTRY(entry), plugin->current_editor_filename);
+		case SERVER_LOCAL:
+			gtk_widget_set_sensitive(username, FALSE);
+			gtk_widget_set_sensitive(password, FALSE);
+			break;
+		case SERVER_EXTERN:
+			gtk_widget_set_sensitive(username, TRUE);
+			gtk_widget_set_sensitive(password, FALSE);
+			break;
+		case SERVER_PASSWORD:
+			gtk_widget_set_sensitive(username, TRUE);
+			gtk_widget_set_sensitive(password, TRUE);
+			break;
+		default:
+			g_warning("Unknown CVS server type");
 	}
 }
 
-void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin)
+static gchar* get_log_from_textview(GtkWidget* textview)
+{
+	gchar* log;
+	GtkTextBuffer* textbuf;
+	GtkTextIter iterbegin, iterend;
+	gchar* escaped_log;
+	
+	textbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+	gtk_text_buffer_get_start_iter(textbuf, &iterbegin);
+	gtk_text_buffer_get_end_iter(textbuf, &iterend) ;
+	log = gtk_text_buffer_get_text(textbuf, &iterbegin, &iterend, FALSE);
+/* #warning FIXME: Check for escape chars in log */
+	/* Fixed. -naba*/
+	escaped_log = anjuta_util_escape_quotes (log);
+	log = g_strdup_printf("-m '%s'", escaped_log);
+	g_free (escaped_log);
+	return log;
+}
+
+void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -138,7 +200,8 @@ void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_add");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	binary = glade_xml_get_widget(gxml, "cvs_binary");
 
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -176,7 +239,7 @@ void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin)
 	gtk_widget_destroy (dialog);
 }
 
-void on_cvs_remove_activate (GtkAction* action, CVSPlugin* plugin)
+void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -186,7 +249,8 @@ void on_cvs_remove_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_remove");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -222,7 +286,7 @@ void on_cvs_remove_activate (GtkAction* action, CVSPlugin* plugin)
 	gtk_widget_destroy (dialog);
 }
 
-void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
+void cvs_commit_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -233,7 +297,8 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_commit");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -244,27 +309,17 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 		gchar* command;
 		gchar* log;
 		gchar* rev;
-		gchar* escaped_log;
 		GString* options;
 		GtkWidget* logtext;
 		GtkWidget* revisionentry;
 		GtkWidget* norecurse;
-		GtkTextBuffer* textbuf;
-		GtkTextIter iterbegin;
-		GtkTextIter iterend;
 		
 		options = g_string_new("");
 		
 		logtext = glade_xml_get_widget(gxml, "cvs_log");
-		textbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(logtext));
-		gtk_text_buffer_get_start_iter(textbuf, &iterbegin);
-		gtk_text_buffer_get_end_iter(textbuf, &iterend) ;
-		log = gtk_text_buffer_get_text(textbuf, &iterbegin, &iterend, FALSE);
-/* #warning FIXME: Check for escape chars in log */
-		/* Fixed. -naba*/
-		escaped_log = anjuta_util_escape_quotes (log);
-		g_string_append_printf(options, "-m '%s'", escaped_log);
-		g_free (escaped_log);
+		log = get_log_from_textview(logtext);
+		g_string_append(options, log);
+		g_free(log);
 
 		revisionentry = glade_xml_get_widget(gxml, "cvs_revision");
 		rev = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
@@ -305,7 +360,7 @@ void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin)
 	gtk_widget_destroy (dialog);
 }
 
-void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
+void cvs_update_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -317,7 +372,8 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_update");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -383,7 +439,7 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 	gtk_widget_destroy (dialog);
 }
 
-void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
+void cvs_diff_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -396,12 +452,13 @@ void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_diff");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	diff_type = glade_xml_get_widget(gxml, "cvs_diff_type");
 	unified_diff = glade_xml_get_widget(gxml, "cvs_unified");
 	gtk_combo_box_set_active(GTK_COMBO_BOX(diff_type), DIFF_PATCH);
 	g_signal_connect(G_OBJECT(diff_type), "changed", 
-		G_CALLBACK(diff_type_changed), unified_diff);
+		G_CALLBACK(on_diff_type_changed), unified_diff);
 	
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -469,7 +526,7 @@ void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 	gtk_widget_destroy (dialog);
 }
 
-void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin)
+void cvs_status_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -480,7 +537,8 @@ void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_status");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -528,12 +586,7 @@ void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin)
 	gtk_widget_destroy (dialog);
 }
 
-void on_cvs_import_activate (GtkAction* action, CVSPlugin* plugin)
-{
-
-}
-
-void on_cvs_log_activate (GtkAction* action, CVSPlugin* plugin)
+void cvs_log_dialog (GtkAction* action, CVSPlugin* plugin, gchar *filename)
 {
 	GladeXML* gxml;
 	GtkWidget* dialog; 
@@ -544,7 +597,8 @@ void on_cvs_log_activate (GtkAction* action, CVSPlugin* plugin)
 	
 	dialog = glade_xml_get_widget(gxml, "cvs_log");
 	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
-	set_editor_filename(plugin, fileentry);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
 	
 	result = gtk_dialog_run (GTK_DIALOG (dialog));
 	switch (result)
@@ -593,4 +647,160 @@ void on_cvs_log_activate (GtkAction* action, CVSPlugin* plugin)
 		break;
 	}
 	gtk_widget_destroy (dialog);
+}
+
+void on_menu_cvs_add (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_add_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_menu_cvs_remove (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_remove_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_menu_cvs_commit (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_commit_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_menu_cvs_update (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_update_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_menu_cvs_diff (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_diff_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_menu_cvs_status (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_status_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin)
+{
+	GladeXML* gxml;
+	GtkWidget* dialog; 
+	GtkWidget* direntry;
+	GtkWidget* typecombo;
+	
+	gint result;
+	gxml = glade_xml_new(GLADE_FILE, "cvs_import", NULL);
+	
+	dialog = glade_xml_get_widget(gxml, "cvs_import");
+	direntry = glade_xml_get_widget(gxml, "cvs_rootdir");
+	typecombo = glade_xml_get_widget(gxml, "cvs_server_type");
+	
+	g_signal_connect (G_OBJECT(typecombo), "changed", 
+		G_CALLBACK(on_server_type_changed), gxml);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(typecombo), SERVER_LOCAL);
+	
+	if (plugin->project_root_dir)
+		gtk_entry_set_text(GTK_ENTRY(direntry), plugin->project_root_dir);
+	
+	result = gtk_dialog_run (GTK_DIALOG (dialog));
+	switch (result)
+	{
+		case GTK_RESPONSE_OK:
+		{
+			GtkWidget* username;
+			GtkWidget* password;
+			GtkWidget* cvsroot_entry;
+			GtkWidget* module_entry;
+			GtkWidget* vendortag;
+			GtkWidget* releasetag;
+			GtkWidget* logtext;
+			gchar* cvsroot;
+			gchar* cvs_command;
+			gchar* log;
+			GString* options;
+
+			username = glade_xml_get_widget(gxml, "cvs_username");
+			password = glade_xml_get_widget(gxml, "cvs_password");
+			cvsroot_entry = glade_xml_get_widget(gxml, "cvs_cvsroot");
+			module_entry = glade_xml_get_widget(gxml, "cvs_module");
+			vendortag = glade_xml_get_widget(gxml, "cvs_vendor");
+			releasetag = glade_xml_get_widget(gxml, "cvs_release");
+			logtext = glade_xml_get_widget(gxml, "cvs_log");
+			
+			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(typecombo)))
+			{
+				case SERVER_LOCAL:
+				{
+					cvsroot = g_strdup_printf("-d %s", 
+						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
+					break;
+				}
+				case SERVER_EXTERN:
+				{
+					/* FIXME: Does this format work with ext:? */
+					cvsroot = g_strdup_printf("-d:ext:%s@%s",
+						gtk_entry_get_text(GTK_ENTRY(username)),
+						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
+					break;
+				}
+				case SERVER_PASSWORD:
+				{
+					cvsroot = g_strdup_printf("-d:pserver:%s:%s@%s",
+						gtk_entry_get_text(GTK_ENTRY(username)),
+						gtk_entry_get_text(GTK_ENTRY(password)),
+						gtk_entry_get_text(GTK_ENTRY(cvsroot_entry)));
+					break;
+				}
+				default:
+					g_warning("Invalid cvs server type!");
+			}
+			log = get_log_from_textview(logtext);
+			options = g_string_new(log);
+			g_string_append_printf(options, " %s %s %s",
+				gtk_entry_get_text(GTK_ENTRY(module_entry)), 
+				gtk_entry_get_text(GTK_ENTRY(vendortag)),
+				gtk_entry_get_text(GTK_ENTRY(releasetag)));
+			cvs_command = create_cvs_command_with_cvsroot(
+				anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL),
+				"import", options->str, "", cvsroot);
+			cvs_execute(plugin, cvs_command, 
+				gtk_entry_get_text(GTK_ENTRY(direntry)));
+			g_string_free(options, TRUE);
+			g_free(log);
+			g_free(cvsroot);
+			g_free(cvs_command);
+			break;
+		}
+		default:
+			break;
+	}
+	gtk_widget_destroy(dialog);
+}
+
+void on_menu_cvs_log (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_log_dialog(action, plugin, plugin->current_editor_filename);
+}
+
+void on_fm_cvs_commit (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_commit_dialog(action, plugin, plugin->fm_current_filename);
+}
+
+void on_fm_cvs_update (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_update_dialog(action, plugin, plugin->fm_current_filename);
+}
+
+void on_fm_cvs_diff (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_diff_dialog(action, plugin, plugin->fm_current_filename);
+}
+
+void on_fm_cvs_status (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_status_dialog(action, plugin, plugin->fm_current_filename);
+}
+
+void on_fm_cvs_log (GtkAction* action, CVSPlugin* plugin)
+{
+	cvs_log_dialog(action, plugin, plugin->fm_current_filename);
 }

@@ -19,4 +19,15 @@
 		</menu>
 		</placeholder>
 	</menubar>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileCVS">
+			<menu name="PopupFileCVS" action="ActionPopupCVS">
+				<menuitem name="PopupCVSCommit" action="ActionPopupCVSCommit"/>
+				<menuitem name="PopupCVSUpdate" action="ActionPopupCVSUpdate"/>
+				<menuitem name="PopupCVSDiff" action="ActionPopupCVSDiff"/>
+				<menuitem name="PopupCVSStatus" action="ActionPopupCVSStatus"/>
+				<menuitem name="PopupCVSLog" action="ActionPopupCVSLog"/>
+			</menu>
+		</placeholder>
+	</popup>
 </ui>

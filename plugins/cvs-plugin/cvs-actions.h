@@ -23,16 +23,21 @@
 
 #include "plugin.h"
 
-void on_cvs_add_activate (GtkAction* action, CVSPlugin* plugin);
-void on_cvs_remove_activate (GtkAction* action, CVSPlugin* plugin);
+/* CVS menu callbacks */
+void on_menu_cvs_add (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_remove (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_commit (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_update (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_diff (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_status (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_log (GtkAction* action, CVSPlugin* plugin);
+void on_menu_cvs_import (GtkAction* action, CVSPlugin* plugin);
 
-void on_cvs_commit_activate (GtkAction* action, CVSPlugin* plugin);
-void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin);
-
-void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin);
-void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin);
-void on_cvs_log_activate (GtkAction* action, CVSPlugin* plugin);
-
-void on_cvs_import_activate (GtkAction* action, CVSPlugin* plugin);
+/* File manager popup callbacks */
+void on_fm_cvs_commit (GtkAction* action, CVSPlugin* plugin);
+void on_fm_cvs_update (GtkAction* action, CVSPlugin* plugin);
+void on_fm_cvs_diff (GtkAction* action, CVSPlugin* plugin);
+void on_fm_cvs_status (GtkAction* action, CVSPlugin* plugin);
+void on_fm_cvs_log (GtkAction* action, CVSPlugin* plugin);
 
 #endif

@@ -1,3 +1,14 @@
+2004-12-28  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/cvs-plugin/cvs-action.[ch],
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
+	* plugins/cvs-plugin/anjuta-cvs.ui,
+	* plugins/cvs-plugin/plugin.c:
+	Implemented "Import"
+	
+	Patch from Mark R. Pariente <markpariente@cmu.edu>:
+	Added right-click-menu for file-manager
+
 2004-12-26  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c, src/anjuta.c, src/main.c,
