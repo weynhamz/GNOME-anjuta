@@ -37,6 +37,12 @@
 	  Now anjuta also searches for file relative to top project dir,
 	  when the project is open.
 	
+	* src/anjuta_cbs.c: Fixed bug #499536.
+	  File is not closed if it is not able to save the file properly.
+	  
+	* src/mainmenu_callbacks.c: Fixed bug #499536.
+	  Newfiles (which are not modified) are also closed on "close all files".
+	
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/an_symbol_view.c: Added MAX_STRING_LENGTH

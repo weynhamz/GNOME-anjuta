@@ -157,7 +157,7 @@ on_close_all_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		next = node->next; // Save it now, as we may change it.
 		if(te)
 		{
-			if (text_editor_is_saved (te) && te->full_filename)
+			if (text_editor_is_saved (te))
 			{
 				anjuta_remove_text_editor(te);
 			}

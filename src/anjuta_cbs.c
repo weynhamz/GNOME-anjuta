@@ -266,9 +266,10 @@ void
 on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *full_filename;
+	gchar *full_filename, *saved_filename, *saved_full_filename;
 	gint page_num;
 	GtkWidget *child;
+	gint status;
 
 	full_filename = fileselection_get_filename (app->save_as_fileselection);
 	if (!full_filename)
@@ -278,62 +279,72 @@ on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 	g_return_if_fail (te != NULL);
 	g_return_if_fail (strlen (extract_filename (full_filename)) != 0);
 
-	if (te->filename)
-	{
-		g_free (te->filename);
-		te->filename = NULL;
-	}
-	if (te->full_filename)
-	{
-		if (app->project_dbase->project_is_open == FALSE)
-			tags_manager_remove (app->tags_manager,
-					     te->full_filename);
-		g_free (te->full_filename);
-		te->full_filename = NULL;
-	}
+	saved_filename = te->filename;
+	saved_full_filename = te->full_filename;
+	
 	te->full_filename = g_strdup (full_filename);
 	te->filename = g_strdup (extract_filename (full_filename));
-	text_editor_save_file (te);
+	status = text_editor_save_file (te);
 	gtk_widget_hide (app->save_as_fileselection);
-	if (closing_state)
+	if (status == FALSE)
 	{
-		anjuta_remove_current_text_editor ();
-		closing_state = FALSE;
-	}
-	else
-	{
-		text_editor_set_hilite_type(te);
-		if (te->mode == TEXT_EDITOR_PAGED)
+		g_free (te->filename);
+		te->filename = saved_filename;
+		g_free (te->full_filename);
+		te->full_filename = saved_full_filename;
+		if (closing_state) closing_state = FALSE;
+		g_free (full_filename);
+		return;
+	} else {
+		if (saved_filename)
+			g_free (saved_filename);
+		if (saved_full_filename)
 		{
-			GtkLabel* label;
-			
-			page_num =
-				gtk_notebook_get_current_page (GTK_NOTEBOOK
-								   (app->widgets.notebook));
-			g_return_if_fail (page_num >= 0);
-			child =
-				gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							   (app->widgets.notebook), page_num);
-			/* This crashes */
-			/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
-							 child,
-							 anjuta_get_notebook_text_editor
-							 (page_num)->filename);
-			*/
-			label = GTK_LABEL(te->widgets.tab_label);
-			gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
-							 (page_num)->filename);
-
-			gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->widgets.notebook),
-							child,
-							anjuta_get_notebook_text_editor
-							(page_num)->filename);
+			if (app->project_dbase->project_is_open == FALSE)
+				tags_manager_remove (app->tags_manager,
+						     saved_full_filename);
+			g_free (saved_full_filename);
 		}
+		if (closing_state)
+		{
+			anjuta_remove_current_text_editor ();
+			closing_state = FALSE;
+		}
+		else
+		{
+			text_editor_set_hilite_type(te);
+			if (te->mode == TEXT_EDITOR_PAGED)
+			{
+				GtkLabel* label;
+				
+				page_num =
+					gtk_notebook_get_current_page (GTK_NOTEBOOK
+									   (app->widgets.notebook));
+				g_return_if_fail (page_num >= 0);
+				child =
+					gtk_notebook_get_nth_page (GTK_NOTEBOOK
+								   (app->widgets.notebook), page_num);
+				/* This crashes */
+				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->widgets.notebook),
+								 child,
+								 anjuta_get_notebook_text_editor
+								 (page_num)->filename);
+				*/
+				label = GTK_LABEL(te->widgets.tab_label);
+				gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
+								 (page_num)->filename);
+	
+				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->widgets.notebook),
+								child,
+								anjuta_get_notebook_text_editor
+								(page_num)->filename);
+			}
+		}
+		anjuta_update_title ();
+		anjuta_clear_windows_menu();
+		anjuta_fill_windows_menu();
+		g_free (full_filename);
 	}
-	anjuta_update_title ();
-	anjuta_clear_windows_menu();
-	anjuta_fill_windows_menu();
-	g_free (full_filename);
 }
 
 gboolean
