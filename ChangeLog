@@ -14,6 +14,9 @@
 	* src/compiler_options.c: Fixed 'remove' and 'clear' of Defines list
 	in compiler options (bug #883837).
 	
+	* src/launcher.c: Disabled pty terminal echo. Correctly prompts
+	for passwords (eg. root install and ssh cvs access). Fixed Bug #894533.
+	
 2004-03-29  Pavol Bosik <Pavol.Bosik@siemens.com>
 
 	* anjuta/src/search-replace.c: fixed another crash bug in

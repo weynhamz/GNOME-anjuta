@@ -911,8 +911,10 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 //	termios_flags.c_oflag |= 0;
 	termios_flags.c_cflag &= ~(CSTOPB | CREAD | PARENB | HUPCL);
 	termios_flags.c_cflag |= CS8 | CLOCAL;
-	termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | ECHOPRT |
-					ECHOCTL | ISIG | ICANON | IEXTEN | NOFLSH | TOSTOP);
+	
+	/* Do not enable terminal echo. Password prompts fail to work */ 
+	/* termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | ECHOPRT |
+					ECHOCTL | ISIG | ICANON | IEXTEN | NOFLSH | TOSTOP); */
 //	termios_flags.c_lflag |= 0;
 	termios_flags.c_cc[VMIN] = 0;
 	cfsetospeed(&termios_flags, __MAX_BAUD);
