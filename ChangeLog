@@ -1,3 +1,31 @@
+2001-07-31  Stephane Demurget <demurgets@free.fr>
+
+	* src/anjuta.c: (anjuta_fatal_signal_handler), (anjuta_exit_signal_handler):
+	  fixed to show the correct kernel signal number and its description.
+
+	* widgets/gnomefilelist.c: fixed bug #445756
+	  (goto_last): renamed to goto_prev and changed according to goto_next.
+	  (goto_next): added.
+	  (goto_directory): removed.
+	  (check_list_for_entry): renamed (g_list_find_string_pos) and rewrote: the
+	  returned value is now the position in the list.
+	  (check_ok_button_cb): changed the back check and added one for next.
+	  (gnome_filelist_set_dir): the check in history make it wouldn't be
+	  a "true" history. polished the whole thing, using set_dir_internal.
+	  (set_dir_internal): used in gnome_filelist_set_dir and back/next callbacks, so
+	  there's no check in the history when using back or next.
+
+	* manuals/*: added missing .cvsignore files.
+
+
+2001-07-30  Stephane Demurget <demurgets@free.fr>
+
+	* po/fr.po: updated to latest sources.
+
+	* src/preferences_gui.c: (create_preferences_page6): fixed bug #445758
+	  call on_trunc_mesg_check_clicked after the two spinbuttons are ref'ed,
+	  to put off their sensitive attributes.
+
 2001-07-29  Stephane Demurget <demurgets@free.fr>
 	
 	* po/fr.po: fixed some grammar things.

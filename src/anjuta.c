@@ -61,14 +61,14 @@ static void anjuta_show_text_editor (TextEditor * te);
 static void
 anjuta_fatal_signal_handler (int t)
 {
-	g_warning(_("Anjuta: Caught signal %i!"), signal);
+	g_warning(_("Anjuta: Caught signal %d (%s) !"), t, g_strsignal (t));
 	exit(1);
 }
 
 static void
 anjuta_exit_signal_handler (int t)
 {
-	g_warning(_("Anjuta: Caught signal %i!"), signal);
+	g_warning(_("Anjuta: Caught signal %d (%s) !"), t, g_strsignal (t));
 	anjuta_clean_exit ();
 	exit(1);
 }

@@ -1428,6 +1428,8 @@ create_preferences_page6 (Preferences * p)
 	gtk_widget_ref (spinbutton2);
 	p->widgets.mesg_last_spin = spinbutton2;
 
+	on_trunc_mesg_check_clicked (GTK_BUTTON (p->widgets.truncat_mesg_check), p);
+	
 	p->widgets.tag_pos_radio[0] = radiobutton1;
 	p->widgets.tag_pos_radio[1] = radiobutton2;
 	p->widgets.tag_pos_radio[2] = radiobutton3;
