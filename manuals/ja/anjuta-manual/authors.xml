@@ -1,0 +1,25 @@
+ <chapter id="authors">
+  <title>作者</title>
+   <para>
+    <application>Anjuta</application> プロジェクトは Naba Kumar 氏が立ち上げました。Naba 氏はインド (マニプル州) 出身で <citetitle>インドの North Eastern Regional Institute of Science and Technology (NERIST)</citetitle> の電子情報工学科で B.Tech 学位を取得しました。
+   </para>
+
+   <para>
+    <application>Anjuta</application> は次のメンバーによって開発されました: Naba Kumar 氏、Stephane Demurget 氏、Luca Bellonda 氏、Hector Rivera Falu 氏、Andy Piper 氏、Max Blagai 氏、Johannes Schmid 氏、Rick Patel 氏、Denis Boehme 氏、Fatih Demir 氏、Archit Baweja  氏、Martyn Bone 氏、Venugopal Gummuluru 氏、Gregory Schmitt 氏、Yannick Koehler 氏、Giovanni Corriga 氏、Dan Elphick 氏、Biswapesh Chattopadhyay 氏、Jason Williams 氏、Dick Knol 氏。
+   </para>
+   
+   <para>
+    翻訳者の方々に感謝します: Javier Conde Rueda 氏、Stephane Demurget 氏、Takeshi Aihana 氏、M.Ali Vardar 氏、Michele Campeotto 氏、Christian Rose 氏、Yuriy Syrota 氏、Valek Filippov 氏、Marc Botermans 氏、Joe Man 氏、Conner Mo 氏、Jens Georg 氏、Kjartan Maraas 氏、Dinesh Nadarajah 氏、Christian Meyer 氏、Simos Xenitellis 氏、Duarte Loreto 氏、Marcelo Elias Del Valle 氏、Gitte Wange 氏、Goran Weinholt 氏、Keld Simonsen 氏、そしてポーランド語とアゼルバイジャン・チュルク語の GNOME 翻訳チーム。
+   </para>
+
+   <para>
+    <application>Anjuta</application> について詳細な情報はをお知りになりたい場合は、<ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink> にあるプロジェクトのホームページをご覧下さい。バグ報告はプロジェクトの開発サイト <ulink type="http" url="http://www.sourceforge.net/projects/anjuta">http://www.sourceforge.net/projects/anjuta</ulink> にあるバグ・トラッカをご利用下さい。
+   </para>
+   
+   <para>
+    本マニュアルは Naba Kumar 氏と Andy Piper 氏が作成しました。本マニュアルに対するコメントや提案などは Andy Piper <email>andy.piper@freeuk.com</email> までお寄せ下さい。コメントは SourceForge にあるプロジェクト・トラッカをとおして投稿することも可能です。
+   </para>
+   <para>
+    本マニュアルの翻訳は 相花毅 Takeshi Aihana <email>aihana@gnome.gr.jp</email> が行いました。この翻訳に対するコメントや提案は <email>aihana@gnome.gr.jp</email> までお寄せ下さい。コメントは本人のホームページ <ulink type="http" url="http://cj3134981-a.kkbnj1.kt.home.ne.jp/">Mikeforce Homepage</ulink> にある掲示板をとおして投稿することも可能です。
+   </para>
+</chapter>

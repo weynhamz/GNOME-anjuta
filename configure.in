@@ -546,4 +546,12 @@ plugins/sample1/Makefile
 plugins/class-gen/Makefile
 plugins/patch/Makefile
 anjuta.desktop.in
+manuals/Makefile
+manuals/C/Makefile
+manuals/C/anjuta-tutorial/Makefile
+manuals/C/anjuta-faqs/Makefile
+manuals/C/anjuta-manual/Makefile
+manuals/ja/Makefile
+manuals/ja/anjuta-faqs/Makefile
+manuals/ja/anjuta-manual/Makefile
 ])

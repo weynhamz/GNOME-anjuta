@@ -2,34 +2,32 @@
 <omf>
   <resource>
     <creator>
-      ichattopadhyaya@yahoo.com (Ishan Chattopadhyaya)
+      naba@gnome.org (Naba Kumar)
     </creator>
     <maintainer>
       Anjuta Team
     </maintainer>
 <!--
     <title>
-      Anjuta Tutorial V0.1
+      Anjuta Manual V0.2
     </title>
 -->
-    <title>
-      Anjuta Tutorial
-    </title>
+    <title>Anjuta IDE マニュアル</title>
     <date>
       2003-09-05
     </date>
     <version identifier="0.1" date="2003-09-05" description="Updated for program version 1.1.1"/>
     <subject category="GNOME|Development"/>
     <description>
-      This document is a tutorial to help users quickly get started using the Anjuta IDE
+     このドキュメントはソフトウェア・プロジェクトを開発するために Anjuta IDE の使い方を紹介したものです。
     </description>
     <type>
-      article
+      manual
     </type>
     <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
-    <identifier url="anjuta-tutorial.xml"/>
-    <language code="C"/>
-    <relation seriesid="b1a19bce-1035-11d8-98ee-f4e33a7120c3"/>
-    <rights type="GNU FDL" license.version="1.1" holder="Ishan Chattopadhyaya"/>
+    <identifier url="anjuta-manual.xml"/>
+    <language code="ja_JP.UTF-8"/>
+    <relation seriesid="b0d591aa-1035-11d8-964e-8a4b36c0ed3a"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Naba Kumar"/>
   </resource>
 </omf>

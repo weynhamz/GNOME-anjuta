@@ -208,8 +208,7 @@ void on_start_with_dialog_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_setup_wizard_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 /*****************************************************************************/
-void on_contents1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void on_index1_activate (GtkMenuItem * menuitem, gpointer user_data);
+void on_help_activate (GtkMenuItem *menuitem, gpointer data);
 void on_gnome_pages1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_man_pages1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_info_pages1_activate (GtkMenuItem * menuitem, gpointer user_data);

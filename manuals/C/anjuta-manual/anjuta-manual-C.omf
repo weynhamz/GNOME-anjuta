@@ -1,22 +1,35 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <omf>
   <resource>
-    
-    <creator>naba@gnome.org (Naba Kumar)</creator>
- 	<title>Anjuta IDE Manual</title>
-	<date></date>
-    <subject category="GNOME|Development" />
-
+    <creator>
+      naba@gnome.org (Naba Kumar)
+    </creator>
+    <maintainer>
+      Anjuta Team
+    </maintainer>
+<!--
+    <title>
+      Anjuta Manual V0.2
+    </title>
+-->
+    <title>
+      Anjuta Manual
+    </title>
+    <date>
+      2003-09-05
+    </date>
+    <version identifier="0.1" date="2003-09-05" description="Updated for program version 1.1.1"/>
+    <subject category="GNOME|Development"/>
     <description>
-     This document describes how the Anjuta IDE is used for developing 
-	 software projects.
+      This document describes how the Anjuta IDE is used for developing software projects.
     </description>
     <type>
-     manual
+      manual
     </type>
-    <format mime="text/sgml"/>
-    <identifier url="anjuta-manual.sgml"/>
+    <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
+    <identifier url="anjuta-manual.xml"/>
     <language code="C"/>
+    <relation seriesid="b0d591aa-1035-11d8-964e-8a4b36c0ed3a"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Naba Kumar"/>
   </resource>
 </omf>
-

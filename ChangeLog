@@ -1,3 +1,49 @@
+2003-11-06  Naba Kumar  <naba@gnome.org>
+
+	* src/mainmenu_callback.[c,h], src/main_menubar_def.h: Added help
+	menus to activate anjuta helps.
+	
+	* manuals/C/anjuta-faqs/anjuta-faqs.sgml (removed),
+	manuals/C/anjuta-faqs/anjuta-faqs.xml (added),
+	manuals/C/anjuta-faqs/legal.xml (added),
+	manuals/C/anjuta-faqs/Makefile.am,
+	manuals/C/anjuta-faqs/anjuta-faqs-C.omf,
+	manuals/C/anjuta-faqs/.cvsignore,
+	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml (removed),
+	manuals/C/anjuta-tutorial/anjuta-tutorial.xml (added),
+	manuals/C/anjuta-tutorial/legal.xml (added),
+	manuals/C/anjuta-tutorial/Makefile.am,
+	manuals/C/anjuta-tutorial/anjuta-tutorial-C.omf,
+	manuals/C/anjuta-tutorial/.cvsignore,
+	manuals/C/anjuta-manual/*.sgml (removed),
+	manuals/C/anjuta-manual/*.xml (added),
+	manuals/C/anjuta-manual/Makefile.am,
+	manuals/C/anjuta-manual/anjuta-manual-C.omf,
+	manuals/C/anjuta-manual/.cvsignore,
+	manuals/C/topic.dat (removed), manuals/C/Makefile.am,
+	manuals/ja/anjuta-faqs/anjuta-faqs.sgml (removed),
+	manuals/ja/anjuta-faqs/anjuta-faqs-ja_JP.eucJP.omf (removed),
+	manuals/ja/anjuta-faqs/anjuta-faqs-ja_JP.UTF-8.omf (added),
+	manuals/ja/anjuta-faqs/anjuta-faqs.xml (added),
+	manuals/ja/anjuta-faqs/legal.xml (added),
+	manuals/ja/anjuta-faqs/Makefile.am,
+	manuals/ja/anjuta-faqs/anjuta-faqs-C.omf,
+	manuals/ja/anjuta-faqs/.cvsignore,
+	manuals/ja/anjuta-manual/*.sgml (removed),
+	manuals/ja/anjuta-manual/anjuta-manual-ja_JP.eucJP.omf (removed),
+	manuals/ja/anjuta-manual/anjuta-manual-ja_JP.UTF-8.omf (added),
+	manuals/ja/anjuta-manual/*.xml (added),
+	manuals/ja/anjuta-manual/Makefile.am,
+	manuals/ja/anjuta-manual/anjuta-manual-C.omf,
+	manuals/ja/anjuta-manual/.cvsignore,
+	manuals/ja/topic.dat (removed), manuals/ja/Makefile.am,
+	manuals/sgmldocs.make (removed),
+	manuals/xmldocs.make (added), manuals/omf.make (added),
+	manuals/Makefile.am, configure.in, Makefile.am: Converted old sgml
+	documentations to newer docbook xml documentations. Converted 
+	Japanesh docs to UTF8 docs. Fixed installations. Update cvsignores.
+	Enabled manulas installations.
+
 2003-11-05  Naba Kumar  <naba@gnome.org>
 
 	* data/gdb.init: Sets host's charset to ascii to solve debugger

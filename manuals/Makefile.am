@@ -4,5 +4,4 @@
 
 SUBDIRS = C ja
 
-EXTRA_DIST= sgmldocs.make
-
+EXTRA_DIST= xmldocs.make omf.make

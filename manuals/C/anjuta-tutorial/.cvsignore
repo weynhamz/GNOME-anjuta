@@ -4,3 +4,4 @@ Makefile.in
 index.html
 anjuta-tutorial
 omf_timestamp
+*.omf.out

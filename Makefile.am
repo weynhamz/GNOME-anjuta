@@ -1,13 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-## Created by Anjuta - will be overwritten
-## If you don't want it to overwrite it,
-## 	Please disable it in the Anjuta project configuration
 
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = po tagmanager global-tags scintilla \
 	gdl widgets printing pixmaps scripts data \
-	doc launcher plugins src
+	doc launcher plugins src manuals
 
 anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjutadoc_DATA = \

@@ -2025,6 +2025,15 @@ on_setup_wizard_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_help_activate (GtkMenuItem *menuitem, gpointer data)
+{
+	if (gnome_help_display ((const gchar*)data, NULL, NULL) == FALSE)
+	{
+		anjuta_error (_("Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"));	
+	}
+}
+
+void
 on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
