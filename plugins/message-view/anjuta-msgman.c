@@ -41,7 +41,7 @@ struct _AnjutaMsgmanPage
 typedef struct _AnjutaMsgmanPage AnjutaMsgmanPage;
 
 static void
-on_text_msgman_close_page (GtkButton* button, 
+on_msgman_close_page (GtkButton* button, 
 									AnjutaMsgman *msgman)
 {
 	MessageView *view = MESSAGE_VIEW (g_object_get_data (G_OBJECT (button),
@@ -65,7 +65,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->label = gtk_label_new (name);
 	page->box = gtk_hbox_new (FALSE, 0);
 	gtk_box_set_spacing (GTK_BOX (page->box), 5);
-	if (pixmap)
+	if (pixmap  && strlen(pixmap))
 	{
 		page->pixmap = anjuta_res_get_image_sized (pixmap, 16, 16);
 		g_object_ref (page->pixmap);
@@ -83,7 +83,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	
 	g_object_set_data (G_OBJECT (page->button), "message_view", page->widget);
 	gtk_signal_connect (GTK_OBJECT (page->button), "clicked",
-						GTK_SIGNAL_FUNC(on_text_msgman_close_page),
+						GTK_SIGNAL_FUNC(on_msgman_close_page),
 						msgman);
 	
 	g_object_ref (page->label);
@@ -238,6 +238,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (msgman), mv, page->box);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), 0);
+	
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (msgman),
 										GTK_SIGNAL_FUNC
 										(on_notebook_switch_page), NULL);
@@ -258,9 +259,9 @@ anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view)
 
 	page = anjuta_msgman_page_from_widget (msgman, view);
 
-	gtk_signal_disconnect_by_func (GTK_OBJECT (msgman),
-								   GTK_SIGNAL_FUNC
-								   (on_notebook_switch_page), NULL);
+	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
+									 GTK_SIGNAL_FUNC
+									 (on_notebook_switch_page), NULL);
 
 	page_num =
 		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
@@ -278,8 +279,9 @@ anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view)
 		//gtk_widget_grab_focus (GTK_WIDGET (view)); 
 	}
 
-	gtk_signal_connect (GTK_OBJECT (msgman), "switch-page",
-					    GTK_SIGNAL_FUNC (on_notebook_switch_page), NULL);
+	gtk_signal_handler_unblock_by_func (GTK_OBJECT (msgman),
+										GTK_SIGNAL_FUNC
+										(on_notebook_switch_page), NULL);
 }
 
 MessageView *
