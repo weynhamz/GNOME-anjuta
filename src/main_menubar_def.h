@@ -767,7 +767,7 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*6*/
 };
 
-#define NUM_HILITE_SUBMENUS 25
+#define NUM_HILITE_SUBMENUS 27
 static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Automatic"),
@@ -916,19 +916,19 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	{/*24*/
 	 GNOME_APP_UI_ITEM, N_("Lisp"),
 	 N_("Force the highlight style to Lisp"),
-	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_LISP), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*25*/
 	 GNOME_APP_UI_ITEM, N_("Ruby"),
 	 N_("Force the highlight style to Ruby"),
-	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_RUBY), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*26*/
 	 GNOME_APP_UI_ITEM, N_("Matlab"),
 	 N_("Force the highlight style to Matlab"),
-	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_MATLAB), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*27*/

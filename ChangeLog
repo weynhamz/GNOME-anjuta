@@ -1,3 +1,12 @@
+2002-05-09  Andy Piper <andy.piper@freeuk.com>
+
+	* src/main_menubar_def.h: fixed an array initialiser and fixed
+	the lexer settings for the new entries on the Format menu
+
+2002-05-07  Stephane Demurget  <demurgets@free.fr>
+
+	* Synced with Scintilla 1.45
+
 2002-05-06  Andy Piper <andy.piper@freeuk.com>
 
 	* anjuta.prj: added another missing file
