@@ -16,6 +16,9 @@
 	Merged with ANJUTA_1_0_0 branch (at tag MERGE_LEVEL_1) and ported many
 	src/*.[c,h] files to gnome2 API.
 
+	* src/anjuta_dialogs_strings.c: Added glade generated translatable
+	strings table.
+
 2002-10-23  Naba Kumar <naba@gnome.org>
 
 	* autogen.sh: Prevented Users from building HEAD cvs.
