@@ -149,10 +149,11 @@ void text_editor_destroy (TextEditor * te);
 void text_editor_undo (TextEditor * te);
 void text_editor_redo (TextEditor * te);
 
+/* wrap flag only applies when scope == TEXT_EDITOR_FIND_CURRENT_POS */
 glong
 text_editor_find (TextEditor * te, const gchar * str, gint scope,
 				  gboolean forward, gboolean regexp, gboolean ignore_case,
-				  gboolean whole_word);
+				  gboolean whole_word, gboolean wrap);
 
 void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 

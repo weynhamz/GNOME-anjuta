@@ -64,7 +64,7 @@ static void anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app);
 
 /*-------------------------------------------------------------------*/
 
-
+#if 0
 static void
 anjuta_fatal_signal_handler (int t)
 {
@@ -79,10 +79,12 @@ anjuta_exit_signal_handler (int t)
 	anjuta_clean_exit ();
 	exit(1);
 }
+#endif
 
 void
 anjuta_kernel_signals_connect ()
 {
+/*
 	signal(SIGSEGV, anjuta_fatal_signal_handler);
 	signal(SIGILL, anjuta_fatal_signal_handler);
 	signal(SIGABRT, anjuta_fatal_signal_handler);
@@ -91,13 +93,14 @@ anjuta_kernel_signals_connect ()
 	signal(SIGINT, anjuta_exit_signal_handler);
 	signal(SIGHUP, anjuta_exit_signal_handler);
 	signal(SIGQUIT, anjuta_exit_signal_handler);
-
+*/
 	signal(SIGCHLD, anjuta_child_terminated);
 }
 
 void
 anjuta_kernel_signals_disconnect ()
 {
+/*
 	signal(SIGSEGV, SIG_DFL);
 	signal(SIGILL, SIG_DFL);
 	signal(SIGABRT, SIG_DFL);
@@ -106,7 +109,7 @@ anjuta_kernel_signals_disconnect ()
 	signal(SIGINT, SIG_DFL);
 	signal(SIGHUP, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-
+*/
 	signal(SIGCHLD, SIG_DFL);
 }
 

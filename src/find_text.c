@@ -177,7 +177,7 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 	ret = text_editor_find (te, string, ft->area,
 							ft->forward, ft->regexp,
 							ft->ignore_case,
-							ft->whole_word);
+							ft->whole_word, FALSE);
 
 	gtk_entry_set_text(GTK_ENTRY(app->widgets.toolbar.main_toolbar.find_entry),
 					   string);

@@ -164,12 +164,12 @@ void
 on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 {
 	const gchar *entry_text;
-#ifdef DEBUG
-	g_message ("Find entry text changed");
-#endif	
 	TextEditor *te = anjuta_get_current_text_editor();
-	if (!te) return;
-	if (app->find_replace->find_text->incremental_pos < 0) return;
+	if (!te)
+		return;
+	if (app->find_replace->find_text->incremental_pos < 0)
+		return;
+	
 	text_editor_goto_point (te, app->find_replace->find_text->incremental_pos);
 
 	entry_text = 
@@ -178,9 +178,9 @@ on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 				     find_entry));
 	if (!entry_text || strlen(entry_text) < 1) return;
 	
-	/* Search forward by default */
-	app->find_replace->find_text->forward = TRUE;
-	on_toolbar_find_clicked (NULL, GINT_TO_POINTER(TRUE));
+	/* 2 is passed to indicate the call is from incremental and at the
+	   same time the search is forward */
+	on_toolbar_find_clicked (NULL, GINT_TO_POINTER(2));
 }
 
 /*  *user_data : TRUE=Forward  False=Backward  */
@@ -194,10 +194,10 @@ on_toolbar_find_start_over (GtkButton * button, gpointer user_data)
 
 	if (GPOINTER_TO_INT(user_data))
 		/* search from doc start */
-		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0);
+		text_editor_goto_point (te, 0);
 	else
 		/* search from doc end */
-		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0);
+		text_editor_goto_point (te, length);
 
 	on_toolbar_find_clicked (NULL, user_data);
 }
@@ -209,27 +209,46 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 	TextEditor *te;
 	const gchar *string;
 	gint ret;
-
+	gboolean search_wrap = FALSE;
+	
 	te = anjuta_get_current_text_editor ();
 	if (!te)
 		return;
-	if (app->find_replace->find_text->incremental_pos >= 0
-		&& app->find_replace->find_text->incremental_wrap)
-	{
-		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0);
-		app->find_replace->find_text->incremental_wrap = FALSE;
-	}
-	string =
-		gtk_entry_get_text (GTK_ENTRY
-				    (app->widgets.toolbar.main_toolbar.
-				     find_entry));
-	ret = text_editor_find (te, string,
-				TEXT_EDITOR_FIND_SCOPE_CURRENT,
-				GPOINTER_TO_INT(user_data), /* Forward - Backward */
-				app->find_replace->find_text->regexp,
-				app->find_replace->find_text->ignore_case,
-				app->find_replace->find_text->whole_word);
 
+	string = gtk_entry_get_text (GTK_ENTRY
+								 (app->widgets.toolbar.main_toolbar.
+							     find_entry));
+	
+	/* The 2 below is checked to make sure the wrapping is only done when
+	  it is called by 'activate' (and not 'changed') signal */ 
+	if (app->find_replace->find_text->incremental_pos >= 0 &&
+		(app->find_replace->find_text->incremental_wrap == 2 ||
+		 (app->find_replace->find_text->incremental_wrap == 1 &&
+		  GPOINTER_TO_INT (user_data) < 2)))
+	{
+		/* If incremental search wrap requested, so wrap it. */
+		search_wrap = TRUE;
+		app->find_replace->find_text->incremental_wrap = 2;
+	}
+	if (app->find_replace->find_text->incremental_pos >= 0)
+	{
+		/* If incremental search */
+		ret = text_editor_find (te, string,
+					TEXT_EDITOR_FIND_SCOPE_CURRENT,
+					GPOINTER_TO_INT(user_data), /* Forward - Backward */
+					FALSE, TRUE, FALSE, search_wrap);
+	}
+	else
+	{
+		/* Normal search */
+		ret = text_editor_find (te, string,
+					TEXT_EDITOR_FIND_SCOPE_CURRENT,
+					GPOINTER_TO_INT(user_data), /* Forward - Backward */
+					app->find_replace->find_text->regexp,
+					app->find_replace->find_text->ignore_case,
+					app->find_replace->find_text->whole_word,
+					FALSE);
+	}
 	if (ret < 0) {
 		if (app->find_replace->find_text->incremental_pos < 0)
 		{
@@ -246,7 +265,7 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 		}
 		else
 		{
-			if (!app->find_replace->find_text->incremental_wrap)
+			if (search_wrap == FALSE)
 			{
 				anjuta_status(
 				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",

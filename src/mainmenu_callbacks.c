@@ -978,7 +978,7 @@ void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
 			return;
 		}
 	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1);
+    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1,0);
 	
 	g_free(buffer);
 
@@ -1012,7 +1012,7 @@ void on_next_occur(GtkMenuItem * menuitem, gpointer user_data)
 			return;
 		}
 	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1);
+    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1,0);
 	
 	g_free(buffer);
 

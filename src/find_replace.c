@@ -417,7 +417,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 									fr->find_text->forward,
 									fr->find_text->regexp,
 									fr->find_text->ignore_case,
-									fr->find_text->whole_word);
+									fr->find_text->whole_word, FALSE);
 		}
 		else
 		{
@@ -426,7 +426,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 									fr->find_text->forward,
 									fr->find_text->regexp,
 									fr->find_text->ignore_case,
-									fr->find_text->whole_word);
+									fr->find_text->whole_word, FALSE);
 		}
 		if (ret < 0)
 		{
