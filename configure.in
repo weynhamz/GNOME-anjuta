@@ -471,6 +471,7 @@ doc/anjuta_launcher.1
 doc/Makefile
 scripts/Makefile
 scripts/anjuta_import.sh
+scripts/anjuta_first_run.sh
 launcher/Makefile
 plugins/Makefile
 plugins/sample1/Makefile

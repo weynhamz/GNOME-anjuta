@@ -836,13 +836,7 @@ anjuta_show ()
 	update_gtk ();
 		
 	if (app->dirs->first_time)
-	{
-		gchar *file;
-		app->dirs->first_time = FALSE;
-		file = g_strconcat (app->dirs->data, "/welcome.txt", NULL);
-		anjuta_info_show_file (file, 500, 435);
-		g_free (file);
-	}
+		on_first_run_activate(NULL, NULL);
 }
 
 void

@@ -1,3 +1,10 @@
+2003-03-01  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.spec.in, configure.in, data/Makefile.am
+	, data/welcome.txt.in, data/licence.txt, scripts/Makefile.am
+	, srcipts/anjuta_first_time.sh.in, src/anjuta.c
+	, src/mainmenu_callbacks.[ch], src/main_menubar_def.h:Improved
+        the first-time run dialog.
+
 2003-02-28  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.glade, src/controls.c, src/main_menubar.[ch]
 	, src/main_menubar_def.h, src/mainmenu_callbasks.[ch]

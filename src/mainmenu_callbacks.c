@@ -2135,3 +2135,12 @@ void on_tool_editor_activate(GtkMenuItem *menuitem, gpointer user_data)
 {
 	anjuta_tools_edit();
 }
+
+void on_first_run_activate(GtkMenuItem *menuitem, gpointer user_data)
+{
+		gchar *file;
+		app->dirs->first_time = FALSE;
+		file = g_strconcat (PACKAGE_BIN_DIR, "/anjuta_first_run.sh", NULL);
+		anjuta_info_show_command (file, 500, 700);
+		g_free (file);
+}

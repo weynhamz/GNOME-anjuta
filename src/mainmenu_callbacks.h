@@ -624,4 +624,7 @@ on_customize_shortcuts_activate (GtkMenuItem *menuitem, gpointer user_data);
 void
 on_tool_editor_activate (GtkMenuItem *menuitem, gpointer user_data);
 
+void
+on_first_run_activate(GtkMenuItem *menuitem, gpointer user_data);
+
 #endif

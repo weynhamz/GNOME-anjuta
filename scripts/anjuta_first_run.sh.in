@@ -1,0 +1,76 @@
+#!/bin/sh
+
+DIR=`dirname $0`
+PATH=$DIR:$PATH
+
+# Arguments: <Program> <Test Command> [<URL>]
+function checkProgram
+{
+  output=`$2 2>/dev/null`
+  status=$?
+  if [ -z "$output" -o "$status" -ne 0 ]; then
+    echo "You do not have $1 installed."
+    if [ ! -z "$3" ]; then
+      echo "We recommend you install it from $3"
+    else
+      echo "Some functionality may not work correctly."
+    fi
+  else
+    echo "$1 is present."
+  fi
+}
+
+cat @PACKAGE_DATA_DIR@/welcome.txt
+cat <<__EOF__
+
+It appears that you are running anjuta for the first time.
+Please take some time to go through the report as it gets generated.
+This will help you to ensure that you have the necessary setup and
+tools to fully utilize the features present in Anjuta.
+
+Also, please take some time to read the licence for the terms and
+conditions for you. Can can find it at the bottom of the report.
+
+__EOF__
+
+# Check anjuta installation
+echo "----------------------------------------------------------------------------"
+echo ""
+
+if [ ! -x "$DIR/anjuta" ]; then
+  echo "The anjuta executable should be present in $DIR but isn't."
+  echo "Check your setup."
+fi
+
+if [ ! -x "$DIR/anjuta_launcher" ]; then
+  echo "The anjuta_launcher executable should be present in $DIR but isn't."
+  echo "Check your setup."
+fi
+
+# The following list si incomplete - please feel free to add to it.
+checkProgram 'GNU Grep' 'grep --version | grep GNU' 'ftp.gnu.org'
+checkProgram 'GNU C' 'gcc --version' 'gcc.gnu.org'
+checkProgram 'GNU Make' 'gmake --version' 'ftp.gnu.org'
+checkProgram 'Perl' 'perl --version' 'www.perl.com'
+checkProgram 'Autoconf' 'autoconf --version' 'ftp.gnu.org'
+checkProgram 'Automake' 'automake --version' 'ftp.gnu.org'
+checkProgram 'Gettext' 'gettext --version' 'ftp.gnu.org'
+checkProgram 'Libtool' 'libtool --version' 'ftp.gnu.org'
+checkProgram 'GNOME 1.x Development Libraries' 'gnome-config --version' 'www.gnome.org'
+checkProgram 'GTK 1.x' 'gtk-config --version' 'www.gtk.org'
+checkProgram 'Glade GUI Builder' 'glade --version' 'glade.gnome.org'
+checkProgram 'WxWindows' 'wx-config --version' 'www.wxwindows.org'
+checkProgram 'Pkgconfig' 'pkg-config --version' 'pkgconfig.sf.net'
+checkProgram 'Scrollkeeper' 'scrollkeeper-config --version' 'scrollkeeper.sf.net'
+
+# Show a list of all development packages installed (as reported by pkg-config)
+if pkg-config --version >/dev/null 2>&1; then
+  echo "The following modules are identified by pkg-config:"
+  echo "----------------------------------------------------------------------------"
+  pkg-config --list-all 2>/dev/null
+fi
+
+echo "----------------------------------------------------------------------------"
+cat @PACKAGE_DATA_DIR@/licence.txt
+echo "----------------------------------------------------------------------------"
+

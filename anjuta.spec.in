@@ -92,6 +92,7 @@ scrollkeeper-update || :
 %{prefix}/bin/anjuta
 %{prefix}/bin/anjuta_launcher
 %{prefix}/bin/anjuta_import.sh
+%{prefix}/bin/anjuta_first_time.sh
 %{prefix}/lib/anjuta
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
 %{prefix}/share/anjuta
