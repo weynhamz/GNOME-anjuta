@@ -1,3 +1,20 @@
+2003-03-23  Naba Kumar  <naba@gnome.org>
+	
+	* anjuta.spec.in: Fixed spec file for correct file paths and
+	corrected rpmbuild.
+
+	* Makefile.am: Substituted rpmbuild for rpm command as RedHat ships
+	the rpm build command separately now.
+	
+	* src/anjuta.c, windows-dialog.c: Added some more window management
+	stuffs (not still fully working, though).
+
+	* TODO: Updated.
+
+2003-03-22  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.spec.in: Fixed 'Required' and 'Build' requirements fields.
+
 2003-03-21  Naba Kumar  <naba@gnome.org>
 
 	* README: Removed Andy Piper's name from the active maintainers

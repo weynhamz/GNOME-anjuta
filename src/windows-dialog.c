@@ -34,6 +34,7 @@
 #include <glade/glade.h>
 
 #include "windows-dialog.h"
+#include "resources.h"
 
 typedef struct
 {
@@ -58,9 +59,8 @@ struct _AnjutaWindowsDialogPrivate
 enum
 {
 	COLUMN_PIXBUF,
-	COLUMN_NAME,
 	COLUMN_FLOAT_TOGGLE,
-	COLUMN_REMEMBER_TOGGLE,
+	COLUMN_NAME,
 	COLUMN_DATA,
 	N_COLUMNS
 };
@@ -81,6 +81,7 @@ get_cannonical_name (const gchar *name)
 		if (!isalnum(*idx))
 			*idx = '.';
 		*idx = tolower (*idx);
+		idx++;
 	}
 	return ret;
 }
@@ -104,7 +105,7 @@ anjuta_window_property_new (PropsID props, const gchar *name, const gchar *icon,
 	p->window = win;
 	p->parent = parent;
 	g_object_ref (G_OBJECT (win));
-	g_object_ref (G_OBJECT (parent));
+	if (parent) g_object_ref (G_OBJECT (parent));
 
 	GET_PROPERTY (floating);
 	GET_PROPERTY (remember);
@@ -112,6 +113,7 @@ anjuta_window_property_new (PropsID props, const gchar *name, const gchar *icon,
 	GET_PROPERTY (posy);
 	GET_PROPERTY (width);
 	GET_PROPERTY (height);
+	return p;
 }
 
 static void
@@ -121,7 +123,7 @@ anjuta_window_property_destroy (AnjutaWindowProperty *p)
 	g_free (p->cannonical_name);
 	g_free (p->icon);
 	g_object_unref (p->window);
-	g_object_unref (p->parent);
+	if (p->parent) g_object_unref (p->parent);
 	g_free (p);
 }
 
@@ -146,6 +148,23 @@ anjuta_window_property_save (PropsID props, AnjutaWindowProperty *p)
 	PUT_PROPERTY_INT (posy);
 	PUT_PROPERTY_INT (width);
 	PUT_PROPERTY_INT (height);
+}
+
+static void
+anjuta_window_property_apply (AnjutaWindowProperty *p)
+{
+	if (p->window && p->parent)
+	{
+		if (p->floating)
+		{
+			gtk_window_set_transient_for (GTK_WINDOW (p->window),
+										  GTK_WINDOW (p->parent));
+		}
+		else
+		{
+			gtk_window_set_transient_for (GTK_WINDOW (p->window), NULL);
+		}
+	}
 }
 
 GNOME_CLASS_BOILERPLATE (AnjutaWindowsDialog, 
@@ -248,9 +267,8 @@ anjuta_windows_dialog_instance_init (AnjutaWindowsDialog *dlg)
 
 	dlg->priv->store = gtk_list_store_new (N_COLUMNS, 
 										   GDK_TYPE_PIXBUF,
+										   G_TYPE_BOOLEAN,
 										   G_TYPE_STRING,
-										   G_TYPE_BOOLEAN,
-										   G_TYPE_BOOLEAN,
 										   G_TYPE_POINTER);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dlg->priv->treeview),
@@ -264,27 +282,19 @@ anjuta_windows_dialog_instance_init (AnjutaWindowsDialog *dlg)
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dlg->priv->treeview),
 								 column);
-	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes (_("Name"),
-													   renderer,
-													   "text",
-													   COLUMN_NAME,
-													   NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (dlg->priv->treeview),
-								 column);
 	renderer = gtk_cell_renderer_toggle_new ();
-	column = gtk_tree_view_column_new_with_attributes (_("Floating"),
+	column = gtk_tree_view_column_new_with_attributes (_("Float"),
 													   renderer,
 													   "active",
 													   COLUMN_FLOAT_TOGGLE,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dlg->priv->treeview),
 								 column);
-	renderer = gtk_cell_renderer_toggle_new ();
-	column = gtk_tree_view_column_new_with_attributes (_("Remember"),
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Name"),
 													   renderer,
-													   "active",
-													   COLUMN_REMEMBER_TOGGLE,
+													   "text",
+													   COLUMN_NAME,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dlg->priv->treeview),
 								 column);
@@ -314,12 +324,14 @@ anjuta_windows_register_window (AnjutaWindowsDialog *dlg, GtkWindow *win,
 								const gchar *name, const gchar *icon,
 								GtkWindow *parent)
 {
+	GtkTreeIter iter;
 	AnjutaWindowProperty *p;
 	const gchar *icon_name;
+	GdkPixbuf *pixbuf;
 	
 	g_return_if_fail (ANJUTA_IS_WINDOWS_DIALOG (dlg));
 	g_return_if_fail (GTK_IS_WINDOW (win));
-	g_return_if_fail (GTK_IS_WINDOW (parent));
+	//g_return_if_fail (GTK_IS_WINDOW (parent));
 	g_return_if_fail (name != NULL);
 	
 	if (icon)
@@ -327,8 +339,18 @@ anjuta_windows_register_window (AnjutaWindowsDialog *dlg, GtkWindow *win,
 	else
 		icon_name = "anjuta_icon.png";
 	
+	pixbuf = gdk_pixbuf_scale_simple (anjuta_res_get_pixbuf (icon), 16, 16,
+									  GDK_INTERP_BILINEAR);
 	p = anjuta_window_property_new (dlg->priv->props, name, icon_name,
-									GTK_WINDOW (win), GTK_WINDOW (parent));
+									GTK_WINDOW (win), parent);
+	anjuta_window_property_apply (p);
+	gtk_list_store_append (GTK_LIST_STORE (dlg->priv->store), &iter);
+	gtk_list_store_set (GTK_LIST_STORE (dlg->priv->store), &iter,
+						COLUMN_PIXBUF, pixbuf,
+						COLUMN_FLOAT_TOGGLE, p->floating,
+						COLUMN_NAME, name,
+						COLUMN_DATA, p, -1);
+	g_object_unref (pixbuf);
 }
 
 void

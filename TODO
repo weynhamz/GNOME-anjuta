@@ -1,6 +1,7 @@
 TODO List:
 ----------
 
+	o Configure dialog is broken.
 	o Save compiler options settings.
 	o s/zvt/vte/ terminal.
 	o Breakpoints does not get reloaded from session.

@@ -1,8 +1,8 @@
+%define	desktop_vendor	anjuta
 %define	name		anjuta
 %define	version		@VERSION@
 %define	release		1
 %define	serial		1
-%define	prefix		/usr
 
 Summary:	GNOME IDE for C and C++
 Name:		%{name}
@@ -12,47 +12,17 @@ Serial:		%{serial}
 Copyright:	GPL2
 Group:		Development/Tools
 URL:		http://anjuta.org/
-Vendor:		Naba Kumar <naba@gnome.org>
+Vendor:		Naba Kumar  <naba@gnome.org>
 Source:		%{name}-%{version}.tar.gz
 BuildRoot:	/var/tmp/%{name}-%{version}
 Docdir:		%{_docdir}
 
-Requires:		glib2 >= @GLIB_REQUIRED@, \
-				gtk+2 >= @GTK_REQUIRED@, \
-				ORBit2 >= @ORBIT_REQUIRED@, \
-				libglade2 >= @LIBGLADE_REQUIRED@, \
-				libgnome >= @GNOME_REQUIRED@,
-				libgnomeui >= @GNOME_UI_REQUIRED@, \
-				libgnomeprint >= @GNOME_PRINT_REQUIRED@, \
-				libgnomeprintui >= @GNOME_PRINT_UI_REQUIRED@, \
-				libgnomeprint >= @GNOME_PRINT_REQUIRED@, \
-				gnome-vfs2 >= @GNOME_VFS_REQUIRED@, \
-				libbonobo >= @BONOBO_REQUIRED@,
-				libbonoboui >= @BONOBO_UI_REQUIRED@, \
-				vte >= @VTE_REQUIRED@, \
-				libzvt2 >= @ZVT_REQUIRED@, \
-				libxml2 >= @LIBXML_REQUIRED@, \
-				pango >= @PANGO_REQUIRED@
+Requires:	glib2 >= @GLIB_REQUIRED@, gtk+2 >= @GTK_REQUIRED@, ORBit2 >= @ORBIT_REQUIRED@, libglade2 >= @LIBGLADE_REQUIRED@, libgnome >= @GNOME_REQUIRED@, libgnomeui >= @GNOME_UI_REQUIRED@, libgnomeprint >= @GNOME_PRINT_REQUIRED@, libgnomeprintui >= @GNOME_PRINT_UI_REQUIRED@, libgnomeprint >= @GNOME_PRINT_REQUIRED@, gnome-vfs2 >= @GNOME_VFS_REQUIRED@, libbonobo >= @BONOBO_REQUIRED@, libbonoboui >= @BONOBO_UI_REQUIRED@, vte >= @VTE_REQUIRED@, libzvt2 >= @ZVT_REQUIRED@, libxml2 >= @LIBXML_REQUIRED@, pango >= @PANGO_REQUIRED@
 			
-BuildRequires:	glib2-devel >= @GLIB_REQUIRED@, \
-				gtk+2-devel >= @GTK_REQUIRED@, \
-				ORBit2-devel >= @ORBIT_REQUIRED@, \
-				libglade2-devel >= @LIBGLADE_REQUIRED@, \
-				libgnome-devel >= @GNOME_REQUIRED@,
-				libgnomeui-devel >= @GNOME_UI_REQUIRED@, \
-				libgnomeprint-devel >= @GNOME_PRINT_REQUIRED@, \
-				libgnomeprintui-devel >= @GNOME_PRINT_UI_REQUIRED@, \
-				libgnomeprint-devel >= @GNOME_PRINT_REQUIRED@, \
-				gnome-vfs2-devel >= @GNOME_VFS_REQUIRED@, \
-				libbonobo-devel >= @BONOBO_REQUIRED@,
-				libbonoboui-devel >= @BONOBO_UI_REQUIRED@, \
-				vte-devel >= @VTE_REQUIRED@, \
-				libzvt2-devel >= @ZVT_REQUIRED@, \
-				libxml2-devel >= @LIBXML_REQUIRED@, \
-				pango-devel >= @PANGO_REQUIRED@
+BuildRequires:	glib2-devel >= @GLIB_REQUIRED@, gtk+2-devel >= @GTK_REQUIRED@, ORBit2-devel >= @ORBIT_REQUIRED@, libglade2-devel >= @LIBGLADE_REQUIRED@, libgnome-devel >= @GNOME_REQUIRED@, libgnomeui-devel >= @GNOME_UI_REQUIRED@, libgnomeprint-devel >= @GNOME_PRINT_REQUIRED@, libgnomeprintui-devel >= @GNOME_PRINT_UI_REQUIRED@, libgnomeprint-devel >= @GNOME_PRINT_REQUIRED@, gnome-vfs2-devel >= @GNOME_VFS_REQUIRED@, libbonobo-devel >= @BONOBO_REQUIRED@,	libbonoboui-devel >= @BONOBO_UI_REQUIRED@, vte-devel >= @VTE_REQUIRED@, libzvt2-devel >= @ZVT_REQUIRED@, libxml2-devel >= @LIBXML_REQUIRED@, pango-devel >= @PANGO_REQUIRED@
 
 Distribution:	Any
-Packager:	Naba Kumar <naba@gnome.org>
+Packager:	Naba Kumar  <naba@gnome.org>
 
 %description
 Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
@@ -83,41 +53,31 @@ Group: Development/Tools
 Anjuta documentation in Japanese.
 
 %prep
-%setup
+%setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --enable-final
-
-if [ "$SMP" != "" ]; then
-  (make "MAKE=make -k -j $SMP"; exit 0)
-  make
-else
-  make
-fi
+%configure --enable-final                                                       
+make %{?_smp_mflags}
 
 %install
-[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
-
-make prefix=$RPM_BUILD_ROOT%{prefix} install
+rm -rf %{buildroot}
+%makeinstall
 
 %clean
-[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
 %doc doc/ScintillaDoc.html
 
 %defattr(-,root,root)
-%{prefix}/bin/anjuta
-%{prefix}/bin/anjuta_launcher
-%{prefix}/bin/anjuta_import.sh
-%{prefix}/lib/anjuta
-%{prefix}/share/gnome/apps/Development/anjuta.desktop
-%{prefix}/share/anjuta
-%{prefix}/share/pixmaps/anjuta
-%{prefix}/share/doc/anjuta
-%{prefix}/share/mime-info/anjuta.mime
-%{prefix}/share/mimelnk/application/x-anjuta-project.desktop
-%{prefix}/man/man1/anjuta.1.gz
-%{prefix}/man/man1/anjuta_launcher.1.gz
-%{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
+%{_bindir}/%{name}*
+%{_libdir}/%{name}
+%{_datadir}/%{name}
+%{_datadir}/applications/*%{name}.desktop
+%{_datadir}/pixmaps/%{name}
+%{_datadir}/doc/%{name}
+%{_datadir}/mime-info/anjuta.mime
+%{_datadir}/mimelnk/application/x-anjuta-project.desktop
+%{_datadir}/locale
+%{_mandir}/man1/*

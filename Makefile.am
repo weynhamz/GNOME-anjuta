@@ -50,7 +50,7 @@ dist-hook:
 	done
 
 rpm: dist
-	rpm -ta $(distdir).tar.gz
+	rpmbuild -ta $(distdir).tar.gz
 
 ## Install in RedHat's sytem menu, only if the system is RH.
 install-data-local:

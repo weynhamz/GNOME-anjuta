@@ -42,6 +42,7 @@
 #include "file_history.h"
 #include "anjuta-plugins.h"
 #include "anjuta-tools.h"
+#include "pixmaps.h"
 #include "anjuta.h"
 
 #define GTK
@@ -160,6 +161,22 @@ anjuta_new ()
 		
 		app->b_reload_last_project	= TRUE ;
 		app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
+		app->windows_dialog =
+			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
+								   (app->preferences->props));
+		/* Register main window */
+		anjuta_windows_register_window (app->windows_dialog,
+										GTK_WINDOW (app->widgets.window),
+										"Anjuta Main Window",
+										ANJUTA_PIXMAP_ICON,
+										NULL);
+		/* Register main window */
+		anjuta_windows_register_window (app->windows_dialog,
+										GTK_WINDOW (app->preferences),
+										"Preferences Dialog",
+										ANJUTA_PIXMAP_ICON,
+										GTK_WINDOW (app->widgets.window));
+		
 		gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 									  GTK_WINDOW (app->widgets.window));
 		gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
@@ -202,10 +219,6 @@ anjuta_new ()
 							  app->preferences->props_local,
 							  app->preferences->props_session,
 							  app->preferences->props);
-		app->windows_dialog =
-			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
-								   (app->preferences->props));
-		
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
