@@ -1,26 +1,21 @@
 # traducción de es.po al Spanish
-# translation of anjuta.ANJUTA_1_2_0.po to Spanish
-# translation of anjuta.ANJUTA_1_2_0.es.po to Spanish
-# Spanish translation of Anjuta.
 # Copyright © 2001-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
-# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
-# Francisco Javier F. Serrador <franciscojavier.fernandez.serrador@hispalinux.es>, 2003.
-# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-13 20:13+0200\n"
-"PO-Revision-Date: 2004-07-13 21:33+0200\n"
+"POT-Creation-Date: 2004-08-20 20:16+0200\n"
+"PO-Revision-Date: 2004-08-20 20:15+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
-"serrador@hispalinux.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"serrador@hispalinux.es>\n"
 "X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
@@ -36,7 +31,10 @@ msgstr "Entorno Integrado de Desarrollo"
 msgid "    "
 msgstr "    "
 
-#: anjuta.glade.h:2
+#: anjuta.glade.h:2 libegg/layout.glade.h:1
+#: plugins/editor/anjuta-document-manager.glade.h:8
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
+#: plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -87,7 +85,8 @@ msgstr "Cargar automáticamente el último proyecto"
 
 #: anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
-msgstr "Autoguardar los archivos del editor antes de que se inicie la construcción"
+msgstr ""
+"Autoguardar los archivos del editor antes de que se inicie la construcción"
 
 #: anjuta.glade.h:15
 msgid "Beep on job complete"
@@ -135,7 +134,9 @@ msgid "CPU Registers"
 msgstr "Registros CPU"
 
 #. 2
-#: anjuta.glade.h:26 plugins/file-manager/an_file_view.c:372
+#: anjuta.glade.h:26 plugins/editor/anjuta-document-manager.glade.h:41
+#: plugins/file-manager/an_file_view.c:385
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -256,7 +257,7 @@ msgstr "No mostrar el inicio con diálogo de nuevo."
 msgid "Document module Makefile.am"
 msgstr "Makefile.am módulo de documentación"
 
-#: anjuta.glade.h:56 src/anjuta-app.c:345 src/anjuta_gui.c:105
+#: anjuta.glade.h:56 src/anjuta-app.c:338 src/anjuta_gui.c:105
 msgid "Edit"
 msgstr "Editar"
 
@@ -286,8 +287,8 @@ msgstr "Ejecutar el programa"
 
 #. Register actions
 #: anjuta.glade.h:63 plugins/debugger/breakpoints.c:113
-#: plugins/file-manager/an_file_view.c:854 plugins/file-manager/plugin.c:87
-#: src/anjuta-app.c:342 src/anjuta_gui.c:102
+#: plugins/file-manager/an_file_view.c:867 src/anjuta-app.c:335
+#: src/anjuta_gui.c:102
 msgid "File"
 msgstr "Archivo"
 
@@ -468,11 +469,11 @@ msgstr "Ubicación del menú:"
 msgid "Modules"
 msgstr "Módulos"
 
-#: anjuta.glade.h:103
+#: anjuta.glade.h:103 plugins/editor/anjuta-document-manager.glade.h:114
 msgid "Name:"
 msgstr "Nombre:"
 
-#: anjuta.glade.h:104 plugins/editor/plugin.c:47 src/toolbar.c:76
+#: anjuta.glade.h:104 plugins/editor/plugin.c:92 src/toolbar.c:76
 msgid "New file"
 msgstr "Archivo nuevo"
 
@@ -480,7 +481,7 @@ msgstr "Archivo nuevo"
 msgid "No Optimization"
 msgstr "Sin optimización"
 
-#: anjuta.glade.h:106
+#: anjuta.glade.h:106 plugins/editor/anjuta-document-manager.glade.h:118
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -505,7 +506,8 @@ msgid "Open existing file or create a new file."
 msgstr "Abrir un archivo existente o crear un archivo nuevo."
 
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:327
-#: plugins/editor/plugin.c:49 src/toolbar.c:80
+#: plugins/file-loader/plugin.c:72 plugins/file-loader/plugin.c:99
+#: src/toolbar.c:80
 msgid "Open file"
 msgstr "Abrir archivo"
 
@@ -629,7 +631,7 @@ msgstr "Scripts al final del Makefile.am de nivel superior"
 msgid "Set Signal Property"
 msgstr "Propiedades de la señal"
 
-#: anjuta.glade.h:140 src/anjuta-app.c:351 src/anjuta_gui.c:120
+#: anjuta.glade.h:140 src/anjuta-app.c:344 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Opciones"
 
@@ -689,7 +691,9 @@ msgstr "Soportes"
 
 #: anjuta.glade.h:153
 msgid "Supports are only available to File mode compilation and build."
-msgstr "Los soportes están sólo disponibles en el modo de compilación de archivo y en construcción"
+msgstr ""
+"Los soportes están sólo disponibles en el modo de compilación de archivo y "
+"en construcción"
 
 #: anjuta.glade.h:154
 msgid "Target:"
@@ -733,7 +737,7 @@ msgstr "Nombre de usuario:"
 msgid "Version:"
 msgstr "Versión:"
 
-#: anjuta.glade.h:164 src/anjuta-app.c:348 src/anjuta_gui.c:111
+#: anjuta.glade.h:164 src/anjuta-app.c:341 src/anjuta_gui.c:111
 msgid "View"
 msgstr "Vista"
 
@@ -776,7 +780,7 @@ msgstr "_Condición:"
 msgid "_Disable all"
 msgstr "_Desactivar todos"
 
-#: anjuta.glade.h:173 plugins/editor/plugin.c:255 src/anjuta-actions.h:30
+#: anjuta.glade.h:173 plugins/editor/plugin.c:298 src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -958,6 +962,47 @@ msgstr "Codificaciones soportadas"
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
+#: libanjuta/anjuta-launcher.c:598 plugins/launcher/launcher.c:583
+#: src/launcher.c:582
+msgid "launcher.c: Error while reading child stdout\n"
+msgstr "launcher.c: error al leer stdout hija \n"
+
+#: libanjuta/anjuta-launcher.c:610 plugins/launcher/launcher.c:595
+#: src/launcher.c:594
+msgid "launcher.c: STDOUT pipe closed"
+msgstr "launcher.c: pipe STDOUT cerrado"
+
+#: libanjuta/anjuta-launcher.c:646 plugins/launcher/launcher.c:631
+#: src/launcher.c:630
+msgid "launcher.c: Error while reading child stderr"
+msgstr "launcher.c: error al leer stderr hija"
+
+#: libanjuta/anjuta-launcher.c:658 plugins/launcher/launcher.c:643
+#: src/launcher.c:642
+msgid "launcher.c: STDERR pipe closed"
+msgstr "launcher.c: pipe STDERR cerrado"
+
+#: libanjuta/anjuta-launcher.c:699 plugins/launcher/launcher.c:684
+#: src/launcher.c:683
+msgid "launcher.c: Error while reading child pty\n"
+msgstr "launcher.c: error al leer pty hija\n"
+
+#: libanjuta/anjuta-launcher.c:717 plugins/launcher/launcher.c:702
+#: src/launcher.c:701
+msgid "launcher.c: PTY pipe error!"
+msgstr "launcher.c: Error en pipe PTY."
+
+#: libanjuta/anjuta-launcher.c:825 plugins/launcher/launcher.c:804
+#: src/launcher.c:803
+msgid "launcher.c: Failed to set channel encoding!"
+msgstr "launcher.c: Falló al establecer la codificación del canal."
+
+#: libanjuta/anjuta-launcher.c:875 libanjuta/resources.c:265
+#: libanjuta/resources.c:274
+#, c-format
+msgid "Cannot execute command: \"%s\""
+msgstr "No se puede ejecutar el comando: \"%s\""
+
 #: libanjuta/anjuta-plugin.c:175
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
@@ -974,7 +1019,7 @@ msgstr "Categoría"
 msgid "Anjuta Preferences Dialog"
 msgstr "Diálogo de preferencias de Anjuta"
 
-#: libanjuta/anjuta-preferences.c:878
+#: libanjuta/anjuta-preferences.c:1032
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -982,11 +1027,11 @@ msgstr ""
 "¿Está seguro que desea reiniciar las preferencias\n"
 "a sus valores originales?"
 
-#: libanjuta/anjuta-preferences.c:882
+#: libanjuta/anjuta-preferences.c:1036
 msgid "_Reset"
 msgstr "_Reestablecer"
 
-#: libanjuta/anjuta-preferences.c:1301
+#: libanjuta/anjuta-preferences.c:1470 plugins/editor/text_editor.c:1768
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -999,7 +1044,7 @@ msgstr ""
 "Esto puede provocar comportamientos inapropiados e inestabilidades.\n"
 "Anjuta utilizará los valores iniciales (más limitados)"
 
-#: libanjuta/anjuta-preferences.c:1439
+#: libanjuta/anjuta-preferences.c:1609
 msgid "Anjuta Preferences"
 msgstr "Preferencias de Anjuta"
 
@@ -1008,7 +1053,7 @@ msgstr "Preferencias de Anjuta"
 msgid "Action"
 msgstr "Acción"
 
-#: libanjuta/anjuta-ui.c:831 libegg/egg-dock-layout.c:680
+#: libanjuta/anjuta-ui.c:831
 msgid "Visible"
 msgstr "Visible"
 
@@ -1020,12 +1065,12 @@ msgstr "Distinguir mayúsculas"
 msgid "Shortcut"
 msgstr "Combinación de teclas"
 
-#: libanjuta/anjuta-utils.c:54 src/utilities.c:697
+#: libanjuta/anjuta-utils.c:53 src/utilities.c:697
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "No se puede leer el archivo: %s."
 
-#: libanjuta/anjuta-utils.c:64 plugins/project-manager/source.c:120
+#: libanjuta/anjuta-utils.c:63 plugins/project-manager/source.c:120
 #: plugins/project-manager/source.c:167 plugins/project-manager/source.c:205
 #: plugins/project-manager/source.c:455 plugins/project-manager/source.c:480
 #: plugins/project-manager/source.c:575 plugins/project-manager/source.c:673
@@ -1051,11 +1096,11 @@ msgstr "No se puede leer el archivo: %s."
 msgid "Unable to create file: %s."
 msgstr "No se puede crear el archivo: %s"
 
-#: libanjuta/anjuta-utils.c:100 src/utilities.c:739
+#: libanjuta/anjuta-utils.c:99 src/utilities.c:739
 msgid "Unable to complete file copy"
 msgstr "No se puede copiar el archivo"
 
-#: libanjuta/anjuta-utils.c:291
+#: libanjuta/anjuta-utils.c:290
 msgid ""
 "\n"
 "System: "
@@ -1063,7 +1108,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: libanjuta/anjuta-utils.c:341
+#: libanjuta/anjuta-utils.c:340
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -1072,12 +1117,12 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: libanjuta/anjuta-utils.c:655
+#: libanjuta/anjuta-utils.c:640
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: libanjuta/anjuta-utils.c:659
+#: libanjuta/anjuta-utils.c:644
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando %s (usando shell %s)\n"
@@ -1110,7 +1155,10 @@ msgstr "Complemento"
 msgid ""
 "This dialog displays all the available plugins for Anjuta.  You can select "
 "which plugins you want to use by clicking on the plugin in the list."
-msgstr "Este diálogo muestra todos los complementos disponibles para Anjuta. Puede seleccionar qué complementos quiere usar pulsando en el complemento en la lista."
+msgstr ""
+"Este diálogo muestra todos los complementos disponibles para Anjuta. Puede "
+"seleccionar qué complementos quiere usar pulsando en el complemento en la "
+"lista."
 
 #: libanjuta/resources.c:50
 #, c-format
@@ -1127,380 +1175,13 @@ msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "No se puede encontrar el pixmap de la aplicación: %s"
 
-#: libanjuta/resources.c:263 libanjuta/resources.c:272
-#, c-format
-msgid "Cannot execute command: \"%s\""
-msgstr "No se puede ejecutar el comando: \"%s\""
-
-#: libegg/egg-dock-item.c:243
-msgid "Orientation"
-msgstr "Orientación"
-
-#: libegg/egg-dock-item.c:244
-msgid "Orientation of the docking item"
-msgstr "Orientación del elemento empotrable"
-
-#: libegg/egg-dock-item.c:259
-msgid "Resizable"
-msgstr "Redimensionable"
-
-#: libegg/egg-dock-item.c:260
-msgid "If set, the dock item can be resized when docked in a paned"
-msgstr ""
-"Si se establece, el elemento empotrable puede ser redimensionado cuando está "
-"empotrado en un panel"
-
-#: libegg/egg-dock-item.c:267
-msgid "Item behavior"
-msgstr "Comportamiento del elemento"
-
-#: libegg/egg-dock-item.c:268
-msgid ""
-"General behavior for the dock item (i.e. whether it can float, if it's "
-"locked, etc.)"
-msgstr ""
-"Comportamiento general para el elemento empotrable ( si puede flotar, si "
-"está bloqueado, etc)"
-
-#: libegg/egg-dock-item.c:276
-msgid "Grip size"
-msgstr "Tamaño de rejilla"
-
-#: libegg/egg-dock-item.c:277
-msgid "Size in pixels of the grip to drag the dock item"
-msgstr "Tamaño en píxeles de la rejilla para arrastrar el elemento empotrable"
-
-#: libegg/egg-dock-item.c:283 libegg/egg-dock-master.c:140
-msgid "Locked"
-msgstr "Bloqueado"
-
-#: libegg/egg-dock-item.c:284
-msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
-msgstr ""
-" Si se establece, el elemento empotrable no puede arrastrarse y no muestra "
-"un tirador"
-
-#: libegg/egg-dock-item.c:292
-msgid "Preferred width"
-msgstr "Anchura preferida"
-
-#: libegg/egg-dock-item.c:293
-msgid "Preferred width for the dock item"
-msgstr "Anchura preferida para el elemento empotrable"
-
-#: libegg/egg-dock-item.c:299
-msgid "Preferred height"
-msgstr "Altura preferida"
-
-#: libegg/egg-dock-item.c:300
-msgid "Preferred height for the dock item"
-msgstr "Altura preferida del elemento empotrable"
-
-#: libegg/egg-dock-item.c:547
-#, c-format
-msgid ""
-"You can't add a dock object (%p of type %s) inside a %s. Use a EggDock or "
-"some other compound dock object."
-msgstr "No puede añadir un objeto empotrable (%p de tipo %s) dentro de un %s. Use un  EggDock o algún otro objeto empotrable compuesto."
-
-#: libegg/egg-dock-item.c:554
-#, c-format
-msgid ""
-"Attempting to add a widget with type %s to a %s, but it can only contain one "
-"widget at a time; it already contains a widget of type %s"
-msgstr ""
-"Intentando añadir un widget con tipo %s a un %s, pero éste sólo puede "
-"contener un widget a la vez; ya contiene un widget de tipo %s"
-
-#: libegg/egg-dock-item.c:1156
-#, c-format
-msgid "Unsupported docking strategy %s in dock object of type %s"
-msgstr "Estrategia de empotrado no soportada %s en objeto empotrable de tipo %s"
-
-#. Hide menuitem.
-#: libegg/egg-dock-item.c:1238
-msgid "Hide"
-msgstr "Ocultar"
-
-#. Lock menuitem
-#: libegg/egg-dock-item.c:1244
-msgid "Lock"
-msgstr "Bloquear"
-
-#: libegg/egg-dock-item.c:1411
-#, c-format
-msgid "Attempt to bind an unbound item %p"
-msgstr "Se intentó vincular un elemento no vinculado %p"
-
-#: libegg/egg-dock-layout.c:125
-msgid "Master"
-msgstr "Principal"
-
-#: libegg/egg-dock-layout.c:126
-msgid "EggDockMaster object which the layout object is attached to"
-msgstr "Objeto EggDockMaster con el cual el objeto de disposición está encajado"
-
-#: libegg/egg-dock-layout.c:133
-msgid "Dirty"
-msgstr "Modificado"
-
-#: libegg/egg-dock-layout.c:134
-msgid "True if the layouts have changed and need to be saved to a file"
-msgstr ""
-"Verdadero si las disposiciones se han cambiado y necesitan ser guardados en "
-"un archivo"
-
-#: libegg/egg-dock-layout.c:447
-msgid "You must provide a name for the layout"
-msgstr "Debe proporcionar un nombre para la disposición"
-
-#. FIXME: pop up an error dialog
-#: libegg/egg-dock-layout.c:625
-#, c-format
-msgid "Could not load layout user interface file '%s'"
-msgstr "No se puede cargar archivo de disposición de usuario: «%s»"
-
-#: libegg/egg-dock-layout.c:687
-msgid "Item"
-msgstr "Elemento"
-
-#: libegg/egg-dock-layout.c:737 libegg/egg-dock-object.c:121
-#: plugins/build/compiler_options.c:798
-msgid "Name"
-msgstr "Nombre"
-
-#: libegg/egg-dock-layout.c:776
-msgid "Dock items"
-msgstr "Elementos empotrables"
-
-#: libegg/egg-dock-layout.c:782
-msgid "Saved layouts"
-msgstr "Distribuciones guardadas"
-
-#: libegg/egg-dock-layout.c:824
-#, c-format
-msgid ""
-"While loading layout: don't know how to create a dock object whose nick is '%"
-"s'"
-msgstr ""
-"Al cargar una disposición: no se sabe cómo crear un objeto empotrable cuyo "
-"apodo es '%s'"
-
-#: libegg/egg-dock-layout.c:1303
-msgid "Layout managment"
-msgstr "Administración de distribución"
-
-#: libegg/egg-dock-master.c:133 libegg/egg-dock.c:182
-msgid "Default title"
-msgstr "Título predeterminado"
-
-#: libegg/egg-dock-master.c:134
-msgid "Default title for newly created floating docks"
-msgstr "Título predeterminado para los empotrables flotantes recientemente creados"
-
-#: libegg/egg-dock-master.c:141
-msgid ""
-"If is set to 1, all the dock items bound to the master are locked; if it's "
-"0, all are unlocked; -1 indicates inconsistency among the items"
-msgstr ""
-"Si se establece a 1, todos los elementos empotrables vinculados al dueño se "
-"bloquean; si se establece a 0, se desbloquean; -1 indica inconsistencia "
-"entre los elementos"
-
-#: libegg/egg-dock-master.c:728
-#, c-format
-msgid ""
-"master %p: unable to add object %p[%s] to the hash.  There already is an "
-"item with that name (%p)."
-msgstr ""
-"Dueño %p: no se puede añadir objeto %p[%s] al hash. Ya hay un elemento con "
-"ese nombre (%p)."
-
-#: libegg/egg-dock-master.c:893
-#, c-format
-msgid ""
-"The new dock controller %p is automatic.  Only manual dock objects should be "
-"named controller."
-msgstr ""
-"El controlador de empotrado nuevo %p es automático. Sólo los objetos "
-"empotrables manualmente deberían tener controlador."
-
-#: libegg/egg-dock-notebook.c:135
-msgid "Page"
-msgstr "Página"
-
-#: libegg/egg-dock-notebook.c:136
-msgid "The index of the current page"
-msgstr "El índice de la página actual"
-
-#: libegg/egg-dock-object.c:122
-msgid "Unique name for identifying the dock object"
-msgstr "Nombre único por el que identificar el objeto empotrable"
-
-#: libegg/egg-dock-object.c:129
-msgid "Long name"
-msgstr "Nombre largo"
-
-#: libegg/egg-dock-object.c:130
-msgid "Human readable name for the dock object"
-msgstr "Nombre humano para el objeto empotrable"
-
-#: libegg/egg-dock-object.c:136
-msgid "Dock master"
-msgstr "Dueño del empotrado"
-
-#: libegg/egg-dock-object.c:137
-msgid "Dock master this dock object is bound to"
-msgstr "Empotrable principal al que este objeto está vinculado"
-
-#: libegg/egg-dock-object.c:406
-#, c-format
-msgid ""
-"Call to egg_dock_object_dock in a dock object %p (object type is %s) which "
-"hasn't implemented this method"
-msgstr "Llamada a egg_dock_object_dock en un objeto empotrado %p (tipo de objeto %s) que no tiene este método implementado"
-
-#: libegg/egg-dock-object.c:535
-#, c-format
-msgid ""
-"Dock operation requested in a non-bound object %p. The application might "
-"crash"
-msgstr ""
-"Operación de empotrado solicitada en un objeto no vinculado %p. La "
-"aplicación quizá falle"
-
-#: libegg/egg-dock-object.c:542
-#, c-format
-msgid "Cannot dock %p to %p because they belong to different masters"
-msgstr "No se puede empotrar %p a %p porque pertenecen a diferentes dueños"
-
-#: libegg/egg-dock-object.c:584
-#, c-format
-msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
-msgstr ""
-"Se intentó vincular a %p un objeto empotrable ya vinculado %p (dueño "
-"actual : %p)"
-
-#: libegg/egg-dock-paned.c:134
-msgid "Position"
-msgstr "Posición"
-
-#: libegg/egg-dock-paned.c:135
-msgid "Position of the divider in pixels"
-msgstr "Posición del divisor en píxeles"
-
-#: libegg/egg-dock-placeholder.c:125
-msgid "Sticky"
-msgstr "Adhesivo"
-
-#: libegg/egg-dock-placeholder.c:126
-msgid ""
-"Whether the placeholder will stick to its host or move up the hierarchy when "
-"the host is redocked"
-msgstr ""
-"Indica si el contenedor se ceñirá a su anfitrión o subirá por la jerarquía "
-"cuando el anfitrión sea reempotrado"
-
-#: libegg/egg-dock-placeholder.c:133
-msgid "Host"
-msgstr "Anfitrión"
-
-#: libegg/egg-dock-placeholder.c:134
-msgid "The dock object this placeholder is attached to"
-msgstr "El objeto empotrable al que este contenedor está vinculado"
-
-#: libegg/egg-dock-placeholder.c:141
-msgid "Next placement"
-msgstr "Siguiente emplazamiento"
-
-#: libegg/egg-dock-placeholder.c:142
-msgid ""
-"The position an item will be docked to our host if a request is made to dock "
-"to us"
-msgstr ""
-"La posición en que un elemento será empotrado en nuestro anfitrión si se "
-"realiza una petición para empotrarse con nosotros"
-
-#: libegg/egg-dock-placeholder.c:303
-msgid "Attempt to dock a dock object to an unbound placeholder"
-msgstr "Se intentó empotrar un objeto empotrable en un contenedor no vinculado"
-
-#: libegg/egg-dock-placeholder.c:417
-#, c-format
-msgid "Got a detach signal from an object (%p) who is not our host %p"
-msgstr ""
-"Se obtuvo una señal de desacoplar de un objeto (%p) que no es nuestro "
-"hospedador %p"
-
-#: libegg/egg-dock-placeholder.c:438
-#, c-format
-msgid ""
-"Something weird happened while getting the child placement for %p from "
-"parent %p"
-msgstr ""
-"Algo extraño ha ocurrido al obtener la ubicación del hijo para %p desde el "
-"padre %p"
-
-#: libegg/egg-dock-tablabel.c:131
-msgid "Controlling dock item"
-msgstr "Elemento de control de empotrado"
-
-#: libegg/egg-dock-tablabel.c:132
-msgid "Dockitem which 'owns' this tablabel"
-msgstr "Elemento empotrado que 'es dueño' de esta tablabel"
-
-#: libegg/egg-dock.c:174
-msgid "Floating"
-msgstr "Flotante"
-
-#: libegg/egg-dock.c:175
-msgid "Whether the dock is floating in its own window"
-msgstr "Indica si el empotrable está flotando en su propia ventana"
-
-#: libegg/egg-dock.c:183
-msgid "Default title for the newly created floating docks"
-msgstr "Título preestablecido para los empotrables flotantes nuevamente creados"
-
-#: libegg/egg-dock.c:189 libegg/egg-entry-action.c:118
-msgid "Width"
-msgstr "Anchura"
-
-#: libegg/egg-dock.c:190
-msgid "Width for the dock when it's of floating type"
-msgstr "Anchura del empotrable cuando es de tipo flotante"
-
-#: libegg/egg-dock.c:197
-msgid "Height"
-msgstr "Altura"
-
-#: libegg/egg-dock.c:198
-msgid "Height for the dock when it's of floating type"
-msgstr "Altura del empotrable cuando es de tipo flotante"
-
-#: libegg/egg-dock.c:205
-msgid "Float X"
-msgstr "Flotante X"
-
-#: libegg/egg-dock.c:206
-msgid "X coordinate for a floating dock"
-msgstr "Coordenada X para un empotrable flotante"
-
-#: libegg/egg-dock.c:213
-msgid "Float Y"
-msgstr "Flotante Y"
-
-#: libegg/egg-dock.c:214
-msgid "Y coordinate for a floating dock"
-msgstr "Coordenada Y para un empotrable flotante"
-
-#: libegg/egg-dock.c:491
-#, c-format
-msgid "Dock #%d"
-msgstr "Empotrado #%d"
-
 #: libegg/egg-entry-action.c:111
 msgid "Text in the entry"
 msgstr "Texto a en la entrada"
+
+#: libegg/egg-entry-action.c:118
+msgid "Width"
+msgstr "Anchura"
 
 #: libegg/egg-entry-action.c:119
 msgid "Width of the entry."
@@ -1637,13 +1318,25 @@ msgstr "El elemento dentro de <column> debe ser <cell> no <%s>"
 msgid "The <cell> element must not have any children."
 msgstr "El elemento <cell> no debe tener ningún descendiente."
 
-#: libegg/gdl-icons.c:141 libegg/gdl-icons.c:142
-msgid "Icon size"
-msgstr "Tamaño del icono"
+#: libegg/layout.glade.h:2
+msgid "Dock items"
+msgstr "Elementos empotrables"
 
-#: libegg/gdl-icons.c:147 libegg/gdl-icons.c:148
-msgid "Icon zoom"
-msgstr "Ampliación del icono"
+#: libegg/layout.glade.h:3
+msgid "Layout Managment"
+msgstr "Administrador distribución"
+
+#: libegg/layout.glade.h:4
+msgid "Saved layouts"
+msgstr "Distribuciones guardadas"
+
+#: libegg/layout.glade.h:5
+msgid "_Load"
+msgstr "_Cargar"
+
+#: libegg/layout.glade.h:6
+msgid "_Lock dock items"
+msgstr "_Bloquear elementos empotrados"
 
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
@@ -1655,20 +1348,23 @@ msgstr "El ejecutable está actualizado, no necesita ser construido de nuevo."
 
 #: plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr "No se ha especificado un comando de construcción para este tipo de archivo."
+msgstr ""
+"No se ha especificado un comando de construcción para este tipo de archivo."
 
 #: plugins/build/build_file.c:104
 #, c-format
 msgid "Building file: %s ...\n"
 msgstr "Construyendo el archivo: %s ...\n"
 
-#: plugins/build/build_file.c:132 plugins/cvs-plugin/cvs.c:776
-#: plugins/project-manager/project_import.c:192
+#: plugins/build/build_file.c:132
+#: plugins/build-basic-autotools/build-basic-autotools.c:63
+#: plugins/cvs-plugin/cvs.c:776 plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tiempo total empleado: %lu segundos\n"
 
 #: plugins/build/build_file.c:136
+#: plugins/build-basic-autotools/build-basic-autotools.c:67
 msgid "Completed ... unsuccessful\n"
 msgstr "Completado ... incorrectamente\n"
 
@@ -1677,6 +1373,7 @@ msgid "Completed ... unsuccessful"
 msgstr "Completado ... incorrectamente"
 
 #: plugins/build/build_file.c:145
+#: plugins/build-basic-autotools/build-basic-autotools.c:77
 msgid "Completed ... successful\n"
 msgstr "Completado .... correctamente\n"
 
@@ -1806,6 +1503,10 @@ msgstr ""
 msgid "Do you want to clear the list?"
 msgstr "¿Quiere vaciar la lista?"
 
+#: plugins/build/compiler_options.c:798
+msgid "Name"
+msgstr "Nombre"
+
 #: plugins/build/compiler_options.c:805 plugins/build/compiler_options.c:881
 #: plugins/build/compiler_options.c:904 plugins/build/compiler_options.c:949
 #: plugins/debugger/signals_gui.c:132
@@ -1889,116 +1590,121 @@ msgstr "Este archivo no ha sido guardado. Guárdelo antes."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "No se pudo ejecutar el archivo. Compruebe Opciones->Comandos."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:86
-#: plugins/build-basic-autotools/build-basic-autotools.c:174
-#: plugins/build-basic-autotools/build-basic-autotools.c:184
+#: plugins/build-basic-autotools/build-basic-autotools.c:115
+#, c-format
+msgid "Build %d"
+msgstr "Construir %d"
+
+#: plugins/build-basic-autotools/build-basic-autotools.c:186
+#: plugins/build-basic-autotools/build-basic-autotools.c:283
+#: plugins/build-basic-autotools/build-basic-autotools.c:293
 msgid "_Build"
 msgstr "C_onstruir"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:90
+#: plugins/build-basic-autotools/build-basic-autotools.c:190
 msgid "_Build project"
 msgstr "_Construir proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:91
+#: plugins/build-basic-autotools/build-basic-autotools.c:191
 msgid "Build whole project"
 msgstr "Construir el proyecto completo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:96
+#: plugins/build-basic-autotools/build-basic-autotools.c:196
 msgid "_Install project"
 msgstr "_Instalar proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:97
+#: plugins/build-basic-autotools/build-basic-autotools.c:197
 msgid "Install whole project"
 msgstr "Instalar todo el proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:102
+#: plugins/build-basic-autotools/build-basic-autotools.c:202
 msgid "_Clean project"
 msgstr "_Limpiar proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:103
+#: plugins/build-basic-autotools/build-basic-autotools.c:203
 msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:108
+#: plugins/build-basic-autotools/build-basic-autotools.c:208
 msgid "C_onfigure ..."
 msgstr "C_onfigurar ..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:109
+#: plugins/build-basic-autotools/build-basic-autotools.c:209
 msgid "Configure project"
 msgstr "Configura el proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:114
+#: plugins/build-basic-autotools/build-basic-autotools.c:214
 msgid "_Auto generate ..."
 msgstr "_Autogenerar ..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:115
+#: plugins/build-basic-autotools/build-basic-autotools.c:215
 msgid "Autogenrate project files"
 msgstr "Autogenerar los archivos del proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:120
+#: plugins/build-basic-autotools/build-basic-autotools.c:220
 msgid "Build _distribution"
 msgstr "Construir _distribución"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:121
+#: plugins/build-basic-autotools/build-basic-autotools.c:221
 msgid "Build project distribution"
 msgstr "Construye la distribución del proyecto"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:126
+#: plugins/build-basic-autotools/build-basic-autotools.c:226
 msgid "_Build module"
 msgstr "_Construir módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:127
-#: plugins/build-basic-autotools/build-basic-autotools.c:185
+#: plugins/build-basic-autotools/build-basic-autotools.c:227
+#: plugins/build-basic-autotools/build-basic-autotools.c:294
 msgid "Build module"
 msgstr "Construye un módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:132
+#: plugins/build-basic-autotools/build-basic-autotools.c:232
 msgid "_Install module"
 msgstr "_Instalar módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:133
-#: plugins/build-basic-autotools/build-basic-autotools.c:191
+#: plugins/build-basic-autotools/build-basic-autotools.c:233
+#: plugins/build-basic-autotools/build-basic-autotools.c:300
 msgid "Install module"
 msgstr "Instala un módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:138
+#: plugins/build-basic-autotools/build-basic-autotools.c:238
 msgid "_Clean module"
 msgstr "_Limpiar módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:139
-#: plugins/build-basic-autotools/build-basic-autotools.c:197
+#: plugins/build-basic-autotools/build-basic-autotools.c:239
+#: plugins/build-basic-autotools/build-basic-autotools.c:306
 msgid "Clean module"
 msgstr "Limpia un módulo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:144
+#: plugins/build-basic-autotools/build-basic-autotools.c:244
 msgid "Co_mpile file"
 msgstr "Co_mpilar archivo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:145
+#: plugins/build-basic-autotools/build-basic-autotools.c:245
 msgid "Compile current editor file"
 msgstr "Compila el archivo actual del editor"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:178
+#: plugins/build-basic-autotools/build-basic-autotools.c:287
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:179
+#: plugins/build-basic-autotools/build-basic-autotools.c:288
 msgid "Complie file"
 msgstr "Compila el archivo"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:190
+#: plugins/build-basic-autotools/build-basic-autotools.c:299
 msgid "_Install"
 msgstr "_Instalar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:196
+#: plugins/build-basic-autotools/build-basic-autotools.c:305
 msgid "_Clean"
 msgstr "_Limpiar"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:382
+#: plugins/build-basic-autotools/build-basic-autotools.c:499
 msgid "Popup build commands"
 msgstr "Emerger los comando de construcción"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:389
+#: plugins/build-basic-autotools/build-basic-autotools.c:506
 msgid "Build commands"
 msgstr "Comandos de construcción"
 
@@ -2031,8 +1737,8 @@ msgstr "Constructor de clases"
 #: plugins/class-gen/clsGen.c:1343 plugins/debugger/registers_gui.c:56
 #: plugins/debugger/sharedlib_gui.c:49 plugins/debugger/signals_gui.c:63
 #: plugins/debugger/stack_trace.c:381 plugins/debugger/watch_gui.c:74
-#: plugins/devhelp/plugin.c:174
-#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:354
+#: plugins/devhelp/plugin.c:182
+#: plugins/project-manager/project_dbase_gui.c:343 src/anjuta-app.c:347
 #: src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Ayuda"
@@ -2124,7 +1830,8 @@ msgid "V 0.0.2 (June 11, 2002)"
 msgstr "V 0.0.2 (11 de junio de 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
-msgid "TODO: add the ability to declare member functions and their parameters here."
+msgid ""
+"TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 "POR hacer: añadir la capacidad para declarar funciones miembro y sus "
 "parámetros aquí."
@@ -2340,7 +2047,7 @@ msgstr "Seleccionar archivo"
 msgid "CVS: Diff file"
 msgstr "CVS: archivo de diferencias"
 
-#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:368
+#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:411
 msgid "Diff"
 msgstr "Diff"
 
@@ -2703,6 +2410,7 @@ msgid "Non accessible address !"
 msgstr "Dirección no accesible."
 
 #: plugins/debugger/registers_gui.c:41
+#: plugins/editor/anjuta-document-manager.glade.h:112
 msgid "Modify"
 msgstr "Modificar"
 
@@ -2763,7 +2471,7 @@ msgstr "Señal"
 msgid "Stop"
 msgstr "Detener"
 
-#: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1035
+#: plugins/debugger/signals_gui.c:124 plugins/editor/print.c:1034
 msgid "Print"
 msgstr "Imprimir"
 
@@ -2863,19 +2571,19 @@ msgstr "Inspeccionar/Evaluar expresión"
 msgid "Add To Watch"
 msgstr "Añadir a Vigilancia"
 
-#: plugins/devhelp/plugin.c:167
+#: plugins/devhelp/plugin.c:175
 msgid "Devhelp navigation operations"
 msgstr "Operaciones de navegación por DevHelp"
 
-#: plugins/devhelp/plugin.c:177
+#: plugins/devhelp/plugin.c:185
 msgid "Help display"
 msgstr "Visor de ayuda"
 
-#: plugins/devhelp/plugin.c:257
+#: plugins/devhelp/plugin.c:268
 msgid "Contents"
 msgstr "Índice"
 
-#: plugins/devhelp/plugin.c:268 plugins/editor/plugin.c:638
+#: plugins/devhelp/plugin.c:279 plugins/editor/plugin.c:721
 #: plugins/editor/search-replace.c:717 plugins/editor/search-replace.c:1343
 #: plugins/editor/search-replace.c:1350 plugins/editor/search-replace.c:1362
 #: plugins/editor/search-replace.c:1650
@@ -2915,7 +2623,7 @@ msgstr ""
 "¿Seguro que desea recargar «%s». ?\n"
 "Perderá todas las modificaciones sin guardar."
 
-#: plugins/editor/action-callbacks.c:224 plugins/editor/text_editor.c:1330
+#: plugins/editor/action-callbacks.c:224 plugins/editor/text_editor.c:1329
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -2924,7 +2632,7 @@ msgstr "_Recargar"
 msgid "There is no line number %d in \"%s\"."
 msgstr "No hay número de línea %d en «%s»."
 
-#: plugins/editor/action-callbacks.c:1626
+#: plugins/editor/action-callbacks.c:1628
 msgid "No matches. Wrap search around the document?"
 msgstr "No se encontró nada. ¿Quiere buscar desde el principio del documento?"
 
@@ -2949,6 +2657,702 @@ msgstr "Guardar archivo como"
 #: plugins/editor/anjuta-docman.c:509
 msgid "Recent Files "
 msgstr "Archivos recientes"
+
+#: plugins/editor/anjuta-document-manager.glade.h:1
+msgid ""
+"\"Search & Replace\" has to be tested completely !\n"
+"Many search-replacement possibilities are possible\n"
+"and need a lot of time to be verified.\n"
+"\n"
+"Limits : Regular expressions can only be found in\n"
+"forward direction"
+msgstr ""
+"¡¡«Buscar y reemplazar» tiene que ser probado completamente!!\n"
+"Son posibles muchas combinaciones de busqueda y reemplazo\n"
+"y necesitan mucho tiempo para ser verificadas.\n"
+"\n"
+"Límites: Las expresiones regulares sólo pueden buscar hacia adelante"
+
+#: plugins/editor/anjuta-document-manager.glade.h:7
+msgid "$(module.source.files) $(module.include.files)"
+msgstr "$(module.source.files) $(module.include.files)"
+
+#: plugins/editor/anjuta-document-manager.glade.h:9
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
+#: plugins/editor/anjuta-document-manager.glade.h:10
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
+msgid ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+msgstr ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+
+#: plugins/editor/anjuta-document-manager.glade.h:11
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
+msgid "*.so *.o *.a *.la"
+msgstr "*.so *.o *.a *.la"
+
+#: plugins/editor/anjuta-document-manager.glade.h:12
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
+msgid "*\\.*"
+msgstr "*\\.*"
+
+#: plugins/editor/anjuta-document-manager.glade.h:13
+msgid "<b>Autocompletion</b>"
+msgstr "<b>Autocompletado</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:14
+msgid "<b>Autoformat style</b>"
+msgstr "<b>Estilo de autoformato</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:15
+msgid "<b>Autosave</b>"
+msgstr "<b>Autoguardar</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:16
+msgid "<b>Code folding</b>"
+msgstr "<b>Plegado de código</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:17
+msgid "<b>Custom autoformate style</b>"
+msgstr "<b>Estilo de autoformato personalizado</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:18
+msgid "<b>Editor tabs</b>"
+msgstr "<b>Solapas del editor</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:19
+msgid "<b>Encoding to use when saving files</b>"
+msgstr "<b>Codificación a usar al guardar archivos</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:20
+msgid "<b>Indentation and auto-format options</b>"
+msgstr "<b>Opciones de sangría y autoformato</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:21
+msgid "<b>Misc options</b>"
+msgstr "<b>Opciones misceláneas</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:22
+msgid "<b>Print options</b>"
+msgstr "<b>Opciones de impresión</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:23
+msgid "<b>Supported Encodings</b>"
+msgstr "<b>Codificaciones soportadas</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:24
+msgid "<span weight=\"bold\">File Information</span>"
+msgstr "<span weight=\"bold\">Información del archivo</span>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:25
+msgid "<span weight=\"bold\">Options</span>"
+msgstr "<span weight=\"bold\">Opciones</span>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:26
+msgid "Activate"
+msgstr "Activar"
+
+#: plugins/editor/anjuta-document-manager.glade.h:27
+msgid "Add License Information (GPL)"
+msgstr "Añadir información de licencia (GPL)"
+
+#: plugins/editor/anjuta-document-manager.glade.h:28
+msgid "Add line number every:"
+msgstr "Añadir número de línea cada:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:29
+msgid "Add page header"
+msgstr "Añadir cabecera de página"
+
+#: plugins/editor/anjuta-document-manager.glade.h:30
+msgid "Always save in UTF-8 encoding (faster)"
+msgstr "Siempre guardar usando codificación UTF-8 (más rápido)"
+
+#: plugins/editor/anjuta-document-manager.glade.h:31
+msgid "Arrows"
+msgstr "Flechas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:32
+msgid "Attributes:"
+msgstr "Atributos:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:33
+msgid "Autocomplete XML/HTML closing tags"
+msgstr "Autocompletar etiquetas de cierre XML/HTML"
+
+#: plugins/editor/anjuta-document-manager.glade.h:34
+msgid "Autocompletion pop up choices"
+msgstr "Autocompletar elecciones emergentes"
+
+#: plugins/editor/anjuta-document-manager.glade.h:35
+msgid "Back color:"
+msgstr "Color fondo:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:36
+msgid "Backward"
+msgstr "Atrás"
+
+#: plugins/editor/anjuta-document-manager.glade.h:37
+msgid "Basic Search & Replace"
+msgstr "Búsqueda y reemplazo básico"
+
+#: plugins/editor/anjuta-document-manager.glade.h:38
+msgid "Bold"
+msgstr "Negrita"
+
+#: plugins/editor/anjuta-document-manager.glade.h:39
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:4
+msgid "Bottom"
+msgstr "Debajo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:40
+msgid "C++: // comment"
+msgstr "Comentario C++: //"
+
+#: plugins/editor/anjuta-document-manager.glade.h:42
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
+msgid "CVS intl po"
+msgstr "CVS intl po"
+
+#: plugins/editor/anjuta-document-manager.glade.h:43
+msgid "Calltip background:"
+msgstr "Fondo de la ayuda emergente:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:44
+msgid "Caret (cursor) color:"
+msgstr "Color del símbolo del cursor:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:45
+msgid "Caret blink period in milli-seconds"
+msgstr "Período de parpadeo en milisegundo del símbolo del cursor"
+
+#: plugins/editor/anjuta-document-manager.glade.h:46
+msgid "Case insensitive"
+msgstr "No distinguir mayúsculas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:47
+msgid "Choose Directories:"
+msgstr "Elija directorios:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:48
+msgid "Choose Files:"
+msgstr "Elija archivos:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:49
+msgid "Choose autocomplete for single match"
+msgstr "Elija autocompletar para coincidencia simple"
+
+#: plugins/editor/anjuta-document-manager.glade.h:50
+msgid "Circular"
+msgstr "Circular"
+
+#: plugins/editor/anjuta-document-manager.glade.h:51
+msgid "Collapse all code folds on file open"
+msgstr "Contraer todos los pliegues de código al abrir un archivo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:52
+msgid "Colour"
+msgstr "Color"
+
+#: plugins/editor/anjuta-document-manager.glade.h:53
+msgid "Column at edge indicator"
+msgstr "Columna en el indicador de borde"
+
+#: plugins/editor/anjuta-document-manager.glade.h:54
+msgid "Comment Style:"
+msgstr "Estilo de comentario:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:55
+msgid "Compact folding"
+msgstr "Compactar plegado"
+
+#: plugins/editor/anjuta-document-manager.glade.h:56
+msgid "Crazy boy style"
+msgstr "Estilo loco"
+
+#: plugins/editor/anjuta-document-manager.glade.h:57
+msgid "Create corresponding header file"
+msgstr "Crear el archivo de cabecera correspondiente"
+
+#: plugins/editor/anjuta-document-manager.glade.h:58
+msgid "Custom style"
+msgstr "Estilo personalizado"
+
+#: plugins/editor/anjuta-document-manager.glade.h:59
+msgid "Delete Theme"
+msgstr "Borrar tema"
+
+#: plugins/editor/anjuta-document-manager.glade.h:60
+msgid "Disable auto-format"
+msgstr "Desactivar autoformato"
+
+#: plugins/editor/anjuta-document-manager.glade.h:61
+msgid "Disable syntax highlighting"
+msgstr "Desactivar resaltado de sintaxis"
+
+#: plugins/editor/anjuta-document-manager.glade.h:62
+msgid "Do not show tabs"
+msgstr "No mostrar tabuladores"
+
+#: plugins/editor/anjuta-document-manager.glade.h:63
+#: plugins/editor/plugin.c:742
+msgid "Documents"
+msgstr "Documentos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:64
+msgid "Draw line below folded lines"
+msgstr "Dibujar una línea debajo de las líneas plegadas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:65
+msgid "Editor caret (cursor) width in pixels"
+msgstr "Ancho en píxeles del símbolo del cursor"
+
+#: plugins/editor/anjuta-document-manager.glade.h:66
+msgid "Enable HTML tags folding"
+msgstr "Activar pliegue de etiquetas HTML"
+
+#: plugins/editor/anjuta-document-manager.glade.h:67
+msgid "Enable automatic indentation"
+msgstr "Activar sangría automática"
+
+#: plugins/editor/anjuta-document-manager.glade.h:68
+msgid "Enable braces check"
+msgstr "Activar comprobación de llaves"
+
+#: plugins/editor/anjuta-document-manager.glade.h:69
+msgid "Enable code folding"
+msgstr "Activar pliegue del código"
+
+#: plugins/editor/anjuta-document-manager.glade.h:70
+msgid "Enable comments folding"
+msgstr "Activar pliegue de comentarios"
+
+#: plugins/editor/anjuta-document-manager.glade.h:71
+msgid "Enable files autosave"
+msgstr "Activar autoguardado de archivos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:72
+msgid "Enable line wrap"
+msgstr "Activar ajuste de líneas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:73
+msgid "Enable python comments folding"
+msgstr "Activar pliegue de comentarios python"
+
+#: plugins/editor/anjuta-document-manager.glade.h:74
+msgid "Enable python quoted strings folding"
+msgstr "Activar pliegue de cadenas python citadas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:75
+msgid "Encodings"
+msgstr "Codificaciones"
+
+#: plugins/editor/anjuta-document-manager.glade.h:76
+msgid ""
+"Enter the File name.\n"
+"The extension will be added according to the type."
+msgstr ""
+"Introduzca el nombre del archivo.\n"
+"La extensión será añadida de acuerdo con el tipo."
+
+#: plugins/editor/anjuta-document-manager.glade.h:78
+msgid ""
+"Enter the command line arguments for the 'indent' program. Read the info "
+"page for 'indent' for more details"
+msgstr ""
+"Introduzca los argumentos para el programa «indent». Consulte la página info "
+"«indent» para más detalles."
+
+#: plugins/editor/anjuta-document-manager.glade.h:79
+msgid "Expand regex back references"
+msgstr "Expandir referencias hacia atrás en expr. reg."
+
+#: plugins/editor/anjuta-document-manager.glade.h:80
+msgid "File Filter"
+msgstr "Filtro de archivos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:81
+msgid "Filter extraneous characters in DOS mode"
+msgstr "Filtrar caracteres extraños en modo DOS"
+
+#: plugins/editor/anjuta-document-manager.glade.h:82
+msgid "Find & Replace"
+msgstr "Buscar y reemplazar"
+
+#: plugins/editor/anjuta-document-manager.glade.h:83
+msgid "Fold style:"
+msgstr "Estilo de pliegue:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:84
+msgid "Font:"
+msgstr "Tipografía:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:85
+msgid "Fore color:"
+msgstr "Color texto:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:86
+#: plugins/editor/text_editor_menu.c:86
+msgid "Forward"
+msgstr "Adelante"
+
+#: plugins/editor/anjuta-document-manager.glade.h:87
+msgid "Full Buffer"
+msgstr "Llenar búfer"
+
+#: plugins/editor/anjuta-document-manager.glade.h:88
+msgid "GNU coding style"
+msgstr "Estilo de codificación GNU"
+
+#: plugins/editor/anjuta-document-manager.glade.h:89
+msgid "Greedy matching"
+msgstr "Coincidencia voraz"
+
+#: plugins/editor/anjuta-document-manager.glade.h:90
+msgid "Hello World style"
+msgstr "Estilo Hola mundo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:91
+msgid "Highlight style"
+msgstr "Estilo de resaltado"
+
+#: plugins/editor/anjuta-document-manager.glade.h:92
+msgid "Ignore Binary Files"
+msgstr "Ignorar archivos binarios"
+
+#: plugins/editor/anjuta-document-manager.glade.h:93
+msgid "Ignore Directories:"
+msgstr "Ignorar directorios:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:94
+msgid "Ignore Files:"
+msgstr "Ignorar archivos:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:95
+msgid "Ignore Hidden Directories"
+msgstr "Ignorar directorios ocultos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:96
+msgid "Ignore Hidden Files"
+msgstr "Ignorar archivos ocultos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:97
+msgid "Indent closing braces"
+msgstr "Sangrar llaves de cierre"
+
+#: plugins/editor/anjuta-document-manager.glade.h:98
+msgid "Indent opening braces"
+msgstr "Sangrar llaves de apertura"
+
+#: plugins/editor/anjuta-document-manager.glade.h:99
+msgid "Indentation"
+msgstr "Sangrado"
+
+#: plugins/editor/anjuta-document-manager.glade.h:100
+msgid "Indentation size in spaces:"
+msgstr "Tamaño de sangría en espacios:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:101
+msgid "Italic"
+msgstr "Cursiva"
+
+#: plugins/editor/anjuta-document-manager.glade.h:102
+msgid "Kernighan and Ritchie style"
+msgstr "Estilo Kernighan & Ritchie"
+
+#: plugins/editor/anjuta-document-manager.glade.h:103
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:9
+msgid "Left"
+msgstr "Izquierda"
+
+#: plugins/editor/anjuta-document-manager.glade.h:104
+msgid "License:"
+msgstr "Licencia:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:105
+msgid "Line numbers margin width in pixels"
+msgstr "Ancho en píxeles del margen de número de línea"
+
+#: plugins/editor/anjuta-document-manager.glade.h:106
+#: plugins/editor/print.c:1043 src/anjuta_info.c:127
+msgid "Lines"
+msgstr "Líneas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:107
+msgid "Match at start of word"
+msgstr "Coincide el inicio de palabra"
+
+#: plugins/editor/anjuta-document-manager.glade.h:108
+msgid "Match complete lines"
+msgstr "Coincide con líneas completas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:109
+msgid "Match complete words"
+msgstr "Coincide con palabras completas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:110
+msgid "Max. Actions"
+msgstr "Acciones máximas"
+
+#: plugins/editor/anjuta-document-manager.glade.h:111
+msgid "Mode:"
+msgstr "Modo:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:113
+msgid "Monochrome"
+msgstr "Monocromo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:115
+msgid "New File"
+msgstr "Archivo nuevo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:116
+msgid "New Name"
+msgstr "Nombre nuevo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:117
+msgid "No Limit"
+msgstr "Sin límite"
+
+#: plugins/editor/anjuta-document-manager.glade.h:119
+msgid "Original Berkeley style"
+msgstr "Estilo original Berkeley"
+
+#: plugins/editor/anjuta-document-manager.glade.h:120
+msgid "Other colors"
+msgstr "Otros colores"
+
+#: plugins/editor/anjuta-document-manager.glade.h:121
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:15
+msgid "Pick a color"
+msgstr "Escoja un color:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:122
+msgid "Plus/Minus"
+msgstr "Más/Menos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:123
+msgid "Position:"
+msgstr "Posición:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:124
+msgid "Pressing backspace un-indents"
+msgstr "Reducir sangría al pulsar la tecla de borrado"
+
+#: plugins/editor/anjuta-document-manager.glade.h:125
+msgid "Pressing tab indents"
+msgstr "Incrementar sangría al pulsar el tabulador"
+
+#: plugins/editor/anjuta-document-manager.glade.h:126
+msgid "Printing"
+msgstr "Impresión"
+
+#: plugins/editor/anjuta-document-manager.glade.h:127
+msgid "Read me"
+msgstr "Leéme"
+
+#: plugins/editor/anjuta-document-manager.glade.h:128
+msgid "Regular Expression"
+msgstr "Expresión regular"
+
+#: plugins/editor/anjuta-document-manager.glade.h:129
+msgid "Reload Session Defaults"
+msgstr "Recargar valores preconfigurados de la sesión"
+
+#: plugins/editor/anjuta-document-manager.glade.h:130
+msgid "Reload System Defaults"
+msgstr "Recargar valores preconfigurados del sistema"
+
+#: plugins/editor/anjuta-document-manager.glade.h:131
+msgid "Replace With:"
+msgstr "Reemplazar con:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:132
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:16
+msgid "Right"
+msgstr "Derecha"
+
+#: plugins/editor/anjuta-document-manager.glade.h:133
+msgid "Save files interval in minutes"
+msgstr "Intervalo de guardado de archivos en minutos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:134
+msgid "Save session interval in minutes"
+msgstr "Intervalo de guardado de la sesión en minutos"
+
+#: plugins/editor/anjuta-document-manager.glade.h:135
+msgid "Search Action:"
+msgstr "Acción de búsqueda:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:136
+msgid "Search Direction:"
+msgstr "Dirección de búsqueda:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:137
+msgid "Search Expression"
+msgstr "Expresión de búsqueda"
+
+#: plugins/editor/anjuta-document-manager.glade.h:138
+msgid "Search Expression:"
+msgstr "Expresión de búsqueda"
+
+#: plugins/editor/anjuta-document-manager.glade.h:139
+msgid "Search In:"
+msgstr "Buscar en:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:140
+msgid "Search Recursively"
+msgstr "Buscar recursivamente"
+
+#: plugins/editor/anjuta-document-manager.glade.h:141
+msgid "Search Target"
+msgstr "Buscar objetivo"
+
+#: plugins/editor/anjuta-document-manager.glade.h:142
+msgid "Search Variable"
+msgstr "Buscar variable"
+
+#: plugins/editor/anjuta-document-manager.glade.h:143
+msgid "Select highlight style to edit:"
+msgstr "Seleccione el estilo de resaltado a editar:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:144
+msgid "Select theme:"
+msgstr "Seleccionar tema:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:145
+msgid "Selection background:"
+msgstr "Segundo plano de la selección:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:146
+msgid "Selection foreground:"
+msgstr "Primer plano de la selección:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:147
+msgid "Setting"
+msgstr "Configuración"
+
+#: plugins/editor/anjuta-document-manager.glade.h:148
+msgid "Shell: # comment"
+msgstr "Comentario de shell: #"
+
+#: plugins/editor/anjuta-document-manager.glade.h:149
+msgid "Sorted by most recent use"
+msgstr "Ordenados por uso más reciente"
+
+#: plugins/editor/anjuta-document-manager.glade.h:150
+msgid "Sorted in alphabetical order"
+msgstr "Ordenados en orden alfabético"
+
+#: plugins/editor/anjuta-document-manager.glade.h:151
+msgid "Sorted in the order you open them"
+msgstr "Ordenados en el orden en que se abrieron"
+
+#: plugins/editor/anjuta-document-manager.glade.h:152
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
+msgid "Space-seperated list of directory name patterns to ignore"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio a ignorar"
+
+#: plugins/editor/anjuta-document-manager.glade.h:153
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+msgid "Space-seperated list of directory name patterns to match"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio a coincidir"
+
+#: plugins/editor/anjuta-document-manager.glade.h:154
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+msgid "Space-seperated list of file name patterns to ignore"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo a ignorar"
+
+#: plugins/editor/anjuta-document-manager.glade.h:155
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+msgid "Space-seperated list of file name patterns to match"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo a coincidir"
+
+#: plugins/editor/anjuta-document-manager.glade.h:156
+msgid "Squares"
+msgstr "Cuadrados"
+
+#: plugins/editor/anjuta-document-manager.glade.h:157
+msgid "Strip trailling spaces on file save"
+msgstr "Eliminar espacios finales al guardar"
+
+#: plugins/editor/anjuta-document-manager.glade.h:158
+msgid "Style of Kangleipak"
+msgstr "Estilo Kangleipak"
+
+#: plugins/editor/anjuta-document-manager.glade.h:159
+msgid "Syntax highlight editor"
+msgstr "Editor de resaltado de sintaxis"
+
+#: plugins/editor/anjuta-document-manager.glade.h:160
+msgid "Tab size in spaces:"
+msgstr "Tamaño del tabulador en espacios"
+
+#: plugins/editor/anjuta-document-manager.glade.h:161
+msgid "Theme"
+msgstr "Tema"
+
+#: plugins/editor/anjuta-document-manager.glade.h:162
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:19
+msgid "Top"
+msgstr "Encima"
+
+#: plugins/editor/anjuta-document-manager.glade.h:163
+msgid "Try to save in current locale's encoding"
+msgstr "Intentar guardar en la codificación de la localización actual"
+
+#: plugins/editor/anjuta-document-manager.glade.h:164
+msgid "Try to save in original encoding"
+msgstr "Intentar guardar en la codificación original"
+
+#: plugins/editor/anjuta-document-manager.glade.h:165
+msgid "Type:"
+msgstr "Tipo:"
+
+#: plugins/editor/anjuta-document-manager.glade.h:166
+msgid "Underlined"
+msgstr "Subrayado"
+
+#: plugins/editor/anjuta-document-manager.glade.h:167
+msgid "Use Template for the Header file"
+msgstr "Usar pantilla para el archivo de cabecera"
+
+#: plugins/editor/anjuta-document-manager.glade.h:168
+msgid "Use default"
+msgstr "Usar predeterminada"
+
+#: plugins/editor/anjuta-document-manager.glade.h:169
+msgid "Use tabs for indentation"
+msgstr "Usar tabulador para sangrar"
+
+#: plugins/editor/anjuta-document-manager.glade.h:170
+msgid "Wrap bookmarks search around"
+msgstr "Búsqueda circular de marcadores"
+
+#: plugins/editor/anjuta-document-manager.glade.h:171
+msgid "_C: /* comment */"
+msgstr "_C: /* comentario */"
+
+#: plugins/editor/anjuta-document-manager.glade.h:172
+msgid "_General Public License (GPL)"
+msgstr "_General Public License (GPL)"
+
+#: plugins/editor/anjuta-document-manager.glade.h:173
+msgid "_Lesser General Public License (LGPL)"
+msgstr "_Lesser General Public License (LGPL)"
+
+#: plugins/editor/anjuta-document-manager.glade.h:174
+msgid "_Save Theme As"
+msgstr "G_uardar tema como"
 
 #: plugins/editor/file.c:84
 msgid "C Source File"
@@ -3007,1047 +3411,1037 @@ msgstr "%Y-%m-%d"
 msgid " Goto Line number "
 msgstr " Ir a línea nº "
 
-#: plugins/editor/plugin.c:46
+#: plugins/editor/plugin.c:91
 msgid "_New"
 msgstr "_Nuevo"
 
-#: plugins/editor/plugin.c:48
-msgid "_Open ..."
-msgstr "_Abrir ..."
-
-#: plugins/editor/plugin.c:50
+#: plugins/editor/plugin.c:93
 msgid "_Save"
 msgstr "_Guardar"
 
-#: plugins/editor/plugin.c:51 src/toolbar.c:84
+#: plugins/editor/plugin.c:94 src/toolbar.c:84
 msgid "Save current file"
 msgstr "Guarda el archivo actual"
 
-#: plugins/editor/plugin.c:52
+#: plugins/editor/plugin.c:95
 msgid "Save _As ..."
 msgstr "Guardar _como ..."
 
-#: plugins/editor/plugin.c:53
+#: plugins/editor/plugin.c:96
 msgid "Save the current file with a different name"
 msgstr "Guarda el archivo actual con un nombre distinto"
 
-#: plugins/editor/plugin.c:55
+#: plugins/editor/plugin.c:98
 msgid "Save A_ll"
 msgstr "Guardar _todos"
 
-#: plugins/editor/plugin.c:56
+#: plugins/editor/plugin.c:99
 msgid "Save all currently open files, except new files"
 msgstr "Guarda todos los archivos abiertos, excepto los nuevos"
 
-#: plugins/editor/plugin.c:58
+#: plugins/editor/plugin.c:101
 msgid "_Close File"
 msgstr "_Cerrar archivo"
 
-#: plugins/editor/plugin.c:59 src/toolbar.c:92
+#: plugins/editor/plugin.c:102 src/toolbar.c:92
 msgid "Close current file"
 msgstr "Cierra el archivo actual"
 
-#: plugins/editor/plugin.c:61
+#: plugins/editor/plugin.c:104
 msgid "Close All Files"
 msgstr "Cerrar todos los archivos"
 
-#: plugins/editor/plugin.c:62
+#: plugins/editor/plugin.c:105
 msgid "Close all files"
 msgstr "Cierra todos los archivos"
 
-#: plugins/editor/plugin.c:64
+#: plugins/editor/plugin.c:107
 msgid "Reload F_ile"
 msgstr "Recargar arch_ivo"
 
-#: plugins/editor/plugin.c:65 src/toolbar.c:88
+#: plugins/editor/plugin.c:108 src/toolbar.c:88
 msgid "Reload current file"
 msgstr "Recargar archivo actual"
 
-#: plugins/editor/plugin.c:67
+#: plugins/editor/plugin.c:110
 msgid "Recent _Files"
 msgstr "_Archivos recientes"
 
-#: plugins/editor/plugin.c:71
+#: plugins/editor/plugin.c:114
 msgid "_Print"
 msgstr "Im_primir"
 
-#: plugins/editor/plugin.c:72 src/toolbar.c:110
+#: plugins/editor/plugin.c:115 src/toolbar.c:110
 msgid "Print the current file"
 msgstr "Imprimir el archivo actual"
 
-#: plugins/editor/plugin.c:73
+#: plugins/editor/plugin.c:116
 msgid "_Print Preview"
 msgstr "Vista _previa de la impresión"
 
-#: plugins/editor/plugin.c:74
+#: plugins/editor/plugin.c:117
 msgid "Print preview of the current file"
 msgstr "Previsualizar la impresión del archivo actual"
 
-#: plugins/editor/plugin.c:79
+#: plugins/editor/plugin.c:122
 msgid "_Transform"
 msgstr "_Transformar"
 
-#: plugins/editor/plugin.c:80
+#: plugins/editor/plugin.c:123
 msgid "_Make Selection Uppercase"
 msgstr "Convertir en _mayúsculas"
 
-#: plugins/editor/plugin.c:81
+#: plugins/editor/plugin.c:124
 msgid "Make the selected text uppercase"
 msgstr "Convierte el texto selecionado en mayúsculas"
 
-#: plugins/editor/plugin.c:83
+#: plugins/editor/plugin.c:126
 msgid "Make Selection Lowercase"
 msgstr "Convertir en minúsculas"
 
-#: plugins/editor/plugin.c:84
+#: plugins/editor/plugin.c:127
 msgid "Make the selected text lowercase"
 msgstr "Convierte el texto seleccionado en minúsculas"
 
-#: plugins/editor/plugin.c:86
+#: plugins/editor/plugin.c:129
 msgid "Convert EOL chars to CRLF"
 msgstr "Convertir EOL's a CRLF's"
 
-#: plugins/editor/plugin.c:87
+#: plugins/editor/plugin.c:130
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Convierte los caracteres de fin de línea a EOL tipo DOS (CRLF)"
 
-#: plugins/editor/plugin.c:89
+#: plugins/editor/plugin.c:132
 msgid "Convert EOL chars to LF"
 msgstr "Convertir EOL's a LF's"
 
-#: plugins/editor/plugin.c:90
+#: plugins/editor/plugin.c:133
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Convierte los caracteres de fin de línea a EOL tipo Unix (LF)"
 
-#: plugins/editor/plugin.c:92
+#: plugins/editor/plugin.c:135
 msgid "Convert EOL chars to CR"
 msgstr "Convertir EOL's a CR"
 
-#: plugins/editor/plugin.c:93
+#: plugins/editor/plugin.c:136
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Convierte los caracteres de fin de línea a EOL tipo Mac OS (CR)"
 
-#: plugins/editor/plugin.c:95
+#: plugins/editor/plugin.c:138
 msgid "Convert EOL chars to majority EOL"
 msgstr "Convertir caracteres EOL a mayoría de EOL"
 
-#: plugins/editor/plugin.c:96
+#: plugins/editor/plugin.c:139
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
+msgstr ""
+"Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
 
-#: plugins/editor/plugin.c:101
+#: plugins/editor/plugin.c:144
 msgid "_Select"
 msgstr "_Seleccionar"
 
-#: plugins/editor/plugin.c:102
+#: plugins/editor/plugin.c:145
 msgid "Select _All"
 msgstr "Seleccionar _todo"
 
-#: plugins/editor/plugin.c:103
+#: plugins/editor/plugin.c:146
 msgid "Select all text in the editor"
 msgstr "Selecciona todo el texto en el editor"
 
-#: plugins/editor/plugin.c:105
+#: plugins/editor/plugin.c:148
 msgid "Select to _Brace"
 msgstr "Selecionar hasta la _llave"
 
-#: plugins/editor/plugin.c:106
+#: plugins/editor/plugin.c:149
 msgid "Select the text in the matching braces"
 msgstr "Selecciona el texto entre los paréntesis o llaves"
 
-#: plugins/editor/plugin.c:108
+#: plugins/editor/plugin.c:151
 msgid "Select _Code Block"
 msgstr "Seleccionar _bloque de código"
 
-#: plugins/editor/plugin.c:110
+#: plugins/editor/plugin.c:153
 msgid "Select the current code block"
 msgstr "Selecciona el bloque de código actual"
 
-#: plugins/editor/plugin.c:115
+#: plugins/editor/plugin.c:158
 msgid "_Insert text"
 msgstr "_Insertar texto"
 
-#: plugins/editor/plugin.c:116
+#: plugins/editor/plugin.c:159
 msgid "C _template"
 msgstr "_Plantilla C"
 
-#: plugins/editor/plugin.c:117
+#: plugins/editor/plugin.c:160
 msgid "_CVS keyword"
 msgstr "Palabra clave _CVS"
 
-#: plugins/editor/plugin.c:118
+#: plugins/editor/plugin.c:161
 msgid "_General"
 msgstr "_General"
 
-#: plugins/editor/plugin.c:119 plugins/editor/plugin.c:161
+#: plugins/editor/plugin.c:162 plugins/editor/plugin.c:204
 msgid "_Header"
 msgstr "_Cabecera"
 
-#: plugins/editor/plugin.c:120
+#: plugins/editor/plugin.c:163
 msgid "Insert a file header"
 msgstr "Insertar una cabecera de archivo"
 
-#: plugins/editor/plugin.c:122
+#: plugins/editor/plugin.c:165
 msgid "/_* GPL Notice */"
 msgstr "/_* Preámbulo GPL */"
 
-#: plugins/editor/plugin.c:123
+#: plugins/editor/plugin.c:166
 msgid "Insert GPL notice with C style comments"
 msgstr "Insertar un preámbulo GPL con comentarios estilo C"
 
-#: plugins/editor/plugin.c:125
+#: plugins/editor/plugin.c:168
 msgid "/_/ GPL Notice"
 msgstr "/_/ Preámbulo GPL"
 
-#: plugins/editor/plugin.c:126
+#: plugins/editor/plugin.c:169
 msgid "Insert GPL notice with C++ style comments"
 msgstr "Insertar un preámbulo GPL con comentarios en estilo C++"
 
-#: plugins/editor/plugin.c:128
+#: plugins/editor/plugin.c:171
 msgid "_# GPL Notice"
 msgstr "_# Preámbulo GPL"
 
-#: plugins/editor/plugin.c:129
+#: plugins/editor/plugin.c:172
 msgid "Insert GPL notice with Python style comments"
 msgstr "Insertar preámbulo GPL con comentarios estilo Python"
 
-#: plugins/editor/plugin.c:131
+#: plugins/editor/plugin.c:174
 msgid "Current _Username"
 msgstr "Nombre de _usuario actual"
 
-#: plugins/editor/plugin.c:132
+#: plugins/editor/plugin.c:175
 msgid "Insert name of current user"
 msgstr "Insertar nombre de usuario actual"
 
-#: plugins/editor/plugin.c:134
+#: plugins/editor/plugin.c:177
 msgid "Current _Date & Time"
 msgstr "_Fecha y hora actuales"
 
-#: plugins/editor/plugin.c:135
+#: plugins/editor/plugin.c:178
 msgid "Insert current date & time"
 msgstr "Insertar fecha y hora actuales"
 
-#: plugins/editor/plugin.c:137
+#: plugins/editor/plugin.c:180
 msgid "Header File _Template"
 msgstr "Archivo de _plantilla de cabecera"
 
-#: plugins/editor/plugin.c:138
+#: plugins/editor/plugin.c:181
 msgid "Insert a standard header file template"
 msgstr "Insertar una plantilla de cabecera estándar"
 
-#: plugins/editor/plugin.c:140
+#: plugins/editor/plugin.c:183
 msgid "ChangeLog entry"
 msgstr "Entrada ChangeLog"
 
-#: plugins/editor/plugin.c:141
+#: plugins/editor/plugin.c:184
 msgid "Insert a ChangeLog entry"
 msgstr "Insertar una entrada ChangeLog"
 
-#: plugins/editor/plugin.c:143
+#: plugins/editor/plugin.c:186
 msgid "_switch"
 msgstr "_switch"
 
-#: plugins/editor/plugin.c:144
+#: plugins/editor/plugin.c:187
 msgid "Insert a switch template"
 msgstr "Insertar una plantilla switch"
 
-#: plugins/editor/plugin.c:146
+#: plugins/editor/plugin.c:189
 msgid "_for"
 msgstr "_for"
 
-#: plugins/editor/plugin.c:147
+#: plugins/editor/plugin.c:190
 msgid "Insert a for template"
 msgstr "Insertar una plantilla for"
 
-#: plugins/editor/plugin.c:149
+#: plugins/editor/plugin.c:192
 msgid "_while"
 msgstr "_while"
 
-#: plugins/editor/plugin.c:150
+#: plugins/editor/plugin.c:193
 msgid "Insert a while template"
 msgstr "Insertar una plantilla while"
 
-#: plugins/editor/plugin.c:152
+#: plugins/editor/plugin.c:195
 msgid "_if...else"
 msgstr "_if...else"
 
-#: plugins/editor/plugin.c:153
+#: plugins/editor/plugin.c:196
 msgid "Insert an if...else template"
 msgstr "Insertar una plantilla if...else"
 
-#: plugins/editor/plugin.c:155
+#: plugins/editor/plugin.c:198
 msgid "_Author"
 msgstr "_Autor"
 
-#: plugins/editor/plugin.c:156
+#: plugins/editor/plugin.c:199
 msgid "Insert the CVS Author keyword (author of the change)"
 msgstr "Insertar la palabra clave CVS Author (autor del cambio)"
 
-#: plugins/editor/plugin.c:158
+#: plugins/editor/plugin.c:201
 msgid "_Date"
 msgstr "_Fecha"
 
-#: plugins/editor/plugin.c:159
+#: plugins/editor/plugin.c:202
 msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "Insertar la palabra clave CVS Date (fecha y hora del cambio)"
 
-#: plugins/editor/plugin.c:162
+#: plugins/editor/plugin.c:205
 msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
 msgstr ""
 "Insertar la palabra clave CVS Header (ruta completa, revisión, fecha, autor, "
 "estado)"
 
-#: plugins/editor/plugin.c:164
+#: plugins/editor/plugin.c:207
 msgid "_Id"
 msgstr "_Id"
 
-#: plugins/editor/plugin.c:165
+#: plugins/editor/plugin.c:208
 msgid "Insert the CVS Id keyword (file revision, date, author)"
 msgstr "Insertar la palabra clave CVS Id (archivo, revisión, fecha, autor)"
 
-#: plugins/editor/plugin.c:167
+#: plugins/editor/plugin.c:210
 msgid "_Log"
 msgstr "_Registro"
 
-#: plugins/editor/plugin.c:168
+#: plugins/editor/plugin.c:211
 msgid "Insert the CVS Log keyword (log message)"
 msgstr "Insertar la palabra clave CVS Log (mensaje de registro)"
 
-#: plugins/editor/plugin.c:170
+#: plugins/editor/plugin.c:213
 msgid "_Name"
 msgstr "_Nombre"
 
-#: plugins/editor/plugin.c:171
+#: plugins/editor/plugin.c:214
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
 msgstr "Insertar la palabra clave CVS Name (nombre de la etiqueta adhesiva)"
 
-#: plugins/editor/plugin.c:173
+#: plugins/editor/plugin.c:216
 msgid "_Revision"
 msgstr "_Revisión"
 
-#: plugins/editor/plugin.c:174
+#: plugins/editor/plugin.c:217
 msgid "Insert the CVS Revision keyword (revision number)"
 msgstr "Inserta la palabra clave CVS Revision (número de revisión)"
 
-#: plugins/editor/plugin.c:176
+#: plugins/editor/plugin.c:219
 msgid "_Source"
 msgstr "_Origen"
 
-#: plugins/editor/plugin.c:177
+#: plugins/editor/plugin.c:220
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "Insertar la palabra clave CVS Source (ruta completa)"
 
-#: plugins/editor/plugin.c:182
+#: plugins/editor/plugin.c:225
 msgid "_Search"
 msgstr "_Buscar"
 
-#: plugins/editor/plugin.c:183
+#: plugins/editor/plugin.c:226
 msgid "_Find ..."
 msgstr "_Buscar ..."
 
-#: plugins/editor/plugin.c:184
+#: plugins/editor/plugin.c:227
 msgid "Search for a string or regular expression in the editor"
 msgstr "Buscar una cadena o expresión regular en el editor"
 
-#: plugins/editor/plugin.c:186
+#: plugins/editor/plugin.c:229
 msgid "Find _Next"
 msgstr "Buscar siguie_nte"
 
-#: plugins/editor/plugin.c:187 plugins/editor/plugin.c:191
+#: plugins/editor/plugin.c:230 plugins/editor/plugin.c:234
 msgid "Repeat the last Find command"
 msgstr "Repetir la última búsqueda"
 
-#: plugins/editor/plugin.c:189
+#: plugins/editor/plugin.c:232
 msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
-#: plugins/editor/plugin.c:193
+#: plugins/editor/plugin.c:236
 msgid "Find and R_eplace ..."
 msgstr "Buscar y r_eemplazar ..."
 
-#: plugins/editor/plugin.c:195
-msgid "Search for and replace a string or regular expression with another string"
+#: plugins/editor/plugin.c:238
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr "Buscar y reemplazar una cadena o expresión con otra cadena"
 
-#: plugins/editor/plugin.c:197
+#: plugins/editor/plugin.c:240
 msgid "Advanced Search And Replace"
 msgstr "Búsqueda y reemplazo avanzado"
 
-#: plugins/editor/plugin.c:199
+#: plugins/editor/plugin.c:242
 msgid "New advance search And replace stuff"
 msgstr "Nuevo material de búsqueda y reemplazo avanzado"
 
-#: plugins/editor/plugin.c:201
+#: plugins/editor/plugin.c:244
 msgid "_Enter Selection/I-Search"
 msgstr "_Introduzca selección/Búsqueda incremental"
 
-#: plugins/editor/plugin.c:203
+#: plugins/editor/plugin.c:246
 msgid "Enter the selected text as the search target"
 msgstr "Introduzca el texto seleccionado como objetivo de la búsqueda"
 
-#: plugins/editor/plugin.c:205
+#: plugins/editor/plugin.c:248
 msgid "Fin_d in Files ..."
 msgstr "_Buscar en archivos ..."
 
-#: plugins/editor/plugin.c:206
+#: plugins/editor/plugin.c:249
 msgid "Search for a string in multiple files or directories"
 msgstr "Buscar una cadena en múltiples archivos o directorios"
 
-#: plugins/editor/plugin.c:211
+#: plugins/editor/plugin.c:254
 msgid "Co_mment code"
 msgstr "Co_mentar código"
 
-#: plugins/editor/plugin.c:212
+#: plugins/editor/plugin.c:255
 msgid "_Block Comment/Uncomment"
 msgstr "Comentar/Descomentar en _bloque"
 
-#: plugins/editor/plugin.c:213
+#: plugins/editor/plugin.c:256
 msgid "Block comment the selected text"
 msgstr "Convertir la selección en un bloque de comentarios"
 
-#: plugins/editor/plugin.c:215
+#: plugins/editor/plugin.c:258
 msgid "Bo_x Comment/Uncomment"
 msgstr "Comentar/Descomentar en _caja"
 
-#: plugins/editor/plugin.c:216
+#: plugins/editor/plugin.c:259
 msgid "Box comment the selected text"
 msgstr "Convertir la selección en una caja de comentarios"
 
-#: plugins/editor/plugin.c:218
+#: plugins/editor/plugin.c:261
 msgid "_Stream Comment/Uncomment"
 msgstr "Comentar/Descomentar en _flujo"
 
-#: plugins/editor/plugin.c:219
+#: plugins/editor/plugin.c:262
 msgid "Stream comment the selected text"
 msgstr "Comentar el texto seleccionado en flujo"
 
-#: plugins/editor/plugin.c:224
+#: plugins/editor/plugin.c:267
 msgid "_Goto Line number"
 msgstr "_Ir a línea nº"
 
-#: plugins/editor/plugin.c:226 plugins/editor/plugin.c:230
+#: plugins/editor/plugin.c:269 plugins/editor/plugin.c:273
 msgid "Go to a particular line in the editor"
 msgstr "Ir a un número de línea en el editor"
 
-#: plugins/editor/plugin.c:228
+#: plugins/editor/plugin.c:271
 msgid "_Line number ..."
 msgstr "_Número de línea..."
 
-#: plugins/editor/plugin.c:232
+#: plugins/editor/plugin.c:275
 msgid "Matching _Brace"
 msgstr "Llave _compañera"
 
-#: plugins/editor/plugin.c:234
+#: plugins/editor/plugin.c:277
 msgid "Go to the matching brace in the editor"
 msgstr "Ir a la llave compañera en el editor"
 
-#: plugins/editor/plugin.c:236
+#: plugins/editor/plugin.c:279
 msgid "_Start of block"
 msgstr "_Principio de bloque"
 
-#: plugins/editor/plugin.c:238
+#: plugins/editor/plugin.c:281
 msgid "Go to the start of the current block"
 msgstr "Ir al principio del bloque de código actual"
 
-#: plugins/editor/plugin.c:240
+#: plugins/editor/plugin.c:283
 msgid "_End of block"
 msgstr "_Fin de bloque"
 
-#: plugins/editor/plugin.c:242
+#: plugins/editor/plugin.c:285
 msgid "Go to the end of the current block"
 msgstr "Ir al final del bloque de código actual"
 
-#: plugins/editor/plugin.c:244
+#: plugins/editor/plugin.c:287
 msgid "Ne_xt occurrence"
 msgstr "Aparición _siguiente"
 
-#: plugins/editor/plugin.c:246
+#: plugins/editor/plugin.c:289
 msgid "Find the next occurrence of current word"
 msgstr "Buscar la siguiente aparición de la palabra actual"
 
-#: plugins/editor/plugin.c:248
+#: plugins/editor/plugin.c:291
 msgid "Pre_vious occurrence"
 msgstr "Aparición _anterior"
 
-#: plugins/editor/plugin.c:250
+#: plugins/editor/plugin.c:293
 msgid "Find the previous occurrence of current word"
 msgstr "Buscar la aparición anterior de la palabra actual"
 
-#: plugins/editor/plugin.c:256
+#: plugins/editor/plugin.c:299
 msgid "_Editor"
 msgstr "_Editor"
 
-#: plugins/editor/plugin.c:257
+#: plugins/editor/plugin.c:300
 msgid "U_ndo"
 msgstr "Des_hacer"
 
-#: plugins/editor/plugin.c:258 src/toolbar.c:97
+#: plugins/editor/plugin.c:301 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Deshacer la última acción"
 
-#: plugins/editor/plugin.c:260
+#: plugins/editor/plugin.c:303
 msgid "_Redo"
 msgstr "_Rehacer"
 
-#: plugins/editor/plugin.c:261 src/toolbar.c:101
+#: plugins/editor/plugin.c:304 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Rehacer la última acción"
 
-#: plugins/editor/plugin.c:263
+#: plugins/editor/plugin.c:306
 msgid "C_ut"
 msgstr "C_ortar"
 
-#: plugins/editor/plugin.c:264
+#: plugins/editor/plugin.c:307
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Cortar la selección actual del editor al portapapeles"
 
-#: plugins/editor/plugin.c:266
+#: plugins/editor/plugin.c:309
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: plugins/editor/plugin.c:267
+#: plugins/editor/plugin.c:310
 msgid "Copy the selected text to the clipboard"
 msgstr "Copiar la selección actual del editor al portapapeles"
 
-#: plugins/editor/plugin.c:269
+#: plugins/editor/plugin.c:312
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: plugins/editor/plugin.c:270
+#: plugins/editor/plugin.c:313
 msgid "Paste the content of clipboard at the current position"
 msgstr "Pegar el contenido del portapapeles a la posición actual"
 
-#: plugins/editor/plugin.c:272
+#: plugins/editor/plugin.c:315
 msgid "_Clear"
 msgstr "_Limpiar"
 
-#: plugins/editor/plugin.c:273
+#: plugins/editor/plugin.c:316
 msgid "Delete the selected text from the editor"
 msgstr "Borrar la selección del editor"
 
-#: plugins/editor/plugin.c:275
+#: plugins/editor/plugin.c:318
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: plugins/editor/plugin.c:277
+#: plugins/editor/plugin.c:320
 msgid "AutoComplete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: plugins/editor/plugin.c:279
+#: plugins/editor/plugin.c:322
 msgid "S_how calltip"
 msgstr "Mostrar _forma se uso"
 
-#: plugins/editor/plugin.c:280
+#: plugins/editor/plugin.c:323
 msgid "Show calltip for the function"
 msgstr "Mostrar forma de uso para la función"
 
-#: plugins/editor/plugin.c:285
+#: plugins/editor/plugin.c:328
 msgid "_Line numbers margin"
 msgstr "Numeración de _líneas"
 
-#: plugins/editor/plugin.c:286
+#: plugins/editor/plugin.c:329
 msgid "Show/Hide line numbers"
 msgstr "Mostrar/Ocultar número de línea en el margen"
 
-#: plugins/editor/plugin.c:288
+#: plugins/editor/plugin.c:331
 msgid "_Markers Margin"
 msgstr "Marcadores de _margen"
 
-#: plugins/editor/plugin.c:289
+#: plugins/editor/plugin.c:332
 msgid "Show/Hide markers margin"
 msgstr "Mostrar/Ocultar marcadores de márgenes"
 
-#: plugins/editor/plugin.c:291
+#: plugins/editor/plugin.c:334
 msgid "_Code fold margin"
 msgstr "Margen de _código"
 
-#: plugins/editor/plugin.c:292
+#: plugins/editor/plugin.c:335
 msgid "Show/Hide code fold margin"
 msgstr "Mostrar/Ocultar margen de persiana de código"
 
-#: plugins/editor/plugin.c:294
+#: plugins/editor/plugin.c:337
 msgid "_Indentation guides"
 msgstr "Guías de _sangría"
 
-#: plugins/editor/plugin.c:295
+#: plugins/editor/plugin.c:338
 msgid "Show/Hide indentation guides"
 msgstr "Mostrar/Ocultar las guías de sangría"
 
-#: plugins/editor/plugin.c:297
+#: plugins/editor/plugin.c:340
 msgid "_White spaces"
 msgstr "_Espacios en blanco"
 
-#: plugins/editor/plugin.c:298
+#: plugins/editor/plugin.c:341
 msgid "Show/Hide white spaces"
 msgstr "Mostrar/Ocultar espacios en blanco"
 
-#: plugins/editor/plugin.c:300
+#: plugins/editor/plugin.c:343
 msgid "_Line end characters"
 msgstr "Mostrar fin de _línea"
 
-#: plugins/editor/plugin.c:301
+#: plugins/editor/plugin.c:344
 msgid "Show/Hide line end characters"
 msgstr "Mostrar/ocultar los caracteres de fin de línea"
 
-#: plugins/editor/plugin.c:303
+#: plugins/editor/plugin.c:346
 msgid "Line _wrapping"
 msgstr "_Ajuste de línea"
 
-#: plugins/editor/plugin.c:304
+#: plugins/editor/plugin.c:347
 msgid "Enable/disable line wrapping"
 msgstr "Activar/desactivar ajuste de línea"
 
-#: plugins/editor/plugin.c:309
+#: plugins/editor/plugin.c:352
 msgid "Zoom in"
 msgstr "Ampliar"
 
-#: plugins/editor/plugin.c:310
+#: plugins/editor/plugin.c:353
 msgid "Zoom in: Increase font size"
 msgstr "Ampliar: Incremantar el tamaño de la letra"
 
-#: plugins/editor/plugin.c:312
+#: plugins/editor/plugin.c:355
 msgid "Zoom out"
 msgstr "_Reducir"
 
-#: plugins/editor/plugin.c:313
+#: plugins/editor/plugin.c:356
 msgid "Zoom out: Decrease font size"
 msgstr "Reducir: Reducir el tamaño de la letra"
 
-#: plugins/editor/plugin.c:318
+#: plugins/editor/plugin.c:361
 msgid "Force _Highlight Style"
 msgstr "Forzar estilo de _resaltado"
 
-#: plugins/editor/plugin.c:320
+#: plugins/editor/plugin.c:363
 msgid "Automatic"
 msgstr "Automático"
 
-#: plugins/editor/plugin.c:321
+#: plugins/editor/plugin.c:364
 msgid "Automatically determine the highlight style"
 msgstr "Determinar automáticamente el estilo resaltado de sintaxis"
 
-#: plugins/editor/plugin.c:323
+#: plugins/editor/plugin.c:366
 msgid "No Highlight style"
 msgstr "Sin estilo de resaltado"
 
-#: plugins/editor/plugin.c:324
+#: plugins/editor/plugin.c:367
 msgid "Remove the current highlight style"
 msgstr "Quitar el estilo actual de resaltado"
 
-#: plugins/editor/plugin.c:326
+#: plugins/editor/plugin.c:369
 msgid "C and C++"
 msgstr "C y C++"
 
-#: plugins/editor/plugin.c:327
+#: plugins/editor/plugin.c:370
 msgid "Force the highlight style to C and C++"
 msgstr "Forzar el estilo a C y C++"
 
-#: plugins/editor/plugin.c:329
+#: plugins/editor/plugin.c:372
 msgid "HTML"
 msgstr "HTML"
 
-#: plugins/editor/plugin.c:330
+#: plugins/editor/plugin.c:373
 msgid "Force the highlight style to HTML"
 msgstr "Forzar el estilo a HTML"
 
-#: plugins/editor/plugin.c:332
+#: plugins/editor/plugin.c:375
 msgid "XML"
 msgstr "XML"
 
-#: plugins/editor/plugin.c:333
+#: plugins/editor/plugin.c:376
 msgid "Force the highlight style to XML"
 msgstr "Forzar el estilo a XML"
 
-#: plugins/editor/plugin.c:335
+#: plugins/editor/plugin.c:378
 msgid "Javascript"
 msgstr "Javascript"
 
-#: plugins/editor/plugin.c:336
+#: plugins/editor/plugin.c:379
 msgid "Force the highlight style to Javascript"
 msgstr "Forzar el estilo a Javascript"
 
-#: plugins/editor/plugin.c:338
+#: plugins/editor/plugin.c:381
 msgid "WScript"
 msgstr "WScript"
 
-#: plugins/editor/plugin.c:339
+#: plugins/editor/plugin.c:382
 msgid "Force the highlight style to WScript"
 msgstr "Forzar el estilo a WScript"
 
-#: plugins/editor/plugin.c:341
+#: plugins/editor/plugin.c:384
 msgid "Makefile"
 msgstr "Makefile"
 
-#: plugins/editor/plugin.c:342
+#: plugins/editor/plugin.c:385
 msgid "Force the highlight style to Makefile"
 msgstr "Forzar el estilo a Makefile"
 
-#: plugins/editor/plugin.c:344
+#: plugins/editor/plugin.c:387
 msgid "Java"
 msgstr "Java"
 
-#: plugins/editor/plugin.c:345
+#: plugins/editor/plugin.c:388
 msgid "Force the highlight type to Java"
 msgstr "Forzar el estilo a Java"
 
-#: plugins/editor/plugin.c:347
+#: plugins/editor/plugin.c:390
 msgid "LUA"
 msgstr "LUA"
 
-#: plugins/editor/plugin.c:348
+#: plugins/editor/plugin.c:391
 msgid "Force the highlight style to LUA"
 msgstr "Forzar el estilo a LUA"
 
-#: plugins/editor/plugin.c:350
+#: plugins/editor/plugin.c:393
 msgid "Python"
 msgstr "Python"
 
-#: plugins/editor/plugin.c:351
+#: plugins/editor/plugin.c:394
 msgid "Force the highlight style to Python"
 msgstr "Forzar el estilo a Python"
 
-#: plugins/editor/plugin.c:353
+#: plugins/editor/plugin.c:396
 msgid "Perl"
 msgstr "Perl"
 
-#: plugins/editor/plugin.c:354
+#: plugins/editor/plugin.c:397
 msgid "Force the highlight style to Perl"
 msgstr "Forzar el estilo a Perl"
 
-#: plugins/editor/plugin.c:356
+#: plugins/editor/plugin.c:399
 msgid "SQL"
 msgstr "SQL"
 
-#: plugins/editor/plugin.c:357
+#: plugins/editor/plugin.c:400
 msgid "Force the highlight style to SQL"
 msgstr "Forzar el estilo a SQL"
 
-#: plugins/editor/plugin.c:359
+#: plugins/editor/plugin.c:402
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: plugins/editor/plugin.c:360
+#: plugins/editor/plugin.c:403
 msgid "Force the highlight style to PL/SQL"
 msgstr "Forzar el estilo a PL/SQL"
 
-#: plugins/editor/plugin.c:362
+#: plugins/editor/plugin.c:405
 msgid "PHP"
 msgstr "PHP"
 
-#: plugins/editor/plugin.c:363
+#: plugins/editor/plugin.c:406
 msgid "Force the highlight style to PHP"
 msgstr "Forzar el estilo de resaltado a PHP"
 
-#: plugins/editor/plugin.c:365
+#: plugins/editor/plugin.c:408
 msgid "LaTex"
 msgstr "LaTex"
 
-#: plugins/editor/plugin.c:366
+#: plugins/editor/plugin.c:409
 msgid "Force the highlight style to LaTex"
 msgstr "Forzar el estilo a LaTex"
 
-#: plugins/editor/plugin.c:369
+#: plugins/editor/plugin.c:412
 msgid "Force the highlight style to Diff"
 msgstr "Forzar el estilo a Diff"
 
-#: plugins/editor/plugin.c:371
+#: plugins/editor/plugin.c:414
 msgid "Pascal"
 msgstr "Pascal"
 
-#: plugins/editor/plugin.c:372
+#: plugins/editor/plugin.c:415
 msgid "Force the highlight style to Pascal"
 msgstr "Forzar el estilo a Pascal"
 
-#: plugins/editor/plugin.c:374
+#: plugins/editor/plugin.c:417
 msgid "Xcode"
 msgstr "Xcode"
 
-#: plugins/editor/plugin.c:375
+#: plugins/editor/plugin.c:418
 msgid "Force the highlight style to Xcode"
 msgstr "Forzar el estilo de resaltado a Xcode"
 
-#: plugins/editor/plugin.c:377
+#: plugins/editor/plugin.c:420
 msgid "Prj/Properties"
 msgstr "Pry/Propiedades"
 
-#: plugins/editor/plugin.c:378
+#: plugins/editor/plugin.c:421
 msgid "Force the highlight style to project/properties files"
 msgstr "Forzar el estilo a archivos de proyecto/propiedades"
 
-#: plugins/editor/plugin.c:380
+#: plugins/editor/plugin.c:423
 msgid "Conf"
 msgstr "Conf"
 
-#: plugins/editor/plugin.c:381
+#: plugins/editor/plugin.c:424
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Forzar el estilo a archivos conf de UNIX"
 
-#: plugins/editor/plugin.c:383
+#: plugins/editor/plugin.c:426
 msgid "Ada"
 msgstr "Ada"
 
-#: plugins/editor/plugin.c:384
+#: plugins/editor/plugin.c:427
 msgid "Force the highlight style to Ada"
 msgstr "Forzar el estilo a Ada"
 
-#: plugins/editor/plugin.c:386
+#: plugins/editor/plugin.c:429
 msgid "Baan"
 msgstr "Baan"
 
-#: plugins/editor/plugin.c:387
+#: plugins/editor/plugin.c:430
 msgid "Force the highlight style to Baan"
 msgstr "Forzar el estilo a Baan"
 
-#: plugins/editor/plugin.c:389
+#: plugins/editor/plugin.c:432
 msgid "Lisp"
 msgstr "Lisp"
 
-#: plugins/editor/plugin.c:390
+#: plugins/editor/plugin.c:433
 msgid "Force the highlight style to Lisp"
 msgstr "Forzar el estilo de resaltado a Lisp"
 
-#: plugins/editor/plugin.c:392
+#: plugins/editor/plugin.c:435
 msgid "Ruby"
 msgstr "Ruby"
 
-#: plugins/editor/plugin.c:393
+#: plugins/editor/plugin.c:436
 msgid "Force the highlight style to Ruby"
 msgstr "Forzar el estilo de resaltado a Ruby"
 
-#: plugins/editor/plugin.c:395
+#: plugins/editor/plugin.c:438
 msgid "Matlab"
 msgstr "Matlab"
 
-#: plugins/editor/plugin.c:396
+#: plugins/editor/plugin.c:439
 msgid "Force the highlight style to Matlab"
 msgstr "Forzar el estilo de resaltado a Matlab"
 
-#: plugins/editor/plugin.c:401
+#: plugins/editor/plugin.c:444
 msgid "For_mat"
 msgstr "For_mato"
 
-#: plugins/editor/plugin.c:402
+#: plugins/editor/plugin.c:445
 msgid "Auto _Format"
 msgstr "Auto _Formato"
 
-#: plugins/editor/plugin.c:404
+#: plugins/editor/plugin.c:447
 msgid "Autoformat the current source file"
 msgstr "Autoformatear el archivo fuente actual"
 
-#: plugins/editor/plugin.c:406
+#: plugins/editor/plugin.c:449
 msgid "Autoformat _settings"
 msgstr "Configuración de autoformateado ..."
 
-#: plugins/editor/plugin.c:408
+#: plugins/editor/plugin.c:451
 msgid "Autoformat settings"
 msgstr "Configuración de autoformateado"
 
-#: plugins/editor/plugin.c:410
+#: plugins/editor/plugin.c:453
 msgid "_Increase Indent"
 msgstr "_Incrementar sangría"
 
-#: plugins/editor/plugin.c:412
+#: plugins/editor/plugin.c:455
 msgid "Increase indentation of line/selection"
 msgstr "Aumentar sangría de línea/selección"
 
-#: plugins/editor/plugin.c:414
+#: plugins/editor/plugin.c:457
 msgid "_Decrease Indent"
 msgstr "Re_ducir sangría"
 
-#: plugins/editor/plugin.c:416
+#: plugins/editor/plugin.c:459
 msgid "Decrease indentation of line/selection"
 msgstr "Reducir sangría de línea/selección"
 
-#: plugins/editor/plugin.c:418
+#: plugins/editor/plugin.c:461
 msgid "_Close All Folds"
 msgstr "_Cerrar todos los pliegues"
 
-#: plugins/editor/plugin.c:420
+#: plugins/editor/plugin.c:463
 msgid "Close all code folds in the editor"
 msgstr "Cerrar todos los pliegues en el editor"
 
-#: plugins/editor/plugin.c:422
+#: plugins/editor/plugin.c:465
 msgid "_Open All Folds"
 msgstr "_Abrir todos los pliegues"
 
-#: plugins/editor/plugin.c:424
+#: plugins/editor/plugin.c:467
 msgid "Open all code folds in the editor"
 msgstr "Abrir todos los pliegues de código en el editor"
 
-#: plugins/editor/plugin.c:426
+#: plugins/editor/plugin.c:469
 msgid "_Toggle Current Fold"
 msgstr "Al_ternar pliegue actual"
 
-#: plugins/editor/plugin.c:428
+#: plugins/editor/plugin.c:471
 msgid "Toggle current code fold in the editor"
 msgstr "Alternar pliegue actual del código en el editor"
 
-#: plugins/editor/plugin.c:430
+#: plugins/editor/plugin.c:473
 msgid "D_etach Current Document"
 msgstr "_Separar documento actual"
 
-#: plugins/editor/plugin.c:432
+#: plugins/editor/plugin.c:475
 msgid "Detach the current document into a separate editor window"
 msgstr "Desacoplar el documento actual en una ventana de edición independiente"
 
-#: plugins/editor/plugin.c:437
+#: plugins/editor/plugin.c:480
 msgid "Bookmar_k"
 msgstr "Ma_rcador"
 
-#: plugins/editor/plugin.c:438
+#: plugins/editor/plugin.c:481
 msgid "_Toggle bookmark"
 msgstr "Al_ternar marcador"
 
-#: plugins/editor/plugin.c:440
+#: plugins/editor/plugin.c:483
 msgid "Toggle a bookmark at the current line position"
 msgstr "Activar un marcador en la posición de línea actual"
 
-#: plugins/editor/plugin.c:442
+#: plugins/editor/plugin.c:485
 msgid "_First bookmark"
 msgstr "_Primer marcador"
 
-#: plugins/editor/plugin.c:444
+#: plugins/editor/plugin.c:487
 msgid "Jump to the first bookmark in the file"
 msgstr "Ir al primer marcador en este documento"
 
-#: plugins/editor/plugin.c:446
+#: plugins/editor/plugin.c:489
 msgid "_Previous bookmark"
 msgstr "Marcador _anterior"
 
-#: plugins/editor/plugin.c:448
+#: plugins/editor/plugin.c:491
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ir al marcador anterior en este documento"
 
-#: plugins/editor/plugin.c:450
+#: plugins/editor/plugin.c:493
 msgid "_Next bookmark"
 msgstr "Marcador _siguiente"
 
-#: plugins/editor/plugin.c:452
+#: plugins/editor/plugin.c:495
 msgid "Jump to the next bookmark in the file"
 msgstr "Ir al siguiente marcador en este documento"
 
-#: plugins/editor/plugin.c:454
+#: plugins/editor/plugin.c:497
 msgid "_Last bookmark"
 msgstr "Ú_ltimo marcador"
 
-#: plugins/editor/plugin.c:456
+#: plugins/editor/plugin.c:499
 msgid "Jump to the last bookmark in the file"
 msgstr "Ir al último marcador en el documento"
 
-#: plugins/editor/plugin.c:458
+#: plugins/editor/plugin.c:501
 msgid "_Clear all bookmarks"
 msgstr "Li_mpiar todos los marcadores"
 
-#: plugins/editor/plugin.c:460
+#: plugins/editor/plugin.c:503
 msgid "Clear bookmarks"
 msgstr "Despejar marcadores"
 
-#: plugins/editor/plugin.c:479
+#: plugins/editor/plugin.c:522
 msgid "Editor file operations"
 msgstr "Operaciones de edición de archivos"
 
-#: plugins/editor/plugin.c:480
+#: plugins/editor/plugin.c:523
 msgid "Editor print operations"
 msgstr "Operaciones de edición de impresión"
 
-#: plugins/editor/plugin.c:481
+#: plugins/editor/plugin.c:524
 msgid "Editor text transformation"
 msgstr "Transformación del editor de texto"
 
-#: plugins/editor/plugin.c:482
+#: plugins/editor/plugin.c:525
 msgid "Editor text selection"
 msgstr "Selección del editor de texto"
 
-#: plugins/editor/plugin.c:483
+#: plugins/editor/plugin.c:526
 msgid "Editor text insertions"
 msgstr "Inserciones del editor de texto"
 
-#: plugins/editor/plugin.c:484
+#: plugins/editor/plugin.c:527
 msgid "Editor text searching"
 msgstr "Búsqueda del esitor de texto"
 
-#: plugins/editor/plugin.c:485
+#: plugins/editor/plugin.c:528
 msgid "Editor code commenting"
 msgstr "Comentarios del código del editor"
 
-#: plugins/editor/plugin.c:486
+#: plugins/editor/plugin.c:529
 msgid "Editor navigations"
 msgstr "Navegación con el editor"
 
-#: plugins/editor/plugin.c:487
+#: plugins/editor/plugin.c:530
 msgid "Editor edit operations"
 msgstr "Operaciones de edición del editor"
 
-#: plugins/editor/plugin.c:488
+#: plugins/editor/plugin.c:531
 msgid "Editor zoom operations"
 msgstr "Operaciones de ampliación del editor"
 
-#: plugins/editor/plugin.c:489
+#: plugins/editor/plugin.c:532
 msgid "Editor syntax highlighting styles"
 msgstr "Estilos de resaltado de sintaxis del editor"
 
-#: plugins/editor/plugin.c:490
+#: plugins/editor/plugin.c:533
 msgid "Editor text formating"
 msgstr "Formateado del texto del editor"
 
-#: plugins/editor/plugin.c:491
+#: plugins/editor/plugin.c:534
 msgid "Editor bookmarks"
 msgstr "Marcadores del editor"
 
-#: plugins/editor/plugin.c:495
+#: plugins/editor/plugin.c:538
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: plugins/editor/plugin.c:627
+#: plugins/editor/plugin.c:710
 msgid "Goto line"
 msgstr "Ir a línea"
 
-#: plugins/editor/plugin.c:628
+#: plugins/editor/plugin.c:711
 msgid "Enter the line number to jump and press enter"
 msgstr "Introduzca el número de línea al que desea saltar y pulse intro"
 
-#: plugins/editor/plugin.c:639
+#: plugins/editor/plugin.c:722
 msgid "Incremental search"
 msgstr "Búsqueda incremental"
 
-#: plugins/editor/plugin.c:655
+#: plugins/editor/plugin.c:738
 msgid "Editor quick navigations"
 msgstr "Navegación rápida con el editor"
 
-#: plugins/editor/plugin.c:659
-msgid "Documents"
-msgstr "Documentos"
-
-#: plugins/editor/print.c:486
+#: plugins/editor/print.c:485
 msgid "No file to print!"
 msgstr "No hay archivo para imprimir."
 
-#: plugins/editor/print.c:509
+#: plugins/editor/print.c:508
 msgid "Unable to get text buffer for printing"
 msgstr "No se puede obtener un búfer de texto para imprimir"
 
-#: plugins/editor/print.c:763
+#: plugins/editor/print.c:762
 #, c-format
 msgid "File: %s"
 msgstr "Archivo: %s"
 
-#: plugins/editor/print.c:764
+#: plugins/editor/print.c:763
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: plugins/editor/print.c:876
+#: plugins/editor/print.c:875
 msgid "Printing .."
 msgstr "Imprimir ..."
 
-#: plugins/editor/print.c:888
+#: plugins/editor/print.c:887
 msgid "Printing ..."
 msgstr "Imprimir ..."
 
-#: plugins/editor/print.c:1044 src/anjuta_info.c:127
-msgid "Lines"
-msgstr "Líneas"
-
-#: plugins/editor/print.c:1071
+#: plugins/editor/print.c:1070
 msgid "Print Preview"
 msgstr "Previsualización de la impresión"
 
@@ -4075,8 +4469,8 @@ msgstr "Reemplazar todo"
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
-"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde el principio del "
-"documento?"
+"No se ha encontrado ninguna coincidencia con «%s». ¿Quiere continuar desde "
+"el principio del documento?"
 
 #: plugins/editor/search-replace.c:779
 #, c-format
@@ -4096,23 +4490,24 @@ msgstr "Se han reemplazado %d coincidencias."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo compilar el interfaz de usuario para «Buscar y reemplazar»"
 
-#: plugins/editor/text_editor.c:897
+#: plugins/editor/text_editor.c:896
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
-#: plugins/editor/text_editor.c:905
+#: plugins/editor/text_editor.c:904
 msgid "This file is too big. Unable to allocate memory."
-msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr ""
+"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: plugins/editor/text_editor.c:912
+#: plugins/editor/text_editor.c:911
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo para escritura"
 
-#: plugins/editor/text_editor.c:920
+#: plugins/editor/text_editor.c:919
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: plugins/editor/text_editor.c:957
+#: plugins/editor/text_editor.c:956
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4122,7 +4517,7 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo está soportada  "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: plugins/editor/text_editor.c:1129
+#: plugins/editor/text_editor.c:1128
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4133,12 +4528,12 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: plugins/editor/text_editor.c:1173
+#: plugins/editor/text_editor.c:1172
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No se puede guardar: %s."
 
-#: plugins/editor/text_editor.c:1316
+#: plugins/editor/text_editor.c:1315
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4149,21 +4544,21 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: plugins/editor/text_editor.c:1490
+#: plugins/editor/text_editor.c:1489
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Autoformato desactivado. Si lo desea, actívelo en Preferencias."
 
-#: plugins/editor/text_editor.c:1509
+#: plugins/editor/text_editor.c:1508
 msgid "Error in auto formatting ..."
 msgstr "Error al autoformatear ..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1525
+#: plugins/editor/text_editor.c:1524
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta no sabe %s"
 
-#: plugins/editor/text_editor.c:1550
+#: plugins/editor/text_editor.c:1549
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4180,10 +4575,6 @@ msgstr "Falló autoguardar «%s»"
 #: plugins/editor/text_editor_menu.c:79
 msgid "Back"
 msgstr "Atrás"
-
-#: plugins/editor/text_editor_menu.c:86
-msgid "Forward"
-msgstr "Adelante"
 
 #: plugins/editor/text_editor_menu.c:95
 msgid "Tag Definition"
@@ -4322,114 +4713,171 @@ msgstr "Cerrar"
 #. 4
 #. 5
 #: plugins/editor/text_editor_menu.c:357
-#: plugins/file-manager/an_file_view.c:387
+#: plugins/file-manager/an_file_view.c:400
 msgid "Docked"
 msgstr "Empotrado"
 
+#: plugins/file-loader/plugin.c:98
+msgid "_Open ..."
+msgstr "_Abrir ..."
+
+#: plugins/file-loader/plugin.c:115
+msgid "File Loader"
+msgstr "Cargador de archivos"
+
+#: plugins/file-loader/plugin.c:191
+msgid "Available Plugins"
+msgstr "Complementos disponibles"
+
+#: plugins/file-loader/plugin.c:205 plugins/file-manager/an_file_view.c:881
+msgid "Rev"
+msgstr "Rev"
+
 #. 0
-#: plugins/file-manager/an_file_view.c:306
+#: plugins/file-manager/an_file_view.c:319
 msgid "Update file"
 msgstr "Actualizar archivo"
 
-#: plugins/file-manager/an_file_view.c:307
+#: plugins/file-manager/an_file_view.c:320
 msgid "Update current working copy"
 msgstr "Actualizar la copia de trabajo actual"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:313
+#: plugins/file-manager/an_file_view.c:326
 msgid "Commit file"
 msgstr "Efectuar cambios en el archivo"
 
-#: plugins/file-manager/an_file_view.c:314
+#: plugins/file-manager/an_file_view.c:327
 msgid "Commit changes to the repository"
 msgstr "Efectuar cambios al repositorio"
 
 #. 2
-#: plugins/file-manager/an_file_view.c:320
+#: plugins/file-manager/an_file_view.c:333
 msgid "Status of file"
 msgstr "Estado del archivo"
 
-#: plugins/file-manager/an_file_view.c:321
+#: plugins/file-manager/an_file_view.c:334
 msgid "Print the status of the current file"
 msgstr "Imprimir el estado del archivo actual"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:327
+#: plugins/file-manager/an_file_view.c:340
 msgid "Get file log"
 msgstr "Obtener archivo de bitácora"
 
-#: plugins/file-manager/an_file_view.c:328
+#: plugins/file-manager/an_file_view.c:341
 msgid "Print the CVS log for the current file"
 msgstr "Imprimir la bitácora del CVS para el archivo actual"
 
 #. 4
-#: plugins/file-manager/an_file_view.c:334
+#: plugins/file-manager/an_file_view.c:347
 msgid "Add file"
 msgstr "Añadir archivo"
 
-#: plugins/file-manager/an_file_view.c:335
+#: plugins/file-manager/an_file_view.c:348
 msgid "Add the current file to the repository"
 msgstr "Añadir el archivo actual al repositorio"
 
 #. 5
-#: plugins/file-manager/an_file_view.c:341
+#: plugins/file-manager/an_file_view.c:354
 msgid "Remove file"
 msgstr "Eliminar archivo"
 
-#: plugins/file-manager/an_file_view.c:342
+#: plugins/file-manager/an_file_view.c:355
 msgid "Remove the current file from the repository"
 msgstr "Eliminar el archivo actual del repositorio"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:348
+#: plugins/file-manager/an_file_view.c:361
 msgid "Diff file"
 msgstr "Archivo diff"
 
-#: plugins/file-manager/an_file_view.c:349
+#: plugins/file-manager/an_file_view.c:362
 msgid "Create a diff between the working copy and the repository"
-msgstr "Crear un archivo de diferencias entre la copia de trabajo y el repositorio"
+msgstr ""
+"Crear un archivo de diferencias entre la copia de trabajo y el repositorio"
 
 #. 0
 #. 2
-#: plugins/file-manager/an_file_view.c:358
+#: plugins/file-manager/an_file_view.c:371
 #: plugins/project-manager/project_dbase_gui.c:317
 msgid "Open in Anjuta"
 msgstr "Abrir en Anjuta"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:365
+#: plugins/file-manager/an_file_view.c:378
 #: plugins/project-manager/project_dbase_gui.c:311
 msgid "Open in default viewer"
 msgstr "Ver en visualizador predeterminado"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:379
+#: plugins/file-manager/an_file_view.c:392
 #: plugins/symbol-browser/an_symbol_view.c:303
 msgid "Refresh"
 msgstr "Recargar"
 
-#: plugins/file-manager/an_file_view.c:388
+#: plugins/file-manager/an_file_view.c:401
 msgid "Dock/Undock the Project Window"
 msgstr "Empotrar/Desempotrar la ventana del proyecto"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:394
+#: plugins/file-manager/an_file_view.c:407
 msgid "Customize"
 msgstr "Personalizar"
 
-#: plugins/file-manager/an_file_view.c:395
+#: plugins/file-manager/an_file_view.c:408
 msgid "Customize the file browser"
 msgstr "Personalizar el explorador de archivos"
 
-#: plugins/file-manager/an_file_view.c:675
-#: plugins/file-manager/an_file_view.c:787
-#: plugins/file-manager/an_file_view.c:1008
+#: plugins/file-manager/an_file_view.c:688
+#: plugins/file-manager/an_file_view.c:800
+#: plugins/file-manager/an_file_view.c:1021
 msgid "Loading ..."
 msgstr "Cargando..."
 
-#: plugins/file-manager/an_file_view.c:868
-msgid "Rev"
-msgstr "Rev"
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
+msgid "<b>Directory filter:</b>"
+msgstr "<b>Filtro de directorios:</b>"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
+msgid "<b>File filter:</b>"
+msgstr "<b>Filtro de archivos:</b>"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
+msgid "<b>Root directory if no project is open:</b>"
+msgstr "<b>Directorio raíz si no hay un proyecto abierto:</b>"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
+msgid "Choose directories"
+msgstr "Elija directorios"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
+msgid "Choose files"
+msgstr "Elija archivos"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
+msgid "Directory "
+msgstr "Directorio"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+msgid "Do not show hidden directories"
+msgstr "No mostrar directorios ocultos"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+msgid "Do not show hidden files"
+msgstr "No mostrar los archivos ocultos"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+msgid "Ignore directories"
+msgstr "Ignorar directorios"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+msgid "Ignore files"
+msgstr "Ignorar archivos"
+
+#: plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+msgid "dialog3"
+msgstr "diálogo3"
 
 #: plugins/file-manager/plugin.c:45
 msgid "_Refresh"
@@ -4443,67 +4891,123 @@ msgstr "Refrescar el árbol del administrador de archivos"
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: plugins/launcher/launcher.c:583 src/launcher.c:582
-msgid "launcher.c: Error while reading child stdout\n"
-msgstr "launcher.c: error al leer stdout hija \n"
-
-#: plugins/launcher/launcher.c:595 src/launcher.c:594
-msgid "launcher.c: STDOUT pipe closed"
-msgstr "launcher.c: pipe STDOUT cerrado"
-
-#: plugins/launcher/launcher.c:631 src/launcher.c:630
-msgid "launcher.c: Error while reading child stderr"
-msgstr "launcher.c: error al leer stderr hija"
-
-#: plugins/launcher/launcher.c:643 src/launcher.c:642
-msgid "launcher.c: STDERR pipe closed"
-msgstr "launcher.c: pipe STDERR cerrado"
-
-#: plugins/launcher/launcher.c:684 src/launcher.c:683
-msgid "launcher.c: Error while reading child pty\n"
-msgstr "launcher.c: error al leer pty hija\n"
-
-#: plugins/launcher/launcher.c:702 src/launcher.c:701
-msgid "launcher.c: PTY pipe error!"
-msgstr "launcher.c: Error en pipe PTY."
-
-#: plugins/launcher/launcher.c:804 src/launcher.c:803
-msgid "launcher.c: Failed to set channel encoding!"
-msgstr "launcher.c: Falló al establecer la codificación del canal."
+#: plugins/file-manager/plugin.c:87
+msgid "Files"
+msgstr "Archivos"
 
 #: plugins/launcher/launcher.c:854 src/launcher.c:853
 msgid "Cannot execute command shell"
 msgstr "No se puede ejecutar el comando del shell"
 
-#: plugins/message-view/message-view.c:273
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:1
+msgid "<b>Indicators</b>"
+msgstr "<b>Indicadores</b>"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:2
+msgid "<b>Message colors</b>"
+msgstr "<b>Colores de los mensajes</b>"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:3
+msgid "<b>Messages options</b>"
+msgstr "<b>Opciones de mensajes</b>"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:5
+msgid "Diagonal"
+msgstr "Diagonal"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:6
+msgid "Enable automatic messages indicators"
+msgstr "Activar indicadores automáticos de mensajes"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:7
+msgid "Error message indicator style:"
+msgstr "Estilo de indicador de mensaje de error:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:8
+msgid "Errors messages:"
+msgstr "Mensajes de error:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:10
+msgid "Normal message indicator style:"
+msgstr "Estilo de indicador de mensaje normal:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:11
+msgid "Normal messages:"
+msgstr "Mensajes normales:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:12
+msgid "Number of first characters to show:"
+msgstr "Número de caracteres iniciales a mostrar:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:13
+msgid "Number of last characters to show:"
+msgstr "Número de caracteres finales a mostrar:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:14
+msgid "Other messages:"
+msgstr "Otros mensajes:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:17
+msgid "Strike-Out"
+msgstr "Tachar"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:18
+msgid "Tabs position:"
+msgstr "Posición de las solapas:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:20
+msgid "Truncate long messages"
+msgstr "Truncar mensajes largos"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:21
+msgid "Underline Plain"
+msgstr "Subrayado plano"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:22
+msgid "Underline Squiggle"
+msgstr "Subrayado irregular"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:23
+msgid "Underline-TT"
+msgstr "Subrayado-TT"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:24
+msgid "Warning message indicator style:"
+msgstr "Estilo de indicador de mensaje de advertencia:"
+
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:25
+msgid "Warnings messages:"
+msgstr "Mensajes de advertencia:"
+
+#: plugins/message-view/message-view.c:315
 msgid "error:"
 msgstr "error:"
 
-#: plugins/message-view/message-view.c:275
+#: plugins/message-view/message-view.c:317
 msgid "warning:"
 msgstr "aviso:"
 
-#: plugins/message-view/plugin.c:45
+#: plugins/message-view/plugin.c:55
 msgid "_Next message"
 msgstr "Mensaje siguie_nte"
 
-#: plugins/message-view/plugin.c:46
+#: plugins/message-view/plugin.c:56
 msgid "Next message"
 msgstr "Mensaje siguiente"
 
-#: plugins/message-view/plugin.c:49
+#: plugins/message-view/plugin.c:59
 msgid "_Previous message"
 msgstr "Mensaje anterior"
 
-#: plugins/message-view/plugin.c:50
+#: plugins/message-view/plugin.c:60
 msgid "Previous message"
 msgstr "Mensaje anterior"
 
-#: plugins/message-view/plugin.c:74
+#: plugins/message-view/plugin.c:114
 msgid "Next/Prev Message"
 msgstr "Siguiente/anterior mensaje"
 
-#: plugins/message-view/plugin.c:86 src/toolbar.c:154
+#: plugins/message-view/plugin.c:126 src/toolbar.c:154
 msgid "Messages"
 msgstr "Mensajes"
 
@@ -5064,7 +5568,8 @@ msgstr "Importar proyecto terminó...correctamente"
 
 #: plugins/project-manager/project_import.c:206
 msgid "Could not import Project: no project file found!"
-msgstr "No se puede importar el proyecto: No se encontró el archivo del proyecto."
+msgstr ""
+"No se puede importar el proyecto: No se encontró el archivo del proyecto."
 
 #: plugins/project-manager/project_import.c:213
 msgid "Opening Project...please wait"
@@ -5506,7 +6011,23 @@ msgstr "Declaración goto"
 msgid "Symbol"
 msgstr "Símbolo"
 
-#: plugins/terminal/terminal.c:444
+#: plugins/terminal/anjuta-terminal-plugin.glade.h:2
+msgid "<b>Terminal options</b>"
+msgstr "<b>Opciones de terminal</b>"
+
+#: plugins/terminal/anjuta-terminal-plugin.glade.h:3
+msgid "Default"
+msgstr "Predeterminado"
+
+#: plugins/terminal/anjuta-terminal-plugin.glade.h:4
+msgid "Use GNOME terminal profile:"
+msgstr "Usar el perfil del terminal de GNOME:"
+
+#: plugins/terminal/anjuta-terminal-plugin.glade.h:5
+msgid "Use currently selected profile in GNOME terminal"
+msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
+
+#: plugins/terminal/terminal.c:471
 msgid "Terminal"
 msgstr "Terminal"
 
@@ -5516,7 +6037,8 @@ msgstr "Herramienta"
 
 #: plugins/tools/anjuta-tools.c:1189
 msgid "Unable to build user interface for tool editor"
-msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr ""
+"No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #: plugins/tools/anjuta-tools.c:1385
 #, c-format
@@ -5538,7 +6060,8 @@ msgstr "Ya existe una herramienta con el nombre «%s»."
 
 #: plugins/tools/anjuta-tools.c:1792
 msgid "Unable to build user interface for tool help"
-msgstr "No se puede construir el interfaz de usuario para la ayuda de herramienta"
+msgstr ""
+"No se puede construir el interfaz de usuario para la ayuda de herramienta"
 
 #: plugins/tools/anjuta-tools.c:1813
 msgid "Meaning"
@@ -5747,20 +6270,20 @@ msgstr "A_cerca de"
 msgid "About Anjuta"
 msgstr "Acerca de Anjuta"
 
-#: src/anjuta-app.c:447
+#: src/anjuta-app.c:440
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
 
-#: src/anjuta-app.c:734
+#: src/anjuta-app.c:732
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * NO EDITE O RENOMBRE ESTE ARCHIVO ** Generado por Anjuta **\n"
 
-#: src/anjuta-app.c:1017
+#: src/anjuta-app.c:1015
 msgid "Looking up symbol"
 msgstr "Buscando símbolo"
 
-#: src/anjuta-app.c:1019
+#: src/anjuta-app.c:1017
 msgid "Finding in Files ....\n"
 msgstr "Buscando en archivos ...\n"
 
@@ -6156,122 +6679,290 @@ msgstr "Autocompletado"
 msgid "Autocomplete word"
 msgstr "Autocompletar palabra"
 
-#~ msgid "$(module.source.files) $(module.include.files)"
-#~ msgstr "$(module.source.files) $(module.include.files)"
+#~ msgid "Orientation"
+#~ msgstr "Orientación"
 
-#~ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-#~ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+#~ msgid "Orientation of the docking item"
+#~ msgstr "Orientación del elemento empotrable"
+
+#~ msgid "Resizable"
+#~ msgstr "Redimensionable"
+
+#~ msgid "If set, the dock item can be resized when docked in a paned"
+#~ msgstr ""
+#~ "Si se establece, el elemento empotrable puede ser redimensionado cuando "
+#~ "está empotrado en un panel"
+
+#~ msgid "Item behavior"
+#~ msgstr "Comportamiento del elemento"
 
 #~ msgid ""
-#~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-#~ "README AUTHORS ChangeLog *.m4"
+#~ "General behavior for the dock item (i.e. whether it can float, if it's "
+#~ "locked, etc.)"
 #~ msgstr ""
-#~ "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-#~ "README AUTHORS ChangeLog *.m4"
+#~ "Comportamiento general para el elemento empotrable ( si puede flotar, si "
+#~ "está bloqueado, etc)"
 
-#~ msgid "*.so *.o *.a *.la"
-#~ msgstr "*.so *.o *.a *.la"
+#~ msgid "Grip size"
+#~ msgstr "Tamaño de rejilla"
 
-#~ msgid "*\\.*"
-#~ msgstr "*\\.*"
+#~ msgid "Size in pixels of the grip to drag the dock item"
+#~ msgstr ""
+#~ "Tamaño en píxeles de la rejilla para arrastrar el elemento empotrable"
 
-#~ msgid "Add line number every:"
-#~ msgstr "Añadir número de línea cada:"
+#~ msgid "Locked"
+#~ msgstr "Bloqueado"
 
-#~ msgid "Add page header"
-#~ msgstr "Añadir cabecera de página"
+#~ msgid ""
+#~ "If set, the dock item cannot be dragged around and it doesn't show a grip"
+#~ msgstr ""
+#~ " Si se establece, el elemento empotrable no puede arrastrarse y no "
+#~ "muestra un tirador"
 
-#~ msgid "Always save in UTF-8 encoding (faster)"
-#~ msgstr "Siempre guardar usando codificación UTF-8 (más rápido)"
+#~ msgid "Preferred width"
+#~ msgstr "Anchura preferida"
+
+#~ msgid "Preferred width for the dock item"
+#~ msgstr "Anchura preferida para el elemento empotrable"
+
+#~ msgid "Preferred height"
+#~ msgstr "Altura preferida"
+
+#~ msgid "Preferred height for the dock item"
+#~ msgstr "Altura preferida del elemento empotrable"
+
+#~ msgid ""
+#~ "You can't add a dock object (%p of type %s) inside a %s. Use a EggDock or "
+#~ "some other compound dock object."
+#~ msgstr ""
+#~ "No puede añadir un objeto empotrable (%p de tipo %s) dentro de un %s. Use "
+#~ "un  EggDock o algún otro objeto empotrable compuesto."
+
+#~ msgid ""
+#~ "Attempting to add a widget with type %s to a %s, but it can only contain "
+#~ "one widget at a time; it already contains a widget of type %s"
+#~ msgstr ""
+#~ "Intentando añadir un widget con tipo %s a un %s, pero éste sólo puede "
+#~ "contener un widget a la vez; ya contiene un widget de tipo %s"
+
+#~ msgid "Unsupported docking strategy %s in dock object of type %s"
+#~ msgstr ""
+#~ "Estrategia de empotrado no soportada %s en objeto empotrable de tipo %s"
+
+#~ msgid "Hide"
+#~ msgstr "Ocultar"
+
+#~ msgid "Lock"
+#~ msgstr "Bloquear"
+
+#~ msgid "Attempt to bind an unbound item %p"
+#~ msgstr "Se intentó vincular un elemento no vinculado %p"
+
+#~ msgid "Master"
+#~ msgstr "Principal"
+
+#~ msgid "EggDockMaster object which the layout object is attached to"
+#~ msgstr ""
+#~ "Objeto EggDockMaster con el cual el objeto de disposición está encajado"
+
+#~ msgid "Dirty"
+#~ msgstr "Modificado"
+
+#~ msgid "True if the layouts have changed and need to be saved to a file"
+#~ msgstr ""
+#~ "Verdadero si las disposiciones se han cambiado y necesitan ser guardados "
+#~ "en un archivo"
+
+#~ msgid "You must provide a name for the layout"
+#~ msgstr "Debe proporcionar un nombre para la disposición"
+
+#~ msgid "Could not load layout user interface file '%s'"
+#~ msgstr "No se puede cargar archivo de disposición de usuario: «%s»"
+
+#~ msgid "Item"
+#~ msgstr "Elemento"
+
+#~ msgid ""
+#~ "While loading layout: don't know how to create a dock object whose nick "
+#~ "is '%s'"
+#~ msgstr ""
+#~ "Al cargar una disposición: no se sabe cómo crear un objeto empotrable "
+#~ "cuyo apodo es '%s'"
+
+#~ msgid "Layout managment"
+#~ msgstr "Administración de distribución"
+
+#~ msgid "Default title"
+#~ msgstr "Título predeterminado"
+
+#~ msgid "Default title for newly created floating docks"
+#~ msgstr ""
+#~ "Título predeterminado para los empotrables flotantes recientemente creados"
+
+#~ msgid ""
+#~ "If is set to 1, all the dock items bound to the master are locked; if "
+#~ "it's 0, all are unlocked; -1 indicates inconsistency among the items"
+#~ msgstr ""
+#~ "Si se establece a 1, todos los elementos empotrables vinculados al dueño "
+#~ "se bloquean; si se establece a 0, se desbloquean; -1 indica "
+#~ "inconsistencia entre los elementos"
+
+#~ msgid ""
+#~ "master %p: unable to add object %p[%s] to the hash.  There already is an "
+#~ "item with that name (%p)."
+#~ msgstr ""
+#~ "Dueño %p: no se puede añadir objeto %p[%s] al hash. Ya hay un elemento "
+#~ "con ese nombre (%p)."
+
+#~ msgid ""
+#~ "The new dock controller %p is automatic.  Only manual dock objects should "
+#~ "be named controller."
+#~ msgstr ""
+#~ "El controlador de empotrado nuevo %p es automático. Sólo los objetos "
+#~ "empotrables manualmente deberían tener controlador."
+
+#~ msgid "Page"
+#~ msgstr "Página"
+
+#~ msgid "The index of the current page"
+#~ msgstr "El índice de la página actual"
+
+#~ msgid "Unique name for identifying the dock object"
+#~ msgstr "Nombre único por el que identificar el objeto empotrable"
+
+#~ msgid "Long name"
+#~ msgstr "Nombre largo"
+
+#~ msgid "Human readable name for the dock object"
+#~ msgstr "Nombre humano para el objeto empotrable"
+
+#~ msgid "Dock master"
+#~ msgstr "Dueño del empotrado"
+
+#~ msgid "Dock master this dock object is bound to"
+#~ msgstr "Empotrable principal al que este objeto está vinculado"
+
+#~ msgid ""
+#~ "Call to egg_dock_object_dock in a dock object %p (object type is %s) "
+#~ "which hasn't implemented this method"
+#~ msgstr ""
+#~ "Llamada a egg_dock_object_dock en un objeto empotrado %p (tipo de objeto %"
+#~ "s) que no tiene este método implementado"
+
+#~ msgid ""
+#~ "Dock operation requested in a non-bound object %p. The application might "
+#~ "crash"
+#~ msgstr ""
+#~ "Operación de empotrado solicitada en un objeto no vinculado %p. La "
+#~ "aplicación quizá falle"
+
+#~ msgid "Cannot dock %p to %p because they belong to different masters"
+#~ msgstr "No se puede empotrar %p a %p porque pertenecen a diferentes dueños"
+
+#~ msgid ""
+#~ "Attempt to bind to %p an already bound dock object %p (current master: %p)"
+#~ msgstr ""
+#~ "Se intentó vincular a %p un objeto empotrable ya vinculado %p (dueño "
+#~ "actual : %p)"
+
+#~ msgid "Position"
+#~ msgstr "Posición"
+
+#~ msgid "Position of the divider in pixels"
+#~ msgstr "Posición del divisor en píxeles"
+
+#~ msgid "Sticky"
+#~ msgstr "Adhesivo"
+
+#~ msgid ""
+#~ "Whether the placeholder will stick to its host or move up the hierarchy "
+#~ "when the host is redocked"
+#~ msgstr ""
+#~ "Indica si el contenedor se ceñirá a su anfitrión o subirá por la "
+#~ "jerarquía cuando el anfitrión sea reempotrado"
+
+#~ msgid "Host"
+#~ msgstr "Anfitrión"
+
+#~ msgid "The dock object this placeholder is attached to"
+#~ msgstr "El objeto empotrable al que este contenedor está vinculado"
+
+#~ msgid "Next placement"
+#~ msgstr "Siguiente emplazamiento"
+
+#~ msgid ""
+#~ "The position an item will be docked to our host if a request is made to "
+#~ "dock to us"
+#~ msgstr ""
+#~ "La posición en que un elemento será empotrado en nuestro anfitrión si se "
+#~ "realiza una petición para empotrarse con nosotros"
+
+#~ msgid "Attempt to dock a dock object to an unbound placeholder"
+#~ msgstr ""
+#~ "Se intentó empotrar un objeto empotrable en un contenedor no vinculado"
+
+#~ msgid "Got a detach signal from an object (%p) who is not our host %p"
+#~ msgstr ""
+#~ "Se obtuvo una señal de desacoplar de un objeto (%p) que no es nuestro "
+#~ "hospedador %p"
+
+#~ msgid ""
+#~ "Something weird happened while getting the child placement for %p from "
+#~ "parent %p"
+#~ msgstr ""
+#~ "Algo extraño ha ocurrido al obtener la ubicación del hijo para %p desde "
+#~ "el padre %p"
+
+#~ msgid "Controlling dock item"
+#~ msgstr "Elemento de control de empotrado"
+
+#~ msgid "Dockitem which 'owns' this tablabel"
+#~ msgstr "Elemento empotrado que 'es dueño' de esta tablabel"
+
+#~ msgid "Floating"
+#~ msgstr "Flotante"
+
+#~ msgid "Whether the dock is floating in its own window"
+#~ msgstr "Indica si el empotrable está flotando en su propia ventana"
+
+#~ msgid "Default title for the newly created floating docks"
+#~ msgstr ""
+#~ "Título preestablecido para los empotrables flotantes nuevamente creados"
+
+#~ msgid "Width for the dock when it's of floating type"
+#~ msgstr "Anchura del empotrable cuando es de tipo flotante"
+
+#~ msgid "Height"
+#~ msgstr "Altura"
+
+#~ msgid "Height for the dock when it's of floating type"
+#~ msgstr "Altura del empotrable cuando es de tipo flotante"
+
+#~ msgid "Float X"
+#~ msgstr "Flotante X"
+
+#~ msgid "X coordinate for a floating dock"
+#~ msgstr "Coordenada X para un empotrable flotante"
+
+#~ msgid "Float Y"
+#~ msgstr "Flotante Y"
+
+#~ msgid "Y coordinate for a floating dock"
+#~ msgstr "Coordenada Y para un empotrable flotante"
+
+#~ msgid "Dock #%d"
+#~ msgstr "Empotrado #%d"
+
+#~ msgid "Icon size"
+#~ msgstr "Tamaño del icono"
+
+#~ msgid "Icon zoom"
+#~ msgstr "Ampliación del icono"
 
 #~ msgid "Append messages"
 #~ msgstr "Agregar mensajes"
 
-#~ msgid "Arrows"
-#~ msgstr "Flechas"
-
-#~ msgid "Attributes:"
-#~ msgstr "Atributos:"
-
-#~ msgid "Autocomplete XML/HTML closing tags"
-#~ msgstr "Autocompletar etiquetas de cierre XML/HTML"
-
-#~ msgid "Autocompletion"
-#~ msgstr "Autocompletado"
-
-#~ msgid "Autocompletion pop up choices"
-#~ msgstr "Autocompletar elecciones emergentes"
-
-#~ msgid "Autosave"
-#~ msgstr "Autoguardar"
-
-#~ msgid "Back color:"
-#~ msgstr "Color fondo:"
-
-#~ msgid "Backwards"
-#~ msgstr "Atrás"
-
-#~ msgid "Bold"
-#~ msgstr "Negrita"
-
-#~ msgid "Bottom"
-#~ msgstr "Debajo"
-
-#~ msgid "CVS intl po"
-#~ msgstr "CVS intl po"
-
-#~ msgid "Calltip background:"
-#~ msgstr "Fondo de la ayuda emergente:"
-
-#~ msgid "Caret (cursor) color:"
-#~ msgstr "Color del símbolo del cursor:"
-
-#~ msgid "Caret blink period in milli-seconds"
-#~ msgstr "Período de parpadeo en milisegundo del símbolo del cursor"
-
-#~ msgid "Case insensitive"
-#~ msgstr "No distinguir mayúsculas"
-
-#~ msgid "Choose Directories:"
-#~ msgstr "Elija directorios:"
-
-#~ msgid "Choose Files:"
-#~ msgstr "Elija archivos:"
-
-#~ msgid "Choose autocomplete for single match"
-#~ msgstr "Elija autocompletar para coincidencia simple"
-
-#~ msgid "Choose directories"
-#~ msgstr "Elija directorios"
-
-#~ msgid "Choose files"
-#~ msgstr "Elija archivos"
-
-#~ msgid "Circular"
-#~ msgstr "Circular"
-
-#~ msgid "Code folding"
-#~ msgstr "Plegado de código"
-
-#~ msgid "Collapse all code folds on file open"
-#~ msgstr "Contraer todos los pliegues de código al abrir un archivo"
-
-#~ msgid "Colour"
-#~ msgstr "Color"
-
-#~ msgid "Column at edge indicator"
-#~ msgstr "Columna en el indicador de borde"
-
-#~ msgid "Compact folding"
-#~ msgstr "Compactar plegado"
-
 #~ msgid "Costom style"
-#~ msgstr "Estilo personalizado"
-
-#~ msgid "Crazy boy style"
-#~ msgstr "Estilo loco"
-
-#~ msgid "Custom style"
 #~ msgstr "Estilo personalizado"
 
 #~ msgid "Customize File Browser"
@@ -6280,102 +6971,11 @@ msgstr "Autocompletar palabra"
 #~ msgid "Customize what is to be shown in the file tree"
 #~ msgstr "Personalizar qué se va mostrar en el árbol de archivos"
 
-#~ msgid "Delete Theme"
-#~ msgstr "Borrar tema"
-
-#~ msgid "Diagonal"
-#~ msgstr "Diagonal"
-
 #~ msgid "Direction"
 #~ msgstr "Dirección "
 
-#~ msgid "Directory filter"
-#~ msgstr "Filtro de directorios"
-
-#~ msgid "Disable auto-format"
-#~ msgstr "Desactivar autoformato"
-
-#~ msgid "Disable syntax highlighting"
-#~ msgstr "Desactivar resaltado de sintaxis"
-
-#~ msgid "Do not show hidden directories"
-#~ msgstr "No mostrar directorios ocultos"
-
-#~ msgid "Do not show hidden files"
-#~ msgstr "No mostrar los archivos ocultos"
-
-#~ msgid "Do not show tabs"
-#~ msgstr "No mostrar tabuladores"
-
-#~ msgid "Draw line below folded lines"
-#~ msgstr "Dibujar una línea debajo de las líneas plegadas"
-
-#~ msgid "Editor caret (cursor) width in pixels"
-#~ msgstr "Ancho en píxeles del símbolo del cursor"
-
-#~ msgid "Enable HTML tags folding"
-#~ msgstr "Activar pliegue de etiquetas HTML"
-
-#~ msgid "Enable automatic indentation"
-#~ msgstr "Activar sangría automática"
-
-#~ msgid "Enable automatic messages indicators"
-#~ msgstr "Activar indicadores automáticos de mensajes"
-
-#~ msgid "Enable braces check"
-#~ msgstr "Activar comprobación de llaves"
-
-#~ msgid "Enable code folding"
-#~ msgstr "Activar pliegue del código"
-
-#~ msgid "Enable comments folding"
-#~ msgstr "Activar pliegue de comentarios"
-
-#~ msgid "Enable files autosave"
-#~ msgstr "Activar autoguardado de archivos"
-
-#~ msgid "Enable line wrap"
-#~ msgstr "Activar ajuste de líneas"
-
-#~ msgid "Enable python comments folding"
-#~ msgstr "Activar pliegue de comentarios python"
-
-#~ msgid "Enable python quoted strings folding"
-#~ msgstr "Activar pliegue de cadenas python citadas"
-
-#~ msgid "Encoding to use when saving files"
-#~ msgstr "Codificación a usar al guardar archivos"
-
-#~ msgid ""
-#~ "Enter the command line arguments for the 'indent' program. Read the info "
-#~ "page for 'indent' for more details"
-#~ msgstr ""
-#~ "Introduzca los argumentos para el programa «indent». Consulte la página "
-#~ "info «indent» para más detalles."
-
-#~ msgid "Error message indicator style:"
-#~ msgstr "Estilo de indicador de mensaje de error:"
-
-#~ msgid "Errors messages:"
-#~ msgstr "Mensajes de error:"
-
-#~ msgid "Expand regex back references"
-#~ msgstr "Expandir referencias hacia atrás en expr. reg."
-
-#~ msgid "File Filter"
-#~ msgstr "Filtro de archivos"
-
-#~ msgid "File filter"
-#~ msgstr "Filtro de archivos"
-
 #~ msgid "File/Directory to add:"
 #~ msgstr "Archivo/Directorio para añadir:"
-
-#~ msgid "Filter extraneous characters in DOS mode"
-#~ msgstr "Filtrar caracteres extraños en modo DOS"
-
-#~ msgid "Find & Replace"
-#~ msgstr "Buscar y reemplazar"
 
 #~ msgid "Find and replace"
 #~ msgstr "Buscar y reemplazar"
@@ -6383,50 +6983,14 @@ msgstr "Autocompletar palabra"
 #~ msgid "Find in Files"
 #~ msgstr "Buscar en archivos"
 
-#~ msgid "Fold style:"
-#~ msgstr "Estilo de pliegue:"
-
-#~ msgid "Font:"
-#~ msgstr "Tipografía:"
-
-#~ msgid "Fore color:"
-#~ msgstr "Color texto:"
-
 #~ msgid "Forwards"
 #~ msgstr "Adelante"
 
 #~ msgid "From cursor"
 #~ msgstr "Desde el cursor"
 
-#~ msgid "GNU coding style"
-#~ msgstr "Estilo de codificación GNU"
-
-#~ msgid "Greedy matching"
-#~ msgstr "Coincidencia voraz"
-
-#~ msgid "Hello World style"
-#~ msgstr "Estilo Hola mundo"
-
-#~ msgid "Highlight style"
-#~ msgstr "Estilo de resaltado"
-
-#~ msgid "Ignore Binary Files"
-#~ msgstr "Ignorar archivos binarios"
-
 #~ msgid "Ignore CVS directory"
 #~ msgstr "Ignorar directorio CVS"
-
-#~ msgid "Ignore Directories:"
-#~ msgstr "Ignorar directorios:"
-
-#~ msgid "Ignore Files:"
-#~ msgstr "Ignorar archivos:"
-
-#~ msgid "Ignore Hidden Directories"
-#~ msgstr "Ignorar directorios ocultos"
-
-#~ msgid "Ignore Hidden Files"
-#~ msgstr "Ignorar archivos ocultos"
 
 #~ msgid "Ignore binary files"
 #~ msgstr "Ignorar archivos binarios"
@@ -6434,107 +6998,8 @@ msgstr "Autocompletar palabra"
 #~ msgid "Ignore case"
 #~ msgstr "Ignorar capitalización"
 
-#~ msgid "Ignore directories"
-#~ msgstr "Ignorar directorios"
-
-#~ msgid "Ignore files"
-#~ msgstr "Ignorar archivos"
-
-#~ msgid "Indent closing braces"
-#~ msgstr "Sangrar llaves de cierre"
-
-#~ msgid "Indent opening braces"
-#~ msgstr "Sangrar llaves de apertura"
-
-#~ msgid "Indentation and auto-format options"
-#~ msgstr "Opciones de sangría y autoformato"
-
-#~ msgid "Indentation size in spaces:"
-#~ msgstr "Tamaño de sangría en espacios:"
-
-#~ msgid "Indicators"
-#~ msgstr "Indicadores"
-
-#~ msgid "Italic"
-#~ msgstr "Cursiva"
-
-#~ msgid "Kernighan and Ritchie style"
-#~ msgstr "Estilo Kernighan & Ritchie"
-
-#~ msgid "Left"
-#~ msgstr "Izquierda"
-
-#~ msgid "Line numbers margin width in pixels"
-#~ msgstr "Ancho en píxeles del margen de número de línea"
-
-#~ msgid "Match at start of word"
-#~ msgstr "Coincide el inicio de palabra"
-
-#~ msgid "Match complete lines"
-#~ msgstr "Coincide con líneas completas"
-
-#~ msgid "Match complete words"
-#~ msgstr "Coincide con palabras completas"
-
-#~ msgid "Max. Actions"
-#~ msgstr "Acciones máximas"
-
-#~ msgid "Message colors"
-#~ msgstr "Colores de los mensajes"
-
-#~ msgid "Messages options"
-#~ msgstr "Opciones de mensajes"
-
-#~ msgid "Misc options"
-#~ msgstr "Opciones misceláneas"
-
-#~ msgid "Mode:"
-#~ msgstr "Modo:"
-
-#~ msgid "Monochrome"
-#~ msgstr "Monocromo"
-
-#~ msgid "No Limit"
-#~ msgstr "Sin límite"
-
-#~ msgid "Normal message indicator style:"
-#~ msgstr "Estilo de indicador de mensaje normal:"
-
-#~ msgid "Normal messages:"
-#~ msgstr "Mensajes normales:"
-
-#~ msgid "Number of first characters to show:"
-#~ msgstr "Número de caracteres iniciales a mostrar:"
-
-#~ msgid "Number of last characters to show:"
-#~ msgstr "Número de caracteres finales a mostrar:"
-
-#~ msgid "Original Berkeley style"
-#~ msgstr "Estilo original Berkeley"
-
-#~ msgid "Other colors"
-#~ msgstr "Otros colores"
-
-#~ msgid "Other messages:"
-#~ msgstr "Otros mensajes:"
-
-#~ msgid "Pick a color"
-#~ msgstr "Escoja un color:"
-
-#~ msgid "Plus/Minus"
-#~ msgstr "Más/Menos"
-
-#~ msgid "Position:"
-#~ msgstr "Posición:"
-
 #~ msgid "Press this button to dismiss the dialog"
 #~ msgstr "Pulse este botón para descartar el diálogo"
-
-#~ msgid "Pressing backspace un-indents"
-#~ msgstr "Reducir sangría al pulsar la tecla de borrado"
-
-#~ msgid "Pressing tab indents"
-#~ msgstr "Incrementar sangría al pulsar el tabulador"
 
 #~ msgid "Prompt before replace"
 #~ msgstr "Preguntar antes de reemplazar"
@@ -6545,106 +7010,17 @@ msgstr "Autocompletar palabra"
 #~ msgid "Regexp/String to find"
 #~ msgstr "Cadena/Expresión regular a buscar "
 
-#~ msgid "Regular Expression"
-#~ msgstr "Expresión regular"
-
-#~ msgid "Reload Session Defaults"
-#~ msgstr "Recargar valores preconfigurados de la sesión"
-
-#~ msgid "Reload System Defaults"
-#~ msgstr "Recargar valores preconfigurados del sistema"
-
 #~ msgid "Replace Expression"
 #~ msgstr "Expresión de reemplazo"
-
-#~ msgid "Replace With:"
-#~ msgstr "Reemplazar con:"
-
-#~ msgid "Right"
-#~ msgstr "Derecha"
-
-#~ msgid "Save files interval in minutes"
-#~ msgstr "Intervalo de guardado de archivos en minutos"
-
-#~ msgid "Save session interval in minutes"
-#~ msgstr "Intervalo de guardado de la sesión en minutos"
 
 #~ msgid "Scope"
 #~ msgstr "Ámbito "
 
-#~ msgid "Search Action:"
-#~ msgstr "Acción de búsqueda:"
-
-#~ msgid "Search Direction:"
-#~ msgstr "Dirección de búsqueda:"
-
-#~ msgid "Search Expression"
-#~ msgstr "Expresión de búsqueda"
-
-#~ msgid "Search Expression:"
-#~ msgstr "Expresión de búsqueda"
-
-#~ msgid "Search In:"
-#~ msgstr "Buscar en:"
-
-#~ msgid "Search Recursively"
-#~ msgstr "Buscar recursivamente"
-
 #~ msgid "Search String"
 #~ msgstr "Cadena de búsqueda"
 
-#~ msgid "Search Target"
-#~ msgstr "Buscar objetivo"
-
-#~ msgid "Search Variable"
-#~ msgstr "Buscar variable"
-
 #~ msgid "Search type"
 #~ msgstr "Buscar tipo"
-
-#~ msgid "Select highlight style to edit:"
-#~ msgstr "Seleccione el estilo de resaltado a editar:"
-
-#~ msgid "Select theme:"
-#~ msgstr "Seleccionar tema:"
-
-#~ msgid "Selection background:"
-#~ msgstr "Segundo plano de la selección:"
-
-#~ msgid "Selection foreground:"
-#~ msgstr "Primer plano de la selección:"
-
-#~ msgid "Sorted by most recent use"
-#~ msgstr "Ordenados por uso más reciente"
-
-#~ msgid "Sorted in alphabetical order"
-#~ msgstr "Ordenados en orden alfabético"
-
-#~ msgid "Sorted in the order you open them"
-#~ msgstr "Ordenados en el orden en que se abrieron"
-
-#~ msgid "Space-seperated list of directory name patterns to ignore"
-#~ msgstr ""
-#~ "Lista separada por espacios de patrones de nombres de directorio a ignorar"
-
-#~ msgid "Space-seperated list of directory name patterns to match"
-#~ msgstr ""
-#~ "Lista separada por espacios de patrones de nombres de directorio a "
-#~ "coincidir"
-
-#~ msgid "Space-seperated list of file name patterns to ignore"
-#~ msgstr ""
-#~ "Lista separada por espacios de patrones de nombres de archivo a ignorar"
-
-#~ msgid "Space-seperated list of file name patterns to match"
-#~ msgstr ""
-#~ "Lista separada por espacios de patrones de nombres de archivo a coincidir"
-
-#~ msgid "Squares"
-#~ msgstr "Cuadrados"
-
-#~ msgid "Strike-Out"
-#~ msgstr "Tachar"
 
 #~ msgid "String"
 #~ msgstr "Cadena"
@@ -6652,95 +7028,17 @@ msgstr "Autocompletar palabra"
 #~ msgid "String to replace"
 #~ msgstr "Cadena a reemplazar "
 
-#~ msgid "Strip trailling spaces on file save"
-#~ msgstr "Eliminar espacios finales al guardar"
-
-#~ msgid "Style of Kangleipak"
-#~ msgstr "Estilo Kangleipak"
-
-#~ msgid "Syntax highlight editor"
-#~ msgstr "Editor de resaltado de sintaxis"
-
-#~ msgid "Tab size in spaces:"
-#~ msgstr "Tamaño del tabulador en espacios"
-
-#~ msgid "Tabs position:"
-#~ msgstr "Posición de las solapas:"
-
-#~ msgid "Terminal options"
-#~ msgstr "Opciones de terminal"
-
-#~ msgid "Theme"
-#~ msgstr "Tema"
-
-#~ msgid "Top"
-#~ msgstr "Encima"
-
-#~ msgid "Truncate long messages"
-#~ msgstr "Truncar mensajes largos"
-
-#~ msgid "Try to save in current locale's encoding"
-#~ msgstr "Intentar guardar en la codificación de la localización actual"
-
-#~ msgid "Try to save in original encoding"
-#~ msgstr "Intentar guardar en la codificación original"
-
-#~ msgid "Underline Plain"
-#~ msgstr "Subrayado plano"
-
-#~ msgid "Underline Squiggle"
-#~ msgstr "Subrayado irregular"
-
-#~ msgid "Underline-TT"
-#~ msgstr "Subrayado-TT"
-
-#~ msgid "Underlined"
-#~ msgstr "Subrayado"
-
-#~ msgid "Use GNOME terminal profile:"
-#~ msgstr "Usar el perfil del terminal de GNOME:"
-
-#~ msgid "Use currently selected profile in GNOME terminal"
-#~ msgstr "Usar el perfil actualmente seleccionado en el terminal de GNOME"
-
-#~ msgid "Use default"
-#~ msgstr "Predeterminada"
-
-#~ msgid "Use tabs for indentation"
-#~ msgstr "Usar tabulador para sangrar"
-
-#~ msgid "Variable list"
-#~ msgstr "Lista de variables"
-
-#~ msgid "Warning message indicator style:"
-#~ msgstr "Estilo de indicador de mensaje de advertencia:"
-
-#~ msgid "Warnings messages:"
-#~ msgstr "Mensajes de advertencia:"
-
 #~ msgid "Whole document"
 #~ msgstr "Documento completo"
 
 #~ msgid "Whole word"
 #~ msgstr "Palabra completa"
 
-#~ msgid "Wrap bookmarks search around"
-#~ msgstr "Búsqueda circular de marcadores"
-
-#~ msgid "_Save Theme As"
-#~ msgstr "G_uardar tema como"
-
 #~ msgid "Dock the toolbar"
 #~ msgstr "Empotrar la barra de herramientas"
 
 #~ msgid "Un dock the toolbar"
 #~ msgstr "Desempotrar la barra de herramientas"
-
-#~ msgid "Layout Managment"
-#~ msgstr "Administrador distribución"
-
-#~ msgid "_Lock dock items"
-#~ msgstr "_Bloquear elementos empotrados"
 
 #~ msgid "Sample Plugin Description. Holla!"
 #~ msgstr "Descripción de complemento de ejemplo. ¡Hola!"
@@ -7582,9 +7880,6 @@ msgstr "Autocompletar palabra"
 #~ msgid "Project: None"
 #~ msgstr "Proyecto: Nada"
 
-#~ msgid "Files"
-#~ msgstr "Archivos"
-
 #~ msgid "Symbols"
 #~ msgstr "Símbolos"
 
@@ -7666,9 +7961,6 @@ msgstr "Autocompletar palabra"
 #~ msgid "Show hidden files"
 #~ msgstr "Mostrar los archivos ocultos"
 
-#~ msgid "Directory: "
-#~ msgstr "Directorio: "
-
 #~ msgid "Selection: "
 #~ msgstr "Selección: "
 
@@ -7715,9 +8007,6 @@ msgstr "Autocompletar palabra"
 #~ "Estilo personalizado, estilo de codificación GNU, estilo Kernigham & "
 #~ "Ritchie, estilo original de Berkeley, estilo de Kangleipak, estilo Hola "
 #~ "Mundo, estilo loco"
-
-#~ msgid "Default"
-#~ msgstr "Predeterminado"
 
 #~ msgid "New"
 #~ msgstr "Nuevo"
@@ -8061,9 +8350,6 @@ msgstr "Autocompletar palabra"
 #~ msgid "Box Comment"
 #~ msgstr "Caja de comentario"
 
-#~ msgid "Stream Comment"
-#~ msgstr "Comentario de flujo:"
-
 #~ msgid "Expression _Watch"
 #~ msgstr "_Vigilar expresión"
 
@@ -8314,9 +8600,6 @@ msgstr "Autocompletar palabra"
 
 #~ msgid "From Cursor"
 #~ msgstr "Desde el Cursor"
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
 
 #~ msgid "Ignore case while searching"
 #~ msgstr "Ignorar mayúsculas/minúsculas"
@@ -8617,4 +8900,3 @@ msgstr "Autocompletar palabra"
 
 #~ msgid "Multiple selection mode"
 #~ msgstr "Modo de seleción múltiple"
-
