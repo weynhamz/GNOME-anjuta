@@ -193,7 +193,9 @@ main (int argc, char *argv[])
 		char *im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 		if (im_file) {
 			if (NULL != (splash = e_splash_new(im_file))) {
+				gtk_window_set_auto_startup_notification(FALSE);
 				gtk_widget_show (splash);
+				gtk_window_set_auto_startup_notification(TRUE);
 			        g_object_ref (G_OBJECT (splash));
 				while (gtk_events_pending ())
 					gtk_main_iteration ();
@@ -202,6 +204,8 @@ main (int argc, char *argv[])
 	}
 	
 	anjuta_new ();
+	while (gtk_events_pending ())
+		gtk_main_iteration ();
 	anjuta_show ();
 
 	if (splash) {

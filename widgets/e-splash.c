@@ -317,6 +317,7 @@ e_splash_construct (ESplash *splash,
 			  G_CALLBACK (button_press_event), splash);
 	
 	g_object_set (G_OBJECT (splash), "type", GTK_WINDOW_TOPLEVEL, NULL);
+	gtk_window_set_decorated(GTK_WINDOW(splash), FALSE);
 	gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (splash), FALSE);
 	gtk_window_set_default_size (GTK_WINDOW (splash), image_width, image_height);
@@ -343,7 +344,7 @@ e_splash_new (const char *image_file)
 	new = g_object_new (e_splash_get_type (), NULL);
 	e_splash_construct (new, splash_image_pixbuf);
 
-	gdk_pixbuf_unref (splash_image_pixbuf);
+	/* gdk_pixbuf_unref (splash_image_pixbuf); */
 
 	return GTK_WIDGET (new);
 }
