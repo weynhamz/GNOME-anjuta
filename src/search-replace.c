@@ -1426,6 +1426,48 @@ on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 	search_and_replace();
 }
 
+void search_replace_find_usage(gchar *symbol)
+{
+	SearchReplace *old_sr = sr;
+	sr = g_new (SearchReplace, 1);
+
+	sr->search.expr.search_str = symbol;
+	sr->search.expr.regex = FALSE;
+	sr->search.expr.greedy = FALSE;
+	sr->search.expr.ignore_case = FALSE;
+	sr->search.expr.whole_word = FALSE;
+	sr->search.expr.whole_line = FALSE;
+	sr->search.expr.word_start = FALSE;
+	sr->search.expr.no_limit = TRUE;
+	sr->search.expr.actions_max = G_MAXINT;
+	sr->search.expr.re = NULL;
+
+	sr->search.range.type = SR_PROJECT;
+	sr->search.range.direction = SD_BEGINNING;
+
+	sr->search.range.var = NULL;
+
+	sr->search.range.files.top_dir = NULL;
+	sr->search.range.files.match_files = NULL;
+	sr->search.range.files.match_dirs = NULL;
+	sr->search.range.files.ignore_files = NULL;
+	sr->search.range.files.ignore_dirs = NULL;
+	sr->search.range.files.ignore_hidden_files = TRUE;
+	sr->search.range.files.ignore_hidden_dirs = TRUE;
+	sr->search.range.files.recurse = TRUE;
+
+	sr->search.action = SA_FIND_PANE;
+
+	sr->search.expr_history = NULL;
+	sr->search.incremental_pos = 0;
+	sr->search.incremental_wrap = TRUE;
+
+	search_and_replace();
+
+	g_free (sr);
+	sr = old_sr;
+}
+
 void
 on_search_button_jump_clicked(GtkButton *button, gpointer user_data)
 {

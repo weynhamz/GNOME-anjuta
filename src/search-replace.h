@@ -32,7 +32,9 @@ void search_and_replace (void);
 void search_replace_next(void);
 	
 void search_replace_previous(void);
-	
+
+void search_replace_find_usage(gchar *symbol);
+
 void anjuta_search_replace_activate (gboolean replace, gboolean project);
 	
 GladeWidget *sr_get_gladewidget(const gchar *name);

@@ -1,3 +1,8 @@
+2004-03-10  Pavol Bosik <Pavol.Bosik@siemens.com>
+ 	
+ 	* src/anjuta.c, src/search-replace.c, src/search-replace.h: "Find Usage"
+ 	rework (bug 890609)
+
 2004-03-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* src/aneditor.cxx
 	Fixed bug #910097 (Insert comment)
