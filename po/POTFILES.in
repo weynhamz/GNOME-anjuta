@@ -71,6 +71,7 @@ plugins/gdb/stack_trace.c
 plugins/gdb/utilities.c
 plugins/gdb/watch_cbs.c
 plugins/gdb/watch_gui.c
+plugins/glade/plugin.c
 plugins/gtodo/add_edit_item.c
 plugins/gtodo/callback.c
 plugins/gtodo/egg-datetime.c
@@ -89,6 +90,7 @@ plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
 plugins/gtodo/tray-icon.c
 plugins/macro/anjuta-macro.glade
+plugins/macro/macro-actions.c
 plugins/macro/macro-db.c
 plugins/macro/macro-dialog.c
 plugins/macro/macro-edit.c
