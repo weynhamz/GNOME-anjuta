@@ -733,6 +733,45 @@ on_save_on_close_cancel_clicked    (GtkButton* button,
 void
 on_reload_yes_clicked                  (GtkButton       *button,
                                         gpointer         data);
+
+void
+on_insert_header(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_author(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_date(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_header(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_id(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_log(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_name(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_revision(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_cvs_source(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data);
+
+void
+on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data);
                                         
 void
 on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
@@ -753,22 +792,7 @@ void
 on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data);
 
 void
-on_insert_header(GtkMenuItem * menuitem, gpointer user_data);
-
-void
 on_insert_username(GtkMenuItem * menuitem, gpointer user_data);
-
-void
-on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data);
-
-void
-on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data);
-
-void
-on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data);
-
-void
-on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data);

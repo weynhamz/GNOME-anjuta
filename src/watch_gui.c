@@ -21,6 +21,7 @@
 #endif
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 #include "anjuta.h"
 #include "watch.h"
@@ -104,6 +105,7 @@ create_expr_watch_gui (ExprWatch * ew)
   gtk_window_set_title (GTK_WINDOW (window1), _("Expression Watch"));
   gtk_window_set_wmclass (GTK_WINDOW (window1), "expr_watch", "Anjuta");
   gtk_window_set_default_size (GTK_WINDOW (window1), 500, -1);
+  gnome_window_icon_set_from_default(GTK_WINDOW(window1));
 
   scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
   gtk_widget_show (scrolledwindow1);

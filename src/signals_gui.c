@@ -25,6 +25,8 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
+
 #include "signals.h"
 #include "signals_cbs.h"
 #include "resources.h"
@@ -89,6 +91,7 @@ create_signals_gui(Signals *cr)
   gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "signals", "Anjuta");
   gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
+  gnome_window_icon_set_from_default(GTK_WINDOW(window3));
 
   scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
   gtk_widget_show (scrolledwindow4);

@@ -103,6 +103,7 @@ main_toolbar_update ()
 	gtk_widget_set_sensitive (mt->find_combo, F);
 	gtk_widget_set_sensitive (mt->go_to, F);
 	gtk_widget_set_sensitive (mt->line_entry, F);
+	gtk_widget_set_sensitive (mt->help, app->has_devhelp);
 
 	update_main_menubar ();
 }
@@ -324,13 +325,21 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->insert_header, F);
 	gtk_widget_set_sensitive (em->insert_c_switch, F);
 	gtk_widget_set_sensitive (em->insert_c_for, F);
-  gtk_widget_set_sensitive (em->insert_c_while, F);
+	gtk_widget_set_sensitive (em->insert_c_while, F);
 	gtk_widget_set_sensitive (em->insert_c_ifelse, F);
+	gtk_widget_set_sensitive (em->insert_cvs_author, F);
+	gtk_widget_set_sensitive (em->insert_cvs_date, F);
+	gtk_widget_set_sensitive (em->insert_cvs_header, F);
+	gtk_widget_set_sensitive (em->insert_cvs_id, F);
+	gtk_widget_set_sensitive (em->insert_cvs_log, F);
+	gtk_widget_set_sensitive (em->insert_cvs_name, F);
+	gtk_widget_set_sensitive (em->insert_cvs_revision, F);
+	gtk_widget_set_sensitive (em->insert_cvs_source, F);
 	gtk_widget_set_sensitive (em->insert_c_gpl, F);
 	gtk_widget_set_sensitive (em->insert_cpp_gpl, F);
 	gtk_widget_set_sensitive (em->insert_py_gpl, F);
 	gtk_widget_set_sensitive (em->insert_username, F);
-  gtk_widget_set_sensitive (em->insert_datetime, F);
+	gtk_widget_set_sensitive (em->insert_datetime, F);
 	gtk_widget_set_sensitive (em->insert_header_template, F);
 	gtk_widget_set_sensitive (em->insert_changelog_entry, F);
 	gtk_widget_set_sensitive (em->select_all, F);

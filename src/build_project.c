@@ -382,7 +382,7 @@ build_dist_terminated (int status, time_t time)
 				 _("Build Distribution completed...............Successful\n"),
 				 MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages,
-				 _("The source tarball can be found in the top level directory of the project.\n"),
+				 _("The source tarball can be found in the top level directory of the Project.\n"),
 				 MESSAGE_BUILD);
 		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Build Distribution completed ... successful"));

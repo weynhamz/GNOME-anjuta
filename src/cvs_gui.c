@@ -545,7 +545,7 @@ void create_cvs_import_gui (CVS* cvs)
 	gtk_table_attach_defaults (GTK_TABLE (table), server_frame, 0, 1, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE (table), import_frame, 0, 1, 1, 2);
 	
-	gui->dialog = gnome_dialog_new (_("CVS Import project"), "Import", "Cancel", NULL);
+	gui->dialog = gnome_dialog_new (_("CVS: Import Project"), "Import", "Cancel", NULL);
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox), table);
 	
 	ok_button =

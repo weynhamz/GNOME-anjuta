@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 #include "anjuta.h"
 #include "appwizard.h"
@@ -82,6 +83,7 @@ create_app_wizard_gui (AppWizard * aw)
 			      _("Application Wizard"));
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "appwizard", "Anjuta");
 	gtk_window_set_position (GTK_WINDOW (window1), GTK_WIN_POS_CENTER);
+    gnome_window_icon_set_from_default(GTK_WINDOW(window1));
 
 	druid1 = gnome_druid_new ();
 	gtk_widget_show (druid1);

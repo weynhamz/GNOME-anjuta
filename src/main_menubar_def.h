@@ -297,7 +297,60 @@ static GnomeUIInfo insert_template_c_uiinfo[NUM_TEMPLATE_C_SUBMENUS+1] = {
    	GNOMEUIINFO_END/*4*/
 };
 
-#define NUM_INSERT_SUBMENUS 3
+#define NUM_CVSKEYWORD_SUBMENUS 8
+static GnomeUIInfo insert_cvskeyword_submenu_uiinfo[NUM_CVSKEYWORD_SUBMENUS+1] = {
+    {/*0*/
+    GNOME_APP_UI_ITEM, "Author",
+    N_("Insert the CVS Author keyword"),
+    on_insert_cvs_author, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL},
+    {/*1*/
+    GNOME_APP_UI_ITEM, "Date",
+    N_("Insert the CVS Date keyword"),
+    on_insert_cvs_date, NULL, NULL,
+    GNOME_APP_PIXMAP_NONE, NULL,
+    0, 0, NULL},
+	{/*2*/
+	GNOME_APP_UI_ITEM, "Header",
+	N_("Insert the CVS Header keyword"),
+	on_insert_cvs_header, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+	{/*3*/
+	GNOME_APP_UI_ITEM, "Id",
+	N_("Insert the CVS Id keyword"),
+	on_insert_cvs_id, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+	{/*4*/
+	GNOME_APP_UI_ITEM, "Log",
+	N_("Insert the CVS Log keyword"),
+	on_insert_cvs_log, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+	{/*5*/
+	GNOME_APP_UI_ITEM, "Name",
+	N_("Insert the CVS Name keyword"),
+	on_insert_cvs_name, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+	{/*6*/
+	GNOME_APP_UI_ITEM, "Revision",
+	N_("Insert the CVS Revision keyword"),
+	on_insert_cvs_revision, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+	{/*7*/
+	GNOME_APP_UI_ITEM, "Source",
+	N_("Insert the CVS Source keyword"),
+	on_insert_cvs_source, NULL, NULL,
+	GNOME_APP_PIXMAP_NONE, NULL,
+	0, 0, NULL},
+   	GNOMEUIINFO_END/*8*/
+};
+
+#define NUM_INSERT_SUBMENUS 4
 static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
     {/*0*/
     GNOME_APP_UI_ITEM, N_("Header"),
@@ -312,12 +365,18 @@ static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
 		GNOME_APP_PIXMAP_NONE, NULL,
 		0, 0, NULL},
 	  {/*2*/
-		GNOME_APP_UI_SUBTREE, N_("Miscellaneous"),
+		GNOME_APP_UI_SUBTREE, N_("CVS keyword"),
+		NULL,
+		insert_cvskeyword_submenu_uiinfo, NULL, NULL,
+		GNOME_APP_PIXMAP_NONE, NULL,
+		0, 0, NULL},
+	  {/*3*/
+		GNOME_APP_UI_SUBTREE, N_("General"),
 		NULL,
 		inserttext1_submenu_uiinfo, NULL, NULL,
 		GNOME_APP_PIXMAP_NONE, NULL,
 		0, 0, NULL},
-    GNOMEUIINFO_END/*3*/
+    GNOMEUIINFO_END/*4*/
 };
 
 #define NUM_GOTO_SUBMENUS 10

@@ -181,7 +181,7 @@ project_import_terminated (int status, time_t time)
 	if (piw->filename == NULL)
 	{
 		anjuta_error (_
-			      ("Could not import project: no project file found!"));
+			      ("Could not import Project: no project file found!"));
 		destroy_project_import_gui ();
 		return;
 	}

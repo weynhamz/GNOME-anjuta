@@ -25,6 +25,8 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
+
 #include "anjuta.h"
 #include "stack_trace.h"
 #include "stack_trace_cbs.h"
@@ -97,6 +99,7 @@ create_stack_trace_gui(StackTrace *st)
   window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (window1), _("Stack Trace"));
   gtk_window_set_wmclass (GTK_WINDOW (window1), "stack_trace", "Anjuta");
+  gnome_window_icon_set_from_default(GTK_WINDOW(window1));
 
   scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
   gtk_widget_show (scrolledwindow1);

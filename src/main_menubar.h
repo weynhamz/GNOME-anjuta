@@ -80,6 +80,15 @@ struct _EditSubMenu
 	GtkWidget *insert_c_while;
 	GtkWidget *insert_c_ifelse;
 	
+	GtkWidget *insert_cvs_author;
+	GtkWidget *insert_cvs_date;
+	GtkWidget *insert_cvs_header;
+	GtkWidget *insert_cvs_id;
+	GtkWidget *insert_cvs_log;
+	GtkWidget *insert_cvs_name;
+	GtkWidget *insert_cvs_revision;
+	GtkWidget *insert_cvs_source;
+	
 	GtkWidget *insert_c_gpl;
 	GtkWidget *insert_cpp_gpl;
 	GtkWidget *insert_py_gpl;

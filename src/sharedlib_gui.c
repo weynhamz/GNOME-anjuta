@@ -25,6 +25,8 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
+
 #include "anjuta.h"
 #include "sharedlib.h"
 #include "sharedlib_cbs.h"
@@ -76,6 +78,7 @@ create_sharedlibs_gui(Sharedlibs *sl)
   gtk_window_set_title (GTK_WINDOW (window3), _("Shared libraries"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "sharedlibs", "Anjuta");
   gtk_window_set_default_size (GTK_WINDOW (window3), 240, 230);
+  gnome_window_icon_set_from_default(GTK_WINDOW(window3));
 
   scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
   gtk_widget_show (scrolledwindow4);

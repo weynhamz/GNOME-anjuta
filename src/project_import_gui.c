@@ -16,6 +16,9 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
+
 #include "anjuta.h"
 #include "resources.h"
 #include "controls.h"
@@ -63,6 +66,7 @@ create_project_import_gui (void)
 				"project_import_wizard", "Anjuta");
 	gtk_window_set_position (GTK_WINDOW (piw->widgets.window),
 				 GTK_WIN_POS_CENTER);
+    gnome_window_icon_set_from_default(GTK_WINDOW(piw->widgets.window));
 	gtk_accel_group_attach (app->accel_group,
 				GTK_OBJECT (piw->widgets.window));
 

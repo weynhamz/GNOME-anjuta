@@ -123,7 +123,7 @@ on_page4_next (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 	if (!strlen (name) || !strlen (author)
 	    || !strlen (version) || !strlen (target))
 	{
-		gnome_ok_dialog (_("Please fill in all needed values!"));
+		gnome_ok_dialog (_("Please complete all of the required fields"));
 		return TRUE;
 	}
 	

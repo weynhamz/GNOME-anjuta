@@ -37,7 +37,11 @@
 #include "fileselection.h"
 #include "anjuta_info.h"
 
-#define ANJUTA_DEBUG_DEBUGGER
+/* only needed when we are debugging ourselves */
+/* if you use it, please remember to comment   */
+/* it out again once the bug is fixed :-)      */
+
+/* #define ANJUTA_DEBUG_DEBUGGER */
 
 static void locals_update_controls(void);
 

@@ -2247,7 +2247,7 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 			fclose (fp);
 			goto done;
 		default:
-			anjuta_error ("Unknown compatibility level of the project");
+			anjuta_error ("Unknown compatibility level of the Project");
 			error_shown = TRUE;
 			goto go_error;
 		}
@@ -2255,11 +2255,8 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 	if (level > COMPATIBILITY_LEVEL)
 	{
 		anjuta_error (_
-		 ("You need Anjuta version %s or later to "
-		"open this project.\n"
-		"Please upgrade Anjuta to the latest version "
-		"(Help for more information).\n"
-		"For the time being, I am too old to load it."), buff);
+		 ("Anjuta version %s or later is required to open this Project.\n"
+		"Please upgrade to the latest version of Anjuta (Help for more information)."), buff);
 		error_shown = TRUE;
 		goto go_error;
 	}
