@@ -546,8 +546,8 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
-	diff_editor->force_hilite = TE_LEXER_NONE;
 	diff_editor->used_by_cvs = TRUE;
+	diff_editor->force_hilite = TE_LEXER_DIFF;
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);

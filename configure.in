@@ -374,6 +374,9 @@ manuals/C/Makefile
 manuals/C/anjuta-tutorial/Makefile
 manuals/C/anjuta-manual/Makefile
 manuals/C/anjuta-faqs/Makefile
+manuals/ja/Makefile
+manuals/ja/anjuta-manual/Makefile
+manuals/ja/anjuta-faqs/Makefile
 anjuta.spec
 src/Makefile
 pixmaps/Makefile

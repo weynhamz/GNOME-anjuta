@@ -2,7 +2,7 @@
 # Add a document module as a subdir here #
 ##########################################
 
-SUBDIRS = C
+SUBDIRS = C ja
 
 EXTRA_DIST= sgmldocs.make
 

@@ -1,3 +1,8 @@
+2002-04-18 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/cvs.c: The diff editor is set to hilite as
+	diff syntax hiliting.
+	
 2002-04-17 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/launcher.c: Made a very messy work around
