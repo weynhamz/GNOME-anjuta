@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-03-06 13:23+0100\n"
-"PO-Revision-Date: 2002-03-06 13:25+0100\n"
+"POT-Creation-Date: 2003-03-08 15:45+0100\n"
+"PO-Revision-Date: 2002-03-08 15:46+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -596,6 +596,10 @@ msgid ""
 "This will be set in configure.in and Makefiles will be generated for them. "
 "They will be build before the source (src/) directory during \"make\"."
 msgstr ""
+"Ange en blankstegsseparerad lista med kataloger som ska byggas innan "
+"källkodsmodulen. Detta kommer att ställas in i configure.in och Makefiler "
+"kommer att skapas för dem. De kommer att byggas innan källkodskatalogen "
+"(src/) under \"make\"."
 
 #: anjuta_dialogs_strings.c:201
 msgid ""
@@ -603,6 +607,10 @@ msgid ""
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be build after the source (src/) directory during \"make\"."
 msgstr ""
+"Ange en blankstegsseparerad lista med kataloger som ska byggas efter "
+"källkodsmodulen. Detta kommer att ställas in i configure och Makefiler "
+"kommer att skapas för dem. De kommer att byggas efter källkodskatalogen "
+"(src/) under \"make\"."
 
 #: anjuta_dialogs_strings.c:203
 msgid "Modules"
@@ -821,11 +829,11 @@ msgstr "Kommandoradsparametrar"
 
 #: anjuta_dialogs_strings.c:271
 msgid "Customize what is to be shown in the file tree"
-msgstr ""
+msgstr "Anpassa vad som ska visas i filträdet"
 
 #: anjuta_dialogs_strings.c:272
 msgid "Customize File Browser"
-msgstr ""
+msgstr "Anpassa filbläddrare"
 
 #: anjuta_dialogs_strings.c:273
 msgid "Choose files"
@@ -1074,6 +1082,10 @@ msgid ""
 "preferences and will be loaded from and saved with the project. If there is "
 "no project open, they will be global preferences."
 msgstr ""
+"Observera: Om ett projekt är öppet är inställningarna på denna sida "
+"projektinställningar och kommer att läsas in från och sparas tillsammans med "
+"projektet. Om inget projekt är öppet kommer de att vara globala "
+"inställningar."
 
 #: anjuta_dialogs_strings.c:364
 msgid "window3"
@@ -1301,24 +1313,23 @@ msgstr "Hej världen!-stil"
 
 #: anjuta_dialogs_strings.c:424
 msgid "Crazy boy style"
-msgstr ""
+msgstr "Galenpannastil"
 
 #: anjuta_dialogs_strings.c:425 src/toolbar.c:861
 msgid "Format style"
 msgstr "Formateringsstil"
 
 #: anjuta_dialogs_strings.c:426
-#, fuzzy
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
 msgstr ""
-"Ange kommandoradsargumenten för \"indent\"-programmet.\n"
-"Läs infosidan för \"indent\" för mer information."
+"Ange kommandoradsargumenten för \"indent\"-programmet. Läs infosidan för "
+"\"indent\" för mer information"
 
 #: anjuta_dialogs_strings.c:430
 msgid "Indentation and auto-format options"
-msgstr ""
+msgstr "Alternativ för indentering och automatisk formatering"
 
 #: anjuta_dialogs_strings.c:431
 msgid "window5"
@@ -1403,15 +1414,13 @@ msgstr "Understruken-normal"
 
 #: anjuta_dialogs_strings.c:457 anjuta_dialogs_strings.c:463
 #: anjuta_dialogs_strings.c:469
-#, fuzzy
 msgid "Underline-Squiggle"
-msgstr "Understruken"
+msgstr "Understruken-snirklig"
 
 #: anjuta_dialogs_strings.c:458 anjuta_dialogs_strings.c:464
 #: anjuta_dialogs_strings.c:470
-#, fuzzy
 msgid "Underline-TT"
-msgstr "Understruken"
+msgstr "Understruken-TT"
 
 #: anjuta_dialogs_strings.c:459 anjuta_dialogs_strings.c:465
 #: anjuta_dialogs_strings.c:471
@@ -1558,13 +1567,15 @@ msgstr "Bläddra efter implementationsfilnamnet."
 
 #: plugins/class-gen/clsGen.c:1428
 msgid "Enter the name of the class your new class will inherit from."
-msgstr ""
+msgstr "Ange namnet på den klass din nya klass kommer att ärva från."
 
 #: plugins/class-gen/clsGen.c:1453
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
 msgstr ""
+"Denna insticksmodul kommer att skapa en klass av den typ du anger och lägga "
+"till den till ditt projekt."
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
@@ -1597,6 +1608,8 @@ msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
 msgstr ""
+"Om detta är ikryssat kommer insticksmodulen att skapa både deklarationen och "
+"implementationen i headerfilen, och kommer inte att skapa en källkodsfil."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
@@ -1610,6 +1623,8 @@ msgstr "V 0.0.2 (11 juni 2002)"
 msgid ""
 "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
+"ATTGÖRA:  lägg till möjligheten att deklarera medlemsfunktioner och deras "
+"parametrar här."
 
 #: plugins/class-gen/clsGen.c:1580
 msgid "Welcome to the Anjuta Class Builder. "
@@ -2426,7 +2441,7 @@ msgstr "Bygger distributionspaketet för projektet: "
 
 #: src/build_project.c:229
 msgid "Do you prefer installing as root ?"
-msgstr ""
+msgstr "Föredrar du att installera som root?"
 
 #: src/build_project.c:267
 msgid "Unable to auto generate. Check Settings->Commands."
@@ -2725,7 +2740,7 @@ msgstr "Hämtar CVS-status "
 
 #: src/cvs.c:475 src/cvs.c:526 src/cvs.c:602 src/cvs.c:841
 msgid "There are jobs running, please wait until they are finished"
-msgstr ""
+msgstr "Det finns jobb som kör. Vänta tills de avslutats"
 
 #: src/cvs.c:511
 msgid "Getting CVS log "
@@ -2834,6 +2849,9 @@ msgid ""
 "to apply to the repository. It will still be possible to retrieve older "
 "revisions of the file."
 msgstr ""
+"VARNING: Filen kommer att tas bort på hårddisken. Använd \"cvs commit\" .\n"
+"för att verkställa i lagret. Det kommer att vara möjligt att hämta gamla "
+"versioner av filen."
 
 #: src/cvs_gui.c:118 src/cvs_gui.c:231
 msgid "File: "
@@ -3017,9 +3035,8 @@ msgid "Cannot execute gnome-terminal"
 msgstr "Kan inte köra gnome-terminal"
 
 #: src/debugger.c:1208
-#, fuzzy
 msgid "Cannot start terminal for debugging."
-msgstr "Fel: Kan inte starta terminal för felsökning."
+msgstr "Kan inte starta terminal för felsökning."
 
 #: src/debugger.c:1273
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
@@ -3106,9 +3123,8 @@ msgid "Sending signal %s to the process: %d\n"
 msgstr "Skickar signalen %s till processen: %d\n"
 
 #: src/debugger.c:1962
-#, fuzzy
 msgid "Error whilst signalling the process."
-msgstr "Ett fel uppstod under signalering till processen."
+msgstr "Fel under signalering till processen."
 
 #: src/executer.c:53 src/mainmenu_callbacks.c:1700
 msgid "The target executable of this Project is unknown"
@@ -5524,6 +5540,9 @@ msgid ""
 "Closing it will result in stopping the process.\n"
 "Do you still want close the editor?"
 msgstr ""
+"Redigeraren används som en utdatabuffert för en åtgärd.\n"
+"Att stänga den kommer att stoppa processen.\n"
+"Vill du fortfarande stänga redigeraren?"
 
 #: src/mainmenu_callbacks.c:167
 #, c-format
@@ -5691,6 +5710,9 @@ msgid ""
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
+"En .glade-fil finns inte i den översta projektkatalogen. Om du inte använder "
+"glade för redigering av grafiska anvndargränssnitt bör du ange ett anpassat "
+"kommando för det i [Projekt]->[Projektkonfiguration]->[GUI-redigerarkommando]"
 
 #: src/project_dbase.c:1648
 msgid ""
@@ -6052,9 +6074,9 @@ msgstr ""
 "Vill du IMPORTERA (kopiera) in den i modulen?"
 
 #: src/project_import.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find import script %s"
-msgstr "Kan inte hitta pixmapfilen: %s"
+msgstr "Kan inte hitta importskriptet %s"
 
 #: src/project_import.c:94
 #, c-format
@@ -6062,7 +6084,7 @@ msgid "%s: Not a regular file"
 msgstr "%s: Inte en vanlig fil"
 
 #: src/project_import.c:106
-#, fuzzy, c-format
+#, c-format
 msgid "Importing Project from %s ...\n"
 msgstr "Importerar projekt från %s...\n"
 
@@ -6071,9 +6093,8 @@ msgid "Could not launch script!\n"
 msgstr "Kunde inte starta skript!\n"
 
 #: src/project_import.c:127
-#, fuzzy
 msgid "Importing Project...please wait"
-msgstr "Importerar projekt...vänta!"
+msgstr "Importerar projekt...var vänlig vänta"
 
 #: src/project_import.c:175
 msgid "Project import completed...successful\n"
@@ -6084,23 +6105,20 @@ msgid "Project import completed...successful"
 msgstr "Projektimport färdig... lyckades"
 
 #: src/project_import.c:189
-#, fuzzy
 msgid "Could not import Project: no project file found!"
-msgstr "Kunde inte importera projekt: Oväntat fel!"
+msgstr "Kunde inte importera projekt: ingen projektfil hittades!"
 
 #: src/project_import.c:196
-#, fuzzy
 msgid "Opening Project...please wait"
-msgstr "Öppnar projekt...vänta!"
+msgstr "Öppnar projekt...var vänlig vänta"
 
 #: src/project_import.c:199
-#, fuzzy
 msgid "Could not open generated Project file"
-msgstr "Kunde inte öppna genererad projektfil!"
+msgstr "Kunde inte öppna genererad projektfil"
 
 #: src/project_import_cbs.c:126
 msgid "Please complete all of the required fields"
-msgstr ""
+msgstr "Fyll i alla obligatoriska fält"
 
 #. We should never come here because this button is disabled
 #: src/project_import_cbs.c:278
@@ -6275,9 +6293,8 @@ msgid "Anjuta"
 msgstr "Anjuta"
 
 #: src/src_paths.c:259
-#, fuzzy
 msgid "Source Paths"
-msgstr "_Källkodssökvägar..."
+msgstr "Källkodssökvägar"
 
 #: src/stack_trace_gui.c:38
 msgid "Frame set"
@@ -6304,9 +6321,9 @@ msgid "Stack"
 msgstr "Stack"
 
 #: src/support.c:60 src/support.c:85
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "Kan inte hitta GNOME-pixmapfilen: %s"
+msgstr "Kan inte hitta pixmapfilen: %s"
 
 #: src/text_editor.c:873
 msgid "Loading file ..."
@@ -6335,7 +6352,7 @@ msgid "File saved successfully"
 msgstr "Filen sparades utan problem"
 
 #: src/text_editor.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
 "the current buffer.\n"
@@ -6421,14 +6438,12 @@ msgid "Find"
 msgstr "Sök"
 
 #: src/text_editor_gui.c:136
-#, fuzzy
 msgid "Search string"
-msgstr " Sök sträng"
+msgstr "Sök sträng"
 
 #: src/text_editor_gui.c:141
-#, fuzzy
 msgid "Search and replace string"
-msgstr "Sök och ersätt den angivna strängen"
+msgstr "Sök och ersätt sträng"
 
 #: src/text_editor_gui.c:157
 msgid "line: "
@@ -6447,9 +6462,8 @@ msgid "Attach"
 msgstr "Anslut"
 
 #: src/text_editor_gui.c:183
-#, fuzzy
 msgid "Attach the current page"
-msgstr "Koppla ifrån den aktuella sidan"
+msgstr "Anslut den aktuella sidan"
 
 #: src/text_editor_menu.c:77
 msgid "Back"
@@ -6703,9 +6717,8 @@ msgid "Goto end of current code block"
 msgstr "Gå till slut på aktuellt kodblock"
 
 #: src/toolbar.c:451
-#, fuzzy
 msgid "Tags:"
-msgstr "Taggar: "
+msgstr "Taggar:"
 
 #: src/toolbar.c:460
 msgid "Goto Tag"
@@ -6895,7 +6908,7 @@ msgstr "Slå på/av aktivering"
 
 #: src/watch_gui.c:67
 msgid "Change item"
-msgstr ""
+msgstr "Ändra objekt"
 
 #: src/watch_gui.c:106
 msgid "Expression Watch"
@@ -6914,14 +6927,12 @@ msgid "Add expression to watch"
 msgstr "Lägg till uttryck till bevakning"
 
 #: src/watch_gui.c:248
-#, fuzzy
 msgid "Modify Watch Expression"
-msgstr "Lägg till bevakningsuttryck"
+msgstr "Ändra bevakningsuttryck"
 
 #: src/watch_gui.c:258
-#, fuzzy
 msgid "Modify watched expression"
-msgstr "Lägg till bevakningsuttryck"
+msgstr "Ändra bevakat uttryck"
 
 #: src/watch_gui.c:314
 msgid "Inspect/Evaluate"
@@ -6957,11 +6968,11 @@ msgstr "GNOME-projekt"
 
 #: src/wizard_gui.c:179
 msgid "glademm (gtkmm 1.2) project"
-msgstr ""
+msgstr "glademm-projekt (gtkmm 1.2)"
 
 #: src/wizard_gui.c:183
 msgid "glademm (gnomemm 1.2) project"
-msgstr ""
+msgstr "glademm-projekt (gnomemm 1.2)"
 
 #: src/wizard_gui.c:187
 msgid "Bonobo component"
@@ -6972,48 +6983,40 @@ msgid "LibGlade project"
 msgstr "LibGlade-projekt"
 
 #: src/wizard_gui.c:194
-#, fuzzy
 msgid "wxWindows project"
-msgstr "LibGlade-projekt"
+msgstr "wxWindows-projekt"
 
 #: src/wizard_gui.c:197
-#, fuzzy
 msgid "GTK 2.0 project"
-msgstr "GTK-projekt"
+msgstr "GTK 2.0-projekt"
 
 #: src/wizard_gui.c:200
-#, fuzzy
 msgid "GNOME 2.0 project"
-msgstr "GNOME-projekt"
+msgstr "GNOME 2.0-projekt"
 
 #: src/wizard_gui.c:203
-#, fuzzy
 msgid "GNOME 2.0 Bonobo component"
-msgstr "Bonobo-komponent"
+msgstr "GNOME 2.0 Bonobo-komponent"
 
 #: src/wizard_gui.c:206
-#, fuzzy
 msgid "LibGlade 2.0 project"
-msgstr "LibGlade-projekt"
+msgstr "LibGlade 2.0-projekt"
 
 #: src/wizard_gui.c:209
-#, fuzzy
 msgid "gtkmm 2.0 project"
-msgstr "GTKmm-projekt"
+msgstr "gtkmm 2.0-projekt"
 
 #: src/wizard_gui.c:212
-#, fuzzy
 msgid "gnomemm 2.0 project"
-msgstr "Gnome-baserat projekt"
+msgstr "gnomemm 2.0-projekt"
 
 #: src/wizard_gui.c:215
-#, fuzzy
 msgid "Xlib project"
-msgstr "LibGlade-projekt"
+msgstr "Xlib-projekt"
 
 #: src/wizard_gui.c:218
 msgid "X Dock App project"
-msgstr ""
+msgstr "X-dockprogramsprojekt"
 
 #: src/wizard_gui.c:298
 msgid "Basic Information"
@@ -7116,9 +7119,8 @@ msgid "Go to the previous directory"
 msgstr "Gå till föregående katalog"
 
 #: widgets/gnomefilelist.c:224
-#, fuzzy
 msgid "Go to the next directory"
-msgstr "Gå till förälderkatalog"
+msgstr "Gå till nästa katalog"
 
 #: widgets/gnomefilelist.c:228
 msgid "Go to parent directory"
@@ -7191,43 +7193,99 @@ msgstr "Diff-filer"
 #: widgets/gnomefilelist.c:1825
 #, c-format
 msgid "Really delete %s?"
-msgstr ""
+msgstr "Vill du verkligen ta bort %s?"
 
 #: widgets/gnomefilelist.c:1872
-#, fuzzy
 msgid "Rename file to:"
-msgstr "Byt namn på fil"
+msgstr "Byt namn på fil till:"
 
 #: widgets/gnomefilelist.c:1898
-#, fuzzy, c-format
+#, c-format
 msgid "Renaming file failed '%s': %s"
-msgstr "Skapande av mapp misslyckades."
+msgstr "Byte av namn på fil misslyckades \"%s\": %s"
 
 #: widgets/gnomefilelist.c:1931
-#, fuzzy, c-format
+#, c-format
 msgid "Creating folder failed '%s': %s"
-msgstr "Skapande av mapp misslyckades."
+msgstr "Skapande av mapp misslyckades \"%s\": %s"
 
 #: widgets/gnomefilelist.c:1971
 msgid "Folder name:"
 msgstr "Mappnamn:"
 
 #: widgets/cell-renderer-captioned-image.c:207
-#, fuzzy
 msgid "Text"
-msgstr "Nästa"
+msgstr "Text"
 
 #: widgets/cell-renderer-captioned-image.c:208
 msgid "Text to render"
-msgstr ""
+msgstr "Text att rendera"
 
 #: widgets/cell-renderer-captioned-image.c:214
 msgid "Pixbuf Object"
-msgstr ""
+msgstr "Pixbuf-objekt"
 
 #: widgets/cell-renderer-captioned-image.c:215
 msgid "The pixbuf to render."
-msgstr ""
+msgstr "Pixbuf att rendera."
+
+#~ msgid ""
+#~ "Enter the command line arguments for the 'indent' program. Read the info "
+#~ "page for 'indent' for more details."
+#~ msgstr ""
+#~ "Ange kommandoradsargumenten för \"indent\"-programmet. Läs infosidan för "
+#~ "\"indent\" för mer information."
+
+#~ msgid "Underline"
+#~ msgstr "Understruken"
+
+#~ msgid "Do you prefer installing as root?"
+#~ msgstr "Föredrar du att installera som root?"
+
+#~ msgid "Error while signalling the process."
+#~ msgstr "Fel under signalering till processen."
+
+#~ msgid "Importing project from %s ...\n"
+#~ msgstr "Importerar projekt från %s...\n"
+
+#~ msgid "Importing project...please wait"
+#~ msgstr "Importerar projekt...var vänlig vänta"
+
+#~ msgid "Could not import project: no project file found!"
+#~ msgstr "Kunde inte importera projekt: ingen projektfil hittades!"
+
+#~ msgid "Opening project...please wait"
+#~ msgstr "Öppnar projekt...var vänlig vänta"
+
+#~ msgid "Could not open generated project file"
+#~ msgstr "Kunde inte öppna genererad projektfil"
+
+#~ msgid "Line: "
+#~ msgstr "Rad: "
+
+#~ msgid "Line:"
+#~ msgstr "Rad:"
+
+#~ msgid "GTK 2.2 project"
+#~ msgstr "GTK 2.2-projekt"
+
+#~ msgid "GTK 2.4 project"
+#~ msgstr "GTK 2.4-projekt"
+
+#~ msgid "GTK 2.6 project"
+#~ msgstr "GTK 2.6-projekt"
+
+#~ msgid "GNOME 2.2 project"
+#~ msgstr "GNOME 2.2-projekt"
+
+#~ msgid "GNOME 2.4 project"
+#~ msgstr "GNOME 2.4-projekt"
+
+#~ msgid "GNOME 2.6 project"
+#~ msgstr "GNOME 2.6-projekt"
+
+#~ msgid "The pixbuf to render"
+#~ msgstr "Pixbuf att rendera"
 
 #~ msgid "History size"
 #~ msgstr "Historikstorlek"
