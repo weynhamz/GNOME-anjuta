@@ -20,6 +20,7 @@
 #define _UTILITIES_H_
 
 #include <dirent.h>
+#include <stdio.h>
 
 #define COMBO_LIST_LENGTH \
 		preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)

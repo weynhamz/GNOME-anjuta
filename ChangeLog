@@ -1,6 +1,13 @@
+2002-08-22  Stephane Demurget  <demurgets@free.fr>
+
+	* src/anjuta_info.c:
+	* src/utilities.h: gnome 2 port, featuring a total rewrite.
+
 2002-08-20  Stephane Demurget  <demurgets@free.fr>
 
-	* src/Makefile.am:
+	* src/Makefile.am: removed an_*_view.[ch] because they're driving me
+	nuts ATM.
+       
 	* src/an_file_view.c:
 	* src/aneditor.cxx:
 	* src/anjuta_cbs.c:
