@@ -30,18 +30,24 @@ or directly to the project maintainer.
 The five-step plan to patching happiness is as follows:
 
 1) All patches should be submitted in *unified* form, i.e. created 
-with the command "diff -u" or "cvs diff -u"). This is because:
+with the command "diff -u" or "cvs diff -u"). 
 
+Make your changes in all files (including the ChangeLog file) and run
+"cvs diff -u > patch.diff" in the toplevel anjuta/ directory. This diff
+file will contain patches for all of the files together.
+
+Remember to run the cvs diff for the *top* project directory. It will
+automatically recurse into the subdirectories and generate the patches.
+
+We ask for patches in this format because:
 - more often then not, patches are out of sync with current CVS. This 
 can happen because someone is submitting a patch taken against an old 
 version of Anjuta, or against anonymous CVS (which is usually out of 
 sync for 24 hours). Therefore, the maintainers have to review patches 
 manually.
-
 - if a patch file is opened in Anjuta (or editors such as Nedit) in 
 "Diff" mode, *unified* formats are more readable and errors and 
 mis-syncs are easily detected. Non-unified formats are hard to read.
-
 - unified patches are more intelligent in recognizing changed lines
 (because by default there is a 3-line context buffer).
 
