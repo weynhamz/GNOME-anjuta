@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjyuta 0.1.4\n"
-"POT-Creation-Date: 2001-08-01 15:08+0200\n"
-"PO-Revision-Date: 2001-04-03 20:09+09:00\n"
+"Project-Id-Version: anjyuta 0.1.6\n"
+"POT-Creation-Date: 2001-08-03 14:13+0900\n"
+"PO-Revision-Date: 2001-08-02 16:25+09:00\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgid "No read permission for: %s."
 msgstr "読み込み権限がありません: %s"
 
 #: src/anjuta_cbs.c:211
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
 "Do you want to overwrite it?."
@@ -53,32 +53,26 @@ msgid "Select the type of application you want to develop"
 msgstr "開発するアプリケーションの種類を選択して下さい。"
 
 #: src/appwiz_page1.c:130
-#, fuzzy
 msgid "Generic/Terminal project"
-msgstr "一般なコマンド・ベースのプロジェクト"
+msgstr "通常/コマンドベースのプロジェクト"
 
 #: src/appwiz_page1.c:134
-#, fuzzy
 msgid "GTK project"
-msgstr "project1"
+msgstr "GTK+ プロジェクト"
 
 #: src/appwiz_page1.c:138
-#, fuzzy
 msgid "GNOME project"
-msgstr "project1"
+msgstr "GNOME プロジェクト"
 
 #: src/appwiz_page1.c:142
-#, fuzzy
 msgid "GTK-- project"
-msgstr "project1"
+msgstr "GTK-- プロジェクト"
 
 #: src/appwiz_page1.c:146
-#, fuzzy
 msgid "GNOME-- project"
-msgstr "project1"
+msgstr "GNOME-- プロジェクト"
 
 #: src/appwiz_page1.c:150
-#, fuzzy
 msgid "GNOME Bonobo component"
 msgstr "GNOME Bonobo コンポーネント"
 
@@ -122,7 +116,8 @@ msgstr "C/C++ 言語の両方"
 msgid "Enter a short project description"
 msgstr "プロジェクトの短い説明、紹介を入力して下さい。"
 
-#: src/appwiz_page3.c:147 src/project_dbase_gui.c:1123
+#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
+#: src/project_dbase_gui.c:1123
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "Pixmap ファイルが見つかりませんでした: %s"
@@ -205,48 +200,40 @@ msgid "Author:          "
 msgstr "作者:\t\t\t"
 
 #: src/appwizard_cbs.c:260
-#, fuzzy
 msgid "Language:        "
-msgstr "使用する言語:\t\t"
+msgstr "言語:        "
 
 #: src/appwizard_cbs.c:261
 msgid "Gettext support: "
 msgstr "GNU Gettext サポート:"
 
 #: src/appwizard_gui.c:97
-#, fuzzy
 msgid "GNOME Application Wizard"
 msgstr "GNOME アプリケーション・ウィザード"
 
 #: src/appwizard_gui.c:123
-#, fuzzy
 msgid "GNOME Application Wizard:     Page 1 of 6"
-msgstr "GNOME アプリケーション・ウィザード: 1/6 ページ"
+msgstr "GNOME アプリケーション・ウィザード:     1/6 ページ"
 
 #: src/appwizard_gui.c:152
-#, fuzzy
 msgid "GNOME Application Wizard:     Page 2 of 6"
-msgstr "GNOME アプリケーション・ウィザード: 2/6 ページ"
+msgstr "GNOME アプリケーション・ウィザード:     2/6 ページ"
 
 #: src/appwizard_gui.c:176
-#, fuzzy
 msgid "GNOME Application Wizard:     Page 3 of 6"
-msgstr "GNOME アプリケーション・ウィザード: 3/6 ページ"
+msgstr "GNOME アプリケーション・ウィザード:     3/6 ページ"
 
 #: src/appwizard_gui.c:201
-#, fuzzy
 msgid "GNOME Application Wizard:     Page 4 of 6"
-msgstr "GNOME アプリケーション・ウィザード: 4/6 ページ"
+msgstr "GNOME アプリケーション・ウィザード:     4/6 ページ"
 
 #: src/appwizard_gui.c:225
-#, fuzzy
 msgid "GNOME Application Wizard:     Page 5 of 6"
-msgstr "GNOME アプリケーション・ウィザード: 5/6 ページ"
+msgstr "GNOME アプリケーション・ウィザード:     5/6 ページ"
 
 #: src/appwizard_gui.c:248
-#, fuzzy
 msgid "GNOME Application Wizard:     Page 6 of 6"
-msgstr "GNOME アプリケーション・ウィザード: 6/6 ページ"
+msgstr "GNOME アプリケーション・ウィザード:     6/6 ページ"
 
 #: src/attach_process.c:118
 #, c-format
@@ -449,18 +436,15 @@ msgid "Build Project"
 msgstr "プロジェクトのビルド"
 
 #: src/build_project.c:77
-#, fuzzy
 msgid "Building source directory of the Project: "
 msgstr "プロジェクトのソースディレクトリのビルド: "
 
 #: src/build_project.c:114
-#, fuzzy
 msgid "Unable to build Project. Check Preferences->Commands."
 msgstr ""
 "プロジェクトをビルドできません。\"設定 -> コマンド\" を確認して下さい。"
 
 #: src/build_project.c:129
-#, fuzzy
 msgid "Building the whole Project: "
 msgstr "全てのプロジェクトのビルド: "
 
@@ -473,12 +457,10 @@ msgid "Build Distribution"
 msgstr "パッケージの作成"
 
 #: src/build_project.c:178
-#, fuzzy
 msgid "Building the distribution package of the Project: "
 msgstr "プロジェクトから配布可能なパッケージの作成: "
 
 #: src/build_project.c:211
-#, fuzzy
 msgid "Unable to Install Project. Check Preferences->Commands."
 msgstr ""
 "プロジェクトをインストールできません。\"設定 -> コマンド\" を確認して下さい。"
@@ -488,12 +470,10 @@ msgid "Install Project"
 msgstr "プロジェクトのインストール"
 
 #: src/build_project.c:225
-#, fuzzy
 msgid "Installing the Project: "
 msgstr "プロジェクトのインストール: "
 
 #: src/build_project.c:266
-#, fuzzy
 msgid "Unable to auto generate. Check Preferences->Commands."
 msgstr "自動生成できません。\"設定 -> コマンド\" を確認して下さい。"
 
@@ -502,7 +482,6 @@ msgid "Autogen Project"
 msgstr "プロジェクトの自動生成"
 
 #: src/build_project.c:280
-#, fuzzy
 msgid "Auto generating the Project: "
 msgstr "プロジェクトの自動生成: "
 
@@ -523,22 +502,18 @@ msgid "Build completed ... successful."
 msgstr "ビルド完了 ... 成功です。"
 
 #: src/build_project.c:338
-#, fuzzy
 msgid "Build All completed...............Unsuccessful\n"
 msgstr "全ビルド完了...............失敗\n"
 
 #: src/build_project.c:341
-#, fuzzy
 msgid "Build All completed...............Unsuccessful"
 msgstr "全ビルド完了...............失敗"
 
 #: src/build_project.c:347
-#, fuzzy
 msgid "Build All completed...............Successful\n"
 msgstr "全ビルド完了...............成功\n"
 
 #: src/build_project.c:349
-#, fuzzy
 msgid "Build All completed ... successful"
 msgstr "全ビルド完了 ... 成功"
 
@@ -580,17 +555,14 @@ msgid "Install completed ... successful"
 msgstr "インストール完了 ... 成功"
 
 #: src/build_project.c:439
-#, fuzzy
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "自動生成の完了...............失敗\n"
 
 #: src/build_project.c:442
-#, fuzzy
 msgid "Auto generation completed ... unsuccessful"
 msgstr "自動生成の完了 ... 失敗"
 
 #: src/build_project.c:448
-#, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Configure the Project.\n"
@@ -599,7 +571,6 @@ msgstr ""
 "今からプロジェクトを Configure します。\n"
 
 #: src/build_project.c:450
-#, fuzzy
 msgid "Auto generation completed ... successful"
 msgstr "自動生成の完了 ... 成功"
 
@@ -663,9 +634,8 @@ msgid "Clean all completed ... successful"
 msgstr "全プロジェクトの Clean 完了 ... 成功"
 
 #: src/commands.c:542
-#, fuzzy
 msgid "Anjuta: Commands"
-msgstr "Anjuta: 検索"
+msgstr "Anjuta: コマンド"
 
 #: src/commands.c:560
 msgid "Select programming language:"
@@ -700,7 +670,6 @@ msgid "Image editor:"
 msgstr "画像エディタ:"
 
 #: src/commands.c:672
-#, fuzzy
 msgid "HTML viewer:"
 msgstr "HTML ビュワー:"
 
@@ -998,21 +967,20 @@ msgid "Fastest code optimization (Function inlined where ever possible"
 msgstr "-O3 最速コード最適化 (可能ならば関数をインライン化する)"
 
 #: src/compiler_options_gui.c:1043
-#, fuzzy
 msgid "Note"
-msgstr "なし"
+msgstr "注記"
 
 #: src/compiler_options_gui.c:1049
-#, fuzzy
 msgid ""
 "With optimization enabled, you might have some difficulty\n"
 "debugging your program. So it is not a good idea to enable\n"
 "both debug and optimization options, unless what you want\n"
 "is to debug the optimized code."
 msgstr ""
-"注意: 最適化を有効にすると、プログラムのデバッグ時に幾つかの点で不都合が生じ"
-"ます。つまり最適化されたコードをデバッグすると言うような、デバッグと最適化の"
-"両オプションを同時に設定することは避けた方が良いでしょう。"
+"最適化を有効にすると、幾つかのプログラムのデバッグが難しくなる\n"
+"かもしれません。デバッグオプションと最適化オプションの両方を使用する\n"
+"ことは最適化されたコードをデバッグすることは、最適化されたコードを\n"
+"デバッグすることになるので、避けた方が良いでしょう。"
 
 #: src/compiler_options_gui.c:1089
 msgid "Enable Debugging"
@@ -1347,7 +1315,6 @@ msgid " Search String"
 msgstr " 検索する文字列"
 
 #: src/find_replace.c:291 src/find_text.c:247
-#, fuzzy
 msgid " RegExp/String to search "
 msgstr "検索する正規表現/文字列"
 
@@ -1384,7 +1351,6 @@ msgid "Type"
 msgstr "種類"
 
 #: src/find_replace.c:392 src/find_text.c:332
-#, fuzzy
 msgid "RegExp"
 msgstr "正規表現"
 
@@ -1536,10 +1502,9 @@ msgstr "シェルを起動することができません。"
 
 #: src/main.c:44
 msgid "Don't show the splashscreen"
-msgstr ""
+msgstr "スプラッシュ画面を表示しない"
 
 #: src/main_menubar.c:388
-#, fuzzy
 msgid "Recent Files    "
 msgstr "最近開いたファイル"
 
@@ -1568,16 +1533,14 @@ msgid "_Open ..."
 msgstr "開く(_O) ..."
 
 #: src/main_menubar_def.h:44 src/toolbar.c:120
-#, fuzzy
 msgid "Open file"
-msgstr "ファイルを開く"
+msgstr "ファイルを開きます"
 
 #: src/main_menubar_def.h:49
 msgid "_Save"
 msgstr "保存(_S)"
 
 #: src/main_menubar_def.h:50 src/toolbar.c:133
-#, fuzzy
 msgid "Save current file"
 msgstr "このファイルを保存します"
 
@@ -1586,25 +1549,22 @@ msgid "Save _As ..."
 msgstr "名前を付けて保存(_A) ..."
 
 #: src/main_menubar_def.h:56
-#, fuzzy
 msgid "Save the current file with a different name"
-msgstr "このファイルを別のファイルに保存します"
+msgstr "このファイルに名前を付けて保存します"
 
 #: src/main_menubar_def.h:61
 msgid "Save A_ll"
 msgstr "全て保存(_A)"
 
 #: src/main_menubar_def.h:62 src/toolbar.c:146
-#, fuzzy
 msgid "Save all currently open files, except new files"
-msgstr "現在開いている全てのファイル(\"Newfile\"は除く)<を保存します。"
+msgstr "現在開いている全てのファイルを保存します。但し新規ファイルは除きます"
 
 #: src/main_menubar_def.h:67
 msgid "_Close File"
 msgstr "ファイルを閉じる(_C)"
 
 #: src/main_menubar_def.h:68 src/toolbar.c:158
-#, fuzzy
 msgid "Close current file"
 msgstr "このファイルを閉じます"
 
@@ -1613,16 +1573,14 @@ msgid "Reload F_ile"
 msgstr "ファイルの再読み込み(_I)"
 
 #: src/main_menubar_def.h:74 src/toolbar.c:169
-#, fuzzy
 msgid "Reload current file"
-msgstr "このファイルをリロードします"
+msgstr "このファイルを再度読み込みます"
 
 #: src/main_menubar_def.h:80
 msgid "N_ew Project ..."
 msgstr "新規プロジェクト(_E) ..."
 
 #: src/main_menubar_def.h:81
-#, fuzzy
 msgid "Create a Project using application wizard"
 msgstr "アプリケーション・ウィザードを使って新規プロジェクトを作成します"
 
@@ -1671,7 +1629,6 @@ msgid "_Print ..."
 msgstr "印刷(_P) ..."
 
 #: src/main_menubar_def.h:119 src/toolbar.c:219
-#, fuzzy
 msgid "Print the current file"
 msgstr "このファイルを印刷します"
 
@@ -1688,7 +1645,6 @@ msgid "_Make Selection Uppercase"
 msgstr "選択範囲を大文字に(_M)"
 
 #: src/main_menubar_def.h:144
-#, fuzzy
 msgid "Make the selected text uppercase"
 msgstr "指定したテキストを大文字に変換します"
 
@@ -1697,7 +1653,6 @@ msgid "Make Selection Lowercase"
 msgstr "選択範囲を小文字"
 
 #: src/main_menubar_def.h:150
-#, fuzzy
 msgid "Make the selected text lowercase"
 msgstr "指定したテキストを小文字に変換します"
 
@@ -1706,7 +1661,6 @@ msgid "Convert EOL chars to LF"
 msgstr "EOL 文字を LF に"
 
 #: src/main_menubar_def.h:156
-#, fuzzy
 msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
 msgstr ""
 "行末文字 EOL (End Of Line) を UNIX スタイルの EOL (LF: ラインフィード) に変換"
@@ -1741,7 +1695,6 @@ msgid "_Goto Line no ..."
 msgstr "指定する行番号へ(_G) ..."
 
 #: src/main_menubar_def.h:188
-#, fuzzy
 msgid "Go to a particular line in the editor"
 msgstr "エディタ内で指定した行番号にジャンプします"
 
@@ -1798,7 +1751,6 @@ msgid "_Redo"
 msgstr "リドゥ(_R)"
 
 #: src/main_menubar_def.h:235 src/toolbar.c:193
-#, fuzzy
 msgid "Redo the last undone action"
 msgstr "最後の操作を取り消します"
 
@@ -1847,7 +1799,6 @@ msgid "_AutoComplete"
 msgstr "オートコンプリート(_A)"
 
 #: src/main_menubar_def.h:290
-#, fuzzy
 msgid "AutoComplete the current word"
 msgstr "この単語を自動補完します"
 
@@ -1864,7 +1815,6 @@ msgid "_Find ..."
 msgstr "検索(_F) ..."
 
 #: src/main_menubar_def.h:306
-#, fuzzy
 msgid "Search for a string or regexp in the editor"
 msgstr "エディタ内で文字列または正規表現を検索します"
 
@@ -1873,7 +1823,6 @@ msgid "Fin_d in files ..."
 msgstr "ファイル内の検索(_D) ..."
 
 #: src/main_menubar_def.h:313
-#, fuzzy
 msgid "Search for a string in multiple files or directories"
 msgstr "複数のファイルまたはディレクトリから文字列を検索します"
 
@@ -1882,7 +1831,6 @@ msgid "Find and R_eplace ..."
 msgstr "検索と置換(_E) ..."
 
 #: src/main_menubar_def.h:320
-#, fuzzy
 msgid "Search for and replace a string or regexp with another string"
 msgstr "検索して文字列または正規表現を別の文字列に置き換えます"
 
@@ -1891,32 +1839,26 @@ msgid "G_o to"
 msgstr "ジャンプ(_O)"
 
 #: src/main_menubar_def.h:337
-#, fuzzy
 msgid "Ed_it Application GUI ..."
 msgstr "アプリの GUI 編集(_I) ..."
 
 #: src/main_menubar_def.h:338
-#, fuzzy
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "GUI エディタ \"glade\" を起動して、アプリの GUI を編集します"
 
 #: src/main_menubar_def.h:348
-#, fuzzy
 msgid "_Main Toolbar"
 msgstr "メインツールバー(_M)"
 
 #: src/main_menubar_def.h:349
-#, fuzzy
 msgid "Hide/Unhide Main toolbar"
 msgstr "メインツールバーの表示 ON/OFF を切り替えます"
 
 #: src/main_menubar_def.h:355
-#, fuzzy
 msgid "_Extended Toolbar"
 msgstr "拡張ツールバー(_E)"
 
 #: src/main_menubar_def.h:356
-#, fuzzy
 msgid "Hide/Unhide Extended toolbar"
 msgstr "拡張ツールバーの表示 ON/OFF を切り替えます"
 
@@ -1925,7 +1867,6 @@ msgid "_Tags Toolbar"
 msgstr "タグツールバー(_T)"
 
 #: src/main_menubar_def.h:363
-#, fuzzy
 msgid "Hide/Unhide Tags toolbar"
 msgstr "タグツールバーの表示 ON/OFF を切り替えます"
 
@@ -1934,7 +1875,6 @@ msgid "_Debug Toolbar"
 msgstr "デバッグツールバー(_D)"
 
 #: src/main_menubar_def.h:370
-#, fuzzy
 msgid "Hide/Unhide Debug toolbar"
 msgstr "デバッグツールバーの表示 ON/OFF を切り替えます"
 
@@ -1943,7 +1883,6 @@ msgid "_Browser Toolbar"
 msgstr "ブラウザツールバー(_B)"
 
 #: src/main_menubar_def.h:377
-#, fuzzy
 msgid "Hide/Unhide Browser toolbar"
 msgstr "ブラウザツールバーの表示 ON/OFF を切り替えます"
 
@@ -1952,7 +1891,6 @@ msgid "_Format Toolbar"
 msgstr "書式ツールバー(_F)"
 
 #: src/main_menubar_def.h:384
-#, fuzzy
 msgid "Hide/Unhide Format toolbar"
 msgstr "書式ツールバーの表示 ON/OFF を切り替えます"
 
@@ -1961,7 +1899,6 @@ msgid "_Line numbers margin"
 msgstr "行番号マージン(_L)"
 
 #: src/main_menubar_def.h:394
-#, fuzzy
 msgid "Show/Hide line numbers"
 msgstr "行番号の表示 ON/OFF を切り替えます"
 
@@ -1970,7 +1907,6 @@ msgid "_Markers Margin"
 msgstr "マーカーマージン(_M)"
 
 #: src/main_menubar_def.h:400
-#, fuzzy
 msgid "Show/Hide markers margin"
 msgstr "マーカー余白の表示 ON/OFF を切り替えます"
 
@@ -1979,7 +1915,6 @@ msgid "_Code fold margin"
 msgstr "コード折り返しマージン(_C)"
 
 #: src/main_menubar_def.h:406
-#, fuzzy
 msgid "Show/Hide code fold margin"
 msgstr "コード折り返し余白の表示 ON/OFF を切り替えます"
 
@@ -1988,7 +1923,6 @@ msgid "_Indentation guides"
 msgstr "インデントガイド(_I)"
 
 #: src/main_menubar_def.h:412
-#, fuzzy
 msgid "Show/Hide undentation guides"
 msgstr "インデントガイドの表示 ON/OFF を切り替えます"
 
@@ -1997,7 +1931,6 @@ msgid "_White spaces"
 msgstr "ホワイトスペース(_W)"
 
 #: src/main_menubar_def.h:418
-#, fuzzy
 msgid "Show/Hide white spaces"
 msgstr "ホワイトスペースの表示 ON/OFF を切り替えます"
 
@@ -2006,18 +1939,16 @@ msgid "_Line end characters"
 msgstr "行と文字(_L)"
 
 #: src/main_menubar_def.h:424
-#, fuzzy
 msgid "Show/Hide line end characters"
-msgstr "行と文字(_L)"
+msgstr "行と文字の表示 ON/OFF を切り替えます"
 
 #: src/main_menubar_def.h:433
 msgid "++ Zoom"
 msgstr "拡大"
 
 #: src/main_menubar_def.h:434
-#, fuzzy
 msgid "Increase text zoom by 1 unit"
-msgstr "エディタ内の文字サイズを一つ小さくします"
+msgstr "エディタ内の文字サイズを一つ大きくします"
 
 #: src/main_menubar_def.h:439
 msgid "+8"
@@ -2092,36 +2023,32 @@ msgid "-- Zoom"
 msgstr "縮小"
 
 #: src/main_menubar_def.h:494
-#, fuzzy
 msgid "Reduce text zoom by 1 unit"
-msgstr "エディタ内の文字サイズを一つ大きくします"
+msgstr "エディタ内の文字サイズを一つ小さくします"
 
 #: src/main_menubar_def.h:503
 msgid "_Messages"
 msgstr "メッセージ(_M)"
 
 #: src/main_menubar_def.h:504
-#, fuzzy
 msgid "Show/Hide the Message window"
-msgstr "メッセージウィンドウを表示します"
+msgstr "メッセージウィンドウの表示 ON/OFF を切り替えます"
 
 #: src/main_menubar_def.h:509
 msgid "_Project Listing"
 msgstr "プロジェクト一覧(_P)"
 
 #: src/main_menubar_def.h:510 src/toolbar.c:284
-#, fuzzy
 msgid "Show/Hide the Project window"
-msgstr "プロジェクトウィンドウを表示します"
+msgstr "プロジェクトウィンドウの表示 ON/OFF を切り替えます"
 
 #: src/main_menubar_def.h:515
 msgid "B_ookmarks"
 msgstr "ブックマーク(_O)"
 
 #: src/main_menubar_def.h:516
-#, fuzzy
 msgid "Show the Bookmark window"
-msgstr "ブックマークウィンドウを表示します"
+msgstr "ブックマークウィンドウの表示 ON/OFF を切り替えます"
 
 #: src/main_menubar_def.h:522
 msgid "_Toolbars"
@@ -2156,9 +2083,8 @@ msgid "_Registers"
 msgstr "レジスタ(_R)"
 
 #: src/main_menubar_def.h:557
-#, fuzzy
 msgid "Show CPU registers and their contents"
-msgstr "CPU レジスタとその内容"
+msgstr "CPU レジスタとその内容を表示します"
 
 #: src/main_menubar_def.h:562
 msgid "Program _Stack"
@@ -2177,21 +2103,18 @@ msgid "Show shared libraries loaded by the program"
 msgstr "プログラムがロードする共有ライブラリを表示します"
 
 #: src/main_menubar_def.h:574
-#, fuzzy
 msgid "_Kernel Signals"
-msgstr "シグナル(_K)"
+msgstr "カーネルシグナル(_K)"
 
 #: src/main_menubar_def.h:575
-#, fuzzy
 msgid "Show the kernel signals editor window"
-msgstr "エディタウィンドウにカーネルのシグナルを表示します"
+msgstr "カーネルシグナル・エディタウィンドウを表示します"
 
 #: src/main_menubar_def.h:580
 msgid "_Dump Window"
 msgstr "メモリダンプ(_D)"
 
 #: src/main_menubar_def.h:581
-#, fuzzy
 msgid "Show memory dump window"
 msgstr "メモリダンプのウィンドウを表示します"
 
@@ -2225,12 +2148,11 @@ msgstr "Pixmap ファイル"
 
 #: src/main_menubar_def.h:627 src/project_dbase_gui.c:366
 msgid "Translation file"
-msgstr "翻訳用ファイル"
+msgstr "翻訳用(.po)ファイル"
 
 #: src/main_menubar_def.h:633
-#, fuzzy
 msgid "Documentation file"
-msgstr "翻訳用ファイル"
+msgstr "ドキュメントファイル"
 
 #: src/main_menubar_def.h:643 src/project_dbase_gui.c:382
 msgid "Add New"
@@ -2241,27 +2163,22 @@ msgid "Import File"
 msgstr "ファイルのインポート"
 
 #: src/main_menubar_def.h:657
-#, fuzzy
 msgid "Remove the current file from the project"
-msgstr "プロジェクトの README ファイルを開きます"
+msgstr "プロジェクトからこのファイルを削除します"
 
 #: src/main_menubar_def.h:664
-#, fuzzy
 msgid "Open the README file of the project"
-msgstr "プロジェクトの NEWS ファイルを開きます"
+msgstr "プロジェクトの README ファイルを開きます"
 
 #: src/main_menubar_def.h:670
-#, fuzzy
 msgid "Open the TODO file of the project"
-msgstr "プロジェクトの NEWS ファイルを開きます"
+msgstr "プロジェクトの TODO ファイルを開きます"
 
 #: src/main_menubar_def.h:676
-#, fuzzy
 msgid "Open the ChangeLog file of the project"
 msgstr "プロジェクトの ChangeLog ファイルを開きます"
 
 #: src/main_menubar_def.h:682
-#, fuzzy
 msgid "Open the NEWS file of the project"
 msgstr "プロジェクトの NEWS ファイルを開きます"
 
@@ -2286,211 +2203,184 @@ msgid "Automatic"
 msgstr "自動ハイライト"
 
 #: src/main_menubar_def.h:705
-#, fuzzy
 msgid "Automatically determine the highlight style"
-msgstr "自動的にハイライトのスタイルを決定します"
+msgstr "自動的に強調表示のスタイルを決定します"
 
 #: src/main_menubar_def.h:710
-#, fuzzy
 msgid "No Highlight style"
-msgstr "ハイライトしない"
+msgstr "強調表示スタイル無し"
 
 #: src/main_menubar_def.h:711
-#, fuzzy
 msgid "Force the highlight style to None"
-msgstr "強制的にハイライトのスタイルを無効にします"
+msgstr "強制的に強調表示のスタイルを無効にします"
 
 #: src/main_menubar_def.h:716
 msgid "C and C++"
 msgstr "C/C++ 言語"
 
 #: src/main_menubar_def.h:717
-#, fuzzy
 msgid "Force the highlight style to C and C++"
-msgstr "強制的に C/C++ スタイルでハイライトします"
+msgstr "強制的に C/C++ スタイルで強調表示します"
 
 #: src/main_menubar_def.h:722
-#, fuzzy
 msgid "C and C++ with GNOME"
-msgstr "強制的に GNOME の C/C++ スタイルでハイライトします"
+msgstr "強制的に GNOME の C/C++ スタイルで強調表示します"
 
 #: src/main_menubar_def.h:723
-#, fuzzy
 msgid "Force the highlight style to C and C++ with GNOME"
-msgstr "強制的に GNOME の C/C++ スタイルでハイライトします"
+msgstr "強制的に GNOME の C/C++ スタイルで強調表示します"
 
 #: src/main_menubar_def.h:728
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: src/main_menubar_def.h:729
-#, fuzzy
 msgid "Force the highlight style to HTML"
-msgstr "強制的に LUA スタイルでハイライトします"
+msgstr "強制的に LUA スタイルで強調表示します"
 
 #: src/main_menubar_def.h:734
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: src/main_menubar_def.h:735
-#, fuzzy
 msgid "Force the highlight style to XML"
-msgstr "強制的に SQL スタイルでハイライトします"
+msgstr "強制的に XML スタイルで強調表示します"
 
 #: src/main_menubar_def.h:740
-#, fuzzy
 msgid "Javascript"
 msgstr "Java スクリプト"
 
 #: src/main_menubar_def.h:741
-#, fuzzy
 msgid "Force the highlight style to Javascript"
-msgstr "強制的に Java スクリプトのスタイルでハイライトします"
+msgstr "強制的に Java スクリプトのスタイルで強調表示します"
 
 #: src/main_menubar_def.h:746
 msgid "WScript"
 msgstr "WScript"
 
 #: src/main_menubar_def.h:747
-#, fuzzy
 msgid "Force the highlight style to WScript"
-msgstr "強制的に Java スクリプトのスタイルでハイライトします"
+msgstr "強制的に Java スクリプトのスタイルで強調表示します"
 
 #: src/main_menubar_def.h:752
 msgid "Makefile"
 msgstr "Makefile"
 
 #: src/main_menubar_def.h:753
-#, fuzzy
 msgid "Force the highlight style to Makefile"
-msgstr "強制的に Perl スタイルでハイライトします"
+msgstr "強制的に Perl スタイルで強調表示します"
 
 #: src/main_menubar_def.h:758
 msgid "Java"
 msgstr "Java"
 
 #: src/main_menubar_def.h:759
-#, fuzzy
 msgid "Force the highlight type to Java"
-msgstr "強制的に Java のスタイルでハイライトします"
+msgstr "強制的に Java のスタイルで強調表示します"
 
 #: src/main_menubar_def.h:764
 msgid "LUA"
 msgstr "LUA"
 
 #: src/main_menubar_def.h:765
-#, fuzzy
 msgid "Force the highlight style to LUA"
-msgstr "強制的に LUA スタイルでハイライトします"
+msgstr "強制的に LUA スタイルで強調表示します"
 
 #: src/main_menubar_def.h:770
 msgid "Python"
 msgstr "Python"
 
 #: src/main_menubar_def.h:771
-#, fuzzy
 msgid "Force the highlight style to Python"
-msgstr "強制的に Python スタイルでハイライトします"
+msgstr "強制的に Python スタイルで強調表示します"
 
 #: src/main_menubar_def.h:776
 msgid "Perl"
 msgstr "Perl"
 
 #: src/main_menubar_def.h:777
-#, fuzzy
 msgid "Force the highlight style to Perl"
-msgstr "強制的に Perl スタイルでハイライトします"
+msgstr "強制的に Perl スタイルで強調表示します"
 
 #: src/main_menubar_def.h:782
 msgid "SQL"
 msgstr "SQL"
 
 #: src/main_menubar_def.h:783
-#, fuzzy
 msgid "Force the highlight style to SQL"
-msgstr "強制的に SQL スタイルでハイライトします"
+msgstr "強制的に SQL スタイルで強調表示します"
 
 #: src/main_menubar_def.h:788
-#, fuzzy
 msgid "PL/SQL"
-msgstr "PLSQL"
+msgstr "PL/SQL"
 
 #: src/main_menubar_def.h:789
-#, fuzzy
 msgid "Force the highlight style to PL/SQL"
-msgstr "強制的に PLSQL スタイルでハイライトします"
+msgstr "強制的に PL/SQL スタイルで強調表示します"
 
 #: src/main_menubar_def.h:794
 msgid "PHP"
 msgstr "PHP"
 
 #: src/main_menubar_def.h:795
-#, fuzzy
 msgid "Force the highlight style to PHP"
-msgstr "強制的に HTML スタイルでハイライトします"
+msgstr "強制的に HTML スタイルで強調表示します"
 
 #: src/main_menubar_def.h:800
 msgid "LaTex"
 msgstr "LaTex"
 
 #: src/main_menubar_def.h:801
-#, fuzzy
 msgid "Force the highlight style to LaTex"
-msgstr "強制的に LaTex スタイルでハイライトします"
+msgstr "強制的に LaTex スタイルで強調表示します"
 
 #: src/main_menubar_def.h:806
 msgid "Diff"
 msgstr "Diff"
 
 #: src/main_menubar_def.h:807
-#, fuzzy
 msgid "Force the highlight style to Diff"
-msgstr "強制的に Diff スタイルでハイライトします"
+msgstr "強制的に Diff スタイルで強調表示します"
 
 #: src/main_menubar_def.h:812
 msgid "Pascal"
 msgstr "Pascal"
 
 #: src/main_menubar_def.h:813
-#, fuzzy
 msgid "Force the highlight style to Pascal"
-msgstr "強制的に Pascal スタイルでハイライトします"
+msgstr "強制的に Pascal スタイルで強調表示します"
 
 #: src/main_menubar_def.h:818
 msgid "Xcode"
 msgstr "Xocde"
 
 #: src/main_menubar_def.h:819
-#, fuzzy
 msgid "Force the highlight style to Xcode"
-msgstr "強制的に Xcode スタイルでハイライトします"
+msgstr "強制的に Xcode スタイルで強調表示します"
 
 #: src/main_menubar_def.h:824
 msgid "Prj/Properties"
 msgstr "プロジェクト/設定"
 
 #: src/main_menubar_def.h:825
-#, fuzzy
 msgid "Force the highlight style to project/properties files"
-msgstr "強制的にプロジェクト/設定ファイルのスタイルでハイライトします"
+msgstr "強制的にプロジェクト/設定ファイルのスタイルで強調表示します"
 
 #: src/main_menubar_def.h:830
 msgid "Conf"
 msgstr "Conf"
 
 #: src/main_menubar_def.h:831
-#, fuzzy
 msgid "Force the highlight style to UNIX conf files"
-msgstr "強制的に UNIX 設定ファイルのスタイルでハイライトします"
+msgstr "強制的に UNIX 設定ファイルのスタイルで強調表示します"
 
 #: src/main_menubar_def.h:840
 msgid "Auto _Format"
 msgstr "書式の自動整形(_F)"
 
 #: src/main_menubar_def.h:841
-#, fuzzy
 msgid "Autoformat C and C++ source files"
-msgstr "C/C++ ソースファイルの書式に整形します"
+msgstr "C/C++ ソースファイルの書式に自動整形します"
 
 #: src/main_menubar_def.h:846
 msgid "_Increase Indent"
@@ -2513,14 +2403,12 @@ msgid "_Update tags image"
 msgstr "タグイメージの更新(_U)"
 
 #: src/main_menubar_def.h:860
-#, fuzzy
 msgid "Update the tags image of the project/opened files"
 msgstr "プロジェクトまたは開いたファイルのタグイメージを更新します"
 
 #: src/main_menubar_def.h:866
-#, fuzzy
 msgid "Force _Highlight Style"
-msgstr "強制ハイライト(_H)"
+msgstr "強制ハイライト・スタイル(_H)"
 
 #: src/main_menubar_def.h:873
 msgid "_Close All Folds"
@@ -2551,7 +2439,6 @@ msgid "D_etach Current Document"
 msgstr "ドキュメントの分離(_E)"
 
 #: src/main_menubar_def.h:893
-#, fuzzy
 msgid "Detach the current editor into a separate window"
 msgstr "このエディタを別のウィンドウに分離します"
 
@@ -2584,7 +2471,6 @@ msgid "_Install"
 msgstr "インストール(_I)"
 
 #: src/main_menubar_def.h:924
-#, fuzzy
 msgid "Install the project on your system"
 msgstr "プロジェクトをインストールします"
 
@@ -2617,7 +2503,6 @@ msgid "Clea_n"
 msgstr "Clean(_N)"
 
 #: src/main_menubar_def.h:950
-#, fuzzy
 msgid "Clean the source directory"
 msgstr "プロジェクトのソースディレクトリ中を make clean します"
 
@@ -2690,7 +2575,6 @@ msgid "Step _In"
 msgstr "ステップ(_I)"
 
 #: src/main_menubar_def.h:1034
-#, fuzzy
 msgid "Single step into function"
 msgstr "関数の中に一つ進みます"
 
@@ -2699,7 +2583,6 @@ msgid "Step O_ver"
 msgstr "ステップオーバー(_V)"
 
 #: src/main_menubar_def.h:1040
-#, fuzzy
 msgid "Single step over function"
 msgstr "関数を飛ばして一つ進みます"
 
@@ -2708,7 +2591,6 @@ msgid "Step _Out"
 msgstr "ステップアウト(_O)"
 
 #: src/main_menubar_def.h:1046
-#, fuzzy
 msgid "Single step out of the function"
 msgstr "関数の中から外に一つ進みます"
 
@@ -2746,65 +2628,57 @@ msgstr "ブレークポイントを編集します"
 
 #: src/main_menubar_def.h:1080
 msgid "Disable all Breakpoints"
-msgstr "全ブレークポイントを一時無効"
+msgstr "全ブレークポイントの無効"
 
 #: src/main_menubar_def.h:1081
-#, fuzzy
 msgid "Deactivate all breakpoints"
-msgstr "全ブレークポイントを一時無効"
+msgstr "全ブレークポイントの一時無効"
 
 #: src/main_menubar_def.h:1086
 msgid "C_lear all Breakpoints"
 msgstr "全<ブレークポイントのクリア(_L)"
 
 #: src/main_menubar_def.h:1087
-#, fuzzy
 msgid "Delete all breakpoints"
-msgstr "全ブレークポイントを一時無効"
+msgstr "全ブレークポイントの削除"
 
 #: src/main_menubar_def.h:1096
 msgid "Info _Target Files"
 msgstr "対象ファイル(_T)"
 
 #: src/main_menubar_def.h:1097
-#, fuzzy
 msgid "Display information on the files the debugger is active with"
-msgstr "デバッグ対象のファイルを表示します"
+msgstr "ファイル上にデバッグ対象の情報を表示します"
 
 #: src/main_menubar_def.h:1102
 msgid "Info _Program"
 msgstr "プログラム(_P)"
 
 #: src/main_menubar_def.h:1103
-#, fuzzy
 msgid "Display information on the execution status of the program"
-msgstr "プログラムの実行ステータスについての情報を取得します"
+msgstr "プログラムの実行ステータスについての情報を表示します"
 
 #: src/main_menubar_def.h:1108
-#, fuzzy
 msgid "Info _Kernel User Struct"
-msgstr "カーネル User 構造(_K)"
+msgstr "カーネルユーザ構造体の情報(_K)"
 
 #: src/main_menubar_def.h:1109
-#, fuzzy
 msgid "Display the contents of kernel 'struct user' for current child"
-msgstr "現在の子プロセスのカーネル 'struct user' の内容を取得します"
+msgstr "現在の子プロセスのカーネル 'struct user' の内容を表示します"
 
 #: src/main_menubar_def.h:1114
 msgid "Info _Threads"
 msgstr "スレッド(_T)"
 
 #: src/main_menubar_def.h:1115
-#, fuzzy
 msgid "Display the IDs of currently known threads"
-msgstr "現在、既知のスレッド ID を取得します"
+msgstr "現在既知のスレッド ID を表示します"
 
 #: src/main_menubar_def.h:1120
 msgid "Info _Global variables"
 msgstr "グローバル変数(_G)"
 
 #: src/main_menubar_def.h:1121
-#, fuzzy
 msgid "Display all global and static variables of the program"
 msgstr "プログラムの全グローバル及びスタティック変数を表示します"
 
@@ -2813,27 +2687,24 @@ msgid "Info _Local variables"
 msgstr "ローカル変数(_L)"
 
 #: src/main_menubar_def.h:1127
-#, fuzzy
 msgid "Display local variables of the current frame"
-msgstr "現在のフレームのローカル変数を表示します"
+msgstr "現在のスコープのローカル変数を表示します"
 
 #: src/main_menubar_def.h:1132
 msgid "Info _Current Frame"
 msgstr "現在のフレーム(_C)"
 
 #: src/main_menubar_def.h:1133
-#, fuzzy
 msgid "Display information about the current frame of execution"
-msgstr "実行中の現在のフレームについての情報を表示します"
+msgstr "実行中の現在のスコープについての情報を表示します"
 
 #: src/main_menubar_def.h:1138
 msgid "Info Function _Arguments"
 msgstr "関数の引数(_A)"
 
 #: src/main_menubar_def.h:1139
-#, fuzzy
 msgid "Display function arguments of the current frame"
-msgstr "現在のフレームの関数引数を表示します"
+msgstr "現在のスコープの関数引数を表示します"
 
 #: src/main_menubar_def.h:1148
 msgid "_Start Debugger"
@@ -2848,7 +2719,6 @@ msgid "Load E_xecutable ..."
 msgstr "実行形式の読み込み(_X) ..."
 
 #: src/main_menubar_def.h:1156
-#, fuzzy
 msgid "Open the executable for debugging"
 msgstr "デバッグ用に実行形式ファイルを開きます"
 
@@ -2857,16 +2727,14 @@ msgid "Load _Core file ..."
 msgstr "core ファイルの読み込み(_C) ..."
 
 #: src/main_menubar_def.h:1162
-#, fuzzy
 msgid "Load a core file to dissect"
-msgstr "core ファイルを読み込みます"
+msgstr "core を解析するために core ファイルを読み込みます"
 
 #: src/main_menubar_def.h:1167
 msgid "_Attach to Process ..."
 msgstr "プロセスに取り込む(_A) ..."
 
 #: src/main_menubar_def.h:1168
-#, fuzzy
 msgid "Attach to a running program"
 msgstr "既に実行中のプログラムに取り込みます"
 
@@ -2884,14 +2752,13 @@ msgstr "プログラムの停止(_T)"
 
 #: src/main_menubar_def.h:1181
 msgid "Stop the program being debugged"
-msgstr ""
+msgstr "デバッグ中のプログラムの停止"
 
 #: src/main_menubar_def.h:1186
 msgid "_Detach Debugger"
 msgstr "デバッガの解放(_D)"
 
 #: src/main_menubar_def.h:1187
-#, fuzzy
 msgid "Detach from an attached program"
 msgstr "プログラムを停止して再起動します"
 
@@ -2900,16 +2767,14 @@ msgid "I_nterrupt Program"
 msgstr "プログラムの割り込み(_I)"
 
 #: src/main_menubar_def.h:1194 src/toolbar.c:999
-#, fuzzy
 msgid "Interrupt execution of the program"
-msgstr "プログラムの実行を続行します"
+msgstr "実行中のプログラムに割り込みます"
 
 #: src/main_menubar_def.h:1199
 msgid "Si_gnal to Process"
 msgstr "シグナル送信(_G)"
 
 #: src/main_menubar_def.h:1200
-#, fuzzy
 msgid "Send a kernel signal to the process being debugged"
 msgstr "デバッグ中のプロセスにカーネルシグナルを送信します"
 
@@ -2926,7 +2791,6 @@ msgid "Ins_pect/Evaluate ..."
 msgstr "検証/評価(_P) ..."
 
 #: src/main_menubar_def.h:1227
-#, fuzzy
 msgid "Inspect or evaluate an expression or variable"
 msgstr "式または変数の中身を調べたり評価します"
 
@@ -2935,7 +2799,6 @@ msgid "Add Expression in _Watch ..."
 msgstr "監視する式の追加(_W) ..."
 
 #: src/main_menubar_def.h:1233
-#, fuzzy
 msgid "Add expression or variable to the watch"
 msgstr "監視するものに式または変数を追加します"
 
@@ -2944,9 +2807,8 @@ msgid "St_op Debugger"
 msgstr "デバッガの停止(_O)"
 
 #: src/main_menubar_def.h:1240
-#, fuzzy
 msgid "Say goodbye to the debugger"
-msgstr "デバッガと \"さよなら\" する"
+msgstr "デバッガに \"さよなら\" する"
 
 #: src/main_menubar_def.h:1249
 msgid "Grep Utility"
@@ -3001,7 +2863,6 @@ msgid "_Compiler and Linker Settings ..."
 msgstr "コンパイラとリンカの設定(_C) ..."
 
 #: src/main_menubar_def.h:1330
-#, fuzzy
 msgid "Settings for the compiler and linker"
 msgstr "コンパイラとリンカに対する設定です"
 
@@ -3062,54 +2923,52 @@ msgid "May I help you?"
 msgstr "何をご所望ですか？"
 
 #: src/main_menubar_def.h:1385
-#, fuzzy
 msgid "Anjuta Home site"
-msgstr "Anjuta ホームページへどうぞ"
+msgstr "Anjuta ホームページ"
 
 #: src/main_menubar_def.h:1386
 msgid "Online documentation and resources"
-msgstr ""
+msgstr "オンライン・ドキュメントとリソースなど"
 
 #: src/main_menubar_def.h:1392
-#, fuzzy
 msgid "Libraries API references"
-msgstr "設定"
+msgstr "API ライブラリのリファレンス"
 
 #: src/main_menubar_def.h:1393
 msgid "Online reference library for GDK, GLib, GNOME etc.."
-msgstr ""
+msgstr "GDK, GLib, GNOME 等のオンライン API リファレンス"
 
 #: src/main_menubar_def.h:1398
 msgid "Report Bugs"
-msgstr ""
+msgstr "バグの報告"
 
 #: src/main_menubar_def.h:1399
 msgid "Submit a bug report for Anjuta"
-msgstr ""
+msgstr "Anjuta に対するバグ報告を送付します"
 
 #: src/main_menubar_def.h:1404
 msgid "Request Features"
-msgstr ""
+msgstr "機能追加のリクエスト"
 
 #: src/main_menubar_def.h:1405
 msgid "Submit a feature request for Anjtua"
-msgstr ""
+msgstr "Anjuta の機能追加をリクエストします"
 
 #: src/main_menubar_def.h:1410
 msgid "Submit patches"
-msgstr ""
+msgstr "パッチの送付"
 
 #: src/main_menubar_def.h:1411
 msgid "Submit patches for Anjuta"
-msgstr ""
+msgstr "Anjuta に対するパッチを送付します"
 
 #: src/main_menubar_def.h:1416
 msgid "Ask a question"
-msgstr ""
+msgstr "FAQ"
 
 #: src/main_menubar_def.h:1417
 msgid "Submit a question for FAQs"
-msgstr ""
+msgstr "FAQ の質問を送付します"
 
 #: src/main_menubar_def.h:1431
 msgid "_Project"
@@ -3278,12 +3137,11 @@ msgstr "全般"
 
 #: src/preferences_gui.c:180
 msgid "Styles"
-msgstr ""
+msgstr "スタイル"
 
 #: src/preferences_gui.c:190
-#, fuzzy
 msgid "Editor"
-msgstr "エディタ(_E)"
+msgstr "エディタ"
 
 #: src/preferences_gui.c:200
 msgid "Print Setup"
@@ -3346,7 +3204,6 @@ msgid "Dialog on job complete"
 msgstr "ジョブが完了したらダイアログを表示する"
 
 #: src/preferences_gui.c:524
-#, fuzzy
 msgid "Keep going when some targets cannot be made"
 msgstr "ターゲットがビルドできない場合でも続行する"
 
@@ -3355,12 +3212,10 @@ msgid "Silent: Don't echo commands"
 msgstr "サイレントモード: コマンドの出力を表示しない"
 
 #: src/preferences_gui.c:538
-#, fuzzy
 msgid "Produce debugging outputs"
 msgstr "デバッグの出力を作成する"
 
 #: src/preferences_gui.c:545
-#, fuzzy
 msgid "Warn when an undefined variable is referenced"
 msgstr "未定義の変数が参照された場合は警告する"
 
@@ -3369,14 +3224,12 @@ msgid "Max no of jobs:"
 msgstr "最大ジョブ数:"
 
 #: src/preferences_gui.c:640
-#, fuzzy
 msgid "Select Highlight item to edit:"
-msgstr "編集するハイライトアイテムの選択:"
+msgstr "編集する強調表示アイテムの選択:"
 
 #: src/preferences_gui.c:664
-#, fuzzy
 msgid " Highlight Style "
-msgstr " ハイライトのスタイル "
+msgstr "強調表示のスタイル "
 
 #: src/preferences_gui.c:695 src/preferences_gui.c:720
 #: src/preferences_gui.c:767 src/preferences_gui.c:774
@@ -3412,28 +3265,24 @@ msgid "Back color:"
 msgstr "背景色:"
 
 #: src/preferences_gui.c:788
-#, fuzzy
 msgid "Caret color:"
-msgstr "前景色:"
+msgstr "キャレット色:"
 
 #: src/preferences_gui.c:801
-#, fuzzy
 msgid "Calltip color:"
-msgstr "コールチップ"
+msgstr "コールチップ色:"
 
 #: src/preferences_gui.c:814
 msgid "Selection Foreground:"
-msgstr ""
+msgstr "前景色の選択:"
 
 #: src/preferences_gui.c:827
-#, fuzzy
 msgid "Selection Background:"
-msgstr "ローカル言語の選択:"
+msgstr "背景色の選択:"
 
 #: src/preferences_gui.c:935
-#, fuzzy
 msgid "Disable syntax highlighting"
-msgstr "ハイライトを無効にする"
+msgstr "強調表示を無効にする"
 
 #: src/preferences_gui.c:942
 msgid "Enable Auto save"
@@ -3472,12 +3321,10 @@ msgid "Save session time interval"
 msgstr "セッション保存の周期(分)"
 
 #: src/preferences_gui.c:1053
-#, fuzzy
 msgid "Strip trailing spaces on file save"
 msgstr "保存時に後ろ付きの空白を除く"
 
 #: src/preferences_gui.c:1061
-#, fuzzy
 msgid "Collapse all folds on file open"
 msgstr "ファイルのオープン時にフォールドを全て畳んでおく"
 
@@ -3502,7 +3349,6 @@ msgid " Custom Style "
 msgstr " カスタムスタイル "
 
 #: src/preferences_gui.c:1224
-#, fuzzy
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
@@ -3520,11 +3366,11 @@ msgstr "長いメッセージを切り詰める"
 
 #: src/preferences_gui.c:1332
 msgid "Number of first characters to show"
-msgstr ""
+msgstr "最初に表示する文字数"
 
 #: src/preferences_gui.c:1339
 msgid "Number of last characters to show"
-msgstr ""
+msgstr "最後に表示する文字数"
 
 #: src/preferences_gui.c:1346
 msgid " Notebook tags position "
@@ -3869,7 +3715,6 @@ msgid "Project Type:"
 msgstr "プロジェクトの種類:"
 
 #: src/project_dbase_gui.c:978
-#, fuzzy
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -4065,7 +3910,6 @@ msgid "Send to process"
 msgstr "シグナル送信"
 
 #: src/signals_gui.c:96
-#, fuzzy
 msgid "Kernel signals"
 msgstr "カーネル・シグナル"
 
@@ -4160,11 +4004,11 @@ msgstr "メモリ関数:"
 msgid "Tag:"
 msgstr "タグ:"
 
-#: src/tags_manager.c:638
+#: ccview/cccproj.cc:1187 src/tags_manager.c:638
 msgid "Cannot execute ctags"
 msgstr "'ctag' が実行できません"
 
-#: src/tags_manager.c:643
+#: ccview/cccproj.cc:1193 src/tags_manager.c:643
 #, c-format
 msgid ""
 "Cannot fork to execute ctags. I donno why!!\n"
@@ -4460,28 +4304,24 @@ msgid "Detach the current page"
 msgstr "このページを解除"
 
 #: src/toolbar.c:232
-#, fuzzy
 msgid "Search for the given string in the current file"
-msgstr "このファイルの中でジャンプする行番号を入力して下さい"
+msgstr "このファイルから指定した文字列を検索します"
 
 #: src/toolbar.c:250
-#, fuzzy
 msgid "Enter the string to search for"
-msgstr "このファイルで検索する文字列を入力して下さい"
+msgstr "検索する文字列を入力して下さい"
 
 #: src/toolbar.c:260
 msgid "Go To"
 msgstr "ジャンプ"
 
 #: src/toolbar.c:261
-#, fuzzy
 msgid "Go to the given line number in the current file"
-msgstr "指定した行番号にジャンプ"
+msgstr "このファイルの指定した行番号にジャンプします"
 
 #: src/toolbar.c:272
-#, fuzzy
 msgid "Enter the line number to go to"
-msgstr "このファイルの中でジャンプする行番号を入力して下さい"
+msgstr "ジャンプする行番号を入力して下さい"
 
 #: src/toolbar.c:295
 msgid "Compile/Build/Debug Messages"
@@ -4500,14 +4340,13 @@ msgid "Close Project"
 msgstr "プロジェクトを閉じる"
 
 #: src/toolbar.c:467
-#, fuzzy
 msgid "Run configure"
 msgstr "configure 実行"
 
 #: src/toolbar.c:479
-#, fuzzy
 msgid "Build current file, or build the source directory of the Project"
-msgstr "このファイルのビルドまたはプロジェクトのソースディレクトリをビルド"
+msgstr ""
+"このファイルのビルドまたはプロジェクトのソースディレクトリをビルドします"
 
 #: src/toolbar.c:490
 msgid "Build_all"
@@ -4522,14 +4361,12 @@ msgid "Start the Debugger"
 msgstr "デバッガの起動"
 
 #: src/toolbar.c:526
-#, fuzzy
 msgid "Stop/interrupt compile or build"
-msgstr "コンパイル/ビルドの停止"
+msgstr "コンパイル/ビルドの停止または割り込み"
 
 #: src/toolbar.c:607
-#, fuzzy
 msgid "Select the type of tag"
-msgstr "追加するサポート機能の選択"
+msgstr "タグの種類の選択"
 
 #: src/toolbar.c:631
 msgid "Source File"
@@ -4632,7 +4469,6 @@ msgid "Step Over"
 msgstr "ステップオーバー"
 
 #: src/toolbar.c:973
-#, fuzzy
 msgid "Step over the function"
 msgstr "関数を無視して進める"
 
@@ -4641,7 +4477,6 @@ msgid "Step Out"
 msgstr "ステップアウト"
 
 #: src/toolbar.c:984
-#, fuzzy
 msgid "Step out of the function"
 msgstr "関数の外に進める"
 
@@ -4734,9 +4569,8 @@ msgid "Autoformat"
 msgstr "自動整形"
 
 #: src/toolbar.c:1273
-#, fuzzy
 msgid "Automatically format the code"
-msgstr "コードの書式を自動的に整形　"
+msgstr "コードの書式を自動的に整形します"
 
 #: src/toolbar.c:1285
 msgid "Format style"
@@ -4744,7 +4578,7 @@ msgstr "書式スタイル"
 
 #: src/toolbar.c:1286
 msgid "Configure style to use for auto format"
-msgstr ""
+msgstr "書式の自動整形で使用するスタイルの設定"
 
 #: src/toolbar.c:1299
 msgid "Calltip"
@@ -4766,7 +4600,7 @@ msgstr "単語の自動補完"
 msgid "Functions"
 msgstr "関数"
 
-#: src/toolbar.c:1374
+#: ccview/ccview_main.cc:49 src/toolbar.c:1374
 msgid "Classes"
 msgstr "クラス"
 
@@ -4860,7 +4694,6 @@ msgid "Inspect/Evaluate Expression"
 msgstr "式の検証/評価"
 
 #: src/about.c:47
-#, fuzzy
 msgid "Copyright (c) 1999-2001 Naba Kumar"
 msgstr "Copyright (C) 1999-2001 Naba Kumar"
 
@@ -4877,14 +4710,12 @@ msgid "Include GNU Copyright statement in files heading"
 msgstr "ファイルの先頭に GNU Copyright 条文を挿入する"
 
 #: src/appwiz_page4.c:144
-#, fuzzy
 msgid "Enable Gettext Support"
-msgstr "Gettext 化サポート:"
+msgstr "国際化 (gettext) サポートを有効にする"
 
 #: src/appwiz_page4.c:151
-#, fuzzy
 msgid "GNOME Menu Entry"
-msgstr " GNOME メニューエントリ "
+msgstr "GNOME メニューエントリ "
 
 #: src/appwiz_page4.c:161
 msgid "Entry name:"
@@ -4914,7 +4745,7 @@ msgstr "不明なプロジェクトの種類です。"
 #: src/anjuta.c:64 src/anjuta.c:71
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
-msgstr ""
+msgstr "Anjuta: シグナル %d (%s) 発生！"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:98
@@ -5030,106 +4861,77 @@ msgid "Widget not found: %s"
 msgstr "ウィジットが見つかりません: %s"
 
 #: src/resources.c:99
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find application image file: %s"
-msgstr "Pixmap ファイルが見つかりませんでした: %s"
+msgstr "アプリケーションの画像ファイルが見つかりませんでした: %s"
 
 #: src/resources.c:121
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "Pixmap ファイルが見つかりませんでした: %s"
+msgstr "アプリケーションのアイコンファイルが見つかりませんでした: %s"
 
 #: src/resources.c:132
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find gnome pixmap file: %s"
-msgstr "Pixmap ファイルが見つかりませんでした: %s"
+msgstr "GNOME アイコンファイルが見つかりませんでした: %s"
 
 #: src/resources.c:149
 #, c-format
 msgid "Could not create pixmap from file: %s"
 msgstr "ファイルから Pixmap が生成できませんでした: %s"
 
-#~ msgid "Gtk based Project"
-#~ msgstr "GTK+ ベースのプロジェクト"
+#: anjuta.desktop.in.h:1
+msgid "Anjuta C/C++ IDE"
+msgstr ""
 
-#~ msgid "Gnome based Project"
-#~ msgstr "GNOME ベースのプロジェクト"
+#: anjuta.desktop.in.h:2
+msgid "Integrated Development Environment"
+msgstr ""
 
-#~ msgid "Autogenaration completed...............Unsuccessful\n"
-#~ msgstr "自動生成の完了...............失敗\n"
+#: ccview/cccmd.cc:27
+msgid "/_Class Definition"
+msgstr ""
 
-#~ msgid "File type filter:"
-#~ msgstr "拡張子フィルタ:"
+#: ccview/cccmd.cc:28
+#, fuzzy
+msgid "/_Func Definition"
+msgstr "関数名"
 
-#~ msgid "Home"
-#~ msgstr "ホーム"
+#: ccview/cccmd.cc:29
+#, fuzzy
+msgid "/Func _Declaration"
+msgstr "宣言"
 
-#~ msgid "Show cpu registers and their contents"
-#~ msgstr "CPU レジスタとその内容を表示します"
+#: ccview/cccmd.cc:36
+msgid "/_Shell here"
+msgstr ""
 
-#~ msgid "Open the todo file of the project"
-#~ msgstr "プロジェクトの ToDo ファイルを開きます"
+#: ccview/cccmd.cc:37
+#, fuzzy
+msgid "/_Open"
+msgstr "開く"
 
-#~ msgid "Html"
-#~ msgstr "HTML"
+#: ccview/cccproj.cc:1471
+#, fuzzy
+msgid "Updating file:"
+msgstr "ファイルを開きます"
 
-#~ msgid "Xml"
-#~ msgstr "XML"
+#: ccview/ccview_main.cc:51
+#, fuzzy
+msgid "Files"
+msgstr "ファイル名"
 
-#~ msgid "Force the hilite style to Xml"
-#~ msgstr "強制的に XML スタイルでハイライトします"
+#: ccview/func_dialog.cc:28
+#, fuzzy
+msgid "Add Function"
+msgstr "関数名"
 
-#~ msgid "This will deactivate all the breakpoints"
-#~ msgstr ""
-#~ "全てのブレークポイントを一時的に無効(セットするが、ブレークしない)にします"
+#: ccview/func_dialog.cc:31
+#, fuzzy
+msgid "Function declaration:"
+msgstr "宣言"
 
-#~ msgid "This will delete all the breakpoints"
-#~ msgstr "全てのブレークポイントを OFF にします　"
-
-#~ msgid "Stop the debugging program"
-#~ msgstr "デバッグ中のプログラムを停止します"
-
-#~ msgid "Detach the program if you have attached to it"
-#~ msgstr "取り込んだプログラムがあれば、それを解放します"
-
-#~ msgid "Interrupt the program execution"
-#~ msgstr "実行中のプログラムに割り込みをかけます"
-
-#~ msgid "Editor (part 1)"
-#~ msgstr "エディタ (パート1)"
-
-#~ msgid "Editor (part 2)"
-#~ msgstr "エディタ (パート2)"
-
-#~ msgid "characters"
-#~ msgstr "文字"
-
-#~ msgid "Show first"
-#~ msgstr "文頭の表示部分"
-
-#~ msgid "Show last"
-#~ msgstr "文末の表示部分"
-
-#~ msgid "Couldn't load file: %s."
-#~ msgstr "ファイル %s が読み込めませんでした。"
-
-#~ msgid "Project Listing"
-#~ msgstr "プロジェクト一覧"
-
-#~ msgid "Execute the Program"
-#~ msgstr "プログラムの実行"
-
-#~ msgid "Tag Type"
-#~ msgstr "タグの種類"
-
-#~ msgid "Interrupt the Program execution"
-#~ msgstr "プログラムの実行に割り込む"
-
-#~ msgid "Select autoformat style"
-#~ msgstr "自動整形するスタイルの選択"
-
-#~ msgid "Gettext Support Enable"
-#~ msgstr "Gettext 化サポートを有効にする"
-
-#~ msgid "Click Here to undock this window"
-#~ msgstr "ここをクリックすると、このウィンドウがドック解除されます"
+#: ccview/support.c:116
+#, fuzzy, c-format
+msgid "Couldn't create pixmap from file: %s"
+msgstr "ファイルから Pixmap が生成できませんでした: %s"
