@@ -1,4 +1,12 @@
 2001-11-22 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* pixmaps/file_cpp.xpm,   pixmaps/file_html.xpm,  pixmaps/file_icon.xpm,
+	  pixmaps/file_c.xpm,     pixmaps/file_h.xpm,     pixmaps/file_pix.xpm,
+	  pixmaps/file_file.xpm,  pixmaps/file_i18n.xpm
+	  : New and improved pixmaps from Misha <misha@phreaker.net>
+	  Thanks to him.
+
+2001-11-22 Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	* Big patch submitted by
 	  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>.
