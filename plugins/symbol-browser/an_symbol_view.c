@@ -30,6 +30,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-status.h>
 #include <tm_tagmanager.h>
 #include "an_symbol_view.h"
 #include "an_symbol_info.h"
@@ -58,6 +59,8 @@ struct _AnjutaSymbolViewPriv
 	const TMWorkspace *tm_workspace;
 	GHashTable *tm_files;
 	GtkTreeModel *file_symbol_model;
+	TMSymbol *symbols;
+	gboolean symbols_need_update;
 };
 
 enum
@@ -65,6 +68,7 @@ enum
 	PIXBUF_COLUMN,
 	NAME_COLUMN,
 	SVFILE_ENTRY_COLUMN,
+	SYMBOL_NODE,
 	COLUMNS_NB
 };
 
@@ -72,9 +76,11 @@ static GdlIcons *icon_set = NULL;
 static GdkPixbuf **sv_symbol_pixbufs = NULL;
 static GtkTreeViewClass *parent_class;
 
-static void anjuta_symbol_view_open_priv (AnjutaSymbolView * sv,
-										  const gchar * root_dir,
-										  gboolean only_refresh);
+static void anjuta_symbol_view_add_children (AnjutaSymbolView *sv,
+											 TMSymbol *sym,
+											 GtkTreeStore *store,
+											 GtkTreeIter *iter);
+static void anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv);
 
 #define CREATE_SV_ICON(N, F) \
 	pix_file = anjuta_res_get_pixmap_file (F); \
@@ -157,10 +163,101 @@ sv_current_symbol (AnjutaSymbolView * sv)
 	return info;
 }
 
+static gboolean
+on_symbol_view_refresh_idle (gpointer data)
+{
+	AnjutaSymbolView *view;
+	
+	view = ANJUTA_SYMBOL_VIEW (data);
+	
+	/* If symbols need update */
+	anjuta_symbol_view_refresh_tree (view);
+	return FALSE;
+}
+
 static void
 on_symbol_view_row_expanded (GtkTreeView * view,
-			     GtkTreeIter * iter, GtkTreePath * path)
+			     GtkTreeIter * iter, GtkTreePath * iter_path, AnjutaSymbolView *sv)
 {
+	// GdkPixbuf *pix;
+	// gchar *full_path;
+	GtkTreeIter child;
+	GList *row_refs, *row_ref_node;
+	GtkTreeRowReference *row_ref;
+	GtkTreePath *path;
+	TMSymbol *sym;
+	// AnjutaStatus *status;
+	
+	// status = anjuta_shell_get_status (ANJUTA_PLUGIN (fv)->shell, NULL);
+	// anjuta_status_busy_push (status);
+	
+	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
+	
+	if (sv->priv->symbols_need_update)
+	{
+		DEBUG_PRINT ("Update required requested");
+		g_idle_add (on_symbol_view_refresh_idle, sv);
+		return;
+	}
+
+	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter))
+	{
+		/* Make sure the symbol children are not yet created */
+		gtk_tree_model_get (GTK_TREE_MODEL (store), &child,
+							SYMBOL_NODE, &sym, -1);
+		/* Symbol has been created, no need to create them again */
+		if (sym)
+			return;
+	}
+	else 
+	{
+		/* Has no children */
+		return;
+	}
+	
+	/*
+	 * Delete old children.
+	 * Deleting multiple rows at one go is little tricky. We need to
+	 * take row references before they are deleted
+	 *
+	 * Get row references
+	 */
+	row_refs = NULL;
+	do
+	{
+		path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &child);
+		row_ref = gtk_tree_row_reference_new (GTK_TREE_MODEL (store), path);
+		row_refs = g_list_prepend (row_refs, row_ref);
+		gtk_tree_path_free (path);
+	}
+	while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &child));
+	
+	/* Update with new info */
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
+						SYMBOL_NODE, &sym, -1);
+	if (sym)
+	{
+		anjuta_symbol_view_add_children (sv, sym, store, iter);
+	}
+
+	/* Delete the referenced rows */
+	row_ref_node = row_refs;
+	while (row_ref_node)
+	{
+		row_ref = row_ref_node->data;
+		path = gtk_tree_row_reference_get_path (row_ref);
+		g_assert (path != NULL);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &child, path);
+		gtk_tree_store_remove (store, &child);
+		gtk_tree_path_free (path);
+		gtk_tree_row_reference_free (row_ref);
+		row_ref_node = g_list_next (row_ref_node);
+	}
+	if (row_refs)
+	{
+		g_list_free (row_refs);
+	}
+	// anjuta_status_busy_pop (status);
 }
 
 static void
@@ -180,10 +277,10 @@ sv_create (AnjutaSymbolView * sv)
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMNS_NB,
 				    GDK_TYPE_PIXBUF,
-				    G_TYPE_STRING, ANJUTA_TYPE_SYMBOL_INFO);
+				    G_TYPE_STRING, ANJUTA_TYPE_SYMBOL_INFO, G_TYPE_POINTER);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (sv), GTK_TREE_MODEL (store));
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (sv), TRUE);
+	/* gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (sv), TRUE); */
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 
@@ -247,7 +344,12 @@ anjuta_symbol_view_clear (AnjutaSymbolView * sv)
 		/* clearing file_symbol_model */
 		gtk_tree_store_clear (GTK_TREE_STORE(sv->priv->file_symbol_model));
 	}
-	
+	if (sv->priv->symbols)
+	{
+		tm_symbol_tree_free (sv->priv->symbols);
+		sv->priv->symbols = NULL;
+		sv->priv->symbols_need_update = FALSE;
+	}
 	if (sv->priv->tm_project)
 	{
 		tm_project_free (sv->priv->tm_project);
@@ -327,6 +429,10 @@ anjuta_symbol_view_add_source (AnjutaSymbolView * sv, const gchar *filename)
 	if (!sv->priv->tm_project)
 		return;
 	tm_project_add_file (TM_PROJECT (sv->priv->tm_project), filename, TRUE);
+	
+	DEBUG_PRINT ("Project changed: Flagging refresh required");
+	
+	sv->priv->symbols_need_update = TRUE;
 /*
 	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
@@ -354,6 +460,10 @@ anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 		TextEditor *te; */
 		tm_project_remove_object (TM_PROJECT (sv->priv->tm_project),
 								  source_file);
+		
+		DEBUG_PRINT ("Project changed: Flagging refresh required");
+		
+		sv->priv->symbols_need_update = TRUE;
 /*		for (node = app->text_editor_list; node; node = g_list_next(node))
 		{
 			te = (TextEditor *) node->data;
@@ -371,7 +481,7 @@ anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 static void
 anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 								 GtkTreeStore *store,
-								 GString *s, GtkTreeIter *iter)
+								 GtkTreeIter *iter)
 {
 	if (((iter == NULL) || (tm_tag_function_t != sym->tag->type)) &&
 		(sym->info.children) && (sym->info.children->len > 0))
@@ -386,8 +496,9 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 		for (j = 0; j < sym->info.children->len; j++)
 		{
 			TMSymbol *sym1 = TM_SYMBOL (sym->info.children->pdata[j]);
-			GtkTreeIter sub_iter;
-		
+			GtkTreeIter sub_iter, child_iter;
+			GString *s;
+			
 			// if (!sym1 || ! sym1->tag || ! sym1->tag->atts.entry.file)
 			//	continue;
 			
@@ -399,6 +510,7 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 			if (sv_none_t == type)
 				continue;
 			
+			s = g_string_sized_new (MAX_STRING_LENGTH);
 			sv_assign_node_name (sym1, s);
 			
 			if (sym && sym->tag && sym->tag->atts.entry.scope)
@@ -414,11 +526,65 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 							    anjuta_symbol_view_get_pixbuf (sv, type),
 								NAME_COLUMN, s->str,
 								SVFILE_ENTRY_COLUMN, sfile,
+								SYMBOL_NODE, sym1,
 								-1);
-			anjuta_symbol_view_add_children (sv, sym1, store, s, &sub_iter);
+			
+			if (((tm_tag_function_t != sym1->tag->type)) &&
+				(sym1->info.children) && (sym1->info.children->len > 0))
+			{
+				/* Append a dummy children node */
+				gtk_tree_store_append (store, &child_iter, &sub_iter);
+				gtk_tree_store_set (store, &child_iter,
+									NAME_COLUMN, _("Loading ..."),
+									-1);
+			}			
 			anjuta_symbol_info_free (sfile);
+			g_string_free (s, TRUE);
 		}
 	}
+}
+
+static void
+anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv)
+{
+	GtkTreeStore *store;
+	GList *selected_items = NULL;
+
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (sv)));
+	
+	selected_items = anjuta_symbol_view_get_node_expansion_states (sv);
+	gtk_tree_store_clear (store);
+
+	/* Clear symbols */
+	if (sv->priv->symbols)
+	{
+		tm_symbol_tree_free (sv->priv->symbols);
+		sv->priv->symbols = NULL;
+	}
+	
+	if (!(sv->priv->symbols =
+		 tm_symbol_tree_new (sv->priv->tm_project->tags_array)))
+		goto clean_leave;
+	
+	sv->priv->symbols_need_update = FALSE;
+	
+	DEBUG_PRINT ("Populating symbol view: Creating symbol view ...");
+	
+	if (!sv->priv->symbols->info.children
+	    || (0 == sv->priv->symbols->info.children->len))
+	{
+		tm_symbol_tree_free (sv->priv->symbols);
+		sv->priv->symbols = NULL;
+		goto clean_leave;
+	}
+	anjuta_symbol_view_add_children (sv, sv->priv->symbols, store, NULL);
+	
+	/* tm_symbol_tree_free (symbol_tree); */
+	anjuta_symbol_view_set_node_expansion_states (sv, selected_items);
+	
+clean_leave:
+	if (selected_items)
+		anjuta_util_glist_strings_free (selected_items);
 }
 
 /*------------------------------------------------------------------------------
@@ -427,82 +593,24 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 void
 anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 {
-	anjuta_symbol_view_open_priv (sv, root_dir, FALSE);
-}
-
-static void
-anjuta_symbol_view_open_priv (AnjutaSymbolView * sv, const gchar * root_dir,
-							  gboolean only_refresh)
-{
-	GtkTreeStore *store;
-	TMSymbol *symbol_tree = NULL;
-	static gboolean busy = FALSE;
-	GString *s;
-	GList *selected_items = NULL;
-	gboolean full = TRUE;
-
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
-	if (!only_refresh)
-		g_return_if_fail (root_dir != NULL);
-
+	g_return_if_fail (root_dir != NULL);
+	
 	DEBUG_PRINT ("Populating symbol view: Loading tag database ...");
 
-	gtk_widget_set_sensitive (GTK_WIDGET (sv), FALSE);
+	/* make sure we clear anjuta_symbol_view from previous data */
+	anjuta_symbol_view_clear (sv);
 	
-	if (busy)
-		return;
-	else
-		busy = TRUE;
-
-	selected_items = anjuta_symbol_view_get_node_expansion_states (sv);
-
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (sv)));
-
-	if (only_refresh)
-	{
-		gtk_tree_store_clear (store);
-	}
-	else
-	{
-		/* make sure we clear anjuta_symbol_view from previous data */
-		anjuta_symbol_view_clear (sv);
-		
-		sv->priv->tm_project = tm_project_new (root_dir, NULL, NULL, FALSE);
-	}	
+	sv->priv->tm_project = tm_project_new (root_dir, NULL, NULL, FALSE);
+	
 	DEBUG_PRINT ("Populating symbol view: Creating symbol tree ...");
 	
-	if (!full)
-		goto clean_leave;
-
-	if (!sv->priv->tm_project ||
-	    !sv->priv->tm_project->tags_array ||
-	    (0 == sv->priv->tm_project->tags_array->len))
-		goto clean_leave;
-
-	if (!(symbol_tree =
-	     tm_symbol_tree_new (sv->priv->tm_project->tags_array)))
-		goto clean_leave;
-
-	DEBUG_PRINT ("Populating symbol view: Creating symbol view ...");
-	if (!symbol_tree->info.children
-	    || (0 == symbol_tree->info.children->len))
+	if (sv->priv->tm_project &&
+	    sv->priv->tm_project->tags_array &&
+	    (sv->priv->tm_project->tags_array->len > 0))
 	{
-		tm_symbol_tree_free (symbol_tree);
-		goto clean_leave;
+		anjuta_symbol_view_refresh_tree (sv);
 	}
-	s = g_string_sized_new (MAX_STRING_LENGTH);
-	anjuta_symbol_view_add_children (sv, symbol_tree, store, s, NULL);
-	g_string_free (s, TRUE);
-	
-	tm_symbol_tree_free (symbol_tree);
-	anjuta_symbol_view_set_node_expansion_states (sv, selected_items);
-
-clean_leave:
-	if (selected_items)
-		anjuta_util_glist_strings_free (selected_items);
-	busy = FALSE;
-	
-	gtk_widget_set_sensitive (GTK_WIDGET (sv), TRUE );
 }
 
 static void
@@ -569,6 +677,7 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	sv = ANJUTA_SYMBOL_VIEW (obj);
 	sv->priv = g_new0 (AnjutaSymbolViewPriv, 1);
 	sv->priv->file_symbol_model = NULL;
+	sv->priv->symbols_need_update = FALSE;
 	sv->priv->tm_workspace = tm_get_workspace ();
 	sv->priv->tm_files = g_hash_table_new_full (g_str_hash, g_str_equal,
 						    g_free,
@@ -647,7 +756,7 @@ anjuta_symbol_view_update (AnjutaSymbolView * sv, GList *source_files)
 			tm_project_sync (TM_PROJECT (sv->priv->tm_project), source_files);
 		}
 		tm_project_save (TM_PROJECT (sv->priv->tm_project));
-		anjuta_symbol_view_open_priv (sv, NULL, TRUE);
+		anjuta_symbol_view_refresh_tree (sv);
 	}
 	/*
 	 * else if (p->top_proj_dir)
@@ -890,6 +999,12 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 		{
 			tm_source_file_update (TM_WORK_OBJECT (tm_file), TRUE,
 					       FALSE, TRUE);
+			if (sv->priv->tm_project &&
+				TM_WORK_OBJECT (tm_file)->parent == sv->priv->tm_project)
+			{
+				DEBUG_PRINT ("Project changed: Flagging refresh required");
+				sv->priv->symbols_need_update = TRUE;
+			}
 		}
 		if (tm_file)
 		{

@@ -310,7 +310,7 @@ static GtkActionEntry actions_edit[] = {
 	ANJUTA_STOCK_AUTOCOMPLETE, "<control>Return",
 	N_("AutoComplete the current word"),
     G_CALLBACK (on_editor_command_complete_word_activate)},
-  { "ActionEditCalltip", N_("S_how calltip"), NULL, "<control>Space",
+  { "ActionEditCalltip", N_("S_how calltip"), NULL, "<control>space",
 	N_("Show calltip for the function"),
     G_CALLBACK (on_calltip1_activate)},
 };

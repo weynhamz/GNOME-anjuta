@@ -54,9 +54,9 @@ libanjuta_symbol_browser_la_SOURCES = \
 	an_symbol_view.c \
 	an_symbol_search.h \
 	an_symbol_search.c \
-	plugin.c \
 	an_symbol_prefs.c \
-	an_symbol_prefs.h 
+	an_symbol_prefs.h \
+	plugin.c 
 
 libanjuta_symbol_browser_la_LDFLAGS = -module
 

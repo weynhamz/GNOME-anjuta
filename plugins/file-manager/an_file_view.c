@@ -892,7 +892,7 @@ fv_init (FileManagerPlugin *fv)
 								compare_iter, fv, NULL);
 
 	fv->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (fv->tree), TRUE);
+	/* gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (fv->tree), TRUE); */
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (fv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (fv->scrolledwindow), fv->tree);

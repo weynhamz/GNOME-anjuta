@@ -293,28 +293,38 @@ on_go_forward_activate (GtkAction *action, DevhelpPlugin *plugin)
 	dh_html_go_forward (plugin->priv->html);
 }
 
-static void
-on_api_reference_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+static gboolean
+on_api_reference_idle (gpointer data)
 {
+	DevhelpPlugin *dh_plugin = (DevhelpPlugin *)data;
+	
 	devhelp_html_initialize (dh_plugin);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (dh_plugin->priv->notebook), 0);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (dh_plugin)->shell,
 								 dh_plugin->priv->notebook, NULL);
+	return FALSE;
 }
 
 static void
-on_context_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+on_api_reference_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+{
+	g_idle_add (on_api_reference_idle, dh_plugin);
+}
+
+static gboolean
+on_context_help_idle (gpointer data)
 {
 	IAnjutaEditor *editor;
 	gchar *current_word;
-	
+	DevhelpPlugin *dh_plugin = (DevhelpPlugin *)data;
+		
 	if(dh_plugin->priv->editor == NULL)
-		return;
+		return FALSE;
 
 	if (IANJUTA_IS_EDITOR (dh_plugin->priv->editor) == FALSE)
 	{
 		g_warning ("Current Editor does not support IAnjutaEditor interface");
-		return;
+		return FALSE;
 	}
 	editor = IANJUTA_EDITOR (dh_plugin->priv->editor);
 	current_word = ianjuta_editor_get_current_word (editor, NULL);
@@ -324,6 +334,13 @@ on_context_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
 		ianjuta_help_search (IANJUTA_HELP (dh_plugin), current_word, NULL);
 		g_free (current_word);
 	}
+	return FALSE;
+}
+
+static void
+on_context_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
+{
+	g_idle_add (on_context_help_idle, dh_plugin);
 }
 
 static void

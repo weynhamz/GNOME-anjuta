@@ -1,3 +1,20 @@
+2005-02-11  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-manager/an_file_view.c,
+	plugins/symbol-browsers/an_symbol_view.c: Removed rules hint from the
+	views. Created dynamic update date of view depending on project
+	changes -- similar to file-manager view.
+	
+	* plugins/devhelp/plugin.c: Load help on idle.
+	
+	* plugins/editor/anjuta-document-manager.glade: Moved 'disable
+	autoformat' to proper location in preferences.
+	
+	* mime/anjuta.mime: Added .prj extension in the mime type for backward
+	compatibility.
+	
+	* plugins/editor/plugin.c: Fixed accel name.
+
 2005-02-12  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	*plugins/project-wizard/templates/anjuta-plugin.wiz,
