@@ -1,5 +1,14 @@
 2003-02-24  Naba Kumar  <naba@gnome.org>
 
+	* src/message-manager-private.[h,cc], src/preferences.c,
+	anjuta.glade, anjuta_dialog_strings.c: Implemented
+	gnome terminal profiles for the terminal preferences and moved the
+	addition of terminal preferences in the terminal constructor.
+	
+	* anjuta.prj: Updated.
+
+2003-02-24  Naba Kumar  <naba@gnome.org>
+
 	* (new)src/preferences-dialog.[c,h], preferences.[h,c],src/Makefile.am,
 	(new)widgets/cell-renderer-captioned-image.[h,c], widgets/Makefile.am,
 	(new)pixmaps/preferences-*.png, pixmaps/Makefile.am, anjuta.glade,

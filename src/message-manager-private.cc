@@ -17,17 +17,42 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#include <config.h>
 #include "message-manager-private.h"
 #include "message-manager-dock.h"
 #include "preferences.h"
 #include "debug_tree.h"
 #include "watch.h"
 
+/* Some desktop/gnome-terminal gconf keys. */
+#define GCONF_MONOSPACE_FONT      "/desktop/gnome/interface/monospace_font_name"
+#define GCONF_DEFAULT_PROFILE     "/apps/gnome-terminal/global/default_profile"
+#define GCONF_PROFILE_LIST        "/apps/gnome-terminal/global/profile_list"
+
+#define GCONF_PROFILE_PREFIX      "/apps/gnome-terminal/profiles"
+#define GCONF_BACKGROUND_COLOR    "background_color"
+#define GCONF_BACKSPACE_BINDING   "backspace_binding"
+#define GCONF_CURSOR_BLINK        "cursor_blink"
+#define GCONF_DELETE_BINDING      "delete_binding"
+#define GCONF_EXIT_ACTION         "exit_action"
+#define GCONF_VTE_TERMINAL_FONT   "font"
+#define GCONF_FOREGROUND_COLOR    "foreground_color"
+#define GCONF_SCROLLBACK_LINES    "scrollback_lines"
+#define GCONF_SCROLL_ON_KEYSTROKE "scroll_on_keystroke"
+#define GCONF_SCROLL_ON_OUTPUT    "scroll_on_output"
+#define GCONF_SILENT_BELL         "silent_bell"
+#define GCONF_USE_SYSTEM_FONT     "use_system_font"
+#define GCONF_WORD_CHARS          "word_chars"
+
+#define PREFS_TERMINAL_PROFILE_USE_DEFAULT    "terminal.default.profile"
+#define PREFS_TERMINAL_PROFILE                "terminal.profile"
+
 extern "C"
 {
 	#include "utilities.h"
 };
 
+#include <gconf/gconf-client.h>
 #include <vte/vte.h>
 #include <pwd.h>
 
@@ -39,7 +64,9 @@ extern "C"
 
 // MessageSubwindow (base class for AnjutaMessageWindow and TerminalWindow:
 
-MessageSubwindow::MessageSubwindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
+MessageSubwindow::MessageSubwindow(AnjutaMessageManager* p_amm,
+								   int p_type_id, string p_type,
+								   string p_pixmap)
 {	
 	g_return_if_fail(p_amm != NULL);
 	
@@ -135,7 +162,9 @@ void MessageSubwindow::set_check_item(bool p_state)
 
 // MessageWindow:
 
-AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
+AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm,
+										 int p_type_id, string p_type,
+										 string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {
 	g_return_if_fail(p_amm != NULL);
@@ -153,7 +182,8 @@ AnjutaMessageWindow::AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type
 	
 	GtkWidget* label = create_label();
 	
-	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), m_scrolled_win, label);
+	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook),
+							 m_scrolled_win, label);
 	
 	set_cur_line(0);
 }
@@ -175,8 +205,9 @@ AnjutaMessageWindow::append_buffer()
 {
 	gtk_clist_freeze (GTK_CLIST(m_msg_list));
 
-	GtkAdjustment* adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
-						     (m_scrolled_win));
+	GtkAdjustment* adj =
+			gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
+												     (m_scrolled_win));
 
 	/* If the scrollbar is almost at the end, */
 	/* then only we scroll to the end */
@@ -208,7 +239,7 @@ AnjutaMessageWindow::append_buffer()
 		string m1 = part1 + " ................... " + part2;
 		char* msg = new char[m1.length() + 1];
 		strcpy(msg, m1.c_str());
-		gtk_clist_append(GTK_CLIST(m_msg_list), &msg);
+		gtk_clist_append (GTK_CLIST (m_msg_list), &msg);
 		delete []msg;	
 	}
 
@@ -219,24 +250,34 @@ AnjutaMessageWindow::append_buffer()
 	{
 		if (message.find(" warning: ") != message.npos)
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_warning);
-			anjuta_message_manager_indicate_warning (m_parent, m_type_id, dummy_fn, dummy_int);
+			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
+									 m_messages.size() - 1,
+									 &m_parent->intern->color_warning);
+			anjuta_message_manager_indicate_warning (m_parent, m_type_id,
+													 dummy_fn, dummy_int);
 		}
 		else
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_error);
-			anjuta_message_manager_indicate_error (m_parent, m_type_id, dummy_fn, dummy_int);
+			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
+									 m_messages.size() - 1,
+									 &m_parent->intern->color_error);
+			anjuta_message_manager_indicate_error (m_parent, m_type_id,
+												   dummy_fn, dummy_int);
 		}
 	}
 	else
 	{
 		if (message.find(':') != message.npos)
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_message1);
+			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
+									  m_messages.size() - 1,
+									  &m_parent->intern->color_message1);
 		}
 		else
 		{
-			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_message2);
+			gtk_clist_set_foreground (GTK_CLIST (m_msg_list),
+									  m_messages.size() - 1,
+									  &m_parent->intern->color_message2);
 		}
 	}
 	g_free(dummy_fn);
@@ -286,10 +327,12 @@ AnjutaMessageWindow::show()
 	{
 		GtkWidget* label = create_label();
 		
-		gtk_notebook_append_page(GTK_NOTEBOOK(m_parent->intern->notebook), m_scrolled_win, label);
+		gtk_notebook_append_page (GTK_NOTEBOOK(m_parent->intern->notebook),
+								  m_scrolled_win, label);
 		gtk_widget_unref(m_scrolled_win);
 		
-		GList* children = gtk_container_children(GTK_CONTAINER(m_parent->intern->notebook));
+		GList* children = gtk_container_children
+								(GTK_CONTAINER (m_parent->intern->notebook));
 		for (uint i = 0; i < g_list_length(children); i++)
 		{
 			if (g_list_nth(children, i)->data == m_scrolled_win)
@@ -319,91 +362,221 @@ GtkWidget* AnjutaMessageWindow::get_msg_list()
 	return m_msg_list;
 }
 
+static const gchar * get_profile_key (const gchar *profile, const gchar *key)
+{
+	/* A resonably safe buffer */
+	static gchar buffer[1024];
+	
+	g_return_val_if_fail (profile != NULL && key != NULL, NULL);
+	
+	snprintf (buffer, 1024, "%s/%s/%s", GCONF_PROFILE_PREFIX, profile, key);
+	return buffer;
+}
+
+#define GET_PROFILE_BOOL(key) \
+			gconf_client_get_bool (client, \
+								   get_profile_key (profile, key), \
+								   NULL);
+#define GET_PROFILE_INT(key) \
+			gconf_client_get_int (client, \
+								  get_profile_key (profile, key), \
+								  NULL);
+#define GET_PROFILE_STRING(key) \
+			gconf_client_get_string (client, \
+									 get_profile_key (profile, key), \
+									 NULL);
+
+void TerminalWindow::preferences_update ()
+{
+	GConfClient *client;
+	char *text;
+	int value;
+	gboolean setting;
+	GdkColor color;
+	GtkWidget *vte = m_terminal;
+	gchar *profile;
+	
+	client = gconf_client_get_default ();
+	g_return_if_fail (client != NULL);
+	
+	/* Update the currently available list of terminal profiles */
+	GSList *profiles = gconf_client_get_list (client, GCONF_PROFILE_LIST,
+											  GCONF_VALUE_STRING, NULL);
+	if (profiles)
+	{
+		GList *list = NULL;
+		GSList *node = profiles;
+		while (node)
+		{
+			if (node->data)
+				list = g_list_append (list, node->data);
+			node = g_slist_next (node);
+		}
+		gtk_combo_set_popdown_strings (GTK_COMBO (m_profile_combo), list);
+		g_list_free (list);
+	}
+	Preferences *pref = get_preferences();
+	setting = preferences_get_int (pref, PREFS_TERMINAL_PROFILE_USE_DEFAULT);
+	if (setting)
+	{
+		/* Use the currently selected profile in gnome-terminal */
+		text = gconf_client_get_string (client, GCONF_DEFAULT_PROFILE, NULL);
+		if (!text)
+			text = "Default";
+	}
+	else
+	{
+		/* Otherwise use the user selected profile */
+		text = preferences_get (pref, PREFS_TERMINAL_PROFILE);
+		if (!text)
+			text = "Default";
+	}
+	profile = g_strdup (text);
+	
+	vte_terminal_set_mouse_autohide (VTE_TERMINAL (vte), TRUE);
+
+	/* Set terminal font either using the desktop wide font or g-t one. */
+	setting = GET_PROFILE_BOOL (GCONF_USE_SYSTEM_FONT);
+	if (setting) {
+		text = gconf_client_get_string (client, GCONF_MONOSPACE_FONT, NULL);
+		if (!text)
+			text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
+	} else {
+		text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
+	}
+	if (text)
+		vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
+
+	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
+	vte_terminal_set_cursor_blinks (VTE_TERMINAL (vte), setting);
+	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
+	vte_terminal_set_audible_bell (VTE_TERMINAL (vte), !setting);
+	value = GET_PROFILE_INT (GCONF_SCROLLBACK_LINES);
+	vte_terminal_set_scrollback_lines (VTE_TERMINAL (vte), value);
+	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_KEYSTROKE);
+	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (vte), setting);
+	setting = GET_PROFILE_BOOL (GCONF_SCROLL_ON_OUTPUT);
+	vte_terminal_set_scroll_on_output (VTE_TERMINAL (vte), TRUE);
+	text = GET_PROFILE_STRING (GCONF_WORD_CHARS);
+	if (text)
+		vte_terminal_set_word_chars (VTE_TERMINAL (vte), text);
+
+	text = GET_PROFILE_STRING (GCONF_BACKSPACE_BINDING);
+	if (text)
+	{
+		if (!strcmp (text, "ascii-del"))
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_ASCII_DELETE);
+		else if (!strcmp (text, "escape-sequence"))
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_DELETE_SEQUENCE);
+		else if (!strcmp (text, "control-h"))
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_ASCII_BACKSPACE);
+		else
+			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
+								VTE_ERASE_AUTO);
+	}
+	text = GET_PROFILE_STRING (GCONF_DELETE_BINDING);
+	if (text)
+	{
+		if (!strcmp (text, "ascii-del"))
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_ASCII_DELETE);
+		else if (!strcmp (text, "escape-sequence"))
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_DELETE_SEQUENCE);
+		else if (!strcmp (text, "control-h"))
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_ASCII_BACKSPACE);
+		else
+			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
+							 VTE_ERASE_AUTO);
+	}
+	/* Set fore- and background colors. */
+	text = GET_PROFILE_STRING (GCONF_BACKGROUND_COLOR);
+	if (text)
+	{
+		gdk_color_parse (text, &color);
+		vte_terminal_set_color_background (VTE_TERMINAL (vte), &color);
+	}
+	text = GET_PROFILE_STRING (GCONF_FOREGROUND_COLOR);
+	if (text)
+	{
+		gdk_color_parse (text, &color);
+		vte_terminal_set_color_foreground (VTE_TERMINAL (vte), &color);
+	}
+	g_free (profile);
+	g_object_unref (client);
+}
+
+void TerminalWindow::use_default_profile_cb (GtkToggleButton *button,
+											 TerminalWindow *tw)
+{
+	if (gtk_toggle_button_get_active (button))
+		gtk_widget_set_sensitive (tw->m_profile_combo, FALSE);
+	else
+		gtk_widget_set_sensitive (tw->m_profile_combo, TRUE);
+}
+
 TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 							   string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {
-	GdkColor color_white = {(guint32)-1, (guint32)-1, (guint32)-1, 0};
-	GdkColor color_black = {(guint32)0, (guint32)0, (guint32)0, 0};
+	GtkWidget *vte, *sb, *frame, *hbox, *button;
+	GladeXML *gxml;
 	
 	g_return_if_fail(p_amm != NULL);
 
 	m_child_pid = 0;
 	
-	/* Set terminal preferences */
-	gchar *font = preferences_get(get_preferences(), TERMINAL_FONT);
-	if (!font) font = g_strdup(DEFAULT_ZVT_FONT);
-	gint scrollsize = preferences_get_int(get_preferences(), TERMINAL_SCROLLSIZE);
-	if (scrollsize < DEFAULT_ZVT_SCROLLSIZE)
-		scrollsize = DEFAULT_ZVT_SCROLLSIZE;
-	if (scrollsize > MAX_ZVT_SCROLLSIZE)
-		scrollsize = MAX_ZVT_SCROLLSIZE;
-	gchar *term = preferences_get (get_preferences(), TERMINAL_TERM);
-    if (!term) term = g_strdup(DEFAULT_ZVT_TERM);
-	guchar *wordclass = (guchar *) preferences_get(get_preferences(), TERMINAL_WORDCLASS);
-	if (!wordclass) wordclass = (guchar *) g_strdup(DEFAULT_ZVT_WORDCLASS);
-	g_snprintf(termenv, 255L, "TERM=%s", term);
-	g_free(term);
-
-	DEBUG_PRINT("Font: '%s'", font);
-	DEBUG_PRINT("Scroll Buffer: '%d'", scrollsize);
-	DEBUG_PRINT("TERM: '%s'", termenv);
-	DEBUG_PRINT("Word characters: '%s'", wordclass);
-
-	putenv(termenv);
-	// putenv("TERM=xterm");
-	m_frame = gtk_frame_new(NULL);
-	gtk_widget_show (m_frame);
-	gtk_frame_set_shadow_type(GTK_FRAME(m_frame), GTK_SHADOW_IN);
-	gtk_notebook_append_page(GTK_NOTEBOOK(p_amm->intern->notebook), m_frame, create_label());
-
-	m_hbox = gtk_hbox_new(FALSE, 0);
-	gtk_widget_show (m_hbox);
-	gtk_container_add (GTK_CONTAINER(m_frame), m_hbox);
-
-	m_terminal = vte_terminal_new ();
-	gtk_widget_show (m_terminal);
-	gtk_box_pack_start (GTK_BOX(m_hbox), m_terminal, TRUE, TRUE, 0);
+	/* Create the terminal preferences page */
+	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
+						  "preferences_dialog_terminal",
+						  NULL);
+	preferences_add_page (get_preferences(), gxml,
+						  "Terminal",
+						  "preferences-terminal.png");
+	m_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
+	button =
+		glade_xml_get_widget (gxml,
+					"preferences_toggle:bool:1:0:terminal.default.profile");
+	g_signal_connect (G_OBJECT(button), "toggled",
+					  G_CALLBACK (TerminalWindow::use_default_profile_cb),
+					  this);
+	g_object_unref (gxml);
 	
-	vte_terminal_set_font_from_string (VTE_TERMINAL (m_terminal), font);
-	g_free (font);
-	vte_terminal_set_cursor_blinks (VTE_TERMINAL (m_terminal),
-									preferences_get_int(get_preferences(),
-									TERMINAL_BLINK) ? TRUE : FALSE);
-	vte_terminal_set_audible_bell (VTE_TERMINAL (m_terminal),
-								   preferences_get_int(get_preferences(),
-	  												   TERMINAL_BELL) ?
-													   TRUE : FALSE);
-	vte_terminal_set_scrollback_lines (VTE_TERMINAL (m_terminal),
-									   scrollsize);
-	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (m_terminal),
-	  									  preferences_get_int(get_preferences(),
-										  TERMINAL_SCROLL_KEY) ? TRUE : FALSE);
-	vte_terminal_set_scroll_on_output (VTE_TERMINAL (m_terminal)
-	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_OUTPUT
-	  ) ? TRUE : FALSE);
-	vte_terminal_set_color_foreground (VTE_TERMINAL (m_terminal), &color_black);
-	vte_terminal_set_color_background (VTE_TERMINAL (m_terminal), &color_white);
-	vte_terminal_set_word_chars (VTE_TERMINAL (m_terminal), (gchar*) wordclass);
-	g_free(wordclass);
-	vte_terminal_match_add	(VTE_TERMINAL (m_terminal),
-							 "^[-A-Za-z0-9_\\/.]+\\:[0-9]+\\:");
-
-	m_scrollbar = gtk_vscrollbar_new (GTK_ADJUSTMENT(
-	  VTE_TERMINAL (m_terminal)->adjustment));
-	gtk_widget_show (m_scrollbar);
-	GTK_WIDGET_UNSET_FLAGS (m_scrollbar, GTK_CAN_FOCUS);
-	gtk_box_pack_start (GTK_BOX(m_hbox), m_scrollbar, FALSE, TRUE, 0);
-
-	//zvterm_reinit_child(ZVT_TERM(m_terminal));
-	//g_signal_connect (G_OBJECT (m_terminal), "button_press_event",
-	//    G_CALLBACK (TerminalWindow::zvterm_mouse_clicked), m_terminal);
-	g_signal_connect (G_OBJECT (m_terminal), "child_exited",
-	    G_CALLBACK (TerminalWindow::zvterm_reinit_child), this);
-	g_signal_connect (G_OBJECT (m_terminal), "destroy",
-	    G_CALLBACK (TerminalWindow::zvterm_terminate), this);
+	/* Create new terminal. */
+	m_terminal = vte_terminal_new ();
+	vte_terminal_set_size (VTE_TERMINAL (m_terminal), 50, 1);
+	
+	preferences_update ();
+	
 	g_signal_connect (G_OBJECT (m_terminal), "focus_in_event",
-		G_CALLBACK (TerminalWindow::zvterm_focus_in), this);
+					  G_CALLBACK (TerminalWindow::term_focus_cb), this);
+	g_signal_connect (G_OBJECT (m_terminal), "child-exited",
+					  G_CALLBACK (TerminalWindow::term_init_cb), this);
+	g_signal_connect (G_OBJECT (m_terminal), "destroy",
+					  G_CALLBACK (TerminalWindow::term_destroy_cb), this);
+
+	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (m_terminal)->adjustment));
+	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
+
+	frame = gtk_frame_new (NULL);
+	gtk_widget_show (frame);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (frame), hbox);
+	gtk_box_pack_start (GTK_BOX (hbox), m_terminal, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
+	gtk_widget_show_all (frame);
+	gtk_notebook_append_page (GTK_NOTEBOOK(p_amm->intern->notebook),
+							  frame, create_label());
+	
+	m_scrollbar = sb;
+	m_frame = frame;
+	m_hbox = hbox;
 }
 
 void TerminalWindow::show()
@@ -417,7 +590,8 @@ void TerminalWindow::show()
 								 label);
 		gtk_widget_unref(m_frame);
 		
-		GList* children = gtk_container_children (GTK_CONTAINER(m_parent->intern->notebook));
+		GList* children = gtk_container_children
+							(GTK_CONTAINER (m_parent->intern->notebook));
 		for (uint i = 0; i < g_list_length(children); i++)
 		{
 			if (g_list_nth(children, i)->data == m_frame)
@@ -440,109 +614,92 @@ void TerminalWindow::hide()
 	}
 }
 
-#if 0
-void mouse_to_char(VteTerminal *term, int mousex, int mousey, int *x, int *y)
-{
-	*x = mousex/term->char_width;
-	*y = mousey/term->char_height;
-}
-#endif
-
 extern "C" void anjuta_goto_file_line (gchar * fname, glong lineno);
-
-gboolean TerminalWindow::zvterm_mouse_clicked (GtkWidget* widget,
-											   GdkEvent* event,
-											   TerminalWindow *tw)
-{
-	glong x,y;
-	gchar *line = NULL;
-	gchar *filename;
-	gchar *procpath;
-	int lineno;
-	GtkWidget* terminal = widget;
-	VteTerminal *term = VTE_TERMINAL (terminal);
-	gtk_widget_grab_focus(terminal);
-	
-	// double left button click
-	if (event->type == GDK_2BUTTON_PRESS && event->button.button==1)
-	{
-		// mouse_to_char(term, (int)event->button.x, (int)event->button.y, &x, &y);
-		vte_terminal_get_cursor_position (term, &x, &y);
-		// line = vte_terminal_get_buffer (term, NULL, VT_SELTYPE_LINE, 0, y+term->vx->vt.scrollbackoffset, 0, y+term->vx->vt.scrollbackoffset);
-#warning "G2: get the buffer from the terminal";
-		line = "_FIXME_";	  
-		DEBUG_PRINT("got line: '%s'", line);
-		filename = NULL;
-		if (parse_error_line(line, &filename, &lineno))
-		{
-			DEBUG_PRINT("parse_error_line: '%s' %d", filename, lineno);
-			// look for the file in the cwd
-			if (filename[0]!='/')
-				procpath = g_strdup_printf ("/proc/%d/cwd/%s",
-											tw->m_child_pid,
-											filename);
-			else
-				procpath = g_strdup (filename);
-			DEBUG_PRINT("full linked path: %s", procpath);
-			anjuta_goto_file_line (procpath, lineno);
-			g_free(procpath);
-			g_free(filename);
-		}
-		g_free(line);
-	}
-	return TRUE;
-}
 
 extern char **environ;
 
-void TerminalWindow::zvterm_reinit_child (VteTerminal* term,
-										  TerminalWindow *tw)
+static char **
+get_child_environment (GtkWidget *term)
 {
+	/* code from gnome-terminal, sort of. */
+	char **p;
+	int i;
+	char **retval;
+#define EXTRA_ENV_VARS 6
+
+	/* count env vars that are set */
+	for (p = environ; *p; p++);
+
+	i = p - environ;
+	retval = g_new (char *, i + 1 + EXTRA_ENV_VARS);
+
+	for (i = 0, p = environ; *p; p++) {
+		/* Strip all these out, we'll replace some of them */
+		if ((strncmp (*p, "COLUMNS=", 8) == 0) ||
+		    (strncmp (*p, "LINES=", 6) == 0)   ||
+		    (strncmp (*p, "TERM=", 5) == 0)    ||
+		    (strncmp (*p, "GNOME_DESKTOP_ICON=", 19) == 0)) {
+			/* nothing: do not copy */
+		} else {
+			retval[i] = g_strdup (*p);
+			++i;
+		}
+	}
+
+	retval[i] = g_strdup ("TERM=xterm"); /* FIXME configurable later? */
+	++i;
+
+	retval[i] = NULL;
+
+	return retval;
+}
+
+void TerminalWindow::term_init_cb (GtkWidget *widget,
+								   TerminalWindow *tw)
+{
+	VteTerminal *term = VTE_TERMINAL (widget);
 	struct passwd *pw;
-	static GString *shell = NULL;
-	static GString *name = NULL;
-	pid_t pid;
+	const char *shell;
+	const char *dir;
+	char **env;
 	
-	if (!shell)
-		shell = g_string_new(NULL);
-	if (!name)
-		name = g_string_new(NULL);
-	pw = getpwuid (getuid());
-	if (pw)
-	{
-		g_string_assign(shell, pw->pw_shell);
-		g_string_assign(name, "-");
+	vte_terminal_reset (term, TRUE, TRUE);
+
+	pw = getpwuid (getuid ());
+	if (pw) {
+		shell = pw->pw_shell;
+		dir = pw->pw_dir;
+	} else {
+		shell = "/bin/sh";
+		dir = "/";
 	}
-	else
-	{
-		g_string_assign(shell, "/bin/sh");
-		g_string_assign(name, "-sh");
-	}
-	vte_terminal_reset (term, TRUE, FALSE);
- 	pid = vte_terminal_fork_command (term, shell->str, NULL, NULL);
-	tw->m_child_pid = pid;
+	
+	env = get_child_environment (widget);
+	tw->m_child_pid = vte_terminal_fork_command (term, shell, NULL, env);
+	g_strfreev (env);
+	tw->preferences_update ();
 }
 
-void TerminalWindow::zvterm_terminate (VteTerminal* term,
-									   TerminalWindow *tw)
-{
-	gtk_signal_disconnect_by_func(GTK_OBJECT(term),
-						  GTK_SIGNAL_FUNC(TerminalWindow::zvterm_reinit_child),
-						  NULL);
-	// vte_terminal_closepty (term);
-}
-
-gboolean TerminalWindow::zvterm_focus_in (VteTerminal* term,
-										  GdkEventFocus* event,
-										  TerminalWindow *tw)
+gboolean TerminalWindow::term_focus_cb (GtkWidget *widget,
+										GdkEvent  *event,
+										TerminalWindow *tw) 
 {
 	static bool need_init = true;
 	if (need_init)
 	{
-		zvterm_reinit_child (term, tw);
+		term_init_cb (widget, tw);
 		need_init = false;
 	}
+	gtk_widget_grab_focus (widget);
 	return FALSE;
+}
+
+void TerminalWindow::term_destroy_cb (GtkWidget *widget,
+									  TerminalWindow *tw)
+{
+	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+					(void*) G_CALLBACK (TerminalWindow::term_init_cb),
+					tw);
 }
 
 LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,

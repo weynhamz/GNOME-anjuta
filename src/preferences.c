@@ -690,10 +690,6 @@ add_all_default_pages (Preferences *pr)
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_cvs", NULL);
 	preferences_add_page (pr, gxml, "CVS", "preferences-cvs.png");
 	g_object_unref (gxml);
-	
-	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_terminal", NULL);
-	preferences_add_page (pr, gxml, "Terminal", "preferences-terminal.png");
-	g_object_unref (gxml);
 }
 			
 static void

@@ -12304,8 +12304,8 @@
 	<widget class="GtkTable" id="table24">
 	  <property name="border_width">5</property>
 	  <property name="visible">True</property>
-	  <property name="n_rows">5</property>
-	  <property name="n_columns">4</property>
+	  <property name="n_rows">2</property>
+	  <property name="n_columns">2</property>
 	  <property name="homogeneous">False</property>
 	  <property name="row_spacing">5</property>
 	  <property name="column_spacing">5</property>
@@ -12313,7 +12313,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="label167">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Terminal font:</property>
+	      <property name="label" translatable="yes">Use GNOME terminal profile:</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -12335,172 +12335,16 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkLabel" id="label168">
+	    <widget class="GtkCombo" id="profile_list_combo">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Select by word characters:</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">False</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">0</property>
-	      <property name="right_attach">2</property>
-	      <property name="top_attach">1</property>
-	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="label169">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Scroll buffer size:</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">False</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">0</property>
-	      <property name="right_attach">1</property>
-	      <property name="top_attach">2</property>
-	      <property name="bottom_attach">3</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkLabel" id="label170">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Terminal type:</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">False</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">2</property>
-	      <property name="right_attach">3</property>
-	      <property name="top_attach">2</property>
-	      <property name="bottom_attach">3</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.scroll.keystroke">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Scroll on key stroke</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="active">False</property>
-	      <property name="inconsistent">False</property>
-	      <property name="draw_indicator">True</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">0</property>
-	      <property name="right_attach">2</property>
-	      <property name="top_attach">3</property>
-	      <property name="bottom_attach">4</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.scroll.output">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Scroll on output</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="active">False</property>
-	      <property name="inconsistent">False</property>
-	      <property name="draw_indicator">True</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">2</property>
-	      <property name="right_attach">4</property>
-	      <property name="top_attach">3</property>
-	      <property name="bottom_attach">4</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.blink">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Enable blinking cursor</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="active">False</property>
-	      <property name="inconsistent">False</property>
-	      <property name="draw_indicator">True</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">0</property>
-	      <property name="right_attach">2</property>
-	      <property name="top_attach">4</property>
-	      <property name="bottom_attach">5</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.bell">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Enable terminal bell</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="active">False</property>
-	      <property name="inconsistent">False</property>
-	      <property name="draw_indicator">True</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">2</property>
-	      <property name="right_attach">4</property>
-	      <property name="top_attach">4</property>
-	      <property name="bottom_attach">5</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkCombo" id="combo14">
-	      <property name="visible">True</property>
-	      <property name="value_in_list">True</property>
+	      <property name="value_in_list">False</property>
 	      <property name="allow_empty">False</property>
 	      <property name="case_sensitive">True</property>
 	      <property name="enable_arrow_keys">True</property>
 	      <property name="enable_arrows_always">False</property>
 
 	      <child internal-child="entry">
-		<widget class="GtkEntry" id="preferences_entry:text:xterm:0:terminal.term">
+		<widget class="GtkEntry" id="preferences_entry:text:Default:0:terminal.profile">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="editable">False</property>
@@ -12519,69 +12363,18 @@
 		  <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 		  <child>
-		    <widget class="GtkListItem" id="listitem2720">
+		    <widget class="GtkListItem" id="listitem2855">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">xterm</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkListItem" id="listitem2721">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">vt100</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkListItem" id="listitem2722">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">vt220</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkListItem" id="listitem2723">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">ansi</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkListItem" id="listitem2724">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">dumb</property>
+		      <property name="label" translatable="yes">Default</property>
 		    </widget>
 		  </child>
 		</widget>
 	      </child>
 	    </widget>
 	    <packing>
-	      <property name="left_attach">3</property>
-	      <property name="right_attach">4</property>
-	      <property name="top_attach">2</property>
-	      <property name="bottom_attach">3</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GnomeFontPicker" id="preferences_font:text:Courier 12:0:terminal.font">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="mode">GNOME_FONT_PICKER_MODE_FONT_INFO</property>
-	      <property name="show_size">True</property>
-	      <property name="use_font_in_label">True</property>
-	      <property name="label_font_size">12</property>
-	    </widget>
-	    <packing>
 	      <property name="left_attach">1</property>
-	      <property name="right_attach">4</property>
+	      <property name="right_attach">2</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
 	      <property name="y_options"></property>
@@ -12589,44 +12382,22 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkSpinButton" id="preferences_spin:int:200:0:terminal.scrollsize">
+	    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:terminal.default.profile">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="climb_rate">10</property>
-	      <property name="digits">0</property>
-	      <property name="numeric">True</property>
-	      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
-	      <property name="snap_to_ticks">False</property>
-	      <property name="wrap">False</property>
-	      <property name="adjustment">200 10 10000 10 10 10</property>
+	      <property name="label" translatable="yes">Use currently selected profile in GNOME terminal</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="active">False</property>
+	      <property name="inconsistent">False</property>
+	      <property name="draw_indicator">True</property>
 	    </widget>
 	    <packing>
-	      <property name="left_attach">1</property>
+	      <property name="left_attach">0</property>
 	      <property name="right_attach">2</property>
-	      <property name="top_attach">2</property>
-	      <property name="bottom_attach">3</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkEntry" id="preferences_entry:text:-A-Za-z0-9/_:0:terminal.wordclass">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="editable">True</property>
-	      <property name="visibility">True</property>
-	      <property name="max_length">0</property>
-	      <property name="text" translatable="yes"></property>
-	      <property name="has_frame">True</property>
-	      <property name="invisible_char" translatable="yes">*</property>
-	      <property name="activates_default">False</property>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">2</property>
-	      <property name="right_attach">4</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
+	      <property name="x_options">fill</property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>

@@ -65,7 +65,8 @@ struct _AnjutaMessageManagerPrivate
 class MessageSubwindow
 {
 	public:
-		MessageSubwindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap);
+		MessageSubwindow(AnjutaMessageManager* p_amm, int p_type_id,
+						 string p_type, string p_pixmap);
 		virtual ~MessageSubwindow() { };
 	
 		AnjutaMessageManager* get_parent() const;
@@ -104,7 +105,8 @@ class MessageSubwindow
 class AnjutaMessageWindow : public MessageSubwindow
 {
 	public:
-		AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap); 
+		AnjutaMessageWindow(AnjutaMessageManager* p_amm, int p_type_id,
+							string p_type, string p_pixmap); 
 		virtual ~AnjutaMessageWindow() { };
 		
 		const vector<string>& get_messages() const;
@@ -147,19 +149,22 @@ class TerminalWindow : public MessageSubwindow
 		GtkWidget* m_hbox;
 		GtkWidget* m_terminal;
 		GtkWidget* m_scrollbar;
+		GtkWidget* m_profile_combo;
 		char termenv[255];
 		pid_t m_child_pid;
-    
-		static gboolean zvterm_mouse_clicked (GtkWidget *widget,
-											  GdkEvent *event,
-											  TerminalWindow *tw);
-		static void zvterm_reinit_child (VteTerminal* term,
-										 TerminalWindow *tw);
-		static void zvterm_terminate (VteTerminal* term,
-									  TerminalWindow *tw);
-		static gboolean zvterm_focus_in (VteTerminal* term,
-										 GdkEventFocus* event,
-										 TerminalWindow *tw); 
+    	
+		void preferences_update (void);
+
+		/* Signal handlers */
+		static void use_default_profile_cb (GtkToggleButton *button,
+											TerminalWindow *tw);
+		static gboolean term_focus_cb (GtkWidget *widget,
+									   GdkEvent  *event,
+									   TerminalWindow *tw);
+		static void term_destroy_cb (GtkWidget *widget,
+									 TerminalWindow *tw);
+		static void term_init_cb (GtkWidget *widget,
+								  TerminalWindow *tw);
 };
 
 class LocalsWindow : public MessageSubwindow
