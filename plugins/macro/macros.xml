@@ -46,67 +46,6 @@ else
 </macro-text>
 	</macro>
 	<macro>
-		<name>Date</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Date$</macro-text>
-	</macro>
-	<macro>
-		<name>Log</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Log$
-		<macro-text>Revision 1.3  2005/01/09 15:48:57  naba
-		<macro-text>	* libegg/egg-recent-action.c, libegg/test-actions.c,
-		<macro-text>	libegg/menu/egg-recent-action.h: Recent Action now takes multiple
-		<macro-text>	recent files models.
-		<macro-text>
-		<macro-text>	* plugins/file-loader/plugin.c,	plugins/file-loader/plugin.h: Have
-		<macro-text>	two models -- one for projects and other for regular files and show
-		<macro-text>	both in recent files menu. Changed recent files group from "anjuta"
-		<macro-text>	to "anjuta-projects" and "anjuta-files" respectively. Set mime types
-		<macro-text>	when adding the URI in recent files.
-		<macro-text>
-		<macro-text>	* plugins/macro/anjuta-macro.glade: Beautified insert macro dialog.
-		<macro-text>	* plugins/macro/anjuta-macro.plugin.in: Proper plugin name.
-		<macro-text>	* plugins/macro/macro-dialog.c: Fixed dispose() method.
-		<macro-text>	* plugins/macro/macros.xml: Fixed xml errors.
-		<macro-text></macro-text>
-		<macro-text>Revision 1.2  2005/01/08 15:57:36  jhs</macro-text>
-		<macro-text>message-view and editor fixes</macro-text>
-		<macro-text></macro-text>
-	</macro>
-	<macro>
-		<name>Name</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Name$</macro-text>
-	</macro>
-	<macro>
-		<name>Revision</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Revision$</macro-text>
-	</macro>
-	<macro>
-		<name>Source</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Source$</macro-text>
-	</macro>
-	<macro>
-		<name>Author</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Author$</macro-text>
-	</macro>
-	<macro>
-		<name>Header</name>
-		<category>CVS keyword</category>
-		<shortcut></shortcut>
-		<macro-text>$Header$</macro-text>
-	</macro>
-	<macro>
 		<name>/* GPL */</name>
 		<category>License</category>
 		<shortcut></shortcut>

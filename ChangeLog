@@ -1,3 +1,19 @@
+2005-01-10  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/cvs-plugin/cvs_gui.[ch] (removed)
+	* plugins/cvs-plugin/cvs_cbs.[ch] (removed)
+	* plugins/cvs-plugin/cvs.[ch] (removed)
+	Removed old unused files
+	
+	* plugins/cvs-plugin/cvs-callbacks.[ch] (added)
+	* plugins/cvs-plugin/cvs-actions.c
+	* plugins/cvs-plugin/Makefile.am:
+	Seperate callback functions for better error
+	handling. Cleaned up code.
+	
+	* plugins/macro/macros.xml: removed corrupt cvs
+	macros for now.
+
 2005-01-10  Naba Kumar  <naba@gnome.org>
 
 	* plugins/message-view/message-view.c, libanjuta/anjuta-ui.c,
