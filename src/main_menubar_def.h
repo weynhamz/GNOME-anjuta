@@ -201,6 +201,18 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[] = {
         on_insert_cpp_gpl_notice, NULL, NULL,
         GNOME_APP_PIXMAP_NONE, NULL,
         0, 0, NULL},
+	   {
+		GNOME_APP_UI_ITEM, N_("# GPL Notice"),
+		N_("Insert GPL notice with Python style comments"),
+		on_insert_py_gpl_notice, NULL, NULL,
+		GNOME_APP_PIXMAP_NONE, NULL,
+		0, 0, NULL},
+	   {
+		GNOME_APP_UI_ITEM, N_("Current Username"),
+		N_("Insert name of current user"),
+		on_insert_username, NULL, NULL,
+		GNOME_APP_PIXMAP_NONE, NULL,
+		0, 0, NULL},
        { 
         GNOME_APP_UI_ITEM, N_("Current Date & Time"),
         N_("Insert current date & time"),
@@ -258,9 +270,9 @@ static GnomeUIInfo goto1_submenu_uiinfo[] = {
 };
 
 
-#define	NUM_EDIT_MENUES	(24)
+#define	NUM_EDIT_MENUS	(24)
 
-static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUES+1] = {
+static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
 	 N_("Undo the last action"),

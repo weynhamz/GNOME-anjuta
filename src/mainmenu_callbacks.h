@@ -673,10 +673,19 @@ void
 on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
 
 void
+on_insert_py_gpl_notice(GtkMenuItem * menuitem, gpointer user_data);
+
+void
 on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data);
 
 void
+on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data);
+
+void
 on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data);
+ 
+void
+on_insert_username(GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data);

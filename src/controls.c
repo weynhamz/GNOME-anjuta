@@ -292,7 +292,9 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->convert, F);
 	gtk_widget_set_sensitive (em->insert_c_gpl, F);
 	gtk_widget_set_sensitive (em->insert_cpp_gpl, F);
-	gtk_widget_set_sensitive (em->insert_datetime, F);
+    gtk_widget_set_sensitive (em->insert_py_gpl, F);
+    gtk_widget_set_sensitive (em->insert_username, F);
+   	gtk_widget_set_sensitive (em->insert_datetime, F);
 	gtk_widget_set_sensitive (em->insert_header_template, F);
 	gtk_widget_set_sensitive (em->select_all, F);
 	gtk_widget_set_sensitive (em->select_brace, F);

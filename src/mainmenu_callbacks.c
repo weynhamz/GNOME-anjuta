@@ -473,6 +473,68 @@ on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
        aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
 }
 
+void
+on_insert_py_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
+{
+	   TextEditor *te;
+	   char *GPLNotice =
+		   "# This program is free software; you can redistribute it and/or modify\n"
+		   "# it under the terms of the GNU General Public License as published by\n"
+		   "# the Free Software Foundation; either version 2 of the License, or\n"
+		   "# (at your option) any later version.\n"
+		   "#\n"
+		   "# This program is distributed in the hope that it will be useful,\n"
+		   "# but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+		   "# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+		   "# GNU Library General Public License for more details.\n"
+		   "#\n"
+		   "# You should have received a copy of the GNU General Public License\n"
+		   "# along with this program; if not, write to the Free Software\n"
+		   "# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+		   "\n";
+
+	   te = anjuta_get_current_text_editor ();
+	   if (te == NULL)
+			   return;
+	   aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
+}
+
+void
+on_insert_username(GtkMenuItem * menuitem, gpointer user_data)
+{
+       TextEditor *te;
+	   char *Username;
+	  
+	   Username = getenv("USERNAME");
+	   
+	   te = anjuta_get_current_text_editor ();
+	   if (te == NULL)
+			   return;
+       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
+}
+
+void
+on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data)
+{
+/* TODO: this function should insert a string of the form yyyy-mm-dd<tab>name<tab>e-mail */
+/* it will require preferences to specify a name and e-mail address                      */
+/* NB the name should be the user's personal name "Albert Einstein" since we             */
+/* can get USERNAME from the environment (see above)                                     */
+/* suggest the default should be getenv("USERNAME") plus the machine hostname            */
+/*
+       TextEditor *te;
+	   char *CLEntry;
+	   
+	   .... some code to build the changelog entry string in CLEntry ....
+			   create the date string (build from ctime?)
+			   read the name and e-mail from prefs
+
+	   te = anjuta_get_current_text_editor ();
+	   if (te == NULL)
+			   return;
+       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)CLEntry);
+*/
+}
 
 void
 on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data)

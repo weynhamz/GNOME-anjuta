@@ -181,6 +181,21 @@ internally to manage the children.
 ----------------------------------------------
 FIXME.
 
+2a) How to add new menu items in the Edit->Insert menu:
+-------------------------------------------------------
+There are 6 files which need to be updated.
+
+* main_menubar_def.h - update inserttext1_submenu_uiinfo to add the item, help text 
+and name of the callback function.
+* main_menubar.h - update struct _EditSubMenu with the name of the menu widget
+* main_menubar.c - update the array of items referenced around mb->edit.insert_*
+* mainmenu_callbacks.h, mainmenu_callbacks.c - declare the name of the new callback 
+function in the header file, and add the new function itself based on the
+existing on_insert_*() functions
+* controls.c - update the list of gtk_widget_set_sensitive calls with a new entry for 
+the menu widget em->insert_* (as specified in main_menubar.h)
+
+
 3) How to add new toolbar items in the Toolbars:
 ------------------------------------------------
 FIXME.

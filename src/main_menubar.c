@@ -79,9 +79,11 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	
 	mb->edit.insert_c_gpl = inserttext1_submenu_uiinfo[0].widget;
 	mb->edit.insert_cpp_gpl = inserttext1_submenu_uiinfo[1].widget;
-	mb->edit.insert_datetime = inserttext1_submenu_uiinfo[2].widget;
-	mb->edit.insert_header_template = inserttext1_submenu_uiinfo[3].widget;
-	for (i = 0; i < 4; i++)
+    mb->edit.insert_py_gpl = inserttext1_submenu_uiinfo[2].widget;
+    mb->edit.insert_username = inserttext1_submenu_uiinfo[3].widget;
+    mb->edit.insert_datetime = inserttext1_submenu_uiinfo[4].widget;
+	mb->edit.insert_header_template = inserttext1_submenu_uiinfo[5].widget;
+	for (i = 0; i < 6; i++)
 	{
 		gtk_widget_ref (inserttext1_submenu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(inserttext1_submenu_uiinfo[i].widget));
@@ -110,7 +112,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.goto_next_mesg = goto1_submenu_uiinfo[5].widget;
 	mb->edit.repeat_find = edit1_menu_uiinfo[18].widget;
 	mb->edit.edit_app_gui = edit1_menu_uiinfo[22].widget;
-	for (i = 0; i < NUM_EDIT_MENUES ; i++)
+	for (i = 0; i < NUM_EDIT_MENUS ; i++)
 	{
 		gtk_widget_ref (edit1_menu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(edit1_menu_uiinfo[i].widget));
@@ -382,9 +384,9 @@ main_menu_unref ()
 		gtk_widget_unref (select1_submenu_uiinfo[i].widget);
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (goto1_submenu_uiinfo[i].widget);
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < 6; i++)
 		gtk_widget_unref (inserttext1_submenu_uiinfo[i].widget);
-	for (i = 0; i < NUM_EDIT_MENUES ; i++)
+	for (i = 0; i < NUM_EDIT_MENUS ; i++)
 		gtk_widget_unref (edit1_menu_uiinfo[i].widget);
 	for (i = 0; i < 11; i++)
 		gtk_widget_unref (toolbar1_submenu_uiinfo[i].widget);

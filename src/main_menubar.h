@@ -68,6 +68,8 @@ struct _EditSubMenu
 	GtkWidget *convert;
     GtkWidget *insert_c_gpl;
     GtkWidget *insert_cpp_gpl;
+	GtkWidget *insert_py_gpl;
+	GtkWidget *insert_username;
     GtkWidget *insert_datetime;
     GtkWidget *insert_header_template;
 

@@ -113,7 +113,7 @@ gchar *project_target_type_map[]=
 
 gchar *module_map[]=
 {
-	"incude",
+	"include",
 	"source",
 	"pixmap",
 	"data",

@@ -1,3 +1,13 @@
+2002-01-08	Andy Piper	<andy.piper@freeuk.com>
+
+	* launcher/anjuta_launcher.c: updated message strings
+	* src/message-manager-dock.c: added newline at end to avoid compile warning
+	* src/project_dbase.c: corrected spelling of include (noted by Biswa)
+	* src/controls.c, src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
+	  src/mainmenu_callbacks.c, src/mainmenu_callbacks.h: added some new Insert menu
+	  entries for username and Python-style GPL notice
+	* HACKING: added info on files to change to update Insert menu
+
 2002-01-08  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/project_dbase.c,

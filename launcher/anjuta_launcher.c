@@ -44,7 +44,7 @@ main (int argc, char **argv)
 
 	if (strcmp (argv[1], "--version") == 0)
 	{
-		printf ("anjuta_launcher version 0.1.1\n");
+		printf ("anjuta_launcher version 0.1.2\n");
 		exit (0);
 	}
 	if (strcmp (argv[1], "--__debug_terminal") == 0)
@@ -67,7 +67,7 @@ main (int argc, char **argv)
 		if ((pid = fork ()) == 0)
 		{
 			execlp ("sh", "sh", "-c", cmd, NULL);
-			g_error ("Hey! what is this? I can not execute sh.");
+			g_error ("Unable to execute sh");
 		}
 		g_free (cmd);
 		if (pid < 0)
@@ -115,7 +115,7 @@ main (int argc, char **argv)
 	if ((pid = fork ()) == 0)
 	{
 		execvp (argv[1], arg_v);
-		g_error ("Couldn't execute the command (not found)\n");
+		g_error ("Unable to execute the command (not found)\n");
 	}
 	if (pid < 0)
 	{
@@ -137,7 +137,7 @@ main (int argc, char **argv)
 		} else if (WIFEXITED (status))
 			printf ("Program exited successfully with errcode (%d)\n", WEXITSTATUS (status));
 	}
-	printf ("Press any key to close this terminal ... \n");
+	printf ("Press the Enter key to close this terminal ... \n");
 	getchar ();
 	return WEXITSTATUS (status);
 }
