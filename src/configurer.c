@@ -193,7 +193,8 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	{
 		tmp = g_strdup ("./configure ");
 	}
-	if (launcher_execute (tmp, conf_mesg_arrived, conf_mesg_arrived, conf_terminated) == FALSE)
+	if (launcher_execute (tmp, conf_mesg_arrived,
+		conf_mesg_arrived, conf_terminated) == FALSE)
 	{
 		anjuta_error ("Project configuration failed.");
 		g_free (tmp);

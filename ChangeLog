@@ -1,3 +1,15 @@
+2002-03-31 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* pixmaps/Makefile.am, src/compile.c, src/configurer.c,
+	src/cvs.c, src/cvs_gui.c, src/gnome_project.c,
+	src/launcher.c, src/main_menubar_def.h, src/pixmaps.h:
+
+	Modified launcher to use controlling terminal to detect and
+	take care of password authentications (for example, for cvs
+	and root installs).
+	
+	* pixmaps/password.png: New file.
+	
 2002-03-28 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	Anjuta kick start tutorial wirtten by:

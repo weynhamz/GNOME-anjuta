@@ -96,6 +96,7 @@ anjuta_pixmaps_DATA = \
 	new_folder.xpm\
 	open_file.xpm\
 	open_project.xpm\
+	password.png\
 	paste.xpm\
 	pointer.xpm\
 	preferences.xpm\

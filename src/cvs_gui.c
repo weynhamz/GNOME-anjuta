@@ -324,7 +324,6 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	Create a window to where the user can choose options for
 	a diff between the working copy of a file and the repositry
 */
-
 void
 create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 {

@@ -13,14 +13,12 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-
+ 
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
-
-#include <zvt/zvtterm.h>
 
 #include "text_editor.h"
 #define GTK
@@ -31,9 +29,12 @@
 #include "ScintillaWidget.h"
 
 #include "cvs.h"
+#include "cvs_gui.h"
 #include "launcher.h"
 #include "anjuta.h"
 #include "lexer.h"
+
+#define DEBUG
 
 /* struct is private, use functions to access members */
 struct _CVS
@@ -550,6 +551,12 @@ cvs_login (CVS * cvs)
 	command = g_strconcat ("cvs -d ", cvsroot, " login", NULL);
 
 	/* Insert login code here */
+	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS login "), MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, cvsroot, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+
+	launch_cvs_command (command, NULL);
 
 	g_free (command);
 	g_free (cvsroot);
@@ -601,7 +608,6 @@ on_cvs_stderr (gchar * line)
 /*
 	Puts the diff produced by cvs in a new text buffer.
 */
-
 static void
 on_cvs_buffer_in (gchar * line)
 {
@@ -712,7 +718,7 @@ static void
 launch_cvs_command (gchar * command, gchar * dir)
 {
 	g_return_if_fail (command != NULL);
-	g_return_if_fail (dir != NULL);
+	/* g_return_if_fail (dir != NULL); */
 
 	if (launcher_is_busy ())
 	{
@@ -720,7 +726,7 @@ launch_cvs_command (gchar * command, gchar * dir)
 			      ("There are jobs running, please wait until they are finished"));
 	}
 
-	chdir (dir);
+	if (dir) chdir (dir);
 
 	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
 

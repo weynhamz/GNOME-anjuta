@@ -211,7 +211,8 @@ create_new_project (AppWizard * aw)
 	chdir (app->project_dbase->top_proj_dir);
 	if (launcher_execute ("./autogen.sh",
 			new_prj_mesg_arrived,
-			new_prj_mesg_arrived, new_prj_terminated) == FALSE)
+			new_prj_mesg_arrived,
+			new_prj_terminated) == FALSE)
 	{
 		anjuta_error ("Could not run ./autogen.sh");
 		return FALSE;

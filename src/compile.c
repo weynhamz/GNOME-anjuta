@@ -146,7 +146,8 @@ compile_file (gboolean use_make)
 	anjuta_set_execution_dir(dirname);
 	g_free (dirname);
 
-	if (launcher_execute (cmd, compile_mesg_arrived, compile_mesg_arrived, compile_terminated) == FALSE)
+	if (launcher_execute (cmd, compile_mesg_arrived,
+		compile_mesg_arrived, compile_terminated) == FALSE)
 	{
 		g_free (cmd);
 		return;

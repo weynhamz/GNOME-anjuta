@@ -106,6 +106,7 @@
 #define ANJUTA_PIXMAP_DEBUG_STOP "debug_stop.xpm"
 #define ANJUTA_PIXMAP_POINTER "pointer.xpm"
 #define ANJUTA_PIXMAP_WIZARD "wizard.xpm"
+#define ANJUTA_PIXMAP_PASSWORD "password.png"
 
 /* used for the messages window buttons */
 #define ANJUTA_PIXMAP_MINI_BUILD "mini_build.xpm"
