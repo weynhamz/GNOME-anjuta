@@ -1,3 +1,7 @@
+2004-12-06  Naba Kumar  <naba@gnome.org>
+
+	* plugins/cvs-plugin/cvs-execute.c: Show completion message.
+	
 2004-12-05  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/anjuta-docman.c: Fixed save-as, Fixed updating tab label,

@@ -85,7 +85,6 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 {
 	g_return_if_fail (plugin != NULL);
 	
-	plugin->executing_command = FALSE;
 	g_signal_handlers_disconnect_by_func (plugin->launcher,
 										  G_CALLBACK (on_cvs_terminated),
 										  plugin);
@@ -96,14 +95,28 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 										  G_CALLBACK (on_cvs_mesg_parse),
 										  plugin);
 	DEBUG_PRINT ("Shuting down cvs message view");
+	
+	if (status != 0)
+	{
+		ianjuta_message_view_append (plugin->mesg_view,
+									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+			_("CVS command failed! - See above for details"), "", NULL);
+	}
+	else
+	{
+		gchar *mesg;
+		mesg = g_strdup_printf (_("CVS command successful! - Time taken %ld secs."),
+								time_taken);
+		ianjuta_message_view_append (plugin->mesg_view,
+									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+									 mesg, "", NULL);
+		g_free (mesg);
+	}
+		
 	/* We do not care about this view any longer, it will be freed when 
 	the users closes it */
 	plugin->mesg_view = NULL;
-	if (status != 0)
-	{
-		anjuta_util_dialog_error
-			(NULL,_("CVS command failed! - See messages for details"), NULL);
-	}
+	plugin->executing_command = FALSE;
 }
 
 static void
