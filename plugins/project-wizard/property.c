@@ -297,7 +297,35 @@ npw_property_get_widget (const NPWProperty* this)
 void
 npw_property_set_default (NPWProperty* this, const gchar* value)
 {
-	this->defvalue = g_string_chunk_insert (this->owner->string_pool, value);
+	/* Check if the default property is valid */
+	if (value && (this->options & NPW_EXIST_SET_OPTION) && !(this->options & NPW_EXIST_OPTION))
+	{
+		/* a file or directory with the same name shouldn't exist */
+		if (g_file_test (value, G_FILE_TEST_EXISTS))
+		{
+			char* buffer;
+			guint i;
+
+			/* Allocate memory for the string and a decimal number */
+			buffer = g_new (char, strlen(value) + 8);
+			/* Give up after 1000000 tries */
+			for (i = 1; i < 1000000; i++)
+			{
+				sprintf(buffer,"%s%d",value, i);
+				if (!g_file_test (buffer, G_FILE_TEST_EXISTS)) break;
+			}
+			this->defvalue = g_string_chunk_insert (this->owner->string_pool, buffer);
+			g_free (buffer);
+
+			return;
+		}
+	}
+	/* This function could be used with value = defvalue to only check
+	 * the default property */
+	if (this->defvalue != value)
+	{
+		this->defvalue = value == NULL ? NULL : g_string_chunk_insert (this->owner->string_pool, value);
+	}
 }
 
 static gboolean
@@ -472,6 +500,7 @@ npw_property_set_exist_option (NPWProperty* this, NPWPropertyBooleanValue value)
 	case NPW_FALSE:
 		this->options &= ~NPW_EXIST_OPTION;
 		this->options |= NPW_EXIST_SET_OPTION;
+		npw_property_set_default (this, this->defvalue);
 		break;
 	case NPW_DEFAULT:
 		this->options &= ~(NPW_EXIST_OPTION | NPW_EXIST_SET_OPTION);

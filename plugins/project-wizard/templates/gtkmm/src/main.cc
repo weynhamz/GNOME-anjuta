@@ -1,12 +1,13 @@
 [+ autogen5 template +]
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-
-[+IF (=(get "IncludeGNUHeader") "1") +]/*
-	main.cc
-	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
-
-[+(gpl "main.cc"  "\t")+]
-*/[+ENDIF+]
+/*
+ * main.cc
+ * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+ * 
+[+CASE (get "License") +][+
+ == "BSD"  +][+(bsd  "main.cc" (get "Author") " *")+][+
+ == "LGPL" +][+(lgpl "main.cc" (get "Author") " *")+][+
+ == "GPL"  +][+(gpl  "main.cc" (get "Author") " *")+][+ESAC+] */
 
 #include <libglademm/xml.h>
 #include <gtkmm.h>

@@ -622,9 +622,18 @@ on_druid_next (GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 
 	if (this->page == 0)
 	{
+		const gchar* new_project;
+
 		/* Current is Select project page */
-		this->project_file = npw_header_get_filename (this->header);
-		npw_autogen_set_input_file (this->gen, this->project_file, "[+","+]");
+		new_project = npw_header_get_filename (this->header);
+		if (this->project_file != new_project)
+		{
+			/* Change project */
+
+			this->project_file = new_project;
+			npw_druid_remove_following_page (this);
+			npw_autogen_set_input_file (this->gen, this->project_file, "[+","+]");
+		}
 	}
 	else
 	{
@@ -796,6 +805,7 @@ npw_druid_new (NPWPlugin* plugin)
 	this->property_table = GTK_TABLE (glade_xml_get_widget (xml, DRUID_PROPERTY_TABLE));
 	this->finish_page = GNOME_DRUID_PAGE (glade_xml_get_widget (xml, DRUID_FINISH_PAGE));
 	this->page = 0;
+	this->project_file = NULL;
 	this->busy = FALSE;
 	this->page_list = g_queue_new ();
 	this->values = npw_value_heap_new ();

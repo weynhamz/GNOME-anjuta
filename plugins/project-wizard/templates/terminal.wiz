@@ -1,11 +1,11 @@
 <project-wizard>
-	<name>Generic</name>
-	<description>A Generic C project</description>
+	<name>Terminal</name>
+	<description>A Simple "Hello world !" C project</description>
 	<icon>terminal-logo.png</icon>
 	<category>C</category>
 </project-wizard>
 
-<page name="basic" _label="Basic information" _description="General Project Infromation">
+<page name="basic" _label="Basic information" _description="General Project Information">
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="foobar-sample" summary="yes" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
@@ -17,17 +17,15 @@
 	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
 	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
-	<property type="boolean" name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
-	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
-	<property type="boolean" name="HaveSharedlib" _label="Shared library support:" _description="Adds supports for building shared libraries in your project" default="1"/>
 	<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
 	<property type="list" name="License" _label="License" _description="Select code license" default="GPL" editable="no">
 		<item name="GPL" _label="General Public License(GPL)"/>
 		<item name="LGPL" _label="Lesser General Public License(LGPL)"/>
-		<item name="BSD"/>
+		<item name="BSD" _label="Berkeley Software Distribution License(BSD)"/>
+		<item name="None" _label="No license"/>
 	</property>
-	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
+	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
 </page>
 
 [+IF (=(get "HavePackage") "1")+]
@@ -41,28 +39,26 @@
 [+ENDIF+]
 
 <content>
-	<directory source="." destination="[+Destination+]">
-		<directory source="terminal" destination="[+NameLower+]">
-			<file source="AUTHORS"/>
-			<file source="ChangeLog"/>
+	<directory source="terminal" destination="[+Destination+]">
+		<file source="AUTHORS"/>
+		<file source="ChangeLog"/>
+		<file source="Makefile.am.tpl" destination="Makefile.am"/>
+		<file source="NEWS"/>
+		<file source="README"/>
+		<file source="autogen.sh" executable="yes"/>
+		<file source="configure.in.tpl" destination="configure.in"/>
+		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+		<directory source="src">
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
-			<file source="NEWS"/>
-			<file source="README"/>
-			<file source="autogen.sh" executable="yes"/>
-			<file source="configure.in.tpl" destination="configure.in"/>
-			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
-			<directory source="src">
-				<file source="Makefile.am.tpl" destination="Makefile.am"/>
-				<file source="main.c"/>
-			</directory>
-			[+IF (=(get "HaveI18n") "1") +]
-			<directory source="po">
-				<file source="ChangeLog"/>
-				<file source="POTFILES.in"/>
-			</directory>
-			[+ENDIF+]
+			<file source="main.c"/>
 		</directory>
-	</directory>
+		[+IF (=(get "HaveI18n") "1") +]
+		<directory source="po">
+			<file source="ChangeLog"/>
+			<file source="POTFILES.in"/>
+  		</directory>
+		[+ENDIF+]
+  	</directory>
 </content>
 
 <action>

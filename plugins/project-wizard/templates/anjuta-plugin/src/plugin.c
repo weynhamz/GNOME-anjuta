@@ -1,12 +1,13 @@
 [+ autogen5 template +]
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-
-[+IF (=(get "IncludeGNUHeader") "1") +]/*
-	plugin.c
-	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
-
-[+(gpl "plugin.c"  "\t")+]
-*/[+ENDIF+]
+/*
+ * plugin.c
+ * Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
+ * 
+[+CASE (get "License") +][+
+ == "BSD"  +][+(bsd  "plugin.c" (get "Author") " *")+][+
+ == "LGPL" +][+(lgpl "plugin.c" (get "Author") " *")+][+
+ == "GPL"  +][+(gpl  "plugin.c" (get "Author") " *")+][+ESAC+] */
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>

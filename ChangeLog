@@ -1,5 +1,36 @@
 2005-02-16  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.h,
+	plugins/project-wizard/templates/gnome/src/callbacks.c,
+	plugins/project-wizard/templates/gnome/src/callbacks.h,
+	plugins/project-wizard/templates/gnome/src/main.c,
+	plugins/project-wizard/templates/gtk/src/main.c,
+	plugins/project-wizard/templates/gtkmm/src/main.cc,
+	plugins/project-wizard/templates/terminal/src/main.c: Fixed licence
+	macros to avoid blank newlines.
+
+2005-02-16  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/autogen.c:
+	Correct a problem when having property value in UTF-8
+
+	* plugins/project-wizard/druid.c:
+	Correct a bug when reselecting a new project (all pages
+	must be removed)
+
+	* plugins/project-wizard/property.c:
+	Avoid having default invalid properties
+
+	* plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/terminal/po/ChangeLog,
+	plugins/project-wizard/templates/terminal/src/main.c:
+	Remove command for testing run function
+	Move destination directory to second page and include
+	project name. Add exist tag. Remove unused properties.
+
+2005-02-16  Naba Kumar  <naba@gnome.org>
+
 	* Makefile.am, libanjuta/interfaces/libanjuta.idl,
 	plugins/debug-manager/anjuta-debug-manager.ui,
 	plugins/debug-manager/plugin.c,

@@ -319,6 +319,8 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 	{
 		return FALSE;
 	}
+	/* Keep output as it is */
+	anjuta_launcher_set_encoding (this->launcher, NULL);
 
 	return TRUE;
 }
