@@ -18,6 +18,8 @@ anjuta_data_DATA = \
 	autogen.sh.gtk\
 	autogen.sh.generic\
 	linux-gnome-c.api\
-	tags2api.py
+	tags2api.py\
+	autogen.sh.gtkmm\
+	autogen.sh.gnomemm
 
 EXTRA_DIST = $(anjuta_data_DATA)
