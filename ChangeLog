@@ -1,3 +1,11 @@
+2002-02-20  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/resources.h, resources.c:
+	Added url handler.
+
+	* src/main_menubar_def.h, mainmenu_callbacks.c:
+	Changed to use gnome configed url handler.
+
 2002-02-19  Philip Van Hoof <freax@pandora.be>
 
 	* widgets/gnomefilelist.c

@@ -1880,42 +1880,6 @@ on_archive_maintenace1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_contents1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	pid_t pid;
-
-	if (anjuta_is_installed ("gnome-help-browser", TRUE) == FALSE)
-		return;
-
-	if ((pid = fork ()) == 0)
-	{
-		execlp ("gnome-help-browser", "gnome-help-browser",
-			"ghelp:anjuta");
-		g_error (_("Cannot launch gnome-help-browser"));
-	}
-	if (pid > 0)
-		anjuta_register_child_process (pid, NULL, NULL);
-}
-
-
-void
-on_index1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	pid_t pid;
-	if (anjuta_is_installed ("gnome-help-browser", TRUE) == FALSE)
-		return;
-
-	if ((pid = fork ()) == 0)
-	{
-		execlp ("gnome-help-browser", "gnome-help-browser",
-			"ghelp:anjuta#index");
-		g_error (_("Cannot launch gnome-help-browser"));
-	}
-	if (pid > 0)
-		anjuta_register_child_process (pid, NULL, NULL);
-}
-
-void
 on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
@@ -1923,42 +1887,6 @@ on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
 	{
 		anjuta_res_help_search (NULL);
 	}
-}
-
-void
-on_man_pages1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	pid_t pid;
-
-	if (anjuta_is_installed ("gnome-help-browser", TRUE) == FALSE)
-		return;
-
-	if ((pid = fork ()) == 0)
-	{
-		execlp ("gnome-help-browser", "gnome-help-browser",
-			"toc:man");
-		g_error (_("Cannot launch gnome-help-browser"));
-	}
-	if (pid > 0)
-		anjuta_register_child_process (pid, NULL, NULL);
-}
-
-void
-on_info_pages1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	pid_t pid;
-
-	if (anjuta_is_installed ("gnome-help-browser", TRUE) == FALSE)
-		return;
-
-	if ((pid = fork ()) == 0)
-	{
-		execlp ("gnome-help-browser", "gnome-help-browser",
-			"toc:info");
-		g_error (_("Cannot launch gnome-help-browser"));
-	}
-	if (pid > 0)
-		anjuta_register_child_process (pid, NULL, NULL);
 }
 
 void
@@ -2036,7 +1964,7 @@ on_url_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	if (user_data)
 	{
-		gnome_url_show(user_data);
+		anjuta_res_url_show(user_data);
 	}
 }
 

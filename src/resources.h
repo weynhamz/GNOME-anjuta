@@ -40,4 +40,7 @@ gchar* anjuta_res_get_doc_file (const gchar* docfile);
 /* System Help */
 void anjuta_res_help_search (const gchar * word);
 
+/* URI handler -- wrapped over gnome_url_show() */
+void anjuta_res_url_show(const char *url);
+
 #endif /* _RESOURCES_H_ */

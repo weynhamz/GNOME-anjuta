@@ -1502,13 +1502,13 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Browse Man Pages"),
 	 N_("The good old manual pages"),
-	 on_man_pages1_activate, NULL, NULL,
+	 on_url_activate, "man:man", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Browse Info Pages"),
 	 N_("Info pages, where you cannot find what you are looking for"),
-	 on_info_pages1_activate, NULL, NULL,
+	 on_url_activate, "info:info", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,

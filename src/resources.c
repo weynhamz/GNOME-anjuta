@@ -304,3 +304,8 @@ anjuta_res_help_search (const gchar * word)
 		}
 	}
 }
+
+void anjuta_res_url_show(const char *url)
+{
+	gnome_url_show(url);
+}
