@@ -219,8 +219,8 @@ INSTALLATION:
 	Otherwise, some dependency error will come up. You will have
 	to install the required components first. Then repeat the above.
 
-	Because anjuta was becoming too big, it was decided that the rpm 
-	be splitted into various pieces. The following are all the rpms
+	Because anjuta was becoming too big, it was decided that the rpm
+	be split into various pieces. The following are all the rpms
 	available for a perticular release:
 
 		anjuta-1.0.0-1.i386.rpm         [Base anjuta]
@@ -228,13 +228,14 @@ INSTALLATION:
 		anjuta-docs-en-1.0.0.i386.rmp   [English documentaion]
 		anjuta-docs-ja-1.0.0.i386.rmp   [Japanese documentaion]
 
-	If base package is all you have for woring in English locale and
-	without any documentation (except README and other basic docs).
+	The base package is all you need to have for woring in English
+	locale and without any documentation (except README and other
+	basic docs).
 
-	If you want to work in different locale other than install the
-	anjuta-i18-* package. And if you want anjuta manual, tutorial
-	and faq, install the anjuta-docs-* package of the language you
-	want.
+	If you want to work in different locale other than English,
+	install the anjuta-i18-* package. And if you want anjuta manual,
+	tutorial and faq, install anjuta-docs-* package of the language
+	you want (currently only en and ja are available).
 
 KNOWN ISSUES:
 -------------

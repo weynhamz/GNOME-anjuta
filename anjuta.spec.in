@@ -89,7 +89,6 @@ scrollkeeper-update || :
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
 %{prefix}/share/anjuta
 %{prefix}/share/pixmaps/anjuta
-%{prefix}/share/omf/anjuta
 %{prefix}/share/doc/anjuta
 
 %files i18n
@@ -101,8 +100,14 @@ scrollkeeper-update || :
 %defattr(-, root, root)
 
 %{prefix}/share/gnome/help/anjuta/C
+%{prefix}/share/omf/anjuta/anjuta-tutorial-C.omf
+%{prefix}/share/omf/anjuta/anjuta-faqs-C.omf
+%{prefix}/share/omf/anjuta/anjuta-manual-C.omf
 
 %files docs-ja
 %defattr(-, root, root)
 
 %{prefix}/share/gnome/help/anjuta/ja
+%{prefix}/share/omf/anjuta/anjuta-faqs-ja_JP.eucJP.omf
+%{prefix}/share/omf/anjuta/anjuta-manual-ja_JP.eucJP.omf
+
