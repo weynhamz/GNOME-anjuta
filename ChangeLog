@@ -1,6 +1,7 @@
 2004-03-19  Naba Kumar  <naba@gnome.org>
 
-	* src/project_dbase.c: fixed bug #893400 ("Remove file" in project tree)
+	* src/project_dbase.c: fixed bug #893400 ("Remove file" in project
+	tree).
 
 2004-03-17  Pavol Bosik <Pavol.Bosik@siemens.com>
 
