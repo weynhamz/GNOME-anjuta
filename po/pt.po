@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2003-08-16 01:07+0100\n"
-"PO-Revision-Date: 2003-08-16 01:10+0000\n"
+"POT-Creation-Date: 2003-08-26 03:13+0100\n"
+"PO-Revision-Date: 2003-08-26 03:15+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -2504,7 +2504,7 @@ msgstr "Já existe uma ferramenta com o nome '%s'!"
 msgid "Unable to build user interface for tool help"
 msgstr "Incapaz de criar interface de utilizador para ajuda ferramenta"
 
-#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1781 src/debug_tree.c:1454 src/debug_tree.c:1474
 #: src/watch_gui.c:127
 msgid "Variable"
 msgstr "Variável"
@@ -2513,7 +2513,7 @@ msgstr "Variável"
 msgid "Meaning"
 msgstr "Significado"
 
-#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1793 src/debug_tree.c:1454 src/debug_tree.c:1483
 #: src/watch_gui.c:136
 msgid "Value"
 msgstr "Valor"
@@ -2660,7 +2660,7 @@ msgstr ""
 "O ficheiro '%s' já existe.\n"
 "Deseja sobrepo-lo com o que está a gravar?"
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:343
 msgid "_Replace"
 msgstr "Substitui_r"
 
@@ -2672,10 +2672,10 @@ msgstr "Incapaz de abrir ficheiro para escrita"
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
-"Do you want to overwrite it?."
+"Do you want to replace it with the one you are saving?."
 msgstr ""
 "O ficheiro '%s' já existe.\n"
-"Deseja sobrepo-lo?."
+"Deseja sobrepo-lo com aquele que está a gravar?."
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
@@ -2834,7 +2834,7 @@ msgstr "Condição"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1793
+#: src/breakpoints.c:166 src/debugger.c:1814
 msgid "All breakpoints enabled:\n"
 msgstr "Todos os breakpoints activos:\n"
 
@@ -2843,7 +2843,7 @@ msgstr "Todos os breakpoints activos:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1839
+#: src/breakpoints.c:184 src/debugger.c:1860
 msgid "All breakpoints disabled:\n"
 msgstr "Todos os breakpoints desactivos:\n"
 
@@ -3451,57 +3451,57 @@ msgstr "Definições servidor"
 msgid "Import settings"
 msgstr "Importar definições"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1494
 msgid "Default format"
 msgstr "Formato por omissão"
 
-#: src/debug_tree.c:1502
+#: src/debug_tree.c:1498
 msgid "Binary"
 msgstr "Binário"
 
-#: src/debug_tree.c:1505
+#: src/debug_tree.c:1501
 msgid "Octal"
 msgstr "Octal"
 
-#: src/debug_tree.c:1508
+#: src/debug_tree.c:1504
 msgid "Signed decimal"
 msgstr "Decimal com sinal"
 
-#: src/debug_tree.c:1511
+#: src/debug_tree.c:1507
 msgid "Unsigned decimal"
 msgstr "Decimal sem sinal"
 
-#: src/debug_tree.c:1514 src/registers_gui.c:111
+#: src/debug_tree.c:1510 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Hex"
 
-#: src/debug_tree.c:1517
+#: src/debug_tree.c:1513
 msgid "Char"
 msgstr "Caracter"
 
-#: src/debug_tree.c:1522
+#: src/debug_tree.c:1518
 msgid "Inspect memory"
 msgstr "Inspeccionar memória"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:84
+#: src/debugger.c:85
 msgid "Load Executable File"
 msgstr "Ler Ficheiro Executável"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:90
+#: src/debugger.c:91
 msgid "Load Core File"
 msgstr "Ler Ficheiro Core"
 
-#: src/debugger.c:196 src/debugger.c:645
+#: src/debugger.c:197 src/debugger.c:646
 msgid "Loading Executable: "
 msgstr "A Ler Executável: "
 
-#: src/debugger.c:247
+#: src/debugger.c:248
 msgid "Loading Core: "
 msgstr "A Ler Core: "
 
-#: src/debugger.c:292 src/debugger.c:320
+#: src/debugger.c:293 src/debugger.c:321
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -3509,7 +3509,7 @@ msgstr ""
 "Tem um processo ANEXADO ao depurador.\n"
 "Desanexe-o primeiro e depois leia o ficheiro executável."
 
-#: src/debugger.c:295 src/debugger.c:323
+#: src/debugger.c:296 src/debugger.c:324
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -3517,7 +3517,7 @@ msgstr ""
 "Tem um processo EM EXECUÇÃO sob o depurador.\n"
 "Pare-o primeiro e depois leia o ficheiro executável."
 
-#: src/debugger.c:572
+#: src/debugger.c:573
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3528,39 +3528,39 @@ msgstr ""
 "Incapaz de inicializar o depurador.\n"
 "Certifique-se de que o Anjuta está correctamente instalado."
 
-#: src/debugger.c:641
+#: src/debugger.c:642
 msgid "Debugger"
 msgstr "Depurador"
 
-#: src/debugger.c:643
+#: src/debugger.c:644
 msgid "Getting ready to start debugging session ...\n"
 msgstr "A preparar-se para iniciar a sessão de depuração ...\n"
 
-#: src/debugger.c:656
+#: src/debugger.c:657
 msgid "No executable specified\n"
 msgstr "Nenhum executável especificado\n"
 
-#: src/debugger.c:659
+#: src/debugger.c:660
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abra um executável ou anexe a um processo para iniciar depuração.\n"
 
-#: src/debugger.c:666
+#: src/debugger.c:667
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Ocorreu um erro ao lançar o depurador.\n"
 
-#: src/debugger.c:669
+#: src/debugger.c:670
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Certifique-se que o 'gdb' está instalado no sistema.\n"
 
-#: src/debugger.c:808
+#: src/debugger.c:832
 msgid "Error: "
 msgstr "Erro: "
 
-#: src/debugger.c:829
+#: src/debugger.c:853
 msgid "Debugger is ready.\n"
 msgstr "Depurador está pronto.\n"
 
-#: src/debugger.c:936
+#: src/debugger.c:957
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3570,29 +3570,29 @@ msgstr ""
 "Encontrou o BUG? Sessão de depuração terminada.\n"
 "\n"
 
-#: src/debugger.c:1171
+#: src/debugger.c:1192
 msgid "Cannot execute gnome-terminal"
 msgstr "Incapaz de executar a consola-gnome"
 
-#: src/debugger.c:1206
+#: src/debugger.c:1227
 msgid "Cannot start terminal for debugging."
 msgstr "Incapaz de iniciar a consola para depuração."
 
-#: src/debugger.c:1270
+#: src/debugger.c:1291
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr ""
 "Aviso: Nenhuma consola de depuração. A redireccionar stdio para /dev/null.\n"
 
-#: src/debugger.c:1289
+#: src/debugger.c:1310
 msgid "Running program ... \n"
 msgstr "A executar aplicação ... \n"
 
-#: src/debugger.c:1419
+#: src/debugger.c:1440
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "A anexar ao processo: %d\n"
 
-#: src/debugger.c:1449
+#: src/debugger.c:1470
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3600,16 +3600,16 @@ msgstr ""
 "Já se encontra um processo em execução.\n"
 "Deseja termina-lo e anexar o novo processo?"
 
-#: src/debugger.c:1461
+#: src/debugger.c:1482
 msgid "Anjuta is unable to attach to itself."
 msgstr "O Anjuta é incapaz de se anexar a ele próprio."
 
-#: src/debugger.c:1547
+#: src/debugger.c:1568
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "A desanexar o processo: %d\n"
 
-#: src/debugger.c:1603
+#: src/debugger.c:1624
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3617,7 +3617,7 @@ msgstr ""
 "Aplicação está ANEXADA.\n"
 "Ainda assim deseja parar o Depurador?"
 
-#: src/debugger.c:1606
+#: src/debugger.c:1627
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3630,21 +3630,21 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1885
+#: src/debugger.c:1906
 msgid "All breakpoints deleted:\n"
 msgstr "Todos os breakpoints apagados:\n"
 
-#: src/debugger.c:1918
+#: src/debugger.c:1939
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "A interromper o processo: %d\n"
 
-#: src/debugger.c:1950
+#: src/debugger.c:1971
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "A enviar o sinal %s para o processo: %d\n"
 
-#: src/debugger.c:1971
+#: src/debugger.c:1992
 msgid "Error whilst signalling the process."
 msgstr "Ocorreu um erro ao sinalizar o processo."
 
@@ -3710,15 +3710,15 @@ msgid "No search string supplied."
 msgstr "Nenhuma expressão de procura indicada."
 
 #: src/find_replace.c:337
-msgid "Do you want to replace this?"
-msgstr "Deseja substituir isto?"
+msgid "Do you want to replace this occurence?"
+msgstr "Deseja substituir esta ocorrência?"
 
-#: src/find_replace.c:398
+#: src/find_replace.c:399
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "A expressão \"%s\" não foi encontrada no texto seleccionado"
 
-#: src/find_replace.c:403
+#: src/find_replace.c:404
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "A expressão \"%s\" não foi encontrada a partir da localização actual"
@@ -6608,7 +6608,7 @@ msgstr "Seleccione idioma regional:"
 msgid "Unable to find pixmap file: %s"
 msgstr "Incapaz de encontrar ficheiro imagem: %s"
 
-#: src/project_dbase_gui.c:1344
+#: src/project_dbase_gui.c:1342
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6619,12 +6619,12 @@ msgstr ""
 "não existe.\n"
 "Deseja cria-lo agora ?"
 
-#: src/project_dbase_gui.c:1362
+#: src/project_dbase_gui.c:1360
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Não é um ficheiro normal: %s."
 
-#: src/project_dbase_gui.c:1372
+#: src/project_dbase_gui.c:1370
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -7810,6 +7810,13 @@ msgstr "Falha na criação de pasta '%s': %s"
 #: widgets/gnomefilelist.c:2002
 msgid "Folder name:"
 msgstr "Nome pasta:"
+
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?."
+#~ msgstr ""
+#~ "O ficheiro '%s' já existe.\n"
+#~ "Deseja sobrepo-lo?."
 
 #~ msgid ""
 #~ "\n"
