@@ -72,6 +72,9 @@ app-dist-hook: index.html
 		$(distdir)/$(docname)/stylesheet-images
 	-cp $(srcdir)/figures/*.png \
 		$(distdir)/figures
+	-if [ -e topic.dat ]; then \
+		cp $(srcdir)/topic.dat $(distdir); \
+	 fi
 
 install-data-am: index.html omf
 	-$(mkinstalldirs) $(DESTDIR)$(docdir)/stylesheet-images
@@ -89,6 +92,9 @@ install-data-am: index.html omf
 	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/stylesheet-images/$$basefile; \
 	done
+	-if [ -e $(srcdir)/topic.dat ]; then \
+		$(INSTALL_DATA) $(srcdir)/topic.dat $(DESTDIR)$(docdir); \
+	 fi
 
 $(docname).ps: $(srcdir)/$(docname).sgml
 	-srcdir=`cd $(srcdir) && pwd`; \
@@ -97,3 +103,23 @@ $(docname).ps: $(srcdir)/$(docname).sgml
 $(docname).rtf: $(srcdir)/$(docname).sgml
 	-srcdir=`cd $(srcdir) && pwd`; \
 	db2ps $$srcdir/$(docname).sgml
+
+uninstall-local:
+	-for file in $(srcdir)/$(docname)/stylesheet-images/*.gif; do \
+	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
+	  rm -f $(docdir)/stylesheet-images/$$basefile; \
+	done
+	-for file in $(srcdir)/figures/*.png; do \
+	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
+	  rm -f $(docdir)/figures/$$basefile; \
+	done
+	-for file in $(srcdir)/$(docname)/*.html $(srcdir)/$(docname)/*.css; do \
+	  basefile=`echo $$file | sed -e 's,^.*/,,'`; \
+	  rm -f $(DESTDIR)$(docdir)/$$basefile; \
+	done
+	-for file in $(sgml_files); do \
+	  rm -f $(DESTDIR)$(docdir)/$$file; \
+	done
+	-rmdir $(DESTDIR)$(docdir)/stylesheet-images
+	-rmdir $(DESTDIR)$(docdir)/figures
+	-rmdir $(DESTDIR)$(docdir)
