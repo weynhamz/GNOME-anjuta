@@ -504,13 +504,19 @@
        change the search text when you do this. Enter the new string in the 
        <guilabel>Search Expression</guilabel> text box in the main toolbar.
       </para>
-
       <figure id="search-expr">
       <title>Search Text dialog</title>
         <screenshot>
         <graphic fileref="figures/search_expr.png" format="PNG" srccredit="jnoel"></graphic>
         </screenshot>
       </figure>
+	  <para>
+	    To stop a long research, choose <guibutton>Stop</guibutton> button.
+	  </para>
+	  <para>
+	    If the "Basic Search and Replace" option is selected in the Setting window,
+		the search direction can be choosen from the Expression window.
+	  </para>
       <figure id="search-expr-basic">
       <title>Basic Search Text dialog</title>
         <screenshot>
@@ -521,7 +527,11 @@
     <sect2 id="search-range">
     <title>Specifying Search Range</title>
       <para>
- 
+        In the "Search Target dialog", define the search location and the action 
+		to be done in case of search success.
+      </para>
+      <para>
+        The maximum number actions can be defined by User.
       </para>
       <figure id="search-target">
       <title>Search Target dialog</title>
@@ -530,7 +540,7 @@
         </screenshot>
       </figure>
       <para>
- 
+        The user can select where the text will be searched.
       </para>
       <figure id="search-target-in">
       <title>Search Target In choice</title>
@@ -541,8 +551,20 @@
       <sect3 id="search-file">
       <title>Searching in Files</title>
        <para>
-  
+         To find text in your project, select "search in" <menuchoice><guimenu>
+	     All Project Files</guimenu></menuchoice>.
+       </para>
+       <para>
+         Enter the text you want to search and specify search options (case-sensitive,
+	     complete words ...).
+         Click <guibutton>Search</guibutton> to start searching.
+       </para>
+       <para>
+         To find text in File list, select "search in" <menuchoice><guimenu>
+	     Specifying File List</guimenu></menuchoice>. Define the Search variables.  
+         Click <guibutton>Search</guibutton> to start searching.		 
        </para>	 
+
        <figure id="search-file-list">
        <title>Search File List</title>
         <screenshot>
@@ -554,7 +576,19 @@
       <sect3 id="search-pattern">
       <title>Specifying File Patterns</title>
        <para>
-
+         To find in files and/or folders, select "search in" <menuchoice><guimenu>
+	     Specify File Patterns</guimenu></menuchoice>, choose 
+	     the file types and/or folders you want to search.
+       </para>
+       <para>
+         Remember, directories are searched recursively. All of the files under 
+         the directory, and the files under all the subdirectories, and the files under all 
+	     of the sub-subdirectories (and so on) are all included in the search.
+       </para>
+       <para>
+         Enter the text you want to search and specify search options (case-sensitive,
+	     complete words ...).
+         Click <guibutton>Search</guibutton> to start searching.
        </para>	 
          <figure id="search-file-pattern">
          <title>Search File Pattern</title>
@@ -569,7 +603,11 @@
     <sect2 id="search-action">
     <title>Specifying Search Action</title>
       <para>
-
+        The user selects which action will be done in case of search success.
+      </para>
+      <para>
+        According to the previous selections (Search in, Search direction ...),
+		some actions coul be unavailable.
       </para>
       <figure id="search-target-action">
       <title>Search Target Action choice</title>
@@ -584,23 +622,29 @@
       <para>
        Search and replace is similar to just finding text, except that you 
        also specify the replace text in the <guilabel>Replace Text</guilabel> text box, 
-       and whether or not you want to be prompted before the replace takes place.
+       and whether or not you want to be prompted before the replace takes place
+	   (Replace First Match or Replace All Matches).
       </para>
-	  <para>
-	  
-	  </para>
       <figure id="replace">
       <title>Replacing</title>
         <screenshot>
         <graphic fileref="figures/search_replace.png" format="PNG" srccredit="jnoel"></graphic>
         </screenshot>
       </figure>
+	  <para>
+	    Choose <guibutton>Replace</guibutton> to replace the matched text or 
+		<guibutton>Forward</guibutton> to jump to the next matched text.
+	  </para>
 
 	</sect2>
     <sect2 id="search-setting">
     <title>Search Setting</title>
       <para>
- 
+        The user has the possibility of saving the setting of his search options.
+      </para>
+      <para>
+        Item highlighted in red is the active item. Item by defaultt is the search
+		setting which is loaded at Anjuta launching.
       </para>
       <figure id="search-setting">
       <title>Search Setting dialog</title>
@@ -610,39 +654,6 @@
        </figure>
     </sect2>
 
-  </sect1>
-
- <!-- ============= File operations: Finding in multiple files and folders === -->
-  <sect1 id="multiple-find-files">
-   <title>Finding in Multiple Files and Folders</title>
-	
-   <para>
-    To find in files and/or folders, add all the files and/or folders
-    you want to search in by entering their names in
-    the text box and clicking on the <guibutton>Add</guibutton> button.
-   </para>
-   <para>
-    Remember, directories are searched recursively. All of the files under 
-    the directory, and the files under all the subdirectories, and the files under all 
-	of the sub-subdirectories (and so on) are all included in the search.
-   </para>
-   <para>
-    If you want to remove or edit an entry in the list, select it by clicking on the item. 
-    Click on <guibutton>Remove</guibutton>, or make changes in the text box and click on
-    <guibutton>Update</guibutton>.
-   </para>
-   <para>
-    Clicking on <guibutton>Clear</guibutton> will clear all the entries.
-   </para>
-   <para>
-    Enter the text you want to search and specify whether the search should be case-sensitive.
-    Click <guibutton>OK</guibutton> to start searching.
-   </para>
-   <para>
-    The search results will be listed in the message window. Double clicking on them 
-    will take you to the file and particular line number where the match has been 
-    found. The matching line is also highlighted.
-   </para>
   </sect1>
 
  <!-- ============= File operations: Printing Files === -->

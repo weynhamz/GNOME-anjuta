@@ -30,19 +30,6 @@ Until we figure out that, the plugins should not be unloaded
 when deactivated.</comment>
     </item>
     <item>
-      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1107240311"/>
-      <summary>Move encodings source files</summary>
-      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c)
-by CVS surgery into editor plugin.</comment>
-    </item>
-    <item>
-      <attribute id="1107253918" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107254014"/>
-      <summary>Progress bar</summary>
-      <comment>Implement  multiple progress bars in AnjutaStatus class. Any
-number of progressbar should be acceptable. All of them
-should be shown side-by-side in status bar.</comment>
-    </item>
-    <item>
       <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107255619"/>
       <summary>Plugins reference counting</summary>
       <comment>Implement plugins reference counting. Loading a plugin gets
@@ -66,6 +53,19 @@ activates Settings-&gt;Preferences, find all "loaded" plugins
 that implement IAnjutaPreferences and call construct() on
 them. Then display preferences dialog. Destroy the
 preferences dialog when it is closed.</comment>
+    </item>
+    <item>
+      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1112104260"/>
+      <summary>Move encodings source files</summary>
+      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c)
+by CVS surgery into editor plugin.</comment>
+    </item>
+    <item>
+      <attribute id="1107253918" priority="1" done="0" start_date="731978" notify="0" last_edited="1112104270"/>
+      <summary>Progress bar</summary>
+      <comment>Implement  multiple progress bars in AnjutaStatus class. Any
+number of progressbar should be acceptable. All of them
+should be shown side-by-side in status bar.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">
