@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-21 16:51-0500\n"
-"PO-Revision-Date: 2005-01-21 12:57-0400\n"
+"POT-Creation-Date: 2005-01-23 19:40-0500\n"
+"PO-Revision-Date: 2005-01-23 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -1342,7 +1342,7 @@ msgstr "_Lock dock items"
 #: plugins/editor/plugin.c:1044 plugins/editor/search-replace.c:725
 #: plugins/editor/search-replace.c:1358 plugins/editor/search-replace.c:1365
 #: plugins/editor/search-replace.c:1377 plugins/editor/search-replace.c:1678
-#: plugins/symbol-browser/plugin.c:695
+#: plugins/symbol-browser/plugin.c:687
 msgid "Search"
 msgstr "Search"
 
@@ -2522,7 +2522,7 @@ msgid "Search Help:"
 msgstr "Search Help:"
 
 #: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:238
-#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:184
+#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:180
 msgid "_Goto"
 msgstr "_Goto"
 
@@ -4786,7 +4786,7 @@ msgid "dialog3"
 msgstr "dialog3"
 
 #: plugins/file-manager/plugin.c:48 plugins/project-manager/plugin.c:368
-#: plugins/symbol-browser/plugin.c:228
+#: plugins/symbol-browser/plugin.c:224
 msgid "_Refresh"
 msgstr "_Refresh"
 
@@ -7439,7 +7439,12 @@ msgstr ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 
-#: plugins/project-wizard/druid.c:178
+#: plugins/project-wizard/druid.c:140
+#, c-format
+msgid "Unable to find any project template in %s"
+msgstr "Unable to find any project template in %s"
+
+#: plugins/project-wizard/druid.c:181
 msgid ""
 "Confim the following information:\n"
 "\n"
@@ -7447,16 +7452,16 @@ msgstr ""
 "Confirm the following information:\n"
 "\n"
 
-#: plugins/project-wizard/druid.c:180
+#: plugins/project-wizard/druid.c:183
 msgid "Project Type: "
 msgstr "Project Type: "
 
-#: plugins/project-wizard/druid.c:527
+#: plugins/project-wizard/druid.c:530
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "Field \"%s\" is mandatory."
 
-#: plugins/project-wizard/druid.c:611
+#: plugins/project-wizard/druid.c:614
 msgid "Unable to build project wizard user interface"
 msgstr "Unable to build project wizard user interface"
 
@@ -7523,63 +7528,63 @@ msgstr "Structs"
 msgid "Variables"
 msgstr "Variables"
 
-#: plugins/symbol-browser/plugin.c:188
+#: plugins/symbol-browser/plugin.c:184
 msgid "Tag _Definition"
 msgstr "Tag _Definition"
 
-#: plugins/symbol-browser/plugin.c:190 plugins/symbol-browser/plugin.c:206
+#: plugins/symbol-browser/plugin.c:186 plugins/symbol-browser/plugin.c:202
 msgid "Goto symbol definition"
 msgstr "Go to symbol definition"
 
-#: plugins/symbol-browser/plugin.c:196
+#: plugins/symbol-browser/plugin.c:192
 msgid "Tag De_claration"
 msgstr "Tag De_claration"
 
-#: plugins/symbol-browser/plugin.c:198 plugins/symbol-browser/plugin.c:214
+#: plugins/symbol-browser/plugin.c:194 plugins/symbol-browser/plugin.c:210
 msgid "Goto symbol declaration"
 msgstr "Go to symbol declaration"
 
-#: plugins/symbol-browser/plugin.c:204
+#: plugins/symbol-browser/plugin.c:200
 msgid "Goto _Definition"
 msgstr "Go to _Definition"
 
-#: plugins/symbol-browser/plugin.c:212
+#: plugins/symbol-browser/plugin.c:208
 msgid "Goto De_claration"
 msgstr "Go to De_claration"
 
-#: plugins/symbol-browser/plugin.c:220
+#: plugins/symbol-browser/plugin.c:216
 msgid "_Find Usage"
 msgstr "_Find Usage"
 
-#: plugins/symbol-browser/plugin.c:222
+#: plugins/symbol-browser/plugin.c:218
 msgid "Find usage of symbol in project"
 msgstr "Find usage of symbol in project"
 
-#: plugins/symbol-browser/plugin.c:230
+#: plugins/symbol-browser/plugin.c:226
 msgid "Refresh symbol browser tree"
 msgstr "Refresh symbol browser tree"
 
-#: plugins/symbol-browser/plugin.c:667
+#: plugins/symbol-browser/plugin.c:659
 msgid "Tree"
 msgstr "Tree"
 
-#: plugins/symbol-browser/plugin.c:714
+#: plugins/symbol-browser/plugin.c:706
 msgid "Symbol browser popup actions"
 msgstr "Symbol browser popup actions"
 
-#: plugins/symbol-browser/plugin.c:723
+#: plugins/symbol-browser/plugin.c:715
 msgid "Goto symbol"
 msgstr "Go to symbol"
 
-#: plugins/symbol-browser/plugin.c:724
+#: plugins/symbol-browser/plugin.c:716
 msgid "Select the symbol to go"
 msgstr "Select the symbol to go to"
 
-#: plugins/symbol-browser/plugin.c:732
+#: plugins/symbol-browser/plugin.c:724
 msgid "Symbol navigations"
 msgstr "Symbol navigations"
 
-#: plugins/symbol-browser/plugin.c:741
+#: plugins/symbol-browser/plugin.c:733
 msgid "Symbols"
 msgstr "Symbols"
 
