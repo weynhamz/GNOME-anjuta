@@ -1,3 +1,20 @@
+2002-11-01  Naba Kumar <naba@gnome.org>
+
+	* macros2/*, Makefile.am, configure.in, data/Makefile.am:
+	Added gnome2 macros to be used by gnome2 project wizard.
+	
+	* data/autogen.sh.gnome2: Fixed to use our own macros instead of
+	from gnome-common.
+	
+	* macros/Makefile.am: Removed INSIDE_GNOME_COMMAND macro
+	as it was conflicting with generated projects and is not
+	useful for us.
+	
+	* src/appwiz_page1.c, src/project_dbase.h, src/project_type.c,
+	src/project_type.h, src/source.c, src/wizard_gui.c: Fixed gnome2
+	project generation, removed qt project as it's not complete and
+	added gnome2 bonobo wizard.
+
 2002-10-29  Naba Kumar <naba@gnome.org>
 
 	* po/POTFILES.in: Updated.

@@ -418,6 +418,7 @@ Makefile
 intl/Makefile
 po/Makefile.in
 macros/Makefile
+macros2/Makefile
 tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile

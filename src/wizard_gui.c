@@ -158,12 +158,12 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	icon8_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_WXWIN);
 	icon9_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTK2);
 	icon10_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOME2);
-	icon11_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE2);
-	icon12_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM2);
-	icon13_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM2);
-	icon14_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWIN);
-	icon15_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWINDOCKAPP);
-	icon16_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_QT);
+	icon11_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_COMPONENT);
+	icon12_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_LIBGLADE2);
+	icon13_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GTKMM2);
+	icon14_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_GNOMEMM2);
+	icon15_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWIN);
+	icon16_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_APP_XWINDOCKAPP);
 	
 	if (icon1_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -204,22 +204,22 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 					icon10_file, _("GNOME 2.0 project"));
 	if (icon11_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon11_file, _("LibGlade 2.0 project"));
+					icon11_file, _("GNOME 2.0 Bonobo component"));
 	if (icon12_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon12_file, _("GTKmm 2.0 project"));
+					icon12_file, _("LibGlade 2.0 project"));
 	if (icon13_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon13_file, _("GNOMEmm 2.0 project"));
+					icon13_file, _("GTKmm 2.0 project"));
 	if (icon14_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon14_file, _("Xlib project"));
+					icon14_file, _("GNOMEmm 2.0 project"));
 	if (icon15_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon15_file, _("X Dock App project"));
-	if (icon15_file)
+					icon15_file, _("Xlib project"));
+	if (icon16_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon16_file, _("Qt project"));
+					icon16_file, _("X Dock App project"));
 
 	g_free (icon1_file);
 	g_free (icon2_file);

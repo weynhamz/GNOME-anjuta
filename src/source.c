@@ -382,7 +382,7 @@ source_write_configure_in (ProjectDBase * data)
 			 "intl/Makefile\n"
 			 "po/Makefile.in\n");
 	}
-	if (type->gnome_support && type->gnome_macro_support)
+	if (type->gnome_support)
 	{
 		fprintf (fp, "macros/Makefile\n");
 	}
@@ -483,7 +483,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf (fp, " intl po");
-	if (type->gnome_support && type->gnome_macro_support)
+	if (type->gnome_support)
 		fprintf (fp, " macros");
 
 	if (data->project_config->extra_modules_before)
@@ -570,11 +570,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 static gboolean
 source_write_macros_files (ProjectDBase * data)
 {
-	static const gchar *files[] = {
+	static const gchar *gnome1_files[] = {
 		"ChangeLog",
 		"Makefile.am",
-		"aclocal-include.m4",
 		"autogen.sh",
+		"aclocal-include.m4",
 		"compiler-flags.m4",
 		"curses.m4",
 		"gnome-bonobo-check.m4",
@@ -599,10 +599,29 @@ source_write_macros_files (ProjectDBase * data)
 		"need-declaration.m4",
 		NULL
 	};
+	static const gchar *gnome2_files[] = {
+		"ChangeLog",
+		"Makefile.am",
+		"autogen.sh",
+		"check-utmp.m4",
+		"gnome-cxx-check.m4",
+		"gnome-pthread-check.m4",
+		"compiler-flags.m4",
+		"gnome-gettext.m4",
+		"gnome-x-checks.m4",
+		"curses.m4",
+		"gnome-pkgconfig.m4",
+		"linger.m4",
+		"gnome-common.m4",
+		"gnome-platform.m4",
+		NULL
+	};
+	gchar const **files;
 	/* This is the maximum length of the above filenames, so we can use the
 	 * same buffers for each file. */
 	static const gint MAX_MACROS_FILENAME_LEN = 64;
 	gchar *srcbuffer, *destbuffer;
+	Project_Type* type;
 	gint i;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -617,9 +636,21 @@ source_write_macros_files (ProjectDBase * data)
 	sprintf (destbuffer, "%s/macros", data->top_proj_dir);
 	force_create_dir (destbuffer);
 
+	type = project_dbase_get_project_type(data);
+	
+	if (type->gnome2_support) {
+		files = gnome2_files;
+	} else {
+		files = gnome1_files;
+	}
 	for (i = 0; files[i]; i++)
 	{
-		sprintf (srcbuffer, "%s/gnome/%s", app->dirs->data, files[i]);
+		if (type->gnome2_support)
+		{
+			sprintf (srcbuffer, "%s/gnome2/%s", app->dirs->data, files[i]);
+		} else {
+			sprintf (srcbuffer, "%s/gnome/%s", app->dirs->data, files[i]);
+		}
 		sprintf (destbuffer, "%s/macros/%s", data->top_proj_dir, files[i]);
 		if (file_is_regular (destbuffer) == FALSE)
 		{
@@ -1506,8 +1537,7 @@ source_write_glade_file (ProjectDBase * data)
 	else if (type->id == PROJECT_TYPE_GTKMM ||
 			type->id == PROJECT_TYPE_GNOMEMM ||
 			type->id == PROJECT_TYPE_GTKMM2 ||
-			type->id == PROJECT_TYPE_GNOMEMM2 ||
-			type->id == PROJECT_TYPE_QT )
+			type->id == PROJECT_TYPE_GNOMEMM2 )
 	{	
 		fprintf(fp, "  <language>CPP</language>\n");
 	}
@@ -2557,7 +2587,7 @@ source_write_build_files (ProjectDBase * data)
 		ret = source_write_desktop_entry (data);
 		if (!ret) return FALSE;
 	}
-	if (type->gnome_support && type->gnome_macro_support)
+	if (type->gnome_support)
 	{
 		ret = source_write_macros_files (data);
 		if (!ret) return FALSE;

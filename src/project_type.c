@@ -35,7 +35,7 @@ gchar* project_type_generic[] = {
 	"/autogen.sh.generic", // autogen file
 	
 	"0", // gnome support
-	"0", // gnome macro support
+	"0", // gnome2 support
 	"0" // glade support
 };
 
@@ -53,7 +53,7 @@ gchar* project_type_gtk[] =
 	"/autogen.sh.gtk",
 	
 	"0",
-	"0",
+	"0", 
 	"1",
 };
 
@@ -71,7 +71,7 @@ gchar* project_type_gtk2[] =
 	"/autogen.sh.gtk",
 	
 	"0",
-	"0",
+	"0", 
 	"0",
 };
 
@@ -94,7 +94,7 @@ gchar* project_type_libglade[] =
 	"/autogen.sh.gnome",
 	
 	"1",
-	"1",
+	"0", 
 	"1",
 };
 
@@ -116,7 +116,7 @@ gchar* project_type_gnome[] =
 	"/autogen.sh.gnome",
 	
 	"1",
-	"1",
+	"0", 
 	"1",
 };
 
@@ -133,8 +133,8 @@ gchar* project_type_gnome2[] =
 	
 	"/autogen.sh.gnome2",
 	
+	"1", 
 	"1",
-	"0",
 	"0",
 };
 
@@ -151,8 +151,8 @@ gchar* project_type_libglade2[] =
 	
 	"/autogen.sh.gnome2",
 	
+	"1", 
 	"1",
-	"0",
 	"0",
 };
 
@@ -170,7 +170,7 @@ gchar* project_type_gtkmm[] =
 	"/autogen.sh.gtkmm",
 	
 	"0",
-	"0",
+	"0", 
 	"1",
 };
 
@@ -188,7 +188,7 @@ gchar* project_type_gtkmm2[] =
 	"/autogen.sh.gtkmm",
 	
 	"0",
-	"0",
+	"0", 
 	"0",
 };
 
@@ -214,7 +214,7 @@ gchar* project_type_gnomemm[] =
 	"/autogen.sh.gnomemm",
 	
 	"1",
-	"1",
+	"0", 
 	"1",
 };
 
@@ -231,8 +231,8 @@ gchar* project_type_gnomemm2[] =
 	
 	"/autogen.sh.gnome2",
 	
+	"1", 
 	"1",
-	"0",
 	"0",
 };
 
@@ -256,7 +256,25 @@ gchar* project_type_bonobo[] =
 	"/autogen.sh.gnome",
 	
 	"1",
+	"0", 
 	"1",
+};
+
+gchar* project_type_bonobo2[] =
+{
+	"BONOBO2",
+	
+	" \\\n\t$(GNOME_CFLAGS)",
+	" \\\n\t$(GNOME_LIBS)",
+	
+	"PKG_CHECK_MODULES(GNOME, libgnomeui-2.0 gtk+-2.0 libbonoboui-2.0,,exit)\n"
+	"AC_SUBST(GNOME_LIBS)\n"
+	"AC_SUBST(GNOME_CFLAGS)",
+	
+	"/autogen.sh.gnome2",
+
+	"1",
+	"1", 
 	"1",
 };
 
@@ -353,18 +371,6 @@ gchar* project_type_xwindockapp[] =
 	"0",	  
 };
 
-gchar* project_type_qt[] = {	
-	"QT", // gnome_project save string
-	"", // cflags
-	"", // ldadd
-	"", // configure macros
-	"/autogen.sh.generic", // autogen file
-	"0", // gnome support
-	"0", // gnome macro support
-	"0" // glade support
-
-};
-
 Project_Type* load_type_from_data(char* type_data[], gint id);
 
 Project_Type* load_project_type(gint id)
@@ -428,6 +434,11 @@ Project_Type* load_project_type(gint id)
 			type = load_type_from_data(project_type_bonobo, id);
 			break;
 		}
+		case PROJECT_TYPE_BONOBO2:
+		{
+			type = load_type_from_data(project_type_bonobo2, id);
+			break;
+		}
 		case PROJECT_TYPE_LIBGLADE:
 		{
 			type = load_type_from_data(project_type_libglade, id);
@@ -446,11 +457,6 @@ Project_Type* load_project_type(gint id)
 		case PROJECT_TYPE_XWINDOCKAPP:
 		{
 			type = load_type_from_data(project_type_xwindockapp, id);
-			break;
-		}
-		case PROJECT_TYPE_QT:
-		{
-			type = load_type_from_data(project_type_qt, id);
 			break;
 		}
 		default:
@@ -482,9 +488,8 @@ Project_Type* load_type_from_data(char* type_data[], gint id)
 	type->autogen_file = type_data[4];
 			
 	type->gnome_support = atoi(type_data[5]);
-	type->gnome_macro_support = atoi(type_data[6]);
+	type->gnome2_support = atoi(type_data[6]);
 	type->glade_support = atoi(type_data[7]);
 	
 	return type;
 }
-
