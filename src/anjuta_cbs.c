@@ -356,7 +356,7 @@ enum {
 	m__ = 0,
 	mS_ = GDK_SHIFT_MASK,
 	m_C = GDK_CONTROL_MASK,
-	mSC = GDK_SHIFT_MASK | GDK_SHIFT_MASK
+	mSC = GDK_SHIFT_MASK | GDK_CONTROL_MASK
 };
 
 enum {
@@ -392,7 +392,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 
 	for (i = 0; global_keymap[i].id; i++)
 		if (event->keyval == global_keymap[i].gdk_key &&
-		    modifiers == global_keymap[i].modifiers)
+		    (event->state & global_keymap[i].modifiers) == global_keymap[i].modifiers)
 			break;
 
 	if (!global_keymap[i].id)

@@ -1,3 +1,14 @@
+2002-01-13  Stephane Demurget  <demurgets@free.fr>
+
+	* src/anjuta_cbs.c: fixed the global shortcut handling to have a
+	  proper tabs keyboard navigation.
+
+	* src/an_symbol_view.c,
+	  src/anjuta_cbs.c,
+	  src/gnome_project.c,
+	  src/project_dbase.c,
+	  src/tags_manager.c: removed some debugging display.
+
 2002-01-09	Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/message-manager-dock.c

@@ -735,7 +735,6 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 	if (tm->update_in_progress)
 		return FALSE;
 
-g_print ("> ENTERING in tags_manager_update_image ()\n"); fflush (stdout);
 	/*
 	if (g_list_length (files) == g_list_length (tm->file_list))
 		return TRUE;
@@ -758,11 +757,6 @@ g_print ("> ENTERING in tags_manager_update_image ()\n"); fflush (stdout);
 		g_free (fn);
 	}
 
-for (node = tm->update_file_list; node; node = g_list_next (node))
-	g_print ("> NEED TO UPDATE (%s)\n", (gchar *) node->data);
-
-fflush (stdout);
-
 	if (tm->update_file_list)
 	{
 		tm->update_counter = 0;
@@ -779,12 +773,10 @@ fflush (stdout);
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
 
-g_print ("> tags_manager_update_image (): a\n"); fflush (stdout);
 		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
-g_print ("> tags_manager_update_image (): b\n"); fflush (stdout);
 		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
 	}
-g_print ("> EXITING from tags_manager_update_image ()\n"); fflush (stdout);
+
 	return TRUE;
 }
 
@@ -798,7 +790,7 @@ on_tags_manager_on_idle (gpointer data)
 		goto error;
 	if (tm->update_in_progress == FALSE)
 		goto error;
-g_print ("> ENTERING IN tags_manager_on_idle ()\n"); fflush (stdout);
+
 	if (tm->update_counter >= g_list_length (tm->update_file_list))
 	{
 		tags_manager_thaw (tm);
@@ -810,11 +802,9 @@ g_print ("> ENTERING IN tags_manager_on_idle ()\n"); fflush (stdout);
 		tm_project_update(app->project_dbase->tm_project, FALSE
 		  , TRUE, TRUE);
 
-g_print ("> tags_manager_on_idle (): a\n"); fflush (stdout);
 		sv_populate(TM_PROJECT(app->project_dbase->tm_project));
-g_print ("> tags_manager_on_idle (): b\n"); fflush (stdout);
 		fv_populate(TM_PROJECT(app->project_dbase->tm_project));
-g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
+
 		return FALSE;
 	}
 	if (app->project_dbase->project_is_open == FALSE)
@@ -827,13 +817,13 @@ g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
 	if (!fn)
 		goto error;
 
-g_print ("> tags_manager_on_idle (): going to update (%s)\n", fn);
 	if (tags_manager_update (tm, fn) == FALSE)
 		goto error;
+
 	g_free (fn);
 	tm->update_counter++;
 	anjuta_set_progress (tm->update_counter);
-g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
+
 	return TRUE;
 
       error:
@@ -844,7 +834,7 @@ g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
 	glist_strings_free (tm->update_file_list);
 	tm->update_file_list = NULL;
 	tm->update_in_progress = FALSE;
-g_print ("> EXITING from tags_manager_on_idle ()\n"); fflush (stdout);
+
 	return FALSE;
 }
 

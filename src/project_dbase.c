@@ -835,10 +835,7 @@ done:
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
 	tags_manager_load (app->tags_manager);
-
-g_print ("> project_dbase_load_project (): a\n");
 	project_dbase_update_tags_image(p);
-g_print ("> project_dbase_load_project (): b\n");
 
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
@@ -1160,7 +1157,6 @@ project_dbase_update_tags_image(ProjectDBase* p)
 	if (p->project_is_open == FALSE)
 		return;
 
-g_print ("> project_dbase_update_tags_image (): a\n"); fflush (stdout);
 	if (p->tm_project)
 	{
 		if (((NULL == TM_PROJECT(p->tm_project)->file_list) ||
@@ -1173,11 +1169,8 @@ g_print ("> project_dbase_update_tags_image (): a\n"); fflush (stdout);
 	else if (p->top_proj_dir)
 		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE, TRUE);
 
-g_print ("> project_dbase_update_tags_image (): b\n"); fflush (stdout);
 	sv_populate(TM_PROJECT(p->tm_project));
-g_print ("> project_dbase_update_tags_image (): c\n"); fflush (stdout);
 	fv_populate(TM_PROJECT(p->tm_project));
-g_print ("> project_dbase_update_tags_image (): d\n"); fflush (stdout);
 
 	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
 
@@ -1195,9 +1188,6 @@ g_print ("> project_dbase_update_tags_image (): d\n"); fflush (stdout);
 		g_free (src_dir);
 
 	}
-
-g_print ("> project_dbase_update_tags_image (): e\n"); fflush (stdout);
-return;
 }
 
 static void
