@@ -6,6 +6,8 @@
 	src/mainmenu_callbacks.c src/preferences.c: Use versionsed directory
 	for preferences.
 	* configure.in: Change version no. for 1.1.1 (alpha release)
+	* configure.in: Added '--with-pref-suffix' option.
+	* config.guess, config.sub: Removed from CVS.
 
 2003-04-15  Naba Kumar  <naba@gnome.org>
 

@@ -330,8 +330,6 @@ module.include.files=\
 module.source.name=.
 module.source.type=
 module.source.files=\
-	anjuta_dialogs_strings.c\
-	data/header.c\
 	gdl/gdl-dock.c\
 	gdl/gdl-dock-item.c\
 	gdl/gdl-dock-item-grip.c\
@@ -544,7 +542,8 @@ module.source.files=\
 	tagmanager/yacc.c\
 	widgets/cell-renderer-captioned-image.c\
 	widgets/gnomefilelist.c\
-	widgets/e-splash.c
+	widgets/e-splash.c\
+	scintilla/LexPOV.cxx
 
 module.pixmap.name=.
 module.pixmap.type=

@@ -488,16 +488,14 @@ FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
 	charset[0] = '\0';
 
 #ifdef USE_PANGO
-	// if (fontName[0] == '!') {
-		PangoFontDescription *pfd = pango_font_description_new();
-		if (pfd) {
-			pango_font_description_set_family(pfd, fontName+1);
-			pango_font_description_set_size(pfd, size * PANGO_SCALE);
-			pango_font_description_set_weight(pfd, bold ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
-			pango_font_description_set_style(pfd, italic ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
-			return new FontHandle(pfd);
-		}
-	// }
+	PangoFontDescription *pfd = pango_font_description_new();
+	if (pfd) {
+		pango_font_description_set_family(pfd, fontName);
+		pango_font_description_set_size(pfd, size * PANGO_SCALE);
+		pango_font_description_set_weight(pfd, bold ? PANGO_WEIGHT_BOLD : PANGO_WEIGHT_NORMAL);
+		pango_font_description_set_style(pfd, italic ? PANGO_STYLE_ITALIC : PANGO_STYLE_NORMAL);
+		return new FontHandle(pfd);
+	}
 #endif
 
 	GdkFont *newid = 0;

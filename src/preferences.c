@@ -913,7 +913,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	g_free (propfile);
 	g_free (propdir);
 
-	propdir = g_strconcat (g_get_home_dir(), "/.anjuta-" VERSION "/", NULL);
+	propdir = g_strconcat (g_get_home_dir(), "/.anjuta" PREF_SUFFIX "/", NULL);
 	propfile = g_strconcat (propdir, "user.properties", NULL);
 	
 	/* Create user.properties file, if it doesn't exist */
@@ -927,7 +927,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	g_free (propdir);
 	g_free (propfile);
 
-	propdir = g_strconcat (g_get_home_dir(), "/.anjuta-" VERSION "/", NULL);
+	propdir = g_strconcat (g_get_home_dir(), "/.anjuta" PREF_SUFFIX "/", NULL);
 	propfile = g_strconcat (propdir, "session.properties", NULL);
 	prop_read (pr->props_session, propfile, propdir);
 	g_free (propdir);

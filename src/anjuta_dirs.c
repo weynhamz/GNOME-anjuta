@@ -40,7 +40,7 @@ anjuta_dirs_new()
 		ad->help = anjuta_res_get_help_dir ();
 		ad->doc = anjuta_res_get_doc_dir ();
 		ad->home = g_strdup (g_get_home_dir ());
-		ad->settings = g_strconcat (ad->home, "/.anjuta-" VERSION, NULL);
+		ad->settings = g_strconcat (ad->home, "/.anjuta" PREF_SUFFIX, NULL);
 		ad->first_time = FALSE;
 
 		if (file_is_directory (ad->settings) == FALSE)
