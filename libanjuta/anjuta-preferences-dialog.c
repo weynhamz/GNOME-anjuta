@@ -237,6 +237,7 @@ anjuta_preferences_dialog_new (void)
 
 /**
  * anjuta_preferences_dialog_add_page:
+ * @dlg: A #AnjutaPreferencesDialog object.
  * @name: Name of the preferences page.
  * @icon: Icon file name.
  * @page: page widget.
@@ -268,6 +269,7 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 
 /**
  * anjuta_preferences_dialog_remove_page:
+ * @dlg: A #AnjutaPreferencesDialog object.
  * @name: Name of the preferences page.
  *
  * Removes a preferences page.

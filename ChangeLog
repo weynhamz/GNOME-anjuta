@@ -1,6 +1,10 @@
 2004-04-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-preferences-dialog.c,
+	manuals/Makefile.am: Fixed document bugs and enabled docs
+	building.
+
+	* libanjuta/anjuta-preferences-dialog.c,
 	manuals/reference/libanjuta/tmpl/anjuta-preferences-dialog.sgml:
 	More documentation.
 	
