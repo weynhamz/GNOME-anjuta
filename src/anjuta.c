@@ -1048,6 +1048,9 @@ anjuta_save_yourself (FILE * stream)
 	{
 		anjuta_preferences_save (ANJUTA_PREFERENCES (app->preferences), stream);
 	}
+	
+	search_preferences_save_yourself (stream);
+	
 	return TRUE;
 }
 
@@ -1084,6 +1087,8 @@ gboolean anjuta_load_yourself (PropsID pr)
 	compiler_options_load (app->compiler_options, pr);
 	src_paths_load (app->src_paths, pr);
 	debugger_load_yourself (pr);
+	
+	search_preferences_load_yourself (pr);
 	return TRUE;
 }
 

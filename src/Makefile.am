@@ -173,6 +173,8 @@ anjuta_SOURCES = \
 	search-replace_backend.c\
 	search_incremental.h\
 	search_incremental.c\
+	search_preferences.h\
+	search_preferences.c\
 	sharedlib.c\
 	sharedlib.h\
 	sharedlib_cbs.c\

@@ -143,9 +143,8 @@ gchar *s = N_("Search Action:");
 gchar *s = N_("Search Target");
 gchar *s = N_("Basic Search & Replace");
 gchar *s = N_("*");
-gchar *s = N_("Add");
-gchar *s = N_("Remove");
-gchar *s = N_("Default");
+gchar *s = N_("Modify");
+gchar *s = N_("Activate");
 gchar *s = N_("Setting");
 gchar *s = N_("\"Search & Replace\" has to be tested completely !\n"
               "Many search-replacement possibilities are possible and need\n"

@@ -1,3 +1,11 @@
+2004-01-18  Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+	* src/Makefile.am, src/anjuta.c, src/search-replace.c,
+	src/search_replace.h, src/search-replace_backend.h
+	anjuta.glade
+	
+	* Added: src/search_preferences.c, src/search_preferences.h
+	Allow the user to save search/replace settings and give them names.
+
 2004-01-16  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* scintilla/Makefile.am, scintilla/scintilla_marshal.[c/h/list],

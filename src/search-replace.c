@@ -38,7 +38,7 @@
 
 #include "search-replace_backend.h"
 #include "search-replace.h"
-
+#include "search_preferences.h"
 
 /* LibGlade's auto-signal-connect will connect to these signals.
  * Do not declare them static.
@@ -75,68 +75,6 @@ void on_search_forward_toggled (GtkToggleButton *togglebutton,
 void on_search_backward_toggled (GtkToggleButton *togglebutton, 
 									gpointer user_data);
 									
-/* The GUI part starts here */
-
-#define GLADE_FILE "anjuta.glade"
-#define SEARCH_REPLACE_DIALOG "dialog.search.replace"
-#define CLOSE_BUTTON "button.close"
-#define STOP_BUTTON "button.stop"
-#define SEARCH_BUTTON "button.next"
-#define JUMP_BUTTON "button.jump"
-#define SEARCH_NOTEBOOK "search.notebook"
-
-/* Frames */
-#define SEARCH_EXPR_FRAME "frame.search.expression"
-#define SEARCH_TARGET_FRAME "frame.search.target"
-#define SEARCH_VAR_FRAME "frame.search.var"
-#define FILE_FILTER_FRAME "frame.file.filter"
-#define REPLACE_FRAME "frame.replace"
-#define FRAME_SEARCH_BASIC "frame.search.basic"
-
-/* Entries */
-#define SEARCH_STRING "search.string"
-#define SEARCH_TARGET "search.target"
-#define SEARCH_ACTION "search.action"
-#define SEARCH_VAR "search.var"
-#define MATCH_FILES "file.filter.match"
-#define UNMATCH_FILES "file.filter.unmatch"
-#define MATCH_DIRS "dir.filter.match"
-#define UNMATCH_DIRS "dir.filter.unmatch"
-#define REPLACE_STRING "replace.string"
-#define SEARCH_DIRECTION "search.direction"
-#define ACTIONS_MAX "actions.max"
-
-/* Checkboxes */
-#define SEARCH_REGEX "search.regex"
-#define GREEDY "search.greedy"
-#define IGNORE_CASE "search.ignore.case"
-#define WHOLE_WORD "search.match.whole.word"
-#define WORD_START "search.match.word.start"
-#define WHOLE_LINE "search.match.whole.line"
-#define IGNORE_HIDDEN_FILES "ignore.hidden.files"
-#define IGNORE_BINARY_FILES "ignore.binary.files"
-#define IGNORE_HIDDEN_DIRS "ignore.hidden.dirs"
-#define SEARCH_RECURSIVE "search.dir.recursive"
-#define REPLACE_REGEX "replace.regex"
-#define ACTIONS_NO_LIMIT "actions.no_limit"
-#define SEARCH_FULL_BUFFER "search.full_buffer"
-#define SEARCH_FORWARD "search.forward"
-#define SEARCH_BACKWARD "search.backward"
-
-/* Labels */
-#define LABEL_REPLACE "label.replace"
-
-/* Combo boxes */
-#define SEARCH_STRING_COMBO "search.string.combo"
-#define SEARCH_TARGET_COMBO "search.target.combo"
-#define SEARCH_ACTION_COMBO "search.action.combo"
-#define SEARCH_VAR_COMBO "search.var.combo"
-#define MATCH_FILES_COMBO "file.filter.match.combo"
-#define UNMATCH_FILES_COMBO "file.filter.unmatch.combo"
-#define MATCH_DIRS_COMBO "dir.filter.match.combo"
-#define UNMATCH_DIRS_COMBO "dir.filter.unmatch.combo"
-#define REPLACE_STRING_COMBO "replace.string.combo"
-#define SEARCH_DIRECTION_COMBO "search.direction.combo"
 
 /* GUI dropdown option strings */
 StringMap search_direction_strings[] = {
@@ -168,23 +106,6 @@ StringMap search_action_strings[] = {
 	{-1, NULL}
 };
 
-typedef enum _GUIElementType
-{
-	GE_NONE,
-	GE_BUTTON,
-	GE_TEXT,
-	GE_BOOLEAN,
-	GE_OPTION,
-	GE_COMBO
-} GUIElementType;
-
-typedef struct _GladeWidget
-{
-	GUIElementType type;
-	char *name;
-	gpointer extra;
-	GtkWidget *widget;
-} GladeWidget;
 
 typedef struct _SearchReplaceGUI
 {
@@ -216,6 +137,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_TEXT, UNMATCH_DIRS, NULL, NULL},
 	{GE_TEXT, REPLACE_STRING, NULL, NULL},
 	{GE_TEXT, ACTIONS_MAX, NULL, NULL},
+	{GE_TEXT, SETTING_PREF_ENTRY, NULL, NULL},
 	{GE_OPTION, SEARCH_DIRECTION, search_direction_strings, NULL},
 	{GE_BOOLEAN, SEARCH_REGEX, NULL, NULL},
 	{GE_BOOLEAN, GREEDY, NULL, NULL},
@@ -243,12 +165,12 @@ static GladeWidget glade_widgets[] = {
 	{GE_COMBO, REPLACE_STRING_COMBO, NULL, NULL},
 	{GE_COMBO, SEARCH_DIRECTION_COMBO, search_direction_strings, NULL},
 	{GE_NONE, SEARCH_NOTEBOOK, NULL, NULL},
+	{GE_NONE, SETTING_PREF_TREEVIEW, NULL, NULL},
 	{GE_NONE, NULL, NULL, NULL}
 };
 
 /***********************************************************/
 
-static GladeWidget *sr_get_gladewidget(const gchar *name);
 static void search_set_action(SearchAction action);
 static void search_set_target(SearchRangeType target);
 static void search_set_direction(SearchDirection dir);
@@ -261,7 +183,6 @@ static void max_results_alert (void);
 static void nb_results_alert (gint nb);
 static void search_show_replace(gboolean hide);
 static void modify_label_image_button(gchar *button_name, gchar *name, char *stock_image);
-static void search_replace_populate(void);
 static void show_jump_button (gboolean show);
 static gboolean create_dialog(void);
 static void show_dialog(void);
@@ -269,7 +190,6 @@ static gboolean word_in_list(GList *list, gchar *word);
 static GList* list_max_items(GList *list, guint nb_max);
 static void search_update_combos (void);
 static void replace_update_combos (void);
-static void search_update_dialog(void);
 static void search_make_sensitive(gboolean sensitive);
 static void search_direction_changed(SearchDirection dir);
 static void search_set_direction(SearchDirection dir);
@@ -546,7 +466,7 @@ search_replace_previous(void)
 
 /****************************************************************/
 
-static GladeWidget *
+GladeWidget *
 sr_get_gladewidget(const gchar *name)
 {
 	GladeWidget *gw = NULL;
@@ -857,7 +777,7 @@ modify_label_image_button(gchar *button_name, gchar *name, char *stock_image)
 			
 /********************************************************************/
 
-static void
+void
 search_replace_populate(void)
 {
 	char *s = NULL;
@@ -875,11 +795,6 @@ search_replace_populate(void)
 	populate_value(SEARCH_DIRECTION, &(sr->search.range.direction));
 	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
 
-	if (sr->search.range.direction == SD_BEGINNING)
-		sr->search.range.whole = TRUE;
-	else
-		sr->search.range.whole = FALSE;
-	
 	if (sr->search.expr.no_limit)
 		sr->search.expr.actions_max = G_MAXINT;	
 	else
@@ -971,6 +886,9 @@ create_dialog(void)
 			g_list_free(combo_strings);
 		}
 	}
+	
+	search_preferences_initialize_setting_treeview(sg->dialog);
+	
 	glade_xml_signal_autoconnect(sg->xml);
 	return TRUE;
 }
@@ -1074,7 +992,7 @@ replace_update_combos(void)
 	}
 }
 
-static void 
+void 
 search_update_dialog(void)
 {
 	GtkWidget *widget;
@@ -1083,20 +1001,22 @@ search_update_dialog(void)
 	s = &(sr->search);
 	widget = sr_get_gladewidget(SEARCH_REGEX)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.regex);
-
+	widget = sr_get_gladewidget(GREEDY)->widget;
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.greedy);
 	widget = sr_get_gladewidget(IGNORE_CASE)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.ignore_case);
-	
 	widget = sr_get_gladewidget(WHOLE_WORD)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.whole_word);
-
-	widget = sr_get_gladewidget(GREEDY)->widget;
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), FALSE);
 	widget = sr_get_gladewidget(WHOLE_LINE)->widget;
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), FALSE);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.whole_line);
 	widget = sr_get_gladewidget(WORD_START)->widget;
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), FALSE);
-
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.word_start);
+	
+	widget = sr_get_gladewidget(ACTIONS_NO_LIMIT)->widget;
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->expr.no_limit);
+	widget = sr_get_gladewidget(ACTIONS_MAX)->widget;
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(widget), s->expr.actions_max);
+	
 	widget = sr_get_gladewidget(REPLACE_REGEX)->widget;	
 	gtk_widget_set_sensitive(widget, sr->search.expr.regex);
 	
@@ -1105,18 +1025,13 @@ search_update_dialog(void)
 		gtk_entry_set_text(GTK_ENTRY(widget), s->expr.search_str);
 	
 	widget = sr_get_gladewidget(SEARCH_DIRECTION_COMBO)->widget;
-	if (s->range.whole)
-		gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), SD_BEGINNING);
-	else
-	{
-		if (s->range.direction == SD_FORWARD)
-			gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), SD_FORWARD);
-		if (s->range.direction == SD_BACKWARD)
-			gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), SD_BACKWARD);
-	}
+	gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), s->range.direction);
 	
 	widget = sr_get_gladewidget(SEARCH_ACTION_COMBO)->widget;
 	gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), s->action);
+
+	search_show_replace(s->action == SA_REPLACE || s->action == SA_REPLACEALL);
+	
 	widget = sr_get_gladewidget(SEARCH_TARGET_COMBO)->widget;
 	gtk_list_select_item (GTK_LIST(GTK_COMBO(widget)->list), s->range.type);
 
@@ -1307,8 +1222,6 @@ on_search_direction_changed (GtkEditable *editable, gpointer user_data)
 void
 on_search_action_changed (GtkEditable *editable, gpointer user_data)
 {
-//	GtkWidget *replace_frame = sr_get_gladewidget(REPLACE_FRAME)->widget;
-
 	SearchAction act;
 	SearchRangeType rt;
 	
@@ -1560,16 +1473,30 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 		}	
 	}
 		
-	search_show_replace(replace);
 	if (replace)
-		search_set_action(SA_REPLACE);
+	{
+		if ( !(sr->search.action == SA_REPLACE || 
+				sr->search.action == SA_REPLACEALL))
+		{
+			search_set_action(SA_REPLACE);
+			sr->search.action = SA_REPLACE;
+			search_show_replace(TRUE);
+		}		
+	}
 	else
-		search_set_action(SA_SELECT);
+	{
+		if (sr->search.action == SA_REPLACE || sr->search.action == SA_REPLACEALL)	
+		{
+			search_set_action(SA_SELECT);
+			sr->search.action = SA_SELECT;
+			search_show_replace(FALSE);
+		}
+	}
+	if (sr->search.action != SA_REPLACEALL)
+		modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
 	
 	if (project)
 		search_set_target(SR_PROJECT);
-	else
-		search_set_target(SR_BUFFER);
 	
 	show_jump_button(FALSE);
 	

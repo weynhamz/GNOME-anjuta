@@ -79,7 +79,7 @@ typedef struct _SearchRange
 {
 	SearchRangeType type;
 	SearchDirection direction; /* type = SR_BUFFER */
-	gboolean whole;
+//	gboolean whole;
 	SearchVar var; /* type = SR_VARIABLE */
 	SearchFiles files; /* type = SR_FILES */
 } SearchRange;
