@@ -1807,8 +1807,7 @@ void
 on_cvs_import_project_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {
-	gchar* prj;
-	prj = app->project_dbase->top_proj_dir;
+	create_cvs_import_gui (app->cvs);
 }
 
 void

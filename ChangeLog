@@ -1,3 +1,21 @@
+2002-04-15 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/cvs.c: escaped the cvs import message before
+	passing it to cvs.
+	
+2002-04-14 Johannes Schmid <clubfan@users.sourceforge.net>
+
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* src/cvs.[c/h], src/texteditor.[c/h]: Fixed bug #542151
+	
+	* src/cvs.[c/h], src/cvs_cbs.[c/h], src/cvs_gui.[c/h]:
+	Added cvs import
+	
+	* src/preferences_gui.c: GUI improvements
+	
+	* src/project_dbase.c, src/controls.c: Fixed some menu stuff
+
 2002-04-13 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* tagmanager/include/tm_tag.h, tagmanager/tm_tag.c:

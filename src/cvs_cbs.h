@@ -33,4 +33,10 @@ void on_cvs_cancel (GtkWidget * button, CVSFileGUI* gui);
 void on_cvs_diff_ok (GtkWidget* button, CVSFileDiffGUI * gui);
 void on_cvs_diff_cancel (GtkWidget* button, CVSFileDiffGUI * gui);
 
+/* CVS Import Dialog */
+void on_cvs_import_ok (GtkWidget* button, CVSImportGUI * gui);
+void on_cvs_import_cancel (GtkWidget* button, CVSImportGUI * gui);
+
+void on_cvs_type_combo_changed (GtkWidget* entry, CVSImportGUI* gui);
+
 #endif

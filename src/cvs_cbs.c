@@ -20,30 +20,21 @@
 
 #include <time.h>
 
+static ServerType get_server_type (GtkEntry* entry);
+
 void on_cvs_login_ok (GtkWidget* button, CVSLoginGUI* gui)
 {
 	ServerType stype = 0;
-	gchar* type;
 	gchar* server;
 	gchar* user;
 	gchar* dir;
-	gint i;
 	
 	g_return_if_fail (gui != NULL);
 	
-	type = g_strdup (gtk_entry_get_text (GTK_ENTRY (GTK_COMBO
+	stype = get_server_type (GTK_ENTRY (GTK_COMBO
 							(gui->
 							 combo_type)->
-							entry)));
-	for (i = 0; i < 4; i++)
-	{
-		if (strcmp (server_types[i], type) == 0)
-		{
-			stype = i;
-			break;
-		}
-	}
-	g_free (type);
+							entry));
 	
 	if (stype == CVS_LOCAL)
 	{
@@ -200,5 +191,90 @@ void on_cvs_diff_cancel (GtkWidget* button, CVSFileDiffGUI * gui)
 	gtk_widget_destroy(gui->dialog);
 	
 	g_free(gui);
+}
+
+void on_cvs_import_ok (GtkWidget* button, CVSImportGUI * gui)
+{
+	ServerType type;
+	gchar* server;
+	gchar* user;
+	gchar* dir;
+	gchar* module;
+	gchar* release;
+	gchar* vendor;
+	gchar* message;
+	
+	g_return_if_fail (gui != NULL);
+	
+	type = get_server_type (GTK_ENTRY (GTK_COMBO (gui->combo_type)->entry));
+	
+	server = gtk_entry_get_text (GTK_ENTRY(gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_server))));
+	dir = gtk_entry_get_text (GTK_ENTRY(gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_dir))));
+	user = gtk_entry_get_text (GTK_ENTRY(gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_user))));
+	module = gtk_entry_get_text (GTK_ENTRY(gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_module))));
+	vendor = gtk_entry_get_text (GTK_ENTRY(gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_vendor))));
+	release = gtk_entry_get_text (GTK_ENTRY(gnome_entry_gtk_entry (GNOME_ENTRY (gui->entry_release))));
+	message = g_strdup (gtk_editable_get_chars
+			  (GTK_EDITABLE (gui->text_message), 0,
+			   gtk_text_get_length (GTK_TEXT
+				(gui->text_message))));
+	
+	cvs_import_project (app->cvs, type, server, dir, user, module, 
+						vendor, release, message);
+	on_cvs_import_cancel(button, gui);
+}
+
+void on_cvs_import_cancel (GtkWidget* button, CVSImportGUI * gui)
+{
+	gtk_widget_hide (gui->dialog);
+	gtk_widget_destroy (gui->dialog);
+	g_free (gui);
+}
+
+void on_cvs_type_combo_changed (GtkWidget* entry, CVSImportGUI* gui)
+{
+	ServerType stype;
+	
+	g_return_if_fail (gui != NULL);
+	
+	stype = get_server_type (GTK_ENTRY(entry));
+	switch (stype)
+	{
+		case CVS_LOCAL:
+			gtk_widget_set_sensitive (gui->entry_user, FALSE);
+			gtk_widget_set_sensitive (gui->entry_server, FALSE);
+			break;
+		case CVS_PASSWORD:
+		case CVS_EXT:
+		case CVS_SERVER:
+		default:
+			gtk_widget_set_sensitive (gui->entry_user, TRUE);
+			gtk_widget_set_sensitive (gui->entry_server, TRUE);
+	}
+}
+
+/*
+	Determines the server type selected in a GtkCombo according
+	to the server_types array 
+*/
+
+static ServerType get_server_type (GtkEntry* entry)
+{
+	ServerType cur_type;
+	gchar* type;
+	
+	type = g_strdup (gtk_entry_get_text (entry));
+	for (cur_type = 0; cur_type < 4; cur_type++)
+	{
+		if (strcmp (server_types[cur_type], type) == 0)
+		{
+			g_free (type);
+			return cur_type;
+		}
+	}
+	
+	// Not found
+	g_free(type);
+	return CVS_END;
 }
 

@@ -44,6 +44,8 @@ struct _CVS
 	gboolean context_diff;
 	
 	guint compression;
+	
+	gboolean editor_destroyed;
 };
 
 /* Callbacks for launcher */
@@ -63,8 +65,8 @@ static gchar *server_type_identifiers[CVS_END] =
 	{ ":local", ":pserver", ":ext", ":server" };
 
 /* Text editor for diff */
-static TextEditor *diff_editor;
-
+static TextEditor *diff_editor = NULL;
+		
 /* 
 	Initialisize cvs module. Read values from properties. 
 */
@@ -80,7 +82,15 @@ cvs_new (PropsID p)
 	
 	cvs->compression = prop_get_int (p, "cvs.compression", 0);
 
+	cvs->editor_destroyed = FALSE;
+	
 	return cvs;
+}
+
+void cvs_set_editor_destroyed (CVS* cvs)
+{
+	g_return_if_fail (cvs != NULL);
+	cvs->editor_destroyed = TRUE;
 }
 
 
@@ -259,6 +269,60 @@ cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 	g_free (dir);
 }
 
+/* 
+	Import a project to a repositry. Fails if no project is currently
+	open. The base directory of the project is set the checked out 
+	project directory.
+*/
+
+void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
+			gchar* dir, gchar* user, gchar* module, gchar* release,
+			gchar* vendor, gchar* message)
+{
+	gchar* command;
+	gchar* compression;
+	gchar* cvsroot;
+	gchar* prj_dir;
+	gchar* escaped_message;
+	
+	g_return_if_fail (cvs != NULL);
+	g_return_if_fail (app->project_dbase->project_is_open == TRUE);
+	
+	cvsroot = get_full_cvsroot (cvs, type, server, dir, user);
+	compression = add_compression (cvs);
+	
+	escaped_message = anjuta_util_escape_quotes(message);
+	command = g_strconcat ("cvs ", "-d ", cvsroot, " ", compression, 
+							" import ", NULL);
+	command = g_strconcat (command, "-m \"", escaped_message, "\" ",NULL);
+	g_free(escaped_message);
+	
+	if (!strlen (module))
+		return;
+	if (!strlen (vendor))
+	{
+		g_free (vendor);
+		vendor = g_strdup ("none");
+	}
+	if (!strlen (release))
+	{
+		g_free (release);
+		release = g_strdup ("start");
+	}
+	command = g_strconcat (command, module, " ", vendor, " ", release, NULL);
+	
+	anjuta_message_manager_clear (app->messages, MESSAGE_CVS);
+	anjuta_message_manager_append (app->messages, _("CVS Importing...\n"), MESSAGE_CVS);
+	
+	prj_dir = project_dbase_get_dir(app->project_dbase);
+	launch_cvs_command (command, prj_dir);
+	
+	g_free (command);
+	g_free (cvsroot);
+	g_free (compression);
+}
+
+
 /*
 	Adds a file to the repositry. If message == NULL it is ignored.
 */
@@ -363,10 +427,12 @@ cvs_status (CVS * cvs, gchar * filename, gboolean is_dir)
 	anjuta_message_manager_append (app->messages, _("Getting CVS status "), MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
+	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
 	
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
 	diff_editor->force_hilite = TE_LEXER_NONE;
+	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
@@ -406,10 +472,12 @@ cvs_log (CVS * cvs, gchar * filename, gboolean is_dir)
 	anjuta_message_manager_append (app->messages, _("Getting CVS log "), MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
-	
+	anjuta_message_manager_show (app->messages, MESSAGE_CVS);
+
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
 	diff_editor->force_hilite = TE_LEXER_NONE;
+	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
@@ -478,7 +546,8 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
-	diff_editor->force_hilite = TE_LEXER_DIFF;
+	diff_editor->force_hilite = TE_LEXER_NONE;
+	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
 
 	chdir (dir);
@@ -567,6 +636,13 @@ on_cvs_buffer_in (gchar * line)
 	guint length;
 	g_return_if_fail (line != NULL);
 	g_return_if_fail (diff_editor != NULL);
+	
+	if (app->cvs->editor_destroyed)
+	{
+		on_cvs_stdout(line);
+		return;
+	}
+	
 	length = strlen (line);
 	if (length)
 	{
@@ -604,6 +680,16 @@ on_cvs_terminate (int status, time_t time)
 	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
 				(gint) time);
 	anjuta_message_manager_append (app->messages, buff, MESSAGE_CVS);
+	
+	if (diff_editor != NULL)
+	{
+		if (app->cvs->editor_destroyed == FALSE)
+		{
+			diff_editor->used_by_cvs = FALSE;
+		}
+		app->cvs->editor_destroyed = FALSE;
+		diff_editor = NULL;
+	}
 }
 
 /* 

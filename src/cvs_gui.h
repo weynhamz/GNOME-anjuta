@@ -22,6 +22,7 @@
 typedef struct _CVSFileGUI CVSFileGUI;
 typedef struct _CVSFileDiffGUI CVSFileDiffGUI;
 typedef struct _CVSLoginGUI CVSLoginGUI;
+typedef struct _CVSImportGUI CVSImportGUI;
 
 /* 
 	This is used to tell create_cvs_file_gui which dialog it should
@@ -62,6 +63,22 @@ struct _CVSLoginGUI
 	GtkWidget* entry_user;
 };
 
+struct _CVSImportGUI
+{
+	GtkWidget* dialog;
+	
+	GtkWidget* combo_type;
+	GtkWidget* entry_server;
+	GtkWidget* entry_user;
+	GtkWidget* entry_dir;
+	
+	GtkWidget* entry_module;
+	GtkWidget* entry_vendor;
+	GtkWidget* entry_release;
+	GtkWidget* text_message;
+	
+};
+
 struct _CVSFileDiffGUI
 {
 	GtkWidget* dialog;
@@ -80,6 +97,8 @@ void create_cvs_login_gui (CVS * cvs);
 
 void create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dialog);
 
-void create_cvs_diff_gui (CVS * cvs, gchar*filename, gboolean bypass_dialog);
+void create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog);
+
+void create_cvs_import_gui (CVS* cvs);
 
 #endif

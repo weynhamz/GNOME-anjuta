@@ -1679,6 +1679,7 @@ create_preferences_page7 (Preferences * p)
 	return frame1;
 }
 
+
 static GtkWidget *
 create_preferences_page_cvs (Preferences* pr)
 {

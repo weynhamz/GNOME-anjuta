@@ -316,3 +316,98 @@ create_cvs_login_gui (CVS * cvs)
 	
 	gtk_widget_show_all (gui->dialog);
 }
+
+void create_cvs_import_gui (CVS* cvs)
+{
+	GtkWidget* type_label;
+	GtkWidget* server_label;
+	GtkWidget* dir_label;
+	GtkWidget* user_label;
+	GtkWidget* module_label;
+	GtkWidget* message_label;
+	GtkWidget* release_label;
+	GtkWidget* vendor_label;
+	GtkWidget* table;
+	GtkWidget* ok_button;
+	GtkWidget* cancel_button;
+	GtkWidget* server_frame;
+	GtkWidget* server_table;
+	GList* strings;
+	guint i;
+	CVSImportGUI* gui = g_new0 (CVSImportGUI, 1);
+	
+	table = gtk_table_new (9, 2, FALSE);
+	server_table = gtk_table_new (4, 2, FALSE);
+	
+	type_label = gtk_label_new (_("Server type: "));
+	server_label = gtk_label_new (_("Server: "));
+	dir_label = gtk_label_new (_("Directory on the server: "));
+	user_label = gtk_label_new (_("Username: "));
+	gtk_table_attach_defaults (GTK_TABLE (server_table), type_label, 0, 1, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE (server_table), server_label, 0, 1, 1, 2);
+	gtk_table_attach_defaults (GTK_TABLE (server_table), dir_label, 0, 1, 2, 3);
+	gtk_table_attach_defaults (GTK_TABLE (server_table), user_label, 0, 1, 3, 4);
+	
+	module_label = gtk_label_new (_("Module name for the project: "));
+	release_label = gtk_label_new (_("Initial release name: "));
+	vendor_label = gtk_label_new (_("Vendor: "));
+	message_label = gtk_label_new (_("Log message: "));
+	
+	gtk_table_attach_defaults (GTK_TABLE (table), module_label, 0, 1, 3, 4);
+	gtk_table_attach_defaults (GTK_TABLE (table), release_label, 0, 1, 4, 5);
+	gtk_table_attach_defaults (GTK_TABLE (table), vendor_label, 0, 1, 5, 6);
+	gtk_table_attach_defaults (GTK_TABLE (table), message_label, 0, 1, 6, 7);
+	
+	gui->combo_type = gtk_combo_new ();
+	strings = g_list_alloc();
+	for (i = 0; i < 4; i++)
+	{
+		strings = g_list_append (strings, server_types[i]);
+	}	
+	gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO (gui->combo_type)->entry), FALSE);
+	gtk_combo_set_popdown_strings (GTK_COMBO (gui->combo_type), strings);
+	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_type), TRUE, FALSE);
+
+	gui->entry_server = gnome_entry_new ("cvs-server");
+	gui->entry_dir = gnome_entry_new ("cvs-server-dir");
+	gui->entry_user = gnome_entry_new ("cvs-user");
+	
+	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->combo_type, 1, 2, 0, 1);
+	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->entry_server, 1, 2, 1, 2);
+	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->entry_dir, 1, 2, 2, 3);
+	gtk_table_attach_defaults (GTK_TABLE (server_table), gui->entry_user, 1, 2, 3, 4);
+	
+	server_frame = gtk_frame_new (_("Server settings"));
+	gtk_container_set_border_width (GTK_CONTAINER (server_frame), 5);
+	gtk_container_add (GTK_CONTAINER (server_frame), server_table);
+		
+	gui->entry_module = gnome_entry_new ("cvs-module");
+	gui->entry_release = gnome_entry_new ("cvs-release");
+	gui->entry_vendor = gnome_entry_new ("cvs-vendor");
+	gui->text_message = gtk_text_new (NULL, NULL);
+	gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
+	
+	gtk_table_attach_defaults (GTK_TABLE (table), server_frame, 0, 2, 2, 3);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_module, 1, 2, 3, 4);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_release, 1, 2, 4, 5);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->entry_vendor, 1, 2, 5, 6);
+	gtk_table_attach_defaults (GTK_TABLE (table), gui->text_message, 1, 2, 6, 9);
+	
+	gui->dialog = gnome_dialog_new (_("CVS Import project"), "Import", "Cancel", NULL);
+	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox), table);
+	
+	ok_button =
+		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
+	cancel_button =
+		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
+	
+	gtk_signal_connect (GTK_OBJECT (ok_button), "clicked", 
+			GTK_SIGNAL_FUNC(on_cvs_import_ok), gui);
+	gtk_signal_connect (GTK_OBJECT (cancel_button), "clicked", 
+			GTK_SIGNAL_FUNC(on_cvs_import_cancel), gui);
+			
+	gtk_signal_connect (GTK_OBJECT(GTK_COMBO(gui->combo_type)->entry), "changed",
+			GTK_SIGNAL_FUNC(on_cvs_type_combo_changed), gui);
+	
+	gtk_widget_show_all (gui->dialog);
+}	

@@ -54,6 +54,9 @@ guint cvs_get_compression (CVS * cvs);
 void cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir);
 void cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 		      gchar * message, gboolean is_dir);
+void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
+			gchar* dir, gchar* user, gchar* module, gchar* release,
+			gchar* vendor, gchar* message);
 void cvs_status (CVS * cvs, gchar * filename, gboolean is_dir);
 void cvs_log (CVS * cvs, gchar * filename, gboolean is_dir);
 void cvs_diff (CVS * cvs, gchar * filename, gchar * rev,
@@ -64,6 +67,7 @@ void cvs_remove_file (CVS * cvs, gchar * filename);
 void cvs_login (CVS * cvs, ServerType type, gchar* server, 
 			gchar* dir, gchar* user);
 
+void cvs_set_editor_destroyed (CVS* cvs);
 
 gboolean cvs_save_yourself (CVS * cvs, FILE * stream);
 

@@ -369,16 +369,19 @@ static gboolean
 launcher_execution_done (gpointer data)
 {
   if (launcher.stdout_is_done == FALSE || launcher.stderr_is_done == FALSE)
-    return TRUE;
-
-  if (launcher.child_terminated)
-    (*(launcher.child_terminated)) (launcher.child_status, time (NULL) - launcher.start_time);
+    return TRUE; 
   
   zvt_term_closepty(ZVT_TERM(launcher.terminal));
   zvt_term_reset(ZVT_TERM(launcher.terminal), 1);
   gtk_widget_destroy(launcher.terminal);
-  
   launcher_set_busy (FALSE);
+  
+  /* Call this here, after set_busy(FALSE)so we are able to 
+	 launch a new child from the terminate function.
+	 (by clubfan 2002-04-07) */
+  if (launcher.child_terminated)
+    (*(launcher.child_terminated)) (launcher.child_status, time (NULL) - launcher.start_time);
+  
   return FALSE;
 }
 

@@ -129,6 +129,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 	te->autosave_it = 10;
 	te->props_base = eo->props;
 	te->first_time_expose = TRUE;
+	te->used_by_cvs = FALSE;
 
 	/* geom must be set before create_widget */
 	if (parent)
@@ -266,6 +267,8 @@ text_editor_destroy (TextEditor * te)
 			text_editor_menu_destroy (te->menu);
 		if (te->editor_id)
 			aneditor_destroy (te->editor_id);
+		if (te->used_by_cvs)
+			cvs_set_editor_destroyed (app->cvs);
 		g_free (te);
 		te = NULL;
 	}

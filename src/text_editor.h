@@ -116,6 +116,8 @@ struct _TextEditor
 	
 /* First time exposer */
 	gboolean first_time_expose;
+/* Is the editor used by a cvs output? */
+	gboolean used_by_cvs;
 };
 
 void create_text_editor_gui (TextEditor * te);
