@@ -29,8 +29,8 @@ anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS) \
-	$(PLUGIN_DEVHELP_CFLAGS)
+	$(LIBANJUTA_CFLAGS)
+#	$(PLUGIN_DEVHELP_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
@@ -43,10 +43,10 @@ libanjuta_devhelp_la_SOURCES = plugin.c
 
 # Plugin dependencies
 libanjuta_devhelp_la_LIBADD = \
-	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_DEVHELP_LIBS)
+	$(LIBANJUTA_LIBS)
+#	$(PLUGIN_DEVHELP_LIBS)
 
 EXTRA_DIST = \
         $(plugin_in_files) \
         $(anjuta_plugin_DATA) \
-		$(anjuta_ui_DATA)
+	$(anjuta_ui_DATA)

@@ -21,6 +21,8 @@
 	* src/Makefile.am, src/anjuta-app.c, src/layout.xml,
 	src/main.c: Fixed layout loading.
 
+	* plugins/devhelp/Makefile.am: Fixed error.
+	
 2004-02-11  Franco Catrin <fcatrin@tuxpan.com>
 
 	* plugins/editor/anjuta-docman.c:
