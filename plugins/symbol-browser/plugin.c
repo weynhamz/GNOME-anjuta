@@ -275,10 +275,15 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	SymbolBrowserPlugin *sv_plugin;
 	
 	sv_plugin = (SymbolBrowserPlugin *)plugin;
+DEBUG_PRINT ("cleaning with anjuta_symbol_search_clear....");
+	/* clear anjuta_symbol_search side */
+	anjuta_symbol_search_clear(ANJUTA_SYMBOL_SEARCH(sv_plugin->ss));
+DEBUG_PRINT ("good.");
+DEBUG_PRINT ("cleaning with anjuta_symbol_view_clear...." );
+	/* clear glist's sfiles */
 	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-	/* FIXME: add anjuta_search cleanings... check to g_free() the sfiles too on anjuta_symbol_view */
+DEBUG_PRINT ("good.");	
 }
-
 
 static gboolean
 on_treeview_event (GtkWidget *widget,
@@ -289,7 +294,7 @@ on_treeview_event (GtkWidget *widget,
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-	
+
 	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
 
 	view = GTK_TREE_VIEW (widget);
@@ -357,7 +362,7 @@ on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-	
+
 	selection = gtk_tree_view_get_selection (view);
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return;
@@ -438,8 +443,6 @@ on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search,
 	{
 		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
 	}
-	
-	
 }
 
 
@@ -459,6 +462,7 @@ on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 	}
 	g_hash_table_remove (sv_plugin->editor_connected, G_OBJECT (editor));
 }
+
 
 static void
 on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
@@ -500,8 +504,12 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
+		
+		
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
+		
+		
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -586,7 +594,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
 		
-		/* g_message ("adding file_symbol_model to egg_combo_action..........." ); */
+		/* DEBUG_PRINT ("adding file_symbol_model to egg_combo_action..........." ); */
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 		
@@ -699,6 +707,11 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_treesearch_symbol_selected_event),
 					  plugin);
 
+	
+	/* setting focus to the tree_view*/
+	gtk_widget_grab_focus(sv_plugin->sv_tree);
+	
+	
 	/* Add action group */
 	sv_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (sv_plugin->ui,
@@ -716,6 +729,7 @@ activate_plugin (AnjutaPlugin *plugin)
 						   "tooltip", _("Select the symbol to go"),
 						   "stock_id", GTK_STOCK_JUMP_TO,
 							NULL);
+
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	g_signal_connect (action, "activate",
 					  G_CALLBACK (on_symbol_selected), sv_plugin);
@@ -767,6 +781,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin, sv_plugin->editor_watch_id, TRUE);
 	
 	/* Remove widgets: Widgets will be destroyed when sw is removed */
+	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sv_tree, NULL);
+	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sv, NULL);
+	anjuta_shell_remove_widget (plugin->shell, sv_plugin->ss, NULL);
+
 	anjuta_shell_remove_widget (plugin->shell, sv_plugin->sw, NULL);
 	
 	/* Remove UI */
@@ -780,10 +798,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->editor_watch_id = 0;
 	sv_plugin->merge_id = 0;
 	sv_plugin->sw = NULL;
+	sv_plugin->sv = NULL;
 	sv_plugin->sv_tree = NULL;
+	sv_plugin->ss = NULL;
 	
-	/* FIXME: destroy all the others objects on sv_plugin and symbol_search. */
-
 	return TRUE;
 }
 
@@ -807,6 +825,11 @@ dispose (GObject *obj)
 		plugin->sw = NULL;
 	}
 	*/
+	
+	g_object_remove_weak_pointer (G_OBJECT (sv_plugin->ss),
+										   (gpointer*)&sv_plugin->ss);
+
+	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 

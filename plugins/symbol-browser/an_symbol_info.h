@@ -27,14 +27,11 @@
 
 
 G_BEGIN_DECLS
-
 #define ANJUTA_TYPE_SYMBOL_INFO        (anjuta_symbol_info_get_type ())
 #define ANJUTA_SYMBOL_INFO(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_SYMBOL_INFO, AnjutaSymbolInfo))
 #define ANJUTA_IS_SYMBOL_INFO(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_SYMBOL_INFO))
 #define ANJUTA_IS_SYMBOL_INFO_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_SYMBOL_INFO))
-
-
-typedef struct _AnjutaSymbolInfo	AnjutaSymbolInfo;
+typedef struct _AnjutaSymbolInfo AnjutaSymbolInfo;
 typedef struct _AnjutaSymbolInfoPriv AnjutaSymbolInfoPriv;
 
 
@@ -50,7 +47,7 @@ typedef enum
 	sv_private_func_t,
 	sv_private_var_t,
 	sv_protected_func_t,
-	sv_protected_var_t, 
+	sv_protected_var_t,
 	sv_public_func_t,
 	sv_public_var_t,
 	sv_cfolder_t,
@@ -73,29 +70,30 @@ typedef enum
 
 
 
-struct _AnjutaSymbolInfo{
-	
-	gchar *sym_name;			// symbol name
-	SVNodeType node_type;	// symbol node_type: defines the type of the Symbol. This item was added.
+struct _AnjutaSymbolInfo
+{
+
+	gchar *sym_name;	/* symbol name */
+	SVNodeType node_type;	/* symbol node_type: defines the type of the Symbol. This item was added. */
 	struct
 	{
-		char *name;				// file name
-		glong line;				// and line of the file in which the symbol is defined
-	} def;						// the definition struct for the symbol
+		char *name;	/* file name */
+		glong line;	/* and line of the file in which the symbol is defined */
+	} def;			/* the definition struct for the symbol */
 	struct
 	{
 		char *name;
 		glong line;
-	} decl;						// the declaration struct for the symbol
-	
+	} decl;			/* the declaration struct for the symbol */
+
 };
 
 
 GType anjuta_symbol_info_get_type (void);
-AnjutaSymbolInfo* anjuta_symbol_info_new ( TMSymbol *sym, SVNodeType node_type );
-
+AnjutaSymbolInfo *anjuta_symbol_info_new (TMSymbol * sym,
+					  SVNodeType node_type);
+void anjuta_symbol_info_destroy(AnjutaSymbolInfo *sym);
 
 
 G_END_DECLS
-
-#endif	/* __AN_SYMBOL_INFO_H__ */
+#endif /* __AN_SYMBOL_INFO_H__ */

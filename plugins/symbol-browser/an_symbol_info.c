@@ -22,14 +22,20 @@
 #include <config.h>
 #endif
 
-//	#include <tm_tagmanager.h> 
 #include "an_symbol_info.h"
 
+
+static AnjutaSymbolInfo* symbol_info_dup (const AnjutaSymbolInfo *from);
+static void symbol_info_free (AnjutaSymbolInfo *sfile);
 
  
 AnjutaSymbolInfo* anjuta_symbol_info_new (TMSymbol *sym, SVNodeType node_type )
 {
 	AnjutaSymbolInfo *sfile = g_new0 (AnjutaSymbolInfo, 1);
+	sfile->sym_name = NULL;
+	sfile->def.name = NULL;
+	sfile->decl.name = NULL;
+	
 	if (sym && sym->tag && sym->tag->atts.entry.file)
 	{
 		sfile->sym_name = g_strdup (sym->tag->name);
@@ -43,11 +49,22 @@ AnjutaSymbolInfo* anjuta_symbol_info_new (TMSymbol *sym, SVNodeType node_type )
 			sfile->decl.line = sym->info.equiv->atts.entry.line;
 		}
 		
-		// adding node type
+		/* adding node type */
 		sfile->node_type = node_type;
 	}
 	return sfile;
 }
+
+
+void anjuta_symbol_info_destroy(AnjutaSymbolInfo *sym) {
+
+	g_return_if_fail( sym != NULL );
+	
+	/* let's free it! */
+	symbol_info_free(sym);
+	
+}
+	
 
 
 static AnjutaSymbolInfo*
@@ -77,14 +94,21 @@ symbol_info_dup (const AnjutaSymbolInfo *from)
 static void
 symbol_info_free (AnjutaSymbolInfo *sfile)
 {
-	if (sfile)
+
+	if (sfile != NULL )
 	{
-		if (sfile->sym_name)
+		if (sfile->sym_name != NULL ) {
 			g_free(sfile->sym_name);
-		if (sfile->def.name)
+			sfile->sym_name = NULL;
+		}
+		if (sfile->def.name != NULL ) {
 			g_free(sfile->def.name);
-		if (sfile->decl.name)
+			sfile->def.name = NULL;
+		}
+		if (sfile->decl.name != NULL ) {
 			g_free(sfile->decl.name);
+			sfile->decl.name = NULL;
+		}
 		g_free(sfile);
 	}
 }

@@ -2,6 +2,11 @@
 
 	* mime/Makefile.am, (new)gnome-mime-application-x-anjuta.png:
 	Added mime icon for anjuta projects.
+	
+	patch from Massimo Cora <maxcvs@email.it>:
+	* an_symbol_info.c, an_symbol_info.h, an_symbol_search.c,
+	an_symbol_search.h, an_symbol_view.c, plugin.c:
+	Fix/implement objects destroying/freeing.
 
 2005-01-26  Johannes Schmid <jhs@cvs.gnome.org>
 	
