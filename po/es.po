@@ -1,16 +1,14 @@
-# traducción de es.po al Spanish
+# traducción de Anjuta al Español
 # Copyright © 2001-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
-# Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003.
-# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005.
-#
+# Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-20 18:52+0100\n"
-"PO-Revision-Date: 2005-03-20 19:05+0100\n"
+"POT-Creation-Date: 2005-03-26 18:21+0100\n"
+"PO-Revision-Date: 2005-03-26 18:54+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -540,7 +538,7 @@ msgstr "Abrir un proyecto existente."
 msgid "Open existing file or create a new file."
 msgstr "Abrir un archivo existente o crear un archivo nuevo."
 
-#: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:303
+#: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:320
 #: ../plugins/file-loader/plugin.c:526 ../plugins/file-loader/plugin.c:782
 #: ../plugins/file-loader/plugin.c:789
 msgid "Open file"
@@ -1219,7 +1217,7 @@ msgstr "Complementos disponibles"
 
 #: ../libanjuta/plugins.c:1064
 msgid "Only show user activatable plugins"
-msgstr ""
+msgstr "Mostrar sólo los complementos activables por el usuario"
 
 #: ../libanjuta/resources.c:49
 #, c-format
@@ -1907,15 +1905,15 @@ msgstr "Archivo de código fuente de salida:"
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
 msgid ""
 "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
-msgstr ""
+msgstr "<span size=\"large\" weight=\"bold\">Constructor de Plantillas de Clase GObject</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
-msgstr ""
+msgstr "<span size=\"large\" weight=\"bold\">Constructor de Clases Genéricas de C++</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
-msgstr ""
+msgstr "Añadir al repositorio"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Add to current Project?"
@@ -1936,7 +1934,7 @@ msgstr "Nombre del autor:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
 msgid "Author/Date-Time"
-msgstr ""
+msgstr "Autor/Fecha-Hora"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
 msgid "Base Class:"
@@ -1984,7 +1982,6 @@ msgid "GObject Class"
 msgstr "Clase GObject"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
-#, fuzzy
 msgid ""
 "General Public License (GPL)\n"
 "Lesser General Public License (LGPL)\n"
@@ -2008,14 +2005,14 @@ msgstr "Licencia:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:34
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "Titulares de Fuente/Cabecera:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:35
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. Note that the creating class's parameters will be taken from the "
 "active tab. Please be sure to fill all required fields marked by *."
-msgstr ""
+msgstr "Este complemento creará una clase del tipo que especifique usted y la añadirá a su proyecto. Note que los parámetros de creación de la clase se tomarán de la solapa activa. Asegúrese de que rellena todos los campos requeridos marcados con un *."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
 msgid "Virtual destructor"
@@ -2027,6 +2024,9 @@ msgid ""
 "protected\n"
 "private"
 msgstr ""
+"public\n"
+"protected\n"
+"private"
 
 #: ../plugins/class-gen/class_gen.c:140
 msgid "Please check your required fields."
@@ -2036,7 +2036,7 @@ msgstr "Compruebe sus campos requeridos."
 msgid ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
-msgstr ""
+msgstr "Ocurrió un error al intentar escribir la plantilla de clase GObject. Compruebe los permisos del archivo."
 
 #: ../plugins/class-gen/class_gen.c:362
 msgid "Please fill required fields."
@@ -2471,7 +2471,7 @@ msgstr "No se puede abrir el archivo: %s\n"
 
 #: ../plugins/debug-manager/plugin.c:45
 msgid "Load Target to debug"
-msgstr ""
+msgstr "Cargar destino para depurar"
 
 #: ../plugins/debug-manager/plugin.c:57 ../plugins/file-loader/plugin.c:432
 #: ../plugins/project-manager/project_dbase.c:363
@@ -2725,15 +2725,17 @@ msgstr "No se encontró nada. ¿Quiere buscar desde el principio del documento?"
 
 #: ../plugins/editor/action-callbacks.c:1213
 #, c-format
-msgid "Failling I-Search: '%s'. Press Enter or click Find to overwrap."
-msgstr ""
+msgid ""
+"Incremental search for '%s' failed. Press Enter or click Find to continue "
+"searching at the top."
+msgstr "La búsqueda incremental de «%s» ha fallado. Pulse Intro o pulse Buscar para continuar buscando desde arriba."
 
 #: ../plugins/editor/action-callbacks.c:1220
 #, c-format
-msgid "Failling Overwrapped I-Search: %s."
-msgstr ""
+msgid "Incremental search for '%s' (continued at top) failed."
+msgstr "La búsqueda incremental de «%s» (continuada desde el principio) falló."
 
-#: ../plugins/editor/anjuta-docman.c:276 ../src/anjuta_cbs.c:426
+#: ../plugins/editor/anjuta-docman.c:293 ../src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2742,14 +2744,18 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#: ../plugins/editor/anjuta-docman.c:283 ../src/anjuta-callbacks.c:79
+#: ../plugins/editor/anjuta-docman.c:300 ../src/anjuta-callbacks.c:79
 #: ../src/anjuta_cbs.c:433 ../src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../plugins/editor/anjuta-docman.c:324
+#: ../plugins/editor/anjuta-docman.c:341
 msgid "Save file as"
 msgstr "Guardar archivo como"
+
+#: ../plugins/editor/anjuta-docman.c:639
+msgid "Path:"
+msgstr "Ruta:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:1
 msgid "$(module.source.files) $(module.include.files)"
@@ -4426,13 +4432,11 @@ msgid ""
 "\n"
 "Mime type: %s.\n"
 "\n"
-"You may choose to try opening it with the followingplugins or applications."
+"You may choose to try opening it with the following plugins or applications."
 msgstr ""
 "<b>No se puede abrir «%s»</b>.\n"
 "\n"
-"No hay un complemento apropiado capaz de manipular este archivo. Tampoco hay "
-"una acción predeterminada o aplicación para este archivo configurada en su "
-"escritorio.\n"
+"No hay un complemento, acción predeterminada o aplicación configurada para manipular este tipo de archivo. \n"
 "\n"
 "Tipo Mime: %s.\n"
 "\n"
@@ -5129,10 +5133,8 @@ msgid "Information"
 msgstr "Información"
 
 #: ../plugins/gdb/memory.c:108
-#, fuzzy
 msgid "Unable to build user interface for Memory\n"
-msgstr ""
-"No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr "No se pudo construir el interfaz de usuario para Memory\n"
 
 #: ../plugins/gdb/memory.c:410
 msgid "Enter a Hexa address or Select one in the data"
@@ -5203,9 +5205,8 @@ msgid "Delete all breakpoints"
 msgstr "Desactivar todos"
 
 #: ../plugins/gdb/plugin.c:107
-#, fuzzy
 msgid "_Info"
-msgstr "Info"
+msgstr "_Info"
 
 #: ../plugins/gdb/plugin.c:115
 msgid "Info _Target Files"
@@ -6351,9 +6352,9 @@ msgstr "--help"
 #, c-format
 msgid ""
 "gtodo v%s\n"
-"gtodo has to following commandline options:\n"
-"-s\t--show\tShows a todo item by its id.\n"
-" only usefull for programs calling gtodo\n"
+"gtodo has the following command-line options:\n"
+"-s\t--show\tShows a todo item by its ID.\n"
+" only useful for programs calling gtodo\n"
 "-?\t--help\tThis Message.\n"
 msgstr ""
 "gtodo v%s\n"
@@ -6695,100 +6696,84 @@ msgid "Copyright"
 msgstr "Copyright"
 
 #: ../plugins/macro/macros.xml.h:13
-#, fuzzy
 msgid "Date_Time"
-msgstr "Tiempo"
+msgstr "Fecha_Hora"
 
 #: ../plugins/macro/macros.xml.h:14
 msgid "Ext."
-msgstr ""
+msgstr "Ext."
 
 #: ../plugins/macro/macros.xml.h:15
-#, fuzzy
 msgid "Header_c"
-msgstr "Cabeceras"
+msgstr "Cabecera _c"
 
 #: ../plugins/macro/macros.xml.h:16
-#, fuzzy
 msgid "Header_cpp"
-msgstr "Cabeceras"
+msgstr "Cabecera _cpp"
 
 #: ../plugins/macro/macros.xml.h:17
-#, fuzzy
 msgid "Header_csharp"
-msgstr "Cabeceras"
+msgstr "Cabecera _csharp"
 
 #: ../plugins/macro/macros.xml.h:18
-#, fuzzy
 msgid "Header_h"
-msgstr "Cabeceras"
+msgstr "Cabecera _h"
 
 #: ../plugins/macro/macros.xml.h:19
-#, fuzzy
 msgid "Header_perl"
-msgstr "_Cabecera"
+msgstr "Cabecera _perl"
 
 #: ../plugins/macro/macros.xml.h:20
-#, fuzzy
 msgid "Header_shell"
-msgstr "Cabeceras"
+msgstr "Cabecera _shell"
 
 #: ../plugins/macro/macros.xml.h:21
 msgid "Licenses"
 msgstr "Licencias"
 
 #: ../plugins/macro/macros.xml.h:22
-#, fuzzy
 msgid "UserName"
-msgstr "Nombre de usuario:"
+msgstr "Usuario:"
 
 #: ../plugins/macro/macros.xml.h:23
 msgid "azerty"
-msgstr ""
+msgstr "azerty"
 
 #: ../plugins/macro/macros.xml.h:24
-#, fuzzy
 msgid "cvs_author"
-msgstr "_Autor"
+msgstr "cvs_author"
 
 #: ../plugins/macro/macros.xml.h:25
-#, fuzzy
 msgid "cvs_date"
-msgstr "_Actualizar"
+msgstr "cvs_date"
 
 #: ../plugins/macro/macros.xml.h:26
-#, fuzzy
 msgid "cvs_header"
-msgstr "_Cabecera"
+msgstr "cvs_header"
 
 #: ../plugins/macro/macros.xml.h:27
 msgid "cvs_id"
-msgstr ""
+msgstr "cvs_id"
 
 #: ../plugins/macro/macros.xml.h:28
-#, fuzzy
 msgid "cvs_log"
-msgstr "cvs.log"
+msgstr "cvs_log"
 
 #: ../plugins/macro/macros.xml.h:29
-#, fuzzy
 msgid "cvs_name"
-msgstr "_Nombre"
+msgstr "cvs_name"
 
 #: ../plugins/macro/macros.xml.h:30
-#, fuzzy
 msgid "cvs_revision"
-msgstr "_Revisión"
+msgstr "cvs_revision"
 
 #: ../plugins/macro/macros.xml.h:31
-#, fuzzy
 msgid "cvs_source"
-msgstr "_Origen"
+msgstr "cvs_source"
 
 #: ../plugins/macro/macros.xml.h:32
-#, fuzzy
 msgid "do_while"
-msgstr "_while"
+msgstr "do_while"
 
 #: ../plugins/macro/macros.xml.h:33
 msgid "for"
@@ -7014,14 +6999,12 @@ msgstr "Parcheado exitoso\n"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:54
-#, fuzzy
 msgid "_Patch"
-msgstr "Parchear"
+msgstr "_Parchear"
 
 #: ../plugins/patch/plugin.c:79
-#, fuzzy
 msgid "Patch files/directories"
-msgstr "Crear directorios nuevos"
+msgstr "Parcheararchivos/directorios"
 
 #: ../plugins/profile-default/plugin.c:112
 msgid "Close Pro_ject"
@@ -7032,32 +7015,32 @@ msgid "Close project"
 msgstr "Cerrar proyecto"
 
 #: ../plugins/profile-default/plugin.c:131
-#, fuzzy
 msgid "Profile actions"
-msgstr "Operaciones de edición de archivos"
+msgstr "Acciones del perfiles"
 
 #: ../plugins/profile-default/plugin.c:394
 msgid "Last Session ..."
-msgstr ""
+msgstr "Ültima sesión..."
 
 #: ../plugins/profile-default/plugin.c:395
-#, fuzzy
 msgid "Restoring last session ..."
-msgstr "Preparándose para iniciar la sesión de depuración..."
+msgstr "Restaurarando la última sesión..."
 
 #: ../plugins/profile-default/plugin.c:513
 #: ../plugins/profile-default/plugin.c:533
 #: ../plugins/profile-default/plugin.c:544
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot open: %s\n"
 "&s"
-msgstr "No se pudo abrir: %s"
+msgstr ""
+"No se pudo abrir: %s\n"
+"&s"
 
 #: ../plugins/profile-default/plugin.c:525
 #, c-format
 msgid "No read permission for: %s"
-msgstr ""
+msgstr "No hay permiso de lectuara para: %s"
 
 #: ../plugins/profile-default/plugin.c:554
 #: ../plugins/profile-default/plugin.c:563
@@ -7066,6 +7049,8 @@ msgid ""
 "Cannot open: %s\n"
 "XML parse error."
 msgstr ""
+"No se puede abrir: %s\n"
+"Error de parseo XML."
 
 #: ../plugins/profile-default/plugin.c:573
 #: ../plugins/profile-default/plugin.c:764
@@ -7074,32 +7059,34 @@ msgid ""
 "Cannot open: %s\n"
 "Does not look like a valid Anjuta project."
 msgstr ""
+"No se puede abrir: %s\n"
+"No parece que sea un proyecto de Anjuta."
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
 msgid "Enter the base path of your project (where configure.in can be found):"
-msgstr ""
+msgstr "Introduzca la base de su proyecto (donde se encuentra configure.in):"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
-#, fuzzy
 msgid "Enter the project name:"
-msgstr "Introduzca la información básica del proyecto"
+msgstr "Introduzca el nombre del proyecto:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
-#, fuzzy
 msgid "Import Project"
-msgstr "CVS: Importar proyecto"
+msgstr "Importar un proyecto"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
 msgid ""
 "This wizard will help you to import an existing automake/autoconf managed "
 "project into anjuta."
-msgstr ""
+msgstr "Este asistente le ayudará a usted a importar un proyecto gestionado con automake/autoconf dentro de anjuta."
 
 #: ../plugins/project-import/project-import.c:89
 msgid ""
 "This does not look like a project root dir!\n"
 "Continue anyway?"
 msgstr ""
+"Esto no parece el directorio raíz de un proyecto\n"
+"¿Quiere continuar de todas formas?"
 
 #: ../plugins/project-import/project-import.c:113
 #, c-format
@@ -7107,12 +7094,14 @@ msgid ""
 "Project name: %s\n"
 "Project path: %s\n"
 msgstr ""
+"Nombre del proyecto: %s\n"
+"Ruta del proyecto: %s\n"
 
 #: ../plugins/project-import/project-import.c:258
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
 "the project directory!"
-msgstr ""
+msgstr "La generación del archivo del proyecto ha fallado. Compruebe si tiene acceso de escritura al directorio del proyecto."
 
 #: ../plugins/project-manager/plugin.c:334
 #, c-format
@@ -7842,9 +7831,8 @@ msgid "<b>New Project Wizard Options</b>"
 msgstr "<b>Opciones del asistente de proyectos nuevos</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
-#, fuzzy
 msgid "<b>Project description:</b>"
-msgstr "Descripción del proyecto"
+msgstr "<b>Descripción del proyecto:</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "<b>Select the type of application to be developed</b>"
@@ -7884,18 +7872,16 @@ msgstr ""
 "cambiar algunos valores más tarde."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
-#, fuzzy
 msgid "User email address"
-msgstr "Correo-e del usuario:"
+msgstr "Correo-e del usuario"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:17
-#, fuzzy
 msgid "User name"
-msgstr "Nombre de usuario:"
+msgstr "Usuario"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:19
 msgid "label"
-msgstr ""
+msgstr "etiqueta"
 
 #: ../plugins/project-wizard/druid.c:176
 msgid ""
@@ -7922,15 +7908,15 @@ msgstr "El campo «%s» es obligatorio. Por favor introdúzcalo."
 #: ../plugins/project-wizard/druid.c:496
 #, c-format
 msgid ""
-"Directory \"%s\" already exists. Project creation could fail if some "
-"filescannot be written. Do you want to continue?"
-msgstr ""
+"Directory \"%s\" already exists. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
+msgstr "El directorio «%s» ya existe. La creación del proyecto podría fallar si algunos archivos no se pudiesen escribir. ¿quiere continuar?"
 
 #: ../plugins/project-wizard/druid.c:804
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
-msgstr ""
+msgstr "No se pudo encontrar autogen versión 5, por favor instale el paquete autogen. Puede obtenerlo de http://autogen.sourceforge.net"
 
 #: ../plugins/project-wizard/druid.c:812
 msgid "Unable to build project wizard user interface"
@@ -7943,31 +7929,29 @@ msgstr "El proyecto nuevo se ha creado correctamente"
 #: ../plugins/project-wizard/install.c:427
 #, c-format
 msgid "Skipping %s: file already exists"
-msgstr ""
+msgstr "Saltando %s: el archivo ya existe"
 
 #: ../plugins/project-wizard/install.c:451
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s (using AutoGen)"
-msgstr "Copiando %s a %s con AutoGen"
+msgstr "Creando %s (usando AutoGen)"
 
 #: ../plugins/project-wizard/install.c:455
-#, fuzzy, c-format
+#, c-format
 msgid "Creating %s"
-msgstr "_Limpiar (%s)"
+msgstr "Creando %s"
 
 #: ../plugins/project-wizard/install.c:524
-#, fuzzy
 msgid "Executing: "
-msgstr "_Ejecución"
+msgstr "Ejecutando:"
 
 #: ../plugins/project-wizard/plugin.c:161
 msgid "New Project Wizard"
 msgstr "Asistente de creación de proyectos"
 
 #: ../plugins/project-wizard/property.c:252
-#, fuzzy
 msgid "Icon choice"
-msgstr "Tamaño del icono"
+msgstr "Elección del icono"
 
 #. Action name
 #. Stock icon, if any
@@ -7990,203 +7974,170 @@ msgid "SamplePlugin"
 msgstr "Complemento de ejemplo"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:2
-#, fuzzy
 msgid "<b>Subversion Options</b>"
-msgstr "<b>Opciones de impresión</b>"
+msgstr "<b>Opciones de subversion</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:8
-#, fuzzy
 msgid "Force"
-msgstr "_Origen"
+msgstr "Forzar"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
-#, fuzzy
 msgid "Recurse"
-msgstr "_Restablecer"
+msgstr "Recursivo"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:11
-#, fuzzy
 msgid "Subversion Preferences"
-msgstr "Preferencias del CVS"
+msgstr "Preferencias de Subversion"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:12
-#, fuzzy
 msgid "Subversion: Add file/directory"
-msgstr "CVS: Añadir archivo/directorio"
+msgstr "Subversion: Añadir archivo/directorio"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
-#, fuzzy
 msgid "Subversion: Commit file/directory"
-msgstr "CVS: Efectuar archivo/directorio"
+msgstr "Subversion: Efectuar archivo/directorio"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
-#, fuzzy
 msgid "Subversion: Remove file/directory"
-msgstr "CVS: Eliminar archivo/directorio"
+msgstr "Subversion: Eliminar archivo/directorio"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
-#, fuzzy
 msgid "Subversion: Update file/directory"
-msgstr "CVS: Actualizar archivo/directorio"
+msgstr "Subversion: Actualizar archivo/directorio"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "TODO!"
-msgstr ""
+msgstr "Por hacer!"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:43 ../plugins/subversion/plugin.c:83
-#, fuzzy
 msgid "_Subversion"
-msgstr "Versión:"
+msgstr "_Subversión"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:53
-#, fuzzy
 msgid "Add a new file/directory to the Subversion tree"
-msgstr "Añadir un archivo/directorio nuevo al árbol CVS"
+msgstr "Añadir un archivo/directorio nuevo al árbol Subversion"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:61
-#, fuzzy
 msgid "Remove a file/directory from Subversion tree"
-msgstr "Eliminar un archivo/directorio del árbol CVS"
+msgstr "Eliminar un archivo/directorio del árbol Subversion"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:69 ../plugins/subversion/plugin.c:93
-#, fuzzy
 msgid "Commit your changes to the Subversion tree"
-msgstr "Efectuar cambios al árbol CVS"
+msgstr "Efectuar sus cambios al árbol Subversion"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:77 ../plugins/subversion/plugin.c:101
-#, fuzzy
 msgid "Sync your local copy with the Subversion tree"
-msgstr "Sincronizar su copia local con el árbol CVS"
+msgstr "Sincronizar su copia local con el árbol Subversion"
 
 #: ../plugins/subversion/plugin.c:298
-#, fuzzy
 msgid "Subversion operations"
-msgstr "Operaciones con macros"
+msgstr "Operaciones de Subversion"
 
 #: ../plugins/subversion/subversion-callbacks.c:63
-#, fuzzy
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "Hay un comando CVS en ejecución - por favor, espere hasta que termine."
+msgstr "Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
 
 #: ../plugins/subversion/svn-notify.c:68
 msgid "Add"
 msgstr "Añadir"
 
 #: ../plugins/subversion/svn-notify.c:83
-#, fuzzy
 msgid "Restore"
-msgstr "Registro"
+msgstr "Restaurar"
 
 #: ../plugins/subversion/svn-notify.c:88
-#, fuzzy
 msgid "Revert"
-msgstr "Servidor"
+msgstr "Revertir"
 
 #: ../plugins/subversion/svn-notify.c:93
-#, fuzzy
 msgid "Revert failed"
-msgstr "Eliminar archivo"
+msgstr "Reversión fallida"
 
 #: ../plugins/subversion/svn-notify.c:98
-#, fuzzy
 msgid "Resolved"
-msgstr "Eliminar"
+msgstr "Resuelto"
 
 #: ../plugins/subversion/svn-notify.c:103
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: ../plugins/subversion/svn-notify.c:108
-#, fuzzy
 msgid "Update delete"
-msgstr "Actualizar archivo"
+msgstr "Actualizar borrado"
 
 #: ../plugins/subversion/svn-notify.c:113
-#, fuzzy
 msgid "Update add"
-msgstr "Actualizar todos"
+msgstr "Actualizar añadido"
 
 #: ../plugins/subversion/svn-notify.c:123
-#, fuzzy
 msgid "Update completed"
-msgstr "Actualizar archivo"
+msgstr "Actualizacion completada"
 
 #: ../plugins/subversion/svn-notify.c:128
-#, fuzzy
 msgid "Update external"
-msgstr "Actualizar todos"
+msgstr "Actualizar externos"
 
 #: ../plugins/subversion/svn-notify.c:133
-#, fuzzy
 msgid "Status completed"
-msgstr "Estado del archivo"
+msgstr "Estado completado"
 
 #: ../plugins/subversion/svn-notify.c:138
 msgid "Status external"
-msgstr ""
+msgstr "Estado externo"
 
 #: ../plugins/subversion/svn-notify.c:143
-#, fuzzy
 msgid "Commit modified"
-msgstr "Efectuar cambios en el archivo"
+msgstr "Efectuar modificado"
 
 #: ../plugins/subversion/svn-notify.c:148
-#, fuzzy
 msgid "Commit added"
-msgstr "Efectuar cambios en el archivo"
+msgstr "Efectuar añadidos"
 
 #: ../plugins/subversion/svn-notify.c:153
-#, fuzzy
 msgid "Commit deleted"
-msgstr "Efectuar cambios en el archivo"
+msgstr "Efectuar borrados"
 
 #: ../plugins/subversion/svn-notify.c:158
-#, fuzzy
 msgid "Commit replaced"
-msgstr "Efectuar cambios en el archivo"
+msgstr "Efectuar reemplazados"
 
 #: ../plugins/subversion/svn-notify.c:163
-#, fuzzy
 msgid "Commit postfix"
-msgstr "Efectuar cambios en el archivo"
+msgstr "Efectuar postfix"
 
 #: ../plugins/subversion/svn-notify.c:168
-#, fuzzy
 msgid "Blame revision"
-msgstr "Usar revisión: "
+msgstr ""
 
 #: ../plugins/subversion/svn-thread.c:59 ../plugins/subversion/svn-thread.c:64
-#, fuzzy
 msgid "Subversion"
-msgstr "Versión:"
+msgstr "Subversión"
 
 #: ../plugins/subversion/svn-thread.c:125
 msgid "Subversion command finished!"
-msgstr ""
+msgstr "El comando Subversion ha terminado."
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:338
-#, fuzzy
 msgid "API Tags"
-msgstr "Etiquetas"
+msgstr "Etiquetas del API"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
-#, fuzzy
 msgid "<b>Available API tags:</b>"
-msgstr "Complementos disponibles"
+msgstr "<b>Etiquetas del API disponibles:</b>"
 
 #: ../plugins/symbol-browser/plugin.c:239
 msgid "Tag _Definition"
-msgstr "Definición de _etiqueta"
+msgstr "_Definición de etiqueta"
 
 #: ../plugins/symbol-browser/plugin.c:241
 #: ../plugins/symbol-browser/plugin.c:257
@@ -8344,11 +8295,11 @@ msgstr "Salir del IDE Anjuta"
 
 #: ../src/anjuta-actions.h:36
 msgid "_Reset Dock Layout"
-msgstr ""
+msgstr "_Restaurar distribución del empotrable"
 
 #: ../src/anjuta-actions.h:37
 msgid "Reset the widgets docking layout to default"
-msgstr ""
+msgstr "Restaura la distribución de los widgets a la predeterminada"
 
 #: ../src/anjuta-actions.h:39
 msgid "_Toolbars"
@@ -8363,13 +8314,12 @@ msgid "Toggle fullscreen mode"
 msgstr "Cambiar a modo a pantalla completa"
 
 #: ../src/anjuta-actions.h:48
-#, fuzzy
 msgid "_Lock Dock Layout"
-msgstr "_Bloquear elementos empotrados"
+msgstr "_BLoquear distribución del empotrable"
 
 #: ../src/anjuta-actions.h:49
 msgid "Lock the current dock layout so that widgets cannot be moved"
-msgstr ""
+msgstr "Bloquea la distribución del empotrable actual de manera que los widgets no se puedan mover"
 
 #: ../src/anjuta-actions.h:54 ../src/shell.c:78
 msgid "_Settings"
@@ -8377,7 +8327,7 @@ msgstr "_Opciones"
 
 #: ../src/anjuta-actions.h:56 ../src/shell.c:91
 msgid "_Preferences ..."
-msgstr "_Preferencias ..."
+msgstr "_Preferencias..."
 
 #: ../src/anjuta-actions.h:57
 msgid "Do you prefer coffee to tea? Check it out."
@@ -8412,41 +8362,36 @@ msgid "_Help"
 msgstr "A_yuda"
 
 #: ../src/anjuta-actions.h:76
-#, fuzzy
 msgid "_Users manual"
-msgstr "Nombre de usuario:"
+msgstr "Manual del _usuario"
 
 #: ../src/anjuta-actions.h:77
-#, fuzzy
 msgid "Anjuta users manual"
-msgstr "Manual de Anjuta"
+msgstr "Manual del usuario de Anjuta"
 
 #: ../src/anjuta-actions.h:80
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "_Cursillo acelerado"
 
 #: ../src/anjuta-actions.h:81
-#, fuzzy
 msgid "Anjuta Kick start tutorial"
-msgstr "Cursillo de Anjuta"
+msgstr "Cursillo de acelerado de Anjuta"
 
 #: ../src/anjuta-actions.h:84
-#, fuzzy
 msgid "_Advanced tutorial"
-msgstr "Cursillo de Anjuta"
+msgstr "Cursillo _avanzado"
 
 #: ../src/anjuta-actions.h:85
-#, fuzzy
 msgid "Anjuta advanced tutorial"
-msgstr "Cursillo de Anjuta"
+msgstr "Cursillo avanzado de Anjuta"
 
 #: ../src/anjuta-actions.h:88
 msgid "_Frequently asked questions"
-msgstr ""
+msgstr "Preguntas _frecuentes"
 
 #: ../src/anjuta-actions.h:89
 msgid "Anjuta frequently asked questions"
-msgstr ""
+msgstr "Preguntas frecuentes sobre Anjuta"
 
 #: ../src/anjuta-actions.h:92
 msgid "Anjuta _Home Page"
@@ -8458,16 +8403,15 @@ msgstr "Documentación en línea e información"
 
 #: ../src/anjuta-actions.h:96
 msgid "Report _Bugs/Patches/Requests"
-msgstr ""
+msgstr "Informar de _Fallos/Parches/Peticiones"
 
 #: ../src/anjuta-actions.h:97
-#, fuzzy
 msgid "Submit a bug report, patch or feature request for Anjuta"
-msgstr "Pedir una característica nueva para Anjuta"
+msgstr "Envíe un informe de fallos, parche o una petición de una característica nueva para Anjuta"
 
 #: ../src/anjuta-actions.h:100
 msgid "Ask a _question"
-msgstr "Pre_guntar"
+msgstr "_Preguntar"
 
 #: ../src/anjuta-actions.h:101
 msgid "Submit a question for FAQs"
