@@ -38,6 +38,6 @@ gchar* anjuta_res_get_help_file_locale (const gchar* helpfile, const gchar* loca
 gchar* anjuta_res_get_doc_file (const gchar* docfile);
 
 /* System Help */
-gchar* anjuta_res_help_search (const gchar * word);
+void anjuta_res_help_search (const gchar * word);
 
 #endif /* _RESOURCES_H_ */

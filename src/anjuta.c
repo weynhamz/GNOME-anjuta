@@ -2005,7 +2005,7 @@ scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
 		{
 			/* FIXME: e questo ? bah library_file = g_module_build_path (module_dir, module_file); */
 			gchar *pPIPath = g_strdup_printf ("%s/%s", szDirName, entry_name);
-			AnjutaAddInPtrpPlugIn = plug_in_new ();
+			AnjutaAddInPtr pPlugIn = plug_in_new ();
 
 			if ((NULL != pPlugIn) && (NULL != pPIPath))
 			{

@@ -284,7 +284,7 @@ anjuta_res_get_doc_file (const gchar * docfile)
 	return NULL;
 }
 
-gchar *
+void
 anjuta_res_help_search (const gchar * word)
 {
 	if(word)

@@ -1,3 +1,10 @@
+2001-10-17  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* anjuta.c: Fixed luca's typo.
+	* resources.c, resources.h: Changed gchar* return to void, to
+		avoid a compiler warning.
+	* scintilla/Makefile.am: Reorganized file entries.
+
 2001-10-16  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Upgraded scintilla to 1.4.
