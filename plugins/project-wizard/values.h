@@ -30,17 +30,17 @@ typedef GSList* NPWPropertyKey;
 
 //  Property list
 
-NPWPropertyValues* npw_property_values_new(void);
-void npw_property_values_destroy(NPWPropertyValues* this);
+NPWPropertyValues* npw_property_values_new (void);
+void npw_property_values_destroy (NPWPropertyValues* this);
 
-NPWPropertyKey npw_property_values_add(NPWPropertyValues* this, const gchar* name);
-const gchar* npw_property_values_get_name(const NPWPropertyValues* this, NPWPropertyKey key);
-void npw_property_values_set(NPWPropertyValues* this, NPWPropertyKey key, const gchar* value, gint tag);
-const gchar* npw_property_values_get(const NPWPropertyValues* this, NPWPropertyKey key);
-gint npw_property_values_get_tag(const NPWPropertyValues* this, NPWPropertyKey key);
+NPWPropertyKey npw_property_values_add (NPWPropertyValues* this, const gchar* name);
+const gchar* npw_property_values_get_name (const NPWPropertyValues* this, NPWPropertyKey key);
+void npw_property_values_set (NPWPropertyValues* this, NPWPropertyKey key, const gchar* value, gint tag);
+const gchar* npw_property_values_get (const NPWPropertyValues* this, NPWPropertyKey key);
+gint npw_property_values_get_tag (const NPWPropertyValues* this, NPWPropertyKey key);
 
 typedef void (*NPWPropertyValuesForeachFunc) (const gchar* name, const gchar* value, gint tag, gpointer data);
-void npw_property_values_foreach_property(const NPWPropertyValues* this, NPWPropertyValuesForeachFunc func, gpointer data);
+void npw_property_values_foreach_property (const NPWPropertyValues* this, NPWPropertyValuesForeachFunc func, gpointer data);
 
 #endif
 

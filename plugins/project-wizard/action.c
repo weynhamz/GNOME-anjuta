@@ -46,59 +46,59 @@ struct _NPWAction {
 // Action
 
 NPWAction*
-npw_action_new(NPWActionList* owner, NPWActionType type)
+npw_action_new (NPWActionList* owner, NPWActionType type)
 {
 	NPWAction* this;
 
-	g_return_val_if_fail(owner != NULL, NULL);	
+	g_return_val_if_fail (owner != NULL, NULL);	
 	
 	this = g_chunk_new0(NPWAction, owner->data_pool);
 	this->type = type;
 	this->owner = owner;
-	owner->list = g_list_append(owner->list, this);
-	this->node = g_list_last(owner->list);
+	owner->list = g_list_append (owner->list, this);
+	this->node = g_list_last (owner->list);
 	
 	return this;
 }
 
 void
-npw_action_free(NPWAction* this)
+npw_action_free (NPWAction* this)
 {
 	// Memory allocated in string pool and project pool is not free
 }
 
 NPWActionType
-npw_action_get_type(const NPWAction* this)
+npw_action_get_type (const NPWAction* this)
 {
 	return this->type;
 }
 
 void
-npw_action_set_command(NPWAction* this, const gchar* command)
+npw_action_set_command (NPWAction* this, const gchar* command)
 {
-	this->command = g_string_chunk_insert(this->owner->string_pool, command);
+	this->command = g_string_chunk_insert (this->owner->string_pool, command);
 }
 
 const gchar*
-npw_action_get_command(const NPWAction* this)
+npw_action_get_command (const NPWAction* this)
 {
 	return this->command;
 }
 
 void
-npw_action_set_file(NPWAction* this, const gchar* file)
+npw_action_set_file (NPWAction* this, const gchar* file)
 {
-	npw_action_set_command(this, file);
+	npw_action_set_command (this, file);
 }
 
 const gchar*
-npw_action_get_file(const NPWAction* this)
+npw_action_get_file (const NPWAction* this)
 {
-	return npw_action_get_command(this);
+	return npw_action_get_command (this);
 }
 
 const NPWAction*
-npw_action_next(const NPWAction* this)
+npw_action_next (const NPWAction* this)
 {
 	GList* node = this->node->next;
 
@@ -107,33 +107,33 @@ npw_action_next(const NPWAction* this)
 
 
 NPWActionList*
-npw_action_list_new(void)
+npw_action_list_new (void)
 {
 	NPWActionList* this;
 
-	this = g_new(NPWActionList, 1);
-	this->string_pool = g_string_chunk_new(STRING_CHUNK_SIZE);
-	this->data_pool = g_mem_chunk_new("action pool", sizeof(NPWAction), STRING_CHUNK_SIZE * sizeof(NPWAction) / 4, G_ALLOC_ONLY);
+	this = g_new (NPWActionList, 1);
+	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
+	this->data_pool = g_mem_chunk_new ("action pool", sizeof (NPWAction), STRING_CHUNK_SIZE * sizeof (NPWAction) / 4, G_ALLOC_ONLY);
 	this->list = NULL;
 
 	return this;
 }
 
 void
-npw_action_list_free(NPWActionList* this)
+npw_action_list_free (NPWActionList* this)
 {
-	g_return_if_fail(this != NULL);
+	g_return_if_fail (this != NULL);
 
-	g_string_chunk_free(this->string_pool);
-	g_mem_chunk_destroy(this->data_pool);
-	g_list_free(this->list);
-	g_free(this);
+	g_string_chunk_free (this->string_pool);
+	g_mem_chunk_destroy (this->data_pool);
+	g_list_free (this->list);
+	g_free (this);
 }
 
 const NPWAction*
-npw_action_list_first(const NPWActionList* this)
+npw_action_list_first (const NPWActionList* this)
 {
-	GList* node = g_list_first(this->list);
+	GList* node = g_list_first (this->list);
 
 	return node == NULL ? NULL : (NPWAction *)node->data;
 }

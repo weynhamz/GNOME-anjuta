@@ -33,23 +33,23 @@ typedef enum {
 	NPW_OPEN_ACTION
 } NPWActionType;
 
-NPWAction* npw_action_new(NPWActionList* owner, NPWActionType type);
-void npw_action_free(NPWAction* this);
+NPWAction* npw_action_new (NPWActionList* owner, NPWActionType type);
+void npw_action_free (NPWAction* this);
 
-NPWActionType npw_action_get_type(const NPWAction* this);
+NPWActionType npw_action_get_type (const NPWAction* this);
 
-void npw_action_set_command(NPWAction* this, const gchar* command);
-const gchar* npw_action_get_command(const NPWAction* this);
+void npw_action_set_command (NPWAction* this, const gchar* command);
+const gchar* npw_action_get_command (const NPWAction* this);
 
-void npw_action_set_file(NPWAction* this, const gchar* command);
-const gchar* npw_action_get_file(const NPWAction* this);
+void npw_action_set_file (NPWAction* this, const gchar* command);
+const gchar* npw_action_get_file (const NPWAction* this);
 
-const NPWAction* npw_action_next(const NPWAction* this);
+const NPWAction* npw_action_next (const NPWAction* this);
 
 
-NPWActionList* npw_action_list_new(void);
-void npw_action_list_free(NPWActionList* this);
+NPWActionList* npw_action_list_new (void);
+void npw_action_list_free (NPWActionList* this);
 
-const NPWAction* npw_action_list_first(const NPWActionList* this);
+const NPWAction* npw_action_list_first (const NPWActionList* this);
 
 #endif

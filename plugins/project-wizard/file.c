@@ -55,71 +55,71 @@ typedef enum {
 // File
 
 NPWFile*
-npw_file_new(NPWFileList* owner)
+npw_file_new (NPWFileList* owner)
 {
 	NPWFile* this;
 
-	g_return_val_if_fail(owner, NULL);
+	g_return_val_if_fail (owner, NULL);
 
 	this = g_chunk_new0(NPWFile, owner->data_pool);
 	this->owner = owner;
-	this->node = g_node_append_data(owner->list, this);
+	this->node = g_node_append_data (owner->list, this);
 	this->attribute = 0;
 	
 	return this;
 }
 
 void
-npw_file_destroy(NPWFile* this)
+npw_file_destroy (NPWFile* this)
 {
 	GNode* node;
 
-	node = g_node_find_child(this->owner->list, G_TRAVERSE_ALL, this);
+	node = g_node_find_child (this->owner->list, G_TRAVERSE_ALL, this);
 	if (node != NULL)
 	{
-		g_node_destroy(node);
+		g_node_destroy (node);
 		// Memory allocated in string pool and project pool is not free
 	}
 }
 
 void
-npw_file_set_type(NPWFile* this, NPWFileType type)
+npw_file_set_type (NPWFile* this, NPWFileType type)
 {
 	this->type = type;
 }
 
 NPWFileType
-npw_file_get_type(const NPWFile* this)
+npw_file_get_type (const NPWFile* this)
 {
 	return this->type;
 }
 
 void
-npw_file_set_destination(NPWFile* this, const gchar* destination)
+npw_file_set_destination (NPWFile* this, const gchar* destination)
 {
-	this->destination = g_string_chunk_insert(this->owner->string_pool, destination);
+	this->destination = g_string_chunk_insert (this->owner->string_pool, destination);
 }
 
 const gchar*
-npw_file_get_destination(const NPWFile* this)
+npw_file_get_destination (const NPWFile* this)
 {
 	return this->destination;
 }
 
 void
-npw_file_set_source(NPWFile* this, const gchar* source)
+npw_file_set_source (NPWFile* this, const gchar* source)
 {
-	this->source = g_string_chunk_insert(this->owner->string_pool, source);
+	this->source = g_string_chunk_insert (this->owner->string_pool, source);
 }
 
 const gchar*
-npw_file_get_source(const NPWFile* this)
+npw_file_get_source (const NPWFile* this)
 {
 	return this->source;
 }
 
 void
-npw_file_set_execute(NPWFile* this, gboolean value)
+npw_file_set_execute (NPWFile* this, gboolean value)
 {
 	if (value)
 	{
@@ -132,13 +132,13 @@ npw_file_set_execute(NPWFile* this, gboolean value)
 }
 
 gboolean
-npw_file_get_execute(const NPWFile* this)
+npw_file_get_execute (const NPWFile* this)
 {
 	return this->attribute & NPW_EXECUTE_FILE;
 }
 
 void
-npw_file_set_project(NPWFile* this, gboolean value)
+npw_file_set_project (NPWFile* this, gboolean value)
 {
 	if (value)
 	{
@@ -151,15 +151,15 @@ npw_file_set_project(NPWFile* this, gboolean value)
 }
 
 gboolean
-npw_file_get_project(const NPWFile* this)
+npw_file_get_project (const NPWFile* this)
 {
 	return this->attribute & NPW_PROJECT_FILE;
 }
 
 void
-npw_file_set_autogen(NPWFile* this, NPWFileBooleanValue value)
+npw_file_set_autogen (NPWFile* this, NPWFileBooleanValue value)
 {
-	switch(value)
+	switch (value)
 	{
 	case NPW_TRUE:
 		this->attribute |= NPW_AUTOGEN_FILE | NPW_AUTOGEN_SET;
@@ -175,13 +175,13 @@ npw_file_set_autogen(NPWFile* this, NPWFileBooleanValue value)
 }
 
 NPWFileBooleanValue
-npw_file_get_autogen(const NPWFile* this)
+npw_file_get_autogen (const NPWFile* this)
 {
 	return this->attribute & NPW_AUTOGEN_SET ? (this->attribute & NPW_AUTOGEN_FILE ? NPW_TRUE : NPW_FALSE) : NPW_DEFAULT;
 }
 
 const NPWFile*
-npw_file_next(const NPWFile* this)
+npw_file_next (const NPWFile* this)
 {
 	GNode* node = this->node->next;
 
@@ -190,46 +190,46 @@ npw_file_next(const NPWFile* this)
 
 
 NPWFileList*
-npw_file_list_new(void)
+npw_file_list_new (void)
 {
 	NPWFileList* this;
 
-	this = g_new(NPWFileList, 1);
-	this->string_pool = g_string_chunk_new(STRING_CHUNK_SIZE);
-	this->data_pool = g_mem_chunk_new("file pool", sizeof(NPWFile), STRING_CHUNK_SIZE * sizeof(NPWFile) / 4, G_ALLOC_ONLY);
-	this->list = g_node_new(NULL);
+	this = g_new (NPWFileList, 1);
+	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
+	this->data_pool = g_mem_chunk_new ("file pool", sizeof (NPWFile), STRING_CHUNK_SIZE * sizeof (NPWFile) / 4, G_ALLOC_ONLY);
+	this->list = g_node_new (NULL);
 
 	return this;
 }
 
 void
-npw_file_list_destroy(NPWFileList* this)
+npw_file_list_destroy (NPWFileList* this)
 {
-	g_return_if_fail(this != NULL);
+	g_return_if_fail (this != NULL);
 
-	g_string_chunk_free(this->string_pool);
-	g_mem_chunk_destroy(this->data_pool);
-	g_node_destroy(this->list);
-	g_free(this);
+	g_string_chunk_free (this->string_pool);
+	g_mem_chunk_destroy (this->data_pool);
+	g_node_destroy (this->list);
+	g_free (this);
 }
 
 static void
-cb_file_list_foreach_file(GNode* node, gpointer data)
+cb_file_list_foreach_file (GNode* node, gpointer data)
 {
 	((NPWFileForeachFunc)data)((NPWFile*)node->data);
 }
 
 void
-npw_file_list_foreach_file(const NPWFileList* this, NPWFileForeachFunc func)
+npw_file_list_foreach_file (const NPWFileList* this, NPWFileForeachFunc func)
 {
-	g_node_children_foreach(this->list, G_TRAVERSE_LEAFS, cb_file_list_foreach_file, (gpointer)func);
+	g_node_children_foreach (this->list, G_TRAVERSE_LEAFS, cb_file_list_foreach_file, (gpointer)func);
 }
 
 const NPWFile*
-npw_file_list_first(const NPWFileList* this)
+npw_file_list_first (const NPWFileList* this)
 {
 	// Work even if first child is NULL
-	GNode* node = g_node_first_child(this->list);
+	GNode* node = g_node_first_child (this->list);
 
 	return node == NULL ? NULL : (NPWFile *)node->data;
 }

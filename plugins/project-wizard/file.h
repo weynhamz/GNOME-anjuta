@@ -40,36 +40,36 @@ typedef enum {
 	NPW_TRUE = 1
 } NPWFileBooleanValue;
 
-NPWFile* npw_file_new(NPWFileList* owner);
-void npw_file_destroy(NPWFile* this);
+NPWFile* npw_file_new (NPWFileList* owner);
+void npw_file_destroy (NPWFile* this);
 
-void npw_file_set_type(NPWFile* this, NPWFileType type);
-NPWFileType npw_file_get_type(const NPWFile* this);
+void npw_file_set_type (NPWFile* this, NPWFileType type);
+NPWFileType npw_file_get_type (const NPWFile* this);
 
-void npw_file_set_destination(NPWFile* this, const gchar* destination);
-const gchar* npw_file_get_destination(const NPWFile* this);
+void npw_file_set_destination (NPWFile* this, const gchar* destination);
+const gchar* npw_file_get_destination (const NPWFile* this);
 
-void npw_file_set_source(NPWFile* this, const gchar* destination);
-const gchar* npw_file_get_source(const NPWFile* this);
+void npw_file_set_source (NPWFile* this, const gchar* destination);
+const gchar* npw_file_get_source (const NPWFile* this);
 
-void npw_file_set_execute(NPWFile* this, gboolean value);
-gboolean npw_file_get_execute(const NPWFile* this);
+void npw_file_set_execute (NPWFile* this, gboolean value);
+gboolean npw_file_get_execute (const NPWFile* this);
 
-void npw_file_set_project(NPWFile* this, gboolean value);
-gboolean npw_file_get_project(const NPWFile* this);
+void npw_file_set_project (NPWFile* this, gboolean value);
+gboolean npw_file_get_project (const NPWFile* this);
 
-void npw_file_set_autogen(NPWFile* this, NPWFileBooleanValue value);
-NPWFileBooleanValue npw_file_get_autogen(const NPWFile* this);
+void npw_file_set_autogen (NPWFile* this, NPWFileBooleanValue value);
+NPWFileBooleanValue npw_file_get_autogen (const NPWFile* this);
 
-const NPWFile* npw_file_next(const NPWFile* this);
+const NPWFile* npw_file_next (const NPWFile* this);
 
-NPWFileList* npw_file_list_new(void);
+NPWFileList* npw_file_list_new (void);
 
-void npw_file_list_destroy(NPWFileList* this);
+void npw_file_list_destroy (NPWFileList* this);
 
 typedef void (*NPWFileForeachFunc) (NPWFile* file);
 
-void npw_file_list_foreach_file(const NPWFileList* this, NPWFileForeachFunc func);
-const NPWFile* npw_file_list_first(const NPWFileList* this);
+void npw_file_list_foreach_file (const NPWFileList* this, NPWFileForeachFunc func);
+const NPWFile* npw_file_list_first (const NPWFileList* this);
 
 #endif

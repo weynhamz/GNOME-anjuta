@@ -25,44 +25,68 @@
 
 #include "druid.h"
 
+#define NPW_ICON ""
+
+/* Used in dispose */
+static gpointer parent_class;
+
+static void
+npw_plugin_instance_init (GObject *obj)
+{
+	NPWPlugin *this = (NPWPlugin*)obj;
+
+	this->druid = NULL;
+	this->install = NULL;
+	this->view = NULL;
+}
+
+/* dispose is used to unref object created with instance_init */
+
+static void
+npw_plugin_dispose (GObject *obj)
+{
+	NPWPlugin *this = (NPWPlugin*)obj;
+
+	/* Warning this function could be called several times */
+	if (this->view != NULL)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)&this->view);
+		this->view = NULL;
+	}
+
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
+}
+
+/* finalize used to free object created with instance init is not used */
+
 
 static gboolean
-activate_plugin (AnjutaPlugin *plugin)
+npw_plugin_activate (AnjutaPlugin *plugin)
 {
 	GladeXML* gxml;
-	NPWPlugin *w_plugin = (NPWPlugin*)plugin;
+	NPWPlugin *this = (NPWPlugin*)plugin;
 	
 	g_message ("Project Wizard Plugin: Activating project wizard plugin...");
 
 	/* Create the messages preferences page */
-	w_plugin->pref = anjuta_shell_get_preferences (plugin->shell, NULL);
+	this->pref = anjuta_shell_get_preferences (plugin->shell, NULL);
 	gxml = glade_xml_new (GLADE_FILE, "New Project Wizard", NULL);
-	anjuta_preferences_add_page (w_plugin->pref, gxml, "New Project Wizard", ICON_FILE);
+	anjuta_preferences_add_page (this->pref, gxml, "New Project Wizard", ICON_FILE);
 	g_object_unref (gxml);
 	
 	return TRUE;
 }
 
 static gboolean
-deactivate_plugin (AnjutaPlugin *plugin)
+npw_plugin_deactivate (AnjutaPlugin *plugin)
 {
-	//NPWPlugin *w_plugin = (NPWPlugin*)plugin;
+	/*NPWPlugin *this = (NPWPlugin*)plugin; */
 
 	g_message ("Project Wizard Plugin: Deactivating project wizard plugin...");
 
-	//anjuta_preferences_remove_page(w_plugin->pref, "New Project Wizard");
+	/*anjuta_preferences_remove_page (this->pref, "New Project Wizard");*/
 
 	return TRUE;
-}
-
-static void
-npw_plugin_instance_init (GObject *obj)
-{
-	NPWPlugin *plugin = (NPWPlugin*)obj;
-
-	plugin->druid = NULL;
-	plugin->install = NULL;
-	plugin->view = NULL;
 }
 
 static void
@@ -70,31 +94,32 @@ npw_plugin_class_init (GObjectClass *klass)
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
-//	parent_class = g_type_class_peek_parent (klass);
+	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->activate = activate_plugin;
-	plugin_class->deactivate = deactivate_plugin;
+	plugin_class->activate = npw_plugin_activate;
+	plugin_class->deactivate = npw_plugin_deactivate;
+	klass->dispose = npw_plugin_dispose;
 }
 
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
 {
-	NPWPlugin *plugin = (NPWPlugin *)wiz;
+	NPWPlugin *this = (NPWPlugin *)wiz;
 	
-	if (plugin->install != NULL)
+	if (this->install != NULL)
 	{
-		// New project wizard is busy copying project file
+		/* New project wizard is busy copying project file */
 	}
-	else if (plugin->druid == NULL)
+	else if (this->druid == NULL)
 	{
-		// Create a new project wizard druid
-		npw_druid_new(plugin);
+		/* Create a new project wizard druid */
+		npw_druid_new (this);
 	}
 
-	if (plugin->druid != NULL)
+	if (this->druid != NULL)
 	{
-		// New project wizard druid is waiting for user inputs
-		npw_druid_show(plugin->druid);
+		/* New project wizard druid is waiting for user inputs */
+		npw_druid_show (this->druid);
 	}
 }
 
@@ -105,7 +130,51 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (NPWPlugin, npw_plugin);
-ANJUTA_PLUGIN_ADD_INTERFACE(iwizard, IANJUTA_TYPE_WIZARD);
+ANJUTA_PLUGIN_ADD_INTERFACE (iwizard, IANJUTA_TYPE_WIZARD);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (NPWPlugin, npw_plugin);
+
+/*****************************************************************************/
+
+/* Control access to anjuta message view to avoid a closed view */
+
+IAnjutaMessageView* 
+npw_plugin_create_view (NPWPlugin* this)
+{
+	if (this->view == NULL)
+	{
+		IAnjutaMessageManager* man;
+
+		man = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaMessageManager, NULL);
+		this->view = ianjuta_message_manager_add_view (man, _("New Project Wizard"), NPW_ICON, NULL);
+		if (this->view != NULL)
+		{
+			g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
+		}
+	}
+	else
+	{
+		ianjuta_message_view_clear (this->view, NULL);
+	}
+
+	return this->view;
+}
+
+void
+npw_plugin_append_view (NPWPlugin* this, const gchar* text)
+{
+	if (this->view)
+	{
+		ianjuta_message_view_buffer_append (this->view, text, NULL);
+	}
+}
+
+void
+npw_plugin_print_view (NPWPlugin* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details)
+{
+	if (this->view)
+	{
+		ianjuta_message_view_append (this->view, type, summary, details, NULL);
+	}
+}

@@ -1,11 +1,42 @@
+2005-02-05  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/action.c,
+	plugins/project-wizard/action.h,
+	plugins/project-wizard/autogen.c,
+	plugins/project-wizard/autogen.h,
+	plugins/project-wizard/file.c,
+	plugins/project-wizard/file.h,
+	plugins/project-wizard/install.c,
+	plugins/project-wizard/parser.h,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/values.c,
+	plugins/project-wizard/values.h,
+	Add a space between function name and open.
+
+	* plugins/project-wizard/plugin.h,
+	plugins/project-wizard/plugin.c,
+	plugins/project-wizard/install.c,
+	Avoid a crash if the user close the message view used by the .
+
+	* plugins/project-wizard/anjuta-project-wizard,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/druid.h,
+	plugins/project-wizard/header.h,
+	plugins/project-wizard/header.c,
+	Add a text view with the description of each.
+	Add a tab for each project.
+	Replace some C++ comments to C comments.
+
 2005-02-05  Naba Kumar  <naba@gnome.org>
 
-	* plugins/project-wizard/anjuta-project-wizard.png: New icon
-	from Sebastien Granjoux .
+	* plugins/project-wizard/anjuta-project-wizard-plugin.png:
+	New icon from Sebastien Granjoux .
 	
-2005-02-05  Sebastien Granjoux <seb.sfo@free.fr>
+2005-02-05  Sebastien Granjoux  <seb.sfo@free.fr>
 
-	* libanjuta/anjuta-preferences.
+	* libanjuta/anjuta-preferences.c:
 	Set file property even without a focus out event (file selected 
 	the browse dialog)
 

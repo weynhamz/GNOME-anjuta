@@ -57,56 +57,56 @@ typedef enum {
 	NPW_EDITABLE_OPTION = 1 << 2
 } NPWPropertyOptions;
 
-NPWProperty* npw_property_new(NPWPage* owner);
-void npw_property_destroy(NPWProperty* this);
+NPWProperty* npw_property_new (NPWPage* owner);
+void npw_property_destroy (NPWProperty* this);
 
-void npw_property_set_type(NPWProperty* this, NPWPropertyType type);
-void npw_property_set_string_type(NPWProperty* this, const gchar* type);
-NPWPropertyType npw_property_get_type(const NPWProperty* this);
+void npw_property_set_type (NPWProperty* this, NPWPropertyType type);
+void npw_property_set_string_type (NPWProperty* this, const gchar* type);
+NPWPropertyType npw_property_get_type (const NPWProperty* this);
 
-void npw_property_set_name(NPWProperty* this, const gchar* name);
-const gchar* npw_property_get_name(const NPWProperty* this);
+void npw_property_set_name (NPWProperty* this, const gchar* name);
+const gchar* npw_property_get_name (const NPWProperty* this);
 
-void npw_property_set_label(NPWProperty* this, const gchar* name);
-const gchar* npw_property_get_label(const NPWProperty* this);
+void npw_property_set_label (NPWProperty* this, const gchar* name);
+const gchar* npw_property_get_label (const NPWProperty* this);
 
-void npw_property_set_description(NPWProperty* this, const gchar* description);
-const gchar* npw_property_get_description(const NPWProperty* this);
+void npw_property_set_description (NPWProperty* this, const gchar* description);
+const gchar* npw_property_get_description (const NPWProperty* this);
 
-GtkWidget* npw_property_create_widget(NPWProperty* this);
-void npw_property_set_widget(NPWProperty* this, GtkWidget* widget);
-GtkWidget* npw_property_get_widget(const NPWProperty* this);
+GtkWidget* npw_property_create_widget (NPWProperty* this);
+void npw_property_set_widget (NPWProperty* this, GtkWidget* widget);
+GtkWidget* npw_property_get_widget (const NPWProperty* this);
 
-void npw_property_set_default(NPWProperty* this, const gchar* value);
+void npw_property_set_default (NPWProperty* this, const gchar* value);
 
-void npw_property_set_value_from_widget(NPWProperty* this, gint tag);
-void npw_property_set_value(NPWProperty* this, const gchar* value, gint tag);
-const char* npw_property_get_value(const NPWProperty* this);
+void npw_property_set_value_from_widget (NPWProperty* this, gint tag);
+void npw_property_set_value (NPWProperty* this, const gchar* value, gint tag);
+const char* npw_property_get_value (const NPWProperty* this);
 
-gboolean npw_property_add_list_item(NPWProperty* this, const char* name, const gchar* label);
+gboolean npw_property_add_list_item (NPWProperty* this, const char* name, const gchar* label);
 
-void npw_property_set_mandatory_option(NPWProperty* this, gboolean value);
-void npw_property_set_summary_option(NPWProperty* this, gboolean value);
-void npw_property_set_editable_option(NPWProperty* this, gboolean value);
-NPWPropertyOptions npw_property_get_options(const NPWProperty* this);
+void npw_property_set_mandatory_option (NPWProperty* this, gboolean value);
+void npw_property_set_summary_option (NPWProperty* this, gboolean value);
+void npw_property_set_editable_option (NPWProperty* this, gboolean value);
+NPWPropertyOptions npw_property_get_options (const NPWProperty* this);
 
 // Page = list of properties
 
-NPWPage* npw_page_new(NPWPropertyValues* value);
+NPWPage* npw_page_new (NPWPropertyValues* value);
 
-void npw_page_destroy(NPWPage* this);
+void npw_page_destroy (NPWPage* this);
 
 typedef void (*NPWPropertyForeachFunc) (NPWProperty* head, gpointer data);
 
-void npw_page_set_name(NPWPage* this, const gchar* name);
-const gchar* npw_page_get_name(const NPWPage* this);
+void npw_page_set_name (NPWPage* this, const gchar* name);
+const gchar* npw_page_get_name (const NPWPage* this);
 
-void npw_page_set_label(NPWPage* this, const gchar* name);
-const gchar* npw_page_get_label(const NPWPage* this);
+void npw_page_set_label (NPWPage* this, const gchar* name);
+const gchar* npw_page_get_label (const NPWPage* this);
 
-void npw_page_set_description(NPWPage* this, const gchar* name);
-const gchar* npw_page_get_description(const NPWPage* this);
+void npw_page_set_description (NPWPage* this, const gchar* name);
+const gchar* npw_page_get_description (const NPWPage* this);
 
-void npw_page_foreach_property(const NPWPage* this, NPWPropertyForeachFunc func, gpointer data);
+void npw_page_foreach_property (const NPWPage* this, NPWPropertyForeachFunc func, gpointer data);
 
 #endif

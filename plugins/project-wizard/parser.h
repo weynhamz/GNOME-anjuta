@@ -28,39 +28,39 @@
 #include "file.h"
 #include "action.h"
 
-gboolean npw_header_list_readdir(NPWHeaderList* this, const gchar* pathname);
+gboolean npw_header_list_readdir (NPWHeaderList* this, const gchar* pathname);
 
-gboolean npw_header_list_read(NPWHeaderList* this, const gchar* filename);
+gboolean npw_header_list_read (NPWHeaderList* this, const gchar* filename);
 
 
 typedef struct _NPWPageParser NPWPageParser;
 
-NPWPageParser* npw_page_parser_new(NPWPage* page, const gchar* filename, gint count);
-void npw_page_parser_free(NPWPageParser* this);
+NPWPageParser* npw_page_parser_new (NPWPage* page, const gchar* filename, gint count);
+void npw_page_parser_free (NPWPageParser* this);
 
-gboolean npw_page_parser_parse(NPWPageParser* this, const gchar* text, gssize len, GError** error);
-gboolean npw_page_parser_end_parse(NPWPageParser* this, GError** error);
+gboolean npw_page_parser_parse (NPWPageParser* this, const gchar* text, gssize len, GError** error);
+gboolean npw_page_parser_end_parse (NPWPageParser* this, GError** error);
 
-gboolean npw_page_read(NPWPage* this, const gchar* filename, gint count);
+gboolean npw_page_read (NPWPage* this, const gchar* filename, gint count);
 
 
 typedef struct _NPWFileListParser NPWFileListParser;
 
-NPWFileListParser* npw_file_list_parser_new(NPWFileList* list, const gchar* filename);
-void npw_file_list_parser_free(NPWFileListParser* this);
+NPWFileListParser* npw_file_list_parser_new (NPWFileList* list, const gchar* filename);
+void npw_file_list_parser_free (NPWFileListParser* this);
 
-gboolean npw_file_list_parser_parse(NPWFileListParser* this, const gchar* text, gssize len, GError** error);
-gboolean npw_file_list_parser_end_parse(NPWFileListParser* this, GError** error);
+gboolean npw_file_list_parser_parse (NPWFileListParser* this, const gchar* text, gssize len, GError** error);
+gboolean npw_file_list_parser_end_parse (NPWFileListParser* this, GError** error);
 
-gboolean npw_file_list_read(NPWFileList* this, const gchar* filename);
+gboolean npw_file_list_read (NPWFileList* this, const gchar* filename);
 
 
 typedef struct _NPWActionListParser NPWActionListParser;
 
-NPWActionListParser* npw_action_list_parser_new(NPWActionList* list);
-void npw_action_list_parser_free(NPWActionListParser* this);
+NPWActionListParser* npw_action_list_parser_new (NPWActionList* list);
+void npw_action_list_parser_free (NPWActionListParser* this);
 
-gboolean npw_action_list_parser_parse(NPWActionListParser* this, const gchar* text, gssize len, GError** error);
-gboolean npw_action_list_parser_end_parse(NPWActionListParser* this, GError** error);
+gboolean npw_action_list_parser_parse (NPWActionListParser* this, const gchar* text, gssize len, GError** error);
+gboolean npw_action_list_parser_end_parse (NPWActionListParser* this, GError** error);
 
 #endif

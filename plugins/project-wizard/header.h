@@ -29,31 +29,37 @@ typedef struct _NPWHeader NPWHeader;
 typedef struct _NPWHeaderList NPWHeaderList;
 
 
-NPWHeader* npw_header_new(NPWHeaderList* owner);
-void npw_header_free(NPWHeader* this);
+NPWHeader* npw_header_new (NPWHeaderList* owner);
+void npw_header_free (NPWHeader* this);
 
-void npw_header_set_name(NPWHeader* this, const gchar* name);
-const gchar* npw_header_get_name(const NPWHeader* this);
+void npw_header_set_name (NPWHeader* this, const gchar* name);
+const gchar* npw_header_get_name (const NPWHeader* this);
 
-void npw_header_set_filename(NPWHeader* this, const gchar* filename);
-const gchar* npw_header_get_filename(const NPWHeader* this);
+void npw_header_set_filename (NPWHeader* this, const gchar* filename);
+const gchar* npw_header_get_filename (const NPWHeader* this);
 
-void npw_header_set_category(NPWHeader* this, const gchar* category);
+void npw_header_set_category (NPWHeader* this, const gchar* category);
+const gchar* npw_header_get_category(const NPWHeader* this);
 
-void npw_header_set_description(NPWHeader* this, const gchar* description);
+void npw_header_set_description (NPWHeader* this, const gchar* description);
+const gchar* npw_header_get_description (const NPWHeader* this);
 
-void npw_header_set_iconfile(NPWHeader* this, const gchar* confile);
-const gchar* npw_header_get_iconfile(const NPWHeader* this);
+void npw_header_set_iconfile (NPWHeader* this, const gchar* confile);
+const gchar* npw_header_get_iconfile (const NPWHeader* this);
+
+gboolean npw_header_is_leaf(const NPWHeader* this);
 
 
+NPWHeaderList* npw_header_list_new (void);
 
+void npw_header_list_destroy (NPWHeaderList* this);
 
-NPWHeaderList* npw_header_list_new(void);
-
-void npw_header_list_destroy(NPWHeaderList* this);
+void npw_header_list_organize(NPWHeaderList* this, const gchar* category, NPWHeader* header);
 
 typedef void (*NPWHeaderForeachFunc) (NPWHeader* head, gpointer data);
 
-void npw_header_list_foreach_project(const NPWHeaderList* this, NPWHeaderForeachFunc func, gpointer data);
+gboolean npw_header_list_foreach_project (const NPWHeaderList* this, NPWHeaderForeachFunc func, gpointer data);
+gboolean npw_header_list_foreach_project_in (const NPWHeaderList* this, const gchar* category, NPWHeaderForeachFunc func, gpointer data);
+gboolean npw_header_list_foreach_category (const NPWHeaderList* this, NPWHeaderForeachFunc func, gpointer data);
 
 #endif

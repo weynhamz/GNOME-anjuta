@@ -18,10 +18,10 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-// 
-//	All functions for parsing wizard template (.wiz) files
-//
-//----------------------------------------------------------------------------
+/* 
+ * All functions for parsing wizard template (.wiz) files
+ *
+ *---------------------------------------------------------------------------*/
 
 #include <config.h>
 
@@ -32,8 +32,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-//	Types
-//----------------------------------------------------------------------------
+/*---------------------------------------------------------------------------*/
 
 #define PROJECT_WIZARD_EXTENSION	".wiz"
 #define STRING_CHUNK_SIZE	256
@@ -89,106 +88,106 @@ typedef enum {
 } NPWParserError;
 
 
-// Read all project templates in a directory
-//----------------------------------------------------------------------------
+/* Read all project templates in a directory
+ *---------------------------------------------------------------------------*/
 
 gboolean
-npw_header_list_readdir(NPWHeaderList* this, const gchar* path)
+npw_header_list_readdir (NPWHeaderList* this, const gchar* path)
 {
 	GDir* dir;
 	const gchar* name;
 	gchar* filename;
 	gboolean ok = FALSE;
 
-	g_return_val_if_fail(this != NULL, FALSE);
-	g_return_val_if_fail(path != NULL, FALSE);
+	g_return_val_if_fail (this != NULL, FALSE);
+	g_return_val_if_fail (path != NULL, FALSE);
 
 	// Read all project template files
-	dir = g_dir_open(path, 0, NULL);
+	dir = g_dir_open (path, 0, NULL);
 	if (!dir) return FALSE;
 
-	while ((name = g_dir_read_name(dir)) != NULL)
+	while ((name = g_dir_read_name (dir)) != NULL)
 	{
-		if (g_str_has_suffix(name, PROJECT_WIZARD_EXTENSION))
+		if (g_str_has_suffix (name, PROJECT_WIZARD_EXTENSION))
 		{
-			filename = g_build_filename(path, name, NULL);
+			filename = g_build_filename (path, name, NULL);
 
-		       	if (!g_file_test(filename, G_FILE_TEST_IS_DIR))
+		       	if (!g_file_test (filename, G_FILE_TEST_IS_DIR))
 			{
-				if (npw_header_list_read(this, filename))
+				if (npw_header_list_read (this, filename))
 				{
 					// Read at least one project file
 					ok = TRUE;
 				}
 			}
-			g_free(filename);
+			g_free (filename);
 		}
 	}
 
-	g_dir_close(dir);
+	g_dir_close (dir);
 
 	return ok;
 }
 
-// Common parser functions
-//----------------------------------------------------------------------------
+/* Common parser functions
+ *---------------------------------------------------------------------------*/
 
 static NPWTag
-parse_tag(const char* name)
+parse_tag (const char* name)
 {
-	if (strcmp(name, "project-wizard") == 0)
+	if (strcmp (name, "project-wizard") == 0)
 	{
 		return NPW_PROJECT_WIZARD_TAG;
 	}
-	else if (strcmp("name", name) == 0)
+	else if (strcmp ("name", name) == 0)
 	{
 		return NPW_NAME_TAG;
 	}
-	else if (strcmp("description", name) == 0)
+	else if (strcmp ("description", name) == 0)
 	{
 		return NPW_DESCRIPTION_TAG;
 	}
-	else if (strcmp("icon", name) == 0)
+	else if (strcmp ("icon", name) == 0)
 	{
 		return NPW_ICON_TAG;
 	}
-	else if (strcmp("category", name) == 0)
+	else if (strcmp ("category", name) == 0)
 	{
 		return NPW_CATEGORY_TAG;
 	}
-	else if (strcmp("page", name) == 0)
+	else if (strcmp ("page", name) == 0)
 	{
 		return NPW_PAGE_TAG;
 	}
-	else if (strcmp("property", name) == 0)
+	else if (strcmp ("property", name) == 0)
 	{
 		return NPW_PROPERTY_TAG;
 	}
-	else if (strcmp("item", name) == 0)
+	else if (strcmp ("item", name) == 0)
 	{
 		return NPW_ITEM_TAG;
 	}	
-	else if (strcmp("directory", name) == 0)
+	else if (strcmp ("directory", name) == 0)
 	{
 		return NPW_DIRECTORY_TAG;
 	}
-	else if (strcmp("content", name) == 0)
+	else if (strcmp ("content", name) == 0)
 	{
 		return NPW_CONTENT_TAG;
 	}
-	else if (strcmp("file", name) == 0)
+	else if (strcmp ("file", name) == 0)
 	{
 		return NPW_FILE_TAG;
 	}
-	else if (strcmp("action", name) == 0)
+	else if (strcmp ("action", name) == 0)
 	{
 		return NPW_ACTION_TAG;
 	}
-	else if (strcmp("run", name) == 0)
+	else if (strcmp ("run", name) == 0)
 	{
 		return NPW_RUN_TAG;
 	}
-	else if (strcmp("open", name) == 0)
+	else if (strcmp ("open", name) == 0)
 	{
 		return NPW_OPEN_TAG;
 	}
@@ -199,65 +198,65 @@ parse_tag(const char* name)
 }
 
 static NPWAttribute
-parse_attribute(const char* name)
+parse_attribute (const char* name)
 {
-	if (strcmp("name", name) == 0)
+	if (strcmp ("name", name) == 0)
 	{
 		return NPW_NAME_ATTRIBUTE;
 	}
-	else if (strcmp("_label", name) == 0)
+	else if (strcmp ("_label", name) == 0)
 	{
 		return NPW_LABEL_ATTRIBUTE;
 	}
-	else if (strcmp("_description", name) == 0)
+	else if (strcmp ("_description", name) == 0)
 	{
 		return NPW_DESCRIPTION_ATTRIBUTE;
 	}
-	else if (strcmp("default", name) == 0 || strcmp("value", name) == 0)
+	else if (strcmp ("default", name) == 0 || strcmp ("value", name) == 0)
 	{
 		return NPW_VALUE_ATTRIBUTE;
 	}
-	else if (strcmp("type", name) == 0)
+	else if (strcmp ("type", name) == 0)
 	{
 		return NPW_TYPE_ATTRIBUTE;
 	}
-	else if (strcmp("summary", name) == 0)
+	else if (strcmp ("summary", name) == 0)
 	{
 		return NPW_SUMMARY_ATTRIBUTE;
 	}
-	else if (strcmp("mandatory", name) == 0)
+	else if (strcmp ("mandatory", name) == 0)
 	{
 		return NPW_MANDATORY_ATTRIBUTE;
 	}
-	else if (strcmp("editable", name) == 0)
+	else if (strcmp ("editable", name) == 0)
 	{
 		return NPW_EDITABLE_ATTRIBUTE;
 	}
-	else if (strcmp("source", name) == 0)
+	else if (strcmp ("source", name) == 0)
 	{
 		return NPW_SOURCE_ATTRIBUTE;
 	}
-	else if (strcmp("destination", name) == 0)
+	else if (strcmp ("destination", name) == 0)
 	{
 		return NPW_DESTINATION_ATTRIBUTE;
 	}
-	else if (strcmp("executable", name) == 0)
+	else if (strcmp ("executable", name) == 0)
 	{
 		return NPW_EXECUTABLE_ATTRIBUTE;
 	}
-	else if (strcmp("project", name) == 0)
+	else if (strcmp ("project", name) == 0)
 	{
 		return NPW_PROJECT_ATTRIBUTE;
 	}
-	else if (strcmp("autogen", name) == 0)
+	else if (strcmp ("autogen", name) == 0)
 	{
 		return NPW_AUTOGEN_ATTRIBUTE;
 	}
-	else if (strcmp("command", name) == 0)
+	else if (strcmp ("command", name) == 0)
 	{
 		return NPW_COMMAND_ATTRIBUTE;
 	}
-	else if (strcmp("file", name) == 0)
+	else if (strcmp ("file", name) == 0)
 	{
 		return NPW_FILE_ATTRIBUTE;
 	}
@@ -268,13 +267,13 @@ parse_attribute(const char* name)
 }
 
 static gboolean
-parse_boolean_string(const gchar* value)
+parse_boolean_string (const gchar* value)
 {
-	return g_ascii_strcasecmp("no", value) && g_ascii_strcasecmp("0", value) && g_ascii_strcasecmp("false", value);
+	return g_ascii_strcasecmp ("no", value) && g_ascii_strcasecmp ("0", value) && g_ascii_strcasecmp ("false", value);
 }
 
 static GQuark
-parser_error_quark(void)
+parser_error_quark (void)
 {
 	static GQuark error_quark = 0;
 
@@ -284,22 +283,22 @@ parser_error_quark(void)
 }
 
 static void
-parser_warning(GMarkupParseContext* ctx, const gchar* format,...)
+parser_warning (GMarkupParseContext* ctx, const gchar* format,...)
 {
 	va_list args;
 	gchar* msg;
 	gint line;
 
-	g_markup_parse_context_get_position(ctx, &line, NULL);
-	msg = g_strdup_printf("line %d: %s", line, format);
-	va_start(args, format);
-	g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, msg, args);
-	va_end(args);
-	g_free(msg);
+	g_markup_parse_context_get_position (ctx, &line, NULL);
+	msg = g_strdup_printf ("line %d: %s", line, format);
+	va_start (args, format);
+	g_logv (G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, msg, args);
+	va_end (args);
+	g_free (msg);
 }
 
-// Parse project wizard block
-//----------------------------------------------------------------------------
+/* Parse project wizard block
+ *---------------------------------------------------------------------------*/
 
 #define NPW_HEADER_PARSER_MAX_LEVEL	2	// Maximum number of nested elements
 
@@ -322,7 +321,7 @@ typedef struct _NPWHeaderParser
 } NPWHeaderParser;
 
 static void
-parse_header_start(GMarkupParseContext* context,
+parse_header_start (GMarkupParseContext* context,
        	const gchar* name,
 	const gchar** attributes,
 	const gchar** values,
@@ -337,7 +336,7 @@ parse_header_start(GMarkupParseContext* context,
 	if (parser->unknown == 0)
 	{
 		// Not inside an unknown element
-		tag = parse_tag(name);
+		tag = parse_tag (name);
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
@@ -345,12 +344,12 @@ parse_header_start(GMarkupParseContext* context,
 			switch (tag)
 			{
 			case NPW_PROJECT_WIZARD_TAG:
-				parser->header = npw_header_new(parser->list);
-				npw_header_set_filename(parser->header, parser->filename);
+				parser->header = npw_header_new (parser->list);
+				npw_header_set_filename (parser->header, parser->filename);
 				known = TRUE;
 				break;
 			case NPW_UNKNOW_TAG:
-				parser_warning(parser->ctx, "Unknown element \"%s\"", name);
+				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
 				break;
 			default:
 				break;
@@ -367,12 +366,12 @@ parse_header_start(GMarkupParseContext* context,
 				known = TRUE;
 				break;
 			default:
-				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 				break;
 			}
 			break;
 		default:
-			parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+			parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 			break;
 		}
 	}
@@ -381,7 +380,7 @@ parse_header_start(GMarkupParseContext* context,
 	if (known)
 	{
 		// Know element stack overflow
-		g_return_if_fail((parser->last - parser->tag) <= NPW_HEADER_PARSER_MAX_LEVEL);
+		g_return_if_fail ((parser->last - parser->tag) <= NPW_HEADER_PARSER_MAX_LEVEL);
 		parser->last++;
 		*parser->last = tag;
 	}
@@ -392,7 +391,7 @@ parse_header_start(GMarkupParseContext* context,
 }
 
 static void
-parse_header_end(GMarkupParseContext* context,
+parse_header_end (GMarkupParseContext* context,
        	const gchar* name,
 	gpointer data,
 	GError** error)
@@ -415,21 +414,21 @@ parse_header_end(GMarkupParseContext* context,
 			//  to be a valid xml file
 
 			// error should be available to stop parsing
-			g_return_if_fail(error != NULL);
+			g_return_if_fail (error != NULL);
 		
 			// Send an error	
-			*error = g_error_new_literal(parser_error_quark(), NPW_STOP_PARSING, "");
+			*error = g_error_new_literal (parser_error_quark (), NPW_STOP_PARSING, "");
 		}
 	}
 	else
 	{
 		// Know element stack underflow
-		g_return_if_reached();
+		g_return_if_reached ();
 	}
 }
 
 static void
-parse_header_text(GMarkupParseContext* context,
+parse_header_text (GMarkupParseContext* context,
        	const gchar* text,
 	gsize len,
 	gpointer data,
@@ -442,32 +441,32 @@ parse_header_text(GMarkupParseContext* context,
 		switch (*parser->last)
 		{
 		case NPW_NAME_TAG:
-			npw_header_set_name(parser->header, text);
+			npw_header_set_name (parser->header, text);
 			break;
 		case NPW_DESCRIPTION_TAG:
-			npw_header_set_description(parser->header, text);
+			npw_header_set_description (parser->header, text);
 			break;
 		case NPW_ICON_TAG:
 		{
 			char* filename;
 			char* path;
 
-			path = g_path_get_dirname(parser->filename);
-			filename = g_build_filename(path, text, NULL);
-			npw_header_set_iconfile(parser->header, filename);
-			g_free(path);
-			g_free(filename);
+			path = g_path_get_dirname (parser->filename);
+			filename = g_build_filename (path, text, NULL);
+			npw_header_set_iconfile (parser->header, filename);
+			g_free (path);
+			g_free (filename);
 			break;
 		}
 		case NPW_CATEGORY_TAG:
-			npw_header_set_category(parser->header, text);
+			npw_header_set_category (parser->header, text);
 			break;
 		case NPW_PROJECT_WIZARD_TAG:
 			// Nothing to do
 			break;
 		default:
 			// Unknown tag
-			g_return_if_reached();
+			g_return_if_reached ();
 			break;
 		}
 	}
@@ -482,15 +481,15 @@ static GMarkupParser header_markup_parser = {
 };
 
 static NPWHeaderParser*
-npw_header_parser_new(NPWHeaderList* list, const gchar* filename)
+npw_header_parser_new (NPWHeaderList* list, const gchar* filename)
 {
 	NPWHeaderParser* this;
 
-	g_return_val_if_fail(list != NULL, NULL);
-	g_return_val_if_fail(this != NULL, NULL);
-	g_return_val_if_fail(filename != NULL, NULL);
+	g_return_val_if_fail (list != NULL, NULL);
+	g_return_val_if_fail (this != NULL, NULL);
+	g_return_val_if_fail (filename != NULL, NULL);
 
-	this = g_new(NPWHeaderParser, 1);
+	this = g_new (NPWHeaderParser, 1);
 
 	this->type = NPW_HEADER_PARSER;
 
@@ -500,89 +499,89 @@ npw_header_parser_new(NPWHeaderList* list, const gchar* filename)
 
 	this->list = list;
 	this->header = NULL;
-	this->filename = g_strdup(filename);
+	this->filename = g_strdup (filename);
 
-	this->ctx = g_markup_parse_context_new(&header_markup_parser, 0, this, NULL);
-	g_assert(this->ctx != NULL);
+	this->ctx = g_markup_parse_context_new (&header_markup_parser, 0, this, NULL);
+	g_assert (this->ctx != NULL);
 
 	return this;
 }
 
 static void
-npw_header_parser_free(NPWHeaderParser* this)
+npw_header_parser_free (NPWHeaderParser* this)
 {
-	g_return_if_fail(this != NULL);
+	g_return_if_fail (this != NULL);
 
-	g_free(this->filename);
-	g_markup_parse_context_free(this->ctx);
-	g_free(this);
+	g_free (this->filename);
+	g_markup_parse_context_free (this->ctx);
+	g_free (this);
 }
 
 static gboolean
-npw_header_parser_parse(NPWHeaderParser* this, const gchar* text, gssize len, GError** error)
+npw_header_parser_parse (NPWHeaderParser* this, const gchar* text, gssize len, GError** error)
 {
-	return g_markup_parse_context_parse(this->ctx, text, len, error);
+	return g_markup_parse_context_parse (this->ctx, text, len, error);
 }
 
 // Not used
 //
 //static gboolean
-//npw_header_parser_end_parse(NPWHeaderParser* this, GError** error)
+//npw_header_parser_end_parse (NPWHeaderParser* this, GError** error)
 //{
-//	return g_markup_parse_context_end_parse(this->ctx, error);
+//	return g_markup_parse_context_end_parse (this->ctx, error);
 //}
 
 gboolean
-npw_header_list_read(NPWHeaderList* this, const gchar* filename)
+npw_header_list_read (NPWHeaderList* this, const gchar* filename)
 {
 	gchar* content;
 	gsize len;
 	NPWHeaderParser* parser;
 	GError* err = NULL;
 
-	g_return_val_if_fail(this != NULL, FALSE);
-	g_return_val_if_fail(filename != NULL, FALSE);
+	g_return_val_if_fail (this != NULL, FALSE);
+	g_return_val_if_fail (filename != NULL, FALSE);
 
-	if (!g_file_get_contents(filename, &content, &len, &err))
+	if (!g_file_get_contents (filename, &content, &len, &err))
 	{
- 		g_warning(err->message);
-		g_error_free(err);
+ 		g_warning (err->message);
+		g_error_free (err);
 
 		return FALSE;
 	}
 
-	parser = npw_header_parser_new(this, filename);
+	parser = npw_header_parser_new (this, filename);
 
-	npw_header_parser_parse(parser, content, len, &err);
+	npw_header_parser_parse (parser, content, len, &err);
 	// Parse only a part of the file, so need to call parser_end_parse
        
-	npw_header_parser_free(parser);
-	g_free(content);
+	npw_header_parser_free (parser);
+	g_free (content);
 
 	if (err == NULL)
 	{
 		// Parsing must end with an error
 		//  generated at the end of the project wizard block
-		g_warning("Missing project wizard block in %s", filename);
+		g_warning ("Missing project wizard block in %s", filename);
 
 		return FALSE;
 	}
-	if (g_error_matches(err, parser_error_quark(), NPW_STOP_PARSING) == FALSE)
+	if (g_error_matches (err, parser_error_quark (), NPW_STOP_PARSING) == FALSE)
 	{
 		// Parsing error
-		g_warning(err->message);
-		g_error_free(err);
+		g_warning (err->message);
+		g_error_free (err);
 
 		return FALSE;
 	}
-	g_error_free(err);
+	g_error_free (err);
 
 	return TRUE;	
 }
 
 
-// Parse page block
-//----------------------------------------------------------------------------
+/* Parse page block
+ *---------------------------------------------------------------------------*/
 
 #define NPW_PAGE_PARSER_MAX_LEVEL	3	// Maximum number of nested elements
 
@@ -605,7 +604,7 @@ struct _NPWPageParser
 };
 
 static gboolean
-parse_page(NPWPageParser* this, 
+parse_page (NPWPageParser* this, 
 	const gchar** attributes,
 	const gchar** values)
 {
@@ -621,19 +620,19 @@ parse_page(NPWPageParser* this,
 		// Read this page
 		while (*attributes != NULL)
 		{
-			switch (parse_attribute(*attributes))
+			switch (parse_attribute (*attributes))
 			{
 			case NPW_NAME_ATTRIBUTE:
-				npw_page_set_name(this->page, *values);
+				npw_page_set_name (this->page, *values);
 				break;
 			case NPW_LABEL_ATTRIBUTE:
-				npw_page_set_label(this->page, *values);
+				npw_page_set_label (this->page, *values);
 				break;
 			case NPW_DESCRIPTION_ATTRIBUTE:
-				npw_page_set_description(this->page, *values);
+				npw_page_set_description (this->page, *values);
 				break;
 			default:
-				parser_warning(this->ctx, "Unknown page attribute \"%s\"", *attributes);
+				parser_warning (this->ctx, "Unknown page attribute \"%s\"", *attributes);
 				break;
 			}
 			attributes++;
@@ -646,42 +645,42 @@ parse_page(NPWPageParser* this,
 }
 
 static gboolean
-parse_property(NPWPageParser* this,
+parse_property (NPWPageParser* this,
 	const gchar** attributes,
 	const gchar** values)
 {
-	this->property = npw_property_new(this->page);
+	this->property = npw_property_new (this->page);
 
 	while (*attributes != NULL)
 	{
-		switch (parse_attribute(*attributes))
+		switch (parse_attribute (*attributes))
 		{
 		case NPW_TYPE_ATTRIBUTE:
-			npw_property_set_string_type(this->property, *values);
+			npw_property_set_string_type (this->property, *values);
 			break;
 		case NPW_NAME_ATTRIBUTE:
-			npw_property_set_name(this->property, *values);
+			npw_property_set_name (this->property, *values);
 			break;
 		case NPW_LABEL_ATTRIBUTE:
-			npw_property_set_label(this->property, *values);
+			npw_property_set_label (this->property, *values);
 			break;
 		case NPW_DESCRIPTION_ATTRIBUTE:
-			npw_property_set_description(this->property, *values);
+			npw_property_set_description (this->property, *values);
 			break;
 		case NPW_VALUE_ATTRIBUTE:
-			npw_property_set_default(this->property, *values);
+			npw_property_set_default (this->property, *values);
 			break;
 		case NPW_SUMMARY_ATTRIBUTE:
-			npw_property_set_summary_option(this->property, parse_boolean_string(*values));
+			npw_property_set_summary_option (this->property, parse_boolean_string (*values));
 			break;		
 		case NPW_MANDATORY_ATTRIBUTE:
-			npw_property_set_mandatory_option(this->property, parse_boolean_string(*values));
+			npw_property_set_mandatory_option (this->property, parse_boolean_string (*values));
 			break;
 		case NPW_EDITABLE_ATTRIBUTE:
-			npw_property_set_editable_option(this->property, parse_boolean_string(*values));
+			npw_property_set_editable_option (this->property, parse_boolean_string (*values));
 			break;
 		default:
-			parser_warning(this->ctx, "Unknown property attribute \"%s\"", *attributes);
+			parser_warning (this->ctx, "Unknown property attribute \"%s\"", *attributes);
 			break;
 		}
 		attributes++;
@@ -692,7 +691,7 @@ parse_property(NPWPageParser* this,
 }
 
 static gboolean
-parse_item(NPWPageParser* this,
+parse_item (NPWPageParser* this,
 	const gchar** attributes,
 	const gchar** values)
 {
@@ -701,7 +700,7 @@ parse_item(NPWPageParser* this,
 
 	while (*attributes != NULL)
 	{
-		switch (parse_attribute(*attributes))
+		switch (parse_attribute (*attributes))
 		{
 		case NPW_NAME_ATTRIBUTE:
 			name = *values;
@@ -710,7 +709,7 @@ parse_item(NPWPageParser* this,
 			label = *values;
 			break;
 		default:
-			parser_warning(this->ctx, "Unknown item attribute \"%s\"", *attributes);
+			parser_warning (this->ctx, "Unknown item attribute \"%s\"", *attributes);
 			break;
 		}
 		attributes++;
@@ -719,18 +718,18 @@ parse_item(NPWPageParser* this,
 
 	if (name == NULL)
 	{
-		parser_warning(this->ctx, "Missing name attribute");
+		parser_warning (this->ctx, "Missing name attribute");
 	}
 	else
 	{
-		npw_property_add_list_item(this->property, name, label == NULL ? name : label);
+		npw_property_add_list_item (this->property, name, label == NULL ? name : label);
 	}
 
 	return TRUE;
 }
 
 static void
-parse_page_start(GMarkupParseContext* context,
+parse_page_start (GMarkupParseContext* context,
        	const gchar* name,
 	const gchar** attributes,
 	const gchar** values,
@@ -745,18 +744,18 @@ parse_page_start(GMarkupParseContext* context,
 	if (parser->unknown == 0)
 	{
 		// Not inside an unknown element
-		tag = parse_tag(name);
+		tag = parse_tag (name);
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
 			// Top level element
-			switch(tag)
+			switch (tag)
 			{
 			case NPW_PAGE_TAG:
-				known = parse_page(parser, attributes, values);
+				known = parse_page (parser, attributes, values);
 				break;
 			case NPW_UNKNOW_TAG:
-				parser_warning(parser->ctx, "Unknown element \"%s\"", name);
+				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
 				break;
 			default:
 				break;
@@ -767,10 +766,10 @@ parse_page_start(GMarkupParseContext* context,
 			switch (tag)
 			{
 			case NPW_PROPERTY_TAG:
-				known = parse_property(parser, attributes, values);
+				known = parse_property (parser, attributes, values);
 				break;
 			default:
-				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 				break;
 			}
 			break;
@@ -779,15 +778,15 @@ parse_page_start(GMarkupParseContext* context,
 			switch (tag)
 			{
 			case NPW_ITEM_TAG:
-				known = parse_item(parser, attributes, values);
+				known = parse_item (parser, attributes, values);
 				break;
 			default:
-				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 				break;
 			}
 			break;
 		default:
-			parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+			parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 			break;
 		}
 	}
@@ -796,7 +795,7 @@ parse_page_start(GMarkupParseContext* context,
 	if (known)
 	{
 		// Know element stack overflow
-		g_return_if_fail((parser->last - parser->tag) <= NPW_PAGE_PARSER_MAX_LEVEL);
+		g_return_if_fail ((parser->last - parser->tag) <= NPW_PAGE_PARSER_MAX_LEVEL);
 		parser->last++;
 		*parser->last = tag;
 	}
@@ -807,7 +806,7 @@ parse_page_start(GMarkupParseContext* context,
 }
 
 static void
-parse_page_end(GMarkupParseContext* context,
+parse_page_end (GMarkupParseContext* context,
        	const gchar* name,
 	gpointer data,
 	GError** error)
@@ -827,7 +826,7 @@ parse_page_end(GMarkupParseContext* context,
 	else
 	{
 		// Know element stack underflow
-		g_return_if_reached();
+		g_return_if_reached ();
 	}
 }
 
@@ -840,14 +839,14 @@ static GMarkupParser page_markup_parser = {
 };
 
 NPWPageParser*
-npw_page_parser_new(NPWPage* page, const gchar* filename, gint count)
+npw_page_parser_new (NPWPage* page, const gchar* filename, gint count)
 {
 	NPWPageParser* this;
 
-	g_return_val_if_fail(page != NULL, NULL);
-	g_return_val_if_fail(count >= 0, NULL);
+	g_return_val_if_fail (page != NULL, NULL);
+	g_return_val_if_fail (count >= 0, NULL);
 
-	this = g_new(NPWPageParser, 1);
+	this = g_new (NPWPageParser, 1);
 
 	this->type = NPW_PAGE_PARSER;
 
@@ -859,66 +858,66 @@ npw_page_parser_new(NPWPage* page, const gchar* filename, gint count)
 	this->page = page;
 	this->property = NULL;
 
-	this->ctx = g_markup_parse_context_new(&page_markup_parser, 0, this, NULL);
-	g_assert(this->ctx != NULL);
+	this->ctx = g_markup_parse_context_new (&page_markup_parser, 0, this, NULL);
+	g_assert (this->ctx != NULL);
 
 	return this;
 }
 
 void
-npw_page_parser_free(NPWPageParser* this)
+npw_page_parser_free (NPWPageParser* this)
 {
-	g_return_if_fail(this != NULL);
+	g_return_if_fail (this != NULL);
 
-	g_markup_parse_context_free(this->ctx);
-	g_free(this);
+	g_markup_parse_context_free (this->ctx);
+	g_free (this);
 }
 
 gboolean
-npw_page_parser_parse(NPWPageParser* this, const gchar* text, gssize len, GError** error)
+npw_page_parser_parse (NPWPageParser* this, const gchar* text, gssize len, GError** error)
 {
-	return g_markup_parse_context_parse(this->ctx, text, len, error);
+	return g_markup_parse_context_parse (this->ctx, text, len, error);
 }
 
 gboolean
-npw_page_parser_end_parse(NPWPageParser* this, GError** error)
+npw_page_parser_end_parse (NPWPageParser* this, GError** error)
 {
-	return g_markup_parse_context_end_parse(this->ctx, error);
+	return g_markup_parse_context_end_parse (this->ctx, error);
 }
 
 gboolean
-npw_page_read(NPWPage* this, const gchar* filename, gint count)
+npw_page_read (NPWPage* this, const gchar* filename, gint count)
 {
 	gchar* content;
 	gsize len;
 	NPWPageParser* parser;
 	GError* err = NULL;
 
-	g_return_val_if_fail(this != NULL, FALSE);
-	g_return_val_if_fail(filename != NULL, FALSE);
-	g_return_val_if_fail(count < 0, FALSE);
+	g_return_val_if_fail (this != NULL, FALSE);
+	g_return_val_if_fail (filename != NULL, FALSE);
+	g_return_val_if_fail (count < 0, FALSE);
 
-	if (!g_file_get_contents(filename, &content, &len, &err))
+	if (!g_file_get_contents (filename, &content, &len, &err))
 	{
-		g_warning(err->message);
-		g_error_free(err);
+		g_warning (err->message);
+		g_error_free (err);
 
 		return FALSE;
 	}
 
-	parser = npw_page_parser_new(this, filename, count);
+	parser = npw_page_parser_new (this, filename, count);
 
-	npw_page_parser_parse(parser, content, len, &err);
-	if (err == NULL) npw_page_parser_end_parse(parser, &err);
+	npw_page_parser_parse (parser, content, len, &err);
+	if (err == NULL) npw_page_parser_end_parse (parser, &err);
 
-	npw_page_parser_free(parser);
-	g_free(content);
+	npw_page_parser_free (parser);
+	g_free (content);
 
 	if (err != NULL)
 	{
 		// Parsing error
-		g_warning(err->message);
-		g_error_free(err);
+		g_warning (err->message);
+		g_error_free (err);
 
 		return FALSE;
 	}
@@ -927,8 +926,8 @@ npw_page_read(NPWPage* this, const gchar* filename, gint count)
 }
 
 
-// Parse content block
-//----------------------------------------------------------------------------
+/* Parse content block
+ *---------------------------------------------------------------------------*/
 
 #define NPW_FILE_PARSER_DEFAULT_LEVEL	4	// Default number of nested elements
 						// Dynamically allocated (no maximum)
@@ -959,14 +958,14 @@ struct _NPWFileListParser
 // not equal to path1 or path2
 
 static gchar*
-concat_directory(const gchar* path1, const gchar* path2)
+concat_directory (const gchar* path1, const gchar* path2)
 {
 	const gchar* ptr;
 
 	// Check for not supported . and .. directory name in path2
 	for (ptr = path2; ptr != '\0';)
 	{
-		ptr = strchr(ptr, '.');
+		ptr = strchr (ptr, '.');
 		if (ptr == NULL) break;
 
 		// Exception "." only is allowed
@@ -980,11 +979,11 @@ concat_directory(const gchar* path1, const gchar* path2)
 		ptr = ptr + 1;
 	}	
 
-	if ((*path1 == '\0') || (strcmp(path1, ".") == 0) || g_path_is_absolute(path2))
+	if ((*path1 == '\0') || (strcmp (path1, ".") == 0) || g_path_is_absolute (path2))
 	{
 		return (char *)path2;
 	}
-	else if ((*path2 == '\0') || (strcmp(path2, ".") == 0))
+	else if ((*path2 == '\0') || (strcmp (path2, ".") == 0))
 	{
 		return (char *)path1;
 	}
@@ -992,19 +991,19 @@ concat_directory(const gchar* path1, const gchar* path2)
 	{
 		GString* path;
 
-		path = g_string_new(path1);
+		path = g_string_new (path1);
 		if (path->str[path->len -1] != G_DIR_SEPARATOR)
 		{
-			g_string_append_c(path, G_DIR_SEPARATOR);
+			g_string_append_c (path, G_DIR_SEPARATOR);
 		}
-		g_string_append(path, path2);
+		g_string_append (path, path2);
 
-		return g_string_free(path, FALSE);
+		return g_string_free (path, FALSE);
 	}
 }
 
 static void
-parse_directory(NPWFileListParser* this, NPWFileTag* child, const gchar** attributes, const gchar** values)
+parse_directory (NPWFileListParser* this, NPWFileTag* child, const gchar** attributes, const gchar** values)
 {
 	const gchar* source;
 	const gchar* destination;
@@ -1017,7 +1016,7 @@ parse_directory(NPWFileListParser* this, NPWFileTag* child, const gchar** attrib
 	// Read all attributes
 	while (*attributes != NULL)
 	{
-		switch (parse_attribute(*attributes))
+		switch (parse_attribute (*attributes))
 		{
 		case NPW_SOURCE_ATTRIBUTE:
 			source = *values;
@@ -1026,7 +1025,7 @@ parse_directory(NPWFileListParser* this, NPWFileTag* child, const gchar** attrib
 			destination = *values;
 			break;
 		default:
-			parser_warning(this->ctx, "Unknow directory attribute \"%s\"", *attributes);
+			parser_warning (this->ctx, "Unknow directory attribute \"%s\"", *attributes);
 			break;
 		}
 		attributes++;
@@ -1044,43 +1043,43 @@ parse_directory(NPWFileListParser* this, NPWFileTag* child, const gchar** attrib
 	}
 	else if ((source == NULL) && (destination == NULL))
 	{
-		parser_warning(this->ctx, "Missing source or destination attribute");
+		parser_warning (this->ctx, "Missing source or destination attribute");
 		child->tag = NPW_NO_TAG;
 
 		return;
 	}
 		
-	path = concat_directory(child->source, source);
+	path = concat_directory (child->source, source);
 	if (path == NULL)
 	{
-		parser_warning(this->ctx, "Invalid directory source value \"%s\"", source);
+		parser_warning (this->ctx, "Invalid directory source value \"%s\"", source);
 		child->tag = NPW_NO_TAG;
 
 		return;
 	}
 	if (path != child->source) 
 	{
-		child->source = g_string_chunk_insert(this->str_pool, path);
-		if (path != source) g_free(path);
+		child->source = g_string_chunk_insert (this->str_pool, path);
+		if (path != source) g_free (path);
 	}
 
-	path = concat_directory(child->destination, destination);
+	path = concat_directory (child->destination, destination);
 	if (path == NULL)
 	{
-		parser_warning(this->ctx, "Invalid directory destination value \"%s\"", source);
+		parser_warning (this->ctx, "Invalid directory destination value \"%s\"", source);
 		child->tag = NPW_NO_TAG;
 
 		return;
 	}
 	if (path != child->destination) 
 	{
-		child->destination = g_string_chunk_insert(this->str_pool, path);
-		if (path != destination) g_free(path);
+		child->destination = g_string_chunk_insert (this->str_pool, path);
+		if (path != destination) g_free (path);
 	}
 }	
 
 static void
-parse_file(NPWFileListParser* this, NPWFileTag* child, const gchar** attributes, const gchar** values)
+parse_file (NPWFileListParser* this, NPWFileTag* child, const gchar** attributes, const gchar** values)
 {
 	const gchar* source;
 	const gchar* destination;
@@ -1101,7 +1100,7 @@ parse_file(NPWFileListParser* this, NPWFileTag* child, const gchar** attributes,
 
 	while (*attributes != NULL)
 	{
-		switch (parse_attribute(*attributes))
+		switch (parse_attribute (*attributes))
 		{
 		case NPW_SOURCE_ATTRIBUTE:
 			source = *values;
@@ -1110,17 +1109,17 @@ parse_file(NPWFileListParser* this, NPWFileTag* child, const gchar** attributes,
 			destination = *values;
 			break;
 		case NPW_PROJECT_ATTRIBUTE:
-			project = parse_boolean_string(*values);
+			project = parse_boolean_string (*values);
 			break;
 		case NPW_EXECUTABLE_ATTRIBUTE:
-			execute = parse_boolean_string(*values);
+			execute = parse_boolean_string (*values);
 			break;
 		case NPW_AUTOGEN_ATTRIBUTE:
-			autogen = parse_boolean_string(*values);
+			autogen = parse_boolean_string (*values);
 			autogen_set = TRUE;
 			break;
 		default:
-			parser_warning(this->ctx, "Unknow file attribute \"%s\"", *attributes);
+			parser_warning (this->ctx, "Unknow file attribute \"%s\"", *attributes);
 			break;
 		}
 		attributes++;
@@ -1137,39 +1136,39 @@ parse_file(NPWFileListParser* this, NPWFileTag* child, const gchar** attributes,
 	}
 	else if ((source == NULL) && (destination == NULL))
 	{
-		parser_warning(this->ctx, "Missing source or destination attribute");
+		parser_warning (this->ctx, "Missing source or destination attribute");
 		child->tag = NPW_NO_TAG;
 
 		return;
 	}
 
-	full_source = concat_directory(child->source, source);
+	full_source = concat_directory (child->source, source);
 	if ((full_source == NULL) || (full_source == child->source))
 	{
-		parser_warning(this->ctx, "Invalid file source value \"%s\"", source);
+		parser_warning (this->ctx, "Invalid file source value \"%s\"", source);
 		child->tag = NPW_NO_TAG;
 
 		return;
 	}
-	full_destination = concat_directory(child->destination, destination);
+	full_destination = concat_directory (child->destination, destination);
 	if ((full_destination == NULL) || (full_destination == child->source))
 	{
-		parser_warning(this->ctx, "Invalid directory destination value \"%s\"", source);
+		parser_warning (this->ctx, "Invalid directory destination value \"%s\"", source);
 		child->tag = NPW_NO_TAG;
 
 		return;
 	}
 
-	file = npw_file_new(this->list);
-	npw_file_set_type(file, NPW_FILE);
-	npw_file_set_source(file, full_source);
-	npw_file_set_destination(file, full_destination);
-	npw_file_set_execute(file, execute);
-	npw_file_set_project(file, project);
-	if (autogen_set) npw_file_set_autogen(file, autogen ? NPW_TRUE : NPW_FALSE);
+	file = npw_file_new (this->list);
+	npw_file_set_type (file, NPW_FILE);
+	npw_file_set_source (file, full_source);
+	npw_file_set_destination (file, full_destination);
+	npw_file_set_execute (file, execute);
+	npw_file_set_project (file, project);
+	if (autogen_set) npw_file_set_autogen (file, autogen ? NPW_TRUE : NPW_FALSE);
 
-	if (source != full_source) g_free(full_source);	
-	if (destination != full_destination) g_free(full_destination);	
+	if (source != full_source) g_free (full_source);	
+	if (destination != full_destination) g_free (full_destination);	
 }	
 
 static void
@@ -1191,9 +1190,9 @@ parse_file_start (GMarkupParseContext* context,
 	if (parser->unknown  == 0)
 	{
 		// Not inside an unknown element
-		tag = parse_tag(name);
+		tag = parse_tag (name);
 
-		parent = g_queue_peek_head(parser->tag);
+		parent = g_queue_peek_head (parser->tag);
 		child.source = parent->source;
 		child.destination = parent->destination;
 		switch (parent->tag)
@@ -1206,7 +1205,7 @@ parse_file_start (GMarkupParseContext* context,
 				child.tag = tag;
 				break;
 			case NPW_UNKNOW_TAG:
-				parser_warning(parser->ctx, "Unknown element \"%s\"", name);
+				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
 				break;
 			default:
 				break;
@@ -1217,10 +1216,10 @@ parse_file_start (GMarkupParseContext* context,
 			{
 			case NPW_DIRECTORY_TAG:
 				child.tag = tag;
-				parse_directory(parser, &child, attributes, values);
+				parse_directory (parser, &child, attributes, values);
 				break;
 			default:
-				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 				break;
 			}
 			break;
@@ -1229,19 +1228,19 @@ parse_file_start (GMarkupParseContext* context,
 			{
 			case NPW_DIRECTORY_TAG:
 				child.tag = tag;
-				parse_directory(parser, &child, attributes, values);
+				parse_directory (parser, &child, attributes, values);
 				break;
 			case NPW_FILE_TAG:
 				child.tag = tag;
-				parse_file(parser, &child, attributes, values);
+				parse_file (parser, &child, attributes, values);
 				break;
 			default:
-				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 				break;
 			}
 			break;
 		default:
-			parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+			parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 			break;
 		}
 	}
@@ -1251,9 +1250,9 @@ parse_file_start (GMarkupParseContext* context,
 	{
 		NPWFileTag* new_child;
 
-		new_child = g_chunk_new(NPWFileTag, parser->tag_pool);
-		memcpy(new_child, &child, sizeof(child));
-		g_queue_push_head(parser->tag, new_child);
+		new_child = g_chunk_new (NPWFileTag, parser->tag_pool);
+		memcpy (new_child, &child, sizeof (child));
+		g_queue_push_head (parser->tag, new_child);
 	}
 	else
 	{
@@ -1262,7 +1261,7 @@ parse_file_start (GMarkupParseContext* context,
 }
 
 static void
-parse_file_end(GMarkupParseContext* context,
+parse_file_end (GMarkupParseContext* context,
        	const gchar* name,
 	gpointer data,
 	GError** error)
@@ -1274,15 +1273,15 @@ parse_file_end(GMarkupParseContext* context,
 		// Pop unknown element
 		parser->unknown--;
 	}
-	else if (((NPWFileTag *)g_queue_peek_head(parser->tag))->tag != NPW_NO_TAG)
+	else if (((NPWFileTag *)g_queue_peek_head (parser->tag))->tag != NPW_NO_TAG)
 	{
 		// Pop known element
-		g_mem_chunk_free(parser->tag_pool, g_queue_pop_head(parser->tag));
+		g_mem_chunk_free (parser->tag_pool, g_queue_pop_head (parser->tag));
 	}
 	else
 	{
 		// Know stack underflow
-		g_return_if_reached();
+		g_return_if_reached ();
 	}
 }
 
@@ -1295,94 +1294,94 @@ static GMarkupParser file_markup_parser = {
 };
 
 NPWFileListParser*
-npw_file_list_parser_new(NPWFileList* list, const gchar* filename)
+npw_file_list_parser_new (NPWFileList* list, const gchar* filename)
 {
 	NPWFileListParser* this;
 	gchar* path;
 
-	g_return_val_if_fail(list != NULL, NULL);
-	g_return_val_if_fail(filename != NULL, NULL);
+	g_return_val_if_fail (list != NULL, NULL);
+	g_return_val_if_fail (filename != NULL, NULL);
 
-	this = g_new(NPWFileListParser, 1);
+	this = g_new (NPWFileListParser, 1);
 
 	this->type = NPW_FILE_PARSER;
 
 	this->unknown = 0;
-	this->tag = g_queue_new();
-	this->str_pool = g_string_chunk_new(STRING_CHUNK_SIZE);
-	this->tag_pool = g_mem_chunk_new("file tag pool", sizeof(NPWFileTag), NPW_FILE_PARSER_DEFAULT_LEVEL  * sizeof(NPWFileTag) , G_ALLOC_AND_FREE);
+	this->tag = g_queue_new ();
+	this->str_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
+	this->tag_pool = g_mem_chunk_new ("file tag pool", sizeof (NPWFileTag), NPW_FILE_PARSER_DEFAULT_LEVEL  * sizeof (NPWFileTag) , G_ALLOC_AND_FREE);
 	this->root.tag = NPW_NO_TAG;
 	this->root.destination = ".";
 	// Use .wiz file path as base source directory
-	path = g_path_get_dirname(filename);
-      	this->root.source = g_string_chunk_insert(this->str_pool, path);
-	g_free(path);	
-	g_queue_push_head(this->tag, &this->root);
+	path = g_path_get_dirname (filename);
+      	this->root.source = g_string_chunk_insert (this->str_pool, path);
+	g_free (path);	
+	g_queue_push_head (this->tag, &this->root);
 	
 	this->list = list;
 
-	this->ctx = g_markup_parse_context_new(&file_markup_parser, 0, this, NULL);
-	g_assert(this->ctx != NULL);
+	this->ctx = g_markup_parse_context_new (&file_markup_parser, 0, this, NULL);
+	g_assert (this->ctx != NULL);
 
 	return this;
 }
 
 void
-npw_file_list_parser_free(NPWFileListParser* this)
+npw_file_list_parser_free (NPWFileListParser* this)
 {
-	g_return_if_fail(this != NULL);
+	g_return_if_fail (this != NULL);
 	
-	g_markup_parse_context_free(this->ctx);
-	g_string_chunk_free(this->str_pool);
-	g_mem_chunk_destroy(this->tag_pool);
-	g_queue_free(this->tag);
-	g_free(this);
+	g_markup_parse_context_free (this->ctx);
+	g_string_chunk_free (this->str_pool);
+	g_mem_chunk_destroy (this->tag_pool);
+	g_queue_free (this->tag);
+	g_free (this);
 }
 
 gboolean
-npw_file_list_parser_parse(NPWFileListParser* this, const gchar* text, gssize len, GError** error)
+npw_file_list_parser_parse (NPWFileListParser* this, const gchar* text, gssize len, GError** error)
 {
-	return g_markup_parse_context_parse(this->ctx, text, len, error);
+	return g_markup_parse_context_parse (this->ctx, text, len, error);
 }
 
 gboolean
-npw_file_list_parser_end_parse(NPWFileListParser* this, GError** error)
+npw_file_list_parser_end_parse (NPWFileListParser* this, GError** error)
 {
-	return g_markup_parse_context_end_parse(this->ctx, error);
+	return g_markup_parse_context_end_parse (this->ctx, error);
 }
 
 gboolean
-npw_file_list_read(NPWFileList* this, const gchar* filename)
+npw_file_list_read (NPWFileList* this, const gchar* filename)
 {
 	gchar* content;
 	gsize len;
 	NPWFileListParser* parser;
 	GError* err = NULL;
 
-	g_return_val_if_fail(this != NULL, FALSE);
-	g_return_val_if_fail(filename != NULL, FALSE);
+	g_return_val_if_fail (this != NULL, FALSE);
+	g_return_val_if_fail (filename != NULL, FALSE);
 
-	if (!g_file_get_contents(filename, &content, &len, &err))
+	if (!g_file_get_contents (filename, &content, &len, &err))
 	{
- 		g_warning(err->message);
-		g_error_free(err);
+ 		g_warning (err->message);
+		g_error_free (err);
 
 		return FALSE;
 	}
 
-	parser = npw_file_list_parser_new(this, filename);
+	parser = npw_file_list_parser_new (this, filename);
 
-	npw_file_list_parser_parse(parser, content, len, &err);
-	if (err == NULL) npw_file_list_parser_end_parse(parser, &err);
+	npw_file_list_parser_parse (parser, content, len, &err);
+	if (err == NULL) npw_file_list_parser_end_parse (parser, &err);
 
-	npw_file_list_parser_free(parser);
-	g_free(content);
+	npw_file_list_parser_free (parser);
+	g_free (content);
 
 	if (err != NULL)
 	{
 		// Parsing error
-		g_warning(err->message);
-		g_error_free(err);
+		g_warning (err->message);
+		g_error_free (err);
 		
 		return FALSE;
 	}
@@ -1390,8 +1389,8 @@ npw_file_list_read(NPWFileList* this, const gchar* filename)
 	return TRUE;	
 }
 
-// Parse action block
-//----------------------------------------------------------------------------
+/* Parse action block
+ *---------------------------------------------------------------------------*/
 
 #define NPW_ACTION_PARSER_MAX_LEVEL	2	// Maximum number of nested elements
 
@@ -1410,19 +1409,19 @@ struct _NPWActionListParser
 };
 
 static gboolean
-parse_run(NPWActionListParser* this, const gchar** attributes, const gchar** values)
+parse_run (NPWActionListParser* this, const gchar** attributes, const gchar** values)
 {
 	const gchar* command = NULL;
 
 	while (*attributes != NULL)
 	{
-		switch (parse_attribute(*attributes))
+		switch (parse_attribute (*attributes))
 		{
 		case NPW_COMMAND_ATTRIBUTE:
 			command = *values;
 			break;
 		default:
-			parser_warning(this->ctx, "Unknown run attribute \"%s\"", *attributes);
+			parser_warning (this->ctx, "Unknown run attribute \"%s\"", *attributes);
 			break;
 		}
 		attributes++;
@@ -1431,33 +1430,33 @@ parse_run(NPWActionListParser* this, const gchar** attributes, const gchar** val
 
 	if (command == NULL)
 	{
-		parser_warning(this->ctx, "Missing command attribute");
+		parser_warning (this->ctx, "Missing command attribute");
 	}
 	else
 	{
 		NPWAction* action;
 
-		action = npw_action_new(this->list, NPW_RUN_ACTION);
-		npw_action_set_command(action, command);
+		action = npw_action_new (this->list, NPW_RUN_ACTION);
+		npw_action_set_command (action, command);
 	}
 
 	return TRUE;
 }
 
 static gboolean
-parse_open(NPWActionListParser* this, const gchar** attributes, const gchar** values)
+parse_open (NPWActionListParser* this, const gchar** attributes, const gchar** values)
 {
 	const gchar* file = NULL;
 
 	while (*attributes != NULL)
 	{
-		switch (parse_attribute(*attributes))
+		switch (parse_attribute (*attributes))
 		{
 		case NPW_FILE_ATTRIBUTE:
 			file = *values;
 			break;
 		default:
-			parser_warning(this->ctx, "Unknown open attribute \"%s\"", *attributes);
+			parser_warning (this->ctx, "Unknown open attribute \"%s\"", *attributes);
 			break;
 		}
 		attributes++;
@@ -1466,21 +1465,21 @@ parse_open(NPWActionListParser* this, const gchar** attributes, const gchar** va
 
 	if (file == NULL)
 	{
-		parser_warning(this->ctx, "Missing file attribute");
+		parser_warning (this->ctx, "Missing file attribute");
 	}
 	else
 	{
 		NPWAction* action;
 
-		action = npw_action_new(this->list, NPW_OPEN_ACTION);
-		npw_action_set_file(action, file);
+		action = npw_action_new (this->list, NPW_OPEN_ACTION);
+		npw_action_set_file (action, file);
 	}
 
 	return TRUE;
 }
 
 static void
-parse_action_start(GMarkupParseContext* context, const gchar* name, const gchar** attributes,
+parse_action_start (GMarkupParseContext* context, const gchar* name, const gchar** attributes,
 	const gchar** values, gpointer data, GError** error)
 {
 	NPWActionListParser* parser = (NPWActionListParser*)data;
@@ -1491,18 +1490,18 @@ parse_action_start(GMarkupParseContext* context, const gchar* name, const gchar*
 	if (parser->unknown == 0)
 	{
 		// Not inside an unknown element
-		tag = parse_tag(name);
+		tag = parse_tag (name);
 		switch (*parser->last)
 		{
 		case NPW_NO_TAG:
 			// Top level element
-			switch(tag)
+			switch (tag)
 			{
 			case NPW_ACTION_TAG:
 				known = TRUE;
 				break;
 			case NPW_UNKNOW_TAG:
-				parser_warning(parser->ctx, "Unknown element \"%s\"", name);
+				parser_warning (parser->ctx, "Unknown element \"%s\"", name);
 				break;
 			default:
 				break;
@@ -1513,18 +1512,18 @@ parse_action_start(GMarkupParseContext* context, const gchar* name, const gchar*
 			switch (tag)
 			{
 			case NPW_RUN_TAG:
-				known = parse_run(parser, attributes, values);
+				known = parse_run (parser, attributes, values);
 				break;
 			case NPW_OPEN_TAG:
-				known = parse_open(parser, attributes, values);
+				known = parse_open (parser, attributes, values);
 				break;
 			default:
-				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 				break;
 			}
 			break;
 		default:
-			parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+			parser_warning (parser->ctx, "Unexpected element \"%s\"", name);
 			break;
 		}
 	}
@@ -1533,7 +1532,7 @@ parse_action_start(GMarkupParseContext* context, const gchar* name, const gchar*
 	if (known)
 	{
 		// Know element stack overflow
-		g_return_if_fail((parser->last - parser->tag) <= NPW_ACTION_PARSER_MAX_LEVEL);
+		g_return_if_fail ((parser->last - parser->tag) <= NPW_ACTION_PARSER_MAX_LEVEL);
 		parser->last++;
 		*parser->last = tag;
 	}
@@ -1544,7 +1543,7 @@ parse_action_start(GMarkupParseContext* context, const gchar* name, const gchar*
 }
 
 static void
-parse_action_end(GMarkupParseContext* context, const gchar* name, gpointer data, GError** error)
+parse_action_end (GMarkupParseContext* context, const gchar* name, gpointer data, GError** error)
 {
 	NPWActionListParser* parser = (NPWActionListParser*)data;
 	
@@ -1561,7 +1560,7 @@ parse_action_end(GMarkupParseContext* context, const gchar* name, gpointer data,
 	else
 	{
 		// Know element stack underflow
-		g_return_if_reached();
+		g_return_if_reached ();
 	}
 }
 
@@ -1574,13 +1573,13 @@ static GMarkupParser action_markup_parser = {
 };
 
 NPWActionListParser*
-npw_action_list_parser_new(NPWActionList* list)
+npw_action_list_parser_new (NPWActionList* list)
 {
 	NPWActionListParser* this;
 
-	g_return_val_if_fail(list != NULL, NULL);
+	g_return_val_if_fail (list != NULL, NULL);
 	
-	this = g_new(NPWActionListParser, 1);
+	this = g_new (NPWActionListParser, 1);
 
 	this->type = NPW_ACTION_PARSER;
 
@@ -1590,37 +1589,37 @@ npw_action_list_parser_new(NPWActionList* list)
 
 	this->list = list;
 
-	this->ctx = g_markup_parse_context_new(&action_markup_parser, 0, this, NULL);
-	g_assert(this->ctx != NULL);
+	this->ctx = g_markup_parse_context_new (&action_markup_parser, 0, this, NULL);
+	g_assert (this->ctx != NULL);
 
 	return this;
 }
 
 void
-npw_action_list_parser_free(NPWActionListParser* this)
+npw_action_list_parser_free (NPWActionListParser* this)
 {
-	g_return_if_fail(this != NULL);
+	g_return_if_fail (this != NULL);
 
-	g_markup_parse_context_free(this->ctx);
-	g_free(this);
+	g_markup_parse_context_free (this->ctx);
+	g_free (this);
 }
 
 gboolean
-npw_action_list_parser_parse(NPWActionListParser* this, const gchar* text, gssize len, GError** error)
+npw_action_list_parser_parse (NPWActionListParser* this, const gchar* text, gssize len, GError** error)
 {
 	GError* err = NULL;
 	
-	g_markup_parse_context_parse(this->ctx, text, len, &err);
+	g_markup_parse_context_parse (this->ctx, text, len, &err);
 	if (err != NULL)
 	{
-		printf(err->message);
+		printf (err->message);
 	}
 
 	return TRUE;
 }
 
 gboolean
-npw_action_list_parser_end_parse(NPWActionListParser* this, GError** error)
+npw_action_list_parser_end_parse (NPWActionListParser* this, GError** error)
 {
-	return g_markup_parse_context_end_parse(this->ctx, error);
+	return g_markup_parse_context_end_parse (this->ctx, error);
 }
