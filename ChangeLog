@@ -1,3 +1,10 @@
+2005-02-21  Ryan Garver <rgarvage@yahoo.com>
+
+	* plugins/cvs-plugin/cvs-interface.c:
+
+	Fixed option setting when using no compression and not 
+	ignoring .cvsrc
+
 2005-02-23  Naba Kumar  <naba@gnome.org>
 	
 	* src/anjuta.c, src/anjuta.h, src/main.c: Save and restore window

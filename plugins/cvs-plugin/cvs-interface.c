@@ -48,8 +48,10 @@ static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
 		global_options = g_strdup_printf("-f -z%d", compression);
 	else if (compression)
 		global_options = g_strdup_printf("-z%d", compression);
-	else /* if (ignorerc */
+	else if (ignorerc)
 		global_options = g_strdup("-f");
+	else
+		global_options = g_strdup("");
 	if (cvsroot == NULL)
 	{
 		cvsroot = "";
