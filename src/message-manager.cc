@@ -97,7 +97,7 @@ GtkWidget *
 anjuta_message_manager_new ()
 {
 	GtkWidget *amm;
-	amm = GTK_WIDGET (gtk_type_new (anjuta_message_manager_get_type ()));
+	amm = GTK_WIDGET (g_object_new (ANJUTA_MESSAGE_MANAGER_TYPE, NULL));
 	return amm;
 }
 
@@ -110,13 +110,13 @@ anjuta_message_manager_get_type (void)
 	{
 		static const GTypeInfo info = 
 		{
-			sizeof (AnjutaMessageManager),
+			sizeof (AnjutaMessageManagerClass),
 			(GBaseInitFunc) NULL,
 			(GBaseFinalizeFunc) NULL,
 			(GClassInitFunc) anjuta_message_manager_class_init,
 			(GClassFinalizeFunc) NULL,
 			NULL,           /* class_data */
-			sizeof (AnjutaMessageManagerClass),
+			sizeof (AnjutaMessageManager),
 			0,              /* n_preallocs */
 			(GInstanceInitFunc) anjuta_message_manager_init,
 			NULL            /* value_table */
@@ -739,7 +739,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 	color = preferences_get(p, MESSAGES_COLOR_ERROR);
 	if (color)
 	{
-		ColorFromString(color, &r, &g, &b);
+		anjuta_util_color_from_string (color, &r, &g, &b);
 		amm->intern->color_error.red = r * factor;
 		amm->intern->color_error.green = g * factor;
 		amm->intern->color_error.blue = b * factor;
@@ -749,7 +749,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 	color = preferences_get(p, MESSAGES_COLOR_WARNING);
 	if (color)
 	{
-		ColorFromString(color, &r, &g, &b);
+		anjuta_util_color_from_string (color, &r, &g, &b);
 		amm->intern->color_warning.red = r * factor;
 		amm->intern->color_warning.green = g * factor;
 		amm->intern->color_warning.blue = b * factor;
@@ -758,7 +758,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 	color = preferences_get(p, MESSAGES_COLOR_MESSAGES1);
 	if (color)
 	{
-		ColorFromString(color, &r, &g, &b);
+		anjuta_util_color_from_string (color, &r, &g, &b);
 		amm->intern->color_message1.red = r * factor;
 		amm->intern->color_message1.green = g * factor;
 		amm->intern->color_message1.blue = b * factor;
@@ -767,7 +767,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 	color = preferences_get(p, MESSAGES_COLOR_MESSAGES2);
 	if (color)
 	{
-		ColorFromString(color, &r, &g, &b);
+		anjuta_util_color_from_string (color, &r, &g, &b);
 		amm->intern->color_message2.red = r * factor;
 		amm->intern->color_message2.green = g * factor;
 		amm->intern->color_message2.blue = b * factor;

@@ -343,7 +343,7 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	GtkWidget *submenu;
 	GtkWidget *item;
 	gint i;
-	submenu = scroll_menu_new ();
+	submenu = gtk_menu_new ();
 
 	/* FIXME: what about the user opinion on tearoff menuitems ?
 	          perhaps (s)he has deactivated the option. */

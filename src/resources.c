@@ -52,7 +52,7 @@ anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
 }
 
 GdkPixbuf *
-anjuta_res_get_image (const gchar * filename)
+anjuta_res_get_pixbuf (const gchar * filename)
 {
 	GdkPixbuf *image;
 	gchar *pathname;
@@ -71,7 +71,7 @@ anjuta_res_get_image (const gchar * filename)
 }
 
 GtkWidget *
-anjuta_res_get_pixmap_widget (GtkWidget * widget, const gchar * pixfile)
+anjuta_res_get_image (const gchar * pixfile)
 {
 	GtkWidget *pixmap;
 	gchar *pathname;

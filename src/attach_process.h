@@ -21,6 +21,7 @@
 #define _ATTACH_PROCESS_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "properties.h"
 
 typedef struct _AttachProcessGui AttachProcessGui;
@@ -36,6 +37,7 @@ struct _AttachProcessGui
 
 struct _AttachProcess
 {
+  GladeXML *gxml;
   AttachProcessGui  widgets;
   gint		pid;
   gboolean	is_showing;

@@ -35,7 +35,7 @@
 static const gchar SECTION_REPLACE [] =  {"replace_text"};
 
 static void create_find_replace_gui (FindAndReplace * fr);
-static GtkWidget *create_replace_messagebox (void);
+static GtkWidget *create_replace_messagebox (FindAndReplace *fr);
 static void on_replace_dialog_response (GtkDialog *dialog, gint response,
                                         gpointer user_data);
 
@@ -78,8 +78,9 @@ find_replace_destroy (FindAndReplace * fr)
 			g_free (g_list_nth (fr->replace_history, i)->data);
 		if (fr->replace_history)
 			g_list_free (fr->replace_history);
+		g_object_unref (fr->gxml);
+		g_object_unref (fr->gxml_prompt);
 		g_free (fr);
-		fr = NULL;
 	}
 }
 
@@ -277,23 +278,31 @@ find_replace_hide (FindAndReplace * fr)
 static void
 create_find_replace_gui (FindAndReplace * fr)
 {
-	fr->r_gui.GUI = glade_xml_get_widget (app->gxml, "find_replace_dialog");
+	fr->gxml_prompt = glade_xml_new (GLADE_FILE_ANJUTA, "find_replace_prompt_dialog", NULL);
+	glade_xml_signal_autoconnect (fr->gxml_prompt);
+	gtk_widget_hide (glade_xml_get_widget (fr->gxml_prompt, "find_replace_prompt_dialog"));
+
+	fr->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_replace_dialog", NULL);
+	glade_xml_signal_autoconnect (fr->gxml);
+	fr->r_gui.GUI = glade_xml_get_widget (fr->gxml, "find_replace_dialog");
+	gtk_widget_hide (fr->r_gui.GUI);
+
 	gtk_window_set_transient_for (GTK_WINDOW(fr->r_gui.GUI),
                                   GTK_WINDOW(app->widgets.window));
 	
-	fr->r_gui.find_combo = glade_xml_get_widget (app->gxml, "find_replace_find_combo");
-	fr->r_gui.find_entry = glade_xml_get_widget (app->gxml, "find_replace_find_entry");
-	fr->r_gui.replace_combo = glade_xml_get_widget (app->gxml, "find_replace_replace_combo");
-	fr->r_gui.replace_entry = glade_xml_get_widget (app->gxml, "find_replace_replace_entry");
-	fr->r_gui.from_begin_radio = glade_xml_get_widget (app->gxml, "find_replace_whole_document");
-	fr->r_gui.from_cur_loc_radio = glade_xml_get_widget (app->gxml, "find_replace_from_cursor");
-	fr->r_gui.forward_radio = glade_xml_get_widget (app->gxml, "find_replace_forwards");
-	fr->r_gui.backward_radio = glade_xml_get_widget (app->gxml, "find_replace_backwards");
-	fr->r_gui.regexp_radio = glade_xml_get_widget (app->gxml, "find_replace_regexp");
-	fr->r_gui.string_radio = glade_xml_get_widget (app->gxml, "find_replace_string");
-	fr->r_gui.ignore_case_check = glade_xml_get_widget (app->gxml, "find_replace_ignore_case");
-	fr->r_gui.replace_prompt_check = glade_xml_get_widget (app->gxml, "find_replace_prompt_replace");
-	fr->r_gui.whole_word_check = glade_xml_get_widget (app->gxml, "find_replace_whole_word");
+	fr->r_gui.find_combo = glade_xml_get_widget (fr->gxml, "find_replace_find_combo");
+	fr->r_gui.find_entry = glade_xml_get_widget (fr->gxml, "find_replace_find_entry");
+	fr->r_gui.replace_combo = glade_xml_get_widget (fr->gxml, "find_replace_replace_combo");
+	fr->r_gui.replace_entry = glade_xml_get_widget (fr->gxml, "find_replace_replace_entry");
+	fr->r_gui.from_begin_radio = glade_xml_get_widget (fr->gxml, "find_replace_whole_document");
+	fr->r_gui.from_cur_loc_radio = glade_xml_get_widget (fr->gxml, "find_replace_from_cursor");
+	fr->r_gui.forward_radio = glade_xml_get_widget (fr->gxml, "find_replace_forwards");
+	fr->r_gui.backward_radio = glade_xml_get_widget (fr->gxml, "find_replace_backwards");
+	fr->r_gui.regexp_radio = glade_xml_get_widget (fr->gxml, "find_replace_regexp");
+	fr->r_gui.string_radio = glade_xml_get_widget (fr->gxml, "find_replace_string");
+	fr->r_gui.ignore_case_check = glade_xml_get_widget (fr->gxml, "find_replace_ignore_case");
+	fr->r_gui.replace_prompt_check = glade_xml_get_widget (fr->gxml, "find_replace_prompt_replace");
+	fr->r_gui.whole_word_check = glade_xml_get_widget (fr->gxml, "find_replace_whole_word");
 	
 	g_signal_connect (G_OBJECT (fr->r_gui.GUI), "response",
 	                  G_CALLBACK (on_replace_dialog_response), fr);
@@ -302,9 +311,9 @@ create_find_replace_gui (FindAndReplace * fr)
 }
 
 static GtkWidget*
-create_replace_messagebox ()
+create_replace_messagebox (FindAndReplace *fr)
 {
-	return glade_xml_get_widget (app->gxml, "find_replace_prompt_dialog");
+	return glade_xml_get_widget (fr->gxml_prompt, "find_replace_prompt_dialog");
 }
 
 static void
@@ -370,7 +379,7 @@ on_replace_dialog_response (GtkDialog *dialog, gint response,
 			gint but;
 			
 			if (fr->replace_prompt)
-				but = gtk_dialog_run (GTK_DIALOG (create_replace_messagebox ()));
+				but = gtk_dialog_run (GTK_DIALOG (create_replace_messagebox (fr)));
 			else
 				but = 1;
 			switch (but)

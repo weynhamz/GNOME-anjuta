@@ -514,8 +514,8 @@ fv_add_tree_entry (TMFileEntry *entry,
 		   GtkTreeIter *root)
 {
 	GtkTreeStore *store;
-	GtkTreeIter iter;
-	GtkTreeIter parent = *root, item;
+	GtkTreeIter iter, sub_iter;
+	GtkTreeIter *parent = root;
 	GSList *tmp;
 
 	if (!entry || !entry->path || !entry->name || !fv || !fv->tree)
@@ -529,7 +529,7 @@ fv_add_tree_entry (TMFileEntry *entry,
 	/* while (gtk_events_pending())
 		gtk_main_iteration();
 	*/
-	gtk_tree_store_append (store, &iter, &parent);
+	gtk_tree_store_append (store, &iter, parent);
 	gtk_tree_store_set (store, &iter,
 			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
 			    FILENAME_COLUMN, entry->name,
@@ -540,7 +540,7 @@ fv_add_tree_entry (TMFileEntry *entry,
 	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
 		TMFileEntry *child = (TMFileEntry *) tmp->data;
 		if (tm_file_dir_t == entry->type)
-			fv_add_tree_entry (child, &parent);
+			fv_add_tree_entry (child, &iter);
 	}
 
 	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
@@ -549,8 +549,8 @@ fv_add_tree_entry (TMFileEntry *entry,
 		if (tm_file_regular_t == child->type) {
 			FVFileType type = fv_get_file_type(child->name);
 
-			gtk_tree_store_append (store, &iter, &parent);
-			gtk_tree_store_set (store, &iter,
+			gtk_tree_store_append (store, &sub_iter, &iter);
+			gtk_tree_store_set (store, &sub_iter,
 					    PIXBUF_COLUMN, fv_pixbufs[type],
 					    FILENAME_COLUMN, child->name,
 					    REV_COLUMN, child->version ? child->version : "",

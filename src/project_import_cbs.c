@@ -235,7 +235,7 @@ on_page6_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 			    piw->prj_programming_language, "\n",
 			    _("Gettext Support: "), gt_support, "\n", NULL);
 	
-	gnome_druid_page_finish_set_text (GNOME_DRUID_PAGE_FINISH
+	gnome_druid_page_edge_set_text (GNOME_DRUID_PAGE_EDGE
 					  (piw->widgets.page[6]), text);
 	g_free (gt_support);
 	return FALSE;

@@ -117,7 +117,7 @@ project_config_destroy (ProjectConfig * pc)
 	gtk_widget_unref (pc->widgets.makefile_am_text);
 	
 	gtk_widget_destroy (pc->widgets.window);
-	
+	g_object_unref (pc->gxml);
 	g_free (pc);
 }
 
@@ -681,7 +681,8 @@ on_response (GtkButton *button, gint response, gpointer user_data)
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
-		gtk_dialog_close(GTK_DIALOG(pc->widgets.window));
+		gtk_dialog_response (GTK_DIALOG(pc->widgets.window),
+							 GTK_RESPONSE_NONE);
 		/* Note: No break here */
 	case GTK_RESPONSE_APPLY:
 		project_config_get (pc);
@@ -689,7 +690,8 @@ on_response (GtkButton *button, gint response, gpointer user_data)
 			app->project_dbase->is_saved = FALSE;
 		break;
 	case GTK_RESPONSE_CANCEL:
-		gtk_dialog_close(GTK_DIALOG(pc->widgets.window));
+		gtk_dialog_response (GTK_DIALOG(pc->widgets.window),
+							 GTK_RESPONSE_NONE);
 		break;
 	}
 }
@@ -707,8 +709,11 @@ create_project_config_gui (ProjectConfig * pc)
 {
 	gint i;
 	
-	pc->widgets.window = glade_xml_get_widget (app->gxml, "project_config_dialog");
-	g_signal_connect (G_OBJECT (pc->widgets.window), "clicked",
+	pc->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "project_config_dialog", NULL);
+	glade_xml_signal_autoconnect (pc->gxml);
+	pc->widgets.window = glade_xml_get_widget (pc->gxml, "project_config_dialog");
+	gtk_widget_hide (pc->widgets.window);
+	g_signal_connect (G_OBJECT (pc->widgets.window), "response",
 			    G_CALLBACK (on_response), pc);
 	g_signal_connect (G_OBJECT (pc->widgets.window), "close",
 				G_CALLBACK (on_close), pc);
@@ -718,19 +723,19 @@ create_project_config_gui (ProjectConfig * pc)
 		gchar *key;
 		key = g_strdup_printf ("project_config_build_file_%d", i);
 		pc->widgets.disable_overwrite_check[i] =
-			glade_xml_get_widget (app->gxml, key);
+			glade_xml_get_widget (pc->gxml, key);
 	}
-	pc->widgets.version_entry = glade_xml_get_widget (app->gxml, "project_config_version");
-	pc->widgets.description_text = glade_xml_get_widget (app->gxml, "project_config_description");
-	pc->widgets.ignore_entry = glade_xml_get_widget (app->gxml, "project_config_ignore");
-	pc->widgets.config_progs_text = glade_xml_get_widget (app->gxml, "project_config_programs");
-	pc->widgets.config_libs_text = glade_xml_get_widget (app->gxml, "project_config_libraries");
-	pc->widgets.config_headers_text = glade_xml_get_widget (app->gxml, "project_config_headers");
-	pc->widgets.config_characteristics_text = glade_xml_get_widget (app->gxml, "project_config_compiler");
-	pc->widgets.config_lib_funcs_text = glade_xml_get_widget (app->gxml, "project_config_functions");
-	pc->widgets.config_additional_text = glade_xml_get_widget (app->gxml, "project_config_additional");
-	pc->widgets.config_files_text = glade_xml_get_widget (app->gxml, "project_config_outputs");
-	pc->widgets.extra_modules_before_entry = glade_xml_get_widget (app->gxml, "project_config_modules_before");
-	pc->widgets.extra_modules_after_entry = glade_xml_get_widget (app->gxml, "project_config_modules_after");
-	pc->widgets.makefile_am_text = glade_xml_get_widget (app->gxml, "project_config_makefile_am");
+	pc->widgets.version_entry = glade_xml_get_widget (pc->gxml, "project_config_version");
+	pc->widgets.description_text = glade_xml_get_widget (pc->gxml, "project_config_description");
+	pc->widgets.ignore_entry = glade_xml_get_widget (pc->gxml, "project_config_ignore");
+	pc->widgets.config_progs_text = glade_xml_get_widget (pc->gxml, "project_config_programs");
+	pc->widgets.config_libs_text = glade_xml_get_widget (pc->gxml, "project_config_libraries");
+	pc->widgets.config_headers_text = glade_xml_get_widget (pc->gxml, "project_config_headers");
+	pc->widgets.config_characteristics_text = glade_xml_get_widget (pc->gxml, "project_config_compiler");
+	pc->widgets.config_lib_funcs_text = glade_xml_get_widget (pc->gxml, "project_config_functions");
+	pc->widgets.config_additional_text = glade_xml_get_widget (pc->gxml, "project_config_additional");
+	pc->widgets.config_files_text = glade_xml_get_widget (pc->gxml, "project_config_outputs");
+	pc->widgets.extra_modules_before_entry = glade_xml_get_widget (pc->gxml, "project_config_modules_before");
+	pc->widgets.extra_modules_after_entry = glade_xml_get_widget (pc->gxml, "project_config_modules_after");
+	pc->widgets.makefile_am_text = glade_xml_get_widget (pc->gxml, "project_config_makefile_am");
 }

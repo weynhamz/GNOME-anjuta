@@ -123,11 +123,6 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_DEBUG_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NORMAL,
 			       BONOBO_DOCK_TOP, 3, 0, 0);
-	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar3),
-	//			     GTK_TOOLBAR_SPACE_LINE);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar3),
-	//			       GTK_RELIEF_NONE);
 
 	toolbar4 =
 		create_format_toolbar (anjuta_gui,
@@ -136,11 +131,6 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_FORMAT_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NORMAL,
 			       BONOBO_DOCK_TOP, 3, 1, 0);
-	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar4), 5);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar4),
-	//			     GTK_TOOLBAR_SPACE_LINE);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar4),
-	//			       GTK_RELIEF_NONE);
 
 	toolbar5 =
 		create_extended_toolbar (anjuta_gui,
@@ -150,11 +140,17 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_EXTENDED_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NORMAL,
 			       BONOBO_DOCK_TOP, 4, 0, 0);
-	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar5), 5);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar5),
-	//			     GTK_TOOLBAR_SPACE_LINE);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar5),
-	//			       GTK_RELIEF_NONE);
+	/* Set toolbar style */
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar3), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar4), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar5), GTK_TOOLBAR_ICONS);
+	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar1), 22);
+	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar2), 22);
+	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar3), 22);
+	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar4), 22);
+	//gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar5), 22);
 	
 	//	 Use a vbox, not an eventbox, to support gtk_widget_reparent() stuff
 	//	done when hiding/showing project and message panes
@@ -168,15 +164,15 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_widget_ref (vpaned1);
 	gtk_widget_show (vpaned1);
 	gtk_container_add (GTK_CONTAINER (vbox0), vpaned1);
-	gtk_paned_set_gutter_size (GTK_PANED (vpaned1), 8);
-	gtk_paned_set_handle_size (GTK_PANED (vpaned1), 8);
+	//gtk_paned_set_gutter_size (GTK_PANED (vpaned1), 8);
+	//gtk_paned_set_handle_size (GTK_PANED (vpaned1), 8);
 
 	hpaned1 = gtk_hpaned_new ();
 	gtk_widget_ref (hpaned1);
 	gtk_widget_show (hpaned1);
 	gtk_container_add (GTK_CONTAINER (vpaned1), hpaned1);
-	gtk_paned_set_gutter_size (GTK_PANED (hpaned1), 8);
-	gtk_paned_set_handle_size (GTK_PANED (hpaned1), 8);
+	//gtk_paned_set_gutter_size (GTK_PANED (hpaned1), 8);
+	//gtk_paned_set_handle_size (GTK_PANED (hpaned1), 8);
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_ref (vbox1);
@@ -195,7 +191,7 @@ create_anjuta_gui (AnjutaApp * appl)
 			      _("Click here to undock this window"), NULL);
 
 	pixmap =
-		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm");
+		anjuta_res_get_image ("handle_undock.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button1), pixmap);
 
@@ -229,7 +225,7 @@ create_anjuta_gui (AnjutaApp * appl)
 			      _("Click here to hide this window"), NULL);
 
 
-	pixmap = anjuta_res_get_pixmap_widget (anjuta_gui, "handle_hide.xpm");
+	pixmap = anjuta_res_get_image ("handle_hide.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button3), pixmap);
 
@@ -250,7 +246,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_tooltips_set_tip (tooltips, button4,
 			      _("Click here to hide this window"), NULL);
 
-	pixmap = anjuta_res_get_pixmap_widget (anjuta_gui, "handle_hide.xpm");
+	pixmap = anjuta_res_get_image ("handle_hide.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button4), pixmap);
 
@@ -284,7 +280,7 @@ create_anjuta_gui (AnjutaApp * appl)
 			      _("Click here to undock this window"), NULL);
 
 	pixmap =
-		anjuta_res_get_pixmap_widget (anjuta_gui, "handle_undock.xpm");
+		anjuta_res_get_image ("handle_undock.xpm");
 	gtk_widget_show (pixmap);
 	gtk_container_add (GTK_CONTAINER (button2), pixmap);
 

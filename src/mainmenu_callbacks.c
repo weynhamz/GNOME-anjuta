@@ -1447,14 +1447,14 @@ on_toggle_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_set_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_bk_add_breakpoint_clicked (NULL, debugger.breakpoints_dbase);
+	on_bk_add_clicked (NULL, debugger.breakpoints_dbase);
 }
 
 void
 on_disable_all_breakpoints1_activate (GtkMenuItem * menuitem,
 				      gpointer user_data)
 {
-
+	on_bk_disableall_clicked (NULL, debugger.breakpoints_dbase);
 }
 
 void
@@ -1466,7 +1466,7 @@ on_show_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_clear_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_bk_delete_all_clicked (NULL, debugger.breakpoints_dbase);
+	on_bk_removeall_clicked (NULL, debugger.breakpoints_dbase);
 }
 
 /*******************************************************************************/

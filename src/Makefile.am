@@ -94,6 +94,8 @@ anjuta_SOURCES = \
 	cvs_gui.h\
 	cvs_cbs.c\
 	cvs_cbs.h\
+	debug_tree.c\
+	debug_tree.h\
 	debugger.c\
 	debugger.h\
 	debug_tree.h\
@@ -232,6 +234,8 @@ anjuta_LDADD =  \
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
 
+anjuta_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_file_DATA = anjuta.glade
 
 EXTRA_DIST = \
 	anjuta_dialog_strings.c\

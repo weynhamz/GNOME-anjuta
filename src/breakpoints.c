@@ -238,15 +238,23 @@ breakpoints_dbase_new ()
 		int i;
 
 		/* breakpoints dialog */
-		bd->widgets.window = glade_xml_get_widget (app->gxml, "breakpoints_dialog");
-		bd->widgets.treeview = glade_xml_get_widget (app->gxml, "breakpoints_tv");
-		bd->widgets.remove_button = glade_xml_get_widget (app->gxml, "breakpoints_remove_button");
-		bd->widgets.jumpto_button = glade_xml_get_widget (app->gxml, "breakpoints_jumpto_button");
-		bd->widgets.properties_button = glade_xml_get_widget (app->gxml, "breakpoints_properties_button");
-		bd->widgets.add_button = glade_xml_get_widget (app->gxml, "breakpoints_add_button");
-		bd->widgets.removeall_button = glade_xml_get_widget (app->gxml, "breakpoints_removeall_button");
-		bd->widgets.enableall_button = glade_xml_get_widget (app->gxml, "breakpoints_enableall_button");
-		bd->widgets.disableall_button = glade_xml_get_widget (app->gxml, "breakpoints_disableall_button");
+		bd->gxml_prop = glade_xml_new (GLADE_FILE_ANJUTA, "beakpoints_properties_dialog", NULL);
+		glade_xml_signal_autoconnect (bd->gxml_prop);
+		gtk_widget_hide (glade_xml_get_widget (bd->gxml_prop, "breakpoints_properties_dialog"));
+		
+		bd->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "beakpoints_dialog", NULL);
+		glade_xml_signal_autoconnect (bd->gxml);
+		
+		bd->widgets.window = glade_xml_get_widget (bd->gxml, "breakpoints_dialog");
+		gtk_widget_hide (bd->widgets.window);
+		bd->widgets.treeview = glade_xml_get_widget (bd->gxml, "breakpoints_tv");
+		bd->widgets.remove_button = glade_xml_get_widget (bd->gxml, "breakpoints_remove_button");
+		bd->widgets.jumpto_button = glade_xml_get_widget (bd->gxml, "breakpoints_jumpto_button");
+		bd->widgets.properties_button = glade_xml_get_widget (bd->gxml, "breakpoints_properties_button");
+		bd->widgets.add_button = glade_xml_get_widget (bd->gxml, "breakpoints_add_button");
+		bd->widgets.removeall_button = glade_xml_get_widget (bd->gxml, "breakpoints_removeall_button");
+		bd->widgets.enableall_button = glade_xml_get_widget (bd->gxml, "breakpoints_enableall_button");
+		bd->widgets.disableall_button = glade_xml_get_widget (bd->gxml, "breakpoints_disableall_button");
 
  		gtk_widget_ref (bd->widgets.window);
 		gtk_widget_ref (bd->widgets.treeview);
@@ -357,7 +365,8 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 		gtk_widget_unref (bd->widgets.disableall_button);
 
 		gtk_widget_destroy (bd->widgets.window);
-
+		g_object_unref (bd->gxml);
+		g_object_unref (bd->gxml_prop);
 		g_free (bd);
 	}
 }

@@ -854,8 +854,7 @@ get_fixed_font ()
 
 	if (done)
 		return font_desc;
-	font_desc = pango_font_description_new();
-	pango_font_description_set_from_string (font_desc, "misc medium 12");
+	font_desc = pango_font_description_from_string ("misc medium 12");
 	done = 1;
 	if (font_desc)
 	{
@@ -1315,7 +1314,7 @@ create_xpm_label_box(GtkWidget *parent,
 	box1 = gtk_hbox_new (FALSE, 0);
 	
 	/* Now on to the xpm stuff */
-	pixmap = anjuta_res_get_pixmap_widget (parent, xpm_filename);
+	pixmap = anjuta_res_get_image (xpm_filename);
 	
 	/* Create a label for the button */
 	label = gtk_label_new (label_text);
@@ -1644,4 +1643,73 @@ anjuta_util_check_gnome_terminal (void)
     
     /* gnome-terminal-2 found */
     return 2;
+}
+
+static gint
+int_from_hex_digit (const gchar ch)
+{
+	if (isdigit (ch))
+		return ch - '0';
+	else if (ch >= 'A' && ch <= 'F')
+		return ch - 'A' + 10;
+	else if (ch >= 'a' && ch <= 'f')
+		return ch - 'a' + 10;
+	else
+		return 0;
+}
+
+void
+anjuta_util_color_from_string (const gchar * val, guint8 * r, guint8 * g, guint8 * b)
+{
+	*r = int_from_hex_digit (val[1]) * 16 + int_from_hex_digit (val[2]);
+	*g = int_from_hex_digit (val[3]) * 16 + int_from_hex_digit (val[4]);
+	*b = int_from_hex_digit (val[5]) * 16 + int_from_hex_digit (val[6]);
+}
+
+gchar *
+anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b)
+{
+	gchar str[10];
+	guint32 num;
+
+	num = r;
+	num <<= 8;
+	num += g;
+	num <<= 8;
+	num += b;
+
+	sprintf (str, "#%06X", num);
+	return g_strdup (str);
+}
+
+GtkWidget *
+anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
+					   const gchar *label, const gchar *tooltip,
+					   GtkSignalFunc callback, gpointer user_data)
+{
+	GtkWidget *icon = anjuta_res_get_image (iconfile);
+	GtkWidget *item =
+		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar),
+					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
+					    label, tooltip, NULL,
+					    icon, callback, user_data);
+	gtk_widget_ref (item);
+	gtk_widget_show (item);
+	return item;
+}
+
+GtkWidget *
+anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
+					   const gchar *label, const gchar *tooltip,
+					   GtkSignalFunc callback, gpointer user_data)
+{
+	GtkWidget *item;
+	item =
+		gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
+					    stock_icon,
+					    label, tooltip,
+					    callback, user_data, -1);
+	gtk_widget_ref (item);
+	gtk_widget_show (item);
+	return item;
 }

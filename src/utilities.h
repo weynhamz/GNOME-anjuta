@@ -275,4 +275,20 @@ gboolean is_file_in_dir(const gchar *file, const gchar *dir);
 
 gint anjuta_util_check_gnome_terminal (void);
 
+void
+anjuta_util_color_from_string (const gchar * val,
+							   guint8 * r, guint8 * g, guint8 * b);
+
+gchar *
+anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
+
+GtkWidget *
+anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
+					   const gchar *label, const gchar *tooltip,
+					   GtkSignalFunc callback, gpointer user_data);
+GtkWidget *
+anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
+					   const gchar *label, const gchar *tooltip,
+					   GtkSignalFunc callback, gpointer user_data);
+
 #endif

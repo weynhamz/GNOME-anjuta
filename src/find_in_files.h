@@ -20,13 +20,14 @@
 #define _FIND_IN_FILES_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "project_dbase.h"
 
 #define FR_CENTRE     -1
 
 
-typedef  struct  _FindInFilesGui                        FindInFilesGui;
-typedef  struct  _FindInFiles                                FindInFiles;
+typedef  struct  _FindInFilesGui FindInFilesGui;
+typedef  struct  _FindInFiles    FindInFiles;
 
 struct  _FindInFilesGui
 {
@@ -44,6 +45,7 @@ struct  _FindInFilesGui
 
 struct _FindInFiles
 {
+  GladeXML *gxml;
   FindInFilesGui                widgets;
   GList                         *regexp_history;
   gchar                         *cur_row;

@@ -37,30 +37,11 @@ GtkWidget *
 create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 {
 	GtkWidget *toolbar1;
-
-	GtkWidget *toolbar_new;
-	GtkWidget *toolbar_open;
-	GtkWidget *toolbar_save;
-	GtkWidget *toolbar_save_all;
-	GtkWidget *toolbar_close;
-	GtkWidget *toolbar_reload;
-	GtkWidget *toolbar_undo;
-	GtkWidget *toolbar_redo;
 	GtkWidget *toolbar_led;
-	GtkWidget *toolbar_print;
-	GtkWidget *toolbar_detach;
-	GtkWidget *toolbar_find;
-	GtkWidget *toolbar_find_combo;
-	GtkWidget *toolbar_find_entry;
-	GtkWidget *toolbar_goto;
-	GtkWidget *toolbar_line_entry;
-	GtkWidget *toolbar_project;
-	GtkWidget *toolbar_messages;
-	GtkWidget *toolbar_help;
-
 	GtkTooltips *tooltips;
 	GtkWidget *tmp_toolbar_icon;
 	gchar *filename;
+	GdkPixbufAnimation *led_anim;
 	GError *gerror;
 
 	tooltips = gtk_tooltips_new ();
@@ -74,7 +55,9 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 
 #warning "G2: Add LED animation image file path here"
 	filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_GREEN_LED);
-	toolbar_led = GTK_WIDGET (gdk_pixbuf_animation_new_from_file (filename, &gerror));
+	led_anim = gdk_pixbuf_animation_new_from_file (filename, &gerror);
+	toolbar_led = gtk_image_new ();
+	gtk_image_set_from_animation (GTK_IMAGE (toolbar_led), led_anim);
 	if (gerror)
 		g_error_free (gerror);
 	if (filename)
@@ -84,303 +67,113 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_widget_show (toolbar_led);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_led,
 				   NULL, NULL);
-	gtk_tooltips_set_tip (tooltips, toolbar_led,
-			      _("Status LED: \n1) Red is busy." \
-				"2)Green is ready.\n3) Blinking is ready, but busy in background."),
-			      NULL);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_NEW_FILE);
-	toolbar_new =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("New"), _("New Text File"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_new);
-	gtk_widget_show (toolbar_new);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_OPEN_FILE);
-	toolbar_open =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Open"), _("Open file"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_open);
-	gtk_widget_show (toolbar_open);
-
+	toolbar->novus = 
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, _("New"),
+							  _("New file"),
+							  G_CALLBACK (on_toolbar_new_clicked), NULL);
+	toolbar->open = 
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_OPEN, _("Open"),
+							  _("Open file"),
+							  G_CALLBACK (on_toolbar_open_clicked), NULL);
+	toolbar->save = 
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_SAVE, _("Save"),
+							  _("Save current file"),
+							  G_CALLBACK (on_toolbar_save_clicked), NULL);
+	toolbar->reload =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REVERT_TO_SAVED, _("Reload"),
+						   _("Reload current file"),
+						   G_CALLBACK (on_toolbar_reload_clicked), NULL);
+	toolbar->close =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CLOSE, _("Close"),
+						   _("Close current file"),
+						   G_CALLBACK (on_toolbar_close_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_SAVE_FILE);
-	toolbar_save =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Save"), _("Save current file"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_save);
-	gtk_widget_show (toolbar_save);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_SAVE_ALL);
-	toolbar_save_all =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Save All"),
-					    _
-					    ("Save all currently open files, except new files"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_save_all);
-	gtk_widget_show (toolbar_save_all);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_CLOSE_FILE);
-	toolbar_close =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Close"),
-					    _("Close current file"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_ref (toolbar_close);
-	gtk_widget_show (toolbar_close);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_RELOAD_FILE);
-	toolbar_reload =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Reload"),
-					    _("Reload current file"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_ref (toolbar_reload);
-	gtk_widget_show (toolbar_reload);
-
+	toolbar->undo =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_UNDO, _("Undo"),
+						   _("Undo the last action"),
+						   G_CALLBACK (on_toolbar_undo_clicked), NULL);
+	toolbar->redo =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REDO, _("Redo"),
+						   _("Redo the last undone action"),
+						   G_CALLBACK (on_toolbar_redo_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_UNDO);
-	toolbar_undo =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Undo"),
-					    _("Undo the last action"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_ref (toolbar_undo);
-	gtk_widget_show (toolbar_undo);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_REDO);
-	toolbar_redo =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Redo"),
-					    _("Redo the last undone action"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_redo);
-	gtk_widget_show (toolbar_redo);
-
+	toolbar->detach =
+		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_UNDOCK, _("Detach"),
+						   _("Detach the current page"),
+						   G_CALLBACK (on_toolbar_detach_clicked), NULL);
+	toolbar->print =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, _("Print"),
+						   _("Print the current file"),
+						   G_CALLBACK (on_toolbar_print_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
+	toolbar->find =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, _("Find"),
+						   _("Search for the given string in the current file"),
+						   G_CALLBACK (on_toolbar_find_clicked), NULL);
 
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_UNDOCK);
-	toolbar_detach =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Detach"),
-					    _("Detach the current page"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_detach);
-	gtk_widget_show (toolbar_detach);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_PRINT);
-	toolbar_print =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Print"),
-					    _("Print the current file"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_ref (toolbar_print);
-	gtk_widget_show (toolbar_print);
-
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_FIND);
-	toolbar_find =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Find"),
-					    _("Search for the given string in the current file"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_find);
-	gtk_widget_show (toolbar_find);
-
-	toolbar_find_combo = gtk_combo_new ();
-	gtk_widget_ref (toolbar_find_combo);
-	gtk_combo_disable_activate (GTK_COMBO (toolbar_find_combo));
-	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar_find_combo), TRUE);
-	gtk_widget_show (toolbar_find_combo);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_find_combo,
+	toolbar->find_combo = gtk_combo_new ();
+	gtk_widget_ref (toolbar->find_combo);
+	gtk_combo_disable_activate (GTK_COMBO (toolbar->find_combo));
+	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar->find_combo), TRUE);
+	gtk_widget_show (toolbar->find_combo);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar->find_combo,
 				   NULL, NULL);
 
-	toolbar_find_entry = GTK_COMBO (toolbar_find_combo)->entry;
-	gtk_widget_ref (toolbar_find_entry);
-	gtk_widget_show (toolbar_find_entry);
-	gtk_tooltips_set_tip (tooltips, toolbar_find_entry,
-			      _
-			      ("Enter the string to search for"),
+	toolbar->find_entry = GTK_COMBO (toolbar->find_combo)->entry;
+	gtk_widget_ref (toolbar->find_entry);
+	gtk_widget_show (toolbar->find_entry);
+	gtk_tooltips_set_tip (tooltips, toolbar->find_entry,
+			      _("Enter the string to search for"),
 			      NULL);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
+	toolbar->go_to =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_JUMP_TO, _("Go To"),
+						   _("Go to the given line number in the current file"),
+						   G_CALLBACK (on_toolbar_goto_clicked), NULL);
 
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_GOTO);
-	toolbar_goto =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Go To"),
-					    _("Go to the given line number in the current file"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_goto);
-	gtk_widget_show (toolbar_goto);
-
-	toolbar_line_entry = gtk_entry_new ();
-	gtk_widget_ref (toolbar_line_entry);
-	gtk_widget_show (toolbar_line_entry);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_line_entry,
-				   _
-				   ("Enter the line number to go to"),
+	toolbar->line_entry = gtk_entry_new ();
+	gtk_widget_ref (toolbar->line_entry);
+	gtk_widget_show (toolbar->line_entry);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar->line_entry,
+				   _("Enter the line number to go to"),
 				   NULL);
-	gtk_widget_set_usize (toolbar_line_entry, 53, -2);
+	gtk_widget_set_usize (toolbar->line_entry, 53, -2);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_PROJECT);
-	toolbar_project =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Project"),
-					    _("Show/Hide the Project window"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_ref (toolbar_project);
-	gtk_widget_show (toolbar_project);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_MESSAGES);
-	toolbar_messages =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Messages"),
-					    _("Show/Hide the Message window"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_ref (toolbar_messages);
-	gtk_widget_show (toolbar_messages);
-
+	toolbar->project =
+		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_PROJECT, _("Project"),
+						   _("Show/Hide the Project window"),
+						   G_CALLBACK (on_toolbar_project_clicked), NULL);
+	toolbar->messages =
+		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_MESSAGES, _("Messages"),
+						   _("Show/Hide the Message window"),
+						   G_CALLBACK (on_toolbar_messages_clicked), NULL);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
+	toolbar->help =
+		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_HELP, _("Help"),
+						   _("Context sensitive help"),
+						   G_CALLBACK (on_toolbar_help_clicked), NULL);
 	
-	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_HELP);
-	toolbar_help =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Help"),
-					    _("Context sensitive help"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_ref (toolbar_help);
-	gtk_widget_show (toolbar_help);
-	
-	gtk_signal_connect (GTK_OBJECT (toolbar_new), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_new_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_open), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_open_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_save), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_save_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_save_all), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_save_all_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_close), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_close_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_reload), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_reload_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_undo), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_undo_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_redo), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_redo_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_print), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_print_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_detach), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_detach_clicked),
-			    NULL);
-
-	gtk_signal_connect (GTK_OBJECT (toolbar_find), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_find_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT
-			    (GTK_COMBO (toolbar_find_combo)->entry),
+	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry),
 			    "activate",
 			    GTK_SIGNAL_FUNC (on_toolbar_find_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT
-			    (GTK_COMBO (toolbar_find_combo)->entry),
+	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry),
 			    "changed",
 			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental), NULL);
-	gtk_signal_connect (GTK_OBJECT
-			    (GTK_COMBO (toolbar_find_combo)->entry),
+	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry),
 			    "focus_in_event",
 			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental_start), NULL);
-	gtk_signal_connect (GTK_OBJECT
-			    (GTK_COMBO (toolbar_find_combo)->entry),
+	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry),
 			    "focus_out_event",
 			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental_end), NULL);
 
-	gtk_signal_connect (GTK_OBJECT (toolbar_goto), "clicked",
+	gtk_signal_connect (GTK_OBJECT (toolbar->line_entry), "activate",
 			    GTK_SIGNAL_FUNC (on_toolbar_goto_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_line_entry), "activate",
-			    GTK_SIGNAL_FUNC (on_toolbar_goto_clicked), NULL);
-
-	gtk_signal_connect (GTK_OBJECT (toolbar_project), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_project_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_messages), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_messages_clicked),
-			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_help), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_help_clicked), NULL);
 
 	toolbar->toolbar = toolbar1;
-
-	toolbar->novus = toolbar_new;
-	toolbar->open = toolbar_open;
-	toolbar->save = toolbar_save;
-	toolbar->save_all = toolbar_save_all;
-	toolbar->close = toolbar_close;
-	toolbar->reload = toolbar_reload;
-	toolbar->undo = toolbar_undo;
-	toolbar->redo = toolbar_redo;
-	toolbar->led = toolbar_led;
-	toolbar->print = toolbar_print;
-	toolbar->detach = toolbar_detach;
-	toolbar->find = toolbar_find;
-	toolbar->find_combo = toolbar_find_combo;
-	toolbar->find_entry = toolbar_find_entry;
-	toolbar->go_to = toolbar_goto;
-	toolbar->line_entry = toolbar_line_entry;
-	toolbar->project = toolbar_project;
-	toolbar->messages = toolbar_messages;
-	toolbar->help = toolbar_help;
-
 	return toolbar1;
 }
 
@@ -410,7 +203,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar2);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_OPEN_PROJECT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_OPEN_PROJECT);
 	toolbar_open_project =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -421,7 +214,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_open_project);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_SAVE_PROJECT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_SAVE_PROJECT);
 	toolbar_save_project =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -433,7 +226,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_save_project);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_CLOSE_PROJECT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_CLOSE_PROJECT);
 	toolbar_close_project =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -447,7 +240,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_COMPILE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_COMPILE);
 	toolbar_compile =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -459,7 +252,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_compile);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_CONFIGURE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_CONFIGURE);
 	toolbar_configure =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -470,7 +263,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_configure);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_BUILD);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BUILD);
 	toolbar_build =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -483,7 +276,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_build);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_BUILD_ALL);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BUILD_ALL);
 	toolbar_build_all =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -496,7 +289,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_build_all);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_EXECUTE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_EXECUTE);
 	toolbar_exec =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -507,7 +300,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_exec);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_DEBUG);
+		anjuta_res_get_image (ANJUTA_PIXMAP_DEBUG);
 	toolbar_debug =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -518,7 +311,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_show (toolbar_debug);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_BUILD_STOP);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BUILD_STOP);
 	toolbar_stop =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -611,8 +404,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	//			       GTK_RELIEF_NONE);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BOOKMARK_TOGGLE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_TOGGLE);
 	button2 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -625,8 +417,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button2);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BOOKMARK_FIRST);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_FIRST);
 	button3 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -639,8 +430,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button3);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BOOKMARK_PREV);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_PREV);
 	button4 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -653,8 +443,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button4);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BOOKMARK_NEXT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_NEXT);
 	button5 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -667,8 +456,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button5);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BOOKMARK_LAST);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BOOKMARK_LAST);
 	button6 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -683,7 +471,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_ERROR_PREV);
+		anjuta_res_get_image (ANJUTA_PIXMAP_ERROR_PREV);
 	button7 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -696,7 +484,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button7);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_ERROR_NEXT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_ERROR_NEXT);
 	button8 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -711,8 +499,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BLOCK_START);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BLOCK_START);
 	button9 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -725,7 +512,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_widget_show (button9);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_BLOCK_END);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BLOCK_END);
 	button10 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -748,7 +535,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 				   NULL, NULL);
 	
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_TAG);
+		anjuta_res_get_image (ANJUTA_PIXMAP_TAG);
 	toolbar_tag =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -861,7 +648,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar3);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_CONTINUE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_CONTINUE);
 	toolbar_go =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -873,7 +660,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_go);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_RUN_TO_CURSOR);
+		anjuta_res_get_image (ANJUTA_PIXMAP_RUN_TO_CURSOR);
 	toolbar_run_to_cursor =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -885,7 +672,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_run_to_cursor);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_STEP_IN);
+		anjuta_res_get_image (ANJUTA_PIXMAP_STEP_IN);
 	toolbar_step_in =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -897,7 +684,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_step_in);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_STEP_OVER);
+		anjuta_res_get_image (ANJUTA_PIXMAP_STEP_OVER);
 	toolbar_step_over =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -908,7 +695,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_step_over);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_STEP_OUT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_STEP_OUT);
 	toolbar_step_out =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -922,7 +709,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar3));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_INTERRUPT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_INTERRUPT);
 	toolbar_interrupt =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -937,7 +724,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar3));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_BREAKPOINT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BREAKPOINT);
 	toolbar_toggle_bp =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -948,7 +735,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_toggle_bp);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_INSPECT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_INSPECT);
 	toolbar_inspect =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -961,7 +748,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_inspect);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_FRAME);
+		anjuta_res_get_image (ANJUTA_PIXMAP_FRAME);
 	toolbar_frame =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -976,7 +763,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar3));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_WATCH);
+		anjuta_res_get_image (ANJUTA_PIXMAP_WATCH);
 	toolbar_watch =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -989,7 +776,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_watch);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_STACK);
+		anjuta_res_get_image (ANJUTA_PIXMAP_STACK);
 	toolbar_stack =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1001,7 +788,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_show (toolbar_stack);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_REGISTERS);
+		anjuta_res_get_image (ANJUTA_PIXMAP_REGISTERS);
 	toolbar_registers =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1016,7 +803,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar3));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (anjuta_gui, ANJUTA_PIXMAP_DEBUG_STOP);
+		anjuta_res_get_image (ANJUTA_PIXMAP_DEBUG_STOP);
 	toolbar_stop =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1111,8 +898,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	//			       GTK_RELIEF_NONE);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_FOLD_TOGGLE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_FOLD_TOGGLE);
 	button2 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1125,7 +911,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_widget_show (button2);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_FOLD_CLOSE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_FOLD_CLOSE);
 	button4 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1138,7 +924,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_widget_show (button4);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_FOLD_OPEN);
+		anjuta_res_get_image (ANJUTA_PIXMAP_FOLD_OPEN);
 	button3 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1153,8 +939,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_BLOCK_SELECT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BLOCK_SELECT);
 	button5 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1166,7 +951,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_widget_show (button5);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_INDENT_INC);
+		anjuta_res_get_image (ANJUTA_PIXMAP_INDENT_INC);
 	button6 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1179,7 +964,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_widget_show (button6);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_INDENT_DCR);
+		anjuta_res_get_image (ANJUTA_PIXMAP_INDENT_DCR);
 	button7 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1194,8 +979,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_INDENT_AUTO);
+		anjuta_res_get_image (ANJUTA_PIXMAP_INDENT_AUTO);
 	button8 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1208,8 +992,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_widget_show (button8);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_AUTOFORMAT_SETTING);
+		anjuta_res_get_image (ANJUTA_PIXMAP_AUTOFORMAT_SETTING);
 	button9 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1223,7 +1006,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_CALLTIP);
+		anjuta_res_get_image (ANJUTA_PIXMAP_CALLTIP);
 	button10 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -1236,8 +1019,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	 gtk_widget_hide (button10);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1,
-					   ANJUTA_PIXMAP_AUTOCOMPLETE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_AUTOCOMPLETE);
 	button11 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,

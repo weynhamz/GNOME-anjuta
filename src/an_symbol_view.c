@@ -424,13 +424,13 @@ on_symbol_model_row_deleted (GtkTreeModel *model,
 	GtkTreeIter iter;
 	SymbolFileInfo *sfile;
 
-	gtk_tree_model_get_iter (model, &iter, path);
-
-	gtk_tree_model_get (model, &iter,
-			    SVFILE_ENTRY_COLUMN, &sfile,
-			    -1);
-
-	symbol_file_info_free (sfile);
+	if (gtk_tree_model_get_iter (model, &iter, path))
+	{
+		gtk_tree_model_get (model, &iter,
+					SVFILE_ENTRY_COLUMN, &sfile,
+					-1);
+		symbol_file_info_free (sfile);
+	}
 }
 
 static void
@@ -438,11 +438,17 @@ on_symbol_view_row_expanded (GtkTreeView *view,
 			     GtkTreeIter *iter,
 			     GtkTreePath *path)
 {
+	GdkPixbuf *pixbuf;
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
 
-	gtk_tree_store_set (store, iter,
-			    PIXBUF_COLUMN, sv_pixbufs[sv_ofolder_t],
-			    1);
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
+						PIXBUF_COLUMN, &pixbuf, -1);
+	if (pixbuf == sv_pixbufs[sv_cfolder_t])
+	{
+		gtk_tree_store_set (store, iter,
+					PIXBUF_COLUMN, sv_pixbufs[sv_ofolder_t],
+					-1);
+	}
 }
 
 static void
@@ -450,11 +456,17 @@ on_symbol_view_row_collapsed (GtkTreeView *view,
 			      GtkTreeIter *iter,
 			      GtkTreePath *path)
 {
+	GdkPixbuf *pixbuf;
 	GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (view));
 
-	gtk_tree_store_set (store, iter,
-			    PIXBUF_COLUMN, sv_pixbufs[sv_cfolder_t],
-			    -1);
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
+						PIXBUF_COLUMN, &pixbuf, -1);
+	if (pixbuf == sv_pixbufs[sv_ofolder_t])
+	{
+		gtk_tree_store_set (store, iter,
+					PIXBUF_COLUMN, sv_pixbufs[sv_cfolder_t],
+					-1);
+	}
 }
 
 static void
@@ -476,7 +488,7 @@ sv_create ()
 
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMNS_NB,
-				    G_TYPE_STRING,
+				    GDK_TYPE_PIXBUF,
 					G_TYPE_STRING,
 				    G_TYPE_POINTER);
 	g_signal_connect (store, "row_deleted", G_CALLBACK (on_symbol_model_row_deleted), NULL);
@@ -696,7 +708,7 @@ sv_populate (gboolean full)
 				arr[0] = s->str;
 				sfile = symbol_file_info_new (sym1);
 				gtk_tree_store_append (store, &sub_iter, &iter);
-				gtk_tree_store_set (store, &iter,
+				gtk_tree_store_set (store, &sub_iter,
 						    PIXBUF_COLUMN, sv_pixbufs[type],
 						    NAME_COLUMN, s->str,
 						    SVFILE_ENTRY_COLUMN, sfile,
@@ -729,8 +741,9 @@ sv_populate (gboolean full)
 
 		for (i=0; i <3; ++ i)
 		{
-			if (selected_item[i])
-				gtk_tree_view_expand(GTK_TREE_VIEW(sv->tree), selected_item[i]);
+			//if (selected_item[i])
+#warning "G2: Expande tree node here."
+				//gtk_tree_view_expand(GTK_TREE_VIEW(sv->tree), selected_item[i]);
 		}
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv->tree));
 		gtk_tree_selection_select_iter (selection, selected_item[0]);

@@ -92,7 +92,7 @@ on_bk_properties_clicked (GtkWidget *button,
 		return;
 
 	/* We don't ref the dialog so it's slower but all fields are erased then. */
-	dialog = glade_xml_get_widget (app->gxml, "breakpoint_properties_dialog");
+	dialog = glade_xml_get_widget (bd->gxml_prop, "breakpoint_properties_dialog");
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK) {
 		if (bd->edit_index >= 0)
@@ -109,9 +109,12 @@ on_bk_add_clicked (GtkWidget *button,
 		   gpointer   data)
 {
 	GtkWidget *dialog;
+	BreakpointsDBase *bd;
+
+	bd = (BreakpointsDBase *) data;
 
 	/* We don't ref the dialog so it's slower but all fields are erased then. */
-	dialog = glade_xml_get_widget (app->gxml, "breakpoint_properties_dialog");
+	dialog = glade_xml_get_widget (bd->gxml_prop, "breakpoint_properties_dialog");
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
 		on_bk_item_add_ok_clicked (button, data);
@@ -216,9 +219,9 @@ on_bk_item_add_ok_clicked (GtkWidget *button, gpointer data)
 	if (bd->breakpoints == NULL)
 		return;
 
-	location_entry = glade_xml_get_widget (app->gxml, "breakpoint_location_entry");
-	condition_entry = glade_xml_get_widget (app->gxml, "breakpoint_condition_entry");
-	pass_entry = glade_xml_get_widget (app->gxml, "breakpoint_pass_entry");
+	location_entry = glade_xml_get_widget (bd->gxml_prop, "breakpoint_location_entry");
+	condition_entry = glade_xml_get_widget (bd->gxml_prop, "breakpoint_condition_entry");
+	pass_entry = glade_xml_get_widget (bd->gxml_prop, "breakpoint_pass_entry");
 
 	if (strlen (gtk_entry_get_text (GTK_ENTRY (location_entry))) > 0)
 	{

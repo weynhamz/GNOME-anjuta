@@ -105,6 +105,7 @@ find_text_destroy (FindText * ft)
 
 		if (ft->find_history)
 			g_list_free (ft->find_history);
+		g_object_unref (ft->gxml);
 		g_free (ft);
 		ft = NULL;
 	}
@@ -224,20 +225,23 @@ find_text_save_session ( FindText * ft, ProjectDBase *p )
 void
 create_find_text_gui (FindText * ft)
 {
-	ft->f_gui.GUI = glade_xml_get_widget (app->gxml, "find_replace_dialog");
+	ft->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_replace_dialog", NULL);
+	glade_xml_signal_autoconnect (ft->gxml);
+	ft->f_gui.GUI = glade_xml_get_widget (ft->gxml, "find_replace_dialog");
+	gtk_widget_hide (ft->f_gui.GUI);
 	gtk_window_set_transient_for (GTK_WINDOW(ft->f_gui.GUI),
                                   GTK_WINDOW(app->widgets.window));
 	
-	ft->f_gui.combo = glade_xml_get_widget (app->gxml, "find_text_find_combo");
-	ft->f_gui.entry = glade_xml_get_widget (app->gxml, "find_text_find_entry");
-	ft->f_gui.from_begin_radio = glade_xml_get_widget (app->gxml, "find_text_whole_document");
-	ft->f_gui.from_cur_loc_radio = glade_xml_get_widget (app->gxml, "find_text_from_cursor");
-	ft->f_gui.forward_radio = glade_xml_get_widget (app->gxml, "find_text_forwards");
-	ft->f_gui.backward_radio = glade_xml_get_widget (app->gxml, "find_text_backwards");
-	ft->f_gui.regexp_radio = glade_xml_get_widget (app->gxml, "find_text_regexp");
-	ft->f_gui.string_radio = glade_xml_get_widget (app->gxml, "find_text_string");
-	ft->f_gui.ignore_case_check = glade_xml_get_widget (app->gxml, "find_text_ignore_case");
-	ft->f_gui.whole_word_check = glade_xml_get_widget (app->gxml, "find_text_whole_word");
+	ft->f_gui.combo = glade_xml_get_widget (ft->gxml, "find_text_find_combo");
+	ft->f_gui.entry = glade_xml_get_widget (ft->gxml, "find_text_find_entry");
+	ft->f_gui.from_begin_radio = glade_xml_get_widget (ft->gxml, "find_text_whole_document");
+	ft->f_gui.from_cur_loc_radio = glade_xml_get_widget (ft->gxml, "find_text_from_cursor");
+	ft->f_gui.forward_radio = glade_xml_get_widget (ft->gxml, "find_text_forwards");
+	ft->f_gui.backward_radio = glade_xml_get_widget (ft->gxml, "find_text_backwards");
+	ft->f_gui.regexp_radio = glade_xml_get_widget (ft->gxml, "find_text_regexp");
+	ft->f_gui.string_radio = glade_xml_get_widget (ft->gxml, "find_text_string");
+	ft->f_gui.ignore_case_check = glade_xml_get_widget (ft->gxml, "find_text_ignore_case");
+	ft->f_gui.whole_word_check = glade_xml_get_widget (ft->gxml, "find_text_whole_word");
 	
 	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "response",
 	                  G_CALLBACK (on_find_text_dialog_response), ft);
@@ -344,8 +348,8 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 					_("No matches. Wrap search around the document?"),
 					GTK_STOCK_NO,
 					GTK_STOCK_YES,
-					G_CALLBACK (on_find_text_cancel_clicked),
-					G_CALLBACK (on_find_text_start_over), 
+					G_CALLBACK (on_find_text_dialog_response),
+					G_CALLBACK (on_find_text_dialog_response), 
 					user_data);
 		}
 		else
@@ -366,7 +370,7 @@ on_find_text_start_over (GtkButton * button, gpointer user_data)
 	else
 		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0); // search from doc end
 
-	on_find_text_ok_clicked(NULL, app->find_replace->find_text);
+	on_find_text_dialog_response (NULL, GTK_RESPONSE_OK, app->find_replace->find_text);
 }
 
 void
@@ -394,4 +398,3 @@ gchar *selectionText = NULL;
                g_free (selectionText);
        }       
 }
-

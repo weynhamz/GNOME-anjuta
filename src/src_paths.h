@@ -19,6 +19,7 @@
 #ifndef _SRC_PATHS_H_
 #define _SRC_PATHS_H_
 
+#include <glade/glade.h>
 #include "properties.h"
 
 typedef struct _SrcPaths SrcPaths;
@@ -38,6 +39,7 @@ struct _SrcPathsGui
 
 struct _SrcPaths
 {
+	GladeXML *gxml;
 	SrcPathsGui widgets;
 	gint src_index;
 

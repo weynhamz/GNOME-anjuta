@@ -167,24 +167,39 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 	switch (prop->object_type)
 	{
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
-		int_value = atoi (value);
+		if (value) 
+			int_value = atoi (value);
+		else
+			int_value = atoi (prop->default_value);
+		
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop->object),
 		                              int_value);
 		break;
 		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_SPIN:
-		int_value = atoi (value);
+		if (value) 
+			int_value = atoi (value);
+		else
+			int_value = atoi (prop->default_value);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (prop->object), int_value);
 		break;
 	
 	case ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY:
-		gtk_entry_set_text (GTK_ENTRY (prop->object), value);
+		if (value)
+			gtk_entry_set_text (GTK_ENTRY (prop->object), value);
+		else
+			gtk_entry_set_text (GTK_ENTRY (prop->object),
+								(gchar*) prop->default_value);
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
 			GtkTextBuffer *buffer;
 			buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (prop->object));
-			gtk_text_buffer_set_text (buffer, value, -1);
+			if (value)
+				gtk_text_buffer_set_text (buffer, value, -1);
+			else
+				gtk_text_buffer_set_text (buffer, value,
+										  (gchar*) prop->default_value);
 			break;
 		}
 	}
@@ -347,7 +362,7 @@ preferences_set (Preferences * pr, gchar * key, gchar * value)
 inline void
 preferences_set_int (Preferences * pr, gchar * key, gint value)
 {
-  prop_set_int_with_key(pr->props, key, value);
+	prop_set_int_with_key(pr->props, key, value);
 }
 
 static gboolean
@@ -363,6 +378,7 @@ preferences_objects_to_prop (Preferences *pr)
 		value = get_property_value_as_string (p);
 		preferences_set (pr, p->key, value);
 		g_free (value);
+		node = g_list_next (node);
 	}
 }
 
@@ -376,35 +392,19 @@ on_preferences_dialog_response (GtkDialog *dialog,
 		switch (response)
 		{
 		case GTK_RESPONSE_OK:
-			gtk_dialog_close(GTK_DIALOG(pr->priv->dialog));
+			gtk_dialog_response (GTK_DIALOG(pr->priv->dialog),
+								 GTK_RESPONSE_NONE);
 			/* Note: No break here */
 		case GTK_RESPONSE_APPLY:
 			preferences_objects_to_prop (pr);
 			break;
 		case GTK_RESPONSE_CANCEL:
 			preferences_objects_to_prop (pr);
-			gtk_dialog_close(GTK_DIALOG(pr->priv->dialog));
+			gtk_dialog_response (GTK_DIALOG(pr->priv->dialog),
+								 GTK_RESPONSE_NONE);
 			break;
 		}
 	}
-}
-
-void
-preferences_show (Preferences * pr)
-{
-	if (!pr)
-		return;
-
-	if (pr->priv->is_showing)
-	{
-		gdk_window_raise (pr->priv->dialog->window);
-		return;
-	}
-	preferences_sync (pr);
-	gtk_widget_set_uposition (pr->priv->dialog, pr->priv->win_pos_x,
-				  pr->priv->win_pos_y);
-	gtk_widget_show (pr->priv->dialog);
-	pr->priv->is_showing = TRUE;
 }
 
 static void
@@ -459,6 +459,7 @@ preferences_save_yourself (Preferences *pr, FILE *fp)
 		p = node->data;
 		if (save_property (p, fp) == FALSE)
 			return FALSE;
+		node = g_list_next (node);
 	}
 }
 
@@ -486,14 +487,36 @@ preferences_prop_to_objects (Preferences *pr)
 		value = preferences_get (pr, p->key);
 		set_property_value_as_string (p, value);
 		g_free (value);
+		node = g_list_next (node);
 	}
+}
+
+void
+preferences_show (Preferences * pr)
+{
+	if (!pr)
+		return;
+
+	if (pr->priv->is_showing)
+	{
+		gdk_window_raise (pr->priv->dialog->window);
+		return;
+	}
+	preferences_prop_to_objects (pr);
+	gtk_widget_set_uposition (pr->priv->dialog, pr->priv->win_pos_x,
+				  pr->priv->win_pos_y);
+	gtk_widget_show (pr->priv->dialog);
+	pr->priv->is_showing = TRUE;
 }
 
 static void
 create_preferences_gui (Preferences * pr)
 {
-	pr->priv->notebook = glade_xml_get_widget (app->gxml, "preferences_notebook");
-	pr->priv->dialog = glade_xml_get_widget (app->gxml, "preferences_dialog");
+	pr->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog", NULL);
+	glade_xml_signal_autoconnect (pr->priv->gxml);
+	pr->priv->dialog = glade_xml_get_widget (pr->priv->gxml, "preferences_dialog");
+	gtk_widget_hide (pr->priv->dialog);
+	pr->priv->notebook = glade_xml_get_widget (pr->priv->gxml, "preferences_notebook");
 
 	gtk_window_add_accel_group (GTK_WINDOW (pr->priv->dialog), app->accel_group);
 
@@ -511,8 +534,7 @@ preferences_new ()
 	if (pr)
 	{
 		gchar *propdir, *propfile, *str;
-		pr->priv = g_new0 (PreferencesPriv, 0);
-		pr->priv->gxml = app->gxml;
+		pr->priv = g_new0 (PreferencesPriv, 1);
 		pr->priv->properties = NULL;
 		
 		pr->props_build_in = prop_set_new ();
@@ -608,8 +630,8 @@ preferences_new ()
 			remove("~/.gnome/Anjuta");
 		}
 		/* quick hack ends */
-		
-		preferences_set_build_options (pr);
+#warning "G2: Make sure build options are set properly here"
+		//preferences_set_build_options (pr);
 		pr->priv->is_showing = FALSE;
 		pr->priv->win_pos_x = 100;
 		pr->priv->win_pos_y = 80;
@@ -631,6 +653,7 @@ preferences_destroy (Preferences * pr)
 		prop_set_destroy (pr->props);
 		g_list_foreach (pr->priv->properties, (GFunc)property_destroy, NULL);
 		gtk_widget_destroy (pr->priv->dialog);
+		g_object_unref (pr->priv->gxml);
 		g_free (pr);
 		pr = NULL;
 	}

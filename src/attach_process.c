@@ -118,10 +118,13 @@ attach_process_new ()
 		GtkCellRenderer *renderer;
 		int i;
 
-		ap->widgets.window = glade_xml_get_widget (app->gxml, "attach_process_dialog");
-		ap->widgets.treeview = glade_xml_get_widget (app->gxml, "attach_process_tv");
-		ap->widgets.update_button = glade_xml_get_widget (app->gxml, "attach_process_update_button");
-		ap->widgets.attach_button = glade_xml_get_widget (app->gxml, "attach_process_attach_button");
+		ap->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "attach_process_dialog", NULL);
+		glade_xml_signal_autoconnect (ap->gxml);
+		ap->widgets.window = glade_xml_get_widget (ap->gxml, "attach_process_dialog");
+		gtk_widget_hide (ap->widgets.window);
+		ap->widgets.treeview = glade_xml_get_widget (ap->gxml, "attach_process_tv");
+		ap->widgets.update_button = glade_xml_get_widget (ap->gxml, "attach_process_update_button");
+		ap->widgets.attach_button = glade_xml_get_widget (ap->gxml, "attach_process_attach_button");
 
 		gtk_widget_ref (ap->widgets.window);
 		gtk_widget_ref (ap->widgets.treeview);
@@ -361,7 +364,7 @@ attach_process_destroy (AttachProcess * ap)
 		gtk_widget_unref (ap->widgets.attach_button);
 
 		gtk_widget_destroy (ap->widgets.window);
-
+		g_object_unref (ap->gxml);
 		g_free (ap);
 	}
 }

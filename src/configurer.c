@@ -51,6 +51,9 @@ configurer_new (PropsID props)
 	Configurer *c = malloc (sizeof (Configurer));
 	if (c) {
 		c->props = props;
+		c->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "configurer_dialog", NULL);
+		gtk_widget_hide (glade_xml_get_widget (c->gxml, "configurer_dialog"));
+		glade_xml_signal_autoconnect (c->gxml);
 	}
 	return c;
 }
@@ -58,7 +61,10 @@ configurer_new (PropsID props)
 void
 configurer_destroy (Configurer * c)
 {
-	if (c) g_free (c);
+	if (c) {
+		g_object_unref (c->gxml);
+		g_free (c);
+	}
 }
 
 void
@@ -75,12 +81,12 @@ create_configurer_dialog (Configurer * c)
 	GtkWidget *ok_button;
 	gchar *options;
 	
-	dialog = glade_xml_get_widget (app->gxml, "configurer_dialog");
-	ok_button = glade_xml_get_widget (app->gxml, "configurer_ok_button");
+	dialog = glade_xml_get_widget (c->gxml, "configurer_dialog");
+	ok_button = glade_xml_get_widget (c->gxml, "configurer_ok_button");
 	g_signal_connect (G_OBJECT (ok_button), "clicked",
 			    G_CALLBACK (on_configurer_ok_clicked), c);
 	
-	entry = glade_xml_get_widget (app->gxml, "configurer_entry");
+	entry = glade_xml_get_widget (c->gxml, "configurer_entry");
 	options = prop_get (c->props, "project.configure.options");
 	if (options)
 	{
@@ -90,7 +96,7 @@ create_configurer_dialog (Configurer * c)
 	g_signal_connect (G_OBJECT (entry), "changed",
 			    G_CALLBACK (on_configurer_entry_changed), c);
 	
-	entry = glade_xml_get_widget (app->gxml, "configurer_environment_entry");
+	entry = glade_xml_get_widget (c->gxml, "configurer_environment_entry");
 	options = prop_get (c->props, "project.configure.environment");
 	if (options)
 	{

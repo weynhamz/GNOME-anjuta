@@ -20,6 +20,7 @@
 #define _ANJUTA_HELP_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 
 typedef struct
 {
@@ -33,6 +34,7 @@ typedef struct
 
 typedef struct
 {
+	GladeXML *gxml;
 	AnjutaHelpWidgets widgets;
 	GList* history;
 	gboolean is_showing;

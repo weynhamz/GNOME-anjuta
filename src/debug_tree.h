@@ -11,9 +11,9 @@ extern "C"
 /* The debug tree object */
 typedef struct _DebugTree {
 	
-	GtkTreeView* tree;        /* the tree widget */
-	GtkTreeIter* cur_node;
-	GtkWidget* middle_click_menu;
+	GtkWidget* tree;        /* the tree widget */
+	// GtkTreeIter* cur_node;
+	// GtkWidget* middle_click_menu;
 
 } DebugTree;
 

@@ -19,12 +19,14 @@
 #ifndef _CONFIGURER_H_
 #define _CONFIGURER_H_
 
+#include <glade/glade.h>
 #include "properties.h"
 
 typedef struct _Configurer Configurer;
 
 struct _Configurer
 {
+	GladeXML *gxml;
 	PropsID props;
 };
 

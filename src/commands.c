@@ -114,6 +114,7 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	CommandEditor* ce;
 	GtkWidget *menu;
 	GList *list;
+	GList *command_lang_info;
 	int i;
 
 	ce = g_new0 (CommandEditor, 1);
@@ -133,16 +134,42 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	ce->win_width = 0;
 	ce->win_height = 0;
 
-	ce->widgets.window = glade_xml_get_widget (app->gxml, "commands_dialog");
-	ce->widgets.pix_editor_entry = glade_xml_get_widget (app->gxml, "commands_pixmap_editor_entry");
-	ce->widgets.image_editor_entry = glade_xml_get_widget (app->gxml, "commands_image_editor_entry");
-	ce->widgets.html_editor_entry = glade_xml_get_widget (app->gxml, "commands_html_editor_entry");
-	ce->widgets.terminal_entry = glade_xml_get_widget (app->gxml, "commands_terminal_entry");
-	ce->widgets.language_om = glade_xml_get_widget (app->gxml, "commands_language_om");
-	ce->widgets.compile_entry = glade_xml_get_widget (app->gxml, "commands_compile_entry");
-	ce->widgets.build_entry = glade_xml_get_widget (app->gxml, "commands_build_entry");
-	ce->widgets.execute_entry = glade_xml_get_widget (app->gxml, "commands_execute_entry");
-	ce->widgets.make_entry = glade_xml_get_widget (app->gxml, "commands_make_entry");
+	command_lang_info = glist_from_data (p, COMMAND_LANGUAGES);	
+	if (!command_lang_info)
+		prog_language_map = prog_language_map_buildin;
+	else {
+		GList *node;
+		gint length, count;
+		
+		node = command_lang_info;
+		length = g_list_length(node);
+		prog_language_map = (gchar**) g_new (gchar*, length+3);
+		count = 0;
+		
+		while (node) {
+			if (node->data) {
+				prog_language_map[count++] = g_strdup((gchar*)node->data);
+			}
+			node = g_list_next (node);
+		}
+		prog_language_map[count++] = NULL;
+		prog_language_map[count++] = NULL;
+		glist_strings_free (command_lang_info);
+	}
+
+	ce->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "commands_dialog", NULL);
+	glade_xml_signal_autoconnect (ce->gxml);
+	ce->widgets.window = glade_xml_get_widget (ce->gxml, "commands_dialog");
+	gtk_widget_hide (ce->widgets.window);
+	ce->widgets.pix_editor_entry = glade_xml_get_widget (ce->gxml, "commands_pixmap_editor_entry");
+	ce->widgets.image_editor_entry = glade_xml_get_widget (ce->gxml, "commands_image_editor_entry");
+	ce->widgets.html_editor_entry = glade_xml_get_widget (ce->gxml, "commands_html_viewer_entry");
+	ce->widgets.terminal_entry = glade_xml_get_widget (ce->gxml, "commands_terminal_entry");
+	ce->widgets.language_om = glade_xml_get_widget (ce->gxml, "commands_language_om");
+	ce->widgets.compile_entry = glade_xml_get_widget (ce->gxml, "commands_compile_entry");
+	ce->widgets.build_entry = glade_xml_get_widget (ce->gxml, "commands_build_entry");
+	ce->widgets.execute_entry = glade_xml_get_widget (ce->gxml, "commands_execute_entry");
+	ce->widgets.make_entry = glade_xml_get_widget (ce->gxml, "commands_make_entry");
 
 	gtk_widget_ref (ce->widgets.window);
 	gtk_widget_ref (ce->widgets.pix_editor_entry);
@@ -161,7 +188,7 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	for (i = 0; term_commands[i] != NULL; i++)
 		list = g_list_append (list, term_commands[i]);
 
-	gtk_combo_set_popdown_strings (GTK_COMBO (glade_xml_get_widget (app->gxml, "commands_terminal_combo")), list);
+	gtk_combo_set_popdown_strings (GTK_COMBO (glade_xml_get_widget (ce->gxml, "commands_terminal_combo")), list);
 
 	g_list_free (list);
 
@@ -183,9 +210,9 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	g_signal_connect (ce->widgets.language_om, "changed",
 			  G_CALLBACK (on_language_menu_changed), ce);
 	
-	g_signal_connect (glade_xml_get_widget (app->gxml, "commands_global_defaults_button"), "clicked",
+	g_signal_connect (glade_xml_get_widget (ce->gxml, "commands_global_defaults_button"), "clicked",
 			  G_CALLBACK (on_load_global_clicked), ce);
-	g_signal_connect (glade_xml_get_widget (app->gxml, "commands_user_defaults_button"), "clicked",
+	g_signal_connect (glade_xml_get_widget (ce->gxml, "commands_user_defaults_button"), "clicked",
 			  G_CALLBACK (on_load_user_clicked), ce);
 
 #warning "G2 port: instant apply settings support"
@@ -211,7 +238,7 @@ command_editor_destroy (CommandEditor* ce)
 	gtk_widget_unref (ce->widgets.make_entry);
 
 	gtk_widget_destroy (ce->widgets.window);
-
+	g_object_unref (ce->gxml);
 	g_free (ce);
 }
 
@@ -658,4 +685,3 @@ command_editor_load_yourself (CommandEditor *ce, PropsID pr)
 {
 	return TRUE;
 }
-

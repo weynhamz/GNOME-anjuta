@@ -1268,16 +1268,14 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	if (te->buttons.close)
 		text_editor_tab_widget_destroy(te);
 	
-	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (te->widgets.window,
-		ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
+	tmp_toolbar_icon = anjuta_res_get_image (ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
 	gtk_widget_show(tmp_toolbar_icon);
 	
 	button15 = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
 	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
 	
-	close_pixmap = anjuta_res_get_pixmap_widget (te->widgets.window,
-		ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
+	close_pixmap = anjuta_res_get_image (ANJUTA_PIXMAP_CLOSE_FILE_SMALL);
 	gtk_widget_size_request (button15, &r);
 	gtk_widget_set_usize (close_pixmap, r.width, r.height);
 	gtk_widget_set_sensitive(close_pixmap, FALSE);

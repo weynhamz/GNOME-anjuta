@@ -382,7 +382,7 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
-	
+
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));

@@ -131,7 +131,7 @@ void anjuta_print_progress_end(PrintJobInfo * pji)
 {
 	if (pji->progress_dialog == NULL)
 		return;
-	gnome_dialog_close(pji->progress_dialog);
+	gnome_dialog_close (pji->progress_dialog);
 	pji->progress_dialog = NULL;
 	pji->progress_bar = NULL;
 }

@@ -41,22 +41,25 @@ create_find_in_files_gui (FindInFiles *sf)
 {
 	GtkWidget *button;
 	
+	sf->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_in_files_dialog", NULL);
+	glade_xml_signal_autoconnect (sf->gxml);
 	sf->widgets.window =
-		glade_xml_get_widget (app->gxml, "find_in_files_dialog");
+		glade_xml_get_widget (sf->gxml, "find_in_files_dialog");
+	gtk_widget_hide (sf->widgets.window);
 	sf->widgets.file_entry =
-		glade_xml_get_widget (app->gxml, "find_in_files_file_entry");
+		glade_xml_get_widget (sf->gxml, "find_in_files_file_entry");
 	sf->widgets.clist =
-		glade_xml_get_widget (app->gxml, "find_in_files_clist");
+		glade_xml_get_widget (sf->gxml, "find_in_files_clist");
 	sf->widgets.case_sensitive_check =
-		glade_xml_get_widget (app->gxml, "find_in_files_case_sensitive");
+		glade_xml_get_widget (sf->gxml, "find_in_files_case_sensitive");
 	sf->widgets.ignore_binary =
-		glade_xml_get_widget (app->gxml, "find_in_files_ignore_binary");
+		glade_xml_get_widget (sf->gxml, "find_in_files_ignore_binary");
 	sf->widgets.append_messages =
-		glade_xml_get_widget (app->gxml, "find_in_files_append_messages");
+		glade_xml_get_widget (sf->gxml, "find_in_files_append_messages");
 	sf->widgets.regexp_entry =
-		glade_xml_get_widget (app->gxml, "find_in_files_regex_entry");
+		glade_xml_get_widget (sf->gxml, "find_in_files_regex_entry");
 	sf->widgets.regexp_combo =
-		glade_xml_get_widget (app->gxml, "find_in_files_regex_combo");
+		glade_xml_get_widget (sf->gxml, "find_in_files_regex_combo");
 	
 	gtk_widget_ref (sf->widgets.window);
 	gtk_widget_ref (sf->widgets.file_entry);
@@ -75,23 +78,23 @@ create_find_in_files_gui (FindInFiles *sf)
 	g_signal_connect (G_OBJECT (sf->widgets.window), "close",
 					  G_CALLBACK (on_search_in_files_close),
 					  sf);
-	button = glade_xml_get_widget (app->gxml, "find_in_files_add");
+	button = glade_xml_get_widget (sf->gxml, "find_in_files_add");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_search_in_files_add_clicked),
 					  sf);
-	button = glade_xml_get_widget (app->gxml, "find_in_files_remove");
+	button = glade_xml_get_widget (sf->gxml, "find_in_files_remove");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_search_in_files_remove_clicked),
 					  sf);
-	button = glade_xml_get_widget (app->gxml, "find_in_files_clear");
+	button = glade_xml_get_widget (sf->gxml, "find_in_files_clear");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_search_in_files_clear_clicked),
 					  sf);
-	button = glade_xml_get_widget (app->gxml, "find_in_files_close_button");
+	button = glade_xml_get_widget (sf->gxml, "find_in_files_close_button");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_search_in_files_cancel_clicked),
 					  sf);
-	button = glade_xml_get_widget (app->gxml, "find_in_files_find_button");
+	button = glade_xml_get_widget (sf->gxml, "find_in_files_find_button");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_search_in_files_ok_clicked),
 					  sf);
@@ -135,6 +138,7 @@ find_in_files_destroy (FindInFiles * ff)
 		if (ff->widgets.window)
 			gtk_widget_destroy (ff->widgets.window);
 		glist_strings_free (ff->regexp_history);
+		g_object_unref (ff->gxml);
 		g_free (ff);
 	}
 }

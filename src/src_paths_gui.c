@@ -46,6 +46,11 @@ create_src_paths_gui (SrcPaths* co)
   GtkWidget *button_cancel;
   GtkWidget *tmp_widget;
 
+#warning "G2: Use glade xml for source path GUI"
+  co->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "source_paths_dialog", NULL);
+  glade_xml_signal_autoconnect (co->gxml);
+  gtk_widget_hide (glade_xml_get_widget (co->gxml, "source_paths_dialog"));
+
   dialog1 = gnome_dialog_new (_("Source files paths"), NULL);
   gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
@@ -146,7 +151,7 @@ create_src_paths_page0(SrcPaths *co)
   gtk_clist_set_column_widget (GTK_CLIST (clist1), 0, label7);
 
 	entry1 = gnome_file_entry_new(NULL, NULL);
-	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry1), TRUE);
+	gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY(entry1), TRUE);
   gtk_widget_show (entry1);
   gtk_table_attach (GTK_TABLE (table2), entry1, 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),

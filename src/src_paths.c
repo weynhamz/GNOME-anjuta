@@ -60,6 +60,7 @@ src_paths_destroy (SrcPaths * co)
 
 		if (co->widgets.window)
 			gtk_widget_destroy (co->widgets.window);
+		g_object_unref (co->gxml);
 		g_free (co);
 	}
 }
@@ -130,6 +131,25 @@ src_paths_load (SrcPaths * co, PropsID props)
 	}
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
 	return TRUE;
+}
+
+GList *
+src_paths_get_paths (SrcPaths * co)
+{
+	gint length, i;
+	gchar *text;
+	GList *paths;
+
+	g_return_val_if_fail (co != NULL, FALSE);
+
+	length = g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list);
+	for (i = 0; i < length; i++)
+	{
+		gtk_clist_get_text (GTK_CLIST (co->widgets.src_clist), i, 0,
+				    &text);
+		paths = g_list_append (paths, g_strdup (text));
+	}
+	return paths;
 }
 
 void

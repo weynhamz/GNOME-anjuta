@@ -20,6 +20,7 @@
 #define _COMPILER_OPTIONS_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "properties.h"
 
 typedef struct _CompilerOptions CompilerOptions;
@@ -71,6 +72,7 @@ struct _CompilerOptionsGui
 
 struct _CompilerOptions
 {
+	GladeXML *gxml;
 	CompilerOptionsGui widgets;
 	gint supp_index;
 	gint inc_index;

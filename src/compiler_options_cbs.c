@@ -29,6 +29,18 @@
 #include "resources.h"
 #include "anjuta_info.h"
 
+gboolean
+on_compt_delete_event                (GtkWidget       *widget,
+                                        GdkEvent        *event,
+                                        gpointer         user_data)
+{
+	CompilerOptions *co = user_data;
+	compiler_options_set_in_properties(co, co->props);
+	compiler_options_hide(co);
+	return TRUE;
+}
+
+
 static void
 on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data)
 {
@@ -42,12 +54,21 @@ on_comopt_close (GtkWidget * w, gpointer user_data)
 	CompilerOptions *co = user_data;
 	compiler_options_set_in_properties(co, co->props);
 	compiler_options_hide(co);
-	return FALSE;
+	return TRUE;
 }
 
 void
 on_comopt_help_clicked (GtkButton * button, gpointer user_data)
 {
+}
+
+void
+on_co_supp_clist_row_activated             (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
 }
 
 void
@@ -190,6 +211,15 @@ update_entry (GtkWidget *tree, GtkWidget *entry, gint col)
 }
 
 void
+on_co_inc_clist_row_activated             (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
+}
+
+void
 on_co_inc_add_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
@@ -213,6 +243,15 @@ void
 on_co_inc_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
+}
+
+void
+on_co_lib_clist_row_activated             (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
 }
 
 void
@@ -242,6 +281,15 @@ on_co_lib_clear_clicked (GtkButton * button, gpointer data)
 }
 
 void
+on_co_lib_paths_clist_row_activated             (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
+}
+
+void
 on_co_lib_paths_add_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
@@ -265,6 +313,15 @@ void
 on_co_lib_paths_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
+}
+
+void
+on_co_def_clist_row_activated             (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
+                                        gpointer         user_data)
+{
+
 }
 
 void

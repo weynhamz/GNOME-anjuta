@@ -51,6 +51,7 @@ void anjuta_help_destroy(AnjutaHelp* help)
 	gtk_widget_unref(help->widgets.info_radio);
 	gtk_widget_destroy (help->widgets.window);
 	glist_strings_free(help->history);
+	g_object_unref (help->gxml);
 	g_free (help);
 }
 
@@ -94,13 +95,15 @@ on_response (GtkDialog *dialog, gint response, AnjutaHelp *help)
 {
 	if (response == GTK_RESPONSE_CANCEL)
 	{
-		gtk_dialog_close(GTK_DIALOG(help->widgets.window));
+		gtk_dialog_response (GTK_DIALOG(help->widgets.window),
+							 GTK_RESPONSE_NONE);
 	}
 	else
 	{
 		const gchar* word = gtk_entry_get_text (GTK_ENTRY(help->widgets.entry));
 		if(strlen(word)==0) return;
-		gtk_dialog_close(GTK_DIALOG(help->widgets.window));
+		gtk_dialog_response (GTK_DIALOG(help->widgets.window),
+							 GTK_RESPONSE_NONE);
 		anjuta_help_search(help, word);
 	}
 }
@@ -115,18 +118,20 @@ on_close (GtkWidget *w, AnjutaHelp *help)
 static void
 create_anjuta_help_gui (AnjutaHelp* help)
 {
-  help->widgets.window = glade_xml_get_widget (app->gxml, "help_search_dialog");
+  help->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "help_search_dialog", NULL);
+  glade_xml_signal_autoconnect (help->gxml);
+  help->widgets.window = glade_xml_get_widget (help->gxml, "help_search_dialog");
+  gtk_widget_hide (help->widgets.window);
   gtk_window_set_transient_for (GTK_WINDOW (help->widgets.window),
                                 GTK_WINDOW(app->widgets.window));
-  help->widgets.entry = glade_xml_get_widget (app->gxml, "help_search_entry");
-  help->widgets.combo = glade_xml_get_widget (app->gxml, "help_search_combo");
-  help->widgets.gnome_radio = glade_xml_get_widget (app->gxml, "help_search_gnome_api");
-  help->widgets.man_radio = glade_xml_get_widget (app->gxml, "help_search_man_pages");
-  help->widgets.info_radio = glade_xml_get_widget (app->gxml, "help_search_info_pages");
+  help->widgets.entry = glade_xml_get_widget (help->gxml, "help_search_entry");
+  help->widgets.combo = glade_xml_get_widget (help->gxml, "help_search_combo");
+  help->widgets.gnome_radio = glade_xml_get_widget (help->gxml, "help_search_gnome_api");
+  help->widgets.man_radio = glade_xml_get_widget (help->gxml, "help_search_man_pages");
+  help->widgets.info_radio = glade_xml_get_widget (help->gxml, "help_search_info_pages");
 
-  g_signal_connect (G_OBJECT (help->widgets.window), "clicked",
+  g_signal_connect (G_OBJECT (help->widgets.window), "response",
                     G_CALLBACK (on_response), help);
   g_signal_connect (G_OBJECT (help->widgets.window), "close",
 				  	G_CALLBACK (on_close), help);
 }
-

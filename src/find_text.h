@@ -20,6 +20,7 @@
 #define _FIND_TEXT_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "project_dbase.h"
 #define FR_CENTRE     -1
 
@@ -43,6 +44,7 @@ struct _FindTextGui
 
 struct _FindText
 {
+  GladeXML *gxml;
   FindTextGui f_gui;
   GList *find_history;
 

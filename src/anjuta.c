@@ -149,9 +149,6 @@ anjuta_new ()
 
 		create_anjuta_gui (app);
 
-		app->gxml = glade_xml_new (PACKAGE_DATA_DIR "anjuta.glade", NULL, NULL);
-		glade_xml_signal_autoconnect (app->gxml);
-
 		app->dirs = anjuta_dirs_new ();
 		app->fileselection = create_fileselection_gui (&fsd1);
 		
@@ -2041,7 +2038,7 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
 
 	g_return_if_fail(toolbar_name != NULL);
 	g_return_if_fail (item != NULL);
-	g_return_if_fail (GNOME_IS_DOCK_ITEM (item));
+	g_return_if_fail (BONOBO_IS_DOCK_ITEM (item));
 
 	if (view)
 	{

@@ -1509,7 +1509,9 @@ gint ScintillaGTK::SelectionClear(GtkWidget *widget, GdkEventSelection *selectio
 
 gint ScintillaGTK::SelectionNotify(GtkWidget *widget, GdkEventSelection *selection_event) {
 	//Platform::DebugPrintf("Selection notify\n");
-	return gtk_selection_notify(widget, selection_event);
+#warning "G2: Scintilla: where is this function??"
+	//return gtk_selection_notify(widget, selection_event);
+	return 0;
 }
 
 void ScintillaGTK::DragBegin(GtkWidget *, GdkDragContext *) {
@@ -1739,4 +1741,3 @@ void scintilla_set_id(ScintillaObject *sci, int id) {
 void scintilla_release_resources(void) {
 	Platform_Finalise();
 }
-

@@ -92,8 +92,6 @@ main_toolbar_update ()
 	else
 		F = S = UD = RD = FALSE;
 	gtk_widget_set_sensitive (mt->save, F && !S);
-	gtk_widget_set_sensitive (mt->save_all,
-				  (g_list_length (app->text_editor_list) >1));
 	gtk_widget_set_sensitive (mt->close, F);
 	gtk_widget_set_sensitive (mt->reload, F);
 	gtk_widget_set_sensitive (mt->undo, UD);

@@ -31,6 +31,7 @@ struct _ExecuterGUI {
 
 struct _Executer
 {
+	GladeXML *gxml;
 	PropsID		props;
 	gboolean    terminal;
 	GList		*m_PgmArgs;	/* The program arguments */

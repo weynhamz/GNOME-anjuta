@@ -106,7 +106,7 @@ on_search_in_files_ok_clicked          (GtkButton       *button,
        return;
    }
   if (NULL != ff)
-	gtk_dialog_close(GTK_DIALOG(ff->widgets.window));
+	gtk_dialog_response (GTK_DIALOG (ff->widgets.window), GTK_RESPONSE_NONE);
   find_in_files_process(ff);
 }
 
@@ -116,7 +116,7 @@ on_search_in_files_cancel_clicked      (GtkButton       *button,
 {
   FindInFiles* ff = user_data;
   if (NULL != ff)
-	gtk_dialog_close(GTK_DIALOG(ff->widgets.window));
+	gtk_dialog_response (GTK_DIALOG (ff->widgets.window), GTK_RESPONSE_NONE);
 }
 
 void

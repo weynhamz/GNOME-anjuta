@@ -211,8 +211,9 @@ anjuta_print_get_text_width (PrintJobInfo *pji, gint style,
 	if (style_info) {
 		if (utf8) {
 			width = gnome_font_get_width_utf8 (style_info->font, buff);
-		} else {
-			width = gnome_font_get_width_string (style_info->font, buff);
+#warning "G2: Is it safe to ignore non-utf8 chars here? verify it."
+//		} else {
+//			width = gnome_font_get_width_string (style_info->font, buff);
 		}
 	} else {
 		width = aneditor_command(pji->te->editor_id,
@@ -309,20 +310,26 @@ anjuta_print_job_info_new (void)
 		return NULL;
 	}
 	g_free(paper_name);
-	gnome_print_master_set_paper(pji->master, pji->paper);
+	
+#warning "G2: Set proper paper size. Test with various paper sizes"
+	//gnome_print_master_set_paper(pji->master, pji->paper);
 	
 	/* Orientations */
 	if (preferences_get_int_with_default(p, PRINT_LANDSCAPE, 0))
 	{
 		pji->orientation = PRINT_ORIENT_LANDSCAPE;
-		pji->page_width  = gnome_paper_psheight(pji->paper);
-		pji->page_height = gnome_paper_pswidth(pji->paper);
+		pji->page_width  = pji->paper->height;
+		pji->page_height = pji->paper->width;
+		//pji->page_width  = gnome_paper_psheight(pji->paper);
+		//pji->page_height = gnome_paper_pswidth(pji->paper);
 	}
 	else
 	{
 		pji->orientation = PRINT_ORIENT_PORTRAIT;
-		pji->page_width  = gnome_paper_pswidth(pji->paper);
-		pji->page_height = gnome_paper_psheight(pji->paper);
+		pji->page_width  = pji->paper->width;
+		pji->page_height = pji->paper->height;
+		//pji->page_width  = gnome_paper_pswidth(pji->paper);
+		//pji->page_height = gnome_paper_psheight(pji->paper);
 	}
 	
 	/* Line number printing details */

@@ -134,8 +134,6 @@ struct _AnjutaApp
 	GList	*addIns_list;
 	gboolean	b_reload_last_project;	/* To be set in preferences */
 	gchar	*last_open_project;	/* Last session open project file name if any */
-
-	GladeXML *gxml;
 };
 
 struct _FileLineInfo
@@ -352,6 +350,9 @@ void anjuta_search_sources_for_symbol(const gchar *s);
 
 #define anjuta_set_execution_dir(d)     string_assign(&app->execution_dir, (d))
 #define anjuta_clear_execution_dir()     string_assign(&app->execution_dir, NULL)
+
+/* Glade file */
+#define GLADE_FILE_ANJUTA   PACKAGE_DATA_DIR"/glade/anjuta.glade"
 
 /* File properties keys */
 #define CURRENT_FULL_FILENAME_WITH_EXT "current.full.filename.ext"

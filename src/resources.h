@@ -26,9 +26,8 @@ extern "C"
 
 GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget,
 									 const gchar *widget_name);
-GtkWidget* anjuta_res_get_pixmap_widget (GtkWidget* widget,
-                                         const gchar* pixfile);
-GdkPixbuf* anjuta_res_get_image  (const gchar *filename);
+GtkWidget* anjuta_res_get_image (const gchar* filename);
+GdkPixbuf* anjuta_res_get_pixbuf  (const gchar *filename);
 
 /* All the return strings MUST be freed */
 gchar* anjuta_res_get_pixmap_dir (void);

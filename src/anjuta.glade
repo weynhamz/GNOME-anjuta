@@ -9,7 +9,7 @@
   <property name="title" translatable="yes">Attach to process</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
-  <property name="modal">True</property>
+  <property name="modal">False</property>
   <property name="default_width">509</property>
   <property name="default_height">309</property>
   <property name="wmclass_name">attach_process</property>
@@ -282,7 +282,7 @@
   <property name="title" translatable="yes">Breakpoints</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">True</property>
+  <property name="modal">False</property>
   <property name="default_width">550</property>
   <property name="default_height">350</property>
   <property name="wmclass_name">breakpoints</property>
@@ -589,7 +589,7 @@
   <property name="title" translatable="yes">Breakpoint properties</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">True</property>
+  <property name="modal">False</property>
   <property name="wmclass_name">breakpoint_properties</property>
   <property name="wmclass_class">Anjuta</property>
   <property name="resizable">False</property>
@@ -809,11 +809,12 @@
 </widget>
 
 <widget class="GtkDialog" id="commands_dialog">
+  <property name="width_request">628</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Commands</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">True</property>
+  <property name="modal">False</property>
   <property name="default_width">250</property>
   <property name="wmclass_name">commands</property>
   <property name="wmclass_class">Anjuta</property>
@@ -1627,8 +1628,9 @@
 </widget>
 
 <widget class="GtkDialog" id="compiler_options_dialog">
+  <property name="width_request">520</property>
   <property name="visible">True</property>
-  <property name="title" translatable="yes">dialog1</property>
+  <property name="title" translatable="yes">Compiler and linker options</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -1664,41 +1666,14 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="cancelbutton1">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-cancel</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="response_id">-6</property>
-	      <signal name="clicked" handler="on_comopt_cancel_clicked" object="co" last_modification_time="Wed, 18 Dec 2002 17:11:22 GMT"/>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkButton" id="applybutton1">
-	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label">gtk-apply</property>
-	      <property name="use_stock">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="response_id">-10</property>
-	      <signal name="clicked" handler="on_comopt_apply_clicked" object="co" last_modification_time="Wed, 18 Dec 2002 17:11:37 GMT"/>
-	    </widget>
-	  </child>
-
-	  <child>
 	    <widget class="GtkButton" id="okbutton1">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-ok</property>
+	      <property name="label">gtk-close</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="response_id">-5</property>
-	      <signal name="clicked" handler="on_comopt_ok_clicked" object="co" last_modification_time="Wed, 18 Dec 2002 17:12:02 GMT"/>
+	      <property name="response_id">0</property>
 	    </widget>
 	  </child>
 	</widget>
@@ -3359,7 +3334,7 @@
 <widget class="GtkDialog" id="configurer_dialog">
   <property name="visible">True</property>
   <property name="title" translatable="yes">dialog1</property>
-  <property name="type">GTK_WINDOW_POPUP</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
   <property name="wmclass_name">configurer</property>
@@ -4018,7 +3993,7 @@
   </child>
 </widget>
 
-<widget class="GtkDialog" id="find_and_replace_dialog">
+<widget class="GtkDialog" id="find_replace_dialog">
   <property name="visible">True</property>
   <property name="title" translatable="yes">Find and replace</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -4578,7 +4553,7 @@
   </child>
 </widget>
 
-<widget class="GtkDialog" id="find_replace_promp_dialog">
+<widget class="GtkDialog" id="find_replace_prompt_dialog">
   <property name="visible">True</property>
   <property name="title" translatable="yes">dialog4</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -5159,7 +5134,7 @@
 	      <property name="label">gtk-cancel</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="response_id">-6</property>
+	      <property name="response_id">0</property>
 	    </widget>
 	  </child>
 
@@ -6195,7 +6170,7 @@
 
 <widget class="GtkDialog" id="project_config_dialog">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">dialog1</property>
+  <property name="title" translatable="yes">Project Configuration</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>

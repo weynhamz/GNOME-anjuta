@@ -159,7 +159,7 @@ GtkWidget *gnome_filelist_new_with_path(const gchar *path)
 
    toolbar = gtk_toolbar_new ();
    gtk_toolbar_set_orientation (GTK_TOOLBAR(toolbar), GTK_ORIENTATION_HORIZONTAL);
-   gtk_toolbar_set_icon_size (GTK_TOOLBAR(toolbar), 21);
+   gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
    gtk_box_pack_start(GTK_BOX(main_box), toolbar, FALSE, FALSE, 0);
    gtk_widget_show(toolbar);
 
@@ -324,7 +324,7 @@ GtkWidget *gnome_filelist_new_with_path(const gchar *path)
 
    util_box = gtk_hbutton_box_new();
    gtk_box_pack_start(GTK_BOX(main_box), util_box, FALSE, FALSE, 0);
-   gtk_button_box_set_layout(GTK_BUTTON_BOX(util_box), gnome_preferences_get_button_layout());
+   gtk_button_box_set_layout(GTK_BUTTON_BOX(util_box), GTK_BUTTONBOX_END);
    gtk_button_box_set_spacing(GTK_BUTTON_BOX(util_box), GNOME_PAD);
    gtk_widget_show(util_box);
 
@@ -1771,7 +1771,7 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
 
   util_box = gtk_hbutton_box_new();
   gtk_box_pack_start(GTK_BOX(hbox1), util_box, FALSE, TRUE, 14);  
-  gtk_button_box_set_layout(GTK_BUTTON_BOX(util_box), gnome_preferences_get_button_layout());
+  gtk_button_box_set_layout(GTK_BUTTON_BOX(util_box), GTK_BUTTONBOX_END);
   gtk_button_box_set_spacing(GTK_BUTTON_BOX(util_box), GNOME_PAD);
   gtk_widget_show(util_box);
 

@@ -20,6 +20,7 @@
 #ifndef _BREAKPOINTS_DBASE_H_
 #define _BREAKPOINTS_DBASE_H_
 
+#include <glade/glade.h>
 #include "properties.h"
 #include "text_editor.h"
 #include "project_dbase.h"
@@ -65,6 +66,9 @@ struct _BreakpointsDBaseGui
 
 struct _BreakpointsDBase
 {
+	GladeXML *gxml;
+	GladeXML *gxml_prop;
+
 	BreakpointsDBaseGui widgets;
 	gchar *cond_history, *loc_history, *pass_history;
 

@@ -23,7 +23,7 @@
 static ServerType get_server_type (GtkEntry* entry);
 
 void
-on_cvs_login_response (GtkWidget *dialog, gint response, CVSLoginGUI *gui)
+on_cvs_login_dialog_response (GtkWidget *dialog, gint response, CVSLoginGUI *gui)
 {
 	ServerType stype = 0;
 	const gchar* server;

@@ -34,11 +34,9 @@ struct _MainToolbar
 
 	GtkWidget *novus;  /* Old name was 'new', which is a C++ token */
 	GtkWidget *open;
-
 	GtkWidget *save;
-	GtkWidget *save_all;
-	GtkWidget *close;
 	GtkWidget *reload;
+	GtkWidget *close;
 
 	GtkWidget *undo;
 	GtkWidget *redo;

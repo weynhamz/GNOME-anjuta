@@ -232,11 +232,14 @@ create_executer_dialog (Executer * e)
 	GtkWidget *button3;
 	gchar* options;
 
-	e->m_gui.dialog = glade_xml_get_widget (app->gxml, "executer_dialog");
-	e->m_gui.combo1 = glade_xml_get_widget (app->gxml, "executer_combo");
-	e->m_gui.combo_entry1 = glade_xml_get_widget (app->gxml, "executer_entry");
+	e->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "executer_dialog", NULL);
+	glade_xml_signal_autoconnect (e->gxml);
+	e->m_gui.dialog = glade_xml_get_widget (e->gxml, "executer_dialog");
+	gtk_widget_hide (e->m_gui.dialog);
+	e->m_gui.combo1 = glade_xml_get_widget (e->gxml, "executer_combo");
+	e->m_gui.combo_entry1 = glade_xml_get_widget (e->gxml, "executer_entry");
 	e->m_gui.check_terminal = 
-		glade_xml_get_widget (app->gxml, "executer_run_in_term_check");
+		glade_xml_get_widget (e->gxml, "executer_run_in_term_check");
 	
 	gtk_window_set_transient_for (GTK_WINDOW(e->m_gui.dialog),
 	                              GTK_WINDOW(app->widgets.window));
@@ -289,6 +292,7 @@ executer_destroy (Executer * e)
 			if (e->m_PgmArgs)
 				g_list_free (e->m_PgmArgs);
 		}
+		g_object_unref (e->gxml);
 		g_free (e);
 	}
 }

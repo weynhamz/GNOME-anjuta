@@ -98,7 +98,7 @@ gotoline_init (GotoLine * obj)
   gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (obj), FALSE, FALSE, FALSE);
   gtk_window_set_title (GTK_WINDOW (obj), "Goto Line ...");
-  gtk_dialog_set_close (GNOME_DIALOG (obj), TRUE);
+  //gtk_dialog_set_close (GNOME_DIALOG (obj), TRUE);
 
   dialog_vbox = GTK_DIALOG (obj)->vbox;
   gtk_widget_show (dialog_vbox);
@@ -116,19 +116,19 @@ gotoline_init (GotoLine * obj)
   gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_OK, GTK_RESPONSE_OK);
   
   /** Default to the OK button */
-  gtk_dialog_set_default (GNOME_DIALOG (obj), 1);
-  gtk_dialog_has_focus (GNOME_DIALOG (obj), 1);
+  gtk_dialog_set_default_response (GTK_DIALOG (obj), GTK_RESPONSE_OK);
+  //gtk_dialog_has_focus (GNOME_DIALOG (obj), 1);
 
+#warning "G2: Activate dialog on pressing Enter in the entry box"
   /** If press enter in line number enter, act as if default button was pressed */
-  gtk_dialog_editable_enters (GNOME_DIALOG (obj),
-				GTK_EDITABLE (numberentry));
+  //gtk_dialog_editable_enters (GNOME_DIALOG (obj),
+  //				GTK_EDITABLE (numberentry));
 
   gtk_widget_grab_focus (numberentry);
   g_signal_connect (G_OBJECT (obj), "response",
 		      G_CALLBACK (on_go_to_line_response),
 		      numberentry);
 }
-
 
 GtkWidget *
 gotoline_new ()

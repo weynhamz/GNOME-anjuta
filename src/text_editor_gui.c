@@ -116,13 +116,12 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
 	gtk_widget_show (toolbar1);
 	gtk_container_add (GTK_CONTAINER (dock1), toolbar1);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
-				       GTK_RELIEF_NONE);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
-				     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
+	//			       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
+	//			     GTK_TOOLBAR_SPACE_LINE);
 
-	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1,
-													 ANJUTA_PIXMAP_NEW_FILE);
+	tmp_toolbar_icon = anjuta_res_get_image (ANJUTA_PIXMAP_NEW_FILE);
 	button1 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -132,7 +131,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button1);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_OPEN_FILE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_OPEN_FILE);
 	button2 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -144,7 +143,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SAVE_FILE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_SAVE_FILE);
 	button3 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -154,7 +153,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button3);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_RELOAD_FILE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_RELOAD_FILE);
 	button5 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -166,7 +165,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_CUT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_CUT);
 	button6 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -176,7 +175,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button6);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_COPY);
+		anjuta_res_get_image (ANJUTA_PIXMAP_COPY);
 	button7 = gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					      GTK_TOOLBAR_CHILD_BUTTON,
 					      NULL,
@@ -186,7 +185,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button7);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_PASTE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_PASTE);
 	button8 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -198,7 +197,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_SEARCH);
+		anjuta_res_get_image (ANJUTA_PIXMAP_SEARCH);
 	button9 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -209,7 +208,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button9);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_FIND_REPLACE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_FIND_REPLACE);
 	button10 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -246,7 +245,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_COMPILE);
+		anjuta_res_get_image (ANJUTA_PIXMAP_COMPILE);
 	button11 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -257,7 +256,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (button11);
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_BUILD);
+		anjuta_res_get_image (ANJUTA_PIXMAP_BUILD);
 	button12 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -271,7 +270,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	tmp_toolbar_icon =
-		anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_PRINT);
+		anjuta_res_get_image (ANJUTA_PIXMAP_PRINT);
 	button14 =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
@@ -282,7 +281,7 @@ create_text_editor_gui (TextEditor * te)
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon = anjuta_res_get_pixmap_widget (window1, ANJUTA_PIXMAP_DOCK);
+	tmp_toolbar_icon = anjuta_res_get_image (ANJUTA_PIXMAP_DOCK);
 	button13 = gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					       GTK_TOOLBAR_CHILD_BUTTON,
 					       NULL,

@@ -20,6 +20,7 @@
 #define _PROJECT_CONFIG_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "properties.h"
 
 typedef struct _ProjectConfig ProjectConfig;
@@ -62,6 +63,7 @@ struct _ProjectConfigWidgets
 
 struct _ProjectConfig
 {
+	GladeXML *gxml;
 	ProjectConfigWidgets widgets;
 	PropsID props;
 	

@@ -1,3 +1,77 @@
+2003-01-13  Naba Kumar <naba@gnome.org>
+
+	* (new)src/anjuta.gladep
+	(new)src/messagebox.c
+	(new)src/messagebox.h: Added files. References to messagesbox.[c,h]
+	will be gradually removed (and then the files).
+	
+	* Makefile.am,
+	anjuta.prj,
+	printing/print-util.c,
+	printing/print.c,
+	scintilla/ScintillaGTK.c,xx
+	src/Makefile.am,
+	src/an_file_view.c,
+	src/an_symbol_view.c,
+	src/anjuta.c,
+	src/anjuta.glade
+	src/anjuta.h,
+	src/anjuta_dialogs_strings.c,
+	src/anjuta_gui.c,
+	src/attach_process.c,
+	src/attach_process.h,
+	src/breakpoints.c,
+	src/breakpoints.h,
+	src/breakpoints_cbs.c,
+	src/commands.c,
+	src/commands.h,
+	src/compiler_options.c,
+	src/compiler_options.h,
+	src/compiler_options_cbs.c,
+	src/configurer.c,
+	src/configurer.h,
+	src/controls.c,
+	src/cvs_cbs.c,
+	src/debug_tree.c,
+	src/debug_tree.h,
+	src/executer.c,
+	src/executer.h,
+	src/find_in_files.c,
+	src/find_in_files.h,
+	src/find_in_files_cbs.c,
+	src/find_replace.c,
+	src/find_replace.h,
+	src/find_text.c,
+	src/find_text.h,
+	src/goto_line.c,
+	src/help.c,
+	src/help.h,
+	src/launcher.c,
+	src/main.c,
+	src/main_menubar.c,
+	src/mainmenu_callbacks.c,
+	src/message-manager.c,c
+	src/pixmaps.h,
+	src/preferences.c,
+	src/project_config.c,
+	src/project_config.h,
+	src/project_dbase.c,
+	src/project_import_cbs.c,
+	src/resources.c,
+	src/resources.h,
+	src/splash.c,
+	src/src_paths.c,
+	src/src_paths.h,
+	src/src_paths_gui.c,
+	src/text_editor.c,
+	src/text_editor_gui.c,
+	src/toolbar.c,
+	src/toolbar.h,
+	src/utilities.c,
+	src/utilities.h,
+	src/wizard_gui.c,
+	widgets/gnomefilelist.c: GNOME2 Port.
+
 2003-01-10  Naba Kumar  <naba@gnome.org>
 
 	* src/an_file_view.c,
@@ -5201,5 +5275,3 @@ attached the fix for the menu
 2001-04-22  Stéphane Démurget <demurgets@free.fr>
 
 	* Emptied that ugly old Changelog.
-
-

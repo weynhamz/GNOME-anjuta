@@ -106,6 +106,7 @@ restore_session_on_idle (gpointer data)
 	anjuta_session_restore(client);
 	return FALSE;
 }
+
 static gint
 load_command_lines_on_idle(gpointer data)
 {
@@ -122,20 +123,34 @@ load_command_lines_on_idle(gpointer data)
 	return FALSE;
 }
 
+static GList *
+get_command_line_args (GnomeProgram *program)
+{
+	poptContext ctx;
+	gchar **args;
+	gint i;
+	GValue value = { 0, };
+	GList *command_args = NULL;
+
+	g_value_init (&value, G_TYPE_POINTER);
+	g_object_get_property (G_OBJECT (program), GNOME_PARAM_POPT_CONTEXT, &value);
+	ctx = g_value_get_pointer (&value);
+	g_value_unset (&value);
+
+	args = (char**) poptGetArgs(ctx);
+	if (args) 
+		for (i = 0; args[i]; i++) 
+			command_args = g_list_append (command_args,
+										  tm_get_real_path (args[i]));
+	return command_args;
+}
+
 int
 main (int argc, char *argv[])
 {
+	GnomeProgram *program;
 	GnomeClient *client;
 	GnomeClientFlags flags;
-	poptContext context;
-	const char** args;
-
-#ifdef USE_GLADEN
-	CORBA_Environment ev;
-	CORBA_ORB corb ;
-#endif /* USE_GLADEN */
-	int retCode ;
-
 
 	/* Before anything starts */
 	delete_old_config_file();
@@ -148,15 +163,14 @@ main (int argc, char *argv[])
 	/* Connect the necessary kernal signals */
 	anjuta_connect_kernel_signals();
 
-#ifdef USE_GLADEN
-	CInitEx( &ev );
-	corb = gnome_CORBA_init_with_popt_table(PACKAGE, VERSION, &argc, argv,
-					   anjuta_options, 0, &context,
-					   GNORBA_INIT_SERVER_FUNC, &ev );
-#else /* USE_GLADEN */
-	retCode = gnome_init_with_popt_table (PACKAGE, VERSION, argc,
-					   argv, anjuta_options, 0, &context);
-#endif /*USE_GLADEN */
+	/* Initialize gnome program */
+	program = gnome_program_init (PACKAGE, VERSION,
+			    LIBGNOMEUI_MODULE, argc, argv,
+			    GNOME_PARAM_POPT_TABLE, anjuta_options,
+			    GNOME_PARAM_HUMAN_READABLE_NAME,
+		            _("Integrated Development Environment"),
+			    GNOME_PARAM_APP_DATADIR, "usr/local/share",
+			    NULL);
 
 	/* Session management */
 	client = gnome_master_client();
@@ -167,19 +181,10 @@ main (int argc, char *argv[])
 			   GTK_SIGNAL_FUNC(on_anjuta_session_die), NULL);
 
 	/* Get the command line files */
-	command_args = NULL;
-	args = poptGetArgs(context);
-	if (args)
-	{
-		gint i;
-		
-		for(i = 0; args[i]; ++i)
-			command_args = g_list_append (command_args, tm_get_real_path(args[i]));
-	}
-	poptFreeContext(context);
+	command_args = get_command_line_args (program);
 
 	/* Libglade stuff */
-	glade_gnome_init();
+	// glade_gnome_init();
 	if (!no_splash)
 		splash_screen ();
 	
@@ -195,13 +200,9 @@ main (int argc, char *argv[])
 		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
 	}
 
-#ifdef USE_GLADEN
-	retCode = MainLoop( &argc, argv, corb );
-#else /* USE_GLADEN */
 	gtk_main();
-#endif /* USE_GLADEN */
 	
 	anjuta_application_exit();
 	write_config();
-	return retCode ;
+	return 0;
 }

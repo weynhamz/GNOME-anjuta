@@ -53,10 +53,9 @@ create_project_start_page (GnomeDruid * druid, gchar * greetings,
 						  greetings);
 	gnome_druid_page_edge_set_title (GNOME_DRUID_PAGE_EDGE (page), title);
 	gnome_druid_page_edge_set_logo (GNOME_DRUID_PAGE_EDGE (page),
-					 anjuta_res_get_image
-					 (ANJUTA_PIXMAP_APPWIZ_LOGO));
+					 anjuta_res_get_pixbuf (ANJUTA_PIXMAP_APPWIZ_LOGO));
 	gnome_druid_page_edge_set_watermark (GNOME_DRUID_PAGE_EDGE (page),
-					      anjuta_res_get_image
+					      anjuta_res_get_pixbuf
 					      (ANJUTA_PIXMAP_APPWIZ_WATERMARK));
 	return page;
 }
@@ -99,7 +98,7 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 					     (page), _("Project Type"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
-					    anjuta_res_get_image
+					    anjuta_res_get_pixbuf
 					    (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	frame = gtk_frame_new (NULL);
@@ -299,7 +298,7 @@ create_project_props_page (GnomeDruid * druid,
 					     (page), _("Basic Information"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
-					    anjuta_res_get_image
+					    anjuta_res_get_pixbuf
 					    (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	frame = gtk_frame_new (NULL);
@@ -507,7 +506,7 @@ create_project_description_page (GnomeDruid * druid,
 					     (page), _("Project Description"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
-					    anjuta_res_get_image
+					    anjuta_res_get_pixbuf
 					    (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	frame = gtk_frame_new (NULL);
@@ -542,7 +541,7 @@ create_project_description_page (GnomeDruid * druid,
 	description_text = gtk_text_view_new ();
 	gtk_widget_show (description_text);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), description_text);
-	gtk_text_set_editable (GTK_TEXT (description_text), TRUE);
+	//gtk_text_set_editable (GTK_TEXT (description_text), TRUE);
 
 	*description = description_text;
 	return page;
@@ -611,7 +610,7 @@ create_project_menu_page (GnomeDruid * druid,
 					     (page), _("Additional Options"));
 	gnome_druid_page_standard_set_logo (GNOME_DRUID_PAGE_STANDARD
 					    (page),
-					    anjuta_res_get_image
+					    anjuta_res_get_pixbuf
 					    (ANJUTA_PIXMAP_APPWIZ_LOGO));
 
 	frame = gtk_frame_new (NULL);
@@ -780,10 +779,10 @@ create_project_finish_page (GnomeDruid * druid)
 	gnome_druid_page_edge_set_title (GNOME_DRUID_PAGE_EDGE (page),
 									 _("Summary"));
 	gnome_druid_page_edge_set_logo (GNOME_DRUID_PAGE_EDGE (page),
-					  anjuta_res_get_image
+					  anjuta_res_get_pixbuf
 					  (ANJUTA_PIXMAP_APPWIZ_LOGO));
-	gnome_druid_page_finish_set_watermark (GNOME_DRUID_PAGE_EDGE (page),
-					       anjuta_res_get_image
+	gnome_druid_page_edge_set_watermark (GNOME_DRUID_PAGE_EDGE (page),
+					       anjuta_res_get_pixbuf
 					       (ANJUTA_PIXMAP_APPWIZ_WATERMARK));
 	return page;
 }

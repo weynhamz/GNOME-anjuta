@@ -20,6 +20,7 @@
 #define _FIND_REPLACE_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "find_text.h"
 #include "properties.h"
 
@@ -48,6 +49,8 @@ struct  _FindAndReplaceGui
 
 struct _FindAndReplace
 {
+  GladeXML *gxml;
+  GladeXML *gxml_prompt;
   FindAndReplaceGui    r_gui;
   FindText                          *find_text;
   GList                                 *replace_history;

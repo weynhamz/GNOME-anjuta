@@ -220,28 +220,31 @@ void create_compiler_options_gui (CompilerOptions *co)
 	int i;
 	
 	/* Compiler Options Dialog */
-	co->widgets.window = glade_xml_get_widget (app->gxml, "compiler_options_dialog");
-	co->widgets.supp_clist = glade_xml_get_widget (app->gxml, "supp_clist");
-	co->widgets.inc_clist = glade_xml_get_widget (app->gxml, "inc_clist");
-	co->widgets.inc_entry = glade_xml_get_widget (app->gxml, "inc_entry");
-	co->widgets.lib_paths_clist = glade_xml_get_widget (app->gxml, "lib_paths_clist");
-	co->widgets.lib_paths_entry = glade_xml_get_widget (app->gxml, "lib_paths_entry");
-	co->widgets.lib_clist = glade_xml_get_widget (app->gxml, "lib_clist");
-	co->widgets.lib_stock_clist = glade_xml_get_widget (app->gxml, "lib_stock_clist");
-	co->widgets.lib_entry = glade_xml_get_widget (app->gxml, "lib_entry");
-	co->widgets.def_clist = glade_xml_get_widget (app->gxml, "def_clist");
-	co->widgets.def_stock_clist = glade_xml_get_widget (app->gxml, "def_stock_clist");
-	co->widgets.def_entry = glade_xml_get_widget (app->gxml, "def_entry");
-	co->widgets.warnings_clist = glade_xml_get_widget (app->gxml, "warnings_clist");
-	co->widgets.optimize_button[0] = glade_xml_get_widget (app->gxml, "optimization_b_0");
-	co->widgets.optimize_button[1] = glade_xml_get_widget (app->gxml, "optimization_b_1");
-	co->widgets.optimize_button[2] = glade_xml_get_widget (app->gxml, "optimization_b_2");
-	co->widgets.optimize_button[3] = glade_xml_get_widget (app->gxml, "optimization_b_3");
-	co->widgets.other_button[0] = glade_xml_get_widget (app->gxml, "debugging_b");
-	co->widgets.other_button[1] = glade_xml_get_widget (app->gxml, "profiling_b");
-	co->widgets.other_c_flags_entry = glade_xml_get_widget (app->gxml, "other_c_flags_entry");
-	co->widgets.other_l_flags_entry = glade_xml_get_widget (app->gxml, "other_l_flags_entry");
-	co->widgets.other_l_libs_entry = glade_xml_get_widget (app->gxml, "other_l_libs_entry");
+	co->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "compiler_options_dialog", NULL);
+	glade_xml_signal_autoconnect (co->gxml);
+	co->widgets.window = glade_xml_get_widget (co->gxml, "compiler_options_dialog");
+	gtk_widget_hide (co->widgets.window);
+	co->widgets.supp_clist = glade_xml_get_widget (co->gxml, "supp_clist");
+	co->widgets.inc_clist = glade_xml_get_widget (co->gxml, "inc_clist");
+	co->widgets.inc_entry = glade_xml_get_widget (co->gxml, "inc_entry");
+	co->widgets.lib_paths_clist = glade_xml_get_widget (co->gxml, "lib_paths_clist");
+	co->widgets.lib_paths_entry = glade_xml_get_widget (co->gxml, "lib_paths_entry");
+	co->widgets.lib_clist = glade_xml_get_widget (co->gxml, "lib_clist");
+	co->widgets.lib_stock_clist = glade_xml_get_widget (co->gxml, "lib_stock_clist");
+	co->widgets.lib_entry = glade_xml_get_widget (co->gxml, "lib_entry");
+	co->widgets.def_clist = glade_xml_get_widget (co->gxml, "def_clist");
+	co->widgets.def_stock_clist = glade_xml_get_widget (co->gxml, "def_stock_clist");
+	co->widgets.def_entry = glade_xml_get_widget (co->gxml, "def_entry");
+	co->widgets.warnings_clist = glade_xml_get_widget (co->gxml, "warnings_clist");
+	co->widgets.optimize_button[0] = glade_xml_get_widget (co->gxml, "optimization_b_0");
+	co->widgets.optimize_button[1] = glade_xml_get_widget (co->gxml, "optimization_b_1");
+	co->widgets.optimize_button[2] = glade_xml_get_widget (co->gxml, "optimization_b_2");
+	co->widgets.optimize_button[3] = glade_xml_get_widget (co->gxml, "optimization_b_3");
+	co->widgets.other_button[0] = glade_xml_get_widget (co->gxml, "debugging_b");
+	co->widgets.other_button[1] = glade_xml_get_widget (co->gxml, "profiling_b");
+	co->widgets.other_c_flags_entry = glade_xml_get_widget (co->gxml, "other_c_flags_entry");
+	co->widgets.other_l_flags_entry = glade_xml_get_widget (co->gxml, "other_l_flags_entry");
+	co->widgets.other_l_libs_entry = glade_xml_get_widget (co->gxml, "other_l_libs_entry");
 	
 	gtk_widget_ref (co->widgets.window);
 	gtk_widget_ref (co->widgets.warnings_clist);
@@ -469,7 +472,7 @@ compiler_options_destroy (CompilerOptions * co)
 
 		if (co->widgets.window)
 			gtk_widget_destroy (co->widgets.window);
-		
+		g_object_unref (co->gxml);
 		g_free (co);
 		co = NULL;
 	}
@@ -802,8 +805,6 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 void
 compiler_options_show (CompilerOptions * co)
 {
-	compiler_options_sync (co);
-
 	if (co->is_showing)
 	{
 		gdk_window_raise (co->widgets.window->window);
@@ -867,7 +868,7 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 		gchar *text, *tmp;
 		
 		gtk_tree_model_get (model, &iter, 0, &value, -1);
-		if (!value)
+		if (!valid)
 			continue;
 		text = anjuta_supports [i][item];
 		tmp = g_strconcat (str, text, separator, NULL);
@@ -927,7 +928,7 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 		gboolean value;
 		
 		gtk_tree_model_get (model, &iter, 0, &value, 1, &text, -1);
-		if (!value)
+		if (!valid)
 			continue;
 		
 		 /* If it starts with '*' then consider it as an object file and not a lib file */
@@ -980,7 +981,7 @@ get_warnings(CompilerOptions *co)
 		gchar *text;
 		
 		gtk_tree_model_get (model, &iter, 0, &value, 1, &text, -1);
-		if (!value)
+		if (!valid)
 			continue;
 		
 		tmp = str;

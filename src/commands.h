@@ -20,6 +20,7 @@
 #define _COMMANDS_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "properties.h"
 
 typedef struct _CommandEditorWidgets CommandEditorWidgets;
@@ -53,6 +54,7 @@ struct _CommandEditorWidgets
 
 struct _CommandEditor
 {
+	GladeXML *gxml;
 	CommandEditorWidgets widgets;
 	
 	PropsID props;

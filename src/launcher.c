@@ -524,8 +524,8 @@ create_password_dialog (gchar* prompt)
 	                        GTK_DIALOG_DESTROY_WITH_PARENT,
 	                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	                        GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
-	gtk_dialog_set_default (GTK_DIALOG (dialog), 0);
-	gtk_dialog_grab_focus (GTK_DIALOG (dialog), 0);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+	//gtk_dialog_grab_focus (GTK_DIALOG (dialog), 0);
 
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "launcher-password-prompt",
 				"anjuta");
@@ -535,7 +535,7 @@ create_password_dialog (gchar* prompt)
 	gtk_widget_show(hbox);
 	gtk_container_add (GTK_CONTAINER (dialog), hbox);
 	
-	icon = anjuta_res_get_pixmap_widget (dialog, ANJUTA_PIXMAP_PASSWORD);
+	icon = anjuta_res_get_image (ANJUTA_PIXMAP_PASSWORD);
 	gtk_widget_show(icon);
 	gtk_box_pack_start_defaults (GTK_BOX(hbox), icon);
 	
@@ -561,7 +561,9 @@ create_password_dialog (gchar* prompt)
 	gtk_object_set_data_full(GTK_OBJECT(dialog), "password_entry",
 				entry, (GtkDestroyNotify)gtk_widget_unref);
 	gtk_widget_grab_focus(entry);
-	gtk_dialog_editable_enters (GTK_DIALOG (dialog), GTK_EDITABLE (entry));
+	
+#warning "G2: Activate dialog on Enter in the entry box"
+	//gtk_dialog_editable_enters (GTK_DIALOG (dialog), GTK_EDITABLE (entry));
 
 	return dialog;
 }
