@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "POT-Creation-Date: 2001-09-30 10:38+0200\n"
-"PO-Revision-Date: 2001-09-30 10:39+0200\n"
+"PO-Revision-Date: 2001-09-30 23:45+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -149,11 +149,11 @@ msgstr "GNOME-projekt"
 
 #: src/appwiz_page1.c:142
 msgid "GTK-- project"
-msgstr "GTK--projekt"
+msgstr "Projekt med GTK--"
 
 #: src/appwiz_page1.c:146
 msgid "GNOME-- project"
-msgstr "GNOME--projekt"
+msgstr "Projekt med GNOME--"
 
 #: src/appwiz_page1.c:150
 msgid "Bonobo component"
@@ -350,11 +350,11 @@ msgstr "Kan inte öppna filen: %s\n"
 
 #: src/attach_process_gui.c:52
 msgid "Attach to process"
-msgstr "Fäst vid process"
+msgstr "Anslut till process"
 
 #: src/attach_process_gui.c:61
 msgid "Select the process to attach:"
-msgstr "Välj process att fästa:"
+msgstr "Välj process att ansluta till:"
 
 #: src/attach_process_gui.c:81
 msgid "Pid"
@@ -382,7 +382,7 @@ msgstr "Uppdatera"
 
 #: src/attach_process_gui.c:109 src/text_editor_gui.c:271
 msgid "Attach"
-msgstr "Fäst"
+msgstr "Anslut"
 
 #: src/breakpoints.c:530
 msgid "Old breakpoints disabled."
@@ -411,7 +411,7 @@ msgstr "Är du säker på att du vill ta bort alla brytpunkter?"
 
 #: src/breakpoints_cbs.c:276
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Du måste ha en giltig plats att ställa in brytpunkten."
+msgstr "Du måste ha en giltig plats att sätta brytpunkten på."
 
 #: src/breakpoints_gui.c:62
 msgid "Breakpoints"
@@ -1003,7 +1003,7 @@ msgstr "Varning för implicita deklarationer"
 
 #: src/compiler_options_gui.c:878
 msgid "Warning for mismached Return types"
-msgstr "Varning för omatchade Return-typer"
+msgstr "Varning för opassande return-typer"
 
 #: src/compiler_options_gui.c:886
 msgid "Warning for Unused Variables"
@@ -1156,8 +1156,8 @@ msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
 msgstr ""
-"Du har en process FÄST under felsökaren.\n"
-"Lösgör den först och läs sedan in den körbara filen."
+"Du har en process ANSLUTEN under felsökaren.\n"
+"Koppla ifrån den först och läs sedan in den körbara filen."
 
 #: src/debugger.c:280
 msgid ""
@@ -1172,8 +1172,8 @@ msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the core file."
 msgstr ""
-"Du har en process FÄST under felsökaren.\n"
-"Lösgör den först och läs sedan in core-filen."
+"Du har en process ANSLUTEN under felsökaren.\n"
+"Koppla ifrån den först och läs sedan in core-filen."
 
 #: src/debugger.c:316
 msgid ""
@@ -1209,7 +1209,7 @@ msgstr "Ingen körbar fil angiven\n"
 #: src/debugger.c:659
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
-"Öppna en körbar fil eller fäst vid en process för att starta felsökning.\n"
+"Öppna en körbar fil eller anslut till en process för att starta felsökning.\n"
 
 #: src/debugger.c:667
 msgid "There was an error whilst launching the debugger!!\n"
@@ -1257,7 +1257,7 @@ msgstr "Kör program... \n"
 #: src/debugger.c:1304
 #, c-format
 msgid "Attaching to process: %d\n"
-msgstr "Fäster vid process: %d\n"
+msgstr "Ansluter till process: %d\n"
 
 #: src/debugger.c:1332
 msgid ""
@@ -1265,16 +1265,16 @@ msgid ""
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 "En process kör redan.\n"
-"VIll du avsluta den och fästa den nya processen?"
+"VIll du avsluta den och ansluta till den nya processen?"
 
 #: src/debugger.c:1340
 msgid "You FOOL! I can not attach to myself."
-msgstr "IDIOT! Jag kan inte fästa på ig själv."
+msgstr "IDIOT! Jag kan inte ansluta till mig själv."
 
 #: src/debugger.c:1423
 #, c-format
 msgid "Detaching the process: %d\n"
-msgstr "Lösgör processen: %d\n"
+msgstr "Kopplar ifrån processen: %d\n"
 
 #: src/debugger.c:1628
 msgid "All breakpoints enabled:\n"
@@ -2305,7 +2305,7 @@ msgstr "Program_stack"
 
 #: src/main_menubar_def.h:618
 msgid "Show stack trace of the program"
-msgstr "Visa stackspår av programmet"
+msgstr "Visa stacken för programmet"
 
 #. 15
 #: src/main_menubar_def.h:623
@@ -2314,7 +2314,7 @@ msgstr "Delade _bibliotek"
 
 #: src/main_menubar_def.h:624
 msgid "Show shared libraries loaded by the program"
-msgstr "Visa delade bibliotek som är inläsat av programmet"
+msgstr "Visa delade bibliotek som är inlästa av programmet"
 
 #. 16
 #: src/main_menubar_def.h:629
@@ -2667,7 +2667,7 @@ msgstr "_Koppla från aktuellt dokument"
 
 #: src/main_menubar_def.h:954
 msgid "Detach the current editor into a separate window"
-msgstr "Lösgör den aktuella redigeraren i ett separat fönster"
+msgstr "Koppla ifrån den aktuella redigeraren i ett separat fönster"
 
 #: src/main_menubar_def.h:964
 msgid "_Compile"
@@ -2959,11 +2959,11 @@ msgstr "Läs in en core-fil att dissekrera"
 
 #: src/main_menubar_def.h:1228
 msgid "_Attach to Process ..."
-msgstr "_Fäst vid process..."
+msgstr "_Anslut till process..."
 
 #: src/main_menubar_def.h:1229
 msgid "Attach to a running program"
-msgstr "Fäst vid ett redan körande program"
+msgstr "Anslut till ett redan körande program"
 
 #: src/main_menubar_def.h:1235
 msgid "_Restart Program"
@@ -2983,11 +2983,11 @@ msgstr "Stoppa programmet som felsöks"
 
 #: src/main_menubar_def.h:1247
 msgid "_Detach Debugger"
-msgstr "_Lösgör felsökare"
+msgstr "_Koppla ifrån felsökare"
 
 #: src/main_menubar_def.h:1248
 msgid "Detach from an attached program"
-msgstr "Lösgör från ett fäst program"
+msgstr "Koppla ifrån ett anslutet program"
 
 #: src/main_menubar_def.h:1254
 msgid "I_nterrupt Program"
@@ -3302,8 +3302,8 @@ msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"Programmet är FÄST.\n"
-"Fill du stoppa felsökaren?"
+"Programmet är ANSLUTET.\n"
+"Vill du stoppa felsökaren?"
 
 #: src/mainmenu_callbacks.c:1644
 msgid ""
@@ -4204,7 +4204,7 @@ msgstr "Raminformation"
 
 #: src/stack_trace_gui.c:105
 msgid "Stack Trace"
-msgstr "Stackspår"
+msgstr "Stack"
 
 #: src/stack_trace_gui.c:126 src/toolbar.c:1033
 msgid "Frame"
@@ -4529,11 +4529,11 @@ msgstr "Gör om"
 
 #: src/toolbar.c:206
 msgid "Detach"
-msgstr "Lösgör"
+msgstr "Koppla ifrån"
 
 #: src/toolbar.c:207
 msgid "Detach the current page"
-msgstr "Lösgör den aktuella sidan"
+msgstr "Koppla ifrån den aktuella sidan"
 
 #: src/toolbar.c:232
 msgid "Search for the given string in the current file"
@@ -4737,7 +4737,7 @@ msgstr "Bevaka uttryck under körning"
 
 #: src/toolbar.c:1062
 msgid "Stack trace of the program"
-msgstr "Stackspår från programmet"
+msgstr "Stacken för programmet"
 
 #: src/toolbar.c:1073
 msgid "Registers"
@@ -5229,7 +5229,8 @@ msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
 
 #~ msgid "Open an executable or attach to a process to start debuging.\n"
 #~ msgstr ""
-#~ "Öppna en körbar fil eller fäst vid en process för att starta felsökning.\n"
+#~ "Öppna en körbar fil eller anslut till en process för att starta "
+#~ "felsökning.\n"
 
 #~ msgid "_Main Tolbar"
 #~ msgstr "_Huvudverktygsrad"
@@ -5256,7 +5257,7 @@ msgstr "Kan inte köra Devhelp. Försäkra dig om att det är installerat"
 #~ msgstr "Detta kommer att ta bort alla brytpunkter"
 
 #~ msgid "Detach the program if you have attached to it"
-#~ msgstr "Lösgör programmet om du har fäst vid det"
+#~ msgstr "Koppla ifrån programmet om du har anslutit till det"
 
 #~ msgid "Anjuta: Inspect/Evaluate"
 #~ msgstr "Anjuta: Inspektera/Evaluera"
