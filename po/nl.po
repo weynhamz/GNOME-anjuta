@@ -1548,7 +1548,7 @@ msgstr "Werkbalk ontkoppelen"
 
 #: gdl/gdl-dock-item.c:242
 msgid "Orientation"
-msgstr "Orientatie"
+msgstr "Oriëntatie"
 
 #: gdl/gdl-dock-item.c:243
 msgid "Orientation of the docking item"
@@ -4055,7 +4055,7 @@ msgstr ""
 #. 0
 #: src/main_menubar_def.h:198
 msgid "_Select All"
-msgstr "_Selecteer Alles"
+msgstr "_Alles selecteren"
 
 #: src/main_menubar_def.h:199
 msgid "Select all text in the editor"
@@ -4455,7 +4455,7 @@ msgstr "De vorige overeenkomende tekenreeks opzoeken"
 #. 0
 #: src/main_menubar_def.h:561
 msgid "U_ndo"
-msgstr "_Ongedaan"
+msgstr "_Ongedaan maken"
 
 #: src/main_menubar_def.h:562 src/toolbar.c:97
 msgid "Undo the last action"
@@ -4534,7 +4534,7 @@ msgstr "Co_mmentaar code"
 #. 12
 #: src/main_menubar_def.h:634
 msgid "S_earch"
-msgstr "Zoek_en"
+msgstr "_Zoeken"
 
 #. 13
 #: src/main_menubar_def.h:640
@@ -7201,7 +7201,7 @@ msgstr "Wissel .h/.c"
 #. 10
 #: src/text_editor_menu.c:301 src/toolbar.c:512
 msgid "Go"
-msgstr "Ga"
+msgstr "Ga naar"
 
 #. 11
 #: src/text_editor_menu.c:309 src/text_editor_menu.c:431
@@ -7814,3 +7814,4 @@ msgstr "Aanmaken map '%s' mislukt: %s"
 #: widgets/gnomefilelist.c:2000
 msgid "Folder name:"
 msgstr "Mapnaam:"
+
