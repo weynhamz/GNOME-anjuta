@@ -499,7 +499,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	GtkWidget *toolbar_frame;
 	/* GtkWidget *toolbar_watch; */
 	GtkWidget *toolbar_inspect;
-	GtkWidget *toolbar_stack;
+	GtkWidget *toolbar_signals;
 	GtkWidget *toolbar_registers;
 	GtkWidget *toolbar_stop;
 	GtkWidget *tmp_toolbar_icon;
@@ -641,15 +641,15 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	*/
 	tmp_toolbar_icon =
 		anjuta_res_get_image (ANJUTA_PIXMAP_STACK);
-	toolbar_stack =
+	toolbar_signals =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Stack"),
-					    _("Stack trace of the program"),
+					    _("Signals"),
+					    _("kernel signals of the program"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
-	gtk_widget_ref (toolbar_stack);
-	gtk_widget_show (toolbar_stack);
+	gtk_widget_ref (toolbar_signals);
+	gtk_widget_show (toolbar_signals);
 
 	tmp_toolbar_icon =
 		anjuta_res_get_image (ANJUTA_PIXMAP_REGISTERS);
@@ -657,8 +657,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Registers"),
-					    _
-					    ("CPU registers and their contents"),
+					    _("CPU registers and their contents"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_registers);
@@ -700,8 +699,8 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_signal_connect (GTK_OBJECT (toolbar_watch), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_watch_clicked), NULL);
 	*/
-	gtk_signal_connect (GTK_OBJECT (toolbar_stack), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_stack_clicked), NULL);
+	gtk_signal_connect (GTK_OBJECT (toolbar_signals), "clicked",
+			    GTK_SIGNAL_FUNC (on_toolbar_signals_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (toolbar_frame), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_frame_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (toolbar_registers), "clicked",
@@ -723,7 +722,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	/* toolbar->watch = toolbar_watch; */
 	toolbar->frame = toolbar_frame;
 	toolbar->interrupt = toolbar_interrupt;
-	toolbar->stack = toolbar_stack;
+	toolbar->signals = toolbar_signals;
 	toolbar->inspect = toolbar_inspect;
 	toolbar->stop = toolbar_stop;
 	return toolbar3;

@@ -99,7 +99,7 @@ struct _DebugToolbar
 	/* GtkWidget *watch; */
 	GtkWidget *wachpoints;
 	GtkWidget *registers;
-	GtkWidget *stack;
+	GtkWidget *signals;
 	GtkWidget *inspect;
 	GtkWidget *frame;
 };

@@ -39,8 +39,18 @@ extern "C"
 
 // Data:
 static char *labels[] =
-	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"), N_("Watches"), N_("Stack"),
-N_("Terminal"), N_("Stdout"), N_("Stderr") };
+{
+	N_("Build"),
+	N_("Find"),
+	N_("CVS"),
+	N_("Terminal"),
+	N_("Stdout"),
+	N_("Stderr"),
+	N_("Debug"),
+	N_("Locals"),
+	N_("Watches"),
+	N_("Stack"),
+};
 
 // Intern functions
 static void an_message_manager_destroy (GtkObject * object);
@@ -915,24 +925,24 @@ create_default_types (AnMessageManager * amm)
 	g_return_if_fail(amm != NULL);
 	an_message_manager_add_type (amm, MESSAGE_BUILD,
 					 ANJUTA_PIXMAP_MINI_BUILD);
-	an_message_manager_add_type (amm, MESSAGE_DEBUG,
-					 ANJUTA_PIXMAP_MINI_DEBUG);
 	an_message_manager_add_type (amm, MESSAGE_FIND,
 					 ANJUTA_PIXMAP_MINI_FIND);
 	an_message_manager_add_type (amm, MESSAGE_CVS,
 					 ANJUTA_PIXMAP_MINI_CVS);
-	an_message_manager_add_type (amm, MESSAGE_LOCALS,
-					 ANJUTA_PIXMAP_MINI_LOCALS);
-	an_message_manager_add_type (amm, MESSAGE_WATCHES,
-					 ANJUTA_PIXMAP_MINI_LOCALS);	
-	an_message_manager_add_type (amm, MESSAGE_STACK,
-					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	an_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	an_message_manager_add_type (amm, MESSAGE_STDOUT,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	an_message_manager_add_type (amm, MESSAGE_STDERR,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	an_message_manager_add_type (amm, MESSAGE_DEBUG,
+					 ANJUTA_PIXMAP_MINI_DEBUG);
+	an_message_manager_add_type (amm, MESSAGE_LOCALS,
+					 ANJUTA_PIXMAP_MINI_LOCALS);
+	an_message_manager_add_type (amm, MESSAGE_WATCHES,
+					 ANJUTA_PIXMAP_MINI_LOCALS);	
+	an_message_manager_add_type (amm, MESSAGE_STACK,
+					 ANJUTA_PIXMAP_MINI_LOCALS);	
 	
 	// Fix for bug #509192 (Crash on next message)
 	amm->intern->cur_msg_win = 

@@ -461,10 +461,10 @@ on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
 }
 */
 void
-on_toolbar_stack_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_signals_clicked (GtkButton * button, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
-				 (app->widgets.menubar.view.program_stack),
+				 (app->widgets.menubar.view.signals),
 				 "activate");
 }
 

@@ -228,7 +228,8 @@ protected:
 	bool isDirty;
 	
 	bool calltipShown;
-
+	bool debugTipOn;
+	
 	PropSetFile *props;
 
 	int LengthDocument();
@@ -341,6 +342,7 @@ public:
 	void FocusInEvent(GtkWidget* widget);
 	void FocusOutEvent(GtkWidget* widget);
 	void EvalOutputArrived(GList* lines, int textPos, const string &expression);
+	void EndDebugEval();
 };
 
 
@@ -428,7 +430,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 
 	accelGroup = NULL;
 	calltipShown = false;
-
+	debugTipOn = false;
+	
 	fileName[0] = '\0';
 	props = p;
 	
@@ -1082,7 +1085,6 @@ bool AnEditor::StartAutoComplete() {
 	        (wordCharacters.contains(linebuf[startword - 1]) ||
 	         autoCompleteStartCharacters.contains(linebuf[startword - 1])))
 		startword--;
-
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
@@ -1171,11 +1173,21 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	GetLine(linebuf, sizeof(linebuf));
 	int current = GetCaretInLine();
 
+	bool isNum = true;
 	int startword = current;
-	while (startword > 0 && wordCharacters.contains(linebuf[startword - 1]))
+	while (startword > 0 && wordCharacters.contains(linebuf[startword - 1])) {
+		if (isNum && !isdigit(linebuf[startword - 1]))
+			isNum = false;
 		startword--;
+	}
+	
 	if (startword == current)
 		return true;
+	
+	// Don't show autocomple for numbers (very annoying).
+	if (isNum)
+		return true;
+	
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
@@ -2636,7 +2648,7 @@ eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 
 	if (data == NULL)
 		return;
-
+	
 	auto_ptr<ExpressionEvaluationTipInfo> info(
 			(ExpressionEvaluationTipInfo *) data);
 
@@ -2647,9 +2659,16 @@ eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 }
 
 
-void AnEditor::EvalOutputArrived(GList* lines, int textPos, const string &expression) {
+void AnEditor::EvalOutputArrived(GList* lines, int textPos,
+								 const string &expression) {
+	
 	if (textPos <= 0)
 	    return;
+	
+	// Return if debug Tip has been canceled
+	if (!debugTipOn)
+		return;
+
 	if (g_list_length(lines) == 0 || lines->data == NULL)
 	    return;
 
@@ -2662,6 +2681,11 @@ void AnEditor::EvalOutputArrived(GList* lines, int textPos, const string &expres
 	SendEditor(SCI_CALLTIPSETHLT, 0, result.length());
 }
 
+void AnEditor::EndDebugEval() {
+	if (debugTipOn)
+		SendEditor(SCI_CALLTIPCANCEL);
+	debugTipOn = false;
+}
 
 void AnEditor::HandleDwellStart(int mousePos) {
 	if (mousePos == -1)
@@ -2676,6 +2700,10 @@ void AnEditor::HandleDwellStart(int mousePos) {
 		// SendEditorString(SCI_CALLTIPSHOW, mousePos, s.c_str());
 		return;
 	}
+	
+	// If debug tip is already running, return.
+	if (debugTipOn)
+		return;
 
 	CharacterRange crange = GetSelection();
 	if (crange.cpMin == crange.cpMax
@@ -2730,6 +2758,7 @@ void AnEditor::HandleDwellStart(int mousePos) {
 				DB_CMD_NONE, NULL, NULL);
 	g_free (printcmd);
 	debugger_execute_cmd_in_queqe ();
+	debugTipOn = true;
 }
 
 
@@ -2786,7 +2815,8 @@ void AnEditor::Notify(SCNotification *notification) {
 		break;
 
 	case SCN_DWELLEND:
-		SendEditor(SCI_CALLTIPCANCEL);
+		EndDebugEval();
+		// SendEditor(SCI_CALLTIPCANCEL);
 		break;
 
 	}
@@ -3547,6 +3577,7 @@ gint on_aneditor_focus_in(GtkWidget* widget, gpointer* unused, AnEditor* ed)
 
 gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed)
 {
+	ed->EndDebugEval();
 	ed->FocusOutEvent(widget);
 	return FALSE;
 }

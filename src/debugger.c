@@ -1987,13 +1987,6 @@ debugger_save_session_breakpoints( ProjectDBase *p )
 static void
 locals_update_controls(void)
 {
-	if( NULL == app->messages )
-		return ;
-	if( NULL == app->project_dbase )
-		return ;
-	if( !app->project_dbase->m_prj_ShowLocal )
-		return ;
-
 	debugger_put_cmd_in_queqe ("info locals",
 				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
 				   debugger_info_locals_cb, NULL);

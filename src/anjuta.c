@@ -1833,8 +1833,8 @@ anjuta_not_implemented (char *file, guint line)
 	// Dialog to be HIG compliant
 	dialog = gtk_message_dialog_new (GTK_WINDOW (app->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
-									 GTK_MESSAGE_QUESTION,
-									 GTK_BUTTONS_YES_NO,
+									 GTK_MESSAGE_INFO,
+									 GTK_BUTTONS_OK,
 									 ("Not yet implemented.\n"
 									 "Insert code at '%s:%u'"),
 									 file, line);

@@ -147,12 +147,9 @@ struct _ViewSubMenu
 	GtkWidget *bookmarks;
 	GtkWidget *breakpoints;
 	GtkWidget *registers;
-	GtkWidget *program_stack;
 	GtkWidget *shared_lib;
 	GtkWidget *signals;
 	GtkWidget *dump_window;
-	GtkWidget *console;
-	GtkWidget *show_hide_locals;
 };
 
 struct _ProjectSubMenu

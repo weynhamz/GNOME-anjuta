@@ -49,9 +49,6 @@
 #include "an_symbol_view.h"
 #include "pixmaps.h"
 
-// To debug it
-#define	SHOW_LOCALS_DEFAULT 	TRUE
-
 static void project_reload_session_files(ProjectDBase * p);
 static void project_dbase_save_session (ProjectDBase * p);
 static void project_dbase_reload_session (ProjectDBase * p);
@@ -243,7 +240,6 @@ project_dbase_new (PropsID pr_props)
 	fsd2.data = p;
 	
 	p->tm_project = NULL;
-	p->m_prj_ShowLocal = SHOW_LOCALS_DEFAULT ;
 	p->project_is_open = FALSE;
 	p->is_showing = TRUE;
 	p->is_docked = TRUE;
@@ -332,7 +328,6 @@ project_dbase_clear (ProjectDBase * p)
 	p->project_is_open = FALSE;
 	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
 	p->is_saved = TRUE;
-	p->m_prj_ShowLocal	= SHOW_LOCALS_DEFAULT ;
 	extended_toolbar_update ();
 	anjuta_update_app_status (FALSE, NULL);
 }
@@ -594,13 +589,6 @@ project_dbase_reload_session (ProjectDBase * p)
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
-	p->m_prj_ShowLocal = session_get_bool (p, SECSTR(SECTION_PROJECTDBASE),
-										   szShowLocalsItem,
-										   SHOW_LOCALS_DEFAULT );
-	
-	/* Updates the menu */
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal);
 }
 
 gboolean
@@ -1341,8 +1329,6 @@ project_dbase_save_session (ProjectDBase * p)
 	find_replace_save_session (app->find_replace, p);
 	executer_save_session (app->executer, p);
 	find_in_files_save_session (app->find_in_files, p);
-	session_save_bool (p, SECSTR (SECTION_PROJECTDBASE),
-					   szShowLocalsItem, p->m_prj_ShowLocal );
 	session_sync();
 }
 
@@ -2432,16 +2418,6 @@ project_dbase_get_name (ProjectDBase * p)
 {
 	g_return_val_if_fail( (NULL != p), NULL );
 	return prop_get (p->props, "project.name");
-}
-
-void
-project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive )
-{
-	/* Null can be a valid entry */
-	if( NULL != p )
-	{
-		p->m_prj_ShowLocal = bActive ;
-	}
 }
 
 static gboolean

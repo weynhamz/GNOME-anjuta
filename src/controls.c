@@ -363,7 +363,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->goto_tag_def, F);
 	gtk_widget_set_sensitive (em->goto_tag_decl, F);
 	
-	gtk_widget_set_sensitive (vm->show_hide_locals, P && G);
+	gtk_widget_set_sensitive (vm->dump_window, A && R);
 
 	gtk_widget_set_sensitive (pm->add_file, P);
 	gtk_widget_set_sensitive (pm->edit_file, P);
