@@ -166,6 +166,7 @@ devhelp_notebook_switch_page_after_cb (GtkWidget       *notebook,
 static void
 devhelp_html_initialize (DevhelpPlugin *plugin)
 {
+	AnjutaStatus *status;
 	GtkWidget    *html_sw;
 	GtkWidget    *book_tree_sw;
 	GNode        *contents_tree;
@@ -176,6 +177,9 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 	
 	if (priv->html)
 		return;
+	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	anjuta_status_busy_push (status);
 	
 	/* Create plugin widgets */
 	priv->html      = dh_html_new ();
@@ -252,6 +256,7 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 	
 	g_object_ref (priv->browser_frame);
 	g_object_ref (priv->notebook);
+	anjuta_status_busy_pop (status);
 	
 /*
  	g_signal_connect_swapped (priv->html, 

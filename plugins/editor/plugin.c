@@ -83,7 +83,12 @@
 #define ANJUTA_STOCK_NEXT_BRACE               "anjuta-next-brace"
 #define ANJUTA_STOCK_BLOCK_START              "anjuta-block-start"
 #define ANJUTA_STOCK_BLOCK_END                "anjuta-block-end"
-#define ANJUTA_STOCK_TOGGLE_BOOKMARK          "anjuta-toggle-bookmark"
+#define ANJUTA_STOCK_BOOKMARK_TOGGLE          "anjuta-bookmark-toggle"
+#define ANJUTA_STOCK_BOOKMARK_FIRST           "anjuta-bookmark-first"
+#define ANJUTA_STOCK_BOOKMARK_PREV            "anjuta-bookmark-previous"
+#define ANJUTA_STOCK_BOOKMARK_NEXT            "anjuta-bookmark-next"
+#define ANJUTA_STOCK_BOOKMARK_LAST            "anjuta-bookmark-last"
+
 
 static gpointer parent_class;
 
@@ -305,7 +310,7 @@ static GtkActionEntry actions_edit[] = {
 	ANJUTA_STOCK_AUTOCOMPLETE, "<control>Return",
 	N_("AutoComplete the current word"),
     G_CALLBACK (on_editor_command_complete_word_activate)},
-  { "ActionEditCalltip", N_("S_how calltip"), NULL, NULL,
+  { "ActionEditCalltip", N_("S_how calltip"), NULL, "<control>Space",
 	N_("Show calltip for the function"),
     G_CALLBACK (on_calltip1_activate)},
 };
@@ -382,23 +387,23 @@ static GtkActionEntry actions_format[] = {
 static GtkActionEntry actions_bookmark[] = {
   { "ActionMenuBookmark", N_("Bookmar_k"), NULL, NULL, NULL, NULL},
   { "ActionBookmarkToggle", N_("_Toggle bookmark"),
-	ANJUTA_STOCK_TOGGLE_BOOKMARK, "<control>k",
+	ANJUTA_STOCK_BOOKMARK_TOGGLE, "<control>k",
 	N_("Toggle a bookmark at the current line position"),
     G_CALLBACK (on_editor_command_bookmark_toggle_activate)},
   { "ActionBookmarkFirst", N_("_First bookmark"),
-	GTK_STOCK_GOTO_FIRST, NULL,
+	ANJUTA_STOCK_BOOKMARK_FIRST, NULL,
 	N_("Jump to the first bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_first_activate)},
   { "ActionBookmarkPrevious", N_("_Previous bookmark"),
-	GTK_STOCK_GO_BACK, "<control>comma",
+	ANJUTA_STOCK_BOOKMARK_PREV, "<control>comma",
 	N_("Jump to the previous bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_prev_activate)},
   { "ActionBookmarkNext", N_("_Next bookmark"),
-	GTK_STOCK_GO_FORWARD, "<control>period",
+	ANJUTA_STOCK_BOOKMARK_NEXT, "<control>period",
 	N_("Jump to the next bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_next_activate)},
   { "ActionBookmarkLast", N_("_Last bookmark"),
-	GTK_STOCK_GOTO_LAST, NULL,
+	ANJUTA_STOCK_BOOKMARK_LAST, NULL,
 	N_("Jump to the last bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_last_activate)},
   { "ActionBookmarkClear", N_("_Clear all bookmarks"),
@@ -624,7 +629,11 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ANJUTA_PIXMAP_AUTOFORMAT_SETTING, ANJUTA_STOCK_AUTOFORMAT_SETTINGS);
 	REGISTER_ICON (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_TOGGLE_BOOKMARK);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_BOOKMARK_TOGGLE);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_FIRST, ANJUTA_STOCK_BOOKMARK_FIRST);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_PREV, ANJUTA_STOCK_BOOKMARK_PREV);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_NEXT, ANJUTA_STOCK_BOOKMARK_NEXT);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_LAST, ANJUTA_STOCK_BOOKMARK_LAST);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
 }

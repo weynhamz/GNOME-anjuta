@@ -35,7 +35,7 @@
 #define ANJUTA_PIXMAP_PREV_MESSAGE            "error-prev.png"
 #define ANJUTA_PIXMAP_NEXT_MESSAGE            "error-next.png"
 #define ANJUTA_PIXMAP_PREV_MESSAGE_16         "error-prev-16.png"
-#define ANJUTA_PIXMAP_NEXT_MESSAGE_16            "error-next-16.png"
+#define ANJUTA_PIXMAP_NEXT_MESSAGE_16         "error-next-16.png"
 
 /* Stock icons */
 #define ANJUTA_STOCK_MESSAGES                 "anjuta-messages"
@@ -104,9 +104,9 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ICON_FILE, "message-manager-plugin-icon");
 	REGISTER_ICON (ANJUTA_PIXMAP_MESSAGES, ANJUTA_STOCK_MESSAGES);
 	REGISTER_ICON (ANJUTA_PIXMAP_NEXT_MESSAGE, ANJUTA_STOCK_NEXT_MESSAGE);
-	ADD_ICON (ANJUTA_PIXMAP_NEXT_MESSAGE_16);
+	//ADD_ICON (ANJUTA_PIXMAP_NEXT_MESSAGE_16);
 	REGISTER_ICON (ANJUTA_PIXMAP_PREV_MESSAGE, ANJUTA_STOCK_PREV_MESSAGE);
-	ADD_ICON (ANJUTA_PIXMAP_PREV_MESSAGE_16);
+	//ADD_ICON (ANJUTA_PIXMAP_PREV_MESSAGE_16);
 	
 	gtk_icon_source_free (source);
 }

@@ -1,3 +1,14 @@
+2005-02-11  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Added message manager task.
+	
+	* plugins/devhelp/plugin.c: Show busy while initializing devhelp.
+	
+	* plugins/editor/plugin.c: Use bookmark stock icons.
+	
+	* plugins/message-view/anjuta-message-manager.ui,
+	plugins/message-view/plugin.c: Added toolbar buttons for next/prev.
+
 2005-02-10  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: fixed build error.

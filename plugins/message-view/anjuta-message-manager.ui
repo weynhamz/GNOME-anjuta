@@ -8,6 +8,12 @@
 			</menu>
 		</placeholder>
 	</menubar>
+	<toolbar name="ToolbarBrowser">
+		<placeholder name="PlaceholderBrowserToolbar" >
+			<toolitem name="NextMessage" action="ActionMessageNext"/>
+			<toolitem name="PreviousMessage" action="ActionMessagePrev"/>
+		</placeholder>
+	</toolbar>
 	<popup name="PopupDocumentManager">
 		<menu name="Goto" action="ActionMenuGoto">
 			<menuitem name="NextMessage" action="ActionMessageNext" />
