@@ -1,5 +1,9 @@
 2003-08-08  Abel Cheung  <maddog@linux.org.hk>
 
+	* anjuta.glade, anjuta_dialog_strings.c: Fix typo. (#107513)
+
+2003-08-08  Abel Cheung  <maddog@linux.org.hk>
+
 	* src/text_editor.c: Fix translatable string (#113934).
 
 2003-06-26  Naba Kumar  <naba@gnome.org>

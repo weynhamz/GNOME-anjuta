@@ -2,7 +2,6 @@
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
 anjuta.glade
-anjuta_dialogs_strings.c
 gdl/gdl-dock-item-grip.c
 gdl/gdl-dock-item.c
 gdl/gdl-dock-layout.c
