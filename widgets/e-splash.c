@@ -280,7 +280,7 @@ e_splash_construct (ESplash *splash,
 		    GdkPixbuf *splash_image_pixbuf)
 {
 	ESplashPrivate *priv;
-	GtkWidget *canvas, *frame;
+	GtkWidget *canvas; /*, *frame; */
 	int image_width, image_height;
 
 	g_return_if_fail (splash != NULL);
@@ -301,12 +301,13 @@ e_splash_construct (ESplash *splash,
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (canvas), 0, 0, image_width, image_height);
 	gtk_widget_show (canvas);
 
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
+	/*frame = gtk_frame_new (NULL);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
 	gtk_container_add (GTK_CONTAINER (frame), canvas);
 	gtk_widget_show (frame);
-
 	gtk_container_add (GTK_CONTAINER (splash), frame);
+	*/
+	gtk_container_add (GTK_CONTAINER (splash), canvas);
 
 	gnome_canvas_item_new (GNOME_CANVAS_GROUP (priv->canvas->root),
 			       GNOME_TYPE_CANVAS_PIXBUF,
