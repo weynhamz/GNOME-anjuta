@@ -20,10 +20,6 @@
 #  include <config.h>
 #endif
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
