@@ -1,3 +1,9 @@
+2004-05-13  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/message-view/plugin.c: Fixed glade file loading
+	* src/anjuta-app.c: Fixed crash bug, g_free(filename was called
+	twice because of this load system layout hack.
+
 2004-05-12  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/*: Fixed message view preferences

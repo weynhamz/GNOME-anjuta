@@ -1,8 +1,8 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@/libanjuta
-idldir=@datadir@/idl/libanjuta
+includedir=@includedir@/libanjuta-1.0
+idldir=@datadir@/idl/libanjuta-1.0
 
 Name: libanjuta
 Description: Libraries for developing Anjuta plugins.

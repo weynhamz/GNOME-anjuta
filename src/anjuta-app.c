@@ -482,7 +482,7 @@ ensure_layout_manager (AnjutaApp *window)
 		if (!egg_dock_layout_load_from_file (window->layout_manager, filename)) */{
 			gchar *datadir;
 			datadir = anjuta_res_get_data_dir();
-			g_free (filename);
+			/* g_free (filename); */
 			filename = g_build_filename (datadir, "/layout.xml", NULL);
 			g_message ("Layout = %s", filename);
 			g_free (datadir);

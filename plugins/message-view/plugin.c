@@ -91,10 +91,10 @@ activate_plugin (AnjutaPlugin *plugin)
 										actions_view,
 										G_N_ELEMENTS (actions_view), plugin);
 
-	/* Create the terminal preferences page */
+	/* Create the messages preferences page */
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
 	anjuta_preferences_add_page (prefs, gxml,
-								"Message Manager", ICON_FILE);
+								"Messages", ICON_FILE);
 	g_object_unref (gxml);
 	
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
