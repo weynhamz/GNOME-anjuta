@@ -1,6 +1,20 @@
+2004-03-25  Naba Kumar  <naba@gnome.org>
+
+	* src/debugger.c: Fixed a typo (detele -> delete) which deletes
+	the old breakpoint when it's properties are updated
+	(creating a new updated one).
+	
+2004-03-25  Pavol Bosik <Pavol.Bosik@siemens.com>
+
+	* src/aneditor.cxx, src/aneditor.h: fixed calltips
+	displayed for wrong file.
+	* src/breakpoints.c: conditional breakpoints
+	* src/controls.c: BUG #912618 - "Save all" for 1 file opened +
+	"Find in Files..." disabling policy
+
 2004-03-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
-	* src/build_file.c: Fixed bug 874380
+	* src/build_file.c: Fixed bug #874380
 	Goto the first error if it exists.
 
 2004-03-24  Naba Kumar  <naba@gnome.org>

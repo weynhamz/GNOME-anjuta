@@ -292,7 +292,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (fm->save_file, F && !SF);
 	gtk_widget_set_sensitive (fm->save_as_file, F);
 	gtk_widget_set_sensitive (fm->save_all_file,
-				  (g_list_length (app->text_editor_list) > 1));
+				  (g_list_length (app->text_editor_list) > 0));
 	gtk_widget_set_sensitive (fm->close_file, F);
 	gtk_widget_set_sensitive (fm->close_all_file, F);
 	gtk_widget_set_sensitive (fm->reload_file, F);
@@ -355,7 +355,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->find, F);
 	gtk_widget_set_sensitive (em->find_next, F);
 	gtk_widget_set_sensitive (em->find_previous, F);
-	gtk_widget_set_sensitive (em->find_in_files, !L);
+	gtk_widget_set_sensitive (em->find_in_files, P);
 	gtk_widget_set_sensitive (em->find_replace, F);
 	gtk_widget_set_sensitive (em->enter_selection, F);
 	gtk_widget_set_sensitive (em->goto_line, F);

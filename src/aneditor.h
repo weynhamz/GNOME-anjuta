@@ -109,6 +109,8 @@ extern "C" {
 #define   ANE_GOTOPOS                   (ANE_COMMAND_BASE+73)
 
 typedef guint AnEditorID;
+extern const AnEditorID ANE_ID_INVALID;
+
 typedef struct _FindParameters FindParameters;
 
 AnEditorID
@@ -122,6 +124,9 @@ aneditor_get_widget(AnEditorID id);
 
 glong
 aneditor_command(AnEditorID id, gint command, glong wparam, glong wlaram);
+
+void
+aneditor_set_focused_ed_ID(AnEditorID id);
 
 #ifdef __cplusplus
 }

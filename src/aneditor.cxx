@@ -229,7 +229,10 @@ protected:
 	
 	bool calltipShown;
 	bool debugTipOn;
-	
+	static AnEditorID focusedID;
+	friend void aneditor_set_focused_ed_ID(AnEditorID id);
+	friend void eval_output_arrived_for_aneditor(GList* lines, gpointer data);
+
 	PropSetFile *props;
 
 	int LengthDocument();
@@ -362,6 +365,8 @@ public:
 
 
 static void lowerCaseString(char *s);
+static AnEditor * aneditor_get(AnEditorID id);
+
 
 gint on_aneditor_focus_in(GtkWidget* widget, gpointer * unused, AnEditor* ed);
 gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed);
@@ -371,6 +376,9 @@ static const char *extList[] = {
     "x.lua", "x.py", "x.pl", "x.sql", "x.spec", "x.php3", "x.tex", "x.diff", "x.pas",
 	"x.cs", "x.properties", "x.conf", "x.bc", "x.adb", "x.lisp", "x.rb", ".m"
 };
+
+const AnEditorID ANE_ID_INVALID = G_MAXUINT;
+AnEditorID AnEditor::focusedID = ANE_ID_INVALID;
 
 AnEditor::AnEditor(PropSetFile* p) {
 
@@ -2776,8 +2784,7 @@ void AnEditor::NotifySignal(GtkWidget *, gint /*wParam*/, gpointer lParam, AnEdi
 	anedit->Notify(reinterpret_cast<SCNotification *>(lParam));
 }
 
-
-static void
+void
 eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 {
 	// We expect lines->data to be a string of the form VARIABLE = VALUE,
@@ -2793,6 +2800,9 @@ eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 	if (info->editor == NULL)
 	    return;
 
+	if (info->editor != aneditor_get(AnEditor::focusedID))
+		return;
+
 	info->editor->EvalOutputArrived(lines, info->textPos, info->expression);
 }
 
@@ -2802,7 +2812,7 @@ void AnEditor::EvalOutputArrived(GList* lines, int textPos,
 	
 	if (textPos <= 0)
 	    return;
-	
+
 	// Return if debug Tip has been canceled
 	if (!debugTipOn)
 		return;
@@ -2821,8 +2831,10 @@ void AnEditor::EvalOutputArrived(GList* lines, int textPos,
 
 void AnEditor::EndDebugEval() {
 	if (debugTipOn)
+	{
 		SendEditor(SCI_CALLTIPCANCEL);
-	debugTipOn = false;
+		debugTipOn = false;
+	}
 }
 
 void AnEditor::HandleDwellStart(int mousePos) {
@@ -2882,7 +2894,6 @@ void AnEditor::HandleDwellStart(int mousePos) {
 	// struct or class.
 	// We don't want static members of classes to clutter up
 	// the displayed tip, however.
-
 	ExpressionEvaluationTipInfo *info =
 			new ExpressionEvaluationTipInfo(this, mousePos, expr);
 	debugger_query_evaluate_expr_tip (expr, eval_output_arrived_for_aneditor, info);
@@ -3650,7 +3661,7 @@ aneditor_new(gpointer propset)
   if (!ed)
   {
      g_warning("Memory allocation error.");
-     return (AnEditorID)-1;
+     return ANE_ID_INVALID;
   }
   g_signal_connect(ed->GetID(), "focus_in_event", 
 				   G_CALLBACK(on_aneditor_focus_in), ed);
@@ -3696,6 +3707,12 @@ aneditor_command(AnEditorID handle, gint command, glong wparam, glong lparam)
    ed = aneditor_get(handle);
    if(!ed) return 0;
    return ed->Command(command, wparam, lparam);
+}
+
+void
+aneditor_set_focused_ed_ID(AnEditorID id)
+{
+	AnEditor::focusedID = id;
 }
 
 gint on_aneditor_focus_in(GtkWidget* widget, gpointer* unused, AnEditor* ed)

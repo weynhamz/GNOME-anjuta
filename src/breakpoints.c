@@ -38,6 +38,10 @@
 
 #define	BKPT_FIELDS	(13)
 
+#ifdef DEBUG
+ #define ANJUTA_DEBUG_DEBUGGER
+#endif
+
 typedef enum _BreakpointType BreakpointType;
 typedef struct _BreakpointItem BreakpointItem;
 typedef struct _Properties Properties;
@@ -243,7 +247,6 @@ property_add_item (GList * outputs, gpointer data )
 	
 	g_object_unref (prop->gxml);
 }
-
 
 void
 property_destroy_breakpoint (BreakpointsDBase* bd, GladeXML *gxml,
@@ -1372,7 +1375,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 	gchar ignore[10];
 	gchar enb[5];
 	gchar cond[512];
-	gchar *ptr;
+	gchar *ptr, *ptr1, *ptr2;
 	glong count;
 
 	g_return_if_fail (bd != NULL);
@@ -1400,13 +1403,41 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 			*fileln = 0; // finish function part
 			fileln += 4; // skip " at "
 
-			/* get file and line no */
+			/* get file, line no and stop conditions */
+			line[0] = file[0] = cond[0] = ignore[0] = '\0';
 			ptr = strchr (fileln, ':');
-			ptr++;
-			strcpy (line, ptr);
-			ptr--;
-			*ptr = '\0';
-			strcpy (file, fileln);
+			if (ptr)
+			{
+				ptr1 = strchr (ptr, '\n');
+				if (ptr1)
+				{
+					*ptr1++ = '\0';
+					const gchar condition_prefix[] = "\tstop only if ";
+					if (g_str_has_prefix (ptr1, condition_prefix))
+					{
+						ptr1 += sizeof(condition_prefix) - 1;
+						g_strlcpy(cond, ptr1, 511);
+						ptr1 = strchr (cond, '\n');
+						if (ptr1) *ptr1++ = '\0';
+					}
+					const gchar ignore_prefix[] = "\tignore next ";
+					if (g_str_has_prefix (ptr1, ignore_prefix))
+					{
+						ptr1 += sizeof(ignore_prefix) - 1;
+						ptr2 = strchr (ptr1, ' ');
+						if (ptr2)
+						{
+							*ptr2 = '\0';
+							g_strlcpy(ignore, ptr1, 9);
+						}
+					}
+				}
+				ptr++;
+				strcpy (line, ptr);
+				ptr--;
+				*ptr = '\0';
+				strcpy (file, fileln);
+			}
 		}
 
 		/* add breakpoint to list */
@@ -1424,33 +1455,8 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 		else
 			bi->enable = FALSE;
 
-		if ((ptr = strstr (brkpnt, "ignore")))
-		{
-			sscanf (ptr, "ignore next %s", ignore);
-			bi->pass = atoi (ignore);
-		}
-		else
-		{
-			strcpy (ignore, _("0"));
-			bi->pass = 0;
-		}
-		if ((ptr = strstr (brkpnt, "stop only if ")))
-		{
-			gint i = 0;
-			ptr += strlen ("stop only if ");
-			while (*ptr != '\n' && *ptr != '\0')
-			{
-				cond[i] = *ptr++;
-				i++;
-			}
-			cond[i] = '\0';
-			bi->condition = g_strdup (cond);
-		}
-		else
-		{
-			strcpy (cond, "");
-			bi->condition = NULL;
-		}
+		bi->condition = (cond[0] != '\0' ? g_strdup (cond) : NULL);
+		bi->pass = (ignore[0] != '0' ? atoi (ignore) : 0);
 
 /*		full_fname = anjuta_get_full_filename (bi->file); */
 

@@ -2211,7 +2211,7 @@ breakpoint_cmd_id (const gchar *cmd, gint id,
 void debugger_breakpoint_delete (gint id,
 			void (*parser) (GList *outputs, gpointer data), gpointer data)
 {
-	breakpoint_cmd_id ("detele", id, parser, data);
+	breakpoint_cmd_id ("delete", id, parser, data);
 }
 
 void debugger_breakpoint_enable (gint id,
