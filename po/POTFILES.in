@@ -166,9 +166,6 @@ src/src_paths.c
 src/src_paths.h
 src/stack_trace.c
 src/stack_trace.h
-src/stack_trace_cbs.c
-src/stack_trace_cbs.h
-src/stack_trace_gui.c
 src/style-editor.c
 src/style-editor.h
 src/support.c
@@ -195,7 +192,6 @@ src/watch_gui.c
 src/watch_gui.h
 src/widget-registry.c
 src/widget-registry.h
-src/windows-dialog.c
 src/wizard_gui.c
 src/wizard_gui.h
 widgets/cell-renderer-captioned-image.c

@@ -1,3 +1,7 @@
+2003-11-30  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "cs" "mk" "sr" "sr@Latn" to ALL_LINGUAS.
+
 2003-11-28  Naba Kumar  <naba@gnome.org>
 
 	* Merged changes from cvs branch ANJUTA_1_2_0 (tag: MERGE_LEVEL_2)
