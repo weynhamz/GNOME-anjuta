@@ -15,7 +15,7 @@ public:
 	bool active;
 	bool on;
 	int period;
-		
+
 	Caret();
 };
 
@@ -27,7 +27,7 @@ public:
 	int ticksToWait;
 	enum {tickSize = 100};
 	int tickerID;
-		
+
 	Timer();
 };
 
@@ -36,7 +36,7 @@ public:
 class LineLayout {
 public:
 	/// Drawing is only performed for @a maxLineLength characters on each line.
-	enum {maxLineLength = 4000};
+	enum {maxLineLength = 16000};
 	int numCharsInLine;
 	int xHighlightGuide;
 	bool highlightColumn;
@@ -48,6 +48,14 @@ public:
 	char styles[maxLineLength+1];
 	char indicators[maxLineLength+1];
 	int positions[maxLineLength+1];
+
+	// Wrapped line support
+	int widthLine;
+	int lines;
+	enum {maxDisplayLines = 400};
+	int lineStarts[maxDisplayLines];
+
+	LineLayout() : numCharsInLine(0) {}
 };
 
 class SelectionText {
@@ -71,6 +79,38 @@ public:
 };
 
 /**
+ * A smart pointer class to ensure Surfaces are set up and deleted correctly.
+ */
+class AutoSurface {
+private:
+	Surface *surf;
+public:
+	AutoSurface(bool unicodeMode) {
+		surf = Surface::Allocate();
+		if (surf) {
+			surf->Init();
+			surf->SetUnicodeMode(unicodeMode);
+		}
+	}
+	AutoSurface(SurfaceID sid, bool unicodeMode) {
+		surf = Surface::Allocate();
+		if (surf) {
+			surf->Init(sid);
+			surf->SetUnicodeMode(unicodeMode);
+		}
+	}
+	~AutoSurface() {
+		delete surf;
+	}
+	Surface *operator->() const {
+		return surf;
+	}
+	operator Surface *() const {
+		return surf;
+	}
+};
+
+/**
  */
 class Editor : public DocWatcher {
 	// Private so Editor objects can not be copied
@@ -85,20 +125,21 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	/** Style resources may be expensive to allocate so are cached between uses.
 	 * When a style attribute is changed, this cache is flushed. */
-	bool stylesValid;	
+	bool stylesValid;
 	ViewStyle vs;
 	Palette palette;
 
 	int printMagnification;
 	int printColourMode;
 	int cursorMode;
+	int controlCharSymbol;
 
 	bool hasFocus;
 	bool hideSelection;
 	bool inOverstrike;
 	int errorStatus;
 	bool mouseDownCaptures;
-	
+
 	/** In bufferedDraw mode, graphics operations are drawn to a pixmap and then copied to
 	 * the screen. This avoids flashing but is about 30% slower. */
 	bool bufferedDraw;
@@ -106,7 +147,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	int xOffset;		///< Horizontal scrolled amount in pixels
 	int xCaretMargin;	///< Ensure this many pixels visible on both sides of caret
 	bool horizontalScrollBarVisible;
-	
+
 	Surface *pixmapLine;
 	Surface *pixmapSelMargin;
 	Surface *pixmapSelPattern;
@@ -141,38 +182,44 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	int searchFlags;
 	int topLine;
 	int posTopLine;
-	
+
 	bool needUpdateUI;
 	Position braces[2];
 	int bracesMatchStyle;
 	int highlightGuideColumn;
-	
+
 	int theEdge;
 
 	enum { notPainting, painting, paintAbandoned } paintState;
 	PRectangle rcPaint;
 	bool paintingAllText;
-	
+
 	int modEventMask;
-	
+
 	SelectionText drag;
 	enum { selStream, selRectangle, selRectangleFixed } selType;
 	int xStartSelect;
 	int xEndSelect;
 	bool primarySelection;
-	
+
 	int caretPolicy;
 	int caretSlop;
 
 	int visiblePolicy;
 	int visibleSlop;
-	
+
 	int searchAnchor;
 
 	bool recordingMacro;
 
 	int foldFlags;
 	ContractionState cs;
+
+	// Wrapping support
+	enum { eWrapNone, eWrapWord } wrapState;
+	enum { wrapWidthInfinite = 0x7ffffff};
+	int wrapWidth;
+	bool needWrap;
 
 	Document *pdoc;
 
@@ -189,7 +236,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	virtual PRectangle GetClientRectangle();
 	PRectangle GetTextRectangle();
-	
+
 	int LinesOnScreen();
 	int LinesToScroll();
 	int MaxScrollPos();
@@ -200,13 +247,13 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	int PositionFromLineX(int line, int x);
 	int LineFromLocation(Point pt);
 	void SetTopLine(int topLineNew);
-	
+
 	void RedrawRect(PRectangle rc);
 	void Redraw();
 	void RedrawSelMargin();
 	PRectangle RectangleFromRange(int start, int end);
 	void InvalidateRange(int start, int end);
-	
+
 	int CurrentPosition();
 	bool SelectionEmpty();
 	int SelectionStart(int line=-1);
@@ -228,11 +275,14 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void DropCaret();
 	void InvalidateCaret();
 
+	bool WrapLines(int *goodTopLine);
+
 	int SubstituteMarkerIfEmpty(int markerCheck, int markerDefault);
 	void PaintSelMargin(Surface *surface, PRectangle &rc);
-        void LayoutLine(int line, Surface *surface, ViewStyle &vstyle, LineLayout &ll);
-	void DrawLine(Surface *surface, ViewStyle &vsDraw, int line, int lineVisible, int xStart, 
-		PRectangle rcLine, LineLayout &ll);
+	void LayoutLine(int line, Surface *surface, ViewStyle &vstyle, LineLayout &ll, 
+		int width=wrapWidthInfinite);
+	void DrawLine(Surface *surface, ViewStyle &vsDraw, int line, int lineVisible, int xStart,
+		PRectangle rcLine, LineLayout &ll, int subLine=0);
 	void Paint(Surface *surfaceWindow, PRectangle rcArea);
 	long FormatRange(bool draw, RangeToFormat *pfr);
 
@@ -240,8 +290,8 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	virtual void SetHorizontalScrollPos() = 0;
 	virtual bool ModifyScrollBars(int nMax, int nPage) = 0;
 	virtual void ReconfigureScrollBars();
-	void SetScrollBarsTo(PRectangle rsClient);
 	void SetScrollBars();
+	void ChangeSize();
 
 	void AddChar(char ch);
 	virtual void AddCharUTF(char *s, unsigned int len);
@@ -258,11 +308,12 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void Undo();
 	void Redo();
 	void DelChar();
-	void DelCharBack();
+	void DelCharBack(bool allowLineStartDeletion);
 	virtual void ClaimSelection() = 0;
 
 	virtual void NotifyChange() = 0;
 	virtual void NotifyFocus(bool focus);
+	virtual int GetCtrlID() { return ctrlID; }
 	virtual void NotifyParent(SCNotification scn) = 0;
 	virtual void NotifyStyleToNeeded(int endStyleNeeded);
 	void NotifyChar(int ch);
@@ -275,9 +326,10 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	bool NotifyMarginClick(Point pt, bool shift, bool ctrl, bool alt);
 	void NotifyNeedShown(int pos, int len);
 	void NotifyDwelling(Point pt, bool state);
-	
+
 	void NotifyModifyAttempt(Document *document, void *userData);
 	void NotifySavePoint(Document *document, void *userData, bool atSavePoint);
+	void CheckModificationForWrap(DocModification mh);
 	void NotifyModified(Document *document, DocModification mh, void *userData);
 	void NotifyDeleted(Document *document, void *userData);
 	void NotifyStyleNeeded(Document *doc, void *userData, int endPos);
@@ -328,21 +380,23 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void CheckForChangeOutsidePaint(Range r);
 	int BraceMatch(int position, int maxReStyle);
 	void SetBraceHighlight(Position pos0, Position pos1, int matchStyle);
-	
+
 	void SetDocPointer(Document *document);
-	
+
 	void Expand(int &line, bool doExpand);
 	void ToggleContraction(int line);
 	void EnsureLineVisible(int lineDoc, bool enforcePolicy);
 	int ReplaceTarget(bool replacePatterns, const char *text, int length=-1);
 
 	virtual sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) = 0;
-	
+
 public:
-	// Public so scintilla_send_message can use it
+	// Public so the COM thunks can access it.
+	bool IsUnicodeMode() const;
+	// Public so scintilla_send_message can use it.
 	virtual sptr_t WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam);
-	// Public so scintilla_set_id can use it
-	int ctrlID;	
+	// Public so scintilla_set_id can use it.
+	int ctrlID;
 };
 
 #endif

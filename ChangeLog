@@ -1,3 +1,43 @@
+2001-12-30  Stephane Demurget  <demurgets@free.fr>
+
+	Merged with latest (1.42) scintilla.
+
+	Added: Support for the {load,save}.on.(de)activate properties.
+	       The PHP lexer to match keywords case insensitively.
+	       Baan lexer.
+	       Experimental supports for changeable style attribute & line
+	       wrapping.
+	       
+	Updated: Both the C++ and HTML lexers.
+	         More shell keywords added.
+		 Horizontal scrolling and diplay of long lines optimised.
+	         Cursor setting optimised.
+
+	Bugs fixed: Caret movement over folded lines.
+	            Selection tracking in 2ndary views when doing modifications.
+
+	* scintilla/CallTip.{cxx.h},
+	  scintilla/ContractionState.{cxx,h},
+	  scintilla/Document.{cxx,h},
+	  scintilla/Editor.{cxx,h},
+	  scintilla/KeyWords.cxx,
+	  scintilla/LexHTML.cxx,
+	  scintilla/PlatGTK.cxx,
+	  scintilla/RESearch.cxx,
+	  scintilla/ScintillaBase.cxx,
+	  scintilla/ScintillaGTK.cxx,
+	  scintilla/Style.{cxx,h},
+	  scintilla/StyleContext.h,
+	  scintilla/ViewStyle.cxx,
+	  scintilla/include/*.h: updated.
+
+	* scintilla/LexBaan.cxx, scintilla/Makefile.am: added Baan lexer.
+
+	* scintilla/LexCPP.cxx: removed all references to noDocChars. This
+	  should have been told to the scintilla team. We're lucky I read the
+	  ChangeLog and the modifications of the lexer (thanks to the Gnome
+	  bonsai for this ;)
+
 2001-12-29  Stephane Demurget  <demurgets@free.fr>
 
 	Polished the plugins menu behaviour and added a tearoff

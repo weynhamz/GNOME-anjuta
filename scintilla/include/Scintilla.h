@@ -205,6 +205,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_SETCARETLINEVISIBLE 2096
 #define SCI_GETCARETLINEBACK 2097
 #define SCI_SETCARETLINEBACK 2098
+#define SCI_STYLESETCHANGEABLE 2099
 #define SCI_AUTOCSHOW 2100
 #define SCI_AUTOCCANCEL 2101
 #define SCI_AUTOCACTIVE 2102
@@ -342,6 +343,12 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_TIME_FOREVER 10000000
 #define SCI_SETMOUSEDWELLTIME 2264
 #define SCI_GETMOUSEDWELLTIME 2265
+#define SCI_WORDSTARTPOSITION 2266
+#define SCI_WORDENDPOSITION 2267
+#define SC_WRAP_NONE 0
+#define SC_WRAP_WORD 1
+#define SCI_SETWRAPMODE 2268
+#define SCI_GETWRAPMODE 2269
 #define SCI_LINEDOWN 2300
 #define SCI_LINEDOWNEXTEND 2301
 #define SCI_LINEUP 2302
@@ -386,6 +393,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_UPPERCASE 2341
 #define SCI_LINESCROLLDOWN 2342
 #define SCI_LINESCROLLUP 2343
+#define SCI_DELETEBACKNOTLINE 2344
 #define SCI_MOVECARETINSIDEVIEW 2401
 #define SCI_LINELENGTH 2350
 #define SCI_BRACEHIGHLIGHT 2351
@@ -433,6 +441,8 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SC_CURSORWAIT 3
 #define SCI_SETCURSOR 2386
 #define SCI_GETCURSOR 2387
+#define SCI_SETCONTROLCHARSYMBOL 2388
+#define SCI_GETCONTROLCHARSYMBOL 2389
 #define SCI_WORDPARTLEFT 2390
 #define SCI_WORDPARTLEFTEXTEND 2391
 #define SCI_WORDPARTRIGHT 2392
@@ -529,7 +539,7 @@ struct TextToFind {
 
 #ifdef PLATFORM_H
 
-// This structure is used in printing and requires some of the graphics types 
+// This structure is used in printing and requires some of the graphics types
 // from Platform.h.  Not needed by most client code.
 
 struct RangeToFormat {
@@ -546,7 +556,7 @@ struct NotifyHeader {
 	// hwndFrom is really an environment specifc window handle or pointer
 	// but most clients of Scintilla.h do not have this type visible.
 	//WindowID hwndFrom;
-	void *hwndFrom; 
+	void *hwndFrom;
 	unsigned int idFrom;
 	unsigned int code;
 };

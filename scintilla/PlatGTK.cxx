@@ -679,6 +679,13 @@ void Window::SetFont(Font &) {
 
 void Window::SetCursor(Cursor curs) {
 	GdkCursor *gdkCurs;
+
+	// We don't set the cursor to same value numerous times under gtk because
+	// it stores the cursor in the window once it's set
+	if (curs == cursorLast)
+		return;
+	cursorLast = curs;
+
 	switch (curs) {
 	case cursorText:
 		gdkCurs = gdk_cursor_new(GDK_XTERM);
@@ -697,6 +704,7 @@ void Window::SetCursor(Cursor curs) {
 		break;
 	default:
 		gdkCurs = gdk_cursor_new(GDK_ARROW);
+		cursorLast = cursorArrow;
 		break;
 	}
 	
@@ -830,7 +838,9 @@ void ListBox::Append(char *s) {
 }
 
 int ListBox::Length() {
-	return GTK_CLIST(list)->rows;
+	if (id)
+		return GTK_CLIST(list)->rows;
+	return 0;
 }
 
 void ListBox::Select(int n) {
@@ -884,6 +894,28 @@ void Menu::Destroy() {
 
 void Menu::Show(Point pt, Window &) {
 	gtk_item_factory_popup(reinterpret_cast<GtkItemFactory *>(id), pt.x - 4, pt.y, 3, 0);
+}
+
+ElapsedTime::ElapsedTime() {
+	GTimeVal curTime;
+	g_get_current_time(&curTime);
+	bigBit = curTime.tv_sec;
+	littleBit = curTime.tv_usec;
+}
+
+double ElapsedTime::Duration(bool reset) {
+	GTimeVal curTime;
+	g_get_current_time(&curTime);
+	long endBigBit = curTime.tv_sec;
+	long endLittleBit = curTime.tv_usec;
+	double result = 1000000.0 * (endBigBit - bigBit);
+	result += endLittleBit - littleBit;
+	result /= 1000000.0;
+	if (reset) {
+		bigBit = endBigBit;
+		littleBit = endLittleBit;
+	}
+	return result;
 }
 
 ColourDesired Platform::Chrome() {

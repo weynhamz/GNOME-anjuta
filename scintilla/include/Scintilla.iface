@@ -53,10 +53,10 @@
 ## Client code should ignore definitions containing types it does not understand, except
 ## for possibly #defining the constants
 
-## String arguments may contain NUL ('\0') characters where the calls provide a length 
-## argument and retrieve NUL characters. All retrieved strings except for those retrieved 
-## by GetLine also have a NUL appended but client code should calculate the size that 
-## will be returned rather than relying upon the NUL whenever possible. Allow for the  
+## String arguments may contain NUL ('\0') characters where the calls provide a length
+## argument and retrieve NUL characters. All retrieved strings except for those retrieved
+## by GetLine also have a NUL appended but client code should calculate the size that
+## will be returned rather than relying upon the NUL whenever possible. Allow for the
 ## extra NUL character when allocating buffers.
 
 cat Basics
@@ -144,7 +144,7 @@ set void SetViewWS=2021(int viewWS,)
 # Find the position from a point within the window.
 fun int PositionFromPoint=2022(int x, int y)
 
-# Find the position from a point within the window but return 
+# Find the position from a point within the window but return
 # INVALID_POSITION if not close to text.
 fun int PositionFromPointClose=2023(int x, int y)
 
@@ -262,8 +262,8 @@ fun void MarkerSetFore=2041(int markerNumber, colour fore)
 # Set the background colour used for a particular marker number.
 fun void MarkerSetBack=2042(int markerNumber, colour back)
 
-# Add a marker to a line.
-fun void MarkerAdd=2043(int line, int markerNumber)
+# Add a marker to a line, returning an ID which can be used to find or delete the marker.
+fun int MarkerAdd=2043(int line, int markerNumber)
 
 # Delete a marker from a line
 fun void MarkerDelete=2044(int line, int markerNumber)
@@ -471,6 +471,9 @@ get colour GetCaretLineBack=2097(,)
 
 # Set the colour of the background of the line containing the caret.
 set void SetCaretLineBack=2098(colour back,)
+
+# Set a style to be changeable or not (read only).
+set void StyleSetChangeable=2099(int style, bool changeable)
 
 # Display a auto-completion list.
 # The lenEntered parameter indicates how many characters before
@@ -761,14 +764,14 @@ set void SetCaretWidth=2188(int pixelWidth,)
 # Returns the width of the insert mode caret
 get int GetCaretWidth=2189(,)
 
-# Sets the position that starts the target which is used for updating the 
+# Sets the position that starts the target which is used for updating the
 # document without affecting the scroll position.
 set void SetTargetStart=2190(position pos,)
 
 # Get the position that starts the target.
 get position GetTargetStart=2191(,)
 
-# Sets the position that ends the target which is used for updating the 
+# Sets the position that ends the target which is used for updating the
 # document without affecting the scroll position.
 set void SetTargetEnd=2192(position pos,)
 
@@ -782,7 +785,7 @@ fun int ReplaceTarget=2194(int length, string text)
 
 # Replace the target text with the argument text after \d processing.
 # Text is counted so it can contain nulls.
-# Looks for \d where d is between 1 and 9 and replaces these with the strings 
+# Looks for \d where d is between 1 and 9 and replaces these with the strings
 # matched in the last search operation which were surrounded by \( and \).
 # Returns the length of the replacement text including any change
 # caused by processing the \d patterns.
@@ -889,6 +892,21 @@ set void SetMouseDwellTime=2264(int periodMilliseconds,)
 
 # Retrieve the time the mouse must sit still to generate a mouse dwell event
 get int GetMouseDwellTime=2265(,)
+
+# Get position of start of word
+fun int WordStartPosition=2266(position pos,)
+
+# Get position of end of word
+fun int WordEndPosition=2267(position pos,)
+
+val SC_WRAP_NONE=0
+val SC_WRAP_WORD=1
+
+# Sets whether text is word wrapped
+set void SetWrapMode=2268(int mode,)
+
+# Retrieve whether text is word wrapped
+get int GetWrapMode=2269(,)
 
 ## Start of key messages
 # Move caret down one line.
@@ -1026,6 +1044,10 @@ fun void LineScrollDown=2342(,)
 # Scroll the document up, keeping the caret visible.
 fun void LineScrollUp=2343(,)
 
+# Delete the selection or if no selection, the character before the caret.
+# Will not delete the chraacter before at the start of a line.
+fun void DeleteBackNotLine=2344(,)
+
 # Move the caret inside current view if it's not there already
 fun void MoveCaretInsideView=2401(,)
 
@@ -1157,6 +1179,12 @@ val SC_CURSORWAIT=3
 set void SetCursor=2386(int cursorType,)
 # Get cursor type
 get int GetCursor=2387(,)
+
+# Change the way control characters are displayed:
+# If symbol is < 32, keep the drawn way, else, use the given character
+set void SetControlCharSymbol=2388(int symbol,)
+# Get the way control characters are displayed
+get int GetControlCharSymbol=2389(,)
 
 # Move to the previous change in capitalistion
 fun void WordPartLeft=2390(,)
@@ -1293,8 +1321,9 @@ val SCLEX_BULLANT=27
 val SCLEX_VBSCRIPT=28
 val SCLEX_ASP=29
 val SCLEX_PHP=30
+val SCLEX_BAAN=31
 
-# When a lexer specifies its language as SCLEX_AUTOMATIC it receives a 
+# When a lexer specifies its language as SCLEX_AUTOMATIC it receives a
 # value assigned in sequence from SCLEX_AUTOMATIC+1.
 val SCLEX_AUTOMATIC=1000
 # Lexical states for SCLEX_PYTHON
@@ -1579,6 +1608,18 @@ val SCE_ADA_CHARACTER=5
 val SCE_ADA_OPERATOR=6
 val SCE_ADA_IDENTIFIER=7
 val SCE_ADA_STRINGEOL=8
+# Lexical states for SCLEX_BAAN
+val SCE_BAAN_DEFAULT=0
+val SCE_BAAN_COMMENT=1
+val SCE_BAAN_COMMENTDOC=2
+val SCE_BAAN_NUMBER=3
+val SCE_BAAN_WORD=4
+val SCE_BAAN_STRING=5
+val SCE_BAAN_PREPROCESSOR=6
+val SCE_BAAN_OPERATOR=7
+val SCE_BAAN_IDENTIFIER=8
+val SCE_BAAN_STRINGEOL=9
+val SCE_BAAN_WORD2=10
 # Lexical states for SCLEX_LISP
 val SCE_LISP_DEFAULT=0
 val SCE_LISP_COMMENT=1

@@ -21,6 +21,7 @@ libscintilla_a_SOURCES =\
 	KeyWords.cxx \
 	LexAda.cxx \
 	LexAVE.cxx \
+	LexBaan.cxx \
 	LexBullant.cxx \
 	LexCPP.cxx \
 	LexConf.cxx \

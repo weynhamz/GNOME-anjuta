@@ -432,7 +432,7 @@ gint ScintillaGTK::FocusOut(GtkWidget *widget, GdkEventFocus * /*event*/) {
 }
 
 void ScintillaGTK::SizeRequest(GtkWidget *widget, GtkRequisition *requisition) {
-	requisition->width = 2000;
+	requisition->width = 600;
 	requisition->height = 2000;
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
 	GtkRequisition child_requisition;
@@ -734,19 +734,19 @@ void ScintillaGTK::ReconfigureScrollBars() {
 
 void ScintillaGTK::NotifyChange() {
 	gtk_signal_emit(GTK_OBJECT(sci), scintilla_signals[COMMAND_SIGNAL],
-	                Platform::LongFromTwoShorts(ctrlID, SCEN_CHANGE), PWidget(wMain));
+			Platform::LongFromTwoShorts(GetCtrlID(), SCEN_CHANGE), PWidget(wMain));
 }
 
 void ScintillaGTK::NotifyFocus(bool focus) {
 	gtk_signal_emit(GTK_OBJECT(sci), scintilla_signals[COMMAND_SIGNAL],
-	                Platform::LongFromTwoShorts(ctrlID, focus ? SCEN_SETFOCUS : SCEN_KILLFOCUS), PWidget(wMain));
+			Platform::LongFromTwoShorts(GetCtrlID(), focus ? SCEN_SETFOCUS : SCEN_KILLFOCUS), PWidget(wMain));
 }
 
 void ScintillaGTK::NotifyParent(SCNotification scn) {
 	scn.nmhdr.hwndFrom = PWidget(wMain);
-	scn.nmhdr.idFrom = ctrlID;
+	scn.nmhdr.idFrom = GetCtrlID();
 	gtk_signal_emit(GTK_OBJECT(sci), scintilla_signals[NOTIFY_SIGNAL],
-	                ctrlID, &scn);
+	                GetCtrlID(), &scn);
 }
 
 void ScintillaGTK::NotifyKey(int key, int modifiers) {
@@ -1020,7 +1020,6 @@ void ScintillaGTK::UnclaimSelection(GdkEventSelection *selection_event) {
 void ScintillaGTK::Resize(int width, int height) {
 	//Platform::DebugPrintf("Resize %d %d\n", width, height);
 	//printf("Resize %d %d\n", width, height);
-	DropGraphics();
 
 	// Not always needed, but some themes can have different sizes of scrollbars
 	scrollBarWidth = GTK_WIDGET(PWidget(scrollbarv))->requisition.width;
@@ -1051,7 +1050,7 @@ void ScintillaGTK::Resize(int width, int height) {
 	alloc.height = Platform::Maximum(1, height - scrollBarHeight) + 1;
 	gtk_widget_size_allocate(GTK_WIDGET(PWidget(scrollbarv)), &alloc);
 
-	SetScrollBars();
+	ChangeSize ();
 }
 
 gint ScintillaGTK::PressThis(GdkEventButton *event) {

@@ -621,19 +621,44 @@ int Document::GetColumn(int pos) {
 	int column = 0;
 	int line = LineFromPosition(pos);
 	if ((line >= 0) && (line < LinesTotal())) {
-		for (int i = LineStart(line);i < pos;i++) {
+		for (int i = LineStart(line);i < pos;) {
 			char ch = cb.CharAt(i);
-			if (ch == '\t')
+			if (ch == '\t') {
 				column = NextTab(column, tabInChars);
-			else if (ch == '\r')
+				i++;
+			} else if (ch == '\r') {
 				return column;
-			else if (ch == '\n')
+			} else if (ch == '\n') {
 				return column;
-			else
+			} else {
 				column++;
+				i = MovePositionOutsideChar(i + 1, 1);
+			}
 		}
 	}
 	return column;
+}
+
+int Document::FindColumn(int line, int column) {
+	int position = LineStart(line);
+	int columnCurrent = 0;
+	if ((line >= 0) && (line < LinesTotal())) {
+		while (columnCurrent < column) {
+			char ch = cb.CharAt(position);
+			if (ch == '\t') {
+				columnCurrent = NextTab(columnCurrent, tabInChars);
+				position++;
+			} else if (ch == '\r') {
+				return position;
+			} else if (ch == '\n') {
+				return position;
+			} else {
+				columnCurrent++;
+				position = MovePositionOutsideChar(position + 1, 1);
+			}
+		}
+	}
+	return position;
 }
 
 void Document::Indent(bool forwards, int lineBottom, int lineTop) {
@@ -688,7 +713,7 @@ void Document::ConvertLineEnds(int eolModeSet) {
 }
 
 Document::charClassification Document::WordCharClass(unsigned char ch) {
-	if ((SC_CP_UTF8 == dbcsCodePage) && (ch > 0x80))
+	if ((SC_CP_UTF8 == dbcsCodePage) && (ch >= 0x80))
 		return ccWord;
 	return charClass[ch];
 }
@@ -1032,7 +1057,7 @@ void Document::SetWordChars(unsigned char *chars) {
 		}
 	} else {
 		for (ch = 0; ch < 256; ch++) {
-			if (ch > 0x80 || isalnum(ch) || ch == '_') 
+			if (ch >= 0x80 || isalnum(ch) || ch == '_') 
 				charClass[ch] = ccWord;
 		}
 	}

@@ -30,8 +30,8 @@
  * Modification history:
  *
  * $Log$
- * Revision 1.5  2001/11/07 11:45:17  andyp
- * Updated to Scintilla 1.41
+ * Revision 1.6  2001/12/31 00:00:27  stef
+ * Merged with latest (1.42) Scintilla.
  *
  * Revision 1.6  2001/04/29 13:32:10  nyamatongwe
  * Addition of new target methods - versions of ReplaceTarget that take counted

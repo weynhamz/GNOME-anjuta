@@ -137,7 +137,12 @@ int ScintillaBase::KeyCommand(unsigned int iMessage) {
 			AutoCompleteMove(5000);
 			return 0;
 		case SCI_DELETEBACK:
-			DelCharBack();
+			DelCharBack(true);
+			AutoCompleteChanged();
+			EnsureCaretVisible();
+			return 0;
+		case SCI_DELETEBACKNOTLINE:
+			DelCharBack(false);
 			AutoCompleteChanged();
 			EnsureCaretVisible();
 			return 0;
@@ -160,11 +165,12 @@ int ScintillaBase::KeyCommand(unsigned int iMessage) {
 		    (iMessage != SCI_CHARRIGHT) &&
 		    (iMessage != SCI_CHARLEFTEXTEND) &&
 		    (iMessage != SCI_EDITTOGGLEOVERTYPE) &&
-		    (iMessage != SCI_DELETEBACK)
+		    (iMessage != SCI_DELETEBACK) &&
+		    (iMessage != SCI_DELETEBACKNOTLINE)
 		) {
 			ct.CallTipCancel();
 		}
-		if (iMessage == SCI_DELETEBACK) {
+		if ((iMessage == SCI_DELETEBACK) || (iMessage == SCI_DELETEBACKNOTLINE)) {
 			if (currentPos <= ct.posStartCallTip) {
 				ct.CallTipCancel();
 			}
@@ -195,7 +201,7 @@ void ScintillaBase::AutoCompleteStart(int lenEntered, const char *list) {
 				pdoc->InsertString(currentPos, list + lenEntered);
 				SetEmptySelection(currentPos + strlen(list + lenEntered));
 			}
-			return ;
+			return;
 		}
 	}
 	ac.Start(wMain, idAutoComplete, currentPos, lenEntered);
@@ -485,7 +491,8 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 				PRectangle rc = ct.CallTipStart(currentPos, pt,
 				                                reinterpret_cast<char *>(lParam),
 				                                vs.styles[STYLE_DEFAULT].fontName,
-				                                vs.styles[STYLE_DEFAULT].sizeZoomed);
+				                                vs.styles[STYLE_DEFAULT].sizeZoomed,
+												IsUnicodeMode());
 				// If the call-tip window would be out of the client
 				// space, adjust so it displays above the text.
 				PRectangle rcClient = GetClientRectangle();
