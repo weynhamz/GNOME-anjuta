@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-01 02:24-0500\n"
-"PO-Revision-Date: 2005-02-01 12:57-0400\n"
+"POT-Creation-Date: 2005-02-02 00:38-0500\n"
+"PO-Revision-Date: 2005-02-02 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "    "
 #: anjuta.glade.h:2 libegg/layout.glade.h:1
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:1
-#: plugins/editor/anjuta-document-manager.glade.h:8
+#: plugins/editor/anjuta-document-manager.glade.h:2
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: plugins/gdb/anjuta-gdb.glade.h:1 plugins/macro/anjuta-macro.glade.h:1
@@ -497,7 +497,7 @@ msgstr "New file"
 msgid "No Optimization"
 msgstr "No Optimization"
 
-#: anjuta.glade.h:106 plugins/editor/anjuta-document-manager.glade.h:114
+#: anjuta.glade.h:106 plugins/editor/anjuta-document-manager.glade.h:113
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -1002,15 +1002,15 @@ msgstr "Stock Encodings"
 msgid "Supported Encodings"
 msgstr "Supported Encodings"
 
-#: libanjuta/anjuta-launcher.c:731 src/launcher.c:683
+#: libanjuta/anjuta-launcher.c:737 src/launcher.c:683
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Error while reading child pty\n"
 
-#: libanjuta/anjuta-launcher.c:857 src/launcher.c:803
+#: libanjuta/anjuta-launcher.c:863 src/launcher.c:803
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: Failed to set channel encoding!"
 
-#: libanjuta/anjuta-launcher.c:907 libanjuta/resources.c:253
+#: libanjuta/anjuta-launcher.c:913 libanjuta/resources.c:253
 #: libanjuta/resources.c:262
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1024,7 +1024,7 @@ msgstr "Anjuta Shell"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjuta shell that will contain the plugin"
 
-#: libanjuta/anjuta-preferences-dialog.c:127 plugins/gtodo/interface.c:216
+#: libanjuta/anjuta-preferences-dialog.c:127 plugins/gtodo/interface.c:218
 #: plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Category"
@@ -1982,6 +1982,7 @@ msgid "<b>Options:</b>"
 msgstr "<b>Options:</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
+#: plugins/editor/anjuta-document-manager.glade.h:19
 msgid "<b>Options</b>"
 msgstr "<b>Options</b>"
 
@@ -2640,32 +2641,16 @@ msgid "Save file as"
 msgstr "Save file as"
 
 #: plugins/editor/anjuta-document-manager.glade.h:1
-msgid ""
-"\"Search & Replace\" has to be tested completely !\n"
-"Many search-replacement possibilities are possible\n"
-"and need a lot of time to be verified.\n"
-"\n"
-"Limits : Regular expressions can only be found in\n"
-"forward direction"
-msgstr ""
-"\"Search & Replace\" has to be tested completely !\n"
-"Many search-replacement possibilities are possible\n"
-"and need a lot of time to be verified.\n"
-"\n"
-"Limits : Regular expressions can only be found in\n"
-"forward direction"
-
-#: plugins/editor/anjuta-document-manager.glade.h:7
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: plugins/editor/anjuta-document-manager.glade.h:9
+#: plugins/editor/anjuta-document-manager.glade.h:3
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: plugins/editor/anjuta-document-manager.glade.h:10
+#: plugins/editor/anjuta-document-manager.glade.h:4
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:3
 msgid ""
@@ -2675,65 +2660,85 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: plugins/editor/anjuta-document-manager.glade.h:11
+#: plugins/editor/anjuta-document-manager.glade.h:5
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: plugins/editor/anjuta-document-manager.glade.h:12
+#: plugins/editor/anjuta-document-manager.glade.h:6
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: plugins/editor/anjuta-document-manager.glade.h:13
+#: plugins/editor/anjuta-document-manager.glade.h:7
+msgid "<b>Actions</b>"
+msgstr "<b>Actions</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:8
 msgid "<b>Autocompletion</b>"
 msgstr "<b>Autocompletion</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:14
+#: plugins/editor/anjuta-document-manager.glade.h:9
 msgid "<b>Autoformat style</b>"
 msgstr "<b>Autoformat style</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:15
+#: plugins/editor/anjuta-document-manager.glade.h:10
 msgid "<b>Autosave</b>"
 msgstr "<b>Autosave</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:16
+#: plugins/editor/anjuta-document-manager.glade.h:11
 msgid "<b>Code folding</b>"
 msgstr "<b>Code folding</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:17
+#: plugins/editor/anjuta-document-manager.glade.h:12
 msgid "<b>Custom autoformate style</b>"
 msgstr "<b>Custom autoformat style</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:18
+#: plugins/editor/anjuta-document-manager.glade.h:13
 msgid "<b>Editor tabs</b>"
 msgstr "<b>Editor tabs</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:19
+#: plugins/editor/anjuta-document-manager.glade.h:14
 msgid "<b>Encoding to use when saving files</b>"
 msgstr "<b>Encoding to use when saving files</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:20
+#: plugins/editor/anjuta-document-manager.glade.h:15
+msgid "<b>File Filter</b>"
+msgstr "<b>File Filter</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:16
 msgid "<b>Highlight style</b>"
 msgstr "<b>Highlight style</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:21
+#: plugins/editor/anjuta-document-manager.glade.h:17
 msgid "<b>Indentation and auto-format options</b>"
 msgstr "<b>Indentation and auto-format options</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:22
+#: plugins/editor/anjuta-document-manager.glade.h:18
 msgid "<b>Misc options</b>"
 msgstr "<b>Misc options</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:23
+#: plugins/editor/anjuta-document-manager.glade.h:20
 msgid "<b>Other colors</b>"
 msgstr "<b>Other colours</b>"
 
-#: plugins/editor/anjuta-document-manager.glade.h:24
+#: plugins/editor/anjuta-document-manager.glade.h:21
+msgid "<b>Parameters</b>"
+msgstr "<b>Parameters</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:22
 msgid "<b>Print options</b>"
 msgstr "<b>Print options</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:23
+msgid "<b>Scope</b>"
+msgstr "<b>Scope</b>"
+
+#: plugins/editor/anjuta-document-manager.glade.h:24
+msgid "<b>Search Variable</b>"
+msgstr "<b>Search Variable</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:25
 msgid "<b>Supported Encodings</b>"
@@ -2940,381 +2945,369 @@ msgid "Expand regex back references"
 msgstr "Expand regex back references"
 
 #: plugins/editor/anjuta-document-manager.glade.h:75
-msgid "File Filter"
-msgstr "File Filter"
-
-#: plugins/editor/anjuta-document-manager.glade.h:76
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filter extraneous characters in DOS mode"
 
-#: plugins/editor/anjuta-document-manager.glade.h:77
+#: plugins/editor/anjuta-document-manager.glade.h:76
 msgid "Find & Replace"
 msgstr "Find & Replace"
 
-#: plugins/editor/anjuta-document-manager.glade.h:78
+#: plugins/editor/anjuta-document-manager.glade.h:77
 msgid "Fold style:"
 msgstr "Fold style:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:79
+#: plugins/editor/anjuta-document-manager.glade.h:78
 msgid "Font:"
 msgstr "Font:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:80
+#: plugins/editor/anjuta-document-manager.glade.h:79
 msgid "Fonts and colors for editor"
 msgstr "Fonts and colours for editor"
 
-#: plugins/editor/anjuta-document-manager.glade.h:81
+#: plugins/editor/anjuta-document-manager.glade.h:80
 msgid "Fore color:"
 msgstr "Fore colour:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:82
+#: plugins/editor/anjuta-document-manager.glade.h:81
 #: plugins/editor/text_editor_menu.c:85
 msgid "Forward"
 msgstr "Forward"
 
-#: plugins/editor/anjuta-document-manager.glade.h:83
+#: plugins/editor/anjuta-document-manager.glade.h:82
 msgid "Full Buffer"
 msgstr "Full Buffer"
 
-#: plugins/editor/anjuta-document-manager.glade.h:84
+#: plugins/editor/anjuta-document-manager.glade.h:83
 msgid "GNU coding style"
 msgstr "GNU coding style"
 
-#: plugins/editor/anjuta-document-manager.glade.h:85
+#: plugins/editor/anjuta-document-manager.glade.h:84
 msgid "Greedy matching"
 msgstr "Greedy matching"
 
-#: plugins/editor/anjuta-document-manager.glade.h:86
+#: plugins/editor/anjuta-document-manager.glade.h:85
 msgid "Hello World style"
 msgstr "Hello World style"
 
-#: plugins/editor/anjuta-document-manager.glade.h:87
+#: plugins/editor/anjuta-document-manager.glade.h:86
 msgid "Ignore Binary Files"
 msgstr "Ignore Binary Files"
 
-#: plugins/editor/anjuta-document-manager.glade.h:88
+#: plugins/editor/anjuta-document-manager.glade.h:87
 msgid "Ignore Directories:"
 msgstr "Ignore Directories:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:89
+#: plugins/editor/anjuta-document-manager.glade.h:88
 msgid "Ignore Files:"
 msgstr "Ignore Files:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:90
+#: plugins/editor/anjuta-document-manager.glade.h:89
 msgid "Ignore Hidden Directories"
 msgstr "Ignore Hidden Directories"
 
-#: plugins/editor/anjuta-document-manager.glade.h:91
+#: plugins/editor/anjuta-document-manager.glade.h:90
 msgid "Ignore Hidden Files"
 msgstr "Ignore Hidden Files"
 
-#: plugins/editor/anjuta-document-manager.glade.h:92
+#: plugins/editor/anjuta-document-manager.glade.h:91
 msgid "Indent closing braces"
 msgstr "Indent closing braces"
 
-#: plugins/editor/anjuta-document-manager.glade.h:93
+#: plugins/editor/anjuta-document-manager.glade.h:92
 msgid "Indent opening braces"
 msgstr "Indent opening braces"
 
-#: plugins/editor/anjuta-document-manager.glade.h:94
+#: plugins/editor/anjuta-document-manager.glade.h:93
 msgid "Indentation"
 msgstr "Indentation"
 
-#: plugins/editor/anjuta-document-manager.glade.h:95
+#: plugins/editor/anjuta-document-manager.glade.h:94
 msgid "Indentation size in spaces:"
 msgstr "Indentation size in spaces:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:96
+#: plugins/editor/anjuta-document-manager.glade.h:95
 msgid "Italic"
 msgstr "Italic"
 
-#: plugins/editor/anjuta-document-manager.glade.h:97
+#: plugins/editor/anjuta-document-manager.glade.h:96
 msgid "Kernighan and Ritchie style"
 msgstr "Kernighan and Ritchie style"
 
-#: plugins/editor/anjuta-document-manager.glade.h:98
+#: plugins/editor/anjuta-document-manager.glade.h:97
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:10
 msgid "Left"
 msgstr "Left"
 
-#: plugins/editor/anjuta-document-manager.glade.h:99
+#: plugins/editor/anjuta-document-manager.glade.h:98
 msgid "Line numbers margin width in pixels"
 msgstr "Line numbers margin width in pixels"
 
-#: plugins/editor/anjuta-document-manager.glade.h:100
+#: plugins/editor/anjuta-document-manager.glade.h:99
 #: plugins/editor/print.c:1038 src/anjuta_info.c:127
 msgid "Lines"
 msgstr "Lines"
 
-#: plugins/editor/anjuta-document-manager.glade.h:101
+#: plugins/editor/anjuta-document-manager.glade.h:100
 msgid "Maintain past Indentation"
 msgstr "Maintain Past Indentation"
 
-#: plugins/editor/anjuta-document-manager.glade.h:102
+#: plugins/editor/anjuta-document-manager.glade.h:101
 msgid "Margin Fold visible"
 msgstr "Margin Fold visible"
 
-#: plugins/editor/anjuta-document-manager.glade.h:103
+#: plugins/editor/anjuta-document-manager.glade.h:102
 msgid "Margin Linenum visible"
 msgstr "Margin Linenum visible"
 
-#: plugins/editor/anjuta-document-manager.glade.h:104
+#: plugins/editor/anjuta-document-manager.glade.h:103
 msgid "Margin Marker visible"
 msgstr "Margin Marker visible"
 
-#: plugins/editor/anjuta-document-manager.glade.h:105
+#: plugins/editor/anjuta-document-manager.glade.h:104
 msgid "Match at start of word"
 msgstr "Match at start of word"
 
-#: plugins/editor/anjuta-document-manager.glade.h:106
+#: plugins/editor/anjuta-document-manager.glade.h:105
 msgid "Match complete lines"
 msgstr "Match complete lines"
 
-#: plugins/editor/anjuta-document-manager.glade.h:107
+#: plugins/editor/anjuta-document-manager.glade.h:106
 msgid "Match complete words"
 msgstr "Match complete words"
 
-#: plugins/editor/anjuta-document-manager.glade.h:108
+#: plugins/editor/anjuta-document-manager.glade.h:107
 msgid "Max. Actions"
 msgstr "Max. Actions"
 
-#: plugins/editor/anjuta-document-manager.glade.h:109
+#: plugins/editor/anjuta-document-manager.glade.h:108
 msgid "Mode:"
 msgstr "Mode:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:110
+#: plugins/editor/anjuta-document-manager.glade.h:109
 #: plugins/gdb/registers_gui.c:41
 msgid "Modify"
 msgstr "Modify"
 
-#: plugins/editor/anjuta-document-manager.glade.h:111
+#: plugins/editor/anjuta-document-manager.glade.h:110
 msgid "Monochrome"
 msgstr "Monochrome"
 
-#: plugins/editor/anjuta-document-manager.glade.h:112
-msgid "New Name"
-msgstr "New Name"
+#: plugins/editor/anjuta-document-manager.glade.h:111
+msgid "New Name:"
+msgstr "New Name:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:113
+#: plugins/editor/anjuta-document-manager.glade.h:112
 msgid "No Limit"
 msgstr "No Limit"
 
-#: plugins/editor/anjuta-document-manager.glade.h:115
+#: plugins/editor/anjuta-document-manager.glade.h:114
 msgid "Original Berkeley style"
 msgstr "Original Berkeley style"
 
-#: plugins/editor/anjuta-document-manager.glade.h:116
+#: plugins/editor/anjuta-document-manager.glade.h:115
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:14
 msgid "Pick a color"
 msgstr "Pick a colour"
 
-#: plugins/editor/anjuta-document-manager.glade.h:117
+#: plugins/editor/anjuta-document-manager.glade.h:116
 msgid "Plus/Minus"
 msgstr "Plus/Minus"
 
-#: plugins/editor/anjuta-document-manager.glade.h:118
+#: plugins/editor/anjuta-document-manager.glade.h:117
 msgid "Position:"
 msgstr "Position:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:119
+#: plugins/editor/anjuta-document-manager.glade.h:118
 msgid "Pressing backspace un-indents"
 msgstr "Pressing backspace un-indents"
 
-#: plugins/editor/anjuta-document-manager.glade.h:120
+#: plugins/editor/anjuta-document-manager.glade.h:119
 msgid "Pressing tab indents"
 msgstr "Pressing tab indents"
 
-#: plugins/editor/anjuta-document-manager.glade.h:121
+#: plugins/editor/anjuta-document-manager.glade.h:120
 msgid "Printing"
 msgstr "Printing"
 
-#: plugins/editor/anjuta-document-manager.glade.h:122
-msgid "Read me"
-msgstr "Read me"
-
-#: plugins/editor/anjuta-document-manager.glade.h:123
+#: plugins/editor/anjuta-document-manager.glade.h:121
 msgid "Regular Expression"
 msgstr "Regular Expression"
 
-#: plugins/editor/anjuta-document-manager.glade.h:124
+#: plugins/editor/anjuta-document-manager.glade.h:122
 msgid "Reload Session Defaults"
 msgstr "Reload Session Defaults"
 
-#: plugins/editor/anjuta-document-manager.glade.h:125
+#: plugins/editor/anjuta-document-manager.glade.h:123
 msgid "Reload System Defaults"
 msgstr "Reload System Defaults"
 
-#: plugins/editor/anjuta-document-manager.glade.h:126
+#: plugins/editor/anjuta-document-manager.glade.h:124
 msgid "Replace With:"
 msgstr "Replace With:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:127
+#: plugins/editor/anjuta-document-manager.glade.h:125
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:15
 msgid "Right"
 msgstr "Right"
 
-#: plugins/editor/anjuta-document-manager.glade.h:128
+#: plugins/editor/anjuta-document-manager.glade.h:126
 msgid "Save files interval in minutes"
 msgstr "Save files interval in minutes"
 
-#: plugins/editor/anjuta-document-manager.glade.h:129
+#: plugins/editor/anjuta-document-manager.glade.h:127
 msgid "Save session interval in minutes"
 msgstr "Save session interval in minutes"
 
-#: plugins/editor/anjuta-document-manager.glade.h:130
+#: plugins/editor/anjuta-document-manager.glade.h:128
 msgid "Search Action:"
 msgstr "Search Action:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:131
+#: plugins/editor/anjuta-document-manager.glade.h:129
 msgid "Search Direction:"
 msgstr "Search Direction:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:132
+#: plugins/editor/anjuta-document-manager.glade.h:130
 msgid "Search Expression"
 msgstr "Search Expression"
 
-#: plugins/editor/anjuta-document-manager.glade.h:133
+#: plugins/editor/anjuta-document-manager.glade.h:131
 msgid "Search Expression:"
 msgstr "Search Expression:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:134
+#: plugins/editor/anjuta-document-manager.glade.h:132
 msgid "Search In:"
 msgstr "Search In:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:135
+#: plugins/editor/anjuta-document-manager.glade.h:133
 msgid "Search Recursively"
 msgstr "Search Recursively"
 
-#: plugins/editor/anjuta-document-manager.glade.h:136
+#: plugins/editor/anjuta-document-manager.glade.h:134
 msgid "Search Target"
 msgstr "Search Target"
 
-#: plugins/editor/anjuta-document-manager.glade.h:137
-msgid "Search Variable"
-msgstr "Search Variable"
-
-#: plugins/editor/anjuta-document-manager.glade.h:138
+#: plugins/editor/anjuta-document-manager.glade.h:135
 msgid "Select highlight style to edit:"
 msgstr "Select highlight style to edit:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:139
+#: plugins/editor/anjuta-document-manager.glade.h:136
 msgid "Select theme:"
 msgstr "Select theme:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:140
+#: plugins/editor/anjuta-document-manager.glade.h:137
 msgid "Selection background:"
 msgstr "Selection background:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:141
+#: plugins/editor/anjuta-document-manager.glade.h:138
 msgid "Selection foreground:"
 msgstr "Selection foreground:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:142
+#: plugins/editor/anjuta-document-manager.glade.h:139
 msgid "Setting"
 msgstr "Setting"
 
-#: plugins/editor/anjuta-document-manager.glade.h:143
+#: plugins/editor/anjuta-document-manager.glade.h:140
 msgid "Sorted by most recent use"
 msgstr "Sorted by most recent use"
 
-#: plugins/editor/anjuta-document-manager.glade.h:144
+#: plugins/editor/anjuta-document-manager.glade.h:141
 msgid "Sorted in alphabetical order"
 msgstr "Sorted in alphabetical order"
 
-#: plugins/editor/anjuta-document-manager.glade.h:145
+#: plugins/editor/anjuta-document-manager.glade.h:142
 msgid "Sorted in opening order"
 msgstr "Sorted in opening order"
 
-#: plugins/editor/anjuta-document-manager.glade.h:146
+#: plugins/editor/anjuta-document-manager.glade.h:143
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Space-seperated list of directory name patterns to ignore"
 
-#: plugins/editor/anjuta-document-manager.glade.h:147
+#: plugins/editor/anjuta-document-manager.glade.h:144
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Space-seperated list of directory name patterns to match"
 
-#: plugins/editor/anjuta-document-manager.glade.h:148
+#: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Space-seperated list of file name patterns to ignore"
 
-#: plugins/editor/anjuta-document-manager.glade.h:149
+#: plugins/editor/anjuta-document-manager.glade.h:146
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Space-seperated list of file name patterns to match"
 
-#: plugins/editor/anjuta-document-manager.glade.h:150
+#: plugins/editor/anjuta-document-manager.glade.h:147
 msgid "Squares"
 msgstr "Squares"
 
-#: plugins/editor/anjuta-document-manager.glade.h:151
+#: plugins/editor/anjuta-document-manager.glade.h:148
 msgid "Strip trailling spaces on file save"
 msgstr "Strip trailling spaces on file save"
 
-#: plugins/editor/anjuta-document-manager.glade.h:152
+#: plugins/editor/anjuta-document-manager.glade.h:149
 msgid "Style of Kangleipak"
 msgstr "Style of Kangleipak"
 
-#: plugins/editor/anjuta-document-manager.glade.h:153
+#: plugins/editor/anjuta-document-manager.glade.h:150
 msgid "Tab size in spaces:"
 msgstr "Tab size in spaces:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:154
+#: plugins/editor/anjuta-document-manager.glade.h:151
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:18
 msgid "Top"
 msgstr "Top"
 
-#: plugins/editor/anjuta-document-manager.glade.h:155
+#: plugins/editor/anjuta-document-manager.glade.h:152
 msgid "Try to save in current locale's encoding"
 msgstr "Try to save in current locale's encoding"
 
-#: plugins/editor/anjuta-document-manager.glade.h:156
+#: plugins/editor/anjuta-document-manager.glade.h:153
 msgid "Try to save in original encoding"
 msgstr "Try to save in original encoding"
 
-#: plugins/editor/anjuta-document-manager.glade.h:157
+#: plugins/editor/anjuta-document-manager.glade.h:154
 msgid "Underlined"
 msgstr "Underlined"
 
-#: plugins/editor/anjuta-document-manager.glade.h:158
+#: plugins/editor/anjuta-document-manager.glade.h:155
 msgid "Use default"
 msgstr "Use default"
 
-#: plugins/editor/anjuta-document-manager.glade.h:159
+#: plugins/editor/anjuta-document-manager.glade.h:156
 msgid "Use tabs for indentation"
 msgstr "Use tabs for indentation"
 
-#: plugins/editor/anjuta-document-manager.glade.h:160
+#: plugins/editor/anjuta-document-manager.glade.h:157
 msgid "View EOL chars"
 msgstr "View EOL chars"
 
-#: plugins/editor/anjuta-document-manager.glade.h:161
+#: plugins/editor/anjuta-document-manager.glade.h:158
 msgid "View Indentation Guides"
 msgstr "View Indentation Guides"
 
-#: plugins/editor/anjuta-document-manager.glade.h:162
+#: plugins/editor/anjuta-document-manager.glade.h:159
 msgid "View Line Wrap"
 msgstr "View Line Wrap"
 
-#: plugins/editor/anjuta-document-manager.glade.h:163
+#: plugins/editor/anjuta-document-manager.glade.h:160
 msgid "View Whitespaces"
 msgstr "View Whitespaces"
 
-#: plugins/editor/anjuta-document-manager.glade.h:164
+#: plugins/editor/anjuta-document-manager.glade.h:161
 msgid "View indentation whitespaces"
 msgstr "View indentation whitespaces"
 
-#: plugins/editor/anjuta-document-manager.glade.h:165
+#: plugins/editor/anjuta-document-manager.glade.h:162
 msgid "Wrap bookmarks search around"
 msgstr "Wrap bookmarks search around"
 
-#: plugins/editor/anjuta-document-manager.glade.h:166
+#: plugins/editor/anjuta-document-manager.glade.h:163
 msgid "_Save Theme As"
 msgstr "_Save Theme As"
 
@@ -4172,7 +4165,7 @@ msgstr ""
 "Error in auto formatting ...\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1902
+#: plugins/editor/text_editor.c:1906
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5956,42 +5949,42 @@ msgstr "/ToDo/Edit Categories"
 msgid "All"
 msgstr "All"
 
-#: plugins/gtodo/interface.c:206
+#: plugins/gtodo/interface.c:208
 msgid "Priority"
 msgstr "Priority"
 
-#: plugins/gtodo/interface.c:211
+#: plugins/gtodo/interface.c:213
 msgid "Due date"
 msgstr "Due date"
 
-#: plugins/gtodo/interface.c:221
+#: plugins/gtodo/interface.c:223
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid "Summary"
 msgstr "Summary"
 
-#: plugins/gtodo/interface.c:244
+#: plugins/gtodo/interface.c:247
 msgid "About gToDo"
 msgstr "About gToDo"
 
-#: plugins/gtodo/interface.c:252
+#: plugins/gtodo/interface.c:255
 #, c-format
 msgid "gToDo %s"
 msgstr "gToDo %s"
 
-#: plugins/gtodo/interface.c:256
+#: plugins/gtodo/interface.c:259
 #, c-format
 msgid "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 msgstr "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 
-#: plugins/gtodo/interface.c:261
+#: plugins/gtodo/interface.c:264
 msgid "gToDo is a small and simple todo list written in gtk+-2.0"
 msgstr "gToDo is a small and simple todo list written in gtk+-2.0"
 
-#: plugins/gtodo/interface.c:264
+#: plugins/gtodo/interface.c:267
 msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 msgstr "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 
-#: plugins/gtodo/interface.c:265
+#: plugins/gtodo/interface.c:268
 msgid ""
 "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux."
 "org)</span>"
@@ -6023,24 +6016,24 @@ msgstr "Business"
 msgid "Unfiled"
 msgstr "Unfiled"
 
-#: plugins/gtodo/libgtodo.c:715
+#: plugins/gtodo/libgtodo.c:759
 msgid "No Gtodo Client to save."
 msgstr "No gTodo client to save."
 
-#: plugins/gtodo/libgtodo.c:734
+#: plugins/gtodo/libgtodo.c:778
 #, c-format
 msgid "Failed to delete %s."
 msgstr "Failed to delete %s."
 
-#: plugins/gtodo/libgtodo.c:750
+#: plugins/gtodo/libgtodo.c:794
 msgid "Failed to create/open file."
 msgstr "Failed to create/open file."
 
-#: plugins/gtodo/libgtodo.c:759
+#: plugins/gtodo/libgtodo.c:803
 msgid "Failed to write data to file."
 msgstr "Failed to write data to file."
 
-#: plugins/gtodo/libgtodo.c:836
+#: plugins/gtodo/libgtodo.c:880
 msgid "No filename supplied."
 msgstr "No filename supplied."
 
@@ -7554,7 +7547,7 @@ msgstr "Use GNOME terminal profile:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Use currently selected profile in GNOME terminal"
 
-#: plugins/terminal/terminal.c:514
+#: plugins/terminal/terminal.c:519
 msgid "Terminal"
 msgstr "Terminal"
 
