@@ -101,6 +101,12 @@ struct _EditSubMenu
 	GtkWidget *select_brace;
 	GtkWidget *select_block;
 	GtkWidget *select_function;
+	
+	GtkWidget *find;
+	GtkWidget *find_next;
+	GtkWidget *find_in_files;
+	GtkWidget *find_replace;
+	GtkWidget *enter_selection;
 
 	GtkWidget *autocomplete;
 	GtkWidget *calltip;
@@ -109,8 +115,6 @@ struct _EditSubMenu
 	GtkWidget *comment_box;
 	GtkWidget *comment_stream;
 	
-	GtkWidget *find_replace;
-
 	GtkWidget *goto_line;
 	GtkWidget *goto_brace;
 	GtkWidget *goto_block_start;

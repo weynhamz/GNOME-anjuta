@@ -1371,10 +1371,6 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 	size_t start_comment_length = start_comment.length();
 	size_t end_comment_length = end_comment.length(); 
 	size_t middle_cmt_length = middle_cmt.length();	
-	SString end_cmt_box = props->Get(end_base.c_str());
-	size_t end_cmt_box_length = end_cmt_box.length();  
-	SString start_cmt_box = props->Get(start_base.c_str());
-	size_t start_cmt_box_length = start_cmt_box.length(); 
 	SString start_base_stream ("comment.stream.start.");
 	start_base_stream += language;
 	SString end_base_stream ("comment.stream.end.");
@@ -1396,13 +1392,12 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 	bool end1 = false, end2 = false;
 	int lineEnd1;
 	if (box_stream)
-		lineEnd1 = selectionStart + start_cmt_box_length;
+		lineEnd1 = selectionStart + start_comment_length;
 	else
 		lineEnd1 = selectionStart + start_comment_stream_length;
 	int lineStart1;
 	size_t start_cmt, end_cmt;
-	int index;
-	
+	int index;	
 	// Find Backward StartComment
 	while (line >= 0 && start1 == false && end1 == false)
 	{
@@ -1410,13 +1405,13 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 		GetRange(wEditor, lineStart1, lineEnd1, linebuf);
 		for (index = lineEnd1-lineStart1; index >= 0; index--)
 		{
-			if ( end1= ((end_cmt_box_length > 0 && !memcmp(linebuf+index,
-				end_cmt_box.c_str(), end_cmt_box_length ))  
+			if (end1= ((end_comment_length > 1 && !memcmp(linebuf+index,
+				end_comment.c_str(), end_comment_length ))  
 			    || (end_comment_stream_length > 0 && !memcmp(linebuf+index, 
 			    end_comment_stream.c_str(), end_comment_stream_length))))
 				break;
-			if (start1=((start_cmt_box_length > 0 && !memcmp(linebuf+index, 
-				start_cmt_box.c_str(), start_cmt_box_length))
+			if (start1=((start_comment_length > 1 && !memcmp(linebuf+index, 
+				start_comment.c_str(), start_comment_length))
 				|| (start_comment_stream_length > 0 && !memcmp(linebuf+index, 
 			    start_comment_stream.c_str(), start_comment_stream_length)))) 
 				break;
@@ -1425,7 +1420,6 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 		lineEnd1= SendEditor(SCI_GETLINEENDPOSITION, line);
 	}
 	start_cmt = index + lineStart1;
-
 	line = SendEditor(SCI_LINEFROMPOSITION, selectionEnd);
 	if (box_stream)
 		lineStart1 = selectionEnd - start_comment_length;
@@ -1439,13 +1433,13 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 		GetRange(wEditor, lineStart1, lineEnd1, linebuf);
 		for (index = 0; index <= (lineEnd1-lineStart1); index++)
 		{
-			if (start2= ((start_cmt_box_length > 0 && !memcmp(linebuf+index, 
-				start_cmt_box.c_str(), start_cmt_box_length))
+			if (start2= ((start_comment_length > 1 && !memcmp(linebuf+index, 
+				start_comment.c_str(), start_comment_length))
 				|| (start_comment_stream_length > 0 && !memcmp(linebuf+index, 
 			    start_comment_stream.c_str(), start_comment_stream_length)))) 
 				break;
-			if (end2= ((end_cmt_box_length > 0 && !memcmp(linebuf+index, 
-				end_cmt_box.c_str(), end_cmt_box_length ))
+			if (end2= ((end_comment_length > 1 && !memcmp(linebuf+index, 
+				end_comment.c_str(), end_comment_length ))
 				|| (end_comment_stream_length > 0 && !memcmp(linebuf+index, 
 			    end_comment_stream.c_str(), end_comment_stream_length))))
 				break;

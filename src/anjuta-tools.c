@@ -603,6 +603,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		{
 			int fd;
 			int buflen = strlen(buf);
+			gchar* escaped_cmd;
 			snprintf(tmp_file, PATH_MAX, "/tmp/anjuta.%d.XXXXXX", getpid());
 			if (0 > (fd = mkstemp(tmp_file)))
 			{
@@ -617,7 +618,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 				return;
 			}
 			close(fd);
-			gchar* escaped_cmd = anjuta_util_escape_quotes(command);
+			escaped_cmd = anjuta_util_escape_quotes(command);
 			g_free(command);
 			command = g_strconcat("sh -c \"", escaped_cmd, "<", tmp_file, "\"", NULL);
 			g_free(buf);

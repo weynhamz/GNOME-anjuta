@@ -5,6 +5,16 @@
 	resonable 5 points.
 	
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* src/aneditor.cxx: Fix uncommenting bug (Jean-Noel)
+	* src/anjuta-tools.c: Fix compile with older GCC versions.
+	* src/main_menubar_def.h, src/mainmenu_callbacks.[ch],
+	  src/main_menubar_def.h, src/controls.c, src/mainmenu_callbacks.c,
+	  src/text_editor_gui.c: Restore old Find/Replace functionality for
+	  the time being till GUI/usability issues with the new Search/Replace
+	  stuff is sorted out.
+	* src/search-replace.c: More fixes from Jean-Noel
+
+2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* This is the first release candidate for 1.0.2
 
 2003-03-21  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>

@@ -60,16 +60,9 @@ typedef struct _SearchExpression
 } SearchExpression;
 
 
-void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton,
-                                         gpointer user_data);
-void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
-                                         gpointer user_data);
-void on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
-                                         gpointer user_data);
-void on_search_regex_toggled (GtkToggleButton *togglebutton,
-							  gpointer user_data);
-void on_replace_regex_toggled (GtkToggleButton *togglebutton,
-                               gpointer user_data);
+static void search_update_combos (void);
+
+static void replace_update_combos (void);
 
 
 static void pcre_info_free(PcreInfo *re)
@@ -192,6 +185,7 @@ typedef struct _Replace
 	gboolean regex;
 	gboolean confirm;
 	gboolean load_file;
+	GList *expr_history;
 } Replace;
 
 typedef struct _SearchReplace
@@ -779,6 +773,9 @@ static GList *create_search_entries(Search *s)
 	long selstart;
 	long tmp_pos;
 	
+	search_update_combos ();
+	if (s->action == SA_REPLACE || s->action == SA_REPLACEALL)
+		replace_update_combos ();
 	switch(s->range.type)
 	{
 		case SR_BUFFER:
@@ -1091,7 +1088,7 @@ static void search_and_replace(void)
 #define MATCH_DIRS "dir.filter.match"
 #define UNMATCH_DIRS "dir.filter.unmatch"
 #define REPLACE_STRING "replace.string"
-#define SEARCH_DIRECION "search.direction"
+#define SEARCH_DIRECTION "search.direction"
 #define ACTIONS_MAX "actions.max"
 
 /* Checkboxes */
@@ -1118,7 +1115,7 @@ static void search_and_replace(void)
 #define MATCH_DIRS_COMBO "dir.filter.match.combo"
 #define UNMATCH_DIRS_COMBO "dir.filter.unmatch.combo"
 #define REPLACE_STRING_COMBO "replace.string.combo"
-#define SEARCH_DIRECION_COMBO "search.direction.combo"
+#define SEARCH_DIRECTION_COMBO "search.direction.combo"
 
 /* GUI dropdown option strings */
 StringMap search_direction_strings[] = {
@@ -1188,7 +1185,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_TEXT, UNMATCH_DIRS, NULL, NULL},
 	{GE_TEXT, REPLACE_STRING, NULL, NULL},
 	{GE_TEXT, ACTIONS_MAX, NULL, NULL},
-	{GE_OPTION, SEARCH_DIRECION, search_direction_strings, NULL},
+	{GE_OPTION, SEARCH_DIRECTION, search_direction_strings, NULL},
 	{GE_BOOLEAN, SEARCH_REGEX, NULL, NULL},
 	{GE_BOOLEAN, GREEDY, NULL, NULL},
 	{GE_BOOLEAN, IGNORE_CASE, NULL, NULL},
@@ -1210,9 +1207,11 @@ static GladeWidget glade_widgets[] = {
 	{GE_COMBO, MATCH_DIRS_COMBO, NULL, NULL},
 	{GE_COMBO, UNMATCH_DIRS_COMBO, NULL, NULL},
 	{GE_COMBO, REPLACE_STRING_COMBO, NULL, NULL},
-	{GE_COMBO, SEARCH_DIRECION_COMBO, search_direction_strings, NULL},
+	{GE_COMBO, SEARCH_DIRECTION_COMBO, search_direction_strings, NULL},
 	{GE_NONE, NULL, NULL, NULL}
 };
+
+
 
 static void populate_value(const char *name, gpointer val_ptr)
 {
@@ -1276,6 +1275,7 @@ gboolean on_search_replace_delete_event(GtkWidget *window, GdkEvent *event
 	}
 	return TRUE;
 }
+
 
 void on_search_match_whole_word_toggled (GtkToggleButton *togglebutton, 
                                          gpointer user_data)
@@ -1489,7 +1489,7 @@ static void search_replace_populate(void)
 	populate_value(WHOLE_LINE, &(sr->search.expr.whole_line));
 	populate_value(WORD_START, &(sr->search.expr.word_start));
 	populate_value(SEARCH_TARGET, &(sr->search.range.type));
-	populate_value(SEARCH_DIRECION, &(sr->search.range.direction));
+	populate_value(SEARCH_DIRECTION, &(sr->search.range.direction));
 	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
 
 	if (sr->search.expr.no_limit)
@@ -1599,37 +1599,125 @@ static void show_dialog()
 	}
 }
 
+static gboolean word_in_list(GList *list, gchar *word)
+{
+	GList *l = list;
+	
+	while (l != NULL)
+	{
+		if (strcmp(l->data, word) == 0)
+			return TRUE;
+		l = g_list_next(l);
+	}
+	return FALSE;
+}
+
+/*  Remove last item of the list if > nb_max  */
+
+static GList* list_max_items(GList *list, guint nb_max)
+{
+	GList *last;
+	
+	if (g_list_length(list) > nb_max)
+	{
+		last = g_list_last(list);
+		
+		list = g_list_remove(list, last->data);
+		g_free(last->data);
+	}
+	return list;
+}
+
+#define MAX_ITEMS_SEARCH_COMBO 16
+
+//  FIXME  free GList sr->search.expr_history ?????
+
+static void search_update_combos(void)
+{
+	GtkWidget *search_entry = NULL;
+	gchar *search_word = NULL;
+	TextEditor *te = anjuta_get_current_text_editor();
+
+	search_entry = glade_xml_get_widget(sg->xml, SEARCH_STRING);
+	if (search_entry && te)
+	{
+		search_word = g_strdup(gtk_entry_get_text((GtkEntry *) search_entry));
+		if (search_word  && strlen(search_word) > 0)
+		{
+			if (!word_in_list(sr->search.expr_history, search_word))
+			{
+				GtkWidget *search_list = glade_xml_get_widget(sg->xml,
+					SEARCH_STRING_COMBO);
+				sr->search.expr_history = g_list_prepend(sr->search.expr_history,
+					search_word);
+				sr->search.expr_history = list_max_items(sr->search.expr_history,
+					MAX_ITEMS_SEARCH_COMBO);
+				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
+					sr->search.expr_history);
+			}
+		}
+	}
+}
+
+static void replace_update_combos(void)
+{
+	GtkWidget *replace_entry = NULL;
+	gchar *replace_word = NULL;
+	TextEditor *te = anjuta_get_current_text_editor();
+
+	replace_entry = glade_xml_get_widget(sg->xml, REPLACE_STRING);
+	if (replace_entry && te)
+	{
+		replace_word = g_strdup(gtk_entry_get_text((GtkEntry *) replace_entry));
+		if (replace_word  && strlen(replace_word) > 0)
+		{
+			if (!word_in_list(sr->replace.expr_history, replace_word))
+			{
+				GtkWidget *replace_list = glade_xml_get_widget(sg->xml,
+					REPLACE_STRING_COMBO);
+				sr->replace.expr_history = g_list_prepend(sr->replace.expr_history,
+					replace_word);
+				sr->replace.expr_history = list_max_items(sr->replace.expr_history,
+					MAX_ITEMS_SEARCH_COMBO);
+				gtk_combo_set_popdown_strings((GtkCombo *) replace_list,
+					sr->replace.expr_history);
+			}
+		}
+	}
+}
+
 void anjuta_search_replace_activate(void)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *current_word = NULL;
 	gchar *search_word = NULL;
 	TextEditor *te = anjuta_get_current_text_editor();
+	GtkWidget *search_list = NULL;
+	GtkWidget *replace_list = NULL;
 	
-	if (NULL == sr)
+	if (NULL == sg)
 	{
 		if (! create_dialog())
 			return;
     }
-	/* Set properties */
+	//~ /* Set properties */
 	search_entry = glade_xml_get_widget(sg->xml, SEARCH_STRING);
-	if (te)
-		current_word = text_editor_get_current_word(te);
-	if (search_entry && te && current_word && strlen(current_word) > 0)
+	if (te && search_entry)
 	{
-		search_word = gtk_entry_get_text((GtkEntry *) search_entry);
-		if (search_word  && strlen(search_word) > 0)
+		current_word = text_editor_get_current_word(te);
+		if (current_word && strlen(current_word) > 0)
 		{
-			GtkWidget *search_list = glade_xml_get_widget(sg->xml
-		  	, SEARCH_STRING_COMBO);
-			sr->search.expr_history = g_list_prepend(sr->search.expr_history, search_word);
-			gtk_combo_set_popdown_strings((GtkCombo *) search_list
-			  , sr->search.expr_history);
-		}
-		gtk_entry_set_text((GtkEntry *) search_entry, current_word);
+			gtk_entry_set_text((GtkEntry *) search_entry, current_word);
+			g_free(current_word);
+		}	
 	}
-	if (current_word)
-		g_free(current_word);
+	/* Set the text case sensitive */
+	search_list = glade_xml_get_widget(sg->xml, SEARCH_STRING_COMBO);
+	if (search_list)
+		gtk_combo_set_case_sensitive ((GtkCombo *) search_list, TRUE);
+	replace_list = glade_xml_get_widget(sg->xml, REPLACE_STRING_COMBO);
+	if (replace_list)
+		gtk_combo_set_case_sensitive ((GtkCombo *) replace_list, TRUE);
 	/* Show the dialog */
 	gtk_widget_grab_focus (search_entry);
 	show_dialog();
