@@ -107,7 +107,7 @@ msgstr "Doorzoek de hulp bij Anjuta"
 
 #: anjuta.glade.h:27
 msgid "Anjuta start with dialog"
-msgstr "Anjuta·start·met·dialoogvenster"
+msgstr "Anjuta start met dialoogvenster"
 
 #: anjuta.glade.h:28 plugins/project-wizard/appwizard_gui.c:77
 #: plugins/project-wizard/appwizard_gui.c:91
@@ -251,7 +251,7 @@ msgstr "Cursorkleur:"
 
 #: anjuta.glade.h:62
 msgid "Caret blink period in milli-seconds"
-msgstr "Knippersnelheid·van·cursor·in·miiliseconden"
+msgstr "Knippersnelheid van cursor in miiliseconden"
 
 #: anjuta.glade.h:63
 msgid "Case insensitive"
@@ -295,7 +295,7 @@ msgstr "Kleur"
 
 #: anjuta.glade.h:73
 msgid "Column at edge indicator"
-msgstr "Kolom·aan·rand·indicator"
+msgstr "Kolom aan rand indicator"
 
 #: anjuta.glade.h:74
 msgid "Combo Popdown:"
@@ -323,7 +323,7 @@ msgstr "Veelgebruikte opdrachten"
 
 #: anjuta.glade.h:80
 msgid "Compact folding"
-msgstr "Compact·vouwen"
+msgstr "Compact vouwen"
 
 #: anjuta.glade.h:81
 msgid "Compiler"
@@ -448,7 +448,7 @@ msgstr "Document module Makefile.am"
 
 #: anjuta.glade.h:111
 msgid "Draw line below folded lines"
-msgstr "Lijn·onder·opgevouwen·lijnen·tekenen"
+msgstr "Lijn onder opgevouwen lijnen tekenen"
 
 #: anjuta.glade.h:112 src/anjuta-app.c:279 src/anjuta_gui.c:105
 msgid "Edit"
@@ -508,11 +508,11 @@ msgstr "Regeldoorloop aanzetten"
 
 #: anjuta.glade.h:126
 msgid "Enable python comments folding"
-msgstr "Python·commentaarvouwen·inschakelen"
+msgstr "Python commentaarvouwen inschakelen"
 
 #: anjuta.glade.h:127
 msgid "Enable python quoted strings folding"
-msgstr "Python·citaat-tekenreeksen·vouwen·inschakelen"
+msgstr "Python citaat-tekenreeksen vouwen inschakelen"
 
 #: anjuta.glade.h:128 plugins/debugger/breakpoints.c:113
 msgid "Enabled"
@@ -520,7 +520,7 @@ msgstr "Ingeschakeld"
 
 #: anjuta.glade.h:129
 msgid "Encoding to use when saving files"
-msgstr "Te·gebruiken·codering·bij·opslaan·van·bestanden"
+msgstr "Te gebruiken codering bij opslaan van bestanden"
 
 #: anjuta.glade.h:130
 msgid "Enter a Hexa adress or select one in the data"
@@ -542,7 +542,7 @@ msgstr "Geef de opdrachtregel-argumenten voor het programma 'indent'. Lees de in
 
 #: anjuta.glade.h:134
 msgid "Error message indicator style:"
-msgstr "Foutmelding·indicatorstijl:"
+msgstr "Foutmelding indicatorstijl:"
 
 #: anjuta.glade.h:135
 msgid "Errors messages:"
@@ -584,7 +584,7 @@ msgstr "Bestandstype:"
 
 #: anjuta.glade.h:144
 msgid "Filter extraneous characters in DOS mode"
-msgstr "Extra·tekens·filteren·in·DOS-stand"
+msgstr "Extra tekens filteren in DOS-stand"
 
 #: anjuta.glade.h:145
 msgid "Find & Replace"
@@ -636,10 +636,10 @@ msgid ""
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be built after the source (src/) directory during \"make\"."
 msgstr ""
-"·Geef·een·door·spaties·gescheiden·lijst·van·mappen·om·te·bouwen·na·de·broncode."
-"·Dit·zal·in·configure."
-"in·worden·ingesteld·en·de·nodige·Makefiles·worden·ervoor·gemaakt."
-"·Ze·zullen·na·de·map·met·broncode·(src/)·gebouwd·worden·tijden·\"make\"."
+" Geef een door spaties gescheiden lijst van mappen om te bouwen na de broncode."
+" Dit zal in configure."
+"in worden ingesteld en de nodige Makefiles worden ervoor gemaakt."
+" Ze zullen na de map met broncode (src/) gebouwd worden tijden \"make\"."
 
 #: anjuta.glade.h:157
 msgid ""
@@ -647,10 +647,10 @@ msgid ""
 "This will be set in configure.in and Makefiles will be generated for them. "
 "They will be built before the source (src/) directory during \"make\"."
 msgstr ""
-"·Geef·een·door·spaties·gescheiden·lijst·van·mappen·om·te·bouwen·voor·de·broncode."
-"·Dit·zal·in·configure."
-"in·worden·ingesteld·en·de·nodige·Makefiles·worden·ervoor·gemaakt."
-"·Ze·zullen·voor·de·map·met·broncode·(src/)·gebouwd·worden·tijden·\"make\"."
+" Geef een door spaties gescheiden lijst van mappen om te bouwen voor de broncode."
+" Dit zal in configure."
+"in worden ingesteld en de nodige Makefiles worden ervoor gemaakt."
+" Ze zullen voor de map met broncode (src/) gebouwd worden tijden \"make\"."
 
 #: anjuta.glade.h:158
 msgid "Gnome API"
@@ -658,7 +658,7 @@ msgstr "Gnome API"
 
 #: anjuta.glade.h:159
 msgid "Greedy matching"
-msgstr "Greedy·matchen"
+msgstr "Greedy matchen"
 
 #: anjuta.glade.h:160
 msgid "HTML _viewer:"
@@ -834,7 +834,7 @@ msgstr "_Gebruikersinstellingen laden"
 
 #: anjuta.glade.h:202
 msgid "Low-Level Optimization (Machine dependent optimization)"
-msgstr "Optimalisatie op laag niveau (Machine afhankelijke·optimalisatie)"
+msgstr "Optimalisatie op laag niveau (Machine afhankelijke optimalisatie)"
 
 #: anjuta.glade.h:203
 msgid "Makefile.am"
@@ -939,9 +939,9 @@ msgid ""
 "preferences and will be loaded from and saved with the project. If there is "
 "no project open, they will be global preferences."
 msgstr ""
-"Let·op:"
-"·Als·u·een·project·geopend·heeft·zullen·deze·voorkeuren·specifiek·voor·dit·project·zijn·en·geladen·en·opgeslagen·worden·tezamen·met·het·project."
-"·Als·u·geen·project·geopend·heeft,·zijn·de·voorkeuren·globaal."
+"Let op:"
+" Als u een project geopend heeft zullen deze voorkeuren specifiek voor dit project zijn en geladen en opgeslagen worden tezamen met het project."
+" Als u geen project geopend heeft, zijn de voorkeuren globaal."
 
 #: anjuta.glade.h:228
 msgid "Number of first characters to show:"
@@ -1024,11 +1024,11 @@ msgstr "Positie:"
 
 #: anjuta.glade.h:247
 msgid "Press this button to dismiss the dialog"
-msgstr "Druk·op·deze·knop·om·het·dialoogvenster·te·sluiten"
+msgstr "Druk op deze knop om het dialoogvenster te sluiten"
 
 #: anjuta.glade.h:248
 msgid "Pressing backspace un-indents"
-msgstr "Backspace·verwijdert·inspinging"
+msgstr "Backspace verwijdert inspinging"
 
 #: anjuta.glade.h:249
 msgid "Pressing tab indents"
@@ -1103,8 +1103,8 @@ msgstr "Vervangen door:"
 #: anjuta.glade.h:266
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
-"Alle·blijvende·tags·resetten·tijdens·bijwerken·(branch-"
-"informatie·gaat·verloren)·[-A]"
+"Alle blijvende tags resetten tijdens bijwerken (branch-"
+"informatie gaat verloren) [-A]"
 
 #: anjuta.glade.h:267
 msgid "Right"
@@ -1137,7 +1137,7 @@ msgstr "Autosave tijdsinterval in minuten"
 
 #: anjuta.glade.h:274
 msgid "Save session interval in minutes"
-msgstr "Sessie·opslaginterval·in·minuten"
+msgstr "Sessie opslaginterval in minuten"
 
 #: anjuta.glade.h:275
 msgid "Scripts at the end of top level Makefile.am"
@@ -1207,23 +1207,23 @@ msgstr "Snelkoppeling:"
 
 #: anjuta.glade.h:291
 msgid "Show tooltips"
-msgstr "Hulpballonnen·tonen"
+msgstr "Hulpballonnen tonen"
 
 #: anjuta.glade.h:292
 msgid "Silent. That is, do not echo shell commads during make"
-msgstr "Stil.·Dat·betekent:·opdrachten·niet·weergeven·tijdens·de·'make'"
+msgstr "Stil. Dat betekent: opdrachten niet weergeven tijdens de 'make'"
 
 #: anjuta.glade.h:293
 msgid "Sorted by most recent use"
-msgstr "Sorteren·op·recent·gebruik"
+msgstr "Sorteren op recent gebruik"
 
 #: anjuta.glade.h:294
 msgid "Sorted in alphabetical order"
-msgstr "Alfabetisch·gesorteerd"
+msgstr "Alfabetisch gesorteerd"
 
 #: anjuta.glade.h:295
 msgid "Sorted in the order you open them"
-msgstr "Sorteren·op·openvolgorde"
+msgstr "Sorteren op openvolgorde"
 
 #: anjuta.glade.h:296
 msgid "Source Directories"
@@ -1235,19 +1235,19 @@ msgstr "Bronmodule Makefile.am"
 
 #: anjuta.glade.h:298
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Door·spaties·gescheiden·lijst·van·te·negeren·mapnaampatronen"
+msgstr "Door spaties gescheiden lijst van te negeren mapnaampatronen"
 
 #: anjuta.glade.h:299
 msgid "Space-seperated list of directory name patterns to match"
-msgstr "Door·spaties·gescheiden·lijst·van·mappatronen·om·te·matchen"
+msgstr "Door spaties gescheiden lijst van mappatronen om te matchen"
 
 #: anjuta.glade.h:300
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Door·spaties·gescheiden·lijst·van·te·negeren·bestandsnaampatronen"
+msgstr "Door spaties gescheiden lijst van te negeren bestandsnaampatronen"
 
 #: anjuta.glade.h:301
 msgid "Space-seperated list of file name patterns to match"
-msgstr "Door·spaties·gescheiden·lijst·van·bestandsnaampatronen·om·te·matchen"
+msgstr "Door spaties gescheiden lijst van bestandsnaampatronen om te matchen"
 
 #: anjuta.glade.h:302
 msgid "Squares"
@@ -1272,9 +1272,9 @@ msgid ""
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
 msgstr ""
-"·Start·met·een·nieuw·project.·De·applicatie-"
-"assistent·zal·u·helpen·bij·het·aanmaken·van·het·project.·Met·de·applicatie-"
-"assistent·kunt·op·eenvoudige·wijze·de·kapstok·voor·diverse·typen·projecten·opbouwen."
+" Start met een nieuw project. De applicatie-"
+"assistent zal u helpen bij het aanmaken van het project. Met de applicatie-"
+"assistent kunt op eenvoudige wijze de kapstok voor diverse typen projecten opbouwen."
 
 #: anjuta.glade.h:307
 msgid "Strike-Out"
@@ -1290,7 +1290,7 @@ msgstr "Kangleipak stijl"
 
 #: anjuta.glade.h:310 libanjuta/anjuta-encodings.c:721
 msgid "Supported Encodings"
-msgstr "Ondersteunde·coderingen"
+msgstr "Ondersteunde coderingen"
 
 #: anjuta.glade.h:311
 msgid "Supports"
@@ -1334,15 +1334,15 @@ msgstr "Top level Makefile.am"
 
 #: anjuta.glade.h:321
 msgid "Truncate long messages"
-msgstr "Lange berichten·afbreken"
+msgstr "Lange berichten afbreken"
 
 #: anjuta.glade.h:322
 msgid "Try to save in current locale's encoding"
-msgstr "In·codering·van·huidge·omgeving·proberen·op·te·slaan"
+msgstr "In codering van huidge omgeving proberen op te slaan"
 
 #: anjuta.glade.h:323
 msgid "Try to save in original encoding"
-msgstr "Probeer·op·te·slaan·in·originele·codering"
+msgstr "Probeer op te slaan in originele codering"
 
 #: anjuta.glade.h:324
 #, fuzzy
@@ -1371,23 +1371,23 @@ msgstr "Verversen"
 
 #: anjuta.glade.h:329
 msgid "Update tags image automatically"
-msgstr "Tag-afbeelding·automatisch·verversen"
+msgstr "Tag-afbeelding automatisch verversen"
 
 #: anjuta.glade.h:330
 msgid "Use GNOME terminal profile:"
-msgstr "GNOME·terminalprofiel·gebruiken:"
+msgstr "GNOME terminalprofiel gebruiken:"
 
 #: anjuta.glade.h:331
 msgid "Use currently selected profile in GNOME terminal"
-msgstr "Gebruik·huidig·geselecteerd·GNOME-terminal·profiel"
+msgstr "Gebruik huidig geselecteerd GNOME-terminal profiel"
 
 #: anjuta.glade.h:332
 msgid "Use default"
-msgstr "Standaard·gebruiken"
+msgstr "Standaard gebruiken"
 
 #: anjuta.glade.h:333
 msgid "Use tabs for indentation"
-msgstr "Gebruik·tabs·voor·inspringen"
+msgstr "Gebruik tabs voor inspringen"
 
 #: anjuta.glade.h:334
 msgid "User Tools"
@@ -1395,7 +1395,7 @@ msgstr "Gebruikershulpmiddelen"
 
 #: anjuta.glade.h:335
 msgid "User email address:"
-msgstr "E-mail·adres·van·gebruiker:"
+msgstr "E-mail adres van gebruiker:"
 
 #: anjuta.glade.h:336
 msgid "User information"
@@ -1424,7 +1424,7 @@ msgstr ""
 
 #: anjuta.glade.h:342
 msgid "Warning message indicator style:"
-msgstr "Waarschuwingsbericht·indicatorstijl:"
+msgstr "Waarschuwingsbericht indicatorstijl:"
 
 #: anjuta.glade.h:343
 msgid "Warnings"
@@ -1440,7 +1440,7 @@ msgstr "Werkmap:"
 
 #: anjuta.glade.h:346
 msgid "Wrap bookmarks search around"
-msgstr "Bladwijzerzoekopdracht·doorgaan·na·documenteinde"
+msgstr "Bladwijzerzoekopdracht doorgaan na documenteinde"
 
 #: anjuta.glade.h:347
 msgid "_Attach"
@@ -1448,7 +1448,7 @@ msgstr "Bij_voegen"
 
 #: anjuta.glade.h:348
 msgid "_Build a file:"
-msgstr "Een·bestand·_bouwen:"
+msgstr "Een bestand _bouwen:"
 
 #: anjuta.glade.h:349
 msgid "_Condition:"
@@ -1497,7 +1497,7 @@ msgstr "_Pictogram editor:"
 
 #: anjuta.glade.h:360
 msgid "_Process to attach to:"
-msgstr "_Proces·om·bij·te·voegen:"
+msgstr "_Proces om bij te voegen:"
 
 #: anjuta.glade.h:361
 msgid "_Remove all"
@@ -1505,7 +1505,7 @@ msgstr "_Verwijder alles"
 
 #: anjuta.glade.h:362
 msgid "_Save Theme As"
-msgstr "_Thema·opslaan·als"
+msgstr "_Thema opslaan als"
 
 #: anjuta.glade.h:363
 msgid "_Terminal:"
@@ -2037,7 +2037,7 @@ msgstr "Oriëntatie"
 
 #: libegg/egg-dock-item.c:244
 msgid "Orientation of the docking item"
-msgstr "Oriëntatie·van·het·aankoppelobject"
+msgstr "Oriëntatie van het aankoppelobject"
 
 #: libegg/egg-dock-item.c:259
 msgid "Resizable"
@@ -2045,7 +2045,7 @@ msgstr "Herschaalbaar"
 
 #: libegg/egg-dock-item.c:260
 msgid "If set, the dock item can be resized when docked in a paned"
-msgstr "Wanneer·ingeschakeld, kan het aangekoppelde·object worden aangepast"
+msgstr "Wanneer ingeschakeld, kan het aangekoppelde object worden aangepast"
 
 #: libegg/egg-dock-item.c:267
 msgid "Item behavior"
@@ -2056,7 +2056,7 @@ msgid ""
 "General behavior for the dock item (i.e. whether it can float, if it's "
 "locked, etc.)"
 msgstr ""
-" Algemeen gedrag van het aangekoppelde·item (of het kan zweven, of het is "
+" Algemeen gedrag van het aangekoppelde item (of het kan zweven, of het is "
 "vastgezet, enz.)"
 
 #: libegg/egg-dock-item.c:276
@@ -2066,7 +2066,7 @@ msgstr "Greep-grootte"
 #: libegg/egg-dock-item.c:277
 msgid "Size in pixels of the grip to drag the dock item"
 msgstr ""
-" Afmeting in pixels van de greep waarmee het aangekoppelde·item kan worden "
+" Afmeting in pixels van de greep waarmee het aangekoppelde item kan worden "
 "versleept"
 
 #: libegg/egg-dock-item.c:283 libegg/egg-dock-master.c:140
@@ -2077,7 +2077,7 @@ msgstr "Vergrendeld"
 msgid ""
 "If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
-"·Wanneer·ingeschakeld, kan het aangekoppelde·item niet worden versleept en "
+" Wanneer ingeschakeld, kan het aangekoppelde item niet worden versleept en "
 "bezit het geen greep."
 
 #: libegg/egg-dock-item.c:292
@@ -2086,7 +2086,7 @@ msgstr "Gewenste breedte"
 
 #: libegg/egg-dock-item.c:293
 msgid "Preferred width for the dock item"
-msgstr "Gewenste breedte van het aangekoppelde·item"
+msgstr "Gewenste breedte van het aangekoppelde item"
 
 #: libegg/egg-dock-item.c:299
 msgid "Preferred height"
@@ -2094,7 +2094,7 @@ msgstr "Gewenste hoogte"
 
 #: libegg/egg-dock-item.c:300
 msgid "Preferred height for the dock item"
-msgstr "Gewenste hoogte van het aangekoppelde·item"
+msgstr "Gewenste hoogte van het aangekoppelde item"
 
 #: libegg/egg-dock-item.c:547
 #, fuzzy, c-format
@@ -2102,8 +2102,8 @@ msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a EggDock or "
 "some other compound dock object."
 msgstr ""
-" U kunt een aangekoppeld·object (%p van type %s) niet toevoegen aan een %s. "
-"Gebruik GdlDock of een ander samengesteld aangekoppeld·object."
+" U kunt een aangekoppeld object (%p van type %s) niet toevoegen aan een %s. "
+"Gebruik GdlDock of een ander samengesteld aangekoppeld object."
 
 #: libegg/egg-dock-item.c:554
 #, c-format
@@ -2118,7 +2118,7 @@ msgstr ""
 #, c-format
 msgid "Unsupported docking strategy %s in dock object of type %s"
 msgstr ""
-"Niet ondersteunde aankoppelingsstrategie %s in aangekoppeld·object van type %"
+"Niet ondersteunde aankoppelingsstrategie %s in aangekoppeld object van type %"
 "s"
 
 #. Hide menuitem.
@@ -2198,7 +2198,7 @@ msgstr "Standaard titel"
 #: libegg/egg-dock-master.c:134
 msgid "Default title for newly created floating docks"
 msgstr ""
-"Standaard-titel voor nieuw aangemaakte zwevende 'aangekoppelde·objecten'"
+"Standaard-titel voor nieuw aangemaakte zwevende 'aangekoppelde objecten'"
 
 #: libegg/egg-dock-master.c:141
 msgid ""
@@ -2237,7 +2237,7 @@ msgstr "De index van de huidige pagina"
 
 #: libegg/egg-dock-object.c:122
 msgid "Unique name for identifying the dock object"
-msgstr "Unieke naam voor identificatie van het aangekoppelde·object"
+msgstr "Unieke naam voor identificatie van het aangekoppelde object"
 
 #: libegg/egg-dock-object.c:129
 msgid "Long name"
@@ -2245,7 +2245,7 @@ msgstr "Lange naam"
 
 #: libegg/egg-dock-object.c:130
 msgid "Human readable name for the dock object"
-msgstr "Leesbare naam voor het aangekoppelde·object"
+msgstr "Leesbare naam voor het aangekoppelde object"
 
 #: libegg/egg-dock-object.c:136
 msgid "Dock master"
@@ -2313,7 +2313,7 @@ msgstr "Host"
 
 #: libegg/egg-dock-placeholder.c:134
 msgid "The dock object this placeholder is attached to"
-msgstr "Het aangekoppelde·object waaraan deze plaatshouder is gebonden"
+msgstr "Het aangekoppelde object waaraan deze plaatshouder is gebonden"
 
 #: libegg/egg-dock-placeholder.c:141
 #, fuzzy
@@ -3183,11 +3183,11 @@ msgstr "Kan bestand niet uitvoeren. Controleer Instellingen->Commando. "
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
-msgstr "Klassenaam·ongeldig"
+msgstr "Klassenaam ongeldig"
 
 #: plugins/class-gen/clsGen.c:456
 msgid "Base class name not valid"
-msgstr "Basis·klassenaam·ongeldig"
+msgstr "Basis klassenaam ongeldig"
 
 #: plugins/class-gen/clsGen.c:462
 msgid "Declaration file name not valid"
@@ -7367,13 +7367,13 @@ msgstr "Autoafmaken woord"
 #~ msgstr "Tekenreeks"
 
 #~ msgid "String to replace"
-#~ msgstr "Te·vervangen·tekst"
+#~ msgstr "Te vervangen tekst"
 
 #~ msgid "Whole word"
-#~ msgstr "Hele·woord"
+#~ msgstr "Hele woord"
 
 #~ msgid "Dock the toolbar"
-#~ msgstr "Werkbalk·aankoppelen"
+#~ msgstr "Werkbalk aankoppelen"
 
 #~ msgid "Layout Managment"
 #~ msgstr "Indelingsbeheer"
