@@ -1,3 +1,7 @@
+2003-05-09  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Bumped required gtk version to 2.0.8.
+	
 2003-05-06  Naba Kumar  <naba@gnome.org>
 
 	src/message-manager-private.cc, src/message-manager.cc: Clean ups.
