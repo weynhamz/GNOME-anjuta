@@ -370,8 +370,8 @@ search_and_replace (void)
 							scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
 								SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
 						}
-						if (se->direction != SD_BACKWARD)						
-							offset += mi->len - strlen(sr->replace.repl_str);
+						if (se->direction != SD_BACKWARD)
+							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						
 						interactive = FALSE;
 						break;
@@ -391,7 +391,7 @@ search_and_replace (void)
 								SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
 						}
 						if (se->direction != SD_BACKWARD)						
-							offset += mi->len - strlen(sr->replace.repl_str);
+							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						break;
 					default:
 						anjuta_not_implemented(__FILE__, __LINE__);
@@ -465,6 +465,7 @@ static gboolean
 replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str)
 {
 	gint l;
+	g_return_val_if_fail (repl_str != NULL, FALSE);
 	
 	if (strlen(repl_str) > mi->len)
 	{
