@@ -1,3 +1,19 @@
+2002-01-09  Stephane Demurget  <demurgets@free.fr>
+
+	* pixmaps/file_c.xpm,
+	  pixmaps/file_cpp.xpm,
+	  pixmaps/file_file.xpm,
+	  pixmaps/file_h.xpm,
+	  pixmaps/file_html.xpm,
+	  pixmaps/file_i18n.xpm,
+	  pixmaps/file_icon.xpm,
+	  pixmaps/file_pix.xpm,
+	  pixmaps/fv_doc.xpm,
+	  pixmaps/fv_i18n.xpm,
+	  pixmaps/fv_image.xpm,
+	  pixmaps/fv_source.xpm,
+	  pixmaps/fv_unknown.xpm: made these icons transparent.
+
 2002-01-08	Andy Piper	<andy.piper@freeuk.com>
 
 	* launcher/anjuta_launcher.c: updated message strings
