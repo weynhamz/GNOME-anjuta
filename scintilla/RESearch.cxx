@@ -29,12 +29,6 @@
  *
  * Modification history:
  *
- * $Log$
- * Revision 1.11.2.1  2002/11/20 07:32:03  naba
- * 	* scintilla/*/*: Synced to latest scintilla 1.49
- * 	* scintilla/LexAsm.cxx, scintilla/LexFortran.cxx, src/Makefile.am:
- * 	New lexers added.
- *
  * Revision 1.7  2002/09/28 00:33:28  nyamatongwe
  * Fixed problem with character ranges caused by expansion to 8 bits.
  *

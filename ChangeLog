@@ -3,6 +3,11 @@
 	* scintilla/*/*: Synced to latest scintilla 1.49
 	* scintilla/LexAsm.cxx, scintilla/LexFortran.cxx, src/Makefile.am:
 	New lexers added.
+
+	* scintilla/RESearch.cxx: The automatic cvs log in the
+	file really broke things trying to interprete the changelog
+	entry incorrectly as end-of-comment. Removed the $cvs line
+	and committed again.
 	
 2002-11-19  Naba Kumar <naba@gnome.org>
 
