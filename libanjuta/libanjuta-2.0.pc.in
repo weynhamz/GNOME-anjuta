@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@/libanjuta-1.0
+idldir=@datadir@/idl/libanjuta-1.0
+
+Name: libanjuta-1.0
+Description: Libraries for developing Anjuta plugins.
+Version: @VERSION@
+Requires:  libbonoboui-2.0 libgnome-2.0 gtk+-2.0 libxml-2.0 libglade-2.0 gdl-1.0
+Libs: -L${libdir} -lanjuta-1
+Cflags: -I${includedir}

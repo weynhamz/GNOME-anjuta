@@ -4,7 +4,7 @@
 
 SUBDIRS = po tagmanager global-tags scintilla \
 	gdl widgets libegg printing pixmaps scripts data \
-	doc launcher plugins src manuals
+	doc launcher libanjuta plugins src manuals
 
 anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjutadoc_DATA = \

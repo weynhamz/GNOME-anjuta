@@ -249,10 +249,10 @@ anjuta_LDADD =  \
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
-	$(top_builddir)/libegg/util/libeggutil.a\
 	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a\
 	$(top_builddir)/libegg/toolbar/libegg-toolbar.a\
 	$(top_builddir)/libegg/menu/libegg-menu.a\
+	$(top_builddir)/libegg/util/libeggutil.a\
 	$(LEXER_OBJS)
 
 # anjuta_DEPENDENCIES =

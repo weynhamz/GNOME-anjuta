@@ -3,6 +3,10 @@
 	* configure.in: Removed libegg flags from ANJUTA_FLAGS.
 	* libegg/toolbar/Makefile.am, libegg/menu/Makefile.am: Fixed linking
 	errors.
+	* Makefile.am, libanjuta/*: Added new module.
+	* src/Makefile.am: Fixed linking error.
+	* src/watch_cbs.c: Debugger clean up.
+	* configure.in: Added libanjuta-2.0.pc
 
 2003-12-11  Naba Kumar  <naba@gnome.org>
 
