@@ -1667,10 +1667,10 @@ anjuta_util_check_gnome_terminal (void)
 {
 #ifdef DEBUG
     gchar* term_command = "gnome-terminal --version";
-    gchar* term_command2 = "gnome-terminal --diable-factory --version";
+    gchar* term_command2 = "gnome-terminal --disable-factory --version";
 #else
     gchar* term_command = "gnome-terminal --version > /dev/null 2> /dev/null";
-    gchar* term_command2 = "gnome-terminal --diable-factory --version > /dev/null 2> /dev/null";
+    gchar* term_command2 = "gnome-terminal --disable-factory --version > /dev/null 2> /dev/null";
 #endif
     gint retval;
     
