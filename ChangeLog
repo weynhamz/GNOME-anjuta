@@ -1,7 +1,8 @@
 2004-12-18  Naba Kumar  <naba@gnome.org>
 
 	* plugins/devhelp/plugin.c: Fixed loading/unloading bug.
-
+	* plugins/gdb/plugin.c: Fixed compile error.
+	
 	Patch from: Mark R. Pariente  <mark@demar.com.tr>
 	* libegg/eggcellrendererkeys.c: Fixed compile error.
 	

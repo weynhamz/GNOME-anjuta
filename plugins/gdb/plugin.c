@@ -20,6 +20,8 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
