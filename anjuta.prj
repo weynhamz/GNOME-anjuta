@@ -208,6 +208,7 @@ module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
 	plugins/class-gen/clsGen.c\
+	plugins/patch/patch-plugin.c\
 	plugins/sample1/plugin-sample1.c\
 	scintilla/AutoComplete.cxx\
 	scintilla/CallTip.cxx\
