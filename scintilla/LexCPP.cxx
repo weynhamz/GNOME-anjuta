@@ -67,6 +67,7 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 	int chPrevNonWhite = ' ';
 	int visibleChars = 0;
 	bool lastWordWasUUID = false;
+	bool insidePreprocessor = false;
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
@@ -104,8 +105,12 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 				if (keywords.InList(s)) {
 					lastWordWasUUID = strcmp(s, "uuid") == 0;
 					sc.ChangeState(SCE_C_WORD);
-				} else if (keywords2.InList(s)) {
-					sc.ChangeState(SCE_C_WORD2);
+				} else if (!insidePreprocessor)	{
+					if (keywords2.InList(s)) {
+						sc.ChangeState(SCE_C_WORD2);
+					} else if (keywords3.InList(s)) {
+						sc.ChangeState(SCE_C_WORD3);
+					}
 				}
 				sc.SetState(SCE_C_DEFAULT);
 			}
@@ -236,6 +241,7 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 			} else if (sc.ch == '#' && visibleChars == 0) {
 				// Preprocessor commands are alone on their line
 				sc.SetState(SCE_C_PREPROCESSOR);
+				insidePreprocessor = true;
 				// Skip whitespace between # and preprocessor word
 				do {
 					sc.Forward();
@@ -254,6 +260,7 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 			chPrevNonWhite = ' ';
 			visibleChars = 0;
 			lastWordWasUUID = false;
+			insidePreprocessor = false;
 		}
 		if (!IsASpace(sc.ch)) {
 			chPrevNonWhite = sc.ch;
