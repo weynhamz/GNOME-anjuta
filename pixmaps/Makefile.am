@@ -65,7 +65,6 @@ anjuta_pixmaps_DATA = \
 	error-next.png \
 	error-prev-16.png \
 	error-prev.png \
-	file_text.png \
 	fold_close.xpm \
 	fold_open.xpm \
 	fold_toggle.xpm \
