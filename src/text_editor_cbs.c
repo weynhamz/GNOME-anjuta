@@ -181,7 +181,7 @@ gboolean on_text_editor_auto_save (gpointer data)
 		return TRUE;
 	if (text_editor_is_saved (te))
 		return TRUE;
-	if (text_editor_save_file (te))
+	if (text_editor_save_file (te, TRUE))
 	{
 		anjuta_status (_("Autosaved \"%s\""), te->filename);
 	}

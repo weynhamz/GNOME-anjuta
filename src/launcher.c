@@ -51,11 +51,11 @@ static void to_terminal_child_terminated (GtkWidget* term, gpointer data);
 static gint launcher_poll_inputs_on_idle (gpointer data);
 static gboolean launcher_execution_done (gpointer data);
 static void launcher_set_busy (gboolean flag);
-
 static void launcher_send_ptyin (gchar * input_str);
 static void launcher_pty_check_password(gchar* buffer);
 static gboolean launcher_pty_check_child_exit_code (gchar* line);
 static GtkWidget* create_password_dialog (gchar* prompt);
+static void execution_done_cleanup ();
 
 /************************************************************
 *    Due to some programming restriction only one instance of
@@ -378,6 +378,14 @@ launcher_execute (gchar * command_str,
   close (launcher.stdout_pipe[1]);
   close (launcher.stdin_pipe[0]);
 
+  /* on a fork error perform a cleanup and return */
+  if (launcher.child_pid == -1)
+  {
+	execution_done_cleanup ();
+	return;
+  }
+	  
+
 /*
  *  Set pipes none blocking, so we can read big buffers
  *  in the callback without having to use FIONREAD
@@ -424,17 +432,7 @@ launcher_execution_done (gpointer data)
 	  launcher.pty_is_done == FALSE)
     return TRUE; 
     
-  close (launcher.stdin_pipe[1]);
-  close (launcher.stdout_pipe[0]);
-  close (launcher.stderr_pipe[0]);
-	
-  zvt_term_closepty(ZVT_TERM(launcher.terminal));
-  zvt_term_reset(ZVT_TERM(launcher.terminal), 1);
-  gtk_widget_destroy(launcher.terminal);
-  launcher.terminal = NULL;
-  launcher_set_busy (FALSE);
-  
-  launcher.waiting_for_done = FALSE; /* After this, we can only return FALSE; */
+  execution_done_cleanup ();
   
   /* Call this here, after set_busy(FALSE)so we are able to 
 	 launch a new child from the terminate function.
@@ -446,6 +444,22 @@ launcher_execution_done (gpointer data)
     (*(launcher.child_terminated)) (launcher.child_status, time (NULL) - launcher.start_time);
   
   return FALSE;
+}
+
+static void
+execution_done_cleanup ()
+{
+  close (launcher.stdin_pipe[1]);
+  close (launcher.stdout_pipe[0]);
+  close (launcher.stderr_pipe[0]);
+	
+  zvt_term_closepty(ZVT_TERM(launcher.terminal));
+  zvt_term_reset(ZVT_TERM(launcher.terminal), 1);
+  gtk_widget_destroy(launcher.terminal);
+  launcher.terminal = NULL;
+  launcher_set_busy (FALSE);
+  
+  launcher.waiting_for_done = FALSE; /* After this, we can only return FALSE; */	
 }
 
 static gboolean

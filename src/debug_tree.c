@@ -860,33 +860,28 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 	if (found)
 	{
 		// g_print("Variable %s found - updating\n",var_name);
-		/* Set red color if var modified */
-		// if (g_strcasecmp (value, data->value) == 0)
-		// style = style_normal;
-		// else
-		// {
-		//	style = style_red;
-			/* Destroy following items if long array */
-			/* x <repeats yy times> */
-			if (long_array)
+		/* Destroy following items if long array */
+		/* x <repeats yy times> */
+		if (long_array)
+		{
+			GtkTreeIter* iter2 = gtk_tree_iter_copy(&iter);
+			success = gtk_tree_model_iter_next(model, iter2);
+			while (success)
 			{
-				GtkTreeIter* iter2 = gtk_tree_iter_copy(&iter);
+				destroy_recursive (model, NULL,iter2, NULL);
 				success = gtk_tree_model_iter_next(model, iter2);
-				while (success)
-				{
-					destroy_recursive (model, NULL,iter2, NULL);
-					success = gtk_tree_model_iter_next(model, iter2);
-				}
 			}
-			if (dataType != TYPE_ARRAY && dataType != TYPE_STRUCT)
-			{
-				gchar *val = g_strdup (value);	/* copy value - orig to be
-												 * deleted by caller */
+		}
+		if (dataType != TYPE_ARRAY && dataType != TYPE_STRUCT)
+		{
+			gchar *val = g_strdup (value);	/* copy value - orig to be
+											 * deleted by caller */
+			/* Set red color if var modified */
+			if (g_strcasecmp (value, data->value) != 0)				
+				val=g_strconcat("<span color=\"red\">", val ,"</span>", NULL);
 				gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
 								   VALUE_COLUMN, val,-1);
-			}
-		// }
-		// gtk_ctree_node_set_row_style (ctree, item, style);
+		}
 		expanded = TRUE;
 	}
 	else		/* child not found - insert it */
@@ -1487,7 +1482,7 @@ debug_tree_create ()
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text", VALUE_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "markup", VALUE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Value"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (d_tree->tree), column);
@@ -1538,10 +1533,10 @@ debug_tree_create ()
 					 d_tree->middle_click_menu, d_tree);
 
 	add_menu_separator (d_tree->middle_click_menu);
-/*	build_menu_item (_("Inspect memory"),
+	build_menu_item (_("Inspect memory"),
 					 GTK_SIGNAL_FUNC(on_inspect_memory_clicked),
 					 d_tree->middle_click_menu, d_tree);
-	*/
+	
 	return d_tree;
 }
 

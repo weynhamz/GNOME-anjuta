@@ -168,7 +168,7 @@ gint text_editor_set_marker (TextEditor * te, glong line, gint marker);
 gint text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
 
 gboolean text_editor_load_file (TextEditor * te);
-gboolean text_editor_save_file (TextEditor * te);
+gboolean text_editor_save_file (TextEditor * te, gboolean update);
 
 gboolean text_editor_is_saved (TextEditor * te);
 gboolean text_editor_has_selection (TextEditor * te);

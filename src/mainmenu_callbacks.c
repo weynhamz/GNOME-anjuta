@@ -106,7 +106,7 @@ on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
 		gtk_widget_show (app->save_as_fileselection);
 		return;
 	}
-	ret = text_editor_save_file (te);
+	ret = text_editor_save_file (te, TRUE);
 	if (closing_state && ret == TRUE)
 	{
 		anjuta_remove_text_editor (te);

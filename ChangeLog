@@ -1,8 +1,41 @@
+2003-05-20  Naba Kumar  <naba@gnome.org>
+
+	Patch from Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
+	* src/debug_tree.c: Colorize the modified locals during
+	debugging and call memory analyze from the debugger.
+	* src/breakpoints.c: The color is now different for the enabled
+	and disabled breakpoints. Anjuta now can erase several
+	breakpoints defined at the same line. The markers are updated
+	according to the enable/disable action.
+	
+	Patch from Etay Meiri  <etay-m@bezeqint.net>
+	* src/launcher.c: Fixes launcher freeze up bug during build.
+
+2003-05-16  Dan Elphick <dre00r@ecs.soton.ac.uk>
+ 
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* scintilla/PropSet.h: Change member variables from private to protected.
+	* src/properties.[ch]*: Add new methods GetString and GetExpandedString
+	to PropSetFile class, which return a gchar * (and can therefore indicate
+	whether properties are empty or do not exist) and make prop_get and
+	prop_get_expanded use them.
+	* src/project_dbase.c: Fix where project_dbase_module_is_empty assumes
+	that the result of of prop_get cannot be an empty string.
+
+2003-05-14	Dan Elphick <dre00r@ecs.soton.ac.uk>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* src/text_editor.[ch], src/anjuta.c, src/anjuta.c, src/anjuta_cbs.c,
+	src/build_file.c, src/compile.c, src/mainmenu_callbacks.c,
+	src/text_editor_cbs.c: When saving all the files in the project, the
+	text editors are now only rehighlighted once instead of once for each
+	file saved.
+
 2003-05-16  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/main.c, widgets/e-splash.c: Splash screen improvements.
 	* src/anjuta.desktop.in.in: Support startup notification.
 
-2003-05-13    Dan Elphick <dre00r@ecs.soton.ac.uk>
+2003-05-13  Dan Elphick <dre00r@ecs.soton.ac.uk>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>
 	

@@ -53,7 +53,7 @@ build_file ()
 	}
 	if (text_editor_is_saved (te) == FALSE)
 	{
-		if (text_editor_save_file (te) == FALSE)
+		if (text_editor_save_file (te, TRUE) == FALSE)
 			return;
 	}
 	

@@ -1078,13 +1078,18 @@ void
 anjuta_save_all_files()
 {
 	TextEditor *te;
-	int i;
-	for (i = 0; i < g_list_length (app->text_editor_list); i++)
+	GList *tmp;
+	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
-		te = g_list_nth_data (app->text_editor_list, i);
+		te = (TextEditor *) tmp->data;
+		/* Save the file if necessary but do not update highlighting. */ 
 		if (te->full_filename && !text_editor_is_saved (te))
-			text_editor_save_file (te);
+			text_editor_save_file (te, FALSE);
 	}
+	/* Update the highlighting after all the files are saved. */
+	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+		text_editor_set_hilite_type((TextEditor *) tmp->data);
+
 	anjuta_status (_("All files saved ..."));
 }
 
@@ -2227,7 +2232,7 @@ anjuta_save_file_if_modified( const gchar *szFullPath )
 	{
 		if( !text_editor_is_saved (te) )
 		{
-			text_editor_save_file (te);
+			text_editor_save_file (te, TRUE);
 		}
 	}
 	return;

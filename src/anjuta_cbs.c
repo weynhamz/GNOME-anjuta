@@ -449,7 +449,7 @@ save_as_real (void)
 	
 	te->full_filename = g_strdup (full_filename);
 	te->filename = g_strdup (extract_filename (full_filename));
-	status = text_editor_save_file (te);
+	status = text_editor_save_file (te, TRUE);
 	gtk_widget_hide (app->save_as_fileselection);
 	if (status == FALSE)
 	{

@@ -24,7 +24,7 @@ struct Property {
 /**
  */
 class PropSet {
-private:
+protected:
 	enum { hashRoots=31 };
 	Property *props[hashRoots];
 	Property *enumnext;

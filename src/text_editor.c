@@ -903,7 +903,7 @@ text_editor_load_file (TextEditor * te)
 }
 
 gboolean
-text_editor_save_file (TextEditor * te)
+text_editor_save_file (TextEditor * te, gboolean update)
 {
 	gint tags_update;
 
@@ -942,10 +942,13 @@ text_editor_save_file (TextEditor * te)
 					TextEditor *te1;
 					tm_source_file_update(TM_WORK_OBJECT(te->tm_file)
 					  , FALSE, FALSE, TRUE);
-					for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+					if(update)
 					{
-						te1 = (TextEditor *) tmp->data;
-						text_editor_set_hilite_type(te1);
+						for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+						{
+							te1 = (TextEditor *) tmp->data;
+							text_editor_set_hilite_type(te1);
+						}
 					}
 				}
 			}

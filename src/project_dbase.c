@@ -1869,6 +1869,11 @@ project_dbase_module_is_empty (ProjectDBase * p, PrjModule module)
 	g_free (tmp);
 	if (!str)
 		return TRUE;
+	if(str[0] == '\0')
+	{
+		g_free (str);
+		return TRUE;
+	}
 	g_free (str);
 	return FALSE;
 }
