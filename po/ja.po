@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.0.0\n"
 "POT-Creation-Date: 2002-11-03 22:47+0900\n"
-"PO-Revision-Date: 2002-11-03 22:46+0900\n"
+"PO-Revision-Date: 2002-11-07 00:06+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -4713,7 +4713,7 @@ msgstr "エディタ"
 #: src/preferences_gui.c:206 src/signals_gui.c:121 src/text_editor_gui.c:264
 #: src/toolbar.c:218
 msgid "Print"
-msgstr "表示"
+msgstr "印刷"
 
 #: src/preferences_gui.c:215
 msgid "Auto Format"
@@ -5022,11 +5022,11 @@ msgstr "モード:"
 
 #: src/preferences_gui.c:1583
 msgid "Color"
-msgstr "色"
+msgstr "カラー"
 
 #: src/preferences_gui.c:1597
 msgid "Normal"
-msgstr "通常"
+msgstr "白黒"
 
 #: src/preferences_gui.c:1611
 msgid "Orientation:"
@@ -5118,7 +5118,7 @@ msgstr "CVS 圧縮レベル (-z)"
 
 #: src/preferences_gui.c:2053
 msgid "Force update (-P -d -A)"
-msgstr "強制 update (-P -d -A)"
+msgstr "強制 update (-P -d -A) する"
 
 #: src/preferences_gui.c:2054
 msgid "CVS Update"
@@ -5934,7 +5934,7 @@ msgstr " 停止: "
 
 #: src/signals_gui.c:253
 msgid " Print: "
-msgstr " 表示: "
+msgstr " 印刷: "
 
 #: src/source.c:113
 #, c-format
@@ -6125,7 +6125,7 @@ msgstr "行:"
 
 #: src/text_editor_gui.c:240 src/toolbar.c:452
 msgid "Compile the current file"
-msgstr "このファイルをコンパイル"
+msgstr "このファイルをコンパイルします"
 
 #: src/text_editor_gui.c:252
 msgid "Build current file or the source directory of the Project"
@@ -6331,7 +6331,7 @@ msgstr "プロジェクトのトップディレクトリからビルドします"
 
 #: src/toolbar.c:512
 msgid "Start the Debugger"
-msgstr "デバッガの起動"
+msgstr "デバッガを起動します"
 
 #: src/toolbar.c:523
 msgid "Stop/interrupt compile or build"
@@ -6475,15 +6475,15 @@ msgstr "レジスタ"
 
 #: src/toolbar.c:1005
 msgid "CPU registers and their contents"
-msgstr "CPU レジスタとその内容"
+msgstr "CPU レジスタとその内容を表示します"
 
 #: src/toolbar.c:1019
 msgid "End the debugging session"
-msgstr "デバッグセッションの終了"
+msgstr "デバッグセッションの終了します"
 
 #: src/toolbar.c:1115
 msgid "Toggle current code fold hide/show"
-msgstr "カーソル行でコードの折り畳みの切り替え"
+msgstr "カーソル行でコード行の折り畳みを切り替えます"
 
 #: src/toolbar.c:1126
 msgid "Close all"
@@ -6491,7 +6491,7 @@ msgstr "全て閉じる"
 
 #: src/toolbar.c:1128
 msgid "Close all code folds in this document"
-msgstr "このドキュメントの中にあるコードの折り畳みを全て閉じます"
+msgstr "このドキュメントの中にあるコード行の折り畳みを全て閉じます"
 
 #: src/toolbar.c:1139
 msgid "Open all"
@@ -6499,7 +6499,7 @@ msgstr "全て開く"
 
 #: src/toolbar.c:1141
 msgid "Open all code folds in this document"
-msgstr "このドキュメントの中にあるコードの折り畳みを全て開きます"
+msgstr "このドキュメントの中にあるコード行の折り畳みを全て開きます"
 
 #: src/toolbar.c:1155
 msgid "Select"
@@ -6507,7 +6507,7 @@ msgstr "選択"
 
 #: src/toolbar.c:1156
 msgid "Select current code block"
-msgstr "このコードブックを選択"
+msgstr "このコードブックを選択します"
 
 #: src/toolbar.c:1167
 msgid "Indent inc"
@@ -6515,7 +6515,7 @@ msgstr "インデント増加"
 
 #: src/toolbar.c:1169
 msgid "Increase indentation of block/line"
-msgstr "ブロック/行のインデントを増やす"
+msgstr "ブロック/行のインデントを増やします"
 
 #: src/toolbar.c:1180
 msgid "Indent dcr"
@@ -6523,7 +6523,7 @@ msgstr "インデント減少"
 
 #: src/toolbar.c:1182
 msgid "Decrease indentation of block/line"
-msgstr "ブロック/行のインデントを減らす"
+msgstr "ブロック/行のインデントを減らします"
 
 #: src/toolbar.c:1196
 msgid "Autoformat"
@@ -6539,7 +6539,7 @@ msgstr "書式スタイル"
 
 #: src/toolbar.c:1211
 msgid "Configure style to use for auto format"
-msgstr "書式の自動整形で使用するスタイルの設定"
+msgstr "書式の自動整形で使用するスタイルを設定します"
 
 #: src/toolbar.c:1224
 msgid "Calltip"
@@ -6555,7 +6555,7 @@ msgstr "オートコンプリート"
 
 #: src/toolbar.c:1239
 msgid "Autocomplete word"
-msgstr "単語の自動補完"
+msgstr "単語を自動的に補完します"
 
 #: src/toolbar_callbacks.c:181
 #, c-format
