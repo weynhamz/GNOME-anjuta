@@ -20,6 +20,8 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
 static void on_ok_clicked (MacroPlugin * plugin);
+gboolean on_macro_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
+				MacroPlugin * plugin);
 static void on_cancel_clicked (MacroPlugin * dialog);
 static void on_dialog_response (GtkWidget * dialog, gint response,
 				MacroPlugin * plugin);
@@ -96,7 +98,7 @@ macro_dialog_init (MacroDialog * dialog)
 		glade_xml_get_widget (dialog->gxml, "macro_preview");
 	dialog->details_label =
 		glade_xml_get_widget (dialog->gxml, "macro_details");
-
+			
 	glade_xml_signal_connect_data (dialog->gxml, "on_edit_clicked",
 				       G_CALLBACK (on_edit_clicked), dialog);
 	glade_xml_signal_connect_data (dialog->gxml, "on_add_clicked",
@@ -120,9 +122,12 @@ macro_dialog_new (MacroPlugin * plugin)
 	GtkTreeViewColumn *column;
 	MacroDialog *dialog =
 		MACRO_DIALOG (g_object_new (macro_dialog_get_type (), NULL));
+	
 	g_signal_connect (G_OBJECT (dialog), "response",
 			  G_CALLBACK (on_dialog_response), plugin);
-
+	g_signal_connect(G_OBJECT(dialog), "key-press-event",
+			G_CALLBACK(on_macro_dialog_key_press_event), plugin);
+	
 	plugin->macro_dialog = GTK_WIDGET (dialog);
 	
 	dialog->macro_db = plugin->macro_db;
@@ -268,6 +273,14 @@ on_ok_clicked (MacroPlugin * plugin)
 			gtk_widget_hide (plugin->macro_dialog);
 		}
 	}
+}
+
+gboolean
+on_macro_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                               MacroPlugin * plugin)
+{
+	if (event->keyval == GDK_Escape)
+		gtk_widget_hide (GTK_WIDGET (plugin->macro_dialog));
 }
 
 static void

@@ -25,6 +25,9 @@ static void on_edit_cancel_clicked (MacroEdit * edit);
 static void on_dialog_response (GtkWidget * dialog, gint response,
 				MacroEdit * edit);
 
+gboolean on_macro_edit_key_press_event(GtkWidget *widget, GdkEventKey *event,
+				gpointer user_data);
+				
 static void fill_category_combo (MacroEdit * edit, GtkWidget * combo);
 
 static void macro_edit_class_init (MacroEditClass * klass);
@@ -106,6 +109,10 @@ macro_edit_new (int type, MacroDB * db)
 	edit->type = type;
 	edit->macro_db = db;
 	fill_category_combo (edit, edit->category_entry);
+	
+	g_signal_connect(G_OBJECT(edit), "key-press-event",
+			G_CALLBACK(on_macro_edit_key_press_event), NULL);
+	
 	return GTK_WIDGET (edit);
 }
 
@@ -260,6 +267,14 @@ static void
 on_edit_cancel_clicked (MacroEdit * edit)
 {
 	on_add_cancel_clicked (edit);
+}
+
+gboolean
+on_macro_edit_key_press_event(GtkWidget *widget, GdkEventKey *event,
+                               gpointer user_data)
+{
+	if (event->keyval == GDK_Escape)
+		gtk_widget_hide (widget);
 }
 
 static void

@@ -1,3 +1,8 @@
+2005-02-17  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/macro/macro-dialog.c, plugins/macro/macro-edit.c :
+	Closed macro dialogs with Esc key.
+
 2005-02-16  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
