@@ -45,6 +45,8 @@
 #include "pixmaps.h"
 #include "start-with.h"
 #include "anjuta-encodings.h"
+#include "search-replace.h"
+#include "search_preferences.h"
 #include "anjuta.h"
 
 #define GTK

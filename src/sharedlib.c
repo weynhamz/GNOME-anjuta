@@ -80,7 +80,7 @@ sharedlibs_show(Sharedlibs* ew)
 
   if(ew)
   {
-     if (was_showing = ew->is_showing)
+     if ((was_showing = ew->is_showing))
      {
          gdk_window_raise(ew->widgets.window->window);
 		 return;

@@ -604,7 +604,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 #ifdef TOOL_DEBUG
 		g_message("Final command: '%s'\n", command);
 #endif
-		gnome_execute_shell(working_dir, command);
+		anjuta_execute_shell(working_dir, command);
 	}
 	else
 	{

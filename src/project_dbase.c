@@ -1555,7 +1555,7 @@ project_dbase_edit_gui (ProjectDBase *p)
 #ifdef DEBUG
 		g_message ("GUI editing command: %s", edit_command);
 #endif
-		gnome_execute_shell (p->top_proj_dir, edit_command);
+		anjuta_execute_shell (p->top_proj_dir, edit_command);
 		g_free (edit_command);
 		return TRUE;
 	}

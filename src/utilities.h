@@ -185,7 +185,7 @@ void entry_set_text_n_select(GtkWidget* w, gchar* chars, gboolean use_selection)
 
 /* Creates a dir, if it already doesnot exists */
 /* All the required parent dirs are also created if they don't exist */
-gboolean force_create_dir(gchar* d);
+gboolean force_create_dir(const gchar* d);
 
 /* Checks if the (parent) is parent widget of the (child)*/
 gboolean widget_is_child(GtkWidget *parent, GtkWidget* child);
@@ -318,5 +318,9 @@ anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text,
 						  const gchar* stock_id, gint response_id);
 GtkWidget* 
 anjuta_button_new_with_stock_image (const gchar* text, const gchar* stock_id);
+
+/* Equivalent to gnome_execute_shell(), but does not overwrite
+ * SIGCHLD handler */
+pid_t anjuta_execute_shell (const gchar *dir, const gchar *command);
 
 #endif

@@ -28,6 +28,7 @@
 #include "message-manager.h"
 #include "debug_tree.h"
 #include "watch.h"
+#include "anjuta.h"
 
 using std::vector;
 using std::string;

@@ -174,7 +174,7 @@ executer_execute (Executer * e)
 
 	anjuta_set_execution_dir (dir);
 	if (dir) chdir (dir);
-	gnome_execute_shell (dir, cmd);
+	anjuta_execute_shell (dir, cmd);
 	g_free (dir);
 	g_free (command);
 	g_free (cmd);

@@ -768,10 +768,13 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 	if (launcher->priv->stdout_is_done == FALSE ||
 	    launcher->priv->stderr_is_done == FALSE)
 		return TRUE;
-#ifdef DEBUG
 	if (launcher->priv->child_has_terminated == FALSE)
-		g_message ("launcher: We missed the exit of the child");
+	{
+#ifdef DEBUG
+		g_warning ("launcher: We missed the exit of the child");
 #endif
+		anjuta_kernel_signals_connect();
+	}
 	
 	anjuta_launcher_execution_done_cleanup (launcher);
 	return FALSE;

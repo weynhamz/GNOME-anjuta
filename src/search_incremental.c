@@ -43,13 +43,10 @@
 
 #include "search-replace_backend.h"
 #include "search-replace.h"
+#include "search_incremental.h"
 
-
-static void
-toolbar_search_start_over (void);
-
-static void
-toolbar_search_clicked (void);
+static void toolbar_search_start_over (void);
+static void toolbar_search_clicked (void);
 
 static gint
 incremental_search(TextEditor *te, gchar *string);
@@ -59,7 +56,7 @@ incremental_search(TextEditor *te, gchar *string);
 static SearchReplace *sr = NULL;
 
 
-static
+static void
 incremental_save_retrieve_expr(gboolean save)
 {
 	static gboolean save_regex = FALSE;
@@ -204,7 +201,7 @@ toolbar_search_clicked (void)
 	TextEditor *te;
 	const gchar *string;
 	gint ret;
-	gboolean search_wrap = FALSE;
+	/* gboolean search_wrap = FALSE; */
 
 	if (!(te = anjuta_get_current_text_editor()))
 		return;

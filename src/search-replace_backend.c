@@ -593,48 +593,6 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	return mi;
 }
 
-
-void
-function_select(TextEditor *te)
-{
-	gint pos;
-	gint line;
-	gint fold_level;
-	gint start, end;	
-	gint line_count;
-	gint tmp;
-
-	line_count = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                    SCI_GETLINECOUNT, 0, 0);
-	pos = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                             SCI_GETCURRENTPOS, 0, 0);
-	line = scintilla_send_message(SCINTILLA(te->widgets.editor),
-	                              SCI_LINEFROMPOSITION, pos, 0);
-
-	tmp = line + 1;	
-	fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                    SCI_GETFOLDLEVEL, line, 0) ;	
-	if ((fold_level & 0xFF) != 0)
-	{
-		while((fold_level & 0x10FF) != 0x1000 && line >= 0)
-			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                    SCI_GETFOLDLEVEL, --line, 0) ;
-		start = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                    SCI_POSITIONFROMLINE, line + 1, 0);
-		line = tmp;
-		fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                        SCI_GETFOLDLEVEL, line, 0) ;
-		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
-			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
-
-		end = scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                                 SCI_POSITIONFROMLINE, line , 0);
-		scintilla_send_message(SCINTILLA(te->widgets.editor), 
-	                           SCI_SETSEL, start, end) ;
-	}
-}
-
 /* Create list of search entries */
 GList
 *create_search_entries(Search *s)
@@ -694,7 +652,7 @@ GList
 				if (s->range.type == SR_BLOCK)
 					aneditor_command(se->te->editor_id, ANE_SELECTBLOCK, 0, 0);
 				if (s->range.type == SR_FUNCTION)
-					function_select(se->te);
+					text_editor_function_select(se->te);
 				if (SD_BEGINNING == se->direction)
 					se->direction = SD_FORWARD;
 				se->start_pos = scintilla_send_message(SCINTILLA(
@@ -810,7 +768,7 @@ regex_backref(MatchInfo *mi, FileBuffer *fb)
 
 #define FREE_FN(fn, v) if (v) { fn(v); v = NULL; }
 
-void
+static void
 clear_search_replace_instance(void)
 {
 	FREE(sr->search.expr.search_str);

@@ -837,7 +837,7 @@ entry_set_text_n_select (GtkWidget * entry, gchar * text,
 }
 
 gboolean
-force_create_dir (gchar * d)
+force_create_dir (const gchar * d)
 {
 	if (file_is_directory (d))
 		return TRUE;
@@ -1204,11 +1204,6 @@ get_swapped_filename(gchar* filename)
 	}
 	g_free(newfname);	
 	return NULL;
-}
-
-pid_t
-anjuta_fork_command()
-{
 }
 
 gboolean
@@ -1613,12 +1608,17 @@ gint
 anjuta_util_kill (pid_t process_id, const gchar* signal)
 {
 	int status;
-	gchar *cmd;
+	gchar *pid_str;
 	pid_t pid;
 	
-	cmd = g_strdup_printf ("kill -s %s %d", signal, process_id);
-	pid = gnome_execute_shell (getenv("HOME"), cmd);
-	g_free (cmd);
+	pid_str = g_strdup_printf ("%d", process_id);
+	pid = fork();
+	if (pid == 0)
+	{
+		execlp ("kill", "kill", "-s", signal, pid_str, NULL);
+		g_error ("Can not execute kill command");
+	}
+	g_free (pid_str);
 	if (pid > 0) {
 		waitpid (pid, &status, 0);
 		return 0;
@@ -1934,4 +1934,31 @@ anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text,
 	gtk_dialog_add_action_widget (dialog, button, response_id);	
 
 	return button;
+}
+
+pid_t
+anjuta_execute_shell (const gchar *dir, const gchar *command)
+{
+	pid_t pid;
+	gchar *shell;
+	
+	g_return_val_if_fail (command != NULL, -1);
+	
+	shell = gnome_util_user_shell ();
+	pid = fork();
+	if (pid == 0)
+	{
+		if(dir)
+		{
+			force_create_dir (dir);
+			chdir (dir);
+		}
+		execlp (shell, shell, "-c", command, NULL);
+		g_error ("Cannot execute command %s using shell %s\n", command, shell);
+	}
+	if (pid < 0)
+		g_warning ("Cannot execute command %s using shell %s\n", command, shell);
+	g_free (shell);
+	// Anjuta will take care of child exit automatically.
+	return pid;
 }

@@ -21,9 +21,9 @@ void toolbar_search_incremental_end (void);
 	
 void toolbar_search_incremental (void);
 
-void toolbar_search_clicked (void);
+void toolbar_search_clicked_cb (void);
 	
-void enter_selection_as_search_target(void);	
+void enter_selection_as_search_target (void);	
 	
 	
 #ifdef __cplusplus

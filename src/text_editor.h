@@ -204,6 +204,8 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te);
 void text_editor_tab_widget_destroy(TextEditor* te);
 gchar *text_editor_get_current_word(TextEditor *te);
 
+void text_editor_function_select(TextEditor *te);
+
 #define linenum_text_editor_to_scintilla(x) (x-1)
 
 #define linenum_scintilla_to_text_editor(x) (x+1)

@@ -345,7 +345,7 @@ on_editor_select_function (GtkMenuItem * menuitem, gpointer user_data)
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
-	function_select(te);
+	text_editor_function_select(te);
 }
 
 

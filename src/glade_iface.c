@@ -244,8 +244,9 @@ glade_iface_generate_source_code(gchar* glade_file)
 gboolean
 glade_iface_start_glade_editing (gchar* glade_file)
 {
-	gchar *dir, *cmd;
+	gchar *dir;
 	gboolean glade_2;
+	pid_t pid;
 	
 	g_return_val_if_fail (glade_file != NULL, FALSE);
 	glade_2 = glade_is_glade_2 (glade_file);
@@ -261,25 +262,21 @@ glade_iface_start_glade_editing (gchar* glade_file)
 			return FALSE;
 	}
 	dir = g_dirname (glade_file);
-	if(dir)
+	/* gnome_execute_shell (dir, cmd) is evil. It overwrites SIGCHLD */;
+	pid = fork();
+	if (pid == 0)
 	{
-		force_create_dir (dir);
-		if (chdir (dir) < 0)
+		if(dir)
 		{
-			g_free (dir);
-			return FALSE;
+			force_create_dir (dir);
+			chdir (dir);
 		}
+		if (glade_2)
+			execlp ("glade-2", "glade-2", glade_file, NULL);
+		else
+			execlp ("glade", "glade", glade_file, NULL);
+		g_error ("Cannot execute glade\n");
 	}
-	if (glade_2)
-	{
-		cmd = g_strconcat ("glade-2 ", glade_file, NULL);
-	}
-	else
-	{
-		cmd = g_strconcat ("glade ", glade_file, NULL);
-	}
-	gnome_execute_shell (dir, cmd);
 	g_free (dir);
-	g_free (cmd);
 	return TRUE;
 }

@@ -839,6 +839,10 @@ void TerminalWindow::term_init_cb (GtkWidget *widget,
 	tw->m_child_pid = vte_terminal_fork_command (term, shell, NULL, env, dir, 0, 0, 0);
 #endif
 	g_strfreev (env);
+	
+	/* The fork command above overwirtes our SIGCHLD signal handler.
+	 * Restore it */
+	anjuta_kernel_signals_connect ();
 	tw->preferences_update ();
 }
 

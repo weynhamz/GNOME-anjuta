@@ -73,6 +73,7 @@ cpu_registers_update(CpuRegisters *ew)
 					cpu_registers_update_cb, ew);
 	}
 }
+
 void
 cpu_registers_show(CpuRegisters* ew)
 {
@@ -80,7 +81,7 @@ cpu_registers_show(CpuRegisters* ew)
 
   if(ew)
   {
-     if (was_showing = ew->is_showing)
+     if ((was_showing = ew->is_showing))
      {
 		 gdk_window_raise(ew->widgets.window->window);
      }

@@ -33,7 +33,7 @@ void search_replace_next(void);
 	
 void search_replace_previous(void);
 
-void search_replace_find_usage(gchar *symbol);
+void search_replace_find_usage(const gchar *symbol);
 
 void anjuta_search_replace_activate (gboolean replace, gboolean project);
 	
@@ -42,7 +42,6 @@ GladeWidget *sr_get_gladewidget(const gchar *name);
 void search_replace_populate(void);
 
 void search_update_dialog(void);
-
 
 #define GLADE_FILE "anjuta.glade"
 #define SEARCH_REPLACE_DIALOG "dialog.search.replace"

@@ -1426,12 +1426,12 @@ on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 	search_and_replace();
 }
 
-void search_replace_find_usage(gchar *symbol)
+void search_replace_find_usage(const gchar *symbol)
 {
 	SearchReplace *old_sr = sr;
 	sr = g_new (SearchReplace, 1);
 
-	sr->search.expr.search_str = symbol;
+	sr->search.expr.search_str = g_strdup (symbol);
 	sr->search.expr.regex = FALSE;
 	sr->search.expr.greedy = FALSE;
 	sr->search.expr.ignore_case = FALSE;
