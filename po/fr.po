@@ -1,16 +1,16 @@
 # anjuta fr.po 
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Stéphane Démurget <demurgets@free.fr>, 2001.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 0.1.4\n"
-"POT-Creation-Date: 2001-04-15 01:37+0530\n"
-"PO-Revision-Date: 2001-04-13 01:02+0200\n"
+"Project-Id-Version: anjuta 0.1.5\n"
+"POT-Creation-Date: 2001-04-26 00:51+0200\n"
+"PO-Revision-Date: 2001-04-26 00:53+0200\n"
 "Last-Translator: Stéphane Démurget <demurgets@free.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/anjuta_cbs.c:77
@@ -40,7 +40,7 @@ msgstr ""
 "Le fichier \"%s\" existe déjà.\n"
 "Voulez-vous vraiment l'écraser ?"
 
-#: src/anjuta_dirs.c:54
+#: src/anjuta_dirs.c:52
 msgid "Unable to create settings directory.\n"
 msgstr "Impossible de créer le répertoire des préférences.\n"
 
@@ -206,23 +206,23 @@ msgstr "Assistant de création d'une application Gnome"
 msgid "Gnome Application Widzard:     Page 1 of 6"
 msgstr "Assistant de création d'une application Gnome    (1/6)"
 
-#: src/appwidzard_gui.c:153
+#: src/appwidzard_gui.c:151
 msgid "Gnome Application Widzard:     Page 2 of 6"
 msgstr "Assistant de création d'une application Gnome    (2/6)"
 
-#: src/appwidzard_gui.c:178
+#: src/appwidzard_gui.c:175
 msgid "Gnome Application Widzard:     Page 3 of 6"
 msgstr "Assistant de création d'une application Gnome    (3/6)"
 
-#: src/appwidzard_gui.c:204
+#: src/appwidzard_gui.c:200
 msgid "Gnome Application Widzard:     Page 4 of 6"
 msgstr "Assistant de création d'une application Gnome    (4/6)"
 
-#: src/appwidzard_gui.c:229
+#: src/appwidzard_gui.c:224
 msgid "Gnome Application Widzard:     Page 5 of 6"
 msgstr "Assistant de création d'une application Gnome    (5/6)"
 
-#: src/appwidzard_gui.c:253
+#: src/appwidzard_gui.c:247
 msgid "Gnome Application Widzard:     Page 6 of 6"
 msgstr "Assistant de création d'une application Gnome    (6/6)"
 
@@ -264,7 +264,7 @@ msgstr "Commande"
 msgid "Update"
 msgstr "Rafraîchir"
 
-#: src/attach_process_gui.c:108 src/text_editor_gui.c:271
+#: src/attach_process_gui.c:108 src/text_editor_gui.c:270
 msgid "Attach"
 msgstr "Attacher"
 
@@ -280,7 +280,7 @@ msgstr "Oui"
 msgid "NO"
 msgstr "Non"
 
-#: src/breakpoints.c:489 src/main_menubar_def.h:463 src/text_editor_gui.c:224
+#: src/breakpoints.c:489 src/main_menubar_def.h:463 src/text_editor_gui.c:223
 msgid "0"
 msgstr "0"
 
@@ -384,7 +384,7 @@ msgid "I do not really know how to build this file."
 msgstr "Je ne sais pas comment construire ce fichier."
 
 #: src/build_file.c:107 src/messages.c:533 src/preferences_gui.c:169
-#: src/text_editor_gui.c:246 src/toolbar.c:477
+#: src/text_editor_gui.c:245 src/toolbar.c:477
 msgid "Build"
 msgstr "Commandes"
 
@@ -472,7 +472,7 @@ msgstr "Installation du projet :"
 #: src/build_project.c:266
 msgid "Unable to autogenerate. Check Preferences->Commands."
 msgstr ""
-"Impossible de créer les fichies d'autoconfiguration.\n"
+"Impossible de créer les fichiers d'autoconfiguration.\n"
 "Vérifier les options dans Préférences->Commandes."
 
 #: src/build_project.c:277
@@ -694,7 +694,7 @@ msgstr ""
 msgid "I do not really know how to compile this file."
 msgstr "Je ne sais pas comment compiler ce fichier."
 
-#: src/compile.c:95 src/text_editor_gui.c:235 src/toolbar.c:454
+#: src/compile.c:95 src/text_editor_gui.c:234 src/toolbar.c:454
 msgid "Compile"
 msgstr "Compiler"
 
@@ -956,29 +956,36 @@ msgstr "Optimisation avancée (sans désavantage taille/vitesse)"
 msgid "Fastest code optimization (Function inlined where ever possible"
 msgstr "Optimisation maximale (fonctions 'inline' dès que possible)"
 
+#: src/compiler_options_gui.c:1042
+#, fuzzy
+msgid "Note"
+msgstr "Note"
+
 #: src/compiler_options_gui.c:1048
 msgid ""
-"Note: With optimization enabled, you might have some difficulty in debugging "
-"your program. So it is not a good idea to enable both debug and optimization "
-"options, unless what you want is to debug the optimized code."
+"With optimization enabled, you might have some difficulty\n"
+"debugging your program. So it is not a good idea to enable\n"
+"both debug and optimization options, unless what you want\n"
+"is to debug the optimized code."
 msgstr ""
-"Note : L'optimisation du code peut entraîner des difficultés de débogage. Ce "
-"n'est donc peut être pas une bonne idée d'activer les options de débogage de "
-"d'optimisation ensemble, sauf si vous voulez déboguer du code optimisé."
+"L'optimisation du code peut entraîner des difficultés\n"
+"de débogage. Ce n'est donc peut être pas une bonne idée\n"
+"d'activer les options de débogage et d'optimisation\n"
+"ensemble, sauf si vous voulez déboguer du code optimisé."
 
-#: src/compiler_options_gui.c:1091
+#: src/compiler_options_gui.c:1090
 msgid "Enable Debugging"
 msgstr "Activer le débogage"
 
-#: src/compiler_options_gui.c:1099
+#: src/compiler_options_gui.c:1098
 msgid "Enable Profiling"
-msgstr "Activer l'écoute des performances"
+msgstr "Activer l'audit des performances"
 
-#: src/compiler_options_gui.c:1110
+#: src/compiler_options_gui.c:1109
 msgid "Additional compiler options (command line options)"
 msgstr "Options de compilation supplémentaires"
 
-#: src/compiler_options_gui.c:1126
+#: src/compiler_options_gui.c:1125
 msgid "Additional linker options (command line options)"
 msgstr "Options de liaison supplémentaires"
 
@@ -1095,7 +1102,7 @@ msgstr "Aucun positionnement particulier\n"
 #: src/debugger.c:556
 msgid "Open an executable or attach to a process to start debuging.\n"
 msgstr ""
-"Il faut ouvrir un exécutable ou attacher\n"
+"Il faut ouvrir un exécutable ou attacher un\n"
 "processus au débogueur avant de pouvoir débuter le débogage.\n"
 
 #: src/debugger.c:564
@@ -1160,8 +1167,7 @@ msgstr ""
 msgid "You FOOL! I can not attach to myself."
 msgstr ""
 "A mon avis, vous devez être plus que largement positif au moindre alcootest "
-"!\n"
-"Comment voulez-vous que je m'attache en plein exécution ?"
+"!\nComment voulez-vous que je m'attache en plein exécution ?"
 
 #: src/debugger.c:1213
 #, c-format
@@ -1507,7 +1513,7 @@ msgstr "projet1"
 msgid "_New"
 msgstr "_Nouveau"
 
-#: src/main_menubar_def.h:38 src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/main_menubar_def.h:38 src/text_editor_gui.c:111 src/toolbar.c:109
 msgid "New Text File"
 msgstr "Nouveau fichier texte"
 
@@ -1515,7 +1521,7 @@ msgstr "Nouveau fichier texte"
 msgid "_Open ..."
 msgstr "_Ouvrir ..."
 
-#: src/main_menubar_def.h:44 src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/main_menubar_def.h:44 src/text_editor_gui.c:121 src/toolbar.c:120
 msgid "Open Text File"
 msgstr "Ouvrir un fichier texte"
 
@@ -1523,7 +1529,7 @@ msgstr "Ouvrir un fichier texte"
 msgid "_Save"
 msgstr "_Enregistrer"
 
-#: src/main_menubar_def.h:50 src/text_editor_gui.c:134 src/toolbar.c:133
+#: src/main_menubar_def.h:50 src/text_editor_gui.c:133 src/toolbar.c:133
 msgid "Save Current File"
 msgstr "Enregistre le fichier courant"
 
@@ -1555,7 +1561,7 @@ msgstr "Ferme le fichier courant"
 msgid "Reload F_ile"
 msgstr "_Recharger"
 
-#: src/main_menubar_def.h:74 src/text_editor_gui.c:145 src/toolbar.c:169
+#: src/main_menubar_def.h:74 src/text_editor_gui.c:144 src/toolbar.c:169
 msgid "Reload Current File"
 msgstr "Recharge le fichier courant"
 
@@ -1611,7 +1617,7 @@ msgstr "Mise en page pour l'impression"
 msgid "_Print ..."
 msgstr "_Imprimer ..."
 
-#: src/main_menubar_def.h:119 src/text_editor_gui.c:261 src/toolbar.c:219
+#: src/main_menubar_def.h:119 src/text_editor_gui.c:260 src/toolbar.c:219
 msgid "Print the current File"
 msgstr "Imprime le fichier courant"
 
@@ -3018,7 +3024,7 @@ msgstr "Débogage"
 msgid "Find messages"
 msgstr "Chercher un message"
 
-#: src/messages.c:565 src/text_editor_gui.c:187 src/toolbar.c:231
+#: src/messages.c:565 src/text_editor_gui.c:186 src/toolbar.c:231
 msgid "Find"
 msgstr "Chercher"
 
@@ -3341,8 +3347,7 @@ msgstr ""
 "Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure "
 "d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\n"
-"En attendant, je suis trop vieux pour le charger. =("
+"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:660
 #, fuzzy, c-format
@@ -3353,8 +3358,7 @@ msgid ""
 msgstr ""
 "Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\n"
-"En attendant, je suis trop vieux pour le charger. =("
+"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:718
 msgid "Project loaded successfully."
@@ -3821,7 +3825,7 @@ msgstr "Signal"
 msgid "Stop"
 msgstr "Stopper"
 
-#: src/signals_gui.c:124 src/text_editor_gui.c:260 src/toolbar.c:218
+#: src/signals_gui.c:124 src/text_editor_gui.c:259 src/toolbar.c:218
 msgid "Print"
 msgstr "Imprimer"
 
@@ -3838,7 +3842,7 @@ msgid " Print: "
 msgstr " Imprimer :"
 
 #. set the size to that of our splash image.
-#: src/anjuta_gui.c:71 src/splash.c:91
+#: src/anjuta_gui.c:71 src/splash.c:92
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -3869,25 +3873,6 @@ msgstr ""
 #: src/stack_trace_gui.c:129 src/toolbar.c:1064
 msgid "Stack"
 msgstr "Pile"
-
-#: src/support.c:56
-#, c-format
-msgid "Widget not found: %s"
-msgstr "Composant graphique non-trouve : %s"
-
-#: src/support.c:89
-msgid "Could not create replacement pixmap."
-msgstr "Impossible de créer l'image de remplacement."
-
-#: src/support.c:111 src/support.c:149
-#, c-format
-msgid "Could not find pixmap file: %s"
-msgstr "Impossible de trouver l'image : %s"
-
-#: src/support.c:127
-#, c-format
-msgid "Could not create pixmap from file: %s"
-msgstr "Impossible de créer l'image à partir du fichier : %s"
 
 #: src/tags_manager.c:185
 msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
@@ -4017,71 +4002,71 @@ msgstr "\"%s\" enregistré automatiquement"
 msgid "Autosave \"%s\" -- Failed"
 msgstr "L'enregistrement automatique de \"%s\" a échoué"
 
-#: src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/text_editor_gui.c:111 src/toolbar.c:109
 msgid "New"
 msgstr "Nouveau"
 
-#: src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/text_editor_gui.c:121 src/toolbar.c:120
 msgid "Open"
 msgstr "Ouvrir"
 
-#: src/text_editor_gui.c:134 src/toolbar.c:133
+#: src/text_editor_gui.c:133 src/toolbar.c:133
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/text_editor_gui.c:144 src/toolbar.c:168
+#: src/text_editor_gui.c:143 src/toolbar.c:168
 msgid "Reload"
 msgstr "Recharger"
 
-#: src/text_editor_gui.c:156 src/text_editor_menu.c:198
+#: src/text_editor_gui.c:155 src/text_editor_menu.c:198
 msgid "Cut"
 msgstr "Couper"
 
-#: src/text_editor_gui.c:156
+#: src/text_editor_gui.c:155
 msgid "Cut to clipboard"
 msgstr "Couper et placer dans le presse-papier"
 
-#: src/text_editor_gui.c:165 src/text_editor_menu.c:205
+#: src/text_editor_gui.c:164 src/text_editor_menu.c:205
 msgid "Copy"
 msgstr "Copier"
 
-#: src/text_editor_gui.c:166
+#: src/text_editor_gui.c:165
 msgid "Copy to clipboard"
 msgstr "Copier dans le presse-papier"
 
-#: src/text_editor_gui.c:175 src/text_editor_menu.c:212
+#: src/text_editor_gui.c:174 src/text_editor_menu.c:212
 msgid "Paste"
 msgstr "Coller"
 
-#: src/text_editor_gui.c:176
+#: src/text_editor_gui.c:175
 msgid "Paste from clipboard"
 msgstr "Coller depuis le presse-papier"
 
-#: src/text_editor_gui.c:188 src/toolbar.c:232
+#: src/text_editor_gui.c:187 src/toolbar.c:232
 msgid "Search the given string"
 msgstr "Cherche la chaîne"
 
-#: src/text_editor_gui.c:198
+#: src/text_editor_gui.c:197
 msgid "Replace"
 msgstr "Remplacer"
 
-#: src/text_editor_gui.c:200
+#: src/text_editor_gui.c:199
 msgid "Search and replace the given string"
 msgstr "Cherche et remplace la chaîne"
 
-#: src/text_editor_gui.c:220
+#: src/text_editor_gui.c:219
 msgid "line: "
 msgstr "ligne :"
 
-#: src/text_editor_gui.c:236 src/toolbar.c:455
+#: src/text_editor_gui.c:235 src/toolbar.c:455
 msgid "Compile the current file"
 msgstr "Compile le fichier courant"
 
-#: src/text_editor_gui.c:248 src/toolbar.c:479
+#: src/text_editor_gui.c:247 src/toolbar.c:479
 msgid "Build current File or Build the source directory of the Project"
 msgstr "Contruit le fichier courant ou le répertoire des sources du projet"
 
-#: src/text_editor_gui.c:273
+#: src/text_editor_gui.c:272
 msgid "Attach the editor window as paged editor"
 msgstr "Attache la fenêtre de l'éditeur dans l'interface"
 
@@ -4545,23 +4530,23 @@ msgstr "Macros"
 msgid "There is line no. %d in \"%s\"."
 msgstr "La ligne %d n'existe pas dans \"%s\"."
 
-#: src/utilities.c:672
+#: src/utilities.c:673
 #, c-format
 msgid "Couldn't read file: %s."
 msgstr "Impossible de lire le fichier : %s."
 
-#: src/source.c:120 src/source.c:182 src/source.c:217 src/source.c:461
-#: src/source.c:484 src/source.c:561 src/source.c:626 src/source.c:666
-#: src/source.c:681 src/source.c:714 src/source.c:772 src/source.c:842
-#: src/source.c:861 src/source.c:894 src/source.c:913 src/source.c:945
-#: src/source.c:964 src/source.c:994 src/source.c:1012 src/source.c:1042
-#: src/source.c:1060 src/source.c:1087 src/source.c:1139 src/source.c:1207
-#: src/source.c:1326 src/utilities.c:680
+#: src/source.c:120 src/source.c:182 src/source.c:217 src/source.c:454
+#: src/source.c:477 src/source.c:562 src/source.c:627 src/source.c:667
+#: src/source.c:682 src/source.c:715 src/source.c:773 src/source.c:843
+#: src/source.c:862 src/source.c:895 src/source.c:914 src/source.c:946
+#: src/source.c:965 src/source.c:995 src/source.c:1013 src/source.c:1043
+#: src/source.c:1061 src/source.c:1088 src/source.c:1140 src/source.c:1208
+#: src/source.c:1327 src/utilities.c:681
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Impossible de créer le fichier : %s."
 
-#: src/utilities.c:714
+#: src/utilities.c:715
 msgid "Couldn't complete file copy"
 msgstr "La copie du fichier a échouée"
 
@@ -4609,11 +4594,11 @@ msgstr "Anjuta : Inspecter/Evaluer"
 msgid "Inspect/Evaluate Expression"
 msgstr "Inspecte/Evalue une expression"
 
-#: src/about.c:45
+#: src/about.c:47
 msgid "Copyright (c) 1999 Naba Kumar"
 msgstr "Copyright (c) 1999 Naba Kumar"
 
-#: src/about.c:55
+#: src/about.c:58
 msgid "Anjuta Home Site"
 msgstr "Site web d'Anjuta"
 
@@ -4654,7 +4639,7 @@ msgstr "Nécessite un terminal"
 msgid "Error writing to file: %s."
 msgstr "Erreur lors de l'écriture dans le fichier : %s."
 
-#: src/source.c:1392
+#: src/source.c:1393
 msgid "Unkown project type."
 msgstr "Type de projet inconnu."
 
@@ -4714,7 +4699,7 @@ msgstr ""
 
 #: src/anjuta.c:1433
 msgid "Activate this to select this window"
-msgstr "Sélectionner cette fenêtre"
+msgstr "Sélectionne cette fenêtre"
 
 #: src/anjuta.c:1480
 #, c-format
@@ -4731,7 +4716,7 @@ msgstr "Aucun"
 
 #: src/anjuta.c:1523
 msgid "OVR"
-msgstr "REM"
+msgstr "ECR"
 
 #: src/anjuta.c:1527 src/anjuta.c:1533
 msgid "INS"
@@ -4760,14 +4745,38 @@ msgstr "Détache cette fenêtre"
 
 #: src/glade_iface.c:66
 msgid "Cannot fork glade."
-msgstr "Impossible d'invoquer glade."
+msgstr "Impossible de démarrer glade."
 
 #: src/glade_iface.c:103
 msgid "Cannot fork glade--."
-msgstr "Impossible d'invoquer glade--."
+msgstr "Impossible de démarrer glade--."
 
-#~ msgid "File type filter:"
-#~ msgstr "Type de fichiers : "
+#: src/resources.c:58
+msgid "Could not create replacement pixmap."
+msgstr "Impossible de créer l'image de remplacement."
 
-#~ msgid "Home"
-#~ msgstr "Répertoire personnel"
+#: src/resources.c:86
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Composant graphique non-trouve : %s"
+
+#: src/resources.c:99
+#, fuzzy, c-format
+msgid "Could not find application image file: %s"
+msgstr "Impossible de trouver l'image : %s"
+
+#: src/resources.c:121
+#, fuzzy, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr "Impossible de trouver l'image : %s"
+
+#: src/resources.c:132
+#, fuzzy, c-format
+msgid "Could not find gnome pixmap file: %s"
+msgstr "Impossible de trouver l'image : %s"
+
+#: src/resources.c:149
+#, c-format
+msgid "Could not create pixmap from file: %s"
+msgstr "Impossible de créer l'image à partir du fichier : %s"
+
