@@ -60,17 +60,15 @@ points and try to implement it.
 
 Resources:
 ----------
-<pre>
-Homepage: http://www.anjuta.org/
-Project details page: http://sourceforge.net/projects/anjuta/
-CVS snapshots: http://www.anjuta.org/cvs/
-Anonymous CVS Access: cvs -z3 -d:pserver:anonymous@anoncvs.gnome.org:/cvs/gnome co anjuta
-Mailing Lists: http://sourceforge.net/mail/?group_id=14222
-Bug database: http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse
-Feature Requests: http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse
-Forums: http://sourceforge.net/forum/?group_id=14222
-IRC: irc.gnome.org (Channel: #anjuta and #devel-apps)
-</pre>
+- Homepage: http://www.anjuta.org/
+- Project details page: http://sourceforge.net/projects/anjuta/
+- CVS snapshots: http://www.anjuta.org/cvs/
+- Anonymous CVS Access: cvs -z3 -d:pserver:anonymous@anoncvs.gnome.org:/cvs/gnome co anjuta
+- Mailing Lists: http://sourceforge.net/mail/?group_id=14222
+- Bug database: http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse
+- Feature Requests: http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse
+- Forums: http://sourceforge.net/forum/?group_id=14222
+- IRC: irc.gnome.org (Channel: #anjuta and #devel-apps)
 
 Tools:
 -----
@@ -103,17 +101,17 @@ file will contain patches for all of the files together.
 Remember to run the cvs diff for the *top* project directory. It will
 automatically recurse into the subdirectories and generate the patches.
 
-We ask for patches in this format because:<br>
+We ask for patches in this format because:
 - more often then not, patches are out of sync with current CVS. This 
 can happen because someone is submitting a patch taken against an old 
 version of Anjuta, or against anonymous CVS (which is usually out of 
 sync for 24 hours). Therefore, the maintainers have to review patches 
-manually.<br>
+manually.
 - if a patch file is opened in Anjuta (or editors such as Nedit) in 
 "Diff" mode, *unified* formats are more readable and errors and 
-mis-syncs are easily detected. Non-unified formats are hard to read.<br>
+mis-syncs are easily detected. Non-unified formats are hard to read.
 - unified patches are more intelligent in recognizing changed lines
-(because by default there is a 3-line context buffer).<br>
+(because by default there is a 3-line context buffer).
 
 2) Diffs taken against CVS should be preceded by "cvs -z3 up" in 
 *all* cases.
@@ -153,7 +151,6 @@ conform with the style already followed in the source files.
 If a section of code will require further work, please add helpful
 comments of the form /* FIXME: ... */
 
-<pre>
 Conventions:
 * _cbs suffix - callbacks
 * _gui suffix - UI definitions for windows, dialogs etc.
@@ -167,7 +164,6 @@ Key elements:
 * printing/ - gnome-print support
 * tagmanager/ - the tagmanager library
 * plugins/ - plugin components (see the sample for more information)
-</pre>
 
 Scintilla:
 ---------
@@ -198,13 +194,13 @@ Messages and translations:
 There are a few rules we ask contributors to follow when adding new
 message strings and labels to Anjuta.
 
-1. BE CONSISTENT!! <br>
-a) refer to the standard GNOME Word List in the GNOME Style Guide 
+1. BE CONSISTENT!! 
+- refer to the standard GNOME Word List in the GNOME Style Guide 
 (http://developer.gnome.org/documents/style-guide/) when referencing 
 different user interface features, and then use the same terminology 
 throughout. Try to ensure that your use of words matches the rest of
-the code.<br>
-b) make sure that mixed case is only used where it makes sense to do so.<br>
+the code.
+- make sure that mixed case is only used where it makes sense to do so.
 
 Example: "Unable to Start Plug in Module %s".
 This message is not ideal since the standard terminology is "plugin" (so 
@@ -212,9 +208,9 @@ please do not use "Plug in", "plug-in", etc.). Also, in this case there
 is no reason for the words "start" and "module" to start with an uppercase 
 letter.
 
-There are a few standard terms we use - in particular:<br>
-- plugin<br>
-- Project (always with an uppercase P)<br>
+There are a few standard terms we use - in particular:
+- plugin
+- Project (always with an uppercase P)
 
 2. Do not use contractions (don't, can't, etc.). These can make a message 
 difficult to translate.
@@ -349,14 +345,14 @@ There are 6 files which need to be updated.
 
 * main_menubar_def.h - update insert_submenu_uiinfo (and others 
 e.g. inserttext1_submenu_uiinfo) to add the item, help text and name of the 
-callback function.<br>
-* main_menubar.h - update struct _EditSubMenu with the name of the menu widget<br>
-* main_menubar.c - update the array of items referenced around mb->edit.insert_*<br>
+callback function.
+* main_menubar.h - update struct _EditSubMenu with the name of the menu widget
+* main_menubar.c - update the array of items referenced around mb->edit.insert_*
 * mainmenu_callbacks.h, mainmenu_callbacks.c - declare the name of the new callback 
 function in the header file, and add the new function itself based on the
-existing on_insert_*() functions<br>
+existing on_insert_*() functions
 * controls.c - update the list of gtk_widget_set_sensitive calls with a new entry for 
-the menu widget em->insert_* (as specified in main_menubar.h)<br>
+the menu widget em->insert_* (as specified in main_menubar.h)
 
 3) How to add new toolbar items in the Toolbars:
 ------------------------------------------------
@@ -367,8 +363,8 @@ Have a look at toolbar.[ch] and controls.[ch].
 -----------------------
 When adding new dialogs or windows, please ensure...
 
-- the WMCLASS attribute is set to a unique value<br>
-- a default icon is defined<br>
+- the WMCLASS attribute is set to a unique value
+- a default icon is defined
 Dialogs will take the Anjuta app icon by default, but windows (GtkWindow) will 
 need the following lines added to their creation code:
 
@@ -481,13 +477,13 @@ very consistent.
 Things to do as a start:
 
 - in project_type.c and add an array for your project type (this 
-is well-commented). Add it to the load_project_type function.<br>
-- in project_dbase.h: Add your project type to the enum PROJECT_TYPE_*<br>
+is well-commented). Add it to the load_project_type function.
+- in project_dbase.h: Add your project type to the enum PROJECT_TYPE_*
 - in wizard_gui.c: create_project_type_selection_page():
 Add an icon to the list for the project type and define it in pixmaps.h
 (If you are a bad artist, it might be good to ask for help with this on 
-the mailing list)<br>
-- appwiz_page1.c: Add your type in on_wizard_app_icon_select()<br>
+the mailing list)
+- appwiz_page1.c: Add your type in on_wizard_app_icon_select()
 
 So that was the easy part ;-)
 
