@@ -1,3 +1,9 @@
+2004-11-06  Jean-NoelGuiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* plugins/editor/anjuta-docman.h plugins/editor/plugin.c 
+	* plugins/editor/search-replace.c
+	* plugins/message-view/anjuta-msgman.c plugins/message-view/plugin.c
+	 Search and Replace : Show result in find pane
+	  
 2004-11-03  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/gdb, plugins/debug-manager: Applied debugger patch

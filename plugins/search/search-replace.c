@@ -275,14 +275,18 @@ search_and_replace (void)
 	if (SA_FIND_PANE == s->action)
 	{
 		gchar* name = g_strconcat(_("Find: "), s->expr.search_str, NULL);		
-		msgman = anjuta_shell_get_interface(ANJUTA_PLUGIN(sr->docman)->shell, 
+		msgman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
 			IAnjutaMessageManager, NULL);
 		g_return_if_fail(msgman != NULL);
 		
-		// FIXME: Add a nice icon here:
-		ianjuta_message_manager_add_view(msgman, name, NULL, NULL);
 		view = ianjuta_message_manager_get_view_by_name(msgman, name, NULL);
-		g_return_if_fail(view != NULL);
+		if (view == NULL)	
+		{
+			// FIXME: Put a nice icon here:
+			ianjuta_message_manager_add_view(msgman, name, "anjuta_icon.png", NULL);	
+			view = ianjuta_message_manager_get_view_by_name(msgman, name, NULL);
+			g_return_if_fail(view != NULL);
+		}
 		ianjuta_message_manager_set_current_view(msgman, view, NULL);
 	}
 

@@ -23,6 +23,7 @@
 
 #include <gtk/gtkwidget.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-shell.h>
 
 #include "text_editor.h"
 
@@ -41,6 +42,7 @@ typedef struct _AnjutaDocmanClass AnjutaDocmanClass;
 struct _AnjutaDocman {
 	GtkNotebook parent;
 	AnjutaDocmanPriv *priv;
+	AnjutaShell *shell;
 };
 
 struct _AnjutaDocmanClass {

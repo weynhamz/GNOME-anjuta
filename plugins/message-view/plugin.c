@@ -123,7 +123,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	mv_plugin = (MessageViewPlugin*) plugin;
 	
 	register_stock_icons (plugin);
-	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	msgman = anjuta_msgman_new(prefs);

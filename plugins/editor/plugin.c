@@ -714,6 +714,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!initialized)
 	{
+		ANJUTA_DOCMAN(docman)->shell = plugin->shell;
+		
 		register_stock_icons (plugin);
 		
 		/* Add preferences */

@@ -242,11 +242,6 @@ else
 </para>
 
 
-<!-- ##### ARG AnjutaPlugin:shell ##### -->
-<para>
-
-</para>
-
 <!-- ##### USER_FUNCTION AnjutaPluginValueAdded ##### -->
 <para>
 
@@ -361,4 +356,9 @@ else
 @class_name: 
 @prefix: 
 
+
+<!-- ##### ARG AnjutaPlugin:shell ##### -->
+<para>
+
+</para>
 
