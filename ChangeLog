@@ -1,5 +1,8 @@
 2004-10-08  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/libanjuta-1.0.pc.in: changed .pc file to have version
+	information.
+	
 	* plugins/symbol-browser/.cvsignore,
 	plugins/symbol-browser/Makefile.am,
 	plugins/symbol-browser/an_symbol_view.c,
