@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-02 00:38-0500\n"
-"PO-Revision-Date: 2005-02-02 12:57-0400\n"
+"POT-Creation-Date: 2005-02-07 11:41-0500\n"
+"PO-Revision-Date: 2005-02-07 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -576,7 +576,7 @@ msgid "Programs"
 msgstr "Programs"
 
 #: anjuta.glade.h:122 plugins/project-manager/plugin.c:346
-#: plugins/project-manager/plugin.c:726 plugins/project-manager/plugin.c:944
+#: plugins/project-manager/plugin.c:737 plugins/project-manager/plugin.c:955
 #: plugins/project-manager/project_dbase_gui.c:581 src/anjuta_gui.c:114
 #: src/toolbar.c:150
 msgid "Project"
@@ -785,7 +785,7 @@ msgstr "Working directory:"
 #: plugins/project-manager/project_dbase.c:1472
 #: plugins/project-manager/project_dbase.c:1475
 #: plugins/project-manager/project_import_cbs.c:227
-#: plugins/project-wizard/property.c:197
+#: plugins/project-wizard/property.c:204
 msgid "Yes"
 msgstr "Yes"
 
@@ -1033,7 +1033,7 @@ msgstr "Category"
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta Preferences Dialog"
 
-#: libanjuta/anjuta-preferences.c:1133
+#: libanjuta/anjuta-preferences.c:1159
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -1041,11 +1041,11 @@ msgstr ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 
-#: libanjuta/anjuta-preferences.c:1137
+#: libanjuta/anjuta-preferences.c:1163
 msgid "_Reset"
 msgstr "_Reset"
 
-#: libanjuta/anjuta-preferences.c:1435
+#: libanjuta/anjuta-preferences.c:1461
 msgid "Anjuta Preferences"
 msgstr "Anjuta Preferences"
 
@@ -3105,209 +3105,204 @@ msgid "Original Berkeley style"
 msgstr "Original Berkeley style"
 
 #: plugins/editor/anjuta-document-manager.glade.h:115
-#: plugins/message-view/anjuta-message-manager-plugin.glade.h:14
-msgid "Pick a color"
-msgstr "Pick a colour"
-
-#: plugins/editor/anjuta-document-manager.glade.h:116
 msgid "Plus/Minus"
 msgstr "Plus/Minus"
 
-#: plugins/editor/anjuta-document-manager.glade.h:117
+#: plugins/editor/anjuta-document-manager.glade.h:116
 msgid "Position:"
 msgstr "Position:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:118
+#: plugins/editor/anjuta-document-manager.glade.h:117
 msgid "Pressing backspace un-indents"
 msgstr "Pressing backspace un-indents"
 
-#: plugins/editor/anjuta-document-manager.glade.h:119
+#: plugins/editor/anjuta-document-manager.glade.h:118
 msgid "Pressing tab indents"
 msgstr "Pressing tab indents"
 
-#: plugins/editor/anjuta-document-manager.glade.h:120
+#: plugins/editor/anjuta-document-manager.glade.h:119
 msgid "Printing"
 msgstr "Printing"
 
-#: plugins/editor/anjuta-document-manager.glade.h:121
+#: plugins/editor/anjuta-document-manager.glade.h:120
 msgid "Regular Expression"
 msgstr "Regular Expression"
 
-#: plugins/editor/anjuta-document-manager.glade.h:122
+#: plugins/editor/anjuta-document-manager.glade.h:121
 msgid "Reload Session Defaults"
 msgstr "Reload Session Defaults"
 
-#: plugins/editor/anjuta-document-manager.glade.h:123
+#: plugins/editor/anjuta-document-manager.glade.h:122
 msgid "Reload System Defaults"
 msgstr "Reload System Defaults"
 
-#: plugins/editor/anjuta-document-manager.glade.h:124
+#: plugins/editor/anjuta-document-manager.glade.h:123
 msgid "Replace With:"
 msgstr "Replace With:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:125
+#: plugins/editor/anjuta-document-manager.glade.h:124
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:15
 msgid "Right"
 msgstr "Right"
 
-#: plugins/editor/anjuta-document-manager.glade.h:126
+#: plugins/editor/anjuta-document-manager.glade.h:125
 msgid "Save files interval in minutes"
 msgstr "Save files interval in minutes"
 
-#: plugins/editor/anjuta-document-manager.glade.h:127
+#: plugins/editor/anjuta-document-manager.glade.h:126
 msgid "Save session interval in minutes"
 msgstr "Save session interval in minutes"
 
-#: plugins/editor/anjuta-document-manager.glade.h:128
+#: plugins/editor/anjuta-document-manager.glade.h:127
 msgid "Search Action:"
 msgstr "Search Action:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:129
+#: plugins/editor/anjuta-document-manager.glade.h:128
 msgid "Search Direction:"
 msgstr "Search Direction:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:130
+#: plugins/editor/anjuta-document-manager.glade.h:129
 msgid "Search Expression"
 msgstr "Search Expression"
 
-#: plugins/editor/anjuta-document-manager.glade.h:131
+#: plugins/editor/anjuta-document-manager.glade.h:130
 msgid "Search Expression:"
 msgstr "Search Expression:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:132
+#: plugins/editor/anjuta-document-manager.glade.h:131
 msgid "Search In:"
 msgstr "Search In:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:133
+#: plugins/editor/anjuta-document-manager.glade.h:132
 msgid "Search Recursively"
 msgstr "Search Recursively"
 
-#: plugins/editor/anjuta-document-manager.glade.h:134
+#: plugins/editor/anjuta-document-manager.glade.h:133
 msgid "Search Target"
 msgstr "Search Target"
 
-#: plugins/editor/anjuta-document-manager.glade.h:135
+#: plugins/editor/anjuta-document-manager.glade.h:134
 msgid "Select highlight style to edit:"
 msgstr "Select highlight style to edit:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:136
+#: plugins/editor/anjuta-document-manager.glade.h:135
 msgid "Select theme:"
 msgstr "Select theme:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:137
+#: plugins/editor/anjuta-document-manager.glade.h:136
 msgid "Selection background:"
 msgstr "Selection background:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:138
+#: plugins/editor/anjuta-document-manager.glade.h:137
 msgid "Selection foreground:"
 msgstr "Selection foreground:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:139
+#: plugins/editor/anjuta-document-manager.glade.h:138
 msgid "Setting"
 msgstr "Setting"
 
-#: plugins/editor/anjuta-document-manager.glade.h:140
+#: plugins/editor/anjuta-document-manager.glade.h:139
 msgid "Sorted by most recent use"
 msgstr "Sorted by most recent use"
 
-#: plugins/editor/anjuta-document-manager.glade.h:141
+#: plugins/editor/anjuta-document-manager.glade.h:140
 msgid "Sorted in alphabetical order"
 msgstr "Sorted in alphabetical order"
 
-#: plugins/editor/anjuta-document-manager.glade.h:142
+#: plugins/editor/anjuta-document-manager.glade.h:141
 msgid "Sorted in opening order"
 msgstr "Sorted in opening order"
 
-#: plugins/editor/anjuta-document-manager.glade.h:143
+#: plugins/editor/anjuta-document-manager.glade.h:142
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Space-seperated list of directory name patterns to ignore"
 
-#: plugins/editor/anjuta-document-manager.glade.h:144
+#: plugins/editor/anjuta-document-manager.glade.h:143
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Space-seperated list of directory name patterns to match"
 
-#: plugins/editor/anjuta-document-manager.glade.h:145
+#: plugins/editor/anjuta-document-manager.glade.h:144
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Space-seperated list of file name patterns to ignore"
 
-#: plugins/editor/anjuta-document-manager.glade.h:146
+#: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 #: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Space-seperated list of file name patterns to match"
 
-#: plugins/editor/anjuta-document-manager.glade.h:147
+#: plugins/editor/anjuta-document-manager.glade.h:146
 msgid "Squares"
 msgstr "Squares"
 
-#: plugins/editor/anjuta-document-manager.glade.h:148
+#: plugins/editor/anjuta-document-manager.glade.h:147
 msgid "Strip trailling spaces on file save"
 msgstr "Strip trailling spaces on file save"
 
-#: plugins/editor/anjuta-document-manager.glade.h:149
+#: plugins/editor/anjuta-document-manager.glade.h:148
 msgid "Style of Kangleipak"
 msgstr "Style of Kangleipak"
 
-#: plugins/editor/anjuta-document-manager.glade.h:150
+#: plugins/editor/anjuta-document-manager.glade.h:149
 msgid "Tab size in spaces:"
 msgstr "Tab size in spaces:"
 
-#: plugins/editor/anjuta-document-manager.glade.h:151
+#: plugins/editor/anjuta-document-manager.glade.h:150
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:18
 msgid "Top"
 msgstr "Top"
 
-#: plugins/editor/anjuta-document-manager.glade.h:152
+#: plugins/editor/anjuta-document-manager.glade.h:151
 msgid "Try to save in current locale's encoding"
 msgstr "Try to save in current locale's encoding"
 
-#: plugins/editor/anjuta-document-manager.glade.h:153
+#: plugins/editor/anjuta-document-manager.glade.h:152
 msgid "Try to save in original encoding"
 msgstr "Try to save in original encoding"
 
-#: plugins/editor/anjuta-document-manager.glade.h:154
+#: plugins/editor/anjuta-document-manager.glade.h:153
 msgid "Underlined"
 msgstr "Underlined"
 
-#: plugins/editor/anjuta-document-manager.glade.h:155
+#: plugins/editor/anjuta-document-manager.glade.h:154
 msgid "Use default"
 msgstr "Use default"
 
-#: plugins/editor/anjuta-document-manager.glade.h:156
+#: plugins/editor/anjuta-document-manager.glade.h:155
 msgid "Use tabs for indentation"
 msgstr "Use tabs for indentation"
 
-#: plugins/editor/anjuta-document-manager.glade.h:157
+#: plugins/editor/anjuta-document-manager.glade.h:156
 msgid "View EOL chars"
 msgstr "View EOL chars"
 
-#: plugins/editor/anjuta-document-manager.glade.h:158
+#: plugins/editor/anjuta-document-manager.glade.h:157
 msgid "View Indentation Guides"
 msgstr "View Indentation Guides"
 
-#: plugins/editor/anjuta-document-manager.glade.h:159
+#: plugins/editor/anjuta-document-manager.glade.h:158
 msgid "View Line Wrap"
 msgstr "View Line Wrap"
 
-#: plugins/editor/anjuta-document-manager.glade.h:160
+#: plugins/editor/anjuta-document-manager.glade.h:159
 msgid "View Whitespaces"
 msgstr "View Whitespaces"
 
-#: plugins/editor/anjuta-document-manager.glade.h:161
+#: plugins/editor/anjuta-document-manager.glade.h:160
 msgid "View indentation whitespaces"
 msgstr "View indentation whitespaces"
 
-#: plugins/editor/anjuta-document-manager.glade.h:162
+#: plugins/editor/anjuta-document-manager.glade.h:161
 msgid "Wrap bookmarks search around"
 msgstr "Wrap bookmarks search around"
 
-#: plugins/editor/anjuta-document-manager.glade.h:163
+#: plugins/editor/anjuta-document-manager.glade.h:162
 msgid "_Save Theme As"
 msgstr "_Save Theme As"
 
@@ -3315,7 +3310,7 @@ msgstr "_Save Theme As"
 msgid "<b>Goto Line number:</b>"
 msgstr "<b>Go To Line number:</b>"
 
-#: plugins/editor/plugin.c:128 plugins/glade/plugin.c:454
+#: plugins/editor/plugin.c:128 plugins/glade/plugin.c:456
 msgid "_Save"
 msgstr "_Save"
 
@@ -3323,7 +3318,7 @@ msgstr "_Save"
 msgid "Save current file"
 msgstr "Save current file"
 
-#: plugins/editor/plugin.c:130 plugins/glade/plugin.c:462
+#: plugins/editor/plugin.c:130 plugins/glade/plugin.c:464
 msgid "Save _As ..."
 msgstr "Save _As ..."
 
@@ -3656,7 +3651,7 @@ msgid "Undo the last action"
 msgstr "Undo the last action"
 
 #: plugins/editor/plugin.c:289 plugins/glade/plugin.c:125
-#: plugins/glade/plugin.c:406
+#: plugins/glade/plugin.c:408
 msgid "_Redo"
 msgstr "_Redo"
 
@@ -3672,7 +3667,7 @@ msgstr "C_ut"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Cut the selected text from the editor to the clipboard"
 
-#: plugins/editor/plugin.c:295 plugins/glade/plugin.c:422
+#: plugins/editor/plugin.c:295 plugins/glade/plugin.c:424
 msgid "_Copy"
 msgstr "_Copy"
 
@@ -3680,7 +3675,7 @@ msgstr "_Copy"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copy the selected text to the clipboard"
 
-#: plugins/editor/plugin.c:298 plugins/glade/plugin.c:430
+#: plugins/editor/plugin.c:298 plugins/glade/plugin.c:432
 msgid "_Paste"
 msgstr "_Paste"
 
@@ -5158,7 +5153,7 @@ msgstr "Sysm Read"
 #: plugins/gdb/signals_cbs.c:142 plugins/project-manager/project_dbase.c:1468
 #: plugins/project-manager/project_dbase.c:1477
 #: plugins/project-manager/project_import_cbs.c:229
-#: plugins/project-wizard/property.c:199 plugins/project-wizard/property.c:213
+#: plugins/project-wizard/property.c:206 plugins/project-wizard/property.c:220
 msgid "No"
 msgstr "No"
 
@@ -5290,7 +5285,7 @@ msgstr "Add To Watch"
 msgid "_Undo: %s"
 msgstr "_Undo: %s"
 
-#: plugins/glade/plugin.c:115 plugins/glade/plugin.c:398
+#: plugins/glade/plugin.c:115 plugins/glade/plugin.c:400
 msgid "_Undo"
 msgstr "_Undo"
 
@@ -5314,11 +5309,11 @@ msgstr "Glade project '%s' saved"
 msgid "Save glade file ..."
 msgstr "Save glade file ..."
 
-#: plugins/glade/plugin.c:259
+#: plugins/glade/plugin.c:260
 msgid "Save glade file as ..."
 msgstr "Save glade file as ..."
 
-#: plugins/glade/plugin.c:286
+#: plugins/glade/plugin.c:288
 #, c-format
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" "
@@ -5331,84 +5326,84 @@ msgstr ""
 "\n"
 "Your changes will be lost if you do not save them.\n"
 
-#: plugins/glade/plugin.c:299
+#: plugins/glade/plugin.c:301
 msgid "_Close without Saving"
 msgstr "_Close without Saving"
 
-#: plugins/glade/plugin.c:321
+#: plugins/glade/plugin.c:323
 msgid "Save glade project..."
 msgstr "Save glade project..."
 
-#: plugins/glade/plugin.c:390
+#: plugins/glade/plugin.c:392
 msgid "_Glade"
 msgstr "_Glade"
 
-#: plugins/glade/plugin.c:400
+#: plugins/glade/plugin.c:402
 msgid "Undo last action"
 msgstr "Undo last action"
 
-#: plugins/glade/plugin.c:408
+#: plugins/glade/plugin.c:410
 msgid "Redo last undone action"
 msgstr "Redo last undone action"
 
-#: plugins/glade/plugin.c:414
+#: plugins/glade/plugin.c:416
 msgid "Cu_t"
 msgstr "Cu_t"
 
-#: plugins/glade/plugin.c:416
+#: plugins/glade/plugin.c:418
 msgid "Cut selection"
 msgstr "Cut selection"
 
-#: plugins/glade/plugin.c:424
+#: plugins/glade/plugin.c:426
 msgid "Copy selection"
 msgstr "Copy selection"
 
-#: plugins/glade/plugin.c:432
+#: plugins/glade/plugin.c:434
 msgid "Paste selection"
 msgstr "Paste selection"
 
-#: plugins/glade/plugin.c:438
+#: plugins/glade/plugin.c:440
 msgid "_Delete"
 msgstr "_Delete"
 
-#: plugins/glade/plugin.c:440
+#: plugins/glade/plugin.c:442
 msgid "Delete selection"
 msgstr "Delete selection"
 
-#: plugins/glade/plugin.c:446
+#: plugins/glade/plugin.c:448
 msgid "_Show Clipboard"
 msgstr "_Show Clipboard"
 
-#: plugins/glade/plugin.c:448
+#: plugins/glade/plugin.c:450
 msgid "Show clipboard"
 msgstr "Show clipboard"
 
-#: plugins/glade/plugin.c:456
+#: plugins/glade/plugin.c:458
 msgid "Save glade project"
 msgstr "Save glade project"
 
-#: plugins/glade/plugin.c:464
+#: plugins/glade/plugin.c:466
 msgid "Save as glade project"
 msgstr "Save as glade project"
 
-#: plugins/glade/plugin.c:470
+#: plugins/glade/plugin.c:472
 msgid "Clos_e"
 msgstr "Clos_e"
 
-#: plugins/glade/plugin.c:472
+#: plugins/glade/plugin.c:474
 msgid "Close current glade project"
 msgstr "Close current glade project"
 
-#: plugins/glade/plugin.c:530
+#: plugins/glade/plugin.c:532
 msgid "Glade operations"
 msgstr "Glade operations"
 
-#: plugins/glade/plugin.c:648
+#: plugins/glade/plugin.c:650
 #, c-format
 msgid "Could not open: %s"
 msgstr "Could not open: %s"
 
-#: plugins/glade/plugin.c:679
+#: plugins/glade/plugin.c:681
 msgid "Could not create a new glade project."
 msgstr "Could not create a new glade project."
 
@@ -6503,6 +6498,10 @@ msgstr "Number of first characters to show:"
 msgid "Number of last characters to show:"
 msgstr "Number of last characters to show:"
 
+#: plugins/message-view/anjuta-message-manager-plugin.glade.h:14
+msgid "Pick a color"
+msgstr "Pick a colour"
+
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:16
 msgid "Strike-Out"
 msgstr "Strike-Out"
@@ -6736,24 +6735,24 @@ msgstr "Re_move"
 msgid "Remove from project"
 msgstr "Remove from project"
 
-#: plugins/project-manager/plugin.c:708
+#: plugins/project-manager/plugin.c:719
 msgid "Project manager actions"
 msgstr "Project manager actions"
 
-#: plugins/project-manager/plugin.c:714
+#: plugins/project-manager/plugin.c:725
 msgid "Project manager popup actions"
 msgstr "Project manager popup actions"
 
-#: plugins/project-manager/plugin.c:828
+#: plugins/project-manager/plugin.c:839
 msgid "Loading project. Please wait ..."
 msgstr "Loading project. Please wait ..."
 
-#: plugins/project-manager/plugin.c:899
+#: plugins/project-manager/plugin.c:910
 #, c-format
 msgid "Loading project: %s"
 msgstr "Loading project: %s"
 
-#: plugins/project-manager/plugin.c:910
+#: plugins/project-manager/plugin.c:921
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Failed to load project %s: %s"
@@ -7390,12 +7389,7 @@ msgstr ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 
-#: plugins/project-wizard/druid.c:140
-#, c-format
-msgid "Unable to find any project template in %s"
-msgstr "Unable to find any project template in %s"
-
-#: plugins/project-wizard/druid.c:181
+#: plugins/project-wizard/druid.c:170
 msgid ""
 "Confim the following information:\n"
 "\n"
@@ -7403,38 +7397,46 @@ msgstr ""
 "Confirm the following information:\n"
 "\n"
 
-#: plugins/project-wizard/druid.c:183
+#: plugins/project-wizard/druid.c:172
 msgid "Project Type: "
 msgstr "Project Type: "
 
-#: plugins/project-wizard/druid.c:530
+#: plugins/project-wizard/druid.c:288
+#, c-format
+msgid "Unable to find any project template in %s"
+msgstr "Unable to find any project template in %s"
+
+#: plugins/project-wizard/druid.c:608
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "Field \"%s\" is mandatory."
 
-#: plugins/project-wizard/druid.c:614
+#: plugins/project-wizard/druid.c:694
+msgid ""
+"Could not find autogen version 5, please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net"
+msgstr ""
+"Could not find autogen version 5. Please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net"
+
+#: plugins/project-wizard/druid.c:702
 msgid "Unable to build project wizard user interface"
 msgstr "Unable to build project wizard user interface"
 
-#. Create new view
-#: plugins/project-wizard/install.c:189
-msgid "New Project Wizard"
-msgstr "New Project Wizard"
-
 #. All files have been installed
-#: plugins/project-wizard/install.c:380
+#: plugins/project-wizard/install.c:378
 msgid "New project has been created successfully"
 msgstr "New project has been created successfully"
 
+#: plugins/project-wizard/install.c:444
+#, c-format
+msgid "Creating %s using AutoGen"
+msgstr "Creating %s using AutoGen"
+
 #: plugins/project-wizard/install.c:448
 #, c-format
-msgid "Copying %s to %s with AutoGen"
-msgstr "Copying %s to %s with AutoGen"
-
-#: plugins/project-wizard/install.c:452
-#, c-format
-msgid "Copying %s to %s"
-msgstr "Copying %s to %s"
+msgid "Creating %s"
+msgstr "Creating %s"
 
 #. Action name
 #. Stock icon, if any
