@@ -1482,7 +1482,7 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Libraries API references"),
 	 N_("Online reference library for GDK, GLib, GNOME etc.."),
-	 on_url_activate, "http://www.lidn.org", NULL,
+	 on_url_activate, "http://lidn.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
