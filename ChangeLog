@@ -1,3 +1,11 @@
+2002-05-30  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.c [anjuta_apply_preferences()]:
+	Fixed a crash bug when tab pos is not defined for the editors.
+	
+	* data/properties/cpp.properties: Set default identifier property to normal.
+	This fixes the bug in which the fore color gets hidden with dark background.
+
 2002-05-29  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* scintilla/*, scintilla/include/*: Upgraded to the vanilla

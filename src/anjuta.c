@@ -1170,24 +1170,29 @@ anjuta_apply_preferences (void)
 		gchar *tag_pos;
 
 		tag_pos = preferences_get (pr, EDITOR_TAG_POS);
-
-		if (strcmp (tag_pos, "bottom") == 0)
-			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
-						  (app->widgets.notebook),
-						  GTK_POS_BOTTOM);
-		else if (strcmp (tag_pos, "left") == 0)
-			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
-						  (app->widgets.notebook),
-						  GTK_POS_LEFT);
-		else if (strcmp (tag_pos, "right") == 0)
-			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
-						  (app->widgets.notebook),
-						  GTK_POS_RIGHT);
-		else
+		if (!tag_pos) {
 			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
 						  (app->widgets.notebook),
 						  GTK_POS_TOP);
-		g_free (tag_pos);
+		} else {
+			if (strcmp (tag_pos, "bottom") == 0)
+				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+							  (app->widgets.notebook),
+							  GTK_POS_BOTTOM);
+			else if (strcmp (tag_pos, "left") == 0)
+				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+							  (app->widgets.notebook),
+							  GTK_POS_LEFT);
+			else if (strcmp (tag_pos, "right") == 0)
+				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+							  (app->widgets.notebook),
+							  GTK_POS_RIGHT);
+			else
+				gtk_notebook_set_tab_pos (GTK_NOTEBOOK
+							  (app->widgets.notebook),
+							  GTK_POS_TOP);
+			g_free (tag_pos);
+		}
 
 		if (preferences_get_int (pr, EDITOR_TABS_ORDERING))
 			anjuta_order_tabs ();
