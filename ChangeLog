@@ -43,6 +43,8 @@
 	documentations to newer docbook xml documentations. Converted 
 	Japanesh docs to UTF8 docs. Fixed installations. Update cvsignores.
 	Enabled manulas installations.
+	
+	* gdl/.cvsignore, scintilla/.cvsignore, .cvsigore: Updated.
 
 2003-11-05  Naba Kumar  <naba@gnome.org>
 

@@ -1,0 +1,6 @@
+Makefile
+Makefile.in
+libgdlmarshal.c
+libgdlmarshal.h
+libgdltypebuiltins.c
+libgdltypebuiltins.h
