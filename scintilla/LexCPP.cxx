@@ -44,10 +44,10 @@ static inline bool IsADoxygenChar(const int ch) {
 
 static inline bool IsStateComment(const int state) {
 	return ((state == SCE_C_COMMENT) ||
-		      (state == SCE_C_COMMENTLINE) ||
+		      (state == SCE_C_COMMENTLINE) /* ||
 		      (state == SCE_C_COMMENTDOC) ||
 		      (state == SCE_C_COMMENTDOCKEYWORD) ||
-		      (state == SCE_C_COMMENTDOCKEYWORDERROR));
+		      (state == SCE_C_COMMENTDOCKEYWORDERROR ) */ );
 }
 
 static inline bool IsStateString(const int state) {
@@ -134,19 +134,19 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 				sc.Forward();
 				sc.ForwardSetState(SCE_C_DEFAULT);
 			}
-		} else if (sc.state == SCE_C_COMMENTDOC) {
+		}/* else if (sc.state == SCE_C_COMMENTDOC) {
 			if (sc.Match('*', '/')) {
 				sc.Forward();
 				sc.ForwardSetState(SCE_C_DEFAULT);
 			} else if (sc.ch == '@' || sc.ch == '\\') {
 				sc.SetState(SCE_C_COMMENTDOCKEYWORD);
 			}
-		} else if (sc.state == SCE_C_COMMENTLINE || sc.state == SCE_C_COMMENTLINEDOC) {
+		} */ else if (sc.state == SCE_C_COMMENTLINE /* || sc.state == SCE_C_COMMENTLINEDOC */) {
 			if (sc.atLineEnd) {
 				sc.SetState(SCE_C_DEFAULT);
 				visibleChars = 0;
 			}
-		} else if (sc.state == SCE_C_COMMENTDOCKEYWORD) {
+		} /* else if (sc.state == SCE_C_COMMENTDOCKEYWORD) {
 			if (sc.Match('*', '/')) {
 				sc.ChangeState(SCE_C_COMMENTDOCKEYWORDERROR);
 				sc.Forward();
@@ -163,7 +163,7 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 				}
 				sc.SetState(SCE_C_COMMENTDOC);
 			}
-		} else if (sc.state == SCE_C_STRING) {
+		} */ else if (sc.state == SCE_C_STRING) {
 			if (sc.ch == '\\') {
 				if (sc.chNext == '\"' || sc.chNext == '\'' || sc.chNext == '\\') {
 					sc.Forward();
@@ -230,16 +230,15 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 					sc.SetState(SCE_C_IDENTIFIER);
 				}
 			} else if (sc.Match('/', '*')) {
-				if (sc.Match("/**") || sc.Match("/*!")) {	// Support of Qt/Doxygen doc. style
+				/* if (sc.Match("/**") || sc.Match("/*!")) {	// Support of Qt/Doxygen doc. style
 					sc.SetState(SCE_C_COMMENTDOC);
-				} else {
+				} else */
 					sc.SetState(SCE_C_COMMENT);
-				}
 				sc.Forward();	// Eat the * so it isn't used for the end of the comment
 			} else if (sc.Match('/', '/')) {
-				if (sc.Match("///") || sc.Match("//!"))	// Support of Qt/Doxygen doc. style
+				/* if (sc.Match("///") || sc.Match("//!"))	// Support of Qt/Doxygen doc. style
 					sc.SetState(SCE_C_COMMENTLINEDOC);
-				else
+				else */
 					sc.SetState(SCE_C_COMMENTLINE);
 			} else if (sc.ch == '/' && IsOKBeforeRE(chPrevNonWhite)) {
 				sc.SetState(SCE_C_REGEX);
@@ -280,10 +279,10 @@ static void ColouriseCppDoc(unsigned int startPos, int length, int initStyle, Wo
 }
 
 static bool IsStreamCommentStyle(int style) {
-	return style == SCE_C_COMMENT ||
+	return style == SCE_C_COMMENT /* ||
 		style == SCE_C_COMMENTDOC ||
 		style == SCE_C_COMMENTDOCKEYWORD ||
-		style == SCE_C_COMMENTDOCKEYWORDERROR;
+		style == SCE_C_COMMENTDOCKEYWORDERROR */;
 }
 
 static bool matchKeyword(unsigned int start, WordList &keywords, Accessor &styler, int keywordtype) {
@@ -305,8 +304,8 @@ static bool IsCommentLine(int line, Accessor &styler) {
 		int PosStyle = styler.StyleAt(Pos);
 
 		if (	!IsStreamCommentStyle(PosStyle)
-		        &&
-		        PosStyle != SCE_C_COMMENTLINEDOC
+		        /* &&
+		        PosStyle != SCE_C_COMMENTLINEDOC */
 		        &&
 		        PosStyle != SCE_C_COMMENTLINE
 		        &&

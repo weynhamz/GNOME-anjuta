@@ -5,6 +5,8 @@
 	
 2002-12-17  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* manuals/C/anjuta-manual/*: Updated manual to include tool editor.
+	* scintilla/LexCPP.cxx: Disable doxygen comment highliting.
+	* anjuta.prj: Added tools.sgml
 
 2002-12-16  Naba Kumar <naba@gnome.org>
 
