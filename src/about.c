@@ -63,7 +63,7 @@ create_about_gui ()
 
 	about_imgfile = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_LOGO);
 	about_gui = gnome_about_new ("Anjuta", VERSION,
-		_("Copyright (c) 1999-2001 Naba Kumar"),
+		_("Copyright (c) 1999-2002 Naba Kumar"),
 		authors,
 		NULL, about_imgfile);
 	if(about_imgfile)

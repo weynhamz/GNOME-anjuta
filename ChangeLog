@@ -1,3 +1,9 @@
+2002-01-04  Andy Piper <andy.piper@freeuk.com>
+
+	* THANKS, manuals/*/authors.sgml: updated for new translations
+	* plugins/class-gen/clsGen.c: converted messages to English
+	* src/about.c, src/main_menubar_def.h: string updates
+
 2002-01-04  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/anjuta.c

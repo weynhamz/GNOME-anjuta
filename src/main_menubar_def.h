@@ -35,7 +35,7 @@ static GnomeUIInfo recent_projects1_menu_uiinfo[] = {
 static GnomeUIInfo file1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_New"),
-	 N_("New Text File"),
+	 N_("New file"),
 	 on_new_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 GDK_N, GDK_MOD1_MASK, NULL},
@@ -84,7 +84,7 @@ static GnomeUIInfo file1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("N_ew Project ..."),
-	 N_("Create a Project using application wizard"),
+	 N_("Create a Project using the application wizard"),
 	 on_new_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
@@ -1415,7 +1415,7 @@ static GnomeUIInfo settings1_menu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Source Paths ..."),
-	 N_("Specify the source paths for the Anjuta to search"),
+	 N_("Specify the source paths for Anjuta to search"),
 	 on_set_src_paths1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
 	 0, 0, NULL},

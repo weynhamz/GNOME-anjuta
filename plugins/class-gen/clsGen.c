@@ -194,24 +194,24 @@ on_dlgClass                            (GnomeDialog     *gnomedialog,
 		CG_GetStrings( self );
 		if( ! IsLegalClassName(self->m_szClassName ) )
 		{
-			MessageBox( _("Nome di classe non valido") );
+			MessageBox( _("Class name not valid") );
 			return ;
 		}
 		if( ! IsLegalFileName(self->m_szDeclFile ) )
 		{
-			MessageBox( _("File di dichiarazione non valido") );			
+			MessageBox( _("Declaration filename not valid") );			
 			return ;
 		}
 		if( ! IsLegalFileName(self->m_szImplFile ) )
 		{
-			MessageBox( _("File di dichiarazione non valido") );
+			MessageBox( _("Implementation filename not valid") );
 			return ;
 		}
 		self->m_bOK = TRUE ;
 		gnome_dialog_close(gnomedialog);
 	} else if ( arg1 == GNOME_CANCEL )
 	{
-		gnome_dialog_close(gnomedialog);	}
+		gnome_dialog_close(gnomedialog);	}
 }
 
 
@@ -378,7 +378,7 @@ void GeneraH( CG_Creator *self, FILE* fpOut )
 		"#include <gnome.h>\n"
 		"\n"
 		"typedef struct td_%s {\n"
-		"  /* To-DO: Put here your data */\n"
+		"  /* TODO: Put your data here */\n"
 		" } %s, *%sPtr ;\n\n"
 		"%s *%s_new(void);\n"
 		"void %s_delete( %s *self );\n"
@@ -417,7 +417,7 @@ void GeneraC( CG_Creator *self, FILE* fpOut )
 		"\n"
 		"gboolean %s_init( %s *self )\n"
 		"{\n"
-		" /*TO-DO: put here init code*/\n"
+		" /* TODO: put init code here */\n"
 		"\treturn TRUE ;\n"
 		"}\n"
 		"\n", self->m_szDeclFile, self->m_szClassName, self->m_szClassName );
@@ -432,7 +432,7 @@ void GeneraC( CG_Creator *self, FILE* fpOut )
 	fprintf( fpOut,
 		"void %s_delete( %s *self )\n"
 		"{\n"
-		" /*TO-DO: put here end code*/\n"
+		" /* TODO: put end code here */\n"
 		"\tg_return_if_fail(NULL!=self);\n\n"
 		"\t%s_end(self);\n"
 		"\tg_free(self);\n"
@@ -442,7 +442,7 @@ void GeneraC( CG_Creator *self, FILE* fpOut )
 	fprintf( fpOut,
 		"%s *%s_new(void)\n"
 		"{\n\t%s *self;\n"
-		" /*TO-DO: put here init code*/\n"
+		" /* TODO: put init code here */\n"
 		"\tself=g_new( %s, 1 );\n"
 		"\tif(NULL!=self)\n"
 		"\t{\n"
@@ -455,7 +455,7 @@ void GeneraC( CG_Creator *self, FILE* fpOut )
 		"\treturn self;\n"
 		"}\n\n"
 
-		"\n\n",		self->m_szClassName, 
+		"\n\n",		self->m_szClassName, 
 		self->m_szClassName, self->m_szClassName, 
 		self->m_szClassName, self->m_szClassName);
 }
@@ -539,7 +539,7 @@ void CG_Del(CG_Creator *self)
 GtkWidget*
 create_dlgClass ( CG_Creator *self )
 {
-  self->dlgClass = gnome_dialog_new (NULL, NULL);
+  self->dlgClass = gnome_dialog_new (_("Class Creator"), NULL);
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dlgClass", self->dlgClass);
 
   self->dialog_vbox1 = GNOME_DIALOG (self->dlgClass)->vbox;
@@ -614,7 +614,7 @@ create_dlgClass ( CG_Creator *self )
                     (GtkAttachOptions) (0),
                     (GtkAttachOptions) (0), 0, 0);
 
-  self->label3 = gtk_label_new (_("  Implementation File:"));
+  self->label3 = gtk_label_new (_("Implementation File:"));
   gtk_widget_ref (self->label3);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "label3", self->label3,
                             (GtkDestroyNotify) gtk_widget_unref);
