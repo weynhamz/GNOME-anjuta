@@ -1,16 +1,16 @@
-# Traditional Chinese translation for anjuta.
+# Simplified Chinese translation for anjuta.
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# Joe Man <trmetal@yahoo.com.hk>, 2001.
+# Conner Mo <connermo@hotmail.com>, 2001.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.7\n"
-"POT-Creation-Date: 2001-10-19 11:23-0800\n"
-"PO-Revision-Date: 2001-10-24 16:12+0800\n"
-"Last-Translator: Joe Man <trmetal@yahoo.com.hk>\n"
-"Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
+"POT-Creation-Date: 2001-10-22 11:23-0800\n"
+"PO-Revision-Date: 2001-10-23 03:14+0800\n"
+"Last-Translator: Conner Mo <connermo@hotmail.com>\n"
+"Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=big5\n"
+"Content-Type: text/plain; charset = GB2312.1980-0\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
@@ -19,33 +19,33 @@ msgstr "Anjuta C/C++ IDE"
 
 #: anjuta.desktop.in.in.h:2
 msgid "Integrated Development Environment"
-msgstr "俱祘Α秨祇吏挂"
+msgstr "集成开发环境"
 
 #: ccview/cccmd.cc:27
 msgid "/_Class Definition"
-msgstr "/ン摸﹚竡 (_C)"
+msgstr "/类定义 (_C)"
 
 #: ccview/cccmd.cc:28
 msgid "/_Function Definition"
-msgstr "/ㄧΑ﹚竡 (_F)"
+msgstr "/函数定义 (_F)"
 
 #: ccview/cccmd.cc:29
 msgid "/Function _Declaration"
-msgstr "/ㄧΑ (_D)"
+msgstr "/函数声明(_D)"
 
 #: ccview/cccmd.cc:36
 msgid "/_Shell here"
-msgstr "/秨币沧狠诀 (_S)"
+msgstr "/打开终端程序 (_S)"
 
 # src/menus.c:77
 #: ccview/cccmd.cc:37
 msgid "/_Open"
-msgstr "/秨币 (_O)"
+msgstr "/打开 (_O)"
 
 #: ccview/cccproj.cc:1187
 #: src/tags_manager.c:639
 msgid "Cannot execute ctags"
-msgstr "礚猭磅︽ ctags 祘Α"
+msgstr "无法执行 ctags 程序"
 
 #: ccview/cccproj.cc:1193
 #: src/tags_manager.c:644
@@ -54,40 +54,40 @@ msgid ""
 "Cannot fork to execute ctags. I donno why!!\n"
 "In %s:%d"
 msgstr ""
-"礚猭磅︽ ctags 祘Αぃフ\n"
-" %s%d"
+"无法执行 ctags 程序。不明白！！\n"
+"於 %s：%d"
 
 #: ccview/cccproj.cc:1453
 msgid "Scanning and Updating files. Please Wait ..."
-msgstr "タ跌诡の穝郎叫祔 ..."
+msgstr "正在视察及更新文件。请稍候 ..."
 
 #: ccview/cccproj.cc:1471
 msgid "Updating file:"
-msgstr "タ穝郎"
+msgstr "正在更新文件："
 
 #: ccview/cccproj.cc:1532
 #: ccview/cccproj.cc:1558
 msgid "Updating file: "
-msgstr "タ穝郎"
+msgstr "正在更新文件："
 
 # src/menus.c:85
 #: ccview/ccview_main.cc:49
 #: src/toolbar.c:1371
 msgid "Classes"
-msgstr "ン摸"
+msgstr "类"
 
 # src/menus.c:221
 #: ccview/ccview_main.cc:51
 msgid "Files"
-msgstr "郎"
+msgstr "文件"
 
 #: ccview/func_dialog.cc:28
 msgid "Add Function"
-msgstr "穝糤ㄧΑ"
+msgstr "新增函数"
 
 #: ccview/func_dialog.cc:31
 msgid "Function declaration:"
-msgstr "ㄧΑ"
+msgstr "函数声明："
 
 #: ccview/support.c:100
 #: ccview/support.c:138
@@ -95,31 +95,31 @@ msgstr "ㄧΑ"
 #: src/project_dbase_gui.c:1185
 #, c-format
 msgid "Couldn't find pixmap file: %s"
-msgstr "礚猭т瓜ボ郎%s"
+msgstr "无法找到位图文件：%s"
 
 #: ccview/support.c:116
 #, c-format
 msgid "Couldn't create pixmap from file: %s"
-msgstr "礚猭パ郎%s ミ瓜ボ"
+msgstr "无法由文件：%s 创建图示"
 
 #: src/anjuta_cbs.c:128
 msgid ""
 "Some files (or the project) are not saved.\n"
 "Do you still want to exit?"
 msgstr ""
-"Τㄇ郎(┪盡)ごゼ纗\n"
-"琌絋﹚璶挡セ祘Α"
+"有一些文件(或项目)仍未保存。\n"
+"是否确定结束本程序？"
 
 #: src/anjuta_cbs.c:197
 #: src/project_dbase_gui.c:1331
 #, c-format
 msgid "Not a regular file: %s."
-msgstr "ぃ琌タ盽郎%s"
+msgstr "不是一个正常的文件：%s。"
 
 #: src/anjuta_cbs.c:203
 #, c-format
 msgid "No read permission for: %s."
-msgstr "⊿Τì镑舦弄郎%s"
+msgstr "没有足够权限读取文件：%s"
 
 # src/dialogs.c:80
 #: src/anjuta_cbs.c:235
@@ -129,80 +129,80 @@ msgid ""
 "The file \"%s\" already exists.\n"
 "Do you want to overwrite it?."
 msgstr ""
-"郎 \"%s\" \n"
-"琌絋﹚硂郎"
+"文件 \"%s\" 已存在。\n"
+"是否确定替换这个文件？"
 
 #: src/anjuta_dirs.c:52
 msgid ""
 "Unable to create settings directory.\n"
 ""
 msgstr ""
-"礚猭ミ砞﹚ヘ魁\n"
+"无法创建设定目录。\n"
 ""
 
 # src/dialogs.c:457
 #: src/anjuta_info.c:43
 #: src/anjuta_info.c:89
 msgid "Information"
-msgstr "戈癟"
+msgstr "信息"
 
 #: src/appwiz_page1.c:95
 msgid "Select the type of application you want to develop"
-msgstr "匡眤稱璶祇甶莱ノ祘Α摸"
+msgstr "选取您想要发展的应用程序类别"
 
 #: src/appwiz_page1.c:130
 msgid "Generic/Terminal project"
-msgstr "炊硄 / 沧狠诀盡"
+msgstr "普通 / 终端机项目"
 
 #: src/appwiz_page1.c:134
 msgid "GTK project"
-msgstr "GTK 盡"
+msgstr "GTK 项目"
 
 #: src/appwiz_page1.c:138
 msgid "GNOME project"
-msgstr "GNOME 盡"
+msgstr "GNOME 项目"
 
 #: src/appwiz_page1.c:142
 msgid "GTK-- project"
-msgstr "GTK-- 盡"
+msgstr "GTK-- 项目"
 
 #: src/appwiz_page1.c:146
 msgid "GNOME-- project"
-msgstr "GNOME-- 盡"
+msgstr "GNOME-- 项目"
 
 #: src/appwiz_page1.c:150
 msgid "Bonobo component"
-msgstr "Bonobo じン"
+msgstr "Bonobo 组件"
 
 #: src/appwiz_page2.c:154
 #: src/appwiz_page4.c:109
 msgid "Enter the basic Project information"
-msgstr "块膀セ盡戈癟"
+msgstr "输入基本的项目信息"
 
 # src/settings.c:280
 #: src/appwiz_page2.c:170
 #: src/project_dbase_gui.c:710
 msgid "Project Name:"
-msgstr "盡嘿"
+msgstr "项目名称："
 
 # src/settings.c:280
 #: src/appwiz_page2.c:177
 msgid "Project Version:"
-msgstr "盡セ"
+msgstr "项目版本："
 
 # src/settings.c:280
 #: src/appwiz_page2.c:184
 msgid "Project Author:"
-msgstr "盡"
+msgstr "项目作者："
 
 # src/settings.c:280
 #: src/appwiz_page2.c:191
 msgid "Project Target:"
-msgstr "祘Α嘿"
+msgstr "程序名称："
 
 #: src/appwiz_page2.c:222
 msgid "Programming language"
-msgstr "祘Α粂ē"
+msgstr "程序语言"
 
 #: src/appwiz_page2.c:233
 msgid "C"
@@ -214,36 +214,36 @@ msgstr "C++"
 
 #: src/appwiz_page2.c:245
 msgid "Both C and C++"
-msgstr "C の C++"
+msgstr "C 及 C++"
 
 #: src/appwiz_page3.c:112
 msgid "Enter a short project description"
-msgstr "块ㄇ盡虏祏磞瓃"
+msgstr "请输入项目的简短描述"
 
 # src/properties.c:168
 #: src/appwiz_page3.c:160
 msgid "Executable target"
-msgstr "磅︽祘Α"
+msgstr "可执行的程序"
 
 #: src/appwiz_page3.c:167
 msgid "Static library target"
-msgstr "繰篈ㄧΑ畐"
+msgstr "静态函数库"
 
 #: src/appwiz_page3.c:173
 msgid "Dynamic library target"
-msgstr "笆篈ㄧΑ畐"
+msgstr "动态函数库"
 
 #: src/appwizard_cbs.c:106
 msgid "Project name"
-msgstr "盡嘿"
+msgstr "项目名称"
 
 #: src/appwizard_cbs.c:107
 msgid "Source target name"
-msgstr "祘Α嘿"
+msgstr "程序名称"
 
 #: src/appwizard_cbs.c:108
 msgid "Project version"
-msgstr "盡セ"
+msgstr "项目版本"
 
 #: src/appwizard_cbs.c:203
 #, c-format
@@ -251,8 +251,8 @@ msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
 msgstr ""
-"逆 \"%s\" ずぃ砏戈\n"
-"眤ゲ斗璶逆 \"%s\" ず矗ㄑㄇ戈膥尿"
+"栏位： \"%s\" 内含不合规格的资料。\n"
+"您必须要在栏位 \"%s\" 内提供一些恰当的资料才可继续。"
 
 #. For the time being
 #: src/appwizard_cbs.c:251
@@ -263,7 +263,7 @@ msgstr ""
 #: src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
-msgstr "琌"
+msgstr "是"
 
 #: src/appwizard_cbs.c:253
 #: src/project_dbase.c:1402
@@ -272,7 +272,7 @@ msgstr "琌"
 #: src/signals_cbs.c:155
 #: src/signals_cbs.c:168
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/appwizard_cbs.c:255
 msgid ""
@@ -280,41 +280,41 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"絋﹚戈癟\n"
+"确认以下信息：\n"
 "\n"
 ""
 
 #: src/appwizard_cbs.c:256
 msgid "Project Name:    "
-msgstr "盡嘿"
+msgstr "项目名称："
 
 #: src/appwizard_cbs.c:257
 msgid "Project Type:    "
-msgstr "盡摸"
+msgstr "项目类别："
 
 #: src/appwizard_cbs.c:258
 msgid "Target Type:     "
-msgstr "ヘ郎摸"
+msgstr "目的文件类别："
 
 #: src/appwizard_cbs.c:259
 msgid "Source Target:   "
-msgstr "祘Α嘿"
+msgstr "程序名称："
 
 #: src/appwizard_cbs.c:260
 msgid "Version:         "
-msgstr "セ"
+msgstr "版本："
 
 #: src/appwizard_cbs.c:261
 msgid "Author:          "
-msgstr ""
+msgstr "作者："
 
 #: src/appwizard_cbs.c:262
 msgid "Language:        "
-msgstr "粂ē"
+msgstr "语言："
 
 #: src/appwizard_cbs.c:263
 msgid "Gettext support: "
-msgstr "や传粂ēセて"
+msgstr "支换语言本地化："
 
 #: src/appwizard_gui.c:36
 msgid ""
@@ -330,50 +330,50 @@ msgid ""
 "\n"
 "Click Next to proceed ..."
 msgstr ""
-"祘Α弘艶盢穦玻ネㄇΤ闽膀セ\n"
-"郎珹ノ盢﹍絏絪亩\n"
-"Θ祘Α郎ョ斗璶眤块\n"
-"ㄇΤ闽璶秨祇祘Α膀セ戈\n"
+"程序精灵将会生成一些有关基本架构的\n"
+"文件，其中也包括源代码自动编译\n"
+"程序。它会向您询问有关\n"
+"应用程序的初始结构信息。\n"
 "\n"
 "\n"
-"叫み块戈Τ场砞﹚\n"
-"ㄆ┪琌礚猭э\n"
+"请小心输入资料，因为有部份设定\n"
+"可能在事后是无法更改的。\n"
 "\n"
 "\n"
-"膥尿 ..."
+"按下一页继续 ..."
 
 #: src/appwizard_gui.c:100
 msgid "Application Wizard"
-msgstr "祘Α弘艶"
+msgstr "程序精灵"
 
 #: src/appwizard_gui.c:126
 msgid "Application Wizard:     Page 1 of 6"
-msgstr "祘Α弘艶     せ材"
+msgstr "程序精灵：     共六页的第一页"
 
 #: src/appwizard_gui.c:155
 msgid "Application Wizard:     Page 2 of 6"
-msgstr "祘Α弘艶     せ材"
+msgstr "程序精灵：     共六页的第二页"
 
 #: src/appwizard_gui.c:179
 msgid "Application Wizard:     Page 3 of 6"
-msgstr "祘Α弘艶     せ材"
+msgstr "程序精灵：     共六页的第三页"
 
 #: src/appwizard_gui.c:204
 msgid "Application Wizard:     Page 4 of 6"
-msgstr "祘Α弘艶     せ材"
+msgstr "程序精灵：     共六页的第四页"
 
 #: src/appwizard_gui.c:228
 msgid "Application Wizard:     Page 5 of 6"
-msgstr "祘Α弘艶     せ材き"
+msgstr "程序精灵：     共六页的第五页"
 
 #: src/appwizard_gui.c:251
 msgid "Application Wizard:     Page 6 of 6"
-msgstr "祘Α弘艶     せ材せ"
+msgstr "程序精灵：     共六页的第六页"
 
 #: src/attach_process.c:118
 #, c-format
 msgid "Unable to execute: %s."
-msgstr "礚猭磅︽%s"
+msgstr "无法执行：%s。"
 
 #: src/attach_process.c:127
 #, c-format
@@ -381,33 +381,33 @@ msgid ""
 "Unable to open the file: %s\n"
 ""
 msgstr ""
-"礚猭秨币郎%s\n"
+"无法开启文件：%s\n"
 ""
 
 #: src/attach_process_gui.c:52
 msgid "Attach to process"
-msgstr "︽祘埃岿"
+msgstr "进程调试"
 
 #: src/attach_process_gui.c:61
 msgid "Select the process to attach:"
-msgstr "匡璶埃岿︽祘"
+msgstr "选取要调试的进程："
 
 #: src/attach_process_gui.c:81
 msgid "Pid"
-msgstr "︽祘絪腹"
+msgstr "进程编号"
 
 #: src/attach_process_gui.c:85
 msgid "Owner"
-msgstr ""
+msgstr "所有者"
 
 #: src/attach_process_gui.c:89
 msgid "Time"
-msgstr "丁"
+msgstr "时间"
 
 # src/settings.c:357
 #: src/attach_process_gui.c:93
 msgid "Command"
-msgstr ""
+msgstr "指令"
 
 #: src/attach_process_gui.c:103
 #: src/compiler_options_gui.c:359
@@ -420,26 +420,26 @@ msgstr ""
 #: src/src_paths_gui.c:172
 #: src/stack_trace_gui.c:50
 msgid "Update"
-msgstr "穝"
+msgstr "更新"
 
 #: src/attach_process_gui.c:109
 #: src/text_editor_gui.c:271
 msgid "Attach"
-msgstr "絋﹚"
+msgstr "确定"
 
 #: src/breakpoints.c:530
 msgid "Old breakpoints disabled."
-msgstr "筁い耞翴氨ノ"
+msgstr "过时的中断点已停用。"
 
 #: src/breakpoints.c:684
 #: src/breakpoints_cbs.c:131
 msgid "YES"
-msgstr "琌"
+msgstr "是"
 
 #: src/breakpoints.c:690
 #: src/breakpoints_cbs.c:124
 msgid "NO"
-msgstr ""
+msgstr "否"
 
 #: src/breakpoints.c:700
 #: src/main_menubar_def.h:534
@@ -449,48 +449,48 @@ msgstr "0"
 
 #: src/breakpoints.c:866
 msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
-msgstr "┣い耞翴絋龟砞竚育礚猭т醚絪腹"
+msgstr "奇怪，中断点确实已设置了，但却无法找到识别编号"
 
 #: src/breakpoints_cbs.c:96
 msgid "Are you sure you want to delete all breakpoints?"
-msgstr "琌絋﹚璶埃场い耞翴砞﹚"
+msgstr "是否确定要删除所有中断点设定？"
 
 #: src/breakpoints_cbs.c:276
 msgid "You must give a valid location to set the breakpoint."
-msgstr "眤ゲ斗﹚タ絋竚砞竚い耞翴"
+msgstr "您必须指定一个正确的位置才可设置中断点。"
 
 #: src/breakpoints_gui.c:62
 msgid "Breakpoints"
-msgstr "い耞翴"
+msgstr "中断点"
 
 #: src/breakpoints_gui.c:93
 msgid "Enabled"
-msgstr "币ノ"
+msgstr "启用"
 
 # src/menus.c:221
 #: src/breakpoints_gui.c:97
 msgid "File"
-msgstr "郎"
+msgstr "文件"
 
 #: src/breakpoints_gui.c:101
 msgid "Line"
-msgstr "︽"
+msgstr "行"
 
 #: src/breakpoints_gui.c:105
 #: src/text_editor_menu.c:262
 msgid "Function"
-msgstr "ㄧΑ"
+msgstr "函数"
 
 #: src/breakpoints_gui.c:109
 #: src/signals_gui.c:129
 msgid "Pass"
-msgstr "硄筁"
+msgstr "通过"
 
 # src/properties.c:106
 # src/settings.c:667
 #: src/breakpoints_gui.c:113
 msgid "Condition"
-msgstr "猵"
+msgstr "状态"
 
 #: src/breakpoints_gui.c:125
 #: src/compiler_options_gui.c:354
@@ -500,75 +500,75 @@ msgstr "猵"
 #: src/find_in_files_gui.c:132
 #: src/src_paths_gui.c:167
 msgid "Add"
-msgstr "穝糤"
+msgstr "新增"
 
 # src/settings.c:238
 #: src/breakpoints_gui.c:132
 #: src/project_dbase_gui.c:457
 msgid "Edit"
-msgstr "絪胯"
+msgstr "编辑"
 
 #: src/breakpoints_gui.c:139
 msgid "Toggle Enable"
-msgstr "币ノ / 氨ノ"
+msgstr "启用 / 停用"
 
 #: src/breakpoints_gui.c:146
 #: src/stack_trace_gui.c:57
 msgid "View Source"
-msgstr "浪跌﹍郎"
+msgstr "查看源代码"
 
 # src/menus.c:83
 #: src/breakpoints_gui.c:153
 msgid "Disable All"
-msgstr "场氨ノ"
+msgstr "全部停用"
 
 # src/menus.c:83
 #: src/breakpoints_gui.c:160
 msgid "Enable All"
-msgstr "场币ノ"
+msgstr "全部启用"
 
 # src/menus.c:113
 #: src/breakpoints_gui.c:167
 msgid "Delete All"
-msgstr "场埃"
+msgstr "全部删除"
 
 #: src/breakpoints_gui.c:174
 msgid "Delete"
-msgstr "埃"
+msgstr "删除"
 
 #: src/breakpoints_gui.c:269
 #: src/breakpoints_gui.c:398
 msgid "Add Breakpoint"
-msgstr "穝糤い耞翴"
+msgstr "新增中断点"
 
 # src/properties.c:168
 #: src/breakpoints_gui.c:304
 #: src/breakpoints_gui.c:441
 msgid "Location:"
-msgstr "竚"
+msgstr "位置："
 
 #: src/breakpoints_gui.c:311
 #: src/breakpoints_gui.c:448
 msgid "Condition:"
-msgstr "猵"
+msgstr "状况："
 
 #: src/breakpoints_gui.c:318
 #: src/breakpoints_gui.c:455
 #: src/signals_gui.c:261
 msgid "Pass:"
-msgstr "硄筁"
+msgstr "通过："
 
 #: src/build_file.c:51
 msgid "File is not saved. Save it and build."
-msgstr "郎﹟ゼ纗纗絪亩"
+msgstr "文件尚未保存。保存后编译。"
 
 #: src/build_file.c:76
 msgid "The executable is up-to-date. No need to build again."
-msgstr "磅︽郎琌程穝礚惠Ωミ"
+msgstr "执行文件已经是最新的。无需再次创建。"
 
 #: src/build_file.c:92
 msgid "I do not really know how to build this file."
-msgstr "龟ぃ笵ミ硂郎"
+msgstr "实在不知道如何去创建这个文件。"
 
 # src/menus.c:225
 #: src/build_file.c:107
@@ -577,7 +577,7 @@ msgstr "龟ぃ笵ミ硂郎"
 #: src/text_editor_gui.c:246
 #: src/toolbar.c:474
 msgid "Build"
-msgstr "ミ"
+msgstr "创建"
 
 #: src/build_file.c:109
 #, c-format
@@ -585,7 +585,7 @@ msgid ""
 "Building file: %s ...\n"
 ""
 msgstr ""
-"タミ郎%s ...\n"
+"正在创建文件：%s ...\n"
 ""
 
 #: src/build_file.c:130
@@ -604,7 +604,7 @@ msgid ""
 "Total time taken: %d secs\n"
 ""
 msgstr ""
-"羆惠璶丁%d \n"
+"总共需要时间：%d 秒\n"
 ""
 
 #: src/build_file.c:135
@@ -612,152 +612,152 @@ msgid ""
 "Build completed ... unsuccessful\n"
 ""
 msgstr ""
-"ミЧΘ ... ア毖\n"
+"创建工作已完成 ... 失败\n"
 ""
 
 #: src/build_file.c:137
 msgid "Build completed ... unsuccessful"
-msgstr "ミЧΘ ... ア毖"
+msgstr "创建工作已完成 ... 失败"
 
 #: src/build_file.c:142
 msgid ""
 "Build completed ... successful\n"
 ""
 msgstr ""
-"ミЧΘ ... 抖ЧΘ\n"
+"创建工作已完成 ... 成功\n"
 ""
 
 #: src/build_file.c:144
 msgid "Build completed ... successful"
-msgstr "ミЧΘ ... 抖ЧΘ"
+msgstr "创建工作已完成 ... 成功"
 
 #: src/build_project.c:60
 #: src/compile.c:60
 msgid "Unable to build module. Check Preferences->Commands."
-msgstr "礚猭ミ家舱叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法创建模块。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 #: src/build_project.c:75
 #: src/build_project.c:126
 #: src/compile.c:75
 msgid "Build Project"
-msgstr "ミ盡"
+msgstr "创建项目"
 
 #: src/build_project.c:77
 msgid "Building source directory of the Project: "
-msgstr "絪亩の硈挡﹍郎ヘ魁ず郎盡"
+msgstr "编译及连接源代码目录内的文件，项目："
 
 #: src/build_project.c:114
 msgid "Unable to build Project. Check Preferences->Commands."
-msgstr "礚猭ミ盡叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法创建项目。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 #: src/build_project.c:129
 msgid "Building the whole Project: "
-msgstr "ミ俱盡"
+msgstr "创建整个项目："
 
 #: src/build_project.c:162
 msgid "Unable to build tarball. Check Preferences->Commands."
-msgstr "礚猭ミノ祇︽溃罽郎叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法生成用作发行的压缩文件。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 # src/properties.c:137
 # src/settings.c:335
 #: src/build_project.c:174
 msgid "Build Distribution"
-msgstr "ミ祇︽甅ン"
+msgstr "创建发行套件"
 
 #: src/build_project.c:178
 msgid "Building the distribution package of the Project: "
-msgstr "ミ祇︽甅ン盡"
+msgstr "创建发行套件，项目："
 
 #: src/build_project.c:211
 msgid "Unable to Install Project. Check Preferences->Commands."
-msgstr "礚猭杆盡叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法安装项目。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 #: src/build_project.c:223
 msgid "Install Project"
-msgstr "杆盡"
+msgstr "安装项目"
 
 #: src/build_project.c:225
 msgid "Installing the Project: "
-msgstr "杆盡"
+msgstr "安装项目："
 
 #: src/build_project.c:266
 msgid "Unable to auto generate. Check Preferences->Commands."
-msgstr "礚猭玻ネノミ祘Α郎叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法生成用作创建程序的文件。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 #: src/build_project.c:277
 msgid "Autogen Project"
-msgstr "玻ネ祘郎"
+msgstr "生成建程文件"
 
 #: src/build_project.c:280
 msgid "Auto generating the Project: "
-msgstr "玻ネノミ祘Α郎盡"
+msgstr "生成用作创建程序的文件，项目："
 
 #: src/build_project.c:308
 msgid ""
 "Build completed...............Unsuccessful\n"
 ""
 msgstr ""
-"ミЧΘ ... ア毖\n"
+"创建工作已完成 ... 失败\n"
 ""
 
 #: src/build_project.c:310
 msgid "Build terminated with error(s)."
-msgstr "ミ沧ゎ (Τ岿粇)"
+msgstr "创建工作已终止 (有错误)"
 
 #: src/build_project.c:316
 msgid ""
 "Build completed...............Successful\n"
 ""
 msgstr ""
-"ミЧΘ ... 抖ЧΘ\n"
+"创建工作已完成 ... 成功\n"
 ""
 
 #: src/build_project.c:318
 msgid "Build completed ... successful."
-msgstr "ミЧΘ ... 抖ЧΘ"
+msgstr "创建工作已完成 ... 成功。"
 
 #: src/build_project.c:338
 msgid ""
 "Build All completed...............Unsuccessful\n"
 ""
 msgstr ""
-"ミ俱盡ЧΘ ... ア毖\n"
+"创建整个项目的工作已完成 ... 失败\n"
 ""
 
 #: src/build_project.c:341
 msgid "Build All completed...............Unsuccessful"
-msgstr "ミ俱盡ЧΘ ... ア毖"
+msgstr "创建整个项目的工作已完成 ... 失败"
 
 #: src/build_project.c:347
 msgid ""
 "Build All completed...............Successful\n"
 ""
 msgstr ""
-"ミ俱盡ЧΘ ... 抖ЧΘ\n"
+"创建整个项目的工作已完成 ... 成功\n"
 ""
 
 #: src/build_project.c:349
 msgid "Build All completed ... successful"
-msgstr "ミ俱盡ЧΘ ... 抖ЧΘ"
+msgstr "创建整个项目的工作已完成 ... 成功"
 
 #: src/build_project.c:370
 msgid ""
 "Build-Distribution completed...............Unsuccessful\n"
 ""
 msgstr ""
-"ミ祇︽甅ンЧΘ.........ア毖\n"
+"创建发行套件的工作已完成.........失败\n"
 ""
 
 #: src/build_project.c:373
 msgid "Build-Distribution completed ... unsuccessful"
-msgstr "ミ祇︽甅ンЧΘ.........ア毖"
+msgstr "创建发行套件的工作已完成.........失败"
 
 #: src/build_project.c:379
 msgid ""
 "Build-Distribution completed...............Successful\n"
 ""
 msgstr ""
-"ミ祇︽甅ンЧΘ.........抖ЧΘ\n"
+"创建发行套件的工作已完成.........成功\n"
 ""
 
 #: src/build_project.c:383
@@ -765,48 +765,48 @@ msgid ""
 "You will find the source tarball in the top level directory of the project\n"
 ""
 msgstr ""
-"眤盡程郴糷ヘ魁ずт﹍絏溃罽郎\n"
+"您可以在项目的最顶层目录找到源代码的压缩文件\n"
 ""
 
 #: src/build_project.c:386
 msgid "Build-Distribution completed ... successful"
-msgstr "ミ祇︽甅ンЧΘ.........抖ЧΘ"
+msgstr "创建发行套件的工作已完成.........成功"
 
 #: src/build_project.c:407
 msgid ""
 "Install completed...............Unsuccessful\n"
 ""
 msgstr ""
-"杆ЧΘ.......................ア毖\n"
+"安装完成.......................失败\n"
 ""
 
 #: src/build_project.c:410
 msgid "Install completed...............Unsuccessful"
-msgstr "杆ЧΘ.......................ア毖"
+msgstr "安装完成.......................失败"
 
 #: src/build_project.c:416
 msgid ""
 "Install completed...............Successful\n"
 ""
 msgstr ""
-"杆ЧΘ.......................抖ЧΘ\n"
+"安装完成.......................成功\n"
 ""
 
 #: src/build_project.c:418
 msgid "Install completed ... successful"
-msgstr "杆ЧΘ.......................抖ЧΘ"
+msgstr "安装完成.......................成功"
 
 #: src/build_project.c:439
 msgid ""
 "Auto generation completed...............Unsuccessful\n"
 ""
 msgstr ""
-"玻ネノミ祘Α郎ЧΘ..........ア毖\n"
+"创建创建程序文件工作已完成..........失败\n"
 ""
 
 #: src/build_project.c:442
 msgid "Auto generation completed ... unsuccessful"
-msgstr "玻ネノミ祘Α郎ЧΘ..........ア毖"
+msgstr "创建创建程序文件工作已完成..........失败"
 
 #: src/build_project.c:448
 msgid ""
@@ -814,161 +814,161 @@ msgid ""
 "Now Configure the Project.\n"
 ""
 msgstr ""
-"玻ネノミ祘Α郎ЧΘ..........抖ЧΘ\n"
-"瞷皌竚盡\n"
+"生成创建程序文件工作已完成..........成功\n"
+"现在可以配置项目。\n"
 ""
 
 #: src/build_project.c:450
 msgid "Auto generation completed ... successful"
-msgstr "玻ネノミ祘Α郎ЧΘ..........抖ЧΘ"
+msgstr "生成创建程序文件工作已完成..........成功"
 
 #: src/clean_project.c:61
 msgid "Unable to clean project. Check Preferences->Commands."
-msgstr "礚猭睲埃盡叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法清除项目。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 # src/menus.c:108
 #: src/clean_project.c:72
 msgid "Clean"
-msgstr "睲埃"
+msgstr "清除"
 
 #: src/clean_project.c:75
 msgid "Cleaning the source directory of the project: "
-msgstr "睲埃﹍郎ヘ魁ず緇郎盡"
+msgstr "清除源代码目录内多余的文件，项目："
 
 #: src/clean_project.c:103
 msgid ""
 "Cleaning completed...............Unsuccessful\n"
 ""
 msgstr ""
-"睲埃ЧΘ....................ア毖\n"
+"清除工作已完成....................失败\n"
 ""
 
 #: src/clean_project.c:105
 msgid "Cleaning completed ... unsuccessful"
-msgstr "睲埃ЧΘ....................ア毖"
+msgstr "清除工作已完成....................失败"
 
 #: src/clean_project.c:111
 msgid ""
 "Cleaning completed...............Successful\n"
 ""
 msgstr ""
-"睲埃ЧΘ....................抖ЧΘ\n"
+"清除工作已完成....................成功\n"
 ""
 
 #: src/clean_project.c:113
 msgid "Cleaning completed ... successful"
-msgstr "睲埃ЧΘ....................抖ЧΘ"
+msgstr "清除工作已完成....................成功"
 
 #: src/clean_project.c:147
 msgid "Unable to clean all project. Check Preferences->Commands."
-msgstr "礚猭睲埃俱盡ず緇郎叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法清除整个项目内的多余文件。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 # src/menus.c:86
 #: src/clean_project.c:158
 msgid "Clean All"
-msgstr "场睲埃"
+msgstr "全部清除"
 
 #: src/clean_project.c:161
 msgid "Cleaning whole of the project: "
-msgstr "睲埃俱盡ず緇郎"
+msgstr "清除整个项目内的多余文件："
 
 #: src/clean_project.c:183
 msgid ""
 "Clean all completed...............Unsuccessful\n"
 ""
 msgstr ""
-"睲埃俱盡ЧΘ....................ア毖\n"
+"清除整个项目的工作已完成....................失败\n"
 ""
 
 #: src/clean_project.c:185
 msgid "Clean all completed ... unsuccessful"
-msgstr "睲埃俱盡ЧΘ....................ア毖"
+msgstr "清除整个项目的工作已完成....................失败"
 
 #: src/clean_project.c:191
 msgid ""
 "Clean all completed...............Successful\n"
 ""
 msgstr ""
-"睲埃俱盡ЧΘ....................抖ЧΘ\n"
+"清除整个项目的工作已完成....................成功\n"
 ""
 
 #: src/clean_project.c:193
 msgid "Clean all completed ... successful"
-msgstr "睲埃俱盡ЧΘ....................抖ЧΘ"
+msgstr "清除整个项目的工作已完成....................成功"
 
 # src/settings.c:357
 #: src/commands.c:542
 msgid "Commands"
-msgstr ""
+msgstr "指令"
 
 #: src/commands.c:560
 msgid "Select programming language:"
-msgstr "匡絪祘粂ē"
+msgstr "选取编程语言："
 
 #: src/commands.c:586
 msgid " Language specific commands "
-msgstr " 絪祘粂ē疭﹚"
+msgstr " 编程语言特定指令"
 
 # src/properties.c:148
 #: src/commands.c:600
 msgid "Compile File:"
-msgstr "絪亩郎"
+msgstr "编译文件："
 
 #: src/commands.c:608
 msgid "Build File:"
-msgstr "ミ郎"
+msgstr "创建文件："
 
 # src/properties.c:168
 #: src/commands.c:616
 msgid "Execute File:"
-msgstr "磅︽郎"
+msgstr "执行文件："
 
 #: src/commands.c:642
 msgid " General commands "
-msgstr " "
+msgstr " 一般指令"
 
 #: src/commands.c:656
 msgid "Pixmap editor:"
-msgstr "瓜ボ絪胯竟"
+msgstr "位图编辑器："
 
 #: src/commands.c:664
 msgid "Image editor:"
-msgstr "紇钩絪胯竟"
+msgstr "图像编辑器："
 
 #: src/commands.c:672
 msgid "HTML viewer:"
-msgstr "HTML 浪跌竟"
+msgstr "HTML 查看器"
 
 #: src/commands.c:698
 msgid "Load global defaults"
-msgstr "更箇砞"
+msgstr "载入缺省"
 
 #: src/commands.c:705
 msgid "Load user defaults"
-msgstr "更ノ箇砞"
+msgstr "载入使用者缺省"
 
 #: src/compile.c:77
 msgid "Building source directory of the project: "
-msgstr "絪亩の硈挡﹍郎ヘ魁ず郎盡"
+msgstr "编译及连接源代码目录内的文件，项目："
 
 #: src/compile.c:108
 msgid "This file is not saved. Save it first and then compile."
-msgstr "硂郎﹟ゼ纗絪亩玡叫盢ウ纗"
+msgstr "这个文件尚未保存。编译前请先将它保存。"
 
 #: src/compile.c:129
 msgid "The object file is up to date. No need to compile again."
-msgstr "ヘ郎琌程戳礚惠Ω絪亩"
+msgstr "目的文件已是最近期的。无需再次编译。"
 
 #: src/compile.c:143
 msgid "I do not really know how to compile this file."
-msgstr "ぃ睲贰絪亩硂郎"
+msgstr "不清楚如何编译这个文件。"
 
 # src/menus.c:161
 #: src/compile.c:156
 #: src/text_editor_gui.c:235
 #: src/toolbar.c:451
 msgid "Compile"
-msgstr "絪亩"
+msgstr "编译"
 
 #: src/compile.c:158
 #, c-format
@@ -976,23 +976,23 @@ msgid ""
 "Compiling file: %s ...\n"
 ""
 msgstr ""
-"タ絪亩郎%s ...\n"
+"正在编译文件：%s ...\n"
 ""
 
 #: src/compile.c:181
 #: src/compile.c:184
 msgid "Compile completed ... unsuccessful"
-msgstr "絪亩ЧΘ ... ア毖"
+msgstr "编译完成 ... 失败"
 
 #: src/compile.c:189
 #: src/compile.c:192
 msgid "Compile completed ... successful"
-msgstr "絪亩ЧΘ ...抖ЧΘ"
+msgstr "编译完成 ...成功"
 
 #: src/compiler_options_cbs.c:232
 #, c-format
 msgid "Cannot create: %s."
-msgstr "礚猭ミ%s"
+msgstr "无法创建：%s。"
 
 #: src/compiler_options_cbs.c:235
 #, c-format
@@ -1001,7 +1001,7 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"や穿 ID%s\n"
+"支持 ID：%s\n"
 "\n"
 ""
 
@@ -1010,7 +1010,7 @@ msgid ""
 "Description:\n"
 ""
 msgstr ""
-"磞瓃\n"
+"描述：\n"
 ""
 
 #: src/compiler_options_cbs.c:238
@@ -1020,7 +1020,7 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"闽ㄧΑ畐%s\n"
+"相关函数库：%s\n"
 "\n"
 ""
 
@@ -1029,7 +1029,7 @@ msgid ""
 "Macros in configure.in fie:\n"
 ""
 msgstr ""
-" configure.in ずエ栋\n"
+"在 configure.in 内的批处理：\n"
 ""
 
 #: src/compiler_options_cbs.c:241
@@ -1039,7 +1039,7 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"cflags 吏挂跑计%s\n"
+"cflags 的环境变量：%s\n"
 "\n"
 ""
 
@@ -1050,7 +1050,7 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"Libs 吏挂跑计%s\n"
+"Libs 的环境变量：%s\n"
 "\n"
 ""
 
@@ -1061,7 +1061,7 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"絪亩 Cflags 砞﹚%s\n"
+"编译时的 Cflags 设定：%s\n"
 "\n"
 ""
 
@@ -1072,7 +1072,7 @@ msgid ""
 "\n"
 ""
 msgstr ""
-"絪亩 Libs 砞﹚%s\n"
+"编译时的 Libs 设定：%s\n"
 "\n"
 ""
 
@@ -1081,7 +1081,7 @@ msgid ""
 "Entries in acconfig.h file:\n"
 ""
 msgstr ""
-"acconfig.h 郎ず兜ヘ\n"
+"acconfig.h 文件内的项目：\n"
 ""
 
 #: src/compiler_options_cbs.c:251
@@ -1089,7 +1089,7 @@ msgid ""
 "Installed status:\n"
 ""
 msgstr ""
-"杆猵\n"
+"安装状态：\n"
 ""
 
 #: src/compiler_options_cbs.c:266
@@ -1098,7 +1098,7 @@ msgid ""
 "    Installed => %s\n"
 ""
 msgstr ""
-"    杆 => %s\n"
+"    已安装 => %s\n"
 ""
 
 #: src/compiler_options_cbs.c:270
@@ -1106,7 +1106,7 @@ msgid ""
 "    Not Installed.\n"
 ""
 msgstr ""
-"    ﹟ゼ杆\n"
+"    尚未安装。\n"
 ""
 
 #: src/compiler_options_cbs.c:359
@@ -1115,56 +1115,56 @@ msgstr ""
 #: src/compiler_options_cbs.c:635
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
-msgstr "琌絋﹚睲埃睲虫"
+msgstr "是否确定清除列表？"
 
 # src/properties.c:148
 #: src/compiler_options_gui.c:65
 msgid "Compiler Options"
-msgstr "絪亩竟匡兜"
+msgstr "编译器选项"
 
 #: src/compiler_options_gui.c:82
 msgid "Supports"
-msgstr "や穿"
+msgstr "支持"
 
 #: src/compiler_options_gui.c:92
 #: src/compiler_options_gui.c:332
 msgid "Include Paths"
-msgstr "夹繷郎隔畖"
+msgstr "引用路径"
 
 #: src/compiler_options_gui.c:102
 #: src/compiler_options_gui.c:453
 msgid "Library Paths"
-msgstr "ㄧΑ畐隔畖"
+msgstr "函数库路径"
 
 #: src/compiler_options_gui.c:112
 msgid "Libraries"
-msgstr "ㄧΑ畐"
+msgstr "函数库"
 
 #: src/compiler_options_gui.c:122
 #: src/compiler_options_gui.c:737
 msgid "Defines"
-msgstr "﹚竡"
+msgstr "定义"
 
 #: src/compiler_options_gui.c:132
 msgid "Warnings"
-msgstr "牡"
+msgstr "警告"
 
 #: src/compiler_options_gui.c:142
 msgid "Optimization"
-msgstr "程ㄎて"
+msgstr "优化"
 
 #: src/compiler_options_gui.c:152
 msgid "Others"
-msgstr "ㄤウ"
+msgstr "其它"
 
 # src/menus.c:115
 #: src/compiler_options_gui.c:249
 msgid "Select the Supports to add"
-msgstr "匡┮惠兜ヘ"
+msgstr "选取所需项目"
 
 #: src/compiler_options_gui.c:258
 msgid "Info"
-msgstr "戈癟"
+msgstr "信息"
 
 #: src/compiler_options_gui.c:342
 #: src/compiler_options_gui.c:463
@@ -1172,7 +1172,7 @@ msgstr "戈癟"
 #: src/compiler_options_gui.c:747
 #: src/src_paths_gui.c:155
 msgid "<: Enter here"
-msgstr "<: 块"
+msgstr "<: 在此输入"
 
 # src/menus.c:79
 #: src/compiler_options_gui.c:364
@@ -1185,7 +1185,7 @@ msgstr "<: 块"
 #: src/src_paths_gui.c:177
 #: src/watch_gui.c:42
 msgid "Remove"
-msgstr "簿埃"
+msgstr "移除"
 
 # src/menus.c:108
 #: src/compiler_options_gui.c:369
@@ -1196,104 +1196,104 @@ msgstr "簿埃"
 #: src/src_paths_gui.c:182
 #: src/watch_gui.c:54
 msgid "Clear"
-msgstr "睲埃"
+msgstr "清除"
 
 #: src/compiler_options_gui.c:602
 msgid "Added Libraries"
-msgstr "ノㄧΑ畐"
+msgstr "已用函数库"
 
 #: src/compiler_options_gui.c:606
 msgid "Stock"
-msgstr "ノㄧΑ畐"
+msgstr "可用函数库"
 
 #: src/compiler_options_gui.c:610
 #: src/signals_gui.c:133
 msgid "Description"
-msgstr "磞瓃"
+msgstr "描述"
 
 #: src/compiler_options_gui.c:835
 msgid "Treat warnings as errors."
-msgstr "盢牡ボ岿粇"
+msgstr "将警告示为错误。"
 
 #: src/compiler_options_gui.c:854
 msgid "No Warnings"
-msgstr "ぃ陪ボ牡癟"
+msgstr "不显示警告消息"
 
 #: src/compiler_options_gui.c:860
 msgid "All Warnings"
-msgstr "陪ボ场牡癟"
+msgstr "显示全部警告消息"
 
 #: src/compiler_options_gui.c:870
 msgid "Warning for Implicit declarations"
-msgstr "祇瞷Τ留祇牡"
+msgstr "发现有隐含声明时发出警告"
 
 #: src/compiler_options_gui.c:878
 msgid "Warning for mismached Return types"
-msgstr "祇瞷Τぃ才肚戈篈祇牡"
+msgstr "发现有不符合的返回类型时发出警告"
 
 #: src/compiler_options_gui.c:886
 msgid "Warning for Unused Variables"
-msgstr "祇瞷Τゼㄏノ跑计祇牡"
+msgstr "发现有未使用的变量时发出警告"
 
 #: src/compiler_options_gui.c:894
 msgid "Warning for unhandled Switch case with enums"
-msgstr "祇瞷Τゼ矪瞶猅羭 Switch case 祇牡"
+msgstr "发现有未处理的枚举型 Switch case 时发出警告"
 
 #: src/compiler_options_gui.c:902
 msgid "Warning for nested Comment"
-msgstr "祇瞷Τ盻Α称爹祇牡"
+msgstr "发现有巢式备注时发出警告"
 
 #: src/compiler_options_gui.c:910
 msgid "Warning for Uninitialized variable use"
-msgstr "祇瞷Τゼ﹍て跑计祇牡"
+msgstr "发现有未初始化的变量时发出警告"
 
 #: src/compiler_options_gui.c:918
 msgid "Warning for missing Parentheses"
-msgstr "祇瞷ゼΤ続讽ㄏノ珹腹祇牡"
+msgstr "发现未有适当使用括号时发出警告"
 
 #: src/compiler_options_gui.c:926
 msgid "Warning for Un-Traditional syntax"
-msgstr "祇瞷Τ獶肚参粂猭祇牡"
+msgstr "发现有非传统的语法时发出警告"
 
 #: src/compiler_options_gui.c:934
 msgid "Warning for Variable Shadowing"
-msgstr "祇瞷Τ跑计祇牡"
+msgstr "发现有相同变量时发出警告"
 
 #: src/compiler_options_gui.c:942
 msgid "Warning for suspected Pointer-arith"
-msgstr "祇瞷Τ好夹璸衡祇牡"
+msgstr "发现有可疑的指标大小计算时发出警告"
 
 #: src/compiler_options_gui.c:950
 msgid "Warning for Missing-prototypes"
-msgstr "祇瞷ㄧΑゼΤ祇牡"
+msgstr "发现函数未有原型声明发出警告"
 
 #: src/compiler_options_gui.c:958
 msgid "Warning for Un-Inline-able declarations"
-msgstr "祇瞷Τぃ inline ㄧΑ inline 祇牡"
+msgstr "发现有不容许 inline 的函数声明为 inline 时发出警告"
 
 #: src/compiler_options_gui.c:966
 msgid "Warning for Overloaded-virtuals"
-msgstr "祇瞷ΤOverloaded-virtual 祇牡"
+msgstr "发现有Overloaded-virtual 时发出警告"
 
 #: src/compiler_options_gui.c:1002
 msgid "No optimization"
-msgstr "氨ノ程ㄎて"
+msgstr "停用优化"
 
 #: src/compiler_options_gui.c:1012
 msgid "Low level optimization (Machine dependent)"
-msgstr "顶程ㄎて ( ㄏノ gcc  -O1 匡兜 )"
+msgstr "低阶优化 ( 使用 gcc 的 -O1 选项 )"
 
 #: src/compiler_options_gui.c:1022
 msgid "Higher level optimization (without space-speed tradeoff)"
-msgstr "蔼顶程ㄎて ( ㄏノ gcc  -O2 匡兜 )"
+msgstr "高阶优化 ( 使用 gcc 的 -O2 选项 )"
 
 #: src/compiler_options_gui.c:1032
 msgid "Fastest code optimization (Function inlined where ever possible"
-msgstr "﹍絏程ㄎて ( ㄏノ gcc  -O3 匡兜 )"
+msgstr "源代码优化 ( 使用 gcc 的 -O3 选项 )"
 
 #: src/compiler_options_gui.c:1043
 msgid "Note"
-msgstr "称爹"
+msgstr "备注"
 
 #: src/compiler_options_gui.c:1049
 msgid ""
@@ -1302,51 +1302,51 @@ msgid ""
 "both debug and optimization options, unless what you want\n"
 "is to debug the optimized code."
 msgstr ""
-"讽币ノ程ㄎて穦紇臫\n"
-"埃岿程ぃ璶币ノ\n"
-"程ㄎての玻ネ埃岿戈硂ㄢ匡兜\n"
-"埃獶眤琌璶蛤ㄎて﹍絏埃岿"
+"当启用优化后，可能会影响到\n"
+"调试工作。因此，最好不要同时启用\n"
+"优化及创建调试资料这两个选项。\n"
+"除非您想调试已经优化了的源代码。"
 
 #: src/compiler_options_gui.c:1089
 msgid "Enable Debugging"
-msgstr "币ノ玻ネ腊埃岿戈"
+msgstr "生成帮助调试资料"
 
 #: src/compiler_options_gui.c:1097
 msgid "Enable Profiling"
-msgstr "币ノ玻ネ腊纔て戈"
+msgstr "生成帮助优化资料"
 
 #: src/compiler_options_gui.c:1108
 msgid "Additional compiler options (command line options)"
-msgstr "絪亩竟ㄤウ匡兜 (︽匡兜)"
+msgstr "编译器其它选项 (指令行选项)"
 
 #: src/compiler_options_gui.c:1124
 msgid "Additional linker options (command line options)"
-msgstr "硈挡竟ㄤウ匡兜 (︽匡兜)"
+msgstr "连接器其它选项 (指令行选项)"
 
 #: src/configurer.c:87
 #: src/configurer.c:203
 #: src/toolbar.c:463
 msgid "Configure"
-msgstr "皌竚"
+msgstr "配置"
 
 #: src/configurer.c:106
 msgid "Configure Options (if any)"
-msgstr "皌竚盡匡兜 (璝惠璶)"
+msgstr "配置项目选项 (需要的话)"
 
 #: src/configurer.c:182
 msgid ""
 "Project does not have executable configure script.\n"
 "You need to autogen the project first."
 msgstr ""
-"盡ず﹟ゼΤ磅︽皌竚郎 (configure)\n"
-"眤ゲ斗磅︽\"玻ネ祘郎\""
+"项目内尚未有可执行的配置文件 (configure)。\n"
+"您必须先执行\"生成建程文件\"。"
 
 #: src/configurer.c:205
 msgid ""
 "Configuring the project ....\n"
 ""
 msgstr ""
-"皌竚盡 ...\n"
+"配置项目 ...\n"
 ""
 
 #: src/configurer.c:224
@@ -1354,75 +1354,75 @@ msgid ""
 "Configure completed...............Unsuccessful\n"
 ""
 msgstr ""
-"皌竚盡ЧΘ................ア毖\n"
+"配置项目的工作已完成................失败\n"
 ""
 
 #: src/configurer.c:226
 msgid "Configure completed ... unsuccessful"
-msgstr "皌竚盡ЧΘ................ア毖"
+msgstr "配置项目的工作已完成................失败"
 
 #: src/configurer.c:232
 msgid ""
 "Configure completed...............Successful\n"
 ""
 msgstr ""
-"皌竚盡ЧΘ................抖ЧΘ\n"
+"配置项目的工作已完成................成功\n"
 ""
 
 #: src/configurer.c:234
 msgid "Configure completed ... successful"
-msgstr "皌竚盡ЧΘ................抖ЧΘ"
+msgstr "配置项目的工作已完成................成功"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:62
 msgid "Load Executable File"
-msgstr "更磅︽郎"
+msgstr "载入执行文件"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:68
 msgid "Load Core File"
-msgstr "更 Core 郎"
+msgstr "载入核心文件"
 
 #: src/debugger.c:175
 #: src/debugger.c:645
 msgid "Loading Executable: "
-msgstr "更磅︽郎"
+msgstr "载入执行文件："
 
 #: src/debugger.c:226
 msgid "Loading Core: "
-msgstr "タ更 Core 郎"
+msgstr "正在载入核心文件："
 
 #: src/debugger.c:272
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
 msgstr ""
-"Τ磅︽い祘Αタ砆秈︽埃岿叫氨ゎ癸\n"
-"硂磅︽い祘Α埃岿更硂磅︽郎"
+"已有一个在执行中的程序正被进行调试。请先停止对\n"
+"这个执行中的程序的调试工作后再载入这个执行文件。"
 
 #: src/debugger.c:280
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
 msgstr ""
-"Τ︽祘タ埃岿吏挂磅︽\n"
-"叫盢ウ氨ゎ更硂磅︽郎"
+"已有一个进程正在调试环境下执行。\n"
+"请先将它停止后再载入这个执行文件。"
 
 #: src/debugger.c:308
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the core file."
 msgstr ""
-"Τ磅︽い祘Αタ砆秈︽埃岿叫氨ゎ癸\n"
-"硂磅︽い祘Α埃岿更硂 core 郎"
+"已有一个在执行中的程序正被调试。请先停止对\n"
+"这个程序的调试工作再载入这个核心文件。"
 
 #: src/debugger.c:316
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the core file."
 msgstr ""
-"Τ︽祘タ埃岿吏挂磅︽\n"
-"叫盢ウ氨ゎ更硂 core 郎"
+"已有一个进程正在调试环境下执行。\n"
+"请先将它停止后再载入这个核心文件。"
 
 #: src/debugger.c:573
 #, c-format
@@ -1431,21 +1431,21 @@ msgid ""
 "Unable to initialize Debugger. :-(\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
-"тぃ%s\n"
-"礚猭﹍て埃岿竟:-(\n"
-"叫絋﹚ Anjuta 琌杆タ絋"
+"找不到：%s。\n"
+"无法初始化调试器。:-(\n"
+"请确定 Anjuta 是否安装正确。"
 
 # src/properties.c:158
 #: src/debugger.c:640
 msgid "Debugger"
-msgstr "埃岿竟"
+msgstr "调试器"
 
 #: src/debugger.c:643
 msgid ""
 "Getting ready to start debugging session ...\n"
 ""
 msgstr ""
-"非称币笆埃岿吏挂 ...\n"
+"准备启动调试环境 ...\n"
 ""
 
 #: src/debugger.c:655
@@ -1453,7 +1453,7 @@ msgid ""
 "No executable specified\n"
 ""
 msgstr ""
-"﹟ゼ﹚磅︽郎\n"
+"尚未指定执行文件\n"
 ""
 
 #: src/debugger.c:659
@@ -1461,7 +1461,7 @@ msgid ""
 "Open an executable or attach to a process to start debugging.\n"
 ""
 msgstr ""
-"叫秨币磅︽郎┪癸タ磅︽い︽祘秈︽埃岿\n"
+"请开启一个执行文件或对一个正在执行中的进程进行调试。\n"
 ""
 
 #: src/debugger.c:667
@@ -1469,7 +1469,7 @@ msgid ""
 "There was an error whilst launching the debugger!!\n"
 ""
 msgstr ""
-"讽更埃岿竟祇ネ岿粇\n"
+"当载入调试器时发生错误！！\n"
 ""
 
 #: src/debugger.c:671
@@ -1477,7 +1477,7 @@ msgid ""
 "Make sure 'gdb' is installed on the system.\n"
 ""
 msgstr ""
-"叫絋﹚ 'gdb' 琌杆╰参ず\n"
+"请确定 'gdb' 是否已安装在系统内。\n"
 ""
 
 # src/dialogs.c:18
@@ -1485,7 +1485,7 @@ msgstr ""
 # src/dialogs.c:383
 #: src/debugger.c:811
 msgid "Error: "
-msgstr "岿粇"
+msgstr "错误："
 
 # src/properties.c:158
 #: src/debugger.c:836
@@ -1493,7 +1493,7 @@ msgid ""
 "Debugger is ready.\n"
 ""
 msgstr ""
-"埃岿竟碞狐\n"
+"调试器已就绪。\n"
 ""
 
 #: src/debugger.c:943
@@ -1504,24 +1504,24 @@ msgid ""
 ""
 msgstr ""
 "\n"
-"琌т祘Α岿矪:: 埃岿吏挂闽超\n"
+"是否找到程序的错误？:: 调试环境已关闭。\n"
 "\n"
 ""
 
 #: src/debugger.c:1098
 msgid "Cannot execute gnome-terminal"
-msgstr "礚猭磅︽ gnome 沧狠诀"
+msgstr "无法执行 gnome 终端机"
 
 #: src/debugger.c:1133
 msgid "Error: Cannot start terminal for debugging."
-msgstr "岿粇礚猭秨币沧狠诀秈︽埃岿"
+msgstr "错误：无法开启终端机进行调试。"
 
 #: src/debugger.c:1180
 msgid ""
 "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 ""
 msgstr ""
-"牡礚猭秨币沧狠诀埃岿癟礚猭陪ボ\n"
+"警告：无法开启终端机。调试消息无法显示。\n"
 ""
 
 #: src/debugger.c:1198
@@ -1529,7 +1529,7 @@ msgid ""
 "Running program ... \n"
 ""
 msgstr ""
-"タ磅︽祘Α ... \n"
+"正在执进程序 ... \n"
 ""
 
 #: src/debugger.c:1304
@@ -1538,7 +1538,7 @@ msgid ""
 "Attaching to process: %d\n"
 ""
 msgstr ""
-"癸硂︽祘秈︽埃岿%d\n"
+"对这个进程进行调试：%d\n"
 ""
 
 #: src/debugger.c:1332
@@ -1546,12 +1546,12 @@ msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
-"Τ︽祘タ磅︽\n"
-"琌盢ウ沧ゎ癸穝︽祘秈︽︽祘埃岿"
+"已有一个进程正在执行。\n"
+"是否先将它终止后再对新的进程进行调试？"
 
 #: src/debugger.c:1340
 msgid "You FOOL! I can not attach to myself."
-msgstr "瓺и礚猭秈︽︽祘埃岿"
+msgstr "哦?！我无法为自己进行调试。"
 
 #: src/debugger.c:1423
 #, c-format
@@ -1559,7 +1559,7 @@ msgid ""
 "Detaching the process: %d\n"
 ""
 msgstr ""
-"氨ゎ硂︽祘埃岿%d\n"
+"停止这个进程调试：%d\n"
 ""
 
 #: src/debugger.c:1628
@@ -1567,7 +1567,7 @@ msgid ""
 "All breakpoints enabled:\n"
 ""
 msgstr ""
-"场い耞翴币ノ\n"
+"全部中断点已启用：\n"
 ""
 
 #: src/debugger.c:1670
@@ -1575,7 +1575,7 @@ msgid ""
 "All breakpoints disabled:\n"
 ""
 msgstr ""
-"场い耞翴氨ノ\n"
+"全部中断点已停用：\n"
 ""
 
 #: src/debugger.c:1712
@@ -1583,7 +1583,7 @@ msgid ""
 "All breakpoints deleted:\n"
 ""
 msgstr ""
-"场い耞翴埃\n"
+"全部中断点已删除：\n"
 ""
 
 #: src/debugger.c:1745
@@ -1592,7 +1592,7 @@ msgid ""
 "Interrupting the process: %d\n"
 ""
 msgstr ""
-"い耞硂︽祘%d\n"
+"中断这个进程：%d\n"
 ""
 
 #: src/debugger.c:1774
@@ -1601,86 +1601,86 @@ msgid ""
 "Sending signal %s to the process: %d\n"
 ""
 msgstr ""
-"肚癳癟腹 %s 倒︽祘%d\n"
+"传送一个信号 %s 给进程：%d\n"
 ""
 
 #: src/debugger.c:1804
 msgid "There was an error whilst signaling the process."
-msgstr "肚癳癟腹倒︽祘祇ネ岿粇"
+msgstr "传送一个信号给进程时发生错误。"
 
 # src/menus.c:165
 #: src/executer.c:119
 msgid "Execute with arguments"
-msgstr "把计砞﹚"
+msgstr "参数设定"
 
 # src/menus.c:189
 #: src/executer.c:133
 msgid "Command arguments"
-msgstr "把计"
+msgstr "参数"
 
 #: src/executer.c:147
 msgid "Run in Terminal"
-msgstr "沧狠诀ず磅︽"
+msgstr "在终端机内执行"
 
 # src/menus.c:165
 #. FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog
 #: src/executer.c:187
 #: src/toolbar.c:500
 msgid "Execute"
-msgstr "磅︽"
+msgstr "执行"
 
 #: src/executer.c:234
 #: src/mainmenu_callbacks.c:1547
 msgid "Target of this project is unknown"
-msgstr "盡ㄣΤぃ冈ヘ郎摸"
+msgstr "项目具有不详的目的文件类别"
 
 #: src/executer.c:239
 #: src/mainmenu_callbacks.c:1549
 msgid "Target of this project is not executable"
-msgstr "盡ヘ郎摸獶磅︽郎"
+msgstr "项目的目的文件类别并非可执行文件"
 
 #: src/executer.c:244
 msgid "Executable does not exsits for this project."
-msgstr "硂盡ずтぃ磅︽郎"
+msgstr "在这个项目内找不到执行文件。"
 
 #: src/executer.c:257
 msgid "No file or project opened."
-msgstr "﹟ゼΤ郎┪盡砆秨币"
+msgstr "没有打开的文件或项目。"
 
 #: src/executer.c:262
 #: src/executer.c:281
 #: src/mainmenu_callbacks.c:1573
 #: src/mainmenu_callbacks.c:1584
 msgid "No executable for this file."
-msgstr "硂ぃ琌磅︽郎"
+msgstr "这不是一个可执行的文件。"
 
 #: src/executer.c:286
 #: src/mainmenu_callbacks.c:1579
 msgid "Executable is not up-to-date."
-msgstr "獶程戳磅︽郎"
+msgstr "并非最新的可执行文件。"
 
 #: src/executer.c:298
 msgid "Unable to execute project. Check Settings->Commands."
-msgstr "礚猭磅︽祘Α叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法执进程序。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 #: src/executer.c:312
 msgid "This file is not saved. Save it first."
-msgstr "硂郎﹟ゼ纗叫盢ウ纗"
+msgstr "这个文件尚未保存。请先将它保存。"
 
 #: src/executer.c:320
 msgid "Unable to execute file. Check Settings->Commands."
-msgstr "礚猭磅︽郎叫浪琩\"砞﹚\"匡虫\"\"捌匡虫ず砞﹚"
+msgstr "无法执行文件。请检查\"设定\"菜单下的\"指令\"副菜单内的设定。"
 
 #: src/find_in_files.c:178
 msgid "Find in files"
-msgstr "郎ず碝т"
+msgstr "在文件内寻找"
 
 #: src/find_in_files.c:181
 msgid ""
 "Finding in Files ....\n"
 ""
 msgstr ""
-"タ郎ず碝т ...\n"
+"正在文件内寻找 ...\n"
 ""
 
 #: src/find_in_files.c:201
@@ -1688,149 +1688,149 @@ msgid ""
 "Find in Files completed...............Unsuccessful\n"
 ""
 msgstr ""
-"郎ず碝тЧΘ.................ア毖\n"
+"在文件内寻找的工作已完成.................失败\n"
 ""
 
 #: src/find_in_files.c:204
 msgid "Find in Files completed ... unsuccessful"
-msgstr "郎ず碝тЧΘ.................ア毖"
+msgstr "在文件内寻找的工作已完成.................失败"
 
 #: src/find_in_files.c:210
 msgid ""
 "Find in Files completed...............Successful\n"
 ""
 msgstr ""
-"郎ず碝тЧΘ.................抖ЧΘ\n"
+"在文件内寻找的工作已完成.................成功\n"
 ""
 
 #: src/find_in_files.c:212
 msgid "Find in Files completed ... successful"
-msgstr "郎ず碝тЧΘ.................抖ЧΘ"
+msgstr "在文件内寻找的工作已完成.................成功"
 
 #: src/find_in_files_cbs.c:87
 msgid ""
 "ERROR: No input files supplied.\n"
 "I am wondering where will I search."
 msgstr ""
-"岿粇﹟ゼ矗ㄑヴ郎\n"
-"礚猭秨﹍碝т"
+"错误：尚未提供任何文件。\n"
+"无法开始寻找。"
 
 #: src/find_in_files_cbs.c:95
 msgid ""
 "ERROR: No search string supplied.\n"
 "I am wondering what to search."
 msgstr ""
-"岿粇﹟ゼ矗ㄑヴ碝тヘ夹\n"
-"礚猭秨﹍碝т"
+"错误：尚未提供任何寻找目标。\n"
+"无法开始寻找。"
 
 #: src/find_in_files_gui.c:65
 msgid "Find in Files"
-msgstr "郎ず碝т"
+msgstr "在文件内寻找"
 
 # src/properties.c:86
 #: src/find_in_files_gui.c:88
 msgid "File/Directory to add:"
-msgstr "郎/ヘ魁"
+msgstr "文件/目录："
 
 #: src/find_in_files_gui.c:119
 msgid "List of Files/Directories to be searched"
-msgstr "碝т郎 / ヘ魁睲虫"
+msgstr "寻找的文件 / 目录清单"
 
 #: src/find_in_files_gui.c:148
 msgid "Case Sensitive"
-msgstr "跋だ糶"
+msgstr "区分大小写"
 
 # src/menus.c:128
 #: src/find_in_files_gui.c:153
 msgid " Search String"
-msgstr " 碝тヘ夹"
+msgstr " 寻找字符串"
 
 #: src/find_replace.c:332
 msgid "Find and Replace"
-msgstr "碝тの"
+msgstr "寻找及替换"
 
 #: src/find_replace.c:340
 #: src/find_text.c:259
 msgid " RegExp/String to search "
-msgstr "  タ砏ボΑ / 碝тヘ夹"
+msgstr "  要寻找的标准表达式/字符串 "
 
 #: src/find_replace.c:354
 msgid " String to replace "
-msgstr "  "
+msgstr "  替换为"
 
 #: src/find_replace.c:377
 #: src/find_text.c:280
 msgid " Scope "
-msgstr "  絛瞅"
+msgstr "  范围"
 
 # src/menus.c:226
 #: src/find_replace.c:390
 msgid "Whole Document"
-msgstr "俱ゅン"
+msgstr "整份文件"
 
 #: src/find_replace.c:398
 msgid "From Cursor"
-msgstr "笴夹竚秨﹍"
+msgstr "光标位置开始"
 
 # src/properties.c:86
 #: src/find_replace.c:404
 #: src/find_text.c:307
 msgid " Direction "
-msgstr " よ"
+msgstr " 方向"
 
 #: src/find_replace.c:416
 #: src/find_text.c:319
 msgid "Forward"
-msgstr "玡"
+msgstr "向前"
 
 #: src/find_replace.c:423
 #: src/find_text.c:326
 msgid "Backward"
-msgstr ""
+msgstr "向后"
 
 #: src/find_replace.c:429
 #: src/find_text.c:332
 msgid "Type"
-msgstr "よΑ"
+msgstr "方式"
 
 #: src/find_replace.c:441
 #: src/find_text.c:344
 msgid "RegExp"
-msgstr "タ砏ボΑ"
+msgstr "标准表达式"
 
 # src/menus.c:229
 #: src/find_replace.c:448
 #: src/find_text.c:351
 msgid "String"
-msgstr ""
+msgstr "字符串"
 
 #: src/find_replace.c:462
 #: src/find_text.c:359
 msgid "Ignore case while searching"
-msgstr "ぃ跋だ糶"
+msgstr "不区分大小写"
 
 #: src/find_replace.c:469
 msgid "Prompt before Replace"
-msgstr "玡陪ボ矗ボ"
+msgstr "替换前显示提示"
 
 #: src/find_replace.c:476
 #: src/find_text.c:366
 msgid "Whole word"
-msgstr "俱"
+msgstr "整个字"
 
 #: src/find_replace.c:571
 msgid "Do you want to replace this?"
-msgstr "琌絋﹚"
+msgstr "是否确定替换？"
 
 #: src/find_replace.c:629
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
-msgstr "匡﹚絛瞅ずтぃ硂 \"%s\""
+msgstr "在选定的范围内找不到这个字符串 \"%s\""
 
 #: src/find_replace.c:632
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
-msgstr "眖ヘ玡竚ゅン挡ずゅいтぃ硂 \"%s\""
+msgstr "从当前位置到文件结束，都找不到这个字符串 \"%s\""
 
 # src/findbar.c:25
 #: src/find_text.c:251
@@ -1838,63 +1838,63 @@ msgstr "眖ヘ玡竚ゅン挡ずゅいтぃ硂 \"%s\""
 #: src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
-msgstr "碝т"
+msgstr "寻找"
 
 #: src/find_text.c:293
 msgid "Whole document"
-msgstr "俱ゅン"
+msgstr "整份文件"
 
 #: src/find_text.c:300
 msgid "From cursor"
-msgstr "笴夹竚秨﹍"
+msgstr "光标位置开始"
 
 #: src/find_text.c:504
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
-msgstr "俱ゅンずтぃ籔硂 \"%s\" "
+msgstr "在整份文件内也找不到与这个 \"%s\" 相同的字符串"
 
 #: src/find_text.c:507
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
-msgstr "匡﹚絛瞅ずтぃ籔硂 \"%s\" "
+msgstr "在选定的范围内找不到与这个 \"%s\" 相同的字符串"
 
 #: src/find_text.c:510
 #: src/toolbar_callbacks.c:158
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
-msgstr "眖ヘ玡竚ゅン挡ずゅいтぃ籔硂 \"%s\" "
+msgstr "从当前位置至文件结束的内文中，也找不到与这个 \"%s\" 相同的字符串"
 
 #: src/find_text.c:521
 msgid "No matches. Wrap search around the document?"
-msgstr "тぃ才ヘ夹琌璶眖繷秨﹍碝т"
+msgstr "找不到符合目标的字符串。是否要从头开始寻找？"
 
 #: src/gnome_project.c:60
 msgid ""
 "The Project already exist.\n"
 "Project creation aborted."
 msgstr ""
-"盡竒\n"
-"ミ盡"
+"项目已经存在。\n"
+"取消创建项目。"
 
 #: src/gnome_project.c:75
 msgid ""
 "Generating  project ...\n"
 ""
 msgstr ""
-"タ玻ネ盡 ...\n"
+"正在生成项目 ...\n"
 ""
 
 #: src/gnome_project.c:81
 #, c-format
 msgid "Cannot create file: %s"
-msgstr "礚猭ミ郎%s"
+msgstr "无法创建文件：%s"
 
 #: src/gnome_project.c:139
 msgid ""
 "Loading  project ...\n"
 ""
 msgstr ""
-"タ更盡 ...\n"
+"正在载入项目 ...\n"
 ""
 
 #: src/gnome_project.c:143
@@ -1902,7 +1902,7 @@ msgid ""
 "Saving  project ...\n"
 ""
 msgstr ""
-"タ纗盡 ...\n"
+"正在保存项目 ...\n"
 ""
 
 #. Source codes are generated
@@ -1911,7 +1911,7 @@ msgid ""
 "Generating  source codes ...\n"
 ""
 msgstr ""
-"タ玻ネ﹍郎 ...\n"
+"正在生成源代码 ...\n"
 ""
 
 #. Creating icon pixmap file for gnome projects
@@ -1920,7 +1920,7 @@ msgid ""
 "Copying icon file ...\n"
 ""
 msgstr ""
-"タ狡籹瓜ボ ...\n"
+"正在复制图示 ...\n"
 ""
 
 #: src/gnome_project.c:165
@@ -1928,7 +1928,7 @@ msgid ""
 "Could not create icon file ...\n"
 ""
 msgstr ""
-"礚猭ミ瓜ボ ...\n"
+"无法创建图示 ...\n"
 ""
 
 #: src/gnome_project.c:178
@@ -1936,7 +1936,7 @@ msgid ""
 "Locating files ...\n"
 ""
 msgstr ""
-"タ盢郎﹚ ...\n"
+"正在定位文件 ...\n"
 ""
 
 #: src/gnome_project.c:194
@@ -1944,7 +1944,7 @@ msgid ""
 "Again saving  project ...\n"
 ""
 msgstr ""
-"Ω纗盡 ...\n"
+"再次保存项目 ...\n"
 ""
 
 #: src/gnome_project.c:197
@@ -1952,7 +1952,7 @@ msgid ""
 "Updating  project ...\n"
 ""
 msgstr ""
-"タ穝盡 ...\n"
+"正在更新项目 ...\n"
 ""
 
 #: src/gnome_project.c:199
@@ -1960,19 +1960,19 @@ msgid ""
 "Running  autogen.sh ...\n"
 ""
 msgstr ""
-"磅︽ autogen.sh ...\n"
+"执行 autogen.sh ...\n"
 ""
 
 #: src/gnome_project.c:208
 msgid "App Wizard"
-msgstr "祘Α弘艶"
+msgstr "程序精灵"
 
 #: src/gnome_project.c:224
 msgid ""
 "Autogeneration completed...............Unsuccessful\n"
 ""
 msgstr ""
-"玻ネ盡ЧΘ..............ア毖\n"
+"生成项目的工作已完成..............失败\n"
 ""
 
 #: src/gnome_project.c:227
@@ -1980,8 +1980,8 @@ msgid ""
 "The Project was not successfully autogenerated.\n"
 "I think you have to do it manually."
 msgstr ""
-"玻ネ盡┮惠场Τ闽郎ア毖\n"
-"眤笆もミ祘Α"
+"生成项目所　的全部有关文件的工作已失败。\n"
+"您只好自己动手去创建程序了。"
 
 #: src/gnome_project.c:233
 msgid ""
@@ -1989,23 +1989,23 @@ msgid ""
 "Now Build the project to have a LOOK at it\n"
 ""
 msgstr ""
-"玻ネ盡┮惠场Τ闽郎ЧΘ..............Θ\n"
-"瞷磅︽\"ミ盡\"祘Α妓\n"
+"生成项目所　的全部有关文件的工作已完成..............成功\n"
+"现在可以执行\"创建项目\"去看看程序的样子了\n"
 ""
 
 #: src/gnome_project.c:236
 msgid "Project was successfully autogenerated."
-msgstr "盡┮惠场Τ闽郎抖玻ネ"
+msgstr "项目所　的全部有关文件已成功生成。"
 
 # src/menus.c:127
 #: src/goto_line.c:109
 msgid " Goto Line No. "
-msgstr "簿︽腹"
+msgstr "移至行号"
 
 # src/menus.c:270
 #: src/help.c:127
 msgid "Search Help"
-msgstr "碝т弧"
+msgstr "搜索帮助"
 
 #: src/help.c:147
 msgid "Gnome API"
@@ -2013,636 +2013,636 @@ msgstr "Gnome API"
 
 #: src/help.c:152
 msgid "Man pages"
-msgstr "弧ゅン"
+msgstr "帮助文件"
 
 #: src/help.c:157
 msgid "Info pages"
-msgstr "戈癟ゅン"
+msgstr "信息文件"
 
 #: src/launcher.c:220
 #: src/text_editor.c:1077
 msgid "Cannot execute command shell"
-msgstr "礚猭磅︽"
+msgstr "无法执行指令"
 
 #: src/main.c:46
 msgid "Don't show the splashscreen"
-msgstr "ぃ璶陪ボ祘Α币笆癬﹍瓜钩"
+msgstr "不要显示程序启动时的起始图像"
 
 # src/menus.c:92
 #: src/main_menubar.c:458
 msgid "Recent Files    "
-msgstr "程秨币郎"
+msgstr "最近开启文件"
 
 #: src/main_menubar.c:469
 msgid "Plug Ins"
-msgstr "糤家舱"
+msgstr "插件"
 
 # src/menus.c:92
 #: src/main_menubar.c:486
 #: src/project_dbase.c:1873
 msgid "Recent Projects "
-msgstr "程秨币盡"
+msgstr "最近开启项目"
 
 #: src/main_menubar.c:505
 msgid "You have a project opened. Close it first."
-msgstr "Τ盡秨币叫盢ウ闽超"
+msgstr "已有项目开启。请先将它关闭。"
 
 #: src/main_menubar_def.h:27
 msgid "project1"
-msgstr "盡"
+msgstr "项目一"
 
 #: src/main_menubar_def.h:37
 msgid "plugins"
-msgstr "糤家舱"
+msgstr "插件"
 
 # src/menus.c:76
 #: src/main_menubar_def.h:47
 msgid "_New"
-msgstr "穝糤 (_N)"
+msgstr "新增 (_N)"
 
 # src/menus.c:206
 #: src/main_menubar_def.h:48
 #: src/text_editor_gui.c:112
 #: src/toolbar.c:109
 msgid "New Text File"
-msgstr "穝糤ゅ郎"
+msgstr "新增文本文档"
 
 # src/menus.c:77
 #: src/main_menubar_def.h:53
 msgid "_Open ..."
-msgstr "秨币 (_O)..."
+msgstr "开启 (_O)..."
 
 # src/menus.c:77
 #: src/main_menubar_def.h:54
 #: src/toolbar.c:120
 msgid "Open file"
-msgstr "秨币侣郎"
+msgstr "开启旧的文件"
 
 # src/menus.c:81
 #: src/main_menubar_def.h:59
 msgid "_Save"
-msgstr "纗郎 (_S)"
+msgstr "保存文件 (_S)"
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/main_menubar_def.h:60
 #: src/toolbar.c:133
 msgid "Save current file"
-msgstr "纗ヘ玡郎"
+msgstr "保存当前文件"
 
 # src/menus.c:82
 #: src/main_menubar_def.h:65
 msgid "Save _As ..."
-msgstr "穝郎 (_A)..."
+msgstr "另存为 (_A)..."
 
 # src/menus.c:64
 #: src/main_menubar_def.h:66
 msgid "Save the current file with a different name"
-msgstr "ノ嘿纗ヘ玡郎"
+msgstr "用另一名称保存当前文件"
 
 # src/menus.c:83
 #: src/main_menubar_def.h:71
 msgid "Save A_ll"
-msgstr "场纗 (_L)"
+msgstr "全部保存 (_L)"
 
 #: src/main_menubar_def.h:72
 #: src/toolbar.c:146
 msgid "Save all currently open files, except new files"
-msgstr "盢场ヘ玡秨币郎纗穝糤郎埃"
+msgstr "将当前全部开启的文件保存，新增的文件除外"
 
 # src/menus.c:85
 #: src/main_menubar_def.h:77
 msgid "_Close File"
-msgstr "闽超郎 (_C)"
+msgstr "关闭文件 (_C)"
 
 # src/menus.c:85
 #: src/main_menubar_def.h:78
 #: src/toolbar.c:158
 msgid "Close current file"
-msgstr "闽超ヘ玡郎"
+msgstr "关闭当前文件"
 
 # src/menus.c:86
 #: src/main_menubar_def.h:83
 msgid "Close All Files"
-msgstr "闽超场郎"
+msgstr "关闭全部文件"
 
 # src/menus.c:86
 #: src/main_menubar_def.h:84
 msgid "Close all files"
-msgstr "闽超场郎"
+msgstr "关闭全部文件"
 
 #: src/main_menubar_def.h:89
 msgid "Reload F_ile"
-msgstr "更郎 (_I)"
+msgstr "重载文件 (_I)"
 
 # src/menus.c:85
 #: src/main_menubar_def.h:90
 #: src/toolbar.c:169
 msgid "Reload current file"
-msgstr "穝更ヘ玡郎"
+msgstr "重新载入当前文件"
 
 #: src/main_menubar_def.h:96
 msgid "N_ew Project ..."
-msgstr "穝糤盡 (_E)..."
+msgstr "新增项目 (_E)..."
 
 #: src/main_menubar_def.h:97
 msgid "Create a Project using application wizard"
-msgstr "ㄏノ祘Α弘艶ミ穝盡"
+msgstr "使用程序精灵创建一个新的项目"
 
 # src/file-io.c:29
 #: src/main_menubar_def.h:102
 msgid "Open P_roject ..."
-msgstr "秨币盡 (_R)..."
+msgstr "开启项目 (_R)..."
 
 # src/menus.c:77
 #: src/main_menubar_def.h:103
 #: src/toolbar.c:414
 msgid "Open a Project"
-msgstr "秨币侣盡"
+msgstr "开启旧的项目"
 
 #: src/main_menubar_def.h:108
 msgid "Sa_ve Project"
-msgstr "纗盡 (_V)"
+msgstr "保存项目 (_V)"
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/main_menubar_def.h:109
 #: src/toolbar.c:425
 msgid "Save the current Project"
-msgstr "纗ヘ玡盡"
+msgstr "保存当前项目"
 
 #: src/main_menubar_def.h:114
 msgid "Close Pro_ject"
-msgstr "闽超盡 (_J)"
+msgstr "关闭项目 (_J)"
 
 # src/menus.c:85
 #: src/main_menubar_def.h:115
 #: src/toolbar.c:438
 msgid "Close the current Project"
-msgstr "闽超ヘ玡盡"
+msgstr "关闭当前项目"
 
 #: src/main_menubar_def.h:121
 msgid "Rena_me ..."
-msgstr "穝㏑ (_M)..."
+msgstr "重新命名 (_M)..."
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/main_menubar_def.h:122
 msgid "Rename the current file"
-msgstr "穝砞﹚ヘ玡郎嘿"
+msgstr "重新设定当前文件的名称"
 
 #: src/main_menubar_def.h:128
 msgid "Page Set_up ..."
-msgstr "砞﹚ (_U)..."
+msgstr "打印设定 (_U)..."
 
 #: src/main_menubar_def.h:129
 msgid "Page setup for printing"
-msgstr "絪胯ヘ玡砞﹚"
+msgstr "编辑当前的打印设定"
 
 # src/menus.c:151
 #: src/main_menubar_def.h:134
 msgid "_Print ..."
-msgstr " (_P)..."
+msgstr "打印 (_P)..."
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/main_menubar_def.h:135
 #: src/toolbar.c:219
 msgid "Print the current file"
-msgstr "ヘ玡郎ず甧"
+msgstr "打印当前的文件"
 
 # src/menus.c:92
 #: src/main_menubar_def.h:141
 msgid "Recent _Files"
-msgstr "程秨币郎 (_F)"
+msgstr "最近开启文件 (_F)"
 
 # src/menus.c:92
 #: src/main_menubar_def.h:147
 msgid "Recent Projec_ts"
-msgstr "程秨币盡 (_T)"
+msgstr "最近开启项目 (_T)"
 
 #: src/main_menubar_def.h:159
 msgid "_Make Selection Uppercase"
-msgstr "匡﹚絛瞅糶 (_M)"
+msgstr "选定范围为大写 (_M)"
 
 #: src/main_menubar_def.h:160
 msgid "Make the selected text uppercase"
-msgstr "盢匡﹚絛瞅ずダ锣糶ダ"
+msgstr "将选定范围内的字母转为大写字母"
 
 #: src/main_menubar_def.h:165
 msgid "Make Selection Lowercase"
-msgstr "匡﹚絛瞅糶"
+msgstr "选定范围为小写"
 
 #: src/main_menubar_def.h:166
 msgid "Make the selected text lowercase"
-msgstr "盢匡﹚絛瞅ずダ锣糶ダ"
+msgstr "将选定范围内的字母转为小写字母"
 
 #: src/main_menubar_def.h:171
 msgid "Convert EOL chars to LF"
-msgstr "EOL Θ LF じ"
+msgstr "EOL 成为 LF 字节"
 
 #: src/main_menubar_def.h:172
 msgid "Convert End Of Line characters to UNIX EOL (line feed: LF)"
-msgstr "盢挡じ EOL 锣传 Unix  LF じ"
+msgstr "将字符串的结束字节 EOL 转换为 Unix 的 LF 字节"
 
 # src/menus.c:113
 #: src/main_menubar_def.h:181
 msgid "_Select All"
-msgstr "匡 (_S)"
+msgstr "全选 (_S)"
 
 #: src/main_menubar_def.h:182
 msgid "Select all text in the editor"
-msgstr "匡ゅンず场ゅ"
+msgstr "选取文件内全部文字"
 
 # src/menus.c:114
 #: src/main_menubar_def.h:187
 msgid "Select to _Brace"
-msgstr "珹腹ずゅ (_B)"
+msgstr "括号内文字 (_B)"
 
 # src/menus.c:134
 #: src/main_menubar_def.h:188
 msgid "Select the text in the matching braces"
-msgstr "匡ヘ玡珹腹よ癸嘿珹腹ずゅ"
+msgstr "选取当前括号至另一方的对称括号内的文字"
 
 #: src/main_menubar_def.h:193
 msgid "Select Code Block"
-msgstr "ㄧΑず﹍絏"
+msgstr "函数内源代码"
 
 # src/menus.c:115
 #: src/main_menubar_def.h:194
 msgid "Select the current code block"
-msgstr "匡ヘ玡ㄧΑず﹍絏"
+msgstr "选取当前函数内的源代码"
 
 # src/menus.c:144
 #: src/main_menubar_def.h:203
 msgid "/* GPL Notice */"
-msgstr "/* GPL 硄 */"
+msgstr "/* GPL 通告 */"
 
 # src/menus.c:144
 #: src/main_menubar_def.h:204
 msgid "Insert GPL notice with C style comments"
-msgstr "ノ C 粂ē称爹Α糶 GPL 硄"
+msgstr "用 C 语言备注格式写入 GPL 通告"
 
 # src/menus.c:144
 #: src/main_menubar_def.h:209
 msgid "// GPL Notice"
-msgstr "// GPL 硄"
+msgstr "// GPL 通告"
 
 # src/menus.c:145
 #: src/main_menubar_def.h:210
 msgid "Insert GPL notice with C++ style comments"
-msgstr "ノ C++ 粂ē称爹Α糶 GPL 硄"
+msgstr "用 C++ 语言备注格式写入 GPL 通告"
 
 # src/menus.c:140
 #: src/main_menubar_def.h:215
 msgid "Current Date & Time"
-msgstr "ヘ玡ら戳の丁"
+msgstr "当前日期及时间"
 
 # src/menus.c:140
 #: src/main_menubar_def.h:216
 msgid "Insert current date & time"
-msgstr "糶ヘ玡ら戳の丁"
+msgstr "插入当前日期及时间"
 
 # src/menus.c:127
 #: src/main_menubar_def.h:226
 msgid "_Goto Line no ..."
-msgstr "簿︽腹 (_G)..."
+msgstr "移至行 (_G)..."
 
 # src/menus.c:205
 #: src/main_menubar_def.h:227
 msgid "Go to a particular line in the editor"
-msgstr "簿ゅンず﹚︽腹"
+msgstr "移至文件内的指定行"
 
 # src/menus.c:134
 #: src/main_menubar_def.h:232
 msgid "Goto Matching _Brace"
-msgstr "簿癸莱珹腹 (_B)"
+msgstr "移至对应括号 (_B)"
 
 # src/menus.c:134
 #: src/main_menubar_def.h:233
 msgid "Go to the matching brace in the editor"
-msgstr "眖ヘ玡珹腹簿癸莱珹腹"
+msgstr "从当前括号移至另一面对应的括号"
 
 #: src/main_menubar_def.h:238
 msgid "_Goto start of block"
-msgstr "簿跋遏癬 (_G)"
+msgstr "移至区块起首 (_G)"
 
 # src/menus.c:141
 #: src/main_menubar_def.h:239
 msgid "Go to the start of the current block"
-msgstr "簿ヘ玡跋遏秨﹍竚"
+msgstr "移至当前区块的开始位置"
 
 #: src/main_menubar_def.h:244
 msgid "_Goto end of block"
-msgstr "簿跋遏挡Ю"
+msgstr "移至区块结尾"
 
 # src/menus.c:141
 #: src/main_menubar_def.h:245
 msgid "Go to the end of the current block"
-msgstr "簿ヘ玡跋遏挡竚"
+msgstr "移至当前区块的结束位置"
 
 # src/menus.c:205
 #: src/main_menubar_def.h:250
 msgid "_Goto previous mesg"
-msgstr "癟 (_G)"
+msgstr "上一个消息 (_G)"
 
 #: src/main_menubar_def.h:251
 msgid "Go to previous message"
-msgstr "簿癟"
+msgstr "移至上一个消息"
 
 #: src/main_menubar_def.h:256
 msgid "_Goto next mesg"
-msgstr "癟 (_G)"
+msgstr "上一个消息 (_G)"
 
 # src/menus.c:131
 # src/menus.c:132
 #: src/main_menubar_def.h:257
 msgid "Go to next message"
-msgstr "簿癟"
+msgstr "移至下一个消息"
 
 # src/properties.c:199
 # src/settings.c:851
 #. 0
 #: src/main_menubar_def.h:269
 msgid "U_ndo"
-msgstr "確 (_N)"
+msgstr "复原 (_N)"
 
 #: src/main_menubar_def.h:270
 #: src/toolbar.c:182
 msgid "Undo the last action"
-msgstr "ЧΘ笆"
+msgstr "取消刚完成的动作"
 
 #. 1
 #: src/main_menubar_def.h:276
 msgid "_Redo"
-msgstr "狡 (_R)"
+msgstr "重复 (_R)"
 
 #: src/main_menubar_def.h:277
 #: src/toolbar.c:193
 msgid "Redo the last undone action"
-msgstr "狡笆"
+msgstr "重复刚取消的动作"
 
 #. 2
 #. 3
 #: src/main_menubar_def.h:285
 msgid "C_ut"
-msgstr "芭 (_U)"
+msgstr "剪下 (_U)"
 
 #: src/main_menubar_def.h:286
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr "盢匡﹚絛瞅ゅ狡籹芭禟狾簿埃"
+msgstr "将选定范围的文字剪切到剪贴板"
 
 # src/menus.c:161
 #. 4
 #: src/main_menubar_def.h:292
 msgid "_Copy"
-msgstr "狡籹 (_C)"
+msgstr "复制 (_C)"
 
 #: src/main_menubar_def.h:293
 msgid "Copy the selected text to the clipboard"
-msgstr "盢匡﹚絛瞅ゅ狡籹芭禟狾"
+msgstr "将选定范围的文字复制到剪贴板"
 
 # src/menus.c:245
 #. 5
 #: src/main_menubar_def.h:299
 msgid "_Paste"
-msgstr "禟 (_P)"
+msgstr "贴上 (_P)"
 
 #: src/main_menubar_def.h:300
 msgid "Paste the content of clipboard at the current position"
-msgstr "盢芭禟狾ゅ狡籹ヘ玡笴夹竚"
+msgstr "将剪贴板上的文字复制到当前光标的位置"
 
 # src/menus.c:108
 #. 6
 #: src/main_menubar_def.h:306
 msgid "C_lear"
-msgstr "睲埃 (_L)"
+msgstr "清除 (_L)"
 
 #: src/main_menubar_def.h:307
 msgid "Delete the selected text from the editor"
-msgstr "盢匡﹚絛瞅ゅ埃"
+msgstr "将选定范围的文字删除"
 
 #. 7
 #. 8
 #: src/main_menubar_def.h:315
 msgid "_Transform"
-msgstr "锣传 (_T)"
+msgstr "转换 (_T)"
 
 # src/menus.c:113
 #. 9
 #: src/main_menubar_def.h:322
 msgid "_Select"
-msgstr "匡 (_S)"
+msgstr "选取 (_S)"
 
 # src/menus.c:224
 #. 10
 #: src/main_menubar_def.h:329
 msgid "_Insert text"
-msgstr "糶戈癟 (_I)"
+msgstr "写入信息 (_I)"
 
 # src/menus.c:161
 #. 11
 #. 12
 #: src/main_menubar_def.h:338
 msgid "_AutoComplete"
-msgstr "笆恶 (_A)"
+msgstr "自动完成 (_A)"
 
 # src/menus.c:115
 #: src/main_menubar_def.h:339
 msgid "AutoComplete the current word"
-msgstr "笆ЧΘヘ玡"
+msgstr "自动完成当前的词"
 
 #. 13
 #: src/main_menubar_def.h:345
 msgid "S_how calltip"
-msgstr "陪ボ把计矗ボ (_H)"
+msgstr "显示参数提示 (_H)"
 
 #: src/main_menubar_def.h:346
 msgid "Show calltip for the function"
-msgstr "陪ボㄧΑ把计矗ボ"
+msgstr "显示函数的参数提示"
 
 # src/menus.c:263
 #. 14
 #. 15
 #: src/main_menubar_def.h:354
 msgid "_Find ..."
-msgstr "碝т (_F)..."
+msgstr "寻找 (_F)..."
 
 #: src/main_menubar_def.h:355
 msgid "Search for a string or regexp in the editor"
-msgstr "ㄏノタ砏ボΑ┪よΑ秈︽碝т"
+msgstr "在编辑器中寻找一个字符串或标准表达式"
 
 #. 16
 #: src/main_menubar_def.h:361
 msgid "Fin_d in files ..."
-msgstr "郎ず碝т (_D)..."
+msgstr "文件内寻找 (_D)..."
 
 #: src/main_menubar_def.h:362
 msgid "Search for a string in multiple files or directories"
-msgstr "郎┪ヘ魁ず碝т﹚"
+msgstr "在多个文件或目录内寻找指定字符串"
 
 #. 17
 #: src/main_menubar_def.h:368
 msgid "Find and R_eplace ..."
-msgstr "碝тの (_E)..."
+msgstr "寻找及替换 (_E)..."
 
 #: src/main_menubar_def.h:369
 msgid "Search for and replace a string or regexp with another string"
-msgstr "ㄏノタ砏ボΑ┪よΑ秈︽碝тの"
+msgstr "在编辑器中替换一个字符串或regexp"
 
 #. 18
 #: src/main_menubar_def.h:375
 msgid "Find _Next"
-msgstr "碝т (_N)"
+msgstr "寻找下一个 (_N)"
 
 #: src/main_menubar_def.h:376
 msgid "Repeat the Last Find command"
-msgstr "狡磅︽碝т"
+msgstr "重复执行上一个寻找指令"
 
 #. 19
 #: src/main_menubar_def.h:382
 msgid "G_o to"
-msgstr "簿 (_O)"
+msgstr "移至 (_O)"
 
 #. 20
 #. 21
 #: src/main_menubar_def.h:391
 msgid "Ed_it Application GUI ..."
-msgstr "絪胯瓜ざ (_I)"
+msgstr "编辑图形介面 (_I)"
 
 #: src/main_menubar_def.h:392
 msgid "Edit application GUI with the Glade GUI editor"
-msgstr "ㄏノ Glade 絪胯祘Α瓜ざ"
+msgstr "使用 Glade 去编辑程序的图形介面"
 
 #. 22
 #. 23
 #: src/main_menubar_def.h:400
 msgid "Save Build Messages"
-msgstr "纗ミ癟"
+msgstr "保存创建消息"
 
 #: src/main_menubar_def.h:401
 msgid "Save build messages to file"
-msgstr "盢ミ盡陪ボ癟跌怠ず戈癟纗郎"
+msgstr "保存创建信息到文件"
 
 #. 24
 #: src/main_menubar_def.h:407
 msgid "_Plug Ins"
-msgstr "糤家舱 (_P)"
+msgstr "插件 (_P)"
 
 # src/menus.c:186
 #: src/main_menubar_def.h:419
 msgid "_Main Toolbar"
-msgstr "ㄣ (_M)"
+msgstr "主工具条 (_M)"
 
 #: src/main_menubar_def.h:420
 msgid "Hide/Unhide Main toolbar"
-msgstr "陪ボ / 留旅ㄣ"
+msgstr "显示 / 隐藏主工具条"
 
 # src/menus.c:183
 #: src/main_menubar_def.h:426
 msgid "_Extended Toolbar"
-msgstr "秈顶ㄣ (_E)"
+msgstr "进阶工具条 (_E)"
 
 #: src/main_menubar_def.h:427
 msgid "Hide/Unhide Extended toolbar"
-msgstr "陪ボ / 留旅秈顶ㄣ"
+msgstr "显示 / 隐藏进阶工具条"
 
 # src/menus.c:188
 #: src/main_menubar_def.h:433
 msgid "_Tags Toolbar"
-msgstr "まㄣ (_T)"
+msgstr "索引工具条 (_T)"
 
 # src/menus.c:186
 #: src/main_menubar_def.h:434
 msgid "Hide/Unhide Tags toolbar"
-msgstr "陪ボ / 留旅﹍絏郎まㄣ"
+msgstr "显示 / 隐藏源代码文件的索引工具条"
 
 # src/menus.c:187
 #: src/main_menubar_def.h:440
 msgid "_Debug Toolbar"
-msgstr "埃岿ㄣ (_D)"
+msgstr "调试工具条 (_D)"
 
 #: src/main_menubar_def.h:441
 msgid "Hide/Unhide Debug toolbar"
-msgstr "陪ボ / 留旅埃岿ㄣ"
+msgstr "显示 / 隐藏调试工具条"
 
 # src/menus.c:182
 #: src/main_menubar_def.h:447
 msgid "_Browser Toolbar"
-msgstr "聅凝ㄣ (_B)"
+msgstr "浏览工具条 (_B)"
 
 #: src/main_menubar_def.h:448
 msgid "Hide/Unhide Browser toolbar"
-msgstr "陪ボ / 留旅聅凝ㄣ"
+msgstr "显示 / 隐藏浏览工具条"
 
 # src/menus.c:189
 #: src/main_menubar_def.h:454
 msgid "_Format Toolbar"
-msgstr "Αㄣ (_F)"
+msgstr "格式工具条 (_F)"
 
 #: src/main_menubar_def.h:455
 msgid "Hide/Unhide Format toolbar"
-msgstr "陪ボ / 留旅Αㄣ"
+msgstr "显示 / 隐藏格式工具条"
 
 # src/menus.c:187
 #: src/main_menubar_def.h:464
 msgid "_Line numbers margin"
-msgstr "︽腹跋 (_L)"
+msgstr "行号区 (_L)"
 
 # src/settings.c:648
 #: src/main_menubar_def.h:465
 msgid "Show/Hide line numbers"
-msgstr "陪ボ / 留旅︽腹跋"
+msgstr "显示 / 隐藏行号区"
 
 #: src/main_menubar_def.h:470
 msgid "_Markers Margin"
-msgstr "夹腹跋 (_M)"
+msgstr "标号区 (_M)"
 
 #: src/main_menubar_def.h:471
 msgid "Show/Hide markers margin"
-msgstr "陪ボ / 留旅夹腹跋"
+msgstr "显示 / 隐藏标号区"
 
 #: src/main_menubar_def.h:476
 msgid "_Code fold margin"
-msgstr "甶舼跋 (_C)"
+msgstr "展叠区 (_C)"
 
 #: src/main_menubar_def.h:477
 msgid "Show/Hide code fold margin"
-msgstr "陪ボ / 留旅ㄧΑ甶舼跋"
+msgstr "显示 / 隐藏函数展叠区"
 
 # src/properties.c:106
 # src/settings.c:667
 #: src/main_menubar_def.h:482
 msgid "_Indentation guides"
-msgstr "罽逼旧絬 (_I)"
+msgstr "缩排导线 (_I)"
 
 #: src/main_menubar_def.h:483
 msgid "Show/Hide undentation guides"
-msgstr "陪ボ / 留旅罽逼旧絬"
+msgstr "显示 / 隐藏缩排导线"
 
 #: src/main_menubar_def.h:488
 msgid "_White spaces"
-msgstr "フじ (_W)"
+msgstr "空白字节 (_W)"
 
 #: src/main_menubar_def.h:489
 msgid "Show/Hide white spaces"
-msgstr "陪ボ / 留旅フじ"
+msgstr "显示 / 隐藏空白字节"
 
 #: src/main_menubar_def.h:494
 msgid "_Line end characters"
-msgstr "挡じ (_L)"
+msgstr "语句结束字节 (_L)"
 
 #: src/main_menubar_def.h:495
 msgid "Show/Hide line end characters"
-msgstr "陪ボ / 留旅挡じ"
+msgstr "显示 / 隐藏语句结束字节"
 
 #: src/main_menubar_def.h:504
 msgid "++ Zoom"
-msgstr "++ "
+msgstr "++ 放大"
 
 #: src/main_menubar_def.h:505
 msgid "Increase text zoom by 1 unit"
-msgstr "糤虫"
+msgstr "增加字体大小一个单位"
 
 #: src/main_menubar_def.h:510
 msgid "+8"
@@ -2650,7 +2650,7 @@ msgstr "+8"
 
 #: src/main_menubar_def.h:511
 msgid "Zoom factor +8"
-msgstr "糤虫"
+msgstr "增加字体大小八个单位"
 
 #: src/main_menubar_def.h:516
 msgid "+6"
@@ -2658,7 +2658,7 @@ msgstr "+6"
 
 #: src/main_menubar_def.h:517
 msgid "Zoom factor +6"
-msgstr "糤せ虫"
+msgstr "增加字体大小六个单位"
 
 #: src/main_menubar_def.h:522
 msgid "+4"
@@ -2666,7 +2666,7 @@ msgstr "+4"
 
 #: src/main_menubar_def.h:523
 msgid "Zoom factor +4"
-msgstr "糤虫"
+msgstr "增加字体大小四个单位"
 
 #: src/main_menubar_def.h:528
 msgid "+2"
@@ -2674,11 +2674,11 @@ msgstr "+2"
 
 #: src/main_menubar_def.h:529
 msgid "Zoom factor +2"
-msgstr "糤虫"
+msgstr "增加字体大小二个单位"
 
 #: src/main_menubar_def.h:535
 msgid "Zoom factor 0"
-msgstr "タ盽"
+msgstr "正常字体大小"
 
 #: src/main_menubar_def.h:540
 msgid "-2"
@@ -2686,7 +2686,7 @@ msgstr "-2"
 
 #: src/main_menubar_def.h:541
 msgid "Zoom factor -2"
-msgstr "搭ぶ虫"
+msgstr "减少字体大小二个单位"
 
 #: src/main_menubar_def.h:546
 msgid "-4"
@@ -2694,7 +2694,7 @@ msgstr "-4"
 
 #: src/main_menubar_def.h:547
 msgid "Zoom factor -4"
-msgstr "搭ぶ虫"
+msgstr "减少字体大小四个单位"
 
 #: src/main_menubar_def.h:552
 msgid "-6"
@@ -2702,7 +2702,7 @@ msgstr "-6"
 
 #: src/main_menubar_def.h:553
 msgid "Zoom factor -6"
-msgstr "搭ぶせ虫"
+msgstr "减少字体大小六个单位"
 
 #: src/main_menubar_def.h:558
 msgid "-8"
@@ -2710,273 +2710,273 @@ msgstr "-8"
 
 #: src/main_menubar_def.h:559
 msgid "Zoom factor -8"
-msgstr "搭ぶ虫"
+msgstr "减少字体大小八个单位"
 
 #: src/main_menubar_def.h:564
 msgid "-- Zoom"
-msgstr "-- 罽"
+msgstr "-- 缩小"
 
 #: src/main_menubar_def.h:565
 msgid "Reduce text zoom by 1 unit"
-msgstr "搭ぶ虫"
+msgstr "减少字体大小一个单位"
 
 #. 0
 #: src/main_menubar_def.h:575
 msgid "_Messages"
-msgstr "癟跌怠 (_M)"
+msgstr "消息窗口 (_M)"
 
 #: src/main_menubar_def.h:576
 msgid "Show/Hide the Message window"
-msgstr "陪ボ / 留旅癟跌怠"
+msgstr "显示 / 隐藏消息窗口"
 
 # src/properties.c:168
 #. 1
 #: src/main_menubar_def.h:581
 msgid "_Project Listing"
-msgstr "盡羆恨 (_P)"
+msgstr "项目总管 (_P)"
 
 #: src/main_menubar_def.h:582
 #: src/toolbar.c:284
 msgid "Show/Hide the Project window"
-msgstr "陪ボ / 留旅盡跌怠"
+msgstr "显示 / 隐藏项目窗口"
 
 # src/menus.c:132
 #. 2
 #: src/main_menubar_def.h:587
 msgid "B_ookmarks"
-msgstr "魁跌怠 (_O)"
+msgstr "纪录窗口 (_O)"
 
 #: src/main_menubar_def.h:588
 msgid "Show the Bookmark window"
-msgstr "陪ボ魁跌怠"
+msgstr "显示纪录窗口"
 
 # src/menus.c:187
 #. 3
 #. 4
 #: src/main_menubar_def.h:594
 msgid "_Toolbars"
-msgstr "ㄣ (_T)"
+msgstr "工具条 (_T)"
 
 # src/menus.c:222
 #. 5
 #. 6
 #: src/main_menubar_def.h:601
 msgid "_Editor"
-msgstr "絪胯跌怠 (_E)"
+msgstr "编辑窗口 (_E)"
 
 # src/menus.c:155
 #. 7
 #. 8
 #: src/main_menubar_def.h:608
 msgid "_Zoom text"
-msgstr "罽ゅ (_Z)"
+msgstr "缩放文字 (_Z)"
 
 #. 9
 #. 10
 #: src/main_menubar_def.h:615
 #: src/main_menubar_def.h:1290
 msgid "_Breakpoints"
-msgstr "い耞翴跌怠 (_B)"
+msgstr "中断点窗口 (_B)"
 
 #: src/main_menubar_def.h:616
 msgid "Show breakpoints editor window"
-msgstr "陪ボい耞翴跌怠"
+msgstr "显示中断点窗口"
 
 # src/menus.c:230
 #. 11
 #. 12
 #: src/main_menubar_def.h:622
 msgid "_Watch Window"
-msgstr "菏诡跌怠 (_W)"
+msgstr "视察窗口 (_W)"
 
 #: src/main_menubar_def.h:623
 msgid "Show expression watch window"
-msgstr "陪ボ菏诡跑计のボΑ跌怠"
+msgstr "显示视察变量及表达式的窗口"
 
 #. 13
 #: src/main_menubar_def.h:628
 msgid "_Registers"
-msgstr "既竟跌怠 (_R)"
+msgstr "寄存器窗口 (_R)"
 
 #: src/main_menubar_def.h:629
 msgid "Show CPU registers and their contents"
-msgstr "陪ボ CPU 既竟のウず甧"
+msgstr "显示 CPU 寄存器及它的内容"
 
 #. 14
 #: src/main_menubar_def.h:634
 msgid "Program _Stack"
-msgstr "祘Α帮舼 (_S)"
+msgstr "程序堆栈 (_S)"
 
 #: src/main_menubar_def.h:635
 msgid "Show stack trace of the program"
-msgstr "陪ボ祘Α帮舼發萝跌怠"
+msgstr "显示程序的堆栈追踪窗口"
 
 #. 15
 #: src/main_menubar_def.h:640
 msgid "Shared _Libraries"
-msgstr "ㄉㄧΑ畐 (_L)"
+msgstr "共享函数库 (_L)"
 
 #: src/main_menubar_def.h:641
 msgid "Show shared libraries loaded by the program"
-msgstr "陪ボパ祘Α更だㄉㄧΑ畐跌怠"
+msgstr "显示由程序载入的分享函数库窗口"
 
 #. 16
 #: src/main_menubar_def.h:646
 msgid "_Kernel Signals"
-msgstr "ず癟腹 (_K)"
+msgstr "内核信号 (_K)"
 
 #: src/main_menubar_def.h:647
 msgid "Show the kernel signals editor window"
-msgstr "陪ボず癟腹跌怠"
+msgstr "显示内核信号的窗口"
 
 # src/menus.c:230
 #. 17
 #: src/main_menubar_def.h:652
 msgid "_Dump Window"
-msgstr "舱絏跌怠"
+msgstr "组合码窗口"
 
 #: src/main_menubar_def.h:653
 msgid "Show memory dump window"
-msgstr "陪ボㄏノ舱絏块癘拘砰ず甧跌怠"
+msgstr "显示使用组合码输出内存内容的窗口"
 
 # src/menus.c:85
 #. 18
 #. 19
 #: src/main_menubar_def.h:659
 msgid "_Console"
-msgstr "沧狠诀 (_C)"
+msgstr "终端机 (_C)"
 
 #: src/main_menubar_def.h:660
 msgid "Show the console where the program runs"
-msgstr "陪ボ祘Α赣矪癬笆沧狠诀"
+msgstr "显示程序在该处起动的终端机"
 
 #. 20
 #: src/main_menubar_def.h:665
 msgid "Show _Locals"
-msgstr "陪ボ跋办跑计 (_L)"
+msgstr "显示局域变量 (_L)"
 
 #: src/main_menubar_def.h:666
 msgid "Show/Hide Local Variables in MessagePane"
-msgstr "癟跌怠ず陪ボ / 留旅跋办跑计"
+msgstr "在消息窗口内显示 / 隐藏局域变量"
 
 # src/menus.c:152
 #: src/main_menubar_def.h:675
 #: src/project_dbase_gui.c:392
 msgid "Include file"
-msgstr "夹繷郎"
+msgstr "标头文件"
 
 #: src/main_menubar_def.h:681
 #: src/project_dbase_gui.c:398
 msgid "Source file"
-msgstr "﹍郎"
+msgstr "源代码"
 
 #: src/main_menubar_def.h:687
 #: src/project_dbase_gui.c:404
 msgid "Help file"
-msgstr "弧郎"
+msgstr "帮助文件"
 
 # src/menus.c:152
 #: src/main_menubar_def.h:693
 #: src/project_dbase_gui.c:410
 msgid "Data file"
-msgstr "戈郎"
+msgstr "资料文件"
 
 #: src/main_menubar_def.h:699
 #: src/project_dbase_gui.c:416
 msgid "Pixmap file"
-msgstr "瓜ボ郎"
+msgstr "位图文件"
 
 #: src/main_menubar_def.h:705
 #: src/project_dbase_gui.c:422
 msgid "Translation file"
-msgstr "潞亩郎"
+msgstr "翻译文件"
 
 #: src/main_menubar_def.h:711
 msgid "Documentation file"
-msgstr "弧ゅン"
+msgstr "帮助文件"
 
 #: src/main_menubar_def.h:721
 #: src/project_dbase_gui.c:438
 msgid "Add New"
-msgstr "穝糤"
+msgstr "新增"
 
 # src/menus.c:152
 #: src/main_menubar_def.h:727
 #: src/project_dbase_gui.c:444
 msgid "Import File"
-msgstr "蹲郎"
+msgstr "汇入文件"
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/main_menubar_def.h:735
 msgid "Remove the current file from the project"
-msgstr "盢ヘ玡郎眖盡ず簿埃"
+msgstr "将当前文件从项目内移除"
 
 #: src/main_menubar_def.h:742
 msgid "Open the README file of the project"
-msgstr "秨币盡ず README 郎"
+msgstr "开启项目内的 README 文件"
 
 #: src/main_menubar_def.h:748
 msgid "Open the TODO file of the project"
-msgstr "秨币盡ず TODO 郎"
+msgstr "开启项目内的 TODO 文件"
 
 #: src/main_menubar_def.h:754
 msgid "Open the ChangeLog file of the project"
-msgstr "秨币盡ず ChangeLog 郎"
+msgstr "开启项目内的 ChangeLog 文件"
 
 #: src/main_menubar_def.h:760
 msgid "Open the NEWS file of the project"
-msgstr "秨币盡ず NEWS 郎"
+msgstr "开启项目内的 NEWS 文件"
 
 #: src/main_menubar_def.h:766
 msgid "Project _Configuration ..."
-msgstr "盡砞﹚ (_C)..."
+msgstr "项目设定 (_C)..."
 
 #: src/main_menubar_def.h:767
 msgid "Edit the configuration of the project"
-msgstr "絪胯盡ず甧"
+msgstr "编辑项目的内容"
 
 # src/settings.c:372
 #: src/main_menubar_def.h:772
 msgid "Project _Information"
-msgstr "盡戈癟 (_I)"
+msgstr "项目信息 (_I)"
 
 #: src/main_menubar_def.h:773
 msgid "Detailed information about the project"
-msgstr "闽盡冈灿戈癟"
+msgstr "关於项目的详细信息"
 
 #: src/main_menubar_def.h:782
 msgid "Automatic"
-msgstr "笆"
+msgstr "自动"
 
 #: src/main_menubar_def.h:783
 msgid "Automatically determine the highlight style"
-msgstr "笆盎代︹眒矪瞶妓Α"
+msgstr "自动检查色彩处理样式"
 
 # src/highlightbar.c:21
 #: src/main_menubar_def.h:788
 msgid "No Highlight style"
-msgstr "氨ノ︹眒矪瞶"
+msgstr "停用色彩处理"
 
 #: src/main_menubar_def.h:789
 msgid "Force the highlight style to None"
-msgstr "氨ゎ癸ゅンㄏノ︹眒矪瞶"
+msgstr "停止对文件使用色彩处理"
 
 #: src/main_menubar_def.h:794
 msgid "C and C++"
-msgstr "C の C++"
+msgstr "C 及 C++"
 
 #: src/main_menubar_def.h:795
 msgid "Force the highlight style to C and C++"
-msgstr "ㄏノ C の C++ 粂ē︹眒矪瞶妓Α"
+msgstr "使用 C 及 C++ 语言色彩处理样式"
 
 #: src/main_menubar_def.h:800
 msgid "C and C++ with GNOME"
-msgstr "C の C++ GNOME"
+msgstr "C 及 C++ GNOME"
 
 #: src/main_menubar_def.h:801
 msgid "Force the highlight style to C and C++ with GNOME"
-msgstr "ㄏノㄣΤ GNOME  C の C++ 粂ē︹眒矪瞶妓Α"
+msgstr "使用具有 GNOME 的 C 及 C++ 语言色彩处理样式"
 
 #: src/main_menubar_def.h:806
 msgid "HTML"
@@ -2984,7 +2984,7 @@ msgstr "HTML"
 
 #: src/main_menubar_def.h:807
 msgid "Force the highlight style to HTML"
-msgstr "ㄏノ HTML 粂ē︹眒矪瞶妓Α"
+msgstr "使用 HTML 语言色彩处理样式"
 
 #: src/main_menubar_def.h:812
 msgid "XML"
@@ -2992,7 +2992,7 @@ msgstr "XML"
 
 #: src/main_menubar_def.h:813
 msgid "Force the highlight style to XML"
-msgstr "ㄏノ XML 粂ē︹眒矪瞶妓Α"
+msgstr "使用 XML 语言色彩处理样式"
 
 #: src/main_menubar_def.h:818
 msgid "Javascript"
@@ -3000,7 +3000,7 @@ msgstr "Javascript"
 
 #: src/main_menubar_def.h:819
 msgid "Force the highlight style to Javascript"
-msgstr "ㄏノ Javascript 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Javascript 语言色彩处理样式"
 
 # src/menus.c:227
 #: src/main_menubar_def.h:824
@@ -3009,7 +3009,7 @@ msgstr "WScript"
 
 #: src/main_menubar_def.h:825
 msgid "Force the highlight style to WScript"
-msgstr "ㄏノ WScript 粂ē︹眒矪瞶妓Α"
+msgstr "使用 WScript 语言色彩处理样式"
 
 #: src/main_menubar_def.h:830
 msgid "Makefile"
@@ -3017,7 +3017,7 @@ msgstr "Makefile"
 
 #: src/main_menubar_def.h:831
 msgid "Force the highlight style to Makefile"
-msgstr "ㄏノ Makefile 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Makefile 语言色彩处理样式"
 
 #: src/main_menubar_def.h:836
 msgid "Java"
@@ -3025,7 +3025,7 @@ msgstr "Java"
 
 #: src/main_menubar_def.h:837
 msgid "Force the highlight type to Java"
-msgstr "ㄏノ Java 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Java 语言色彩处理样式"
 
 #: src/main_menubar_def.h:842
 msgid "LUA"
@@ -3033,7 +3033,7 @@ msgstr "LUA"
 
 #: src/main_menubar_def.h:843
 msgid "Force the highlight style to LUA"
-msgstr "ㄏノ LUA 粂ē︹眒矪瞶妓Α"
+msgstr "使用 LUA 语言色彩处理样式"
 
 #: src/main_menubar_def.h:848
 msgid "Python"
@@ -3041,7 +3041,7 @@ msgstr "Python"
 
 #: src/main_menubar_def.h:849
 msgid "Force the highlight style to Python"
-msgstr "ㄏノ Python 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Python 语言色彩处理样式"
 
 #: src/main_menubar_def.h:854
 msgid "Perl"
@@ -3049,7 +3049,7 @@ msgstr "Perl"
 
 #: src/main_menubar_def.h:855
 msgid "Force the highlight style to Perl"
-msgstr "ㄏノ Perl 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Perl 语言色彩处理样式"
 
 #: src/main_menubar_def.h:860
 msgid "SQL"
@@ -3057,7 +3057,7 @@ msgstr "SQL"
 
 #: src/main_menubar_def.h:861
 msgid "Force the highlight style to SQL"
-msgstr "ㄏノ SQL 粂ē︹眒矪瞶妓Α"
+msgstr "使用 SQL 语言色彩处理样式"
 
 #: src/main_menubar_def.h:866
 msgid "PL/SQL"
@@ -3065,7 +3065,7 @@ msgstr "PL/SQL"
 
 #: src/main_menubar_def.h:867
 msgid "Force the highlight style to PL/SQL"
-msgstr "ㄏノ PL/SQL 粂ē︹眒矪瞶妓Α"
+msgstr "使用 PL/SQL 语言色彩处理样式"
 
 #: src/main_menubar_def.h:872
 msgid "PHP"
@@ -3073,7 +3073,7 @@ msgstr "PHP"
 
 #: src/main_menubar_def.h:873
 msgid "Force the highlight style to PHP"
-msgstr "ㄏノ PHP 粂ē︹眒矪瞶妓Α"
+msgstr "使用 PHP 语言色彩处理样式"
 
 #: src/main_menubar_def.h:878
 msgid "LaTex"
@@ -3081,7 +3081,7 @@ msgstr "LaTex"
 
 #: src/main_menubar_def.h:879
 msgid "Force the highlight style to LaTex"
-msgstr "ㄏノ LaTex 粂ē︹眒矪瞶妓Α"
+msgstr "使用 LaTex 语言色彩处理样式"
 
 #: src/main_menubar_def.h:884
 msgid "Diff"
@@ -3089,7 +3089,7 @@ msgstr "Diff"
 
 #: src/main_menubar_def.h:885
 msgid "Force the highlight style to Diff"
-msgstr "ㄏノ Diff 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Diff 语言色彩处理样式"
 
 #: src/main_menubar_def.h:890
 msgid "Pascal"
@@ -3097,7 +3097,7 @@ msgstr "Pascal"
 
 #: src/main_menubar_def.h:891
 msgid "Force the highlight style to Pascal"
-msgstr "ㄏノ Pascal 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Pascal 语言色彩处理样式"
 
 #: src/main_menubar_def.h:896
 msgid "Xcode"
@@ -3105,7 +3105,7 @@ msgstr "Xcode"
 
 #: src/main_menubar_def.h:897
 msgid "Force the highlight style to Xcode"
-msgstr "ㄏノ Xcode 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Xcode 语言色彩处理样式"
 
 # src/menus.c:120
 #: src/main_menubar_def.h:902
@@ -3114,7 +3114,7 @@ msgstr "Prj/Properties"
 
 #: src/main_menubar_def.h:903
 msgid "Force the highlight style to project/properties files"
-msgstr "ㄏノ project/properties 粂ē︹眒矪瞶妓Α"
+msgstr "使用 project/properties 语言色彩处理样式"
 
 #: src/main_menubar_def.h:908
 msgid "Conf"
@@ -3122,696 +3122,696 @@ msgstr "Conf"
 
 #: src/main_menubar_def.h:909
 msgid "Force the highlight style to UNIX conf files"
-msgstr "ㄏノ Unix conf 粂ē︹眒矪瞶妓Α"
+msgstr "使用 Unix conf 语言色彩处理样式"
 
 #: src/main_menubar_def.h:918
 msgid "Auto _Format"
-msgstr "笆Α (_F)"
+msgstr "自动格式 (_F)"
 
 #: src/main_menubar_def.h:919
 msgid "Autoformat C and C++ source files"
-msgstr "笆Α C の C++ ﹍郎"
+msgstr "自动格式 C 及 C++ 源代码"
 
 #: src/main_menubar_def.h:924
 msgid "_Increase Indent"
-msgstr "糤罽逼 (_I)"
+msgstr "增加缩排 (_I)"
 
 #: src/main_menubar_def.h:925
 msgid "Increase indentation of line/selection"
-msgstr "糤/匡﹚絛瞅罽逼"
+msgstr "增加语句/选定范围的缩排"
 
 #: src/main_menubar_def.h:930
 msgid "_Decrease Indent"
-msgstr "搭ぶ罽逼 (_D)"
+msgstr "减少缩排 (_D)"
 
 #: src/main_menubar_def.h:931
 msgid "Decrease indentation of line/selection"
-msgstr "搭ぶ/匡﹚絛瞅罽逼"
+msgstr "减少语句/选定范围的缩排"
 
 # src/menus.c:140
 #: src/main_menubar_def.h:937
 msgid "_Update tags image"
-msgstr "穝﹍絏ま (_U)"
+msgstr "更新源代码索引 (_U)"
 
 #: src/main_menubar_def.h:938
 msgid "Update the tags image of the project/opened files"
-msgstr "穝盡 / 秨币郎﹍絏ま"
+msgstr "更新项目 / 已开启文件的源代码索引"
 
 # src/highlightbar.c:21
 #: src/main_menubar_def.h:944
 msgid "Force _Highlight Style"
-msgstr "︹眒矪瞶妓Α (_H)"
+msgstr "色彩处理样式 (_H)"
 
 # src/menus.c:86
 #: src/main_menubar_def.h:951
 msgid "_Close All Folds"
-msgstr "ㄧΑ场篜舼 (_C)"
+msgstr "函数全部折叠 (_C)"
 
 #: src/main_menubar_def.h:952
 msgid "Close all code folds in the editor"
-msgstr "盢场ㄧΑ﹍絏篜舼"
+msgstr "将全部函数的源代码折叠"
 
 #: src/main_menubar_def.h:957
 msgid "_Open All Folds"
-msgstr "ㄧΑ场甶秨 (_O)"
+msgstr "函数全部展开 (_O)"
 
 #: src/main_menubar_def.h:958
 msgid "Open all code folds of the editor"
-msgstr "盢场ㄧΑ﹍絏甶秨"
+msgstr "将全部函数的源代码展开"
 
 # src/menus.c:115
 #: src/main_menubar_def.h:963
 msgid "_Toggle Current Fold"
-msgstr "篜舼/甶秨ヘ玡ㄧΑ (_T)"
+msgstr "折叠/展开当前函数 (_T)"
 
 # src/menus.c:183
 #: src/main_menubar_def.h:964
 msgid "Toggle current code fold of the editor"
-msgstr "ち传ヘ玡ㄧΑ篜舼籔甶秨猵"
+msgstr "切换当前函数的折叠与展开状态"
 
 # src/menus.c:113
 #: src/main_menubar_def.h:970
 msgid "D_etach Current Document"
-msgstr "だ瞒ヘ玡ゅン (_E)"
+msgstr "分离当前文件 (_E)"
 
 #: src/main_menubar_def.h:971
 msgid "Detach the current editor into a separate window"
-msgstr "盢ヘ玡絪胯跌怠だ瞒跌怠"
+msgstr "将当前的编辑窗口分离为个别窗口"
 
 # src/menus.c:161
 #: src/main_menubar_def.h:981
 msgid "_Compile"
-msgstr "絪亩 (_C)"
+msgstr "编译 (_C)"
 
 # src/menus.c:161
 #: src/main_menubar_def.h:982
 msgid "Compile the current source file"
-msgstr "絪亩ヘ玡郎"
+msgstr "编译当前文件"
 
 # src/menus.c:225
 #: src/main_menubar_def.h:988
 #: src/main_menubar_def.h:1534
 msgid "_Build"
-msgstr "ミ (_B)"
+msgstr "创建 (_B)"
 
 #: src/main_menubar_def.h:989
 msgid "Build the source directory of the project/current source file"
-msgstr "絪亩の硈挡 ﹍郎ヘ魁ず郎 / ヘ玡﹍郎 Θ祘Α"
+msgstr "编译及连接 源代码目录内的文件 / 当前的源代码 成为程序"
 
 # src/menus.c:225
 #: src/main_menubar_def.h:994
 msgid "Build _All"
-msgstr "ミ盡 (_B)"
+msgstr "创建项目 (_B)"
 
 #: src/main_menubar_def.h:995
 msgid "Build the whole project"
-msgstr "絪亩の硈挡﹍郎ヘ魁ず郎Θ祘Αの矪瞶盡ずㄤウΤ闽郎"
+msgstr "编译及连接源代码目录内的文件成为程序，以及处理在项目内其它有关的文件。"
 
 # src/menus.c:224
 #: src/main_menubar_def.h:1001
 msgid "_Install"
-msgstr "杆 (_I)"
+msgstr "安装 (_I)"
 
 #: src/main_menubar_def.h:1002
 msgid "Install the project on your system"
-msgstr "盢盡ず祘Α杆セ诀╰参ず"
+msgstr "将项目内的程序安装到本机系统内"
 
 # src/properties.c:137
 # src/settings.c:335
 #: src/main_menubar_def.h:1007
 msgid "Build _Distribution"
-msgstr "ミ祇︽甅ン (_D)"
+msgstr "创建发行套件 (_D)"
 
 #: src/main_menubar_def.h:1008
 msgid "Build the distribution tarball of the project"
-msgstr "盢盡ミΘノ祇︽溃罽郎"
+msgstr "将项目创建成为可用作发行的压缩文件"
 
 #: src/main_menubar_def.h:1014
 msgid "Con_figure ..."
-msgstr "皌竚 (_F) ..."
+msgstr "配置 (_F) ..."
 
 #: src/main_menubar_def.h:1015
 msgid "Configure the project"
-msgstr "皌竚俱盡ㄏ﹍郎絪亩Θ祘Α"
+msgstr "配置整个项目使到源代码可以编译成为程序"
 
 #: src/main_menubar_def.h:1020
 msgid "Auto _generate ..."
-msgstr "玻ネ祘郎 (_G) ..."
+msgstr "生成建程文件 (_G) ..."
 
 #: src/main_menubar_def.h:1021
 msgid "Auto generate all the build files"
-msgstr "玻ネノミ祘Α场┮惠郎"
+msgstr "生成用作创建程序的全部所需文件"
 
 # src/menus.c:108
 #: src/main_menubar_def.h:1027
 msgid "Clea_n"
-msgstr "睲埃 (_N)"
+msgstr "清除 (_N)"
 
 # src/menus.c:109
 # src/menus.c:110
 # src/menus.c:111
 #: src/main_menubar_def.h:1028
 msgid "Clean the source directory"
-msgstr "睲埃﹍郎ヘ魁ず絪亩┮玻ネ郎"
+msgstr "清除源代码目录内在编译时所生成的文件"
 
 # src/menus.c:86
 #: src/main_menubar_def.h:1033
 msgid "Clean A_ll"
-msgstr "场睲埃 (_L)"
+msgstr "全部清除 (_L)"
 
 #: src/main_menubar_def.h:1034
 msgid "Clean the whole project directory"
-msgstr "睲埃盡絪亩场ヘ魁ず┮玻ネ场郎"
+msgstr "清除项目在编译时在全部目录内所生成的全部文件"
 
 # src/menus.c:225
 #: src/main_menubar_def.h:1040
 msgid "_Stop Build"
-msgstr "氨ゎミ (_S)"
+msgstr "停止创建 (_S)"
 
 # src/menus.c:162
 #: src/main_menubar_def.h:1041
 msgid "Stop the current compile or build process"
-msgstr "氨ゎヘ玡タ絪亩郎┪ミ盡"
+msgstr "停止当前正在编译文件或创建项目的工作"
 
 # src/menus.c:165
 #: src/main_menubar_def.h:1047
 msgid "_Execute"
-msgstr "磅︽祘Α (_E)"
+msgstr "执进程序 (_E)"
 
 # src/menus.c:94
 #: src/main_menubar_def.h:1048
 #: src/toolbar.c:501
 msgid "Execute the program"
-msgstr "磅︽硂祘Α"
+msgstr "执行这个程序"
 
 #: src/main_menubar_def.h:1053
 msgid "Set _Program params ..."
-msgstr "把计砞﹚ (_P)..."
+msgstr "参数设定 (_P)..."
 
 #: src/main_menubar_def.h:1054
 msgid "Set the execution parameters of the program"
-msgstr "砞﹚矗ㄑ倒祘Α磅︽肂把计"
+msgstr "设定提供给程序在执行时的额外参数"
 
 # src/menus.c:132
 #: src/main_menubar_def.h:1063
 msgid "_Toggle bookmark"
-msgstr "ち传魁猵 (_T)"
+msgstr "切换纪录状况 (_T)"
 
 # src/menus.c:132
 #: src/main_menubar_def.h:1070
 msgid "_First bookmark"
-msgstr "程玡魁 (_F)"
+msgstr "最前一个纪录 (_F)"
 
 # src/menus.c:131
 #: src/main_menubar_def.h:1076
 msgid "_Previous bookmark"
-msgstr "魁 (_P)"
+msgstr "上一个纪录 (_P)"
 
 # src/menus.c:132
 #: src/main_menubar_def.h:1082
 msgid "_Next bookmark"
-msgstr "魁 (_N)"
+msgstr "下一个纪录 (_N)"
 
 # src/menus.c:132
 #: src/main_menubar_def.h:1088
 msgid "_Last bookmark"
-msgstr "程魁 (_L)"
+msgstr "最后一个纪录 (_L)"
 
 #: src/main_menubar_def.h:1095
 msgid "_Clear all bookmarks"
-msgstr "睲埃场魁 (_C)"
+msgstr "清除全部纪录 (_C)"
 
 #: src/main_menubar_def.h:1105
 msgid "Run/_Continue"
-msgstr "磅︽ / 膥尿磅︽ (_C)"
+msgstr "执行 / 继续执行 (_C)"
 
 #: src/main_menubar_def.h:1106
 msgid "Continue the execution of the program"
-msgstr "膥尿磅︽祘Α"
+msgstr "继续执进程序"
 
 #: src/main_menubar_def.h:1111
 msgid "Step _In"
-msgstr "˙ (_I)"
+msgstr "步入 (_I)"
 
 #: src/main_menubar_def.h:1112
 msgid "Single step into function"
-msgstr "˙ヘ玡ㄧΑず礛虫˙磅︽"
+msgstr "步入当前函数内然后单步执行"
 
 #: src/main_menubar_def.h:1117
 msgid "Step O_ver"
-msgstr "˙筁 (_V)"
+msgstr "跳过 (_V)"
 
 #: src/main_menubar_def.h:1118
 msgid "Single step over function"
-msgstr "虫˙磅︽ヘ玡ㄧΑ"
+msgstr "单步执行当前函数"
 
 #: src/main_menubar_def.h:1123
 msgid "Step _Out"
-msgstr "˙ (_O)"
+msgstr "步出 (_O)"
 
 #: src/main_menubar_def.h:1124
 msgid "Single step out of the function"
-msgstr "磅︽ヘ玡ㄧΑず緇祘Α絏癶"
+msgstr "执行当前函数内余下程序码后返回"
 
 #: src/main_menubar_def.h:1129
 msgid "_Run to cursor"
-msgstr "磅︽笴夹 (_R)"
+msgstr "执行至光标 (_R)"
 
 #: src/main_menubar_def.h:1130
 msgid "Run to the cursor"
-msgstr "祘Α磅︽笴夹ヘ玡竚氨ゎ"
+msgstr "程序执行至光标当前位置时停止"
 
 #: src/main_menubar_def.h:1139
 #: src/text_editor_menu.c:100
 msgid "Toggle breakpoint"
-msgstr "ち传い耞翴猵"
+msgstr "切换中断点状态"
 
 # src/menus.c:109
 # src/menus.c:110
 # src/menus.c:111
 #: src/main_menubar_def.h:1140
 msgid "Toggle breakpoint at the current location"
-msgstr "ち传ヘ玡竚い耞翴猵"
+msgstr "切换当前位置的中断点状态"
 
 #: src/main_menubar_def.h:1145
 msgid "Set Breakpoint ..."
-msgstr "砞﹚い耞翴 ..."
+msgstr "设定中断点 ..."
 
 #: src/main_menubar_def.h:1146
 msgid "Set a breakpoint"
-msgstr "ゅンず砞竚い耞翴"
+msgstr "在文件内设置一个中断点"
 
 #: src/main_menubar_def.h:1152
 msgid "_Breakpoints ..."
-msgstr "い耞翴 (_B) ..."
+msgstr "中断点 (_B) ..."
 
 #: src/main_menubar_def.h:1153
 msgid "Edit breakpoints"
-msgstr "絪胯い耞翴ず甧"
+msgstr "编辑中断点的内容"
 
 #: src/main_menubar_def.h:1158
 msgid "Disable all Breakpoints"
-msgstr "氨ノ场い耞翴"
+msgstr "停用全部中断点"
 
 #: src/main_menubar_def.h:1159
 msgid "Deactivate all breakpoints"
-msgstr "盢场い耞翴砞氨ゎㄏノ"
+msgstr "将全部中断点设为停止使用"
 
 #: src/main_menubar_def.h:1164
 msgid "C_lear all Breakpoints"
-msgstr "睲埃场い耞翴 (_L)"
+msgstr "清除全部中断点 (_L)"
 
 #: src/main_menubar_def.h:1165
 msgid "Delete all breakpoints"
-msgstr "睲埃场い耞翴砞﹚"
+msgstr "清除全部中断点的设定"
 
 #: src/main_menubar_def.h:1174
 msgid "Info _Target Files"
-msgstr "磅︽吏挂 (_T)"
+msgstr "执行环境 (_T)"
 
 #: src/main_menubar_def.h:1175
 msgid "Display information on the files the debugger is active with"
-msgstr "陪ボヘ玡タ砆埃岿祘Α磅︽吏挂戈癟"
+msgstr "显示当前正在被调试的程序的执行环境的信息"
 
 #: src/main_menubar_def.h:1180
 msgid "Info _Program"
-msgstr "祘Α戈癟 (_P)"
+msgstr "程序信息 (_P)"
 
 #: src/main_menubar_def.h:1181
 msgid "Display information on the execution status of the program"
-msgstr "陪ボ祘Α磅︽猵戈癟"
+msgstr "显示程序的执行状态信息"
 
 #: src/main_menubar_def.h:1186
 msgid "Info _Kernel User Struct"
-msgstr "︽祘ず (_K)"
+msgstr "进程内核 (_K)"
 
 #: src/main_menubar_def.h:1187
 msgid "Display the contents of kernel 'struct user' for current child"
-msgstr "陪ボヘ玡︽祘 CPU 既竟计祘Α帮舼戈跋の单单..."
+msgstr "显示当前进程的 CPU 寄存器数值，程序堆栈，资料区的位址及大小等等..."
 
 #: src/main_menubar_def.h:1192
 msgid "Info _Threads"
-msgstr "磅︽狐 (_T)"
+msgstr "线程 (_T)"
 
 #: src/main_menubar_def.h:1193
 msgid "Display the IDs of currently known threads"
-msgstr "陪ボヘ玡磅︽狐醚絪腹"
+msgstr "显示当前已知的线程的识别编号"
 
 #: src/main_menubar_def.h:1198
 msgid "Info _Global variables"
-msgstr "跋办跑计 (_G)"
+msgstr "全局变量 (_G)"
 
 #: src/main_menubar_def.h:1199
 msgid "Display all global and static variables of the program"
-msgstr "陪ボ祘Α跋办の繰篈跑计"
+msgstr "显示程序的全局及静态变量"
 
 #: src/main_menubar_def.h:1204
 msgid "Info _Local variables"
-msgstr "跋办跑计 (_L)"
+msgstr "局域变量 (_L)"
 
 #: src/main_menubar_def.h:1205
 msgid "Display local variables of the current frame"
-msgstr "陪ボ祘Α跋办跑计"
+msgstr "显示程序的局域变量"
 
 #: src/main_menubar_def.h:1210
 msgid "Info _Current Frame"
-msgstr "帮舼挡篶 (_C)"
+msgstr "堆栈结构 (_C)"
 
 #: src/main_menubar_def.h:1211
 msgid "Display information about the current frame of execution"
-msgstr "陪ボヘ玡帮舼挡篶ず戈癟"
+msgstr "显示当前堆栈结构内的信息"
 
 #: src/main_menubar_def.h:1216
 msgid "Info Function _Arguments"
-msgstr "ㄧΑ把计 (_A)"
+msgstr "函数参数 (_A)"
 
 #: src/main_menubar_def.h:1217
 msgid "Display function arguments of the current frame"
-msgstr "陪ボヘ玡帮舼挡篶┮妮ㄧΑ把计"
+msgstr "显示当前堆栈结构所属函数的参数"
 
 # src/menus.c:164
 #: src/main_menubar_def.h:1226
 msgid "_Start Debugger"
-msgstr "币笆埃岿 (_S)"
+msgstr "启动调试 (_S)"
 
 # src/menus.c:63
 #: src/main_menubar_def.h:1227
 msgid "Start the debugging session"
-msgstr "币笆埃岿吏挂"
+msgstr "启动调试环境"
 
 #: src/main_menubar_def.h:1233
 msgid "Load E_xecutable ..."
-msgstr "更磅︽郎 (_X)..."
+msgstr "载入执行文件 (_X)..."
 
 #: src/main_menubar_def.h:1234
 msgid "Open the executable for debugging"
-msgstr "秨币磅︽郎秈︽埃岿"
+msgstr "开启一个执行文件进行调试"
 
 #: src/main_menubar_def.h:1239
 msgid "Load _Core file ..."
-msgstr "更 Core 郎 (_C)..."
+msgstr "载入核心文件 (_C)..."
 
 #: src/main_menubar_def.h:1240
 msgid "Load a core file to dissect"
-msgstr "更 core 郎秈︽だ猂"
+msgstr "载入一个核心文件进行分析"
 
 #: src/main_menubar_def.h:1245
 msgid "_Attach to Process ..."
-msgstr "︽祘埃岿 (_A)..."
+msgstr "进程调试 (_A)..."
 
 #: src/main_menubar_def.h:1246
 msgid "Attach to a running program"
-msgstr "癸タ磅︽い祘Α秈︽埃岿"
+msgstr "对一个正在执行中的程序进行调试"
 
 #: src/main_menubar_def.h:1252
 msgid "_Restart Program"
-msgstr "穝磅︽祘Α (_R)"
+msgstr "重新执进程序 (_R)"
 
 #: src/main_menubar_def.h:1253
 msgid "Stop and restart the program"
-msgstr "氨ゎ穝币笆祘Α"
+msgstr "停止后重新启动程序"
 
 #: src/main_menubar_def.h:1258
 msgid "S_top Program"
-msgstr "氨ゎ磅︽祘Α (_T)"
+msgstr "停止执进程序 (_T)"
 
 #: src/main_menubar_def.h:1259
 msgid "Stop the program being debugged"
-msgstr "氨ゎ磅︽タ砆埃岿祘Α"
+msgstr "停止执行正在被调试的程序"
 
 # src/properties.c:158
 #: src/main_menubar_def.h:1264
 msgid "_Detach Debugger"
-msgstr "氨ゎ︽祘埃岿 (_D)"
+msgstr "停止进程调试 (_D)"
 
 #: src/main_menubar_def.h:1265
 msgid "Detach from an attached program"
-msgstr "玡癸タ磅︽い祘Α埃岿"
+msgstr "取消先前对正在执行中的程序的调试工作"
 
 #: src/main_menubar_def.h:1271
 msgid "I_nterrupt Program"
-msgstr "い耞祘Α (_N)"
+msgstr "中断程序 (_N)"
 
 #: src/main_menubar_def.h:1272
 #: src/toolbar.c:996
 msgid "Interrupt execution of the program"
-msgstr "い耞タ磅︽祘Α"
+msgstr "中断正在执行的程序"
 
 #: src/main_menubar_def.h:1277
 msgid "Si_gnal to Process"
-msgstr "肚癳ず癟腹"
+msgstr "传送内核信号"
 
 #: src/main_menubar_def.h:1278
 msgid "Send a kernel signal to the process being debugged"
-msgstr "肚癳ず癟腹倒タ砆埃岿︽祘"
+msgstr "传送一个内核信号给正在调试的进程"
 
 # src/properties.c:168
 #: src/main_menubar_def.h:1284
 msgid "_Execution"
-msgstr "磅︽ (_E)"
+msgstr "执行 (_E)"
 
 # src/dialogs.c:457
 #: src/main_menubar_def.h:1297
 msgid "_Information"
-msgstr "戈癟 (_I)"
+msgstr "信息 (_I)"
 
 #: src/main_menubar_def.h:1304
 msgid "Ins_pect/Evaluate ..."
-msgstr "喷谍の代刚 (_P)..."
+msgstr "验证及测试 (_P)..."
 
 #: src/main_menubar_def.h:1305
 msgid "Inspect or evaluate an expression or variable"
-msgstr "喷谍┪代刚ㄇボΑ┪跑计"
+msgstr "验证或测试一些表达式或变量"
 
 #: src/main_menubar_def.h:1310
 msgid "Add Expression in _Watch ..."
-msgstr "穝糤菏诡兜ヘ (W)..."
+msgstr "新增视察项目 (W)..."
 
 #: src/main_menubar_def.h:1311
 msgid "Add expression or variable to the watch"
-msgstr "ボΑ┪跑计菏诡跌怠"
+msgstr "加入表达式或变量到视察窗口"
 
 # src/menus.c:164
 #: src/main_menubar_def.h:1317
 msgid "St_op Debugger"
-msgstr "氨ゎ埃岿 (_O)"
+msgstr "停止调试 (_O)"
 
 #: src/main_menubar_def.h:1318
 msgid "Say goodbye to the debugger"
-msgstr "蛤埃岿竟弧羘ǎ"
+msgstr "跟调试器说再见"
 
 #: src/main_menubar_def.h:1327
 msgid "Grep Utility"
-msgstr "碝т (Grep)"
+msgstr "寻找语句 (Grep)"
 
 #: src/main_menubar_def.h:1333
 msgid "Compare two files"
-msgstr "ゑ耕ㄢ郎ぃよ"
+msgstr "比较两个文件不同的地方"
 
 #: src/main_menubar_def.h:1339
 msgid "Diff Utility"
-msgstr "郎ゑ耕 (Diff)"
+msgstr "文件比较 (Diff)"
 
 #: src/main_menubar_def.h:1345
 msgid "File View (Char/Octal/Hex)"
-msgstr "郎浪跌 (じ/秈/せ秈)"
+msgstr "文件查看 (字节/八进制/十六进制)"
 
 #: src/main_menubar_def.h:1352
 msgid "Declarations"
-msgstr ""
+msgstr "声明"
 
 #: src/main_menubar_def.h:1358
 msgid "C Flow"
-msgstr "C 瑈祘"
+msgstr "C 流程"
 
 #: src/main_menubar_def.h:1364
 msgid "C Cross-reference"
-msgstr "C 闽硈挡"
+msgstr "C 相关连接"
 
 #: src/main_menubar_def.h:1370
 msgid "C Trace"
-msgstr "C 發萝"
+msgstr "C 追踪"
 
 #: src/main_menubar_def.h:1377
 msgid "Backup Manager"
-msgstr "称羆恨"
+msgstr "备份总管"
 
 # src/menus.c:76
 #: src/main_menubar_def.h:1387
 msgid "_Create New Window"
-msgstr "穝糤跌怠 (_C)"
+msgstr "新增视窗 (_C)"
 
 # src/menus.c:77
 #: src/main_menubar_def.h:1388
 msgid "Open a new file window"
-msgstr "秨币穝跌怠"
+msgstr "开启一个新的窗口"
 
 #: src/main_menubar_def.h:1398
 msgid "Close current document window"
-msgstr "闽超ヘ玡ゅン跌怠"
+msgstr "关闭当前文件窗口"
 
 #: src/main_menubar_def.h:1407
 msgid "_Compiler and Linker Settings ..."
-msgstr "絪亩竟の硈挡竟砞﹚ (_C)..."
+msgstr "编译器及连接器设定 (_C)..."
 
 #: src/main_menubar_def.h:1408
 msgid "Settings for the compiler and linker"
-msgstr "絪胯絪亩竟の硈挡竟砞﹚ず甧"
+msgstr "编辑编译器及连接器的设定内容"
 
 #: src/main_menubar_def.h:1413
 msgid "_Source Paths ..."
-msgstr "﹍郎隔畖 (_S)..."
+msgstr "源代码路径 (_S)..."
 
 #: src/main_menubar_def.h:1414
 msgid "Specify the source paths for the Anjuta to search"
-msgstr "﹚碝т﹍郎ヘ魁隔畖"
+msgstr "指定寻找源代码的目录路径"
 
 #: src/main_menubar_def.h:1419
 msgid "_Commands ..."
-msgstr " (_C)..."
+msgstr "指令 (_C)..."
 
 # src/main.c:42
 #: src/main_menubar_def.h:1420
 msgid "Specify the various commands for use"
-msgstr "砞﹚絪亩祘Αのㄤウ祘Α┮ㄏノ"
+msgstr "设定编译程序时，及其它程序所使用的指令"
 
 # src/menus.c:197
 #: src/main_menubar_def.h:1426
 msgid "_Preferences ..."
-msgstr "熬砞﹚ (_P)..."
+msgstr "偏好设定 (_P)..."
 
 #: src/main_menubar_def.h:1427
 msgid "Do your prefer coffee to tea? Check it out."
-msgstr "絪胯セ祘ΑΤ闽砞﹚"
+msgstr "编辑本程序的有关设定。"
 
 #: src/main_menubar_def.h:1432
 msgid "Set _Default Preferences"
-msgstr "砞熬砞﹚ (_D)"
+msgstr "重设偏好设定 (_D)"
 
 #: src/main_menubar_def.h:1433
 msgid "But I prefer tea."
-msgstr "盢熬砞﹚ずず甧確箇砞"
+msgstr "将偏好设定内的内容恢复为预设。"
 
 #: src/main_menubar_def.h:1444
 msgid "Browse Gnome API Pages"
-msgstr "聅凝 Gnome API"
+msgstr "浏览 Gnome API"
 
 #: src/main_menubar_def.h:1445
 msgid "The gnome API pages"
-msgstr "陪ボ gnome API 弧"
+msgstr "显示 gnome API 的说明"
 
 #: src/main_menubar_def.h:1450
 msgid "Browse Man Pages"
-msgstr "聅凝弧 (Man)"
+msgstr "浏览说明 (Man)"
 
 #: src/main_menubar_def.h:1451
 msgid "The good old manual pages"
-msgstr "陪ボ╰参ず弧郎 (Man)"
+msgstr "显示系统内的帮助文件 (Man)"
 
 #: src/main_menubar_def.h:1456
 msgid "Browse Info Pages"
-msgstr "聅凝戈癟 (info)"
+msgstr "浏览信息 (info)"
 
 #: src/main_menubar_def.h:1457
 msgid "Info pages, where you cannot find what you are looking for"
-msgstr "陪ボ╰参ず戈癟郎 (info)"
+msgstr "显示系统内的信息文件 (info)"
 
 #: src/main_menubar_def.h:1463
 #: src/text_editor_menu.c:224
 msgid "Context Help"
-msgstr "弧"
+msgstr "即时帮助"
 
 #: src/main_menubar_def.h:1464
 msgid "Search help for the current word in the editor"
-msgstr "弧郎ず碝тヘ玡ゅンず匡﹚"
+msgstr "在帮助文件内寻找当前文件内选定的字"
 
 # src/menus.c:128
 #: src/main_menubar_def.h:1469
 msgid "Search a topic"
-msgstr "碝т夹肈"
+msgstr "寻找标题"
 
 #: src/main_menubar_def.h:1470
 msgid "May I help you?"
-msgstr "弧郎ず碝т疭﹚"
+msgstr "在帮助文件内寻找特定语句。"
 
 #: src/main_menubar_def.h:1476
 msgid "Anjuta Home site"
-msgstr "Anjuta 呼"
+msgstr "Anjuta 主页"
 
 #: src/main_menubar_def.h:1477
 msgid "Online documentation and resources"
-msgstr "聅凝呼ゅンのㄤウ戈癟"
+msgstr "浏览网上文件及其它信息"
 
 #: src/main_menubar_def.h:1483
 msgid "Libraries API references"
-msgstr "呼 API ㄧΑ弧"
+msgstr "网上 API 函数说明"
 
 #: src/main_menubar_def.h:1484
 msgid "Online reference library for GDK, GLib, GNOME etc.."
-msgstr "聅凝呼 GDK, GLib, GNOME... 单ㄧΑ弧"
+msgstr "浏览网上的 GDK, GLib, GNOME... 等的函数说明"
 
 #: src/main_menubar_def.h:1489
 msgid "Report Bugs"
-msgstr "蹲厨岿粇"
+msgstr "汇报错误"
 
 #: src/main_menubar_def.h:1490
 msgid "Submit a bug report for Anjuta"
-msgstr "蹲厨Τ闽 Anjuta 岿粇"
+msgstr "汇报有关 Anjuta 的错误"
 
 #: src/main_menubar_def.h:1495
 msgid "Request Features"
-msgstr "矗璶―"
+msgstr "提出要求"
 
 #: src/main_menubar_def.h:1496
 msgid "Submit a feature request for Anjtua"
-msgstr "肚癳ㄇэ到 Anjtua 祘Α某"
+msgstr "传送一些可改善 Anjtua 程序的建议"
 
 #: src/main_menubar_def.h:1501
 msgid "Submit patches"
-msgstr "患ユタ郎"
+msgstr "递交修正文件"
 
 #: src/main_menubar_def.h:1502
 msgid "Submit patches for Anjuta"
-msgstr "肚癳 Anjuta タ郎"
+msgstr "传送一个 Anjuta 的修正文件"
 
 #: src/main_menubar_def.h:1507
 msgid "Ask a question"
-msgstr "高拜拜肈"
+msgstr "询问问题"
 
 #: src/main_menubar_def.h:1508
 msgid "Submit a question for FAQs"
-msgstr "肚癳拜肈 FAQs"
+msgstr "传送一个问题至 FAQs"
 
 #: src/main_menubar_def.h:1522
 msgid "_Project"
-msgstr "盡 (_P)"
+msgstr "项目 (_P)"
 
 #: src/main_menubar_def.h:1528
 msgid "For_mat"
-msgstr "Α (_M)"
+msgstr "格式 (_M)"
 
 # src/menus.c:132
 #: src/main_menubar_def.h:1540
 msgid "Bookmar_k"
-msgstr "魁 (_K)"
+msgstr "纪录 (_K)"
 
 # src/menus.c:163
 #: src/main_menubar_def.h:1546
 msgid "_Debug"
-msgstr "埃岿 (_D)"
+msgstr "调试 (_D)"
 
 #: src/main_menubar_def.h:1552
 msgid "_Utilities"
-msgstr "ㄣ (_U)"
+msgstr "工具 (_U)"
 
 # src/menus.c:229
 #: src/main_menubar_def.h:1568
 msgid "_Settings"
-msgstr "砞﹚ (_S)"
+msgstr "设定 (_S)"
 
 #: src/mainmenu_callbacks.c:120
 msgid "All files saved ..."
-msgstr "场郎纗 ..."
+msgstr "全部文件已保存 ..."
 
 #: src/mainmenu_callbacks.c:137
 #, c-format
@@ -3819,8 +3819,8 @@ msgid ""
 "The file \"%s\" is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
-"郎 \"%s\" ﹟ゼ纗\n"
-"琌闽超玡盢郎纗"
+"文件 \"%s\" 尚未保存。\n"
+"是否在关闭前先将文件保存？"
 
 #: src/mainmenu_callbacks.c:188
 #, c-format
@@ -3828,13 +3828,13 @@ msgid ""
 "Are you sure you want to reload %s.\n"
 "You will lose any unsaved modification."
 msgstr ""
-"琌絋﹚璶穝更 %s\n"
-"ぇ玡﹟ゼ纗跑盢礚猭確"
+"是否确定要重新载入 %s。\n"
+"之前尚未保存的变更将无法复原。"
 
 #: src/mainmenu_callbacks.c:258
 #, c-format
 msgid "Could not execute cmd: %s"
-msgstr "礚猭磅︽%s"
+msgstr "无法执行指令：%s"
 
 #: src/mainmenu_callbacks.c:265
 #, c-format
@@ -3842,48 +3842,48 @@ msgid ""
 "There was an error while printing.\n"
 "The cmd is: %s"
 msgstr ""
-"祇ネ岿粇\n"
-"Τ闽琌%s"
+"打印时发生错误。\n"
+"有关指令是：%s"
 
 #: src/mainmenu_callbacks.c:271
 msgid "The file has been sent for printing."
-msgstr "郎肚癳矪瞶"
+msgstr "文件已传送至打印处理。"
 
 #: src/mainmenu_callbacks.c:287
 msgid "You must save the file first and then print"
-msgstr "眤ゲ斗玡盢郎纗"
+msgstr "您必须在打印前先将文件保存"
 
 #: src/mainmenu_callbacks.c:291
 msgid "Are you sure you want to print the current file?"
-msgstr "琌絋﹚璶ヘ玡郎ず甧"
+msgstr "是否确定要打印当前文件？"
 
 #: src/mainmenu_callbacks.c:1140
 msgid "Tags image update successfully."
-msgstr "穝﹍絏ま抖ЧΘ"
+msgstr "更新源代码索引成功。"
 
 #: src/mainmenu_callbacks.c:1553
 msgid "Executable does not exsits this project."
-msgstr "⊿Τ磅︽郎硂盡ず"
+msgstr "在这个项目中没有可执行文件。"
 
 #: src/mainmenu_callbacks.c:1604
 msgid "Debugger is not running. Start it first."
-msgstr "埃岿竟﹟ゼ币笆叫盢ウ币笆"
+msgstr "调试器尚未启动。请先将它启动。"
 
 #: src/mainmenu_callbacks.c:1640
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"﹟Τ磅︽い祘Αタ砆埃岿\n"
-"琌絋﹚璶氨ゎ埃岿"
+"正在调试执行中的程序。\n"
+"是否确定停止调试工作？"
 
 #: src/mainmenu_callbacks.c:1650
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"祘Αご磅︽い\n"
-"琌絋﹚璶氨ゎ埃岿"
+"程序仍在执行中。\n"
+"是否确定停止调试工作？"
 
 # src/menus.c:129
 #: src/mainmenu_callbacks.c:1829
@@ -3891,43 +3891,43 @@ msgstr ""
 #: src/mainmenu_callbacks.c:1875
 #: src/mainmenu_callbacks.c:1893
 msgid "Cannot launch gnome-help-browser"
-msgstr "礚猭币笆 gnome 弧聅凝祘Α"
+msgstr "无法启动 gnome 帮助浏览程序"
 
 #: src/messages.c:253
 msgid ""
 "Unknown type in Message window\n"
 ""
 msgstr ""
-"癟跌怠ずΤぃ冈摸\n"
+"在消息窗口内有未知的类别\n"
 ""
 
 # src/settings.c:333
 #: src/messages.c:504
 msgid "Build messages"
-msgstr "ミ癟"
+msgstr "创建消息"
 
 #: src/messages.c:505
 msgid "Debug messages"
-msgstr "埃岿癟"
+msgstr "调试消息"
 
 #: src/messages.c:506
 msgid "Find messages"
-msgstr "碝т癟"
+msgstr "寻找消息"
 
 #: src/messages.c:507
 msgid "CVS messages"
-msgstr "CVS 癟"
+msgstr "CVS 消息"
 
 #: src/messages.c:508
 msgid "Debug Locals Listing"
-msgstr "跋办跑计睲虫"
+msgstr "局域变量清单"
 
 # src/menus.c:163
 #: src/messages.c:518
 #: src/text_editor_menu.c:270
 #: src/toolbar.c:511
 msgid "Debug"
-msgstr "埃岿"
+msgstr "调试"
 
 #: src/messages.c:520
 msgid "CVS"
@@ -3935,149 +3935,149 @@ msgstr "CVS"
 
 #: src/messages.c:521
 msgid "Locals"
-msgstr "跋办跑计"
+msgstr "局域变量"
 
 #: src/messages.c:592
 #: src/toolbar.c:294
 msgid "Messages"
-msgstr "癟"
+msgstr "消息"
 
 #: src/messages.c:628
 msgid "Dock window"
-msgstr "ㄌ跌怠"
+msgstr "依附窗口"
 
 #: src/messages.c:637
 msgid "Dock"
-msgstr "ㄌ"
+msgstr "依附"
 
 #: src/preferences.c:546
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
-"琌絋﹚璶盢熬砞﹚ず场砞﹚\n"
-"確Θ箇砞"
+"是否确定要将偏好设定内的全部设定\n"
+"恢复成预设？"
 
 # src/menus.c:197
 #: src/preferences_gui.c:145
 msgid "Preferences"
-msgstr "熬砞﹚"
+msgstr "偏好设定"
 
 # src/settings.c:631
 #: src/preferences_gui.c:164
 #: src/project_config.c:769
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 # src/settings.c:441
 #: src/preferences_gui.c:184
 msgid "Styles"
-msgstr "妓Α"
+msgstr "样式"
 
 # src/menus.c:222
 #: src/preferences_gui.c:194
 msgid "Editor"
-msgstr "絪胯"
+msgstr "编辑"
 
 #: src/preferences_gui.c:204
 msgid "Print Setup"
-msgstr "砞﹚"
+msgstr "打印设定"
 
 #: src/preferences_gui.c:214
 msgid "Auto Format"
-msgstr "笆Α"
+msgstr "自动格式化"
 
 #: src/preferences_gui.c:224
 msgid "misc"
-msgstr "ㄤウ"
+msgstr "其它"
 
 # src/menus.c:155
 #: src/preferences_gui.c:233
 msgid "Components"
-msgstr "じン"
+msgstr "组件"
 
 # src/properties.c:86
 #: src/preferences_gui.c:318
 msgid " Directories "
-msgstr " ヘ魁"
+msgstr " 目录"
 
 # src/settings.c:280
 #: src/preferences_gui.c:354
 msgid "Projects:"
-msgstr "盡"
+msgstr "项目："
 
 #: src/preferences_gui.c:361
 msgid "Tarballs:"
-msgstr "溃罽郎 (tar)"
+msgstr "压缩文件 (tar)："
 
 #: src/preferences_gui.c:368
 msgid "Rpms:"
-msgstr "甅ン (RPMs)"
+msgstr "套件 (RPMs)："
 
 #: src/preferences_gui.c:375
 msgid "Srpms:"
-msgstr "﹍絏甅ン (SRPMs)"
+msgstr "源代码套件 (SRPMs)："
 
 # src/settings.c:290
 # src/settings.c:294
 #: src/preferences_gui.c:382
 msgid " History size "
-msgstr " 魁计"
+msgstr " 纪录个数"
 
 # src/menus.c:92
 #: src/preferences_gui.c:391
 msgid "Recent Projects:"
-msgstr "程秨币盡"
+msgstr "最近开启项目："
 
 # src/menus.c:92
 #: src/preferences_gui.c:398
 msgid "Recent Files:"
-msgstr "程秨币郎"
+msgstr "最近开启文件："
 
 #: src/preferences_gui.c:405
 msgid "Combo Popdown:"
-msgstr "┰Αじン"
+msgstr "下拉式组件："
 
 #: src/preferences_gui.c:463
 msgid " Job Options "
-msgstr " 匡兜"
+msgstr " 工作选项"
 
 #: src/preferences_gui.c:473
 msgid "Beep on job complete"
-msgstr "ЧΘ祇羘"
+msgstr "工作完成时发出声音"
 
 #: src/preferences_gui.c:482
 msgid "Dialog on job complete"
-msgstr "ЧΘ陪ボ癸杠舶"
+msgstr "工作完成时显示对话框"
 
 #: src/preferences_gui.c:537
 msgid "Keep going when some targets cannot be made"
-msgstr "琘ㄇヘ郎ゼミョ惠膥尿磅︽ミ"
+msgstr "某些目的文件未能创建时继续执行创建工作"
 
 #: src/preferences_gui.c:544
 msgid "Silent: Don't echo commands"
-msgstr "ぃ璶陪ボ癟"
+msgstr "不要显示指令信息"
 
 #: src/preferences_gui.c:551
 msgid "Produce debugging outputs"
-msgstr "玻ネ腊埃岿戈"
+msgstr "生成调试输出信息"
 
 #: src/preferences_gui.c:558
 msgid "Warn when an undefined variable is referenced"
-msgstr "祇瞷Τㄏノゼ﹚竡跑计祇牡"
+msgstr "发现使用未定义变量时发出警告"
 
 #: src/preferences_gui.c:572
 msgid "Max no of jobs:"
-msgstr "程钡"
+msgstr "最多可接受的工作数："
 
 #: src/preferences_gui.c:653
 msgid "Select Highlight item to edit:"
-msgstr "︹眒矪瞶兜ヘ"
+msgstr "高亮处理项目："
 
 # src/highlightbar.c:21
 #: src/preferences_gui.c:677
 msgid " Highlight Style "
-msgstr " ︹眒矪瞶"
+msgstr " 高亮样式"
 
 # src/properties.c:193
 # src/settings.c:845
@@ -4086,227 +4086,227 @@ msgstr " ︹眒矪瞶"
 #: src/preferences_gui.c:780
 #: src/preferences_gui.c:787
 msgid "Use default"
-msgstr "ㄏノ箇砞"
+msgstr "使用预设"
 
 # src/menus.c:225
 #: src/preferences_gui.c:721
 msgid "Bold"
-msgstr "彩砰"
+msgstr "粗体"
 
 # src/settings.c:478
 #: src/preferences_gui.c:725
 msgid "Italic"
-msgstr "弊砰"
+msgstr "斜体"
 
 #: src/preferences_gui.c:729
 msgid "Underlined"
-msgstr "┏絬"
+msgstr "加底线"
 
 # src/settings.c:450
 #: src/preferences_gui.c:740
 msgid "Font:"
-msgstr ""
+msgstr "字体："
 
 #: src/preferences_gui.c:747
 msgid "Attribute:"
-msgstr "妓Α"
+msgstr "样式："
 
 # src/settings.c:567
 #: src/preferences_gui.c:754
 msgid "Fore color:"
-msgstr "玡春︹眒"
+msgstr "前景色彩："
 
 # src/settings.c:606
 #: src/preferences_gui.c:761
 msgid "Back color:"
-msgstr "璉春︹眒"
+msgstr "背景色彩："
 
 # src/settings.c:567
 #: src/preferences_gui.c:801
 msgid "Caret color:"
-msgstr "础才腹︹眒"
+msgstr "插字符号色彩："
 
 #: src/preferences_gui.c:814
 msgid "Calltip color:"
-msgstr "把计矗ボ︹眒"
+msgstr "参数提示色彩："
 
 # src/settings.c:593
 #: src/preferences_gui.c:827
 msgid "Selection Foreground:"
-msgstr "玡春匡︹眒"
+msgstr "前景选取色彩："
 
 # src/settings.c:593
 #: src/preferences_gui.c:840
 msgid "Selection Background:"
-msgstr "璉春匡︹眒"
+msgstr "背景选取色彩："
 
 # src/properties.c:104
 # src/settings.c:665
 #: src/preferences_gui.c:949
 msgid "Disable syntax highlighting"
-msgstr "ぃㄏノ粂猭︹眒矪瞶"
+msgstr "不使用语法色彩处理"
 
 #: src/preferences_gui.c:956
 msgid "Enable Auto save"
-msgstr "币ノ笆纗"
+msgstr "启用自动保存"
 
 # src/properties.c:118
 # src/settings.c:678
 #: src/preferences_gui.c:963
 msgid "Enable Auto indent"
-msgstr "币笆笆罽逼"
+msgstr "启动自动缩排"
 
 # src/settings.c:372
 #: src/preferences_gui.c:971
 msgid "Use tabs for indentation"
-msgstr "罽逼ㄏノ﹚じ"
+msgstr "缩排时使用定位字节"
 
 #: src/preferences_gui.c:978
 msgid "Enable braces check"
-msgstr "币ノ珹腹浪琩"
+msgstr "启用括号检查"
 
 #: src/preferences_gui.c:985
 msgid "Save in DOS format"
-msgstr "纗Θ DOS 郎Α"
+msgstr "保存成 DOS 文件格式"
 
 #: src/preferences_gui.c:1037
 msgid "Tab size in spaces"
-msgstr "﹚じ计"
+msgstr "Tab字符个数"
 
 #: src/preferences_gui.c:1044
 msgid "Auto save timer interval in minutes"
-msgstr "磅︽笆纗┮筳丁 (だ牧)"
+msgstr "执行自动保存所相隔的时间 (分钟)"
 
 #: src/preferences_gui.c:1051
 msgid "Auto indent size in spaces"
-msgstr "笆罽逼じ计"
+msgstr "自动缩排的字节个数"
 
 #: src/preferences_gui.c:1058
 msgid "Line number margin width in pixels"
-msgstr "︽腹跋溜 (钩虫)"
+msgstr "行号区的宽度 (像素单位)"
 
 # src/settings.c:302
 #: src/preferences_gui.c:1065
 msgid "Save session time interval"
-msgstr "磅︽纗猵┮筳丁 (だ牧)"
+msgstr "保存状态所相隔的时间 (分钟)"
 
 #: src/preferences_gui.c:1074
 msgid "Strip trailing spaces on file save"
-msgstr "纗郎簿緇フじ"
+msgstr "保存文件时移去多余的空白字节"
 
 # src/menus.c:86
 #: src/preferences_gui.c:1082
 msgid "Collapse all folds on file open"
-msgstr "秨币郎盢场ㄧΑ篜舼"
+msgstr "开启文件时将全部函数折叠"
 
 #: src/preferences_gui.c:1137
 msgid " Paper Size"
-msgstr " 眎"
+msgstr " 纸张大小"
 
 # src/settings.c:347
 #: src/preferences_gui.c:1147
 msgid " Print Command "
-msgstr " "
+msgstr " 打印指令"
 
 #: src/preferences_gui.c:1209
 msgid "Disable Auto format"
-msgstr "氨ノ笆Α﹍郎"
+msgstr "停用自动格式化源代码"
 
 #: src/preferences_gui.c:1213
 msgid " Format Style "
-msgstr " Α摸"
+msgstr " 格式类别"
 
 #: src/preferences_gui.c:1236
 msgid " Custom Style "
-msgstr " 璹Α"
+msgstr " 自订格式"
 
 #: src/preferences_gui.c:1247
 msgid ""
 "Enter the command line arguments for the 'indent' program.\n"
 "Read the info page for 'indent' for more details."
 msgstr ""
-"硂柑块 'indent' 祘ΑノΑゅンΤ闽把计\n"
-"叫聅凝 'indent' 祘Α戈癟ゅン (info) 眔戈"
+"在这里输入 'indent' 程序用作格式文件的有关参数。\n"
+"请浏览 'indent' 程序的信息文件 (info) 以取得更多资料。"
 
 #: src/preferences_gui.c:1316
 msgid " Messages"
-msgstr " 癟"
+msgstr " 消息"
 
 #: src/preferences_gui.c:1328
 msgid "Truncate long messages"
-msgstr "罽祏筁癟"
+msgstr "缩短过长的消息"
 
 #: src/preferences_gui.c:1355
 msgid "Number of first characters to show"
-msgstr "陪ボ秨狠じ计ヘ"
+msgstr "可显示的开端字节数"
 
 #: src/preferences_gui.c:1362
 msgid "Number of last characters to show"
-msgstr "陪ボソ狠じ计ヘ"
+msgstr "可显示的末端字节数"
 
 #: src/preferences_gui.c:1369
 msgid " Notebook tags position "
-msgstr " 夹帽夹肈竚"
+msgstr " 标签页标题位置"
 
 #: src/preferences_gui.c:1380
 msgid "Do not show notebook title tags"
-msgstr "ぃ璶陪ボ夹帽夹肈"
+msgstr "不要显示标签页的标题"
 
 #: src/preferences_gui.c:1394
 msgid "Top"
-msgstr "郴"
+msgstr "顶"
 
 #: src/preferences_gui.c:1403
 msgid "Bottom"
-msgstr "┏"
+msgstr "底"
 
 #: src/preferences_gui.c:1412
 msgid "Left"
-msgstr "オ"
+msgstr "左"
 
 # src/settings.c:754
 #: src/preferences_gui.c:1421
 msgid "Right"
-msgstr ""
+msgstr "右"
 
 #: src/preferences_gui.c:1429
 msgid " Tags Browser "
-msgstr "  ﹍絏ま"
+msgstr "  源代码索引"
 
 #: src/preferences_gui.c:1436
 msgid "Update tags image automatically"
-msgstr "笆穝﹍絏ま"
+msgstr "自动更新源代码索引"
 
 #: src/preferences_gui.c:1505
 msgid " Components"
-msgstr " じン"
+msgstr " 组件"
 
 #: src/preferences_gui.c:1517
 msgid "Use Components"
-msgstr "币ノじン"
+msgstr "启用组件"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:307
 #: src/toolbar.c:413
 msgid "Open Project"
-msgstr "秨币盡"
+msgstr "开启项目"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:314
 msgid "Add To Project"
-msgstr "穝糤盡"
+msgstr "新增至项目"
 
 #: src/project_dbase.c:328
 #: src/project_dbase.c:472
 #: src/project_dbase_gui.c:533
 msgid "Project: None"
-msgstr "盡礚"
+msgstr "项目：无"
 
 #: src/project_dbase.c:607
 #: src/project_dbase.c:626
 #, c-format
 msgid "Couldn't load project: %s"
-msgstr "礚猭更盡%s"
+msgstr "无法载入项目：%s"
 
 #: src/project_dbase.c:618
 #, c-format
@@ -4315,9 +4315,9 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it.:-("
 msgstr ""
-"岿粇眤惠璶ㄏノセ %s ┪戳 Anjuta 秨币硂盡\n"
-"叫穝 Anjuta 刚\n"
-"(块 Help 獽弄Τ闽戈癟) "
+"错误：您需要使用版本 %s 或最新的 Anjuta 才可开启这个项目。\n"
+"请先更新 Anjuta 后再试。\n"
+"(输入 Help 以便读取更多有关信息)。 "
 
 #: src/project_dbase.c:773
 #, c-format
@@ -4326,28 +4326,28 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it. :-("
 msgstr ""
-"眤惠璶ㄏノセ %s ┪戳 Anjuta 秨币硂盡\n"
-"叫穝 Anjuta 刚\n"
-"(块 Help 獽弄Τ闽戈癟)"
+"您需要使用版本 %s 或最新的 Anjuta 才可开启这个项目。\n"
+"请先更新 Anjuta 后再试。\n"
+"(输入 Help 以便读取更多有关信息)。"
 
 #: src/project_dbase.c:833
 msgid "Project loaded successfully."
-msgstr "更盡ЧΘ"
+msgstr "载入项目完成。"
 
 #: src/project_dbase.c:848
 #: src/project_dbase.c:852
 #, c-format
 msgid "Error in loading Project: %s"
-msgstr "更盡祇ネ岿粇%s"
+msgstr "载入项目时发生错误：%s"
 
 #: src/project_dbase.c:1082
 msgid "Project Saved Successfully"
-msgstr "纗盡ЧΘ"
+msgstr "保存项目完成"
 
 #: src/project_dbase.c:1088
 #: src/project_dbase.c:1090
 msgid "Unable to save the project."
-msgstr "礚猭纗盡"
+msgstr "无法保存项目。"
 
 #: src/project_dbase.c:1464
 #: src/project_dbase.c:1497
@@ -4355,145 +4355,145 @@ msgid ""
 "The Project glade file does not\n"
 "exist in the top level project directory."
 msgstr ""
-"盡ず glade 郎ぃ\n"
-"程郴糷盡ヘ魁ず"
+"项目内的 glade 文件并不存在\n"
+"於最顶层的项目目录内。"
 
 #. Set project title
 #: src/project_dbase.c:1912
 msgid "Project: "
-msgstr "盡"
+msgstr "项目："
 
 # src/settings.c:280
 #: src/project_config.c:737
 msgid "Project configuration"
-msgstr "盡砞﹚"
+msgstr "项目设定"
 
 # src/settings.c:280
 #: src/project_config.c:748
 msgid "Project Description"
-msgstr "盡磞瓃"
+msgstr "项目描述"
 
 #: src/project_config.c:776
 msgid "Disable Overwriting project files"
-msgstr "ぃ盡郎"
+msgstr "不可覆盖项目文件"
 
 #: src/project_config.c:786
 msgid "Project's configure.in"
-msgstr "盡皌竚郎 (configure.in)"
+msgstr "项目的配置文件 (configure.in)"
 
 #: src/project_config.c:792
 msgid "Top level Makefile.am"
-msgstr "程糷ヘ魁ず Makefile.am"
+msgstr "最上层目录内的 Makefile.am"
 
 #: src/project_config.c:798
 msgid "Source module Makefile.am"
-msgstr "﹍郎ヘ魁ず Makefile.am"
+msgstr "源代码目录内的 Makefile.am"
 
 #: src/project_config.c:804
 msgid "Include module Makefile.am"
-msgstr "夹繷郎ヘ魁ず Makefile.am"
+msgstr "标头文件目录内的 Makefile.am"
 
 #: src/project_config.c:810
 msgid "Help module Makefile.am"
-msgstr "弧郎ヘ魁ず Makefile.am"
+msgstr "帮助文件目录内的 Makefile.am"
 
 #: src/project_config.c:816
 msgid "Pixmap module Makefile.am"
-msgstr "瓜ボ郎ヘ魁ず Makefile.am"
+msgstr "位图文件目录内的 Makefile.am"
 
 #: src/project_config.c:821
 msgid "Data module Makefile.am"
-msgstr "戈郎ヘ魁ず Makefile.am"
+msgstr "资料文件目录内的 Makefile.am"
 
 #: src/project_config.c:826
 msgid "Doc module Makefile.am"
-msgstr "弧ゅンヘ魁ず Makefile.am"
+msgstr "帮助文件目录内的 Makefile.am"
 
 #: src/project_config.c:831
 msgid "Po module (translation) Makefile.am"
-msgstr "潞亩郎ヘ魁ず Makefile.am"
+msgstr "翻译文件目录内的 Makefile.am"
 
 # src/settings.c:333
 #: src/project_config.c:836
 msgid "Build files"
-msgstr "郎玻ネ"
+msgstr "文件生成"
 
 #: src/project_config.c:854
 msgid "Check for programs in config.in"
-msgstr "盎代祘Αエ栋ず甧"
+msgstr "检查程序批处理内容"
 
 #: src/project_config.c:871
 msgid "Program checks"
-msgstr "祘Α盎代"
+msgstr "程序检查"
 
 #: src/project_config.c:878
 msgid "Check for libs in config.in"
-msgstr "盎代ㄧΑ畐エ栋ず甧"
+msgstr "检查函数库批处理内容"
 
 #: src/project_config.c:895
 msgid "Library checks"
-msgstr "ㄧΑ畐盎代"
+msgstr "函数库检查"
 
 #: src/project_config.c:904
 msgid "Check for header files in config.in"
-msgstr "盎代夹繷郎エ栋ず甧"
+msgstr "检查标头文件批处理内容"
 
 #: src/project_config.c:921
 msgid "Header checks"
-msgstr "夹繷郎盎代"
+msgstr "标头文件检查"
 
 #: src/project_config.c:930
 msgid "Checks for typedefs, structures, and compiler characteristics"
-msgstr "盎代篈﹚竡挡篶の絪亩竟疭┦エ栋ず甧"
+msgstr "检查型态定义，结构，及编译器特性批处理内容"
 
 #: src/project_config.c:947
 msgid "Characteristics check"
-msgstr "疭┦盎代"
+msgstr "特性检查"
 
 #: src/project_config.c:956
 msgid "Check for lib functions in config.in"
-msgstr "盎代ㄧΑエ栋ず甧"
+msgstr "检查函数批处理内容"
 
 #: src/project_config.c:973
 msgid "Lib functions checks"
-msgstr "ㄧΑ盎代"
+msgstr "函数检查"
 
 #: src/project_config.c:980
 msgid "Additional scripts in config.in"
-msgstr "磞瓃﹍絏ず甧"
+msgstr "描述源代码内容"
 
 #: src/project_config.c:997
 msgid "Additional script"
-msgstr "ㄤウ磞瓃絏"
+msgstr "其它描述码"
 
 #: src/project_config.c:1004
 #: src/project_config.c:1021
 msgid "Files to configure"
-msgstr "ㄤウ郎"
+msgstr "其它文件"
 
 #: src/project_config.c:1036
 msgid "Auto scan the project"
-msgstr "笆盎代盡"
+msgstr "自动检查项目"
 
 #: src/project_config.c:1041
 msgid "Configuration scripts"
-msgstr "皌竚郎"
+msgstr "配置文件"
 
 #: src/project_config.c:1055
 msgid "Extra modules to be built before source module:"
-msgstr "絪亩祘Α玡璶矪瞶ㄤウヘ魁"
+msgstr "编译程序前要先处理的其它目录："
 
 #: src/project_config.c:1075
 msgid "Extra modules to be built after source module:"
-msgstr "絪亩祘Α璶矪瞶ㄤウヘ魁"
+msgstr "编译程序后要处理的其它目录："
 
 #: src/project_config.c:1089
 msgid "Modules"
-msgstr "ㄤウヘ魁"
+msgstr "其它目录"
 
 #: src/project_config.c:1095
 msgid "Extra scripts at the end of Top Makefile.am"
-msgstr "程糷ヘ魁ず Makefile.am ソ狠ㄤウ磞瓃絏"
+msgstr "最上层目录内的 Makefile.am 末端的其它描述码"
 
 #: src/project_config.c:1112
 msgid "Makefile.am"
@@ -4505,29 +4505,29 @@ msgid ""
 "Are you sure you want to remove the item\n"
 "\"%s\" from the Project Data Base?"
 msgstr ""
-"琌絋﹚盢 \"%s\" \n"
-"眖盡ず簿埃"
+"是否确定将 \"%s\" \n"
+"从项目内移除？"
 
 #: src/project_dbase_gui.c:309
 msgid "There is already a project opened.Do you want to close it first?"
-msgstr "Τ盡竒秨币琌盢ウ闽超"
+msgstr "有一个项目已经开启。是否先将它关闭？"
 
 #: src/project_dbase_gui.c:428
 msgid "Doc file"
-msgstr "弧ゅン"
+msgstr "帮助文件"
 
 # src/menus.c:228
 #: src/project_dbase_gui.c:451
 msgid "View"
-msgstr "浪跌"
+msgstr "查看"
 
 #: src/project_dbase_gui.c:471
 msgid "Configure Project"
-msgstr "皌竚盡"
+msgstr "配置项目"
 
 #: src/project_dbase_gui.c:477
 msgid "Project Info"
-msgstr "盡戈癟"
+msgstr "项目信息"
 
 #: src/project_dbase_gui.c:484
 #: src/registers_gui.c:53
@@ -4536,7 +4536,7 @@ msgstr "盡戈癟"
 #: src/stack_trace_gui.c:65
 #: src/watch_gui.c:67
 msgid "Dock/Undock"
-msgstr "ㄌ / だ瞒"
+msgstr "依附 / 分离"
 
 # src/menus.c:231
 #: src/project_dbase_gui.c:490
@@ -4547,217 +4547,217 @@ msgstr "ㄌ / だ瞒"
 #: src/toolbar.c:308
 #: src/watch_gui.c:73
 msgid "Help"
-msgstr "弧"
+msgstr "说明"
 
 #: src/project_dbase_gui.c:552
 #: src/toolbar.c:283
 msgid "Project"
-msgstr "盡"
+msgstr "项目"
 
 # src/settings.c:372
 #: src/project_dbase_gui.c:659
 msgid "Project Information"
-msgstr "盡戈癟"
+msgstr "项目信息"
 
 # src/settings.c:372
 #: src/project_dbase_gui.c:666
 msgid " Project Information "
-msgstr " 盡戈癟"
+msgstr " 项目信息"
 
 #: src/project_dbase_gui.c:702
 msgid "Author:"
-msgstr ""
+msgstr "作者："
 
 #: src/project_dbase_gui.c:789
 msgid "Program Name:"
-msgstr "祘Α嘿"
+msgstr "程序名称："
 
 #: src/project_dbase_gui.c:796
 msgid "No of src files:"
-msgstr "﹍郎计ヘ"
+msgstr "源代码数目："
 
 #: src/project_dbase_gui.c:803
 msgid "No of help files:"
-msgstr "弧郎计ヘ"
+msgstr "帮助文件数目："
 
 #: src/project_dbase_gui.c:810
 msgid "No of data files:"
-msgstr "戈郎计ヘ"
+msgstr "资料文件数目："
 
 #: src/project_dbase_gui.c:817
 msgid "No of pix files:"
-msgstr "瓜ボ郎计ヘ"
+msgstr "位图文件数目："
 
 #: src/project_dbase_gui.c:824
 msgid "No of doc files:"
-msgstr "弧ゅン计ヘ"
+msgstr "帮助文件数目："
 
 #: src/project_dbase_gui.c:845
 msgid "No of po files:"
-msgstr "潞亩郎计ヘ"
+msgstr "　译文件数目："
 
 # src/menus.c:91
 #: src/project_dbase_gui.c:852
 msgid "Version:"
-msgstr "セ"
+msgstr "版本："
 
 #: src/project_dbase_gui.c:875
 msgid "GUI editable by Glade:"
-msgstr "ノ Glade 絪胯瓜ざ"
+msgstr "可用 Glade 编辑图形介面："
 
 # src/settings.c:357
 #: src/project_dbase_gui.c:897
 msgid "Makefiles managed:"
-msgstr "恨瞶 Makefiles"
+msgstr "可管理 Makefiles："
 
 #: src/project_dbase_gui.c:939
 msgid "Gettext support:"
-msgstr "や传粂ēセて"
+msgstr "支换语言本地化："
 
 # src/settings.c:280
 #: src/project_dbase_gui.c:997
 msgid "Project Type:"
-msgstr "盡摸"
+msgstr "项目类别："
 
 #: src/project_dbase_gui.c:1040
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
-"盡﹟ゼ纗\n"
-"琌闽超玡盢ウ纗"
+"项目尚未保存。\n"
+"是否关闭前先将它保存？"
 
 #: src/project_dbase_gui.c:1057
 #: src/project_dbase_gui.c:1177
 msgid "Breton"
-msgstr "ガ娥ェゅ"
+msgstr "布列塔尼文"
 
 #: src/project_dbase_gui.c:1058
 msgid "Catalan"
-msgstr "订ゅ"
+msgstr "加泰隆文"
 
 #: src/project_dbase_gui.c:1059
 msgid "Czech"
-msgstr "倍ゅ"
+msgstr "捷克文"
 
 #: src/project_dbase_gui.c:1060
 msgid "Danish"
-msgstr "う沉ゅ"
+msgstr "丹麦文"
 
 #: src/project_dbase_gui.c:1061
 msgid "German"
-msgstr "紈ゅ"
+msgstr "德文"
 
 #: src/project_dbase_gui.c:1062
 msgid "Greek"
-msgstr "镁ゅ"
+msgstr "希腊文"
 
 #: src/project_dbase_gui.c:1063
 msgid "Esperanto"
-msgstr "粂"
+msgstr "世界语"
 
 #: src/project_dbase_gui.c:1064
 msgid "Spanish"
-msgstr "﹁痁ゅ"
+msgstr "西班牙文"
 
 #: src/project_dbase_gui.c:1065
 msgid "Finnish"
-msgstr "孽ゅ"
+msgstr "芬兰文"
 
 #: src/project_dbase_gui.c:1066
 msgid "French"
-msgstr "猭ゅ"
+msgstr "法文"
 
 #: src/project_dbase_gui.c:1067
 msgid "Herbrew"
-msgstr "ㄓゅ"
+msgstr "希伯来文"
 
 # src/main.c:557
 #: src/project_dbase_gui.c:1068
 #: src/project_dbase_gui.c:1072
 msgid "Croatian"
-msgstr "霉ㄈゅ"
+msgstr "克罗地亚文"
 
 #: src/project_dbase_gui.c:1069
 msgid "Hungarian"
-msgstr "ゅ"
+msgstr "匈牙利文"
 
 #: src/project_dbase_gui.c:1070
 msgid "Islandic"
-msgstr "畄ゅ"
+msgstr "冰岛文"
 
 # src/settings.c:478
 #: src/project_dbase_gui.c:1071
 msgid "Italian"
-msgstr "種ゅ"
+msgstr "意大利文"
 
 #: src/project_dbase_gui.c:1073
 msgid "Korean"
-msgstr "龙ゅ"
+msgstr "韩文"
 
 #: src/project_dbase_gui.c:1074
 msgid "Macedonian"
-msgstr "皑ㄤ箉ゅ"
+msgstr "马其顿文"
 
 #: src/project_dbase_gui.c:1075
 msgid "Dutch"
-msgstr "颤孽ゅ"
+msgstr "荷兰文"
 
 #: src/project_dbase_gui.c:1076
 msgid "Norwegian"
-msgstr "ゅ"
+msgstr "挪威文"
 
 #: src/project_dbase_gui.c:1077
 msgid "Polish"
-msgstr "猧孽ゅ"
+msgstr "波兰文"
 
 #: src/project_dbase_gui.c:1078
 msgid "Portuguese"
-msgstr "覆靛ゅ"
+msgstr "葡萄牙文"
 
 #: src/project_dbase_gui.c:1079
 msgid "Romanian"
-msgstr "霉皑ェㄈゅ"
+msgstr "罗马尼亚文"
 
 #: src/project_dbase_gui.c:1080
 msgid "Russian"
-msgstr "玐霉吹ゅ"
+msgstr "俄罗斯文"
 
 #: src/project_dbase_gui.c:1081
 msgid "Slovak"
-msgstr "吹ワゅ"
+msgstr "斯洛伐克文"
 
 #: src/project_dbase_gui.c:1082
 msgid "Turkish"
-msgstr "φㄤゅ"
+msgstr "土耳其文"
 
 #: src/project_dbase_gui.c:1083
 msgid "Simplified Chinese"
-msgstr "虏砰いゅ"
+msgstr "简体中文"
 
 #: src/project_dbase_gui.c:1084
 msgid "Chinese"
-msgstr "いゅ"
+msgstr "中文"
 
 #: src/project_dbase_gui.c:1085
 msgid "Estonian"
-msgstr "稲‵ェㄈゅ"
+msgstr "爱沙尼亚文"
 
 #: src/project_dbase_gui.c:1129
 msgid "Select regional language"
-msgstr "匡跋粂ē"
+msgstr "选取地区语言"
 
 #: src/project_dbase_gui.c:1145
 msgid "Select Regional Language:"
-msgstr "匡跋粂ē"
+msgstr "选取地区语言："
 
 #: src/project_dbase_gui.c:1257
 msgid "This file has already been added to the project."
-msgstr "硂郎竒盡ず"
+msgstr "这个文件已经包含在项目内。"
 
 #: src/project_dbase_gui.c:1287
 msgid "Error while copying the file inside the module."
-msgstr "狡籹郎盡ヘ魁ず祇ネ岿粇"
+msgstr "复制文件到项目的目录内时发生错误。"
 
 #: src/project_dbase_gui.c:1339
 #, c-format
@@ -4767,89 +4767,89 @@ msgid ""
 "Do you want to IMPORT (copy) into the module?"
 msgstr ""
 "\"%s\"\n"
-"硂郎ぃ盡ヘ魁ず\n"
-"琌璶蹲 (狡籹) 硂郎"
+"这个文件不在项目的目录内。\n"
+"是否要加入 (复制) 这个文件？"
 
 #: src/registers_gui.c:38
 msgid "Modify"
-msgstr "跑"
+msgstr "变更"
 
 #: src/registers_gui.c:92
 msgid "CPU Registers"
-msgstr "CPU 既竟"
+msgstr "CPU 寄存器"
 
 #: src/registers_gui.c:110
 msgid "Register"
-msgstr "既竟"
+msgstr "寄存器"
 
 #: src/registers_gui.c:114
 msgid "Hex"
-msgstr "せ秈"
+msgstr "十六进制"
 
 #: src/registers_gui.c:118
 msgid "Decimal"
-msgstr "秈"
+msgstr "十进制"
 
 #: src/sharedlib_gui.c:83
 msgid "Shared libraries"
-msgstr "ㄑㄉㄧΑ畐"
+msgstr "供享函数库"
 
 #: src/sharedlib_gui.c:103
 msgid "  Shared Object  "
-msgstr "  ﹄ン"
+msgstr "  共享物件"
 
 #: src/sharedlib_gui.c:107
 msgid "From"
-msgstr "癬﹍"
+msgstr "起始位置"
 
 #: src/sharedlib_gui.c:111
 msgid "To"
-msgstr "挡"
+msgstr "结束位置"
 
 #: src/sharedlib_gui.c:115
 msgid "Sysm Read"
-msgstr "ㄣΤ才腹"
+msgstr "具有符号"
 
 #: src/signals_gui.c:37
 msgid "Modify Signal"
-msgstr "跑癟腹"
+msgstr "变更信号"
 
 #: src/signals_gui.c:44
 msgid "Send to process"
-msgstr "肚癳︽祘"
+msgstr "传送至进程"
 
 #: src/signals_gui.c:96
 msgid "Kernel signals"
-msgstr "ず癟腹"
+msgstr "内核信号"
 
 #: src/signals_gui.c:117
 msgid "Signal"
-msgstr "癟腹"
+msgstr "信号"
 
 #: src/signals_gui.c:121
 #: src/toolbar.c:522
 #: src/toolbar.c:1088
 msgid "Stop"
-msgstr "氨ゎ"
+msgstr "停止"
 
 #: src/signals_gui.c:125
 #: src/text_editor_gui.c:260
 #: src/toolbar.c:218
 msgid "Print"
-msgstr "陪ボ"
+msgstr "显示"
 
 #: src/signals_gui.c:211
 msgid "Set Signal Property"
-msgstr "絪胯癟腹ず甧"
+msgstr "编辑信号内容"
 
 # src/properties.c:130
 #: src/signals_gui.c:253
 msgid " Stop: "
-msgstr " 氨ゎ"
+msgstr " 停止："
 
 #: src/signals_gui.c:257
 msgid " Print: "
-msgstr " "
+msgstr " 打印："
 
 #. set the size to that of our splash image.
 #: src/splash.c:92
@@ -4858,42 +4858,42 @@ msgstr "Anjuta"
 
 #: src/src_paths_gui.c:49
 msgid "Source files paths"
-msgstr "﹍郎隔畖"
+msgstr "源代码路径"
 
 # src/menus.c:128
 #: src/src_paths_gui.c:145
 msgid "Search Paths"
-msgstr "碝т隔畖"
+msgstr "寻找路径"
 
 #: src/stack_trace_gui.c:36
 msgid "Frame set"
-msgstr "匡帮舼挡篶"
+msgstr "选取堆栈结构"
 
 #: src/stack_trace_gui.c:43
 msgid "Frame info"
-msgstr "帮舼挡篶戈癟"
+msgstr "堆栈结构信息"
 
 #: src/stack_trace_gui.c:105
 msgid "Stack Trace"
-msgstr "帮舼發萝"
+msgstr "堆栈追踪"
 
 # src/menus.c:142
 #: src/stack_trace_gui.c:126
 #: src/toolbar.c:1033
 msgid "Frame"
-msgstr "絪腹"
+msgstr "编号"
 
 #: src/stack_trace_gui.c:130
 #: src/toolbar.c:1061
 msgid "Stack"
-msgstr "帮舼"
+msgstr "堆栈"
 
 #: src/tags_manager.c:185
 msgid ""
 "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
 ""
 msgstr ""
-"# *********** ぃ璶絪胯硂郎ず甧┪э硂郎嘿 *****************\n"
+"# *********** 不要编辑这个文件的内容或更改这个文件的名称 *****************\n"
 ""
 
 #: src/tags_manager.c:188
@@ -4901,7 +4901,7 @@ msgid ""
 "# ******************* Created by  Anjuta ********************************\n"
 ""
 msgstr ""
-"# ******************* パ Anjuta 祘Α┮ミ ********************************\n"
+"# ******************* 由 Anjuta 程序所创建 ********************************\n"
 ""
 
 #: src/tags_manager.c:191
@@ -4909,73 +4909,73 @@ msgid ""
 "# ***************** Anjuta Tags cache file ********************\n"
 ""
 msgstr ""
-"# ***************** Anjuta ﹍郎まе郎 ********************\n"
+"# ***************** Anjuta 源代码索引快取文件 ********************\n"
 ""
 
 # src/menus.c:221
 #: src/tags_manager.c:501
 #: src/toolbar.c:610
 msgid "File:"
-msgstr "郎"
+msgstr "文件："
 
 # src/properties.c:168
 #: src/tags_manager.c:504
 #: src/toolbar.c:633
 msgid "Function:"
-msgstr "ㄧΑ"
+msgstr "函数："
 
 #: src/tags_manager.c:541
 msgid "Class:"
-msgstr "ン摸"
+msgstr "物件类别："
 
 #: src/tags_manager.c:544
 msgid "Mem Func:"
-msgstr "ΘㄧΑ"
+msgstr "成员函数："
 
 #: src/tags_manager.c:585
 msgid "Tag:"
-msgstr "ま"
+msgstr "索引："
 
 #: src/tags_manager.c:760
 msgid "Synchronizing and updating Tags Image ... hold on"
-msgstr "タ˙の穝﹍絏ま ...叫祔"
+msgstr "正在同步及更新源代码索引 ...请稍候"
 
 #: src/tags_manager.c:787
 msgid "Updating Tags image completed"
-msgstr "穝﹍絏まЧΘ"
+msgstr "更新源代码索引完成"
 
 #: src/tags_manager.c:816
 msgid "Syncdronization of Tags image failed"
-msgstr "˙﹍絏まア毖"
+msgstr "同步源代码索引失败"
 
 # src/file-io.c:29
 #: src/text_editor.c:756
 msgid "Loading File ..."
-msgstr "更郎 ..."
+msgstr "载入文件 ..."
 
 #: src/text_editor.c:762
 #, c-format
 msgid "Could not load file: %s"
-msgstr "礚猭更郎%s"
+msgstr "无法载入文件：%s"
 
 #: src/text_editor.c:790
 msgid "File Loaded Successfully"
-msgstr "更郎ЧΘ"
+msgstr "载入文件完成"
 
 # src/session.c:81
 #: src/text_editor.c:805
 msgid "Saving File ..."
-msgstr "纗郎 ..."
+msgstr "保存文件 ..."
 
 # src/session.c:135
 #: src/text_editor.c:810
 #, c-format
 msgid "Couldn't save file: %s."
-msgstr "礚猭纗郎%s"
+msgstr "无法保存文件：%s。"
 
 #: src/text_editor.c:834
 msgid "File Saved successfully"
-msgstr "纗郎ЧΘ"
+msgstr "保存文件完成"
 
 #: src/text_editor.c:929
 #, c-format
@@ -4984,247 +4984,247 @@ msgid ""
 "the current buffer.\n"
 "Do you want to reload it."
 msgstr ""
-"牡祑盒ず郎 \"%s\" ず甧ゑヘ玡\n"
-"ゅンず甧临璶穝\n"
-"琌惠璶穝更硂郎 "
+"警告：在磁盘内文件 \"%s\" 的内容比当前\n"
+"的文件内容还要新。\n"
+"是否需要重新载入这个文件？ "
 
 #: src/text_editor.c:1045
 msgid "Autoformat is disablde. If you want, enable in Preferences."
-msgstr "笆Α氨ノ叫熬砞﹚ず币ノ硂匡兜"
+msgstr "自动格式已停用。请先在偏好设定内启用这个功能。"
 
 #: src/text_editor.c:1051
 msgid "Auto formating ..."
-msgstr "笆Αい ..."
+msgstr "自动格式中 ..."
 
 #: src/text_editor.c:1061
 #: src/text_editor.c:1088
 msgid "Error in auto formating ..."
-msgstr "笆Α祇ネ岿粇 ..."
+msgstr "自动格式时发生错误 ..."
 
 #: src/text_editor.c:1094
 msgid "Auto formating completed"
-msgstr "笆ΑゅンЧΘ"
+msgstr "自动格式文件完成"
 
 #: src/text_editor_cbs.c:176
 #, c-format
 msgid "Autosaved \"%s\""
-msgstr "笆纗 \"%s\" ЧΘ"
+msgstr "自动保存 \"%s\" 完成"
 
 #: src/text_editor_cbs.c:180
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
-msgstr "笆纗 \"%s\" -- ア毖"
+msgstr "自动保存 \"%s\" -- 失败"
 
 # src/menus.c:76
 #: src/text_editor_gui.c:112
 #: src/toolbar.c:109
 msgid "New"
-msgstr "穝糤"
+msgstr "新建"
 
 # src/menus.c:77
 #: src/text_editor_gui.c:122
 #: src/toolbar.c:120
 msgid "Open"
-msgstr "秨币"
+msgstr "打开"
 
 # src/menus.c:77
 #: src/text_editor_gui.c:122
 msgid "Open Text File"
-msgstr "秨币ゅ郎"
+msgstr "打开文字文件"
 
 # src/menus.c:81
 #: src/text_editor_gui.c:134
 #: src/toolbar.c:133
 msgid "Save"
-msgstr "纗"
+msgstr "保存"
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/text_editor_gui.c:134
 msgid "Save Current File"
-msgstr "纗ヘ玡郎"
+msgstr "保存当前文件"
 
 #: src/text_editor_gui.c:144
 #: src/toolbar.c:168
 msgid "Reload"
-msgstr "穝更"
+msgstr "重新载入"
 
 # src/menus.c:92
 #: src/text_editor_gui.c:145
 msgid "Reload Current File"
-msgstr "穝更ヘ玡郎"
+msgstr "重新载入当前文件"
 
 #: src/text_editor_gui.c:156
 #: src/text_editor_menu.c:202
 msgid "Cut"
-msgstr "芭"
+msgstr "剪切"
 
 # src/menus.c:188
 #: src/text_editor_gui.c:156
 msgid "Cut to clipboard"
-msgstr "狡籹芭禟睲埃"
+msgstr "复制到剪贴板后清除"
 
 #: src/text_editor_gui.c:165
 #: src/text_editor_menu.c:209
 msgid "Copy"
-msgstr "狡籹"
+msgstr "复制"
 
 #: src/text_editor_gui.c:166
 msgid "Copy to clipboard"
-msgstr "狡籹芭禟"
+msgstr "复制到剪贴板"
 
 #: src/text_editor_gui.c:175
 #: src/text_editor_menu.c:216
 msgid "Paste"
-msgstr "禟"
+msgstr "贴上"
 
 #: src/text_editor_gui.c:176
 msgid "Paste from clipboard"
-msgstr "盢芭禟戈狡籹ヘ玡竚"
+msgstr "将剪贴板上的资料复制到当前位置"
 
 #: src/text_editor_gui.c:188
 msgid "Search the given string"
-msgstr "碝т﹚"
+msgstr "寻找指定字符串"
 
 #: src/text_editor_gui.c:198
 msgid "Replace"
-msgstr ""
+msgstr "替换"
 
 #: src/text_editor_gui.c:200
 msgid "Search and replace the given string"
-msgstr "碝тの疭﹚"
+msgstr "寻找及替换特定字符串"
 
 #: src/text_editor_gui.c:220
 msgid "line: "
-msgstr "︽"
+msgstr "行："
 
 # src/menus.c:161
 #: src/text_editor_gui.c:236
 #: src/toolbar.c:452
 msgid "Compile the current file"
-msgstr "絪亩ヘ玡郎"
+msgstr "编译当前文件"
 
 #: src/text_editor_gui.c:248
 msgid "Build current File or Build the source directory of the Project"
-msgstr "絪亩の硈挡ヘ玡﹍郎┪﹍郎ヘ魁ず郎Θ祘Α"
+msgstr "编译及链接当前的源代码文件或整个源代码目录"
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/text_editor_gui.c:261
 msgid "Print the current File"
-msgstr "ヘ玡郎"
+msgstr "打印当前文件"
 
 #: src/text_editor_gui.c:273
 msgid "Attach the editor window as paged editor"
-msgstr "ㄌ硂跌怠絪胯跌怠"
+msgstr "依附这个窗口到主编辑窗口"
 
 #: src/text_editor_menu.c:72
 msgid "Prev mesg"
-msgstr "癟"
+msgstr "上一个消息"
 
 # src/menus.c:206
 #: src/text_editor_menu.c:78
 msgid "Next mesg"
-msgstr "癟"
+msgstr "下一个消息"
 
 # src/menus.c:131
 #: src/text_editor_menu.c:84
 msgid "Prev bookmark"
-msgstr "魁"
+msgstr "上一个纪录"
 
 # src/menus.c:132
 #: src/text_editor_menu.c:90
 msgid "Next bookmark"
-msgstr "魁"
+msgstr "下一个纪录"
 
 #: src/text_editor_menu.c:107
 #: src/toolbar.c:957
 msgid "Step in"
-msgstr "˙"
+msgstr "步入"
 
 #: src/text_editor_menu.c:113
 msgid "Step over"
-msgstr "˙筁"
+msgstr "步过"
 
 #: src/text_editor_menu.c:119
 msgid "Step out"
-msgstr "˙"
+msgstr "步出"
 
 #: src/text_editor_menu.c:125
 #: src/toolbar.c:946
 msgid "Run to cursor"
-msgstr "磅︽笴夹"
+msgstr "执行至光标"
 
 #: src/text_editor_menu.c:131
 msgid "Run/Continue"
-msgstr "磅︽ / 膥尿磅︽"
+msgstr "执行 / 继续执行"
 
 # src/menus.c:224
 #: src/text_editor_menu.c:138
 #: src/toolbar.c:1020
 msgid "Inspect"
-msgstr "浪琩"
+msgstr "检查"
 
 # src/menus.c:224
 #: src/text_editor_menu.c:145
 #: src/toolbar.c:994
 msgid "Interrupt"
-msgstr "い耞"
+msgstr "中断"
 
 #: src/text_editor_menu.c:155
 msgid "Toggle Linenums"
-msgstr "留旅 / 陪ボ︽腹跋"
+msgstr "隐藏 / 显示行号区"
 
 #: src/text_editor_menu.c:162
 msgid "Toggle Marker Margin"
-msgstr "留旅 / 陪ボ夹腹跋"
+msgstr "隐藏 / 显示标号区"
 
 #: src/text_editor_menu.c:169
 msgid "Toggle Fold Margin"
-msgstr "留旅 / 陪ボ甶舼跋"
+msgstr "隐藏 / 显示展叠区"
 
 #: src/text_editor_menu.c:176
 msgid "Toggle Guides"
-msgstr "留旅 / 陪ボ罽逼旧絬"
+msgstr "隐藏 / 显示缩排导线"
 
 #: src/text_editor_menu.c:184
 msgid "++Zoom"
-msgstr "++"
+msgstr "++放大"
 
 #: src/text_editor_menu.c:191
 msgid "--Zoom"
-msgstr "--罽"
+msgstr "--缩小"
 
 # src/menus.c:132
 #: src/text_editor_menu.c:232
 msgid "Toggle Bookmark"
-msgstr "ち传魁猵"
+msgstr "切换纪录状态"
 
 #: src/text_editor_menu.c:239
 msgid "Auto format"
-msgstr "笆Α"
+msgstr "自动格式"
 
 #: src/text_editor_menu.c:246
 msgid "Swap .h/.c"
-msgstr "がち传 .h /.c 郎"
+msgstr "相互切换 .h /.c 文件"
 
 #: src/text_editor_menu.c:254
 msgid "Goto"
-msgstr "簿"
+msgstr "转到"
 
 #: src/text_editor_menu.c:278
 msgid "Options"
-msgstr "匡兜"
+msgstr "选项"
 
 # src/menus.c:85
 #: src/text_editor_menu.c:286
 #: src/toolbar.c:157
 msgid "Close"
-msgstr "闽超"
+msgstr "关闭"
 
 #: src/text_editor_menu.c:348
 msgid "Functions "
-msgstr "ㄧΑ"
+msgstr "函数"
 
 #: src/toolbar.c:98
 msgid ""
@@ -5232,66 +5232,66 @@ msgid ""
 "1) Red is busy.2)Green is ready.\n"
 "3) Blinking is ready, but busy in background."
 msgstr ""
-"縊腹ボ\n"
-"1) ︹ボΓ窵2) 厚︹ボ碞狐\n"
-"3) 皗縊ボ碞狐﹟Τ璉秈︽い"
+"灯号指示：\n"
+"1) 红色表示忙碌。2) 绿色表示就绪。\n"
+"3) 闪灯表示就绪，但尚有工作在背后进行中。"
 
 # src/menus.c:83
 #: src/toolbar.c:144
 msgid "Save All"
-msgstr "场纗"
+msgstr "全部保存"
 
 # src/properties.c:199
 # src/settings.c:851
 #: src/toolbar.c:181
 msgid "Undo"
-msgstr "確"
+msgstr "撤销"
 
 #: src/toolbar.c:192
 msgid "Redo"
-msgstr "狡"
+msgstr "重复"
 
 # src/menus.c:223
 #: src/toolbar.c:206
 msgid "Detach"
-msgstr "だ瞒"
+msgstr "分离"
 
 # src/menus.c:109
 # src/menus.c:110
 # src/menus.c:111
 #: src/toolbar.c:207
 msgid "Detach the current page"
-msgstr "だ瞒ヘ玡"
+msgstr "分离当前页面"
 
 # src/menus.c:81
 # src/menus.c:82
 #: src/toolbar.c:232
 msgid "Search for the given string in the current file"
-msgstr "ヘ玡郎ず碝т﹚"
+msgstr "在当前文件内寻找指定字符串"
 
 #: src/toolbar.c:250
 msgid "Enter the string to search for"
-msgstr "块璶碝т"
+msgstr "输入要寻找的字符串"
 
 #: src/toolbar.c:260
 msgid "Go To"
-msgstr "簿"
+msgstr "移至"
 
 #: src/toolbar.c:261
 msgid "Go to the given line number in the current file"
-msgstr "簿﹚︽腹"
+msgstr "移至指定行号"
 
 #: src/toolbar.c:272
 msgid "Enter the line number to go to"
-msgstr "块璶簿︽腹"
+msgstr "输入要移至的行号"
 
 #: src/toolbar.c:295
 msgid "Compile/Build/Debug Messages"
-msgstr "留旅 / 陪ボ癟跌怠"
+msgstr "隐藏 / 显示消息窗口"
 
 #: src/toolbar.c:309
 msgid "Context sensitive help"
-msgstr "弧"
+msgstr "即时说明"
 
 # src/dialogs.c:106
 # src/dialogs.c:152
@@ -5299,329 +5299,329 @@ msgstr "弧"
 # src/dialogs.c:345
 #: src/toolbar.c:424
 msgid "Save Project"
-msgstr "纗盡"
+msgstr "保存项目"
 
 #: src/toolbar.c:437
 msgid "Close Project"
-msgstr "闽超盡"
+msgstr "关闭项目"
 
 #: src/toolbar.c:464
 msgid "Run configure"
-msgstr "磅︽皌竚"
+msgstr "执行配置"
 
 #: src/toolbar.c:476
 msgid "Build current file, or build the source directory of the Project"
-msgstr "絪亩の硈挡ヘ玡﹍郎┪﹍郎ヘ魁ず郎Θ祘Α"
+msgstr "编译及连接当前的源代码或源代码目录"
 
 # src/menus.c:225
 #: src/toolbar.c:487
 msgid "Build_all"
-msgstr "场絪亩"
+msgstr "全部编译"
 
 #: src/toolbar.c:489
 msgid "Build from the top directory of the Project"
-msgstr "ミ俱盡"
+msgstr "创建整个项目"
 
 #: src/toolbar.c:512
 msgid "Start the Debugger"
-msgstr "币笆埃岿竟"
+msgstr "启动调试器"
 
 #: src/toolbar.c:523
 msgid "Stop/interrupt compile or build"
-msgstr "氨ゎ / いゎ絪亩┪ミ"
+msgstr "停止 / 中止编译或创建"
 
 # src/menus.c:113
 #: src/toolbar.c:604
 msgid "Select the type of tag"
-msgstr "匡ま摸"
+msgstr "选取索引类别"
 
 # src/menus.c:92
 #: src/toolbar.c:628
 msgid "Source File"
-msgstr "﹍郎"
+msgstr "源代码"
 
 #: src/toolbar.c:651
 msgid "Tag in the file"
-msgstr "﹍絏郎ずㄧΑ"
+msgstr "在源代码文件内的函数"
 
 #: src/toolbar.c:662
 msgid "wizard"
-msgstr "弘艶"
+msgstr "精灵"
 
 #: src/toolbar.c:662
 msgid "The Wizard"
-msgstr "弘艶"
+msgstr "精灵"
 
 #: src/toolbar.c:740
 #: src/toolbar.c:1185
 msgid "Toggle"
-msgstr "ち传"
+msgstr "切换"
 
 # src/menus.c:109
 # src/menus.c:110
 # src/menus.c:111
 #: src/toolbar.c:742
 msgid "Toggle bookmark at current location"
-msgstr "ち传ヘ玡竚魁猵"
+msgstr "切换当前位置的纪录状态"
 
 #: src/toolbar.c:754
 msgid "First"
-msgstr "程玡"
+msgstr "最前"
 
 #: src/toolbar.c:756
 msgid "Goto first bookmark in this document"
-msgstr "簿ヘ玡ゅンず程玡魁"
+msgstr "移至当前文件内最前的一个纪录"
 
 #: src/toolbar.c:768
 #: src/toolbar.c:811
 msgid "Prev"
-msgstr ""
+msgstr "上一个"
 
 # src/menus.c:205
 #: src/toolbar.c:770
 msgid "Goto previous bookmark in this document"
-msgstr "簿魁"
+msgstr "移至上一个纪录"
 
 #: src/toolbar.c:782
 #: src/toolbar.c:824
 msgid "Next"
-msgstr ""
+msgstr "下一个"
 
 # src/menus.c:131
 # src/menus.c:132
 #: src/toolbar.c:784
 msgid "Goto next bookmark in this document"
-msgstr "簿魁"
+msgstr "移至下一个纪录"
 
 #: src/toolbar.c:796
 msgid "Last"
-msgstr "程"
+msgstr "最后"
 
 #: src/toolbar.c:798
 msgid "Goto last bookmark in this document"
-msgstr "簿ヘ玡ゅンず程魁"
+msgstr "移至当前文件内最后的一个纪录"
 
 # src/menus.c:205
 #: src/toolbar.c:813
 msgid "Goto previous message in this document"
-msgstr "簿癟"
+msgstr "移至上一个消息。"
 
 # src/menus.c:206
 #: src/toolbar.c:826
 msgid "Goto next message in this document"
-msgstr "簿癟"
+msgstr "移至下一个消息。"
 
 #: src/toolbar.c:840
 msgid "Start"
-msgstr "簿跋遏癬"
+msgstr "移至区块起首"
 
 #: src/toolbar.c:842
 msgid "Goto start of current code block"
-msgstr "簿ヘ玡跋遏癬"
+msgstr "移至当前区块的起首"
 
 #: src/toolbar.c:853
 msgid "End"
-msgstr "簿跋遏挡Ю"
+msgstr "移至区块结尾"
 
 #: src/toolbar.c:855
 msgid "Goto end of current code block"
-msgstr "簿ヘ玡跋遏挡Ю"
+msgstr "移至当前区块的结尾"
 
 #: src/toolbar.c:933
 msgid "Go"
-msgstr "磅︽"
+msgstr "执行"
 
 #: src/toolbar.c:934
 msgid "Go or continue execution"
-msgstr "秨﹍┪膥尿磅︽"
+msgstr "开始或继续执行"
 
 #: src/toolbar.c:945
 msgid "Run"
-msgstr "磅︽"
+msgstr "执行"
 
 # src/menus.c:166
 #: src/toolbar.c:958
 msgid "Single step in execution"
-msgstr "˙ヘ玡ㄧΑず礛虫˙磅︽"
+msgstr "步入当前函数内然后单步执行"
 
 #: src/toolbar.c:969
 msgid "Step Over"
-msgstr "˙筁"
+msgstr "步过"
 
 # src/menus.c:63
 #: src/toolbar.c:970
 msgid "Step over the function"
-msgstr "虫˙磅︽ヘ玡ㄧΑ"
+msgstr "单步执行当前函数"
 
 #: src/toolbar.c:980
 msgid "Step Out"
-msgstr "˙"
+msgstr "步出"
 
 #: src/toolbar.c:981
 msgid "Step out of the function"
-msgstr "磅︽ヘ玡ㄧΑず緇祘Α絏癶"
+msgstr "执行当前函数内余下程序码后退回"
 
 #: src/toolbar.c:1009
 msgid "Breakpoint"
-msgstr "い耞翴"
+msgstr "中断点"
 
 #: src/toolbar.c:1010
 msgid "Toggle breakpoint at cursor"
-msgstr "ち传ヘ玡笴夹竚い耞翴猵"
+msgstr "切换当前光标位置的中断点状态"
 
 #: src/toolbar.c:1022
 msgid "Inspect or evaluate an expression"
-msgstr "喷谍┪代刚ボΑ"
+msgstr "验证或测试一个表达式"
 
 #: src/toolbar.c:1035
 msgid "Display the current frame information"
-msgstr "陪ボヘ玡帮舼挡篶戈癟"
+msgstr "显示当前堆栈结构的信息"
 
 #: src/toolbar.c:1048
 msgid "Watch"
-msgstr "菏诡"
+msgstr "视察"
 
 #: src/toolbar.c:1050
 msgid "Watch expressions during execution"
-msgstr "陪ボ磅︽戳丁菏诡ボΑの跑计跌怠"
+msgstr "显示在执行期间视察表达式及变量的窗口"
 
 # src/menus.c:94
 #: src/toolbar.c:1062
 msgid "Stack trace of the program"
-msgstr "祘Α帮舼發萝"
+msgstr "程序的堆栈追踪"
 
 #: src/toolbar.c:1073
 msgid "Registers"
-msgstr "既竟"
+msgstr "寄存器"
 
 #: src/toolbar.c:1075
 msgid "CPU registers and their contents"
-msgstr "CPU 既竟のず甧"
+msgstr "CPU 寄存器及内容"
 
 # src/menus.c:63
 #: src/toolbar.c:1089
 msgid "End the debugging session"
-msgstr "氨ゎ埃岿"
+msgstr "停止调试"
 
 #: src/toolbar.c:1187
 msgid "Toggle current code fold hide/show"
-msgstr "留旅 / 陪ボヘ玡ㄧΑず﹍絏"
+msgstr "隐藏 / 显示当前函数内的源代码"
 
 # src/menus.c:86
 #: src/toolbar.c:1198
 msgid "Close all"
-msgstr "场闽超"
+msgstr "全部关闭"
 
 #: src/toolbar.c:1200
 msgid "Close all code folds in this document"
-msgstr "盢ヘ玡ゅンず场ㄧΑ﹍絏篜舼"
+msgstr "将当前文件内的全部函数的源代码折叠"
 
 # src/menus.c:77
 #: src/toolbar.c:1211
 msgid "Open all"
-msgstr "场秨币"
+msgstr "全部开启"
 
 #: src/toolbar.c:1213
 msgid "Open all code folds in this document"
-msgstr "盢ヘ玡ゅンず场ㄧΑ﹍絏甶秨"
+msgstr "将当前文件内的全部函数的源代码展开"
 
 # src/menus.c:113
 #: src/toolbar.c:1227
 msgid "Select"
-msgstr "匡"
+msgstr "选取"
 
 # src/menus.c:115
 #: src/toolbar.c:1228
 msgid "Select current code block"
-msgstr "匡ヘ玡ㄧΑず﹍絏"
+msgstr "选取当前函数内的源代码"
 
 # src/properties.c:106
 # src/settings.c:667
 #: src/toolbar.c:1239
 msgid "Indent inc"
-msgstr "糤罽逼"
+msgstr "增加缩排"
 
 #: src/toolbar.c:1241
 msgid "Increase indentation of block/line"
-msgstr "糤匡﹚絛瞅 / 罽逼"
+msgstr "增加选定范围 / 语句的缩排"
 
 # src/properties.c:118
 # src/settings.c:678
 #: src/toolbar.c:1252
 msgid "Indent dcr"
-msgstr "搭罽逼"
+msgstr "减小缩排"
 
 #: src/toolbar.c:1254
 msgid "Decrease indentation of block/line"
-msgstr "搭匡﹚絛瞅 / 罽逼"
+msgstr "减小选定范围 / 语句的缩排"
 
 #: src/toolbar.c:1268
 msgid "Autoformat"
-msgstr "笆Α"
+msgstr "自动格式"
 
 #: src/toolbar.c:1270
 msgid "Automatically format the code"
-msgstr "笆Α﹍絏"
+msgstr "自动格式源代码"
 
 #: src/toolbar.c:1282
 msgid "Format style"
-msgstr "Α摸"
+msgstr "格式类别"
 
 #: src/toolbar.c:1283
 msgid "Configure style to use for auto format"
-msgstr "砞﹚笆Α摸ず甧"
+msgstr "设定自动格式类别的内容"
 
 #: src/toolbar.c:1296
 msgid "Calltip"
-msgstr "把计矗ボ"
+msgstr "参数提示"
 
 #: src/toolbar.c:1296
 msgid "Show Calltip"
-msgstr "陪ボ把计矗ボ"
+msgstr "显示参数提示"
 
 #: src/toolbar.c:1310
 msgid "Autocomplete"
-msgstr "笆恶"
+msgstr "自动完成"
 
 #: src/toolbar.c:1311
 msgid "Autocomplete word"
-msgstr "笆ЧΘ﹃"
+msgstr "自动完成词语"
 
 #: src/toolbar.c:1364
 msgid "Functions"
-msgstr "ㄧΑ"
+msgstr "函数"
 
 #: src/toolbar.c:1378
 msgid "Structs"
-msgstr "挡篶"
+msgstr "结构体"
 
 # src/properties.c:199
 # src/settings.c:851
 #: src/toolbar.c:1385
 msgid "Unions"
-msgstr "羛"
+msgstr "联合"
 
 #: src/toolbar.c:1392
 msgid "Enums"
-msgstr "猅羭"
+msgstr "枚举"
 
 #: src/toolbar.c:1399
 msgid "Variables"
-msgstr "跑计"
+msgstr "变量"
 
 #: src/toolbar.c:1406
 msgid "Macros"
-msgstr "エ栋"
+msgstr "宏"
 
 #: src/toolbar_callbacks.c:183
 #, c-format
 msgid "There is line no. %d in \"%s\"."
-msgstr "郎 \"%2$s\" ず礚猭т︽腹 %1$d"
+msgstr "在文件 \"%2$s\" 内，无法找到行号 %1$d。"
 
 #: src/utilities.c:689
 #, c-format
 msgid "Couldn't read file: %s."
-msgstr "礚猭弄郎%s"
+msgstr "无法读取文件：%s。"
 
 #: src/source.c:121
 #: src/source.c:168
@@ -5651,141 +5651,141 @@ msgstr "礚猭弄郎%s"
 #: src/utilities.c:697
 #, c-format
 msgid "Couldn't create file: %s."
-msgstr "礚猭ミ郎%s"
+msgstr "无法创建文件：%s。"
 
 #: src/utilities.c:731
 msgid "Couldn't complete file copy"
-msgstr "礚猭ЧΘ狡籹郎"
+msgstr "无法完成复制文件"
 
 #: src/watch.c:91
 msgid "< Not defined in current context >"
-msgstr "< ヘ玡ずゅず﹟ゼ﹚竡 >"
+msgstr "< 在当前内文内尚未定义 >"
 
 #: src/watch_gui.c:36
 msgid "Add expression"
-msgstr "穝糤菏诡兜ヘ"
+msgstr "新增视察项目"
 
 #: src/watch_gui.c:48
 msgid "Update all"
-msgstr "场穝"
+msgstr "全部更新"
 
 #: src/watch_gui.c:60
 msgid "Toggle enable"
-msgstr "币ノ / 氨ノ"
+msgstr "启用 / 停用"
 
 #: src/watch_gui.c:104
 msgid "Expression Watch"
-msgstr "菏诡跌怠"
+msgstr "视察窗口"
 
 # src/menus.c:91
 #: src/watch_gui.c:124
 msgid "Expression"
-msgstr "菏诡兜ヘ"
+msgstr "视察项目"
 
 #: src/watch_gui.c:130
 msgid "Value"
-msgstr "计"
+msgstr "数值"
 
 #: src/watch_gui.c:178
 msgid "Add Watch Expression"
-msgstr "穝糤菏诡兜ヘ"
+msgstr "新增视察项目"
 
 #: src/watch_gui.c:187
 msgid "Add expression to watch"
-msgstr "穝糤菏诡兜ヘ菏诡跌怠"
+msgstr "新增视察项目到视察窗口"
 
 #: src/watch_gui.c:243
 msgid "Inspect/Evaluate"
-msgstr "喷谍の代刚"
+msgstr "验证及测试"
 
 #: src/watch_gui.c:252
 msgid "Inspect/Evaluate Expression"
-msgstr "喷谍の代刚ボΑ"
+msgstr "验证及测试表达式"
 
 #: src/watch_gui.c:274
 msgid "Add To Watch"
-msgstr "穝糤菏诡"
+msgstr "新增到视察"
 
 #: src/about.c:47
 msgid "Copyright (c) 1999-2001 Naba Kumar"
-msgstr "舦┮Τ (c) 1999-2001 Naba Kumar"
+msgstr "版权所有 (c) 1999-2001 Naba Kumar"
 
 #: src/about.c:58
 msgid "Anjuta Home Site"
-msgstr "Anjuta 呼"
+msgstr "Anjuta 主网页"
 
 #: src/appwiz_page4.c:126
 msgid " Project Options "
-msgstr " 盡匡兜"
+msgstr " 项目选项"
 
 #: src/appwiz_page4.c:137
 msgid "Include GNU Copyright statement in file headings"
-msgstr " GNU 舦羘郎癬"
+msgstr "加入 GNU 版权声明到文件的起首"
 
 #: src/appwiz_page4.c:144
 msgid "Enable Gettext Support"
-msgstr "币ノや传粂ēセて"
+msgstr "启用支换语言本地化"
 
 #: src/appwiz_page4.c:151
 msgid "GNOME Menu Entry"
-msgstr "GNOME 匡虫兜ヘ"
+msgstr "GNOME 菜单项目"
 
 #: src/appwiz_page4.c:161
 msgid "Entry name:"
-msgstr "兜ヘ嘿"
+msgstr "项目名称："
 
 # src/menus.c:155
 #: src/appwiz_page4.c:168
 msgid "Comment:"
-msgstr "称爹"
+msgstr "备注："
 
 #: src/appwiz_page4.c:175
 msgid "Group:"
-msgstr "竤舱"
+msgstr "小组："
 
 #: src/appwiz_page4.c:216
 msgid "Needs terminal"
-msgstr "惠璶沧狠诀"
+msgstr "需要终端机"
 
 #: src/source.c:113
 #, c-format
 msgid "Error writing to file: %s."
-msgstr "糶戈郎%s 祇ネ岿粇"
+msgstr "写入资料到文件：%s 时发生错误。"
 
 #: src/source.c:1260
 #, c-format
 msgid "Error writing to : %s."
-msgstr "糶戈%s 祇ネ岿粇"
+msgstr "写入资料到：%s 时发生错误。"
 
 #: src/source.c:1376
 msgid "Project type does not support glade."
-msgstr "盡摸ぃや传 glade"
+msgstr "项目类别并不支换 glade。"
 
 #: src/anjuta.c:72
 #: src/anjuta.c:79
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
-msgstr "Anjuta眔癟腹 %d (%s)"
+msgstr "Anjuta：取得信号 %d (%s)！"
 
 # src/file-io.c:29
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:106
 msgid "Open File"
-msgstr "秨币郎"
+msgstr "开启文件"
 
 # src/menus.c:82
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:112
 #: src/anjuta.c:117
 msgid "Save File As"
-msgstr "穝郎"
+msgstr "另存新文件"
 
 #: src/anjuta.c:219
 msgid ""
 "Cannot create application...exiting\n"
 ""
 msgstr ""
-"礚猭ミ祘Α... 挡\n"
+"无法创建程序... 结束\n"
 ""
 
 #: src/anjuta.c:267
@@ -5794,19 +5794,19 @@ msgstr ""
 #: src/anjuta.c:866
 #, c-format
 msgid "Anjuta: %s"
-msgstr "Anjuta %s"
+msgstr "Anjuta： %s"
 
 # src/menus.c:92
 #: src/anjuta.c:333
 msgid "Recent Files "
-msgstr "程秨币郎"
+msgstr "最近开启文件"
 
 #: src/anjuta.c:636
 msgid ""
 "CVS is not yet implemented. :-(\n"
 ""
 msgstr ""
-"CVS ﹟ゼ龟:-(\n"
+"CVS 尚未实作。:-(\n"
 ""
 
 #: src/anjuta.c:683
@@ -5814,26 +5814,26 @@ msgid ""
 "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 ""
 msgstr ""
-"# * ぃ璶絪胯┪穝㏑硂郎 ** 郎パ Anjuta ミ **\n"
+"# * 不要编辑或重新命名这个文件 ** 文件由 Anjuta 创建 **\n"
 ""
 
 #: src/anjuta.c:843
 #, c-format
 msgid "Anjuta: %s(Saved)"
-msgstr "Anjuta%s (纗)"
+msgstr "Anjuta：%s (已保存)"
 
 #: src/anjuta.c:858
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
-msgstr "Anjuta%s (ゼ纗)"
+msgstr "Anjuta：%s (未保存)"
 
 #: src/anjuta.c:885
 msgid "Anjuta: No file"
-msgstr "Anjuta⊿Τ郎"
+msgstr "Anjuta：没有文件"
 
 #: src/anjuta.c:1138
 msgid "ERROR: "
-msgstr "岿粇"
+msgstr "错误："
 
 #: src/anjuta.c:1155
 msgid ""
@@ -5841,7 +5841,7 @@ msgid ""
 "System: "
 msgstr ""
 "\n"
-"╰参"
+"系统："
 
 #: src/anjuta.c:1389
 #, c-format
@@ -5849,12 +5849,12 @@ msgid ""
 "Not yet implemented.\n"
 "Insert code at \"%s:%u\""
 msgstr ""
-"﹟ゼ龟\n"
-"硂柑 \"%s%u\" 糶﹍絏 "
+"尚未实际操作。\n"
+"在这里 \"%s：%u\" 写入源代码 "
 
 #: src/anjuta.c:1605
 msgid "Activate this to select this window"
-msgstr "硂柑陪ボ硂跌怠"
+msgstr "按这里显示这个窗口"
 
 #: src/anjuta.c:1652
 #, c-format
@@ -5862,48 +5862,48 @@ msgid ""
 "You do not have \"%s\" installed in your box.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"眤﹟ゼ杆硂祘Α \"%s\"\n"
-"杆叫穝币笆 Anjuta"
+"您尚未安装这个程序 \"%s\"。\n"
+"安装后请重新启动 Anjuta。"
 
 #: src/anjuta.c:1678
 #: src/anjuta.c:1713
 msgid "None"
-msgstr "礚"
+msgstr "无"
 
 #: src/anjuta.c:1695
 msgid "OVR"
-msgstr ""
+msgstr "替换"
 
 #: src/anjuta.c:1699
 #: src/anjuta.c:1705
 msgid "INS"
-msgstr "糤础"
+msgstr "插入"
 
 #: src/anjuta.c:1716
 #, c-format
 msgid "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       Job: %s"
-msgstr "  盡%s       罽%d       ︽%04d       %03d       %s       %s"
+msgstr "  项目：%s       缩放：%d       行：%04d       字：%03d       %s       工作：%s"
 
 #: src/anjuta.c:1928
 #: src/anjuta.c:1931
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
-msgstr "礚猭更糤家舱 %s岿粇 %s"
+msgstr "无法载入插件 %s。错误 %s"
 
 #: src/anjuta.c:1934
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
-msgstr "ぃ冈糤家舱硄癟﹚ %s 岿粇%s"
+msgstr "未知的插件通讯协议 %s 错误：%s"
 
 #: src/anjuta.c:1937
 #, c-format
 msgid "Unable to Start Plug in Module %s"
-msgstr "礚猭币笆糤家舱 %s"
+msgstr "无法启动插件 %s"
 
 #: src/anjuta.c:1940
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
-msgstr "ぃタ絋糤家舱把计 %s岿粇%s"
+msgstr "不正确的插件参数 %s。错误：%s"
 
 #: src/anjuta.c:1948
 #, c-format
@@ -5911,62 +5911,63 @@ msgid ""
 "Unable to load plugin %s.\n"
 "Error %s"
 msgstr ""
-"礚猭更糤家舱 %s\n"
-"岿粇 %s"
+"无法载入插件 %s。\n"
+"错误 %s"
 
 #: src/anjuta.c:2018
 msgid "Out of Memory scanning for plugins."
-msgstr "癘拘砰ぃì礚猭盎代糤家舱"
+msgstr "内存不足，无法检查插件。"
 
 #: src/anjuta_gui.c:208
 #: src/anjuta_gui.c:297
 msgid "Click here to undock this window"
-msgstr "硂柑だ瞒硂跌怠"
+msgstr "按这里分离这个窗口"
 
 #: src/anjuta_gui.c:242
 #: src/anjuta_gui.c:264
 msgid "Click here to hide this window"
-msgstr "硂柑留旅硂跌怠"
+msgstr "按这里隐藏这个窗口"
 
 #: src/glade_iface.c:72
 msgid "Cannot fork glade."
-msgstr "礚猭币笆 glade"
+msgstr "无法启动 glade。"
 
 #: src/glade_iface.c:109
 msgid "Cannot fork glade--."
-msgstr "礚猭币笆 glade--"
+msgstr "无法启动 glade--。"
 
 #: src/resources.c:58
 msgid "Could not create replacement pixmap."
-msgstr "礚猭ミ蠢瓜ボ"
+msgstr "无法创建替代图示。"
 
 #: src/resources.c:86
 #, c-format
 msgid "Widget not found: %s"
-msgstr "礚猭тじン%s"
+msgstr "无法找到组件：%s"
 
 #: src/resources.c:99
 #, c-format
 msgid "Could not find application image file: %s"
-msgstr "礚猭т祘Α瓜钩郎%s"
+msgstr "无法找到程序图像文件：%s"
 
 #: src/resources.c:121
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr "礚猭т祘Α瓜ボ郎%s"
+msgstr "无法找到程序位图文件：%s"
 
 #: src/resources.c:132
 #, c-format
 msgid "Could not find gnome pixmap file: %s"
-msgstr "礚猭т gnome 瓜ボ郎%s"
+msgstr "无法找到 gnome 位图文件：%s"
 
 #: src/resources.c:149
 #, c-format
 msgid "Could not create pixmap from file: %s"
-msgstr "礚猭パ郎ミ瓜ボ%s"
+msgstr "无法由文件创建位图：%s"
 
 #: src/resources.c:295
 #: src/resources.c:303
 msgid "Cannot execute Devhelp. Make sure it is installed"
-msgstr "礚猭磅︽ Devhelp 祘Α叫絋﹚祘Α杆"
+msgstr "无法执行 Devhelp 程序。请确定程序已安装"
+
 

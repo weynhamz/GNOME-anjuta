@@ -1136,7 +1136,7 @@ msgstr "Uitvoeren programma ...\n"
 #: src/debugger.c:1317
 #, c-format
 msgid "Attaching to process: %d\n"
-msgstr "Verbinden aan proces: %s\n"
+msgstr "Verbinden aan proces: %d\n"
 
 #: src/debugger.c:1345
 msgid ""
@@ -4761,7 +4761,7 @@ msgstr "Onbekend project type."
 #: src/anjuta.c:64 src/anjuta.c:71
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
-msgstr "Anjuta: Opgevangen signaal %s (%s) !"
+msgstr "Anjuta: Opgevangen signaal %d (%s) !"
 
 #. Must declare static, because it will be used forever
 #: src/anjuta.c:98

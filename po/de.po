@@ -11,6 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.7\n"
 "POT-Creation-Date: 2001-10-18 13:30+0200\n"
+"PO-Revision-Date: 2001-10-24 16:39+0800\n"
 "Last-Translator: Jens Georg <mail@jensgeorg.de>\n"
 "Language-Team: german <mail@jensgeorg.de>\n"
 "MIME-Version: 1.0\n"
@@ -5146,7 +5147,7 @@ msgid "INS"
 msgstr "EINF"
 
 #: src/anjuta.c:1716
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s"
@@ -5159,7 +5160,7 @@ msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "Plugin in Modul %s konnte nicht geladen werden. Fehler: %s"
 
 #: src/anjuta.c:1934
-#, c-format
+#, fuzzy, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "Plugin in Modul %s "
 

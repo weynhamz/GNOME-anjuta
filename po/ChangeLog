@@ -1,3 +1,19 @@
+2001-10-24  Abel Cheung <maddog@linux.org.hk>
+
+	* nl.po: Modified line 1138 and line 4763, file fails in
+	  "msgfmt -c" check. Argument format error. Last-translator
+	  contacted.
+
+	* de.po: Fails check too. Marked line 5150/5163 as fuzzy.
+	  Added missing PO-Revision-Date. Last-translator contacted.
+
+	* zh_CN.po: New simplified Chinese translation from
+	  Conner Mo <connermo@hotmail.com>.
+
+	* zh_TW.po: Updated traditional Chinese translation from
+	  Joe Man <trmetal@yahoo.com.hk>. This po file is checked
+	  using gettext 0.10.35 too, so hopefully no more problem.
+
 2001-10-21  Abel Cheung <maddog@linux.org.hk>
 
 	* zh_TW.po: New traditional Chinese translation from
