@@ -164,8 +164,9 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	AnjutaUI *ui;
 	GtkAction *cvs_menu_action;
 	const gchar *uri;
-	GnomeVFSURI *cvs_uri;
-	gchar *cvs_text_uri, *cvs_dir;
+	GnomeVFSURI *cvs_uri = NULL;
+	gchar *cvs_text_uri = NULL;
+	gchar *cvs_dir;
 	gchar *filename;
 	GnomeVFSDirectoryHandle* handle;
 	GnomeVFSFileInfo info;
@@ -183,9 +184,6 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	cvs_plugin->fm_current_filename = filename;
 	
 	/* Show popup menu if CVS directory exists */
-	g_free(cvs_text_uri);
-	gnome_vfs_uri_unref(cvs_uri);
-	
 	cvs_menu_action = anjuta_ui_get_action (ui, "ActionGroupCVS", "ActionPopupCVS");
 	
 	/* If a directory is selected we check if it contains a "CVS" directory,
@@ -204,6 +202,8 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 			cvs_uri = gnome_vfs_uri_new (uri);
 			cvs_text_uri = gnome_vfs_uri_extract_dirname(cvs_uri);
 			cvs_dir = g_strconcat(cvs_text_uri, "/CVS", NULL);
+			g_free(cvs_text_uri);
+			gnome_vfs_uri_unref(cvs_uri);
 		}	
 	}
 	else
@@ -218,7 +218,6 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	{
 		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", FALSE, NULL);
 	}
-	g_free(cvs_dir);
 }
 
 static void
