@@ -10,6 +10,13 @@
 
 	* es.po: Fixed a header.
 
+2001-11-01 Naba kumar <kh_naba@users.sourceforge.net>
+
+	* status.pl: Fixed the bug "swapping translaged and untranslated".
+	  It now shows correct figures for all translations.
+	  It now also generate "translations.xml" data file
+	  to be used in website to show the translation statistics.
+	  
 2001-10-30  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* pl.po: Updated Polish translation by
