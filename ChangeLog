@@ -1,3 +1,10 @@
+2005-03-19	Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/subversion/svn-backend.c:
+	Removed "apr-0/" from include because this is 
+	already included in SVN_INCLUDE and broke building if
+	apr >= 1.0 was installed.
+
 2005-03-18  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Massimo Cora' <maxcvs@email.it>:
