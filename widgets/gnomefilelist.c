@@ -1090,19 +1090,17 @@ gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar path[])
    g_return_val_if_fail(GNOME_IS_FILELIST(file_list), FALSE);
 
    if (set_dir_internal (file_list, path)) {
-	   /*
-	if (!g_list_length (file_list->history) ||
-        	g_list_find_string_pos (file_list->history, file_list->path) !=
-	        file_list->history_position + 1) */ {
+		if (!file_list->history ||
+			strcmp((gchar*)file_list->history->data,
+				file_list->path) != 0) {
 	      file_list->history = g_list_prepend (file_list->history,
 			      			   g_strdup (file_list->path));
 	      gtk_combo_set_popdown_strings (GTK_COMBO (file_list->history_combo), 
 					     file_list->history);
 	      file_list->history_position = -1;
+		}
+		return TRUE;
 	}
-
-	return TRUE;
-  }
 
    return FALSE;
   

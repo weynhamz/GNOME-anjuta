@@ -1,3 +1,8 @@
+2002-05-10 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* widgets/gnomefilelist.c:
+	Fixed duplicate history entries for the same directory.
+	  
 2002-05-10  Stephane Demurget  <demurgets@free.fr>
 
 	Fix for #520092.
