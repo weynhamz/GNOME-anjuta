@@ -1,3 +1,11 @@
+2002-09-15  Stephane Demurget  <demurgets@free.fr>
+
+	* src/anjuta.glade: added the commands dialog fully HIG-1.0 compliant.
+
+	* src/commands.c: partial gnome 2 port.
+
+	* src/utilities.[ch]: changed some bits to be const.
+
 2002-09-14  Stephane Demurget  <demurgets@free.fr>
 
 	* src/Makefile.am: removed breakpoints_gui.c and added a check

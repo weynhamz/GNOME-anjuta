@@ -186,7 +186,7 @@ gboolean widget_is_child(GtkWidget *parent, GtkWidget* child);
 /* Fast string assignment to avoid memory leaks */
 /* Assigns a new string (value), if not NULL, with g_strdup() to (*string) */
 /* The previous string, if not NULL, is g_freed */
-void string_assign (gchar** string, gchar* value);
+void string_assign (gchar** string, const gchar* value);
 
 /* Returns true if the e->d_name is a regular file */
 /* Used as the callback for scandir() */

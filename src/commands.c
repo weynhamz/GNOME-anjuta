@@ -94,7 +94,6 @@ command_data_destroy (CommandData *cdata)
 
 
 /* CommandEditor */
-static void create_command_editor_gui (CommandEditor *);
 
 CommandEditor*
 command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
@@ -113,8 +112,12 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	/* Don't worry dialog is unsinkable */
 	ce->win_width = 0;
 	ce->win_height = 0;
+
+	
+	
 	
 	create_command_editor_gui (ce);
+
 	return ce;
 }
 
@@ -408,7 +411,7 @@ on_language_entry_changed (GtkEditable     *editable, gpointer         user_data
 {
 	CommandData *cdata;
 	CommandEditor *ce;
-	gchar *str;
+	const gchar *str;
 	
 	ce = user_data;
 	g_return_if_fail (ce != NULL);
@@ -427,7 +430,7 @@ on_language_entry_changed (GtkEditable     *editable, gpointer         user_data
 		string_assign (&ce->current_command_data->execute, str);
 	}
 	str = gtk_entry_get_text (GTK_ENTRY (editable));
-	cdata = gtk_object_get_data (GTK_OBJECT (ce->widgets.window), str);
+	cdata = (CommandData *) gtk_object_get_data (GTK_OBJECT (ce->widgets.window), str);
 	g_return_if_fail (cdata != NULL);
 	if (cdata->compile)
 		gtk_entry_set_text (GTK_ENTRY (ce->widgets.compile_entry), cdata->compile);
@@ -486,7 +489,8 @@ on_apply_clicked        (GtkButton       *button,
                                         gpointer         user_data)
 {
 	CommandEditor *ce;
-	gchar* str, *key;
+	const gchar *str;
+	gchar *key;
 	gint i;
 
 	ce = user_data;
@@ -499,7 +503,7 @@ on_apply_clicked        (GtkButton       *button,
 		if (prog_language_map [i] == NULL) break;
 		
 		/* Yes, prog_language_map[i] and not [i+1] */
-		cdata = gtk_object_get_data (GTK_OBJECT (ce->widgets.window), prog_language_map[i]);
+		cdata = (CommandData *) gtk_object_get_data (GTK_OBJECT (ce->widgets.window), prog_language_map[i]);
 
 		g_return_if_fail (cdata != NULL);
 		
@@ -578,6 +582,7 @@ get_label_max_width(GtkWidget *widget, gint size)
 static void
 create_command_editor_gui (CommandEditor *ce)
 {
+#if 0
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *frame1;
@@ -908,6 +913,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_widget_ref (entry5);
 	gtk_widget_ref (entry6);
 	gtk_widget_ref (entry7);
+#endif
 }
 
 /* Save and Load */

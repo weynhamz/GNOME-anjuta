@@ -1037,7 +1037,7 @@ glist_strings_dup (GList * list)
 }
 
 void
-string_assign (gchar ** string, gchar * value)
+string_assign (gchar ** string, const gchar * value)
 {
 	if (*string)
 		g_free (*string);
