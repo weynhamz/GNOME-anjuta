@@ -1,17 +1,10 @@
+2001-11-29  Christian Meyer  <chrisime@gnome.org>
+
+	* de.po: Major cleanup, consistence check for release.
+	* ChangeLog: Removed nasty gettext entries.
+
 2001-11-29  Takeshi Aihana <aihana@gnome.gr.jp>
 	* ja.po: Updated Japanese translation.
-
-2001-11-16  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.40.
-
-2001-11-15  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.40.
-
-2001-11-15  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.40.
 
 2001-11-09  Abel Cheung  <maddog@linux.org.hk>
 
