@@ -2,6 +2,7 @@
 
 	* po/POTFILES.in: Updated.
 	* po/POTFILES.skip: Added.
+	* preferences.h: Fixed print paper size property name.
 
 2002-10-28  Naba Kumar <naba@gnome.org>
 	

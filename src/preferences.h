@@ -340,7 +340,7 @@ void preferences_set_build_options(Preferences* p);
 #define BUILD_FILE_BROWSER	 "build.file.browser"
 #define SHOW_TOOLTIPS           "show.tooltips"
 
-#define PRINT_PAPER_SIZE        "paper.size"
+#define PRINT_PAPER_SIZE        "print.paper.size"
 #define PRINT_HEADER            "print.header"
 #define PRINT_WRAP              "print.linewrap"
 #define PRINT_LINENUM_COUNT     "print.linenumber.count"
