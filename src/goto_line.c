@@ -31,6 +31,14 @@ static void
 on_go_to_line_ok_clicked               (GtkButton       *button,
                                         gpointer         user_data);
 
+static void
+on_go_to_line_entry_activated          (GtkEntry		*entry,
+                                        gpointer         user_data);
+
+static void 
+go_to_line                             (GnomeNumberEntry *ne);
+
+
 GtkWidget*
 create_goto_line_dialog ()
 {
@@ -78,7 +86,7 @@ create_goto_line_dialog ()
   gtk_widget_show (button14);
   GTK_WIDGET_SET_FLAGS (button14, GTK_CAN_DEFAULT);
 
-  gtk_widget_ref(numberentry1);
+  gtk_widget_ref(dialog4);
 
   gtk_accel_group_attach( app->accel_group, GTK_OBJECT(dialog4));
 
@@ -86,22 +94,46 @@ create_goto_line_dialog ()
                       GTK_SIGNAL_FUNC (on_go_to_line_ok_clicked),
                       numberentry1);
 
+  /* If the user presses enter in the number entry, do the same as if the ok buton was pressed */
+  gtk_signal_connect (GTK_OBJECT (gnome_number_entry_gtk_entry (GNOME_NUMBER_ENTRY (numberentry1) ) ), "activate",
+                      GTK_SIGNAL_FUNC (on_go_to_line_entry_activated),
+                      numberentry1);
+	
+	
+  gtk_object_set_user_data(GTK_OBJECT (numberentry1), (gpointer)dialog4);
+
   gtk_widget_grab_focus(combo_entry6);
   return dialog4;
+}
+
+static void
+on_go_to_line_entry_activated          (GtkEntry		*entry,
+                                        gpointer         user_data)
+{
+	go_to_line(user_data);
 }
 
 static void
 on_go_to_line_ok_clicked               (GtkButton       *button,
                                         gpointer         user_data)
 {
-  GnomeNumberEntry *ne;
+	go_to_line(user_data);
+}
+
+static void 
+go_to_line                             (GnomeNumberEntry *ne)
+{
   TextEditor *te;
   guint  num;
-
-  ne = user_data;
+  GtkWidget *dialog;
+	
+  dialog=gtk_object_get_user_data(GTK_OBJECT (ne));
   te = anjuta_get_current_text_editor();
 
   num = (guint)gnome_number_entry_get_number(ne);
-  gtk_widget_unref(GTK_WIDGET(ne));
+ 
+  gnome_dialog_close(GNOME_DIALOG (dialog));
+  gtk_widget_unref(dialog);
+	
   if(te) text_editor_goto_line(te, num, TRUE);
 }

@@ -1,5 +1,30 @@
 2001-08-5  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* Fixed the goto line activate bug.
+	patch from: Martyn Bone <mbone@brightstar.u-net.com>
+
+2001-9-06  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* Fixed bugs in Gtk-- and Gnome-- project type
+
+2001-09-05  gettextize  <bug-gnu-utils@gnu.org>
+
+	* Makefile.in.in: Upgrade to gettext-0.10.36.
+
+2001-09-05  gettextize  <bug-gnu-utils@gnu.org>
+
+	* Makefile.in.in: Upgrade to gettext-0.10.36.
+
+2001-09-05  gettextize  <bug-gnu-utils@gnu.org>
+
+	* Makefile.in.in: Upgrade to gettext-0.10.36.
+
+2001-9-06  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* Fixed bugs in Gtk-- and Gnome-- project type
+
+2001-08-5  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* widgets/gonmefilelist.c, gnomefilelist.c:
 	Modified multiple selection on pressing	control.
 	  # Patch from: venugopal gummuluru <vgummuluru@yahoo.com>
