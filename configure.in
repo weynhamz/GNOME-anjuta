@@ -93,6 +93,8 @@ AC_ISC_POSIX
 AC_HEADER_STDC
 AM_PROG_LIBTOOL
 
+AC_TYPE_SIGNAL
+
 PKG_CHECK_MODULES(ANJUTA, \
 	glib-2.0 >= $GLIB_REQUIRED \
 	gtk+-2.0 >= $GTK_REQUIRED \
@@ -127,6 +129,12 @@ dnl Check for glib.
 PKG_CHECK_MODULES(GTK, gtk+-2.0)
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
+
+# marshal and enum generators
+GLIB_GENMARSHAL="`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`"
+AC_SUBST(GLIB_GENMARSHAL)
+GLIB_MKENUMS="`$PKG_CONFIG --variable=glib_mkenums glib-2.0`"
+AC_SUBST(GLIB_MKENUMS)
 
 ALL_LINGUAS="az be da de el en_GB es fr hi it ja nl no pl pt pt_BR ru sk sv ta tr uk zh_CN zh_TW"
 GETTEXT_PACKAGE=anjuta

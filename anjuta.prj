@@ -1,4 +1,4 @@
-# Anjuta Version 1.2.0 
+# Anjuta Version 1.0.2 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.2.0
+anjuta.version=1.0.2
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -34,7 +34,6 @@ project.version=1.2.0
 project.author=naba
 project.source.target=src/anjuta
 project.has.gettext=1
-project.gui.command=
 project.programming.language=C_C++
 project.excluded.modules=intl
 
@@ -51,30 +50,22 @@ project.menu.need.terminal=0
 
 project.configure.options=
 anjuta.program.arguments=
-preferences.tabsize=4
-preferences.indent.opening=0
 preferences.indent.automatic=1
-preferences.autoformat.style=Custom style
-preferences.indent.size=4
-preferences.autoformat.disable=0
 preferences.use.tabs=1
+preferences.indent.opening=0
 preferences.indent.closing=0
+preferences.tabsize=4
+preferences.indent.size=4
+preferences.autoformat.style=Custom style
 preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc80 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di0 -nbfda -psl -brs -i4 -ci4 -lp -ts4 -l80 -nhnl -pmt 
-preferences.build.option.autosave=0
-preferences.build.option.silent=0
-preferences.build.option.jobs=0
-preferences.anjuta.make.options=-k
-preferences.make=make
-preferences.build.option.keep.going=1
-preferences.build.option.warn.undef=0
+preferences.autoformat.disable=0
 
 module.include.name=.
 module.include.type=
+module.include.expanded=0
 module.include.files=\
 	acconfig.h\
 	printing/print.h\
-	printing/print-doc.h\
-	printing/print-util.h\
 	scintilla/include/Accessor.h\
 	scintilla/include/KeyWords.h\
 	scintilla/include/Platform.h\
@@ -171,7 +162,6 @@ module.include.files=\
 	src/signals.h\
 	src/signals_cbs.h\
 	src/source.h\
-	src/splash.h\
 	src/src_paths.h\
 	src/src_paths_cbs.h\
 	src/stack_trace.h\
@@ -209,16 +199,16 @@ module.include.files=\
 	tagmanager/sort.h\
 	tagmanager/strlist.h\
 	tagmanager/vstring.h\
-	widgets/e-shell-about-box.h\
-	widgets/gnomedirlist.h\
 	widgets/gnomefilelist.h\
-	widgets/scroll-menu.h\
 	src/anjuta-tools.h\
 	src/widget-registry.h\
-	src/anjuta-plugins.h
+	src/anjuta-plugins.h\
+	widgets/e-splash.h\
+	widgets/cell-renderer-captioned-image.h
 
 module.source.name=.
 module.source.type=
+module.source.expanded=1
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -226,8 +216,6 @@ module.source.files=\
 	plugins/patch/patch-plugin.c\
 	plugins/sample1/plugin-sample1.c\
 	printing/print.c\
-	printing/print-doc.c\
-	printing/print-util.c\
 	scintilla/AutoComplete.cxx\
 	scintilla/CallTip.cxx\
 	scintilla/CellBuffer.cxx\
@@ -356,7 +344,6 @@ module.source.files=\
 	src/signals_cbs.c\
 	src/signals_gui.c\
 	src/source.c\
-	src/splash.c\
 	src/src_paths.c\
 	src/src_paths_cbs.c\
 	src/src_paths_gui.c\
@@ -419,17 +406,17 @@ module.source.files=\
 	tagmanager/vim.c\
 	tagmanager/vstring.c\
 	tagmanager/yacc.c\
-	widgets/e-shell-about-box.c\
-	widgets/gnomedirlist.c\
 	widgets/gnomefilelist.c\
-	widgets/scroll-menu.c\
 	src/debug_tree.c\
 	src/anjuta-tools.c\
 	src/widget-registry.c\
-	src/anjuta-plugins.c
+	src/anjuta-plugins.c\
+	widgets/e-splash.c\
+	widgets/cell-renderer-captioned-image.c
 
 module.pixmap.name=.
 module.pixmap.type=
+module.pixmap.expanded=0
 module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/arguments.png\
 	manuals/C/anjuta-manual/figures/attach.png\
@@ -637,14 +624,17 @@ module.pixmap.files=\
 
 module.data.name=.
 module.data.type=
+module.data.expanded=0
 module.data.files=
 
 module.help.name=.
 module.help.type=
+module.help.expanded=0
 module.help.files=
 
 module.doc.name=.
 module.doc.type=
+module.doc.expanded=0
 module.doc.files=\
 	AUTHORS\
 	COPYING\
@@ -679,6 +669,7 @@ module.doc.files=\
 	manuals/C/anjuta-manual/tools.sgml\
 	ROADMAP
 
+module.po.expanded=0
 module.po.files=\
 	az.po\
 	da.po\
@@ -704,4 +695,17 @@ module.po.files=\
 	zh_TW.po\
 	hi.po
 
-project.src.paths=
+compiler.options.supports=
+compiler.options.include.paths=
+compiler.options.library.paths=
+compiler.options.libraries=
+compiler.options.libraries.selected=
+compiler.options.defines=
+compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
+compiler.options.optimize.buttons=0 1 0 0 
+compiler.options.other.buttons=1 0 
+compiler.options.other.c.flags=
+compiler.options.other.l.flags=
+compiler.options.other.l.libs=
+project.source.paths=
+

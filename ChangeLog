@@ -8,6 +8,7 @@
 	* anjuta.glade, src/search-replace.c: Port from branch.
 	* widgets/e-splash.*, src/main.c: Better splash screen.
 	* configure.in, widgets/gdl*: Import gdk doc code.
+	* ROADMAP: Updated roadmap.
 
 2003-04-09  Naba Kumar  <naba@gnome.org>
 

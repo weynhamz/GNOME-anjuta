@@ -133,6 +133,15 @@ Ideally, the shell should consist of the folowing APIs:
 	o Common custom widgets
 	o Source parser library
 
+User Interface:
+---------------
+The current user interface is hardcoded and inflexible, mainly because of
+the limitations of the used API. The GUI should be gradually converted to
+use more flexible and advanced widgets:
+	1. Edd Menu/Toolbar/Action for menu and toolbar items.
+	2. GdlDock for all non-UI widgets.
+	3. Libglade for all dialogs.
+
 Plugin System:
 --------------
 The plugins system needs to be revamped as follows:
