@@ -793,7 +793,8 @@ source_write_executable_source_files (ProjectDBase * data)
 	}
 	if (type == PROJECT_TYPE_GNOMEMM)
 	{
-		fprintf(fp, "\\\n\t`gnome-config --cflags gnomemm`");
+		fprintf(fp, "\\\n\t`$(GNOME_CONFIG) --cflags gnomemm`");
+		/* fprintf(fp, "\\\n\t`gnome-config --cflags gnomemm`"); */
 	}
 	compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
 	fprintf (fp, "\n\n");
