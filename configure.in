@@ -409,6 +409,7 @@ data/Makefile
 data/welcome.txt
 data/properties/Makefile
 doc/anjuta.1
+doc/anjuta_launcher.1
 doc/Makefile
 scripts/Makefile
 scripts/anjuta_import.sh
