@@ -31,16 +31,26 @@
 #include "pixmaps.h"
 #include "resources.h"
 #include "properties.h"
+#include "debugger.h"
+
+void
+message_info_locals (GList * list, gpointer data);
+
+/*----------------------------------------------*/
 
 static GdkColor *GetColorError(Messages * m);
 
-static void on_mesg_win_but1_clicked (GtkButton * but, gpointer data);
+static void on_mesg_win_build_but_clicked (GtkButton * but, gpointer data);
 
-static void on_mesg_win_but2_clicked (GtkButton * but, gpointer data);
+static void on_mesg_win_debug_but_clicked (GtkButton * but, gpointer data);
 
-static void on_mesg_win_but3_clicked (GtkButton * but, gpointer data);
+static void on_mesg_win_find_but_clicked (GtkButton * but, gpointer data);
 
-static void on_mesg_win_but4_clicked (GtkButton * but, gpointer data);
+static void on_mesg_win_cvs_but_clicked (GtkButton * but, gpointer data);
+
+static void on_mesg_win_locals_but_clicked (GtkButton * but, gpointer data);
+static void
+messages_internal_click(Messages *m, const MessageType type );
 
 static void
 on_mesg_win_orien_changed (GtkToolbar * t, GtkOrientation or, gpointer data);
@@ -48,6 +58,11 @@ on_mesg_win_orien_changed (GtkToolbar * t, GtkOrientation or, gpointer data);
 gboolean
 on_mesg_win_but_event (GtkWidget * widget,
 		       GdkEvent * event, gpointer user_data);
+
+static GtkWidget *
+msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1, 
+		const gint nIndex, const gboolean bActive );
+
 
 static GdkColor *GetColorError(Messages * m)
 {	return & m->color_red ;
@@ -66,8 +81,11 @@ messages_new ()
 				(gchar *) g_malloc (sizeof (gchar) *
 						    (FILE_BUFFER_SIZE + 1));
 
-		if (m->line_buffer[0] && m->line_buffer[1]
-		    && m->line_buffer[2] && m->line_buffer[3])
+		if (	m->line_buffer[MESSAGE_BUILD]
+			&&	m->line_buffer[MESSAGE_DEBUG]
+		    &&	m->line_buffer[MESSAGE_FIND]
+			&&	m->line_buffer[MESSAGE_CVS]
+			&&	m->line_buffer[MESSAGE_LOCALS] )
 		{
 			for (i = 0; i < MESSAGE_TYPE_END; i++)
 				m->cur_char_pos[i] = 0;
@@ -109,7 +127,8 @@ messages_new ()
 			m->color_white.red = (guint16) - 1;
 			m->color_white.green = (guint16) - 1;
 			m->color_white.blue = (guint16) - 1;
-
+			
+			messages_internal_click( m, MESSAGE_BUILD ) ;
 		}
 	}
 	return m;
@@ -125,6 +144,7 @@ messages_destroy (Messages * m)
 		messages_clear (m, MESSAGE_DEBUG);
 		messages_clear (m, MESSAGE_FIND);
 		messages_clear (m, MESSAGE_CVS);
+		messages_clear (m, MESSAGE_LOCALS);
 
 		for (i = 0; i < MESSAGE_TYPE_END; i++)
 			if (m->line_buffer[i])
@@ -469,6 +489,83 @@ messages_update (Messages * m)
 	}
 }
 
+typedef struct _BuildButtns {
+	char*		nBitmapID;
+	gboolean	bVisible ;
+	void (*pfn)(GtkButton * but, gpointer data);
+
+} BuildButtns;
+
+static char *MGetCaption( const MessageType type )
+{
+	switch( type )
+	{
+	default: return "" ; break;
+	case MESSAGE_BUILD: return _("Build messages"); break;
+	case MESSAGE_DEBUG: return _("Debug messages"); break;
+	case MESSAGE_FIND: return _("Find messages"); break;
+	case MESSAGE_CVS: return _("CVS messages"); break;
+	case MESSAGE_LOCALS: return _("Locals"); break;
+	}
+}
+
+static char *MGetStr( const MessageType type )
+{
+	switch( type )
+	{
+	default: return "" ; break;
+	case MESSAGE_BUILD: return _("Build"); break;
+	case MESSAGE_DEBUG: return _("Debug"); break;
+	case MESSAGE_FIND: return _("Find"); break;
+	case MESSAGE_CVS: return _("CVS"); break;
+	case MESSAGE_LOCALS: return _("Locals"); break;
+	}
+}
+
+static BuildButtns aBts [MESSAGE_TYPE_END] = {
+	
+	{ ANJUTA_PIXMAP_MINI_BUILD,TRUE, 
+				on_mesg_win_build_but_clicked },
+	{ ANJUTA_PIXMAP_MINI_DEBUG,TRUE,
+				on_mesg_win_debug_but_clicked },
+	{ ANJUTA_PIXMAP_MINI_FIND, TRUE,
+				on_mesg_win_find_but_clicked },
+	{ ANJUTA_PIXMAP_MINI_CVS, FALSE,
+				on_mesg_win_cvs_but_clicked },
+	{ ANJUTA_PIXMAP_MINI_LOCALS, TRUE,
+				on_mesg_win_locals_but_clicked },
+} ;
+
+static GtkWidget *
+msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1, 
+		const gint nIndex, const gboolean bActive )
+{
+	GtkWidget *frame;
+	GtkWidget *button;
+	GtkWidget *pix_lab;
+	
+	frame = gtk_frame_new (NULL);
+	gtk_widget_show (frame);
+	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),
+				   frame, MGetCaption(nIndex), NULL);
+	gtk_widget_set_usize (frame, 80, -1);
+
+	button = gtk_toggle_button_new ();
+	if( aBts[nIndex].bVisible )
+		gtk_widget_show (button);
+	if( bActive )
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
+	gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+	gtk_container_add (GTK_CONTAINER (frame), button);
+	pix_lab =
+		create_xpm_label_box (mesg_gui, aBts[nIndex].nBitmapID, FALSE,
+							MGetStr(nIndex) );
+	if( aBts[nIndex].bVisible )
+		gtk_widget_show (pix_lab);
+	gtk_container_add (GTK_CONTAINER (button), pix_lab);
+	return button ;
+}
+
 void
 create_mesg_gui (Messages * m)
 {
@@ -479,22 +576,12 @@ create_mesg_gui (Messages * m)
 	GtkWidget *toolbar1;
 	GtkWidget *button1;
 	GtkWidget *frame2;
-	GtkWidget *frame3;
 	GtkWidget *hbox3;
-	GtkWidget *scrolledwindow1;
-	GtkWidget *scrolledwindow2;
-	GtkWidget *scrolledwindow3;
-	GtkWidget *scrolledwindow4;
-	GtkWidget *mesg_clist1;
-	GtkWidget *mesg_clist2;
-	GtkWidget *mesg_clist3;
-	GtkWidget *mesg_clist4;
-	GtkWidget *button5;
-	GtkWidget *button6;
-	GtkWidget *button7;
-	GtkWidget *button8;
+	GtkWidget *scrolledwindow[MESSAGE_TYPE_END];
+	GtkWidget *mesg_clist[MESSAGE_TYPE_END];
+	GtkWidget *button[MESSAGE_TYPE_END+1];
 	GtkWidget *pix_lab;
-
+	gint	nIndex;
 	gint i;
 
 	mesg_gui = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -530,70 +617,9 @@ create_mesg_gui (Messages * m)
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
 				     GTK_TOOLBAR_SPACE_LINE);
 
-	frame3 = gtk_frame_new (NULL);
-	gtk_widget_show (frame3);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),
-				   frame3, _("Build messages"), NULL);
-	gtk_widget_set_usize (frame3, 80, -1);
+	for( i =0 ; i < MESSAGE_TYPE_END+1 ; i ++ )
+		button[i] = msg_create_buttons( mesg_gui, toolbar1, i, (MESSAGE_BUILD==i)?TRUE:FALSE );
 
-	button5 = gtk_toggle_button_new ();
-	gtk_widget_show (button5);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button5), TRUE);
-	gtk_button_set_relief (GTK_BUTTON (button5), GTK_RELIEF_NONE);
-	gtk_container_add (GTK_CONTAINER (frame3), button5);
-	pix_lab =
-		create_xpm_label_box (mesg_gui, ANJUTA_PIXMAP_MINI_BUILD, FALSE,
-				      _("Build"));
-	gtk_widget_show (pix_lab);
-	gtk_container_add (GTK_CONTAINER (button5), pix_lab);
-
-	frame3 = gtk_frame_new (NULL);
-	gtk_widget_show (frame3);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),
-				   frame3, _("Debug messages"), NULL);
-	gtk_widget_set_usize (frame3, 80, -1);
-
-	button6 = gtk_toggle_button_new ();
-	gtk_widget_show (button6);
-	gtk_button_set_relief (GTK_BUTTON (button6), GTK_RELIEF_NONE);
-	gtk_container_add (GTK_CONTAINER (frame3), button6);
-	pix_lab =
-		create_xpm_label_box (mesg_gui, ANJUTA_PIXMAP_MINI_DEBUG, FALSE,
-				      _("Debug"));
-	gtk_widget_show (pix_lab);
-	gtk_container_add (GTK_CONTAINER (button6), pix_lab);
-
-	frame3 = gtk_frame_new (NULL);
-	gtk_widget_show (frame3);
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),
-				   frame3, _("Find messages"), NULL);
-	gtk_widget_set_usize (frame3, 80, -1);
-
-	button7 = gtk_toggle_button_new ();
-	gtk_widget_show (button7);
-	gtk_button_set_relief (GTK_BUTTON (button7), GTK_RELIEF_NONE);
-	gtk_container_add (GTK_CONTAINER (frame3), button7);
-	pix_lab =
-		create_xpm_label_box (mesg_gui, ANJUTA_PIXMAP_MINI_FIND, FALSE,
-				      _("Find"));
-	gtk_widget_show (pix_lab);
-	gtk_container_add (GTK_CONTAINER (button7), pix_lab);
-
-	frame3 = gtk_frame_new (NULL);
-/* gtk_widget_show (frame3); *//* Not yet implemented */
-	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),
-				   frame3, _("CVS messages"), NULL);
-	gtk_widget_set_usize (frame3, 80, -1);
-
-	button8 = gtk_toggle_button_new ();
-	gtk_widget_show (button8);
-	gtk_button_set_relief (GTK_BUTTON (button8), GTK_RELIEF_NONE);
-	gtk_container_add (GTK_CONTAINER (frame3), button8);
-	pix_lab =
-		create_xpm_label_box (mesg_gui, ANJUTA_PIXMAP_MINI_CVS, FALSE,
-				      _("CVS"));
-	gtk_widget_show (pix_lab);
-	gtk_container_add (GTK_CONTAINER (button8), pix_lab);
 
 	frame2 = gtk_frame_new (NULL);
 	gtk_widget_show (frame2);
@@ -615,59 +641,21 @@ create_mesg_gui (Messages * m)
 	gtk_widget_show (hbox3);
 	gnome_dock_set_client_area (GNOME_DOCK (dock1), hbox3);
 
-	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow1);
-	gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow1, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-	mesg_clist1 = gtk_clist_new (1);
-	gtk_widget_show (mesg_clist1);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), mesg_clist1);
-	gtk_clist_column_titles_hide (GTK_CLIST (mesg_clist1));
-	gtk_clist_set_column_auto_resize (GTK_CLIST (mesg_clist1), 0, TRUE);
-
-	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow2, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow2),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-	mesg_clist2 = gtk_clist_new (1);
-	gtk_widget_show (mesg_clist2);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow2), mesg_clist2);
-	gtk_clist_column_titles_hide (GTK_CLIST (mesg_clist2));
-	gtk_clist_set_column_auto_resize (GTK_CLIST (mesg_clist2), 0, TRUE);
-
-	scrolledwindow3 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow3, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow3),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-	mesg_clist3 = gtk_clist_new (1);
-	gtk_widget_show (mesg_clist3);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow3), mesg_clist3);
-	gtk_clist_column_titles_hide (GTK_CLIST (mesg_clist3));
-	gtk_clist_set_column_auto_resize (GTK_CLIST (mesg_clist3), 0, TRUE);
-
-	scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow4, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-	mesg_clist4 = gtk_clist_new (1);
-	gtk_widget_show (mesg_clist4);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow4), mesg_clist4);
-	gtk_clist_column_titles_hide (GTK_CLIST (mesg_clist4));
-	gtk_clist_set_column_auto_resize (GTK_CLIST (mesg_clist4), 0, TRUE);
-
-	gtk_signal_connect (GTK_OBJECT (mesg_clist1), "select_row",
-			    GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m);
-	gtk_signal_connect (GTK_OBJECT (mesg_clist2), "select_row",
-			    GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m);
-	gtk_signal_connect (GTK_OBJECT (mesg_clist3), "select_row",
-			    GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m);
-	gtk_signal_connect (GTK_OBJECT (mesg_clist4), "select_row",
-			    GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m);
+	for( nIndex = 0 ; nIndex < MESSAGE_TYPE_END ; nIndex ++ )
+	{
+		scrolledwindow[nIndex] = gtk_scrolled_window_new (NULL, NULL);
+		gtk_widget_show (scrolledwindow[nIndex]);
+		gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow[nIndex], TRUE, TRUE, 0);
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow[nIndex]),
+						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+		mesg_clist[nIndex] = gtk_clist_new (1);
+		gtk_widget_show (mesg_clist[nIndex]);
+		gtk_container_add (GTK_CONTAINER (scrolledwindow[nIndex]), mesg_clist[nIndex]);
+		gtk_clist_column_titles_hide (GTK_CLIST (mesg_clist[nIndex]));
+		gtk_clist_set_column_auto_resize (GTK_CLIST (mesg_clist[nIndex]), 0, TRUE);
+		gtk_signal_connect (GTK_OBJECT (mesg_clist[nIndex]), "select_row",
+			    GTK_SIGNAL_FUNC (on_mesg_clist_select_row), m );
+	}		
 
 	gtk_signal_connect (GTK_OBJECT (mesg_gui), "delete_event",
 			    GTK_SIGNAL_FUNC (on_mesg_win_delete_event), m);
@@ -678,24 +666,13 @@ create_mesg_gui (Messages * m)
 	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
 			    GTK_SIGNAL_FUNC (on_mesg_win_dock_clicked), m);
 
-	gtk_signal_connect (GTK_OBJECT (button5), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but1_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (button6), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but2_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (button7), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but3_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (button8), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but4_clicked), m);
-
-	gtk_signal_connect (GTK_OBJECT (button5), "event",
+	for( i = 0 ; i < MESSAGE_TYPE_END ; i ++ )
+	{
+		gtk_signal_connect (GTK_OBJECT (button[i]), "clicked",
+			    GTK_SIGNAL_FUNC (aBts[i].pfn), m);
+		gtk_signal_connect (GTK_OBJECT (button[i]), "event",
 			    GTK_SIGNAL_FUNC (on_mesg_win_but_event), m);
-	gtk_signal_connect (GTK_OBJECT (button6), "event",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but_event), m);
-	gtk_signal_connect (GTK_OBJECT (button7), "event",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but_event), m);
-	gtk_signal_connect (GTK_OBJECT (button8), "event",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but_event), m);
-
+	}
 
 	m->GUI = mesg_gui;
 	m->client_area = eventbox1;
@@ -706,26 +683,22 @@ create_mesg_gui (Messages * m)
 	gtk_widget_ref (m->client);
 	gtk_widget_ref (m->extra_toolbar);
 
-	m->scrolledwindow[0] = scrolledwindow1;
-	m->scrolledwindow[1] = scrolledwindow2;
-	m->scrolledwindow[2] = scrolledwindow3;
-	m->scrolledwindow[3] = scrolledwindow4;
 	for (i = 0; i < MESSAGE_TYPE_END; i++)
+	{
+		m->scrolledwindow[i] = scrolledwindow[i];
 		gtk_widget_ref (GTK_WIDGET (m->scrolledwindow[i]));
-
-	m->clist[0] = GTK_CLIST (mesg_clist1);
-	m->clist[1] = GTK_CLIST (mesg_clist2);
-	m->clist[2] = GTK_CLIST (mesg_clist3);
-	m->clist[3] = GTK_CLIST (mesg_clist4);
+	}
 	for (i = 0; i < MESSAGE_TYPE_END; i++)
+	{
+		m->clist[i] = GTK_CLIST (mesg_clist[i]);
 		gtk_widget_ref (GTK_WIDGET (m->clist[i]));
+	}
 
-	m->but[0] = GTK_TOGGLE_BUTTON (button5);
-	m->but[1] = GTK_TOGGLE_BUTTON (button6);
-	m->but[2] = GTK_TOGGLE_BUTTON (button7);
-	m->but[3] = GTK_TOGGLE_BUTTON (button8);
 	for (i = 0; i < MESSAGE_TYPE_END; i++)
+	{
+		m->but[i] = GTK_TOGGLE_BUTTON (button[i]);
 		gtk_widget_ref (GTK_WIDGET (m->but[i]));
+	}
 }
 
 void
@@ -993,153 +966,67 @@ messages_attach (Messages * m)
 	gtk_widget_hide (m->extra_toolbar);
 }
 
+
 static void
-on_mesg_win_but1_clicked (GtkButton * but, gpointer data)
+on_mesg_win_cvs_but_clicked (GtkButton * but, gpointer data)
 {
-	Messages *m = data;
-	gint type = MESSAGE_BUILD;
-	gint i;
-
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[1]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but2_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[2]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but3_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[3]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but4_clicked), m);
-
-	for (i = 0; i < MESSAGE_TYPE_END; i++)
-	{
-		if (i != type)
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-						      (m->but[i]), FALSE);
-
-		if (i == type)
-			gtk_widget_show (m->scrolledwindow[i]);
-		else
-			gtk_widget_hide (m->scrolledwindow[i]);
-		m->cur_type = MESSAGE_BUILD;
-	}
-	gtk_signal_connect (GTK_OBJECT (m->but[1]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but2_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[2]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but3_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[3]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but4_clicked), m);
+	messages_internal_click( (Messages *) data, MESSAGE_CVS ) ;
+}
+static void
+on_mesg_win_locals_but_clicked (GtkButton * but, gpointer data)
+{
+	messages_internal_click( (Messages *) data, MESSAGE_LOCALS ) ;
+}
+static void
+on_mesg_win_build_but_clicked (GtkButton * but, gpointer data)
+{
+	messages_internal_click( (Messages *) data, MESSAGE_BUILD ) ;
+}
+static void
+on_mesg_win_debug_but_clicked (GtkButton * but, gpointer data)
+{
+	messages_internal_click( (Messages *) data, MESSAGE_DEBUG ) ;
+}
+static void
+on_mesg_win_find_but_clicked (GtkButton * but, gpointer data)
+{
+	messages_internal_click( (Messages *) data, MESSAGE_FIND ) ;
 }
 
 static void
-on_mesg_win_but2_clicked (GtkButton * but, gpointer data)
+messages_internal_click(Messages *m, const MessageType type )
 {
-	Messages *m = data;
-	gint type = MESSAGE_DEBUG;
 	gint i;
-
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[0]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but1_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[2]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but3_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[3]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but4_clicked), m);
-
+	for( i = 0 ; i < MESSAGE_TYPE_END ; i ++ )
+	{
+		if( i != type )
+		{
+			gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[i]),
+						       GTK_SIGNAL_FUNC(aBts[i].pfn), m);
+		}
+	}
 	for (i = 0; i < MESSAGE_TYPE_END; i++)
 	{
-		if (i != type)
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-						      (m->but[i]), FALSE);
-
-		if (i == type)
+		gboolean	bSel = (i == type) ? TRUE : FALSE ;
+		gtk_toggle_button_set_active (
+					GTK_TOGGLE_BUTTON(m->but[i]), bSel );
+		
+		if (bSel)
 			gtk_widget_show (m->scrolledwindow[i]);
 		else
 			gtk_widget_hide (m->scrolledwindow[i]);
-		m->cur_type = MESSAGE_DEBUG;
 	}
-	gtk_signal_connect (GTK_OBJECT (m->but[0]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but1_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[2]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but3_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[3]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but4_clicked), m);
-}
-
-static void
-on_mesg_win_but3_clicked (GtkButton * but, gpointer data)
-{
-	Messages *m = data;
-	gint type = MESSAGE_FIND;
-	gint i;
-
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[0]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but1_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[1]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but2_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[3]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but4_clicked), m);
-
-	for (i = 0; i < MESSAGE_TYPE_END; i++)
+	m->cur_type = type ;	
+	for( i = 0 ; i < MESSAGE_TYPE_END ; i ++ )
 	{
-		if (i != type)
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-						      (m->but[i]), FALSE);
-
-		if (i == type)
-			gtk_widget_show (m->scrolledwindow[i]);
-		else
-			gtk_widget_hide (m->scrolledwindow[i]);
-		m->cur_type = MESSAGE_FIND;
+		if( i != type )
+		{
+			gtk_signal_connect (GTK_OBJECT (m->but[i]), "clicked",
+				    GTK_SIGNAL_FUNC (aBts[i].pfn), m);
+		}
 	}
-	gtk_signal_connect (GTK_OBJECT (m->but[0]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but1_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[1]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but2_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[3]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but4_clicked), m);
 }
 
-static void
-on_mesg_win_but4_clicked (GtkButton * but, gpointer data)
-{
-	Messages *m = data;
-	gint type = MESSAGE_CVS;
-	gint i;
-
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[0]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but1_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[1]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but2_clicked), m);
-	gtk_signal_disconnect_by_func (GTK_OBJECT (m->but[2]),
-				       GTK_SIGNAL_FUNC
-				       (on_mesg_win_but3_clicked), m);
-
-	for (i = 0; i < MESSAGE_TYPE_END; i++)
-	{
-		if (i != type)
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-						      (m->but[i]), FALSE);
-
-		if (i == type)
-			gtk_widget_show (m->scrolledwindow[i]);
-		else
-			gtk_widget_hide (m->scrolledwindow[i]);
-		m->cur_type = MESSAGE_CVS;
-	}
-	gtk_signal_connect (GTK_OBJECT (m->but[0]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but1_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[1]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but2_clicked), m);
-	gtk_signal_connect (GTK_OBJECT (m->but[2]), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_but3_clicked), m);
-}
 
 gboolean
 on_mesg_win_but_event (GtkWidget * widget,
@@ -1160,4 +1047,25 @@ on_mesg_win_but_event (GtkWidget * widget,
 static void
 on_mesg_win_orien_changed (GtkToolbar * t, GtkOrientation or, gpointer data)
 {
+}
+
+void
+message_info_locals (GList * list, gpointer data)
+{
+	if( NULL == app->messages )
+		return ;
+	if (g_list_length (list) < 1)
+		return;
+	while(list)
+	{
+		messages_append ( app->messages, list->data, MESSAGE_LOCALS );
+		messages_append ( app->messages, "\n", MESSAGE_LOCALS );
+		list = g_list_next(list);
+	}
+}
+
+void
+message_clear_locals(void)
+{
+	messages_clear (app->messages, MESSAGE_LOCALS );
 }

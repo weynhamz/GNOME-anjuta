@@ -27,6 +27,10 @@
 extern gchar *eval_entry_history;
 extern gchar *expr_watch_entry_history;
 
+static void
+add_watch_entry( GtkEntry *ent );
+
+
 gint on_watch_delete_event (GtkWidget * w, GdkEvent * event, gpointer data)
 {
   ExprWatch *ew = debugger.watch;
@@ -140,12 +144,10 @@ on_ew_entry_activate (GtkWidget *wid, gpointer user_data)
 }
 
 
-void
-on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
+static void
+add_watch_entry( GtkEntry *ent )
 {
-  GtkEntry *ent;
   gchar *row[2], *buff;
-  ent = (GtkEntry *) user_data;
 
   if(GTK_IS_ENTRY(ent)==FALSE) return;
   row[0] = gtk_entry_get_text (ent);
@@ -167,6 +169,12 @@ on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
   g_free (buff);
   g_free (row[1]);
   debugger_execute_cmd_in_queqe ();
+}
+
+void
+on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
+{
+	add_watch_entry( (GtkEntry *) user_data );
 }
 /***********************************************************************************************/
 void
@@ -205,3 +213,10 @@ on_eval_ok_clicked (GtkButton * button, gpointer user_data)
   g_free (buff2);
   debugger_execute_cmd_in_queqe ();
 }
+
+void
+on_eval_add_watch(GtkButton * button, gpointer user_data)
+{
+	add_watch_entry( (GtkEntry *) user_data );
+}
+

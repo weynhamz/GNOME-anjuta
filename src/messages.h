@@ -24,11 +24,12 @@ typedef enum _MessageType MessageType;
 
 enum _MessageType
 {
-  MESSAGE_BUILD = 0,
-  MESSAGE_DEBUG = 1,
-  MESSAGE_FIND = 2,
-  MESSAGE_CVS = 3,
-  MESSAGE_TYPE_END = 4
+	MESSAGE_BUILD = 0,
+	MESSAGE_DEBUG = 1,
+	MESSAGE_FIND = 2,
+	MESSAGE_CVS = 3,
+	MESSAGE_LOCALS = 4,
+	MESSAGE_TYPE_END = 5
 };
 
 struct _Messages
@@ -37,7 +38,7 @@ struct _Messages
   GtkWidget *client_area;
   GtkWidget *client;
   GtkWidget *extra_toolbar;
-  GtkWidget *scrolledwindow[4];
+  GtkWidget *scrolledwindow[MESSAGE_TYPE_END];
   GtkCList *clist[MESSAGE_TYPE_END];
   gint current_pos[MESSAGE_TYPE_END];
 
@@ -98,5 +99,10 @@ void messages_dock (Messages * m);
 void messages_undock (Messages * m);
 
 void messages_update (Messages * m);
+
+void
+message_info_locals (GList * lines, gpointer data);
+void
+message_clear_locals(void);
 
 #endif

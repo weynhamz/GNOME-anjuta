@@ -54,6 +54,8 @@ const gchar	*SessionSectionString( const SessionSectionTypes p_Session )
 		return "executer args"; break;
 	case SECTION_EXECUTER:
 		return "executer"; break;
+	case SECTION_PROJECTDBASE:
+		return "Project DBase"; break;
 	}
 }
 

@@ -62,6 +62,9 @@
 #include "../pixmaps/file_html.xpm"
 #include "../pixmaps/file_i18n.xpm"
 
+// To debug it
+#define	SHOW_LOCALS_DEFAULT 	TRUE
+
 static void
 project_reload_session_files(ProjectDBase * p);
 static void
@@ -73,6 +76,7 @@ project_dbase_save_session_files (ProjectDBase * p);
 static void
 project_dbase_save_markers( ProjectDBase * p, TextEditor *te, const gint nItem );
 
+static const gchar szShowLocalsItem[] = { "ShowLocals" };
 
 static GdkPixmap *opened_folder_pix,
 	*closed_folder_pix,
@@ -332,6 +336,7 @@ project_dbase_new (PropsID pr_props)
 	{
 		p->widgets.module_node[i] = NULL;
 	}
+	p->m_prj_ShowLocal = SHOW_LOCALS_DEFAULT ;
 	p->project_is_open = FALSE;
 	p->is_showing = TRUE;
 	p->is_docked = TRUE;
@@ -467,6 +472,7 @@ project_dbase_clear (ProjectDBase * p)
 			      _("Project: None"));
 	p->project_is_open = FALSE;
 	p->is_saved = TRUE;
+	p->m_prj_ShowLocal	= SHOW_LOCALS_DEFAULT ;
 	extended_toolbar_update ();
 }
 
@@ -700,6 +706,7 @@ project_dbase_reload_session (ProjectDBase * p)
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
+	p->m_prj_ShowLocal = session_get_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, SHOW_LOCALS_DEFAULT );
 }
 
 
@@ -1220,6 +1227,7 @@ project_dbase_save_session (ProjectDBase * p)
 	find_replace_save_session( app->find_replace, p );
 	executer_save_session( app->executer, p );
 	find_in_files_save_session( app->find_in_files, p );
+	session_save_bool( p, SECSTR(SECTION_PROJECTDBASE), szShowLocalsItem, p->m_prj_ShowLocal );
 	session_sync();
 }
 

@@ -39,6 +39,10 @@
 
 /* #define ANJUTA_DEBUG_DEBUGGER */
 
+static void locals_update_controls(void);
+
+static void debugger_info_prg(void);
+
 Debugger debugger;
 
 static void on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
@@ -230,15 +234,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 
 	debugger_put_cmd_in_queqe (command, DB_CMD_ALL, NULL, NULL);
 	g_free (command);
-	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
-				   sharedlibs_update, debugger.sharedlibs);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();
 	g_free (filename);
 }
 
@@ -1286,16 +1282,7 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 	}
 	update_main_menubar ();
 	debug_toolbar_update ();
-	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
-				   sharedlibs_update, debugger.sharedlibs);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();
 	return;
 }
 
@@ -1505,16 +1492,7 @@ debugger_run ()
 	}
 	debugger.stack->current_frame = 0;
 	debugger_put_cmd_in_queqe ("continue", DB_CMD_ALL, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();
 }
 
 void
@@ -1539,16 +1517,7 @@ debugger_step_in ()
 	}
 	debugger.stack->current_frame = 0;
 	debugger_put_cmd_in_queqe ("step", DB_CMD_ALL, NULL, NULL);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();	
 }
 
 void
@@ -1567,16 +1536,7 @@ debugger_step_over ()
 		return;
 	debugger.stack->current_frame = 0;
 	debugger_put_cmd_in_queqe ("next", DB_CMD_ALL, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();	
 }
 
 void
@@ -1595,16 +1555,7 @@ debugger_step_out ()
 		return;
 	debugger.stack->current_frame = 0;
 	debugger_put_cmd_in_queqe ("finish", DB_CMD_ALL, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();	
 }
 
 void debugger_run_to_location(gchar *loc)
@@ -1633,17 +1584,7 @@ void debugger_run_to_location(gchar *loc)
 	buff = g_strdup_printf ("until %s", loc);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, NULL, NULL);
 	g_free (buff);
-
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-				   cpu_registers_update,
-				   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-				   stack_trace_update, debugger.stack);
-
-	debugger_execute_cmd_in_queqe ();
+	debugger_info_prg();
 }
 
 void
@@ -1876,4 +1817,48 @@ debugger_save_session_breakpoints( ProjectDBase *p )
 {
 	g_return_if_fail( NULL != p );
 	breakpoints_dbase_save ( debugger.breakpoints_dbase, p );
+}
+/*
+gboolean
+debugger_is_engaged(void)
+{
+	return (	debugger_is_active () 
+				&& debugger_is_ready () 
+				&& debugger.prog_is_running
+				&& debugger.prog_is_attached ) ? TRUE : FALSE ;
+}
+*/
+static void
+locals_update_controls(void)
+{
+	if( NULL == app->messages )
+		return ;
+	message_clear_locals();
+	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
+				   NULL);
+	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("info locals",
+				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
+				   message_info_locals, NULL);
+	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
+				   NULL);
+}
+
+static void
+debugger_info_prg(void)
+{
+	// try to speedup
+	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
+				   sharedlibs_update, debugger.sharedlibs);
+	expr_watch_cmd_queqe (debugger.watch);
+	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
+				   cpu_registers_update,
+				   debugger.cpu_registers);
+	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
+				   stack_trace_update, debugger.stack);
+	locals_update_controls();
+
+	debugger_execute_cmd_in_queqe ();
 }

@@ -24,12 +24,14 @@
 
 
 gboolean
-gladen_start();
+gladen_start(void);
 gboolean
 gladen_load_project( const gchar *szFileName );
 gboolean 
-gladen_add_main_components();
+gladen_add_main_components(void);
 gboolean
 gladen_write_source( const gchar *szGladeFileName );
+
+
 
 #endif	/*GLADES_H*/

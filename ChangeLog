@@ -3,7 +3,34 @@
 	* src/find_repace.c: Fixed the vanishing find/replace dialog box.
 
 	Patch from rikul <null@acm.org>
+	
+	* CORBA-Server.c, debugger.c, debugger.h, glades.c,
+	glades.h, messages.c, messages.h, pixmaps.h,
+	project_dbase.c, project_dbase.h, session.c,
+	session.h, watch_cbs.c, watch_cbs.h, watch_gui.c:
+	
+	inserted 'add to watch' option in inspect window, so you can add easily
+	a variable in watch window .
+	
+	Added a new message pane for the gdb local variables inspection. Changed
+	the code in messages.c to better account for future new panes insertion.
+	Defined a new pixmap for the new tab button in pixmaps.h
+	(ANJUTA_PIXMAP_MINI_LOCALS); someone must create it and add it to the
+	install script.
+	
+	Changed the debugger module to have a single function for asking to gdb
+	to send program info. The idea is to ask the debugger about only the
+	info needed to open windows( watch, registers, etc ) to speedup the step
+	command. I plan to ask informations to the debugger based on the user
+	interface status.
+	The request for local variables is enabled by default, but the
+	projectDBase has a variable to control it, to allow disabling that
+	feature,  there is also the code to save and to reload the state. If you
+	want to have it disabled by dafult change SHOW_LOCALS_DEFAULT to FALSE
+	in project_dbase.c
 
+	This big patch is from:  lbell <lbell@tsc4.com>
+	
 2001-09-20  Stephane Demurget <demurgets@free.fr>
 
 	Patch from rikul <null@acm.org> :

@@ -64,7 +64,7 @@ static GnomeUIInfo watch_menu_uiinfo[] = {
    0, 0, NULL},
   GNOMEUIINFO_SEPARATOR,
   {
-   GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	GNOME_APP_UI_ITEM, N_("Dock/Undock"),
    NULL,
    on_watch_dock_undock_activate, NULL, NULL,
    GNOME_APP_PIXMAP_NONE, NULL,
@@ -238,6 +238,7 @@ create_eval_dialog ()
   GtkWidget *button21;
   GtkWidget *button22;
   GtkWidget *button23;
+	GtkWidget *addWatchButton;
 
   dialog4 = gnome_dialog_new (_("Inspect/Evaluate"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog4), GTK_WIN_POS_MOUSE);
@@ -269,6 +270,12 @@ create_eval_dialog ()
   gtk_widget_show (button21);
   GTK_WIDGET_SET_FLAGS (button21, GTK_CAN_DEFAULT);
 
+  gnome_dialog_append_button (GNOME_DIALOG (dialog4),
+			      _("Add To Watch"));
+  addWatchButton = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
+  gtk_widget_show (addWatchButton);
+  GTK_WIDGET_SET_FLAGS (addWatchButton, GTK_CAN_DEFAULT);
+
   gnome_dialog_append_button (GNOME_DIALOG (dialog4), GNOME_STOCK_BUTTON_CANCEL);
   button22 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
   gtk_widget_show (button22);
@@ -286,6 +293,8 @@ create_eval_dialog ()
 		      GTK_SIGNAL_FUNC (on_eval_ok_clicked), entry8);
   gtk_signal_connect (GTK_OBJECT (entry8), "activate",
 		      GTK_SIGNAL_FUNC (on_eval_entry_activate), dialog4);
+  gtk_signal_connect (GTK_OBJECT (addWatchButton), "clicked",
+		      GTK_SIGNAL_FUNC (on_eval_add_watch), entry8);
 
   gtk_widget_grab_focus(entry8);
   return dialog4;

@@ -31,6 +31,8 @@ enum _SessionSectionTypes {
 	SECTION_FIND_IN_FILES,
 	SECTION_EXECUTERARGS,
 	SECTION_EXECUTER,
+	SECTION_PROJECTDBASE,
+	SECTION_END
 };
 
 typedef enum _SessionSectionTypes SessionSectionTypes ;

@@ -169,7 +169,7 @@ gladen_add_main_components(void)
 		Gladen_GladeRef_AddComponent( gladen, "GtkWindow", "MainWnd", &ev );
 	}else
 	{
-		Gladen_GladeRef_AddComponent( gladen, "GtkWindow", "MainWnd", &ev );
+		Gladen_GladeRef_AddComponent( gladen, "GnomeApp", "MainWnd", &ev );
 	}
 	CHK_EV(&ev);
 	return TRUE;
@@ -535,7 +535,6 @@ gladen_write_source( const gchar *szGladeFileName )
 {
 	gchar *dir;
 	pid_t pid;
-	int status;
 	gboolean bRetValue = TRUE ;
 	CORBA_Environment	ev;
 

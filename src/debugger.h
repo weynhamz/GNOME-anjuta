@@ -152,4 +152,6 @@ void debugger_shared_library (void);
 void on_debugger_update_prog_status (GList * lines, gpointer data);
 void debugger_reload_session_breakpoints( ProjectDBase *p);
 void debugger_save_session_breakpoints( ProjectDBase *p );
+gboolean debugger_is_engaged(void);
+
 #endif

@@ -90,6 +90,10 @@ on_eval_ok_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_eval_entry_activate                 (GtkWidget   *button,
-                                        gpointer         user_data);
+on_eval_entry_activate                 (GtkWidget   *button,		
+										gpointer         user_data);
+										
+void
+on_eval_add_watch(GtkButton * button, gpointer user_data);
+
 /********************************************************************************/

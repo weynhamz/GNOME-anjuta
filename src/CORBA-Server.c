@@ -43,6 +43,9 @@ ImportFileInProject ( const gchar * p_szModule, const gchar *p_szFileName );
 static guint
 final_setup_from_main_loop (gpointer data);
 
+gboolean
+CheckString( const gchar *szString );
+
 
 /*---------------------------------------------------------------------*/
 
