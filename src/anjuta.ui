@@ -17,7 +17,6 @@
 			<menuitem name="ProjectSave" verb="ActionProjectSave" />
 			<menuitem name="ProjectClose" verb="ActionProjectClose" />
 			<separator name="separator2"/>
-			<menuitem name="PrintSetup" verb="ActionPrintSetup" />
 			<menuitem name="Print" verb="ActionPrintFile" />
 			<menuitem name="PrintPreview" verb="ActionPrintPreview" />
 			<separator name="separator3"/>
@@ -143,8 +142,6 @@
 			<menuitem name="SharedLibraries" verb="ActionViewWindowSharedLibs" />
 			<menuitem name="KernalSignals" verb="ActionViewWindowKernelSignals" />
 			<menuitem name="MemoryDump" verb="ActionViewWindowMemoryDump" />
-			<menuitem name="Terminal" verb="ActionViewWindowTerminal" />
-			<menuitem name="LocalVariables" verb="ActionViewWindowLocalVariables" />
 		</submenu>
 		<submenu name="MenuProject" verb="ActionMenuProject">
 			<submenu name="MenuAddFile" verb="ActionMenuProjectAddFile">

@@ -1,5 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
+anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
+anjuta_ui_DATA =  anjuta.ui
+
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	$(PCRE_CFLAGS)\

@@ -6,6 +6,9 @@
 	
 	* configure.in, Makefile.am, src/Makefile.am,
 	libegg/*/*: Added libegg library.
+	
+	* src/anjuta.ui, src/Makefile.am: Fixed UI file and its
+	installation directory.
 
 2003-09-14  Hasbullah Bin Pit <sebol@ikhlas.com>
                                                                                 

@@ -35,7 +35,6 @@ void on_open_project1_activate (EggAction * action, gpointer user_data);
 void on_save_project1_activate (EggAction * action, gpointer user_data);
 void on_close_project1_activate (EggAction * action, gpointer user_data);
 void on_rename1_activate (EggAction * action, gpointer user_data);
-void on_page_setup1_activate (EggAction * action, gpointer user_data);
 void on_nonimplemented_activate (EggAction * action, gpointer user_data);
 void on_exit1_activate (EggAction * action, gpointer user_data);
 
@@ -75,9 +74,6 @@ void on_breakpoints1_activate (EggAction * action, gpointer user_data);
 void on_registers1_activate (EggAction * action, gpointer user_data);
 void on_shared_lib1_activate (EggAction * action, gpointer user_data);
 void on_kernal_signals1_activate (EggAction * action, gpointer user_data);
-void on_dump_window1_activate (EggAction * action, gpointer user_data);
-void on_console1_activate (EggAction * action, gpointer user_data);
-void on_showhide_locals (EggAction * action, gpointer user_data);
 void on_anjuta_toolbar_activate (EggAction *action, gpointer user_data);
 void on_editor_linenos1_activate (EggAction *action, gpointer user_data);
 void on_editor_markers1_activate (EggAction *action, gpointer user_data);
