@@ -4,8 +4,8 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 0.1.7\n"
-"POT-Creation-Date: 2001-09-04 20:13+0200\n"
+"Project-Id-Version: anjuta 0.1.8\n"
+"POT-Creation-Date: 2001-09-22 23:23+0200\n"
 "PO-Revision-Date: 2001-03-29 09:41+0200\n"
 "Last-Translator: M.Ali Vardar <ali@gelecek.com.tr>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -43,7 +43,7 @@ msgstr "/_Aç"
 
 #: ccview/cccproj.cc:1187 src/tags_manager.c:638
 msgid "Cannot execute ctags"
-msgstr "ctags ý çalýþtýramýyorum"
+msgstr "ctags çalýþtýrýlamýyor"
 
 #: ccview/cccproj.cc:1193 src/tags_manager.c:643
 #, c-format
@@ -51,7 +51,7 @@ msgid ""
 "Cannot fork to execute ctags. I donno why!!\n"
 "In %s:%d"
 msgstr ""
-"ctags ý çalýþtýrmak için ikiye bölemiyorum.\n"
+"ctags ý çalýþtýrýlamýyor .\n"
 "%s:%d"
 
 #: ccview/cccproj.cc:1453
@@ -83,7 +83,7 @@ msgid "Function declaration:"
 msgstr "Fonksiyon Bildirimi"
 
 #: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
-#: src/project_dbase_gui.c:1184
+#: src/project_dbase_gui.c:1185
 #, c-format
 msgid "Couldn't find pixmap file: %s"
 msgstr "%s resim dosyasý bulunamadý"
@@ -101,17 +101,17 @@ msgstr ""
 "Birkaç dosya (veya proje) kaydedilmemiþ.\n"
 "Çýkmak istediðinizden eminmisiniz?"
 
-#: src/anjuta_cbs.c:192 src/project_dbase_gui.c:1329
+#: src/anjuta_cbs.c:197 src/project_dbase_gui.c:1331
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "%s dosyasý normal deðil"
 
-#: src/anjuta_cbs.c:198
+#: src/anjuta_cbs.c:203
 #, c-format
 msgid "No read permission for: %s."
 msgstr "%s dosyasý için okuma izni yok"
 
-#: src/anjuta_cbs.c:227
+#: src/anjuta_cbs.c:235 src/anjuta_cbs.c:365
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -160,7 +160,7 @@ msgstr "Bonobo bileþeni"
 msgid "Enter the basic Project information"
 msgstr "Temel Proje bilgisini giriniz"
 
-#: src/appwiz_page2.c:170 src/project_dbase_gui.c:709
+#: src/appwiz_page2.c:170 src/project_dbase_gui.c:710
 msgid "Project Name:"
 msgstr "Projenin Adý:"
 
@@ -208,19 +208,19 @@ msgstr "Statik kütüphane hedefi"
 msgid "Dynamic library target"
 msgstr "Dinamik kütüphane hedefi"
 
-#: src/appwizard_cbs.c:104
+#: src/appwizard_cbs.c:106
 msgid "Project name"
 msgstr "Proje adý"
 
-#: src/appwizard_cbs.c:105
+#: src/appwizard_cbs.c:107
 msgid "Source target name"
 msgstr "Kaynak kod hedef adý"
 
-#: src/appwizard_cbs.c:106
+#: src/appwizard_cbs.c:108
 msgid "Project version"
 msgstr "Proje sürüm"
 
-#: src/appwizard_cbs.c:201
+#: src/appwizard_cbs.c:203
 #, c-format
 msgid ""
 "Invalid %s field:\n"
@@ -230,18 +230,18 @@ msgstr ""
 "Ýlerlemek için geçerli %s alaný saðlamalýsýnýz."
 
 #. For the time being
-#: src/appwizard_cbs.c:249 src/project_dbase.c:1212 src/project_dbase.c:1217
-#: src/project_dbase.c:1220 src/signals_cbs.c:140 src/signals_cbs.c:153
+#: src/appwizard_cbs.c:251 src/project_dbase.c:1397 src/project_dbase.c:1402
+#: src/project_dbase.c:1405 src/signals_cbs.c:140 src/signals_cbs.c:153
 #: src/signals_cbs.c:166
 msgid "Yes"
 msgstr "Evet"
 
-#: src/appwizard_cbs.c:251 src/project_dbase.c:1214 src/project_dbase.c:1222
+#: src/appwizard_cbs.c:253 src/project_dbase.c:1399 src/project_dbase.c:1407
 #: src/signals_cbs.c:142 src/signals_cbs.c:155 src/signals_cbs.c:168
 msgid "No"
 msgstr "Hayýr"
 
-#: src/appwizard_cbs.c:253
+#: src/appwizard_cbs.c:255
 msgid ""
 "Confirm the following information:\n"
 "\n"
@@ -249,35 +249,35 @@ msgstr ""
 "Takip eden bilgi onaylama:\n"
 "\n"
 
-#: src/appwizard_cbs.c:254
+#: src/appwizard_cbs.c:256
 msgid "Project Name:    "
 msgstr "Proje Adý:      "
 
-#: src/appwizard_cbs.c:255
+#: src/appwizard_cbs.c:257
 msgid "Project Type:    "
 msgstr "Proje Tipi:     "
 
-#: src/appwizard_cbs.c:256
+#: src/appwizard_cbs.c:258
 msgid "Target Type:     "
 msgstr "Hedef Tipi:     "
 
-#: src/appwizard_cbs.c:257
+#: src/appwizard_cbs.c:259
 msgid "Source Target:   "
 msgstr "Kaynak Hedef:   "
 
-#: src/appwizard_cbs.c:258
+#: src/appwizard_cbs.c:260
 msgid "Version:         "
 msgstr "Sürüm:           "
 
-#: src/appwizard_cbs.c:259
+#: src/appwizard_cbs.c:261
 msgid "Author:          "
 msgstr "Yazar:           "
 
-#: src/appwizard_cbs.c:260
+#: src/appwizard_cbs.c:262
 msgid "Language:        "
 msgstr "Dil:       "
 
-#: src/appwizard_cbs.c:261
+#: src/appwizard_cbs.c:263
 msgid "Gettext support: "
 msgstr "Gettext desteði: "
 
@@ -379,23 +379,23 @@ msgstr "Güncelleme"
 msgid "Attach"
 msgstr "Ekleme"
 
-#: src/breakpoints.c:319
+#: src/breakpoints.c:530
 msgid "Old breakpoints disabled."
 msgstr "Eski kýrýlma noktalarý pasifleþtirildi"
 
-#: src/breakpoints.c:473 src/breakpoints_cbs.c:131
+#: src/breakpoints.c:684 src/breakpoints_cbs.c:131
 msgid "YES"
 msgstr "EVET"
 
-#: src/breakpoints.c:479 src/breakpoints_cbs.c:124
+#: src/breakpoints.c:690 src/breakpoints_cbs.c:124
 msgid "NO"
 msgstr "HAYIR"
 
-#: src/breakpoints.c:489 src/main_menubar_def.h:499 src/text_editor_gui.c:224
+#: src/breakpoints.c:700 src/main_menubar_def.h:517 src/text_editor_gui.c:224
 msgid "0"
 msgstr "0"
 
-#: src/breakpoints.c:655
+#: src/breakpoints.c:866
 msgid "Funny, Breakpoint is set in the doc, but couldn't find the ID"
 msgstr "Kýrýlma noktasý dökümanda ayarlandý ama ID bulunamadý"
 
@@ -442,7 +442,7 @@ msgstr "Durum"
 msgid "Add"
 msgstr "Ekle"
 
-#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:456
+#: src/breakpoints_gui.c:132 src/project_dbase_gui.c:457
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -498,7 +498,7 @@ msgstr "Çalýþan dosyanýn tarihi yeni. Tekrar yapýlandýrmaya gerek yok."
 msgid "I do not really know how to build this file."
 msgstr "Bu dosyanýn nasýl yapýlandýrýlacaðý bilinmiyor."
 
-#: src/build_file.c:107 src/messages.c:534 src/preferences_gui.c:170
+#: src/build_file.c:107 src/messages.c:517 src/preferences_gui.c:170
 #: src/text_editor_gui.c:246 src/toolbar.c:474
 msgid "Build"
 msgstr "Yapýlandýr"
@@ -511,7 +511,7 @@ msgstr "%s isimli dosya yapýlandýrýlýyor\n"
 #: src/build_file.c:130 src/build_project.c:321 src/build_project.c:352
 #: src/build_project.c:389 src/build_project.c:421 src/build_project.c:453
 #: src/clean_project.c:116 src/clean_project.c:196 src/compile.c:195
-#: src/configurer.c:237 src/find_in_files.c:198
+#: src/configurer.c:237 src/find_in_files.c:215
 #, c-format
 msgid "Total time taken: %d secs\n"
 msgstr "Toplam süre : %d saniye\n"
@@ -896,8 +896,8 @@ msgstr "   Kuruldu => %s\n"
 msgid "    Not Installed.\n"
 msgstr "     Kurulmadý .\n"
 
-#: src/compiler_options_cbs.c:330 src/compiler_options_cbs.c:393
-#: src/compiler_options_cbs.c:457 src/compiler_options_cbs.c:516
+#: src/compiler_options_cbs.c:359 src/compiler_options_cbs.c:452
+#: src/compiler_options_cbs.c:546 src/compiler_options_cbs.c:635
 #: src/src_paths_cbs.c:135
 msgid "Are you sure you want to clear the list?"
 msgstr "Listeyi silmek istediðinizden eminmisiniz?"
@@ -954,8 +954,8 @@ msgstr "<: Buradan girin"
 
 #: src/compiler_options_gui.c:364 src/compiler_options_gui.c:484
 #: src/compiler_options_gui.c:641 src/compiler_options_gui.c:769
-#: src/find_in_files_gui.c:136 src/main_menubar_def.h:692
-#: src/project_dbase_gui.c:463 src/src_paths_gui.c:177 src/watch_gui.c:42
+#: src/find_in_files_gui.c:136 src/main_menubar_def.h:710
+#: src/project_dbase_gui.c:464 src/src_paths_gui.c:177 src/watch_gui.c:42
 msgid "Remove"
 msgstr "Çýkart"
 
@@ -1126,24 +1126,24 @@ msgid "Configure completed ... successful"
 msgstr "Konfigürasyon tamamlandý ... baþarýlý"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:58
+#: src/debugger.c:62
 msgid "Load Executable File"
 msgstr "Çalýþtýrýlabilir Dosya Yükle"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:64
+#: src/debugger.c:68
 msgid "Load Core File"
 msgstr "Core Dosyasý Yükle"
 
-#: src/debugger.c:171 src/debugger.c:649
+#: src/debugger.c:175 src/debugger.c:645
 msgid "Loading Executable: "
 msgstr "Çalýþtýrýlabilir Dosya Yükleniyor:"
 
-#: src/debugger.c:222
+#: src/debugger.c:226
 msgid "Loading Core: "
 msgstr "Core Dosya Yükleniyor:"
 
-#: src/debugger.c:276
+#: src/debugger.c:272
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -1151,7 +1151,7 @@ msgstr ""
 "Hata ayýklayýcý altýnda baðlama iþlemine sahipsiniz.\n"
 " lütfen önce onu ayýrýn sonra EXEC dosyayý yükleyin"
 
-#: src/debugger.c:284
+#: src/debugger.c:280
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -1159,7 +1159,7 @@ msgstr ""
 "Hata ayýklayýcý altýnda çalýþan iþleme sahipsiniz\n"
 "lütfen önce onu durdurun sonra CORE dosyayý yükleyin"
 
-#: src/debugger.c:312
+#: src/debugger.c:308
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the core file."
@@ -1167,7 +1167,7 @@ msgstr ""
 "Hata ayýklayýcý altýnda baðlama iþlemine sahipsiniz.\n"
 " lütfen önce onu ayýrýn sonra CORE dosyayý yükleyin"
 
-#: src/debugger.c:320
+#: src/debugger.c:316
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the core file."
@@ -1175,7 +1175,7 @@ msgstr ""
 "Hata ayýklayýcý altýnda çalýþan iþleme sahipsiniz\n"
 "lütfen önce onu durdurun sonra EXEC dosyayý yükleyin"
 
-#: src/debugger.c:577
+#: src/debugger.c:573
 #, c-format
 msgid ""
 "I can not find: %s.\n"
@@ -1186,39 +1186,39 @@ msgstr ""
 "Hata ayýklayýcý ilklendirilemiyor :-(\n"
 "Anjutanýn tam olarak yüklendiðinden emin olun."
 
-#: src/debugger.c:644
+#: src/debugger.c:640
 msgid "Debugger"
 msgstr "Ayýklayýcý"
 
-#: src/debugger.c:647
+#: src/debugger.c:643
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Hata ayýklayýcýsý oturumu hazýrlanýyor...\n"
 
-#: src/debugger.c:659
+#: src/debugger.c:655
 msgid "No executable specified\n"
 msgstr "Çalýþtýrýlabilir deðil\n"
 
-#: src/debugger.c:663
+#: src/debugger.c:659
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Çalýþtýrýlabilir dosyayý aç veya hata ayýklama iþlemini baþlat.\n"
 
-#: src/debugger.c:671
+#: src/debugger.c:667
 msgid "There was an error whilst launching the debugger!!\n"
 msgstr "Debugger çalýþtýrýlýrken hata oluþtu!!\n"
 
-#: src/debugger.c:675
+#: src/debugger.c:671
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "'gdb' sisteme yüklü olduðundan emin olun.\n"
 
-#: src/debugger.c:815
+#: src/debugger.c:811
 msgid "Error: "
 msgstr "Hata: "
 
-#: src/debugger.c:840
+#: src/debugger.c:836
 msgid "Debugger is ready.\n"
 msgstr "Hata ayýklayýcý hazýr.\n"
 
-#: src/debugger.c:947
+#: src/debugger.c:943
 msgid ""
 "\n"
 "Well, did you find the BUG? :: Debugging session completed.\n"
@@ -1228,28 +1228,28 @@ msgstr ""
 "Güzel hatayý buldunmu ? :: Hata ayýklama oturumu tamamlandý.\n"
 "\n"
 
-#: src/debugger.c:1102
+#: src/debugger.c:1098
 msgid "Cannot execute gnome-terminal"
 msgstr "gnome-terminal çalýþtýrýlamadý"
 
-#: src/debugger.c:1137
+#: src/debugger.c:1133
 msgid "Error: Cannot start terminal for debugging."
 msgstr "Hata: Terminal hata ayýklama için baþlatýlamadý."
 
-#: src/debugger.c:1184
+#: src/debugger.c:1180
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Uyarý: Hata terminali yok. stdio /dev/null içine yönlendiriliyor.\n"
 
-#: src/debugger.c:1202
+#: src/debugger.c:1198
 msgid "Running program ... \n"
 msgstr "Program çalýþtýrýlýyor ... \n"
 
-#: src/debugger.c:1317
+#: src/debugger.c:1304
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Süreç ekleniyor: %d\n"
 
-#: src/debugger.c:1345
+#: src/debugger.c:1332
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -1257,116 +1257,116 @@ msgstr ""
 "Bir süreç zaten çalýþýyor.\n"
 "Bu süreçi sonlandýrýp yeni bir süreç baþlatmak istermisiniz?"
 
-#: src/debugger.c:1353
+#: src/debugger.c:1340
 msgid "You FOOL! I can not attach to myself."
 msgstr "Seni aptal ben kendime ekleme yapamam."
 
-#: src/debugger.c:1436
+#: src/debugger.c:1423
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Süreç çýkatýlýyor: %d\n"
 
-#: src/debugger.c:1687
+#: src/debugger.c:1628
 msgid "All breakpoints enabled:\n"
 msgstr "Bütün kýrýlma noktalarý aktif:\n"
 
-#: src/debugger.c:1729
+#: src/debugger.c:1670
 msgid "All breakpoints disabled:\n"
 msgstr "Bütün kýrýlma noktalarý pasif:\n"
 
-#: src/debugger.c:1771
+#: src/debugger.c:1712
 msgid "All breakpoints deleted:\n"
 msgstr "Bütün kýrýlma noktalarý silindi:\n"
 
-#: src/debugger.c:1804
+#: src/debugger.c:1745
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Süreç kesiliyor: %d\n"
 
-#: src/debugger.c:1833
+#: src/debugger.c:1774
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "%s süreçine sinyal yollanýyor: %d\n"
 
-#: src/debugger.c:1863
+#: src/debugger.c:1804
 msgid "There was an error whilst signaling the process."
 msgstr "Ýþlem sinyal verirken bazý hatalar oluþtu."
 
-#: src/executer.c:90
+#: src/executer.c:119
 msgid "Execute with arguments"
 msgstr "Argüman ile çalýþtýr"
 
-#: src/executer.c:104
+#: src/executer.c:133
 msgid "Command arguments"
 msgstr "Komut argümanlarý"
 
-#: src/executer.c:117
+#: src/executer.c:147
 msgid "Run in Terminal"
 msgstr "Terminalde Çalýþtýr"
 
 #. FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog
-#: src/executer.c:157 src/toolbar.c:500
+#: src/executer.c:187 src/toolbar.c:500
 msgid "Execute"
 msgstr "Çalýþtýr"
 
-#: src/executer.c:205 src/mainmenu_callbacks.c:1520
+#: src/executer.c:234 src/mainmenu_callbacks.c:1535
 msgid "Target of this project is unknown"
 msgstr "Proje hedefi bilinmiyor"
 
-#: src/executer.c:210 src/mainmenu_callbacks.c:1522
+#: src/executer.c:239 src/mainmenu_callbacks.c:1537
 msgid "Target of this project is not executable"
 msgstr "HEdef proje çalýþtýrýlabilir deðil"
 
-#: src/executer.c:215
+#: src/executer.c:244
 msgid "Executable does not exsits for this project."
 msgstr "Bu proje için çalýþtýrýlabilir dosya çýkmaz."
 
-#: src/executer.c:228
+#: src/executer.c:257
 msgid "No file or project opened."
 msgstr "Dosya yok veya proje açýlamadý."
 
-#: src/executer.c:233 src/executer.c:252 src/mainmenu_callbacks.c:1546
-#: src/mainmenu_callbacks.c:1557
+#: src/executer.c:262 src/executer.c:281 src/mainmenu_callbacks.c:1561
+#: src/mainmenu_callbacks.c:1572
 msgid "No executable for this file."
 msgstr "Bu dosya çalýþtýrýlabilir deðil."
 
-#: src/executer.c:257 src/mainmenu_callbacks.c:1552
+#: src/executer.c:286 src/mainmenu_callbacks.c:1567
 msgid "Executable is not up-to-date."
 msgstr "Çalýþtýrýlabilir dosya güncel deðil."
 
-#: src/executer.c:269
+#: src/executer.c:298
 msgid "Unable to execute project. Check Settings->Commands."
 msgstr "Proje çalýþtýrýlamadý. Ayarlar->Komutlar kontrol ediniz."
 
-#: src/executer.c:283
+#: src/executer.c:312
 msgid "This file is not saved. Save it first."
 msgstr "Bu dosya kayýt edilmedi. Önce kayýt etmelisiniz."
 
-#: src/executer.c:291
+#: src/executer.c:320
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Bu dosya çalýþtýrýlamaz.Ayarlar->Komutlar kontrol ediniz."
 
-#: src/find_in_files.c:161
+#: src/find_in_files.c:178
 msgid "Find in files"
 msgstr "Dosyalarýn içinde ara"
 
-#: src/find_in_files.c:164
+#: src/find_in_files.c:181
 msgid "Finding in Files ....\n"
 msgstr "Dosyalarýn içinde aranýyor ....\n"
 
-#: src/find_in_files.c:184
+#: src/find_in_files.c:201
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Dosyalar içinde arama tamamlandý.......Baþarýlý deðil\n"
 
-#: src/find_in_files.c:187
+#: src/find_in_files.c:204
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Dosyalar içinde arama tamamlandý ... baþarýlý deðil"
 
-#: src/find_in_files.c:193
+#: src/find_in_files.c:210
 msgid "Find in Files completed...............Successful\n"
 msgstr "Dosyalar içinde arama tamamlandý.........Baþarýlý\n"
 
-#: src/find_in_files.c:195
+#: src/find_in_files.c:212
 msgid "Find in Files completed ... successful"
 msgstr "Dosyalar içinde arama tamamlandý ... baþarýlý"
 
@@ -1406,105 +1406,105 @@ msgstr "Büyüklük/Küçüklük Hassasiyeti"
 msgid " Search String"
 msgstr "Dize Ara"
 
-#: src/find_replace.c:284
+#: src/find_replace.c:332
 msgid "Find and Replace"
 msgstr "Bul ve Üzerine Yaz"
 
-#: src/find_replace.c:292 src/find_text.c:249
+#: src/find_replace.c:340 src/find_text.c:305
 msgid " RegExp/String to search "
 msgstr "Regexp/String arama "
 
-#: src/find_replace.c:306
+#: src/find_replace.c:354
 msgid " String to replace "
 msgstr "Karakter deðiþtir "
 
-#: src/find_replace.c:329 src/find_text.c:270
+#: src/find_replace.c:377 src/find_text.c:326
 msgid " Scope "
 msgstr "Kapsam (Scope)"
 
-#: src/find_replace.c:342
+#: src/find_replace.c:390
 msgid "Whole Document"
 msgstr "Tüm belge"
 
-#: src/find_replace.c:350 src/find_text.c:291
+#: src/find_replace.c:398 src/find_text.c:347
 msgid "From Cursor"
 msgstr "Kürsör den itibaren"
 
-#: src/find_replace.c:356 src/find_text.c:297
+#: src/find_replace.c:404 src/find_text.c:353
 msgid " Direction "
 msgstr "Yön"
 
-#: src/find_replace.c:368 src/find_text.c:309
+#: src/find_replace.c:416 src/find_text.c:365
 msgid "Forward"
 msgstr "Ýleri"
 
-#: src/find_replace.c:375 src/find_text.c:316
+#: src/find_replace.c:423 src/find_text.c:372
 msgid "Backward"
 msgstr "Geri"
 
-#: src/find_replace.c:381 src/find_text.c:322
+#: src/find_replace.c:429 src/find_text.c:378
 msgid "Type"
 msgstr "Tip"
 
-#: src/find_replace.c:393 src/find_text.c:334
+#: src/find_replace.c:441 src/find_text.c:390
 msgid "RegExp"
 msgstr "Regexp"
 
-#: src/find_replace.c:400 src/find_text.c:341
+#: src/find_replace.c:448 src/find_text.c:397
 msgid "String"
 msgstr "Dize"
 
-#: src/find_replace.c:414 src/find_text.c:349
+#: src/find_replace.c:462 src/find_text.c:405
 msgid "Ignore case while searching"
 msgstr "Büyük küçük harf ayýrma"
 
-#: src/find_replace.c:421
+#: src/find_replace.c:469
 msgid "Prompt before Replace"
 msgstr "Sorduktan sonra deðiþtir"
 
-#: src/find_replace.c:428 src/find_text.c:356
+#: src/find_replace.c:476 src/find_text.c:412
 msgid "Whole word"
 msgstr "Tüm kelime"
 
-#: src/find_replace.c:522
+#: src/find_replace.c:570
 msgid "Do you want to replace this?"
 msgstr "Üzerine yazmak istiyormusunuz?"
 
-#: src/find_replace.c:580
+#: src/find_replace.c:628
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "Seçili alanda \"%s\" dizesi bulunamadý"
 
-#: src/find_replace.c:583
+#: src/find_replace.c:631
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Aktif konumdan sonra \"%s\" dizesi bulunamadý"
 
-#: src/find_text.c:241 src/messages.c:566 src/text_editor_gui.c:187
+#: src/find_text.c:297 src/messages.c:519 src/text_editor_gui.c:187
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "Ara"
 
-#: src/find_text.c:283
+#: src/find_text.c:339
 msgid "Whole document"
 msgstr "Tüm belge"
 
-#: src/find_text.c:447
+#: src/find_text.c:503
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Tüm belgede \"%s\" dizesine uyan bulunamadý"
 
-#: src/find_text.c:450
+#: src/find_text.c:506
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Seçili alanda \"%s\" dizesine uyan bulunamadý"
 
-#: src/find_text.c:453 src/toolbar_callbacks.c:158
+#: src/find_text.c:509 src/toolbar_callbacks.c:158
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Aktif konumdan sonra \"%s\" dizesine uyan bulunamadý"
 
-#: src/gnome_project.c:59
+#: src/gnome_project.c:60
 msgid ""
 "The Project already exist.\n"
 "Project creation aborted."
@@ -1512,63 +1512,62 @@ msgstr ""
 "Bu proje var.\n"
 "Proje oluþturma iptal."
 
-#: src/gnome_project.c:74
+#: src/gnome_project.c:75
 msgid "Generating  project ...\n"
 msgstr "Proje oluþturuluyor ...\n"
 
-#: src/gnome_project.c:80
+#: src/gnome_project.c:81
 #, c-format
 msgid "Cannot create file: %s"
 msgstr "Dosya oluþturulamadý: %s"
 
-#: src/gnome_project.c:150
+#: src/gnome_project.c:139
 msgid "Loading  project ...\n"
 msgstr "Proje yükleniyor ...\n"
 
-#: src/gnome_project.c:154
+#: src/gnome_project.c:143
 msgid "Saving  project ...\n"
 msgstr "Proje kayýt ediliyor ...\n"
 
 #. Source codes are generated
-#: src/gnome_project.c:160
+#: src/gnome_project.c:149
 msgid "Generating  source codes ...\n"
 msgstr "Kaynak kodlar oluþturuluyor ...\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:165
+#: src/gnome_project.c:154
 msgid "Copying icon file ...\n"
 msgstr "Ýkon dosyasý kopyalanýyor ...\n"
 
-#: src/gnome_project.c:177
+#: src/gnome_project.c:165
 msgid "Could not create icon file ...\n"
 msgstr "Ýkon dosyasý oluþturulamadý ...\n"
 
-#. Scanning for created files in every module
-#: src/gnome_project.c:184
+#: src/gnome_project.c:178
 msgid "Locating files ...\n"
 msgstr "Dosyalar yerleþtiriliyor ...\n"
 
-#: src/gnome_project.c:200
+#: src/gnome_project.c:194
 msgid "Again saving  project ...\n"
 msgstr "Proje tekrar kayýt ediliyor ...\n"
 
-#: src/gnome_project.c:203
+#: src/gnome_project.c:197
 msgid "Updating  project ...\n"
 msgstr "Projeyi güncelle ...\n"
 
-#: src/gnome_project.c:205
+#: src/gnome_project.c:199
 msgid "Running  autogen.sh ...\n"
 msgstr "autogen.sh çalýþtýrýlýyor ...\n"
 
-#: src/gnome_project.c:214
+#: src/gnome_project.c:208
 msgid "App Wizard"
 msgstr "Uygulama Sihirbazý"
 
-#: src/gnome_project.c:230
+#: src/gnome_project.c:224
 msgid "Autogeneration completed...............Unsuccessful\n"
 msgstr "Otomatik oluþturma..................Baþarýsýz\n"
 
-#: src/gnome_project.c:233
+#: src/gnome_project.c:227
 msgid ""
 "The Project was not successfully autogenerated.\n"
 "I think you have to do it manually."
@@ -1576,7 +1575,7 @@ msgstr ""
 "Projenin otomatik oluþumu baþarýsýz.\n"
 "Lütfen elle (manual) deneyiniz."
 
-#: src/gnome_project.c:239
+#: src/gnome_project.c:233
 msgid ""
 "Autogeneration completed...............Successful\n"
 "Now Build the project to have a LOOK at it\n"
@@ -1584,15 +1583,11 @@ msgstr ""
 "Otomatik oluþturma tamamlandý........Baþarýlý\n"
 "Þimdi proje inþaa ediliyor\n"
 
-#: src/gnome_project.c:242
+#: src/gnome_project.c:236
 msgid "Project was successfully autogenerated."
 msgstr "Projenin otomatik oluþumu baþarýlý."
 
-#: src/goto_line.c:46
-msgid "Goto line"
-msgstr "Satýr Numarasýna Git"
-
-#: src/goto_line.c:54
+#: src/goto_line.c:109
 msgid " Goto Line No. "
 msgstr " Satýr No. Git "
 
@@ -1612,23 +1607,23 @@ msgstr "Man sayfalarý"
 msgid "Info pages"
 msgstr "Bilgi sayfalarý"
 
-#: src/launcher.c:220 src/text_editor.c:897
+#: src/launcher.c:220 src/text_editor.c:903
 msgid "Cannot execute command shell"
 msgstr "Kabuk komutu çalýþtýrýlamadý"
 
-#: src/main.c:44
+#: src/main.c:46
 msgid "Don't show the splashscreen"
 msgstr "Açýlýþ ekranýný gösterme"
 
-#: src/main_menubar.c:397
+#: src/main_menubar.c:399
 msgid "Recent Files    "
 msgstr "Önceki Dosyalar"
 
-#: src/main_menubar.c:408 src/project_dbase.c:1682
+#: src/main_menubar.c:410 src/project_dbase.c:1870
 msgid "Recent Projects "
 msgstr "Önceki Projeler"
 
-#: src/main_menubar.c:427
+#: src/main_menubar.c:429
 msgid "You have a project opened. Close it first."
 msgstr "Projeniz açýk, öncelikle kapatýnýz."
 
@@ -1884,1288 +1879,1328 @@ msgstr "Sonraki mesaja git"
 msgid "Go to next message"
 msgstr "Bir sonraki mesaja git"
 
-#: src/main_menubar_def.h:256
+#. 0
+#: src/main_menubar_def.h:259
 msgid "U_ndo"
 msgstr "Geri Al"
 
-#: src/main_menubar_def.h:257 src/toolbar.c:182
+#: src/main_menubar_def.h:260 src/toolbar.c:182
 msgid "Undo the last action"
 msgstr "Son hareketi geri al"
 
-#: src/main_menubar_def.h:263
+#. 1
+#: src/main_menubar_def.h:266
 msgid "_Redo"
 msgstr "Ýleri al"
 
-#: src/main_menubar_def.h:264 src/toolbar.c:193
+#: src/main_menubar_def.h:267 src/toolbar.c:193
 msgid "Redo the last undone action"
 msgstr "Son geri alma hareketini ileri al"
 
-#: src/main_menubar_def.h:272
+#. 2
+#. 3
+#: src/main_menubar_def.h:275
 msgid "C_ut"
 msgstr "Kes"
 
-#: src/main_menubar_def.h:273
+#: src/main_menubar_def.h:276
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Editör içindeki yazýyý clipboard içine keser"
 
-#: src/main_menubar_def.h:279
+#. 4
+#: src/main_menubar_def.h:282
 msgid "_Copy"
 msgstr "Kopyala"
 
-#: src/main_menubar_def.h:280
+#: src/main_menubar_def.h:283
 msgid "Copy the selected text to the clipboard"
 msgstr "Seçili yazýyý clipborad içine kopyalar"
 
-#: src/main_menubar_def.h:286
+#. 5
+#: src/main_menubar_def.h:289
 msgid "_Paste"
 msgstr "Yapýþtýr"
 
-#: src/main_menubar_def.h:287
+#: src/main_menubar_def.h:290
 msgid "Paste the content of clipboard at the current position"
 msgstr "Clipboard içindeki yazýyý yapýþtýrýr"
 
-#: src/main_menubar_def.h:293
+#. 6
+#: src/main_menubar_def.h:296
 msgid "C_lear"
 msgstr "Temizle"
 
-#: src/main_menubar_def.h:294
+#: src/main_menubar_def.h:297
 msgid "Delete the selected text from the editor"
 msgstr "Editör içindeki seçili yazýyý siler"
 
-#: src/main_menubar_def.h:302
+#. 7
+#. 8
+#: src/main_menubar_def.h:305
 msgid "_Transform"
 msgstr "Deðiþtir"
 
-#: src/main_menubar_def.h:309
+#. 9
+#: src/main_menubar_def.h:312
 msgid "_Select"
 msgstr "Seç"
 
-#: src/main_menubar_def.h:316
+#. 10
+#: src/main_menubar_def.h:319
 msgid "_Insert text"
 msgstr "Araya yazý yerleþtir"
 
-#: src/main_menubar_def.h:325
+#. 11
+#. 12
+#: src/main_menubar_def.h:328
 msgid "_AutoComplete"
 msgstr "Otomatik Tamamla"
 
-#: src/main_menubar_def.h:326
+#: src/main_menubar_def.h:329
 msgid "AutoComplete the current word"
 msgstr "Üzerindeki kelimeyi otomatik tamamla"
 
-#: src/main_menubar_def.h:332
+#. 13
+#: src/main_menubar_def.h:335
 msgid "S_how calltip"
 msgstr "calltip i göster"
 
-#: src/main_menubar_def.h:333
+#: src/main_menubar_def.h:336
 msgid "Show calltip for the function"
 msgstr "fonksiyon için calltip i göster"
 
-#: src/main_menubar_def.h:341
+#. 14
+#. 15
+#: src/main_menubar_def.h:344
 msgid "_Find ..."
 msgstr "_Ara ..."
 
-#: src/main_menubar_def.h:342
+#: src/main_menubar_def.h:345
 msgid "Search for a string or regexp in the editor"
 msgstr "Editör içinde yazý dizesi aramak için"
 
-#: src/main_menubar_def.h:348
+#. 16
+#: src/main_menubar_def.h:351
 msgid "Fin_d in files ..."
 msgstr "Dosyalar içinde Ara ..."
 
-#: src/main_menubar_def.h:349
+#: src/main_menubar_def.h:352
 msgid "Search for a string in multiple files or directories"
 msgstr "Birden fazla dosya veya dizin içinde dize aramak için"
 
-#: src/main_menubar_def.h:355
+#. 17
+#: src/main_menubar_def.h:358
 msgid "Find and R_eplace ..."
 msgstr "Bul ve Üzerine Yaz ..."
 
-#: src/main_menubar_def.h:356
+#: src/main_menubar_def.h:359
 msgid "Search for and replace a string or regexp with another string"
 msgstr "Arayýp bulduðu kelimenin üzerine istenen baþka dizeyi yapýþtýrmak için"
 
-#: src/main_menubar_def.h:364
+#. 18
+#: src/main_menubar_def.h:365
+msgid "_Repeat Find"
+msgstr "Tek_rar Ara"
+
+#: src/main_menubar_def.h:366
+msgid "Repeat the Last Find command"
+msgstr "Son Arama komutunu tekrarla"
+
+#. 19
+#: src/main_menubar_def.h:372
 msgid "G_o to"
 msgstr "Git"
 
-#: src/main_menubar_def.h:373
+#. 20
+#. 21
+#: src/main_menubar_def.h:381
 msgid "Ed_it Application GUI ..."
 msgstr "Uygulama Arayüzünü Düzenle ..."
 
-#: src/main_menubar_def.h:374
+#: src/main_menubar_def.h:382
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "Glade kullanarak uygulamanýzý düzenlemenizi saðlar"
 
-#: src/main_menubar_def.h:384
+#. 22
+#. 23
+#: src/main_menubar_def.h:390
+msgid "Save Build Messages"
+msgstr "Yapýlandýrma Mesajlarýný Kaydet"
+
+#: src/main_menubar_def.h:391
+msgid "Save build messages to file"
+msgstr "Yapýlandýrma mesajlarýný dosyaya kaydet"
+
+#: src/main_menubar_def.h:402
 msgid "_Main Toolbar"
 msgstr "Ana Araç Çubuðu"
 
-#: src/main_menubar_def.h:385
+#: src/main_menubar_def.h:403
 msgid "Hide/Unhide Main toolbar"
 msgstr "Ana Araç Çubuðunu Sakla/Göster"
 
-#: src/main_menubar_def.h:391
+#: src/main_menubar_def.h:409
 msgid "_Extended Toolbar"
 msgstr "G_eliþmiþ Araç Çubuðu"
 
-#: src/main_menubar_def.h:392
+#: src/main_menubar_def.h:410
 msgid "Hide/Unhide Extended toolbar"
 msgstr "Geliþmiþ Araç Çubuðu Sakla/Göster"
 
-#: src/main_menubar_def.h:398
+#: src/main_menubar_def.h:416
 msgid "_Tags Toolbar"
 msgstr "Etiket araç çubuðu"
 
-#: src/main_menubar_def.h:399
+#: src/main_menubar_def.h:417
 msgid "Hide/Unhide Tags toolbar"
 msgstr "Ufak Araç Çubuðunu Sakla/Göster"
 
-#: src/main_menubar_def.h:405
+#: src/main_menubar_def.h:423
 msgid "_Debug Toolbar"
 msgstr "Hata ayýklayýcý araç çubuðu"
 
-#: src/main_menubar_def.h:406
+#: src/main_menubar_def.h:424
 msgid "Hide/Unhide Debug toolbar"
 msgstr "Hata ayýklayýcý araç çubuðu Sakla/Göster"
 
-#: src/main_menubar_def.h:412
+#: src/main_menubar_def.h:430
 msgid "_Browser Toolbar"
 msgstr "Gezgin Araç Çubuðu"
 
-#: src/main_menubar_def.h:413
+#: src/main_menubar_def.h:431
 msgid "Hide/Unhide Browser toolbar"
 msgstr "Gezgin Araç Çubuðu Sakla/Göster"
 
-#: src/main_menubar_def.h:419
+#: src/main_menubar_def.h:437
 msgid "_Format Toolbar"
 msgstr "Biçim araç çubuðu"
 
-#: src/main_menubar_def.h:420
+#: src/main_menubar_def.h:438
 msgid "Hide/Unhide Format toolbar"
 msgstr "Biçimleme Araç Çubuðunu Sakla/Göster"
 
-#: src/main_menubar_def.h:429
+#: src/main_menubar_def.h:447
 msgid "_Line numbers margin"
 msgstr "Satýr numaralarý kenar boþluðu"
 
-#: src/main_menubar_def.h:430
+#: src/main_menubar_def.h:448
 msgid "Show/Hide line numbers"
 msgstr "Satýr numaralarýný Göster/Sakla"
 
-#: src/main_menubar_def.h:435
+#: src/main_menubar_def.h:453
 msgid "_Markers Margin"
 msgstr "Ýþaretçi kenar boþluðu"
 
-#: src/main_menubar_def.h:436
+#: src/main_menubar_def.h:454
 msgid "Show/Hide markers margin"
 msgstr "Kenar boþluðu iþaretçisini Sakla/Göster"
 
-#: src/main_menubar_def.h:441
+#: src/main_menubar_def.h:459
 msgid "_Code fold margin"
 msgstr "Kod kenar boþluðu katý"
 
-#: src/main_menubar_def.h:442
+#: src/main_menubar_def.h:460
 msgid "Show/Hide code fold margin"
 msgstr "Kod kenar boþluðu katýný Sakla/Göster"
 
-#: src/main_menubar_def.h:447
+#: src/main_menubar_def.h:465
 msgid "_Indentation guides"
 msgstr "Ýçeri girinti rehberi"
 
-#: src/main_menubar_def.h:448
+#: src/main_menubar_def.h:466
 msgid "Show/Hide undentation guides"
 msgstr "Ýçeri girinti rehberi Sakla/Göster"
 
-#: src/main_menubar_def.h:453
+#: src/main_menubar_def.h:471
 msgid "_White spaces"
 msgstr "Beyaz boþluklar"
 
-#: src/main_menubar_def.h:454
+#: src/main_menubar_def.h:472
 msgid "Show/Hide white spaces"
 msgstr "Beyaz boþluklarý Göster/Sakla"
 
-#: src/main_menubar_def.h:459
+#: src/main_menubar_def.h:477
 msgid "_Line end characters"
 msgstr "Satýr sonu karakteri"
 
-#: src/main_menubar_def.h:460
+#: src/main_menubar_def.h:478
 msgid "Show/Hide line end characters"
 msgstr "Satýr sonu karakterlerini Göster/Sakla"
 
-#: src/main_menubar_def.h:469
+#: src/main_menubar_def.h:487
 msgid "++ Zoom"
 msgstr "++ Büyüt"
 
-#: src/main_menubar_def.h:470
+#: src/main_menubar_def.h:488
 msgid "Increase text zoom by 1 unit"
 msgstr "Yazý boyutunu 1 birim büyült"
 
-#: src/main_menubar_def.h:475
+#: src/main_menubar_def.h:493
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:476
+#: src/main_menubar_def.h:494
 msgid "Zoom factor +8"
 msgstr "Büyütme oraný +8"
 
-#: src/main_menubar_def.h:481
+#: src/main_menubar_def.h:499
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:482
+#: src/main_menubar_def.h:500
 msgid "Zoom factor +6"
 msgstr "Büyütme oraný +6"
 
-#: src/main_menubar_def.h:487
+#: src/main_menubar_def.h:505
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:488
+#: src/main_menubar_def.h:506
 msgid "Zoom factor +4"
 msgstr "Büyütme oraný +4"
 
-#: src/main_menubar_def.h:493
+#: src/main_menubar_def.h:511
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:494
+#: src/main_menubar_def.h:512
 msgid "Zoom factor +2"
 msgstr "Büyütme oraný +2"
 
-#: src/main_menubar_def.h:500
+#: src/main_menubar_def.h:518
 msgid "Zoom factor 0"
 msgstr "Büyütme oraný 0"
 
-#: src/main_menubar_def.h:505
+#: src/main_menubar_def.h:523
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:506
+#: src/main_menubar_def.h:524
 msgid "Zoom factor -2"
 msgstr "Büyütme oraný -2"
 
-#: src/main_menubar_def.h:511
+#: src/main_menubar_def.h:529
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:512
+#: src/main_menubar_def.h:530
 msgid "Zoom factor -4"
 msgstr "Büyütme oraný -4"
 
-#: src/main_menubar_def.h:517
+#: src/main_menubar_def.h:535
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:518
+#: src/main_menubar_def.h:536
 msgid "Zoom factor -6"
 msgstr "Büyütme oraný -6"
 
-#: src/main_menubar_def.h:523
+#: src/main_menubar_def.h:541
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:524
+#: src/main_menubar_def.h:542
 msgid "Zoom factor -8"
 msgstr "Büyütme oraný -8"
 
-#: src/main_menubar_def.h:529
+#: src/main_menubar_def.h:547
 msgid "-- Zoom"
 msgstr "-- Büyüt"
 
-#: src/main_menubar_def.h:530
+#: src/main_menubar_def.h:548
 msgid "Reduce text zoom by 1 unit"
 msgstr "Yazý boyutunu 1 birim küçült"
 
-#: src/main_menubar_def.h:539
+#: src/main_menubar_def.h:557
 msgid "_Messages"
 msgstr "_Mesajlar"
 
-#: src/main_menubar_def.h:540
+#: src/main_menubar_def.h:558
 msgid "Show/Hide the Message window"
 msgstr "Mesaj penceresini Göster/Sakla"
 
-#: src/main_menubar_def.h:545
+#: src/main_menubar_def.h:563
 msgid "_Project Listing"
 msgstr "Proje Listesi"
 
-#: src/main_menubar_def.h:546 src/toolbar.c:284
+#: src/main_menubar_def.h:564 src/toolbar.c:284
 msgid "Show/Hide the Project window"
 msgstr "Proje penceresini Göster/Sakla"
 
-#: src/main_menubar_def.h:551
+#: src/main_menubar_def.h:569
 msgid "B_ookmarks"
 msgstr "Sýk kullanýlanlar"
 
-#: src/main_menubar_def.h:552
+#: src/main_menubar_def.h:570
 msgid "Show the Bookmark window"
 msgstr "Sýk kullanýlanlar penceresini göster"
 
-#: src/main_menubar_def.h:558
+#: src/main_menubar_def.h:576
 msgid "_Toolbars"
 msgstr "Araç Çubuklarý"
 
-#: src/main_menubar_def.h:565
+#: src/main_menubar_def.h:583
 msgid "_Editor"
 msgstr "Editör"
 
-#: src/main_menubar_def.h:572
+#: src/main_menubar_def.h:590
 msgid "_Zoom text"
 msgstr "Text büyüt"
 
-#: src/main_menubar_def.h:579 src/main_menubar_def.h:1248
+#: src/main_menubar_def.h:597 src/main_menubar_def.h:1266
 msgid "_Breakpoints"
 msgstr "Kýrýlma noktalarý"
 
-#: src/main_menubar_def.h:580
+#: src/main_menubar_def.h:598
 msgid "Show breakpoints editor window"
 msgstr "Editör penceresinde kýrýlma noktalarýný göster"
 
-#: src/main_menubar_def.h:586
+#: src/main_menubar_def.h:604
 msgid "_Watch Window"
 msgstr "Watch penceresi"
 
-#: src/main_menubar_def.h:587
+#: src/main_menubar_def.h:605
 msgid "Show expression watch window"
 msgstr "Gözcü tanýmlama penceresini"
 
-#: src/main_menubar_def.h:592
+#: src/main_menubar_def.h:610
 msgid "_Registers"
 msgstr "Yazmaçlar"
 
-#: src/main_menubar_def.h:593
+#: src/main_menubar_def.h:611
 msgid "Show CPU registers and their contents"
 msgstr "CPU yazmaçlarý ve içindekileri göster"
 
-#: src/main_menubar_def.h:598
+#: src/main_menubar_def.h:616
 msgid "Program _Stack"
 msgstr "Program _Stack"
 
-#: src/main_menubar_def.h:599
+#: src/main_menubar_def.h:617
 msgid "Show stack trace of the program"
 msgstr "Programýn stack durumunu gösterir"
 
-#: src/main_menubar_def.h:604
+#: src/main_menubar_def.h:622
 msgid "Shared _Libraries"
 msgstr "Paylaþýlan Kütüphaneler"
 
-#: src/main_menubar_def.h:605
+#: src/main_menubar_def.h:623
 msgid "Show shared libraries loaded by the program"
 msgstr "Program tarafýndan yüklenen paylaþýlan kütüphaneleri göster"
 
-#: src/main_menubar_def.h:610
+#: src/main_menubar_def.h:628
 msgid "_Kernel Signals"
 msgstr "_Kernal Sinyalleri"
 
-#: src/main_menubar_def.h:611
+#: src/main_menubar_def.h:629
 msgid "Show the kernel signals editor window"
 msgstr "Kernel sinyal editör penceresini göster"
 
-#: src/main_menubar_def.h:616
+#: src/main_menubar_def.h:634
 msgid "_Dump Window"
 msgstr "Aktarma penceresi"
 
-#: src/main_menubar_def.h:617
+#: src/main_menubar_def.h:635
 msgid "Show memory dump window"
 msgstr "Memory dump penceresini göster"
 
-#: src/main_menubar_def.h:623
+#: src/main_menubar_def.h:641
 msgid "_Console"
 msgstr "Konsol"
 
-#: src/main_menubar_def.h:624
+#: src/main_menubar_def.h:642
 msgid "Show the console where the program runs"
 msgstr "Programýn çalýþtýðý yeri konsolda göster"
 
-#: src/main_menubar_def.h:633 src/project_dbase_gui.c:391
+#: src/main_menubar_def.h:651 src/project_dbase_gui.c:392
 msgid "Include file"
 msgstr "Eklenen dosya"
 
-#: src/main_menubar_def.h:639 src/project_dbase_gui.c:397
+#: src/main_menubar_def.h:657 src/project_dbase_gui.c:398
 msgid "Source file"
 msgstr "Kaynak dosyasý"
 
-#: src/main_menubar_def.h:645 src/project_dbase_gui.c:403
+#: src/main_menubar_def.h:663 src/project_dbase_gui.c:404
 msgid "Help file"
 msgstr "Yardým dosyasý"
 
-#: src/main_menubar_def.h:651 src/project_dbase_gui.c:409
+#: src/main_menubar_def.h:669 src/project_dbase_gui.c:410
 msgid "Data file"
 msgstr "Data dosyasý"
 
-#: src/main_menubar_def.h:657 src/project_dbase_gui.c:415
+#: src/main_menubar_def.h:675 src/project_dbase_gui.c:416
 msgid "Pixmap file"
 msgstr "Resim dosyasý"
 
-#: src/main_menubar_def.h:663 src/project_dbase_gui.c:421
+#: src/main_menubar_def.h:681 src/project_dbase_gui.c:422
 msgid "Translation file"
 msgstr "Çeviri dosyasý"
 
-#: src/main_menubar_def.h:669
+#: src/main_menubar_def.h:687
 msgid "Documentation file"
 msgstr "Dökümantasyon dosyasý"
 
-#: src/main_menubar_def.h:679 src/project_dbase_gui.c:437
+#: src/main_menubar_def.h:697 src/project_dbase_gui.c:438
 msgid "Add New"
 msgstr "Yeni Ekle"
 
-#: src/main_menubar_def.h:685 src/project_dbase_gui.c:443
+#: src/main_menubar_def.h:703 src/project_dbase_gui.c:444
 msgid "Import File"
 msgstr "Dosya Ekle"
 
-#: src/main_menubar_def.h:693
+#: src/main_menubar_def.h:711
 msgid "Remove the current file from the project"
 msgstr "Üzerindeki dosyayý projeden çýkar"
 
-#: src/main_menubar_def.h:700
+#: src/main_menubar_def.h:718
 msgid "Open the README file of the project"
 msgstr "Projenin beni oku dosyasýný aç"
 
-#: src/main_menubar_def.h:706
+#: src/main_menubar_def.h:724
 msgid "Open the TODO file of the project"
 msgstr "Projenin yapýlacaklar dosyasýný aç"
 
-#: src/main_menubar_def.h:712
+#: src/main_menubar_def.h:730
 msgid "Open the ChangeLog file of the project"
 msgstr "Projenin deðiþiklikler dosyasýný aç"
 
-#: src/main_menubar_def.h:718
+#: src/main_menubar_def.h:736
 msgid "Open the NEWS file of the project"
 msgstr "Projenin Haberler dosyasýný aç"
 
-#: src/main_menubar_def.h:724
+#: src/main_menubar_def.h:742
 msgid "Project _Configuration ..."
 msgstr "Proje Konfigürasyonu ..."
 
-#: src/main_menubar_def.h:725
+#: src/main_menubar_def.h:743
 msgid "Edit the configuration of the project"
 msgstr "Proje konfigürasyonunu düzenle"
 
-#: src/main_menubar_def.h:730
+#: src/main_menubar_def.h:748
 msgid "Project _Information"
 msgstr "Proje Bilgisi"
 
-#: src/main_menubar_def.h:731
+#: src/main_menubar_def.h:749
 msgid "Detailed information about the project"
 msgstr "Proje hakkýnda detaylý bilgi verir"
 
-#: src/main_menubar_def.h:740
+#: src/main_menubar_def.h:758
 msgid "Automatic"
 msgstr "Otomatik"
 
-#: src/main_menubar_def.h:741
+#: src/main_menubar_def.h:759
 msgid "Automatically determine the highlight style"
 msgstr "Yazýlarý renklendirme tarzýna otomatik karar ver"
 
-#: src/main_menubar_def.h:746
+#: src/main_menubar_def.h:764
 msgid "No Highlight style"
 msgstr "Yazý renklendirme yapma"
 
-#: src/main_menubar_def.h:747
+#: src/main_menubar_def.h:765
 msgid "Force the highlight style to None"
 msgstr "Yazý renklendirme tarzý yok"
 
-#: src/main_menubar_def.h:752
+#: src/main_menubar_def.h:770
 msgid "C and C++"
 msgstr "C ve C++"
 
-#: src/main_menubar_def.h:753
+#: src/main_menubar_def.h:771
 msgid "Force the highlight style to C and C++"
 msgstr "C ve C++ yazý renklendirme kullan"
 
-#: src/main_menubar_def.h:758
+#: src/main_menubar_def.h:776
 msgid "C and C++ with GNOME"
 msgstr "C ve C++ GNOME ile beraber"
 
-#: src/main_menubar_def.h:759
+#: src/main_menubar_def.h:777
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "Tarz C ve C++ ile Gnome olarak yazý renklendirme kullan"
 
-#: src/main_menubar_def.h:764
+#: src/main_menubar_def.h:782
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:765
+#: src/main_menubar_def.h:783
 msgid "Force the highlight style to HTML"
 msgstr "Yazý renklendirme tazrý HTML olarak düzenle"
 
-#: src/main_menubar_def.h:770
+#: src/main_menubar_def.h:788
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:771
+#: src/main_menubar_def.h:789
 msgid "Force the highlight style to XML"
 msgstr "Yazý renklendirme tarzýný SQL olarak düzenle"
 
-#: src/main_menubar_def.h:776
+#: src/main_menubar_def.h:794
 msgid "Javascript"
 msgstr "Javascripts"
 
-#: src/main_menubar_def.h:777
+#: src/main_menubar_def.h:795
 msgid "Force the highlight style to Javascript"
 msgstr "Yazý renklendirme tarzý Javascript olarak düzenle"
 
-#: src/main_menubar_def.h:782
+#: src/main_menubar_def.h:800
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:783
+#: src/main_menubar_def.h:801
 msgid "Force the highlight style to WScript"
 msgstr "Yazý renklendirme tarzý WScripts ise kullan"
 
-#: src/main_menubar_def.h:788
+#: src/main_menubar_def.h:806
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:789
+#: src/main_menubar_def.h:807
 msgid "Force the highlight style to Makefile"
 msgstr "Yazý renklendirme tarzý Makefile olarak düzenle"
 
-#: src/main_menubar_def.h:794
+#: src/main_menubar_def.h:812
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:795
+#: src/main_menubar_def.h:813
 msgid "Force the highlight type to Java"
 msgstr "Yazý renklendirme tarzýný Java olarak düzenle"
 
-#: src/main_menubar_def.h:800
+#: src/main_menubar_def.h:818
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:801
+#: src/main_menubar_def.h:819
 msgid "Force the highlight style to LUA"
 msgstr "Yazý renklendirme tarzýný LUA olarak düzenle"
 
-#: src/main_menubar_def.h:806
+#: src/main_menubar_def.h:824
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:807
+#: src/main_menubar_def.h:825
 msgid "Force the highlight style to Python"
 msgstr "Yazý renklendirme tarzýný Python olarak düzenle"
 
-#: src/main_menubar_def.h:812
+#: src/main_menubar_def.h:830
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:813
+#: src/main_menubar_def.h:831
 msgid "Force the highlight style to Perl"
 msgstr "Yazý renklendirme tarzýný Perl olarak düzenle"
 
-#: src/main_menubar_def.h:818
+#: src/main_menubar_def.h:836
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:819
+#: src/main_menubar_def.h:837
 msgid "Force the highlight style to SQL"
 msgstr "Yazý renklendirme tarzýný SQL olarak düzenle"
 
-#: src/main_menubar_def.h:824
+#: src/main_menubar_def.h:842
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:825
+#: src/main_menubar_def.h:843
 msgid "Force the highlight style to PL/SQL"
 msgstr "Yazý renklendirme tarzýný PL/SQL olarak düzenle"
 
-#: src/main_menubar_def.h:830
+#: src/main_menubar_def.h:848
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:831
+#: src/main_menubar_def.h:849
 msgid "Force the highlight style to PHP"
 msgstr "Yazý renklendirme tarzýný PHP olarak düzenle"
 
-#: src/main_menubar_def.h:836
+#: src/main_menubar_def.h:854
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:837
+#: src/main_menubar_def.h:855
 msgid "Force the highlight style to LaTex"
 msgstr "Yazý renklendirme tarzýný LaTex olarak düzenle"
 
-#: src/main_menubar_def.h:842
+#: src/main_menubar_def.h:860
 msgid "Diff"
 msgstr "Diff"
 
-#: src/main_menubar_def.h:843
+#: src/main_menubar_def.h:861
 msgid "Force the highlight style to Diff"
 msgstr "Yazý renklendirme tarzýný Diff olarak düzenle"
 
-#: src/main_menubar_def.h:848
+#: src/main_menubar_def.h:866
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:849
+#: src/main_menubar_def.h:867
 msgid "Force the highlight style to Pascal"
 msgstr "Yazý renklendirme tarzýný Pascal olarak düzenle"
 
-#: src/main_menubar_def.h:854
+#: src/main_menubar_def.h:872
 msgid "Xcode"
 msgstr "Xcode"
 
-#: src/main_menubar_def.h:855
+#: src/main_menubar_def.h:873
 msgid "Force the highlight style to Xcode"
 msgstr "Yazý renklendirme tarzýný Xcode olarak düzenle"
 
-#: src/main_menubar_def.h:860
+#: src/main_menubar_def.h:878
 msgid "Prj/Properties"
 msgstr "Prj/Özellikleri"
 
-#: src/main_menubar_def.h:861
+#: src/main_menubar_def.h:879
 msgid "Force the highlight style to project/properties files"
 msgstr "Yazý renklendirme tarzýný project/properties olarak düzenle"
 
-#: src/main_menubar_def.h:866
+#: src/main_menubar_def.h:884
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:867
+#: src/main_menubar_def.h:885
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Yazý renklendirme tarzýný UNIX conf olarak düzenle"
 
-#: src/main_menubar_def.h:876
+#: src/main_menubar_def.h:894
 msgid "Auto _Format"
 msgstr "Otomatik biçim"
 
-#: src/main_menubar_def.h:877
+#: src/main_menubar_def.h:895
 msgid "Autoformat C and C++ source files"
 msgstr "C ve C++ kaynak dosyalarý otomatik biçimlendirme"
 
-#: src/main_menubar_def.h:882
+#: src/main_menubar_def.h:900
 msgid "_Increase Indent"
 msgstr "Girinti arttýr"
 
-#: src/main_menubar_def.h:883
+#: src/main_menubar_def.h:901
 msgid "Increase indentation of line/selection"
 msgstr "Seçili kýsmýn veya  satýrýn girintisini artýr"
 
-#: src/main_menubar_def.h:888
+#: src/main_menubar_def.h:906
 msgid "_Decrease Indent"
 msgstr "Girinti azalt"
 
-#: src/main_menubar_def.h:889
+#: src/main_menubar_def.h:907
 msgid "Decrease indentation of line/selection"
 msgstr "Seçili kýsmýn veya satýrýn girintisini azalt"
 
-#: src/main_menubar_def.h:895
+#: src/main_menubar_def.h:913
 msgid "_Update tags image"
 msgstr "Etiket resmini güncelle"
 
-#: src/main_menubar_def.h:896
+#: src/main_menubar_def.h:914
 msgid "Update the tags image of the project/opened files"
 msgstr "Proje veya dosya açýldýðýnda etiket resmi güncelle"
 
-#: src/main_menubar_def.h:902
+#: src/main_menubar_def.h:920
 msgid "Force _Highlight Style"
 msgstr "Yaý Renklendirme Tarzý"
 
-#: src/main_menubar_def.h:909
+#: src/main_menubar_def.h:927
 msgid "_Close All Folds"
 msgstr "Tüm klasörleri kapat"
 
-#: src/main_menubar_def.h:910
+#: src/main_menubar_def.h:928
 msgid "Close all code folds in the editor"
 msgstr "Editörde bütün kod klasörlerini kapat"
 
-#: src/main_menubar_def.h:915
+#: src/main_menubar_def.h:933
 msgid "_Open All Folds"
 msgstr "Tüm klasörleri aç"
 
-#: src/main_menubar_def.h:916
+#: src/main_menubar_def.h:934
 msgid "Open all code folds of the editor"
 msgstr "Editörde bütün kod klasörlerini aç"
 
-#: src/main_menubar_def.h:921
+#: src/main_menubar_def.h:939
 msgid "_Toggle Current Fold"
 msgstr "Aktif katý deðiþtir"
 
-#: src/main_menubar_def.h:922
+#: src/main_menubar_def.h:940
 msgid "Toggle current code fold of the editor"
 msgstr "Editörün aktif kod katýný deðiþtir"
 
-#: src/main_menubar_def.h:928
+#: src/main_menubar_def.h:946
 msgid "D_etach Current Document"
 msgstr "Aktif belgeyi ayýr"
 
-#: src/main_menubar_def.h:929
+#: src/main_menubar_def.h:947
 msgid "Detach the current editor into a separate window"
 msgstr "Üzerinde bulunan editörü pencere içinde ayýr"
 
-#: src/main_menubar_def.h:939
+#: src/main_menubar_def.h:957
 msgid "_Compile"
 msgstr "Derleme"
 
-#: src/main_menubar_def.h:940
+#: src/main_menubar_def.h:958
 msgid "Compile the current source file"
 msgstr "Þu anki kaynak kodu derle"
 
-#: src/main_menubar_def.h:946 src/main_menubar_def.h:1492
+#: src/main_menubar_def.h:964 src/main_menubar_def.h:1510
 msgid "_Build"
 msgstr "Yapýlandýr"
 
-#: src/main_menubar_def.h:947
+#: src/main_menubar_def.h:965
 msgid "Build the source directory of the project/current source file"
 msgstr "Kaynak dizindeki proje veya dosyayý yapýlandýr"
 
-#: src/main_menubar_def.h:952
+#: src/main_menubar_def.h:970
 msgid "Build _All"
 msgstr "Hepsini Yapýlandýr"
 
-#: src/main_menubar_def.h:953
+#: src/main_menubar_def.h:971
 msgid "Build the whole project"
 msgstr "Projenin tamamýný yapýlandýr"
 
-#: src/main_menubar_def.h:959
+#: src/main_menubar_def.h:977
 msgid "_Install"
 msgstr "Kurulum"
 
-#: src/main_menubar_def.h:960
+#: src/main_menubar_def.h:978
 msgid "Install the project on your system"
 msgstr "Projeyi sisteme kur"
 
-#: src/main_menubar_def.h:965
+#: src/main_menubar_def.h:983
 msgid "Build _Distribution"
 msgstr "Daðýtýmý yapýlandýr"
 
-#: src/main_menubar_def.h:966
+#: src/main_menubar_def.h:984
 msgid "Build the distribution tarball of the project"
 msgstr "Proje için tarball daðýtýmýný yapýlandýr"
 
-#: src/main_menubar_def.h:972
+#: src/main_menubar_def.h:990
 msgid "Con_figure ..."
 msgstr "Ayarlar ..."
 
-#: src/main_menubar_def.h:973
+#: src/main_menubar_def.h:991
 msgid "Configure the project"
 msgstr "Proje Ayarlarý"
 
-#: src/main_menubar_def.h:978
+#: src/main_menubar_def.h:996
 msgid "Auto _generate ..."
 msgstr "Otomatik oluþtur..."
 
-#: src/main_menubar_def.h:979
+#: src/main_menubar_def.h:997
 msgid "Auto generate all the build files"
 msgstr "Tüm yapýlandýrma dosyalarýný otomatik oluþtur"
 
-#: src/main_menubar_def.h:985
+#: src/main_menubar_def.h:1003
 msgid "Clea_n"
 msgstr "Temizle"
 
-#: src/main_menubar_def.h:986
+#: src/main_menubar_def.h:1004
 msgid "Clean the source directory"
 msgstr "Kaynak kod dizinini temizle"
 
-#: src/main_menubar_def.h:991
+#: src/main_menubar_def.h:1009
 msgid "Clean A_ll"
 msgstr "Hepsini Temizle"
 
-#: src/main_menubar_def.h:992
+#: src/main_menubar_def.h:1010
 msgid "Clean the whole project directory"
 msgstr "Bütün proje dizinin temizler"
 
-#: src/main_menubar_def.h:998
+#: src/main_menubar_def.h:1016
 msgid "_Stop Build"
 msgstr "Yapýlandýrmayý Durdur"
 
-#: src/main_menubar_def.h:999
+#: src/main_menubar_def.h:1017
 msgid "Stop the current compile or build process"
 msgstr "Þu anki derleme veya yapýlandýrma iþleminini durdurur"
 
-#: src/main_menubar_def.h:1005
+#: src/main_menubar_def.h:1023
 msgid "_Execute"
 msgstr "Çalýþtýr"
 
-#: src/main_menubar_def.h:1006 src/toolbar.c:501
+#: src/main_menubar_def.h:1024 src/toolbar.c:501
 msgid "Execute the program"
 msgstr "Program çalýþtýrýr"
 
-#: src/main_menubar_def.h:1011
+#: src/main_menubar_def.h:1029
 msgid "Set _Program params ..."
 msgstr "Program Parametreleri ..."
 
-#: src/main_menubar_def.h:1012
+#: src/main_menubar_def.h:1030
 msgid "Set the execution parameters of the program"
 msgstr "Program parametrelerini deðiþtirir"
 
-#: src/main_menubar_def.h:1021
+#: src/main_menubar_def.h:1039
 msgid "_Toggle bookmark"
 msgstr "Bookmark deðiþtir (Bookmark=Yer belirtici,iþaret)"
 
-#: src/main_menubar_def.h:1028
+#: src/main_menubar_def.h:1046
 msgid "_First bookmark"
 msgstr "Ýlk bookmark"
 
-#: src/main_menubar_def.h:1034
+#: src/main_menubar_def.h:1052
 msgid "_Previous bookmark"
 msgstr "Önceki bookmark"
 
-#: src/main_menubar_def.h:1040
+#: src/main_menubar_def.h:1058
 msgid "_Next bookmark"
 msgstr "Sonraki bookmark"
 
-#: src/main_menubar_def.h:1046
+#: src/main_menubar_def.h:1064
 msgid "_Last bookmark"
 msgstr "Son bookmark"
 
-#: src/main_menubar_def.h:1053
+#: src/main_menubar_def.h:1071
 msgid "_Clear all bookmarks"
 msgstr "Tüm bookmarklarý temizle"
 
-#: src/main_menubar_def.h:1063
+#: src/main_menubar_def.h:1081
 msgid "Run/_Continue"
 msgstr "Çalýþtýr/Devam"
 
-#: src/main_menubar_def.h:1064
+#: src/main_menubar_def.h:1082
 msgid "Continue the execution of the program"
 msgstr "Programý çalýþtýrmaya devam eder"
 
-#: src/main_menubar_def.h:1069
+#: src/main_menubar_def.h:1087
 msgid "Step _In"
 msgstr "Adýmda"
 
-#: src/main_menubar_def.h:1070
+#: src/main_menubar_def.h:1088
 msgid "Single step into function"
 msgstr "Fonksiyon tek adým ilerle"
 
-#: src/main_menubar_def.h:1075
+#: src/main_menubar_def.h:1093
 msgid "Step O_ver"
 msgstr "Adým Sonunda"
 
-#: src/main_menubar_def.h:1076
+#: src/main_menubar_def.h:1094
 msgid "Single step over function"
 msgstr "Fonksiyon sonuna tek adýmda"
 
-#: src/main_menubar_def.h:1081
+#: src/main_menubar_def.h:1099
 msgid "Step _Out"
 msgstr "Dýþa Adýmla"
 
-#: src/main_menubar_def.h:1082
+#: src/main_menubar_def.h:1100
 msgid "Single step out of the function"
 msgstr "Fonksiyon dýþýna tek adýmda"
 
-#: src/main_menubar_def.h:1087
+#: src/main_menubar_def.h:1105
 msgid "_Run to cursor"
 msgstr "Kursöre kadar çalýþtýr"
 
-#: src/main_menubar_def.h:1088
+#: src/main_menubar_def.h:1106
 msgid "Run to the cursor"
 msgstr "Kursöre kadar çalýþtýr"
 
-#: src/main_menubar_def.h:1097 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:1115 src/text_editor_menu.c:100
 msgid "Toggle breakpoint"
 msgstr "Kýrýlma noktasý deðiþtir"
 
-#: src/main_menubar_def.h:1098
+#: src/main_menubar_def.h:1116
 msgid "Toggle breakpoint at the current location"
 msgstr "Aktif konumdaki kýrýlma noktasýný deðiþtir"
 
-#: src/main_menubar_def.h:1103
+#: src/main_menubar_def.h:1121
 msgid "Set Breakpoint ..."
 msgstr "Kýrýlýma Noktasýný Belirle ..."
 
-#: src/main_menubar_def.h:1104
+#: src/main_menubar_def.h:1122
 msgid "Set a breakpoint"
 msgstr "Kýrýlma noktasýný belirler"
 
-#: src/main_menubar_def.h:1110
+#: src/main_menubar_def.h:1128
 msgid "_Breakpoints ..."
 msgstr "Kýrýlma Noktasý ..."
 
-#: src/main_menubar_def.h:1111
+#: src/main_menubar_def.h:1129
 msgid "Edit breakpoints"
 msgstr "Kýrýlma noktasýný Düzenle"
 
-#: src/main_menubar_def.h:1116
+#: src/main_menubar_def.h:1134
 msgid "Disable all Breakpoints"
 msgstr "Bütün Kýrýlma Noktalarýný Pasifleþtir"
 
-#: src/main_menubar_def.h:1117
+#: src/main_menubar_def.h:1135
 msgid "Deactivate all breakpoints"
 msgstr "Bütün Kýrýlma Noktalarýný Pasifleþtir"
 
-#: src/main_menubar_def.h:1122
+#: src/main_menubar_def.h:1140
 msgid "C_lear all Breakpoints"
 msgstr "Bütün Kýrýlma Noktalarýný Sil"
 
-#: src/main_menubar_def.h:1123
+#: src/main_menubar_def.h:1141
 msgid "Delete all breakpoints"
 msgstr "Bütün kýrýlma noktalarýný sil"
 
-#: src/main_menubar_def.h:1132
+#: src/main_menubar_def.h:1150
 msgid "Info _Target Files"
 msgstr "Hedeh Dosyalar Bilgisi"
 
-#: src/main_menubar_def.h:1133
+#: src/main_menubar_def.h:1151
 msgid "Display information on the files the debugger is active with"
 msgstr "Hata ayýklayýcýsý ile etkin olan dosyalar bilgilerini göster"
 
-#: src/main_menubar_def.h:1138
+#: src/main_menubar_def.h:1156
 msgid "Info _Program"
 msgstr "Programýn açýklamasý"
 
-#: src/main_menubar_def.h:1139
+#: src/main_menubar_def.h:1157
 msgid "Display information on the execution status of the program"
 msgstr "Programýn çalýþma durumu hakkýndaki açýklamalarý al"
 
-#: src/main_menubar_def.h:1144
+#: src/main_menubar_def.h:1162
 msgid "Info _Kernel User Struct"
 msgstr "Kernel Kullanýcý Yapý Bilgisi"
 
-#: src/main_menubar_def.h:1145
+#: src/main_menubar_def.h:1163
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Aktif alt kullanýcý için kullanýcý yapýsý çekirdek içeriðini al"
 
-#: src/main_menubar_def.h:1150
+#: src/main_menubar_def.h:1168
 msgid "Info _Threads"
 msgstr "_Thread Bilgisi"
 
-#: src/main_menubar_def.h:1151
+#: src/main_menubar_def.h:1169
 msgid "Display the IDs of currently known threads"
 msgstr "Þu anda bilinen thread ID bilgisini göster"
 
-#: src/main_menubar_def.h:1156
+#: src/main_menubar_def.h:1174
 msgid "Info _Global variables"
 msgstr "Genel deðiþkenlerin açýklamasý"
 
-#: src/main_menubar_def.h:1157
+#: src/main_menubar_def.h:1175
 msgid "Display all global and static variables of the program"
 msgstr "Programdaki tüm genel ve kalýcý deðiþkenleri göster"
 
-#: src/main_menubar_def.h:1162
+#: src/main_menubar_def.h:1180
 msgid "Info _Local variables"
 msgstr "Yerel deðiþkenlerin açýklamalarý"
 
-#: src/main_menubar_def.h:1163
+#: src/main_menubar_def.h:1181
 msgid "Display local variables of the current frame"
 msgstr "Aktif ekrandaki tüm yerel deðiþkenleri göster"
 
-#: src/main_menubar_def.h:1168
+#: src/main_menubar_def.h:1186
 msgid "Info _Current Frame"
 msgstr "Aktif yapý açýklamalarý"
 
-#: src/main_menubar_def.h:1169
+#: src/main_menubar_def.h:1187
 msgid "Display information about the current frame of execution"
 msgstr "Uygulamanýn aktif yapýsý hakkýndaki açýklamalarý göster"
 
-#: src/main_menubar_def.h:1174
+#: src/main_menubar_def.h:1192
 msgid "Info Function _Arguments"
 msgstr "Fonksiyonun arguman açýklamalarý"
 
-#: src/main_menubar_def.h:1175
+#: src/main_menubar_def.h:1193
 msgid "Display function arguments of the current frame"
 msgstr "Aktif yapýdaki fonksiyonun argumanlarýný göster"
 
-#: src/main_menubar_def.h:1184
+#: src/main_menubar_def.h:1202
 msgid "_Start Debugger"
 msgstr "Hata ayýklayýcýyý baþlat"
 
-#: src/main_menubar_def.h:1185
+#: src/main_menubar_def.h:1203
 msgid "Start the debugging session"
 msgstr "Hata ayýklayýcý oturumunu baþlat"
 
-#: src/main_menubar_def.h:1191
+#: src/main_menubar_def.h:1209
 msgid "Load E_xecutable ..."
 msgstr "Uygulamayý yükle"
 
-#: src/main_menubar_def.h:1192
+#: src/main_menubar_def.h:1210
 msgid "Open the executable for debugging"
 msgstr "Hata ayýklayýcý için uygulamayý baþlat"
 
-#: src/main_menubar_def.h:1197
+#: src/main_menubar_def.h:1215
 msgid "Load _Core file ..."
 msgstr "CORE dosyasýný yükle"
 
-#: src/main_menubar_def.h:1198
+#: src/main_menubar_def.h:1216
 msgid "Load a core file to dissect"
 msgstr "Bir core dosyasý yükle"
 
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1221
 msgid "_Attach to Process ..."
 msgstr "Ýþleme baðlan..."
 
-#: src/main_menubar_def.h:1204
+#: src/main_menubar_def.h:1222
 msgid "Attach to a running program"
 msgstr "Çalýþan uygulamaya ekle"
 
-#: src/main_menubar_def.h:1210
+#: src/main_menubar_def.h:1228
 msgid "_Restart Program"
 msgstr "Programý yeniden baþlat"
 
-#: src/main_menubar_def.h:1211
+#: src/main_menubar_def.h:1229
 msgid "Stop and restart the program"
 msgstr "Programý durdur ve yeniden baþlat"
 
-#: src/main_menubar_def.h:1216
+#: src/main_menubar_def.h:1234
 msgid "S_top Program"
 msgstr "Programý durdur"
 
-#: src/main_menubar_def.h:1217
+#: src/main_menubar_def.h:1235
 msgid "Stop the program being debugged"
 msgstr "Programýn hata ayýklama iþlemini durdur"
 
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1240
 msgid "_Detach Debugger"
 msgstr "Hata ayýklayýcýyý ayýr"
 
-#: src/main_menubar_def.h:1223
+#: src/main_menubar_def.h:1241
 msgid "Detach from an attached program"
 msgstr "Eklenen programdan çýkart"
 
-#: src/main_menubar_def.h:1229
+#: src/main_menubar_def.h:1247
 msgid "I_nterrupt Program"
 msgstr "Programý Kesme"
 
-#: src/main_menubar_def.h:1230 src/toolbar.c:996
+#: src/main_menubar_def.h:1248 src/toolbar.c:996
 msgid "Interrupt execution of the program"
 msgstr "Programý kesintiden çalýþtýrmaya devam eder"
 
-#: src/main_menubar_def.h:1235
+#: src/main_menubar_def.h:1253
 msgid "Si_gnal to Process"
 msgstr "Ýþlem Sinyali"
 
-#: src/main_menubar_def.h:1236
+#: src/main_menubar_def.h:1254
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Hata ayýklama iþlemine çekirdek sinyalini gönder"
 
-#: src/main_menubar_def.h:1242
+#: src/main_menubar_def.h:1260
 msgid "_Execution"
 msgstr "Çalýþtýr"
 
-#: src/main_menubar_def.h:1255
+#: src/main_menubar_def.h:1273
 msgid "_Information"
 msgstr "B_ilgi"
 
-#: src/main_menubar_def.h:1262
+#: src/main_menubar_def.h:1280
 msgid "Ins_pect/Evaluate ..."
 msgstr "Ýncele/Deðerlendir"
 
-#: src/main_menubar_def.h:1263
+#: src/main_menubar_def.h:1281
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Ýfade veya deðiþkeni incele veya deðerlendir"
 
-#: src/main_menubar_def.h:1268
+#: src/main_menubar_def.h:1286
 msgid "Add Expression in _Watch ..."
 msgstr "Ýfadeyi gözcüye ekle"
 
-#: src/main_menubar_def.h:1269
+#: src/main_menubar_def.h:1287
 msgid "Add expression or variable to the watch"
 msgstr "Ýfade veya deðiþkeni gözcü listesine ekle"
 
-#: src/main_menubar_def.h:1275
+#: src/main_menubar_def.h:1293
 msgid "St_op Debugger"
 msgstr "Hata ayýklayýcýyý durdur"
 
-#: src/main_menubar_def.h:1276
+#: src/main_menubar_def.h:1294
 msgid "Say goodbye to the debugger"
 msgstr "Hata ayýklayýcýyý kapatýlýr"
 
-#: src/main_menubar_def.h:1285
+#: src/main_menubar_def.h:1303
 msgid "Grep Utility"
 msgstr "Dosya içerik yardýmcýsý"
 
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1309
 msgid "Compare two files"
 msgstr "Ýki dosyayý karþýlaþtýr"
 
-#: src/main_menubar_def.h:1297
+#: src/main_menubar_def.h:1315
 msgid "Diff Utility"
 msgstr "Fark yardýmcýsý"
 
-#: src/main_menubar_def.h:1303
+#: src/main_menubar_def.h:1321
 msgid "File View (Char/Octal/Hex)"
 msgstr "Dosya görünümü (Char/Oktal/Hex)"
 
-#: src/main_menubar_def.h:1310
+#: src/main_menubar_def.h:1328
 msgid "Declarations"
 msgstr "Bildiriler"
 
-#: src/main_menubar_def.h:1316
+#: src/main_menubar_def.h:1334
 msgid "C Flow"
 msgstr "C akýþ"
 
-#: src/main_menubar_def.h:1322
+#: src/main_menubar_def.h:1340
 msgid "C Cross-reference"
 msgstr "C çapraz-baþvuru"
 
-#: src/main_menubar_def.h:1328
+#: src/main_menubar_def.h:1346
 msgid "C Trace"
 msgstr "C izleme"
 
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1353
 msgid "Backup Manager"
 msgstr "Yedekleme Yöneticisi"
 
 # /main_menubar_def.h:1309
-#: src/main_menubar_def.h:1345
+#: src/main_menubar_def.h:1363
 msgid "_Create New Window"
 msgstr "Yeni Pencere Yarat"
 
-#: src/main_menubar_def.h:1346
+#: src/main_menubar_def.h:1364
 msgid "Open a new file window"
 msgstr "Yeni bir pencere aç"
 
-#: src/main_menubar_def.h:1356
+#: src/main_menubar_def.h:1374
 msgid "Close current document window"
 msgstr "Þu anki dökuman penceresini kapat"
 
-#: src/main_menubar_def.h:1365
+#: src/main_menubar_def.h:1383
 msgid "_Compiler and Linker Settings ..."
 msgstr "Derleyici ve baðlama(link) ayarlarý..."
 
-#: src/main_menubar_def.h:1366
+#: src/main_menubar_def.h:1384
 msgid "Settings for the compiler and linker"
 msgstr "Derleyici ve baðlayýcý(linker) ayarlarý"
 
-#: src/main_menubar_def.h:1371
+#: src/main_menubar_def.h:1389
 msgid "_Source Paths ..."
 msgstr "Kaynak Kod Dizini ..."
 
-#: src/main_menubar_def.h:1372
+#: src/main_menubar_def.h:1390
 msgid "Specify the source paths for the Anjuta to search"
 msgstr "Arama yapmak için Anjutaya kaynak yollari belirt"
 
-#: src/main_menubar_def.h:1377
+#: src/main_menubar_def.h:1395
 msgid "_Commands ..."
 msgstr "Komutlar ..."
 
-#: src/main_menubar_def.h:1378
+#: src/main_menubar_def.h:1396
 msgid "Specify the various commands for use"
 msgstr "Kullaným için çeþitli komutlarý belirt"
 
-#: src/main_menubar_def.h:1384
+#: src/main_menubar_def.h:1402
 msgid "_Preferences ..."
 msgstr "Ayarlar ..."
 
-#: src/main_menubar_def.h:1385
+#: src/main_menubar_def.h:1403
 msgid "Do your prefer coffee to tea? Check it out."
 msgstr "Kahve çayý tercih edermisiniz ? Dýþarý onu kontrol et."
 
-#: src/main_menubar_def.h:1390
+#: src/main_menubar_def.h:1408
 msgid "Set _Default Preferences"
 msgstr "Geçerli Ayarlarý Sýfýrla"
 
-#: src/main_menubar_def.h:1391
+#: src/main_menubar_def.h:1409
 msgid "But I prefer tea."
 msgstr "Ama çayý tercih ederim"
 
-#: src/main_menubar_def.h:1402
+#: src/main_menubar_def.h:1420
 msgid "Browse Gnome API Pages"
 msgstr "Bilgi Sayfalarýnda Gezinti"
 
-#: src/main_menubar_def.h:1403
+#: src/main_menubar_def.h:1421
 msgid "The gnome API pages"
 msgstr "Gnome API sayfalarý"
 
-#: src/main_menubar_def.h:1408
+#: src/main_menubar_def.h:1426
 msgid "Browse Man Pages"
 msgstr "Man sayfalarýna gözat"
 
-#: src/main_menubar_def.h:1409
+#: src/main_menubar_def.h:1427
 msgid "The good old manual pages"
 msgstr "Eski iyi yardým sayfalarý"
 
-#: src/main_menubar_def.h:1414
+#: src/main_menubar_def.h:1432
 msgid "Browse Info Pages"
 msgstr "Bilgi Sayfalarýnda Gezinti"
 
-#: src/main_menubar_def.h:1415
+#: src/main_menubar_def.h:1433
 msgid "Info pages, where you cannot find what you are looking for"
 msgstr "Açýklama sayfalarý, nerede bulamadýnýz, neye baktýnýz"
 
-#: src/main_menubar_def.h:1421 src/text_editor_menu.c:224
+#: src/main_menubar_def.h:1439 src/text_editor_menu.c:224
 msgid "Context Help"
 msgstr "Konuya Göre Yardým"
 
-#: src/main_menubar_def.h:1422
+#: src/main_menubar_def.h:1440
 msgid "Search help for the current word in the editor"
 msgstr "Editör içinde yazý dizesi aramak için yardým"
 
-#: src/main_menubar_def.h:1427
+#: src/main_menubar_def.h:1445
 msgid "Search a topic"
 msgstr "Konu ara"
 
-#: src/main_menubar_def.h:1428
+#: src/main_menubar_def.h:1446
 msgid "May I help you?"
 msgstr "Yardým edebilirmiyim?"
 
-#: src/main_menubar_def.h:1434
+#: src/main_menubar_def.h:1452
 msgid "Anjuta Home site"
 msgstr "Anjuta Ana sitesi"
 
-#: src/main_menubar_def.h:1435
+#: src/main_menubar_def.h:1453
 msgid "Online documentation and resources"
 msgstr "Online dökümantasyon ve kaynaklar"
 
-#: src/main_menubar_def.h:1441
+#: src/main_menubar_def.h:1459
 msgid "Libraries API references"
 msgstr "API referans kütüphanesi"
 
-#: src/main_menubar_def.h:1442
+#: src/main_menubar_def.h:1460
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "GTK, Glib, GNOME vs.. için online referans kütüphanesi"
 
-#: src/main_menubar_def.h:1447
+#: src/main_menubar_def.h:1465
 msgid "Report Bugs"
 msgstr "Hatalar Raporu"
 
-#: src/main_menubar_def.h:1448
+#: src/main_menubar_def.h:1466
 msgid "Submit a bug report for Anjuta"
 msgstr "Anjuta için hata raporu yolla"
 
-#: src/main_menubar_def.h:1453
+#: src/main_menubar_def.h:1471
 msgid "Request Features"
 msgstr "Request Features"
 
-#: src/main_menubar_def.h:1454
+#: src/main_menubar_def.h:1472
 msgid "Submit a feature request for Anjtua"
 msgstr "Submit a feature request for Anjtua"
 
-#: src/main_menubar_def.h:1459
+#: src/main_menubar_def.h:1477
 msgid "Submit patches"
 msgstr "Yama yolla"
 
-#: src/main_menubar_def.h:1460
+#: src/main_menubar_def.h:1478
 msgid "Submit patches for Anjuta"
 msgstr "Anjuta için yama yolla"
 
-#: src/main_menubar_def.h:1465
+#: src/main_menubar_def.h:1483
 msgid "Ask a question"
 msgstr "Bir soru sor"
 
-#: src/main_menubar_def.h:1466
+#: src/main_menubar_def.h:1484
 msgid "Submit a question for FAQs"
 msgstr "FAQ için bir soru yolla"
 
-#: src/main_menubar_def.h:1480
+#: src/main_menubar_def.h:1498
 msgid "_Project"
 msgstr "_Proje"
 
-#: src/main_menubar_def.h:1486
+#: src/main_menubar_def.h:1504
 msgid "For_mat"
 msgstr "Biçi_m"
 
-#: src/main_menubar_def.h:1498
+#: src/main_menubar_def.h:1516
 msgid "Bookmar_k"
 msgstr "Bookmar_k"
 
-#: src/main_menubar_def.h:1504
+#: src/main_menubar_def.h:1522
 msgid "_Debug"
 msgstr "Hata ayýklayýcý"
 
-#: src/main_menubar_def.h:1510
+#: src/main_menubar_def.h:1528
 msgid "_Utilities"
 msgstr "Yardýmcýlar"
 
-#: src/main_menubar_def.h:1526
+#: src/main_menubar_def.h:1544
 msgid "_Settings"
 msgstr "Ayarlar"
 
-#: src/mainmenu_callbacks.c:118
+#: src/mainmenu_callbacks.c:120
 msgid "All files saved ..."
 msgstr "Bütün dosyalarýn kayýt et ..."
 
-#: src/mainmenu_callbacks.c:135
+#: src/mainmenu_callbacks.c:137
 #, c-format
 msgid ""
 "The file \"%s\" is not saved.\n"
@@ -3174,7 +3209,7 @@ msgstr ""
 "\"%s\" dosyasý kaydedilemedi.\n"
 "Kapatmadan önce kayýt etmek istermsiniz?"
 
-#: src/mainmenu_callbacks.c:186
+#: src/mainmenu_callbacks.c:188
 #, c-format
 msgid ""
 "Are you sure you want to reload %s.\n"
@@ -3183,12 +3218,12 @@ msgstr ""
 "%s dosyasýný yeniden yüklemek istediðinizden eminmisiniz.\n"
 "Kaydetmediðiniz deðiþiklikleri kaybedeceksiniz."
 
-#: src/mainmenu_callbacks.c:256
+#: src/mainmenu_callbacks.c:258
 #, c-format
 msgid "Could not execute cmd: %s"
 msgstr "Komut çalýþtýrýlamadý: %s"
 
-#: src/mainmenu_callbacks.c:263
+#: src/mainmenu_callbacks.c:265
 #, c-format
 msgid ""
 "There was an error while printing.\n"
@@ -3197,31 +3232,31 @@ msgstr ""
 "Yazdýrma yapýlýrken bir hata ile karþýlaþýldý.\n"
 "Komut: %s"
 
-#: src/mainmenu_callbacks.c:269
+#: src/mainmenu_callbacks.c:271
 msgid "The file has been sent for printing."
 msgstr "Dosya yazýcýya yollandý."
 
-#: src/mainmenu_callbacks.c:285
+#: src/mainmenu_callbacks.c:287
 msgid "You must save the file first and then print"
 msgstr "Dosyayý yazdýrmadan önce kayýt etmek zorundasýnýz"
 
-#: src/mainmenu_callbacks.c:289
+#: src/mainmenu_callbacks.c:291
 msgid "Are you sure you want to print the current file?"
 msgstr "Þu anlki dosyayý yazdýrmak istediðinizden eminmisiniz?"
 
-#: src/mainmenu_callbacks.c:1113
+#: src/mainmenu_callbacks.c:1128
 msgid "Tags image update successfully."
 msgstr "Etiket resmi baþarýyla güncellendi"
 
-#: src/mainmenu_callbacks.c:1526
+#: src/mainmenu_callbacks.c:1541
 msgid "Executable does not exsits this project."
 msgstr "Bu projenin çalýþtýrýlabilir uygulamasý yok"
 
-#: src/mainmenu_callbacks.c:1577
+#: src/mainmenu_callbacks.c:1592
 msgid "Debugger is not running. Start it first."
 msgstr "Hata ayýklayýcý çalýþmýyor.Ýlk önce çalýþtýrýn"
 
-#: src/mainmenu_callbacks.c:1613
+#: src/mainmenu_callbacks.c:1628
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3229,7 +3264,7 @@ msgstr ""
 "Program baðlý.\n"
 "Hata ayýklayýcýyý durdurmak istiyormusunuz ?"
 
-#: src/mainmenu_callbacks.c:1623
+#: src/mainmenu_callbacks.c:1638
 msgid ""
 "Program is running.\n"
 "Do you still want to stop Debugger?"
@@ -3237,48 +3272,56 @@ msgstr ""
 "Program çalýþýyor.\n"
 "Debugger durdurmak istiyormusunuz?"
 
-#: src/mainmenu_callbacks.c:1802 src/mainmenu_callbacks.c:1820
-#: src/mainmenu_callbacks.c:1848 src/mainmenu_callbacks.c:1866
+#: src/mainmenu_callbacks.c:1817 src/mainmenu_callbacks.c:1835
+#: src/mainmenu_callbacks.c:1863 src/mainmenu_callbacks.c:1881
 msgid "Cannot launch gnome-help-browser"
 msgstr "gnome-help-browser çalýþtýrýlamadý"
 
-#: src/messages.c:221
+#: src/messages.c:253
 msgid "Unknown type in Message window\n"
 msgstr "Mesaj penceresinin tipi bilinmiyor\n"
 
-#: src/messages.c:491 src/toolbar.c:294
-msgid "Messages"
-msgstr "Mesajlar"
-
-#: src/messages.c:524
+#: src/messages.c:504
 msgid "Build messages"
 msgstr "Mesajlarý yapýlandýr"
 
-#: src/messages.c:541
+#: src/messages.c:505
 msgid "Debug messages"
 msgstr "Hata ayýklayýcý mesajlarý"
 
-#: src/messages.c:550 src/text_editor_menu.c:270 src/toolbar.c:511
-msgid "Debug"
-msgstr "Hata ayýklayýcý"
-
-#: src/messages.c:557
+#: src/messages.c:506
 msgid "Find messages"
 msgstr "Mesajlarý ara"
 
-#: src/messages.c:573
+#: src/messages.c:507
 msgid "CVS messages"
 msgstr "CVS mesajlarý"
 
-#: src/messages.c:582
+#: src/messages.c:508
+msgid "Debug Locals Listing"
+msgstr "Yerel Listeleri Ayýkla"
+
+#: src/messages.c:518 src/text_editor_menu.c:270 src/toolbar.c:511
+msgid "Debug"
+msgstr "Hata ayýklayýcý"
+
+#: src/messages.c:520
 msgid "CVS"
 msgstr "CVS"
 
-#: src/messages.c:589
+#: src/messages.c:521
+msgid "Locals"
+msgstr "Yerel"
+
+#: src/messages.c:592 src/toolbar.c:294
+msgid "Messages"
+msgstr "Mesajlar"
+
+#: src/messages.c:629
 msgid "Dock window"
 msgstr "Gömülü pencere"
 
-#: src/messages.c:598
+#: src/messages.c:638
 msgid "Dock"
 msgstr "Gömülü"
 
@@ -3568,25 +3611,25 @@ msgid "Update tags image automatically"
 msgstr "Otomatik olarak etiket resmini güncelle"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:286 src/toolbar.c:413
+#: src/project_dbase.c:307 src/toolbar.c:413
 msgid "Open Project"
 msgstr "Proje Aç"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:293
+#: src/project_dbase.c:314
 msgid "Add To Project"
 msgstr "Projeye Ekle"
 
-#: src/project_dbase.c:307 src/project_dbase.c:449 src/project_dbase_gui.c:532
+#: src/project_dbase.c:328 src/project_dbase.c:472 src/project_dbase_gui.c:533
 msgid "Project: None"
 msgstr "Proje: Yok"
 
-#: src/project_dbase.c:583 src/project_dbase.c:602
+#: src/project_dbase.c:607 src/project_dbase.c:626
 #, c-format
 msgid "Couldn't load project: %s"
 msgstr "%s projesi yüklenemesi"
 
-#: src/project_dbase.c:594
+#: src/project_dbase.c:618
 #, c-format
 msgid ""
 "Error: You need Anjuta version %s or later to open this project.\n"
@@ -3597,7 +3640,7 @@ msgstr ""
 "Lütfen Anjutanýn enson sürümünü edinin (Daha çok bilgi için yardým).\n"
 "Þimdilik onu yüklemek için çok eskiyim.:-("
 
-#: src/project_dbase.c:665
+#: src/project_dbase.c:770
 #, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
@@ -3608,24 +3651,24 @@ msgstr ""
 "Lütfen Anjutanýn enson sürümünü edinin (Daha çok bilgi için yardým).\n"
 "Þimdilik onu yüklemek için çok eskiyim.:-("
 
-#: src/project_dbase.c:725
+#: src/project_dbase.c:830
 msgid "Project loaded successfully."
 msgstr "Proje baþarýyla yüklendi."
 
-#: src/project_dbase.c:737 src/project_dbase.c:741
+#: src/project_dbase.c:845 src/project_dbase.c:849
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Proje yüklenmesinde hata oluþtu: %s"
 
-#: src/project_dbase.c:971
+#: src/project_dbase.c:1079
 msgid "Project Saved Successfully"
 msgstr "Proje Baþarýyla Kaydedildi"
 
-#: src/project_dbase.c:977 src/project_dbase.c:979
+#: src/project_dbase.c:1085 src/project_dbase.c:1087
 msgid "Unable to save the project."
 msgstr "Kaydedilen projeye eriþilemedi"
 
-#: src/project_dbase.c:1276 src/project_dbase.c:1309
+#: src/project_dbase.c:1461 src/project_dbase.c:1494
 msgid ""
 "The Project glade file does not\n"
 "exist in the top level project directory."
@@ -3634,7 +3677,7 @@ msgstr ""
 "dizininde bulunamaz."
 
 #. Set project title
-#: src/project_dbase.c:1721
+#: src/project_dbase.c:1909
 msgid "Project: "
 msgstr "Proje: "
 
@@ -3783,98 +3826,98 @@ msgstr ""
 msgid "There is already a project opened.Do you want to close it first?"
 msgstr "Proje þu an açýk,Önce onu kapatmak istermisiniz ?"
 
-#: src/project_dbase_gui.c:427
+#: src/project_dbase_gui.c:428
 msgid "Doc file"
 msgstr "Döküman dosyasý"
 
-#: src/project_dbase_gui.c:450
+#: src/project_dbase_gui.c:451
 msgid "View"
 msgstr "Göster"
 
-#: src/project_dbase_gui.c:470
+#: src/project_dbase_gui.c:471
 msgid "Configure Project"
 msgstr "Proje Konfigürasyonu"
 
-#: src/project_dbase_gui.c:476
+#: src/project_dbase_gui.c:477
 msgid "Project Info"
 msgstr "Proje Bilgisi"
 
-#: src/project_dbase_gui.c:483 src/registers_gui.c:53 src/sharedlib_gui.c:46
+#: src/project_dbase_gui.c:484 src/registers_gui.c:53 src/sharedlib_gui.c:46
 #: src/signals_gui.c:59 src/stack_trace_gui.c:65 src/watch_gui.c:67
 msgid "Dock/Undock"
 msgstr "Gömülü/Ayrýk"
 
-#: src/project_dbase_gui.c:489 src/registers_gui.c:60 src/sharedlib_gui.c:53
+#: src/project_dbase_gui.c:490 src/registers_gui.c:60 src/sharedlib_gui.c:53
 #: src/signals_gui.c:66 src/stack_trace_gui.c:72 src/toolbar.c:308
 #: src/watch_gui.c:73
 msgid "Help"
 msgstr "Yardým"
 
-#: src/project_dbase_gui.c:551 src/toolbar.c:283
+#: src/project_dbase_gui.c:552 src/toolbar.c:283
 msgid "Project"
 msgstr "Proje"
 
-#: src/project_dbase_gui.c:658
+#: src/project_dbase_gui.c:659
 msgid "Project Information"
 msgstr "Proje Bilgisi"
 
-#: src/project_dbase_gui.c:665
+#: src/project_dbase_gui.c:666
 msgid " Project Information "
 msgstr " Proje Bilgisi "
 
-#: src/project_dbase_gui.c:701
+#: src/project_dbase_gui.c:702
 msgid "Author:"
 msgstr "Yazar:"
 
-#: src/project_dbase_gui.c:788
+#: src/project_dbase_gui.c:789
 msgid "Program Name:"
 msgstr "Program Adý:"
 
-#: src/project_dbase_gui.c:795
+#: src/project_dbase_gui.c:796
 msgid "No of src files:"
 msgstr "Kaynak dosyasý yok:"
 
-#: src/project_dbase_gui.c:802
+#: src/project_dbase_gui.c:803
 msgid "No of help files:"
 msgstr "Yardým dosyalarý yok:"
 
-#: src/project_dbase_gui.c:809
+#: src/project_dbase_gui.c:810
 msgid "No of data files:"
 msgstr "Data dosyasý yok:"
 
-#: src/project_dbase_gui.c:816
+#: src/project_dbase_gui.c:817
 msgid "No of pix files:"
 msgstr "Resim dosyasý yok:"
 
-#: src/project_dbase_gui.c:823
+#: src/project_dbase_gui.c:824
 msgid "No of doc files:"
 msgstr "Belge dosyasý yok:"
 
-#: src/project_dbase_gui.c:844
+#: src/project_dbase_gui.c:845
 msgid "No of po files:"
 msgstr "Belge (po) dosyasý yok:"
 
-#: src/project_dbase_gui.c:851
+#: src/project_dbase_gui.c:852
 msgid "Version:"
 msgstr "Sürüm:"
 
-#: src/project_dbase_gui.c:874
+#: src/project_dbase_gui.c:875
 msgid "GUI editable by Glade:"
 msgstr "Arayüz Glade tarafýndan düzenlendi:"
 
-#: src/project_dbase_gui.c:896
+#: src/project_dbase_gui.c:897
 msgid "Makefiles managed:"
 msgstr "Makefiles yönetici:"
 
-#: src/project_dbase_gui.c:938
+#: src/project_dbase_gui.c:939
 msgid "Gettext support:"
 msgstr "Gettext içeriði:"
 
-#: src/project_dbase_gui.c:996
+#: src/project_dbase_gui.c:997
 msgid "Project Type:"
 msgstr "Proje Tipi:"
 
-#: src/project_dbase_gui.c:1039
+#: src/project_dbase_gui.c:1040
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -3882,135 +3925,135 @@ msgstr ""
 "Proje kaydedilmedi.\n"
 "Kapatmadan önce kaydetmek istermisiniz?"
 
-#: src/project_dbase_gui.c:1056 src/project_dbase_gui.c:1176
+#: src/project_dbase_gui.c:1057 src/project_dbase_gui.c:1177
 msgid "Breton"
 msgstr "Breaton"
 
-#: src/project_dbase_gui.c:1057
+#: src/project_dbase_gui.c:1058
 msgid "Catalan"
 msgstr "Catalan"
 
-#: src/project_dbase_gui.c:1058
+#: src/project_dbase_gui.c:1059
 msgid "Czech"
 msgstr "Çekçe"
 
-#: src/project_dbase_gui.c:1059
+#: src/project_dbase_gui.c:1060
 msgid "Danish"
 msgstr "Danirmarkaca"
 
-#: src/project_dbase_gui.c:1060
+#: src/project_dbase_gui.c:1061
 msgid "German"
 msgstr "Almanca"
 
-#: src/project_dbase_gui.c:1061
+#: src/project_dbase_gui.c:1062
 msgid "Greek"
 msgstr "Yunanca"
 
-#: src/project_dbase_gui.c:1062
+#: src/project_dbase_gui.c:1063
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1063
+#: src/project_dbase_gui.c:1064
 msgid "Spanish"
 msgstr "Ýspanyolca"
 
-#: src/project_dbase_gui.c:1064
+#: src/project_dbase_gui.c:1065
 msgid "Finnish"
 msgstr "Finçe"
 
-#: src/project_dbase_gui.c:1065
+#: src/project_dbase_gui.c:1066
 msgid "French"
 msgstr "Fransýzca"
 
-#: src/project_dbase_gui.c:1066
+#: src/project_dbase_gui.c:1067
 msgid "Herbrew"
 msgstr "Herbrew"
 
-#: src/project_dbase_gui.c:1067 src/project_dbase_gui.c:1071
+#: src/project_dbase_gui.c:1068 src/project_dbase_gui.c:1072
 msgid "Croatian"
 msgstr "Croatian"
 
-#: src/project_dbase_gui.c:1068
+#: src/project_dbase_gui.c:1069
 msgid "Hungarian"
 msgstr "Macarca"
 
-#: src/project_dbase_gui.c:1069
+#: src/project_dbase_gui.c:1070
 msgid "Islandic"
 msgstr "Ýzlandaca"
 
-#: src/project_dbase_gui.c:1070
+#: src/project_dbase_gui.c:1071
 msgid "Italian"
 msgstr "Ýtalyanca"
 
-#: src/project_dbase_gui.c:1072
+#: src/project_dbase_gui.c:1073
 msgid "Korean"
 msgstr "Korece"
 
-#: src/project_dbase_gui.c:1073
+#: src/project_dbase_gui.c:1074
 msgid "Macedonian"
 msgstr "Makedonyaca"
 
-#: src/project_dbase_gui.c:1074
+#: src/project_dbase_gui.c:1075
 msgid "Dutch"
 msgstr "Almanca"
 
-#: src/project_dbase_gui.c:1075
+#: src/project_dbase_gui.c:1076
 msgid "Norwegian"
 msgstr "Norveççe"
 
-#: src/project_dbase_gui.c:1076
+#: src/project_dbase_gui.c:1077
 msgid "Polish"
 msgstr "Polonyaca"
 
-#: src/project_dbase_gui.c:1077
+#: src/project_dbase_gui.c:1078
 msgid "Portuguese"
 msgstr "Portekizce"
 
-#: src/project_dbase_gui.c:1078
+#: src/project_dbase_gui.c:1079
 msgid "Romanian"
 msgstr "Romençe"
 
-#: src/project_dbase_gui.c:1079
+#: src/project_dbase_gui.c:1080
 msgid "Russian"
 msgstr "Rusça"
 
-#: src/project_dbase_gui.c:1080
+#: src/project_dbase_gui.c:1081
 msgid "Slovak"
 msgstr "Slovakça"
 
-#: src/project_dbase_gui.c:1081
+#: src/project_dbase_gui.c:1082
 msgid "Turkish"
 msgstr "Türkçe"
 
-#: src/project_dbase_gui.c:1082
+#: src/project_dbase_gui.c:1083
 msgid "Simplified Chinese"
 msgstr "Basitleþtirilmiþ Çince"
 
-#: src/project_dbase_gui.c:1083
+#: src/project_dbase_gui.c:1084
 msgid "Chinese"
 msgstr "Çinçe"
 
-#: src/project_dbase_gui.c:1084
+#: src/project_dbase_gui.c:1085
 msgid "Estonian"
 msgstr "Estonyaca"
 
-#: src/project_dbase_gui.c:1128
+#: src/project_dbase_gui.c:1129
 msgid "Select regional language"
 msgstr "Lisan Seçiniz"
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1145
 msgid "Select Regional Language:"
 msgstr "Bölge Lisanýný Seçiniz:"
 
-#: src/project_dbase_gui.c:1256
+#: src/project_dbase_gui.c:1257
 msgid "This file has already been added to the project."
 msgstr "Bu dosya projeye zaten eklendi."
 
-#: src/project_dbase_gui.c:1286
+#: src/project_dbase_gui.c:1287
 msgid "Error while copying the file inside the module."
 msgstr "Modül içine dosya kopyalarken hata oluþtu."
 
-#: src/project_dbase_gui.c:1337
+#: src/project_dbase_gui.c:1339
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -4202,7 +4245,7 @@ msgstr "Dosya Kaydedilemedi: %s"
 msgid "File Saved successfully"
 msgstr "Dosya Baþarýyla kaydedildi"
 
-#: src/text_editor.c:750
+#: src/text_editor.c:755
 #, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
@@ -4212,19 +4255,19 @@ msgstr ""
 "Uyarý: \"%s\" dosyasý aktif tampon bellektekinden daha eski\n"
 "yeniden yüklememi istermisin?"
 
-#: src/text_editor.c:865
+#: src/text_editor.c:871
 msgid "Autoformat is disablde. If you want, enable in Preferences."
 msgstr "Otoformat kapatýldý. Açmak için Ayarlar bölümüne bakýnýz."
 
-#: src/text_editor.c:871
+#: src/text_editor.c:877
 msgid "Auto formating ..."
 msgstr "Otomatik formatlanýyor ..."
 
-#: src/text_editor.c:881 src/text_editor.c:908
+#: src/text_editor.c:887 src/text_editor.c:914
 msgid "Error in auto formating ..."
 msgstr "Otoformat hatalý ..."
 
-#: src/text_editor.c:914
+#: src/text_editor.c:920
 msgid "Auto formating completed"
 msgstr "Otoformat tamalandý"
 
@@ -4769,23 +4812,23 @@ msgstr "Makrolar"
 msgid "There is line no. %d in \"%s\"."
 msgstr "Bu satýr yok. %d içinde \"%s\"."
 
-#: src/utilities.c:673
+#: src/utilities.c:689
 #, c-format
 msgid "Couldn't read file: %s."
 msgstr "Dosya okunamadý :%s."
 
-#: src/source.c:120 src/source.c:188 src/source.c:226 src/source.c:500
-#: src/source.c:523 src/source.c:610 src/source.c:675 src/source.c:715
-#: src/source.c:730 src/source.c:763 src/source.c:830 src/source.c:900
-#: src/source.c:919 src/source.c:952 src/source.c:971 src/source.c:1003
-#: src/source.c:1022 src/source.c:1052 src/source.c:1070 src/source.c:1100
-#: src/source.c:1118 src/source.c:1145 src/source.c:1197 src/source.c:1265
-#: src/source.c:1384 src/utilities.c:681
+#: src/source.c:121 src/source.c:168 src/source.c:206 src/source.c:442
+#: src/source.c:466 src/source.c:551 src/source.c:617 src/source.c:657
+#: src/source.c:672 src/source.c:705 src/source.c:734 src/source.c:805
+#: src/source.c:824 src/source.c:857 src/source.c:877 src/source.c:910
+#: src/source.c:930 src/source.c:961 src/source.c:979 src/source.c:1009
+#: src/source.c:1027 src/source.c:1054 src/source.c:1106 src/source.c:1177
+#: src/source.c:1309 src/utilities.c:697
 #, c-format
 msgid "Couldn't create file: %s."
 msgstr "Dosya oluþturulamadý: %s."
 
-#: src/utilities.c:715
+#: src/utilities.c:731
 msgid "Couldn't complete file copy"
 msgstr "Dosya kopyalanmasý tamamlanamadý"
 
@@ -4825,13 +4868,17 @@ msgstr "Ýfade Ýzleri Ekle"
 msgid "Add expression to watch"
 msgstr "Ýzlemek için ifadeyi ekle"
 
-#: src/watch_gui.c:242
+#: src/watch_gui.c:243
 msgid "Inspect/Evaluate"
 msgstr "Ýncele/Deðerlendir"
 
-#: src/watch_gui.c:251
+#: src/watch_gui.c:252
 msgid "Inspect/Evaluate Expression"
 msgstr "Ýfade incele/Deðerlendir"
+
+#: src/watch_gui.c:274
+msgid "Add To Watch"
+msgstr "Watch Ekle"
 
 #: src/about.c:47
 msgid "Copyright (c) 1999-2001 Naba Kumar"
@@ -4873,70 +4920,74 @@ msgstr "Group:"
 msgid "Needs terminal"
 msgstr "Terminale ihtiyacý var"
 
-#: src/source.c:112
+#: src/source.c:113
 #, c-format
 msgid "Error writing to file: %s."
 msgstr "Dosyaya yazma hatasý: %s."
 
-#: src/source.c:1451
-msgid "Unkown project type."
-msgstr "Bilinmeyen proje tipi."
+#: src/source.c:1260
+msgid "Error writing to : %s."
+msgstr "Yazma hatasý: %s."
 
-#: src/anjuta.c:64 src/anjuta.c:71
+#: src/source.c:1376
+msgid "Project type does not support glade."
+msgstr "Proje tipini glade içermiyor "
+
+#: src/anjuta.c:62 src/anjuta.c:69
 #, c-format
 msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Tutulan sinyal %d (%s)!"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:98
+#: src/anjuta.c:96
 msgid "Open File"
 msgstr "Dosya Aç"
 
 #. Must declare static, because it will be used forever
-#: src/anjuta.c:104
+#: src/anjuta.c:102 src/anjuta.c:107
 msgid "Save File As"
 msgstr "Dosyayý Farklý Kaydet"
 
-#: src/anjuta.c:190
+#: src/anjuta.c:194
 msgid "Cannot create application...exiting\n"
 msgstr "Uygulama oluþturulamadý...çýkýlýyor\n"
 
-#: src/anjuta.c:237 src/anjuta.c:241 src/anjuta.c:803 src/anjuta.c:819
+#: src/anjuta.c:241 src/anjuta.c:245 src/anjuta.c:808 src/anjuta.c:824
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:303
+#: src/anjuta.c:307
 msgid "Recent Files "
 msgstr "Önceki Dosyalar"
 
-#: src/anjuta.c:606
+#: src/anjuta.c:610
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS tamamlanamadý :-(\n"
 
-#: src/anjuta.c:651
+#: src/anjuta.c:655
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * BU DOSYAYI ADINI VEYA ÝÇERÝÐÝNÝ DEÐÝÞTÝRMEYÝN ** Anjuta **\n"
 
-#: src/anjuta.c:795
+#: src/anjuta.c:801
 #, c-format
 msgid "Anjuta: %s(Saved)"
 msgstr "Anjuta: %s(Kayýt edildi)"
 
-#: src/anjuta.c:811
+#: src/anjuta.c:816
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
 msgstr "Anjuta: %s(Kayýt edilmedi)"
 
-#: src/anjuta.c:837
+#: src/anjuta.c:843
 msgid "Anjuta: No file"
 msgstr "Anjuta: Dosya yok"
 
-#: src/anjuta.c:1037
+#: src/anjuta.c:1054
 msgid "ERROR: "
 msgstr "HATA: "
 
-#: src/anjuta.c:1054
+#: src/anjuta.c:1071
 msgid ""
 "\n"
 "System: "
@@ -4944,7 +4995,7 @@ msgstr ""
 "\n"
 "system: "
 
-#: src/anjuta.c:1288
+#: src/anjuta.c:1305
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -4953,11 +5004,11 @@ msgstr ""
 "Tamamlanamadý.\n"
 "Kod araya yerleþtirildi \"%s:%u\""
 
-#: src/anjuta.c:1504
+#: src/anjuta.c:1521
 msgid "Activate this to select this window"
 msgstr "Bu pencere seçilince aktif olur"
 
-#: src/anjuta.c:1551
+#: src/anjuta.c:1568
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
@@ -4966,19 +5017,19 @@ msgstr ""
 "Kutu içerisinde \"%s\" kurulu deðil.\n"
 "Kurup Anjutayý tekrar baþtan çalýþtýrýnýz."
 
-#: src/anjuta.c:1577 src/anjuta.c:1612
+#: src/anjuta.c:1594 src/anjuta.c:1629
 msgid "None"
 msgstr "Yok"
 
-#: src/anjuta.c:1594
+#: src/anjuta.c:1611
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1598 src/anjuta.c:1604
+#: src/anjuta.c:1615 src/anjuta.c:1621
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1615
+#: src/anjuta.c:1632
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -4987,19 +5038,19 @@ msgstr ""
 "  Proje: %s      Büyüt : %d       Satýr: %04d     Kolon: %03d       %s       "
 "Ýþ: %s"
 
-#: src/anjuta_gui.c:202 src/anjuta_gui.c:291
+#: src/anjuta_gui.c:208 src/anjuta_gui.c:297
 msgid "Click here to undock this window"
 msgstr "Buraya týklayarak pencereleþtirebilirsiniz"
 
-#: src/anjuta_gui.c:236 src/anjuta_gui.c:258
+#: src/anjuta_gui.c:242 src/anjuta_gui.c:264
 msgid "Click here to hide this window"
 msgstr "Bu pencereyi buraya týklayark saklayabilirsiniz"
 
-#: src/glade_iface.c:66
+#: src/glade_iface.c:72
 msgid "Cannot fork glade."
 msgstr "glade çatallanamadý."
 
-#: src/glade_iface.c:103
+#: src/glade_iface.c:109
 msgid "Cannot fork glade--."
 msgstr "glade-- çatallanamadý."
 
