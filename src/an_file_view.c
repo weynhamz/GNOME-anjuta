@@ -817,6 +817,10 @@ fv_populate (gboolean full)
 	else
 		busy = TRUE;
 
+	anjuta_status (_("Refreshing file view ..."));
+	while (gtk_events_pending())
+		gtk_main_iteration();
+	
 	fv_disconnect ();
 	selected_items = fv_get_node_expansion_states ();
 	fv_clear ();

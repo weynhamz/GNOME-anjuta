@@ -687,6 +687,10 @@ sv_populate (gboolean full)
 	else
 		busy = TRUE;
 
+	anjuta_status (_("Refreshing symbol view ..."));
+	while (gtk_events_pending())
+		gtk_main_iteration();
+	
 	sv_disconnect ();
 	selected_items = sv_get_node_expansion_states ();
 	sv_clear ();

@@ -1,6 +1,7 @@
 2004-04-02  Naba Kumar  <naba@gnome.org>
 
-	* src/project_dbase.c, src/debugger: Added an gtk events loop for
+	* src/project_dbase.c, src/debugger, src/an_file_view.c,
+	src/an_symbol_view.c: Added an gtk events loop for
 	displaying project loading status (for loading large projects) and
 	debugger program starting ... just to give an impression of fastness :-).
 

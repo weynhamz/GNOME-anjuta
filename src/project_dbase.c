@@ -936,6 +936,10 @@ void project_dbase_sync_tags_image(ProjectDBase *p)
 
 	if (p->project_is_open == FALSE)
 		return;
+	
+	anjuta_status (_("Rebulding tags image ..."));
+	while (gtk_events_pending())
+		gtk_main_iteration();
 
 	if (p->top_proj_dir && !p->tm_project)
 		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE);
@@ -1011,6 +1015,10 @@ project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild)
 
 	if (p->project_is_open == FALSE)
 		return;
+
+	anjuta_status (_("Updating tags image ..."));
+	while (gtk_events_pending())
+		gtk_main_iteration();
 
 	if (p->tm_project)
 	{
