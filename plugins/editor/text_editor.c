@@ -36,6 +36,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 
 // #include "global.h"
 // #include "anjuta.h"
@@ -1769,14 +1770,7 @@ itext_editor_get_selection (IAnjutaEditor *editor, GError **error)
 static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
-	text_editor_goto_line (TEXT_EDITOR (editor), lineno, TRUE, TRUE);
-}
-
-static void
-itext_editor_goto_line_ex (IAnjutaEditor *editor, gint lineno, gboolean mark,
-		gboolean make_visible, GError **e)
-{
-	text_editor_goto_line (TEXT_EDITOR (editor), lineno, mark, make_visible);
+	text_editor_goto_line (TEXT_EDITOR (editor), lineno, FALSE, TRUE);
 }
 
 static void
@@ -1843,27 +1837,6 @@ itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
 					  length, (long)txt);
 }
 
-static gboolean
-itext_editor_is_marker_set (IAnjutaEditor *editor, gint lineno, gint marker,
-		GError **e)
-{
-	return text_editor_is_marker_set (TEXT_EDITOR (editor), lineno, marker);
-}
-
-static gint
-itext_editor_set_marker (IAnjutaEditor *editor, gint lineno, gint marker,
-		GError **e)
-{
-	return text_editor_set_marker (TEXT_EDITOR (editor), lineno, marker);
-}
-
-static void
-itext_editor_delete_marker (IAnjutaEditor *editor, gint lineno, gint marker,
-		GError **e)
-{
-	text_editor_delete_marker (TEXT_EDITOR (editor), lineno, marker);
-}
-
 static const gchar *
 itext_editor_get_filename (IAnjutaEditor *editor, GError **e)
 {
@@ -1874,7 +1847,6 @@ static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->goto_line = itext_editor_goto_line;
-	iface->goto_line_ex = itext_editor_goto_line_ex;
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
 	iface->get_selection = itext_editor_get_selection;
@@ -1884,9 +1856,6 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_length = itext_editor_get_length;
 	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
-	iface->is_marker_set = itext_editor_is_marker_set;
-	iface->set_marker = itext_editor_set_marker;
-	iface->delete_marker = itext_editor_delete_marker;
 	iface->get_filename = itext_editor_get_filename;
 }
 
@@ -1968,8 +1937,55 @@ ifile_iface_init (IAnjutaFileIface *iface)
 	iface->get_uri = ifile_get_uri;
 }
 
+
+/* Implementation of the IAnjutaMarkable interface */
+static gint
+imarkable_mark (IAnjutaMarkable* editor, gint location,
+		IAnjutaMarkableMarker marker, GError** e)
+{
+	return text_editor_set_marker (TEXT_EDITOR (editor), location, marker);
+}
+
+static gint
+imarkable_location_from_handle (IAnjutaMarkable* editor, gint handle, GError** e)
+{
+	return text_editor_line_from_handle(TEXT_EDITOR (editor), handle);
+}
+
+static void
+imarkable_unmark (IAnjutaMarkable* editor, gint location,
+		IAnjutaMarkableMarker marker, GError** e)
+{
+	text_editor_delete_marker (TEXT_EDITOR (editor), location, marker);
+}
+
+static gboolean
+imarkable_is_marker_set (IAnjutaMarkable* editor, gint location,
+		IAnjutaMarkableMarker marker, GError** e)
+{
+	return text_editor_is_marker_set (TEXT_EDITOR (editor), location, marker);
+}
+
+static void
+imarkable_delete_all_markers (IAnjutaMarkable* editor,
+		IAnjutaMarkableMarker marker, GError** e)
+{
+	text_editor_delete_marker_all (TEXT_EDITOR (editor), marker);
+}
+
+static void
+imarkable_iface_init (IAnjutaMarkableIface *iface)
+{
+	iface->mark = imarkable_mark;
+	iface->location_from_handle = imarkable_location_from_handle;
+	iface->unmark = imarkable_unmark;
+	iface->is_marker_set = imarkable_is_marker_set;
+	iface->delete_all_markers = imarkable_delete_all_markers;
+}
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
+ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_END;

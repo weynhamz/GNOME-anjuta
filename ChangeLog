@@ -1,3 +1,16 @@
+2004-11-18  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+
+2004-11-17  Pavol Bosik  <pavol.bosik@radiantsystems.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	
+	* libanjuta/interfaces/libanjuta.idl, plugins/Makefile.am,
+	plugins/editor/plugin.c, plugins/editor/text_editor.c,
+	plugins/gdb/breakpoints.c: all marker related stuff moved from editor and
+	docman interfaces to IAnjutaMarkable
+
 2004-11-17  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.

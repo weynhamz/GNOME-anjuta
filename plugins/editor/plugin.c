@@ -950,14 +950,6 @@ ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
 	anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
 }
 
-static void
-ianjuta_docman_delete_all_markers (IAnjutaDocumentManager *plugin,
-		gint marker, GError **e)
-{
-	AnjutaDocman *docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
-	anjuta_docman_delete_all_markers (docman, marker);
-}
-
 static IAnjutaEditor*
 ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 						   const gchar *filename, const gchar *content,
@@ -982,7 +974,6 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->get_editors = ianjuta_docman_get_editors;
 	iface->goto_file_line = ianjuta_docman_goto_file_line;
 	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
-	iface->delete_all_markers = ianjuta_docman_delete_all_markers;
 	iface->add_buffer = ianjuta_docman_add_buffer;
 }
 

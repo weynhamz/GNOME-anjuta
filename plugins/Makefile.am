@@ -5,6 +5,8 @@ SUBDIRS = . \
 	gtodo \
 	message-view \
 	editor \
+	gdb \
+	debug-manager \
 	devhelp \
 	file-manager \
 	terminal \
@@ -14,8 +16,6 @@ SUBDIRS = . \
 	file-wizard \
 	project-manager \
 	symbol-browser \
-	gdb \
-	debug-manager \
 	sample1 \
 	cvs-plugin
 

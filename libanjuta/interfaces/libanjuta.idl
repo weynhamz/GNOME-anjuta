@@ -54,13 +54,15 @@ interface IAnjutaStream
 	}
 }
 
+// Markables.
+// For example, IAnjutaEditor extension - editor capable of marking lines
 interface IAnjutaMarkable
 {
 	enum Error
 	{
 		INVALID_LOCATION
 	}
-	
+
 	enum Marker
 	{
 		NONE,
@@ -68,11 +70,42 @@ interface IAnjutaMarkable
 		ATTENTIVE,
 		INTENSE
 	}
-	
-	void mark (gint location, Marker marker);
-	void unmark (gint location);
-	Marker get_mark (gint location);
-	GList* get_all_marks ();
+
+	/**
+	 * ianjuta_markable_mark:
+	 * @obj: Self
+	 * @location: Location at which the marker to set.
+	 * @marker: Type of marker to be used
+	 * @err: Error propagation and reporting
+	 *
+	 * Marks the specified location with the given marker type. Location is
+	 * implementation depenedent. For example, for an editor location means
+	 * lines where markers are set.
+	 *
+	 * Return value: Handle of the location marked. Can be used later to obtain
+	 * new location, if it has been moved due to addetions/deletions in the
+	 * implementor object.
+	 */
+	gint mark (gint location, Marker marker);
+
+	/**
+	 * ianjuta_markable_location_from_handle:
+	 * @obj: Self
+	 * @handle: Handle of location.
+	 * @err: Error propagation and reporting
+	 *
+	 * Location where a marker is set could have moved by some operation in
+	 * the implementation. To retrieve the correct location where the marker
+	 * has moved, pass the handle retured by ianjuta_markable_mark() to this
+	 * method.
+	 *
+	 * Return value: Current location where the marker was set.
+	 */
+	gint location_from_handle (gint handle);
+
+	void unmark (gint location, Marker marker);
+	gboolean is_marker_set (gint location, Marker marker);
+	void delete_all_markers (Marker marker);
 }
 
 // Sandbox gives restricted and localized access to the implementation
@@ -356,22 +389,6 @@ interface IAnjutaEditor
 	
 	void   insert (int position, const gchar *text, gint length);
 	void   goto_line (gint lineno);
-
-	/**
-	 * ianjuta_editor_goto_line_ex:
-	 * @obj: Self
-	 * @lineno: Number of line to go to
-	 * @mark: Specifies whether the line will be marked
-	 * @make_visible: Specifies whether the editor view will be adjusted so that the line gets visible
-	 * @err: Error propagation and reporting
-	 *
-	 * Apart from going to the specified line, this function allows some
-	 * additional flags to be specified.
-	 *
-	 * Return value: None.
-	 */
-	void   goto_line_ex (gint lineno, gboolean mark, gboolean make_visible);
-
 	void   goto_position (gint position);
 	gchar* get_selection ();
 	gchar* get_text (gint start, gint end);
@@ -393,22 +410,6 @@ interface IAnjutaEditor
 	gchar* get_current_word ();
 
 	/**
-	 * ianjuta_editor_is_marker_set:
-	 * @obj: Self
-	 * @lineno: Number of line which will be checked for the marker
-	 * @marker: Type of the marker
-	 * @err: Error propagation and reporting
-	 *
-	 * Checks whether the specified line contains particular marker.
-	 *
-	 * Return value: Whether the line contains the marker.
-	 */
-	gboolean is_marker_set (gint lineno, gint marker);
-
-	gint set_marker (gint lineno, gint marker);
-	void delete_marker (gint lineno, gint marker);
-
-	/**
 	 * ianjuta_editor_get_filename:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
@@ -417,7 +418,7 @@ interface IAnjutaEditor
 	 *
 	 * Return value: The name of the file. Not to be freed by caller.
 	 */
-	const gchar * get_filename ();
+	const gchar* get_filename ();
 }
 
 interface IAnjutaDocumentManager
@@ -429,15 +430,13 @@ interface IAnjutaDocumentManager
 		DOESNT_EXIST
 	}
 
-	const gchar *get_full_filename (const gchar *file);
+	const gchar * get_full_filename (const gchar *file);
 	IAnjutaEditor* find_editor_with_path (const gchar *file_path);
 	void goto_file_line (const gchar *file, gint lineno);
 	void goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
 	IAnjutaEditor* get_current_editor ();
 	void set_current_editor (IAnjutaEditor *editor);
 	GList* get_editors ();
-
-	void delete_all_markers (gint marker);
 
 	// New editor buffer
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
