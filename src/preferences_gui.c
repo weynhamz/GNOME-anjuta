@@ -972,6 +972,8 @@ create_preferences_page3 (Preferences * p)
 	GtkWidget *checkbutton11;
 	GtkWidget *checkbutton13;
 	GtkWidget *checkbutton14;
+	GtkWidget *checkbutton15;
+	GtkWidget *checkbutton16;
 	GtkWidget *checkbutton8;
 	GtkObject *spinbutton4_adj;
 	GtkWidget *spinbutton4;
@@ -996,7 +998,7 @@ create_preferences_page3 (Preferences * p)
 	gtk_widget_show (vbox2);
 	gtk_container_add (GTK_CONTAINER (frame1), vbox2);
 
-	table2 = gtk_table_new (9, 4, FALSE);
+	table2 = gtk_table_new (11, 4, FALSE);
 	gtk_widget_show (table2);
 	gtk_box_pack_start (GTK_BOX (vbox2), table2, TRUE, TRUE, 0);
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
@@ -1039,6 +1041,23 @@ create_preferences_page3 (Preferences * p)
 	gtk_table_attach (GTK_TABLE (table2), checkbutton12, 0, 1, 4, 5,
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
+
+	checkbutton4 =
+		gtk_check_button_new_with_label (_
+						 ("Strip trailing spaces on file save"));
+	gtk_widget_show (checkbutton4);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton4, 0, 1, 5, 6,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	checkbutton5 =
+		gtk_check_button_new_with_label (_
+						 ("Collapse all folds on file open"));
+	gtk_widget_show (checkbutton5);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton5, 0, 1, 6, 7,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
 			  
 	checkbutton13 =
 		gtk_check_button_new_with_label(_("Filter extraneous chars in DOS mode"));
@@ -1054,9 +1073,23 @@ create_preferences_page3 (Preferences * p)
 			(GtkAttachOptions) (GTK_FILL),
 			(GtkAttachOptions) (0), 0, 0);
 
+	checkbutton15 =
+		gtk_check_button_new_with_label(_("Indent brace open"));
+	gtk_widget_show (checkbutton15);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton15, 0, 1, 9, 10,
+			(GtkAttachOptions) (GTK_FILL),
+			(GtkAttachOptions) (0), 0, 0);
+
+	checkbutton16 =
+		gtk_check_button_new_with_label(_("Indent brace close"));
+	gtk_widget_show (checkbutton16);
+	gtk_table_attach (GTK_TABLE (table2), checkbutton16, 0, 1, 10, 11,
+			(GtkAttachOptions) (GTK_FILL),
+			(GtkAttachOptions) (0), 0, 0);
+
 	vseparator1 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator1);
-	gtk_table_attach (GTK_TABLE (table2), vseparator1, 1, 2, 0, 8,
+	gtk_table_attach (GTK_TABLE (table2), vseparator1, 1, 2, 0, 11,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (GTK_FILL), 6, 0);
 
@@ -1135,22 +1168,6 @@ create_preferences_page3 (Preferences * p)
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 5, 0);
 
-	checkbutton4 =
-		gtk_check_button_new_with_label (_
-						 ("Strip trailing spaces on file save"));
-	gtk_widget_show (checkbutton4);
-	gtk_table_attach (GTK_TABLE (table2), checkbutton4, 0, 1, 5, 6,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
-	checkbutton5 =
-		gtk_check_button_new_with_label (_
-						 ("Collapse all folds on file open"));
-	gtk_widget_show (checkbutton5);
-	gtk_table_attach (GTK_TABLE (table2), checkbutton5, 0, 1, 6, 7,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (0), 0, 0);
-
 	p->widgets.disable_hilite_check = checkbutton8;
 	p->widgets.auto_save_check = checkbutton9;
 	p->widgets.auto_indent_check = checkbutton10;
@@ -1158,12 +1175,14 @@ create_preferences_page3 (Preferences * p)
 	p->widgets.braces_check_check = checkbutton12;
 	p->widgets.dos_eol_check = checkbutton13;
 	p->widgets.wrap_bookmarks_check = checkbutton14;
+	p->widgets.indent_open_brace = checkbutton15;
+	p->widgets.indent_close_brace = checkbutton16;
 	p->widgets.tab_size_spin = spinbutton5;
 	p->widgets.autosave_timer_spin = spinbutton2;
 	p->widgets.autoindent_size_spin = spinbutton3;
 	p->widgets.linenum_margin_width_spin = spinbutton4;
 	p->widgets.session_timer_spin = spinbutton6;
-	
+
 	p->widgets.strip_spaces_check = checkbutton4;
 	p->widgets.fold_on_open_check = checkbutton5;
 
@@ -1180,6 +1199,9 @@ create_preferences_page3 (Preferences * p)
 	gtk_widget_ref (checkbutton11);
 	gtk_widget_ref (checkbutton12);
 	gtk_widget_ref (checkbutton13);
+	gtk_widget_ref (checkbutton14);
+	gtk_widget_ref (checkbutton15);
+	gtk_widget_ref (checkbutton16);
 
 	return frame1;
 }
@@ -2009,6 +2031,16 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    wrap_bookmarks_check)));
+
+	preferences_set_int (pr, INDENT_OPENING,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    indent_open_brace)));
+
+	preferences_set_int (pr, INDENT_CLOSING,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    indent_close_brace)));
 
 	preferences_set_int (pr, TAB_SIZE,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON

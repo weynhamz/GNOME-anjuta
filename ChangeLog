@@ -1,3 +1,38 @@
+2002-05-01  Philip Van Hoof <freax@pandora.be>
+
+	* widgets/gnomefilelist.[ch] (history_combo_go),
+	(history_combo_clicked): impl.
+
+	(gnome_filelist_new_with_path): use this new impl.
+
+2002-05-01  Stephane Demurget  <demurgets@free.fr>
+
+	* src/project_dbase_gui.c (add_file): added the xpm file type.
+
+2002-04-30  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+
+	Patch reviewed by Stephane Demurget <demurgets@free.fr> except for the
+	tag manager fixes.
+
+	* src/anjuta.[ch]: Changed local tag list to use line numbers instead
+	  of tag types.
+
+	* src/an_symbol_view.[ch], src/mainmenu_callbacks.[ch],
+	  src/text_editor_menu.c: Added context sensitive search in symbol
+	  browser and editor.
+
+	* configure.in: Changed version number to 0.1.9.99.
+
+	* scripts/anjuta_import.sh.in, scripts/anjuta_project.template,
+	  src/project_import.c: Minor changes to project import facility.
+
+	* src/preferences.[ch], src/preferences_gui.c: Fix for bug #537273
+	  (Forced to use specific brace format)
+
+	* tagmanager/include/tm_tag.h, tagmanager/include/tm_workspace.h,
+	  tagmanager/tm_tag.c, tagmanager/tm_work_object.c,
+	  tagmanager/tm_workspace.c: Minor TagManager fixes and updates.
+
 2002-04-30  Johannes Schmid  <clubfan@users.sourceforge.net>
 
 	Patch reviewed by Stephane Demurget <demurgets@free.fr> who made

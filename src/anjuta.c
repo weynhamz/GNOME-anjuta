@@ -507,31 +507,6 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 	return te ;
 }
 
-static const GString *get_qualified_tag_name(const TMTag *tag)
-{
-	static GString *s = NULL;
-	gchar *tag_name;
-
-	g_return_val_if_fail((tag && tag->name), NULL);
-	if (!s)
-		s = g_string_sized_new(255);
-	g_string_assign(s, "");
-	if (tag->atts.entry.scope)
-		g_string_sprintfa(s, "%s.", tag->atts.entry.scope);
-	g_string_sprintfa(s, "%s", tag->name);
-	
-	tag_name = g_strdup(tm_tag_type_name(tag));
-	if (tag_name) {
-		char* ptr = tag_name;
-		while(*ptr) {*ptr = toupper(*ptr); ptr++;}
-		/* Hack to allow anjuta to find both prototypes and functions */
-		g_string_sprintfa(s, " - [%s]", tag_name);
-		g_free(tag_name);
-	}
-	
-	return s;
-}
-
 const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types)
 {
 	static GList *tag_names = NULL;
@@ -557,7 +532,14 @@ const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types)
 		{
 			tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
 			if (tag->type & tag_types)
-				tag_names = g_list_prepend(tag_names, g_strdup(get_qualified_tag_name(tag)->str));
+			{
+				if ((NULL != tag->atts.entry.scope) && isalpha(tag->atts.entry.scope[0]))
+					tag_names = g_list_prepend(tag_names, g_strdup_printf("%s::%s [%ld]"
+					  , tag->atts.entry.scope, tag->name, tag->atts.entry.line));
+				else
+					tag_names = g_list_prepend(tag_names, g_strdup_printf("%s [%ld]"
+					  , tag->name, tag->atts.entry.line));
+			}
 		}
 		tag_names = g_list_sort(tag_names, (GCompareFunc) strcmp);
 		return tag_names;
@@ -598,69 +580,27 @@ GList *anjuta_get_file_list(void)
 
 gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
 {
-	char *name;
-	char *scope;
-	char *typestring;
-	int type;
-	guint i;
-	int cmp;
-	TMTag *tag;
+	guint line;
+	gchar *spos;
+	gchar *epos;
 
-	if (!qual_name || !te || !te->tm_file || !te->tm_file->tags_array
-	  || (0 == te->tm_file->tags_array->len))
-		return FALSE;
-	scope = g_strdup(qual_name);
-	name = strrchr(scope, '.');
-	if (name)
+	g_return_val_if_fail((te && qual_name), FALSE);
+	spos = strchr(qual_name, '[');
+	if (spos)
 	{
-		*name = '\0';
-		++ name;
-		
-	}
-	else
-	{
-		name = scope;
-		scope = NULL;
-	}
-	/* BEGIN tag hack */
-	type = -1;
-	typestring =  strstr(name, " - [");
-	if (typestring)
-	{
-		gchar* type_name;
-		gchar* ptr;
-		
-		*typestring = '\0';
-		typestring = typestring + 4;
-		type_name = g_strdup(typestring);
-		ptr = type_name;
-		while (*ptr && *ptr != ']') {*ptr = tolower(*ptr); ptr++;}
-		*ptr = '\0';
-		type = tm_tag_name_type(type_name);
-		g_free(type_name);
-	}
-	/* END tag hack */
-	
-	for (i = 0; i < te->tm_file->tags_array->len; ++i)
-	{
-		tag = TM_TAG(te->tm_file->tags_array->pdata[i]);
-		cmp = strcmp(name, tag->name);
-		if (0 == cmp && (type == tag->type || type == -1))
+		epos = strchr(spos+1, ']');
+		if (epos)
 		{
-			if ((!scope || !tag->atts.entry.scope) || (0 == strcmp(scope, tag->atts.entry.scope)))
+			*epos = '\0';
+			line = atol(spos + 1);
+			*epos = ']';
+			if (0 < line)
 			{
-				text_editor_goto_line(te, tag->atts.entry.line, TRUE);
-				g_free(scope?scope:name);
+				text_editor_goto_line(te, line, TRUE);
 				return TRUE;
 			}
 		}
-		else if (cmp < 0)
-		{
-			g_free(scope?scope:name);
-			return FALSE;
-		}
 	}
-	g_free(scope?scope:name);
 	return FALSE;
 }
 
@@ -2370,4 +2310,23 @@ anjuta_load_last_project()
 #endif
 		anjuta_load_this_project( app->last_open_project );
 	}
+}
+
+void anjuta_search_sources_for_symbol(const gchar *s)
+{
+	gchar command[BUFSIZ];
+
+	if ((NULL == s) || (isspace(*s) || ('\0' == *s)))
+		return;
+
+	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s
+	  , project_dbase_get_dir(app->project_dbase));
+	if (launcher_execute (command, find_in_files_mesg_arrived
+	  , find_in_files_mesg_arrived, find_in_files_terminated) == FALSE)
+		return;
+	anjuta_update_app_status (TRUE, _("Looking up symbol"));
+	anjuta_message_manager_clear (app->messages, MESSAGE_FIND);
+	anjuta_message_manager_append (app->messages, _("Finding in Files ....\n"),
+	  MESSAGE_FIND);
+	anjuta_message_manager_show (app->messages, MESSAGE_FIND);
 }

@@ -374,6 +374,8 @@ anjuta_load_last_project(void);
 void
 anjuta_open_project(void);
 
+/* Search for the occurence of the string in all source files */
+void anjuta_search_sources_for_symbol(const gchar *s);
 
 #define anjuta_set_execution_dir(d)     string_assign(&app->execution_dir, (d))
 #define anjuta_clear_execution_dir()     string_assign(&app->execution_dir, NULL)

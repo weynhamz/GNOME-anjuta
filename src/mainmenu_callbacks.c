@@ -2004,6 +2004,22 @@ on_goto_tag_declaration_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
+on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	TextEditor* te;
+	gboolean ret;
+	gchar buffer[1000];
+
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
+	if (!ret)
+		return;
+	else
+		anjuta_search_sources_for_symbol(buffer);\
+}
+
+void
 on_go_back_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	an_file_history_back();

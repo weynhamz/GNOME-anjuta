@@ -59,10 +59,10 @@ project.config.disable.overwriting=1 1 1 1 1 1 1 1 1
 project.config.extra.modules.before=
 project.config.extra.modules.after=
 
-module.${AN_INCLUDE_NAME:-"include"}.name=${AN_PROJECT_INCLUDE_DIR:-"."}
-module.${AN_INCLUDE_NAME:-"include"}.type=
-module.${AN_INCLUDE_NAME:-"include"}.expanded=0
-module.${AN_INCLUDE_NAME:-"include"}.files=${AN_HEADER_FILES}
+module.include.name=${AN_PROJECT_INCLUDE_DIR:-"."}
+module.include.type=
+module.include.expanded=0
+module.include.files=${AN_HEADER_FILES}
 
 module.source.name=${AN_PROJECT_SRC_DIR:-"."}
 module.source.type=

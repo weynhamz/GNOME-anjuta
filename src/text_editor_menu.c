@@ -338,13 +338,21 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 /* 17 */
+	 GNOME_APP_UI_ITEM, N_("Find Usage"),
+	 NULL,
+	 on_lookup_symbol_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL}
+	,
+	{
+	 /* 18 */
 	 GNOME_APP_UI_ITEM, N_("Close"),
 	 NULL,
 	 on_close_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
-	 /* 18 */
+	 /* 19 */
 	GNOMEUIINFO_END
 };
 

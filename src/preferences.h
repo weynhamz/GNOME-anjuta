@@ -106,6 +106,8 @@ struct _PreferencesWidgets
 	GtkWidget *braces_check_check;
 	GtkWidget *dos_eol_check;
 	GtkWidget *wrap_bookmarks_check;
+	GtkWidget *indent_open_brace;
+	GtkWidget *indent_close_brace;
 
 	GtkWidget *tab_size_spin;
 	GtkWidget *autosave_timer_spin;
@@ -278,6 +280,8 @@ void preferences_set_build_options(Preferences* p);
 #define WRAP_BOOKMARKS "editor.wrapbookmarks"
 #define TAB_SIZE "tabsize"
 #define INDENT_SIZE "indent.size"
+#define INDENT_OPENING "indent.opening"
+#define INDENT_CLOSING "indent.closing"
 #define AUTOSAVE_TIMER "autosave.timer"
 #define MARGIN_LINENUMBER_WIDTH "margin.linenumber.width"
 #define SAVE_SESSION_TIMER "save.session.timer"

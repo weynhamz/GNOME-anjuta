@@ -8,6 +8,13 @@
 # Template file is in data dir, so:
 # TEMPLATE="$(dirname $0)/anjuta_project.template"
 TEMPLATE="@PACKAGE_DATA_DIR@/anjuta_project.template"
+AN_SKIP_DIRS=${AN_SKIP_DIRS:-"intl"}
+AN_SOURCE_EXTN=${AN_SOURCE_EXTN:-"c C cpp cxx cc java"}
+AN_HEADER_EXTN=${AN_HEADER_EXTN:-"h H hxx hpp hh"}
+AN_PIXMAP_EXTN=${AN_IMAGE_EXTN:-"jpeg jpg png gif xpm bmp ico tiff"}
+AN_DOC_EXTN=${AN_DOC_EXTN:-"html sgml sgml README INSTALL ChangeLog NEWS COPYING CREDITS AUTHORS THANKS TODO HACKING FUTURE"}
+AN_PO_EXTN=${AN_PO_EXTN:-"po"}
+AN_PO_DIR="po"
 
 PROGRAM=anjuta
 DIR=${1:-"."}
@@ -16,18 +23,6 @@ TMPFILE=/tmp/$PROGRAM.$$.tmp
 if [ ! -s "${TEMPLATE}" ]; then
   echo "Template file ${TEMPLATE} does not exist!" >&2
   exit 1
-fi
-${PROGRAM} --version >${TMPFILE}
-if [ $? -ne 0 ]; then
-  echo "Anjuta not found !" >&2
-  \rm -f ${TMPFILE}
-  exit 1
-fi
-PROGRAM_VERSION=`cat $TMPFILE | awk '{print $NF}' | sed 's/\.//g' | cut -c1-3`
-if [ "${PROGRAM_VERSION}" -lt  19 ]; then
-  AN_INCLUDE_NAME="incude"
-else
-  AN_INCLUDE_NAME="include"
 fi
 
 if [ "$DIR" != '.' ]; then
@@ -80,49 +75,76 @@ if [ -f "${PRJ_FILE}" ]; then
 fi
 
 AN_SOURCE_FILES=""
-for file in `find . -name "*.c" -o -name "*.cpp" -o -name "*.cxx" -o -name "*.cc" -o -name "*.C"`
-do
-  AN_SOURCE_FILES="$AN_SOURCE_FILES `echo $file | cut -c3-`"
-done
-
 AN_HEADER_FILES=""
-for file in `find . -name "*.h" -o -name "*.hpp" -o -name "*.H" -o -name "*.hh"`
-do
-  AN_HEADER_FILES="$AN_HEADER_FILES `echo $file | cut -c3-`"
-done
-
 AN_PIXMAP_FILES=""
-for file in `find . -name "*.xpm" -o -name "*.png" -o -name "*.gif" -o -name "*.jpg"`
-do
-  AN_PIXMAP_FILES="$AN_PIXMAP_FILES `echo $file | cut -c3-`"
-done
-
 AN_DOC_FILES=""
-for file in `find . -name "README" -o -name "INSTALL" -o -name "NEWS" -o -name "COPYING" -o -name "ChangeLog" \
-	-o -name "CREDITS" -o -name "AUTHORS" -o -name "TAHNKS" -o -name "TODO" -o -name "HACKING" \
-	-o -name "FUTURE" -o -name "BUGS" -o -name "*.sgml" -o -name "*.html"`
-do
-  AN_DOC_FILES="$AN_DOC_FILES `echo $file | cut -c3-`"
-done
-
 AN_PO_FILES=""
-if [ -d "po" ]; then
-  if \cd po; then
-    for file in `find . -name "*.po"`
-    do
-      AN_PO_FILES="$AN_PO_FILES `echo $file | cut -c3-`"
+for file in `find . -type f -print`; do
+  name=`echo $file | cut -c3-`
+  top_dir=`echo $name | awk -F'/' '{if (NF > 1) print $1; else print "."}'`
+  skip=0
+  for dir in $AN_SKIP_DIRS; do
+    if [ "$dir" = "${top_dir}" ]; then
+      skip=1
+      break
+    fi
+  done
+  if [ $skip -eq 0 ]; then
+    found=0
+    file_extn="`echo $name | awk -F'[/.]' '{print $NF}'`"
+    for extn in $AN_SOURCE_EXTN; do
+      if [ "$extn" = "$file_extn" ]; then
+        AN_SOURCE_FILES="$AN_SOURCE_FILES $name"
+        echo "Adding source file $name.."
+        found=1
+        break
+      fi
     done
-    \cd ..
+    if [ $found -eq 0 ]; then
+      for extn in $AN_HEADER_EXTN; do
+        if [ "$extn" = "$file_extn" ]; then
+          AN_HEADER_FILES="$AN_HEADER_FILES $name"
+          echo "Adding header file $name.."
+          found=1
+          break
+        fi
+      done
+    fi
+    if [ $found -eq 0 ]; then
+      for extn in $AN_PIXMAP_EXTN; do
+        if [ "$extn" = "$file_extn" ]; then
+          AN_PIXMAP_FILES="$AN_PIXMAP_FILES $name"
+          echo "Adding pixmap file $name.."
+          found=1
+          break
+        fi
+      done
+    fi
+    if [ $found -eq 0 ]; then
+      for extn in $AN_DOC_EXTN; do
+        if [ "$extn" = "$file_extn" ]; then
+          AN_DOC_FILES="$AN_DOC_FILES $name"
+          echo "Adding doc file $name.."
+          found=1
+          break
+        fi
+      done
+    fi
+    if [ $found -eq 0 ]; then
+      if [ "$AN_PO_EXTN" = "$file_extn" -a "$AN_PO_DIR" = "$top_dir" ]; then
+        name="`echo $name | cut -c4-`"
+        AN_PO_FILES="$AN_PO_FILES $name"
+        echo "Adding PO file $name.."
+        found=1
+      fi
+    fi
+    if [ $found -eq 0 ]; then
+      echo "Skipping $name.."
+    fi
+  else
+    echo "Ignoring $name.."
   fi
-fi
-
-AN_BUILD_FILES=""
-for file in `find . -name "Makefile.am" -o -name "Makefile.in" -o -name "configure.in" -o -name "Makefile" \
-	-o -name "*.spec" -o -name "*.m4"`
-do
-  AN_BUILD_FILES="$AN_BUILD_FILES `echo $file | cut -c3-`"
 done
-
 
 cat ${TEMPLATE} | while read line; do
   eval "echo ${line}" >>${PRJ_FILE}

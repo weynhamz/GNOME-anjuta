@@ -692,6 +692,9 @@ void
 on_goto_tag_declaration_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
+on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data);
+
+void
 on_go_back_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void

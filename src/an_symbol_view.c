@@ -15,6 +15,7 @@ static SymbolFileInfo *symbol_file_info_new(TMSymbol *sym)
 	SymbolFileInfo *sfile = g_new0(SymbolFileInfo, 1);
 	if (sym && sym->tag && sym->tag->atts.entry.file)
 	{
+		sfile->sym_name = g_strdup(sym->tag->name);
 		sfile->def.name = g_strdup(sym->tag->atts.entry.file->work_object.file_name);
 		sfile->def.line = sym->tag->atts.entry.line;
 		if ((tm_tag_function_t == sym->tag->type) && sym->info.equiv)
@@ -30,6 +31,8 @@ static void symbol_file_info_free(SymbolFileInfo *sfile)
 {
 	if (sfile)
 	{
+		if (sfile->sym_name)
+			g_free(sfile->sym_name);
 		if (sfile->def.name)
 			g_free(sfile->def.name);
 		if (sfile->decl.name)
@@ -201,6 +204,7 @@ typedef enum
 {
 	GOTO_DEFINITION,
 	GOTO_DECLARATION,
+	SEARCH,
 	REFRESH,
 	MENU_MAX
 } SVSignal;
@@ -219,6 +223,10 @@ static void sv_context_handler(GtkMenuItem *item, gpointer user_data)
 			if (sv->sinfo && sv->sinfo->decl.name)
 				anjuta_goto_file_line_mark(sv->sinfo->decl.name
 				  , sv->sinfo->decl.line, TRUE);
+			break;
+		case SEARCH:
+			if (sv->sinfo && sv->sinfo->sym_name)
+				anjuta_search_sources_for_symbol(sv->sinfo->sym_name);
 			break;
 		case REFRESH:
 			sv_populate();
@@ -244,6 +252,12 @@ static void sv_create_context_menu(void)
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(sv_context_handler)
 	  , (gpointer) GOTO_DECLARATION);
+	gtk_widget_show(item);
+	gtk_menu_append(GTK_MENU(sv->menu), item);
+	item = gtk_menu_item_new_with_label(_("Find Usage"));
+	gtk_signal_connect(GTK_OBJECT(item), "activate"
+	  , GTK_SIGNAL_FUNC(sv_context_handler)
+	  , (gpointer) SEARCH);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(sv->menu), item);
 	item = gtk_menu_item_new_with_label(_("Refresh Tree"));

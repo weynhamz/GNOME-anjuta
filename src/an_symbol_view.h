@@ -12,6 +12,7 @@ extern "C"
 
 typedef struct _SymbolFileInfo
 {
+	char *sym_name;
 	struct
 	{
 		char *name;

@@ -40,6 +40,13 @@ static void project_import_stdout_line_arrived (gchar * line);
 static void project_import_stderr_line_arrived (gchar * line);
 static void project_import_terminated (int status, time_t time);
 
+/* The maximum time allowed for importing a project (in seconds).
+This might seem a bit hih - but then, shell scripts are slow.
+We can safely reduce this to a minute or so once we finish
+re-writing the import script in C - Biswa */
+
+#define AN_IMPORT_TIMEOUT 600
+
 gboolean progressbar_timeout (gpointer data);
 
 static int timer;
@@ -102,7 +109,7 @@ project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 					(piw->widgets.progressbar), TRUE);
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
 			    _("Importing project...please wait!"));
-	timer = gtk_timeout_add (50, progressbar_timeout,
+	timer = gtk_timeout_add (AN_IMPORT_TIMEOUT, progressbar_timeout,
 				 GTK_PROGRESS_BAR (piw->widgets.progressbar));
 	return ret;
 }
