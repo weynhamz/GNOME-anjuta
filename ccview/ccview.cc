@@ -163,6 +163,13 @@ ccview_project_class_init(CcviewProjectClass *klass)
 							   gtk_marshal_NONE__INT_POINTER,
 							   GTK_TYPE_NONE, 1,
 							   GTK_TYPE_STRING);
+
+	ccview_signals[UPDATE_CANCELLED] = gtk_signal_new ("update_cancelled",
+							   GTK_RUN_LAST,
+							   object_class->type,
+							   GTK_SIGNAL_OFFSET (CcviewProjectClass, update_cancelled),
+							   gtk_signal_default_marshaller,
+							   GTK_TYPE_NONE, 0);
 	
 	gtk_object_class_add_signals (object_class, ccview_signals, LAST_SIGNAL);
 

@@ -50,6 +50,7 @@ enum {
 	UPDATE_END,
 	ADD_TEXT,
 	SAVE_FILE,
+	UPDATE_CANCELLED,
     LAST_SIGNAL
 };
 extern guint ccview_signals[LAST_SIGNAL];

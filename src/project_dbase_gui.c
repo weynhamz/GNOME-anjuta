@@ -33,16 +33,71 @@
 #include "fileselection.h"
 
 extern gchar *module_map[];
+static gboolean close_file_state = FALSE;
+static gboolean close_prj_state = FALSE;
 
 static void on_project_dbase_remove_confirm_yes_clicked (GtkButton * button,
 							 gpointer user_data);
+static void on_project_dbase_ccview_update_start (CcviewProject *cprj, 
+						  ProjectDBase  *p);
+static void on_project_dbase_ccview_update_end (CcviewProject *cprj, 
+						ProjectDBase  *p);
 static void add_file (ProjectDBase * p);
+
 
 static 
 void on_project_dbase_ccview_go_to (CcviewProject* cprj, gchar* file,
 			gint line, ProjectDBase* p)
 {
 	anjuta_goto_file_line (file, line);
+}
+
+static 
+void on_project_dbase_ccview_update_start (CcviewProject *cprj, 
+				           ProjectDBase  *p)
+{
+	MainToolbar *mt;
+	ExtendedToolbar *et;
+	FileSubMenu *file_submenu;
+
+	anjuta_set_busy ();
+	
+	mt = (MainToolbar *) &(app->widgets.toolbar.main_toolbar);
+	close_file_state = GTK_WIDGET_IS_SENSITIVE (mt->close);
+
+	et = (ExtendedToolbar *) &(app->widgets.toolbar.extended_toolbar);
+	close_prj_state = GTK_WIDGET_IS_SENSITIVE (et->close_project);
+
+	file_submenu = &(app->widgets.menubar.file);
+
+	gtk_widget_set_sensitive (mt->close, FALSE);
+	gtk_widget_set_sensitive (et->close_project, FALSE);
+	gtk_widget_set_sensitive (file_submenu->close_file, FALSE);
+	gtk_widget_set_sensitive (file_submenu->close_project, FALSE);
+}
+
+static 
+void on_project_dbase_ccview_update_end (CcviewProject *cprj, 
+				         ProjectDBase  *p)
+{	
+	MainToolbar *mt;
+	ExtendedToolbar *et;
+	FileSubMenu *file_submenu;
+
+	mt = (MainToolbar *) &(app->widgets.toolbar.main_toolbar);
+	close_file_state = GTK_WIDGET_IS_SENSITIVE (mt->close);
+
+	et = (ExtendedToolbar *) &(app->widgets.toolbar.extended_toolbar);
+	close_prj_state = GTK_WIDGET_IS_SENSITIVE (et->close_project);
+
+	file_submenu = &(app->widgets.menubar.file);
+
+	gtk_widget_set_sensitive (mt->close, close_file_state);
+	gtk_widget_set_sensitive (et->close_project, close_prj_state);
+	gtk_widget_set_sensitive (file_submenu->close_file, close_file_state);
+	gtk_widget_set_sensitive (file_submenu->close_project, close_prj_state);
+
+	anjuta_set_active ();
 }
 
 void
@@ -517,6 +572,12 @@ create_project_dbase_gui (ProjectDBase * p)
 
 	gtk_signal_connect (GTK_OBJECT (ccview_prj), "go_to",
 			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_go_to), p);
+
+	gtk_signal_connect (GTK_OBJECT (ccview_prj), "update_start",
+			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_update_start), p);
+
+	gtk_signal_connect (GTK_OBJECT (ccview_prj), "update_end",
+			    GTK_SIGNAL_FUNC (on_project_dbase_ccview_update_end), p);
 
 	p->widgets.window = window1;
 	p->widgets.ccview = ccview_prj;

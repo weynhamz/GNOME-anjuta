@@ -84,6 +84,7 @@ struct _CcviewProjectClass
 
 	void (*save_file)  (CcviewProject* prj,
 			gchar* file);
+	void (*update_cancelled) (CcviewProject *prj);
 };
 
 /* Widget stuffs */

@@ -1516,6 +1516,8 @@ Scanner::create_dialog (void)
   gtk_widget_show (button1);
   gtk_signal_connect (GTK_OBJECT(button1), "clicked", GTK_SIGNAL_FUNC(cancel_clicked), this);
   GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
+
+  gtk_signal_connect (GTK_OBJECT (win), "close", GTK_SIGNAL_FUNC (cancel_clicked), this);
 }
 
 void Scanner::start()
@@ -1565,4 +1567,6 @@ Scanner::cancel_clicked(GtkObject* obj, gpointer data)
 {
 	Scanner* scn = (Scanner*)data;
 	scn->cancel();
+
+	gtk_signal_emit (scn->owner->object, ccview_signals[UPDATE_CANCELLED]);
 }
