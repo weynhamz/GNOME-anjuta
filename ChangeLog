@@ -1,4 +1,7 @@
 2005-02-14  Naba Kumar  <naba@gnome.org>
+
+	* src/about.c, pixmaps/Makefile.am,
+	(new) pixmaps/anjuta_logo2.png: New about page splash screen.
 	
 	* mime/gnome-mime-application-x-anjuta.png,
 	pixmaps/anjuta_icon.png,

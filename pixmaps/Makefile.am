@@ -7,9 +7,11 @@
 anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 
 anjuta_pixmaps_DATA = \
+	anjuta_icon.svg \
 	anjuta_icon.png \
 	anjuta_logo.png \
 	anjuta_logo1.png \
+	anjuta_logo2.png \
 	anjuta_splash.png \
 	applogo.png \
 	appwizard.png \

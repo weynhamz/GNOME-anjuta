@@ -25,7 +25,7 @@
 #include <gnome.h>
 #include "about.h"
 
-#define ANJUTA_PIXMAP_LOGO                "anjuta_logo1.png"
+#define ANJUTA_PIXMAP_LOGO                "anjuta_logo2.png"
 
 static const char *authors[] = {
 	"Founder and lead developer:",
