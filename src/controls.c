@@ -421,13 +421,20 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (dm->info_frame, A && R);
 	gtk_widget_set_sensitive (dm->info_args, A && R);
 	
-	gtk_widget_set_sensitive (cvs->update_project, P);
-	gtk_widget_set_sensitive (cvs->commit_project, P);
-	gtk_widget_set_sensitive (cvs->import_project, P);
-	gtk_widget_set_sensitive (cvs->status_project, P);
-	gtk_widget_set_sensitive (cvs->log_project, P);
-	gtk_widget_set_sensitive (cvs->diff_project, P);
-
+	gtk_widget_set_sensitive (cvs->update_file, !L);
+	gtk_widget_set_sensitive (cvs->commit_file, !L);
+	gtk_widget_set_sensitive (cvs->status_file, !L);
+	gtk_widget_set_sensitive (cvs->add_file, !L);
+	gtk_widget_set_sensitive (cvs->remove_file, !L);
+	gtk_widget_set_sensitive (cvs->log_file, !L);
+	gtk_widget_set_sensitive (cvs->diff_file, !L);
+	gtk_widget_set_sensitive (cvs->update_project, P && !L);
+	gtk_widget_set_sensitive (cvs->commit_project, P && !L);
+	gtk_widget_set_sensitive (cvs->import_project, P && !L);
+	gtk_widget_set_sensitive (cvs->status_project, P && !L);
+	gtk_widget_set_sensitive (cvs->log_project, P && !L);
+	gtk_widget_set_sensitive (cvs->diff_project, P && !L);
+	gtk_widget_set_sensitive (cvs->login, !L);
 
 	update_led_animator ();
 }
