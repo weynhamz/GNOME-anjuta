@@ -274,6 +274,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	gtk_widget_hide (view1_menu_uiinfo[15].widget);
 	gtk_widget_hide (project1_menu_uiinfo[13].widget);
 	gtk_widget_hide (project1_menu_uiinfo[14].widget);
+	gtk_widget_hide(settings1_menu_uiinfo[13].widget);
 
 	/* Recent files and project submenu */
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_files), "realize",
