@@ -1,5 +1,17 @@
 2002-05-02  Stephane Demurget  <demurgets@free.fr>
 
+	Impl. feature request #525271 (add Lisp support).
+
+	* data/properties/lisp.properties: added.
+
+	* data/properties/Makefile.am, data/properties/anjuta.properties: added
+	  the lisp properties.
+
+	* src/main_menubar_def.h, src/lexer.h, src/aneditor.cxx,
+	  src/utilities.[ch]: added support for the Lisp highlight style.
+
+2002-05-02  Stephane Demurget  <demurgets@free.fr>
+
 	* src/anjuta.[ch], src/anjuta_cbs.c, src/main_menubar.[ch],
 	  src/main_menubar_def.h, src/mainmenu_callbacks.[ch],
 	  src/text_editor_cbs.c: replaced the tabs ordering menuitem by a

@@ -396,6 +396,10 @@ FileExtType get_file_ext_type (gchar * file)
 	{
 		filetype = FILE_TYPE_WSCRIPT;
 	}
+	else if (strcmp (filetype_str, "lisp") == 0)
+	{
+		filetype = FILE_TYPE_LISP;
+	}
 	else
 	{
 		filetype = FILE_TYPE_UNKNOWN;

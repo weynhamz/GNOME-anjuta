@@ -26,6 +26,7 @@ properties_data_DATA = \
 	lua.properties \
 	python.properties \
 	xml.properties \
-	others.properties
+	others.properties \
+	lisp.properties
 
 EXTRA_DIST = $(properties_data_DATA)

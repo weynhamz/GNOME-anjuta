@@ -767,7 +767,7 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*6*/
 };
 
-#define NUM_HILITE_SUBMENUS 24
+#define NUM_HILITE_SUBMENUS 25
 static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Automatic"),
@@ -913,7 +913,13 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*24*/
+	{/*24*/
+	 GNOME_APP_UI_ITEM, N_("Lisp"),
+	 N_("Force the highlight style to Lisp"),
+	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_BAAN), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*25*/
 };
 
 #define NUM_FORMAT_SUBMENUS 13
