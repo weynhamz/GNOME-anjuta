@@ -169,13 +169,16 @@ launcher_scan_error ()
 static void
 launcher_scan_pty()
 {
-   gchar* chars;
-   gint len;
-
 	if (launcher.terminal)
 	{
+		gint len;
+		gchar* chars = NULL;
+		
+		vt_clear_selection (ZVT_TERM(launcher.terminal)->vx);
 		chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal),
 		  &len, VT_SELTYPE_LINE, -10000, 0, 10000, 0);
+		vt_clear_selection (ZVT_TERM(launcher.terminal)->vx);
+		
 		zvt_term_reset(ZVT_TERM(launcher.terminal), TRUE);
 		launcher.char_pos = 1;
 		if (chars && strlen(chars) > launcher.char_pos)
@@ -204,6 +207,7 @@ launcher_scan_pty()
 			}
 			launcher.char_pos = strlen(chars);
 		}
+		if (chars) g_free(chars);
 	}
 };
 
@@ -402,6 +406,7 @@ launcher_execution_done (gpointer data)
   zvt_term_closepty(ZVT_TERM(launcher.terminal));
   zvt_term_reset(ZVT_TERM(launcher.terminal), 1);
   gtk_widget_destroy(launcher.terminal);
+  launcher.terminal = NULL;
   launcher_set_busy (FALSE);
   
   /* Call this here, after set_busy(FALSE)so we are able to 
