@@ -7,7 +7,7 @@
 
 SUBDIRS = po tagmanager global-tags scintilla \
 	widgets printing omf-install pixmaps scripts data \
-	doc launcher plugins src macros2
+	doc launcher plugins src
 
 anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjutadoc_DATA = \
@@ -18,7 +18,6 @@ anjutadoc_DATA = \
 	INSTALL\
 	NEWS\
 	TODO\
-	ABOUT-NLS\
 	FUTURE
 
 EXTRA_DIST = \

@@ -709,7 +709,6 @@ sv_populate (gboolean full)
 		goto clean_leave;
 	}
 
-	//sv_hide();
 	s = g_string_sized_new (MAX_STRING_LENGTH);
 
 	for (i = 0; i < symbol_tree->info.children->len; ++i) {
@@ -800,12 +799,11 @@ sv_populate (gboolean full)
 			gtk_tree_path_free (path);
 			node = g_list_next (node);
 		}
-		glist_strings_free (selected_items);
 	}
-	
-	//sv_show();
 
 clean_leave:
+	if (selected_items)
+		glist_strings_free (selected_items);
 	sv_connect ();
 	busy = FALSE;
 	return sv;

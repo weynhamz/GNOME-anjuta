@@ -72,7 +72,7 @@ gchar* project_type_gtk2[] =
 	
 	"0",
 	"0", 
-	"0",
+	"1",
 };
 
 gchar* project_type_libglade[] =
@@ -135,7 +135,7 @@ gchar* project_type_gnome2[] =
 	
 	"1", 
 	"1",
-	"0",
+	"1",
 };
 
 gchar* project_type_libglade2[] =
@@ -153,7 +153,7 @@ gchar* project_type_libglade2[] =
 	
 	"1", 
 	"1",
-	"0",
+	"1",
 };
 
 gchar* project_type_glademm_gtkmm[] =
@@ -189,7 +189,7 @@ gchar* project_type_gtkmm2[] =
 	
 	"0",
 	"0", 
-	"0",
+	"1",
 };
 
 gchar* project_type_glademm_gnomemm[] =
@@ -233,7 +233,7 @@ gchar* project_type_gnomemm2[] =
 	
 	"1", 
 	"1",
-	"0",
+	"1",
 };
 
 gchar* project_type_bonobo[] =

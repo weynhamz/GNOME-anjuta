@@ -1029,11 +1029,8 @@ create_default_types (AnjutaMessageManager * amm)
 					 ANJUTA_PIXMAP_MINI_CVS);
 	anjuta_message_manager_add_type (amm, MESSAGE_LOCALS,
 					 ANJUTA_PIXMAP_MINI_LOCALS);
-#warning "G2: Disabling terminal -- there is a resize bug"
-/*
 	anjuta_message_manager_add_type (amm, MESSAGE_TERMINAL,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
-*/
 	anjuta_message_manager_add_type (amm, MESSAGE_STDOUT,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	anjuta_message_manager_add_type (amm, MESSAGE_STDERR,

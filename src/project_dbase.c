@@ -1605,10 +1605,10 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	else
 	{
 		if (type->id == PROJECT_TYPE_LIBGLADE)
-		{
 			ret = source_write_libglade_main_c (p);
-		} else
-		if ((ret=glade_iface_generate_source_code (filename)) == FALSE)
+		else if (type->id == PROJECT_TYPE_LIBGLADE2)
+			ret = source_write_libglade2_main_c (p);
+		else if ((ret = glade_iface_generate_source_code (filename)) == FALSE)
 			ret = source_write_generic_main_c (p);
 	}
 	g_free (filename);

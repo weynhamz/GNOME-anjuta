@@ -4,6 +4,7 @@ AC_INIT(src/Makefile.am)
 ANJUTA_VERSION=1.2.0
 
 GLIB_REQUIRED=1.3.10
+GDK_PIXBUF_REQUIRED=2.0.0
 GTK_REQUIRED=1.3.10
 ORBIT_REQUIRED=2.4.0
 LIBGLADE_REQUIRED=2.0.0
@@ -12,10 +13,11 @@ GNOME_UI_REQUIRED=1.105
 GNOME_PRINT_REQUIRED=1.0
 GNOME_PRINT_UI_REQUIRED=1.0
 GNOME_VFS_REQUIRED=1.9.4
-LIBZVT_REQUIRED=2.0.0
-GDK_PIXBUF_REQUIRED=2.0.0
+VTE_REQUIRED=0.8.0
+ZVT_REQUIRED=2.0.0
 
 AC_SUBST(GLIB_REQUIRED)
+AC_SUBST(GDK_PIXBUF_REQUIRED)
 AC_SUBST(GTK_REQUIRED)
 AC_SUBST(ORBIT_REQUIRED)
 AC_SUBST(LIBGLADE_REQUIRED)
@@ -24,8 +26,8 @@ AC_SUBST(GNOME_UI_REQUIRED)
 AC_SUBST(GNOME_PRINT_REQUIRED)
 AC_SUBST(GNOME_PRINT_UI_REQUIRED)
 AC_SUBST(GNOME_VFS_REQUIRED)
-AC_SUBST(LIBZVT_REQUIRED)
-AC_SUBST(GDK_PIXBUF_REQUIRED)
+AC_SUBST(VTE_REQUIRED)
+AC_SUBST(ZVT_REQUIRED)
 
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
@@ -90,9 +92,10 @@ PKG_CHECK_MODULES(ANJUTA, \
 	libgnomeui-2.0 >= $GNOME_UI_REQUIRED \
 	libgnomeprint-2.2 >= $GNOME_PRINT_REQUIRED \
 	libgnomeprintui-2.2 >= $GNOME_PRINT_UI_REQUIRED \
-	libzvt-2.0 >= $LIBZVT_REQUIRED \
 	gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED \
-	gnome-vfs-module-2.0 >= $GNOME_VFS_REQUIRED)
+	gnome-vfs-module-2.0 >= $GNOME_VFS_REQUIRED \
+	vte >= $VTE_REQUIRED \
+	libzvt-2.0 >= $ZVT_REQUIRED)
 
 AC_SUBST(ANJUTA_CFLAGS)
 AC_SUBST(ANJUTA_LIBS)
@@ -114,16 +117,16 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
 AM_GLIB_GNU_GETTEXT
 AC_PROG_INTLTOOL
 
-AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
-AC_PATH_PROG(EXTRA_PIXBUF_CONFIG, gdk-pixbuf-config,no)
-if test x$EXTRA_PIXBUF_CONFIG = xno; then
-  AC_MSG_ERROR(Couldn't find gdk-pixbuf-config, please install the Gdk Pixbuf package.)
-fi
+dnl AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+dnl AC_PATH_PROG(EXTRA_PIXBUF_CONFIG, gdk-pixbuf-config,no)
+dnl if test x$EXTRA_PIXBUF_CONFIG = xno; then
+dnl   AC_MSG_ERROR(Couldn't find gdk-pixbuf-config, please install the Gdk Pixbuf package.)
+dnl fi
 
-AC_PATH_PROG(EXTRA_LIBGLADE_CONFIG, libglade-config,no)
-if test x$EXTRA_LIBGLADE_CONFIG = xno; then
-  AC_MSG_ERROR(Couldn't find libglade-config, please install the LibGlade package.)
-fi
+dnl AC_PATH_PROG(EXTRA_LIBGLADE_CONFIG, libglade-config,no)
+dnl if test x$EXTRA_LIBGLADE_CONFIG = xno; then
+dnl   AC_MSG_ERROR(Couldn't find libglade-config, please install the LibGlade package.)
+dnl fi
 
 dnl Checks for programs.
 dnl ***************************************************************************
@@ -437,7 +440,6 @@ AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
 AC_OUTPUT([
 Makefile
 po/Makefile.in
-macros2/Makefile
 tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile
@@ -452,6 +454,8 @@ pixmaps/Makefile
 data/Makefile
 data/welcome.txt
 data/properties/Makefile
+data/macros/Makefile
+data/macros2/Makefile
 doc/anjuta.1
 doc/anjuta_launcher.1
 doc/Makefile

@@ -180,7 +180,7 @@ create_new_project (AppWizard * aw)
 	}
 
 	/* Scanning for created files in every module */
-	if( type )
+	if (type)
 	{
 		free_project_type(type);
 		type = NULL;

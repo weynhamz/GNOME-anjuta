@@ -655,7 +655,6 @@ fv_populate (gboolean full)
 					   NULL, full, NULL, ignore, TRUE);
 	if (!fv->file_tree)
 		goto clean_leave;
-	// fv_hide();
 	fv_add_tree_entry (fv->file_tree, NULL);
 
 	/* Restore expanded nodes */	
@@ -674,12 +673,11 @@ fv_populate (gboolean full)
 			gtk_tree_path_free (path);
 			node = g_list_next (node);
 		}
-		glist_strings_free (selected_items);
 	}
-	
-	//fv_show();
 
 clean_leave:
+	if (selected_items)
+		glist_strings_free (selected_items);
 	fv_connect ();
 	busy = FALSE;
 	return fv;

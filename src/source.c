@@ -254,6 +254,13 @@ source_write_configure_in (ProjectDBase * data)
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 	{
 		GList *files, *node;
+		if (type->gnome2_support) 
+		{
+			fprintf (fp, "GETTEXT_PACKAGE=%s\n"
+					 "AC_SUBST(GETTEXT_PACKAGE)\n"
+					 "AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, \"$GETTTEXT_PACKAGE\","
+					 " [Package name for gettext])\n\n", prj_name);
+		}
 		fprintf (fp,
 			 "\n"
 			 "dnl Languages which your application supports\n"
@@ -276,10 +283,8 @@ source_write_configure_in (ProjectDBase * data)
 			if (node)
 				fprintf(fp, " ");
 		}
-		fprintf (fp,
-			 "\"\nAM_GNU_GETTEXT\n");
-		fprintf (fp,
-			 "AM_GNU_GETTEXT_VERSION(0.10.40)\n\n");
+		fprintf (fp, "\"\nAM_GNU_GETTEXT\n");
+		fprintf (fp, "AM_GNU_GETTEXT_VERSION(0.10.40)\n\n");
 		
 		fprintf (fp,
 			 "dnl Set PACKAGE_LOCALE_DIR in config.h.\n"
@@ -1313,6 +1318,9 @@ source_write_acconfig_h (ProjectDBase * data)
 		 "#undef PACKAGE_HELP_DIR\n"
 		 "#undef PACKAGE_MENU_DIR\n"
 		 "#undef PACKAGE_SOURCE_DIR\n");
+	
+	fprintf (fp, "#undef GETTEXT_PACKAGE\n");
+	
 	fclose (fp);
 	g_free (filename);
 	return TRUE;
@@ -1468,7 +1476,6 @@ source_write_desktop_entry (ProjectDBase * data)
 	return TRUE;
 }
 
-
 static gboolean
 source_write_glade_file (ProjectDBase * data)
 {
@@ -1607,6 +1614,126 @@ source_write_glade_file (ProjectDBase * data)
 	return bOK ;
 }
 
+static gboolean
+source_write_glade2_file (ProjectDBase * data)
+{
+	FILE *fp;
+	gchar *filename, *target, *prj_name;
+	gchar *prj, *src, *pix;
+	Project_Type* type;
+	gint lang;
+	gboolean bOK = TRUE ;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	prj_name = project_dbase_get_proj_name (data);
+	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".glade", NULL);
+
+	/* FIXME: If *.glade exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		g_free (prj_name);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		g_free (prj_name);
+		return FALSE;
+	}
+	fprintf(fp,
+		"<?xml version=\"1.0\" standalone=\"no\"?> <!--*- mode: xml -*-->\n"
+		"<!DOCTYPE glade-interface SYSTEM \"http://glade.gnome.org/glade-2.0.dtd\">\n\n"
+		"<glade-interface>\n\n"
+		"<widget class=\"GtkWindow\" id=\"window1\">\n"
+		"  <property name=\"visible\">True</property>\n"
+		"  <property name=\"title\" translatable=\"yes\">window1</property>\n"
+		"  <property name=\"type\">GTK_WINDOW_TOPLEVEL</property>\n"
+		"  <property name=\"window_position\">GTK_WIN_POS_NONE</property>\n"
+		"  <property name=\"modal\">False</property>\n"
+		"  <property name=\"default_width\">500</property>\n"
+		"  <property name=\"default_height\">400</property>\n"
+		"  <property name=\"resizable\">True</property>\n"
+		"  <property name=\"destroy_with_parent\">False</property>\n\n"
+		"  <child>\n"
+		"	<placeholder/>\n"
+		"  </child>\n"
+		"</widget>\n"
+		"</glade-interface>\n"
+		);
+	fclose (fp);
+	g_free (filename);
+	
+	filename = g_strconcat (data->top_proj_dir, "/", prj_name, ".gladep", NULL);
+
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		g_free (prj_name);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (prj_name);
+		g_free (filename);
+		return FALSE;
+	}
+	
+	/* Project file. */
+	type = project_dbase_get_project_type (data);
+	target = prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	src = project_dbase_get_module_name (data, MODULE_SOURCE);
+	pix = project_dbase_get_module_name (data, MODULE_PIXMAP);
+	fprintf(fp,
+		"<?xml version=\"1.0\" standalone=\"no\"?> <!--*- mode: xml -*-->\n"
+		"<!DOCTYPE glade-project SYSTEM \"http://glade.gnome.org/glade-project-2.0.dtd\">\n"
+		"<glade-project>\n"
+		"  <name>%s</name>\n"
+		"  <program_name>%s</program_name>\n"
+		"  <source_directory>%s</source_directory>\n"
+		"  <pixmaps_directory>%s</pixmaps_directory>\n",
+		prj_name, target, src, pix);
+	g_free (prj_name);
+	g_free (target);
+	g_free (src);
+	g_free (pix);
+	
+	if (prop_get_int (data->props, "project.has.gettext", 1))
+		fprintf(fp, "  <gettext_support>TRUE</gettext_support>\n");
+	else
+		fprintf(fp, "  <gettext_support>FALSE</gettext_support>\n");
+	
+	lang = project_dbase_get_language (data);
+	if (type->id == PROJECT_TYPE_GTKMM ||
+		type->id == PROJECT_TYPE_GNOMEMM ||
+		type->id == PROJECT_TYPE_GTKMM2 ||
+		type->id == PROJECT_TYPE_GNOMEMM2 )
+		fprintf(fp, "  <language>CPP</language>\n");
+	if (!type->gnome_support)
+		fprintf(fp, "  <gnome_support>FALSE</gnome_support>\n");
+	fprintf (fp, "</glade-project>\n");
+	
+	free_project_type (type);
+	fflush (fp);
+	if (ferror (fp))
+	{
+		anjuta_system_error (errno, _("Error writing to: %s."), filename);
+		bOK = FALSE ;
+	}
+	fclose (fp);
+
+	g_free (filename);
+	return bOK ;
+}
+
 gboolean
 source_write_generic_main_c (ProjectDBase *data)
 {
@@ -1687,7 +1814,7 @@ source_write_libglade_main_c (ProjectDBase *data)
 	g_return_val_if_fail (data->project_is_open, FALSE);
 
 	prj_name = project_dbase_get_proj_name (data);
-	gladefile = g_strconcat (data->top_proj_dir, "/", prj_name, ".glade", NULL);
+	gladefile = g_strconcat (prj_name, ".glade", NULL);
 	g_free (prj_name);
 	
 	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
@@ -1746,9 +1873,9 @@ source_write_libglade_main_c (ProjectDBase *data)
 			"	/*\n"
 			"	 * The .glade filename should be on the next line.\n"
 			"	 */\n"
-			"	xml = glade_xml_new(\"%s\", NULL);\n\n"
+			"	xml = glade_xml_new (PACKAGE_SOURCE_DIR\"/%s\", NULL);\n\n"
 			"	/* This is important */\n"
-			"	glade_xml_signal_autoconnect(xml);\n"
+			"	glade_xml_signal_autoconnect (xml);\n"
 			"	window1 = glade_xml_get_widget(xml, \"window1\");\n"
 			"	gtk_widget_show (window1);\n\n"
 			"	gtk_main ();\n"
@@ -1770,6 +1897,99 @@ source_write_libglade_main_c (ProjectDBase *data)
 	return TRUE;
 }
 
+gboolean
+source_write_libglade2_main_c (ProjectDBase *data)
+{
+	FILE *fp;
+	gchar *filename, *src_dir, *gladefile, *prj_name;
+	gint lang;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (data->project_is_open, FALSE);
+
+	prj_name = project_dbase_get_proj_name (data);
+	gladefile = g_strconcat (prj_name, ".glade", NULL);
+	g_free (prj_name);
+	
+	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
+	if (!src_dir)
+		return FALSE;
+	force_create_dir (src_dir);
+
+	lang = project_dbase_get_language (data);
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C)
+	{
+		filename = g_strconcat (src_dir, "/main.c", NULL);
+	}
+	else
+	{
+		filename = g_strconcat (src_dir, "/main.cc", NULL);
+	}
+	g_free (src_dir);
+
+	/* FIXME: If main.c exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+	fprintf(fp,
+		"/* Created by Anjuta version %s */\n", VERSION);
+	fprintf(fp,
+		"/*\tThis file will not be overwritten */\n\n");
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C)
+	{
+
+		fprintf(fp,
+			"#ifdef HAVE_CONFIG_H\n"
+			"#  include <config.h>\n"
+			"#endif\n\n"
+			"#include <gnome.h>\n"
+			"#include <glade/glade.h>\n\n"
+			"int main (int argc, char *argv[])\n"
+			"{\n"
+			"	GtkWidget *window1;\n"
+			"	GladeXML *xml;\n\n"
+			"	#ifdef ENABLE_NLS\n"
+			"		bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);\n"
+			"		textdomain (PACKAGE);\n"
+			"	#endif\n\n"
+			"	gnome_init (PACKAGE, VERSION, argc, argv);\n"
+			"	glade_gnome_init ();\n"
+			"	/*\n"
+			"	 * The .glade filename should be on the next line.\n"
+			"	 */\n"
+			"	xml = glade_xml_new (PACKAGE_SOURCE_DIR\"/%s\", NULL, NULL);\n\n"
+			"	/* This is important */\n"
+			"	glade_xml_signal_autoconnect (xml);\n"
+			"	window1 = glade_xml_get_widget (xml, \"window1\");\n"
+			"	gtk_widget_show (window1);\n\n"
+			"	gtk_main ();\n"
+			"	return 0;\n"
+			"}\n", gladefile);
+	}
+	else
+	{
+		fprintf(fp,
+			"#include <iostream.h>\n"
+			"int main()\n\n"
+			"{\n"
+			"\tcout << \"Hello world\\n\";\n"
+			"\treturn (0);\n"
+			"}\n\n");
+	}
+	fclose (fp);
+	g_free (filename);
+	return TRUE;
+}
 
 gboolean
 source_write_wxwin_main_c (ProjectDBase *data)
@@ -2582,7 +2802,14 @@ source_write_build_files (ProjectDBase * data)
 	type = project_dbase_get_project_type (data);
 	if (type->glade_support)
 	{
-		ret = source_write_glade_file (data);
+		if (type->id == PROJECT_TYPE_GTKMM2 ||
+			type->id == PROJECT_TYPE_GNOMEMM2 ||
+			type->id == PROJECT_TYPE_GTK2 ||
+			type->id == PROJECT_TYPE_GNOME2 ||
+			type->id == PROJECT_TYPE_LIBGLADE2)
+			ret = source_write_glade2_file (data);
+		else
+			ret = source_write_glade_file (data);
 		if (!ret) return FALSE;
 	}
 	if (type->gnome_support)

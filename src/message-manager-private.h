@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-#include <libzvt/libzvt.h>
+#include <vte/vte.h>
 
 #include "message-manager.h"
 #include "debug_tree.h"
@@ -148,11 +148,12 @@ class TerminalWindow : public MessageSubwindow
 		GtkWidget* m_terminal;
 		GtkWidget* m_scrollbar;
 		char termenv[255];
+		pid_t child_pid;
     
 		static gboolean zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data);
-		static void zvterm_reinit_child(ZvtTerm* term);
-		static void zvterm_terminate(ZvtTerm* term);
-		static int zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event); 
+		static void zvterm_reinit_child(VteTerminal* term);
+		static void zvterm_terminate(VteTerminal* term);
+		static int zvterm_focus_in(VteTerminal* term, GdkEventFocus* event); 
 };
 
 class LocalsWindow : public MessageSubwindow
