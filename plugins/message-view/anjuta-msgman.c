@@ -46,7 +46,9 @@ on_msgman_close_page (GtkButton* button,
 {
 	MessageView *view = MESSAGE_VIEW (g_object_get_data (G_OBJECT (button),
 														 "message_view"));
-	anjuta_msgman_remove_view (msgman, view);
+	/* FIXME: This doesn't seem to work */
+	// anjuta_msgman_remove_view (msgman, view);
+	anjuta_msgman_remove_view (msgman, NULL);
 }
 
 static AnjutaMsgmanPage *
@@ -79,7 +81,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_container_add(GTK_CONTAINER(page->button), page->close_icon);
 	gtk_button_set_relief(GTK_BUTTON(page->button), GTK_RELIEF_NONE);
 	gtk_widget_set_size_request (page->button, 16, 16);
-	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->button);	
+	gtk_box_pack_start_defaults (GTK_BOX (page->box), page->button);
 	
 	g_object_set_data (G_OBJECT (page->button), "message_view", page->widget);
 	gtk_signal_connect (GTK_OBJECT (page->button), "clicked",
@@ -231,27 +233,29 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
 									 GTK_SIGNAL_FUNC
-									 (on_notebook_switch_page), NULL);
+									 (on_notebook_switch_page), msgman);
 	msgman->priv->current_view = MESSAGE_VIEW (mv);
 	msgman->priv->views =
-		g_list_append (msgman->priv->views, (gpointer) page);
+		g_list_prepend (msgman->priv->views, (gpointer) page);
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (msgman), mv, page->box);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), 0);
 	
-	gtk_signal_handler_unblock_by_func (GTK_OBJECT (msgman),
-										GTK_SIGNAL_FUNC
-										(on_notebook_switch_page), NULL);
+	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
+									   GTK_SIGNAL_FUNC
+									   (on_notebook_switch_page), msgman);
 	return MESSAGE_VIEW (mv);
-
 }
 
 void
-anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view)
+anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView *passed_view)
 {
 	AnjutaMsgmanPage *page;
 	gint page_num;
+	MessageView *view;
 
+	view = passed_view;
+	
 	if (!view)
 		view = anjuta_msgman_get_current_view (msgman);
 
@@ -261,15 +265,16 @@ anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view)
 
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
 									 GTK_SIGNAL_FUNC
-									 (on_notebook_switch_page), NULL);
+									 (on_notebook_switch_page), msgman);
 
 	page_num =
 		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
 						       GTK_WIDGET (view));
-	gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
 	msgman->priv->views = g_list_remove (msgman->priv->views, page);
 	anjuta_msgman_page_destroy (page);
 
+	gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
+	
 	/* This is called to set the next active document */
 	if (GTK_NOTEBOOK (msgman)->children == NULL)
 		anjuta_msgman_set_current_view (msgman, NULL);
@@ -279,9 +284,9 @@ anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView * view)
 		//gtk_widget_grab_focus (GTK_WIDGET (view)); 
 	}
 
-	gtk_signal_handler_unblock_by_func (GTK_OBJECT (msgman),
-										GTK_SIGNAL_FUNC
-										(on_notebook_switch_page), NULL);
+	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
+									   GTK_SIGNAL_FUNC
+									   (on_notebook_switch_page), msgman);
 }
 
 MessageView *

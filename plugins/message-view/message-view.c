@@ -738,7 +738,7 @@ on_gconf_notify_color_error (GConfClient *gclient, guint cnxn_id,
 	notify_id = anjuta_preferences_notify_add (mview->privat->prefs, \
 											   key, func, mview, NULL); \
 	mview->privat->gconf_notify_ids = g_list_prepend (mview->privat->gconf_notify_ids, \
-										   (gpointer)(notify_id));
+										   GINT_TO_POINTER(notify_id));
 static void
 prefs_init (MessageView *mview)
 {
@@ -755,7 +755,8 @@ prefs_finalize (MessageView *mview)
 	node = mview->privat->gconf_notify_ids;
 	while (node)
 	{
-		anjuta_preferences_notify_remove (mview->privat->prefs, (guint)node->data);
+		anjuta_preferences_notify_remove (mview->privat->prefs,
+										  GPOINTER_TO_INT (node->data));
 		node = g_list_next (node);
 	}
 	g_list_free (mview->privat->gconf_notify_ids);

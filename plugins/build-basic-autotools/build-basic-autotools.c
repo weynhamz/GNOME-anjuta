@@ -38,7 +38,7 @@
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
-#define MAKE_COMMAND "make -s -w"
+#define MAKE_COMMAND "make"
 
 static gpointer parent_class;
 
@@ -132,6 +132,19 @@ build_context_get_dir (BuildContext *context, const gchar *key)
 		return NULL;
 	
 	return dir_stack->data;
+}
+
+static void
+build_context_destroy (BuildContext *context)
+{
+	if (context->message_view)
+		gtk_widget_destroy (GTK_WIDGET (context->message_view));
+	if (context->launcher)
+		g_object_unref (context->launcher);
+	if (context->build_dir_stack)
+		g_hash_table_destroy (context->build_dir_stack);
+	g_free (context->command);
+	g_free (context);
 }
 
 static void
@@ -280,7 +293,9 @@ on_build_mesg_arrived (AnjutaLauncher *launcher,
 					   const gchar * mesg, gpointer user_data)
 {
 	BuildContext *context = (BuildContext*)user_data;
-	ianjuta_message_view_buffer_append (context->message_view, mesg, NULL);
+	/* Message view could have been destroyed */
+	if (context->message_view)
+		ianjuta_message_view_buffer_append (context->message_view, mesg, NULL);
 }
 
 static gboolean
@@ -478,36 +493,51 @@ on_build_terminated (AnjutaLauncher *launcher,
 					 gint child_pid, gint status, gulong time_taken,
 					 BuildContext *context)
 {
-	gchar *buff1;
-
 	g_signal_handlers_disconnect_by_func (context->launcher,
 										  G_CALLBACK (on_build_terminated),
 										  context);
-	buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
-	if (status)
+	/* Message view could have been destroyed before */
+	if (context->message_view)
 	{
-		ianjuta_message_view_buffer_append (context->message_view,
-									 _("Completed ... unsuccessful\n"), NULL);
-	}
-	else
-	{
-		ianjuta_message_view_buffer_append (context->message_view,
-								   _("Completed ... successful\n"), NULL);
-	}
-	ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
-	/*
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									BEEP_ON_BUILD_COMPLETE))
-		gdk_beep ();
-	*/
-	g_free (buff1);
-	/* anjuta_update_app_status (TRUE, NULL); */
+		gchar *buff1;
 	
-	/* Goto the first error if it exists */
-	/* if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									"build.option.gotofirst"))
-		an_message_manager_next(app->messages);
-	*/
+		buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"),
+								 time_taken);
+		if (status)
+		{
+			ianjuta_message_view_buffer_append (context->message_view,
+									_("Completed ... unsuccessful\n"), NULL);
+		}
+		else
+		{
+			ianjuta_message_view_buffer_append (context->message_view,
+									   _("Completed ... successful\n"), NULL);
+		}
+		ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
+		/*
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										BEEP_ON_BUILD_COMPLETE))
+			gdk_beep ();
+		*/
+		g_free (buff1);
+		/* anjuta_update_app_status (TRUE, NULL); */
+		
+		/* Goto the first error if it exists */
+		/* if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										"build.option.gotofirst"))
+			an_message_manager_next(app->messages);
+		*/
+	}
+	if (context->launcher)
+		g_object_unref (context->launcher);
+	context->launcher = NULL;
+}
+
+static void
+on_message_view_destroyed (GtkWidget *view, BuildContext *context)
+{
+	context->message_view = NULL;
+	build_context_destroy (context);
 }
 
 static void
@@ -527,6 +557,7 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 	
 	context = g_new0 (BuildContext, 1);
 	context->plugin = ANJUTA_PLUGIN(plugin);
+	context->command = g_strdup (command);
 	
 	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											   IAnjutaMessageManager, NULL);
@@ -541,19 +572,84 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 					  G_CALLBACK (on_build_mesg_format), context);
 	g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
 					  G_CALLBACK (on_build_mesg_parse), context);
+	g_signal_connect (G_OBJECT (context->message_view), "destroy",
+					  G_CALLBACK (on_message_view_destroyed), context);
 	
 	context->launcher = anjuta_launcher_new ();
-	
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
-	ianjuta_message_view_buffer_append (context->message_view, "Building in directory: ", NULL);
+	
+	ianjuta_message_view_buffer_append (context->message_view,
+										"Building in directory: ", NULL);
 	ianjuta_message_view_buffer_append (context->message_view, dir, NULL);
 	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
+	
+	build_context_push_dir (context, "default", dir);
 	chdir (dir);
 	anjuta_launcher_execute (context->launcher, command,
 							 on_build_mesg_arrived, context);
+}
+
+static gboolean
+build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
+{
+	gchar *file_basename;
+	gchar *file_dirname;
+	gchar *ext_ptr;
+	gboolean ret;
+	
+	/* FIXME: This should be configuration somewhere, eg. preferences */
+	static GHashTable *target_ext = NULL;
+	if (!target_ext)
+	{
+		target_ext = g_hash_table_new (g_str_hash, g_str_equal);
+		g_hash_table_insert (target_ext, ".c", ".o");
+		g_hash_table_insert (target_ext, ".cpp", ".o");
+		g_hash_table_insert (target_ext, ".cxx", ".o");
+		g_hash_table_insert (target_ext, ".c++", ".o");
+		g_hash_table_insert (target_ext, ".cc", ".o");
+		g_hash_table_insert (target_ext, ".in", "");
+		g_hash_table_insert (target_ext, ".in.in", ".in");
+	}
+	
+	g_return_val_if_fail (file != NULL, FALSE);
+	ret = FALSE;
+	
+	file_basename = g_path_get_basename (file);
+	file_dirname = g_path_get_dirname (file);
+	ext_ptr = strrchr (file_basename, '.');
+	if (ext_ptr)
+	{
+		const gchar *new_ext;
+		new_ext = g_hash_table_lookup (target_ext, ext_ptr);
+		if (new_ext)
+		{
+			gchar *command;
+			
+			*ext_ptr = '\0';
+			command = g_strconcat (MAKE_COMMAND, " ",
+								   file_basename, new_ext, NULL);
+			build_execute_command (plugin, file_dirname, command);
+			g_free (command);
+			ret = TRUE;
+		}
+	}
+	g_free (file_basename);
+	g_free (file_dirname);
+	if (ret == FALSE)
+	{
+		/* FIXME: Prompt the user to create a Makefile with a wizard
+		   (if there is no Makefile in the directory) or to add a target
+		   rule in the above hash table, eg. editing the preferences, if
+		   there is target extension defined for that file extension.
+		*/
+		GtkWindow *window;
+		window = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+		anjuta_util_dialog_error (window, "Can not compile \"%s\": No compile rule defined for this file type.", file);
+	}
+	return ret;
 }
 
 /* UI actions */
@@ -665,14 +761,20 @@ build_clean_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 build_compile_file (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	g_message ("Unimplemented");
+	if (plugin->current_editor_filename)
+	{
+		build_compile_file_real (plugin, plugin->current_editor_filename);
+	}
 }
 
 /* File manager context menu */
 static void
 fm_compile (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	g_message ("Unimplemented");
+	if (plugin->fm_current_filename)
+	{
+		build_compile_file_real (plugin, plugin->fm_current_filename);
+	}
 }
 
 static void

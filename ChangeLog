@@ -1,3 +1,11 @@
+2004-12-11  Naba Kumar  <naba@gnome.org>
+
+	* data/properties/anjuta.properties: Fixed font size.
+	* plugin/build-basic-autotools/build-basic-autotools: Added initial
+	compile file function. There are some fixmes there.
+	* plugins/message-view/anjuta-msgman.c,
+	* plugins/message-view/message-view.c: Fixed bugs and clean up.
+	
 2004-12-08  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-launcher.c, libanjuta/anjuta-utils.c, src/utilities.c,

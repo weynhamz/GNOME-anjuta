@@ -50,6 +50,7 @@ ianjuta-markable
 </para>
 
 @g_iface: 
+@marker_clicked: 
 @delete_all_markers: 
 @is_marker_set: 
 @location_from_handle: 
