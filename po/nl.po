@@ -2416,9 +2416,10 @@ msgstr "Westers"
 msgid "Central European"
 msgstr "Centraal-Europees"
 
+#. GRUT modified this item
 #: src/anjuta-encodings.c:135
 msgid "South European"
-msgstr "Zuid-europees"
+msgstr "Zuid-Europees"
 
 #: src/anjuta-encodings.c:137 src/anjuta-encodings.c:153
 #: src/anjuta-encodings.c:249
@@ -2514,9 +2515,10 @@ msgstr "Cyrillisch/Oekraiens"
 msgid "Vietnamese"
 msgstr "Vietnamees"
 
+#. GRUT modified this item
 #: src/anjuta-encodings.c:228
 msgid "Thai"
-msgstr "Thai"
+msgstr "Thais"
 
 #: src/anjuta-encodings.c:702
 msgid "Stock Encodings"
@@ -4296,10 +4298,11 @@ msgstr "Vo_lgende zoeken"
 msgid "Search Forward"
 msgstr "Vooruit zoeken"
 
+#. GRUT modified this item
 #. 2
 #: src/main_menubar_def.h:441
 msgid "Find Previous"
-msgstr "Vorige zoeken"
+msgstr "Zoek vorige"
 
 #: src/main_menubar_def.h:442
 msgid "Search Backward"
