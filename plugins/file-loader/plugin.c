@@ -168,7 +168,7 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 	gchar *message;
 	
 	message = g_strdup_printf (_("<b>Cannot open \"%s\"</b>.\n\n"
-								 "There is plugin, default action, or application "
+								 "There is no plugin, default action, or application "
 								 "configured to handle this file type.\n"
 								 "\n"
 								 "Mime type: %s.\n"
