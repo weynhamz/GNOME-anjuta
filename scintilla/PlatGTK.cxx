@@ -26,16 +26,16 @@
 #pragma warning(disable: 4505)
 #endif
 
-static GdkFont *PFont(Font &f)  { 
-	return reinterpret_cast<GdkFont *>(f.GetID()); 
+static GdkFont *PFont(Font &f)  {
+	return reinterpret_cast<GdkFont *>(f.GetID());
 }
 
-static GtkWidget *PWidget(WindowID id) { 
-	return reinterpret_cast<GtkWidget *>(id); 
+static GtkWidget *PWidget(WindowID id) {
+	return reinterpret_cast<GtkWidget *>(id);
 }
 
-static GtkWidget *PWidget(Window &w) { 
-	return PWidget(w.GetID()); 
+static GtkWidget *PWidget(Window &w) {
+	return PWidget(w.GetID());
 }
 
 Point Point::FromLong(long lpoint) {
@@ -91,7 +91,7 @@ void Palette::WantFind(ColourPair &cp, bool want) {
 void Palette::Allocate(Window &w) {
 	if (allocatedPalette) {
 		gdk_colormap_free_colors(gtk_widget_get_colormap(PWidget(w)),
-		        reinterpret_cast<GdkColor *>(allocatedPalette), 
+		        reinterpret_cast<GdkColor *>(allocatedPalette),
 			allocatedLen);
 		delete [](reinterpret_cast<GdkColor *>(allocatedPalette));
 		allocatedPalette = 0;
@@ -152,7 +152,7 @@ static const char *CharacterSetName(int characterSet) {
 	case SC_CHARSET_SYMBOL:
 		return "*-*";
 	case SC_CHARSET_TURKISH:
-		return "*-*";
+		return "*-9";
 	case SC_CHARSET_JOHAB:
 		return "*-*";
 	case SC_CHARSET_HEBREW:
@@ -162,7 +162,7 @@ static const char *CharacterSetName(int characterSet) {
 	case SC_CHARSET_VIETNAMESE:
 		return "*-*";
 	case SC_CHARSET_THAI:
-		return "*-*";
+		return "*-1";
 	default:
 		return "*-*";
 	}
@@ -298,7 +298,7 @@ void SurfaceImpl::Init(SurfaceID sid) {
 	Release();
 	drawable = drawable_;
 	gc = gdk_gc_new(drawable_);
-	//gdk_gc_set_line_attributes(gc, 1, 
+	//gdk_gc_set_line_attributes(gc, 1,
 	//	GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_BEVEL);
 	createdGC = true;
 	inited = true;
@@ -310,7 +310,7 @@ void SurfaceImpl::InitPixMap(int width, int height, Surface *surface_) {
 		ppixmap = gdk_pixmap_new(static_cast<SurfaceImpl *>(surface_)->drawable, width, height, -1);
 	drawable = ppixmap;
 	gc = gdk_gc_new(static_cast<SurfaceImpl *>(surface_)->drawable);
-	//gdk_gc_set_line_attributes(gc, 1, 
+	//gdk_gc_set_line_attributes(gc, 1,
 	//	GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_BEVEL);
 	createdGC = true;
 	inited = true;
@@ -369,7 +369,7 @@ void SurfaceImpl::RectangleDraw(PRectangle rc, ColourAllocated fore, ColourAlloc
 		                   rc.right - rc.left - 2, rc.bottom - rc.top - 2);
 
 		PenColour(fore);
-		// The subtraction of 1 off the width and height here shouldn't be needed but 
+		// The subtraction of 1 off the width and height here shouldn't be needed but
 		// otherwise a different rectangle is drawn than would be done if the fill parameter == 1
 		gdk_draw_rectangle(drawable, gc, 0,
 		                   rc.left, rc.top,
@@ -379,7 +379,7 @@ void SurfaceImpl::RectangleDraw(PRectangle rc, ColourAllocated fore, ColourAlloc
 
 void SurfaceImpl::FillRectangle(PRectangle rc, ColourAllocated back) {
 	PenColour(back);
-	if (drawable && (rc.left < 32000)) { // Protect against out of range
+	if (drawable && (rc.left < 32000)) {	// Protect against out of range
 		gdk_draw_rectangle(drawable, gc, 1,
 		                   rc.left, rc.top,
 		                   rc.right - rc.left, rc.bottom - rc.top);
@@ -707,7 +707,7 @@ void Window::SetCursor(Cursor curs) {
 		cursorLast = cursorArrow;
 		break;
 	}
-	
+
 	gdk_window_set_cursor(PWidget(id)->window, gdkCurs);
 	gdk_cursor_destroy(gdkCurs);
 }

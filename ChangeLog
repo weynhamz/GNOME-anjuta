@@ -1,3 +1,8 @@
+2002-05-29  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* scintilla/*, scintilla/include/*: Upgraded to the vanilla
+	scintilla 1.46
+	
 2002-05-27	Jean-Noel Guiheneuf	<jnoel@saudionline.com.sa>
 
 	* src/project_import_gui.c: disallow allow the selection of files in

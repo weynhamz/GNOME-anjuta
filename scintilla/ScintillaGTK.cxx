@@ -717,10 +717,15 @@ bool ScintillaGTK::ModifyScrollBars(int nMax, int nPage) {
 		modified = true;
 	}
 
-	if (GTK_ADJUSTMENT(adjustmenth)->upper != 2000 ||
-	        GTK_ADJUSTMENT(adjustmenth)->page_size != 200) {
-		GTK_ADJUSTMENT(adjustmenth)->upper = 2000;
-		GTK_ADJUSTMENT(adjustmenth)->page_size = 200;
+	PRectangle rcText = GetTextRectangle();
+	int horizEndPreferred = scrollWidth;
+	if (horizEndPreferred < 0)
+		horizEndPreferred = 0;
+	unsigned int pageWidth = rcText.Width();
+	if (GTK_ADJUSTMENT(adjustmenth)->upper != horizEndPreferred ||
+	        GTK_ADJUSTMENT(adjustmenth)->page_size != pageWidth) {
+		GTK_ADJUSTMENT(adjustmenth)->upper = horizEndPreferred;
+		GTK_ADJUSTMENT(adjustmenth)->page_size = pageWidth;
 		gtk_adjustment_changed(GTK_ADJUSTMENT(adjustmenth));
 		modified = true;
 	}
@@ -734,12 +739,12 @@ void ScintillaGTK::ReconfigureScrollBars() {
 
 void ScintillaGTK::NotifyChange() {
 	gtk_signal_emit(GTK_OBJECT(sci), scintilla_signals[COMMAND_SIGNAL],
-			Platform::LongFromTwoShorts(GetCtrlID(), SCEN_CHANGE), PWidget(wMain));
+	                Platform::LongFromTwoShorts(GetCtrlID(), SCEN_CHANGE), PWidget(wMain));
 }
 
 void ScintillaGTK::NotifyFocus(bool focus) {
 	gtk_signal_emit(GTK_OBJECT(sci), scintilla_signals[COMMAND_SIGNAL],
-			Platform::LongFromTwoShorts(GetCtrlID(), focus ? SCEN_SETFOCUS : SCEN_KILLFOCUS), PWidget(wMain));
+	                Platform::LongFromTwoShorts(GetCtrlID(), focus ? SCEN_SETFOCUS : SCEN_KILLFOCUS), PWidget(wMain));
 }
 
 void ScintillaGTK::NotifyParent(SCNotification scn) {
@@ -1050,7 +1055,7 @@ void ScintillaGTK::Resize(int width, int height) {
 	alloc.height = Platform::Maximum(1, height - scrollBarHeight) + 1;
 	gtk_widget_size_allocate(GTK_WIDGET(PWidget(scrollbarv)), &alloc);
 
-	ChangeSize ();
+	ChangeSize();
 }
 
 gint ScintillaGTK::PressThis(GdkEventButton *event) {
@@ -1082,9 +1087,9 @@ gint ScintillaGTK::PressThis(GdkEventButton *event) {
 		// Instead of sending literal modifiers use control instead of alt
 		// This is because all the window managers seem to grab alt + click for moving
 		ButtonDown(pt, event->time,
-			(event->state & GDK_SHIFT_MASK) != 0,
-			(event->state & GDK_CONTROL_MASK) != 0,
-			(event->state & GDK_CONTROL_MASK) != 0);
+		                    (event->state & GDK_SHIFT_MASK) != 0,
+		                    (event->state & GDK_CONTROL_MASK) != 0,
+		                    (event->state & GDK_CONTROL_MASK) != 0);
 	} else if (event->button == 2) {
 		// Grab the primary selection if it exists
 		Position pos = PositionFromLocation(pt);
