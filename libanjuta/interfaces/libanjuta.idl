@@ -1,6 +1,6 @@
 // -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 //
-//  libanjuta interfaces. Generate stubs with giface-idlc-c.pl
+//  libanjuta interfaces. Generate stubs with anjuta-idl-compiler.pl
 // 
 //  Copyright (C) 2004 Naba Kumar  <naba@gnome.org>
 //
@@ -20,6 +20,13 @@
 
 #include <glib-object.h>
 
+interface IAnjutaReusable
+{
+	void ref ();
+	void unref ();
+	gint get_ref_count ();
+}
+
 interface IAnjutaEditor
 {
 	enum Error
@@ -27,10 +34,6 @@ interface IAnjutaEditor
 		DOESNT_EXIST
 	}
 	
-	// Signals
-	void ::save_point (gboolean entered);
-
-	gchar* get_filename ();
 	void   goto_line (gint lineno);
 	gchar* get_selection ();
 	gchar* get_text (gint start, gint end);
@@ -52,14 +55,16 @@ interface IAnjutaMarkable
 		INTENSE
 	}
 	
-	void mark (gint location, IAnjutaMarkableMarker marker);
+	void mark (gint location, Marker marker);
 	void unmark (gint location);
-	IAnjutaMarkableMarker get_mark (gint location);
+	Marker get_mark (gint location);
 	GList* get_all_marks ();
 }
 
 interface IAnjutaDocumentManager
 {
+	#include "ianjuta-editor.h"
+	
 	enum Error
 	{
 		DOESNT_EXIST
@@ -87,14 +92,17 @@ interface IAnjutaMessageView
 
 interface IAnjutaMessageManager
 {
-	enum Error {
+	#include "ianjuta-message-view.h"
+	
+	enum Error
+	{
 		DOESNT_EXIST
-	};
+	}
 
 	void add_view (const gchar *name, const gchar *icon);
 	void remove_view (IAnjutaMessageView *view);
-	IAnjutaMessageView* get_current_view) ();
-	IAnjutaMessageView* get_view_by_name) (const gchar *name);
+	IAnjutaMessageView* get_current_view ();
+	IAnjutaMessageView* get_view_by_name (const gchar *name);
 	GList* get_all_views ();
 	void set_current_view (IAnjutaMessageView *view);
 }
@@ -122,22 +130,13 @@ interface IAnjutaFile
 // Stream interface
 interface IAnjutaStream
 {
+	#include <stdio.h>
+	
 	void open (FILE *stream);
 	
 	interface IAnjutaStreamSavable
 	{
 		void save (FILE *stream);
-	}
-}
-
-// Dom interface
-interface IAnjutaDom
-{
-	void open (XMLDom *dom, XMLNode *root);
-	
-	interface IAnjutaDomSavable
-	{
-		void save (XMLDom *dom, XMLNode *root);
 	}
 }
 
@@ -156,7 +155,7 @@ interface IAnjutaFileLoader
 	 * 
 	 * Return value: Plugin interface used to load the file.
 	 */
-	GInterface* load(gchar *filename, gboolean readonly);
+	GObject* load (gchar *filename, gboolean readonly);
 	
 	/**
 	 * ianjuta_loader_peek_interface:
@@ -222,6 +221,8 @@ interface IAnjutaSandBox
 		// allocated context level.
 		interface IAnjutaContextTree
 		{
+			#include <gdk/gdkpixbuf.h>
+			
 			void down ();
 			void up ();
 			void next ();
@@ -234,11 +235,12 @@ interface IAnjutaSandBox
 // Implemented by plugins which can render itself
 interface IAnjutaRenderable
 {
+	#include "ianjuta-context.h"
+	
 	void render (IAnjutaContext *context);
 }
 
 // Implemented by plugins which can transform it's data into some output.
-// (e
 interface IAnjutaTransformable
 {
 	void transform();
@@ -272,48 +274,52 @@ interface IAnjutaIterable
 	}
 	
 	// Returned iter must be end()'ed when finished
-	IAnjutaIterableIter* begin ();
-	void end (IAnjutaIterableIter *iter);
+	Iter* begin ();
+	void end (Iter *iter);
 	
 	// Resets the iter to the begining
-	void reset (IAnjutaIterableIter *iter);
+	void reset (Iter *iter);
 	
 	// If the iter value is settable
 	gboolean get_settable ();
 	
 	// Forwards the iter. In recursable, it will desent into first node
 	// if current iter has children.
-	void next (IAnjutaIter* iter);
+	void next (Iter* iter);
 	
 	// Reverse the iter. In recursable, it will come up the parent node
 	// if current iter is first child.
-	void previous (IAnjutaIterableIter* iter);
+	void previous (Iter* iter);
 	
 	// Call callback for each iter starting from given iter.
 	// Give NULL iter to call for all nodes
-	void foreach (IAnjutaIterableIter* start_iter, GCallback *callback, gpointer user_data);
+	void foreach (Iter* start_iter, GCallback *callback, gpointer user_dat);
 	
 	// Interpretation of 'data' really depends on implementation
-	gpointer get (IAnjutaIterableIter *iter);
-	void set (IAnjutaIterableIter *iter, gpointer data);
+	gpointer get (Iter *iter);
+	void set (Iter *iter, gpointer data);
 	
 	// Checks if the iter is valid
-	gboolean valid (IAnjutaIterable* iter);
+	gboolean valid (Iter* iter);
 	
 	// Spawns an iter. Returned iter can then be used separately and
 	// must also be end()'ed when finished.
-	IAnjutaIterableIter* spawn (IAnjutaIterableIter *iter);
+	Iter* spawn (Iter *iter);
 	
 	interface IAnjutaRecursable
 	{
 		// Set iter to parent
-		void parent (IAnjutaIterableIter *iter);
+		void parent (Iter *iter);
 		
 		// Get first child
-		IAnjutaIterableIter* get_children (IAnjutaIterableIter *ter);
+		Iter* get_children (Iter *ter);
 		
-		gboolean has_children (IAnjutaIterableIter *iter);
+		gboolean has_children (Iter *iter);
 	}
+}
+
+interface IAnjutaModule
+{
 }
 
 // Implemented by plugins which can manage something
@@ -330,12 +336,15 @@ interface IAnjutaManager
 	
 		interface IAnjutaProjectManager
 		{
+			#include "ianjuta-module.h"
 			void configure();
 			IAnjutaModule* get_root();
 		}
 		
 		interface IAnjutaModuleManager
 		{
+			#include "ianjuta-module.h"
+			
 			void ::file_added (const gchar *filename);
 			void ::module_added (const gchar *module_name);
 			
@@ -361,18 +370,6 @@ interface IAnjutaManager
 				}
 				void add_target (const gchar *target_name);
 				void remove_target (const gchar *target_name);
-			}
-
-			interface IAnjutaModuleData
-			{
-			}
-			
-			interface IAnjutaModuleDoc
-			{
-			}
-			
-			interface IAnjutaModuleReference
-			{
 			}
 		}
 	}

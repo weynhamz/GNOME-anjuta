@@ -1,4 +1,4 @@
-#!/bin/perl -w
+#!/usr/bin/perl -w
 # 
 # Copyright (C) 2004 Naba Kumar  <naba@gnome.org>
 # 
@@ -21,39 +21,126 @@ use Data::Dumper;
 
 if (@ARGV != 1)
 {
-	die "Usage: perl giface-idlc-c.pl module_name";
+	die "Usage: perl anjuta-idl-compiler.pl module_name";
 }
 
+## Add your types which are not class
+my $not_classes = {
+	"GtkTreeIter" => "1",
+};
+
+## Add your type mappings.
+my $type_map = {
+	"void" => {
+		"gtype" => "G_TYPE_NONE",
+	},
+	"gchar*" => {
+		"gtype" => "G_TYPE_STRING",
+		"assert" => "__arg__ != NULL",
+		"fail_return" => "NULL"
+	},
+	"constgchar*" => {
+		"gtype" => "G_TYPE_STRING",
+		"assert" => "__arg__ != NULL",
+		"fail_return" => "NULL"
+	},
+	"gint" => {
+		"gtype" => "G_TYPE_INT",
+		"fail_return" => "-1"
+	},
+	"gboolean" => {
+		"gtype" => "G_TYPE_BOOLEAN",
+		"fail_return" => "FALSE"
+	},
+	"GInterface*" => {
+		"gtype" => "G_TYPE_INTERFACE",
+		"assert" => "G_IS_INTERFACE (__arg__)",
+		"fail_return" => "NULL"
+	},
+	## G_TYPE_CHAR
+	"guchar*" => {
+		"gtype" => "G_TYPE_UCHAR",
+		"assert" => "__arg__ != NULL",
+		"fail_return" => "NULL"
+	},
+	"constguchar*" => {
+		"gtype" => "G_TYPE_UCHAR",
+		"assert" => "__arg__ != NULL",
+		"fail_return" => "NULL"
+	},
+	"guint" => {
+		"gtype" => "G_TYPE_UINT",
+		"fail_return" => "0"
+	},
+	"glong" => {
+		"gtype" => "G_TYPE_LONG",
+		"fail_return" => "-1"
+	},
+	"gulong" => {
+		"gtype" => "G_TYPE_ULONG",
+		"fail_return" => "0"
+	},
+	"gint64" => {
+		"gtype" => "G_TYPE_INT64",
+		"fail_return" => "-1"
+	},
+	"guint64" => {
+		"gtype" => "G_TYPE_UINT64",
+		"fail_return" => "0"
+	},
+	## G_TYPE_ENUM
+	## G_TYPE_FLAGS
+	"gfloat" => {
+		"gtype" => "G_TYPE_FLOAT",
+		"fail_return" => "0"
+	},
+	"gdouble" => {
+		"gtype" => "G_TYPE_DOUBLE",
+		"fail_return" => "0"
+	},
+	"gpointer" => {
+		"gtype" => "G_TYPE_POINTER",
+		"assert" => "__arg__ != NULL",
+		"fail_return" => "NULL"
+	},
+	"GValue*" => {
+		"gtype" => "G_TYPE_BOXED",
+		"assert" => "G_IS_VALUE(__arg__)",
+		"fail_return" => "NULL"
+	},
+	## G_TYPE_PARAM
+	"GObject*" => {
+		"gtype" => "G_TYPE_OBJECT",
+		"assert" => "G_IS_OBJECT(__arg__)",
+		"fail_return" => "NULL"
+	}
+};
+
 my $module_name = $ARGV[0];
-
 my $idl_file = "$module_name.idl";
-
 open (INFILE, "<$idl_file")
 	or die "Can not open IDL file for reading";
 
 my %marshallers = ();
 my @global_includes;
 my @class_includes;
-
+my %class_privates = ();
 my @header_files;
 my @source_files;
-
 my $parent_class = "";
 my $current_class = "";
 my @classes;
-
 my @level = ();
 my $inside_block = 0;
 my $inside_comment = 0;
 my $comments = "";
 my $line = "";
 my $linenum = 1;
-
 my $data_hr = {};
 my @collector = ();
-	
 my $struct = "";
 my $enum = "";
+
 while ($line = <INFILE>)
 {
 	if (is_comment_begin($line)) {
@@ -146,14 +233,13 @@ while ($line = <INFILE>)
 	{
 		if (current_level(@level) eq "interface")
 		{
+			compile_inclues($data_hr, $current_class);
 			splice @class_includes, @class_includes - 1, 1;
-			# pop (@class_includes);
 			$current_class = "";
 			$parent_class = "";
 			if (@classes > 0)
 			{
 				$current_class = splice @classes, @classes - 1, 1;
-				## $current_class = pop (@classes);
 			}
 			if (@classes > 0)
 			{
@@ -164,6 +250,8 @@ while ($line = <INFILE>)
 		elsif (current_level(@level) eq "struct")
 		{
 			my $comments_in = get_comments();
+			add_class_private ($current_class, $struct);
+			$not_classes->{"$current_class$struct"} = "1";
 			compile_struct($data_hr, $current_class, $struct,
 						   $comments_in, @collector);
 			@collector = ();
@@ -173,6 +261,8 @@ while ($line = <INFILE>)
 		elsif (current_level(@level) eq "enum")
 		{
 			my $comments_in = get_comments();
+			add_class_private ($current_class, $enum);
+			$not_classes->{"$current_class$enum"} = "1";
 			compile_enum($data_hr, $current_class, $enum,
 						 $comments_in, @collector);
 			@collector = ();
@@ -190,8 +280,10 @@ while ($line = <INFILE>)
 }
 
 ## print Dumper($data_hr);
+## print Dumper(\%class_privates);
+## print Dumper($not_classes);
+
 generate_files($data_hr);
-write_makefile();
 
 sub is_comment_begin
 {
@@ -207,7 +299,7 @@ sub is_comment_begin
 sub is_comment_end
 {
 	my ($line) = @_;
-	if ($line =~ /^\s*\}\s*$/)
+	if ($line =~ /\*\//)
 	{
 		## print "Block End\n";
 		return 1;
@@ -292,6 +384,28 @@ sub is_method
 		}
 		$rettype =~ s/\s+$//;
 		
+		my $iter_class = $current_class;
+		while (1)
+		{
+			if (defined ($class_privates{$iter_class}))
+			{
+				foreach my $p (@{$class_privates{$iter_class}})
+				{
+					$args =~ s/\b$p\b/$iter_class$p/g;
+					$rettype =~ s/\b$p\b/$iter_class$p/g;
+				}
+			}
+			if (defined ($data_hr) &&
+				defined ($data_hr->{$iter_class}) &&
+				defined ($data_hr->{$iter_class}->{"__parent"}))
+			{
+				$iter_class = $data_hr->{$iter_class}->{"__parent"};
+			}
+			else
+			{
+				last;
+			}
+		}
 		$method_hr->{'rettype'} = $rettype;
 		$method_hr->{'function'} = $function;
 		$method_hr->{'args'} = $args;
@@ -320,6 +434,32 @@ sub get_comments
 	return $comments_in;
 }
 
+sub add_class_private
+{
+	my ($class, $type) = @_;
+	if (!defined ($class_privates{$class}))
+	{
+		$class_privates{$class} = [];
+	}
+	push (@{$class_privates{$class}}, $type);
+}
+
+sub is_class_private
+{
+	my ($class, $type) = @_;
+	if (defined ($class_privates{$class}))
+	{
+		foreach my $p (@{$class_privates{$class}})
+		{
+			if ($p eq $type)
+			{
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+
 sub compile_class
 {
 	my ($data_hr, $parent, $comments, $class) = @_;
@@ -345,17 +485,28 @@ sub compile_method
 	
 	$method_hr->{'__comments'} = $comments;
 	$class_hr->{$method} = $method_hr;
+}
+
+sub compile_inclues
+{
+	my ($data_hr, $class) = @_;
+	die "Error $idl_file:$linenum: Class $class doesn't exist"
+		if (ref($data_hr->{$class}) ne 'HASH');
+	my $class_hr = $data_hr->{$class};
 	
 	if (ref($class_hr->{"__include"}) ne 'ARRAY')
 	{
 		my @includes;
 		foreach my $inc (@global_includes)
 		{
+			## Normalize includes.
+			$inc =~ s/\"(.+)\"/\<$module_name\/interfaces\/$1\>/;
 			push @includes, $inc;
 		}
 		my $class_incs_lr = $class_includes[@class_includes-1];
 		foreach my $inc (@$class_incs_lr)
 		{
+			$inc =~ s/\"(.+)\"/\<$module_name\/interfaces\/$1\>/;
 			push @includes, $inc;
 		}
 		$class_hr->{'__include'} = \@includes;
@@ -410,19 +561,8 @@ sub generate_files
 		print "\n";
 		generate_class($c, $data_hr->{$c});
 	}
-	## Write marshallers
-	my $filename = "$module_name-iface-marshallers.list";
-	open (OUTFILE, ">$filename")
-		or die "Can not open $filename for writing";
-	push @header_files, "$module_name-iface-marshallers.h";
-	push @source_files, "$module_name-iface-marshallers.c";
-	foreach my $m (sort keys %marshallers)
-	{
-		$m =~ s/__/\:/;
-		$m =~ s/_/\,/g;
-		print OUTFILE "$m\n";
-	}
-	close (OUTFILE);
+	write_marshallers();
+	write_makefile();
 }
 
 sub get_canonical_names
@@ -457,91 +597,6 @@ sub get_canonical_names
 sub get_arg_type_info
 {
 	my ($type, $info) = @_;
-	my $type_map = {
-		"void" => {
-			"gtype" => "G_TYPE_NONE",
-		},
-		"gchar*" => {
-			"gtype" => "G_TYPE_STRING",
-			"assert" => "__arg__ != NULL",
-			"fail_return" => "NULL"
-		},
-		"constgchar*" => {
-			"gtype" => "G_TYPE_STRING",
-			"assert" => "__arg__ != NULL",
-			"fail_return" => "NULL"
-		},
-		"gint" => {
-			"gtype" => "G_TYPE_INT",
-			"fail_return" => "-1"
-		},
-		"gboolean" => {
-			"gtype" => "G_TYPE_BOOLEAN",
-			"fail_return" => "FALSE"
-		},
-		"GInterface*" => {
-			"gtype" => "G_TYPE_INTERFACE",
-			"assert" => "G_IS_INTERFACE (__arg__)",
-			"fail_return" => "NULL"
-		},
-		## G_TYPE_CHAR
-		"guchar*" => {
-			"gtype" => "G_TYPE_UCHAR",
-			"assert" => "__arg__ != NULL",
-			"fail_return" => "NULL"
-		},
-		"constguchar*" => {
-			"gtype" => "G_TYPE_UCHAR",
-			"assert" => "__arg__ != NULL",
-			"fail_return" => "NULL"
-		},
-		"guint" => {
-			"gtype" => "G_TYPE_UINT",
-			"fail_return" => "0"
-		},
-		"glong" => {
-			"gtype" => "G_TYPE_LONG",
-			"fail_return" => "-1"
-		},
-		"gulong" => {
-			"gtype" => "G_TYPE_ULONG",
-			"fail_return" => "0"
-		},
-		"gint64" => {
-			"gtype" => "G_TYPE_INT64",
-			"fail_return" => "-1"
-		},
-		"guint64" => {
-			"gtype" => "G_TYPE_UINT64",
-			"fail_return" => "0"
-		},
-		## G_TYPE_ENUM
-		## G_TYPE_FLAGS
-		"gfloat" => {
-			"gtype" => "G_TYPE_FLOAT",
-			"fail_return" => "0"
-		},
-		"gdouble" => {
-			"gtype" => "G_TYPE_DOUBLE",
-			"fail_return" => "0"
-		},
-		"gpointer" => {
-			"gtype" => "G_TYPE_POINTER",
-			"assert" => "__arg__ != NULL",
-			"fail_return" => "NULL"
-		},
-		"GValue*" => {
-			"gtype" => "G_TYPE_BOXED",
-			"assert" => "G_IS_VALUE(__arg__)",
-			"fail_return" => "NULL"
-		},
-		## G_TYPE_PARAM
-		"GObject*" => {
-			"gtype" => "G_TYPE_OBJECT",
-			"assert" => "G_IS_OBJECT(__arg__)",
-			"fail_return" => "NULL"
-		}
-	};
 	if (defined ($type_map->{$type}))
 	{
 		if (defined ($type_map->{$type}->{$info}))
@@ -568,16 +623,26 @@ sub get_arg_assert
 	my $ainfo = get_arg_type_info($type, "assert");
 	if (!defined($ainfo) || $ainfo eq "")
 	{
+		my $saved_type = $type;
+		$type =~ s/\*//g;
+		
+		## Check if it is registred non-class type
+		foreach my $nc (keys %$not_classes)
+		{
+			if ($type eq $nc)
+			{
+				return "";
+			}
+		}
 		## Autodetect type assert
 		if ($force ||
-			(($type =~ /\*$/) &&
+			(($saved_type =~ /\*$/) &&
 			 ($type =~ /^Gtk/ ||
 			  $type =~ /^Gdk/ ||
 			  $type =~ /^Gnome/ || 
 			  $type =~ /^Anjuta/ || 
 			  $type =~ /^IAnjuta/)))
 		{
-			$type =~ s/\*//g;
 			my $prefix;
 			my $macro_prefix;
 			my $macro_suffix;
@@ -608,6 +673,10 @@ sub get_arg_assert
 				$rettype =~ /gpointer/)
 			{
 				$fail_ret = "NULL";
+			}
+			else
+			{
+				$fail_ret = "0";
 			}
 		}
 		if (defined($fail_ret))
@@ -664,7 +733,7 @@ sub construct_marshaller
 		$marshal_index .= "_VOID";
 	}
 	$marshallers{$marshal_index} = 1;
-	$marshal_index = "$module_name-iface_cclosure_marshal_$marshal_index";
+	$marshal_index = "${module_name}_iface_cclosure_marshal_$marshal_index";
 	return $marshal_index.",\n\t\t\t".$args_list;
 }
 
@@ -701,10 +770,10 @@ sub generate_class
 		$parent_include = $pprefix.".h";
 	}
 	
-	print "\tmethod prefix: $prefix\n";
-	print "\tmacro prefix: $macro_prefix\n";
-	print "\tmacro suffix: $macro_suffix\n";
-	print "\tmacro name: $macro_name\n\n";
+	## print "\tmethod prefix: $prefix\n";
+	## print "\tmacro prefix: $macro_prefix\n";
+	## print "\tmacro suffix: $macro_suffix\n";
+	## print "\tmacro name: $macro_name\n\n";
 
 	my $filename = "$prefix.h";
 	$filename =~ s/_/-/g;
@@ -740,7 +809,7 @@ sub generate_class
 	}
 	if ($parent_include ne "")
 	{
-		$answer .= "#include <$parent_include>\n";
+		$answer .= "#include <$module_name/interfaces/$parent_include>\n";
 	}
 	$answer .=
 "
@@ -851,10 +920,7 @@ G_END_DECLS
 
 #endif
 ";
-	open (OUTFILE, ">$filename")
-		or die "Can not open $filename for writing";
-	print OUTFILE $answer;
-	close (OUTFILE);
+	write_file ($filename, $answer);
 	push @header_files, $filename;
 	
 	## Source file.
@@ -1009,24 +1075,37 @@ ${prefix}_get_type (void)
 	return type;			
 }
 ";
-	open (OUTFILE, ">$filename")
-		or die "Can not open $filename for writing";
-	print OUTFILE $answer;
-	close (OUTFILE);
+	write_file ($filename, $answer);
 	push @source_files, $filename;
+}
+
+sub write_marshallers
+{
+	## Write marshallers
+	my $filename = "$module_name-iface-marshallers.list";
+	push @header_files, "$module_name-iface-marshallers.h";
+	push @source_files, "$module_name-iface-marshallers.c";
+	my $contents = "";
+	foreach my $m (sort keys %marshallers)
+	{
+		$m =~ s/__/\:/;
+		$m =~ s/_/\,/g;
+		$contents .= "$m\n";
+	}
+	if (write_file ($filename, $contents))
+	{
+		system "echo \"#include \\\"${module_name}-iface-marshallers.h\\\"\" ".
+		"> xgen-gmc && glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
+		"./${module_name}-iface-marshallers.list --body > xgen-gmc && cp xgen-gmc ".
+		"$module_name-iface-marshallers.c && rm -f xgen-gmc";
+		system "glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
+		"./${module_name}-iface-marshallers.list --header > xgen-gmc && cp xgen-gmc ".
+		"$module_name-iface-marshallers.h && rm -f xgen-gmc";
+	}
 }
 
 sub write_makefile
 {
-    system "echo \"#include \\\"${module_name}-iface-marshallers.h\\\"\" ".
-	"> xgen-gmc && glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
-	"./${module_name}-iface-marshallers.list --body > xgen-gmc && cp xgen-gmc ".
-	"$module_name-iface-marshallers.c && rm -f xgen-gmc";
-    system "glib-genmarshal --prefix=${module_name}_iface_cclosure_marshal ".
-	"./${module_name}-iface-marshallers.list --header > xgen-gmc && cp xgen-gmc ".
-	"$module_name-iface-marshallers.h && rm -f xgen-gmc";
-    
-
     my $iface_headers = "";
     foreach my $h (@header_files)
     {
@@ -1048,36 +1127,27 @@ sub write_makefile
     my $contents = `cat Makefile.am.iface`;
     $contents =~ s/\@\@IFACE_RULES\@\@/$iface_rules/;
     my $filename = "Makefile.am";
-    open (OUTFILE, ">$filename")
-	or die "Can not open $filename for writing";
+	write_file ($filename, $contents);
+}
+
+sub write_file
+{
+	my ($filename, $contents) = @_;
+    open (OUTFILE, ">$filename.tmp")
+		or die "Can not open $filename.tmp for writing";
     print OUTFILE $contents;
     close OUTFILE;
-
-	if (0)
-	{
-	    ## Marshallers build rule
-	    print OUTFILE "BUILT_SOURCES=$module_name-iface-marshallers.c\n\n";
-
-	    print OUTFILE "$module_name-iface-marshallers.c: ${module_name}-iface-marshallers.h\n";
-	    print OUTFILE "\techo \"#include \\\"${module_name}-iface-marshallers.h\\\"";
-	    print OUTFILE "> xgen-gmc \\\n";
-	    print OUTFILE "\t\@GLIB_GENMARSHAL\@ \\\n";
-	    print OUTFILE "\t\t--prefix=${module_name}_iface_cclosure_marshal";
-	    print OUTFILE ' $(srcdir)/',"${module_name}-iface-marshallers.list --body ";
-	    print OUTFILE "> xgen-gmc \\\n";
-	    print OUTFILE "\t\t", '&& cp xgen-gmc $(@F) ', "\\\n";
-	    print OUTFILE "\t\t", '&& rm -f xgen-gmc', "\n\n";
-	    
-	    print OUTFILE "$module_name-iface-marshallers.h: $module_name-iface-marshallers.list\n";
-	    print OUTFILE "\t\@GLIB_GENMARSHAL\@ \\\n";
-	    print OUTFILE "\t\t--prefix=${module_name}_iface_cclosure_marshal";
-	    print OUTFILE ' $(srcdir)/',"$module_name-iface-marshallers.list --header ";
-	    print OUTFILE "> xgen-gmc \\\n";
-	    print OUTFILE "\t\t", '&& cp xgen-gmc $(@F) ', "\\\n";
-	    print OUTFILE "\t\t", '&& rm -f xgen-gmc', "\n\n";
 	
-	    print OUTFILE "$module_name-iface-marshallers.list: $module_name.idl\n";
-	    print OUTFILE "\t", 'cd $(srcdir) && perl $(srcdir)/giface-idlc-c.pl ';
-	    print OUTFILE "$module_name.idl\n\n";
+	my $diff = `diff $filename $filename.tmp`;
+	unlink ("$filename.tmp");
+	if ($diff !~ /^\s*$/)
+	{
+		print "\tWriting $filename\n";
+		open (OUTFILE, ">$filename")
+			or die "Can not open $filename for writing";
+		print OUTFILE $contents;
+		close OUTFILE;
+		return 1;
 	}
+	return 0;
 }

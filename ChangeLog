@@ -1,3 +1,8 @@
+2004-04-30
+
+	* libanjuta/interfaces/Makefile.am.iface,
+	libanjuta/interfaces/libanjuta.idl: Updated.
+
 2004-04-29  Naba Kumar  <naba@gnome.org>
 	
 	* libanjuta/interfaces/Makefile.am.iface,

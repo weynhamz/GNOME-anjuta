@@ -3,6 +3,7 @@ INCLUDES = \
 	$(LIBANJUTA_CFLAGS) \
 	$(DEPRECATED_FLAGS)
 
+AM_CFLAGS = -Werror
 MODULE_NAME = libanjuta
 MODULE_VESION = 0.1
 MODULE_INCLUDEDIR = $(includedir)/libanjuta-1.0/libanjuta/interfaces
@@ -10,9 +11,12 @@ MODULE_LIBS = $(LIBANJUTA_LIBS)
 
 @@IFACE_RULES@@
 
-BUILT_SOURCES = Makefile.am
+BUILT_SOURCES = iface-built.stamp
 
-Makefile.am: libanjuta.idl Makefile.am.iface
-	$(srcdir)/giface-idlc-c.pl libanjuta
-	echo "Makefile.am has been regenrated. You need to run make again"
-	exit(1)
+iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
+	savedir=`pwd` && \
+	cd $(srcdir) && perl $(srcdir)/anjuta-idl-compiler.pl libanjuta && \
+	touch $(srcdir)/iface-built.stamp && \
+	echo "changing to $$savedir" && \
+	make && \
+	cd $$savedir
