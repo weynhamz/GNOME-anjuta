@@ -1,3 +1,7 @@
+2003-12-09  Naba Kumar  <naba@gnome.org>
+
+	* setup-gettext: Fixed a typo.
+	* scintilla/Makefile.am: Fixed a build error for SMP systems.
 
 ---- Released version 1.2.0 ---
 
