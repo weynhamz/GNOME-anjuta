@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-17 16:44+0100\n"
+"POT-Creation-Date: 2004-01-17 21:01+0100\n"
 "PO-Revision-Date: 2004-01-17 16:17+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -2221,7 +2221,7 @@ msgstr "Ceci est un greffon de démonstration"
 
 #: printing/print.c:484
 msgid "No file to print!"
-msgstr "Pas de Fichier à imprimer !"
+msgstr "Aucun fichier à imprimer !"
 
 #: printing/print.c:517
 msgid "Unable to get text buffer for printing"
@@ -2230,7 +2230,7 @@ msgstr "Impossible de récupérer le buffer texte pour l'impression"
 #: printing/print.c:731
 #, c-format
 msgid "File: %s"
-msgstr "Fichier: %s"
+msgstr "Fichier : %s"
 
 #: printing/print.c:732
 #, c-format
@@ -2251,7 +2251,7 @@ msgstr "Imprimer"
 
 #: printing/print.c:1038
 msgid "Print Preview"
-msgstr "Apercu Impression"
+msgstr "Apercu avant impression"
 
 #: src/about.c:95
 msgid "Copyright (c) Naba Kumar"
@@ -2305,16 +2305,16 @@ msgstr "Imprime l'état du fichier courant"
 #. 3
 #: src/an_file_view.c:375
 msgid "Get file log"
-msgstr "Récupérer \"log\" Fichier"
+msgstr "Récupérer le fichier de journalisation"
 
 #: src/an_file_view.c:376 src/main_menubar_def.h:1633
 msgid "Print the CVS log for the current file"
-msgstr "Imprime le \"log\" CVS du fichier courant"
+msgstr "Imprime le journal CVS pour le fichier courant"
 
 #. 4
 #: src/an_file_view.c:382
 msgid "Add file"
-msgstr "Ajouter un Fichier"
+msgstr "Ajouter un fichier"
 
 #: src/an_file_view.c:383 src/main_menubar_def.h:1640
 msgid "Add the current file to the repository"
@@ -2323,7 +2323,7 @@ msgstr "Ajouter le fichier courant dans le référentiel (repository)"
 #. 5
 #: src/an_file_view.c:389
 msgid "Remove file"
-msgstr "Oter le fichier"
+msgstr "Supprimer le fichier"
 
 #: src/an_file_view.c:390 src/main_menubar_def.h:1647
 msgid "Remove the current file from the repository"
