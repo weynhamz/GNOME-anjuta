@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-14 10:21-0500\n"
-"PO-Revision-Date: 2005-02-14 12:57-0400\n"
+"POT-Creation-Date: 2005-02-15 22:24-0500\n"
+"PO-Revision-Date: 2005-02-15 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -783,7 +783,7 @@ msgstr "Working directory:"
 #: plugins/project-manager/project_dbase.c:1472
 #: plugins/project-manager/project_dbase.c:1475
 #: plugins/project-manager/project_import_cbs.c:227
-#: plugins/project-wizard/property.c:204
+#: plugins/project-wizard/property.c:205
 msgid "Yes"
 msgstr "Yes"
 
@@ -2526,7 +2526,7 @@ msgid "Search Help:"
 msgstr "Search Help:"
 
 #: plugins/devhelp/plugin.c:373 plugins/editor/plugin.c:243
-#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:235
+#: plugins/message-view/plugin.c:63 plugins/symbol-browser/plugin.c:235
 msgid "_Goto"
 msgstr "_Goto"
 
@@ -5133,7 +5133,7 @@ msgstr "Sysm Read"
 #: plugins/gdb/signals_cbs.c:142 plugins/project-manager/project_dbase.c:1468
 #: plugins/project-manager/project_dbase.c:1477
 #: plugins/project-manager/project_import_cbs.c:229
-#: plugins/project-wizard/property.c:206 plugins/project-wizard/property.c:220
+#: plugins/project-wizard/property.c:207 plugins/project-wizard/property.c:221
 msgid "No"
 msgstr "No"
 
@@ -6519,28 +6519,28 @@ msgstr "Warnings:"
 msgid "No message details"
 msgstr "No message details"
 
-#: plugins/message-view/message-view.c:602 plugins/message-view/plugin.c:148
+#: plugins/message-view/message-view.c:602 plugins/message-view/plugin.c:154
 #: src/toolbar.c:154
 msgid "Messages"
 msgstr "Messages"
 
-#: plugins/message-view/plugin.c:59
+#: plugins/message-view/plugin.c:65
 msgid "_Next message"
 msgstr "_Next message"
 
-#: plugins/message-view/plugin.c:60
+#: plugins/message-view/plugin.c:66
 msgid "Next message"
 msgstr "Next message"
 
-#: plugins/message-view/plugin.c:63
+#: plugins/message-view/plugin.c:69
 msgid "_Previous message"
 msgstr "_Previous message"
 
-#: plugins/message-view/plugin.c:64
+#: plugins/message-view/plugin.c:70
 msgid "Previous message"
 msgstr "Previous message"
 
-#: plugins/message-view/plugin.c:134
+#: plugins/message-view/plugin.c:140
 msgid "Next/Prev Message"
 msgstr "Next/Prev Message"
 
@@ -7435,17 +7435,25 @@ msgstr "Skipping %s: file already exists"
 
 #: plugins/project-wizard/install.c:451
 #, c-format
-msgid "Creating %s using AutoGen"
-msgstr "Creating %s using AutoGen"
+msgid "Creating %s (using AutoGen)"
+msgstr "Creating %s (using AutoGen)"
 
 #: plugins/project-wizard/install.c:455
 #, c-format
 msgid "Creating %s"
 msgstr "Creating %s"
 
-#: plugins/project-wizard/plugin.c:154
+#: plugins/project-wizard/install.c:524
+msgid "Executing: "
+msgstr "Executing: "
+
+#: plugins/project-wizard/plugin.c:161
 msgid "New Project Wizard"
 msgstr "New Project Wizard"
+
+#: plugins/project-wizard/property.c:252
+msgid "Icone choice"
+msgstr "Icon choice"
 
 #. Action name
 #. Stock icon, if any
