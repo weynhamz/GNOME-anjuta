@@ -950,7 +950,7 @@ project_dbase_save_project (ProjectDBase * p)
 	for(i=0; editor_prefs[i]; i++)
 	{
 		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);
-		str = prop_get(app->project_dbase->props, (gchar*)editor_prefs[i]);
+		str = prop_get(app->project_dbase->props, str_prop);
 		if (str) {
 			fprintf(fp, "%s=%s\n", str_prop, str);
 			g_free(str);
