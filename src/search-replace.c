@@ -54,6 +54,8 @@ typedef struct _SearchExpression
 	gboolean whole_word;
 	gboolean whole_line;
 	gboolean word_start;
+	gboolean no_limit;
+	gint actions_max;
 	PcreInfo *re;
 } SearchExpression;
 
@@ -587,8 +589,8 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 				for (i=1; i < status; ++i)
 				{
 					ms = g_new0(MatchSubStr, 1);
-					ms->start = s->re->ovector[(i-1) * 2];
-					ms->len = s->re->ovector[(i-i) * 2 + 1] - ms->start;
+					ms->start = s->re->ovector[i * 2];
+					ms->len = s->re->ovector[i * 2 + 1] - ms->start;
 					mi->subs = g_list_prepend(mi->subs, ms);
 				}
 				mi->subs = g_list_reverse(mi->subs);
@@ -707,6 +709,47 @@ typedef struct _SearchEntry
 	long end_pos;
 } SearchEntry;
 
+
+void function_select(SearchEntry *se)
+{
+	gint pos;
+	gint line;
+	gint fold_level;
+	gint start, end;	
+	gint line_count;
+	gint tmp;
+
+	line_count = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                    SCI_GETLINECOUNT, 0, 0);
+	pos = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                             SCI_GETCURRENTPOS, 0, 0);
+	line = scintilla_send_message(SCINTILLA(se->te->widgets.editor),
+	                              SCI_LINEFROMPOSITION, pos, 0);
+
+	tmp = line + 1;	
+	fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                    SCI_GETFOLDLEVEL, line, 0) ;	
+	if ((fold_level & 0xFF) != 0)
+	{
+		while((fold_level & 0x10FF) != 0x1000)
+			fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                    SCI_GETFOLDLEVEL, --line, 0) ;
+		start = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                    SCI_POSITIONFROMLINE, line + 1, 0);
+		line = tmp;
+		fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                        SCI_GETFOLDLEVEL, line, 0) ;
+		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
+			fold_level = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
+		end = scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                                 SCI_POSITIONFROMLINE, line , 0);
+		scintilla_send_message(SCINTILLA(se->te->widgets.editor), 
+	                           SCI_SETSEL, start, end) ;
+	}
+}
+
+
 /* Create list of search entries */
 static GList *create_search_entries(Search *s)
 {
@@ -721,7 +764,6 @@ static GList *create_search_entries(Search *s)
 	switch(s->range.type)
 	{
 		case SR_BUFFER:
-		case SR_FUNCTION: /* FIXME */
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
 			if ((se->te = app->current_text_editor) != NULL)
@@ -748,6 +790,7 @@ static GList *create_search_entries(Search *s)
 			break;
 		case SR_SELECTION:
 		case SR_BLOCK:
+		case SR_FUNCTION: 
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
 			if ((se->te = app->current_text_editor) != NULL)
@@ -755,6 +798,8 @@ static GList *create_search_entries(Search *s)
 				se->direction = s->range.direction;
 				if (s->range.type == SR_BLOCK)
 					aneditor_command(se->te->editor_id, ANE_SELECTBLOCK, 0, 0);
+				if (s->range.type == SR_FUNCTION)
+					function_select(se);
 				if (SD_BEGINNING == se->direction)
 					se->direction = SD_FORWARD;
 				se->start_pos = scintilla_send_message(SCINTILLA(
@@ -817,7 +862,52 @@ static GList *create_search_entries(Search *s)
 	return entries;
 }
 
-#define MAX_RESULTS 200
+
+static gchar* regex_backref(MatchInfo *mi, FileBuffer *fb)
+{
+	gint i, j, k;
+	long start, len;
+	gint nb_backref;
+	gint i_backref;
+	long backref[10] [2];
+	static gchar buf[512];
+	GList *tmp;
+	
+	i = 1;
+	/* Extract back references */
+	tmp = mi->subs;
+	while (tmp && i < 10)
+	{
+		backref[i] [0] = ((MatchSubStr*)tmp->data)->start;
+		backref[i] [1] = ((MatchSubStr*)tmp->data)->len;
+		tmp= g_list_next(tmp);
+		i++;
+	}
+	nb_backref = i;
+	for(i=0, j=0; i < strlen(sr->replace.repl_str) && j < 512; i++)
+	{
+		if (sr->replace.repl_str[i] == '\\')
+		{
+			i++;
+			if (sr->replace.repl_str[i] >= '0' && sr->replace.repl_str[i] <= '9')
+			{
+				i_backref = sr->replace.repl_str[i] - '0';
+				if (i_backref != 0 && i_backref < nb_backref)
+				{
+					start = backref[i_backref] [0];
+					len = backref[i_backref] [1];
+					for (k=0; k < len; k++)
+						buf[j++] = fb->buf[start + k];	
+				}
+			}	
+		}	
+		else
+			buf[j++] = sr->replace.repl_str[i];				
+	}
+	buf[j] = '\0';
+	return buf;
+}
+
 
 static void search_and_replace(void)
 {
@@ -841,7 +931,8 @@ static void search_and_replace(void)
 		anjuta_message_manager_show(app->messages, MESSAGE_FIND);
 	}
 	nb_results = 0;
-	for (tmp = entries; tmp && (nb_results <= MAX_RESULTS); tmp = g_list_next(tmp))
+	for (tmp = entries; tmp && (nb_results <= s->expr.actions_max); 
+		 tmp = g_list_next(tmp))
 	{
 		se = (SearchEntry *) tmp->data;
 		if (SE_BUFFER == se->type)
@@ -855,7 +946,7 @@ static void search_and_replace(void)
 			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr)))))
 			{
 				nb_results++;
-				if (nb_results > MAX_RESULTS)
+				if (nb_results > sr->search.expr.actions_max)
 					break;
 				if ((s->range.direction == SD_BACKWARD) && (mi->pos < se->end_pos))
 						break; 
@@ -892,19 +983,22 @@ static void search_and_replace(void)
 						break;
 					case SA_REPLACE:
 					case SA_REPLACEALL:
-						if (fb->te == NULL)
+						if (sr->replace.regex)
 						{
-							fb->te = anjuta_append_text_editor(se->path);
+							if (sr->search.expr.regex)
+								sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
 						}
-						scintilla_send_message(SCINTILLA(
-							fb->te->widgets.editor), SCI_SETSEL, mi->pos - offset
-							, (mi->pos + mi->len - offset));
-						scintilla_send_message(SCINTILLA(
-							fb->te->widgets.editor), SCI_REPLACESEL, 0
-							,(long) (sr->replace).repl_str); 
+						if (fb->te == NULL)
+							fb->te = anjuta_append_text_editor(se->path);
+							
+						scintilla_send_message(SCINTILLA(fb->te->widgets.editor), 
+							SCI_SETSEL, mi->pos - offset, (mi->pos + mi->len - offset));
+						scintilla_send_message(SCINTILLA(fb->te->widgets.editor),
+							SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
 						if (se->direction != SD_BACKWARD)						
-							offset += mi->len - strlen(sr->replace.repl_str ) ;
+							offset += mi->len - strlen(sr->replace.repl_str);
 						break;
+						
 					default:
 						break;
 				}
@@ -916,7 +1010,7 @@ static void search_and_replace(void)
 		file_buffer_free(fb);
 		g_free(se);
 	}
-	if (nb_results > MAX_RESULTS)
+	if (nb_results > sr->search.expr.actions_max)
 		messagebox1(GNOME_MESSAGE_BOX_WARNING, 
 		            _("The maximum number of results has been reached."),
 		            GNOME_STOCK_BUTTON_OK, NULL, NULL);
@@ -951,6 +1045,7 @@ static void search_and_replace(void)
 #define UNMATCH_DIRS "dir.filter.unmatch"
 #define REPLACE_STRING "replace.string"
 #define SEARCH_DIRECION "search.direction"
+#define ACTIONS_MAX "actions.max"
 
 /* Checkboxes */
 #define SEARCH_REGEX "search.regex"
@@ -964,6 +1059,7 @@ static void search_and_replace(void)
 #define IGNORE_HIDDEN_DIRS "ignore.hidden.dirs"
 #define SEARCH_RECURSIVE "search.dir.recursive"
 #define REPLACE_REGEX "replace.regex"
+#define ACTIONS_NO_LIMIT "actions.no_limit"
 
 /* Combo boxes */
 #define SEARCH_STRING_COMBO "search.string.combo"
@@ -1045,6 +1141,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_TEXT, MATCH_DIRS, NULL, NULL},
 	{GE_TEXT, UNMATCH_DIRS, NULL, NULL},
 	{GE_TEXT, REPLACE_STRING, NULL, NULL},
+	{GE_TEXT, ACTIONS_MAX, NULL, NULL},
 	{GE_OPTION, SEARCH_DIRECION, search_direction_strings, NULL},
 	{GE_BOOLEAN, SEARCH_REGEX, NULL, NULL},
 	{GE_BOOLEAN, GREEDY, NULL, NULL},
@@ -1057,6 +1154,7 @@ static GladeWidget glade_widgets[] = {
 	{GE_BOOLEAN, IGNORE_HIDDEN_DIRS, NULL, NULL},
 	{GE_BOOLEAN, SEARCH_RECURSIVE, NULL, NULL},
 	{GE_BOOLEAN, REPLACE_REGEX, NULL, NULL},
+	{GE_BOOLEAN, ACTIONS_NO_LIMIT, NULL, NULL},
 	{GE_COMBO, SEARCH_STRING_COMBO, NULL, NULL},
 	{GE_COMBO, SEARCH_TARGET_COMBO, search_target_strings, NULL},
 	{GE_COMBO, SEARCH_ACTION_COMBO, search_action_strings, NULL},
@@ -1185,6 +1283,17 @@ void on_search_target_changed(GtkEditable *editable, gpointer user_data)
 	}
 }
 
+void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data)
+{
+	GtkWidget *actions_max = glade_xml_get_widget(sg->xml, ACTIONS_MAX);
+	
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button)))
+    	gtk_widget_set_sensitive (actions_max, FALSE);
+	else
+		gtk_widget_set_sensitive (actions_max, TRUE);	
+}
+
+
 void on_search_button_close_clicked(GtkButton *button, gpointer user_data)
 {
 	if (sg->showing)
@@ -1210,7 +1319,8 @@ void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 static void search_replace_populate(void)
 {
 	char *s;
-
+	char *max = NULL;
+	
 	if (NULL == sr) /* Create a new SearchReplace instance */
 	{
 		sr = g_new0(SearchReplace, 1);
@@ -1243,6 +1353,17 @@ static void search_replace_populate(void)
 	populate_value(WORD_START, &(sr->search.expr.word_start));
 	populate_value(SEARCH_TARGET, &(sr->search.range.type));
 	populate_value(SEARCH_DIRECION, &(sr->search.range.direction));
+	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
+
+	if (sr->search.expr.no_limit)
+		sr->search.expr.actions_max = G_MAXINT;	
+	else
+	{
+		populate_value(ACTIONS_MAX, &(max));
+		sr->search.expr.actions_max = atoi(max);
+		g_free(max);
+	}
+
 	switch (sr->search.range.type)
 	{
 		case SR_VARIABLE:
