@@ -1224,7 +1224,7 @@ on_force_hilite1_activate (GtkAction * action, gint highlight_type,
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	te->force_hilite = (gint) user_data;
+	te->force_hilite = (gint) highlight_type;
 	text_editor_set_hilite_type (te);
 }
 

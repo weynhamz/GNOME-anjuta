@@ -105,6 +105,13 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @props_session: 
 @props: 
 
+<!-- ##### SIGNAL AnjutaPreferences::changed ##### -->
+<para>
+
+</para>
+
+@anjutapreferences: the object which received the signal.
+
 <!-- ##### USER_FUNCTION AnjutaPreferencesCallback ##### -->
 <para>
 
@@ -322,11 +329,4 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 <!-- # Unused Parameters # -->
 @p: 
 
-
-<!-- ##### SIGNAL AnjutaPreferences::changed ##### -->
-<para>
-
-</para>
-
-@anjutapreferences: the object which received the signal.
 

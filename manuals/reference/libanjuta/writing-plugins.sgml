@@ -158,7 +158,8 @@ ANJUTA_SIMPLE_PLUGIN (HelloWorldPlugin, hello_world_plugin);
 		<title>Hello world advanced plugin</title>
 		<para>
 			We begin by writing the header file hello-world.h. It is a
-			standard GObject class definition, minus
+			standard <link linkend-="GObject"><type>GObject</type></link>
+			class definition, minus
 			the standard macro definitions. You can define the macros if
 			you want, but for our hello-world plugin, we don't need it and
 			have been removed for simplicity. Notice that our HelloWorldPlugin
