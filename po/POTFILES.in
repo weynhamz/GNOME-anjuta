@@ -1,3 +1,4 @@
+[encoding: UTF-8]
 # List of source files containing translatable strings.
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
@@ -30,6 +31,7 @@ plugins/build-basic-autotools/build-basic-autotools.c
 plugins/class-gen/clsGen.c
 plugins/cvs-plugin/anjuta-cvs-plugin.glade
 plugins/cvs-plugin/cvs.c
+plugins/cvs-plugin/cvs-actions.c
 plugins/cvs-plugin/cvs-execute.c
 plugins/cvs-plugin/cvs_cbs.c
 plugins/cvs-plugin/cvs_gui.c
@@ -42,7 +44,7 @@ plugins/devhelp/plugin.c
 plugins/editor/action-callbacks.c
 plugins/editor/anjuta-docman.c
 plugins/editor/anjuta-document-manager.glade
-plugins/editor/file.c
+#plugins/editor/file.c
 plugins/editor/goto_line.c
 plugins/editor/plugin.c
 plugins/editor/print.c
@@ -89,7 +91,7 @@ plugins/gtodo/preferences.c
 plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
 plugins/gtodo/tray-icon.c
-plugins/launcher/launcher.c
+#plugins/launcher/launcher.c
 plugins/message-view/anjuta-message-manager-plugin.glade
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
