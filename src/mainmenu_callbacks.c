@@ -801,7 +801,7 @@ void
 on_insert_cvs_author(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Author$\n";
+	gchar *cvs_string =	"Author\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -813,7 +813,7 @@ void
 on_insert_cvs_date(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Date$\n";
+	gchar *cvs_string =	"Date\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -825,7 +825,7 @@ void
 on_insert_cvs_header(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Header$\n";
+	gchar *cvs_string =	"Header\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -837,7 +837,7 @@ void
 on_insert_cvs_id(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Id$\n";
+	gchar *cvs_string =	"Id\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -849,14 +849,7 @@ void
 on_insert_cvs_log(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Log$
-	gchar *cvs_string =	"Revision 1.50  2002/06/09 16:40:00  andyp
-	gchar *cvs_string =	"* src/debugger.c: commented the define for ANJUTA_DEBUG_DEBUGGER left over from the previous work to fix bugs :-)
-	gchar *cvs_string =	"* src/main_menubar_def.h, src/main_menubar.h, src/main_menubar.c, src/controls.c, src/mainmenu_callbacks.h, src/mainmenu_callbacks.c: Insert CVS keywords, message strings reviewed
-	gchar *cvs_string =	"* src/watch_gui.c, src/stack_trace_gui.c, src/app_wizard_gui.c, src/project_import_gui.c, src/sharedlib_gui.c, src/signals_gui.c: set window icon correctly
-	gchar *cvs_string =	"* src/cvs_gui.c, src/build_project.c, src/project_import_cbs.c: message strings reviewed
-	gchar *cvs_string =	"* src/controls.c: context help button should be disabled if DevHelp is nt installed
-	gchar *cvs_string =	"\n";
+	gchar *cvs_string =	"Log\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -868,7 +861,7 @@ void
 on_insert_cvs_name(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Name$\n";
+	gchar *cvs_string =	"Name\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -880,7 +873,7 @@ void
 on_insert_cvs_revision(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Revision$\n";
+	gchar *cvs_string =	"Revision\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -892,7 +885,7 @@ void
 on_insert_cvs_source(GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
-	gchar *cvs_string =	"$Source$\n";
+	gchar *cvs_string =	"Source\n";
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
