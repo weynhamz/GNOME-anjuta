@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.2\n"
 "POT-Creation-Date: 2003-03-16 19:25+0100\n"
-"PO-Revision-Date: 2003-04-09 03:30-0300\n"
+"PO-Revision-Date: 2003-04-12 04:00-0300\n"
 "Last-Translator: Alexandre Folle de Menezes <afmenez@terra.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -219,8 +219,7 @@ msgstr "Otimização de Baixo Nível (Otimização dependente de máquina)"
 
 #: anjuta_dialogs_strings.c:65
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
-msgstr ""
-"Otimização de Médio Nível (sem comprometimento entre tamanho e velocidade)"
+msgstr "Otimização de Médio Nível (sem comprometimento tamanho-velocidade)"
 
 #: anjuta_dialogs_strings.c:66
 msgid "High-Level Optimization (Functions inlined wherever possible)"
@@ -490,8 +489,7 @@ msgstr "Escolher diretórios:"
 
 #: anjuta_dialogs_strings.c:163 anjuta_dialogs_strings.c:287
 msgid "Space-seperated list of directory name patterns to match"
-msgstr ""
-"Lista separada por espaços de padrões de nomes de diretório a equivaler"
+msgstr "Lista separada por espaços de padrões de nomes de diretório a equivaler"
 
 #: anjuta_dialogs_strings.c:165
 msgid "Ignore directories:"
@@ -1077,8 +1075,7 @@ msgstr "Opções de compilação"
 
 #: anjuta_dialogs_strings.c:361
 msgid "Autosave editor files before build starts"
-msgstr ""
-"Salvar automaticamente arquivos do editor antes do início da compilação"
+msgstr "Salvar automaticamente arquivos do editor antes do início da compilação"
 
 #: anjuta_dialogs_strings.c:362 src/an_symbol_view.c:54
 msgid "Others"
@@ -1124,7 +1121,7 @@ msgstr "Filtrar caracteres estranhos em modo DOS"
 
 #: anjuta_dialogs_strings.c:372
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Continuar a busca por bookmarks na outra extremidade"
 
 #: anjuta_dialogs_strings.c:373
 msgid "Choose autocomplete for single match"
@@ -2377,8 +2374,7 @@ msgstr "O executável está atualizado, não é necessário compilá-lo novament
 
 #: src/build_file.c:91
 msgid "No build command has been specified for this type of file."
-msgstr ""
-"Não foi especificado nenhum comando de compilação para este tipo de arquivo."
+msgstr "Não foi especificado nenhum comando de compilação para este tipo de arquivo."
 
 #: src/build_file.c:109
 #, c-format
@@ -2623,13 +2619,11 @@ msgstr "O arquivo não foi salvo. Salve-o primeiro e então compile."
 
 #: src/compile.c:129
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr ""
-"O arquivo objeto está atualizado, não é necessário compilá-lo novamente."
+msgstr "O arquivo objeto está atualizado, não é necessário compilá-lo novamente."
 
 #: src/compile.c:141
 msgid "No compile command has been specified for this type of file."
-msgstr ""
-"Nenhum comando de compilação foi especificado para este tipo de arquivo."
+msgstr "Nenhum comando de compilação foi especificado para este tipo de arquivo."
 
 #: src/compile.c:155 src/text_editor_gui.c:168 src/toolbar.c:249
 msgid "Compile"
@@ -3046,8 +3040,7 @@ msgstr "Impossível iniciar o terminal para depuração."
 
 #: src/debugger.c:1273
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr ""
-"Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/null.\n"
+msgstr "Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/null.\n"
 
 #: src/debugger.c:1291
 msgid "Running program ... \n"
@@ -5291,15 +5284,13 @@ msgstr "_Remover arquivo"
 
 #. 6
 #: src/main_menubar_def.h:1649
-#, fuzzy
 msgid "D_iff file"
-msgstr "Arquivos de documentação"
+msgstr "D_iferenciar arquivo"
 
 #. 8
 #: src/main_menubar_def.h:1657
-#, fuzzy
 msgid "_Update Project"
-msgstr "Salvar projeto"
+msgstr "At_ualizar Projeto"
 
 #: src/main_menubar_def.h:1658
 msgid "Update the working copy of a Project"
@@ -5307,9 +5298,8 @@ msgstr "Atualizar a cópia de trabalho de um Projeto"
 
 #. 9
 #: src/main_menubar_def.h:1664
-#, fuzzy
 msgid "_Commit Project"
-msgstr "Fechar projeto"
+msgstr "_Submeter Projeto"
 
 #: src/main_menubar_def.h:1665
 msgid "Commit local changes to the repository"
@@ -5322,40 +5312,36 @@ msgstr "_Importar Projeto"
 
 #: src/main_menubar_def.h:1672
 msgid "Import Project as a new module in the repository"
-msgstr ""
+msgstr "Importar Projeto como um novo módulo no repositório"
 
 #. 11
 #: src/main_menubar_def.h:1678
-#, fuzzy
 msgid "_Status of Project"
-msgstr "Salvar projeto"
+msgstr "_Estado do Projeto"
 
 #: src/main_menubar_def.h:1679
-#, fuzzy
 msgid "Print the status of the Project"
-msgstr "Editar a configuração do projeto"
+msgstr "Imprimir o estado do Projeto"
 
 #. 12
 #: src/main_menubar_def.h:1685
-#, fuzzy
 msgid "Get Project _log"
-msgstr "Projetos recentes "
+msgstr "Obter log do Projeto"
 
 #: src/main_menubar_def.h:1686
-#, fuzzy
 msgid "Print the CVS log of the Project"
-msgstr "Abrir o arquivo NEWS (novidades) do projeto"
+msgstr "Imprimir o log CVS do Projeto"
 
 #. 13
 #: src/main_menubar_def.h:1692
-#, fuzzy
 msgid "_Diff Project"
-msgstr "_Projeto"
+msgstr "_Diferenciar Projeto"
 
 #: src/main_menubar_def.h:1693
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
 msgstr ""
+"Criar um diferencial entre a cópia de trabalho do Projeto e o repositório"
 
 #. 15
 #: src/main_menubar_def.h:1700
@@ -6401,8 +6387,7 @@ msgstr ""
 
 #: src/text_editor.c:1193
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr ""
-"A Auto formatação está desabilitada. Se desejado, habilite-a em Preferências."
+msgstr "A Auto formatação está desabilitada. Se desejado, habilite-a em Preferências."
 
 #: src/text_editor.c:1199
 msgid "Auto formatting ..."
