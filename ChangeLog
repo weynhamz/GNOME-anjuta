@@ -11,6 +11,10 @@
 	
 	* src/message-manager-private.[cc,h]: Removed dead codes.
 	
+	* (new) data/properties/css.properties,
+	data/properties/anjuta.properties, data/properties/Makefile.am:
+	Added CSS syntax hiliting properties.
+	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
 	* src/search-replace.c: Shows the dialog properly, even when it is
