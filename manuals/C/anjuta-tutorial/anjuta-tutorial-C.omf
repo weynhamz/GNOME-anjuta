@@ -15,10 +15,10 @@
 	<category>GNOME|Development</category>
     </subject>
     <description>
-	Kick start tutorial for Anjuta.
+	This document is a tutorial to help users quickly get started using the Anjuta IDE.
     </description>
     <type>
-     tutorial
+     article
     </type>
     <format mime="text/sgml"/>
     <identifier url="anjuta-tutorial.sgml"/>

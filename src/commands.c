@@ -29,6 +29,8 @@
 #include "commands.h"
 #include "utilities.h"
 
+#define LABEL_MAX_WIDTH 250
+
 enum
 {
 	COMPILE_INDEX,
@@ -563,6 +565,16 @@ on_close (GtkWidget *w, gpointer *user_data) {
 	return FALSE;
 }
 
+
+static gint
+get_label_max_width(GtkWidget *widget, gint size)
+{
+	GtkRequisition requisition;
+
+	gtk_widget_size_request(widget, &requisition);
+	return MAX(size, requisition.width);
+}
+
 static void
 create_command_editor_gui (CommandEditor *ce)
 {
@@ -603,7 +615,8 @@ create_command_editor_gui (CommandEditor *ce)
 	GtkWidget *button6;
 	GList* list = NULL;
 	gint i;
-	
+	gint label_max_width;
+
 	dialog1 = gnome_dialog_new (_("Commands"), NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "commands", "Anjuta");
@@ -667,7 +680,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table3), label2, 0, 1, 0, 1,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label2, 120, -2);
+	label_max_width = get_label_max_width(label2, 0);
 	gtk_misc_set_alignment (GTK_MISC (label2), 0, -1);
 
 	label2a = gtk_label_new (_("Make File:"));
@@ -675,7 +688,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table3), label2a, 0, 1, 3, 4,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label2a, 120, -2);
+	label_max_width = get_label_max_width(label2a, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label2a), 0, -1);
 
 	label3 = gtk_label_new (_("Build File:"));
@@ -683,7 +696,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table3), label3, 0, 1, 1, 2,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label3, 120, -2);
+	label_max_width = get_label_max_width(label3, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label3), 0, -1);
 	
 	label4 = gtk_label_new (_("Execute File:"));
@@ -691,9 +704,9 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table3), label4, 0, 1, 2, 3,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label4, 120, -2);
+	label_max_width = get_label_max_width(label4, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label4), 0, -1);
-	
+
 	entry1 = gtk_entry_new ();
 	gtk_widget_show (entry1);
 	gtk_table_attach (GTK_TABLE (table3), entry1, 1, 2, 0, 1,
@@ -737,7 +750,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table4), label5, 0, 1, 0, 1,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label5, 120, -2);
+	label_max_width = get_label_max_width(label5, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label5), 0, -1);
 	
 	label6 = gtk_label_new (_("Image editor:"));
@@ -745,7 +758,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table4), label6, 0, 1, 1, 2,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label6, 120, -2);
+	label_max_width = get_label_max_width(label6, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label6), 0, -1);
 
 	label7 = gtk_label_new (_("HTML viewer:"));
@@ -753,7 +766,7 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table4), label7, 0, 1, 2, 3,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label7, 120, -2);
+	label_max_width = get_label_max_width(label7, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label7), 0, -1);
 
 	label8 = gtk_label_new (_("Terminal Launcher:"));
@@ -761,8 +774,18 @@ create_command_editor_gui (CommandEditor *ce)
 	gtk_table_attach (GTK_TABLE (table4), label8, 0, 1, 3, 4,
 		    (GtkAttachOptions) (0),
 		    (GtkAttachOptions) (0), 0, 0);
-	gtk_widget_set_usize (label8, 120, -2);
+	label_max_width = get_label_max_width(label8, label_max_width);
 	gtk_misc_set_alignment (GTK_MISC (label8), 0, -1);
+
+	label_max_width = (label_max_width > LABEL_MAX_WIDTH) ? LABEL_MAX_WIDTH : label_max_width;
+	gtk_widget_set_usize (label2, label_max_width, -2);
+	gtk_widget_set_usize (label2a, label_max_width, -2);
+	gtk_widget_set_usize (label3, label_max_width, -2);
+	gtk_widget_set_usize (label4, label_max_width, -2);
+	gtk_widget_set_usize (label5, label_max_width, -2);
+	gtk_widget_set_usize (label6, label_max_width, -2);
+	gtk_widget_set_usize (label7, label_max_width, -2);
+	gtk_widget_set_usize (label8, label_max_width, -2);
 
 	entry4 = gtk_entry_new ();
 	gtk_widget_show (entry4);
@@ -899,3 +922,4 @@ command_editor_load_yourself (CommandEditor *ce, PropsID pr)
 {
 	return TRUE;
 }
+

@@ -205,6 +205,9 @@ preferences_destroy (Preferences * pr)
 			gtk_widget_unref (pr->widgets.tag_pos_radio[i]);
 
 		gtk_widget_unref (pr->widgets.use_components);
+
+		gtk_widget_unref (pr->widgets.name_entry);
+		gtk_widget_unref (pr->widgets.email_entry);
 		
 		gtk_widget_destroy (pr->widgets.window);
 		g_free (pr);
@@ -641,6 +644,20 @@ preferences_sync (Preferences * pr)
 				      (pr->widgets.use_components),
 				      preferences_get_int (pr,
 							   USE_COMPONENTS));
+
+	/* Page Identification */
+	str = preferences_get (pr, IDENT_NAME);
+	if (!str /*|| !g_strcasecmp(str, "(null)")*/)
+		str = getenv("USERNAME");
+	if (!str)
+		str = getenv("USER");
+	gtk_entry_set_text (GTK_ENTRY (pr->widgets.name_entry), str);
+
+	/* FIXME: we should default to user@host, not just host */
+	str = preferences_get (pr, IDENT_EMAIL);
+	if (!str /*|| !g_strcasecmp(str, "(null)")*/)
+		str = getenv("HOSTNAME");
+	gtk_entry_set_text (GTK_ENTRY (pr->widgets.email_entry), str);
 }
 
 void
@@ -892,6 +909,24 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	fprintf (fp, "preferences.win.pos.y=%d\n", pr->win_pos_y);
 	fprintf (fp, "text.zoom.factor=%d\n",
 		 preferences_get_int (pr, "text.zoom.factor"));
+
+	/* Identification */
+	str = preferences_get (pr, IDENT_NAME);
+	fprintf (fp, "%s=", IDENT_NAME);
+	if (str)
+	{
+		fprintf (fp, "%s", str);
+		g_free (str);
+	}
+	
+	str = preferences_get (pr, IDENT_EMAIL);
+	fprintf (fp, "\n%s=", IDENT_EMAIL);
+	if (str)
+	{
+		fprintf (fp, "%s\n", str);
+		g_free (str);
+	}
+
 	return TRUE;
 }
 

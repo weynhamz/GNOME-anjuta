@@ -290,7 +290,6 @@ create_compiler_options_page1 (CompilerOptions * co)
 	GtkWidget *clist1;
 	GtkWidget *label7;
 	GtkWidget *entry1;
-	GtkWidget *label8;
 	GtkWidget *vbox1;
 	GtkWidget *button0;
 	GtkWidget *button1;
@@ -330,17 +329,12 @@ create_compiler_options_page1 (CompilerOptions * co)
 	gtk_widget_show (label7);
 	gtk_clist_set_column_widget (GTK_CLIST (clist1), 0, label7);
 
-	entry1 = gtk_entry_new ();
+	entry1 = gnome_file_entry_new(NULL, NULL);
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry1), TRUE);
 	gtk_widget_show (entry1);
 	gtk_table_attach (GTK_TABLE (table2), entry1, 0, 1, 0, 1,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (GTK_FILL), 0, 0);
-
-	label8 = gtk_label_new (_("<: Enter here"));
-	gtk_widget_show (label8);
-	gtk_table_attach (GTK_TABLE (table2), label8, 1, 2, 0, 1,
-			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0,
-			  0);
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
@@ -386,8 +380,8 @@ create_compiler_options_page1 (CompilerOptions * co)
 
 	co->widgets.inc_clist = clist1;
 	gtk_widget_ref (clist1);
-	co->widgets.inc_entry = entry1;
-	gtk_widget_ref (entry1);
+	co->widgets.inc_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry1));
+	gtk_widget_ref(entry1);
 	co->widgets.inc_add_b = button0;
 	gtk_widget_ref (button0);
 	co->widgets.inc_update_b = button1;
@@ -409,7 +403,6 @@ create_compiler_options_page2 (CompilerOptions * co)
 	GtkWidget *clist1;
 	GtkWidget *label7;
 	GtkWidget *entry1;
-	GtkWidget *label8;
 	GtkWidget *vbox1;
 	GtkWidget *button0;
 	GtkWidget *button1;
@@ -449,17 +442,12 @@ create_compiler_options_page2 (CompilerOptions * co)
 	gtk_widget_show (label7);
 	gtk_clist_set_column_widget (GTK_CLIST (clist1), 0, label7);
 
-	entry1 = gtk_entry_new ();
+	entry1 = gnome_file_entry_new(NULL, NULL);
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry1), TRUE);
 	gtk_widget_show (entry1);
 	gtk_table_attach (GTK_TABLE (table2), entry1, 0, 1, 0, 1,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (GTK_FILL), 0, 0);
-
-	label8 = gtk_label_new (_("<: Enter here"));
-	gtk_widget_show (label8);
-	gtk_table_attach (GTK_TABLE (table2), label8, 1, 2, 0, 1,
-			  (GtkAttachOptions) (0), (GtkAttachOptions) (0), 0,
-			  0);
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
@@ -509,7 +497,7 @@ create_compiler_options_page2 (CompilerOptions * co)
 
 	co->widgets.lib_paths_clist = clist1;
 	gtk_widget_ref (clist1);
-	co->widgets.lib_paths_entry = entry1;
+	co->widgets.lib_paths_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry1));
 	gtk_widget_ref (entry1);
 	co->widgets.lib_paths_add_b = button0;
 	gtk_widget_ref (button0);

@@ -214,7 +214,7 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*3*/
 };
 
-#define NUM_INSERTTEXT_SUBMENUS 6
+#define NUM_INSERTTEXT_SUBMENUS 7
 static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
        {/*0*/
         GNOME_APP_UI_ITEM, N_("/* GPL Notice */"),
@@ -252,7 +252,13 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
         on_insert_header_template, NULL, NULL,
         GNOME_APP_PIXMAP_NONE, NULL,
         0, 0, NULL},
-       GNOMEUIINFO_END/*6*/
+		{/*6*/
+		GNOME_APP_UI_ITEM, N_("ChangeLog entry"),
+        N_("Insert a ChangeLog entry"),
+        on_insert_changelog_entry, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
+       GNOMEUIINFO_END/*7*/
 };
 
 #define NUM_GOTO_SUBMENUS 10

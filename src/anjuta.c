@@ -790,8 +790,8 @@ anjuta_show ()
 									 0));
 
 
-	/* Hide all toolbars, since corrosponding toggle menu items */
-	/* (in the view submenu) are all initially off */
+	/* Hide all toolbars, since corresponding toggle menu items */
+	/* (in the View submenu) are all initially off */
 	/* We do not resize or set the change in props */
 	anjuta_toolbar_set_view (ANJUTA_MAIN_TOOLBAR, FALSE, FALSE, FALSE);
 	anjuta_toolbar_set_view (ANJUTA_EXTENDED_TOOLBAR, FALSE, FALSE, FALSE);
@@ -832,12 +832,7 @@ anjuta_show ()
 	g_free (key);
 	
 	update_gtk ();
-	
-	/*
-	anjuta_message_manager_append (app->messages,
-			 _("CVS is not yet implemented. :-(\n"), MESSAGE_CVS);
-	*/
-	
+		
 	if (app->dirs->first_time)
 	{
 		gchar *file;

@@ -81,6 +81,9 @@ General source structure
 When editing the code, adding new classes or methods, etc. please 
 conform with the style already followed in the source files.
 
+If a section of code will require further work, please add helpful
+comments of the form /* FIXME: ... */
+
 Conventions:
 * _cbs suffix - callbacks
 * _gui suffix - UI definitions for windows, dialogs etc.

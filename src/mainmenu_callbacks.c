@@ -62,7 +62,7 @@
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
-gboolean closing_state;		/* Do not temper with this variable  */
+gboolean closing_state;		/* Do not tamper with this variable  */
 
 void
 on_new_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -180,7 +180,7 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 	sprintf (mesg,
 		 _
-		 ("Are you sure you want to reload %s.\nYou will lose any unsaved modification."),
+		 ("Are you sure you want to reload %s?\nAny unsaved changes will be lost."),
 		 te->filename);
 
 	messagebox2 (GNOME_MESSAGE_BOX_QUESTION, mesg,
@@ -507,38 +507,47 @@ on_insert_py_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 void
 on_insert_username(GtkMenuItem * menuitem, gpointer user_data)
 {
-       TextEditor *te;
-	   char *Username;
-	  
-	   Username = getenv("USERNAME");
-	   
-	   te = anjuta_get_current_text_editor ();
-	   if (te == NULL)
-			   return;
-       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
+		TextEditor *te;
+	    char *Username;
+	
+		Username = getenv("USERNAME");
+		if (!Username)
+			Username = preferences_get(app->preferences, IDENT_NAME);
+		if (!Username || !g_strcasecmp(Username, "(null)"))
+			Username = getenv("USER");
+		
+		te = anjuta_get_current_text_editor ();
+		if (te == NULL)
+		    return;
+		aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
 }
 
 void
 on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data)
 {
-/* TODO: this function should insert a string of the form yyyy-mm-dd<tab>name<tab>e-mail */
-/* it will require preferences to specify a name and e-mail address                      */
-/* NB the name should be the user's personal name "Albert Einstein" since we             */
-/* can get USERNAME from the environment (see above)                                     */
-/* suggest the default should be getenv("USERNAME") plus the machine hostname            */
-/*
-       TextEditor *te;
-	   char *CLEntry;
-	   
-	   .... some code to build the changelog entry string in CLEntry ....
-			   create the date string (build from ctime?)
-			   read the name and e-mail from prefs
+	  TextEditor *te;
+	  char *Username;
+	  char *email;
+	  char CLEntry[100];
+	  char datetime[20];
+      struct tm *lt;
+      time_t cur_time = time(NULL);
 
-	   te = anjuta_get_current_text_editor ();
-	   if (te == NULL)
-			   return;
-       aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)CLEntry);
-*/
+	  lt = localtime(&cur_time);
+	  strftime (datetime, 20, N_("%Y-%m-%d"), lt);
+
+	  Username = preferences_get(app->preferences, IDENT_NAME);
+	  if (!g_strcasecmp(Username, "(null)"))
+		  Username = getenv("USERNAME");
+	  email = preferences_get(app->preferences, IDENT_EMAIL);
+	  if (!email /*|| !g_strcasecmp(email, "(null)")*/)
+		  email = getenv("HOSTNAME");
+
+	  sprintf(CLEntry,"%s\t%s\t<%s>\n", datetime, Username, email);
+	  te = anjuta_get_current_text_editor ();
+	  if (te == NULL)
+		  return;
+	  aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)CLEntry);
 }
 
 void

@@ -159,6 +159,10 @@ struct _PreferencesWidgets
 	
 	/* Page Comps */
 	GtkWidget *use_components;
+
+	/* Page Ident */
+	GtkWidget *name_entry;
+  GtkWidget *email_entry;
 };
 
 struct _Preferences
@@ -313,6 +317,9 @@ void preferences_set_build_options(Preferences* p);
 
 #define COMMAND_PRINT "command.print"
 #define USE_COMPONENTS "components.enable"
+
+#define IDENT_NAME "ident.name"
+#define IDENT_EMAIL "ident.email"
 
 /* Miscellaneous */
 #define CHARACTER_SET "character.set"

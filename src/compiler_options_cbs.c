@@ -297,7 +297,7 @@ on_co_inc_add_clicked (GtkButton * button, gpointer data)
 	gint cur_row;
 	CompilerOptions *co = data;
 
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.inc_entry));
+	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.inc_entry)));
 	if (strlen (text) == 0)
 		return;
 	dummy[0] = text;
@@ -392,7 +392,7 @@ on_co_lib_add_clicked (GtkButton * button, gpointer data)
 	gint cur_row;
 	CompilerOptions *co = data;
 
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_entry));
+	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_entry)));
 	if (strlen (text) == 0)
 		return;
 	
@@ -489,7 +489,7 @@ on_co_lib_paths_add_clicked (GtkButton * button, gpointer data)
 	gint cur_row;
 	CompilerOptions *co = data;
 
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_paths_entry));
+	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_paths_entry)));
 	if (strlen (text) == 0)
 		return;
 	
@@ -548,6 +548,7 @@ on_co_lib_paths_remove_clicked (GtkButton * button, gpointer data)
 	if (g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list)
 	    < 1)
 		return;
+	compiler_options_disconnect_signals(co);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
 	gtk_clist_remove (GTK_CLIST (co->widgets.lib_paths_clist),
 			  co->lib_paths_index);
@@ -583,7 +584,7 @@ on_co_def_add_clicked (GtkButton * button, gpointer data)
 	gint cur_row;
 	CompilerOptions *co = data;
 
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.def_entry));
+	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.def_entry)));
 	if (strlen (text) == 0)
 		return;
 	dummy[0] = text;

@@ -79,6 +79,7 @@ struct _EditSubMenu
 	GtkWidget *insert_username;
 	GtkWidget *insert_datetime;
 	GtkWidget *insert_header_template;
+	GtkWidget *insert_changelog_entry;
 
 	GtkWidget *select_all;
 	GtkWidget *select_brace;

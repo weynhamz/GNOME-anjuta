@@ -119,8 +119,10 @@ static GtkWidget *create_preferences_page7 (Preferences * p);
 
 static GtkWidget *create_preferences_page_cvs (Preferences* pr);
 
-
 static GtkWidget *create_preferences_pageComp (Preferences * p);
+
+static GtkWidget *create_preferences_pageIdent (Preferences * p);
+
 
 void
 create_preferences_gui (Preferences * pr)
@@ -140,6 +142,7 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *page7;
 	GtkWidget *pagecvs;
 	GtkWidget *pageComponents;
+	GtkWidget *pageIdent;
 	GtkWidget *label102;
 	GtkWidget *label103;
 	GtkWidget *label1;
@@ -148,6 +151,7 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget* labelmsg;
 	GtkWidget *labelComps;
 	GtkWidget *labelcvs;
+	GtkWidget *labelIdent;
 	GtkWidget *preferences_ok;
 	GtkWidget *preferences_apply;
 	GtkWidget *preferences_cancel;
@@ -267,6 +271,16 @@ create_preferences_gui (Preferences * pr)
 							       (notebook2),
 							       9), labelComps);
 
+	pageIdent = create_preferences_pageIdent (pr);
+	gtk_container_add (GTK_CONTAINER (notebook2), pageIdent);
+
+	labelIdent = gtk_label_new (_("User Info"));
+	gtk_widget_show (labelIdent);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
+				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
+							       (notebook2),
+							       10), labelIdent);
+
 	dialog_action_area2 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area2);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area2),
@@ -365,25 +379,29 @@ create_preferences_page0 (Preferences * pr)
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 5);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 5);
 
-	entry1 = gtk_entry_new ();
+	entry1 = gnome_file_entry_new(NULL, NULL);
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry1), TRUE);
 	gtk_widget_show (entry1);
 	gtk_table_attach (GTK_TABLE (table1), entry1, 1, 2, 0, 1,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
-	entry2 = gtk_entry_new ();
+	entry2 = gnome_file_entry_new(NULL, NULL);
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry2), TRUE);
 	gtk_widget_show (entry2);
 	gtk_table_attach (GTK_TABLE (table1), entry2, 1, 2, 1, 2,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
-	entry3 = gtk_entry_new ();
+	entry3 = gnome_file_entry_new(NULL, NULL);
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry3), TRUE);
 	gtk_widget_show (entry3);
 	gtk_table_attach (GTK_TABLE (table1), entry3, 1, 2, 2, 3,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
-	entry4 = gtk_entry_new ();
+	entry4 = gnome_file_entry_new(NULL, NULL);
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(entry1), TRUE);
 	gtk_widget_show (entry4);
 	gtk_table_attach (GTK_TABLE (table1), entry4, 1, 2, 3, 4,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
@@ -447,7 +465,7 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (0), 5, 0);
 	gtk_misc_set_padding (GTK_MISC (label6), 0, 5);
 
-	boxLastPrj = gtk_check_button_new_with_label (_("Load automatically last project"));
+	boxLastPrj = gtk_check_button_new_with_label (_("Automatically load last Project"));
 	gtk_widget_show (boxLastPrj);
 	gtk_table_attach (GTK_TABLE (table1), boxLastPrj, 6, 7, 1, 2,
 			  (GtkAttachOptions) (0),
@@ -536,10 +554,11 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton2), 5);
 
-	pr->widgets.prj_dir_entry = entry1;
-	pr->widgets.tarballs_dir_entry = entry2;
-	pr->widgets.rpms_dir_entry = entry3;
-	pr->widgets.srpms_dir_entry = entry4;
+
+	pr->widgets.prj_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry1));
+	pr->widgets.tarballs_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry2));
+	pr->widgets.rpms_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry3));	
+	pr->widgets.srpms_dir_entry = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (entry4));
 	pr->widgets.recent_prj_spin = spinbutton2;
 	pr->widgets.recent_files_spin = spinbutton3;
 	pr->widgets.combo_history_spin = spinbutton4;
@@ -1840,7 +1859,67 @@ create_preferences_pageComp (Preferences * p)
 	p->widgets.use_components	= checkbutton1;
 	
 	on_trunc_mesg_check_clicked (GTK_BUTTON (p->widgets.use_components), p);
-	
+	return frame1;
+}
+
+
+static GtkWidget *
+create_preferences_pageIdent (Preferences * p)
+{
+	GtkWidget *window1;
+	GtkWidget *frame1;
+	GtkWidget *vbox1;
+	GtkWidget *frame2;
+	GtkWidget *table1;
+	GtkWidget *label1;
+	GtkWidget *label2;
+	GtkWidget *entry1;
+	GtkWidget *entry2;
+
+	window1 = p->widgets.window;
+
+	frame1 = gtk_frame_new (NULL);
+	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
+
+	vbox1 = gtk_vbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (frame1), vbox1);
+
+	frame2 = gtk_frame_new (NULL);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame2, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
+
+	table1 = gtk_table_new (2, 2, FALSE);
+	gtk_container_set_border_width(GTK_CONTAINER(table1), 20);
+	gtk_container_add (GTK_CONTAINER (frame2), table1);
+	gtk_table_set_row_spacings (GTK_TABLE (table1), 10);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 20);
+
+	label1 = gtk_label_new(_("Name:"));
+	gtk_table_attach (GTK_TABLE (table1), label1, 0, 1, 0, 1,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	label2 = gtk_label_new(_("E-mail address:"));
+	gtk_table_attach (GTK_TABLE (table1), label2, 0, 1, 1, 2,
+			  (GtkAttachOptions) (GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	entry1 = gtk_entry_new ();
+	gtk_table_attach (GTK_TABLE (table1), entry1, 1, 2, 0, 1,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	entry2 = gtk_entry_new ();
+	gtk_table_attach (GTK_TABLE (table1), entry2, 1, 2, 1, 2,
+			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+			  (GtkAttachOptions) (0), 0, 0);
+
+	gtk_widget_ref (entry1);
+	p->widgets.name_entry = entry1;
+	gtk_widget_ref (entry2);
+	p->widgets.email_entry = entry2;
+
+	gtk_widget_show_all(frame1);
 	return frame1;
 }
 
@@ -2247,6 +2326,12 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 
 	preferences_set_int (pr, AUTOMATIC_TAGS_UPDATE,
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (pr->widgets.tags_update_check)));
+
+  /*  Page Identification */
+  preferences_set (pr, IDENT_NAME,
+			 g_strstrip(gtk_entry_get_text (GTK_ENTRY(pr->widgets.name_entry))));
+  preferences_set (pr, IDENT_EMAIL,
+			 g_strstrip(gtk_entry_get_text (GTK_ENTRY(pr->widgets.email_entry))));
 
 	anjuta_save_settings ();
 	preferences_set_build_options(pr);

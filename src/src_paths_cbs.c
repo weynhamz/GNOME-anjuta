@@ -80,6 +80,8 @@ on_src_paths_src_clist_select_row (GtkCList * clist,
 {
 	gchar *text;
 	SrcPaths *co = user_data;
+
+//entry_file = gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY (co->widgets.src_entry));
 	co->src_index = row;
 	gtk_clist_get_text (clist, row, 0, &text);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), text);
@@ -90,12 +92,27 @@ on_src_paths_src_add_clicked (GtkButton * button, gpointer data)
 {
 	gchar *text;
 	gchar *dummy[1];
+	gchar *row_text;
+	gint max_rows;
+	gint cur_row;
 	SrcPaths *co = data;
 
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.src_entry));
+	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.src_entry)));
 	if (strlen (text) == 0)
 		return;
 	dummy[0] = text;
+
+	max_rows = g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list);
+	for (cur_row = 0; cur_row < max_rows; cur_row++)
+	{
+		gtk_clist_get_text(GTK_CLIST (co->widgets.src_clist), cur_row, 0, &row_text);
+		if (strcmp(text, row_text) == 0)
+		{
+			/* Maybe print a message here */;
+			gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
+			return;
+		}
+	}
 	gtk_clist_append (GTK_CLIST (co->widgets.src_clist), dummy);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
 	src_paths_update_controls (co);
@@ -122,8 +139,14 @@ on_src_paths_src_remove_clicked (GtkButton * button, gpointer data)
 	SrcPaths *co = data;
 	if (g_list_length (GTK_CLIST (co->widgets.src_clist)->row_list) < 1)
 		return;
+	gtk_signal_disconnect_by_func (GTK_OBJECT (co->widgets.src_clist),
+			    GTK_SIGNAL_FUNC (on_src_paths_src_clist_select_row ),
+			    co);
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.src_entry), "");
 	gtk_clist_remove (GTK_CLIST (co->widgets.src_clist), co->src_index);
+	gtk_signal_connect (GTK_OBJECT (co->widgets.src_clist), "select_row",
+			    GTK_SIGNAL_FUNC (on_src_paths_src_clist_select_row ),
+				co);
 	src_paths_update_controls (co);
 }
 

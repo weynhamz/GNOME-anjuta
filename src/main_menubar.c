@@ -72,6 +72,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.insert_username = inserttext1_submenu_uiinfo[3].widget;
 	mb->edit.insert_datetime = inserttext1_submenu_uiinfo[4].widget;
 	mb->edit.insert_header_template = inserttext1_submenu_uiinfo[5].widget;
+	mb->edit.insert_changelog_entry = inserttext1_submenu_uiinfo[6].widget;
 	mb->edit.undo = edit1_menu_uiinfo[0].widget;
 	mb->edit.redo = edit1_menu_uiinfo[1].widget;
 	mb->edit.cut = edit1_menu_uiinfo[3].widget;
