@@ -1,3 +1,8 @@
+2002-12-18  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* tagmanager/tm_global_tags.c: Fixed compiler warning.
+	* manuals/C/anjuta-faqs/anjuta-faqs.sgml: Updated FAQ.
+
 2002-12-17  Naba Kumar <naba@gnome.org>
 
 	* Makefile.am, src/Makefile.am, src/main.c: Fixed a couple of distcheck

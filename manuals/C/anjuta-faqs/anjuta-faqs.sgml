@@ -114,6 +114,21 @@
       </answer>
      </qandaentry>
 
+    <qandaentry>
+     <question>
+      <para>
+      How about a GNOME2 version of <citetitle>Anjuta</citetitle> ?
+      </para>
+     </question>
+     <answer>
+      <para>
+	  A GNOME2 port was started but it has stagnated due to lack of interest.
+	  Besides, there is already Anjuta2 (a completely different project) which
+	  works on GNOME2. However, the Anjuta development team welcomes any effort
+	  to port Anjuta to GNOME2.
+     </para>
+      </answer>
+     </qandaentry>
 	</qandadiv>    
 
     <!-- ============= Build =========== -->
@@ -255,7 +270,10 @@
       </para>
 	  <para>
 	  Having said that, Anjuta mostly works fine from a local installtion and Anjuta
-	  hackers do it all the time.
+	  hackers do it all the time. You might experience some problems with the Help
+	  entries, but that's about it. If you encounter such a problem (missing Help
+	  entries), install the stable version in the GNOME install prefix and then
+	  install the latest version in a local directory.
 	  </para>
       </answer>
      </qandaentry>
@@ -325,22 +343,7 @@
     </answer>
    </qandaentry> 
 
-    <qandaentry>
-     <question>
-      <para>
-      Where is the GNOME2 version of Anjuta ?
-      </para>
-     </question>
-     <answer>
-      <para>
-      Anjuta is being re-written for GNOME2. the GNOME2 version is called Anjuta2 and shares
-	  virtually no code with Anjuta. If you want to know details, post to the gnome-devtools
-	  mailing list.
-      </para>
-      </answer>
-     </qandaentry>
-
-    <qandaentry>
+     <qandaentry>
      <question>
       <para>
       Anjuta crashes/does strange things when I do this.
@@ -363,7 +366,9 @@
      <answer>
       <para>
       Check the <ulink url="http://sf.net/projects/anjuta/" type="http">Project Page</ulink>
-	  at SourceForge. There are always plenty of bugs and feature requests to pick up. 
+	  at SourceForge. There are always plenty of bugs and feature requests to pick up.
+	  It is a good idea to join the anjuta-devel mailing list first, though. Start small
+	  and then gradually tackle bigger and bigger thngs.
       </para>
       </answer>
      </qandaentry>
@@ -392,7 +397,9 @@
      <answer>
       <para>
 		Start with Anjuta2. You will need a full GNOME2 installation. Asking quesitons
-		on gnom-devtools list is a good way to start.
+		on gnome-devtools list is a good way to start. Currently, Anjuta2 is
+		missing lots of Anjuta features. A good way to get involved is to port
+		you favourite missing feature from Anjuta to Anjuta2.
 	  </para>
       </answer>
      </qandaentry>
@@ -413,7 +420,7 @@
      </qandaentry>
 
 
-	</qandadiv>    
+	</qandadiv>
 
    <!-- ============= Using Anjuta =========== -->
    <qandadiv>
@@ -442,8 +449,9 @@
     </question>
     <answer>
      <para>
-		This is curently not possible with the existing project manager. Anjuta2 will have the
-		ability to organize code into multiple subdirectories.
+		This is curently not possible with the existing project manager. Anjuta2
+		will have the ability to organize code into multiple subdirectories. A
+		future version of Anjuta will also hopefully have this ability.
      </para>
     </answer>
    </qandaentry> 
@@ -451,14 +459,15 @@
    <qandaentry>
     <question>
      <para>
-		I want to customize the way programs are called.
+		I want to add/customize the way programs are called.
      </para>
     </question>
     <answer>
      <para>
 		See the menu option Settings->Commands. If you are curious about the variables you can
 		use, have a look at /usr/share/anjuta/properties/anjuta.properties file. It contains a
-		brief list of variables names and heir meanings.
+		brief list of variables names and heir meanings. You can also use the
+		tools editor under Settings->Tools to create and use your own tools.
      </para>
     </answer>
    </qandaentry> 
@@ -590,7 +599,8 @@
 		</para>
 		<para>
 		Remember, you are responsible for maintaining the files in these
-		 extra sub-directories.
+		 extra sub-directories. A future version of Anjuta will have better
+		 GUI support for projects with multiple directories and targets.
 	</para>
     </answer>
    </qandaentry> 
@@ -606,6 +616,11 @@
 		This is probably due to the symbol browser. You can increase your loading speed
 		by turning 'Build Symbol Browser automatically' and 'Update tags image automatically'
 		off in Settings->general.
+	</para>
+     <para>
+	 Note that this issue has largely been fixed in the current version of Anjuta
+	 so loading time should be tolerable for large projects even with the symbol
+	 and file browser building turned on.
 	</para>
     </answer>
    </qandaentry> 
@@ -623,6 +638,21 @@
 	</para>
     </answer>
    </qandaentry> 
+
+	<qandaentry>
+    <question>
+     <para>
+	 I cannot use a standard shortcut with Anjuta. All shortcuts seem to be
+	 messed up !
+     </para>
+    </question>
+    <answer>
+     <para>
+	 Exit from Anjuta, delete $HOME/.gnome/accels/anjuta and restart. This will
+	 restore the shortcut to the (sane) default values.
+	</para>
+    </answer>
+   </qandaentry>
 
 	<qandaentry>
     <question>
@@ -703,6 +733,10 @@
 		You probably do not have GNU grep installed. GNU grep is required for the Find functionality
 		to work corectly. Please install <ulink url="ftp://ftp.gnu.org/" type="http">GNU Grep</ulink>.
 	</para>
+     <para>
+	   Note that it is quite easy to customize your own grep command by adding a
+	   new tool using the Tools Editor.
+	</para>
     </answer>
    </qandaentry>
 
@@ -759,7 +793,9 @@
     </question>
     <answer>
      <para>
-		Use File->Import Project.
+		Use File->Import Project. However, you will have to manage your Makefiles
+		manually. A future version of Anjuta will have better project importing
+		for Autotools based projects, and hopefully projects of other types as well.
 	</para>
     </answer>
    </qandaentry>
@@ -767,12 +803,18 @@
 	<qandaentry>
     <question>
      <para>
-		I hate the editor fonts/colors.
+		I hate the editor fonts/colors/XYZ feature. How do I have better control
+		of editor preferences ?
     </para>
     </question>
     <answer>
      <para>
-		So change them ! Go to Settings->Preferences->Styles.
+		Go to Settings->Preferences. You can find most of the editor preferences
+		unset the 'Styles' and 'Editor' tabs. However, not all preferences are
+		available through the GUI. If you want more control over the editor, open
+		$HOME/.anjuta/session.properties, $HOME/.anjuta/user.properties and
+		$prefix/share/anjuta/properties/anjuta.properties and edit them by
+		hand. Make sure that Anjuta if not running when you do this, however !
 	</para>
     </answer>
    </qandaentry>
@@ -789,6 +831,10 @@
 	concentrated on Anjuta2, so if you're looking for powerful new features, Anjuta2 is the
 	likely candidate for implementation. Also, Anjuta2 is a full GNOME2 application while Anjuta
 	is dependent on GNOME1 libraries. For long-term investment, Anjuta2 is a better option.
+	</para>
+	<para>
+	Ultimately, it is all about what works best at a particular time for a particular
+	scenario for you. You'll need to use both and make an informed decision.
 	</para>
     </answer>
    </qandaentry>
@@ -816,4 +862,3 @@
 
  </sect1>
 </article>
-
