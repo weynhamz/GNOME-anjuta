@@ -4,6 +4,9 @@
 	tagmanager/.cvsignore
 	tagmanager/include/.cvsignore:
 	Added cvs ignore files.
+
+	* data/.cvsignore
+	Updated cvs ignore file.
 	
 2001-12-23	Andy Piper	<andy.piper@freeuk.com>
 

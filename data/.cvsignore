@@ -3,3 +3,4 @@ Makefile
 .*swp
 *~
 .nautilus-metafile.xml
+system.tags
