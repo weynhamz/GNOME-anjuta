@@ -1,3 +1,17 @@
+2002-02-25  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.h, anjuta.c, anjuta_cbs.c:
+	Modifies the behaviour of Alt-TAB in Anjuta. This
+	brings a behaviour similar to VC6 Alt-TAB, by maintaining the recently
+	edited files in the first items of the notebook.
+
+	Patch from: Timothee Besset <timo@qeradiant.com>
+	
+2002-02-24  Philip Van Hoof <freax@pandora.be>
+
+	* widgets/gnomefilelist.c, gnomefilelist.h:
+	  Added filecompletion
+
 2002-02-21  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* configure.in: Added "sk" to ALL_LINGUAS.

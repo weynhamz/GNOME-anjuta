@@ -304,6 +304,9 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_press_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_window_key_press_event),
 			    NULL);
+  gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_release_event",
+          GTK_SIGNAL_FUNC (on_anjuta_window_key_release_event),
+          NULL);
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "delete_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_delete), NULL);
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "destroy",

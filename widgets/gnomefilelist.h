@@ -72,6 +72,11 @@ struct _GnomeFileList {
 
    gfloat file_scrollbar_value;
    gfloat dir_scrollbar_value;
+   
+   gchar *dirpattern;
+   gchar *filepattern;
+   gint files_matched;
+   gint dirs_matched;
 
    gboolean show_hidden;
    gchar *path;

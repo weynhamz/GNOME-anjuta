@@ -21,6 +21,7 @@ static gboolean set_dir_internal (GnomeFileList *file_list, gchar *path);
 static gboolean gnome_filelist_check_dir_exists(gchar *path);
 // static gint g_list_find_string_pos (GList *list, gchar *new_entry);
 static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event);
+static gint selection_entry_key_press(GtkWidget *widget, GdkEventKey *event, GnomeFileList *file_list) ;
 static void refresh_listing(GtkWidget *widget, GnomeFileList *file_list);
 // static void goto_directory(GtkWidget *widget, GnomeFileList *file_list);
 static void goto_parent(GtkWidget *widget, GnomeFileList *file_list);
@@ -178,7 +179,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    file_list->history_combo = gtk_combo_new();
    gtk_combo_disable_activate(GTK_COMBO(file_list->history_combo));
    gtk_box_pack_start(GTK_BOX(util_box), file_list->history_combo, TRUE, TRUE, 0);
-   gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry), TRUE);
+   gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry), FALSE);
    gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "changed", GTK_SIGNAL_FUNC(check_ok_button_cb), file_list);
    gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "activate", GTK_SIGNAL_FUNC(check_goto), file_list);
    gtk_widget_show(file_list->history_combo);
@@ -274,7 +275,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_table_attach (GTK_TABLE (util_box), file_list->selection_entry, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND|GTK_FILL),
                     (GtkAttachOptions) (0), 0,0 );
-
+   gtk_signal_connect(GTK_OBJECT(file_list->selection_entry), "key_press_event", GTK_SIGNAL_FUNC(selection_entry_key_press), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->selection_entry), "changed", GTK_SIGNAL_FUNC(check_ok_button_cb), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->selection_entry), "activate", GTK_SIGNAL_FUNC(check_goto), file_list);
    gtk_widget_show(file_list->selection_entry);
@@ -336,6 +337,97 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
       gnome_filelist_set_dir(file_list, g_get_home_dir ());
    
    return GTK_WIDGET(file_list);
+}
+
+
+
+static gint selection_entry_key_press(GtkWidget *widget, GdkEventKey *event, GnomeFileList *file_list) 
+{
+	GCompletion *filecmp;
+	GList *cmplist=NULL;
+
+	gchar *prefix=NULL, 
+		  *path=NULL,
+		  *prepend_str=NULL,
+		  *full_path=NULL,
+		  *full_prefix=NULL,
+		  *new_prefix=NULL,
+		  *fullprefix=NULL,
+		  *str=NULL,
+		   filename[384];
+	DIR   *dir_file;
+	struct dirent *dir;
+
+	if ((event->keyval == GDK_Tab || event->keyval == GDK_KP_Tab)) {
+		filecmp = g_completion_new (NULL);
+
+		/* Extracting the directory and prefix from user-input */
+		full_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
+		full_prefix = g_strdup(full_path);
+		prefix = g_basename(full_prefix); /* g_path_get_basename() in GNOME 2.0 */
+		path = g_dirname(full_path); /* g_path_get_dirname() in GNOME 2.0 */
+		if (strcmp(path, ".") == 0) path=g_strdup(g_dirname(file_list->path));
+		/* Populate the GCompletion list (filecmp) */
+		if(strcmp(path, "/") == 0) prepend_str = g_strdup("");
+			else prepend_str = g_strdup(path);
+		dir_file = opendir(path);
+		if(dir_file)
+		{
+			while((dir = readdir(dir_file)))
+			{
+				g_snprintf(filename, sizeof(filename), "%s%s", file_list->path, dir->d_name);
+				str = g_new(char, strlen(dir->d_name)+1);
+				strcpy(str, dir->d_name);
+				if ((str[0] != '.'))
+				{ /* If diritem is not hidden, then add it to filecmp */
+					GList *items=NULL;
+					gchar *fullname;
+					fullname = g_strdup_printf("%s/%s",prepend_str, str);
+					items = g_list_append(items, fullname);
+					if (filecmp) g_completion_add_items (filecmp, items);
+				 }
+			}
+			closedir(dir_file);
+		}
+
+		if (filecmp) { /* We have a list, lets complete */
+			fullprefix=g_strdup_printf("%s/%s", prepend_str, prefix);
+			cmplist = g_completion_complete (filecmp, fullprefix, &new_prefix);
+			if (new_prefix) {
+				gtk_entry_set_text(GTK_ENTRY(widget), new_prefix);
+
+				file_list->filepattern = g_strdup_printf("%s*", prefix);
+				file_list->dirpattern = g_strdup_printf("%s*", prefix);
+				gnome_filelist_set_dir(file_list, path);
+				gtk_entry_set_text(GTK_ENTRY(widget), new_prefix);
+				file_list->filepattern = NULL;
+				file_list->dirpattern = NULL;
+				if ((file_list->dirs_matched == 1)&&(file_list->files_matched==0)) {
+					gnome_filelist_set_dir(file_list, new_prefix);
+					gtk_entry_set_text(GTK_ENTRY(widget), new_prefix);
+					gtk_entry_append_text(GTK_ENTRY(widget), "/");
+				}
+				gtk_widget_grab_focus(widget);
+				g_free(new_prefix);
+			}
+			g_completion_free(filecmp);
+			g_free(fullprefix);
+			g_free(prepend_str);
+			g_free(full_path);
+			g_free(full_prefix);
+			gtk_signal_emit_stop_by_name (GTK_OBJECT(widget), "key_press_event");
+			return TRUE;
+		}
+		
+		g_free(fullprefix);
+		g_free(prepend_str);
+		g_free(full_path);
+		g_free(full_prefix);
+		gtk_signal_emit_stop_by_name (GTK_OBJECT(widget), "key_press_event");
+	}
+	
+	return FALSE;
+
 }
 
 
@@ -542,6 +634,8 @@ static void gnome_filelist_show(GtkWidget *widget, GnomeFileList *file_list)
    gtk_adjustment_set_value (dir_adjustment, dir_value);
    gtk_scrolled_window_set_vadjustment (GTK_SCROLLED_WINDOW(file_list->scrolled_window_dir), dir_adjustment);
 
+   gtk_widget_grab_focus(file_list->selection_entry);
+
    return;
 }
 
@@ -638,6 +732,7 @@ static void file_unselect_event(GtkCTree *tree, gint row, gint col, GdkEvent *ev
    set_file_selection(file_list);
 }
 
+
 static void gnome_filelist_get_dirs(GnomeFileList *file_list)
 {
    DIR *dir_file;
@@ -656,16 +751,19 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
    gtk_clist_clear(GTK_CLIST(file_list->file_list));
    gtk_clist_freeze(GTK_CLIST(file_list->directory_list));
    gtk_clist_freeze(GTK_CLIST(file_list->file_list));
-
+   
    filetype = gnome_filelisttype_getfiletype(file_list, 
-		   gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry)));	  	   
-	   
+		   gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry)));
+   
+   file_list->dirs_matched=0;
+   file_list->files_matched=0;
    dir_file = opendir(file_list->path);
    if(dir_file != NULL)
    {
       while((dir = readdir(dir_file)) != NULL)
       {
-         g_snprintf(filename, sizeof(filename), "%s/%s", file_list->path, dir->d_name);
+		 g_snprintf(filename, sizeof(filename), "%s%s", file_list->path, dir->d_name);
+		 
     	 stat(filename, &st);
          str = g_new(char, strlen(dir->d_name)+1);
          strcpy(str, dir->d_name);
@@ -673,9 +771,17 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
          {
 			if ( str[0] != '.' || file_list->show_hidden)
 			{
-				dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+				if (file_list->dirpattern) {
+					if (fnmatch(file_list->dirpattern, str, 0)==0) {
+						dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+						file_list->dirs_matched++;
+					}
+				} else {
+					dirs_list = g_list_prepend(dirs_list, (gpointer)str);
+					file_list->dirs_matched++;
+				}
 			}
-         }	    
+         }
          else
          {
 			
@@ -700,15 +806,22 @@ static void gnome_filelist_get_dirs(GnomeFileList *file_list)
 						extentions = g_list_next (extentions);
 						break;
 					}
-
-					/* g_print("%s vs %s gives %d\n",str, pattern, result); */
 					extentions = g_list_next(extentions);
-			    	}
+				}
 
 				extentions = g_list_first(extentions);
 				
-				if (match)
-					files_list = g_list_prepend(files_list, (gpointer) str);
+				if (match) {
+					if (file_list->filepattern) {
+						if (fnmatch(file_list->filepattern, str, 0)==0) {
+							files_list = g_list_prepend(files_list, (gpointer) str);
+							file_list->files_matched++;
+						}
+					} else {
+						files_list = g_list_prepend(files_list, (gpointer) str);
+						file_list->files_matched++;
+					}
+				}
 			}
          }
       }

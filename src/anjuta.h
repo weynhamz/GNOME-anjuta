@@ -310,6 +310,10 @@ gint on_anjuta_window_key_press_event (GtkWidget   *widget,
 				       GdkEventKey *event,
 				       gpointer     user_data);
 
+gint on_anjuta_window_key_release_event (GtkWidget   *widget,
+				       GdkEventKey *event,
+				       gpointer     user_data);
+               
 void on_open_filesel_ok_clicked (GtkButton * button, gpointer data);
 
 void on_open_filesel_cancel_clicked (GtkButton * button, gpointer data);

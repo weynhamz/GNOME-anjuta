@@ -405,6 +405,11 @@ static ShortcutMapping global_keymap[] = {
 	{ 0,   0,		 0 }
 };
 
+/*!
+state flag for Ctrl-TAB
+*/
+static gboolean g_tabbing = FALSE;
+
 gint
 on_anjuta_window_key_press_event (GtkWidget   *widget,
 				  GdkEventKey *event,
@@ -418,7 +423,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 	g_return_val_if_fail (event != NULL, FALSE);
 
 	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK);
-
+  
 	for (i = 0; global_keymap[i].id; i++)
 		if (event->keyval == global_keymap[i].gdk_key &&
 		    (event->state & global_keymap[i].modifiers) == global_keymap[i].modifiers)
@@ -437,6 +442,11 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		if (!notebook->children)
 			return FALSE;
 
+    if (!g_tabbing)
+    {
+      g_tabbing = TRUE;
+    }
+    
 		pages_nb = g_list_length (notebook->children);
 		cur_page = gtk_notebook_get_current_page (notebook);
 
@@ -457,6 +467,33 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 	gtk_signal_emit_stop_by_name (GTK_OBJECT (widget), "key_press_event");
 
 	return TRUE;
+}
+
+gint
+on_anjuta_window_key_release_event (GtkWidget   *widget,
+				  GdkEventKey *event,
+				  gpointer     user_data)
+{
+	g_return_val_if_fail (widget != NULL, FALSE);
+	g_return_val_if_fail (GNOME_IS_APP (widget), FALSE);
+	g_return_val_if_fail (event != NULL, FALSE);
+
+  if (g_tabbing && ((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)))
+  {
+		GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+    GtkWidget *widget;
+    int cur_page;
+    g_tabbing = FALSE;
+    /*
+    move the current notebook page to first position
+    that maintains Ctrl-TABing on a list of most recently edited files
+    */
+    cur_page = gtk_notebook_get_current_page (notebook);
+    widget = gtk_notebook_get_nth_page (notebook, cur_page);
+    gtk_notebook_reorder_child (notebook, widget, 0);
+  }
+  
+  return FALSE;
 }
 
 void
