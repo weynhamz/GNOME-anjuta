@@ -1,6 +1,7 @@
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* scripts/*: Added files which I forgot previously.
+	* src/aneditor.h: Lined up commands definition for better look.
 	
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
