@@ -166,7 +166,7 @@ on_refresh_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 
 static GtkActionEntry popup_actions[] = 
 {
-	/* { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL}, */
+	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
 	{
 		"ActionSymbolBrowserGotoDef",
 		NULL,
@@ -539,7 +539,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *action;
 	SymbolBrowserPlugin *sv_plugin;
 	
-	g_message ("SymbolBrowserPlugin: Activating Symbol Manager plugin ...");
+	DEBUG_PRINT ("SymbolBrowserPlugin: Activating Symbol Manager plugin ...");
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
 	sv_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	sv_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -610,6 +610,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->action_group_nav);
 	
 	sv_plugin->root_watch_id = 0;
+	sv_plugin->editor_watch_id = 0;
+	sv_plugin->merge_id = 0;
 	return TRUE;
 }
 
@@ -617,10 +619,10 @@ static void
 dispose (GObject *obj)
 {
 	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
-	if (plugin->sv)
+	if (plugin->sw)
 	{
-		g_object_ref (G_OBJECT (plugin->sv));
-		plugin->sv = NULL;
+		g_object_unref (G_OBJECT (plugin->sw));
+		plugin->sw = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -628,12 +630,7 @@ dispose (GObject *obj)
 static void
 finalize (GObject *obj)
 {
-	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin *) obj;
-	if (!anjuta_plugin_is_active (ANJUTA_PLUGIN (obj)))
-	{
-		/* widget is no longer in a container */
-		gtk_widget_destroy (plugin->sw);
-	}
+	/* SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin *) obj; */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
@@ -654,7 +651,11 @@ symbol_browser_plugin_instance_init (GObject *obj)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (plugin->sv), FALSE);
 	gtk_container_add (GTK_CONTAINER (plugin->sw), plugin->sv);
 	
-	g_object_ref (G_OBJECT (plugin->sv));
+	g_object_ref (G_OBJECT (plugin->sw));
+	
+	/* Our last unref in dispose() should destroy the widget */
+	gtk_object_sink (GTK_OBJECT (plugin->sw));
+	
 	g_signal_connect (G_OBJECT (plugin->sv), "event-after",
 					  G_CALLBACK (on_treeview_event), plugin);
 	g_signal_connect (G_OBJECT (plugin->sv), "row_activated",

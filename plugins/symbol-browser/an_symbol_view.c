@@ -713,23 +713,24 @@ clean_leave:
 }
 
 static void
-sv_dispose (GObject *obj)
+sv_finalize (GObject *obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
-
+	DEBUG_PRINT ("Finalizing symbolview widget");
 	anjuta_symbol_view_clear (sv);
+	g_hash_table_destroy (sv->priv->tm_files);
 	g_free (sv->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
-sv_finalize (GObject *obj)
+sv_dispose (GObject *obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
 	if (sv->priv->file_symbol_model)
 		g_object_unref (sv->priv->file_symbol_model);
 	sv->priv->file_symbol_model = NULL;
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 enum {

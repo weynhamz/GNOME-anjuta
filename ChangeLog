@@ -1,5 +1,9 @@
 2004-12-16  Naba Kumar  <naba@gnome.org>
 
+	* plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/plugin.c: Fixed finalization and disposition
+	codes. Fixed memory leaks and corruptions.
+
 	* plugins/build-basic-autotools/build-basic-autotools.c
 	plugins/editor/anjuta-docman.c,
 	plugins/editor/text_editor.c,
