@@ -99,6 +99,7 @@ void cvs_set_editor_destroyed (CVS* cvs)
 {
 	g_return_if_fail (cvs != NULL);
 	cvs->editor_destroyed = TRUE;
+	launcher_reset();
 }
 
 

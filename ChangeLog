@@ -11,6 +11,11 @@
 	* src/an_file_view.c: Set auto column size of the file
 	revision column.
 	
+	* src/mainmenu_callbacks.c, src/cvs.c: Fixed bug #542151.
+	The user is now prompted to confirm the closing of the file
+	if it is being used by CVS. If yes, the editor is closed and
+	the CVS operation stops.
+	
 2002-06-07	Andy Piper	<andy.piper@freeuk.com>
 
 	* anjuta.prj: bump project version for release

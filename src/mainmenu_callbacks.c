@@ -128,6 +128,19 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
+	
+	if (te->used_by_cvs) {
+		GtkWidget* dialog;
+		gint value;
+		
+		dialog = gnome_question_dialog (
+			_("The editor is being used as output buffer for an operation.\n"
+			"Closing it will result in stopping the process.\n"
+			"Do you still want close the editor?"), NULL, NULL);
+		value = gnome_dialog_run (GNOME_DIALOG(dialog));
+		gtk_widget_destroy (dialog);
+		if (value == 1) return;
+	}
 	if (text_editor_is_saved (te) == FALSE)
 	{
 		closing_state = TRUE;
