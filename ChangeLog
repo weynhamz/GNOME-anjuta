@@ -1,3 +1,8 @@
+2004-08-18  Naba Kumar  <naba@gnome.org>
+
+	* plugins/devhelp/plugin.c: Added UI sensitization and removed
+	an unnecessary GtkFrame.
+	
 2004-08-17  Naba Kumar  <naba@gnome.org>
 
 	* mime/anjuta.xml, mime/Makefile.am: Added mime definition xml.

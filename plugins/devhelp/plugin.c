@@ -43,7 +43,7 @@ struct _DevhelpPluginPriv {
 	DhBase         *base;
 	//	DhHistory      *history;
 	DhHtml         *html;
-
+	GtkActionGroup *action_group;
 	GtkWidget      *notebook;
 	GtkWidget      *book_tree;
 	GtkWidget      *search;
@@ -84,6 +84,25 @@ static GtkActionEntry actions[] = {
 	  G_CALLBACK (activate_action)},
 };
 
+static void
+check_history (DevhelpPlugin *plugin)
+{
+	DevhelpPluginPriv *priv;
+	GtkAction *action;
+		
+	priv = plugin->priv;
+	
+	action = gtk_action_group_get_action (priv->action_group, 
+					      "ActionDevhelpForward");
+	
+	g_object_set (action, "sensitive", 
+		      dh_html_can_go_forward (priv->html), NULL);
+	action = gtk_action_group_get_action (priv->action_group,
+					      "ActionDevhelpBack");
+	g_object_set (action, "sensitive",
+		      dh_html_can_go_back (priv->html), NULL);
+}
+
 static gboolean 
 open_url (DevhelpPlugin *plugin, const gchar *url)
 {
@@ -95,7 +114,8 @@ open_url (DevhelpPlugin *plugin, const gchar *url)
 
 	dh_html_open_uri (priv->html, url);
 	dh_book_tree_show_uri (DH_BOOK_TREE (priv->book_tree), url);
-
+	check_history (plugin);
+	
 	return TRUE;
 }
 
@@ -104,7 +124,7 @@ location_changed_cb (DhHtml      *html,
 					 const gchar *location,
 					 DevhelpPlugin *plugin)
 {
-	//	window_check_history (window);
+	check_history (plugin);
 }
 
 static void
@@ -116,9 +136,7 @@ link_selected_cb (GObject *ignored, DhLink *link, DevhelpPlugin *plugin)
 	
 	priv = plugin->priv;
 
-	if (open_url (plugin, link->uri)) {
-		// dh_history_goto (priv->history, link->uri);
-	}
+	open_url (plugin, link->uri);
 }
 
 static void
@@ -158,6 +176,23 @@ forward_exists_changed_cb (DhHtml *history,
 */
 }
 
+#if 0
+static void
+html_initialize (GtkWidget *widget, DevhelpPlugin *plugin)
+{
+	gtk_widget_show_all (GTK_WIDGET (widget));
+
+	/* Make sure that the HTML widget is realized before trying to 
+	 * clear it. Solves bug #147343.
+	 */
+	while (g_main_context_pending (NULL)) {
+		g_main_context_iteration (NULL, FALSE);
+	}
+
+	dh_html_clear (plugin->priv->html);
+}
+#endif
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -171,7 +206,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	priv = devhelp_plugin->priv;
 	
 	/* Add all our editor actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
+	priv->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
 										_("Devhelp navigation operations"),
 										actions,
 										G_N_ELEMENTS (actions),
@@ -205,6 +241,37 @@ dispose (GObject *obj)
 	// DevhelpPlugin *plugin = (DevhelpPlugin*)obj;
 }
 
+/* The ugliest hack. When switching tabs, the selection and cursor is changed
+ * for the tree view so the html content is changed. Block the signal during
+ * switch.
+ */
+static void
+notebook_switch_page_cb (GtkWidget       *notebook,
+						GtkNotebookPage *page,
+						guint            page_num,
+						DevhelpPlugin   *plugin)
+{
+	DevhelpPluginPriv *priv;
+	priv = plugin->priv;
+
+	g_signal_handlers_block_by_func (priv->book_tree, 
+					 link_selected_cb, plugin);
+}
+
+static void
+notebook_switch_page_after_cb (GtkWidget       *notebook,
+							GtkNotebookPage *page,
+							guint            page_num,
+							DevhelpPlugin   *plugin)
+{
+	DevhelpPluginPriv *priv;
+	priv = plugin->priv;
+	priv = plugin->priv;
+	
+	g_signal_handlers_unblock_by_func (priv->book_tree, 
+					   link_selected_cb, plugin);
+}
+
 static void
 devhelp_plugin_instance_init (GObject *obj)
 {
@@ -230,13 +297,12 @@ devhelp_plugin_instance_init (GObject *obj)
 	// g_signal_connect (priv->history, "back_exists_changed",
 	//				  G_CALLBACK (back_exists_changed_cb), obj);
 	
-	priv->base      = dh_base_new ();
 	priv->html      = dh_html_new ();
-	priv->html_view = dh_html_get_widget (priv->html);
-	priv->notebook  = gtk_notebook_new ();
-
 	g_signal_connect (priv->html, "location-changed",
 					  G_CALLBACK (location_changed_cb), obj);
+	
+	priv->notebook  = gtk_notebook_new ();
+	priv->html_view = dh_html_get_widget (priv->html);
 	
 	html_sw         = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (html_sw),
@@ -251,31 +317,20 @@ devhelp_plugin_instance_init (GObject *obj)
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (html_sw),
 					       priv->html_view);
 	
-	priv->browser_frame = gtk_frame_new (NULL);
-	gtk_container_add (GTK_CONTAINER (priv->browser_frame), html_sw);
-	gtk_frame_set_shadow_type (GTK_FRAME (priv->browser_frame), GTK_SHADOW_OUT);
+	priv->browser_frame = html_sw;
+	
+	//priv->browser_frame = gtk_frame_new (NULL);
+	//gtk_container_add (GTK_CONTAINER (priv->browser_frame), html_sw);
+	//gtk_frame_set_shadow_type (GTK_FRAME (priv->browser_frame), GTK_SHADOW_OUT);
 
+	priv->base    = dh_base_new ();
 	contents_tree = dh_base_get_book_tree (priv->base);
 	keywords      = dh_base_get_keywords  (priv->base);
-	
-	if (contents_tree) {
-		priv->book_tree = dh_book_tree_new (contents_tree);
-	
-		gtk_container_add (GTK_CONTAINER (book_tree_sw), 
-				   priv->book_tree);
-
-		gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook),
-					  book_tree_sw,
-					  gtk_label_new (_("Contents")));
-		g_signal_connect (priv->book_tree, "link_selected", 
-				  G_CALLBACK (link_selected_cb),
-				  plugin);
-	}
 	
 	if (keywords) {
 		priv->search = dh_search_new (keywords);
 		
-		gtk_notebook_append_page (GTK_NOTEBOOK (priv->notebook),
+		gtk_notebook_prepend_page (GTK_NOTEBOOK (priv->notebook),
 					  priv->search,
 					  gtk_label_new (_("Search")));
 
@@ -284,7 +339,33 @@ devhelp_plugin_instance_init (GObject *obj)
 				  plugin);
 	}
 
+	if (contents_tree) {
+		priv->book_tree = dh_book_tree_new (contents_tree);
+	
+		gtk_container_add (GTK_CONTAINER (book_tree_sw), 
+				   priv->book_tree);
+
+		gtk_notebook_prepend_page (GTK_NOTEBOOK (priv->notebook),
+					  book_tree_sw,
+					  gtk_label_new (_("Contents")));
+		g_signal_connect (priv->book_tree, "link_selected", 
+				  G_CALLBACK (link_selected_cb),
+				  plugin);
+	}
+	
+//	g_signal_connect (G_OBJECT (priv->browser_frame), "realize",
+//					  G_CALLBACK (html_initialize), obj);
+	gtk_widget_show_all (priv->browser_frame);
+	gtk_widget_show_all (priv->notebook);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
+	g_signal_connect (priv->notebook, "switch_page",
+			  G_CALLBACK (notebook_switch_page_cb),
+			  obj);
+
+	g_signal_connect_after (priv->notebook, "switch_page",
+				G_CALLBACK (notebook_switch_page_after_cb),
+				obj);
+
 /*
  	g_signal_connect_swapped (priv->html, 
 				  "uri_selected", 
