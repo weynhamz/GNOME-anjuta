@@ -1,19 +1,18 @@
-# translation of ANJUTA to Albanian
+# Përkthimi i mesazheve të anjuta në shqip
 # This file is distributed under the same license as the anjuta package.
 # Laurent Dhima <laurenti@alblinux.net>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
+"Project-Id-Version: anjuta HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-20 10:57+0200\n"
-"PO-Revision-Date: 2004-01-31 15:03+0100\n"
+"POT-Creation-Date: 2004-09-02 10:58+0200\n"
+"PO-Revision-Date: 2004-09-03 17:23+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -126,7 +125,7 @@ msgstr "Automatikisht gjenero shfletuesin e simboleve"
 
 #: anjuta.glade.h:25 plugins/debugger/registers_gui.c:89
 msgid "CPU Registers"
-msgstr ""
+msgstr "Regjistrat CPU"
 
 #. 2
 #: anjuta.glade.h:26 plugins/editor/anjuta-document-manager.glade.h:41
@@ -351,8 +350,7 @@ msgstr "Fshih para_metrat e procesit"
 
 #: anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr ""
-"Optimizim i Nivelit të Lartë (Funksione të vëna në linjë kur është e mundur)"
+msgstr "Optimizim i Nivelit të Lartë (Funksione të vëna në linjë kur është e mundur)"
 
 #: anjuta.glade.h:77
 msgid "History sizes"
@@ -402,9 +400,8 @@ msgid "Keep going when some targets can not be made"
 msgstr "Vazhdo edhe nëse ndonjë objektiv nuk mund të arrihet"
 
 #: anjuta.glade.h:87
-#, fuzzy
 msgid "Kernel Signals"
-msgstr "Sinjali"
+msgstr "Sinjalet e Kernel"
 
 #: anjuta.glade.h:88
 msgid "Language-specific commands:"
@@ -479,25 +476,27 @@ msgid "No Optimization"
 msgstr "Asnjë optimizim"
 
 #: anjuta.glade.h:106 plugins/editor/anjuta-document-manager.glade.h:118
+#, fuzzy
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
 "no project open, they will be global preferences."
-msgstr ""
+msgstr "Shënim është a hap preferimet në faqe preferimet dhe dhe me është jo hap preferimet."
 
 #. Must declare static, because it will be used forever
 #: anjuta.glade.h:107 plugins/project-manager/project_dbase.c:198
 #: src/toolbar.c:213
 msgid "Open Project"
-msgstr ""
+msgstr "Hap Projekt"
 
 #: anjuta.glade.h:108
 msgid "Open existing Project."
-msgstr ""
+msgstr "Hap një Projekt ekzistues."
 
 #: anjuta.glade.h:109
+#, fuzzy
 msgid "Open existing file or create a new file."
-msgstr ""
+msgstr "Hap a i ri."
 
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:327
 #: plugins/file-loader/plugin.c:72 plugins/file-loader/plugin.c:99
@@ -506,8 +505,9 @@ msgid "Open file"
 msgstr "Hap file"
 
 #: anjuta.glade.h:111
+#, fuzzy
 msgid "Open last working Project"
-msgstr ""
+msgstr "Hap e fundit Projekti"
 
 #: anjuta.glade.h:112
 msgid "Optimization"
@@ -523,20 +523,23 @@ msgid "Others"
 msgstr "Të tjerë"
 
 #: anjuta.glade.h:115
+#, fuzzy
 msgid "Output files"
-msgstr ""
+msgstr "Rezultati"
 
 #: anjuta.glade.h:116 plugins/debugger/signals_gui.c:261
 msgid "Pass:"
 msgstr ""
 
 #: anjuta.glade.h:117
+#, fuzzy
 msgid "Pixmap module Makefile.am"
-msgstr ""
+msgstr "Pixmap Makefile pd"
 
 #: anjuta.glade.h:118
+#, fuzzy
 msgid "Po module (translation) Makefile.am"
-msgstr ""
+msgstr "Makefile pd"
 
 #: anjuta.glade.h:119
 #, fuzzy
@@ -558,119 +561,143 @@ msgid "Project"
 msgstr "Projekti"
 
 #: anjuta.glade.h:123
+#, fuzzy
 msgid "Project Configuration"
-msgstr ""
+msgstr "Projekti Konfigurimi"
 
 #: anjuta.glade.h:124 plugins/project-wizard/wizard_gui.c:470
+#, fuzzy
 msgid "Project Description"
-msgstr ""
+msgstr "Projekti Përshkrimi"
 
 #: anjuta.glade.h:125
+#, fuzzy
 msgid "Project Version"
-msgstr ""
+msgstr "Projekti Versioni"
 
 #: anjuta.glade.h:126
+#, fuzzy
 msgid "Project configure.in"
-msgstr ""
+msgstr "Projekti konfiguro në"
 
 #: anjuta.glade.h:127
+#, fuzzy
 msgid "Project level"
-msgstr ""
+msgstr "Projekti niveli"
 
 #: anjuta.glade.h:128
 msgid "Projects:"
 msgstr ""
 
 #: anjuta.glade.h:129
+#, fuzzy
 msgid "Recent Files:"
-msgstr ""
+msgstr "I fundit Files:"
 
 #: anjuta.glade.h:130
+#, fuzzy
 msgid "Recent Projects:"
-msgstr ""
+msgstr "I fundit:"
 
 #: anjuta.glade.h:131
+#, fuzzy
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr ""
+msgstr "Nga fillimi shtesë A"
 
 #: anjuta.glade.h:132
+#, fuzzy
 msgid "Run Configure Script"
-msgstr ""
+msgstr "Ekzekuto Konfiguro Script"
 
 #: anjuta.glade.h:133
+#, fuzzy
 msgid "Run detached"
-msgstr ""
+msgstr "Ekzekuto"
 
 #: anjuta.glade.h:134
+#, fuzzy
 msgid "Run in Terminal"
-msgstr ""
+msgstr "Ekzekuto në Terminali"
 
 #: anjuta.glade.h:135
+#, fuzzy
 msgid "Run in terminal"
-msgstr ""
+msgstr "Ekzekuto në terminal"
 
 #: anjuta.glade.h:136
 msgid "SIGINT"
 msgstr ""
 
 #: anjuta.glade.h:137
+#, fuzzy
 msgid "Save all files"
-msgstr ""
+msgstr "Ruaj"
 
 #: anjuta.glade.h:138
+#, fuzzy
 msgid "Scripts at the end of top level Makefile.am"
-msgstr ""
+msgstr "Scripte fund nga sipër niveli Makefile pd"
 
 #: anjuta.glade.h:139 plugins/debugger/signals_gui.c:210
+#, fuzzy
 msgid "Set Signal Property"
-msgstr ""
+msgstr "Sinjali Pronësia"
 
 #: anjuta.glade.h:140 src/anjuta-app.c:344 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Rregullimet"
 
 #: anjuta.glade.h:141
+#, fuzzy
 msgid "Short cut:"
-msgstr ""
+msgstr "preje:"
 
 #: anjuta.glade.h:142
+#, fuzzy
 msgid "Show tooltips"
-msgstr ""
+msgstr "Shfaq"
 
 #: anjuta.glade.h:143
 msgid "Signal:"
 msgstr "Sinjali:"
 
 #: anjuta.glade.h:144
+#, fuzzy
 msgid "Silent. That is, do not echo shell commads during make"
-msgstr ""
+msgstr "Pa zë është nuk"
 
 #: anjuta.glade.h:145
+#, fuzzy
 msgid "Source Directories"
-msgstr ""
+msgstr "Burimi Directories"
 
 #: anjuta.glade.h:146
+#, fuzzy
 msgid "Source module Makefile.am"
-msgstr ""
+msgstr "Burimi Makefile pd"
 
 #: anjuta.glade.h:147
+#, fuzzy
 msgid "Standard error:"
-msgstr ""
+msgstr "Standart gabim:"
 
 #: anjuta.glade.h:148
+#, fuzzy
 msgid "Standard input:"
-msgstr ""
+msgstr "Standart:"
 
 #: anjuta.glade.h:149
+#, fuzzy
 msgid "Standard output:"
-msgstr ""
+msgstr "Standart:"
 
 #: anjuta.glade.h:150
+#, fuzzy
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
-msgstr ""
+msgstr "Fillo me a i ri Projekti Program me Projekti Program Asistenti nga Projekti."
 
 #: anjuta.glade.h:151
 #, fuzzy
@@ -682,20 +709,23 @@ msgid "Supports"
 msgstr ""
 
 #: anjuta.glade.h:153
+#, fuzzy
 msgid "Supports are only available to File mode compilation and build."
-msgstr ""
+msgstr "File modaliteti dhe."
 
 #: anjuta.glade.h:154
 msgid "Target:"
 msgstr "Objektivi:"
 
 #: anjuta.glade.h:155
+#, fuzzy
 msgid "Tool Editor"
-msgstr ""
+msgstr "Editori"
 
 #: anjuta.glade.h:156
+#, fuzzy
 msgid "Top level Makefile.am"
-msgstr ""
+msgstr "Sipër niveli Makefile pd"
 
 #: anjuta.glade.h:157 plugins/cvs-plugin/cvs_gui.c:73
 #: plugins/debugger/registers_gui.c:48 plugins/debugger/sharedlib_gui.c:41
@@ -704,20 +734,24 @@ msgid "Update"
 msgstr "Rifresko"
 
 #: anjuta.glade.h:158
+#, fuzzy
 msgid "Update tags image automatically"
-msgstr ""
+msgstr "Rifresko figurë"
 
 #: anjuta.glade.h:159
+#, fuzzy
 msgid "User Tools"
-msgstr ""
+msgstr "Përdoruesi Veglat"
 
 #: anjuta.glade.h:160
+#, fuzzy
 msgid "User email address:"
-msgstr ""
+msgstr "Përdoruesi:"
 
 #: anjuta.glade.h:161
+#, fuzzy
 msgid "User information"
-msgstr ""
+msgstr "Përdoruesi"
 
 #: anjuta.glade.h:162
 msgid "User name:"
@@ -732,8 +766,9 @@ msgid "View"
 msgstr "Paraqitja"
 
 #: anjuta.glade.h:165
+#, fuzzy
 msgid "Warn when an undefined variable is referenced in the Makefile"
-msgstr ""
+msgstr "është në Makefile"
 
 #: anjuta.glade.h:166
 msgid "Warnings"
@@ -755,68 +790,81 @@ msgid "Yes"
 msgstr "Po"
 
 #: anjuta.glade.h:169
+#, fuzzy
 msgid "_Attach"
-msgstr ""
+msgstr "Bashkangjit"
 
 #: anjuta.glade.h:170
+#, fuzzy
 msgid "_Build a file:"
-msgstr ""
+msgstr "Gjenero a:"
 
 #: anjuta.glade.h:171
+#, fuzzy
 msgid "_Condition:"
-msgstr ""
+msgstr "Kushti:"
 
 #: anjuta.glade.h:172
+#, fuzzy
 msgid "_Disable all"
-msgstr ""
+msgstr "Ç'aktivo"
 
 #: anjuta.glade.h:173 plugins/editor/plugin.c:298 src/anjuta-actions.h:30
 msgid "_Edit"
 msgstr "_Ndrysho"
 
 #: anjuta.glade.h:174
+#, fuzzy
 msgid "_Execute:"
-msgstr ""
+msgstr "Ekzekuto:"
 
 #: anjuta.glade.h:175
+#, fuzzy
 msgid "_Hide paths"
-msgstr ""
+msgstr "Fshih"
 
 #: anjuta.glade.h:176
+#, fuzzy
 msgid "_Image editor:"
-msgstr ""
+msgstr "Figura:"
 
 #: anjuta.glade.h:177
+#, fuzzy
 msgid "_Language:"
-msgstr ""
+msgstr "Gjuha:"
 
 #: anjuta.glade.h:178
 msgid "_Location:"
 msgstr "_Pozicioni:"
 
 #: anjuta.glade.h:179
+#, fuzzy
 msgid "_Make a file:"
-msgstr ""
+msgstr "a:"
 
 #: anjuta.glade.h:180
 msgid "_Pass:"
 msgstr ""
 
 #: anjuta.glade.h:181
+#, fuzzy
 msgid "_Pixmap editor:"
-msgstr ""
+msgstr "Pixmap:"
 
 #: anjuta.glade.h:182
+#, fuzzy
 msgid "_Process to attach to:"
-msgstr ""
+msgstr "Proçesi bashkangjit:"
 
 #: anjuta.glade.h:183
+#, fuzzy
 msgid "_Remove all"
-msgstr ""
+msgstr "Hiq"
 
 #: anjuta.glade.h:184
+#, fuzzy
 msgid "_Terminal:"
-msgstr ""
+msgstr "Terminali:"
 
 #: anjuta.glade.h:185
 msgid "_Update"
@@ -945,53 +993,63 @@ msgid "Thai"
 msgstr "Thai"
 
 #: libanjuta/anjuta-encodings.c:702
+#, fuzzy
 msgid "Stock Encodings"
-msgstr ""
+msgstr "Kodifikimet"
 
 #: libanjuta/anjuta-encodings.c:721
+#, fuzzy
 msgid "Supported Encodings"
-msgstr ""
+msgstr "Kodifikimet"
 
 #: libanjuta/anjuta-launcher.c:598 plugins/launcher/launcher.c:583
 #: src/launcher.c:582
+#, fuzzy
 msgid "launcher.c: Error while reading child stdout\n"
-msgstr ""
+msgstr "Gabim fëmi (sekondar, i dytë) j"
 
 #: libanjuta/anjuta-launcher.c:610 plugins/launcher/launcher.c:595
 #: src/launcher.c:594
+#, fuzzy
 msgid "launcher.c: STDOUT pipe closed"
-msgstr ""
+msgstr "pipe"
 
 #: libanjuta/anjuta-launcher.c:646 plugins/launcher/launcher.c:631
 #: src/launcher.c:630
+#, fuzzy
 msgid "launcher.c: Error while reading child stderr"
-msgstr ""
+msgstr "Gabim fëmi (sekondar, i dytë)"
 
 #: libanjuta/anjuta-launcher.c:658 plugins/launcher/launcher.c:643
 #: src/launcher.c:642
+#, fuzzy
 msgid "launcher.c: STDERR pipe closed"
-msgstr ""
+msgstr "pipe"
 
 #: libanjuta/anjuta-launcher.c:699 plugins/launcher/launcher.c:684
 #: src/launcher.c:683
+#, fuzzy
 msgid "launcher.c: Error while reading child pty\n"
-msgstr ""
+msgstr "Gabim fëmi (sekondar, i dytë) j"
 
 #: libanjuta/anjuta-launcher.c:717 plugins/launcher/launcher.c:702
 #: src/launcher.c:701
+#, fuzzy
 msgid "launcher.c: PTY pipe error!"
-msgstr ""
+msgstr "pipe gabim!"
 
 #: libanjuta/anjuta-launcher.c:825 plugins/launcher/launcher.c:804
 #: src/launcher.c:803
+#, fuzzy
 msgid "launcher.c: Failed to set channel encoding!"
-msgstr ""
+msgstr "Dështoi!"
 
 #: libanjuta/anjuta-launcher.c:875 libanjuta/resources.c:265
 #: libanjuta/resources.c:274
 #, c-format
+#, fuzzy
 msgid "Cannot execute command: \"%s\""
-msgstr ""
+msgstr "ekzekuto"
 
 #: libanjuta/anjuta-plugin.c:175
 #, fuzzy
@@ -1007,14 +1065,16 @@ msgid "Category"
 msgstr "Kategoria"
 
 #: libanjuta/anjuta-preferences-dialog.c:234
+#, fuzzy
 msgid "Anjuta Preferences Dialog"
-msgstr ""
+msgstr "Preferimet Dialogu"
 
 #: libanjuta/anjuta-preferences.c:1032
+#, fuzzy
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
-msgstr ""
+msgstr "rishkruaj preferimet prezgjedhur rregullimet?"
 
 #: libanjuta/anjuta-preferences.c:1036
 msgid "_Reset"
@@ -1022,16 +1082,18 @@ msgstr "_Nga fillimi"
 
 #: libanjuta/anjuta-preferences.c:1470 plugins/editor/text_editor.c:1768
 #, c-format
+#, fuzzy
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
 "%s.\n"
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
-msgstr ""
+msgstr "ngarkoje Global dhe j në mbrapa në rregullimet"
 
 #: libanjuta/anjuta-preferences.c:1609
+#, fuzzy
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "Preferimet"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 #: libanjuta/anjuta-ui.c:813
@@ -1082,8 +1144,9 @@ msgid "Unable to create file: %s."
 msgstr ""
 
 #: libanjuta/anjuta-utils.c:99 src/utilities.c:739
+#, fuzzy
 msgid "Unable to complete file copy"
-msgstr ""
+msgstr "kopjo"
 
 #: libanjuta/anjuta-utils.c:290
 msgid ""
@@ -1093,20 +1156,23 @@ msgstr ""
 
 #: libanjuta/anjuta-utils.c:340
 #, c-format
+#, fuzzy
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
-msgstr ""
+msgstr "është nuk instaluar instalo."
 
 #: libanjuta/anjuta-utils.c:640
 #, c-format
+#, fuzzy
 msgid "Cannot execute command: %s (using shell %s)\n"
-msgstr ""
+msgstr "ekzekuto j"
 
 #: libanjuta/anjuta-utils.c:644
 #, c-format
+#, fuzzy
 msgid "Cannot execute command %s (using shell %s)\n"
-msgstr ""
+msgstr "ekzekuto j"
 
 #: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:110
 msgid "Text"
@@ -1134,25 +1200,29 @@ msgid "Plugin"
 msgstr "Plugin"
 
 #: libanjuta/plugins.c:885
+#, fuzzy
 msgid ""
 "This dialog displays all the available plugins for Anjuta.  You can select "
 "which plugins you want to use by clicking on the plugin in the list."
-msgstr ""
+msgstr "dialog për Ti zgjidh nga në në lista."
 
 #: libanjuta/resources.c:50
 #, c-format
+#, fuzzy
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "\"Widget\" nuk"
 
 #: libanjuta/resources.c:74
 #, c-format
+#, fuzzy
 msgid "Could not find application image file: %s"
-msgstr ""
+msgstr "nuk gjej programi figurë"
 
 #: libanjuta/resources.c:100
 #, c-format
+#, fuzzy
 msgid "Could not find application pixmap file: %s"
-msgstr ""
+msgstr "nuk gjej programi"
 
 #: libegg/egg-entry-action.c:111
 #, fuzzy
@@ -1164,8 +1234,9 @@ msgid "Width"
 msgstr "Gjerësia"
 
 #: libegg/egg-entry-action.c:119
+#, fuzzy
 msgid "Width of the entry."
-msgstr ""
+msgstr "Gjerësia nga."
 
 #: libegg/eggcellrendererkeys.c:160 libegg/eggcellrendererkeys.c:161
 msgid "Accelerator key"
@@ -1196,20 +1267,24 @@ msgid "Type a new accelerator"
 msgstr "Shkruaj një përshpejtues të ri"
 
 #: libegg/eggtreemodelfilter.c:267
+#, fuzzy
 msgid "The child model"
-msgstr ""
+msgstr "fëmi (sekondar, i dytë)"
 
 #: libegg/eggtreemodelfilter.c:268
+#, fuzzy
 msgid "The model for the filtermodel to filter"
-msgstr ""
+msgstr "për filtro"
 
 #: libegg/eggtreemodelfilter.c:275
+#, fuzzy
 msgid "The virtual root"
-msgstr ""
+msgstr "root"
 
 #: libegg/eggtreemodelfilter.c:276
+#, fuzzy
 msgid "The virtual root (relative to the child model) for this filtermodel"
-msgstr ""
+msgstr "root fëmi (sekondar, i dytë) për"
 
 #: libegg/eggtreeviewstate.c:54
 #, c-format
@@ -1243,68 +1318,82 @@ msgstr "Vlerat Booleane duhet të jenë \"true\" ose \"false\" dhe jo \"%s\""
 
 #: libegg/eggtreeviewstate.c:204
 #, c-format
+#, fuzzy
 msgid "The value \"%s\" is not part of the enum \"%s\""
-msgstr ""
+msgstr "është nuk nga"
 
 #: libegg/eggtreeviewstate.c:234
 #, c-format
+#, fuzzy
 msgid "The type \"%s\" can't be parsed from a string"
-msgstr ""
+msgstr "lloji a"
 
 #: libegg/eggtreeviewstate.c:255
 #, c-format
+#, fuzzy
 msgid "The property \"%s\" does not exist"
-msgstr ""
+msgstr "nuk"
 
 #: libegg/eggtreeviewstate.c:310
+#, fuzzy
 msgid "The type attribute can only be specified once."
-msgstr ""
+msgstr "lloji."
 
 #: libegg/eggtreeviewstate.c:319
 #, c-format
+#, fuzzy
 msgid "The type \"%s\" is not a valid type."
-msgstr ""
+msgstr "lloji është nuk a lloji."
 
 #: libegg/eggtreeviewstate.c:327
 #, c-format
+#, fuzzy
 msgid "The type \"%s\" is not a cell renderer type."
-msgstr ""
+msgstr "lloji është nuk a lloji."
 
 #: libegg/eggtreeviewstate.c:339
+#, fuzzy
 msgid "No type attribute specified."
-msgstr ""
+msgstr "Jo lloji."
 
 #: libegg/eggtreeviewstate.c:457
 #, c-format
+#, fuzzy
 msgid "Outermost element in theme must be <treeview_state> not <%s>"
-msgstr ""
+msgstr "në tema<treeview_state> nuk"
 
 #: libegg/eggtreeviewstate.c:467
 #, c-format
+#, fuzzy
 msgid "Element inside of <treeview_state> must be <treeview> not <%s>"
-msgstr ""
+msgstr "Elementi nga<treeview_state><treeview> nuk"
 
 #: libegg/eggtreeviewstate.c:477
 #, c-format
+#, fuzzy
 msgid "Element inside of <treeview> must be <column> not <%s>"
-msgstr ""
+msgstr "Elementi nga<treeview><column> nuk"
 
 #: libegg/eggtreeviewstate.c:488
 #, c-format
+#, fuzzy
 msgid "Element inside of <column> must be <cell> not <%s>"
-msgstr ""
+msgstr "Elementi nga<column><cell> nuk"
 
 #: libegg/eggtreeviewstate.c:494
+#, fuzzy
 msgid "The <cell> element must not have any children."
-msgstr ""
+msgstr "<cell> nuk çdo."
 
 #: libegg/layout.glade.h:2
+#, fuzzy
 msgid "Dock items"
-msgstr ""
+msgstr "Qelia elementët"
 
 #: libegg/layout.glade.h:3
+#, fuzzy
 msgid "Layout Managment"
-msgstr ""
+msgstr "Planimetria"
 
 #: libegg/layout.glade.h:4
 msgid "Saved layouts"
@@ -1316,147 +1405,180 @@ msgid "_Load"
 msgstr "_Ngarkesa"
 
 #: libegg/layout.glade.h:6
+#, fuzzy
 msgid "_Lock dock items"
-msgstr ""
+msgstr "Blloko elementët"
 
 #: plugins/build/build_file.c:48
+#, fuzzy
 msgid "This file has not been saved. Save it first and then build."
-msgstr ""
+msgstr "nuk Ruaj i pari dhe."
 
 #: plugins/build/build_file.c:73
+#, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr ""
+msgstr "e ekzekutueshme është sipër data është jo."
 
 #: plugins/build/build_file.c:88
+#, fuzzy
 msgid "No build command has been specified for this type of file."
-msgstr ""
+msgstr "Jo për lloji nga."
 
 #: plugins/build/build_file.c:104
 #, c-format
+#, fuzzy
 msgid "Building file: %s ...\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/build/build_file.c:132
 #: plugins/build-basic-autotools/build-basic-autotools.c:63
 #: plugins/cvs-plugin/cvs.c:776 plugins/project-manager/project_import.c:192
 #, c-format
+#, fuzzy
 msgid "Total time taken: %lu secs\n"
-msgstr ""
+msgstr "Gjithsej ora j"
 
 #: plugins/build/build_file.c:136
 #: plugins/build-basic-autotools/build-basic-autotools.c:67
+#, fuzzy
 msgid "Completed ... unsuccessful\n"
-msgstr ""
+msgstr "U plotësua j"
 
 #: plugins/build/build_file.c:140
+#, fuzzy
 msgid "Completed ... unsuccessful"
-msgstr ""
+msgstr "U plotësua"
 
 #: plugins/build/build_file.c:145
 #: plugins/build-basic-autotools/build-basic-autotools.c:77
+#, fuzzy
 msgid "Completed ... successful\n"
-msgstr ""
+msgstr "U plotësua j"
 
 #: plugins/build/build_file.c:149
+#, fuzzy
 msgid "Completed ... successful"
-msgstr ""
+msgstr "U plotësua"
 
 #: plugins/build/build_project.c:76 plugins/build/compile.c:61
+#, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
-msgstr ""
+msgstr "Kontrolli Rregullimet Komandat."
 
 #: plugins/build/build_project.c:95 plugins/build/build_project.c:160
 #: plugins/build/compile.c:74
+#, fuzzy
 msgid "Build Project"
-msgstr ""
+msgstr "Gjenero Projekti"
 
 #: plugins/build/build_project.c:97 plugins/build/compile.c:76
+#, fuzzy
 msgid "Building source directory of the Project: "
-msgstr ""
+msgstr "nga Projekti "
 
 #: plugins/build/build_project.c:145
+#, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr ""
+msgstr "Projekti Kontrolli Rregullimet Komandat."
 
 #: plugins/build/build_project.c:163
+#, fuzzy
 msgid "Building the whole Project: "
-msgstr ""
+msgstr "Projekti "
 
 #: plugins/build/build_project.c:196
+#, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr ""
+msgstr "Kontrolli Rregullimet Komandat."
 
 #: plugins/build/build_project.c:211
+#, fuzzy
 msgid "Build Distribution"
-msgstr ""
+msgstr "Gjenero"
 
 #: plugins/build/build_project.c:215
+#, fuzzy
 msgid "Building the distribution package of the Project: "
-msgstr ""
+msgstr "nga Projekti "
 
 #: plugins/build/build_project.c:247
+#, fuzzy
 msgid "Do you prefer installing as root ?"
-msgstr ""
+msgstr "Bëje root?"
 
 #: plugins/build/build_project.c:285
+#, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
-msgstr ""
+msgstr "Kontrolli Rregullimet Komandat."
 
 #: plugins/build/build_project.c:299
+#, fuzzy
 msgid "Auto generate Project"
-msgstr ""
+msgstr "Automatike Projekti"
 
 #: plugins/build/build_project.c:302
+#, fuzzy
 msgid "Auto generating the Project: "
-msgstr ""
+msgstr "Automatike Projekti "
 
 #: plugins/build/build_project.c:324 plugins/build/build_project.c:362
+#, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr ""
+msgstr "instalo Projekti Kontrolli Rregullimet Komandat."
 
 #: plugins/build/build_project.c:339 plugins/build/build_project.c:374
+#, fuzzy
 msgid "Install Project"
-msgstr ""
+msgstr "Instalo Projekti"
 
 #: plugins/build/build_project.c:341 plugins/build/build_project.c:376
+#, fuzzy
 msgid "Installing the Project: "
-msgstr ""
+msgstr "Duke instaluar Projekti "
 
 #: plugins/build/clean_project.c:61
+#, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
-msgstr ""
+msgstr "Projekti Kontrolli Rregullimet Komandat."
 
 #: plugins/build/clean_project.c:76
 msgid "Clean"
 msgstr ""
 
 #: plugins/build/clean_project.c:79
+#, fuzzy
 msgid "Cleaning the source directory of the Project: "
-msgstr ""
+msgstr "nga Projekti "
 
 #: plugins/build/clean_project.c:115
+#, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr ""
+msgstr "Gjithçka për Projekti Kontrolli Rregullimet Komandat."
 
 #: plugins/build/clean_project.c:124
+#, fuzzy
 msgid "Clean All"
-msgstr ""
+msgstr "Gjithçka"
 
 #: plugins/build/clean_project.c:127
+#, fuzzy
 msgid "Cleaning whole of the Project: "
-msgstr ""
+msgstr "nga Projekti "
 
 #: plugins/build/compile.c:107
+#, fuzzy
 msgid "This file has not been saved. Save it first and then compile."
-msgstr ""
+msgstr "nuk Ruaj i pari dhe."
 
 #: plugins/build/compile.c:128
+#, fuzzy
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr ""
+msgstr "është sipër data është jo."
 
 #: plugins/build/compile.c:140
+#, fuzzy
 msgid "No compile command has been specified for this type of file."
-msgstr ""
+msgstr "Jo për lloji nga."
 
 #: plugins/build/compile.c:153 src/toolbar.c:250
 msgid "Compile"
@@ -1464,20 +1586,23 @@ msgstr "Kompilo"
 
 #: plugins/build/compile.c:155
 #, c-format
+#, fuzzy
 msgid "Compiling file: %s ...\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/build/compiler_options.c:503
+#, fuzzy
 msgid ""
 "You have changed some of the compiler options of the project,\n"
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
-msgstr ""
+msgstr "Ti nga nga në vazhdim akcion a nga?"
 
 #: plugins/build/compiler_options.c:726
 #: plugins/project-manager/src_paths.c:218
+#, fuzzy
 msgid "Do you want to clear the list?"
-msgstr ""
+msgstr "Bëje pastro lista?"
 
 #: plugins/build/compiler_options.c:798
 msgid "Name"
@@ -1490,79 +1615,94 @@ msgid "Description"
 msgstr "Përshkrimi"
 
 #: plugins/build/compiler_options.c:820
+#, fuzzy
 msgid "Include paths"
-msgstr ""
+msgstr "Include"
 
 #: plugins/build/compiler_options.c:835
+#, fuzzy
 msgid "Libraries paths"
-msgstr ""
+msgstr "Libreri"
 
 #: plugins/build/compiler_options.c:858
+#, fuzzy
 msgid "Libraries and modules"
-msgstr ""
+msgstr "Libreri dhe modulët"
 
 #: plugins/build/compiler_options.c:874
 msgid "Stock"
 msgstr ""
 
 #: plugins/build/compiler_options.c:919
+#, fuzzy
 msgid "Stock Defines"
-msgstr ""
+msgstr "Përcaktimet"
 
 #: plugins/build/compiler_options.c:942
 msgid "Warning"
 msgstr "Kujdes"
 
 #: plugins/build/configurer.c:158
+#, fuzzy
 msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
-msgstr ""
+msgstr "Projekti nuk e ekzekutueshme konfiguro Projekti i pari."
 
 #: plugins/build/configurer.c:189 src/toolbar.c:262
 msgid "Configure"
 msgstr "Konfiguro"
 
 #: plugins/build/configurer.c:191
+#, fuzzy
 msgid "Configuring the Project ....\n"
-msgstr ""
+msgstr "Duke konfiguruar Projekti j"
 
 #: plugins/build/executer.c:54 src/mainmenu_callbacks.c:513
+#, fuzzy
 msgid "The target executable of this Project is unknown"
-msgstr ""
+msgstr "e ekzekutueshme nga Projekti është nuk njihet"
 
 #: plugins/build/executer.c:59 src/mainmenu_callbacks.c:515
+#, fuzzy
 msgid "The target executable of this Project is not executable"
-msgstr ""
+msgstr "e ekzekutueshme nga Projekti është nuk e ekzekutueshme"
 
 #: plugins/build/executer.c:64 src/mainmenu_callbacks.c:519
+#, fuzzy
 msgid "The target executable does not exist for this Project"
-msgstr ""
+msgstr "e ekzekutueshme nuk për Projekti"
 
 #: plugins/build/executer.c:77
+#, fuzzy
 msgid "No file or Project opened."
-msgstr ""
+msgstr "Jo Projekti."
 
 #: plugins/build/executer.c:82 plugins/build/executer.c:101
 #: src/mainmenu_callbacks.c:539 src/mainmenu_callbacks.c:550
+#, fuzzy
 msgid "No executable for this file."
-msgstr ""
+msgstr "Jo e ekzekutueshme për."
 
 #: plugins/build/executer.c:106
+#, fuzzy
 msgid "Executable is not up-to-date."
-msgstr ""
+msgstr "E ekzekutueshme është nuk sipër data."
 
 #: plugins/build/executer.c:118
+#, fuzzy
 msgid "Unable to execute Project. Check Settings->Commands."
-msgstr ""
+msgstr "ekzekuto Projekti Kontrolli Rregullimet Komandat."
 
 #: plugins/build/executer.c:132
+#, fuzzy
 msgid "This file has not been saved. Save it first."
-msgstr ""
+msgstr "nuk Ruaj i pari."
 
 #: plugins/build/executer.c:140
+#, fuzzy
 msgid "Unable to execute file. Check Settings->Commands."
-msgstr ""
+msgstr "ekzekuto Kontrolli Rregullimet Komandat."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:115
 #, fuzzy, c-format
@@ -1572,16 +1712,19 @@ msgstr "Gjenero"
 #: plugins/build-basic-autotools/build-basic-autotools.c:186
 #: plugins/build-basic-autotools/build-basic-autotools.c:283
 #: plugins/build-basic-autotools/build-basic-autotools.c:293
+#, fuzzy
 msgid "_Build"
-msgstr ""
+msgstr "Gjenero"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:190
+#, fuzzy
 msgid "_Build project"
-msgstr ""
+msgstr "Gjenero"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:191
+#, fuzzy
 msgid "Build whole project"
-msgstr ""
+msgstr "Gjenero"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:196
 #, fuzzy
@@ -1589,8 +1732,9 @@ msgid "_Install project"
 msgstr "_Instalo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:197
+#, fuzzy
 msgid "Install whole project"
-msgstr ""
+msgstr "Instalo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:202
 msgid "_Clean project"
@@ -1601,8 +1745,9 @@ msgid "Clean whole project"
 msgstr ""
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:208
+#, fuzzy
 msgid "C_onfigure ..."
-msgstr ""
+msgstr "C."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:209
 #, fuzzy
@@ -1610,8 +1755,9 @@ msgid "Configure project"
 msgstr "Parametrat e konfigurimit"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:214
+#, fuzzy
 msgid "_Auto generate ..."
-msgstr ""
+msgstr "Automatike."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:215
 msgid "Autogenrate project files"
@@ -1623,8 +1769,9 @@ msgid "Build _distribution"
 msgstr "Opcionet e gjenerimit"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:221
+#, fuzzy
 msgid "Build project distribution"
-msgstr ""
+msgstr "Gjenero"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:226
 #, fuzzy
@@ -1696,28 +1843,34 @@ msgid "Build commands"
 msgstr "Komanda e gjenerimit:"
 
 #: plugins/class-gen/clsGen.c:449
+#, fuzzy
 msgid "Class name not valid"
-msgstr ""
+msgstr "Klasa emri nuk"
 
 #: plugins/class-gen/clsGen.c:456
+#, fuzzy
 msgid "Base class name not valid"
-msgstr ""
+msgstr "Bazë emri nuk"
 
 #: plugins/class-gen/clsGen.c:462
+#, fuzzy
 msgid "Declaration file name not valid"
-msgstr ""
+msgstr "emri nuk"
 
 #: plugins/class-gen/clsGen.c:467
+#, fuzzy
 msgid "Implementation file name not valid"
-msgstr ""
+msgstr "Implementim emri nuk"
 
 #: plugins/class-gen/clsGen.c:726
+#, fuzzy
 msgid "Error in importing files"
-msgstr ""
+msgstr "Gabim në"
 
 #: plugins/class-gen/clsGen.c:1332
+#, fuzzy
 msgid "Class Builder"
-msgstr ""
+msgstr "Klasa"
 
 #. 7
 #. 9
@@ -1739,92 +1892,109 @@ msgid "Finish"
 msgstr "Mbarimi"
 
 #: plugins/class-gen/clsGen.c:1378
+#, fuzzy
 msgid "Enter the name for the class you want to add."
-msgstr ""
+msgstr "Shto emri për shto."
 
 #: plugins/class-gen/clsGen.c:1388
+#, fuzzy
 msgid "Enter the declaration file name."
-msgstr ""
+msgstr "Shto emri."
 
 #: plugins/class-gen/clsGen.c:1398
+#, fuzzy
 msgid "Enter the implementation file name."
-msgstr ""
+msgstr "Shto emri."
 
 #: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
 msgid "..."
 msgstr "..."
 
 #: plugins/class-gen/clsGen.c:1408
+#, fuzzy
 msgid "Browse for the declaration file name."
-msgstr ""
+msgstr "Shfleto për emri."
 
 #: plugins/class-gen/clsGen.c:1418
+#, fuzzy
 msgid "Browse for the implementation file name."
-msgstr ""
+msgstr "Shfleto për emri."
 
 #: plugins/class-gen/clsGen.c:1428
+#, fuzzy
 msgid "Enter the name of the class your new class will inherit from."
-msgstr ""
+msgstr "Shto emri nga i ri."
 
 #: plugins/class-gen/clsGen.c:1453
+#, fuzzy
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
-msgstr ""
+msgstr "a nga lloji dhe shto "
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
+#, fuzzy
 msgid "Class name: "
-msgstr ""
+msgstr "Klasa emri "
 
 #: plugins/class-gen/clsGen.c:1472
+#, fuzzy
 msgid "Header file:  "
-msgstr ""
+msgstr "Kreu i faqes "
 
 #: plugins/class-gen/clsGen.c:1482
+#, fuzzy
 msgid "Source file:  "
-msgstr ""
+msgstr "Burimi "
 
 #: plugins/class-gen/clsGen.c:1492
+#, fuzzy
 msgid "Base class:   "
-msgstr ""
+msgstr "Bazë "
 
 #: plugins/class-gen/clsGen.c:1502
+#, fuzzy
 msgid "Base class inheritance: "
-msgstr ""
+msgstr "Bazë "
 
 #: plugins/class-gen/clsGen.c:1538
+#, fuzzy
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "dhe"
 
 #. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
 #: plugins/class-gen/clsGen.c:1546
+#, fuzzy
 msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
-msgstr ""
+msgstr "dhe në titull dhe nuk a."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
 msgstr ""
 
 #: plugins/class-gen/clsGen.c:1559
+#, fuzzy
 msgid "V 0.0.2 (June 11, 2002)"
-msgstr ""
+msgstr "V Qershor"
 
 #: plugins/class-gen/clsGen.c:1570
-msgid ""
-"TODO: add the ability to declare member functions and their parameters here."
-msgstr ""
+#, fuzzy
+msgid "TODO: add the ability to declare member functions and their parameters here."
+msgstr "shto dhe."
 
 #: plugins/class-gen/clsGen.c:1580
+#, fuzzy
 msgid "Welcome to the Anjuta Class Builder. "
-msgstr ""
+msgstr "Mirësevini Klasa "
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
 #: plugins/class-gen/clsGen.c:1589
+#, fuzzy
 msgid "Class type:   "
-msgstr ""
+msgstr "Klasa lloji "
 
 #: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
 msgid "public"
@@ -1839,98 +2009,121 @@ msgid "private"
 msgstr ""
 
 #: plugins/class-gen/clsGen.c:1618
+#, fuzzy
 msgid "Choose the type of inheritence from the base class."
-msgstr ""
+msgstr "lloji nga."
 
 #: plugins/class-gen/clsGen.c:1622
+#, fuzzy
 msgid "Virtual destructor"
-msgstr ""
+msgstr "Virtual"
 
 #. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
 #: plugins/class-gen/clsGen.c:1630
+#, fuzzy
 msgid "If checked, the destructor of your class will be declared virtual."
-msgstr ""
+msgstr "nga."
 
 #: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
+#, fuzzy
 msgid "Generic C++ Class"
-msgstr ""
+msgstr "I përgjithshëm C Klasa"
 
 #: plugins/class-gen/clsGen.c:1641
+#, fuzzy
 msgid "GTK+ Class"
-msgstr ""
+msgstr "Klasa"
 
 #: plugins/class-gen/clsGen.c:1650
+#, fuzzy
 msgid "Select the type of class you would like to create."
-msgstr ""
+msgstr "Zgjidh lloji nga."
 
 #: plugins/cvs-plugin/cvs.c:262
+#, fuzzy
 msgid "CVS Updating "
-msgstr ""
+msgstr "CVS "
 
 #: plugins/cvs-plugin/cvs.c:312
+#, fuzzy
 msgid "CVS Committing "
-msgstr ""
+msgstr "CVS "
 
 #: plugins/cvs-plugin/cvs.c:373
+#, fuzzy
 msgid "CVS Importing...\n"
-msgstr ""
+msgstr "CVS j"
 
 #: plugins/cvs-plugin/cvs.c:413
+#, fuzzy
 msgid "CVS Adding "
-msgstr ""
+msgstr "CVS "
 
 #: plugins/cvs-plugin/cvs.c:445
+#, fuzzy
 msgid "CVS Removing "
-msgstr ""
+msgstr "CVS Duke hequr "
 
 #: plugins/cvs-plugin/cvs.c:486
+#, fuzzy
 msgid "Getting CVS status "
-msgstr ""
+msgstr "CVS gjendja "
 
 #: plugins/cvs-plugin/cvs.c:501 plugins/cvs-plugin/cvs.c:556
 #: plugins/cvs-plugin/cvs.c:635 plugins/cvs-plugin/cvs.c:891
+#, fuzzy
 msgid "There are jobs running, please wait until they are finished"
-msgstr ""
+msgstr "në punim e sipër deri më mbaruam"
 
 #: plugins/cvs-plugin/cvs.c:541
+#, fuzzy
 msgid "Getting CVS log "
-msgstr ""
+msgstr "CVS "
 
 #: plugins/cvs-plugin/cvs.c:620
+#, fuzzy
 msgid "CVS diffing "
-msgstr ""
+msgstr "CVS "
 
 #: plugins/cvs-plugin/cvs.c:667
+#, fuzzy
 msgid "CVS login "
-msgstr ""
+msgstr "CVS "
 
 #: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
+#, fuzzy
 msgid "Project import completed...unsuccessful\n"
-msgstr ""
+msgstr "Projekti importo j"
 
 #: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
+#, fuzzy
 msgid "Project import completed...unsuccessful"
-msgstr ""
+msgstr "Projekti importo"
 
 #: plugins/cvs-plugin/cvs.c:772
+#, fuzzy
 msgid "CVS completed...successful\n"
-msgstr ""
+msgstr "CVS j"
 
 #: plugins/cvs-plugin/cvs.c:774
+#, fuzzy
 msgid "CVS completed...successful"
-msgstr ""
+msgstr "CVS"
 
 #: plugins/cvs-plugin/cvs.c:782
+#, fuzzy
 msgid "Updating versions in file tree..."
-msgstr ""
+msgstr "në degëzimi."
 
 #: plugins/cvs-plugin/cvs.c:784
+#, fuzzy
 msgid "done\n"
-msgstr ""
+msgstr "u krye j"
 
 #: plugins/cvs-plugin/cvs_cbs.c:41
+#, fuzzy
 msgid "You do not need to login to a local server"
-msgstr ""
+msgstr "Ti nuk a lokal server"
 
 #: plugins/cvs-plugin/cvs_gui.c:30
 msgid "Local"
@@ -1949,44 +2142,52 @@ msgid "Server"
 msgstr "Serveri"
 
 #: plugins/cvs-plugin/cvs_gui.c:72
+#, fuzzy
 msgid "CVS: Update"
-msgstr ""
+msgstr "CVS Rifresko"
 
 #: plugins/cvs-plugin/cvs_gui.c:76
+#, fuzzy
 msgid "CVS: Commit"
-msgstr ""
+msgstr "CVS Kryej"
 
 #: plugins/cvs-plugin/cvs_gui.c:77
 msgid "Commit"
 msgstr "Kryej"
 
 #: plugins/cvs-plugin/cvs_gui.c:80
+#, fuzzy
 msgid "CVS: Status"
-msgstr ""
+msgstr "CVS Gjendja"
 
 #: plugins/cvs-plugin/cvs_gui.c:81
+#, fuzzy
 msgid "Show status"
-msgstr ""
+msgstr "Shfaq gjendja"
 
 #: plugins/cvs-plugin/cvs_gui.c:84
+#, fuzzy
 msgid "CVS: Log"
-msgstr ""
+msgstr "CVS Log"
 
 #: plugins/cvs-plugin/cvs_gui.c:85
+#, fuzzy
 msgid "Show log"
-msgstr ""
+msgstr "Shfaq"
 
 #: plugins/cvs-plugin/cvs_gui.c:88
+#, fuzzy
 msgid "CVS: Add file"
-msgstr ""
+msgstr "CVS Shto"
 
 #: plugins/cvs-plugin/cvs_gui.c:89
 msgid "Add"
 msgstr "Shto"
 
 #: plugins/cvs-plugin/cvs_gui.c:92
+#, fuzzy
 msgid "CVS: Remove file"
-msgstr ""
+msgstr "CVS Hiq"
 
 #. 3
 #: plugins/cvs-plugin/cvs_gui.c:93 plugins/debugger/watch_gui.c:43
@@ -1995,99 +2196,116 @@ msgid "Remove"
 msgstr "Hiq"
 
 #: plugins/cvs-plugin/cvs_gui.c:95
+#, fuzzy
 msgid ""
 "WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
 "to apply to the repository. It will still be possible to retrieve older "
 "revisions of the file."
-msgstr ""
+msgstr "KUJDES në apliko e(i) vjetër revizionet nga."
 
 #: plugins/cvs-plugin/cvs_gui.c:120 plugins/cvs-plugin/cvs_gui.c:238
+#, fuzzy
 msgid "File: "
-msgstr ""
+msgstr "File "
 
 #: plugins/cvs-plugin/cvs_gui.c:122
+#, fuzzy
 msgid "Branch: "
-msgstr ""
+msgstr "Degë "
 
 #: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
 msgid "Revision: "
 msgstr ""
 
 #: plugins/cvs-plugin/cvs_gui.c:125 plugins/cvs-plugin/cvs_gui.c:470
+#, fuzzy
 msgid "Log message: "
-msgstr ""
+msgstr "Log mesazh "
 
 #: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
 msgid "Select file"
 msgstr "Zgjidh një file"
 
 #: plugins/cvs-plugin/cvs_gui.c:225
+#, fuzzy
 msgid "CVS: Diff file"
-msgstr ""
+msgstr "CVS Dif"
 
 #: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:411
 msgid "Diff"
 msgstr "Dif"
 
 #: plugins/cvs-plugin/cvs_gui.c:265
+#, fuzzy
 msgid "Date: "
-msgstr ""
+msgstr "Data "
 
 #: plugins/cvs-plugin/cvs_gui.c:333
+#, fuzzy
 msgid "CVS Login"
-msgstr ""
+msgstr "CVS Futu"
 
 #: plugins/cvs-plugin/cvs_gui.c:337
 msgid "Login"
 msgstr "Futu"
 
 #: plugins/cvs-plugin/cvs_gui.c:347 plugins/cvs-plugin/cvs_gui.c:440
+#, fuzzy
 msgid "Server type: "
-msgstr ""
+msgstr "Serveri lloji "
 
 #: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
+#, fuzzy
 msgid "Username: "
-msgstr ""
+msgstr "Përdoruesi "
 
 #: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
 msgid "Server: "
 msgstr "Serveri: "
 
 #: plugins/cvs-plugin/cvs_gui.c:350
+#, fuzzy
 msgid "Directory on the server: "
-msgstr ""
+msgstr "Directory në server "
 
 #: plugins/cvs-plugin/cvs_gui.c:427
+#, fuzzy
 msgid "CVS: Import Project"
-msgstr ""
+msgstr "CVS Importo Projekti"
 
 #: plugins/cvs-plugin/cvs_gui.c:431
 msgid "Import"
 msgstr "Importo"
 
 #: plugins/cvs-plugin/cvs_gui.c:442
+#, fuzzy
 msgid "Dir on the server: "
-msgstr ""
+msgstr "në server "
 
 #: plugins/cvs-plugin/cvs_gui.c:467
+#, fuzzy
 msgid "Module name: "
-msgstr ""
+msgstr "Modulë emri "
 
 #: plugins/cvs-plugin/cvs_gui.c:468
+#, fuzzy
 msgid "Release name: "
-msgstr ""
+msgstr "Release emri "
 
 #: plugins/cvs-plugin/cvs_gui.c:469
+#, fuzzy
 msgid "Vendor tag: "
-msgstr ""
+msgstr "Shitës "
 
 #: plugins/cvs-plugin/cvs_gui.c:525
+#, fuzzy
 msgid "Server settings"
-msgstr ""
+msgstr "Serveri rregullimet"
 
 #: plugins/cvs-plugin/cvs_gui.c:529
+#, fuzzy
 msgid "Import settings"
-msgstr ""
+msgstr "Importo rregullimet"
 
 #: plugins/debugger/attach_process.c:70
 msgid "Pid"
@@ -2107,13 +2325,15 @@ msgstr "Komanda"
 
 #: plugins/debugger/attach_process.c:403
 #, c-format
+#, fuzzy
 msgid "Unable to execute: %s."
-msgstr ""
+msgstr "ekzekuto."
 
 #: plugins/debugger/attach_process.c:416
 #, c-format
+#, fuzzy
 msgid "Unable to open the file: %s\n"
-msgstr ""
+msgstr "hap j"
 
 #: plugins/debugger/breakpoints.c:113
 msgid "Line"
@@ -2137,8 +2357,9 @@ msgstr "Kushti"
 #. debugger.breakpoints_dbase);
 #.
 #: plugins/debugger/breakpoints.c:171 plugins/debugger/debugger.c:1825
+#, fuzzy
 msgid "All breakpoints enabled:\n"
-msgstr ""
+msgstr "Gjithçka aktiv j"
 
 #.
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
@@ -2146,20 +2367,24 @@ msgstr ""
 #. debugger.breakpoints_dbase);
 #.
 #: plugins/debugger/breakpoints.c:189 plugins/debugger/debugger.c:1871
+#, fuzzy
 msgid "All breakpoints disabled:\n"
-msgstr ""
+msgstr "Gjithçka jo aktiv j"
 
 #: plugins/debugger/breakpoints.c:653
+#, fuzzy
 msgid "You must give a valid location to set the breakpoint."
-msgstr ""
+msgstr "Ti a pozicioni."
 
 #: plugins/debugger/breakpoints.c:775
+#, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr ""
+msgstr "elemino?"
 
 #: plugins/debugger/breakpoints.c:1298
+#, fuzzy
 msgid "Old breakpoints disabled."
-msgstr ""
+msgstr "jo aktiv."
 
 #: plugins/debugger/breakpoints.c:1438
 msgid "0"
@@ -2176,12 +2401,14 @@ msgid "Value"
 msgstr "Vlera"
 
 #: plugins/debugger/debug_tree.c:1190
+#, fuzzy
 msgid "Local Variables"
-msgstr ""
+msgstr "Lokale Të ndryshueshmet"
 
 #: plugins/debugger/debug_tree.c:1504
+#, fuzzy
 msgid "Default format"
-msgstr ""
+msgstr "E prezgjedhur"
 
 #: plugins/debugger/debug_tree.c:1508
 msgid "Binary"
@@ -2192,12 +2419,14 @@ msgid "Octal"
 msgstr "Tetor"
 
 #: plugins/debugger/debug_tree.c:1514
+#, fuzzy
 msgid "Signed decimal"
-msgstr ""
+msgstr "dhjetor"
 
 #: plugins/debugger/debug_tree.c:1517
+#, fuzzy
 msgid "Unsigned decimal"
-msgstr ""
+msgstr "Pa firmë dhjetor"
 
 #: plugins/debugger/debug_tree.c:1520 plugins/debugger/registers_gui.c:112
 msgid "Hex"
@@ -2208,133 +2437,158 @@ msgid "Char"
 msgstr "Gërma"
 
 #: plugins/debugger/debug_tree.c:1528
+#, fuzzy
 msgid "Inspect memory"
-msgstr ""
+msgstr "Inspekto"
 
 #. Must declare static, because it will be used forever
 #: plugins/debugger/debugger.c:90
+#, fuzzy
 msgid "Load Executable File"
-msgstr ""
+msgstr "Ngarko E ekzekutueshme File"
 
 #. Must declare static, because it will be used forever
 #: plugins/debugger/debugger.c:96
+#, fuzzy
 msgid "Load Core File"
-msgstr ""
+msgstr "Ngarko File"
 
 #: plugins/debugger/debugger.c:202 plugins/debugger/debugger.c:654
+#, fuzzy
 msgid "Loading Executable: "
-msgstr ""
+msgstr "E ekzekutueshme "
 
 #: plugins/debugger/debugger.c:251
 msgid "Loading Core: "
 msgstr ""
 
 #: plugins/debugger/debugger.c:296 plugins/debugger/debugger.c:324
+#, fuzzy
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
-msgstr ""
+msgstr "Ti a i pari dhe ngarkoje e ekzekutueshme."
 
 #: plugins/debugger/debugger.c:299 plugins/debugger/debugger.c:327
+#, fuzzy
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
-msgstr ""
+msgstr "Ti a ndalo i pari dhe ngarkoje e ekzekutueshme."
 
 #: plugins/debugger/debugger.c:574
 #, c-format
+#, fuzzy
 msgid ""
 "Unable to find: %s.\n"
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
-msgstr ""
+msgstr "gjej është instaluar."
 
 #: plugins/debugger/debugger.c:650
 msgid "Debugger"
 msgstr ""
 
 #: plugins/debugger/debugger.c:652
+#, fuzzy
 msgid "Getting ready to start debugging session ...\n"
-msgstr ""
+msgstr "nisje j"
 
 #: plugins/debugger/debugger.c:665
+#, fuzzy
 msgid "No executable specified\n"
-msgstr ""
+msgstr "Jo e ekzekutueshme j"
 
 #: plugins/debugger/debugger.c:668
+#, fuzzy
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
+msgstr "Hap e ekzekutueshme bashkangjit a nisje j"
 
 #: plugins/debugger/debugger.c:675
+#, fuzzy
 msgid "There was an error whilst launching the debugger.\n"
-msgstr ""
+msgstr "gabim j"
 
 #: plugins/debugger/debugger.c:678
+#, fuzzy
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr ""
+msgstr "gdb është instaluar në sistemi j"
 
 #: plugins/debugger/debugger.c:835
+#, fuzzy
 msgid "Error: "
-msgstr ""
+msgstr "Gabim "
 
 #: plugins/debugger/debugger.c:856
+#, fuzzy
 msgid "Debugger is ready.\n"
-msgstr ""
+msgstr "është j"
 
 #: plugins/debugger/debugger.c:964
+#, fuzzy
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
 "\n"
-msgstr ""
+msgstr "gjej j j"
 
 #: plugins/debugger/debugger.c:1202
+#, fuzzy
 msgid "Cannot execute gnome-terminal"
-msgstr ""
+msgstr "ekzekuto terminal"
 
 #: plugins/debugger/debugger.c:1237
+#, fuzzy
 msgid "Cannot start terminal for debugging."
-msgstr ""
+msgstr "nisje terminal për."
 
 #: plugins/debugger/debugger.c:1301
+#, fuzzy
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr ""
+msgstr "Kujdes Jo terminal j"
 
 #: plugins/debugger/debugger.c:1320
+#, fuzzy
 msgid "Running program ... \n"
-msgstr ""
+msgstr "Në ekzekutim programi j"
 
 #: plugins/debugger/debugger.c:1450
 #, c-format
+#, fuzzy
 msgid "Attaching to process: %d\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/debugger/debugger.c:1480
+#, fuzzy
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
-msgstr ""
+msgstr "A është në punim e sipër dhe bashkangjit i ri?"
 
 #: plugins/debugger/debugger.c:1493
+#, fuzzy
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "është bashkangjit letra vetë."
 
 #: plugins/debugger/debugger.c:1579
 #, c-format
+#, fuzzy
 msgid "Detaching the process: %d\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/debugger/debugger.c:1635
+#, fuzzy
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
-msgstr ""
+msgstr "Programi është ndalo?"
 
 #: plugins/debugger/debugger.c:1638
+#, fuzzy
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
-msgstr ""
+msgstr "Programi është ndalo?"
 
 #.
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
@@ -2342,30 +2596,36 @@ msgstr ""
 #. debugger.breakpoints_dbase);
 #.
 #: plugins/debugger/debugger.c:1917
+#, fuzzy
 msgid "All breakpoints deleted:\n"
-msgstr ""
+msgstr "Gjithçka j"
 
 #: plugins/debugger/debugger.c:1950
 #, c-format
+#, fuzzy
 msgid "Interrupting the process: %d\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/debugger/debugger.c:1982
 #, c-format
+#, fuzzy
 msgid "Sending signal %s to the process: %d\n"
-msgstr ""
+msgstr "Duke dërguar j"
 
 #: plugins/debugger/debugger.c:2003
+#, fuzzy
 msgid "Error whilst signalling the process."
-msgstr ""
+msgstr "Gabim."
 
 #: plugins/debugger/memory.c:108
+#, fuzzy
 msgid "Unable to build user interface for Memory\n"
-msgstr ""
+msgstr "përdorues interfaqja për Kujtesa j"
 
 #: plugins/debugger/memory.c:410
+#, fuzzy
 msgid "Enter a Hexa address or Select one in the data"
-msgstr ""
+msgstr "Shto a Zgjidh në"
 
 #: plugins/debugger/memory.c:417
 msgid "Non accessible address !"
@@ -2385,8 +2645,9 @@ msgid "Decimal"
 msgstr "Dhjetor"
 
 #: plugins/debugger/sharedlib_gui.c:80
+#, fuzzy
 msgid "Shared libraries"
-msgstr ""
+msgstr "E përbashkët"
 
 #: plugins/debugger/sharedlib_gui.c:101
 #, fuzzy
@@ -2402,8 +2663,9 @@ msgid "To"
 msgstr "Për"
 
 #: plugins/debugger/sharedlib_gui.c:113
+#, fuzzy
 msgid "Sysm Read"
-msgstr ""
+msgstr "Lexo"
 
 #: plugins/debugger/signals_cbs.c:116 plugins/debugger/signals_cbs.c:129
 #: plugins/debugger/signals_cbs.c:142
@@ -2415,16 +2677,19 @@ msgid "No"
 msgstr "Jo"
 
 #: plugins/debugger/signals_gui.c:41
+#, fuzzy
 msgid "Modify Signal"
-msgstr ""
+msgstr "Ndrysho Sinjali"
 
 #: plugins/debugger/signals_gui.c:48
+#, fuzzy
 msgid "Send to process"
-msgstr ""
+msgstr "Dërgo"
 
 #: plugins/debugger/signals_gui.c:94
+#, fuzzy
 msgid "Kernel signals"
-msgstr ""
+msgstr "Kernel"
 
 #: plugins/debugger/signals_gui.c:116
 msgid "Signal"
@@ -2439,36 +2704,44 @@ msgid "Print"
 msgstr "Printo"
 
 #: plugins/debugger/signals_gui.c:253
+#, fuzzy
 msgid " Stop: "
-msgstr ""
+msgstr "Ndal "
 
 #: plugins/debugger/signals_gui.c:257
+#, fuzzy
 msgid " Print: "
-msgstr ""
+msgstr "Printo "
 
 #: plugins/debugger/stack_trace.c:317
+#, fuzzy
 msgid "Error getting selection\n"
-msgstr ""
+msgstr "Gabim j"
 
 #: plugins/debugger/stack_trace.c:328
+#, fuzzy
 msgid "Error getting source location from stack frame"
-msgstr ""
+msgstr "Gabim pozicioni frame"
 
 #: plugins/debugger/stack_trace.c:345
+#, fuzzy
 msgid "Frame set"
-msgstr ""
+msgstr "Korniza"
 
 #: plugins/debugger/stack_trace.c:352
+#, fuzzy
 msgid "Frame info"
-msgstr ""
+msgstr "Korniza"
 
 #: plugins/debugger/stack_trace.c:359
+#, fuzzy
 msgid "Frame args"
-msgstr ""
+msgstr "Korniza"
 
 #: plugins/debugger/stack_trace.c:373
+#, fuzzy
 msgid "View Source"
-msgstr ""
+msgstr "Paraqitja Burimi"
 
 #: plugins/debugger/stack_trace.c:440
 msgid "Active"
@@ -2483,64 +2756,78 @@ msgid "Frame"
 msgstr "Korniza"
 
 #: plugins/debugger/watch_cbs.c:228
+#, fuzzy
 msgid "< Not defined in current context >"
-msgstr ""
+msgstr "Not në"
 
 #: plugins/debugger/watch_gui.c:37
+#, fuzzy
 msgid "Add expression"
-msgstr ""
+msgstr "Shto shprehje"
 
 #: plugins/debugger/watch_gui.c:49
+#, fuzzy
 msgid "Update all"
-msgstr ""
+msgstr "Rifresko"
 
 #: plugins/debugger/watch_gui.c:55
 msgid "Clear"
 msgstr "Pastro"
 
 #: plugins/debugger/watch_gui.c:61
+#, fuzzy
 msgid "Toggle enable"
-msgstr ""
+msgstr "Kavo aktiv"
 
 #: plugins/debugger/watch_gui.c:67
+#, fuzzy
 msgid "Change item"
-msgstr ""
+msgstr "Ndrysho element"
 
 #: plugins/debugger/watch_gui.c:172
+#, fuzzy
 msgid "Add Watch Expression"
-msgstr ""
+msgstr "Shto Shprehje"
 
 #: plugins/debugger/watch_gui.c:182
+#, fuzzy
 msgid "Add expression to watch"
-msgstr ""
+msgstr "Shto shprehje"
 
 #: plugins/debugger/watch_gui.c:238
+#, fuzzy
 msgid "Modify Watch Expression"
-msgstr ""
+msgstr "Ndrysho Shprehje"
 
 #: plugins/debugger/watch_gui.c:248
+#, fuzzy
 msgid "Modify watched expression"
-msgstr ""
+msgstr "Ndrysho shprehje"
 
 #: plugins/debugger/watch_gui.c:305
+#, fuzzy
 msgid "Inspect/Evaluate"
-msgstr ""
+msgstr "Inspekto"
 
 #: plugins/debugger/watch_gui.c:315
+#, fuzzy
 msgid "Inspect/Evaluate Expression"
-msgstr ""
+msgstr "Inspekto Shprehje"
 
 #: plugins/debugger/watch_gui.c:325
+#, fuzzy
 msgid "Add To Watch"
-msgstr ""
+msgstr "Shto Për"
 
 #: plugins/devhelp/plugin.c:175
+#, fuzzy
 msgid "Devhelp navigation operations"
-msgstr ""
+msgstr "Devhelp veprimet"
 
 #: plugins/devhelp/plugin.c:185
+#, fuzzy
 msgid "Help display"
-msgstr ""
+msgstr "Ndihmë"
 
 #: plugins/devhelp/plugin.c:268
 #, fuzzy
@@ -2555,18 +2842,20 @@ msgid "Search"
 msgstr "Kërko"
 
 #: plugins/editor/action-callbacks.c:123
+#, fuzzy
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
 "Do you still want close the editor?"
-msgstr ""
+msgstr "është për në mbylle?"
 
 #: plugins/editor/action-callbacks.c:137
 #, c-format
+#, fuzzy
 msgid ""
 "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
-msgstr ""
+msgstr "është nuk ruaj përpara?"
 
 #: plugins/editor/action-callbacks.c:147
 #: plugins/project-manager/project_dbase_gui.c:1066
@@ -2586,19 +2875,22 @@ msgstr "_Rilexo"
 
 #: plugins/editor/action-callbacks.c:945
 #, c-format
+#, fuzzy
 msgid "There is no line number %d in \"%s\"."
-msgstr ""
+msgstr "është jo në."
 
 #: plugins/editor/action-callbacks.c:1628
+#, fuzzy
 msgid "No matches. Wrap search around the document?"
-msgstr ""
+msgstr "Jo Mbështill kërko?"
 
 #: plugins/editor/anjuta-docman.c:300 src/anjuta_cbs.c:426
 #, c-format
+#, fuzzy
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
-msgstr ""
+msgstr "ekziston me?"
 
 #: plugins/editor/anjuta-docman.c:307 src/anjuta-callbacks.c:258
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
@@ -2610,8 +2902,9 @@ msgid "Save file as"
 msgstr "Ruaj file si"
 
 #: plugins/editor/anjuta-docman.c:509
+#, fuzzy
 msgid "Recent Files "
-msgstr ""
+msgstr "I fundit Files "
 
 #: plugins/editor/anjuta-document-manager.glade.h:1
 #, fuzzy
@@ -2664,8 +2957,9 @@ msgid "*\\.*"
 msgstr "*\\.*"
 
 #: plugins/editor/anjuta-document-manager.glade.h:13
+#, fuzzy
 msgid "<b>Autocompletion</b>"
-msgstr ""
+msgstr "<b> Plotësim automatik</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:14
 #, fuzzy
@@ -2683,12 +2977,14 @@ msgid "<b>Code folding</b>"
 msgstr "Përsëritja e kodit"
 
 #: plugins/editor/anjuta-document-manager.glade.h:17
+#, fuzzy
 msgid "<b>Custom autoformate style</b>"
-msgstr ""
+msgstr "<b> E personalizuar</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:18
+#, fuzzy
 msgid "<b>Editor tabs</b>"
-msgstr ""
+msgstr "<b> Editori</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:19
 #, fuzzy
@@ -2706,28 +3002,33 @@ msgid "<b>Misc options</b>"
 msgstr "Opcione të ndryshme"
 
 #: plugins/editor/anjuta-document-manager.glade.h:22
+#, fuzzy
 msgid "<b>Print options</b>"
-msgstr ""
+msgstr "<b> Printo</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:23
+#, fuzzy
 msgid "<b>Supported Encodings</b>"
-msgstr ""
+msgstr "<b> Kodifikimet</b>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:24
+#, fuzzy
 msgid "<span weight=\"bold\">File Information</span>"
-msgstr ""
+msgstr "<span weight=\"bold\"> File Informacione</span>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:25
+#, fuzzy
 msgid "<span weight=\"bold\">Options</span>"
-msgstr ""
+msgstr "<span weight=\"bold\"> Mundësitë</span>"
 
 #: plugins/editor/anjuta-document-manager.glade.h:26
 msgid "Activate"
 msgstr "Aktivo"
 
 #: plugins/editor/anjuta-document-manager.glade.h:27
+#, fuzzy
 msgid "Add License Information (GPL)"
-msgstr ""
+msgstr "Shto Liçenca Informacione GPL"
 
 #: plugins/editor/anjuta-document-manager.glade.h:28
 msgid "Add line number every:"
@@ -2823,8 +3124,9 @@ msgid "Circular"
 msgstr "Qarkor"
 
 #: plugins/editor/anjuta-document-manager.glade.h:51
+#, fuzzy
 msgid "Collapse all code folds on file open"
-msgstr ""
+msgstr "kodi në hap"
 
 #: plugins/editor/anjuta-document-manager.glade.h:52
 msgid "Colour"
@@ -2850,8 +3152,9 @@ msgid "Crazy boy style"
 msgstr "Stil \"Crazy boy\""
 
 #: plugins/editor/anjuta-document-manager.glade.h:57
+#, fuzzy
 msgid "Create corresponding header file"
-msgstr ""
+msgstr "Krijo titull"
 
 #: plugins/editor/anjuta-document-manager.glade.h:58
 msgid "Custom style"
@@ -3095,8 +3398,9 @@ msgid "No Limit"
 msgstr "Pa limit"
 
 #: plugins/editor/anjuta-document-manager.glade.h:119
+#, fuzzy
 msgid "Original Berkeley style"
-msgstr ""
+msgstr "Orgjinali"
 
 #: plugins/editor/anjuta-document-manager.glade.h:120
 #, fuzzy
@@ -3118,12 +3422,14 @@ msgid "Position:"
 msgstr "Pozicioni:"
 
 #: plugins/editor/anjuta-document-manager.glade.h:124
+#, fuzzy
 msgid "Pressing backspace un-indents"
-msgstr ""
+msgstr "backspace"
 
 #: plugins/editor/anjuta-document-manager.glade.h:125
+#, fuzzy
 msgid "Pressing tab indents"
-msgstr ""
+msgstr "tab"
 
 #: plugins/editor/anjuta-document-manager.glade.h:126
 msgid "Printing"
@@ -3158,12 +3464,14 @@ msgid "Right"
 msgstr "Djathtas"
 
 #: plugins/editor/anjuta-document-manager.glade.h:133
+#, fuzzy
 msgid "Save files interval in minutes"
-msgstr ""
+msgstr "Ruaj në minuta"
 
 #: plugins/editor/anjuta-document-manager.glade.h:134
+#, fuzzy
 msgid "Save session interval in minutes"
-msgstr ""
+msgstr "Ruaj në minuta"
 
 #: plugins/editor/anjuta-document-manager.glade.h:135
 #, fuzzy
@@ -3171,8 +3479,9 @@ msgid "Search Action:"
 msgstr "Veprimet maksimum"
 
 #: plugins/editor/anjuta-document-manager.glade.h:136
+#, fuzzy
 msgid "Search Direction:"
-msgstr ""
+msgstr "Kërko Drejtimi:"
 
 #: plugins/editor/anjuta-document-manager.glade.h:137
 #, fuzzy
@@ -3190,8 +3499,9 @@ msgid "Search In:"
 msgstr "Kërko"
 
 #: plugins/editor/anjuta-document-manager.glade.h:140
+#, fuzzy
 msgid "Search Recursively"
-msgstr ""
+msgstr "Kërko"
 
 #: plugins/editor/anjuta-document-manager.glade.h:141
 #, fuzzy
@@ -3219,60 +3529,71 @@ msgid "Selection background:"
 msgstr "Sfondi i calltip:"
 
 #: plugins/editor/anjuta-document-manager.glade.h:146
+#, fuzzy
 msgid "Selection foreground:"
-msgstr ""
+msgstr "Zgjedhja:"
 
 #: plugins/editor/anjuta-document-manager.glade.h:147
 msgid "Setting"
 msgstr "Rregullimi"
 
 #: plugins/editor/anjuta-document-manager.glade.h:148
+#, fuzzy
 msgid "Shell: # comment"
-msgstr ""
+msgstr "Shell komenti"
 
 #: plugins/editor/anjuta-document-manager.glade.h:149
+#, fuzzy
 msgid "Sorted by most recent use"
-msgstr ""
+msgstr "nga"
 
 #: plugins/editor/anjuta-document-manager.glade.h:150
+#, fuzzy
 msgid "Sorted in alphabetical order"
-msgstr ""
+msgstr "në"
 
 #: plugins/editor/anjuta-document-manager.glade.h:151
+#, fuzzy
 msgid "Sorted in the order you open them"
-msgstr ""
+msgstr "në hap"
 
 #: plugins/editor/anjuta-document-manager.glade.h:152
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
+#, fuzzy
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr ""
+msgstr "Hapësira lista nga emri"
 
 #: plugins/editor/anjuta-document-manager.glade.h:153
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+#, fuzzy
 msgid "Space-seperated list of directory name patterns to match"
-msgstr ""
+msgstr "Hapësira lista nga emri"
 
 #: plugins/editor/anjuta-document-manager.glade.h:154
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+#, fuzzy
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr ""
+msgstr "Hapësira lista nga emri"
 
 #: plugins/editor/anjuta-document-manager.glade.h:155
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+#, fuzzy
 msgid "Space-seperated list of file name patterns to match"
-msgstr ""
+msgstr "Hapësira lista nga emri"
 
 #: plugins/editor/anjuta-document-manager.glade.h:156
 msgid "Squares"
 msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:157
+#, fuzzy
 msgid "Strip trailling spaces on file save"
-msgstr ""
+msgstr "në ruaj"
 
 #: plugins/editor/anjuta-document-manager.glade.h:158
+#, fuzzy
 msgid "Style of Kangleipak"
-msgstr ""
+msgstr "Stili nga"
 
 #: plugins/editor/anjuta-document-manager.glade.h:159
 #, fuzzy
@@ -3294,12 +3615,14 @@ msgid "Top"
 msgstr "Sipër"
 
 #: plugins/editor/anjuta-document-manager.glade.h:163
+#, fuzzy
 msgid "Try to save in current locale's encoding"
-msgstr ""
+msgstr "ruaj në lokale"
 
 #: plugins/editor/anjuta-document-manager.glade.h:164
+#, fuzzy
 msgid "Try to save in original encoding"
-msgstr ""
+msgstr "ruaj në"
 
 #: plugins/editor/anjuta-document-manager.glade.h:165
 msgid "Type:"
@@ -3310,8 +3633,9 @@ msgid "Underlined"
 msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:167
+#, fuzzy
 msgid "Use Template for the Header file"
-msgstr ""
+msgstr "Shabllon për Kreu i faqes"
 
 #: plugins/editor/anjuta-document-manager.glade.h:168
 #, fuzzy
@@ -3324,20 +3648,24 @@ msgid "Use tabs for indentation"
 msgstr "Aktivo ngushtimin automatik"
 
 #: plugins/editor/anjuta-document-manager.glade.h:170
+#, fuzzy
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Mbështill kërko"
 
 #: plugins/editor/anjuta-document-manager.glade.h:171
+#, fuzzy
 msgid "_C: /* comment */"
-msgstr ""
+msgstr "C komenti"
 
 #: plugins/editor/anjuta-document-manager.glade.h:172
+#, fuzzy
 msgid "_General Public License (GPL)"
-msgstr ""
+msgstr "Të përgjithshme Publik Liçenca GPL"
 
 #: plugins/editor/anjuta-document-manager.glade.h:173
+#, fuzzy
 msgid "_Lesser General Public License (LGPL)"
-msgstr ""
+msgstr "Të përgjithshme Publik Liçenca"
 
 #: plugins/editor/anjuta-document-manager.glade.h:174
 #, fuzzy
@@ -3345,61 +3673,74 @@ msgid "_Save Theme As"
 msgstr "Ruaj file si"
 
 #: plugins/editor/file.c:84
+#, fuzzy
 msgid "C Source File"
-msgstr ""
+msgstr "C Burimi File"
 
 #: plugins/editor/file.c:85
+#, fuzzy
 msgid "C -C++ Header File"
-msgstr ""
+msgstr "C C Kreu i faqes File"
 
 #: plugins/editor/file.c:86
+#, fuzzy
 msgid "C++ Source File"
-msgstr ""
+msgstr "C Burimi File"
 
 #: plugins/editor/file.c:87
+#, fuzzy
 msgid "C# Source File"
-msgstr ""
+msgstr "C Burimi File"
 
 #: plugins/editor/file.c:88
+#, fuzzy
 msgid "Java Source File"
-msgstr ""
+msgstr "Java Burimi File"
 
 #: plugins/editor/file.c:89
+#, fuzzy
 msgid "Perl Source File"
-msgstr ""
+msgstr "Perl Burimi File"
 
 #: plugins/editor/file.c:90
+#, fuzzy
 msgid "Python Source File"
-msgstr ""
+msgstr "Python Burimi File"
 
 #: plugins/editor/file.c:91
+#, fuzzy
 msgid "Shell Script File"
-msgstr ""
+msgstr "Shell Script File"
 
 #: plugins/editor/file.c:92
 msgid "Other"
 msgstr "Tjetër"
 
 #: plugins/editor/file.c:135
+#, fuzzy
 msgid "Unable to build user interface for New File"
-msgstr ""
+msgstr "përdorues interfaqja për E re File"
 
 #: plugins/editor/file.c:426
 #, c-format
+#, fuzzy
 msgid "The file \"%s\" is not a header file."
-msgstr ""
+msgstr "është nuk a titull."
 
 #: plugins/editor/file.c:521
+#, fuzzy
 msgid "%Y"
-msgstr ""
+msgstr "Y"
 
 #: plugins/editor/file.c:540
+#, fuzzy
 msgid "%Y-%m-%d"
-msgstr ""
+msgstr "Y m"
 
 #: plugins/editor/goto_line.c:124
+#, fuzzy
 msgid " Goto Line number "
-msgstr ""
+msgstr "Linja "
 
 #: plugins/editor/plugin.c:91
 msgid "_New"
@@ -3410,48 +3751,58 @@ msgid "_Save"
 msgstr "_Ruaj"
 
 #: plugins/editor/plugin.c:94 src/toolbar.c:84
+#, fuzzy
 msgid "Save current file"
-msgstr ""
+msgstr "Ruaj"
 
 #: plugins/editor/plugin.c:95
+#, fuzzy
 msgid "Save _As ..."
-msgstr ""
+msgstr "Ruaj."
 
 #: plugins/editor/plugin.c:96
 msgid "Save the current file with a different name"
 msgstr "Ruaj file aktual me një emër tjetër"
 
 #: plugins/editor/plugin.c:98
+#, fuzzy
 msgid "Save A_ll"
-msgstr ""
+msgstr "Ruaj A"
 
 #: plugins/editor/plugin.c:99
+#, fuzzy
 msgid "Save all currently open files, except new files"
-msgstr ""
+msgstr "Ruaj hap i ri"
 
 #: plugins/editor/plugin.c:101
+#, fuzzy
 msgid "_Close File"
-msgstr ""
+msgstr "Mbyll File"
 
 #: plugins/editor/plugin.c:102 src/toolbar.c:92
+#, fuzzy
 msgid "Close current file"
-msgstr ""
+msgstr "Mbyll"
 
 #: plugins/editor/plugin.c:104
+#, fuzzy
 msgid "Close All Files"
-msgstr ""
+msgstr "Mbyll Gjithçka Files"
 
 #: plugins/editor/plugin.c:105
+#, fuzzy
 msgid "Close all files"
-msgstr ""
+msgstr "Mbyll"
 
 #: plugins/editor/plugin.c:107
+#, fuzzy
 msgid "Reload F_ile"
-msgstr ""
+msgstr "Rilexo F"
 
 #: plugins/editor/plugin.c:108 src/toolbar.c:88
+#, fuzzy
 msgid "Reload current file"
-msgstr ""
+msgstr "Rilexo"
 
 #: plugins/editor/plugin.c:110
 msgid "Recent _Files"
@@ -3466,64 +3817,74 @@ msgid "Print the current file"
 msgstr "Printo file aktual"
 
 #: plugins/editor/plugin.c:116
+#, fuzzy
 msgid "_Print Preview"
-msgstr ""
+msgstr "Printo Shikoje"
 
 #: plugins/editor/plugin.c:117
+#, fuzzy
 msgid "Print preview of the current file"
-msgstr ""
+msgstr "Printo nga"
 
 #: plugins/editor/plugin.c:122
 msgid "_Transform"
 msgstr ""
 
 #: plugins/editor/plugin.c:123
+#, fuzzy
 msgid "_Make Selection Uppercase"
-msgstr ""
+msgstr "Zgjedhja"
 
 #: plugins/editor/plugin.c:124
+#, fuzzy
 msgid "Make the selected text uppercase"
-msgstr ""
+msgstr "tekst"
 
 #: plugins/editor/plugin.c:126
+#, fuzzy
 msgid "Make Selection Lowercase"
-msgstr ""
+msgstr "Zgjedhja"
 
 #: plugins/editor/plugin.c:127
+#, fuzzy
 msgid "Make the selected text lowercase"
-msgstr ""
+msgstr "tekst"
 
 #: plugins/editor/plugin.c:129
 msgid "Convert EOL chars to CRLF"
 msgstr ""
 
 #: plugins/editor/plugin.c:130
+#, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr ""
+msgstr "Fundi Linja"
 
 #: plugins/editor/plugin.c:132
 msgid "Convert EOL chars to LF"
 msgstr ""
 
 #: plugins/editor/plugin.c:133
+#, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr ""
+msgstr "Fundi Linja"
 
 #: plugins/editor/plugin.c:135
 msgid "Convert EOL chars to CR"
 msgstr ""
 
 #: plugins/editor/plugin.c:136
+#, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr ""
+msgstr "Fundi Linja"
 
 #: plugins/editor/plugin.c:138
 msgid "Convert EOL chars to majority EOL"
 msgstr ""
 
 #: plugins/editor/plugin.c:139
+#, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
+msgstr "Fundi Linja nga në"
 
 #: plugins/editor/plugin.c:144
 msgid "_Select"
@@ -3538,24 +3899,29 @@ msgid "Select all text in the editor"
 msgstr "Zgjidh të gjithë tekstin në editor"
 
 #: plugins/editor/plugin.c:148
+#, fuzzy
 msgid "Select to _Brace"
-msgstr ""
+msgstr "Zgjidh"
 
 #: plugins/editor/plugin.c:149
+#, fuzzy
 msgid "Select the text in the matching braces"
-msgstr ""
+msgstr "Zgjidh tekst në"
 
 #: plugins/editor/plugin.c:151
+#, fuzzy
 msgid "Select _Code Block"
-msgstr ""
+msgstr "Zgjidh Kodi Blloqe"
 
 #: plugins/editor/plugin.c:153
+#, fuzzy
 msgid "Select the current code block"
-msgstr ""
+msgstr "Zgjidh kodi bllok"
 
 #: plugins/editor/plugin.c:158
+#, fuzzy
 msgid "_Insert text"
-msgstr ""
+msgstr "Fut tekst"
 
 #: plugins/editor/plugin.c:159
 #, fuzzy
@@ -3563,8 +3929,9 @@ msgid "C _template"
 msgstr "_Zëvendëso"
 
 #: plugins/editor/plugin.c:160
+#, fuzzy
 msgid "_CVS keyword"
-msgstr ""
+msgstr "CVS"
 
 #: plugins/editor/plugin.c:161
 msgid "_General"
@@ -3576,8 +3943,9 @@ msgid "_Header"
 msgstr "Kreu i faqes"
 
 #: plugins/editor/plugin.c:163
+#, fuzzy
 msgid "Insert a file header"
-msgstr ""
+msgstr "Fut a titull"
 
 #: plugins/editor/plugin.c:165
 #, fuzzy
@@ -3585,8 +3953,9 @@ msgid "/_* GPL Notice */"
 msgstr "Shënim GPL"
 
 #: plugins/editor/plugin.c:166
+#, fuzzy
 msgid "Insert GPL notice with C style comments"
-msgstr ""
+msgstr "Fut GPL me C komente"
 
 #: plugins/editor/plugin.c:168
 #, fuzzy
@@ -3594,8 +3963,9 @@ msgid "/_/ GPL Notice"
 msgstr "Shënim GPL"
 
 #: plugins/editor/plugin.c:169
+#, fuzzy
 msgid "Insert GPL notice with C++ style comments"
-msgstr ""
+msgstr "Fut GPL me C komente"
 
 #: plugins/editor/plugin.c:171
 #, fuzzy
@@ -3603,24 +3973,29 @@ msgid "_# GPL Notice"
 msgstr "Shënim GPL"
 
 #: plugins/editor/plugin.c:172
+#, fuzzy
 msgid "Insert GPL notice with Python style comments"
-msgstr ""
+msgstr "Fut GPL me Python komente"
 
 #: plugins/editor/plugin.c:174
+#, fuzzy
 msgid "Current _Username"
-msgstr ""
+msgstr "Aktual Përdoruesi"
 
 #: plugins/editor/plugin.c:175
+#, fuzzy
 msgid "Insert name of current user"
-msgstr ""
+msgstr "Fut emri nga përdorues"
 
 #: plugins/editor/plugin.c:177
+#, fuzzy
 msgid "Current _Date & Time"
-msgstr ""
+msgstr "Aktual Data Ora"
 
 #: plugins/editor/plugin.c:178
+#, fuzzy
 msgid "Insert current date & time"
-msgstr ""
+msgstr "Fut data ora"
 
 #: plugins/editor/plugin.c:180
 #, fuzzy
@@ -3628,32 +4003,37 @@ msgid "Header File _Template"
 msgstr "Shabllon file header"
 
 #: plugins/editor/plugin.c:181
+#, fuzzy
 msgid "Insert a standard header file template"
-msgstr ""
+msgstr "Fut a titull"
 
 #: plugins/editor/plugin.c:183
 msgid "ChangeLog entry"
 msgstr ""
 
 #: plugins/editor/plugin.c:184
+#, fuzzy
 msgid "Insert a ChangeLog entry"
-msgstr ""
+msgstr "Fut a"
 
 #: plugins/editor/plugin.c:186
 msgid "_switch"
 msgstr ""
 
 #: plugins/editor/plugin.c:187
+#, fuzzy
 msgid "Insert a switch template"
-msgstr ""
+msgstr "Fut a"
 
 #: plugins/editor/plugin.c:189
+#, fuzzy
 msgid "_for"
-msgstr ""
+msgstr "për"
 
 #: plugins/editor/plugin.c:190
+#, fuzzy
 msgid "Insert a for template"
-msgstr ""
+msgstr "Fut a për"
 
 #: plugins/editor/plugin.c:192
 #, fuzzy
@@ -3661,16 +4041,18 @@ msgid "_while"
 msgstr "File"
 
 #: plugins/editor/plugin.c:193
+#, fuzzy
 msgid "Insert a while template"
-msgstr ""
+msgstr "Fut a"
 
 #: plugins/editor/plugin.c:195
 msgid "_if...else"
 msgstr ""
 
 #: plugins/editor/plugin.c:196
+#, fuzzy
 msgid "Insert an if...else template"
-msgstr ""
+msgstr "Fut"
 
 #: plugins/editor/plugin.c:198
 #, fuzzy
@@ -3678,72 +4060,83 @@ msgid "_Author"
 msgstr "Autori:"
 
 #: plugins/editor/plugin.c:199
+#, fuzzy
 msgid "Insert the CVS Author keyword (author of the change)"
-msgstr ""
+msgstr "Fut CVS Autori autori nga"
 
 #: plugins/editor/plugin.c:201
 msgid "_Date"
 msgstr "_Data"
 
 #: plugins/editor/plugin.c:202
+#, fuzzy
 msgid "Insert the CVS Date keyword (date and time of the change)"
-msgstr ""
+msgstr "Fut CVS Data data dhe ora nga"
 
 #: plugins/editor/plugin.c:205
+#, fuzzy
 msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
-msgstr ""
+msgstr "Fut CVS Kreu i faqes shtegu revizioni data autori"
 
 #: plugins/editor/plugin.c:207
 msgid "_Id"
 msgstr ""
 
 #: plugins/editor/plugin.c:208
+#, fuzzy
 msgid "Insert the CVS Id keyword (file revision, date, author)"
-msgstr ""
+msgstr "Fut CVS revizioni data autori"
 
 #: plugins/editor/plugin.c:210
 msgid "_Log"
 msgstr "_Log"
 
 #: plugins/editor/plugin.c:211
+#, fuzzy
 msgid "Insert the CVS Log keyword (log message)"
-msgstr ""
+msgstr "Fut CVS Log mesazh"
 
 #: plugins/editor/plugin.c:213
 msgid "_Name"
 msgstr "_Emri"
 
 #: plugins/editor/plugin.c:214
+#, fuzzy
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
-msgstr ""
+msgstr "Fut CVS Emri emri nga shtesë"
 
 #: plugins/editor/plugin.c:216
 msgid "_Revision"
 msgstr ""
 
 #: plugins/editor/plugin.c:217
+#, fuzzy
 msgid "Insert the CVS Revision keyword (revision number)"
-msgstr ""
+msgstr "Fut CVS revizioni"
 
 #: plugins/editor/plugin.c:219
+#, fuzzy
 msgid "_Source"
-msgstr ""
+msgstr "Burimi"
 
 #: plugins/editor/plugin.c:220
+#, fuzzy
 msgid "Insert the CVS Source keyword (full path)"
-msgstr ""
+msgstr "Fut CVS Burimi shtegu"
 
 #: plugins/editor/plugin.c:225
 msgid "_Search"
 msgstr "_Kërko"
 
 #: plugins/editor/plugin.c:226
+#, fuzzy
 msgid "_Find ..."
-msgstr ""
+msgstr "Gjej."
 
 #: plugins/editor/plugin.c:227
+#, fuzzy
 msgid "Search for a string or regular expression in the editor"
-msgstr ""
+msgstr "Kërko për a i rregullt shprehje në"
 
 #: plugins/editor/plugin.c:229
 msgid "Find _Next"
@@ -3759,13 +4152,14 @@ msgid "Find _Previous"
 msgstr "Gjej p_araardhësen"
 
 #: plugins/editor/plugin.c:236
+#, fuzzy
 msgid "Find and R_eplace ..."
-msgstr ""
+msgstr "Gjej dhe R."
 
 #: plugins/editor/plugin.c:238
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr ""
+#, fuzzy
+msgid "Search for and replace a string or regular expression with another string"
+msgstr "Kërko për dhe a i rregullt shprehje me"
 
 #: plugins/editor/plugin.c:240
 #, fuzzy
@@ -3773,88 +4167,109 @@ msgid "Advanced Search And Replace"
 msgstr "Gjej & Zevendëso e thjeshtë"
 
 #: plugins/editor/plugin.c:242
+#, fuzzy
 msgid "New advance search And replace stuff"
-msgstr ""
+msgstr "E re kërko And"
 
 #: plugins/editor/plugin.c:244
+#, fuzzy
 msgid "_Enter Selection/I-Search"
-msgstr ""
+msgstr "Shto Zgjedhja I Kërko"
 
 #: plugins/editor/plugin.c:246
+#, fuzzy
 msgid "Enter the selected text as the search target"
-msgstr ""
+msgstr "Shto tekst kërko"
 
 #: plugins/editor/plugin.c:248
+#, fuzzy
 msgid "Fin_d in Files ..."
-msgstr ""
+msgstr "në Files."
 
 #: plugins/editor/plugin.c:249
+#, fuzzy
 msgid "Search for a string in multiple files or directories"
-msgstr ""
+msgstr "Kërko për a në"
 
 #: plugins/editor/plugin.c:254
+#, fuzzy
 msgid "Co_mment code"
-msgstr ""
+msgstr "kodi"
 
 #: plugins/editor/plugin.c:255
+#, fuzzy
 msgid "_Block Comment/Uncomment"
-msgstr ""
+msgstr "Blloqe Komenti"
 
 #: plugins/editor/plugin.c:256
+#, fuzzy
 msgid "Block comment the selected text"
-msgstr ""
+msgstr "Blloqe komenti tekst"
 
 #: plugins/editor/plugin.c:258
+#, fuzzy
 msgid "Bo_x Comment/Uncomment"
-msgstr ""
+msgstr "x Komenti"
 
 #: plugins/editor/plugin.c:259
+#, fuzzy
 msgid "Box comment the selected text"
-msgstr ""
+msgstr "Kuti komenti tekst"
 
 #: plugins/editor/plugin.c:261
+#, fuzzy
 msgid "_Stream Comment/Uncomment"
-msgstr ""
+msgstr "Komenti"
 
 #: plugins/editor/plugin.c:262
+#, fuzzy
 msgid "Stream comment the selected text"
-msgstr ""
+msgstr "komenti tekst"
 
 #: plugins/editor/plugin.c:267
+#, fuzzy
 msgid "_Goto Line number"
-msgstr ""
+msgstr "Linja"
 
 #: plugins/editor/plugin.c:269 plugins/editor/plugin.c:273
+#, fuzzy
 msgid "Go to a particular line in the editor"
-msgstr ""
+msgstr "Shko a në"
 
 #: plugins/editor/plugin.c:271
+#, fuzzy
 msgid "_Line number ..."
-msgstr ""
+msgstr "Linja."
 
 #: plugins/editor/plugin.c:275
+#, fuzzy
 msgid "Matching _Brace"
-msgstr ""
+msgstr "Përputhja"
 
 #: plugins/editor/plugin.c:277
+#, fuzzy
 msgid "Go to the matching brace in the editor"
-msgstr ""
+msgstr "Shko në"
 
 #: plugins/editor/plugin.c:279
+#, fuzzy
 msgid "_Start of block"
-msgstr ""
+msgstr "Fillo nga bllok"
 
 #: plugins/editor/plugin.c:281
+#, fuzzy
 msgid "Go to the start of the current block"
-msgstr ""
+msgstr "Shko nisje nga bllok"
 
 #: plugins/editor/plugin.c:283
+#, fuzzy
 msgid "_End of block"
-msgstr ""
+msgstr "Fundi nga bllok"
 
 #: plugins/editor/plugin.c:285
+#, fuzzy
 msgid "Go to the end of the current block"
-msgstr ""
+msgstr "Shko fund nga bllok"
 
 #: plugins/editor/plugin.c:287
 #, fuzzy
@@ -3862,24 +4277,28 @@ msgid "Ne_xt occurrence"
 msgstr "Teksti që duhet vizatuar"
 
 #: plugins/editor/plugin.c:289
+#, fuzzy
 msgid "Find the next occurrence of current word"
-msgstr ""
+msgstr "Gjej në vazhdim nga"
 
 #: plugins/editor/plugin.c:291
 msgid "Pre_vious occurrence"
 msgstr ""
 
 #: plugins/editor/plugin.c:293
+#, fuzzy
 msgid "Find the previous occurrence of current word"
-msgstr ""
+msgstr "Gjej paraardhësja nga"
 
 #: plugins/editor/plugin.c:299
+#, fuzzy
 msgid "_Editor"
-msgstr ""
+msgstr "Editori"
 
 #: plugins/editor/plugin.c:300
+#, fuzzy
 msgid "U_ndo"
-msgstr ""
+msgstr "U"
 
 #: plugins/editor/plugin.c:301 src/toolbar.c:97
 msgid "Undo the last action"
@@ -3898,8 +4317,9 @@ msgid "C_ut"
 msgstr "P_reje"
 
 #: plugins/editor/plugin.c:307
+#, fuzzy
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr ""
+msgstr "Preje tekst"
 
 #: plugins/editor/plugin.c:309
 msgid "_Copy"
@@ -3914,16 +4334,18 @@ msgid "_Paste"
 msgstr "_Ngjite"
 
 #: plugins/editor/plugin.c:313
+#, fuzzy
 msgid "Paste the content of clipboard at the current position"
-msgstr ""
+msgstr "Ngjite përmbajtja nga"
 
 #: plugins/editor/plugin.c:315
 msgid "_Clear"
 msgstr "_Pastro"
 
 #: plugins/editor/plugin.c:316
+#, fuzzy
 msgid "Delete the selected text from the editor"
-msgstr ""
+msgstr "Elemino tekst"
 
 #: plugins/editor/plugin.c:318
 msgid "_AutoComplete"
@@ -3934,88 +4356,106 @@ msgid "AutoComplete the current word"
 msgstr ""
 
 #: plugins/editor/plugin.c:322
+#, fuzzy
 msgid "S_how calltip"
-msgstr ""
+msgstr "S"
 
 #: plugins/editor/plugin.c:323
+#, fuzzy
 msgid "Show calltip for the function"
-msgstr ""
+msgstr "Shfaq për"
 
 #: plugins/editor/plugin.c:328
+#, fuzzy
 msgid "_Line numbers margin"
-msgstr ""
+msgstr "Linja"
 
 #: plugins/editor/plugin.c:329
+#, fuzzy
 msgid "Show/Hide line numbers"
-msgstr ""
+msgstr "Shfaq Fshih"
 
 #: plugins/editor/plugin.c:331
 msgid "_Markers Margin"
 msgstr ""
 
 #: plugins/editor/plugin.c:332
+#, fuzzy
 msgid "Show/Hide markers margin"
-msgstr ""
+msgstr "Shfaq Fshih"
 
 #: plugins/editor/plugin.c:334
+#, fuzzy
 msgid "_Code fold margin"
-msgstr ""
+msgstr "Kodi"
 
 #: plugins/editor/plugin.c:335
+#, fuzzy
 msgid "Show/Hide code fold margin"
-msgstr ""
+msgstr "Shfaq Fshih kodi"
 
 #: plugins/editor/plugin.c:337
+#, fuzzy
 msgid "_Indentation guides"
-msgstr ""
+msgstr "Dhëmbëzimi"
 
 #: plugins/editor/plugin.c:338
+#, fuzzy
 msgid "Show/Hide indentation guides"
-msgstr ""
+msgstr "Shfaq Fshih"
 
 #: plugins/editor/plugin.c:340
+#, fuzzy
 msgid "_White spaces"
-msgstr ""
+msgstr "E bardhë"
 
 #: plugins/editor/plugin.c:341
+#, fuzzy
 msgid "Show/Hide white spaces"
-msgstr ""
+msgstr "Shfaq Fshih e bardhë"
 
 #: plugins/editor/plugin.c:343
+#, fuzzy
 msgid "_Line end characters"
-msgstr ""
+msgstr "Linja fund"
 
 #: plugins/editor/plugin.c:344
+#, fuzzy
 msgid "Show/Hide line end characters"
-msgstr ""
+msgstr "Shfaq Fshih fund"
 
 #: plugins/editor/plugin.c:346
+#, fuzzy
 msgid "Line _wrapping"
-msgstr ""
+msgstr "Linja"
 
 #: plugins/editor/plugin.c:347
+#, fuzzy
 msgid "Enable/disable line wrapping"
-msgstr ""
+msgstr "Aktivo ç'aktivo"
 
 #: plugins/editor/plugin.c:352
 msgid "Zoom in"
 msgstr "Zmadho"
 
 #: plugins/editor/plugin.c:353
+#, fuzzy
 msgid "Zoom in: Increase font size"
-msgstr ""
+msgstr "Shkalla e zmadhimit në Rrit gërmë madhësia"
 
 #: plugins/editor/plugin.c:355
 msgid "Zoom out"
 msgstr "Zvogëlo"
 
 #: plugins/editor/plugin.c:356
+#, fuzzy
 msgid "Zoom out: Decrease font size"
-msgstr ""
+msgstr "Shkalla e zmadhimit Zvogëlo gërmë madhësia"
 
 #: plugins/editor/plugin.c:361
+#, fuzzy
 msgid "Force _Highlight Style"
-msgstr ""
+msgstr "Detyro Vër në dukje Stili"
 
 #: plugins/editor/plugin.c:363
 msgid "Automatic"
@@ -4026,216 +4466,247 @@ msgid "Automatically determine the highlight style"
 msgstr ""
 
 #: plugins/editor/plugin.c:366
+#, fuzzy
 msgid "No Highlight style"
-msgstr ""
+msgstr "Jo Vër në dukje"
 
 #: plugins/editor/plugin.c:367
+#, fuzzy
 msgid "Remove the current highlight style"
-msgstr ""
+msgstr "Hiq"
 
 #: plugins/editor/plugin.c:369
+#, fuzzy
 msgid "C and C++"
-msgstr ""
+msgstr "C dhe C"
 
 #: plugins/editor/plugin.c:370
+#, fuzzy
 msgid "Force the highlight style to C and C++"
-msgstr ""
+msgstr "Detyro C dhe C"
 
 #: plugins/editor/plugin.c:372
 msgid "HTML"
 msgstr "HTML"
 
 #: plugins/editor/plugin.c:373
+#, fuzzy
 msgid "Force the highlight style to HTML"
-msgstr ""
+msgstr "Detyro HTML"
 
 #: plugins/editor/plugin.c:375
 msgid "XML"
 msgstr "XML"
 
 #: plugins/editor/plugin.c:376
+#, fuzzy
 msgid "Force the highlight style to XML"
-msgstr ""
+msgstr "Detyro XML"
 
 #: plugins/editor/plugin.c:378
 msgid "Javascript"
 msgstr ""
 
 #: plugins/editor/plugin.c:379
+#, fuzzy
 msgid "Force the highlight style to Javascript"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:381
 msgid "WScript"
 msgstr ""
 
 #: plugins/editor/plugin.c:382
+#, fuzzy
 msgid "Force the highlight style to WScript"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:384
 msgid "Makefile"
 msgstr "Makefile"
 
 #: plugins/editor/plugin.c:385
+#, fuzzy
 msgid "Force the highlight style to Makefile"
-msgstr ""
+msgstr "Detyro Makefile"
 
 #: plugins/editor/plugin.c:387
 msgid "Java"
 msgstr "Java"
 
 #: plugins/editor/plugin.c:388
+#, fuzzy
 msgid "Force the highlight type to Java"
-msgstr ""
+msgstr "Detyro lloji Java"
 
 #: plugins/editor/plugin.c:390
 msgid "LUA"
 msgstr ""
 
 #: plugins/editor/plugin.c:391
+#, fuzzy
 msgid "Force the highlight style to LUA"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:393
 msgid "Python"
 msgstr "Python"
 
 #: plugins/editor/plugin.c:394
+#, fuzzy
 msgid "Force the highlight style to Python"
-msgstr ""
+msgstr "Detyro Python"
 
 #: plugins/editor/plugin.c:396
 msgid "Perl"
 msgstr "Perl"
 
 #: plugins/editor/plugin.c:397
+#, fuzzy
 msgid "Force the highlight style to Perl"
-msgstr ""
+msgstr "Detyro Perl"
 
 #: plugins/editor/plugin.c:399
 msgid "SQL"
 msgstr "SQL"
 
 #: plugins/editor/plugin.c:400
+#, fuzzy
 msgid "Force the highlight style to SQL"
-msgstr ""
+msgstr "Detyro SQL"
 
 #: plugins/editor/plugin.c:402
+#, fuzzy
 msgid "PL/SQL"
-msgstr ""
+msgstr "SQL"
 
 #: plugins/editor/plugin.c:403
+#, fuzzy
 msgid "Force the highlight style to PL/SQL"
-msgstr ""
+msgstr "Detyro SQL"
 
 #: plugins/editor/plugin.c:405
 msgid "PHP"
 msgstr "PHP"
 
 #: plugins/editor/plugin.c:406
+#, fuzzy
 msgid "Force the highlight style to PHP"
-msgstr ""
+msgstr "Detyro PHP"
 
 #: plugins/editor/plugin.c:408
 msgid "LaTex"
 msgstr ""
 
 #: plugins/editor/plugin.c:409
+#, fuzzy
 msgid "Force the highlight style to LaTex"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:412
+#, fuzzy
 msgid "Force the highlight style to Diff"
-msgstr ""
+msgstr "Detyro Dif"
 
 #: plugins/editor/plugin.c:414
 msgid "Pascal"
 msgstr "Pascal"
 
 #: plugins/editor/plugin.c:415
+#, fuzzy
 msgid "Force the highlight style to Pascal"
-msgstr ""
+msgstr "Detyro Pascal"
 
 #: plugins/editor/plugin.c:417
 msgid "Xcode"
 msgstr ""
 
 #: plugins/editor/plugin.c:418
+#, fuzzy
 msgid "Force the highlight style to Xcode"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:420
+#, fuzzy
 msgid "Prj/Properties"
-msgstr ""
+msgstr "Pronësitë"
 
 #: plugins/editor/plugin.c:421
+#, fuzzy
 msgid "Force the highlight style to project/properties files"
-msgstr ""
+msgstr "Detyro pronësitë"
 
 #: plugins/editor/plugin.c:423
 msgid "Conf"
 msgstr ""
 
 #: plugins/editor/plugin.c:424
+#, fuzzy
 msgid "Force the highlight style to UNIX conf files"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:426
 msgid "Ada"
 msgstr "Ada"
 
 #: plugins/editor/plugin.c:427
+#, fuzzy
 msgid "Force the highlight style to Ada"
-msgstr ""
+msgstr "Detyro Ada"
 
 #: plugins/editor/plugin.c:429
 msgid "Baan"
 msgstr ""
 
 #: plugins/editor/plugin.c:430
+#, fuzzy
 msgid "Force the highlight style to Baan"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:432
 msgid "Lisp"
 msgstr ""
 
 #: plugins/editor/plugin.c:433
+#, fuzzy
 msgid "Force the highlight style to Lisp"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:435
 msgid "Ruby"
 msgstr "Rubin"
 
 #: plugins/editor/plugin.c:436
+#, fuzzy
 msgid "Force the highlight style to Ruby"
-msgstr ""
+msgstr "Detyro Rubin"
 
 #: plugins/editor/plugin.c:438
 msgid "Matlab"
 msgstr ""
 
 #: plugins/editor/plugin.c:439
+#, fuzzy
 msgid "Force the highlight style to Matlab"
-msgstr ""
+msgstr "Detyro"
 
 #: plugins/editor/plugin.c:444
 msgid "For_mat"
 msgstr "For_mati"
 
 #: plugins/editor/plugin.c:445
+#, fuzzy
 msgid "Auto _Format"
-msgstr ""
+msgstr "Automatike Formati"
 
 #: plugins/editor/plugin.c:447
 msgid "Autoformat the current source file"
 msgstr ""
 
 #: plugins/editor/plugin.c:449
+#, fuzzy
 msgid "Autoformat _settings"
-msgstr ""
+msgstr "rregullimet"
 
 #: plugins/editor/plugin.c:451
 #, fuzzy
@@ -4243,104 +4714,128 @@ msgid "Autoformat settings"
 msgstr "Plotësim automatik"
 
 #: plugins/editor/plugin.c:453
+#, fuzzy
 msgid "_Increase Indent"
-msgstr ""
+msgstr "_Shton ngushtimin "
 
 #: plugins/editor/plugin.c:455
+#, fuzzy
 msgid "Increase indentation of line/selection"
-msgstr ""
+msgstr "Rrit nga"
 
 #: plugins/editor/plugin.c:457
+#, fuzzy
 msgid "_Decrease Indent"
-msgstr ""
+msgstr "_Zvogëlo ngushtimin"
 
 #: plugins/editor/plugin.c:459
+#, fuzzy
 msgid "Decrease indentation of line/selection"
-msgstr ""
+msgstr "Zvogëlo nga"
 
 #: plugins/editor/plugin.c:461
+#, fuzzy
 msgid "_Close All Folds"
-msgstr ""
+msgstr "Mbyll Gjithçka"
 
 #: plugins/editor/plugin.c:463
+#, fuzzy
 msgid "Close all code folds in the editor"
-msgstr ""
+msgstr "Mbyll kodi në"
 
 #: plugins/editor/plugin.c:465
+#, fuzzy
 msgid "_Open All Folds"
-msgstr ""
+msgstr "Hap Gjithçka"
 
 #: plugins/editor/plugin.c:467
+#, fuzzy
 msgid "Open all code folds in the editor"
-msgstr ""
+msgstr "Hap kodi në"
 
 #: plugins/editor/plugin.c:469
+#, fuzzy
 msgid "_Toggle Current Fold"
-msgstr ""
+msgstr "Kavo Aktual"
 
 #: plugins/editor/plugin.c:471
+#, fuzzy
 msgid "Toggle current code fold in the editor"
-msgstr ""
+msgstr "Kavo kodi në"
 
 #: plugins/editor/plugin.c:473
+#, fuzzy
 msgid "D_etach Current Document"
-msgstr ""
+msgstr "D Aktual Dokument"
 
 #: plugins/editor/plugin.c:475
+#, fuzzy
 msgid "Detach the current document into a separate editor window"
-msgstr ""
+msgstr "a dritare"
 
 #: plugins/editor/plugin.c:480
 msgid "Bookmar_k"
 msgstr ""
 
 #: plugins/editor/plugin.c:481
+#, fuzzy
 msgid "_Toggle bookmark"
-msgstr ""
+msgstr "Kavo"
 
 #: plugins/editor/plugin.c:483
+#, fuzzy
 msgid "Toggle a bookmark at the current line position"
-msgstr ""
+msgstr "Kavo a"
 
 #: plugins/editor/plugin.c:485
+#, fuzzy
 msgid "_First bookmark"
-msgstr ""
+msgstr "E Para"
 
 #: plugins/editor/plugin.c:487
+#, fuzzy
 msgid "Jump to the first bookmark in the file"
-msgstr ""
+msgstr "Kalo i pari në"
 
 #: plugins/editor/plugin.c:489
+#, fuzzy
 msgid "_Previous bookmark"
-msgstr ""
+msgstr "Paraardhëse"
 
 #: plugins/editor/plugin.c:491
+#, fuzzy
 msgid "Jump to the previous bookmark in the file"
-msgstr ""
+msgstr "Kalo paraardhësja në"
 
 #: plugins/editor/plugin.c:493
+#, fuzzy
 msgid "_Next bookmark"
-msgstr ""
+msgstr "Vazhdo"
 
 #: plugins/editor/plugin.c:495
+#, fuzzy
 msgid "Jump to the next bookmark in the file"
-msgstr ""
+msgstr "Kalo në vazhdim në"
 
 #: plugins/editor/plugin.c:497
+#, fuzzy
 msgid "_Last bookmark"
-msgstr ""
+msgstr "E fundit"
 
 #: plugins/editor/plugin.c:499
+#, fuzzy
 msgid "Jump to the last bookmark in the file"
-msgstr ""
+msgstr "Kalo e fundit në"
 
 #: plugins/editor/plugin.c:501
+#, fuzzy
 msgid "_Clear all bookmarks"
-msgstr ""
+msgstr "Pastro"
 
 #: plugins/editor/plugin.c:503
+#, fuzzy
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Pastro"
 
 #: plugins/editor/plugin.c:522
 #, fuzzy
@@ -4348,28 +4843,34 @@ msgid "Editor file operations"
 msgstr "Opcione shtesë të gjenerimit:"
 
 #: plugins/editor/plugin.c:523
+#, fuzzy
 msgid "Editor print operations"
-msgstr ""
+msgstr "Editori printo veprimet"
 
 #: plugins/editor/plugin.c:524
+#, fuzzy
 msgid "Editor text transformation"
-msgstr ""
+msgstr "Editori tekst"
 
 #: plugins/editor/plugin.c:525
+#, fuzzy
 msgid "Editor text selection"
-msgstr ""
+msgstr "Editori tekst"
 
 #: plugins/editor/plugin.c:526
+#, fuzzy
 msgid "Editor text insertions"
-msgstr ""
+msgstr "Editori tekst"
 
 #: plugins/editor/plugin.c:527
+#, fuzzy
 msgid "Editor text searching"
-msgstr ""
+msgstr "Editori tekst"
 
 #: plugins/editor/plugin.c:528
+#, fuzzy
 msgid "Editor code commenting"
-msgstr ""
+msgstr "Editori kodi"
 
 #: plugins/editor/plugin.c:529
 #, fuzzy
@@ -4382,8 +4883,9 @@ msgid "Editor edit operations"
 msgstr "Skeda e editorit"
 
 #: plugins/editor/plugin.c:531
+#, fuzzy
 msgid "Editor zoom operations"
-msgstr ""
+msgstr "Editori veprimet"
 
 #: plugins/editor/plugin.c:532
 #, fuzzy
@@ -4391,8 +4893,9 @@ msgid "Editor syntax highlighting styles"
 msgstr "Ç'aktivo vënien në dukje të sintaksës"
 
 #: plugins/editor/plugin.c:533
+#, fuzzy
 msgid "Editor text formating"
-msgstr ""
+msgstr "Editori tekst"
 
 #: plugins/editor/plugin.c:534
 #, fuzzy
@@ -4400,16 +4903,18 @@ msgid "Editor bookmarks"
 msgstr "Skeda e editorit"
 
 #: plugins/editor/plugin.c:538
+#, fuzzy
 msgid "Editor view settings"
-msgstr ""
+msgstr "Editori shfaq rregullimet"
 
 #: plugins/editor/plugin.c:710
 msgid "Goto line"
 msgstr ""
 
 #: plugins/editor/plugin.c:711
+#, fuzzy
 msgid "Enter the line number to jump and press enter"
-msgstr ""
+msgstr "Shto dhe shkruaj"
 
 #: plugins/editor/plugin.c:722
 #, fuzzy
@@ -4417,16 +4922,19 @@ msgid "Incremental search"
 msgstr "Kërko ndihmë e Anjuta"
 
 #: plugins/editor/plugin.c:738
+#, fuzzy
 msgid "Editor quick navigations"
-msgstr ""
+msgstr "Editori"
 
 #: plugins/editor/print.c:485
+#, fuzzy
 msgid "No file to print!"
-msgstr ""
+msgstr "Jo printo!"
 
 #: plugins/editor/print.c:508
+#, fuzzy
 msgid "Unable to get text buffer for printing"
-msgstr ""
+msgstr "merr tekst për"
 
 #: plugins/editor/print.c:762
 #, c-format
@@ -4439,24 +4947,28 @@ msgid "%d"
 msgstr ""
 
 #: plugins/editor/print.c:875
+#, fuzzy
 msgid "Printing .."
-msgstr ""
+msgstr "Duke printuar."
 
 #: plugins/editor/print.c:887
+#, fuzzy
 msgid "Printing ..."
-msgstr ""
+msgstr "Duke printuar."
 
 #: plugins/editor/print.c:1070
 msgid "Print Preview"
 msgstr "Pamja e parë e printimit"
 
 #: plugins/editor/search_preferences.c:474
+#, fuzzy
 msgid "The maximum number of settings has been reached."
-msgstr ""
+msgstr "maksimum nga rregullimet."
 
 #: plugins/editor/search_preferences.c:483
+#, fuzzy
 msgid "This name is already used."
-msgstr ""
+msgstr "emri është."
 
 #: plugins/editor/search-replace.c:277
 #, fuzzy
@@ -4473,17 +4985,20 @@ msgstr "Zëvendëso gjithçka"
 
 #: plugins/editor/search-replace.c:756
 #, c-format
+#, fuzzy
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr ""
+msgstr "nuk Mbështill kërko?"
 
 #: plugins/editor/search-replace.c:779
 #, c-format
+#, fuzzy
 msgid "The match \"%s\" was not found."
-msgstr ""
+msgstr "nuk."
 
 #: plugins/editor/search-replace.c:797
+#, fuzzy
 msgid "The maximum number of results has been reached."
-msgstr ""
+msgstr "maksimum nga rezultatet."
 
 #: plugins/editor/search-replace.c:810
 #, c-format
@@ -4491,114 +5006,135 @@ msgid "%d matches have been replaced."
 msgstr ""
 
 #: plugins/editor/search-replace.c:967
+#, fuzzy
 msgid "Unable to build user interface for Search And Replace"
-msgstr ""
+msgstr "përdorues interfaqja për Kërko And Zëvendëso"
 
 #: plugins/editor/text_editor.c:896
+#, fuzzy
 msgid "Could not get file info"
-msgstr ""
+msgstr "nuk merr"
 
 #: plugins/editor/text_editor.c:904
+#, fuzzy
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
+msgstr "është."
 
 #: plugins/editor/text_editor.c:911
 msgid "Could not open file"
 msgstr "E pamundur hapja e file"
 
 #: plugins/editor/text_editor.c:919
+#, fuzzy
 msgid "Error while reading from file"
-msgstr ""
+msgstr "Gabim"
 
 #: plugins/editor/text_editor.c:956
+#, fuzzy
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
-msgstr ""
+msgstr "nuk a tekst është nuk nga është në lista nuk shto preferimet."
 
 #: plugins/editor/text_editor.c:1128
 #, c-format
+#, fuzzy
 msgid ""
 "Could not load file: %s\n"
 "\n"
 "Details: %s"
-msgstr ""
+msgstr "nuk ngarkoje j"
 
 #: plugins/editor/text_editor.c:1172
 #, c-format
+#, fuzzy
 msgid "Could not save file: %s."
-msgstr ""
+msgstr "nuk ruaj."
 
 #: plugins/editor/text_editor.c:1315
 #, c-format
+#, fuzzy
 msgid ""
 "The file '%s' on the disk is more recent than\n"
 "the current buffer.\n"
 "Do you want to reload it?"
-msgstr ""
+msgstr "në disk është tjetër?"
 
 #: plugins/editor/text_editor.c:1489
+#, fuzzy
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr ""
+msgstr "Automatike është jo aktiv Ndrysho në Preferimet."
 
 #: plugins/editor/text_editor.c:1508
+#, fuzzy
 msgid "Error in auto formatting ..."
-msgstr ""
+msgstr "Gabim në."
 
 #. FIXME: anjuta_set_active ();
 #: plugins/editor/text_editor.c:1524
 #, c-format
+#, fuzzy
 msgid "Anjuta does not know %s!"
-msgstr ""
+msgstr "nuk!"
 
 #: plugins/editor/text_editor.c:1549
 #, c-format
+#, fuzzy
 msgid ""
 "Error in auto formatting ...\n"
 "Details: %s"
-msgstr ""
+msgstr "Gabim në"
 
 #: plugins/editor/text_editor_cbs.c:108
 #, c-format
+#, fuzzy
 msgid "Autosave \"%s\" -- Failed"
-msgstr ""
+msgstr "Ruaj automatikisht Dështoi"
 
 #: plugins/editor/text_editor_menu.c:79
 msgid "Back"
 msgstr "Mbrapa"
 
 #: plugins/editor/text_editor_menu.c:95
+#, fuzzy
 msgid "Tag Definition"
-msgstr ""
+msgstr "Tag"
 
 #: plugins/editor/text_editor_menu.c:102
+#, fuzzy
 msgid "Tag Declaration"
-msgstr ""
+msgstr "Tag"
 
 #: plugins/editor/text_editor_menu.c:110
+#, fuzzy
 msgid "Prev mesg"
-msgstr ""
+msgstr "Paraardhëse"
 
 #: plugins/editor/text_editor_menu.c:116
+#, fuzzy
 msgid "Next mesg"
-msgstr ""
+msgstr "Vazhdo"
 
 #: plugins/editor/text_editor_menu.c:122
+#, fuzzy
 msgid "Prev bookmark"
-msgstr ""
+msgstr "Paraardhëse"
 
 #: plugins/editor/text_editor_menu.c:128
+#, fuzzy
 msgid "Next bookmark"
-msgstr ""
+msgstr "Vazhdo"
 
 #: plugins/editor/text_editor_menu.c:138
+#, fuzzy
 msgid "Toggle breakpoint"
-msgstr ""
+msgstr "Kavo"
 
 #: plugins/editor/text_editor_menu.c:145 src/toolbar.c:536
+#, fuzzy
 msgid "Step in"
-msgstr ""
+msgstr "në"
 
 #: plugins/editor/text_editor_menu.c:151
 msgid "Step over"
@@ -4609,40 +5145,48 @@ msgid "Step out"
 msgstr ""
 
 #: plugins/editor/text_editor_menu.c:163 src/toolbar.c:525
+#, fuzzy
 msgid "Run to cursor"
-msgstr ""
+msgstr "Ekzekuto"
 
 #: plugins/editor/text_editor_menu.c:169
+#, fuzzy
 msgid "Run/Continue"
-msgstr ""
+msgstr "Ekzekuto Vazhdo"
 
 #: plugins/editor/text_editor_menu.c:183 src/toolbar.c:573
 msgid "Interrupt"
 msgstr "Ndërprit"
 
 #: plugins/editor/text_editor_menu.c:193
+#, fuzzy
 msgid "Toggle Line numbers"
-msgstr ""
+msgstr "Kavo Linja"
 
 #: plugins/editor/text_editor_menu.c:200
+#, fuzzy
 msgid "Toggle Marker Margin"
-msgstr ""
+msgstr "Kavo"
 
 #: plugins/editor/text_editor_menu.c:207
+#, fuzzy
 msgid "Toggle Fold Margin"
-msgstr ""
+msgstr "Kavo"
 
 #: plugins/editor/text_editor_menu.c:214
+#, fuzzy
 msgid "Toggle Guides"
-msgstr ""
+msgstr "Kavo"
 
 #: plugins/editor/text_editor_menu.c:222
+#, fuzzy
 msgid "++Zoom"
-msgstr ""
+msgstr "Shkalla e zmadhimit"
 
 #: plugins/editor/text_editor_menu.c:229
+#, fuzzy
 msgid "--Zoom"
-msgstr ""
+msgstr "Shkalla e zmadhimit"
 
 #. 0
 #: plugins/editor/text_editor_menu.c:241
@@ -4661,23 +5205,27 @@ msgstr "Ngjite"
 
 #. 4
 #: plugins/editor/text_editor_menu.c:267
+#, fuzzy
 msgid "Context Help"
-msgstr ""
+msgstr "Ndihmë"
 
 #. 6
 #: plugins/editor/text_editor_menu.c:277
+#, fuzzy
 msgid "Toggle Bookmark"
-msgstr ""
+msgstr "Kavo Libërshënues"
 
 #. 7
 #: plugins/editor/text_editor_menu.c:285
+#, fuzzy
 msgid "Auto format"
-msgstr ""
+msgstr "Automatike"
 
 #. 8
 #: plugins/editor/text_editor_menu.c:293
+#, fuzzy
 msgid "Swap .h/.c"
-msgstr ""
+msgstr "Swap"
 
 #. 10
 #: plugins/editor/text_editor_menu.c:303 src/toolbar.c:512
@@ -4693,8 +5241,9 @@ msgstr "Tags"
 #. 2
 #: plugins/editor/text_editor_menu.c:341
 #: plugins/symbol-browser/an_symbol_view.c:296
+#, fuzzy
 msgid "Find Usage"
-msgstr ""
+msgstr "Gjej"
 
 #. 18
 #: plugins/editor/text_editor_menu.c:349
@@ -4710,8 +5259,9 @@ msgid "Docked"
 msgstr ""
 
 #: plugins/file-loader/plugin.c:98
+#, fuzzy
 msgid "_Open ..."
-msgstr ""
+msgstr "Hap."
 
 #: plugins/file-loader/plugin.c:115
 #, fuzzy
@@ -4719,8 +5269,9 @@ msgid "File Loader"
 msgstr "Emri i file:"
 
 #: plugins/file-loader/plugin.c:191
+#, fuzzy
 msgid "Available Plugins"
-msgstr ""
+msgstr "Në dispozicion Plugins"
 
 #: plugins/file-loader/plugin.c:205 plugins/file-manager/an_file_view.c:881
 msgid "Rev"
@@ -4728,30 +5279,36 @@ msgstr ""
 
 #. 0
 #: plugins/file-manager/an_file_view.c:319
+#, fuzzy
 msgid "Update file"
-msgstr ""
+msgstr "Rifresko"
 
 #: plugins/file-manager/an_file_view.c:320
+#, fuzzy
 msgid "Update current working copy"
-msgstr ""
+msgstr "Rifresko kopjo"
 
 #. 1
 #: plugins/file-manager/an_file_view.c:326
+#, fuzzy
 msgid "Commit file"
-msgstr ""
+msgstr "Kryej"
 
 #: plugins/file-manager/an_file_view.c:327
+#, fuzzy
 msgid "Commit changes to the repository"
-msgstr ""
+msgstr "Kryej"
 
 #. 2
 #: plugins/file-manager/an_file_view.c:333
+#, fuzzy
 msgid "Status of file"
-msgstr ""
+msgstr "Gjendja nga"
 
 #: plugins/file-manager/an_file_view.c:334
+#, fuzzy
 msgid "Print the status of the current file"
-msgstr ""
+msgstr "Printo gjendja nga"
 
 #. 3
 #: plugins/file-manager/an_file_view.c:340
@@ -4759,26 +5316,31 @@ msgid "Get file log"
 msgstr ""
 
 #: plugins/file-manager/an_file_view.c:341
+#, fuzzy
 msgid "Print the CVS log for the current file"
-msgstr ""
+msgstr "Printo CVS për"
 
 #. 4
 #: plugins/file-manager/an_file_view.c:347
+#, fuzzy
 msgid "Add file"
-msgstr ""
+msgstr "Shto"
 
 #: plugins/file-manager/an_file_view.c:348
+#, fuzzy
 msgid "Add the current file to the repository"
-msgstr ""
+msgstr "Shto"
 
 #. 5
 #: plugins/file-manager/an_file_view.c:354
+#, fuzzy
 msgid "Remove file"
-msgstr ""
+msgstr "Hiq"
 
 #: plugins/file-manager/an_file_view.c:355
+#, fuzzy
 msgid "Remove the current file from the repository"
-msgstr ""
+msgstr "Hiq"
 
 #. 6
 #: plugins/file-manager/an_file_view.c:361
@@ -4786,21 +5348,24 @@ msgid "Diff file"
 msgstr "File diff"
 
 #: plugins/file-manager/an_file_view.c:362
+#, fuzzy
 msgid "Create a diff between the working copy and the repository"
-msgstr ""
+msgstr "Krijo a kopjo dhe"
 
 #. 0
 #. 2
 #: plugins/file-manager/an_file_view.c:371
 #: plugins/project-manager/project_dbase_gui.c:317
+#, fuzzy
 msgid "Open in Anjuta"
-msgstr ""
+msgstr "Hap në"
 
 #. 1
 #: plugins/file-manager/an_file_view.c:378
 #: plugins/project-manager/project_dbase_gui.c:311
+#, fuzzy
 msgid "Open in default viewer"
-msgstr ""
+msgstr "Hap në prezgjedhur"
 
 #. 3
 #: plugins/file-manager/an_file_view.c:392
@@ -4809,8 +5374,9 @@ msgid "Refresh"
 msgstr "Rifresko"
 
 #: plugins/file-manager/an_file_view.c:401
+#, fuzzy
 msgid "Dock/Undock the Project Window"
-msgstr ""
+msgstr "Qelia Projekti Dritarja"
 
 #. 6
 #: plugins/file-manager/an_file_view.c:407
@@ -4818,8 +5384,9 @@ msgid "Customize"
 msgstr "Personalizimi"
 
 #: plugins/file-manager/an_file_view.c:408
+#, fuzzy
 msgid "Customize the file browser"
-msgstr ""
+msgstr "Personalizimi"
 
 #: plugins/file-manager/an_file_view.c:688
 #: plugins/file-manager/an_file_view.c:800
@@ -4838,8 +5405,9 @@ msgid "<b>File filter:</b>"
 msgstr "Filtri i file"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
+#, fuzzy
 msgid "<b>Root directory if no project is open:</b>"
-msgstr ""
+msgstr "<b> Root jo është hap</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
 msgid "Choose directories"
@@ -4881,8 +5449,9 @@ msgid "_Refresh"
 msgstr "_Rifreskim"
 
 #: plugins/file-manager/plugin.c:45
+#, fuzzy
 msgid "Refresh file manager tree"
-msgstr ""
+msgstr "Rifresko degëzimi"
 
 #: plugins/file-manager/plugin.c:79
 #, fuzzy
@@ -4894,8 +5463,9 @@ msgid "Files"
 msgstr "Files"
 
 #: plugins/launcher/launcher.c:854 src/launcher.c:853
+#, fuzzy
 msgid "Cannot execute command shell"
-msgstr ""
+msgstr "ekzekuto"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:1
 #, fuzzy
@@ -4939,12 +5509,14 @@ msgid "Normal messages:"
 msgstr "Stili i treguesit të mesazhit të zakonshëm:"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:12
+#, fuzzy
 msgid "Number of first characters to show:"
-msgstr ""
+msgstr "Numri nga i pari:"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:13
+#, fuzzy
 msgid "Number of last characters to show:"
-msgstr ""
+msgstr "Numri nga e fundit:"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:14
 #, fuzzy
@@ -4952,8 +5524,9 @@ msgid "Other messages:"
 msgstr "Mesazhet normale:"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:17
+#, fuzzy
 msgid "Strike-Out"
-msgstr ""
+msgstr "Zvogëlo"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:18
 #, fuzzy
@@ -4965,16 +5538,19 @@ msgid "Truncate long messages"
 msgstr ""
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:21
+#, fuzzy
 msgid "Underline Plain"
-msgstr ""
+msgstr "Nënvizuar I thjeshtë"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:22
+#, fuzzy
 msgid "Underline Squiggle"
-msgstr ""
+msgstr "Nënvizuar"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:23
+#, fuzzy
 msgid "Underline-TT"
-msgstr ""
+msgstr "Nënvizuar"
 
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:24
 #, fuzzy
@@ -4987,8 +5563,9 @@ msgid "Warnings messages:"
 msgstr "Mesazhet e gabimeve:"
 
 #: plugins/message-view/message-view.c:315
+#, fuzzy
 msgid "error:"
-msgstr ""
+msgstr "gabim:"
 
 #: plugins/message-view/message-view.c:317
 #, fuzzy
@@ -5016,44 +5593,51 @@ msgid "Previous message"
 msgstr "Mesazhet e gabimeve:"
 
 #: plugins/message-view/plugin.c:114
+#, fuzzy
 msgid "Next/Prev Message"
-msgstr ""
+msgstr "Vazhdo Paraardhëse Mesazh"
 
 #: plugins/message-view/plugin.c:126 src/toolbar.c:154
 msgid "Messages"
 msgstr ""
 
 #: plugins/patch/patch-plugin.c:64
+#, fuzzy
 msgid "Interface to patch Projects or individual files"
-msgstr ""
+msgstr "Interfaqja"
 
 #: plugins/patch/patch-plugin.c:100
+#, fuzzy
 msgid "File/Dir to patch"
-msgstr ""
+msgstr "File"
 
 #: plugins/patch/patch-plugin.c:101
 msgid "Patch file"
 msgstr ""
 
 #: plugins/patch/patch-plugin.c:102
+#, fuzzy
 msgid "Patch level (-p)"
-msgstr ""
+msgstr "niveli"
 
 #: plugins/patch/patch-plugin.c:107
+#, fuzzy
 msgid "Patch Plugin"
-msgstr ""
+msgstr "Plugin"
 
 #: plugins/patch/patch-plugin.c:107
 msgid "Patch"
 msgstr ""
 
 #: plugins/patch/patch-plugin.c:110
+#, fuzzy
 msgid "Selected directory to patch"
-msgstr ""
+msgstr "I zgjedhur"
 
 #: plugins/patch/patch-plugin.c:112
+#, fuzzy
 msgid "Selected patch file"
-msgstr ""
+msgstr "I zgjedhur"
 
 #: plugins/patch/patch-plugin.c:148
 msgid "Patch plugin"
@@ -5064,37 +5648,44 @@ msgid "The patch plugin"
 msgstr ""
 
 #: plugins/patch/patch-plugin.c:172
+#, fuzzy
 msgid "Please select the directory where the patch should be applied"
-msgstr ""
+msgstr "zgjidh"
 
 #: plugins/patch/patch-plugin.c:179
 #, c-format
+#, fuzzy
 msgid "Patching %s using %s\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/patch/patch-plugin.c:185
+#, fuzzy
 msgid "Patching...\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/patch/patch-plugin.c:195
+#, fuzzy
 msgid "There are unfinished jobs, please wait until they are finished"
-msgstr ""
+msgstr "deri më mbaruam"
 
 #: plugins/patch/patch-plugin.c:226
+#, fuzzy
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
-msgstr ""
+msgstr "dhe hiq çdo j"
 
 #: plugins/patch/patch-plugin.c:233
+#, fuzzy
 msgid "Patch successful.\n"
-msgstr ""
+msgstr "j"
 
 #. Must declare static, because it will be used forever
 #: plugins/project-manager/project_dbase.c:205
+#, fuzzy
 msgid "Add to Project"
-msgstr ""
+msgstr "Shto Projekti"
 
 #: plugins/project-manager/project_dbase.c:362
 msgid "Anjuta project files"
@@ -5114,120 +5705,146 @@ msgstr "Të gjithë files"
 #: plugins/project-manager/project_dbase.c:444
 #: plugins/project-manager/project_dbase.c:462
 #, c-format
+#, fuzzy
 msgid "Unable to load Project: %s"
-msgstr ""
+msgstr "ngarkoje Projekti"
 
 #: plugins/project-manager/project_dbase.c:455
 #: plugins/project-manager/project_dbase.c:2461
 #, c-format
+#, fuzzy
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
-msgstr ""
+msgstr "versioni është kërkohet hap Projekti upgrade versioni nga Ndihmë për tjetër."
 
 #: plugins/project-manager/project_dbase.c:836
+#, fuzzy
 msgid "Project saved successfully"
-msgstr ""
+msgstr "Projekti"
 
 #: plugins/project-manager/project_dbase.c:842
 #: plugins/project-manager/project_dbase.c:845
+#, fuzzy
 msgid "Unable to save the Project."
-msgstr ""
+msgstr "ruaj Projekti."
 
 #: plugins/project-manager/project_dbase.c:1543
+#, fuzzy
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
-msgstr ""
+msgstr "A nuk në sipër niveli Projekti nuk për GUI (interfaqja) a e personalizuar për në Projekti Projekti Konfigurimi GUI (interfaqja)"
 
 #: plugins/project-manager/project_dbase.c:1605
+#, fuzzy
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
-msgstr ""
+msgstr "A nuk në sipër niveli Projekti."
 
 #: plugins/project-manager/project_dbase.c:2021 src/anjuta_gui.c:146
 #: src/main_menubar.c:394
+#, fuzzy
 msgid "Recent Projects "
-msgstr ""
+msgstr "I fundit "
 
 #. Set project title
 #: plugins/project-manager/project_dbase.c:2059
+#, fuzzy
 msgid "Project: "
-msgstr ""
+msgstr "Projekti "
 
 #: plugins/project-manager/project_dbase.c:2176
 #, c-format
+#, fuzzy
 msgid ""
 "Unable to get relative file name for %s\n"
 " in %s"
 msgstr ""
+"merr emri për\n"
+" në"
 
 #: plugins/project-manager/project_dbase.c:2241
+#, fuzzy
 msgid " already exists in the project"
-msgstr ""
+msgstr "ekziston në"
 
 #: plugins/project-manager/project_dbase.c:2274
+#, fuzzy
 msgid "Error while copying the file inside the module."
-msgstr ""
+msgstr "Gabim."
 
 #: plugins/project-manager/project_dbase.c:2537
 #: plugins/project-manager/project_dbase.c:2540
 #, c-format
+#, fuzzy
 msgid "Error in loading Project: %s"
-msgstr ""
+msgstr "Gabim në Projekti"
 
 #: plugins/project-manager/project_dbase.c:2561
+#, fuzzy
 msgid "Project loaded successfully."
-msgstr ""
+msgstr "Projekti."
 
 #: plugins/project-manager/project_dbase_gui.c:76
 #, c-format
+#, fuzzy
 msgid ""
 "Are you sure you want to remove the item\n"
 "'%s' from the Project?"
-msgstr ""
+msgstr "hiq element j Projekti?"
 
 #: plugins/project-manager/project_dbase_gui.c:118
+#, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
-msgstr ""
+msgstr "është a Projekti hap Bëje mbylle i pari?"
 
 #: plugins/project-manager/project_dbase_gui.c:152
+#, fuzzy
 msgid "Help files"
-msgstr ""
+msgstr "Ndihmë"
 
 #: plugins/project-manager/project_dbase_gui.c:161
+#, fuzzy
 msgid "C/C++ source files"
-msgstr ""
+msgstr "C C"
 
 #: plugins/project-manager/project_dbase_gui.c:162
+#, fuzzy
 msgid "Java source files"
-msgstr ""
+msgstr "Java"
 
 #: plugins/project-manager/project_dbase_gui.c:163
+#, fuzzy
 msgid "Pascal files"
-msgstr ""
+msgstr "Pascal"
 
 #: plugins/project-manager/project_dbase_gui.c:164
+#, fuzzy
 msgid "PHP files"
-msgstr ""
+msgstr "PHP"
 
 #: plugins/project-manager/project_dbase_gui.c:165
+#, fuzzy
 msgid "Perl files"
-msgstr ""
+msgstr "Perl"
 
 #: plugins/project-manager/project_dbase_gui.c:166
+#, fuzzy
 msgid "Python files"
-msgstr ""
+msgstr "Python"
 
 #: plugins/project-manager/project_dbase_gui.c:167
+#, fuzzy
 msgid "Shell Script files"
-msgstr ""
+msgstr "Shell Script"
 
 #: plugins/project-manager/project_dbase_gui.c:168
+#, fuzzy
 msgid "Visual Basic files"
-msgstr ""
+msgstr "Viazual Bazë"
 
 #: plugins/project-manager/project_dbase_gui.c:169
 msgid ".lua files"
@@ -5270,42 +5887,50 @@ msgid "PO files"
 msgstr ""
 
 #: plugins/project-manager/project_dbase_gui.c:219
+#, fuzzy
 msgid "C/C++ Headers"
-msgstr ""
+msgstr "C C Headers"
 
 #: plugins/project-manager/project_dbase_gui.c:250
+#, fuzzy
 msgid "Add file to module: "
-msgstr ""
+msgstr "Shto "
 
 #. 0
 #: plugins/project-manager/project_dbase_gui.c:259
+#, fuzzy
 msgid "Include file"
-msgstr ""
+msgstr "Include"
 
 #. 1
 #: plugins/project-manager/project_dbase_gui.c:265
+#, fuzzy
 msgid "Source file"
-msgstr ""
+msgstr "Burimi"
 
 #. 2
 #: plugins/project-manager/project_dbase_gui.c:271
+#, fuzzy
 msgid "Help file"
-msgstr ""
+msgstr "Ndihmë"
 
 #. 3
 #: plugins/project-manager/project_dbase_gui.c:277
+#, fuzzy
 msgid "Data file"
-msgstr ""
+msgstr "Të dhëna"
 
 #. 4
 #: plugins/project-manager/project_dbase_gui.c:283
+#, fuzzy
 msgid "Pixmap file"
-msgstr ""
+msgstr "Pixmap"
 
 #. 5
 #: plugins/project-manager/project_dbase_gui.c:289
+#, fuzzy
 msgid "Translation file"
-msgstr ""
+msgstr "Përkthimi"
 
 #. 6
 #: plugins/project-manager/project_dbase_gui.c:295
@@ -5314,27 +5939,32 @@ msgstr ""
 
 #. 0
 #: plugins/project-manager/project_dbase_gui.c:305
+#, fuzzy
 msgid "Add File"
-msgstr ""
+msgstr "Shto File"
 
 #. 4
 #. 5
 #: plugins/project-manager/project_dbase_gui.c:330
+#, fuzzy
 msgid "Configure Project"
-msgstr ""
+msgstr "Konfiguro Projekti"
 
 #. 6
 #: plugins/project-manager/project_dbase_gui.c:336
+#, fuzzy
 msgid "Project Info"
-msgstr ""
+msgstr "Projekti Informacione"
 
 #: plugins/project-manager/project_dbase_gui.c:677
+#, fuzzy
 msgid "Project Information"
-msgstr ""
+msgstr "Projekti Informacione"
 
 #: plugins/project-manager/project_dbase_gui.c:685
+#, fuzzy
 msgid " Project Information "
-msgstr ""
+msgstr "Projekti Informacione "
 
 #: plugins/project-manager/project_dbase_gui.c:721
 msgid "Author:"
@@ -5342,28 +5972,34 @@ msgstr "Autori:"
 
 #: plugins/project-manager/project_dbase_gui.c:729
 #: plugins/project-wizard/wizard_gui.c:299
+#, fuzzy
 msgid "Project Name:"
-msgstr ""
+msgstr "Projekti Emri:"
 
 #: plugins/project-manager/project_dbase_gui.c:808
+#, fuzzy
 msgid "Program Name:"
-msgstr ""
+msgstr "Programi Emri:"
 
 #: plugins/project-manager/project_dbase_gui.c:815
+#, fuzzy
 msgid "Source files:"
-msgstr ""
+msgstr "Burimi:"
 
 #: plugins/project-manager/project_dbase_gui.c:822
+#, fuzzy
 msgid "Help files:"
-msgstr ""
+msgstr "Ndihmë:"
 
 #: plugins/project-manager/project_dbase_gui.c:829
+#, fuzzy
 msgid "Data files:"
-msgstr ""
+msgstr "Të dhëna:"
 
 #: plugins/project-manager/project_dbase_gui.c:836
+#, fuzzy
 msgid "Pixmap files:"
-msgstr ""
+msgstr "Pixmap:"
 
 #: plugins/project-manager/project_dbase_gui.c:843
 msgid "Doc files:"
@@ -5374,8 +6010,9 @@ msgid "Po files:"
 msgstr ""
 
 #: plugins/project-manager/project_dbase_gui.c:894
+#, fuzzy
 msgid "GUI editable by Glade:"
-msgstr ""
+msgstr "GUI (interfaqja) nga Glade:"
 
 #: plugins/project-manager/project_dbase_gui.c:916
 msgid "Makefiles managed:"
@@ -5386,14 +6023,16 @@ msgid "Gettext support:"
 msgstr ""
 
 #: plugins/project-manager/project_dbase_gui.c:1016
+#, fuzzy
 msgid "Project Type:"
-msgstr ""
+msgstr "Projekti Lloji:"
 
 #: plugins/project-manager/project_dbase_gui.c:1061
+#, fuzzy
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
-msgstr ""
+msgstr "Projekti është nuk ruaj përpara?"
 
 #: plugins/project-manager/project_dbase_gui.c:1076
 #: plugins/project-manager/project_dbase_gui.c:1196
@@ -5494,141 +6133,169 @@ msgid "Estonian"
 msgstr "Estonisht"
 
 #: plugins/project-manager/project_dbase_gui.c:1148
+#, fuzzy
 msgid "Select regional language"
-msgstr ""
+msgstr "Zgjidh"
 
 #: plugins/project-manager/project_dbase_gui.c:1164
+#, fuzzy
 msgid "Select regional language:"
-msgstr ""
+msgstr "Zgjidh:"
 
 #: plugins/project-manager/project_dbase_gui.c:1204
 #, c-format
+#, fuzzy
 msgid "Unable to find pixmap file: %s"
-msgstr ""
+msgstr "gjej"
 
 #: plugins/project-manager/project_dbase_gui.c:1281
 #, c-format
+#, fuzzy
 msgid ""
 "\"%s\"\n"
 "does not exist.\n"
 "Do you want to create it now ?"
-msgstr ""
+msgstr "nuk?"
 
 #: plugins/project-manager/project_dbase_gui.c:1299
 #, c-format
+#, fuzzy
 msgid "Not a regular file: %s."
-msgstr ""
+msgstr "Not a i rregullt."
 
 #: plugins/project-manager/project_dbase_gui.c:1309
 #, c-format
+#, fuzzy
 msgid ""
 "\"%s\"\n"
 "does not exist in the current module directory.\n"
 "Do you want to IMPORT (copy) it into the module?"
-msgstr ""
+msgstr "nuk në kopjo?"
 
 #: plugins/project-manager/project_import.c:89
 #, c-format
+#, fuzzy
 msgid "Unable to find import script %s"
-msgstr ""
+msgstr "gjej importo"
 
 #: plugins/project-manager/project_import.c:94
 #, c-format
+#, fuzzy
 msgid "%s: Not a regular file"
-msgstr ""
+msgstr "Not a i rregullt"
 
 #: plugins/project-manager/project_import.c:109
 #, c-format
+#, fuzzy
 msgid "Importing Project from %s ...\n"
-msgstr ""
+msgstr "Projekti j"
 
 #: plugins/project-manager/project_import.c:119
+#, fuzzy
 msgid "Could not launch script!\n"
-msgstr ""
+msgstr "nuk j"
 
 #: plugins/project-manager/project_import.c:130
+#, fuzzy
 msgid "Importing Project...please wait"
-msgstr ""
+msgstr "Projekti"
 
 #: plugins/project-manager/project_import.c:188
+#, fuzzy
 msgid "Project import completed...successful\n"
-msgstr ""
+msgstr "Projekti importo j"
 
 #: plugins/project-manager/project_import.c:190
+#, fuzzy
 msgid "Project import completed...successful"
-msgstr ""
+msgstr "Projekti importo"
 
 #: plugins/project-manager/project_import.c:206
+#, fuzzy
 msgid "Could not import Project: no project file found!"
-msgstr ""
+msgstr "nuk importo Projekti jo!"
 
 #: plugins/project-manager/project_import.c:213
+#, fuzzy
 msgid "Opening Project...please wait"
-msgstr ""
+msgstr "Projekti"
 
 #: plugins/project-manager/project_import.c:216
+#, fuzzy
 msgid "Could not open generated Project file"
-msgstr ""
+msgstr "nuk hap Projekti"
 
 #: plugins/project-manager/project_import_cbs.c:126
+#, fuzzy
 msgid "Please complete all of the required fields"
-msgstr ""
+msgstr "nga kërkohet"
 
 #: plugins/project-manager/project_import_cbs.c:230
 #: plugins/project-wizard/appwizard_cbs.c:286
+#, fuzzy
 msgid ""
 "Confirm the following information:\n"
 "\n"
-msgstr ""
+msgstr "Konfermo j j"
 
 #: plugins/project-manager/project_import_cbs.c:231
 #: plugins/project-wizard/appwizard_cbs.c:287
+#, fuzzy
 msgid "Project Name:    "
-msgstr ""
+msgstr "Projekti Emri "
 
 #: plugins/project-manager/project_import_cbs.c:232
 #: plugins/project-wizard/appwizard_cbs.c:288
+#, fuzzy
 msgid "Project Type:    "
-msgstr ""
+msgstr "Projekti Lloji "
 
 #: plugins/project-manager/project_import_cbs.c:234
 #: plugins/project-wizard/appwizard_cbs.c:289
+#, fuzzy
 msgid "Target Type:     "
-msgstr ""
+msgstr "Objektivi Lloji "
 
 #: plugins/project-manager/project_import_cbs.c:237
 #: plugins/project-wizard/appwizard_cbs.c:290
+#, fuzzy
 msgid "Source Target:   "
-msgstr ""
+msgstr "Burimi Objektivi "
 
 #: plugins/project-manager/project_import_cbs.c:238
 #: plugins/project-wizard/appwizard_cbs.c:291
+#, fuzzy
 msgid "Version:         "
-msgstr ""
+msgstr "Versioni "
 
 #: plugins/project-manager/project_import_cbs.c:239
 #: plugins/project-wizard/appwizard_cbs.c:292
+#, fuzzy
 msgid "Author:          "
-msgstr ""
+msgstr "Autori "
 
 #: plugins/project-manager/project_import_cbs.c:240
 #: plugins/project-wizard/appwizard_cbs.c:293
+#, fuzzy
 msgid "Language:        "
-msgstr ""
+msgstr "Gjuha "
 
 #: plugins/project-manager/project_import_cbs.c:242
 #: plugins/project-wizard/appwizard_cbs.c:294
+#, fuzzy
 msgid "Gettext Support: "
-msgstr ""
+msgstr "Suporti "
 
 #. We should never come here because this button is disabled
 #: plugins/project-manager/project_import_cbs.c:285
+#, fuzzy
 msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
-msgstr ""
+msgstr "importo Anullo Vazhdo."
 
 #: plugins/project-manager/project_import_gui.c:46
+#, fuzzy
 msgid ""
 "The Project Import Wizard scans the directory of an\n"
 "existing code project, and attempts to import the structure\n"
@@ -5636,63 +6303,76 @@ msgid ""
 "any autodetected values during the import process.\n"
 "\n"
 "THIS IS AN EXPERIMENTAL FEATURE\n"
-msgstr ""
+msgstr "Projekti Importo Asistenti nga kodi dhe importo Projekti a importo j j"
 
 #: plugins/project-manager/project_import_gui.c:74
 #: plugins/project-manager/project_import_gui.c:159
+#, fuzzy
 msgid "Project Import Wizard"
-msgstr ""
+msgstr "Projekti Importo Asistenti"
 
 #: plugins/project-manager/project_import_gui.c:190
+#, fuzzy
 msgid "Select directory"
-msgstr ""
+msgstr "Zgjidh"
 
 #: plugins/project-manager/project_import_gui.c:207
+#, fuzzy
 msgid "Select top level directory of an existing project"
-msgstr ""
+msgstr "Zgjidh sipër niveli nga"
 
 #: plugins/project-manager/project_import_gui.c:211
+#, fuzzy
 msgid "Select existing project directory"
-msgstr ""
+msgstr "Zgjidh"
 
 #: plugins/project-manager/project_import_gui.c:225
+#, fuzzy
 msgid "Click Forward to begin the import"
-msgstr ""
+msgstr "Vazhdo importo"
 
 #: plugins/project-manager/source.c:112
 #, c-format
+#, fuzzy
 msgid "Error writing to file: %s."
-msgstr ""
+msgstr "Gabim."
 
 #: plugins/project-manager/source.c:1614 plugins/project-manager/source.c:1734
 #, c-format
+#, fuzzy
 msgid "Error writing to: %s."
-msgstr ""
+msgstr "Gabim."
 
 #: plugins/project-manager/src_paths.c:263
+#, fuzzy
 msgid "Source Paths"
-msgstr ""
+msgstr "Burimi Shtigjet"
 
 #: plugins/project-wizard/appwizard_cbs.c:126
+#, fuzzy
 msgid "Project name"
-msgstr ""
+msgstr "Projekti emri"
 
 #: plugins/project-wizard/appwizard_cbs.c:127
+#, fuzzy
 msgid "Source target name"
-msgstr ""
+msgstr "Burimi emri"
 
 #: plugins/project-wizard/appwizard_cbs.c:128
+#, fuzzy
 msgid "Project version"
-msgstr ""
+msgstr "Projekti versioni"
 
 #: plugins/project-wizard/appwizard_cbs.c:224
 #, c-format
+#, fuzzy
 msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
-msgstr ""
+msgstr "E pavlefshme a."
 
 #: plugins/project-wizard/appwizard_gui.c:41
+#, fuzzy
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -5702,17 +6382,19 @@ msgid ""
 "Please answer the questions carefully, as it\n"
 "may not be possible to change some of the\n"
 "settings later."
-msgstr ""
+msgstr "Program Asistenti a për a nga për detajet nga për programi j nuk nga."
 
 #: plugins/project-wizard/gnome_project.c:65
+#, fuzzy
 msgid ""
 "A project or file with the same name.already exists.\n"
 "Project creation aborted."
-msgstr ""
+msgstr "A me emri ekziston."
 
 #: plugins/project-wizard/gnome_project.c:81
+#, fuzzy
 msgid "Generating Project ...\n"
-msgstr ""
+msgstr "Projekti j"
 
 #: plugins/project-wizard/gnome_project.c:88
 #, c-format
@@ -5720,82 +6402,99 @@ msgid "Cannot create file: %s"
 msgstr "I pamundur krijimi i file: %s"
 
 #: plugins/project-wizard/gnome_project.c:159
+#, fuzzy
 msgid "Loading Project ...\n"
-msgstr ""
+msgstr "Projekti j"
 
 #: plugins/project-wizard/gnome_project.c:170
 #: plugins/project-wizard/gnome_project.c:231
+#, fuzzy
 msgid "Saving Project ...\n"
-msgstr ""
+msgstr "Duke ruajtur Projekti j"
 
 #: plugins/project-wizard/gnome_project.c:178
+#, fuzzy
 msgid "Generating source codes ...\n"
-msgstr ""
+msgstr "j"
 
 #. Creating icon pixmap file for gnome projects
 #: plugins/project-wizard/gnome_project.c:185
+#, fuzzy
 msgid "Copying icon file ...\n"
-msgstr ""
+msgstr "Duke kopjuar ikonë j"
 
 #: plugins/project-wizard/gnome_project.c:199
+#, fuzzy
 msgid "Could not create icon file ...\n"
-msgstr ""
+msgstr "nuk ikonë j"
 
 #: plugins/project-wizard/gnome_project.c:213
+#, fuzzy
 msgid "Locating files ...\n"
-msgstr ""
+msgstr "j"
 
 #: plugins/project-wizard/gnome_project.c:235
+#, fuzzy
 msgid "Updating Project ...\n"
-msgstr ""
+msgstr "Projekti j"
 
 #: plugins/project-wizard/gnome_project.c:238
+#, fuzzy
 msgid "Running autogen.sh ...\n"
-msgstr ""
+msgstr "Në ekzekutim j"
 
 #: plugins/project-wizard/gnome_project.c:250
+#, fuzzy
 msgid "App Wizard"
-msgstr ""
+msgstr "App Asistenti"
 
 #: plugins/project-wizard/gnome_project.c:272
+#, fuzzy
 msgid "Auto generation completed...............Unsuccessful\n"
-msgstr ""
+msgstr "Automatike j"
 
 #: plugins/project-wizard/gnome_project.c:275
+#, fuzzy
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
-msgstr ""
+msgstr "Projekti nuk."
 
 #: plugins/project-wizard/gnome_project.c:281
+#, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
-msgstr ""
+msgstr "Automatike Gjenero Projekti a j"
 
 #: plugins/project-wizard/gnome_project.c:284
+#, fuzzy
 msgid "Project was successfully auto generated."
-msgstr ""
+msgstr "Projekti."
 
 #: plugins/project-wizard/wizard_gui.c:98
+#, fuzzy
 msgid "Project Type"
-msgstr ""
+msgstr "Projekti Lloji"
 
 #: plugins/project-wizard/wizard_gui.c:120
+#, fuzzy
 msgid "Select the type of application to be developed"
-msgstr ""
+msgstr "Zgjidh lloji nga programi"
 
 #: plugins/project-wizard/wizard_gui.c:161
+#, fuzzy
 msgid "Generic/Terminal project"
-msgstr ""
+msgstr "I përgjithshëm Terminali"
 
 #: plugins/project-wizard/wizard_gui.c:164
 msgid "GTK 2.0 project"
 msgstr ""
 
 #: plugins/project-wizard/wizard_gui.c:167
+#, fuzzy
 msgid "GNOME 2.0 project"
-msgstr ""
+msgstr "GNOME"
 
 #: plugins/project-wizard/wizard_gui.c:170
 msgid "LibGlade 2.0 project"
@@ -5810,8 +6509,9 @@ msgid "gnomemm 2.0 project"
 msgstr ""
 
 #: plugins/project-wizard/wizard_gui.c:179
+#, fuzzy
 msgid "GNOME 2.0 Bonobo component"
-msgstr ""
+msgstr "GNOME komponenti"
 
 #: plugins/project-wizard/wizard_gui.c:182
 msgid "wxWindows project"
@@ -5822,32 +6522,39 @@ msgid "Xlib project"
 msgstr ""
 
 #: plugins/project-wizard/wizard_gui.c:188
+#, fuzzy
 msgid "X Dock App project"
-msgstr ""
+msgstr "X Qelia App"
 
 #: plugins/project-wizard/wizard_gui.c:262
+#, fuzzy
 msgid "Basic Information"
-msgstr ""
+msgstr "Bazë Informacione"
 
 #: plugins/project-wizard/wizard_gui.c:283
+#, fuzzy
 msgid "Enter the basic Project information"
-msgstr ""
+msgstr "Shto Projekti"
 
 #: plugins/project-wizard/wizard_gui.c:306
+#, fuzzy
 msgid "Project Version:"
-msgstr ""
+msgstr "Projekti Versioni:"
 
 #: plugins/project-wizard/wizard_gui.c:313
+#, fuzzy
 msgid "Project Author:"
-msgstr ""
+msgstr "Projekti Autori:"
 
 #: plugins/project-wizard/wizard_gui.c:320
+#, fuzzy
 msgid "Project Target:"
-msgstr ""
+msgstr "Projekti Objektivi:"
 
 #: plugins/project-wizard/wizard_gui.c:351
+#, fuzzy
 msgid "Programming language"
-msgstr ""
+msgstr "Programim"
 
 #: plugins/project-wizard/wizard_gui.c:362
 msgid "C"
@@ -5858,56 +6565,68 @@ msgid "C++"
 msgstr "C++"
 
 #: plugins/project-wizard/wizard_gui.c:379
+#, fuzzy
 msgid "Both C and C++"
-msgstr ""
+msgstr "Së bashku C dhe C"
 
 #: plugins/project-wizard/wizard_gui.c:386
+#, fuzzy
 msgid "Target type"
-msgstr ""
+msgstr "Objektivi lloji"
 
 #: plugins/project-wizard/wizard_gui.c:402
+#, fuzzy
 msgid "Executable target"
-msgstr ""
+msgstr "E ekzekutueshme"
 
 #: plugins/project-wizard/wizard_gui.c:409
 msgid "Static library target"
 msgstr ""
 
 #: plugins/project-wizard/wizard_gui.c:415
+#, fuzzy
 msgid "Dynamic library target"
-msgstr ""
+msgstr "Dinamik"
 
 #: plugins/project-wizard/wizard_gui.c:491
+#, fuzzy
 msgid "Enter a short description of the Project"
-msgstr ""
+msgstr "Shto a përshkrimi nga Projekti"
 
 #: plugins/project-wizard/wizard_gui.c:597
+#, fuzzy
 msgid "Enter any additional Project options"
-msgstr ""
+msgstr "Shto çdo Projekti"
 
 #: plugins/project-wizard/wizard_gui.c:614
+#, fuzzy
 msgid " Project Options "
-msgstr ""
+msgstr "Projekti Mundësitë "
 
 #: plugins/project-wizard/wizard_gui.c:625
+#, fuzzy
 msgid "Include GNU Copyright statement in file headings"
-msgstr ""
+msgstr "Include GNU Copyright në"
 
 #: plugins/project-wizard/wizard_gui.c:632
+#, fuzzy
 msgid "Enable Gettext Support"
-msgstr ""
+msgstr "Aktivo Suporti"
 
 #: plugins/project-wizard/wizard_gui.c:640
+#, fuzzy
 msgid "Generate source code using glade or glademm"
-msgstr ""
+msgstr "kodi"
 
 #: plugins/project-wizard/wizard_gui.c:647
+#, fuzzy
 msgid "GNOME Menu Entry"
-msgstr ""
+msgstr "GNOME Menu"
 
 #: plugins/project-wizard/wizard_gui.c:657
+#, fuzzy
 msgid "Entry name:"
-msgstr ""
+msgstr "emri:"
 
 #: plugins/project-wizard/wizard_gui.c:664
 msgid "Comment:"
@@ -5918,8 +6637,9 @@ msgid "Group:"
 msgstr "Grupi:"
 
 #: plugins/project-wizard/wizard_gui.c:713
+#, fuzzy
 msgid "Needs terminal"
-msgstr ""
+msgstr "terminal"
 
 #: plugins/project-wizard/wizard_gui.c:755
 msgid "Summary"
@@ -5928,14 +6648,16 @@ msgstr "Përmbledhja"
 #. Action name
 #. Stock icon, if any
 #: plugins/sample1/plugin.c:55
+#, fuzzy
 msgid "_Sample action"
-msgstr ""
+msgstr "Shembull akcion"
 
 #. Display label
 #. short-cut
 #: plugins/sample1/plugin.c:57
+#, fuzzy
 msgid "Sample action"
-msgstr ""
+msgstr "Shembull akcion"
 
 #: plugins/sample1/plugin.c:78
 #, fuzzy
@@ -5977,20 +6699,23 @@ msgid "Symbol"
 msgstr ""
 
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:2
+#, fuzzy
 msgid "<b>Terminal options</b>"
-msgstr ""
+msgstr "<b> Terminali</b>"
 
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:3
 msgid "Default"
 msgstr "E prezgjedhur"
 
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:4
+#, fuzzy
 msgid "Use GNOME terminal profile:"
-msgstr ""
+msgstr "GNOME terminal profili:"
 
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:5
+#, fuzzy
 msgid "Use currently selected profile in GNOME terminal"
-msgstr ""
+msgstr "profili në GNOME terminal"
 
 #: plugins/terminal/terminal.c:471
 msgid "Terminal"
@@ -6001,63 +6726,75 @@ msgid "Tool"
 msgstr ""
 
 #: plugins/tools/anjuta-tools.c:1189
+#, fuzzy
 msgid "Unable to build user interface for tool editor"
-msgstr ""
+msgstr "përdorues interfaqja për"
 
 #: plugins/tools/anjuta-tools.c:1385
 #, c-format
+#, fuzzy
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr ""
+msgstr "elemino?"
 
 #: plugins/tools/anjuta-tools.c:1487
+#, fuzzy
 msgid "You must provide a tool name!"
-msgstr ""
+msgstr "Ti a emri!"
 
 #: plugins/tools/anjuta-tools.c:1493
+#, fuzzy
 msgid "You must provide a tool command!"
-msgstr ""
+msgstr "Ti a!"
 
 #: plugins/tools/anjuta-tools.c:1508
 #, c-format
+#, fuzzy
 msgid "A tool with the name '%s' already exists!"
-msgstr ""
+msgstr "A me emri ekziston!"
 
 #: plugins/tools/anjuta-tools.c:1792
+#, fuzzy
 msgid "Unable to build user interface for tool help"
-msgstr ""
+msgstr "përdorues interfaqja për ndihmë"
 
 #: plugins/tools/anjuta-tools.c:1813
 msgid "Meaning"
 msgstr ""
 
 #: plugins/tools/anjuta-tools.c:1882
+#, fuzzy
 msgid "Unable to build user interface for tool parameters"
-msgstr ""
+msgstr "përdorues interfaqja për"
 
 #: plugins/tools/anjuta-tools.c:1886
 #, c-format
+#, fuzzy
 msgid "%s: Command line parameters"
-msgstr ""
+msgstr "Komanda"
 
 #: src/about.c:95
+#, fuzzy
 msgid "Copyright (c) Naba Kumar"
-msgstr ""
+msgstr "Copyright"
 
 #: src/action-callbacks.c:74 src/action-callbacks.c:95
+#, fuzzy
 msgid "Anjuta Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #: src/action-callbacks.c:109 src/mainmenu_callbacks.c:836
+#, fuzzy
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
-msgstr ""
+msgstr "ndihmë është instalohttp://anjuta.org"
 
 #: src/anjuta.c:76 src/anjuta_cbs.c:93
+#, fuzzy
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
-msgstr ""
+msgstr "Një tjetër nuk?"
 
 #: src/anjuta-actions.h:23
 msgid "_File"
@@ -6073,16 +6810,18 @@ msgid "Quit Anjuta IDE"
 msgstr "Anjuta IDE"
 
 #: src/anjuta-actions.h:31
+#, fuzzy
 msgid "G_oto"
-msgstr ""
+msgstr "G"
 
 #: src/anjuta-actions.h:35
 msgid "_View"
 msgstr "_Shfaq"
 
 #: src/anjuta-actions.h:36
+#, fuzzy
 msgid "_Toolbars"
-msgstr ""
+msgstr "Panelët e instrumentëve"
 
 #: src/anjuta-actions.h:40
 msgid "_Settings"
@@ -6093,238 +6832,288 @@ msgid "_Preferences ..."
 msgstr "_Preferime ..."
 
 #: src/anjuta-actions.h:43
+#, fuzzy
 msgid "Do you prefer coffee to tea? Check it out."
-msgstr ""
+msgstr "Bëje tea Kontrolli."
 
 #: src/anjuta-actions.h:46
+#, fuzzy
 msgid "Set _Default Preferences"
-msgstr ""
+msgstr "E prezgjedhur Preferimet"
 
 #: src/anjuta-actions.h:47
+#, fuzzy
 msgid "But I prefer tea."
-msgstr ""
+msgstr "I tea."
 
 #: src/anjuta-actions.h:50
+#, fuzzy
 msgid "C_ustomize shortcuts"
-msgstr ""
+msgstr "C"
 
 #: src/anjuta-actions.h:51
+#, fuzzy
 msgid "Customize shortcuts associated with menu items"
-msgstr ""
+msgstr "Personalizimi me menuja elementët"
 
 #: src/anjuta-actions.h:54
+#, fuzzy
 msgid "Layout manager"
-msgstr ""
+msgstr "Planimetria"
 
 #: src/anjuta-actions.h:55
+#, fuzzy
 msgid "Manipulate layout manager items"
-msgstr ""
+msgstr "elementët"
 
 #: src/anjuta-actions.h:58
+#, fuzzy
 msgid "Plugins manager"
-msgstr ""
+msgstr "Plugins"
 
 #: src/anjuta-actions.h:59
+#, fuzzy
 msgid "Manipulate plugins manager items"
-msgstr ""
+msgstr "elementët"
 
 #: src/anjuta-actions.h:64
 msgid "_Help"
 msgstr "_Ndihmë"
 
 #: src/anjuta-actions.h:66
+#, fuzzy
 msgid "The GNOME API pages"
-msgstr ""
+msgstr "GNOME faqe"
 
 #: src/anjuta-actions.h:67
+#, fuzzy
 msgid "Browse GNOME _API Pages"
-msgstr ""
+msgstr "Shfleto GNOME Faqe"
 
 #: src/anjuta-actions.h:70
+#, fuzzy
 msgid "Browse _Man Pages"
-msgstr ""
+msgstr "Shfleto Faqe"
 
 #: src/anjuta-actions.h:71
+#, fuzzy
 msgid "The good old manual pages"
-msgstr ""
+msgstr "manual faqe"
 
 #: src/anjuta-actions.h:74
+#, fuzzy
 msgid "Browse _Info Pages"
-msgstr ""
+msgstr "Shfleto Informacione Faqe"
 
 #: src/anjuta-actions.h:75
+#, fuzzy
 msgid "The good info pages"
-msgstr ""
+msgstr "faqe"
 
 #: src/anjuta-actions.h:78
+#, fuzzy
 msgid "_Context Help"
-msgstr ""
+msgstr "Ndihmë"
 
 #: src/anjuta-actions.h:79
+#, fuzzy
 msgid "Search help for the current word in the editor"
-msgstr ""
+msgstr "Kërko ndihmë për në"
 
 #: src/anjuta-actions.h:82
+#, fuzzy
 msgid "_Search a topic"
-msgstr ""
+msgstr "Kërko a"
 
 #: src/anjuta-actions.h:83
+#, fuzzy
 msgid "May I help you?"
-msgstr ""
+msgstr "Maj I ndihmë?"
 
 #: src/anjuta-actions.h:86
+#, fuzzy
 msgid "Anjuta _Home Page"
-msgstr ""
+msgstr "Shtëpia Faqja"
 
 #: src/anjuta-actions.h:87
+#, fuzzy
 msgid "Online documentation and resources"
-msgstr ""
+msgstr "Në linjë dhe"
 
 #: src/anjuta-actions.h:90
+#, fuzzy
 msgid "_Libraries API references"
-msgstr ""
+msgstr "Libreri"
 
 #: src/anjuta-actions.h:91
+#, fuzzy
 msgid "Online reference library for GDK, GLib, GNOME etc.."
-msgstr ""
+msgstr "Në linjë për GNOME."
 
 #: src/anjuta-actions.h:94
+#, fuzzy
 msgid "Report _Bugs"
-msgstr ""
+msgstr "Raporti"
 
 #: src/anjuta-actions.h:95
+#, fuzzy
 msgid "Submit a bug report for Anjuta"
-msgstr ""
+msgstr "Dërgoje a difekt për"
 
 #: src/anjuta-actions.h:98
 msgid "Request _Features"
 msgstr ""
 
 #: src/anjuta-actions.h:99
+#, fuzzy
 msgid "Submit a feature request for Anjuta"
-msgstr ""
+msgstr "Dërgoje a karakteristika për"
 
 #: src/anjuta-actions.h:102
+#, fuzzy
 msgid "Submit _patches"
-msgstr ""
+msgstr "Dërgoje"
 
 #: src/anjuta-actions.h:103
+#, fuzzy
 msgid "Submit patches for Anjuta"
-msgstr ""
+msgstr "Dërgoje për"
 
 #: src/anjuta-actions.h:106
+#, fuzzy
 msgid "Ask a _question"
-msgstr ""
+msgstr "Pyet a"
 
 #: src/anjuta-actions.h:107
+#, fuzzy
 msgid "Submit a question for FAQs"
-msgstr ""
+msgstr "Dërgoje a për"
 
 #: src/anjuta-actions.h:110
 msgid "_About"
 msgstr "_Informacione"
 
 #: src/anjuta-actions.h:111
+#, fuzzy
 msgid "About Anjuta"
-msgstr ""
+msgstr "Informacione"
 
 #: src/anjuta-app.c:440
+#, fuzzy
 msgid "Value doesn't exist"
-msgstr ""
+msgstr "Vlera"
 
 #: src/anjuta-app.c:732
 #, c-format
+#, fuzzy
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
-msgstr ""
+msgstr "FILE nga j"
 
 #: src/anjuta-app.c:1015
+#, fuzzy
 msgid "Looking up symbol"
-msgstr ""
+msgstr "sipër"
 
 #: src/anjuta-app.c:1017
+#, fuzzy
 msgid "Finding in Files ....\n"
-msgstr ""
+msgstr "në Files j"
 
 #: src/anjuta-callbacks.c:227 src/anjuta_cbs.c:466
+#, fuzzy
 msgid "Could not open file for writing"
-msgstr ""
+msgstr "nuk hap për"
 
 #: src/anjuta-callbacks.c:251 src/anjuta_cbs.c:490
 #, c-format
+#, fuzzy
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?."
-msgstr ""
+msgstr "ekziston me."
 
 #: src/anjuta_dirs.c:53
+#, fuzzy
 msgid "Unable to create settings directory.\n"
-msgstr ""
+msgstr "rregullimet j"
 
 #: src/anjuta_gui.c:108
 msgid "Navigate"
 msgstr ""
 
 #: src/anjuta_gui.c:137 src/main_menubar.c:383
+#, fuzzy
 msgid "Recent Files    "
-msgstr ""
+msgstr "I fundit Files "
 
 #: src/anjuta_info.c:51 src/anjuta_info.c:101
 msgid "Information"
 msgstr "Informacione"
 
 #: src/controls.c:210
+#, fuzzy
 msgid "No tags"
-msgstr ""
+msgstr "Jo"
 
 #: src/dnd.c:104
 #, c-format
+#, fuzzy
 msgid "File %s is not local."
-msgstr ""
+msgstr "File është nuk lokal."
 
 #: src/dnd.c:112
 #, c-format
+#, fuzzy
 msgid "Invalid filename %s."
-msgstr ""
+msgstr "E pavlefshme."
 
 #: src/glade_iface.c:69
+#, fuzzy
 msgid ""
 "Warning: Can not generate c/c++ source code.\n"
 "Warning: It is because either glade (for gtk/gnome projects) or glademm (for "
 "gtkmm/gnomemm projects) is not installed.\n"
 "Warning: Your generated project will still be fine, though.\n"
-msgstr ""
+msgstr "Kujdes nuk kodi është për për është nuk instaluar j"
 
 #: src/glade_iface.c:108
+#, fuzzy
 msgid "Cannot fork glade."
-msgstr ""
+msgstr "duplikim."
 
 #: src/glade_iface.c:148 src/glade_iface.c:229
+#, fuzzy
 msgid "Cannot fork glade--."
-msgstr ""
+msgstr "duplikim."
 
 #: src/glade_iface.c:189
+#, fuzzy
 msgid "Cannot fork glade-2."
-msgstr ""
+msgstr "duplikim."
 
 #: src/main.c:50 src/main.cpp:50
+#, fuzzy
 msgid "Specify the size and location of the main window"
-msgstr ""
+msgstr "madhësia dhe pozicioni nga dritare"
 
 #: src/main.c:51 src/main.cpp:51
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "GJERËSIxLARTËSI+XOFF+YOFF"
 
 #: src/main.c:56 src/main.cpp:56
+#, fuzzy
 msgid "Do not show the splashscreen"
-msgstr ""
+msgstr "Bëje nuk"
 
 #: src/mainmenu_callbacks.c:545
+#, fuzzy
 msgid "The executable is not up-to-date."
-msgstr ""
+msgstr "e ekzekutueshme është nuk sipër data."
 
 #: src/mainmenu_callbacks.c:570
+#, fuzzy
 msgid "Debugger is not running. Start it first."
-msgstr ""
+msgstr "është nuk në punim e sipër Fillo i pari."
 
 #: src/support.c:60 src/support.c:85
 #, c-format
@@ -6336,168 +7125,203 @@ msgid "Detach"
 msgstr ""
 
 #: src/toolbar.c:106
+#, fuzzy
 msgid "Detach the current page"
-msgstr ""
+msgstr "faqe"
 
 #: src/toolbar.c:115
+#, fuzzy
 msgid "Search for the given string in the current file"
-msgstr ""
+msgstr "Kërko për në"
 
 #: src/toolbar.c:131
+#, fuzzy
 msgid "Enter the string to search for"
-msgstr ""
+msgstr "Shto kërko për"
 
 #: src/toolbar.c:137
+#, fuzzy
 msgid "Go to the given line number in the current file"
-msgstr ""
+msgstr "Shko në"
 
 #: src/toolbar.c:144
+#, fuzzy
 msgid "Enter the line number to go to"
-msgstr ""
+msgstr "Shto"
 
 #: src/toolbar.c:151
+#, fuzzy
 msgid "Show/Hide the Project window"
-msgstr ""
+msgstr "Shfaq Fshih Projekti dritare"
 
 #: src/toolbar.c:155
+#, fuzzy
 msgid "Show/Hide the Message window"
-msgstr ""
+msgstr "Shfaq Fshih Mesazh dritare"
 
 #: src/toolbar.c:160
+#, fuzzy
 msgid "Context sensitive help"
-msgstr ""
+msgstr "ndihmë"
 
 #: src/toolbar.c:214
+#, fuzzy
 msgid "Open a Project"
-msgstr ""
+msgstr "Hap a Projekti"
 
 #: src/toolbar.c:224
+#, fuzzy
 msgid "Save Project"
-msgstr ""
+msgstr "Ruaj Projekti"
 
 #: src/toolbar.c:225
+#, fuzzy
 msgid "Save the current Project"
-msgstr ""
+msgstr "Ruaj Projekti"
 
 #: src/toolbar.c:236
+#, fuzzy
 msgid "Close Project"
-msgstr ""
+msgstr "Mbyll Projekti"
 
 #: src/toolbar.c:237
+#, fuzzy
 msgid "Close the current Project"
-msgstr ""
+msgstr "Mbyll Projekti"
 
 #: src/toolbar.c:251
+#, fuzzy
 msgid "Compile the current file"
-msgstr ""
+msgstr "Kompilo"
 
 #: src/toolbar.c:263
+#, fuzzy
 msgid "Run configure"
-msgstr ""
+msgstr "Ekzekuto konfiguro"
 
 #: src/toolbar.c:275
+#, fuzzy
 msgid "Build current file, or build the source directory of the Project"
-msgstr ""
+msgstr "Gjenero nga Projekti"
 
 #: src/toolbar.c:286
+#, fuzzy
 msgid "Build_all"
-msgstr ""
+msgstr "Gjenero"
 
 #: src/toolbar.c:288
+#, fuzzy
 msgid "Build from the top directory of the Project"
-msgstr ""
+msgstr "Gjenero sipër nga Projekti"
 
 #: src/toolbar.c:296
+#, fuzzy
 msgid "Execute the program"
-msgstr ""
+msgstr "Ekzekuto programi"
 
 #: src/toolbar.c:307
+#, fuzzy
 msgid "Start the Debugger"
-msgstr ""
+msgstr "Fillo"
 
 #: src/toolbar.c:314
+#, fuzzy
 msgid "Stop/interrupt compile or build"
-msgstr ""
+msgstr "Ndal"
 
 #: src/toolbar.c:383 src/toolbar.c:762
 msgid "Toggle"
 msgstr "Kavo"
 
 #: src/toolbar.c:384
+#, fuzzy
 msgid "Toggle bookmark at current location"
-msgstr ""
+msgstr "Kavo pozicioni"
 
 #: src/toolbar.c:390
+#, fuzzy
 msgid "Goto first bookmark in this document"
-msgstr ""
+msgstr "i pari në"
 
 #: src/toolbar.c:396
+#, fuzzy
 msgid "Goto previous bookmark in this document"
-msgstr ""
+msgstr "paraardhësja në"
 
 #: src/toolbar.c:401
+#, fuzzy
 msgid "Goto next bookmark in this document"
-msgstr ""
+msgstr "në vazhdim në"
 
 #: src/toolbar.c:406
+#, fuzzy
 msgid "Goto last bookmark in this document"
-msgstr ""
+msgstr "e fundit në"
 
 #: src/toolbar.c:415
 msgid "Prev"
 msgstr "Paraardhëse"
 
 #: src/toolbar.c:416
+#, fuzzy
 msgid "Goto previous message in this document"
-msgstr ""
+msgstr "paraardhësja mesazh në"
 
 #: src/toolbar.c:422
 msgid "Next"
 msgstr "Vazhdo"
 
 #: src/toolbar.c:423
+#, fuzzy
 msgid "Goto next message in this document"
-msgstr ""
+msgstr "në vazhdim mesazh në"
 
 #: src/toolbar.c:431
 msgid "Start"
 msgstr "Fillo"
 
 #: src/toolbar.c:432
+#, fuzzy
 msgid "Goto start of current code block"
-msgstr ""
+msgstr "nisje nga kodi bllok"
 
 #: src/toolbar.c:438
 msgid "End"
 msgstr "Fundi"
 
 #: src/toolbar.c:439
+#, fuzzy
 msgid "Goto end of current code block"
-msgstr ""
+msgstr "fund nga kodi bllok"
 
 #: src/toolbar.c:446
+#, fuzzy
 msgid "Tags:"
-msgstr ""
+msgstr "Tags:"
 
 #: src/toolbar.c:455
+#, fuzzy
 msgid "Search for the given tag in the current file"
-msgstr ""
+msgstr "Kërko për në"
 
 #: src/toolbar.c:470
+#, fuzzy
 msgid "Enter the tag to jump to"
-msgstr ""
+msgstr "Shto"
 
 #: src/toolbar.c:513
+#, fuzzy
 msgid "Go or continue execution"
-msgstr ""
+msgstr "Shko"
 
 #: src/toolbar.c:524
 msgid "Run"
 msgstr "Ekzekuto"
 
 #: src/toolbar.c:537
+#, fuzzy
 msgid "Single step in execution"
-msgstr ""
+msgstr "E vetme në"
 
 #: src/toolbar.c:548
 msgid "Step Over"
@@ -6508,120 +7332,142 @@ msgid "Step over the function"
 msgstr ""
 
 #: src/toolbar.c:559
+#, fuzzy
 msgid "Step Out"
-msgstr ""
+msgstr "Zvogëlo"
 
 #: src/toolbar.c:560
+#, fuzzy
 msgid "Step out of the function"
-msgstr ""
+msgstr "nga"
 
 #: src/toolbar.c:575
+#, fuzzy
 msgid "Interrupt execution of the program"
-msgstr ""
+msgstr "Ndërprit nga programi"
 
 #: src/toolbar.c:588
 msgid "Breakpoint"
 msgstr ""
 
 #: src/toolbar.c:589
+#, fuzzy
 msgid "Toggle breakpoint at cursor"
-msgstr ""
+msgstr "Kavo"
 
 #: src/toolbar.c:601
+#, fuzzy
 msgid "Inspect or evaluate an expression"
-msgstr ""
+msgstr "Inspekto shprehje"
 
 #: src/toolbar.c:614
+#, fuzzy
 msgid "Display the current frame information"
-msgstr ""
+msgstr "Shfaq frame"
 
 #: src/toolbar.c:640
 msgid "Signals"
 msgstr ""
 
 #: src/toolbar.c:641
+#, fuzzy
 msgid "kernel signals of the program"
-msgstr ""
+msgstr "nga programi"
 
 #: src/toolbar.c:652
 msgid "Registers"
 msgstr ""
 
 #: src/toolbar.c:653
+#, fuzzy
 msgid "CPU registers and their contents"
-msgstr ""
+msgstr "CPU dhe"
 
 #: src/toolbar.c:667
+#, fuzzy
 msgid "End the debugging session"
-msgstr ""
+msgstr "Fundi"
 
 #: src/toolbar.c:764
+#, fuzzy
 msgid "Toggle current code fold hide/show"
-msgstr ""
+msgstr "Kavo kodi"
 
 #: src/toolbar.c:775
+#, fuzzy
 msgid "Close all"
-msgstr ""
+msgstr "Mbyll"
 
 #: src/toolbar.c:777
+#, fuzzy
 msgid "Close all code folds in this document"
-msgstr ""
+msgstr "Mbyll kodi në"
 
 #: src/toolbar.c:788
+#, fuzzy
 msgid "Open all"
-msgstr ""
+msgstr "Hap"
 
 #: src/toolbar.c:790
+#, fuzzy
 msgid "Open all code folds in this document"
-msgstr ""
+msgstr "Hap kodi në"
 
 #: src/toolbar.c:803
 msgid "Select"
 msgstr "Zgjidh"
 
 #: src/toolbar.c:804
+#, fuzzy
 msgid "Select current code block"
-msgstr ""
+msgstr "Zgjidh kodi bllok"
 
 #: src/toolbar.c:815
+#, fuzzy
 msgid "Indent inc"
-msgstr ""
+msgstr "Ngushto"
 
 #: src/toolbar.c:817
+#, fuzzy
 msgid "Increase indentation of block/line"
-msgstr ""
+msgstr "Rrit nga bllok"
 
 #: src/toolbar.c:828
+#, fuzzy
 msgid "Indent dcr"
-msgstr ""
+msgstr "Ngushto"
 
 #: src/toolbar.c:830
+#, fuzzy
 msgid "Decrease indentation of block/line"
-msgstr ""
+msgstr "Zvogëlo nga bllok"
 
 #: src/toolbar.c:843
 msgid "Autoformat"
 msgstr ""
 
 #: src/toolbar.c:845
+#, fuzzy
 msgid "Automatically format the code"
-msgstr ""
+msgstr "kodi"
 
 #: src/toolbar.c:856
 msgid "Format style"
 msgstr "Stili i formatit"
 
 #: src/toolbar.c:857
+#, fuzzy
 msgid "Configure style to use for auto format"
-msgstr ""
+msgstr "Konfiguro për"
 
 #: src/toolbar.c:870
 msgid "Calltip"
 msgstr ""
 
 #: src/toolbar.c:870
+#, fuzzy
 msgid "Show Calltip"
-msgstr ""
+msgstr "Shfaq"
 
 #: src/toolbar.c:883
 msgid "Autocomplete"
@@ -6631,95 +7477,3 @@ msgstr ""
 msgid "Autocomplete word"
 msgstr ""
 
-#~ msgid "Resizable"
-#~ msgstr "E ripërmasueshme"
-
-#~ msgid "Item behavior"
-#~ msgstr "Sjellja e elementit"
-
-#~ msgid "Locked"
-#~ msgstr "E bllokuar"
-
-#~ msgid "Preferred width"
-#~ msgstr "Gjerësia e preferuar"
-
-#~ msgid "Preferred height"
-#~ msgstr "Lartësia e preferuar"
-
-#~ msgid "Hide"
-#~ msgstr "Fshih"
-
-#~ msgid "Lock"
-#~ msgstr "Blloko"
-
-#~ msgid "Page"
-#~ msgstr "Faqja"
-
-#~ msgid "The index of the current page"
-#~ msgstr "Treguesi i faqes aktuale"
-
-#~ msgid "Host"
-#~ msgstr "Host"
-
-#~ msgid "Controlling dock item"
-#~ msgstr "Duke kontrolluar elementët e qelisë"
-
-#~ msgid "Height"
-#~ msgstr "Lartësia"
-
-#~ msgid "Icon size"
-#~ msgstr "Madhësia e ikonës"
-
-#~ msgid "CPU registers"
-#~ msgstr "Regjistrat e CPU"
-
-#~ msgid "Customize File Browser"
-#~ msgstr "Personalizo shfletuesin e file"
-
-#~ msgid "Customize what is to be shown in the file tree"
-#~ msgstr "Personalizo se çfarë duhet të jetë e dukshme tek degëzimi i file"
-
-#~ msgid "File type:"
-#~ msgstr "Lloji i file:"
-
-#~ msgid "Dock the toolbar"
-#~ msgstr "Spiranco panelin e instrumentëve"
-
-#~ msgid "Un dock the toolbar"
-#~ msgstr "Hiq spirancën nga paneli i instrumentëve"
-
-#~ msgid "Open File"
-#~ msgstr "Hap File"
-
-#~ msgid "ERROR: "
-#~ msgstr "GABIM:"
-
-#~ msgid "None"
-#~ msgstr "Asnjë"
-
-#~ msgid "Unknown"
-#~ msgstr "Nuk njihet"
-
-#~ msgid "Go back"
-#~ msgstr "Kthehu mbrapa"
-
-#~ msgid "Go forward"
-#~ msgstr "Shko përpara"
-
-#~ msgid "C_lear"
-#~ msgstr "P_astro"
-
-#~ msgid "_Execute"
-#~ msgstr "_Ekzekuto"
-
-#~ msgid "_Debug"
-#~ msgstr "_Debug"
-
-#~ msgid "Symbols"
-#~ msgstr "Simbolet"
-
-#~ msgid "Attach"
-#~ msgstr "Bashkangjit"
-
-#~ msgid "Show Hidden"
-#~ msgstr "Shfaq të padukshmit"
