@@ -1,3 +1,9 @@
+2003-08-08  Abel Cheung  <maddog@linux.org.hk>
+
+	* POTFILES.skip: Added anjuta_dialog_strings.c.
+	* hi.po: s/\r//g
+	* es.po, fr.po: Convert to UTF-8.
+
 2003-07-11  Dmitry G. Mastrukov  <dmitry@taurussoft.org>
 
 	* be.po: Updated Belarusian translation
