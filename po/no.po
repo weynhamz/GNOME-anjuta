@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: anjuta 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-01-29 12:58+0100\n"
-"PO-Revision-Date: 2004-01-29 13:38+0100\n"
+"PO-Revision-Date: 2004-01-29 13:40+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian/Bokmaal <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1399,7 +1399,7 @@ msgstr "Brukerinformasjon"
 
 #: anjuta.glade.h:343
 msgid "User name:"
-msgstr "Brukernavn"
+msgstr "Brukernavn:"
 
 #: anjuta.glade.h:344
 msgid "Variable list"
@@ -3202,11 +3202,11 @@ msgstr ""
 
 #: src/cvs_gui.c:120 src/cvs_gui.c:238
 msgid "File: "
-msgstr "Fil:"
+msgstr "Fil: "
 
 #: src/cvs_gui.c:122
 msgid "Branch: "
-msgstr ""
+msgstr "Gren: "
 
 #: src/cvs_gui.c:124 src/cvs_gui.c:291
 msgid "Revision: "
@@ -7290,11 +7290,11 @@ msgstr ""
 
 #: src/watch_gui.c:49
 msgid "Update all"
-msgstr ""
+msgstr "Oppdater alle"
 
 #: src/watch_gui.c:55
 msgid "Clear"
-msgstr "&Fjern"
+msgstr "Tøm"
 
 #: src/watch_gui.c:61
 msgid "Toggle enable"
@@ -7302,7 +7302,7 @@ msgstr ""
 
 #: src/watch_gui.c:67
 msgid "Change item"
-msgstr ""
+msgstr "Endre oppføring"
 
 #: src/watch_gui.c:172
 msgid "Add Watch Expression"
