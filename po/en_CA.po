@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-28 05:39-0500\n"
-"PO-Revision-Date: 2004-12-28 12:57-0400\n"
+"POT-Creation-Date: 2004-12-29 03:02-0500\n"
+"PO-Revision-Date: 2004-12-29 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -860,6 +860,7 @@ msgstr "_Terminal:"
 #. Action name
 #. Stock icon, if any
 #: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:72
+#: plugins/cvs-plugin/plugin.c:128
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Update"
@@ -1960,14 +1961,22 @@ msgid "<b>CVS Options</b>"
 msgstr "<b>CVS Options</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
+msgid "<b>CVSROOT: </b>"
+msgstr "<b>CVSROOT: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+msgid "<b>Module name: </b>"
+msgstr "<b>Module name: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
 msgid "<b>Options:</b>"
 msgstr "<b>Options:</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
 msgid "<b>Options</b>"
 msgstr "<b>Options</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:7
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
@@ -1980,117 +1989,147 @@ msgstr ""
 "Pressing OK will delete the file from disk and from CVS. The file will not "
 "be removed from CVS until you run CVS Commit. <b>You have been warned!</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
+msgid "<b>Project root directory: </b>"
+msgstr "<b>Project root directory: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
+msgid "<b>Repositry: </b>"
+msgstr "<b>Repository: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "Be verbose"
 msgstr "Be verbose"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
 msgid "CVS Preferences"
 msgstr "CVS Preferences"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Add file/directory"
 msgstr "CVS: Add file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Commit file/directory"
 msgstr "CVS: Commit file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Diff file/directory"
 msgstr "CVS: Diff file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+msgid "CVS: Import"
+msgstr "CVS: Import"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "CVS: Log file/directory"
 msgstr "CVS: Log file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
 msgid "CVS: Remove file/directory"
 msgstr "CVS: Remove file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 #: plugins/cvs-plugin/cvs_gui.c:80
 msgid "CVS: Status"
 msgstr "CVS: Status"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 msgid "CVS: Status from file/directory"
 msgstr "CVS: Status from file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "CVS: Update file/directory"
 msgstr "CVS: Update file/directory"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 msgid "Choose file or directory to add:"
 msgstr "Choose file or directory to add:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to commit:"
 msgstr "Choose file or directory to commit:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to diff:"
 msgstr "Choose file or directory to diff:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to get log:"
 msgstr "Choose file or directory to get log:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 msgid "Choose file or directory to get the status from:"
 msgstr "Choose file or directory to get the status from:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 msgid "Choose file or directory to remove:"
 msgstr "Choose file or directory to remove:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 msgid "Choose file or directory to update:"
 msgstr "Choose file or directory to update:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Compression Level (0=off, 10=max):"
 msgstr "Compression Level (0=off, 10=max):"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 msgid "Create new directories"
 msgstr "Create new directories"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "Delete empty directories"
 msgstr "Delete empty directories"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Do not act recursively"
 msgstr "Do not act recursively"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 msgid "File is binary"
 msgstr "File is binary"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
 msgid "Ignore .cvsrc file (recommend)"
 msgstr "Ignore .cvsrc file (recommend)"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:36
+msgid ""
+"Local\n"
+"Extern (rsh)\n"
+"Password server (pserver)\n"
+msgstr ""
+"Local\n"
+"Extern (rsh)\n"
+"Password server (pserver)\n"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 msgid "Log message:"
 msgstr "Log message:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
+msgid "Password: "
+msgstr "Password: "
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Path to \"cvs\" command"
 msgstr "Path to \"cvs\" command"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
+msgid "Release tag:"
+msgstr "Release tag:"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
 msgid "Reset sticky tags"
 msgstr "Reset sticky tags"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
 #: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
 msgid "Revision: "
 msgstr "Revision: "
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid ""
 "Standard diff\n"
 "Patch-Style diff"
@@ -2098,17 +2137,34 @@ msgstr ""
 "Standard diff\n"
 "Patch-Style diff"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:37
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
 msgstr "Unified format instead of context format"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 msgid "Use revision/tag: "
 msgstr "Use revision/tag: "
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
 msgid "Use revision: "
 msgstr "Use revision: "
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
+#: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
+msgid "Username: "
+msgstr "Username: "
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
+msgid "Vendor tag:"
+msgstr "Vendor tag:"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+msgid "none"
+msgstr "none"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
+msgid "start"
+msgstr "start"
 
 #: plugins/cvs-plugin/cvs.c:262
 msgid "CVS Updating "
@@ -2175,7 +2231,7 @@ msgstr "Updating versions in file tree..."
 msgid "done\n"
 msgstr "done\n"
 
-#: plugins/cvs-plugin/cvs-actions.c:205
+#: plugins/cvs-plugin/cvs-actions.c:269
 msgid "Unable to delete file"
 msgstr "Unable to delete file"
 
@@ -2313,10 +2369,6 @@ msgstr "Login"
 msgid "Server type: "
 msgstr "Server type: "
 
-#: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
-msgid "Username: "
-msgstr "Username: "
-
 #: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
 msgid "Server: "
 msgstr "Server: "
@@ -2359,7 +2411,7 @@ msgstr "Import settings"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:40
+#: plugins/cvs-plugin/plugin.c:40 plugins/cvs-plugin/plugin.c:112
 msgid "_CVS"
 msgstr "_CVS"
 
@@ -2389,55 +2441,55 @@ msgstr "Remove a file/directory from CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:64
+#: plugins/cvs-plugin/plugin.c:64 plugins/cvs-plugin/plugin.c:120
 msgid "_Commit"
 msgstr "_Commit"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:66
+#: plugins/cvs-plugin/plugin.c:66 plugins/cvs-plugin/plugin.c:122
 msgid "Commit your changes to the CVS tree"
 msgstr "Commit your changes to the CVS tree"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:74
+#: plugins/cvs-plugin/plugin.c:74 plugins/cvs-plugin/plugin.c:130
 msgid "Sync your local copy with the CVS tree"
 msgstr "Sync your local copy with the CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:80
+#: plugins/cvs-plugin/plugin.c:80 plugins/cvs-plugin/plugin.c:136
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:82
+#: plugins/cvs-plugin/plugin.c:82 plugins/cvs-plugin/plugin.c:138
 msgid "Show differences between your local copy and the tree"
 msgstr "Show differences between your local copy and the tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:88
+#: plugins/cvs-plugin/plugin.c:88 plugins/cvs-plugin/plugin.c:144
 msgid "_Show Status"
 msgstr "_Show Status"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:90
+#: plugins/cvs-plugin/plugin.c:90 plugins/cvs-plugin/plugin.c:146
 msgid "Show the status of a file/directory"
 msgstr "Show the status of a file/directory"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:96
+#: plugins/cvs-plugin/plugin.c:96 plugins/cvs-plugin/plugin.c:152
 msgid "_Show Log"
 msgstr "_Show Log"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:98
+#: plugins/cvs-plugin/plugin.c:98 plugins/cvs-plugin/plugin.c:154
 msgid "Show the log of a file/directory"
 msgstr "Show the log of a file/directory"
 
@@ -2453,7 +2505,7 @@ msgstr "_Import Tree"
 msgid "Import a new source tree to CVS"
 msgstr "Import a new source tree to CVS"
 
-#: plugins/cvs-plugin/plugin.c:278
+#: plugins/cvs-plugin/plugin.c:326
 msgid "CVS operations"
 msgstr "CVS operations"
 
