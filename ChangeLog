@@ -5,6 +5,9 @@
 
 	* configure.in, manuals/Makefile.in, manuals/de/* (new): Added
 	German translation of anjuta-tutorial.
+	
+	* src/launcher.c: Fixed an encoding bug with GIOChannels.
+	* NEWS: Updated.
 
 2003-11-10  Jean-Noel Guiheneuf   <jnoel@saudionline.com.sa>
 
