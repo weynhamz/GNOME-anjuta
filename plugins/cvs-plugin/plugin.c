@@ -148,6 +148,7 @@ cvs_plugin_instance_init (GObject *obj)
 	plugin->uiid = 0;
 	plugin->executing_command = FALSE;
 	plugin->mesg_view = NULL;
+	plugin->launcher = NULL;
 }
 
 static void

@@ -25,12 +25,58 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <glade/glade.h>
 
 #define CVS_ICON ""
 
 static GtkWidget* status_text;
+
+static void
+on_cvs_mesg_format (IAnjutaMessageView *view, const gchar *line,
+					  AnjutaPlugin *plugin)
+{
+	IAnjutaMessageViewType type;
+	
+	g_return_if_fail (line != NULL);
+	
+	type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+	/* FIXME: Use regex to determine different message type */
+	
+	ianjuta_message_view_append (view, type, line, "", NULL);
+}
+
+static void
+on_cvs_mesg_parse (IAnjutaMessageView *view, const gchar *line,
+					 AnjutaPlugin *plugin)
+{
+	/* FIXME: Parse the line and determine if there is filename to goto.
+	   If there is, extract filename then open it.
+
+	*/
+
+#if 0
+	gchar *filename;
+	gint lineno;
+	
+	if ((filename = parse_filename (line)))
+	{
+		gchar *uri;
+		IAnjutaFileLoader *loader;
+		
+		/* Go to file and line number */
+		loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
+											 NULL);
+		
+		/* FIXME: Determine full file path */
+		uri = g_strdup_printf ("file:///%s", filename);
+		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+		g_free (uri);
+		g_free (filename);
+	}
+#endif
+}
 
 static void
 on_cvs_terminated (AnjutaLauncher *launcher,
@@ -40,6 +86,16 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 	g_return_if_fail (plugin != NULL);
 	
 	plugin->executing_command = FALSE;
+	g_signal_handlers_disconnect_by_func (plugin->launcher,
+										  G_CALLBACK (on_cvs_terminated),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (plugin->mesg_view,
+										  G_CALLBACK (on_cvs_mesg_format),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (plugin->mesg_view,
+										  G_CALLBACK (on_cvs_mesg_parse),
+										  plugin);
+	DEBUG_PRINT ("Shuting down cvs message view");
 	/* We do not care about this view any longer, it will be freed when 
 	the users closes it */
 	plugin->mesg_view = NULL;
@@ -56,18 +112,7 @@ on_cvs_message (AnjutaLauncher *launcher,
 					   const gchar * mesg, gpointer user_data)
 {
 	CVSPlugin* plugin = (CVSPlugin*)user_data;
-	switch(output_type)
-	{
-		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
-			ianjuta_message_view_append (plugin->mesg_view, 
-				IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
-				mesg, "", NULL);
-			break;
-		default:
-			ianjuta_message_view_append (plugin->mesg_view, 
-				IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-				mesg, "", NULL);
-	}
+	ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
 }
 
 static void 
@@ -79,9 +124,7 @@ on_cvs_status(AnjutaLauncher *launcher,
 	switch(output_type)
 	{
 		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
-			ianjuta_message_view_append (plugin->mesg_view, 
-				IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
-				mesg, "", NULL);
+			ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
 			break;
 		default:
 			{
@@ -110,13 +153,11 @@ on_cvs_diff(AnjutaLauncher *launcher,
 	switch(output_type)
 	{
 		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
-			ianjuta_message_view_append (plugin->mesg_view, 
-				IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
-				mesg, "", NULL);
+			ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
 			break;
 		default:
 			ianjuta_editor_insert(plugin->diff_editor, -1, mesg, -1, NULL);
-	}	
+	}
 }
 
 static gboolean
@@ -143,22 +184,31 @@ cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
 		return;
 	}
 		
-		
 	mesg_manager = anjuta_shell_get_interface 
 		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
 	plugin->mesg_view =
 		ianjuta_message_manager_add_view (mesg_manager, _("CVS"), 
 		CVS_ICON, NULL);
+	g_signal_connect (G_OBJECT (plugin->mesg_view), "buffer-flushed",
+					  G_CALLBACK (on_cvs_mesg_format), plugin);
+	g_signal_connect (G_OBJECT (plugin->mesg_view), "message-clicked",
+					  G_CALLBACK (on_cvs_mesg_parse), plugin);
 
-	plugin->launcher = anjuta_launcher_new ();
-	
-	g_signal_connect (G_OBJECT (plugin->launcher), "child-exited",
-					  G_CALLBACK (on_cvs_terminated), plugin);
+	if (plugin->launcher == NULL)
+	{
+		plugin->launcher = anjuta_launcher_new ();
+		
+		g_signal_connect (G_OBJECT (plugin->launcher), "child-exited",
+						  G_CALLBACK (on_cvs_terminated), plugin);
+	}
 	chdir (dir);
 	plugin->executing_command = TRUE;
-#ifdef DEBUG
-	g_message("CVS Executing: %s", command);
-#endif	
+
+	DEBUG_PRINT ("CVS Executing: %s", command);
+	ianjuta_message_view_append (plugin->mesg_view,
+								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+								 command, "", NULL);
+
 	anjuta_launcher_execute (plugin->launcher, command,
 							 output, plugin);
 }

@@ -190,8 +190,15 @@ anjuta_docman_save_as_file (AnjutaDocman *docman)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-								te->uri);
+	if (te->uri)
+		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
+									te->uri);
+	else if (te->filename)
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
+											te->filename);
+	else
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
+										  "");
 	gtk_widget_show (docman->priv->save_as_fileselection);
 }
 
@@ -246,7 +253,9 @@ save_as_real (AnjutaDocman *docman)
 	
 	filename = g_filename_from_uri(uri, NULL, NULL);
 	te->uri = g_strdup (uri);
-	te->filename = g_path_get_basename(filename); 
+	te->filename = g_path_get_basename(filename);
+	g_free (filename);
+	
 	status = text_editor_save_file (te, TRUE);
 	gtk_widget_hide (docman->priv->save_as_fileselection);
 	if (status == FALSE)
@@ -427,6 +436,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_window_set_modal ((GtkWindow *) docman->priv->save_as_fileselection,
 						  TRUE);
 	
+	gtk_notebook_popup_enable (GTK_NOTEBOOK (docman));
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
 	g_signal_connect (G_OBJECT(docman), "switch_page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
@@ -668,17 +678,29 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, TextEditor * te)
 					GTK_SIGNAL_FUNC (on_notebook_switch_page),
 					docman);
 	}
+/* 
 	if (te == NULL)
 	{
 		const gchar *dir = g_get_home_dir();
 		chdir (dir);
 	}
-	else if (te->uri)
+*/
+	if (te && te->uri)
 	{
-		gchar* dir;
-		dir = g_dirname (te->uri);
-		chdir (dir);
-		g_free (dir);
+		gchar *hostname;
+		gchar *filename;
+		
+		filename = g_filename_from_uri (te->uri, &hostname, NULL);
+		if (hostname == NULL && filename)
+		{
+			gchar *dir;
+			dir = g_path_get_dirname (filename);
+			if (dir)
+				chdir (dir);
+			g_free (dir);
+		}
+		g_free (hostname);
+		g_free (filename);
 	}
 	g_signal_emit_by_name (G_OBJECT (docman), "editor_changed", te);
 	return;
@@ -850,19 +872,22 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 }
 
 static void
-anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te)
+anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 {
 	GdkColor tmpcolor;
 	AnjutaDocmanPage *page;
+	gchar *basename;
+	TextEditor *te;
 	
+	te = TEXT_EDITOR (te_widget);
 	if (te == NULL)
 		return;
 
-	page = anjuta_docman_page_from_widget (docman, TEXT_EDITOR (te));
+	page = anjuta_docman_page_from_widget (docman, te);
 	if (!page || page->label == NULL)
 		return;
 	
-	if (text_editor_is_saved(TEXT_EDITOR (te)))
+	if (text_editor_is_saved(te))
 	{
 		gdk_color_parse("black",&tmpcolor);
 	}
@@ -875,6 +900,21 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te)
 	gtk_widget_modify_fg (page->label, GTK_STATE_ACTIVE, &tmpcolor);
 	gtk_widget_modify_fg (page->label, GTK_STATE_PRELIGHT, &tmpcolor);
 	gtk_widget_modify_fg (page->label, GTK_STATE_SELECTED, &tmpcolor);
+	
+	if (te->uri)
+	{
+		basename = g_path_get_basename (te->uri);
+		gtk_label_set_text (GTK_LABEL (page->label), basename);
+		gtk_notebook_set_menu_label_text(GTK_NOTEBOOK (docman), te_widget,
+										 basename);
+		g_free (basename);
+	}
+	else if (te->filename)
+	{
+		gtk_label_set_text (GTK_LABEL (page->label), te->filename);
+		gtk_notebook_set_menu_label_text(GTK_NOTEBOOK (docman), te_widget,
+										 te->filename);
+	}
 }
 
 #if 0

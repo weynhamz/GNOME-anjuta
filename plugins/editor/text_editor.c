@@ -225,6 +225,10 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 			return NULL;
 		}
 	}
+	else
+	{
+		text_editor_set_hilite_type (te);
+	}
 	// te->menu = text_editor_menu_new ();
 	text_editor_update_controls (te);
 	return GTK_WIDGET (te);
@@ -294,15 +298,27 @@ text_editor_thaw (TextEditor *te)
 void
 text_editor_set_hilite_type (TextEditor * te)
 {
-	gchar *basename;
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DISABLE_SYNTAX_HILIGHTING))
 		te->force_hilite = TE_LEXER_NONE;
 	else if (te->force_hilite == TE_LEXER_NONE)
 		te->force_hilite = TE_LEXER_AUTOMATIC;
 	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite, 0);
-	basename = g_path_get_basename (te->uri);
-	aneditor_command (te->editor_id, ANE_SETHILITE, (guint) basename, 0);
+	if (te->uri)
+	{
+		gchar *basename;
+		basename = g_path_get_basename (te->uri);
+		aneditor_command (te->editor_id, ANE_SETHILITE, (guint) basename, 0);
+		g_free (basename);
+	}
+	else if (te->filename)
+	{
+		aneditor_command (te->editor_id, ANE_SETHILITE, (guint)te->filename, 0);
+	}
+	else
+	{
+		aneditor_command (te->editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
+	}
 }
 
 void
@@ -1028,7 +1044,8 @@ save_to_file (TextEditor *te, gchar * uri)
 	gint strip;
 	gchar *data;
 
-	result = gnome_vfs_open(&vfs_write, uri, GNOME_VFS_OPEN_WRITE);
+	result = gnome_vfs_create (&vfs_write, uri, GNOME_VFS_OPEN_WRITE,
+							   FALSE, 0664);
  	if (result != GNOME_VFS_OK)
 		return FALSE;
 	nchars = scintilla_send_message (SCINTILLA (te->scintilla),
@@ -1877,8 +1894,10 @@ ifile_get_uri (IAnjutaFile *editor, GError **error)
 	text_editor = TEXT_EDITOR(editor);
 	if (text_editor->uri)
 		return g_strdup (text_editor->uri);
+/*
 	else if (text_editor->filename)
 		return gnome_vfs_get_uri_from_local_path (text_editor->filename);
+*/
 	else
 		return NULL;
 }

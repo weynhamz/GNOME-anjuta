@@ -1,3 +1,11 @@
+2004-12-05  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/anjuta-docman.c: Fixed save-as, Fixed updating tab label,
+	Fixed mem leaks. Fixed uri handling. Fixed other minor bugs.
+	
+	* plugins/cvs-plugin/plugin.c,
+	plugins/cvs-plugin/cvs-execute.c: Fixed message output appending.
+	
 2004-13-05  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
