@@ -120,14 +120,16 @@ on_co_supp_clist_select_row (GtkCList * clist,
 {
 	CompilerOptions *co = user_data;
 	co->supp_index = row;
-
-	if (event == NULL)
-		return;
-	if (event->type != GDK_2BUTTON_PRESS)
-		return;
-	if (((GdkEventButton *) event)->button != 1)
-		return;
-	co_clist_row_data_toggle_state (clist, row);
+	if (row >= 0 && g_list_length (clist->row_list) > 0)
+	{
+		if (event == NULL)
+			return;
+		if (event->type != GDK_2BUTTON_PRESS)
+			return;
+		if (((GdkEventButton *) event)->button != 1)
+			return;
+		co_clist_row_data_toggle_state (clist, row);
+	}
 }
 
 void
@@ -138,8 +140,11 @@ on_co_inc_clist_select_row (GtkCList * clist,
 	gchar *text;
 	CompilerOptions *co = user_data;
 	co->inc_index = row;
-	gtk_clist_get_text (clist, row, 0, &text);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), text);
+	if (row >= 0 && g_list_length (clist->row_list) > 0)
+	{
+		gtk_clist_get_text (clist, row, 0, &text);
+		gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), text);
+	}
 }
 
 void
@@ -150,8 +155,11 @@ on_co_lib_stock_clist_select_row (GtkCList * clist,
 {
 	gchar *text;
 	CompilerOptions *co = user_data;
-	gtk_clist_get_text (clist, row, 0, &text);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), text);
+	if (row >= 0 && g_list_length (clist->row_list) > 0)
+	{
+		gtk_clist_get_text (clist, row, 0, &text);
+		gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), text);
+	}
 }
 
 void
@@ -162,16 +170,18 @@ on_co_lib_clist_select_row (GtkCList * clist,
 	gchar *text;
 	CompilerOptions *co = user_data;
 	co->lib_index = row;
-	gtk_clist_get_text (clist, row, 1, &text);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), text);
-
-	if (event == NULL)
-		return;
-	if (event->type != GDK_2BUTTON_PRESS)
-		return;
-	if (((GdkEventButton *) event)->button != 1)
-		return;
-	co_clist_row_data_toggle_state (clist, row);
+	if (row >= 0 && g_list_length (clist->row_list) > 0)
+	{
+		gtk_clist_get_text (clist, row, 1, &text);
+		gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), text);
+		if (event == NULL)
+			return;
+		if (event->type != GDK_2BUTTON_PRESS)
+			return;
+		if (((GdkEventButton *) event)->button != 1)
+			return;
+		co_clist_row_data_toggle_state (clist, row);
+	}
 }
 
 void
@@ -183,8 +193,11 @@ on_co_lib_paths_clist_select_row (GtkCList * clist,
 	gchar *text;
 	CompilerOptions *co = user_data;
 	co->lib_paths_index = row;
-	gtk_clist_get_text (clist, row, 0, &text);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), text);
+	if (row >= 0 && g_list_length (clist->row_list) > 0)
+	{
+		gtk_clist_get_text (clist, row, 0, &text);
+		gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), text);
+	}
 }
 
 void
@@ -195,8 +208,11 @@ on_co_def_clist_select_row (GtkCList * clist,
 	gchar *text;
 	CompilerOptions *co = user_data;
 	co->def_index = row;
-	gtk_clist_get_text (clist, row, 0, &text);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), text);
+	if (row >= 0 && g_list_length (clist->row_list) > 0)
+	{
+		gtk_clist_get_text (clist, row, 0, &text);
+		gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), text);
+	}
 }
 
 void
