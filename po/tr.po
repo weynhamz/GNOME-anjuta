@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: M.Ali Vardar <ali@gelecek.com.tr>\n"
 "Language-Team: GNOME Turk <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=tr\n"
+"Content-Type: text/plain; charset=iso-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/anjuta_cbs.c:128
