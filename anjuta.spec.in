@@ -4,7 +4,7 @@
 %define	serial		1
 %define	prefix		/usr
 
-Summary:	Linux IDE for C and C++
+Summary:	GNOME IDE for C and C++
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -20,13 +20,13 @@ Requires:	glib >= 1.2.8, gtk+ >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1
 BuildRequires:	glib-devel >= 1.2.8, gtk+-devel >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1.4, libxml >= 1.4.0, libxml < 2.0.0, libxml-devel, ORBit >= 0.5.0, ORBit-devel
 
 Distribution:	Any
-Packager:	Naba kumar <kh_naba@yahoo.com>
+Packager:	Naba Kumar <kh_naba@users.sourceforge.net>
 
 %description
-Anjuta is a versatile Integrated Development Environment (IDE) for C and C++ 
-on GNU/Linux. It has been written for GTK/GNOME, and features a number of 
-advanced programming features. It is basically a GUI interface for the 
-collection of command line programming utilities and tools available for Linux. 
+Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
+It has been written for GTK/GNOME, and features a number of advanced 
+programming facilities. It is basically a GUI interface for the collection 
+of command line programming utilities and tools available for the GNU system. 
 These are usually run via a text console, and can be unfriendly to use.
 
 %prep
