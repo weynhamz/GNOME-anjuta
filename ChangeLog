@@ -4,6 +4,8 @@
 
 	* data/welcome.txt: bumped version to 0.1.6.
 
+	* src/anjuta.c: fixed a compilation error due to devhelp integration.
+
 
 2001-08-06  Naba Kumar <kh_naba@users.sourceforge.net>
 	

@@ -1495,7 +1495,7 @@ anjuta_fill_windows_menu ()
 					sep);
 		for (i = (count - 1); i >= 0; i--)
 		{
-			TextEditor
+			TextEditor *te;
 			te = g_list_nth_data (app->text_editor_list, i);
 			wininfo[0].label = te->filename;
 			if (te == NULL)
