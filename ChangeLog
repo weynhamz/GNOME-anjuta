@@ -11,6 +11,9 @@
 	* src/source.c: Installs .glade file of libgllade
 	projects in $(datadir)/$(package)/glade (part of bug #861038).
 	
+	* src/compiler_options.c: Fixed 'remove' and 'clear' of Defines list
+	in compiler options (bug #883837).
+	
 2004-03-29  Pavol Bosik <Pavol.Bosik@siemens.com>
 
 	* anjuta/src/search-replace.c: fixed another crash bug in

@@ -1160,12 +1160,12 @@ void create_compiler_options_gui (CompilerOptions *co)
 						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
 												  DEF_DEFINE_COLUMN));
-	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_remove_b");
+	button = glade_xml_get_widget (co->priv->gxml, "def_remove_b");
 	BUTTON_SIGNAL_CONNECT (button, on_remove_from_clist_clicked,
 						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
 												  DEF_DEFINE_COLUMN));
-	button = glade_xml_get_widget (co->priv->gxml, "lib_paths_clear_b");
+	button = glade_xml_get_widget (co->priv->gxml, "def_clear_b");
 	BUTTON_SIGNAL_CONNECT (button, on_clear_clist_clicked,
 						   entry_signal_info_new (co, co->priv->widgets.def_clist,
 						   						  co->priv->widgets.def_entry,
