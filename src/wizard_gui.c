@@ -526,7 +526,8 @@ create_project_menu_page (GnomeDruid * druid,
 			  GtkWidget ** app_group_combo,
 			  GtkWidget ** term_check,
 			  GtkWidget ** file_header_support,
-			  GtkWidget ** gettext_support_check)
+			  GtkWidget ** gettext_support_check,
+			  GtkWidget ** use_glade_check)
 {
 	GtkWidget *frame;
 	GtkWidget *vbox1;
@@ -536,7 +537,8 @@ create_project_menu_page (GnomeDruid * druid,
 	GtkWidget *frame4;
 	GtkWidget *gpl_checkbutton;
 	GtkWidget *gettext_support_checkbutton;
-
+	GtkWidget *use_glade_checkbutton;
+	
 	GtkWidget *frame1;
 	GtkWidget *table1;
 	GtkWidget *label;
@@ -633,6 +635,14 @@ create_project_menu_page (GnomeDruid * druid,
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (gettext_support_checkbutton), TRUE);
 
+	use_glade_checkbutton =
+		gtk_check_button_new_with_label (_("Generate source code using glade or glademm"));
+	gtk_widget_show (use_glade_checkbutton);
+	gtk_box_pack_start (GTK_BOX (vbox2), use_glade_checkbutton,
+			    TRUE, TRUE, 0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (use_glade_checkbutton), TRUE);
+
 	frame1 = gtk_frame_new (_("GNOME Menu Entry"));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
@@ -715,6 +725,7 @@ create_project_menu_page (GnomeDruid * druid,
 	*app_group_combo = combo1;
 	*app_group_box = combo_entry1;
 	*term_check = checkbutton1;
+	*use_glade_check = use_glade_checkbutton;
 
 	return page;
 }

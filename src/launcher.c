@@ -788,7 +788,7 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 	GIOStatus s;
 	gboolean r = TRUE;
 
-	g_return_if_fail (launcher != NULL);
+	g_return_val_if_fail (launcher != NULL, FALSE);
 	// charset can be NULL
 
 	s = g_io_channel_set_encoding (launcher->priv->stderr_channel, charset, NULL);
@@ -809,7 +809,7 @@ static pid_t
 anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 {
 	char *working_dir;
-	int pty_master_fd, pty_slave_fd, md;
+	int pty_master_fd, md;
 	int stdout_pipe[2], stderr_pipe[2]/*, stdin_pipe[2]*/;
 	pid_t child_pid;
 	struct termios termios_flags;

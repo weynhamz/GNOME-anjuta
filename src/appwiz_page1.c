@@ -73,6 +73,14 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
     aw->prj_type = PROJECT_TYPE_END_MARK;
     break;
   }
+  if (aw->prj_type == PROJECT_TYPE_GTK2 ||
+	  aw->prj_type == PROJECT_TYPE_GNOME2 ||
+	  aw->prj_type == PROJECT_TYPE_GTKMM2 ||
+	  aw->prj_type == PROJECT_TYPE_GNOMEMM2 ||
+	  aw->prj_type == PROJECT_TYPE_BONOBO2)
+	  gtk_widget_set_sensitive (aw->widgets.use_glade_check, TRUE);
+  else
+	  gtk_widget_set_sensitive (aw->widgets.use_glade_check, FALSE);
 }
 
 void

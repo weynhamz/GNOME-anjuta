@@ -175,7 +175,8 @@ create_new_project (AppWizard * aw)
 	an_message_manager_append (app->messages,
 								   _("Generating source codes ...\n"),
 								   MESSAGE_BUILD);
-	if (project_dbase_generate_source_code (app->project_dbase)==FALSE)
+	if (project_dbase_generate_source_code (app->project_dbase,
+											aw->use_glade)==FALSE)
 		return FALSE;
 	
 	/* Creating icon pixmap file for gnome projects */

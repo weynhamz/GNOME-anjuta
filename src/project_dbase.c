@@ -1579,7 +1579,7 @@ project_dbase_edit_gui (ProjectDBase *p)
 }
 
 gboolean
-project_dbase_generate_source_code (ProjectDBase *p)
+project_dbase_generate_source_code (ProjectDBase *p, gboolean use_glade)
 {
 	gchar *filename, *prj_name;
 	gboolean ret;
@@ -1635,7 +1635,8 @@ project_dbase_generate_source_code (ProjectDBase *p)
 			ret = source_write_libglade_main_c (p);
 		else if (type->id == PROJECT_TYPE_LIBGLADE2)
 			ret = source_write_libglade2_main_c (p);
-		else if ((ret = glade_iface_generate_source_code (filename)) == FALSE)
+		else if ((use_glade) == FALSE ||
+				 ((ret = glade_iface_generate_source_code (filename)) == FALSE))
 			ret = source_write_generic_main_c (p);
 	}
 	g_free (filename);

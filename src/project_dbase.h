@@ -212,7 +212,7 @@ gboolean project_dbase_edit_gui (ProjectDBase *p);
 gboolean project_dbase_summon_glade (ProjectDBase *p);
 
 /* Write source code from glade file */
-gboolean project_dbase_generate_source_code (ProjectDBase *p);
+gboolean project_dbase_generate_source_code (ProjectDBase *p, gboolean use_glade);
 
 /* Name of the project */
 /* Free the returned string when not required */

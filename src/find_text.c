@@ -130,7 +130,6 @@ on_find_text_dialog_response (GtkDialog *dialog, gint response,
 	gchar buff[512];
 	gint ret;
 	FindText *ft = user_data;
-	gboolean radio0, radio1, state;
 
 	if (response == GTK_RESPONSE_HELP)
 		return;

@@ -60,7 +60,6 @@ on_signals_send_activate            (GtkMenuItem     *menuitem,
                                      gpointer         user_data)
 {
   Signals *s = debugger.signals;
-  gchar* msg;
   gchar* sig;
 
   if (debugger_is_active() == FALSE) return;

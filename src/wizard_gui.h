@@ -53,7 +53,8 @@ GtkWidget *create_project_menu_page (GnomeDruid * druid,
 				     GtkWidget ** app_group_combo,
 				     GtkWidget ** term_check,
 				     GtkWidget ** file_header_support,
-				     GtkWidget ** gettext_support_check);
+				     GtkWidget ** gettext_support_check,
+					 GtkWidget ** use_glade_check);
 
 GtkWidget *create_project_finish_page (GnomeDruid * druid);
 

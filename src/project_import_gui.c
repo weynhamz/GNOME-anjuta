@@ -290,6 +290,8 @@ create_import_wizard_page5 (ProjectImportWizard * piw)
 
 void create_import_wizard_page6 (ProjectImportWizard * piw)
 {
+	GtkWidget *dummy_check;
+	
 	piw->widgets.page[5] = create_project_menu_page (GNOME_DRUID(piw->widgets.druid),
 			&piw->widgets.menu_frame,
 			&piw->widgets.menu_entry_entry,
@@ -299,7 +301,9 @@ void create_import_wizard_page6 (ProjectImportWizard * piw)
 			&piw->widgets.app_group_entry,
 			&piw->widgets.term_check,
 			&piw->widgets.file_header_check,
-			&piw->widgets.gettext_support_check);
+			&piw->widgets.gettext_support_check,
+			&dummy_check);
+	gtk_widget_set_sensitive (dummy_check, FALSE);
 	
 	g_signal_connect (G_OBJECT (piw->widgets.menu_entry_entry), "changed",
 			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_menu_entry);

@@ -1,3 +1,16 @@
+2003-11-27  Naba Kumar  <naba@gnome.org>
+
+	* src/breakpoints.c, src/launcher.c, src/find_text.c,
+	src/test_editor_cbs.c, src/signals_cbs.c: Fixed compiler warnings.
+	
+	* src/appwiz_page1.c, src/appwiz_page4.c, src/appwizard.[c,h],
+	src/appwizard_gui.c, src/gnome_project.c, src/project_dbase.[c,h],
+	src/project_import_gui.c, src/wizard_gui.[c,h]: Implemented a
+	checkbox in project wizard (project options page) to enable/disable
+	source code generation with glade(mm).
+	
+	* NEWS: Updated
+	
 2003-11-19  Pavol Bosik  <Pavol.Bosik@siemens.com>
 
 	* src/dnd.c: Opening files with special characters in the name.

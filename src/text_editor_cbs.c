@@ -192,7 +192,7 @@ gboolean on_text_editor_auto_save (gpointer data)
 
 gboolean timerclick = FALSE;
 
-gboolean
+static gboolean
 click_timeout (gpointer line)
 {	
 	/*  If not second clic after timeout : Single Click  */
