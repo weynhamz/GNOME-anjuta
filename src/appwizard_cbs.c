@@ -222,7 +222,7 @@ error_down:
 			 ("Invalid %s field:\nYou must supply a valid %s field to proceed further."),
 			 error_mesg[error_no - 1],
 			 error_mesg[error_no - 1]);
-		anjuta_error (buffer);
+		anjuta_error_parented (aw->widgets.window, buffer);
 		return TRUE;
 	}
 	return FALSE;

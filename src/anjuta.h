@@ -237,6 +237,11 @@ void anjuta_status (gchar * mesg, ...);
 void anjuta_warning (gchar * mesg, ...);
 void anjuta_error (gchar * mesg, ...);
 void anjuta_system_error (gint errornum, gchar * mesg, ...);
+
+void anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...);
+void anjuta_error_parented (GtkWidget* parent, gchar * mesg, ...);
+void anjuta_system_error_parented (GtkWidget* parent, gint errornum, gchar * mesg, ...);
+
 void anjuta_set_busy (void);
 void anjuta_set_active (void);
 gboolean anjuta_set_auto_gtk_update (gboolean auto_flag);

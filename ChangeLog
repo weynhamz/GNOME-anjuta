@@ -1,3 +1,11 @@
+2002-06-04  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.h, src/anjuta.c: Added error display funtions
+	with parent windows.
+	
+	* src/appwizard_cbs.c: Changed error display function to use
+	parented version.
+	
 2002-06-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* printing/print.h, printing/printing.c: Taken care of document
@@ -9,7 +17,7 @@
 	* src/anjuta.c, src/mainmenu_callbacks.c, *src/preferences.c:
 	src/preferences.h, src/text_editor.c, src/preferences_gui.c:
 	Converted text.zoom.factor property to use #defined value. Removed
-	margin header and margin numbers preferences, as they is now
+	margin header and margin numbers preferences, as they  now
 	calculated dynamically.
 	
 2002-06-02  Naba Kumar <kh_naba@users.sourceforge.net>

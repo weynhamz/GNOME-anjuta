@@ -1350,6 +1350,65 @@ anjuta_status (gchar * mesg, ...)
 }
 
 void
+anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...)
+{
+	gchar* message;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	if (parent)
+		gnome_error_dialog_parented (message, GTK_WINDOW(parent));
+	else
+		gnome_error_dialog_parented (message, GTK_WINDOW(app->widgets.window));
+	g_free (message);
+}
+
+void
+anjuta_error_parented (GtkWidget* parent, gchar * mesg, ... )
+{
+	gchar* message;
+	gchar* str;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+	str = g_strconcat (_("ERROR: "), message, NULL);
+	if (parent)
+		gnome_error_dialog_parented (str, GTK_WINDOW(parent));
+	else
+		gnome_error_dialog_parented (str, GTK_WINDOW(app->widgets.window));
+	g_free (message);
+	g_free (str);
+}
+
+void
+anjuta_system_error_parented (GtkWidget* parent, gint errnum, gchar * mesg, ... )
+{
+	gchar* message;
+	gchar* tot_mesg;
+	va_list args;
+
+	va_start (args, mesg);
+	message = g_strdup_vprintf (mesg, args);
+	va_end (args);
+
+	if (0 != errnum) {
+		tot_mesg = g_strconcat (message, _("\nSystem: "), g_strerror(errnum), NULL);
+		g_free (message);
+	} else
+		tot_mesg = message;
+
+	if (parent)
+		gnome_error_dialog_parented (tot_mesg, GTK_WINDOW(parent));
+	else
+		gnome_error_dialog_parented (tot_mesg, GTK_WINDOW(app->widgets.window));
+	g_free (tot_mesg);
+}
+
+void
 anjuta_warning (gchar * mesg, ...)
 {
 	gchar* message;
@@ -1358,7 +1417,7 @@ anjuta_warning (gchar * mesg, ...)
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	gnome_app_warning (GNOME_APP (app->widgets.window), message);
+	gnome_error_dialog_parented (message, GTK_WINDOW(app->widgets.window));
 	g_free (message);
 }
 
@@ -1373,7 +1432,7 @@ anjuta_error (gchar * mesg, ... )
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
 	str = g_strconcat (_("ERROR: "), message, NULL);
-	gnome_app_error (GNOME_APP (app->widgets.window), str);
+	gnome_error_dialog_parented (str, GTK_WINDOW(app->widgets.window));
 	g_free (message);
 	g_free (str);
 }
@@ -1395,7 +1454,7 @@ anjuta_system_error (gint errnum, gchar * mesg, ... )
 	} else
 		tot_mesg = message;
 
-	gnome_app_error (GNOME_APP (app->widgets.window), tot_mesg);
+	gnome_error_dialog_parented (tot_mesg, GTK_WINDOW(app->widgets.window));
 	g_free (tot_mesg);
 }
 
