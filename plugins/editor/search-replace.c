@@ -385,6 +385,8 @@ search_and_replace (void)
 						if (NULL == fb->te)
 						{
 							// FIXME: fb->te = anjuta_goto_file_line(fb->path, mi->line);
+							fb->te = anjuta_docman_goto_file_line (sr->docman, 
+											fb->path, mi->line);
 						}
 						if (fb->te)
 						{
@@ -397,6 +399,8 @@ search_and_replace (void)
 					case SA_SELECT:
 						if (NULL == fb->te)
 							// FIXME: fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
+							fb->te = anjuta_docman_goto_file_line (sr->docman, 
+											fb->path, mi->line+1);
 						scintilla_send_message(SCINTILLA(
 						  fb->te->scintilla), SCI_SETSEL, mi->pos
 						  , (mi->pos + mi->len));
@@ -416,6 +420,8 @@ search_and_replace (void)
 						{
 							if (NULL == fb->te)
 								// FIXME: fb->te = anjuta_goto_file_line(fb->path, mi->line+1);
+								fb->te = anjuta_docman_goto_file_line (sr->docman, 
+											fb->path, mi->line+1);
 							scintilla_send_message(SCINTILLA(
 						  		fb->te->scintilla), SCI_SETSEL,
 								mi->pos - offset, mi->pos - offset + mi->len);
