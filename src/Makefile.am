@@ -234,7 +234,5 @@ anjuta_LDADD =  \
 	$(top_srcdir)/widgets/libwidgets.a\
 	$(SCILEXERS)
 
-anjuta_LDFLAGS = -lxml -ldmalloc
-
 echo-includes:
 	echo $(EXTRA_GNOME_CFLAGS)

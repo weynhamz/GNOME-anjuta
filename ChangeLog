@@ -14,6 +14,8 @@
 	  
 	  Changed Glade summon with ALT+G, which frees the ATL+E
 	  for poping up the edit menu.
+	  
+	* src/Makefile.am: Debugging link flags by Biswa, removed.
 
 2002-01-28	Andy Piper	<andy.piper@freeuk.com>
 
