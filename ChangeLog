@@ -1,3 +1,20 @@
+2002-04-16 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/launcher.c: Added work around to retrieve
+	the child exit code. It works. :)
+	
+	* src/find_in_files.c, src/gnome_project.c,
+	src/project_import.c, src/cvs.c, src/configure.c, src/compile.c,
+	src/clean.c, src/clean_project.c, src/build_project.c,
+	src/build_file.c: Modified to hadle the new
+	child exit code.
+	
+2002-04-15 Dan Elphick <dre00r@ecs.soton.ac.uk>
+ 
+ 	* src/find_replace.c: Changed signal to call
+ 	on_replace_text_close on from delete_event
+ 	to close => the replace history is now updated.
+ 
 2002-04-15 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/cvs.c: escaped the cvs import message before

@@ -96,7 +96,7 @@ clean_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Cleaning completed...............Unsuccessful\n"),
@@ -176,7 +176,7 @@ clean_all_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Clean All completed...............Unsuccessful\n"),

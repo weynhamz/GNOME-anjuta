@@ -304,7 +304,7 @@ build_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _
@@ -336,7 +336,7 @@ build_all_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _
@@ -368,7 +368,7 @@ build_dist_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Build Distribution completed...............Unsuccessful\n"),
@@ -402,7 +402,7 @@ build_install_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Install completed...............Unsuccessful\n"),
@@ -433,7 +433,7 @@ build_autogen_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Auto generation completed...............Unsuccessful\n"),

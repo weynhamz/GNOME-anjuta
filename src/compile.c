@@ -174,7 +174,7 @@ compile_terminated (int status, time_t time)
 {
 	gchar *buff1;
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Compile completed ... unsuccessful"),

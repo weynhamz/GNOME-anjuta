@@ -230,7 +230,7 @@ new_prj_mesg_arrived (gchar * mesg)
 static void
 new_prj_terminated (int status, time_t t)
 {
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 			_("Auto generation completed...............Unsuccessful\n"),

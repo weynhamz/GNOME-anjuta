@@ -43,13 +43,13 @@
 #define DEBUG
 
 static void to_terminal_child_terminated (GtkWidget* term, gpointer data);
-static void to_launcher_child_terminated (int status, gpointer data);
 static gint launcher_poll_inputs_on_idle (gpointer data);
 static gboolean launcher_execution_done (gpointer data);
 static void launcher_set_busy (gboolean flag);
 
 static void launcher_send_ptyin (gchar * input_str);
 static void launcher_pty_check_password(gchar* buffer);
+static gboolean launcher_pty_check_child_exit_code (gchar* line);
 static GtkWidget* create_password_dialog (gchar* prompt);
 
 /************************************************************
@@ -75,6 +75,7 @@ struct				/* Launcher */
 /* These flags are used to synchronize the IO operations. */
   gboolean stdout_is_done;
   gboolean stderr_is_done;
+  gboolean pty_is_done;
   gboolean child_has_terminated;
 
 /* Child's stdin, stdout and stderr pipes */
@@ -180,12 +181,33 @@ launcher_scan_pty()
 	  if (end > start) {
 		  last_line = g_strndup(&chars[start], end-start+1);
 		  launcher_pty_check_password(last_line);
+		  launcher.pty_is_done = launcher_pty_check_child_exit_code(last_line);
 		  g_free(last_line);
 	  }
 	  launcher.char_pos = strlen(chars);
 	  g_free(chars);
    }
 };
+
+static gint launcher_poll_inputs_on_idle (gpointer data)
+{
+  gboolean ret;
+  ret = FALSE;
+  if (launcher.stderr_is_done == FALSE) {
+    launcher_scan_error ();
+    ret = TRUE;
+  }
+  if (launcher.stdout_is_done == FALSE) {
+    launcher_scan_output ();
+    ret = TRUE;
+  }
+  if (launcher.pty_is_done == FALSE) {
+	launcher_scan_pty();
+	ret = TRUE;
+  }
+  
+  return ret;
+}
 
 void
 launcher_send_stdin (gchar * input_str)
@@ -218,6 +240,14 @@ launcher_signal (int sig)
 	zvt_term_killchild(ZVT_TERM(launcher.terminal), sig);
 }
 
+pid_t launcher_get_child_pid ()
+{
+  if (launcher_is_busy ())
+    return launcher.child_pid;
+  else
+    return -1;
+}
+
 gboolean
 launcher_execute (gchar * command_str,
 		  void (*so_line_arrived) (gchar *),
@@ -244,8 +274,10 @@ launcher_execute (gchar * command_str,
 
   launcher.start_time = time (NULL);
   launcher.child_has_terminated = FALSE;
+  launcher.child_status = 0;
   launcher.stdout_is_done = FALSE;
   launcher.stderr_is_done = FALSE;
+  launcher.pty_is_done = FALSE;
   
   launcher.char_pos = 1;
 
@@ -260,6 +292,7 @@ launcher_execute (gchar * command_str,
 		ZVT_TERM_DO_UTMP_LOG | ZVT_TERM_DO_WTMP_LOG);
   if (launcher.child_pid == 0)
   {
+    gchar *total_cmd;
     close (2);
     dup (launcher.stderr_pipe[1]);
     close (1);
@@ -279,16 +312,13 @@ launcher_execute (gchar * command_str,
 	if ((md = fcntl (launcher.stderr_pipe[1], F_GETFL)) != -1)
 		fcntl (launcher.stderr_pipe[1], F_SETFL, O_SYNC | md);
   
-    execlp (shell, shell, "-c", command_str, NULL);
+	/* This is a quick hack to get the child's exit code */
+	/* Don't complain!! */
+	total_cmd = g_strconcat(command_str, "; echo \\(Child exit code: $?\\) > /dev/tty", NULL);
+	
+	execlp (shell, shell, "-c", total_cmd, NULL);
     g_error (_("Cannot execute command shell"));
   }
-  /* FIXME: SIGCHLD is not being called here. It seems
-   * ptyfork is spawning the child as a separate process group.
-   * Becuase of this, the child's exit status could not be
-   * determined.
-  */
-  anjuta_register_child_process (launcher.child_pid,
-				 to_launcher_child_terminated, NULL);
 
   close (launcher.stderr_pipe[1]);
   close (launcher.stdout_pipe[1]);
@@ -308,69 +338,29 @@ launcher_execute (gchar * command_str,
   return TRUE;
 }
 
-static gint launcher_poll_inputs_on_idle (gpointer data)
-{
-  gboolean ret;
-  ret = FALSE;
-  if (launcher.stderr_is_done == FALSE)
-  {
-    launcher_scan_error ();
-    ret = TRUE;
-  }
-  if (launcher.stdout_is_done == FALSE)
-  {
-    launcher_scan_output ();
-    ret = TRUE;
-  }
-  
-  if (launcher.child_has_terminated == FALSE && ret == TRUE)
-	  launcher_scan_pty();
-  
-  if (ret == FALSE)
-  {
-    close (launcher.stdout_pipe[0]);
-    close (launcher.stderr_pipe[0]);
-  }
-  return ret;
-}
-
-pid_t launcher_get_child_pid ()
-{
-  if (launcher_is_busy ())
-    return launcher.child_pid;
-  else
-    return -1;
-}
-
 static void
 to_terminal_child_terminated (GtkWidget* term, gpointer data)
 {
 #ifdef DEBUG	
 	printf("Terminal child terminated called\n");
 #endif
-	close (launcher.stdin_pipe[1]);
 	
-	/* FIXME: How do we know the child's exit
-	 * status here??
-	 */
-	launcher.child_status = 0;
 	launcher.child_has_terminated = TRUE;
 	launcher.idle_id = gtk_idle_add (launcher_execution_done, NULL);
-}
-
-static void
-to_launcher_child_terminated (int status, gpointer data)
-{
-  /* This function is no longer being called */
-  printf("Launcher child terminated called\n");
 }
 
 static gboolean
 launcher_execution_done (gpointer data)
 {
-  if (launcher.stdout_is_done == FALSE || launcher.stderr_is_done == FALSE)
+  if (launcher.stdout_is_done == FALSE ||
+	  launcher.stderr_is_done == FALSE ||
+	  launcher.pty_is_done == FALSE)
     return TRUE; 
   
+  close (launcher.stdin_pipe[1]);
+  close (launcher.stdout_pipe[0]);
+  close (launcher.stderr_pipe[0]);
+	
   zvt_term_closepty(ZVT_TERM(launcher.terminal));
   zvt_term_reset(ZVT_TERM(launcher.terminal), 1);
   gtk_widget_destroy(launcher.terminal);
@@ -379,10 +369,91 @@ launcher_execution_done (gpointer data)
   /* Call this here, after set_busy(FALSE)so we are able to 
 	 launch a new child from the terminate function.
 	 (by clubfan 2002-04-07) */
+#ifdef DEBUG
+  g_print("Exit status: %d\n", launcher.child_status);
+#endif
   if (launcher.child_terminated)
     (*(launcher.child_terminated)) (launcher.child_status, time (NULL) - launcher.start_time);
   
   return FALSE;
+}
+
+static gboolean
+launcher_pty_check_child_exit_code (gchar* line)
+{
+	gboolean ret;
+	gboolean exit_code;
+	gchar* prompt = "(Child exit code: ";
+
+#ifdef DEBUG
+	g_print ("Child exit code called: %s\n", line);
+#endif
+	
+	if (!line) return FALSE;
+	if (strlen(line) <= (strlen(prompt)+1)) return FALSE;
+	
+	ret = FALSE;
+	if (strncmp(line, prompt, strlen(prompt)) == 0) {
+		gchar *ascii_str = g_strdup(&line[strlen(prompt)]);
+		gchar *ptr = strstr(ascii_str, ")");
+		if (ptr) {
+			*ptr = '\0';
+			exit_code = atoi(ascii_str);
+			launcher.child_status = exit_code;
+#ifdef DEBUG
+			g_print ("Exit code: %d\n", exit_code);
+#endif
+			ret = TRUE;
+		}
+		g_free(ascii_str);
+	}
+	return ret;
+}
+
+/* pty buffer check for password authentication */
+static void
+launcher_pty_check_password(gchar* last_line)
+{
+	gchar *prompt = "assword: ";
+	gchar *prompt_index;
+	
+	if (launcher_is_busy() == FALSE) return;
+	
+	if (last_line) {
+#ifdef DEBUG
+		printf("%s\n", last_line);
+#endif
+		if (strlen(last_line) < strlen(prompt))
+			return;
+		prompt_index = &last_line[strlen(last_line) - strlen(prompt)];
+		if (strcasecmp(prompt_index, prompt) == 0) {
+			/* Password prompt detected */
+			GtkWidget* dialog;
+			gint button;
+			gchar* passwd;
+			gchar* line;
+			
+			dialog = create_password_dialog(last_line);
+			button = gnome_dialog_run(GNOME_DIALOG(dialog));
+			switch(button) {
+				case 0:
+					passwd = gtk_entry_get_text(
+						GTK_ENTRY(gtk_object_get_data(GTK_OBJECT(dialog),
+									"password_entry")));
+					line = g_strconcat(passwd, "\n", NULL);
+					launcher_send_ptyin(line);
+					g_free(line);
+					break;
+				case 1:
+					launcher_send_ptyin("<canceled>\n");
+					launcher_reset();
+					break;
+				default:
+					break;
+			}
+			gtk_widget_destroy(dialog);
+		}
+	}
 }
 
 /* Password dialog */
@@ -444,50 +515,4 @@ create_password_dialog (gchar* prompt)
 	gtk_widget_grab_focus(entry);
 	
 	return dialog;
-}
-
-/* pty buffer check for password authentication */
-static void
-launcher_pty_check_password(gchar* last_line)
-{
-	gchar *prompt = "assword: ";
-	gchar *prompt_index;
-	
-	if (launcher_is_busy() == FALSE) return;
-	
-	if (last_line) {
-#ifdef DEBUG
-		printf("%s\n", last_line);
-#endif
-		if (strlen(last_line) < strlen(prompt))
-			return;
-		prompt_index = &last_line[strlen(last_line) - strlen(prompt)];
-		if (strcasecmp(prompt_index, prompt) == 0) {
-			/* Password prompt detected */
-			GtkWidget* dialog;
-			gint button;
-			gchar* passwd;
-			gchar* line;
-			
-			dialog = create_password_dialog(last_line);
-			button = gnome_dialog_run(GNOME_DIALOG(dialog));
-			switch(button) {
-				case 0:
-					passwd = gtk_entry_get_text(
-						GTK_ENTRY(gtk_object_get_data(GTK_OBJECT(dialog),
-									"password_entry")));
-					line = g_strconcat(passwd, "\n", NULL);
-					launcher_send_ptyin(line);
-					g_free(line);
-					break;
-				case 1:
-					launcher_send_ptyin("<canceled>\n");
-					launcher_reset();
-					break;
-				default:
-					break;
-			}
-			gtk_widget_destroy(dialog);
-		}
-	}
 }

@@ -661,7 +661,7 @@ static void
 on_cvs_terminate (int status, time_t time)
 {
 	gchar *buff;
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 					       _

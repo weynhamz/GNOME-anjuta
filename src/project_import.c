@@ -137,7 +137,7 @@ project_import_terminated (int status, time_t time)
 	gtk_timeout_remove (timer);
 	anjuta_update_app_status (TRUE, NULL);
 
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 					       _

@@ -129,7 +129,7 @@ build_file_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (int) time);
-	if (WEXITSTATUS (status))
+	if (status)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _("Build completed ... unsuccessful\n"),
