@@ -28,7 +28,7 @@
 #include "resources.h"
 
 AnjutaDirs*
-anjuta_dirs_new()
+anjuta_dir_new()
 {
 	AnjutaDirs *ad;
 	ad = g_malloc (sizeof (AnjutaDirs));

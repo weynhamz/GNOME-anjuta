@@ -1,27 +1,42 @@
 This document is the roadmap for future development of anjuta.
 
 Introduction:
-------------
+-------------
+Over the years, the anjuta codebase has exploded in size and complexity due to
+the addition of a large number of features. The time has come to clean it up
+before it is too late. Basicallt, we need to gradually move our codebase to
+a more manageble level by refactoring.
 
+Roughly, the idea is to divide the code into a shell and a set of components.
+The shell should be a basic workable IDE along with a set of APIs which are
+exposed so that components can be effectively written to extend the IDE.
+
+Anjuta branches:
+----------------
 Anjuta currently has two main branches, ANJUTA_1_0_0 and HEAD. The ANJUTA_1_0_0
 branch is for GNOME 1.x and is currently considered to be the stable branch. The
 HEAD branch is used for GNOME 2.x and is currently in pre-alpha stage. However,
 it is mostly usable and compiles and works on a standard GNOME 2.2 install, with
-the added dependency for ZVT.
+the added dependency for ZVT (slated to be replaced by VTE before 1.2.0)
 
-About anjuta2 merge:
---------------------
-
+About Anjuta2:
+--------------
 The said anjuta2 merge never happened, and seems unlikely to happen in the short
-term. So, instead, of dropping the anjuta codebase altogether, we should aim at
+term. This is because the architectural differences between the projects is so
+significant that moving code from one to another without an almost-total rewrite
+is virtually impossible.
+
+So, instead of dropping the anjuta codebase altogether, we should aim at
 refactoring of the codebase by reusing the best bits of anjuta2, esp. the ideas
 from the plugin architecture. However, this should be done in a way so that most
 of the existing codebase can be reused, which is not possible with a complete
 move to the anjuta2 framework.
 
-Roadmap for future development:
--------------------------------
+If we can do this effectively and cleanly, it will be possible in the long term
+to have more core reuse with the Anjuta2 project.
 
+Branching proposal:
+-------------------
 It is proposed that HEAD be branched at this point to create a gnome-2-2 branch.
 This branch should contain continued porting efforts and aim for an alpha release
 somewhere in the soming month (April/May 2003). Mostly, remaining work consists
@@ -29,47 +44,97 @@ of:
 	1. Porting stable branch fixes over to HEAD.
 	2. Removing use fo deprecated widgets in message manager, etc.
 	3. Stabilization and bugfixes.
-Naba will be responsible for this branch.
+	4. Wean away ZVT dependency from launcher.
+	5. Adding other small demanded features.
 
 Subsequent to this branch, HEAD should be used for code refactoring,
-reorganization and gradual move to a new plugin based architecture. For this,
-the following are the main things that need to be done.
+reorganization and gradual move to a new plugin based architecture.
 
-1. Shell:
----------
-The first step towards code cleanup is to cleanup the shell. Currently, the 
-shell code is scattered over a latge number of files, namely:
-	src/anjuta*.*
-	src/mainmenu*.*
-	src/toolbar.*
-	src/controls.*
-	src/utilities.*
-	src/splash.*
-	src/message_manager*.*
-	src/project*.* (Project management)
+Current source structure:
+-------------------------
+In the current codebase, there is no concept of a shell and most functionality
+is implemented directory inside the main source (src) directory. Here is a
+rough division of functionality vs. files in the current codebase:
+	printing/: Printing support for the scintilla widget.
+	scintilla/, src/aneditor.*, src/lexer.h, src/text_editor*.*,
+	src/goto_line.*, : The scintilla editing component
+	scintilla/Lex*.*: Lexers for scintilla (for highliting)
+	src/anjuta*.*, src/mainmenu*.*, src/controls.*, src/toolbar*.*,
+	src/resources.*, src/utilities.*, src/widget-registry.*, src/dnd.*,
+	src/windows-dialog.*, src/about.*, src/compat*.*, src/getline.c,
+	src/global.h, src/main.c, src/main_menubar*.*: Shell and utilities
+	src/find*.*, src/search-replace.*: Search and replace
+	plugins/, anjuta-plugins.*: A limited plugins system
+	src/launcher.*, launcher/: Controlled command execution
+	src/message*.*: Messages dockwindow at the bottom
+	src/project*.*: Project management
+	src/cvs*.*: CVS support
+	src/debug*.*, src/breakpoints.*, src/watch*.*, src/attach*.*,
+	src/memory.*, src/register*.*, src/sharedlib*.*, src/signals*.*:
+	A gdb based debugger for C/C++ code.
+	src/compiler*.*, src/clean_project.*, src/commands.*, src/executer.*,
+	src/configurer.*: Build system
+	src/session*.*: Session management
+	src/properties*.*, scintilla/Prop*.*: Properties system.
+	anjuta.glade: All dialogs GUI (designed using glade-2)
+	manuals/: Manual, FAQ and tutotial.
+	pixmaps/, src/pixmaps.h: All images
+	scripts/: Some common scripts
+	widgets/, src/fileselection.*: Custom widgets used by Anjuta
+	tagmanager/, global-tags/: Tag (symbol) management backend.
+	src/anjuta-tools.*: User-defined tools backend and GUI
+	src/appwiz*.*, src/gnome_project.*, src/project_dbase.*, src/source.*,
+	src/wizard*.*: Wizards for creating new projects.
+	src/preferences*.*, src/defaults.*: Preferences system.
+	src/an_file_view.*: A file tree viewer
+	src/an_symbol_view.*: Class browser
+	src/file_history.*: Browser-line history maintenance for files opened.
+	src/help.*: Help system
+	src/style-editor.*: Syntax highliting settings.
+	src/start-with.c: Startup dialog.
+	data/properties/*.properties: Language pack files for scintilla.
 
-Apart from the above, there is the printing/ directory which handles printing, and
-the anjuta-plugins.* which implements a very limited plugins system.
+Shell/Plugin Segregation Rationale:
+-----------------------------------
+A consistent policy needs to be formulated and followed regarding what should
+be part of the shell and what should be a plugin. The following points should
+act as a rough guideline in this mater:
+	o The shell without any plugins should be a usable editor which can
+	manage a set of files and provide a reasonable set of helper functions
+	on them. This includes file browsing, syntax highliting, search and
+	replace, command execution, symbol browsing, etc.
+	o The shell should consist of only those components for which no
+	alternative implementation is planned. For example, CVS support
+	should be a plugin since we plan to support multiple version control
+	systems.
+	o Any API which is deemed as generally useful to multiple components
+	and is expected to be reasonablly stable over time should be part of
+	the shell. An example of this is the launcher/tools support.
+	o Any component which depends on teh availability of non-standard
+	component which may not be useful to a major set of users should be
+	a plugin. For example, valgrind support should be a plugin since
+	many users may not have valgrind available and it works only under
+	Linux.
 
-The above needs to be reorganized as follows:
-	o GUI needs to be converted to use EggAction/EggMenu/EggToolbar/etc.
-	o Remove main() and compile into a shared library for use by plugins.
-	o Cleanup the API and document it for use by plugins.
-
+Shell:
+------
+Following from the above, the first step towards code reorganization and
+componentized development is defining functionality of the anjuta shell.
 Ideally, the shell should consist of the folowing APIs:
+	o Main window GUI
 	o Enhanced plugins system
 	o Miscellaneous utility functions
-	o Editor and related functions
+	o Editor and related lexers and functions
 	o Project manager
-	o Preferences
+	o Preferences, properties system and GUI customization dialogs.
 	o Tools system
-	o Docking system (derived from GdlDock ?)
+	o Docking system
 	o Templating system
-	o Extra widgets
-	o GUI customization dialogs.
+	o Common custom widgets
+	o Source parser library
 
-2. Plugin System:
------------------
+Plugin System:
+--------------
 The plugins system needs to be revamped as follows:
 	o Register/unregister themselves
 	o Load/unload themselves
@@ -80,41 +145,32 @@ The shell should provide APIs for loading/unloading of plugins and a core
 stable API for plugins to do the above. We should check out the anjuta2 code
 to see if we can reuse the plugins system.
 
-3. Editor:
-----------
-We currently use scintilla for the editing component. Unfortunately, the scintilla
-code is too tightly bound to the code code, which makes scintilla upgrades
-extremely difficult and time consuming. We need to be able to segregate scintilla
-into an external dependency.  For this, we need to:
+Editor:
+-------
+We currently use scintilla for the editing component. Unfortunately, the
+scintilla code is too tightly bound to the code code, which makes scintilla
+upgrades extremely difficult and time consuming. We need to be able to segregate
+scintilla into an external dependency.  For this, we need to:
 	o Widgetify the editor code
 	o Make it an external dependency so that scintilla can be upgraded
 	  independently of anjuta.
 	o Segregate the preferences system into it's own library.
-	o Convert the UI to use Egg
-	o Front-end to lexers properties files.
+	o Have a front-end to lexers properties files.
 	o Better integration of lexers with sourcebase.
 	o Use loadable lexers segregated from main scintilla codebase.
  
-Currently, the editor code resides in the following files:
-	scintilla/*
-	src/text_editor*.*
-	src/aneditor.*
-Further, the UI (editor toolbars and menus) are scattered over src/mainmenu*.* and
-src/toolbars.*. Some parts are also in src/controls.*, esp. the enable/disable
-parts.
-
 In order to segregate the editor code into it's own component, we should replace
 scintilla/* and aneditor*.* with a GtkScintilla2 based widget. It might be a good
-idea to simply use GtkScintilla2, improving it in the ways we require, and have it
-as an external dependency. The text_editor*.* code should be simplified and moved
-into an 'editor' subdirectory, under the shell directory. Since we do not plan to
-support multiple editors, we can make the editor APIs part of the core API and
-have a mandatory dependency on GtkScintilla2.
+idea to simply use GtkScintilla2, improving it in the ways we require, and have
+it as an external dependency. The text_editor*.* code should be simplified and
+moved into an 'editor' subdirectory, under the shell directory. Since we do not
+plan to support multiple editors, we can make the editor APIs part of the core
+API and have a mandatory dependency on GtkScintilla2.
 
 The scintilla editing component also needs some GTK2 specific improvements, esp.
 related to the use of pango and input methods. We need to ensure that these
-issues come to focus on the scintilla ML and adequate attention is given to fixing
-these issues.
+issues come to focus on the scintilla ML and adequate attention is given to
+fixing these issues.
 
 Preferences:
 ------------
@@ -153,18 +209,9 @@ After the terminal, the debugger is the key candidate for move to the new plugin
 system. This is because it has a fairly complicated functionality, uses multiple
 actions and dock windows, and might have different alternative implementations
 not based on the current GDB backend. The project manager should control the
-loading/unloading of the debugger. Currently, the debugger code is implemented
-in the following files:
-	src/debugger*.*
-	src/watch*.*
-	src/register*.*
-	src/signal*.*
-	src/stack*.*
-	src/breakpoint*.*
-	src/attach_process*.*
-
-The UI (menu/toolbars) are mingled with the other shell GUI code and need to be
-segregated.
+loading/unloading of the debugger. The UI (menu/toolbars) are mingled with the
+other shell GUI code and need to be segregated into a set of dialogs (glade
+file) and an Egg* UI file.
 
 Tagmanager:
 -----------
@@ -182,9 +229,7 @@ Version Control:
 ---------------
 All version control code needs to be removed from the core shell and implemented
 as plugins, one for each backend. The aim is to support CVS as the primary
-backend. Currently, the cvs code is present in more-or-less working state in:
-	src/cvs*.*
-
+backend. Currently, the cvs code is present in more-or-less working state.
 The CVS plugin should be written in a way to provide more flexibility than the
 current implementation. Further, it should be able to act as a starting point
 for implementation of other version control backends. the CVS plugin should
@@ -202,10 +247,6 @@ made part of the core API along with the following enhancements:
 	4. Provide a clean API for plugins to use the tools system to interact
 	with external executables.
 	5. Allow saving of tools at global/user/project level.
-
-Currently, the code for launcher and tools can be found in:
-	src/launcher*.*
-	src/anjuta-tools.*
 
 Search/Replace:
 ---------------
@@ -231,7 +272,7 @@ However, a reasonable amount of interaction is required between the project
 manager and the build system, and this should be through a defined set of core
 shell APIs. A build plugin should be capable of the following:
 	o Load an existing build system using this backend.
-	o Add/remove modify targets, sources and dependencies and their atributes.
+	o Add/remove modify targets, sources and dependencies (+ atributes).
 	o Tolerate limited amount of hand editing of the build files.
 	o Use the PM API to register/unregister list of sources and targets.
 
@@ -269,6 +310,33 @@ etc. it should be possible to write plugins using bindings for the core API.
 
 The primary scripting language we aim to support should be Python.
 
+Plan:
+-----
+Here's what I propose we should do (in order) in order to achieve the above:
+	o Copy the required widget code from libegg into the widgets directory.
+	We will need the EggMenu, EggToolbar and EggCombo stuff. Also copy the
+	other required widgets such as GdlDock from anjuta2 and the anjuta2
+	plugins code. The plugin code will need some enhancements and
+	modifications to use with the EggMenu/Toolbar code and to support the
+	required features.
+	o Convert the main GUI to use EggMenu and EggToolbar with UI files.
+	Segregate the UI files of each component and use merging. Also, replace
+	the use of GnomeDock widgets for teh left and bottom panes with GdlDock.
+	o Create seperate directories for each planned plugin, for example,
+	debugger, CVS, etc. Move the existing code to these directories along
+	with the required files. Then convert to the plugin system.
+	o Once the shell/plugin system is ensured to be working smoothly, we can
+	undertake other cleanups like cleaning up the shell API, improving the
+	project manager, moving to sourcebase, etc.
+	o Remove all the scintilla code from the source tree and switch to
+	GtkScintilla2 widget. This will be a big task and needs to land at one
+	go to make sure that HEAD stays buildable. We will need to segregate
+	the preferences files since they need to be in the API. We will also
+	need to enhance the GtkScintilla2 widgwt to make sure we do not lose any
+	functionality. We will also need to integrate the printing functionality
+	using GnomePrint into the scintilla widget. This work can go on in
+	paralle with the other activities.
+
 Conclusion:
 -----------
 The full conversion into the proposed architecture would take a lot of time and
@@ -276,12 +344,14 @@ effort. The idea is to do it in a gradual manner while continuing with other
 activities such as bug fixing, adding new features, etc. For this, we should
 take the following approach:
 	o HEAD should be buildable at all times.
-	o Most of the new design/development should occur seperately
-	untill ready to be moved to HEAD.
 	o The gnome-2-2 branch should be continued till HEAD is stabilized.
 	o The 1.2.0 release should come from the gnome-2-2 branch.
 	o Create subdirectoris under the main tree to work on cleanups, so that:
 		o The code can be viewed by other people
 		o They can be turned on easily when in buildable state.
 		o The tree is always buildable.
+
+For any questions regarding this document, please contact:
+	o Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	o Naba kumar <kh_naba@gmx.net>
 
