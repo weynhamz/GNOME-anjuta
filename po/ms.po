@@ -1,0 +1,7872 @@
+# Malay Translation of Anjuta HEAD.
+# Copyright (C) 2003 MIMOS Open Source Developement Group
+# This file is distributed under the same license as the PACKAGE package.
+# MIMOS Open Source Development Group <opensource@mimos.my>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Anjuta HEAD\n"
+"POT-Creation-Date: 2003-09-14 16:07+0800\n"
+"PO-Revision-Date: 2003-09-04 08:50+0800\n"
+"Last-Translator: MIMOS Open Source Development Group <ismas@mimos.my>\n"
+"Language-Team: Projek Gabai <gabai-penyumbang@lists.sf.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: anjuta.desktop.in.in.h:1
+msgid "Anjuta IDE"
+msgstr "IDE Anjuta"
+
+#: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:173
+msgid "Integrated Development Environment"
+msgstr "Persekitaran Pembangunan Bersepadu"
+
+#: anjuta.glade.h:1
+msgid ""
+"\n"
+"Anjuta Dev Studio\n"
+"Copyright (C) Naba Kumar\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version. \n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details. \n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Place, Suite 330, Boston, MA 02111-1307 USA \n"
+msgstr ""
+"\n"
+"Anjuta Dev Studio\n"
+"Hak cipta (C) Naba Kumar\n"
+"\n"
+"Atur cara ini ialah perisian percuma; anda boleh mengagihkan semula dan/atau "
+"mengubah suainya di bawah syarat Lesen Awam Am GNU seperti yang dikeluarkan "
+"oleh Free Software Foundation; sama ada versi 2 Lesen, atau (mengikut opsyen "
+"anda) sebarang versi terbaru. \n"
+"\n"
+"Atur cara ini diagihkan agar ia dapat digunakan, tetapi TANPA SEBARANG "
+"JAMINAN; walaupun tanpa jaminan tersirat BOLEH DAGANG atau KESESUAIAN UNTUK "
+"TUJUAN TERTENTU. Lihat Lesen Awam Am GNU untuk maklumat lanjut. \n"
+"\n"
+"Anda seharusnya telah menerima salinan Lesen Awam Am GNU bersama-sama atur "
+"cara ini; jika tidak; tulis kepada Free Software Foundation, Inc, 59 Temple "
+"Place, Suite 330, Boston, MA 02111-1307 USA \n"
+
+#: anjuta.glade.h:11
+msgid "    "
+msgstr "    "
+
+#: anjuta.glade.h:12
+msgid "$(module.source.files) $(module.include.files)"
+msgstr "$(module.source.files) $(module.include.files)"
+
+#: anjuta.glade.h:13 gdl/layout.glade.h:1
+msgid "*"
+msgstr "*"
+
+#: anjuta.glade.h:14
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+
+#: anjuta.glade.h:15
+msgid ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+msgstr ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
+
+#: anjuta.glade.h:16
+msgid "*.so *.o *.a *.la"
+msgstr "*.so *.o *.a *.la"
+
+#: anjuta.glade.h:17
+msgid "*\\.*"
+msgstr "*\\.*"
+
+#: anjuta.glade.h:18
+msgid "<: Enter Here"
+msgstr "<: Masukkan Di Sini"
+
+#: anjuta.glade.h:19
+msgid "Add line number every:"
+msgstr "Tambahkan nombor baris setiap:"
+
+#: anjuta.glade.h:20
+msgid "Add page header"
+msgstr "Tambahkan pengepala halaman"
+
+#: anjuta.glade.h:21
+msgid "Additional"
+msgstr "Tambahan"
+
+#: anjuta.glade.h:22
+msgid "Additional Libraries (LDADD):"
+msgstr "Pustaka Tambahan (LDADD):"
+
+#: anjuta.glade.h:23 src/wizard_gui.c:610
+msgid "Additional Options"
+msgstr "Opsyen Tambahan"
+
+#: anjuta.glade.h:24
+msgid "Additional build options:"
+msgstr "Opsyen binaan tambahan:"
+
+#: anjuta.glade.h:25
+msgid "Anjuta Setup Wizard"
+msgstr "Wizard Persediaan Anjuta"
+
+#: anjuta.glade.h:26
+msgid "Anjuta help search"
+msgstr "Bantuan carian Anjuta"
+
+#: anjuta.glade.h:27
+msgid "Anjuta setup wizard"
+msgstr "Wizard persediaan Anjuta"
+
+#: anjuta.glade.h:28
+msgid ""
+"Anjuta setup wizard will guide with the initial setup of Anjuta. These setup "
+"could be changed later from Anjuta settings menu (Main menu->Settings). "
+msgstr ""
+"Wizard persediaan Anjuta akan memberikan panduan dengan persedian permulaan "
+"Anjuta. Persediaan ini boleh diubah kemudian menggunakan menu seting Anjuta "
+"(Menu Utama->Seting). "
+
+#: anjuta.glade.h:29
+msgid "Anjuta start with dialog"
+msgstr "Anjuta bermula dengan dialog"
+
+#: anjuta.glade.h:30
+msgid "Anjuta windows"
+msgstr "Tetingkap Anjuta"
+
+#: anjuta.glade.h:31
+msgid "Append messages"
+msgstr "Tambahkan mesej"
+
+#: anjuta.glade.h:32 src/appwizard_gui.c:76 src/appwizard_gui.c:90
+msgid "Application Wizard"
+msgstr "Wizard Aplikasi"
+
+#: anjuta.glade.h:33
+msgid "Arrows"
+msgstr "Anak Panah"
+
+#: anjuta.glade.h:34
+msgid "Ask for parameters at run-time"
+msgstr "Minta parameter pada masa larian"
+
+#: anjuta.glade.h:35
+msgid "Attach to process"
+msgstr "Lampirkan pada proses"
+
+#: anjuta.glade.h:36
+msgid "Attributes:"
+msgstr "Atribut"
+
+#: anjuta.glade.h:37
+msgid "Autocomplete XML/HTML closing tags"
+msgstr "Tag penutup XML/HTML Autocomplete"
+
+#: anjuta.glade.h:38
+msgid "Autocompletion"
+msgstr "Autocompletion"
+
+#: anjuta.glade.h:39
+msgid "Autocompletion pop up choices"
+msgstr "Pilihan pop up Autocompletion"
+
+#: anjuta.glade.h:40
+msgid "Automatically load last Project"
+msgstr "Muatkan Projek terakhir secara automatik "
+
+#: anjuta.glade.h:41
+msgid "Autosave"
+msgstr "Autosave"
+
+#: anjuta.glade.h:42
+msgid "Autosave editor files before build starts"
+msgstr "Autosave fail editor sebelum binaan bermula"
+
+#: anjuta.glade.h:43
+msgid "Back color:"
+msgstr "Warna latar:"
+
+#: anjuta.glade.h:44
+msgid "Backwards"
+msgstr "Ke belakang"
+
+#: anjuta.glade.h:45
+msgid "Beep on job complete"
+msgstr "Beep apabila kerja selesai"
+
+#: anjuta.glade.h:46
+msgid "Bold"
+msgstr "Tebal"
+
+#: anjuta.glade.h:47 src/anjuta_gui.c:142
+msgid "Bookmark"
+msgstr "Tanda buku"
+
+#: anjuta.glade.h:48
+msgid "Bottom"
+msgstr "Bawah"
+
+#: anjuta.glade.h:49
+msgid "Breakpoint properties"
+msgstr "Ciri Titik Putus"
+
+#: anjuta.glade.h:50
+msgid "Breakpoints"
+msgstr "Titik Putus"
+
+#: anjuta.glade.h:51 src/anjuta_gui.c:139 src/build_file.c:107
+#: src/message-manager.cc:42 src/text_editor_gui.c:172 src/toolbar.c:272
+msgid "Build"
+msgstr "Bina"
+
+#: anjuta.glade.h:52
+msgid "Build command:"
+msgstr "Arahan Binaan"
+
+#: anjuta.glade.h:53
+msgid "Build file browser automatically"
+msgstr "Bina pelayar fail secara automatik"
+
+#: anjuta.glade.h:54
+msgid "Build files"
+msgstr "Fail binaan"
+
+#: anjuta.glade.h:55
+msgid "Build options"
+msgstr "Opsyen binaan"
+
+#: anjuta.glade.h:56
+msgid "Build symbol browser automatically"
+msgstr "Bina pelayar simbol secara automatik"
+
+#. 2
+#: anjuta.glade.h:57 src/an_file_view.c:414 src/message-manager.cc:42
+msgid "CVS"
+msgstr "CVS"
+
+#: anjuta.glade.h:58
+msgid "CVS command options"
+msgstr "Opsyen arahan CVS"
+
+#: anjuta.glade.h:59
+msgid "CVS compression level:"
+msgstr "Aras mampatan CVS"
+
+#: anjuta.glade.h:60
+msgid "CVS context diff format"
+msgstr "Format diff konteks CVS"
+
+#: anjuta.glade.h:61
+msgid "CVS forced update [-dP -A]"
+msgstr "Kemas kini paksaan CVS [-dP -A]"
+
+#: anjuta.glade.h:62
+msgid "CVS intl po"
+msgstr "intl po CVS"
+
+#: anjuta.glade.h:63
+msgid "CVS unified diff format"
+msgstr "Format diff gabungan CVS "
+
+#: anjuta.glade.h:64
+msgid "C_ompile:"
+msgstr "K_ompil:"
+
+#: anjuta.glade.h:65
+msgid "Calltip background:"
+msgstr "Latar belakang calltip"
+
+#: anjuta.glade.h:66
+msgid "Caret (cursor) color:"
+msgstr "Warna karet (kursor)"
+
+#: anjuta.glade.h:67
+msgid "Caret blink period in milli-seconds"
+msgstr "Kala kelip karet dalam milisaat"
+
+#: anjuta.glade.h:68
+msgid "Case insensitive"
+msgstr "Tidak peka huruf"
+
+#: anjuta.glade.h:69
+msgid "Case sensitive"
+msgstr "Peka huruf"
+
+#: anjuta.glade.h:70
+msgid "Choose Directories:"
+msgstr "Pilih Direktori:"
+
+#: anjuta.glade.h:71
+msgid "Choose Files:"
+msgstr "Pilih Fail:"
+
+#: anjuta.glade.h:72
+msgid "Choose autocomplete for single match"
+msgstr "Pilih autocomplete bagi padanan tunggal"
+
+#: anjuta.glade.h:73
+msgid "Choose directories"
+msgstr "Pilih direktori"
+
+#: anjuta.glade.h:74
+msgid "Choose files"
+msgstr "Pilih fail"
+
+#: anjuta.glade.h:75
+msgid "Circular"
+msgstr "Membulat"
+
+#: anjuta.glade.h:76
+msgid "Code folding"
+msgstr "Lipatan kod"
+
+#: anjuta.glade.h:77
+msgid "Collapse all code folds on file open"
+msgstr "Runtuhkan semua lipatan kod ketika buka fail"
+
+#: anjuta.glade.h:78
+msgid "Colour"
+msgstr "Warna"
+
+#: anjuta.glade.h:79
+msgid "Column at edge indicator"
+msgstr "Lajur pada penunjuk tepi"
+
+#: anjuta.glade.h:80
+msgid "Combo Popdown:"
+msgstr "Popdown Kombo"
+
+#: anjuta.glade.h:81
+msgid "Command Line Parameters"
+msgstr "Parameter Baris Arahan"
+
+#: anjuta.glade.h:82
+msgid "Command line parameters"
+msgstr "Parameter baris arahan"
+
+#: anjuta.glade.h:83
+msgid "Command:"
+msgstr "Arahan"
+
+#: anjuta.glade.h:84
+msgid "Commands"
+msgstr "Arahan"
+
+#: anjuta.glade.h:85
+msgid "Common commands:"
+msgstr "Arahan biasa:"
+
+#: anjuta.glade.h:86
+msgid "Compact folding"
+msgstr "Lipatan padat"
+
+#: anjuta.glade.h:87
+msgid "Compiler"
+msgstr "Pengkompil"
+
+#: anjuta.glade.h:88
+msgid "Compiler Flags (CFLAGS):"
+msgstr "Bendera Pengkompil (CFLAGS)"
+
+#: anjuta.glade.h:89
+msgid "Compiler and linker options"
+msgstr "Opsyen Pengkompil dan pemaut"
+
+#: anjuta.glade.h:90
+msgid "Configuration"
+msgstr "Konfigurasi"
+
+#: anjuta.glade.h:91
+msgid "Configuration script segments"
+msgstr "Segmen skrip konfigurasi"
+
+#: anjuta.glade.h:92
+msgid "Configure Parameters"
+msgstr "Buat Konfigurasi Parameter"
+
+#: anjuta.glade.h:93
+msgid "Crazy boy style"
+msgstr "Gaya crazy boy"
+
+#: anjuta.glade.h:94
+msgid "Custom style"
+msgstr "Gaya biasa"
+
+#: anjuta.glade.h:95
+msgid "Customize File Browser"
+msgstr "Suaikan Pelayar Fail"
+
+#: anjuta.glade.h:96
+msgid "Customize what is to be shown in the file tree"
+msgstr "Suaikan perkara yang akan ditunjukkan dalam pepohon fail"
+
+#: anjuta.glade.h:97
+msgid "Data module Makefile.am"
+msgstr "Modul data Makefile.am"
+
+#. 13
+#: anjuta.glade.h:98 src/message-manager.cc:42 src/text_editor_menu.c:319
+#: src/toolbar.c:306
+msgid "Debug"
+msgstr "Menyahpepijat"
+
+#: anjuta.glade.h:99
+msgid "Debugging and Profiling"
+msgstr "Menyahpepijat dan Profil"
+
+#: anjuta.glade.h:100
+msgid "Default"
+msgstr "Piawai"
+
+#: anjuta.glade.h:101
+msgid "Defines"
+msgstr "Tentukan"
+
+#: anjuta.glade.h:102
+msgid "Delete Theme"
+msgstr "Hapuskan Tema"
+
+#: anjuta.glade.h:103
+msgid "Diagonal"
+msgstr "Pepenjuru"
+
+#: anjuta.glade.h:104
+msgid "Dialog on job complete"
+msgstr "Dialog ketika kerja selesai"
+
+#: anjuta.glade.h:105
+msgid "Direction"
+msgstr "Arah"
+
+#: anjuta.glade.h:106 widgets/gnomefilelist.c:338
+msgid "Directories"
+msgstr "Direktori"
+
+#: anjuta.glade.h:107
+msgid "Directory filter"
+msgstr "Penapis direktori"
+
+#: anjuta.glade.h:108
+msgid "Disable auto-format"
+msgstr "Lumpuhkan auto-format"
+
+#: anjuta.glade.h:109
+msgid "Disable overwriting files"
+msgstr "Lumpuhkan tulis ganti fail"
+
+#: anjuta.glade.h:110
+msgid "Disable syntax highlighting"
+msgstr "Lumpuhkan menonjolkan sintaks"
+
+#: anjuta.glade.h:111
+msgid "Do not show hidden directories"
+msgstr "Jangan tunjukkan direktori tersembunyi"
+
+#: anjuta.glade.h:112
+msgid "Do not show hidden files"
+msgstr "Jangan tunjukkan fail tersembunyi"
+
+#: anjuta.glade.h:113
+msgid "Do not show start with dialog again."
+msgstr "Jangan tunjukkan lagi dialog ketika bermula."
+
+#: anjuta.glade.h:114
+msgid "Do not show tabs"
+msgstr "Jangan tunjukkan tab"
+
+#: anjuta.glade.h:115
+msgid "Docked style"
+msgstr "Gaya dok"
+
+#: anjuta.glade.h:116
+msgid ""
+"Docked style presents Anjuta \n"
+"in the classic IDE form with all\n"
+"sub-windows docked on the\n"
+"main window."
+msgstr ""
+"Gaya dok menunjukkan Anjuta \n"
+"dalam bentuk IDE klasik dengan semua\n"
+"subtetingkap didok pada\n"
+"tetingkap utama."
+
+#: anjuta.glade.h:120
+msgid "Document module Makefile.am"
+msgstr "Modul dokumen Makefile.am"
+
+#: anjuta.glade.h:121
+msgid "Draw line below folded lines"
+msgstr "Lukis garis di bawah garis lipat"
+
+#: anjuta.glade.h:122 src/anjuta_gui.c:106
+msgid "Edit"
+msgstr "Edit"
+
+#: anjuta.glade.h:123
+msgid "Editor caret (cursor) width in pixels"
+msgstr "Lebar karet (kursor) editor dalam piksel"
+
+#: anjuta.glade.h:124
+msgid "Editor tabs"
+msgstr "Tab Editor"
+
+#: anjuta.glade.h:125
+msgid "Enable Debugging"
+msgstr "Membolehkan Menyahpepijat"
+
+#: anjuta.glade.h:126
+msgid "Enable HTML tags folding"
+msgstr "Membolehkan lipatan tag HTML"
+
+#: anjuta.glade.h:127
+msgid "Enable Profiling"
+msgstr "Membolehkan Profil"
+
+#: anjuta.glade.h:128
+msgid "Enable _all"
+msgstr "Membolehkan _semua"
+
+#: anjuta.glade.h:129
+msgid "Enable automatic indentation"
+msgstr "Membolehkan indentasi automatik"
+
+#: anjuta.glade.h:130
+msgid "Enable automatic messages indicators"
+msgstr "Membolehkan penunjuk mesej automatik"
+
+#: anjuta.glade.h:131
+msgid "Enable braces check"
+msgstr "Membolehkan semakan pengikat"
+
+#: anjuta.glade.h:132
+msgid "Enable code folding"
+msgstr "Membolehkan lipatan kod"
+
+#: anjuta.glade.h:133
+msgid "Enable comments folding"
+msgstr "Membolehkan lipatan komen"
+
+#: anjuta.glade.h:134
+msgid "Enable files autosave"
+msgstr "Membolehkan autosave fail"
+
+#: anjuta.glade.h:135
+msgid "Enable line wrap"
+msgstr "Membolehkan pusingan baris"
+
+#: anjuta.glade.h:136
+msgid "Enable python comments folding"
+msgstr "Membolehkan lipatan komen python"
+
+#: anjuta.glade.h:137
+msgid "Enable python quoted strings folding"
+msgstr "Membolehkan lipatan rentetan petikan python"
+
+#: anjuta.glade.h:138 src/breakpoints.c:102
+msgid "Enabled"
+msgstr "Membolehkan"
+
+#: anjuta.glade.h:139
+msgid ""
+"Enter the command line arguments for the 'indent' program. Read the info "
+"page for 'indent' for more details"
+msgstr ""
+"Masukkan argumen baris arahan bagi atur cara 'inden'. Baca halaman maklumat "
+"bagi 'inden' untuk perincian lanjut"
+
+#: anjuta.glade.h:140
+msgid "Error message indicator style:"
+msgstr "Gaya penunjuk mesej ralat:"
+
+#: anjuta.glade.h:141
+msgid "Errors messages:"
+msgstr "Mesej ralat:"
+
+#: anjuta.glade.h:142
+msgid "Execute Program"
+msgstr "Laksanakan Atur cara"
+
+#: anjuta.glade.h:143
+msgid "Expand regex back references"
+msgstr "Tambahkan rujukan back regex"
+
+#: anjuta.glade.h:144 src/an_file_view.c:665 src/anjuta_gui.c:100
+#: src/breakpoints.c:102
+msgid "File"
+msgstr "Fail"
+
+#: anjuta.glade.h:145
+msgid "File Filter"
+msgstr "Penapis fail"
+
+#: anjuta.glade.h:146
+msgid "File filter"
+msgstr "Penapis fail"
+
+#: anjuta.glade.h:147
+msgid "File level"
+msgstr "Aras fail"
+
+#: anjuta.glade.h:148
+msgid "File/Directory to add:"
+msgstr "Fail/Direktori untuk ditambah:"
+
+#: anjuta.glade.h:149
+msgid "Filter extraneous characters in DOS mode"
+msgstr "Tapis aksara tak berkenaan dalam mod DOS"
+
+#: anjuta.glade.h:150
+msgid "Find & Replace"
+msgstr "Cari & Ganti"
+
+#: anjuta.glade.h:151
+msgid "Find and replace"
+msgstr "Cari dan ganti"
+
+#: anjuta.glade.h:152 src/find_in_files.c:301
+msgid "Find in Files"
+msgstr "Cari dalam Fail"
+
+#: anjuta.glade.h:153
+msgid "Fold style:"
+msgstr "Gaya lipatan:"
+
+#: anjuta.glade.h:154
+msgid "Font:"
+msgstr "Fon:"
+
+#: anjuta.glade.h:155
+msgid "Fore color:"
+msgstr "Warna hadapan:"
+
+#: anjuta.glade.h:156 src/anjuta_gui.c:133
+msgid "Format"
+msgstr "Format"
+
+#: anjuta.glade.h:157 src/toolbar.c:863
+msgid "Format style"
+msgstr "Gaya format"
+
+#: anjuta.glade.h:158
+msgid "Forwards"
+msgstr "Ke hadapan"
+
+#: anjuta.glade.h:159
+msgid "From cursor"
+msgstr "Dari kursor"
+
+#: anjuta.glade.h:160 src/an_symbol_view.c:54
+msgid "Functions"
+msgstr "Fungsi"
+
+#: anjuta.glade.h:161
+msgid "GNU coding style"
+msgstr "Gaya pengekodan GNU"
+
+#: anjuta.glade.h:162
+msgid "GUI editor command:"
+msgstr "Arahan editor GUI"
+
+#. 3
+#: anjuta.glade.h:163 src/main_menubar_def.h:380
+msgid "General"
+msgstr "Am"
+
+#: anjuta.glade.h:164
+msgid ""
+"Give a space separated list of directories to be built after source module. "
+"This will be set in configure and Makefiles will be generated for them. They "
+"will be built after the source (src/) directory during \"make\"."
+msgstr ""
+"Berikan senarai direktori yang dipisahkan oleh ruang untuk dibina selepas "
+"modul sumber. Ia akan disetkan semasa membuat konfigurasi dan Makefile akan "
+"dijanakan untuknya. Ia akan dibina selepas direktori sumber (src/) semasa "
+"\"make\"."
+
+#: anjuta.glade.h:165
+msgid ""
+"Give a space separated list of directories to be built before source module. "
+"This will be set in configure.in and Makefiles will be generated for them. "
+"They will be built before the source (src/) directory during \"make\"."
+msgstr ""
+"Berikan senarai direktori yang dipisahkan oleh ruang untuk dibina sebelum "
+"modul sumber. Ia akan disetkan semasa membuat konfigurasi .in dan Makefile "
+"akan dijanakan untuknya. Ia akan dibina sebelum direktori sumber (src/) "
+"semasa \"make\"."
+
+#: anjuta.glade.h:166
+msgid "Gnome API"
+msgstr "API Gnome"
+
+#: anjuta.glade.h:167
+msgid "Greedy matching"
+msgstr "Padanan tamak"
+
+#: anjuta.glade.h:168
+msgid "HTML _viewer:"
+msgstr "_pandangan HTML"
+
+#: anjuta.glade.h:169
+msgid "Headers"
+msgstr "Pengepala"
+
+#: anjuta.glade.h:170
+msgid "Hello World style"
+msgstr "Gaya Hello World"
+
+#: anjuta.glade.h:171
+msgid "Help module Makefile.am"
+msgstr "Modul Bantuan Makefile.am"
+
+#: anjuta.glade.h:172
+msgid "High-Level Optimization (Functions inlined wherever possible)"
+msgstr "Pengoptimuman Aras Tinggi (Fungsi dalam baris jika perlu)"
+
+#: anjuta.glade.h:173
+msgid "Highlight style"
+msgstr "Gaya Tonjol"
+
+#: anjuta.glade.h:174
+msgid "History sizes"
+msgstr "Saiz Sejarah"
+
+#: anjuta.glade.h:175
+msgid "Ignore Binary Files"
+msgstr "Abaikan Fail Binari"
+
+#: anjuta.glade.h:176
+msgid "Ignore CVS directory"
+msgstr "Abaikan Direktori CVS"
+
+#: anjuta.glade.h:177
+msgid "Ignore Directories:"
+msgstr "Abaikan Direktori:"
+
+#: anjuta.glade.h:178
+msgid "Ignore Files:"
+msgstr "Abaikan Fail:"
+
+#: anjuta.glade.h:179
+msgid "Ignore Hidden Directories"
+msgstr "Abaikan Direktori Tersembunyi"
+
+#: anjuta.glade.h:180
+msgid "Ignore Hidden Files"
+msgstr "Abaikan Fail Tersembunyi"
+
+#: anjuta.glade.h:181
+msgid "Ignore binary files"
+msgstr "Abaikan fail binari"
+
+#: anjuta.glade.h:182
+msgid "Ignore case"
+msgstr "Abaikan huruf"
+
+#: anjuta.glade.h:183
+msgid "Ignore directories"
+msgstr "Abaikan direktori"
+
+#: anjuta.glade.h:184
+msgid "Ignore files"
+msgstr "Abaikan fail"
+
+#: anjuta.glade.h:185
+#, fuzzy
+msgid "Ignore files and directories"
+msgstr "Fail dan direktori Ignome"
+
+#: anjuta.glade.h:186
+msgid "Import Wizard"
+msgstr "Wizard Import"
+
+#: anjuta.glade.h:187
+msgid ""
+"Import existing project. The Import Wizard will guide you to import an "
+"existing Project into Anjuta and convert it into Anjuta Project. There will "
+"be no data lose or modification done to the project."
+msgstr ""
+"Import projek yang wujud. Wizard Import akan memberikan panduan kepada anda "
+"untuk mengimport Projek yang wujud ke dalam Anjuta dan menukarkannya ke "
+"Projek Anjuta. Tiada data akan hilang atau pengubahsuaian dilakukan pada "
+"projek tersebut."
+
+#: anjuta.glade.h:188
+msgid "Include Paths"
+msgstr "Termasuk Laluan"
+
+#: anjuta.glade.h:189
+msgid "Include module Makefile.am"
+msgstr "Termasuk module Makefile.am"
+
+#: anjuta.glade.h:190
+msgid "Indent closing braces"
+msgstr "Inden pengikat tertutup"
+
+#: anjuta.glade.h:191
+msgid "Indent opening braces"
+msgstr "Inden pengikat terbuka"
+
+#: anjuta.glade.h:192
+msgid "Indentation and auto-format options"
+msgstr "Opsyen indentasi dan auto-format"
+
+#: anjuta.glade.h:193
+msgid "Indentation size in spaces:"
+msgstr "Saiz indentasi dalam ruang"
+
+#: anjuta.glade.h:194
+msgid "Indicators"
+msgstr "Penunjuk"
+
+#: anjuta.glade.h:195
+msgid "Info Pages"
+msgstr "Halaman Maklumat"
+
+#: anjuta.glade.h:196
+msgid "Input string:"
+msgstr "Rentetan input:"
+
+#: anjuta.glade.h:197
+msgid "Italic"
+msgstr "Italik"
+
+#: anjuta.glade.h:198
+msgid "Keep going when some targets can not be made"
+msgstr "Teruskan apabila beberapa sasaran tidak dapat dilakukan"
+
+#: anjuta.glade.h:199
+msgid "Kernighan & Ritchie style"
+msgstr "Gaya Kernighan & Ritchie"
+
+#: anjuta.glade.h:200
+msgid "Language-specific commands:"
+msgstr "Arahan khusus bahasa"
+
+#: anjuta.glade.h:201
+msgid "Left"
+msgstr "Kiri"
+
+#: anjuta.glade.h:202
+msgid "Libraries"
+msgstr "Pustaka"
+
+#: anjuta.glade.h:203
+msgid "Library Paths"
+msgstr "Laluan Pustaka"
+
+#: anjuta.glade.h:204
+msgid "Line numbers margin width in pixels"
+msgstr "Lebar jidar garis nombor dalam piksel"
+
+#: anjuta.glade.h:205 printing/print.c:1055 src/anjuta_info.c:126
+msgid "Lines"
+msgstr "Garis"
+
+#: anjuta.glade.h:206
+msgid "Linker Flags (LDFLAGS):"
+msgstr "Bendera Pemaut (LDFLAGS)"
+
+#: anjuta.glade.h:207
+msgid "Load _global defaults"
+msgstr "Muatkan piawai _sejagat"
+
+#: anjuta.glade.h:208
+msgid "Load _user defaults"
+msgstr "Muatkan piawai _pengguna"
+
+#: anjuta.glade.h:209
+msgid "Low-Level Optimization (Machine dependent optimization)"
+msgstr "Pengoptimuman Aras Rendah (Pengoptimuman kebersandaran mesin)"
+
+#: anjuta.glade.h:210
+msgid "Makefile.am"
+msgstr "Makefile.am"
+
+#: anjuta.glade.h:211
+msgid "Man pages"
+msgstr "Halaman Man"
+
+#: anjuta.glade.h:212
+msgid "Match at start of word"
+msgstr "Padankan pada permulaan kata"
+
+#: anjuta.glade.h:213
+msgid "Match complete lines"
+msgstr "Padankan keseluruhan baris"
+
+#: anjuta.glade.h:214
+msgid "Match complete words"
+msgstr "Padankan keseluruhan kata"
+
+#: anjuta.glade.h:215
+msgid "Max. Actions"
+msgstr "Tindakan Maksimum"
+
+#: anjuta.glade.h:216
+msgid "Maximum number of independent jobs (0 == no limit)"
+msgstr "Bilangan maksimum kerja tak bersandar (0 == tiada had)"
+
+#: anjuta.glade.h:217
+msgid "Medium-Level Optimization (Without space-speed trade-off)"
+msgstr "Pengoptimuman Aras Sederhana (Tanpa mengurangkan kelajuan ruang)"
+
+#: anjuta.glade.h:218
+msgid "Menu icon:"
+msgstr "Ikon menu:"
+
+#: anjuta.glade.h:219
+msgid "Menu location:"
+msgstr "Lokasi Menu:"
+
+#: anjuta.glade.h:220
+msgid "Message colors"
+msgstr "Warna Mesej"
+
+#: anjuta.glade.h:221
+msgid "Messages options"
+msgstr "Opsyen Mesej"
+
+#: anjuta.glade.h:222
+msgid "Misc options"
+msgstr "Pelbagai Opsyen"
+
+#: anjuta.glade.h:223
+msgid "Mode:"
+msgstr "Mod:"
+
+#: anjuta.glade.h:224
+msgid "Modules"
+msgstr "Modul"
+
+#: anjuta.glade.h:225
+msgid "Monochrome"
+msgstr "Monokrom"
+
+#: anjuta.glade.h:226
+msgid "Name:"
+msgstr "Nama:"
+
+#: anjuta.glade.h:227 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: src/toolbar.c:75
+msgid "New file"
+msgstr "Fail Baru"
+
+#: anjuta.glade.h:228
+msgid "No Limit"
+msgstr "Tiada Had"
+
+#: anjuta.glade.h:229
+msgid "No Optimization"
+msgstr "Tiada Pengoptimuman"
+
+#: anjuta.glade.h:230
+msgid "Normal message indicator style:"
+msgstr "Gaya penunjuk mesej normal:"
+
+#: anjuta.glade.h:231
+msgid "Normal messages:"
+msgstr "Mesej normal:"
+
+#: anjuta.glade.h:232
+msgid ""
+"Note: If there is a project open, the preferences in this page are project "
+"preferences and will be loaded from and saved with the project. If there is "
+"no project open, they will be global preferences."
+msgstr ""
+"Perhatian: Jika ada projek yang terbuka, keutamaan dalam halaman ini adalah "
+"keutamaan projek dan akan dimuatkan dari dan disimpan bersama-sama projek.  "
+"Jika tiada projek yang dibuka, keutamaan sejagat digunakan."
+
+#: anjuta.glade.h:233
+msgid "Number of first characters to show:"
+msgstr "Bilangan aksara pertama untuk ditunjukkan:"
+
+#: anjuta.glade.h:234
+msgid "Number of last characters to show:"
+msgstr "Bilangan aksara terakhir untuk ditunjukkan:"
+
+#. Must declare static, because it will be used forever
+#: anjuta.glade.h:235 src/project_dbase.c:223 src/toolbar.c:212
+msgid "Open Project"
+msgstr "Buka Projek"
+
+#: anjuta.glade.h:236
+msgid "Open existing Project."
+msgstr "Buka Projek yang wujud"
+
+#: anjuta.glade.h:237
+msgid "Open existing file or create a new file."
+msgstr "Buka fail yang wujud atau wujudkan fail baru"
+
+#: anjuta.glade.h:238 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: src/toolbar.c:79
+msgid "Open file"
+msgstr "Buka fail"
+
+#: anjuta.glade.h:239
+msgid "Open last working Project"
+msgstr "Buka Projek kerja terakhir"
+
+#: anjuta.glade.h:240
+msgid "Optimization"
+msgstr "Pengoptimuman"
+
+#. 15
+#: anjuta.glade.h:241 src/text_editor_menu.c:329
+msgid "Options"
+msgstr "Opsyen"
+
+#: anjuta.glade.h:242
+msgid "Original Berkeley style"
+msgstr "Gaya Berkeley Asal"
+
+#: anjuta.glade.h:243
+msgid "Other colors"
+msgstr "Warna lain"
+
+#: anjuta.glade.h:244
+msgid "Other messages:"
+msgstr "Mesej lain:"
+
+#: anjuta.glade.h:245 src/an_symbol_view.c:54
+msgid "Others"
+msgstr "Lain"
+
+#: anjuta.glade.h:246
+msgid "Output files"
+msgstr "Fail output"
+
+#: anjuta.glade.h:247
+msgid "Pick a color"
+msgstr "Pilih satu warna"
+
+#: anjuta.glade.h:248
+msgid "Pixmap module Makefile.am"
+msgstr "Module pixmap Makefile.am"
+
+#: anjuta.glade.h:249
+msgid "Plus/Minus"
+msgstr "Campur/Tolak"
+
+#: anjuta.glade.h:250
+msgid "Po module (translation) Makefile.am"
+msgstr "Modul Po (terjemahan) Makefile.am"
+
+#: anjuta.glade.h:251
+msgid "Position:"
+msgstr "Kedudukan"
+
+#: anjuta.glade.h:252
+msgid "Press this button to dismiss the dialog"
+msgstr "Tekan butang ini bagi mengabaikan dialog"
+
+#: anjuta.glade.h:253
+msgid "Pressing backspace un-indents"
+msgstr "Menekan undur ruang membuang inden "
+
+#: anjuta.glade.h:254
+msgid "Pressing tab indents"
+msgstr "Menekan tab menginden"
+
+#: anjuta.glade.h:255
+msgid "Print options"
+msgstr "Opsyen cetak"
+
+#: anjuta.glade.h:256
+msgid "Programs"
+msgstr "Atur cara"
+
+#: anjuta.glade.h:257 src/anjuta_gui.c:130 src/project_dbase_gui.c:599
+#: src/project_dbase_gui.c:616 src/toolbar.c:148
+msgid "Project"
+msgstr "Projek"
+
+#: anjuta.glade.h:258
+msgid "Project Configuration"
+msgstr "Konfigurasi Projek"
+
+#: anjuta.glade.h:259 src/wizard_gui.c:506
+msgid "Project Description"
+msgstr "Huraian Projek"
+
+#: anjuta.glade.h:260
+msgid "Project Version"
+msgstr "Versi Projek"
+
+#: anjuta.glade.h:261
+msgid "Project configure.in"
+msgstr "configure.in Projek"
+
+#: anjuta.glade.h:262
+msgid "Project level"
+msgstr "Aras Projek"
+
+#: anjuta.glade.h:263
+msgid "Projects:"
+msgstr "Projek:"
+
+#: anjuta.glade.h:264
+msgid "Prompt before replace"
+msgstr "Tanya sebelum ganti"
+
+#: anjuta.glade.h:265
+msgid "Recent Files:"
+msgstr "Fail Terbaru:"
+
+#: anjuta.glade.h:266
+msgid "Recent Projects:"
+msgstr "Projek Terbaru"
+
+#: anjuta.glade.h:267
+msgid "Regexp"
+msgstr "Regexp"
+
+#: anjuta.glade.h:268
+msgid "Regexp/String to find"
+msgstr "Regexp/Rentetan untuk dicari"
+
+#: anjuta.glade.h:269
+msgid "Regular Expression"
+msgstr "Ungkapan Biasa"
+
+#: anjuta.glade.h:270
+msgid "Reload Session Defaults"
+msgstr "Muatix Semula Piawai Sesi"
+
+#: anjuta.glade.h:271
+msgid "Reload System Defaults"
+msgstr "Muatix Semula Piawai Sistem"
+
+#: anjuta.glade.h:272
+msgid "Replace Expression"
+msgstr "Ganti Ungkapan"
+
+#: anjuta.glade.h:273
+msgid "Replace With:"
+msgstr "Gantikan Dengan:"
+
+#: anjuta.glade.h:274
+msgid "Right"
+msgstr "Kanan"
+
+#: anjuta.glade.h:275
+msgid "Run Configure Script"
+msgstr "Jalankan Skrip Konfigurasi"
+
+#: anjuta.glade.h:276
+msgid "Run detached"
+msgstr "Jalankan berasingan"
+
+#: anjuta.glade.h:277
+msgid "Run in Terminal"
+msgstr "Jalankan dalam Terminal"
+
+#: anjuta.glade.h:278
+msgid "Run in terminal"
+msgstr "Jalankan dalam terminal"
+
+#: anjuta.glade.h:279
+msgid "Save all files"
+msgstr "Simpan semua fail"
+
+#: anjuta.glade.h:280
+msgid "Save files interval in minutes"
+msgstr "Simpan selang fail dalam minit"
+
+#: anjuta.glade.h:281
+msgid "Save session interval in minutes"
+msgstr "Simpan selang sesi dalam minit"
+
+#: anjuta.glade.h:282
+msgid "Scope"
+msgstr "Skop"
+
+#: anjuta.glade.h:283
+msgid "Scripts at the end of top level Makefile.am"
+msgstr "Skrip pada penghujung aras atas Makefile.am"
+
+#: anjuta.glade.h:284 src/anjuta_gui.c:121 src/anjuta_gui.c:167
+#: src/search-replace.c:1332 src/search-replace.c:1495
+#: src/search-replace.c:1501
+msgid "Search"
+msgstr "Cari"
+
+#: anjuta.glade.h:285
+msgid "Search Action:"
+msgstr "Tindakan Carian:"
+
+#: anjuta.glade.h:286
+msgid "Search Direction:"
+msgstr "Arah Carian:"
+
+#: anjuta.glade.h:287
+msgid "Search Expression"
+msgstr "Ungkapan Carian"
+
+#: anjuta.glade.h:288
+msgid "Search Expression:"
+msgstr "Ungkapan Carian:"
+
+#: anjuta.glade.h:289
+msgid "Search In:"
+msgstr "Cari Dalam:"
+
+#: anjuta.glade.h:290
+msgid "Search Recursively"
+msgstr "Cari Secara Rekursi"
+
+#: anjuta.glade.h:291
+msgid "Search String"
+msgstr "Rentetan Carian"
+
+#: anjuta.glade.h:292
+msgid "Search Target"
+msgstr "Sasaran Carian"
+
+#: anjuta.glade.h:293
+msgid "Search Variable"
+msgstr "Pemboleh Ubah Carian"
+
+#: anjuta.glade.h:294
+msgid "Search type"
+msgstr "Jenis Carian"
+
+#: anjuta.glade.h:295
+msgid "Select highlight style to edit:"
+msgstr "Pilih gaya tonjol untuk diedit"
+
+#: anjuta.glade.h:296
+msgid "Select theme:"
+msgstr "Pilih tema:"
+
+#: anjuta.glade.h:297
+msgid "Selection background:"
+msgstr "Pemilihan latar belakang:"
+
+#: anjuta.glade.h:298
+msgid "Selection foreground:"
+msgstr "Pemilihan latar depan"
+
+#: anjuta.glade.h:299 src/anjuta_gui.c:145
+msgid "Settings"
+msgstr "Seting"
+
+#: anjuta.glade.h:300
+msgid "Short cut:"
+msgstr "Jalan pintas:"
+
+#: anjuta.glade.h:301
+msgid "Show tooltips"
+msgstr "Tunjukkan tip alatan"
+
+#: anjuta.glade.h:302
+msgid "Silent. That is, do not echo shell commads during make"
+msgstr "Senyap. Iaitu, tidak ulang arahan cengkerang semasa make"
+
+#: anjuta.glade.h:303
+msgid "Sorted by most recent use"
+msgstr "Diisih mengikut kegunaan terbaru"
+
+#: anjuta.glade.h:304
+msgid "Sorted in alphabetical order"
+msgstr "Diisih mengikut tertib abjad"
+
+#: anjuta.glade.h:305
+msgid "Sorted in the order you open them"
+msgstr "Diisih mengikut tertib anda membukanya"
+
+#: anjuta.glade.h:306
+msgid "Source Directories"
+msgstr "Direktori Sumber"
+
+#: anjuta.glade.h:307
+msgid "Source module Makefile.am"
+msgstr "Modul sumber Makefile.am"
+
+#: anjuta.glade.h:308
+msgid "Space-seperated list of directory name patterns to ignore"
+msgstr ""
+"Senarai corak nama direktori yang dipisahkan oleh ruang untuk diabaikan"
+
+#: anjuta.glade.h:309
+msgid "Space-seperated list of directory name patterns to match"
+msgstr "Senarai corak nama direktori yang dipisahkan oleh untuk dipadankan"
+
+#: anjuta.glade.h:310
+msgid "Space-seperated list of file name patterns to ignore"
+msgstr "Senarai corak nama fail yang dipisahkan oleh ruang untuk diabaikan"
+
+#: anjuta.glade.h:311
+msgid "Space-seperated list of file name patterns to match"
+msgstr "Senarai corak nama fail yang dipisahkan oleh untuk dipadankan"
+
+#: anjuta.glade.h:312
+msgid "Squares"
+msgstr "Segi empat sama"
+
+#: anjuta.glade.h:313
+msgid "Standard error:"
+msgstr "Ralat piawai:"
+
+#: anjuta.glade.h:314
+msgid "Standard input:"
+msgstr "Input piawai:"
+
+#: anjuta.glade.h:315
+msgid "Standard output:"
+msgstr "Output piawai"
+
+#: anjuta.glade.h:316
+msgid ""
+"Start with a new Project. Application wizard will guide you with Project "
+"creation. With the Application Wizard, you will be able to create the "
+"skelleton of various types of Project."
+msgstr ""
+"Mulakan dengan Projek baru.  Wizard aplikasi akan membantu anda mewujudkan "
+"Projek.  Dengan menggunakan Wizard Aplikasi, anda boleh mewujudkan rangka "
+"pelbagai jenis Projek."
+
+#: anjuta.glade.h:317
+msgid "Strike-Out"
+msgstr "Gugurkan"
+
+#: anjuta.glade.h:318
+msgid "String"
+msgstr "Rentetan"
+
+#: anjuta.glade.h:319
+msgid "String to replace"
+msgstr "Rentetan untuk diganti"
+
+#: anjuta.glade.h:320
+msgid "Strip trailling spaces on file save"
+msgstr "Buang ruang berlebihan semasa simpan fail"
+
+#: anjuta.glade.h:321
+msgid "Style of Kangleipak"
+msgstr "Gaya Kangleipak"
+
+#: anjuta.glade.h:322 src/wizard_gui.c:780
+msgid "Summary"
+msgstr "Ringkasan"
+
+#: anjuta.glade.h:323
+msgid "Supports"
+msgstr "Sokongan"
+
+#: anjuta.glade.h:324
+msgid "Syntax highlight editor"
+msgstr "Editor tonjol sintaks"
+
+#: anjuta.glade.h:325
+msgid "Tab size in spaces:"
+msgstr "Saiz tab dalam ruang:"
+
+#: anjuta.glade.h:326
+msgid "Tabs position:"
+msgstr "Kedudukan tab:"
+
+#: anjuta.glade.h:327
+msgid "Target:"
+msgstr "Sasaran:"
+
+#: anjuta.glade.h:328
+msgid "Terminal options"
+msgstr "Opsyen terminal"
+
+#: anjuta.glade.h:329
+msgid "Theme"
+msgstr "Tema"
+
+#: anjuta.glade.h:330
+msgid "Tool Editor"
+msgstr "Editor Alat"
+
+#: anjuta.glade.h:331
+msgid "Top"
+msgstr "Atas"
+
+#: anjuta.glade.h:332
+msgid "Top level Makefile.am"
+msgstr "Aras atas Makefile.am"
+
+#: anjuta.glade.h:333
+msgid "Truncate long messages"
+msgstr "Pangkas mesej panjang"
+
+#: anjuta.glade.h:334
+msgid "Underline-Plain"
+msgstr "Garis bawah-Biasa"
+
+#: anjuta.glade.h:335
+msgid "Underline-Squiggle"
+msgstr "Garis bawah-Berombak"
+
+#: anjuta.glade.h:336
+msgid "Underline-TT"
+msgstr "Garis bawah-TT"
+
+#: anjuta.glade.h:337
+msgid "Underlined"
+msgstr "Garis bawah"
+
+#: anjuta.glade.h:338
+msgid "Undocked style"
+msgstr "Gaya nyahdok"
+
+#: anjuta.glade.h:339
+msgid ""
+"Undocked style presents Anjuta\n"
+"in with all sub-windows undocked\n"
+"from the main window."
+msgstr ""
+"Gaya nyahdok yang ada dalam Anjuta\n"
+"dengan semua subtetingkap dinyahdok\n"
+"dari tetingkap utama"
+
+#: anjuta.glade.h:342 src/cvs_gui.c:72 src/registers_gui.c:47
+#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace_gui.c:60
+msgid "Update"
+msgstr "Kemas kini"
+
+#: anjuta.glade.h:343
+msgid "Update tags image automatically"
+msgstr "Kemas kini imej tag secara automatik"
+
+#: anjuta.glade.h:344
+msgid "Use GNOME terminal profile:"
+msgstr "Gunakan profil pangkalan GNOME:"
+
+#: anjuta.glade.h:345
+msgid "Use currently selected profile in GNOME terminal"
+msgstr "Gunakan profil yang dipilih pada masa itu dalam terminal GNOME"
+
+#: anjuta.glade.h:346
+msgid "Use default"
+msgstr "Gunakan piawai"
+
+#: anjuta.glade.h:347
+msgid "Use tabs for indentation"
+msgstr "Gunakan tab bagi indentasi"
+
+#: anjuta.glade.h:348
+msgid "User Tools"
+msgstr "Alat Pengguna"
+
+#: anjuta.glade.h:349
+msgid "User email address:"
+msgstr "Alamat e-mel pengguna:"
+
+#: anjuta.glade.h:350
+msgid "User information"
+msgstr "Maklumat pengguna"
+
+#: anjuta.glade.h:351
+msgid "User name:"
+msgstr "Nama pengguna:"
+
+#: anjuta.glade.h:352
+msgid "Variable list"
+msgstr "Senarai pemboleh ubah"
+
+#: anjuta.glade.h:353 src/project_dbase_gui.c:921
+msgid "Version:"
+msgstr "Versi:"
+
+#: anjuta.glade.h:354 src/anjuta_gui.c:127
+msgid "View"
+msgstr "Pandangan"
+
+#: anjuta.glade.h:355
+msgid "Warn when an undefined variable is referenced in the Makefile"
+msgstr ""
+"Beri amaran apabila pemboleh ubah yang tidak ditentukan dirujuk dalam "
+"Makefile"
+
+#: anjuta.glade.h:356
+msgid "Warning message indicator style:"
+msgstr "Gaya penunjuk mesej amaran:"
+
+#: anjuta.glade.h:357
+msgid "Warnings"
+msgstr "Amaran"
+
+#: anjuta.glade.h:358
+msgid "Warnings messages:"
+msgstr "Mesej amaran:"
+
+#: anjuta.glade.h:359
+msgid "Whole document"
+msgstr "Seluruh dokumen"
+
+#: anjuta.glade.h:360
+msgid "Whole word"
+msgstr "Seluruh kata"
+
+#: anjuta.glade.h:361
+msgid "Windows style"
+msgstr "Gaya tetingkap"
+
+#: anjuta.glade.h:362
+msgid "Working directory:"
+msgstr "Direktori kerja:"
+
+#: anjuta.glade.h:363
+msgid "Wrap bookmarks search around"
+msgstr "Pusing balik carian tanda buku"
+
+#: anjuta.glade.h:364
+msgid "_Attach"
+msgstr "_Lampir"
+
+#: anjuta.glade.h:365
+msgid "_Build a file:"
+msgstr "_Bina fail:"
+
+#: anjuta.glade.h:366
+msgid "_Condition:"
+msgstr "_Syarat:"
+
+#: anjuta.glade.h:367
+msgid "_Disable all"
+msgstr "_Lumpuh semua"
+
+#: anjuta.glade.h:368
+msgid "_Edit"
+msgstr "_Edit"
+
+#: anjuta.glade.h:369
+msgid "_Execute:"
+msgstr "_Laksana:"
+
+#: anjuta.glade.h:370
+msgid "_Image editor:"
+msgstr "_Editor imej:"
+
+#: anjuta.glade.h:371
+msgid "_Language:"
+msgstr "_Bahasa:"
+
+#: anjuta.glade.h:372
+msgid "_Location:"
+msgstr "_Lokasi:"
+
+#: anjuta.glade.h:373
+msgid "_Make a file:"
+msgstr "_Buat fail:"
+
+#: anjuta.glade.h:374
+msgid "_Pass:"
+msgstr "_Sebelumnya:"
+
+#: anjuta.glade.h:375
+msgid "_Pixmap editor:"
+msgstr "_Editor Pixmap:"
+
+#: anjuta.glade.h:376
+msgid "_Process to attach to:"
+msgstr "_Proses untuk dilampirkan ke:"
+
+#: anjuta.glade.h:377
+msgid "_Remove all"
+msgstr "_Keluarkan semua"
+
+#: anjuta.glade.h:378
+msgid "_Save Theme As"
+msgstr "_Simpan Tema Sebagai"
+
+#: anjuta.glade.h:379
+msgid "_Terminal:"
+msgstr "_Terminal:"
+
+#: anjuta.glade.h:380
+msgid "_Update"
+msgstr "_Kemas kini"
+
+#: gdl/gdl-dock-item-grip.c:244
+msgid "Dock the toolbar"
+msgstr "Dok bar alatan"
+
+#: gdl/gdl-dock-item-grip.c:245
+msgid "Un dock the toolbar"
+msgstr "Nyahdok bar alatan"
+
+#: gdl/gdl-dock-item.c:242
+msgid "Orientation"
+msgstr "Orientasi"
+
+#: gdl/gdl-dock-item.c:243
+msgid "Orientation of the docking item"
+msgstr "Orientasi item dok"
+
+#: gdl/gdl-dock-item.c:258
+msgid "Resizable"
+msgstr "Saiz boleh ubah"
+
+#: gdl/gdl-dock-item.c:259
+msgid "If set, the dock item can be resized when docked in a paned"
+msgstr ""
+"Jika disetkan, item dok boleh diubah saiz semasa didok dalam anak tetingkap"
+
+#: gdl/gdl-dock-item.c:266
+msgid "Item behavior"
+msgstr "Peri laku item"
+
+#: gdl/gdl-dock-item.c:267
+msgid ""
+"General behavior for the dock item (i.e. whether it can float, if it's "
+"locked, etc.)"
+msgstr ""
+"Peri laku am bagi item dok (iaitu sama ada ia boleh apung, jika ia dikunci, "
+"dan sebagainya)"
+
+#: gdl/gdl-dock-item.c:275
+msgid "Grip size"
+msgstr "Saiz genggaman"
+
+#: gdl/gdl-dock-item.c:276
+msgid "Size in pixels of the grip to drag the dock item"
+msgstr "Saiz genggaman dalam piksel bagi menyeret item dok"
+
+#: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
+msgid "Locked"
+msgstr "Dikunci"
+
+#: gdl/gdl-dock-item.c:283
+msgid ""
+"If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgstr ""
+"Jika disetkan, item dok tidak boleh diseret dan tidak menunjukkan genggaman"
+
+#: gdl/gdl-dock-item.c:291
+msgid "Preferred width"
+msgstr "Lebar yang diutamakan"
+
+#: gdl/gdl-dock-item.c:292
+msgid "Preferred width for the dock item"
+msgstr "Lebar yang diutamakan bagi item dok"
+
+#: gdl/gdl-dock-item.c:298
+msgid "Preferred height"
+msgstr "Tinggi yang diutamakan"
+
+#: gdl/gdl-dock-item.c:299
+msgid "Preferred height for the dock item"
+msgstr "Tinggi yang diutamakan bagi item dok"
+
+#: gdl/gdl-dock-item.c:546
+#, c-format
+msgid ""
+"You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
+"some other compound dock object."
+msgstr ""
+"Anda tidak boleh menambahkan objek dok (%p dari jenis %s) di dalam %s.  Guna "
+"GdlDock atau objek majmuk dok yang lain."
+
+#: gdl/gdl-dock-item.c:553
+#, c-format
+msgid ""
+"Attempting to add a widget with type %s to a %s, but it can only contain one "
+"widget at a time; it already contains a widget of type %s"
+msgstr ""
+"Cuba menambahkan widget dengan jenis %s pada %s, tetapi ia hanya boleh "
+"mengandungi satu widget pada satu masa; ia telahpun mempunyai widget dari "
+"jenis %s"
+
+#: gdl/gdl-dock-item.c:1149
+#, c-format
+msgid "Unsupported docking strategy %s in dock object of type %s"
+msgstr "Strategi dok %s yang tidak disokong dalam objek dok dari jenis %s"
+
+#. Hide menuitem.
+#: gdl/gdl-dock-item.c:1231
+msgid "Hide"
+msgstr "Sembunyi"
+
+#. Lock menuitem
+#: gdl/gdl-dock-item.c:1237
+msgid "Lock"
+msgstr "Kunci"
+
+#: gdl/gdl-dock-item.c:1404
+#, c-format
+msgid "Attempt to bind an unbound item %p"
+msgstr "Cuba mengikat item %p yang tak terikat"
+
+#: gdl/gdl-dock-layout.c:125
+msgid "Master"
+msgstr "Induk"
+
+#: gdl/gdl-dock-layout.c:126
+msgid "GdlDockMaster object which the layout object is attached to"
+msgstr "Objek GdlDockMaster yang objek bentangan dilampirkan bersama"
+
+#: gdl/gdl-dock-layout.c:133
+msgid "Dirty"
+msgstr "Kotor"
+
+#: gdl/gdl-dock-layout.c:134
+msgid "True if the layouts have changed and need to be saved to a file"
+msgstr "Benar jika bentangan telah berubah dan perlu disimpan dalam fail"
+
+#: gdl/gdl-dock-layout.c:447
+msgid "You must provide a name for the layout"
+msgstr "Anda mestilah memberikan nama bagi bentangan"
+
+#. FIXME: pop up an error dialog
+#: gdl/gdl-dock-layout.c:625
+#, c-format
+msgid "Could not load layout user interface file '%s'"
+msgstr "Tidak dapat memuatkan bentangan fail antara muka pengguna '%s'"
+
+#: gdl/gdl-dock-layout.c:680
+msgid "Visible"
+msgstr "Dapat dilihat"
+
+#: gdl/gdl-dock-layout.c:687
+msgid "Item"
+msgstr "Item"
+
+#: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
+#: src/compiler_options.c:741 src/windows-dialog.c:294
+msgid "Name"
+msgstr "Nama"
+
+#: gdl/gdl-dock-layout.c:776 gdl/layout.glade.h:2
+msgid "Dock items"
+msgstr "Item dok"
+
+#: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
+msgid "Saved layouts"
+msgstr "Bentangan yang disimpan"
+
+#: gdl/gdl-dock-layout.c:824
+#, c-format
+msgid ""
+"While loading layout: don't know how to create a dock object whose nick is '%"
+"s'"
+msgstr ""
+"Semasa memuatkan bentangan: tidak tahu bagaimana mewujudkan objek dok yang "
+"torehannya adalah '%s'"
+
+#: gdl/gdl-dock-layout.c:1303
+#, fuzzy
+msgid "Layout managment"
+msgstr "Pengurusan bentangan"
+
+#: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
+msgid "Default title"
+msgstr "Tajuk piawai"
+
+#: gdl/gdl-dock-master.c:137
+msgid "Default title for newly created floating docks"
+msgstr "Tajuk piawai bagi dok apung yang baru diwujudkan"
+
+#: gdl/gdl-dock-master.c:144
+msgid ""
+"If is set to 1, all the dock items bound to the master are locked; if it's "
+"0, all are unlocked; -1 indicates inconsistency among the items"
+msgstr ""
+"Jika disetkan kepada 1, semua item dok yang diikat pada induk akan dikunci; "
+"jika ia 0, semua tidak dikunci; -1 menunjukkan tak konsisten antara item"
+
+#: gdl/gdl-dock-master.c:736
+#, c-format
+msgid ""
+"master %p: unable to add object %p[%s] to the hash.  There already is an "
+"item with that name (%p)."
+msgstr ""
+"induk %p: tidak dapat menambahkan objek %p[%s] ke cincangan.  Sudah wujud "
+"item dengan nama tersebut (%p)."
+
+#: gdl/gdl-dock-master.c:906
+#, c-format
+msgid ""
+"The new dock controller %p is automatic.  Only manual dock objects should be "
+"named controller."
+msgstr ""
+"Pengawal dok baru %p adalah automatik.  Hanya objek dok manual perlu "
+"diberikan nama pengawal."
+
+#: gdl/gdl-dock-notebook.c:134
+msgid "Page"
+msgstr "Halaman"
+
+#: gdl/gdl-dock-notebook.c:135
+msgid "The index of the current page"
+msgstr "Indeks halaman semasa"
+
+#: gdl/gdl-dock-object.c:121
+msgid "Unique name for identifying the dock object"
+msgstr "Name unik bagi mengecam objek dok"
+
+#: gdl/gdl-dock-object.c:128
+msgid "Long name"
+msgstr "Nama panjang"
+
+#: gdl/gdl-dock-object.c:129
+msgid "Human readable name for the dock object"
+msgstr "Nama yang boleh dibaca oleh orang ramai bagi objek dok"
+
+#: gdl/gdl-dock-object.c:135
+msgid "Dock master"
+msgstr "Dok induk"
+
+#: gdl/gdl-dock-object.c:136
+msgid "Dock master this dock object is bound to"
+msgstr "Dok induk bagi objek dok ini diikat ke"
+
+#: gdl/gdl-dock-object.c:405
+#, c-format
+msgid ""
+"Call to gdl_dock_object_dock in a dock object %p (object type is %s) which "
+"hasn't implemented this method"
+msgstr ""
+"Panggilan ke gdl_dock_object_dock dalam objek dok %p (jenis objek adalah %s) "
+"yang belum melaksanakan kaedah ini"
+
+#: gdl/gdl-dock-object.c:534
+#, c-format
+msgid ""
+"Dock operation requested in a non-bound object %p. The application might "
+"crash"
+msgstr ""
+"Operasi dok yang diminta dalam objek yang tak diikat %p.  Aplikasi mungkin "
+"tidak berfungsi"
+
+#: gdl/gdl-dock-object.c:541
+#, c-format
+msgid "Cannot dock %p to %p because they belong to different masters"
+msgstr "Tidak dapat dok %p ke %p kerana ia milik induk yang berbeza"
+
+#: gdl/gdl-dock-object.c:583
+#, c-format
+msgid ""
+"Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgstr ""
+"Cuba mengikat pada %p objek dok %p yang telah diikat (induk semasa: %p)"
+
+#: gdl/gdl-dock-paned.c:134
+msgid "Position"
+msgstr "Kedudukan"
+
+#: gdl/gdl-dock-paned.c:135
+msgid "Position of the divider in pixels"
+msgstr "Kedudukan pembahagi dalam piksel"
+
+#: gdl/gdl-dock-placeholder.c:127
+msgid "Sticky"
+msgstr "Melekat"
+
+#: gdl/gdl-dock-placeholder.c:128
+msgid ""
+"Whether the placeholder will stick to its host or move up the hierarchy when "
+"the host is redocked"
+msgstr ""
+"Sama ada pemegang tempat akan melekat pada hosnya atau bergerak ke atas "
+"hierarki apabila hos didok semula"
+
+#: gdl/gdl-dock-placeholder.c:135
+msgid "Host"
+msgstr "Hos"
+
+#: gdl/gdl-dock-placeholder.c:136
+msgid "The dock object this placeholder is attached to"
+msgstr "Objek dok pemegang tempat ini dilampirkan pada"
+
+#: gdl/gdl-dock-placeholder.c:143
+msgid "Next placement"
+msgstr "Peletakan seterusnya"
+
+#: gdl/gdl-dock-placeholder.c:144
+msgid ""
+"The position an item will be docked to our host if a request is made to dock "
+"to us"
+msgstr ""
+"Kedudukan item akan didok pada hos kami jika permintaan dibuat untuk didok "
+"kepada kami"
+
+#: gdl/gdl-dock-placeholder.c:305
+msgid "Attempt to dock a dock object to an unbound placeholder"
+msgstr "Cuba melakukan dok bagi objek dok pada pemegang tempat tak diikat"
+
+#: gdl/gdl-dock-placeholder.c:419
+#, c-format
+msgid "Got a detach signal from an object (%p) who is not our host %p"
+msgstr "Menerima isyarat tanggal dari objek (%p) yang bukan hos kami %p"
+
+#: gdl/gdl-dock-placeholder.c:440
+#, c-format
+msgid ""
+"Something weird happened while getting the child placement for %p from "
+"parent %p"
+msgstr ""
+"Sesuatu yang aneh berlaku semasa mendapatkan peletakan anak bagi %p dari ibu "
+"%p"
+
+#: gdl/gdl-dock-tablabel.c:130
+msgid "Controlling dock item"
+msgstr "Mengawal item dok"
+
+#: gdl/gdl-dock-tablabel.c:131
+#, fuzzy
+msgid "Dockitem which 'owns' this tablabel"
+msgstr "Item dok yang 'memiliki' label tab ini"
+
+#: gdl/gdl-dock.c:177
+msgid "Floating"
+msgstr "Apung"
+
+#: gdl/gdl-dock.c:178
+msgid "Whether the dock is floating in its own window"
+msgstr "Sama ada dok ini terapung dalam tetingkapnya sendiri"
+
+#: gdl/gdl-dock.c:186
+msgid "Default title for the newly created floating docks"
+msgstr "Tajuk piawai bagi dok apung yang baru diwujudkan"
+
+#: gdl/gdl-dock.c:192
+msgid "Width"
+msgstr "Lebar"
+
+#: gdl/gdl-dock.c:193
+msgid "Width for the dock when it's of floating type"
+msgstr "Lebar bagi dok semasa ia daripada jenis apung"
+
+#: gdl/gdl-dock.c:200
+msgid "Height"
+msgstr "Tinggi"
+
+#: gdl/gdl-dock.c:201
+msgid "Height for the dock when it's of floating type"
+msgstr "Tinggi bagi dok semasa ia daripada jenis apung"
+
+#: gdl/gdl-dock.c:208
+msgid "Float X"
+msgstr "Apung X"
+
+#: gdl/gdl-dock.c:209
+msgid "X coordinate for a floating dock"
+msgstr "Koordinat X bagi dok apung"
+
+#: gdl/gdl-dock.c:216
+msgid "Float Y"
+msgstr "Apung Y"
+
+#: gdl/gdl-dock.c:217
+msgid "Y coordinate for a floating dock"
+msgstr "Koordinat Y bagi dok apung"
+
+#: gdl/gdl-dock.c:494
+#, c-format
+msgid "Dock #%d"
+msgstr "Dok #%d"
+
+#: gdl/gdl-icons.c:141 gdl/gdl-icons.c:142
+msgid "Icon size"
+msgstr "Saiz ikon"
+
+#: gdl/gdl-icons.c:147 gdl/gdl-icons.c:148
+msgid "Icon zoom"
+msgstr "Zum ikon"
+
+#: gdl/layout.glade.h:3
+#, fuzzy
+msgid "Layout Managment"
+msgstr "Pengurusan Bentangan"
+
+#: gdl/layout.glade.h:5
+msgid "_Load"
+msgstr "_Muat"
+
+#: gdl/layout.glade.h:6
+msgid "_Lock dock items"
+msgstr "_Kunci item dok"
+
+#: plugins/class-gen/clsGen.c:449
+msgid "Class name not valid"
+msgstr "Nama kelas tak sah"
+
+#: plugins/class-gen/clsGen.c:456
+msgid "Base class name not valid"
+msgstr "Nama kelas asas tak sah"
+
+#: plugins/class-gen/clsGen.c:462
+msgid "Declaration file name not valid"
+msgstr "Nama fail pengisytiharan tak sah"
+
+#: plugins/class-gen/clsGen.c:467
+msgid "Implementation file name not valid"
+msgstr "Nama fail pelaksanaan tak sah"
+
+#: plugins/class-gen/clsGen.c:726
+msgid "Error in importing files"
+msgstr "Ralat semasa mengimport fail"
+
+#: plugins/class-gen/clsGen.c:1332
+msgid "Class Builder"
+msgstr "Pembina Kelas"
+
+#. 13
+#. 14
+#: plugins/class-gen/clsGen.c:1343 src/anjuta_gui.c:148
+#: src/main_menubar_def.h:1002 src/project_dbase_gui.c:358
+#: src/registers_gui.c:55 src/sharedlib_gui.c:48 src/signals_gui.c:62
+#: src/stack_trace_gui.c:75 src/toolbar.c:158 src/watch_gui.c:76
+msgid "Help"
+msgstr "Bantuan"
+
+#: plugins/class-gen/clsGen.c:1352 plugins/patch/patch-plugin.c:103
+msgid "Cancel"
+msgstr "Batal"
+
+#: plugins/class-gen/clsGen.c:1361
+msgid "Finish"
+msgstr "Tamat"
+
+#: plugins/class-gen/clsGen.c:1378
+msgid "Enter the name for the class you want to add."
+msgstr "Masukkan nama bagi kelas yang mahu anda tambah"
+
+#: plugins/class-gen/clsGen.c:1388
+msgid "Enter the declaration file name."
+msgstr "Masukkan nama fail pengisytiharan"
+
+#: plugins/class-gen/clsGen.c:1398
+msgid "Enter the implementation file name."
+msgstr "Masukkan nama fail perlaksanaan"
+
+#: plugins/class-gen/clsGen.c:1400 plugins/class-gen/clsGen.c:1410
+msgid "..."
+msgstr "..."
+
+#: plugins/class-gen/clsGen.c:1408
+msgid "Browse for the declaration file name."
+msgstr "Layari bagi nama fail pengisytiharan"
+
+#: plugins/class-gen/clsGen.c:1418
+msgid "Browse for the implementation file name."
+msgstr "Layari bagi nama fail perlaksanaan"
+
+#: plugins/class-gen/clsGen.c:1428
+msgid "Enter the name of the class your new class will inherit from."
+msgstr "Masukkan nama kelas yang akan diwarisi oleh kelas baru anda "
+
+#: plugins/class-gen/clsGen.c:1453
+msgid ""
+"This plugin will create a class of the type you specify and add it to your "
+"project. "
+msgstr ""
+"Plugin ini akan mewujudkan kelas daripada jenis yang anda nyatakan dan "
+"menambahkannya ke dalam projek anda"
+
+#. gtk_widget_set_usize (self->label_description, 400, 16);
+#: plugins/class-gen/clsGen.c:1462
+msgid "Class name: "
+msgstr "Nama kelas:"
+
+#: plugins/class-gen/clsGen.c:1472
+msgid "Header file:  "
+msgstr "Fail pengepala:"
+
+#: plugins/class-gen/clsGen.c:1482
+msgid "Source file:  "
+msgstr "Fail sumber:"
+
+#: plugins/class-gen/clsGen.c:1492
+msgid "Base class:   "
+msgstr "Kelas asas:"
+
+#: plugins/class-gen/clsGen.c:1502
+msgid "Base class inheritance: "
+msgstr "Warisan kelas asas"
+
+#: plugins/class-gen/clsGen.c:1538
+msgid "Inline the declaration and implementation"
+msgstr "Pengisytiharan dan pelaksanaan dalam garis"
+
+#. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
+#: plugins/class-gen/clsGen.c:1546
+msgid ""
+"If checked, the plugin will generate both the declaration and implementation "
+"in the header file and will not create a source file."
+msgstr ""
+"Jika ditandakan, plugin akan menjanakan pengisytiharan dan pelaksanaan dalam "
+"fail pengepala dan tidak akan mewujudkan fail sumber."
+
+#: plugins/class-gen/clsGen.c:1548
+msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
+msgstr "Oleh: Dave Huseby <huseby@linuxprogrammer.org>"
+
+#: plugins/class-gen/clsGen.c:1559
+msgid "V 0.0.2 (June 11, 2002)"
+msgstr "V 0.0.2 (Jun 11, 2002)"
+
+#: plugins/class-gen/clsGen.c:1570
+msgid ""
+"TODO: add the ability to declare member functions and their parameters here."
+msgstr ""
+"TODO: tambahkan keupayaan mengisytiharkan fungsi ahli dan parameternya di "
+"sini."
+
+#: plugins/class-gen/clsGen.c:1580
+msgid "Welcome to the Anjuta Class Builder. "
+msgstr "Selamat datang ke Pembina Kelas Anjuta. "
+
+#. gtk_widget_set_usize (self->label_welcome, 184, 16);
+#: plugins/class-gen/clsGen.c:1589
+msgid "Class type:   "
+msgstr "Jenis kelas:   "
+
+#: plugins/class-gen/clsGen.c:1607 plugins/class-gen/clsGen.c:1620
+msgid "public"
+msgstr "awam"
+
+#: plugins/class-gen/clsGen.c:1608
+msgid "protected"
+msgstr "dilindungi"
+
+#: plugins/class-gen/clsGen.c:1609
+msgid "private"
+msgstr "persendirian"
+
+#: plugins/class-gen/clsGen.c:1618
+msgid "Choose the type of inheritence from the base class."
+msgstr "Pilih jenis warisan dari kelas asas"
+
+#: plugins/class-gen/clsGen.c:1622
+msgid "Virtual destructor"
+msgstr "Pemusnah maya"
+
+#. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
+#: plugins/class-gen/clsGen.c:1630
+msgid "If checked, the destructor of your class will be declared virtual."
+msgstr "Jika ditandakan, pemusnah kelas anda diisytiharkan sebagai maya."
+
+#: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
+msgid "Generic C++ Class"
+msgstr "Kelas C++ Generik"
+
+#: plugins/class-gen/clsGen.c:1641
+msgid "GTK+ Class"
+msgstr "Kelas GTK+"
+
+#: plugins/class-gen/clsGen.c:1650
+msgid "Select the type of class you would like to create."
+msgstr "Pilih jenis kelas yang anda mahu wujudkan."
+
+#: plugins/patch/patch-plugin.c:60
+msgid "Interface to patch Projects or individual files"
+msgstr "Antara muka bagi menampung Projek atau fail berasingan"
+
+#: plugins/patch/patch-plugin.c:96
+msgid "File/Dir to patch"
+msgstr "Fail/Direktori untuk ditampung"
+
+#: plugins/patch/patch-plugin.c:97
+msgid "Patch file"
+msgstr "Fail tampung"
+
+#: plugins/patch/patch-plugin.c:98
+msgid "Patch level (-p)"
+msgstr "Aras tampung (-p)"
+
+#: plugins/patch/patch-plugin.c:103
+msgid "Patch Plugin"
+msgstr "Plugin tampung"
+
+#: plugins/patch/patch-plugin.c:103
+msgid "Patch"
+msgstr "Tampung"
+
+#: plugins/patch/patch-plugin.c:106
+msgid "Selected directory to patch"
+msgstr "Direktori yang dipilih untuk ditampung"
+
+#: plugins/patch/patch-plugin.c:108
+msgid "Selected patch file"
+msgstr "Fail tampung yang dipilih"
+
+#: plugins/patch/patch-plugin.c:144
+msgid "Patch plugin"
+msgstr "Plugin tampung"
+
+#: plugins/patch/patch-plugin.c:150
+msgid "The patch plugin"
+msgstr "Plugin tampung"
+
+#: plugins/patch/patch-plugin.c:168
+msgid "Please select the directory where the patch should be applied"
+msgstr "Sila pilih direktori yang tampungan akan digunakan "
+
+#: plugins/patch/patch-plugin.c:175
+#, c-format
+msgid "Patching %s using %s\n"
+msgstr "Menampung %s menggunakan %s\n"
+
+#: plugins/patch/patch-plugin.c:181
+msgid "Patching...\n"
+msgstr "Menampung...\n"
+
+#: plugins/patch/patch-plugin.c:188
+msgid "There are unfinished jobs, please wait until they are finished"
+msgstr "Terdapat kerja yang belum selesai, sila tunggu sehingga ia selesai"
+
+#: plugins/patch/patch-plugin.c:212
+msgid ""
+"Patch failed.\n"
+"Please review the failure messages.\n"
+"Examine and remove any rejected files.\n"
+msgstr ""
+"Tampungan gagal.\n"
+"Sila kaji semula mesej gagal.\n"
+"Periksa dan keluarkan sebarang fail yang ditolak.\n"
+
+#: plugins/patch/patch-plugin.c:219
+msgid "Patch successful.\n"
+msgstr "Tampungan berjaya.\n"
+
+#: plugins/sample1/plugin-sample1.c:17
+msgid "Sample Plugin Description. Holla!"
+msgstr "Sampel Huraian Plugin."
+
+#: plugins/sample1/plugin-sample1.c:47
+msgid "Hello world!"
+msgstr "Helo Dunia!"
+
+#: plugins/sample1/plugin-sample1.c:48
+msgid "Sample plugin!"
+msgstr "Plugin sampel"
+
+#: plugins/sample1/plugin-sample1.c:56
+msgid "Sample plugin"
+msgstr "Plugin sampel"
+
+#: plugins/sample1/plugin-sample1.c:62
+msgid "This is a sample plugin"
+msgstr "Ini adalah sampel plugin"
+
+#: printing/print.c:535
+msgid "No file to print!"
+msgstr "Tiada fail untuk dicetak!"
+
+#: printing/print.c:558
+msgid "Unable to get text buffer for printing"
+msgstr "Tidak boleh mendapatkan penimbal teks untuk mencetak"
+
+#: printing/print.c:789
+#, c-format
+msgid "File: %s"
+msgstr "Fail: %s"
+
+#: printing/print.c:790
+#, c-format
+msgid "%d"
+msgstr "%d"
+
+#: printing/print.c:910
+msgid "Printing .."
+msgstr "Mencetak .."
+
+#: printing/print.c:922
+msgid "Printing ..."
+msgstr "Mencetak ..."
+
+#: printing/print.c:1046 src/anjuta_gui.c:103 src/signals_gui.c:123
+#: src/text_editor_gui.c:178 src/toolbar.c:108
+msgid "Print"
+msgstr "Cetak"
+
+#: printing/print.c:1082
+msgid "Print Preview"
+msgstr "Pralihat Cetakan"
+
+#: src/about.c:95
+msgid "Copyright (c) Naba Kumar"
+msgstr "Hak cipta (c) Naba Kumar"
+
+#: src/an_file_view.c:57
+#, c-format
+msgid "Unable to open %s in %s"
+msgstr "Tidak dapat membuka %s dalam %s"
+
+#: src/an_file_view.c:67
+#, c-format
+msgid ""
+"No default viewer specified for the mime type %s.\n"
+"Please set it in GNOME control center"
+msgstr ""
+"Tiada pandangan piawai ditentukan bagi jenis tiruan %s.\n"
+"Sila setkannya dalam pusat kawalan GNOME"
+
+#: src/an_file_view.c:267
+msgid "Unable to build user interface for file filter"
+msgstr "Tidak dapat membina antara muka pengguna bagi penapis fail"
+
+#. 0
+#: src/an_file_view.c:348
+msgid "Update file"
+msgstr "Kemas kini fail"
+
+#: src/an_file_view.c:349 src/main_menubar_def.h:1608
+msgid "Update current working copy"
+msgstr "Kemas kini salinan kerja semasa"
+
+#. 1
+#: src/an_file_view.c:355
+msgid "Commit file"
+msgstr "Laksanakan fail"
+
+#: src/an_file_view.c:356 src/main_menubar_def.h:1615
+msgid "Commit changes to the repository"
+msgstr "Laksanakan perubahan ke repositori"
+
+#. 2
+#: src/an_file_view.c:362
+msgid "Status of file"
+msgstr "Status fail"
+
+#: src/an_file_view.c:363 src/main_menubar_def.h:1622
+msgid "Print the status of the current file"
+msgstr "Cetak status fail semasa"
+
+#. 3
+#: src/an_file_view.c:369
+msgid "Get file log"
+msgstr "Dapatkan log fail"
+
+#: src/an_file_view.c:370 src/main_menubar_def.h:1629
+msgid "Print the CVS log for the current file"
+msgstr "Cetak log CVS bagi fail semasa"
+
+#. 4
+#: src/an_file_view.c:376
+msgid "Add file"
+msgstr "Tambahkan fail"
+
+#: src/an_file_view.c:377 src/main_menubar_def.h:1636
+msgid "Add the current file to the repository"
+msgstr "Tambahkan fail semasa ke repositori"
+
+#. 5
+#: src/an_file_view.c:383
+msgid "Remove file"
+msgstr "Keluarkan fail"
+
+#: src/an_file_view.c:384 src/main_menubar_def.h:1643
+msgid "Remove the current file from the repository"
+msgstr "Keluarkan fail semasa dari repositori"
+
+#. 6
+#: src/an_file_view.c:390
+msgid "Diff file"
+msgstr "Fail diff"
+
+#: src/an_file_view.c:391 src/main_menubar_def.h:1650
+msgid "Create a diff between the working copy and the repository"
+msgstr "Wujudkan diff antara salinan kerja dengan repositori"
+
+#. 0
+#: src/an_file_view.c:400 src/main_menubar_def.h:950
+#: src/project_dbase_gui.c:326
+msgid "Open in Anjuta"
+msgstr "Buka dalam Anjuta"
+
+#. 1
+#: src/an_file_view.c:407 src/main_menubar_def.h:944
+#: src/project_dbase_gui.c:320
+msgid "Open in default viewer"
+msgstr "Buka dalam pandangan piawai"
+
+#. 3
+#: src/an_file_view.c:421 src/an_symbol_view.c:302
+msgid "Refresh"
+msgstr "Muat semula"
+
+#. 4
+#. 5
+#: src/an_file_view.c:429 src/an_symbol_view.c:309 src/main_menubar_def.h:976
+#: src/message-manager.cc:134 src/project_dbase_gui.c:352
+#: src/text_editor_menu.c:355
+msgid "Docked"
+msgstr "Didok"
+
+#: src/an_file_view.c:430 src/an_symbol_view.c:310 src/main_menubar_def.h:977
+msgid "Dock/Undock the Project Window"
+msgstr "Dok/Nyahdok Tetingkap Projek"
+
+#. 6
+#: src/an_file_view.c:436
+msgid "Customize"
+msgstr "Suaikan"
+
+#: src/an_file_view.c:437
+msgid "Customize the file browser"
+msgstr "Suaikan pelayar fail"
+
+#: src/an_file_view.c:678
+msgid "Rev"
+msgstr "Rev"
+
+#: src/an_symbol_view.c:54
+msgid "Classes"
+msgstr "Kelas"
+
+#: src/an_symbol_view.c:54
+msgid "Structs"
+msgstr "Structs"
+
+#: src/an_symbol_view.c:55
+msgid "Variables"
+msgstr "Pemboleh ubah"
+
+#: src/an_symbol_view.c:55
+msgid "Macros"
+msgstr "Makro"
+
+#. 0
+#: src/an_symbol_view.c:281
+msgid "Goto Definition"
+msgstr "Takrif Pergi ke"
+
+#. 1
+#: src/an_symbol_view.c:288
+msgid "Goto Declaration"
+msgstr "Pergi ke Pengisytiharan"
+
+#. 2
+#: src/an_symbol_view.c:295 src/text_editor_menu.c:339
+msgid "Find Usage"
+msgstr "Cari Kegunaan"
+
+#: src/an_symbol_view.c:569
+msgid "Symbol"
+msgstr "Simbol"
+
+#: src/anjuta-plugins.c:115 src/anjuta-plugins.c:118
+#, c-format
+msgid "Unable to load plugin %s. Error: %s"
+msgstr "Tidak dapat memuatkan plugin %s. Ralat: %s"
+
+#: src/anjuta-plugins.c:121
+#, c-format
+msgid "Plugin protocol %s unknown Error:%s"
+msgstr "Protokol plugin %s tak diketahui Ralat:%s"
+
+#: src/anjuta-plugins.c:124
+#, c-format
+msgid "Unable to start plugin %s"
+msgstr "Tidak dapat memulakan plugin %s"
+
+#: src/anjuta-plugins.c:127
+#, c-format
+msgid "Bad parameters to plugin %s. Error: %s"
+msgstr "Parameter salah bagi plugin %s. Ralat: %s"
+
+#: src/anjuta-plugins.c:134
+#, c-format
+msgid ""
+"Unable to load plugin %s.\n"
+"Error: %s"
+msgstr ""
+"Tidak dapat memuatkan plugin %s.\n"
+"Ralat: %s"
+
+#: src/anjuta-plugins.c:203
+msgid "Out of memory scanning for plugins."
+msgstr "Kehabisan memori ketika mengimbas untuk plugin"
+
+#: src/anjuta-tools.c:979
+msgid "Tool"
+msgstr "Alat"
+
+#: src/anjuta-tools.c:1163
+msgid "Unable to build user interface for tool editor"
+msgstr "Tidak dapat membina antara muka pengguna bagi editor alat"
+
+#: src/anjuta-tools.c:1359
+#, c-format
+msgid "Are you sure you want to delete tool '%s'"
+msgstr "Adakah anda pasti anda mahu menghapuskan alat '%s'"
+
+#: src/anjuta-tools.c:1457
+msgid "You must provide a tool name!"
+msgstr "Anda mesti memberikan nama alat!"
+
+#: src/anjuta-tools.c:1463
+msgid "You must provide a tool command!"
+msgstr "Anda mesti memberikan arahan alat!"
+
+#: src/anjuta-tools.c:1478
+#, c-format
+msgid "A tool with the name '%s' already exists!"
+msgstr "Alat dengan nama '%s' telah wujud!"
+
+#: src/anjuta-tools.c:1762
+msgid "Unable to build user interface for tool help"
+msgstr "Tidak dapat membina antara muka pengguna bagi bantuan alat"
+
+#: src/anjuta-tools.c:1777 src/debug_tree.c:1463 src/debug_tree.c:1483
+#: src/watch_gui.c:130
+msgid "Variable"
+msgstr "Pemboleh ubah"
+
+#: src/anjuta-tools.c:1783
+msgid "Meaning"
+msgstr "Makna"
+
+#: src/anjuta-tools.c:1789 src/debug_tree.c:1463 src/debug_tree.c:1492
+#: src/watch_gui.c:139
+msgid "Value"
+msgstr "Nilai"
+
+#: src/anjuta-tools.c:1852
+msgid "Unable to build user interface for tool parameters"
+msgstr "Tidak dapat membina antara muka pengguna bagi parameter alat"
+
+#: src/anjuta-tools.c:1856
+#, c-format
+msgid "%s: Command line parameters"
+msgstr "%s: Parameter baris arahan"
+
+#: src/anjuta.c:71 src/anjuta.c:78
+#, c-format
+msgid "Anjuta: Caught signal %d (%s) !"
+msgstr "Anjuta: Mendapat isyarat %d (%s) !"
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:106
+msgid "Open File"
+msgstr "Buka Fail"
+
+#. Must declare static, because it will be used forever
+#: src/anjuta.c:112 src/anjuta.c:117
+msgid "Save File As"
+msgstr "Simpan Fail Sebagai"
+
+#: src/anjuta.c:255
+msgid "Cannot create application... exiting\n"
+msgstr "Tidak dapat wujudkan aplikasi... sedang keluar\n"
+
+#: src/anjuta.c:305 src/anjuta.c:309 src/anjuta.c:1090 src/anjuta.c:1106
+#, c-format
+msgid "Anjuta: %s"
+msgstr "Anjuta: %s"
+
+#: src/anjuta.c:367
+msgid "Recent Files "
+msgstr "Fail Terbaru "
+
+#: src/anjuta.c:884
+msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
+msgstr ""
+"# * JANGAN EDIT ATAU NAMAKAN SEMULA FAIL INI ** Dijanakan oleh Anjuta **\n"
+
+#: src/anjuta.c:1055
+msgid "All files saved ..."
+msgstr "Semua fail disimpan ..."
+
+#: src/anjuta.c:1083
+#, c-format
+msgid "Anjuta: %s (Saved)"
+msgstr "Anjuta: %s (Disimpan)"
+
+#: src/anjuta.c:1098
+#, c-format
+msgid "Anjuta: %s (Unsaved)"
+msgstr "Anjuta: %s (Tidak disimpan)"
+
+#: src/anjuta.c:1123
+msgid "Anjuta: No file"
+msgstr "Anjuta: Tiada fail"
+
+#: src/anjuta.c:1443 src/anjuta.c:1519
+msgid "ERROR: "
+msgstr "RALAT: "
+
+#: src/anjuta.c:1464 src/anjuta.c:1537
+msgid ""
+"\n"
+"System: "
+msgstr ""
+"\n"
+"Sistem: "
+
+#: src/anjuta.c:2009
+#, c-format
+msgid ""
+"The \"%s\" utility is not installed.\n"
+"Install it and then restart Anjuta."
+msgstr ""
+"Utiliti \"%s\" tidak dipasang.\n"
+"Pasangkannya dan kemudian mulakan semula Anjuta."
+
+#: src/anjuta.c:2035 src/anjuta.c:2091
+msgid "None"
+msgstr "Tiada"
+
+#: src/anjuta.c:2046
+msgid "DOS (CRLF)"
+msgstr "(CLRF) DOS"
+
+#: src/anjuta.c:2049 src/anjuta.c:2083
+msgid "Unix (LF)"
+msgstr "(LF) Unix"
+
+#: src/anjuta.c:2052
+msgid "Mac (CR)"
+msgstr "(CR) Mac"
+
+#: src/anjuta.c:2055
+msgid "Unknown"
+msgstr "Tak diketahui"
+
+#: src/anjuta.c:2072
+msgid "OVR"
+msgstr "OVR"
+
+#: src/anjuta.c:2076 src/anjuta.c:2082
+msgid "INS"
+msgstr "INS"
+
+#: src/anjuta.c:2094
+#, c-format
+msgid ""
+"  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
+"Job: %s       Mode: %s"
+msgstr ""
+"  Projek: %s       Zum: %d       Baris: %04d       Lajur: %03d       %"
+"s       Kerja: %s       Mod: %s"
+
+#: src/anjuta.c:2331
+msgid "Looking up symbol"
+msgstr "Mencari simbol"
+
+#: src/anjuta.c:2333 src/find_in_files.c:306
+msgid "Finding in Files ....\n"
+msgstr "Mencari dalam Fail ....\n"
+
+#: src/anjuta_cbs.c:145
+msgid ""
+"One or more files are not saved.\n"
+"Do you still want to exit?"
+msgstr ""
+"Satu atau lebih fail tidak disimpan.\n"
+"Adakah anda masih mahu keluar?"
+
+#: src/anjuta_cbs.c:405 src/project_dbase_gui.c:1348
+#, c-format
+msgid "Not a regular file: %s."
+msgstr "Bukan fail biasa: %s"
+
+#: src/anjuta_cbs.c:411
+#, c-format
+msgid "No read permission for: %s."
+msgstr "Tiada kebenaran baca bagi: %s"
+
+#: src/anjuta_cbs.c:523 src/anjuta_cbs.c:580
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?."
+msgstr ""
+"Fail '%s' telah wujud.\n"
+"Adakah anda mahu menulis gantinya?."
+
+#: src/anjuta_cbs.c:556
+msgid "Could not open file for writing"
+msgstr "Tidak dapat membuka fail bagi menulis"
+
+#: src/anjuta_dirs.c:52
+msgid "Unable to create settings directory.\n"
+msgstr "Tidak dapat mewujudkan direktori seting.\n"
+
+#: src/anjuta_gui.c:109
+#, fuzzy
+msgid "Transform"
+msgstr "_Jelma"
+
+#: src/anjuta_gui.c:112 src/toolbar.c:810
+msgid "Select"
+msgstr "Pilih"
+
+#: src/anjuta_gui.c:115
+#, fuzzy
+msgid "Insert"
+msgstr "Periksa"
+
+#: src/anjuta_gui.c:118
+#, fuzzy
+msgid "Comment"
+msgstr "Komen:"
+
+#: src/anjuta_gui.c:124
+msgid "Navigate"
+msgstr ""
+
+#: src/anjuta_gui.c:136
+#, fuzzy
+msgid "Syntax hilighting styles"
+msgstr "Seting tonjolan sintaks"
+
+#: src/anjuta_gui.c:156
+#, fuzzy
+msgid "Goto line"
+msgstr "Pergi ke Pengisytiharan"
+
+#: src/anjuta_gui.c:157
+#, fuzzy
+msgid "Enter the line number to jump and press enter"
+msgstr "Masukkan nombor baris untuk pergi ke"
+
+#: src/anjuta_gui.c:168
+#, fuzzy
+msgid "Incremental search"
+msgstr "Bantuan carian Anjuta"
+
+#: src/anjuta_gui.c:183
+#, fuzzy
+msgid "Navigation"
+msgstr "Konfigurasi"
+
+#: src/anjuta_gui.c:195 src/main_menubar.c:383
+msgid "Recent Files    "
+msgstr "Fail Terbaru    "
+
+#: src/anjuta_gui.c:204 src/main_menubar.c:394 src/project_dbase.c:2072
+msgid "Recent Projects "
+msgstr "Projek Terbaru "
+
+#: src/anjuta_gui.c:469 src/anjuta_gui.c:558
+msgid "Click here to undock this window"
+msgstr "Klik di sini untuk menyahdok tetingkap ini"
+
+#: src/anjuta_gui.c:503 src/anjuta_gui.c:525
+msgid "Click here to hide this window"
+msgstr "Klik di sini untuk menyembunyikan tetingkap ini"
+
+#: src/anjuta_info.c:50 src/anjuta_info.c:100
+msgid "Information"
+msgstr "Maklumat"
+
+#: src/appwizard_cbs.c:126
+msgid "Project name"
+msgstr "Nama projek"
+
+#: src/appwizard_cbs.c:127
+msgid "Source target name"
+msgstr "Nama sasaran sumber"
+
+#: src/appwizard_cbs.c:128
+msgid "Project version"
+msgstr "Versi projek"
+
+#: src/appwizard_cbs.c:224
+#, c-format
+msgid ""
+"Invalid %s field:\n"
+"You must supply a valid %s field to proceed further."
+msgstr ""
+"Medan %s tak sah:\n"
+"Anda mestilah memberikan medan %s yang sah untuk meneruskan."
+
+#. For the time being
+#: src/appwizard_cbs.c:277 src/project_dbase.c:1525 src/project_dbase.c:1531
+#: src/project_dbase.c:1534 src/project_import_cbs.c:221 src/signals_cbs.c:115
+#: src/signals_cbs.c:128 src/signals_cbs.c:141
+msgid "Yes"
+msgstr "Ya"
+
+#: src/appwizard_cbs.c:279 src/project_dbase.c:1527 src/project_dbase.c:1536
+#: src/project_import_cbs.c:223 src/signals_cbs.c:117 src/signals_cbs.c:130
+#: src/signals_cbs.c:143
+msgid "No"
+msgstr "Tidak"
+
+#: src/appwizard_cbs.c:281 src/project_import_cbs.c:224
+msgid ""
+"Confirm the following information:\n"
+"\n"
+msgstr ""
+"Sahkan maklumat berikut:\n"
+"\n"
+
+#: src/appwizard_cbs.c:282 src/project_import_cbs.c:225
+msgid "Project Name:    "
+msgstr "Nama Projek:    "
+
+#: src/appwizard_cbs.c:283 src/project_import_cbs.c:226
+msgid "Project Type:    "
+msgstr "Jenis Projek:    "
+
+#: src/appwizard_cbs.c:284 src/project_import_cbs.c:228
+msgid "Target Type:     "
+msgstr "Jenis Sasaran:     "
+
+#: src/appwizard_cbs.c:285 src/project_import_cbs.c:231
+msgid "Source Target:   "
+msgstr "Sasaran Sumber:   "
+
+#: src/appwizard_cbs.c:286 src/project_import_cbs.c:232
+msgid "Version:         "
+msgstr "Versi:         "
+
+#: src/appwizard_cbs.c:287 src/project_import_cbs.c:233
+msgid "Author:          "
+msgstr "Pengarang:          "
+
+#: src/appwizard_cbs.c:288 src/project_import_cbs.c:234
+msgid "Language:        "
+msgstr "Bahasa:        "
+
+#: src/appwizard_cbs.c:289 src/project_import_cbs.c:236
+msgid "Gettext Support: "
+msgstr "Sokongan Gettext: "
+
+#: src/appwizard_gui.c:40
+msgid ""
+"The Application Wizard will generate a basic\n"
+"skeleton for a project, including all of the\n"
+"build files. It will ask for details of the initial\n"
+"structure for the application.\n"
+"\n"
+"Please answer the questions carefully, as it\n"
+"may not be possible to change some of the\n"
+"settings later."
+msgstr ""
+"Wizard Aplikasi akan menjanakan rangka\n"
+"asas bagi projek, termasuk semua\n"
+"fail binaan. Ia akan meminta perincian struktur\n"
+"awal bagi aplikasi.\n"
+"\n"
+"Sila jawab soalan dengan berhati-hati, kerana\n"
+"kemungkinan sebahagian daripada\n"
+"seting tersebut tidak dapat diubah."
+
+#: src/attach_process.c:46
+msgid "Pid"
+msgstr "Pid"
+
+#: src/attach_process.c:46
+msgid "User"
+msgstr "Pengguna"
+
+#: src/attach_process.c:46
+msgid "Time"
+msgstr "Masa"
+
+#: src/attach_process.c:46
+msgid "Command"
+msgstr "Arahan"
+
+#: src/attach_process.c:130
+#, c-format
+msgid "Unable to execute: %s."
+msgstr "Tidak dapat melaksanakan: %s"
+
+#: src/attach_process.c:140
+#, c-format
+msgid "Unable to open the file: %s\n"
+msgstr "Tidak dapat membuka fail: %s\n"
+
+#: src/breakpoints.c:102
+msgid "Line"
+msgstr "Baris"
+
+#: src/breakpoints.c:103
+msgid "Function"
+msgstr "Fungsi"
+
+#: src/breakpoints.c:103 src/signals_gui.c:127
+msgid "Pass"
+msgstr "Sebelumnya"
+
+#: src/breakpoints.c:103
+msgid "Condition"
+msgstr "Syarat"
+
+#: src/breakpoints.c:485
+msgid "You must give a valid location to set the breakpoint."
+msgstr "Anda mesti memberikan lokasi yang sah untuk mengesetkan titik putus."
+
+#: src/breakpoints.c:588
+msgid "Are you sure you want to delete all the breakpoints?"
+msgstr "Adakah anda pasti anda mahu menghapuskan semua titik putus?"
+
+#: src/breakpoints.c:1119
+msgid "Old breakpoints disabled."
+msgstr "Titik putus lama dilumpuhkan"
+
+#. 5
+#: src/breakpoints.c:1261 src/main_menubar_def.h:758 src/text_editor_gui.c:161
+msgid "0"
+msgstr "0"
+
+#: src/build_file.c:51
+msgid "This file has not been saved. Save it first and then build."
+msgstr "Fail ini belum disimpan. Simpannya dahulu dan kemudian bina."
+
+#: src/build_file.c:76
+msgid "The executable is up-to-date, there is no need to build it again."
+msgstr "Boleh dilaksanakan adalah yang terkini, tidak perlu membinanya lagi"
+
+#: src/build_file.c:91
+msgid "No build command has been specified for this type of file."
+msgstr "Tiada arahan bina dinyatakan bagi fail jenis ini"
+
+#: src/build_file.c:109
+#, c-format
+msgid "Building file: %s ...\n"
+msgstr "Membina fail: %s ...\n"
+
+#: src/build_file.c:130 src/build_project.c:332 src/build_project.c:369
+#: src/build_project.c:407 src/build_project.c:441 src/build_project.c:475
+#: src/clean_project.c:118 src/clean_project.c:201 src/compile.c:198
+#: src/configurer.c:220 src/cvs.c:746 src/find_in_files.c:341
+#: src/project_import.c:179
+#, c-format
+msgid "Total time taken: %d secs\n"
+msgstr "Jumlah masa diambil: %d saat\n"
+
+#: src/build_file.c:135
+msgid "Build completed ... unsuccessful\n"
+msgstr "Binaan selesai ... tidak berjaya\n"
+
+#: src/build_file.c:139
+msgid "Build completed ... unsuccessful"
+msgstr "Binaan selesai ... tidak berjaya"
+
+#: src/build_file.c:144
+msgid "Build completed ... successful\n"
+msgstr "Binaan selesai ... berjaya\n"
+
+#: src/build_file.c:148
+msgid "Build completed ... successful"
+msgstr "Binaan selesai ... berjaya"
+
+#: src/build_project.c:63 src/compile.c:60
+msgid "Unable to build module. Check Settings->Commands."
+msgstr "Tidak dapat membina modul. Semak Seting->Arahan."
+
+#: src/build_project.c:84 src/build_project.c:140 src/compile.c:75
+msgid "Build Project"
+msgstr "Bina Projek"
+
+#: src/build_project.c:86 src/compile.c:77
+msgid "Building source directory of the Project: "
+msgstr "Membina direktori sumber bagi Projek: "
+
+#: src/build_project.c:123
+msgid "Unable to build Project. Check Settings->Commands."
+msgstr "Tidak dapat membina Projek. Semak Seting->Arahan."
+
+#: src/build_project.c:143
+msgid "Building the whole Project: "
+msgstr "Membina keseluruhan Projek: "
+
+#: src/build_project.c:176
+msgid "Unable to build tarball. Check Settings->Commands."
+msgstr "Tidak dapat membina tarball. Semak Seting->Arahan."
+
+#: src/build_project.c:193
+msgid "Build Distribution"
+msgstr "Bina Pengagihan"
+
+#: src/build_project.c:197
+msgid "Building the distribution package of the Project: "
+msgstr "Membina pakej pengagihan Projek: "
+
+#: src/build_project.c:229
+msgid "Do you prefer installing as root ?"
+msgstr "Adakah anda memilih pemasangan sebagai akar ?"
+
+#: src/build_project.c:268
+msgid "Unable to auto generate. Check Settings->Commands."
+msgstr "Tidak dapat menjanakan secara automatik. Semak Seting->Arahan."
+
+#: src/build_project.c:284
+msgid "Auto generate Project"
+msgstr "Janakan Projek secara automatik"
+
+#: src/build_project.c:287
+msgid "Auto generating the Project: "
+msgstr "Menjanakan Projek secara automatik:"
+
+#: src/build_project.c:315
+msgid "Build completed...............Unsuccessful\n"
+msgstr "Binaan selesai...............Tidak berjaya\n"
+
+#: src/build_project.c:319
+msgid "Build terminated with error(s)."
+msgstr "Binaan ditamatkan dengan ralat."
+
+#: src/build_project.c:325
+msgid "Build completed...............Successful\n"
+msgstr "Binaan selesai...............Berjaya\n"
+
+#: src/build_project.c:329
+msgid "Build completed ... successful."
+msgstr "Binaan selesai ... berjaya."
+
+#: src/build_project.c:353
+msgid "Build All completed...............Unsuccessful\n"
+msgstr "Binaan Semua selesai...............Tidak berjaya\n"
+
+#: src/build_project.c:357
+msgid "Build All completed...............Unsuccessful"
+msgstr "Binaan Semua selesai...............Tidak berjaya"
+
+#: src/build_project.c:362
+msgid "Build All completed...............Successful\n"
+msgstr "Binaan Semua selesai...............Berjaya\n"
+
+#: src/build_project.c:366
+msgid "Build All completed ... successful"
+msgstr "Binaan Semua selesai ... berjaya"
+
+#: src/build_project.c:388
+msgid "Build Distribution completed...............Unsuccessful\n"
+msgstr "Binaan Pengagihan selesai...............Tidak berjaya\n"
+
+#: src/build_project.c:392
+msgid "Build Distribution completed ... unsuccessful"
+msgstr "Binaan Pengagihan selesai...............tidak berjaya"
+
+#: src/build_project.c:397
+msgid "Build Distribution completed...............Successful\n"
+msgstr "Binaan Pengagihan selesai...............Berjaya\n"
+
+#: src/build_project.c:400
+msgid ""
+"The source tarball can be found in the top level directory of the Project.\n"
+msgstr "Tarball sumber boleh dijumpai pada aras atas direktori Projek.\n"
+
+#: src/build_project.c:404
+msgid "Build Distribution completed ... successful"
+msgstr "Binaan Pengagihan selesai...............berjaya"
+
+#: src/build_project.c:425
+msgid "Install completed...............Unsuccessful\n"
+msgstr "Pemasangan selesai...............Tidak berjaya\n"
+
+#: src/build_project.c:429
+msgid "Install completed...............Unsuccessful"
+msgstr "Pemasangan selesai...............Tidak berjaya"
+
+#: src/build_project.c:434
+msgid "Install completed...............Successful\n"
+msgstr "Pemasangan selesai...............Berjaya\n"
+
+#: src/build_project.c:438
+msgid "Install completed ... successful"
+msgstr "Pemasangan selesai...............berjaya"
+
+#: src/build_project.c:459 src/gnome_project.c:259
+msgid "Auto generation completed...............Unsuccessful\n"
+msgstr "Penjanaan automatik selesai...............Tidak berjaya\n"
+
+#: src/build_project.c:463
+msgid "Auto generation completed ... unsuccessful"
+msgstr "Penjanaan automatik selesai...............tidak berjaya"
+
+#: src/build_project.c:468
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Configure the Project.\n"
+msgstr ""
+"Penjanaan automatik selesai...............Berjaya\n"
+"Sekarang Buat Konfigurasi Projek.\n"
+
+#: src/build_project.c:472
+msgid "Auto generation completed ... successful"
+msgstr "Penjanaan automatik selesai ... berjaya"
+
+#: src/build_project.c:493 src/build_project.c:538
+msgid "Unable to install Project. Check Settings->Commands."
+msgstr "Tidak dapat memasang Projek. Semak Seting->Arahan."
+
+#: src/build_project.c:515 src/build_project.c:557
+msgid "Install Project"
+msgstr "Pasang Projek"
+
+#: src/build_project.c:517 src/build_project.c:559
+msgid "Installing the Project: "
+msgstr "Memasang Projek: "
+
+#: src/clean_project.c:61
+msgid "Unable to clean Project. Check Settings->Commands."
+msgstr "Tidak dapat membersihkan Projek. Semak Seting->Arahan."
+
+#: src/clean_project.c:72
+msgid "Clean"
+msgstr "Bersih"
+
+#: src/clean_project.c:75
+msgid "Cleaning the source directory of the Project: "
+msgstr "Membersihkan direktori sumber Projek: "
+
+#: src/clean_project.c:102
+msgid "Cleaning completed...............Unsuccessful\n"
+msgstr "Pembersihan selesai...............Tidak berjaya\n"
+
+#: src/clean_project.c:106
+msgid "Cleaning completed ... unsuccessful"
+msgstr "Pembersihan selesai ... tidak berjaya"
+
+#: src/clean_project.c:111
+msgid "Cleaning completed...............Successful\n"
+msgstr "Pembersihan selesai...............Berjaya\n"
+
+#: src/clean_project.c:115
+msgid "Cleaning completed ... successful"
+msgstr "Pembersihan selesai ... berjaya"
+
+#: src/clean_project.c:150
+msgid "Unable to Clean All for the Project. Check Settings->Commands."
+msgstr "Tidak Dapat Membersihkan Semua bagi Projek. Semak Seting->Arahan."
+
+#: src/clean_project.c:161
+msgid "Clean All"
+msgstr "Bersihkan Semua"
+
+#: src/clean_project.c:164
+msgid "Cleaning whole of the Project: "
+msgstr "Membersihkan keseluruhan Projek: "
+
+#: src/clean_project.c:185
+msgid "Clean All completed...............Unsuccessful\n"
+msgstr "Bersihkan Semua selesai...............Tidak berjaya\n"
+
+#: src/clean_project.c:189
+msgid "Clean All completed ... unsuccessful"
+msgstr "Bersihkan Semua selesai ... tidak berjaya"
+
+#: src/clean_project.c:194
+msgid "Clean All completed...............Successful\n"
+msgstr "Bersihkan Semua selesai...............Berjaya\n"
+
+#: src/clean_project.c:198
+msgid "Clean All completed ... successful"
+msgstr "Bersihkan Semua selesai ... berjaya"
+
+#: src/compile.c:108
+msgid "This file has not been saved. Save it first and then compile."
+msgstr "Fail ini belum disimpan. Simpannya dahulu dan kemudian kompil."
+
+#: src/compile.c:129
+msgid "The object file is up-to-date, there is no need to compile it again."
+msgstr "Objek fail adalah terkini, tidak perlu kompil semula "
+
+#: src/compile.c:141
+msgid "No compile command has been specified for this type of file."
+msgstr "Tiada arahan kompil dinyatakan bagi fail jenis ini"
+
+#: src/compile.c:155 src/text_editor_gui.c:168 src/toolbar.c:249
+msgid "Compile"
+msgstr "Kompil"
+
+#: src/compile.c:157
+#, c-format
+msgid "Compiling file: %s ...\n"
+msgstr "Mengkompil fail: %s ...\n"
+
+#: src/compile.c:180 src/compile.c:185
+msgid "Compile completed ... unsuccessful"
+msgstr "Mengkompil selesai ... tidak berjaya"
+
+#: src/compile.c:190 src/compile.c:195
+msgid "Compile completed ... successful"
+msgstr "Mengkompil selesai ... berjaya"
+
+#: src/compiler_options.c:676 src/src_paths.c:218
+msgid "Do you want to clear the list?"
+msgstr "Adakah anda mahu mengosongkan senarai?"
+
+#: src/compiler_options.c:748 src/compiler_options.c:824
+#: src/compiler_options.c:847 src/compiler_options.c:892 src/signals_gui.c:131
+msgid "Description"
+msgstr "Huraian"
+
+#: src/compiler_options.c:763
+msgid "Include paths"
+msgstr "Termasuk Laluan"
+
+#: src/compiler_options.c:778
+msgid "Libraries paths"
+msgstr "Laluan Pustaka"
+
+#: src/compiler_options.c:801
+msgid "Libraries and modules"
+msgstr "Pustaka dan modul"
+
+#: src/compiler_options.c:817
+msgid "Stock"
+msgstr "Stok"
+
+#: src/compiler_options.c:862
+msgid "Stock Defines"
+msgstr "Menentukan Stok"
+
+#: src/compiler_options.c:885
+msgid "Warning"
+msgstr "Amaran"
+
+#: src/configurer.c:152
+msgid ""
+"Project does not have an executable configure script.\n"
+"Auto generate the Project first."
+msgstr ""
+"Projek tidak mempunyai konfigurasi yang boleh dilaksanakan.\n"
+"Janakan Projek secara automatik terlebih dahulu."
+
+#: src/configurer.c:184 src/toolbar.c:261
+msgid "Configure"
+msgstr "Buat konfigurasi"
+
+#: src/configurer.c:186
+msgid "Configuring the Project ....\n"
+msgstr "Membuat konfigurasi Projek ....\n"
+
+#: src/configurer.c:207
+msgid "Configure completed...............Unsuccessful\n"
+msgstr "Buat konfigurasi selesai...............Tidak berjaya\n"
+
+#: src/configurer.c:209
+msgid "Configure completed ... unsuccessful"
+msgstr "Buat konfigurasi selesai ... tidak berjaya"
+
+#: src/configurer.c:215
+msgid "Configure completed...............Successful\n"
+msgstr "Buat konfigurasi selesai...............Berjaya\n"
+
+#: src/configurer.c:217
+msgid "Configure completed ... successful"
+msgstr "Buat konfigurasi selesai ... berjaya"
+
+#: src/controls.c:210
+msgid "No tags"
+msgstr "Tiada tag"
+
+#: src/cvs.c:236
+msgid "CVS Updating "
+msgstr "Mengemas kini CVS "
+
+#: src/cvs.c:286
+msgid "CVS Committing "
+msgstr "Melaksanakan CVS "
+
+#: src/cvs.c:347
+msgid "CVS Importing...\n"
+msgstr "Mengimport CVS...\n"
+
+#: src/cvs.c:387
+msgid "CVS Adding "
+msgstr "Menambahkan CVS "
+
+#: src/cvs.c:419
+msgid "CVS Removing "
+msgstr "Mengeluarkan CVS "
+
+#: src/cvs.c:460
+msgid "Getting CVS status "
+msgstr "Mendapatkan status CVS "
+
+#: src/cvs.c:475 src/cvs.c:526 src/cvs.c:602 src/cvs.c:841
+msgid "There are jobs running, please wait until they are finished"
+msgstr "Terdapat kerja sedang dijalankan, sila tunggu sehingga ia selesai"
+
+#: src/cvs.c:511
+msgid "Getting CVS log "
+msgstr "Mendapatkan log CVS "
+
+#: src/cvs.c:587
+msgid "CVS diffing "
+msgstr "Mendiff CVS "
+
+#: src/cvs.c:631
+msgid "CVS login "
+msgstr "Log masuk CVS "
+
+#: src/cvs.c:734 src/project_import.c:167
+msgid "Project import completed...unsuccessful\n"
+msgstr "Import Projek selesai...tidak berjaya\n"
+
+#: src/cvs.c:736 src/project_import.c:169
+msgid "Project import completed...unsuccessful"
+msgstr "Import Projek selesai...tidak berjaya"
+
+#: src/cvs.c:742
+msgid "CVS completed...successful\n"
+msgstr "CVS selesai...berjaya\n"
+
+#: src/cvs.c:744
+msgid "CVS completed...successful"
+msgstr "CVS selesai...berjaya"
+
+#: src/cvs.c:752
+msgid "Updating versions in file tree..."
+msgstr "Mengemas kini versi dalam pepohon fail..."
+
+#: src/cvs.c:754
+msgid "done\n"
+msgstr "selesai\n"
+
+#: src/cvs_cbs.c:40
+msgid "You do not need to login to a local server"
+msgstr "Anda tidak perlu log masuk ke pelayan setempat"
+
+#: src/cvs_gui.c:30
+msgid "Local"
+msgstr "Setempat"
+
+#: src/cvs_gui.c:30
+msgid "Password"
+msgstr "Kata laluan"
+
+#: src/cvs_gui.c:30
+msgid "Extern(rsh)"
+msgstr "Extern(rsh)"
+
+#: src/cvs_gui.c:30
+msgid "Server"
+msgstr "Pelayan"
+
+#: src/cvs_gui.c:71
+msgid "CVS: Update"
+msgstr "CVS: Kemas kini"
+
+#: src/cvs_gui.c:75
+msgid "CVS: Commit"
+msgstr "CVS: Laksanakan"
+
+#: src/cvs_gui.c:76
+msgid "Commit"
+msgstr "Laksanakan"
+
+#: src/cvs_gui.c:79
+msgid "CVS: Status"
+msgstr "CVS: Status"
+
+#: src/cvs_gui.c:80
+msgid "Show status"
+msgstr "Tunjukkan status"
+
+#: src/cvs_gui.c:83
+msgid "CVS: Log"
+msgstr "CVS: Log"
+
+#: src/cvs_gui.c:84
+msgid "Show log"
+msgstr "Tunjukkan log"
+
+#: src/cvs_gui.c:87
+msgid "CVS: Add file"
+msgstr "CVS: Tambahkan fail"
+
+#: src/cvs_gui.c:88
+msgid "Add"
+msgstr "Tambah"
+
+#: src/cvs_gui.c:91
+msgid "CVS: Remove file"
+msgstr "CVS: Keluarkan fail"
+
+#. 3
+#: src/cvs_gui.c:92 src/project_dbase_gui.c:332 src/watch_gui.c:45
+msgid "Remove"
+msgstr "Keluarkan"
+
+#: src/cvs_gui.c:94
+msgid ""
+"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+"to apply to the repository. It will still be possible to retrieve older "
+"revisions of the file."
+msgstr ""
+"AMARAN: Fail akan dikeluarkan pada cakera. Gunakan \"laksanakan cvs\" .\n"
+"untuk menggunakan repositori. Anda masih boleh mendapatkan semula semakan "
+"terdahulu fail tersebut"
+
+#: src/cvs_gui.c:118 src/cvs_gui.c:231
+msgid "File: "
+msgstr "Fail: "
+
+#: src/cvs_gui.c:120
+msgid "Branch: "
+msgstr "Cawangan: "
+
+#: src/cvs_gui.c:122 src/cvs_gui.c:284
+msgid "Revision: "
+msgstr "Semakan: "
+
+#: src/cvs_gui.c:123 src/cvs_gui.c:465
+msgid "Log message: "
+msgstr "Mesej log: "
+
+#: src/cvs_gui.c:126 src/cvs_gui.c:234
+msgid "Select file"
+msgstr "Pilih fail"
+
+#: src/cvs_gui.c:219
+msgid "CVS: Diff file"
+msgstr "CVS: Fail diff"
+
+#. 17
+#: src/cvs_gui.c:223 src/main_menubar_def.h:1115
+msgid "Diff"
+msgstr "Diff"
+
+#: src/cvs_gui.c:258
+msgid "Date: "
+msgstr "Tarikh: "
+
+#: src/cvs_gui.c:328
+msgid "CVS Login"
+msgstr "Log masuk CVS"
+
+#: src/cvs_gui.c:332
+msgid "Login"
+msgstr "Log masuk"
+
+#: src/cvs_gui.c:341 src/cvs_gui.c:435
+msgid "Server type: "
+msgstr "Jenis pelayan:"
+
+#: src/cvs_gui.c:342 src/cvs_gui.c:438
+msgid "Username: "
+msgstr "Nama pengguna: "
+
+#: src/cvs_gui.c:343 src/cvs_gui.c:436
+msgid "Server: "
+msgstr "Pelayan: "
+
+#: src/cvs_gui.c:344
+msgid "Directory on the server: "
+msgstr "Direktori pada pelayan: "
+
+#: src/cvs_gui.c:423
+msgid "CVS: Import Project"
+msgstr "CVS: Import Projek"
+
+#: src/cvs_gui.c:427
+msgid "Import"
+msgstr "Import"
+
+#: src/cvs_gui.c:437
+msgid "Dir on the server: "
+msgstr "Direktori pada pelayan: "
+
+#: src/cvs_gui.c:462
+msgid "Module name: "
+msgstr "Nama modul: "
+
+#: src/cvs_gui.c:463
+msgid "Release name: "
+msgstr "Nama pengeluaran: "
+
+#: src/cvs_gui.c:464
+msgid "Vendor tag: "
+msgstr "Tag Penjual: "
+
+#: src/cvs_gui.c:520
+msgid "Server settings"
+msgstr "Seting pelayan"
+
+#: src/cvs_gui.c:524
+msgid "Import settings"
+msgstr "Seting import"
+
+#: src/debug_tree.c:1517
+msgid "Default format"
+msgstr "Format piawai"
+
+#: src/debug_tree.c:1521
+msgid "Binary"
+msgstr "Binari"
+
+#: src/debug_tree.c:1524
+msgid "Octal"
+msgstr "Oktal"
+
+#: src/debug_tree.c:1527
+msgid "Signed decimal"
+msgstr "Perpuluhan bertanda"
+
+#: src/debug_tree.c:1530
+msgid "Unsigned decimal"
+msgstr "Perpuluhan tak bertanda"
+
+#: src/debug_tree.c:1533 src/registers_gui.c:111
+msgid "Hex"
+msgstr "Heks"
+
+#: src/debug_tree.c:1536
+msgid "Char"
+msgstr "Aksara"
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:75
+msgid "Load Executable File"
+msgstr "Muatkan Fail yang Boleh Dilaksanakan"
+
+#. Must declare static, because it will be used forever
+#: src/debugger.c:81
+msgid "Load Core File"
+msgstr "Muatkan Fail Teras"
+
+#: src/debugger.c:184 src/debugger.c:633
+msgid "Loading Executable: "
+msgstr "Memuatkan Fail yang Boleh Dilaksanakan: "
+
+#: src/debugger.c:235
+msgid "Loading Core: "
+msgstr "Memuatkan Teras"
+
+#: src/debugger.c:280 src/debugger.c:308
+msgid ""
+"You have a process ATTACHED under the debugger.\n"
+"Please detach it first and then load the executable file."
+msgstr ""
+"Anda mempunyai proses DILAMPIRKAN di bawah penyahpepijat.\n"
+"Sila keluarkannya dahulu dan kemudian muatkan fail yang boleh dilaksanakan."
+
+#: src/debugger.c:283 src/debugger.c:311
+msgid ""
+"You have a process RUNNING under the debugger.\n"
+"Please stop it first and then load the executable file."
+msgstr ""
+"Anda mempunyai proses DIJALANKAN di bawah penyahpepijat.\n"
+"Sila berhentikannya dahulu dan kemudian muatkan fail yang boleh dilaksanakan."
+
+#: src/debugger.c:559
+#, c-format
+msgid ""
+"Unable to find: %s.\n"
+"Unable to initialize debugger.\n"
+"Make sure Anjuta is installed correctly."
+msgstr ""
+"Tidak dapat mencari: %s.\n"
+"Tidak dapat memberi awalan penyahpepijat.\n"
+"Pastikan Anjuta dipasang dengan betul."
+
+#: src/debugger.c:628
+msgid "Debugger"
+msgstr "Penyahpepijat"
+
+#: src/debugger.c:631
+msgid "Getting ready to start debugging session ...\n"
+msgstr "Bersedia untuk memmulakan sesi menyahpepijat ...\n"
+
+#: src/debugger.c:643
+msgid "No executable specified\n"
+msgstr "Tiada fail yang boleh dilaksanakan dinyatakan\n"
+
+#: src/debugger.c:647
+msgid "Open an executable or attach to a process to start debugging.\n"
+msgstr ""
+"Buka fail yang boleh dilaksanakan atau lampirkan ke proses untuk memulakan "
+"menyahpepijat.\n"
+
+#: src/debugger.c:655
+msgid "There was an error whilst launching the debugger.\n"
+msgstr "Berlaku ralat semasa memulakan penyahpepijat.\n"
+
+#: src/debugger.c:659
+msgid "Make sure 'gdb' is installed on the system.\n"
+msgstr "Pastikan 'gdb' dipasang pada sistem.\n"
+
+#: src/debugger.c:797
+msgid "Error: "
+msgstr "Ralat: "
+
+#: src/debugger.c:822
+msgid "Debugger is ready.\n"
+msgstr "Penyahpepijat telah sedia.\n"
+
+#: src/debugger.c:929
+msgid ""
+"\n"
+"Well, did you find the BUG? Debugging session completed.\n"
+"\n"
+msgstr ""
+"\n"
+"Adakah anda telah menjumpai PEPIJAT? Sesi menyahpepijat selesai.\n"
+"\n"
+
+#: src/debugger.c:1161
+msgid "Cannot execute gnome-terminal"
+msgstr "Tidak boleh laksana terminal-gnome"
+
+#: src/debugger.c:1196
+msgid "Cannot start terminal for debugging."
+msgstr "Tidak boleh memulakan terminal bagi menyahpepijat"
+
+#: src/debugger.c:1261
+msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+msgstr "Amaran: Tiada terminal nyahpepijat. Mengalihkan stdio ke /dev/null.\n"
+
+#: src/debugger.c:1279
+msgid "Running program ... \n"
+msgstr "Menjalankan atur cara ...\n"
+
+#: src/debugger.c:1409
+#, c-format
+msgid "Attaching to process: %d\n"
+msgstr "Melampirkan pada proses: %d\n"
+
+#: src/debugger.c:1438
+msgid ""
+"A process is already running.\n"
+"Would you like to terminate it and attach the new process?"
+msgstr ""
+"Satu proses sedang dijalankan.\n"
+"Adakah anda mahu menamatkannya dan melampirkan proses baru?"
+
+#: src/debugger.c:1450
+msgid "Anjuta is unable to attach to itself."
+msgstr "Anjuta tidak dapat dilampirkan pada dirinya sendiri."
+
+#: src/debugger.c:1536
+#, c-format
+msgid "Detaching the process: %d\n"
+msgstr "Mengeluarkan proses: %d\n"
+
+#: src/debugger.c:1592
+msgid ""
+"Program is ATTACHED.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+"Atur cara DILAMPIRKAN.\n"
+"Adakah anda masih mahu menghentikan Penyahpepijat?"
+
+#: src/debugger.c:1595
+msgid ""
+"Program is RUNNING.\n"
+"Do you still want to stop Debugger?"
+msgstr ""
+"Atur cara sedang DIJALANKAN.\n"
+"Adakah anda masih mahu menghentikan Penyahpepijat?"
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/debugger.c:1775
+msgid "All breakpoints enabled:\n"
+msgstr "Semua titik putus dibolehkan:\n"
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/debugger.c:1821
+msgid "All breakpoints disabled:\n"
+msgstr "Semua titik putus dilumpuhkan:\n"
+
+#.
+#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
+#. breakpoints_dbase_update,
+#. debugger.breakpoints_dbase);
+#.
+#: src/debugger.c:1867
+msgid "All breakpoints deleted:\n"
+msgstr "Semua titik putus dihapuskan:\n"
+
+#: src/debugger.c:1900
+#, c-format
+msgid "Interrupting the process: %d\n"
+msgstr "Menyampuk proses: %d\n"
+
+#: src/debugger.c:1929
+#, c-format
+msgid "Sending signal %s to the process: %d\n"
+msgstr "Menghantar isyarat %s ke proses: %d\n"
+
+#: src/debugger.c:1950
+msgid "Error whilst signalling the process."
+msgstr "Ralat semasa menghantar isyarat ke proses"
+
+#: src/executer.c:53 src/mainmenu_callbacks.c:1700
+msgid "The target executable of this Project is unknown"
+msgstr "Sasaran yang boleh dilaksanakan bagi Projek ini tak diketahui"
+
+#: src/executer.c:58 src/mainmenu_callbacks.c:1702
+msgid "The target executable of this Project is not executable"
+msgstr ""
+"Sasaran yang boleh dilaksanakan bagi Projek ini tidak boleh dilaksanakan"
+
+#: src/executer.c:63 src/mainmenu_callbacks.c:1706
+msgid "The target executable does not exist for this Project"
+msgstr "Sasaran yang boleh dilaksanakan tidak wujud bagi Projek ini"
+
+#: src/executer.c:76
+msgid "No file or Project opened."
+msgstr "Tiada fail atau Projek yang dibuka"
+
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1726
+#: src/mainmenu_callbacks.c:1737
+msgid "No executable for this file."
+msgstr "Fail ini tidak boleh dilaksanakan."
+
+#: src/executer.c:105
+msgid "Executable is not up-to-date."
+msgstr "Boleh Dilaksanakan bukan yang terkini"
+
+#: src/executer.c:117
+msgid "Unable to execute Project. Check Settings->Commands."
+msgstr "Tidak dapat melaksanakan Projek.  Semak Seting->Arahan."
+
+#: src/executer.c:131
+msgid "This file has not been saved. Save it first."
+msgstr "Fail ini belum disimpan. Simpannya dahulu"
+
+#: src/executer.c:139
+msgid "Unable to execute file. Check Settings->Commands."
+msgstr "Tidak dapat melaksanakan fail. Semak Seting->Arahan."
+
+#: src/find_in_files.c:327
+msgid "Find in Files completed...............Unsuccessful\n"
+msgstr "Cari dalam Fail selesai...............Tidak berjaya\n"
+
+#: src/find_in_files.c:330
+msgid "Find in Files completed ... unsuccessful"
+msgstr "Cari dalam Fail selesai ... tidak berjaya"
+
+#: src/find_in_files.c:336
+msgid "Find in Files completed...............Successful\n"
+msgstr "Cari dalam Fail selesai...............Berjaya\n"
+
+#: src/find_in_files.c:338
+msgid "Find in Files completed ... successful"
+msgstr "Cari dalam Fail selesai ... berjaya"
+
+#: src/find_in_files_cbs.c:103
+msgid "No input files supplied."
+msgstr "Tiada fail input diberikan."
+
+#: src/find_in_files_cbs.c:110
+msgid "No search string supplied."
+msgstr "Tiada rentetan carian diberikan"
+
+#: src/find_replace.c:337
+msgid "Do you want to replace this?"
+msgstr "Anda mahu menggantikan ini?"
+
+#: src/find_replace.c:395
+#, c-format
+msgid "The string \"%s\" was not found in the selected text"
+msgstr "Rentetan \"%s\" tidak dijumpai dalam teks yang dipilih"
+
+#: src/find_replace.c:400
+#, c-format
+msgid "The string \"%s\" was not found from the current location"
+msgstr "Rentetan \"%s\" tidak dijumpai dari lokasi semasa"
+
+#: src/find_text.c:163
+#, c-format
+msgid "The match \"%s\" was not found in the whole document"
+msgstr "Padanan \"%s\" tidak dijumpai dalam seluruh dokumen"
+
+#: src/find_text.c:168
+#, c-format
+msgid "The match \"%s\" was not found in the selected text"
+msgstr "Padanan \"%s\" tidak dijumpai dalam teks yang dipilih"
+
+#: src/find_text.c:173
+#, c-format
+msgid "The match \"%s\" was not found from the current location"
+msgstr "Padanan \"%s\" tidak dijumpai dari lokasi semasa"
+
+#: src/find_text.c:196 src/toolbar_callbacks.c:264
+msgid "No matches. Wrap search around the document?"
+msgstr "Tiada padanan. Pusing balik carian di seluruh dokumen?"
+
+#: src/glade_iface.c:96 src/glade_iface.c:171
+msgid "Cannot fork glade."
+msgstr "Tidak dapat mencabangkan glade."
+
+#: src/glade_iface.c:133 src/glade_iface.c:208
+msgid "Cannot fork glade--."
+msgstr "Tidak dapat mencabangkan glade--."
+
+#: src/gnome_project.c:62
+msgid ""
+"A project or file with the same name.already exists.\n"
+"Project creation aborted."
+msgstr ""
+"Projek atau fail dengan nama yang sama telah wujud.\n"
+"Mewujudkan projek dihenti paksa."
+
+#: src/gnome_project.c:78
+msgid "Generating Project ...\n"
+msgstr "Menjanakan Projek ...\n"
+
+#: src/gnome_project.c:85
+#, c-format
+msgid "Cannot create file: %s"
+msgstr "Tidak dapat mewujudkan fail: %s"
+
+#: src/gnome_project.c:154
+msgid "Loading Project ...\n"
+msgstr "Memuatkan Projek ...\n"
+
+#: src/gnome_project.c:165 src/gnome_project.c:225
+msgid "Saving Project ...\n"
+msgstr "Menyimpan Projek ...\n"
+
+#: src/gnome_project.c:173
+msgid "Generating source codes ...\n"
+msgstr "Menjanakan kod sumber ...\n"
+
+#. Creating icon pixmap file for gnome projects
+#: src/gnome_project.c:179
+msgid "Copying icon file ...\n"
+msgstr "Menyalin fail ikon ...\n"
+
+#: src/gnome_project.c:193
+msgid "Could not create icon file ...\n"
+msgstr "Tidak dapat mewujudkan fail ikon ...\n"
+
+#: src/gnome_project.c:207
+msgid "Locating files ...\n"
+msgstr "Mencari fail ...\n"
+
+#: src/gnome_project.c:229
+msgid "Updating Project ...\n"
+msgstr "Mengemas kini Projek ...\n"
+
+#: src/gnome_project.c:232
+msgid "Running autogen.sh ...\n"
+msgstr "Menjalankan autogen.sh ...\n"
+
+#: src/gnome_project.c:243
+msgid "App Wizard"
+msgstr "Wizard Aplikasi"
+
+#: src/gnome_project.c:262
+msgid ""
+"The Project was not successfully auto generated.\n"
+"Please run autogen.sh manually."
+msgstr ""
+"Projek tidak berjaya dijanakan secara automatik.\n"
+"Sila jalankan autogen.sh secara manual."
+
+#: src/gnome_project.c:268
+msgid ""
+"Auto generation completed...............Successful\n"
+"Now Build the Project to have a LOOK at it\n"
+msgstr ""
+"Penjanaan automatik selesai...............Berjaya\n"
+"Sekarang Bina Projek untuk MELIHATnya\n"
+
+#: src/gnome_project.c:271
+msgid "Project was successfully auto generated."
+msgstr "Projek berjaya dijanakan secara automatik"
+
+#: src/goto_line.c:106
+msgid " Goto Line number "
+msgstr "Pergi ke Baris nombor "
+
+#: src/launcher.c:151
+#, c-format
+msgid "launcher.c: error while reading child stdout - %s\n"
+msgstr "laucher.c: ralat semasa membaca stdout anak - %s\n"
+
+#: src/launcher.c:178
+#, c-format
+msgid "launcher.c: error while reading child stderr - %s\n"
+msgstr "launcher.c: ralat semasa membaca stderr anak - %s\n"
+
+#: src/launcher.c:370 src/text_editor.c:1225
+msgid "Cannot execute command shell"
+msgstr "Tidak dapat melaksana cangkerang arahan"
+
+#: src/main.c:50
+msgid "Do not show the splashscreen"
+msgstr "Jangan tunjukkan skrin percikan"
+
+#. 0
+#: src/main_menubar_def.h:29
+msgid "_New"
+msgstr "_Baru"
+
+#. 1
+#: src/main_menubar_def.h:35
+msgid "_Open ..."
+msgstr "_Buka ..."
+
+#. 2
+#: src/main_menubar_def.h:41
+msgid "_Save"
+msgstr "_Simpan"
+
+#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:83
+msgid "Save current file"
+msgstr "Simpan fail semasa"
+
+#. 3
+#: src/main_menubar_def.h:47
+msgid "Save _As ..."
+msgstr "Simpan _Sebagai ..."
+
+#: src/main_menubar_def.h:48
+msgid "Save the current file with a different name"
+msgstr "Simpan fail semasa dengan nama yang berlainan"
+
+#. 4
+#: src/main_menubar_def.h:53
+msgid "Save A_ll"
+msgstr "Simpan S_emua"
+
+#: src/main_menubar_def.h:54
+msgid "Save all currently open files, except new files"
+msgstr "Simpan semua fail yang sedang dibuka, kecuali fail baru"
+
+#. 5
+#: src/main_menubar_def.h:59
+msgid "_Close File"
+msgstr "_Tutup Fail"
+
+#: src/main_menubar_def.h:60 src/toolbar.c:91
+msgid "Close current file"
+msgstr "Tutup fail semasa"
+
+#. 6
+#: src/main_menubar_def.h:65
+msgid "Close All Files"
+msgstr "Tutup Semua Fail"
+
+#: src/main_menubar_def.h:66
+msgid "Close all files"
+msgstr "Tutup semua fail"
+
+#. 7
+#: src/main_menubar_def.h:71
+msgid "Reload F_ile"
+msgstr "Muatkan semula F_ail"
+
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:112 src/toolbar.c:87
+msgid "Reload current file"
+msgstr "Muatkan semula fail semasa"
+
+#. 8
+#. 9
+#: src/main_menubar_def.h:78
+msgid "N_ew Project ..."
+msgstr "Projek B_aru ..."
+
+#: src/main_menubar_def.h:79
+msgid "Create a Project using the Application Wizard"
+msgstr "Wujudkan Projek menggunakan Wizard Aplikasi"
+
+#. 10
+#: src/main_menubar_def.h:84
+msgid "_Import Project ..."
+msgstr "_Import Projek ..."
+
+#: src/main_menubar_def.h:85
+msgid "Import an existing code project using the Project Import Wizard"
+msgstr "Import kod projek yang wujud menggunakan Wizard Import Projek"
+
+#. 11
+#: src/main_menubar_def.h:90
+msgid "Open P_roject ..."
+msgstr "Buka P_rojek ..."
+
+#: src/main_menubar_def.h:91 src/toolbar.c:213
+msgid "Open a Project"
+msgstr "Buka Projek"
+
+#. 12
+#: src/main_menubar_def.h:96
+msgid "Sa_ve Project"
+msgstr "Si_mpan Projek"
+
+#: src/main_menubar_def.h:97 src/toolbar.c:224
+msgid "Save the current Project"
+msgstr "Simpan Projek semasa"
+
+#. 13
+#: src/main_menubar_def.h:102
+msgid "Close Pro_ject"
+msgstr "Tutup Pro_jek"
+
+#: src/main_menubar_def.h:103 src/toolbar.c:236
+msgid "Close the current Project"
+msgstr "Tutup Projek semasa"
+
+#. 14
+#. 15
+#: src/main_menubar_def.h:109
+msgid "Rena_me ..."
+msgstr "Nama_kan semula ..."
+
+#: src/main_menubar_def.h:110
+msgid "Rename the current file"
+msgstr "Namakan semula fail semasa"
+
+#. 16
+#. 17
+#: src/main_menubar_def.h:116
+msgid "Page Set_up ..."
+msgstr "Per_sediaan Halaman ..."
+
+#: src/main_menubar_def.h:117
+msgid "Page setup for printing"
+msgstr "Persediaan halaman untuk cetakan"
+
+#. 18
+#: src/main_menubar_def.h:122
+msgid "_Print"
+msgstr "_Cetak"
+
+#: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:109
+msgid "Print the current file"
+msgstr "Cetak fail semasa"
+
+#. 19
+#: src/main_menubar_def.h:128
+msgid "_Print Preview"
+msgstr "_Pralihat Cetakan"
+
+#: src/main_menubar_def.h:129
+msgid "Print preview of the current file"
+msgstr "Pralihat cetakan fail semasa"
+
+#. 20
+#. 21
+#: src/main_menubar_def.h:135
+msgid "Recent _Files"
+msgstr "_Fail Terbaru"
+
+#. 22
+#: src/main_menubar_def.h:141
+msgid "Recent Projec_ts"
+msgstr "Proje_k Terbaru"
+
+#. 0
+#: src/main_menubar_def.h:155
+msgid "_Make Selection Uppercase"
+msgstr "_Jadikan Pemilihan Huruf Besar"
+
+#: src/main_menubar_def.h:156
+msgid "Make the selected text uppercase"
+msgstr "Jadikan teks yang dipilih huruf besar"
+
+#. 1
+#: src/main_menubar_def.h:162
+msgid "Make Selection Lowercase"
+msgstr "Jadikan Pemilihan Huruf Kecil"
+
+#: src/main_menubar_def.h:163
+msgid "Make the selected text lowercase"
+msgstr "Jadikan teks yang dipilih huruf kecil"
+
+#. 3
+#: src/main_menubar_def.h:171
+msgid "Convert EOL chars to CRLF"
+msgstr "Tukarkan aksara EOL ke CRLF"
+
+#: src/main_menubar_def.h:172
+msgid "Convert End Of Line characters to DOS EOL (CRLF)"
+msgstr "Tukarkan aksara Hujung Garis ke EOL DOS (CRLF)"
+
+#. 4
+#: src/main_menubar_def.h:178
+msgid "Convert EOL chars to LF"
+msgstr "Tukarkan aksara EOL ke LF"
+
+#: src/main_menubar_def.h:179
+msgid "Convert End Of Line characters to Unix EOL (LF)"
+msgstr "Tukarkan aksara Hujung Garis ke EOL Unix (LF)"
+
+#. 5
+#: src/main_menubar_def.h:185
+msgid "Convert EOL chars to CR"
+msgstr "Tukarkan aksara EOL ke CR"
+
+#: src/main_menubar_def.h:186
+msgid "Convert End Of Line characters to Mac OS EOL (CR)"
+msgstr "Tukarkan aksara Hujung Garis ke EOL OS Mac (CR)"
+
+#. 6
+#: src/main_menubar_def.h:192
+msgid "Convert EOL chars to majority EOL"
+msgstr "Tukarkan aksara EOL ke sebahagian besarnya EOL"
+
+#: src/main_menubar_def.h:193
+msgid "Convert End Of Line characters to majority of the EOL found in the file"
+msgstr ""
+"Tukarkan aksara Hujung Garis ke sebahagian besarnya EOL yang dijumpai dalam "
+"fail"
+
+#. 0
+#: src/main_menubar_def.h:204
+msgid "_Select All"
+msgstr "_Pilih Semua"
+
+#: src/main_menubar_def.h:205
+msgid "Select all text in the editor"
+msgstr "Pilih semua teks dalam editor"
+
+#. 1
+#: src/main_menubar_def.h:210
+msgid "Select to _Brace"
+msgstr "Pilih untuk _Pengikat"
+
+#: src/main_menubar_def.h:211
+msgid "Select the text in the matching braces"
+msgstr "Pilih teks dalam pengikat yang sepadan"
+
+#. 2
+#: src/main_menubar_def.h:216
+msgid "Select Code Block"
+msgstr "Pilih Blok Kod"
+
+#: src/main_menubar_def.h:217
+msgid "Select the current code block"
+msgstr "Pilih blok kod semasa"
+
+#. 3
+#: src/main_menubar_def.h:222
+msgid "Current Function"
+msgstr "Fungsi Semasa"
+
+#: src/main_menubar_def.h:223
+msgid "Select the current function"
+msgstr "Pilih fungsi semasa"
+
+#. 0
+#: src/main_menubar_def.h:233
+msgid "/* GPL Notice */"
+msgstr "/* Notis GPL */"
+
+#: src/main_menubar_def.h:234
+msgid "Insert GPL notice with C style comments"
+msgstr "Sisipkan notis GPL dengan komen gaya C"
+
+#. 1
+#: src/main_menubar_def.h:239
+msgid "// GPL Notice"
+msgstr "// Notis GPL"
+
+#: src/main_menubar_def.h:240
+msgid "Insert GPL notice with C++ style comments"
+msgstr "Sisipkan notis GPL dengan komen gaya C++"
+
+#. 2
+#: src/main_menubar_def.h:245
+msgid "# GPL Notice"
+msgstr "# Notis GPL"
+
+#: src/main_menubar_def.h:246
+msgid "Insert GPL notice with Python style comments"
+msgstr "Sisipkan notis GPL dengan komen gaya Python"
+
+#. 3
+#: src/main_menubar_def.h:251
+msgid "Current Username"
+msgstr "Nama Pengguna Semasa"
+
+#: src/main_menubar_def.h:252
+msgid "Insert name of current user"
+msgstr "Sisipkan nama pengguna semasa"
+
+#. 4
+#: src/main_menubar_def.h:257
+msgid "Current Date & Time"
+msgstr "Tarikh & Masa Semasa"
+
+#: src/main_menubar_def.h:258
+msgid "Insert current date & time"
+msgstr "Sisipkan tarikh & masa semasa"
+
+#. 5
+#: src/main_menubar_def.h:263
+msgid "Header File Template"
+msgstr "Templat Fail Pengepala"
+
+#: src/main_menubar_def.h:264
+msgid "Insert a standard header file template"
+msgstr "Sisipkan templat fail pengepala piawai"
+
+#. 6
+#: src/main_menubar_def.h:269
+msgid "ChangeLog entry"
+msgstr "Entri ChangeLog"
+
+#: src/main_menubar_def.h:270
+msgid "Insert a ChangeLog entry"
+msgstr "Sisipkan entri ChangeLog"
+
+#: src/main_menubar_def.h:281
+msgid "Insert a switch template"
+msgstr "Sisipkan templat switch"
+
+#: src/main_menubar_def.h:287
+msgid "Insert a for template"
+msgstr "Sisipkan templat for"
+
+#: src/main_menubar_def.h:293
+msgid "Insert a while template"
+msgstr "Sisipkan templat while"
+
+#: src/main_menubar_def.h:299
+msgid "Insert an if...else template"
+msgstr "Sisipkan templat if...else"
+
+#: src/main_menubar_def.h:310
+msgid "Insert the CVS Author keyword (author of the change)"
+msgstr "Sisipkan kata kunci Pengarang CVS (pengarang perubahan)"
+
+#: src/main_menubar_def.h:316
+msgid "Insert the CVS Date keyword (date and time of the change)"
+msgstr "Sisipkan kata kunci Tarikh CVS (tarikh dan masa perubahan)"
+
+#: src/main_menubar_def.h:322
+msgid ""
+"Insert the CVS Header keyword (full path, revision, date, author, state)"
+msgstr ""
+"Sisipkan kata kunci Pengepala CVS (laluan penuh, semakan, tarikh, pengarang, "
+"negara)"
+
+#: src/main_menubar_def.h:328
+msgid "Insert the CVS Id keyword (file, revision, date, author)"
+msgstr "Sisipkan kata kunci Id CVS (fail, semakan, tarikh, pengarang)"
+
+#: src/main_menubar_def.h:334
+msgid "Insert the CVS Log keyword (log message)"
+msgstr "Sisipkan kata kunci Log CVS (mesej log)"
+
+#: src/main_menubar_def.h:340
+msgid "Insert the CVS Name keyword (name of the sticky tag)"
+msgstr "Sisipkan kata kunci Nama CVS (nama tag melekat)"
+
+#: src/main_menubar_def.h:346
+msgid "Insert the CVS Revision keyword (revision number)"
+msgstr "Sisipkan kata kunci semakan CVS (nombor semakan)"
+
+#: src/main_menubar_def.h:352
+msgid "Insert the CVS Source keyword (full path)"
+msgstr "Sisipkan kata kunci Sumber CVS (laluan penuh)"
+
+#. 0
+#: src/main_menubar_def.h:362
+msgid "Header"
+msgstr "Pengepala"
+
+#: src/main_menubar_def.h:363
+msgid "Insert a file header"
+msgstr "Sisipkan pengepala fail"
+
+#. 1
+#: src/main_menubar_def.h:368
+msgid "C template"
+msgstr "Templat C"
+
+#: src/main_menubar_def.h:369
+msgid "Insert a C template"
+msgstr "Sisipkan templat C"
+
+#. 2
+#: src/main_menubar_def.h:374
+msgid "CVS keyword"
+msgstr "Kata kunci CVS"
+
+#. 0
+#: src/main_menubar_def.h:391
+msgid "Block Comment/Uncomment"
+msgstr "Blok Komen/Buang Komen"
+
+#: src/main_menubar_def.h:392
+msgid "Block comment the selected text"
+msgstr "Blok komen teks yang dipilih"
+
+#. 1
+#: src/main_menubar_def.h:397
+msgid "Box Comment/Uncomment"
+msgstr "Kotakkan Komen/Buang Komen"
+
+#: src/main_menubar_def.h:398
+msgid "Box comment/uncomment the selected text"
+msgstr "Kotakkan komen/buang komen teks yang dipilih"
+
+#. 2
+#: src/main_menubar_def.h:403
+msgid "Stream Comment/Uncomment"
+msgstr "Alirkan Komen/Buang Komen"
+
+#: src/main_menubar_def.h:404
+msgid "Stream comment/uncomment the selected text"
+msgstr "Alirkan komen/buang komen teks yang dipilih"
+
+#. 0
+#: src/main_menubar_def.h:414
+msgid "_Find ..."
+msgstr "_Cari ..."
+
+#: src/main_menubar_def.h:415
+msgid "Search for a string or regular expression in the editor"
+msgstr "Cari rentetan atau ungkapan biasa dalam editor"
+
+#. 1
+#: src/main_menubar_def.h:421
+msgid "Find _Next"
+msgstr "Cari _Seterusnya"
+
+#: src/main_menubar_def.h:422
+msgid "Repeat the last Find command"
+msgstr "Ulang arahan Cari terakhir"
+
+#. 2
+#: src/main_menubar_def.h:428
+msgid "Find and R_eplace ..."
+msgstr "Cari dan G_anti ..."
+
+#: src/main_menubar_def.h:429
+msgid ""
+"Search for and replace a string or regular expression with another string"
+msgstr "Cari dan ganti rentetan atau ungkapan biasa dengan rentetan yang lain"
+
+#. 3
+#: src/main_menubar_def.h:435
+msgid "Fin_d in Files ..."
+msgstr "Car_i dalam Fail ..."
+
+#: src/main_menubar_def.h:436
+msgid "Search for a string in multiple files or directories"
+msgstr "Cari rentetan dalam berbilang fail atau direktori "
+
+#. 4
+#: src/main_menubar_def.h:442
+msgid "_Enter Selection/I-Search"
+msgstr "_Masukkan Pemilihan/I-Cari"
+
+#: src/main_menubar_def.h:443
+msgid "Enter the selected text as the search target"
+msgstr "Masukkan teks yang dipilih sebagai sasaran carian"
+
+#. 0
+#: src/main_menubar_def.h:454
+msgid "_Goto Line number ..."
+msgstr "_Pergi ke Baris nombor ..."
+
+#: src/main_menubar_def.h:455
+msgid "Go to a particular line in the editor"
+msgstr "Pergi ke baris tertentu dalam editor"
+
+#. 1
+#: src/main_menubar_def.h:460
+msgid "Goto Matching _Brace"
+msgstr "Pergi ke Padanan _Pengikat"
+
+#: src/main_menubar_def.h:461
+msgid "Go to the matching brace in the editor"
+msgstr "Pergi ke padanan pengikat dalam editor"
+
+#. 2
+#: src/main_menubar_def.h:466
+msgid "_Goto start of block"
+msgstr "_Pergi ke permulaan blok"
+
+#: src/main_menubar_def.h:467
+msgid "Go to the start of the current block"
+msgstr "Pergi ke permulaan blok semasa"
+
+#. 3
+#: src/main_menubar_def.h:472
+msgid "_Goto end of block"
+msgstr "_Pergi ke hujung blok"
+
+#: src/main_menubar_def.h:473
+msgid "Go to the end of the current block"
+msgstr "Pergi ke hujung blok semasa"
+
+#. 4
+#: src/main_menubar_def.h:478
+msgid "_Goto previous mesg"
+msgstr "_Pergi ke mesej sebelumnya"
+
+#: src/main_menubar_def.h:479
+msgid "Go to previous message"
+msgstr "Pergi ke mesej sebelumnya"
+
+#. 5
+#: src/main_menubar_def.h:484
+msgid "_Goto next mesg"
+msgstr "_Pergi ke mesej seterusnya"
+
+#: src/main_menubar_def.h:485
+msgid "Go to next message"
+msgstr "Pergi ke mesej seterusnya"
+
+#. 6
+#: src/main_menubar_def.h:490
+msgid "_Go Back"
+msgstr "_Pergi ke Belakang"
+
+#: src/main_menubar_def.h:491
+msgid "Go back"
+msgstr "Pergi ke belakang"
+
+#. 7
+#: src/main_menubar_def.h:496
+msgid "_Go Forward"
+msgstr "_Pergi ke Hadapan"
+
+#: src/main_menubar_def.h:497
+msgid "Go forward"
+msgstr "Pergi ke hadapan"
+
+#. 8
+#: src/main_menubar_def.h:502 src/text_editor_menu.c:93
+msgid "Tag Definition"
+msgstr "Takrif Tag"
+
+#: src/main_menubar_def.h:503
+msgid "Goto tag definition"
+msgstr "Pergi ke takrif tag"
+
+#. 9
+#: src/main_menubar_def.h:508 src/text_editor_menu.c:100
+msgid "Tag Declaration"
+msgstr "Pengisytiharan Tag"
+
+#: src/main_menubar_def.h:509
+msgid "Goto tag declaration"
+msgstr "Pergi ke pengisytiharan tag"
+
+#. 10
+#: src/main_menubar_def.h:514
+msgid "Next occurrence"
+msgstr "Kejadian seterusnya"
+
+#: src/main_menubar_def.h:515
+msgid "Find the next occurrence of current word"
+msgstr "Cari kejadian kata semasa seterusnya"
+
+#. 11
+#: src/main_menubar_def.h:520
+msgid "Previous occurrence"
+msgstr "Kejadian sebelumnya"
+
+#: src/main_menubar_def.h:521
+msgid "Find the previous occurrence of current word"
+msgstr "Cari kejadian kata semasa sebelumnya "
+
+#. 0
+#: src/main_menubar_def.h:532
+msgid "U_ndo"
+msgstr "B_uat Asal"
+
+#: src/main_menubar_def.h:533 src/toolbar.c:96
+msgid "Undo the last action"
+msgstr "Buat asal tindakan terakhir"
+
+#. 1
+#: src/main_menubar_def.h:539
+msgid "_Redo"
+msgstr "_Buat Semula"
+
+#: src/main_menubar_def.h:540 src/toolbar.c:100
+msgid "Redo the last undone action"
+msgstr "Buat semula tindakan buat asal terakhir"
+
+#. 2
+#. 3
+#: src/main_menubar_def.h:548
+msgid "C_ut"
+msgstr "P_otong"
+
+#: src/main_menubar_def.h:549
+msgid "Cut the selected text from the editor to the clipboard"
+msgstr "Potong teks yang dipilih dari editor ke papan keratan"
+
+#. 4
+#: src/main_menubar_def.h:555
+msgid "_Copy"
+msgstr "_Salin"
+
+#: src/main_menubar_def.h:556
+msgid "Copy the selected text to the clipboard"
+msgstr "Salin teks yang dipilih ke papan keratan"
+
+#. 5
+#: src/main_menubar_def.h:562
+msgid "_Paste"
+msgstr "_Tampal"
+
+#: src/main_menubar_def.h:563
+msgid "Paste the content of clipboard at the current position"
+msgstr "Tampal kandungan papan keratan pada kedudukan semasa"
+
+#. 6
+#: src/main_menubar_def.h:569
+msgid "C_lear"
+msgstr "K_osong"
+
+#: src/main_menubar_def.h:570
+msgid "Delete the selected text from the editor"
+msgstr "Hapuskan teks yang dipilih dari editor"
+
+#. 7
+#. 8
+#: src/main_menubar_def.h:578
+msgid "_Transform"
+msgstr "_Jelma"
+
+#. 9
+#: src/main_menubar_def.h:585
+msgid "_Select"
+msgstr "_Pilih"
+
+#. 10
+#: src/main_menubar_def.h:592
+msgid "_Insert text"
+msgstr "_Sisipkan teks"
+
+#. 11
+#: src/main_menubar_def.h:599
+msgid "Co_mment code"
+msgstr "Ko_men kod"
+
+#. 12
+#: src/main_menubar_def.h:605
+msgid "_Search"
+msgstr "_Cari"
+
+#. 13
+#: src/main_menubar_def.h:611
+msgid "G_o to"
+msgstr "P_ergi ke"
+
+#. 14
+#. 15
+#: src/main_menubar_def.h:620
+msgid "_AutoComplete"
+msgstr "_AutoComplete"
+
+#: src/main_menubar_def.h:621
+msgid "AutoComplete the current word"
+msgstr "AutoComplete kata semasa"
+
+#. 16
+#: src/main_menubar_def.h:627
+msgid "S_how calltip"
+msgstr "T_unjukkan calltip"
+
+#: src/main_menubar_def.h:628
+msgid "Show calltip for the function"
+msgstr "Tunjukkan calltip bagi fungsi"
+
+#. 17
+#: src/main_menubar_def.h:634
+msgid "Search And Replace"
+msgstr "Cari Dan Ganti"
+
+#: src/main_menubar_def.h:635
+msgid "New Search And Replace stuff"
+msgstr "Perkara Cari Dan Ganti Baru"
+
+#. 0
+#: src/main_menubar_def.h:646
+msgid "_Main Toolbar"
+msgstr "Bar Alatan _Utama"
+
+#: src/main_menubar_def.h:647
+msgid "Hide/Unhide Main toolbar"
+msgstr "Sembunyikan/Tunjukkan bar alatan Utama"
+
+#. 1
+#: src/main_menubar_def.h:652
+msgid "_Extended Toolbar"
+msgstr "Bar Alatan _Lanjutan"
+
+#: src/main_menubar_def.h:653
+msgid "Hide/Unhide Extended toolbar"
+msgstr "Sembunyikan/Tunjukkan bar alatan Lanjutan"
+
+#. 2
+#: src/main_menubar_def.h:658
+msgid "_Debug Toolbar"
+msgstr "_Nyahpepijat Bar Alatan"
+
+#: src/main_menubar_def.h:659
+msgid "Hide/Unhide Debug toolbar"
+msgstr "Sembunyikan/Tunjukkan bar alatan Nyahpepijat"
+
+#. 3
+#: src/main_menubar_def.h:664
+msgid "_Browser Toolbar"
+msgstr "Bar Alatan _Pelayar"
+
+#: src/main_menubar_def.h:665
+msgid "Hide/Unhide Browser toolbar"
+msgstr "Sembunyikan/Tunjukkan bar alatan Pelayar"
+
+#. 4
+#: src/main_menubar_def.h:670
+msgid "_Format Toolbar"
+msgstr "Bar Alatan _Format"
+
+#: src/main_menubar_def.h:671
+msgid "Hide/Unhide Format toolbar"
+msgstr "Sembunyikan/Tunjukkan bar alatan Format"
+
+#. 0
+#: src/main_menubar_def.h:681
+msgid "_Line numbers margin"
+msgstr "Jidar nombor _Garis"
+
+#: src/main_menubar_def.h:682
+msgid "Show/Hide line numbers"
+msgstr "Tunjukkan/Sembunyikan nombor garis"
+
+#. 1
+#: src/main_menubar_def.h:687
+msgid "_Markers Margin"
+msgstr "Jidar _Penanda"
+
+#: src/main_menubar_def.h:688
+msgid "Show/Hide markers margin"
+msgstr "Tunjukkan/Sembunyikan jidar penanda"
+
+#. 2
+#: src/main_menubar_def.h:693
+msgid "_Code fold margin"
+msgstr "Jidar lipatan _Kod"
+
+#: src/main_menubar_def.h:694
+msgid "Show/Hide code fold margin"
+msgstr "Tunjukkan/Sembunyikan jidar lipatan kod"
+
+#. 3
+#: src/main_menubar_def.h:699
+msgid "_Indentation guides"
+msgstr "Panduan _Indentasi"
+
+#: src/main_menubar_def.h:700
+msgid "Show/Hide indentation guides"
+msgstr "Tunjukkan/Sembunyikan panduan indentasi"
+
+#. 4
+#: src/main_menubar_def.h:705
+msgid "_White spaces"
+msgstr "Ruang _Putih"
+
+#: src/main_menubar_def.h:706
+msgid "Show/Hide white spaces"
+msgstr "Tunjukkan/Sembunyikan ruang putih"
+
+#. 5
+#: src/main_menubar_def.h:711
+msgid "_Line end characters"
+msgstr "Aksara hujung _Garis"
+
+#: src/main_menubar_def.h:712
+msgid "Show/Hide line end characters"
+msgstr "Tunjukkan/Sembunyikan aksara hujung garis"
+
+#. 6
+#: src/main_menubar_def.h:717
+msgid "Line _wrapping"
+msgstr "_Pusing garis"
+
+#: src/main_menubar_def.h:718
+msgid "Enable/disable line wrapping"
+msgstr "Boleh/Lumpuh pusing garis"
+
+#. 0
+#: src/main_menubar_def.h:728
+msgid "++ Zoom"
+msgstr "++ Zum"
+
+#: src/main_menubar_def.h:729
+msgid "Increase text zoom by 1 unit"
+msgstr "Tambahkan zum teks sebanyak 1 unit"
+
+#. 1
+#: src/main_menubar_def.h:734
+msgid "+8"
+msgstr "+8"
+
+#: src/main_menubar_def.h:735
+msgid "Zoom factor +8"
+msgstr "Faktor zum +8"
+
+#. 2
+#: src/main_menubar_def.h:740
+msgid "+6"
+msgstr "+6"
+
+#: src/main_menubar_def.h:741
+msgid "Zoom factor +6"
+msgstr "Faktor zum +6"
+
+#. 3
+#: src/main_menubar_def.h:746
+msgid "+4"
+msgstr "+4"
+
+#: src/main_menubar_def.h:747
+msgid "Zoom factor +4"
+msgstr "Faktor zum +4"
+
+#. 4
+#: src/main_menubar_def.h:752
+msgid "+2"
+msgstr "+2"
+
+#: src/main_menubar_def.h:753
+msgid "Zoom factor +2"
+msgstr "Faktor zum +2"
+
+#: src/main_menubar_def.h:759
+msgid "Zoom factor 0"
+msgstr "Faktor zum 0"
+
+#. 6
+#: src/main_menubar_def.h:764
+msgid "-2"
+msgstr "-2"
+
+#: src/main_menubar_def.h:765
+msgid "Zoom factor -2"
+msgstr "Faktor zum -2"
+
+#. 7
+#: src/main_menubar_def.h:770
+msgid "-4"
+msgstr "-4"
+
+#: src/main_menubar_def.h:771
+msgid "Zoom factor -4"
+msgstr "Faktor zum -4"
+
+#. 8
+#: src/main_menubar_def.h:776
+msgid "-6"
+msgstr "-6"
+
+#: src/main_menubar_def.h:777
+msgid "Zoom factor -6"
+msgstr "Faktor zum -6"
+
+#. 9
+#: src/main_menubar_def.h:782
+msgid "-8"
+msgstr "-8"
+
+#: src/main_menubar_def.h:783
+msgid "Zoom factor -8"
+msgstr "Faktor zum -8"
+
+#. 10
+#: src/main_menubar_def.h:788
+msgid "-- Zoom"
+msgstr "-- Zum"
+
+#: src/main_menubar_def.h:789
+msgid "Reduce text zoom by 1 unit"
+msgstr "Kecilkan zum teks sebanyak 1 unit"
+
+#. 0
+#: src/main_menubar_def.h:799
+msgid "_Message window"
+msgstr "Tetingkap _Mesej"
+
+#: src/main_menubar_def.h:800 src/toolbar.c:153
+msgid "Show/Hide the Message window"
+msgstr "Tunjukkan/Sembunyikan tetingkap Mesej"
+
+#. 1
+#: src/main_menubar_def.h:805
+msgid "_Project window"
+msgstr "Tetingkap _Projek"
+
+#: src/main_menubar_def.h:806 src/toolbar.c:149
+msgid "Show/Hide the Project window"
+msgstr "Tunjukkan/Sembunyikan tetingkap Projek"
+
+#. 2
+#: src/main_menubar_def.h:811
+msgid "B_ookmarks"
+msgstr "T_anda Buku"
+
+#: src/main_menubar_def.h:812
+msgid "Show the Bookmark window"
+msgstr "Tunjukkan tetingkap Tanda Buku"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:818
+msgid "_Toolbars"
+msgstr "_Bar Alatan"
+
+#. 5
+#: src/main_menubar_def.h:824
+msgid "_Editor"
+msgstr "_Editor"
+
+#. 6
+#: src/main_menubar_def.h:830
+msgid "_Zoom text"
+msgstr "_Zum teks"
+
+#. 7
+#. 8
+#: src/main_menubar_def.h:837 src/main_menubar_def.h:1568
+msgid "_Breakpoints"
+msgstr "_Titik Putus"
+
+#: src/main_menubar_def.h:838
+msgid "Show breakpoints editor window"
+msgstr "Tunjukkan tetingkap editor titik putus"
+
+#. 9
+#: src/main_menubar_def.h:843
+msgid "_Registers"
+msgstr "_Daftar"
+
+#: src/main_menubar_def.h:844
+msgid "Show CPU registers and their contents"
+msgstr "Tunjukkan daftar CPU dan kandungannya"
+
+#. {/*10*/
+#. GNOME_APP_UI_ITEM, N_("Program _Stack"),
+#. N_("Show stack trace of the program"),
+#. on_program_stack1_activate, NULL, NULL,
+#. GNOME_APP_PIXMAP_NONE, NULL,
+#. GDK_F7, GDK_CONTROL_MASK, NULL},
+#. 11
+#: src/main_menubar_def.h:855
+msgid "Shared _Libraries"
+msgstr "_Pustaka Kongsi"
+
+#: src/main_menubar_def.h:856
+msgid "Show shared libraries loaded by the program"
+msgstr "Tunjukkan pustaka kongsi yang dimuatkan oleh atur cara"
+
+#. 12
+#: src/main_menubar_def.h:861
+msgid "_Kernel Signals"
+msgstr "Isyarat _Kernel"
+
+#: src/main_menubar_def.h:862
+msgid "Show the kernel signals editor window"
+msgstr "Tunjukkan tetingkap editor isyarat kernel"
+
+#. 13
+#: src/main_menubar_def.h:867
+msgid "_Dump Window"
+msgstr "_Longgokkan Tetingkap "
+
+#: src/main_menubar_def.h:868
+msgid "Show memory dump window"
+msgstr "Tunjukkan memori longgokan tetingkap"
+
+#. 14
+#. 15
+#: src/main_menubar_def.h:874
+msgid "_Console"
+msgstr "_Konsol"
+
+#: src/main_menubar_def.h:875
+msgid "Show the console where the program runs"
+msgstr "Tunjukkan konsol di mana atur cara dijalankan"
+
+#. 16
+#: src/main_menubar_def.h:880
+msgid "Show _Locals"
+msgstr "Tunjukkan _Setempat"
+
+#: src/main_menubar_def.h:881
+msgid "Show/Hide Local variables in Message window"
+msgstr "Tunjukkan/Sembunyikan pemboleh ubah Setempat dalam tetingkap Mesej"
+
+#. 0
+#: src/main_menubar_def.h:891 src/project_dbase_gui.c:268
+msgid "Include file"
+msgstr "Termasuk fail"
+
+#. 1
+#: src/main_menubar_def.h:897 src/project_dbase_gui.c:274
+msgid "Source file"
+msgstr "Fail sumber"
+
+#. 2
+#: src/main_menubar_def.h:903 src/project_dbase_gui.c:280
+msgid "Help file"
+msgstr "Fail Bantuan"
+
+#. 3
+#: src/main_menubar_def.h:909 src/project_dbase_gui.c:286
+msgid "Data file"
+msgstr "Fail data"
+
+#. 4
+#: src/main_menubar_def.h:915 src/project_dbase_gui.c:292
+msgid "Pixmap file"
+msgstr "Fail pixmap"
+
+#. 5
+#: src/main_menubar_def.h:921 src/project_dbase_gui.c:298
+msgid "Translation file"
+msgstr "Fail terjemahan"
+
+#. 6
+#: src/main_menubar_def.h:927 src/project_dbase_gui.c:304
+msgid "Doc file"
+msgstr "Fail Dok"
+
+#. 0
+#: src/main_menubar_def.h:938 src/project_dbase_gui.c:314
+msgid "Add File"
+msgstr "Tambahkan Fail"
+
+#. 3
+#: src/main_menubar_def.h:956
+msgid "Remove File"
+msgstr "Keluarkan Fail"
+
+#. 4
+#. 5
+#: src/main_menubar_def.h:963 src/project_dbase_gui.c:339
+msgid "Configure Project"
+msgstr "Buat Konfigurasi Projek"
+
+#: src/main_menubar_def.h:964
+msgid "Configure options for the current Project"
+msgstr "Opsyen konfigurasi bagi Projek semasa"
+
+#. 6
+#: src/main_menubar_def.h:969 src/project_dbase_gui.c:345
+msgid "Project Info"
+msgstr "Maklumat Projek"
+
+#: src/main_menubar_def.h:970
+msgid "Display the Project information"
+msgstr "Paparkan maklumat Projek"
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:983
+msgid "_Update tags image"
+msgstr "_Kemas kini imej tag"
+
+#: src/main_menubar_def.h:984
+msgid "Update the tags image of the Project/opened files"
+msgstr "Kemas kini imej tag bagi Projek/fail yang dibuka"
+
+#. 11
+#: src/main_menubar_def.h:989
+msgid "Rebuild tags image"
+msgstr "Bina semula imej tag"
+
+#: src/main_menubar_def.h:990
+msgid "Rebuild the tags image of the Project"
+msgstr "Bina semula imej tag Projek"
+
+#. 12
+#: src/main_menubar_def.h:995
+msgid "Ed_it Application GUI ..."
+msgstr "Ed_it GUI Aplikasi ..."
+
+#: src/main_menubar_def.h:996
+msgid "Edit application GUI with the Glade GUI editor"
+msgstr "Edit GUI Aplikasi menggunakan editor GUI Glade"
+
+#. 0
+#: src/main_menubar_def.h:1013
+msgid "Automatic"
+msgstr "Automatik"
+
+#: src/main_menubar_def.h:1014
+msgid "Automatically determine the highlight style"
+msgstr "Tentukan gaya tonjol secara automatik"
+
+#. 1
+#: src/main_menubar_def.h:1019
+msgid "No Highlight style"
+msgstr "Tiada gaya Tonjol"
+
+#: src/main_menubar_def.h:1020
+msgid "Remove the current highlight style"
+msgstr "Keluarkan gaya tonjol semasa"
+
+#. 2
+#: src/main_menubar_def.h:1025
+msgid "C and C++"
+msgstr "C dan C++"
+
+#: src/main_menubar_def.h:1026
+msgid "Force the highlight style to C and C++"
+msgstr "Paksa gaya tonjol pada C dan C++"
+
+#. 3
+#: src/main_menubar_def.h:1031
+msgid "C and C++ with GNOME"
+msgstr "C dan C++ bersama-sama GNOME"
+
+#: src/main_menubar_def.h:1032
+msgid "Force the highlight style to C and C++ with GNOME"
+msgstr "Paksa gaya tonjol pada C dan C++ bersama-sama GNOME"
+
+#. 4
+#: src/main_menubar_def.h:1037
+msgid "HTML"
+msgstr "HTML"
+
+#: src/main_menubar_def.h:1038
+msgid "Force the highlight style to HTML"
+msgstr "Paksa gaya tonjol pada HTML"
+
+#. 5
+#: src/main_menubar_def.h:1043
+msgid "XML"
+msgstr "XML"
+
+#: src/main_menubar_def.h:1044
+msgid "Force the highlight style to XML"
+msgstr "Paksa gaya tonjol pada XML"
+
+#. 6
+#: src/main_menubar_def.h:1049
+msgid "Javascript"
+msgstr "Javascript"
+
+#: src/main_menubar_def.h:1050
+msgid "Force the highlight style to Javascript"
+msgstr "Paksa gaya tonjol pada Javascript"
+
+#. 7
+#: src/main_menubar_def.h:1055
+msgid "WScript"
+msgstr "WScript"
+
+#: src/main_menubar_def.h:1056
+msgid "Force the highlight style to WScript"
+msgstr "Paksa gaya tonjol pada WScript"
+
+#. 8
+#: src/main_menubar_def.h:1061
+msgid "Makefile"
+msgstr "Makefile"
+
+#: src/main_menubar_def.h:1062
+msgid "Force the highlight style to Makefile"
+msgstr "Paksa gaya tonjol pada Makefile"
+
+#. 9
+#: src/main_menubar_def.h:1067
+msgid "Java"
+msgstr "Java"
+
+#: src/main_menubar_def.h:1068
+msgid "Force the highlight type to Java"
+msgstr "Paksa gaya tonjol pada Java"
+
+#. 10
+#: src/main_menubar_def.h:1073
+msgid "LUA"
+msgstr "LUA"
+
+#: src/main_menubar_def.h:1074
+msgid "Force the highlight style to LUA"
+msgstr "Paksa gaya tonjol pada LUA"
+
+#. 11
+#: src/main_menubar_def.h:1079
+msgid "Python"
+msgstr "Python"
+
+#: src/main_menubar_def.h:1080
+msgid "Force the highlight style to Python"
+msgstr "Paksa gaya tonjol pada Python"
+
+#. 12
+#: src/main_menubar_def.h:1085
+msgid "Perl"
+msgstr "Perl"
+
+#: src/main_menubar_def.h:1086
+msgid "Force the highlight style to Perl"
+msgstr "Paksa gaya tonjol pada Perl"
+
+#. 13
+#: src/main_menubar_def.h:1091
+msgid "SQL"
+msgstr "SQL"
+
+#: src/main_menubar_def.h:1092
+msgid "Force the highlight style to SQL"
+msgstr "Paksa gaya tonjol pada SQL"
+
+#. 14
+#: src/main_menubar_def.h:1097
+msgid "PL/SQL"
+msgstr "PL/SQL"
+
+#: src/main_menubar_def.h:1098
+msgid "Force the highlight style to PL/SQL"
+msgstr "Paksa gaya tonjol pada PL/SQL"
+
+#. 15
+#: src/main_menubar_def.h:1103
+msgid "PHP"
+msgstr "PHP"
+
+#: src/main_menubar_def.h:1104
+msgid "Force the highlight style to PHP"
+msgstr "Paksa gaya tonjol pada PHP"
+
+#. 16
+#: src/main_menubar_def.h:1109
+msgid "LaTex"
+msgstr "LaTex"
+
+#: src/main_menubar_def.h:1110
+msgid "Force the highlight style to LaTex"
+msgstr "Paksa gaya tonjol pada LaTex"
+
+#: src/main_menubar_def.h:1116
+msgid "Force the highlight style to Diff"
+msgstr "Paksa gaya tonjol pada Diff"
+
+#. 18
+#: src/main_menubar_def.h:1121
+msgid "Pascal"
+msgstr "Pascal"
+
+#: src/main_menubar_def.h:1122
+msgid "Force the highlight style to Pascal"
+msgstr "Paksa gaya tonjol pada Pascal"
+
+#. 19
+#: src/main_menubar_def.h:1127
+msgid "Xcode"
+msgstr "Xcode"
+
+#: src/main_menubar_def.h:1128
+msgid "Force the highlight style to Xcode"
+msgstr "Paksa gaya tonjol pada Xcode"
+
+#. 20
+#: src/main_menubar_def.h:1133
+msgid "Prj/Properties"
+msgstr "Projek/Ciri"
+
+#: src/main_menubar_def.h:1134
+msgid "Force the highlight style to project/properties files"
+msgstr "Paksa gaya tonjol pada fail projek/ciri"
+
+#. 21
+#: src/main_menubar_def.h:1139
+msgid "Conf"
+msgstr "Konfigurasi"
+
+#: src/main_menubar_def.h:1140
+msgid "Force the highlight style to UNIX conf files"
+msgstr "Paksa gaya tonjol pada fail konfigurasi UNIX"
+
+#. 22
+#: src/main_menubar_def.h:1145
+msgid "Ada"
+msgstr "Ada"
+
+#: src/main_menubar_def.h:1146
+msgid "Force the highlight style to Ada"
+msgstr "Paksa gaya tonjol pada Ada"
+
+#. 23
+#: src/main_menubar_def.h:1151
+msgid "Baan"
+msgstr "Baan"
+
+#: src/main_menubar_def.h:1152
+msgid "Force the highlight style to Baan"
+msgstr "Paksa gaya tonjol pada Baan"
+
+#. 24
+#: src/main_menubar_def.h:1157
+msgid "Lisp"
+msgstr "Lisp"
+
+#: src/main_menubar_def.h:1158
+msgid "Force the highlight style to Lisp"
+msgstr "Paksa gaya tonjol pada Lisp"
+
+#. 25
+#: src/main_menubar_def.h:1163
+msgid "Ruby"
+msgstr "Ruby"
+
+#: src/main_menubar_def.h:1164
+msgid "Force the highlight style to Ruby"
+msgstr "Paksa gaya tonjol pada Ruby"
+
+#. 26
+#: src/main_menubar_def.h:1169
+msgid "Matlab"
+msgstr "Matlab"
+
+#: src/main_menubar_def.h:1170
+msgid "Force the highlight style to Matlab"
+msgstr "Paksa gaya tonjol pada Matlab"
+
+#. 0
+#: src/main_menubar_def.h:1180
+msgid "Auto _Format"
+msgstr "Auto _Format"
+
+#: src/main_menubar_def.h:1181
+msgid "Autoformat the current source file"
+msgstr "Autoformat fail sumber semasa"
+
+#. 1
+#: src/main_menubar_def.h:1186
+msgid "_Increase Indent"
+msgstr "_Tambahkan Inden"
+
+#: src/main_menubar_def.h:1187
+msgid "Increase indentation of line/selection"
+msgstr "Tambahkan indentasi garis/pemilihan"
+
+#. 2
+#: src/main_menubar_def.h:1192
+msgid "_Decrease Indent"
+msgstr "_Kurangkan Inden"
+
+#: src/main_menubar_def.h:1193
+msgid "Decrease indentation of line/selection"
+msgstr "Kurangkan indentasi garis/pemilihan"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1199
+msgid "Force _Highlight Style"
+msgstr "Paksa Gaya _Tonjol"
+
+#. 5
+#. 6
+#: src/main_menubar_def.h:1206
+msgid "_Close All Folds"
+msgstr "_Tutup Semua lipatan"
+
+#: src/main_menubar_def.h:1207
+msgid "Close all code folds in the editor"
+msgstr "Tutup semua lipatan kod dalam editor"
+
+#. 7
+#: src/main_menubar_def.h:1212
+msgid "_Open All Folds"
+msgstr "_Buka Semua lipatan"
+
+#: src/main_menubar_def.h:1213
+msgid "Open all code folds in the editor"
+msgstr "Buka semua lipatan kod dalam editor"
+
+#. 8
+#: src/main_menubar_def.h:1218
+msgid "_Toggle Current Fold"
+msgstr "_Toggle Lipatan Semasa"
+
+#: src/main_menubar_def.h:1219
+msgid "Toggle current code fold in the editor"
+msgstr "Toggle lipatan kod semasa dalam editor "
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:1225
+msgid "D_etach Current Document"
+msgstr "K_eluarkan Dokumen Semasa"
+
+#: src/main_menubar_def.h:1226
+msgid "Detach the current document into a separate editor window"
+msgstr "Keluarkan dokumen semasa ke tetingkap editor yang berasingan"
+
+#. 0
+#: src/main_menubar_def.h:1236
+msgid "_Compile"
+msgstr "_Kompil"
+
+#: src/main_menubar_def.h:1237
+msgid "Compile the current source file"
+msgstr "Kompil fail sumber semasa"
+
+#. 1
+#: src/main_menubar_def.h:1242
+msgid "Compile With _Make"
+msgstr "Kompil Dengan _Make"
+
+#: src/main_menubar_def.h:1243
+msgid "Compile the current source file using Make"
+msgstr "Kompil fail sumber semasa menggunakan Make"
+
+#. 2
+#: src/main_menubar_def.h:1248 src/main_menubar_def.h:1884
+msgid "_Build"
+msgstr "_Bina"
+
+#: src/main_menubar_def.h:1249
+msgid "Build the source directory of the Project or the current source file"
+msgstr "Bina direktori sumber Projek atau fail sumber semasa"
+
+#. 3
+#: src/main_menubar_def.h:1254
+msgid "Build _All"
+msgstr "Bina _Semua"
+
+#: src/main_menubar_def.h:1255
+msgid "Build the whole Project"
+msgstr "Bina keseluruhan Projek"
+
+#. 4
+#. 5
+#: src/main_menubar_def.h:1261
+msgid "Save Build Messages"
+msgstr "Simpan Mesej Bina"
+
+#: src/main_menubar_def.h:1262
+msgid "Save build messages to a file"
+msgstr "Sima mesej bina ke dalam fail"
+
+#. 6
+#. 7
+#: src/main_menubar_def.h:1268
+msgid "_Install"
+msgstr "_Pasang"
+
+#: src/main_menubar_def.h:1269
+msgid "Install the Project on your system"
+msgstr "Pasang Projek pada sistem anda"
+
+#. 8
+#: src/main_menubar_def.h:1274
+msgid "Build _Distribution"
+msgstr "Bina _Pengagihan"
+
+#: src/main_menubar_def.h:1275
+msgid "Build the distribution tarball of the Project"
+msgstr "Bina tarball pengagihan Projek"
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:1281
+msgid "Con_figure ..."
+msgstr "Buat Kon_figurasi ..."
+
+#: src/main_menubar_def.h:1282
+msgid "Configure the Project"
+msgstr "Buat konfigurasi Projek"
+
+#. 11
+#: src/main_menubar_def.h:1287
+msgid "Auto _generate ..."
+msgstr "Auto _generate ..."
+
+#: src/main_menubar_def.h:1288
+msgid "Auto generate all the build files for the Project"
+msgstr "Auto generate semua fail binaan bagi Projek"
+
+#. 12
+#. 13
+#: src/main_menubar_def.h:1294
+msgid "Clea_n"
+msgstr "Bersi_h"
+
+#: src/main_menubar_def.h:1295
+msgid "Clean the source directory"
+msgstr "Bersihkan direktori sumber"
+
+#. 14
+#: src/main_menubar_def.h:1300
+msgid "Clean A_ll"
+msgstr "Bersihkan S_emua"
+
+#: src/main_menubar_def.h:1301
+msgid "Clean the whole Project directory"
+msgstr "Bersihkan keseluruhan direktori Projek"
+
+#. 15
+#. 16
+#: src/main_menubar_def.h:1307
+msgid "_Stop Build"
+msgstr "_Henti Bina"
+
+#: src/main_menubar_def.h:1308
+msgid "Stop the current compile or build process"
+msgstr "Hentikan proses kompil atau bina semasa"
+
+#. 17
+#. 18
+#: src/main_menubar_def.h:1314
+msgid "_Execute"
+msgstr "_Laksana"
+
+#: src/main_menubar_def.h:1315 src/toolbar.c:296
+msgid "Execute the program"
+msgstr "Laksanakan atur cara"
+
+#. 19
+#: src/main_menubar_def.h:1320
+msgid "Set _Program params ..."
+msgstr "Setkan parameter _Atur cara ..."
+
+#: src/main_menubar_def.h:1321
+msgid "Set the execution parameters of the program"
+msgstr "Setkan parameter pelaksanaan bagi atur cara"
+
+#. 0
+#: src/main_menubar_def.h:1331
+msgid "_Toggle bookmark"
+msgstr "_Toggle tanda buku"
+
+#: src/main_menubar_def.h:1332
+msgid "Toggle a bookmark at the current line position"
+msgstr "Toggle tanda buku pada kedudukan garis semasa"
+
+#. 1
+#. 2
+#: src/main_menubar_def.h:1338
+msgid "_First bookmark"
+msgstr "Tanda Buku _Pertama"
+
+#: src/main_menubar_def.h:1339
+msgid "Jump to the first bookmark in the file"
+msgstr "Beralih ke tanda buku pertama dalam fail"
+
+#. 3
+#: src/main_menubar_def.h:1344
+msgid "_Previous bookmark"
+msgstr "_Tanda buku sebelumnya"
+
+#: src/main_menubar_def.h:1345
+msgid "Jump to the previous bookmark in the file"
+msgstr "Beralih ke tanda buku sebelumnya dalam fail"
+
+#. 4
+#: src/main_menubar_def.h:1350
+msgid "_Next bookmark"
+msgstr "Tanda Buku _Seterusnya"
+
+#: src/main_menubar_def.h:1351
+msgid "Jump to the next bookmark in the file"
+msgstr "Beralih ke tanda buku seterusnya dalam fail"
+
+#. 5
+#: src/main_menubar_def.h:1356
+msgid "_Last bookmark"
+msgstr "Tanda Buku _Akhir"
+
+#: src/main_menubar_def.h:1357
+msgid "Jump to the last bookmark in the file"
+msgstr "Beralih ke tanda buku akhir dalam fail"
+
+#. 6
+#. 7
+#: src/main_menubar_def.h:1363
+msgid "_Clear all bookmarks"
+msgstr "_Kosongkan semua tanda buku"
+
+#: src/main_menubar_def.h:1364
+msgid "Clear bookmarks"
+msgstr "Kosongkan tanda buku"
+
+#. 0
+#: src/main_menubar_def.h:1374
+msgid "Run/_Continue"
+msgstr "Jalankan/_Teruskan"
+
+#: src/main_menubar_def.h:1375
+msgid "Continue the execution of the program"
+msgstr "Teruskan pelaksanaan atur cara"
+
+#. 1
+#: src/main_menubar_def.h:1380
+msgid "Step _In"
+msgstr "Langkah Ke _Dalam"
+
+#: src/main_menubar_def.h:1381
+msgid "Single step into function"
+msgstr "Langkah tunggal ke dalam fungsi"
+
+#. 2
+#: src/main_menubar_def.h:1386
+msgid "Step O_ver"
+msgstr "Langkah Ke A_tas"
+
+#: src/main_menubar_def.h:1387
+msgid "Single step over function"
+msgstr "Langkah tunggal ke atas fungsi"
+
+#. 3
+#: src/main_menubar_def.h:1392
+msgid "Step _Out"
+msgstr "Langkah Ke _Luar"
+
+#: src/main_menubar_def.h:1393
+msgid "Single step out of the function"
+msgstr "Langkah tunggal ke luar dari fungsi"
+
+#. 4
+#: src/main_menubar_def.h:1398
+msgid "_Run to cursor"
+msgstr "_Jalankan ke kursor"
+
+#: src/main_menubar_def.h:1399
+msgid "Run to the cursor"
+msgstr "Jalankan ke kursor"
+
+#. 0
+#: src/main_menubar_def.h:1409 src/text_editor_menu.c:136
+msgid "Toggle breakpoint"
+msgstr "Toggle titik putus"
+
+#: src/main_menubar_def.h:1410
+msgid "Toggle breakpoint at the current location"
+msgstr "Toggle titik putus pada kedudukan semasa"
+
+#. 1
+#: src/main_menubar_def.h:1415
+msgid "Set Breakpoint ..."
+msgstr "Setkan Titik Putus ..."
+
+#: src/main_menubar_def.h:1416
+msgid "Set a breakpoint"
+msgstr "Setkan titik putus"
+
+#. 2
+#. 3
+#: src/main_menubar_def.h:1422
+msgid "_Breakpoints ..."
+msgstr "_Titik Putus ..."
+
+#: src/main_menubar_def.h:1423
+msgid "Edit breakpoints"
+msgstr "Edit titik putus"
+
+#. 4
+#: src/main_menubar_def.h:1428
+msgid "Disable all Breakpoints"
+msgstr "Lumpuhkan semua Titik Putus"
+
+#: src/main_menubar_def.h:1429
+msgid "Deactivate all breakpoints"
+msgstr "Nyahaktifkan semua titik putus"
+
+#. 5
+#: src/main_menubar_def.h:1434
+msgid "C_lear all Breakpoints"
+msgstr "B_ersihkan semua Titik Putus"
+
+#: src/main_menubar_def.h:1435
+msgid "Delete all breakpoints"
+msgstr "Hapuskan semua titik putus"
+
+#. 0
+#: src/main_menubar_def.h:1445
+msgid "Info _Target Files"
+msgstr "Maklumat Fail _Sasaran"
+
+#: src/main_menubar_def.h:1446
+msgid "Display information on the files the debugger is active with"
+msgstr "Paparkan maklumat pada fail yang penyahpepijat masih aktif"
+
+#. 1
+#: src/main_menubar_def.h:1451
+msgid "Info _Program"
+msgstr "Maklumat _Atur Cara"
+
+#: src/main_menubar_def.h:1452
+msgid "Display information on the execution status of the program"
+msgstr "Paparkan maklumat tentang status pelaksanaan atur cara"
+
+#. 2
+#: src/main_menubar_def.h:1457
+msgid "Info _Kernel User Struct"
+msgstr "Maklumat Struktur Pengguna _Kernel"
+
+#: src/main_menubar_def.h:1458
+msgid "Display the contents of kernel 'struct user' for current child"
+msgstr "Paparkan kandungan 'pengguna struktur' kernel bagi anak semasa"
+
+#. 3
+#: src/main_menubar_def.h:1463
+msgid "Info _Threads"
+msgstr "Maklumat _Bebenang"
+
+#: src/main_menubar_def.h:1464
+msgid "Display the IDs of currently known threads"
+msgstr "Paparkan ID bebenang semasa yang diketahui"
+
+#. 4
+#: src/main_menubar_def.h:1469
+msgid "Info _Global variables"
+msgstr "Maklumat pemboleh ubah _Sejagat"
+
+#: src/main_menubar_def.h:1470
+msgid "Display all global and static variables of the program"
+msgstr "Paparkan semua pemboleh ubah sejagat dan statik atur cara"
+
+#. 5
+#: src/main_menubar_def.h:1475
+msgid "Info _Local variables"
+msgstr "Maklumat pemboleh ubah _Setempat"
+
+#: src/main_menubar_def.h:1476
+msgid "Display local variables of the current frame"
+msgstr "Paparkan pemboleh ubah setempat bingkai semasa"
+
+#. 6
+#: src/main_menubar_def.h:1481
+msgid "Info _Current Frame"
+msgstr "Maklumat Bingkat _Semasa"
+
+#: src/main_menubar_def.h:1482
+msgid "Display information about the current frame of execution"
+msgstr "Paparkan maklumat tentang bingkai semasa pelaksanaan"
+
+#. 7
+#: src/main_menubar_def.h:1487
+msgid "Info Function _Arguments"
+msgstr "Maklumat _Argumen Fungsi"
+
+#: src/main_menubar_def.h:1488
+msgid "Display function arguments of the current frame"
+msgstr "Paparkan argumen fungsi bingkai semasa"
+
+#. 8
+#: src/main_menubar_def.h:1493
+msgid "Info _Memory"
+msgstr "Maklumat _Memori"
+
+#: src/main_menubar_def.h:1494
+msgid "Display accessible memory"
+msgstr "Paparkan memori yang boleh dicapai"
+
+#. 0
+#: src/main_menubar_def.h:1504
+msgid "_Start Debugger"
+msgstr "_Mulakan Penyahpepijat"
+
+#: src/main_menubar_def.h:1505
+msgid "Start the debugging session"
+msgstr "Mulakan sesi menyahpepijat"
+
+#. 1
+#. 2
+#: src/main_menubar_def.h:1511
+msgid "Load E_xecutable ..."
+msgstr "Muatkan yang Boleh Dil_aksanakan ..."
+
+#: src/main_menubar_def.h:1512
+msgid "Open the executable for debugging"
+msgstr "Buka yang boleh dilaksanakan untuk menyahpepijat"
+
+#. 3
+#: src/main_menubar_def.h:1517
+msgid "Load _Core file ..."
+msgstr "Muatkan fail _Teras ..."
+
+#: src/main_menubar_def.h:1518
+msgid "Load a core file to dissect"
+msgstr "Muatkan fail teras untuk dianalisis"
+
+#. 4
+#: src/main_menubar_def.h:1523
+msgid "_Attach to Process ..."
+msgstr "_Lampirkan pada Proses ..."
+
+#: src/main_menubar_def.h:1524
+msgid "Attach to a running program"
+msgstr "Lampirkan pada atur cara yang sedang dijalankan"
+
+#. 5
+#. 6
+#: src/main_menubar_def.h:1530
+msgid "_Restart Program"
+msgstr "_Mulakan Semula Atur Cara"
+
+#: src/main_menubar_def.h:1531
+msgid "Stop and restart the program"
+msgstr "Hentikan dan mulakan semula atur cara"
+
+#. 7
+#: src/main_menubar_def.h:1536
+msgid "S_top Program"
+msgstr "H_entikan Atur Cara"
+
+#: src/main_menubar_def.h:1537
+msgid "Stop the program being debugged"
+msgstr "Hentikan atur cara yang sedang dinyahpepijat"
+
+#. 8
+#: src/main_menubar_def.h:1542
+msgid "_Detach Debugger"
+msgstr "_Keluarkan Penyahpepijat"
+
+#: src/main_menubar_def.h:1543
+msgid "Detach from an attached program"
+msgstr "Keluarkan dari atur cara yang dilampirkan"
+
+#. 9
+#. 10
+#: src/main_menubar_def.h:1549
+msgid "I_nterrupt Program"
+msgstr "S_ampuk Atur Cara"
+
+#: src/main_menubar_def.h:1550 src/toolbar.c:581
+msgid "Interrupt execution of the program"
+msgstr "Sampuk pelaksanaan atur cara"
+
+#. 11
+#: src/main_menubar_def.h:1555
+msgid "Si_gnal to Process"
+msgstr "Is_yarat ke Proses"
+
+#: src/main_menubar_def.h:1556
+msgid "Send a kernel signal to the process being debugged"
+msgstr "Hantar isyarat kernel ke proses yang sedang dinyahpepijat"
+
+#. 12
+#. 13
+#: src/main_menubar_def.h:1562
+msgid "_Execution"
+msgstr "_Pelaksanaan"
+
+#. 15
+#. 16
+#: src/main_menubar_def.h:1575
+msgid "_Information"
+msgstr "_Maklumat"
+
+#. 17
+#. 18
+#: src/main_menubar_def.h:1582
+msgid "Ins_pect/Evaluate ..."
+msgstr "Per_iksa/Nilai ..."
+
+#: src/main_menubar_def.h:1583
+msgid "Inspect or evaluate an expression or variable"
+msgstr "Periksa atau nilai ungkapan atau pemboleh ubah"
+
+#. 19
+#: src/main_menubar_def.h:1588
+msgid "Add Expression in _Watch ..."
+msgstr "Tambahkan Ungkapan dalam _Pemerhatian"
+
+#: src/main_menubar_def.h:1589
+msgid "Add expression or variable to the watch"
+msgstr "Tambahkan ungkapan atau pemboleh ubah untuk pemerhatian"
+
+#. 20
+#. 21
+#: src/main_menubar_def.h:1595
+msgid "St_op Debugger"
+msgstr "Hen_tikan Penyahpepijat"
+
+#: src/main_menubar_def.h:1596
+msgid "Say goodbye to the debugger"
+msgstr "Ucapkan selamat tinggal kepada penyahpepijat"
+
+#. 0
+#: src/main_menubar_def.h:1607
+msgid "U_pdate file"
+msgstr "K_emas Kini fail"
+
+#. 1
+#: src/main_menubar_def.h:1614
+msgid "C_ommit file"
+msgstr "Laksanakan fail"
+
+#. 2
+#: src/main_menubar_def.h:1621
+msgid "S_tatus of file"
+msgstr "S_tatus fail"
+
+#. 3
+#: src/main_menubar_def.h:1628
+msgid "G_et file log"
+msgstr "D_apatkan log fail"
+
+#. 4
+#: src/main_menubar_def.h:1635
+msgid "_Add file"
+msgstr "_Tambahkan fail"
+
+#. 5
+#: src/main_menubar_def.h:1642
+msgid "_Remove file"
+msgstr "_Keluarkan fail"
+
+#. 6
+#: src/main_menubar_def.h:1649
+msgid "D_iff file"
+msgstr "Fail D_iff"
+
+#. 8
+#: src/main_menubar_def.h:1657
+msgid "_Update Project"
+msgstr "_Kemas Kini Projek"
+
+#: src/main_menubar_def.h:1658
+msgid "Update the working copy of a Project"
+msgstr "Kemas kini salinan kerja Projek"
+
+#. 9
+#: src/main_menubar_def.h:1664
+msgid "_Commit Project"
+msgstr "_Laksanakan Projek"
+
+#: src/main_menubar_def.h:1665
+msgid "Commit local changes to the repository"
+msgstr "Laksanakan perubahan setempat ke repositori"
+
+#. 10
+#: src/main_menubar_def.h:1671
+msgid "_Import Project"
+msgstr "_Import Projek"
+
+#: src/main_menubar_def.h:1672
+msgid "Import Project as a new module in the repository"
+msgstr "Import Projek sebagai modul baru dalam repositori"
+
+#. 11
+#: src/main_menubar_def.h:1678
+msgid "_Status of Project"
+msgstr "_Status Projek"
+
+#: src/main_menubar_def.h:1679
+msgid "Print the status of the Project"
+msgstr "Cetak status Projek"
+
+#. 12
+#: src/main_menubar_def.h:1685
+msgid "Get Project _log"
+msgstr "Daparkan _log Projek"
+
+#: src/main_menubar_def.h:1686
+msgid "Print the CVS log of the Project"
+msgstr "Cetak log CVS bagi Projek"
+
+#. 13
+#: src/main_menubar_def.h:1692
+msgid "_Diff Project"
+msgstr "Projek _Diff"
+
+#: src/main_menubar_def.h:1693
+msgid ""
+"Create a diff between the working copy of the Project and the repository"
+msgstr "Wujudkan diff antara salinan kerja Projek dengan repositori"
+
+#. 15
+#: src/main_menubar_def.h:1700
+msgid "_Login"
+msgstr "_Log Masuk"
+
+#: src/main_menubar_def.h:1701
+msgid "Login to a CVS server"
+msgstr "Log masuk ke dalam pelayan CVS"
+
+#. 0
+#: src/main_menubar_def.h:1712
+msgid "_Compiler and Linker Settings ..."
+msgstr "Seting _Pengkompil dan Pemaut ..."
+
+#: src/main_menubar_def.h:1713
+msgid "Settings for the compiler and linker"
+msgstr "Seting bagi pengkompil dan pemaut"
+
+#. 1
+#: src/main_menubar_def.h:1718
+msgid "_Source Paths ..."
+msgstr "Laluan _Sumber ..."
+
+#: src/main_menubar_def.h:1719
+msgid "Specify the source paths for Anjuta to search"
+msgstr "Nyatakan laluan sumber bagi Anjuta untuk mencari"
+
+#. 2
+#: src/main_menubar_def.h:1724
+msgid "Co_mmands ..."
+msgstr "Ar_ahan ..."
+
+#: src/main_menubar_def.h:1725
+msgid "Specify the various commands for use"
+msgstr "Nyatakan pelbagai arahan yang digunakan"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1731
+msgid "_Preferences ..."
+msgstr "_Keutamaan ..."
+
+#: src/main_menubar_def.h:1732
+msgid "Do you prefer coffee to tea? Check it out."
+msgstr "Anda mahu kopi atau teh? Sila cuba."
+
+#. 5
+#: src/main_menubar_def.h:1737
+msgid "_Editor colors and fonts ..."
+msgstr "Warna dan fon _editor ..."
+
+#: src/main_menubar_def.h:1738
+msgid "Syntax highlighting settings"
+msgstr "Seting tonjolan sintaks"
+
+#. 6
+#: src/main_menubar_def.h:1743
+msgid "File view filters ..."
+msgstr "Penapis pandangan fail ..."
+
+#: src/main_menubar_def.h:1744
+msgid "Edit file view filters"
+msgstr "Edit penapis pandangan fail"
+
+#. 7
+#: src/main_menubar_def.h:1749
+msgid "_Edit user.properties file ..."
+msgstr "_Edit fail user.properties"
+
+#: src/main_menubar_def.h:1750
+msgid "Edit user properties file"
+msgstr "Edit fail ciri pengguna"
+
+#. 8
+#: src/main_menubar_def.h:1755
+msgid "Set _Default Preferences"
+msgstr "Setkan Keutamaan _Piawai"
+
+#: src/main_menubar_def.h:1756
+msgid "But I prefer tea."
+msgstr "Saya mahu teh."
+
+#. 9
+#: src/main_menubar_def.h:1761
+msgid "C_ustomize shortcuts"
+msgstr "S_uaikan jalan pintas"
+
+#: src/main_menubar_def.h:1762
+msgid "Customize shortcuts associated with menu items"
+msgstr "Suaikan jalan pintas yang dikaitkan dengan item menu"
+
+#. 10
+#: src/main_menubar_def.h:1767
+msgid "_Tools Editor"
+msgstr "Editor _Alat"
+
+#: src/main_menubar_def.h:1768
+msgid "Customize user-defined tools"
+msgstr "Suaikan alat takrifan pengguna"
+
+#. 11
+#. 12
+#: src/main_menubar_def.h:1774
+msgid "St_art-with dialog"
+msgstr "Dialog Mu_lakan-dengan"
+
+#: src/main_menubar_def.h:1775
+msgid "Show start-with dialog"
+msgstr "Tunjukkan dialog mulakan-dengan"
+
+#. 13
+#: src/main_menubar_def.h:1780
+msgid "An_juta setup wizard"
+msgstr "Wizard persediaan An_juta"
+
+#: src/main_menubar_def.h:1781
+msgid "Setup wizard for first time run"
+msgstr "Sediakan wizard bagi larian kali pertama"
+
+#. 0
+#. 1
+#. 2
+#: src/main_menubar_def.h:1793
+msgid "Browse GNOME _API Pages"
+msgstr "Layari Halaman _API GNOME"
+
+#: src/main_menubar_def.h:1794
+msgid "The GNOME API pages"
+msgstr "Halaman API GNOME"
+
+#. 3
+#: src/main_menubar_def.h:1799
+msgid "Browse _Man Pages"
+msgstr "Layari Halaman _Man"
+
+#: src/main_menubar_def.h:1800
+msgid "The good old manual pages"
+msgstr "Halaman manual yang sangat berguna"
+
+#. 4
+#: src/main_menubar_def.h:1805
+msgid "Browse _Info Pages"
+msgstr "Layari Halaman _Maklumat"
+
+#: src/main_menubar_def.h:1806
+msgid "Browse Info pages"
+msgstr "Layari halaman Maklumat"
+
+#. 5
+#. 6
+#: src/main_menubar_def.h:1812
+msgid "_Context Help"
+msgstr "Bantuan _Konteks"
+
+#: src/main_menubar_def.h:1813
+msgid "Search help for the current word in the editor"
+msgstr "Cari bantuan bagi kata semasa dalam editor"
+
+#. 7
+#: src/main_menubar_def.h:1818
+msgid "_Search a topic"
+msgstr "_Cari tajuk"
+
+#: src/main_menubar_def.h:1819
+msgid "May I help you?"
+msgstr "Boleh saya bantu anda?"
+
+#. 8
+#. 9
+#: src/main_menubar_def.h:1825
+msgid "Anjuta _Home Page"
+msgstr "_Laman Web Anjuta"
+
+#: src/main_menubar_def.h:1826
+msgid "Online documentation and resources"
+msgstr "Dokumentasi dan sumber dalam talian"
+
+#. 10
+#. 11
+#: src/main_menubar_def.h:1832
+msgid "_Libraries API references"
+msgstr "Rujukan _Pustaka API"
+
+#: src/main_menubar_def.h:1833
+msgid "Online reference library for GDK, GLib, GNOME etc.."
+msgstr "Pustaka rujukan dalam talian bagi GDK, GLib, GNOME dan sebagainya.."
+
+#. 12
+#: src/main_menubar_def.h:1838
+msgid "Report _Bugs"
+msgstr "Laporkan _Pepijat"
+
+#: src/main_menubar_def.h:1839
+msgid "Submit a bug report for Anjuta"
+msgstr "Serahkan laporan pepijat bagi Anjuta"
+
+#. 13
+#: src/main_menubar_def.h:1844
+msgid "Request _Features"
+msgstr "_Ciri Permintaan"
+
+#: src/main_menubar_def.h:1845
+msgid "Submit a feature request for Anjuta"
+msgstr "Serahkan permintaan ciri bagi Anjuta"
+
+#. 14
+#: src/main_menubar_def.h:1850
+msgid "Submit _patches"
+msgstr "Serahkan _tampungan"
+
+#: src/main_menubar_def.h:1851
+msgid "Submit patches for Anjuta"
+msgstr "Serahkan tampungan bagi Anjuta"
+
+#. 15
+#: src/main_menubar_def.h:1856
+msgid "Ask a _question"
+msgstr "Tanyakan satu _soalan"
+
+#: src/main_menubar_def.h:1857
+msgid "Submit a question for FAQs"
+msgstr "Serahkan soalan bagi FAQ"
+
+#: src/main_menubar_def.h:1872
+msgid "_Project"
+msgstr "_Projek"
+
+#: src/main_menubar_def.h:1878
+msgid "For_mat"
+msgstr "For_mat"
+
+#: src/main_menubar_def.h:1890
+msgid "Bookmar_k"
+msgstr "Tand_a Buku"
+
+#: src/main_menubar_def.h:1896
+msgid "_Debug"
+msgstr "_Nyahpepijat"
+
+#: src/main_menubar_def.h:1902
+msgid "_CVS"
+msgstr "_CVS"
+
+#: src/main_menubar_def.h:1908
+msgid "_Settings"
+msgstr "_Seting"
+
+#: src/mainmenu_callbacks.c:156
+msgid ""
+"The editor is being used as output buffer for an operation.\n"
+"Closing it will result in stopping the process.\n"
+"Do you still want close the editor?"
+msgstr ""
+"Editor digunakan sebagai penimbal output bagi operasi.\n"
+"Menutupnya akan menghentikan proses tersebut.\n"
+"Adakah anda masih mahu menutup editor?"
+
+#: src/mainmenu_callbacks.c:170
+#, c-format
+msgid ""
+"The file '%s' is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+"Fail '%s' tidak disimpan.\n"
+"Adakah anda mahu menyimpan fail sebelum menutupnya?"
+
+#: src/mainmenu_callbacks.c:235
+#, c-format
+msgid ""
+"Are you sure you want to reload '%s'?\n"
+"Any unsaved changes will be lost."
+msgstr ""
+"Adakah anda pasti anda mahu memuatkan semula '%s'?\n"
+"Sebarang perubahan yang tidak disimpan akan hilang."
+
+#: src/mainmenu_callbacks.c:533
+msgid "%Y"
+msgstr "%Y"
+
+#: src/mainmenu_callbacks.c:552
+msgid "%Y-%m-%d"
+msgstr "%Y-%m-%d"
+
+#: src/mainmenu_callbacks.c:627
+#, c-format
+msgid "The file \"%s\" is not a header file."
+msgstr "Fail \"%s\" bukan fail pengepala"
+
+#: src/mainmenu_callbacks.c:1732
+msgid "The executable is not up-to-date."
+msgstr "Boleh dilaksanakan bukan yang terkini"
+
+#: src/mainmenu_callbacks.c:1757
+msgid "Debugger is not running. Start it first."
+msgstr "Penyahpepijat tidak dijalankan. Mulakannya dahulu"
+
+#: src/memory.c:132
+msgid "Memory"
+msgstr "Memori"
+
+#: src/memory.c:208
+msgid "Inspect "
+msgstr "Periksa"
+
+#: src/memory.c:213
+msgid "Hexa address "
+msgstr "Alamat Heksa "
+
+#: src/memory.c:224
+msgid "Quit"
+msgstr "Berhenti"
+
+#: src/memory.c:465
+msgid "Non accessible address !"
+msgstr "Alamat tidak boleh dicapai !"
+
+#: src/message-manager.cc:42 src/text_editor_gui.c:135 src/toolbar.c:113
+msgid "Find"
+msgstr "Cari"
+
+#: src/message-manager.cc:42
+msgid "Locals"
+msgstr "Setempat"
+
+#: src/message-manager.cc:42
+msgid "Watches"
+msgstr "Permerhatian"
+
+#: src/message-manager.cc:42 src/toolbar.c:646
+msgid "Stack"
+msgstr "Tindanan"
+
+#: src/message-manager.cc:43
+msgid "Terminal"
+msgstr "Terminal"
+
+#: src/message-manager.cc:43
+msgid "Stdout"
+msgstr "Stdout"
+
+#: src/message-manager.cc:43
+msgid "Stderr"
+msgstr "Stderr"
+
+#: src/message-manager.cc:258 src/message-manager.cc:313
+#, c-format
+msgid "Could not find message type %s!\n"
+msgstr "Tidak dapat mencari jenis mesej %s!\n"
+
+#: src/message-manager.cc:540 src/toolbar.c:152
+msgid "Messages"
+msgstr "Mesej"
+
+#: src/preferences-dialog.c:125
+msgid "Category"
+msgstr "Kategori"
+
+#: src/preferences-dialog.c:225
+msgid "Anjuta Preferences Dialog"
+msgstr "Dialog Keutamaan Anjuta"
+
+#: src/preferences.c:547
+msgid ""
+"Are you sure you want to reset the preferences to\n"
+"their default settings?"
+msgstr ""
+"Adakah anda pasti anda mahu mengesetkan semula keutamaan ke\n"
+"seting piawainya?"
+
+#: src/preferences.c:924
+#, c-format
+msgid ""
+"Cannot load Global defaults and configuration files:\n"
+"%s.\n"
+"This may result in improper behaviour or instabilities.\n"
+"Anjuta will fall back to built in (limited) settings"
+msgstr ""
+"Tidak dapat memuatkan piawai Sejagat dan fail konfigurasi:\n"
+"%s.\n"
+"Ini mungkin menyebabkan peri laku yang tak sepatutnya atau ketakstabilan.\n"
+"Anjuta akan kembali untuk seting bina dalam (terhad)"
+
+#: src/preferences.c:1054
+msgid "Anjuta Preferences"
+msgstr "Keutamaan Anjuta"
+
+#. Must declare static, because it will be used forever
+#: src/project_dbase.c:230
+msgid "Add to Project"
+msgstr "Tambahkan ke Projek"
+
+#: src/project_dbase.c:259 src/project_dbase.c:330 src/project_dbase_gui.c:575
+msgid "Project: None"
+msgstr "Projek: Tiada"
+
+#: src/project_dbase.c:400
+msgid "Anjuta project files"
+msgstr "Fail projek Anjuta"
+
+#: src/project_dbase.c:401 src/project_dbase_gui.c:162
+#: src/project_dbase_gui.c:179 src/project_dbase_gui.c:191
+#: src/project_dbase_gui.c:199 src/project_dbase_gui.c:211
+#: src/project_dbase_gui.c:220 src/project_dbase_gui.c:229
+#: widgets/gnomefilelist.c:709
+msgid "All files"
+msgstr "Semua fail"
+
+#: src/project_dbase.c:482 src/project_dbase.c:500
+#, c-format
+msgid "Unable to load Project: %s"
+msgstr "Tidak dapat memuatkan Projek: %s"
+
+#: src/project_dbase.c:493 src/project_dbase.c:2522
+#, c-format
+msgid ""
+"Anjuta version %s or later is required to open this Project.\n"
+"Please upgrade to the latest version of Anjuta (Help for more information)."
+msgstr ""
+"Versi %s atau yang terbaru Anjuta diperlukan untuk membuka Projek ini.\n"
+"Sila tingkatkan ke versi terbaru Anjuta (Gunakan Bantuan untuk maklumat "
+"lanjut)."
+
+#: src/project_dbase.c:885
+msgid "Project saved successfully"
+msgstr "Projek berjaya disimpan"
+
+#: src/project_dbase.c:891 src/project_dbase.c:893
+msgid "Unable to save the Project."
+msgstr "Tidak dapat menyimpan Projek."
+
+#: src/project_dbase.c:1602
+msgid ""
+"A .glade file does not exist in the top level Project directory. If you do "
+"not use glade for GUI editing,  please specify a custom command for it in "
+"[Project]->[Project Configuration]->[GUI editor command]"
+msgstr ""
+"Fail glade tidak wujud di aras teratas direktori Projek. Jika anda tidak "
+"menggunakan glade untuk mengedit GUI, sila nyatakan arahan biasa baginya "
+"dalam [Projek]->[Konfigurasi Projek]->[arahan editor GUI]"
+
+#: src/project_dbase.c:1664
+msgid ""
+"A .glade file does not\n"
+"exist in the top level Project directory."
+msgstr ""
+"Fail .glade tidak\n"
+"wujud di aras teratas direktori Projek"
+
+#. Set project title
+#: src/project_dbase.c:2110
+msgid "Project: "
+msgstr "Projek: "
+
+#: src/project_dbase.c:2227
+#, c-format
+msgid ""
+"Unable to get relative file name for %s\n"
+" in %s"
+msgstr ""
+"Tidak boleh mendapatkan nama fail relatif bagi %s\n"
+" dalam %s"
+
+#: src/project_dbase.c:2292
+msgid " already exists in the project"
+msgstr " telah wujud dalam projek"
+
+#: src/project_dbase.c:2325
+msgid "Error while copying the file inside the module."
+msgstr "Ralat semasa menyalin fail dalam modul"
+
+#: src/project_dbase.c:2598 src/project_dbase.c:2601
+#, c-format
+msgid "Error in loading Project: %s"
+msgstr "Ralat semasa memuatkan Projek: %s"
+
+#: src/project_dbase.c:2622
+msgid "Project loaded successfully."
+msgstr "Projek berjaya dimuatkan"
+
+#: src/project_dbase_gui.c:74
+#, c-format
+msgid ""
+"Are you sure you want to remove the item\n"
+"'%s' from the Project?"
+msgstr ""
+"Adakah anda pasti anda mahu mengeluarkan item\n"
+"'%s' dari Projek?"
+
+#: src/project_dbase_gui.c:131
+msgid "There is already a Project open.Do you want to close it first?"
+msgstr "Telah ada Projek yang dibuka.Anda mahu menutupnya dahulu?"
+
+#: src/project_dbase_gui.c:161
+msgid "Help files"
+msgstr "Fail Bantuan"
+
+#: src/project_dbase_gui.c:170 widgets/gnomefilelist.c:712
+msgid "C/C++ source files"
+msgstr "Fail sumber C/C++"
+
+#: src/project_dbase_gui.c:171
+msgid "Java source files"
+msgstr "Fail sumber Java"
+
+#: src/project_dbase_gui.c:172 widgets/gnomefilelist.c:719
+msgid "Pascal files"
+msgstr "Fail Pascal"
+
+#: src/project_dbase_gui.c:173 widgets/gnomefilelist.c:721
+msgid "PHP files"
+msgstr "Fail PHP"
+
+#: src/project_dbase_gui.c:174 widgets/gnomefilelist.c:724
+msgid "Perl files"
+msgstr "Fail Perl"
+
+#: src/project_dbase_gui.c:175 widgets/gnomefilelist.c:726
+msgid "Python files"
+msgstr "Fail Python"
+
+#: src/project_dbase_gui.c:176 widgets/gnomefilelist.c:731
+msgid "Shell Script files"
+msgstr "Fail Shell Script"
+
+#: src/project_dbase_gui.c:177 widgets/gnomefilelist.c:736
+msgid "Visual Basic files"
+msgstr "Fail Visual Basic"
+
+#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:744
+msgid ".lua files"
+msgstr "Fail .lua"
+
+#: src/project_dbase_gui.c:187
+msgid "PNG files"
+msgstr "Fail PNG"
+
+#: src/project_dbase_gui.c:188
+msgid "JPG files"
+msgstr "Fail JPG"
+
+#: src/project_dbase_gui.c:189
+msgid "BMP files"
+msgstr "Fail BMP"
+
+#: src/project_dbase_gui.c:190
+msgid "GIF files"
+msgstr "Fail GIF"
+
+#: src/project_dbase_gui.c:207
+msgid "Text files"
+msgstr "Fail teks"
+
+#: src/project_dbase_gui.c:208
+msgid "XML files"
+msgstr "Fail XML"
+
+#: src/project_dbase_gui.c:209
+msgid "HTML files"
+msgstr "Fail HTML"
+
+#: src/project_dbase_gui.c:210
+msgid "DOC files"
+msgstr "Fail DOC"
+
+#: src/project_dbase_gui.c:219
+msgid "PO files"
+msgstr "Fail PO"
+
+#: src/project_dbase_gui.c:228
+msgid "C/C++ Headers"
+msgstr "Pengepala C/C++"
+
+#: src/project_dbase_gui.c:259
+msgid "Add file to module: "
+msgstr "Tambahkan fail ke modul: "
+
+#: src/project_dbase_gui.c:587 widgets/gnomefilelist.c:396
+msgid "Files"
+msgstr "Fail"
+
+#: src/project_dbase_gui.c:591
+msgid "Symbols"
+msgstr "Simbol"
+
+#: src/project_dbase_gui.c:727
+msgid "Project Information"
+msgstr "Maklumat Projek"
+
+#: src/project_dbase_gui.c:735
+msgid " Project Information "
+msgstr "Maklumat Projek "
+
+#: src/project_dbase_gui.c:771
+msgid "Author:"
+msgstr "Pengarang:"
+
+#: src/project_dbase_gui.c:779 src/wizard_gui.c:335
+msgid "Project Name:"
+msgstr "Nama Projek:"
+
+#: src/project_dbase_gui.c:858
+msgid "Program Name:"
+msgstr "Nama Atur Cara:"
+
+#: src/project_dbase_gui.c:865
+msgid "Source files:"
+msgstr "Fail sumber:"
+
+#: src/project_dbase_gui.c:872
+msgid "Help files:"
+msgstr "Fail Bantuan:"
+
+#: src/project_dbase_gui.c:879
+msgid "Data files:"
+msgstr "Fail data:"
+
+#: src/project_dbase_gui.c:886
+msgid "Pixmap files:"
+msgstr "Fail Pixmap:"
+
+#: src/project_dbase_gui.c:893
+msgid "Doc files:"
+msgstr "Fail Doc:"
+
+#: src/project_dbase_gui.c:914
+msgid "Po files:"
+msgstr "Fail Po:"
+
+#: src/project_dbase_gui.c:944
+msgid "GUI editable by Glade:"
+msgstr "GUI boleh edit oleh Glade:"
+
+#: src/project_dbase_gui.c:966
+msgid "Makefiles managed:"
+msgstr "Diuruskan oleh Makefiles:"
+
+#: src/project_dbase_gui.c:1008
+msgid "Gettext support:"
+msgstr "Sokongan Gettext:"
+
+#: src/project_dbase_gui.c:1066
+msgid "Project Type:"
+msgstr "Jenis Projek:"
+
+#: src/project_dbase_gui.c:1111
+msgid ""
+"Project is not saved.\n"
+"Do you want to save it before closing?"
+msgstr ""
+"Projek tidak disimpan.\n"
+"Adakah anda mahu menyimpan projek sebelum menutupnya?"
+
+#: src/project_dbase_gui.c:1123 src/project_dbase_gui.c:1243
+msgid "Breton"
+msgstr "Breton"
+
+#: src/project_dbase_gui.c:1124
+msgid "Catalan"
+msgstr "Catalan"
+
+#: src/project_dbase_gui.c:1125
+msgid "Czech"
+msgstr "bahasa Czechoslovakia"
+
+#: src/project_dbase_gui.c:1126
+msgid "Danish"
+msgstr "bahasa Denmark"
+
+#: src/project_dbase_gui.c:1127
+msgid "German"
+msgstr "bahasa Jerman"
+
+#: src/project_dbase_gui.c:1128
+msgid "Greek"
+msgstr "bahasa Greek"
+
+#: src/project_dbase_gui.c:1129
+msgid "Esperanto"
+msgstr "bahasa Esperanto"
+
+#: src/project_dbase_gui.c:1130
+msgid "Spanish"
+msgstr "bahasa Sepanyol"
+
+#: src/project_dbase_gui.c:1131
+msgid "Finnish"
+msgstr "bahasa Finland"
+
+#: src/project_dbase_gui.c:1132
+msgid "French"
+msgstr "bahasa Perancis"
+
+#: src/project_dbase_gui.c:1133
+#, fuzzy
+msgid "Herbrew"
+msgstr "bahasa Ibrani"
+
+#: src/project_dbase_gui.c:1134 src/project_dbase_gui.c:1138
+msgid "Croatian"
+msgstr "bahasa Croatia"
+
+#: src/project_dbase_gui.c:1135
+msgid "Hungarian"
+msgstr "bahasa Hungary"
+
+#: src/project_dbase_gui.c:1136
+msgid "Islandic"
+msgstr "bahasa Iceland"
+
+#: src/project_dbase_gui.c:1137
+msgid "Italian"
+msgstr "bahasa Itali"
+
+#: src/project_dbase_gui.c:1139
+msgid "Korean"
+msgstr "bahasa Korea"
+
+#: src/project_dbase_gui.c:1140
+msgid "Macedonian"
+msgstr "bahasa Macedonia"
+
+#: src/project_dbase_gui.c:1141
+msgid "Dutch"
+msgstr "bahasa Belanda"
+
+#: src/project_dbase_gui.c:1142
+msgid "Norwegian"
+msgstr "bahasa Norway"
+
+#: src/project_dbase_gui.c:1143
+msgid "Polish"
+msgstr "bahasa Poland"
+
+#: src/project_dbase_gui.c:1144
+msgid "Portuguese"
+msgstr "bahasa Portugal"
+
+#: src/project_dbase_gui.c:1145
+msgid "Romanian"
+msgstr "bahasa Rom"
+
+#: src/project_dbase_gui.c:1146
+msgid "Russian"
+msgstr "bahasa Rusia"
+
+#: src/project_dbase_gui.c:1147
+msgid "Slovak"
+msgstr "bahasa Slovak"
+
+#: src/project_dbase_gui.c:1148
+msgid "Turkish"
+msgstr "bahasa Turki"
+
+#: src/project_dbase_gui.c:1149
+msgid "Simplified Chinese"
+msgstr "bahasa Cina Mudah"
+
+#: src/project_dbase_gui.c:1150
+msgid "Chinese"
+msgstr "bahasa Cina"
+
+#: src/project_dbase_gui.c:1151
+msgid "Estonian"
+msgstr "bahasa Estonia"
+
+#: src/project_dbase_gui.c:1195
+msgid "Select regional language"
+msgstr "Pilih bahasa serantau"
+
+#: src/project_dbase_gui.c:1211
+msgid "Select regional language:"
+msgstr "Pilih bahasa serantau:"
+
+#: src/project_dbase_gui.c:1251
+#, c-format
+msgid "Unable to find pixmap file: %s"
+msgstr "Tidak dapat mencari fail pixmap: %s"
+
+#: src/project_dbase_gui.c:1330
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist.\n"
+"Do you want to create it now ?"
+msgstr ""
+"\"%s\"\n"
+"tidak wujud.\n"
+"Adakah anda mahu mewujudkannya sekarang ?"
+
+#: src/project_dbase_gui.c:1358
+#, c-format
+msgid ""
+"\"%s\"\n"
+"does not exist in the current module directory.\n"
+"Do you want to IMPORT (copy) it into the module?"
+msgstr ""
+"\"%s\"\n"
+"tidak wujud dalam direktori modul semasa.\n"
+"Adakah anda mahu IMPORT (salin) ke dalam modul?"
+
+#: src/project_import.c:89
+#, c-format
+msgid "Unable to find import script %s"
+msgstr "Tidak dapat mencari skrip import skrip %s"
+
+#: src/project_import.c:94
+#, c-format
+msgid "%s: Not a regular file"
+msgstr "%s: Bukan fail biasa"
+
+#: src/project_import.c:106
+#, c-format
+msgid "Importing Project from %s ...\n"
+msgstr "Mengimport Projek dari %s ...\n"
+
+#: src/project_import.c:116
+msgid "Could not launch script!\n"
+msgstr "Tidak dapat memulakan skrip!\n"
+
+#: src/project_import.c:127
+msgid "Importing Project...please wait"
+msgstr "Mengimport Projek...sila tunggu"
+
+#: src/project_import.c:175
+msgid "Project import completed...successful\n"
+msgstr "Mengimport projek selesai...berjaya\n"
+
+#: src/project_import.c:177
+msgid "Project import completed...successful"
+msgstr "Mengimport projek selesai...berjaya"
+
+#: src/project_import.c:189
+msgid "Could not import Project: no project file found!"
+msgstr "Tidak dapat mengimport Projek: fail projek tidak dijumpai!"
+
+#: src/project_import.c:196
+msgid "Opening Project...please wait"
+msgstr "Membuka Projek...sila tunggu"
+
+#: src/project_import.c:199
+msgid "Could not open generated Project file"
+msgstr "Tidak dapat membuka fail Projek yang dijanakan"
+
+#: src/project_import_cbs.c:126
+msgid "Please complete all of the required fields"
+msgstr "Sila penuhkan semua medan yang diperlukan"
+
+#. We should never come here because this button is disabled
+#: src/project_import_cbs.c:278
+msgid ""
+"The import operation has already begun.\n"
+"Click Cancel to skip the customisation stage, or Next to continue."
+msgstr ""
+"Operasi import telah bermula.\n"
+"Klik Batal untuk melangkau langkah penyesuaian, atau Seterusnya untuk "
+"meneruskan."
+
+#: src/project_import_gui.c:45
+msgid ""
+"The Project Import Wizard scans the directory of an\n"
+"existing code project, and attempts to import the structure\n"
+"into an Anjuta Project. There will be a chance to update\n"
+"any autodetected values during the import process.\n"
+"\n"
+"THIS IS AN EXPERIMENTAL FEATURE\n"
+msgstr ""
+"Wizard Import Projek mengimbas direktori\n"
+"kod projek yang wujud, dan cuba mengimport struktur tersebut\n"
+"ke dalam Projek Anjuta. Mungkin ada peluang untuk mengemas kini\n"
+"sebarang nilai autodetected semasa proses import.\n"
+"\n"
+"INI ADALAH CIRI PERCUBAAN\n"
+
+#: src/project_import_gui.c:70 src/project_import_gui.c:151
+msgid "Project Import Wizard"
+msgstr "Wizard Import Projek"
+
+#: src/project_import_gui.c:182
+msgid "Select directory"
+msgstr "Pilih direktori"
+
+#: src/project_import_gui.c:199
+msgid "Select top level directory of an existing project"
+msgstr "Pilih direktori aras teratas bagi projek yang wujud"
+
+#: src/project_import_gui.c:203
+msgid "Select existing project directory"
+msgstr "Pilih direktori projek yang wujud"
+
+#: src/project_import_gui.c:217
+msgid "Click Next to begin the import"
+msgstr "Klik Seterusnya untuk memulakan import"
+
+#: src/registers_gui.c:40
+msgid "Modify"
+msgstr "Ubah suai"
+
+#: src/registers_gui.c:88
+msgid "CPU Registers"
+msgstr "Daftar CPU"
+
+#: src/registers_gui.c:107
+msgid "Register"
+msgstr "Daftar"
+
+#: src/registers_gui.c:115
+msgid "Decimal"
+msgstr "Perpuluhan"
+
+#: src/resources.c:51
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Widget tidak dijumpai: %s"
+
+#: src/resources.c:75
+#, c-format
+msgid "Could not find application image file: %s"
+msgstr "Tidak menjumpai fail imej aplikasi: %s"
+
+#: src/resources.c:101
+#, c-format
+msgid "Could not find application pixmap file: %s"
+msgstr "Tidak menjumpai fail pixmap aplikasi: %s"
+
+#: src/resources.c:263 src/resources.c:271
+msgid "Cannot execute Devhelp. Make sure it is installed"
+msgstr "Tidak boleh melaksanakan Devhelp. Pastikan ia telah dipasang"
+
+#: src/search-replace.c:1058 src/text_editor_gui.c:140
+msgid "Replace"
+msgstr "Ganti"
+
+#: src/search-replace.c:1334 src/search-replace.c:1497
+msgid "Replace All"
+msgstr "Ganti Semua"
+
+#: src/search-replace.c:1342
+msgid "No matches."
+msgstr "Tiada padanan"
+
+#: src/search-replace.c:1352
+msgid "The maximum number of results has been reached."
+msgstr "Bilangan maksimum hasil telah dicapai."
+
+#: src/search-replace.c:1362
+#, c-format
+msgid "%d matches have been replaced."
+msgstr "%d padanan telah diganti."
+
+#: src/search-replace.c:1704
+msgid "Unable to build user interface for Search And Replace"
+msgstr "Tidak dapat membina antara muka pengguna bagi Cari Dan Ganti"
+
+#: src/sharedlib_gui.c:79
+msgid "Shared libraries"
+msgstr "Pustaka Kongsi"
+
+#: src/sharedlib_gui.c:100
+msgid "  Shared Object  "
+msgstr "  Objek Kongsi  "
+
+#: src/sharedlib_gui.c:104
+msgid "From"
+msgstr "Dari"
+
+#: src/sharedlib_gui.c:108
+msgid "To"
+msgstr "Ke"
+
+#: src/sharedlib_gui.c:112
+msgid "Sysm Read"
+msgstr "Baca Sysm"
+
+#: src/signals_gui.c:40
+msgid "Modify Signal"
+msgstr "Ubah Suai Isyarat"
+
+#: src/signals_gui.c:47
+msgid "Send to process"
+msgstr "Hantar ke proses"
+
+#: src/signals_gui.c:93
+msgid "Kernel signals"
+msgstr "Isyarat Kernel"
+
+#: src/signals_gui.c:115
+msgid "Signal"
+msgstr "Isyarat"
+
+#: src/signals_gui.c:119 src/toolbar.c:314 src/toolbar.c:673
+msgid "Stop"
+msgstr "Henti"
+
+#: src/signals_gui.c:209
+msgid "Set Signal Property"
+msgstr "Setkan Ciri Isyarat"
+
+#: src/signals_gui.c:252
+msgid " Stop: "
+msgstr "Henti: "
+
+#: src/signals_gui.c:256
+msgid " Print: "
+msgstr " Cetak: "
+
+#: src/signals_gui.c:260
+msgid "Pass:"
+msgstr "Sebelumnya:"
+
+#: src/source.c:112
+#, c-format
+msgid "Error writing to file: %s."
+msgstr "Ralat menulis ke fail: %s."
+
+#: src/source.c:120 src/source.c:167 src/source.c:205 src/source.c:453
+#: src/source.c:478 src/source.c:573 src/source.c:671 src/source.c:711
+#: src/source.c:726 src/source.c:760 src/source.c:815 src/source.c:851
+#: src/source.c:905 src/source.c:941 src/source.c:996 src/source.c:1052
+#: src/source.c:1071 src/source.c:1104 src/source.c:1123 src/source.c:1156
+#: src/source.c:1175 src/source.c:1206 src/source.c:1224 src/source.c:1254
+#: src/source.c:1272 src/source.c:1301 src/source.c:1350 src/source.c:1387
+#: src/source.c:1431 src/source.c:1512 src/source.c:1644 src/source.c:1684
+#: src/source.c:1774 src/source.c:1847 src/source.c:1941 src/source.c:2022
+#: src/source.c:2080 src/source.c:2194 src/source.c:2257 src/source.c:2563
+#: src/source.c:2698 src/utilities.c:744
+#, c-format
+msgid "Unable to create file: %s."
+msgstr "Tidak dapat mewujudkan fail: %s."
+
+#: src/source.c:1609 src/source.c:1729
+#, c-format
+msgid "Error writing to: %s."
+msgstr "Ralat menulis ke: %s."
+
+#: src/src_paths.c:260
+msgid "Source Paths"
+msgstr "Laluan Sumber"
+
+#: src/stack_trace_cbs.c:170
+msgid "Error getting selection\n"
+msgstr "Ralat mendapatkan pemilihan\n"
+
+#: src/stack_trace_cbs.c:181
+msgid "Error getting source location from stack frame"
+msgstr "Ralat mendapatkan lokasi sumber dari bingkai tindanan"
+
+#: src/stack_trace_gui.c:39
+msgid "Frame set"
+msgstr "Set bingkai"
+
+#: src/stack_trace_gui.c:46
+msgid "Frame info"
+msgstr "Maklumat bingkai"
+
+#: src/stack_trace_gui.c:53
+msgid "Frame args"
+msgstr "Argumen Bingkai"
+
+#: src/stack_trace_gui.c:67
+msgid "View Source"
+msgstr "Lihat Sumber"
+
+#: src/stack_trace_gui.c:108
+msgid "Active"
+msgstr "Aktif"
+
+#: src/stack_trace_gui.c:117
+msgid "Count"
+msgstr "Bilang"
+
+#: src/stack_trace_gui.c:129 src/toolbar.c:618
+msgid "Frame"
+msgstr "Bingkai"
+
+#: src/support.c:60 src/support.c:85
+#, c-format
+msgid "Couldn't find pixmap file: %s"
+msgstr "Tidak menjumpai fail pixmap: %s"
+
+#: src/text_editor.c:876
+msgid "Loading file ..."
+msgstr "Memuatkan fail ..."
+
+#: src/text_editor.c:882
+#, c-format
+msgid "Could not load file: %s"
+msgstr "Tidak dapat memuatkan fail: %s"
+
+#: src/text_editor.c:901
+msgid "File loaded successfully"
+msgstr "Fail berjaya dimuatkan"
+
+#: src/text_editor.c:916
+msgid "Saving file ..."
+msgstr "Menyimpan fail ..."
+
+#: src/text_editor.c:921
+#, c-format
+msgid "Could not save file: %s."
+msgstr "Tidak dapat menyimpan fail: %s"
+
+#: src/text_editor.c:958
+msgid "File saved successfully"
+msgstr "Fail berjaya disimpan"
+
+#: src/text_editor.c:1056
+#, c-format
+msgid ""
+"The file '%s' on the disk is more recent than\n"
+"the current buffer.\n"
+"Do you want to reload it?"
+msgstr ""
+"Fail '%s' pada cakera adalah yang terbaru daripada\n"
+"penimbal semasa.\n"
+"Anda mahu memuatkannya semula?"
+
+#: src/text_editor.c:1193
+msgid "Auto format is currently disabled. Change the setting in Preferences."
+msgstr "Auto format sedang dilumpuhkan. Ubah seting dalam Keutamaan."
+
+#: src/text_editor.c:1199
+msgid "Auto formatting ..."
+msgstr "Pemformatan automatik ..."
+
+#: src/text_editor.c:1209 src/text_editor.c:1236
+msgid "Error in auto formatting ..."
+msgstr "Ralat dalam pemformatan automatik ..."
+
+#: src/text_editor.c:1242
+msgid "Auto formatting completed"
+msgstr "Pemformatan automatik selesai"
+
+#: src/text_editor_cbs.c:186
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr "Autosave \"%s\""
+
+#: src/text_editor_cbs.c:190
+#, c-format
+msgid "Autosave \"%s\" -- Failed"
+msgstr "Autosave \"%s\" -- Gagal"
+
+#: src/text_editor_gui.c:96 src/toolbar.c:74
+msgid "New"
+msgstr "Baru"
+
+#: src/text_editor_gui.c:100 src/toolbar.c:78
+msgid "Open"
+msgstr "Buka"
+
+#: src/text_editor_gui.c:106 src/toolbar.c:82
+msgid "Save"
+msgstr "Simpan"
+
+#: src/text_editor_gui.c:111 src/toolbar.c:86
+msgid "Reload"
+msgstr "Muat Semula"
+
+#. 0
+#: src/text_editor_gui.c:118 src/text_editor_menu.c:239
+msgid "Cut"
+msgstr "Potong"
+
+#: src/text_editor_gui.c:119
+msgid "Cut to clipboard"
+msgstr "Potong ke papan keratan"
+
+#. 1
+#: src/text_editor_gui.c:123 src/text_editor_menu.c:247
+msgid "Copy"
+msgstr "Salin"
+
+#: src/text_editor_gui.c:124
+msgid "Copy to clipboard"
+msgstr "Salin ke papan keratan"
+
+#. 2
+#: src/text_editor_gui.c:128 src/text_editor_menu.c:255
+msgid "Paste"
+msgstr "Tampal"
+
+#: src/text_editor_gui.c:129
+msgid "Paste from clipboard"
+msgstr "Tampal ke papan keratan"
+
+#: src/text_editor_gui.c:136
+msgid "Search string"
+msgstr "Cari rentetan"
+
+#: src/text_editor_gui.c:141
+msgid "Search and replace string"
+msgstr "Cari dan ganti rentetan"
+
+#: src/text_editor_gui.c:157
+msgid "line: "
+msgstr "garis:"
+
+#: src/text_editor_gui.c:169 src/toolbar.c:250
+msgid "Compile the current file"
+msgstr "Kompil fail semasa"
+
+#: src/text_editor_gui.c:173
+msgid "Build current file or the source directory of the Project"
+msgstr "Bina fail semasa atau direktori sumber bagi Projek"
+
+#: src/text_editor_gui.c:182
+msgid "Attach"
+msgstr "Lampir"
+
+#: src/text_editor_gui.c:183
+msgid "Attach the current page"
+msgstr "Lampirkan halaman semasa"
+
+#: src/text_editor_menu.c:77
+msgid "Back"
+msgstr "Belakang"
+
+#: src/text_editor_menu.c:84
+msgid "Forward"
+msgstr "Depan"
+
+#: src/text_editor_menu.c:108
+msgid "Prev mesg"
+msgstr "Mesej sebelumnya"
+
+#: src/text_editor_menu.c:114
+msgid "Next mesg"
+msgstr "Mesej seterusnya"
+
+#: src/text_editor_menu.c:120
+msgid "Prev bookmark"
+msgstr "Tanda buku sebelumnya"
+
+#: src/text_editor_menu.c:126
+msgid "Next bookmark"
+msgstr "Tanda buku seterusnya"
+
+#: src/text_editor_menu.c:143 src/toolbar.c:542
+msgid "Step in"
+msgstr "Langkah ke dalam"
+
+#: src/text_editor_menu.c:149
+msgid "Step over"
+msgstr "Langkah ke atas"
+
+#: src/text_editor_menu.c:155
+msgid "Step out"
+msgstr "Langkah ke luar"
+
+#: src/text_editor_menu.c:161 src/toolbar.c:531
+msgid "Run to cursor"
+msgstr "Jalankan ke kursor"
+
+#: src/text_editor_menu.c:167
+msgid "Run/Continue"
+msgstr "Jalankan/Teruskan"
+
+#: src/text_editor_menu.c:174 src/toolbar.c:605
+msgid "Inspect"
+msgstr "Periksa"
+
+#: src/text_editor_menu.c:181 src/toolbar.c:579
+msgid "Interrupt"
+msgstr "Sampuk"
+
+#: src/text_editor_menu.c:191
+msgid "Toggle Line numbers"
+msgstr "Toggle nombor Baris"
+
+#: src/text_editor_menu.c:198
+msgid "Toggle Marker Margin"
+msgstr "Toggle Jidar Penanda"
+
+#: src/text_editor_menu.c:205
+msgid "Toggle Fold Margin"
+msgstr "Toggle Jidar Lipatan"
+
+#: src/text_editor_menu.c:212
+msgid "Toggle Guides"
+msgstr "Toggle Panduan"
+
+#: src/text_editor_menu.c:220
+msgid "++Zoom"
+msgstr "++Zum"
+
+#: src/text_editor_menu.c:227
+msgid "--Zoom"
+msgstr "--Zum"
+
+#. 4
+#: src/text_editor_menu.c:265
+msgid "Context Help"
+msgstr "Bantuan Konteks"
+
+#. 6
+#: src/text_editor_menu.c:275
+msgid "Toggle Bookmark"
+msgstr "Toggle Tanda Buku"
+
+#. 7
+#: src/text_editor_menu.c:283
+msgid "Auto format"
+msgstr "Auto format"
+
+#. 8
+#: src/text_editor_menu.c:291
+msgid "Swap .h/.c"
+msgstr "Silih .h/.c"
+
+#. 10
+#: src/text_editor_menu.c:301 src/toolbar.c:518
+msgid "Go"
+msgstr "Pergi"
+
+#. 11
+#: src/text_editor_menu.c:309 src/text_editor_menu.c:431
+msgid "Tags"
+msgstr "Tag"
+
+#. 18
+#: src/text_editor_menu.c:347 src/toolbar.c:90
+msgid "Close"
+msgstr "Tutup"
+
+#: src/toolbar.c:95
+msgid "Undo"
+msgstr "Buat Asal"
+
+#: src/toolbar.c:99
+msgid "Redo"
+msgstr "Buat Semula"
+
+#: src/toolbar.c:104
+msgid "Detach"
+msgstr "Keluarkan"
+
+#: src/toolbar.c:105
+msgid "Detach the current page"
+msgstr "Keluarkan halaman semasa"
+
+#: src/toolbar.c:114
+msgid "Search for the given string in the current file"
+msgstr "Cari rentetan yang diberikan dalam fail semasa"
+
+#: src/toolbar.c:129
+msgid "Enter the string to search for"
+msgstr "Masukkan rentetan untuk dicari"
+
+#: src/toolbar.c:134
+msgid "Go To"
+msgstr "Pergi Ke"
+
+#: src/toolbar.c:135
+msgid "Go to the given line number in the current file"
+msgstr "Pergi ke nombor baris yang diberikan dalam fail semasa"
+
+#: src/toolbar.c:142
+msgid "Enter the line number to go to"
+msgstr "Masukkan nombor baris untuk pergi ke"
+
+#: src/toolbar.c:159
+msgid "Context sensitive help"
+msgstr "Bantuan peka Konteks"
+
+#: src/toolbar.c:223
+msgid "Save Project"
+msgstr "Simpan Projek"
+
+#: src/toolbar.c:235
+msgid "Close Project"
+msgstr "Tutup Projek"
+
+#: src/toolbar.c:262
+msgid "Run configure"
+msgstr "Jalankan konfigurasi"
+
+#: src/toolbar.c:274
+msgid "Build current file, or build the source directory of the Project"
+msgstr "Bina fail semasa, atau bina direktori sumber bagi Projek"
+
+#: src/toolbar.c:285
+msgid "Build_all"
+msgstr "Bina_semua"
+
+#: src/toolbar.c:287
+msgid "Build from the top directory of the Project"
+msgstr "Bina dari direktori teratas Projek"
+
+#: src/toolbar.c:295
+msgid "Execute"
+msgstr "Laksanakan"
+
+#: src/toolbar.c:307
+msgid "Start the Debugger"
+msgstr "Mulakan Penyahpepijat"
+
+#: src/toolbar.c:315
+msgid "Stop/interrupt compile or build"
+msgstr "Hentikan/sampuk kompil atau bina"
+
+#: src/toolbar.c:384 src/toolbar.c:769
+msgid "Toggle"
+msgstr "Toggle"
+
+#: src/toolbar.c:385
+msgid "Toggle bookmark at current location"
+msgstr "Toggle tanda buku pada lokasi semasa"
+
+#: src/toolbar.c:391
+msgid "First"
+msgstr "Pertama"
+
+#: src/toolbar.c:392
+msgid "Goto first bookmark in this document"
+msgstr "Pergi ke tanda buku pertama dalam dokumen ini"
+
+#: src/toolbar.c:398 src/toolbar.c:420
+msgid "Prev"
+msgstr "Sebelumnya"
+
+#: src/toolbar.c:399
+msgid "Goto previous bookmark in this document"
+msgstr "Pergi ke tanda buku sebelumnya dalam dokumen ini"
+
+#: src/toolbar.c:404 src/toolbar.c:427
+msgid "Next"
+msgstr "Seterusnya"
+
+#: src/toolbar.c:405
+msgid "Goto next bookmark in this document"
+msgstr "Pergi ke tanda buku seterusnya dalam dokumen ini"
+
+#: src/toolbar.c:410
+msgid "Last"
+msgstr "Akhir"
+
+#: src/toolbar.c:411
+msgid "Goto last bookmark in this document"
+msgstr "Pergi ke tanda buku akhir dalam dokumen ini"
+
+#: src/toolbar.c:421
+msgid "Goto previous message in this document"
+msgstr "Pergi ke mesej sebelumnya dalam dokumen ini"
+
+#: src/toolbar.c:428
+msgid "Goto next message in this document"
+msgstr "Pergi ke mesej seterusnya dalam dokumen ini"
+
+#: src/toolbar.c:436
+msgid "Start"
+msgstr "Permulaan"
+
+#: src/toolbar.c:437
+msgid "Goto start of current code block"
+msgstr "Pergi ke permulaan blok kod semasa"
+
+#: src/toolbar.c:443
+msgid "End"
+msgstr "Hujung"
+
+#: src/toolbar.c:444
+msgid "Goto end of current code block"
+msgstr "Pergi ke hujung blok kod semasa"
+
+#: src/toolbar.c:451
+msgid "Tags:"
+msgstr "Tag:"
+
+#: src/toolbar.c:460
+msgid "Goto Tag"
+msgstr "Pergi ke Tag"
+
+#: src/toolbar.c:461
+msgid "Search for the given tag in the current file"
+msgstr "Cari tag yang diberikan dalam fail semasa"
+
+#: src/toolbar.c:476
+msgid "Enter the tag to jump to"
+msgstr "Masukkan tag untuk beralih ke"
+
+#: src/toolbar.c:519
+msgid "Go or continue execution"
+msgstr "Pergi atau teruskan pelaksanaan"
+
+#: src/toolbar.c:530
+msgid "Run"
+msgstr "Jalankan"
+
+#: src/toolbar.c:543
+msgid "Single step in execution"
+msgstr "Langkah tunggal dalam pelaksanaan"
+
+#: src/toolbar.c:554
+msgid "Step Over"
+msgstr "Langkah Ke Atas"
+
+#: src/toolbar.c:555
+msgid "Step over the function"
+msgstr "Langkah ke atas fungsi tersebut"
+
+#: src/toolbar.c:565
+msgid "Step Out"
+msgstr "Langkah Ke Luar"
+
+#: src/toolbar.c:566
+msgid "Step out of the function"
+msgstr "Langkah ke luar fungsi tersebut"
+
+#: src/toolbar.c:594
+msgid "Breakpoint"
+msgstr "Titik putus"
+
+#: src/toolbar.c:595
+msgid "Toggle breakpoint at cursor"
+msgstr "Toggle titik putus pada kursor"
+
+#: src/toolbar.c:607
+msgid "Inspect or evaluate an expression"
+msgstr "Periksa atau nilai ungkapan"
+
+#: src/toolbar.c:620
+msgid "Display the current frame information"
+msgstr "Paparkan maklumat bingkai semasa"
+
+#: src/toolbar.c:647
+msgid "Stack trace of the program"
+msgstr "Surihan tindanan bagi atur cara"
+
+#: src/toolbar.c:658
+msgid "Registers"
+msgstr "Daftar"
+
+#: src/toolbar.c:660
+msgid "CPU registers and their contents"
+msgstr "Daftar CPU dan kandungannya"
+
+#: src/toolbar.c:674
+msgid "End the debugging session"
+msgstr "Hujung sesi menyahpepijat"
+
+#: src/toolbar.c:771
+msgid "Toggle current code fold hide/show"
+msgstr "Toggle sembunyikan/tunjukkan lipatan kod semasa"
+
+#: src/toolbar.c:782
+msgid "Close all"
+msgstr "Tutup semua"
+
+#: src/toolbar.c:784
+msgid "Close all code folds in this document"
+msgstr "Tutup semua lipatan kod dalam dokumen ini"
+
+#: src/toolbar.c:795
+msgid "Open all"
+msgstr "Buka semua"
+
+#: src/toolbar.c:797
+msgid "Open all code folds in this document"
+msgstr "Buka semua lipatan kod dalam dokumen ini"
+
+#: src/toolbar.c:811
+msgid "Select current code block"
+msgstr "Pilih blok kod semasa"
+
+#: src/toolbar.c:822
+msgid "Indent inc"
+msgstr "Tambahkan inden"
+
+#: src/toolbar.c:824
+msgid "Increase indentation of block/line"
+msgstr "Tambahkan indentasi blok/baris"
+
+#: src/toolbar.c:835
+msgid "Indent dcr"
+msgstr "Kurangkan inden"
+
+#: src/toolbar.c:837
+msgid "Decrease indentation of block/line"
+msgstr "Kurangkan indentasi blok/baris"
+
+#: src/toolbar.c:850
+msgid "Autoformat"
+msgstr "Autoformat"
+
+#: src/toolbar.c:852
+msgid "Automatically format the code"
+msgstr "Format kod secara automatik"
+
+#: src/toolbar.c:864
+msgid "Configure style to use for auto format"
+msgstr "Buat konfigurasi gaya untuk digunakan bagi auto format"
+
+#: src/toolbar.c:877
+msgid "Calltip"
+msgstr "Calltip"
+
+#: src/toolbar.c:877
+msgid "Show Calltip"
+msgstr "Tunjukkan Calltip"
+
+#: src/toolbar.c:890
+msgid "Autocomplete"
+msgstr "Autocomplete"
+
+#: src/toolbar.c:891
+msgid "Autocomplete word"
+msgstr "Autocomplete kata"
+
+#: src/toolbar_callbacks.c:326
+#, fuzzy, c-format
+msgid "There is no line number %d in \"%s\"."
+msgstr "Terdapat nombor baris %d dalam \"%s\"."
+
+#: src/utilities.c:736
+#, c-format
+msgid "Unable to read file: %s."
+msgstr "Tidak dapat membaca fail: %s"
+
+#: src/utilities.c:778
+msgid "Unable to complete file copy"
+msgstr "Tidak dapat melengkapkan salinan fail"
+
+#: src/watch_cbs.c:237
+msgid "< Not defined in current context >"
+msgstr "< Tidak ditentukan dalam konteks semasa >"
+
+#: src/watch_gui.c:39
+msgid "Add expression"
+msgstr "Tambahkan ungkapan"
+
+#: src/watch_gui.c:51
+msgid "Update all"
+msgstr "Kemas kini semua"
+
+#: src/watch_gui.c:57
+msgid "Clear"
+msgstr "Kosongkan"
+
+#: src/watch_gui.c:63
+msgid "Toggle enable"
+msgstr "Bolehkan Toggle"
+
+#: src/watch_gui.c:69
+msgid "Change item"
+msgstr "Ubah item"
+
+#: src/watch_gui.c:174
+msgid "Add Watch Expression"
+msgstr "Tambahkan Ungkapan Pemerhatian"
+
+#: src/watch_gui.c:184
+msgid "Add expression to watch"
+msgstr "Tambahkan ungkapan untuk diperhatikan"
+
+#: src/watch_gui.c:240
+msgid "Modify Watch Expression"
+msgstr "Ubah Suai Ungkapan Pemerhatian"
+
+#: src/watch_gui.c:250
+msgid "Modify watched expression"
+msgstr "Ubah suai ungkapan untuk diperhatikan"
+
+#: src/watch_gui.c:307
+msgid "Inspect/Evaluate"
+msgstr "Periksa/Nilai"
+
+#: src/watch_gui.c:317
+msgid "Inspect/Evaluate Expression"
+msgstr "Periksa/Nilai Ungkapan"
+
+#: src/watch_gui.c:327
+msgid "Add To Watch"
+msgstr "Tambahkan Untuk Diperhatikan"
+
+#: src/windows-dialog.c:278
+msgid "Icon"
+msgstr "Ikon"
+
+#: src/windows-dialog.c:286
+msgid "Float"
+msgstr "Apung"
+
+#: src/windows-dialog.c:316
+msgid "Anjuta Windows Dialog"
+msgstr "Dialog Tetingkap Anjuta"
+
+#: src/wizard_gui.c:98
+msgid "Project Type"
+msgstr "Jenis Projek"
+
+#: src/wizard_gui.c:120
+msgid "Select the type of application to be developed"
+msgstr "Pilih jenis aplikasi untuk dibangunkan"
+
+#: src/wizard_gui.c:167
+msgid "Generic/Terminal project"
+msgstr "Projek Generik/Terminal"
+
+#: src/wizard_gui.c:171
+msgid "GTK project"
+msgstr "Projek GTK"
+
+#: src/wizard_gui.c:175
+msgid "GNOME project"
+msgstr "Projek GNOME"
+
+#: src/wizard_gui.c:179
+msgid "glademm (gtkmm 1.2) project"
+msgstr "Projek glademm (gtkmm 1.2)"
+
+#: src/wizard_gui.c:183
+msgid "glademm (gnomemm 1.2) project"
+msgstr "Projek glademm (gnomemm 1.2)"
+
+#: src/wizard_gui.c:187
+msgid "Bonobo component"
+msgstr "Komponen Bonobo"
+
+#: src/wizard_gui.c:191
+msgid "LibGlade project"
+msgstr "Projek LibGlade"
+
+#: src/wizard_gui.c:194
+msgid "wxWindows project"
+msgstr "Projek wxWindows"
+
+#: src/wizard_gui.c:197
+msgid "GTK 2.0 project"
+msgstr "Projek GTK 2.0"
+
+#: src/wizard_gui.c:200
+msgid "GNOME 2.0 project"
+msgstr "Projek GNOME 2.0"
+
+#: src/wizard_gui.c:203
+msgid "GNOME 2.0 Bonobo component"
+msgstr "Komponen Bonobo GNOME 2.0"
+
+#: src/wizard_gui.c:206
+msgid "LibGlade 2.0 project"
+msgstr "Projek LibGlade 2.0"
+
+#: src/wizard_gui.c:209
+msgid "gtkmm 2.0 project"
+msgstr "Projek gtkmm 2.0"
+
+#: src/wizard_gui.c:212
+msgid "gnomemm 2.0 project"
+msgstr "Projek gnomemm 2.0"
+
+#: src/wizard_gui.c:215
+msgid "Xlib project"
+msgstr "Projek Xlib"
+
+#: src/wizard_gui.c:218
+msgid "X Dock App project"
+msgstr "Projek X Dock App"
+
+#: src/wizard_gui.c:298
+msgid "Basic Information"
+msgstr "Maklumat Asas"
+
+#: src/wizard_gui.c:319
+msgid "Enter the basic Project information"
+msgstr "Masukkan maklumat asas Projek"
+
+#: src/wizard_gui.c:342
+msgid "Project Version:"
+msgstr "Versi Projek:"
+
+#: src/wizard_gui.c:349
+msgid "Project Author:"
+msgstr "Pengarang Projek:"
+
+#: src/wizard_gui.c:356
+msgid "Project Target:"
+msgstr "Sasaran Projek:"
+
+#: src/wizard_gui.c:387
+msgid "Programming language"
+msgstr "Bahasa pangaturcaraan"
+
+#: src/wizard_gui.c:398
+msgid "C"
+msgstr "C"
+
+#: src/wizard_gui.c:406
+msgid "C++"
+msgstr "C++"
+
+#: src/wizard_gui.c:415
+msgid "Both C and C++"
+msgstr "Kedua-dua C dan C++"
+
+#: src/wizard_gui.c:422
+msgid "Target type"
+msgstr "Jenis sasaran"
+
+#: src/wizard_gui.c:438
+msgid "Executable target"
+msgstr "Sasaran boleh dilaksanakan"
+
+#: src/wizard_gui.c:445
+msgid "Static library target"
+msgstr "Sasaran pustaka statik"
+
+#: src/wizard_gui.c:451
+msgid "Dynamic library target"
+msgstr "Sasasan pustaka dinamik"
+
+#: src/wizard_gui.c:527
+msgid "Enter a short description of the Project"
+msgstr "Masukkan huraian ringkas Projek"
+
+#: src/wizard_gui.c:631
+msgid "Enter any additional Project options"
+msgstr "Masukkan sebarang opsyen tambahan Projek"
+
+#: src/wizard_gui.c:648
+msgid " Project Options "
+msgstr "Opsyen Projek"
+
+#: src/wizard_gui.c:659
+msgid "Include GNU Copyright statement in file headings"
+msgstr "Sertakan penyataan Hak Cipta GNU dalam pengepala fail"
+
+#: src/wizard_gui.c:666
+msgid "Enable Gettext Support"
+msgstr "Bolehkan Sokongan Gettext"
+
+#: src/wizard_gui.c:673
+msgid "GNOME Menu Entry"
+msgstr "Entri Menu GNOME"
+
+#: src/wizard_gui.c:683
+msgid "Entry name:"
+msgstr "Nama entri:"
+
+#: src/wizard_gui.c:690
+msgid "Comment:"
+msgstr "Komen:"
+
+#: src/wizard_gui.c:697
+msgid "Group:"
+msgstr "Kumpulan:"
+
+#: src/wizard_gui.c:739
+msgid "Needs terminal"
+msgstr "Perlukan terminal"
+
+#: widgets/cell-renderer-captioned-image.c:207
+msgid "Text"
+msgstr "Teks"
+
+#: widgets/cell-renderer-captioned-image.c:208
+msgid "Text to render"
+msgstr "Teks untuk diberikan"
+
+#: widgets/cell-renderer-captioned-image.c:214
+msgid "Pixbuf Object"
+msgstr "Objek Pixbuf"
+
+#: widgets/cell-renderer-captioned-image.c:215
+msgid "The pixbuf to render."
+msgstr "Pixbuf untuk diberikan"
+
+#: widgets/gnomefilelist.c:220
+msgid "Go to the previous directory"
+msgstr "Pergi ke direktori sebelumnya"
+
+#: widgets/gnomefilelist.c:224
+msgid "Go to the next directory"
+msgstr "Pergi ke direktori seterusnya"
+
+#: widgets/gnomefilelist.c:228
+msgid "Go to parent directory"
+msgstr "Pergi ke direktori ibu"
+
+#: widgets/gnomefilelist.c:233
+msgid "Go to home directory"
+msgstr "Pergi ke direktori rerumah"
+
+#: widgets/gnomefilelist.c:239
+msgid "Refresh listing"
+msgstr "Muatkan semula penyenaraian"
+
+#: widgets/gnomefilelist.c:245
+msgid "Delete file"
+msgstr "Hapuskan fail"
+
+#: widgets/gnomefilelist.c:249 widgets/gnomefilelist.c:1865
+msgid "Rename file"
+msgstr "Namakan semula fail"
+
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1964
+msgid "Create new folder"
+msgstr "Wujudkan folder baru"
+
+#: widgets/gnomefilelist.c:258
+msgid "Show Hidden"
+msgstr "Tunjukkan Tersembunyi"
+
+#: widgets/gnomefilelist.c:262
+msgid "Show hidden files"
+msgstr "Tunjukkan fail tersembunyi"
+
+#: widgets/gnomefilelist.c:270
+msgid "Directory: "
+msgstr "Direktori: "
+
+#: widgets/gnomefilelist.c:423
+msgid "Selection: "
+msgstr "Pemilihan: "
+
+#: widgets/gnomefilelist.c:451
+msgid "File type: "
+msgstr "Jenis fail: "
+
+#: widgets/gnomefilelist.c:716
+msgid "Java files"
+msgstr "Fail Java"
+
+#: widgets/gnomefilelist.c:728
+msgid "Hyper Text Markup files"
+msgstr "Fail Tambahan Hiper Teks"
+
+#: widgets/gnomefilelist.c:734
+msgid "Config files"
+msgstr "Buat konfigurasi fail"
+
+#: widgets/gnomefilelist.c:739
+msgid "Properties files"
+msgstr "Fail Ciri"
+
+#: widgets/gnomefilelist.c:742
+msgid ".mak files"
+msgstr "Fail .mak"
+
+#: widgets/gnomefilelist.c:746
+msgid "Diff files"
+msgstr "Fail Diff"
+
+#: widgets/gnomefilelist.c:1830
+#, c-format
+msgid "Really delete %s?"
+msgstr "Anda pasti ingin menghapuskan %s?"
+
+#: widgets/gnomefilelist.c:1877
+msgid "Rename file to:"
+msgstr "Namakan semula fail kepada:"
+
+#: widgets/gnomefilelist.c:1903
+#, c-format
+msgid "Renaming file failed '%s': %s"
+msgstr "Gagal menamakan semula fail '%s': %s"
+
+#: widgets/gnomefilelist.c:1936
+#, c-format
+msgid "Creating folder failed '%s': %s"
+msgstr "Gagal mewujudkan folder '%s': %s"
+
+#: widgets/gnomefilelist.c:1976
+msgid "Folder name:"
+msgstr "Nama folder:"
+
+#~ msgid "window1"
+#~ msgstr "tetingkap1"
+
+#~ msgid "window2"
+#~ msgstr "tetingkap2"
+
+#~ msgid "window3"
+#~ msgstr "tetingkap3"
+
+#~ msgid "window4"
+#~ msgstr "tetingkap4"
+
+#~ msgid "window5"
+#~ msgstr "tetingkap5"
+
+#~ msgid "window6"
+#~ msgstr "tetingkap6"
+
+#~ msgid "window7"
+#~ msgstr "tetingkap7"
+
+#~ msgid "window8"
+#~ msgstr "tetingkap8"
+
+#~ msgid ""
+#~ "Hover the mouse pointer over any menu item and press\n"
+#~ " the shortcut key to associate with it."
+#~ msgstr ""
+#~ "Letakkan penunding tetikus ke atas sebarang item menu dan tekan\n"
+#~ "kekunci pintas untuk dikaitkan dengannya"
