@@ -414,7 +414,7 @@ search_and_replace (void)
 								SCI_REPLACESEL, 0, (long) (sr->replace).repl_str); 
 						}
 						if (se->direction != SD_BACKWARD)
-+ 							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
+ 							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						break;
 					default:
 						// FIXME: anjuta_not_implemented(__FILE__, __LINE__);

@@ -1,3 +1,17 @@
+2004-05-13  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/editor/action-callbacks.c
+	* plugins/editor/anjuta-docman.c
+	* plugins/editor/anjuta-docman.h
+	* plugins/editor/search-replace.c
+	* plugins/editor/search-replace_backend.c
+	* plugins/editor/text_editor.c
+	* plugins/editor/text_editor.h:
+	Moved to new GtkFileChooserDialog, use gnome-vfs everywhere to be
+	able to open all files, use uri instead of full_filename, fixed
+	many bugs.
+
+
 2004-05-13  Naba Kumar  <naba@gnome.org>
 
 	* plugins/message-view/anjuta-message-manager-plugin.glade:

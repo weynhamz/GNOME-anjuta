@@ -65,12 +65,11 @@ on_save1_activate (GtkAction *action, gpointer user_data)
 	EditorPlugin *plugin;
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	anjuta_docman_save_as_file (docman);
 	
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	if (te->full_filename == NULL)
+	if (te->uri == NULL)
 	{
 		anjuta_docman_set_current_editor (docman, te);
 		// FIXME: gtk_widget_show (app->save_as_fileselection);

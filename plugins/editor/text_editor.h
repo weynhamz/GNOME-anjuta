@@ -47,7 +47,7 @@ struct _TextEditor
 	// TextEditorMenu *menu;
 
 	gchar *filename;
-	gchar *full_filename;
+	gchar *uri;
 	TMWorkObject *tm_file;
 	time_t modified_time;
 	gint force_hilite;
@@ -94,7 +94,7 @@ struct _TextEditorClass
 
 GType text_editor_get_type (void);
 
-GtkWidget* text_editor_new (AnjutaPreferences * pr, const gchar *full_filename,
+GtkWidget* text_editor_new (AnjutaPreferences * pr, const gchar *uri,
 							const gchar *tab_name);
 
 void text_editor_freeze (TextEditor * te);

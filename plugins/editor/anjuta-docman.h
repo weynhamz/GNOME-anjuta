@@ -48,7 +48,7 @@ struct _AnjutaDocmanClass {
 GType anjuta_docman_get_type (void);
 GtkWidget* anjuta_docman_new (AnjutaPreferences *pref);
 
-TextEditor* anjuta_docman_add_editor (AnjutaDocman *docman, gchar *filename,
+TextEditor* anjuta_docman_add_editor (AnjutaDocman *docman, gchar *uri,
 									  gchar *name);
 void anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te);
 

@@ -26,6 +26,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <gnome.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <errno.h>
 
 #include <libanjuta/pixmaps.h>
@@ -75,7 +76,7 @@ static void
 text_editor_instance_init (TextEditor *te)
 {
 	te->filename = NULL;
-	te->full_filename = NULL;
+	te->uri = NULL;
 	te->tm_file = NULL;
 	
 	te->modified_time = time (NULL);
@@ -116,10 +117,10 @@ check_tm_file(TextEditor *te)
 	{
 		// FIXME:
 		// te->tm_file = tm_workspace_find_object(
-		  //TM_WORK_OBJECT(app->tm_workspace), te->full_filename, FALSE);
+		  //TM_WORK_OBJECT(app->tm_workspace), te->uri, FALSE);
 		if (NULL == te->tm_file)
 		{
-			te->tm_file = tm_source_file_new(te->full_filename, TRUE);
+			te->tm_file = tm_source_file_new(te->uri, TRUE);
 			if (NULL != te->tm_file)
 				tm_workspace_add_object(te->tm_file);
 		}
@@ -148,10 +149,9 @@ initialize_markers (TextEditor* te)
 }
 
 GtkWidget *
-text_editor_new (AnjutaPreferences *eo, const gchar *filename, const gchar *name)
+text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
 	static guint new_file_count;
-
 	TextEditor *te = TEXT_EDITOR (gtk_widget_new (TYPE_TEXT_EDITOR, NULL));
 	
 	te->preferences = eo;
@@ -187,15 +187,23 @@ text_editor_new (AnjutaPreferences *eo, const gchar *filename, const gchar *name
 
 	initialize_markers (te);
 
-	if (filename)
-	{
+	if (uri)
+	{	
+		GnomeVFSFileInfo info;
+		GnomeVFSResult result;
+		GnomeVFSURI* vfs_uri;
 		new_file_count--;
 		if (te->filename)
 			g_free (te->filename);
-		if (te->full_filename)
-			g_free (te->full_filename);
-		te->filename = g_path_get_basename (filename);
-		te->full_filename = tm_get_real_path(filename);
+		if (te->uri)
+			g_free (te->uri);
+		vfs_uri = gnome_vfs_uri_new(uri);
+		result = gnome_vfs_get_file_info_uri(vfs_uri, &info, GNOME_VFS_SET_FILE_INFO_NONE);
+		gnome_vfs_uri_unref(vfs_uri); 
+		te->filename = g_strdup(info.name);
+#warning TODO: Might be a bug		
+		/* te->uri = tm_get_real_path(filename);*/
+		te->uri = g_strdup(uri);
 		if (text_editor_load_file (te) == FALSE)
 		{
 			/* Unable to load file */
@@ -223,8 +231,8 @@ text_editor_destroy (GObject *obj)
 	
 	if (te->filename)
 		g_free (te->filename);
-	if (te->full_filename)
-		g_free (te->full_filename);
+	if (te->uri)
+		g_free (te->uri);
 	// FIXME:
 	// if (te->tm_file)
 		// if (te->tm_file->parent == TM_WORK_OBJECT(app->tm_workspace))
@@ -268,7 +276,7 @@ text_editor_set_hilite_type (TextEditor * te)
 	else if (te->force_hilite == TE_LEXER_NONE)
 		te->force_hilite = TE_LEXER_AUTOMATIC;
 	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite, 0);
-	basename = g_path_get_basename (te->full_filename);
+	basename = g_path_get_basename (te->uri);
 	aneditor_command (te->editor_id, ANE_SETHILITE, (guint) basename, 0);
 }
 
@@ -647,7 +655,7 @@ filter_chars_in_dos_mode(gchar *data_, size_t size )
  * save buffer. filter chars and set dos-like CR/LF if dos_text is set.
  */
 static size_t
-save_filtered_in_dos_mode(FILE * f, gchar *data_, size_t size)
+save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_, GnomeVFSFileSize size)
 {
 	size_t i, j;
 	unsigned char *data;
@@ -667,14 +675,25 @@ save_filtered_in_dos_mode(FILE * f, gchar *data_, size_t size)
 		if (data[i]>=128) {
 			/* convert dos-text */
 			if ( tr_map[data[i]] != 0 )
-				j += fwrite( &tr_map[data[i]], 1, 1, f );
+			{	
+				GnomeVFSFileSize bytes_written;
+				gnome_vfs_write(vfs_write, &tr_map[data[i]], 1, &bytes_written);
+				j += bytes_written;
+			}
 			else
+			{
 				/* char not found, skip transform */
-				j += fwrite( &data[i], 1, 1, f );
+				GnomeVFSFileSize bytes_written;
+				gnome_vfs_write(vfs_write, &data[i], 1, &bytes_written);
+				j += bytes_written;
+			}
 			i++;
-		} else {
-			/* write normal chars */
-			j += fwrite( &data[i], 1, 1, f );
+		} 
+		else 
+		{
+			GnomeVFSFileSize bytes_written;
+			gnome_vfs_write(vfs_write, &data[i], 1, &bytes_written);
+			j += bytes_written;
 			i++;
 		}
 	}
@@ -857,42 +876,51 @@ convert_to_utf8 (AnjutaPreferences *pr, const gchar *content, gsize len,
 }
 
 static gboolean
-load_from_file (TextEditor *te, gchar *fn, gchar **err)
+load_from_file (TextEditor *te, gchar *uri, gchar **err)
 {
-	FILE *fp;
-	gchar *buffer;
-	gint nchars, dos_filter, editor_mode;
-	struct stat st;
-	size_t size;
+	GnomeVFSURI* vfs_uri;
+	GnomeVFSHandle* vfs_read;
+	GnomeVFSResult result;
+	GnomeVFSFileInfo info;
+	GnomeVFSFileSize nchars;
 
-	if (stat (fn, &st) != 0)
-	{
-		g_warning ("Could not stat the file %s", fn);
-		*err = g_strdup (g_strerror (errno));
-		return FALSE;
-	}
-	size = st.st_size;
+	gchar *buffer;
+	gint dos_filter, editor_mode;
+
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CLEARALL,
 							0, 0);
-	buffer = g_malloc (size);
-	if (buffer == NULL && size != 0)
+	vfs_uri = gnome_vfs_uri_new(uri);
+	result = gnome_vfs_get_file_info_uri(vfs_uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
+	if (result != GNOME_VFS_OK)
+	{
+		*err = g_strdup (_("Could not get file info"));
+		return FALSE;
+	}
+	buffer = g_malloc (info.size);
+	if (buffer == NULL && info.size != 0)
 	{
 		/* This is funny in linux, but never hurts */
 		g_warning ("This file is too big. Unable to allocate memory.");
 		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
 		return FALSE;
 	}
-	fp = fopen (fn, "rb");
-	if (!fp)
+	
+	result = gnome_vfs_open_uri(&vfs_read, vfs_uri, GNOME_VFS_OPEN_READ); 
+	if (result != GNOME_VFS_OK)
 	{
-		g_free (buffer);
-		*err = g_strdup (g_strerror (errno));
+		*err = g_strdup (_("Could not open file"));		
 		return FALSE;
 	}
 	/* Crude way of loading, but faster */
-	nchars = fread (buffer, 1, size, fp);
-	
-	if (size != nchars) g_warning ("File size and loaded size not matching");
+ 	result = gnome_vfs_read (vfs_read, buffer, info.size, &nchars);
+	if (result != GNOME_VFS_OK)
+	{
+		g_free(buffer);
+		*err = g_strdup (_("Error while reading from file"));
+		return FALSE;
+	}
+
+	if (info.size != nchars) g_warning ("File size and loaded size not matching");
 	dos_filter = 
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DOS_EOL_CHECK);
@@ -928,7 +956,7 @@ load_from_file (TextEditor *te, gchar *fn, gchar **err)
 				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
 								   " Please check if the encoding of file is in the supported encodings list."
 								   " If not, add it from the preferences."));
-				fclose (fp);
+				gnome_vfs_close(vfs_read);
 				return FALSE;
 			}
 			g_free (buffer);
@@ -946,26 +974,21 @@ load_from_file (TextEditor *te, gchar *fn, gchar **err)
 							nchars, (long) buffer);
 	
 	g_free (buffer);
-	if (ferror (fp))
-	{
-		fclose (fp);
-		*err = g_strdup (g_strerror (errno));
-		return FALSE;
-	}
-	fclose (fp);
+	gnome_vfs_close(vfs_read);
 	return TRUE;
 }
 
 static gboolean
-save_to_file (TextEditor *te, gchar * fn)
+save_to_file (TextEditor *te, gchar * uri)
 {
-	FILE *fp;
-	guint nchars;
+	GnomeVFSHandle* vfs_write;
+	GnomeVFSResult result;
+	GnomeVFSFileSize nchars, size;
 	gint strip;
 	gchar *data;
 
-	fp = fopen (fn, "wb");
-	if (!fp)
+	result = gnome_vfs_open(&vfs_write, uri, GNOME_VFS_OPEN_WRITE);
+ 	if (result != GNOME_VFS_OK)
 		return FALSE;
 	nchars = scintilla_send_message (SCINTILLA (te->scintilla),
 									 SCI_GETLENGTH, 0, 0);
@@ -973,7 +996,6 @@ save_to_file (TextEditor *te, gchar * fn)
 										ANE_GETTEXTRANGE, 0, nchars);
 	if (data)
 	{
-		size_t size;
 		gint dos_filter, editor_mode;
 		
 		size = strlen (data);
@@ -1068,11 +1090,11 @@ save_to_file (TextEditor *te, gchar * fn)
 #ifdef DEBUG
 			g_message("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
 #endif
-			size = save_filtered_in_dos_mode( fp, data, size);
+			size = save_filtered_in_dos_mode(vfs_write, data, size);
 		}
 		else
 		{
-			size = fwrite (data, size, 1, fp);
+			gnome_vfs_write(vfs_write, data, size, &nchars);
 		}
 		g_free (data);
 		/* FIXME: Find a nice way to check that all the bytes have been written */
@@ -1080,13 +1102,11 @@ save_to_file (TextEditor *te, gchar * fn)
 			g_warning("Text length and number of bytes saved is not equal [%d != %d]", nchars, size);
 		*/
 	}
-	if (ferror (fp))
-	{
-		fclose (fp);
+	result = gnome_vfs_close(vfs_write);
+	if (result == GNOME_VFS_OK)
+		return TRUE;
+	else
 		return FALSE;
-	}
-	fclose (fp);
-	return TRUE;
 }
 
 gboolean
@@ -1102,16 +1122,17 @@ text_editor_load_file (TextEditor * te)
 	text_editor_freeze (te);
 	// FIXME: anjuta_set_busy ();
 	te->modified_time = time (NULL);
-	if (load_from_file (te, te->full_filename, &err) == FALSE)
+	if (load_from_file (te, te->uri, &err) == FALSE)
 	{
 		GtkWidget *parent;
-		parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
+		/* FIXME:
+		/* parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
 		anjuta_util_dialog_error (GTK_WINDOW (parent),
 								  _("Could not load file: %s\n\nDetails: %s"),
 								  te->filename, err);
 		g_free (err);
 		// FIXME: anjuta_set_active ();
-		text_editor_thaw (te);
+		text_editor_thaw (te);*/
 		return FALSE;
 	}
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS,
@@ -1144,7 +1165,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	// FIXME: anjuta_set_busy ();
 	text_editor_freeze (te);
 	// FIXME: anjuta_status (_("Saving file ..."));
-	if (save_to_file (te, te->full_filename) == FALSE)
+	if (save_to_file (te, te->uri) == FALSE)
 	{
 		GtkWindow *parent;
 		parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (te)));
@@ -1152,7 +1173,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		//FIXME: anjuta_set_active ();
 		anjuta_util_dialog_error_system (parent, errno,
 										 _("Could not save file: %s."),
-										 te->full_filename);
+										 te->uri);
 		return FALSE;
 	}
 	else
@@ -1168,9 +1189,9 @@ text_editor_save_file (TextEditor * te, gboolean update)
 #if 0
 			if ((app->project_dbase->project_is_open == FALSE)
 			  || (project_dbase_is_file_in_module
-			    (app->project_dbase, MODULE_SOURCE, te->full_filename))
+			    (app->project_dbase, MODULE_SOURCE, te->uri))
 			  || (project_dbase_is_file_in_module
-			    (app->project_dbase, MODULE_INCLUDE, te->full_filename)))
+			    (app->project_dbase, MODULE_INCLUDE, te->uri)))
 			{
 				check_tm_file(te);
 				if (te->tm_file)
@@ -1269,7 +1290,7 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 	gchar *buff;
 	if (!te)
 		return FALSE;
-	if (stat (te->full_filename, &status))
+	if (stat (te->uri, &status))
 		return TRUE;
 	t = time(NULL);
 	if (te->modified_time > t || status.st_mtime > t)
@@ -1371,7 +1392,7 @@ text_editor_update_controls (TextEditor * te)
 	}
 	gtk_widget_set_sensitive (te->buttons.save, !S);
 	gtk_widget_set_sensitive (te->buttons.reload,
-				  (te->full_filename != NULL));
+				  (te->uri != NULL));
 	gtk_widget_set_sensitive (te->buttons.compile, F && !L);
 	gtk_widget_set_sensitive (te->buttons.build, (F || P) && !L);
 #endif

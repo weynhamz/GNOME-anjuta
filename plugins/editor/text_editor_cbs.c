@@ -92,7 +92,7 @@ gboolean on_text_editor_auto_save (gpointer data)
 		te->autosave_on = FALSE;
 		return FALSE;
 	}
-	if (te->full_filename == NULL)
+	if (te->uri == NULL)
 		return TRUE;
 	if (text_editor_is_saved (te))
 		return TRUE;

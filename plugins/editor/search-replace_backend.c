@@ -160,8 +160,8 @@ file_buffer_new_from_te (TextEditor *te)
 	fb = g_new0(FileBuffer, 1);
 	fb->type = FB_EDITOR;
 	fb->te = te;
-	if (te->full_filename)
-		fb->path = tm_get_real_path(te->full_filename);
+	if (te->uri)
+		fb->path = tm_get_real_path(te->uri);
 	fb->len = scintilla_send_message(SCINTILLA(fb->te->scintilla)
 		  , SCI_GETLENGTH, 0, 0);
 	fb->buf = g_new(char, fb->len + 1);
