@@ -59,7 +59,7 @@ create_breakpoints_dbase_gui (BreakpointsDBase *bd)
   GtkWidget *button1;
   GtkWidget *button2;
 
-  dialog1 = gnome_dialog_new (_("Anjuta: Breakpoints"), NULL);
+  dialog1 = gnome_dialog_new (_("Breakpoints"), NULL);
   gtk_widget_set_usize (dialog1, 550, 352);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog1), "breakpoints", "Anjuta");

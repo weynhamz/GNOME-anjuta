@@ -655,7 +655,7 @@ create_project_dbase_info_gui (gchar * lab[])
 	GtkWidget *dialog_action_area1;
 	GtkWidget *button1;
 
-	dialog1 = gnome_dialog_new (_("Anjuta: Project Information"), NULL);
+	dialog1 = gnome_dialog_new (_("Project Information"), NULL);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_info", "Anjuta");
 	gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
 
@@ -799,7 +799,7 @@ create_project_dbase_info_gui (gchar * lab[])
 			  (GtkAttachOptions) (0), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label13), 0, -1);
 
-	label15 = gtk_label_new (_("No of help files::"));
+	label15 = gtk_label_new (_("No of help files:"));
 	gtk_widget_show (label15);
 	gtk_table_attach (GTK_TABLE (table1), label15, 3, 4, 5, 6,
 			  (GtkAttachOptions) (0),
@@ -841,7 +841,7 @@ create_project_dbase_info_gui (gchar * lab[])
 	gtk_misc_set_padding (GTK_MISC (label22), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label22), 0, -1);
 
-	label23 = gtk_label_new (_("No of PO files:"));
+	label23 = gtk_label_new (_("No of po files:"));
 	gtk_widget_show (label23);
 	gtk_table_attach (GTK_TABLE (table1), label23, 3, 4, 10, 11,
 			  (GtkAttachOptions) (0),
@@ -871,7 +871,7 @@ create_project_dbase_info_gui (gchar * lab[])
 	gtk_misc_set_padding (GTK_MISC (label6), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label6), 0, -1);
 
-	label24 = gtk_label_new (_("Gui editable by Glade:"));
+	label24 = gtk_label_new (_("GUI editable by Glade:"));
 	gtk_widget_show (label24);
 	gtk_table_attach (GTK_TABLE (table1), label24, 0, 1, 8, 9,
 			  (GtkAttachOptions) (0),
@@ -1321,7 +1321,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	mesg =
 		g_strdup_printf (_
 				 ("\"%s\"\ndoes not exist in the current module directory."
-				  "\nDo you want to IMPORT (ie copy) into the module?"),
+				  "\nDo you want to IMPORT (copy) into the module?"),
 				filename);
 	if (strcmp (dir, comp_dir) == 0)
 		on_prj_import_confirm_yes (NULL, user_data);

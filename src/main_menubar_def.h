@@ -1307,7 +1307,7 @@ static GnomeUIInfo utilities1_menu_uiinfo[] = {
 static GnomeUIInfo windows1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_Create New Window"),
-	 N_("Start another Anjuta application"),
+	 N_("Open a new file window"),
 	 on_windows1_new_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},

@@ -539,7 +539,7 @@ create_command_editor_gui (CommandEditor *ce)
 	GList* list = NULL;
 	gint i;
 	
-	dialog1 = gnome_dialog_new (_("Anjuta: Commands"), NULL);
+	dialog1 = gnome_dialog_new (_("Commands"), NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "commands", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);

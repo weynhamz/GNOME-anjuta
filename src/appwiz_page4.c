@@ -1,5 +1,5 @@
 /*
-    appwiz_page2.c
+    appwiz_page4.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -134,7 +134,7 @@ create_app_wizard_page4 (AppWizard * aw)
 
 	gpl_checkbutton =
 		gtk_check_button_new_with_label (_
-						 ("Include GNU Copyright statement in files heading"));
+						 ("Include GNU Copyright statement in file headings"));
 	gtk_widget_show (gpl_checkbutton);
 	gtk_box_pack_start (GTK_BOX (vbox2), gpl_checkbutton, TRUE, TRUE, 0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (gpl_checkbutton),
@@ -207,7 +207,7 @@ create_app_wizard_page4 (AppWizard * aw)
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo1), list);
 	g_list_free (list);
 
-	iconentry1 = gnome_icon_entry_new (NULL, "Anjuta: Application Icon");
+	iconentry1 = gnome_icon_entry_new (NULL, "Select an Application Icon");
 	gtk_widget_show (iconentry1);
 	gtk_table_attach (GTK_TABLE (table1), iconentry1, 2, 3, 0, 2,
 			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),

@@ -1,5 +1,5 @@
 /*
-    appwiz_page1.c
+    appwiz_page3.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -157,20 +157,20 @@ create_app_wizard_page3 (AppWizard * aw)
 	gtk_widget_show (vbox1);
 	gtk_box_pack_start (GTK_BOX (hbox1), vbox1, TRUE, TRUE, 0);
 	
-	radiobutton1 = gtk_radio_button_new_with_label (vbox1_group, _("Executable target."));
+	radiobutton1 = gtk_radio_button_new_with_label (vbox1_group, _("Executable target"));
 	vbox1_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
 	gtk_widget_show (radiobutton1);
 	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton1, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton1), 5);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radiobutton1), TRUE);
 	
-	radiobutton2 = gtk_radio_button_new_with_label (vbox1_group, _("Static library target."));
+	radiobutton2 = gtk_radio_button_new_with_label (vbox1_group, _("Static library target"));
 	vbox1_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
 	gtk_widget_show (radiobutton2);
 	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton2), 5);
 	
-	radiobutton3 = gtk_radio_button_new_with_label (vbox1_group, _("Dynamic library target."));
+	radiobutton3 = gtk_radio_button_new_with_label (vbox1_group, _("Dynamic library target"));
 	vbox1_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
 	gtk_widget_show (radiobutton3);
 	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton3, FALSE, FALSE, 0);

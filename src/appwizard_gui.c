@@ -31,14 +31,14 @@
 #include "resources.h"
 
 #define WIZARD_START_MESG \
-"The Application Wizard  will generate the basic\n\
-skeleton  for  your  application  including  all\n\
-the build  files. It  will prompt you for the basic\n\
-initial  structure for  the application you want\n\
+"The Application Wizard will generate a basic\n\
+skeleton for your application, including all\n\
+the build files. It will ask you for the basic\n\
+initial structure for the application you want\n\
 to develop.\n\n\
-Please answer the queries carefully, for you\n\
-may not have the liberty to change some of\n\
-them later.\n\n\
+Please answer the questions carefully, as it\n\
+may not be possible to change some of the\n\
+settings later.\n\n\
 Click Next to proceed ..."
 
 void create_new_project (AppWizard * aw);

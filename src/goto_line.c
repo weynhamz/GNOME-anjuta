@@ -43,7 +43,7 @@ create_goto_line_dialog ()
   GtkWidget *button12;
   GtkWidget *button14;
 
-  dialog4 = gnome_dialog_new (NULL, NULL);
+  dialog4 = gnome_dialog_new (_("Goto line"), NULL);
   gtk_window_set_position (GTK_WINDOW (dialog4), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (dialog4), FALSE, FALSE, FALSE);
   gnome_dialog_set_close (GNOME_DIALOG (dialog4), TRUE);
@@ -51,7 +51,7 @@ create_goto_line_dialog ()
   dialog_vbox4 = GNOME_DIALOG (dialog4)->vbox;
   gtk_widget_show (dialog_vbox4);
 
-  frame6 = gtk_frame_new (_(" Go to Line No. "));
+  frame6 = gtk_frame_new (_(" Goto Line No. "));
   gtk_widget_show (frame6);
   gtk_box_pack_start (GTK_BOX (dialog_vbox4), frame6, FALSE, FALSE, 0);
 

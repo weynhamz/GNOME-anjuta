@@ -1,5 +1,5 @@
 /*
-    appwiz_page1.c
+    appwiz_page2.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify

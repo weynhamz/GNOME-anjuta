@@ -102,7 +102,7 @@ create_stack_trace_gui(StackTrace *st)
   GtkWidget *label3;
 
   window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (window1), _("Anjuta: Stack Trace"));
+  gtk_window_set_title (GTK_WINDOW (window1), _("Stack Trace"));
   gtk_window_set_wmclass (GTK_WINDOW (window1), "stack_trace", "Anjuta");
 
   scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);

@@ -40,7 +40,7 @@ create_anjuta_info_dialog_with_less (gint height, gint width)
   GtkWidget *dialog_action_area1;
   GtkWidget *button1;
 
-  dialog1 = gnome_dialog_new (_("Anjuta: Information"), NULL);
+  dialog1 = gnome_dialog_new (_("Information"), NULL);
   gtk_widget_set_usize (dialog1, 400, 250);
   gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
@@ -86,7 +86,7 @@ create_anjuta_info_dialog_with_clist (gint height, gint width)
   GtkWidget *button1;
   GdkFont   *font;
 
-  dialog1 = gnome_dialog_new (_("Anjuta: Information"), NULL);
+  dialog1 = gnome_dialog_new (_("Information"), NULL);
   gtk_widget_set_usize (dialog1, 400, 250);
   gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);

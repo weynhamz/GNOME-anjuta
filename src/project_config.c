@@ -801,7 +801,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[2]), 5);
 
 	checkbutton[3] =
-		gtk_check_button_new_with_label (_("Inlcude module Makefile.am"));
+		gtk_check_button_new_with_label (_("Include module Makefile.am"));
 	gtk_widget_show (checkbutton[3]);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[3], FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[3]), 5);
@@ -851,7 +851,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook2), GTK_POS_LEFT);
 	gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook2));
 
-	frame2 = gtk_frame_new (_("Check for programs in configuration.in"));
+	frame2 = gtk_frame_new (_("Check for programs in config.in"));
 	gtk_widget_show (frame2);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame2);
 	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
@@ -868,14 +868,14 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), text1);
 	gtk_text_set_editable (GTK_TEXT (text1), TRUE);
 
-	label2 = gtk_label_new (_("Program ckecks"));
+	label2 = gtk_label_new (_("Program checks"));
 	gtk_widget_show (label2);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook2),
 							       0), label2);
 
-	frame4 = gtk_frame_new (_("Check for libs in configuration.in"));
+	frame4 = gtk_frame_new (_("Check for libs in config.in"));
 	gtk_widget_show (frame4);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame4);
 	gtk_container_set_border_width (GTK_CONTAINER (frame4), 5);
@@ -901,7 +901,7 @@ create_project_config_gui (ProjectConfig * pc)
 
 	frame5 =
 		gtk_frame_new (_
-			       ("Check for header files in configuration.in"));
+			       ("Check for header files in config.in"));
 	gtk_widget_show (frame5);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame5);
 	gtk_container_set_border_width (GTK_CONTAINER (frame5), 5);
@@ -918,7 +918,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_container_add (GTK_CONTAINER (scrolledwindow3), text3);
 	gtk_text_set_editable (GTK_TEXT (text3), TRUE);
 
-	label4 = gtk_label_new (_("Headear checks"));
+	label4 = gtk_label_new (_("Header checks"));
 	gtk_widget_show (label4);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
@@ -927,7 +927,7 @@ create_project_config_gui (ProjectConfig * pc)
 
 	frame6 =
 		gtk_frame_new (_
-			       ("Checks for typedefs, structures, and compiler characteristics."));
+			       ("Checks for typedefs, structures, and compiler characteristics"));
 	gtk_widget_show (frame6);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame6);
 	gtk_container_set_border_width (GTK_CONTAINER (frame6), 5);
@@ -944,7 +944,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_container_add (GTK_CONTAINER (scrolledwindow4), text4);
 	gtk_text_set_editable (GTK_TEXT (text4), TRUE);
 
-	label5 = gtk_label_new (_("characteristics check"));
+	label5 = gtk_label_new (_("Characteristics check"));
 	gtk_widget_show (label5);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
@@ -953,7 +953,7 @@ create_project_config_gui (ProjectConfig * pc)
 
 	frame7 =
 		gtk_frame_new (_
-			       ("Check for lib functions  in configuration.in"));
+			       ("Check for lib functions in config.in"));
 	gtk_widget_show (frame7);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame7);
 	gtk_container_set_border_width (GTK_CONTAINER (frame7), 5);
@@ -977,7 +977,7 @@ create_project_config_gui (ProjectConfig * pc)
 							       (notebook2),
 							       4), label6);
 
-	frame8 = gtk_frame_new (_("Additional scripts  in configuration.in"));
+	frame8 = gtk_frame_new (_("Additional scripts in config.in"));
 	gtk_widget_show (frame8);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame8);
 	gtk_container_set_border_width (GTK_CONTAINER (frame8), 5);
@@ -1072,7 +1072,7 @@ create_project_config_gui (ProjectConfig * pc)
 
 	label13 =
 		gtk_label_new (_
-			       ("Extra modules to be built after source modules:"));
+			       ("Extra modules to be built after source module:"));
 	gtk_widget_show (label13);
 	gtk_misc_set_alignment (GTK_MISC (label13), 0, -1);
 	gtk_box_pack_start (GTK_BOX (vbox2), label13, FALSE, FALSE, 0);

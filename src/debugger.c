@@ -61,7 +61,7 @@ debugger_init ()
 	};
 
 	/* Must declare static, because it will be used forever */
-	static FileSelData fsd2 = { N_("Load Core Dump File"), NULL,
+	static FileSelData fsd2 = { N_("Load Core File"), NULL,
 		on_debugger_load_core_filesel_ok_clicked,
 		on_debugger_load_core_filesel_cancel_clicked, NULL
 	};
@@ -223,7 +223,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 	messages_append (app->messages, filename, MESSAGE_DEBUG);
 	messages_append (app->messages, "\n", MESSAGE_DEBUG);
 
-	command = g_strconcat ("core-file ", filename, NULL);
+	command = g_strconcat ("core file ", filename, NULL);
 	dir = g_dirname (filename);
 	anjuta_set_execution_dir(dir);
 	g_free (dir);
@@ -273,17 +273,17 @@ debugger_open_exec_file ()
 		{
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _
-				    ("You have a process ATTACHED under debugger.\n"
+				    ("You have a process ATTACHED under the debugger.\n"
 				     \
-				     "Please detach it first and then load the EXEC file."));
+				     "Please detach it first and then load the executable file."));
 		}
 		else
 		{
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _
-				    ("You have a process RUNNING under debugger.\n"
+				    ("You have a process RUNNING under the debugger.\n"
 				     \
-				     "Please stop it first and then load the EXEC file."));
+				     "Please stop it first and then load the executable file."));
 		}
 		return;
 	}
@@ -309,17 +309,17 @@ debugger_load_core_file ()
 		{
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _
-				    ("You have a process ATTACHED under debugger.\n"
+				    ("You have a process ATTACHED under the debugger.\n"
 				     \
-				     "Please detach it first and then load the CORE file."));
+				     "Please detach it first and then load the core file."));
 		}
 		else
 		{
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _
-				    ("You have a process RUNNING under debugger.\n"
+				    ("You have a process RUNNING under the debugger.\n"
 				     \
-				     "Please stop it first and then load the CORE file."));
+				     "Please stop it first and then load the core file."));
 		}
 		return;
 	}
@@ -576,7 +576,7 @@ debugger_start (gchar * prog)
 	{
 		anjuta_error (_("I can not find: %s.\n"
 				   "Unable to initialize Debugger. :-(\n"
-				   "Make sure you have installed Anjuta properly."), tmp);
+				   "Make sure Anjuta is installed correctly."), tmp);
 		g_free (tmp);
 		debugger_set_active (FALSE);
 		debugger_set_ready (FALSE);
@@ -656,11 +656,11 @@ debugger_start (gchar * prog)
 		}
 		else
 		{
-			messages_append (app->messages, _("No where\n"),
+			messages_append (app->messages, _("No executable specified\n"),
 					 MESSAGE_DEBUG);
 			messages_append (app->messages,
 					 _
-					 ("Open an executable or attach to a process to start debuging.\n"),
+					 ("Open an executable or attach to a process to start debugging.\n"),
 					 MESSAGE_DEBUG);
 		}
 	}
@@ -668,11 +668,11 @@ debugger_start (gchar * prog)
 	{
 		messages_append (app->messages,
 				 _
-				 ("There was an error while launching Debugger!!\n"),
+				 ("There was an error whilst launching the debugger!!\n"),
 				 MESSAGE_DEBUG);
 		messages_append (app->messages,
 				 _
-				 ("Make sure you have 'gdb' installed in your box.\n"),
+				 ("Make sure 'gdb' is installed on the system.\n"),
 				 MESSAGE_DEBUG);
 	}
 	messages_show (app->messages, MESSAGE_DEBUG);
@@ -1263,7 +1263,7 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 			goto down;
 		}
 	}
-	else /* Nothing known about this perticular process recognization string */
+	else /* Nothing known about this particular process recognition string */
 	{
 		error = TRUE;
 		goto down;
@@ -1343,7 +1343,7 @@ debugger_attach_process (gint pid)
 	{
 		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
 			     _("A process is already running.\n"
-			       "Do you want to terminate it and attach the new process?"),
+			       "Would you like to terminate it and attach the new process?"),
 			     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
 			     debugger_attach_process_confirmed, NULL,
 			     (gpointer) pid);
@@ -1860,7 +1860,7 @@ debugger_signal (gchar * sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 		{
 			messagebox (GNOME_MESSAGE_BOX_ERROR,
 				    _
-				    ("There was some error while signaling the process."));
+				    ("There was an error whilst signaling the process."));
 		}
 	}
 }

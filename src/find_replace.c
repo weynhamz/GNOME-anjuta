@@ -280,7 +280,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	GtkWidget *button10;
 	GtkWidget *button11;
 
-	dialog2 = gnome_dialog_new (NULL, NULL);
+	dialog2 = gnome_dialog_new (_("Find and Replace"), NULL);
 	gtk_window_set_policy (GTK_WINDOW (dialog2), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog2), "find_repl", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog2), TRUE);

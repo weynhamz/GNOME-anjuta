@@ -34,7 +34,7 @@ GtkWidget*
 create_about_gui ()
 {
 	const gchar *authors[] = {
-		"Naba Kumar <kh_naba@users.sourceforge.com>",
+		"Naba Kumar <kh_naba@users.sourceforge.net>",
 		NULL
 	};
 	GtkWidget *about_gui;

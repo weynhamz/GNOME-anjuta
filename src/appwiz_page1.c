@@ -147,7 +147,7 @@ create_app_wizard_page1 (AppWizard * aw)
   
   if (icon6_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon6_file, _("GNOME Bonobo component"));
+			  icon6_file, _("Bonobo component"));
 
   string_free  (icon1_file);
   string_free (icon2_file);

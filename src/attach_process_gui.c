@@ -49,7 +49,7 @@ create_attach_process_gui (AttachProcess* ap)
   GtkWidget *button2;
   GtkWidget *button3;
 
-  dialog1 = gnome_dialog_new (NULL, NULL);
+  dialog1 = gnome_dialog_new (_("Attach to process"), NULL);
   gtk_widget_set_usize (dialog1, 509, 309);
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
@@ -58,7 +58,7 @@ create_attach_process_gui (AttachProcess* ap)
   dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
   gtk_widget_show (dialog_vbox1);
 
-  label7 = gtk_label_new (_("Select the Process to attach:"));
+  label7 = gtk_label_new (_("Select the process to attach:"));
   gtk_widget_show (label7);
   gtk_box_pack_start (GTK_BOX (dialog_vbox1), label7, FALSE, FALSE, 0);
 
