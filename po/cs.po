@@ -1,15 +1,15 @@
 # Czech translation of anjuta.
-# Copyright (C) 2003, 2004 anjuta'S COPYRIGHT HOLDER
-# Copyright (C) 2004 Miloslav Trmac <mitr@volny.cz>
+# Copyright (C) 2003, 2004, 2005 anjuta'S COPYRIGHT HOLDER
+# Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
 # This file is distributed under the same license as the anjuta package.
-# Miloslav Trmac <mitr@volny.cz>, 2003, 2004.
+# Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-26 18:36+0100\n"
-"PO-Revision-Date: 2004-12-26 23:42+0100\n"
+"POT-Creation-Date: 2005-01-23 10:36+0100\n"
+"PO-Revision-Date: 2005-01-23 15:11+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,8 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "IDE Anjuta"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/main.c:129 src/main.cpp:122
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/about.c:109 src/main.c:143
+#: src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
 
@@ -33,7 +34,9 @@ msgstr "    "
 #: plugins/editor/anjuta-document-manager.glade.h:8
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: plugins/gdb/anjuta-gdb.glade.h:1
+#: plugins/gdb/anjuta-gdb.glade.h:1 plugins/macro/anjuta-macro.glade.h:1
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:1
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
@@ -50,7 +53,7 @@ msgstr "Další"
 msgid "Additional Libraries (LDADD):"
 msgstr "Další knihovny (LDADD):"
 
-#: anjuta.glade.h:6 plugins/project-wizard/wizard_gui.c:576
+#: anjuta.glade.h:6
 msgid "Additional Options"
 msgstr "Další volby"
 
@@ -66,8 +69,7 @@ msgstr "Hledat v nápovědě Anjuta"
 msgid "Anjuta start with dialog"
 msgstr "Dialog Anjuty Začít s"
 
-#: anjuta.glade.h:10 plugins/project-wizard/appwizard_gui.c:77
-#: plugins/project-wizard/appwizard_gui.c:91
+#: anjuta.glade.h:10 plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Wizard"
 msgstr "Kouzelník aplikace"
 
@@ -139,8 +141,9 @@ msgstr "Registry CPU"
 #. 2
 #: anjuta.glade.h:26 plugins/cvs-plugin/cvs-execute.c:230
 #: plugins/editor/anjuta-document-manager.glade.h:39
-#: plugins/file-manager/an_file_view.c:344
+#: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -222,7 +225,7 @@ msgid "Data module Makefile.am"
 msgstr "Makefile.am modulu dat"
 
 #. 13
-#: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:321
+#: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:320
 #: plugins/gdb/plugin.c:37 plugins/gdb/utilities.c:2017 src/toolbar.c:306
 msgid "Debug"
 msgstr "Ladění"
@@ -265,7 +268,7 @@ msgstr "Příště dialog Začít s nezobrazovat."
 msgid "Document module Makefile.am"
 msgstr "Makefile.am modulu dokumentů"
 
-#: anjuta.glade.h:56 src/anjuta-app.c:293 src/anjuta_gui.c:105
+#: anjuta.glade.h:56 src/anjuta-app.c:264 src/anjuta_gui.c:105
 msgid "Edit"
 msgstr "Úpravy"
 
@@ -297,8 +300,8 @@ msgid "Execute Program"
 msgstr "Spustit program"
 
 #. Register actions
-#: anjuta.glade.h:63 plugins/file-manager/an_file_view.c:923
-#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:290 src/anjuta_gui.c:102
+#: anjuta.glade.h:63 plugins/file-manager/an_file_view.c:916
+#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:261 src/anjuta_gui.c:102
 msgid "File"
 msgstr "Soubor"
 
@@ -310,7 +313,7 @@ msgstr "Úroveň souboru"
 msgid "Format"
 msgstr "Formát"
 
-#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:118
+#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:79
 msgid "Functions"
 msgstr "Funkce"
 
@@ -406,7 +409,7 @@ msgid "Input string:"
 msgstr "Řetězec na vstupu:"
 
 #: anjuta.glade.h:85 plugins/debug-manager/anjuta-debug-manager.glade.h:13
-#: plugins/editor/text_editor_menu.c:176 plugins/gdb/anjuta-gdb.glade.h:13
+#: plugins/editor/text_editor_menu.c:175 plugins/gdb/anjuta-gdb.glade.h:13
 #: src/toolbar.c:599
 msgid "Inspect"
 msgstr "Zkoumat"
@@ -518,9 +521,9 @@ msgstr "Otevřít existující projekt"
 msgid "Open existing file or create a new file."
 msgstr "Otevřít existující nebo vytvořit nový soubor."
 
-#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:338
-#: plugins/file-loader/plugin.c:430 plugins/file-loader/plugin.c:587
-#: plugins/file-loader/plugin.c:601 src/toolbar.c:80
+#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:328
+#: plugins/file-loader/plugin.c:440 plugins/file-loader/plugin.c:599
+#: plugins/file-loader/plugin.c:606 src/toolbar.c:80
 msgid "Open file"
 msgstr "Otevřít soubor"
 
@@ -533,11 +536,11 @@ msgid "Optimization"
 msgstr "Optimalizace"
 
 #. 15
-#: anjuta.glade.h:113 plugins/editor/text_editor_menu.c:331
+#: anjuta.glade.h:113 plugins/editor/text_editor_menu.c:330
 msgid "Options"
 msgstr "Možnosti"
 
-#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:121
+#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:82
 msgid "Others"
 msgstr "Jení"
 
@@ -572,8 +575,8 @@ msgstr "Přerušení programu"
 msgid "Programs"
 msgstr "Programy"
 
-#: anjuta.glade.h:122 plugins/project-manager/plugin.c:344
-#: plugins/project-manager/plugin.c:716 plugins/project-manager/plugin.c:924
+#: anjuta.glade.h:122 plugins/project-manager/plugin.c:346
+#: plugins/project-manager/plugin.c:727 plugins/project-manager/plugin.c:945
 #: plugins/project-manager/project_dbase_gui.c:581 src/anjuta_gui.c:114
 #: src/toolbar.c:150
 msgid "Project"
@@ -583,7 +586,7 @@ msgstr "Projekt"
 msgid "Project Configuration"
 msgstr "Konfigurace projektu"
 
-#: anjuta.glade.h:124 plugins/project-wizard/wizard_gui.c:470
+#: anjuta.glade.h:124
 msgid "Project Description"
 msgstr "Popis projektu"
 
@@ -650,7 +653,7 @@ msgstr "Skripty na konci Makefile.am nejvyšší úrovně"
 msgid "Set Signal Property"
 msgstr "Nastavit vlastnost signálu"
 
-#: anjuta.glade.h:140 src/anjuta-app.c:299 src/anjuta_gui.c:120
+#: anjuta.glade.h:140 src/anjuta-app.c:275 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -726,9 +729,9 @@ msgstr "Editor nástrojů"
 msgid "Top level Makefile.am"
 msgstr "Makefile.am nejvyšší úrovně"
 
-#: anjuta.glade.h:157 plugins/cvs-plugin/cvs_gui.c:73
-#: plugins/gdb/registers_gui.c:48 plugins/gdb/sharedlib_gui.c:41
-#: plugins/gdb/signals_gui.c:55 plugins/gdb/stack_trace.c:366
+#: anjuta.glade.h:157 plugins/gdb/registers_gui.c:48
+#: plugins/gdb/sharedlib_gui.c:41 plugins/gdb/signals_gui.c:55
+#: plugins/gdb/stack_trace.c:368
 msgid "Update"
 msgstr "Aktualizovat"
 
@@ -753,10 +756,11 @@ msgid "User name:"
 msgstr "Jméno uživatele."
 
 #: anjuta.glade.h:163 plugins/project-manager/project_dbase_gui.c:871
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "Version:"
 msgstr "Verze:"
 
-#: anjuta.glade.h:164 src/anjuta-app.c:296 src/anjuta_gui.c:111
+#: anjuta.glade.h:164 src/anjuta-app.c:267 src/anjuta_gui.c:111
 msgid "View"
 msgstr "Zobrazení"
 
@@ -780,7 +784,7 @@ msgstr "Pracovní adresář:"
 #: plugins/project-manager/project_dbase.c:1472
 #: plugins/project-manager/project_dbase.c:1475
 #: plugins/project-manager/project_import_cbs.c:227
-#: plugins/project-wizard/appwizard_cbs.c:282
+#: plugins/project-wizard/property.c:197
 msgid "Yes"
 msgstr "Ano"
 
@@ -803,8 +807,8 @@ msgstr "_Podmínka:"
 msgid "_Disable all"
 msgstr "_Zakázat vše"
 
-#: anjuta.glade.h:173 plugins/editor/plugin.c:242
-#: plugins/gtodo/interface.c:169 src/anjuta-actions.h:31 src/shell.c:75
+#: anjuta.glade.h:173 plugins/editor/plugin.c:278
+#: plugins/gtodo/interface.c:169 src/anjuta-actions.h:30 src/shell.c:76
 msgid "_Edit"
 msgstr "_Upravit"
 
@@ -859,7 +863,8 @@ msgstr "_Terminál:"
 
 #. Action name
 #. Stock icon, if any
-#: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:69
+#: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:75
+#: plugins/cvs-plugin/plugin.c:131
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Update"
@@ -996,16 +1001,16 @@ msgstr "Standardní kódování"
 msgid "Supported Encodings"
 msgstr "Podporovaná kódování"
 
-#: libanjuta/anjuta-launcher.c:685 src/launcher.c:683
+#: libanjuta/anjuta-launcher.c:731 src/launcher.c:683
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Chyba při čtení pty potomka\n"
 
-#: libanjuta/anjuta-launcher.c:802 src/launcher.c:803
+#: libanjuta/anjuta-launcher.c:857 src/launcher.c:803
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: Nemohu nastavit kódování kanálu!"
 
-#: libanjuta/anjuta-launcher.c:852 libanjuta/resources.c:288
-#: libanjuta/resources.c:297
+#: libanjuta/anjuta-launcher.c:907 libanjuta/resources.c:253
+#: libanjuta/resources.c:262
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Nemohu spustit příkaz: \"%s\""
@@ -1027,7 +1032,7 @@ msgstr "Kategorie"
 msgid "Anjuta Preferences Dialog"
 msgstr "Dialog nastavení Anjuty"
 
-#: libanjuta/anjuta-preferences.c:1150
+#: libanjuta/anjuta-preferences.c:1133
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -1035,28 +1040,28 @@ msgstr ""
 "Opravdu chcete vrátit nastavení na jejich\n"
 "implicitní hodnoty?"
 
-#: libanjuta/anjuta-preferences.c:1154
+#: libanjuta/anjuta-preferences.c:1137
 msgid "_Reset"
 msgstr "_Vynulovat"
 
-#: libanjuta/anjuta-preferences.c:1448
+#: libanjuta/anjuta-preferences.c:1435
 msgid "Anjuta Preferences"
 msgstr "Nastavení Anjuty"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: libanjuta/anjuta-ui.c:813
+#: libanjuta/anjuta-ui.c:795
 msgid "Action"
 msgstr "Akce"
 
-#: libanjuta/anjuta-ui.c:831
+#: libanjuta/anjuta-ui.c:813
 msgid "Visible"
 msgstr "Viditelný"
 
-#: libanjuta/anjuta-ui.c:842
+#: libanjuta/anjuta-ui.c:824
 msgid "Sensitive"
 msgstr "Citlivá"
 
-#: libanjuta/anjuta-ui.c:851
+#: libanjuta/anjuta-ui.c:833
 msgid "Shortcut"
 msgstr "Zkratka"
 
@@ -1124,7 +1129,7 @@ msgstr "Nemohu spustit příkaz: %s (s shellem %s)\n"
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "Nemohu spustit příkaz %s (s shellem %s)\n"
 
-#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:110
+#: libanjuta/cell-renderer-captioned-image.c:207 libegg/egg-entry-action.c:131
 msgid "Text"
 msgstr "Text"
 
@@ -1144,42 +1149,41 @@ msgstr "Pixbuf, který vykreslit."
 msgid "Load"
 msgstr "Načíst"
 
-#: libanjuta/plugins.c:949 libanjuta/plugins.c:1353
+#: libanjuta/plugins.c:949 libanjuta/plugins.c:1357
 msgid "Available Plugins"
 msgstr "Dostupné zásuvné moduly"
 
-#: libanjuta/resources.c:50
+#: libanjuta/resources.c:49
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget nenalezen: %s"
 
-#: libanjuta/resources.c:74
-#, c-format
-msgid "Could not find application image file: %s"
-msgstr "Nemohu najít soubor obrázku aplikace: %s"
-
-#: libanjuta/resources.c:100 libanjuta/resources.c:122
+#: libanjuta/resources.c:65 libanjuta/resources.c:87
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Nemohu najít soubor pixmapy aplikace: %s"
 
-#: libegg/egg-combo-action.c:118
+#: libegg/egg-combo-action.c:119
 msgid "Model"
 msgstr "Model"
 
-#: libegg/egg-combo-action.c:119
+#: libegg/egg-combo-action.c:120
 msgid "Model for the combo box"
 msgstr "Model combo boxu"
 
-#: libegg/egg-combo-action.c:125 libegg/egg-entry-action.c:118
+#: libegg/egg-combo-action.c:126 libegg/egg-entry-action.c:139
 msgid "Width"
 msgstr "Šířka"
 
-#: libegg/egg-combo-action.c:126 libegg/egg-entry-action.c:119
+#: libegg/egg-combo-action.c:127 libegg/egg-entry-action.c:140
 msgid "Width of the entry."
 msgstr "Šířka pole."
 
-#: libegg/egg-entry-action.c:111
+#: libegg/egg-combo-action.c:294 plugins/symbol-browser/an_symbol_view.c:334
+msgid "Symbol"
+msgstr "Symbol"
+
+#: libegg/egg-entry-action.c:132
 msgid "Text in the entry"
 msgstr "Text v poli"
 
@@ -1335,16 +1339,25 @@ msgstr "_Načíst"
 msgid "_Lock dock items"
 msgstr "_Zamknout položky doku"
 
-#: libegg/test-actions.c:123 plugins/devhelp/plugin.c:212
-#: plugins/editor/plugin.c:876 plugins/editor/search-replace.c:725
+#: libegg/test-actions.c:140 plugins/devhelp/plugin.c:212
+#: plugins/editor/plugin.c:1044 plugins/editor/search-replace.c:725
 #: plugins/editor/search-replace.c:1358 plugins/editor/search-replace.c:1365
 #: plugins/editor/search-replace.c:1377 plugins/editor/search-replace.c:1678
+#: plugins/symbol-browser/plugin.c:687
 msgid "Search"
 msgstr "Hledat"
 
-#: libegg/test-actions.c:124 plugins/editor/plugin.c:877
+#: libegg/test-actions.c:141 plugins/editor/plugin.c:1045
 msgid "Incremental search"
 msgstr "Inkrementální hledání"
+
+#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:797
+msgid "Open _Recent"
+msgstr "Otevřít _nedávné"
+
+#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:808
+msgid "Open recent files"
+msgstr "Otevřít nedávné soubory"
 
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
@@ -1364,14 +1377,14 @@ msgid "Building file: %s ...\n"
 msgstr "Sestavuji soubor: %s ...\n"
 
 #: plugins/build/build_file.c:132
-#: plugins/build-basic-autotools/build-basic-autotools.c:504
-#: plugins/cvs-plugin/cvs.c:776 plugins/project-manager/project_import.c:192
+#: plugins/build-basic-autotools/build-basic-autotools.c:502
+#: plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Celkový čas: %lu sekund\n"
 
 #: plugins/build/build_file.c:136
-#: plugins/build-basic-autotools/build-basic-autotools.c:509
+#: plugins/build-basic-autotools/build-basic-autotools.c:507
 msgid "Completed ... unsuccessful\n"
 msgstr "Dokončeno ... neúspěšně\n"
 
@@ -1380,7 +1393,7 @@ msgid "Completed ... unsuccessful"
 msgstr "Dokončeno ... neúspěšně"
 
 #: plugins/build/build_file.c:145
-#: plugins/build-basic-autotools/build-basic-autotools.c:514
+#: plugins/build-basic-autotools/build-basic-autotools.c:512
 msgid "Completed ... successful\n"
 msgstr "Dokončeno...úspěšně\n"
 
@@ -1600,187 +1613,187 @@ msgstr "Nemohu spustit soubor. Zkontrolujte Nastavení->Příkazy."
 # make has no Czech translation currently
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:386
+#: plugins/build-basic-autotools/build-basic-autotools.c:384
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entering directory `%s'"
 
 # make has no Czech translation currently
-#: plugins/build-basic-autotools/build-basic-autotools.c:387
+#: plugins/build-basic-autotools/build-basic-autotools.c:385
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entering directory `%s'"
 
 # make has no Czech translation currently
 #. Traslation for the following should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:400
+#: plugins/build-basic-autotools/build-basic-autotools.c:398
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Leaving directory `%s'"
 
 # make has no Czech translation currently
-#: plugins/build-basic-autotools/build-basic-autotools.c:401
+#: plugins/build-basic-autotools/build-basic-autotools.c:399
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:421
+#: plugins/build-basic-autotools/build-basic-autotools.c:419
 msgid "warning:"
 msgstr "varování:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:565
+#: plugins/build-basic-autotools/build-basic-autotools.c:564
 #, c-format
 msgid "Build %d: %s"
 msgstr "Sestavení %d: %s"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:684
-#: plugins/build-basic-autotools/build-basic-autotools.c:711
+#: plugins/build-basic-autotools/build-basic-autotools.c:685
+#: plugins/build-basic-autotools/build-basic-autotools.c:712
 msgid "Configure Parameters:"
 msgstr "Parametry configure:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:826
-#: plugins/build-basic-autotools/build-basic-autotools.c:890
-#: plugins/build-basic-autotools/build-basic-autotools.c:900
-#: plugins/build-basic-autotools/build-basic-autotools.c:1069
+#: plugins/build-basic-autotools/build-basic-autotools.c:827
+#: plugins/build-basic-autotools/build-basic-autotools.c:891
+#: plugins/build-basic-autotools/build-basic-autotools.c:901
+#: plugins/build-basic-autotools/build-basic-autotools.c:1070
 msgid "_Build"
 msgstr "_Sestavit"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:830
+#: plugins/build-basic-autotools/build-basic-autotools.c:831
 msgid "_Build Project"
 msgstr "_Sestavit projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:831
+#: plugins/build-basic-autotools/build-basic-autotools.c:832
 msgid "Build whole project"
 msgstr "Sestavit celý projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:836
+#: plugins/build-basic-autotools/build-basic-autotools.c:837
 msgid "_Install Project"
 msgstr "_Nainstalovat projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:837
+#: plugins/build-basic-autotools/build-basic-autotools.c:838
 msgid "Install whole project"
 msgstr "Nainstalovat celý projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:842
+#: plugins/build-basic-autotools/build-basic-autotools.c:843
 msgid "_Clean Project"
 msgstr "Vy_čistit projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:843
+#: plugins/build-basic-autotools/build-basic-autotools.c:844
 msgid "Clean whole project"
 msgstr "Vyčistit celý projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:848
+#: plugins/build-basic-autotools/build-basic-autotools.c:849
 msgid "Run C_onfigure ..."
 msgstr "Spustit _configure ..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:849
+#: plugins/build-basic-autotools/build-basic-autotools.c:850
 msgid "Configure project"
 msgstr "Konfigurovat projekt"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:854
+#: plugins/build-basic-autotools/build-basic-autotools.c:855
 msgid "Run _Autogenerate ..."
 msgstr "Automaticky _generovat ..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:855
+#: plugins/build-basic-autotools/build-basic-autotools.c:856
 msgid "Autogenrate project files"
 msgstr "Automaticky vygenerovat soubory projektu"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:860
+#: plugins/build-basic-autotools/build-basic-autotools.c:861
 msgid "Build _Tarball"
 msgstr "Sestavit _tarball"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:861
+#: plugins/build-basic-autotools/build-basic-autotools.c:862
 msgid "Build project tarball distribution"
 msgstr "Sestavit tarball distribuce projektu"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:866
+#: plugins/build-basic-autotools/build-basic-autotools.c:867
 msgid "_Build Module"
 msgstr "_Sestavit modul"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:867
+#: plugins/build-basic-autotools/build-basic-autotools.c:868
 msgid "Build module associated with current file"
 msgstr "Sestavit modul asociovaný s aktuálním souborem"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:872
+#: plugins/build-basic-autotools/build-basic-autotools.c:873
 msgid "_Install Module"
 msgstr "Na_instalovat modul"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:873
+#: plugins/build-basic-autotools/build-basic-autotools.c:874
 msgid "Install module associated with current file"
 msgstr "Nainstalovat modul asociovaný s aktuálním souborem"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:878
+#: plugins/build-basic-autotools/build-basic-autotools.c:879
 msgid "_Clean Module"
 msgstr "Vy_čistit modul"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:879
+#: plugins/build-basic-autotools/build-basic-autotools.c:880
 msgid "Clean module associated with current file"
 msgstr "Vyčistit modul asociovaný s aktuálním souborem"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:884
+#: plugins/build-basic-autotools/build-basic-autotools.c:885
 msgid "Co_mpile File"
 msgstr "_Přeložit soubor"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:885
+#: plugins/build-basic-autotools/build-basic-autotools.c:886
 msgid "Compile current editor file"
 msgstr "Přeložit aktuální soubor editoru"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:894
+#: plugins/build-basic-autotools/build-basic-autotools.c:895
 msgid "_Compile"
 msgstr "_Přeložit"
 
 # FIXME: s/Compile/Compile/
-#: plugins/build-basic-autotools/build-basic-autotools.c:895
+#: plugins/build-basic-autotools/build-basic-autotools.c:896
 msgid "Complie file"
 msgstr "Přeložit soubor"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:901
+#: plugins/build-basic-autotools/build-basic-autotools.c:902
 msgid "Build module"
 msgstr "Sestavit modul"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:906
-#: plugins/build-basic-autotools/build-basic-autotools.c:1073
+#: plugins/build-basic-autotools/build-basic-autotools.c:907
+#: plugins/build-basic-autotools/build-basic-autotools.c:1074
 msgid "_Install"
 msgstr "Na_instalovat"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:907
+#: plugins/build-basic-autotools/build-basic-autotools.c:908
 msgid "Install module"
 msgstr "Nainstalovat modul"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:912
-#: plugins/build-basic-autotools/build-basic-autotools.c:1077
+#: plugins/build-basic-autotools/build-basic-autotools.c:913
+#: plugins/build-basic-autotools/build-basic-autotools.c:1078
 msgid "_Clean"
 msgstr "Vy_čistit"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:913
+#: plugins/build-basic-autotools/build-basic-autotools.c:914
 msgid "Clean module"
 msgstr "Vyčistit modul"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1081
+#: plugins/build-basic-autotools/build-basic-autotools.c:1082
 msgid "Co_mpile"
 msgstr "_Přeložit"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1090
+#: plugins/build-basic-autotools/build-basic-autotools.c:1091
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Sestavit (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1097
+#: plugins/build-basic-autotools/build-basic-autotools.c:1098
 #, c-format
 msgid "_Install (%s)"
 msgstr "Na_instalovat (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1104
+#: plugins/build-basic-autotools/build-basic-autotools.c:1105
 #, c-format
 msgid "_Clean (%s)"
 msgstr "Vy_čistit (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1111
+#: plugins/build-basic-autotools/build-basic-autotools.c:1112
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "_Přeložit (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1276
+#: plugins/build-basic-autotools/build-basic-autotools.c:1277
 msgid "Build commands"
 msgstr "Příkazy sestavení"
 
@@ -1813,9 +1826,9 @@ msgstr "Tvůrce tříd"
 #: plugins/class-gen/clsGen.c:1360 plugins/devhelp/plugin.c:246
 #: plugins/devhelp/plugin.c:454 plugins/devhelp/plugin.c:467
 #: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
-#: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:381
+#: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:383
 #: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
-#: src/anjuta-app.c:302 src/anjuta_gui.c:123
+#: src/anjuta-app.c:278 src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Nápověda"
 
@@ -1965,14 +1978,22 @@ msgid "<b>CVS Options</b>"
 msgstr "<b>Možnosti CVS</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
+msgid "<b>CVSROOT: </b>"
+msgstr "<b>CVSROOT: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+msgid "<b>Module name: </b>"
+msgstr "<b>Název modulu: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
 msgid "<b>Options:</b>"
 msgstr "<b>Možnosti:</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
 msgid "<b>Options</b>"
 msgstr "<b>Možnosti</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:7
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
@@ -1985,117 +2006,146 @@ msgstr ""
 "Stisknutí OK odstraní soubor z disku a z CVS. Soubor samozřejmě nebude "
 "odstraněn z CVS, než použijete potvrzení CVS. <b>Byli jste varováni!</b>"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
+msgid "<b>Project root directory: </b>"
+msgstr "<b>Adresář kořene projektu: </b>"
+
+# FIXME: s/repositry/repository/
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
+msgid "<b>Repositry: </b>"
+msgstr "<b>Repository: </b>"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "Be verbose"
 msgstr "Být podrobný"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
 msgid "CVS Preferences"
 msgstr "Nastavení CVS"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Add file/directory"
 msgstr "CVS: Přidat soubor/adresář"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Commit file/directory"
 msgstr "CVS: Potvrdit soubor/adresář"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Diff file/directory"
 msgstr "CVS: Diff souboru/adresáře"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+msgid "CVS: Import"
+msgstr "CVS: Importovat"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "CVS: Log file/directory"
 msgstr "CVS: Záznam souboru/adresáře"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
 msgid "CVS: Remove file/directory"
 msgstr "CVS: Odstranit soubor/adresář"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
-#: plugins/cvs-plugin/cvs_gui.c:80
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 msgid "CVS: Status"
 msgstr "CVS: Stav"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 msgid "CVS: Status from file/directory"
 msgstr "CVS: Stav souboru/adresáře"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "CVS: Update file/directory"
 msgstr "CVS: Aktualizovat soubor/adresář"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 msgid "Choose file or directory to add:"
 msgstr "Zvolte soubor nebo adresář, který přidat:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to commit:"
 msgstr "Zvolte soubor nebo adresář, který potvrdit:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to diff:"
 msgstr "Zvolte soubor nebo adresář, který diff:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to get log:"
 msgstr "Zvolte soubor nebo adresář, jehož záznam získat:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 msgid "Choose file or directory to get the status from:"
 msgstr "Zvolte soubor nebo adresář, jehož stav získat:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 msgid "Choose file or directory to remove:"
 msgstr "Zvolte soubor nebo adresář, který odstranit:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 msgid "Choose file or directory to update:"
 msgstr "Zvolte soubor nebo adresář, který aktualizovat:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Compression Level (0=off, 10=max):"
 msgstr "Úroveň komprese (0=vypnuto, 10=max):"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 msgid "Create new directories"
 msgstr "Vytvořit nové adresáře"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "Delete empty directories"
 msgstr "Odstranit prázdné adresáře"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Do not act recursively"
 msgstr "Nepracovat rekurzivně"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 msgid "File is binary"
 msgstr "Soubor je binární"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
 msgid "Ignore .cvsrc file (recommend)"
 msgstr "Ignorovat soubor .cvsrc (doporučeno)"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:36
+msgid ""
+"Local\n"
+"Extern (rsh)\n"
+"Password server (pserver)\n"
+msgstr ""
+"Místní\n"
+"Externí (rsh)\n"
+"Server s heslem (pserver)\n"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 msgid "Log message:"
 msgstr "Zpráva záznamu:"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
+msgid "Password: "
+msgstr "Heslo: "
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Path to \"cvs\" command"
 msgstr "Cesta k příkazu \"cvs\""
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
+msgid "Release tag:"
+msgstr "Tag release:"
+
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
 msgid "Reset sticky tags"
 msgstr "Vynulovat přilepené značky"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
-#: plugins/cvs-plugin/cvs_gui.c:124 plugins/cvs-plugin/cvs_gui.c:291
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
 msgid "Revision: "
 msgstr "Revize: "
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid ""
 "Standard diff\n"
 "Patch-Style diff"
@@ -2103,86 +2153,75 @@ msgstr ""
 "Standardní diff\n"
 "diff ve stylu patchů"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:37
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
 msgstr "Unifikovaný formát místo kontextového formátu"
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 msgid "Use revision/tag: "
 msgstr "Použit revizi/tag: "
 
-#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
 msgid "Use revision: "
 msgstr "Použít revizi: "
 
-#: plugins/cvs-plugin/cvs.c:262
-msgid "CVS Updating "
-msgstr "CVS Aktualizuji "
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
+msgid "Username: "
+msgstr "Jméno uživatele: "
 
-#: plugins/cvs-plugin/cvs.c:312
-msgid "CVS Committing "
-msgstr "CVS Potvrzuji "
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
+msgid "Vendor tag:"
+msgstr "Tag dodavatele:"
 
-#: plugins/cvs-plugin/cvs.c:373
-msgid "CVS Importing...\n"
-msgstr "CVS Importuji....\n"
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+msgid "Whole project"
+msgstr "Celý projekt"
 
-#: plugins/cvs-plugin/cvs.c:413
-msgid "CVS Adding "
-msgstr "CVS Přidávám "
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
+msgid "none"
+msgstr "nic"
 
-#: plugins/cvs-plugin/cvs.c:445
-msgid "CVS Removing "
-msgstr "CVS Odstraňuji "
+#: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
+msgid "start"
+msgstr "začátek"
 
-#: plugins/cvs-plugin/cvs.c:486
-msgid "Getting CVS status "
-msgstr "Získávám stav CVS "
+#: plugins/cvs-plugin/cvs-callbacks.c:48
+msgid "Please enter a filename!"
+msgstr "Zadejte prosím název souboru!"
 
-#: plugins/cvs-plugin/cvs.c:501 plugins/cvs-plugin/cvs.c:556
-#: plugins/cvs-plugin/cvs.c:635 plugins/cvs-plugin/cvs.c:891
-msgid "There are jobs running, please wait until they are finished"
-msgstr "Existují běžící úlohy, počkejte prosím na jejich dokončení"
+#: plugins/cvs-plugin/cvs-callbacks.c:61
+#, c-format
+msgid "Please fill field: %s"
+msgstr "Vyplňte prosím pole: %s"
 
-#: plugins/cvs-plugin/cvs.c:541
-msgid "Getting CVS log "
-msgstr "Získávám záznam CVS "
-
-#: plugins/cvs-plugin/cvs.c:620
-msgid "CVS diffing "
-msgstr "CVS diff "
-
-#: plugins/cvs-plugin/cvs.c:667
-msgid "CVS login "
-msgstr "CVS přihlášení "
-
-#: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
-msgid "Project import completed...unsuccessful\n"
-msgstr "Import projektu dokončen...neúspěšně\n"
-
-#: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
-msgid "Project import completed...unsuccessful"
-msgstr "Import projektu dokončen...neúspěšně"
-
-#: plugins/cvs-plugin/cvs.c:772
-msgid "CVS completed...successful\n"
-msgstr "CVS dokončeno...úspěšně\n"
-
-#: plugins/cvs-plugin/cvs.c:774
-msgid "CVS completed...successful"
-msgstr "CVS dokončeno...úspěšně"
-
-#: plugins/cvs-plugin/cvs.c:782
-msgid "Updating versions in file tree..."
-msgstr "Aktualizuji verze ve stromu souborů..."
-
-#: plugins/cvs-plugin/cvs.c:784
-msgid "done\n"
-msgstr "hotovo\n"
-
-#: plugins/cvs-plugin/cvs-actions.c:219
+#: plugins/cvs-plugin/cvs-callbacks.c:131
 msgid "Unable to delete file"
 msgstr "Nemohu odstranit soubor"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:215
+#: plugins/cvs-plugin/cvs-callbacks.c:413
+msgid "Are you sure that you do not want a log message?"
+msgstr "Opravdu nechcete zprávu záznamu?"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:389
+msgid "CVSROOT"
+msgstr "CVSROOT"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:392
+msgid "Module"
+msgstr "Modul"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:395
+msgid "Vendor"
+msgstr "Dodavatele"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:398
+msgid "Release"
+msgstr "Release"
+
+#: plugins/cvs-plugin/cvs-callbacks.c:402
+msgid "Directory"
+msgstr "Adresář"
 
 #: plugins/cvs-plugin/cvs-execute.c:130
 msgid "CVS command failed! - See above for details"
@@ -2197,267 +2236,111 @@ msgstr "Příkaz CVS úspěšný! - Trval %ld sekund."
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "Běží příkaz CVS - počkejte prosím, než skončí!"
 
-#: plugins/cvs-plugin/cvs-execute.c:286
+#: plugins/cvs-plugin/cvs-execute.c:285
 msgid "cvs.diff"
 msgstr "cvs.diff"
 
-#: plugins/cvs-plugin/cvs-execute.c:299
+#: plugins/cvs-plugin/cvs-execute.c:298
 msgid "cvs.log"
 msgstr "cvs.log"
 
-#: plugins/cvs-plugin/cvs_cbs.c:41
-msgid "You do not need to login to a local server"
-msgstr "K místnímu serveru se nemusíte přihlašovat"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Local"
-msgstr "Místní"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Password"
-msgstr "Heslo"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Extern(rsh)"
-msgstr "Externí(rsh)"
-
-#: plugins/cvs-plugin/cvs_gui.c:30
-msgid "Server"
-msgstr "Server"
-
-#: plugins/cvs-plugin/cvs_gui.c:72
-msgid "CVS: Update"
-msgstr "CVS: Aktualizovat"
-
-#: plugins/cvs-plugin/cvs_gui.c:76
-msgid "CVS: Commit"
-msgstr "CVS: Potvrdit"
-
-#: plugins/cvs-plugin/cvs_gui.c:77
-msgid "Commit"
-msgstr "Potvrdit"
-
-#: plugins/cvs-plugin/cvs_gui.c:81
-msgid "Show status"
-msgstr "Zobrazit stav"
-
-#: plugins/cvs-plugin/cvs_gui.c:84
-msgid "CVS: Log"
-msgstr "CVS: Záznam"
-
-#: plugins/cvs-plugin/cvs_gui.c:85
-msgid "Show log"
-msgstr "Zobrazit záznam"
-
-#: plugins/cvs-plugin/cvs_gui.c:88
-msgid "CVS: Add file"
-msgstr "CVS: Přidat soubor"
-
-#: plugins/cvs-plugin/cvs_gui.c:89
-msgid "Add"
-msgstr "Přidat"
-
-#: plugins/cvs-plugin/cvs_gui.c:92
-msgid "CVS: Remove file"
-msgstr "CVS: Odstranit soubor"
-
-#. 3
-#: plugins/cvs-plugin/cvs_gui.c:93 plugins/gdb/watch_gui.c:43
-#: plugins/gtodo/callback.c:15 plugins/gtodo/callback.c:101
-#: plugins/project-manager/project_dbase_gui.c:323
-msgid "Remove"
-msgstr "Odstranit"
-
-#: plugins/cvs-plugin/cvs_gui.c:95
-msgid ""
-"WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
-"to apply to the repository. It will still be possible to retrieve older "
-"revisions of the file."
-msgstr ""
-"VAROVÁNÍ: Soubor bude odstraněn z disku. Pro potvrzení v úložišti použijte\n"
-"\"cvs commit\". I potom bude možné získat starší revize souboru."
-
-#: plugins/cvs-plugin/cvs_gui.c:120 plugins/cvs-plugin/cvs_gui.c:238
-msgid "File: "
-msgstr "Soubor: "
-
-#: plugins/cvs-plugin/cvs_gui.c:122
-msgid "Branch: "
-msgstr "Větev: "
-
-#: plugins/cvs-plugin/cvs_gui.c:125 plugins/cvs-plugin/cvs_gui.c:470
-msgid "Log message: "
-msgstr "Zpráva záznamu: "
-
-#: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
-msgid "Select file"
-msgstr "Zvolte soubor"
-
-#: plugins/cvs-plugin/cvs_gui.c:225
-msgid "CVS: Diff file"
-msgstr "CVS: Diff soubor"
-
-#: plugins/cvs-plugin/cvs_gui.c:229 plugins/editor/plugin.c:355
-msgid "Diff"
-msgstr "Diff"
-
-#: plugins/cvs-plugin/cvs_gui.c:265
-msgid "Date: "
-msgstr "Datum: "
-
-#: plugins/cvs-plugin/cvs_gui.c:333
-msgid "CVS Login"
-msgstr "CVS Přihlášení"
-
-#: plugins/cvs-plugin/cvs_gui.c:337
-msgid "Login"
-msgstr "Přihlásit"
-
-#: plugins/cvs-plugin/cvs_gui.c:347 plugins/cvs-plugin/cvs_gui.c:440
-msgid "Server type: "
-msgstr "Typ serveru: "
-
-#: plugins/cvs-plugin/cvs_gui.c:348 plugins/cvs-plugin/cvs_gui.c:443
-msgid "Username: "
-msgstr "Jméno uživatele: "
-
-#: plugins/cvs-plugin/cvs_gui.c:349 plugins/cvs-plugin/cvs_gui.c:441
-msgid "Server: "
-msgstr "Server: "
-
-#: plugins/cvs-plugin/cvs_gui.c:350
-msgid "Directory on the server: "
-msgstr "Adresář na serveru: "
-
-#: plugins/cvs-plugin/cvs_gui.c:427
-msgid "CVS: Import Project"
-msgstr "CVS: Importovat projekt"
-
-#: plugins/cvs-plugin/cvs_gui.c:431
-msgid "Import"
-msgstr "Import"
-
-#: plugins/cvs-plugin/cvs_gui.c:442
-msgid "Dir on the server: "
-msgstr "Adresář na serveru: "
-
-#: plugins/cvs-plugin/cvs_gui.c:467
-msgid "Module name: "
-msgstr "Název modulu: "
-
-#: plugins/cvs-plugin/cvs_gui.c:468
-msgid "Release name: "
-msgstr "Název release: "
-
-#: plugins/cvs-plugin/cvs_gui.c:469
-msgid "Vendor tag: "
-msgstr "Značka dodavatele: "
-
-#: plugins/cvs-plugin/cvs_gui.c:525
-msgid "Server settings"
-msgstr "Nastavení serveru"
-
-#: plugins/cvs-plugin/cvs_gui.c:529
-msgid "Import settings"
-msgstr "Nastavení importu"
-
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:37
+#: plugins/cvs-plugin/plugin.c:43 plugins/cvs-plugin/plugin.c:115
 msgid "_CVS"
 msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:45
+#: plugins/cvs-plugin/plugin.c:51
 msgid "_Add"
 msgstr "_Přidat"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:47
+#: plugins/cvs-plugin/plugin.c:53
 msgid "Add a new file/directory to the CVS tree"
 msgstr "Přidat nový soubor/adresář do stromu CVS"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:53
+#: plugins/cvs-plugin/plugin.c:59
 msgid "_Remove"
 msgstr "_Odstranit"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:55
+#: plugins/cvs-plugin/plugin.c:61
 msgid "Remove a file/directory from CVS tree"
 msgstr "Odstranit soubor/adresář do stromu CVS"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:61
+#: plugins/cvs-plugin/plugin.c:67 plugins/cvs-plugin/plugin.c:123
 msgid "_Commit"
 msgstr "_Potvrdit"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:63
+#: plugins/cvs-plugin/plugin.c:69 plugins/cvs-plugin/plugin.c:125
 msgid "Commit your changes to the CVS tree"
 msgstr "Potvrdit vaše změny do stromu CVS"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:71
+#: plugins/cvs-plugin/plugin.c:77 plugins/cvs-plugin/plugin.c:133
 msgid "Sync your local copy with the CVS tree"
 msgstr "Synchronizovat vaši místní kopii se stromem CVS"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:77
+#: plugins/cvs-plugin/plugin.c:83 plugins/cvs-plugin/plugin.c:139
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:79
+#: plugins/cvs-plugin/plugin.c:85 plugins/cvs-plugin/plugin.c:141
 msgid "Show differences between your local copy and the tree"
 msgstr "Zobrazit rozdíly mezi vaší místní kopií a stromem"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:85
+#: plugins/cvs-plugin/plugin.c:91 plugins/cvs-plugin/plugin.c:147
 msgid "_Show Status"
 msgstr "Zobrazit _stav"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:87
+#: plugins/cvs-plugin/plugin.c:93 plugins/cvs-plugin/plugin.c:149
 msgid "Show the status of a file/directory"
 msgstr "Zobrazit stav souboru/adresáře"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:93
+#: plugins/cvs-plugin/plugin.c:99 plugins/cvs-plugin/plugin.c:155
 msgid "_Show Log"
 msgstr "_Zobrazit záznam"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:95
+#: plugins/cvs-plugin/plugin.c:101 plugins/cvs-plugin/plugin.c:157
 msgid "Show the log of a file/directory"
 msgstr "Zobrazit záznam souboru/adresáře"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:101
+#: plugins/cvs-plugin/plugin.c:107
 msgid "_Import Tree"
 msgstr "_Importovat strom"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:103
+#: plugins/cvs-plugin/plugin.c:109
 msgid "Import a new source tree to CVS"
 msgstr "Importovat nový zdrojový strom do CVS"
 
-#: plugins/cvs-plugin/plugin.c:129
+#: plugins/cvs-plugin/plugin.c:349
 msgid "CVS operations"
 msgstr "Operace CVS"
 
@@ -2485,7 +2368,7 @@ msgstr "Načíst spustitelný soubor"
 msgid "Load Core File"
 msgstr "Načíst soubor core"
 
-#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:336
+#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:346
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2613,7 +2496,7 @@ msgstr "_Breakpointy"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/debug-manager/plugin.c:291 plugins/editor/text_editor_menu.c:138
+#: plugins/debug-manager/plugin.c:291 plugins/editor/text_editor_menu.c:137
 msgid "Toggle breakpoint"
 msgstr "Přepnout breakpoint"
 
@@ -2644,8 +2527,8 @@ msgstr "Zobrazení nápovědy"
 msgid "Search Help:"
 msgstr "Hledat v nápovědě"
 
-#: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:202
-#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:169
+#: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:238
+#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:180
 msgid "_Goto"
 msgstr "_Jít na"
 
@@ -2726,7 +2609,7 @@ msgstr ""
 "Opravdu chcete znovu načíst '%s'?\n"
 "Neuložené změny budou ztraceny."
 
-#: plugins/editor/action-callbacks.c:237 plugins/editor/text_editor.c:1307
+#: plugins/editor/action-callbacks.c:237 plugins/editor/text_editor.c:1330
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
@@ -2735,11 +2618,11 @@ msgstr "_Znovu načíst"
 msgid "There is no line number %d in \"%s\"."
 msgstr "V \"%2$s\" není řádek číslo %1$d."
 
-#: plugins/editor/action-callbacks.c:1264
+#: plugins/editor/action-callbacks.c:1280
 msgid "No matches. Wrap search around the document?"
 msgstr "Žádný výsledek. Hledat od druhého konce dokumentu?"
 
-#: plugins/editor/anjuta-docman.c:311 src/anjuta_cbs.c:426
+#: plugins/editor/anjuta-docman.c:301 src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2748,12 +2631,12 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej nahradit tím, který ukládáte?"
 
-#: plugins/editor/anjuta-docman.c:318 src/anjuta-callbacks.c:258
+#: plugins/editor/anjuta-docman.c:308 src/anjuta-callbacks.c:79
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Nahradit"
 
-#: plugins/editor/anjuta-docman.c:359
+#: plugins/editor/anjuta-docman.c:349
 msgid "Save file as"
 msgstr "Uložit soubor jako"
 
@@ -2779,11 +2662,13 @@ msgstr "$(module.source.files) $(module.include.files)"
 
 #: plugins/editor/anjuta-document-manager.glade.h:9
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: plugins/editor/anjuta-document-manager.glade.h:10
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:3
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -2793,11 +2678,13 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:11
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
 #: plugins/editor/anjuta-document-manager.glade.h:12
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
@@ -2908,6 +2795,7 @@ msgstr "Dole"
 
 #: plugins/editor/anjuta-document-manager.glade.h:40
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:10
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
@@ -2984,7 +2872,7 @@ msgid "Do not show tabs"
 msgstr "Nezobrazovat záložky"
 
 #: plugins/editor/anjuta-document-manager.glade.h:59
-#: plugins/editor/plugin.c:899
+#: plugins/editor/plugin.c:1067
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -3081,7 +2969,7 @@ msgid "Fore color:"
 msgstr "Barva popředí:"
 
 #: plugins/editor/anjuta-document-manager.glade.h:82
-#: plugins/editor/text_editor_menu.c:86
+#: plugins/editor/text_editor_menu.c:85
 msgid "Forward"
 msgstr "Vpřed"
 
@@ -3336,21 +3224,25 @@ msgstr "Setřízeny v pořadí otevírání"
 
 #: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Seznam vzorů názvů adresářů, které ignorovat, oddělený mezerami"
 
 #: plugins/editor/anjuta-document-manager.glade.h:146
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Seznam vzorů názvů adresářů, které hledat, oddělený mezerami"
 
 #: plugins/editor/anjuta-document-manager.glade.h:147
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Seznam vzorů názvů souborů, které ignorovat, oddělený mezerami"
 
 #: plugins/editor/anjuta-document-manager.glade.h:148
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Seznam vzorů názvů souborů, které hledat, oddělený mezerami"
 
@@ -3427,880 +3319,884 @@ msgstr "_Uložit téma jako"
 msgid "<b>Goto Line number:</b>"
 msgstr "<b>_Jít na číslo řádku:</b>"
 
-#: plugins/editor/plugin.c:92
+#: plugins/editor/plugin.c:128
 msgid "_Save"
 msgstr "_Uložit"
 
-#: plugins/editor/plugin.c:93 src/toolbar.c:84
+#: plugins/editor/plugin.c:129 src/toolbar.c:84
 msgid "Save current file"
 msgstr "Uložit aktuální soubor"
 
-#: plugins/editor/plugin.c:94
+#: plugins/editor/plugin.c:130
 msgid "Save _As ..."
 msgstr "Uložit _jako ..."
 
-#: plugins/editor/plugin.c:95
+#: plugins/editor/plugin.c:131
 msgid "Save the current file with a different name"
 msgstr "Uložit aktuální soubor pod jiným jménem"
 
-#: plugins/editor/plugin.c:97
+#: plugins/editor/plugin.c:133
 msgid "Save A_ll"
 msgstr "Uložit _vše"
 
-#: plugins/editor/plugin.c:98
+#: plugins/editor/plugin.c:134
 msgid "Save all currently open files, except new files"
 msgstr "Uložit všechny aktuálně otevřené soubory kromě nových souborů"
 
-#: plugins/editor/plugin.c:100
+#: plugins/editor/plugin.c:136
 msgid "_Close File"
 msgstr "_Zavřít soubor"
 
-#: plugins/editor/plugin.c:101 src/toolbar.c:92
+#: plugins/editor/plugin.c:137 src/toolbar.c:92
 msgid "Close current file"
 msgstr "Zavřít aktuální soubor"
 
-#: plugins/editor/plugin.c:103
+#: plugins/editor/plugin.c:139
 msgid "Close All Files"
 msgstr "Zavřít všechny soubory"
 
-#: plugins/editor/plugin.c:104
+#: plugins/editor/plugin.c:140
 msgid "Close all files"
 msgstr "Zavřít všechny soubory"
 
-#: plugins/editor/plugin.c:106
+#: plugins/editor/plugin.c:142
 msgid "Reload F_ile"
 msgstr "Znovu _načíst soubor"
 
-#: plugins/editor/plugin.c:107 src/toolbar.c:88
+#: plugins/editor/plugin.c:143 src/toolbar.c:88
 msgid "Reload current file"
 msgstr "Znovu načíst aktuální soubor"
 
 #. 8
-#: plugins/editor/plugin.c:109 plugins/editor/text_editor_menu.c:293
+#: plugins/editor/plugin.c:145 plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "Přepnout .h/.c"
 
-#: plugins/editor/plugin.c:110
+#: plugins/editor/plugin.c:146
 msgid "Swap c header and source file"
 msgstr "Prohodit hlavičkový a zdrojový soubory v c"
 
-#: plugins/editor/plugin.c:112
+#: plugins/editor/plugin.c:148
 msgid "Recent _Files"
 msgstr "Nedávné _soubory"
 
-#: plugins/editor/plugin.c:116
+#: plugins/editor/plugin.c:152
 msgid "_Print"
 msgstr "_Tisknout"
 
-#: plugins/editor/plugin.c:117 src/toolbar.c:110
+#: plugins/editor/plugin.c:153 src/toolbar.c:110
 msgid "Print the current file"
 msgstr "Vytisknout aktuální soubor"
 
-#: plugins/editor/plugin.c:118
+#: plugins/editor/plugin.c:154
 msgid "_Print Preview"
 msgstr "_Náhled před tiskem"
 
-#: plugins/editor/plugin.c:119
+#: plugins/editor/plugin.c:155
 msgid "Print preview of the current file"
 msgstr "Náhled aktuálního souboru před tiskem"
 
-#: plugins/editor/plugin.c:124
+#: plugins/editor/plugin.c:160
 msgid "_Transform"
 msgstr "_Transformovat"
 
-#: plugins/editor/plugin.c:125
+#: plugins/editor/plugin.c:161
 msgid "_Make Selection Uppercase"
 msgstr "Převést výběr na _velká písmena"
 
-#: plugins/editor/plugin.c:126
+#: plugins/editor/plugin.c:162
 msgid "Make the selected text uppercase"
 msgstr "Převést vybraný text na velká písmena"
 
-#: plugins/editor/plugin.c:128
+#: plugins/editor/plugin.c:164
 msgid "Make Selection Lowercase"
 msgstr "Převést výběr na malá písmena"
 
-#: plugins/editor/plugin.c:129
+#: plugins/editor/plugin.c:165
 msgid "Make the selected text lowercase"
 msgstr "Převést vybraný text na malá písmena"
 
-#: plugins/editor/plugin.c:131
+#: plugins/editor/plugin.c:167
 msgid "Convert EOL chars to CRLF"
 msgstr "Převést znaky EOL na CRLF"
 
-#: plugins/editor/plugin.c:132
+#: plugins/editor/plugin.c:168
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Převést znaky konce řádku na EOL DOSu (CRLF)"
 
-#: plugins/editor/plugin.c:134
+#: plugins/editor/plugin.c:170
 msgid "Convert EOL chars to LF"
 msgstr "Převést znaky EOL na LF"
 
-#: plugins/editor/plugin.c:135
+#: plugins/editor/plugin.c:171
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Převést znaky konce řádku na EOL Unixu (LF)"
 
-#: plugins/editor/plugin.c:137
+#: plugins/editor/plugin.c:173
 msgid "Convert EOL chars to CR"
 msgstr "Převést znaky EOL na CR"
 
-#: plugins/editor/plugin.c:138
+#: plugins/editor/plugin.c:174
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Převést znaky konce řádku na EOL Mac OS (CR)"
 
-#: plugins/editor/plugin.c:140
+#: plugins/editor/plugin.c:176
 msgid "Convert EOL chars to majority EOL"
 msgstr "Převést znaky EOL na většinový EOL"
 
-#: plugins/editor/plugin.c:141
+#: plugins/editor/plugin.c:177
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "Převést znaky konce řádku na typ EOL, který je v souboru nalezen nejčastěji"
 
-#: plugins/editor/plugin.c:146
+#: plugins/editor/plugin.c:182
 msgid "_Select"
 msgstr "_Vybrat"
 
-#: plugins/editor/plugin.c:147
+#: plugins/editor/plugin.c:183
 msgid "Select _All"
 msgstr "Vybrat _vše"
 
-#: plugins/editor/plugin.c:148
+#: plugins/editor/plugin.c:184
 msgid "Select all text in the editor"
 msgstr "Vybrat všechen text v editoru"
 
-#: plugins/editor/plugin.c:150
+#: plugins/editor/plugin.c:186
 msgid "Select to _Brace"
 msgstr "Vybrat do _složené závorky"
 
-#: plugins/editor/plugin.c:151
+#: plugins/editor/plugin.c:187
 msgid "Select the text in the matching braces"
 msgstr "Vybrat text v odpovídajících si složených závorkách"
 
-#: plugins/editor/plugin.c:153
+#: plugins/editor/plugin.c:189
 msgid "Select _Code Block"
 msgstr "Vybrat _blok kódu"
 
-#: plugins/editor/plugin.c:155
+#: plugins/editor/plugin.c:191
 msgid "Select the current code block"
 msgstr "Vybrat aktuální blok kódu"
 
-#: plugins/editor/plugin.c:160
+#: plugins/editor/plugin.c:196
 msgid "_Search"
 msgstr "_Hledat"
 
-#: plugins/editor/plugin.c:161
+#: plugins/editor/plugin.c:197
 msgid "_Find ..."
 msgstr "_Hledat ..."
 
-#: plugins/editor/plugin.c:162
+#: plugins/editor/plugin.c:198
 msgid "Search for a string or regular expression in the editor"
 msgstr "Hledat v editoru řetězec nebo regulární výraz"
 
-#: plugins/editor/plugin.c:164
+#: plugins/editor/plugin.c:200
 msgid "Find _Next"
 msgstr "Hledat _další"
 
-#: plugins/editor/plugin.c:165 plugins/editor/plugin.c:169
+#: plugins/editor/plugin.c:201 plugins/editor/plugin.c:205
 msgid "Repeat the last Find command"
 msgstr "Zopakovat předchozí příkaz Hledat"
 
-#: plugins/editor/plugin.c:167
+#: plugins/editor/plugin.c:203
 msgid "Find _Previous"
 msgstr "Hledat _předchozí"
 
-#: plugins/editor/plugin.c:171
+#: plugins/editor/plugin.c:207
 msgid "Find and R_eplace ..."
 msgstr "Hledat a na_hradit ..."
 
-#: plugins/editor/plugin.c:173
+#: plugins/editor/plugin.c:209
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr "Hledat a nahradit řetězec nebo regulární výraz jiným řetězcem"
 
-#: plugins/editor/plugin.c:175
+#: plugins/editor/plugin.c:211
 msgid "Advanced Search And Replace"
 msgstr "Pokročilé hledání a nahrazení"
 
-#: plugins/editor/plugin.c:177
+#: plugins/editor/plugin.c:213
 msgid "New advance search And replace stuff"
 msgstr "Nové pokročilé hledání a nahrazení"
 
-#: plugins/editor/plugin.c:179
+#: plugins/editor/plugin.c:215
 msgid "_Enter Selection/I-Search"
 msgstr "_Vložit výběr/I-hledání"
 
-#: plugins/editor/plugin.c:181
+#: plugins/editor/plugin.c:217
 msgid "Enter the selected text as the search target"
 msgstr "Vložit vybraný text jako cíl hledání"
 
-#: plugins/editor/plugin.c:183
+#: plugins/editor/plugin.c:219
 msgid "Fin_d in Files ..."
 msgstr "Hledat v _souborech ..."
 
-#: plugins/editor/plugin.c:184
+#: plugins/editor/plugin.c:220
 msgid "Search for a string in multiple files or directories"
 msgstr "Hledat řetězec ve více souborech nebo adresářích"
 
-#: plugins/editor/plugin.c:189
+#: plugins/editor/plugin.c:225
 msgid "Co_mment code"
 msgstr "Za_komentovat kód"
 
-#: plugins/editor/plugin.c:190
+#: plugins/editor/plugin.c:226
 msgid "_Block Comment/Uncomment"
 msgstr "Zakomentovat/odkomentovat do _bloku"
 
-#: plugins/editor/plugin.c:191
+#: plugins/editor/plugin.c:227
 msgid "Block comment the selected text"
 msgstr "Zakomentovat vybraný text do bloku"
 
-#: plugins/editor/plugin.c:193
+#: plugins/editor/plugin.c:229
 msgid "Bo_x Comment/Uncomment"
 msgstr "Zakomentovat/odkomentovat do _rámečku"
 
-#: plugins/editor/plugin.c:194
+#: plugins/editor/plugin.c:230
 msgid "Box comment the selected text"
 msgstr "Zakomentovat vybraný text do rámečku"
 
-#: plugins/editor/plugin.c:196
+#: plugins/editor/plugin.c:232
 msgid "_Stream Comment/Uncomment"
 msgstr "Zakomentovat/odkomentovat do _proudu"
 
-#: plugins/editor/plugin.c:197
+#: plugins/editor/plugin.c:233
 msgid "Stream comment the selected text"
 msgstr "Zakomentovat vybraný text do proudu"
 
-#: plugins/editor/plugin.c:203
+#: plugins/editor/plugin.c:239
 msgid "_Goto Line number"
 msgstr "_Jít na číslo řádku"
 
-#: plugins/editor/plugin.c:205 plugins/editor/plugin.c:209
+#: plugins/editor/plugin.c:241 plugins/editor/plugin.c:245
 msgid "Go to a particular line in the editor"
 msgstr "Jít v editoru na konkrétní řádek"
 
-#: plugins/editor/plugin.c:207
+#: plugins/editor/plugin.c:243
 msgid "_Line number ..."
 msgstr "_Číslo řádku ..."
 
-#: plugins/editor/plugin.c:211
+#: plugins/editor/plugin.c:247
 msgid "Matching _Brace"
 msgstr "Odpovídající složenou _závorku"
 
-#: plugins/editor/plugin.c:213
+#: plugins/editor/plugin.c:249
 msgid "Go to the matching brace in the editor"
 msgstr "Jít v editoru na odpovídající si složenou závorku"
 
-#: plugins/editor/plugin.c:215
+#: plugins/editor/plugin.c:251
 msgid "_Start of block"
 msgstr "_Začátek bloku"
 
-#: plugins/editor/plugin.c:217
+#: plugins/editor/plugin.c:253
 msgid "Go to the start of the current block"
 msgstr "Jít na začátek aktuálního bloku"
 
-#: plugins/editor/plugin.c:219
+#: plugins/editor/plugin.c:255
 msgid "_End of block"
 msgstr "_Konec bloku"
 
-#: plugins/editor/plugin.c:221
+#: plugins/editor/plugin.c:257
 msgid "Go to the end of the current block"
 msgstr "Jít na konec aktuálního bloku"
 
-#: plugins/editor/plugin.c:223
+#: plugins/editor/plugin.c:259
 msgid "Ne_xt occurrence"
 msgstr "_Následující výskyt"
 
-#: plugins/editor/plugin.c:225
+#: plugins/editor/plugin.c:261
 msgid "Find the next occurrence of current word"
 msgstr "Hledat další výskyt aktuálního slova"
 
-#: plugins/editor/plugin.c:227
+#: plugins/editor/plugin.c:263
 msgid "Pre_vious occurrence"
 msgstr "_Předchozí výskyt"
 
-#: plugins/editor/plugin.c:229
+#: plugins/editor/plugin.c:265
 msgid "Find the previous occurrence of current word"
 msgstr "Hledat předchozí výskyt aktuálního slova"
 
-#: plugins/editor/plugin.c:231
+#: plugins/editor/plugin.c:267
 msgid "Previous _history"
 msgstr "Předchozí _historie"
 
-#: plugins/editor/plugin.c:233
+#: plugins/editor/plugin.c:269
 msgid "Goto previous history"
 msgstr "Jít na předchozí historii"
 
-#: plugins/editor/plugin.c:235
+#: plugins/editor/plugin.c:271
 msgid "Next histor_y"
 msgstr "Následující h_istorie"
 
-#: plugins/editor/plugin.c:237
+#: plugins/editor/plugin.c:273
 msgid "Goto next history"
 msgstr "Jít na následující historii"
 
-#: plugins/editor/plugin.c:243
+#: plugins/editor/plugin.c:279
 msgid "_Editor"
 msgstr "_Editor"
 
-#: plugins/editor/plugin.c:244
+#: plugins/editor/plugin.c:280
 msgid "U_ndo"
 msgstr "_Zpět"
 
-#: plugins/editor/plugin.c:245 src/toolbar.c:97
+#: plugins/editor/plugin.c:281 src/toolbar.c:97
 msgid "Undo the last action"
 msgstr "Vrátit poslední akci zpět"
 
-#: plugins/editor/plugin.c:247
+#: plugins/editor/plugin.c:283
 msgid "_Redo"
 msgstr "Z_novu"
 
-#: plugins/editor/plugin.c:248 src/toolbar.c:101
+#: plugins/editor/plugin.c:284 src/toolbar.c:101
 msgid "Redo the last undone action"
 msgstr "Zopakovat poslední akci vrácenou zpět"
 
-#: plugins/editor/plugin.c:250
+#: plugins/editor/plugin.c:286
 msgid "C_ut"
 msgstr "_Vyjmout"
 
-#: plugins/editor/plugin.c:251
+#: plugins/editor/plugin.c:287
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Vyjmout vybraný text z editoru do schránky"
 
-#: plugins/editor/plugin.c:253
+#: plugins/editor/plugin.c:289
 msgid "_Copy"
 msgstr "_Kopírovat"
 
-#: plugins/editor/plugin.c:254
+#: plugins/editor/plugin.c:290
 msgid "Copy the selected text to the clipboard"
 msgstr "Kopírovat vybraný text do schránky"
 
-#: plugins/editor/plugin.c:256
+#: plugins/editor/plugin.c:292
 msgid "_Paste"
 msgstr "V_ložit"
 
-#: plugins/editor/plugin.c:257
+#: plugins/editor/plugin.c:293
 msgid "Paste the content of clipboard at the current position"
 msgstr "Vložit obsah schránky na aktuální pozici"
 
-#: plugins/editor/plugin.c:259
+#: plugins/editor/plugin.c:295
 msgid "_Clear"
 msgstr "Vy_mazat"
 
-#: plugins/editor/plugin.c:260
+#: plugins/editor/plugin.c:296
 msgid "Delete the selected text from the editor"
 msgstr "Odstranit z editoru vybraný text"
 
-#: plugins/editor/plugin.c:262
+#: plugins/editor/plugin.c:298
 msgid "_AutoComplete"
 msgstr "_AutoDoplnit"
 
-#: plugins/editor/plugin.c:264
+#: plugins/editor/plugin.c:300
 msgid "AutoComplete the current word"
 msgstr "Automaticky doplnit aktuální slovo"
 
-#: plugins/editor/plugin.c:266
+#: plugins/editor/plugin.c:302
 msgid "S_how calltip"
 msgstr "Z_obrazit calltip"
 
-#: plugins/editor/plugin.c:267
+#: plugins/editor/plugin.c:303
 msgid "Show calltip for the function"
 msgstr "Zobrazit calltip funkce"
 
-#: plugins/editor/plugin.c:272
+#: plugins/editor/plugin.c:308
 msgid "_Line numbers margin"
 msgstr "_Okraj pro čísla řádek"
 
-#: plugins/editor/plugin.c:273
+#: plugins/editor/plugin.c:309
 msgid "Show/Hide line numbers"
 msgstr "Zobrazit/skrýt čísla řádek"
 
-#: plugins/editor/plugin.c:275
+#: plugins/editor/plugin.c:311
 msgid "_Markers Margin"
 msgstr "Okraj pro _značky"
 
-#: plugins/editor/plugin.c:276
+#: plugins/editor/plugin.c:312
 msgid "Show/Hide markers margin"
 msgstr "Zobrazit/skrýt okraj pro značky"
 
-#: plugins/editor/plugin.c:278
+#: plugins/editor/plugin.c:314
 msgid "_Code fold margin"
 msgstr "Okraj skládání _kódu"
 
-#: plugins/editor/plugin.c:279
+#: plugins/editor/plugin.c:315
 msgid "Show/Hide code fold margin"
 msgstr "Zobrazit/skrýt okraj pro skládání kódu"
 
-#: plugins/editor/plugin.c:281
+#: plugins/editor/plugin.c:317
 msgid "_Indentation guides"
 msgstr "Vodítka _odsazení"
 
-#: plugins/editor/plugin.c:282
+#: plugins/editor/plugin.c:318
 msgid "Show/Hide indentation guides"
 msgstr "Zobrazit/skrýt vodítka odsazení"
 
-#: plugins/editor/plugin.c:284
+#: plugins/editor/plugin.c:320
 msgid "_White spaces"
 msgstr "_Bílá místa"
 
-#: plugins/editor/plugin.c:285
+#: plugins/editor/plugin.c:321
 msgid "Show/Hide white spaces"
 msgstr "Zobrazit/skrýt bílá místa"
 
-#: plugins/editor/plugin.c:287
+#: plugins/editor/plugin.c:323
 msgid "_Line end characters"
 msgstr "Znaky _konce řádku"
 
-#: plugins/editor/plugin.c:288
+#: plugins/editor/plugin.c:324
 msgid "Show/Hide line end characters"
 msgstr "Zobrazit/skrýt znaky konce řádku"
 
-#: plugins/editor/plugin.c:290
+#: plugins/editor/plugin.c:326
 msgid "Line _wrapping"
 msgstr "_Lámání řádek"
 
-#: plugins/editor/plugin.c:291
+#: plugins/editor/plugin.c:327
 msgid "Enable/disable line wrapping"
 msgstr "Povolit/zakázat lámání řádek"
 
-#: plugins/editor/plugin.c:296
+#: plugins/editor/plugin.c:332
 msgid "Zoom in"
 msgstr "Zvětšit"
 
-#: plugins/editor/plugin.c:297
+#: plugins/editor/plugin.c:333
 msgid "Zoom in: Increase font size"
 msgstr "Zvětšit: Zvětšit velikost písma"
 
-#: plugins/editor/plugin.c:299
+#: plugins/editor/plugin.c:335
 msgid "Zoom out"
 msgstr "Zmenšit"
 
-#: plugins/editor/plugin.c:300
+#: plugins/editor/plugin.c:336
 msgid "Zoom out: Decrease font size"
 msgstr "Zmenšit: Zmenšit velikost písma"
 
-#: plugins/editor/plugin.c:305
+#: plugins/editor/plugin.c:341
 msgid "Force _Highlight Style"
 msgstr "Vnutit _styl zvýraznění"
 
-#: plugins/editor/plugin.c:307
+#: plugins/editor/plugin.c:343
 msgid "Automatic"
 msgstr "Automatický"
 
-#: plugins/editor/plugin.c:308
+#: plugins/editor/plugin.c:344
 msgid "Automatically determine the highlight style"
 msgstr "Automaticky určit styl zvýraznění"
 
-#: plugins/editor/plugin.c:310
+#: plugins/editor/plugin.c:346
 msgid "No Highlight style"
 msgstr "Žádný styl zvýraznění"
 
-#: plugins/editor/plugin.c:311
+#: plugins/editor/plugin.c:347
 msgid "Remove the current highlight style"
 msgstr "Odstranit aktuální styl zvýraznění"
 
-#: plugins/editor/plugin.c:313
+#: plugins/editor/plugin.c:349
 msgid "C and C++"
 msgstr "C a C++"
 
-#: plugins/editor/plugin.c:314
+#: plugins/editor/plugin.c:350
 msgid "Force the highlight style to C and C++"
 msgstr "Vnutit styl zvýraznění C a C++"
 
-#: plugins/editor/plugin.c:316
+#: plugins/editor/plugin.c:352
 msgid "HTML"
 msgstr "HTML"
 
-#: plugins/editor/plugin.c:317
+#: plugins/editor/plugin.c:353
 msgid "Force the highlight style to HTML"
 msgstr "Vnutit styl zvýraznění HTML"
 
-#: plugins/editor/plugin.c:319
+#: plugins/editor/plugin.c:355
 msgid "XML"
 msgstr "XML"
 
-#: plugins/editor/plugin.c:320
+#: plugins/editor/plugin.c:356
 msgid "Force the highlight style to XML"
 msgstr "Vnutit styl zvýraznění XML"
 
-#: plugins/editor/plugin.c:322
+#: plugins/editor/plugin.c:358
 msgid "Javascript"
 msgstr "Javascript"
 
-#: plugins/editor/plugin.c:323
+#: plugins/editor/plugin.c:359
 msgid "Force the highlight style to Javascript"
 msgstr "Vnutit styl zvýraznění Javascript"
 
-#: plugins/editor/plugin.c:325
+#: plugins/editor/plugin.c:361
 msgid "WScript"
 msgstr "WScript"
 
-#: plugins/editor/plugin.c:326
+#: plugins/editor/plugin.c:362
 msgid "Force the highlight style to WScript"
 msgstr "Vnutit styl zvýraznění WScript"
 
-#: plugins/editor/plugin.c:328
+#: plugins/editor/plugin.c:364
 msgid "Makefile"
 msgstr "Makefile"
 
-#: plugins/editor/plugin.c:329
+#: plugins/editor/plugin.c:365
 msgid "Force the highlight style to Makefile"
 msgstr "Vnutit styl zvýraznění Makefile"
 
-#: plugins/editor/plugin.c:331
+#: plugins/editor/plugin.c:367
 msgid "Java"
 msgstr "Java"
 
-#: plugins/editor/plugin.c:332
+#: plugins/editor/plugin.c:368
 msgid "Force the highlight type to Java"
 msgstr "Vnutit styl zvýraznění Java"
 
-#: plugins/editor/plugin.c:334
+#: plugins/editor/plugin.c:370
 msgid "LUA"
 msgstr "LUA"
 
-#: plugins/editor/plugin.c:335
+#: plugins/editor/plugin.c:371
 msgid "Force the highlight style to LUA"
 msgstr "Vnutit styl zvýraznění LUA"
 
-#: plugins/editor/plugin.c:337
+#: plugins/editor/plugin.c:373
 msgid "Python"
 msgstr "Python"
 
-#: plugins/editor/plugin.c:338
+#: plugins/editor/plugin.c:374
 msgid "Force the highlight style to Python"
 msgstr "Vnutit styl zvýraznění Python"
 
-#: plugins/editor/plugin.c:340
+#: plugins/editor/plugin.c:376
 msgid "Perl"
 msgstr "Perl"
 
-#: plugins/editor/plugin.c:341
+#: plugins/editor/plugin.c:377
 msgid "Force the highlight style to Perl"
 msgstr "Vnutit styl zvýraznění Perl"
 
-#: plugins/editor/plugin.c:343
+#: plugins/editor/plugin.c:379
 msgid "SQL"
 msgstr "SQL"
 
-#: plugins/editor/plugin.c:344
+#: plugins/editor/plugin.c:380
 msgid "Force the highlight style to SQL"
 msgstr "Vnutit styl zvýraznění SQL"
 
-#: plugins/editor/plugin.c:346
+#: plugins/editor/plugin.c:382
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: plugins/editor/plugin.c:347
+#: plugins/editor/plugin.c:383
 msgid "Force the highlight style to PL/SQL"
 msgstr "Vnutit styl zvýraznění PL/SQL"
 
-#: plugins/editor/plugin.c:349
+#: plugins/editor/plugin.c:385
 msgid "PHP"
 msgstr "PHP"
 
-#: plugins/editor/plugin.c:350
+#: plugins/editor/plugin.c:386
 msgid "Force the highlight style to PHP"
 msgstr "Vnutit styl zvýraznění PHP"
 
-#: plugins/editor/plugin.c:352
+#: plugins/editor/plugin.c:388
 msgid "LaTex"
 msgstr "LaTex"
 
-#: plugins/editor/plugin.c:353
+#: plugins/editor/plugin.c:389
 msgid "Force the highlight style to LaTex"
 msgstr "Vnutit styl zvýraznění LaTex"
 
-#: plugins/editor/plugin.c:356
+#: plugins/editor/plugin.c:391
+msgid "Diff"
+msgstr "Diff"
+
+#: plugins/editor/plugin.c:392
 msgid "Force the highlight style to Diff"
 msgstr "Vnutit styl zvýraznění Diff"
 
-#: plugins/editor/plugin.c:358
+#: plugins/editor/plugin.c:394
 msgid "Pascal"
 msgstr "Pascal"
 
-#: plugins/editor/plugin.c:359
+#: plugins/editor/plugin.c:395
 msgid "Force the highlight style to Pascal"
 msgstr "Vnutit styl zvýraznění Pascal"
 
-#: plugins/editor/plugin.c:361
+#: plugins/editor/plugin.c:397
 msgid "Xcode"
 msgstr "Xcode"
 
-#: plugins/editor/plugin.c:362
+#: plugins/editor/plugin.c:398
 msgid "Force the highlight style to Xcode"
 msgstr "Vnutit styl zvýraznění Xcode"
 
-#: plugins/editor/plugin.c:364
+#: plugins/editor/plugin.c:400
 msgid "Prj/Properties"
 msgstr "Proj/vlastnosti"
 
-#: plugins/editor/plugin.c:365
+#: plugins/editor/plugin.c:401
 msgid "Force the highlight style to project/properties files"
 msgstr "Vnutit styl zvýraznění souborů projektu/vlastností"
 
-#: plugins/editor/plugin.c:367
+#: plugins/editor/plugin.c:403
 msgid "Conf"
 msgstr "Konf"
 
-#: plugins/editor/plugin.c:368
+#: plugins/editor/plugin.c:404
 msgid "Force the highlight style to UNIX conf files"
 msgstr "Vnutit styl zvýraznění konfiguračních souborů UNIXu"
 
-#: plugins/editor/plugin.c:370
+#: plugins/editor/plugin.c:406
 msgid "Ada"
 msgstr "Ada"
 
-#: plugins/editor/plugin.c:371
+#: plugins/editor/plugin.c:407
 msgid "Force the highlight style to Ada"
 msgstr "Vnutit styl zvýraznění Ada"
 
-#: plugins/editor/plugin.c:373
+#: plugins/editor/plugin.c:409
 msgid "Baan"
 msgstr "Baan"
 
-#: plugins/editor/plugin.c:374
+#: plugins/editor/plugin.c:410
 msgid "Force the highlight style to Baan"
 msgstr "Vnutit styl zvýraznění Baan"
 
-#: plugins/editor/plugin.c:376
+#: plugins/editor/plugin.c:412
 msgid "Lisp"
 msgstr "Lisp"
 
-#: plugins/editor/plugin.c:377
+#: plugins/editor/plugin.c:413
 msgid "Force the highlight style to Lisp"
 msgstr "Vnutit styl zvýraznění Lisp"
 
-#: plugins/editor/plugin.c:379
+#: plugins/editor/plugin.c:415
 msgid "Ruby"
 msgstr "Ruby"
 
-#: plugins/editor/plugin.c:380
+#: plugins/editor/plugin.c:416
 msgid "Force the highlight style to Ruby"
 msgstr "Vnutit styl zvýraznění Ruby"
 
-#: plugins/editor/plugin.c:382
+#: plugins/editor/plugin.c:418
 msgid "Matlab"
 msgstr "Matlab"
 
-#: plugins/editor/plugin.c:383
+#: plugins/editor/plugin.c:419
 msgid "Force the highlight style to Matlab"
 msgstr "Vnutit styl zvýraznění Matlab"
 
-#: plugins/editor/plugin.c:388
+#: plugins/editor/plugin.c:424
 msgid "For_mat"
 msgstr "_Formát"
 
-#: plugins/editor/plugin.c:389
+#: plugins/editor/plugin.c:425
 msgid "Auto _Format"
 msgstr "Automaticky z_formátovat"
 
-#: plugins/editor/plugin.c:391
+#: plugins/editor/plugin.c:427
 msgid "Autoformat the current source file"
 msgstr "Automaticky zformátovat aktuální zdrojový soubor"
 
-#: plugins/editor/plugin.c:393
+#: plugins/editor/plugin.c:429
 msgid "Autoformat _settings"
 msgstr "_Nastavení automatického formátování"
 
-#: plugins/editor/plugin.c:395
+#: plugins/editor/plugin.c:431
 msgid "Autoformat settings"
 msgstr "Nastavení automatického formátování"
 
-#: plugins/editor/plugin.c:397
+#: plugins/editor/plugin.c:433
 msgid "_Increase Indent"
 msgstr "Z_většit odsazení"
 
-#: plugins/editor/plugin.c:399
+#: plugins/editor/plugin.c:435
 msgid "Increase indentation of line/selection"
 msgstr "Zvětšit odsazení řádku/výběru"
 
-#: plugins/editor/plugin.c:401
+#: plugins/editor/plugin.c:437
 msgid "_Decrease Indent"
 msgstr "Z_menšit odsazení"
 
-#: plugins/editor/plugin.c:403
+#: plugins/editor/plugin.c:439
 msgid "Decrease indentation of line/selection"
 msgstr "Zmenšit odsazení řádku/výběru"
 
-#: plugins/editor/plugin.c:405
+#: plugins/editor/plugin.c:441
 msgid "_Close All Folds"
 msgstr "_Zavřít všechna složení"
 
-#: plugins/editor/plugin.c:407
+#: plugins/editor/plugin.c:443
 msgid "Close all code folds in the editor"
 msgstr "Zavřít v editoru všechna složení kódu"
 
-#: plugins/editor/plugin.c:409
+#: plugins/editor/plugin.c:445
 msgid "_Open All Folds"
 msgstr "_Otevřít všechna složení"
 
-#: plugins/editor/plugin.c:411
+#: plugins/editor/plugin.c:447
 msgid "Open all code folds in the editor"
 msgstr "Otevřít v editoru všechna složení kódu"
 
-#: plugins/editor/plugin.c:413
+#: plugins/editor/plugin.c:449
 msgid "_Toggle Current Fold"
 msgstr "_Přepnout aktuální složení"
 
-#: plugins/editor/plugin.c:415
+#: plugins/editor/plugin.c:451
 msgid "Toggle current code fold in the editor"
 msgstr "Přepnout v editoru aktuální složení kódu"
 
-#: plugins/editor/plugin.c:420
+#: plugins/editor/plugin.c:456
 msgid "Bookmar_k"
 msgstr "_Záložka"
 
-#: plugins/editor/plugin.c:421
+#: plugins/editor/plugin.c:457
 msgid "_Toggle bookmark"
 msgstr "_Přepnout záložku"
 
-#: plugins/editor/plugin.c:423
+#: plugins/editor/plugin.c:459
 msgid "Toggle a bookmark at the current line position"
 msgstr "Přepnout záložku na aktuální pozici"
 
-#: plugins/editor/plugin.c:425
+#: plugins/editor/plugin.c:461
 msgid "_First bookmark"
 msgstr "_První záložka"
 
-#: plugins/editor/plugin.c:427
+#: plugins/editor/plugin.c:463
 msgid "Jump to the first bookmark in the file"
 msgstr "Skočit na první záložku v souboru"
 
-#: plugins/editor/plugin.c:429
+#: plugins/editor/plugin.c:465
 msgid "_Previous bookmark"
 msgstr "_Předchozí záložka"
 
-#: plugins/editor/plugin.c:431
+#: plugins/editor/plugin.c:467
 msgid "Jump to the previous bookmark in the file"
 msgstr "Skočit na předchozí záložku v souboru"
 
-#: plugins/editor/plugin.c:433
+#: plugins/editor/plugin.c:469
 msgid "_Next bookmark"
 msgstr "_Následující záložka"
 
-#: plugins/editor/plugin.c:435
+#: plugins/editor/plugin.c:471
 msgid "Jump to the next bookmark in the file"
 msgstr "Skočit na následující záložku v souboru"
 
-#: plugins/editor/plugin.c:437
+#: plugins/editor/plugin.c:473
 msgid "_Last bookmark"
 msgstr "_Poslední záložka"
 
-#: plugins/editor/plugin.c:439
+#: plugins/editor/plugin.c:475
 msgid "Jump to the last bookmark in the file"
 msgstr "Skočit na poslední záložku v souboru"
 
-#: plugins/editor/plugin.c:441
+#: plugins/editor/plugin.c:477
 msgid "_Clear all bookmarks"
 msgstr "_Vymazat všechny záložky"
 
-#: plugins/editor/plugin.c:443
+#: plugins/editor/plugin.c:479
 msgid "Clear bookmarks"
 msgstr "Vymazat záložky"
 
-#: plugins/editor/plugin.c:462
+#: plugins/editor/plugin.c:498
 msgid "Editor file operations"
 msgstr "Operace editoru se soubory"
 
-#: plugins/editor/plugin.c:463
+#: plugins/editor/plugin.c:499
 msgid "Editor print operations"
 msgstr "Operace tisku v editoru"
 
-#: plugins/editor/plugin.c:464
+#: plugins/editor/plugin.c:500
 msgid "Editor text transformation"
 msgstr "Transformace textu v editoru"
 
-#: plugins/editor/plugin.c:465
+#: plugins/editor/plugin.c:501
 msgid "Editor text selection"
 msgstr "Výběr textu v editoru"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: plugins/editor/plugin.c:467
+#: plugins/editor/plugin.c:503
 msgid "Editor text searching"
 msgstr "Hledání textu v editoru"
 
-#: plugins/editor/plugin.c:468
+#: plugins/editor/plugin.c:504
 msgid "Editor code commenting"
 msgstr "Komentování kódu v editoru"
 
-#: plugins/editor/plugin.c:469
+#: plugins/editor/plugin.c:505
 msgid "Editor navigations"
 msgstr "Navigace v editoru"
 
-#: plugins/editor/plugin.c:470
+#: plugins/editor/plugin.c:506
 msgid "Editor edit operations"
 msgstr "Operace úprav v editoru"
 
-#: plugins/editor/plugin.c:471
+#: plugins/editor/plugin.c:507
 msgid "Editor zoom operations"
 msgstr "Operace zvětšení editoru"
 
-#: plugins/editor/plugin.c:472
+#: plugins/editor/plugin.c:508
 msgid "Editor syntax highlighting styles"
 msgstr "Styly zvýrazňování syntaxe v editoru"
 
-#: plugins/editor/plugin.c:473
+#: plugins/editor/plugin.c:509
 msgid "Editor text formating"
 msgstr "Formátování textu v editoru"
 
-#: plugins/editor/plugin.c:474
+#: plugins/editor/plugin.c:510
 msgid "Editor bookmarks"
 msgstr "Záložky editoru"
 
-#: plugins/editor/plugin.c:478
+#: plugins/editor/plugin.c:514
 msgid "Editor view settings"
 msgstr "Nastavení zobrazení v editoru"
 
-#: plugins/editor/plugin.c:548
+#: plugins/editor/plugin.c:584
 msgid "Save"
 msgstr "Uložit"
 
-#: plugins/editor/plugin.c:552
+#: plugins/editor/plugin.c:588
 msgid "Reload"
 msgstr "Znovu načíst"
 
-#: plugins/editor/plugin.c:558
+#: plugins/editor/plugin.c:594
 msgid "Find"
 msgstr "Hledat"
 
-#: plugins/editor/plugin.c:561
+#: plugins/editor/plugin.c:597
 msgid "Goto"
 msgstr "Jít na"
 
-#: plugins/editor/plugin.c:705
+#: plugins/editor/plugin.c:745
 msgid "OVR"
 msgstr "PŘE"
 
-#: plugins/editor/plugin.c:709
+#: plugins/editor/plugin.c:749
 msgid "INS"
 msgstr "VKL"
 
-#: plugins/editor/plugin.c:711 plugins/editor/plugin.c:722
+#: plugins/editor/plugin.c:751 plugins/editor/plugin.c:762
 msgid "Zoom"
 msgstr "Zvětšení"
 
-#: plugins/editor/plugin.c:712 plugins/editor/plugin.c:723
+#: plugins/editor/plugin.c:752 plugins/editor/plugin.c:763
 #: plugins/gdb/breakpoints.c:116
 msgid "Line"
 msgstr "Řádek"
 
-#: plugins/editor/plugin.c:713 plugins/editor/plugin.c:724
+#: plugins/editor/plugin.c:753 plugins/editor/plugin.c:764
 msgid "Col"
 msgstr "Sl"
 
-#: plugins/editor/plugin.c:714 plugins/editor/plugin.c:725
+#: plugins/editor/plugin.c:754 plugins/editor/plugin.c:765
 msgid "Mode"
 msgstr "Režim"
 
-#: plugins/editor/plugin.c:865
+#: plugins/editor/plugin.c:1033
 msgid "Goto line"
 msgstr "Jít na řádek"
 
-#: plugins/editor/plugin.c:866
+#: plugins/editor/plugin.c:1034
 msgid "Enter the line number to jump and press enter"
 msgstr "Zadejte číslo řádku, na které přejít, a stiskněte enter"
 
-#: plugins/editor/plugin.c:894
+#: plugins/editor/plugin.c:1062
 msgid "Editor quick navigations"
 msgstr "Rychlá navigace v editoru"
 
@@ -4382,23 +4278,23 @@ msgstr "Bylo nahrazeno %d výsledků."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
-#: plugins/editor/text_editor.c:953
+#: plugins/editor/text_editor.c:974
 msgid "Could not get file info"
 msgstr "Nemohu získat informace o souboru"
 
-#: plugins/editor/text_editor.c:961
+#: plugins/editor/text_editor.c:982
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tento soubor je příliš velký. Nemohu alokovat paměť."
 
-#: plugins/editor/text_editor.c:968
+#: plugins/editor/text_editor.c:989
 msgid "Could not open file"
 msgstr "Nemohu otevřít soubor"
 
-#: plugins/editor/text_editor.c:976
+#: plugins/editor/text_editor.c:997
 msgid "Error while reading from file"
 msgstr "Chyba při čtení ze souboru"
 
-#: plugins/editor/text_editor.c:1013
+#: plugins/editor/text_editor.c:1034
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4408,7 +4304,7 @@ msgstr ""
 "podporováno. Zkontrolujte prosím, jestli je kódování souboru v seznamu "
 "podporovaných kódování. Pokud není, přidejte ji v nastavení."
 
-#: plugins/editor/text_editor.c:1187
+#: plugins/editor/text_editor.c:1208
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4419,12 +4315,12 @@ msgstr ""
 "\n"
 "Detaily: %s"
 
-#: plugins/editor/text_editor.c:1229
+#: plugins/editor/text_editor.c:1252
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nemohu uložit soubor: %s."
 
-#: plugins/editor/text_editor.c:1293
+#: plugins/editor/text_editor.c:1316
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4435,21 +4331,21 @@ msgstr ""
 "aktuální buffer.\n"
 "Chcete jej znovu načíst?"
 
-#: plugins/editor/text_editor.c:1467
+#: plugins/editor/text_editor.c:1490
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Automatické formátování je momentálně zakázáno. Změňte to v Nastavení."
 
-#: plugins/editor/text_editor.c:1486
+#: plugins/editor/text_editor.c:1509
 msgid "Error in auto formatting ..."
 msgstr "Chyba při automatickém formátování ..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1502
+#: plugins/editor/text_editor.c:1525
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta nezná %s!"
 
-#: plugins/editor/text_editor.c:1527
+#: plugins/editor/text_editor.c:1550
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4458,7 +4354,7 @@ msgstr ""
 "Chyba při automatickém formátování ...\n"
 "Detaily: %s"
 
-#: plugins/editor/text_editor.c:1759
+#: plugins/editor/text_editor.c:1793
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4476,142 +4372,142 @@ msgstr ""
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Automatické uložení \"%s\" -- Selhalo"
 
-#: plugins/editor/text_editor_menu.c:79
+#: plugins/editor/text_editor_menu.c:78
 msgid "Back"
 msgstr "Zpět"
 
-#: plugins/editor/text_editor_menu.c:95
+#: plugins/editor/text_editor_menu.c:94
 msgid "Tag Definition"
 msgstr "Definice tagu"
 
-#: plugins/editor/text_editor_menu.c:102
+#: plugins/editor/text_editor_menu.c:101
 msgid "Tag Declaration"
 msgstr "Deklarace tagu"
 
-#: plugins/editor/text_editor_menu.c:110
+#: plugins/editor/text_editor_menu.c:109
 msgid "Prev mesg"
 msgstr "Předch zpráva"
 
-#: plugins/editor/text_editor_menu.c:116
+#: plugins/editor/text_editor_menu.c:115
 msgid "Next mesg"
 msgstr "Násl zpráva"
 
-#: plugins/editor/text_editor_menu.c:122
+#: plugins/editor/text_editor_menu.c:121
 msgid "Prev bookmark"
 msgstr "Předch záložka"
 
-#: plugins/editor/text_editor_menu.c:128
+#: plugins/editor/text_editor_menu.c:127
 msgid "Next bookmark"
 msgstr "Násl záložka"
 
-#: plugins/editor/text_editor_menu.c:145 src/toolbar.c:536
+#: plugins/editor/text_editor_menu.c:144 src/toolbar.c:536
 msgid "Step in"
 msgstr "Krok dovnitř"
 
-#: plugins/editor/text_editor_menu.c:151
+#: plugins/editor/text_editor_menu.c:150
 msgid "Step over"
 msgstr "Krok přes"
 
-#: plugins/editor/text_editor_menu.c:157
+#: plugins/editor/text_editor_menu.c:156
 msgid "Step out"
 msgstr "Krok ven"
 
-#: plugins/editor/text_editor_menu.c:163 src/toolbar.c:525
+#: plugins/editor/text_editor_menu.c:162 src/toolbar.c:525
 msgid "Run to cursor"
 msgstr "Spustit do kurzoru"
 
-#: plugins/editor/text_editor_menu.c:169
+#: plugins/editor/text_editor_menu.c:168
 msgid "Run/Continue"
 msgstr "Spustit/Pokračovat"
 
-#: plugins/editor/text_editor_menu.c:183 src/toolbar.c:573
+#: plugins/editor/text_editor_menu.c:182 src/toolbar.c:573
 msgid "Interrupt"
 msgstr "Přerušit"
 
-#: plugins/editor/text_editor_menu.c:193
+#: plugins/editor/text_editor_menu.c:192
 msgid "Toggle Line numbers"
 msgstr "Přepnout čísla řádek"
 
-#: plugins/editor/text_editor_menu.c:200
+#: plugins/editor/text_editor_menu.c:199
 msgid "Toggle Marker Margin"
 msgstr "Přepnout okraj pro značky"
 
-#: plugins/editor/text_editor_menu.c:207
+#: plugins/editor/text_editor_menu.c:206
 msgid "Toggle Fold Margin"
 msgstr "Přepnout okraj pro skládání"
 
-#: plugins/editor/text_editor_menu.c:214
+#: plugins/editor/text_editor_menu.c:213
 msgid "Toggle Guides"
 msgstr "Přepnout vodítka"
 
-#: plugins/editor/text_editor_menu.c:222
+#: plugins/editor/text_editor_menu.c:221
 msgid "++Zoom"
 msgstr "++Zvětšení"
 
-#: plugins/editor/text_editor_menu.c:229
+#: plugins/editor/text_editor_menu.c:228
 msgid "--Zoom"
 msgstr "--Zvětšení"
 
 #. 0
-#: plugins/editor/text_editor_menu.c:241
+#: plugins/editor/text_editor_menu.c:240
 msgid "Cut"
 msgstr "Vyjmout"
 
 #. 1
-#: plugins/editor/text_editor_menu.c:249
+#: plugins/editor/text_editor_menu.c:248
 msgid "Copy"
 msgstr "Zkopírovat"
 
 #. 2
-#: plugins/editor/text_editor_menu.c:257
+#: plugins/editor/text_editor_menu.c:256
 msgid "Paste"
 msgstr "Vložit"
 
 #. 4
-#: plugins/editor/text_editor_menu.c:267
+#: plugins/editor/text_editor_menu.c:266
 msgid "Context Help"
 msgstr "Kontextová nápověda"
 
 #. 6
-#: plugins/editor/text_editor_menu.c:277
+#: plugins/editor/text_editor_menu.c:276
 msgid "Toggle Bookmark"
 msgstr "Přepnout záložku"
 
 #. 7
-#: plugins/editor/text_editor_menu.c:285
+#: plugins/editor/text_editor_menu.c:284
 msgid "Auto format"
 msgstr "Automaticky zformátovat"
 
 #. 10
-#: plugins/editor/text_editor_menu.c:303 src/toolbar.c:512
+#: plugins/editor/text_editor_menu.c:302 src/toolbar.c:512
 msgid "Go"
 msgstr "Jít"
 
 #. 11
-#: plugins/editor/text_editor_menu.c:311 plugins/editor/text_editor_menu.c:433
+#: plugins/editor/text_editor_menu.c:310 plugins/editor/text_editor_menu.c:432
 msgid "Tags"
 msgstr "Tagy"
 
 #. 17
-#: plugins/editor/text_editor_menu.c:341
+#: plugins/editor/text_editor_menu.c:340
 msgid "Find Usage"
 msgstr "Hledat použití"
 
 #. 18
-#: plugins/editor/text_editor_menu.c:349
+#: plugins/editor/text_editor_menu.c:348
 msgid "Close"
 msgstr "Zavřít"
 
 #. 19
 #. 4
 #. 5
-#: plugins/editor/text_editor_menu.c:357
-#: plugins/file-manager/an_file_view.c:359
+#: plugins/editor/text_editor_menu.c:356
+#: plugins/file-manager/an_file_view.c:350
 msgid "Docked"
 msgstr "Zadokován"
 
 # FIXME: s/capabale/capable/
-#: plugins/file-loader/plugin.c:101
+#: plugins/file-loader/plugin.c:113
 #, c-format
 msgid ""
 "<b>Can not open \"%s\"</b>.\n"
@@ -4633,263 +4529,270 @@ msgstr ""
 "\n"
 "Můžete jej zkusit otevřít následujícími zásuvnými moduly nebo aplikacemi."
 
-#: plugins/file-loader/plugin.c:113
+#: plugins/file-loader/plugin.c:125
 msgid "Open with:"
 msgstr "Otevřít s:"
 
 #. Document manager plugin
-#: plugins/file-loader/plugin.c:121
+#: plugins/file-loader/plugin.c:133
 msgid "Document Manager"
 msgstr "Správce dokumentů"
 
-#: plugins/file-loader/plugin.c:341
+#: plugins/file-loader/plugin.c:351
 msgid "Anjuta Projects"
 msgstr "Projekty Anjuty"
 
-#: plugins/file-loader/plugin.c:347
+#: plugins/file-loader/plugin.c:357
 #: plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "Zdrojové soubory v C/C++"
 
-#: plugins/file-loader/plugin.c:359
+#: plugins/file-loader/plugin.c:369
 msgid "C# source files"
 msgstr "Zdrojové soubory v C#"
 
-#: plugins/file-loader/plugin.c:365
+#: plugins/file-loader/plugin.c:375
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Zdrojové soubory v Javě"
 
-#: plugins/file-loader/plugin.c:371
+#: plugins/file-loader/plugin.c:381
 msgid "Pascal source files"
 msgstr "Zdrojové soubory v Pascalu"
 
-#: plugins/file-loader/plugin.c:376
+#: plugins/file-loader/plugin.c:386
 msgid "PHP source files"
 msgstr "Zdrojové soubory v PHP"
 
-#: plugins/file-loader/plugin.c:383
+#: plugins/file-loader/plugin.c:393
 msgid "Perl source files"
 msgstr "Zdrojové soubory v Perlu"
 
-#: plugins/file-loader/plugin.c:389
+#: plugins/file-loader/plugin.c:399
 msgid "Python source files"
 msgstr "Zdrojové soubory v Pythonu"
 
-#: plugins/file-loader/plugin.c:394
+#: plugins/file-loader/plugin.c:404
 msgid "Hyper text markup files"
 msgstr "Soubory s vyznačením hypertextu"
 
-#: plugins/file-loader/plugin.c:403
+#: plugins/file-loader/plugin.c:413
 msgid "Shell scripts files"
 msgstr "Soubory skriptů shellu"
 
-#: plugins/file-loader/plugin.c:408
+#: plugins/file-loader/plugin.c:418
 msgid "Makefiles"
 msgstr "Makefile"
 
-#: plugins/file-loader/plugin.c:414
+#: plugins/file-loader/plugin.c:424
 msgid "Lua files"
 msgstr "Soubory Lua"
 
-#: plugins/file-loader/plugin.c:419
+#: plugins/file-loader/plugin.c:429
 msgid "Diff files"
 msgstr "Soubory diff"
 
-#: plugins/file-loader/plugin.c:577
+#: plugins/file-loader/plugin.c:589
 msgid "_New ..."
 msgstr "_Nový ..."
 
-#: plugins/file-loader/plugin.c:579
+#: plugins/file-loader/plugin.c:591
 msgid "New file, project and project components."
 msgstr "Nový soubor, projekt a komponenty projektu."
 
-#: plugins/file-loader/plugin.c:585
+#: plugins/file-loader/plugin.c:597
 msgid "_Open ..."
 msgstr "_Otevřít ..."
 
-#: plugins/file-loader/plugin.c:593
-msgid "Open _Recent"
-msgstr "Otevřít _nedávné"
-
-#: plugins/file-loader/plugin.c:595
-msgid "Open recent file"
-msgstr "Otevřít nedávný soubor"
-
-#: plugins/file-loader/plugin.c:600
+#: plugins/file-loader/plugin.c:605
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: plugins/file-loader/plugin.c:607
+#: plugins/file-loader/plugin.c:612
 msgid "Open _With"
 msgstr "Otevřít _s"
 
-#: plugins/file-loader/plugin.c:608
+#: plugins/file-loader/plugin.c:613
 msgid "Open with"
 msgstr "Otevřít s"
 
-#: plugins/file-loader/plugin.c:761
+#: plugins/file-loader/plugin.c:784
 msgid "File Loader"
 msgstr "Načítač souborů"
 
-#: plugins/file-loader/plugin.c:766
+#: plugins/file-loader/plugin.c:789
 msgid "New"
 msgstr "Nový"
 
-#: plugins/file-loader/plugin.c:768
+#: plugins/file-loader/plugin.c:791
 msgid "Open"
 msgstr "Otevřít"
 
+#: plugins/file-loader/plugin.c:798
+msgid "Open recent file"
+msgstr "Otevřít nedávný soubor"
+
 #. 0
-#: plugins/file-manager/an_file_view.c:278
+#: plugins/file-manager/an_file_view.c:269
 msgid "Update file"
 msgstr "Aktualizovat soubor"
 
-#: plugins/file-manager/an_file_view.c:279
+#: plugins/file-manager/an_file_view.c:270
 msgid "Update current working copy"
 msgstr "Aktualizovat současnou pracovní kopii"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:285
+#: plugins/file-manager/an_file_view.c:276
 msgid "Commit file"
 msgstr "Potvrdit soubor"
 
-#: plugins/file-manager/an_file_view.c:286
+#: plugins/file-manager/an_file_view.c:277
 msgid "Commit changes to the repository"
 msgstr "Potvrdit změny do úložiště"
 
 #. 2
-#: plugins/file-manager/an_file_view.c:292
+#: plugins/file-manager/an_file_view.c:283
 msgid "Status of file"
 msgstr "Stav souboru"
 
-#: plugins/file-manager/an_file_view.c:293
+#: plugins/file-manager/an_file_view.c:284
 msgid "Print the status of the current file"
 msgstr "Vytisknout status současného souboru"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:299
+#: plugins/file-manager/an_file_view.c:290
 msgid "Get file log"
 msgstr "Získat záznam souboru"
 
-#: plugins/file-manager/an_file_view.c:300
+#: plugins/file-manager/an_file_view.c:291
 msgid "Print the CVS log for the current file"
 msgstr "Vytisknout záznam CVS pro aktuální soubor"
 
 #. 4
-#: plugins/file-manager/an_file_view.c:306
+#: plugins/file-manager/an_file_view.c:297
 msgid "Add file"
 msgstr "Přidat soubor"
 
-#: plugins/file-manager/an_file_view.c:307
+#: plugins/file-manager/an_file_view.c:298
 msgid "Add the current file to the repository"
 msgstr "Přidat aktuální soubor do úložiště"
 
 #. 5
-#: plugins/file-manager/an_file_view.c:313
+#: plugins/file-manager/an_file_view.c:304
 msgid "Remove file"
 msgstr "Odstranit soubor"
 
-#: plugins/file-manager/an_file_view.c:314
+#: plugins/file-manager/an_file_view.c:305
 msgid "Remove the current file from the repository"
 msgstr "Odstranit aktuální soubor z úložiště"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:320
+#: plugins/file-manager/an_file_view.c:311
 msgid "Diff file"
 msgstr "Diff soubor"
 
-#: plugins/file-manager/an_file_view.c:321
+#: plugins/file-manager/an_file_view.c:312
 msgid "Create a diff between the working copy and the repository"
 msgstr "Vytvořit diff mezi pracovní kopií a úložištěm"
 
 #. 0
 #. 2
-#: plugins/file-manager/an_file_view.c:330
+#: plugins/file-manager/an_file_view.c:321
 #: plugins/project-manager/project_dbase_gui.c:317
 msgid "Open in Anjuta"
 msgstr "Otevřít v Anjutě"
 
 #. 1
-#: plugins/file-manager/an_file_view.c:337
+#: plugins/file-manager/an_file_view.c:328
 #: plugins/project-manager/project_dbase_gui.c:311
 msgid "Open in default viewer"
 msgstr "Otevřít v implicitním prohlížeči"
 
 #. 3
-#: plugins/file-manager/an_file_view.c:351
+#: plugins/file-manager/an_file_view.c:342
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: plugins/file-manager/an_file_view.c:360
+#: plugins/file-manager/an_file_view.c:351
 msgid "Dock/Undock the Project Window"
 msgstr "Zadokovat/oddokovat okno projektu"
 
 #. 6
-#: plugins/file-manager/an_file_view.c:366
+#: plugins/file-manager/an_file_view.c:357
 msgid "Customize"
 msgstr "Upravit"
 
-#: plugins/file-manager/an_file_view.c:367
+#: plugins/file-manager/an_file_view.c:358
 msgid "Customize the file browser"
 msgstr "Upravit prohlížeč souborů"
 
-#: plugins/file-manager/an_file_view.c:648
-#: plugins/file-manager/an_file_view.c:811
-#: plugins/file-manager/an_file_view.c:1081
+#: plugins/file-manager/an_file_view.c:641
+#: plugins/file-manager/an_file_view.c:804
+#: plugins/file-manager/an_file_view.c:1075
 msgid "Loading ..."
 msgstr "Načítám ..."
 
-#: plugins/file-manager/an_file_view.c:937
+#: plugins/file-manager/an_file_view.c:930
 msgid "Rev"
 msgstr "Rev"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:6
 msgid "<b>Directory filter:</b>"
 msgstr "<b>Filtr adresářů:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:7
 msgid "<b>File filter:</b>"
 msgstr "<b>Filtr souborů:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:8
 msgid "<b>Root directory if no project is open:</b>"
 msgstr "<b>Kořenový adresář, když není otevřen projekt:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:11
 msgid "Choose directories"
 msgstr "Zvolené adresáře"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:12
 msgid "Choose files"
 msgstr "Zvolené soubory"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:13
 msgid "Directory "
 msgstr "Adresář "
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:14
 msgid "Do not show hidden directories"
 msgstr "Nezobrazovat skryté adresáře"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:15
 msgid "Do not show hidden files"
 msgstr "Nezobrazovat skryté soubory"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:16
 msgid "Ignore directories"
 msgstr "Ignorované adresáře"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:17
 msgid "Ignore files"
 msgstr "Ignorované soubory"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:22
 msgid "dialog3"
 msgstr "dialog3"
 
-#: plugins/file-manager/plugin.c:48 plugins/project-manager/plugin.c:366
-#: plugins/symbol-browser/plugin.c:213
+#: plugins/file-manager/plugin.c:48 plugins/project-manager/plugin.c:368
+#: plugins/symbol-browser/plugin.c:224
 msgid "_Refresh"
 msgstr "_Obnovit"
 
@@ -4938,6 +4841,7 @@ msgstr ""
 "Přípona bude přidána podle typu."
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:10
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "License:"
 msgstr "Licence:"
 
@@ -4961,64 +4865,64 @@ msgstr "Použít šablonu pro hlavičkový soubor"
 msgid "_C: /* comment */"
 msgstr "_C: /* komentář */"
 
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:17
-msgid "_General Public License (GPL)"
-msgstr "_General Public License (GPL)"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:18
-msgid "_Lesser General Public License (LGPL)"
-msgstr "_Lesser General Public License (LGPL)"
-
-#: plugins/file-wizard/file.c:85
+#: plugins/file-wizard/file.c:80
 msgid "C Source File"
 msgstr "Zdrojový soubor v C"
 
-#: plugins/file-wizard/file.c:86
+#: plugins/file-wizard/file.c:81
 msgid "C -C++ Header File"
 msgstr "Hlavičkový soubor C/C++"
 
-#: plugins/file-wizard/file.c:87
+#: plugins/file-wizard/file.c:82
 msgid "C++ Source File"
 msgstr "Zdrojový soubor v C++"
 
-#: plugins/file-wizard/file.c:88
+#: plugins/file-wizard/file.c:83
 msgid "C# Source File"
 msgstr "Zdrojový soubor v C#"
 
-#: plugins/file-wizard/file.c:89
+#: plugins/file-wizard/file.c:84
 msgid "Java Source File"
 msgstr "Zdrojový soubor v Javě"
 
-#: plugins/file-wizard/file.c:90
+#: plugins/file-wizard/file.c:85
 msgid "Perl Source File"
 msgstr "Zdrojový soubor v Perlu"
 
-#: plugins/file-wizard/file.c:91
+#: plugins/file-wizard/file.c:86
 msgid "Python Source File"
 msgstr "Zdrojový soubor v Pythonu"
 
-#: plugins/file-wizard/file.c:92
+#: plugins/file-wizard/file.c:87
 msgid "Shell Script File"
 msgstr "Soubor skriptu shellu"
 
-#: plugins/file-wizard/file.c:93
+#: plugins/file-wizard/file.c:88
 msgid "Other"
 msgstr "Jiný"
 
-#: plugins/file-wizard/file.c:136
+#: plugins/file-wizard/file.c:104
+msgid "General Public License (GPL)"
+msgstr "General Public License (GPL)"
+
+#: plugins/file-wizard/file.c:105
+msgid "Lesser General Public License (LGPL)"
+msgstr "Lesser General Public License (LGPL)"
+
+#: plugins/file-wizard/file.c:148
 msgid "Unable to build user interface for New File"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Nový soubor"
 
-#: plugins/file-wizard/file.c:431
+#: plugins/file-wizard/file.c:460
 #, c-format
 msgid "The file \"%s\" is not a header file."
 msgstr "Soubor \"%s\" není hlavičkový soubor."
 
-#: plugins/file-wizard/file.c:525
+#: plugins/file-wizard/file.c:554
 msgid "%Y"
 msgstr "%Y"
 
-#: plugins/file-wizard/file.c:544
+#: plugins/file-wizard/file.c:573
 msgid "%Y-%m-%d"
 msgstr "%d.%m.%Y"
 
@@ -5445,7 +5349,7 @@ msgstr "Symboly načteny"
 #: plugins/gdb/signals_cbs.c:142 plugins/project-manager/project_dbase.c:1468
 #: plugins/project-manager/project_dbase.c:1477
 #: plugins/project-manager/project_import_cbs.c:229
-#: plugins/project-wizard/appwizard_cbs.c:284
+#: plugins/project-wizard/property.c:199 plugins/project-wizard/property.c:213
 msgid "No"
 msgstr "Ne"
 
@@ -5477,39 +5381,39 @@ msgstr " Zastavit: "
 msgid " Print: "
 msgstr " Vytisknout: "
 
-#: plugins/gdb/stack_trace.c:317
+#: plugins/gdb/stack_trace.c:319
 msgid "Error getting selection\n"
 msgstr "Chyba při získávání výběru\n"
 
-#: plugins/gdb/stack_trace.c:328
+#: plugins/gdb/stack_trace.c:330
 msgid "Error getting source location from stack frame"
 msgstr "Chyba při získávání umístění zdroje z aktivačního záznamu"
 
-#: plugins/gdb/stack_trace.c:345
+#: plugins/gdb/stack_trace.c:347
 msgid "Frame set"
 msgstr "Nastavení aktivačního záznamu"
 
-#: plugins/gdb/stack_trace.c:352
+#: plugins/gdb/stack_trace.c:354
 msgid "Frame info"
 msgstr "Informace o aktivačním záznamu"
 
-#: plugins/gdb/stack_trace.c:359
+#: plugins/gdb/stack_trace.c:361
 msgid "Frame args"
 msgstr "Argumenty aktivačního záznamu"
 
-#: plugins/gdb/stack_trace.c:373
+#: plugins/gdb/stack_trace.c:375
 msgid "View Source"
 msgstr "Zobrazit zdroj"
 
-#: plugins/gdb/stack_trace.c:440
+#: plugins/gdb/stack_trace.c:442
 msgid "Active"
 msgstr "Aktivní"
 
-#: plugins/gdb/stack_trace.c:451
+#: plugins/gdb/stack_trace.c:453
 msgid "Count"
 msgstr "Počet"
 
-#: plugins/gdb/stack_trace.c:466 src/toolbar.c:612
+#: plugins/gdb/stack_trace.c:468 src/toolbar.c:612
 msgid "Frame"
 msgstr "Aktivační záznam"
 
@@ -5520,6 +5424,13 @@ msgstr "< Nedefinováno v aktuálním kontextu >"
 #: plugins/gdb/watch_gui.c:37
 msgid "Add expression"
 msgstr "Přidat výraz"
+
+#. 3
+#: plugins/gdb/watch_gui.c:43 plugins/gtodo/callback.c:15
+#: plugins/gtodo/callback.c:101
+#: plugins/project-manager/project_dbase_gui.c:323
+msgid "Remove"
+msgstr "Odstranit"
 
 #: plugins/gdb/watch_gui.c:49
 msgid "Update all"
@@ -5586,7 +5497,7 @@ msgid "<b>Summary:</b>"
 msgstr "<b>Shrnutí:</b>"
 
 #. option menu label
-#: plugins/gtodo/add_edit_item.c:153
+#: plugins/gtodo/add_edit_item.c:153 plugins/macro/anjuta-macro.glade.h:5
 msgid "Category:"
 msgstr "Kategorie:"
 
@@ -5625,7 +5536,7 @@ msgstr "Střední"
 msgid "Low"
 msgstr "Nízká"
 
-#: plugins/gtodo/add_edit_item.c:250 plugins/project-wizard/wizard_gui.c:664
+#: plugins/gtodo/add_edit_item.c:250
 msgid "Comment:"
 msgstr "Komentář:"
 
@@ -6072,7 +5983,7 @@ msgstr "/Nápověda/O _aplikaci"
 msgid "Todo List"
 msgstr "Seznam úkolů"
 
-#: plugins/gtodo/interface.c:34 src/anjuta-actions.h:35 src/shell.c:76
+#: plugins/gtodo/interface.c:34 src/anjuta-actions.h:34 src/shell.c:77
 msgid "_View"
 msgstr "_Zobrazit"
 
@@ -6108,7 +6019,8 @@ msgstr "Priorita"
 msgid "Due date"
 msgstr "Termín dokončení"
 
-#: plugins/gtodo/interface.c:221 plugins/project-wizard/wizard_gui.c:755
+#: plugins/gtodo/interface.c:221
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid "Summary"
 msgstr "Shrnutí"
 
@@ -6346,11 +6258,11 @@ msgstr "Skrýt položky bez data _konce"
 msgid "Hide items without an end date"
 msgstr "Skrýt položky bez data konce"
 
-#: plugins/gtodo/plugin.c:168 plugins/gtodo/plugin.c:174
+#: plugins/gtodo/plugin.c:169 plugins/gtodo/plugin.c:175
 msgid "Tasks manager"
 msgstr "Správce úkolů"
 
-#: plugins/gtodo/plugin.c:180
+#: plugins/gtodo/plugin.c:181
 msgid "Tasks"
 msgstr "Úkoly"
 
@@ -6497,6 +6409,114 @@ msgstr "/U_končit"
 msgid "Todo List Manager"
 msgstr "Správce seznamu úkolů"
 
+#: plugins/macro/anjuta-macro.glade.h:2
+msgid "<b>Macro details:</b>"
+msgstr "<b>Podrobnosti o makru:</b>"
+
+#: plugins/macro/anjuta-macro.glade.h:3
+msgid "<b>Macro text:</b>"
+msgstr "<b>Text makra:</b>"
+
+#: plugins/macro/anjuta-macro.glade.h:4
+msgid "<b>Macros:</b>"
+msgstr "<b>Makra:</b>"
+
+#: plugins/macro/anjuta-macro.glade.h:6
+msgid "Edit..."
+msgstr "Upravit..."
+
+#: plugins/macro/anjuta-macro.glade.h:7
+msgid "Name: "
+msgstr "Název: "
+
+#: plugins/macro/anjuta-macro.glade.h:8
+msgid "Shortcut:"
+msgstr "Zkratka:"
+
+#: plugins/macro/macro-db.c:100
+msgid "Anjuta macros"
+msgstr "Makra Anjuty"
+
+#: plugins/macro/macro-db.c:104
+msgid "My macros"
+msgstr "Moje makra"
+
+#: plugins/macro/macro-dialog.c:91
+msgid "Insert macro"
+msgstr "Vložit makro"
+
+#: plugins/macro/macro-edit.c:88
+msgid "Add/Edit macro"
+msgstr "Přidat/upravit makro"
+
+#: plugins/macro/macros.xml.h:1
+msgid "# GPL"
+msgstr "# GPL"
+
+#: plugins/macro/macros.xml.h:2
+msgid "/* GPL */"
+msgstr "/* GPL */"
+
+#: plugins/macro/macros.xml.h:3
+msgid "// GPL"
+msgstr "// GPL"
+
+#: plugins/macro/macros.xml.h:4
+msgid "C"
+msgstr "C"
+
+#: plugins/macro/macros.xml.h:5
+msgid "Licenses"
+msgstr "Licence"
+
+#: plugins/macro/macros.xml.h:6
+msgid "for"
+msgstr "for"
+
+#: plugins/macro/macros.xml.h:7
+msgid "if...else"
+msgstr "if...else"
+
+#: plugins/macro/macros.xml.h:8
+msgid "switch"
+msgstr "switch"
+
+#: plugins/macro/macros.xml.h:9
+msgid "while"
+msgstr "while"
+
+#: plugins/macro/plugin.c:31 plugins/symbol-browser/an_symbol_view.c:81
+msgid "Macros"
+msgstr "Makra"
+
+#: plugins/macro/plugin.c:38
+msgid "_Insert Macro"
+msgstr "_Vložit makro"
+
+#: plugins/macro/plugin.c:40
+msgid "Insert a macro using a shortcut"
+msgstr "Vložit makro pomocí klávesové zkratky"
+
+#: plugins/macro/plugin.c:45
+msgid "_Add Macro"
+msgstr "_Přidat makro"
+
+#: plugins/macro/plugin.c:47
+msgid "Add a macro"
+msgstr "Přidat makro"
+
+#: plugins/macro/plugin.c:52
+msgid "Manage Macros"
+msgstr "Spravovat makra"
+
+#: plugins/macro/plugin.c:54
+msgid "Add/Edit/Remove macros"
+msgstr "Přidat/upravit/odstranit makra"
+
+#: plugins/macro/plugin.c:110
+msgid "Macro operations"
+msgstr "Operace s makry"
+
 #: plugins/message-view/anjuta-message-manager-plugin.glade.h:1
 msgid "<b>Indicators</b>"
 msgstr "<b>Indikátory</b>"
@@ -6573,12 +6593,12 @@ msgstr "Styl indikátoru zprávy varování:"
 msgid "Warnings:"
 msgstr "Varování:"
 
-#: plugins/message-view/message-view.c:203
-#: plugins/message-view/message-view.c:237
+#: plugins/message-view/message-view.c:226
+#: plugins/message-view/message-view.c:260
 msgid "No message details"
 msgstr "Žádní podrobnosti o zprávě"
 
-#: plugins/message-view/message-view.c:595 plugins/message-view/plugin.c:148
+#: plugins/message-view/message-view.c:602 plugins/message-view/plugin.c:148
 #: src/toolbar.c:154
 msgid "Messages"
 msgstr "Zprávy"
@@ -6709,89 +6729,89 @@ msgstr ""
 "Opravdu chcete odstranit z projektu následující?\n"
 "\n"
 
-#: plugins/project-manager/plugin.c:352
+#: plugins/project-manager/plugin.c:354
 msgid "_Project"
 msgstr "_Projekt"
 
-#: plugins/project-manager/plugin.c:356
+#: plugins/project-manager/plugin.c:358
 msgid "Close Pro_ject"
 msgstr "Zavřít p_rojekt"
 
-#: plugins/project-manager/plugin.c:356
+#: plugins/project-manager/plugin.c:358
 msgid "Close project"
 msgstr "Zavřít projekt"
 
-#: plugins/project-manager/plugin.c:361 plugins/project-manager/plugin.c:390
+#: plugins/project-manager/plugin.c:363 plugins/project-manager/plugin.c:392
 msgid "_Properties"
 msgstr "_Vlastnosti"
 
-#: plugins/project-manager/plugin.c:361
+#: plugins/project-manager/plugin.c:363
 msgid "Project properties"
 msgstr "Vlastnosti projektu"
 
-#: plugins/project-manager/plugin.c:366
+#: plugins/project-manager/plugin.c:368
 msgid "Refresh project manager tree"
 msgstr "Obnovit strom správce projektu"
 
-#: plugins/project-manager/plugin.c:371 plugins/project-manager/plugin.c:400
+#: plugins/project-manager/plugin.c:373 plugins/project-manager/plugin.c:402
 msgid "Add _Group"
 msgstr "Přidat _skupinu"
 
-#: plugins/project-manager/plugin.c:371 plugins/project-manager/plugin.c:400
+#: plugins/project-manager/plugin.c:373 plugins/project-manager/plugin.c:402
 msgid "Add a group to project"
 msgstr "Přidat skupinu do projektu"
 
-#: plugins/project-manager/plugin.c:376 plugins/project-manager/plugin.c:405
+#: plugins/project-manager/plugin.c:378 plugins/project-manager/plugin.c:407
 msgid "Add _Target"
 msgstr "Přidat _cíl"
 
-#: plugins/project-manager/plugin.c:376 plugins/project-manager/plugin.c:405
+#: plugins/project-manager/plugin.c:378 plugins/project-manager/plugin.c:407
 msgid "Add a target to project"
 msgstr "Přidat cíl do projektu"
 
-#: plugins/project-manager/plugin.c:381 plugins/project-manager/plugin.c:410
+#: plugins/project-manager/plugin.c:383 plugins/project-manager/plugin.c:412
 msgid "Add _Source File"
 msgstr "Přidat _zdrojový soubor"
 
-#: plugins/project-manager/plugin.c:381 plugins/project-manager/plugin.c:395
-#: plugins/project-manager/plugin.c:410
+#: plugins/project-manager/plugin.c:383 plugins/project-manager/plugin.c:397
+#: plugins/project-manager/plugin.c:412
 msgid "Add a source file to project"
 msgstr "Přidat zdrojový soubor do projektu"
 
-#: plugins/project-manager/plugin.c:390
+#: plugins/project-manager/plugin.c:392
 msgid "Properties of group/target/source"
 msgstr "Vlastnosti skupiny/cíle/zdroje"
 
-#: plugins/project-manager/plugin.c:395
+#: plugins/project-manager/plugin.c:397
 msgid "_Add To Project"
 msgstr "_Přidat do projektu"
 
-#: plugins/project-manager/plugin.c:415
+#: plugins/project-manager/plugin.c:417
 msgid "Re_move"
 msgstr "_Odstranit"
 
-#: plugins/project-manager/plugin.c:415
+#: plugins/project-manager/plugin.c:417
 msgid "Remove from project"
 msgstr "Odstranit z projektu"
 
-#: plugins/project-manager/plugin.c:698
+#: plugins/project-manager/plugin.c:709
 msgid "Project manager actions"
 msgstr "Akce správce projektu"
 
-#: plugins/project-manager/plugin.c:704
+#: plugins/project-manager/plugin.c:715
 msgid "Project manager popup actions"
 msgstr "Kontextové akce správce projektu"
 
-#: plugins/project-manager/plugin.c:812
+#: plugins/project-manager/plugin.c:829
 msgid "Loading project. Please wait ..."
 msgstr "Načítám projekt. Čekejte prosím ..."
 
-#: plugins/project-manager/plugin.c:883
+#: plugins/project-manager/plugin.c:900
 #, c-format
 msgid "Loading project: %s"
 msgstr "Načítám projekt: %s"
 
-#: plugins/project-manager/plugin.c:894
+#: plugins/project-manager/plugin.c:911
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Nemohu načíst projekt %s: %s"
@@ -7034,11 +7054,12 @@ msgid " Project Information "
 msgstr " Informace o projektu "
 
 #: plugins/project-manager/project_dbase_gui.c:721
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:5
 msgid "Author:"
 msgstr "Autor:"
 
 #: plugins/project-manager/project_dbase_gui.c:729
-#: plugins/project-wizard/wizard_gui.c:299
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "Project Name:"
 msgstr "Název projektu:"
 
@@ -7255,6 +7276,14 @@ msgstr "Nemohu spustit skript!\n"
 msgid "Importing Project...please wait"
 msgstr "Importuji projekt...čekejte prosím"
 
+#: plugins/project-manager/project_import.c:181
+msgid "Project import completed...unsuccessful\n"
+msgstr "Import projektu dokončen...neúspěšně\n"
+
+#: plugins/project-manager/project_import.c:183
+msgid "Project import completed...unsuccessful"
+msgstr "Import projektu dokončen...neúspěšně"
+
 #: plugins/project-manager/project_import.c:188
 msgid "Project import completed...successful\n"
 msgstr "Import projektu dokončen...úspěšně\n"
@@ -7280,49 +7309,40 @@ msgid "Please complete all of the required fields"
 msgstr "Vyplňte prosím všechna požadovaná pole"
 
 #: plugins/project-manager/project_import_cbs.c:230
-#: plugins/project-wizard/appwizard_cbs.c:286
 msgid ""
 "Confirm the following information:\n"
 "\n"
 msgstr "Potvrďte následující informace:\n"
 
 #: plugins/project-manager/project_import_cbs.c:231
-#: plugins/project-wizard/appwizard_cbs.c:287
 msgid "Project Name:    "
 msgstr "Název projektu:  "
 
 #: plugins/project-manager/project_import_cbs.c:232
-#: plugins/project-wizard/appwizard_cbs.c:288
 msgid "Project Type:    "
 msgstr "Typ projektu:    "
 
 #: plugins/project-manager/project_import_cbs.c:234
-#: plugins/project-wizard/appwizard_cbs.c:289
 msgid "Target Type:     "
 msgstr "Typ cíle:        "
 
 #: plugins/project-manager/project_import_cbs.c:237
-#: plugins/project-wizard/appwizard_cbs.c:290
 msgid "Source Target:   "
 msgstr "Cíl zdroje:      "
 
 #: plugins/project-manager/project_import_cbs.c:238
-#: plugins/project-wizard/appwizard_cbs.c:291
 msgid "Version:         "
 msgstr "Verze:           "
 
 #: plugins/project-manager/project_import_cbs.c:239
-#: plugins/project-wizard/appwizard_cbs.c:292
 msgid "Author:          "
 msgstr "Autor:           "
 
 #: plugins/project-manager/project_import_cbs.c:240
-#: plugins/project-wizard/appwizard_cbs.c:293
 msgid "Language:        "
 msgstr "Jazyk:           "
 
 #: plugins/project-manager/project_import_cbs.c:242
-#: plugins/project-wizard/appwizard_cbs.c:294
 msgid "Gettext Support: "
 msgstr "Podpora gettextu: "
 
@@ -7387,359 +7407,181 @@ msgstr "Chyba při zápisu do: %s."
 msgid "Source Paths"
 msgstr "Zdrojové cesty"
 
-#: plugins/project-wizard/appwizard_cbs.c:126
-msgid "Project name"
-msgstr "Název projektu"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:2
+msgid "<b>New Project Wizard Options</b>"
+msgstr "<b>Možnosti kouzelníka nového projektu</b>"
 
-# ???
-#: plugins/project-wizard/appwizard_cbs.c:127
-msgid "Source target name"
-msgstr "Název cíle zdroje"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:3
+msgid "<b>Select the type of application to be developed</b>"
+msgstr "<b>Zvolte typ vyvíjené aplikace</b>"
 
-#: plugins/project-wizard/appwizard_cbs.c:128
-msgid "Project version"
-msgstr "Verze projektu"
-
-#: plugins/project-wizard/appwizard_cbs.c:224
-#, c-format
-msgid ""
-"Invalid %s field:\n"
-"You must supply a valid %s field to proceed further."
-msgstr ""
-"Neplatné pole %s:\n"
-"Pro pokračování dále musíte dodat platné pole %s."
-
-#: plugins/project-wizard/appwizard_gui.c:41
-msgid ""
-"The Application Wizard will generate a basic\n"
-"skeleton for a project, including all of the\n"
-"build files. It will ask for details of the initial\n"
-"structure for the application.\n"
-"\n"
-"Please answer the questions carefully, as it\n"
-"may not be possible to change some of the\n"
-"settings later."
-msgstr ""
-"Kouzelník aplikace vygeneruje základní kostru\n"
-"projektu včetně všech sestavovacích souborů.\n"
-"Zeptá se na detaily počáteční struktury aplikace.\n"
-"\n"
-"Odpovídejte prosím na otázky opatrně, protože\n"
-"některá nastavení možná nebude možné později\n"
-"změnit."
-
-#: plugins/project-wizard/gnome_project.c:65
-msgid ""
-"A project or file with the same name.already exists.\n"
-"Project creation aborted."
-msgstr ""
-"Projekt nebo soubor se stejným jménem již existuje.\n"
-"Vytváření projektu přerušeno."
-
-#: plugins/project-wizard/gnome_project.c:81
-msgid "Generating Project ...\n"
-msgstr "Generuji projekt ...\n"
-
-#: plugins/project-wizard/gnome_project.c:88
-#, c-format
-msgid "Cannot create file: %s"
-msgstr "Nemohu vytvořit soubor: %s"
-
-#: plugins/project-wizard/gnome_project.c:159
-msgid "Loading Project ...\n"
-msgstr "Načítám projekt ...\n"
-
-#: plugins/project-wizard/gnome_project.c:170
-#: plugins/project-wizard/gnome_project.c:231
-msgid "Saving Project ...\n"
-msgstr "Ukládám projekt ...\n"
-
-#: plugins/project-wizard/gnome_project.c:178
-msgid "Generating source codes ...\n"
-msgstr "Generuji zdrojové kódy ....\n"
-
-#. Creating icon pixmap file for gnome projects
-#: plugins/project-wizard/gnome_project.c:185
-msgid "Copying icon file ...\n"
-msgstr "Kopíruji soubor ikony ...\n"
-
-#: plugins/project-wizard/gnome_project.c:199
-msgid "Could not create icon file ...\n"
-msgstr "Nemohu vytvořit soubor ikony ...\n"
-
-#: plugins/project-wizard/gnome_project.c:213
-msgid "Locating files ...\n"
-msgstr "Hledám soubory ...\n"
-
-#: plugins/project-wizard/gnome_project.c:235
-msgid "Updating Project ...\n"
-msgstr "Aktualizuji projekt ...\n"
-
-#: plugins/project-wizard/gnome_project.c:238
-msgid "Running autogen.sh ...\n"
-msgstr "Spouštím autogen.sh ...\n"
-
-#: plugins/project-wizard/gnome_project.c:250
-msgid "App Wizard"
-msgstr "Kouzelník aplikace"
-
-#: plugins/project-wizard/gnome_project.c:272
-msgid "Auto generation completed...............Unsuccessful\n"
-msgstr "Automatické generování dokončeno...............Neúspěšně\n"
-
-#: plugins/project-wizard/gnome_project.c:275
-msgid ""
-"The Project was not successfully auto generated.\n"
-"Please run autogen.sh manually."
-msgstr ""
-"Projekt nebyl automaticky vygenerován úspěšně.\n"
-"Spusťte prosím autogen.sh ručně."
-
-#: plugins/project-wizard/gnome_project.c:281
-msgid ""
-"Auto generation completed...............Successful\n"
-"Now Build the Project to have a LOOK at it\n"
-msgstr ""
-"Automatické generování dokončeno...............Úspěšně\n"
-"Nyní projekt sestavte, abyste se na něj mohli PODÍVAT\n"
-
-#: plugins/project-wizard/gnome_project.c:284
-msgid "Project was successfully auto generated."
-msgstr "Projekt byl úspěšně automaticky vygenerován."
-
-#: plugins/project-wizard/wizard_gui.c:98
-msgid "Project Type"
-msgstr "Typ projektu"
-
-#: plugins/project-wizard/wizard_gui.c:120
-msgid "Select the type of application to be developed"
-msgstr "Zvolte typ vyvíjené aplikace"
-
-#: plugins/project-wizard/wizard_gui.c:161
-msgid "Generic/Terminal project"
-msgstr "Obecný/terminálový projekt"
-
-#: plugins/project-wizard/wizard_gui.c:164
-msgid "GTK 2.0 project"
-msgstr "Projekt GTK 2.0"
-
-#: plugins/project-wizard/wizard_gui.c:167
-msgid "GNOME 2.0 project"
-msgstr "Projekt GNOME 2.0"
-
-#: plugins/project-wizard/wizard_gui.c:170
-msgid "LibGlade 2.0 project"
-msgstr "Projekt LibGlade 2.0"
-
-#: plugins/project-wizard/wizard_gui.c:173
-msgid "gtkmm 2.0 project"
-msgstr "Projekt gtkmm 2.0"
-
-#: plugins/project-wizard/wizard_gui.c:176
-msgid "gnomemm 2.0 project"
-msgstr "Projekt gnomemm 2.0"
-
-#: plugins/project-wizard/wizard_gui.c:179
-msgid "GNOME 2.0 Bonobo component"
-msgstr "Komponenta Bonobo GNOME 2.é"
-
-#: plugins/project-wizard/wizard_gui.c:182
-msgid "wxWindows project"
-msgstr "Projekt wxWindows"
-
-#: plugins/project-wizard/wizard_gui.c:185
-msgid "Xlib project"
-msgstr "Projekt Xlib"
-
-#: plugins/project-wizard/wizard_gui.c:188
-msgid "X Dock App project"
-msgstr "Projekt dokovatelné aplikace X"
-
-#: plugins/project-wizard/wizard_gui.c:262
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
 msgstr "Základní informace"
 
-#: plugins/project-wizard/wizard_gui.c:283
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:7
+msgid "Default project directory"
+msgstr "Implicitní adresář projektu"
+
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:8
+msgid "Destination:"
+msgstr "Cíl:"
+
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "Enter the basic Project information"
 msgstr "Zadejte základní informace o projektu"
 
-#: plugins/project-wizard/wizard_gui.c:306
-msgid "Project Version:"
-msgstr "Verze projektu:"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:12
+msgid "Project Type"
+msgstr "Typ projektu"
 
-#: plugins/project-wizard/wizard_gui.c:313
-msgid "Project Author:"
-msgstr "Autor projektu:"
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:14
+msgid ""
+"The Application Wizard will generate a basic skeleton for a project, "
+"including all of the build files. It will ask for details of the initial "
+"structure for the application. Please answer the questions carefully, as it "
+"may not be possible to change some of the settings later."
+msgstr "Kouzelník aplikace vygeneruje základní kostru projektu včetně všech sestavovacích souborů. Zeptá se na detaily počáteční struktury aplikace. Odpovídejte prosím na otázky opatrně, protože některá nastavení možná nebude možné později změnit."
 
-#: plugins/project-wizard/wizard_gui.c:320
-msgid "Project Target:"
-msgstr "Cíl projektu:"
+#: plugins/project-wizard/druid.c:178
+msgid ""
+"Confim the following information:\n"
+"\n"
+msgstr "Potvrďte následující informace:\n\n"
 
-#: plugins/project-wizard/wizard_gui.c:351
-msgid "Programming language"
-msgstr "Programovací jazyk"
+#: plugins/project-wizard/druid.c:180
+msgid "Project Type: "
+msgstr "Typ projektu: "
 
-#: plugins/project-wizard/wizard_gui.c:362
-msgid "C"
-msgstr "C"
+#: plugins/project-wizard/druid.c:527
+#, c-format
+msgid "Field \"%s\" is mandatory. Please enter it."
+msgstr "Pole \"%s\" je povinné. Vyplňte je prosím."
 
-#: plugins/project-wizard/wizard_gui.c:370
-msgid "C++"
-msgstr "C++"
+#: plugins/project-wizard/druid.c:611
+msgid "Unable to build project wizard user interface"
+msgstr "Nemohu sestavit uživatelské rozhraní kouzelníka projektu"
 
-#: plugins/project-wizard/wizard_gui.c:379
-msgid "Both C and C++"
-msgstr "C i C++"
+#. Create new view
+#: plugins/project-wizard/install.c:181
+msgid "New Project Wizard"
+msgstr "Kouzelník nového projektu"
 
-#: plugins/project-wizard/wizard_gui.c:386
-msgid "Target type"
-msgstr "Typ cíle"
+#. All files have been installed
+#: plugins/project-wizard/install.c:300
+msgid "New project has been created successfully"
+msgstr "Nový projekt byl úspěšně vytvořen"
 
-#: plugins/project-wizard/wizard_gui.c:402
-msgid "Executable target"
-msgstr "Spustitelný cíl"
+#: plugins/project-wizard/install.c:366
+#, c-format
+msgid "Copying %s to %s with AutoGen"
+msgstr "Kopíruji %s do %s s AutoGen"
 
-#: plugins/project-wizard/wizard_gui.c:409
-msgid "Static library target"
-msgstr "Cíl statické knihovny"
-
-#: plugins/project-wizard/wizard_gui.c:415
-msgid "Dynamic library target"
-msgstr "Cíl dynamické knihovny"
-
-#: plugins/project-wizard/wizard_gui.c:491
-msgid "Enter a short description of the Project"
-msgstr "Zadejte krátký popis projektu"
-
-#: plugins/project-wizard/wizard_gui.c:597
-msgid "Enter any additional Project options"
-msgstr "Zadejte přídavné možnosti projektu"
-
-#: plugins/project-wizard/wizard_gui.c:614
-msgid " Project Options "
-msgstr " Možnosti projektu "
-
-#: plugins/project-wizard/wizard_gui.c:625
-msgid "Include GNU Copyright statement in file headings"
-msgstr "Zahrnout do hlaviček prohlášení o copyrightu GNU"
-
-#: plugins/project-wizard/wizard_gui.c:632
-msgid "Enable Gettext Support"
-msgstr "Povolit podporu gettextu"
-
-#: plugins/project-wizard/wizard_gui.c:640
-msgid "Generate source code using glade or glademm"
-msgstr "Vygenerovat zdrojový kód pomocí glade nebo glademm"
-
-#: plugins/project-wizard/wizard_gui.c:647
-msgid "GNOME Menu Entry"
-msgstr "Položka menu GNOME:"
-
-#: plugins/project-wizard/wizard_gui.c:657
-msgid "Entry name:"
-msgstr "Název položky:"
-
-#: plugins/project-wizard/wizard_gui.c:671
-msgid "Group:"
-msgstr "Skupina:"
-
-#: plugins/project-wizard/wizard_gui.c:713
-msgid "Needs terminal"
-msgstr "Potřebuje terminál"
+#: plugins/project-wizard/install.c:370
+#, c-format
+msgid "Copying %s to %s"
+msgstr "Kopíruji %s do %s"
 
 #. Action name
 #. Stock icon, if any
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:62
 #: plugins/sample1/plugin.c:55
 msgid "_Sample action"
 msgstr "_Ukázková akce"
 
 #. Display label
 #. short-cut
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:64
 #: plugins/sample1/plugin.c:57
 msgid "Sample action"
 msgstr "Ukázková akce"
 
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:88
 #: plugins/sample1/plugin.c:78
 msgid "Sample file operations"
 msgstr "Ukázkové operace se soubory"
+
+#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:100
+msgid "[+PluginClass+] widget"
+msgstr "[+PluginClass+] widget"
 
 #: plugins/sample1/plugin.c:84
 msgid "SamplePlugin"
 msgstr "UkázkovýZásuvnýModul"
 
-#: plugins/symbol-browser/an_symbol_view.c:116
+#: plugins/symbol-browser/an_symbol_search.c:677
+msgid "Section"
+msgstr "Oddíl"
+
+#: plugins/symbol-browser/an_symbol_view.c:77
 msgid "Classes"
 msgstr "Třídy"
 
-#: plugins/symbol-browser/an_symbol_view.c:117
+#: plugins/symbol-browser/an_symbol_view.c:78
 msgid "Structs"
 msgstr "Struktury"
 
-#: plugins/symbol-browser/an_symbol_view.c:119
+#: plugins/symbol-browser/an_symbol_view.c:80
 msgid "Variables"
 msgstr "Proměnné"
 
-#: plugins/symbol-browser/an_symbol_view.c:120
-msgid "Macros"
-msgstr "Makra"
-
-#: plugins/symbol-browser/an_symbol_view.c:435
-msgid "Symbol"
-msgstr "Symbol"
-
-#: plugins/symbol-browser/plugin.c:173
+#: plugins/symbol-browser/plugin.c:184
 msgid "Tag _Definition"
 msgstr "De_finice tagu"
 
-#: plugins/symbol-browser/plugin.c:175 plugins/symbol-browser/plugin.c:191
+#: plugins/symbol-browser/plugin.c:186 plugins/symbol-browser/plugin.c:202
 msgid "Goto symbol definition"
 msgstr "Jít na definici symbolu"
 
-#: plugins/symbol-browser/plugin.c:181
+#: plugins/symbol-browser/plugin.c:192
 msgid "Tag De_claration"
 msgstr "De_klarace tagu"
 
-#: plugins/symbol-browser/plugin.c:183 plugins/symbol-browser/plugin.c:199
+#: plugins/symbol-browser/plugin.c:194 plugins/symbol-browser/plugin.c:210
 msgid "Goto symbol declaration"
 msgstr "Jít na deklaraci symbolu"
 
-#: plugins/symbol-browser/plugin.c:189
+#: plugins/symbol-browser/plugin.c:200
 msgid "Goto _Definition"
 msgstr "Jít na de_finici"
 
-#: plugins/symbol-browser/plugin.c:197
+#: plugins/symbol-browser/plugin.c:208
 msgid "Goto De_claration"
 msgstr "Jít na de_klaraci"
 
-#: plugins/symbol-browser/plugin.c:205
+#: plugins/symbol-browser/plugin.c:216
 msgid "_Find Usage"
 msgstr "_Hledat použití"
 
-#: plugins/symbol-browser/plugin.c:207
+#: plugins/symbol-browser/plugin.c:218
 msgid "Find usage of symbol in project"
 msgstr "Hledat použití symbolu v projektu"
 
-#: plugins/symbol-browser/plugin.c:215
+#: plugins/symbol-browser/plugin.c:226
 msgid "Refresh symbol browser tree"
 msgstr "Obnovit strom prohlížeče symbolů"
 
-#: plugins/symbol-browser/plugin.c:593
+#: plugins/symbol-browser/plugin.c:659
+msgid "Tree"
+msgstr "Strom"
+
+#: plugins/symbol-browser/plugin.c:706
 msgid "Symbol browser popup actions"
 msgstr "Kontextové akce prohlížeče symbolů"
 
-#: plugins/symbol-browser/plugin.c:600
+#: plugins/symbol-browser/plugin.c:715
 msgid "Goto symbol"
 msgstr "Jít na symbol"
 
-#: plugins/symbol-browser/plugin.c:601
+#: plugins/symbol-browser/plugin.c:716
 msgid "Select the symbol to go"
 msgstr "Zvolte symbol, na který jít"
 
-#: plugins/symbol-browser/plugin.c:609
+#: plugins/symbol-browser/plugin.c:724
 msgid "Symbol navigations"
 msgstr "Navigace mezi symboly"
 
-#: plugins/symbol-browser/plugin.c:618
+#: plugins/symbol-browser/plugin.c:733
 msgid "Symbols"
 msgstr "Symboly"
 
@@ -7802,15 +7644,19 @@ msgstr "Nemohu sestavit uživatelské rozhraní pro parametry nástroje"
 msgid "%s: Command line parameters"
 msgstr "%s: Parametry na příkazovém řádku"
 
-#: src/about.c:96
+#: src/about.c:96 src/about.c:107
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: src/action-callbacks.c:77 src/action-callbacks.c:98 src/shell.c:64
+#: src/about.c:111
+msgid "GNU General Public License"
+msgstr "GNU General Public License"
+
+#: src/action-callbacks.c:86 src/action-callbacks.c:107 src/shell.c:65
 msgid "Anjuta Plugins"
 msgstr "Zásuvné moduly Anjuty"
 
-#: src/action-callbacks.c:112 src/mainmenu_callbacks.c:836
+#: src/action-callbacks.c:121 src/mainmenu_callbacks.c:836
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -7818,7 +7664,7 @@ msgstr ""
 "Nemohu zobrazit nápovědu. Přesvědčte se prosím, že je nainstalován balíček "
 "dokumentace Anjuty. Můžete jej stáhnout z http://anjuta.org"
 
-#: src/anjuta.c:84 src/anjuta_cbs.c:93
+#: src/anjuta.c:86 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
@@ -7826,165 +7672,177 @@ msgstr ""
 "Jeden nebo více souborů není uložen.\n"
 "Chcete přesto skončit?"
 
-#: src/anjuta-actions.h:24 src/shell.c:74
+#: src/anjuta-actions.h:23 src/shell.c:75
 msgid "_File"
 msgstr "_Soubor"
 
-#: src/anjuta-actions.h:25 src/shell.c:82
+#: src/anjuta-actions.h:24 src/shell.c:83
 msgid "_Quit"
 msgstr "U_končit"
 
-#: src/anjuta-actions.h:26
+#: src/anjuta-actions.h:25
 msgid "Quit Anjuta IDE"
 msgstr "Ukončit IDE Anjuta"
 
-#: src/anjuta-actions.h:36
+#: src/anjuta-actions.h:35
 msgid "_Toolbars"
 msgstr "_Lišty nástrojů"
 
-#: src/anjuta-actions.h:40 src/shell.c:77
+#: src/anjuta-actions.h:40
+msgid "_Full Screen"
+msgstr "_Celá obrazovka"
+
+#: src/anjuta-actions.h:41
+msgid "Toggle fullscreen mode"
+msgstr "Přepnout režim přes celou obrazovku"
+
+#: src/anjuta-actions.h:46 src/shell.c:78
 msgid "_Settings"
 msgstr "_Nastavení"
 
-#: src/anjuta-actions.h:42 src/shell.c:90
+#: src/anjuta-actions.h:48 src/shell.c:91
 msgid "_Preferences ..."
 msgstr "_Nastavení ..."
 
-#: src/anjuta-actions.h:43
+#: src/anjuta-actions.h:49
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Máte radši kávu nebo čaj? Vyzkoušejte to."
 
-#: src/anjuta-actions.h:46
+#: src/anjuta-actions.h:52
 msgid "Set _Default Preferences"
 msgstr "Nastavit _implicitní nastavení"
 
-#: src/anjuta-actions.h:47
+#: src/anjuta-actions.h:53
 msgid "But I prefer tea."
 msgstr "Ale já dávám přednost čaji."
 
-#: src/anjuta-actions.h:50 src/shell.c:98
+#: src/anjuta-actions.h:56 src/shell.c:99
 msgid "C_ustomize shortcuts"
 msgstr "_Upravit zkratky"
 
-#: src/anjuta-actions.h:51 src/shell.c:100
+#: src/anjuta-actions.h:57 src/shell.c:101
 msgid "Customize shortcuts associated with menu items"
 msgstr "Upravit zkratky asociované s položkami menu"
 
-#: src/anjuta-actions.h:54
+#: src/anjuta-actions.h:60
 msgid "Layout manager"
 msgstr "Správce rozložení"
 
-#: src/anjuta-actions.h:55
+#: src/anjuta-actions.h:61
 msgid "Manipulate layout manager items"
 msgstr "Manipulovat s položkami správce rozložení"
 
-#: src/anjuta-actions.h:58
+#: src/anjuta-actions.h:64
 msgid "Plugins manager"
 msgstr "Správce zásuvných modulů"
 
-#: src/anjuta-actions.h:59
+#: src/anjuta-actions.h:65
 msgid "Manipulate plugins manager items"
 msgstr "Manipulovat s položkami správdce modulů"
 
-#: src/anjuta-actions.h:64 src/shell.c:78
+#: src/anjuta-actions.h:70 src/shell.c:79
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: src/anjuta-actions.h:66
+#: src/anjuta-actions.h:72
 msgid "Browse _Man Pages"
 msgstr "Procházet stránky _man"
 
-#: src/anjuta-actions.h:67
+#: src/anjuta-actions.h:73
 msgid "The good old manual pages"
 msgstr "Staré dobré manuálové stránky"
 
-#: src/anjuta-actions.h:70
+#: src/anjuta-actions.h:76
 msgid "Browse _Info Pages"
 msgstr "Procházet stránky _info"
 
-#: src/anjuta-actions.h:71
+#: src/anjuta-actions.h:77
 msgid "The good info pages"
 msgstr "Staré dobré stránky info"
 
-#: src/anjuta-actions.h:74
+#: src/anjuta-actions.h:80
 msgid "Anjuta _Home Page"
 msgstr "_Domovská stránka Anjuty"
 
-#: src/anjuta-actions.h:75
+#: src/anjuta-actions.h:81
 msgid "Online documentation and resources"
 msgstr "Dokumentace a zdroje online"
 
-#: src/anjuta-actions.h:78
+#: src/anjuta-actions.h:84
 msgid "_Libraries API references"
 msgstr "Reference API _knihoven"
 
-#: src/anjuta-actions.h:79
+#: src/anjuta-actions.h:85
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online knihovna referencí pro GDK, GLib, GNOME atd.."
 
-#: src/anjuta-actions.h:82
+#: src/anjuta-actions.h:88
 msgid "Report _Bugs"
 msgstr "Nahlásit _chyby"
 
-#: src/anjuta-actions.h:83
+#: src/anjuta-actions.h:89
 msgid "Submit a bug report for Anjuta"
 msgstr "Poslat hlášení o chybě Anjuty"
 
-#: src/anjuta-actions.h:86
+#: src/anjuta-actions.h:92
 msgid "Request _Features"
 msgstr "Žádat o _vlastnosti"
 
-#: src/anjuta-actions.h:87
+#: src/anjuta-actions.h:93
 msgid "Submit a feature request for Anjuta"
 msgstr "Poslat požadavek na vlastnost Anjuty"
 
-#: src/anjuta-actions.h:90
+#: src/anjuta-actions.h:96
 msgid "Submit _patches"
 msgstr "Poslat _patche"
 
-#: src/anjuta-actions.h:91
+#: src/anjuta-actions.h:97
 msgid "Submit patches for Anjuta"
 msgstr "Poslat patche pro Anjutu"
 
-#: src/anjuta-actions.h:94
+#: src/anjuta-actions.h:100
 msgid "Ask a _question"
 msgstr "_Zeptat se"
 
-#: src/anjuta-actions.h:95
+#: src/anjuta-actions.h:101
 msgid "Submit a question for FAQs"
 msgstr "Poslat otázku pro FAQ"
 
-#: src/anjuta-actions.h:98
+#: src/anjuta-actions.h:104
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: src/anjuta-actions.h:99
+#: src/anjuta-actions.h:105
 msgid "About Anjuta"
 msgstr "O Anjutě"
 
-#: src/anjuta-app.c:416 src/shell.c:212
+#: src/anjuta-app.c:271
+msgid "Toggle View"
+msgstr "Přepnout zobrazení"
+
+#: src/anjuta-app.c:379 src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "Hodnota neexistuje"
 
 # Supposedly this will be distributed with the project, so no localization
-#: src/anjuta-app.c:928
+#: src/anjuta-app.c:900
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 
-#: src/anjuta-app.c:1184
+#: src/anjuta-app.c:1156
 msgid "Looking up symbol"
 msgstr "Vyhledávám symbol"
 
-#: src/anjuta-app.c:1186
+#: src/anjuta-app.c:1158
 msgid "Finding in Files ....\n"
 msgstr "Hledám v souborech ....\n"
 
-#: src/anjuta-callbacks.c:227 src/anjuta_cbs.c:466
+#: src/anjuta-callbacks.c:48 src/anjuta_cbs.c:466
 msgid "Could not open file for writing"
 msgstr "Nemohu otevřít soubor pro zápis"
 
-#: src/anjuta-callbacks.c:251 src/anjuta_cbs.c:490
+#: src/anjuta-callbacks.c:72 src/anjuta_cbs.c:490
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -8012,16 +7870,6 @@ msgstr "Informace"
 #: src/controls.c:210
 msgid "No tags"
 msgstr "Žádné značky"
-
-#: src/dnd.c:104
-#, c-format
-msgid "File %s is not local."
-msgstr "Soubor %s není místní."
-
-#: src/dnd.c:112
-#, c-format
-msgid "Invalid filename %s."
-msgstr "Neplatný název souboru %s."
 
 #: src/glade_iface.c:69
 msgid ""
@@ -8071,19 +7919,19 @@ msgstr "launcher.c: chyba roury PTY!"
 msgid "Cannot execute command shell"
 msgstr "Nemohu spustit shell příkazů"
 
-#: src/main.c:52 src/main.cpp:51
+#: src/main.c:55 src/main.cpp:51
 msgid "Specify the size and location of the main window"
 msgstr "Určení velikosti a umístění hlavního okna"
 
-#: src/main.c:53 src/main.cpp:52
+#: src/main.c:56 src/main.cpp:52
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "ŠÍŘKAxVÝŠKA+XPOS+YPOS"
 
-#: src/main.c:58 src/main.cpp:57
+#: src/main.c:61 src/main.cpp:57
 msgid "Do not show the splashscreen"
 msgstr "Nezobrazovat úvodní obrazovku"
 
-#: src/main.c:64
+#: src/main.c:67
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
 msgstr "Ukončit anjutu správně a uvolnit všechny zdroje (pro ladění)"
 
@@ -8095,19 +7943,19 @@ msgstr "Spustitelný soubor není aktuální."
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger neběží. Nejdříve jej spusťte."
 
-#: src/shell.c:84
+#: src/shell.c:85
 msgid "Quit Anjuta Test Shell"
 msgstr "Ukončit testovací shell Anjuty"
 
-#: src/shell.c:92
+#: src/shell.c:93
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: src/shell.c:163
+#: src/shell.c:164
 msgid "Test shell action group"
 msgstr "Skupina akcí testovacího shellu"
 
-#: src/shell.c:414
+#: src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Testovací shell Anjuty"
 
@@ -8416,6 +8264,305 @@ msgstr "Autodoplnit"
 msgid "Autocomplete word"
 msgstr "Autodoplnit slovo"
 
+#~ msgid "Could not find application image file: %s"
+#~ msgstr "Nemohu najít soubor obrázku aplikace: %s"
+
+#~ msgid "CVS Updating "
+#~ msgstr "CVS Aktualizuji "
+
+#~ msgid "CVS Committing "
+#~ msgstr "CVS Potvrzuji "
+
+#~ msgid "CVS Importing...\n"
+#~ msgstr "CVS Importuji....\n"
+
+#~ msgid "CVS Adding "
+#~ msgstr "CVS Přidávám "
+
+#~ msgid "CVS Removing "
+#~ msgstr "CVS Odstraňuji "
+
+#~ msgid "Getting CVS status "
+#~ msgstr "Získávám stav CVS "
+
+#~ msgid "There are jobs running, please wait until they are finished"
+#~ msgstr "Existují běžící úlohy, počkejte prosím na jejich dokončení"
+
+#~ msgid "Getting CVS log "
+#~ msgstr "Získávám záznam CVS "
+
+#~ msgid "CVS diffing "
+#~ msgstr "CVS diff "
+
+#~ msgid "CVS login "
+#~ msgstr "CVS přihlášení "
+
+#~ msgid "CVS completed...successful\n"
+#~ msgstr "CVS dokončeno...úspěšně\n"
+
+#~ msgid "CVS completed...successful"
+#~ msgstr "CVS dokončeno...úspěšně"
+
+#~ msgid "Updating versions in file tree..."
+#~ msgstr "Aktualizuji verze ve stromu souborů..."
+
+#~ msgid "You do not need to login to a local server"
+#~ msgstr "K místnímu serveru se nemusíte přihlašovat"
+
+#~ msgid "Local"
+#~ msgstr "Místní"
+
+#~ msgid "Extern(rsh)"
+#~ msgstr "Externí(rsh)"
+
+#~ msgid "Server"
+#~ msgstr "Server"
+
+#~ msgid "CVS: Update"
+#~ msgstr "CVS: Aktualizovat"
+
+#~ msgid "CVS: Commit"
+#~ msgstr "CVS: Potvrdit"
+
+#~ msgid "Commit"
+#~ msgstr "Potvrdit"
+
+#~ msgid "Show status"
+#~ msgstr "Zobrazit stav"
+
+#~ msgid "CVS: Log"
+#~ msgstr "CVS: Záznam"
+
+#~ msgid "Show log"
+#~ msgstr "Zobrazit záznam"
+
+#~ msgid "CVS: Add file"
+#~ msgstr "CVS: Přidat soubor"
+
+#~ msgid "Add"
+#~ msgstr "Přidat"
+
+#~ msgid "CVS: Remove file"
+#~ msgstr "CVS: Odstranit soubor"
+
+#~ msgid ""
+#~ "WARNING: The file will be removed on disc. Use \"cvs commit\" .\n"
+#~ "to apply to the repository. It will still be possible to retrieve older "
+#~ "revisions of the file."
+#~ msgstr ""
+#~ "VAROVÁNÍ: Soubor bude odstraněn z disku. Pro potvrzení v úložišti "
+#~ "použijte\n"
+#~ "\"cvs commit\". I potom bude možné získat starší revize souboru."
+
+#~ msgid "File: "
+#~ msgstr "Soubor: "
+
+#~ msgid "Branch: "
+#~ msgstr "Větev: "
+
+#~ msgid "Log message: "
+#~ msgstr "Zpráva záznamu: "
+
+#~ msgid "Select file"
+#~ msgstr "Zvolte soubor"
+
+#~ msgid "CVS: Diff file"
+#~ msgstr "CVS: Diff soubor"
+
+#~ msgid "Date: "
+#~ msgstr "Datum: "
+
+#~ msgid "CVS Login"
+#~ msgstr "CVS Přihlášení"
+
+#~ msgid "Login"
+#~ msgstr "Přihlásit"
+
+#~ msgid "Server type: "
+#~ msgstr "Typ serveru: "
+
+#~ msgid "Directory on the server: "
+#~ msgstr "Adresář na serveru: "
+
+#~ msgid "Dir on the server: "
+#~ msgstr "Adresář na serveru: "
+
+#~ msgid "Server settings"
+#~ msgstr "Nastavení serveru"
+
+#~ msgid "Import settings"
+#~ msgstr "Nastavení importu"
+
+#~ msgid "Project name"
+#~ msgstr "Název projektu"
+
+# ???
+#~ msgid "Source target name"
+#~ msgstr "Název cíle zdroje"
+
+#~ msgid "Project version"
+#~ msgstr "Verze projektu"
+
+#~ msgid ""
+#~ "Invalid %s field:\n"
+#~ "You must supply a valid %s field to proceed further."
+#~ msgstr ""
+#~ "Neplatné pole %s:\n"
+#~ "Pro pokračování dále musíte dodat platné pole %s."
+
+#~ msgid ""
+#~ "A project or file with the same name.already exists.\n"
+#~ "Project creation aborted."
+#~ msgstr ""
+#~ "Projekt nebo soubor se stejným jménem již existuje.\n"
+#~ "Vytváření projektu přerušeno."
+
+#~ msgid "Generating Project ...\n"
+#~ msgstr "Generuji projekt ...\n"
+
+#~ msgid "Cannot create file: %s"
+#~ msgstr "Nemohu vytvořit soubor: %s"
+
+#~ msgid "Loading Project ...\n"
+#~ msgstr "Načítám projekt ...\n"
+
+#~ msgid "Saving Project ...\n"
+#~ msgstr "Ukládám projekt ...\n"
+
+#~ msgid "Generating source codes ...\n"
+#~ msgstr "Generuji zdrojové kódy ....\n"
+
+#~ msgid "Copying icon file ...\n"
+#~ msgstr "Kopíruji soubor ikony ...\n"
+
+#~ msgid "Could not create icon file ...\n"
+#~ msgstr "Nemohu vytvořit soubor ikony ...\n"
+
+#~ msgid "Locating files ...\n"
+#~ msgstr "Hledám soubory ...\n"
+
+#~ msgid "Updating Project ...\n"
+#~ msgstr "Aktualizuji projekt ...\n"
+
+#~ msgid "Running autogen.sh ...\n"
+#~ msgstr "Spouštím autogen.sh ...\n"
+
+#~ msgid "App Wizard"
+#~ msgstr "Kouzelník aplikace"
+
+#~ msgid "Auto generation completed...............Unsuccessful\n"
+#~ msgstr "Automatické generování dokončeno...............Neúspěšně\n"
+
+#~ msgid ""
+#~ "The Project was not successfully auto generated.\n"
+#~ "Please run autogen.sh manually."
+#~ msgstr ""
+#~ "Projekt nebyl automaticky vygenerován úspěšně.\n"
+#~ "Spusťte prosím autogen.sh ručně."
+
+#~ msgid ""
+#~ "Auto generation completed...............Successful\n"
+#~ "Now Build the Project to have a LOOK at it\n"
+#~ msgstr ""
+#~ "Automatické generování dokončeno...............Úspěšně\n"
+#~ "Nyní projekt sestavte, abyste se na něj mohli PODÍVAT\n"
+
+#~ msgid "Project was successfully auto generated."
+#~ msgstr "Projekt byl úspěšně automaticky vygenerován."
+
+#~ msgid "Generic/Terminal project"
+#~ msgstr "Obecný/terminálový projekt"
+
+#~ msgid "GTK 2.0 project"
+#~ msgstr "Projekt GTK 2.0"
+
+#~ msgid "GNOME 2.0 project"
+#~ msgstr "Projekt GNOME 2.0"
+
+#~ msgid "LibGlade 2.0 project"
+#~ msgstr "Projekt LibGlade 2.0"
+
+#~ msgid "gtkmm 2.0 project"
+#~ msgstr "Projekt gtkmm 2.0"
+
+#~ msgid "gnomemm 2.0 project"
+#~ msgstr "Projekt gnomemm 2.0"
+
+#~ msgid "GNOME 2.0 Bonobo component"
+#~ msgstr "Komponenta Bonobo GNOME 2.é"
+
+#~ msgid "wxWindows project"
+#~ msgstr "Projekt wxWindows"
+
+#~ msgid "Xlib project"
+#~ msgstr "Projekt Xlib"
+
+#~ msgid "X Dock App project"
+#~ msgstr "Projekt dokovatelné aplikace X"
+
+#~ msgid "Project Version:"
+#~ msgstr "Verze projektu:"
+
+#~ msgid "Project Author:"
+#~ msgstr "Autor projektu:"
+
+#~ msgid "Project Target:"
+#~ msgstr "Cíl projektu:"
+
+#~ msgid "Programming language"
+#~ msgstr "Programovací jazyk"
+
+#~ msgid "Both C and C++"
+#~ msgstr "C i C++"
+
+#~ msgid "Target type"
+#~ msgstr "Typ cíle"
+
+#~ msgid "Executable target"
+#~ msgstr "Spustitelný cíl"
+
+#~ msgid "Static library target"
+#~ msgstr "Cíl statické knihovny"
+
+#~ msgid "Dynamic library target"
+#~ msgstr "Cíl dynamické knihovny"
+
+#~ msgid "Enter a short description of the Project"
+#~ msgstr "Zadejte krátký popis projektu"
+
+#~ msgid "Enter any additional Project options"
+#~ msgstr "Zadejte přídavné možnosti projektu"
+
+#~ msgid " Project Options "
+#~ msgstr " Možnosti projektu "
+
+#~ msgid "Include GNU Copyright statement in file headings"
+#~ msgstr "Zahrnout do hlaviček prohlášení o copyrightu GNU"
+
+#~ msgid "Enable Gettext Support"
+#~ msgstr "Povolit podporu gettextu"
+
+#~ msgid "Generate source code using glade or glademm"
+#~ msgstr "Vygenerovat zdrojový kód pomocí glade nebo glademm"
+
+#~ msgid "GNOME Menu Entry"
+#~ msgstr "Položka menu GNOME:"
+
+#~ msgid "Entry name:"
+#~ msgstr "Název položky:"
+
+#~ msgid "Group:"
+#~ msgstr "Skupina:"
+
+#~ msgid "Needs terminal"
+#~ msgstr "Potřebuje terminál"
+
+#~ msgid "File %s is not local."
+#~ msgstr "Soubor %s není místní."
+
+#~ msgid "Invalid filename %s."
+#~ msgstr "Neplatný název souboru %s."
+
 #~ msgid "Plugin"
 #~ msgstr "Zásuvný modul"
 
@@ -8463,9 +8610,6 @@ msgstr "Autodoplnit slovo"
 #~ "V debuggeru máte BĚŽÍCÍ proces.\n"
 #~ "Nejdříve jej prosím zastavte a spustitelný soubor načtěte potom."
 
-#~ msgid "Debugger"
-#~ msgstr "Debugger"
-
 #~ msgid ""
 #~ "\n"
 #~ "Well, did you find the BUG? Debugging session completed.\n"
@@ -8494,9 +8638,6 @@ msgstr "Autodoplnit slovo"
 #~ msgid "Error whilst signalling the process."
 #~ msgstr "Chyba při posílání signálu procesu."
 
-#~ msgid "Unable to build user interface for Memory\n"
-#~ msgstr "Nemohu sestavit uživatelské rozhraní pro Paměť\n"
-
 #~ msgid "Recent Files "
 #~ msgstr "Nedávné soubory "
 
@@ -8511,9 +8652,6 @@ msgstr "Autodoplnit slovo"
 
 #~ msgid "Syntax highlight editor"
 #~ msgstr "Editor se zvýrazněním syntaxe"
-
-#~ msgid "Theme"
-#~ msgstr "Téma"
 
 #~ msgid " Goto Line number "
 #~ msgstr " Jít na řádek číslo "
