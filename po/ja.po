@@ -1,13 +1,13 @@
 # anjuta ja.po.
-# Copyright (C) 2001-2003 Free Software Foundation, Inc.
-# Takeshi Aihana <aihana@gnome.gr.jp>, 2001-2003.
+# Copyright (C) 2001-2004 Free Software Foundation, Inc.
+# Takeshi Aihana <aihana@gnome.gr.jp>, 2001-2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta ANJUTA_1_2_0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-16 23:44+0900\n"
-"PO-Revision-Date: 2003-12-13 09:27+0900\n"
+"POT-Creation-Date: 2004-01-31 13:31+0900\n"
+"PO-Revision-Date: 2004-01-31 13:29+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -20,25 +20,47 @@ msgstr "Anjuta IDE"
 
 #: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:171
 msgid "Integrated Development Environment"
-msgstr "GNOME 向けの統合開発環境です"
+msgstr "GTK+/GNOME 向けの統合開発環境です"
 
 #: anjuta.glade.h:1
 msgid "    "
 msgstr "    "
 
 #: anjuta.glade.h:2
+msgid ""
+"\"Search & Replace\" has to be tested completely !\n"
+"Many search-replacement possibilities are possible and need\n"
+"a lot of time to be verified.\n"
+"\n"
+"Limits :\n"
+"- Regular expressions can only be found in forward direction\n"
+"Todo :\t\n"
+"- Allow the user to save search/replace settings and give them names\n"
+"- . . ."
+msgstr ""
+"\"検索と置換\" はまだ完全にテストされていません！\n"
+"だいたいの \"検索と置換\" は可能ですが、それを検証するには\n"
+"もっと時間が必要なためです。\n"
+"\n"
+"制限事項 :\n"
+"- 正規表現は前方の検索でのみ有効です\n"
+"ToDO :\t\n"
+"- 検索/置換の設定を名前を付けて保存できるようにすること\n"
+"- (まだまだたくさん...)"
+
+#: anjuta.glade.h:11
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: anjuta.glade.h:3 gdl/layout.glade.h:1
+#: anjuta.glade.h:12 gdl/layout.glade.h:1
 msgid "*"
 msgstr "*"
 
-#: anjuta.glade.h:4
+#: anjuta.glade.h:13
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: anjuta.glade.h:5
+#: anjuta.glade.h:14
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -46,479 +68,491 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: anjuta.glade.h:6
+#: anjuta.glade.h:15
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: anjuta.glade.h:7
+#: anjuta.glade.h:16
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: anjuta.glade.h:8
+#: anjuta.glade.h:17
 msgid "<: Enter Here"
 msgstr "<: ここに入力"
 
-#: anjuta.glade.h:9
+#: anjuta.glade.h:18
+msgid "Activate"
+msgstr "有効"
+
+#: anjuta.glade.h:19
 msgid "Add line number every:"
 msgstr "行番号を付与する間隔:"
 
-#: anjuta.glade.h:10
+#: anjuta.glade.h:20
 msgid "Add page header"
 msgstr "ページ・ヘッダを追加する"
 
-#: anjuta.glade.h:11
+#: anjuta.glade.h:21
 msgid "Additional"
 msgstr "その他"
 
-#: anjuta.glade.h:12
+#: anjuta.glade.h:22
 msgid "Additional Libraries (LDADD):"
 msgstr "追加するライブラリ (LDADD):"
 
-#: anjuta.glade.h:13 src/wizard_gui.c:575
+#: anjuta.glade.h:23 src/wizard_gui.c:575
 msgid "Additional Options"
 msgstr "追加オプション"
 
-#: anjuta.glade.h:14
+#: anjuta.glade.h:24
 msgid "Additional build options:"
 msgstr "追加のビルド・オプション:"
 
-#: anjuta.glade.h:15
+#: anjuta.glade.h:25
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr "常に UTF-8 エンコーディングで保存する (高速)"
 
-#: anjuta.glade.h:16
+#: anjuta.glade.h:26
 msgid "Anjuta help search"
 msgstr "Anjuta ヘルプ検索"
 
-#: anjuta.glade.h:17
+#: anjuta.glade.h:27
 msgid "Anjuta start with dialog"
 msgstr "Anjuta をダイアログから起動します"
 
-#: anjuta.glade.h:18
-msgid "Append messages"
-msgstr "メッセージを追加する"
-
-#: anjuta.glade.h:19 src/appwizard_gui.c:76 src/appwizard_gui.c:90
+#: anjuta.glade.h:28 src/appwizard_gui.c:76 src/appwizard_gui.c:90
 msgid "Application Wizard"
 msgstr "アプリケーション・ウィザード"
 
-#: anjuta.glade.h:20
+#: anjuta.glade.h:29
 msgid "Arrows"
 msgstr "矢印"
 
-#: anjuta.glade.h:21
+#: anjuta.glade.h:30
 msgid "Ask for parameters at run-time"
 msgstr "実行時に引数を入力する"
 
-#: anjuta.glade.h:22
+#: anjuta.glade.h:31
 msgid "Attach to process"
 msgstr "プロセスに取り込む"
 
-#: anjuta.glade.h:23
+#: anjuta.glade.h:32
 msgid "Attributes:"
 msgstr "属性:"
 
-#: anjuta.glade.h:24
+#: anjuta.glade.h:33
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "XML/HML の閉じタグを自動補完する"
 
-#: anjuta.glade.h:25
+#: anjuta.glade.h:34
 msgid "Autocompletion"
 msgstr "自動補完"
 
-#: anjuta.glade.h:26
+#: anjuta.glade.h:35
 msgid "Autocompletion pop up choices"
 msgstr "自動補完で表示する候補数"
 
-#: anjuta.glade.h:27
+#: anjuta.glade.h:36
 msgid "Automatically load last Project"
 msgstr "最後に作業したプロジェクトを自動的に読み込む"
 
-#: anjuta.glade.h:28
+#: anjuta.glade.h:37
 msgid "Autosave"
 msgstr "自動保存"
 
-#: anjuta.glade.h:29
+#: anjuta.glade.h:38
 msgid "Autosave editor files before build starts"
 msgstr "ビルドする前に編集したファイルを自動保存する"
 
-#: anjuta.glade.h:30
+#: anjuta.glade.h:39
 msgid "Back color:"
 msgstr "背景色:"
 
-#: anjuta.glade.h:31
-msgid "Backwards"
+#: anjuta.glade.h:40
+msgid "Backward"
 msgstr "後ろへ"
 
-#: anjuta.glade.h:32
+#: anjuta.glade.h:41
+msgid "Basic Search & Replace"
+msgstr "基本的な検索と置換を行う"
+
+#: anjuta.glade.h:42
 msgid "Beep on job complete"
 msgstr "ジョブが完了したらビープ音を鳴らす"
 
-#: anjuta.glade.h:33
+#: anjuta.glade.h:43
 msgid "Bold"
 msgstr "太字"
 
-#: anjuta.glade.h:34
+#: anjuta.glade.h:44
 msgid "Bookmark"
 msgstr "ブックマーク"
 
-#: anjuta.glade.h:35
+#: anjuta.glade.h:45
 msgid "Bottom"
 msgstr "下側"
 
-#: anjuta.glade.h:36
+#: anjuta.glade.h:46
 msgid "Breakpoint properties"
 msgstr "ブレークポイントのプロパティ"
 
-#: anjuta.glade.h:37
+#: anjuta.glade.h:47
 msgid "Breakpoints"
 msgstr "ブレークポイント"
 
-#: anjuta.glade.h:38 src/build_file.c:102 src/message-manager.cc:43
-#: src/toolbar.c:273
+#: anjuta.glade.h:48 src/build_file.c:102 src/message-manager.cc:43
+#: src/toolbar.c:274
 msgid "Build"
 msgstr "ビルド"
 
-#: anjuta.glade.h:39
+#: anjuta.glade.h:49
 msgid "Build command:"
 msgstr "ビルドのコマンド:"
 
-#: anjuta.glade.h:40
+#: anjuta.glade.h:50
 msgid "Build file browser automatically"
 msgstr "自動的にファイル・ブラウザを構築する"
 
-#: anjuta.glade.h:41
+#: anjuta.glade.h:51
 msgid "Build files"
 msgstr "ビルドするファイル"
 
-#: anjuta.glade.h:42
+#: anjuta.glade.h:52
 msgid "Build options"
 msgstr "ビルドのオプション"
 
-#: anjuta.glade.h:43
+#: anjuta.glade.h:53
 msgid "Build symbol browser automatically"
 msgstr "自動的にシンボル・ブラウザを構築する"
 
+#: anjuta.glade.h:54
+msgid "CPU registers"
+msgstr "CPU レジスタ"
+
 #. 2
-#: anjuta.glade.h:44 src/an_file_view.c:420 src/message-manager.cc:45
+#: anjuta.glade.h:55 src/an_file_view.c:420 src/message-manager.cc:45
 msgid "CVS"
 msgstr "CVS"
 
-#: anjuta.glade.h:45
+#: anjuta.glade.h:56
 msgid "CVS command options"
 msgstr "CVS コマンドのオプション"
 
-#: anjuta.glade.h:46
+#: anjuta.glade.h:57
 msgid "CVS compression level:"
 msgstr "CVS の圧縮レベル [-z]:"
 
-#: anjuta.glade.h:47
+#: anjuta.glade.h:58
 msgid "CVS context diff format"
 msgstr "CVS を前後の行を含めて diff する"
 
-#: anjuta.glade.h:48
+#: anjuta.glade.h:59
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: anjuta.glade.h:49
+#: anjuta.glade.h:60
 msgid "CVS unified diff format"
 msgstr "CVS を統一書式で diff する"
 
-#: anjuta.glade.h:50
+#: anjuta.glade.h:61
 msgid "CVS update and prune directories [-dP]"
 msgstr "CVS を update してフォルダを整合 [-dP] する"
 
-#: anjuta.glade.h:51
+#: anjuta.glade.h:62
 msgid "C_ompile:"
 msgstr "コンパイル(_O):"
 
-#: anjuta.glade.h:52
+#: anjuta.glade.h:63
 msgid "Calltip background:"
 msgstr "コールチップの背景色:"
 
-#: anjuta.glade.h:53
+#: anjuta.glade.h:64
 msgid "Caret (cursor) color:"
 msgstr "カーソルの色:"
 
-#: anjuta.glade.h:54
+#: anjuta.glade.h:65
 msgid "Caret blink period in milli-seconds"
 msgstr "カーソルの点滅周期 (ミリ秒)"
 
-#: anjuta.glade.h:55
+#: anjuta.glade.h:66
 msgid "Case insensitive"
 msgstr "大小文字を区別しない"
 
-#: anjuta.glade.h:56
-msgid "Case sensitive"
-msgstr "大小文字を区別する"
-
-#: anjuta.glade.h:57
+#: anjuta.glade.h:67
 msgid "Choose Directories:"
 msgstr "フォルダの選択:"
 
-#: anjuta.glade.h:58
+#: anjuta.glade.h:68
 msgid "Choose Files:"
 msgstr "ファイルの選択:"
 
-#: anjuta.glade.h:59
+#: anjuta.glade.h:69
 msgid "Choose autocomplete for single match"
 msgstr "一つにマッチする自動補完を選択する"
 
-#: anjuta.glade.h:60
+#: anjuta.glade.h:70
 msgid "Choose directories"
 msgstr "フォルダの選択"
 
-#: anjuta.glade.h:61
+#: anjuta.glade.h:71
 msgid "Choose files"
 msgstr "ファイルの選択"
 
-#: anjuta.glade.h:62
+#: anjuta.glade.h:72
 msgid "Circular"
 msgstr "丸"
 
-#: anjuta.glade.h:63
+#: anjuta.glade.h:73
 msgid "Code folding"
 msgstr "コードの折り畳み"
 
-#: anjuta.glade.h:64
+#: anjuta.glade.h:74
 msgid "Collapse all code folds on file open"
 msgstr "ファイルのオープン時にコードを全て折り畳む"
 
-#: anjuta.glade.h:65
+#: anjuta.glade.h:75
 msgid "Colour"
 msgstr "カラー"
 
-#: anjuta.glade.h:66
+#: anjuta.glade.h:76
 msgid "Column at edge indicator"
 msgstr "左端の識別エリアの桁数"
 
-#: anjuta.glade.h:67
+#: anjuta.glade.h:77
 msgid "Combo Popdown:"
 msgstr "プルダウン数:"
 
-#: anjuta.glade.h:68
+#: anjuta.glade.h:78
 msgid "Command Line Parameters"
 msgstr "コマンド・ライン引数"
 
-#: anjuta.glade.h:69
+#: anjuta.glade.h:79
 msgid "Command line parameters"
 msgstr "コマンド・ライン引数"
 
-#: anjuta.glade.h:70
+#: anjuta.glade.h:80
 msgid "Command:"
 msgstr "コマンド:"
 
-#: anjuta.glade.h:71
+#: anjuta.glade.h:81
 msgid "Commands"
 msgstr "コマンド"
 
-#: anjuta.glade.h:72
+#: anjuta.glade.h:82
 msgid "Common commands:"
 msgstr "共通なコマンド:"
 
-#: anjuta.glade.h:73
+#: anjuta.glade.h:83
 msgid "Compact folding"
 msgstr "コンパクトに折り畳む"
 
-#: anjuta.glade.h:74
+#: anjuta.glade.h:84
 msgid "Compiler"
 msgstr "コンパイラ"
 
-#: anjuta.glade.h:75
+#: anjuta.glade.h:85
 msgid "Compiler Flags (CFLAGS):"
 msgstr "コンパイラのフラグ (CFLAGS):"
 
-#: anjuta.glade.h:76
+#: anjuta.glade.h:86
 msgid "Compiler and linker options"
 msgstr "コンパイラとリンカのオプション"
 
-#: anjuta.glade.h:77
+#: anjuta.glade.h:87
 msgid "Configuration"
 msgstr "設定"
 
-#: anjuta.glade.h:78
+#: anjuta.glade.h:88
 msgid "Configuration script segments"
 msgstr "configure スクリプトのセグメント"
 
-#: anjuta.glade.h:79
+#: anjuta.glade.h:89
 msgid "Configure Parameters"
 msgstr "Configure のパラメータ"
 
-#: anjuta.glade.h:80
-msgid "Costom style"
-msgstr "カスタム・スタイル"
-
-#: anjuta.glade.h:81
+#: anjuta.glade.h:90
 msgid "Crazy boy style"
 msgstr "Crazy boy スタイル"
 
-#: anjuta.glade.h:82
+#: anjuta.glade.h:91
 msgid "Custom style"
 msgstr "Custom スタイル"
 
-#: anjuta.glade.h:83
+#: anjuta.glade.h:92
 msgid "Customize File Browser"
 msgstr "ファイル・ブラウザのカスタマイズ"
 
-#: anjuta.glade.h:84
+#: anjuta.glade.h:93
 msgid "Customize what is to be shown in the file tree"
 msgstr "ファイル・ツリーの中に表示するもののカスタマイズ"
 
-#: anjuta.glade.h:85
+#: anjuta.glade.h:94
 msgid "Data module Makefile.am"
 msgstr "データ・モジュール (data) 配下の Makefile.am"
 
 #. 13
-#: anjuta.glade.h:86 src/message-manager.cc:49 src/text_editor_menu.c:319
-#: src/toolbar.c:306
+#: anjuta.glade.h:95 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: src/toolbar.c:307
 msgid "Debug"
 msgstr "デバッグ"
 
-#: anjuta.glade.h:87
+#: anjuta.glade.h:96
 msgid "Debugging and Profiling"
 msgstr "デバッグとプロファイリング"
 
-#: anjuta.glade.h:88
+#: anjuta.glade.h:97
+msgid "Default"
+msgstr "デフォルト"
+
+#: anjuta.glade.h:98
 msgid "Defines"
 msgstr "定義"
 
-#: anjuta.glade.h:89
+#: anjuta.glade.h:99
 msgid "Delete Theme"
 msgstr "テーマの削除"
 
-#: anjuta.glade.h:90
+#: anjuta.glade.h:100
 msgid "Diagonal"
 msgstr "斜線"
 
-#: anjuta.glade.h:91
+#: anjuta.glade.h:101
 msgid "Dialog on job complete"
 msgstr "ジョブが完了したらダイアログを表示する"
 
-#: anjuta.glade.h:92
-msgid "Direction"
-msgstr "方向"
-
-#: anjuta.glade.h:93 widgets/gnomefilelist.c:342
+#: anjuta.glade.h:102 widgets/gnomefilelist.c:342
 msgid "Directories"
 msgstr "フォルダ"
 
-#: anjuta.glade.h:94
+#: anjuta.glade.h:103
 msgid "Directory filter"
 msgstr "フォルダのフィルタ"
 
-#: anjuta.glade.h:95
+#: anjuta.glade.h:104
 msgid "Disable auto-format"
 msgstr "自動整形を無効にする"
 
-#: anjuta.glade.h:96
+#: anjuta.glade.h:105
 msgid "Disable overwriting files"
 msgstr "上書きを禁止するファイル群"
 
-#: anjuta.glade.h:97
+#: anjuta.glade.h:106
 msgid "Disable syntax highlighting"
 msgstr "強調表示を無効にする"
 
-#: anjuta.glade.h:98
+#: anjuta.glade.h:107
+msgid "Display process _tree"
+msgstr "プロセス・ツリーを表示する(_T)"
+
+#: anjuta.glade.h:108
 msgid "Do not show hidden directories"
 msgstr "隠しフォルダを表示しない"
 
-#: anjuta.glade.h:99
+#: anjuta.glade.h:109
 msgid "Do not show hidden files"
 msgstr "隠しファイルを表示しない"
 
-#: anjuta.glade.h:100
+#: anjuta.glade.h:110
 msgid "Do not show start with dialog again."
 msgstr "次回からこのダイアログを表示しない"
 
-#: anjuta.glade.h:101
+#: anjuta.glade.h:111
 msgid "Do not show tabs"
 msgstr "タブを表示しない"
 
-#: anjuta.glade.h:102
+#: anjuta.glade.h:112
 msgid "Document module Makefile.am"
 msgstr "ドキュメント・モジュール (doc) の Makefile.am"
 
-#: anjuta.glade.h:103
+#: anjuta.glade.h:113
 msgid "Draw line below folded lines"
 msgstr "折り畳んだ行の下に線を表示する"
 
-#: anjuta.glade.h:104
+#: anjuta.glade.h:114
 msgid "Edit"
 msgstr "編集"
 
-#: anjuta.glade.h:105
+#: anjuta.glade.h:115
 msgid "Editor caret (cursor) width in pixels"
 msgstr "エディタのカーソル幅 (ピクセル)"
 
-#: anjuta.glade.h:106
+#: anjuta.glade.h:116
 msgid "Editor tabs"
 msgstr "エディタのタブ"
 
-#: anjuta.glade.h:107
+#: anjuta.glade.h:117
 msgid "Enable Debugging"
 msgstr "デバッグを有効にする"
 
-#: anjuta.glade.h:108
+#: anjuta.glade.h:118
 msgid "Enable HTML tags folding"
 msgstr "HTML タグの折り畳みを有効にする"
 
-#: anjuta.glade.h:109
+#: anjuta.glade.h:119
 msgid "Enable Profiling"
 msgstr "プロファイリングを有効にする"
 
-#: anjuta.glade.h:110
+#: anjuta.glade.h:120
 msgid "Enable _all"
 msgstr "全て有効(_A)"
 
-#: anjuta.glade.h:111
+#: anjuta.glade.h:121
 msgid "Enable automatic indentation"
 msgstr "自動インデントを有効にする"
 
-#: anjuta.glade.h:112
+#: anjuta.glade.h:122
 msgid "Enable automatic messages indicators"
 msgstr "自動メッセージ識別を有効にする"
 
-#: anjuta.glade.h:113
+#: anjuta.glade.h:123
 msgid "Enable braces check"
 msgstr "括弧の対応をチェックする"
 
-#: anjuta.glade.h:114
+#: anjuta.glade.h:124
 msgid "Enable code folding"
 msgstr "コード部の折り畳みを有効にする"
 
-#: anjuta.glade.h:115
+#: anjuta.glade.h:125
 msgid "Enable comments folding"
 msgstr "コメント部の折り畳みを有効にする"
 
-#: anjuta.glade.h:116
+#: anjuta.glade.h:126
 msgid "Enable files autosave"
 msgstr "ファイルの自動保存を有効にする"
 
-#: anjuta.glade.h:117
+#: anjuta.glade.h:127
 msgid "Enable line wrap"
 msgstr "行ラップを有効にする"
 
-#: anjuta.glade.h:118
+#: anjuta.glade.h:128
 msgid "Enable python comments folding"
 msgstr "Python のコメント部の折り畳みを有効にする"
 
-#: anjuta.glade.h:119
+#: anjuta.glade.h:129
 msgid "Enable python quoted strings folding"
 msgstr "Python の引用文字列の折り畳みを有効にする"
 
-#: anjuta.glade.h:120 src/breakpoints.c:111
+#: anjuta.glade.h:130 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "有効にする"
 
-#: anjuta.glade.h:121
+#: anjuta.glade.h:131
 msgid "Encoding to use when saving files"
 msgstr "ファイル保存時に使用するエンコーディング"
 
-#: anjuta.glade.h:122
+#: anjuta.glade.h:132
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "16 進アドレスを入力するか、データから一つ選択して下さい"
 
-#: anjuta.glade.h:123
+#: anjuta.glade.h:133
+msgid ""
+"Enter the File name.\n"
+"The extension will be added according to the type."
+msgstr ""
+"ファイル名を入力して下さい。\n"
+"拡張子はファイルの種類に応じて自動的に追加されます。"
+
+#: anjuta.glade.h:135
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -526,104 +560,104 @@ msgstr ""
 "'indent' プログラムに対するコマンド・ライン引数を入力して下さい。\n"
 "詳細については 'indent' の info ページを参照して下さい。"
 
-#: anjuta.glade.h:124
+#: anjuta.glade.h:136
 msgid "Error message indicator style:"
 msgstr "エラー・メッセージの識別スタイル:"
 
-#: anjuta.glade.h:125
+#: anjuta.glade.h:137
 msgid "Errors messages:"
 msgstr "エラー・メッセージ:"
 
-#: anjuta.glade.h:126
+#: anjuta.glade.h:138
 msgid "Execute Program"
 msgstr "プログラムを実行します"
 
-#: anjuta.glade.h:127
+#: anjuta.glade.h:139
 msgid "Expand regex back references"
 msgstr "拡張正規表現の後方参照"
 
-#: anjuta.glade.h:128 src/an_file_view.c:671 src/breakpoints.c:111
+#: anjuta.glade.h:140 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "ファイル"
 
-#: anjuta.glade.h:129
+#: anjuta.glade.h:141
 msgid "File Filter"
 msgstr "ファイルのフィルタ"
 
-#: anjuta.glade.h:130
+#: anjuta.glade.h:142
 msgid "File filter"
 msgstr "ファイルのフィルタ"
 
-#: anjuta.glade.h:131
+#: anjuta.glade.h:143
 msgid "File level"
 msgstr "ファイルのレベルで実行する"
 
-#: anjuta.glade.h:132
-msgid "File/Directory to add:"
-msgstr "追加するファイル/フォルダ:"
+#: anjuta.glade.h:144
+msgid "File name:"
+msgstr "ファイル名:"
 
-#: anjuta.glade.h:133
+#: anjuta.glade.h:145
+msgid "File type:"
+msgstr "ファイルの種類:"
+
+#: anjuta.glade.h:146
 msgid "Filter extraneous characters in DOS mode"
 msgstr "DOS モードで不適切な文字をフィルタする"
 
-#: anjuta.glade.h:134
+#: anjuta.glade.h:147
 msgid "Find & Replace"
 msgstr "検索と置換"
 
-#: anjuta.glade.h:135
-msgid "Find and replace"
-msgstr "検索と置換"
-
-#: anjuta.glade.h:136 src/find_in_files.c:316
-msgid "Find in Files"
-msgstr "ファイル内の検索"
-
-#: anjuta.glade.h:137
+#: anjuta.glade.h:148
 msgid "Fold style:"
 msgstr "折り畳むスタイル:"
 
-#: anjuta.glade.h:138
+#: anjuta.glade.h:149
 msgid "Font:"
 msgstr "フォント:"
 
-#: anjuta.glade.h:139
+#: anjuta.glade.h:150
 msgid "Fore color:"
 msgstr "前景色:"
 
-#: anjuta.glade.h:140
+#: anjuta.glade.h:151
 msgid "Format"
 msgstr "書式"
 
-#: anjuta.glade.h:141 src/toolbar.c:856
+#: anjuta.glade.h:152 src/toolbar.c:857
 msgid "Format style"
 msgstr "書式のスタイル"
 
-#: anjuta.glade.h:142
-msgid "Forwards"
+#: anjuta.glade.h:153 src/text_editor_menu.c:84
+msgid "Forward"
 msgstr "前へ"
 
-#: anjuta.glade.h:143
-msgid "From cursor"
-msgstr "カーソル位置から"
+#: anjuta.glade.h:154
+msgid "Full Buffer"
+msgstr "全てのバッファ"
 
-#: anjuta.glade.h:144 src/an_symbol_view.c:54
+#: anjuta.glade.h:155 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "関数"
 
-#: anjuta.glade.h:145
+#: anjuta.glade.h:156
 msgid "GNU coding style"
 msgstr "GNU コーディング・スタイル"
 
-#: anjuta.glade.h:146
+#: anjuta.glade.h:157
+msgid "GPL Notice"
+msgstr "GPL 通達"
+
+#: anjuta.glade.h:158
 msgid "GUI editor command:"
 msgstr "GUI 編集のコマンド:"
 
 #. 3
-#: anjuta.glade.h:147 src/main_menubar_def.h:386
+#: anjuta.glade.h:159 src/main_menubar_def.h:386
 msgid "General"
 msgstr "全般"
 
-#: anjuta.glade.h:148
+#: anjuta.glade.h:160
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -634,7 +668,7 @@ msgstr ""
 "複数の Makefile の中にセットされます。\n"
 "これらは \"make\" で src/ の後でビルドされます。"
 
-#: anjuta.glade.h:149
+#: anjuta.glade.h:161
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -645,91 +679,93 @@ msgstr ""
 "複数の Makefile の中にセットされます。\n"
 "これらは \"make\" で src/ の前にビルドされます。"
 
-#: anjuta.glade.h:150
+#: anjuta.glade.h:162
 msgid "Gnome API"
 msgstr "GNOME API"
 
-#: anjuta.glade.h:151
+#: anjuta.glade.h:163
 msgid "Greedy matching"
 msgstr "\"欲張り\" マッチングにする"
 
-#: anjuta.glade.h:152
+#: anjuta.glade.h:164
 msgid "HTML _viewer:"
 msgstr "HTML ビュワー(_V):"
 
-#: anjuta.glade.h:153
+#. 0
+#: anjuta.glade.h:165 src/main_menubar_def.h:368
+msgid "Header"
+msgstr "ヘッダ"
+
+#. 5
+#: anjuta.glade.h:166 src/main_menubar_def.h:269
+msgid "Header File Template"
+msgstr "ヘッダファイル・テンプレート"
+
+#: anjuta.glade.h:167
 msgid "Headers"
 msgstr "ヘッダ"
 
-#: anjuta.glade.h:154
+#: anjuta.glade.h:168
 msgid "Hello World style"
 msgstr "Hello World スタイル"
 
-#: anjuta.glade.h:155
+#: anjuta.glade.h:169
 msgid "Help module Makefile.am"
 msgstr "ヘルプ・モジュール (help) 配下の Makefile.am"
 
-#: anjuta.glade.h:156
+#: anjuta.glade.h:170
+msgid "Hide process para_meters"
+msgstr "プロセスのパラメータを隠す(_M)"
+
+#: anjuta.glade.h:171
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr "高レベルの最適化 (可能ならば関数をインライン化する) にする"
 
-#: anjuta.glade.h:157
+#: anjuta.glade.h:172
 msgid "Highlight style"
 msgstr "強調表示のスタイル"
 
-#: anjuta.glade.h:158
+#: anjuta.glade.h:173
 msgid "History sizes"
 msgstr "履歴のサイズ"
 
-#: anjuta.glade.h:159
+#: anjuta.glade.h:174
 msgid "Ignore Binary Files"
 msgstr "バイナリ・ファイルを無視する"
 
-#: anjuta.glade.h:160
-msgid "Ignore CVS directory"
-msgstr "CVS フォルダを無視する"
-
-#: anjuta.glade.h:161
+#: anjuta.glade.h:175
 msgid "Ignore Directories:"
 msgstr "無視するフォルダ:"
 
-#: anjuta.glade.h:162
+#: anjuta.glade.h:176
 msgid "Ignore Files:"
 msgstr "無視するファイル:"
 
-#: anjuta.glade.h:163
+#: anjuta.glade.h:177
 msgid "Ignore Hidden Directories"
 msgstr "隠しフォルダを無視する"
 
-#: anjuta.glade.h:164
+#: anjuta.glade.h:178
 msgid "Ignore Hidden Files"
 msgstr "隠しファイルを無視する"
 
-#: anjuta.glade.h:165
-msgid "Ignore binary files"
-msgstr "バイナリ・ファイルを無視する"
-
-#: anjuta.glade.h:166
-msgid "Ignore case"
-msgstr "大小文字を無視する"
-
-#: anjuta.glade.h:167
+#: anjuta.glade.h:179
 msgid "Ignore directories"
 msgstr "無視するフォルダ"
 
-#: anjuta.glade.h:168
+#: anjuta.glade.h:180
 msgid "Ignore files"
 msgstr "無視するファイル"
 
-#: anjuta.glade.h:169
+#: anjuta.glade.h:181
 msgid "Ignore files and directories"
 msgstr "無視するファイルとフォルダ"
 
-#: anjuta.glade.h:170
+#: anjuta.glade.h:182
 msgid "Import Wizard"
 msgstr "インポート・ウィザード"
 
-#: anjuta.glade.h:171
+#: anjuta.glade.h:183
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
@@ -739,192 +775,200 @@ msgstr ""
 "り込みと Anjuta プロジェクトへの変換のお手伝いをします。プロジェクトのデータ"
 "を失ったり、データを変更するといったことはありません。"
 
-#: anjuta.glade.h:172
+#: anjuta.glade.h:184
 msgid "Include Paths"
 msgstr "ヘッダのパス"
 
-#: anjuta.glade.h:173
+#: anjuta.glade.h:185
 msgid "Include module Makefile.am"
 msgstr "ヘッダ・モジュール (include) 配下の Makefile.am"
 
-#: anjuta.glade.h:174
+#: anjuta.glade.h:186
 msgid "Indent closing braces"
 msgstr "インデント・バランスを閉じる"
 
-#: anjuta.glade.h:175
+#: anjuta.glade.h:187
 msgid "Indent opening braces"
 msgstr "インデント・バランスを開く"
 
-#: anjuta.glade.h:176
+#: anjuta.glade.h:188
 msgid "Indentation and auto-format options"
 msgstr "インデントと自動書式のオプション"
 
-#: anjuta.glade.h:177
+#: anjuta.glade.h:189
 msgid "Indentation size in spaces:"
 msgstr "インデントのサイズ:"
 
-#: anjuta.glade.h:178
+#: anjuta.glade.h:190
 msgid "Indicators"
 msgstr "Indicators"
 
-#: anjuta.glade.h:179
+#: anjuta.glade.h:191
 msgid "Info Pages"
 msgstr "Info ページ"
 
-#: anjuta.glade.h:180
+#: anjuta.glade.h:192
 msgid "Input string:"
 msgstr "入力する文字列:"
 
-#: anjuta.glade.h:181 src/text_editor_menu.c:174 src/toolbar.c:599
+#: anjuta.glade.h:193 src/text_editor_menu.c:174 src/toolbar.c:600
 msgid "Inspect"
 msgstr "検証"
 
-#: anjuta.glade.h:182
+#: anjuta.glade.h:194
 msgid "Italic"
 msgstr "斜体"
 
-#: anjuta.glade.h:183
+#: anjuta.glade.h:195
 msgid "Keep going when some targets can not be made"
 msgstr "いくつかのターゲットがビルドできない場合でも続行する"
 
-#: anjuta.glade.h:184
+#: anjuta.glade.h:196
 msgid "Kernighan and Ritchie style"
 msgstr "K&R スタイル"
 
-#: anjuta.glade.h:185
+#: anjuta.glade.h:197
 msgid "Language-specific commands:"
 msgstr "言語依存のコマンド:"
 
-#: anjuta.glade.h:186
+#: anjuta.glade.h:198
 msgid "Left"
 msgstr "左側"
 
-#: anjuta.glade.h:187
+#: anjuta.glade.h:199
 msgid "Libraries"
 msgstr "ライブラリ群"
 
-#: anjuta.glade.h:188
+#: anjuta.glade.h:200
 msgid "Library Paths"
 msgstr "ライブラリのパス"
 
-#: anjuta.glade.h:189
+#: anjuta.glade.h:201
 msgid "Line numbers margin width in pixels"
 msgstr "行番号のマージン幅 (ピクセル)"
 
-#: anjuta.glade.h:190 printing/print.c:1011 src/anjuta_info.c:126
+#: anjuta.glade.h:202 printing/print.c:1011 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "行ごと"
 
-#: anjuta.glade.h:191
+#: anjuta.glade.h:203
 msgid "Linker Flags (LDFLAGS):"
 msgstr "リンカのフラグ (LDFLAGS):"
 
-#: anjuta.glade.h:192
+#: anjuta.glade.h:204
 msgid "Load _global defaults"
 msgstr "システム・デフォルトの読み込み(_G)"
 
-#: anjuta.glade.h:193
+#: anjuta.glade.h:205
 msgid "Load _user defaults"
 msgstr "ユーザ・デフォルトの読み込み(_U)"
 
-#: anjuta.glade.h:194
+#: anjuta.glade.h:206
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "低レベルの最適化 (機種依存の最適化) にする"
 
-#: anjuta.glade.h:195
+#: anjuta.glade.h:207
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:196
+#: anjuta.glade.h:208
 msgid "Man pages"
 msgstr "man ページ"
 
-#: anjuta.glade.h:197
+#: anjuta.glade.h:209
 msgid "Match at start of word"
 msgstr "単語の先頭にマッチする"
 
-#: anjuta.glade.h:198
+#: anjuta.glade.h:210
 msgid "Match complete lines"
 msgstr "行の全てにマッチする"
 
-#: anjuta.glade.h:199
+#: anjuta.glade.h:211
 msgid "Match complete words"
 msgstr "単語全体にマッチする"
 
-#: anjuta.glade.h:200
+#: anjuta.glade.h:212
 msgid "Max. Actions"
 msgstr "操作数の最大値"
 
-#: anjuta.glade.h:201
+#: anjuta.glade.h:213
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "独立なジョブの最大数 (0 == 制限無し)"
 
-#: anjuta.glade.h:202
+#: anjuta.glade.h:214
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr "中レベルの最適化 (サイズとスピードのトレードオフ無し) にする"
 
-#: anjuta.glade.h:203
+#: anjuta.glade.h:215
 msgid "Memory"
 msgstr "メモリ"
 
-#: anjuta.glade.h:204
+#: anjuta.glade.h:216
 msgid "Menu icon:"
 msgstr "メニューのアイコン:"
 
-#: anjuta.glade.h:205
+#: anjuta.glade.h:217
 msgid "Menu location:"
 msgstr "メニューの格納場所:"
 
-#: anjuta.glade.h:206
+#: anjuta.glade.h:218
 msgid "Message colors"
 msgstr "メッセージの色"
 
-#: anjuta.glade.h:207
+#: anjuta.glade.h:219
 msgid "Messages options"
 msgstr "メッセージのオプション"
 
-#: anjuta.glade.h:208
+#: anjuta.glade.h:220
 msgid "Misc options"
 msgstr "その他のオプション"
 
-#: anjuta.glade.h:209
+#: anjuta.glade.h:221
 msgid "Mode:"
 msgstr "モード:"
 
-#: anjuta.glade.h:210
+#: anjuta.glade.h:222 src/registers_gui.c:51
+msgid "Modify"
+msgstr "変更"
+
+#: anjuta.glade.h:223
 msgid "Modules"
 msgstr "モジュール群"
 
-#: anjuta.glade.h:211
+#: anjuta.glade.h:224
 msgid "Monochrome"
 msgstr "白黒"
 
-#: anjuta.glade.h:212
+#: anjuta.glade.h:225
 msgid "Name:"
 msgstr "名前:"
 
-#: anjuta.glade.h:213 src/main_menubar_def.h:30 src/text_editor_gui.c:97
-#: src/toolbar.c:76
+#: anjuta.glade.h:226
+msgid "New File"
+msgstr "新しいファイル"
+
+#: anjuta.glade.h:227 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: src/toolbar.c:77
 msgid "New file"
 msgstr "新規ファイル"
 
-#: anjuta.glade.h:214
+#: anjuta.glade.h:228
 msgid "No Limit"
 msgstr "制限なし"
 
-#: anjuta.glade.h:215
+#: anjuta.glade.h:229
 msgid "No Optimization"
 msgstr "最適化しない"
 
-#: anjuta.glade.h:216
+#: anjuta.glade.h:230
 msgid "Normal message indicator style:"
 msgstr "通常メッセージの識別スタイル:"
 
-#: anjuta.glade.h:217
+#: anjuta.glade.h:231
 msgid "Normal messages:"
 msgstr "通常メッセージ:"
 
-#: anjuta.glade.h:218
+#: anjuta.glade.h:232
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -936,350 +980,329 @@ msgstr ""
 "プロジェクトがオープンされていない場合は\n"
 "グローバルな設定になります。"
 
-#: anjuta.glade.h:219
+#: anjuta.glade.h:233
 msgid "Number of first characters to show:"
 msgstr "表示する最初の文字数:"
 
-#: anjuta.glade.h:220
+#: anjuta.glade.h:234
 msgid "Number of last characters to show:"
 msgstr "表示する最後の文字数:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:221 src/project_dbase.c:197 src/toolbar.c:213
+#: anjuta.glade.h:235 src/project_dbase.c:196 src/toolbar.c:214
 msgid "Open Project"
 msgstr "プロジェクトを開く"
 
-#: anjuta.glade.h:222
+#: anjuta.glade.h:236
 msgid "Open existing Project."
 msgstr "既存のプロジェクトを開きます。"
 
-#: anjuta.glade.h:223
+#: anjuta.glade.h:237
 msgid "Open existing file or create a new file."
 msgstr ""
 "既存のファイルを開いたり、\n"
 "新規にファイルを追加します。"
 
-#: anjuta.glade.h:224 src/main_menubar_def.h:36 src/text_editor_gui.c:101
-#: src/toolbar.c:80
+#: anjuta.glade.h:238 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: src/toolbar.c:81
 msgid "Open file"
 msgstr "ファイルを開く"
 
-#: anjuta.glade.h:225
+#: anjuta.glade.h:239
 msgid "Open last working Project"
 msgstr "最後に作業したプロジェクトを開く"
 
-#: anjuta.glade.h:226
+#: anjuta.glade.h:240
 msgid "Optimization"
 msgstr "最適化"
 
 #. 15
-#: anjuta.glade.h:227 src/text_editor_menu.c:329
+#: anjuta.glade.h:241 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "オプション"
 
-#: anjuta.glade.h:228
+#: anjuta.glade.h:242
 msgid "Original Berkeley style"
 msgstr "Berkeley スタイル"
 
-#: anjuta.glade.h:229
+#: anjuta.glade.h:243
 msgid "Other colors"
 msgstr "その他の色"
 
-#: anjuta.glade.h:230
+#: anjuta.glade.h:244
 msgid "Other messages:"
 msgstr "その他のメッセージ:"
 
-#: anjuta.glade.h:231 src/an_symbol_view.c:54
+#: anjuta.glade.h:245 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "その他"
 
-#: anjuta.glade.h:232
+#: anjuta.glade.h:246
 msgid "Output files"
 msgstr "出力ファイル"
 
-#: anjuta.glade.h:233
+#: anjuta.glade.h:247
 msgid "Pick a color"
 msgstr "色の取得"
 
-#: anjuta.glade.h:234
+#: anjuta.glade.h:248
 msgid "Pixmap module Makefile.am"
 msgstr "Pixmap モジュール (pixmaps) 配下の Makefile.am"
 
-#: anjuta.glade.h:235
+#: anjuta.glade.h:249
 msgid "Plus/Minus"
 msgstr "＋/−"
 
-#: anjuta.glade.h:236
+#: anjuta.glade.h:250
 msgid "Po module (translation) Makefile.am"
 msgstr "翻訳メッセージカタログ (po) 配下の Makefile.am"
 
-#: anjuta.glade.h:237
+#: anjuta.glade.h:251
 msgid "Position:"
 msgstr "タブの位置:"
 
-#: anjuta.glade.h:238
+#: anjuta.glade.h:252
 msgid "Press this button to dismiss the dialog"
 msgstr "ダイアログを破棄する際はこのボタンをクリックして下さい"
 
-#: anjuta.glade.h:239
+#: anjuta.glade.h:253
 msgid "Pressing backspace un-indents"
 msgstr "[BS] キー押下でインデントから抜ける"
 
-#: anjuta.glade.h:240
+#: anjuta.glade.h:254
 msgid "Pressing tab indents"
 msgstr "[TAB] キー押下でインデントに入る"
 
-#: anjuta.glade.h:241
+#: anjuta.glade.h:255
 msgid "Print options"
 msgstr "印刷オプション"
 
-#: anjuta.glade.h:242
+#: anjuta.glade.h:256
 msgid "Programs"
 msgstr "プログラム"
 
-#: anjuta.glade.h:243 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
-#: src/toolbar.c:150
+#: anjuta.glade.h:257 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
+#: src/toolbar.c:151
 msgid "Project"
 msgstr "プロジェクト"
 
-#: anjuta.glade.h:244
+#: anjuta.glade.h:258
 msgid "Project Configuration"
 msgstr "プロジェクトの設定"
 
-#: anjuta.glade.h:245 src/wizard_gui.c:469
+#: anjuta.glade.h:259 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "プロジェクトの説明/紹介"
 
-#: anjuta.glade.h:246
+#: anjuta.glade.h:260
 msgid "Project Version"
 msgstr "プロジェクトのバージョン"
 
-#: anjuta.glade.h:247
+#: anjuta.glade.h:261
 msgid "Project configure.in"
 msgstr "プロジェクトの configure.in"
 
-#: anjuta.glade.h:248
+#: anjuta.glade.h:262
 msgid "Project level"
 msgstr "プロジェクトのレベルで実行する"
 
-#: anjuta.glade.h:249
+#: anjuta.glade.h:263
 msgid "Projects:"
 msgstr "プロジェクト:"
 
-#: anjuta.glade.h:250
-msgid "Prompt before replace"
-msgstr "置換する前に確認する"
+#: anjuta.glade.h:264
+msgid "Read me"
+msgstr "お読み下さい"
 
-#: anjuta.glade.h:251
+#: anjuta.glade.h:265
 msgid "Recent Files:"
 msgstr "最近開いたファイル数:"
 
-#: anjuta.glade.h:252
+#: anjuta.glade.h:266
 msgid "Recent Projects:"
 msgstr "最近開いたプロジェクト数:"
 
-#: anjuta.glade.h:253
-msgid "Regexp"
-msgstr "正規表現"
-
-#: anjuta.glade.h:254
-msgid "Regexp/String to find"
-msgstr "検索する正規表現/文字列"
-
-#: anjuta.glade.h:255
+#: anjuta.glade.h:267
 msgid "Regular Expression"
 msgstr "正規表現を使用する"
 
-#: anjuta.glade.h:256
+#: anjuta.glade.h:268
 msgid "Reload Session Defaults"
 msgstr "セッション・デフォルトの再ロード"
 
-#: anjuta.glade.h:257
+#: anjuta.glade.h:269
 msgid "Reload System Defaults"
 msgstr "システム・デフォルトの再ロード"
 
-#: anjuta.glade.h:258
-msgid "Replace Expression"
-msgstr "式の置換"
-
-#: anjuta.glade.h:259
+#: anjuta.glade.h:270
 msgid "Replace With:"
 msgstr "置換するもの:"
 
-#: anjuta.glade.h:260
+#: anjuta.glade.h:271
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr "update 中に全ての sticky タグをリセットする (ブランチをなくす) [-A]"
 
-#: anjuta.glade.h:261
+#: anjuta.glade.h:272
 msgid "Right"
 msgstr "右側"
 
-#: anjuta.glade.h:262
+#: anjuta.glade.h:273
 msgid "Run Configure Script"
 msgstr "configure スクリプトの実行"
 
-#: anjuta.glade.h:263
+#: anjuta.glade.h:274
 msgid "Run detached"
 msgstr "取り込まないで実行する"
 
-#: anjuta.glade.h:264
+#: anjuta.glade.h:275
 msgid "Run in Terminal"
 msgstr "端末内で実行する"
 
-#: anjuta.glade.h:265
+#: anjuta.glade.h:276
 msgid "Run in terminal"
 msgstr "端末内で実行する"
 
-#: anjuta.glade.h:266
+#: anjuta.glade.h:277
 msgid "Save all files"
 msgstr "全てのファイルを保存する"
 
-#: anjuta.glade.h:267
+#: anjuta.glade.h:278
 msgid "Save files interval in minutes"
 msgstr "ファイル保存の周期 (分)"
 
-#: anjuta.glade.h:268
+#: anjuta.glade.h:279
 msgid "Save session interval in minutes"
 msgstr "セッション保存の周期 (分)"
 
-#: anjuta.glade.h:269
-msgid "Scope"
-msgstr "範囲"
-
-#: anjuta.glade.h:270
+#: anjuta.glade.h:280
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "トップ・レベル Makefile.am の最後におくスクリプト"
 
-#: anjuta.glade.h:271 src/search-replace.c:1362 src/search-replace.c:1528
-#: src/search-replace.c:1534
-msgid "Search"
-msgstr "検索"
-
-#: anjuta.glade.h:272
+#: anjuta.glade.h:281
 msgid "Search Action:"
 msgstr "検索の方式:"
 
-#: anjuta.glade.h:273
+#: anjuta.glade.h:282
 msgid "Search Direction:"
 msgstr "検索する方向:"
 
-#: anjuta.glade.h:274
+#: anjuta.glade.h:283
 msgid "Search Expression"
 msgstr "式の検索"
 
-#: anjuta.glade.h:275
+#: anjuta.glade.h:284
 msgid "Search Expression:"
 msgstr "式の検索:"
 
-#: anjuta.glade.h:276
+#: anjuta.glade.h:285
 msgid "Search In:"
 msgstr "検索する場所:"
 
-#: anjuta.glade.h:277
+#: anjuta.glade.h:286
 msgid "Search Recursively"
 msgstr "再帰的に検索する"
 
-#: anjuta.glade.h:278
-msgid "Search String"
-msgstr "検索する文字列"
-
-#: anjuta.glade.h:279
+#: anjuta.glade.h:287
 msgid "Search Target"
 msgstr "検索する対象"
 
-#: anjuta.glade.h:280
+#: anjuta.glade.h:288
 msgid "Search Variable"
 msgstr "検索変数"
 
-#: anjuta.glade.h:281
-msgid "Search type"
-msgstr "検索の種類"
-
-#: anjuta.glade.h:282
+#: anjuta.glade.h:289
 msgid "Select highlight style to edit:"
 msgstr "編集する強調表示スタイルの選択:"
 
-#: anjuta.glade.h:283
+#: anjuta.glade.h:290
 msgid "Select theme:"
 msgstr "テーマの選択:"
 
-#: anjuta.glade.h:284
+#: anjuta.glade.h:291
 msgid "Selection background:"
 msgstr "背景色の選択:"
 
-#: anjuta.glade.h:285
+#: anjuta.glade.h:292
 msgid "Selection foreground:"
 msgstr "前景色の選択:"
 
-#: anjuta.glade.h:286
+#: anjuta.glade.h:293
+msgid "Setting"
+msgstr "設定"
+
+#: anjuta.glade.h:294
 msgid "Settings"
 msgstr "設定"
 
-#: anjuta.glade.h:287
+#: anjuta.glade.h:295 src/sharedlib_gui.c:102
+msgid "Shared libraries"
+msgstr "共有ライブラリ"
+
+#: anjuta.glade.h:296
 msgid "Short cut:"
 msgstr "ショートカット:"
 
-#: anjuta.glade.h:288
+#: anjuta.glade.h:297
 msgid "Show tooltips"
 msgstr "ツールチップを表示する"
 
-#: anjuta.glade.h:289
+#: anjuta.glade.h:298
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "サイレントモード: `make` 中に Shell コマンドの出力を表示しない"
 
-#: anjuta.glade.h:290
+#: anjuta.glade.h:299
 msgid "Sorted by most recent use"
 msgstr "最近使用した順に並べる"
 
-#: anjuta.glade.h:291
+#: anjuta.glade.h:300
 msgid "Sorted in alphabetical order"
 msgstr "アルファベット順に並べる"
 
-#: anjuta.glade.h:292
+#: anjuta.glade.h:301
 msgid "Sorted in the order you open them"
 msgstr "開いた順に並べる"
 
-#: anjuta.glade.h:293
+#: anjuta.glade.h:302
 msgid "Source Directories"
 msgstr "ソースのフォルダ"
 
-#: anjuta.glade.h:294
+#: anjuta.glade.h:303
 msgid "Source module Makefile.am"
 msgstr "ソース・モジュール (src) 配下の Makefile.am"
 
-#: anjuta.glade.h:295
+#: anjuta.glade.h:304
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "無視するフォルダ名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:296
+#: anjuta.glade.h:305
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "マッチするフォルダ名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:297
+#: anjuta.glade.h:306
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "無視するファイル名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:298
+#: anjuta.glade.h:307
 msgid "Space-seperated list of file name patterns to match"
 msgstr "マッチするファイル名のパターンを空白で区切って指定します"
 
-#: anjuta.glade.h:299
+#: anjuta.glade.h:308
 msgid "Squares"
 msgstr "四角形"
 
-#: anjuta.glade.h:300
+#: anjuta.glade.h:309
 msgid "Standard error:"
 msgstr "標準エラー出力:"
 
-#: anjuta.glade.h:301
+#: anjuta.glade.h:310
 msgid "Standard input:"
 msgstr "標準入力:"
 
-#: anjuta.glade.h:302
+#: anjuta.glade.h:311
 msgid "Standard output:"
 msgstr "標準出力:"
 
-#: anjuta.glade.h:303
+#: anjuta.glade.h:312
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
@@ -1289,248 +1312,236 @@ msgstr ""
 "成のお手伝いをします。このウィザードを使うと、いろいろな種類のプロジェクトの"
 "骨組みを生成できます。"
 
-#: anjuta.glade.h:304
+#: anjuta.glade.h:313
 msgid "Strike-Out"
 msgstr "打ち消し線"
 
-#: anjuta.glade.h:305
-msgid "String"
-msgstr "文字列"
-
-#: anjuta.glade.h:306
-msgid "String to replace"
-msgstr "置き換える文字列"
-
-#: anjuta.glade.h:307
+#: anjuta.glade.h:314
 msgid "Strip trailling spaces on file save"
 msgstr "保存時に後ろ付きの空白を除く"
 
-#: anjuta.glade.h:308
+#: anjuta.glade.h:315
 msgid "Style of Kangleipak"
 msgstr "Kangleipak のスタイル"
 
-#: anjuta.glade.h:309 src/anjuta-encodings.c:721
+#: anjuta.glade.h:316 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "サポートするエンコーディング"
 
-#: anjuta.glade.h:310
+#: anjuta.glade.h:317
 msgid "Supports"
 msgstr "サポート"
 
-#: anjuta.glade.h:311
+#: anjuta.glade.h:318
 msgid "Syntax highlight editor"
 msgstr "強調表示エディタ"
 
-#: anjuta.glade.h:312
+#: anjuta.glade.h:319
 msgid "Tab size in spaces:"
 msgstr "タブのサイズ:"
 
-#: anjuta.glade.h:313
+#: anjuta.glade.h:320
 msgid "Tabs position:"
 msgstr "タブの位置:"
 
-#: anjuta.glade.h:314
+#: anjuta.glade.h:321
 msgid "Target:"
 msgstr "対象:"
 
-#: anjuta.glade.h:315
+#: anjuta.glade.h:322
 msgid "Terminal options"
 msgstr "端末のオプション"
 
-#: anjuta.glade.h:316
+#: anjuta.glade.h:323
 msgid "Theme"
 msgstr "テーマ"
 
-#: anjuta.glade.h:317
+#: anjuta.glade.h:324
 msgid "Tool Editor"
 msgstr "ツール編集エディタ"
 
-#: anjuta.glade.h:318
+#: anjuta.glade.h:325
 msgid "Top"
 msgstr "上側"
 
-#: anjuta.glade.h:319
+#: anjuta.glade.h:326
 msgid "Top level Makefile.am"
 msgstr "トップレベルの Makefile.am"
 
-#: anjuta.glade.h:320
+#: anjuta.glade.h:327
 msgid "Truncate long messages"
 msgstr "長いメッセージを切り詰める"
 
-#: anjuta.glade.h:321
+#: anjuta.glade.h:328
 msgid "Try to save in current locale's encoding"
 msgstr "現在利用しているロケールのエンコーディングで保存してみる"
 
-#: anjuta.glade.h:322
+#: anjuta.glade.h:329
 msgid "Try to save in original encoding"
 msgstr "オリジナルのエンコーディングで保存してみる"
 
-#: anjuta.glade.h:323
+#: anjuta.glade.h:330
 msgid "Underline Plain"
 msgstr "通常の下線"
 
-#: anjuta.glade.h:324
+#: anjuta.glade.h:331
 msgid "Underline Squiggle"
 msgstr "ねじれ下線"
 
-#: anjuta.glade.h:325
+#: anjuta.glade.h:332
 msgid "Underline-TT"
 msgstr "TT 下線"
 
-#: anjuta.glade.h:326
+#: anjuta.glade.h:333
 msgid "Underlined"
 msgstr "下線"
 
-#: anjuta.glade.h:327 src/cvs_gui.c:73 src/registers_gui.c:47
-#: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
+#: anjuta.glade.h:334 src/cvs_gui.c:73 src/registers_gui.c:58
+#: src/sharedlib_gui.c:52 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
 msgstr "更新"
 
-#: anjuta.glade.h:328
+#: anjuta.glade.h:335
 msgid "Update tags image automatically"
 msgstr "自動的にタグ・イメージを更新する"
 
-#: anjuta.glade.h:329
+#: anjuta.glade.h:336
 msgid "Use GNOME terminal profile:"
 msgstr "使用する GNOME 端末のプロファイル:"
 
-#: anjuta.glade.h:330
+#: anjuta.glade.h:337
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "GNOME 端末で現在選択されているプロファイルを使用する"
 
-#: anjuta.glade.h:331
+#: anjuta.glade.h:338
 msgid "Use default"
 msgstr "デフォルトを使用する"
 
-#: anjuta.glade.h:332
+#: anjuta.glade.h:339
 msgid "Use tabs for indentation"
 msgstr "インデントにタブを使う"
 
-#: anjuta.glade.h:333
+#: anjuta.glade.h:340
 msgid "User Tools"
 msgstr "ユーザ定義ツール"
 
-#: anjuta.glade.h:334
+#: anjuta.glade.h:341
 msgid "User email address:"
 msgstr "E-メール・アドレス:"
 
-#: anjuta.glade.h:335
+#: anjuta.glade.h:342
 msgid "User information"
 msgstr "ユーザの情報"
 
-#: anjuta.glade.h:336
+#: anjuta.glade.h:343
 msgid "User name:"
 msgstr "ユーザ名:"
 
-#: anjuta.glade.h:337
+#: anjuta.glade.h:344
 msgid "Variable list"
 msgstr "変数の一覧"
 
-#: anjuta.glade.h:338 src/project_dbase_gui.c:931
+#: anjuta.glade.h:345 src/project_dbase_gui.c:931
 msgid "Version:"
 msgstr "バージョン:"
 
-#: anjuta.glade.h:339
+#: anjuta.glade.h:346
 msgid "View"
 msgstr "表示"
 
-#: anjuta.glade.h:340
+#: anjuta.glade.h:347
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr "Makefile の中で未定義の変数が参照された場合は警告する"
 
-#: anjuta.glade.h:341
+#: anjuta.glade.h:348
 msgid "Warning message indicator style:"
 msgstr "警告メッセージの識別スタイル:"
 
-#: anjuta.glade.h:342
+#: anjuta.glade.h:349
 msgid "Warnings"
 msgstr "警告メッセージ"
 
-#: anjuta.glade.h:343
+#: anjuta.glade.h:350
 msgid "Warnings messages:"
 msgstr "警告メッセージ:"
 
-#: anjuta.glade.h:344
-msgid "Whole document"
-msgstr "ドキュメント全体"
-
-#: anjuta.glade.h:345
-msgid "Whole word"
-msgstr "単語全体を対象とする"
-
-#: anjuta.glade.h:346
+#: anjuta.glade.h:351
 msgid "Working directory:"
 msgstr "作業フォルダ:"
 
-#: anjuta.glade.h:347
+#: anjuta.glade.h:352
 msgid "Wrap bookmarks search around"
 msgstr "ブックマークの検索をくくる"
 
-#: anjuta.glade.h:348
+#: anjuta.glade.h:353
 msgid "_Attach"
 msgstr "取り込み(_A)"
 
-#: anjuta.glade.h:349
+#: anjuta.glade.h:354
 msgid "_Build a file:"
 msgstr "ファイルのビルド(_B):"
 
-#: anjuta.glade.h:350
+#: anjuta.glade.h:355
 msgid "_Condition:"
 msgstr "条件(_C):"
 
-#: anjuta.glade.h:351
+#: anjuta.glade.h:356
 msgid "_Disable all"
 msgstr "全て無効(_D)"
 
-#: anjuta.glade.h:352
+#: anjuta.glade.h:357
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: anjuta.glade.h:353
+#: anjuta.glade.h:358
 msgid "_Execute:"
 msgstr "実行(_E):"
 
-#: anjuta.glade.h:354
+#: anjuta.glade.h:359
+msgid "_Hide paths"
+msgstr "パス名を隠す(_H)"
+
+#: anjuta.glade.h:360
 msgid "_Image editor:"
 msgstr "画像エディタ(_I):"
 
-#: anjuta.glade.h:355
+#: anjuta.glade.h:361
 msgid "_Language:"
 msgstr "言語(_L):"
 
-#: anjuta.glade.h:356
+#: anjuta.glade.h:362
 msgid "_Location:"
 msgstr "場所(_L):"
 
-#: anjuta.glade.h:357
+#: anjuta.glade.h:363
 msgid "_Make a file:"
 msgstr "ファイルのメイク(_M):"
 
-#: anjuta.glade.h:358
+#: anjuta.glade.h:364
 msgid "_Pass:"
 msgstr "パス(_P):"
 
-#: anjuta.glade.h:359
+#: anjuta.glade.h:365
 msgid "_Pixmap editor:"
 msgstr "Pixmap エディタ(_P):"
 
-#: anjuta.glade.h:360
+#: anjuta.glade.h:366
 msgid "_Process to attach to:"
 msgstr "取り込むプロセスの選択(_P):"
 
-#: anjuta.glade.h:361
+#: anjuta.glade.h:367
 msgid "_Remove all"
 msgstr "全て削除(_R)"
 
-#: anjuta.glade.h:362
+#: anjuta.glade.h:368
 msgid "_Save Theme As"
 msgstr "テーマを別名で保存(_S)"
 
-#: anjuta.glade.h:363
+#: anjuta.glade.h:369
 msgid "_Terminal:"
 msgstr "端末(_T):"
 
-#: anjuta.glade.h:364
+#: anjuta.glade.h:370
 msgid "_Update"
 msgstr "更新(_U)"
 
@@ -1958,8 +1969,8 @@ msgstr "クラス・ビルダ"
 #. 13
 #. 14
 #. 9
-#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1006
-#: src/project_dbase_gui.c:366 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:997
+#: src/project_dbase_gui.c:366 src/registers_gui.c:66 src/sharedlib_gui.c:60
 #: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
 msgstr "ヘルプ"
@@ -2254,7 +2265,7 @@ msgstr "ファイル・フィルタのユーザ・インタフェースを構築
 msgid "Update file"
 msgstr "更新"
 
-#: src/an_file_view.c:355 src/main_menubar_def.h:1612
+#: src/an_file_view.c:355 src/main_menubar_def.h:1603
 msgid "Update current working copy"
 msgstr "現在作業中のローカルリポジトリを update します"
 
@@ -2263,7 +2274,7 @@ msgstr "現在作業中のローカルリポジトリを update します"
 msgid "Commit file"
 msgstr "コミット"
 
-#: src/an_file_view.c:362 src/main_menubar_def.h:1619
+#: src/an_file_view.c:362 src/main_menubar_def.h:1610
 msgid "Commit changes to the repository"
 msgstr "変更内容をリポジトリに commit します"
 
@@ -2272,7 +2283,7 @@ msgstr "変更内容をリポジトリに commit します"
 msgid "Status of file"
 msgstr "状態"
 
-#: src/an_file_view.c:369 src/main_menubar_def.h:1626
+#: src/an_file_view.c:369 src/main_menubar_def.h:1617
 msgid "Print the status of the current file"
 msgstr "このファイルの状態を表示します"
 
@@ -2281,7 +2292,7 @@ msgstr "このファイルの状態を表示します"
 msgid "Get file log"
 msgstr "ログ"
 
-#: src/an_file_view.c:376 src/main_menubar_def.h:1633
+#: src/an_file_view.c:376 src/main_menubar_def.h:1624
 msgid "Print the CVS log for the current file"
 msgstr "このファイルの CVS ログを表示します"
 
@@ -2290,7 +2301,7 @@ msgstr "このファイルの CVS ログを表示します"
 msgid "Add file"
 msgstr "追加"
 
-#: src/an_file_view.c:383 src/main_menubar_def.h:1640
+#: src/an_file_view.c:383 src/main_menubar_def.h:1631
 msgid "Add the current file to the repository"
 msgstr "このファイルをリポジトリに追加します"
 
@@ -2299,7 +2310,7 @@ msgstr "このファイルをリポジトリに追加します"
 msgid "Remove file"
 msgstr "削除"
 
-#: src/an_file_view.c:390 src/main_menubar_def.h:1647
+#: src/an_file_view.c:390 src/main_menubar_def.h:1638
 msgid "Remove the current file from the repository"
 msgstr "プロジェクトからこのファイルを削除します"
 
@@ -2308,19 +2319,19 @@ msgstr "プロジェクトからこのファイルを削除します"
 msgid "Diff file"
 msgstr "差分"
 
-#: src/an_file_view.c:397 src/main_menubar_def.h:1654
+#: src/an_file_view.c:397 src/main_menubar_def.h:1645
 msgid "Create a diff between the working copy and the repository"
 msgstr "作業中のローカルリポジトリとリポジトリとの間で diff を作成します"
 
 #. 0
 #. 2
-#: src/an_file_view.c:406 src/main_menubar_def.h:954
+#: src/an_file_view.c:406 src/main_menubar_def.h:945
 #: src/project_dbase_gui.c:334
 msgid "Open in Anjuta"
 msgstr "Anjuta の中で開く"
 
 #. 1
-#: src/an_file_view.c:413 src/main_menubar_def.h:948
+#: src/an_file_view.c:413 src/main_menubar_def.h:939
 #: src/project_dbase_gui.c:328
 msgid "Open in default viewer"
 msgstr "デフォルト・ビュワーの中に開く"
@@ -2335,13 +2346,13 @@ msgstr "更新"
 #. 7
 #. 8
 #. 19
-#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:980
+#: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:971
 #: src/message-manager.cc:143 src/project_dbase_gui.c:360
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "組み込む"
 
-#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:981
+#: src/an_file_view.c:436 src/an_symbol_view.c:310 src/main_menubar_def.h:972
 msgid "Dock/Undock the Project Window"
 msgstr "プロジェクト・ウィンドウを組み込んだり、取り外したりします"
 
@@ -2609,47 +2620,47 @@ msgstr "ファイルを開く"
 msgid "Save File As"
 msgstr "名前を付けて保存"
 
-#: src/anjuta.c:270
+#: src/anjuta.c:268
 msgid "Cannot create application... exiting\n"
 msgstr "アプリケーションが生成できませんでした... 終了します。\n"
 
-#: src/anjuta.c:320 src/anjuta.c:324 src/anjuta.c:1147 src/anjuta.c:1163
+#: src/anjuta.c:318 src/anjuta.c:322 src/anjuta.c:1146 src/anjuta.c:1162
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:381
+#: src/anjuta.c:379
 msgid "Recent Files "
 msgstr "最近開いたファイル "
 
-#: src/anjuta.c:936
+#: src/anjuta.c:934
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * このファイルの編集または名前の変更は厳禁 ** Anjuta が作成 **\n"
 
-#: src/anjuta.c:1112
+#: src/anjuta.c:1111
 msgid "All files saved ..."
 msgstr "全てのファイルは保存されました ..."
 
-#: src/anjuta.c:1140
+#: src/anjuta.c:1139
 #, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta: %s (保存済み)"
 
-#: src/anjuta.c:1155
+#: src/anjuta.c:1154
 #, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta: %s (未保存)"
 
-#: src/anjuta.c:1180
+#: src/anjuta.c:1179
 msgid "Anjuta: No file"
 msgstr "Anjuta: ファイルなし"
 
-#: src/anjuta.c:1485 src/anjuta.c:1587
+#: src/anjuta.c:1484 src/anjuta.c:1586
 msgid "ERROR: "
 msgstr "エラー: "
 
-#: src/anjuta.c:1506 src/anjuta.c:1606
+#: src/anjuta.c:1505 src/anjuta.c:1605
 msgid ""
 "\n"
 "System: "
@@ -2657,7 +2668,7 @@ msgstr ""
 "\n"
 "システム: "
 
-#: src/anjuta.c:2086
+#: src/anjuta.c:2085
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -2666,35 +2677,35 @@ msgstr ""
 "ユーティリティ \"%s\" がインストールされていません。\n"
 "インストール後に Anjuta を再起動して下さい。"
 
-#: src/anjuta.c:2112 src/anjuta.c:2168
+#: src/anjuta.c:2111 src/anjuta.c:2167
 msgid "None"
 msgstr "なし"
 
-#: src/anjuta.c:2123
+#: src/anjuta.c:2122
 msgid "DOS (CRLF)"
 msgstr "DOS (CR/LF)"
 
-#: src/anjuta.c:2126 src/anjuta.c:2160
+#: src/anjuta.c:2125 src/anjuta.c:2159
 msgid "Unix (LF)"
 msgstr "UNIX (LF)"
 
-#: src/anjuta.c:2129
+#: src/anjuta.c:2128
 msgid "Mac (CR)"
 msgstr "Mac (CR)"
 
-#: src/anjuta.c:2132
+#: src/anjuta.c:2131
 msgid "Unknown"
 msgstr "不明"
 
-#: src/anjuta.c:2149
+#: src/anjuta.c:2148
 msgid "OVR"
 msgstr "[上書き]"
 
-#: src/anjuta.c:2153 src/anjuta.c:2159
+#: src/anjuta.c:2152 src/anjuta.c:2158
 msgid "INS"
 msgstr "[挿入]"
 
-#: src/anjuta.c:2171
+#: src/anjuta.c:2170
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -2703,11 +2714,16 @@ msgstr ""
 "  プロジェクト: %s  倍率: %d       行: %04d         列: %03d        %s       "
 "ジョブ: %s       モード: %s"
 
-#: src/anjuta.c:2414
+#. ~ g_signal_connect (app->launcher, "child-exited",
+#. ~ G_CALLBACK (find_in_files_terminated), NULL);
+#. ~ if (anjuta_launcher_execute (app->launcher, command,
+#. ~ find_in_files_mesg_arrived, NULL) == FALSE)
+#. ~ return;
+#: src/anjuta.c:2413
 msgid "Looking up symbol"
 msgstr "シンボルの検索"
 
-#: src/anjuta.c:2416 src/find_in_files.c:322
+#: src/anjuta.c:2415
 msgid "Finding in Files ....\n"
 msgstr "ファイル内の検索 ....\n"
 
@@ -2728,7 +2744,7 @@ msgstr ""
 "ファイル '%s' は既に存在しています。\n"
 "本当に上書きしてもよろしいですか？"
 
-#: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576 src/find_replace.c:344
+#: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576
 msgid "_Replace"
 msgstr "置換(_R)"
 
@@ -2783,13 +2799,13 @@ msgstr ""
 "先に進むには正しい \"%s\" を入力して下さい。"
 
 #. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1489 src/project_dbase.c:1495
-#: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:114
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
+#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:114
 #: src/signals_cbs.c:127 src/signals_cbs.c:140
 msgid "Yes"
 msgstr "はい"
 
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1491 src/project_dbase.c:1500
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
 #: src/project_import_cbs.c:229 src/signals_cbs.c:116 src/signals_cbs.c:129
 #: src/signals_cbs.c:142
 msgid "No"
@@ -2855,28 +2871,28 @@ msgstr ""
 "あとで変更できない設定がいくつかあるので、\n"
 "その質問に注意深く答えて下さい。"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Pid"
 msgstr "PID"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "User"
 msgstr "ユーザ"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Time"
 msgstr "時刻"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Command"
 msgstr "コマンド名"
 
-#: src/attach_process.c:131
+#: src/attach_process.c:400
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "実行できません: %s"
 
-#: src/attach_process.c:141
+#: src/attach_process.c:413
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "ファイルが開けません: %s\n"
@@ -2902,7 +2918,7 @@ msgstr "条件"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:169 src/debugger.c:1825
+#: src/breakpoints.c:165 src/debugger.c:1825
 msgid "All breakpoints enabled:\n"
 msgstr "全てのブレークポイントが有効:\n"
 
@@ -2911,25 +2927,25 @@ msgstr "全てのブレークポイントが有効:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:187 src/debugger.c:1871
+#: src/breakpoints.c:183 src/debugger.c:1871
 msgid "All breakpoints disabled:\n"
 msgstr "全てのブレークポイントが無効:\n"
 
-#: src/breakpoints.c:651
+#: src/breakpoints.c:636
 msgid "You must give a valid location to set the breakpoint."
 msgstr ""
 "ブレークポイントを設定するためには、正しい場所を指定する必要があります。"
 
-#: src/breakpoints.c:773
+#: src/breakpoints.c:757
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "本当に全てのブレークポイントを削除してもよろしいですか？"
 
-#: src/breakpoints.c:1296
+#: src/breakpoints.c:1278
 msgid "Old breakpoints disabled."
 msgstr "古いブレークポイントは無効です。"
 
 #. 5
-#: src/breakpoints.c:1436 src/main_menubar_def.h:781 src/text_editor_gui.c:159
+#: src/breakpoints.c:1416 src/main_menubar_def.h:772 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
@@ -2952,8 +2968,7 @@ msgstr "この種類のファイルに対するビルドコマンドが指定さ
 msgid "Building file: %s ...\n"
 msgstr "ビルド中: %s ...\n"
 
-#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:360
-#: src/project_import.c:192
+#: src/build_file.c:132 src/cvs.c:776 src/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "所要時間: %lu 秒\n"
@@ -3075,7 +3090,7 @@ msgstr ""
 msgid "No compile command has been specified for this type of file."
 msgstr "この種類のファイルに対するコンパイルコマンドが指定されていません。"
 
-#: src/compile.c:153 src/toolbar.c:250
+#: src/compile.c:153 src/toolbar.c:251
 msgid "Compile"
 msgstr "コンパイル"
 
@@ -3094,7 +3109,7 @@ msgstr ""
 "コンパイラのオプションをいくつか変更しました。\n"
 "次のビルド操作で、プロジェクトを完全にリビルドしますか？"
 
-#: src/compiler_options.c:724 src/src_paths.c:217
+#: src/compiler_options.c:724 src/src_paths.c:222
 msgid "Do you want to clear the list?"
 msgstr "本当にこの一覧をクリアしてもよろしいですか？"
 
@@ -3135,7 +3150,7 @@ msgstr ""
 "プロジェクトには実行可能な configure スクリプトがありません。\n"
 "まず最初にプロジェクトの自動生成を実行して下さい。"
 
-#: src/configurer.c:188 src/toolbar.c:262
+#: src/configurer.c:188 src/toolbar.c:263
 msgid "Configure"
 msgstr "Configure"
 
@@ -3312,7 +3327,7 @@ msgid "CVS: Diff file"
 msgstr "CVS: Diff ファイル"
 
 #. 17
-#: src/cvs_gui.c:229 src/main_menubar_def.h:1119
+#: src/cvs_gui.c:229 src/main_menubar_def.h:1110
 msgid "Diff"
 msgstr "Diff"
 
@@ -3400,7 +3415,7 @@ msgstr "符号付き 10進"
 msgid "Unsigned decimal"
 msgstr "符号なし 10進"
 
-#: src/debug_tree.c:1520 src/registers_gui.c:111
+#: src/debug_tree.c:1520 src/registers_gui.c:43
 msgid "Hex"
 msgstr "16 進形式"
 
@@ -3590,15 +3605,15 @@ msgstr "ファイル %s はローカルではありません。"
 msgid "Invalid filename %s."
 msgstr "ファイル名 %s が不正です。"
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1709
+#: src/executer.c:53 src/mainmenu_callbacks.c:1227
 msgid "The target executable of this Project is unknown"
 msgstr "このプロジェクトの実行可能なターゲットが不明です"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1711
+#: src/executer.c:58 src/mainmenu_callbacks.c:1229
 msgid "The target executable of this Project is not executable"
 msgstr "このプロジェクトのターゲットは実行可能ではありません"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1715
+#: src/executer.c:63 src/mainmenu_callbacks.c:1233
 msgid "The target executable does not exist for this Project"
 msgstr "このプロジェクトには実行可能なファイルが存在しません"
 
@@ -3606,8 +3621,8 @@ msgstr "このプロジェクトには実行可能なファイルが存在しま
 msgid "No file or Project opened."
 msgstr "ファイルが存在しないか、プロジェクトが読み込まれていません。"
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1735
-#: src/mainmenu_callbacks.c:1746
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1253
+#: src/mainmenu_callbacks.c:1264
 msgid "No executable for this file."
 msgstr "このファイルは実行形式ではありません。"
 
@@ -3627,63 +3642,58 @@ msgstr "このファイルは保存されていません。まず最初に保存
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "ファイルを実行できません。\"設定 -> コマンド\" を確認して下さい。"
 
-#: src/find_in_files.c:349
-msgid "Find in Files completed...............Unsuccessful\n"
-msgstr "ファイル内の検索完了...............失敗\n"
+#: src/file.c:101
+msgid "C Source File"
+msgstr "C ソースファイル"
 
-#: src/find_in_files.c:351
-msgid "Find in Files completed ... unsuccessful"
-msgstr "ファイル内の検索完了 ... 失敗"
+#: src/file.c:102
+msgid "C -C++ Header File"
+msgstr "C -C++ ヘッダファイル"
 
-#: src/find_in_files.c:356
-msgid "Find in Files completed...............Successful\n"
-msgstr "ファイル内の検索完了...............成功\n"
+#: src/file.c:103
+msgid "C++ Source File"
+msgstr "C++ ソースファイル"
 
-#: src/find_in_files.c:358
-msgid "Find in Files completed ... successful"
-msgstr "ファイル内の検索完了 ... 成功"
+#: src/file.c:104
+msgid "C# Source File"
+msgstr "C# ソースファイル"
 
-#: src/find_in_files_cbs.c:103
-msgid "No input files supplied."
-msgstr "入力ファイルが指定されていません。"
+#: src/file.c:105
+msgid "Java Source File"
+msgstr "Java ソースファイル"
 
-#: src/find_in_files_cbs.c:110
-msgid "No search string supplied."
-msgstr "検索する文字列が指定されていません。"
+#: src/file.c:106
+msgid "Perl Source File"
+msgstr "Perl ソースファイル"
 
-#: src/find_replace.c:338
-msgid "Do you want to replace this occurence?"
-msgstr "これを置換しますか？"
+#: src/file.c:107
+msgid "Python Source File"
+msgstr "Python ソースファイル"
 
-#: src/find_replace.c:400
+#: src/file.c:108
+msgid "Shell Script File"
+msgstr "Shell スクリプト"
+
+#: src/file.c:109
+msgid "Other"
+msgstr "その他"
+
+#: src/file.c:145
+msgid "Unable to build user interface for New File"
+msgstr "新しいファイルの UI を構築できません"
+
+#: src/file.c:439
 #, c-format
-msgid "The string \"%s\" was not found in the selected text"
-msgstr "指定した範囲内に文字列 \"%s\" が見つかりませんでした。"
+msgid "The file \"%s\" is not a header file."
+msgstr "ファイル \"%s\" はヘッダファイルではありません。"
 
-#: src/find_replace.c:405
-#, c-format
-msgid "The string \"%s\" was not found from the current location"
-msgstr "現在の場所から文字列 \"%s\" が見つかりませんでした。"
+#: src/file.c:548
+msgid "%Y"
+msgstr "%Y"
 
-#: src/find_text.c:155
-#, c-format
-msgid "The match \"%s\" was not found in the whole document"
-msgstr ""
-"全てのドキュメントの中に、\"%s\" に一致した文字列が見つかりませんでした。"
-
-#: src/find_text.c:160
-#, c-format
-msgid "The match \"%s\" was not found in the selected text"
-msgstr "指定した範囲の中に、\"%s\" に一致した文字列が見つかりませんでした。"
-
-#: src/find_text.c:165
-#, c-format
-msgid "The match \"%s\" was not found from the current location"
-msgstr "現在の場所から、\"%s\" に一致したものが見つかりませんでした。"
-
-#: src/find_text.c:189
-msgid "No matches found. Wrap search around the document?"
-msgstr "一致するものが見つかりません。ドキュメント全体を検索しますか？"
+#: src/file.c:567
+msgid "%Y-%m-%d"
+msgstr "%Y-%m-%d"
 
 #: src/glade_iface.c:69
 msgid ""
@@ -3791,35 +3801,35 @@ msgstr "プロジェクトの自動生成が完了しました。"
 msgid " Goto Line number "
 msgstr " ジャンプする行番号 "
 
-#: src/launcher.c:582
+#: src/launcher.c:589
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr "launcher.c: 子プロセスの標準出力を読み込み際にエラー\n"
 
-#: src/launcher.c:594
+#: src/launcher.c:601
 msgid "launcher.c: STDOUT pipe closed"
 msgstr "launcher.c: STDOUT のパイプが閉じました"
 
-#: src/launcher.c:630
+#: src/launcher.c:637
 msgid "launcher.c: Error while reading child stderr"
 msgstr "launcher.c: 子プロセスの標準エラー出力を読み込む際にエラー"
 
-#: src/launcher.c:642
+#: src/launcher.c:649
 msgid "launcher.c: STDERR pipe closed"
 msgstr "launcher.c: STDERR のパイプが閉じました"
 
-#: src/launcher.c:683
+#: src/launcher.c:690
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: 子プロセスの pty を読み込む際にエラー\n"
 
-#: src/launcher.c:701
+#: src/launcher.c:708
 msgid "launcher.c: PTY pipe error!"
 msgstr "launcher.c: PTY のパイプのエラーです！"
 
-#: src/launcher.c:803
+#: src/launcher.c:813
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: チャンネルのエンコーディングをセットできませんでした！"
 
-#: src/launcher.c:853 src/text_editor.c:1556
+#: src/launcher.c:863 src/text_editor.c:1560
 msgid "Cannot execute command shell"
 msgstr "シェルを起動することができません。"
 
@@ -3831,7 +3841,7 @@ msgstr "スプラッシュ画面を表示しない"
 msgid "Recent Files    "
 msgstr "最近開いたファイル"
 
-#: src/main_menubar.c:393 src/project_dbase.c:2039
+#: src/main_menubar.c:393 src/project_dbase.c:2034
 msgid "Recent Projects "
 msgstr "最近開いたプロジェクト"
 
@@ -3850,7 +3860,7 @@ msgstr "開く(_O) ..."
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:84
+#: src/main_menubar_def.h:42 src/text_editor_gui.c:107 src/toolbar.c:85
 msgid "Save current file"
 msgstr "このファイルを保存します"
 
@@ -3877,7 +3887,7 @@ msgstr "現在開いている全てのファイルを保存します。但し新
 msgid "_Close File"
 msgstr "ファイルを閉じる(_C)"
 
-#: src/main_menubar_def.h:60 src/toolbar.c:92
+#: src/main_menubar_def.h:60 src/toolbar.c:93
 msgid "Close current file"
 msgstr "このファイルを閉じます"
 
@@ -3895,7 +3905,7 @@ msgstr "全てのファイルを閉じます"
 msgid "Reload F_ile"
 msgstr "ファイルの再読み込み(_I)"
 
-#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:88
+#: src/main_menubar_def.h:72 src/text_editor_gui.c:111 src/toolbar.c:89
 msgid "Reload current file"
 msgstr "このファイルを再度読み込みます"
 
@@ -3925,7 +3935,7 @@ msgstr ""
 msgid "Open P_roject ..."
 msgstr "プロジェクトを開く(_R) ..."
 
-#: src/main_menubar_def.h:91 src/toolbar.c:214
+#: src/main_menubar_def.h:91 src/toolbar.c:215
 msgid "Open a Project"
 msgstr "既存のプロジェクトを開きます"
 
@@ -3934,7 +3944,7 @@ msgstr "既存のプロジェクトを開きます"
 msgid "Sa_ve Project"
 msgstr "プロジェクトの保存(_V)"
 
-#: src/main_menubar_def.h:97 src/toolbar.c:225
+#: src/main_menubar_def.h:97 src/toolbar.c:226
 msgid "Save the current Project"
 msgstr "このプロジェクトを保存します"
 
@@ -3943,7 +3953,7 @@ msgstr "このプロジェクトを保存します"
 msgid "Close Pro_ject"
 msgstr "プロジェクトを閉じる(_J)"
 
-#: src/main_menubar_def.h:103 src/toolbar.c:237
+#: src/main_menubar_def.h:103 src/toolbar.c:238
 msgid "Close the current Project"
 msgstr "このプロジェクトを閉じます"
 
@@ -3963,7 +3973,7 @@ msgstr "このファイルの名前を変更します"
 msgid "_Print"
 msgstr "印刷(_P)"
 
-#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:110
+#: src/main_menubar_def.h:117 src/text_editor_gui.c:177 src/toolbar.c:111
 msgid "Print the current file"
 msgstr "このファイルを印刷します"
 
@@ -4146,11 +4156,6 @@ msgstr "現在の日付と時刻"
 msgid "Insert current date & time"
 msgstr "現在の日付と時刻を挿入します"
 
-#. 5
-#: src/main_menubar_def.h:269
-msgid "Header File Template"
-msgstr "ヘッダファイル・テンプレート"
-
 #: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
 msgstr "標準ヘッダファイル・テンプレートの挿入"
@@ -4214,11 +4219,6 @@ msgstr "CVS 'リビジョン' キーワード (リビジョン番号) の挿入"
 #: src/main_menubar_def.h:358
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "CVS 'ソース' キーワード (フルパス名) の挿入"
-
-#. 0
-#: src/main_menubar_def.h:368
-msgid "Header"
-msgstr "ヘッダ"
 
 #: src/main_menubar_def.h:369
 msgid "Insert a file header"
@@ -4291,16 +4291,16 @@ msgstr "次を検索(_N)"
 
 #: src/main_menubar_def.h:435
 msgid "Search Forward"
-msgstr "前を検索"
+msgstr "前方検索します"
 
 #. 2
 #: src/main_menubar_def.h:441
 msgid "Find Previous"
-msgstr "印刷プレビュー"
+msgstr "前を検索"
 
 #: src/main_menubar_def.h:442
 msgid "Search Backward"
-msgstr "後ろを検索"
+msgstr "後方検索します"
 
 #. 3
 #: src/main_menubar_def.h:448
@@ -4330,1773 +4330,1763 @@ msgstr "インクリメンタル検索用の検索範囲の選択(_E)"
 msgid "Enter the selected text as the search target"
 msgstr "検索する対象となる選択範囲を入力して下さい"
 
-#. 6
-#. 7
-#: src/main_menubar_def.h:471
-msgid "Advanced search and re_place"
-msgstr "高度な検索と置換"
-
-#: src/main_menubar_def.h:472
-msgid "Advanced Search And Replace"
-msgstr "高度な検索と置換を行います"
-
 #. 0
-#: src/main_menubar_def.h:483
+#: src/main_menubar_def.h:474
 msgid "_Goto Line number ..."
 msgstr "指定する行番号へ(_G) ..."
 
-#: src/main_menubar_def.h:484
+#: src/main_menubar_def.h:475
 msgid "Go to a particular line in the editor"
 msgstr "エディタ内で指定した行番号にジャンプします"
 
 #. 1
-#: src/main_menubar_def.h:489
+#: src/main_menubar_def.h:480
 msgid "Goto Matching _Brace"
 msgstr "対応する括弧へ(_B)"
 
-#: src/main_menubar_def.h:490
+#: src/main_menubar_def.h:481
 msgid "Go to the matching brace in the editor"
 msgstr "エディタ内で対応する括弧にジャンプします"
 
 #. 2
-#: src/main_menubar_def.h:495
+#: src/main_menubar_def.h:486
 msgid "_Goto start of block"
 msgstr "ブロックの先頭へ(_G)"
 
-#: src/main_menubar_def.h:496
+#: src/main_menubar_def.h:487
 msgid "Go to the start of the current block"
 msgstr "このブロックの先頭にジャンプします"
 
 #. 3
-#: src/main_menubar_def.h:501
+#: src/main_menubar_def.h:492
 msgid "_Goto end of block"
 msgstr "ブロックの末尾へ(_G)"
 
-#: src/main_menubar_def.h:502
+#: src/main_menubar_def.h:493
 msgid "Go to the end of the current block"
 msgstr "このブロックの末尾にジャンプします"
 
 #. 4
-#: src/main_menubar_def.h:507
+#: src/main_menubar_def.h:498
 msgid "_Goto previous mesg"
 msgstr "前のメッセージへ(_G)"
 
-#: src/main_menubar_def.h:508
+#: src/main_menubar_def.h:499
 msgid "Go to previous message"
 msgstr "前のメッセージにジャンプします"
 
 #. 5
-#: src/main_menubar_def.h:513
+#: src/main_menubar_def.h:504
 msgid "_Goto next mesg"
 msgstr "次のメッセージへ(_G)"
 
-#: src/main_menubar_def.h:514
+#: src/main_menubar_def.h:505
 msgid "Go to next message"
 msgstr "次のメッセージにジャンプします"
 
 #. 6
-#: src/main_menubar_def.h:519
+#: src/main_menubar_def.h:510
 msgid "_Go Back"
 msgstr "戻る(_G)"
 
-#: src/main_menubar_def.h:520
+#: src/main_menubar_def.h:511
 msgid "Go back"
 msgstr "戻る"
 
 #. 7
-#: src/main_menubar_def.h:525
+#: src/main_menubar_def.h:516
 msgid "_Go Forward"
 msgstr "次へ(_G)"
 
-#: src/main_menubar_def.h:526
+#: src/main_menubar_def.h:517
 msgid "Go forward"
 msgstr "次へ"
 
 #. 8
-#: src/main_menubar_def.h:531 src/text_editor_menu.c:93
+#: src/main_menubar_def.h:522 src/text_editor_menu.c:93
 msgid "Tag Definition"
 msgstr "タグの定義へ"
 
-#: src/main_menubar_def.h:532
+#: src/main_menubar_def.h:523
 msgid "Goto tag definition"
 msgstr "タグの定義へジャンプします"
 
 #. 9
-#: src/main_menubar_def.h:537 src/text_editor_menu.c:100
+#: src/main_menubar_def.h:528 src/text_editor_menu.c:100
 msgid "Tag Declaration"
 msgstr "タグの宣言へ"
 
-#: src/main_menubar_def.h:538
+#: src/main_menubar_def.h:529
 msgid "Goto tag declaration"
 msgstr "タグの宣言へジャンプします"
 
 #. 10
-#: src/main_menubar_def.h:543
+#: src/main_menubar_def.h:534
 msgid "Next occurrence"
 msgstr "次の場所へ"
 
-#: src/main_menubar_def.h:544
+#: src/main_menubar_def.h:535
 msgid "Find the next occurrence of current word"
 msgstr "この単語の次の場所を検索します"
 
 #. 11
-#: src/main_menubar_def.h:549
+#: src/main_menubar_def.h:540
 msgid "Previous occurrence"
 msgstr "前の場所へ"
 
-#: src/main_menubar_def.h:550
+#: src/main_menubar_def.h:541
 msgid "Find the previous occurrence of current word"
 msgstr "この単語の前の場所を検索します"
 
 #. 0
-#: src/main_menubar_def.h:561
+#: src/main_menubar_def.h:552
 msgid "U_ndo"
 msgstr "元に戻す(_U)"
 
-#: src/main_menubar_def.h:562 src/toolbar.c:97
+#: src/main_menubar_def.h:553 src/toolbar.c:98
 msgid "Undo the last action"
 msgstr "最後の操作に戻します"
 
 #. 1
-#: src/main_menubar_def.h:568
+#: src/main_menubar_def.h:559
 msgid "_Redo"
 msgstr "やり直す(_R)"
 
-#: src/main_menubar_def.h:569 src/toolbar.c:101
+#: src/main_menubar_def.h:560 src/toolbar.c:102
 msgid "Redo the last undone action"
 msgstr "最後の操作を取り消します"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:577
+#: src/main_menubar_def.h:568
 msgid "C_ut"
 msgstr "切り取り(_U)"
 
-#: src/main_menubar_def.h:578
+#: src/main_menubar_def.h:569
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "エディタから指定した範囲を切り取り、クリップボードに格納します"
 
 #. 4
-#: src/main_menubar_def.h:584
+#: src/main_menubar_def.h:575
 msgid "_Copy"
 msgstr "複写(_C)"
 
-#: src/main_menubar_def.h:585
+#: src/main_menubar_def.h:576
 msgid "Copy the selected text to the clipboard"
 msgstr "指定した範囲をクリップボードに格納します"
 
 #. 5
-#: src/main_menubar_def.h:591
+#: src/main_menubar_def.h:582
 msgid "_Paste"
 msgstr "貼り付け(_P)"
 
-#: src/main_menubar_def.h:592
+#: src/main_menubar_def.h:583
 msgid "Paste the content of clipboard at the current position"
 msgstr "クリップボードの内容を現在の場所に貼り付けます"
 
 #. 6
-#: src/main_menubar_def.h:598
+#: src/main_menubar_def.h:589
 msgid "C_lear"
 msgstr "消去(_L)"
 
-#: src/main_menubar_def.h:599
+#: src/main_menubar_def.h:590
 msgid "Delete the selected text from the editor"
 msgstr "エディタから指定した範囲を削除します"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:607
+#: src/main_menubar_def.h:598
 msgid "_Transform"
 msgstr "変換(_T)"
 
 #. 9
-#: src/main_menubar_def.h:614
+#: src/main_menubar_def.h:605
 msgid "_Select"
 msgstr "選択(_S)"
 
 #. 10
-#: src/main_menubar_def.h:621
+#: src/main_menubar_def.h:612
 msgid "_Insert text"
 msgstr "文の挿入(_I)"
 
 #. 11
-#: src/main_menubar_def.h:628
+#: src/main_menubar_def.h:619
 msgid "Co_mment code"
 msgstr "コードのコメントアウト(_M)"
 
 #. 12
-#: src/main_menubar_def.h:634
+#: src/main_menubar_def.h:625
 msgid "S_earch"
 msgstr "検索(_E)"
 
 #. 13
-#: src/main_menubar_def.h:640
+#: src/main_menubar_def.h:631
 msgid "G_o to"
 msgstr "ジャンプ(_O)"
 
 #. 14
 #. 15
-#: src/main_menubar_def.h:649
+#: src/main_menubar_def.h:640
 msgid "_AutoComplete"
 msgstr "オートコンプリート(_A)"
 
-#: src/main_menubar_def.h:650
+#: src/main_menubar_def.h:641
 msgid "AutoComplete the current word"
 msgstr "この単語を自動補完します"
 
 #. 16
-#: src/main_menubar_def.h:656
+#: src/main_menubar_def.h:647
 msgid "S_how calltip"
 msgstr "コールチップの表示"
 
-#: src/main_menubar_def.h:657
+#: src/main_menubar_def.h:648
 msgid "Show calltip for the function"
 msgstr "関数の呼び出し定義を表示します"
 
 #. 0
-#: src/main_menubar_def.h:669
+#: src/main_menubar_def.h:660
 msgid "_Main Toolbar"
 msgstr "メインツールバー(_M)"
 
-#: src/main_menubar_def.h:670
+#: src/main_menubar_def.h:661
 msgid "Hide/Unhide Main toolbar"
 msgstr "メインツールバーの表示を切り替えます"
 
 #. 1
-#: src/main_menubar_def.h:675
+#: src/main_menubar_def.h:666
 msgid "_Extended Toolbar"
 msgstr "拡張ツールバー(_E)"
 
-#: src/main_menubar_def.h:676
+#: src/main_menubar_def.h:667
 msgid "Hide/Unhide Extended toolbar"
 msgstr "拡張ツールバーの表示を切り替えます"
 
 #. 2
-#: src/main_menubar_def.h:681
+#: src/main_menubar_def.h:672
 msgid "_Debug Toolbar"
 msgstr "デバッグツールバー(_D)"
 
-#: src/main_menubar_def.h:682
+#: src/main_menubar_def.h:673
 msgid "Hide/Unhide Debug toolbar"
 msgstr "デバッグツールバーの表示を切り替えます"
 
 #. 3
-#: src/main_menubar_def.h:687
+#: src/main_menubar_def.h:678
 msgid "_Browser Toolbar"
 msgstr "ブラウザツールバー(_B)"
 
-#: src/main_menubar_def.h:688
+#: src/main_menubar_def.h:679
 msgid "Hide/Unhide Browser toolbar"
 msgstr "ブラウザツールバーの表示を切り替えます"
 
 #. 4
-#: src/main_menubar_def.h:693
+#: src/main_menubar_def.h:684
 msgid "_Format Toolbar"
 msgstr "書式ツールバー(_F)"
 
-#: src/main_menubar_def.h:694
+#: src/main_menubar_def.h:685
 msgid "Hide/Unhide Format toolbar"
 msgstr "書式ツールバーの表示を切り替えます"
 
 #. 0
-#: src/main_menubar_def.h:704
+#: src/main_menubar_def.h:695
 msgid "_Line numbers margin"
 msgstr "行番号マージン(_L)"
 
-#: src/main_menubar_def.h:705
+#: src/main_menubar_def.h:696
 msgid "Show/Hide line numbers"
 msgstr "行番号の表示を切り替えます"
 
 #. 1
-#: src/main_menubar_def.h:710
+#: src/main_menubar_def.h:701
 msgid "_Markers Margin"
 msgstr "マーカーマージン(_M)"
 
-#: src/main_menubar_def.h:711
+#: src/main_menubar_def.h:702
 msgid "Show/Hide markers margin"
 msgstr "マーカー余白の表示を切り替えます"
 
 #. 2
-#: src/main_menubar_def.h:716
+#: src/main_menubar_def.h:707
 msgid "_Code fold margin"
 msgstr "コード折り返しマージン(_C)"
 
-#: src/main_menubar_def.h:717
+#: src/main_menubar_def.h:708
 msgid "Show/Hide code fold margin"
 msgstr "コード折り返し余白の表示を切り替えます"
 
 #. 3
-#: src/main_menubar_def.h:722
+#: src/main_menubar_def.h:713
 msgid "_Indentation guides"
 msgstr "インデントガイド(_I)"
 
-#: src/main_menubar_def.h:723
+#: src/main_menubar_def.h:714
 msgid "Show/Hide indentation guides"
 msgstr "インデント・ガイドの表示 ON/OFF を切り替えます"
 
 #. 4
-#: src/main_menubar_def.h:728
+#: src/main_menubar_def.h:719
 msgid "_White spaces"
 msgstr "ホワイトスペース(_W)"
 
-#: src/main_menubar_def.h:729
+#: src/main_menubar_def.h:720
 msgid "Show/Hide white spaces"
 msgstr "ホワイトスペースの表示を切り替えます"
 
 #. 5
-#: src/main_menubar_def.h:734
+#: src/main_menubar_def.h:725
 msgid "_Line end characters"
 msgstr "行と文字(_L)"
 
-#: src/main_menubar_def.h:735
+#: src/main_menubar_def.h:726
 msgid "Show/Hide line end characters"
 msgstr "行末文字の表示を切り替えます"
 
 #. 6
-#: src/main_menubar_def.h:740
+#: src/main_menubar_def.h:731
 msgid "Line _wrapping"
 msgstr "行ラッピング(_W)"
 
-#: src/main_menubar_def.h:741
+#: src/main_menubar_def.h:732
 msgid "Enable/disable line wrapping"
 msgstr "行末のラッピングを有効/無効にします"
 
 #. 0
-#: src/main_menubar_def.h:751
+#: src/main_menubar_def.h:742
 msgid "++ Zoom"
 msgstr "拡大する"
 
-#: src/main_menubar_def.h:752
+#: src/main_menubar_def.h:743
 msgid "Increase text zoom by 1 unit"
 msgstr "エディタ内の文字サイズを一つ大きくします"
 
 #. 1
-#: src/main_menubar_def.h:757
+#: src/main_menubar_def.h:748
 msgid "+8"
 msgstr "+8"
 
-#: src/main_menubar_def.h:758
+#: src/main_menubar_def.h:749
 msgid "Zoom factor +8"
 msgstr "拡大率 +8"
 
 #. 2
-#: src/main_menubar_def.h:763
+#: src/main_menubar_def.h:754
 msgid "+6"
 msgstr "+6"
 
-#: src/main_menubar_def.h:764
+#: src/main_menubar_def.h:755
 msgid "Zoom factor +6"
 msgstr "拡大率 +6"
 
 #. 3
-#: src/main_menubar_def.h:769
+#: src/main_menubar_def.h:760
 msgid "+4"
 msgstr "+4"
 
-#: src/main_menubar_def.h:770
+#: src/main_menubar_def.h:761
 msgid "Zoom factor +4"
 msgstr "拡大率 +4"
 
 #. 4
-#: src/main_menubar_def.h:775
+#: src/main_menubar_def.h:766
 msgid "+2"
 msgstr "+2"
 
-#: src/main_menubar_def.h:776
+#: src/main_menubar_def.h:767
 msgid "Zoom factor +2"
 msgstr "拡大率 +2"
 
-#: src/main_menubar_def.h:782
+#: src/main_menubar_def.h:773
 msgid "Zoom factor 0"
 msgstr "拡大率 0"
 
 #. 6
-#: src/main_menubar_def.h:787
+#: src/main_menubar_def.h:778
 msgid "-2"
 msgstr "-2"
 
-#: src/main_menubar_def.h:788
+#: src/main_menubar_def.h:779
 msgid "Zoom factor -2"
 msgstr "拡大率 -2"
 
 #. 7
-#: src/main_menubar_def.h:793
+#: src/main_menubar_def.h:784
 msgid "-4"
 msgstr "-4"
 
-#: src/main_menubar_def.h:794
+#: src/main_menubar_def.h:785
 msgid "Zoom factor -4"
 msgstr "拡大率 -4"
 
 #. 8
-#: src/main_menubar_def.h:799
+#: src/main_menubar_def.h:790
 msgid "-6"
 msgstr "-6"
 
-#: src/main_menubar_def.h:800
+#: src/main_menubar_def.h:791
 msgid "Zoom factor -6"
 msgstr "拡大率 -6"
 
 #. 9
-#: src/main_menubar_def.h:805
+#: src/main_menubar_def.h:796
 msgid "-8"
 msgstr "-8"
 
-#: src/main_menubar_def.h:806
+#: src/main_menubar_def.h:797
 msgid "Zoom factor -8"
 msgstr "拡大率 -8"
 
 #. 10
-#: src/main_menubar_def.h:811
+#: src/main_menubar_def.h:802
 msgid "-- Zoom"
 msgstr "縮小する"
 
-#: src/main_menubar_def.h:812
+#: src/main_menubar_def.h:803
 msgid "Reduce text zoom by 1 unit"
 msgstr "エディタ内の文字サイズを一つ小さくします"
 
 #. 0
-#: src/main_menubar_def.h:822
+#: src/main_menubar_def.h:813
 msgid "_Message window"
 msgstr "メッセージ・ウィンドウ(_M)"
 
-#: src/main_menubar_def.h:823 src/toolbar.c:155
+#: src/main_menubar_def.h:814 src/toolbar.c:156
 msgid "Show/Hide the Message window"
 msgstr "メッセージ・ウィンドウの表示を切り替えます"
 
 #. 1
-#: src/main_menubar_def.h:828
+#: src/main_menubar_def.h:819
 msgid "_Project window"
 msgstr "プロジェクト・ウィンドウ(_P)"
 
-#: src/main_menubar_def.h:829 src/toolbar.c:151
+#: src/main_menubar_def.h:820 src/toolbar.c:152
 msgid "Show/Hide the Project window"
 msgstr "プロジェクト・ウィンドウの表示を切り替えます"
 
 #. 2
-#: src/main_menubar_def.h:834
+#: src/main_menubar_def.h:825
 msgid "B_ookmarks"
 msgstr "ブックマーク(_O)"
 
-#: src/main_menubar_def.h:835
+#: src/main_menubar_def.h:826
 msgid "Show the Bookmark window"
 msgstr "ブックマーク・ウィンドウの表示を切り替えます"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:841
+#: src/main_menubar_def.h:832
 msgid "_Toolbars"
 msgstr "ツールバー(_T)"
 
 #. 5
-#: src/main_menubar_def.h:847
+#: src/main_menubar_def.h:838
 msgid "_Editor"
 msgstr "エディタ(_E)"
 
 #. 6
-#: src/main_menubar_def.h:853
+#: src/main_menubar_def.h:844
 msgid "_Zoom text"
 msgstr "拡大縮小(_Z)"
 
 #. 7
 #. 8
 #. 14
-#: src/main_menubar_def.h:860 src/main_menubar_def.h:1572
+#: src/main_menubar_def.h:851 src/main_menubar_def.h:1563
 msgid "_Breakpoints"
 msgstr "ブレークポイント(_B)"
 
-#: src/main_menubar_def.h:861
+#: src/main_menubar_def.h:852
 msgid "Show breakpoints editor window"
 msgstr "エディタ上にブレークポイントを表示します"
 
 #. 9
-#: src/main_menubar_def.h:866
+#: src/main_menubar_def.h:857
 msgid "_Registers"
 msgstr "レジスタ(_R)"
 
-#: src/main_menubar_def.h:867
+#: src/main_menubar_def.h:858
 msgid "Show CPU registers and their contents"
 msgstr "CPU レジスタとその内容を表示します"
 
 #. 10
-#: src/main_menubar_def.h:872
+#: src/main_menubar_def.h:863
 msgid "Shared _Libraries"
 msgstr "共有ライブラリ群(_L)"
 
-#: src/main_menubar_def.h:873
+#: src/main_menubar_def.h:864
 msgid "Show shared libraries loaded by the program"
 msgstr "プログラムがロードする共有ライブラリを表示します"
 
 #. 11
-#: src/main_menubar_def.h:878
+#: src/main_menubar_def.h:869
 msgid "_Kernel Signals"
 msgstr "カーネルシグナル(_K)"
 
-#: src/main_menubar_def.h:879
+#: src/main_menubar_def.h:870
 msgid "Show the kernel signals editor window"
 msgstr "カーネルシグナル編集ウィンドウを表示します"
 
 #. 12
-#: src/main_menubar_def.h:884
+#: src/main_menubar_def.h:875
 msgid "Memory _Dump"
 msgstr "メモリのダンプ(_D)"
 
-#: src/main_menubar_def.h:885
+#: src/main_menubar_def.h:876
 msgid "Show memory dump window"
 msgstr "メモリダンプのウィンドウを表示します"
 
 #. 0
-#: src/main_menubar_def.h:895 src/project_dbase_gui.c:276
+#: src/main_menubar_def.h:886 src/project_dbase_gui.c:276
 msgid "Include file"
 msgstr "ヘッダファイル"
 
 #. 1
-#: src/main_menubar_def.h:901 src/project_dbase_gui.c:282
+#: src/main_menubar_def.h:892 src/project_dbase_gui.c:282
 msgid "Source file"
 msgstr "ソースファイル"
 
 #. 2
-#: src/main_menubar_def.h:907 src/project_dbase_gui.c:288
+#: src/main_menubar_def.h:898 src/project_dbase_gui.c:288
 msgid "Help file"
 msgstr "ヘルプファイル"
 
 #. 3
-#: src/main_menubar_def.h:913 src/project_dbase_gui.c:294
+#: src/main_menubar_def.h:904 src/project_dbase_gui.c:294
 msgid "Data file"
 msgstr "データファイル"
 
 #. 4
-#: src/main_menubar_def.h:919 src/project_dbase_gui.c:300
+#: src/main_menubar_def.h:910 src/project_dbase_gui.c:300
 msgid "Pixmap file"
 msgstr "Pixmap ファイル"
 
 #. 5
-#: src/main_menubar_def.h:925 src/project_dbase_gui.c:306
+#: src/main_menubar_def.h:916 src/project_dbase_gui.c:306
 msgid "Translation file"
 msgstr "翻訳用(.po)ファイル"
 
 #. 6
-#: src/main_menubar_def.h:931 src/project_dbase_gui.c:312
+#: src/main_menubar_def.h:922 src/project_dbase_gui.c:312
 msgid "Doc file"
 msgstr "ドキュメント"
 
 #. 0
-#: src/main_menubar_def.h:942 src/project_dbase_gui.c:322
+#: src/main_menubar_def.h:933 src/project_dbase_gui.c:322
 msgid "Add File"
 msgstr "ファイルの追加"
 
 #. 3
-#: src/main_menubar_def.h:960
+#: src/main_menubar_def.h:951
 msgid "Remove File"
 msgstr "ファイルの削除"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:967 src/project_dbase_gui.c:347
+#: src/main_menubar_def.h:958 src/project_dbase_gui.c:347
 msgid "Configure Project"
 msgstr "プロジェクトの設定"
 
-#: src/main_menubar_def.h:968
+#: src/main_menubar_def.h:959
 msgid "Configure options for the current Project"
 msgstr "このプロジェクトのオプションを設定します"
 
 #. 6
-#: src/main_menubar_def.h:973 src/project_dbase_gui.c:353
+#: src/main_menubar_def.h:964 src/project_dbase_gui.c:353
 msgid "Project Info"
 msgstr "プロジェクト情報"
 
-#: src/main_menubar_def.h:974
+#: src/main_menubar_def.h:965
 msgid "Display the Project information"
 msgstr "このプロジェクトの情報を表示します"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:987
+#: src/main_menubar_def.h:978
 msgid "_Update tags image"
 msgstr "タグイメージの更新(_U)"
 
-#: src/main_menubar_def.h:988
+#: src/main_menubar_def.h:979
 msgid "Update the tags image of the Project/opened files"
 msgstr "プロジェクトでオープンされたファイルのタグイメージを更新します"
 
 #. 11
-#: src/main_menubar_def.h:993
+#: src/main_menubar_def.h:984
 msgid "Rebuild tags image"
 msgstr "タグイメージの再構築"
 
-#: src/main_menubar_def.h:994
+#: src/main_menubar_def.h:985
 msgid "Rebuild the tags image of the Project"
 msgstr "プロジェクトのタグイメージを再構築します"
 
 #. 12
-#: src/main_menubar_def.h:999
+#: src/main_menubar_def.h:990
 msgid "Ed_it Application GUI ..."
 msgstr "アプリの GUI 編集(_I) ..."
 
-#: src/main_menubar_def.h:1000
+#: src/main_menubar_def.h:991
 msgid "Edit application GUI with the Glade GUI editor"
 msgstr "GUI エディタ \"glade\" を起動して、アプリの GUI を編集します"
 
 #. 0
-#: src/main_menubar_def.h:1017
+#: src/main_menubar_def.h:1008
 msgid "Automatic"
 msgstr "自動的に強調表示"
 
-#: src/main_menubar_def.h:1018
+#: src/main_menubar_def.h:1009
 msgid "Automatically determine the highlight style"
 msgstr "自動的に強調表示のスタイルを決定します"
 
 #. 1
-#: src/main_menubar_def.h:1023
+#: src/main_menubar_def.h:1014
 msgid "No Highlight style"
 msgstr "強調表示しない"
 
-#: src/main_menubar_def.h:1024
+#: src/main_menubar_def.h:1015
 msgid "Remove the current highlight style"
 msgstr "この強調表示を削除する"
 
 #. 2
-#: src/main_menubar_def.h:1029
+#: src/main_menubar_def.h:1020
 msgid "C and C++"
 msgstr "C/C++"
 
-#: src/main_menubar_def.h:1030
+#: src/main_menubar_def.h:1021
 msgid "Force the highlight style to C and C++"
 msgstr "強制的に C/C++ 言語スタイルで強調表示します"
 
 #. 3
-#: src/main_menubar_def.h:1035
+#: src/main_menubar_def.h:1026
 msgid "C and C++ with GNOME"
 msgstr "C/C++ (GNOME)"
 
-#: src/main_menubar_def.h:1036
+#: src/main_menubar_def.h:1027
 msgid "Force the highlight style to C and C++ with GNOME"
 msgstr "強制的に GNOME を使った C/C++ 言語スタイルで強調表示します"
 
 #. 4
-#: src/main_menubar_def.h:1041
+#: src/main_menubar_def.h:1032
 msgid "HTML"
 msgstr "HTML"
 
-#: src/main_menubar_def.h:1042
+#: src/main_menubar_def.h:1033
 msgid "Force the highlight style to HTML"
 msgstr "強制的に HTML 言語スタイルで強調表示します"
 
 #. 5
-#: src/main_menubar_def.h:1047
+#: src/main_menubar_def.h:1038
 msgid "XML"
 msgstr "XML"
 
-#: src/main_menubar_def.h:1048
+#: src/main_menubar_def.h:1039
 msgid "Force the highlight style to XML"
 msgstr "強制的に XML 言語スタイルで強調表示します"
 
 #. 6
-#: src/main_menubar_def.h:1053
+#: src/main_menubar_def.h:1044
 msgid "Javascript"
 msgstr "Java スクリプト"
 
-#: src/main_menubar_def.h:1054
+#: src/main_menubar_def.h:1045
 msgid "Force the highlight style to Javascript"
 msgstr "強制的に Java スクリプトのスタイルで強調表示します"
 
 #. 7
-#: src/main_menubar_def.h:1059
+#: src/main_menubar_def.h:1050
 msgid "WScript"
 msgstr "WScript"
 
-#: src/main_menubar_def.h:1060
+#: src/main_menubar_def.h:1051
 msgid "Force the highlight style to WScript"
 msgstr "強制的に WScript スクリプトのスタイルで強調表示します"
 
 #. 8
-#: src/main_menubar_def.h:1065
+#: src/main_menubar_def.h:1056
 msgid "Makefile"
 msgstr "Makefile"
 
-#: src/main_menubar_def.h:1066
+#: src/main_menubar_def.h:1057
 msgid "Force the highlight style to Makefile"
 msgstr "強制的に Makefile スタイルで強調表示します"
 
 #. 9
-#: src/main_menubar_def.h:1071
+#: src/main_menubar_def.h:1062
 msgid "Java"
 msgstr "Java"
 
-#: src/main_menubar_def.h:1072
+#: src/main_menubar_def.h:1063
 msgid "Force the highlight type to Java"
 msgstr "強制的に Java のスタイルで強調表示します"
 
 #. 10
-#: src/main_menubar_def.h:1077
+#: src/main_menubar_def.h:1068
 msgid "LUA"
 msgstr "LUA"
 
-#: src/main_menubar_def.h:1078
+#: src/main_menubar_def.h:1069
 msgid "Force the highlight style to LUA"
 msgstr "強制的に LUA スタイルで強調表示します"
 
 #. 11
-#: src/main_menubar_def.h:1083
+#: src/main_menubar_def.h:1074
 msgid "Python"
 msgstr "Python"
 
-#: src/main_menubar_def.h:1084
+#: src/main_menubar_def.h:1075
 msgid "Force the highlight style to Python"
 msgstr "強制的に Python スタイルで強調表示します"
 
 #. 12
-#: src/main_menubar_def.h:1089
+#: src/main_menubar_def.h:1080
 msgid "Perl"
 msgstr "Perl"
 
-#: src/main_menubar_def.h:1090
+#: src/main_menubar_def.h:1081
 msgid "Force the highlight style to Perl"
 msgstr "強制的に Perl スタイルで強調表示します"
 
 #. 13
-#: src/main_menubar_def.h:1095
+#: src/main_menubar_def.h:1086
 msgid "SQL"
 msgstr "SQL"
 
-#: src/main_menubar_def.h:1096
+#: src/main_menubar_def.h:1087
 msgid "Force the highlight style to SQL"
 msgstr "強制的に SQL スタイルで強調表示します"
 
 #. 14
-#: src/main_menubar_def.h:1101
+#: src/main_menubar_def.h:1092
 msgid "PL/SQL"
 msgstr "PL/SQL"
 
-#: src/main_menubar_def.h:1102
+#: src/main_menubar_def.h:1093
 msgid "Force the highlight style to PL/SQL"
 msgstr "強制的に PL/SQL スタイルで強調表示します"
 
 #. 15
-#: src/main_menubar_def.h:1107
+#: src/main_menubar_def.h:1098
 msgid "PHP"
 msgstr "PHP"
 
-#: src/main_menubar_def.h:1108
+#: src/main_menubar_def.h:1099
 msgid "Force the highlight style to PHP"
 msgstr "強制的に PHP スタイルで強調表示します"
 
 #. 16
-#: src/main_menubar_def.h:1113
+#: src/main_menubar_def.h:1104
 msgid "LaTex"
 msgstr "LaTex"
 
-#: src/main_menubar_def.h:1114
+#: src/main_menubar_def.h:1105
 msgid "Force the highlight style to LaTex"
 msgstr "強制的に LaTex スタイルで強調表示します"
 
-#: src/main_menubar_def.h:1120
+#: src/main_menubar_def.h:1111
 msgid "Force the highlight style to Diff"
 msgstr "強制的に Diff スタイルで強調表示します"
 
 #. 18
-#: src/main_menubar_def.h:1125
+#: src/main_menubar_def.h:1116
 msgid "Pascal"
 msgstr "Pascal"
 
-#: src/main_menubar_def.h:1126
+#: src/main_menubar_def.h:1117
 msgid "Force the highlight style to Pascal"
 msgstr "強制的に Pascal スタイルで強調表示します"
 
 #. 19
-#: src/main_menubar_def.h:1131
+#: src/main_menubar_def.h:1122
 msgid "Xcode"
 msgstr "Xocde"
 
-#: src/main_menubar_def.h:1132
+#: src/main_menubar_def.h:1123
 msgid "Force the highlight style to Xcode"
 msgstr "強制的に Xcode スタイルで強調表示します"
 
 #. 20
-#: src/main_menubar_def.h:1137
+#: src/main_menubar_def.h:1128
 msgid "Prj/Properties"
 msgstr "プロパティに従う"
 
-#: src/main_menubar_def.h:1138
+#: src/main_menubar_def.h:1129
 msgid "Force the highlight style to project/properties files"
 msgstr "強制的にプロジェクト/設定ファイルのスタイルで強調表示します"
 
 #. 21
-#: src/main_menubar_def.h:1143
+#: src/main_menubar_def.h:1134
 msgid "Conf"
 msgstr "Conf"
 
-#: src/main_menubar_def.h:1144
+#: src/main_menubar_def.h:1135
 msgid "Force the highlight style to UNIX conf files"
 msgstr "強制的に UNIX 設定ファイルのスタイルで強調表示します"
 
 #. 22
-#: src/main_menubar_def.h:1149
+#: src/main_menubar_def.h:1140
 msgid "Ada"
 msgstr "Ada"
 
-#: src/main_menubar_def.h:1150
+#: src/main_menubar_def.h:1141
 msgid "Force the highlight style to Ada"
 msgstr "強制的に Ada スタイルで強調表示します"
 
 #. 23
-#: src/main_menubar_def.h:1155
+#: src/main_menubar_def.h:1146
 msgid "Baan"
 msgstr "Baan"
 
-#: src/main_menubar_def.h:1156
+#: src/main_menubar_def.h:1147
 msgid "Force the highlight style to Baan"
 msgstr "強制的に Baan スタイルで強調表示します"
 
 #. 24
-#: src/main_menubar_def.h:1161
+#: src/main_menubar_def.h:1152
 msgid "Lisp"
 msgstr "Lisp"
 
-#: src/main_menubar_def.h:1162
+#: src/main_menubar_def.h:1153
 msgid "Force the highlight style to Lisp"
 msgstr "強制的に Lisp 言語スタイルで強調表示します"
 
 #. 25
-#: src/main_menubar_def.h:1167
+#: src/main_menubar_def.h:1158
 msgid "Ruby"
 msgstr "Ruby"
 
-#: src/main_menubar_def.h:1168
+#: src/main_menubar_def.h:1159
 msgid "Force the highlight style to Ruby"
 msgstr "強制的に Ruby 言語スタイルで強調表示します"
 
 #. 26
-#: src/main_menubar_def.h:1173
+#: src/main_menubar_def.h:1164
 msgid "Matlab"
 msgstr "Matlab"
 
-#: src/main_menubar_def.h:1174
+#: src/main_menubar_def.h:1165
 msgid "Force the highlight style to Matlab"
 msgstr "強制的に Matlab スタイルで強調表示します"
 
 #. 0
-#: src/main_menubar_def.h:1184
+#: src/main_menubar_def.h:1175
 msgid "Auto _Format"
 msgstr "書式の自動整形(_F)"
 
-#: src/main_menubar_def.h:1185
+#: src/main_menubar_def.h:1176
 msgid "Autoformat the current source file"
 msgstr "このソースファイルを自動的に整形します"
 
 #. 1
-#: src/main_menubar_def.h:1190
+#: src/main_menubar_def.h:1181
 msgid "_Increase Indent"
 msgstr "インデントを増やす(_I)"
 
-#: src/main_menubar_def.h:1191
+#: src/main_menubar_def.h:1182
 msgid "Increase indentation of line/selection"
 msgstr "行/選択範囲のインデントの深さを増やします"
 
 #. 2
-#: src/main_menubar_def.h:1196
+#: src/main_menubar_def.h:1187
 msgid "_Decrease Indent"
 msgstr "インデントを減らす(_D)"
 
-#: src/main_menubar_def.h:1197
+#: src/main_menubar_def.h:1188
 msgid "Decrease indentation of line/selection"
 msgstr "行/選択範囲のインデントの深さを減らします"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1203
+#: src/main_menubar_def.h:1194
 msgid "Force _Highlight Style"
 msgstr "強調表示のスタイル(_H)"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1210
+#: src/main_menubar_def.h:1201
 msgid "_Close All Folds"
 msgstr "全ての折り畳みを閉じる(_C)"
 
-#: src/main_menubar_def.h:1211
+#: src/main_menubar_def.h:1202
 msgid "Close all code folds in the editor"
 msgstr "エディタ内にあるコードの折り畳みを全て閉じます"
 
 #. 7
-#: src/main_menubar_def.h:1216
+#: src/main_menubar_def.h:1207
 msgid "_Open All Folds"
 msgstr "全ての折り畳みを開く(_O)"
 
-#: src/main_menubar_def.h:1217
+#: src/main_menubar_def.h:1208
 msgid "Open all code folds in the editor"
 msgstr "エディタ内にあるコードの折り畳みを全て開きます"
 
 #. 8
-#: src/main_menubar_def.h:1222
+#: src/main_menubar_def.h:1213
 msgid "_Toggle Current Fold"
 msgstr "カーソル行の折り畳みの切替え(_T)"
 
-#: src/main_menubar_def.h:1223
+#: src/main_menubar_def.h:1214
 msgid "Toggle current code fold in the editor"
 msgstr "カーソル行のコードの折り畳みを切り替えます"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1229
+#: src/main_menubar_def.h:1220
 msgid "D_etach Current Document"
 msgstr "ドキュメントの取り外し(_E)"
 
-#: src/main_menubar_def.h:1230
+#: src/main_menubar_def.h:1221
 msgid "Detach the current document into a separate editor window"
 msgstr "このドキュメントを別のエディタ・ウィンドウに取り外します"
 
 #. 0
-#: src/main_menubar_def.h:1240
+#: src/main_menubar_def.h:1231
 msgid "_Compile"
 msgstr "コンパイル(_C)"
 
-#: src/main_menubar_def.h:1241
+#: src/main_menubar_def.h:1232
 msgid "Compile the current source file"
 msgstr "このソースファイルをコンパイルします"
 
 #. 1
-#: src/main_menubar_def.h:1246
+#: src/main_menubar_def.h:1237
 msgid "Compile With _Make"
 msgstr "Make でコンパイル(_M)"
 
-#: src/main_menubar_def.h:1247
+#: src/main_menubar_def.h:1238
 msgid "Compile the current source file using Make"
 msgstr "このソースファイルを make を使用してコンパイルします"
 
 #. 2
-#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1905
+#: src/main_menubar_def.h:1243 src/main_menubar_def.h:1896
 msgid "_Build"
 msgstr "ビルド(_B)"
 
-#: src/main_menubar_def.h:1253
+#: src/main_menubar_def.h:1244
 msgid "Build the source directory of the Project or the current source file"
 msgstr ""
 "プロジェクトのソース・フォルダまたは編集中のソースファイルをビルドします"
 
 #. 3
-#: src/main_menubar_def.h:1258
+#: src/main_menubar_def.h:1249
 msgid "Build _All"
 msgstr "全てビルド(_A)"
 
-#: src/main_menubar_def.h:1259
+#: src/main_menubar_def.h:1250
 msgid "Build the whole Project"
 msgstr "プロジェクト全体をビルドします"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:1265
+#: src/main_menubar_def.h:1256
 msgid "Save Build Messages"
 msgstr "ビルド・メッセージの保存"
 
-#: src/main_menubar_def.h:1266
+#: src/main_menubar_def.h:1257
 msgid "Save build messages to a file"
 msgstr "ビルド・メッセージをファイルに保存"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1272
+#: src/main_menubar_def.h:1263
 msgid "_Install"
 msgstr "インストール(_I)"
 
-#: src/main_menubar_def.h:1273
+#: src/main_menubar_def.h:1264
 msgid "Install the Project on your system"
 msgstr "プロジェクトをインストールします"
 
 #. 8
-#: src/main_menubar_def.h:1278
+#: src/main_menubar_def.h:1269
 msgid "Build _Distribution"
 msgstr "配布可能ファイルの作成"
 
-#: src/main_menubar_def.h:1279
+#: src/main_menubar_def.h:1270
 msgid "Build the distribution tarball of the Project"
 msgstr "プロジェクトを配布可能な形式の tar ボールにビルドします"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1285
+#: src/main_menubar_def.h:1276
 msgid "Con_figure ..."
 msgstr "Configure(_F) ..."
 
-#: src/main_menubar_def.h:1286
+#: src/main_menubar_def.h:1277
 msgid "Configure the Project"
 msgstr "プロジェクトの設定"
 
 #. 11
-#: src/main_menubar_def.h:1291
+#: src/main_menubar_def.h:1282
 msgid "Auto _generate ..."
 msgstr "自動生成(_G) ..."
 
-#: src/main_menubar_def.h:1292
+#: src/main_menubar_def.h:1283
 msgid "Auto generate all the build files for the Project"
 msgstr "プロジェクトのビルド用ファイルを全て自動的に生成します"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1298
+#: src/main_menubar_def.h:1289
 msgid "Clea_n"
 msgstr "Clean(_N)"
 
-#: src/main_menubar_def.h:1299
+#: src/main_menubar_def.h:1290
 msgid "Clean the source directory"
 msgstr "プロジェクトのソース・フォルダを make clean します"
 
 #. 14
-#: src/main_menubar_def.h:1304
+#: src/main_menubar_def.h:1295
 msgid "Clean A_ll"
 msgstr "全て Clean(_L)"
 
-#: src/main_menubar_def.h:1305
+#: src/main_menubar_def.h:1296
 msgid "Clean the whole Project directory"
 msgstr "プロジェクトの全フォルダをクリアします"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1311
+#: src/main_menubar_def.h:1302
 msgid "_Stop Build"
 msgstr "ビルドの停止(_S)"
 
-#: src/main_menubar_def.h:1312
+#: src/main_menubar_def.h:1303
 msgid "Stop the current compile or build process"
 msgstr "現在のコンパイルまたはビルドプロセスを停止します"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1318
+#: src/main_menubar_def.h:1309
 msgid "_Execute"
 msgstr "実行(_E)"
 
-#: src/main_menubar_def.h:1319 src/toolbar.c:296
+#: src/main_menubar_def.h:1310 src/toolbar.c:297
 msgid "Execute the program"
 msgstr "プログラムを実行します"
 
 #. 19
-#: src/main_menubar_def.h:1324
+#: src/main_menubar_def.h:1315
 msgid "Set _Program params ..."
 msgstr "プログラムの引数(_P) ..."
 
-#: src/main_menubar_def.h:1325
+#: src/main_menubar_def.h:1316
 msgid "Set the execution parameters of the program"
 msgstr "プログラムに引き渡すパラメータを設定します"
 
 #. 0
-#: src/main_menubar_def.h:1335
+#: src/main_menubar_def.h:1326
 msgid "_Toggle bookmark"
 msgstr "ブックマークの切り替え(_T)"
 
-#: src/main_menubar_def.h:1336
+#: src/main_menubar_def.h:1327
 msgid "Toggle a bookmark at the current line position"
 msgstr "カーソル行の位置でブックマークを切り替えます"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1342
+#: src/main_menubar_def.h:1333
 msgid "_First bookmark"
 msgstr "最初のブックマーク(_F)"
 
-#: src/main_menubar_def.h:1343
+#: src/main_menubar_def.h:1334
 msgid "Jump to the first bookmark in the file"
 msgstr "このファイルにある最初のブックマークにジャンプします"
 
 #. 3
-#: src/main_menubar_def.h:1348
+#: src/main_menubar_def.h:1339
 msgid "_Previous bookmark"
 msgstr "前のブックマーク(_P)"
 
-#: src/main_menubar_def.h:1349
+#: src/main_menubar_def.h:1340
 msgid "Jump to the previous bookmark in the file"
 msgstr "このファイルにある前のブックマークにジャンプします"
 
 #. 4
-#: src/main_menubar_def.h:1354
+#: src/main_menubar_def.h:1345
 msgid "_Next bookmark"
 msgstr "次のブックマーク(_N)"
 
-#: src/main_menubar_def.h:1355
+#: src/main_menubar_def.h:1346
 msgid "Jump to the next bookmark in the file"
 msgstr "このファイルにある次のブックマークにジャンプします"
 
 #. 5
-#: src/main_menubar_def.h:1360
+#: src/main_menubar_def.h:1351
 msgid "_Last bookmark"
 msgstr "最後のブックマーク(_L)"
 
-#: src/main_menubar_def.h:1361
+#: src/main_menubar_def.h:1352
 msgid "Jump to the last bookmark in the file"
 msgstr "このファイルにある最後のブックマークにジャンプします"
 
 #. 6
 #. 7
-#: src/main_menubar_def.h:1367
+#: src/main_menubar_def.h:1358
 msgid "_Clear all bookmarks"
 msgstr "全てのブックマークのクリア(_C)"
 
-#: src/main_menubar_def.h:1368
+#: src/main_menubar_def.h:1359
 msgid "Clear bookmarks"
 msgstr "ブックマークを全てクリアします"
 
 #. 0
-#: src/main_menubar_def.h:1378
+#: src/main_menubar_def.h:1369
 msgid "Run/_Continue"
 msgstr "実行/続行(_C)"
 
-#: src/main_menubar_def.h:1379
+#: src/main_menubar_def.h:1370
 msgid "Continue the execution of the program"
 msgstr "プログラムの実行を続行します"
 
 #. 1
-#: src/main_menubar_def.h:1384
+#: src/main_menubar_def.h:1375
 msgid "Step _In"
 msgstr "ステップイン(_I)"
 
-#: src/main_menubar_def.h:1385
+#: src/main_menubar_def.h:1376
 msgid "Single step into function"
 msgstr "関数の中に一つ進みます"
 
 #. 2
-#: src/main_menubar_def.h:1390
+#: src/main_menubar_def.h:1381
 msgid "Step O_ver"
 msgstr "ステップオーバー(_V)"
 
-#: src/main_menubar_def.h:1391
+#: src/main_menubar_def.h:1382
 msgid "Single step over function"
 msgstr "関数を飛ばして一つ進みます"
 
 #. 3
-#: src/main_menubar_def.h:1396
+#: src/main_menubar_def.h:1387
 msgid "Step _Out"
 msgstr "ステップアウト(_O)"
 
-#: src/main_menubar_def.h:1397
+#: src/main_menubar_def.h:1388
 msgid "Single step out of the function"
 msgstr "関数の中から外に一つ進みます"
 
 #. 4
-#: src/main_menubar_def.h:1402
+#: src/main_menubar_def.h:1393
 msgid "_Run to cursor"
 msgstr "カーソル位置まで実行(_R)"
 
-#: src/main_menubar_def.h:1403
+#: src/main_menubar_def.h:1394
 msgid "Run to the cursor"
 msgstr "カーソルの位置まで一気に実行します"
 
 #. 0
-#: src/main_menubar_def.h:1413 src/text_editor_menu.c:136
+#: src/main_menubar_def.h:1404 src/text_editor_menu.c:136
 msgid "Toggle breakpoint"
 msgstr "ブレークポイントの切り替え"
 
-#: src/main_menubar_def.h:1414
+#: src/main_menubar_def.h:1405
 msgid "Toggle breakpoint at the current location"
 msgstr "この場所のブレークポイントの表示を切り替えます"
 
 #. 1
-#: src/main_menubar_def.h:1419
+#: src/main_menubar_def.h:1410
 msgid "Set Breakpoint ..."
 msgstr "ブレークポイント ON ..."
 
-#: src/main_menubar_def.h:1420
+#: src/main_menubar_def.h:1411
 msgid "Set a breakpoint"
 msgstr "ブレークポイントを ON にします"
 
 #. 2
 #. 3
-#: src/main_menubar_def.h:1426
+#: src/main_menubar_def.h:1417
 msgid "_Breakpoints ..."
 msgstr "ブレークポイント(_B) ..."
 
-#: src/main_menubar_def.h:1427
+#: src/main_menubar_def.h:1418
 msgid "Edit breakpoints"
 msgstr "ブレークポイントを編集します"
 
 #. 4
-#: src/main_menubar_def.h:1432
+#: src/main_menubar_def.h:1423
 msgid "Disable all Breakpoints"
 msgstr "全ブレークポイントの無効"
 
-#: src/main_menubar_def.h:1433
+#: src/main_menubar_def.h:1424
 msgid "Deactivate all breakpoints"
 msgstr "全ブレークポイントの一時無効"
 
 #. 5
-#: src/main_menubar_def.h:1438
+#: src/main_menubar_def.h:1429
 msgid "C_lear all Breakpoints"
 msgstr "全<ブレークポイントのクリア(_L)"
 
-#: src/main_menubar_def.h:1439
+#: src/main_menubar_def.h:1430
 msgid "Delete all breakpoints"
 msgstr "全ブレークポイントの削除"
 
 #. 0
-#: src/main_menubar_def.h:1449
+#: src/main_menubar_def.h:1440
 msgid "Info _Target Files"
 msgstr "対象ファイル(_T)"
 
-#: src/main_menubar_def.h:1450
+#: src/main_menubar_def.h:1441
 msgid "Display information on the files the debugger is active with"
 msgstr "ファイル上にデバッグ対象の情報を表示します"
 
 #. 1
-#: src/main_menubar_def.h:1455
+#: src/main_menubar_def.h:1446
 msgid "Info _Program"
 msgstr "プログラム(_P)"
 
-#: src/main_menubar_def.h:1456
+#: src/main_menubar_def.h:1447
 msgid "Display information on the execution status of the program"
 msgstr "プログラムの実行ステータスについての情報を表示します"
 
 #. 2
-#: src/main_menubar_def.h:1461
+#: src/main_menubar_def.h:1452
 msgid "Info _Kernel User Struct"
 msgstr "カーネルユーザ構造体の情報(_K)"
 
-#: src/main_menubar_def.h:1462
+#: src/main_menubar_def.h:1453
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "現在の子プロセスのカーネル 'struct user' の内容を表示します"
 
 #. 3
-#: src/main_menubar_def.h:1467
+#: src/main_menubar_def.h:1458
 msgid "Info _Threads"
 msgstr "スレッド(_T)"
 
-#: src/main_menubar_def.h:1468
+#: src/main_menubar_def.h:1459
 msgid "Display the IDs of currently known threads"
 msgstr "現在既知のスレッド ID を表示します"
 
 #. 4
-#: src/main_menubar_def.h:1473
+#: src/main_menubar_def.h:1464
 msgid "Info _Global variables"
 msgstr "グローバル変数(_G)"
 
-#: src/main_menubar_def.h:1474
+#: src/main_menubar_def.h:1465
 msgid "Display all global and static variables of the program"
 msgstr "プログラムの全グローバル及びスタティック変数を表示します"
 
 #. 5
-#: src/main_menubar_def.h:1479
+#: src/main_menubar_def.h:1470
 msgid "Info _Local variables"
 msgstr "ローカル変数(_L)"
 
-#: src/main_menubar_def.h:1480
+#: src/main_menubar_def.h:1471
 msgid "Display local variables of the current frame"
 msgstr "現在のスコープのローカル変数を表示します"
 
 #. 6
-#: src/main_menubar_def.h:1485
+#: src/main_menubar_def.h:1476
 msgid "Info _Current Frame"
 msgstr "現在のフレーム(_C)"
 
-#: src/main_menubar_def.h:1486
+#: src/main_menubar_def.h:1477
 msgid "Display information about the current frame of execution"
 msgstr "実行中の現在のスコープについての情報を表示します"
 
 #. 7
-#: src/main_menubar_def.h:1491
+#: src/main_menubar_def.h:1482
 msgid "Info Function _Arguments"
 msgstr "関数の引数(_A)"
 
-#: src/main_menubar_def.h:1492
+#: src/main_menubar_def.h:1483
 msgid "Display function arguments of the current frame"
 msgstr "現在のスコープの関数引数を表示します"
 
 #. 8
-#: src/main_menubar_def.h:1497
+#: src/main_menubar_def.h:1488
 msgid "Info _Memory"
 msgstr "メモリ情報(_M)"
 
-#: src/main_menubar_def.h:1498
+#: src/main_menubar_def.h:1489
 msgid "Display accessible memory"
 msgstr "アクセス可能なメモリの表示"
 
 #. 0
-#: src/main_menubar_def.h:1508
+#: src/main_menubar_def.h:1499
 msgid "_Start Debugger"
 msgstr "デバッガの起動(_S)"
 
-#: src/main_menubar_def.h:1509
+#: src/main_menubar_def.h:1500
 msgid "Start the debugging session"
 msgstr "デバッガのセッションを起動します"
 
 #. 1
 #. 2
-#: src/main_menubar_def.h:1515
+#: src/main_menubar_def.h:1506
 msgid "Load E_xecutable ..."
 msgstr "実行形式の読み込み(_X) ..."
 
-#: src/main_menubar_def.h:1516
+#: src/main_menubar_def.h:1507
 msgid "Open the executable for debugging"
 msgstr "デバッグ用に実行形式ファイルを開きます"
 
 #. 3
-#: src/main_menubar_def.h:1521
+#: src/main_menubar_def.h:1512
 msgid "Load _Core file ..."
 msgstr "core ファイルの読み込み(_C) ..."
 
-#: src/main_menubar_def.h:1522
+#: src/main_menubar_def.h:1513
 msgid "Load a core file to dissect"
 msgstr "core を解析するために core ファイルを読み込みます"
 
 #. 4
-#: src/main_menubar_def.h:1527
+#: src/main_menubar_def.h:1518
 msgid "_Attach to Process ..."
 msgstr "プロセスに取り込む(_A) ..."
 
-#: src/main_menubar_def.h:1528
+#: src/main_menubar_def.h:1519
 msgid "Attach to a running program"
 msgstr "既に実行中のプログラムに取り込みます"
 
 #. 5
 #. 6
-#: src/main_menubar_def.h:1534
+#: src/main_menubar_def.h:1525
 msgid "_Restart Program"
 msgstr "プログラムの再起動(_R)"
 
-#: src/main_menubar_def.h:1535
+#: src/main_menubar_def.h:1526
 msgid "Stop and restart the program"
 msgstr "プログラムを停止して再起動します"
 
 #. 7
-#: src/main_menubar_def.h:1540
+#: src/main_menubar_def.h:1531
 msgid "S_top Program"
 msgstr "プログラムの停止(_T)"
 
-#: src/main_menubar_def.h:1541
+#: src/main_menubar_def.h:1532
 msgid "Stop the program being debugged"
 msgstr "デバッグ中のプログラムの停止"
 
 #. 8
-#: src/main_menubar_def.h:1546
+#: src/main_menubar_def.h:1537
 msgid "_Detach Debugger"
 msgstr "デバッガの解放(_D)"
 
-#: src/main_menubar_def.h:1547
+#: src/main_menubar_def.h:1538
 msgid "Detach from an attached program"
 msgstr "プログラムを停止して再起動します"
 
 #. 9
 #. 10
-#: src/main_menubar_def.h:1553
+#: src/main_menubar_def.h:1544
 msgid "Pa_use Program"
 msgstr "プログラムの一時停止(_U)"
 
-#: src/main_menubar_def.h:1554
+#: src/main_menubar_def.h:1545
 msgid "Pauses the execution of the program"
 msgstr "実行中のプログラムを一時停止します"
 
 #. 11
-#: src/main_menubar_def.h:1559
+#: src/main_menubar_def.h:1550
 msgid "Si_gnal to Process"
 msgstr "シグナル送信(_G)"
 
-#: src/main_menubar_def.h:1560
+#: src/main_menubar_def.h:1551
 msgid "Send a kernel signal to the process being debugged"
 msgstr "デバッグ中のプロセスにカーネルシグナルを送信します"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1566
+#: src/main_menubar_def.h:1557
 msgid "_Execution"
 msgstr "実行(_E)"
 
 #. 15
 #. 16
-#: src/main_menubar_def.h:1579
+#: src/main_menubar_def.h:1570
 msgid "_Information"
 msgstr "情報(_I)"
 
 #. 17
 #. 18
-#: src/main_menubar_def.h:1586
+#: src/main_menubar_def.h:1577
 msgid "Ins_pect/Evaluate ..."
 msgstr "検証/評価(_P) ..."
 
-#: src/main_menubar_def.h:1587
+#: src/main_menubar_def.h:1578
 msgid "Inspect or evaluate an expression or variable"
 msgstr "式または変数の中身を調べたり評価します"
 
 #. 19
-#: src/main_menubar_def.h:1592
+#: src/main_menubar_def.h:1583
 msgid "Add Expression in _Watch ..."
 msgstr "監視する式の追加(_W) ..."
 
-#: src/main_menubar_def.h:1593
+#: src/main_menubar_def.h:1584
 msgid "Add expression or variable to the watch"
 msgstr "監視するものに式または変数を追加します"
 
 #. 20
 #. 21
-#: src/main_menubar_def.h:1599
+#: src/main_menubar_def.h:1590
 msgid "St_op Debugger"
 msgstr "デバッガの停止(_O)"
 
-#: src/main_menubar_def.h:1600
+#: src/main_menubar_def.h:1591
 msgid "Say goodbye to the debugger"
 msgstr "デバッガに \"さよなら\" します"
 
 #. 0
-#: src/main_menubar_def.h:1611
+#: src/main_menubar_def.h:1602
 msgid "U_pdate file"
 msgstr "ファイルの更新(_P)"
 
 #. 1
-#: src/main_menubar_def.h:1618
+#: src/main_menubar_def.h:1609
 msgid "C_ommit file"
 msgstr "ファイルのコミット(_O)"
 
 #. 2
-#: src/main_menubar_def.h:1625
+#: src/main_menubar_def.h:1616
 msgid "S_tatus of file"
 msgstr "ファイルの状態(_T)"
 
 #. 3
-#: src/main_menubar_def.h:1632
+#: src/main_menubar_def.h:1623
 msgid "G_et file log"
 msgstr "ファイル・ログの取得(_E)"
 
 #. 4
-#: src/main_menubar_def.h:1639
+#: src/main_menubar_def.h:1630
 msgid "_Add file"
 msgstr "ファイルの追加(_A)"
 
 #. 5
-#: src/main_menubar_def.h:1646
+#: src/main_menubar_def.h:1637
 msgid "_Remove file"
 msgstr "ファイルの削除(_R)"
 
 #. 6
-#: src/main_menubar_def.h:1653
+#: src/main_menubar_def.h:1644
 msgid "D_iff file"
 msgstr "ファイルの差分(_I)"
 
 #. 8
-#: src/main_menubar_def.h:1661
+#: src/main_menubar_def.h:1652
 msgid "_Update Project"
 msgstr "プロジェクトの更新(_U)"
 
-#: src/main_menubar_def.h:1662
+#: src/main_menubar_def.h:1653
 msgid "Update the working copy of a Project"
 msgstr "プロジェクトのローカルリポジトリの内容を update します"
 
 #. 9
-#: src/main_menubar_def.h:1668
+#: src/main_menubar_def.h:1659
 msgid "_Commit Project"
 msgstr "プロジェクトのコミット(_C)"
 
-#: src/main_menubar_def.h:1669
+#: src/main_menubar_def.h:1660
 msgid "Commit local changes to the repository"
 msgstr "変更内容をリポジトリに commit します"
 
 #. 10
-#: src/main_menubar_def.h:1675
+#: src/main_menubar_def.h:1666
 msgid "_Import Project"
 msgstr "プロジェクトのインポート(_I)"
 
-#: src/main_menubar_def.h:1676
+#: src/main_menubar_def.h:1667
 msgid "Import Project as a new module in the repository"
 msgstr ""
 "作業中のプロジェクトをリポジトリの中に新しいモジュールとして import します"
 
 #. 11
-#: src/main_menubar_def.h:1682
+#: src/main_menubar_def.h:1673
 msgid "_Status of Project"
 msgstr "プロジェクトの状態(_S)"
 
-#: src/main_menubar_def.h:1683
+#: src/main_menubar_def.h:1674
 msgid "Print the status of the Project"
 msgstr "プロジェクト全体の状態を表示します"
 
 #. 12
-#: src/main_menubar_def.h:1689
+#: src/main_menubar_def.h:1680
 msgid "Get Project _log"
 msgstr "プロジェクトのログ取得(_L)"
 
-#: src/main_menubar_def.h:1690
+#: src/main_menubar_def.h:1681
 msgid "Print the CVS log of the Project"
 msgstr "プロジェクト全体の状態を表示します"
 
 #. 13
-#: src/main_menubar_def.h:1696
+#: src/main_menubar_def.h:1687
 msgid "_Diff Project"
 msgstr "プロジェクトの差分(_D)"
 
-#: src/main_menubar_def.h:1697
+#: src/main_menubar_def.h:1688
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
 msgstr "作業中のプロジェクトとリポジトリとの間で diff を作成します"
 
 #. 15
-#: src/main_menubar_def.h:1704
+#: src/main_menubar_def.h:1695
 msgid "_Login"
 msgstr "ログイン(_L)"
 
-#: src/main_menubar_def.h:1705
+#: src/main_menubar_def.h:1696
 msgid "Login to a CVS server"
 msgstr "CVS サーバへのログインします"
 
 #. 0
-#: src/main_menubar_def.h:1716
+#: src/main_menubar_def.h:1707
 msgid "_Compiler and Linker Settings ..."
 msgstr "コンパイラとリンカの設定(_C) ..."
 
-#: src/main_menubar_def.h:1717
+#: src/main_menubar_def.h:1708
 msgid "Settings for the compiler and linker"
 msgstr "コンパイラとリンカに対する設定です"
 
 #. 1
-#: src/main_menubar_def.h:1722
+#: src/main_menubar_def.h:1713
 msgid "_Source Paths ..."
 msgstr "ソースのパス(_S) ..."
 
-#: src/main_menubar_def.h:1723
+#: src/main_menubar_def.h:1714
 msgid "Specify the source paths for Anjuta to search"
 msgstr "Anjuta が検索するソースファイルのフォルダを指定して下さい"
 
 #. 2
-#: src/main_menubar_def.h:1728
+#: src/main_menubar_def.h:1719
 msgid "Co_mmands ..."
 msgstr "コマンド(_C) ..."
 
-#: src/main_menubar_def.h:1729
+#: src/main_menubar_def.h:1720
 msgid "Specify the various commands for use"
 msgstr "使用する様々なコマンドを指定します"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1735
+#: src/main_menubar_def.h:1726
 msgid "_Preferences ..."
 msgstr "設定(_P) ..."
 
-#: src/main_menubar_def.h:1736
+#: src/main_menubar_def.h:1727
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "コーヒーとお茶のどちらがお好きですか？ 確認してみて下さい"
 
 #. 5
-#: src/main_menubar_def.h:1741
+#: src/main_menubar_def.h:1732
 msgid "_Editor colors and fonts ..."
 msgstr "エディタの色とフォント(_E) ..."
 
-#: src/main_menubar_def.h:1742
+#: src/main_menubar_def.h:1733
 msgid "Syntax highlighting settings"
 msgstr "言語の文法に従った強調表示を設定します"
 
 #. 6
-#: src/main_menubar_def.h:1747
+#: src/main_menubar_def.h:1738
 msgid "File view filters ..."
 msgstr "ファイル表示のフィルタ ..."
 
-#: src/main_menubar_def.h:1748
+#: src/main_menubar_def.h:1739
 msgid "Edit file view filters"
 msgstr "ファイル表示のフィルタを編集します"
 
 #. 7
-#: src/main_menubar_def.h:1753
+#: src/main_menubar_def.h:1744
 msgid "_Edit user.properties file ..."
 msgstr "ユーザ .properties ファイルの編集(_E) ..."
 
-#: src/main_menubar_def.h:1754
+#: src/main_menubar_def.h:1745
 msgid "Edit user properties file"
 msgstr "ユーザのプロパティ・ファイルを編集します"
 
 #. 8
-#: src/main_menubar_def.h:1759
+#: src/main_menubar_def.h:1750
 msgid "Set _Default Preferences"
 msgstr "デフォルト設定にする(_D)"
 
-#: src/main_menubar_def.h:1760
+#: src/main_menubar_def.h:1751
 msgid "But I prefer tea."
 msgstr "でも、私はお茶が好きです"
 
 #. 9
-#: src/main_menubar_def.h:1765
+#: src/main_menubar_def.h:1756
 msgid "C_ustomize shortcuts"
 msgstr "ショートカットのカスタマイズ(_U)"
 
-#: src/main_menubar_def.h:1766
+#: src/main_menubar_def.h:1757
 msgid "Customize shortcuts associated with menu items"
 msgstr "メニューのエントリに関連するショートカットをカスタマイズします"
 
 #. 10
-#: src/main_menubar_def.h:1771
+#: src/main_menubar_def.h:1762
 msgid "_Tools Editor"
 msgstr "ツール編集エディタ(_T)"
 
-#: src/main_menubar_def.h:1772
+#: src/main_menubar_def.h:1763
 msgid "Customize user-defined tools"
 msgstr "ユーザ定義ツールのカスタマイズ"
 
 #. 11
 #. 12
-#: src/main_menubar_def.h:1778
+#: src/main_menubar_def.h:1769
 msgid "St_art-with dialog"
 msgstr "ダイアログから起動(_A)"
 
-#: src/main_menubar_def.h:1779
+#: src/main_menubar_def.h:1770
 msgid "Show start-with dialog"
 msgstr "\"ダイアログから起動\" を表示します"
 
 #. 13
-#: src/main_menubar_def.h:1784
+#: src/main_menubar_def.h:1775
 msgid "An_juta setup wizard"
 msgstr "Anjuta 設定ウィザード(_J)"
 
-#: src/main_menubar_def.h:1785
+#: src/main_menubar_def.h:1776
 msgid "Setup wizard for first time run"
 msgstr "初回に起動するウィザードを設定します"
 
 #. 0
-#: src/main_menubar_def.h:1795
+#: src/main_menubar_def.h:1786
 msgid "Anjuta Manual"
 msgstr "Anjuta マニュアル"
 
-#: src/main_menubar_def.h:1796
+#: src/main_menubar_def.h:1787
 msgid "Anjuta IDE Manual"
 msgstr "Anjuta IDE マニュアル"
 
 #. 1
-#: src/main_menubar_def.h:1801
+#: src/main_menubar_def.h:1792
 msgid "Anjuta Tutorial"
 msgstr "Anjuta チュートリアル"
 
-#: src/main_menubar_def.h:1802
+#: src/main_menubar_def.h:1793
 msgid "Anjuta IDE Tutorial"
 msgstr "Anjuta IDE チュートリアル"
 
 #. 2
-#: src/main_menubar_def.h:1807
+#: src/main_menubar_def.h:1798
 msgid "Anjuta Faqs"
 msgstr "Anjuta FAQ 集"
 
-#: src/main_menubar_def.h:1808
+#: src/main_menubar_def.h:1799
 msgid "Anjuta IDE Faqs"
 msgstr "Anjuta IDE FAQ 集"
 
 #. 3
 #. 4
-#: src/main_menubar_def.h:1814
+#: src/main_menubar_def.h:1805
 msgid "Browse GNOME _API Pages"
 msgstr "GNOME API の参照(_A)"
 
-#: src/main_menubar_def.h:1815
+#: src/main_menubar_def.h:1806
 msgid "The GNOME API pages"
 msgstr "GNOME API を参照します"
 
 #. 5
-#: src/main_menubar_def.h:1820
+#: src/main_menubar_def.h:1811
 msgid "Browse _Man Pages"
 msgstr "man ページの参照(_M)"
 
-#: src/main_menubar_def.h:1821
+#: src/main_menubar_def.h:1812
 msgid "The good old manual pages"
 msgstr "古いがなかなかのマニュアル・ページです"
 
 #. 6
-#: src/main_menubar_def.h:1826
+#: src/main_menubar_def.h:1817
 msgid "Browse _Info Pages"
 msgstr "Info ページの参照(_I)"
 
-#: src/main_menubar_def.h:1827
+#: src/main_menubar_def.h:1818
 msgid "Browse Info pages"
 msgstr "Info ページを参照します"
 
 #. 7
 #. 8
-#: src/main_menubar_def.h:1833
+#: src/main_menubar_def.h:1824
 msgid "_Context Help"
 msgstr "感応型ヘルプ(_C)"
 
-#: src/main_menubar_def.h:1834
+#: src/main_menubar_def.h:1825
 msgid "Search help for the current word in the editor"
 msgstr "エディタ内でこの文字列のヘルプを検索します"
 
 #. 9
-#: src/main_menubar_def.h:1839
+#: src/main_menubar_def.h:1830
 msgid "_Search a topic"
 msgstr "トピックの検索(_S)"
 
-#: src/main_menubar_def.h:1840
+#: src/main_menubar_def.h:1831
 msgid "May I help you?"
 msgstr "何をご所望ですか？"
 
 #. 10
 #. 11
-#: src/main_menubar_def.h:1846
+#: src/main_menubar_def.h:1837
 msgid "Anjuta _Home Page"
 msgstr "Anjuta ホームページ(_H)"
 
-#: src/main_menubar_def.h:1847
+#: src/main_menubar_def.h:1838
 msgid "Online documentation and resources"
 msgstr "オンライン・ドキュメントとリソースなど"
 
 #. 12
 #. 13
-#: src/main_menubar_def.h:1853
+#: src/main_menubar_def.h:1844
 msgid "_Libraries API references"
 msgstr "API ライブラリのリファレンス(_L)"
 
-#: src/main_menubar_def.h:1854
+#: src/main_menubar_def.h:1845
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "GDK, GLib, GNOME 等のオンライン API リファレンスです"
 
 #. 14
-#: src/main_menubar_def.h:1859
+#: src/main_menubar_def.h:1850
 msgid "Report _Bugs"
 msgstr "バグの報告(_B)"
 
-#: src/main_menubar_def.h:1860
+#: src/main_menubar_def.h:1851
 msgid "Submit a bug report for Anjuta"
 msgstr "Anjuta に対するバグ報告を送付します"
 
 #. 15
-#: src/main_menubar_def.h:1865
+#: src/main_menubar_def.h:1856
 msgid "Request _Features"
 msgstr "機能追加のリクエスト(_F)"
 
-#: src/main_menubar_def.h:1866
+#: src/main_menubar_def.h:1857
 msgid "Submit a feature request for Anjuta"
 msgstr "Anjuta の機能追加をリクエストします"
 
 #. 16
-#: src/main_menubar_def.h:1871
+#: src/main_menubar_def.h:1862
 msgid "Submit _patches"
 msgstr "パッチの送付(_P)"
 
-#: src/main_menubar_def.h:1872
+#: src/main_menubar_def.h:1863
 msgid "Submit patches for Anjuta"
 msgstr "Anjuta に対するパッチを送付します"
 
 #. 17
-#: src/main_menubar_def.h:1877
+#: src/main_menubar_def.h:1868
 msgid "Ask a _question"
 msgstr "FAQ(_Q)"
 
-#: src/main_menubar_def.h:1878
+#: src/main_menubar_def.h:1869
 msgid "Submit a question for FAQs"
 msgstr "Frequentry Ask Quetions (FAQ) の質問を送付します"
 
-#: src/main_menubar_def.h:1893
+#: src/main_menubar_def.h:1884
 msgid "_Project"
 msgstr "プロジェクト(_P)"
 
-#: src/main_menubar_def.h:1899
+#: src/main_menubar_def.h:1890
 msgid "For_mat"
 msgstr "書式(_M)"
 
-#: src/main_menubar_def.h:1911
+#: src/main_menubar_def.h:1902
 msgid "Bookmar_k"
 msgstr "ブックマーク(_K)"
 
-#: src/main_menubar_def.h:1917
+#: src/main_menubar_def.h:1908
 msgid "_Debug"
 msgstr "デバッグ(_D)"
 
-#: src/main_menubar_def.h:1923
+#: src/main_menubar_def.h:1914
 msgid "_CVS"
 msgstr "CVS(_C)"
 
-#: src/main_menubar_def.h:1929
+#: src/main_menubar_def.h:1920
 msgid "_Settings"
 msgstr "設定(_S)"
 
-#: src/mainmenu_callbacks.c:159
+#: src/mainmenu_callbacks.c:157
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
@@ -6106,7 +6096,7 @@ msgstr ""
 "エディタを閉じると、その処理も停止します。\n"
 "エディタを閉じてもよろしいですか？"
 
-#: src/mainmenu_callbacks.c:173
+#: src/mainmenu_callbacks.c:171
 #, c-format
 msgid ""
 "The file '%s' is not saved.\n"
@@ -6115,11 +6105,11 @@ msgstr ""
 "ファイル '%s' は保存されていません。\n"
 "閉じる前にファイルを保存しますか？"
 
-#: src/mainmenu_callbacks.c:183 src/project_dbase_gui.c:1126
+#: src/mainmenu_callbacks.c:181 src/project_dbase_gui.c:1126
 msgid "Do_n't save"
 msgstr "保存しない(_N)"
 
-#: src/mainmenu_callbacks.c:240
+#: src/mainmenu_callbacks.c:238
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -6128,32 +6118,19 @@ msgstr ""
 "'%s' を再び読み込んでもよろしいですか？\n"
 "保存されていない変更を失うことになります。"
 
-#: src/mainmenu_callbacks.c:250 src/text_editor.c:1352
+#: src/mainmenu_callbacks.c:248 src/text_editor.c:1356
 msgid "_Reload"
 msgstr "再読み込み(_R)"
 
-#: src/mainmenu_callbacks.c:551
-msgid "%Y"
-msgstr "%Y"
-
-#: src/mainmenu_callbacks.c:570
-msgid "%Y-%m-%d"
-msgstr "%Y-%m-%d"
-
-#: src/mainmenu_callbacks.c:645
-#, c-format
-msgid "The file \"%s\" is not a header file."
-msgstr "ファイル \"%s\" はヘッダファイルではありません。"
-
-#: src/mainmenu_callbacks.c:1741
+#: src/mainmenu_callbacks.c:1259
 msgid "The executable is not up-to-date."
 msgstr "実行ファイルが更新されていません。"
 
-#: src/mainmenu_callbacks.c:1766
+#: src/mainmenu_callbacks.c:1284
 msgid "Debugger is not running. Start it first."
 msgstr "デバッガが起動されていません。まず最初に起動して下さい。"
 
-#: src/mainmenu_callbacks.c:2032
+#: src/mainmenu_callbacks.c:1550
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -6161,7 +6138,7 @@ msgstr ""
 "ヘルプを表示できません。Anjuta ドキュメントのパッケージがインストールされてい"
 "るか確認して下さい。http://anjuta.org からダウンロードすることもできます。"
 
-#: src/mainmenu_callbacks.c:2165
+#: src/mainmenu_callbacks.c:1676
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
@@ -6173,15 +6150,15 @@ msgstr ""
 "らマウス・カーソルをメニュー・アイテムの上に移動して、そのアイテムに関連づけ"
 "るショートカット・キーを押下して下さい。"
 
-#: src/memory.c:111
+#: src/memory.c:108
 msgid "Unable to build user interface for Memory\n"
 msgstr "メモリのユーザ・インタフェースを構築できません\n"
 
-#: src/memory.c:413
+#: src/memory.c:410
 msgid "Enter a Hexa address or Select one in the data"
 msgstr "16 進アドレスを入力するか、データから一つ選択して下さい"
 
-#: src/memory.c:420
+#: src/memory.c:417
 msgid "Non accessible address !"
 msgstr "アクセスできないアドレスです！"
 
@@ -6223,7 +6200,7 @@ msgstr "スタック"
 msgid "Could not find message type %s!\n"
 msgstr "メッセージ型 %s が見つかりませんでした！\n"
 
-#: src/message-manager.cc:592 src/toolbar.c:154
+#: src/message-manager.cc:592 src/toolbar.c:155
 msgid "Messages"
 msgstr "メッセージ"
 
@@ -6235,7 +6212,7 @@ msgstr "カテゴリ"
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta 設定ダイアログ"
 
-#: src/preferences.c:698
+#: src/preferences.c:694
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -6243,11 +6220,11 @@ msgstr ""
 "本当に現在の設定をリセットして、\n"
 "デフォルト設定に変更してもよろしいですか？"
 
-#: src/preferences.c:701
+#: src/preferences.c:697
 msgid "_Reset"
 msgstr "リセット(_R)"
 
-#: src/preferences.c:1076
+#: src/preferences.c:1072
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6260,24 +6237,24 @@ msgstr ""
 "これは不適当な動作または不確定要素による結果かもしれません。\n"
 "Anjuta は (限定された) 設定でビルドするためにフォールバックします。"
 
-#: src/preferences.c:1208
+#: src/preferences.c:1204
 msgid "Anjuta Preferences"
 msgstr "Anjuta の設定"
 
 #. Must declare static, because it will be used forever
-#: src/project_dbase.c:204
+#: src/project_dbase.c:203
 msgid "Add to Project"
 msgstr "プロジェクトへの追加"
 
-#: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:585
+#: src/project_dbase.c:232 src/project_dbase.c:302 src/project_dbase_gui.c:585
 msgid "Project: None"
 msgstr "プロジェクト: なし"
 
-#: src/project_dbase.c:373
+#: src/project_dbase.c:372
 msgid "Anjuta project files"
 msgstr "Anjuta プロジェクトファイル"
 
-#: src/project_dbase.c:374 src/project_dbase_gui.c:170
+#: src/project_dbase.c:373 src/project_dbase_gui.c:170
 #: src/project_dbase_gui.c:187 src/project_dbase_gui.c:199
 #: src/project_dbase_gui.c:207 src/project_dbase_gui.c:219
 #: src/project_dbase_gui.c:228 src/project_dbase_gui.c:237
@@ -6285,12 +6262,12 @@ msgstr "Anjuta プロジェクトファイル"
 msgid "All files"
 msgstr "全てのファイル"
 
-#: src/project_dbase.c:455 src/project_dbase.c:473
+#: src/project_dbase.c:454 src/project_dbase.c:472
 #, c-format
 msgid "Unable to load Project: %s"
 msgstr "プロジェクトを読み込めません: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2478
+#: src/project_dbase.c:465 src/project_dbase.c:2473
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6300,15 +6277,15 @@ msgstr ""
 "す。\n"
 "Anjuta を最新版にアップデートして下さい (ヘルプにその詳細な情報があります)。"
 
-#: src/project_dbase.c:849
+#: src/project_dbase.c:846
 msgid "Project saved successfully"
 msgstr "プロジェクトの保存に成功しました。"
 
-#: src/project_dbase.c:855 src/project_dbase.c:858
+#: src/project_dbase.c:852 src/project_dbase.c:855
 msgid "Unable to save the Project."
 msgstr "プロジェクトを保存することができません。"
 
-#: src/project_dbase.c:1566
+#: src/project_dbase.c:1561
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6318,7 +6295,7 @@ msgstr ""
 "'glade' を使用しない場合は、[プロジェクト]->[プロジェクトの設定]->[GUI 編集コ"
 "マンド] でカスタム・コマンドを指定して下さい。"
 
-#: src/project_dbase.c:1628
+#: src/project_dbase.c:1623
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6327,11 +6304,11 @@ msgstr ""
 "トップ・フォルダに存在しません。"
 
 #. Set project title
-#: src/project_dbase.c:2076
+#: src/project_dbase.c:2071
 msgid "Project: "
 msgstr "プロジェクト: "
 
-#: src/project_dbase.c:2193
+#: src/project_dbase.c:2188
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6340,20 +6317,20 @@ msgstr ""
 "%s のファイル名を取得することができません\n"
 "(%s の中)"
 
-#: src/project_dbase.c:2258
+#: src/project_dbase.c:2253
 msgid " already exists in the project"
 msgstr " は既にプロジェクトの中にあります"
 
-#: src/project_dbase.c:2291
+#: src/project_dbase.c:2286
 msgid "Error while copying the file inside the module."
 msgstr "モジュール内部でのファイルのコピー中にエラーが発生しました。"
 
-#: src/project_dbase.c:2554 src/project_dbase.c:2557
+#: src/project_dbase.c:2549 src/project_dbase.c:2552
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "プロジェクトの読み込み中にエラー: %s"
 
-#: src/project_dbase.c:2578
+#: src/project_dbase.c:2573
 msgid "Project loaded successfully."
 msgstr "プロジェクトの読み込みに成功しました。"
 
@@ -6386,13 +6363,13 @@ msgstr "Java ソースファイル"
 msgid "Pascal files"
 msgstr "Pascal ファイル"
 
-#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:726
-msgid "PHP files"
-msgstr "PHP ファイル"
-
-#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:729
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:729
 msgid "Perl files"
 msgstr "Perl ファイル"
+
+#: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:726
+msgid "PHP files"
+msgstr "PHP ファイル"
 
 #: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:731
 msgid "Python files"
@@ -6760,21 +6737,17 @@ msgstr "既存プロジェクトのフォルダの選択"
 msgid "Click Forward to begin the import"
 msgstr "クリックするとインポートを開始します"
 
-#: src/registers_gui.c:40
-msgid "Modify"
-msgstr "変更"
-
-#: src/registers_gui.c:88
-msgid "CPU Registers"
-msgstr "CPU レジスタ"
-
-#: src/registers_gui.c:107
+#: src/registers_gui.c:43
 msgid "Register"
 msgstr "レジスタ"
 
-#: src/registers_gui.c:115
+#: src/registers_gui.c:43
 msgid "Decimal"
 msgstr "10 進形式"
+
+#: src/registers_gui.c:107
+msgid "CPU Registers"
+msgstr "CPU レジスタ"
 
 #: src/resources.c:51
 #, c-format
@@ -6796,48 +6769,69 @@ msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
 "Devhelp を起動することが出来ません。インストールされているか確認して下さい。"
 
-#: src/search-replace.c:1088
+#: src/search-replace.c:335
 msgid "Replace"
 msgstr "置換"
 
-#: src/search-replace.c:1364 src/search-replace.c:1530
+#: src/search-replace.c:620 src/search-replace.c:1235
+#: src/search-replace.c:1242 src/search-replace.c:1254
+#: src/search-replace.c:1496
+msgid "Search"
+msgstr "検索"
+
+#: src/search-replace.c:623 src/search-replace.c:1249
 msgid "Replace All"
 msgstr "全て置換"
 
-#: src/search-replace.c:1372
-msgid "No matches."
-msgstr "一致しません。"
+#: src/search-replace.c:659
+#, c-format
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr ""
+"\"%s\" に一致するものが見つかりません。ドキュメント全体を検索しますか？"
 
-#: src/search-replace.c:1382
+#: src/search-replace.c:682
+#, c-format
+msgid "The match \"%s\" was not found."
+msgstr "\"%s\" に一致するものが見つかりません。"
+
+#: src/search-replace.c:700
 msgid "The maximum number of results has been reached."
 msgstr "検索件数の最大値です"
 
-#: src/search-replace.c:1392
+#: src/search-replace.c:713
 #, c-format
 msgid "%d matches have been replaced."
 msgstr "%d 個のアイテムを置換しました。"
 
-#: src/search-replace.c:1749
+#: src/search-replace.c:868
 msgid "Unable to build user interface for Search And Replace"
 msgstr "検索と置換のユーザ・インタフェースを構築できません"
 
-#: src/sharedlib_gui.c:79
-msgid "Shared libraries"
-msgstr "共有ライブラリ"
+#: src/search_incremental.c:256
+msgid "No matches. Wrap search around the document?"
+msgstr "一致するものがありません。ドキュメント全体を検索しますか？"
 
-#: src/sharedlib_gui.c:100
-msgid "  Shared Object  "
-msgstr "  共有オブジェクト  "
+#: src/search_preferences.c:474
+msgid "The maximum number of settings has been reached."
+msgstr "最大設定数になりました。"
 
-#: src/sharedlib_gui.c:104
+#: src/search_preferences.c:483
+msgid "This name is alredady used."
+msgstr "この名前は既に使われています。"
+
+#: src/sharedlib_gui.c:44
+msgid "Shared Object"
+msgstr "共有オブジェクト"
+
+#: src/sharedlib_gui.c:44
 msgid "From"
 msgstr "共有元"
 
-#: src/sharedlib_gui.c:108
+#: src/sharedlib_gui.c:44
 msgid "To"
 msgstr "共有先"
 
-#: src/sharedlib_gui.c:112
+#: src/sharedlib_gui.c:44
 msgid "Sysm Read"
 msgstr "Sysm Read"
 
@@ -6857,7 +6851,7 @@ msgstr "カーネル・シグナル"
 msgid "Signal"
 msgstr "シグナル"
 
-#: src/signals_gui.c:119 src/toolbar.c:666
+#: src/signals_gui.c:119 src/toolbar.c:667
 msgid "Stop"
 msgstr "停止"
 
@@ -6890,9 +6884,9 @@ msgstr "ファイル %s の書き込みでエラーが発生しました。"
 #: src/source.c:1180 src/source.c:1211 src/source.c:1229 src/source.c:1259
 #: src/source.c:1277 src/source.c:1306 src/source.c:1355 src/source.c:1392
 #: src/source.c:1436 src/source.c:1517 src/source.c:1649 src/source.c:1689
-#: src/source.c:1779 src/source.c:1852 src/source.c:1946 src/source.c:2027
-#: src/source.c:2085 src/source.c:2199 src/source.c:2262 src/source.c:2568
-#: src/source.c:2703 src/utilities.c:744
+#: src/source.c:1779 src/source.c:1836 src/source.c:1922 src/source.c:1995
+#: src/source.c:2053 src/source.c:2167 src/source.c:2230 src/source.c:2536
+#: src/source.c:2671 src/utilities.c:744
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "ファイルを作成できません: %s"
@@ -6902,7 +6896,7 @@ msgstr "ファイルを作成できません: %s"
 msgid "Error writing to: %s."
 msgstr "書き込みでエラー: %s"
 
-#: src/src_paths.c:262
+#: src/src_paths.c:267
 msgid "Source Paths"
 msgstr "ソースのパス"
 
@@ -6938,7 +6932,7 @@ msgstr "有効"
 msgid "Count"
 msgstr "カウント"
 
-#: src/stack_trace.c:464 src/toolbar.c:612
+#: src/stack_trace.c:464 src/toolbar.c:613
 msgid "Frame"
 msgstr "フレーム"
 
@@ -6947,11 +6941,11 @@ msgstr "フレーム"
 msgid "Couldn't find pixmap file: %s"
 msgstr "Pixmap ファイルが見つかりませんでした: %s"
 
-#: src/text_editor.c:932
+#: src/text_editor.c:936
 msgid "This file is too big. Unable to allocate memory."
 msgstr "このファイルは大きすぎます。メモリを割り当てることができません。"
 
-#: src/text_editor.c:977
+#: src/text_editor.c:981
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -6962,11 +6956,11 @@ msgstr ""
 "エンコーディング\" の一覧にあるかどうかを確認して下さい。無い場合は設定から追"
 "加して下さい。"
 
-#: src/text_editor.c:1150
+#: src/text_editor.c:1154
 msgid "Loading file ..."
 msgstr "ファイルの読み込み中 ..."
 
-#: src/text_editor.c:1156
+#: src/text_editor.c:1160
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -6977,24 +6971,24 @@ msgstr ""
 "\n"
 "詳細: %s"
 
-#: src/text_editor.c:1177
+#: src/text_editor.c:1181
 msgid "File loaded successfully"
 msgstr "ファイルの読み込みが成功しました。"
 
-#: src/text_editor.c:1192
+#: src/text_editor.c:1196
 msgid "Saving file ..."
 msgstr "ファイルの保存中 ..."
 
-#: src/text_editor.c:1197
+#: src/text_editor.c:1201
 #, c-format
 msgid "Could not save file: %s."
 msgstr "ファイルが保存できませんでした: %s"
 
-#: src/text_editor.c:1237
+#: src/text_editor.c:1241
 msgid "File saved successfully"
 msgstr "ファイルの保存が成功しました。"
 
-#: src/text_editor.c:1335
+#: src/text_editor.c:1339
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -7005,25 +6999,25 @@ msgstr ""
 "バッファに格納されたものよりも新しいようです。\n"
 "再度、そのファイルを読み込みますか？"
 
-#: src/text_editor.c:1508
+#: src/text_editor.c:1512
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "書式の自動整形は無効です。有効にする場合は \"設定\" で有効にして下さい。"
 
-#: src/text_editor.c:1514
+#: src/text_editor.c:1518
 msgid "Auto formatting ..."
 msgstr "書式の自動整形中 ..."
 
-#: src/text_editor.c:1524
+#: src/text_editor.c:1528
 msgid "Error in auto formatting ..."
 msgstr "書式の自動整形中にエラーが発生 ..."
 
-#: src/text_editor.c:1539
+#: src/text_editor.c:1543
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta は %s を認識できません！"
 
-#: src/text_editor.c:1567
+#: src/text_editor.c:1571
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -7032,7 +7026,7 @@ msgstr ""
 "書式の自動整形中にエラーが発生 ...\n"
 "詳細: %s"
 
-#: src/text_editor.c:1574
+#: src/text_editor.c:1578
 msgid "Auto formatting completed"
 msgstr "書式の自動整形が完了"
 
@@ -7070,7 +7064,7 @@ msgstr "検索と置換の文字列"
 msgid "line: "
 msgstr "行:"
 
-#: src/text_editor_gui.c:167 src/toolbar.c:251
+#: src/text_editor_gui.c:167 src/toolbar.c:252
 msgid "Compile the current file"
 msgstr "このファイルをコンパイルします"
 
@@ -7090,10 +7084,6 @@ msgstr "現在表示中のページを組み込みます"
 msgid "Back"
 msgstr "戻る"
 
-#: src/text_editor_menu.c:84
-msgid "Forward"
-msgstr "前へ"
-
 #: src/text_editor_menu.c:108
 msgid "Prev mesg"
 msgstr "前のメッセージへ"
@@ -7110,7 +7100,7 @@ msgstr "前のブックマークへ"
 msgid "Next bookmark"
 msgstr "次のブックマークへ"
 
-#: src/text_editor_menu.c:143 src/toolbar.c:536
+#: src/text_editor_menu.c:143 src/toolbar.c:537
 msgid "Step in"
 msgstr "ステップイン"
 
@@ -7122,7 +7112,7 @@ msgstr "ステップオーバー"
 msgid "Step out"
 msgstr "ステップアウト"
 
-#: src/text_editor_menu.c:161 src/toolbar.c:525
+#: src/text_editor_menu.c:161 src/toolbar.c:526
 msgid "Run to cursor"
 msgstr "カーソル位置まで実行"
 
@@ -7130,7 +7120,7 @@ msgstr "カーソル位置まで実行"
 msgid "Run/Continue"
 msgstr "実行/続行"
 
-#: src/text_editor_menu.c:181 src/toolbar.c:573
+#: src/text_editor_menu.c:181 src/toolbar.c:574
 msgid "Interrupt"
 msgstr "割り込み"
 
@@ -7194,7 +7184,7 @@ msgid "Swap .h/.c"
 msgstr ".h/.c の交換"
 
 #. 10
-#: src/text_editor_menu.c:301 src/toolbar.c:512
+#: src/text_editor_menu.c:301 src/toolbar.c:513
 msgid "Go"
 msgstr "ジャンプ"
 
@@ -7208,279 +7198,275 @@ msgstr "タグ"
 msgid "Close"
 msgstr "閉じる"
 
-#: src/toolbar.c:105
+#: src/toolbar.c:106
 msgid "Detach"
 msgstr "分離"
 
-#: src/toolbar.c:106
+#: src/toolbar.c:107
 msgid "Detach the current page"
 msgstr "現在表示中のページを別のウィンドウに分離します"
 
-#: src/toolbar.c:115
+#: src/toolbar.c:116
 msgid "Search for the given string in the current file"
 msgstr "このファイルから指定した文字列を検索します"
 
-#: src/toolbar.c:131
+#: src/toolbar.c:132
 msgid "Enter the string to search for"
 msgstr "検索する文字列を入力して下さい"
 
-#: src/toolbar.c:137
+#: src/toolbar.c:138
 msgid "Go to the given line number in the current file"
 msgstr "このファイルの指定した行番号にジャンプします"
 
-#: src/toolbar.c:144
+#: src/toolbar.c:145
 msgid "Enter the line number to go to"
 msgstr "ジャンプする行番号を入力して下さい"
 
-#: src/toolbar.c:160
+#: src/toolbar.c:161
 msgid "Context sensitive help"
 msgstr "状況感知型ヘルプモードに移行します"
 
-#: src/toolbar.c:224
+#: src/toolbar.c:225
 msgid "Save Project"
 msgstr "プロジェクトの保存"
 
-#: src/toolbar.c:236
+#: src/toolbar.c:237
 msgid "Close Project"
 msgstr "プロジェクトを閉じる"
 
-#: src/toolbar.c:263
+#: src/toolbar.c:264
 msgid "Run configure"
 msgstr "configure を実行します"
 
-#: src/toolbar.c:275
+#: src/toolbar.c:276
 msgid "Build current file, or build the source directory of the Project"
 msgstr "このファイルのビルドまたはプロジェクトのソース・フォルダをビルドします"
 
-#: src/toolbar.c:286
+#: src/toolbar.c:287
 msgid "Build_all"
 msgstr "全てビルド(_A)"
 
-#: src/toolbar.c:288
+#: src/toolbar.c:289
 msgid "Build from the top directory of the Project"
 msgstr "プロジェクトのトップ・フォルダからビルドします"
 
-#: src/toolbar.c:307
+#: src/toolbar.c:308
 msgid "Start the Debugger"
 msgstr "デバッガを起動します"
 
-#: src/toolbar.c:314
+#: src/toolbar.c:315
 msgid "Stop/interrupt compile or build"
 msgstr "コンパイルまたはビルドの停止または割り込みを発生させます"
 
-#: src/toolbar.c:383 src/toolbar.c:762
+#: src/toolbar.c:384 src/toolbar.c:763
 msgid "Toggle"
 msgstr "切り替え"
 
-#: src/toolbar.c:384
+#: src/toolbar.c:385
 msgid "Toggle bookmark at current location"
 msgstr "この場所でブックマークの切り替えます"
 
-#: src/toolbar.c:390
+#: src/toolbar.c:391
 msgid "Goto first bookmark in this document"
 msgstr "このドキュメント中の最初のブックマークにジャンプします"
 
-#: src/toolbar.c:396
+#: src/toolbar.c:397
 msgid "Goto previous bookmark in this document"
 msgstr "このドキュメントの前のブックマークにジャンプします"
 
-#: src/toolbar.c:401
+#: src/toolbar.c:402
 msgid "Goto next bookmark in this document"
 msgstr "このドキュメントの次のブックマークにジャンプします"
 
-#: src/toolbar.c:406
+#: src/toolbar.c:407
 msgid "Goto last bookmark in this document"
 msgstr "このドキュメントの最後のブックマークにジャンプします"
 
-#: src/toolbar.c:415
+#: src/toolbar.c:416
 msgid "Prev"
 msgstr "前へ"
 
-#: src/toolbar.c:416
+#: src/toolbar.c:417
 msgid "Goto previous message in this document"
 msgstr "このドキュメントの前のメッセージにジャンプします"
 
-#: src/toolbar.c:422
+#: src/toolbar.c:423
 msgid "Next"
 msgstr "次へ"
 
-#: src/toolbar.c:423
+#: src/toolbar.c:424
 msgid "Goto next message in this document"
 msgstr "このドキュメントの次のメッセージにジャンプします"
 
-#: src/toolbar.c:431
+#: src/toolbar.c:432
 msgid "Start"
 msgstr "先頭"
 
-#: src/toolbar.c:432
+#: src/toolbar.c:433
 msgid "Goto start of current code block"
 msgstr "このコードブロックの先頭にジャンプします"
 
-#: src/toolbar.c:438
+#: src/toolbar.c:439
 msgid "End"
 msgstr "末尾"
 
-#: src/toolbar.c:439
+#: src/toolbar.c:440
 msgid "Goto end of current code block"
 msgstr "このコードブロックの末尾にジャンプします"
 
-#: src/toolbar.c:446
+#: src/toolbar.c:447
 msgid "Tags:"
 msgstr "タグ:"
 
-#: src/toolbar.c:455
+#: src/toolbar.c:456
 msgid "Search for the given tag in the current file"
 msgstr "このファイルから指定したタグを検索します"
 
-#: src/toolbar.c:470
+#: src/toolbar.c:471
 msgid "Enter the tag to jump to"
 msgstr "ジャンプする先のタグを入力して下さい"
 
-#: src/toolbar.c:513
+#: src/toolbar.c:514
 msgid "Go or continue execution"
 msgstr "実行を開始または続行します"
 
-#: src/toolbar.c:524
+#: src/toolbar.c:525
 msgid "Run"
 msgstr "実行します"
 
-#: src/toolbar.c:537
+#: src/toolbar.c:538
 msgid "Single step in execution"
 msgstr "一つ実行を進めます"
 
-#: src/toolbar.c:548
+#: src/toolbar.c:549
 msgid "Step Over"
 msgstr "ステップオーバー"
 
-#: src/toolbar.c:549
+#: src/toolbar.c:550
 msgid "Step over the function"
 msgstr "関数を無視して進めます"
 
-#: src/toolbar.c:559
+#: src/toolbar.c:560
 msgid "Step Out"
 msgstr "ステップアウト"
 
-#: src/toolbar.c:560
+#: src/toolbar.c:561
 msgid "Step out of the function"
 msgstr "関数の外に進めます"
 
-#: src/toolbar.c:575
+#: src/toolbar.c:576
 msgid "Interrupt execution of the program"
 msgstr "実行中のプログラムに割り込みます"
 
-#: src/toolbar.c:588
+#: src/toolbar.c:589
 msgid "Breakpoint"
 msgstr "ブレークポイント"
 
-#: src/toolbar.c:589
+#: src/toolbar.c:590
 msgid "Toggle breakpoint at cursor"
 msgstr "カーソル位置のブレークポイント表示の切り替え"
 
-#: src/toolbar.c:601
+#: src/toolbar.c:602
 msgid "Inspect or evaluate an expression"
 msgstr "式を検証または評価します"
 
-#: src/toolbar.c:614
+#: src/toolbar.c:615
 msgid "Display the current frame information"
 msgstr "このフレームの情報を表示します"
 
-#: src/toolbar.c:640
+#: src/toolbar.c:641
 msgid "Signals"
 msgstr "シグナル"
 
-#: src/toolbar.c:641
+#: src/toolbar.c:642
 msgid "kernel signals of the program"
 msgstr "プログラムの kernel シグナルです"
 
-#: src/toolbar.c:652
+#: src/toolbar.c:653
 msgid "Registers"
 msgstr "レジスタ"
 
-#: src/toolbar.c:653
+#: src/toolbar.c:654
 msgid "CPU registers and their contents"
 msgstr "CPU レジスタとその内容を表示します"
 
-#: src/toolbar.c:667
+#: src/toolbar.c:668
 msgid "End the debugging session"
 msgstr "デバッグセッションの終了します"
 
-#: src/toolbar.c:764
+#: src/toolbar.c:765
 msgid "Toggle current code fold hide/show"
 msgstr "カーソル行でコード行の折り畳みを切り替えます"
 
-#: src/toolbar.c:775
+#: src/toolbar.c:776
 msgid "Close all"
 msgstr "全て閉じる"
 
-#: src/toolbar.c:777
+#: src/toolbar.c:778
 msgid "Close all code folds in this document"
 msgstr "このドキュメントの中にあるコード行の折り畳みを全て閉じます"
 
-#: src/toolbar.c:788
+#: src/toolbar.c:789
 msgid "Open all"
 msgstr "全て開く"
 
-#: src/toolbar.c:790
+#: src/toolbar.c:791
 msgid "Open all code folds in this document"
 msgstr "このドキュメントの中にあるコード行の折り畳みを全て開きます"
 
-#: src/toolbar.c:803
+#: src/toolbar.c:804
 msgid "Select"
 msgstr "選択"
 
-#: src/toolbar.c:804
+#: src/toolbar.c:805
 msgid "Select current code block"
 msgstr "このコードブックを選択します"
 
-#: src/toolbar.c:815
+#: src/toolbar.c:816
 msgid "Indent inc"
 msgstr "インデント増加"
 
-#: src/toolbar.c:817
+#: src/toolbar.c:818
 msgid "Increase indentation of block/line"
 msgstr "ブロック/行のインデントを増やします"
 
-#: src/toolbar.c:828
+#: src/toolbar.c:829
 msgid "Indent dcr"
 msgstr "インデント減少"
 
-#: src/toolbar.c:830
+#: src/toolbar.c:831
 msgid "Decrease indentation of block/line"
 msgstr "ブロック/行のインデントを減らします"
 
-#: src/toolbar.c:843
+#: src/toolbar.c:844
 msgid "Autoformat"
 msgstr "自動整形"
 
-#: src/toolbar.c:845
+#: src/toolbar.c:846
 msgid "Automatically format the code"
 msgstr "コードの書式を自動的に整形します"
 
-#: src/toolbar.c:857
+#: src/toolbar.c:858
 msgid "Configure style to use for auto format"
 msgstr "書式の自動整形で使用するスタイルを設定します"
 
-#: src/toolbar.c:870
+#: src/toolbar.c:871
 msgid "Calltip"
 msgstr "コールチップ"
 
-#: src/toolbar.c:870
+#: src/toolbar.c:871
 msgid "Show Calltip"
 msgstr "コールチップの表示"
 
-#: src/toolbar.c:883
+#: src/toolbar.c:884
 msgid "Autocomplete"
 msgstr "オートコンプリート"
 
-#: src/toolbar.c:884
+#: src/toolbar.c:885
 msgid "Autocomplete word"
 msgstr "単語を自動的に補完します"
 
-#: src/toolbar_callbacks.c:261
-msgid "No matches. Wrap search around the document?"
-msgstr "一致するものがありません。ドキュメント全体を検索しますか？"
-
-#: src/toolbar_callbacks.c:305
+#: src/toolbar_callbacks.c:167
 #, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "行番号 %d は \"%s\" の中にあります。"
@@ -7494,7 +7480,7 @@ msgstr "ファイルが読み込めません: %s"
 msgid "Unable to complete file copy"
 msgstr "ファイルを完全にコピーすることができません"
 
-#: src/watch_cbs.c:236
+#: src/watch_cbs.c:228
 msgid "< Not defined in current context >"
 msgstr "< 現在のドキュメントでは定義なし >"
 
@@ -7734,11 +7720,11 @@ msgstr "一覧の再読み込み"
 msgid "Delete file"
 msgstr "ファイルの削除"
 
-#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1890
 msgid "Rename file"
 msgstr "ファイル名の変更"
 
-#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
+#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1989
 msgid "Create new folder"
 msgstr "新規フォルダの生成"
 
@@ -7786,25 +7772,25 @@ msgstr ".mak ファイル"
 msgid "Diff files"
 msgstr "Diff ファイル"
 
-#: widgets/gnomefilelist.c:1854
+#: widgets/gnomefilelist.c:1855
 #, c-format
 msgid "Really delete %s?"
 msgstr "本当に %s を削除しますか？"
 
-#: widgets/gnomefilelist.c:1901
+#: widgets/gnomefilelist.c:1902
 msgid "Rename file to:"
 msgstr "変更するファイル名:"
 
-#: widgets/gnomefilelist.c:1927
+#: widgets/gnomefilelist.c:1928
 #, c-format
 msgid "Renaming file failed '%s': %s"
 msgstr "ファイル名 '%s' の変更に失敗しました: %s"
 
-#: widgets/gnomefilelist.c:1960
+#: widgets/gnomefilelist.c:1961
 #, c-format
 msgid "Creating folder failed '%s': %s"
 msgstr "フォルダ '%s' の生成に失敗しました: %s"
 
-#: widgets/gnomefilelist.c:2000
+#: widgets/gnomefilelist.c:2001
 msgid "Folder name:"
 msgstr "フォルダ名:"
