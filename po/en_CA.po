@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-23 10:30-0500\n"
-"PO-Revision-Date: 2004-12-23 12:57-0400\n"
+"POT-Creation-Date: 2004-12-28 05:39-0500\n"
+"PO-Revision-Date: 2004-12-28 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: en_CA <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/main.c:122 src/main.cpp:122
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/main.c:129 src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
 
@@ -265,7 +265,7 @@ msgstr "Do not show start with dialog again."
 msgid "Document module Makefile.am"
 msgstr "Document module Makefile.am"
 
-#: anjuta.glade.h:56 src/anjuta-app.c:348 src/anjuta_gui.c:105
+#: anjuta.glade.h:56 src/anjuta-app.c:293 src/anjuta_gui.c:105
 msgid "Edit"
 msgstr "Edit"
 
@@ -298,7 +298,7 @@ msgstr "Execute Program"
 
 #. Register actions
 #: anjuta.glade.h:63 plugins/file-manager/an_file_view.c:923
-#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:345 src/anjuta_gui.c:102
+#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:290 src/anjuta_gui.c:102
 msgid "File"
 msgstr "File"
 
@@ -649,7 +649,7 @@ msgstr "Scripts at the end of top level Makefile.am"
 msgid "Set Signal Property"
 msgstr "Set Signal Property"
 
-#: anjuta.glade.h:140 src/anjuta-app.c:354 src/anjuta_gui.c:120
+#: anjuta.glade.h:140 src/anjuta-app.c:304 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Settings"
 
@@ -756,7 +756,7 @@ msgstr "User name:"
 msgid "Version:"
 msgstr "Version:"
 
-#: anjuta.glade.h:164 src/anjuta-app.c:351 src/anjuta_gui.c:111
+#: anjuta.glade.h:164 src/anjuta-app.c:296 src/anjuta_gui.c:111
 msgid "View"
 msgstr "View"
 
@@ -859,7 +859,7 @@ msgstr "_Terminal:"
 
 #. Action name
 #. Stock icon, if any
-#: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:69
+#: anjuta.glade.h:185 plugins/cvs-plugin/plugin.c:72
 #: plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Update"
@@ -1044,19 +1044,19 @@ msgid "Anjuta Preferences"
 msgstr "Anjuta Preferences"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: libanjuta/anjuta-ui.c:811
+#: libanjuta/anjuta-ui.c:813
 msgid "Action"
 msgstr "Action"
 
-#: libanjuta/anjuta-ui.c:829
+#: libanjuta/anjuta-ui.c:831
 msgid "Visible"
 msgstr "Visible"
 
-#: libanjuta/anjuta-ui.c:840
+#: libanjuta/anjuta-ui.c:842
 msgid "Sensitive"
 msgstr "Sensitive"
 
-#: libanjuta/anjuta-ui.c:849
+#: libanjuta/anjuta-ui.c:851
 msgid "Shortcut"
 msgstr "Shortcut"
 
@@ -1809,7 +1809,7 @@ msgstr "Class Builder"
 #: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
 #: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:381
 #: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
-#: src/anjuta-app.c:357 src/anjuta_gui.c:123
+#: src/anjuta-app.c:307 src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Help"
 
@@ -2175,7 +2175,7 @@ msgstr "Updating versions in file tree..."
 msgid "done\n"
 msgstr "done\n"
 
-#: plugins/cvs-plugin/cvs-actions.c:219
+#: plugins/cvs-plugin/cvs-actions.c:205
 msgid "Unable to delete file"
 msgstr "Unable to delete file"
 
@@ -2359,101 +2359,101 @@ msgstr "Import settings"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:37
+#: plugins/cvs-plugin/plugin.c:40
 msgid "_CVS"
 msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:45
+#: plugins/cvs-plugin/plugin.c:48
 msgid "_Add"
 msgstr "_Add"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:47
+#: plugins/cvs-plugin/plugin.c:50
 msgid "Add a new file/directory to the CVS tree"
 msgstr "Add a new file/directory to the CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:53
+#: plugins/cvs-plugin/plugin.c:56
 msgid "_Remove"
 msgstr "_Remove"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:55
+#: plugins/cvs-plugin/plugin.c:58
 msgid "Remove a file/directory from CVS tree"
 msgstr "Remove a file/directory from CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:61
+#: plugins/cvs-plugin/plugin.c:64
 msgid "_Commit"
 msgstr "_Commit"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:63
+#: plugins/cvs-plugin/plugin.c:66
 msgid "Commit your changes to the CVS tree"
 msgstr "Commit your changes to the CVS tree"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:71
+#: plugins/cvs-plugin/plugin.c:74
 msgid "Sync your local copy with the CVS tree"
 msgstr "Sync your local copy with the CVS tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:77
+#: plugins/cvs-plugin/plugin.c:80
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:79
+#: plugins/cvs-plugin/plugin.c:82
 msgid "Show differences between your local copy and the tree"
 msgstr "Show differences between your local copy and the tree"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:85
+#: plugins/cvs-plugin/plugin.c:88
 msgid "_Show Status"
 msgstr "_Show Status"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:87
+#: plugins/cvs-plugin/plugin.c:90
 msgid "Show the status of a file/directory"
 msgstr "Show the status of a file/directory"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:93
+#: plugins/cvs-plugin/plugin.c:96
 msgid "_Show Log"
 msgstr "_Show Log"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:95
+#: plugins/cvs-plugin/plugin.c:98
 msgid "Show the log of a file/directory"
 msgstr "Show the log of a file/directory"
 
 #. Action name
 #. Stock icon, if any
-#: plugins/cvs-plugin/plugin.c:101
+#: plugins/cvs-plugin/plugin.c:104
 msgid "_Import Tree"
 msgstr "_Import Tree"
 
 #. Display label
 #. short-cut
-#: plugins/cvs-plugin/plugin.c:103
+#: plugins/cvs-plugin/plugin.c:106
 msgid "Import a new source tree to CVS"
 msgstr "Import a new source tree to CVS"
 
-#: plugins/cvs-plugin/plugin.c:129
+#: plugins/cvs-plugin/plugin.c:278
 msgid "CVS operations"
 msgstr "CVS operations"
 
@@ -7800,11 +7800,11 @@ msgstr "%s: Command line parameters"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: src/action-callbacks.c:72 src/action-callbacks.c:93 src/shell.c:64
+#: src/action-callbacks.c:86 src/action-callbacks.c:107 src/shell.c:64
 msgid "Anjuta Plugins"
 msgstr "Anjuta Plugins"
 
-#: src/action-callbacks.c:107 src/mainmenu_callbacks.c:836
+#: src/action-callbacks.c:121 src/mainmenu_callbacks.c:836
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -7812,7 +7812,7 @@ msgstr ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 
-#: src/anjuta.c:80 src/anjuta_cbs.c:93
+#: src/anjuta.c:84 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
@@ -7836,140 +7836,152 @@ msgstr "Quit Anjuta IDE"
 msgid "_Toolbars"
 msgstr "_Toolbars"
 
-#: src/anjuta-actions.h:40 src/shell.c:77
+#: src/anjuta-actions.h:41
+msgid "_Full Screen"
+msgstr "_Full Screen"
+
+#: src/anjuta-actions.h:42
+msgid "Toggle fullscreen mode"
+msgstr "Toggle fullscreen mode"
+
+#: src/anjuta-actions.h:47 src/shell.c:77
 msgid "_Settings"
 msgstr "_Settings"
 
-#: src/anjuta-actions.h:42 src/shell.c:90
+#: src/anjuta-actions.h:49 src/shell.c:90
 msgid "_Preferences ..."
 msgstr "_Preferences ..."
 
-#: src/anjuta-actions.h:43
+#: src/anjuta-actions.h:50
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Do you prefer coffee to tea? Check it out."
 
-#: src/anjuta-actions.h:46
+#: src/anjuta-actions.h:53
 msgid "Set _Default Preferences"
 msgstr "Set _Default Preferences"
 
-#: src/anjuta-actions.h:47
+#: src/anjuta-actions.h:54
 msgid "But I prefer tea."
 msgstr "But I prefer tea."
 
-#: src/anjuta-actions.h:50 src/shell.c:98
+#: src/anjuta-actions.h:57 src/shell.c:98
 msgid "C_ustomize shortcuts"
 msgstr "C_ustomize shortcuts"
 
-#: src/anjuta-actions.h:51 src/shell.c:100
+#: src/anjuta-actions.h:58 src/shell.c:100
 msgid "Customize shortcuts associated with menu items"
 msgstr "Customize shortcuts associated with menu items"
 
-#: src/anjuta-actions.h:54
+#: src/anjuta-actions.h:61
 msgid "Layout manager"
 msgstr "Layout manager"
 
-#: src/anjuta-actions.h:55
+#: src/anjuta-actions.h:62
 msgid "Manipulate layout manager items"
 msgstr "Manipulate layout manager items"
 
-#: src/anjuta-actions.h:58
+#: src/anjuta-actions.h:65
 msgid "Plugins manager"
 msgstr "Plugins manager"
 
-#: src/anjuta-actions.h:59
+#: src/anjuta-actions.h:66
 msgid "Manipulate plugins manager items"
 msgstr "Manipulate plugins manager items"
 
-#: src/anjuta-actions.h:64 src/shell.c:78
+#: src/anjuta-actions.h:71 src/shell.c:78
 msgid "_Help"
 msgstr "_Help"
 
-#: src/anjuta-actions.h:66
+#: src/anjuta-actions.h:73
 msgid "Browse _Man Pages"
 msgstr "Browse _Man Pages"
 
-#: src/anjuta-actions.h:67
+#: src/anjuta-actions.h:74
 msgid "The good old manual pages"
 msgstr "The good old manual pages"
 
-#: src/anjuta-actions.h:70
+#: src/anjuta-actions.h:77
 msgid "Browse _Info Pages"
 msgstr "Browse _Info Pages"
 
-#: src/anjuta-actions.h:71
+#: src/anjuta-actions.h:78
 msgid "The good info pages"
 msgstr "The good info pages"
 
-#: src/anjuta-actions.h:74
+#: src/anjuta-actions.h:81
 msgid "Anjuta _Home Page"
 msgstr "Anjuta _Home Page"
 
-#: src/anjuta-actions.h:75
+#: src/anjuta-actions.h:82
 msgid "Online documentation and resources"
 msgstr "Online documentation and resources"
 
-#: src/anjuta-actions.h:78
+#: src/anjuta-actions.h:85
 msgid "_Libraries API references"
 msgstr "_Libraries API references"
 
-#: src/anjuta-actions.h:79
+#: src/anjuta-actions.h:86
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Online reference library for GDK, GLib, GNOME etc.."
 
-#: src/anjuta-actions.h:82
+#: src/anjuta-actions.h:89
 msgid "Report _Bugs"
 msgstr "Report _Bugs"
 
-#: src/anjuta-actions.h:83
+#: src/anjuta-actions.h:90
 msgid "Submit a bug report for Anjuta"
 msgstr "Submit a bug report for Anjuta"
 
-#: src/anjuta-actions.h:86
+#: src/anjuta-actions.h:93
 msgid "Request _Features"
 msgstr "Request _Features"
 
-#: src/anjuta-actions.h:87
+#: src/anjuta-actions.h:94
 msgid "Submit a feature request for Anjuta"
 msgstr "Submit a feature request for Anjuta"
 
-#: src/anjuta-actions.h:90
+#: src/anjuta-actions.h:97
 msgid "Submit _patches"
 msgstr "Submit _patches"
 
-#: src/anjuta-actions.h:91
+#: src/anjuta-actions.h:98
 msgid "Submit patches for Anjuta"
 msgstr "Submit patches for Anjuta"
 
-#: src/anjuta-actions.h:94
+#: src/anjuta-actions.h:101
 msgid "Ask a _question"
 msgstr "Ask a _question"
 
-#: src/anjuta-actions.h:95
+#: src/anjuta-actions.h:102
 msgid "Submit a question for FAQs"
 msgstr "Submit a question for FAQs"
 
-#: src/anjuta-actions.h:98
+#: src/anjuta-actions.h:105
 msgid "_About"
 msgstr "_About"
 
-#: src/anjuta-actions.h:99
+#: src/anjuta-actions.h:106
 msgid "About Anjuta"
 msgstr "About Anjuta"
 
-#: src/anjuta-app.c:448 src/shell.c:212
+#: src/anjuta-app.c:300
+msgid "Toggle View"
+msgstr "Toggle View"
+
+#: src/anjuta-app.c:421 src/shell.c:212
 msgid "Value doesn't exist"
 msgstr "Value doesn't exist"
 
-#: src/anjuta-app.c:814
+#: src/anjuta-app.c:933
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 
-#: src/anjuta-app.c:1070
+#: src/anjuta-app.c:1189
 msgid "Looking up symbol"
 msgstr "Looking up symbol"
 
-#: src/anjuta-app.c:1072
+#: src/anjuta-app.c:1191
 msgid "Finding in Files ....\n"
 msgstr "Finding in Files ....\n"
 
@@ -8064,17 +8076,21 @@ msgstr "launcher.c: PTY pipe error!"
 msgid "Cannot execute command shell"
 msgstr "Cannot execute command shell"
 
-#: src/main.c:51 src/main.cpp:51
+#: src/main.c:52 src/main.cpp:51
 msgid "Specify the size and location of the main window"
 msgstr "Specify the size and location of the main window"
 
-#: src/main.c:52 src/main.cpp:52
+#: src/main.c:53 src/main.cpp:52
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: src/main.c:57 src/main.cpp:57
+#: src/main.c:58 src/main.cpp:57
 msgid "Do not show the splashscreen"
 msgstr "Do not show the splashscreen"
+
+#: src/main.c:64
+msgid "Shutdown anjuta properly releasing all resources (for debugging)"
+msgstr "Shutdown anjuta properly releasing all resources (for debugging)"
 
 #: src/mainmenu_callbacks.c:545
 msgid "The executable is not up-to-date."
