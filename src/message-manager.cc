@@ -83,7 +83,7 @@ an_message_manager_new ()
 guint
 an_message_manager_get_type (void)
 {
-	static guint type = 0;
+	static GType type = 0;
 
 	if (!type)
 	{
@@ -110,10 +110,9 @@ an_message_manager_get_type (void)
 static void
 an_message_manager_class_init (AnMessageManagerClass * klass)
 {
-	GObjectClass *object_class =
-		reinterpret_cast < GObjectClass * >(klass);
-
-	parent_class = reinterpret_cast < GtkFrameClass * >(klass);
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	parent_class = reinterpret_cast < GtkFrameClass * >
+						(g_type_class_peek_parent (klass));
 	object_class->finalize = an_message_manager_finalize;
 }
 
@@ -184,7 +183,7 @@ an_message_manager_finalize (GObject * obj)
 	{
 		delete *cur_win;
 	}
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 // Public:

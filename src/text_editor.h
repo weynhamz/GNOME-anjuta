@@ -163,7 +163,8 @@ guint text_editor_get_line_from_position (TextEditor * te, glong pos);
 gchar* text_editor_get_selection (TextEditor * te);
 
 gboolean text_editor_goto_point (TextEditor * te, glong num);
-gboolean text_editor_goto_line (TextEditor * te, glong num, gboolean mark);
+gboolean text_editor_goto_line (TextEditor * te, glong num,
+								gboolean mark, gboolean ensure_visible);
 gint text_editor_goto_block_start (TextEditor* te);
 gint text_editor_goto_block_end (TextEditor* te);
 

@@ -1637,7 +1637,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 	else
 	{
 		line = l;
-		text_editor_goto_line (te, line, FALSE);
+		text_editor_goto_line (te, line, FALSE, TRUE);
 	}
 	/* Is breakpoint set? */
 	if (text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER) ||

@@ -1,3 +1,19 @@
+2003-09-15  Naba Kumar  <naba@gnome.org>
+
+	* src/text_editor.[c,h], src/anjuta.c, src/breakpoints.c,
+	src/goto_line.c, src/mainmenu_callbacks.c, src/text_editor_cbs.c,
+	src/toolbar_callbacks.c: Added an additional parameter to
+	text_editor_goto_line() funtion which decides if the line should
+	be made visible (if it's under fold).
+	
+	* src/style-editor.c: Fixed a compiler warning.
+	* src/message-manager.cc: Calls parent method correctly.
+
+	* src/preferences.h: Fixed prent class.
+	
+	Patch from: Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
+	* src/project_dbase.c: Fixed bug #713210.
+	
 2003-09-14  Hasbullah Bin Pit <sebol@ikhlas.com>
                                                                                 
         * configure.in: Added 'ms' (Malay) to ALL_LINGUAS.

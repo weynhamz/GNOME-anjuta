@@ -250,7 +250,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 			if (! breakpoints_dbase_toggle_doubleclick (line))
 			{
 				/*  Debugger not active ==> Toggle Bookmarks */
-				text_editor_goto_line (te, line, FALSE);
+				text_editor_goto_line (te, line, FALSE, FALSE);
 				aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
 			}
 		}
@@ -289,5 +289,5 @@ on_text_editor_scintilla_size_allocate (GtkWidget * widget,
 		return;
 
 	te->first_time_expose = FALSE;
-	text_editor_goto_line (te, te->current_line, FALSE);
+	text_editor_goto_line (te, te->current_line, FALSE, FALSE);
 }

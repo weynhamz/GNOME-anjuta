@@ -279,7 +279,7 @@ on_toolbar_goto_clicked (GtkButton * button, gpointer user_data)
 		if (strlen (line_ascii) == 0)
 			return;
 		line = atoi (line_ascii);
-		if (text_editor_goto_line (te, line, TRUE) == FALSE)
+		if (text_editor_goto_line (te, line, TRUE, TRUE) == FALSE)
 		{
 			anjuta_error (_("There is line number %d in \"%s\"."),
 				 line, te->filename);

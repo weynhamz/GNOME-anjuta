@@ -1367,7 +1367,10 @@ project_dbase_close_project (ProjectDBase * p)
 	sv_clear();
 	fv_clear();
 	p->project_is_open = FALSE;
-    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
+	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
+	// Set current text editor if files not belonged to the project
+	if ((node = g_list_last(app->text_editor_list)))
+		anjuta_set_current_text_editor (node->data);
 }
 
 void

@@ -98,7 +98,7 @@ style_data_get_string (StyleData * sdata)
 {
 	gchar *tmp, *str;
 
-	g_return_if_fail (sdata);
+	g_return_val_if_fail (sdata != NULL, NULL);
 	
 	str = NULL;
 	if ((sdata->font) && strlen (sdata->font) && sdata->font_use_default == FALSE)

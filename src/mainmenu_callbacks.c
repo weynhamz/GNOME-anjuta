@@ -1356,12 +1356,12 @@ on_indent1_activate (GtkMenuItem * menuitem, gpointer user_data)
     gint lineno;
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
-    lineno=aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
+    lineno = aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
 	if (te == NULL)
 		return;
 	text_editor_autoformat (te);
-	anjuta_update_title();
-    text_editor_goto_line(te,lineno+1,TRUE);
+	anjuta_update_title ();
+    text_editor_goto_line (te, lineno+1, TRUE, FALSE);
 }
 
 void

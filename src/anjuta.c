@@ -533,7 +533,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 		{
 			text_editor_check_disk_status(te, TRUE);
 			if (lineno >= 0)
-				text_editor_goto_line (te, lineno, mark);
+				text_editor_goto_line (te, lineno, mark, TRUE);
 			anjuta_show_text_editor (te);
 			anjuta_grab_text_focus ();
 			g_free (fn);
@@ -547,7 +547,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 	{
 		an_file_history_push(te->full_filename, lineno);
 		if (lineno >= 0)
-			text_editor_goto_line (te, lineno, mark);
+			text_editor_goto_line (te, lineno, mark, FALSE);
 	}
 	g_free (fn);
 	return te ;
@@ -642,7 +642,7 @@ gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name)
 			*epos = ']';
 			if (0 < line)
 			{
-				text_editor_goto_line(te, line, TRUE);
+				text_editor_goto_line(te, line, TRUE, TRUE);
 				return TRUE;
 			}
 		}
@@ -2286,7 +2286,7 @@ anjuta_reload_file( const gchar *szFullPath )
 		glong	nNowPos = te->current_line ;
 		/*text_editor_check_disk_status ( te, TRUE );asd sdf*/
 		text_editor_load_file (te);
-		text_editor_goto_line ( te,  nNowPos, FALSE );
+		text_editor_goto_line (te,  nNowPos, FALSE, FALSE);
 	}
 	return;
 }

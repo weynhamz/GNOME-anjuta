@@ -86,7 +86,7 @@ struct _AnjutaPreferences
 
 struct _AnjutaPreferencesClass
 {
-	GtkDialogClass parent;
+	AnjutaPreferencesDialogClass parent;
 	
 	void (*changed) (GtkWidget *pref);
 };

@@ -146,7 +146,7 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 	te = anjuta_get_current_text_editor ();
 	num = atoi (gtk_entry_get_text (ne));
 	if (te)
-		text_editor_goto_line (te, num, TRUE);
+		text_editor_goto_line (te, num, TRUE, TRUE);
   }
   else 
   	gtk_widget_hide (GTK_WIDGET(dialog));

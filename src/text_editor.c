@@ -444,7 +444,8 @@ text_editor_goto_point (TextEditor * te, glong point)
 }
 
 gboolean
-text_editor_goto_line (TextEditor * te, glong line, gboolean mark)
+text_editor_goto_line (TextEditor * te, glong line,
+					   gboolean mark, gboolean ensure_visible)
 {
 	gint selpos;
 	g_return_val_if_fail (te != NULL, FALSE);
@@ -453,12 +454,17 @@ text_editor_goto_line (TextEditor * te, glong line, gboolean mark)
 
 	te->current_line = line;
 	if (mark) text_editor_set_line_marker (te, line);
-	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_ENSUREVISIBLE,
-		linenum_text_editor_to_scintilla (line), 0);
-	selpos = scintilla_send_message(SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE,
-		linenum_text_editor_to_scintilla (line), 0);
-	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSELECTIONSTART, selpos, 0);
-	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSELECTIONEND, selpos, 0);
+	if (ensure_visible)
+		scintilla_send_message (SCINTILLA (te->widgets.editor),
+								SCI_ENSUREVISIBLE,
+								linenum_text_editor_to_scintilla (line), 0);
+	selpos = scintilla_send_message(SCINTILLA (te->widgets.editor),
+									SCI_POSITIONFROMLINE,
+								linenum_text_editor_to_scintilla (line), 0);
+	scintilla_send_message (SCINTILLA (te->widgets.editor),
+							SCI_SETSELECTIONSTART, selpos, 0);
+	scintilla_send_message (SCINTILLA (te->widgets.editor),
+							SCI_SETSELECTIONEND, selpos, 0);
 	
 	/* This ensures that we have arround 5 lines visible below the mark */
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GOTOLINE, 
@@ -473,7 +479,7 @@ text_editor_goto_block_start (TextEditor* te)
 {
 	gint line;
 	line = aneditor_command (te->editor_id, ANE_GETBLOCKSTARTLINE, 0, 0);
-	if (line >= 0) text_editor_goto_line (te, line, TRUE);
+	if (line >= 0) text_editor_goto_line (te, line, TRUE, TRUE);
 	else gdk_beep();
 	return line;
 }
@@ -483,7 +489,7 @@ text_editor_goto_block_end (TextEditor* te)
 {
 	gint line;
 	line = aneditor_command (te->editor_id, ANE_GETBLOCKENDLINE, 0, 0);
-	if (line >= 0) text_editor_goto_line (te, line, TRUE);
+	if (line >= 0) text_editor_goto_line (te, line, TRUE, TRUE);
 	else gdk_beep();
 	return line;
 }
