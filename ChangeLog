@@ -1,3 +1,10 @@
+2001-09-21  Andy Piper <andy.piper@freeuk.com>
+
+    * data/internal.properties:
+	
+	added fold.symbols property to control appearance of folds
+	in the Scintilla editor (thanks to rikul <null@acm.org>)
+
 2001-09-21  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/message.c:
