@@ -38,7 +38,7 @@
         <title>Open File dialog</title>
         <screenshot>
 		<screeninfo>The Open File dialog</screeninfo>
-         <graphic fileref="figures/open_file" format="png" srccredit="andyp"></graphic>
+         <graphic fileref="figures/open_file" format="png" srccredit="andyp">
         </screenshot>
        </figure>
        Select or enter the file you want to open, then click 
@@ -167,7 +167,7 @@
     <title>Tags toolbar</title>
     <screenshot>
 	 <screeninfo>The Tags toolbar</screeninfo>
-     <graphic fileref="figures/toolbar_tags" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/toolbar_tags" format="png" srccredit="andyp"> 
     </screenshot>
    </figure>
    <tip>
@@ -197,7 +197,7 @@
      <title>Find Text dialog</title>
      <screenshot>
 	 <screeninfo>Find Text dialog</screeninfo>
-       <graphic fileref="figures/find_text" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_text" format="png" srccredit="andyp"> 
      </screenshot>
     </figure>
 
@@ -227,7 +227,7 @@
      <title>Find and Replace dialog</title>
      <screenshot>
 	 <screeninfo>Find and Replace dialog</screeninfo>
-       <graphic fileref="figures/find_replace" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_replace" format="png" srccredit="andyp"> 
      </screenshot>
     </figure>
     
@@ -246,7 +246,7 @@
      <title>Find in files dialog</title>
      <screenshot>
 	 <screeninfo>Find in files dialog</screeninfo>
-       <graphic fileref="figures/find_files" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_files" format="png" srccredit="andyp">
      </screenshot>
     </figure>
 	

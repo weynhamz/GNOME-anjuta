@@ -75,7 +75,7 @@
     <title>¥×¥í¥»¥¹ÄÉ²Ã¥À¥¤¥¢¥í¥°</title>
     <screenshot>
 	<screeninfo>¥×¥í¥»¥¹ÄÉ²Ã¥À¥¤¥¢¥í¥°</screeninfo>
-     <graphic fileref="figures/attach" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/attach" format="png" srccredit="andyp">
     </screenshot>
    </figure>
    <para>	
@@ -190,7 +190,7 @@
      <title>¥Ö¥ì¡¼¥¯¥Ý¥¤¥ó¥È¡¦¥À¥¤¥¢¥í¥°</title>
      <screenshot>
       <screeninfo>¥Ö¥ì¡¼¥¯¥Ý¥¤¥ó¥È¡¦¥À¥¤¥¢¥í¥°</screeninfo>
-      <graphic fileref="figures/brk_dlg" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/brk_dlg" format="png" srccredit="andyp">
      </screenshot>
    </figure>
   </para>
@@ -240,7 +240,7 @@
       <title>¥Ö¥ì¡¼¥¯¥Ý¥¤¥ó¥ÈÄÉ²Ã¥À¥¤¥¢¥í¥°</title>
       <screenshot>
 	   <screeninfo>¥Ö¥ì¡¼¥¯¥Ý¥¤¥ó¥ÈÄÉ²Ã¥À¥¤¥¢¥í¥°</screeninfo>
-       <graphic fileref="figures/brk_add" format="png" srccredit="mkv"></graphic>
+       <graphic fileref="figures/brk_add" format="png" srccredit="mkv">
       </screenshot>
     </figure>
    </para>
@@ -263,7 +263,7 @@
       <title>¥Ö¥ì¡¼¥¯¥Ý¥¤¥ó¥ÈÊÔ½¸¥À¥¤¥¢¥í¥°</title>
       <screenshot>
 	   <screeninfo>¥Ö¥ì¡¼¥¯¥Ý¥¤¥ó¥ÈÊÔ½¸¥À¥¤¥¢¥í¥°</screeninfo>
-       <graphic fileref="figures/brk_edit" format="png" srccredit="mkv"></graphic>
+       <graphic fileref="figures/brk_edit" format="png" srccredit="mkv">
       </screenshot>
     </figure>
    </para>
@@ -317,7 +317,7 @@
       <title>¸¡¾Ú/É¾²Á¥À¥¤¥¢¥í¥°</title>
       <screenshot>
 	   <screeninfo>¸¡¾Ú/É¾²Á¥À¥¤¥¢¥í¥°</screeninfo>
-       <graphic fileref="figures/evaluate" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/evaluate" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -329,7 +329,7 @@
       <title>É¾²Á¤Î·ë²Ì</title>
       <screenshot>
 	   <screeninfo>É¾²Á¤Î·ë²Ì</screeninfo>
-       <graphic fileref="figures/inspect" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/inspect" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -354,7 +354,7 @@
       <title>¼°¤Î´Æ»ë¥¦¥£¥ó¥É¥¦</title>
       <screenshot>
 	   <screeninfo>É¾²Á¤Î´Æ»ë</screeninfo>
-       <graphic fileref="figures/watch" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/watch" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -368,7 +368,7 @@
        <title>¼°¤ÎÄÉ²Ã¥À¥¤¥¢¥í¥°</title>
        <screenshot>
 	   <screeninfo>¼°¤ÎÄÉ²Ã¥À¥¤¥¢¥í¥°</screeninfo>
-        <graphic fileref="figures/watch_add" format="png" srccredit="andyp"></graphic>
+        <graphic fileref="figures/watch_add" format="png" srccredit="andyp">
        </screenshot>
      </figure>
     </para>
@@ -406,7 +406,7 @@
       <title>¥¹¥¿¥Ã¥¯¡¦¥È¥ì¡¼¥¹¡¦¥¦¥£¥ó¥É¥¦</title>
       <screenshot>
 	   <screeninfo>¥¹¥¿¥Ã¥¯¡¦¥È¥ì¡¼¥¹¡¦¥¦¥£¥ó¥É¥¦</screeninfo>
-       <graphic fileref="figures/stack" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/stack" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -432,7 +432,7 @@
       <title>¸½ºß¤Î¥Õ¥ì¡¼¥à¤ËÂÐ¤¹¤ë¾ðÊó</title>
       <screenshot>
 	   <screeninfo>¸½ºß¤Î¥Õ¥ì¡¼¥à¤ËÂÐ¤¹¤ë¾ðÊó</screeninfo>
-       <graphic fileref="figures/frame" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/frame" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -460,7 +460,7 @@
       <title>¥«¡¼¥Í¥ë¡¦¥·¥°¥Ê¥ë¡¦¥¦¥£¥ó¥É¥¦</title>
       <screenshot>
 	   <screeninfo>¥«¡¼¥Í¥ë¡¦¥·¥°¥Ê¥ë¡¦¥¦¥£¥ó¥É¥¦</screeninfo>
-       <graphic fileref="figures/signals" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/signals" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -493,7 +493,7 @@
        <title>¥«¡¼¥Í¥ë¡¦¥·¥°¥Ê¥ëÊÑ¹¹¥À¥¤¥¢¥í¥°</title>
        <screenshot>
 	   <screeninfo>¥«¡¼¥Í¥ë¡¦¥·¥°¥Ê¥ëÊÑ¹¹¥À¥¤¥¢¥í¥°</screeninfo>
-        <graphic fileref="figures/signal_mod" format="png" srccredit="andyp"></graphic>
+        <graphic fileref="figures/signal_mod" format="png" srccredit="andyp">
        </screenshot>
      </figure>
     </para>
@@ -522,7 +522,7 @@ CPU (¥Þ¥¤¥¯¥í¥×¥í¥»¥Ã¥µ) ¤ÎÆâÉô¥ì¥¸¥¹¥¿¤ÎÆâÍÆ¤òÄ´ºº¤¹¤ë¤³¤È¤¬²ÄÇ½¤Ç¤¹¡£¥á¥Ë¥å¡¼¡
       <title>CPU ¥ì¥¸¥¹¥¿¡¦¥¦¥£¥ó¥É¥¦</title>
       <screenshot>
 	   <screeninfo>CPU ¥ì¥¸¥¹¥¿¡¦¥¦¥£¥ó¥É¥¦</screeninfo>
-       <graphic fileref="figures/registers" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/registers" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -538,7 +538,7 @@ CPU (¥Þ¥¤¥¯¥í¥×¥í¥»¥Ã¥µ) ¤ÎÆâÉô¥ì¥¸¥¹¥¿¤ÎÆâÍÆ¤òÄ´ºº¤¹¤ë¤³¤È¤¬²ÄÇ½¤Ç¤¹¡£¥á¥Ë¥å¡¼¡
       <title>¶¦Í­¥é¥¤¥Ö¥é¥ê¡¦¥¦¥£¥ó¥É¥¦</title>
       <screenshot>
 	   <screeninfo>¶¦Í­¥é¥¤¥Ö¥é¥ê¡¦¥¦¥£¥ó¥É¥¦</screeninfo>
-       <graphic fileref="figures/sharedlibs" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/sharedlibs" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>

@@ -9,7 +9,7 @@
       <title>Anjuta 起動メニュー</title>
 	  <screenshot>
       <screeninfo>開発ツール・サブメニュー上の Anjuta アプリケーション起動アイコン</screeninfo>
-       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    <para>
@@ -30,7 +30,7 @@
       <title>メニューバー</title>
 	  <screenshot>
       <screeninfo>Anjuta メニューバー</screeninfo>
-       <graphic fileref="figures/menu_main" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/menu_main" format="png" srccredit="andyp">
       </screenshot>
     </figure>
     
@@ -42,7 +42,7 @@
       <title>ファイル・メニュー (取り外し後)</title>
       <screenshot>
       <screeninfo>ファイル・メニュー (取り外し後)</screeninfo>
-       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp">
       </screenshot>
     </figure>
 	
@@ -72,7 +72,7 @@
 	<title>メイン・ツールバー (取り外し後)</title>
      <screenshot>
      <screeninfo>メイン・ツールバー (取り外し後)</screeninfo>
-	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp"></graphic>
+	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp">
      </screenshot>
     </figure>
  

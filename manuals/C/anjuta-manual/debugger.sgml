@@ -122,7 +122,7 @@
     <title>Attach to Process dialog</title>
     <screenshot>
 	<screeninfo>Attach to Process dialog</screeninfo>
-     <graphic fileref="figures/attach" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/attach" format="png" srccredit="andyp">
     </screenshot>
    </figure>
    <para>	
@@ -286,7 +286,7 @@
      <title>Breakpoint dialog</title>
      <screenshot>
       <screeninfo>Breakpoint dialog</screeninfo>
-      <graphic fileref="figures/brk_dlg" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/brk_dlg" format="png" srccredit="andyp">
      </screenshot>
    </figure>
   </para>
@@ -367,7 +367,7 @@
       <title>Breakpoint add dialog</title>
       <screenshot>
 	   <screeninfo>Breakpoint add dialog</screeninfo>
-       <graphic fileref="figures/brk_add" format="png" srccredit="mkv"></graphic>
+       <graphic fileref="figures/brk_add" format="png" srccredit="mkv">
       </screenshot>
     </figure>
    </para>
@@ -401,7 +401,7 @@
       <title>Breakpoint edit dialog</title>
       <screenshot>
 	   <screeninfo>Breakpoint edit dialog</screeninfo>
-       <graphic fileref="figures/brk_edit" format="png" srccredit="mkv"></graphic>
+       <graphic fileref="figures/brk_edit" format="png" srccredit="mkv">
       </screenshot>
     </figure>
    </para>
@@ -476,7 +476,7 @@
       <title>Inspect/Evaluate dialog</title>
       <screenshot>
 	   <screeninfo>Inspect/Evaluate dialog</screeninfo>
-       <graphic fileref="figures/evaluate" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/evaluate" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -488,7 +488,7 @@
       <title>Evaluation result</title>
       <screenshot>
 	   <screeninfo>Evaluation result</screeninfo>
-       <graphic fileref="figures/inspect" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/inspect" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -518,7 +518,7 @@
       <title>Expression Watch window</title>
       <screenshot>
 	   <screeninfo>Evaluation watch</screeninfo>
-       <graphic fileref="figures/watch" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/watch" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -537,7 +537,7 @@
        <title>Add Expression dialog</title>
        <screenshot>
 	   <screeninfo>Add Expression dialog</screeninfo>
-        <graphic fileref="figures/watch_add" format="png" srccredit="andyp"></graphic>
+        <graphic fileref="figures/watch_add" format="png" srccredit="andyp">
        </screenshot>
      </figure>
     </para>
@@ -590,7 +590,7 @@
       <title>Stack trace window</title>
       <screenshot>
 	   <screeninfo>Stack trace window</screeninfo>
-       <graphic fileref="figures/stack" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/stack" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -628,7 +628,7 @@
       <title>Current Frame Information</title>
       <screenshot>
 	   <screeninfo>Current Frame Information</screeninfo>
-       <graphic fileref="figures/frame" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/frame" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -665,7 +665,7 @@
       <title>Kernel Signals window</title>
       <screenshot>
 	   <screeninfo>Kernel Signals window</screeninfo>
-       <graphic fileref="figures/signals" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/signals" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -706,7 +706,7 @@
        <title>Modify Kernel Signal dialog</title>
        <screenshot>
 	   <screeninfo>Modify Kernel Signal dialog</screeninfo>
-        <graphic fileref="figures/signal_mod" format="png" srccredit="andyp"></graphic>
+        <graphic fileref="figures/signal_mod" format="png" srccredit="andyp">
        </screenshot>
      </figure>
     </para>
@@ -745,7 +745,7 @@
       <title>CPU Registers window</title>
       <screenshot>
 	   <screeninfo>CPU Registers window</screeninfo>
-       <graphic fileref="figures/registers" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/registers" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>
@@ -766,7 +766,7 @@
       <title>Shared Libraries window</title>
       <screenshot>
 	   <screeninfo>Shared Libraries window</screeninfo>
-       <graphic fileref="figures/sharedlibs" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/sharedlibs" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    </para>

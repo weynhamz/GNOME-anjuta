@@ -136,7 +136,7 @@
    <title>プロジェクト情報ダイアログ</title>
    <screenshot>
    <screeninfo>プロジェクト情報ダイアログ</screeninfo>
-   <graphic fileref="figures/project_info" format="png" srccredit="andyp"></graphic>
+   <graphic fileref="figures/project_info" format="png" srccredit="andyp">
    </screenshot>
    </figure>
   </sect1>
@@ -263,7 +263,7 @@
        <title>Configure オプション・ダイアログ</title>
        <screenshot>
 	   <screeninfo>Configure オプション・ダイアログ</screeninfo>
-        <graphic fileref="figures/configure_dlg" format="png" srccredit="andyp"></graphic>
+        <graphic fileref="figures/configure_dlg" format="png" srccredit="andyp">
        </screenshot>
      </figure>
     <para>

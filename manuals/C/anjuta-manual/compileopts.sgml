@@ -61,7 +61,7 @@
     <title>Supports dialog</title>
     <screenshot>
 	<screeninfo>Supports dialog</screeninfo>
-     <graphic fileref="figures/supports" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/supports" format="png" srccredit="andyp">
     </screenshot>
    </figure>
    
@@ -137,7 +137,7 @@
      <title>Include Paths dialog</title>
      <screenshot>
 	 <screeninfo>Include Paths dialog</screeninfo>
-      <graphic fileref="figures/includes" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/includes" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -212,7 +212,7 @@
      <title>Library Paths dialog</title>
      <screenshot>
 	 <screeninfo>Library Paths dialog</screeninfo>
-      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -259,7 +259,7 @@
      <title>Libraries dialog</title>
      <screenshot>
 	 <screeninfo>Libraries dialog</screeninfo>
-      <graphic fileref="figures/libraries" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/libraries" format="png" srccredit="andyp">
      </screenshot>
    </figure>
    <para>
@@ -380,7 +380,7 @@
      <title>Defines dialog</title>
      <screenshot>
 	 <screeninfo>Defines dialog</screeninfo>
-      <graphic fileref="figures/defines" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/defines" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -424,7 +424,7 @@
      <title>Warnings dialog</title>
      <screenshot>
 	 <screeninfo>Warnings dialog</screeninfo>
-      <graphic fileref="figures/warnings" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/warnings" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -456,7 +456,7 @@
      <title>Optimization dialog</title>
      <screenshot>
 	 <screeninfo>Optimization dialog</screeninfo>
-      <graphic fileref="figures/optimizations" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/optimizations" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -501,7 +501,7 @@
      <title>Other Compiler Settings dialog</title>
      <screenshot>
 	 <screeninfo>Other Compiler Settings dialog</screeninfo>
-      <graphic fileref="figures/other_opts" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/other_opts" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>

@@ -11,7 +11,7 @@
       <title>Anjuta application icon</title>
 	  <screenshot>
       <screeninfo>Anjuta application icon on the Development menu</screeninfo>
-       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/devt_menu" format="png" srccredit="andyp">
       </screenshot>
     </figure>
    <para>
@@ -38,7 +38,7 @@
       <title>Menubar</title>
 	  <screenshot>
       <screeninfo>Anjuta menubar</screeninfo>
-       <graphic fileref="figures/menu_main" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/menu_main" format="png" srccredit="andyp">
       </screenshot>
     </figure>
     
@@ -52,7 +52,7 @@
       <title>File menu (detached)</title>
       <screenshot>
       <screeninfo>File menu (detached)</screeninfo>
-       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/menu_detached" format="png" srccredit="andyp">
       </screenshot>
     </figure>
 	
@@ -86,7 +86,7 @@
 	<title>Main toolbar (detached)</title>
      <screenshot>
      <screeninfo>Main toolbar (detached)</screeninfo>
-	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp"></graphic>
+	  <graphic fileref="figures/toolbar_main" format="png" srccredit="andyp">
      </screenshot>
     </figure>
  

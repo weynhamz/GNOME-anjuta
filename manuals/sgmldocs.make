@@ -59,11 +59,18 @@ $(docname).sgml: $(sgml_ents)
 # cannot handle relative filenames
 $(docname)/index.html: $(srcdir)/$(docname).sgml
 	-srcdir=`cd $(srcdir) && pwd`;			\
-	if test "$(HAVE_JW)" = 'yes' ; then 		\
+	if test "$(HAVE_JW)" = 'yes' ; then \
 		jw -c /etc/sgml/catalog $$srcdir/$(docname).sgml -o $$srcdir/$(docname); \
-	else 						\
-		db2html $$srcdir/$(docname).sgml; 	\
-	 fi
+	else \
+		db2html $$srcdir/$(docname).sgml; \
+	fi
+	-if test ! -e $(docname)/index.html ; then \
+		if [ -e $(docname)/t1.html ]; then \
+			cp $(docname)/t1.html $(docname)/index.html; \
+		elif [ -e $(docname)/book1.html ]; then \
+			cp $(docname)/book1.html $(docname)/index.html; \
+		fi \
+	fi
 
 app-dist-hook: index.html
 	-$(mkinstalldirs) $(distdir)/$(docname)/stylesheet-images

@@ -1,5 +1,27 @@
 2002-10-24  Naba Kumar <naba@gnome.org>
 
+	* manuals/sgmldocs.make, anuals/C/anjuta-faqs/anjuta-faqs.sgml,
+	manuals/C/anjuta-manual/anjuta-manual.sgml, 
+	manuals/C/anjuta-manual/compileopts.sgml,
+	manuals/C/anjuta-manual/debugger.sgml,
+	manuals/C/anjuta-manual/execute.sgml,
+	manuals/C/anjuta-manual/fileoperations.sgml,
+	manuals/C/anjuta-manual/interface.sgml,
+	manuals/C/anjuta-manual/introduction.sgml,
+	manuals/C/anjuta-manual/projects.sgml,
+	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml,
+	manuals/ja/anjuta-faqs/anjuta-faqs.sgml,
+	manuals/ja/anjuta-manual/anjuta-manual.sgml,
+	manuals/ja/anjuta-manual/compileopts.sgml,
+	manuals/ja/anjuta-manual/debugger.sgml,
+	manuals/ja/anjuta-manual/execute.sgml,
+	manuals/ja/anjuta-manual/fileoperations.sgml,
+	manuals/ja/anjuta-manual/interface.sgml,
+	manuals/ja/anjuta-manual/introduction.sgml,
+	manuals/ja/anjuta-manual/projects.sgml: Upgraded to Docbook 4.0
+
+2002-10-24  Naba Kumar <naba@gnome.org>
+
 	* src/project_type.c: added autogen for qt projects.
 	* src/debugger.c: enabled debugger debugging for DEBUG MODE.
 	Fixed a bug that retrieves wrong terminal command.

@@ -1,10 +1,10 @@
-<!DOCTYPE Article PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[
+<!DOCTYPE Article PUBLIC "-//OASIS//DTD DocBook V4.0//EN"[
 ]>
 <article class="faq" id="index"> <!-- please do not change the id -->
 
 
  <!-- ============= Document Header ============================= -->
- <artheader> 
+ <articleinfo> 
   <title>Anjuta FAQ</title>
   <copyright>
    <year>2001</year>
@@ -39,7 +39,7 @@
   <releaseinfo>
    本ドキュメントは Anjuta FAQ バージョン 1.1 です。
   </releaseinfo>
- </artheader>
+ </articleinfo>
 
  
  <!-- ============= Document Body ============================= -->

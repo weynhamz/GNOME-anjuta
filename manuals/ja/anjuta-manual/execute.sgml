@@ -19,7 +19,7 @@
    <title>プログラムの引数の設定</title>
    <screenshot>
    <screeninfo>プログラムの引数の設定</screeninfo>
-    <graphic fileref="figures/arguments" format="png" srccredit="andyp"></graphic>
+    <graphic fileref="figures/arguments" format="png" srccredit="andyp">
    </screenshot>
   </figure>
  </sect1>
