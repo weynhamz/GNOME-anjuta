@@ -54,6 +54,8 @@ static GtkEventBoxClass *parent_class = NULL;
 
 static const char *text[] = {
 	"",
+    "Anjuta "VERSION,
+	"",
 	N_("Brought to you by"),
 	"",
 	"Naba Kumar <kh_naba@users.sourceforge.net>",
