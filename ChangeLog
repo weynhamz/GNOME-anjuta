@@ -1,3 +1,9 @@
+2002-12-13  Naba Kumar <naba@gnome.org>
+
+	* anjuta.glade, src/anjuta-tools.c: Added a new column in the
+	tools list to show "Enabled" flag of the tool. Fixed a bug where
+	tool list is not cleared when creating a new tool.
+	
 2002-12-13  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.glade, src/anjuta-tools.c: Added user params to tools.
 

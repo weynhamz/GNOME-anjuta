@@ -877,6 +877,10 @@ gboolean anjuta_tools_edit(void)
 	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
 	{
 		s[0] = ((AnUserTool *) tmp->data)->name;
+		if (((AnUserTool *) tmp->data)->enabled)
+			s[1] = "Enabled";
+		else
+			s[1] = "";
 		row = gtk_clist_append(tl->clist, s);
 		gtk_clist_set_row_data(tl->clist, row, tmp->data);
 	}
@@ -1195,6 +1199,10 @@ void on_user_tool_edit_clicked(GtkButton *button, gpointer user_data)
 
 void on_user_tool_new_clicked(GtkButton *button, gpointer user_data)
 {
+	/* Make sure no tool is selected, so that the edit form is cleared
+	when a new tool is created */
+	if (tl)
+		gtk_clist_unselect_all (GTK_CLIST(tl->clist));
 	show_tool_editor(tl->tool, FALSE);
 }
 
@@ -1337,6 +1345,10 @@ void on_user_tool_edit_ok_clicked(GtkButton *button, gpointer user_data)
 	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
 	{
 		s[0] = ((AnUserTool *) tmp->data)->name;
+		if (((AnUserTool *) tmp->data)->enabled)
+			s[1] = "Enabled";
+		else
+			s[1] = "";
 		row = gtk_clist_append(tl->clist, s);
 		gtk_clist_set_row_data(tl->clist, row, tmp->data);
 	}
