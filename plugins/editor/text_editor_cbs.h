@@ -22,6 +22,9 @@
 #include <gnome.h>
 #include "text_editor.h"
 
+gboolean
+on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
+								   TextEditor *te);
 void
 on_text_editor_text_changed            (GtkEditable     *editable,
                                         gpointer         user_data);

@@ -134,6 +134,9 @@ void on_indent1_activate (GtkAction * action, gpointer user_data);
 void on_format_indent_style_clicked (GtkAction * action, gpointer user_data);
 void on_swap_activate (GtkAction *action, gpointer user_data);
 
+void on_editor_add_view_activate (GtkAction *action, gpointer user_data);
+void on_editor_remove_view_activate (GtkAction *action, gpointer user_data);
+
 gboolean on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data);
 gboolean on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data);
 void on_toolbar_find_incremental (GtkAction *action, gpointer user_data);

@@ -55,7 +55,9 @@ struct _TextEditor
 
 /* Editor ID and widget for AnEditor */
 	AnEditorID editor_id;
+	AnEditorID editor_id_split;
 	GtkWidget *scintilla;
+	GList *views;
 
 /* Properties set ID in the preferences */
 	gint props_base;
@@ -165,6 +167,15 @@ void text_editor_function_select(TextEditor *te);
 gint text_editor_get_props (void);
 
 void text_editor_set_busy (TextEditor *te, gboolean state);
+
+void text_editor_add_view (TextEditor *te);
+void text_editor_remove_view (TextEditor *te);
+
+void text_editor_command(TextEditor *te, gint command,
+						 glong wparam, glong lparam);
+
+void text_editor_scintilla_command (TextEditor *te, gint command,
+									glong wparam, glong lparam);
 
 #define linenum_text_editor_to_scintilla(x) (x-1)
 #define linenum_scintilla_to_text_editor(x) (x+1)

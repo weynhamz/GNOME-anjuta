@@ -113,20 +113,12 @@ extern const AnEditorID ANE_ID_INVALID;
 
 typedef struct _FindParameters FindParameters;
 
-AnEditorID
-aneditor_new(gpointer p);
-
-void
-aneditor_destroy(AnEditorID id);
-
-GtkWidget*
-aneditor_get_widget(AnEditorID id);
-
-glong
-aneditor_command(AnEditorID id, gint command, glong wparam, glong wlaram);
-
-void
-aneditor_set_focused_ed_ID(AnEditorID id);
+AnEditorID    aneditor_new(gpointer p);
+void          aneditor_destroy(AnEditorID id);
+GtkWidget*    aneditor_get_widget(AnEditorID id);
+glong         aneditor_command(AnEditorID id, gint command, glong wparam, glong wlaram);
+void          aneditor_set_focused_ed_ID(AnEditorID id);
+void          aneditor_set_parent(AnEditorID id, AnEditorID parent_id);
 
 #ifdef __cplusplus
 }

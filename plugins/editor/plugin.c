@@ -277,6 +277,12 @@ static GtkActionEntry actions_navigation[] = {
 static GtkActionEntry actions_edit[] = {
   { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL},
   { "ActionMenuViewEditor", N_("_Editor"), NULL, NULL, NULL, NULL},
+  { "ActionViewEditorAddView", N_("_Add Editor View"), NULL, NULL,
+	N_("Add one more view of currect document"),
+    G_CALLBACK (on_editor_add_view_activate)},
+  { "ActionViewEditorRemoveView", N_("_Remove Editor View"), NULL, NULL,
+	N_("Remove current view of the document"),
+    G_CALLBACK (on_editor_remove_view_activate)},
   { "ActionEditUndo", N_("U_ndo"), GTK_STOCK_UNDO, "<control>z",
 	N_("Undo the last action"),
     G_CALLBACK (on_editor_command_undo_activate)},

@@ -1437,3 +1437,35 @@ on_swap_activate (GtkAction *action, gpointer user_data)
 	}
 	return;
 }
+
+void
+on_editor_add_view_activate (GtkAction *action, gpointer user_data)
+{
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+	te = anjuta_docman_get_current_editor (docman);
+	if (!te)
+		return;
+	text_editor_add_view (te);
+}
+
+void
+on_editor_remove_view_activate (GtkAction *action, gpointer user_data)
+{
+	TextEditor *te;
+	AnjutaDocman *docman;
+	EditorPlugin *plugin;
+	
+	plugin = (EditorPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+	te = anjuta_docman_get_current_editor (docman);
+	if (!te)
+		return;
+	text_editor_remove_view (te);
+}

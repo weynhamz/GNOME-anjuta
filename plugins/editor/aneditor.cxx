@@ -380,8 +380,8 @@ public:
 	void FocusOutEvent(GtkWidget* widget);
 	void EvalOutputArrived(GList* lines, int textPos, const string &expression);
 	void EndDebugEval();
+	void SetParent(AnEditor *parent);
 };
-
 
 class ExpressionEvaluationTipInfo
 // Utility class to help displaying expression values in tips.
@@ -532,6 +532,12 @@ AnEditor::AnEditor(PropSetFile* p) {
 		  , reinterpret_cast<long>(pix_list[i].xpm_data));
 	}
 #endif
+}
+
+void AnEditor::SetParent(AnEditor *parent)
+{
+	long pdoc = parent->SendEditor(SCI_GETDOCPOINTER, 0, 0);
+	SendEditor(SCI_SETDOCPOINTER, 0, pdoc);
 }
 
 void
@@ -4063,6 +4069,17 @@ void
 aneditor_set_focused_ed_ID(AnEditorID id)
 {
 	AnEditor::focusedID = id;
+}
+
+void
+aneditor_set_parent(AnEditorID id, AnEditorID parent_id)
+{
+	AnEditor *editor;
+	AnEditor *parent;
+	
+	editor = aneditor_get (id);
+	parent = aneditor_get (parent_id);
+	editor->SetParent(parent);
 }
 
 gint on_aneditor_focus_in(GtkWidget* widget, gpointer* unused, AnEditor* ed)

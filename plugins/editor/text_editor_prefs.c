@@ -161,7 +161,7 @@ on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	tab_size = set_n_get_prop_int (te, TAB_SIZE);
-	aneditor_command (te->editor_id, ANE_SETTABSIZE, tab_size, 0);
+	text_editor_command (te, ANE_SETTABSIZE, tab_size, 0);
 }
 
 static void
@@ -173,8 +173,7 @@ on_gconf_notify_use_tab_for_indentation (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	use_tabs = set_n_get_prop_int (te, USE_TABS);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETTABWIDTH,
-							use_tabs, 0);
+	text_editor_scintilla_command (te, SCI_SETTABWIDTH,	use_tabs, 0);
 }
 
 static void
@@ -197,8 +196,7 @@ on_gconf_notify_indent_size (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	indent_size = set_n_get_prop_int (te, INDENT_SIZE);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETINDENT,
-							indent_size, 0);
+	text_editor_scintilla_command (te, SCI_SETINDENT, indent_size, 0);
 }
 
 static void
@@ -250,8 +248,7 @@ on_gconf_notify_margin_linenum_width (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	width = set_n_get_prop_int (te, MARGIN_LINENUMBER_WIDTH);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETMARGINWIDTHN,
-							0, width);
+	text_editor_scintilla_command (te, SCI_SETMARGINWIDTHN,	0, width);
 }
 
 static void
@@ -263,7 +260,7 @@ on_gconf_notify_view_eols (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_EOL);
-	aneditor_command (te->editor_id, ANE_VIEWEOL, state, 0);
+	text_editor_command (te, ANE_VIEWEOL, state, 0);
 }
 
 static void
@@ -275,7 +272,7 @@ on_gconf_notify_view_whitespaces (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_WHITE_SPACES);
-	aneditor_command (te->editor_id, ANE_VIEWSPACE, state, 0);
+	text_editor_command (te, ANE_VIEWSPACE, state, 0);
 }
 
 static void
@@ -287,7 +284,7 @@ on_gconf_notify_view_linewrap (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_LINE_WRAP);
-	aneditor_command (te->editor_id, ANE_LINEWRAP, state, 0);
+	text_editor_command (te, ANE_LINEWRAP, state, 0);
 }
 
 static void
@@ -299,7 +296,7 @@ on_gconf_notify_view_indentation_guides (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_INDENTATION_GUIDES);
-	aneditor_command (te->editor_id, ANE_VIEWGUIDES, state, 0);
+	text_editor_command (te, ANE_VIEWGUIDES, state, 0);
 }
 
 static void
@@ -311,7 +308,7 @@ on_gconf_notify_view_folds (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_FOLD_MARGIN);
-	aneditor_command (te->editor_id, ANE_FOLDMARGIN, state, 0);
+	text_editor_command (te, ANE_FOLDMARGIN, state, 0);
 }
 
 static void
@@ -323,7 +320,7 @@ on_gconf_notify_view_markers (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_MARKER_MARGIN);
-	aneditor_command (te->editor_id, ANE_SELMARGIN, state, 0);
+	text_editor_command (te, ANE_SELMARGIN, state, 0);
 }
 
 static void
@@ -335,7 +332,7 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 	
 	te = TEXT_EDITOR (user_data);
 	state = set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
-	aneditor_command (te->editor_id, ANE_LINENUMBERMARGIN, state, 0);
+	text_editor_command (te, ANE_LINENUMBERMARGIN, state, 0);
 }
 
 #define REGISTER_NOTIFY(key, func) \

@@ -74,7 +74,7 @@
 //											AnjutaPreferences *pr);
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
-
+static void text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor);
 static void text_editor_set_line_number_width(TextEditor* te);
 
 static GtkVBoxClass *parent_class;
@@ -84,6 +84,7 @@ text_editor_instance_init (TextEditor *te)
 {
 	te->filename = NULL;
 	te->uri = NULL;
+	te->views = NULL;
 	// te->tm_file = NULL;
 	te->popup_menu = NULL;
 	
@@ -141,7 +142,7 @@ check_tm_file(TextEditor *te)
 #endif
 
 static void
-initialize_markers (TextEditor* te)
+initialize_markers (TextEditor* te, GtkWidget *scintilla)
 {
 	gint i, marker;
 	g_return_if_fail (te != NULL);
@@ -151,11 +152,11 @@ initialize_markers (TextEditor* te)
 	{
 		if (marker_prop[i] == MARKER_PROP_END)
 			break;
-		scintilla_send_message (SCINTILLA (te->scintilla), SCI_MARKERDEFINE,
+		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERDEFINE,
 			marker, marker_prop[i+0]);
-		scintilla_send_message (SCINTILLA (te->scintilla), SCI_MARKERSETFORE,
+		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERSETFORE,
 			marker, marker_prop[i+1]);
-		scintilla_send_message (SCINTILLA (te->scintilla), SCI_MARKERSETBACK,
+		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERSETBACK,
 			marker, marker_prop[i+2]);
 		marker++;
 	}
@@ -175,6 +176,95 @@ on_te_already_destroyed (gpointer te, GObject *obj)
 }
 #endif
 
+void
+text_editor_add_view (TextEditor *te)
+{
+	AnEditorID editor_id;
+	GtkWidget *scintilla;
+	
+	editor_id = aneditor_new (prop_get_pointer (te->props_base));
+	scintilla = aneditor_get_widget (editor_id);
+	te->editor_id = editor_id;
+	te->scintilla = scintilla;
+	
+	/* Set parent, if it is not primary view */
+	if (te->views)
+	{
+		aneditor_set_parent (editor_id, GPOINTER_TO_INT(te->views->data));
+	}
+	te->views = g_list_prepend (te->views, GINT_TO_POINTER (editor_id));
+	
+	/*
+	aneditor_command (te->editor_id, ANE_SETACCELGROUP,
+			  (glong) app->accel_group, 0);
+	*/
+	
+	gtk_widget_set_usize (scintilla, 50, 50);
+	gtk_widget_show (scintilla);
+	gtk_widget_grab_focus (scintilla);
+	
+	gtk_box_set_homogeneous (GTK_BOX (te), TRUE);
+	gtk_box_set_spacing (GTK_BOX (te), 3);
+	gtk_box_pack_start (GTK_BOX (te), scintilla, TRUE, TRUE, 0);
+
+	g_signal_connect (G_OBJECT (scintilla), "event",
+			    G_CALLBACK (on_text_editor_text_event), te);
+	g_signal_connect (G_OBJECT (scintilla), "button_press_event",
+			    G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+	g_signal_connect_after (G_OBJECT (scintilla), "size_allocate",
+			    G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
+	g_signal_connect (G_OBJECT (scintilla), "sci-notify",
+			    G_CALLBACK (on_text_editor_scintilla_notify), te);
+	g_signal_connect (G_OBJECT (scintilla), "focus_in_event",
+				G_CALLBACK (on_text_editor_scintilla_focus_in), te);
+	
+	initialize_markers (te, scintilla);
+	text_editor_set_hilite_type_one (te, editor_id);
+#ifdef DEBUG
+	g_object_weak_ref (G_OBJECT (scintilla), on_scintila_already_destroyed, te);
+#endif
+}
+
+/* Remove the current view */
+void
+text_editor_remove_view (TextEditor *te)
+{
+	if (!te->editor_id)
+		return;
+	if (te->views == NULL ||
+		g_list_length (te->views) <= 1)
+		return;
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+				G_CALLBACK (on_text_editor_text_event), te);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+				G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+				G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+				G_CALLBACK (on_text_editor_scintilla_notify), te);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
+				G_CALLBACK (on_text_editor_scintilla_focus_in), te);
+	
+	te->views = g_list_remove (te->views, GINT_TO_POINTER(te->editor_id));
+	gtk_container_remove (GTK_CONTAINER (te), te->scintilla);
+	aneditor_destroy(te->editor_id);
+	
+	/* Set current view */
+	if (te->views)
+	{
+		te->editor_id = GPOINTER_TO_INT(te->views->data);
+		te->scintilla = aneditor_get_widget (te->editor_id);
+		gtk_widget_grab_focus (te->scintilla);
+	}
+	else
+	{
+		gtk_box_set_spacing (GTK_BOX (te), 0);
+		te->editor_id = 0;
+		te->scintilla = NULL;
+	}
+}
+
 GtkWidget *
 text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
@@ -187,34 +277,6 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 		te->filename = g_strdup(name); 
 	else 
 		te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
-	
-	text_editor_prefs_init (te);
-	te->editor_id = aneditor_new (prop_get_pointer (te->props_base));
-	/*
-	aneditor_command (te->editor_id, ANE_SETACCELGROUP,
-			  (glong) app->accel_group, 0);
-	*/
-	te->scintilla = aneditor_get_widget (te->editor_id);
-	gtk_widget_set_usize (te->scintilla, 50, 50);
-	gtk_widget_show (te->scintilla);
-	
-	gtk_container_add (GTK_CONTAINER (te), te->scintilla);
-
-	g_signal_connect (G_OBJECT (te->scintilla), "event",
-			    G_CALLBACK (on_text_editor_text_event), te);
-	g_signal_connect (G_OBJECT (te->scintilla), "button_press_event",
-			    G_CALLBACK (on_text_editor_text_buttonpress_event), te);
-	g_signal_connect_after (G_OBJECT (te->scintilla), "size_allocate",
-			    G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
-	g_signal_connect (G_OBJECT (te->scintilla), "sci-notify",
-			    G_CALLBACK (on_text_editor_scintilla_notify), te);
-
-#ifdef DEBUG
-	g_object_weak_ref (G_OBJECT (te->scintilla), on_scintila_already_destroyed, te);
-	g_object_weak_ref (G_OBJECT (te), on_te_already_destroyed, te);
-#endif
-	initialize_markers (te);
-
 	if (uri)
 	{	
 		GnomeVFSFileInfo info;
@@ -232,6 +294,15 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 #warning TODO: Might be a bug		
 		/* te->uri = tm_get_real_path(filename);*/
 		te->uri = g_strdup(uri);
+	}
+	
+	text_editor_prefs_init (te);
+	
+	/* Create primary view */
+	text_editor_add_view (te);
+
+	if (te->uri)
+	{	
 		if (text_editor_load_file (te) == FALSE)
 		{
 			/* Unable to load file */
@@ -239,12 +310,11 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 			return NULL;
 		}
 	}
-	else
-	{
-		text_editor_set_hilite_type (te);
-	}
 	// te->menu = text_editor_menu_new ();
 	text_editor_update_controls (te);
+#ifdef DEBUG
+	g_object_weak_ref (G_OBJECT (te), on_te_already_destroyed, te);
+#endif
 	return GTK_WIDGET (te);
 }
 
@@ -263,22 +333,36 @@ text_editor_dispose (GObject *obj)
 		g_object_unref (te->popup_menu);
 		te->popup_menu = NULL;
 	}
-	if (te->scintilla)
+	
+	if (te->views)
 	{
-		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
-					G_CALLBACK (on_text_editor_text_event), te);
-		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
-					G_CALLBACK (on_text_editor_text_buttonpress_event), te);
-		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
-					G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
-		g_signal_handlers_disconnect_by_func (G_OBJECT (te->scintilla),
-					G_CALLBACK (on_text_editor_scintilla_notify), te);
+		GtkWidget *scintilla;
+		AnEditorID editor_id;
+		GList *node;
+		
+		node = te->views;
+		while (node)
+		{
+			editor_id = GPOINTER_TO_INT (node->data);
+			scintilla = aneditor_get_widget (editor_id);
+			
+			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
+						G_CALLBACK (on_text_editor_text_event), te);
+			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
+						G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
+						G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
+			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
+						G_CALLBACK (on_text_editor_scintilla_notify), te);
+			g_signal_handlers_disconnect_by_func (G_OBJECT (scintilla),
+						G_CALLBACK (on_text_editor_scintilla_focus_in), te);
+			
+			aneditor_destroy (editor_id);
+			node = g_list_next (node);
+		}			
 		te->scintilla = NULL;
-	}
-	if (te->editor_id)
-	{
-		aneditor_destroy (te->editor_id);
 		te->editor_id = 0;
+		te->views = NULL;
 	}
 	if (te->gconf_notify_ids)
 	{
@@ -316,36 +400,49 @@ text_editor_thaw (TextEditor *te)
 		te->freeze_count = 0;
 }
 
-void
-text_editor_set_hilite_type (TextEditor * te)
+static void
+text_editor_set_hilite_type_one (TextEditor * te, AnEditorID editor_id)
 {
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DISABLE_SYNTAX_HILIGHTING))
 		te->force_hilite = TE_LEXER_NONE;
 	else if (te->force_hilite == TE_LEXER_NONE)
 		te->force_hilite = TE_LEXER_AUTOMATIC;
-	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite, 0);
+	aneditor_command (editor_id, ANE_SETLANGUAGE, te->force_hilite, 0);
 	if (te->uri)
 	{
 		gchar *basename;
 		basename = g_path_get_basename (te->uri);
-		aneditor_command (te->editor_id, ANE_SETHILITE, (guint) basename, 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (guint) basename, 0);
 		g_free (basename);
 	}
 	else if (te->filename)
 	{
-		aneditor_command (te->editor_id, ANE_SETHILITE, (guint)te->filename, 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (guint)te->filename, 0);
 	}
 	else
 	{
-		aneditor_command (te->editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
+	}
+}
+
+void
+text_editor_set_hilite_type (TextEditor * te)
+{
+	GList *node;
+	
+	node = te->views;
+	while (node)
+	{
+		text_editor_set_hilite_type_one (te, GPOINTER_TO_INT(node->data));
+		node = g_list_next (node);
 	}
 }
 
 void
 text_editor_set_zoom_factor (TextEditor * te, gint zfac)
 {
-	aneditor_command (te->editor_id, ANE_SETZOOM, zfac,  0);
+	text_editor_command (te, ANE_SETZOOM, zfac,  0);
 }
 
 glong
@@ -1822,7 +1919,7 @@ text_editor_get_props ()
 }
 
 static void 
-text_editor_set_line_number_width(TextEditor* te)
+text_editor_set_line_number_width (TextEditor* te)
 {
 	/* Set line numbers with according to file size */
 	if (anjuta_preferences_get_int_with_default(te->preferences,
@@ -1831,23 +1928,52 @@ text_editor_set_line_number_width(TextEditor* te)
 		int lines, line_number_width;
 		gchar* line_number;
 		gchar* line_number_dummy;
+		
 		lines = 
 			(int) scintilla_send_message
 				(SCINTILLA(te->scintilla), SCI_GETLINECOUNT, 0,0);
 		line_number = g_strdup_printf("%d", lines);
 		line_number_dummy = g_strnfill(strlen(line_number) + 1, '9');
 		line_number_width = 
-			(int) scintilla_send_message (
-				SCINTILLA(te->scintilla), SCI_TEXTWIDTH, STYLE_LINENUMBER, (long) line_number_dummy);
-		scintilla_send_message
-			(SCINTILLA(te->scintilla), 
-			SCI_SETMARGINWIDTHN, 0, 
-			line_number_width);
+			(int) scintilla_send_message (SCINTILLA(te->scintilla),
+										  SCI_TEXTWIDTH,
+										  STYLE_LINENUMBER,
+										  (long) line_number_dummy);
+		text_editor_scintilla_command (te, SCI_SETMARGINWIDTHN,
+									   0, line_number_width);
 		g_free(line_number_dummy);
 		g_free(line_number);
 	}
 }
 
+void
+text_editor_command (TextEditor *te, gint command, glong wparam, glong lparam)
+{
+	GList *node;
+	
+	node = te->views;
+	while (node)
+	{
+		aneditor_command (GPOINTER_TO_INT (node->data), command, wparam, lparam);
+		node = g_list_next(node);
+	}
+}
+
+void
+text_editor_scintilla_command (TextEditor *te, gint command, glong wparam,
+							   glong lparam)
+{
+	GList *node;
+	
+	node = te->views;
+	while (node)
+	{
+		GtkWidget *scintilla;
+		scintilla = aneditor_get_widget (GPOINTER_TO_INT (node->data));
+		scintilla_send_message (SCINTILLA(scintilla), command, wparam, lparam);
+		node = g_list_next(node);
+	}
+}
 
 /* IAnjutaEditor interface implementation */
 

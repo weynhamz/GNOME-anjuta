@@ -1,4 +1,23 @@
 2005-01-27  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/action-callbacks.h,
+	plugins/editor/aneditor.cxx,
+	plugins/editor/aneditor.h,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_cbs.c,
+	plugins/editor/text_editor_cbs.h,
+	plugins/editor/text_editor_prefs.c: Implemented Multiple view of
+	Text editor.
+
+	Patch from Massimo Cora <maxcvs@email.it>:
+	* plugins/editor/an_symbol_search.c,
+	plugins/editor/an_symbol_search.c: Fixed crash bugs.
+	
+2005-01-27  Naba Kumar  <naba@gnome.org>
 	
 	*libegg/eggcomboselect.c: Fix crash bug during popup close and fixed
 	minimum size request to 200.

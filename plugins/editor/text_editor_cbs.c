@@ -25,15 +25,32 @@
 
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 
-// #include "anjuta.h"
-// #include "controls.h"
 #include "text_editor.h"
 #include "text_editor_cbs.h"
-// #include "text_editor_gui.h"
-// #include "mainmenu_callbacks.h"
-// #include "dnd.h"
 #include "Scintilla.h"
+
+gboolean
+on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
+								   TextEditor *te)
+{
+	GList *node;
+	
+	node = te->views;
+	while (node)
+	{
+		if (aneditor_get_widget (GPOINTER_TO_INT (node->data)) == scintilla)
+		{
+			DEBUG_PRINT ("Switching editor view ...");
+			te->editor_id = GPOINTER_TO_INT (node->data);
+			te->scintilla = aneditor_get_widget (te->editor_id);
+			break;
+		}
+		node = g_list_next (node);
+	}
+	return FALSE;
+}
 
 gboolean
 on_text_editor_text_buttonpress_event (GtkWidget * widget,
@@ -60,7 +77,6 @@ on_text_editor_text_event (GtkWidget * widget,
 	gtk_menu_popup (GTK_MENU (TEXT_EDITOR (user_data)->popup_menu),
 					NULL, NULL, NULL, NULL,
 					bevent->button, bevent->time);
-	// text_editor_menu_popup (((TextEditor *) user_data)->menu, bevent);
 	return TRUE;
 }
 

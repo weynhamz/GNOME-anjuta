@@ -528,6 +528,8 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 
 	DEBUG_PRINT ("Populating symbol view..");
 
+	gtk_widget_set_sensitive( GTK_TREE_VIEW(sv), FALSE );
+	
 	if (busy)
 		return;
 	else
@@ -689,6 +691,8 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 	if (selected_items)
 		anjuta_util_glist_strings_free (selected_items);
 	busy = FALSE;
+	
+	gtk_widget_set_sensitive( GTK_TREE_VIEW(sv), TRUE );
 }
 
 static void

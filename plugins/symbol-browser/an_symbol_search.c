@@ -190,6 +190,10 @@ void anjuta_symbol_search_clear (AnjutaSymbolSearch *search) {
 	
 	/* keywords too */
 	priv->keyword_words = NULL;
+
+	/* thrown away the g_completion words */
+	g_completion_clear_items(priv->completion);	
+	
 }
 
 GType

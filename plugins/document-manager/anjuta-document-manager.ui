@@ -77,7 +77,8 @@
 					<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
 				</menu>
 				<separator name="separator2"/>
-				<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
+				<menuitem name="AddView" action="ActionViewEditorAddView" />
+				<menuitem name="RemoveView" action="ActionViewEditorRemoveView" />
 				<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
 				<separator name="separator3"/>
 			</placeholder>
