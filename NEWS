@@ -1,3 +1,16 @@
+Anjuta 1.0.2	(xth March 2003) -- Biswapesh Chattopadhyay
+
+New: Totally revamped Search/Replace with numerous features
+New: File browser preferences
+New: First-run dialog.
+New: MRU notebook tabs
+Updated: Tools support (shortcuts, bugfixes, etc.)
+Updated: Scintilla upgraded to 1.50 +
+Bug fix: PHP highlighting works correctly.
+Updated: Tagmanager fixes.
+Updated: Jump between buffers using shortcut
+Updated: Asynchoronous update of symbol/file browser
+
 Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
 
 New: Auto-complete takes graphics now.
