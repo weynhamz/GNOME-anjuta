@@ -401,9 +401,10 @@ msgstr "Gjetja dhe korrigjimi i gabimeve"
 msgid "Debugging and Profiling"
 msgstr "Gjetja e korrigjimi i gabimeve dhe profilimi"
 
+#. GRUT modified this item
 #: anjuta.glade.h:97
 msgid "Default"
-msgstr "I/e prezgjedhur"
+msgstr "E prezgjedhur"
 
 #: anjuta.glade.h:98
 msgid "Defines"
@@ -934,9 +935,10 @@ msgstr "Ndrysho"
 msgid "Modules"
 msgstr "Modulët"
 
+#. GRUT modified this item
 #: anjuta.glade.h:224
 msgid "Monochrome"
-msgstr "Monochrome"
+msgstr "Njëngjyrësh"
 
 #: anjuta.glade.h:225
 msgid "Name:"
@@ -1008,10 +1010,11 @@ msgstr ""
 msgid "Optimization"
 msgstr ""
 
+#. GRUT modified this item
 #. 15
 #: anjuta.glade.h:241 src/text_editor_menu.c:329
 msgid "Options"
-msgstr "Opcionet"
+msgstr "Mundësitë"
 
 #: anjuta.glade.h:242
 msgid "Original Berkeley style"
@@ -1069,9 +1072,10 @@ msgstr ""
 msgid "Print options"
 msgstr ""
 
+#. GRUT modified this item
 #: anjuta.glade.h:256
 msgid "Programs"
-msgstr ""
+msgstr "Programe"
 
 #: anjuta.glade.h:257 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
 #: src/toolbar.c:151
@@ -1446,9 +1450,10 @@ msgstr ""
 msgid "Warning message indicator style:"
 msgstr ""
 
+#. GRUT modified this item
 #: anjuta.glade.h:349
 msgid "Warnings"
-msgstr ""
+msgstr "Paralajmërime"
 
 #: anjuta.glade.h:350
 msgid "Warnings messages:"
@@ -1550,9 +1555,10 @@ msgstr "Orientimi"
 msgid "Orientation of the docking item"
 msgstr ""
 
+#. GRUT modified this item
 #: gdl/gdl-dock-item.c:258
 msgid "Resizable"
-msgstr "E ripërmasueshëm"
+msgstr "E ripërmasueshme"
 
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
@@ -1660,9 +1666,10 @@ msgstr ""
 msgid "Could not load layout user interface file '%s'"
 msgstr ""
 
+#. GRUT modified this item
 #: gdl/gdl-dock-layout.c:680
 msgid "Visible"
-msgstr "I/e dukshëm"
+msgstr "I dukshëm"
 
 #: gdl/gdl-dock-layout.c:687
 msgid "Item"
@@ -2358,10 +2365,11 @@ msgstr ""
 msgid "Western"
 msgstr "Perëndimore"
 
+#. GRUT modified this item
 #: src/anjuta-encodings.c:133 src/anjuta-encodings.c:200
 #: src/anjuta-encodings.c:235
 msgid "Central European"
-msgstr "Europa qendrore"
+msgstr "Europa Qendrore"
 
 #: src/anjuta-encodings.c:135
 msgid "South European"
@@ -2456,10 +2464,11 @@ msgstr "Gjeorgjisht"
 msgid "Cyrillic/Ukrainian"
 msgstr "Cyrillic/Ukrahina"
 
+#. GRUT modified this item
 #: src/anjuta-encodings.c:226 src/anjuta-encodings.c:232
 #: src/anjuta-encodings.c:251
 msgid "Vietnamese"
-msgstr "Vietnamisht"
+msgstr "Vietnameze"
 
 #: src/anjuta-encodings.c:228
 msgid "Thai"
@@ -2635,9 +2644,10 @@ msgstr ""
 msgid "Mac (CR)"
 msgstr ""
 
+#. GRUT modified this item
 #: src/anjuta.c:2131
 msgid "Unknown"
-msgstr "I/e panjohur"
+msgstr "Nuk njihet"
 
 #: src/anjuta.c:2148
 msgid "OVR"
@@ -2680,9 +2690,10 @@ msgid ""
 "Do you want to replace it with the one you are saving?"
 msgstr ""
 
+#. GRUT modified this item
 #: src/anjuta_cbs.c:512 src/anjuta_cbs.c:576
 msgid "_Replace"
-msgstr "_Zevëndëso"
+msgstr "_Zëvendëso"
 
 #: src/anjuta_cbs.c:545
 msgid "Could not open file for writing"
@@ -2793,9 +2804,10 @@ msgid ""
 "settings later."
 msgstr ""
 
+#. GRUT modified this item
 #: src/attach_process.c:68
 msgid "Pid"
-msgstr ""
+msgstr "Pid"
 
 #: src/attach_process.c:68
 msgid "User"
@@ -3139,13 +3151,15 @@ msgstr ""
 msgid "You do not need to login to a local server"
 msgstr ""
 
+#. GRUT modified this item
 #: src/cvs_gui.c:30
 msgid "Local"
-msgstr ""
+msgstr "Lokale"
 
+#. GRUT modified this item
 #: src/cvs_gui.c:30
 msgid "Password"
-msgstr "Password"
+msgstr "Fjalëkalimi"
 
 #: src/cvs_gui.c:30
 msgid "Extern(rsh)"
@@ -3231,10 +3245,11 @@ msgstr "Zgjidh file"
 msgid "CVS: Diff file"
 msgstr ""
 
+#. GRUT modified this item
 #. 17
 #: src/cvs_gui.c:229 src/main_menubar_def.h:1110
 msgid "Diff"
-msgstr "Diff"
+msgstr "Dif"
 
 #: src/cvs_gui.c:265
 msgid "Date: "
@@ -3268,9 +3283,10 @@ msgstr ""
 msgid "CVS: Import Project"
 msgstr ""
 
+#. GRUT modified this item
 #: src/cvs_gui.c:431
 msgid "Import"
-msgstr "Importim"
+msgstr "Importo"
 
 #: src/cvs_gui.c:442
 msgid "Dir on the server: "
@@ -4319,11 +4335,12 @@ msgstr "_Përsërit"
 msgid "Redo the last undone action"
 msgstr "Rikthe veprimin e fundit të anulluar"
 
+#. GRUT modified this item
 #. 2
 #. 3
 #: src/main_menubar_def.h:568
 msgid "C_ut"
-msgstr "P_rije"
+msgstr "P_reje"
 
 #: src/main_menubar_def.h:569
 msgid "Cut the selected text from the editor to the clipboard"
@@ -6334,9 +6351,10 @@ msgid ""
 "Do you want to save it before closing?"
 msgstr ""
 
+#. GRUT modified this item
 #: src/project_dbase_gui.c:1136 src/project_dbase_gui.c:1256
 msgid "Breton"
-msgstr "Breton"
+msgstr "Bretone"
 
 #: src/project_dbase_gui.c:1137
 msgid "Catalan"
@@ -6579,9 +6597,10 @@ msgstr ""
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
 
+#. GRUT modified this item
 #: src/search-replace.c:335
 msgid "Replace"
-msgstr "Zevëndëso"
+msgstr "Zëvendëso"
 
 #: src/search-replace.c:620 src/search-replace.c:1235
 #: src/search-replace.c:1242 src/search-replace.c:1254
@@ -6589,9 +6608,10 @@ msgstr "Zevëndëso"
 msgid "Search"
 msgstr "Kërko"
 
+#. GRUT modified this item
 #: src/search-replace.c:623 src/search-replace.c:1249
 msgid "Replace All"
-msgstr "Zevëndëso gjithçka"
+msgstr "Zëvendëso gjithçka"
 
 #: src/search-replace.c:659
 #, c-format
@@ -6628,9 +6648,10 @@ msgstr ""
 msgid "This name is alredady used."
 msgstr ""
 
+#. GRUT modified this item
 #: src/sharedlib_gui.c:44
 msgid "Shared Object"
-msgstr ""
+msgstr "Objekt i përbashkët"
 
 #: src/sharedlib_gui.c:44
 msgid "From"
@@ -6741,9 +6762,10 @@ msgstr "Aktiv"
 msgid "Count"
 msgstr "Numëro"
 
+#. GRUT modified this item
 #: src/stack_trace.c:464 src/toolbar.c:613
 msgid "Frame"
-msgstr "Frame"
+msgstr "Korniza"
 
 #: src/support.c:60 src/support.c:85
 #, c-format
@@ -6916,9 +6938,10 @@ msgstr ""
 msgid "Run/Continue"
 msgstr ""
 
+#. GRUT modified this item
 #: src/text_editor_menu.c:181 src/toolbar.c:574
 msgid "Interrupt"
-msgstr ""
+msgstr "Ndërprit"
 
 #: src/text_editor_menu.c:191
 msgid "Toggle Line numbers"
@@ -6944,10 +6967,11 @@ msgstr ""
 msgid "--Zoom"
 msgstr ""
 
+#. GRUT modified this item
 #. 0
 #: src/text_editor_menu.c:239
 msgid "Cut"
-msgstr "Prije"
+msgstr "Preje"
 
 #. 1
 #: src/text_editor_menu.c:247
