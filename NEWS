@@ -1,4 +1,4 @@
-Anjuta 0.1.9:   (xxth February 2002)		-- Andy Piper
+Anjuta 0.1.9:   (14th February 2002)		-- Andy Piper
 
    => Release of Anjuta-0.1.9 (stable)
    
@@ -6,7 +6,7 @@ New: messages manager rewritten to use notebook tabs
 New: symbol and tag browser fully based on TagManager
 New: embedded terminal window (using zvt)
 New: Project Import Wizard makes it easier to migrate
-     existing projects to Anjuta
+     existing projects to Anjuta (experimental)
 New: libglade project type added to the Application
      Wizard
 New: simple class creator plugin now included
@@ -15,7 +15,7 @@ New: more translations - 21 languages now fully or
      partially supported
 
 Updated: new look for the Application Wizard
-Updated: rewritten manual
+Updated: UI enhancements
 Updated: Solaris support improved
 Updated: many, many bug fixes.....
 
@@ -42,7 +42,7 @@ Updated: improved find functionality, better dialogs
 Updated: synced up to version 1.41 of Scintilla, new lexers added
 Updated: new icons
 
-... plus the usual big fixes and minor feature additions.
+... plus the usual bug fixes and minor feature additions.
 
 --------------------------------------------------------------------
 

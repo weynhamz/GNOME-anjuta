@@ -1,6 +1,20 @@
-Todo List:
+TODO List:
 ----------
-	o Comments in source files
+
+
+** Immediate post-0.1.9:
+
+	o sync with Scintilla!
+	o new file widget
+	o rewrite manual
+	o CVS support
+	o improve find functionality
+	o project manager changes
+	
+
+** General:
+
+    o Comments in source files
 	
 	o Compiler options: supports
 	o Different types of projects: executable/library/shared-library etc.

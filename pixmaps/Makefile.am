@@ -15,6 +15,7 @@ anjuta_pixmaps_DATA = \
 	applogo.png\
 	appwizard.png\
 	appwiz_bonobo.png\
+	appwiz_libglade.png\
 	appwiz_gnome.png\
 	appwiz_gnomemm.png\
 	appwiz_gtk.png\

@@ -183,6 +183,8 @@ protected:
 	bool clearBeforeExecute;
 	bool allowMenuActions;
 	bool isDirty;
+	
+	bool calltipShown;
 
 	PropSetFile *props;
 
@@ -267,9 +269,15 @@ public:
 	~AnEditor();
 	WindowID GetID() { return wEditor.GetID(); }
 	long Command(int cmdID, long wParam, long lParam);
+
+	void FocusInEvent(GtkWidget* widget);
+	void FocusOutEvent(GtkWidget* widget);
 };
 
 static void lowerCaseString(char *s);
+
+gint on_aneditor_focus_in(GtkWidget* widget, gpointer * unused, AnEditor* ed);
+gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed);
 
 static const char *extList[] = {
     "", "x", "x.cpp", "x.cpp", "x.html", "x.xml", "x.js", "x.vbs", "x.mak", "x.java",
@@ -331,6 +339,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 	usePalette = false;
 
 	accelGroup = NULL;
+	calltipShown = false;
 
 	fileName[0] = '\0';
 	props = p;
@@ -1106,7 +1115,9 @@ void AnEditor::CharAdded(char ch) {
 				if (ch == ')') {
 					braceCount--;
 					if (braceCount < 1)
+					{
 						SendEditor(SCI_CALLTIPCANCEL);
+					}
 				} else if (ch == '(') {
 					braceCount++;
 				} else {
@@ -2179,6 +2190,27 @@ int AnEditor::GetBookmarkLine( const int nLineStart )
 		return nNextLine;
 }
 
+void AnEditor::FocusInEvent(GtkWidget* widget)
+{
+	if (calltipShown)
+	{
+		StartCallTip();
+	}
+}
+
+void AnEditor::FocusOutEvent(GtkWidget* widget)
+{
+	if (SendEditor(SCI_CALLTIPACTIVE))
+	{
+		SendEditor(SCI_CALLTIPCANCEL);
+		calltipShown = true;
+	}
+	else
+	{
+		calltipShown = false;
+	}	
+}
+
 static GList* editors;
 
 static AnEditor*
@@ -2208,6 +2240,10 @@ aneditor_new(gpointer propset)
      g_warning("Memory allocation error.");
      return (AnEditorID)-1;
   }
+  gtk_signal_connect(GTK_OBJECT(ed->GetID()), "focus_in_event", 
+	  GTK_SIGNAL_FUNC(on_aneditor_focus_in), ed);
+  gtk_signal_connect(GTK_OBJECT(ed->GetID()), "focus_out_event", 
+	  GTK_SIGNAL_FUNC(on_aneditor_focus_out), ed);
   editors = g_list_append(editors, ed);
   return (AnEditorID)(g_list_length(editors) - 1);
 }
@@ -2248,4 +2284,14 @@ aneditor_command(AnEditorID handle, gint command, glong wparam, glong lparam)
    return ed->Command(command, wparam, lparam);
 }
 
+gint on_aneditor_focus_in(GtkWidget* widget, gpointer* unused, AnEditor* ed)
+{
+	ed->FocusInEvent(widget);
+	return FALSE;
+}
 
+gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed)
+{
+	ed->FocusOutEvent(widget);
+	return FALSE;
+}

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = include
-AM_CFLAGS = -Iinclude $(GLIB_CFLAGS) -Wall
+AM_CFLAGS = -I$(srcdir)/include $(GLIB_CFLAGS) -Wall
 noinst_LIBRARIES = libctags.a
 libctags_a_SOURCES =\
 	debug.h\

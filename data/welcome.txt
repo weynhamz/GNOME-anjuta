@@ -4,7 +4,7 @@
                    =================
      *************************************************
      *          Anjuta IDE Version 0.1.9             *
-     * Copyright (C) 2000-2001 Kh. Naba Kumar Singh. *
+     * Copyright (C) 2000-2002 Kh. Naba Kumar Singh. *
      *************************************************
 
 So this is the first time you are using the Anjuta IDE.

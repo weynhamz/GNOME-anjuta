@@ -327,13 +327,15 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 	for (i = 0; i < 2; ++i)
 	{
 		match = matches[i];
-		if (match)
+		if ((match) && (*match))
 		{
 			while (TRUE)
 			{
 				if (type & (*match)->type)
 					g_ptr_array_add(tags, *match);
 				++ match;
+				if (NULL == *match)
+					break;
 				if (partial)
 				{
 					if (0 != strncmp((*match)->name, name, len))

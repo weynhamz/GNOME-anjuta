@@ -8,7 +8,7 @@ langdir = $(prefix)/@NO_PREFIX_PACKAGE_HELP_DIR@/$(lang)
 
 SUBDIRS = anjuta-manual anjuta-faqs
 
-EXTRA_DIST = topic.dat ChangeLog
+EXTRA_DIST = topic.dat
 
 install-data-am:
 	-if [ -e $(srcdir)/topic.dat ]; then \
