@@ -1,8 +1,15 @@
 2004-05-13  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/plugin.c: Fixed glade file loading
+	Removed "Show messages" menu item
 	* src/anjuta-app.c: Fixed crash bug, g_free(filename was called
 	twice because of this load system layout hack.
+	* libanjuta/anjuta-ui.h: Removed #include config.h
+	* libanjuta/libanjuta.pc: Fixed path and depencies
+	* libanjuta/Makefile.am: Install properties.h and glue-plugin.h
+	* libanjuta/properties.h: Moved C++ stuff to properties_cxx.h (file added)
+	* libanjuta/properties.cxx : #include "properties_cxx.h"
+	* plugins/editor/aneditor.cxx: #include "properties_cxx.h"
 
 2004-05-12  Johannes Schmid <jhs@cvs.gnome.org>
 	

@@ -49,6 +49,7 @@
 #include "ScintillaWidget.h"
 #include "SciLexer.h"
 #include "lexer.h"
+#include <libanjuta/properties_cxx.h>
 #include <libanjuta/properties.h>
 #include "aneditor.h"
 

@@ -39,11 +39,6 @@ static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 	g_message("Prev Message");
 }
 
-static void on_show_messages(GtkAction* menuitem, MessageViewPlugin *plugin)
-{
-	g_message("Show Messages");
-}
-
 
 static GtkActionEntry actions_goto[] = {
   { "ActionMessageNext", GTK_STOCK_GO_FORWARD,
@@ -54,13 +49,6 @@ static GtkActionEntry actions_goto[] = {
     N_("_Previous message"), NULL,
 	N_("Previous message"),
     G_CALLBACK (on_prev_message)}
-};
-
-static GtkActionEntry actions_view[] = {
-  { "ActionViewMessageShow", NULL,
-    N_("_Show messages"), NULL,
-	N_("Show messages"),
-    G_CALLBACK (on_show_messages)}
 };
 
 gpointer parent_class;
@@ -86,10 +74,6 @@ activate_plugin (AnjutaPlugin *plugin)
 										_("Next/Prev Message"),
 										actions_goto,
 										G_N_ELEMENTS (actions_goto), plugin);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupViewMessages",
-										_("View Messages"),
-										actions_view,
-										G_N_ELEMENTS (actions_view), plugin);
 
 	/* Create the messages preferences page */
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);

@@ -9,6 +9,7 @@
 #define PLAT_GTK 1
 
 #include "PropSet.h"
+#include "properties_cxx.h"
 #include "properties.h"
 
 static bool GetFullLine(const char *&fpc, int &lenData, char *s, int len) {

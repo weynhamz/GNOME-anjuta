@@ -23,17 +23,6 @@
 #include <glib.h>
 
 #ifdef __cplusplus
-#include "PropSet.h"
-
-class PropSetFile : public PropSet {
-public:
-	PropSetFile() {};
-	~PropSetFile() {};
-	bool ReadLine(char *data, bool ifIsTrue, const char *directoryForImports=0);
-	void ReadFromMemory(const char *data, int len, const char *directoryForImports=0);
-	void Read(const char *filename, const char *directoryForImports);
-};
-
 extern "C" {
 #endif
 

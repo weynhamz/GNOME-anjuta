@@ -9,8 +9,5 @@
 				</placeholder>
 			</menu>
 		</menu>
-		<menu name="MenuView" action="ActionMenuView">	
-				<menuitem name="Show Messages" action="ActionViewMessageShow" />
-		</menu>
 	</menubar>
 </ui>

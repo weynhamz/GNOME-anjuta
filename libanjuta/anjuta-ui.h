@@ -19,10 +19,6 @@
 #ifndef _ANJUTA_UI_H_
 #define _ANJUTA_UI_H_
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
 /* Usage Notes:
  * 1) Any object which added any action or action group is responsible
  * for removing them when done (for example, a plugin object).

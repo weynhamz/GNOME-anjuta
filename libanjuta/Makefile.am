@@ -34,6 +34,7 @@ libanjuta_la_SOURCES= \
 	anjuta-children.c \
 	properties.cxx \
 	properties.h \
+	properties_cxx.h \
 	resources.c \
 	resources.h \
 	defaults.h \
@@ -58,7 +59,10 @@ libanjutainclude_HEADERS = \
 	anjuta-preferences-dialog.h \
 	anjuta-preferences.h \
 	anjuta-ui.h \
-	anjuta-children.h
+	anjuta-children.h \
+	properties.h \
+	glue-plugin.h
+	
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h
 
