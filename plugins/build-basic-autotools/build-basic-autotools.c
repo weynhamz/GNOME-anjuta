@@ -1153,7 +1153,7 @@ ibuildable_iface_init (IAnjutaBuildableIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (BasicAutotoolsPlugin, basic_autotools_plugin);
-ANJUTA_INTERFACE (ibuildable, IANJUTA_TYPE_BUILDABLE);
+ANJUTA_PLUGIN_ADD_INTERFACE (ibuildable, IANJUTA_TYPE_BUILDABLE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (BasicAutotoolsPlugin, basic_autotools_plugin);

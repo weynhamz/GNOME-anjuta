@@ -562,7 +562,7 @@ ihelp_iface_init(IAnjutaHelpIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (DevhelpPlugin, devhelp_plugin);
-ANJUTA_INTERFACE (ihelp, IANJUTA_TYPE_HELP);
+ANJUTA_PLUGIN_ADD_INTERFACE (ihelp, IANJUTA_TYPE_HELP);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (DevhelpPlugin, devhelp_plugin);

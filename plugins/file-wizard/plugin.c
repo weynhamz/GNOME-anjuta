@@ -226,7 +226,7 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (AnjutaFileWizardPlugin, file_wizard_plugin);
-ANJUTA_INTERFACE(iwizard, IANJUTA_TYPE_WIZARD);
+ANJUTA_PLUGIN_ADD_INTERFACE(iwizard, IANJUTA_TYPE_WIZARD);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (AnjutaFileWizardPlugin, file_wizard_plugin);

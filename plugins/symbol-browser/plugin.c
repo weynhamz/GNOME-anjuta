@@ -21,6 +21,7 @@
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
@@ -366,6 +367,30 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	}
 }
 
+static GHashTable *editor_connected = NULL;
+
+static void
+on_editor_destroy (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
+{
+	gchar *uri;
+	
+	if (!editor_connected)
+		return;
+	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+	if (uri)
+	{
+		gchar *filename;
+		
+		filename = gnome_vfs_get_local_path_from_uri (uri);
+		g_return_if_fail (filename != NULL);
+		
+		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv),
+											   uri);
+		DEBUG_PRINT ("Removing file tags of %s", uri);
+	}
+	g_hash_table_remove (editor_connected, G_OBJECT (editor));
+}
+
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
@@ -373,12 +398,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	AnjutaUI *ui;
 	gchar *uri;
 	GObject *editor;
+	SymbolBrowserPlugin *sv_plugin;
 	
 	editor = g_value_get_object (value);
 	
-	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin*)plugin;
+	sv_plugin = (SymbolBrowserPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
+	if (!editor_connected)
+	{
+		editor_connected = g_hash_table_new (NULL, NULL);
+	}
 	if (sv_plugin->current_editor)
 		g_object_unref (sv_plugin->current_editor);
 	sv_plugin->current_editor = editor;
@@ -405,6 +435,13 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		else
 			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	}
+	if (g_hash_table_lookup (editor_connected, editor) == NULL)
+	{
+		gint id = g_signal_connect (G_OBJECT (editor), "destroy",
+									G_CALLBACK (on_editor_destroy),
+									sv_plugin);
+		g_hash_table_insert (editor_connected, editor, (gpointer)id);
 	}
 }
 

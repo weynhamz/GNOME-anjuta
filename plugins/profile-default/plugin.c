@@ -183,7 +183,7 @@ iprofile_iface_init(IAnjutaProfileIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (DefaultProfilePlugin, default_profile_plugin);
-ANJUTA_INTERFACE (iprofile, IANJUTA_TYPE_PROFILE);
+ANJUTA_PLUGIN_ADD_INTERFACE (iprofile, IANJUTA_TYPE_PROFILE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (DefaultProfilePlugin, default_profile_plugin);

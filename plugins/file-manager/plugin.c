@@ -229,7 +229,7 @@ ifile_manager_iface_init(IAnjutaFileManagerIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (FileManagerPlugin, file_manager_plugin);
-ANJUTA_INTERFACE (ifile_manager, IANJUTA_TYPE_FILE_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE (ifile_manager, IANJUTA_TYPE_FILE_MANAGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (FileManagerPlugin, file_manager_plugin);

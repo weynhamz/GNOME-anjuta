@@ -744,8 +744,8 @@ iloader_file_iface_init(IAnjutaFileLoaderIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (AnjutaFileLoaderPlugin, anjuta_file_loader_plugin);
-ANJUTA_INTERFACE (iloader, IANJUTA_TYPE_LOADER);
-ANJUTA_INTERFACE (iloader_file, IANJUTA_TYPE_FILE_LOADER);
+ANJUTA_PLUGIN_ADD_INTERFACE (iloader, IANJUTA_TYPE_LOADER);
+ANJUTA_PLUGIN_ADD_INTERFACE (iloader_file, IANJUTA_TYPE_FILE_LOADER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (AnjutaFileLoaderPlugin, anjuta_file_loader_plugin);

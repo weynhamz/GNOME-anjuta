@@ -58,6 +58,14 @@ Gnome file selector (deprecated)
 GnomeFileList
 
 
+<!-- ##### MACRO ANJUTA_INTERFACE ##### -->
+<para>
+
+</para>
+
+@prefix: 
+@interface_type: 
+
 <!-- ##### MACRO ANJUTA_PIXMAP_AUTOCOMPLETE ##### -->
 <para>
 

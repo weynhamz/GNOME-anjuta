@@ -749,7 +749,10 @@ destroy_tm_hash_value (gpointer data)
 	if (tm_file)
 	{
 		if (tm_file->parent == TM_WORK_OBJECT (sv->priv->tm_workspace))
+		{
+			DEBUG_PRINT ("Removing tm_file");
 			tm_workspace_remove_object (tm_file, TRUE);
+		}
 	}
 	g_object_unref (G_OBJECT (data));
 }
@@ -1031,13 +1034,13 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView *sv,
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (file_uri != NULL);
 	
-	DEBUG_PRINT ("Adding Symbol URI: %s", file_uri);
 	if (strncmp (file_uri, "file://", 7) == 0)
 		uri = &file_uri[7];
 	
 	store = g_hash_table_lookup (sv->priv->tm_files, uri);
 	if (!store)
 	{
+		DEBUG_PRINT ("Adding Symbol URI: %s", file_uri);
 		tm_file =
 			tm_workspace_find_object (TM_WORK_OBJECT (sv->priv->tm_workspace),
 									  uri, FALSE);

@@ -275,7 +275,7 @@ ifile_iface_init (IAnjutaFileIface* iface)
 
 
 ANJUTA_PLUGIN_BEGIN (DebuggerPlugin, debugger_plugin);
-ANJUTA_INTERFACE(ifile, IANJUTA_TYPE_FILE);
+ANJUTA_PLUGIN_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (DebuggerPlugin, debugger_plugin);

@@ -120,38 +120,60 @@ void anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
  *
  * The class type definition is finished with ANJUTA_PLUGIN_END() macro. In
  * between which any number of interface definitions could be added with
- * ANJUTA_INTERFACE_MACRO().
+ * ANJUTA_PLUGIN_ADD_INTERFACE() macro.
  */
-#define ANJUTA_PLUGIN_BEGIN(class_name, prefix) \
-static GType \
-prefix##_get_type (GluePlugin *plugin) \
-{ \
-	static GType type = 0; \
-	if (!type) { \
-		static const GTypeInfo type_info = { \
-			sizeof (class_name##Class), \
-			NULL, \
-			NULL, \
-			(GClassInitFunc)prefix##_class_init, \
-			NULL, \
-			NULL, \
-			sizeof (class_name), \
-			0, \
-			(GInstanceInitFunc)prefix##_instance_init \
-		}; \
-		type = g_type_module_register_type (G_TYPE_MODULE (plugin), \
-						    ANJUTA_TYPE_PLUGIN, \
-						    #class_name, \
+#define ANJUTA_PLUGIN_BEGIN(class_name, prefix)                          \
+static GType                                                             \
+prefix##_get_type (GluePlugin *plugin)                                   \
+{                                                                        \
+	static GType type = 0;                                               \
+	if (!type) {                                                         \
+		static const GTypeInfo type_info = {                             \
+			sizeof (class_name##Class),                                  \
+			NULL,                                                        \
+			NULL,                                                        \
+			(GClassInitFunc)prefix##_class_init,                         \
+			NULL,                                                        \
+			NULL,                                                        \
+			sizeof (class_name),                                         \
+			0,                                                           \
+			(GInstanceInitFunc)prefix##_instance_init                    \
+		};                                                               \
+		type = g_type_module_register_type (G_TYPE_MODULE (plugin),      \
+						    ANJUTA_TYPE_PLUGIN,                          \
+						    #class_name,                                 \
 						    &type_info, 0);
 /**
  * ANJUTA_PLUGIN_END:
  * 
  * Ends the plugin class type definition started with ANJUTA_PLUGIN_BEGIN()
  */
-#define ANJUTA_PLUGIN_END \
-	} \
-	return type; \
+#define ANJUTA_PLUGIN_END                                               \
+	}                                                                   \
+	return type;                                                        \
 }
+
+/**
+ * ANJUTA_PLUGIN_ADD_INTERFACE:
+ * @interface_type: Interface type. e.g. IANJUTA_TYPE_EDITOR
+ * @prefix: prefix of member function names.
+ * 
+ * This is a convienient macro defined to make it easy to add interfaces
+ * to a plugin type. @prefix _iface_init should be statically defined
+ * before using this macro. This macro should be called between
+ * ANJUTA_PLUGIN_BEGIN() and ANJUTA_PLUGIN_END() macros.
+ */
+#define ANJUTA_PLUGIN_ADD_INTERFACE(prefix,interface_type)             \
+    {                                                                  \
+        GInterfaceInfo iface_info = {                                  \
+            (GInterfaceInitFunc)prefix##_iface_init,                   \
+            NULL,                                                      \
+            NULL                                                       \
+        };                                                             \
+        g_type_module_add_interface (G_TYPE_MODULE (plugin),           \
+                                     type, interface_type,             \
+                             	     &iface_info);                     \
+    }
 
 /**
  * ANJUTA_PLUGIN_BOILERPLATE:
@@ -162,8 +184,8 @@ prefix##_get_type (GluePlugin *plugin) \
  * using ANJUTA_PLUGIN_END(). It is basically a plugin type definition macro
  * that does not have any interface implementation.
  */
-#define ANJUTA_PLUGIN_BOILERPLATE(class_name, prefix) \
-ANJUTA_PLUGIN_BEGIN(class_name, prefix); \
+#define ANJUTA_PLUGIN_BOILERPLATE(class_name, prefix)                   \
+ANJUTA_PLUGIN_BEGIN(class_name, prefix);                                \
 ANJUTA_PLUGIN_END
 
 /**
@@ -175,22 +197,22 @@ ANJUTA_PLUGIN_END
  * of the plugin. This macro is generally used at the end of plugin class
  * and member functions definitions. 
  */
-#define ANJUTA_SIMPLE_PLUGIN(class_name, prefix) \
-G_MODULE_EXPORT void glue_register_components (GluePlugin *plugin); \
+#define ANJUTA_SIMPLE_PLUGIN(class_name, prefix)                      \
+G_MODULE_EXPORT void glue_register_components (GluePlugin *plugin);   \
 G_MODULE_EXPORT GType glue_get_component_type (GluePlugin *plugin, const char *name); \
-G_MODULE_EXPORT void \
-glue_register_components (GluePlugin *plugin) \
-{ \
-	prefix##_get_type (plugin); \
-} \
-G_MODULE_EXPORT GType \
-glue_get_component_type (GluePlugin *plugin, const char *name) \
-{ \
-	if (!strcmp (name, #class_name)) { \
-		return prefix##_get_type (plugin); \
-	} else { \
-		return G_TYPE_INVALID;  \
-	} \
+G_MODULE_EXPORT void                                                  \
+glue_register_components (GluePlugin *plugin)                         \
+{                                                                     \
+	prefix##_get_type (plugin);                                       \
+}                                                                     \
+G_MODULE_EXPORT GType                                                 \
+glue_get_component_type (GluePlugin *plugin, const char *name)        \
+{                                                                     \
+	if (!strcmp (name, #class_name)) {                                \
+		return prefix##_get_type (plugin);                            \
+	} else {                                                          \
+		return G_TYPE_INVALID;                                        \
+	}                                                                 \
 }
 
 G_END_DECLS

@@ -208,7 +208,7 @@ anjuta_test_shell_add_widget (AnjutaShell *shell,
 
 	g_return_if_fail (w != NULL);
 
-	anjuta_shell_add (shell, name, G_TYPE_FROM_INSTANCE (w), w, NULL);
+	// anjuta_shell_add (shell, name, G_TYPE_FROM_INSTANCE (w), w, NULL);
 
 	g_hash_table_insert (window->widgets, g_strdup (name), w);
 	client_win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -220,6 +220,10 @@ static gboolean
 remove_from_widgets_hash (gpointer key, gpointer value, gpointer data)
 {
 	if (value == data) {
+		// AnjutaShell *shell;
+		
+		// shell = g_object_get_data (G_OBJECT (value), "__temp_shell__");
+		// anjuta_shell_remove_value (shell, key, NULL);
 		g_free (key);
 		return TRUE;
 	}
@@ -231,14 +235,20 @@ anjuta_test_shell_remove_widget (AnjutaShell *shell,
 								  GtkWidget *w, 
 								  GError **error)
 {
+	gint old_size;
 	GtkWidget *client_win;
 	AnjutaTestShell *window = ANJUTA_TEST_SHELL (shell);
 	g_return_if_fail (w != NULL);
 
+	// old_size = g_hash_table_size (window->widgets);
+	// g_object_set_data (G_OBJECT (w), "__temp_shell__", shell);
 	g_hash_table_foreach_steal (window->widgets, remove_from_widgets_hash, w);
-	client_win = gtk_widget_get_toplevel (w);
-	gtk_container_remove (GTK_CONTAINER (client_win), w);
-	gtk_widget_destroy (client_win);
+	// if (old_size != g_hash_table_size (window->widgets))
+	// {
+		client_win = gtk_widget_get_toplevel (w);
+		gtk_container_remove (GTK_CONTAINER (client_win), w);
+		gtk_widget_destroy (client_win);
+	//}
 }
 
 static void 
@@ -334,7 +344,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaTestShell, anjuta_test_shell, GTK_TYPE_WINDOW);
-ANJUTA_INTERFACE(anjuta_shell, ANJUTA_TYPE_SHELL);
+ANJUTA_TYPE_ADD_INTERFACE(anjuta_shell, ANJUTA_TYPE_SHELL);
 ANJUTA_TYPE_END;
 
 int

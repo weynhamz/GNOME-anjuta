@@ -106,7 +106,7 @@ prefix##_get_type (void)                                  \
   static GType type = 0;                                  \
   if (!type)                                              \
     {                                                     \
- static const GTypeInfo type_info =                       \
+        static const GTypeInfo type_info =                \
         {                                                 \
           sizeof (class_name##Class),                     \
           (GBaseInitFunc) NULL,                           \
@@ -120,18 +120,27 @@ prefix##_get_type (void)                                  \
         };                                                \
                                                           \
         type = g_type_register_static (parent_type,       \
-                                          #class_name,    \
-                                          &type_info, 0);
+                                       #class_name,       \
+                                       &type_info, 0);
 #define ANJUTA_TYPE_END                                   \
      }                                                    \
   return type;                                            \
 }
 
-#define ANJUTA_INTERFACE(prefix,interface_type)                 \
-{                                                               \
-GInterfaceInfo iface_info = { (GInterfaceInitFunc)prefix##_iface_init, NULL, NULL };\
-g_type_add_interface_static (type, interface_type,              \
-                             &iface_info);                      \
-}
+#define ANJUTA_TYPE_ADD_INTERFACE(prefix,interface_type)  \
+    {                                                     \
+        GInterfaceInfo iface_info = {                     \
+            (GInterfaceInitFunc)prefix##_iface_init,      \
+            NULL,                                         \
+            NULL                                          \
+        };                                                \
+        g_type_add_interface_static (type,                \
+                                     interface_type,      \
+                                     &iface_info);        \
+    }
+
+#define ANJUTA_TYPE_BOILERPLATE(class_name, prefix, parent_type) \
+ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type);              \
+ANJUTA_TYPE_END
 
 #endif

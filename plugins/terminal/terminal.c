@@ -531,7 +531,7 @@ iterminal_iface_init(IAnjutaTerminalIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (TerminalPlugin, terminal_plugin);
-ANJUTA_INTERFACE (iterminal, IANJUTA_TYPE_TERMINAL);
+ANJUTA_PLUGIN_ADD_INTERFACE (iterminal, IANJUTA_TYPE_TERMINAL);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (TerminalPlugin, terminal_plugin);

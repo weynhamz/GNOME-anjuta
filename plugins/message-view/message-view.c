@@ -926,5 +926,5 @@ imessage_view_iface_init (IAnjutaMessageViewIface *iface)
 }
 
 ANJUTA_TYPE_BEGIN(MessageView, message_view, GTK_TYPE_HBOX);
-ANJUTA_INTERFACE(imessage_view, IANJUTA_TYPE_MESSAGE_VIEW);
+ANJUTA_TYPE_ADD_INTERFACE(imessage_view, IANJUTA_TYPE_MESSAGE_VIEW);
 ANJUTA_TYPE_END;

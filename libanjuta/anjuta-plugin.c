@@ -94,6 +94,14 @@ anjuta_plugin_dispose (GObject *object)
 	}
 
 	if (plugin->shell) {
+		if (plugin->priv->added_signal_id) {
+			g_signal_handler_disconnect (G_OBJECT (plugin->shell),
+										 plugin->priv->added_signal_id);
+			g_signal_handler_disconnect (G_OBJECT (plugin->shell),
+										 plugin->priv->removed_signal_id);
+			plugin->priv->added_signal_id = 0;
+			plugin->priv->removed_signal_id = 0;
+		}
 		g_object_unref (plugin->shell);
 		plugin->shell = NULL;
 	}
@@ -289,7 +297,7 @@ anjuta_plugin_add_watch (AnjutaPlugin *plugin,
 					  G_CALLBACK (value_added_cb),
 					  plugin);
 
-		plugin->priv->added_signal_id = 
+		plugin->priv->removed_signal_id = 
 			g_signal_connect (plugin->shell,
 					  "value_removed",
 					  G_CALLBACK (value_removed_cb),

@@ -217,7 +217,7 @@ idebugger_be_iface_init (IAnjutaDebuggerBEIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
-ANJUTA_INTERFACE(idebugger_be, IANJUTA_TYPE_DEBUGGER_BE);
+ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_be, IANJUTA_TYPE_DEBUGGER_BE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GdbPlugin, gdb_plugin);

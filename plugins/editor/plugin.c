@@ -824,7 +824,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	
 	eplugin = (EditorPlugin*)plugin;
-	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
@@ -1021,9 +1021,9 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (EditorPlugin, editor_plugin);
-ANJUTA_INTERFACE(ianjuta_document_manager, IANJUTA_TYPE_DOCUMENT_MANAGER);
-ANJUTA_INTERFACE(ifile, IANJUTA_TYPE_FILE);
-ANJUTA_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
+ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_document_manager, IANJUTA_TYPE_DOCUMENT_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
+ANJUTA_PLUGIN_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (EditorPlugin, editor_plugin);

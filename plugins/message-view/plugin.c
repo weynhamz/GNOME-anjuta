@@ -260,7 +260,7 @@ ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (MessageViewPlugin, message_view_plugin);
-ANJUTA_INTERFACE(ianjuta_msgman, IANJUTA_TYPE_MESSAGE_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_msgman, IANJUTA_TYPE_MESSAGE_MANAGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (MessageViewPlugin, message_view_plugin);

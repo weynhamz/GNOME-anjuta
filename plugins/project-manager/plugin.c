@@ -442,8 +442,8 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);
-ANJUTA_INTERFACE (ifile, IANJUTA_TYPE_FILE);
-ANJUTA_INTERFACE (iproject_manager, IANJUTA_TYPE_PROJECT_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
+ANJUTA_PLUGIN_ADD_INTERFACE (iproject_manager, IANJUTA_TYPE_PROJECT_MANAGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (ProjectManagerPlugin, project_manager_plugin);

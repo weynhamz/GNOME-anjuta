@@ -230,7 +230,7 @@ itodo_iface_init(IAnjutaTodoIface *iface)
 }
 
 ANJUTA_PLUGIN_BEGIN (GTodoPlugin, gtodo_plugin);
-ANJUTA_INTERFACE (itodo, IANJUTA_TYPE_TODO);
+ANJUTA_PLUGIN_ADD_INTERFACE (itodo, IANJUTA_TYPE_TODO);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GTodoPlugin, gtodo_plugin);

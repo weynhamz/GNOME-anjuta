@@ -19,6 +19,7 @@
 #include <libanjuta/anjuta-plugin-description.h>
 #include <e-splash.h>
 #include "resources.h"
+#include <libanjuta/anjuta-debug.h>
 #include <string.h>
 
 typedef struct {
@@ -546,7 +547,7 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 	
 	if (!type) {
 		char **pieces;
-
+		DEBUG_PRINT ("Creating new class type for %s", tool->id);
 		pieces = g_strsplit (tool->id, ":", -1);
 		type = glue_factory_get_object_type (glue_factory,
 										     pieces[0], pieces[1]);
