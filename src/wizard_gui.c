@@ -184,11 +184,11 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 
 	if (icon4_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon4_file, _("GTKmm project"));
+					icon4_file, _("glademm (gtkmm 1.2) project"));
 
 	if (icon5_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon5_file, _("GNOMEmm project"));
+					icon5_file, _("glademm (gnomemm 1.2) project"));
 
 	if (icon6_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
@@ -214,10 +214,10 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 					icon12_file, _("LibGlade 2.0 project"));
 	if (icon13_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon13_file, _("GTKmm 2.0 project"));
+					icon13_file, _("gtkmm 2.0 project"));
 	if (icon14_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-					icon14_file, _("GNOMEmm 2.0 project"));
+					icon14_file, _("gnomemm 2.0 project"));
 	if (icon15_file)
 		gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
 					icon15_file, _("Xlib project"));

@@ -86,7 +86,7 @@ gnorbagtk
 gpc
 gpm
 grove
-gthread
+gthread                                                                                                     2
 gtk Gimp Toolkit GUI library
 gtkxmhtml
 gtop Function for accessing information on the running system 

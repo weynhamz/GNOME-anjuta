@@ -88,7 +88,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "gnome-config --version"}
 	,
 	{
-	"GTKMM",
+	"gtkmm",
 	 "C++ Bindings for GTK",
 	 "",
 	 "",
@@ -100,7 +100,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "gtkmm-config --version"}
 	 ,
 	{
-	 "GNOMEMM",
+	 "gnomemm",
 	 "C++ bindings for GNOME",
 	 "",
 	 "",

@@ -1,3 +1,11 @@
+2002-11-26  Murray Cumming  <murrayc@usa.net>
+
+	* src/project_type.c, src/project_dbase.c, src/stock_libs.anj,
+	  src/compiler-options.c, src/wizard_gui.c: Renamed gtkmm 1.2
+	and gnomemm 1.2 projects so that people know they are really
+	glademm projects. The gtkmm 2 and gnomem 2 projects are OK though.
+	But I did correct these to sue lowercase names.
+
 2002-12-01  Naba Kumar <naba@gnome.org>
 
 	* data/properies/anjuta.properties: Corrected "indicators.automatic"

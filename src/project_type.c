@@ -156,16 +156,16 @@ gchar* project_type_libglade2[] =
 	"0",
 };
 
-gchar* project_type_gtkmm[] =
+gchar* project_type_glademm_gtkmm[] =
 {
-	"GTKMM",
+	"glademm (gtkmm 1.2)",
 	
 	"\\\n\t$(GTKMM_CFLAGS)",
 	"\\\n\t$(GTKMM_LIBS)",
 	
 	"\n"
 	"AM_PATH_GTKMM(1.2.5, ,\n"
-	"			   AC_MSG_ERROR(Cannot find GTKmm: Is gtkmm-config in path?))\n",
+	"			   AC_MSG_ERROR(Cannot find gtkmm 1.2: Is gtkmm-config in path?))\n",
 	
 	"/autogen.sh.gtkmm",
 	
@@ -192,9 +192,9 @@ gchar* project_type_gtkmm2[] =
 	"0",
 };
 
-gchar* project_type_gnomemm[] =
+gchar* project_type_glademm_gnomemm[] =
 {
-	"GNOMEMM",
+	"glademm (gnomemm 1.2)",
 	
 	"\\\n\t$(GNOMEMM_CFLAGS)",
 	"\\\n\t$(GNOMEMM_LIBS)",
@@ -207,9 +207,9 @@ gchar* project_type_gnomemm[] =
 	"GNOME_INIT\n"
 	"GNOME_COMPILE_WARNINGS\nGNOME_X_CHECKS\n"
 	"\n"
-	"dnl GNOMEmm macros. \n"
-	"AM_PATH_GTKMM(1.2.5, , AC_MSG_ERROR(\"GTKmm not found\"))\n"
-	"AM_PATH_GNOMEMM(1.2.0, , AC_MSG_ERROR(\"GNOMEmm not found\"))\n",
+	"dnl gnomemm macros. \n"
+	"AM_PATH_GTKMM(1.2.5, , AC_MSG_ERROR(\"gtkmm 1.2 not found\"))\n"
+	"AM_PATH_GNOMEMM(1.2.0, , AC_MSG_ERROR(\"gnomemm 1.2 not found\"))\n",
 	
 	"/autogen.sh.gnomemm",
 	
@@ -220,7 +220,7 @@ gchar* project_type_gnomemm[] =
 
 gchar* project_type_gnomemm2[] =
 {
-	"GNOMEMM2",
+	"gnomemm 2",
 	
 	"\\\n\t$(GNOMEMM_CFLAGS)",
 	"\\\n\t$(GNOMEMM_LIBS)",
@@ -396,7 +396,7 @@ Project_Type* load_project_type(gint id)
 		}
 		case PROJECT_TYPE_GTKMM:
 		{
-			type = load_type_from_data(project_type_gtkmm, id);
+			type = load_type_from_data(project_type_glademm_gtkmm, id);
 			break;
 		}
 		case PROJECT_TYPE_GTKMM2:
@@ -421,7 +421,7 @@ Project_Type* load_project_type(gint id)
 		}
 		case PROJECT_TYPE_GNOMEMM:
 		{
-			type = load_type_from_data(project_type_gnomemm, id);
+			type = load_type_from_data(project_type_glademm_gnomemm, id);
 			break;
 		}
 		case PROJECT_TYPE_GNOMEMM2:
