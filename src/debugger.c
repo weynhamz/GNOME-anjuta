@@ -105,7 +105,12 @@ debugger_init ()
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
 	debugger.post_execution_flag = DEBUGGER_NONE;
-	
+    debugger.gnome_terminal_type = anjuta_util_check_gnome_terminal();
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+    printf ("gnome-terminal type %d found.\n", debugger.gnome_terminal_type);
+#endif
+
 	debugger.open_exec_filesel = create_fileselection_gui (&fsd1);
 	debugger.load_core_filesel = create_fileselection_gui (&fsd2);
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
@@ -1113,7 +1118,40 @@ debugger_start_terminal ()
 	if (!cmd) goto error;
 	
 	args = anjuta_util_parse_args_from_string (cmd);
-
+    
+    /* Fix gnome-terminal1 and gnome-terminal2 confusion */
+    if (g_list_length(args) > 0 && strcmp ((gchar*)args->data, "gnome-terminal") == 0)
+    {
+        GList* node;
+        node = g_list_next(args);
+        /* Terminal command is gnome-terminal */
+        if (debugger.gnome_terminal_type == 1) {
+            /* Remove any --disable-factory option, if present */
+            while (node) {
+                if (strcmp ((gchar*)args->data, "--diable-factory") == 0) {
+                    g_free (node->data);
+                    args = g_list_remove (args, node);
+                    break;
+                }
+                node = g_list_next (node);
+            }
+        } else if (debugger.gnome_terminal_type == 2) {
+            /* Add --disable-factory option, if not present */
+            gboolean found = 0;
+            while (node) {
+                if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
+                    found = 1;
+                    break;
+                }
+                node = g_list_next (node);
+            }
+            if (!found) {
+                gchar* arg = g_strdup ("--disable-factory");
+                args = g_list_insert (args, arg, 1);
+            }
+        }
+    }
+        
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_print ("Terminal commad: [%s]\n", cmd);
 #endif

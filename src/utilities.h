@@ -267,4 +267,11 @@ gchar *get_relative_file_name(gchar *dir, gchar *file);
 /* Checks if the file exists in the given directory or any of it's subdirectories */
 gboolean is_file_in_dir(const gchar *file, const gchar *dir);
 
+/* Check which gnome-terminal is installed
+ Returns: 0 -- No gnome-terminal
+ Returns: 1 -- Gnome1 gnome-terminal
+ Returns: 2 -- Gnome2 gnome-terminal */
+
+gint anjuta_util_check_gnome_terminal (void);
+
 #endif

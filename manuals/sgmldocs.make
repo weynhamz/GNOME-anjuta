@@ -57,9 +57,9 @@ $(docname).sgml: $(sgml_ents)
 
 # The weird srcdir trick is because the db2html from the Cygnus RPMs
 # cannot handle relative filenames
-$(docname)/index.html: $(srcdir)/$(docname).sgml
+$(docname)/index.html: $(srcdir)/$(docname).sgml $(sgml_ents)
 	-if test -e $(docname)/index.html ; then \
-		rm $(docname)/index.html ; \
+		rm -f $(docname)/index.html ; \
 	fi
 	-srcdir=`cd $(srcdir) && pwd`; \
 	if test "$(HAVE_JW)" = 'yes' ; then \

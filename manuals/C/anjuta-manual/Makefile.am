@@ -10,6 +10,8 @@ figs = \
 	figures/configure_dlg.png\
 	figures/defines.png\
 	figures/devt_menu.png\
+    figures/editor_margins.png\
+    figures/editor_markers.png\
 	figures/evaluate.png\
 	figures/fileview.png\
 	figures/find_files.png\
@@ -20,21 +22,27 @@ figs = \
 	figures/inspect.png\
 	figures/lib_paths.png\
 	figures/libraries.png\
+    figures/local_variables.png\
 	figures/mainwin.png\
 	figures/menu_detached.png\
 	figures/menu_main.png\
 	figures/message_win.png\
 	figures/open_file.png\
+	figures/open_file_multiple.png\
 	figures/optimizations.png\
 	figures/other_opts.png\
 	figures/project_info.png\
 	figures/project_win.png\
+	figures/print_preview.png\
+	figures/print_dlg.png\
+	figures/prefs_print.png\
 	figures/registers.png\
 	figures/scrshot.png\
     figures/sharedlibs.png\
 	figures/signal_mod.png\
 	figures/signals.png\
 	figures/stack.png\
+    figures/symbol_browser.png\
 	figures/supports.png\
 	figures/toolbar_browser.png\
 	figures/toolbar_debug.png\
@@ -42,6 +50,7 @@ figs = \
 	figures/toolbar_format.png\
 	figures/toolbar_main.png\
 	figures/toolbar_tags.png\
+    figures/variable_tip.png\
 	figures/warnings.png\
 	figures/watch_add.png\
 	figures/watch.png

@@ -2,6 +2,110 @@
  <chapter id="preferences">
   <title>Preferences</title>
   <para>
-   FIXME:
+   Preferences are a way to customize <application>anjuta</application> to suit
+   your tastes. Activate <menuchoice><guimenu>Settings</guimenu><guimenuitem>Preferences</guimenuitem>
+   </menuchoice> to bring up the preferences dialog. If you want to reset the preferences to their
+   default values, it can be done from <menuchoice><guimenu>Settings</guimenu><guimenuitem>
+   Set Default Preferences</guimenuitem></menuchoice>. All the preferences groups are explained
+   below.
   </para>
+  <sect1 id="prefs-general"><title>General</title>
+    <orderedlist>
+     <listitem><para>
+      <emphasis>Project Directory</emphasis> is the path where you plan to put all your projects.
+      Application wizard creates new projects in this directory only. The default project directory
+      is ~/Projects and generally, this is just fine for most people. Also, when Open project is
+      activated, this is the base directory where the file selectior will start.
+      </para>
+     </listitem>
+     <listitem><para>
+      <emphasis>History Size</emphasis> defines the maximum history length of recent projects, recent
+      files and other combobox pop down list (eg. the search combo). Maximum possible values that 
+      could be given in these history sizes is 20. That value should be more than enough for 
+      most situations. Choose the right value for your own convenience.
+      </para>
+     </listitem>
+     <listitem><para>
+      <emphasis>Automatically load last project</emphasis>, if checked, will make <application>anjuta
+      </application> (upon starting) to load the last project it was working on before it quit. However, this thing
+      will not happen if anjuta is started with files and/or project given in command line. <application>
+      Anjuta</application> will load these command line files/projects, even if this option is set.
+      </para>
+     </listitem>
+     <listitem><para>
+      <emphasis>Build Symbol Browser Automatically</emphasis>, if checked, will make symbol browser to
+      automatically update it's database whenever necessary (for example, after some modifications in a
+      file). This makes sure that the database is kept synchronized with the current state of the source,
+      but at the cost of some additional CPU time.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Build File Browser Automatically</emphasis>, if checked, will make the file browser to
+       automatically update it's database whenever necessary (for example, file saves). This option
+       and the previous option could be disable to improve the performace a bit at the expense of 
+       some mis-synchronization. In any case, you should be able to update these database from
+       <menuchoice><guimenu>Project</guimenu><guimenuitem>Update tags image</guimenuitem></menuchoice>.
+       <menuchoice><guimenu>Project</guimenu><guimenuitem>Rebuild tags image</guimenuitem></menuchoice>
+       will build the whole database from scratch (as opposed to just updating it) and therefore takes
+       longer time to complete (but you get most up to date database).
+       </para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Update tags image automatically</emphasis>, if checked, will update the tags image
+       automatically. Disable it if you want some improved performace.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Beep on job complete</emphasis> and <emphasis>Dialog on job complete</emphasis>, if 
+       checked, will beep and/or show a dialog when a job is completed (eg. compiling, building).</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Show tooltips</emphasis>, if checked, will show tooltips on toolbar buttons (obviously).
+       Keep it checked until you find it annoying.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Use glade components (experimental)</emphasis> should not be checked normally. It's an
+       experimental feature and is not ready yet.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>User Info:</emphasis> Provide your correct Name and Email address here. They are not
+       used to do software registration (pun), rather they are used to create ChangeLog entries and other
+       insert text bits.</para>
+      </listitem>
+     </orderedlist>
+    </sect1>
+    <sect1 id="prefs-build">
+     <title>Build</title>
+     <orderedlist>
+      <listitem><para>
+       <emphasis>Keep going when some targets cannot be build</emphasis>, if checked, will invoke the
+       <application>make</application> with the -k or --keep-going option. This makes make to continue
+       the make process even if there are errors found in some rules. Without this option, make
+       terminates when it encounters the fist error. Read the <ulink type="info" url="info:indent">
+       <application>make</application> info page</ulink> for more details.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Silent do not echo commands</emphasis>, if checked, will not show the <application>
+       make</application> commands before they are executed.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Produce debugging output</emphasis>, if checked, produces lots of outputs during the
+       build. Better keep it unchecked.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Warn when an undefined variable is referenced.</emphasis> does exactly what it says
+       during the build process. Useful if you want to keep your Makefiles clean and tidy.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Autosave before Build</emphasis> will save the files before they are build, if checked.
+       This makes sure the build gets the lasted file contents.</para>
+      </listitem>
+      <listitem><para>
+       <emphasis>Max number of jobs</emphasis> gives the maximum number of jobs <application>make</application>
+       can spawn during the build process. Usually, <application>make</application> likes to spawn as many
+       processes as possible which are independent of each other. This virtually speeds up the process, can
+       can clog the CPU if run on slow computers. Give a reasonable maximum number of jobs it should
+       handle which will be comfortable with your computer. By default, it's set to 0 (zero) which means
+       infinite number of jobs can be spawned.</para>
+      </listitem>
+     </orderedlist>
+    </sect1>
  </chapter>

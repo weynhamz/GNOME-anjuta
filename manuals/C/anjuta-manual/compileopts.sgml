@@ -72,7 +72,7 @@
    </para>
    
    <important>
-   <title>Important</title>
+   <title>Available supports</title>
    <para>
     Currently, <application>Anjuta</application> has only a few library support 
 	options &mdash; Glib, GTK, GNOME and Bonobo. Some of these are not yet 
@@ -81,7 +81,7 @@
    </important>
    
    <note>
-    <title>Remember</title>
+    <title>Compiler options for supports</title>
     <para>
      Once basic library supports have been specified, there is no need to
      manually set the basic compiler options usually required for these libraries. 
@@ -143,7 +143,7 @@
    </para>
    
    <note>
-    <title>Things to note</title>
+    <title>Absolute or Relative include paths?</title>
     <para>
      If the settings are for a project, then all include paths 
      should be relative to the source directory of the project. Avoid using absolute 
@@ -218,7 +218,7 @@
    </para>
    
    <note>
-    <title>Things to note</title>
+    <title>Absolute or Relative include paths?</title>
     <para>
      If the settings are for a project, then all library paths 
      should be relative to the source directory of the project. Avoid using absolute 
@@ -292,10 +292,11 @@
       </para>
       <para>
        <note>
-        <title>Remember</title>
+        <title>Object module paths</title>
         <para>
          Object modules must be specified with an explicit path and must start
-         with an asterisk (*).
+         with an asterisk (*). Explicit path means the path should be relative path of the object
+         from the source dir and the filename should be complete (eg. ../../lib/diagram.o).
         </para>
        </note>
       </para>

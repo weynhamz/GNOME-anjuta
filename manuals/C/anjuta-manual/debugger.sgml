@@ -565,6 +565,38 @@
     </para>
    </sect3>
   </sect2>
+  <sect2 id="local-variables"><title>Local varables</title>
+   <para>
+    Local variables of the current frame (the current funtion in which the program control
+    is present), displayed and updated in the <emphasis>Locals</emphasis> pane of the
+    message manager. During execution of the program (eg. during single stepping), local
+    variables will be updated. If any varialble value was changed in the last debugging step, its
+    value will be highlight in red. The variables are presented in a tree form for easy
+    view.
+    <figure>
+      <title>Local variables</title>
+      <screenshot>
+	  <screeninfo>Local variables</screeninfo>
+       <graphic fileref="figures/local_variables" format="png" srccredit="naba">
+      </screenshot>
+    </figure>
+   </para>
+  </sect2>
+  <sect2 id="variable-tips"><title>Varables tips</title>
+   <para>
+    Variable tips is a quick way to find out the value of a variable. Hover the mouse
+    cursor over the variable name whose value you would like to have and wait for a couple
+    of seconds. The value of the variable (if availabe with the debugger) will be displayed
+    as a tip.
+    <figure>
+      <title>variable-tip</title>
+      <screenshot>
+	  <screeninfo>Variable tip</screeninfo>
+       <graphic fileref="figures/variable_tip" format="png" srccredit="naba">
+      </screenshot>
+    </figure>
+   </para>
+  </sect2>
  </sect1>
 
 <!-- ============= Debugging: Program Stack ====================== -->

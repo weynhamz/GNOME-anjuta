@@ -64,8 +64,6 @@ static gchar *
 term_commands[] = {
 	"gnome-terminal -e \"$(anjuta.current.command)\"",
 	"gnome-terminal -x sh -c \"$(anjuta.current.command)\"",
-	"gnome-terminal --disable-factory -e \"$(anjuta.current.command)\"",
-	"gnome-terminal --disable-factory -x sh -c \"$(anjuta.current.command)\"",
 	"xterm -e sh -c \"$(anjuta.current.command)\"",
 	NULL
 };

@@ -83,6 +83,7 @@ struct _Debugger
 	gboolean starting;
 	gboolean term_is_running;
 	pid_t term_pid;
+    gint gnome_terminal_type;
 };
 
 extern Debugger debugger;

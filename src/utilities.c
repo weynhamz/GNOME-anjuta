@@ -1476,11 +1476,10 @@ anjuta_util_escape_quotes(const gchar* str)
 {
 	gchar buffer[2048];
 	gint index;
-	gchar *s;
+	const gchar *s = str;
 	
 	g_return_val_if_fail(str, NULL);
 	index = 0;
-	s = str;
 	
 	while(*s) {
 		if (index > 2040)
@@ -1612,4 +1611,33 @@ anjuta_util_parse_args_from_string (gchar* string)
 		g_warning ("Unclosed quotation encountered at the end of parsing");
 	}
 	return args;
+}
+
+/* Check which gnome-terminal is installed
+ Returns: 0 -- No gnome-terminal
+ Returns: 1 -- Gnome1 gnome-terminal
+ Returns: 2 -- Gnome2 gnome-terminal */
+
+gint 
+anjuta_util_check_gnome_terminal (void)
+{
+    gchar* term_command = "gnome-terminal --version";
+    gchar* term_command2 = "gnome-terminal --diable-factory --version";
+    gint retval;
+    
+    retval = system (term_command);
+    
+    /* Command failed or gnome-terminal not found */
+    if (WEXITSTATUS(retval) != 0)
+        return 0;
+    
+    /* gnome-terminal found: Determine version 1 or 2 */
+    retval = system (term_command2);
+    
+    /* Command failed or gnome-terminal-2 not found */
+    if (WEXITSTATUS(retval) != 0)
+        return 1;
+    
+    /* gnome-terminal-2 found */
+    return 2;
 }

@@ -5,7 +5,9 @@
    <title>Starting Anjuta</title>
    <para>To start <application>Anjuta</application>, open the 
    GNOME <guimenu>Main Menu</guimenu>. <application>Anjuta</application> is 
-   found on the <guisubmenu>Development</guisubmenu> submenu. 
+   found on the <guisubmenu>Development</guisubmenu> submenu. In RedHat 8.0 or later
+   anjuta can be found in <guisubmenu>Extra</guisubmenu> submenu and then
+   <guisubmenu>Programming</guisubmenu> submenu.
    </para>
     <figure id="anjutaicon">
       <title>Anjuta application icon</title>
@@ -16,7 +18,10 @@
     </figure>
    <para>
    Click on the <application>Anjuta</application> icon to start. The IDE (<emphasis>Integrated 
-   Development Environment</emphasis>) will open.
+   Development Environment</emphasis>) will open. Alternatively, <application>anjuta</application>
+   can be started from a terminal by issuing the command <command>anjuta</command>.
+   If <application>anjuta</application> us started for the first time, it will greet you with
+	a welcome message.
    </para>
   </sect1>
   <sect1 id="menu">
@@ -58,12 +63,60 @@
 	
    <para>
     Shortcut keys are available for	many of the menu options. All of the shortcut 
-	keys are shown alongside the corresponding menu items. A complete reference to 
-	the shortcut keys is also available in section (FIXME!). 
+	keys are shown alongside the corresponding menu items. A useful reference to 
+	the shortcut keys which are not directly attachted with the menu is also available
+	in the next section. 
    </para>
 	
   </sect1>
-
+<!-- ============= Getting Familiar: Shortcuts  ============-->
+  <sect1 id="shortcuts">
+   <title>Useful Shortcuts</title>
+   <para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       <emphasis>Switch Editor page:</emphasis> ALT-TAB (forward) and ALT-SHIFT-TAB (backward) -- The pages could
+	   also be switched by right clicking on the notebook tabs and selecting an editor tab
+	   (useful when all the tabs in the editor are not visible at once). Some desktop configuration
+	   may already have these shortcut keys assigned. In that case, you will need to reconfigure them
+	   (not in anjuta, because they are fixed) if you want to avail these shortcuts.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+	   <emphasis>Context Help:</emphasis> CTRL-H -- Keep the cursor on the word (for example, the
+	   function name) for which you want to get the API help and press the shortcut. Context help
+	   only works if you have <application>DevHelp</application> installed. If you do not have
+	   <application>DevHelp</application> installed, the context help menu and toolbar button
+	   will be inactive. You can get it from <application>DevHelp</application>
+	   website. You will also have to install the related <application>DevHelp</application> books.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+	  <emphasis>Auto complete:</emphasis> CTRL-ENTER -- Press the shortcut with the cursor placed
+	  at the end of incomplete word and a list of words matching the remaining part will appear.
+	  Scroll and select the right word from the list if you find one.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+	  <emphasis>More shortcus:</emphasis> Look for the shortcut keys displayed on right side
+	  of the menu item labels. They could also be changed as explained in the tip below.
+      </para>
+     </listitem>
+    </itemizedlist>
+   <tip>
+   <title>Customize shortcuts</title>
+   <para>
+   You can change the default shortcuts by hovering the mouse over the menu item
+   and pressing the new key combination. Those shortcuts which do not have corrosponding
+   menu items can not be changed.
+   </para>
+   </tip>
+   </para>
+  </sect1>
 <!-- ============= Getting Familiar: Toolbars  ============-->
   <sect1 id="toolbars">
    <title>Toolbars</title>
@@ -201,7 +254,7 @@
     </orderedlist>
    </para>
    <tip>
-   <title>Tip</title>
+   <title>Detacting Frames</title>
    <para>
     All three frames are resizable and detachable. Try adjusting them by 
 	dragging the edges (handles) which separate them. To detach, click on the 
@@ -209,7 +262,7 @@
    </para>
    </tip>
    <note>
-   <title>Note</title>
+   <title>Session management</title>
    <para>
    All of the settings, including the window sizes and window positions, are 
    saved when you exit <application>Anjuta</application>. Session management is still 

@@ -1,3 +1,44 @@
+2002-10-28  Naba Kumar <naba@gnome.org>
+
+    * manuals/C/anjuta-manual/figures/editor_guides.png,
+    manuals/C/anjuta-manual/figures/editor_margins.png,
+    manuals/C/anjuta-manual/figures/editor_markers.png,
+    manuals/C/anjuta-manual/figures/local_variables.png,
+    manuals/C/anjuta-manual/figures/open_file_multiple.png,
+    manuals/C/anjuta-manual/figures/prefs_print.png,
+    manuals/C/anjuta-manual/figures/print_dlg.png,
+    manuals/C/anjuta-manual/figures/print_preview.png,
+    manuals/C/anjuta-manual/figures/symbol_browser.png,
+    manuals/C/anjuta-manual/figures/variable_tip.png: New png
+    files for manual documentation.
+    
+    * manuals/sgmldocs.make,
+    manuals/C/anjuta-manual/Makefile.am,
+    manuals/C/anjuta-manual/authors.sgml,
+    manuals/C/anjuta-manual/build.sgml,
+    manuals/C/anjuta-manual/compileopts.sgml,
+    manuals/C/anjuta-manual/debugger.sgml,
+    manuals/C/anjuta-manual/execute.sgml,
+    manuals/C/anjuta-manual/fileoperations.sgml,
+    manuals/C/anjuta-manual/interface.sgml,
+    manuals/C/anjuta-manual/preferences.sgml,
+    manuals/C/anjuta-manual/projects.sgml,
+    manuals/C/anjuta-manual/figures/arguments.png,
+    manuals/C/anjuta-manual/figures/open_file.png,
+    manuals/C/anjuta-manual/figures/other_opts.png,
+    manuals/C/anjuta-manual/figures/scrshot.png,
+    manuals/C/anjuta-manual/figures/toolbar_browser.png,
+    manuals/C/anjuta-manual/figures/toolbar_tags.png:
+    
+    Updated anjuta manual documentation.
+
+    
+2002-10-27  Naba Kumar <naba@gnome.org>
+
+    * utilities.[h,c], debugger.[h,c], commands.c: Added gnome-terminal
+    check and modifies debugger terminal command accordingly
+    to function properly.
+    
 2002-10-25  Naba Kumar <naba@gnome.org>
 
 	* manuals/sgmldocs.make: Fixed a couple of bugs.

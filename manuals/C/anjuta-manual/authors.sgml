@@ -27,7 +27,7 @@
 
    <para>
     For more information on <application>Anjuta</application>, please visit the project 
-    website at <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.sourceforge.net</ulink>. 
+    website at <ulink type="http" url="http://anjuta.sourceforge.net">http://anjuta.org</ulink>. 
     Bug reports should be made using the Bug Tracker at the project development site 
     <ulink type="http" url="http://www.sourceforge.net/projects/anjuta">
     http://www.sourceforge.net/projects/anjuta</ulink>
@@ -35,7 +35,7 @@
    
    <para>
     This manual was written by Naba Kumar and Andy Piper. Please send all comments and suggestions regarding 
-    this manual to Andy Piper <email>andy.piper@freeuk.com</email>. Comments may also be submitted via the 
+    this manual to Anjuta Devel list <email>anjuta-devel@list.sourceforge.net</email>. Comments may also be submitted via the 
     project trackers at SourceForge.
    </para> 
 </chapter>
