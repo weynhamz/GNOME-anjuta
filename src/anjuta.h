@@ -22,7 +22,7 @@
 #include <gmodule.h>
 
 #include <glade/glade.h>
-#include <gdl-icons.h>
+#include <gdl/gdl-icons.h>
 
 #include "toolbar.h"
 #include "text_editor.h"

@@ -27,7 +27,7 @@
 
 #include <glib-object.h>
 #include <gtk/gtktypeutils.h>
-#include "gdl-dock-object.h"
+#include <gdl/gdl-dock-object.h>
 
 
 G_BEGIN_DECLS

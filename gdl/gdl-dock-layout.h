@@ -25,8 +25,8 @@
 #define __GDL_DOCK_LAYOUT_H__
 
 #include <glib-object.h>
-#include "gdl-dock-master.h"
-#include "gdl-dock.h"
+#include <gdl/gdl-dock-master.h>
+#include <gdl/gdl-dock.h>
 
 G_BEGIN_DECLS
 

@@ -25,7 +25,7 @@
 #ifndef __GDL_DOCK_PANED_H__
 #define __GDL_DOCK_PANED_H__
 
-#include "gdl-dock-item.h"
+#include <gdl/gdl-dock-item.h>
 
 G_BEGIN_DECLS
 

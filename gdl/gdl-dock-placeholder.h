@@ -25,7 +25,7 @@
 #ifndef __GDL_DOCK_PLACEHOLDER_H__
 #define __GDL_DOCK_PLACEHOLDER_H__
 
-#include "gdl-dock-object.h"
+#include <gdl/gdl-dock-object.h>
 
 G_BEGIN_DECLS
 

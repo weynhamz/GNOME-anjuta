@@ -30,7 +30,7 @@
 #ifndef __GDL_DOCK_ITEM_H__
 #define __GDL_DOCK_ITEM_H__
 
-#include "gdl-dock-object.h"
+#include <gdl/gdl-dock-object.h>
 
 G_BEGIN_DECLS
 

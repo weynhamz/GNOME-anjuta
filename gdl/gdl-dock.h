@@ -24,9 +24,9 @@
 #define __GDL_DOCK_H__
 
 #include <gtk/gtk.h>
-#include "gdl-dock-object.h"
-#include "gdl-dock-item.h"
-#include "gdl-dock-placeholder.h"
+#include <gdl/gdl-dock-object.h>
+#include <gdl/gdl-dock-item.h>
+#include <gdl/gdl-dock-placeholder.h>
 
 G_BEGIN_DECLS
 

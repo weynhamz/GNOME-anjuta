@@ -500,6 +500,7 @@ tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile
 scintilla/Makefile
+gdl/Makefile
 widgets/Makefile
 printing/Makefile
 omf-install/Makefile

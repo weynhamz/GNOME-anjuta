@@ -23,16 +23,16 @@
 #ifndef __GDL_H__
 #define __GDL_H__
 
-#include <gdl-tools.h>
-#include <gdl-icons.h>
-#include <gdl-dock-object.h>
-#include <gdl-dock-master.h>
-#include <gdl-dock.h>
-#include <gdl-dock-item.h>
-#include <gdl-dock-item-grip.h>
-#include <gdl-dock-layout.h>
-#include <gdl-dock-paned.h>
-#include <gdl-dock-notebook.h>
-#include <gdl-dock-tablabel.h>
+#include <gdl/gdl-tools.h>
+#include <gdl/gdl-icons.h>
+#include <gdl/gdl-dock-object.h>
+#include <gdl/gdl-dock-master.h>
+#include <gdl/gdl-dock.h>
+#include <gdl/gdl-dock-item.h>
+#include <gdl/gdl-dock-item-grip.h>
+#include <gdl/gdl-dock-layout.h>
+#include <gdl/gdl-dock-paned.h>
+#include <gdl/gdl-dock-notebook.h>
+#include <gdl/gdl-dock-tablabel.h>
 
 #endif

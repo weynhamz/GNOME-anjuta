@@ -15,8 +15,6 @@
 #include "cvs_gui.h"
 #include "properties.h"
 
-#include "gdl-icons.h"
-
 #include "an_file_view.h"
 
 enum {

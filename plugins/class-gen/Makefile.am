@@ -25,7 +25,7 @@ libanjuta_clsGen_la_SOURCES = clsGen.c
 
 INCLUDES = 						\
 	-I$(ANJUTA_SRC_DIR)				\
-	-I$(top_srcdir)/widgets				\
+	-I$(top_srcdir)	\
 	-I$(top_srcdir)/tagmanager/include      \
 	-DGNOMELOCALEDIR=\""$(datadir)/locale"\" 	\
 	-DVERSION=\""$(VERSION)"\"             		\

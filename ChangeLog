@@ -5,6 +5,7 @@
 	src/anjuta.h, src/project_dbase.c: Use default GNOME icons.
 	* gdl/*, widgets/*, Makefile.am, configure.in, plugins/*/Makefile.am,
 	src/makefile.am: Move gdl to it's own directory.
+	* global-tags/create_global_tags.sh: Silently ignore SDL error.
 
 2003-04-09  Naba Kumar  <naba@gnome.org>
 

@@ -14,7 +14,7 @@
 #define _GDL_DOCK_ITEM_GRIP_H_
 
 #include <gtk/gtkwidget.h>
-#include "gdl-dock-item.h"
+#include <gdl/gdl-dock-item.h>
 
 G_BEGIN_DECLS
 

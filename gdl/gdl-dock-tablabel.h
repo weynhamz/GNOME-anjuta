@@ -26,7 +26,7 @@
 #define __GDL_DOCK_TABLABEL_H__
 
 #include <gtk/gtk.h>
-#include "gdl-dock-item.h"
+#include <gdl/gdl-dock-item.h>
 
 
 G_BEGIN_DECLS

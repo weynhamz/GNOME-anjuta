@@ -238,5 +238,6 @@ anjuta_LDADD =  \
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\
+	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
