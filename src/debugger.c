@@ -664,7 +664,7 @@ debugger_start (gchar * prog)
 	{
 		messages_append (app->messages,
 				 _
-				 ("There was an error whilst launching the debugger!!\n"),
+				 ("There was an error whilst launching the debugger.\n"),
 				 MESSAGE_DEBUG);
 		messages_append (app->messages,
 				 _
@@ -940,7 +940,7 @@ gdb_terminated (int status, time_t t)
 	/* Good Bye message */
 	messages_append (app->messages,
 			 _
-			 ("\nWell, did you find the BUG? :: Debugging session completed.\n\n"),
+			 ("\nWell, did you find the BUG? Debugging session completed.\n\n"),
 			 MESSAGE_DEBUG);
 	/* Ready to start again */
 	cpu_registers_clear (debugger.cpu_registers);
@@ -1337,7 +1337,7 @@ debugger_attach_process (gint pid)
 	}
 	else if (getpid () == pid || launcher_get_child_pid () == pid)
 	{
-		anjuta_error (_("You FOOL! I can not attach to myself."));
+		anjuta_error (_("Anjuta is unable to attach to itself."));
 		return;
 	}
 	else
@@ -1801,7 +1801,7 @@ debugger_signal (gchar * sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 		{
 			messagebox (GNOME_MESSAGE_BOX_ERROR,
 				    _
-				    ("There was an error whilst signaling the process."));
+				    ("There was an error whilst signalling the process."));
 		}
 	}
 }

@@ -60,7 +60,7 @@
 /* marker fore and back colors */
 static glong marker_prop[] = 
 {
-	SC_MARK_ROUNDRECT, 0x00007f, 0xffff80,			/* Book mark */
+	SC_MARK_ROUNDRECT, 0x00007f, 0xffff80,			/* Bookmark */
 	SC_MARK_CIRCLE, 0x00007f, 0xff80ff,		/* Breakpoint mark */
 	SC_MARK_SHORTARROW, 0x00007f, 0x00ffff,	/* Line mark */
 	MARKER_PROP_END,	/* end */
@@ -144,7 +144,7 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 		te->geom.height = 400;
 	}
 
-	/* Editor is created here and not in create_text_editot_gui() */
+	/* Editor is created here and not in create_text_editor_gui() */
 	te->editor_id = aneditor_new (prop_get_pointer (te->props_base));
 	/*
 	aneditor_command (te->editor_id, ANE_SETACCELGROUP,
@@ -437,9 +437,9 @@ text_editor_set_marker (TextEditor *te, glong line, gint marker)
 	g_return_val_if_fail (te != NULL, -1);
 	g_return_val_if_fail(IS_SCINTILLA (te->widgets.editor) == TRUE, -1);
 
-	/* Scintilla interpretes line+1 rather than line */
+	/* Scintilla interprets line+1 rather than line */
 	/* A bug perhaps */
-	/* So counter balance it with line-1 */
+	/* So counterbalance it with line-1 */
 	/* Using the macros linenum_* */
 	return scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_MARKERADD,
 		linenum_text_editor_to_scintilla (line), marker);
@@ -465,7 +465,7 @@ text_editor_set_line_marker (TextEditor *te, glong line)
  * instead of <LF>.
  * The DOS_EOL_CHECK-checkbox will be set on loading a DOS-file.
  *
- *  23.Sep.2001  Denis Boehme<boehme at syncio dot de>
+ *  23.Sep.2001  Denis Boehme <boehme at syncio dot de>
  */
 
 /*
@@ -638,7 +638,7 @@ load_from_file (TextEditor * te, gchar * fn)
 	if (buffer == NULL && size != 0)
 	{
 		/* This is funny in unix, but never hurts */
-		g_warning ("This file is too big. Unable to allocate memory");
+		g_warning ("This file is too big. Unable to allocate memory.");
 		return FALSE;
 	}
 	fp = fopen (fn, "rb");
@@ -749,7 +749,7 @@ save_to_file (TextEditor * te, gchar * fn)
 		dos_text = preferences_get_int( te->preferences, DOS_EOL_CHECK );
 		if (size != nchars)
 			g_warning
-				("Text length and no. of bytes saved is not equal");
+				("Text length and number of bytes saved is not equal");
 //		size = fwrite (data, size, 1, fp);
 		size = save_filtered( fp, data, size, dos_text );
 		g_free (data);
@@ -772,7 +772,7 @@ text_editor_load_file (TextEditor * te)
 		return FALSE;
 	if (IS_SCINTILLA (te->widgets.editor) == FALSE)
 		return FALSE;
-	anjuta_status (_("Loading File ..."));
+	anjuta_status (_("Loading file ..."));
 	text_editor_freeze (te);
 	anjuta_set_busy ();
 	te->modified_time = time (NULL);
@@ -807,7 +807,7 @@ text_editor_load_file (TextEditor * te)
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
 	}
-	anjuta_status (_("File Loaded Successfully"));
+	anjuta_status (_("File loaded successfully"));
 	return TRUE;
 }
 
@@ -822,12 +822,12 @@ text_editor_save_file (TextEditor * te)
 		return FALSE;
 	anjuta_set_busy ();
 	text_editor_freeze (te);
-	anjuta_status (_("Saving File ..."));
+	anjuta_status (_("Saving file ..."));
 	if (save_to_file (te, te->full_filename) == FALSE)
 	{
 		text_editor_thaw (te);
 		anjuta_set_active ();
-		anjuta_system_error (errno, _("Couldn't save file: %s."), te->full_filename);
+		anjuta_system_error (errno, _("Could not save file: %s."), te->full_filename);
 		return FALSE;
 	}
 	else
@@ -854,7 +854,7 @@ text_editor_save_file (TextEditor * te)
 		scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_SETSAVEPOINT, 0, 0);
 		anjuta_set_active ();
-		anjuta_status (_("File Saved successfully"));
+		anjuta_status (_("File saved successfully"));
 		return TRUE;
 	}
 }
@@ -950,7 +950,7 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 			buff =
 				g_strdup_printf (_
 						 ("WARNING: The file \"%s\" in the disk is more recent "
-						  "than\nthe current buffer.\nDo you want to reload it."),
+						  "than\nthe current buffer.\nDo you want to reload it?"),
 				te->filename);
 			messagebox2 (GNOME_MESSAGE_BOX_WARNING, buff,
 					 GNOME_STOCK_BUTTON_YES,
@@ -1065,13 +1065,13 @@ text_editor_autoformat (TextEditor * te)
 		return;
 	if (preferences_get_int (app->preferences, AUTOFORMAT_DISABLE))
 	{
-		anjuta_warning (_("Autoformat is disablde. If you want, enable in Preferences."));
+		anjuta_warning (_("Auto format is currently disabled. Change the setting in Preferences."));
 		return;
 	}
 	if (te == NULL)
 		return;
 
-	anjuta_status (_("Auto formating ..."));
+	anjuta_status (_("Auto formatting ..."));
 	anjuta_set_busy ();
 	text_editor_freeze (te);
 	file = get_a_tmp_file ();
@@ -1081,7 +1081,7 @@ text_editor_autoformat (TextEditor * te)
 		g_free (file);
 		text_editor_thaw (te);
 		anjuta_set_active ();
-		anjuta_warning (_("Error in auto formating ..."));
+		anjuta_warning (_("Error in auto formatting ..."));
 		return;
 	}
 
@@ -1108,13 +1108,13 @@ text_editor_autoformat (TextEditor * te)
 				SCI_BEGINUNDOACTION, 0, 0);
 	if (load_from_file (te, file) == FALSE)
 	{
-		anjuta_warning (_("Error in auto formating ..."));
+		anjuta_warning (_("Error in auto formatting ..."));
 	}
 	else
 	{
 		text_editor_set_hilite_type (te);
 		gtk_widget_queue_draw (te->widgets.editor);
-		anjuta_status (_("Auto formating completed"));
+		anjuta_status (_("Auto formatting completed"));
 	}
 	remove (file);
 	g_free (file);

@@ -1,5 +1,11 @@
 2001-12-23	Andy Piper	<andy.piper@freeuk.com>
 
+	* src/debugger.c, src/text_editor.c, src/anjuta.c, 
+	  data/anjuta.properties, data/internal.properties: clean up some 
+	  message strings (me)
+
+2001-12-23	Andy Piper	<andy.piper@freeuk.com>
+
 	* src/about.c, THANKS: added Jens to the credits
 	
 2001-12-23	Andy Piper	<andy.piper@freeuk.com>

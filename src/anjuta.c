@@ -221,7 +221,7 @@ anjuta_new ()
 	else
 	{
 		app = NULL;
-		g_error (_("Cannot create application...exiting\n"));
+		g_error (_("Cannot create application... exiting\n"));
 	}
 }
 
@@ -863,7 +863,7 @@ anjuta_update_title ()
 			if (te->full_filename)
 			{
 				buff1 =
-					g_strdup_printf (_("Anjuta: %s(Saved)"),
+					g_strdup_printf (_("Anjuta: %s (Saved)"),
 							 te->full_filename);
 			} else
 			{
@@ -878,7 +878,7 @@ anjuta_update_title ()
 			if (te->full_filename)
 			{
 				buff1 =
-					g_strdup_printf (_("Anjuta: %s(Unsaved)"),
+					g_strdup_printf (_("Anjuta: %s (Unsaved)"),
 							 te->full_filename);
 			}
 			else
@@ -1678,7 +1678,7 @@ gboolean anjuta_is_installed (gchar * prog, gboolean show)
 	if (show)
 	{
 		anjuta_error (_
-					 ("You do not have \"%s\" installed in your box.\n"
+					 ("The \"%s\" utility is not installed.\n"
 					  "Install it and then restart Anjuta."), prog);
 	}
 	return FALSE;
