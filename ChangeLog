@@ -1,3 +1,8 @@
+2001-10-21  Abel Cheung  <maddog@linux.org.hk>
+
+	* THANKS: added Joe Man for his traditional Chinese translation.
+	* configure.in: added zh_TW in ALL_LINGUAS.
+
 2001-10-18  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Applied patch from Rickul
