@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.7\n"
-"POT-Creation-Date: 2001-09-02 16:59+0200\n"
+"POT-Creation-Date: 2001-09-04 20:13+0200\n"
 "PO-Revision-Date: 2001-03-29 09:41+0200\n"
 "Last-Translator: M.Ali Vardar <ali@gelecek.com.tr>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 "Birkaç dosya (veya proje) kaydedilmemiþ.\n"
 "Çýkmak istediðinizden eminmisiniz?"
 
-#: src/anjuta_cbs.c:192 src/project_dbase_gui.c:1315
+#: src/anjuta_cbs.c:192 src/project_dbase_gui.c:1329
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "%s dosyasý normal deðil"
@@ -125,8 +125,8 @@ msgid "Unable to create settings directory.\n"
 msgstr "Oluþturulan ayarlar dizinine ulaþýlamadý\n"
 
 #: src/anjuta_info.c:43 src/anjuta_info.c:89
-msgid "Informat_ion"
-msgstr "B_ilgi"
+msgid "Information"
+msgstr "Bilgi"
 
 #: src/appwiz_page1.c:95
 msgid "Select the type of application you want to develop"
@@ -281,7 +281,7 @@ msgstr "Dil:       "
 msgid "Gettext support: "
 msgstr "Gettext desteði: "
 
-#: src/appwizard_gui.c:33
+#: src/appwizard_gui.c:36
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for your application, including all\n"
@@ -305,32 +305,31 @@ msgstr ""
 "\n"
 "Ýleri yazýsýný týklayarak baþlayabilirsiniz"
 
-
-#: src/appwizard_gui.c:97
+#: src/appwizard_gui.c:100
 msgid "Application Wizard"
 msgstr "Uygulama Sihirbazý "
 
-#: src/appwizard_gui.c:123
+#: src/appwizard_gui.c:126
 msgid "Application Wizard:     Page 1 of 6"
 msgstr "Uygulama Sihirbazý :   Sayfa 6 nýn 1"
 
-#: src/appwizard_gui.c:152
+#: src/appwizard_gui.c:155
 msgid "Application Wizard:     Page 2 of 6"
 msgstr "Uygulama Sihirbazý :   Sayfa 6 nýn 2"
 
-#: src/appwizard_gui.c:176
+#: src/appwizard_gui.c:179
 msgid "Application Wizard:     Page 3 of 6"
 msgstr "Uygulama Sihirbazý :   Sayfa 6 nýn 3"
 
-#: src/appwizard_gui.c:201
+#: src/appwizard_gui.c:204
 msgid "Application Wizard:     Page 4 of 6"
 msgstr "Uygulama Sihirbazý :   Sayfa 6 nýn 4"
 
-#: src/appwizard_gui.c:225
+#: src/appwizard_gui.c:228
 msgid "Application Wizard:     Page 5 of 6"
 msgstr "Uygulama Sihirbazý :   Sayfa 6 nýn 5"
 
-#: src/appwizard_gui.c:248
+#: src/appwizard_gui.c:251
 msgid "Application Wizard:     Page 6 of 6"
 msgstr "Uygulama Sihirbazý :   Sayfa 6 nýn 6"
 
@@ -1177,6 +1176,7 @@ msgstr ""
 "lütfen önce onu durdurun sonra EXEC dosyayý yükleyin"
 
 #: src/debugger.c:577
+#, c-format
 msgid ""
 "I can not find: %s.\n"
 "Unable to initialize Debugger. :-(\n"
@@ -4010,7 +4010,8 @@ msgstr "Bu dosya projeye zaten eklendi."
 msgid "Error while copying the file inside the module."
 msgstr "Modül içine dosya kopyalarken hata oluþtu."
 
-#: src/project_dbase_gui.c:1323
+#: src/project_dbase_gui.c:1337
+#, c-format
 msgid ""
 "\"%s\"\n"
 "does not exist in the current module directory.\n"
