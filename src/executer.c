@@ -33,6 +33,8 @@
 #include "executer.h"
 #include "resources.h"
 
+#define DEBUG
+
 static GtkWidget* create_executer_dialog(Executer*);
 
 static const gchar szRunInTerminalItem[] = {"RunInTerminal"};
@@ -216,10 +218,31 @@ on_executer_checkbutton_toggled (GtkToggleButton * togglebutton,
 	e->terminal = gtk_toggle_button_get_active (togglebutton);
 }
 
+static gchar*
+escape_quotes(gchar* str)
+{
+		gchar buffer[2048];
+		gint index;
+		gchar *s = str;
+		
+		index = 0;
+		
+		while(s) {
+			if (index > 2040)
+				break;
+			if (*s == '\"' || *s == '\'')
+				buffer[index++] = '\\';
+			buffer[index++] = *s;
+			s++;
+		}
+		buffer[index] = '\0';
+		return g_strdup(buffer);
+}
+
 void
 executer_execute (Executer * e)
 {
-	gchar *dir, *cmd, *command;
+	gchar *dir, *cmd, *command, *escaped_cmd;
 
 	/* Doing some checks before actualing starting */
 	if (app->project_dbase->project_is_open) /* Project mode */
@@ -323,6 +346,19 @@ executer_execute (Executer * e)
 		dir = g_dirname (te->full_filename);
 	}
 	command = g_strconcat ("anjuta_launcher ", cmd, NULL);
+
+#ifdef DEBUG
+	g_message("Raw Command is: %s", command);
+#endif
+	
+	escaped_cmd = escape_quotes(command);
+	g_free(command);
+	command = escaped_cmd;
+
+#ifdef DEBUG
+	g_message("Raw Command is: %s", command);
+#endif
+	
 	prop_set_with_key (e->props, "anjuta.current.command", command);
 	string_free (cmd);
 	
@@ -331,6 +367,11 @@ executer_execute (Executer * e)
 		cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
 	else
 		cmd = g_strdup (command);
+
+#ifdef DEBUG
+	g_message("Command is: %s", cmd);
+#endif
+	
 	anjuta_set_execution_dir (dir);
 	if (dir) chdir (dir);
 	gnome_execute_shell (dir, cmd);

@@ -27,6 +27,8 @@
 #include <stdio.h>
 #include <glib.h>
 
+#define DEBUG
+
 int
 main (int argc, char **argv)
 {

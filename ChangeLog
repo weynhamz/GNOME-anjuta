@@ -1,5 +1,18 @@
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* data/properties/anjuta.properties, ada.properties, cpp.properties,
+	  java, properties, latex.properties, lua.properties, others.properties,
+	  perl.properties:
+	  
+	  Added double-quotes around file arguments so that
+	  filenames with spaces could also work.
+
+	* launcher/anjuta-launcher.c, executer.c:
+	  Escaped quotes in the cammand and it's arguments before executing
+	  so that args with spaces can also work.
+	  
+2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* scripts/*: Added files which I forgot previously.
 	
 	* src/aneditor.h: Lined up commands definition for better look.
