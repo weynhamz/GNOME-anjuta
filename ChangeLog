@@ -6,6 +6,9 @@
 	  src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
 	  src/mainmenu_callbacks.c, src/mainmenu_callbacks.h:
 	  
+	  Menuitem for entering currently selected text as find target,
+	  added key accel for "find next" and changed some key accels for
+	  other key for consistency.
 	  
 	* src/utilities.c:
 	  Cleaned up code.
