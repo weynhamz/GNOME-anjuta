@@ -37,7 +37,7 @@
 #include "fileselection.h"
 #include "anjuta_info.h"
 
-/* #define ANJUTA_DEBUG_DEBUGGER */
+#define ANJUTA_DEBUG_DEBUGGER
 
 static void locals_update_controls(void);
 
@@ -1024,7 +1024,8 @@ debugger_dialog_error (GList * lines, gpointer data)
 				     "\n", NULL);
 		g_free (tmp);
 	}
-	anjuta_error (ptr);
+	if (strstr (ptr, ": No such file or directory.") == NULL)
+		anjuta_error (ptr);
 	g_free (ptr);
 }
 
@@ -1038,8 +1039,16 @@ on_debugger_terminal_terminated (int status, gpointer data)
 	
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
+	/* FIXME: It does not really stop the program
+	   instead the prog get SIGTERM and debugger still
+	   continues to run it. Disabling for now, as it
+	   is not necessary that the program should terminate
+	   when the terminal terminates.
+	*/
+/*	
 	if (debugger.prog_is_running)
 		debugger_stop_program ();
+*/
 }
 
 gchar *
@@ -1253,7 +1262,20 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 			goto down;
 		}
 	}
-	else if ((str = strstr (lines->data, "thread "))) /* A quick hack for threaded program */
+	else if ((str = strstr (lines->data, "thread "))
+			&& strstr (lines->data, "(lwp ")) /* A quick hack for threaded program (I)*/
+	{
+		/* FIXME: Don't know what to do with this variable, but may
+		   come handy in future */
+		glong thread;
+		
+		if (sscanf (str, "thread %ld (lwp %ld)", &thread, &pid) != 2)
+		{
+			error = TRUE;
+			goto down;
+		}
+	}
+	else if ((str = strstr (lines->data, "thread "))) /* A quick hack for threaded program (II)*/
 	{
 		if (sscanf (str, "thread %ld", &pid) != 1)
 		{
@@ -1266,7 +1288,6 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 		error = TRUE;
 		goto down;
 	}
-
  down:
 	if (error)
 	{
@@ -1277,6 +1298,9 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 	}
 	else
 	{
+#ifdef ANJUTA_DEBUG_DEBUGGER
+	printf("Process PID = %ld\n", pid);
+#endif
 		debugger.prog_is_running = TRUE;
 		debugger.child_pid = pid;
 		debugger.stack->current_frame = 0;

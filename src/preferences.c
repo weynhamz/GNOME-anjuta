@@ -710,21 +710,30 @@ preferences_sync (Preferences * pr)
 
 	/* Page Identification */
 	str = preferences_get (pr, IDENT_NAME);
-	if (!str)
-		str = getenv("USERNAME");
-	if (!str)
-		str = getenv("USER");
+	if (!str) {
+		gchar *uname;
+		uname = getenv("USERNAME");
+		if (!uname)
+			uname = getenv("USER");
+		if (!uname)
+			uname = "Unknown";
+		str = g_strdup (uname);
+	}
 	gtk_entry_set_text (GTK_ENTRY (pr->widgets.name_entry), str);
-  g_free(str);
+	g_free(str);
+	
 	str2 = preferences_get (pr, IDENT_EMAIL);
 	if (!str2)
 	{
 		str2 = getenv("HOSTNAME");
+		if (!str2)
+			str2 = "hostname.org";
 		str = getenv("USERNAME");
 		if (!str)
 			str = getenv("USER");
+		if (!str)
+			str = "user";
 		str2 = g_strconcat(str, "@", str2, NULL);
-		g_free(str);
 	}
 	gtk_entry_set_text (GTK_ENTRY (pr->widgets.email_entry), str2);
 	g_free(str2);

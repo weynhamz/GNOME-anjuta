@@ -41,8 +41,8 @@ signals_new ()
     ew->is_showing = FALSE;
     ew->win_width = 460;
     ew->win_height = 320;
-    ew->win_pos_x = 50;
-    ew->win_pos_x = 130;
+    ew->win_pos_x = 150;
+    ew->win_pos_y = 130;
     ew->index = -1;
     create_signals_gui (ew);
   }
@@ -166,10 +166,10 @@ signals_load_yourself (Signals * ew, PropsID props)
 {
 	if (!ew) return FALSE;
 	
-	ew->win_pos_x = prop_get_int (props, "signals.win.pos.x", 460);
-	ew->win_pos_y = prop_get_int (props, "signals.win.pos.y", 320);
-	ew->win_width = prop_get_int (props, "signals.win.width", 50);
-	ew->win_height = prop_get_int (props, "signals.win.height", 130);
+	ew->win_pos_x = prop_get_int (props, "signals.win.pos.x", 150);
+	ew->win_pos_y = prop_get_int (props, "signals.win.pos.y", 130);
+	ew->win_width = prop_get_int (props, "signals.win.width", 460);
+	ew->win_height = prop_get_int (props, "signals.win.height", 320);
 	return TRUE;
 }
 

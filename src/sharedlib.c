@@ -40,7 +40,7 @@ Sharedlibs* sharedlibs_new()
 	 ew->win_width = 410;
      ew->win_height = 370;
      ew->win_pos_x = 120;
-     ew->win_pos_x = 140;
+     ew->win_pos_y = 140;
      create_sharedlibs_gui(ew);
   }
   return ew;
@@ -134,10 +134,10 @@ sharedlibs_load_yourself(Sharedlibs* ew, PropsID props)
 {
 	if (!ew) return FALSE;
 	
-	ew->win_pos_x = prop_get_int (props, "sharedlibs.win.pos.x", 410);
-	ew->win_pos_y = prop_get_int (props, "sharedlibs.win.pos.y", 370);
-	ew->win_width = prop_get_int (props, "sharedlibs.win.width", 120);
-	ew->win_height = prop_get_int (props, "sharedlibs.win.height", 140);
+	ew->win_pos_x = prop_get_int (props, "sharedlibs.win.pos.x", 120);
+	ew->win_pos_y = prop_get_int (props, "sharedlibs.win.pos.y", 140);
+	ew->win_width = prop_get_int (props, "sharedlibs.win.width", 410);
+	ew->win_height = prop_get_int (props, "sharedlibs.win.height", 370);
 	return TRUE;
 }
 

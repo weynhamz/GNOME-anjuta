@@ -1,3 +1,26 @@
+2002-06-08  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/debugger.c: Fixed the signaling screw up because of string
+	update in gdb used to report the child process PID. Also, no
+	error dialog will be poped up for "no such file or directory"
+	error (very annoying and useless error). This error will still
+	be shown on the debug message window. Avoided terminating the
+	program when the terminal is terminated -- doesn't hurt, otherwise
+	we get crappy egg-and-hen problem.
+	
+	* src/sharedlib.c, src/signals.c: Fixed the incorrect defalut window
+	dimensions loading.
+	
+	* src/anjuta.c: Limited the default size of main window to sane
+	values.
+
+	* src/preferences.c: Fixed some deadly memory curruption bugs in
+	the recent patches. Return from getenv() should NEVER be freed,
+	because they are static strings.
+	
+	* src/preferences.c: Removed the fix for crash bug with font
+	selection and applied the real fix.
+	
 2002-06-08	Andy Piper	<andy.piper@freeuk.com>
 
 	* NEWS: updated for release

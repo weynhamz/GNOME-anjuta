@@ -133,10 +133,17 @@ anjuta_new ()
 		app->cur_job = NULL;
 		app->recent_files = NULL;
 		app->recent_projects = NULL;
+		
+		app->win_pos_x = 10;
+		app->win_pos_y = 10;
 		app->win_width = gdk_screen_width () - 10;
 		app->win_height = gdk_screen_height () - 25;
+		app->win_width = (app->win_width < 790)? app->win_width : 790;
+		app->win_height = (app->win_height < 575)? app->win_width : 575;
+		
 		app->vpaned_height = app->win_height / 2 + 7;
 		app->hpaned_width = app->win_width / 4;
+		
 		app->in_progress = FALSE;
 		app->has_devhelp = anjuta_is_installed("devhelp", FALSE);
 		app->auto_gtk_update = TRUE;
@@ -989,17 +996,11 @@ gboolean anjuta_load_yourself (PropsID pr)
 
 	preferences_load_yourself (app->preferences, pr);
 	
-	app->win_pos_x = prop_get_int (pr, "anjuta.win.pos.x", 10);
-	app->win_pos_y = prop_get_int (pr, "anjuta.win.pos.y", 10);
-	app->win_width =
-		prop_get_int (pr, "anjuta.win.width",
-			      gdk_screen_width () - 10);
-	app->win_height =
-		prop_get_int (pr, "anjuta.win.height",
-			      gdk_screen_height () - 25);
-	length =
-		prop_get_int (pr, "anjuta.vpaned.size",
-			      app->win_height / 2 + 7);
+	app->win_pos_x = prop_get_int (pr, "anjuta.win.pos.x", app->win_pos_x);
+	app->win_pos_y = prop_get_int (pr, "anjuta.win.pos.y", app->win_pos_y);
+	app->win_width = prop_get_int (pr, "anjuta.win.width", app->win_width);
+	app->win_height = prop_get_int (pr, "anjuta.win.height", app->win_height);
+	length = prop_get_int (pr, "anjuta.vpaned.size", app->win_height / 2 + 7);
 	gtk_paned_set_position (GTK_PANED (app->widgets.vpaned), length);
 	length = prop_get_int (pr, "anjuta.hpaned.size", app->win_width / 4);
 	gtk_paned_set_position (GTK_PANED (app->widgets.hpaned), length);

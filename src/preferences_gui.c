@@ -772,7 +772,7 @@ create_preferences_page2 (Preferences * p)
 	fontpicker1 = gnome_font_picker_new ();
 	gtk_widget_show (fontpicker1);
 	gtk_widget_set_usize (fontpicker1, 200, -1);
-	//gnome_font_picker_set_mode (GNOME_FONT_PICKER(fontpicker1), GNOME_FONT_PICKER_MODE_FONT_INFO);
+	gnome_font_picker_set_mode (GNOME_FONT_PICKER(fontpicker1), GNOME_FONT_PICKER_MODE_FONT_INFO);
 	gnome_font_picker_fi_set_use_font_in_label (GNOME_FONT_PICKER(fontpicker1), TRUE, 14);
 	gnome_font_picker_fi_set_show_size(GNOME_FONT_PICKER(fontpicker1), FALSE);
 	gtk_table_attach (GTK_TABLE (table1), fontpicker1, 1, 2, 0, 1,
@@ -3153,7 +3153,7 @@ on_use_default_font_toggled (GtkToggleButton * tb, gpointer data)
 	state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tb));
 	if (state)
 	{
-		font_name = g_strdup_printf ("-*-%s-*-*-*-*-%d-*-*-*-*-*-*-*-", 
+		font_name = g_strdup_printf ("-*-%s-*-*-*--%d-*-*-*-*-*-*-*", 
 			p->default_style->font, p->default_style->size);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON
 			(p->widgets.font_size_spin),
@@ -3161,7 +3161,7 @@ on_use_default_font_toggled (GtkToggleButton * tb, gpointer data)
 	}
 	else
 	{
-		font_name = g_strdup_printf ("-*-%s-*-*-*-*-%d-*-*-*-*-*-*-*-", 
+		font_name = g_strdup_printf ("-*-%s-*-*-*--%d-*-*-*-*-*-*-*", 
 			p->current_style->font, p->current_style->size);
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON
 					   (p->widgets.font_size_spin),
