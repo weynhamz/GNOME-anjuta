@@ -36,40 +36,6 @@ libanjuta_debug_manager_la_SOURCES = \
 	utilities.c \
 	utilities.h
 
-#	breakpoints.c \
-#	breakpoints.h \
-#	debugger.c \
-#	debugger.h \
-#	debug_tree.c \
-#	debug_tree.h \
-#	memory.c \
-#	memory.h \
-#	plugin.c \
-#	plugin.h \
-#	registers.c \
-#	registers_cbs.c \
-#	registers_cbs.h \
-#	registers_gui.c \
-#	registers.h \
-#	sharedlib.c \
-#	sharedlib_cbs.c \
-#	sharedlib_cbs.h \
-#	sharedlib_gui.c \
-#	sharedlib.h \
-#	signals.c \
-#	signals_cbs.c \
-#	signals_cbs.h \
-#	signals_gui.c \
-#	signals.h \
-#	stack_trace.c \
-#	stack_trace.h \
-#	watch.c \
-#	watch_cbs.c \
-#	watch_cbs.h \
-#	watch_gui.c \
-#	watch_gui.h \
-#	watch.h
-
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \
 	$(plugin_in_files) \

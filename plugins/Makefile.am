@@ -13,12 +13,11 @@ SUBDIRS = . \
 	profile-default \
 	file-wizard \
 	project-manager \
-	project-manager \
-	symbol-browser
+	symbol-browser \
 	gdb \
-	debug-manger \
-	sample1
-#	cvs-plugin
+	debug-manager \
+	sample1 \
+	cvs-plugin
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

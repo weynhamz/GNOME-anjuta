@@ -1,6 +1,7 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderVersionControlMenus">
 		<menu name="MenuCVS" action="ActionMenuCVS">
 			<placeholder name="PlaceholderCVSMenus">	
 				<menuitem name="Update" action="ActionCVSUpdate" />
@@ -15,5 +16,6 @@
 				<menuitem name="ImportTree" action="ActionCVSImport" />
 			</placeholder>
 		</menu>
+		</placeholder>
 	</menubar>
 </ui>

@@ -1,4 +1,17 @@
 2004-11-08  Naba Kumar  <naba@gnome.org>
+	
+	* configure.in, plugins/Makefile.am,
+	plugins/profile-default/plugin.c: Added cvs plugin in build.
+	
+	* plugins/cvs-plugin/*: Restored johannes files from cvs attic.
+	
+	* plugins/debug-manager/.cvsignore: Added file to ignore.
+	
+	* plugins/debug-manager/Makefile.am: Removed dead codes.
+	
+	* src/anjuta.ui: Added placeholder for version control UI.
+
+2004-11-08  Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
 	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,

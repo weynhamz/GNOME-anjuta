@@ -85,6 +85,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		"IAnjutaBuildable",
 		"anjuta-debug-manager:DebugManagerPlugin",
 		"anjuta-gdb:GdbPlugin",
+		"anjuta-cvs-plugin:CVSPlugin",
 		"IAnjutaTodo",
 		NULL
 	};

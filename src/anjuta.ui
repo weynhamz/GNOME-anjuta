@@ -21,6 +21,7 @@
 		<placeholder name="PlaceHolderFormatMenus"/>
 		<placeholder name="PlaceHolderBuildMenus"/>
 		<placeholder name="PlaceHolderDebugMenus"/>
+		<placeholder name="PlaceHolderVersionControlMenus"/>
 		<placeholder name="PlaceHolderBookmarkMenus"/>
 		<menu name="MenuSettings" action="ActionMenuSettings" >
 			<menuitem name="Preferences" action="ActionSettingsPreferences" />
