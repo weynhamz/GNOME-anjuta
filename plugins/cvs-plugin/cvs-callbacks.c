@@ -70,6 +70,22 @@ static gboolean check_entry(GtkDialog* dialog, GtkWidget* entry,
 	return FALSE;
 }
 
+static gboolean 
+is_busy (CVSPlugin* plugin, GtkDialog* dialog)
+{
+	if (plugin->executing_command)
+	{
+		GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
+			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
+			GTK_BUTTONS_CLOSE, 
+			_("CVS command is running! Please wait until it is finished!"));
+		gtk_dialog_run(GTK_DIALOG(dlg));
+		gtk_widget_destroy(dlg);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 CVSData* cvs_data_new(CVSPlugin* plugin, GladeXML* gxml)
 {
 	CVSData* data = g_new0(CVSData, 1);
@@ -87,6 +103,9 @@ void cvs_data_free(CVSData* data)
 void
 on_cvs_add_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -114,6 +133,9 @@ on_cvs_add_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -148,6 +170,9 @@ on_cvs_remove_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_update_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -193,6 +218,9 @@ on_cvs_update_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -245,6 +273,9 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_diff_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -298,6 +329,9 @@ on_cvs_diff_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_status_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -332,6 +366,9 @@ on_cvs_status_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_log_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 	case GTK_RESPONSE_OK:
@@ -368,6 +405,9 @@ on_cvs_log_response(GtkDialog* dialog, gint response, CVSData* data)
 void
 on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 {
+	if (is_busy(data->plugin, dialog))
+		return;
+	
 	switch (response)
 	{
 		case GTK_RESPONSE_OK:

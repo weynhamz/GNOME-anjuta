@@ -288,10 +288,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Create the messages preferences page */
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	/*prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	gxml = glade_xml_new (GLADE_FILE, "subversion", NULL);
 	anjuta_preferences_add_page (prefs, gxml, "subversion", ICON_FILE);
-	g_object_unref (gxml);
+	g_object_unref (gxml);*/
 	
 	/* Add all our actions */
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupSubversion",

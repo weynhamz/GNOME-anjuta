@@ -333,17 +333,23 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	CVSPlugin *cvs_plugin;
 	
+	static gboolean prefs_init = FALSE;
+	
 	g_message ("CVSPlugin: Activating CVS plugin ...");
 	cvs_plugin = (CVSPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Create the messages preferences page */
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gxml = glade_xml_new (GLADE_FILE, "cvs", NULL);
-	anjuta_preferences_add_page (prefs, gxml, "cvs", ICON_FILE);
-	g_object_unref (gxml);
-	
+	if (!prefs_init)
+	{
+		prefs_init = TRUE;
+		prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+		gxml = glade_xml_new (GLADE_FILE, "cvs", NULL);
+		anjuta_preferences_add_page (prefs, gxml, "cvs", ICON_FILE);
+		g_object_unref (gxml);
+	}
+		
 	/* Add all our actions */
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupCVS",
 					_("CVS operations"),
