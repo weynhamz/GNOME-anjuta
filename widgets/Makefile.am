@@ -6,7 +6,6 @@ INCLUDES = \
 	$(EXTRA_GNOME_CFLAGS)\
 	-DHAVE_CONFIG_H\
 	-DPIXMAPS_DIR=\"$(anjuta_pixmapsdir)\"
-	-g -O2
 
 noinst_LIBRARIES = libwidgets.a
 

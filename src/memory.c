@@ -30,6 +30,7 @@
 #include <setjmp.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 #include "utilities.h"
 #include "debugger.h"
@@ -132,6 +133,7 @@ create_info_memory (guchar *ptr)
   mem_app->adr = ptr;
 
   mem_app->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gnome_window_icon_set_from_default((GtkWindow *) mem_app->window);
   gtk_object_set_data (GTK_OBJECT (mem_app->window), "Memory",
                        mem_app->window);
   gtk_window_set_title (GTK_WINDOW (mem_app->window), _("Memory"));

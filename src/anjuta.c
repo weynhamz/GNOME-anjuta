@@ -1159,6 +1159,12 @@ show_hide_tooltips (gboolean show)
 	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.format_toolbar.toolbar), show);
 }
 
+void anjuta_set_zoom_factor(gint zoom)
+{
+	TextEditor *te = anjuta_get_current_text_editor();
+	if (te)
+		text_editor_set_zoom_factor(te, zoom);
+}
 
 void
 anjuta_apply_preferences (void)
@@ -2016,6 +2022,7 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view, gboolean resize, gb
 
 	item = gnome_app_get_dock_item_by_name (GNOME_APP (app->widgets.window), toolbar_name);
 
+	g_return_if_fail(toolbar_name != NULL);
 	g_return_if_fail (item != NULL);
 	g_return_if_fail (GNOME_IS_DOCK_ITEM (item));
 

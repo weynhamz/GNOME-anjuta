@@ -1991,19 +1991,22 @@ project_dbase_update_tree (ProjectDBase * p)
 	{
 		gchar *key, *prefix;
 		GList *list;
-		
+
 		key = g_strconcat ("module.", module_map[i], ".name", NULL);
 		tmp1 = prop_get (p->props, key);
 		g_free (key);
 		if (!tmp1)
 			continue;
-		
+
 		key = g_strconcat ("module.", module_map[i], ".files", NULL);
 		list = glist_from_data (p->props, key);
 		g_free (key);
 		if (!list)
+		{
+			g_free(tmp1);
 			continue;
-		
+		}
+
 		get_pixmask_on_file_type (FILE_TYPE_DIR,
 					  p->widgets.window, &pix_c,
 					  &mask_c, &pix_o, &mask_o);

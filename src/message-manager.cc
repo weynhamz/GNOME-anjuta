@@ -23,6 +23,8 @@
 #include "pixmaps.h"
 #include "preferences.h"
 
+#include <libgnomeui/gnome-window-icon.h>
+
 extern "C"
 {
 #include "utilities.h"
@@ -40,8 +42,8 @@ static guint anjuta_message_manager_signals[SIGNALS_END] = { 0 };
 
 // Data:
 static char *labels[] =
-	{ _("Build"), _("Debug"), _("Find"), _("CVS"), _("Locals"),
-_("Terminal") };
+	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"),
+N_("Terminal") };
 
 // Intern functions
 static void anjuta_message_manager_destroy (GtkObject * object);
@@ -537,6 +539,7 @@ anjuta_message_manager_undock (AnjutaMessageManager * amm)
 		amm->intern->is_docked = false;
 		
 		amm->intern->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+		gnome_window_icon_set_from_default((GtkWindow *) amm->intern->window);
 		gtk_window_set_wmclass(GTK_WINDOW(amm->intern->window), "message-manager", "anjuta");
 		gtk_window_set_title(GTK_WINDOW(amm->intern->window), _("Messages"));
 		gtk_window_set_default_size(GTK_WINDOW(amm->intern->window), amm->intern->width, amm->intern->height);

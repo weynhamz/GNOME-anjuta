@@ -47,6 +47,7 @@
 #include <ctype.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 #define	INIT(x)	CG_Creator* self = (CG_Creator*)x
 #define SAFE_FREE(x) { if(x != NULL) g_free(x); }
@@ -1311,6 +1312,7 @@ CreateDialogClass(CG_Creator *self)
   self->tooltips = gtk_tooltips_new ();
 	
   self->dlgClass = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gnome_window_icon_set_from_default((GtkWindow *) self->dlgClass);
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dlgClass", self->dlgClass);
   gtk_window_set_title (GTK_WINDOW (self->dlgClass), _("Class Builder"));
   gtk_window_set_default_size (GTK_WINDOW (self->dlgClass), 640, 480);

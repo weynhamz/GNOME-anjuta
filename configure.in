@@ -29,7 +29,25 @@ AC_DEFUN(CHECK_HEADER_DEFINE,
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
       [  --enable-debug           Enable debug messages],
-      CFLAGS="$CFLAGS -DDEBUG")
+      CFLAGS="$CFLAGS -DDEBUG -O0 -g"
+      CXXFLAGS="$CFLAGS -DDEBUG -O0 -g")
+
+dnl Enable stripped and optimized release builds
+AC_ARG_ENABLE(final,
+      [  --enable-final           Build release executables (GCC only)],
+      if test "x$GCC" != xyes; then
+        CFLAGS="$CFLAGS -DNDEBUG -Os -s"
+        CXXFLAGS="$CXXFLAGS -DNDEBUG -Os -s -fno-exceptions -fno-check-new"
+      fi)
+
+dnl Enable compiler warnings
+AC_ARG_ENABLE(warnings,
+      [  --enable-warnings           Enable compiler warnings (GCC only)],
+      if test "x$GCC" != xyes; then
+        CFLAGS="$CFLAGS -Wall -Wformat -Wimplicit-function-declaration -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith -Wstrict-prototypes"
+        CXXFLAGS="$CXXFLAGS -Wall -Wformat -Wimplicit-function-declaration -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith -Wstrict-prototypes"
+      fi)
+
 dnl Initialize xml-i18n-tools
 AM_PROG_XML_I18N_TOOLS
 
@@ -47,7 +65,6 @@ AM_ACLOCAL_INCLUDE(macros)
 
 dnl GNOME macros.
 GNOME_INIT
-GNOME_COMPILE_WARNINGS
 GNOME_X_CHECKS
 
 dnl Glib flags

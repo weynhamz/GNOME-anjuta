@@ -34,6 +34,7 @@
 
 #include <pwd.h>
 #include <sys/types.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 /* function declarations */
 static void gnome_filelist_class_init(GnomeFileListClass *klass);
@@ -148,6 +149,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    GtkAdjustment *dir_adjustment;
 	
    file_list = gtk_type_new(GNOME_TYPE_FILELIST);
+   gnome_window_icon_set_from_default(GTK_WINDOW(file_list));
    gtk_container_set_border_width(GTK_CONTAINER(file_list), 5);
    // gtk_signal_connect(GTK_OBJECT(file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
    gtk_signal_connect(GTK_OBJECT(file_list), "show", GTK_SIGNAL_FUNC(gnome_filelist_show), file_list);
@@ -693,8 +695,9 @@ history_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 {
 	GnomeFileListType *filetype;
-    gchar *string;
-	gchar *filename=g_strdup(gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry)));
+    gchar *s;
+	gchar *filename=g_strdup(gtk_entry_get_text(GTK_ENTRY(
+	  file_list->selection_entry)));
 	filetype = gnome_filelisttype_getfiletype(file_list, 
 	   gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry)));
 		
@@ -730,14 +733,14 @@ static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 		filename = g_strdup(s->str);
 		g_string_free (s, TRUE);
 	}
-	
-	string = build_full_path(file_list->path, "");
-	gnome_filelist_set_dir(file_list, string);
-	
-	gtk_entry_set_text(GTK_ENTRY(file_list->selection_entry), filename);
-	
+
+	s = build_full_path(file_list->path, "");
+	gnome_filelist_set_dir(file_list, s);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(file_list->selection_entry), filename);
+
 	g_free(filename);
-    g_free(string);	
+    g_free(s);	
 }
 
 
@@ -1461,7 +1464,7 @@ static void goto_next(GtkWidget *widget, GnomeFileList *file_list)
 
 static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
 {
-   gchar *path, *selected, *string;
+   gchar *path, *selected, *s;
    GList *selected_list;
 	
    selected_list = GTK_CLIST(file_list->file_list)->selection;
@@ -1474,9 +1477,9 @@ static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
 
    path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
    selected = gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry));
-   string = build_full_path(path, selected);
+   s = build_full_path(path, selected);
 
-   if(gnome_filelist_check_dir_exists(string))
+   if(gnome_filelist_check_dir_exists(s))
    {
       gtk_widget_set_sensitive(file_list->ok_button, FALSE);
       gtk_widget_set_sensitive(file_list->delete_button, FALSE);
@@ -1485,7 +1488,7 @@ static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
    else
    {
       gtk_widget_set_sensitive(file_list->ok_button, TRUE);
-      if(selected && strlen(selected) && check_if_file_exists(string) && check_can_modify(string))
+      if(selected && strlen(selected) && check_if_file_exists(s) && check_can_modify(s))
       {
          gtk_widget_set_sensitive(file_list->delete_button, TRUE);
          gtk_widget_set_sensitive(file_list->rename_button, TRUE);
@@ -1502,7 +1505,7 @@ static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
    gtk_widget_set_sensitive (file_list->forward_button,
 		   	     file_list->history_position + 1 > 0);
 
-   g_free(string);
+   g_free(s);
 }
 
 gchar *get_parent_dir(const gchar *path)
@@ -1731,6 +1734,7 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   /* The window and the entry are in the _GnomeFileList struct */  
 	
   file_list->createdir_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gnome_window_icon_set_from_default(GTK_WINDOW(file_list->createdir_window));
   gtk_window_set_title (GTK_WINDOW (file_list->createdir_window), _("New folder"));
 
   vbox1 = gtk_vbox_new (FALSE, 6);  
@@ -1824,18 +1828,7 @@ static void home_directory_cb (GtkButton * button, GnomeFileList *file_list)
 static gboolean check_if_file_exists(gchar *filename)
 {
    struct stat st;
-   gboolean file = FALSE;
-   gboolean stated = FALSE;
-   FILE *opened;
-   if((opened = fopen(filename, "r")))
-   {
-      file = TRUE;
-      fclose(opened);
-   }
-   stat(filename, &st);
-   if(S_ISREG(st.st_mode))
-      stated = TRUE;
-   return(file && stated ? TRUE : FALSE);
+   return (gboolean) ((0 == stat(filename, &st)) && (S_ISREG(st.st_mode)));
 }
 
 static gboolean check_can_modify(gchar *filename)

@@ -302,7 +302,7 @@ is_start_subtree (gchar * s, int len)
 static gboolean
 is_pointer (gchar * s)
 {
-	return (s[0] == '(');
+	return (s && s[0] == '(');
 }
 
 
@@ -355,14 +355,17 @@ debug_tree_on_select_row (GtkCList * list, gint row, gint column,
 	d_tree->subtree = node;	/* save current node - would be used as root by 
 				 * the callback */
 
-	gdb_buff = g_strconcat ("print *", gdb_buff, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe (gdb_buff, 0, parse_pointer_cbs, d_tree);
-	debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
-	debugger_execute_cmd_in_queqe ();
-	g_free (gdb_buff);
+	if (gdb_buff)
+	{
+		gdb_buff = g_strconcat ("print *", gdb_buff, NULL);
+		debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
+		debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
+		debugger_put_cmd_in_queqe (gdb_buff, 0, parse_pointer_cbs, d_tree);
+		debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
+		debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
+		debugger_execute_cmd_in_queqe ();
+		g_free (gdb_buff);
+	}
 }
 
 
@@ -454,9 +457,9 @@ debug_tree_update_single_var_cbs (GList * list, gpointer data)
 
 		/* update to new value */
 		gtk_ctree_node_set_text (GTK_CTREE (private_data->tree),
-				 private_data->node, 1, new_data[1]);
-		
-		/* we can only free the variable name */
+				 private_data->node, 1, new_data[1]?new_data[1]:"");
+	
+		/* we can only free the variable name. Value is not freed */
 		g_free(new_data[0]);
 
 		/* if we now know it is a pointer - update in private data */
@@ -501,13 +504,16 @@ get_full_var_name (DebugTree * d_tree, GtkCTreeNode * node)
 	gtk_ctree_node_get_pixtext (GTK_CTREE (d_tree->tree), node, 0, &text,
 				    NULL, NULL, NULL);
 
-	if (text[0] == '$')
+	if (NULL != text)
 	{
-		is_primitive = TRUE;
-		gdb_buff = NULL;
+		if (text[0] == '$')
+		{
+			is_primitive = TRUE;
+			gdb_buff = NULL;
+		}
+		else
+			gdb_buff = g_strdup (text);
 	}
-	else
-		gdb_buff = g_strdup (text);
 
 	node = rowp->parent;
 
@@ -516,9 +522,12 @@ get_full_var_name (DebugTree * d_tree, GtkCTreeNode * node)
 	{
 		gtk_ctree_node_get_pixtext (GTK_CTREE (d_tree->tree), node, 0,
 					    &text, NULL, NULL, NULL);
-		tmp = gdb_buff;
-		gdb_buff = g_strconcat (text, ".", tmp, NULL);
-		g_free (tmp);
+		if (gdb_buff)
+		{
+			tmp = gdb_buff;
+			gdb_buff = g_strconcat (text, ".", tmp, NULL);
+			g_free (tmp);
+		}
 
 		rowp = GTK_CTREE_ROW (node);
 		node = rowp->parent;	/* jump to parent */
@@ -526,13 +535,18 @@ get_full_var_name (DebugTree * d_tree, GtkCTreeNode * node)
 
 	if (is_primitive == TRUE)
 	{
-		tmp = gdb_buff;
-		gdb_buff = g_strconcat ("*", tmp, NULL);
-		gdb_buff[strlen (gdb_buff) - 1] = 0;
-		g_free (tmp);
+		if (gdb_buff)
+		{
+			tmp = gdb_buff;
+			gdb_buff = g_strconcat ("*", tmp, NULL);
+			gdb_buff[strlen (gdb_buff) - 1] = 0;
+			g_free (tmp);
+		}
 	}
 
-	/*g_print ("get_full_var_name: %s\n", gdb_buff); */
+#ifdef DEBUG
+	g_print ("get_full_var_name: %s\n", gdb_buff?gdb_buff:"NULL");
+#endif
 
 	return gdb_buff;
 }

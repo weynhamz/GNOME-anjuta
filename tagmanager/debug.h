@@ -14,7 +14,7 @@
 */
 #include "general.h"	/* must always come first */
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 # include <assert.h>
 #endif
 #include "entry.h"
@@ -23,7 +23,7 @@
 *   Macros
 */
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 # define debug(level)	((Option.debugLevel & (long)(level)) != 0)
 # define DebugStatement(x)	x
 # define PrintStatus(x)		if (debug(DEBUG_STATUS)) printf x;

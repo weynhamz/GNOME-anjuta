@@ -43,6 +43,9 @@ static void on_configurer_ok_clicked                  (GtkButton       *button,
                                         gpointer         user_data);
 static void on_configurer_entry_changed              (GtkEditable     *editable,
                                         gpointer         user_data);
+static void on_configurer_environment_changed (GtkEditable * editable
+  , gpointer user_data);
+
 static void conf_mesg_arrived(gchar *mesg);
 static void conf_terminated(int status, time_t t);
 
@@ -79,6 +82,9 @@ create_configurer_dialog (Configurer * c)
 	GtkWidget *frame3;
 	GtkWidget *combo2;
 	GtkWidget *combo_entry2;
+	GtkWidget *frame4;
+	GtkWidget *combo3;
+	GtkWidget *combo_entry3;
 	GtkWidget *dialog_action_area2;
 	GtkWidget *button4;
 	GtkWidget *button6;
@@ -102,6 +108,26 @@ create_configurer_dialog (Configurer * c)
 	vbox2 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox2);
 	gtk_container_add (GTK_CONTAINER (frame2), vbox2);
+
+
+	/*
+	** Need a way to pass the configure environment. For example
+	** the user might need something like this:
+	** CC=my-c-compiler ./configure --prefix=...
+	** See RFE #475290 for details - Biswa
+	*/
+	frame4 = gtk_frame_new (_("Configure Environment"));
+	gtk_widget_show (frame4);
+	gtk_box_pack_start (GTK_BOX (vbox2), frame4, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (frame4), 5);
+
+	combo3 = gtk_combo_new ();
+	gtk_widget_show (combo3);
+	gtk_container_add (GTK_CONTAINER (frame4), combo3);
+	gtk_container_set_border_width (GTK_CONTAINER (combo3), 5);
+
+	combo_entry3 = GTK_COMBO (combo3)->entry;
+	gtk_widget_show (combo_entry3);
 
 	frame3 = gtk_frame_new (_("Configure Options"));
 	gtk_widget_show (frame3);
@@ -142,10 +168,19 @@ create_configurer_dialog (Configurer * c)
 		g_free (options);
 	}
 
+	options = prop_get (c->props, "project.configure.environment");
+	if (options)
+	{
+		gtk_entry_set_text (GTK_ENTRY (combo_entry3), options);
+		g_free (options);
+	}
+
 	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog2));
 
 	gtk_signal_connect (GTK_OBJECT (combo_entry2), "changed",
 			    GTK_SIGNAL_FUNC (on_configurer_entry_changed), c);
+	gtk_signal_connect (GTK_OBJECT (combo_entry3), "changed",
+			    GTK_SIGNAL_FUNC (on_configurer_environment_changed), c);
 	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
 			    GTK_SIGNAL_FUNC (on_configurer_ok_clicked), c);
 
@@ -155,7 +190,7 @@ create_configurer_dialog (Configurer * c)
 static void
 on_configurer_entry_changed (GtkEditable * editable, gpointer user_data)
 {
-	Configurer *c = user_data;
+	Configurer *c = (Configurer *) user_data;
 	gchar *options;
 	options = gtk_entry_get_text (GTK_ENTRY (editable));
 	if (options)
@@ -163,6 +198,20 @@ on_configurer_entry_changed (GtkEditable * editable, gpointer user_data)
 				   options);
 	else
 		prop_set_with_key (c->props, "project.configure.options", "");
+}
+
+static void
+on_configurer_environment_changed (GtkEditable * editable
+  , gpointer user_data)
+{
+	Configurer *c = (Configurer *) user_data;
+	gchar *options;
+	options = gtk_entry_get_text (GTK_ENTRY (editable));
+	if (options)
+		prop_set_with_key (c->props, "project.configure.environment",
+				   options);
+	else
+		prop_set_with_key (c->props, "project.configure.environment", "");
 }
 
 static void
@@ -193,6 +242,16 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	{
 		tmp = g_strdup ("./configure ");
 	}
+	options = prop_get(cof->props, "project.configure.environment");
+	if (options)
+	{
+		gchar *tmp1 = g_strdup_printf("sh -c '%s %s'", options, tmp);
+		g_free(tmp);
+		tmp = tmp1;
+	}
+#ifdef DEBUG
+	g_message("Executing '%s'\n", tmp);
+#endif
 	if (launcher_execute (tmp, conf_mesg_arrived,
 		conf_mesg_arrived, conf_terminated) == FALSE)
 	{

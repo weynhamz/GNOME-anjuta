@@ -173,6 +173,16 @@ struct _PreferencesWidgets
 	/* Page Ident */
 	GtkWidget *name_entry;
 	GtkWidget *email_entry;
+
+	/* Terminal */
+	GtkWidget *term_font_fp;
+	GtkWidget *term_sel_by_word_e;
+	GtkWidget *term_scroll_buffer_sb;
+	GtkWidget *term_type_e;
+	GtkWidget *term_scroll_on_key_cb;
+	GtkWidget *term_scroll_on_out_cb;
+	GtkWidget *term_blink_cursor_cb;
+	GtkWidget *term_bell_cb;
 };
 
 struct _Preferences
@@ -348,6 +358,37 @@ void preferences_set_build_options(Preferences* p);
 
 /* Miscellaneous */
 #define CHARACTER_SET "character.set"
+
+/* Terminal preferences */
+#define TERMINAL_FONT			"terminal.font"
+#define TERMINAL_SCROLLSIZE		"terminal.scrollsize"
+#define TERMINAL_TERM			"terminal.term"
+#define TERMINAL_WORDCLASS		"terminal.wordclass"
+#define TERMINAL_BLINK			"terminal.blink"
+#define TERMINAL_BELL			"terminal.bell"
+#define TERMINAL_SCROLL_KEY		"terminal.scroll.keystroke"
+#define TERMINAL_SCROLL_OUTPUT	"terminal.scroll.output"
+
+/*
+** Provide some reasonable failsafe values for the embedded
+** terminal widget - Biswa
+*/
+#ifndef DEFAULT_ZVT_FONT
+#define DEFAULT_ZVT_FONT "-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-iso8859-1"
+#endif
+
+#ifndef DEFAULT_ZVT_SCROLLSIZE
+#define DEFAULT_ZVT_SCROLLSIZE 200
+#define MAX_ZVT_SCROLLSIZE 100000
+#endif
+
+#ifndef DEFAULT_ZVT_TERM
+#define DEFAULT_ZVT_TERM "xterm"
+#endif
+
+#ifndef DEFAULT_ZVT_WORDCLASS
+#define DEFAULT_ZVT_WORDCLASS "-A-Za-z0-9/_:.,?+%="
+#endif
 
 void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);

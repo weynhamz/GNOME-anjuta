@@ -62,7 +62,7 @@ prog_language_map[]=
 /* Ditto */
 static gchar *
 term_commands[] = {
-	"gnome-terminal --command=\"$(anjuta.current.command)\"",
+	"gnome-terminal --command=\"sh -c \\\"$(anjuta.current.command); read x\\\"\"",
 	NULL
 };
 

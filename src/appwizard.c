@@ -42,18 +42,20 @@ app_wizard_new (void)
 		
 		username = preferences_get(app->preferences, IDENT_NAME);
 		if (!username)
+		{
 			username = getenv ("USERNAME");
-		if (!username)
-			username = getenv ("USER");
-		
+			if (!username)
+				username = getenv ("USER");
+			if (!username)
+				username = "Unknown";
+			username = g_strdup(username);
+		}
 		aw->prj_type = PROJECT_TYPE_GNOME;
 		aw->target_type = PROJECT_TARGET_TYPE_EXECUTABLE;
 		aw->prj_name = NULL;
 		aw->target = NULL;
-		if (username)
-			aw->author = g_strdup (username);
-		else
-			aw->author = NULL;
+		aw->author = g_strdup (username);
+		g_free(username);
 		aw->version = g_strdup ("0.1");
 		aw->description = NULL;
 		aw->gettext_support = TRUE;

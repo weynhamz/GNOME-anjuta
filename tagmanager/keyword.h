@@ -23,7 +23,7 @@
 extern void addKeyword (const char *const string, langType language, int value);
 extern int lookupKeyword (const char *const string, langType language);
 extern void freeKeywordTable (void);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 extern void printKeywordTable (void);
 #endif
 

@@ -30,6 +30,8 @@
 #include <errno.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
+
 #include "anjuta.h"
 #include "text_editor.h"
 #include "messagebox.h"
@@ -265,19 +267,6 @@ on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_file2_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	anjuta_not_implemented (__FILE__, __LINE__);
-}
-
-void
 on_nonimplemented_activate(GtkMenuItem * menuitem, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
@@ -293,86 +282,13 @@ on_exit1_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 
 void
-on_undo1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_command_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
-	aneditor_command (te->editor_id, ANE_UNDO, 0, 0);
-}
-
-void
-on_redo1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_REDO, 0, 0);
-}
-
-void
-on_cut1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_CUT, 0, 0);
-}
-
-
-void
-on_copy1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_COPY, 0, 0);
-}
-
-
-void
-on_paste1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_PASTE, 0, 0);
-}
-
-
-void
-on_clear1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_CLEAR, 0, 0);
-}
-
-void
-on_transform_upper1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_UPRCASE, 0, 0);
-}
-
-void
-on_transform_lower1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_LWRCASE, 0, 0);
+	aneditor_command (te->editor_id, (gint) user_data, 0, 0);
 }
 
 void
@@ -936,36 +852,7 @@ on_autocomplete1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_calltip1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-}
-
-void
-on_select_all1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_SELECTALL, 0, 0);
-}
-
-void
-on_select_matchbrace1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_SELECTTOBRACE, 0, 0);
-}
-
-void
-on_select_block1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_SELECTBLOCK, 0, 0);
+	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 void
@@ -1064,16 +951,6 @@ on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GtkWidget *gt;
 	gt = gotoline_new ();
 	gtk_widget_show (gt);
-}
-
-void
-on_goto_matchbrace1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_MATCHBRACE, 0, 0);
 }
 
 void
@@ -1340,211 +1217,47 @@ on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}
 }
 
-/************************************************************************/
+#define MAX_ZOOM_FACTOR 8
+#define MIN_ZOOM_FACTOR -8
+
 void
-on_zoom_text_plus_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_zoom_text_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	Preferences *p;
+	Preferences *p = app->preferences;
 	gint zoom;
-	gchar buff[20];
-	p = app->preferences;
+	gchar buf[20];
+	const gchar *zoom_text = (const gchar *) user_data;
 
-	zoom = prop_get_int (p->props, TEXT_ZOOM_FACTOR, 0);
-	sprintf(buff, "%d", zoom+2);
-	prop_set_with_key(p->props, TEXT_ZOOM_FACTOR, buff);
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_8_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "8");
-	anjuta_apply_preferences();
-}
-
-void
-on_zoom_text_6_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "6");
-	anjuta_apply_preferences();
+	if (!zoom_text)
+		zoom = 0;
+	else if (0 == strncmp(zoom_text, "++", 2))
+		zoom = prop_get_int(p->props, TEXT_ZOOM_FACTOR, 0) + 2;
+	else if (0 == strncmp(zoom_text, "--", 2))
+		zoom = prop_get_int(p->props, TEXT_ZOOM_FACTOR, 0) - 2;
+	else
+		zoom = atoi(zoom_text);
+	if (zoom > MAX_ZOOM_FACTOR)
+		zoom = MAX_ZOOM_FACTOR;
+	else if (zoom < MIN_ZOOM_FACTOR)
+		zoom = MIN_ZOOM_FACTOR;
+	g_snprintf(buf, 20, "%d", zoom);
+	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, buf);
+	anjuta_set_zoom_factor(zoom);
 }
 
 void
-on_zoom_text_4_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "4");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_2_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "2");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_0_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "0");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_s2_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-2");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_s4_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-4");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_s6_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-6");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_s8_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	p = app->preferences;
-
-	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, "-8");
-	anjuta_apply_preferences();
-}
-void
-on_zoom_text_minus_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	Preferences *p;
-	gint zoom;
-	gchar buff[20];
-	p = app->preferences;
-
-	zoom = prop_get_int (p->props, TEXT_ZOOM_FACTOR, 0);
-	sprintf(buff, "%d", zoom-2);
-	prop_set_with_key(p->props, TEXT_ZOOM_FACTOR, buff);
-	anjuta_apply_preferences();
-}
-
-/************************************************************************/
-void
-on_main_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_anjuta_toolbar_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	gboolean state;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	anjuta_toolbar_set_view (ANJUTA_MAIN_TOOLBAR, state, TRUE, TRUE);
+	anjuta_toolbar_set_view ((gchar *) user_data, state, TRUE, TRUE);
 }
 
 void
-on_extended_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gboolean state;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	anjuta_toolbar_set_view (ANJUTA_EXTENDED_TOOLBAR, state, TRUE, TRUE);
-}
-
-void
-on_debug_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gboolean state;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	anjuta_toolbar_set_view (ANJUTA_DEBUG_TOOLBAR, state, TRUE, TRUE);
-}
-
-void
-on_browser_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gboolean state;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	anjuta_toolbar_set_view (ANJUTA_BROWSER_TOOLBAR, state, TRUE, TRUE);
-}
-
-void
-on_format_toolbar1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	gboolean state;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	anjuta_toolbar_set_view (ANJUTA_FORMAT_TOOLBAR, state, TRUE, TRUE);
-}
-
-/*************************************************************************/
-void
-on_prj_add_src1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_add_pix1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_add_doc1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_add_gen1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_add_dir1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_config1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_prj_info1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-}
-
-void
-on_update_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_update_tagmanager_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	if (app->project_dbase->project_is_open)
-		project_dbase_update_tags_image(app->project_dbase, FALSE);
-}
-
-void
-on_rebuild_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->project_dbase->project_is_open)
-		project_dbase_update_tags_image(app->project_dbase, TRUE);
+		project_dbase_update_tags_image(app->project_dbase, (gboolean) user_data);
 }
 
 /*************************************************************************/
@@ -1572,54 +1285,6 @@ on_indent1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	text_editor_autoformat (te);
 	anjuta_update_title();
     text_editor_goto_line(te,lineno+1,TRUE);
-    
-}
-
-void
-on_indent_inc1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INDENT_INCREASE, 0, 0);
-}
-
-void
-on_indent_dcr1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INDENT_DECREASE, 0, 0);
-}
-
-void
-on_open_folds1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	g_return_if_fail (te != NULL);
-	aneditor_command (te->editor_id, ANE_OPEN_FOLDALL, 0, 0);
-}
-
-void
-on_close_folds1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	g_return_if_fail (te != NULL);
-	aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
-}
-
-void
-on_toggle_fold1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	g_return_if_fail (te != NULL);
-	aneditor_command (te->editor_id, ANE_TOGGLE_FOLD, 0, 0);
 }
 
 void
@@ -1644,12 +1309,14 @@ on_detach1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	
 	on_anjuta_window_focus_in_event (NULL, NULL, NULL);
 }
+
 void
 on_ordertab1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active)
 		anjuta_order_tabs();
 }
+
 /*************************************************************************/
 void
 on_compile1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1729,69 +1396,6 @@ on_go_execute2_activate (GtkMenuItem * menuitem, gpointer user_data)
 	executer_show (app->executer);
 }
 
-/*******************************************************************************/
-void
-on_book_toggle1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
-}
-
-void
-on_book_first1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_BOOKMARK_FIRST, 0, 0);
-}
-
-void
-on_book_prev1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_BOOKMARK_PREV, 0, 0);
-}
-
-void
-on_book_next1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_BOOKMARK_NEXT, 0, 0);
-}
-
-void
-on_book_last1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_BOOKMARK_LAST, 0, 0);
-}
-
-void
-on_book_clear1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor *te;
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_BOOKMARK_CLEAR, 0, 0);
-}
-
-
-/*******************************************************************************/
 void
 on_toggle_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
@@ -1952,7 +1556,6 @@ on_info_locals_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("info locals",
 				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
@@ -2328,77 +1931,6 @@ on_set_default_preferences1_activate (GtkMenuItem * menuitem,
 	preferences_reset_defaults (app->preferences);
 }
 
-/************************************************************************************************/
-void
-on_utilities1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_grep_utility1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_compare_two_files1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_diff_utility1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-	on_file_view__char_octal_hex_1_activate
-	(GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_c_beautifier1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_c_flow1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_c_cross_reference1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_c_trace1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-
-void
-on_archive_maintenace1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
 void
 on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
@@ -2424,7 +1956,7 @@ on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_tag_definition_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor* te;
 	gboolean ret;
@@ -2436,23 +1968,7 @@ on_goto_tag_definition_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (!ret)
 		return;
 	else
-		anjuta_goto_tag(buffer, te, TRUE);
-}
-
-void
-on_goto_tag_declaration_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	TextEditor* te;
-	gboolean ret;
-	gchar buffer[1000];
-
-	te = anjuta_get_current_text_editor();
-	if(!te) return;
-	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
-	if (!ret)
-		return;
-	else
-		anjuta_goto_tag(buffer, te, FALSE);
+		anjuta_goto_tag(buffer, te, (gboolean) user_data);
 }
 
 void
@@ -2551,6 +2067,7 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
         gtk_widget_show (about_box);
 
         about_box_window = gtk_window_new (GTK_WINDOW_DIALOG);
+		gnome_window_icon_set_from_default((GtkWindow *) about_box_window);
         gtk_window_set_policy (GTK_WINDOW (about_box_window), FALSE, FALSE, FALSE);
         gtk_signal_connect (GTK_OBJECT (about_box_window), "button_press_event",
                             GTK_SIGNAL_FUNC (about_box_event_callback), &about_box_window);

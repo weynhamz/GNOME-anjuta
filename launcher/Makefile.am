@@ -1,9 +1,4 @@
-
-INCLUDES = `glib-config --cflags` -I. -I.. -g -O
-
+INCLUDES = `glib-config --cflags` -I. -I..
 bin_PROGRAMS = anjuta_launcher
-
-anjuta_launcher_SOURCES = anjuta_launcher.c
-
-anjuta_launcher_LDFLAGS = `glib-config --libs` 
+LDFLAGS = `glib-config --libs` 
 

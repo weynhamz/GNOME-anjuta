@@ -1,3 +1,27 @@
+2002-09-20	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+
+	Reviewed by: Naba Kumar <kh_naba@gnome.org>
+	
+	* README: Updated README
+	* plugins/class-gen/clsGen.c, src/message_manager.cc
+	  , src/mainmeu_callbacks.c, src/memory.c
+	  , src/project_dbase_gui.c, src/text_editor_gui.c
+	  , widgets/gnomefilelist.c: Set window icons
+	* configure.in, macros/*, */Makefile.am, anjuta.spec.in:
+	  Enabled release build (stripped + optimized binaries, etc.)
+	* data/properties/anjuta.properties, src/commands.c,
+	  src/defaults.cFixed bug #595489 (stdin on executables)
+	* src/appwizard.c, src/main.c, src/message-manager.cc
+	  , src/project_dbase.c, src/toolbar.c, widgets/gnomefilelist.c
+	  , src/debug_tree.c: Memory related (valgrind) fixes.
+	* src/message-manager-private.[cc,h], src/pixpams.h
+	  , src/preferences.[ch], src/preferences_gui.c: Terminal preferences
+	* anjuta.prj: Added debug_tree.c to SOURCES
+	* src/main_menubar_def.h, src/mainmenu_callbacks.[ch],
+	  src/text_editor_menu.c, src/text_editor_gui.c, src/anjuta.c:
+	  Compacted code and cleaned up unnecessary functions.
+	* tagmanager/*.[ch]: Code fixes.
+	
 2002-08-30  Etay Meiri <etay-m@bezeqint.il>
 	
 	Reviewed by: Naba Kumar <kh_naba@gnome.org>

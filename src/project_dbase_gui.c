@@ -26,6 +26,8 @@
 #include <errno.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
+
 #include "anjuta.h"
 #include "project_dbase.h"
 #include "utilities.h"
@@ -497,6 +499,7 @@ create_project_dbase_gui (ProjectDBase * p)
 	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gnome_window_icon_set_from_default((GtkWindow *) window1);
 	gtk_window_set_title (GTK_WINDOW (window1), _("Project: None"));
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "project_dbase", "Anjuta");
 

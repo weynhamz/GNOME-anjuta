@@ -14,12 +14,6 @@ INCLUDES = \
 	-I$(srcdir)/../printing \
 	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
 
-CFLAGS = -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
-		 -Wuninitialized -Wparentheses -Wpointer-arith\
-		 -Wmissing-prototypes -g -O2
-
-CXXFLAGS = $(CFLAGS)
-
 SCILEXERS =\
     ../scintilla/StyleContext.o\
 	../scintilla/LexCPP.o\

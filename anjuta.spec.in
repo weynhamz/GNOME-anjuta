@@ -33,7 +33,7 @@ These are usually run via a text console, and can be unfriendly to use.
 %setup
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix
+CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --enable-final
 
 if [ "$SMP" != "" ]; then
   (make "MAKE=make -k -j $SMP"; exit 0)

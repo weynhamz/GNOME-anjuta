@@ -110,6 +110,7 @@ static GtkWidget *create_preferences_page4 (Preferences * p);
 static GtkWidget *create_preferences_page5 (Preferences * p);
 static GtkWidget *create_preferences_pagemsg (Preferences * p);
 static GtkWidget *create_preferences_page_cvs (Preferences* pr);
+static GtkWidget *create_preferences_page_terminal (Preferences * p);
 
 static GtkWidget*
 create_label(GtkWidget* parent, gchar* text, gchar* pix_name)
@@ -135,12 +136,14 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *page5;
 	GtkWidget *pagemsg;
 	GtkWidget *pagecvs;
+	GtkWidget *pageterm;
 	GtkWidget *label102;
 	GtkWidget *label1;
 	GtkWidget *label12;
 	GtkWidget *label15;
 	GtkWidget* labelmsg;
 	GtkWidget *labelcvs;
+	GtkWidget *labelterm;
 	GtkWidget *preferences_ok;
 	GtkWidget *preferences_apply;
 	GtkWidget *preferences_cancel;
@@ -232,6 +235,15 @@ create_preferences_gui (Preferences * pr)
 					gtk_notebook_get_nth_page (GTK_NOTEBOOK(notebook2),
 					7), labelcvs);
 	
+	pageterm = create_preferences_page_terminal(pr);
+	gtk_container_add (GTK_CONTAINER(notebook2), pageterm);
+	
+	labelterm = create_label (dialog1, _("Terminal")
+	  , ANJUTA_PIXMAP_PREFS_TERMINAL);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
+					gtk_notebook_get_nth_page (GTK_NOTEBOOK(notebook2),
+					8), labelterm);
+
 	dialog_action_area2 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area2);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area2),
@@ -2527,6 +2539,30 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 
 	anjuta_save_settings ();
 	preferences_set_build_options(pr);
+
+	/* Terminal */
+	preferences_set(pr, TERMINAL_FONT, gnome_font_picker_get_font_name(
+	  (GnomeFontPicker *) pr->widgets.term_font_fp));
+	preferences_set(pr, TERMINAL_WORDCLASS, gtk_entry_get_text(
+	  (GtkEntry *) pr->widgets.term_sel_by_word_e));
+	preferences_set_int(pr, TERMINAL_SCROLLSIZE
+	  , gtk_spin_button_get_value_as_int((GtkSpinButton *)
+	  pr->widgets.term_scroll_buffer_sb));
+	preferences_set(pr, TERMINAL_TERM, gtk_entry_get_text((GtkEntry *)
+	  pr->widgets.term_type_e));
+	preferences_set_int(pr, TERMINAL_SCROLL_KEY
+	  , gtk_toggle_button_get_active((GtkToggleButton *)
+	  pr->widgets.term_scroll_on_key_cb));
+	preferences_set_int(pr, TERMINAL_SCROLL_OUTPUT
+	  , gtk_toggle_button_get_active((GtkToggleButton *)
+	  pr->widgets.term_scroll_on_out_cb));
+	preferences_set_int(pr, TERMINAL_BLINK
+	  , gtk_toggle_button_get_active((GtkToggleButton *)
+	  pr->widgets.term_blink_cursor_cb));
+	preferences_set_int(pr, TERMINAL_BELL
+	  , gtk_toggle_button_get_active((GtkToggleButton *)
+	  pr->widgets.term_bell_cb));
+
 /* At last the end */
 	anjuta_apply_preferences ();
 
@@ -3032,6 +3068,7 @@ on_use_default_font_toggled (GtkToggleButton * tb, gpointer data)
 	}
 	gnome_font_picker_set_font_name (GNOME_FONT_PICKER (p->widgets.font_picker),
 		font_name);
+	g_free(font_name);
 }
 
 static void
@@ -3164,3 +3201,135 @@ fontpicker_get_font_name (GtkWidget *gnomefontpicker,
 	return TRUE;
 }
 
+static GtkWidget *
+create_preferences_page_terminal (Preferences * p)
+{
+	GtkWidget *terminal_frame;
+	GtkWidget *main_vbox;
+	GtkWidget *hbox_1;
+	GtkWidget *font_label;
+	GtkWidget *font_picker;
+	GtkWidget *hbox_2;
+	GtkWidget *sel_by_word_label;
+	GtkWidget *sel_by_word;
+	GtkWidget *hbox_3;
+	GtkWidget *scroll_buf_label;
+	GtkObject *scroll_buffer_adj;
+	GtkWidget *scroll_buffer;
+	GtkWidget *term_type_label;
+	GtkWidget *term_type_combo;
+	GList *term_type_combo_items = NULL;
+	GtkWidget *term_type;
+	GtkWidget *hbox_4;
+	GtkWidget *scroll_on_key;
+	GtkWidget *scroll_on_output;
+	GtkWidget *hbox_5;
+	GtkWidget *blink_cursor;
+	GtkWidget *terminal_bell;
+
+	terminal_frame = gtk_frame_new (_("Terminal"));
+	gtk_container_set_border_width (GTK_CONTAINER (terminal_frame), 5);
+
+	main_vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (terminal_frame), main_vbox);
+
+	hbox_1 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (main_vbox), hbox_1, FALSE, TRUE, 10);
+
+	font_label = gtk_label_new (_("Terminal Font"));
+	gtk_box_pack_start (GTK_BOX (hbox_1), font_label, FALSE, FALSE, 10);
+
+	font_picker = gnome_font_picker_new ();
+	gtk_box_pack_start (GTK_BOX (hbox_1), font_picker, TRUE, TRUE, 10);
+	gnome_font_picker_set_preview_text (GNOME_FONT_PICKER (font_picker)
+	  , "Preview Text");
+	gnome_font_picker_set_mode (GNOME_FONT_PICKER (font_picker)
+	  , GNOME_FONT_PICKER_MODE_FONT_INFO);
+	gnome_font_picker_fi_set_use_font_in_label (GNOME_FONT_PICKER
+	  (font_picker), TRUE, 12);
+	gnome_font_picker_fi_set_show_size ( GNOME_FONT_PICKER(font_picker)
+	  , TRUE);
+
+	hbox_2 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (main_vbox), hbox_2, FALSE, TRUE, 10);
+
+	sel_by_word_label = gtk_label_new (_("Select-by-word characters"));
+	gtk_box_pack_start (GTK_BOX (hbox_2), sel_by_word_label, FALSE, FALSE, 10);
+
+	sel_by_word = gtk_entry_new ();
+	gtk_box_pack_start (GTK_BOX (hbox_2), sel_by_word, TRUE, TRUE, 0);
+	gtk_entry_set_text (GTK_ENTRY (sel_by_word), _("-A-Za-z0-9/_:.,?+%="));
+
+	hbox_3 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (main_vbox), hbox_3, FALSE, TRUE, 10);
+
+	scroll_buf_label = gtk_label_new (_("Scroll Buffer Size"));
+	gtk_box_pack_start (GTK_BOX (hbox_3), scroll_buf_label, FALSE, FALSE, 10);
+
+	scroll_buffer_adj = gtk_adjustment_new (200, 200, 10000, 1, 10, 10);
+	scroll_buffer = gtk_spin_button_new (GTK_ADJUSTMENT (scroll_buffer_adj), 1, 0);
+	gtk_box_pack_start (GTK_BOX (hbox_3), scroll_buffer, TRUE, TRUE, 10);
+	gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (scroll_buffer), TRUE);
+
+	term_type_label = gtk_label_new (_("Terminal Type"));
+	gtk_box_pack_start (GTK_BOX (hbox_3), term_type_label, FALSE, FALSE, 10);
+
+	term_type_combo = gtk_combo_new ();
+	gtk_box_pack_start (GTK_BOX (hbox_3), term_type_combo, TRUE, TRUE, 0);
+	gtk_combo_set_case_sensitive (GTK_COMBO (term_type_combo), TRUE);
+	term_type_combo_items = g_list_append (term_type_combo_items
+	  , (gpointer) _("xterm"));
+	term_type_combo_items = g_list_append (term_type_combo_items
+	  , (gpointer) _("vt100"));
+	term_type_combo_items = g_list_append (term_type_combo_items
+	  , (gpointer) _("vt220"));
+	term_type_combo_items = g_list_append (term_type_combo_items
+	  , (gpointer) _("ansi"));
+	term_type_combo_items = g_list_append (term_type_combo_items
+	  , (gpointer) _("dumb"));
+	gtk_combo_set_popdown_strings (GTK_COMBO (term_type_combo)
+	  , term_type_combo_items);
+	g_list_free (term_type_combo_items);
+
+	term_type = GTK_COMBO (term_type_combo)->entry;
+	gtk_entry_set_text (GTK_ENTRY (term_type), _("xterm"));
+
+	hbox_4 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (main_vbox), hbox_4, FALSE, TRUE, 10);
+
+	scroll_on_key = gtk_check_button_new_with_label (_("Scroll on keystroke"));
+	gtk_box_pack_start (GTK_BOX (hbox_4), scroll_on_key, TRUE, TRUE, 10);
+
+	scroll_on_output = gtk_check_button_new_with_label (_("Scroll on output"));
+	gtk_box_pack_start (GTK_BOX (hbox_4), scroll_on_output, TRUE, TRUE, 10);
+
+	hbox_5 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (main_vbox), hbox_5, FALSE, TRUE, 10);
+
+	blink_cursor = gtk_check_button_new_with_label (_("Blinking Cursor"));
+	gtk_box_pack_start (GTK_BOX (hbox_5), blink_cursor, TRUE, TRUE, 10);
+
+	terminal_bell = gtk_check_button_new_with_label (_("Terminal Bell"));
+	gtk_box_pack_start (GTK_BOX (hbox_5), terminal_bell, TRUE, TRUE, 10);
+
+	p->widgets.term_font_fp = font_picker;
+	p->widgets.term_sel_by_word_e = sel_by_word;
+	p->widgets.term_scroll_buffer_sb = scroll_buffer;
+	p->widgets.term_type_e = term_type;
+	p->widgets.term_scroll_on_key_cb = scroll_on_key;
+	p->widgets.term_scroll_on_out_cb = scroll_on_output;
+	p->widgets.term_blink_cursor_cb = blink_cursor;
+	p->widgets.term_bell_cb = terminal_bell;
+
+	gtk_widget_ref(p->widgets.term_font_fp);
+	gtk_widget_ref(p->widgets.term_sel_by_word_e);
+	gtk_widget_ref(p->widgets.term_scroll_buffer_sb);
+	gtk_widget_ref(p->widgets.term_type_e);
+	gtk_widget_ref(p->widgets.term_scroll_on_key_cb);
+	gtk_widget_ref(p->widgets.term_scroll_on_out_cb);
+	gtk_widget_ref(p->widgets.term_blink_cursor_cb);
+	gtk_widget_ref(p->widgets.term_bell_cb);
+
+	gtk_widget_show_all(terminal_frame);
+	return terminal_frame;
+}

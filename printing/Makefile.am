@@ -10,10 +10,6 @@ INCLUDES = \
 	-I$(srcdir)/../pixmaps \
 	-I.. -I.
 
-CFLAGS = -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment\
-		 -Wuninitialized -Wparentheses -Wpointer-arith\
-		 -Wmissing-prototypes -g -O2
-
 noinst_LIBRARIES = libanjutaprint.a
 libanjutaprint_a_SOURCES = print.c  print-doc.c  print-doc.h  print.h  print-util.c  print-util.h
 

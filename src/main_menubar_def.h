@@ -154,14 +154,14 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	 /* 0 */
 	 GNOME_APP_UI_ITEM, N_("_Make Selection Uppercase"),
 	 N_("Make the selected text uppercase"),
-	 on_transform_upper1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_UPRCASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Make Selection Lowercase"),
 	 N_("Make the selected text lowercase"),
-	 on_transform_lower1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_LWRCASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 /* 2 */
@@ -203,19 +203,19 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Select All"),
 	 N_("Select all text in the editor"),
-	 on_select_all1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_SELECTALL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_A, GDK_CONTROL_MASK, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Select to _Brace"),
 	 N_("Select the text in the matching braces"),
-	 on_select_matchbrace1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_SELECTTOBRACE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_A, GDK_MOD1_MASK, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Select Code Block"),
 	 N_("Select the current code block"),
-	 on_select_block1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_SELECTBLOCK, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_B, GDK_MOD1_MASK, NULL},
 	GNOMEUIINFO_END/*3*/
@@ -390,7 +390,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Goto Matching _Brace"),
 	 N_("Go to the matching brace in the editor"),
-	 on_goto_matchbrace1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_MATCHBRACE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_M, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{/*2*/
@@ -432,13 +432,13 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 N_("Goto tag definition"),
-	 on_goto_tag_definition_activate, NULL, NULL,
+	 on_goto_tag_activate, (gpointer) TRUE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_D, GDK_CONTROL_MASK, NULL},
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
 	 N_("Goto tag declaration"),
-	 on_goto_tag_declaration_activate, NULL, NULL,
+	 on_goto_tag_activate, (gpointer) FALSE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
 	GNOMEUIINFO_END/*10*/
@@ -450,14 +450,14 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
 	 N_("Undo the last action"),
-	 on_undo1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_UNDO, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_UNDO,
 	 GDK_Z, GDK_CONTROL_MASK, NULL},
 
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Redo"),
 	 N_("Redo the last undone action"),
-	 on_redo1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_REDO, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REDO,
 	 GDK_R, GDK_CONTROL_MASK, NULL},
 
@@ -466,28 +466,28 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("C_ut"),
 	 N_("Cut the selected text from the editor to the clipboard"),
-	 on_cut1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_CUT, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CUT,
 	 GDK_X, GDK_CONTROL_MASK, NULL},
 	
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Copy"),
 	 N_("Copy the selected text to the clipboard"),
-	 on_copy1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_COPY, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
 	 GDK_C, GDK_CONTROL_MASK, NULL},
 	
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Paste"),
 	 N_("Paste the content of clipboard at the current position"),
-	 on_paste1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_PASTE, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
 	 GDK_V, GDK_CONTROL_MASK, NULL},
 	
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("C_lear"),
 	 N_("Delete the selected text from the editor"),
-	 on_clear1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_CLEAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Delete, 0, NULL},
 	
@@ -519,7 +519,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("_AutoComplete"),
 	 N_("AutoComplete the current word"),
-	 on_autocomplete1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_COMPLETEWORD, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Return, GDK_CONTROL_MASK, NULL},
 	
@@ -596,31 +596,31 @@ static GnomeUIInfo toolbar1_submenu_uiinfo[NUM_TOOLBAR_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Main Toolbar"),
 	 N_("Hide/Unhide Main toolbar"),
-	 on_main_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_MAIN_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BLANK,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Extended Toolbar"),
 	 N_("Hide/Unhide Extended toolbar"),
-	 on_extended_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_EXTENDED_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Debug Toolbar"),
 	 N_("Hide/Unhide Debug toolbar"),
-	 on_debug_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_DEBUG_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Browser Toolbar"),
 	 N_("Hide/Unhide Browser toolbar"),
-	 on_browser_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_BROWSER_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Format Toolbar"),
 	 N_("Hide/Unhide Format toolbar"),
-	 on_format_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_FORMAT_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*5*/
@@ -678,67 +678,67 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[NUM_ZOOMTEXT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("++ Zoom"),
 	 N_("Increase text zoom by 1 unit"),
-	 on_zoom_text_plus_activate, NULL, NULL,
+	 on_zoom_text_activate, "++", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("+8"),
 	 N_("Zoom factor +8"),
-	 on_zoom_text_8_activate, NULL, NULL,
+	 on_zoom_text_activate, "+8", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("+6"),
 	 N_("Zoom factor +6"),
-	 on_zoom_text_6_activate, NULL, NULL,
+	 on_zoom_text_activate, "+6", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("+4"),
 	 N_("Zoom factor +4"),
-	 on_zoom_text_4_activate, NULL, NULL,
+	 on_zoom_text_activate, "+4", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("+2"),
 	 N_("Zoom factor +2"),
-	 on_zoom_text_2_activate, NULL, NULL,
+	 on_zoom_text_activate, "+2", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("0"),
 	 N_("Zoom factor 0"),
-	 on_zoom_text_0_activate, NULL, NULL,
+	 on_zoom_text_activate, "00", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("-2"),
 	 N_("Zoom factor -2"),
-	 on_zoom_text_s2_activate, NULL, NULL,
+	 on_zoom_text_activate, "-2", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("-4"),
 	 N_("Zoom factor -4"),
-	 on_zoom_text_s4_activate, NULL, NULL,
+	 on_zoom_text_activate, "-4", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("-6"),
 	 N_("Zoom factor -6"),
-	 on_zoom_text_s6_activate, NULL, NULL,
+	 on_zoom_text_activate, "-6", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("-8"),
 	 N_("Zoom factor -8"),
-	 on_zoom_text_s8_activate, NULL, NULL,
+	 on_zoom_text_activate, "-8", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("-- Zoom"),
 	 N_("Reduce text zoom by 1 unit"),
-	 on_zoom_text_minus_activate, NULL, NULL,
+	 on_zoom_text_activate, "--", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*11*/
@@ -939,13 +939,13 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("_Update tags image"),
 	 N_("Update the tags image of the Project/opened files"),
-	 on_update_tags1_activate, NULL, NULL,
+	 on_update_tagmanager_activate, (gpointer) FALSE, NULL,
 	 PIX_STOCK(FONT),
 	 0, 0, NULL},
 	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Rebuild tags image"),
 	 N_("Rebuild the tags image of the Project"),
-	 on_rebuild_tags1_activate, NULL, NULL,
+	 on_update_tagmanager_activate, (gpointer) TRUE, NULL,
 	 PIX_FILE(TAG),
 	 0, 0, NULL},
 	 {/*12*/
@@ -1142,13 +1142,13 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Increase Indent"),
 	 N_("Increase indentation of line/selection"),
-	 on_indent_inc1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_INDENT_INCREASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_Decrease Indent"),
 	 N_("Decrease indentation of line/selection"),
-	 on_indent_dcr1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_INDENT_DECREASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*3*/
@@ -1162,19 +1162,19 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("_Close All Folds"),
 	 N_("Close all code folds in the editor"),
-	 on_close_folds1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_CLOSE_FOLDALL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Open All Folds"),
 	 N_("Open all code folds in the editor"),
-	 on_open_folds1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_OPEN_FOLDALL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle Current Fold"),
 	 N_("Toggle current code fold in the editor"),
-	 on_toggle_fold1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_TOGGLE_FOLD, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*9*/
@@ -1287,39 +1287,39 @@ static GnomeUIInfo bookmark1_menu_uiinfo[NUM_BOOKMARK_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle bookmark"),
 	 N_("Toggle a bookmark at the current line position"),
-	 on_book_toggle1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_TOGGLE, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_INDEX,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*1*/
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_First bookmark"),
 	 N_("Jump to the first bookmark in the file"),
-	 on_book_first1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_FIRST, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_TOP,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("_Previous bookmark"),
 	 N_("Jump to the previous bookmark in the file"),
-	 on_book_prev1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_PREV, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_UP,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Next bookmark"),
 	 N_("Jump to the next bookmark in the file"),
-	 on_book_next1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_NEXT, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_DOWN,
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Last bookmark"),
 	 N_("Jump to the last bookmark in the file"),
-	 on_book_last1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_LAST, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOTTOM,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*6*/
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Clear all bookmarks"),
 	 N_("Clear bookmarks"),
-	 on_book_clear1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_CLEAR, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*8*/

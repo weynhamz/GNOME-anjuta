@@ -319,7 +319,7 @@ launcher_execute (gchar * command_str,
   gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
 		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
 
-#ifdef DEBUG
+#ifdef LAUNCHER_DEBUG
   if (launcher.terminal) {
 	  GtkWindow* win;
 	  win = gtk_window_new(0);

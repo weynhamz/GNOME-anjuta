@@ -26,7 +26,7 @@ guint workspace_class_id = 0;
 static gboolean tm_create_workspace(void)
 {
 	char *file_name = g_strdup_printf("%s/%d", P_tmpdir, getpid());
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Workspace created: %s", file_name);
 #endif
 
@@ -56,7 +56,7 @@ void tm_workspace_free(gpointer workspace)
 	if (workspace != theWorkspace)
 		return;
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Workspace destroyed");
 #endif
 
@@ -156,7 +156,7 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char *in
 	  do \
 	  	echo \"#include \\\"$file\\\"\" >>%s; \
 	  done", includes, temp_file);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Executing: %s", command);
 #endif
 	if (0 != system(command))
@@ -167,7 +167,7 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char *in
 	}
 	g_free(command);
 	command = g_strdup_printf("%s %s >%s", pre_process, temp_file, temp_file2);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Executing: %s", command);
 #endif
 	system(command);
@@ -243,7 +243,7 @@ void tm_workspace_recreate_tags_array(void)
 	TMTagAttrType sort_attrs[] = { tm_tag_attr_name_t, tm_tag_attr_file_t
 		, tm_tag_attr_scope_t, tm_tag_attr_type_t, 0};
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Recreating workspace tags array");
 #endif
 
@@ -254,13 +254,13 @@ void tm_workspace_recreate_tags_array(void)
 	else
 		theWorkspace->work_object.tags_array = g_ptr_array_new();
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Total %d objects", theWorkspace->work_objects->len);
 #endif
 	for (i=0; i < theWorkspace->work_objects->len; ++i)
 	{
 		w = TM_WORK_OBJECT(theWorkspace->work_objects->pdata[i]);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_message("Adding tags of %s", w->file_name);
 #endif
 		if ((NULL != w) && (NULL != w->tags_array) && (w->tags_array->len > 0))
@@ -272,7 +272,7 @@ void tm_workspace_recreate_tags_array(void)
 			}
 		}
 	}
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Total: %d tags", theWorkspace->work_object.tags_array->len);
 #endif
 	tm_tags_sort(theWorkspace->work_object.tags_array, sort_attrs, TRUE);
@@ -284,7 +284,7 @@ gboolean tm_workspace_update(TMWorkObject *workspace, gboolean force
 	guint i;
 	gboolean update_tags = force;
 	
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Updating workspace");
 #endif
 
@@ -311,7 +311,7 @@ void tm_workspace_dump(void)
 {
 	if (theWorkspace)
 	{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_message("Dumping TagManager workspace tree..");
 #endif
 		tm_work_object_dump(TM_WORK_OBJECT(theWorkspace));

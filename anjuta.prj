@@ -1,4 +1,4 @@
-# Anjuta Version 1.0-pre
+# Anjuta Version 0.9.99 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -206,7 +206,7 @@ module.include.files=\
 
 module.source.name=.
 module.source.type=
-module.source.expanded=0
+module.source.expanded=1
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -410,7 +410,8 @@ module.source.files=\
 	widgets/e-shell-about-box.c\
 	widgets/gnomedirlist.c\
 	widgets/gnomefilelist.c\
-	widgets/scroll-menu.c
+	widgets/scroll-menu.c\
+	src/debug_tree.c
 
 module.pixmap.name=.
 module.pixmap.type=
@@ -619,15 +620,6 @@ module.pixmap.files=\
 	pixmaps/sv_public_fun.xpm\
 	pixmaps/sv_public_var.xpm\
 	pixmaps/sv_static_fun.xpm\doc
-	pixmaps/sv_static_var.xpm\
-	pixmaps/sv_struct.xpm\
-	pixmaps/sv_unknown.xpm\
-	pixmaps/sv_variable.xpm\
-	pixmaps/syntax.xpm\
-	pixmaps/undo.xpm\
-	pixmaps/undock.xpm\
-	pixmaps/watch.xpm\
-	pixmaps/wizard.xpm
 
 module.data.name=.
 module.data.type=

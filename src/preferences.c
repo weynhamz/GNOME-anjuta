@@ -737,6 +737,43 @@ preferences_sync (Preferences * pr)
 	}
 	gtk_entry_set_text (GTK_ENTRY (pr->widgets.email_entry), str2);
 	g_free(str2);
+
+	/* Terminal */
+	if (NULL == (str = preferences_get(pr, TERMINAL_FONT)))
+		str = g_strdup(DEFAULT_ZVT_FONT);
+	gnome_font_picker_set_font_name( (GnomeFontPicker *)
+	  pr->widgets.term_font_fp, str);
+	g_free(str);
+	if (NULL == (str = preferences_get(pr, TERMINAL_WORDCLASS)))
+		str = g_strdup(DEFAULT_ZVT_WORDCLASS);
+	gtk_entry_set_text((GtkEntry *) pr->widgets.term_sel_by_word_e, str);
+	g_free(str);
+	i = preferences_get_int(pr, TERMINAL_SCROLLSIZE);
+	if (i < DEFAULT_ZVT_SCROLLSIZE)
+		i = DEFAULT_ZVT_SCROLLSIZE;
+	else if (i > MAX_ZVT_SCROLLSIZE)
+		i = MAX_ZVT_SCROLLSIZE;
+	{
+		float f = i;
+		gtk_spin_button_set_value((GtkSpinButton *)
+		 pr->widgets.term_scroll_buffer_sb, f);
+	}
+	if (NULL == (str = preferences_get(pr, TERMINAL_TERM)))
+		str = g_strdup(DEFAULT_ZVT_TERM);
+	gtk_entry_set_text((GtkEntry *) pr->widgets.term_type_e, str);
+	g_free(str);
+	i = preferences_get_int(pr, TERMINAL_SCROLL_KEY);
+	gtk_toggle_button_set_active((GtkToggleButton *)
+	  pr->widgets.term_scroll_on_key_cb, i ? TRUE : FALSE);
+	i = preferences_get_int(pr, TERMINAL_SCROLL_OUTPUT);
+	gtk_toggle_button_set_active((GtkToggleButton *)
+	  pr->widgets.term_scroll_on_out_cb, i ? TRUE : FALSE);
+	i = preferences_get_int(pr, TERMINAL_BLINK);
+	gtk_toggle_button_set_active((GtkToggleButton *)
+	  pr->widgets.term_blink_cursor_cb, i ? TRUE : FALSE);
+	i = preferences_get_int(pr, TERMINAL_BELL);
+	gtk_toggle_button_set_active((GtkToggleButton *)
+	  pr->widgets.term_bell_cb, i ? TRUE : FALSE);
 }
 
 void
@@ -1002,6 +1039,34 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 		fprintf(fp, "%s=%s\n", CHARACTER_SET, str);
 		g_free(str);
 	}
+
+	/* Terminal */
+	if (NULL != (str = preferences_get(pr, TERMINAL_FONT)))
+	{
+		fprintf(fp, "%s=%s\n", TERMINAL_FONT, str);
+		g_free(str);
+	}
+	if (NULL != (str = preferences_get(pr, TERMINAL_WORDCLASS)))
+	{
+		fprintf(fp, "%s=%s\n", TERMINAL_WORDCLASS, str);
+		g_free(str);
+	}
+	if (NULL != (str = preferences_get(pr, TERMINAL_TERM)))
+	{
+		fprintf(fp, "%s=%s\n", TERMINAL_TERM, str);
+		g_free(str);
+	}
+	fprintf(fp, "%s=%d\n", TERMINAL_BELL
+	  , preferences_get_int(pr, TERMINAL_BELL));
+	fprintf(fp, "%s=%d\n", TERMINAL_BLINK
+	  , preferences_get_int(pr, TERMINAL_BLINK));
+	fprintf(fp, "%s=%d\n", TERMINAL_SCROLLSIZE
+	  , preferences_get_int_with_default(pr, TERMINAL_SCROLLSIZE
+	  , DEFAULT_ZVT_SCROLLSIZE));
+	fprintf(fp, "%s=%d\n", TERMINAL_SCROLL_KEY
+	  , preferences_get_int_with_default(pr, TERMINAL_SCROLL_KEY, 1));
+	fprintf(fp, "%s=%d\n", TERMINAL_SCROLL_OUTPUT
+	  , preferences_get_int_with_default(pr, TERMINAL_SCROLL_OUTPUT, 1));
 
 	if (pr->is_showing)
 	{

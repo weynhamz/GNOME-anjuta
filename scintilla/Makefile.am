@@ -6,7 +6,7 @@ noinst_LIBRARIES = libscintilla.a
 
 INCLUDES = -I$(srcdir)/include $(GTK_CFLAGS)
 
-CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM -W -Wall -g -O
+AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
 libscintilla_a_SOURCES =\
 	AutoComplete.cxx \

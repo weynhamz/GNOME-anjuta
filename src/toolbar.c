@@ -1091,8 +1091,6 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	GtkTooltips *tooltips;
 	GtkWidget *tmp_toolbar_icon;
 
-	tooltips = gtk_tooltips_new (); /* FIXME: Where is it being used ? */
-
 	window1 = anjuta_gui;
 
 	toolbar2 =

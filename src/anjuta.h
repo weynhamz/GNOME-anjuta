@@ -210,7 +210,7 @@ TextEditor*  anjuta_goto_file_line (gchar * fname, glong lineno);
 TextEditor*  anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark);
 gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name);
 void anjuta_goto_tag(const char *symbol, TextEditor *te, gboolean prefer_definition);
-
+void anjuta_set_zoom_factor(gint zoom);
 void anjuta_apply_preferences (void);
 void anjuta_load_cmdline_files (void);
 

@@ -144,7 +144,7 @@ optionValues Option = {
     FALSE,		/* --totals */
     FALSE,		/* --line-directives */
 	FALSE,
-#ifdef DEBUG
+#ifdef TM_DEBUG
     0, 0		/* -D, -b */
 #endif
 };
@@ -155,12 +155,12 @@ optionValues Option = {
 
 static optionDescription LongOptionDescription [] = {
  {1,"  -a   Append the tags to an existing tag file."},
-#ifdef DEBUG
+#ifdef TM_DEBUG
  {1,"  -b <line>"},
  {1,"       Set break line."},
 #endif
  {0,"  -B   Use backward searching patterns (?...?)."},
-#ifdef DEBUG
+#ifdef TM_DEBUG
  {1,"  -D <level>"},
  {1,"       Set debug level."},
 #endif
@@ -320,7 +320,7 @@ static const char *const Features [] = {
 #if (defined (MSDOS) || defined (WIN32) || defined (OS2)) && defined (UNIX_PATH_SEPARATOR)
     "unix-path-separator",
 #endif
-#ifdef DEBUG
+#ifdef TM_DEBUG
     "debug",
 #endif
     NULL
@@ -1399,7 +1399,7 @@ static void processShortOption (const char *const option,
 	    checkOptionOrder (option);
 	    Option.append = TRUE;
 	    break;
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	case 'b':
 	    if (atol (parameter) < 0)
 		error (FATAL, "-%s: Invalid line number", option);

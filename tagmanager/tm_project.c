@@ -47,7 +47,7 @@ gboolean tm_project_init(TMProject *project, const char *dir
 	char path[PATH_MAX];
 
 	g_return_val_if_fail((project && dir), FALSE);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Initializing project %s", dir);
 #endif
 	if (0 == project_class_id)
@@ -85,7 +85,7 @@ gboolean tm_project_init(TMProject *project, const char *dir
 	tm_project_open(project, force);
 	if (!project->file_list || (0 == project->file_list->len))
 		tm_project_autoscan(project);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	tm_workspace_dump();
 #endif
 	return TRUE;
@@ -106,7 +106,7 @@ TMWorkObject *tm_project_new(const char *dir, const char **sources
 void tm_project_destroy(TMProject *project)
 {
 	g_assert(project);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Destroying project: %s", project->work_object.file_name);
 #endif
 
@@ -257,7 +257,7 @@ void tm_project_recreate_tags_array(TMProject *project)
 	TMWorkObject *source_file;
 
 	g_return_if_fail(project);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Recreating tags for project: %s", project->work_object.file_name);
 #endif
 
@@ -297,7 +297,7 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 		return FALSE;
 	}
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Updating project: %s", work_object->file_name);
 #endif
 
@@ -330,7 +330,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 
 	if (!project || !IS_TM_PROJECT(TM_WORK_OBJECT(project)))
 		return FALSE;
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Opening project %s", project->work_object.file_name);
 #endif
 	if (NULL == (fp = fopen(project->work_object.file_name, "r")))
@@ -342,7 +342,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 			if (!(source_file = TM_SOURCE_FILE(
 			  tm_source_file_new(tag->name, FALSE))))
 			{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 				g_warning("Unable to create source file %s", tag->name);
 #endif
 				if (!force)
@@ -370,7 +370,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 		{
 			if ((NULL == source_file) || (source_file->inactive)) /* Dangling tag */
 			{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 				g_warning("Dangling tag %s", tag->name);
 #endif
 				tm_tag_free(tag);

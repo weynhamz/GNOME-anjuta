@@ -1,4 +1,4 @@
-                         Anjuta Version 0.1.9 Release
+                         Anjuta Version 1.0 Release
 
                        Copyright (C) 2000-2002 Kh. Naba Kumar Singh
                        Home site => http://anjuta.sourceforge.net
@@ -125,57 +125,82 @@ Mailing lists:
 REQUIREMENTS:
 -------------
 
+Installation should be a breeze on any reasonably up-to-date *NIX system
+with GNOME 1.4 (Ximian GNOME recommended). The following are the minimum
+requirements. Development platform is RedHat Linux 7.x with GNOME 1.4
+
 1) Installation
 	# From Tarball:
-		* GNOME libs
-		* gnome-xml (aka libxml1)
-		* scrollkeeper
+		* GNOME libs (1.2.8 or later)
+		* gnome-xml (aka libxml1) (1.4.0 or later)
+		* ORBit (0.5.0 or later)
+		* gnome-print (0.35 or later)
+		* gdk-pixbuf
+		* scrollkeeper (0.1.4 or later)
 		* pkgconfig
+
+	# From CVS:
+		* All the requirements for tarball
+		* GNU gettext 0.10.x (0.11.x does not work)
+		* Automake 1.4 (might not work with newer versions)
+		* Autoconf 2.13 (might not work with newer versions)
 
 	# From Src RPM:
 		< RedHat 6.1 or upwards >
-		* GNOME libs
-		* Automake
-		* GNU C compiler
-		* RPM
-		* xml-i18n-tools
-		* pkgconfig
+		* gnome-libs & gnome-libs-devel (1.2.8 or later)
+		* libxml & libxml-devel (1.4.0 or later)
+		* ORBit & ORBit-devel (0.5.0 or later)
+		* gnome-print & gnome-print-devel (0.35 or later)
+		* gdk-pixbuf & gdk-pixbuf-devel (0.15 or later)
+		* scrollkeeper (0.1.4 or later)
+		* pkgconfig (0.10 or later)
+		* automake (1.4)
+		* gcc & gcc-c++ (2.95.2 or later)
+		* RPM (4.0 ?)
+		* xml-i18n-tools or intltool (for documentation)
 
 	# From RPM Pkg:
 		< RedHat 7.1 or upwards >
-		* RPM
-				
+		* gnome-libs & gnome-libs-devel (1.2.8 or later)
+		* libxml (1.4.0 or later)
+		* ORBit (0.5.0 or later)
+		* gnome-print (0.35 or later)
+		* gdk-pixbuf (0.15 or later)
+		* scrollkeeper (0.1.4 or later)
+		* automake (1.4)
+		* RPM (4.0 ?)
+
 2) Running
 	< RedHat 6.1 or upwards >
-	* GNOME 
+	* GNOME (1.4 full install recommended)
 	* Bash command shell
-	* indent
+	* GNU Indent
 	* gnome-terminal
 	* gnome-help-browser (or Nautilus)
-	* Automake
-	* GNU C compiler
+	* Automake/Autoconf
+	* GNU Make
+	* GNU C/C++ compiler
 	* GNU debugger (gdb)
-	* grep
-
+	* GNU grep
 
 INSTALLATION:
 -------------
 
 # From Tarball:
 	Note:-
-		The package as an example is taken as anjuta-0.1.1.tar.gz
+		The package as an example is taken as anjuta-1.0.tar.gz
 		and '#' is the shell prompt. You must be logged in as root
 		to install Anjuta.
 
-	1) Get the tarball anjuta-0.1.1.tar.gz
+	1) Get the tarball anjuta-1.0.tar.gz
 
 	2) copy it to your home dir.
 
-	3) Unzip it by typing:   #gunzip anjuta-0.1.1.tar.gz
+	3) Unzip it by typing:   #gunzip anjuta-1.0.tar.gz
 
-	4) Extract it by typing:   #tar -xvf anjuta-0.1.1.tar
+	4) Extract it by typing:   #tar -xvf anjuta-1.0.tar
 
-	5) Change dir:   #cd anjuta-0.1.1
+	5) Change dir:   #cd anjuta-1.0
 
 	6) Type:  #./configue
 
@@ -189,15 +214,15 @@ INSTALLATION:
 
 # From RPM Pkg:
 	Note:-
-		The package as an example is taken as anjuta-0.1.1-1.i386.rpm
+		The package as an example is taken as anjuta-1.0-1.i386.rpm
 		and '#' is the shell prompt. You must be logged in as root
 		to install Anjuta.
 
-	1) Get the RPM package anjuta-0.1.1-1.i386.rpm (visit www.sourceforge.net).
+	1) Get the RPM package anjuta-1.0-1.i386.rpm (visit www.sourceforge.net).
 
 	2) Change to the directory containing the rpm package.
 
-	3) Type: rpm -ivh anjuta-0.1.1-1.i386.rpm.
+	3) Type: rpm -ivh anjuta-1.0-1.i386.rpm.
 
 		That's all. If everything went smoothly, congratulations.
 	Otherwise, some dependency error will come up. You will have
@@ -219,6 +244,17 @@ Assume that the install dir is /usr/local (this is the default directory).
 /usr/share/gnome/apps/Development/anjuta.desktop. <Menu entry>
 
 For detailed custom installation, please read the file INSTALL.
+
+
+KNOWN ISSUES:
+-------------
+
+	* Printing is unstable with older versions of gnome-print and FreeType.
+If you experience crashes while printing, please upgrade gnome-print and
+FreeType to the latest stable versions (currently 0.36 and 2.1.2 respectively).
+	* Debugger stepping may not work correctly if executables are compiled
+with optimization enabled (This is a GCC/GDB issue). If you plan to debug your
+application from Anjuta, please turn off optimization for debug builds.
 
 
 RUNNING:

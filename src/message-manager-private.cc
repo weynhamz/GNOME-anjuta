@@ -307,34 +307,55 @@ GtkWidget* AnjutaMessageWindow::get_msg_list()
 {
 	return m_msg_list;
 }
-	
-// Terminal
-
-#undef ZVT_FONT
-#define ZVT_FONT "-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-iso8859-1"
-#undef ZVT_SCROLLSIZE
-#define ZVT_SCROLLSIZE 200
 
 TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {	
 	g_return_if_fail(p_amm != NULL);
-  
-	/* A quick hack so that we get a beautiful color terminal */
-  putenv("TERM=xterm");
-	
+
+	/* Set terminal preferences */
+	gchar *font = preferences_get(get_preferences(), TERMINAL_FONT);
+	if (!font) font = g_strdup(DEFAULT_ZVT_FONT);
+	gint scrollsize = preferences_get_int(get_preferences(), TERMINAL_SCROLLSIZE);
+	if (scrollsize < DEFAULT_ZVT_SCROLLSIZE)
+		scrollsize = DEFAULT_ZVT_SCROLLSIZE;
+	if (scrollsize > MAX_ZVT_SCROLLSIZE)
+		scrollsize = MAX_ZVT_SCROLLSIZE;
+	gchar *term = preferences_get(get_preferences(), TERMINAL_TERM);
+    if (!term) term = g_strdup(DEFAULT_ZVT_TERM);
+	guchar *wordclass = (guchar *) preferences_get(get_preferences(), TERMINAL_WORDCLASS);
+	if (!wordclass) wordclass = (guchar *) g_strdup(DEFAULT_ZVT_WORDCLASS);
+	g_snprintf(termenv, 255L, "TERM=%s", term);
+	g_free(term);
+
+#ifdef DEBUG
+	g_message("Font: '%s'\n", font);
+	g_message("Scroll Buffer: '%d'\n", scrollsize);
+	g_message("TERM: '%s'\n", termenv);
+	g_message("Word characters: '%s'\n", wordclass);
+#endif
+	putenv(termenv);
+	// putenv("TERM=xterm");
 	m_terminal = zvt_term_new();
-	zvt_term_set_font_name(ZVT_TERM(m_terminal), ZVT_FONT);
-	zvt_term_set_blink(ZVT_TERM(m_terminal), TRUE);
-	zvt_term_set_bell(ZVT_TERM(m_terminal), TRUE);
-	zvt_term_set_scrollback(ZVT_TERM(m_terminal), ZVT_SCROLLSIZE);
-	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m_terminal), TRUE);
-	zvt_term_set_scroll_on_output(ZVT_TERM(m_terminal), FALSE);
+	zvt_term_set_font_name(ZVT_TERM(m_terminal), font);
+	g_free(font);
+	zvt_term_set_blink(ZVT_TERM(m_terminal), preferences_get_int(
+	  get_preferences(), TERMINAL_BLINK) ? TRUE : FALSE);
+	zvt_term_set_bell(ZVT_TERM(m_terminal), preferences_get_int(
+	  get_preferences(), TERMINAL_BELL) ? TRUE : FALSE);
+	zvt_term_set_scrollback(ZVT_TERM(m_terminal), scrollsize);
+	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m_terminal)
+	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_KEY
+	  ) ? TRUE : FALSE);
+	zvt_term_set_scroll_on_output(ZVT_TERM(m_terminal)
+	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_OUTPUT
+	  ) ? TRUE : FALSE);
 	zvt_term_set_background(ZVT_TERM(m_terminal), NULL, 0, 0);
-	zvt_term_set_wordclass(ZVT_TERM(m_terminal), (unsigned char*) "-A-Za-z0-9/_:.,?+%=");
+	zvt_term_set_wordclass(ZVT_TERM(m_terminal), wordclass);
+	g_free(wordclass);
 #ifdef ZVT_TERM_MATCH_SUPPORT
 	zvt_term_match_add	(ZVT_TERM(m_terminal),
-		"^[-A-Za-z0-9_\\.]+:[0-9]+:.*$",
+		"^[-A-Za-z0-9_\\/.]+:[0-9]+:.*$",
 		VTATTR_UNDERLINE, NULL);
 #endif
 	gtk_widget_show(m_terminal);
@@ -367,7 +388,7 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	gtk_signal_connect (GTK_OBJECT (m_terminal), "focus_in_event",
 		GTK_SIGNAL_FUNC (TerminalWindow::zvterm_focus_in), NULL);
 }
-	
+
 void TerminalWindow::show()
 {
 	if (!m_is_shown)

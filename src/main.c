@@ -72,7 +72,8 @@ static void delete_old_config_file (void)
 	config_version = prop_get(prop, "anjuta.version");
 	if (config_version) {
 		gint last_ver;
-		sscanf(config_version, "0.1.%d", &last_ver);
+		if(1 > sscanf(config_version, "0.1.%d", &last_ver))
+			last_ver = 10;
 #ifdef DEBUG
 		g_message ("Old Version = %d", last_ver);
 #endif

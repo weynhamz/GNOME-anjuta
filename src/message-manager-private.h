@@ -146,6 +146,7 @@ class TerminalWindow : public MessageSubwindow
 		GtkWidget* m_hbox;
 		GtkWidget* m_terminal;
 		GtkWidget* m_scrollbar;
+		char termenv[255];
     
 		static gboolean zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data);
 		static void zvterm_reinit_child(ZvtTerm* term);

@@ -46,7 +46,7 @@ void tm_file_entry_print(TMFileEntry *entry, gpointer __unused__ user_data
 gint tm_file_entry_compare(TMFileEntry *e1, TMFileEntry *e2)
 {
 	g_return_val_if_fail(e1 && e2 && e1->name && e2->name, 0);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Comparing %s and %s", e1->name, e2->name);
 #endif
 	return strcmp(e1->name, e2->name);
@@ -81,7 +81,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	entry->type = tm_file_entry_type(real_path);
 	if (tm_file_unknown_t == entry->type)
 	{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_warning("Unknown file: %s", path);
 #endif
 		g_free(real_path);
@@ -108,7 +108,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		}
 		if (!matched)
 		{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 			g_warning("%s did not match list. Removing..", entry->path);
 #endif
 			tm_file_entry_free(entry);
@@ -128,7 +128,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		}
 		if (ignored)
 		{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 			g_warning("%s matched %s. Ignoring..", entry->path, *ignore);
 #endif
 			tm_file_entry_free(entry);
@@ -137,7 +137,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	}
 	if (('.' == entry->name[0]) && ignore_hidden && parent)
 	{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_warning("Ignoring hidden file %s", entry->path);
 #endif
 		tm_file_entry_free(entry);
@@ -152,7 +152,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		struct stat s;
 		char *entries = NULL;
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_message("Recursing into %s", entry->path);
 #endif
 		g_snprintf(file_name, PATH_MAX, "%s/CVS/Entries", entry->path);
