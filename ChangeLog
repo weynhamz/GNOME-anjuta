@@ -1,3 +1,11 @@
+2002-01-13  Naba Kumar <naba@gnome.org>
+
+	* ABOUT-NLS: Update (strange).
+
+	* autogen.sh: Removed blocking code.
+
+	* configure.in: Fixed an autogen bug.
+	
 2003-01-13  Naba Kumar <naba@gnome.org>
 
 	* (new)src/anjuta.gladep

@@ -1,18 +1,6 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
 
-clear
-echo ""
-echo "This is Anjuta CVS HEAD you are trying to build and it is"
-echo "currently not buildable. If you are looking for latest anjuta that"
-echo "builds in CVS, please checkout the ANJUTA_1_0_0 branch with the"
-echo "command 'cvs co -r ANJUTA_1_0_0 anjuta'."
-echo ""
-echo "Thank you"
-echo "Anjuta development team"
-echo ""
-exit 0
-
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 

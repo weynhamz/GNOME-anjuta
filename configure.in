@@ -1,3 +1,4 @@
+AC_PREREQ(2.52)
 AC_INIT(src/Makefile.am)
 
 ANJUTA_VERSION=1.2.0
@@ -71,7 +72,7 @@ AC_ARG_ENABLE(warnings,
       fi)
 
 dnl Initialize xml-i18n-tools
-AM_PROG_XML_I18N_TOOLS
+AC_PROG_INTLTOOL
 
 AC_PROG_CC
 AC_PROG_CPP
@@ -79,8 +80,6 @@ AC_PROG_CXX
 AC_ISC_POSIX
 AC_HEADER_STDC
 AM_PROG_LIBTOOL
-
-GNOME_COMMON_INIT
 
 PKG_CHECK_MODULES(ANJUTA, \
 	glib-2.0 >= $GLIB_REQUIRED \
@@ -360,11 +359,6 @@ fi
 
 dnl Checks for Additional stuffs.
 
-dnl Languages which your application supports
-ALL_LINGUAS="az da de el en_GB es fr it ja nl no pl pt pt_BR ru sk sv ta tr uk zh_CN zh_TW"
-AM_GNU_GETTEXT
-AM_GNU_GETTEXT_VERSION(0.10.40)
-
 dnl Set PACKAGE_LOCALE_DIR in config.h.
 if test "x${prefix}" = "xNONE"; then
   AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale")
@@ -443,7 +437,6 @@ AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
 AC_OUTPUT([
 Makefile
 po/Makefile.in
-macros/Makefile
 macros2/Makefile
 tagmanager/Makefile
 tagmanager/include/Makefile
