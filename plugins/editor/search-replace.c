@@ -751,20 +751,18 @@ static void
 search_end_alert(gchar *string)
 {
 	GtkWidget *dialog;
-	gchar buff[256];
-
+	
 	if (sr->search.range.direction != SD_BEGINNING && !flag_select)
 	{
 		// Ask if user wants to wrap around the doc
 		// Dialog to be made HIG compliant.
-		sprintf (buff,
-			_("The match \"%s\" was not found. Wrap search around the document?"),
-			string);
 		dialog = gtk_message_dialog_new (GTK_WINDOW (sg->dialog),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_QUESTION,
-									 	 GTK_BUTTONS_YES_NO,
-										 buff);
+					GTK_DIALOG_DESTROY_WITH_PARENT,
+					GTK_MESSAGE_QUESTION,
+					GTK_BUTTONS_YES_NO,
+					_("The match \"%s\" was not found. Wrap search around the document?"),
+					string);
+
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 										 GTK_RESPONSE_YES);
 		g_signal_connect(G_OBJECT(dialog), "key-press-event",
@@ -780,12 +778,10 @@ search_end_alert(gchar *string)
 	}
 	else
 	{
-		sprintf (buff,
-			_("The match \"%s\" was not found."),
-			string);
 		dialog = gtk_message_dialog_new(GTK_WINDOW (sg->dialog),
 					GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK,
-		        	buff);
+					_("The match \"%s\" was not found."),
+		        	string);
 		g_signal_connect(G_OBJECT(dialog), "key-press-event",
 			G_CALLBACK(on_search_dialog_key_press_event), NULL);
 		gtk_dialog_run(GTK_DIALOG(dialog));
