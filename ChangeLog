@@ -1,3 +1,19 @@
+2003-02-21  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, po/hi.po: Added new Hindi (hi) translation
+	in ALL_LINGUS and added initial Hindi translation.
+
+	* pixmaps/Makefile.am, pixmaps/sv_unknown.xpm, src/pixmaps.h,
+	(new)pixmaps/file_*.png: Added gnome2ish file icons and changed
+	sv_unknown.xpm to more proper icon.
+
+	* (new)data/properties/php.properties, data/properties/Makefile.am,
+	data/properties/anjuta.properties, data/properties/html.properties:
+	Fixed PHP syntax hilighting bug by separating php properties into
+	different file (because of file size).
+
+	* TODO: Updated.
+	
 2003-02-20  Naba Kumar <naba@gnome.org>
 
 	* src/breakpoints.c: Fixed breakpoints session saving/loading

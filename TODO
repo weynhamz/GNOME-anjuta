@@ -5,6 +5,14 @@ TODO List:
 	  session.
 	o s/zvt/vte/ terminal.
 	o File browser icons -- use gnome2ish icons.
+	o Breakpoints does not get reloaded from session.
+	o Terminal text selection not implemented yet.
+	o Terminal properties not properly setting.
+	o Terminal callback for child death not working.
+	o Print preview fonts not proper.
+	o Debug tree disabled.
+	o Busy indicator (flashing LED) not yet implemented.
+	
 	o Anjuta can open same file in multiple text editors.
 	  --> TagManager should not remove the file from it's database if
 	  another copy of the file is still open -- it crashes.

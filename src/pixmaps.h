@@ -151,7 +151,7 @@
 
 /* Pixmaps for file and symbol browsers */
 /* Symbol browser */
-#define ANJUTA_PIXMAP_SV_UNKNOWN          "file_unknown.xpm"
+#define ANJUTA_PIXMAP_SV_UNKNOWN          "sv_unknown.xpm"
 #define ANJUTA_PIXMAP_SV_CLASS            "sv_class.xpm"
 #define ANJUTA_PIXMAP_SV_FUNCTION         "sv_function.xpm"
 #define ANJUTA_PIXMAP_SV_MACRO            "sv_macro.xpm"
@@ -171,21 +171,21 @@
 #define ANJUTA_PIXMAP_OPEN_FOLDER         "ofolder.xpm"
 
 /* File browser */
-#define ANJUTA_PIXMAP_FV_UNKNOWN          "file_unknown.xpm"
-#define ANJUTA_PIXMAP_FV_TEXT             "file_text.xpm"
-#define ANJUTA_PIXMAP_FV_IMAGE            "file_pix.xpm"
-#define ANJUTA_PIXMAP_FV_EXECUTABLE       "file_exec.xpm"
-#define ANJUTA_PIXMAP_FV_CORE             "file_core.xpm"
+#define ANJUTA_PIXMAP_FV_UNKNOWN          "file_unknown.png"
+#define ANJUTA_PIXMAP_FV_TEXT             "file_text.png"
+#define ANJUTA_PIXMAP_FV_IMAGE            "file_pix.png"
+#define ANJUTA_PIXMAP_FV_EXECUTABLE       "file_exec.png"
+#define ANJUTA_PIXMAP_FV_CORE             "file_core.png"
 
 /* Required by Project Manager */
-#define ANJUTA_PIXMAP_EDIT                "file_text.xpm"
-#define ANJUTA_PIXMAP_VIEW                "file_file.xpm"
-#define ANJUTA_PIXMAP_INCLUDE             "file_h.xpm"
-#define ANJUTA_PIXMAP_SOURCE              "file_cpp.xpm"
-#define ANJUTA_PIXMAP_DATA                "file_unknown.xpm"
-#define ANJUTA_PIXMAP_PIXMAP              "file_pix.xpm"
-#define ANJUTA_PIXMAP_TRANSLATION         "file_unknown.xpm"
-#define ANJUTA_PIXMAP_DOC                 "file_text.xpm"
+#define ANJUTA_PIXMAP_EDIT                "file_text.png"
+#define ANJUTA_PIXMAP_VIEW                "file_file.png"
+#define ANJUTA_PIXMAP_INCLUDE             "file_h.png"
+#define ANJUTA_PIXMAP_SOURCE              "file_cpp.png"
+#define ANJUTA_PIXMAP_DATA                "file_unknown.png"
+#define ANJUTA_PIXMAP_PIXMAP              "file_pix.png"
+#define ANJUTA_PIXMAP_TRANSLATION         "file_i18n.png"
+#define ANJUTA_PIXMAP_DOC                 "file_html.png"
 
 /* Useful macros for specifying pixmaps in UIInfo structures */
 /* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, \

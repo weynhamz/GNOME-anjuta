@@ -67,6 +67,7 @@ anjuta_pixmaps_DATA = \
 	error-next.png \
 	error-prev-16.png \
 	error-prev.png \
+	\
 	file_core.xpm \
 	file_cpp.xpm \
 	file_c.xpm \
@@ -79,6 +80,19 @@ anjuta_pixmaps_DATA = \
 	file_pix.xpm \
 	file_text.xpm \
 	file_unknown.xpm \
+	\
+	file_core.png \
+	file_cpp.png \
+	file_c.png \
+	file_exec.png \
+	file_file.png \
+	file_html.png \
+	file_h.png \
+	file_i18n.png \
+	file_icon.png \
+	file_pix.png \
+	file_text.png \
+	file_unknown.png \
 	fold_close.xpm \
 	fold_open.xpm \
 	fold_toggle.xpm \
@@ -123,6 +137,7 @@ anjuta_pixmaps_DATA = \
 	step_in.xpm \
 	step_out.xpm \
 	step_over.xpm \
+	sv_unknown.xpm \
 	sv_class.xpm \
 	sv_function.xpm \
 	sv_macro.xpm \
