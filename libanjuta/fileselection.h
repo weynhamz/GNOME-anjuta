@@ -27,12 +27,14 @@ struct _FileSelData
 {
   char title[MAX_NAME_LENGTH];
   gpointer data;
-  void (*click_ok_callback)(GtkButton*, gpointer);
-  void (*click_cancel_callback)(GtkButton*, gpointer);
+  void (*click_ok_callback)(GtkDialog*, gpointer);
+  void (*click_cancel_callback)(GtkDialog*, gpointer);
   GtkWidget *filesel;
   
 };
   
+void fileselection_update_dir(GtkWidget *filesel);
+
 GtkWidget* create_fileselection_gui (FileSelData *fd, GtkWindow *parent);
 
 /* Free the return */

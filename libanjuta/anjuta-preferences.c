@@ -380,9 +380,6 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 
 	return_value = 0;
 	
-	if (prop->object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
-		return TRUE;
-	
 	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
 	{
 		value = prop_get (pr->props_session, prop->key);
@@ -453,9 +450,8 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 				vstr = g_strsplit (default_value, ",", 100);
 				g_object_set_data(G_OBJECT(p->object), "untranslated",
 									vstr);
-			} /* For others */
-			else if (object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
-				prop_set_with_key (pr->props_built_in, key, default_value);
+			}
+			prop_set_with_key (pr->props_built_in, key, default_value);
 		}
 	}
 	p->flags = flags;
@@ -803,8 +799,8 @@ on_preferences_dialog_response (GtkDialog *dialog,
 			/* Note: No break here */
 		case GTK_RESPONSE_APPLY:
 			preferences_objects_to_prop (pr);
-			gtk_signal_emit (GTK_OBJECT (pr),
-							 anjuta_preferences_signals[CHANGED]);
+			g_signal_emit (G_OBJECT (pr),
+						   anjuta_preferences_signals[CHANGED], 0);
 			break;
 		case GTK_RESPONSE_CANCEL:
 			gtk_widget_hide (GTK_WIDGET (pr));

@@ -44,7 +44,7 @@ anjuta_res_lookup_widget (GtkWidget * widget, const gchar * widget_name)
 		widget = parent;
 	}
 
-	found_widget = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (widget),
+	found_widget = (GtkWidget *) g_object_get_data (G_OBJECT (widget),
 							  widget_name);
 	if (!found_widget)
 		g_warning (_("Widget not found: %s"), widget_name);
@@ -260,7 +260,8 @@ anjuta_res_help_search (const gchar * word)
 		if(fork()==0)
 		{
 			execlp("devhelp", "devhelp", "-s", word, NULL);
-			g_error (_("Cannot execute Devhelp. Make sure it is installed"));
+			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
+			_exit(1);
 		}
 	}
 	else
@@ -268,7 +269,8 @@ anjuta_res_help_search (const gchar * word)
 		if(fork()==0)
 		{
 			execlp("devhelp", "devhelp", NULL);
-			g_error (_("Cannot execute Devhelp. Make sure it is installed"));
+			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
+			_exit(1);
 		}
 	}
 }

@@ -30,6 +30,7 @@
 #include <gtk/gtkaccelmap.h>
 #include <gtk/gtkcellrendererpixbuf.h>
 #include <gtk/gtkimage.h>
+#include <gtk/gtklabel.h>
 
 #include <libgnome/libgnome.h>
 #include <libegg/treeviewutils/eggcellrendererkeys.h>
@@ -99,14 +100,12 @@ visibility_toggled (GtkCellRendererToggle *cell,
 static gchar*
 get_action_label (GtkAction *action)
 {
-	gchar *action_label;
-/* FIXME: we need to get the label of the action */
-#if 0
-	if (action->label && strlen (action->label))
+	gchar *action_label = NULL;
+	
+	g_object_get (G_OBJECT (action), "label", &action_label, NULL);
+	if (action_label && strlen (action_label))
 	{
 		gchar *s, *d;
-		action_label = g_strdup (action->label);
-		
 		s = d = action_label;
 		while (*s)
 		{
@@ -118,7 +117,6 @@ get_action_label (GtkAction *action)
 		*d = '\0';
 	}
 	else
-#endif
 		action_label = g_strdup (gtk_action_get_name (action));
 	return action_label;
 }
@@ -476,9 +474,11 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	for (l = actions; l; l = l->next)
 	{
 		gchar *action_label;
+		gchar *icon;
+		
 		// gchar *accel_name;
 		GtkTreeIter iter;
-		GtkWidget *icon;
+		// GtkWidget *icon;
 		GtkAction *action = l->data;
 		
 		if (!action)
@@ -486,12 +486,12 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 							   &iter, &parent);
 		action_label = get_action_label (action);
-		icon = gtk_action_create_icon (action, GTK_ICON_SIZE_MENU);
+		g_object_get (G_OBJECT (action), "stock-id", &icon, NULL);
 		if (icon)
 		{
-			pixbuf = NULL;
-			// FIXME: Somehow get the pixbuf
-			// pixbuf = gtk_image_get_pixbuf (GTK_IMAGE (icon));
+			GtkWidget *dummy = gtk_label_new ("Dummy");
+			pixbuf = gtk_widget_render_icon (dummy, icon,
+											 GTK_ICON_SIZE_MENU, NULL);
 			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
 								COLUMN_PIXBUF, pixbuf,
 								COLUMN_ACTION, action_label,
@@ -500,8 +500,9 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 								COLUMN_DATA, action,
 								COLUMN_GROUP, action_group_name,
 								-1);
-			// g_object_unref (G_OBJECT (pixbuf));
-			gtk_widget_destroy (icon);
+			g_object_unref (G_OBJECT (pixbuf));
+			gtk_widget_destroy (dummy);
+			g_free (icon);
 		}
 		else
 		{

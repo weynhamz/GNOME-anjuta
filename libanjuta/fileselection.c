@@ -37,8 +37,7 @@
 static char *last_dir = NULL;
 
 static gboolean on_file_selection_delete_event (GtkWidget *w, GdkEvent *event, gpointer data);
-static void on_file_selection_ok_clicked (GtkButton *button, gpointer data);
-static void on_file_selection_cancel_clicked (GtkButton *button, gpointer data);
+static void on_file_selection_response (GtkDialog *dlg, gint response, gpointer data);
 
 void fileselection_hide_widget(GtkWidget *widget)
 {
@@ -63,63 +62,69 @@ on_file_selection_delete_event (GtkWidget * w, GdkEvent * event, gpointer data)
 }
 
 static void
-on_file_selection_ok_clicked (GtkButton * button, gpointer data)
+on_file_selection_response (GtkDialog *dlg, gint response, gpointer data)
 {
 	gchar *filename;
 	gchar *file_dir;
 	FileSelData *fd = data;
 
-	filename = fileselection_get_filename (fd->filesel);
-	if (!filename)
-		return;
-	file_dir = strrchr(filename, '/');
-	if (file_dir)
+	if (response == GTK_RESPONSE_OK)
 	{
-		*file_dir = '\0';
-		if (!last_dir)
-			last_dir = g_new(char, PATH_MAX);
-		g_snprintf(last_dir, PATH_MAX, "%s", filename);
-		*file_dir = '/';
-	}
-	if (g_file_test (filename, G_FILE_TEST_IS_DIR))
-	{
-		fileselection_set_dir (fd->filesel, filename);
-		g_free (filename);
-		return;
-	}
-
-	if (fd->click_ok_callback)
-		fd->click_ok_callback (button, fd->data);
-
-	fileselection_hide_widget(fd->filesel);
+		filename = fileselection_get_filename (fd->filesel);
+		if (!filename)
+			return;
+		file_dir = strrchr(filename, '/');
+		if (file_dir)
+		{
+			*file_dir = '\0';
+			if (!last_dir)
+				last_dir = g_new(char, PATH_MAX);
+			g_snprintf(last_dir, PATH_MAX, "%s", filename);
+			*file_dir = '/';
+		}
+		if (g_file_test (filename, G_FILE_TEST_IS_DIR))
+		{
+			fileselection_set_dir (fd->filesel, filename);
+			g_free (filename);
+			return;
+		}
 	
-	g_free (filename);
-
+		if (fd->click_ok_callback)
+			fd->click_ok_callback (dlg, fd->data);
+	
+		fileselection_hide_widget(fd->filesel);
+		
+		g_free (filename);
+	} else {
+		if (fd->click_cancel_callback)
+			fd->click_cancel_callback (dlg, fd->data);
+	
+		fileselection_hide_widget (fd->filesel);
+	}
 	return;
 }
 
-static void
-on_file_selection_cancel_clicked (GtkButton *button,
-				  gpointer   data)
+void
+fileselection_update_dir(GtkWidget *filesel)
 {
-	FileSelData *fd = data;
-
-	g_return_if_fail (data != NULL);
-
-	if (fd->click_cancel_callback)
-		fd->click_cancel_callback (button, fd->data);
-
-	fileselection_hide_widget (fd->filesel);
-
-	return;
+#if 0 // FIXME: Watch 'project_root_directory' in shell
+	ProjectDBase *pdb = app->project_dbase;
+	
+	if (pdb && pdb->project_is_open)
+	{
+		if (!strcmp (last_dir, g_get_home_dir()) )
+		{
+			g_snprintf(last_dir, PATH_MAX, pdb->top_proj_dir);
+		}
+		gnome_filelist_set_dir (GNOME_FILELIST(filesel), last_dir);
+	}
+#endif
 }
 
 GtkWidget *
 create_fileselection_gui (FileSelData * fsd, GtkWindow *parent)
 {
 	GtkWidget *fileselection_gui;
-	GtkWidget *fileselection_ok;
-	GtkWidget *fileselection_cancel;
 
 	if (!last_dir)
 	{
@@ -141,28 +146,30 @@ create_fileselection_gui (FileSelData * fsd, GtkWindow *parent)
 	gtk_window_set_position (GTK_WINDOW (fileselection_gui), GTK_WIN_POS_CENTER);
 	gtk_window_set_wmclass (GTK_WINDOW (fileselection_gui), "filesel", "Anjuta");
 	
-	fileselection_ok = GNOME_FILELIST (fileselection_gui)->ok_button;
-	gtk_widget_show (fileselection_ok);
-	GTK_WIDGET_SET_FLAGS (fileselection_ok, GTK_CAN_DEFAULT);
+	// fileselection_ok = GNOME_FILELIST (fileselection_gui)->ok_button;
+	// gtk_widget_show (fileselection_ok);
+	// GTK_WIDGET_SET_FLAGS (fileselection_ok, GTK_CAN_DEFAULT);
 
-	fileselection_cancel =GNOME_FILELIST (fileselection_gui)->cancel_button;
-	gtk_widget_show (fileselection_cancel);
-	GTK_WIDGET_SET_FLAGS (fileselection_cancel, GTK_CAN_DEFAULT);
+	// fileselection_cancel =GNOME_FILELIST (fileselection_gui)->cancel_button;
+	// gtk_widget_show (fileselection_cancel);
+	// GTK_WIDGET_SET_FLAGS (fileselection_cancel, GTK_CAN_DEFAULT);
 
 	//gtk_window_add_accel_group (GTK_WINDOW (fileselection_gui),
 	//			    ->accel_group);
 
-	gtk_signal_connect (GTK_OBJECT (fileselection_gui), "delete_event",
-			    GTK_SIGNAL_FUNC (on_file_selection_delete_event),
-			    fsd);
-	gtk_signal_connect (GTK_OBJECT (fileselection_ok), "clicked",
-			    GTK_SIGNAL_FUNC (on_file_selection_ok_clicked),
-			    fsd);
-	gtk_signal_connect (GTK_OBJECT (fileselection_cancel), "clicked",
-			    GTK_SIGNAL_FUNC (on_file_selection_cancel_clicked),
-			    fsd);
-	gtk_signal_connect (GTK_OBJECT (fileselection_gui), "destroy",
-			    GTK_SIGNAL_FUNC (gtk_widget_unref), NULL);
+	g_signal_connect (G_OBJECT (fileselection_gui), "delete_event",
+			    G_CALLBACK (on_file_selection_delete_event),
+  			    fsd);
+	// g_signal_connect (G_OBJECT (fileselection_ok), "clicked",
+	//		    G_CALLBACK (on_file_selection_ok_clicked),
+	//		    fsd);
+	// g_signal_connect (G_OBJECT (fileselection_cancel), "clicked",
+	//		    G_CALLBACK (on_file_selection_cancel_clicked),
+	//		    fsd);
+	g_signal_connect (G_OBJECT (fileselection_gui), "response",
+				G_CALLBACK (on_file_selection_response), fsd);
+	g_signal_connect (G_OBJECT (fileselection_gui), "destroy",
+			    G_CALLBACK (gtk_widget_unref), NULL);
 
 	fsd->filesel = fileselection_gui;
 	gtk_widget_ref (fileselection_gui);
