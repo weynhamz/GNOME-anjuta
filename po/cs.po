@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-23 10:36+0100\n"
-"PO-Revision-Date: 2005-01-23 15:11+0100\n"
+"POT-Creation-Date: 2005-01-28 10:36+0100\n"
+"PO-Revision-Date: 2005-01-28 13:19+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -313,7 +313,7 @@ msgstr "Úroveň souboru"
 msgid "Format"
 msgstr "Formát"
 
-#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:79
+#: anjuta.glade.h:66 plugins/symbol-browser/an_symbol_view.c:77
 msgid "Functions"
 msgstr "Funkce"
 
@@ -521,7 +521,7 @@ msgstr "Otevřít existující projekt"
 msgid "Open existing file or create a new file."
 msgstr "Otevřít existující nebo vytvořit nový soubor."
 
-#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:328
+#: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:303
 #: plugins/file-loader/plugin.c:440 plugins/file-loader/plugin.c:599
 #: plugins/file-loader/plugin.c:606 src/toolbar.c:80
 msgid "Open file"
@@ -540,7 +540,7 @@ msgstr "Optimalizace"
 msgid "Options"
 msgstr "Možnosti"
 
-#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:82
+#: anjuta.glade.h:114 plugins/symbol-browser/an_symbol_view.c:80
 msgid "Others"
 msgstr "Jení"
 
@@ -576,7 +576,7 @@ msgid "Programs"
 msgstr "Programy"
 
 #: anjuta.glade.h:122 plugins/project-manager/plugin.c:346
-#: plugins/project-manager/plugin.c:727 plugins/project-manager/plugin.c:945
+#: plugins/project-manager/plugin.c:726 plugins/project-manager/plugin.c:944
 #: plugins/project-manager/project_dbase_gui.c:581 src/anjuta_gui.c:114
 #: src/toolbar.c:150
 msgid "Project"
@@ -1179,7 +1179,7 @@ msgstr "Šířka"
 msgid "Width of the entry."
 msgstr "Šířka pole."
 
-#: libegg/egg-combo-action.c:294 plugins/symbol-browser/an_symbol_view.c:334
+#: libegg/egg-combo-action.c:294 plugins/symbol-browser/an_symbol_view.c:333
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -1340,14 +1340,14 @@ msgid "_Lock dock items"
 msgstr "_Zamknout položky doku"
 
 #: libegg/test-actions.c:140 plugins/devhelp/plugin.c:212
-#: plugins/editor/plugin.c:1044 plugins/editor/search-replace.c:725
+#: plugins/editor/plugin.c:1043 plugins/editor/search-replace.c:725
 #: plugins/editor/search-replace.c:1358 plugins/editor/search-replace.c:1365
 #: plugins/editor/search-replace.c:1377 plugins/editor/search-replace.c:1678
-#: plugins/symbol-browser/plugin.c:687
+#: plugins/symbol-browser/plugin.c:690
 msgid "Search"
 msgstr "Hledat"
 
-#: libegg/test-actions.c:141 plugins/editor/plugin.c:1045
+#: libegg/test-actions.c:141 plugins/editor/plugin.c:1044
 msgid "Incremental search"
 msgstr "Inkrementální hledání"
 
@@ -2528,7 +2528,7 @@ msgid "Search Help:"
 msgstr "Hledat v nápovědě"
 
 #: plugins/devhelp/plugin.c:351 plugins/editor/plugin.c:238
-#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:180
+#: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:178
 msgid "_Goto"
 msgstr "_Jít na"
 
@@ -2622,7 +2622,7 @@ msgstr "V \"%2$s\" není řádek číslo %1$d."
 msgid "No matches. Wrap search around the document?"
 msgstr "Žádný výsledek. Hledat od druhého konce dokumentu?"
 
-#: plugins/editor/anjuta-docman.c:301 src/anjuta_cbs.c:426
+#: plugins/editor/anjuta-docman.c:276 src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2631,12 +2631,12 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej nahradit tím, který ukládáte?"
 
-#: plugins/editor/anjuta-docman.c:308 src/anjuta-callbacks.c:79
+#: plugins/editor/anjuta-docman.c:283 src/anjuta-callbacks.c:79
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Nahradit"
 
-#: plugins/editor/anjuta-docman.c:349
+#: plugins/editor/anjuta-docman.c:324
 msgid "Save file as"
 msgstr "Uložit soubor jako"
 
@@ -2872,7 +2872,7 @@ msgid "Do not show tabs"
 msgstr "Nezobrazovat záložky"
 
 #: plugins/editor/anjuta-document-manager.glade.h:59
-#: plugins/editor/plugin.c:1067
+#: plugins/editor/plugin.c:1066
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -4188,15 +4188,15 @@ msgstr "Sl"
 msgid "Mode"
 msgstr "Režim"
 
-#: plugins/editor/plugin.c:1033
+#: plugins/editor/plugin.c:1032
 msgid "Goto line"
 msgstr "Jít na řádek"
 
-#: plugins/editor/plugin.c:1034
+#: plugins/editor/plugin.c:1033
 msgid "Enter the line number to jump and press enter"
 msgstr "Zadejte číslo řádku, na které přejít, a stiskněte enter"
 
-#: plugins/editor/plugin.c:1062
+#: plugins/editor/plugin.c:1061
 msgid "Editor quick navigations"
 msgstr "Rychlá navigace v editoru"
 
@@ -4792,7 +4792,7 @@ msgid "dialog3"
 msgstr "dialog3"
 
 #: plugins/file-manager/plugin.c:48 plugins/project-manager/plugin.c:368
-#: plugins/symbol-browser/plugin.c:224
+#: plugins/symbol-browser/plugin.c:222
 msgid "_Refresh"
 msgstr "_Obnovit"
 
@@ -6485,7 +6485,7 @@ msgstr "switch"
 msgid "while"
 msgstr "while"
 
-#: plugins/macro/plugin.c:31 plugins/symbol-browser/an_symbol_view.c:81
+#: plugins/macro/plugin.c:31 plugins/symbol-browser/an_symbol_view.c:79
 msgid "Macros"
 msgstr "Makra"
 
@@ -6794,24 +6794,24 @@ msgstr "_Odstranit"
 msgid "Remove from project"
 msgstr "Odstranit z projektu"
 
-#: plugins/project-manager/plugin.c:709
+#: plugins/project-manager/plugin.c:708
 msgid "Project manager actions"
 msgstr "Akce správce projektu"
 
-#: plugins/project-manager/plugin.c:715
+#: plugins/project-manager/plugin.c:714
 msgid "Project manager popup actions"
 msgstr "Kontextové akce správce projektu"
 
-#: plugins/project-manager/plugin.c:829
+#: plugins/project-manager/plugin.c:828
 msgid "Loading project. Please wait ..."
 msgstr "Načítám projekt. Čekejte prosím ..."
 
-#: plugins/project-manager/plugin.c:900
+#: plugins/project-manager/plugin.c:899
 #, c-format
 msgid "Loading project: %s"
 msgstr "Načítám projekt: %s"
 
-#: plugins/project-manager/plugin.c:911
+#: plugins/project-manager/plugin.c:910
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Nemohu načíst projekt %s: %s"
@@ -7441,43 +7441,54 @@ msgid ""
 "including all of the build files. It will ask for details of the initial "
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
-msgstr "Kouzelník aplikace vygeneruje základní kostru projektu včetně všech sestavovacích souborů. Zeptá se na detaily počáteční struktury aplikace. Odpovídejte prosím na otázky opatrně, protože některá nastavení možná nebude možné později změnit."
+msgstr ""
+"Kouzelník aplikace vygeneruje základní kostru projektu včetně všech "
+"sestavovacích souborů. Zeptá se na detaily počáteční struktury aplikace. "
+"Odpovídejte prosím na otázky opatrně, protože některá nastavení možná nebude "
+"možné později změnit."
 
-#: plugins/project-wizard/druid.c:178
+#: plugins/project-wizard/druid.c:140
+#, c-format
+msgid "Unable to find any project template in %s"
+msgstr "Nemohu najít žádnou šablonu projektu v %s"
+
+#: plugins/project-wizard/druid.c:181
 msgid ""
 "Confim the following information:\n"
 "\n"
-msgstr "Potvrďte následující informace:\n\n"
+msgstr ""
+"Potvrďte následující informace:\n"
+"\n"
 
-#: plugins/project-wizard/druid.c:180
+#: plugins/project-wizard/druid.c:183
 msgid "Project Type: "
 msgstr "Typ projektu: "
 
-#: plugins/project-wizard/druid.c:527
+#: plugins/project-wizard/druid.c:530
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "Pole \"%s\" je povinné. Vyplňte je prosím."
 
-#: plugins/project-wizard/druid.c:611
+#: plugins/project-wizard/druid.c:614
 msgid "Unable to build project wizard user interface"
 msgstr "Nemohu sestavit uživatelské rozhraní kouzelníka projektu"
 
 #. Create new view
-#: plugins/project-wizard/install.c:181
+#: plugins/project-wizard/install.c:189
 msgid "New Project Wizard"
 msgstr "Kouzelník nového projektu"
 
 #. All files have been installed
-#: plugins/project-wizard/install.c:300
+#: plugins/project-wizard/install.c:380
 msgid "New project has been created successfully"
 msgstr "Nový projekt byl úspěšně vytvořen"
 
-#: plugins/project-wizard/install.c:366
+#: plugins/project-wizard/install.c:448
 #, c-format
 msgid "Copying %s to %s with AutoGen"
 msgstr "Kopíruji %s do %s s AutoGen"
 
-#: plugins/project-wizard/install.c:370
+#: plugins/project-wizard/install.c:452
 #, c-format
 msgid "Copying %s to %s"
 msgstr "Kopíruji %s do %s"
@@ -7509,79 +7520,75 @@ msgstr "[+PluginClass+] widget"
 msgid "SamplePlugin"
 msgstr "UkázkovýZásuvnýModul"
 
-#: plugins/symbol-browser/an_symbol_search.c:677
-msgid "Section"
-msgstr "Oddíl"
-
-#: plugins/symbol-browser/an_symbol_view.c:77
+#: plugins/symbol-browser/an_symbol_view.c:75
 msgid "Classes"
 msgstr "Třídy"
 
-#: plugins/symbol-browser/an_symbol_view.c:78
+#: plugins/symbol-browser/an_symbol_view.c:76
 msgid "Structs"
 msgstr "Struktury"
 
-#: plugins/symbol-browser/an_symbol_view.c:80
+#: plugins/symbol-browser/an_symbol_view.c:78
 msgid "Variables"
 msgstr "Proměnné"
 
-#: plugins/symbol-browser/plugin.c:184
+#: plugins/symbol-browser/plugin.c:182
 msgid "Tag _Definition"
 msgstr "De_finice tagu"
 
-#: plugins/symbol-browser/plugin.c:186 plugins/symbol-browser/plugin.c:202
+#: plugins/symbol-browser/plugin.c:184 plugins/symbol-browser/plugin.c:200
 msgid "Goto symbol definition"
 msgstr "Jít na definici symbolu"
 
-#: plugins/symbol-browser/plugin.c:192
+#: plugins/symbol-browser/plugin.c:190
 msgid "Tag De_claration"
 msgstr "De_klarace tagu"
 
-#: plugins/symbol-browser/plugin.c:194 plugins/symbol-browser/plugin.c:210
+#: plugins/symbol-browser/plugin.c:192 plugins/symbol-browser/plugin.c:208
 msgid "Goto symbol declaration"
 msgstr "Jít na deklaraci symbolu"
 
-#: plugins/symbol-browser/plugin.c:200
+#: plugins/symbol-browser/plugin.c:198
 msgid "Goto _Definition"
 msgstr "Jít na de_finici"
 
-#: plugins/symbol-browser/plugin.c:208
+#: plugins/symbol-browser/plugin.c:206
 msgid "Goto De_claration"
 msgstr "Jít na de_klaraci"
 
-#: plugins/symbol-browser/plugin.c:216
+#: plugins/symbol-browser/plugin.c:214
 msgid "_Find Usage"
 msgstr "_Hledat použití"
 
-#: plugins/symbol-browser/plugin.c:218
+#: plugins/symbol-browser/plugin.c:216
 msgid "Find usage of symbol in project"
 msgstr "Hledat použití symbolu v projektu"
 
-#: plugins/symbol-browser/plugin.c:226
+#: plugins/symbol-browser/plugin.c:224
 msgid "Refresh symbol browser tree"
 msgstr "Obnovit strom prohlížeče symbolů"
 
-#: plugins/symbol-browser/plugin.c:659
+#: plugins/symbol-browser/plugin.c:661
 msgid "Tree"
 msgstr "Strom"
 
-#: plugins/symbol-browser/plugin.c:706
+#: plugins/symbol-browser/plugin.c:714
 msgid "Symbol browser popup actions"
 msgstr "Kontextové akce prohlížeče symbolů"
 
-#: plugins/symbol-browser/plugin.c:715
+#: plugins/symbol-browser/plugin.c:723
 msgid "Goto symbol"
 msgstr "Jít na symbol"
 
-#: plugins/symbol-browser/plugin.c:716
+#: plugins/symbol-browser/plugin.c:724
 msgid "Select the symbol to go"
 msgstr "Zvolte symbol, na který jít"
 
-#: plugins/symbol-browser/plugin.c:724
+#: plugins/symbol-browser/plugin.c:733
 msgid "Symbol navigations"
 msgstr "Navigace mezi symboly"
 
-#: plugins/symbol-browser/plugin.c:733
+#: plugins/symbol-browser/plugin.c:742
 msgid "Symbols"
 msgstr "Symboly"
 
@@ -7769,50 +7776,42 @@ msgid "Online documentation and resources"
 msgstr "Dokumentace a zdroje online"
 
 #: src/anjuta-actions.h:84
-msgid "_Libraries API references"
-msgstr "Reference API _knihoven"
-
-#: src/anjuta-actions.h:85
-msgid "Online reference library for GDK, GLib, GNOME etc.."
-msgstr "Online knihovna referencí pro GDK, GLib, GNOME atd.."
-
-#: src/anjuta-actions.h:88
 msgid "Report _Bugs"
 msgstr "Nahlásit _chyby"
 
-#: src/anjuta-actions.h:89
+#: src/anjuta-actions.h:85
 msgid "Submit a bug report for Anjuta"
 msgstr "Poslat hlášení o chybě Anjuty"
 
-#: src/anjuta-actions.h:92
+#: src/anjuta-actions.h:88
 msgid "Request _Features"
 msgstr "Žádat o _vlastnosti"
 
-#: src/anjuta-actions.h:93
+#: src/anjuta-actions.h:89
 msgid "Submit a feature request for Anjuta"
 msgstr "Poslat požadavek na vlastnost Anjuty"
 
-#: src/anjuta-actions.h:96
+#: src/anjuta-actions.h:92
 msgid "Submit _patches"
 msgstr "Poslat _patche"
 
-#: src/anjuta-actions.h:97
+#: src/anjuta-actions.h:93
 msgid "Submit patches for Anjuta"
 msgstr "Poslat patche pro Anjutu"
 
-#: src/anjuta-actions.h:100
+#: src/anjuta-actions.h:96
 msgid "Ask a _question"
 msgstr "_Zeptat se"
 
-#: src/anjuta-actions.h:101
+#: src/anjuta-actions.h:97
 msgid "Submit a question for FAQs"
 msgstr "Poslat otázku pro FAQ"
 
-#: src/anjuta-actions.h:104
+#: src/anjuta-actions.h:100
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: src/anjuta-actions.h:105
+#: src/anjuta-actions.h:101
 msgid "About Anjuta"
 msgstr "O Anjutě"
 
@@ -7825,16 +7824,16 @@ msgid "Value doesn't exist"
 msgstr "Hodnota neexistuje"
 
 # Supposedly this will be distributed with the project, so no localization
-#: src/anjuta-app.c:900
+#: src/anjuta-app.c:907
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 
-#: src/anjuta-app.c:1156
+#: src/anjuta-app.c:1163
 msgid "Looking up symbol"
 msgstr "Vyhledávám symbol"
 
-#: src/anjuta-app.c:1158
+#: src/anjuta-app.c:1165
 msgid "Finding in Files ....\n"
 msgstr "Hledám v souborech ....\n"
 
@@ -8263,6 +8262,15 @@ msgstr "Autodoplnit"
 #: src/toolbar.c:884
 msgid "Autocomplete word"
 msgstr "Autodoplnit slovo"
+
+#~ msgid "Section"
+#~ msgstr "Oddíl"
+
+#~ msgid "_Libraries API references"
+#~ msgstr "Reference API _knihoven"
+
+#~ msgid "Online reference library for GDK, GLib, GNOME etc.."
+#~ msgstr "Online knihovna referencí pro GDK, GLib, GNOME atd.."
 
 #~ msgid "Could not find application image file: %s"
 #~ msgstr "Nemohu najít soubor obrázku aplikace: %s"
