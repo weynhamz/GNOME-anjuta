@@ -1,5 +1,25 @@
 2003-02-10  Naba Kumar <naba@gnome.org>
 
+	* src/Makefile.am, src/anjuta-tools.c, src/main_menubar.c: Removed
+	references of scroll-menu.h and add about.h in Makefile.am.
+	
+	* widgets/Makefile.am, (removed) widgets/e-shell-about-box.c,
+	(removed) widgets/e-shell-about-box.h, (removed) widgets/scroll-menu.c,
+	(removed) widgets/scroll-menu.h: Removed unused files.
+	
+	* Makefile.am: Added proper i18n rules and added intl tools for
+	distributions.
+	
+	* anjuta.prj, configure.in: Changed version to 1.8.0 (reserving 1.2.0
+	to the stable release).
+	
+	* anjuta.spec.in: Removed manuals packaging.
+	
+	* data/Makefile.am: Removed 'macros' installation (not required for
+	gnome2 projects).
+
+2003-02-10  Naba Kumar <naba@gnome.org>
+
 	* po/POTFILES.in: Updated.
 
 	* pixmaps/Makefile.am, pixmaps/anjuta_icon.png, 

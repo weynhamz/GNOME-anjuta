@@ -48,9 +48,7 @@ MACROS2 = \
 MACROS2_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome2
 
 install-data-local: system.tags
-	mkdir -p $(MACROS_dir)
 	mkdir -p $(MACROS2_dir)
-	$(INSTALL_DATA) $(MACROS:%=$(top_srcdir)/macros/%) $(MACROS_dir)
 	$(INSTALL_DATA) $(MACROS2:%=$(top_srcdir)/macros2/%) $(MACROS2_dir)
 	mv $(MACROS2_dir)/Makefile.am.project $(MACROS2_dir)/Makefile.am
 	$(INSTALL_DATA) system.tags $(anjuta_datadir)

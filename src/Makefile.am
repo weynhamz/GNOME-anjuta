@@ -41,6 +41,7 @@ bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
 	about.c\
+	about.h\
 	an_file_view.c\
 	an_file_view.h\
 	an_symbol_view.c\
@@ -231,4 +232,4 @@ anjuta_LDADD =  \
 anjuta_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 anjuta_glade_file_DATA = anjuta.glade
 
-EXTRA_DIST = anjuta_dialog_strings.c
+EXTRA_DIST = anjuta_dialog_strings.c $(anjuta_glade_file_DATA)

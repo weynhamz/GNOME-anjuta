@@ -1,7 +1,7 @@
 AC_PREREQ(2.52)
 AC_INIT(src/Makefile.am)
 
-ANJUTA_VERSION=1.2.0
+ANJUTA_VERSION=1.1.8
 
 GLIB_REQUIRED=1.3.10
 GTK_REQUIRED=1.3.10
@@ -444,16 +444,8 @@ global-tags/Makefile
 scintilla/Makefile
 widgets/Makefile
 printing/Makefile
-manuals/Makefile
 omf-install/Makefile
 scintilla/include/Makefile
-manuals/C/Makefile
-manuals/C/anjuta-tutorial/Makefile
-manuals/C/anjuta-manual/Makefile
-manuals/C/anjuta-faqs/Makefile
-manuals/ja/Makefile
-manuals/ja/anjuta-manual/Makefile
-manuals/ja/anjuta-faqs/Makefile
 anjuta.spec
 src/Makefile
 pixmaps/Makefile

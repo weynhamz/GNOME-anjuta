@@ -27,7 +27,6 @@
 #include "mainmenu_callbacks.h"
 #include "main_menubar_def.h"
 #include "fileselection.h"
-#include "scroll-menu.h"
 #include "widget-registry.h"
 
 static void on_file_menu_realize (GtkWidget * widget, gpointer data);

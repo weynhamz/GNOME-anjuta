@@ -77,8 +77,6 @@ R7: Tool Storage
 #include <glade/glade.h>
 #include <libxml/parser.h>
 
-#include "scroll-menu.h"
-#include "main_menubar.h"
 #include "message-manager.h"
 #include "widget-registry.h"
 #include "anjuta.h"

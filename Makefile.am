@@ -27,16 +27,15 @@ EXTRA_DIST = \
 	autogen.sh \
 	anjuta.prj \
 	setup-gettext \
+	intltool-extract.in\
+	intltool-merge.in\
+	intltool-update.in\
 	$(anjutadoc_DATA)
 
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 
 gnomemenu_premerge_file = anjuta.desktop.in
 gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)
-
-## XML merge is broken for .destop in RH 8.0, so temporarily just copy it
-%.desktop : %.desktop.in $(top_builddir)/xml-i18n-merge $(top_srcdir)/po/*.po
-	cat $< | sed -e "s/^_//g" > $*.desktop
 
 # Copy all the spec files. Of course, only one is actually used.
 dist-hook:
