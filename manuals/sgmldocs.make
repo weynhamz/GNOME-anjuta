@@ -1,4 +1,4 @@
-# Stollen from scrollekeeper.
+# Stolen from scrollekeeper.
 # Hacked according to requirements for anjuta.
 #
 # To use this template:

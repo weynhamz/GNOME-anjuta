@@ -1,3 +1,6 @@
+2002-12-17  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* manuals/C/anjuta-manual/*: Updated manual to include tool editor.
+
 2002-12-16  Naba Kumar <naba@gnome.org>
 
 	* src/goto_line.c: Ordered 'Ok' and 'Cancel' button in the right order.

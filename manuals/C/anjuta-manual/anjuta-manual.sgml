@@ -8,6 +8,7 @@
 <!ENTITY projects SYSTEM "projects.sgml">
 <!ENTITY debugger SYSTEM "debugger.sgml">
 <!ENTITY preferences SYSTEM "preferences.sgml">
+<!ENTITY tools SYSTEM "tools.sgml">
 <!ENTITY authors SYSTEM "authors.sgml">
 <!ENTITY license SYSTEM "license.sgml">
 ]>
@@ -36,7 +37,7 @@
 
   <copyright>
    <year>2001-2002</year>
-   <holder>Naba Kumar, Andy Piper</holder>
+   <holder>Naba Kumar, Andy Piper, Biswapesh Chattopadhyay</holder>
   </copyright>
 
 <!-- translators: uncomment this:
@@ -92,6 +93,8 @@
  &debugger;
  <!-- Preferences -->
  &preferences;
+ <!-- Tools -->
+ &tools;
  <!-- Authors -->
  &authors;
  <!-- License -->

@@ -53,7 +53,10 @@ figs = \
     figures/variable_tip.png\
 	figures/warnings.png\
 	figures/watch_add.png\
-	figures/watch.png
+	figures/watch.png\
+	figures/doxygen.png\
+	figures/tool-editor.png\
+	figures/a2ps.png
 
 sgml_ents =\
 	introduction.sgml\
@@ -65,6 +68,7 @@ sgml_ents =\
 	projects.sgml\
 	debugger.sgml\
 	preferences.sgml\
+	tools.sgml
 	authors.sgml\
 	license.sgml
 
