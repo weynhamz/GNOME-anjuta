@@ -49,7 +49,7 @@
 			<file source="README"/>
 			<file source="autogen.sh" executable="yes"/>
 			<file source="configure.in.tpl" destination="configure.in"/>
-			<file destination="[+NameLower+].anjuta" source="project.anjuta" project="yes"/>
+			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 			<directory source="src">
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 				<file source="main.c"/>
@@ -63,3 +63,9 @@
 		</directory>
 	</directory>
 </content>
+
+<action>
+	<open file="[+Destination+]/[+NameLower+]/[+NameLower+].anjuta"/>
+	<run command="echo First action"/>
+	<run command="echo Second action"/>
+</action>

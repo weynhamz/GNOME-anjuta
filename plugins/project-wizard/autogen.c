@@ -349,7 +349,8 @@ npw_autogen_execute(NPWAutogen* this, NPWAutogenFunc func, gpointer data)
 	}
 	args[2] = (gchar *)this->tplfilename;
 	args[3] = (gchar *)this->deffilename;
-	
+
+	printf("EXECUTE %s %s %s %s\n", args[0], args[1], args[2], args[3]);	
 	if (!anjuta_launcher_execute_v(this->launcher, args, on_autogen_output, this))
 	{
 		return FALSE;

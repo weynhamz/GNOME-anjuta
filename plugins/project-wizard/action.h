@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    install.h
+    action.h
     Copyright (C) 2004 Sebastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
@@ -18,19 +18,38 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef __INSTALL_H__
-#define __INSTALL_H__
+#ifndef __ACTION_H__
+#define __ACTION_H__
 
 #include <glib.h>
-#include <libanjuta/anjuta-plugin.h>
 
-typedef struct _NPWInstall NPWInstall;
+// action and list of actions 
 
-NPWInstall* npw_install_new(struct _NPWPlugin* plugin);
-void npw_install_destroy(NPWInstall* this);
+typedef struct _NPWAction NPWAction;
+typedef struct _NPWActionList NPWActionList;
 
-gboolean npw_install_set_property(NPWInstall* this, GQueue* page_list, AnjutaPlugin* plugin);
-gboolean npw_install_set_wizard_file(NPWInstall* this, const gchar* filename);
-gboolean npw_install_launch(NPWInstall* this);
+typedef enum {
+	NPW_RUN_ACTION,
+	NPW_OPEN_ACTION
+} NPWActionType;
+
+NPWAction* npw_action_new(NPWActionList* owner, NPWActionType type);
+void npw_action_free(NPWAction* this);
+
+NPWActionType npw_action_get_type(const NPWAction* this);
+
+void npw_action_set_command(NPWAction* this, const gchar* command);
+const gchar* npw_action_get_command(const NPWAction* this);
+
+void npw_action_set_file(NPWAction* this, const gchar* command);
+const gchar* npw_action_get_file(const NPWAction* this);
+
+const NPWAction* npw_action_next(const NPWAction* this);
+
+
+NPWActionList* npw_action_list_new(void);
+void npw_action_list_free(NPWActionList* this);
+
+const NPWAction* npw_action_list_first(const NPWActionList* this);
 
 #endif

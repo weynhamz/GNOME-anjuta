@@ -51,6 +51,9 @@ typedef enum {
 	NPW_DIRECTORY_TAG,
 	NPW_FILE_TAG,
 	NPW_CONTENT_TAG,
+	NPW_ACTION_TAG,
+	NPW_RUN_TAG,
+	NPW_OPEN_TAG,
 	NPW_UNKNOW_TAG
 } NPWTag;
 
@@ -69,13 +72,16 @@ typedef enum {
 	NPW_EXECUTABLE_ATTRIBUTE,
 	NPW_PROJECT_ATTRIBUTE,
 	NPW_AUTOGEN_ATTRIBUTE,
+	NPW_COMMAND_ATTRIBUTE,
+	NPW_FILE_ATTRIBUTE,
 	NPW_UNKNOW_ATTRIBUTE
 } NPWAttribute;
 
 typedef enum {
 	NPW_HEADER_PARSER,
 	NPW_PAGE_PARSER,
-	NPW_FILE_PARSER
+	NPW_FILE_PARSER,
+	NPW_ACTION_PARSER
 } NPWParser;
 
 typedef enum {
@@ -174,6 +180,18 @@ parse_tag(const char* name)
 	{
 		return NPW_FILE_TAG;
 	}
+	else if (strcmp("action", name) == 0)
+	{
+		return NPW_ACTION_TAG;
+	}
+	else if (strcmp("run", name) == 0)
+	{
+		return NPW_RUN_TAG;
+	}
+	else if (strcmp("open", name) == 0)
+	{
+		return NPW_OPEN_TAG;
+	}
 	else
 	{
 		return NPW_UNKNOW_TAG;
@@ -234,6 +252,14 @@ parse_attribute(const char* name)
 	else if (strcmp("autogen", name) == 0)
 	{
 		return NPW_AUTOGEN_ATTRIBUTE;
+	}
+	else if (strcmp("command", name) == 0)
+	{
+		return NPW_COMMAND_ATTRIBUTE;
+	}
+	else if (strcmp("file", name) == 0)
+	{
+		return NPW_FILE_ATTRIBUTE;
 	}
 	else
 	{	
@@ -460,6 +486,7 @@ npw_header_parser_new(NPWHeaderList* list, const gchar* filename)
 {
 	NPWHeaderParser* this;
 
+	g_return_val_if_fail(list != NULL, NULL);
 	g_return_val_if_fail(this != NULL, NULL);
 	g_return_val_if_fail(filename != NULL, NULL);
 
@@ -558,8 +585,6 @@ npw_header_list_read(NPWHeaderList* this, const gchar* filename)
 //----------------------------------------------------------------------------
 
 #define NPW_PAGE_PARSER_MAX_LEVEL	3	// Maximum number of nested elements
-
-#define NPW_PAGE_PARSER_MAX_LEVEL	3
 
 struct _NPWPageParser
 {
@@ -1363,4 +1388,239 @@ npw_file_list_read(NPWFileList* this, const gchar* filename)
 	}
 
 	return TRUE;	
+}
+
+// Parse action block
+//----------------------------------------------------------------------------
+
+#define NPW_ACTION_PARSER_MAX_LEVEL	2	// Maximum number of nested elements
+
+struct _NPWActionListParser
+{
+	// Type of parser (not used)
+	NPWParser type;
+	GMarkupParseContext* ctx;
+	// Known element stack
+	NPWTag tag[NPW_ACTION_PARSER_MAX_LEVEL + 1];
+	NPWTag* last;
+	// Unknown element stack
+	guint unknown;
+	// Current action list object
+	NPWActionList* list;
+};
+
+static gboolean
+parse_run(NPWActionListParser* this, const gchar** attributes, const gchar** values)
+{
+	const gchar* command = NULL;
+
+	while (*attributes != NULL)
+	{
+		switch (parse_attribute(*attributes))
+		{
+		case NPW_COMMAND_ATTRIBUTE:
+			command = *values;
+			break;
+		default:
+			parser_warning(this->ctx, "Unknown run attribute \"%s\"", *attributes);
+			break;
+		}
+		attributes++;
+		values++;
+	}
+
+	if (command == NULL)
+	{
+		parser_warning(this->ctx, "Missing command attribute");
+	}
+	else
+	{
+		NPWAction* action;
+
+		action = npw_action_new(this->list, NPW_RUN_ACTION);
+		npw_action_set_command(action, command);
+	}
+
+	return TRUE;
+}
+
+static gboolean
+parse_open(NPWActionListParser* this, const gchar** attributes, const gchar** values)
+{
+	const gchar* file = NULL;
+
+	while (*attributes != NULL)
+	{
+		switch (parse_attribute(*attributes))
+		{
+		case NPW_FILE_ATTRIBUTE:
+			file = *values;
+			break;
+		default:
+			parser_warning(this->ctx, "Unknown open attribute \"%s\"", *attributes);
+			break;
+		}
+		attributes++;
+		values++;
+	}
+
+	if (file == NULL)
+	{
+		parser_warning(this->ctx, "Missing file attribute");
+	}
+	else
+	{
+		NPWAction* action;
+
+		action = npw_action_new(this->list, NPW_OPEN_ACTION);
+		npw_action_set_file(action, file);
+	}
+
+	return TRUE;
+}
+
+static void
+parse_action_start(GMarkupParseContext* context, const gchar* name, const gchar** attributes,
+	const gchar** values, gpointer data, GError** error)
+{
+	NPWActionListParser* parser = (NPWActionListParser*)data;
+	NPWTag tag;
+	gboolean known = FALSE;
+
+	// Recognize element
+	if (parser->unknown == 0)
+	{
+		// Not inside an unknown element
+		tag = parse_tag(name);
+		switch (*parser->last)
+		{
+		case NPW_NO_TAG:
+			// Top level element
+			switch(tag)
+			{
+			case NPW_ACTION_TAG:
+				known = TRUE;
+				break;
+			case NPW_UNKNOW_TAG:
+				parser_warning(parser->ctx, "Unknown element \"%s\"", name);
+				break;
+			default:
+				break;
+			}
+			break;
+		case NPW_ACTION_TAG:
+			// Necessary to avoid neested page element
+			switch (tag)
+			{
+			case NPW_RUN_TAG:
+				known = parse_run(parser, attributes, values);
+				break;
+			case NPW_OPEN_TAG:
+				known = parse_open(parser, attributes, values);
+				break;
+			default:
+				parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+				break;
+			}
+			break;
+		default:
+			parser_warning(parser->ctx, "Unexpected element \"%s\"", name);
+			break;
+		}
+	}
+	
+	// Push element
+	if (known)
+	{
+		// Know element stack overflow
+		g_return_if_fail((parser->last - parser->tag) <= NPW_ACTION_PARSER_MAX_LEVEL);
+		parser->last++;
+		*parser->last = tag;
+	}
+	else
+	{
+		parser->unknown++;
+	}
+}
+
+static void
+parse_action_end(GMarkupParseContext* context, const gchar* name, gpointer data, GError** error)
+{
+	NPWActionListParser* parser = (NPWActionListParser*)data;
+	
+	if (parser->unknown > 0)
+	{
+		// Pop unknown element
+		parser->unknown--;
+	}
+	else if (*parser->last != NPW_NO_TAG)
+	{
+		// Pop known element
+		parser->last--;
+	}
+	else
+	{
+		// Know element stack underflow
+		g_return_if_reached();
+	}
+}
+
+static GMarkupParser action_markup_parser = {
+	parse_action_start,
+	parse_action_end,
+	NULL,
+	NULL,
+	NULL
+};
+
+NPWActionListParser*
+npw_action_list_parser_new(NPWActionList* list)
+{
+	NPWActionListParser* this;
+
+	g_return_val_if_fail(list != NULL, NULL);
+	
+	this = g_new(NPWActionListParser, 1);
+
+	this->type = NPW_ACTION_PARSER;
+
+	this->unknown = 0;
+	this->tag[0] = NPW_NO_TAG;
+	this->last = this->tag;
+
+	this->list = list;
+
+	this->ctx = g_markup_parse_context_new(&action_markup_parser, 0, this, NULL);
+	g_assert(this->ctx != NULL);
+
+	return this;
+}
+
+void
+npw_action_list_parser_free(NPWActionListParser* this)
+{
+	g_return_if_fail(this != NULL);
+
+	g_markup_parse_context_free(this->ctx);
+	g_free(this);
+}
+
+gboolean
+npw_action_list_parser_parse(NPWActionListParser* this, const gchar* text, gssize len, GError** error)
+{
+	GError* err = NULL;
+	
+	g_markup_parse_context_parse(this->ctx, text, len, &err);
+	if (err != NULL)
+	{
+		printf(err->message);
+	}
+
+	return TRUE;
+}
+
+gboolean
+npw_action_list_parser_end_parse(NPWActionListParser* this, GError** error)
+{
+	return g_markup_parse_context_end_parse(this->ctx, error);
 }

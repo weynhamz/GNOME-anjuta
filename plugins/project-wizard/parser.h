@@ -26,6 +26,7 @@
 #include "header.h"
 #include "property.h"
 #include "file.h"
+#include "action.h"
 
 gboolean npw_header_list_readdir(NPWHeaderList* this, const gchar* pathname);
 
@@ -52,5 +53,14 @@ gboolean npw_file_list_parser_parse(NPWFileListParser* this, const gchar* text, 
 gboolean npw_file_list_parser_end_parse(NPWFileListParser* this, GError** error);
 
 gboolean npw_file_list_read(NPWFileList* this, const gchar* filename);
+
+
+typedef struct _NPWActionListParser NPWActionListParser;
+
+NPWActionListParser* npw_action_list_parser_new(NPWActionList* list);
+void npw_action_list_parser_free(NPWActionListParser* this);
+
+gboolean npw_action_list_parser_parse(NPWActionListParser* this, const gchar* text, gssize len, GError** error);
+gboolean npw_action_list_parser_end_parse(NPWActionListParser* this, GError** error);
 
 #endif
