@@ -1256,7 +1256,7 @@ on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
 			if (te->full_filename)
 			{
 				prog = g_strdup (te->full_filename);
-				temp = get_file_extension (prog);
+				temp = (gchar*)get_file_extension (prog);
 				if (temp)
 					*(--temp) = '\0';
 				s_re = stat (te->full_filename, &s_stat);

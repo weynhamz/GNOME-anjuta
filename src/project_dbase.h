@@ -183,7 +183,7 @@ void project_dbase_open_project (ProjectDBase * p);
 gboolean project_dbase_load_project (ProjectDBase * p,
 									 const gchar *project_file,
 									 gboolean show_project);
-gboolean project_dbase_load_project_file (ProjectDBase * p, gchar * filename);
+gboolean project_dbase_load_project_file (ProjectDBase * p, const gchar * filename);
 gboolean project_dbase_load_project_finish (ProjectDBase * p,
 											gboolean show_project);
 void project_dbase_close_project (ProjectDBase * p);
@@ -201,7 +201,7 @@ void project_dbase_undock (ProjectDBase * p);
 
 /* Checks if the given file belongs to the given module */
 gboolean project_dbase_is_file_in_module (ProjectDBase * p,
-										  PrjModule module, gchar * file);
+										  PrjModule module, const gchar * file);
 
 /* Show information of the project */
 void project_dbase_show_info (ProjectDBase * p);
@@ -274,12 +274,12 @@ void project_dbase_clean_left (ProjectDBase * p);
 /* No checking is performed wether the file exist or not */
 /* it is simply added */
 void project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
-									   gchar * filename);
+									   const gchar * filename);
 
 /* Really adds the file. The file physically copied in the right */
 /* place and modules are updated */
 void project_dbase_import_file_real (ProjectDBase * p, PrjModule module,
-									 gchar * filename);
+									 const gchar * filename);
 
 /* remove file form the module */
 void project_dbase_remove_file (ProjectDBase * p);

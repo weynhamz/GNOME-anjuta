@@ -177,7 +177,7 @@ void anjuta_session_restore (GnomeClient* client);
 GList *anjuta_get_file_list(void);
 const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types);
 
-TextEditor *anjuta_append_text_editor (gchar * filename, gchar * name);
+TextEditor *anjuta_append_text_editor (const gchar * filename, const gchar * name);
 
 void anjuta_remove_text_editor (TextEditor* te);
 void anjuta_remove_current_text_editor (void);
@@ -190,8 +190,8 @@ GtkWidget *anjuta_get_current_text (void);
 
 gchar *anjuta_get_current_selection (void);
 
-TextEditor*  anjuta_goto_file_line (gchar * fname, glong lineno);
-TextEditor*  anjuta_goto_file_line_mark (gchar * fname,
+TextEditor*  anjuta_goto_file_line (const gchar * fname, glong lineno);
+TextEditor*  anjuta_goto_file_line_mark (const gchar * fname,
 										 glong lineno, gboolean mark);
 gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name);
 void anjuta_goto_tag(const char *symbol, TextEditor *te,
@@ -215,31 +215,31 @@ void anjuta_clean_exit (void);
 void anjuta_update_title (void);
 void anjuta_update_page_label (TextEditor *te);
 
-void anjuta_set_file_properties (gchar * full_filename);
+void anjuta_set_file_properties (const gchar * full_filename);
 
-void anjuta_information (gchar * mesg, ...);
-void anjuta_status (gchar * mesg, ...);
-void anjuta_warning (gchar * mesg, ...);
-void anjuta_error (gchar * mesg, ...);
-void anjuta_system_error (gint errornum, gchar * mesg, ...);
-gboolean anjuta_boolean_question (gchar * mesg, ...);
+void anjuta_information (const gchar * mesg, ...);
+void anjuta_status (const gchar * mesg, ...);
+void anjuta_warning (const gchar * mesg, ...);
+void anjuta_error (const gchar * mesg, ...);
+void anjuta_system_error (gint errornum, const gchar * mesg, ...);
+gboolean anjuta_boolean_question (const gchar * mesg, ...);
 
-void anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...);
-void anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...);
-void anjuta_error_parented (GtkWidget* parent, gchar * mesg, ...);
+void anjuta_information_parented (GtkWidget *parent, const gchar * mesg, ...);
+void anjuta_warning_parented (GtkWidget* parent, const gchar * mesg, ...);
+void anjuta_error_parented (GtkWidget* parent, const gchar * mesg, ...);
 void anjuta_system_error_parented (GtkWidget* parent, gint errornum,
-								   gchar * mesg, ...);
+								   const gchar * mesg, ...);
 
 void anjuta_set_busy (void);
 void anjuta_set_active (void);
 gboolean anjuta_set_auto_gtk_update (gboolean auto_flag);
 void main_menu_unref (void);
 
-gchar *anjuta_get_full_filename (gchar * fn);
+gchar *anjuta_get_full_filename (const gchar * fn);
 
-void anjuta_done_progress (gchar * titile);
+void anjuta_done_progress (const gchar * titile);
 
-gboolean anjuta_init_progress (gchar * description, gdouble full_value,
+gboolean anjuta_init_progress (const gchar * description, gdouble full_value,
 							   GnomeAppProgressCancelFunc progress_cancel_cb,
 							   gpointer data);
 
@@ -263,13 +263,13 @@ void anjuta_unregister_child_process (pid_t pid);
 
 void anjuta_foreach_child_processes (GFunc cb_func, gpointer data);
 
-void anjuta_not_implemented (gchar * file, guint line);
+void anjuta_not_implemented (const gchar * file, guint line);
 
-gboolean anjuta_is_installed (gchar * prog, gboolean show);
+gboolean anjuta_is_installed (const gchar * prog, gboolean show);
 
 /* If set_job is TRUE, job_name is set in the status bar */
 /* Else previous job is set in the status bar */
-void anjuta_update_app_status (gboolean set_job, gchar * job_name);
+void anjuta_update_app_status (gboolean set_job, const gchar * job_name);
 
 /* Private callbacks */
 
@@ -289,7 +289,7 @@ void on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 									 GtkNotebookPage * page,
 									 gint page_num, gpointer user_data);
 
-void on_anjuta_dnd_drop (gchar* filename, gpointer data);
+void on_anjuta_dnd_drop (const gchar* filename, gpointer data);
 
 void anjuta_refresh_breakpoints (TextEditor* te);
 
@@ -319,17 +319,17 @@ void on_prj_list_hide_button_clicked (GtkButton * button, gpointer user_data);
 void on_mesg_win_hide_button_clicked (GtkButton * button, gpointer user_data);
 void on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data);
 
-void on_recent_files_menu_item_activate (GtkMenuItem * item, gchar * data);
-void on_recent_projects_menu_item_activate (GtkMenuItem * item, gchar * data);
+void on_recent_files_menu_item_activate (GtkMenuItem * item, const gchar * data);
+void on_recent_projects_menu_item_activate (GtkMenuItem * item, const gchar * data);
 
 gdouble on_anjuta_progress_cb (gpointer data);
 
 void on_anjuta_progress_cancel (gpointer data);
 
-void anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
+void anjuta_toolbar_set_view (const gchar* toolbar_name, gboolean view,
 							  gboolean resize, gboolean set_in_props);
 
-gint anjuta_get_file_property (gchar* key, gchar* filename, gint default_value);
+gint anjuta_get_file_property (const gchar* key, const gchar* filename, gint default_value);
 
 TextEditor *anjuta_get_te_from_path( const gchar *szFullPath );
 

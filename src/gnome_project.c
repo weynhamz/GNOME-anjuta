@@ -133,7 +133,7 @@ create_new_project (AppWizard * aw)
 	fprintf(fp, "project.menu.comment=%s\n", _STR(aw->menu_comment));
 
 	if (aw->icon_file) {
-		gchar *ext = get_file_extension (aw->icon_file);
+		const gchar *ext = get_file_extension (aw->icon_file);
 		fprintf (fp, "project.menu.icon=%s-icon", aw->target);
 
 		if (ext)

@@ -1,3 +1,17 @@
+2004-04-06  Naba Kumar  <naba@gnome.org>
+
+	* src/project_dbase.c, src/project_dbase_gui.c: Refreshes the project
+	tree after all the files have been added (and not everytime a file
+	is added in the project). Also fixed some memory corruption
+	(possibly bug #900478).
+	
+	* src/anjuta.c, src/anjuta.h, src/anjuta_cbs.c, src/dnd.c,
+	src/dnd.h, src/executer.c, src/gnome_project.c, src/main_menubar.c,
+	src/mainmenu_callbacks.c, src/project_dbase.c, src/project_dbase.h,
+	src/project_dbase_gui.c, src/source.c, src/text_editor.c,
+	src/text_editor.h, src/utilities.c, src/utilities.h: Used 'const'
+	qualifier wherever appropriate.
+
 2004-04-05  Naba Kumar  <naba@gnome.org>
 
 	* src/launcher.[h,c], src/debugger.c: Added a method in launcher to 

@@ -48,7 +48,7 @@
  */
 void
 dnd_drop_init (GtkWidget *widget,
-	       void (* data_dropped) (gchar *filename, gpointer data),
+	       void (* data_dropped) (const gchar *filename, gpointer data),
 	       gpointer data, ...);
 
 void 

@@ -219,7 +219,7 @@ on_anjuta_notebook_switch_page (GtkNotebook * notebook,
 }
 
 void
-on_anjuta_dnd_drop (gchar* filename, gpointer data)
+on_anjuta_dnd_drop (const gchar* filename, gpointer data)
 {
 	anjuta_goto_file_line (filename, 0);
 }

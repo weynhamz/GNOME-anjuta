@@ -205,10 +205,10 @@ parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 	return FALSE;
 }
 
-gchar *
-get_file_extension (gchar * file)
+const gchar *
+get_file_extension (const gchar * file)
 {
-	gchar *pos;
+	const gchar *pos;
 	if (!file)
 		return NULL;
 	pos = strrchr (file, '.');
@@ -218,9 +218,10 @@ get_file_extension (gchar * file)
 		return NULL;
 }
 
-FileExtType get_file_ext_type (gchar * file)
+FileExtType get_file_ext_type (const gchar * file)
 {
-	gchar *pos, *filetype_str;
+	const gchar *pos;
+	gchar *filetype_str;
 	FileExtType filetype;
 
 	if (!file)
@@ -720,7 +721,7 @@ file_is_sticky (const gchar * fn)
 }
 
 gboolean
-copy_file (gchar * src, gchar * dest, gboolean show_error)
+copy_file (const gchar * src, const gchar * dest, gboolean show_error)
 {
 	FILE *input_fp, *output_fp;
 	gchar buffer[FILE_BUFFER_SIZE];
@@ -866,7 +867,7 @@ get_fixed_font ()
 }
 
 gchar *
-remove_white_spaces (gchar * text)
+remove_white_spaces (const gchar * text)
 {
 	guint src_count, dest_count, tab_count;
 	gchar buff[2048];	/* Let us hope that it does not overflow */
@@ -1139,7 +1140,7 @@ string_assign (gchar ** string, const gchar *value)
 }
 
 gchar*
-get_swapped_filename(gchar* filename)
+get_swapped_filename(const gchar* filename)
 {
 	size_t len;
 	gchar *newfname;
@@ -1207,7 +1208,7 @@ get_swapped_filename(gchar* filename)
 }
 
 gboolean
-move_file_if_not_same (gchar* src, gchar* dest)
+move_file_if_not_same (const gchar* src, const gchar* dest)
 {
 	g_return_val_if_fail (src != NULL, FALSE);
 	g_return_val_if_fail (dest != NULL, FALSE);
@@ -1225,7 +1226,7 @@ move_file_if_not_same (gchar* src, gchar* dest)
 }
 
 gboolean
-compare_files (gchar* file1, gchar* file2, gboolean show_error)
+compare_files (const gchar* file1, const gchar* file2, gboolean show_error)
 {
 	FILE *file_fp1, *file_fp2;
 	gchar buffer1[FILE_BUFFER_SIZE], buffer2[FILE_BUFFER_SIZE];
@@ -1281,7 +1282,7 @@ compare_files (gchar* file1, gchar* file2, gboolean show_error)
 	return (bytes_read1 == bytes_read2) && same;
 }
 
-gboolean is_file_same(gchar *a, gchar *b)
+gboolean is_file_same(const gchar *a, const gchar *b)
 {
 	struct stat st_a,st_b;
 
@@ -1303,7 +1304,7 @@ gboolean is_file_same(gchar *a, gchar *b)
 }
 
 gchar*
-get_file_as_buffer (gchar* filename)
+get_file_as_buffer (const gchar* filename)
 {
 	struct stat s;
 	gchar *buff;
@@ -1573,7 +1574,7 @@ anjuta_util_escape_quotes(const gchar* str)
 	return g_strdup(buffer);
 }
 
-gchar *get_relative_file_name(gchar *dir, gchar *file)
+gchar *get_relative_file_name(const gchar *dir, const gchar *file)
 {
 	gchar *real_dir = tm_get_real_path(dir);
 	gchar *real_file = tm_get_real_path(file);

@@ -1307,7 +1307,7 @@ create_langsel_dialog (void)
 #endif /* Disabling */
 
 static void
-on_prj_import_confirm_yes (GtkButton * button, gchar* filename, 
+on_prj_import_confirm_yes (GtkButton * button, const gchar* filename, 
 							gpointer user_data)
 {
 	PrjModule	selMod ;
@@ -1322,8 +1322,9 @@ on_prj_import_confirm_yes (GtkButton * button, gchar* filename,
 void
 on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 {
-	ProjectDBase *p = (ProjectDBase *) user_data;
 	GList *list, *node;
+	gboolean files_added = FALSE;
+	ProjectDBase *p = (ProjectDBase *) user_data;
 
 	list = fileselection_get_filelist(p->fileselection_add_file);
 	node = list;
@@ -1331,10 +1332,10 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 	{
 		struct stat s;
 		gchar *comp_dir;
-		gchar *filename = node->data;
+		const gchar *filename = node->data;
 		
-		if (!filename)
-			return;
+		if (!filename || strlen(filename))
+			break;
 		if (0 != stat(filename, &s))
 		{
 			int button;
@@ -1349,20 +1350,19 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
 			g_free(mesg);
 			if(button != 0)
-			{
-				g_free(filename);
 				continue;
-			}
 		}
 		else if (!S_ISREG(s.st_mode))
 		{
 			anjuta_error (_("Not a regular file: %s."), filename);
-			g_free (filename);
 			continue;
 		}
 		comp_dir = project_dbase_get_module_dir (p, p->sel_module);
 		if (is_file_in_dir(filename, comp_dir))
+		{
 			on_prj_import_confirm_yes (NULL, filename, user_data);
+			files_added = TRUE;
+		}
 		else
 		{
 			int button;
@@ -1377,10 +1377,15 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
 			g_free(mesg);
 			if(button == 0)
+			{
 				on_prj_import_confirm_yes (NULL, filename, p);
+				files_added = TRUE;
+			}
 		}
 		g_free (comp_dir);
 		node = g_list_next (node);
 	}
+	if (files_added)
+		project_dbase_update_tree (p);
 	glist_strings_free (list);
 }

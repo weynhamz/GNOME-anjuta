@@ -398,13 +398,13 @@ on_project_menu_realize (GtkWidget * widget, gpointer data)
 }
 
 void
-on_recent_files_menu_item_activate (GtkMenuItem * item, gchar * data)
+on_recent_files_menu_item_activate (GtkMenuItem * item, const gchar * data)
 {
 	anjuta_goto_file_line (data, -1);
 }
 
 void
-on_recent_projects_menu_item_activate (GtkMenuItem * item, gchar * data)
+on_recent_projects_menu_item_activate (GtkMenuItem * item, const gchar * data)
 {
 	anjuta_load_this_project(data);
 }

@@ -1445,7 +1445,7 @@ project_dbase_undock (ProjectDBase * p)
 
 gboolean
 project_dbase_is_file_in_module (ProjectDBase * p, PrjModule module,
-				 gchar * file)
+				 const gchar * file)
 {
 	gchar *tmp;
 	gchar *real_fn;
@@ -2189,7 +2189,7 @@ project_dbase_update_controls (ProjectDBase * pd)
 
 void
 project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
-				  gchar * filename)
+				  const gchar * filename)
 {
 	gchar *mod_files, *file_list, *new_file_list, *comp_dir;
 	gchar *relative_fn;
@@ -2244,14 +2244,14 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 				  , filename, FALSE);
 		}
 	}
-	project_dbase_update_tree (p);
 	sv_populate(build_sv);
 	fv_populate(build_fv);
 	p->is_saved = FALSE;
 }
 
 void
-project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod, gchar* filename)
+project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod,
+								const gchar* filename)
 {
 	gchar *comp_dir;
 	GList *list, *mod_files;
@@ -2474,7 +2474,7 @@ load_preferences_property (AnjutaPreferences *pr,
 }
 
 gboolean
-project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
+project_dbase_load_project_file (ProjectDBase * p, const gchar * filename)
 {
 	gchar *prj_buff, buff[512], *str;
 	gint level, read_size, pos;

@@ -275,7 +275,7 @@ source_write_configure_in (ProjectDBase * data)
 			{
 				gchar *lang, *ext;
 				lang = g_strdup (extract_filename (node->data));
-				ext = get_file_extension (lang);
+				ext = (gchar*)get_file_extension (lang);
 				if (ext)
 					*(--ext) = '\0';
 				fprintf(fp, "%s", lang);

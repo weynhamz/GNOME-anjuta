@@ -278,7 +278,7 @@ anjuta_session_restore (GnomeClient* client)
 }
 
 TextEditor *
-anjuta_append_text_editor (gchar * filename, gchar * name)
+anjuta_append_text_editor (const gchar * filename, const gchar * name)
 {
 	GtkWidget *tab_widget, *eventbox;
 	TextEditor *te, *cur_page;
@@ -510,13 +510,13 @@ anjuta_get_current_selection ()
 }
 
 TextEditor *
-anjuta_goto_file_line (gchar * fname, glong lineno)
+anjuta_goto_file_line (const gchar * fname, glong lineno)
 {
 	return anjuta_goto_file_line_mark (fname, lineno, TRUE);
 }
 
 TextEditor *
-anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
+anjuta_goto_file_line_mark (const gchar * fname, glong lineno, gboolean mark)
 {
 	gchar *fn;
 	GList *node;
@@ -1018,7 +1018,7 @@ anjuta_save_yourself (FILE * stream)
 	fprintf (stream, "\n\n");
 	fprintf (stream, "%s=", ANJUTA_LAST_OPEN_PROJECT );
 	{
-		gchar *last_open_project_path = "" ;
+		const gchar *last_open_project_path = "" ;
 		if (app->project_dbase->project_is_open &&
 			(NULL != app->project_dbase->proj_filename))
 			last_open_project_path = app->project_dbase->proj_filename ;
@@ -1425,7 +1425,7 @@ anjuta_clean_exit ()
 }
 
 void
-anjuta_status (gchar * mesg, ...)
+anjuta_status (const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -1438,7 +1438,7 @@ anjuta_status (gchar * mesg, ...)
 }
 
 void
-anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...)
+anjuta_information_parented (GtkWidget *parent, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -1459,7 +1459,7 @@ anjuta_information_parented (GtkWidget *parent, gchar * mesg, ...)
 }
 
 void
-anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...)
+anjuta_warning_parented (GtkWidget* parent, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -1475,7 +1475,7 @@ anjuta_warning_parented (GtkWidget* parent, gchar * mesg, ...)
 }
 
 void
-anjuta_error_parented (GtkWidget* parent, gchar * mesg, ... )
+anjuta_error_parented (GtkWidget* parent, const gchar * mesg, ... )
 {
 	gchar* message;
 	gchar* str;
@@ -1494,7 +1494,7 @@ anjuta_error_parented (GtkWidget* parent, gchar * mesg, ... )
 }
 
 void
-anjuta_system_error_parented (GtkWidget* parent, gint errnum, gchar * mesg, ... )
+anjuta_system_error_parented (GtkWidget* parent, gint errnum, const gchar * mesg, ... )
 {
 	gchar* message;
 	gchar* tot_mesg;
@@ -1518,7 +1518,7 @@ anjuta_system_error_parented (GtkWidget* parent, gint errnum, gchar * mesg, ... 
 }
 
 void
-anjuta_information (gchar * mesg, ...)
+anjuta_information (const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -1540,7 +1540,7 @@ anjuta_information (gchar * mesg, ...)
 
 
 gboolean
-anjuta_boolean_question (gchar * mesg, ...)
+anjuta_boolean_question (const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -1564,7 +1564,7 @@ anjuta_boolean_question (gchar * mesg, ...)
 
 
 void
-anjuta_warning (gchar * mesg, ...)
+anjuta_warning (const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -1577,7 +1577,7 @@ anjuta_warning (gchar * mesg, ...)
 }
 
 void
-anjuta_error (gchar * mesg, ... )
+anjuta_error (const gchar * mesg, ... )
 {
 	gchar* message;
 	gchar* str;
@@ -1594,7 +1594,7 @@ anjuta_error (gchar * mesg, ... )
 
 
 void
-anjuta_system_error (gint errnum, gchar * mesg, ... )
+anjuta_system_error (gint errnum, const gchar * mesg, ... )
 {
 	gchar* message;
 	gchar* tot_mesg;
@@ -1615,7 +1615,7 @@ anjuta_system_error (gint errnum, gchar * mesg, ... )
 }
 
 void
-anjuta_set_file_properties (gchar* file)
+anjuta_set_file_properties (const gchar* file)
 {
 	gchar *full_filename, *dir, *ext;
 	const gchar *filename;
@@ -1626,7 +1626,7 @@ anjuta_set_file_properties (gchar* file)
 	props = ANJUTA_PREFERENCES (app->preferences)->props;
 	dir = g_dirname (full_filename);
 	filename = extract_filename (full_filename);
-	ext = get_file_extension ((gchar*) filename);
+	ext = (gchar*)get_file_extension (filename);
 	prop_set_with_key (props, CURRENT_FULL_FILENAME, "");
 	prop_set_with_key (props, CURRENT_FILE_DIRECTORY, "");
 	prop_set_with_key (props, CURRENT_FILENAME_WITH_EXT, "");
@@ -1648,7 +1648,7 @@ anjuta_set_file_properties (gchar* file)
 }
 
 gchar *
-anjuta_get_full_filename (gchar * fn)
+anjuta_get_full_filename (const gchar * fn)
 {
 	gchar *cur_dir, *dummy;
 	TextEditor *te;
@@ -1793,7 +1793,7 @@ anjuta_get_full_filename (gchar * fn)
 }
 
 gboolean
-anjuta_init_progress (gchar * description, gdouble full_value,
+anjuta_init_progress (const gchar * description, gdouble full_value,
 		      GnomeAppProgressCancelFunc cancel_cb, gpointer data)
 {
 	if (app->in_progress)
@@ -1820,7 +1820,7 @@ anjuta_set_progress (gdouble value)
 }
 
 void
-anjuta_done_progress (gchar * end_mesg)
+anjuta_done_progress (const gchar * end_mesg)
 {
 	if (app->in_progress)
 		gnome_app_progress_done (app->progress_key);
@@ -1829,7 +1829,7 @@ anjuta_done_progress (gchar * end_mesg)
 }
 
 void
-anjuta_not_implemented (char *file, guint line)
+anjuta_not_implemented (const gchar *file, guint line)
 {
 	GtkWidget *dialog;
 	// Dialog to be HIG compliant
@@ -2074,7 +2074,7 @@ gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
 	return save;
 }
 
-gboolean anjuta_is_installed (gchar * prog, gboolean show)
+gboolean anjuta_is_installed (const gchar * prog, gboolean show)
 {
 	gchar* prog_path = g_find_program_in_path (prog);
 	if (prog_path)
@@ -2092,7 +2092,7 @@ gboolean anjuta_is_installed (gchar * prog, gboolean show)
 }
 
 void
-anjuta_update_app_status (gboolean set_job, gchar* job_name)
+anjuta_update_app_status (gboolean set_job, const gchar* job_name)
 {
 	gchar *prj, *edit, *job, *mode;
 	guint line, col, caret_pos;
@@ -2181,7 +2181,7 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 }
 
 void
-anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
+anjuta_toolbar_set_view (const gchar* toolbar_name, gboolean view,
 						 gboolean resize, gboolean set_in_props)
 {
 	gchar* key;
@@ -2219,7 +2219,7 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
 }
 
 gint
-anjuta_get_file_property (gchar* key, gchar* filename, gint default_value)
+anjuta_get_file_property (const gchar* key, const gchar* filename, gint default_value)
 {
 	gint value;
 	gchar* value_str;

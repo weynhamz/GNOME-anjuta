@@ -112,8 +112,8 @@ static void text_editor_update_preferences (AnjutaPreferences *pr,
 											TextEditor * te);
 
 TextEditor *
-text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo,
-                 gchar *name)
+text_editor_new (const gchar * filename, TextEditor * parent, AnjutaPreferences * eo,
+                 const gchar *name)
 {
 	gchar *buff;
 	TextEditor *te;

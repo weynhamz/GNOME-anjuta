@@ -83,17 +83,17 @@ typedef enum _FileExtType FileExtType;
 /****************************************************************************/
 
 /* Removes while spaces in the text */
-gchar* remove_white_spaces(gchar* text);
+gchar* remove_white_spaces(const gchar* text);
 
 /* Gets the swapped (c/h) file names */
-gchar* get_swapped_filename(gchar* filename);
+gchar* get_swapped_filename(const gchar* filename);
 
 /* Get a unique temporary filename */
 /* This filename is not valid beyond the present session */
 gchar* get_a_tmp_file(void);
 
 /* Retruns the contents of the file a buffer */
-gchar* get_file_as_buffer (gchar* filename);
+gchar* get_file_as_buffer (const gchar* filename);
 
 /* Creates a space separated string from the list of strings */
 gchar* string_from_glist (GList* list);
@@ -129,10 +129,10 @@ gchar* extract_directory (const gchar* full_filename);
 GList* update_string_list(GList *p_list, const gchar *p_str, gint length);
 
 /* Gets the extension of the file */
-gchar* get_file_extension(gchar* file);
+const gchar* get_file_extension(const gchar* file);
 
 /* Gets the file extension type */
-FileExtType get_file_ext_type(gchar* file);
+FileExtType get_file_ext_type(const gchar* file);
 
 /*
 void fast_widget_repaint(GtkWidget* w);
@@ -161,20 +161,20 @@ gboolean file_is_sticky(const gchar * fn);
 
 /* copies src to dest */
 /* if (show_error) is true, then a dialog box will be shown for the error */
-gboolean copy_file(gchar* src, gchar* dest, gboolean show_error);
+gboolean copy_file(const gchar* src, const gchar* dest, gboolean show_error);
 
 /* bytewise compares two files and returns true for same or false for */
 /* different or error */
 /* if (show_error) is true, then a dialog box will be shown for the error */
-gboolean compare_files(gchar* file1, gchar* file2, gboolean show_error);
+gboolean compare_files(const gchar* file1, const gchar* file2, gboolean show_error);
 
 /* (src) will be renamed, ie moved, to (dest) if they are not same */
 /* Used to avoid unnecessary change in modified time of the dest file */
 /* Which may result in recompilation, etc */
-gboolean move_file_if_not_same (gchar* src, gchar* dest);
+gboolean move_file_if_not_same (const gchar* src, const gchar* dest);
 
 /* Check if two files/dirs/etc are the same one */
-gboolean is_file_same(gchar *a, gchar *b);
+gboolean is_file_same(const gchar *a, const gchar *b);
 
 /* Update, flush and paint all gtk widgets */
 void update_gtk(void);
@@ -228,9 +228,9 @@ GList* remove_blank_lines(GList* lines);
 /* Create a new hbox with an image and a label packed into it
         * and return the box. */
 GtkWidget*
-create_xpm_label_box( GtkWidget *parent,
-                                 const gchar     *xpm_filename, gboolean gnome_pixmap,
-                                 const gchar     *label_text );
+create_xpm_label_box(GtkWidget *parent,
+					 const gchar     *xpm_filename, gboolean gnome_pixmap,
+					 const gchar     *label_text );
 /* Excluding the final 0 */
 gint calc_string_len( const gchar *szStr );
 gint calc_gnum_len( void /*const gint iVal*/ );
@@ -270,7 +270,7 @@ gint  anjuta_util_kill(pid_t process_id, const gchar* signal_name);
 GList* anjuta_util_parse_args_from_string (const gchar* string);
 
 /* Gets the relative filename w.r.t the given directory */
-gchar *get_relative_file_name(gchar *dir, gchar *file);
+gchar *get_relative_file_name(const gchar *dir, const gchar *file);
 
 /* Checks if the file exists in the given directory or any of it's subdirectories */
 gboolean is_file_in_dir(const gchar *file, const gchar *dir);

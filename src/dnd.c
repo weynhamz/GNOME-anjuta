@@ -47,7 +47,7 @@ static int dnd_mime_table_length = 0;
 /*
  * A pointer to the user supplied function which handles the "droppings".
  */
-static void (* dnd_data_dropped) (gchar *filename, gpointer user_data) = NULL;
+static void (* dnd_data_dropped) (const gchar *filename, gpointer user_data) = NULL;
 
 /*
  * Callback for the drag_data_received signal, emitted whenever something is
@@ -124,7 +124,7 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
  */
 void
 dnd_drop_init (GtkWidget *widget,
-	       void (* data_dropped) (gchar *file_name, gpointer user_data),
+	       void (* data_dropped) (const gchar *file_name, gpointer user_data),
 	       gpointer user_data, ...)
 {
 	va_list list;
