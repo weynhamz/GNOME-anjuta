@@ -124,7 +124,9 @@ npw_autogen_add_default_definition (NPWAutogen* this, AnjutaPreferences* pref)
 	/* Add project directory */
 	value = anjuta_preferences_get (pref, "anjuta.project.directory");
 	g_string_append_printf (def->data,"%s = \"%s\";\n", "AnjutaProjectDirectory", value);
-	value = g_get_real_name();
+	value = anjuta_preferences_get (pref, "anjuta.project.user");
+	if (strlen(value) == 0)
+		value = g_get_real_name();
 	g_string_append_printf (def->data,"%s = \"%s\";\n", "UserName", value);
 
 	return TRUE;

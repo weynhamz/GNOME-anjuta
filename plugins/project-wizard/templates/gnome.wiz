@@ -7,7 +7,7 @@
 
 <page name="basic" _label="Basic information" _description="General Project Infromation">
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="gnome-foobar" summary="yes" mandatory="yes"/>
-	<property type="string" name="Author" _label="Author:" _description="" default="unknown" mandatory="yes"/>
+	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
 	<property type="boolean" name="HaveGlade" _label="Add Dynamic UI (glade) support:" _description="Create dynamic UI files readable in your program with libglade. Should usually be left enabled." default="1"/>

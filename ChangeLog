@@ -1,11 +1,20 @@
-2005-02-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+2005-02-12  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	*plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/autogen.c:
+	Add Username & Email address in Project preferences.
+
+2005-02-11  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	*plugins/project-wizard/templates/gnome-logo.png,
 	plugins/project-wizard/templates/gnome.wiz,
 	plugins/project-wizard/templates/gnome/* :
 	Add Gnome project
 
-2005-02-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+2005-02-11  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/project-wizard/templates/terminal/src/main.c, 
 	plugins/project-wizard/templates/terminal/src/main.c,
