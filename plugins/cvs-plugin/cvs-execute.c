@@ -85,9 +85,6 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 {
 	g_return_if_fail (plugin != NULL);
 	
-	g_signal_handlers_disconnect_by_func (plugin->launcher,
-										  G_CALLBACK (on_cvs_terminated),
-										  plugin);
 	g_signal_handlers_disconnect_by_func (plugin->mesg_view,
 										  G_CALLBACK (on_cvs_mesg_format),
 										  plugin);
@@ -112,7 +109,7 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 									 mesg, "", NULL);
 		g_free (mesg);
 	}
-		
+
 	/* We do not care about this view any longer, it will be freed when 
 	the users closes it */
 	plugin->mesg_view = NULL;
@@ -242,7 +239,7 @@ cvs_execute_status(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 	window = glade_xml_get_widget(gxml, "cvs_status_output");
 	status_text = glade_xml_get_widget(gxml, "cvs_status_text");
 	
-	g_signal_connect(G_OBJECT(window), "destroy-event", 
+	g_signal_connect(G_OBJECT(window), "delete-event", 
 		G_CALLBACK(on_cvs_status_destroy), status_text);
 	
 	gtk_widget_show(window);

@@ -1,6 +1,8 @@
 2004-12-06  Naba Kumar  <naba@gnome.org>
 
 	* plugins/cvs-plugin/cvs-execute.c: Show completion message.
+	* plugins/cvs-plugin/cvs-execute.c: Fixed command completion bug.
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade: UI beautification.
 	
 2004-12-05  Naba Kumar  <naba@gnome.org>
 
