@@ -319,6 +319,8 @@ launcher_execute (gchar * command_str,
   launcher.char_pos = 1;
 
   shell = gnome_util_user_shell();
+  if (NULL == shell || '\0' == shell[0])
+    shell = "sh";
   
   launcher.terminal = zvt_term_new ();
   zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);

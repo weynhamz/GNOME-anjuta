@@ -75,6 +75,8 @@ void on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
                                          gpointer user_data);
 void on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
                                          gpointer user_data);
+void on_search_regex_toggled (GtkToggleButton *togglebutton,
+                              gpointer user_data);
 void on_replace_regex_toggled (GtkToggleButton *togglebutton,
                                gpointer user_data);
 
@@ -189,6 +191,7 @@ typedef struct _Search
 	SearchExpression expr;
 	SearchRange range;
 	SearchAction action;
+	GList *expr_history;
 } Search;
 
 /* Contains information about replacement */
@@ -534,6 +537,10 @@ static GList *get_project_file_list(void)
 	return files;
 }
 
+static gboolean isawordchar(int c)
+{
+	return (isalnum(c) || '_' == c);
+}
 
 static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 {
@@ -543,28 +550,25 @@ static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 	e = fb->buf[fb->pos+match_len];
 	
 	if (s->whole_line)
-		if ((fb->pos == 0 || b == '\n') && (e == '\0'	|| e == '\n'))
+		if ((fb->pos == 0 || b == '\n' || b == '\r') &&
+			(e == '\0' || e == '\n' || e == '\r'))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->whole_word)
-		if ((fb->pos ==0 || b ==' ' || b=='\t' || b == '\n' || b == '(' || 
-			b == '"' || b == '[') && 
-			(e=='\0' || e=='\n' || e==' ' || e =='\t' || e ==')' || 
-			e =='"' || e ==']'))
+		if ((fb->pos ==0 || !isawordchar(b)) &&
+			(e=='\0' || !isawordchar(e)))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->word_start)
-		if (fb->pos ==0 || b ==' ' || b=='\t' || b == '\n' || b == '(' || 
-			b == '"' || b == '[')
+		if (fb->pos ==0 || !isawordchar(b))
 			return TRUE;
 		else
 			return FALSE;	
-	else return TRUE;		
+	else
+		return TRUE;
 }
-
-
 
 /* Returns the next match in the passed buffer. The search expression should
 ** be pre-compiled. The returned pointer should be freed with match_info_free()
@@ -599,7 +603,7 @@ static MatchInfo *get_next_match(FileBuffer *fb, SearchDirection direction
 			g_warning("PCRE Match error");
 			return NULL;
 		}
-		else
+		else if (PCRE_ERROR_NOMATCH != status)
 		{
 			mi = g_new0(MatchInfo, 1);
 			mi->pos = s->re->ovector[0];
@@ -992,6 +996,7 @@ static void search_and_replace(void)
 				
 				switch (s->action)
 				{
+					case SA_HIGHLIGHT: /* FIXME */
 					case SA_BOOKMARK:
 						if (NULL == fb->te)
 						{
@@ -1038,7 +1043,6 @@ static void search_and_replace(void)
 						if (se->direction != SD_BACKWARD)						
 							offset += mi->len - strlen(sr->replace.repl_str);
 						break;
-					/* case SA_HIGHLIGHT: FIXME */
 					default:
 						anjuta_not_implemented(__FILE__, __LINE__);
 						break;
@@ -1068,9 +1072,10 @@ static void search_and_replace(void)
 										 GTK_BUTTONS_CLOSE,
 										 _("No Matches."));
 		g_signal_connect (G_OBJECT (dialog), "response",
-						  G_CALLBACK (gtk_widget_destroy), NULL);
+				G_CALLBACK (gtk_widget_destroy), NULL);
 		gtk_widget_show (dialog);
 	}
+
 	if (nb_results > sr->search.expr.actions_max)
 	{
 		GtkWidget *dialog;
@@ -1078,11 +1083,12 @@ static void search_and_replace(void)
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_INFO,
 										 GTK_BUTTONS_CLOSE,
-		            _("The maximum number of results has been reached."));
+						_("The maximum number of results has been reached."));
 		g_signal_connect (G_OBJECT (dialog), "response",
-						  G_CALLBACK (gtk_widget_destroy), NULL);
+				G_CALLBACK (gtk_widget_destroy), NULL);
 		gtk_widget_show (dialog);
 	}
+
 	g_list_free(entries);
 	return;
 }
@@ -1352,6 +1358,23 @@ void on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
 	                   on_search_match_whole_line_toggled, NULL);
 }
 
+void
+on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
+{
+	static char *dependent_widgets[] = {
+		GREEDY, IGNORE_CASE, WHOLE_WORD, WHOLE_LINE, WORD_START
+	};
+	int i;
+	GtkWidget *widget;
+	gboolean state = gtk_toggle_button_get_active(togglebutton);
+
+	for (i=0; i < sizeof(dependent_widgets)/sizeof(dependent_widgets[0]); ++i)
+	{
+		widget = glade_xml_get_widget(sg->xml, dependent_widgets[i]);
+		if (NULL != widget)
+			gtk_widget_set_sensitive(widget, !state);
+	}
+}
 
 void
 on_replace_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
@@ -1449,7 +1472,7 @@ void on_search_button_help_clicked(GtkButton *button, gpointer user_data)
 
 static void search_replace_populate(void)
 {
-	char *s;
+	char *s = NULL;
 	char *max = NULL;
 	
 	if (NULL == sr) /* Create a new SearchReplace instance */
@@ -1563,8 +1586,8 @@ static gboolean create_dialog(void)
 		return FALSE;
 	}
 	sg->dialog = glade_xml_get_widget(sg->xml, SEARCH_REPLACE_DIALOG);
-	gtk_window_set_transient_for (GTK_WINDOW(sg->dialog)
-	  , GTK_WINDOW(app->widgets.window));
+	gtk_window_set_transient_for (GTK_WINDOW(sg->dialog),
+								  GTK_WINDOW(app->widgets.window));
 
 	for (i=0; NULL != glade_widgets[i].name; ++i)
 	{
@@ -1593,7 +1616,10 @@ static void show_dialog()
 
 void anjuta_search_replace_activate(void)
 {
-	GtkWidget *search_entry;
+	GtkWidget *search_entry = NULL;
+	gchar *current_word = NULL;
+	gchar *search_word = NULL;
+	TextEditor *te = anjuta_get_current_text_editor();
 	
 	if (NULL == sr)
 	{
@@ -1602,8 +1628,25 @@ void anjuta_search_replace_activate(void)
     }
 	/* Set properties */
 	search_entry = glade_xml_get_widget(sg->xml, SEARCH_STRING);
-	gtk_widget_grab_focus (search_entry);	
+	if (te)
+		current_word = text_editor_get_current_word(te);
+	if (search_entry && te && current_word && strlen(current_word) > 0)
+	{
+		search_word = gtk_entry_get_text((GtkEntry *) search_entry);
+		if (search_word  && strlen(search_word) > 0)
+		{
+			GtkWidget *search_list = glade_xml_get_widget(sg->xml,
+														  SEARCH_STRING_COMBO);
+			sr->search.expr_history = g_list_prepend(sr->search.expr_history,
+													 search_word);
+			gtk_combo_set_popdown_strings((GtkCombo *) search_list,
+										  sr->search.expr_history);
+		}
+		gtk_entry_set_text((GtkEntry *) search_entry, current_word);
+	}
+	if (current_word)
+		g_free(current_word);
 	/* Show the dialog */
+	gtk_widget_grab_focus (search_entry);
 	show_dialog();
-
 }

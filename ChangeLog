@@ -1,3 +1,8 @@
+2003-03-14  Biswapesh CHattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.glade, src/search-replace.c: Forward-port S/R (Dan)
+	* launcher/Makefile.am: Link to correct libraries
+	* src/launcher.c: Do not allow NULL shell
+
 2003-03-14  Etay Meiri <etay-m@bezeqint.net>
 	* src/debug_tree.c: Improve debug tree view.
 
