@@ -1,5 +1,12 @@
 2005-02-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
+	*plugins/project-wizard/templates/gnome-logo.png,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gnome/* :
+	Add Gnome project
+
+2005-02-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
 	* plugins/project-wizard/templates/terminal/src/main.c, 
 	plugins/project-wizard/templates/terminal/src/main.c,
 	plugins/project-wizard/templates/terminal/src/main.[ch] :

@@ -709,9 +709,13 @@ plugins/project-wizard/templates/terminal/src/Makefile
 plugins/project-wizard/templates/terminal/po/Makefile
 plugins/project-wizard/templates/gtk/Makefile
 plugins/project-wizard/templates/gtk/src/Makefile
+plugins/project-wizard/templates/gtk/po/Makefile
 plugins/project-wizard/templates/anjuta-plugin/Makefile
 plugins/project-wizard/templates/anjuta-plugin/src/Makefile
 plugins/project-wizard/templates/anjuta-plugin/po/Makefile
+plugins/project-wizard/templates/gnome/Makefile
+plugins/project-wizard/templates/gnome/src/Makefile
+plugins/project-wizard/templates/gnome/po/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile
