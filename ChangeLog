@@ -1,4 +1,34 @@
-2003-02-24  Naba Kumar  <naba@gnome.org>
+2003-02-25  Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am: Excluded omf-install from installation as the docs are
+	not ready.
+	
+	TODO: Updated.
+	
+	* anjuta.glade, anjuta_dialogs_strings.c, prefrences.h, aneditor.cxx,
+	anjuta.properties, users.properties, anjuta-tools.c: Fixed editor
+	property names and added new editor properties and code cleanups.
+	Also added new project properties.
+	
+	* src/compiler_options.[h,c]: Added pkg-config packages supports
+	and fixed bugs.
+	
+	* src/glade_iface.h: Cleanups.
+	
+	* src/launcher.c: Used timer instead of idle to scan.
+	
+	* src/mainmenu_callbacks.c, src/project_dbase.[h,c],
+	src/project_config.[h,c], src/project_import.c: Implemented project
+	property to define GUI editor and to handle it.
+	
+	* src/preferences.c: i18n fixes.
+	
+	* pixmaps/Makefile.am, pixmaps/file_*.xpm, src/pixmaps.h: Removed
+	unused (and old) pixmaps.
+	
+	* widgets/gnomefilelist.c, pixmaps/file_text.png: Updated icon.
+	
+2003-02-25  Naba Kumar  <naba@gnome.org>
 
 	* src/message-manager-private.[h,cc], src/preferences.c,
 	anjuta.glade, anjuta_dialog_strings.c: Implemented

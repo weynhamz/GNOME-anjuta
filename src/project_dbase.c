@@ -694,6 +694,12 @@ project_dbase_save_project (ProjectDBase * p)
 		goto error_show;
 	g_free (str); str = NULL;
 
+	str = prop_get (p->props, "project.gui.command");
+	if (!str) str = g_strdup ("");
+	if (fprintf (fp, "project.gui.command=%s\n", str) < 1)
+		goto error_show;
+	g_free (str); str = NULL;
+
 	str = prop_get (p->props, "project.programming.language");
 	if (!str) str = g_strdup (programming_language_map[PROJECT_PROGRAMMING_LANGUAGE_C]);
 	if (fprintf (fp, "project.programming.language=%s\n", str) < 1)
@@ -1502,14 +1508,27 @@ project_dbase_show_info (ProjectDBase * p)
 }
 
 gboolean
-project_dbase_summon_glade (ProjectDBase *p)
+project_dbase_edit_gui (ProjectDBase *p)
 {
+	gchar *edit_command;
 	gchar *filename, *prj_name;
 	gboolean ret;
 
 	if (p->project_is_open == FALSE)
 		return FALSE;
+	
+	
+	edit_command = prop_get_expanded (p->props, "project.gui.command");
 
+	if (edit_command)
+	{
+#ifdef DEBUG
+		g_message ("GUI editing command: %s", edit_command);
+#endif
+		gnome_execute_shell (p->top_proj_dir, edit_command);
+		g_free (edit_command);
+		return TRUE;
+	}
 	prj_name = project_dbase_get_proj_name (p);
 	filename = g_strdup_printf ("%s/%s.glade",
 				    p->top_proj_dir,
@@ -1519,10 +1538,14 @@ project_dbase_summon_glade (ProjectDBase *p)
 	if (file_is_regular (filename) == FALSE)
 	{
 		anjuta_error (
-			_("A .glade file does not\n"
-			"exist in the top level Project directory."));
+			_("A .glade file does not "
+			"exist in the top level Project directory. "
+			"If you do not use glade for GUI editing, "
+			" please specify a custom command for it in "
+			"[Project]->[Project Configuration]->[GUI editor command]"));
 		ret = FALSE;
-	} else
+	}
+	else
 		ret = glade_iface_start_glade_editing (filename);
 
 	g_free (filename);
@@ -2077,8 +2100,17 @@ project_dbase_update_tree (ProjectDBase * p)
 		gtree_insert_files (GTK_TREE_VIEW (p->widgets.treeview),
 							&sub_parent, i, prefix, list);
 		g_free (prefix);
-		
 		glist_strings_free (list);
+	}
+	/* Expand first node */
+	{
+		GtkTreePath *path;
+		
+		path = gtk_tree_model_get_path (GTK_TREE_MODEL (store),
+										&sub_parent);
+		gtk_tree_view_expand_row (GTK_TREE_VIEW (p->widgets.treeview),
+								  path, FALSE);
+		gtk_tree_path_free (path);
 	}
 	tree_view_set_expansion_states (GTK_TREE_VIEW (p->widgets.treeview),
 									saved_map);

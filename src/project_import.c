@@ -322,10 +322,8 @@ project_import_save_values (ProjectImportWizard * piw)
 	else
 		prop_set_with_key (p->props, "project.menu.need_terminal", "0");
 	
-	if (config->description)
-		g_free(config->description);
-	config->description = g_strdup_printf("%s\n", piw->prj_description);
-
+	project_config_set_description (config, piw->prj_description);
+	
 	// Do not allow anjuta to change Makefiles
 	prop_set_with_key (p->props, "project.config.blocked", "1");
 }

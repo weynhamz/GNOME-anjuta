@@ -49,7 +49,7 @@ enum
 };
 
 #define FILE_PIXMAP_FOLDER PACKAGE_PIXMAPS_DIR"/bfoldc.xpm"
-#define FILE_PIXMAP_FILE   PACKAGE_PIXMAPS_DIR"/file_file.xpm"
+#define FILE_PIXMAP_FILE   PACKAGE_PIXMAPS_DIR"/file_text.png"
 
 /* function declarations */
 static void gnome_filelist_class_init (GnomeFileListClass * klass);

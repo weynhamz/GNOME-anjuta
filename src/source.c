@@ -403,7 +403,7 @@ source_write_configure_in (ProjectDBase * data)
 	}
 	glist_strings_free (list);
 
-	list = glist_from_string (data->project_config->config_files);
+	list = glist_from_string (project_config_get_config_files (data->project_config));
 	node = list;
 	while (node)
 	{
@@ -553,10 +553,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		fprintf (fp, "gnomemenu_DATA = %s.desktop\n\n", prj_name);
 		g_free (group);
 	}
-	if (data->project_config->makefile_am)
+	str = project_config_get_makefile_am_content (data->project_config);
+	if (str)
 	{
 		fprintf (fp, "\n");
-		fprintf (fp, data->project_config->makefile_am);
+		fprintf (fp, str);
 		fprintf (fp, "\n");
 	}
 	fprintf (fp, "# Copy all the spec files. Of cource, only one is actually used.\n");
@@ -2787,7 +2788,7 @@ source_write_build_files (ProjectDBase * data)
 
 	/* project is blocked, don't bother to disturb the
 	project */
-	if (data->project_config->blocked)
+	if (project_config_is_blocked (data->project_config))
 		return TRUE;
 	
 	ret = source_write_autogen_sh (data);
@@ -2824,47 +2825,56 @@ source_write_build_files (ProjectDBase * data)
 	}
 	free_project_type(type);
 
-	if (data->project_config->disable_overwrite[BUILD_FILE_CONFIGURE_IN] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_CONFIGURE_IN))
 	{
 		ret = source_write_configure_in (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_TOP_MAKEFILE_AM] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config, 
+												BUILD_FILE_TOP_MAKEFILE_AM))
 	{
 		ret = source_write_toplevel_makefile_am (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_SOURCE] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_SOURCE))
 	{
 		ret = source_write_source_files (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_INCLUDE] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_INCLUDE))
 	{
 		ret = source_write_include_files (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_HELP] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_HELP))
 	{
 		ret = source_write_help_files (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_PIXMAP] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_PIXMAP))
 	{
 		ret = source_write_pixmap_files (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_DATA] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_DATA))
 	{
 		ret = source_write_data_files (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_DOC] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_DOC))
 	{
 		ret = source_write_doc_files (data);
 		if (!ret) return FALSE;
 	}
-	if (data->project_config->disable_overwrite[BUILD_FILE_PO] == FALSE)
+	if (!project_config_get_overwrite_disabled (data->project_config,
+												BUILD_FILE_PO))
 	{
 		ret = source_write_po_files (data);
 		if (!ret) return FALSE;

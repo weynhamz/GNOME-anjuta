@@ -1192,7 +1192,7 @@ anjuta_apply_preferences (void)
 	app->bUseComponentUI = preferences_get_int (pr, USE_COMPONENTS);
 	app->b_reload_last_project	= preferences_get_int (pr , RELOAD_LAST_PROJECT);
 	
-	no_tag = preferences_get_int (pr, EDITOR_TAG_HIDE);
+	no_tag = preferences_get_int (pr, EDITOR_TABS_HIDE);
 
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook),
 				    !no_tag);
@@ -1201,7 +1201,7 @@ anjuta_apply_preferences (void)
 	{
 		gchar *tag_pos;
 
-		tag_pos = preferences_get (pr, EDITOR_TAG_POS);
+		tag_pos = preferences_get (pr, EDITOR_TABS_POS);
 		if (!tag_pos) {
 			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
 						  (app->widgets.notebook),
@@ -1992,7 +1992,7 @@ gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
 
 gboolean anjuta_is_installed (gchar * prog, gboolean show)
 {
-	gchar* prog_path = gnome_is_program_in_path (prog);
+	gchar* prog_path = g_find_program_in_path (prog);
 	if (prog_path)
 	{
 		g_free (prog_path);

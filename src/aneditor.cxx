@@ -2834,6 +2834,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	}
 	
 	ForwardPropertyToEditor("fold");
+	ForwardPropertyToEditor("fold.use.plus");
 	ForwardPropertyToEditor("fold.comment");
 	ForwardPropertyToEditor("fold.comment.python");
 	ForwardPropertyToEditor("fold.compact");
@@ -3114,8 +3115,11 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		AssignKey(SCK_HOME, 0, SCI_HOME);
 		AssignKey(SCK_HOME, SCMOD_SHIFT, SCI_HOMEEXTEND);
 	}
-	SendEditor(SCI_SETFOLDFLAGS, props->GetInt("fold.flags"));
-
+	if (props->GetInt("fold.underline"))
+		SendEditor(SCI_SETFOLDFLAGS, props->GetInt("fold.flags"));
+	else
+		SendEditor(SCI_SETFOLDFLAGS, 0);
+	
 	// To put the folder markers in the line number region
 	//SendEditor(SCI_SETMARGINMASKN, 0, SC_MASK_FOLDERS);
 
@@ -3140,10 +3144,11 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SendEditor(SCI_SETMARGINMASKN, 2, SC_MASK_FOLDERS);
 	SendEditor(SCI_SETMARGINSENSITIVEN, 2, 1);
 	
-	int fold_symbols = props->GetInt("fold.symbols");
-	switch(fold_symbols)
+	SString fold_symbols = props->Get("fold.symbols.style");
+	if (fold_symbols.length() <= 0)
+		fold_symbols = "plus/minus";
+	if (strcasecmp(fold_symbols.c_str(), "arrows") == 0)
 	{
-		case 0:
 			// Arrow pointing right for contracted folders, arrow pointing down for expanded
 			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_ARROWDOWN, Colour(0, 0, 0), Colour(0, 0, 0));
 			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_ARROW, Colour(0, 0, 0), Colour(0, 0, 0));
@@ -3152,18 +3157,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
 			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
 			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			break;
-		case 1:
-			// Plus for contracted folders, minus for expanded
-			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_MINUS, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_PLUS, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			DefineMarker(SC_MARKNUM_FOLDERSUB, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			DefineMarker(SC_MARKNUM_FOLDERTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
-			break;
-		case 2:
+	} else if (strcasecmp(fold_symbols.c_str(), "circular") == 0) {
 			// Like a flattened tree control using circular headers and curved joins
 			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_CIRCLEMINUS, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
 			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_CIRCLEPLUS, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
@@ -3172,8 +3166,7 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_CIRCLEPLUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
 			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_CIRCLEMINUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
 			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_TCORNERCURVE, Colour(0xff, 0xff, 0xff), Colour(0x40, 0x40, 0x40));
-			break;
-		case 3:
+	} else if (strcasecmp(fold_symbols.c_str(), "squares") == 0) {
 			// Like a flattened tree control using square headers
 			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_BOXMINUS, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
 			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_BOXPLUS, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
@@ -3182,9 +3175,16 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_BOXPLUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
 			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_BOXMINUSCONNECTED, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
 			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_TCORNER, Colour(0xff, 0xff, 0xff), Colour(0x80, 0x80, 0x80));
-			break;
+	} else { // Default
+			// Plus for contracted folders, minus for expanded
+			DefineMarker(SC_MARKNUM_FOLDEROPEN, SC_MARK_MINUS, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDER, SC_MARK_PLUS, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERSUB, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDEREND, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
+			DefineMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_EMPTY, Colour(0xff, 0xff, 0xff), Colour(0, 0, 0));
 	}
-
 	// Well, unlike scite, we want it everytime.
 	firstPropertiesRead = true;
 }

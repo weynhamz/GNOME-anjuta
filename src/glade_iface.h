@@ -19,10 +19,8 @@
 #ifndef _GLADE_IFACE_H_
 #define _GLADE_IFACE_H_
 
-gboolean
-glade_iface_generate_source_code(gchar* glade_file);
+gboolean glade_iface_generate_source_code (gchar* glade_filename);
 
-gboolean
-glade_iface_start_glade_editing (gchar* glade_filename);
+gboolean glade_iface_start_glade_editing (gchar* glade_filename);
 
 #endif

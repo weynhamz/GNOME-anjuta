@@ -40,7 +40,7 @@ enum
 	ANJUTA_SUPPORT_INSTALL_STATUS,
 	ANJUTA_SUPPORT_END_MARK
 };
-	
+
 struct _CompilerOptions
 {
 	CompilerOptionsPriv *priv;

@@ -323,7 +323,7 @@ launcher_execute (gchar * command_str,
   launcher.terminal = zvt_term_new ();
   zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);
   gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
-		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
+  		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
 
 #ifdef LAUNCHER_DEBUG
   if (launcher.terminal) {
@@ -368,7 +368,7 @@ launcher_execute (gchar * command_str,
 	execlp (shell, shell, "-c", total_cmd, NULL);
 	g_error (_("Cannot execute command shell"));
   }
-
+  
   close (launcher.stderr_pipe[1]);
   close (launcher.stdout_pipe[1]);
   close (launcher.stdin_pipe[0]);
@@ -395,7 +395,7 @@ to_terminal_child_terminated (GtkWidget* term, gpointer data)
 #endif
 	
 	launcher.child_has_terminated = TERMINATE_CHECK_COUNT+1;
-	launcher.idle_id = gtk_idle_add (launcher_execution_done, NULL);
+	launcher.idle_id = gtk_timeout_add (50, launcher_execution_done, NULL);
 }
 
 static gboolean

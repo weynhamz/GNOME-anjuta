@@ -23,6 +23,33 @@
 #include <glade/glade.h>
 #include "properties.h"
 
+#define PROJECT_DESCRIPTION_START           "<PROJECT_DESCRIPTION_START>\n"
+#define PROJECT_DESCRIPTION_END             "<PROJECT_DESCRIPTION_END>\n"
+
+#define CONFIG_PROGS_START                  "<CONFIG_PROGS_START>\n"
+#define CONFIG_PROGS_END                    "<CONFIG_PROGS_END>\n"
+
+#define CONFIG_LIBS_START                   "<CONFIG_LIBS_START>\n"
+#define CONFIG_LIBS_END                     "<CONFIG_LIBS_END>\n"
+
+#define CONFIG_HEADERS_START                "<CONFIG_HEADERS_START>\n"
+#define CONFIG_HEADERS_END                  "<CONFIG_HEADERS_END>\n"
+
+#define CONFIG_CHARACTERISTICS_START        "<CONFIG_CHARACTERISTICS_START>\n"
+#define CONFIG_CHARACTERISTICS_END          "<CONFIG_CHARACTERISTICS_END>\n"
+
+#define CONFIG_LIB_FUNCS_START              "<CONFIG_LIB_FUNCS_START>\n"
+#define CONFIG_LIB_FUNCS_END                "<CONFIG_LIB_FUNCS_END>\n"
+
+#define CONFIG_ADDITIONAL_START             "<CONFIG_ADDITIONAL_START>\n"
+#define CONFIG_ADDITIONAL_END               "<CONFIG_ADDITIONAL_END>\n"
+
+#define CONFIG_FILES_START                  "<CONFIG_FILES_START>\n"
+#define CONFIG_FILES_END                    "<CONFIG_FILES_END>\n"
+
+#define MAKEFILE_AM_START                   "<MAKEFILE_AM_START>\n"
+#define MAKEFILE_AM_END                     "<MAKEFILE_AM_END>\n"
+
 typedef struct _ProjectConfig ProjectConfig;
 typedef struct _ProjectConfigWidgets ProjectConfigWidgets;
 
@@ -39,67 +66,50 @@ enum
 	BUILD_FILE_PO,
 	BUILD_FILE_END_MARK
 };
-	
-struct _ProjectConfigWidgets
-{
-	GtkWidget* window;
-	GtkWidget* disable_overwrite_check[BUILD_FILE_END_MARK];
 
-	GtkWidget* version_entry;
-	GtkWidget* description_text;
-	GtkWidget* ignore_entry;
-	GtkWidget* config_progs_text;
-	GtkWidget* config_libs_text;
-	GtkWidget* config_headers_text;
-	GtkWidget* config_characteristics_text;
-	GtkWidget* config_lib_funcs_text;
-	GtkWidget* config_additional_text;
-	GtkWidget* config_files_text;
-
-	GtkWidget* extra_modules_before_entry;
-	GtkWidget* extra_modules_after_entry;
-	GtkWidget* makefile_am_text;
-};
-
+typedef struct _ProjectConfigPriv ProjectConfigPriv;
 struct _ProjectConfig
 {
-	GladeXML *gxml;
-	ProjectConfigWidgets widgets;
-	PropsID props;
-	
-	gboolean blocked;
-	
-	gboolean disable_overwrite[BUILD_FILE_END_MARK];
-	gchar* description;
-	gchar* config_progs;
-	gchar* config_libs;
-	gchar* config_headers;
-	gchar* config_characteristics;
-	gchar* config_lib_funcs;
-	gchar* config_additional;
-	gchar* config_files;
-	gchar* makefile_am;
-
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y, win_width, win_height;
+	ProjectConfigPriv *priv;
 };
 
 ProjectConfig* project_config_new (PropsID props);
-void project_config_destroy (ProjectConfig* pc);
-void project_config_clear (ProjectConfig* pc);
+void project_config_destroy (ProjectConfig *pc);
+void project_config_clear (ProjectConfig *pc);
 void project_config_show( ProjectConfig *pc);
 void project_config_hide( ProjectConfig *pc);
-gboolean project_config_save_yourself (ProjectConfig * pc, FILE* stream);
-gboolean project_config_load_yourself (ProjectConfig * pc, PropsID props);
 
-void project_config_set_disable_overwrite (ProjectConfig* pc, gint build_file, gboolean disable);
-void project_config_set_disable_overwrite_all (ProjectConfig* pc, gboolean disable);
+gboolean project_config_save_yourself (ProjectConfig *pc, FILE *stream);
+gboolean project_config_load_yourself (ProjectConfig *pc, PropsID props);
+
+void project_config_set_disable_overwrite (ProjectConfig* pc,
+										   gint build_file, gboolean disable);
+void project_config_set_disable_overwrite_all (ProjectConfig* pc,
+											   gboolean disable);
 
 /* This puts the value in the struct into the widgets */
-void project_config_sync( ProjectConfig *pc);
+void project_config_sync (ProjectConfig *pc);
+
+/* Gets the project description */
+gchar *project_config_get_description (ProjectConfig *pc);
+
+/* Sets the project description */
+void project_config_set_description (ProjectConfig *pc, const gchar *desc);
+
+/* Gets the space separated list of config files */
+gchar * project_config_get_config_files (ProjectConfig *pc);
+
+/* Gets the content of top level Makefile.am */
+gchar * project_config_get_makefile_am_content (ProjectConfig *pc);
+
+/* Gets the file overwrite-diable flag */
+gboolean project_config_get_overwrite_disabled (ProjectConfig *pc, int file_id);
+
+/* Returns true if the config is blocked from writing all file */
+gboolean project_config_is_blocked (ProjectConfig *pc);
 
 /* This gets the value in the widgets into the struct */
-void project_config_get ( ProjectConfig *pc);
+void project_config_get (ProjectConfig *pc);
 
 /* Saves everything except the scripts in prj file */
 gboolean project_config_save (ProjectConfig * pc, FILE* stream);
@@ -117,32 +127,5 @@ gboolean project_config_save_scripts (ProjectConfig * pc, FILE* stream);
 /* Write the scripts in a executable file. */
 /* usualy in configur.in */
 gboolean project_config_write_scripts (ProjectConfig * pc, FILE* stream);
-
-#define PROJECT_DESCRIPTION_START "<PROJECT_DESCRIPTION_START>\n"
-#define PROJECT_DESCRIPTION_END "<PROJECT_DESCRIPTION_END>\n"
-
-#define CONFIG_PROGS_START "<CONFIG_PROGS_START>\n"
-#define CONFIG_PROGS_END "<CONFIG_PROGS_END>\n"
-
-#define CONFIG_LIBS_START "<CONFIG_LIBS_START>\n"
-#define CONFIG_LIBS_END "<CONFIG_LIBS_END>\n"
-
-#define CONFIG_HEADERS_START "<CONFIG_HEADERS_START>\n"
-#define CONFIG_HEADERS_END "<CONFIG_HEADERS_END>\n"
-
-#define CONFIG_CHARACTERISTICS_START "<CONFIG_CHARACTERISTICS_START>\n"
-#define CONFIG_CHARACTERISTICS_END "<CONFIG_CHARACTERISTICS_END>\n"
-
-#define CONFIG_LIB_FUNCS_START "<CONFIG_LIB_FUNCS_START>\n"
-#define CONFIG_LIB_FUNCS_END "<CONFIG_LIB_FUNCS_END>\n"
-
-#define CONFIG_ADDITIONAL_START "<CONFIG_ADDITIONAL_START>\n"
-#define CONFIG_ADDITIONAL_END "<CONFIG_ADDITIONAL_END>\n"
-
-#define CONFIG_FILES_START "<CONFIG_FILES_START>\n"
-#define CONFIG_FILES_END "<CONFIG_FILES_END>\n"
-
-#define MAKEFILE_AM_START "<MAKEFILE_AM_START>\n"
-#define MAKEFILE_AM_END "<MAKEFILE_AM_END>\n"
 
 #endif

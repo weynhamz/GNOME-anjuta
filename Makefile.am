@@ -6,7 +6,7 @@
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = po tagmanager global-tags scintilla \
-	widgets printing omf-install pixmaps scripts data \
+	widgets printing pixmaps scripts data \
 	doc launcher plugins src
 
 anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@

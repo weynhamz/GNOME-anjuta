@@ -209,8 +209,8 @@ gboolean project_dbase_is_file_in_module (ProjectDBase * p,
 /* Show information of the project */
 void project_dbase_show_info (ProjectDBase * p);
 
-/* Starts glade for gnome projects */
-gboolean project_dbase_summon_glade (ProjectDBase *p);
+/* Starts the GUI editor for the project */
+gboolean project_dbase_edit_gui (ProjectDBase *p);
 
 /* Starts glade-2 for gnome 2.0 projects */
 gboolean project_dbase_summon_glade (ProjectDBase *p);

@@ -67,20 +67,6 @@ anjuta_pixmaps_DATA = \
 	error-next.png \
 	error-prev-16.png \
 	error-prev.png \
-	\
-	file_core.xpm \
-	file_cpp.xpm \
-	file_c.xpm \
-	file_exec.xpm \
-	file_file.xpm \
-	file_html.xpm \
-	file_h.xpm \
-	file_i18n.xpm \
-	file_icon.xpm \
-	file_pix.xpm \
-	file_text.xpm \
-	file_unknown.xpm \
-	\
 	file_core.png \
 	file_cpp.png \
 	file_c.png \

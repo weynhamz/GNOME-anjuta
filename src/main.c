@@ -193,7 +193,7 @@ main (int argc, char *argv[])
 		/* Load commandline args */
 		gtk_idle_add(load_command_lines_on_idle, (gpointer)argc);
 	}
-
+	
 	gtk_main();
 	
 	anjuta_application_exit();

@@ -1561,9 +1561,10 @@ static struct
 , {AUTOFORMAT_DISABLE, "Disable autoformatting"}
 , {AUTOFORMAT_CUSTOM_STYLE, "Custom autoformat style (indent parameters)"}
 , {AUTOFORMAT_STYLE, "Predefined autoformat style"}
-, {EDITOR_TAG_POS, "Editor tab position"}
-, {EDITOR_TAG_HIDE, "Whether to hide editor tabs"}
+, {EDITOR_TABS_POS, "Editor tab position"}
+, {EDITOR_TABS_HIDE, "Whether to hide editor tabs"}
 , {EDITOR_TABS_ORDERING, "Whether to order editor tabs by file name"}
+, {EDITOR_TABS_RECENT_FIRST, "Bring recent tabs first on paeg switch"}
 , {STRIP_TRAILING_SPACES, "Whether to strip trailing spaces"}
 , {"edge.columns", "Maximum length of line suggested by the editor"}
 , {"edge.mode", "How the editor marks lines exceeding recommended length"}

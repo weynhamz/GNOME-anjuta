@@ -3,7 +3,6 @@ TODO List:
 
 	o s/zvt/vte/ terminal.
 	o Breakpoints does not get reloaded from session.
-	o Terminal properties not properly setting.
 	o Print preview fonts not proper.
 	o Busy indicator (flashing LED) not yet implemented.
 	
@@ -15,6 +14,7 @@ TODO List:
 	o Debugger windows should not be updated if it's not shown
 	  --> freeze/thaw.
 	o Anjuta UI (menus and toolbars) -- freeze/thaw.
+	o Keybindings editor.
 	
 	o Add ignore modules in Project config: Tagmanager does not ignore them.
 Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.

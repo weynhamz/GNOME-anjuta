@@ -1049,7 +1049,7 @@ on_goto_next_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	project_dbase_summon_glade (app->project_dbase);
+	project_dbase_edit_gui (app->project_dbase);
 }
 
 

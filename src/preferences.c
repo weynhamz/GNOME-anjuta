@@ -661,34 +661,34 @@ add_all_default_pages (Preferences *pr)
 	GladeXML *gxml;
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_general", NULL);
-	preferences_add_page (pr, gxml, "General", "preferences-general.png");
+	preferences_add_page (pr, gxml, _("General"), "preferences-general.png");
 	g_object_unref (gxml);
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_editor", NULL);
-	preferences_add_page (pr, gxml, "Editor", "preferences-editor.png");
+	preferences_add_page (pr, gxml, _("Editor"), "preferences-editor.png");
 	button = glade_xml_get_widget (gxml, "edit_syntax_highlighting");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_style_editor_clicked), pr);
 	g_object_unref (gxml);
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_indentation", NULL);
-	preferences_add_page (pr, gxml, "Indentation", "preferences-indentation.png");
+	preferences_add_page (pr, gxml, _("Indentation"), "preferences-indentation.png");
 	g_object_unref (gxml);
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_build", NULL);
-	preferences_add_page (pr, gxml, "Build", "preferences-build.png");
+	preferences_add_page (pr, gxml, _("Build"), "preferences-build.png");
 	g_object_unref (gxml);
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_print", NULL);
-	preferences_add_page (pr, gxml, "Print", "preferences-print.png");
+	preferences_add_page (pr, gxml, _("Print"), "preferences-print.png");
 	g_object_unref (gxml);
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_messages", NULL);
-	preferences_add_page (pr, gxml, "Messages", "preferences-messages.png");
+	preferences_add_page (pr, gxml, _("Messages"), "preferences-messages.png");
 	g_object_unref (gxml);
 	
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "preferences_dialog_cvs", NULL);
-	preferences_add_page (pr, gxml, "CVS", "preferences-cvs.png");
+	preferences_add_page (pr, gxml, _("CVS"), "preferences-cvs.png");
 	g_object_unref (gxml);
 }
 			

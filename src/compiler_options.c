@@ -86,7 +86,7 @@ struct _CompilerOptionsPriv
 gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	{
 	 "GLIB",
-	 "Glib library for most C utilities",
+	 "[gtk+ 1.2] Glib library for most C utilities",
 	 "",
 	 "AM_MISSING_PROG(GLIB_CONFIG, glib-config, $mising_dir)\n",
 	 "`glib-config --cflags`",
@@ -98,7 +98,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	 "GTK",
-	 "Gimp Toolkit library for GUI development",
+	 "[gtk+ 1.2] Gimp Toolkit library for GUI development",
 	 "",
 	 "",
 	 "gtk-config --cflags",
@@ -110,7 +110,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	 "GNOME",
-	 "GNOME is Computing Made Easy",
+	 "[gnome 1.4] GNOME is Computing Made Easy",
 	 "",
 	 "",
 	 "$(GNOME_INCLUDESDIR)",
@@ -122,7 +122,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	 "BONOBO",
-	 "GNOME Bonobo component for fast integration",
+	 "[gnome 1.4] GNOME Bonobo component for fast integration",
 	 "",
 	 "",
 	 "$(BONOBO_CFLAGS)",
@@ -134,7 +134,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	,
 	{
 	"gtkmm",
-	 "C++ Bindings for GTK",
+	 "[gtk+ 1.2] C++ Bindings for GTK",
 	 "",
 	 "",
 	 "$(GTKMM_CFLAGS)",
@@ -146,7 +146,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 ,
 	{
 	 "gnomemm",
-	 "C++ bindings for GNOME",
+	 "[gnome 1.4] C++ bindings for GNOME",
 	 "",
 	 "",
 	 "$(GNOMEMM_CFLAGS)",
@@ -158,7 +158,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 ,
 	{
 	 "LIBGLADE",
-	 "C program using libglade",
+	 "[gnome 1.4] C program using libglade",
 	 "",
 	 "",
 	 "$(LIBGLADE_CFLAGS)",
@@ -170,7 +170,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 ,
 	{
 	 "WXWINDOWS",
-	 "C++ program using wxWindows (wxGTK) toolkit",
+	 "[gtk+ 1.2] C++ program using wxWindows (wxGTK) toolkit",
 	 "",
 	 "",
 	 "$(WX_CXXFLAGS)",
@@ -225,8 +225,10 @@ static gchar *other_button_option[] = {
 };
 
 enum {
-	SUPP_TOGGLE_COLUMN,	
+	SUPP_TOGGLE_COLUMN,
+	SUPP_NAME_COLUMN,
 	SUPP_DESCRIPTION_COLUMN,
+	SUPP_PKGCONFIG_COLUMN,
 	N_SUPP_COLUMNS
 };
 
@@ -354,20 +356,73 @@ populate_stock_libs (GtkListStore *tmodel)
 static void
 populate_supports (GtkListStore *tmodel)
 {
+	gchar *tmpfile;
+	gchar *pkg_cmd;
+	FILE  *pkg_fd;
+	gchar *line;
+	gint   length;
+	GtkTreeIter iter;
+	
 	int i = 0;
 
 	/* Now setup all the available supports */
 	while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
 				   ANJUTA_SUPPORTS_END_STRING) != 0)
 	{
-		GtkTreeIter iter;
 		gtk_list_store_append (tmodel, &iter);
 		gtk_list_store_set (tmodel, &iter, 
 							SUPP_TOGGLE_COLUMN, FALSE,
+							SUPP_NAME_COLUMN, anjuta_supports[i][0],
 							SUPP_DESCRIPTION_COLUMN, anjuta_supports[i][1],
+							SUPP_PKGCONFIG_COLUMN, FALSE,
 							-1);
 		i++;
 	}
+	/* Now setup all the pkg-config supports */
+	tmpfile = get_a_tmp_file ();
+	pkg_cmd = g_strconcat ("pkg-config --list-all > ", tmpfile, NULL);
+	system (pkg_cmd);
+	pkg_fd = fopen (tmpfile, "r");
+	if (!pkg_fd)
+	{
+		g_warning ("Can not open %s for reading", tmpfile);
+		g_free (tmpfile);
+		return;
+	}
+	line = NULL;
+	while (getline (&line, &length, pkg_fd) > 0)
+	{
+		gchar *name_end;
+		gchar *desc_start;
+		gchar *description;
+		gchar *name;
+		
+		if (line == NULL)
+			break;
+		
+		name_end = line;
+		while (!isspace(*name_end))
+			name_end++;
+		desc_start = name_end;
+		while (isspace(*desc_start))
+			desc_start++;
+		
+		name = g_strndup (line, name_end-line);
+		description = g_strndup (desc_start, strlen (desc_start)-1);
+		
+		gtk_list_store_append (tmodel, &iter);
+		gtk_list_store_set (tmodel, &iter, 
+							SUPP_TOGGLE_COLUMN, FALSE,
+							SUPP_NAME_COLUMN, name,
+							SUPP_DESCRIPTION_COLUMN, description,
+							SUPP_PKGCONFIG_COLUMN, TRUE,
+							-1);
+		g_free (line);
+		line = NULL;
+	}
+	fclose (pkg_fd);
+	remove (tmpfile);
+	g_free (tmpfile);
 }
 
 static void
@@ -490,76 +545,6 @@ on_update_selection_changed            (GtkTreeSelection    *sel,
 		gtk_tree_model_get (model, &iter, col, &text, -1);
 		gtk_entry_set_text (entry, text);
 	}
-}
-
-static void
-on_supp_info_clicked (GtkButton * button, gpointer data)
-{
-	CompilerOptions *co;
-	gchar *tmp_file, *str;
-	FILE *tmp;
-	gint index;
-
-	co = data;
-	
-#warning "G2: Get the correct selection index"
-	/* Get the correct selection index */
-	index = 0;
-	
-	tmp_file = get_a_tmp_file ();
-	tmp = fopen (tmp_file, "w");
-	if (!tmp)
-	{
-		anjuta_error (_("Cannot create: %s."), tmp_file);
-		return;
-	}
-	fprintf (tmp, _("Support ID: %s\n\n"),
-			 anjuta_supports[index][ANJUTA_SUPPORT_ID]);
-	fprintf (tmp, _("Description:\n"));
-	fprintf (tmp, "%s\n\n", anjuta_supports[index][ANJUTA_SUPPORT_DESCRIPTION]);
-	fprintf (tmp, _("Dependencies: %s\n\n"),
-			 anjuta_supports[index][ANJUTA_SUPPORT_DEPENDENCY]);
-	fprintf (tmp, _("Macros in configure.in file:\n"));
-	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_MACROS]);
-	fprintf (tmp, _("Variables for cflags: %s\n\n"),
-			 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_CFLAGS]);
-	fprintf (tmp, _("Variables for libraries: %s\n\n"),
-			 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_LIBS]);
-	fprintf (tmp, _("Compile time cflags: %s\n\n"),
-			 anjuta_supports[index][ANJUTA_SUPPORT_FILE_CFLAGS]);
-	fprintf (tmp, _("Compile time libraries: %s\n\n"),
-			 anjuta_supports[index][ANJUTA_SUPPORT_FILE_LIBS]);
-	fprintf (tmp, _("Entries in acconfig.h file:\n"));
-	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_ACCONFIG_H]);
-	fprintf (tmp, _("Installation status:\n"));
-	str = anjuta_supports[index][ANJUTA_SUPPORT_INSTALL_STATUS];
-	if (str)
-	{
-		gchar *cmd, *count;
-		const gchar *path;
-		
-		cmd = g_strdup (str);
-		count = cmd;
-		while (isspace(*count) == FALSE)
-		{
-			if (*count == '\0')
-				break;
-			count++;
-		}
-		*count = '\0';
-		path = g_find_program_in_path ( cmd );
-		if (path)
-			fprintf (tmp, _("    Installed => %s\n"), path);
-		else
-			fprintf (tmp, _("    Not Installed\n"), path);
-			
-		g_free (cmd);
-	}
-	else
-		fprintf (tmp, _("    Not Installed.\n"));
-	fclose (tmp);
-	anjuta_info_show_file (tmp_file, 300, 500);
-	remove (tmp_file);
 }
 
 static gboolean
@@ -709,7 +694,6 @@ void create_compiler_options_gui (CompilerOptions *co)
 	
 	/* Compiler Options Dialog */
 	co->priv->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "compiler_options_dialog", NULL);
-	glade_xml_signal_autoconnect (co->priv->gxml);
 	co->priv->widgets.window = glade_xml_get_widget (co->priv->gxml, "compiler_options_dialog");
 	gtk_widget_hide (co->priv->widgets.window);
 	gtk_window_set_transient_for (GTK_WINDOW (co->priv->widgets.window),
@@ -738,8 +722,11 @@ void create_compiler_options_gui (CompilerOptions *co)
 
 	/* Add supports tree model */
 	clist = GTK_TREE_VIEW (co->priv->widgets.supp_clist);
-	store = gtk_list_store_new (N_SUPP_COLUMNS, G_TYPE_BOOLEAN,
-								G_TYPE_STRING);
+	store = gtk_list_store_new (N_SUPP_COLUMNS,
+								G_TYPE_BOOLEAN,
+								G_TYPE_STRING,
+								G_TYPE_STRING,
+								G_TYPE_BOOLEAN);
 	gtk_tree_view_set_model (clist,	GTK_TREE_MODEL(store));
 	
 	/* Add supports columns */	
@@ -747,6 +734,13 @@ void create_compiler_options_gui (CompilerOptions *co)
 	column = gtk_tree_view_column_new_with_attributes ("", renderer,
 													   "active",
 													   SUPP_TOGGLE_COLUMN,
+													   NULL);
+	gtk_tree_view_append_column (clist, column);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Name"),
+													   renderer,
+													   "text",
+													   SUPP_NAME_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (clist, column);
 	renderer = gtk_cell_renderer_text_new ();
@@ -968,9 +962,6 @@ void create_compiler_options_gui (CompilerOptions *co)
 											 DEF_STOCK_COLUMN));
 	
 	/* Connect editiong button signals */
-	button = glade_xml_get_widget (co->priv->gxml, "supp_info_b");
-	BUTTON_SIGNAL_CONNECT (button, on_supp_info_clicked, co);
-
 	button = glade_xml_get_widget (co->priv->gxml, "inc_add_b");
 	BUTTON_SIGNAL_CONNECT (button, on_add_to_clist_clicked,
 						   entry_signal_info_new (co->priv->widgets.inc_clist,
@@ -1398,7 +1389,7 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 			while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
 					ANJUTA_SUPPORTS_END_STRING) != 0 && valid)
 			{
-				if (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
+				if (strcasecmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
 							node->data)==0)
 				{
 					gtk_list_store_set (GTK_LIST_STORE(model), &iter,
@@ -1510,31 +1501,79 @@ get_supports (CompilerOptions *co, gint item, gchar *separator)
 	GtkTreeIter iter;
 	gboolean valid;
 	gchar *str;
+	gchar *pkg_modules;
 	gint i;
+	gboolean has_pkg_modules = FALSE;
 	
 	str = g_strdup ("");
+	pkg_modules = g_strdup ("");
+	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->priv->widgets.supp_clist));
 	g_assert(model);
 	valid = gtk_tree_model_get_iter_first(model, &iter);
 	i = 0;
 	while (valid)
 	{
-		gboolean value;
-		gchar *text, *tmp;
+		gboolean value, pkgconfig;
+		gchar *text, *tmp, *name;
 		
-		gtk_tree_model_get (model, &iter, SUPP_TOGGLE_COLUMN, &value, -1);
+		gtk_tree_model_get (model, &iter,
+							SUPP_TOGGLE_COLUMN, &value,
+							SUPP_PKGCONFIG_COLUMN, &pkgconfig,
+							SUPP_NAME_COLUMN, &name, -1);
 		valid = gtk_tree_model_iter_next (model, &iter);
 		if (!value)
 		{
 			i++;
 			continue;
 		}
-		text = anjuta_supports [i][item];
-		tmp = g_strconcat (str, text, separator, NULL);
-		g_free (str);
-		str = tmp;
+		if (!pkgconfig)
+		{
+			text = anjuta_supports [i][item];
+			tmp = g_strconcat (str, text, separator, NULL);
+			g_free (str);
+			str = tmp;
+		}
+		else
+		{
+			has_pkg_modules = TRUE;
+			tmp = pkg_modules;
+			pkg_modules = g_strconcat (tmp, " ", name, NULL);
+			g_free (tmp);
+		}
 		i++;
 	}
+#ifdef DEBUG
+	g_message ("Support flags: %s", str);
+#endif
+	if (has_pkg_modules)
+	{
+		gchar *text, *tmp;
+		
+		switch (item)
+		{
+		case ANJUTA_SUPPORT_FILE_CFLAGS:
+			text = g_strconcat ("`pkg-config --cflags", pkg_modules, "`", NULL);
+			break;
+		case ANJUTA_SUPPORT_FILE_LIBS:
+			text = g_strconcat ("`pkg-config --libs", pkg_modules, "`", NULL);
+			break;
+		case ANJUTA_SUPPORT_PRJ_CFLAGS:
+			text = g_strconcat ("`pkg-config --cflags", pkg_modules, "`", NULL);
+			break;
+		case ANJUTA_SUPPORT_PRJ_LIBS:
+			text = g_strconcat ("`pkg-config --libs", pkg_modules, "`", NULL);
+			break;
+		case ANJUTA_SUPPORT_MACROS:
+			text = g_strdup (""); //FIXME.
+			break;
+		}
+		tmp = str;
+		str = g_strconcat (tmp, " ", text, NULL);
+		g_free (tmp);
+		g_free (text);
+	}
+	g_free (pkg_modules);
 	return str;
 }
 
@@ -1550,7 +1589,7 @@ get_include_paths (CompilerOptions * co, gboolean with_support)
 	if (with_support)
 	{
 		gchar *supports = get_supports (co, ANJUTA_SUPPORT_FILE_CFLAGS, " ");
-		gchar *tmp = g_strconcat (str, tmp, NULL);
+		gchar *tmp = g_strconcat (str, supports, NULL);
 		g_free (str);
 		g_free (supports);
 		str = tmp;
@@ -1604,7 +1643,7 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 	if (with_support)
 	{
 		gchar *supports = get_supports (co, ANJUTA_SUPPORT_FILE_LIBS, " ");
-		gchar *tmp = g_strconcat (str, tmp, NULL);
+		gchar *tmp = g_strconcat (str, supports, NULL);
 		g_free (str);
 		g_free (supports);
 		str = tmp;
