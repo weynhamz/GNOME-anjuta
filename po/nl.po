@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-18 19:00+0200\n"
-"PO-Revision-Date: 2004-05-05 18:03+0200\n"
+"PO-Revision-Date: 2004-05-20 02:30+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1943,7 +1943,7 @@ msgstr "Plugin"
 msgid ""
 "This dialog displays all the available plugins for Anjuta.  You can select "
 "which plugins you want to use by clicking on the plugin in the list."
-msgstr ""
+msgstr "Dit dialoogvenster toont alle beschikbare plugins voor Anjuta.  U kunt kiezen welke plugins u wilt gebruiken door in de lijst op de plugin te klikken."
 
 #: libanjuta/resources.c:50
 #, c-format
@@ -1966,7 +1966,7 @@ msgstr "Kan Devhelp niet uitvoeren. Zorg ervoor dat het geinstalleerd is"
 
 #: libegg/egg-accel-dialog.c:114 libegg/egg-accel-dialog.c:115
 msgid "Menu Merge"
-msgstr ""
+msgstr "Menu samenvoegen"
 
 #: libegg/egg-action.c:114 libegg/egg-dock-layout.c:737
 #: libegg/egg-dock-object.c:121 plugins/build/compiler_options.c:798
@@ -2007,11 +2007,11 @@ msgstr "Standaard pictogram"
 
 #: libegg/egg-action.c:144
 msgid "The stock icon displayed in widgets representing this action."
-msgstr ""
+msgstr "Het standaardpictogram getoond in de widgets voor deze actie."
 
 #: libegg/egg-action.c:151
 msgid "Whether the action is enabled."
-msgstr "Of de actie is aangezet."
+msgstr "Of de actie is ingeschakeld."
 
 #: libegg/egg-action.c:159
 msgid "Whether the action is visible."
@@ -2409,11 +2409,11 @@ msgstr "Sneltoets"
 
 #: libegg/eggcellrendererkeys.c:170 libegg/eggcellrendererkeys.c:171
 msgid "Accelerator modifiers"
-msgstr ""
+msgstr "Controletoetsen voor sneltoetsen"
 
 #: libegg/eggcellrendererkeys.c:180
 msgid "Accelerator Mode"
-msgstr ""
+msgstr "Sneltoets-modus"
 
 #: libegg/eggcellrendererkeys.c:181
 msgid "The type of accelerator."
@@ -2469,11 +2469,11 @@ msgstr "Of het item dezelfde afmeting moet hebben als andere homogene items"
 
 #: libegg/eggtoolbar.c:406
 msgid "Pack End"
-msgstr ""
+msgstr "Zet op einde"
 
 #: libegg/eggtoolbar.c:407
 msgid "Whether the item is positioned at the end of the toolbar"
-msgstr ""
+msgstr "Of het item aan het einde van de werkbalk wordt gezet"
 
 #: libegg/eggtoolbar.c:414
 msgid "Spacer size"
@@ -2489,7 +2489,7 @@ msgstr "Interne opvulling"
 
 #: libegg/eggtoolbar.c:424
 msgid "Amount of border space between the toolbar shadow and the buttons"
-msgstr ""
+msgstr "Hoeveelheid ruimte langs de rand tussen de werkbalkschaduw en de knoppen"
 
 #: libegg/eggtoolbar.c:432
 msgid "Space style"
@@ -2534,7 +2534,7 @@ msgstr "Grootte van pictogrammen in standaard werkbalken"
 
 #: libegg/eggtoolbutton.c:138
 msgid "Text to show in the item."
-msgstr ""
+msgstr "Tekst voor in het item."
 
 #: libegg/eggtoolbutton.c:144
 msgid "Use underline"
@@ -2542,7 +2542,7 @@ msgstr "Onderstreept gebruiken"
 
 #: libegg/eggtoolbutton.c:145
 msgid "Interpret underlines in the item label"
-msgstr ""
+msgstr "Onderstrepingen in het itemlabel interpreteren"
 
 #: libegg/eggtoolbutton.c:151
 msgid "Label widget"
@@ -2550,7 +2550,7 @@ msgstr "Label widget"
 
 #: libegg/eggtoolbutton.c:152
 msgid "Widget to use as the item label"
-msgstr ""
+msgstr "Te gebruiken widget als itemlabel"
 
 #: libegg/eggtoolbutton.c:158
 msgid "Stock Id"
@@ -2574,43 +2574,44 @@ msgstr "Pictogram widget"
 
 #: libegg/eggtoolbutton.c:173
 msgid "Icon widget to display in the item"
-msgstr ""
+msgstr "Te tonen pictogramwidget in het item "
 
+# wanneer horizontaal
 #: libegg/eggtoolitem.c:151
 msgid "Visible when horizontal"
-msgstr ""
+msgstr "Zichtbaar indien horizontaal"
 
 #: libegg/eggtoolitem.c:152
 msgid ""
 "Whether the toolbar item is visible when the toolbar is in a horizontal "
 "orientation."
-msgstr ""
+msgstr "Of werkbalk-item zichtbaar is wanneer de werkbalk zich in horizontale positie bevind."
 
 #: libegg/eggtoolitem.c:158
 msgid "Visible when vertical"
-msgstr ""
+msgstr "Zichtbaar indien verticaal"
 
 #: libegg/eggtoolitem.c:159
 msgid ""
 "Whether the toolbar item is visible when the toolbar is in a vertical "
 "orientation."
-msgstr ""
+msgstr "Of werkbalk-item zichtbaar is wanneer de werkbalk zich in verticale positie bevind"
 
 #: libegg/eggtreemodelfilter.c:267
 msgid "The child model"
-msgstr ""
+msgstr "Het dochtermodel"
 
 #: libegg/eggtreemodelfilter.c:268
 msgid "The model for the filtermodel to filter"
-msgstr ""
+msgstr "Het model wat door het filtermodel wordt gefilterd"
 
 #: libegg/eggtreemodelfilter.c:275
 msgid "The virtual root"
-msgstr ""
+msgstr "De virtuele root"
 
 #: libegg/eggtreemodelfilter.c:276
 msgid "The virtual root (relative to the child model) for this filtermodel"
-msgstr ""
+msgstr "De virtuele root (relatief tot het dochtermodel) voor dit filtermodel"
 
 #: libegg/eggtreeviewstate.c:54
 #, c-format
@@ -2679,26 +2680,26 @@ msgstr "Geen type attribuut aangegeven."
 #: libegg/eggtreeviewstate.c:457
 #, c-format
 msgid "Outermost element in theme must be <treeview_state> not <%s>"
-msgstr ""
+msgstr "Buitenste element in thema moet zijn: <treeview_state> niet <%s>"
 
 #: libegg/eggtreeviewstate.c:467
 #, c-format
 msgid "Element inside of <treeview_state> must be <treeview> not <%s>"
-msgstr ""
+msgstr "Element  binnen <treeview_state> moet zijn: <treeview> niet <%s>"
 
 #: libegg/eggtreeviewstate.c:477
 #, c-format
 msgid "Element inside of <treeview> must be <column> not <%s>"
-msgstr ""
+msgstr "Element binnen <treeview> moet zijn: <column> niet <%s>"
 
 #: libegg/eggtreeviewstate.c:488
 #, c-format
 msgid "Element inside of <column> must be <cell> not <%s>"
-msgstr ""
+msgstr "Element binnen <column> moet zijn: <cel> niet <%s>"
 
 #: libegg/eggtreeviewstate.c:494
 msgid "The <cell> element must not have any children."
-msgstr ""
+msgstr "Het <cel> element mag geen dochters hebben."
 
 #: libegg/gdl-icons.c:141 libegg/gdl-icons.c:142
 msgid "Icon size"
@@ -2710,11 +2711,11 @@ msgstr "Pictogram-zoom"
 
 #: libegg/test-actions.c:52
 msgid "Disable Cut and paste ops"
-msgstr ""
+msgstr "Knippen en plakken uitschakelen"
 
 #: libegg/test-actions.c:54
 msgid "Enable Cut and paste ops"
-msgstr ""
+msgstr "Knippen en plakken inschakelen"
 
 #: libegg/test-actions.c:91
 msgid "Menu _1"
@@ -2978,9 +2979,8 @@ msgid "Cleaning the source directory of the Project: "
 msgstr "De bronmap van het project opruimen: "
 
 #: plugins/build/clean_project.c:115
-#, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "Kan het project niet uitvoeren. Controleer Instellingen->Commando. "
+msgstr "Kon  'Alles opruimen' niet uitvoeren voor het project. Controleer Instellingen->Opdrachten."
 
 #: plugins/build/clean_project.c:124
 msgid "Clean All"
@@ -3325,29 +3325,24 @@ msgid "CVS login "
 msgstr "CVS aanmelden"
 
 #: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
-#, fuzzy
 msgid "Project import completed...unsuccessful\n"
-msgstr "Compileer compleet ... niet succesvol"
+msgstr "Project importeren voltooid ... niet succesvol\n"
 
 #: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
-#, fuzzy
 msgid "Project import completed...unsuccessful"
-msgstr "Compileer compleet ... niet succesvol"
+msgstr "Project importeren voltooid... niet succesvol"
 
 #: plugins/cvs-plugin/cvs.c:772
-#, fuzzy
 msgid "CVS completed...successful\n"
-msgstr "Bouwen compleet ... succesvol\n"
+msgstr "CVS voltooid... succesvol\n"
 
 #: plugins/cvs-plugin/cvs.c:774
-#, fuzzy
 msgid "CVS completed...successful"
-msgstr "Compileer compleet ... succesvol"
+msgstr "CVS voltooid... succesvol"
 
 #: plugins/cvs-plugin/cvs.c:782
-#, fuzzy
 msgid "Updating versions in file tree..."
-msgstr "Kopieren icoonbestand ...\n"
+msgstr "Bijwerken van versies in de bestandsboom..."
 
 #: plugins/cvs-plugin/cvs.c:784
 msgid "done\n"
@@ -3445,14 +3440,12 @@ msgid "Revision: "
 msgstr "Revisie: "
 
 #: plugins/cvs-plugin/cvs_gui.c:125 plugins/cvs-plugin/cvs_gui.c:470
-#, fuzzy
 msgid "Log message: "
-msgstr "Programmanaam:"
+msgstr "Log-bericht: "
 
 #: plugins/cvs-plugin/cvs_gui.c:128 plugins/cvs-plugin/cvs_gui.c:241
-#, fuzzy
 msgid "Select file"
-msgstr "_Selecteer Alles"
+msgstr "Bestand _selecteren"
 
 #: plugins/cvs-plugin/cvs_gui.c:225
 msgid "CVS: Diff file"
@@ -3515,14 +3508,12 @@ msgid "Vendor tag: "
 msgstr "Verkoperslabel:"
 
 #: plugins/cvs-plugin/cvs_gui.c:525
-#, fuzzy
 msgid "Server settings"
-msgstr "_Instellingen"
+msgstr "Server_instellingen"
 
 #: plugins/cvs-plugin/cvs_gui.c:529
-#, fuzzy
 msgid "Import settings"
-msgstr "Importeer bestand"
+msgstr "Instellingen importeren"
 
 #: plugins/debugger/attach_process.c:70
 msgid "Pid"
@@ -3589,7 +3580,6 @@ msgid "You must give a valid location to set the breakpoint."
 msgstr "U moet een geldige lokatie opgeven om het breekpunt te zetten"
 
 #: plugins/debugger/breakpoints.c:775
-#, fuzzy
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Weet u zeker dat u alle breekpunten wilt verwijderen?"
 
@@ -3612,14 +3602,14 @@ msgid "Value"
 msgstr "Waarde"
 
 #: plugins/debugger/debug_tree.c:1190
-#, fuzzy
 msgid "Local Variables"
-msgstr "Info _Locale variabelen"
+msgstr "Locale variabelen"
 
+# standaard format?
+# (gaat het hier om: binair, octaal enz?)
 #: plugins/debugger/debug_tree.c:1504
-#, fuzzy
 msgid "Default format"
-msgstr "Auto opmaak"
+msgstr "Standaard opmaak"
 
 #: plugins/debugger/debug_tree.c:1508
 msgid "Binary"
@@ -3684,15 +3674,15 @@ msgstr ""
 "Stop het eerst en laad dan de executable."
 
 #: plugins/debugger/debugger.c:574
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Unable to find: %s.\n"
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
-"Ik kan niet vinden: %s. \n"
-"Initialisatie debugger mislukt. :-(\n"
-"Zorg ervoor dat Anjuta juist is geinstalleerd. "
+"Kon niet vinden: %s. \n"
+"Initialisatie debugger mislukt.\n"
+"Zorg ervoor dat Anjuta juist is geïnstalleerd."
 
 #: plugins/debugger/debugger.c:650
 msgid "Debugger"
@@ -3713,13 +3703,12 @@ msgstr ""
 "starten\n"
 
 #: plugins/debugger/debugger.c:675
-#, fuzzy
 msgid "There was an error whilst launching the debugger.\n"
-msgstr "Tijdens het opstarten van de debugger is een fout opgetreden!!\n"
+msgstr "Tijdens het opstarten van de debugger is een fout opgetreden.\n"
 
 #: plugins/debugger/debugger.c:678
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr "Zorg ervoor dat 'gdb' is geinstalleerd op het systeem. \n"
+msgstr "Zorg ervoor dat 'gdb' is geinstalleerd op het systeem.\n"
 
 #: plugins/debugger/debugger.c:835
 msgid "Error: "
@@ -3730,24 +3719,19 @@ msgid "Debugger is ready.\n"
 msgstr "Debugger is klaar. \n"
 
 #: plugins/debugger/debugger.c:964
-#, fuzzy
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
 "\n"
-msgstr ""
-"\n"
-"En, heb je de BUG gevonden? :: Debugsessie compleet. \n"
-"\n"
+msgstr "\nEn, heb je de BUG gevonden?  Debugsessie voltooid.\n\n"
 
 #: plugins/debugger/debugger.c:1202
 msgid "Cannot execute gnome-terminal"
 msgstr "Kan gnome-terminal niet opstarten"
 
 #: plugins/debugger/debugger.c:1237
-#, fuzzy
 msgid "Cannot start terminal for debugging."
-msgstr "Fout: Kan terminal niet starten voor debuggen."
+msgstr "Kan terminal niet starten voor debuggen."
 
 #: plugins/debugger/debugger.c:1301
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
@@ -3789,12 +3773,11 @@ msgstr ""
 "Wilt u nog steeds de debugger stoppen?"
 
 #: plugins/debugger/debugger.c:1638
-#, fuzzy
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
 msgstr ""
-"Programma loopt nog. \n"
+"Programma LOOPT NOG. \n"
 "Wilt u nog steeds de debugger stoppen?"
 
 #.
@@ -3817,9 +3800,8 @@ msgid "Sending signal %s to the process: %d\n"
 msgstr "Sturen van signaal %s naar het proces: %d\n"
 
 #: plugins/debugger/debugger.c:2003
-#, fuzzy
 msgid "Error whilst signalling the process."
-msgstr "Er is een fout opgetreden tijdens het signaleren van het proces. "
+msgstr "Er is een fout opgetreden tijdens het signaleren van het proces."
 
 #: plugins/debugger/memory.c:108
 msgid "Unable to build user interface for Memory\n"
@@ -3997,23 +3979,22 @@ msgstr "Toevoegen Watch expressie"
 msgid "Add expression to watch"
 msgstr "Toevoegen van expressie aan watch"
 
+# aanpassen
 #: plugins/debugger/watch_gui.c:238
-#, fuzzy
 msgid "Modify Watch Expression"
-msgstr "Toevoegen Watch expressie"
+msgstr "Watch expressie wijzigen"
 
 #: plugins/debugger/watch_gui.c:248
-#, fuzzy
 msgid "Modify watched expression"
-msgstr "Toevoegen Watch expressie"
+msgstr "Watch expressie wijzigen"
 
 #: plugins/debugger/watch_gui.c:305
 msgid "Inspect/Evaluate"
-msgstr "Inspecteer/Evalueer"
+msgstr "Inspecteren/evalueren"
 
 #: plugins/debugger/watch_gui.c:315
 msgid "Inspect/Evaluate Expression"
-msgstr "Inspecteer/Evalueer expressie"
+msgstr "Expressie inspecteren/evalueren"
 
 #: plugins/debugger/watch_gui.c:325
 msgid "Add To Watch"
@@ -4044,35 +4025,35 @@ msgid "Do_n't save"
 msgstr "_Niet opslaan"
 
 #: plugins/editor/action-callbacks.c:215
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Weet u zeker dat u %s wilt herladen? \n"
-"Aanpassingen die niet bewaard zijn, zullen verloren gaan. "
+"Weet u zeker dat u '%s' wilt herladen? \n"
+"Aanpassingen die niet bewaard zijn, zullen verloren gaan."
 
 #: plugins/editor/action-callbacks.c:226 plugins/editor/text_editor.c:1311
 msgid "_Reload"
 msgstr "He_rladen"
 
 #: plugins/editor/action-callbacks.c:814
-#, fuzzy, c-format
+#, c-format
 msgid "There is no line number %d in \"%s\"."
-msgstr "Er is regelnummer %d in \"%s\"."
+msgstr "Er is geen regelnummer %d in \"%s\"."
 
 #: plugins/editor/action-callbacks.c:1363
 msgid "No matches. Wrap search around the document?"
 msgstr "Geen overeenkomsten. Zoeken van het het begin van het document?"
 
 #: plugins/editor/anjuta-docman.c:323 src/anjuta_cbs.c:426
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
-"Het bestand \"%s\" bestaat al.\n"
-"Wilt u het overschrijven?."
+"Het bestand '%s' bestaat al.\n"
+"Wilt u het vervangen door de versie die u nu aan het opslaan bent?"
 
 #: plugins/editor/anjuta-docman.c:330 src/anjuta-callbacks.c:258
 #: src/anjuta_cbs.c:433 src/anjuta_cbs.c:497
@@ -4126,19 +4107,17 @@ msgid "Shell Script File"
 msgstr "Shell scriptbestand"
 
 #: plugins/editor/file.c:92
-#, fuzzy
 msgid "Other"
-msgstr "Overigen"
+msgstr "Overige"
 
 #: plugins/editor/file.c:135
-#, fuzzy
 msgid "Unable to build user interface for New File"
-msgstr "Kan gebruikersinterface voor bestandsfilter niet opbouwen"
+msgstr "Kan gebruikersinterface voor nieuw bestand niet opbouwen"
 
 #: plugins/editor/file.c:426
-#, fuzzy, c-format
+#, c-format
 msgid "The file \"%s\" is not a header file."
-msgstr "Dit bestand is niet bewaard. Bewaar het eerst. "
+msgstr "Het bestand \"%s\" is geen header-bestand."
 
 #: plugins/editor/file.c:521
 msgid "%Y"
@@ -4225,13 +4204,12 @@ msgid "_Print Preview"
 msgstr "Afdruk_voorbeeld"
 
 #: plugins/editor/plugin.c:73
-#, fuzzy
 msgid "Print preview of the current file"
-msgstr "Druk het huidige bestand af"
+msgstr "Een voorbeeld van het huidige bestand afdrukken"
 
 #: plugins/editor/plugin.c:78
 msgid "_Transform"
-msgstr "_Transformeer"
+msgstr "_Transformeren"
 
 #: plugins/editor/plugin.c:79
 msgid "_Make Selection Uppercase"
@@ -4297,34 +4275,31 @@ msgstr "Volledige tekst in de editor selecteren"
 
 #: plugins/editor/plugin.c:104
 msgid "Select to _Brace"
-msgstr "Selecteer tot aan _Haakje"
+msgstr "Tot aan _Haakje selecteren"
 
 #: plugins/editor/plugin.c:105
 msgid "Select the text in the matching braces"
-msgstr "Selekteer de tekst in de overeenkomstige haakjes"
+msgstr "De tekst in de overeenkomstige haakjes selecteren"
 
 #: plugins/editor/plugin.c:107
-#, fuzzy
 msgid "Select _Code Block"
-msgstr "Selekteer Codeblok"
+msgstr "_Codeblok selecteren"
 
 #: plugins/editor/plugin.c:109
 msgid "Select the current code block"
-msgstr "Selekteer het huidige codeblok"
+msgstr "Het huidige codeblok selecteren"
 
 #: plugins/editor/plugin.c:114
 msgid "_Insert text"
-msgstr "_Invoer tekst"
+msgstr "Tekst _invoeren"
 
 #: plugins/editor/plugin.c:115
-#, fuzzy
 msgid "C _template"
-msgstr "C-sjabloon"
+msgstr "C-s_jabloon"
 
 #: plugins/editor/plugin.c:116
-#, fuzzy
 msgid "_CVS keyword"
-msgstr "CVS sleutelwoord"
+msgstr "_CVS sleutelwoord"
 
 #: plugins/editor/plugin.c:117
 msgid "_General"
@@ -4344,30 +4319,27 @@ msgstr "/_* GPL mededeling */"
 
 #: plugins/editor/plugin.c:122
 msgid "Insert GPL notice with C style comments"
-msgstr "GPL notice met C-stijl commentaar invoegen"
+msgstr "GPL mededeling met C-stijl commentaar invoegen"
 
 #: plugins/editor/plugin.c:124
-#, fuzzy
 msgid "/_/ GPL Notice"
-msgstr "// GPL Notice"
+msgstr "/_/ GPL mededeling"
 
 #: plugins/editor/plugin.c:125
 msgid "Insert GPL notice with C++ style comments"
-msgstr "GPL notice met C++-stijl commentaar invoegen"
+msgstr "GPL mededeling met C++-stijl commentaar invoegen"
 
 #: plugins/editor/plugin.c:127
-#, fuzzy
 msgid "_# GPL Notice"
-msgstr "# GPL Notice"
+msgstr "_# GPL mededeling"
 
 #: plugins/editor/plugin.c:128
 msgid "Insert GPL notice with Python style comments"
-msgstr "GPL notice met Python-stijl commentaar invoegen"
+msgstr "GPL mededeling met Python-stijl commentaar invoegen"
 
 #: plugins/editor/plugin.c:130
-#, fuzzy
 msgid "Current _Username"
-msgstr "Huidige gebruikersnaam"
+msgstr "Huidige _gebruikersnaam"
 
 #: plugins/editor/plugin.c:131
 msgid "Insert name of current user"
@@ -4447,9 +4419,8 @@ msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "CVS-datum invoegen (datum en tijd van de verandering)"
 
 #: plugins/editor/plugin.c:161
-#, fuzzy
 msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
-msgstr "CVS-header invoegen (volledig pad, revisie, datum, auteur, staat)"
+msgstr "CVS-header sleutelwoord invoegen (volledig pad revisie, datum, auteur, toestand)"
 
 #: plugins/editor/plugin.c:163
 msgid "_Id"
@@ -4457,7 +4428,7 @@ msgstr "_Id"
 
 #: plugins/editor/plugin.c:164
 msgid "Insert the CVS Id keyword (file revision, date, author)"
-msgstr "Het CVS-Id sleutelwoord invoegen (bestand, revisie, datum, auteur)"
+msgstr "Het CVS-Id sleutelwoord invoegen (bestandsrevisie, datum, auteur)"
 
 #: plugins/editor/plugin.c:166
 msgid "_Log"
@@ -4544,7 +4515,7 @@ msgstr "_Maak selectie Hoofdletters"
 #: plugins/editor/plugin.c:202
 #, fuzzy
 msgid "Enter the selected text as the search target"
-msgstr "Verwijder de geselecteerde tekst van de tekstverwerker"
+msgstr "Verwijder de geselecteerde tekst van de editor"
 
 #: plugins/editor/plugin.c:204
 msgid "Fin_d in Files ..."
@@ -4559,56 +4530,48 @@ msgid "Co_mment code"
 msgstr "Co_mmentaarcode"
 
 #: plugins/editor/plugin.c:211
-#, fuzzy
 msgid "_Block Comment/Uncomment"
-msgstr "Blok commentaar zetten/verwijderen"
+msgstr "_Blok commentaar zetten/verwijderen"
 
 #: plugins/editor/plugin.c:212
-#, fuzzy
 msgid "Block comment the selected text"
-msgstr "Blok commentaar voor de geselecteerde tekst zetten/verwijderen"
+msgstr "Blok commentaar voor de geselecteerde tekst"
 
 #: plugins/editor/plugin.c:214
-#, fuzzy
 msgid "Bo_x Comment/Uncomment"
-msgstr "Kader commentaar zetten/verwijderen"
+msgstr "_Kader commentaar zetten/verwijderen"
 
 #: plugins/editor/plugin.c:215
-#, fuzzy
 msgid "Box comment the selected text"
-msgstr "Kader commentaar voor de geselecteerde tekst zetten/verwijderen"
+msgstr "Kader commentaar voor de geselecteerde tekst"
 
 #: plugins/editor/plugin.c:217
-#, fuzzy
 msgid "_Stream Comment/Uncomment"
-msgstr "Stroom commentaar zetten/verwijderen"
+msgstr "_Stroom commentaar zetten/verwijderen"
 
 #: plugins/editor/plugin.c:218
-#, fuzzy
 msgid "Stream comment the selected text"
-msgstr "Stroom commentaar voor de geselecteerde tekst zetten/verwijderen"
+msgstr "Stroom commentaar voor de geselecteerde tekst"
 
 #: plugins/editor/plugin.c:223
-#, fuzzy
 msgid "_Goto Line number"
-msgstr " Ga naar regel "
+msgstr "_Ga naar regel"
 
 #: plugins/editor/plugin.c:225 plugins/editor/plugin.c:229
 msgid "Go to a particular line in the editor"
-msgstr "Ga naar een specifieke regel in de tekstverwerker"
+msgstr "Ga naar een specifieke regel in de editor"
 
 #: plugins/editor/plugin.c:227
 msgid "_Line number ..."
 msgstr "_Regelnummer ..."
 
 #: plugins/editor/plugin.c:231
-#, fuzzy
 msgid "Matching _Brace"
-msgstr "Ga naar overeenkomstig _Haakje"
+msgstr "Overeenkomstig _Haakje"
 
 #: plugins/editor/plugin.c:233
 msgid "Go to the matching brace in the editor"
-msgstr "Ga naar naar het bijpassende haakje in de tekstverwerker"
+msgstr "Ga naar naar het bijpassende haakje in de editor"
 
 #: plugins/editor/plugin.c:235
 msgid "_Start of block"
@@ -4661,7 +4624,7 @@ msgstr "Doe de laatste ongedane aktie opnieuw"
 
 #: plugins/editor/plugin.c:262
 msgid "Cut the selected text from the editor to the clipboard"
-msgstr "Knipt de geselecteerde tekst van de tekstverwerker naar het klembord"
+msgstr "Knipt de geselecteerde tekst van de editor naar het klembord"
 
 #: plugins/editor/plugin.c:268
 msgid "Paste the content of clipboard at the current position"
@@ -4673,7 +4636,7 @@ msgstr "_Wissen"
 
 #: plugins/editor/plugin.c:271
 msgid "Delete the selected text from the editor"
-msgstr "Verwijder de geselecteerde tekst van de tekstverwerker"
+msgstr "Verwijder de geselecteerde tekst van de editor"
 
 #: plugins/editor/plugin.c:273
 msgid "_AutoComplete"
@@ -5017,7 +4980,7 @@ msgstr "_Sluit alle omlopers"
 
 #: plugins/editor/plugin.c:416
 msgid "Close all code folds in the editor"
-msgstr "Sluit alle code omlopers in de tekstverwerker"
+msgstr "Sluit alle code omlopers in de editor"
 
 #: plugins/editor/plugin.c:418
 msgid "_Open All Folds"
@@ -5025,7 +4988,7 @@ msgstr "_Open alle omlopers"
 
 #: plugins/editor/plugin.c:420
 msgid "Open all code folds in the editor"
-msgstr "Open alle code omloop in de tekstverwerker"
+msgstr "Open alle code omloop in de editor"
 
 #: plugins/editor/plugin.c:422
 msgid "_Toggle Current Fold"
@@ -5033,7 +4996,7 @@ msgstr "_Toggle huidige omloop"
 
 #: plugins/editor/plugin.c:424
 msgid "Toggle current code fold in the editor"
-msgstr "Toggle huidig code omloop in de tekstverwerker"
+msgstr "Toggle huidig code omloop in de editor"
 
 #: plugins/editor/plugin.c:433
 msgid "Bookmar_k"
@@ -5149,13 +5112,12 @@ msgid "Enter the line number to jump and press enter"
 msgstr "Voer het regelnummer in waar naar toegegaan moet worden"
 
 #: plugins/editor/plugin.c:544
-#, fuzzy
 msgid "Incremental search"
-msgstr "Doorzoek de hulp bij Anjuta"
+msgstr "Opbouwend doorzoeken"
 
 #: plugins/editor/plugin.c:560
 msgid "Editor quick navigations"
-msgstr ""
+msgstr "Editor snel navigeren"
 
 #: plugins/editor/plugin.c:564
 msgid "Documents"
@@ -5710,7 +5672,7 @@ msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
 "[Project]->[Project Configuration]->[GUI editor command]"
-msgstr ""
+msgstr "Er is geen .glade bestand in het bovenste niveau van de projectmap. Indien u geen glade gebruikt voor GUI editing geef er dan een aangepaste opdracht voor in [Project]->[Projectconfiguratie]->[GUI editor opdracht]"
 
 #: plugins/project-manager/project_dbase.c:1605
 #, fuzzy
@@ -6179,7 +6141,6 @@ msgstr "Taal:            "
 
 #: plugins/project-manager/project_import_cbs.c:242
 #: plugins/project-wizard/appwizard_cbs.c:294
-#, fuzzy
 msgid "Gettext Support: "
 msgstr "Gettext ondersteuning: "
 
@@ -6189,6 +6150,8 @@ msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
+"Het importeren is reeds begonnen.\n"
+"Klik op Annuleren om het instellen over te slaan, of Volgende om door te gaan."
 
 #: plugins/project-manager/project_import_gui.c:46
 msgid ""
@@ -6210,14 +6173,12 @@ msgid "Select directory"
 msgstr "Map selecteren"
 
 #: plugins/project-manager/project_import_gui.c:207
-#, fuzzy
 msgid "Select top level directory of an existing project"
-msgstr "Opruimen van de brondirectory van het project: "
+msgstr "Bovenste niveau map selecteren van een bestaand project"
 
 #: plugins/project-manager/project_import_gui.c:211
-#, fuzzy
 msgid "Select existing project directory"
-msgstr "Schoon de hele projectdirectory op"
+msgstr "Bestaande projectmap selecteren"
 
 #: plugins/project-manager/project_import_gui.c:225
 #, fuzzy
@@ -6284,18 +6245,16 @@ msgstr ""
 "Druk op Volgende om verder te gaan ..."
 
 #: plugins/project-wizard/gnome_project.c:65
-#, fuzzy
 msgid ""
 "A project or file with the same name.already exists.\n"
 "Project creation aborted."
 msgstr ""
-"Het project bestaat al. \n"
+"Een project met dezelfde bestaat al.\n"
 "Aanmaken project afgebroken."
 
 #: plugins/project-wizard/gnome_project.c:81
-#, fuzzy
 msgid "Generating Project ...\n"
-msgstr "Genereren project ... \n"
+msgstr "Genereren van project ...\n"
 
 #: plugins/project-wizard/gnome_project.c:88
 #, c-format
@@ -6303,20 +6262,17 @@ msgid "Cannot create file: %s"
 msgstr "Kan bestand: %s niet maken"
 
 #: plugins/project-wizard/gnome_project.c:159
-#, fuzzy
 msgid "Loading Project ...\n"
-msgstr "Laden project ...\n"
+msgstr "Laden van project ...\n"
 
 #: plugins/project-wizard/gnome_project.c:170
 #: plugins/project-wizard/gnome_project.c:231
-#, fuzzy
 msgid "Saving Project ...\n"
-msgstr "Bewaar project ...\n"
+msgstr "Opslaan van project ...\n"
 
 #: plugins/project-wizard/gnome_project.c:178
-#, fuzzy
 msgid "Generating source codes ...\n"
-msgstr "Genereren broncodes ... \n"
+msgstr "Genereren van broncodes ...\n"
 
 #. Creating icon pixmap file for gnome projects
 #: plugins/project-wizard/gnome_project.c:185
@@ -6332,14 +6288,12 @@ msgid "Locating files ...\n"
 msgstr "Zoeken bestanden ...\n"
 
 #: plugins/project-wizard/gnome_project.c:235
-#, fuzzy
 msgid "Updating Project ...\n"
-msgstr "Bijwerken project ...\n"
+msgstr "Bijwerken van project ...\n"
 
 #: plugins/project-wizard/gnome_project.c:238
-#, fuzzy
 msgid "Running autogen.sh ...\n"
-msgstr "Uitvoeren autogen.sh ...\n"
+msgstr "Uitvoeren van autogen.sh ...\n"
 
 #: plugins/project-wizard/gnome_project.c:250
 msgid "App Wizard"
@@ -6726,7 +6680,7 @@ msgstr "_Context Hulp"
 
 #: src/anjuta-actions.h:78
 msgid "Search help for the current word in the editor"
-msgstr "Zoek help voor het huidige woord in de tekstverwerker"
+msgstr "Zoek help voor het huidige woord in de editor"
 
 #: src/anjuta-actions.h:80
 msgid "_Search a topic"
