@@ -7,7 +7,7 @@
    <title>Authors and Contributors</title>
    <para>
     The <application>Anjuta</application> IDE and this manual
-    were written by Naba Kumar <email>kh_naba@123india.com</email>.
+    were written by Naba Kumar <email>kh_naba@users.sourceforge.net</email>.
     Naba Kumar is from India (Manipur) and got his B.Tech in electronic and
     communication engineering degree from <citetitle>North Eastern Regional
     Institute of Science and Technology (NERIST), India.</citetitle>
@@ -32,19 +32,25 @@
       </varlistentry>
 
       <varlistentry>
-       <term>Luca Bellonda<email>lbell@tsc4.com</email></term>
-	   <listitem><para></para></listitem>
-      </varlistentry>
-
-      <varlistentry>
-       <term>Lord Sibn<email>sibn@utspl.cjb.net</email></term>
-	   <listitem><para></para></listitem>
-      </varlistentry>
-
-      <varlistentry>
        <term>Andy Piper<email>andy.piper@freeuk.com</email></term>
 	   <listitem><para></para></listitem>
       </varlistentry>
+      
+      <varlistentry>
+       <term>Hector Rivera Falu <email>misha@phreaker.net</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+	  
+	  <varlistentry>
+       <term>Max Blagai<email>maximblagai@yahoo.com</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+       <term>Johannes Schmid<email>johannes.schmid@gmx.de</email></term>
+	   <listitem><para></para></listitem>
+      </varlistentry>
+
     </variablelist>
    </para>
  
@@ -91,7 +97,7 @@
    <title>Contacts</title>
    <para>
     For the time being you can contact me for anything at my personal
-    email <email>kh_naba@123india.com</email>. Just make sure your mail
+    email <email>kh_naba@users.sourceforge.net</email>. Just make sure your mail
     has a very brief and descriptive subject line. Please do mail me
     and tell how do you like <application>Anjuta</application>. 
    </para>
