@@ -8,6 +8,12 @@
 	  Fixed toolbar names which were causing confusions in the toolbar
 	  show/hide.
 	  
+	* src/project_import_gui.c: 
+	  Consistensy: wm_class should be set with "Anjuta" and not "anjuta"
+	  
+	* anjuta.prj, src/tags_manager.h, src/tags_manger.c:
+	  Added new files and removed obsolete ones.
+	  
 2002-01-30  Andy Piper <andy.piper@freeuk.com>
 
 	* src/appwizard_cbs.c, project_import_cbs.c, 

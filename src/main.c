@@ -54,9 +54,9 @@ main (int argc, char *argv[])
 	GnomeClientFlags flags;
 	poptContext context;
 	const char** args;
-	CORBA_Environment	ev;
-	CORBA_ORB			corb ;
-	int		retCode ;
+	CORBA_Environment ev;
+	CORBA_ORB corb ;
+	int retCode ;
 
 
 #ifdef ENABLE_NLS
@@ -68,15 +68,15 @@ main (int argc, char *argv[])
 	anjuta_connect_kernel_signals();
 	
 	CInitEx( &ev );
-	corb = gnome_CORBA_init_with_popt_table("anjuta", VERSION, &argc, argv,
+	corb = gnome_CORBA_init_with_popt_table(PACKAGE, VERSION, &argc, argv,
 					   anjuta_options, 0, &context,
 					   GNORBA_INIT_SERVER_FUNC, &ev );
-	/*corb = gnome_CORBA_init( "anjuta", VERSION, &argc, argv, 
-								GNORBA_INIT_SERVER_FUNC, &ev );*/
+	/*corb = gnome_CORBA_init(PACKAGE, VERSION, &argc, argv, 
+		GNORBA_INIT_SERVER_FUNC, &ev );*/
 
 
-	//gnome_init_with_popt_table("anjuta", VERSION, argc, argv,
-	//			   anjuta_options, 0, &context);
+	//gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv,
+	//	   anjuta_options, 0, &context);
 	
 	/* Session management */
 	client = gnome_master_client();

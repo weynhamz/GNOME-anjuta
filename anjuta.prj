@@ -32,7 +32,8 @@ project.version=0.1.9-pre
 project.author=naba
 project.source.target=src/anjuta
 
-project.excluded.modules=
+project.excluded.modules=\
+	intl
 
 project.has.gettext=0
 
@@ -140,6 +141,8 @@ module.include.files=\
 	src/preferences.h\
 	src/project_config.h\
 	src/project_dbase.h\
+	src/project_import.h\
+	src/project_import_cbs.h\
 	src/project_type.h\
 	src/properties.h\
 	src/registers.h\
@@ -157,7 +160,6 @@ module.include.files=\
 	src/stack_trace.h\
 	src/stack_trace_cbs.h\
 	src/support.h\
-	src/tags_manager.h\
 	src/text_editor.h\
 	src/text_editor_cbs.h\
 	src/text_editor_gui.h\
@@ -311,6 +313,9 @@ module.source.files=\
 	src/project_config.c\
 	src/project_dbase.c\
 	src/project_dbase_gui.c\
+	src/project_import.c\
+	src/project_import_cbs.c\
+	src/project_import_gui.c\
 	src/project_type.c\
 	src/properties.cxx\
 	src/registers.c\
@@ -333,7 +338,6 @@ module.source.files=\
 	src/stack_trace_cbs.c\
 	src/stack_trace_gui.c\
 	src/support.c\
-	src/tags_manager.c\
 	src/text_editor.c\
 	src/text_editor_cbs.c\
 	src/text_editor_gui.c\
@@ -344,6 +348,7 @@ module.source.files=\
 	src/watch.c\
 	src/watch_cbs.c\
 	src/watch_gui.c\
+	src/wizard_gui.c\
 	tagmanager/args.c\
 	tagmanager/asm.c\
 	tagmanager/asp.c\
@@ -442,6 +447,7 @@ module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/watch.png\
 	manuals/C/anjuta-manual/figures/watch_add.png\
 	pixmaps/add.xpm\
+	pixmaps/an_tag.xpm\
 	pixmaps/anjuta_icon.png\
 	pixmaps/anjuta_logo.png\
 	pixmaps/anjuta_splash.png\

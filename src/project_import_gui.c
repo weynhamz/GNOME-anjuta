@@ -51,7 +51,7 @@ create_project_import_gui (void)
 	gtk_window_set_title (GTK_WINDOW (piw->widgets.window),
 			      _("Project Import Wizard"));
 	gtk_window_set_wmclass (GTK_WINDOW (piw->widgets.window),
-				"project_import_wizard", "anjuta");
+				"project_import_wizard", "Anjuta");
 	gtk_window_set_position (GTK_WINDOW (piw->widgets.window),
 				 GTK_WIN_POS_CENTER);
 	gtk_accel_group_attach (app->accel_group,
