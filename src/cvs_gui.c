@@ -38,16 +38,14 @@ static gchar* get_cur_filename()
 	else
 		return te->full_filename;
 }
-		
 
 /* 
 	Create a dialog in which a filename can be specified.
 	If the user clicks the Update/Commit/Status button cvs is invoked.
 	Default for the filename is the current open file.
 */
-
 void
-create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dialog)
+create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean bypass_dialog)
 {
 	gchar *title;
 	gchar *button_label;
@@ -101,11 +99,16 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	gui->type = dialog_type;
 
 	gui->dialog =
-		gnome_dialog_new (title, button_label, _("Cancel"), NULL);
-	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-file",
-				"anjuta");
-
+		gtk_dialog_new_with_buttons (title, GTK_WINDOW(app->widgets.window),
+	                                 GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                 button_label, GTK_RESPONSE_OK, NULL);
+	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-file", "anjuta");
+	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
+	                              GTK_WINDOW(app->widgets.window));
+	
 	table = gtk_table_new (5, 2, FALSE);
+	gtk_container_add (GTK_CONTAINER (gui->dialog), table);
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
@@ -118,13 +121,12 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
 	gtk_widget_show (gui->entry_file);
-	gtk_widget_set_usize(gui->entry_file, 400, -1);
+	gtk_widget_set_usize (gui->entry_file, 400, -1);
 	
-	gui->text_message = gtk_text_new (NULL, NULL);
-	gtk_widget_set_usize(gui->text_message, 400, 150);
+	gui->text_message = gtk_text_view_new ();
+	gtk_widget_set_usize (gui->text_message, 400, 150);
 	
 	gui->entry_branch = gnome_entry_new ("cvs-branch");
-	
 	if (gui->type == CVS_ACTION_UPDATE || gui->type == CVS_ACTION_COMMIT)
 	{
 		gtk_widget_show (label_branch);
@@ -135,70 +137,59 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	{
 		gtk_widget_show (label_msg);
 		gtk_widget_show (gui->text_message);
-		gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
+		//gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
 	}
 	
-	gtk_misc_set_alignment(GTK_MISC(label_file), 0, -1);	
-	gtk_misc_set_alignment(GTK_MISC(label_branch), 0, -1);	
-	gtk_misc_set_alignment(GTK_MISC(label_msg), 0, 0);	
+	gtk_misc_set_alignment (GTK_MISC(label_file), 0, -1);	
+	gtk_misc_set_alignment (GTK_MISC(label_branch), 0, -1);	
+	gtk_misc_set_alignment (GTK_MISC(label_msg), 0, 0);	
 	
 	gtk_table_attach (GTK_TABLE (table),
-			label_file,
-			0, 1, 0, 1,
-			GTK_FILL, 0, 3, 3);
+	                  label_file,
+	                  0, 1, 0, 1,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			gui->entry_file,
-			1, 2, 0, 1,
-			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	                  gui->entry_file,
+	                  1, 2, 0, 1,
+	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			label_branch,
-			0, 1, 1, 2,
-			GTK_FILL, 0, 3, 3);
+	                  label_branch,
+	                  0, 1, 1, 2,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			gui->entry_branch,
-			1, 2, 1, 2,
-			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	                  gui->entry_branch,
+	                  1, 2, 1, 2,
+	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			label_msg,
-			0, 1, 2, 3,
-			GTK_FILL, GTK_FILL, 3, 3);
+	                  label_msg,
+	                  0, 1, 2, 3,
+	                  GTK_FILL, GTK_FILL, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			gui->text_message,
-			1, 2, 2, 3,
-			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	                  gui->text_message,
+	                  1, 2, 2, 3,
+	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 	if (label_misc != NULL)
 		gtk_table_attach (GTK_TABLE (table),
-				label_misc,
-				0, 2, 3, 4,
-				GTK_FILL | GTK_EXPAND, 0, 3, 3);
+		                  label_misc,
+		                  0, 2, 3, 4,
+		                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	gtkentry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (gui->entry_file));
 	
-	gtkentry =
-		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
-					    (gui->entry_file));
-	
-	if(filename == NULL) {
+	if(filename == NULL)
+	{
 		gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
-	} else {
+	} else
+	{
 		gtk_entry_set_text (GTK_ENTRY (gtkentry), filename);
 	}
+	g_signal_connect (G_OBJECT (gui->dialog), "response",
+	                  G_CALLBACK (on_cvs_dialog_response), gui); 
 
-	gui->action_button =
-		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	gui->cancel_button =
-		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
-
-	gtk_signal_connect (GTK_OBJECT (gui->action_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_ok), gui);
-	gtk_signal_connect (GTK_OBJECT (gui->cancel_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_cancel), gui);
-
-	gtk_box_pack_start_defaults (GTK_BOX
-				     (GNOME_DIALOG (gui->dialog)->vbox),
-				     table);
-	
-	if (bypass_dialog) {
-		on_cvs_ok(gui->action_button, gui);
-	} else {
+	if (bypass_dialog)
+	{
+		on_cvs_dialog_response (NULL, GTK_RESPONSE_OK, gui);
+	} else
+	{
 		gtk_widget_show (gui->dialog);
 	}
 }
@@ -208,12 +199,11 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 	a diff between the working copy of a file and the repositry
 */
 void
-create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
+create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean bypass_dialog)
 {
 	CVSFileDiffGUI *gui;
 
 	GtkWidget *table;
-
 	GtkWidget *label_file;
 	GtkWidget *label_rev;
 	GtkWidget *label_date;
@@ -222,75 +212,70 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 
 	gui = g_new0 (CVSFileDiffGUI, 1);
 
-	gui->dialog =
-		gnome_dialog_new (_("CVS: Diff file"), _("Diff"), _("Cancel"),
-				  NULL);
-	gui->diff_button =
-		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	gui->cancel_button =
-		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
-
-	gtk_signal_connect (GTK_OBJECT (gui->diff_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_diff_ok), gui);
-	gtk_signal_connect (GTK_OBJECT (gui->cancel_button), "clicked",
-			    GTK_SIGNAL_FUNC (on_cvs_diff_cancel), gui);
+	gui->dialog = gtk_dialog_new_with_buttons (_("CVS: Diff file"),
+	                              GTK_WINDOW (app->widgets.window),
+	                              GTK_DIALOG_DESTROY_WITH_PARENT,
+	                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                              _("Diff"), GTK_RESPONSE_OK, NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
+	                              GTK_WINDOW(app->widgets.window));
 
 	table = gtk_table_new (3, 2, FALSE);
+	gtk_container_add (GTK_CONTAINER (gui->dialog), table);
 	gtk_widget_show (table);
 
 	label_file = gtk_label_new (_("File: "));
-	gtk_misc_set_alignment(GTK_MISC(label_file), 0, -1);	
+	gtk_misc_set_alignment (GTK_MISC (label_file), 0, -1);	
 
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
-	gtkentry =
-		gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY
-					    (gui->entry_file));
-	gtk_widget_set_usize(gtkentry, 400, -1);
+	gtkentry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (gui->entry_file));
+	gtk_widget_set_usize (gtkentry, 400, -1);
 	
-	if(filename == NULL) {
+	if(filename == NULL)
+	{
 		gtk_entry_set_text (GTK_ENTRY (gtkentry), get_cur_filename());
-	} else {
+	}
+	else
+	{
 		gtk_entry_set_text (GTK_ENTRY (gtkentry), filename);
 	}
 
 	gtk_widget_show (label_file);
 	gtk_widget_show (gui->entry_file);
 	gtk_table_attach (GTK_TABLE (table),
-			label_file,
-			0, 1, 0, 1,
-			GTK_FILL, 0, 3, 3);
+	                  label_file,
+	                  0, 1, 0, 1,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			gui->entry_file,
-			1, 2, 0, 1,
-			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	                  gui->entry_file,
+	                  1, 2, 0, 1,
+	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
 	label_date = gtk_label_new (_("Date: "));
 	gtk_widget_show (label_date);
-	gtk_misc_set_alignment(GTK_MISC(label_date), 0, -1);
+	gtk_misc_set_alignment (GTK_MISC(label_date), 0, -1);
 	
-	date_hbox = gtk_hbox_new(FALSE, 5);
-	gtk_widget_show(date_hbox);
+	date_hbox = gtk_hbox_new (FALSE, 5);
+	gtk_widget_show (date_hbox);
 	
-	gui->check_date = gtk_check_button_new_with_label("Use date");
+	gui->check_date = gtk_check_button_new_with_label ("Use date");
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gui->check_date),
-			cvs_get_diff_use_date(cvs));
-	gtk_widget_show(gui->check_date);
-	gtk_box_pack_start_defaults(GTK_BOX(date_hbox), gui->check_date);
-	gtk_signal_connect(GTK_OBJECT(gui->check_date), "toggled",
-		(GtkSignalFunc)on_cvs_diff_use_date_toggled, gui);
+	                             cvs_get_diff_use_date(cvs));
+	gtk_widget_show (gui->check_date);
+	gtk_box_pack_start_defaults (GTK_BOX(date_hbox), gui->check_date);
 	gui->entry_date = gnome_date_edit_new (time (NULL), TRUE, TRUE);
 	gtk_widget_show (gui->entry_date);
-	gtk_widget_set_sensitive(gui->entry_date, cvs_get_diff_use_date(cvs));
-	gtk_box_pack_start_defaults(GTK_BOX(date_hbox), gui->entry_date);
+	gtk_widget_set_sensitive (gui->entry_date, cvs_get_diff_use_date(cvs));
+	gtk_box_pack_start_defaults (GTK_BOX(date_hbox), gui->entry_date);
 	
 	gtk_table_attach (GTK_TABLE (table),
-			label_date,
-			0, 1, 1, 2,
-			GTK_FILL, 0, 3, 3);
+	                  label_date,
+	                  0, 1, 1, 2,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			date_hbox,
-			1, 2, 1, 2,
-			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	                  date_hbox,
+	                  1, 2, 1, 2,
+	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
 	label_rev = gtk_label_new (_("Revision: "));
 	gtk_misc_set_alignment(GTK_MISC(label_rev), 0, -1);	
@@ -298,16 +283,18 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	gtk_widget_show (label_rev);
 	gtk_widget_show (gui->entry_rev);
 	gtk_table_attach (GTK_TABLE (table),
-			label_rev,
-			0, 1, 2, 3,
-			GTK_FILL, 0, 3, 3);
+	                  label_rev,
+	                  0, 1, 2, 3,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-			gui->entry_rev,
-			1, 2, 2, 3,
-			GTK_FILL | GTK_EXPAND, 0, 3, 3);
+	                  gui->entry_rev,
+	                  1, 2, 2, 3,
+	                  GTK_FILL | GTK_EXPAND, 0, 3, 3);
 
-	gtk_box_pack_start_defaults (GTK_BOX(GNOME_DIALOG (gui->dialog)->vbox),
-			table);
+	g_signal_connect (G_OBJECT (gui->dialog), "response",
+	                  G_CALLBACK (on_cvs_diff_dialog_response), gui);
+	g_signal_connect (G_OBJECT(gui->check_date), "toggled",
+	                  G_CALLBACK (on_cvs_diff_use_date_toggled), gui);
 
 	if (bypass_dialog) 
 	{
@@ -317,7 +304,7 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 }
 
 void 
-create_cvs_login_gui (CVS * cvs)
+create_cvs_login_gui (CVS *cvs)
 {
 	GtkWidget* type_label;
 	GtkWidget* user_label;
@@ -333,7 +320,14 @@ create_cvs_login_gui (CVS * cvs)
 	
 	gui = g_new0(CVSLoginGUI, 1);
 	
-	gui->dialog = gnome_dialog_new (_("CVS Login"), _("Login"), _("Cancel"), NULL);
+	gui->dialog =
+		gtk_dialog_new_with_buttons (_("CVS Login"),
+	                    GTK_WINDOW (app->widgets.window),
+		                GTK_DIALOG_DESTROY_WITH_PARENT,
+		                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+		                _("Login"), GTK_RESPONSE_OK, NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog),
+	                              GTK_WINDOW(app->widgets.window));
 	
 	gui->combo_type = gtk_combo_new();
 	gui->entry_user = gnome_entry_new ("cvs-user");
@@ -351,66 +345,57 @@ create_cvs_login_gui (CVS * cvs)
 	gtk_misc_set_alignment(GTK_MISC(dir_label), 0, -1);	
 
 	table = gtk_table_new (4, 2, FALSE);
+	gtk_container_add (GTK_CONTAINER(gui->dialog), table);
 	gtk_table_attach (GTK_TABLE (table),
-				type_label,
-				0, 1, 0, 1,
-				GTK_FILL, 0, 3, 3);
+	                  type_label,
+	                  0, 1, 0, 1,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-				server_label,
-				0, 1, 1, 2,
-				GTK_FILL, 0, 3, 3);
+	                  server_label,
+	                  0, 1, 1, 2,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-				dir_label,
-				0, 1, 2, 3,
-				GTK_FILL, 0, 3, 3);
+	                  dir_label,
+	                  0, 1, 2, 3,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-				user_label,
-				0, 1, 3, 4,
-				GTK_FILL, 0, 3, 3);
+	                  user_label,
+	                  0, 1, 3, 4,
+	                  GTK_FILL, 0, 3, 3);
 	
 	gtk_table_attach (GTK_TABLE (table),
-				gui->combo_type, 1, 2, 0, 1,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->combo_type, 1, 2, 0, 1,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-				gui->entry_server,
-				1, 2, 1, 2,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_server,
+	                  1, 2, 1, 2,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-				gui->entry_dir,
-				1, 2, 2, 3,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_dir,
+	                  1, 2, 2, 3,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (table),
-				gui->entry_user,
-				1, 2, 3, 4,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_user,
+	                  1, 2, 3, 4,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	
-	strings = g_list_alloc();
+	strings = g_list_alloc ();
 	for (i = 0; i < 4; i++)
 	{
 		strings = g_list_append (strings, server_types[i]);
 	}
 	
-	gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO (gui->combo_type)->entry), FALSE);
+	gtk_editable_set_editable (GTK_EDITABLE (GTK_COMBO
+	                           (gui->combo_type)->entry), FALSE);
 	gtk_combo_set_popdown_strings (GTK_COMBO (gui->combo_type), strings);
 	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_type), TRUE, FALSE);
-	
-	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox),
-				table);
-	
-	ok_button =
-		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	cancel_button =
-		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	
-	gtk_signal_connect (GTK_OBJECT (ok_button), "clicked", 
-			GTK_SIGNAL_FUNC (on_cvs_login_ok), gui);
-	gtk_signal_connect (GTK_OBJECT (cancel_button), "clicked",
-			GTK_SIGNAL_FUNC (on_cvs_login_cancel), gui);
-	
+
+	g_signal_connect (G_OBJECT (gui->dialog), "response",
+	                  G_CALLBACK (on_cvs_login_dialog_response), gui);
 	gtk_widget_show_all (gui->dialog);
 }
 
-void create_cvs_import_gui (CVS* cvs)
+void create_cvs_import_gui (CVS *cvs)
 {
 	GtkWidget* type_label;
 	GtkWidget* server_label;
@@ -431,7 +416,15 @@ void create_cvs_import_gui (CVS* cvs)
 	guint i;
 	CVSImportGUI* gui = g_new0 (CVSImportGUI, 1);
 	
+	gui->dialog = gtk_dialog_new_with_buttons (_("CVS: Import Project"),
+	                              GTK_WINDOW (app->widgets.window),
+	                              GTK_DIALOG_DESTROY_WITH_PARENT,
+	                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                              _("Import"), GTK_RESPONSE_OK, NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
+	
 	table = gtk_table_new (2, 1, FALSE);
+	gtk_container_add (GTK_CONTAINER (gui->dialog), table);
 	server_table = gtk_table_new (4, 2, FALSE);
 	import_table = gtk_table_new (5, 2, FALSE);
 	
@@ -446,21 +439,21 @@ void create_cvs_import_gui (CVS* cvs)
 	gtk_misc_set_alignment(GTK_MISC(dir_label), 0, -1);	
 	
 	gtk_table_attach (GTK_TABLE (server_table),
-				type_label,
-				0, 1, 0, 1,
-				GTK_FILL, 0, 3, 3);
+	                  type_label,
+	                  0, 1, 0, 1,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (server_table),
-				server_label,
-				0, 1, 1, 2,
-				GTK_FILL, 0, 3, 3);
+	                  server_label,
+	                  0, 1, 1, 2,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (server_table),
-				dir_label,
-				0, 1, 2, 3,
-				GTK_FILL, 0, 3, 3);
+	                  dir_label,
+	                  0, 1, 2, 3,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (server_table),
-				user_label,
-				0, 1, 3, 4,
-				GTK_FILL, 0, 3, 3);
+	                  user_label,
+	                  0, 1, 3, 4,
+	                  GTK_FILL, 0, 3, 3);
 	
 	module_label = gtk_label_new (_("Module name: "));
 	release_label = gtk_label_new (_("Release name: "));
@@ -473,21 +466,21 @@ void create_cvs_import_gui (CVS* cvs)
 	gtk_misc_set_alignment(GTK_MISC(message_label), 0, 0);
 	
 	gtk_table_attach (GTK_TABLE (import_table),
-				module_label,
-				0, 1, 0, 1,
-				GTK_FILL, 0, 3, 3);
+	                  module_label,
+	                  0, 1, 0, 1,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (import_table),
-				release_label,
-				0, 1, 1, 2,
-				GTK_FILL, 0, 3, 3);
+	                  release_label,
+	                  0, 1, 1, 2,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (import_table),
-				vendor_label,
-				0, 1, 2, 3,
-				GTK_FILL, 0, 3, 3);
+	                  vendor_label,
+	                  0, 1, 2, 3,
+	                  GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (import_table),
-				message_label,
-				0, 1, 3, 4,
-				GTK_FILL, GTK_EXPAND | GTK_FILL, 3, 3);
+	                  message_label,
+	                  0, 1, 3, 4,
+	                  GTK_FILL, GTK_EXPAND | GTK_FILL, 3, 3);
 	
 	gui->combo_type = gtk_combo_new ();
 	gui->entry_server = gnome_entry_new ("cvs-server");
@@ -505,20 +498,20 @@ void create_cvs_import_gui (CVS* cvs)
 	gtk_combo_set_value_in_list (GTK_COMBO (gui->combo_type), TRUE, FALSE);
 
 	gtk_table_attach (GTK_TABLE (server_table),
-				gui->combo_type, 1, 2, 0, 1,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->combo_type, 1, 2, 0, 1,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (server_table),
-				gui->entry_server,
-				1, 2, 1, 2,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_server,
+	                  1, 2, 1, 2,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (server_table),
-				gui->entry_dir,
-				1, 2, 2, 3,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_dir,
+	                  1, 2, 2, 3,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (server_table),
-				gui->entry_user,
-				1, 2, 3, 4,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_user,
+	                  1, 2, 3, 4,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	
 	server_frame = gtk_frame_new (_("Server settings"));
 	gtk_container_set_border_width (GTK_CONTAINER (server_frame), 5);
@@ -531,45 +524,35 @@ void create_cvs_import_gui (CVS* cvs)
 	gui->entry_module = gnome_entry_new ("cvs-module");
 	gui->entry_release = gnome_entry_new ("cvs-release");
 	gui->entry_vendor = gnome_entry_new ("cvs-vendor");
-	gui->text_message = gtk_text_new (NULL, NULL);
-	gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
+	gui->text_message = gtk_text_view_new ();
+	// gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
 	gtk_widget_set_usize(GTK_WIDGET(gui->text_message), 400, 150);
 	
 	gtk_table_attach (GTK_TABLE (import_table),
-				gui->entry_module,
-				1, 2, 0, 1,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_module,
+	                  1, 2, 0, 1,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (import_table),
-				gui->entry_release,
-				1, 2, 1, 2,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_release,
+	                  1, 2, 1, 2,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (import_table),
-				gui->entry_vendor,
-				1, 2, 2, 3,
-				GTK_EXPAND | GTK_FILL, 0, 3, 3);
+	                  gui->entry_vendor,
+	                  1, 2, 2, 3,
+	                  GTK_EXPAND | GTK_FILL, 0, 3, 3);
 	gtk_table_attach (GTK_TABLE (import_table),
-				gui->text_message,
-				1, 2, 3, 4,
-				GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 3, 3);
+	                  gui->text_message,
+	                  1, 2, 3, 4,
+	                  GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 3, 3);
 	
 	gtk_table_attach_defaults (GTK_TABLE (table), server_frame, 0, 1, 0, 1);
 	gtk_table_attach_defaults (GTK_TABLE (table), import_frame, 0, 1, 1, 2);
 	
-	gui->dialog = gnome_dialog_new (_("CVS: Import Project"), "Import", "Cancel", NULL);
-	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox), table);
-	
-	ok_button =
-		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	cancel_button =
-		g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	
-	gtk_signal_connect (GTK_OBJECT (ok_button), "clicked", 
-			GTK_SIGNAL_FUNC(on_cvs_import_ok), gui);
-	gtk_signal_connect (GTK_OBJECT (cancel_button), "clicked", 
-			GTK_SIGNAL_FUNC(on_cvs_import_cancel), gui);
 			
-	gtk_signal_connect (GTK_OBJECT(GTK_COMBO(gui->combo_type)->entry), "changed",
-			GTK_SIGNAL_FUNC(on_cvs_type_combo_changed), gui);
+	g_signal_connect (G_OBJECT (gui->dialog), "response",
+			          G_CALLBACK (on_cvs_import_dialog_response), gui);
+	g_signal_connect (G_OBJECT (GTK_COMBO (gui->combo_type)->entry), "changed",
+			          G_CALLBACK (on_cvs_type_combo_changed), gui);
 	
 	gtk_widget_show_all (gui->dialog);
-}	
+}

@@ -24,7 +24,7 @@
 *   FUNCTION DEFINITIONS
 */
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 
 extern void lineBreak (void) {}	/* provides a line-specified break point */
 

@@ -20,7 +20,7 @@
    <title>Anjuta in action</title>
    <screenshot>
    <screeninfo>Anjuta in action</screeninfo>
-   <graphic format="png" fileref="figures/scrshot" srccredit="andyp"></graphic>
+   <graphic format="png" fileref="figures/scrshot" srccredit="andyp">
    </screenshot>
    </figure>
   </para>

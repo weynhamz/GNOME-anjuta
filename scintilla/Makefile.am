@@ -6,7 +6,7 @@ noinst_LIBRARIES = libscintilla.a
 
 INCLUDES = -I$(srcdir)/include $(GTK_CFLAGS)
 
-CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM -W -Wall -g -O
+AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
 libscintilla_a_SOURCES =\
 	AutoComplete.cxx \
@@ -33,11 +33,14 @@ libscintilla_a_SOURCES =\
 	LexPython.cxx \
 	LexSQL.cxx \
 	LexVB.cxx \
+	LexAsm.cxx \
+	LexFortran.cxx \
 	LexCrontab.cxx\
 	LexEiffel.cxx\
 	LexLisp.cxx\
 	LexRuby.cxx\
 	LexMatlab.cxx\
+	LexCSS.cxx\
 	LineMarker.cxx \
 	PlatGTK.cxx \
 	PropSet.cxx \

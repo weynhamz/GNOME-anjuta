@@ -32,7 +32,7 @@ gboolean tm_source_file_init(TMSourceFile *source_file, const char *file_name
 		source_file_class_id = tm_work_object_register(tm_source_file_free
 		  , tm_source_file_update, NULL);
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Source File init: %s", file_name);
 #endif
 
@@ -59,7 +59,7 @@ TMWorkObject *tm_source_file_new(const char *file_name, gboolean update)
 
 void tm_source_file_destroy(TMSourceFile *source_file)
 {
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Destroying source file: %s", source_file->work_object.file_name);
 #endif
 
@@ -91,7 +91,7 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 		return FALSE;
 	}
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Parsing %s", source_file->work_object.file_name);
 #endif
 	file_name = source_file->work_object.file_name;
@@ -107,13 +107,13 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 		source_file->lang = getFileLanguage (file_name);
 	if (source_file->lang == LANG_IGNORE)
 	{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_warning("ignoring %s (unknown language)\n", file_name);
 #endif
 	}
 	else if (! LanguageTable [source_file->lang]->enabled)
 	{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		g_warning("ignoring %s (language disabled)\n", file_name);
 #endif
 	}
@@ -158,7 +158,7 @@ int tm_source_file_tags(const tagEntryInfo *tag)
 gboolean tm_source_file_update(TMWorkObject *source_file, gboolean force
   , gboolean __unused__ recurse, gboolean update_parent)
 {
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Updating source file %s", source_file->file_name);
 #endif
 	if (force || (tm_work_object_is_changed(source_file)))
@@ -168,12 +168,12 @@ gboolean tm_source_file_update(TMWorkObject *source_file, gboolean force
 		source_file->analyze_time = time(NULL);
 		if ((source_file->parent) && update_parent)
 		{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 			g_message("Updating parent..");
 #endif
 			tm_work_object_update(source_file->parent, TRUE, FALSE, TRUE);
 		}
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		else
 			g_message("Skipping parent update because parent is %s and update_parent is %s"
 			  , source_file->parent?"NOT NULL":"NULL", update_parent?"TRUE":"FALSE");

@@ -88,7 +88,10 @@ gboolean
 on_text_editor_window_delete (GtkWidget * widget,
 			      GdkEventFocus * event, gpointer user_data)
 {
-	on_close_file1_activate (NULL, NULL);
+#ifdef DEBUG
+	g_message ("Text editor window about to close: 0x%x", user_data);
+#endif
+	on_close_file1_activate (NULL, user_data);
 	return TRUE;
 }
 
@@ -226,11 +229,16 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	case SCN_UPDATEUI:
 		anjuta_update_app_status (FALSE, NULL);
 		te->current_line = text_editor_get_current_lineno (te);
+		return;
 		
+	case SCN_CHARADDED:
+		te->current_line = text_editor_get_current_lineno (te);
+		text_editor_set_indicator (te, te->current_line, -1);
+		return;
+
 /*	case SCEN_SETFOCUS:
 	case SCEN_KILLFOCUS:
 	case SCN_STYLENEEDED:
-	case SCN_CHARADDED:
 	case SCN_DOUBLECLICK:
 	case SCN_MODIFIED:
 	case SCN_MARGINCLICK:

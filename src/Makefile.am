@@ -32,7 +32,10 @@ SCILEXERS =\
 	../scintilla/LexBullant.o\
 	../scintilla/LexAda.o\
 	../scintilla/LexBaan.o\
-	../scintilla/LexMatlab.o
+	../scintilla/LexMatlab.o \
+	../scintilla/LexAsm.o \
+	../scintilla/LexFortran.o \
+	../scintilla/LexCSS.o
 
 bin_PROGRAMS = anjuta
 
@@ -41,6 +44,10 @@ anjuta_SOURCES = \
 	an_file_view.h\
 	an_symbol_view.c\
 	an_symbol_view.h\
+	anjuta-tools.c\
+	anjuta-tools.h\
+	anjuta-plugins.c\
+	anjuta-plugins.h\
 	aneditor.cxx\
 	aneditor.h\
 	anjuta.h\
@@ -79,7 +86,6 @@ anjuta_SOURCES = \
 	compiler_options.h\
 	compiler_options_cbs.c\
 	compiler_options_cbs.h\
-	compiler_options_gui.c\
 	configurer.c\
 	configurer.h\
 	controls.c\
@@ -92,6 +98,7 @@ anjuta_SOURCES = \
 	cvs_cbs.h\
 	debugger.c\
 	debugger.h\
+	debug_tree.h\
 	dnd.c\
 	dnd.h\
 	executer.c\
@@ -104,7 +111,6 @@ anjuta_SOURCES = \
 	find_in_files.h\
 	find_in_files_cbs.c\
 	find_in_files_cbs.h\
-	find_in_files_gui.c\
 	find_replace.c\
 	find_replace.h\
 	find_text.c\
@@ -125,6 +131,10 @@ anjuta_SOURCES = \
 	main_menubar_def.h\
 	mainmenu_callbacks.c\
 	mainmenu_callbacks.h\
+	memory.c\
+	memory.h\
+	messagebox.c\
+	messagebox.h\
 	message-manager.cc\
 	message-manager.h\
 	message-manager-private.cc\
@@ -134,7 +144,6 @@ anjuta_SOURCES = \
 	pixmaps.h\
 	preferences.c\
 	preferences.h\
-	preferences_gui.c\
 	project_config.c\
 	project_config.h\
 	project_dbase.c\
@@ -212,16 +221,10 @@ anjuta_SOURCES = \
 	defaults.h\
 	resources.c\
 	resources.h\
-	CORBA-Server.c\
-	CORBA-Server.h\
-	Gladen-common.c\
-	Gladen.h\
-	Prj.h\
-	glades.c\
-	Prj-common.c\
-	Gladen-stubs.c\
 	session.c\
-	session.h
+	session.h\
+	widget-registry.h\
+	widget-registry.c
 
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS)
@@ -230,3 +233,19 @@ anjuta_LDADD =  \
 	$(top_builddir)/widgets/libwidgets.a\
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
+
+
+EXTRA_DIST = \
+	anjuta_dialog_strings.c\
+	glades.h\
+	glades.c\
+	Prj-skelimpl.c\
+	Prj-skels.c\
+	Prj-stubs.c \
+	CORBA-Server.c\
+	CORBA-Server.h\
+	Gladen-common.c\
+	Gladen.h\
+	Prj.h\
+	Prj-common.c\
+	Gladen-stubs.c

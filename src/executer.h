@@ -43,17 +43,11 @@ struct _Executer
 Executer* executer_new(PropsID props);
 
 /* Executer is auto hide */
-void executer_show(Executer*);
+void executer_show (Executer *e);
+void executer_destroy (Executer *e);
+void executer_execute (Executer *e);
 
-void executer_destroy(Executer*);
-void executer_execute (Executer * e);
-
-void
-executer_save_session( Executer *e, ProjectDBase *p );
-void
-executer_load_session( Executer *e, ProjectDBase *p );
-
-
+void executer_save_session( Executer *e, ProjectDBase *p );
+void executer_load_session( Executer *e, ProjectDBase *p );
 
 #endif
-

@@ -43,7 +43,7 @@
     <title>サポート・ダイアログ</title>
     <screenshot>
 	<screeninfo>サポート・ダイアログ</screeninfo>
-     <graphic fileref="figures/supports" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/supports" format="png" srccredit="andyp">
     </screenshot>
    </figure>
    
@@ -106,7 +106,7 @@
      <title>ヘッダのパス設定ダイアログ</title>
      <screenshot>
 	 <screeninfo>ヘッダのパス設定ダイアログ</screeninfo>
-      <graphic fileref="figures/includes" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/includes" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -166,7 +166,7 @@
      <title>ライブラリのパス設定ダイアログ</title>
      <screenshot>
 	 <screeninfo>ライブラリのパス設定ダイアログ</screeninfo>
-      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -197,7 +197,7 @@
      <title>ライブラリ・ダイアログ</title>
      <screenshot>
 	 <screeninfo>ライブラリ・ダイアログ</screeninfo>
-      <graphic fileref="figures/libraries" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/libraries" format="png" srccredit="andyp">
      </screenshot>
    </figure>
    <para>
@@ -302,7 +302,7 @@
      <title>マクロ定義ダイアログ</title>
      <screenshot>
 	 <screeninfo>マクロ定義ダイアログ</screeninfo>
-      <graphic fileref="figures/defines" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/defines" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -343,7 +343,7 @@
      <title>警告設定ダイアログ</title>
      <screenshot>
 	 <screeninfo>警告設定ダイアログ</screeninfo>
-      <graphic fileref="figures/warnings" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/warnings" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -371,7 +371,7 @@
      <title>最適化の設定ダイアログ</title>
      <screenshot>
 	 <screeninfo>最適化の設定ダイアログ</screeninfo>
-      <graphic fileref="figures/optimizations" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/optimizations" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -406,7 +406,7 @@
      <title>その他のコンパイラ設定ダイアログ</title>
      <screenshot>
 	 <screeninfo>その他のコンパイラ設定ダイアログ</screeninfo>
-           <graphic fileref="figures/other_opts" format="png" srccredit="andyp"></graphic>
+           <graphic fileref="figures/other_opts" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>

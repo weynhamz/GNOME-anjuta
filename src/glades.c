@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+#ifdef USE_GLADEN
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -563,3 +566,4 @@ gladen_write_source( const gchar *szGladeFileName )
 	return bRetValue ;
 }
 
+#endif /* USE_GLADEN */

@@ -7,6 +7,8 @@ is now.
 
 	- Timothee Besset <timo@qeradiant.com>, for his patches,
 
+	- Sébastien Côté, for his print patch,
+	
 	- Roel Vanhout <roel@stack.be>, for his find and bookmarks patches,
 
 	- Pierre Sarrazin <sarrazip@sympatico.ca>, for his bug reports and 
@@ -14,6 +16,12 @@ is now.
 	
 	- Roy Wood <roy.wood@filogix.com>, for fixing the clipboard problem
 	  and code cleanups,
+	  
+	- Dave Huseby <huseby@shockfusion.com>, for his class generator
+	  plugin,
+	  
+	- Steven Knight <steven.knight@unh.edu>, for the Qt integration 
+	  work,
 
 	- Tina Hirsch <cevina@users.sourceforge.net>, for her wxWindows 
 	  project type patch,
@@ -25,6 +33,11 @@ is now.
 	  kickstart tutorial,
 	  
 	- Nick Dowell <nixx@nixx.org.uk>, for his Coded with Anjuta icon,
+	
+	- Kelly Bergougnoux <three3@users.sourceforge.net>, for the libglade2
+	  project type patch,
+	  	
+	- Dave Huseby <huseby@shockfusion.com>, for the class generator plugin,
 
 	- Todd Goyen <goyen@mbi-berlin.de>, for his Xlib project tupe patch, 
 	  other patches and new icon,
@@ -94,7 +107,7 @@ is now.
 	- Luca Bellonda <lbell@tsc4.com>, for his work on the Glade integration and his
 	  overall work on improving the project,
 
-	- Naba Kumar <kh_naba@users.sourceforge.net>, for presenting me this project as a gift of
+	- Naba Kumar <naba@gnome.org>, for presenting me this project as a gift of
 	  love. I shall value it for the whole of my life. :-)
 
 
@@ -104,7 +117,7 @@ in translating the project.
 	- Stéphane Démurget <demurgets@free.fr>, for his French translation,
 	- Javier Conde Rueda <f3285740@est.fib.upc.es>, for his Spanish translation,
 	- Takeshi Aihana <aihana@gnome.gr.jp>, for his Japanese translation,
-	- M.Ali Vardar <ali@gelecek.com.tr>, for his Turkish translation,
+	- M.Ali Vardar <ali@linuxprogramlama.com>, for his Turkish translation,
 	- Michele Campeotto <micampe@f2s.com>, for his Italian translation,
 	- Christian Rose <menthos@menthos.com>, for the Swedish and Danish translations,
 	- Yuriy Syrota <rasta@renome.rovno.ua>, for his Ukrainian translation,

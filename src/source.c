@@ -278,7 +278,10 @@ source_write_configure_in (ProjectDBase * data)
 				fprintf(fp, " ");
 		}
 		fprintf (fp,
-			 "\"\n" "AM_GNU_GETTEXT\n" "\n");
+			 "\"\nAM_GNU_GETTEXT\n");
+		fprintf (fp,
+			 "AM_GNU_GETTEXT_VERSION(0.10.40)\n\n");
+		
 		fprintf (fp,
 			 "dnl Set PACKAGE_LOCALE_DIR in config.h.\n"
 			 "if test \"x${prefix}\" = \"xNONE\"; then\n"
@@ -384,7 +387,7 @@ source_write_configure_in (ProjectDBase * data)
 		fprintf (fp, "macros/Makefile\n");
 	}
 
-	list = glist_from_string (data->project_config->extra_modules_before);
+	list = glist_from_data (data->props, "project.config.extra.modules.before");
 	node = list;
 	while (node)
 	{
@@ -423,7 +426,7 @@ source_write_configure_in (ProjectDBase * data)
 		}
 	}
 
-	list = glist_from_string (data->project_config->extra_modules_after);
+	list = glist_from_data (data->props, "project.config.extra.modules.after");
 	node = list;
 	while (node)
 	{
@@ -457,6 +460,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	FILE *fp;
 	gchar *filename, *actual_file, *target, *prj_name;
 	gint i;
+	gchar *str;
 	Project_Type* type;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -483,8 +487,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	if (type->gnome_support)
 		fprintf (fp, " macros");
 
-	if (data->project_config->extra_modules_before)
-		fprintf (fp, " %s", data->project_config->extra_modules_before);
+	str = prop_get (data->props, "project.config.extra.modules.before");
+	if (str) {
+		fprintf (fp, " %s", str);
+		g_free (str);
+	}
 
 	for (i = 0; i < MODULE_END_MARK; i++)
 	{
@@ -503,8 +510,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		}
 	}
 
-	if (data->project_config->extra_modules_after)
-		fprintf (fp, " %s", data->project_config->extra_modules_after);
+	str = prop_get (data->props, "project.config.extra.modules.after");
+	if (str) {
+		fprintf (fp, " %s", str);
+		g_free (str);
+	}
 
 	fprintf (fp, "\n\n");
 
@@ -528,8 +538,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 			"\\\n\tABOUT-NLS");
 	}
 	fprintf (fp,
-		"\n\nEXTRA_DIST = %s $(%sdoc_DATA)\n\n",
-		extract_filename (prj_name), target);
+		"\n\nEXTRA_DIST = $(%sdoc_DATA)\n\n", target);
 	if(type->gnome_support)
 	{
 		gchar *group;
@@ -568,11 +577,11 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 static gboolean
 source_write_macros_files (ProjectDBase * data)
 {
-	static const gchar *files[] = {
+	static const gchar *gnome1_files[] = {
 		"ChangeLog",
 		"Makefile.am",
-		"aclocal-include.m4",
 		"autogen.sh",
+		"aclocal-include.m4",
 		"compiler-flags.m4",
 		"curses.m4",
 		"gnome-bonobo-check.m4",
@@ -597,10 +606,29 @@ source_write_macros_files (ProjectDBase * data)
 		"need-declaration.m4",
 		NULL
 	};
+	static const gchar *gnome2_files[] = {
+		"ChangeLog",
+		"Makefile.am",
+		"autogen.sh",
+		"check-utmp.m4",
+		"gnome-cxx-check.m4",
+		"gnome-pthread-check.m4",
+		"compiler-flags.m4",
+		"gnome-gettext.m4",
+		"gnome-x-checks.m4",
+		"curses.m4",
+		"gnome-pkgconfig.m4",
+		"linger.m4",
+		"gnome-common.m4",
+		"gnome-platform.m4",
+		NULL
+	};
+	gchar const **files;
 	/* This is the maximum length of the above filenames, so we can use the
 	 * same buffers for each file. */
 	static const gint MAX_MACROS_FILENAME_LEN = 64;
 	gchar *srcbuffer, *destbuffer;
+	Project_Type* type;
 	gint i;
 
 	g_return_val_if_fail (data != NULL, FALSE);
@@ -615,9 +643,21 @@ source_write_macros_files (ProjectDBase * data)
 	sprintf (destbuffer, "%s/macros", data->top_proj_dir);
 	force_create_dir (destbuffer);
 
+	type = project_dbase_get_project_type(data);
+	
+	if (type->gnome2_support) {
+		files = gnome2_files;
+	} else {
+		files = gnome1_files;
+	}
 	for (i = 0; files[i]; i++)
 	{
-		sprintf (srcbuffer, "%s/gnome/%s", app->dirs->data, files[i]);
+		if (type->gnome2_support)
+		{
+			sprintf (srcbuffer, "%s/gnome2/%s", app->dirs->data, files[i]);
+		} else {
+			sprintf (srcbuffer, "%s/gnome/%s", app->dirs->data, files[i]);
+		}
 		sprintf (destbuffer, "%s/macros/%s", data->top_proj_dir, files[i]);
 		if (file_is_regular (destbuffer) == FALSE)
 		{
@@ -1231,6 +1271,8 @@ source_write_data_files (ProjectDBase * data)
 	return TRUE;
 }
 
+/* FIXME: Newer autoconf deprecates the use of this file, but just
+gives a little warning */
 static gboolean
 source_write_acconfig_h (ProjectDBase * data)
 {
@@ -1274,6 +1316,79 @@ source_write_acconfig_h (ProjectDBase * data)
 		 "#undef PACKAGE_SOURCE_DIR\n");
 	fclose (fp);
 	g_free (filename);
+	return TRUE;
+}
+
+static gboolean
+source_write_acinclude_m4 (ProjectDBase * data)
+{
+	FILE *fp;
+	gchar *filename;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	filename = g_strconcat (data->top_proj_dir, "/acinclude.m4", NULL);
+
+	/* FIXME: If file exists, just leave it, for now. */
+	if (file_is_regular (filename))
+	{
+		g_free (filename);
+		return TRUE;
+	}
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		return FALSE;
+	}
+
+	fprintf (fp, "AC_DEFUN([AM_GNU_GETTEXT_VERSION], [])\n");
+	fclose (fp);
+	g_free (filename);
+	return TRUE;
+}
+
+/* Copies the generic autogen.sh script which runs aclocal, automake
+   & autoconf to create the Makefiles etc. */
+static gboolean
+source_write_setup_gettext (ProjectDBase * data)
+{
+	gchar *srcbuffer, *destbuffer;
+	gint old_umask;
+	Project_Type* type;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	type = project_dbase_get_project_type(data);
+
+	srcbuffer = g_strconcat (app->dirs->data, "/setup-gettext", NULL);
+	destbuffer = g_strconcat (data->top_proj_dir, "/setup-gettext", NULL);
+
+	/* FIXME: If *.desktop.in exists, just leave it, for now. */
+	if (file_is_regular (destbuffer))
+	{
+		g_free (destbuffer);
+		g_free (srcbuffer);
+		return TRUE;
+	}
+
+	if (!copy_file (srcbuffer, destbuffer, FALSE))
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), destbuffer);
+		g_free (destbuffer);
+		g_free (srcbuffer);
+		return FALSE;
+	}
+
+	/* We need to make the script executable, but we try to honour any umask. */
+	old_umask = umask (0666);
+	chmod (destbuffer, 0777 & ~old_umask);
+	umask (old_umask);
+
+	g_free (srcbuffer);
+	g_free (destbuffer);
 	return TRUE;
 }
 
@@ -1429,7 +1544,7 @@ source_write_glade_file (ProjectDBase * data)
 	else if (type->id == PROJECT_TYPE_GTKMM ||
 			type->id == PROJECT_TYPE_GNOMEMM ||
 			type->id == PROJECT_TYPE_GTKMM2 ||
-			type->id == PROJECT_TYPE_GNOMEMM2)
+			type->id == PROJECT_TYPE_GNOMEMM2 )
 	{	
 		fprintf(fp, "  <language>CPP</language>\n");
 	}
@@ -1483,15 +1598,19 @@ source_write_glade_file (ProjectDBase * data)
 	free_project_type(type);
 	fflush( fp );
 	if( ferror( fp ) )
-	{		anjuta_system_error (errno, _("Error writing to: %s."), filename);
+	{
+		anjuta_system_error (errno, _("Error writing to: %s."), filename);
 		bOK = FALSE ;
 	}
 	fclose (fp);
+
+#ifdef USE_GLADEN
 	if( bOK )
 	{
 		gladen_load_project(filename);
 		gladen_add_main_components();
 	}
+#endif /* USE_GLADEN */
 	g_free( filename );
 	return bOK ;
 }
@@ -2463,38 +2582,26 @@ source_write_build_files (ProjectDBase * data)
 	if (!ret) return FALSE;
 	ret = source_write_acconfig_h (data);
 	if (!ret) return FALSE;
+	ret = source_write_acinclude_m4 (data);
+	if (!ret) return FALSE;
+	ret = source_write_setup_gettext (data);
+	if (!ret) return FALSE;
 
 	type = project_dbase_get_project_type (data);
 	if (type->glade_support)
 	{
-		switch (type->id)
-		{
-			case PROJECT_TYPE_GTK:
-			case PROJECT_TYPE_GTKMM:
-			case PROJECT_TYPE_GTK2:
-			case PROJECT_TYPE_GTKMM2:
-				ret = source_write_glade_file (data);
-				if (!ret) return FALSE;
-				break;
-			case PROJECT_TYPE_GNOME:
-			case PROJECT_TYPE_GNOME2:
-			case PROJECT_TYPE_BONOBO:
-			case PROJECT_TYPE_LIBGLADE:
-			case PROJECT_TYPE_LIBGLADE2:
-			case PROJECT_TYPE_GNOMEMM:
-			case PROJECT_TYPE_GNOMEMM2:
-				ret = source_write_desktop_entry (data);
-				if (!ret) return FALSE;
-				ret = source_write_glade_file (data);
-				if (!ret) return FALSE;
-				ret = source_write_macros_files (data);
-				if (!ret) return FALSE;
-				break;
-			default:
-				anjuta_error (_("The Project type you have chosen does not support the use of Glade."));
-				free_project_type(type);
-				return FALSE;
-		}
+		ret = source_write_glade_file (data);
+		if (!ret) return FALSE;
+	}
+	if (type->gnome_support)
+	{
+		ret = source_write_desktop_entry (data);
+		if (!ret) return FALSE;
+	}
+	if (type->gnome_support)
+	{
+		ret = source_write_macros_files (data);
+		if (!ret) return FALSE;
 	}
 	free_project_type(type);
 

@@ -22,22 +22,22 @@
 #define CVS_CBS_H
 
 /* CVS Settings */
-void on_cvs_login_ok (GtkWidget * button, CVSLoginGUI * gui);
-void on_cvs_login_cancel (GtkWidget * button, CVSLoginGUI * gui);
+void on_cvs_login_dialog_response (GtkWidget *dialog, gint response,
+                                   CVSLoginGUI *gui);
 
 /* CVS File Dialog */
-void on_cvs_ok (GtkWidget * button, CVSFileGUI * gui);
-void on_cvs_cancel (GtkWidget * button, CVSFileGUI* gui);
+void on_cvs_dialog_response (GtkWidget *dialog, gint response,
+                             CVSFileGUI *gui);
 
 /* CVS File Diff Dialog */
-void on_cvs_diff_ok (GtkWidget* button, CVSFileDiffGUI * gui);
-void on_cvs_diff_cancel (GtkWidget* button, CVSFileDiffGUI * gui);
+void on_cvs_diff_dialog_response (GtkWidget *dialog, gint response,
+                                  CVSFileDiffGUI *gui);
 
 /* CVS Import Dialog */
-void on_cvs_import_ok (GtkWidget* button, CVSImportGUI * gui);
-void on_cvs_import_cancel (GtkWidget* button, CVSImportGUI * gui);
+void on_cvs_import_dialog_response (GtkWidget *dialog, gint response,
+                                    CVSImportGUI *gui);
 
-void on_cvs_type_combo_changed (GtkWidget* entry, CVSImportGUI* gui);
-void on_cvs_diff_use_date_toggled (GtkToggleButton* b, CVSFileDiffGUI* gui);
+void on_cvs_type_combo_changed (GtkWidget *entry, CVSImportGUI *gui);
+void on_cvs_diff_use_date_toggled (GtkToggleButton *b, CVSFileDiffGUI *gui);
 
 #endif

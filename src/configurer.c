@@ -30,19 +30,18 @@
 #include <gnome.h>
 
 #include "anjuta.h"
+#include "message-manager.h"
 #include "text_editor.h"
-#include "messagebox.h"
 #include "utilities.h"
 #include "launcher.h"
 #include "configurer.h"
 #include "resources.h"
 
 static GtkWidget* create_configurer_dialog(Configurer* c);
+static void on_configurer_ok_clicked (GtkButton *button, gpointer data);
+static void on_configurer_entry_changed (GtkEditable *editable, gpointer data);
+static void on_configurer_environment_changed (GtkEditable * editable, gpointer user_data);
 
-static void on_configurer_ok_clicked                  (GtkButton       *button,
-                                        gpointer         user_data);
-static void on_configurer_entry_changed              (GtkEditable     *editable,
-                                        gpointer         user_data);
 static void conf_mesg_arrived(gchar *mesg);
 static void conf_terminated(int status, time_t t);
 
@@ -50,8 +49,7 @@ Configurer *
 configurer_new (PropsID props)
 {
 	Configurer *c = malloc (sizeof (Configurer));
-	if (c)
-	{
+	if (c) {
 		c->props = props;
 	}
 	return c;
@@ -72,97 +70,64 @@ configurer_show (Configurer * c)
 static GtkWidget *
 create_configurer_dialog (Configurer * c)
 {
-	GtkWidget *dialog2;
-	GtkWidget *dialog_vbox2;
-	GtkWidget *frame2;
-	GtkWidget *vbox2;
-	GtkWidget *frame3;
-	GtkWidget *combo2;
-	GtkWidget *combo_entry2;
-	GtkWidget *dialog_action_area2;
-	GtkWidget *button4;
-	GtkWidget *button6;
-	gchar* options;
-
-	dialog2 = gnome_dialog_new (_("Configure"), NULL);
-	gtk_widget_set_usize (dialog2, 400, -2);
-	gtk_window_set_position (GTK_WINDOW (dialog2), GTK_WIN_POS_CENTER);
-	gtk_window_set_policy (GTK_WINDOW (dialog2), FALSE, FALSE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog2), "config", "Anjuta");
-	gnome_dialog_set_close (GNOME_DIALOG (dialog2), TRUE);
-
-	dialog_vbox2 = GNOME_DIALOG (dialog2)->vbox;
-	gtk_widget_show (dialog_vbox2);
-
-	frame2 = gtk_frame_new (NULL);
-	gtk_widget_show (frame2);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox2), frame2, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
-
-	vbox2 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox2);
-	gtk_container_add (GTK_CONTAINER (frame2), vbox2);
-
-	frame3 = gtk_frame_new (_("Configure Options"));
-	gtk_widget_show (frame3);
-	gtk_box_pack_start (GTK_BOX (vbox2), frame3, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
-
-	combo2 = gtk_combo_new ();
-	gtk_widget_show (combo2);
-	gtk_container_add (GTK_CONTAINER (frame3), combo2);
-	gtk_container_set_border_width (GTK_CONTAINER (combo2), 5);
-
-	combo_entry2 = GTK_COMBO (combo2)->entry;
-	gtk_widget_show (combo_entry2);
-
-	dialog_action_area2 = GNOME_DIALOG (dialog2)->action_area;
-	gtk_widget_show (dialog_action_area2);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area2),
-				   GTK_BUTTONBOX_EDGE);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area2), 8);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog2),
-				    GNOME_STOCK_BUTTON_OK);
-	button4 = g_list_last (GNOME_DIALOG (dialog2)->buttons)->data;
-	gtk_widget_show (button4);
-	GTK_WIDGET_SET_FLAGS (button4, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog2),
-				    GNOME_STOCK_BUTTON_CANCEL);
-	button6 = g_list_last (GNOME_DIALOG (dialog2)->buttons)->data;
-	gtk_widget_show (button6);
-	GTK_WIDGET_UNSET_FLAGS (button6, GTK_CAN_FOCUS);
-	GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
-
+	GtkWidget *dialog;
+	GtkWidget *entry;
+	GtkWidget *ok_button;
+	gchar *options;
+	
+	dialog = glade_xml_get_widget (app->gxml, "configurer_dialog");
+	ok_button = glade_xml_get_widget (app->gxml, "configurer_ok_button");
+	g_signal_connect (G_OBJECT (ok_button), "clicked",
+			    G_CALLBACK (on_configurer_ok_clicked), c);
+	
+	entry = glade_xml_get_widget (app->gxml, "configurer_entry");
 	options = prop_get (c->props, "project.configure.options");
 	if (options)
 	{
-		gtk_entry_set_text (GTK_ENTRY (combo_entry2), options);
+		gtk_entry_set_text (GTK_ENTRY (entry), options);
 		g_free (options);
 	}
+	g_signal_connect (G_OBJECT (entry), "changed",
+			    G_CALLBACK (on_configurer_entry_changed), c);
+	
+	entry = glade_xml_get_widget (app->gxml, "configurer_environment_entry");
+	options = prop_get (c->props, "project.configure.environment");
+	if (options)
+	{
+		gtk_entry_set_text (GTK_ENTRY (entry), options);
+		g_free (options);
+	}
+	g_signal_connect (G_OBJECT (entry), "changed",
+			    G_CALLBACK (on_configurer_environment_changed), c);
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog2));
-
-	gtk_signal_connect (GTK_OBJECT (combo_entry2), "changed",
-			    GTK_SIGNAL_FUNC (on_configurer_entry_changed), c);
-	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
-			    GTK_SIGNAL_FUNC (on_configurer_ok_clicked), c);
-
-	return dialog2;
+	/* gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog)); */
+	return dialog;
 }
 
 static void
 on_configurer_entry_changed (GtkEditable * editable, gpointer user_data)
 {
-	Configurer *c = user_data;
-	gchar *options;
+	Configurer *c = (Configurer *) user_data;
+	const gchar *options;
 	options = gtk_entry_get_text (GTK_ENTRY (editable));
 	if (options)
 		prop_set_with_key (c->props, "project.configure.options",
 				   options);
 	else
 		prop_set_with_key (c->props, "project.configure.options", "");
+}
+
+static void
+on_configurer_environment_changed (GtkEditable * editable, gpointer user_data)
+{
+	Configurer *c = (Configurer *) user_data;
+	const gchar *options;
+	options = gtk_entry_get_text (GTK_ENTRY (editable));
+	if (options)
+		prop_set_with_key (c->props, "project.configure.environment",
+				   options);
+	else
+		prop_set_with_key (c->props, "project.configure.environment", "");
 }
 
 static void
@@ -193,6 +158,16 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	{
 		tmp = g_strdup ("./configure ");
 	}
+	options = prop_get(cof->props, "project.configure.environment");
+	if (options)
+	{
+		gchar *tmp1 = g_strdup_printf("sh -c '%s %s'", options, tmp);
+		g_free(tmp);
+		tmp = tmp1;
+	}
+#ifdef DEBUG
+	g_message("Executing '%s'\n", tmp);
+#endif
 	if (launcher_execute (tmp, conf_mesg_arrived,
 		conf_mesg_arrived, conf_terminated) == FALSE)
 	{

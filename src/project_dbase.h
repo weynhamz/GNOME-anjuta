@@ -64,13 +64,13 @@ enum
 	PROJECT_TYPE_GNOME2,
 	PROJECT_TYPE_LIBGLADE2,
 	PROJECT_TYPE_GNOMEMM2,
+	PROJECT_TYPE_BONOBO2,
 	PROJECT_TYPE_XWIN,
 	PROJECT_TYPE_XWINDOCKAPP,
 	PROJECT_TYPE_END_MARK
 };
 
-/* Do not break the sequence of the following enums.*/
-/* only append */
+/* Do not break the sequence of the following enums.*/ /* only append */
 enum
 {
 	PROJECT_TARGET_TYPE_EXECUTABLE,
@@ -148,7 +148,6 @@ struct _ProjectDBase
 	gdouble progress_state;
 	PrjModule sel_module;
 	gboolean	m_prj_ShowLocal;	/* Cfg to show local variables */
-	GList* excluded_modules;
 };
 
 extern gchar* module_map[];
@@ -202,6 +201,8 @@ project_dbase_close_project (ProjectDBase * p);
 gboolean project_dbase_save_project (ProjectDBase * p);
 
 void project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild);
+
+void project_dbase_sync_tags_image(ProjectDBase* p);
 
 gboolean project_dbase_save_yourself (ProjectDBase * p, FILE * stream);
 
@@ -307,6 +308,11 @@ project_dbase_clean_left (ProjectDBase * p);
 /* it is simply added */
 void
 project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module, gchar * filename);
+
+/* Really adds the file. The file physically copied in the right */
+/* place and modules are updated */
+void
+project_dbase_import_file_real (ProjectDBase * p, PrjModule module, gchar * filename);
 
 /* remove file form the module */
 void

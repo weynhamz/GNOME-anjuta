@@ -41,6 +41,8 @@
 #include "properties.h"
 #include "aneditor.h"
 
+#include <libgnomeui/gnome-window-icon.h>
+
 gint
 on_text_editor_key_pressed (GtkWidget * widget, GdkEventKey * event,
 			    gpointer data);
@@ -76,6 +78,8 @@ create_text_editor_gui (TextEditor * te)
 	static guint current_id;
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
+	gnome_window_icon_set_from_default((GtkWindow *) window1);
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "editor", "Anjuta");
 	gtk_widget_set_usize (window1, 200, 200);
 	gtk_widget_set_uposition (window1, te->geom.x, te->geom.y);
@@ -312,11 +316,14 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect (GTK_OBJECT (button5), "clicked",
 			    GTK_SIGNAL_FUNC (on_reload_file1_activate), te);
 	gtk_signal_connect (GTK_OBJECT (button6), "clicked",
-			    GTK_SIGNAL_FUNC (on_cut1_activate), te);
+			    GTK_SIGNAL_FUNC (on_editor_command_activate)
+				, (gpointer) ANE_CUT);
 	gtk_signal_connect (GTK_OBJECT (button7), "clicked",
-			    GTK_SIGNAL_FUNC (on_copy1_activate), te);
+			    GTK_SIGNAL_FUNC (on_editor_command_activate)
+				, (gpointer) ANE_COPY);
 	gtk_signal_connect (GTK_OBJECT (button8), "clicked",
-			    GTK_SIGNAL_FUNC (on_paste1_activate), te);
+			    GTK_SIGNAL_FUNC (on_editor_command_activate)
+				, (gpointer) ANE_PASTE);
 	gtk_signal_connect (GTK_OBJECT (button9), "clicked",
 			    GTK_SIGNAL_FUNC (on_find1_activate), te);
 	gtk_signal_connect (GTK_OBJECT (button10), "clicked",

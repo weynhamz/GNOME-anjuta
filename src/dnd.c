@@ -81,7 +81,12 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		
 		*(tmpptr - 1) = '\0'; /* remove the \r and end the string */			
 		
-		dnd_data_dropped(tmppath+5, user_data);
+		/* Some dumb software drops URI without "file:" in the begining */
+		if (strncasecmp (tmppath, "file:", 5) == 0) {
+			dnd_data_dropped(tmppath+5, user_data);
+		} else {
+			dnd_data_dropped(tmppath, user_data);
+		};
 		
 		tmpptr = tmppath;
 		tmp1++;					

@@ -23,8 +23,11 @@
 #include "pixmaps.h"
 #include "preferences.h"
 
+#include <libgnomeui/gnome-window-icon.h>
+
 extern "C"
 {
+#include "anjuta.h"
 #include "utilities.h"
 };
 
@@ -33,15 +36,16 @@ extern "C"
 enum
 {
 	MESSAGE_CLICKED,
+	MESSAGE_INDICATE,
 	SIGNALS_END
 };
 
-static guint anjuta_message_manager_signals[SIGNALS_END] = { 0 };
+static guint anjuta_message_manager_signals[SIGNALS_END] = { 0, 0 };
 
 // Data:
 static char *labels[] =
-	{ _("Build"), _("Debug"), _("Find"), _("CVS"), _("Locals"),
-_("Terminal") };
+	{ N_("Build"), N_("Debug"), N_("Find"), N_("CVS"), N_("Locals"),
+N_("Terminal"), N_("Stdout"), N_("Stderr") };
 
 // Intern functions
 static void anjuta_message_manager_destroy (GtkObject * object);
@@ -65,6 +69,22 @@ static gboolean on_mesg_event (GtkCList *list, GdkEvent * event, gpointer user_d
 // Intern functions:
 
 GtkFrameClass *parent_class;
+
+typedef void (*GtkSignal_NONE__POINTER_INT_POINTER_LONG_INT)(gpointer, gint, gpointer, glong, gint);
+
+void marshal_NONE__POINTER_INT_POINTER_LONG_INT(GtkObject*    object,
+					   GtkSignalFunc func,
+					   gpointer      func_data,
+                       GtkArg*       args)
+{
+	GtkSignal_NONE__POINTER_INT_POINTER_LONG_INT rfunc;
+	rfunc = (GtkSignal_NONE__POINTER_INT_POINTER_LONG_INT)func;
+	(*rfunc)(object,
+			   GTK_VALUE_INT(args[0]),
+			   GTK_VALUE_POINTER(args[1]),
+			   GTK_VALUE_LONG(args[2]),
+			   GTK_VALUE_INT(args[3]));
+}
 
 GtkWidget *
 anjuta_message_manager_new ()
@@ -111,6 +131,15 @@ anjuta_message_manager_class_init (AnjutaMessageManagerClass * klass)
 						   message_clicked),
 				gtk_marshal_NONE__POINTER, GTK_TYPE_NONE,
 				1, GTK_TYPE_POINTER);
+
+	anjuta_message_manager_signals[MESSAGE_INDICATE] =
+		gtk_signal_new ("message_indicate", GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (AnjutaMessageManagerClass,
+						   message_indicate),
+				marshal_NONE__POINTER_INT_POINTER_LONG_INT, GTK_TYPE_NONE,
+				4, GTK_TYPE_INT, GTK_TYPE_POINTER,
+				GTK_TYPE_LONG, GTK_TYPE_INT);
 
 	gtk_object_class_add_signals (object_class,
 				      anjuta_message_manager_signals,
@@ -211,7 +240,17 @@ anjuta_message_manager_add_type (AnjutaMessageManager * amm, gint type_name,
 	}
 
 	MessageSubwindow *sub_win;
-	if (type_name != MESSAGE_TERMINAL)
+	if (type_name == MESSAGE_TERMINAL)
+	{
+		TerminalWindow *window = new TerminalWindow (amm, type_name, type, pixmap);
+		sub_win = window;
+	}
+	else if (type_name == MESSAGE_LOCALS)
+	{
+	    LocalsWindow* window = new LocalsWindow(amm, type_name, type, pixmap);
+	    sub_win = window;
+	}
+	else 
 	{
 		AnjutaMessageWindow *window =
 			new AnjutaMessageWindow (amm, type_name, type, pixmap);
@@ -223,12 +262,6 @@ anjuta_message_manager_add_type (AnjutaMessageManager * amm, gint type_name,
 				    "event",
 				    GTK_SIGNAL_FUNC (on_mesg_event),
 				    window);
-		sub_win = window;
-	}
-	else
-	{
-		TerminalWindow *window =
-			new TerminalWindow (amm, type_name, type, pixmap);
 		sub_win = window;
 	}
 	amm->intern->msg_windows.push_back (sub_win);
@@ -292,6 +325,51 @@ anjuta_message_manager_append (AnjutaMessageManager * amm,
 		}
 	}
 	return true;
+}
+
+// Returns the subwindow according to the requested type
+MessageSubwindow *
+anjuta_message_manager_get_window(AnjutaMessageManager * amm,gint type_name)
+{
+	if (!amm)
+	  return NULL;
+	
+	string type = labels[type_name];
+	vector < MessageSubwindow * >::iterator cur_win;
+
+	if (!amm->intern->msg_windows.empty ())
+	{
+		bool found = false;
+		for (cur_win = amm->intern->msg_windows.begin ();
+		     cur_win != amm->intern->msg_windows.end (); cur_win++)
+		{
+			if ((*cur_win)->get_type () == type)
+			{
+				found = true;
+				//				if (!dynamic_cast < AnjutaMessageWindow * >(*cur_win))
+				//return NULL;
+				if (!(*cur_win)->is_shown ())
+				{
+					(*cur_win)->activate ();
+				}
+				break;
+			}
+		}
+		if (!found)
+		{
+			g_warning (_("Could not find message type %s!\n"),
+				   type.c_str ());
+			return NULL;
+		}
+	}
+	else
+	{
+		return NULL;
+	}
+	//	AnjutaMessageWindow *window =
+	//dynamic_cast < AnjutaMessageWindow * >(*cur_win);
+	//return window;
+	return *cur_win;
 }
 
 // Sent a "message_click" event as if the next message was clicked
@@ -378,6 +456,36 @@ anjuta_message_manager_previous (AnjutaMessageManager * amm)
 }
 
 void
+anjuta_message_manager_indicate_error (AnjutaMessageManager * amm, gint type_name,
+		gchar* file, glong line)
+{
+	if (type_name) return; // Only for Build messages.
+	gtk_signal_emit(GTK_OBJECT(amm), 
+				anjuta_message_manager_signals[MESSAGE_INDICATE],
+				type_name, file, line, MESSAGE_INDICATOR_ERROR);
+}
+
+void
+anjuta_message_manager_indicate_warning (AnjutaMessageManager * amm, gint type_name,
+		gchar* file, glong line)
+{
+	if (type_name) return; // Only for Build messages.
+	gtk_signal_emit(GTK_OBJECT(amm),
+				anjuta_message_manager_signals[MESSAGE_INDICATE],
+				type_name, file, line, MESSAGE_INDICATOR_WARNING);
+}
+
+void
+anjuta_message_manager_indicate_others (AnjutaMessageManager * amm, gint type_name,
+		gchar* file, glong line)
+{
+	// Any message
+	gtk_signal_emit(GTK_OBJECT(amm),
+				anjuta_message_manager_signals[MESSAGE_INDICATE],
+				type_name, file, line, MESSAGE_INDICATOR_OTHERS);
+}
+
+void
 anjuta_message_manager_show (AnjutaMessageManager * amm, gint type_name)
 {
 	g_return_if_fail(amm != NULL);
@@ -424,13 +532,19 @@ anjuta_message_manager_info_locals (AnjutaMessageManager * amm, GList * lines,
 	g_return_if_fail (amm != NULL);
 	if (g_list_length (lines) < 1)
 		return;
-	while (lines)
+	MessageSubwindow* window = anjuta_message_manager_get_window(amm,MESSAGE_LOCALS);
+	if (!window) 
 	{
-		anjuta_message_manager_append (amm, (char *) lines->data,
-					       MESSAGE_LOCALS);
-		anjuta_message_manager_append (amm, "\n", MESSAGE_LOCALS);
-		lines = g_list_next (lines);
+		// g_print ("anjuta_message_manager_get_window error\n");
+		return;
 	}
+	LocalsWindow* locals_window = dynamic_cast<LocalsWindow*>(window);
+	if (!locals_window)
+	{
+		// g_print ("dynamic cast to locals window error\n");
+		return;
+	}
+	locals_window->update_view(lines);
 }
 
 void
@@ -444,9 +558,14 @@ anjuta_message_manager_clear (AnjutaMessageManager * amm, gint type_name)
 	{
 		if ((*cur_win)->get_type () == string (labels[type_name]))
 		{
-			AnjutaMessageWindow *win = dynamic_cast < AnjutaMessageWindow * >(*cur_win);
+			(*cur_win)->clear();
+			if (type_name == 0) {
+				anjuta_delete_all_indicators();
+			}
+			/*AnjutaMessageWindow *win = dynamic_cast < AnjutaMessageWindow * >(*cur_win);
 			if (win != 0)
 				win->clear ();
+				win->clear ();*/
 			break;
 		}
 	}
@@ -480,6 +599,8 @@ anjuta_message_manager_undock (AnjutaMessageManager * amm)
 		amm->intern->is_docked = false;
 		
 		amm->intern->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+		gtk_window_set_transient_for(GTK_WINDOW(amm->intern->window), GTK_WINDOW(app->widgets.window));
+		gnome_window_icon_set_from_default((GtkWindow *) amm->intern->window);
 		gtk_window_set_wmclass(GTK_WINDOW(amm->intern->window), "message-manager", "anjuta");
 		gtk_window_set_title(GTK_WINDOW(amm->intern->window), _("Messages"));
 		gtk_window_set_default_size(GTK_WINDOW(amm->intern->window), amm->intern->width, amm->intern->height);
@@ -636,6 +757,8 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 		amm->intern->color_message2.blue = b * factor;
 		g_free(color);
 	}
+
+	anjuta_delete_all_indicators();
 	
 	typedef vector < MessageSubwindow * >::iterator I;
 	for (I cur_win = amm->intern->msg_windows.begin ();
@@ -879,6 +1002,10 @@ create_default_types (AnjutaMessageManager * amm)
 	anjuta_message_manager_add_type (amm, MESSAGE_LOCALS,
 					 ANJUTA_PIXMAP_MINI_LOCALS);
 	anjuta_message_manager_add_type (amm, MESSAGE_TERMINAL,
+					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	anjuta_message_manager_add_type (amm, MESSAGE_STDOUT,
+					 ANJUTA_PIXMAP_MINI_TERMINAL);
+	anjuta_message_manager_add_type (amm, MESSAGE_STDERR,
 					 ANJUTA_PIXMAP_MINI_TERMINAL);
 	
 	// Fix for bug #509192 (Crash on next message)

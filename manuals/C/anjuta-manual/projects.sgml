@@ -103,8 +103,29 @@
     </para>
     <para>
      As soon as a project is opened, <application>Anjuta</application> will enter 
-	 <emphasis>Project mode</emphasis>. 
+	 <emphasis>Project mode</emphasis>. There are three panes in the project window. The
+     first is the project pane and lists the project files organized in file types. The second
+     is the symbol browser, which has already been discussed in section <emphasis>Symbol
+     Browser and tags Brwoser</emphasis>. The third pane is the file view of the project and
+     is more or less similar to a mini file-manager. In file view, all the files present
+     in the project tree is visible. Right clicking on these files will pop up the file
+     operation submenu.
     </para>
+    <para>
+     If the project is also a CVS tree, then corrosponing file revision numbers are also
+     listing on the right of file names in the file view pane.
+    </para>
+   </sect2>
+   <sect2 id="importingprj">
+    <title>Importing Projects</title>
+    <para>
+     The import project feature is used to import an already existing project and convert it into
+     <application>anjuta</application> projcect. Activate the import project wizard from
+     <menuchoice><guimenu>File</guimenu><guimenuitem>Import project</guimenuitem></menuchoice>
+     and follow instructions dictated by the wizard. Once the project is imported, it could be
+     opened in <application>anjuta</application> subsequently just like any other <application>
+     anjuta</application> project.
+    </para> 
    </sect2>
    <sect2 id="savingprj">
     <title>Saving Projects</title>
@@ -191,8 +212,57 @@
   <sect1 id="project-config">
    <title>Project Configuration</title>
    <para>
-    FIXME:
+    Projects created by the wizard are further customizable. During the course of your
+    project development, you are likely to add more features and more codes which will
+    require new configuration setup. Goto <menuchoice><guimenu>Project</guimenu><guimenuitem>
+    Project Configuration</guimenuitem></menuchoice> to bring up the configuration dialog.
    </para>
+   <orderedlist>
+   <listitem><para><emphasis>Descriptoin:</emphasis>
+   This page contains the short descrption of your project which was provided during
+   the project creation. Description of the project could be updated from here.</para>
+   </listitem>
+   <listitem><para><emphasis>Build files:</emphasis> Some of the project's build
+   files are managed by anjuta by default. These files are configure.in and various Makefile.am
+   of the project. If you need to manually edit these files, disable them from being overwritten
+   by <application>anjuta</application>. They could be disabled from overwriting by selecting the
+   check boxes against them. Once that is done, <application>anjuta</application> will no
+   longer overwrite them and hence you can freely edit those files.</para>
+   </listitem>
+   <listitem><para><emphasis>Configuration scripts:</emphasis> Configure.in file, which could
+   be found in the top level project directory, contains autoconf macros and scripts for configuring
+   your application. You can provide additional scripts here for testing, setting macro variable etc.
+   for your project. This would require you to have enough knowledge of autoconf/automake and to 
+   code them properly.</para>
+   </listitem>
+   <listitem><para><emphasis>Extra Modules:</emphasis>Application wizard creates only a set 
+   of most common directories for your project. If you later wish to add more directories (for
+   example when your project becomes bigger), you can specify the sub-directories here. These
+   subdirectories will be made part of your project and their Makefiles will be configured
+   when the project is configured. The sub-directory names should be space sapareted in the
+   list. Two lists could be formed. First one will be build before src directory and second one
+   will be build after the src directory. One important thing to note here is that <application>
+   anjuta</application> will not manage the Makefile.am files in these sub-directories. You will
+   have to keep them updated yourself.</para>
+   </listitem>
+   <listitem>
+   <para>
+    <emphasis>Top level Makefile:</emphasis> Occationally, we need to provide additional make
+    rules and other additional stuff in the top level Makefile.am (found in the top level directory)
+    of the project. You can provide those codes here and <application>anjuta</application> will
+    append them to the Makefile.am after it is updated.
+   </para>
+   </listitem>
+   </orderedlist>
+   <note><title>Updating project version</title><para>Currently, there is no easy way to 
+   set a version number to your project direcly through an interface. (wizard creates your
+   project with 0.1 version). The next best thing you can to do is: Make sure the project is not open in
+   <application>anjuta</application>, open the *.prj file of your project and edit the
+   <emphasis>project.version</emphasis> propery. Save the project file and open it in
+   <application>anjuta</application>. Save the project again from <application>anjuta</application>.
+   You project version should now have bumped to the new value.
+   </para>
+   </note>
   </sect1>
   
   <sect1 id="project-information">
@@ -208,7 +278,7 @@
    <title>Project Information dialog</title>
    <screenshot>
    <screeninfo>Project Information dialog</screeninfo>
-   <graphic fileref="figures/project_info" format="png" srccredit="andyp"></graphic>
+   <graphic fileref="figures/project_info" format="png" srccredit="andyp">
    </screenshot>
    </figure>
   </sect1>
@@ -366,7 +436,7 @@
 	 application on your system. 
     </para>
 	<note>
-	 <title>Note</title>
+	 <title>System wide installation</title>
 	 <para>
 	 You must be logged in as root to perform a system-wide install. Also note that for a GNOME 
      application to use the pixmaps in the project, it must be installed as a system-wide 
@@ -386,7 +456,7 @@
 	 the application may depend on specific configuration of some of these options.
 	</para> 
 	<important>
-	 <title>Important</title>
+	 <title>When to configure</title>
 	<para>
      Until you run <filename>configure</filename>, you cannot start building the 
 	 project.
@@ -409,7 +479,7 @@
        <title>Configure options dialog</title>
        <screenshot>
 	   <screeninfo>Configure options dialog</screeninfo>
-        <graphic fileref="figures/configure_dlg" format="png" srccredit="andyp"></graphic>
+        <graphic fileref="figures/configure_dlg" format="png" srccredit="andyp">
        </screenshot>
      </figure>
     <para>
@@ -439,7 +509,7 @@
 	 lots of build files). 
 	</para>
 	<note>
-	<title>Note</title>
+	<title>When to autogen.sh</title>
 	<para> 
 	 Unlike configuration, auto generation does not need to be run even 
 	 once &mdash in fact, it does not need to be run at all! The option is available because it 

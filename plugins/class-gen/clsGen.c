@@ -34,6 +34,7 @@
 
 #include "../../src/anjuta.h"
 #include "../../src/project_dbase.h"
+#include "../../src/anjuta-plugins.h"
 #include "class_logo.xpm"
 
 #ifdef HAVE_CONFIG_H
@@ -47,6 +48,7 @@
 #include <ctype.h>
 
 #include <gnome.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 #define	INIT(x)	CG_Creator* self = (CG_Creator*)x
 #define SAFE_FREE(x) { if(x != NULL) g_free(x); }
@@ -70,6 +72,7 @@ typedef struct ClsGen_CreateClass {
 	gchar*			m_szAccess;
 	gchar*			m_szClassType;
 	ProjectDBase*	m_pDB;
+	AnjutaApp*		m_pApp;
 	
 	// GTK+ interface
 	GtkWidget*		dlgClass;
@@ -151,13 +154,7 @@ void CleanUp(GModule* self, void* pUserData, AnjutaApp* p);
 void Activate(GModule* self, void* pUserData, AnjutaApp* p);
 gchar* GetMenuTitle(GModule* self, void* pUserData);
 gchar* GetTooltipText(GModule* self, void* pUserData);
-
-
-/*
- * External Helper Function
- */
-gboolean ImportFileInProject(const gchar* p_szModule, const gchar* p_szFileName);
-
+gchar *GetMenu(void);
 
 /*
  * Event Callbacks
@@ -219,15 +216,19 @@ GetVersion()
 	return 0x10000L; 
 }
 
+gchar *GetMenu(void)
+{
+	return g_strdup("project");
+}
 
 gboolean
 Init(GModule *self, void **pUserData, AnjutaApp* p)
 {
 	// Malloc a CG_Creator struct
 	*pUserData = malloc(sizeof(CG_Creator));
+	((CG_Creator *) *pUserData)->m_pApp = p;
 	return TRUE; 
 }
-
 
 void
 CleanUp(GModule *self, void *pUserData, AnjutaApp* p) 
@@ -236,7 +237,6 @@ CleanUp(GModule *self, void *pUserData, AnjutaApp* p)
 	SAFE_FREE(pUserData);
 }
 
-
 void
 Activate(GModule *self, void *pUserData, AnjutaApp* p) 
 {
@@ -244,20 +244,17 @@ Activate(GModule *self, void *pUserData, AnjutaApp* p)
 		CreateCodeClass((CG_Creator*)pUserData, p->project_dbase);
 }
 
-
 gchar*
 GetMenuTitle( GModule *self, void *pUserData )
 {
 	return g_strdup("Class Builder");
 }
 
-
 gchar*
 GetTooltipText( GModule *self, void *pUserData ) 
 {
    return g_strdup("Class Builder");
 }
-
 
 /*
  *------------------------------------------------------------------------------
@@ -653,24 +650,34 @@ static void
 Generate(CG_Creator *self)
 {
 	gboolean bOK = FALSE;
-	gchar* szDir = project_dbase_get_module_dir(self->m_pDB, MODULE_SOURCE);
+	gchar* szSrcDir = project_dbase_get_module_dir(self->m_pDB
+	  , MODULE_SOURCE);
+	gchar* szIncDir = project_dbase_get_module_dir(self->m_pDB
+	  , MODULE_INCLUDE);
 	gchar* szfNameHeader;
 	gchar* szfNameSource;
 	FILE* fpHeader;
 	FILE* fpSource;
 	
 	if(!self->m_bUserSelectedHeader)
-		szfNameHeader = g_strdup_printf("%s/%s", szDir, self->m_szDeclFile);
+		szfNameHeader = g_strdup_printf("%s/%s", szIncDir
+	  , self->m_szDeclFile);
 	else
 		szfNameHeader = g_strdup(self->m_szImplFile);
 	
 	if(!self->m_bUserSelectedSource)
-		szfNameSource = g_strdup_printf("%s/%s", szDir, self->m_szImplFile);
+		szfNameSource = g_strdup_printf("%s/%s", szSrcDir
+	  , self->m_szImplFile);
 	else
 		szfNameSource = g_strdup(self->m_szImplFile);
-	
+
 	if(!self->m_bInline)
 	{
+		if(file_is_directory(szIncDir) == FALSE)
+			mkdir (szIncDir, 0755);
+		if(file_is_directory(szSrcDir) == FALSE)
+			mkdir (szSrcDir, 0755);
+		
 		fpHeader = fopen(szfNameHeader, "at");
 		if(fpHeader != NULL)
 		{
@@ -693,6 +700,9 @@ Generate(CG_Creator *self)
 	}
 	else
 	{
+		if(file_is_directory(szIncDir) == FALSE)
+			mkdir (szIncDir, 0755);
+		
 		fpHeader = fopen(szfNameHeader, "at");
 		if(fpHeader != NULL)
 		{
@@ -708,11 +718,9 @@ Generate(CG_Creator *self)
 	if(bOK)
 	{
 		if(!self->m_bInline)
-			if(!ImportFileInProject("SOURCE", szfNameSource))
-				MessageBox(_("Error in importing source file"));
+			project_dbase_import_file_real (self->m_pDB, MODULE_SOURCE, szfNameSource);
 		
-		if(!ImportFileInProject("SOURCE", szfNameHeader))
-			MessageBox(_("Error in importing include file"));
+		project_dbase_import_file_real (self->m_pDB, MODULE_INCLUDE, szfNameHeader);
 	}
 	else
 		MessageBox(_("Error in importing files"));
@@ -738,23 +746,19 @@ GenerateHeader(CG_Creator *self, FILE* fpOut)
 		fprintf(fpOut, "//\n// File: %s\n", self->m_szDeclFile);
 		
 		{
-			gchar* username;
-			gchar* email;
-			
-			username = getenv ("USERNAME");
-			if (!username)
-				username = getenv ("USER");
-			
-			email = getenv("EMAIL");
-			fprintf( fpOut, "// Created by: %s <%s>\n", username, email );
+			gchar* username = preferences_get(self->m_pApp->preferences, IDENT_NAME);
+			gchar* email =preferences_get(self->m_pApp->preferences, IDENT_EMAIL);
+			fprintf( fpOut, "// Created by: %s <%s>\n"
+			  , username?username:"", email?email:"" );
+			SAFE_FREE(username);
+			SAFE_FREE(email);
 		}
-		
+
 		{
 			struct tm *t = GetNowTime();
 			fprintf( fpOut, "// Created on: %s//\n\n", asctime(t) );
 		}
-		
-		
+
 		fprintf
 		(
 			fpOut,
@@ -870,15 +874,12 @@ GenerateHeader(CG_Creator *self, FILE* fpOut)
 		fprintf(fpOut, "/*\n * File: %s\n", self->m_szDeclFile);
 		
 		{
-			gchar* username;
-			gchar* email;
-			
-			username = getenv ("USERNAME");
-			if (!username)
-				username = getenv ("USER");
-			
-			email = getenv("EMAIL");
-			fprintf( fpOut, " * Created by: %s <%s>\n", username, email );
+			gchar* username = preferences_get(self->m_pApp->preferences, IDENT_NAME);
+			gchar* email= preferences_get(self->m_pApp->preferences, IDENT_EMAIL);
+			fprintf( fpOut, " * Created by: %s <%s>\n"
+			  , username?username:"", email?email:"" );
+			SAFE_FREE(username);
+			SAFE_FREE(email);
 		}
 		
 		{
@@ -1006,15 +1007,14 @@ GenerateSource(CG_Creator *self, FILE* fpOut)
 			fprintf(fpOut, "//\n// File: %s\n", self->m_szDeclFile);
 			
 			{
-				gchar* username;
-				gchar* email;
-				
-				username = getenv ("USERNAME");
-				if (!username)
-					username = getenv ("USER");
-				
-				email = getenv("EMAIL");
-				fprintf( fpOut, "// Created by: %s <%s>\n", username, email );
+				gchar* username = preferences_get(self->m_pApp->preferences
+				  , IDENT_NAME);
+				gchar* email = preferences_get(self->m_pApp->preferences
+				  , IDENT_EMAIL);;
+				fprintf( fpOut, "// Created by: %s <%s>\n"
+				, username?username:"", email?email:"");
+				SAFE_FREE(username);
+				SAFE_FREE(email);
 			}
 			
 			{
@@ -1105,17 +1105,14 @@ GenerateSource(CG_Creator *self, FILE* fpOut)
 			fprintf(fpOut, "/*\n * File: %s\n", self->m_szDeclFile);
 			
 			{
-				gchar* username;
-				gchar* email;
-				
-				username = getenv ("USERNAME");
-				if (!username)
-					username = getenv ("USER");
-				
-				email = getenv("EMAIL");
-				fprintf( fpOut, " * Created by: %s <%s>\n", username, email );
+				gchar* username = preferences_get(self->m_pApp->preferences
+				  , IDENT_NAME);
+				gchar* email = preferences_get(self->m_pApp->preferences
+				  , IDENT_EMAIL);
+				fprintf( fpOut, " * Created by: %s <%s>\n"
+				  , username?username:"", email?email:"");
 			}
-			
+
 			{
 				struct tm *t = GetNowTime();
 				fprintf( fpOut, " * Created on: %s */\n\n", asctime(t) );
@@ -1311,10 +1308,12 @@ CreateDialogClass(CG_Creator *self)
   self->tooltips = gtk_tooltips_new ();
 	
   self->dlgClass = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gnome_window_icon_set_from_default((GtkWindow *) self->dlgClass);
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "dlgClass", self->dlgClass);
   gtk_window_set_title (GTK_WINDOW (self->dlgClass), _("Class Builder"));
   gtk_window_set_default_size (GTK_WINDOW (self->dlgClass), 640, 480);
-
+  gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window));
+	
   self->fixed = gtk_fixed_new ();
   gtk_widget_ref (self->fixed);
   gtk_object_set_data_full (GTK_OBJECT (self->dlgClass), "fixed", self->fixed,

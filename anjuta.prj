@@ -1,4 +1,4 @@
-# Anjuta Version 1.0-pre
+# Anjuta Version 1.0.1 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,22 +24,23 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=0.1.9.99
+anjuta.version=1.0.1
 anjuta.compatibility.level=1
 
 project.name=anjuta
 project.type=GNOME
 project.target.type=EXECUTABLE
-project.version=1.0-pre
+project.version=1.0.1
 project.author=naba
 project.source.target=src/anjuta
-
-project.excluded.modules=\
-	intl
-
 project.has.gettext=1
-
 project.programming.language=C_C++
+project.excluded.modules=intl
+
+project.config.extra.modules.before=
+project.config.extra.modules.after=
+project.config.blocked=1
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 
 project.menu.entry=Anjuta IDE
 project.menu.group=Application
@@ -48,14 +49,16 @@ project.menu.icon=pixmaps/anjuta_icon.png
 project.menu.need.terminal=0
 
 project.configure.options=
-
 anjuta.program.arguments=
-
-project.config.blocked=1
-
-project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
-project.config.extra.modules.before=
-project.config.extra.modules.after=
+preferences.indent.automatic=1
+preferences.use.tabs=1
+preferences.indent.opening=0
+preferences.indent.closing=0
+preferences.tabsize=4
+preferences.indent.size=4
+preferences.autoformat.style=Style of Kangleipak
+preferences.autoformat.custom.style= -i8 -sc -bli0 -bl0 -cbi0 -ss
+preferences.autoformat.disable=0
 
 module.include.name=.
 module.include.type=
@@ -202,11 +205,14 @@ module.include.files=\
 	widgets/e-shell-about-box.h\
 	widgets/gnomedirlist.h\
 	widgets/gnomefilelist.h\
-	widgets/scroll-menu.h
+	widgets/scroll-menu.h\
+	src/anjuta-tools.h\
+	src/widget-registry.h\
+	src/anjuta-plugins.h
 
 module.source.name=.
 module.source.type=
-module.source.expanded=0
+module.source.expanded=1
 module.source.files=\
 	global-tags/tm_global_tags.c\
 	launcher/anjuta_launcher.c\
@@ -410,7 +416,11 @@ module.source.files=\
 	widgets/e-shell-about-box.c\
 	widgets/gnomedirlist.c\
 	widgets/gnomefilelist.c\
-	widgets/scroll-menu.c
+	widgets/scroll-menu.c\
+	src/debug_tree.c\
+	src/anjuta-tools.c\
+	src/widget-registry.c\
+	src/anjuta-plugins.c
 
 module.pixmap.name=.
 module.pixmap.type=
@@ -619,15 +629,6 @@ module.pixmap.files=\
 	pixmaps/sv_public_fun.xpm\
 	pixmaps/sv_public_var.xpm\
 	pixmaps/sv_static_fun.xpm\doc
-	pixmaps/sv_static_var.xpm\
-	pixmaps/sv_struct.xpm\
-	pixmaps/sv_unknown.xpm\
-	pixmaps/sv_variable.xpm\
-	pixmaps/syntax.xpm\
-	pixmaps/undo.xpm\
-	pixmaps/undock.xpm\
-	pixmaps/watch.xpm\
-	pixmaps/wizard.xpm
 
 module.data.name=.
 module.data.type=
@@ -654,6 +655,7 @@ module.doc.files=\
 	THANKS\
 	TODO\
 	doc/anjuta.1.in\
+	doc/anjuta_launcher.1.in\
 	doc/ScintillaDoc.html\
 	manuals/C/anjuta-faqs/anjuta-faqs.sgml\
 	manuals/C/anjuta-manual/anjuta-manual.sgml\
@@ -671,7 +673,8 @@ module.doc.files=\
 	manuals/C/anjuta-manual/license.sgml\
 	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml\
 	po/ChangeLog\
-	macros/ChangeLog
+	macros/ChangeLog\
+	manuals/C/anjuta-manual/tools.sgml
 
 module.po.expanded=0
 module.po.files=\
@@ -699,31 +702,17 @@ module.po.files=\
 	zh_TW.po
 
 compiler.options.supports=
-
-compiler.options.include.paths=\
-	.\
-	..
-
+compiler.options.include.paths=
 compiler.options.library.paths=
-
 compiler.options.libraries=
 compiler.options.libraries.selected=
-
-compiler.options.defines=\
-	HAVE_CONFIG_H
-
+compiler.options.defines=
 compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
-
 compiler.options.optimize.buttons=0 0 1 0 
-
 compiler.options.other.buttons=1 0 
-
 compiler.options.other.c.flags=
-
 compiler.options.other.l.flags=
-
 compiler.options.other.l.libs=
-
 project.source.paths=\
 	src\
 	widgets\

@@ -143,12 +143,13 @@ void text_editor_undo (TextEditor * te);
 void text_editor_redo (TextEditor * te);
 
 glong
-text_editor_find (TextEditor * te, gchar * str, gint scope, gboolean forward,
+text_editor_find (TextEditor * te, const gchar * str, gint scope, gboolean forward,
 		  gboolean regexp, gboolean ignore_case, gboolean whole_word);
 
-void text_editor_replace_selection (TextEditor * te, gchar * r_str);
+void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 
 guint text_editor_get_total_lines (TextEditor * te);
+glong text_editor_get_current_position (TextEditor * te);
 guint text_editor_get_current_lineno (TextEditor * te);
 gchar* text_editor_get_selection (TextEditor * te);
 
@@ -159,12 +160,15 @@ gint text_editor_goto_block_end (TextEditor* te);
 
 void text_editor_set_line_marker (TextEditor * te, glong line);
 gint text_editor_set_marker (TextEditor * te, glong line, gint marker);
+gint text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
 
 gboolean text_editor_load_file (TextEditor * te);
 gboolean text_editor_save_file (TextEditor * te);
 
 gboolean text_editor_is_saved (TextEditor * te);
 gboolean text_editor_has_selection (TextEditor * te);
+glong text_editor_get_selection_start (TextEditor * te);
+glong text_editor_get_selection_end (TextEditor * te);
 
 void text_editor_update_preferences (TextEditor * te);
 void text_editor_update_controls (TextEditor * te);
@@ -187,6 +191,7 @@ gint text_editor_get_num_bookmarks(TextEditor* te);
 
 GtkWidget* text_editor_tab_widget_new(TextEditor* te);
 void text_editor_tab_widget_destroy(TextEditor* te);
+gchar *text_editor_get_current_word(TextEditor *te);
 
 #define linenum_text_editor_to_scintilla(x) (x-1)
 

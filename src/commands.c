@@ -28,6 +28,7 @@
 #include "anjuta.h"
 #include "commands.h"
 #include "utilities.h"
+#include "anjuta-tools.h"
 
 #define LABEL_MAX_WIDTH 250
 
@@ -44,10 +45,11 @@ enum
 
 /* Do not use translation here */
 static gchar*
-prog_language_map[]=
+prog_language_map_buildin[]=
 {
 	"C", "c",
 	"C++", "cpp",
+	"C#", "cs",
 	"Java", "java",
 	"Perl", "perl",
 	"Python", "py",
@@ -58,10 +60,16 @@ prog_language_map[]=
 	NULL, NULL
 };
 
+static gchar **prog_language_map;
+
 /* Ditto */
 static gchar *
 term_commands[] = {
-	"gnome-terminal --command=\"$(anjuta.current.command)\"",
+	"gnome-terminal -e \"$(anjuta.current.command)\"",
+	"gnome-terminal -x sh -c \"$(anjuta.current.command)\"",
+	"gnome-terminal --command=\"sh -c \\\"$(anjuta.current.command); read x\\\"\"",
+	"xterm -e sh -c \"$(anjuta.current.command)\"",
+
 	NULL
 };
 

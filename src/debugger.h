@@ -83,6 +83,7 @@ struct _Debugger
 	gboolean starting;
 	gboolean term_is_running;
 	pid_t term_pid;
+    gint gnome_terminal_type;
 };
 
 extern Debugger debugger;
@@ -158,6 +159,7 @@ void on_debugger_update_prog_status (GList * lines, gpointer data);
 void debugger_reload_session_breakpoints( ProjectDBase *p);
 void debugger_save_session_breakpoints( ProjectDBase *p );
 gboolean debugger_is_engaged(void);
+const gchar* debugger_get_last_frame(void);
 
 
 #ifdef __cplusplus

@@ -61,35 +61,25 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	GtkTooltips *tooltips;
 	GtkWidget *tmp_toolbar_icon;
 	gchar *filename;
+	GError *gerror;
 
 	tooltips = gtk_tooltips_new ();
 
-	toolbar1 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
+	toolbar1 = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar1),
+	                             GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar1);
 	gtk_widget_show (toolbar1);
 
-	toolbar_led = gnome_animator_new_with_size (22, 22);
-
+#warning "G2: Add LED animation image file path here"
 	filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_GREEN_LED);
-	if (filename)
-		gnome_animator_append_frame_from_file (GNOME_ANIMATOR
-						       (toolbar_led),
-						       filename, 3, 4, 200);
-	if (filename)
-		g_free (filename);
-
-	filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_RED_LED);
-	if (filename)
-		gnome_animator_append_frame_from_file (GNOME_ANIMATOR
-						       (toolbar_led),
-						       filename, 3, 4, 200);
+	toolbar_led = GTK_WIDGET (gdk_pixbuf_animation_new_from_file (filename, &gerror));
+	if (gerror)
+		g_error_free (gerror);
 	if (filename)
 		g_free (filename);
 
-	gnome_animator_set_loop_type (GNOME_ANIMATOR (toolbar_led),
-				      GNOME_ANIMATOR_LOOP_RESTART);
 	gtk_widget_ref (toolbar_led);
 	gtk_widget_show (toolbar_led);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_led,
@@ -237,6 +227,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 
 	toolbar_find_combo = gtk_combo_new ();
 	gtk_widget_ref (toolbar_find_combo);
+	gtk_combo_disable_activate (GTK_COMBO (toolbar_find_combo));
 	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar_find_combo), TRUE);
 	gtk_widget_show (toolbar_find_combo);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_find_combo,
@@ -341,6 +332,18 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 			    (GTK_COMBO (toolbar_find_combo)->entry),
 			    "activate",
 			    GTK_SIGNAL_FUNC (on_toolbar_find_clicked), NULL);
+	gtk_signal_connect (GTK_OBJECT
+			    (GTK_COMBO (toolbar_find_combo)->entry),
+			    "changed",
+			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental), NULL);
+	gtk_signal_connect (GTK_OBJECT
+			    (GTK_COMBO (toolbar_find_combo)->entry),
+			    "focus_in_event",
+			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental_start), NULL);
+	gtk_signal_connect (GTK_OBJECT
+			    (GTK_COMBO (toolbar_find_combo)->entry),
+			    "focus_out_event",
+			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental_end), NULL);
 
 	gtk_signal_connect (GTK_OBJECT (toolbar_goto), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_goto_clicked), NULL);
@@ -399,9 +402,10 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	GtkWidget *toolbar_stop;
 	GtkWidget *tmp_toolbar_icon;
 
-	toolbar2 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
+	toolbar2 = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar2),
+	                             GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar2);
 	gtk_widget_show (toolbar2);
 
@@ -596,9 +600,10 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 
 	window1 = anjuta_gui;
 
-	toolbar2 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
+	toolbar2 = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar2),
+	                             GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar2);
 	gtk_widget_show (toolbar2);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
@@ -737,6 +742,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar2));
 	
 	toolbar_tag_label = gtk_label_new(_("Tags: "));
+	gtk_misc_set_padding(GTK_MISC(toolbar_tag_label), 5, 5);
 	gtk_widget_show(toolbar_tag_label);
 	gtk_widget_ref(toolbar_tag_label);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_label,
@@ -848,9 +854,10 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	GtkWidget *toolbar_stop;
 	GtkWidget *tmp_toolbar_icon;
 
-	toolbar3 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
+	toolbar3 = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar3),
+	                             GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar3), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar3);
 	gtk_widget_show (toolbar3);
 
@@ -1091,13 +1098,12 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	GtkTooltips *tooltips;
 	GtkWidget *tmp_toolbar_icon;
 
-	tooltips = gtk_tooltips_new (); /* FIXME: Where is it being used ? */
-
 	window1 = anjuta_gui;
 
-	toolbar2 =
-		gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL,
-				 GTK_TOOLBAR_ICONS);
+	toolbar2 = gtk_toolbar_new ();
+	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar2),
+	                             GTK_ORIENTATION_HORIZONTAL);
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar2);
 	gtk_widget_show (toolbar2);
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),

@@ -47,7 +47,7 @@ gboolean tm_project_init(TMProject *project, const char *dir
 	char path[PATH_MAX];
 
 	g_return_val_if_fail((project && dir), FALSE);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Initializing project %s", dir);
 #endif
 	if (0 == project_class_id)
@@ -85,7 +85,7 @@ gboolean tm_project_init(TMProject *project, const char *dir
 	tm_project_open(project, force);
 	if (!project->file_list || (0 == project->file_list->len))
 		tm_project_autoscan(project);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	tm_workspace_dump();
 #endif
 	return TRUE;
@@ -106,7 +106,7 @@ TMWorkObject *tm_project_new(const char *dir, const char **sources
 void tm_project_destroy(TMProject *project)
 {
 	g_assert(project);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Destroying project: %s", project->work_object.file_name);
 #endif
 
@@ -141,12 +141,15 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 
 	g_return_val_if_fail((project && file_name), FALSE);
 	path = tm_get_real_path(file_name);
+#ifdef TM_DEBUG
+	g_message("Adding %s to project", path);
+#endif
 	/* Check if the file is already loaded in the workspace */
 	source_file = tm_workspace_find_object(TM_WORK_OBJECT(workspace), path, FALSE);
 	if (NULL != source_file)
-		{
+	{
 		if ((workspace == source_file->parent) || (NULL == source_file->parent))
-			{
+		{
 #ifdef TM_DEBUG
 			g_message("%s moved from workspace to project", path);
 #endif
@@ -257,7 +260,7 @@ void tm_project_recreate_tags_array(TMProject *project)
 	TMWorkObject *source_file;
 
 	g_return_if_fail(project);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Recreating tags for project: %s", project->work_object.file_name);
 #endif
 
@@ -297,7 +300,7 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 		return FALSE;
 	}
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Updating project: %s", work_object->file_name);
 #endif
 
@@ -330,7 +333,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 
 	if (!project || !IS_TM_PROJECT(TM_WORK_OBJECT(project)))
 		return FALSE;
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Opening project %s", project->work_object.file_name);
 #endif
 	if (NULL == (fp = fopen(project->work_object.file_name, "r")))
@@ -342,7 +345,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 			if (!(source_file = TM_SOURCE_FILE(
 			  tm_source_file_new(tag->name, FALSE))))
 			{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 				g_warning("Unable to create source file %s", tag->name);
 #endif
 				if (!force)
@@ -370,7 +373,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 		{
 			if ((NULL == source_file) || (source_file->inactive)) /* Dangling tag */
 			{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 				g_warning("Dangling tag %s", tag->name);
 #endif
 				tm_tag_free(tag);
@@ -447,6 +450,31 @@ gboolean tm_project_autoscan(TMProject *project)
 	tm_file_entry_foreach(root_dir, tm_project_add_file_recursive
 	  , project, 0, FALSE);
 	tm_file_entry_free(root_dir);
+	tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
+	return TRUE;
+}
+
+gboolean tm_project_sync(TMProject *project, GList *files)
+{
+	GList *tmp;
+	guint i;
+
+	if (project->file_list)
+	{
+		for (i = 0; i < project->file_list->len; ++i)
+			tm_source_file_free(project->file_list->pdata[i]);
+		g_ptr_array_free(project->file_list, TRUE);
+		project->file_list = NULL;
+		if (project->work_object.tags_array)
+		{
+			g_ptr_array_free(project->work_object.tags_array, TRUE);
+			project->work_object.tags_array = NULL;
+		}
+	}
+	for (tmp = files; tmp; tmp = g_list_next(tmp))
+	{
+		tm_project_add_file(project, (const char *) tmp->data, FALSE);
+	}
 	tm_project_update(TM_WORK_OBJECT(project), TRUE, FALSE, TRUE);
 	return TRUE;
 }

@@ -38,43 +38,51 @@ enum
 };
 
 CVS *cvs_new (PropsID p);
-void cvs_destroy (CVS * cvs);
+void cvs_destroy (CVS *cvs);
 
-void cvs_set_force_update (CVS * cvs, gboolean force_update);
-void cvs_set_unified_diff (CVS * cvs, gboolean unified_diff);
-void cvs_set_context_diff (CVS * cvs, gboolean context_diff);
-void cvs_set_compression (CVS * cvs, guint compression);
-void cvs_set_diff_use_date(CVS * cvs, gboolean state);
+void cvs_set_force_update (CVS *cvs, gboolean force_update);
+void cvs_set_unified_diff (CVS *cvs, gboolean unified_diff);
+void cvs_set_context_diff (CVS *cvs, gboolean context_diff);
+void cvs_set_compression (CVS *cvs, guint compression);
+void cvs_set_diff_use_date(CVS *cvs, gboolean state);
 
-gboolean cvs_get_force_update(CVS * cvs);
-gboolean cvs_get_unified_diff(CVS* cvs);
-gboolean cvs_get_context_diff(CVS* cvs);
-guint cvs_get_compression (CVS * cvs);
-gboolean cvs_get_diff_use_date(CVS * cvs);
+gboolean cvs_get_force_update (CVS *cvs);
+gboolean cvs_get_unified_diff (CVS *cvs);
+gboolean cvs_get_context_diff (CVS *cvs);
+guint cvs_get_compression (CVS *cvs);
+gboolean cvs_get_diff_use_date (CVS *cvs);
 
 /* Command functions */
-void cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir);
-void cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
-		      gchar * message, gboolean is_dir);
-void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
-			gchar* dir, gchar* user, gchar* module, gchar* release,
-			gchar* vendor, gchar* message);
-void cvs_status (CVS * cvs, gchar * filename, gboolean is_dir);
-void cvs_log (CVS * cvs, gchar * filename, gboolean is_dir);
-void cvs_diff (CVS * cvs, gchar * filename, gchar * rev,
-			time_t date, gboolean is_dir);
-void cvs_add_file (CVS * cvs, gchar * filename, gchar * message);
-void cvs_remove_file (CVS * cvs, gchar * filename);
+void cvs_update (CVS *cvs, const gchar *filename,
+                 const gchar *branch, gboolean is_dir);
 
-void cvs_login (CVS * cvs, ServerType type, gchar* server, 
-			gchar* dir, gchar* user);
+void cvs_commit (CVS *cvs, const gchar *filename, const gchar *revision,
+                 const gchar *message, gboolean is_dir);
 
-void cvs_set_editor_destroyed (CVS* cvs);
+void cvs_import_project (CVS *cvs, ServerType type, const gchar *server,
+                         const gchar *dir, const gchar *user,
+                         const gchar *module, const gchar *release,
+                         const gchar *vendor, const gchar* message);
+
+void cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir);
+
+void cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir);
+
+void cvs_diff (CVS *cvs, const gchar *filename, const gchar *rev,
+			   time_t date, gboolean is_dir);
+
+void cvs_add_file (CVS *cvs, const gchar *filename, const gchar *message);
+void cvs_remove_file (CVS *cvs, const gchar *filename);
+
+void cvs_login (CVS *cvs, ServerType type, const gchar *server, 
+                const gchar *dir, const gchar *user);
+
+void cvs_set_editor_destroyed (CVS *cvs);
 
 void cvs_apply_preferences(CVS *cvs, PropsID p);
-gboolean cvs_save_yourself (CVS * cvs, FILE * stream);
+gboolean cvs_save_yourself (CVS *cvs, FILE *stream);
 
 /* Checks whether there exists a file CVS/Entries under this directory */
-gboolean is_cvs_active_for_dir(const gchar *dir);
+gboolean is_cvs_active_for_dir (const gchar *dir);
 
 #endif

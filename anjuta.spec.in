@@ -11,16 +11,16 @@ Release:	%{release}
 Serial:		%{serial}
 Copyright:	GPL2
 Group:		Development/Tools
-URL:		http://anjuta.sourceforge.net/
-Vendor:		Naba Kumar <kh_naba@users.sourceforge.net>
+URL:		http://anjuta.org/
+Vendor:		Naba Kumar <naba@gnome.org>
 Source:		%{name}-%{version}.tar.gz
 BuildRoot:	/var/tmp/%{name}-%{version}
 Docdir:		%{_docdir}
-Requires:	glib >= 1.2.8, gtk+ >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1.4, libxml >= 1.4.0, libxml < 2.0.0, ORBit >= 0.5.0, gnome-print >= 0.35, gdk-pixbuf
-BuildRequires:	glib-devel >= 1.2.8, gtk+-devel >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1.4, libxml >= 1.4.0, libxml < 2.0.0, libxml-devel, ORBit >= 0.5.0, ORBit-devel, gnome-print-devel >= 0.35, gdk-pixbuf-devel
+Requires:	glib >= 1.2.8, gtk+ >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1.4, libxml >= 1.4.0, libxml < 2.0.0, ORBit >= 0.5.0, gnome-print >= 0.35, gdk-pixbuf, libglade >= 0.15
+BuildRequires:	glib-devel >= 1.2.8, gtk+-devel >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1.4, libxml >= 1.4.0, libxml < 2.0.0, libxml-devel, ORBit >= 0.5.0, ORBit-devel, gnome-print-devel >= 0.35, gdk-pixbuf-devel, libglade-devel
 
 Distribution:	Any
-Packager:	Naba Kumar <kh_naba@users.sourceforge.net>
+Packager:	Naba Kumar <naba@gnome.org>
 
 %description
 Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
@@ -29,11 +29,32 @@ programming facilities. It is basically a GUI interface for the collection
 of command line programming utilities and tools available for the GNU system. 
 These are usually run via a text console, and can be unfriendly to use.
 
+%package i18n
+Summary: Anjuta i18n Translations
+Group: Development/Tools
+
+%description i18n
+Translations of Anjuta UI elements in various languages.
+
+%package docs-en
+Summary: Anjuta docuemntation in English.
+Group: Development/Tools
+
+%description docs-en
+Anjuta documentation in English.
+
+%package docs-ja
+Summary: Anjuta docuemntation in Japanese.
+Group: Development/Tools
+
+%description docs-ja
+Anjuta documentation in Japanese.
+
 %prep
 %setup
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix
+CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --enable-final
 
 if [ "$SMP" != "" ]; then
   (make "MAKE=make -k -j $SMP"; exit 0)
@@ -51,10 +72,14 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-scrollkeeper-update
+scrollkeeper-update || :
+
+%postun
+scrollkeeper-update || :
 
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
+%doc doc/ScintillaDoc.html
 
 %defattr(-,root,root)
 %{prefix}/bin/anjuta
@@ -63,7 +88,27 @@ scrollkeeper-update
 %{prefix}/lib/anjuta
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
 %{prefix}/share/anjuta
-%{prefix}/share/gnome/help/anjuta
 %{prefix}/share/pixmaps/anjuta
-%{prefix}/share/omf/anjuta
+%{prefix}/share/doc/anjuta
+%{prefix}/share/mime-info/anjuta.mime
+%{prefix}/share/mimelnk/application/x-anjuta-project.desktop
+%{prefix}/man/man1/anjuta.1.gz
+%{prefix}/man/man1/anjuta_launcher.1.gz
+
+%files i18n
+%defattr(-, root, root)
 %{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
+
+%files docs-en
+%defattr(-, root, root)
+%{prefix}/share/gnome/help/anjuta/C
+%{prefix}/share/omf/anjuta/anjuta-tutorial-C.omf
+%{prefix}/share/omf/anjuta/anjuta-faqs-C.omf
+%{prefix}/share/omf/anjuta/anjuta-manual-C.omf
+
+%files docs-ja
+%defattr(-, root, root)
+%{prefix}/share/gnome/help/anjuta/ja
+%{prefix}/share/omf/anjuta/anjuta-faqs-ja_JP.eucJP.omf
+%{prefix}/share/omf/anjuta/anjuta-manual-ja_JP.eucJP.omf
+

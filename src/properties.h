@@ -44,6 +44,7 @@ void prop_set_destroy(PropsID p);
 gpointer prop_get_pointer(PropsID p);
 
 void prop_set_with_key (PropsID p, const gchar *key, const gchar *val);
+void prop_set_int_with_key (PropsID p, const gchar *key, int val);
 void prop_set (PropsID p, gchar *keyval);
 gchar* prop_get (PropsID p, gchar *key);
 gchar* prop_get_expanded (PropsID p, const gchar *key);

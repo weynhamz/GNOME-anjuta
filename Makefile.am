@@ -6,10 +6,10 @@
 @INTLTOOL_DESKTOP_RULE@
 
 SUBDIRS = po tagmanager global-tags scintilla \
-	widgets printing manuals omf-install pixmaps data \
-	doc launcher plugins scripts src
+	widgets printing omf-install pixmaps scripts data \
+	doc launcher plugins src macros2
 
-anjutadocdir = ${prefix}/doc/anjuta
+anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjutadoc_DATA = \
 	README\
 	COPYING\
@@ -21,6 +21,11 @@ anjutadoc_DATA = \
 	ABOUT-NLS\
 	FUTURE
 
+anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
+
+anjuta_data_DATA = \
+	anjuta.glade
+
 EXTRA_DIST = \
 	anjuta.desktop.in.in \
 	anjuta.spec.in \
@@ -28,13 +33,19 @@ EXTRA_DIST = \
 	xml-i18n-merge.in \
 	xml-i18n-update.in \
 	autogen.sh \
-	anjuta.prj\
-	$(anjutadoc_DATA)
+	anjuta.prj \
+	setup-gettext \
+	$(anjutadoc_DATA) \
+	$(anjuta_data_DATA)
 
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 
 gnomemenu_premerge_file = anjuta.desktop.in
 gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)
+
+## XML merge is broken for .destop in RH 8.0, so temporarily just copy it
+%.desktop : %.desktop.in $(top_builddir)/xml-i18n-merge $(top_srcdir)/po/*.po
+	cat $< | sed -e "s/^_//g" > $*.desktop
 
 # Copy all the spec files. Of course, only one is actually used.
 dist-hook:

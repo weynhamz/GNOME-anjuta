@@ -155,19 +155,19 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 	TMSymbol *root = NULL;
 	GPtrArray *tags;
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	g_message("Building symbol tree..");
 #endif
 
 	if ((!tags_array) || (tags_array->len <= 0))
 		return NULL;
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	fprintf(stderr, "Dumping all tags..\n");
 	tm_tags_array_print(tags_array, stderr);
 #endif	
 	tags = tm_tags_extract(tags_array, tm_tag_max_t);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	fprintf(stderr, "Dumping unordered tags..\n");
 	tm_tags_array_print(tags, stderr);
 #endif
@@ -186,7 +186,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 		SYM_NEW(root);
 		tm_tags_custom_sort(tags, (TMTagCompareFunc) tm_symbol_tag_compare
 		  , FALSE);
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		fprintf(stderr, "Dumping ordered tags..");
 		tm_tags_array_print(tags, stderr);
 		fprintf(stderr, "Rebuilding symbol table..\n");
@@ -262,12 +262,13 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 					*scope_end = ':';
 			}
 		}
-#ifdef DEBUG
+#ifdef TM_DEBUG
 		fprintf(stderr, "Done.Dumping symbol tree..");
 		tm_symbol_print(root, 0);
 #endif
 	}
-	g_ptr_array_free(tags, TRUE);
+	if (tags)
+		g_ptr_array_free(tags, TRUE);
 
 	return root;
 }

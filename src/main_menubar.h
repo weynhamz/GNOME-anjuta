@@ -110,6 +110,10 @@ struct _EditSubMenu
 	GtkWidget *find_replace;
 	GtkWidget *enter_selection;
 
+	GtkWidget *comment_block;
+	GtkWidget *comment_box;
+	GtkWidget *comment_stream;
+
 	GtkWidget *goto_line;
 	GtkWidget *goto_brace;
 	GtkWidget *goto_block_start;
@@ -240,6 +244,7 @@ struct _DebugSubMenu
 	GtkWidget *info_locals;
 	GtkWidget *info_frame;
 	GtkWidget *info_args;
+	GtkWidget *info_memory;
 };
 
 struct _CVSSubMenu
@@ -266,10 +271,15 @@ struct _SettingsSubMenu
 	GtkWidget *src_paths;
 	GtkWidget *commands;
 	GtkWidget *preferences;
+	GtkWidget *user_properties;
 	GtkWidget *default_preferences;
 	GtkWidget *shortcuts;
 };
 
+/* Help menu should not be touched as it
+is often modifed by gnome when the help
+TOC (table of contents) is not found, resulting a screw-up */
+/*
 struct _HelpSubMenu
 {
 	GtkWidget *gnome;
@@ -279,7 +289,7 @@ struct _HelpSubMenu
 	GtkWidget *search;
 	GtkWidget *about;
 };
-
+*/
 struct _MainMenuBar
 {
 	FileSubMenu file;
@@ -292,14 +302,13 @@ struct _MainMenuBar
 	DebugSubMenu debug;
 	CVSSubMenu cvs;
 	SettingsSubMenu settings;
-	HelpSubMenu help;
+	/* HelpSubMenu help; */
 };
 
 void create_main_menubar (GtkWidget * app, MainMenuBar * mb);
 
 GtkWidget *create_submenu (gchar * title, GList * strings,
 			   GtkSignalFunc callback_func);
-
 
 void main_menu_install_hints (GtkWidget* gnome_app);
 

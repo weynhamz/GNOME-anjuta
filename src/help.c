@@ -90,27 +90,23 @@ gboolean anjuta_help_search(AnjutaHelp* help, const gchar* search_word)
 }
 
 static void
-on_ok_clicked                          (GtkButton       *button,
-                                        AnjutaHelp*   help)
+on_response (GtkDialog *dialog, gint response, AnjutaHelp *help)
 {
-	gchar* word = gtk_entry_get_text (GTK_ENTRY(help->widgets.entry));
-	if(strlen(word)==0) return;
-	if (NULL != help)
-		gnome_dialog_close(GNOME_DIALOG(help->widgets.window));
-	anjuta_help_search(help, word);
-}
-
-static void
-on_cancel_clicked                      (GtkButton       *button,
-                                        AnjutaHelp*   help)
-{
-	if (NULL != help)
-		gnome_dialog_close(GNOME_DIALOG(help->widgets.window));
+	if (response == GTK_RESPONSE_CANCEL)
+	{
+		gtk_dialog_close(GTK_DIALOG(help->widgets.window));
+	}
+	else
+	{
+		const gchar* word = gtk_entry_get_text (GTK_ENTRY(help->widgets.entry));
+		if(strlen(word)==0) return;
+		gtk_dialog_close(GTK_DIALOG(help->widgets.window));
+		anjuta_help_search(help, word);
+	}
 }
 
 static gboolean
-on_close							   (GtkWidget *w,
-										AnjutaHelp*  help)
+on_close (GtkWidget *w, AnjutaHelp *help)
 {
 	anjuta_help_hide(help);
 	return FALSE;
@@ -119,94 +115,18 @@ on_close							   (GtkWidget *w,
 static void
 create_anjuta_help_gui (AnjutaHelp* help)
 {
-  GtkWidget *dialog1;
-  GtkWidget *dialog_vbox1;
-  GtkWidget *combo1;
-  GtkWidget *combo_entry1;
-  GtkWidget *hbox1;
-  GSList *hbox1_group = NULL;
-  GtkWidget *radiobutton1;
-  GtkWidget *radiobutton2;
-  GtkWidget *radiobutton3;
-  GtkWidget *dialog_action_area1;
-  GtkWidget *button1;
-  GtkWidget *button2;
+  help->widgets.window = glade_xml_get_widget (app->gxml, "help_search_dialog");
+  gtk_window_set_transient_for (GTK_WINDOW (help->widgets.window),
+                                GTK_WINDOW(app->widgets.window));
+  help->widgets.entry = glade_xml_get_widget (app->gxml, "help_search_entry");
+  help->widgets.combo = glade_xml_get_widget (app->gxml, "help_search_combo");
+  help->widgets.gnome_radio = glade_xml_get_widget (app->gxml, "help_search_gnome_api");
+  help->widgets.man_radio = glade_xml_get_widget (app->gxml, "help_search_man_pages");
+  help->widgets.info_radio = glade_xml_get_widget (app->gxml, "help_search_info_pages");
 
-  dialog1 = gnome_dialog_new (_("Search Help"), NULL);
-  gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
-  gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
-  gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
-
-  dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
-  gtk_object_set_data (GTK_OBJECT (dialog1), "dialog_vbox1", dialog_vbox1);
-  gtk_widget_show (dialog_vbox1);
-
-  combo1 = gtk_combo_new ();
-  gtk_widget_show (combo1);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox1), combo1, FALSE, FALSE, 0);
-
-  combo_entry1 = GTK_COMBO (combo1)->entry;
-  gtk_widget_show (combo_entry1);
-
-  hbox1 = gtk_hbox_new (FALSE, 0);
-  gtk_widget_show (hbox1);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox1, TRUE, TRUE, 0);
-
-  radiobutton1 = gtk_radio_button_new_with_label (hbox1_group, _("Gnome API"));
-  hbox1_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
-  gtk_widget_show (radiobutton1);
-  gtk_box_pack_start (GTK_BOX (hbox1), radiobutton1, FALSE, FALSE, 0);
-
-  radiobutton2 = gtk_radio_button_new_with_label (hbox1_group, _("Man pages"));
-  hbox1_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
-  gtk_widget_show (radiobutton2);
-  gtk_box_pack_start (GTK_BOX (hbox1), radiobutton2, FALSE, FALSE, 0);
-
-  radiobutton3 = gtk_radio_button_new_with_label (hbox1_group, _("Info pages"));
-  hbox1_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
-  gtk_widget_show (radiobutton3);
-  gtk_box_pack_start (GTK_BOX (hbox1), radiobutton3, FALSE, FALSE, 0);
-
-  dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
-  gtk_widget_show (dialog_action_area1);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
-  gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
-
-  gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_OK);
-  button1 = GTK_WIDGET (g_list_last (GNOME_DIALOG (dialog1)->buttons)->data);
-  gtk_widget_show (button1);
-  GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-
-  gnome_dialog_append_button (GNOME_DIALOG (dialog1), GNOME_STOCK_BUTTON_CANCEL);
-  button2 = GTK_WIDGET (g_list_last (GNOME_DIALOG (dialog1)->buttons)->data);
-  gtk_widget_show (button2);
-  GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-  
-  gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-                      GTK_SIGNAL_FUNC (on_ok_clicked),
-                      help);
-  gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-                      GTK_SIGNAL_FUNC (on_cancel_clicked),
-                      help);
-  gtk_signal_connect (GTK_OBJECT (combo_entry1), "activate",
-                      GTK_SIGNAL_FUNC (on_ok_clicked),
-                      help);
-  gtk_signal_connect (GTK_OBJECT (dialog1), "close",
-				  	  GTK_SIGNAL_FUNC (on_close),
-					  help);
-
-  help->widgets.window = dialog1;
-  help->widgets.entry = combo_entry1;
-  help->widgets.combo = combo1;
-  help->widgets.gnome_radio = radiobutton1;
-  help->widgets.man_radio = radiobutton2;
-  help->widgets.info_radio = radiobutton3;
-  
-  gtk_widget_ref (dialog1);
-  gtk_widget_ref (combo_entry1);
-  gtk_widget_ref (combo1);
-  gtk_widget_ref (radiobutton1);
-  gtk_widget_ref (radiobutton2);
-  gtk_widget_ref (radiobutton3);
+  g_signal_connect (G_OBJECT (help->widgets.window), "clicked",
+                    G_CALLBACK (on_response), help);
+  g_signal_connect (G_OBJECT (help->widgets.window), "close",
+				  	G_CALLBACK (on_close), help);
 }
 

@@ -44,7 +44,9 @@ struct _ProjectConfigWidgets
 	GtkWidget* window;
 	GtkWidget* disable_overwrite_check[BUILD_FILE_END_MARK];
 
+	GtkWidget* version_entry;
 	GtkWidget* description_text;
+	GtkWidget* ignore_entry;
 	GtkWidget* config_progs_text;
 	GtkWidget* config_libs_text;
 	GtkWidget* config_headers_text;
@@ -61,11 +63,11 @@ struct _ProjectConfigWidgets
 struct _ProjectConfig
 {
 	ProjectConfigWidgets widgets;
+	PropsID props;
 	
 	gboolean blocked;
 	
 	gboolean disable_overwrite[BUILD_FILE_END_MARK];
-
 	gchar* description;
 	gchar* config_progs;
 	gchar* config_libs;
@@ -74,16 +76,13 @@ struct _ProjectConfig
 	gchar* config_lib_funcs;
 	gchar* config_additional;
 	gchar* config_files;
-
-	gchar* extra_modules_before;
-	gchar* extra_modules_after;
 	gchar* makefile_am;
 
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 };
 
-ProjectConfig* project_config_new (void);
+ProjectConfig* project_config_new (PropsID props);
 void project_config_destroy (ProjectConfig* pc);
 void project_config_clear (ProjectConfig* pc);
 void project_config_show( ProjectConfig *pc);

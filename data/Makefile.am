@@ -15,6 +15,7 @@ anjuta_data_DATA = \
 	stock_libs.anj\
 	welcome.txt\
 	autogen.sh.gnome\
+	autogen.sh.gnome2\
 	autogen.sh.gtk\
 	autogen.sh.generic\
 	autogen.sh.gtkmm\
@@ -23,8 +24,10 @@ anjuta_data_DATA = \
 
 
 anjuta_mimedir = $(prefix)/share/mime-info
-
 anjuta_mime_DATA = anjuta.mime
+
+anjuta_mimelnkdir = $(prefix)/share/mimelnk/application
+anjuta_mimelnk_DATA = x-anjuta-project.desktop
 
 MACROS = \
 	ChangeLog \
@@ -34,23 +37,35 @@ MACROS = \
 
 MACROS_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome
 
-EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA)
+EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA) $(anjuta_mimelnk_DATA)
+
+MACROS2 = \
+	ChangeLog \
+	Makefile.am.project \
+	autogen.sh \
+	*.m4
+
+MACROS2_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome2
 
 install-data-local: system.tags
 	mkdir -p $(MACROS_dir)
+	mkdir -p $(MACROS2_dir)
 	$(INSTALL_DATA) $(MACROS:%=$(top_srcdir)/macros/%) $(MACROS_dir)
+	$(INSTALL_DATA) $(MACROS2:%=$(top_srcdir)/macros2/%) $(MACROS2_dir)
+	mv $(MACROS2_dir)/Makefile.am.project $(MACROS2_dir)/Makefile.am
 	$(INSTALL_DATA) system.tags $(anjuta_datadir)
+	$(INSTALL_DATA) $(top_srcdir)/setup-gettext $(anjuta_datadir)
 
 uninstall-local:
-	@rm -fv $(MACROS:%=$(MACROS_dir)/%)
 	@rm -fv $(anjuta_datadir)/system.tags
-	if test -d $(MACROS_dir); then \
-	  rmdir $(MACROS_dir); \
-	  \
-	  if test -d $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@; then \
-	    rmdir $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@; \
-	  fi; \
-	fi
+	@rm -fv $(anjuta_datadir)/setup-gettext
+	mv $(MACROS2_dir)/Makefile.am $(MACROS2_dir)/Makefile.am.project
+	@rm -fv $(MACROS:%=$(MACROS_dir)/%)
+	@rm -fv $(MACROS2:%=$(MACROS2_dir)/%)
+	-if test -d $(MACROS_dir); then rmdir $(MACROS_dir); fi
+	-if test -d $(MACROS2_DIR); then rmdir $(MACROS2_dir); fi
+	-if test -d $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties; then \
+	    rmdir $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties; fi
 
 clean-local:
 	@rm -f system.tags
@@ -59,4 +74,3 @@ system.tags:
 	cd $(top_builddir)/tagmanager && make libctags.a
 	cd $(top_builddir)/global-tags && make system.tags
 	mv $(top_builddir)/global-tags/system.tags .
-

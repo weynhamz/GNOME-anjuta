@@ -264,7 +264,7 @@ static void ColouriseMakeLine(
     Accessor &styler) {
 
 	unsigned int i = 0;
-        unsigned int lastNonSpace = 0;
+	int lastNonSpace = -1;
 	unsigned int state = SCE_MAKE_DEFAULT;
 	bool bSpecial = false;
 	// Skip initial spaces
@@ -291,12 +291,14 @@ static void ColouriseMakeLine(
 			if (lineBuffer[i] == ':') {
 				// We should check that no colouring was made since the beginning of the line,
 				// to avoid colouring stuff like /OUT:file
+				if (lastNonSpace >= 0)
 				styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_TARGET);
 				styler.ColourTo(startLine + i - 1, SCE_MAKE_DEFAULT);
 				styler.ColourTo(startLine + i, SCE_MAKE_OPERATOR);
 				bSpecial = true;	// Only react to the first ':' of the line
 				state = SCE_MAKE_DEFAULT;
 			} else if (lineBuffer[i] == '=') {
+				if (lastNonSpace >= 0)
 				styler.ColourTo(startLine + lastNonSpace, SCE_MAKE_IDENTIFIER);
 				styler.ColourTo(startLine + i - 1, SCE_MAKE_DEFAULT);
 				styler.ColourTo(startLine + i, SCE_MAKE_OPERATOR);
@@ -346,6 +348,9 @@ static void ColouriseErrorListLine(
 	if (lineBuffer[0] == '>') {
 		// Command or return status
 		styler.ColourTo(endPos, SCE_ERR_CMD);
+	} else if (lineBuffer[0] == '<') {
+		// Diff removal, but not interested. Trapped to avoid hitting CTAG cases.
+		styler.ColourTo(endPos, SCE_ERR_DEFAULT);
 	} else if (lineBuffer[0] == '!') {
 		styler.ColourTo(endPos, SCE_ERR_DIFF_CHANGED);
 	} else if (lineBuffer[0] == '+') {
@@ -356,6 +361,8 @@ static void ColouriseErrorListLine(
 		styler.ColourTo(endPos, SCE_ERR_DIFF_DELETION);
 	} else if (strstr(lineBuffer, "File \"") && strstr(lineBuffer, ", line ")) {
 		styler.ColourTo(endPos, SCE_ERR_PYTHON);
+	} else if (strstr(lineBuffer, " in ") && strstr(lineBuffer, " on line ")) {
+		styler.ColourTo(endPos, SCE_ERR_PHP);
 	} else if (0 == strncmp(lineBuffer, "Error ", strlen("Error "))) {
 		// Borland error message
 		styler.ColourTo(endPos, SCE_ERR_BORLAND);
@@ -410,7 +417,8 @@ static void ColouriseErrorListLine(
 				break;
 			} else if (((state == 11) || (state == 14)) && !((lineBuffer[i] == ' ') || isdigit(lineBuffer[i]))) {
 				state = 99;
-			} else if ((state == 20) && isdigit(lineBuffer[i])) {
+			} else if ((state == 20) && (lineBuffer[i-1] == '\t') && 
+				((lineBuffer[i] == '/' && lineBuffer[i+1] == '^') || isdigit(lineBuffer[i]))) {
 				state = 24;
 				break;
 			} else if ((state == 20) && ((lineBuffer[i] == '/') && (lineBuffer[i+1] == '^'))) {

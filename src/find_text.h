@@ -58,6 +58,8 @@ struct _FindText
   gboolean whole_word;
   gboolean ignore_case;
   gboolean is_showing;
+  glong incremental_pos;
+  gboolean incremental_wrap;
   gint pos_x;
   gint pos_y;
 };

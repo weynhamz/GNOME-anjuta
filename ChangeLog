@@ -1,3 +1,21 @@
+2002-12-24 Naba Kumar <naba@gnome.org>
+
+	* AUTHORS, ChangeLog, HACKING, Makefile.am,
+	NEWS, README, SEARCH-REPLACE,
+	THANKS, TODO, acinclude.m4, anjuta.prj, anjuta.spec.in, configure.in, 
+	setup-gettext, data/*, doc/.cvsignore, global-tags/*,
+	launcher/Makefile.am,
+	launcher/anjuta_launcher.c, macros2/*, manuals/*/*/*/*,
+	plugins/class-gen/clsGen.c, plugins/patch/patch-plugin.c,
+	plugins/sample1/plugin-sample1.c, printing/print-doc.c,
+	printing/print-util.c, printing/print.c, printing/print.h,
+	scintilla/*/*, widgets/e-shell-about-box.c,
+	src/*, tagmanager/*/*, widgets/Makefile.am,
+	widgets/gnomefilelist.c:
+	
+	Merged with ANJUTA_1_0_0 branch (at tag MERGE_LEVEL_1) and ported many
+	src/*.[c,h] files to gnome2 API.
+
 2002-10-23  Naba Kumar <naba@gnome.org>
 
 	* autogen.sh: Prevented Users from building HEAD cvs.
@@ -178,6 +196,733 @@
 	
 	Upgraded the build system to gnome2 platform.
 	
+2002-12-19  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* manuals/*: Added capability to generate PDF and PS.
+	* src/debugger.c, data/gdb.init: Solaris GDB fixes.
+	* TODO, TODO.biswa: Intergated TODO list.
+	* src/project_dbase.c: Patch by TTimo (pref saving), bug #636542
+	, bug #574470
+	* src/dnd.c: Fix typo
+	* src/an_[symbol|file]_view.c: Hide when updating (reduced flicker)
+	* src/anjuta.c: Bug #568895, Bug #575419
+
+2002-12-18  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* tagmanager/tm_global_tags.c: Fixed compiler warning.
+	* manuals/C/anjuta-faqs/anjuta-faqs.sgml: Updated FAQ.
+
+2002-12-17  Naba Kumar <naba@gnome.org>
+
+	* Makefile.am, src/Makefile.am, src/main.c: Fixed a couple of distcheck
+	bugs.
+	
+2002-12-17  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* manuals/C/anjuta-manual/*: Updated manual to include tool editor.
+	* scintilla/LexCPP.cxx: Disable doxygen comment highliting.
+	* anjuta.prj: Added tools.sgml
+	* data/properties/cpp.properties: Bug # 646974
+
+2002-12-16  Naba Kumar <naba@gnome.org>
+
+	* src/goto_line.c: Ordered 'Ok' and 'Cancel' button in the right order.
+	* src/configurer.c, src/anjuta_info.c, src/attac_process_gui.c,
+	src/executer.c, src/launcherc, src/breakpoints_gui.c, src/help.c: Activates
+	on 'Enter' and adds proper focus mechanism.
+	* src/anjuta.c: Fixed a memory corruption bug.
+	* src/anjuta-tools.c, anjuta.glade: Tools parameter dialog activates on
+	'Enter' and can also be	Canceled. Sets proper default and focus policies
+	for tools dialogs.
+	* src/main_menubar_def.h: Fixed typos, added icons and added hot keys.
+	* anjuta.glade, src/Makefile.am, src/anjuta_dialog_strings.c: Enabled
+	translatable strings in dialogs and fixed some dialog properties.
+	* src/anjuta-tools.c: Now uses xml format for loading and saving.
+	* configure.in, anjuta.spec.in, anjuta.prj: Bumped version to 1.0.1
+	* src/message_manager_private.cc: Fixed some debug messages.
+	* src/print.c, src/print-doc.c, src/anjuta-tools.c, src/anjuta.c,
+	widgets/gnomefilelist.c: Fixed a memory leaks.
+	* src/toolbar.[ch], src/text_editor.[ch], src/find_text.[ch],
+	src/toolbar_callbacks.[ch], src/mainmenu_callbacks.c,
+	src/main_menubar_def.h: Implemented incremental search.
+	* TODO: Updated.
+
+2002-12-14  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* tagmanager/*: Minor cleanups and warning fixes.
+	* src/an_symbol_view.c, src/an_file_view.c: Do not freeze the
+	GUI during long updates.
+	* src/text_editor.c: Remove debug message.
+
+2002-12-13  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* tagmanager/tm_project.c: Fix a memory access problem.
+
+2002-12-13  Naba Kumar <naba@gnome.org>
+
+	* anjuta.glade, src/anjuta-tools.c: Added a new column in the
+	tools list to show "Enabled" flag of the tool. Fixed a bug where
+	tool list is not cleared when creating a new tool.
+	
+2002-12-13  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.glade, src/anjuta-tools.c: Added user params to tools.
+
+2002-12-12  Naba Kumar <naba@gnome.org>
+
+	* anjuta-tools.[h,c], commands.c: Used the tools help of
+	anjuta variables list in commands editor and fixed a typos
+	buy in anjuta-tools.c.
+	
+2002-12-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.glade, src/anjuta-tools.c, src/text_editor.[ch]
+	, src/mainmenu_callbacks.c, controls.c: Tools editor stuff.
+	* TODO.biswa: Added to help me track things better.
+
+2002-12-11  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* configure.in, anjuta.spec.in: Added libglade dependency.
+	* Makefile.am: Added anjuta.glade file.
+	* src/anjuta-tools.c, src/main.c, src/main_menubar_def.h
+	, src/mainmenu_callbacks.[ch], src/message-manager.h
+	, src/widget-registry.c: Tools editor GUI + other additions.
+
+2002-12-09  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* src/project_dbase.[ch], tagmanager/tm_project.c,
+	tagmanager/include/tm_project.h, src/mainmenu_callbacks.c:
+	Implement syncing tags image with the project database.
+	* src/anjuta-tools.c: Implemented variable substitution and
+	working directory in tools.
+
+2002-12-09  Naba Kumar <naba@gnome.org>
+	
+	* data/properties/anjuta.properties, src/commands.[ch]: Reads the
+	command configuration language list from properties.
+	
+	* data/properties/asm.properties, data/properties/ruby.properties:
+	Fixed typos.
+
+2002-12-04  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* src/an_symbol_view.c: Remember current selected entry and select
+	it automatically after refresh.
+
+2002-11-26  Murray Cumming  <murrayc@usa.net>
+
+	* src/project_type.c, src/project_dbase.c, src/stock_libs.anj,
+	  src/compiler-options.c, src/wizard_gui.c: Renamed gtkmm 1.2
+	and gnomemm 1.2 projects so that people know they are really
+	glademm projects. The gtkmm 2 and gnomem 2 projects are OK though.
+	But I did correct these to sue lowercase names.
+
+2002-12-01  Naba Kumar <naba@gnome.org>
+
+	* data/anjuta.properties: Fixed caching problem on 
+	indicators.
+	* src/preferences.c, src/preferences_gui.c: Implemented automatic
+	indicators prefs.
+	
+2002-12-01  Naba Kumar <naba@gnome.org>
+
+	* data/properies/anjuta.properties: Corrected "indicators.automatic"
+	property name.
+	* src/anjuta.c, src/preferences.h: Added MESSAGES_INDCATORS_AUTOMATIC
+	property and uses it.
+	* src/aneditor.cxx: Fixed a bug associated with selection a word at
+	current cursor.
+	
+2002-11-30  Naba Kumar <naba@gnome.org>
+
+	* src/debugger.c: Fixed a typo.
+	* data/properties/*: Updated properties files and added
+	new ones.
+	* src/main_menubar_def.h, main_menubar.[hc], mainmenu_callbacks.[hc]:
+	Added comment submenu and cleaned up ref and unref of menus.
+	* src/aneditor.h: Added definition of comment commands.
+	* src/aneditor.c: Upgrade from latest SciTE source code.
+	* src/text_editor.[hc], src/text_editor_cbs.c, 
+	src/message_manager_private.cc,	src/message_manager.[cc,h],
+	src/anjuta.[c,h]: Added indicators support for errors/warnings
+	highlight in the editor.
+	* NEWS, TODO: Update.
+	* scintilla/include/PropSet.h: Removed deprecrated function.
+	
+2002-11-29  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* src/anjuta-tools.[ch]: Tools implementation (basic)
+	* src/anjuta-plugins.[ch], src/anjuta.[ch], src/main_menubar.[ch]
+	  , src/main_menubar_def.h: PLugins cleanup and segregation
+	* src/widget-registry.[ch], src/main_menubar.[ch]: Start of a widget
+	  registry
+	* anjuta.prj: Added new files
+	* manuals/C/anjuta-faqs/anjuta-faqs.sgml: New FAQ entry
+	* plugins/class-gen/clsGen.c: Register menu under 'Project'
+	* plugins/patch/patch-plugin.c: Register menu under 'Format'
+	* plugins/sample1/plugin-sample1.c: Register menu under 'View'
+	* src/Makefile.am: Added new files
+	* src/message-manager.[cc/h]: Added standard output and error windows
+
+2002-11-26  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	* project_type.c: Fixed Gnomemm2 project type
+
+2002-11-25  Naba Kumar <naba@gnome.org>
+
+	* printing/print.c: Fixed a compile warning.
+	* scintilla/Autocomplete.cxx: Applied missing patch from Biswa
+	* src/utilities.c: Fixed a compile warning in sparc, hides the
+	terminal check error output from the user.
+	* project_config.[ch], project_dbase.[ch], source.c: Added project
+	version, exclude modules configuration and reordered other config
+	properties. Changed some strings to more descriptive text.
+	* src/compiler_opitions.c: Removed extra newlines from .prj file
+	save.
+	* anjuta.prj: Converted to new format (only reorganised properties
+	and removed extra newlines ... nothing else).
+	* NEWS: updated
+	
+2002-11-21  Naba Kumar <naba@gnome.org>
+
+	* Editor.cxx, Editor.h, include/SciLexer.h, include/Scintilla.h,
+	include/Scintilla.iface, KeyMap.cxx, KeyWords.cxx, LexCPP.cxx,
+	LexFortran.cxx, LexHTML.cxx, LexMatlab.cxx, LexOthers.cxx,
+	LineMarker.h, PropSet.cxx, RESearch.cxx, ScintillaBase.cxx:
+	Updated to the CVS version.
+
+2002-11-20  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* scintilla/AutoComplete.[cxx,h], scintilla/PlatGTK.cxx
+	  , scintilla/include/Platform.h, scintilla/ScintillaBase.cxx
+	  , scintilla/include/Scintilla.h, src/aneditor.cxx: Implement
+	  images in completion lists. 
+	* src/resources.h: Make C++ friendly.
+	* scintilla/PropSet.cxx: Fix memory leak.
+
+2002-11-20  Naba Kumar <naba@gnome.org>
+
+	* scintilla/*/*: Synced to latest scintilla 1.49
+	* scintilla/LexAsm.cxx, scintilla/LexFortran.cxx, src/Makefile.am:
+	New lexers added.
+
+	* scintilla/RESearch.cxx: The automatic cvs log in the
+	file really broke things trying to interprete the changelog
+	entry incorrectly as end-of-comment. Removed the $cvs line
+	and committed again.
+	
+2002-11-19  Naba Kumar <naba@gnome.org>
+
+	Patch from Timothee Besset <ttimo@idsoftware.com>
+	
+	* src/message-manager-private.cc: Interpretes absolute
+	file paths properly in zvt terminal.
+
+2002-11-19  Naba Kumar <naba@gnome.org>
+
+	Patch from Timothee Besset <ttimo@idsoftware.com>
+	
+	* src/preferences.c, src/preferences_gui.c, src/project_dbase.c,
+	src/properties.cxx, src/properties.h, anjuta.prj: Saves some of the 
+	(important) editor preferences in project (if there is one
+	open).
+	
+	* TODO: Updated
+	
+2002-11-18  Naba Kumar <naba@gnome.org>
+	
+	Patch from: Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* src/debug_tree.c, src/find_in_files_gui.c,
+	src/find_replace.c, src/find_text.c, 
+	src/project_import.c, src/project_import_gui.c,
+	src/wizard_gui.c: i18n Fixes.
+
+2002-11-15  Naba Kumar <naba@gnome.org>
+
+	* plugins/class-gen/clsGen.c: Fixed to use project function
+	to import files. Create non-existent directories before the
+	sources are written.
+	
+	* configure.in, src/Makefile.am, src/main.c, src/preferences_gui.c,
+	src/preferences.c, src/CORBA-Server.c,src/CORBA-Server.h,
+	src/glade_iface.c,
+	src/glades.c: Excluded gladen files from build. This
+	will fix the unnecessary dependency on libssl.
+	
+	* src/project_dbase.[c,h], src/project_dbase_gui.c: Refined
+	file import funtion.
+	
+	* src/message_manager_private.cc: Fixed a compiler warning with
+	DEBUG preprocessor macro.
+	
+	* src/text_editor_cbs.c, src/main_menu_callbacks.c: Fixed a bug where
+	wrong (undocked) editor window was closed on clicking close on an
+	undocked editor window.
+	
+	* src/debugger.c: Fixed a bad bug where debugger terminal won't
+	start correctly if the executable was run before with 'F3'.
+	
+	* src/toolbar_callbacks.c: Wrap around find next.
+	* src/toolbar.c: Disable combo activate.
+	* src/find_text.c (on_find_text_ok_clicked): Swapped 'yes' and 'no'
+	button positions to get	'yes' as default.
+
+	* anjuta.spec.in: Updated.
+	
+	* src/anjuta_info.c, src/appwizard_gui.c,
+	src/attach_process_gui.c, src/breakpoints_gui.c,
+	src/commands.c, src/compiler_options_gui.c, src/configurer.c,
+	src/cvs.c, src/cvs_gui.c, src/debugger.c, src/executer.c,
+	src/find_in_files_gui.c, src/find_replace.c, src/find_text.c,
+	src/help.c, src/launcher.c, src/main.c, src/mainmenu_callbacks.c,
+	src/memory.c, src/message-manager-private.cc, src/message-manager.cc,
+	src/preferences.c, src/preferences_gui.c, src/project_config.c,
+	src/project_dbase.c, src/project_dbase.h, src/project_dbase_gui.c,
+	src/project_import_gui.c, src/registers_gui.c, src/sharedlib_gui.c,
+	src/signals_gui.c, src/source.c, src/src_paths_gui.c,
+	src/stack_trace_gui.c, src/text_editor_cbs.c, src/text_editor_gui.c,
+	src/toolbar.c, src/toolbar_callbacks.c, src/watch.h, 
+	src/watch_cbs.c, src/watch_gui.c, plugins/class-gen/clsGen.c,
+	plugins/patch/patch-plugin.c, printing/print-util.c:
+	Set all windows and dialogs transient
+	to their parents so that they remain floated above their parents.
+	
+2002-11-13  Naba Kumar <naba@gnome.org>
+
+	* printing/print.c: Fixed a leak and bug #634819 (print/preview does not
+	take default editor font).
+	
+	* widgets/e-shell-about-box.c, src/main_menubar_def.h:
+	Corrected email address.
+	
+	* src/mainmenu_callbacks.c: Used spaces instead of tabs
+	for changelog entry.
+
+	* NEWS: Updated.
+	
+2002-11-06  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* plugins/class-gen/clsGen.c: Refined the class generator a bit.
+
+2002-11-06  Naba Kumar <naba@gnome.org>
+
+	* README: Updated
+	* anjuta.spec.in: Ships the .omf files with the
+	documents instead of the base package.
+	
+2002-11-04  Naba Kumar <naba@gnome.org>
+
+	* data/properties/latex.properties: Fixed a bug.
+	* ChangeLog: Released 1.0.0 stable.
+
+2002-11-04  Naba Kumar <naba@gnome.org>
+
+	* src/commands.c: Added command with shell redirection capability.
+	* data/properties/anjuta.properties: Changed default execution
+	command.
+	* src/project_dbase.c: Set project top dir in properties.
+	* Makefile.am: Recurse scripts/ before data/ to fix a distcheck error.
+	* data/Makefile.am: More diskcheck error fixes.
+	
+	* README, anjuta.spec.in, THANKS, AUTHORS,
+	manuals/C/anjuta-faqs/anjuta-faqs.sgml,
+	manuals/C/anjuta-manual/authers,sgml,
+	manuals/C/anjuta-manual/anjuta-manual.sgml,
+	manuals/C/anjuta-manual/anjuta-manual-C.omf,
+	manuals/C/anjuta-manual/anjuta-manual-ja_JP.eucJP.omf
+	: Changed anjuta home to
+	new URL and my email address.
+	
+	* manuals/C/anjuta-manual/interfaces.sgml,
+	manuals/C/anjuta-manual/prefereces.sgml,
+	manuals/C/anjuta-faqs/anjuta-faqs.sgml: Fixed typos and updated.
+	
+	* src/main_menubar.[c,h], src/controls, src/toolbar_callbacks.c
+	: removed reference to the help menu as the menu is modified
+	when no help is found (which is very likely when we are
+	shiping the documents separately).
+	
+2002-11-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.spec.in: Update specfile to make multiple RPMs.
+	* data/Makefile.am: make dist fix.
+	* src/text_editor_menu.c: Fix compile warnings (casts).
+
+2002-11-02  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* manuals/C/anjuta-faqs/anjuta-faqs.sgml: FAQ update.
+	* tagmanager/general.h, src/launcher.c: FreeBSD fixes (RFE #628576)
+
+2002-11-01  Naba Kumar <naba@gnome.org>
+
+	* macros2/*, Makefile.am, configure.in, data/Makefile.am:
+	Added gnome2 macros to be used by gnome2 project wizard.
+	
+	* data/autogen.sh.gnome2: Fixed to use our own macros instead of
+	from gnome-common.
+	
+	* macros/Makefile.am: Removed INSIDE_GNOME_COMMAND macro
+	as it was conflicting with generated projects and is not
+	useful for us.
+	
+	* src/appwiz_page1.c, src/project_dbase.h, src/project_type.c,
+	src/project_type.h, src/source.c, src/wizard_gui.c: Fixed gnome2
+	project generation, removed qt project as it's not complete and
+	added gnome2 bonobo wizard.
+
+2002-10-29  Naba Kumar <naba@gnome.org>
+
+	* po/POTFILES.in: Updated.
+	* po/POTFILES.skip: Added.
+	* preferences.h: Fixed print paper size property name.
+
+2002-10-28  Naba Kumar <naba@gnome.org>
+	
+	* data/user.properties, data/Makefile.am: Added user properties file
+	which will be copied in user's ~/.anjuta/user.properties.
+	
+	* data/anjuta.properties: Changed a comment.
+	
+	* macros/gnome-pilot.m4: Upgraged to the cvs head of gnome-macros.
+	
+	* src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h, src/preferences.c:
+	Adde [Settings]->[Preferences]->[Edit user.properties file ...] menu
+	item.
+
+	* src/mainmenu_callbacks.c: Fixed a bug that loads system properties file
+	instead of user properties file.
+  
+	* README, anjuta.prj, configure.in: Bumped anjuta version to 1.0.0
+	* anjuta.spec.in: Added {prefix}/share/doc/anjuta for rpms.
+	* Makefile.am: Install docs in share/doc/anjuta and not doc/anjuta.
+	* README, TODO: Updated.
+	
+2002-10-28  Naba Kumar <naba@gnome.org>
+
+    * manuals/C/anjuta-manual/figures/editor_guides.png,
+    manuals/C/anjuta-manual/figures/editor_margins.png,
+    manuals/C/anjuta-manual/figures/editor_markers.png,
+    manuals/C/anjuta-manual/figures/local_variables.png,
+    manuals/C/anjuta-manual/figures/open_file_multiple.png,
+    manuals/C/anjuta-manual/figures/prefs_print.png,
+    manuals/C/anjuta-manual/figures/print_dlg.png,
+    manuals/C/anjuta-manual/figures/print_preview.png,
+    manuals/C/anjuta-manual/figures/symbol_browser.png,
+    manuals/C/anjuta-manual/figures/variable_tip.png: New png
+    files for manual documentation.
+    
+    * manuals/sgmldocs.make,
+    manuals/C/anjuta-manual/Makefile.am,
+    manuals/C/anjuta-manual/authors.sgml,
+    manuals/C/anjuta-manual/build.sgml,
+    manuals/C/anjuta-manual/compileopts.sgml,
+    manuals/C/anjuta-manual/debugger.sgml,
+    manuals/C/anjuta-manual/execute.sgml,
+    manuals/C/anjuta-manual/fileoperations.sgml,
+    manuals/C/anjuta-manual/interface.sgml,
+    manuals/C/anjuta-manual/preferences.sgml,
+    manuals/C/anjuta-manual/projects.sgml,
+    manuals/C/anjuta-manual/figures/arguments.png,
+    manuals/C/anjuta-manual/figures/open_file.png,
+    manuals/C/anjuta-manual/figures/other_opts.png,
+    manuals/C/anjuta-manual/figures/scrshot.png,
+    manuals/C/anjuta-manual/figures/toolbar_browser.png,
+    manuals/C/anjuta-manual/figures/toolbar_tags.png:
+    
+    Updated anjuta manual documentation.
+
+    
+2002-10-27  Naba Kumar <naba@gnome.org>
+
+    * utilities.[h,c], debugger.[h,c], commands.c: Added gnome-terminal
+    check and modifies debugger terminal command accordingly
+    to function properly.
+    
+2002-10-25  Naba Kumar <naba@gnome.org>
+
+	* manuals/sgmldocs.make: Fixed a couple of bugs.
+	* data/x-anjuta-project.desktop. data/Makefile.am: Mime handling link.
+
+2002-10-24  Naba Kumar <naba@gnome.org>
+
+	* src/debug_tree.c: Fixed a crash bug from Etay.
+
+	* global_tags/create_global_tags: Added messages.
+	Fixed infinite looping within files.
+	
+	* macro/autogen.sh: Removed debug and warning flags for defaults.
+	
+	Patch from Vadim Berezniker <vadim@berezniker.com>
+	
+	* tagmanager/tm_workspace.[h,c], global-tags/create_global_tags.sh,
+	global-tags/tm_global_tags.c: Fixed infinite loop in system tags
+	generation.
+
+	* Makefile.am: XML merge is broken for .destop in RH 8.0, so
+	temporarily just copy it
+
+2002-10-24  Naba Kumar <naba@gnome.org>
+
+	* manuals/sgmldocs.make, anuals/C/anjuta-faqs/anjuta-faqs.sgml,
+	manuals/C/anjuta-manual/anjuta-manual.sgml, 
+	manuals/C/anjuta-manual/compileopts.sgml,
+	manuals/C/anjuta-manual/debugger.sgml,
+	manuals/C/anjuta-manual/execute.sgml,
+	manuals/C/anjuta-manual/fileoperations.sgml,
+	manuals/C/anjuta-manual/interface.sgml,
+	manuals/C/anjuta-manual/introduction.sgml,
+	manuals/C/anjuta-manual/projects.sgml,
+	manuals/C/anjuta-tutorial/anjuta-tutorial.sgml,
+	manuals/ja/anjuta-faqs/anjuta-faqs.sgml,
+	manuals/ja/anjuta-manual/anjuta-manual.sgml,
+	manuals/ja/anjuta-manual/compileopts.sgml,
+	manuals/ja/anjuta-manual/debugger.sgml,
+	manuals/ja/anjuta-manual/execute.sgml,
+	manuals/ja/anjuta-manual/fileoperations.sgml,
+	manuals/ja/anjuta-manual/interface.sgml,
+	manuals/ja/anjuta-manual/introduction.sgml,
+	manuals/ja/anjuta-manual/projects.sgml: Upgraded to Docbook 4.0
+
+2002-10-24  Naba Kumar <naba@gnome.org>
+
+	* src/project_type.c: added autogen for qt projects.
+	* src/debugger.c: enabled debugger debugging for DEBUG MODE.
+	Fixed a bug that retrieves wrong terminal command.
+	* src/commnads.c: Added more terminal commands.
+	* configure.in: Checks for scrollkeeper version.
+	
+2002-10-22  Naba Kumar <naba@gnome.org>
+
+	* configure.in, acinclude.m4, setup-gettext: Used AM_GNU_GETTEXT
+	instead of AM_GNOME_GETTEXT.
+	
+	* src/source.c, data/autogen.sh.*, data/Makefile.am: Added support
+	for setup-gettext for the wizard generated projects.
+
+	* src/source.c: Fixed a bug where glade file wasn't generated.
+	
+	* src/gnome_project.c: Excluded project version from project dir
+	name.
+	
+2002-10-22  Naba Kumar <naba@gnome.org>
+
+	* acinclude.m4: New file with dummy funtion for gettext
+	cross compatibility fix.
+	
+	* configure.in, setup-gettext: Fixed to use with AM_GNOME_GETTEXT.
+	* configure.in: Fixed cflags to avoid useless warnings.
+	* Makefile.am: EXTRA_DIST += setup-gettext.
+	* src/toolbars.c: Added space paddings around tags label.
+
+2002-10-21  Naba Kumar <naba@gnome.org>
+
+	Patch from Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	
+	* setup-gettext: New script to maintain gettext cross version
+	compatibility.
+	* configure.in, macros/autogen.sh: Fix for gettext cross version
+	compatibility.
+	
+2002-10-21  Naba Kumar <naba@gnome.org>
+
+	* debug_tree.c: Fixed incorrect use of debug assertion.
+	
+2002-10-18  Etay Meiri <etay-m@bezeqint.net>
+	    Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	* src/debug_tree.c, src/debug_tree.h, src/debugger.c,
+	src/memory.c, src/memory.h, src/message-manager-private.cc:
+	
+	New parsing algorithm; adapted from kdevelop.
+	Middle button menu for changing the value's display type
+
+2002-10-07  Naba Kumar <naba@gnome.org>
+
+	* src/main_menubar_def.h: Changed status bar message for Help->
+	Browse info pages. Bug #603308
+
+	* src/executer.c: Made "User terminal" default for creating
+	projects (User can always disable it later). Bug #114222
+	
+2002-10-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* macros/autogen.sh: Require gettext 0.10.x for autogen
+	* src/text_editor.c: Fixes Bug #595303
+	* src/source.c: Fixes Bug #595970
+	* src/anjuta.c: Fixes Bug #598366
+	* scingtilla/LexCPP.cxx: Bug #602296
+	* src/main_menubar_def.h: Bug #604363
+	* src/find_in_files.[h,c], src/find_in_files_gui.c: Buf #608679
+	
+2002-10-07  Jens Georg <mail@jensgeorg.de>
+
+	Reviewed by: Naba Kumar <kh_naba@gnome.org>
+	* gnomefilelist.c: This patch fixes the bug #611542
+	
+2002-09-20  Naba Kumar <kh_naba@gnome.org>
+
+	* data/properties/Makefile.am: Added tcltk.properties file.
+	
+2002-09-20	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+
+	Reviewed by: Naba Kumar <kh_naba@gnome.org>
+	
+	* README: Updated README
+	* plugins/class-gen/clsGen.c, src/message_manager.cc
+	  , src/mainmeu_callbacks.c, src/memory.c
+	  , src/project_dbase_gui.c, src/text_editor_gui.c
+	  , widgets/gnomefilelist.c: Set window icons
+	* configure.in, macros/*, */Makefile.am, anjuta.spec.in:
+	  Enabled release build (stripped + optimized binaries, etc.)
+	* data/properties/anjuta.properties, src/commands.c,
+	  src/defaults.cFixed bug #595489 (stdin on executables)
+	* src/appwizard.c, src/main.c, src/message-manager.cc
+	  , src/project_dbase.c, src/toolbar.c, widgets/gnomefilelist.c
+	  , src/debug_tree.c: Memory related (valgrind) fixes.
+	* src/message-manager-private.[cc,h], src/pixpams.h
+	  , src/preferences.[ch], src/preferences_gui.c: Terminal preferences
+	* anjuta.prj: Added debug_tree.c to SOURCES
+	* src/main_menubar_def.h, src/mainmenu_callbacks.[ch],
+	  src/text_editor_menu.c, src/text_editor_gui.c, src/anjuta.c:
+	  Compacted code and cleaned up unnecessary functions.
+	* tagmanager/*.[ch]: Code fixes.
+	
+2002-08-30  Etay Meiri <etay-m@bezeqint.il>
+	
+	Reviewed by: Naba Kumar <kh_naba@gnome.org>
+	
+	* src/debug_tree.c, debug_tree.h, debugger.c, message-manager-private.cc:
+	Debug tree now detects changes of displayed variables
+	and changes their color to red
+
+2002-09-20  Naba Kumar <kh_naba@gnome.org>
+
+	Patch from: Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* mainmenu_callbacks.c: Set's the current file name in
+	file save as dialog.
+	
+2002-09-20  Naba Kumar <kh_naba@gnome.org>
+
+	Patch from: Vlastimil Holer <xholer@informatics.muni.cz>
+
+	* data/properties/tcltk.properties: New file for tcl/tk
+	properties.
+
+2002-08-28	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* src/project_type.[c,h], src/source.c, data/Makefile.am:
+	Fixed a fatal bug which doesn't let building gnome2 related
+	projects. They use different autogen.sh script.	Defined new
+	type field "gnome_macro_support".
+	
+	* data/autogen.sh.gnome2: New file.
+	
+	* src/utilities.c (anjuta_util_escape_quotes): Fixed a fatal
+	bug with quotes escaping in quotes.
+	
+	* src/message-manager-private.cc: Used event box instead
+	of frame for local message pane, so that the borders appear
+	properly and nicely.
+	
+	* src/anjuta.c: Fixed bug #600221 -- anjuta crashes on exit
+	if there is a project open and all the files are un-docked.
+
+	* src/dnd.c: Possible fix for bug #512873 Drag And Drop problems.
+
+2002-08-27	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/main_menubar_def.h: implement feature request #595356, patch #597161
+	* THANKS: updated for new contributions
+	* src/mainmenu_callbacks.c, src/mainmenu_callbacks.h: patch #597161
+
+2002-08-27 Steven Knight  <steven.knight@unh.edu>
+
+	* src/appwiz_page1.c, src/pixmaps.h, src/project_dbase.c,
+	src/project_dbase.h, src/project_type.c, src/source.c, 
+	src/wizard_gui.c: new Qt project type
+	*** NB not fully tested, may need some work, icon required...
+
+2002-08-27 Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+
+	* src/memory.c, src/memory.h: new memory patch
+
+2002-08-27  Johannes Schmid <clubfan@users.sourceforge.net>
+
+	* src/anjuta.c: Fixed bug #589646 CVS preferences visibility
+
+2002-08-27	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* lancher/anjuta_launcher.c: Determine pty from function
+	call instead of running 'tty' externally.
+	
+	* data/properties/cs.properties: Added compile/build commands.
+	Fixed execution properties.
+	
+	* src/commands.c: Added c# options.
+
+	(Patch from: Etay Meiri <etay-m@bezeqint.net>)
+	
+	* src/debug_tree.[c,h], src/debugger.[c,h],
+	src/message_manager_private.[cc,h], message_manager.cc, stack_trace.[c,h]:
+	
+	The following problems, detected by Jean-Noel Guiheneuf, were fixed:
+	1. Misaligned structs when they are members of other structs.
+	2. '{' sometimes appears as a variable.
+	3. Wrong processing of some arrays.
+	I've also incorporated some code from a patch by Guiheneuf Jean-Noel
+	that displays the tree in two columns (variable and value).
+
+2002-08-14  Stephane Demurget  <demurgets@free.fr>
+
+	Added missing keywords reported by Luca Bellonda <lbell@tsc4.com>.
+
+	* data/properties/sql.properties: added the DATETIME data type.
+
+	* data/properties/html.properties: added the foreach php keyword.
+
+2002-08-09	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* NEWS: Updated with new features.
+	
+	* data/.cvsignore, doc/.cvsignore: Updated.
+	
+	Patch from: Etay Meiri <etay-m@bezeqint.net>
+	
+	* src/debug_tree.h, src/debug_tree.c: New files.
+	
+	* src/Makefile.am, src/message-manger-private.[h,cc],
+	src/message-manger.cc: Added Tree view for debugger
+	locals view.
+	
+2002-08-09	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	Patch from Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>
+	
+	* src/memory.c, src/memory.h: New files.
+	
+	* src/Makefile.am, src/appwizard.c, src/controls.c,
+	src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h:
+	
+	Memory view implemetation that would enable viewing raw memory
+	during debugging.
+
+2002-08-08  Stephane Demurget  <demurgets@free.fr>
+
+	* AUTHORS: added Biswa, because I wonder why noone already have
+	written his name in the Anjuta's hall of fame :)
+
+2002-08-07	Naba Kumar	<kh_naba@users.sourceforge.net>
+
+	* src/appwizard_gui.c: Removed an ambiguous prototype.
+	* src/appwizard_gui.c: Removed more ambiguous prototypes. This seem to
+	fix a nasty PPC bug as reported by Todd Goyen <wettoad@knighthoodofbuh.org>.
+	* THANKS: Updated M. Ali Vardar's email.
+	
+2002-08-01	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/anjuta_gui.c: implemented feature request to stop main and browser
+	  toolbars having exclusive use of space
+
+2002-08-01	Andy Piper	<andy.piper@freeuk.com>
+
+	* NEWS: updated for 1.0-beta release
+	* widgets/e-shell-about-box.c, manuals/C/anjuta-manual/authors.sgml, 
+	  THANKS: credited new contributors
+
 2002-07-24  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 
 	* tm_project.c: Added *.i and *.pc to C code files.
@@ -193,7 +938,7 @@
 2002-07-15	Naba Kumar	<kh_naba@users.sourceforge.net>
 	
 	* NEWS: Updated.
-	* scintilla/KeyWords.cxx: Fixed a complie bug.
+	* scintilla/KeyWords.cxx: Fixed a compile bug.
 
 2002-07-02	Naba Kumar	<kh_naba@users.sourceforge.net>
 
@@ -234,7 +979,7 @@
 
 2002-06-28	Naba Kumar	<kh_naba@users.sourceforge.net>
 
-	(Patch from: ??)
+	(Patch from: Kelly Bergougnoux <three3@users.sourceforge.net>)
 	
 	* src/appwiz_page1.c, src/pixmaps.h, src/project_dbase.c,
 	src/project_dbase.h, src/project_import_cbs.c, src/project_type.c,

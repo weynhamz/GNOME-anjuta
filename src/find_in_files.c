@@ -33,8 +33,72 @@
 #include "resources.h"
 #include "launcher.h"
 #include "find_in_files.h"
+#include "find_in_files_cbs.h"
 #include "utilities.h"
 
+static void
+create_find_in_files_gui (FindInFiles *sf)
+{
+	GtkWidget *button;
+	
+	sf->widgets.window =
+		glade_xml_get_widget (app->gxml, "find_in_files_dialog");
+	sf->widgets.file_entry =
+		glade_xml_get_widget (app->gxml, "find_in_files_file_entry");
+	sf->widgets.clist =
+		glade_xml_get_widget (app->gxml, "find_in_files_clist");
+	sf->widgets.case_sensitive_check =
+		glade_xml_get_widget (app->gxml, "find_in_files_case_sensitive");
+	sf->widgets.ignore_binary =
+		glade_xml_get_widget (app->gxml, "find_in_files_ignore_binary");
+	sf->widgets.append_messages =
+		glade_xml_get_widget (app->gxml, "find_in_files_append_messages");
+	sf->widgets.regexp_entry =
+		glade_xml_get_widget (app->gxml, "find_in_files_regex_entry");
+	sf->widgets.regexp_combo =
+		glade_xml_get_widget (app->gxml, "find_in_files_regex_combo");
+	
+	gtk_widget_ref (sf->widgets.window);
+	gtk_widget_ref (sf->widgets.file_entry);
+	gtk_widget_ref (sf->widgets.clist);
+	gtk_widget_ref (sf->widgets.case_sensitive_check);
+	gtk_widget_ref (sf->widgets.ignore_binary);
+	gtk_widget_ref (sf->widgets.append_messages);
+	gtk_widget_ref (sf->widgets.regexp_entry);
+	gtk_widget_ref (sf->widgets.regexp_combo);
+	
+	gtk_accel_group_attach(app->accel_group, GTK_OBJECT(sf->widgets.window));
+
+	g_signal_connect (G_OBJECT (sf->widgets.clist), "row_activated",
+					  G_CALLBACK (on_search_in_files_clist_row_activated),
+					  sf);
+	g_signal_connect (G_OBJECT (sf->widgets.window), "close",
+					  G_CALLBACK (on_search_in_files_close),
+					  sf);
+	button = glade_xml_get_widget (app->gxml, "find_in_files_add");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_search_in_files_add_clicked),
+					  sf);
+	button = glade_xml_get_widget (app->gxml, "find_in_files_remove");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_search_in_files_remove_clicked),
+					  sf);
+	button = glade_xml_get_widget (app->gxml, "find_in_files_clear");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_search_in_files_clear_clicked),
+					  sf);
+	button = glade_xml_get_widget (app->gxml, "find_in_files_close_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_search_in_files_cancel_clicked),
+					  sf);
+	button = glade_xml_get_widget (app->gxml, "find_in_files_find_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_search_in_files_ok_clicked),
+					  sf);
+
+	g_window_set_transient_for(GTK_WINDOW(sf->widgets.window),
+	                             GTK_WINDOW(app->widgets.window));
+}
 
 FindInFiles *
 find_in_files_new ()
@@ -44,7 +108,7 @@ find_in_files_new ()
 	if (ff)
 	{
 		ff->regexp_history = NULL;
-		ff->cur_row = 0;
+		ff->cur_row = NULL;
 		ff->is_showing = FALSE;
 		ff->length = 0;
 		ff->win_pos_x = FR_CENTRE;
@@ -62,25 +126,15 @@ find_in_files_destroy (FindInFiles * ff)
 	{
 		gtk_widget_unref (ff->widgets.window);
 		gtk_widget_unref (ff->widgets.file_entry);
-		gtk_widget_unref (ff->widgets.file_combo);
 		gtk_widget_unref (ff->widgets.clist);
 		gtk_widget_unref (ff->widgets.case_sensitive_check);
-		gtk_widget_unref (ff->widgets.add);
-		gtk_widget_unref (ff->widgets.remove);
-		gtk_widget_unref (ff->widgets.clear);
+        gtk_widget_unref (ff->widgets.append_messages);
 		gtk_widget_unref (ff->widgets.regexp_entry);
 		gtk_widget_unref (ff->widgets.regexp_combo);
-		gtk_widget_unref (ff->widgets.help);
-		gtk_widget_unref (ff->widgets.ok);
-		gtk_widget_unref (ff->widgets.cancel);
-        gtk_widget_unref (ff->widgets.append_messages);
 
 		if (ff->widgets.window)
 			gtk_widget_destroy (ff->widgets.window);
-		for (i = 0; i < g_list_length (ff->regexp_history); i++)
-			g_free (g_list_nth_data (ff->regexp_history, i));
-		if (ff->regexp_history)
-			g_list_free (ff->regexp_history);
+		glist_strings_free (ff->regexp_history);
 		g_free (ff);
 	}
 }
@@ -152,9 +206,12 @@ find_in_files_load_session( FindInFiles * ff, ProjectDBase *p )
 void
 find_in_files_process (FindInFiles * ff)
 {
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
 	gint i;
 	gchar *command, *temp, *file;
-	gboolean case_sensitive, ignore_binary;
+	gboolean case_sensitive, ignore_binary, nocvs;
 
 	if (anjuta_is_installed ("grep", TRUE) == FALSE)
 		return;
@@ -166,8 +223,11 @@ find_in_files_process (FindInFiles * ff)
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 					      (ff->widgets.
 					       ignore_binary));
-	
-	temp = gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
+	nocvs  =
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+					      (ff->widgets.nocvs));
+	temp = (gchar*)gtk_entry_get_text (GTK_ENTRY (ff->widgets.regexp_entry));
+
 	command = g_strconcat ("grep -n -r -e \"", temp, "\"", NULL);
 	ff->regexp_history =
 		update_string_list (ff->regexp_history, temp,
@@ -184,14 +244,26 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		command = temp;
 	}
-	for (i = 0; i < ff->length; i++)
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while(valid)
 	{
-		gtk_clist_get_text (GTK_CLIST (ff->widgets.clist), i, 0,
-				    &file);
+		gtk_list_store_get (GTK_LIST_STORE (model), &iter, 0, &file, -1);
+		valid = gtk_tree_model_get_iter_next (model, &iter);
 		temp = g_strconcat (command, " ", file, " ", NULL);
 		g_free (command);
 		command = temp;
 	}
+	if (nocvs)
+	{
+		temp = g_strconcat(command, " | grep -Fv '/CVS/'", NULL);
+		g_free(command);
+		command = temp;
+	}
+#ifdef DEBUG
+	g_message("Find: '%s'\n", command);
+#endif
+
 	anjuta_clear_execution_dir();
 	if (launcher_execute (command,
 			      find_in_files_mesg_arrived,

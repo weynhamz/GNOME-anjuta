@@ -20,6 +20,7 @@
 #define _PREFERENCES_H_
 
 #include <gnome.h>
+#include <glade/glade.h>
 #include "properties.h"
 
 #ifdef __cplusplus
@@ -27,194 +28,22 @@ extern "C"
 {
 #endif
 
-typedef struct _PreferencesWidgets PreferencesWidgets;
 typedef struct _Preferences Preferences;
-typedef struct _StyleData StyleData;
-
-struct _StyleData
-{
-	gchar *item;
-	gchar *font;
-	gint size;
-	gboolean bold, italics, underlined;
-	gchar *fore, *back;
-	gboolean eolfilled;
-
-	gboolean font_use_default;
-	gboolean attrib_use_default;
-	gboolean fore_use_default;
-	gboolean back_use_default;
-};
-
-struct _PreferencesWidgets
-{
-	GtkWidget *window;
-	GtkWidget *notebook;
-
-	/*
-	 * * Page 0 
-	 */
-	GtkWidget *prj_dir_entry;
-	GtkWidget *tarballs_dir_entry;
-	GtkWidget *rpms_dir_entry;
-	GtkWidget *srpms_dir_entry;
-	GtkWidget *recent_prj_spin;
-	GtkWidget *recent_files_spin;
-	GtkWidget *combo_history_spin;
-	GtkWidget *beep_check;
-	GtkWidget *dialog_check;
-	GtkWidget *lastprj_check;
-	/*
-	 * * Page 1 
-	 */
-	GtkWidget *build_keep_going_check;
-	GtkWidget *build_silent_check;
-	GtkWidget *build_debug_check;
-	GtkWidget *build_warn_undef_check;
-	GtkWidget *build_jobs_spin;
-	GtkWidget *build_autosave_check;
-
-	/*
-	 * * page2 
-	 */
-	GtkWidget *hilite_item_combo;
-	GtkWidget *font_picker;
-	GtkWidget *font_size_spin;
-	GtkWidget *font_bold_check, *font_italics_check,
-		*font_underlined_check;
-	GtkWidget *fore_colorpicker;
-	GtkWidget *back_colorpicker;
-	GtkWidget *font_use_default_check;
-	GtkWidget *font_attrib_use_default_check;
-	GtkWidget *fore_color_use_default_check;
-	GtkWidget *back_color_use_default_check;
-	GtkWidget *caret_fore_color;
-	GtkWidget *selection_fore_color;
-	GtkWidget *selection_back_color;
-	GtkWidget *calltip_back_color;
-
-	/*
-	 * * Page 3 
-	 */
-	GtkWidget *strip_spaces_check;
-	GtkWidget *fold_on_open_check;
-
-	GtkWidget *disable_hilite_check;
-	GtkWidget *auto_save_check;
-	GtkWidget *auto_indent_check;
-	GtkWidget *use_tabs_check;
-	GtkWidget *braces_check_check;
-	GtkWidget *dos_eol_check;
-	GtkWidget *wrap_bookmarks_check;
-	GtkWidget *indent_open_brace;
-	GtkWidget *indent_close_brace;
-
-	GtkWidget *tab_size_spin;
-	GtkWidget *autosave_timer_spin;
-	GtkWidget *autoindent_size_spin;
-	GtkWidget *linenum_margin_width_spin;
-	GtkWidget *session_timer_spin;
-
-	/*
-	 * * Page 4 
-	 */
-	GtkWidget *paper_selector;
-	GtkWidget *print_header_check;
-	GtkWidget *print_wrap_check;
-	GtkWidget *print_linenum_count_spin;
-	GtkWidget *print_landscape_check;
-	GtkWidget *print_color_check;
-	GtkWidget *margin_left_spin;
-	GtkWidget *margin_right_spin;
-	GtkWidget *margin_top_spin;
-	GtkWidget *margin_bottom_spin;
-	
-	/*
-	 * * Page 5 
-	 */
-	GtkWidget *format_disable_check;
-	GtkWidget *format_style_combo;
-	GtkWidget *custom_style_entry;
-	GtkWidget *format_frame1;
-	GtkWidget *format_frame2;
-
-	/*
-	 * * Page 6 
-	 */
-		
-	GtkWidget *truncat_mesg_check;
-	GtkWidget *mesg_first_spin;
-	GtkWidget *mesg_last_spin;
-	GtkWidget *tag_pos_msg_radio[4];
-	GtkWidget *color_picker[4];
-	
-	
-	/*
-	 * * Page 7
-	 */
-	
-	GtkWidget *tag_pos_radio[4];
-	GtkWidget *no_tag_check;
-	GtkWidget *tabs_ordering;
-	GtkWidget *tags_update_check;
-	GtkWidget *build_symbols;
-	GtkWidget *build_file_tree;
-	GtkWidget *show_tooltips;
-
-	/* Page CVS */
-	GtkWidget *spin_compression;
-	GtkWidget *option_unified;
-	GtkWidget *option_context;
-	GtkWidget *option_force_update;
-	
-	/* Page Comps */
-	GtkWidget *use_components;
-
-	/* Page Ident */
-	GtkWidget *name_entry;
-	GtkWidget *email_entry;
-};
+typedef struct _PreferencesPriv PreferencesPriv;
 
 struct _Preferences
 {
-	PreferencesWidgets widgets;
-
 	PropsID props_build_in;
 	PropsID props_global;
 	PropsID props_local;
 	PropsID props_session;
 	PropsID props;
-
-/*
- * Private 
- */
-	StyleData *default_style;
-	StyleData *current_style;
-
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y;
+	
+	PreferencesPriv *priv;
 };
-
-/* Style data to be used in style editor */
-StyleData *style_data_new (void);
-StyleData *style_data_new_parse (gchar * style_string);
-void style_data_destroy (StyleData * sdata);
-
-/* Get the string version of the style */
-gchar *style_data_get_string (StyleData * sdata);
-
-/* Int and Boolean data can be set directly */
-/* String data should use these functions */
-void style_data_set_font (StyleData * sdata, gchar * font);
-void style_data_set_fore (StyleData * sdata, gchar * fore);
-void style_data_set_back (StyleData * sdata, gchar * fore);
-void style_data_set_item (StyleData * sdata, gchar * fore);
 
 /* Preferences */
 Preferences *preferences_new (void);
-
-/* Syncs the key values and the widgets */
-void preferences_sync (Preferences * p);
 
 /* Resets the default values into the keys */
 void preferences_reset_defaults (Preferences *);
@@ -223,10 +52,6 @@ void preferences_reset_defaults (Preferences *);
 void preferences_hide (Preferences *);
 void preferences_show (Preferences *);
 void preferences_destroy (Preferences *);
-void create_preferences_gui (Preferences *);
-
-void
-on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data);
 
 /* Save and Load */
 gboolean preferences_save_yourself (Preferences * p, FILE * stream);
@@ -237,10 +62,6 @@ void preferences_set (Preferences *, gchar * key, gchar * value);
 
 /* Sets the value (int) of a key */
 void preferences_set_int (Preferences *, gchar * key, gint value);
-
-/* Gets the indent options */
-/* Must free the return string */
-gchar *preferences_get_format_opts (Preferences * p);
 
 /* Gets the value (string) of a key */
 /* Must free the return string */
@@ -256,9 +77,6 @@ gchar *preferences_default_get (Preferences * p, gchar * key);
 
 /* Gets the value (int) of a key */
 gint preferences_default_get_int (Preferences * p, gchar * key);
-
-/* Sets the make options in the prop variable $(anjuta.make.options) */
-void preferences_set_build_options(Preferences* p);
 
 /*
  * Preferences KEY definitions.
@@ -324,13 +142,14 @@ void preferences_set_build_options(Preferences* p);
 #define MESSAGES_COLOR_WARNING   "messages.color.warning"
 #define MESSAGES_COLOR_MESSAGES1 "messages.color.messages1"
 #define MESSAGES_COLOR_MESSAGES2 "messages.color.messages2"
+#define MESSAGES_INDICATORS_AUTOMATIC "indicators.automatic"
 
 #define AUTOMATIC_TAGS_UPDATE   "automatic.tags.update"
 #define BUILD_SYMBOL_BROWSER	 "build.symbol.browser"
 #define BUILD_FILE_BROWSER	 "build.file.browser"
 #define SHOW_TOOLTIPS           "show.tooltips"
 
-#define PRINT_PAPER_SIZE        "paper.size"
+#define PRINT_PAPER_SIZE        "print.paper.size"
 #define PRINT_HEADER            "print.header"
 #define PRINT_WRAP              "print.linewrap"
 #define PRINT_LINENUM_COUNT     "print.linenumber.count"
@@ -348,6 +167,37 @@ void preferences_set_build_options(Preferences* p);
 
 /* Miscellaneous */
 #define CHARACTER_SET "character.set"
+
+/* Terminal preferences */
+#define TERMINAL_FONT			"terminal.font"
+#define TERMINAL_SCROLLSIZE		"terminal.scrollsize"
+#define TERMINAL_TERM			"terminal.term"
+#define TERMINAL_WORDCLASS		"terminal.wordclass"
+#define TERMINAL_BLINK			"terminal.blink"
+#define TERMINAL_BELL			"terminal.bell"
+#define TERMINAL_SCROLL_KEY		"terminal.scroll.keystroke"
+#define TERMINAL_SCROLL_OUTPUT	"terminal.scroll.output"
+
+/*
+** Provide some reasonable failsafe values for the embedded
+** terminal widget - Biswa
+*/
+#ifndef DEFAULT_ZVT_FONT
+#define DEFAULT_ZVT_FONT "-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-iso8859-1"
+#endif
+
+#ifndef DEFAULT_ZVT_SCROLLSIZE
+#define DEFAULT_ZVT_SCROLLSIZE 200
+#define MAX_ZVT_SCROLLSIZE 100000
+#endif
+
+#ifndef DEFAULT_ZVT_TERM
+#define DEFAULT_ZVT_TERM "xterm"
+#endif
+
+#ifndef DEFAULT_ZVT_WORDCLASS
+#define DEFAULT_ZVT_WORDCLASS "-A-Za-z0-9/_:.,?+%="
+#endif
 
 void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);

@@ -2,21 +2,34 @@
   <title>File Operations</title>
   <!-- ============= File operations: Creating a new file === -->
   <sect1 id="creating-files">
-   <title>Creating a New File</title>
+   <title>Creating a New File and inserting texts</title>
    <para>
-   To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu>
-   <guimenuitem>New</guimenuitem></menuchoice> from the menubar, or click on the 
-   <guibutton>New File</guibutton> button on the toolbar. A new page will 
-   appear in the editor (or a new window if the parent document is windowed). 
-   This new document will be named <filename>newfile#1</filename>, 
-   <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
-   so on. 
+    To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu>
+    <guimenuitem>New</guimenuitem></menuchoice> from the menubar, or click on the 
+    <guibutton>New File</guibutton> button on the toolbar. A new page will 
+    appear in the editor (or a new window if the parent document is windowed). 
+    This new document will be named <filename>newfile#1</filename>, 
+    <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
+    so on. 
+   </para>
+   <para>
+    <application>Anjuta</application> occatinally also creates new files during some
+	operations. For example, some CVS operations, such as diff, file log, file status
+	etc, create new files and add the output there. These could be saved in real file
+	just like normal new files.
+   </para>
+   <para>
+    To insert popular text bits in the file, place the cursor at the insertion point
+	and select the right insert text menu item from <menuchoice><guisubmenu>File</guisubmenu>
+	<guisubmenu>Insert Text</guisubmenu></menuchoice>. Some of the text bits use the
+	user information (such as name and email) provided in Preferences (General page).
+	So make sure you set them to correct values before inserting texts.
    </para>
    <important>
-   <title>Remember</title>
+   <title>Save file</title>
    <para>
-   You should save new documents as soon as possible to avoid any data 
-   loss in case of a crash.
+    You should save new documents as soon as possible to avoid any data 
+    loss in case of a crash.
    </para>
    </important>
   </sect1>
@@ -38,14 +51,40 @@
         <title>Open File dialog</title>
         <screenshot>
 		<screeninfo>The Open File dialog</screeninfo>
-         <graphic fileref="figures/open_file" format="png" srccredit="andyp"></graphic>
+         <graphic fileref="figures/open_file" format="png" srccredit="naba">
         </screenshot>
        </figure>
        Select or enter the file you want to open, then click 
-	   <guibutton>OK</guibutton>. If you change your mind, click 
+	   <guibutton>OK</guibutton>. To open more than one file at once, select multiple files
+	   to open by first pressing CTRL and clicking the files in the list and
+	   press <guibutton>OK</guibutton>. If you change your mind, click 
 	   <guibutton>Cancel</guibutton> to dismiss the dialog without opening 
 	   the file.
       </para>
+	  <para>
+	   Pressing TAB in the selection entry box works as auto complete for the file
+	   path. It behaves just like the usual shell auto complete and could be very helpful
+	   when the filenames are too long to type. For selecting multiple files at once,
+	   select a file in the dialog and press CTRL once. This will bring the file selection
+	   dialog in multiple-select mode and multiple files could be selected from the list.
+	   Multiple file select mode is simlar to single file select mode, except that the file
+	   operation (for which the file selection was being done) will be performed for all
+	   the selected files.
+	   <figure id="open-file-multiple">
+        <title>Open Multiple File dialog</title>
+        <screenshot>
+		<screeninfo>The Open File dialog in multiple-select mode</screeninfo>
+         <graphic fileref="figures/open_file_multiple" format="png" srccredit="naba">
+        </screenshot>
+       </figure>
+	  </para>
+	  <para>
+	   The <guibutton>Show Hidden</guibutton>, if switched on (pressed in), will make the hidden
+	   files (files starting with "."; visible in the file list. Depress it to make
+	   them hide. <application>Anjuta</application> fileselection dialog also has inbuild
+	   file type filter. Select the appropiate file type filter in the dialog and the file
+	   list will be limited to the files of the selected type only.
+	  </para>
      </listitem>
      
      <listitem>
@@ -70,7 +109,7 @@
 	  enter the new filename. Enter the name and click <guibutton>OK</guibutton>.
       </para>
       <note>
-       <title>Note</title>
+       <title>File save as overwrite</title>
        <para>
         When you use <guimenuitem>Save As</guimenuitem> with an existing file, 
 		the original is not deleted. It is left unchanged since the last save. 
@@ -87,8 +126,9 @@
       <emphasis>Closing a file:</emphasis> 
 	  To close a file, choose <menuchoice><guisubmenu>File</guisubmenu>
 	  <guimenuitem>Close</guimenuitem></menuchoice> from the menubar, or click on the 
-	  <guibutton>Close</guibutton> button on the toolbar. This will close the current 
-	  file. If the file is not saved, or is a new file, then 
+	  <guibutton>Close</guibutton> button on the toolbar. The file could also be closed
+	  by clicking the <guibutton>cross</guibutton> in the filename tab. This will close
+	  the current file. If the file is not saved, or is a new file, then 
 	  <application>Anjuta</application> will prompt you to save the file before 
 	  closing it.
       </para>
@@ -96,7 +136,7 @@
     </orderedlist>
    </para>
    <note>
-   <title>Remember</title>
+   <title>File auto save</title>
     <para>
 	If you have enabled auto-save, it will not auto-save any new files. 
 	You must first save them manually. The same applies to the 
@@ -113,71 +153,203 @@
    <para>
     <application>Anjuta</application> has a number of helpful features which aid in 
     editing and working with source files. The following sections describe how to use 
-	them.
+	some of the interesting features available.
    </para>
+   <sect2 id="editor-margins-sec">
+   <title>Editor Margins</title>
+      <para><emphasis>Editor Margins:</emphasis> Editor margins are the small area on the
+	   left of the editor for some special purposes. There are three editor margins available
+	   and all of them may not be available when you first start <application>anjuta</application>.
+       They are Line numbers margin, Markers margin and Code fold margin.
+       By default (that is, when you run <application>anjuta</application> for the first time) only
+       the code fold margin witll be visible. The rest could be made visible from
+       <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu></menuchoice>.
+       <figure id="editor-margins">
+        <title>Editor Margins</title>
+        <screenshot>
+         <screeninfo>The Tags toolbar</screeninfo>
+         <graphic fileref="figures/editor_margins" format="png" srccredit="naba"> 
+        </screenshot>
+       </figure>
+       </para>
+       <para>
+	   The <emphasis>Line Numbers Margin</emphasis> is lagest of all the three margins (and slightly
+	   darker then rest) and displays the document's line numbers.
+	   <emphasis>Line Number Margin</emphasis> could be made visible
+	   or invisible by toggling <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
+	   <guimenuitem>Line Numbers Margin</guimenuitem></menuchoice>. Single left clicking on this margin
+	   will select the whole line (including the last newline, if present). You can set the font
+	   properties for line number margin in the preferences.
+      </para>
+	  <para><emphasis>Markers Margin</emphasis> is the next margin which can be made visible or
+	   invisible by selecting <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
+	   <guimenuitem>Markers Margin</guimenuitem></menuchoice>. This margin displays graphical icons
+	   to mark the give line. The markers which will be displayed in this margin are Bookmark marker
+	   (rectangular blue colored icon), Breakpoint marker (circular red colored) and Line indicator
+	   (pointed arrow yellow colored). Bookmark marker is used to indicate bookmaked lines which could
+	   be toggled from <menuchoice><guimenu>Bookmark</guimenu><guimenuitem>Toggle Bookmark</guimenuitem></menuchoice>
+	   with the cursor placed in that line. The breakpoint marker is used in debugger to mark the
+	   line with debugging breakpoints (see debugging section for more details). The line indicator
+	   marker is used to indicate a line when we do a jump from another part, for example when
+	   navigating the bookmarks and during single stepping in debugger.
+       </para>
+       <para>
+        <emphasis>Code folding margin</emphasis> is where the folding tree is visisble. Clicking 
+        on these folding tree nodes will fold or unfold the code blocks. An underline will also
+        be drawn below the folded line to make it more obvious that a block of code has been 
+        folded below the line. For more details on code folding, see the section <emphasis>Code Folding</emphasis>
+        below.
+       </para>
+       <note>
+       <title>Invisible margin marker</title>
+        <para>
+         If the marker margin is not visible, the markers will be displayed by changing the
+         background color of the line. For example, if there a breakpoint marker is set in 
+         a line and the marker margin is not visible, that line will be displayed with red
+         background. Similarly, for bookmark marker and line indicatior marker, the background
+         color of the line will be sky blue and yellow, respectively. If you do not like this
+         (perhaps due to some contrasting themes), enable the <emphasis>Markers Margins</emphasis>
+         from <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
+         <guimenuitem>Markers Margin</guimenuitem></menuchoice>.
+         <figure id="editor-markers">
+          <title>Editor markes when markers margin is invisible</title>
+          <screenshot>
+           <screeninfo>The Tags toolbar</screeninfo>
+           <graphic fileref="figures/editor_markers" format="png" srccredit="naba"> 
+          </screenshot>
+         </figure>
+        </para>
+       </note>
+      </sect2>
+      <sect2 id="editor-guides-sec">
+      <title>Editor Guides</title>
+      <para>The editor could be made to make certain document information, which otherwise are
+      normally not visible. <emphasis>Indentation guides, white spaces and line end characters</emphasis>
+      are such information which could be made visible for editing comfort. They could be make
+      visible or invisible by toggling the menu items in <menuchoice><guimenu>View</guimenu>
+      <guisubmenu>Editor</guisubmenu></menuchoice>. Indentation guides are the small dotted lines 
+      drawn to connect the matching braces in the source code. When the cursor is over one such
+      maching braces, the dotted indentation guide is highlighted to give a visual region of the
+      indentation.
+      </para>
+       <figure id="editor-guides">
+        <title>Editor with guides</title>
+        <screenshot>
+         <screeninfo>Editor with guides</screeninfo>
+         <graphic fileref="figures/editor_guides" format="png" srccredit="naba"> 
+        </screenshot>
+      </figure>
+    </sect2>
+   <sect2 id="highlighting">
+   <title>Syntax highlighting</title>
+   <para>
+    <application>Anjuta</application> can highlight many different languages. 
+	This is usually done automatically by determining the type of the file from the 
+	file extension. If <application>Anjuta</application> cannot determine the type of 
+	the file, there will be no syntax highlighting. You can explicitly force a particular 
+	highlight style by selecting the style from the menu 
+	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Force Highlight Style</guimenuitem></menuchoice>.
+   </para>
+   </sect2>
+   <sect2 id="codefolding">
+    <title>Code folding</title>
+    <para>
+     Source files which have block coding properties (such as C, C++, Pascal, Java etc.),
+     have the advantage of working with <emphasis>code folds</emphasis>. All of
+     the code blocks in the source file can be folded or unfolded by clicking on the
+     fold points in the fold margin of the <interface>Editor window</interface> 
+	 (usually a +/- symbol or up/down arrow). These fold points automatically appear for 
+	 source files which use code blocks.
+    </para>
+    <para>
+     Code folding is especially useful when editing big source files that run to
+     thousands of lines. Once the folds are closed, the document appears to become 
+	 smaller, facilitating easy browsing and editing of the file.
+    </para>
+   </sect2>
+   <sect2 id="autoformat">
+    <title>Auto-formatting source code</title>
+    <para>
+    If the current file is a C or C++ source or header file, then it is possible to
+    automatically indent (auto-format) the file. This gives a clean look to
+    the source code, increases legibility, reduces the likelihood of syntax errors,
+    and above all it saves time. This can be performed by clicking on the 
+	<guibutton>Auto-format</guibutton> button in the main toolbar or choosing 
+	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Auto-format</guimenuitem></menuchoice> 
+	on the menubar. Change the style of formatting by customizing the 
+	choices in the preferences.
+    </para>
+    <note>
+	<title>indent</title>
+     <para>
+      You will need to have the <application>indent</application> utility installed 
+	  in order to use this feature. Read the <ulink type="info" url="info:indent">info page 
+	  for <application>indent</application></ulink> for further details.
+     </para>
+    </note>
+   </sect2>
   </sect1>
 
  <!-- ============= File operations: Browsing with the tags browser ===   -->
   <sect1 id="browsing-files">
-   <title>Browsing Files with the Tags Browser</title>
+   <title>Symbol browser and Browsing Files</title>
    <para>
     All C and C++ source and header files can be browsed using the tags in the files. 
     All of the open C and C++ source and header files are scanned for available tags 
-	(a "tag" refers to a function definition, structure, macro, etc.).
+	(a "tag" refers to a function definition, structure, macro, etc.). Please note that
+    Tag and Symbol is used synonymously in this manual, except when refering to Tags
+    browser and Symbol browser, which two different interfaces.
    </para>
-   <para>
-    Choose the type of the tag you want to view in the <guisubmenu>Tag</guisubmenu> menu on 
-	the <interface>Browser</interface> toolbar. If the tag type is function or class, 
-	you will have to further select the file for which you want to view the tag. Then, 
-	choose the tag (function, class member or the other tags) from the <guilabel>Tag</guilabel> 
-	drop-down combination box. The editor will take you to that particular file and highlight 
-	the line that contains the tag.
-   </para>
-   <para>The following tag types are available:</para>
-	<itemizedlist>
-     <listitem><para><emphasis>Functions</emphasis></para></listitem>
-     <listitem><para><emphasis>Classes</emphasis></para></listitem>
-     <listitem><para><emphasis>Structures</emphasis></para></listitem>
-     <listitem><para><emphasis>Unions</emphasis></para></listitem>
-     <listitem><para><emphasis>Enumerations</emphasis></para></listitem>
-     <listitem><para><emphasis>Variables [global]</emphasis></para></listitem>
-     <listitem><para><emphasis>Macros</emphasis></para></listitem>
-    </itemizedlist>
-    
     <orderedlist>
      <listitem>
-      <para><emphasis>File mode operation:</emphasis> 
-       If there is no project open, then <application>Anjuta</application> is in
-       <emphasis>File mode</emphasis>. In this mode, <application>Anjuta</application> 
-	   keeps track of opened files only. <application>Anjuta</application> 
-	   will know all of the tags available in these opened file(s).
+      <para><emphasis>Tags Browser:</emphasis> Tags browser is available on the 
+      Browser toolbar. It shows a list of tags available in the currently active
+      file (souce file). If there is no tags (or sysmbols) available in the file,
+      the tags list will be invisible and a "No Tags" will be displayed instead. The tags
+      in this list are shown along with the line numbers where they are found. If there are
+      multiple symbols with the same name, they will be shown with different line numbers.
+       <figure id="tags-toolbar">
+        <title>Tags toolbar</title>
+        <screenshot>
+         <screeninfo>The Tags toolbar</screeninfo>
+         <graphic fileref="figures/toolbar_tags" format="png" srccredit="naba"> 
+        </screenshot>
+       </figure>
+      <tip><title>Function symbols</title>
+       <para>Function prototype and definition, if present in the same file, can be usually
+       distinguished from the corrosponding line numbers. Prototypes usually comes before the
+       definition, so they are likely to have smaller line numbers.
+       </para>
+      </tip>
       </para>
      </listitem>
      <listitem>
-      <para><emphasis>Project mode operation:</emphasis> 
+      <para><emphasis>Symbol Browser:</emphasis> 
        If there is a project open, <application>Anjuta</application> will scan for tags 
 	   in all of the source and header files of the project. This way it is possible 
 	   to go to any function definition, structure definition, class definition etc. 
 	   without manually opening the file. You don't even have to know which file that 
-	   tag is found in (except in the case of function definitions).
+	   tag is found in (except in the case of function definitions). The symbol browser
+       lists all the available symbols in the project.
+       <figure id="symbol-browser">
+        <title>Tags toolbar</title>
+        <screenshot>
+         <screeninfo>Symbol browser</screeninfo>
+         <graphic fileref="figures/symbol_browser" format="png" srccredit="naba"> 
+        </screenshot>
+       </figure>
       </para>
      </listitem>
     </orderedlist>
-   <figure id="tags-toolbar">
-    <title>Tags toolbar</title>
-    <screenshot>
-	 <screeninfo>The Tags toolbar</screeninfo>
-     <graphic fileref="figures/toolbar_tags" format="png" srccredit="andyp"></graphic>
-    </screenshot>
-   </figure>
    <tip>
-    <title>Don't Worry!</title>
+    <title>Tags synchronization</title>
     <para>
      You don't have to worry about the synchronization and update of the tag 
      database. <application>Anjuta</application> will take care of everything. 
 	 You just have to decide which tag you want to go to!
     </para>
    </tip>
+   
   </sect1>
 
   <!-- ============= File operations: Searching and replacing in files === -->
@@ -197,7 +369,7 @@
      <title>Find Text dialog</title>
      <screenshot>
 	 <screeninfo>Find Text dialog</screeninfo>
-       <graphic fileref="figures/find_text" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_text" format="png" srccredit="andyp"> 
      </screenshot>
     </figure>
 
@@ -227,7 +399,7 @@
      <title>Find and Replace dialog</title>
      <screenshot>
 	 <screeninfo>Find and Replace dialog</screeninfo>
-       <graphic fileref="figures/find_replace" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_replace" format="png" srccredit="andyp"> 
      </screenshot>
     </figure>
     
@@ -246,7 +418,7 @@
      <title>Find in files dialog</title>
      <screenshot>
 	 <screeninfo>Find in files dialog</screeninfo>
-       <graphic fileref="figures/find_files" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_files" format="png" srccredit="andyp">
      </screenshot>
     </figure>
 	
@@ -279,68 +451,49 @@
    </para>
   </sect1>
 
- <!-- ============= File operations: Other special operations on files === -->
-  <sect1 id="other-operations-files">
-   <title>Other special operations on files</title>
-   <sect2 id="highlighting">
-   <title>Syntax highlighting</title>
-   <para>
-    <application>Anjuta</application> can highlight many different languages. 
-	This is usually done automatically by determining the type of the file from the 
-	file extension. If <application>Anjuta</application> cannot determine the type of 
-	the file, there will be no syntax highlighting. You can explicitly force a particular 
-	highlight style by selecting the style from the menu 
-	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Force Highlight Style</guimenuitem></menuchoice>.
-   </para>
-   </sect2>
-   <sect2 id="codefolding">
-    <title>Code folding</title>
-    <para>
-     Source files which have block coding properties (such as C, C++, Pascal, Java etc.),
-     have the advantage of working with <emphasis>code folds</emphasis>. All of
-     the code blocks in the source file can be folded or unfolded by clicking on the
-     fold points in the fold margin of the <interface>Editor window</interface> 
-	 (usually a +/- symbol or up/down arrow). These fold points automatically appear for 
-	 source files which use code blocks.
-    </para>
-    <para>
-     Code folding is especially useful when editing big source files that run to
-     thousands of lines. Once the folds are closed, the document appears to become 
-	 smaller, facilitating easy browsing and editing of the file.
-    </para>
-   </sect2>
-   
-   <sect2 id="printing">
+ <!-- ============= File operations: Printing Files === -->
+   <sect1 id="printing">
     <title>Printing a file</title>
     <para>
-     FIXME:
-     </para>
-     <para>
-     Perhaps Stef would like to write something here about his gnome-print
-     implementation.
-    </para>
-   </sect2>
-   
-   <sect2 id="autoformat">
-    <title>Auto-formatting source code</title>
+     Print preview could be taken by selecting 
+	 <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print Preview</guimenuitem></menuchoice>.
+	 It will render the current file and present a preview of the print. Source codes which
+	 are hilighted in the editor are also highlighted similarly in the print (or preview). Addtional
+	 options are available to print with the line numbers, wrapped lines and/or headers in the
+	 print preferences from <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Page Setup</guimenuitem></menuchoice>.
+	 <figure>
+       <title>Print preview of a C file</title>
+       <screenshot>
+	   <screeninfo>Print preview</screeninfo>
+        <graphic fileref="figures/print_preview" format="png" srccredit="naba">
+       </screenshot>
+     </figure>
+	</para> 
     <para>
-    If the current file is a C or C++ source or header file, then it is possible to
-    automatically indent (auto-format) the file. This gives a clean look to
-    the source code, increases legibility, reduces the likelihood of syntax errors,
-    and above all it saves time. This can be performed by clicking on the 
-	<guibutton>Auto-format</guibutton> button in the main toolbar or choosing 
-	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Auto-format</guimenuitem></menuchoice> 
-	on the menubar. Change the style of formatting by customizing the 
-	choices in the preferences.
-    </para>
-    <note>
-	<title>indent</title>
-     <para>
-      You will need to have the <application>indent</application> utility installed 
-	  in order to use this feature. Read the <ulink type="info" url="info:indent">info page 
-	  for <application>indent</application></ulink> for further details.
-     </para>
-    </note>
-   </sect2>
-  </sect1>
+	In the page setup (or print preferences), print margins, landscaped or portrait page layout
+	and paper type could also be set. Remember to set them up properly according to your printer,
+	otherwise printing may not come up properly.
+	 <figure>
+       <title>Print Preferences</title>
+       <screenshot>
+	   <screeninfo>Print preferences</screeninfo>
+        <graphic fileref="figures/prefs_print" format="png" srccredit="naba">
+       </screenshot>
+     </figure>
+	</para>
+	<para>
+	When you are ready to print and satisfied with the preview, select 
+	<menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></menuchoice>
+	or <guibutton>Print</guibutton> from the print preview window. This will bring up the
+	actual print dialog as shown below. Select the appropriate print parameters and print
+	the file with <guibutton>Print</guibutton> on it.
+	  <figure>
+       <title>Print Dialog</title>
+       <screenshot>
+	   <screeninfo>Print dialog</screeninfo>
+        <graphic fileref="figures/print_dlg" format="png" srccredit="naba">
+       </screenshot>
+      </figure>
+	</para>
+   </sect1>
  </chapter>

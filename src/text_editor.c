@@ -212,6 +212,8 @@ text_editor_thaw (TextEditor * te)
 void
 text_editor_set_hilite_type (TextEditor * te)
 {
+	if (preferences_get_int(te->preferences, DISABLE_SYNTAX_HILIGHTING))
+		te->force_hilite = TE_LEXER_NONE;
 	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite,
 			  0);
 	aneditor_command (te->editor_id, ANE_SETHILITE,
@@ -311,7 +313,7 @@ text_editor_dock (TextEditor * te, GtkWidget * container)
 }
 
 glong
-text_editor_find (TextEditor * te, gchar * str, gint scope, gboolean forward,
+text_editor_find (TextEditor * te, const gchar * str, gint scope, gboolean forward,
 		gboolean regexp, gboolean ignore_case, gboolean whole_word)
 {
 	glong ret;
@@ -350,7 +352,7 @@ text_editor_find (TextEditor * te, gchar * str, gint scope, gboolean forward,
 }
 
 void
-text_editor_replace_selection (TextEditor * te, gchar* r_str)
+text_editor_replace_selection (TextEditor * te, const gchar* r_str)
 {
 	if (!te) return;
 	scintilla_send_message (SCINTILLA(te->widgets.editor), SCI_REPLACESEL, 0, (long)r_str);
@@ -389,6 +391,18 @@ text_editor_get_current_lineno (TextEditor * te)
 	count =	scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_LINEFROMPOSITION, count, 0);
 	return linenum_scintilla_to_text_editor(count);
+}
+
+glong
+text_editor_get_current_position (TextEditor * te)
+{
+	guint count;
+	
+	g_return_val_if_fail (te != NULL, 0);
+
+	count =	scintilla_send_message (SCINTILLA (te->widgets.editor),
+					SCI_GETCURRENTPOS, 0, 0);
+	return count;
 }
 
 gboolean
@@ -459,6 +473,60 @@ text_editor_set_marker (TextEditor *te, glong line, gint marker)
 	/* Using the macros linenum_* */
 	return scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_MARKERADD,
 		linenum_text_editor_to_scintilla (line), marker);
+}
+
+gint
+text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
+{
+	glong start, end;
+	gchar ch;
+	glong indic_mask[] = {INDIC0_MASK, INDIC1_MASK, INDIC2_MASK};
+	glong current_mask;
+	
+	g_return_val_if_fail (te != NULL, -1);
+	g_return_val_if_fail (IS_SCINTILLA (te->widgets.editor) == TRUE, -1);
+
+	if (line > 0) {
+		line = linenum_text_editor_to_scintilla (line);
+		start = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE, line, 0);
+		end = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE, line+1, 0) - 1;
+	
+		g_return_val_if_fail (end >= start, -1);
+		
+		do {
+			ch = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETCHARAT, start, 0);
+			start++;
+		} while (isspace(ch));
+		start--;
+		
+		do {
+			ch = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETCHARAT, end, 0);
+			end--;
+		} while (isspace(ch));
+		end++;
+		if (end < start) return;
+		
+		if (indicator >= 0 && indicator < 3) {
+			char current_mask;
+			current_mask = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETSTYLEAT, start, 0);
+			current_mask &= INDICS_MASK;
+			current_mask |= indic_mask[indicator];
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_STARTSTYLING, start, INDICS_MASK);
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSTYLING, end-start+1, current_mask);
+		} else {
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_STARTSTYLING, start, INDICS_MASK);
+			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSTYLING, end-start+1, 0);
+		}
+	} else {
+		if (indicator < 0) {
+			glong last;
+			last = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETTEXTLENGTH, 0, 0);
+			if (last > 0) {
+				scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_STARTSTYLING, 0, INDICS_MASK);
+				scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSTYLING, last, 0);
+			}
+		}
+	}
 }
 
 void
@@ -940,13 +1008,11 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 						 ("The file \"%s\" on the disk is more recent "
 						  "than\nthe current buffer.\nDo you want to reload it?"),
 				te->filename);
-			messagebox2 (GNOME_MESSAGE_BOX_WARNING, buff,
-					 GNOME_STOCK_BUTTON_YES,
-					 GNOME_STOCK_BUTTON_NO,
-					 GTK_SIGNAL_FUNC
-					 (on_text_editor_check_yes_clicked),
-					 GTK_SIGNAL_FUNC
-					 (on_text_editor_check_no_clicked), te);
+			messagebox2 (GTK_MESSAGE_WARNING, buff,
+					 GTK_STOCK_YES,
+					 GTK_STOCK_NO,
+					 G_CALLBACK (on_text_editor_check_yes_clicked),
+					 G_CALLBACK (on_text_editor_check_no_clicked), te);
 			return FALSE;
 		}
 	}
@@ -1021,6 +1087,18 @@ text_editor_has_selection (TextEditor * te)
 	to = scintilla_send_message (SCINTILLA (te->widgets.editor),
 				     SCI_GETSELECTIONEND, 0, 0);
 	return (from == to) ? FALSE : TRUE;
+}
+
+glong text_editor_get_selection_start (TextEditor * te)
+{
+	return scintilla_send_message (SCINTILLA (te->widgets.editor),
+				       SCI_GETSELECTIONSTART, 0, 0);
+}
+	
+glong text_editor_get_selection_end (TextEditor * te)
+{
+	return scintilla_send_message (SCINTILLA (te->widgets.editor),
+				     SCI_GETSELECTIONEND, 0, 0);
 }
 
 gchar*
@@ -1253,3 +1331,39 @@ text_editor_tab_widget_destroy(TextEditor* te)
 	te->buttons.close = NULL;
 	te->widgets.tab_label = NULL;
 }
+
+/* Get the current selection. If there is no selection, or if the selection
+** is all blanks, get the word under teh cursor.
+*/
+gchar *text_editor_get_current_word(TextEditor *te)
+{
+	char *buf = text_editor_get_selection(te);
+	if (buf)
+	{
+		g_strstrip(buf);
+		if ('\0' == *buf)
+		{
+			g_free(buf);
+			buf = NULL;
+		}
+	}
+	if (NULL == buf)
+	{
+		int ret;
+		buf = g_new(char, 256);
+		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buf, 255L);
+		if (!ret)
+		{
+			g_free(buf);
+			buf = NULL;
+		}
+	}
+#ifdef DEBUG
+	if (buf)
+	{
+		g_message("Current word is '%s'", buf);
+	}
+#endif
+	return buf;
+}
+

@@ -87,13 +87,6 @@ on_page_setup1_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_file2_activate                      (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_project1_activate                   (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
 on_nonimplemented_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -103,40 +96,10 @@ on_exit1_activate                      (GtkMenuItem     *menuitem,
 
 /**************************************************************/
 void
-on_undo1_activate                      (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_redo1_activate                      (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_cut1_activate                       (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_copy1_activate                      (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_paste1_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_clear1_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_transform_upper1_activate       (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_transform_lower1_activate       (GtkMenuItem     *menuitem,
+on_editor_command_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 void
 on_transform_eolchars1_activate        (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_select_all1_activate         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_select_matchbrace1_activate         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_select_block1_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
@@ -157,9 +120,14 @@ on_find_and_replace1_activate          (GtkMenuItem     *menuitem,
 void
 on_goto_line_no1_activate              (GtkMenuItem     *menuitem,
                                        gpointer         user_data);
-void
-on_goto_matchbrace1_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
+
+void on_next_occur (GtkMenuItem * menuitem, gpointer user_data);
+void on_prev_occur (GtkMenuItem * menuitem, gpointer user_data);
+
+void on_comment_block (GtkMenuItem * menuitem, gpointer user_data);
+void on_comment_box (GtkMenuItem * menuitem, gpointer user_data);
+void on_comment_stream (GtkMenuItem * menuitem, gpointer user_data);
+
 void
 on_goto_block_start1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -215,32 +183,15 @@ on_kernal_signals1_activate             (GtkMenuItem     *menuitem,
 void
 on_dump_window1_activate               (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-
 void
 on_console1_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 void
 on_showhide_locals           (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-/***********************************************************/
 void
-on_main_toolbar1_activate           (GtkMenuItem     *menuitem,
+on_anjuta_toolbar_activate           (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-
-void
-on_extended_toolbar1_activate           (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_debug_toolbar1_activate           (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_browser_toolbar1_activate           (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_format_toolbar1_activate           (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-/***********************************************************/
 void
 on_editor_linenos1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void
@@ -256,91 +207,20 @@ on_editor_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void
 on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data);
 
-/***********************************************************/
 void
-on_zoom_text_plus_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_8_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_6_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_4_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_2_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_0_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_s2_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_s4_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_s6_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_s8_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_zoom_text_minus_activate (GtkMenuItem * menuitem, gpointer user_data);
-/***********************************************************/
+on_zoom_text_activate (GtkMenuItem * menuitem, gpointer user_data);
 
-void
-on_prj_add_src1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_prj_add_pix1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_prj_add_doc1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_prj_add_gen1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_prj_add_dir1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_prj_remove1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_prj_config1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_prj_info1_activate(GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-/***********************************************************/
 void
 on_force_hilite1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 void
 on_indent1_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-void
-on_indent_inc1_activate             (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_indent_dcr1_activate             (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
 
 void
-on_update_tags1_activate             (GtkMenuItem     *menuitem,
+on_update_tagmanager_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
-void
-on_rebuild_tags1_activate			(GtkMenuItem * menuitem,
-										gpointer user_data);
-
-void
-on_close_folds1_activate             (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_open_folds1_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_toggle_fold1_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
 void
 on_detach1_activate              (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -398,34 +278,6 @@ on_go_execute1_activate                (GtkMenuItem     *menuitem,
 void
 on_go_execute2_activate                (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-
-/********************************************************************************/
-void
-on_book_toggle1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_book_first1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_book_prev1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_book_next1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_book_last1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_book_clear1_activate                (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-
-/********************************************************************************/
 void
 on_toggle_breakpoint1_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -485,6 +337,9 @@ on_info_frame_activate                     (GtkMenuItem     *menuitem,
 void
 on_info_args_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+void
+on_info_memory_activate                     (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
 
 /********************************************************************************/
 void
@@ -533,51 +388,6 @@ on_debugger_add_watch_activate                     (GtkMenuItem     *menuitem,
 void
 on_debugger_custom_command_activate                     (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
-
-/********************************************************************/
-
-void
-on_utilities1_activate                 (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_grep_utility1_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_compare_two_files1_activate         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_diff_utility1_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_file_view__char_octal_hex_1_activate
-                                        (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_c_beautifier1_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_c_flow1_activate                    (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_c_cross_reference1_activate         (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_c_trace1_activate                   (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_archive_maintenace1_activate        (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-/******************************************************************/
 void
 on_windows1_new_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -663,6 +473,10 @@ on_set_commands1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_edit_user_properties1_activate           (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+
+void
 on_set_preferences1_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
@@ -693,10 +507,7 @@ void
 on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
-on_goto_tag_definition_activate (GtkMenuItem * menuitem, gpointer user_data);
-
-void
-on_goto_tag_declaration_activate (GtkMenuItem * menuitem, gpointer user_data);
+on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data);
@@ -806,5 +617,8 @@ on_enterselection (GtkMenuItem * menuitem, gpointer user_data);
 
 void
 on_customize_shortcuts_activate (GtkMenuItem *menuitem, gpointer user_data);
+
+void
+on_tool_editor_activate (GtkMenuItem *menuitem, gpointer user_data);
 
 #endif

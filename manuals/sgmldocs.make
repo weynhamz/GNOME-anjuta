@@ -1,4 +1,4 @@
-# Stollen from scrollekeeper.
+# Stolen from scrollekeeper.
 # Hacked according to requirements for anjuta.
 #
 # To use this template:
@@ -57,32 +57,50 @@ $(docname).sgml: $(sgml_ents)
 
 # The weird srcdir trick is because the db2html from the Cygnus RPMs
 # cannot handle relative filenames
-$(docname)/index.html: $(srcdir)/$(docname).sgml
-	-srcdir=`cd $(srcdir) && pwd`;			\
-	if test "$(HAVE_JW)" = 'yes' ; then 		\
+$(docname)/index.html: $(srcdir)/$(docname).sgml $(sgml_ents)
+	-if test -e $(docname)/index.html ; then \
+		rm -f $(docname)/index.html ; \
+	fi
+	-srcdir=`cd $(srcdir) && pwd`; \
+	if test "$(HAVE_JW)" = 'yes' ; then \
 		jw -c /etc/sgml/catalog $$srcdir/$(docname).sgml -o $$srcdir/$(docname); \
-	else 						\
-		db2html $$srcdir/$(docname).sgml; 	\
-	 fi
+	else \
+		db2html $$srcdir/$(docname).sgml; \
+	fi
+	-if test ! -e $(docname)/index.html ; then \
+		if [ -e $(docname)/t1.html ]; then \
+			cp $(docname)/t1.html $(docname)/index.html; \
+		elif [ -e $(docname)/book1.html ]; then \
+			cp $(docname)/book1.html $(docname)/index.html; \
+		fi \
+	fi
+
+$(docname).ps: $(srcdir)/$(docname).sgml $(sgml_ents)
+	-if test -e $(docname).ps ; then \
+		rm -f $(docname).ps ; \
+	fi
+	-srcdir=`cd $(srcdir) && pwd`; \
+	if test "$(HAVE_JW)" = 'yes' ; then \
+		jw -b ps -c /etc/sgml/catalog $$srcdir/$(docname).sgml; \
+	else \
+		db2ps $$srcdir/$(docname).sgml; \
+	fi
+
+$(docname).pdf: $(docname).ps
+	ps2pdf $(docname).ps
 
 app-dist-hook: index.html
-	-$(mkinstalldirs) $(distdir)/$(docname)/stylesheet-images
 	-$(mkinstalldirs) $(distdir)/figures
 	-cp $(srcdir)/$(docname)/*.html $(distdir)/$(docname)
-	-cp $(srcdir)/$(docname)/*.css $(distdir)/$(docname)
-	-cp $(srcdir)/$(docname)/stylesheet-images/*.gif \
-		$(distdir)/$(docname)/stylesheet-images
-	-cp $(srcdir)/figures/*.png \
-		$(distdir)/figures
+	-cp $(srcdir)/figures/*.png $(distdir)/figures
 	-if [ -e topic.dat ]; then \
 		cp $(srcdir)/topic.dat $(distdir); \
 	 fi
 
 install-data-am: index.html omf
-	-$(mkinstalldirs) $(DESTDIR)$(docdir)/stylesheet-images
 	-$(mkinstalldirs) $(DESTDIR)$(docdir)/figures
 	-cp $(srcdir)/$(sgml_files) $(DESTDIR)$(docdir)
-	-for file in $(srcdir)/$(docname)/*.html $(srcdir)/$(docname)/*.css; do \
+	-for file in $(srcdir)/$(docname)/*.html ; do \
 	  basefile=`echo $$file | sed -e 's,^.*/,,'`; \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/$$basefile; \
 	done
@@ -90,35 +108,18 @@ install-data-am: index.html omf
 	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/figures/$$basefile; \
 	done
-	-for file in $(srcdir)/$(docname)/stylesheet-images/*.gif; do \
-	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(docdir)/stylesheet-images/$$basefile; \
-	done
-
-$(docname).ps: $(srcdir)/$(docname).sgml
-	-srcdir=`cd $(srcdir) && pwd`; \
-	db2ps $$srcdir/$(docname).sgml
-
-$(docname).rtf: $(srcdir)/$(docname).sgml
-	-srcdir=`cd $(srcdir) && pwd`; \
-	db2ps $$srcdir/$(docname).sgml
 
 uninstall-local:
-	-for file in $(srcdir)/$(docname)/stylesheet-images/*.gif; do \
-	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
-	  rm -f $(docdir)/stylesheet-images/$$basefile; \
-	done
 	-for file in $(srcdir)/figures/*.png; do \
 	  basefile=`echo $$file | sed -e  's,^.*/,,'`; \
 	  rm -f $(docdir)/figures/$$basefile; \
 	done
-	-for file in $(srcdir)/$(docname)/*.html $(srcdir)/$(docname)/*.css; do \
+	-for file in $(srcdir)/$(docname)/*.html ; do \
 	  basefile=`echo $$file | sed -e 's,^.*/,,'`; \
 	  rm -f $(DESTDIR)$(docdir)/$$basefile; \
 	done
 	-for file in $(sgml_files); do \
 	  rm -f $(DESTDIR)$(docdir)/$$file; \
 	done
-	-rmdir $(DESTDIR)$(docdir)/stylesheet-images
 	-rmdir $(DESTDIR)$(docdir)/figures
 	-rmdir $(DESTDIR)$(docdir)

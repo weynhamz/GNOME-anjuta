@@ -41,7 +41,9 @@
 /* if you use it, please remember to comment   */
 /* it out again once the bug is fixed :-)      */
 
-/* #define ANJUTA_DEBUG_DEBUGGER */
+#ifdef DEBUG
+ #define ANJUTA_DEBUG_DEBUGGER
+#endif
 
 enum {
 	DEBUGGER_NONE,
@@ -103,7 +105,12 @@ debugger_init ()
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
 	debugger.post_execution_flag = DEBUGGER_NONE;
-	
+    debugger.gnome_terminal_type = anjuta_util_check_gnome_terminal();
+
+#ifdef ANJUTA_DEBUG_DEBUGGER
+    printf ("gnome-terminal type %d found.\n", debugger.gnome_terminal_type);
+#endif
+
 	debugger.open_exec_filesel = create_fileselection_gui (&fsd1);
 	debugger.load_core_filesel = create_fileselection_gui (&fsd2);
 	debugger.breakpoints_dbase = breakpoints_dbase_new ();
@@ -193,7 +200,7 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 	anjuta_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
 	command = g_strconcat ("file ", filename, NULL);
-	dir = g_dirname (filename);
+	dir = extract_directory (filename);
 	anjuta_set_execution_dir(dir);
 	g_free (dir);
 	debugger_put_cmd_in_queqe (command, DB_CMD_ALL, NULL, NULL);
@@ -243,7 +250,7 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 	anjuta_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
 	command = g_strconcat ("core file ", filename, NULL);
-	dir = g_dirname (filename);
+	dir = extract_directory (filename);
 	anjuta_set_execution_dir(dir);
 	g_free (dir);
 
@@ -282,18 +289,16 @@ debugger_open_exec_file ()
 	{
 		if (debugger.prog_is_attached == TRUE)
 		{
-			messagebox (GNOME_MESSAGE_BOX_INFO,
+			messagebox (GTK_MESSAGE_INFO,
 				    _
 				    ("You have a process ATTACHED under the debugger.\n"
-				     \
 				     "Please detach it first and then load the executable file."));
 		}
 		else
 		{
-			messagebox (GNOME_MESSAGE_BOX_INFO,
+			messagebox (GTK_MESSAGE_INFO,
 				    _
 				    ("You have a process RUNNING under the debugger.\n"
-				     \
 				     "Please stop it first and then load the executable file."));
 		}
 		return;
@@ -318,18 +323,16 @@ debugger_load_core_file ()
 	{
 		if (debugger.prog_is_attached == TRUE)
 		{
-			messagebox (GNOME_MESSAGE_BOX_INFO,
+			messagebox (GTK_MESSAGE_INFO,
 				    _
 				    ("You have a process ATTACHED under the debugger.\n"
-				     \
 				     "Please detach it first and then load the core file."));
 		}
 		else
 		{
-			messagebox (GNOME_MESSAGE_BOX_INFO,
+			messagebox (GTK_MESSAGE_INFO,
 				    _
 				    ("You have a process RUNNING under the debugger.\n"
-				     \
 				     "Please stop it first and then load the core file."));
 		}
 		return;
@@ -556,7 +559,7 @@ debugger_start (gchar * prog)
 	gchar *command_str, *dir, *tmp, *text;
 	gchar *exec_dir;
 	gboolean ret;
-	GList *list;
+	GList *list, *node;
 	gint i;
 
 
@@ -572,6 +575,7 @@ debugger_start (gchar * prog)
 	debugger_set_active (TRUE);
 	debugger_set_ready (FALSE);
 	debugger_clear_cmd_queqe ();
+	anjuta_message_manager_clear(app->messages, MESSAGE_LOCALS);
 	debugger.child_pid = -1;
 	debugger.term_is_running = FALSE;
 	debugger.term_pid = -1;
@@ -589,8 +593,6 @@ debugger_start (gchar * prog)
 	}
 	g_free (tmp);
 
-	list = GTK_CLIST (app->src_paths->widgets.src_clist)->row_list;
-
 	exec_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
 	if (exec_dir)
 	{
@@ -599,11 +601,12 @@ debugger_start (gchar * prog)
 	}
 	else
 		dir = g_strdup (" ");
-	for (i = 0; i < g_list_length (list); i++)
+	
+	list = src_paths_get_paths(app->src_paths);
+	node = list;
+	while (node)
 	{
-		gtk_clist_get_text (GTK_CLIST
-				    (app->src_paths->widgets.src_clist), i, 0,
-				    &text);
+		text = node->data;
 		if (text[0] == '/')
 			tmp = g_strconcat (dir, " -directory=", text, NULL);
 		else
@@ -621,10 +624,13 @@ debugger_start (gchar * prog)
 		}
 		g_free (dir);
 		dir = tmp;
+		node = g_list_next (node);
 	}
+	glist_strings_free (list);
+	
 	if (prog)
 	{
-		tmp = g_dirname (prog);
+		tmp = extract_directory (prog);
 		chdir (tmp);
 		anjuta_set_execution_dir (tmp);
 		command_str =
@@ -1070,6 +1076,7 @@ debugger_start_terminal ()
 	GList *args, *node;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
+	gint i; /* Used later */
 	printf("In function: debugger_start_terminal()\n");
 #endif
 	
@@ -1100,15 +1107,49 @@ debugger_start_terminal ()
 	debugger.term_is_running = TRUE;
 	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
 	encoded_cmd = anjuta_util_escape_quotes(cmd);
-	prop_set_with_key (app->preferences->props, "anjuta.current.command", encoded_cmd);
+	prop_set_with_key (app->project_dbase->props, "anjuta.current.command", encoded_cmd);
 	g_free (encoded_cmd);
 	g_free (cmd);
 	
-	cmd = prop_get_expanded (app->preferences->props, "command.terminal");
+	/* cmd = prop_get_expanded (app->preferences->props, "command.terminal"); */
+	cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
 	if (!cmd) goto error;
 	
 	args = anjuta_util_parse_args_from_string (cmd);
-
+    
+    /* Fix gnome-terminal1 and gnome-terminal2 confusion */
+    if (g_list_length(args) > 0 && strcmp ((gchar*)args->data, "gnome-terminal") == 0)
+    {
+        GList* node;
+        node = g_list_next(args);
+        /* Terminal command is gnome-terminal */
+        if (debugger.gnome_terminal_type == 1) {
+            /* Remove any --disable-factory option, if present */
+            while (node) {
+                if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
+                    g_free (node->data);
+                    args = g_list_remove (args, node);
+                    break;
+                }
+                node = g_list_next (node);
+            }
+        } else if (debugger.gnome_terminal_type == 2) {
+            /* Add --disable-factory option, if not present */
+            gboolean found = 0;
+            while (node) {
+                if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
+                    found = 1;
+                    break;
+                }
+                node = g_list_next (node);
+            }
+            if (!found) {
+                gchar* arg = g_strdup ("--disable-factory");
+                args = g_list_insert (args, arg, 1);
+            }
+        }
+    }
+        
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_print ("Terminal commad: [%s]\n", cmd);
 #endif
@@ -1340,6 +1381,14 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 			goto down;
 		}
 	}
+    else if ((str = strstr(lines->data, "child lwp ")))
+	{
+		if (sscanf(str, "child lwp %d", &pid) != 1)
+		{
+			error = TRUE;
+			goto down;
+		}
+	}
 	else /* Nothing known about this particular process recognition string */
 	{
 		error = TRUE;
@@ -1413,10 +1462,10 @@ debugger_attach_process (gint pid)
 		return;
 	if (debugger.prog_is_running == TRUE)
 	{
-		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
+		messagebox2 (GTK_MESSAGE_QUESTION,
 			     _("A process is already running.\n"
 			       "Would you like to terminate it and attach the new process?"),
-			     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
+			     GTK_STOCK_YES, GTK_STOCK_NO,
 			     debugger_attach_process_confirmed, NULL,
 			     (gpointer) pid);
 	}
@@ -1882,7 +1931,7 @@ debugger_signal (gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 	{
 		int status = anjuta_util_kill (debugger.child_pid, sig);
 		if (status != 0 && show_msg)
-			messagebox (GNOME_MESSAGE_BOX_ERROR,
+			messagebox (GTK_MESSAGE_ERROR,
 				    _("There was an error whilst signalling the process."));
 	}
 }
@@ -1909,6 +1958,17 @@ debugger_is_engaged(void)
 				&& debugger.prog_is_attached ) ? TRUE : FALSE ;
 }
 */
+
+const gchar* debugger_get_last_frame(void)
+{
+	int ret;
+	gchar* text = NULL;
+	ret = gtk_clist_get_text(GTK_CLIST(debugger.stack->widgets.clist),0,2,&text);
+	if (ret == 0)
+		return NULL;
+	return text;
+}
+
 static void
 locals_update_controls(void)
 {
@@ -1918,17 +1978,17 @@ locals_update_controls(void)
 		return ;
 	if( !app->project_dbase->m_prj_ShowLocal )
 		return ;
-	anjuta_message_manager_clear(app->messages, MESSAGE_LOCALS);
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
+
+/*	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
 	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);*/
 	debugger_put_cmd_in_queqe ("info locals",
 				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
 				   debugger_info_locals_cb, NULL);
-	debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
+	/*debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
+				   NULL);*/
 }
 
 static void

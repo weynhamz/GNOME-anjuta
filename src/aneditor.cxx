@@ -35,9 +35,9 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#include <locale.h>
 
-/* Use Gtk+ */
-#include <gtk/gtk.h>
+#include <gnome.h>
 
 #define GTK
 #include "Platform.h"
@@ -50,6 +50,7 @@
 #include "SciLexer.h"
 #include "lexer.h"
 #include "properties.h"
+#include "resources.h"
 #include "aneditor.h"
 
 #include "tm_tagmanager.h"
@@ -60,6 +61,13 @@
 using namespace std;
 
 #include "debugger.h"
+
+#include "sv_unknown.xpm"
+#include "sv_class.xpm"
+#include "sv_function.xpm"
+#include "sv_macro.xpm"
+#include "sv_struct.xpm"
+#include "sv_variable.xpm"
 
 // #define DEBUG
 
@@ -111,6 +119,21 @@ struct StyleAndWords {
 	int styleNumber;
 	SString words;
 	bool IsEmpty() { return words.length() == 0; }
+	bool IsSingleChar() { return words.length() == 1; }
+};
+
+// Related to Utf8_16::encodingType but with additional values at end
+enum UniMode {
+	uni8Bit=0, uni16BE=1, uni16LE=2, uniUTF8=3,
+	uniCookie=4
+};
+
+// Codes representing the effect a line has on indentation.
+enum IndentationStatus {
+	isNone,		// no effect on indentation
+	isBlockStart,	// indentation block begin such as "{" or VB "function"
+	isBlockEnd,	// indentation end indicator such as "}" or VB "end"
+	isKeyWordStart	// Keywords that cause indentation
 };
 
 class AnEditor {
@@ -124,6 +147,8 @@ protected:
 
 	int codePage;
 	int characterSet;
+	UniMode unicodeMode;
+
 	SString language;
 	int lexLanguage;
 	SString overrideExtension;	// User has chosen to use a particular language
@@ -134,11 +159,17 @@ protected:
 	int indentSize;
 	bool indentOpening;
 	bool indentClosing;
+	bool indentMaintain;
 	int statementLookback;
 	StyleAndWords statementIndent;
 	StyleAndWords statementEnd;
 	StyleAndWords blockStart;
 	StyleAndWords blockEnd;
+	enum { noPPC, ppcStart, ppcMiddle, ppcEnd, ppcDummy };	///< Indicate the kind of preprocessor condition line
+	char preprocessorSymbol;	///< Preprocessor symbol (in C: #)
+	WordList preprocCondStart;	///< List of preprocessor conditional start keywords (in C: if ifdef ifndef)
+	WordList preprocCondMiddle;	///< List of preprocessor conditional middle keywords (in C: else elif)
+	WordList preprocCondEnd;	///< List of preprocessor conditional end keywords (in C: endif)
 
 	Window wEditor;
 
@@ -174,6 +205,13 @@ protected:
 
 	bool autoCompleteIgnoreCase;
 	bool callTipIgnoreCase;
+	bool autoCCausedByOnlyOne;
+	SString calltipWordCharacters;
+	SString calltipEndDefinition;
+	SString autoCompleteStartCharacters;
+	SString autoCompleteFillUpCharacters;
+	SString wordCharacters;
+	int startCalltipWord;
 	
 	bool margin;
 	int marginWidth;
@@ -197,10 +235,15 @@ protected:
 	PropSetFile *props;
 
 	int LengthDocument();
-	int GetLine(char *text, int sizeText, int line=-1);
+	int GetCaretInLine();
+	void GetLine(char *text, int sizeText, int line=-1);
 	void GetRange(Window &win, int start, int end, char *text);
-	bool FindMatchingBracePosition(int &braceAtCaret, int &braceOpposite, bool sloppy);
-	void BraceMatch();
+	int IsLinePreprocessorCondition(char *line);
+	bool FindMatchingPreprocessorCondition(int &curLine, int direction, int condEnd1, int condEnd2);
+	bool FindMatchingPreprocCondPosition(bool isForward, int &mppcAtCaret, int &mppcMatch);
+	bool FindMatchingBracePosition(bool editor, int &braceAtCaret, int &braceOpposite, bool sloppy);
+	void BraceMatch(bool editor);
+
 	bool GetCurrentWord(char* buffer, int maxlength);
 
 	bool FindWordInRegion(char *buffer, int maxlength, char *linebuf, int current);
@@ -214,17 +257,25 @@ protected:
 	void SelectionWord(char *word, int len);
 	void SelectionIntoProperties();
 	long Find (long flags, char* text);
+	bool HandleXml(char ch);
+	SString FindOpenXmlTag(const char sel[], int nSize);
 	void GoMatchingBrace(bool select);
 	void GetRange(guint start, guint end, gchar *text, gboolean styled);
 	bool StartCallTip();
 	void ContinueCallTip();
 	bool StartAutoComplete();
-	bool StartAutoCompleteWord();
-	void GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len);
-	int SetLineIndentation(int line, int indent);
+	bool StartAutoCompleteWord(int autoShowCount);
+	bool StartBlockComment();
+	bool StartBoxComment();
+	bool StartStreamComment();
+
+	unsigned int GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len);
+	void SetLineIndentation(int line, int indent);
 	int GetLineIndentation(int line);
 	int GetLineIndentPosition(int line);
-	int GetIndentState(int line);
+	IndentationStatus GetIndentState(int line);
+	int IndentOfBlock(int line);
+	void MaintainIndentation(char ch);
 	void AutomaticIndentation(char ch);
 	void CharAdded(char ch);
 	void FoldChanged(int line, int levelNow, int levelPrev);
@@ -246,10 +297,12 @@ protected:
 	StyleAndWords GetStyleAndWords(const char *base);
 	void SetOneStyle(Window &win, int style, const char *s);
 	void SetStyleFor(Window &win, const char *language);
-	void ReadPropertiesInitial();
 	static void NotifySignal(GtkWidget *w, gint wParam, gpointer lParam, AnEditor *scitew);
 	SString ExtensionFileName();
 	void Command(int command, unsigned long wParam, long lparam);
+	void ForwardPropertyToEditor(const char *key);
+	SString FindLanguageProperty(const char *pattern, const char *defaultValue="");
+	void ReadPropertiesInitial();
 	void ReadProperties(const char* fileForExt);
 	long SendEditor(unsigned int msg, unsigned long wParam=0, long lParam=0);
 	long SendEditorString(unsigned int msg, unsigned long wParam, const char *s);
@@ -259,6 +312,7 @@ protected:
 	void SaveToHTML(const char *saveName);
 	void SaveToRTF(const char *saveName);
 	void SetSelection(int anchor, int currentPos);
+	int GetLineLength(int line);
 	int GetCurrentLineNumber();
 	int GetCurrentScrollPosition();
 	void FoldOpenAll();
@@ -316,13 +370,16 @@ static const char *extList[] = {
 
 AnEditor::AnEditor(PropSetFile* p) {
 
+	codePage = 0;
 	characterSet = 0;
+	unicodeMode = uni8Bit; // Set to 'unknown'
 	language = "java";
 	lexLanguage = SCLEX_CPP;
 	functionDefinition = 0;
 	indentSize = 8;
 	indentOpening = true;
 	indentClosing = true;
+	indentMaintain = true;
 	statementLookback = 10;
 
 	wrapLine = true;
@@ -360,6 +417,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 
 	autoCompleteIgnoreCase = false;
 	callTipIgnoreCase = false;
+	autoCCausedByOnlyOne = false;
+	startCalltipWord = 0;
 
 	margin = false;
 	marginWidth = marginWidthDefault;
@@ -394,9 +453,32 @@ AnEditor::AnEditor(PropSetFile* p) {
 	/* Set default editor mode */
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 
-
-	/* Ask for SCN_DWELLSTART and SCN_DWELLEND events: */
-	SendEditor(SCI_SETMOUSEDWELLTIME, 750 /*milliseconds*/);
+	/* Register images to be used for autocomplete */
+	typedef struct {
+		int type;
+		char **xpm_data;
+	} PixAndType;
+	PixAndType pix_list[] = {
+	{ tm_tag_undef_t, sv_unknown_xpm }
+	, { tm_tag_class_t, sv_class_xpm }
+	, { tm_tag_function_t, sv_function_xpm }
+	, { tm_tag_prototype_t, sv_function_xpm }
+	, { tm_tag_interface_t, sv_function_xpm }
+	, { tm_tag_method_t, sv_function_xpm }
+	, { tm_tag_macro_t, sv_macro_xpm }
+	, { tm_tag_macro_with_arg_t, sv_macro_xpm }
+	, { tm_tag_variable_t, sv_variable_xpm }
+	, { tm_tag_externvar_t, sv_variable_xpm }
+	, { tm_tag_member_t, sv_variable_xpm }
+	, { tm_tag_field_t, sv_variable_xpm }
+	, { tm_tag_struct_t, sv_struct_xpm }
+	, { tm_tag_typedef_t, sv_struct_xpm }
+	};
+	for (guint i = 0; i < (sizeof(pix_list)/sizeof(pix_list[0])); ++i)
+	{
+		SendEditor(SCI_REGISTERIMAGE, (long) pix_list[i].type
+		  , reinterpret_cast<long>(pix_list[i].xpm_data));
+	}
 }
 
 void
@@ -449,14 +531,23 @@ int AnEditor::LengthDocument() {
 	return SendEditor(SCI_GETLENGTH);
 }
 
-int AnEditor::GetLine(char *text, int sizeText, int line) {
-	if (line == -1) {
-		return SendEditor(SCI_GETCURLINE, sizeText, reinterpret_cast<long>(text));
-	} else {
-		short buflen = static_cast<short>(sizeText);
-		memcpy(text, &buflen, sizeof(buflen));
-		return SendEditor(SCI_GETLINE, line, reinterpret_cast<long>(text));
-	}
+int AnEditor::GetCaretInLine() {
+	int caret = SendEditor(SCI_GETCURRENTPOS);
+	int line = SendEditor(SCI_LINEFROMPOSITION, caret);
+	int lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+	return caret - lineStart;
+}
+
+void AnEditor::GetLine(char *text, int sizeText, int line) {
+	if (line < 0)
+		line = GetCurrentLineNumber();
+	int lineStart = SendEditor(SCI_POSITIONFROMLINE, line);
+	int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, line);
+	int lineMax = lineStart + sizeText - 1;
+	if (lineEnd > lineMax)
+		lineEnd = lineMax;
+	GetRange(wEditor, lineStart, lineEnd, text);
+	text[lineEnd - lineStart] = '\0';
 }
 
 void AnEditor::GetRange(Window &win, int start, int end, char *text) {
@@ -467,13 +558,164 @@ void AnEditor::GetRange(Window &win, int start, int end, char *text) {
 	Platform::SendScintilla(win.GetID(), SCI_GETTEXTRANGE, 0, reinterpret_cast<long>(&tr));
 }
 
-// Find if there is a brace next to the caret, checking before caret first, then
-// after caret. If brace found also find its matching brace.
-// Returns true if inside a bracket pair.
-bool AnEditor::FindMatchingBracePosition(int &braceAtCaret, int &braceOpposite, bool sloppy) {
+void AnEditor::GetRange(guint start, guint end, gchar *text, gboolean styled) {
+	TextRange tr;
+	tr.chrg.cpMin = start;
+	tr.chrg.cpMax = end;
+	tr.lpstrText = text;
+	if (styled)
+		SendEditor (SCI_GETSTYLEDTEXT, 0, reinterpret_cast<long>(&tr));
+	else
+		SendEditor (SCI_GETTEXTRANGE, 0, reinterpret_cast<long>(&tr));
+}
+
+/**
+ * Check if the given line is a preprocessor condition line.
+ * @return The kind of preprocessor condition (enum values).
+ */
+int AnEditor::IsLinePreprocessorCondition(char *line) {
+	char *currChar = line;
+	char word[32];
+	int i = 0;
+
+	if (!currChar) {
+		return false;
+	}
+	while (isspacechar(*currChar) && *currChar) {
+		currChar++;
+	}
+	if (preprocessorSymbol && (*currChar == preprocessorSymbol)) {
+		currChar++;
+		while (isspacechar(*currChar) && *currChar) {
+			currChar++;
+		}
+		while (!isspacechar(*currChar) && *currChar) {
+			word[i++] = *currChar++;
+		}
+		word[i] = '\0';
+		if (preprocCondStart.InList(word)) {
+			return ppcStart;
+		}
+		if (preprocCondMiddle.InList(word)) {
+			return ppcMiddle;
+		}
+		if (preprocCondEnd.InList(word)) {
+			return ppcEnd;
+		}
+	}
+	return noPPC;
+}
+
+/**
+ * Search a matching preprocessor condition line.
+ * @return @c true if the end condition are meet.
+ * Also set curLine to the line where one of these conditions is mmet.
+ */
+bool AnEditor::FindMatchingPreprocessorCondition(
+    int &curLine,  		///< Number of the line where to start the search
+    int direction,  		///< Direction of search: 1 = forward, -1 = backward
+    int condEnd1,  		///< First status of line for which the search is OK
+    int condEnd2) {		///< Second one
+
 	bool isInside = false;
+	char line[80];
+	int status, level = 0;
+	int maxLines = SendEditor(SCI_GETLINECOUNT);
+
+	while (curLine < maxLines && curLine > 0 && !isInside) {
+		curLine += direction;	// Increment or decrement
+		GetLine(line, sizeof(line), curLine);
+		status = IsLinePreprocessorCondition(line);
+
+		if ((direction == 1 && status == ppcStart) || (direction == -1 && status == ppcEnd)) {
+			level++;
+		} else if (level > 0 && ((direction == 1 && status == ppcEnd) || (direction == -1 && status == ppcStart))) {
+			level--;
+		} else if (level == 0 && (status == condEnd1 || status == condEnd2)) {
+			isInside = true;
+		}
+	}
+
+	return isInside;
+}
+
+/**
+ * Find if there is a preprocessor condition after or before the caret position,
+ * @return @c true if inside a preprocessor condition.
+ */
+#ifdef __BORLANDC__
+// Borland warns that isInside is assigned a value that is never used in this method.
+// This is OK so turn off the warning just for this method.
+#pragma warn -aus
+#endif
+bool AnEditor::FindMatchingPreprocCondPosition(
+    bool isForward,  		///< @c true if search forward
+    int &mppcAtCaret,  	///< Matching preproc. cond.: current position of caret
+    int &mppcMatch) {	///< Matching preproc. cond.: matching position
+
+	bool isInside = false;
+	int curLine;
+	char line[80];	// Probably no need to get more characters, even if the line is longer, unless very strange layout...
+	int status;
+
+	// Get current line
+	curLine = SendEditor(SCI_LINEFROMPOSITION, mppcAtCaret);
+	GetLine(line, sizeof(line), curLine);
+	status = IsLinePreprocessorCondition(line);
+
+	switch (status) {
+	case ppcStart:
+		if (isForward) {
+			isInside = FindMatchingPreprocessorCondition(curLine, 1, ppcMiddle, ppcEnd);
+		} else {
+			mppcMatch = mppcAtCaret;
+			return true;
+		}
+		break;
+	case ppcMiddle:
+		if (isForward) {
+			isInside = FindMatchingPreprocessorCondition(curLine, 1, ppcMiddle, ppcEnd);
+		} else {
+			isInside = FindMatchingPreprocessorCondition(curLine, -1, ppcStart, ppcMiddle);
+		}
+		break;
+	case ppcEnd:
+		if (isForward) {
+			mppcMatch = mppcAtCaret;
+			return true;
+		} else {
+			isInside = FindMatchingPreprocessorCondition(curLine, -1, ppcStart, ppcMiddle);
+		}
+		break;
+	default:  	// Should be noPPC
+
+		if (isForward) {
+			isInside = FindMatchingPreprocessorCondition(curLine, 1, ppcMiddle, ppcEnd);
+		} else {
+			isInside = FindMatchingPreprocessorCondition(curLine, -1, ppcStart, ppcMiddle);
+		}
+		break;
+	}
+
+	if (isInside) {
+		mppcMatch = SendEditor(SCI_POSITIONFROMLINE, curLine);
+	}
+	return isInside;
+}
+#ifdef __BORLANDC__
+#pragma warn .aus
+#endif
+
+/**
+ * Find if there is a brace next to the caret, checking before caret first, then
+ * after caret. If brace found also find its matching brace.
+ * @return @c true if inside a bracket pair.
+ */
+bool AnEditor::FindMatchingBracePosition(bool editor, int &braceAtCaret, int &braceOpposite, bool sloppy) {
+	bool isInside = false;
+	// Window &win = editor ? wEditor : wOutput;
 	Window &win = wEditor;
-	int bracesStyleCheck = bracesStyle;
+	int bracesStyleCheck = editor ? bracesStyle : 0;
 	int caretPos = Platform::SendScintilla(win.GetID(), SCI_GETCURRENTPOS, 0, 0);
 	braceAtCaret = -1;
 	braceOpposite = -1;
@@ -525,23 +767,13 @@ bool AnEditor::FindMatchingBracePosition(int &braceAtCaret, int &braceOpposite, 
 	return isInside;
 }
 
-void AnEditor::GetRange(guint start, guint end, gchar *text, gboolean styled) {
-	TextRange tr;
-	tr.chrg.cpMin = start;
-	tr.chrg.cpMax = end;
-	tr.lpstrText = text;
-	if (styled)
-		SendEditor (SCI_GETSTYLEDTEXT, 0, reinterpret_cast<long>(&tr));
-	else
-		SendEditor (SCI_GETTEXTRANGE, 0, reinterpret_cast<long>(&tr));
-}
-
-void AnEditor::BraceMatch() {
+void AnEditor::BraceMatch(bool editor) {
 	if (!bracesCheck)
 		return;
 	int braceAtCaret = -1;
 	int braceOpposite = -1;
-	FindMatchingBracePosition(braceAtCaret, braceOpposite, bracesSloppy);
+	FindMatchingBracePosition(editor, braceAtCaret, braceOpposite, bracesSloppy);
+	// Window &win = editor ? wEditor : wOutput;
 	Window &win = wEditor;
 	if ((braceAtCaret != -1) && (braceOpposite == -1)) {
 		Platform::SendScintilla(win.GetID(), SCI_BRACEBADLIGHT, braceAtCaret, 0);
@@ -551,19 +783,21 @@ void AnEditor::BraceMatch() {
 		                                         win.GetID(), SCI_GETCHARAT, braceAtCaret, 0));
 		Platform::SendScintilla(win.GetID(), SCI_BRACEHIGHLIGHT, braceAtCaret, braceOpposite);
 		int columnAtCaret = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, braceAtCaret, 0);
+		int columnOpposite = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, braceOpposite, 0);
 		if (chBrace == ':') {
 			int lineStart = Platform::SendScintilla(win.GetID(), SCI_LINEFROMPOSITION, braceAtCaret);
 			int indentPos = Platform::SendScintilla(win.GetID(), SCI_GETLINEINDENTPOSITION, lineStart, 0);
 			int indentPosNext = Platform::SendScintilla(win.GetID(), SCI_GETLINEINDENTPOSITION, lineStart + 1, 0);
 			columnAtCaret = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, indentPos, 0);
 			int columnAtCaretNext = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, indentPosNext, 0);
-			indentSize = props->GetInt("indent.size");
+			int indentSize = Platform::SendScintilla(win.GetID(), SCI_GETINDENT);
 			if (columnAtCaretNext - indentSize > 1)
 				columnAtCaret = columnAtCaretNext - indentSize;
+			//Platform::DebugPrintf(": %d %d %d\n", lineStart, indentPos, columnAtCaret);
+			if (columnOpposite == 0)	// If the final line of the structure is empty
+				columnOpposite = columnAtCaret;
 		}
 
-
-		int columnOpposite = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, braceOpposite, 0);
 		if (props->GetInt("highlight.indentation.guides"))
 			Platform::SendScintilla(win.GetID(), SCI_SETHIGHLIGHTGUIDE, Platform::Minimum(columnAtCaret, columnOpposite), 0);
 	}
@@ -724,12 +958,12 @@ void AnEditor::BookmarkClear() {
 }
 
 bool AnEditor::StartCallTip() {
+	TMTagAttrType attrs[] = { tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
 	char linebuf[1000];
-	int current = GetLine(linebuf, sizeof(linebuf));
+	GetLine(linebuf, sizeof(linebuf));
+	int current = GetCaretInLine();
 	int pos = SendEditor(SCI_GETCURRENTPOS);
 	int braces;
-	TMTagAttrType attrs[] = { tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t};
-	
 	do {
 		braces = 0;
 		while (current > 0 && (braces || linebuf[current - 1] != '(')) {
@@ -749,17 +983,19 @@ bool AnEditor::StartCallTip() {
 			current--;
 			pos--;
 		}
-	} while (current > 0 && nonFuncChar(linebuf[current - 1]));
+	} while (current > 0 && !calltipWordCharacters.contains(linebuf[current - 1]));
 	if (current <= 0)
 		return true;
 
-	int startword = current - 1;
-	while (startword > 0 && !nonFuncChar(linebuf[startword - 1]))
-		startword--;
+	startCalltipWord = current - 1;
+	while (startCalltipWord > 0 &&
+			calltipWordCharacters.contains(linebuf[startCalltipWord - 1]))
+		startCalltipWord--;
+
 	linebuf[current] = '\0';
-	int rootlen = current - startword;
+	int rootlen = current - startCalltipWord;
 	functionDefinition = "";
-	const GPtrArray *tags = tm_workspace_find(linebuf+startword, tm_tag_prototype_t
+	const GPtrArray *tags = tm_workspace_find(linebuf+startCalltipWord, tm_tag_prototype_t
 	  | tm_tag_function_t | tm_tag_macro_with_arg_t, attrs, FALSE);
 	if (tags && (tags->len > 0))
 	{
@@ -780,7 +1016,8 @@ static bool IsCallTipSeparator(char ch) {
 
 void AnEditor::ContinueCallTip() {
 	char linebuf[1000];
-	int current = GetLine(linebuf, sizeof(linebuf));
+	GetLine(linebuf, sizeof(linebuf));
+	int current = GetCaretInLine();
 
 	int commas = 0;
 	for (int i = 0; i < current; i++) {
@@ -812,13 +1049,15 @@ void AnEditor::ContinueCallTip() {
 
 bool AnEditor::StartAutoComplete() {
 	char linebuf[1000];
-	int current = GetLine(linebuf, sizeof(linebuf));
+	GetLine(linebuf, sizeof(linebuf));
+	int current = GetCaretInLine();
 
 	int startword = current;
-	while (startword> 0 && !nonFuncChar(linebuf[startword - 1]))
+	while ((startword > 0) &&
+	        (wordCharacters.contains(linebuf[startword - 1]) ||
+	         autoCompleteStartCharacters.contains(linebuf[startword - 1])))
 		startword--;
-	if (startword == current)
-		return true;
+
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
@@ -842,7 +1081,8 @@ bool AnEditor::StartAutoComplete() {
 
 bool AnEditor::GetCurrentWord(char* buffer, int length) {
 	char linebuf[1000];
-	int current = GetLine(linebuf, sizeof(linebuf));
+	GetLine(linebuf, sizeof(linebuf));
+	int current = GetCaretInLine();
 	return FindWordInRegion(buffer, length, linebuf, current);
 }
 
@@ -857,10 +1097,10 @@ bool AnEditor::FindWordInRegion(char *word, int maxlength, char *region, int off
 	remains unmodified and the method returns false.
 */
 	int startword = offset;
-	while (startword> 0 && !nonFuncChar(region[startword - 1]))
+	while (startword> 0 && wordCharacters.contains(region[startword - 1]))
 		startword--;
 	int endword = offset;
-	while (region[endword] && !nonFuncChar(region[endword]))
+	while (region[endword] && wordCharacters.contains(region[endword]))
 		endword++;
 	if(startword == endword)
 		return false;
@@ -887,91 +1127,35 @@ bool AnEditor::GetWordAtPosition(char* buffer, int maxlength, int pos) {
 	return FindWordInRegion(buffer, maxlength, chunk, pos - start);
 }
 
-
-#if 0 // Already defined in glib
-const char *strcasestr(const char *str, const char *pattn) {
-	int i;
-	int pattn0 = tolower (pattn[0]);
-
-	for (; *str; str++) {
-		if (tolower (*str) == pattn0) {
-			for (i = 1; tolower (str[i]) == tolower (pattn[i]); i++)
-				if (pattn[i] == '\0')
-					return str;
-			if (pattn[i] == '\0')
-				return str;
-		}
-	}
-	return NULL;
+static void free_word(gpointer key, gpointer value, gpointer user_data)
+{
+	g_free(key);
 }
-#endif
 
-bool AnEditor::StartAutoCompleteWord() {
+#define TYPESEP '?'
+
+bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	char linebuf[1000];
-	int current = GetLine(linebuf, sizeof(linebuf));
+	int nwords = 0;
+	int minWordLength = 0;
+	int wordlen = 0;
+	
+	GHashTable *wordhash = g_hash_table_new(g_str_hash, g_str_equal);
+	GString *words = g_string_sized_new(256);
+	
+	GetLine(linebuf, sizeof(linebuf));
+	int current = GetCaretInLine();
 
 	int startword = current;
-	while (startword > 0 && !nonFuncChar(linebuf[startword - 1]))
+	while (startword > 0 && wordCharacters.contains(linebuf[startword - 1]))
 		startword--;
 	if (startword == current)
 		return true;
 	linebuf[current] = '\0';
 	const char *root = linebuf + startword;
 	int rootlen = current - startword;
-
-	/* Added word-completion feature back - Biswa */
-	int doclen = LengthDocument();
-	TextToFind ft = {{0, 0}, 0, {0, 0}};
-	ft.lpstrText = const_cast<char*>(root);
-	ft.chrg.cpMin = 0;
-	ft.chrgText.cpMin = 0;
-	ft.chrgText.cpMax = 0;
-	int flags = SCFIND_WORDSTART | (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
-	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS) - rootlen;
-	GString *words = g_string_sized_new(100);
-	char wordstart[100];
-	char *wordend, *wordbreak, *wordpos;
-	int wordlen;
-	for (;;)
-	{
-		ft.chrg.cpMax = doclen;
-		int posFind = SendEditor(SCI_FINDTEXT, flags
-		  , reinterpret_cast<long>(&ft));
-		if (posFind == -1 || posFind >= doclen)
-			break;
-		if (posFind == posCurrentWord)
-		{
-			ft.chrg.cpMin = posFind + rootlen;
-			continue;
-		}
-		GetRange(wEditor, posFind, Platform::Minimum(posFind+99, doclen)
-		  , wordstart);
-		wordend = wordstart + rootlen;
-		while (iswordcharforsel(*wordend))
-			wordend++;
-		*wordend = '\0';
-		wordlen = wordend - wordstart;
-		wordbreak = words->str;
-		for (;;)
-		{
-			wordpos = strstr (wordbreak, wordstart);
-			if (!wordpos)
-				break;
-			if (wordpos > words->str && wordpos[ -1] != ' ' ||
-			  wordpos[wordlen] && wordpos[wordlen] != ' ')
-				wordbreak = wordpos + wordlen;
-			else
-				break;
-		}
-		if (!wordpos)
-		{
-			if (words->len > 0)
-				g_string_append_c(words, ' ');
-			g_string_append(words, wordstart);
-		}
-		ft.chrg.cpMin = posFind + wordlen;
-	}
-	/* Now for the TM based autocompletion - only for C/C++/Java */
+	
+	/* TagManager autocompletion - only for C/C++/Java */
 	if (SCLEX_CPP == lexLanguage)
 	{
 		const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
@@ -981,32 +1165,344 @@ bool AnEditor::StartAutoCompleteWord() {
 			for (guint i=0; ((i < tags->len) && (i < MAX_AUTOCOMPLETE_WORDS)); ++i)
 			{
 				tag = (TMTag *) tags->pdata[i];
-				wordlen = strlen(tag->name);
-				wordbreak = words->str;
-				for (;;)
+				if (NULL == g_hash_table_lookup(wordhash
+				  , (gconstpointer)	tag->name))
 				{
-					wordpos = strstr(wordbreak, tag->name);
-					if (NULL == wordpos)
-						break;
-					if (wordpos > words->str && wordpos[-1] != ' ' ||
-					  wordpos[wordlen] && wordpos[wordlen] != ' ')
-						wordbreak = wordpos + wordlen;
-					else
-						break;
-				}
-				if (NULL == wordpos)
-				{
+					g_hash_table_insert(wordhash, g_strdup(tag->name), (gpointer) 1);
 					if (words->len > 0)
 						g_string_append_c(words, ' ');
 					g_string_append(words, tag->name);
+					g_string_append_c(words, TYPESEP);
+					g_string_append_printf(words, "%d", tag->type);
+					
+					wordlen = strlen(tag->name);
+					if (minWordLength < wordlen)
+						minWordLength = wordlen;
+
+					nwords++;
+					if (autoShowCount > 0 && nwords > autoShowCount) {
+						g_string_free(words, TRUE);
+						g_hash_table_foreach(wordhash, free_word, NULL);
+						g_hash_table_destroy(wordhash);
+						return true;
+					}
 				}
 			}
 		}
 	}
-	if (words->len > 0)
+
+	/* Word completion based on words in current buffer */
+	int doclen = LengthDocument();
+	TextToFind ft = {{0, 0}, 0, {0, 0}};
+	ft.lpstrText = const_cast<char*>(root);
+	ft.chrg.cpMin = 0;
+	ft.chrgText.cpMin = 0;
+	ft.chrgText.cpMax = 0;
+	int flags = SCFIND_WORDSTART | (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
+	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS) - rootlen;
+
+	for (;;) {	// search all the document
+		ft.chrg.cpMax = doclen;
+		int posFind = SendEditorString(SCI_FINDTEXT, flags, reinterpret_cast<char *>(&ft));
+		if (posFind == -1 || posFind >= doclen)
+			break;
+		if (posFind == posCurrentWord) {
+			ft.chrg.cpMin = posFind + rootlen;
+			continue;
+		}
+		// Grab the word and put spaces around it
+		const int wordMaxSize = 80;
+		char wordstart[wordMaxSize];
+		GetRange(wEditor, posFind, Platform::Minimum(posFind + wordMaxSize - 3, doclen), wordstart);
+		char *wordend = wordstart + rootlen;
+		while (iswordcharforsel(*wordend))
+			wordend++;
+		*wordend = '\0';
+		wordlen = wordend - wordstart;
+		if (wordlen > rootlen) {
+			/* Check if the word is already there - if not, insert it */
+			if (NULL == g_hash_table_lookup(wordhash, wordstart))
+			{
+				g_hash_table_insert(wordhash, g_strdup(wordstart), (gpointer) 1);
+				if (0 < words->len)
+					g_string_append_c(words, ' ');
+				g_string_append(words, wordstart);
+				
+				if (minWordLength < wordlen)
+					minWordLength = wordlen;
+
+				nwords++;
+				if (autoShowCount > 0 && nwords > autoShowCount) {
+					g_string_free(words, TRUE);
+					g_hash_table_foreach(wordhash, free_word, NULL);
+					g_hash_table_destroy(wordhash);
+					return true;
+				}
+			}
+		}
+		ft.chrg.cpMin = posFind + wordlen;
+	}
+	size_t length = (words->str) ? strlen (words->str) : 0;
+	if ((length > 2) && (autoShowCount <= 0 || (minWordLength > rootlen))) {
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
+	} else {
+		SendEditor(SCI_AUTOCCANCEL);
+	}
+
 	g_string_free(words, TRUE);
+	g_hash_table_foreach(wordhash, free_word, NULL);
+	g_hash_table_destroy(wordhash);
 	return true;
+}
+
+bool AnEditor::StartBlockComment() {
+	SString fileNameForExtension = ExtensionFileName();
+	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
+	SString base("comment.block.");
+	SString comment_at_line_start("comment.block.at.line.start.");
+	base += language;
+	comment_at_line_start += language;
+	SString comment = props->Get(base.c_str());
+	if (comment == "") { // user friendly error message box
+		//SString error("Block comment variable \"");
+		//error += base;
+		//error += "\" is not defined in SciTE *.properties!";
+		//WindowMessageBox(wEditor, error, MB_OK | MB_ICONWARNING);
+		return true;
+	}
+	comment += " ";
+	SString long_comment = comment;
+	char linebuf[1000];
+	size_t comment_length = comment.length();
+	size_t selectionStart = SendEditor(SCI_GETSELECTIONSTART);
+	size_t selectionEnd = SendEditor(SCI_GETSELECTIONEND);
+	size_t caretPosition = SendEditor(SCI_GETCURRENTPOS);
+	// checking if caret is located in _beginning_ of selected block
+	bool move_caret = caretPosition < selectionEnd;
+	int selStartLine = SendEditor(SCI_LINEFROMPOSITION, selectionStart);
+	int selEndLine = SendEditor(SCI_LINEFROMPOSITION, selectionEnd);
+	int lines = selEndLine - selStartLine;
+	size_t firstSelLineStart = SendEditor(SCI_POSITIONFROMLINE, selStartLine);
+	// "caret return" is part of the last selected line
+	if ((lines > 0) &&
+		(selectionEnd == static_cast<size_t>(SendEditor(SCI_POSITIONFROMLINE, selEndLine))))
+		selEndLine--;
+	SendEditor(SCI_BEGINUNDOACTION);
+	for (int i = selStartLine; i <= selEndLine; i++) {
+		int lineStart = SendEditor(SCI_POSITIONFROMLINE, i);
+		int lineIndent = lineStart;
+		int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, i);
+		if (props->GetInt(comment_at_line_start.c_str())) {
+			GetRange(wEditor, lineIndent, lineEnd, linebuf);
+		} else {
+			lineIndent = GetLineIndentPosition(i);
+			GetRange(wEditor, lineIndent, lineEnd, linebuf);
+		}
+		// empty lines are not commented
+		if (strlen(linebuf) < 1)
+			continue;
+		if (memcmp(linebuf, comment.c_str(), comment_length - 1) == 0) {
+			if (memcmp(linebuf, long_comment.c_str(), comment_length) == 0) {
+				// removing comment with space after it
+				SendEditor(SCI_SETSEL, lineIndent, lineIndent + comment_length);
+				SendEditorString(SCI_REPLACESEL, 0, "");
+				if (i == selStartLine) // is this the first selected line?
+					selectionStart -= comment_length;
+				selectionEnd -= comment_length; // every iteration
+				continue;
+			} else {
+				// removing comment _without_ space
+				SendEditor(SCI_SETSEL, lineIndent, lineIndent + comment_length - 1);
+				SendEditorString(SCI_REPLACESEL, 0, "");
+				if (i == selStartLine) // is this the first selected line?
+					selectionStart -= (comment_length - 1);
+				selectionEnd -= (comment_length - 1); // every iteration
+				continue;
+			}
+		}
+		if (i == selStartLine) // is this the first selected line?
+			selectionStart += comment_length;
+		selectionEnd += comment_length; // every iteration
+		SendEditorString(SCI_INSERTTEXT, lineIndent, long_comment.c_str());
+	}
+	// after uncommenting selection may promote itself to the lines
+	// before the first initially selected line;
+	// another problem - if only comment symbol was selected;
+	if (selectionStart < firstSelLineStart) {
+		if (selectionStart >= selectionEnd - (comment_length - 1))
+			selectionEnd = firstSelLineStart;
+		selectionStart = firstSelLineStart;
+	}
+	if (move_caret) {
+		// moving caret to the beginning of selected block
+		SendEditor(SCI_GOTOPOS, selectionEnd);
+		SendEditor(SCI_SETCURRENTPOS, selectionStart);
+	} else {
+		SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
+	}
+	SendEditor(SCI_ENDUNDOACTION);
+	return true;
+}
+
+bool AnEditor::StartBoxComment() {
+	SString fileNameForExtension = ExtensionFileName();
+	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
+	SString start_base("comment.box.start.");
+	SString middle_base("comment.box.middle.");
+	SString end_base("comment.box.end.");
+	SString white_space(" ");
+	start_base += language;
+	middle_base += language;
+	end_base += language;
+	SString start_comment = props->Get(start_base.c_str());
+	SString middle_comment = props->Get(middle_base.c_str());
+	SString end_comment = props->Get(end_base.c_str());
+	if (start_comment == "" || middle_comment == "" || end_comment == "") {
+		//SString error("Box comment variables \"");
+		//error += start_base;
+		//error += "\", \"";
+		//error += middle_base;
+		//error += "\"\nand \"";
+		//error += end_base;
+		//error += "\" are not ";
+		//error += "defined in SciTE *.properties!";
+		//WindowMessageBox(wSciTE, error, MB_OK | MB_ICONWARNING);
+		return true;
+	}
+	start_comment += white_space;
+	middle_comment += white_space;
+	white_space += end_comment;
+	end_comment = white_space;
+	size_t start_comment_length = start_comment.length();
+	size_t middle_comment_length = middle_comment.length();
+	size_t selectionStart = SendEditor(SCI_GETSELECTIONSTART);
+	size_t selectionEnd = SendEditor(SCI_GETSELECTIONEND);
+	size_t caretPosition = SendEditor(SCI_GETCURRENTPOS);
+	// checking if caret is located in _beginning_ of selected block
+	bool move_caret = caretPosition < selectionEnd;
+	size_t selStartLine = SendEditor(SCI_LINEFROMPOSITION, selectionStart);
+	size_t selEndLine = SendEditor(SCI_LINEFROMPOSITION, selectionEnd);
+	size_t lines = selEndLine - selStartLine;
+	// "caret return" is part of the last selected line
+	if ((lines > 0) && (
+		selectionEnd == static_cast<size_t>(SendEditor(SCI_POSITIONFROMLINE, selEndLine)))) {
+		selEndLine--;
+		lines--;
+		// get rid of CRLF problems
+		selectionEnd = SendEditor(SCI_GETLINEENDPOSITION, selEndLine);
+	}
+	SendEditor(SCI_BEGINUNDOACTION);
+	// first commented line (start_comment)
+	int lineStart = SendEditor(SCI_POSITIONFROMLINE, selStartLine);
+	SendEditorString(SCI_INSERTTEXT, lineStart, start_comment.c_str());
+	selectionStart += start_comment_length;
+	// lines between first and last commented lines (middle_comment)
+	for (size_t i = selStartLine + 1; i <= selEndLine; i++) {
+		lineStart = SendEditor(SCI_POSITIONFROMLINE, i);
+		SendEditorString(SCI_INSERTTEXT, lineStart, middle_comment.c_str());
+		selectionEnd += middle_comment_length;
+	}
+	// last commented line (end_comment)
+	int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, selEndLine);
+	if (lines > 0) {
+		SendEditorString(SCI_INSERTTEXT, lineEnd, "\n");
+		SendEditorString(SCI_INSERTTEXT, lineEnd + 1, (end_comment.c_str() + 1));
+	} else {
+		SendEditorString(SCI_INSERTTEXT, lineEnd, end_comment.c_str());
+	}
+	selectionEnd += (start_comment_length);
+	if (move_caret) {
+		// moving caret to the beginning of selected block
+		SendEditor(SCI_GOTOPOS, selectionEnd);
+		SendEditor(SCI_SETCURRENTPOS, selectionStart);
+	} else {
+		SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
+	}
+	SendEditor(SCI_ENDUNDOACTION);
+	return true;
+}
+
+bool AnEditor::StartStreamComment() {
+	SString fileNameForExtension = ExtensionFileName();
+	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
+	SString start_base("comment.stream.start.");
+	SString end_base("comment.stream.end.");
+	SString white_space(" ");
+	start_base += language;
+	end_base += language;
+	SString start_comment = props->Get(start_base.c_str());
+	SString end_comment = props->Get(end_base.c_str());
+	if (start_comment == "" || end_comment == "") {
+		//SString error("Stream comment variables \"");
+		//error += start_base;
+		//error += "\" and \n\"";
+		//error += end_base;
+		//error += "\" are not ";
+		//error += "defined in SciTE *.properties!";
+		//WindowMessageBox(wSciTE, error, MB_OK | MB_ICONWARNING);
+		return true;
+	}
+	start_comment += white_space;
+	white_space += end_comment;
+	end_comment = white_space;
+	size_t start_comment_length = start_comment.length();
+	size_t selectionStart = SendEditor(SCI_GETSELECTIONSTART);
+	size_t selectionEnd = SendEditor(SCI_GETSELECTIONEND);
+	size_t caretPosition = SendEditor(SCI_GETCURRENTPOS);
+	// checking if caret is located in _beginning_ of selected block
+	bool move_caret = caretPosition < selectionEnd;
+	// if there is no selection?
+	if (selectionEnd - selectionStart <= 0) {
+		int selLine = SendEditor(SCI_LINEFROMPOSITION, selectionStart);
+		int lineIndent = GetLineIndentPosition(selLine);
+		int lineEnd = SendEditor(SCI_GETLINEENDPOSITION, selLine);
+		if (RangeIsAllWhitespace(lineIndent, lineEnd))
+			return true; // we are not dealing with empty lines
+		char linebuf[1000];
+		GetLine(linebuf, sizeof(linebuf));
+		int current = GetCaretInLine();
+		// checking if we are not inside a word
+		if (!wordCharacters.contains(linebuf[current]))
+			return true; // caret is located _between_ words
+		int startword = current;
+		int endword = current;
+		int start_counter = 0;
+		int end_counter = 0;
+		while (startword > 0 && wordCharacters.contains(linebuf[startword - 1])) {
+			start_counter++;
+			startword--;
+		}
+		// checking _beginning_ of the word
+		if (startword == current)
+			return true; // caret is located _before_ a word
+		while (linebuf[endword + 1] != '\0' && wordCharacters.contains(linebuf[endword + 1])) {
+			end_counter++;
+			endword++;
+		}
+		selectionStart -= start_counter;
+		selectionEnd += (end_counter + 1);
+	}
+	SendEditor(SCI_BEGINUNDOACTION);
+	SendEditorString(SCI_INSERTTEXT, selectionStart, start_comment.c_str());
+	selectionEnd += start_comment_length;
+	selectionStart += start_comment_length;
+	SendEditorString(SCI_INSERTTEXT, selectionEnd, end_comment.c_str());
+	if (move_caret) {
+		// moving caret to the beginning of selected block
+		SendEditor(SCI_GOTOPOS, selectionEnd);
+		SendEditor(SCI_SETCURRENTPOS, selectionStart);
+	} else {
+		SendEditor(SCI_SETSEL, selectionStart, selectionEnd);
+	}
+	SendEditor(SCI_ENDUNDOACTION);
+	return true;
+}
+
+/**
+ * Return the length of the given line, not counting the EOL.
+ */
+int AnEditor::GetLineLength(int line) {
+	return SendEditor(SCI_GETLINEENDPOSITION, line) - SendEditor(SCI_POSITIONFROMLINE, line);
 }
 
 int AnEditor::GetCurrentLineNumber() {
@@ -1018,13 +1514,6 @@ int AnEditor::GetCurrentLineNumber() {
 int AnEditor::GetCurrentScrollPosition() {
 	int lineDisplayTop = SendEditor(SCI_GETFIRSTVISIBLELINE);
 	return SendEditor(SCI_DOCLINEFROMVISIBLE, lineDisplayTop);
-}
-
-int AnEditor::SetLineIndentation(int line, int indent) {
-	SendEditor(SCI_SETLINEINDENTATION, line, indent);
-	int pos = GetLineIndentPosition(line);
-	SetSelection(pos, pos);
-	return pos;
 }
 
 void AnEditor::IndentationIncrease(){
@@ -1054,6 +1543,40 @@ void AnEditor::IndentationDecrease(){
 	SetLineIndentation(line, indent);
 }
 
+void AnEditor::SetLineIndentation(int line, int indent) {
+	if (indent < 0)
+		return;
+	CharacterRange crange = GetSelection();
+	int posBefore = GetLineIndentPosition(line);
+	SendEditor(SCI_SETLINEINDENTATION, line, indent);
+	int posAfter = GetLineIndentPosition(line);
+	int posDifference =  posAfter - posBefore;
+	if (posAfter > posBefore) {
+		// Move selection on
+		if (crange.cpMin >= posBefore) {
+			crange.cpMin += posDifference;
+		}
+		if (crange.cpMax >= posBefore) {
+			crange.cpMax += posDifference;
+		}
+	} else if (posAfter < posBefore) {
+		// Move selection back
+		if (crange.cpMin >= posAfter) {
+			if (crange.cpMin >= posBefore)
+				crange.cpMin += posDifference;
+			else
+				crange.cpMin = posAfter;
+		}
+		if (crange.cpMax >= posAfter) {
+			if (crange.cpMax >= posBefore)
+				crange.cpMax += posDifference;
+			else
+				crange.cpMax = posAfter;
+		}
+	}
+	SetSelection(crange.cpMin, crange.cpMax);
+}
+
 int AnEditor::GetLineIndentation(int line) {
 	return SendEditor(SCI_GETLINEINDENTATION, line);
 }
@@ -1071,7 +1594,7 @@ bool AnEditor::RangeIsAllWhitespace(int start, int end) {
 	return true;
 }
 
-void AnEditor::GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len) {
+unsigned int AnEditor::GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len) {
 	for (int i = 0; i < len; i++)
 		sv[i] = "";
 	WindowAccessor acc(wEditor.GetID(), *props);
@@ -1093,20 +1616,21 @@ void AnEditor::GetLinePartsInStyle(int line, int style1, int style2, SString sv[
 		}
 	}
 	if ((s.length() > 0) && (part < len)) {
-		sv[part] = s;
+		sv[part++] = s;
 	}
+	return part;
 }
 
 static bool includes(const StyleAndWords &symbols, const SString value) {
 	if (symbols.words.length() == 0) {
 		return false;
-	} else if (strchr(symbols.words.c_str(), ' ')) {
+	} else if (IsAlphabetic(symbols.words[0])) {
 		// Set of symbols separated by spaces
-		int lenVal = value.length();
+		size_t lenVal = value.length();
 		const char *symbol = symbols.words.c_str();
 		while (symbol) {
 			const char *symbolEnd = strchr(symbol, ' ');
-			int lenSymbol = strlen(symbol);
+			size_t lenSymbol = strlen(symbol);
 			if (symbolEnd)
 				lenSymbol = symbolEnd - symbol;
 			if (lenSymbol == lenVal) {
@@ -1118,35 +1642,93 @@ static bool includes(const StyleAndWords &symbols, const SString value) {
 			if (symbol)
 				symbol++;
 		}
-		return false;
 	} else {
 		// Set of individual characters. Only one character allowed for now
 		char ch = symbols.words[0];
 		return strchr(value.c_str(), ch) != 0;
 	}
+	return false;
 }
 
 #define ELEMENTS(a)	(sizeof(a) / sizeof(a[0]))
 
-int AnEditor::GetIndentState(int line) {
+IndentationStatus AnEditor::GetIndentState(int line) {
 	// C like language indentation defined by braces and keywords
-	int indentState = 0;
-	SString controlWords[10];
-	GetLinePartsInStyle(line, SCE_C_WORD, -1, controlWords, ELEMENTS(controlWords));
-	for (unsigned int i = 0;i < ELEMENTS(controlWords);i++) {
+	IndentationStatus indentState = isNone;
+	SString controlWords[20];
+	unsigned int parts = GetLinePartsInStyle(line, statementIndent.styleNumber,
+		-1, controlWords, ELEMENTS(controlWords));
+	for (unsigned int i = 0; i < parts; i++) {
 		if (includes(statementIndent, controlWords[i]))
-			indentState = 2;
+			indentState = isKeyWordStart;
 	}
 	// Braces override keywords
-	SString controlStrings[10];
-	GetLinePartsInStyle(line, SCE_C_OPERATOR, -1, controlStrings, ELEMENTS(controlStrings));
-	for (unsigned int j = 0;j < ELEMENTS(controlStrings);j++) {
+	SString controlStrings[20];
+	parts = GetLinePartsInStyle(line, blockEnd.styleNumber,
+		-1, controlStrings, ELEMENTS(controlStrings));
+	for (unsigned int j = 0; j < parts; j++) {
 		if (includes(blockEnd, controlStrings[j]))
-			indentState = -1;
+			indentState = isBlockEnd;
 		if (includes(blockStart, controlStrings[j]))
-			indentState = 1;
+			indentState = isBlockStart;
 	}
 	return indentState;
+}
+
+int AnEditor::IndentOfBlock(int line) {
+	if (line < 0)
+		return 0;
+	int indentSize = SendEditor(SCI_GETINDENT);
+	int indentBlock = GetLineIndentation(line);
+	int backLine = line;
+	IndentationStatus indentState = isNone;
+	if (statementIndent.IsEmpty() && blockStart.IsEmpty() && blockEnd.IsEmpty())
+		indentState = isBlockStart;	// Don't bother searching backwards
+
+	int lineLimit = line - statementLookback;
+	if (lineLimit < 0)
+		lineLimit = 0;
+	while ((backLine >= lineLimit) && (indentState == 0)) {
+		indentState = GetIndentState(backLine);
+		if (indentState != 0) {
+			indentBlock = GetLineIndentation(backLine);
+			if (indentState == isBlockStart) {
+				if (!indentOpening)
+					indentBlock += indentSize;
+			}
+			if (indentState == isBlockEnd) {
+				if (indentClosing)
+					indentBlock -= indentSize;
+				if (indentBlock < 0)
+					indentBlock = 0;
+			}
+			if ((indentState == isKeyWordStart) && (backLine == line))
+				indentBlock += indentSize;
+		}
+		backLine--;
+	}
+	return indentBlock;
+}
+
+void AnEditor::MaintainIndentation(char ch) {
+	int eolMode = SendEditor(SCI_GETEOLMODE);
+	int curLine = GetCurrentLineNumber();
+	int lastLine = curLine - 1;
+	int indentAmount = 0;
+
+	if (((eolMode == SC_EOL_CRLF || eolMode == SC_EOL_LF) && ch == '\n') ||
+		 (eolMode == SC_EOL_CR && ch == '\r')) {
+		if (props->GetInt("indent.automatic")) {
+			while (lastLine >= 0 && GetLineLength(lastLine) == 0)
+				lastLine--;
+		}
+		if (lastLine >= 0) {
+			indentAmount = GetLineIndentation(lastLine);
+		}
+		if (indentAmount > 0) {
+			SetLineIndentation(curLine, indentAmount);
+		}
+	}
 }
 
 void AnEditor::AutomaticIndentation(char ch) {
@@ -1154,52 +1736,37 @@ void AnEditor::AutomaticIndentation(char ch) {
 	int selStart = crange.cpMin;
 	int curLine = GetCurrentLineNumber();
 	int thisLineStart = SendEditor(SCI_POSITIONFROMLINE, curLine);
-	int indent = GetLineIndentation(curLine - 1);
-	int indentBlock = indent;
-	int backLine = curLine - 1;
-	int indentState = 0;
-	if (statementIndent.IsEmpty() && blockStart.IsEmpty() && blockEnd.IsEmpty())
-		indentState = 1;	// Do not bother searching backwards
+	int indentSize = SendEditor(SCI_GETINDENT);
+	int indentBlock = IndentOfBlock(curLine - 1);
 
-	int lineLimit = curLine - statementLookback;
-	if (lineLimit < 0)
-		lineLimit = 0;
-	while ((backLine >= lineLimit) && (indentState == 0)) {
-		indentState = GetIndentState(backLine);
-		if (indentState != 0) {
-			indentBlock = GetLineIndentation(backLine);
-			if (indentState == 1) {
-				if (!indentOpening)
-					indentBlock += indentSize;
-			}
-			if (indentState == -1) {
-				if (indentClosing)
-					indentBlock -= indentSize;
-				if (indentBlock < 0)
-					indentBlock = 0;
-			}
-			if ((indentState == 2) && (backLine == (curLine - 1)))
-				indentBlock += indentSize;
-		}
-		backLine--;
-	}
-	if (ch == blockEnd.words[0]) {	// Dedent maybe
+	if (blockEnd.IsSingleChar() && ch == blockEnd.words[0]) {	// Dedent maybe
 		if (!indentClosing) {
 			if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
-				int pos = SetLineIndentation(curLine, indentBlock - indentSize);
-				// Move caret after '}'
-				SetSelection(pos + 1, pos + 1);
+				SetLineIndentation(curLine, indentBlock - indentSize);
 			}
 		}
-	} else if (ch == blockStart.words[0]) {	// Dedent maybe if first on line
-		if (!indentOpening) {
+	} else if (!blockEnd.IsSingleChar() && (ch == ' ')) {	// Dedent maybe
+		if (!indentClosing && (GetIndentState(curLine) == isBlockEnd)) {}
+	}
+	else if (ch == blockStart.words[0]) {	// Dedent maybe if first on line and previous line was starting keyword
+		if (!indentOpening && (GetIndentState(curLine - 1) == isKeyWordStart)) {
 			if (RangeIsAllWhitespace(thisLineStart, selStart - 1)) {
-				int pos = SetLineIndentation(curLine, indentBlock - indentSize);
-				// Move caret after '{'
-				SetSelection(pos + 1, pos + 1);
+				SetLineIndentation(curLine, indentBlock - indentSize);
 			}
 		}
 	} else if ((ch == '\r' || ch == '\n') && (selStart == thisLineStart)) {
+		if (!indentClosing && !blockEnd.IsSingleChar()) {	// Dedent previous line maybe
+			SString controlWords[1];
+			if (GetLinePartsInStyle(curLine-1, blockEnd.styleNumber,
+				-1, controlWords, ELEMENTS(controlWords))) {
+				if (includes(blockEnd, controlWords[0])) {
+					// Check if first keyword on line is an ender
+					SetLineIndentation(curLine-1, IndentOfBlock(curLine-2) - indentSize);
+					// Recalculate as may have changed previous line
+					indentBlock = IndentOfBlock(curLine - 1);
+				}
+			}
+		}
 		SetLineIndentation(curLine, indentBlock);
 	}
 }
@@ -1217,9 +1784,7 @@ void AnEditor::CharAdded(char ch) {
 				if (ch == ')') {
 					braceCount--;
 					if (braceCount < 1)
-					{
 						SendEditor(SCI_CALLTIPCANCEL);
-					}
 				} else if (ch == '(') {
 					braceCount++;
 				} else {
@@ -1231,26 +1796,137 @@ void AnEditor::CharAdded(char ch) {
 					StartCallTip();
 				} else if (ch == ')') {
 					braceCount--;
-				} else if (!isalpha(ch) && (ch != '_')) {
+				} else if (!wordCharacters.contains(ch)) {
 					SendEditor(SCI_AUTOCCANCEL);
-				}
-			} else {
+				} else if (autoCCausedByOnlyOne) {
+					StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
+				} else {
+					StartAutoCompleteWord(0);
+				}					
+			} else if (HandleXml(ch)) {
+				// Handled in the routine
+			}
+			else {
 				if (ch == '(') {
 					braceCount = 1;
 					StartCallTip();
 				} else {
-					if (props->GetInt("indent.automatic"))
+					autoCCausedByOnlyOne = false;
+					if (indentMaintain)
+						MaintainIndentation(ch);
+					else if (props->GetInt("indent.automatic"))
 						AutomaticIndentation(ch);
+					if (autoCompleteStartCharacters.contains(ch)) {
+						StartAutoComplete();
+					} else if (props->GetInt("autocompleteword.automatic") && wordCharacters.contains(ch)) {
+						StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
+						autoCCausedByOnlyOne = SendEditor(SCI_AUTOCACTIVE);
+					}
 				}
 			}
 		}
 	}
 }
 
+/**
+ * This routine will auto complete XML or HTML tags that are still open by closing them
+ * @parm ch The characer we are dealing with, currently only works with the '/' character
+ * @return True if handled, false otherwise
+ */
+bool AnEditor::HandleXml(char ch) {
+	// We're looking for this char
+	// Quit quickly if not found
+	if (ch != '>') {
+		return false;
+	}
+
+	// This may make sense only in certain languages
+	if (lexLanguage != SCLEX_HTML && lexLanguage != SCLEX_XML &&
+	        lexLanguage != SCLEX_ASP && lexLanguage != SCLEX_PHP) {
+		return false;
+	}
+
+	// If the user has turned us off, quit now.
+	// Default is off
+	SString value = props->GetExpanded("xml.auto.close.tags");
+	if ((value.length() == 0) || (value == "0")) {
+		return false;
+	}
+
+	// Grab the last 512 characters or so
+	int nCaret = SendEditor(SCI_GETCURRENTPOS);
+	char sel[512];
+	int nMin = nCaret - (sizeof(sel) - 1);
+	if (nMin < 0) {
+		nMin = 0;
+	}
+
+	if (nCaret - nMin < 3) {
+		return false; // Smallest tag is 3 characters ex. <p>
+	}
+	GetRange(wEditor, nMin, nCaret, sel);
+	sel[sizeof(sel) - 1] = '\0';
+
+	if (sel[nCaret - nMin - 2] == '/') {
+		// User typed something like "<br/>"
+		return false;
+	}
+
+	SString strFound = FindOpenXmlTag(sel, nCaret - nMin);
+
+	if (strFound.length() > 0) {
+		SendEditor(SCI_BEGINUNDOACTION);
+		SString toInsert = "</";
+		toInsert += strFound;
+		toInsert += ">";
+		SendEditorString(SCI_REPLACESEL, 0, toInsert.c_str());
+		SetSelection(nCaret, nCaret);
+		SendEditor(SCI_ENDUNDOACTION);
+		return true;
+	}
+
+	return false;
+}
+
+/** Search backward through nSize bytes looking for a '<', then return the tag if any
+ * @return The tag name
+ */
+SString AnEditor::FindOpenXmlTag(const char sel[], int nSize) {
+	SString strRet = "";
+
+	if (nSize < 3) {
+		// Smallest tag is "<p>" which is 3 characters
+		return strRet;
+	}
+	const char* pBegin = &sel[0];
+	const char* pCur = &sel[nSize - 1];
+
+	pCur--; // Skip past the >
+	while (pCur > pBegin) {
+		if (*pCur == '<') {
+			break;
+		} else if (*pCur == '>') {
+			break;
+		}
+		--pCur;
+	}
+
+	if (*pCur == '<') {
+		pCur++;
+		while (strchr(":_-.", *pCur) || isalnum(*pCur)) {
+			strRet += *pCur;
+			pCur++;
+		}
+	}
+
+	// Return the tag name or ""
+	return strRet;
+}
+
 void AnEditor::GoMatchingBrace(bool select) {
 	int braceAtCaret = -1;
 	int braceOpposite = -1;
-	bool isInside = FindMatchingBracePosition(braceAtCaret, braceOpposite, true);
+	bool isInside = FindMatchingBracePosition(true, braceAtCaret, braceOpposite, true);
 	// Convert the character positions into caret positions based on whether
 	// the caret position was inside or outside the braces.
 	if (isInside) {
@@ -1364,7 +2040,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		break;
 
 	case ANE_COMPLETEWORD:
-		StartAutoCompleteWord();
+		StartAutoCompleteWord(false);
 		break;
 
 	case ANE_TOGGLE_FOLD:
@@ -1552,6 +2228,15 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_GETLANGUAGE:
 		return (long) language.c_str();
 
+	case ANE_BLOCKCOMMENT:
+		return StartBlockComment();
+	
+	case ANE_BOXCOMMENT:
+		return StartBoxComment();
+	
+	case ANE_STREAMCOMMENT:
+		return StartStreamComment();
+	
 	default:
 		break;
 	}
@@ -1885,7 +2570,7 @@ void AnEditor::Notify(SCNotification *notification) {
 		break;
 
 	case SCN_UPDATEUI:
-		BraceMatch();
+		BraceMatch(true);
 		break;
 
 	case SCN_MODIFIED:
@@ -1934,6 +2619,14 @@ static Colour ColourFromString(const char *val) {
 	return Colour(r, g, b);
 }
 
+static long ColourOfProperty(PropSet *props, const char *key, ColourDesired colourDefault) {
+	SString colour = props->Get(key);
+	if (colour.length()) {
+		return ColourFromString(colour.c_str()).AsLong();
+	}
+	return colourDefault.AsLong();
+}
+
 void AnEditor::SetOneStyle(Window &win, int style, const char *s) {
 	char *val = StringDup(s);
 	char *opt = val;
@@ -1968,6 +2661,23 @@ void AnEditor::SetOneStyle(Window &win, int style, const char *s) {
 			Platform::SendScintilla(win.GetID(), SCI_STYLESETUNDERLINE, style, 1);
 		if (0 == strcmp(opt, "notunderlined"))
 			Platform::SendScintilla(win.GetID(), SCI_STYLESETUNDERLINE, style, 0);
+		if (0 == strcmp(opt, "case")) {
+			if (*colon == 'u') {
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETCASE, style, SC_CASE_UPPER);
+			} else if (*colon == 'l') {
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETCASE, style, SC_CASE_LOWER);
+			} else {
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETCASE, style, SC_CASE_MIXED);
+			}
+		}
+		if (0 == strcmp(opt, "visible"))
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETVISIBLE, style, 1);
+		if (0 == strcmp(opt, "notvisible"))
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETVISIBLE, style, 0);
+		if (0 == strcmp(opt, "changeable"))
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETCHANGEABLE, style, 1);
+		if (0 == strcmp(opt, "notchangeable"))
+			Platform::SendScintilla(win.GetID(), SCI_STYLESETCHANGEABLE, style, 0);
 		if (cpComma)
 			opt = cpComma + 1;
 		else
@@ -2013,63 +2723,40 @@ SString AnEditor::ExtensionFileName() {
 		return props->Get("default.file.ext");
 }
 
+void AnEditor::ForwardPropertyToEditor(const char *key) {
+	SString value = props->Get(key);
+	SendEditorString(SCI_SETPROPERTY,
+	                 reinterpret_cast<uptr_t>(key), value.c_str());
+}
+
+SString AnEditor::FindLanguageProperty(const char *pattern, const char *defaultValue) {
+	SString key = pattern;
+	key.substitute("*", language.c_str());
+	SString ret = props->GetExpanded(key.c_str());
+	if (ret == "")
+		ret = props->GetExpanded(pattern);
+	if (ret == "")
+		ret = defaultValue;
+	return ret;
+}
+
 void AnEditor::ReadProperties(const char *fileForExt) {
 	//DWORD dwStart = timeGetTime();
+	if (fileForExt)
+		strcpy (fileName, fileForExt);
+	else
+		fileName[0] = '\0';
+	
 	SString fileNameForExtension;
 	if(overrideExtension.length())
 		fileNameForExtension = overrideExtension;
-	else
+	else {
 		fileNameForExtension = fileForExt;
+	}
 
 	language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
-
-	if (language == "python") {
-		lexLanguage = SCLEX_PYTHON;
-	} else if (language == "cpp" || language == "header") {
-		lexLanguage = SCLEX_CPP;
-	} else if (language == "hypertext") {
-		lexLanguage = SCLEX_HTML;
-	} else if (language == "xml") {
-		lexLanguage = SCLEX_XML;
-	} else if (language == "perl") {
-		lexLanguage = SCLEX_PERL;
-	} else if (language == "sql") {
-		lexLanguage = SCLEX_SQL;
-	} else if (language == "vb") {
-		lexLanguage = SCLEX_VB;
-	} else if (language == "props") {
-		lexLanguage = SCLEX_PROPERTIES;
-	} else if (language == "errorlist") {
-		lexLanguage = SCLEX_ERRORLIST;
-	} else if (language == "makefile") {
-		lexLanguage = SCLEX_MAKEFILE;
-	} else if (language == "batch") {
-		lexLanguage = SCLEX_BATCH;
-	} else if (language == "latex") {
-		lexLanguage = SCLEX_LATEX;
-	} else if (language == "lua") {
-		lexLanguage = SCLEX_LUA;
-	} else if (language == "diff") {
-		lexLanguage = SCLEX_DIFF;
-	} else if (language == "container") {
-		lexLanguage = SCLEX_CONTAINER;
-	} else if (language == "conf") {
-		lexLanguage = SCLEX_CONF;
-	} else if (language == "pascal") {
-		lexLanguage = SCLEX_PASCAL;
-	} else if (language == "baan") {
-		lexLanguage = SCLEX_BAAN;
-	} else if (language == "ada") {
-		lexLanguage = SCLEX_ADA;
-	} else if (language == "lisp") {
-		lexLanguage = SCLEX_LISP;
-	} else if (language == "ruby") {
-		lexLanguage = SCLEX_RUBY;
-	} else if (language == "matlab") {
-		lexLanguage = SCLEX_MATLAB;
-	} else {
-		lexLanguage = SCLEX_NULL;
-	}
+	SendEditorString(SCI_SETLEXERLANGUAGE, 0, language.c_str());
+	lexLanguage = SendEditor(SCI_GETLEXER);
 
 	if ((lexLanguage == SCLEX_HTML) || (lexLanguage == SCLEX_XML))
 		SendEditor(SCI_SETSTYLEBITS, 7);
@@ -2142,66 +2829,82 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 		SendEditorString(SCI_SETKEYWORDS, 3, kw3.c_str());
 		SString kw4 = props->GetNewExpand("keywords5.", fileNameForExtension.c_str());
 		SendEditorString(SCI_SETKEYWORDS, 4, kw4.c_str());
+		SString kw5 = props->GetNewExpand("keywords6.", fileNameForExtension.c_str());
+		SendEditorString(SCI_SETKEYWORDS, 5, kw5.c_str());
 	}
-
-	SString fold = props->Get("fold");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold"),
-	                 fold.c_str());
-
-	SString fold_compact = props->Get("fold.compact");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.compact"),
-	                 fold_compact.c_str());
-
-	SString fold_comment = props->Get("fold.comment");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.comment"),
-					fold_comment.c_str());
 	
-	SString fold_comment_python = props->Get("fold.comment.python");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.comment.python"),
-					fold_comment_python.c_str());
-					
-	SString fold_quotes_python = props->Get("fold.quotes.python");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.quotes.python"),
-					fold_quotes_python.c_str());
-					
-	SString fold_html = props->Get("fold.html");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("fold.html"),
-					fold_html.c_str());
-
-
-	SString stylingWithinPreprocessor = props->Get("styling.within.preprocessor");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("styling.within.preprocessor"),
-	                 stylingWithinPreprocessor.c_str());
-	SString ttwl = props->Get("tab.timmy.whinge.level");
-	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("tab.timmy.whinge.level"),
-	                 ttwl.c_str());
-
+	ForwardPropertyToEditor("fold");
+	ForwardPropertyToEditor("fold.comment");
+	ForwardPropertyToEditor("fold.comment.python");
+	ForwardPropertyToEditor("fold.compact");
+	ForwardPropertyToEditor("fold.html");
+	ForwardPropertyToEditor("fold.preprocessor");
+	ForwardPropertyToEditor("fold.quotes.python");
+	ForwardPropertyToEditor("styling.within.preprocessor");
+	ForwardPropertyToEditor("tab.timmy.whinge.level");
+	ForwardPropertyToEditor("asp.default.language");
+	
+	codePage = props->GetInt("code.page");
+	if (unicodeMode != uni8Bit) {
+		// Override properties file to ensure Unicode displayed.
+		codePage = SC_CP_UTF8;
+	}
+	SendEditor(SCI_SETCODEPAGE, codePage);
 	characterSet = props->GetInt("character.set");
+	setlocale(LC_CTYPE, props->Get("LC_CTYPE").c_str());
 
-	SString colour;
-	colour = props->Get("caret.fore");
-	if (colour.length()) {
-		SendEditor(SCI_SETCARETFORE, ColourFromString(colour.c_str()).AsLong());
-	}
-
+	SendEditor(SCI_SETCARETFORE,
+	           ColourOfProperty(props, "caret.fore", ColourDesired(0, 0, 0)));
 	SendEditor(SCI_SETCARETWIDTH, props->GetInt("caret.width", 1));
-
-	colour = props->Get("calltip.back");
-	if (colour.length()) {
-		SendEditor(SCI_CALLTIPSETBACK, ColourFromString(colour.c_str()).AsLong());
+	SendEditor(SCI_SETMOUSEDWELLTIME, props->GetInt("dwell.period", 750), 0);
+	
+	SString caretLineBack = props->Get("caret.line.back");
+	if (caretLineBack.length()) {
+		SendEditor(SCI_SETCARETLINEVISIBLE, 1);
+		SendEditor(SCI_SETCARETLINEBACK,
+		           ColourFromString(caretLineBack.c_str()).AsLong());
+	} else {
+		SendEditor(SCI_SETCARETLINEVISIBLE, 0);
 	}
-
+	
+	SString controlCharSymbol = props->Get("control.char.symbol");
+	if (controlCharSymbol.length()) {
+		SendEditor(SCI_SETCONTROLCHARSYMBOL, static_cast<unsigned char>(controlCharSymbol[0]));
+	} else {
+		SendEditor(SCI_SETCONTROLCHARSYMBOL, 0);
+	}
+	
+	SendEditor(SCI_CALLTIPSETBACK,
+	           ColourOfProperty(props, "calltip.back", ColourDesired(0xff, 0xff, 0xff)));
+	
 	SString caretPeriod = props->Get("caret.period");
 	if (caretPeriod.length()) {
 		SendEditor(SCI_SETCARETPERIOD, caretPeriod.value());
 	}
 
+	int caretSlop = props->GetInt("caret.policy.xslop", 1) ? CARET_SLOP : 0;
+	int caretZone = props->GetInt("caret.policy.width", 50);
+	int caretStrict = props->GetInt("caret.policy.xstrict") ? CARET_STRICT : 0;
+	int caretEven = props->GetInt("caret.policy.xeven", 1) ? CARET_EVEN : 0;
+	int caretJumps = props->GetInt("caret.policy.xjumps") ? CARET_JUMPS : 0;
+	SendEditor(SCI_SETXCARETPOLICY, caretStrict | caretSlop | caretEven | caretJumps, caretZone);
+
+	caretSlop = props->GetInt("caret.policy.yslop", 1) ? CARET_SLOP : 0;
+	caretZone = props->GetInt("caret.policy.lines");
+	caretStrict = props->GetInt("caret.policy.ystrict") ? CARET_STRICT : 0;
+	caretEven = props->GetInt("caret.policy.yeven", 1) ? CARET_EVEN : 0;
+	caretJumps = props->GetInt("caret.policy.yjumps") ? CARET_JUMPS : 0;
+	SendEditor(SCI_SETYCARETPOLICY, caretStrict | caretSlop | caretEven | caretJumps, caretZone);
+
+	int visibleStrict = props->GetInt("visible.policy.strict") ? VISIBLE_STRICT : 0;
+	int visibleSlop = props->GetInt("visible.policy.slop", 1) ? VISIBLE_SLOP : 0;
+	int visibleLines = props->GetInt("visible.policy.lines");
+	SendEditor(SCI_SETVISIBLEPOLICY, visibleStrict | visibleSlop, visibleLines);
+
 	SendEditor(SCI_SETEDGECOLUMN, props->GetInt("edge.column", 0));
 	SendEditor(SCI_SETEDGEMODE, props->GetInt("edge.mode", EDGE_NONE));
-	colour = props->Get("edge.colour");
-	if (colour.length()) {
-		SendEditor(SCI_SETEDGECOLOUR, ColourFromString(colour.c_str()).AsLong());
-	}
+	SendEditor(SCI_SETEDGECOLOUR,
+	           ColourOfProperty(props, "edge.colour", ColourDesired(0xff, 0xda, 0xda)));
 
 	SString selfore = props->Get("selection.fore");
 	if (selfore.length()) {
@@ -2209,16 +2912,51 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	} else {
 		SendEditor(SCI_SETSELFORE, 0, 0);
 	}
-	colour = props->Get("selection.back");
-	if (colour.length()) {
-		SendEditor(SCI_SETSELBACK, 1, ColourFromString(colour.c_str()).AsLong());
+	SString selBack = props->Get("selection.back");
+	if (selBack.length()) {
+		SendEditor(SCI_SETSELBACK, 1, ColourFromString(selBack.c_str()).AsLong());
 	} else {
 		if (selfore.length())
 			SendEditor(SCI_SETSELBACK, 0, 0);
 		else	// Have to show selection somehow
-			SendEditor(SCI_SETSELBACK, 1, Colour(0xC0, 0xC0, 0xC0).AsLong());
+			SendEditor(SCI_SETSELBACK, 1, ColourDesired(0xC0, 0xC0, 0xC0).AsLong());
 	}
 
+	SString whitespaceFore = props->Get("whitespace.fore");
+	if (whitespaceFore.length()) {
+		SendEditor(SCI_SETWHITESPACEFORE, 1, ColourFromString(whitespaceFore.c_str()).AsLong());
+	} else {
+		SendEditor(SCI_SETWHITESPACEFORE, 0, 0);
+	}
+	SString whitespaceBack = props->Get("whitespace.back");
+	if (whitespaceBack.length()) {
+		SendEditor(SCI_SETWHITESPACEBACK, 1, ColourFromString(whitespaceBack.c_str()).AsLong());
+	} else {
+		SendEditor(SCI_SETWHITESPACEBACK, 0, 0);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		long default_indic_type[] = {INDIC_TT, INDIC_DIAGONAL, INDIC_SQUIGGLE};
+		char *default_indic_color[] = {"0000FF", "#00FF00", "#FF0000"};
+		
+		char key[200];
+		sprintf(key, "indicator.%d.style", i);
+
+		int value_int = props->GetInt(key);
+		if (value_int > 0) {
+			SendEditor(SCI_INDICSETSTYLE, i, value_int);
+		} else {
+			SendEditor(SCI_INDICSETSTYLE, i, default_indic_type[i]);
+		}
+		sprintf(key, "indicator.%d.color", i);
+		SString value_str = props->GetExpanded(key);
+		if (value_str.length()) {
+			SendEditor(SCI_INDICSETFORE, i, ColourFromString(value_str.c_str()).AsLong());
+		} else {
+			SendEditor(SCI_INDICSETFORE, i, ColourFromString(default_indic_color[i]).AsLong());
+		}
+	}
+	
 	char bracesStyleKey[200];
 	sprintf(bracesStyleKey, "braces.%s.style", language.c_str());
 	bracesStyle = props->GetInt(bracesStyleKey, 0);
@@ -2226,13 +2964,27 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	char key[200];
 	SString sval;
 
-	sprintf(key, "calltip.%s.ignorecase", "*");
-	sval = props->GetNewExpand(key, "");
+	sval = FindLanguageProperty("calltip.*.ignorecase");
 	callTipIgnoreCase = sval == "1";
-	sprintf(key, "calltip.%s.ignorecase", language.c_str());
-	sval = props->GetNewExpand(key, "");
-	if (sval != "")
-		callTipIgnoreCase = sval == "1";
+
+	calltipWordCharacters = FindLanguageProperty("calltip.*.word.characters",
+		"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+
+	calltipEndDefinition = FindLanguageProperty("calltip.*.end.definition");
+	
+	sprintf(key, "autocomplete.%s.start.characters", language.c_str());
+	autoCompleteStartCharacters = props->GetExpanded(key);
+	if (autoCompleteStartCharacters == "")
+		autoCompleteStartCharacters = props->GetExpanded("autocomplete.*.start.characters");
+	// "" is a quite reasonable value for this setting
+
+	sprintf(key, "autocomplete.%s.fillups", language.c_str());
+	autoCompleteFillUpCharacters = props->GetExpanded(key);
+	if (autoCompleteFillUpCharacters == "")
+		autoCompleteFillUpCharacters =
+			props->GetExpanded("autocomplete.*.fillups");
+	SendEditorString(SCI_AUTOCSETFILLUPS, 0,
+		autoCompleteFillUpCharacters.c_str());
 
 	sprintf(key, "autocomplete.%s.ignorecase", "*");
 	sval = props->GetNewExpand(key, "");
@@ -2245,6 +2997,9 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 
 	int autoCChooseSingle = props->GetInt("autocomplete.choose.single");
 	SendEditor(SCI_AUTOCSETCHOOSESINGLE, autoCChooseSingle),
+
+	SendEditor(SCI_AUTOCSETCANCELATSTART, 0),
+	SendEditor(SCI_AUTOCSETDROPRESTOFWORD, 0),
 
 	// Set styles
 	// For each window set the global default style,
@@ -2288,26 +3043,36 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	bufferedDraw = props->GetInt("buffered.draw", 1);
 	SendEditor(SCI_SETBUFFEREDDRAW, bufferedDraw);
 
+	SendEditor(SCI_SETLAYOUTCACHE, props->GetInt("cache.layout"));
+
 	bracesCheck = props->GetInt("braces.check");
 	bracesSloppy = props->GetInt("braces.sloppy");
 
-	SString wordCharacters = props->GetNewExpand("word.characters.", fileNameForExtension.c_str());
+	wordCharacters = props->GetNewExpand("word.characters.", fileNameForExtension.c_str());
 	if (wordCharacters.length()) {
 		SendEditorString(SCI_SETWORDCHARS, 0, wordCharacters.c_str());
 	} else {
 		SendEditor(SCI_SETWORDCHARS, 0, 0);
+		wordCharacters = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	}
+	// Why call this??
+	// SendEditor(SCI_MARKERDELETEALL, static_cast<unsigned long>( -1));
 
-	SendEditor(SCI_MARKERDELETEALL, static_cast<unsigned long>( -1));
+	SendEditor(SCI_SETTABINDENTS, props->GetInt("tab.indents", 1));
+	SendEditor(SCI_SETBACKSPACEUNINDENTS, props->GetInt("backspace.unindents", 1));
 
+	SendEditor(SCI_SETUSETABS, props->GetInt("use.tabs", 1));
 	int tabSize = props->GetInt("tabsize");
 	if (tabSize) {
 		SendEditor(SCI_SETTABWIDTH, tabSize);
 	}
 	indentSize = props->GetInt("indent.size");
 	SendEditor(SCI_SETINDENT, indentSize);
+	
 	indentOpening = props->GetInt("indent.opening");
 	indentClosing = props->GetInt("indent.closing");
+	indentMaintain = props->GetNewExpand("indent.maintain.", fileNameForExtension.c_str()).value();
+	
 	SString lookback = props->GetNewExpand("statement.lookback.", fileNameForExtension.c_str());
 	statementLookback = lookback.value();
 	statementIndent = GetStyleAndWords("statement.indent.");
@@ -2315,7 +3080,19 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	blockStart = GetStyleAndWords("block.start.");
 	blockEnd = GetStyleAndWords("block.end.");
 
-	SendEditor(SCI_SETUSETABS, props->GetInt("use.tabs", 1));
+	SString list;
+	list = props->GetNewExpand("preprocessor.symbol.", fileNameForExtension.c_str());
+	preprocessorSymbol = list[0];
+	list = props->GetNewExpand("preprocessor.start.", fileNameForExtension.c_str());
+	preprocCondStart.Clear();
+	preprocCondStart.Set(list.c_str());
+	list = props->GetNewExpand("preprocessor.middle.", fileNameForExtension.c_str());
+	preprocCondMiddle.Clear();
+	preprocCondMiddle.Set(list.c_str());
+	list = props->GetNewExpand("preprocessor.end.", fileNameForExtension.c_str());
+	preprocCondEnd.Clear();
+	preprocCondEnd.Set(list.c_str());
+
 	if (props->GetInt("vc.home.key", 1)) {
 		AssignKey(SCK_HOME, 0, SCI_VCHOME);
 		AssignKey(SCK_HOME, SCMOD_SHIFT, SCI_VCHOMEEXTEND);
@@ -2329,6 +3106,17 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	//SendEditor(SCI_SETMARGINMASKN, 0, SC_MASK_FOLDERS);
 
 	SendEditor(SCI_SETMODEVENTMASK, SC_MOD_CHANGEFOLD);
+
+	if (0==props->GetInt("undo.redo.lazy")) {
+		// Trap for insert/delete notifications (also fired by undo
+		// and redo) so that the buttons can be enabled if needed.
+		SendEditor(SCI_SETMODEVENTMASK, SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT
+			| SC_LASTSTEPINUNDOREDO | SendEditor(SCI_GETMODEVENTMASK, 0));
+
+		//SC_LASTSTEPINUNDOREDO is probably not needed in the mask; it
+		//doesn't seem to fire as an event of its own; just modifies the
+		//insert and delete events.
+	}
 
 	// Create a margin column for the folding symbols
 	SendEditor(SCI_SETMARGINTYPEN, 2, SC_MARGIN_SYMBOL);
@@ -2428,15 +3216,12 @@ void AnEditor::ReadPropertiesInitial() {
 	SendEditor(SCI_SETMARGINWIDTHN, 2, foldMargin ? foldMarginWidth : 0);
 }
 
-
-
 void AnEditor::DefineMarker(int marker, int markerType, Colour fore, Colour back)
 {
 	SendEditor(SCI_MARKERDEFINE, marker, markerType);
 	SendEditor(SCI_MARKERSETFORE, marker, fore.AsLong());
 	SendEditor(SCI_MARKERSETBACK, marker, back.AsLong());
 }
-
 
 int AnEditor::GetBookmarkLine( const int nLineStart )
 {

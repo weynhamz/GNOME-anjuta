@@ -165,6 +165,15 @@ prop_set_with_key(PropsID handle, const gchar *key, const gchar *val)
 	  p->Set(key, "");
 }
 
+void 
+prop_set_int_with_key (PropsID p, const gchar *key, int value)
+{
+  gchar *str;
+  str = g_strdup_printf ("%d", value);
+  prop_set_with_key (p, key, str);
+  g_free (str);  
+}
+
 void
 prop_set(PropsID handle, gchar *keyval)
 {

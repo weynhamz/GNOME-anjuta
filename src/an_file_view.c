@@ -497,6 +497,18 @@ fv_clear ()
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
+void fv_hide(void)
+{
+	g_return_if_fail(fv && fv->tree);
+	gtk_widget_hide(fv->tree);
+}
+
+void fv_show(void)
+{
+	g_return_if_fail(fv && fv->tree);
+	gtk_widget_show(fv->tree);
+}
+
 static void
 fv_add_tree_entry (TMFileEntry *entry,
 		   GtkTreeIter *root)
@@ -514,6 +526,9 @@ fv_add_tree_entry (TMFileEntry *entry,
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree)));
 
+	/* while (gtk_events_pending())
+		gtk_main_iteration();
+	*/
 	gtk_tree_store_append (store, &iter, &parent);
 	gtk_tree_store_set (store, &iter,
 			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
@@ -524,7 +539,6 @@ fv_add_tree_entry (TMFileEntry *entry,
 
 	for (tmp = entry->children; tmp; tmp = g_slist_next (tmp)) {
 		TMFileEntry *child = (TMFileEntry *) tmp->data;
-
 		if (tm_file_dir_t == entry->type)
 			fv_add_tree_entry (child, &parent);
 	}
@@ -549,6 +563,7 @@ fv_add_tree_entry (TMFileEntry *entry,
 AnFileView *
 fv_populate (gboolean full)
 {
+	static gboolean busy = FALSE;
 	static const char *ignore[] = {"CVS", NULL};
 
 #ifdef DEBUG
@@ -557,8 +572,13 @@ fv_populate (gboolean full)
 
 	if (!fv)
 		fv_create ();
+	if (busy)
+		return fv;
+	else
+		busy = TRUE;
 
 	fv_disconnect ();
+	fv_freeze ();
 	fv_clear ();
 
 	if (!app || !app->project_dbase || !app->project_dbase->top_proj_dir)
@@ -571,11 +591,13 @@ fv_populate (gboolean full)
 					   NULL, full, NULL, ignore, TRUE);
 	if (!fv->file_tree)
 		goto clean_leave;
-
+	fv_hide();
 	fv_add_tree_entry (fv->file_tree, NULL);
+	fv_show();
 
 clean_leave:
 	fv_connect ();
-
+	fv_thaw ();
+	busy = FALSE;
 	return fv;
 }

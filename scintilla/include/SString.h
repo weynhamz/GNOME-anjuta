@@ -202,7 +202,7 @@ public:
 		if ((subLen == measure_length) || (subPos + subLen > sLen)) {
 			subLen = sLen - subPos;		// don't apply past end of string
 		}
-		for (unsigned int i = subPos; i < subPos + subLen; i++) {
+		for (lenpos_t i = subPos; i < subPos + subLen; i++) {
 			if (s[i] < 'A' || s[i] > 'Z')
 				continue;
 			else
@@ -238,7 +238,7 @@ public:
 		return append(sOther, static_cast<lenpos_t>(measure_length));
 	}
 	SString &operator+=(const SString &sOther) {
-		return append(sOther.s, sOther.sSize);
+		return append(sOther.s, sOther.sLen);
 	}
 	SString &operator+=(char ch) {
 		return append(&ch, 1);

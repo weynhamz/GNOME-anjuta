@@ -92,14 +92,14 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 NULL,
-	 on_goto_tag_definition_activate, NULL, NULL,
+	 on_goto_tag_activate, (gpointer) TRUE, NULL,
 	 PIX_FILE(TAG),
  	 0, 0, NULL}
 	 ,
 	{
 	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
 	 NULL,
-	 on_goto_tag_declaration_activate, NULL, NULL,
+	 on_goto_tag_activate, (gboolean) FALSE, NULL,
 	 PIX_STOCK(JUMP_TO),
  	 0, 0, NULL}
 	 ,
@@ -119,13 +119,13 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Prev bookmark"),
 	 NULL,
-	 on_book_prev1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) (ANE_BOOKMARK_PREV), NULL,
 	 PIX_FILE(BOOKMARK_PREV),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Next bookmark"),
 	 NULL,
-	 on_book_next1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) (ANE_BOOKMARK_NEXT), NULL,
 	 PIX_FILE(BOOKMARK_NEXT),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
@@ -219,14 +219,14 @@ GnomeUIInfo text_editor_menu_options_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("++Zoom"),
 	 NULL,
-	 on_zoom_text_plus_activate, NULL, NULL,
+	 on_zoom_text_activate, "++", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
 	{
 	 GNOME_APP_UI_ITEM, N_("--Zoom"),
 	 NULL,
-	 on_zoom_text_minus_activate, NULL, NULL,
+	 on_zoom_text_activate, "--", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL}
 	,
@@ -238,7 +238,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 0 */
 	 GNOME_APP_UI_ITEM, N_("Cut"),
 	 NULL,
-	 on_cut1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_CUT, NULL,
 	 PIX_STOCK(CUT),
 	 GDK_x, GDK_CONTROL_MASK, NULL}
 	,
@@ -246,7 +246,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Copy"),
 	 NULL,
-	 on_copy1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_COPY, NULL,
 	 PIX_STOCK(COPY),
 	 GDK_c, GDK_CONTROL_MASK, NULL}
 	,
@@ -254,7 +254,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 2 */
 	 GNOME_APP_UI_ITEM, N_("Paste"),
 	 NULL,
-	 on_paste1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_PASTE, NULL,
 	 PIX_STOCK(PASTE),
 	 GDK_v, GDK_CONTROL_MASK, NULL}
 	,
@@ -274,7 +274,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 6 */
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
 	 NULL,
-	 on_book_toggle1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_TOGGLE, NULL,
 	 PIX_FILE(BOOKMARK_TOGGLE),
 	 0, 0, NULL}
 	,

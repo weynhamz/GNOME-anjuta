@@ -97,7 +97,7 @@ typedef struct sOptionValues {
     boolean printTotals;    /* --totals  print cumulative statistics */
     boolean lineDirectives; /* --linedirectives  process #line directives */
 	boolean nestFunction; /* --nest Nest inside function blocks for tags */
-#ifdef DEBUG
+#ifdef TM_DEBUG
     long debugLevel;	    /* -D  debugging output */
     unsigned long breakLine;/* -b  source line at which to call lineBreak() */
 #endif

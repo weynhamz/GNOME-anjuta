@@ -17,6 +17,7 @@
 AutoComplete::AutoComplete() : 
 	active(false),
 	separator(' '),
+	typesep('?'),
 	ignoreCase(false),
 	chooseSingle(false),
 	posStart(0),
@@ -72,22 +73,40 @@ char AutoComplete::GetSeparator() {
 	return separator;
 }
 
+void AutoComplete::SetTypesep(char separator_) {
+	typesep = separator_;
+}
+
+char AutoComplete::GetTypesep() {
+	return typesep;
+}
+
 void AutoComplete::SetList(const char *list) {
 	lb.Clear();
 	char *words = new char[strlen(list) + 1];
 	if (words) {
 		strcpy(words, list);
 		char *startword = words;
+		char *numword = NULL;
 		int i = 0;
 		for (; words && words[i]; i++) {
 			if (words[i] == separator) {
 				words[i] = '\0';
-				lb.Append(startword);
+				if (numword)
+					*numword = '\0';
+				lb.Append(startword, numword?atoi(numword + 1):0);
+				/* printf("word = %s, num = %s\n", startword, numword?(numword+1):"NULL"); */
 				startword = words + i + 1;
+				numword = NULL;
 			}
+			else if (words[i] == typesep)
+				numword = words + i;
 		}
 		if (startword) {
-			lb.Append(startword);
+			if (numword)
+				*numword = '\0';
+			lb.Append(startword, numword?atoi(numword + 1):0);
+			/* printf("word = %s, num = %s\n", startword, numword?(numword+1):"NULL"); */
 		}
 		delete []words;
 	}

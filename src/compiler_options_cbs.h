@@ -23,117 +23,29 @@
 
 gboolean on_comopt_close(GtkWidget *w, gpointer data);
 
-void on_comopt_ok_clicked(GtkButton *button, gpointer data);
 void on_comopt_help_clicked(GtkButton *button, gpointer data);
-void on_comopt_apply_clicked(GtkButton *button, gpointer data);
-void on_comopt_cancel_clicked(GtkButton *button, gpointer data);
+void on_comopt_close_clicked(GtkButton *button, gpointer data);
 
-void
-on_co_supp_clist_select_row (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
+void on_co_supp_info_clicked(GtkButton *button, gpointer data);
 
-void
-on_co_inc_clist_select_row (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
+void on_co_inc_add_clicked(GtkButton *button, gpointer data);
+void on_co_inc_update_clicked(GtkButton *button, gpointer data);
+void on_co_inc_remove_clicked(GtkButton *button, gpointer data);
+void on_co_inc_clear_clicked(GtkButton *button, gpointer data);
 
-void
-on_co_lib_clist_select_row (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
+void on_co_lib_paths_add_clicked(GtkButton *button, gpointer data);
+void on_co_lib_paths_update_clicked(GtkButton *button, gpointer data);
+void on_co_lib_paths_remove_clicked(GtkButton *button, gpointer data);
+void on_co_lib_paths_clear_clicked(GtkButton *button, gpointer data);
 
-void
-on_co_lib_stock_clist_select_row (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
+void on_co_lib_add_clicked(GtkButton *button, gpointer data);
+void on_co_lib_update_clicked(GtkButton *button, gpointer data);
+void on_co_lib_remove_clicked(GtkButton *button, gpointer data);
+void on_co_lib_clear_clicked(GtkButton *button, gpointer data);
 
-void
-on_co_lib_paths_clist_select_row (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-
-void
-on_co_def_clist_select_row (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-
-void
-on_co_supp_info_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_supp_help_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_inc_add_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_inc_update_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_inc_remove_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_inc_clear_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_inc_help_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_paths_add_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_paths_update_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_paths_remove_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_paths_clear_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_paths_help_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_add_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_update_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_remove_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_clear_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_lib_help_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_def_add_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_def_update_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_def_remove_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_def_clear_clicked(GtkButton *button, gpointer data);
-
-void
-on_co_def_help_clicked(GtkButton *button, gpointer data);
+void on_co_def_add_clicked(GtkButton *button, gpointer data);
+void on_co_def_update_clicked(GtkButton *button, gpointer data);
+void on_co_def_remove_clicked(GtkButton *button, gpointer data);
+void on_co_def_clear_clicked(GtkButton *button, gpointer data);
 
 #endif

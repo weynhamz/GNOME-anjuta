@@ -54,8 +54,6 @@ void stack_trace_clear (StackTrace * st);
 
 void stack_trace_update (GList * lines, gpointer st);
 
-void add_frame (StackTrace * st, gchar *);
-
 void stack_trace_update_controls (StackTrace * st);
 
 void stack_trace_destroy (StackTrace * st);

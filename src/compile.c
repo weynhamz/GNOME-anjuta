@@ -141,7 +141,7 @@ compile_file (gboolean use_make)
 		anjuta_warning (_("No compile command has been specified for this type of file."));
 		return;
 	}
-	dirname = g_dirname (te->full_filename);
+	dirname = extract_directory (te->full_filename);
 	chdir (dirname);
 	anjuta_set_execution_dir(dirname);
 	g_free (dirname);

@@ -51,6 +51,7 @@ void src_paths_destroy (SrcPaths *);
 void src_paths_get (SrcPaths *);
 void src_paths_show (SrcPaths *);
 void src_paths_hide (SrcPaths *);
+GList *src_paths_get_paths (SrcPaths *);
 
 gboolean src_paths_save (SrcPaths * co, FILE * s);
 gboolean src_paths_load (SrcPaths * co, PropsID props);

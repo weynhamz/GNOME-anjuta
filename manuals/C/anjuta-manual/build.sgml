@@ -29,7 +29,7 @@
    <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>)
   </para>
   <note>
-  <title>Note</title>
+  <title>Build dependencies</title>
   <para>
    The build process will compile your file first if the object file is not up-to-date 
    or it has not yet been generated. This means that you can build a file without 

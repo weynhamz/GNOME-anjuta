@@ -5,29 +5,36 @@ properties_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties
 properties_data_DATA = \
 	ada.properties \
 	anjuta.properties \
-	cs.properties \
-	make.properties \
-	rc.properties \
-	html.properties \
-	ruby.properties \
+	asm.properties \
+	ave.properties \
 	baan.properties \
-	idl.properties \
-	pascal.properties \
-	sample.properties \
 	bash.properties \
-	java.properties \
-	perl.properties \
-	sql.properties \
+	bullant.properties \
 	conf.properties \
-	latex.properties \
-	props.properties \
-	vb.properties \
 	cpp.properties \
-	lua.properties \
-	python.properties \
-	xml.properties \
-	others.properties \
+	cs.properties \
+	eiffel.properties \
+	fortran.properties \
+	html.properties \
+	idl.properties \
+	java.properties \
+	latex.properties \
 	lisp.properties \
-	matlab.properties
+	lua.properties \
+	make.properties \
+	matlab.properties \
+	others.properties \
+	pascal.properties \
+	perl.properties \
+	props.properties \
+	python.properties \
+	rc.properties \
+	ruby.properties \
+	sample.properties \
+	sql.properties \
+	tcltk.properties \
+	user.properties \
+	vb.properties \
+	xml.properties
 
 EXTRA_DIST = $(properties_data_DATA)

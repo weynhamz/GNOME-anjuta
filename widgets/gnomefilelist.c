@@ -31,6 +31,7 @@
 
 #include <pwd.h>
 #include <sys/types.h>
+#include <libgnomeui/gnome-window-icon.h>
 
 /* function declarations */
 static void gnome_filelist_class_init(GnomeFileListClass *klass);
@@ -60,6 +61,7 @@ static void check_goto(GtkWidget *widget, GnomeFileList *file_list);
 static void delete_file(GtkWidget *widget, GnomeFileList *file_list);
 static void rename_file(GtkWidget *widget, GnomeFileList *file_list);
 static void create_dir(GtkWidget *widget, GnomeFileList *file_list);
+static gint create_dir_delete_cb(GtkWidget *widget, GdkEvent *e, GnomeFileList *file_list);
 static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list);
 static void create_dir_cancelbutton_cb(GtkWidget *button, GnomeFileList *file_list);
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list);
@@ -143,8 +145,10 @@ GtkWidget *gnome_filelist_new_with_path(const gchar *path)
    GList *combolist=NULL;
    GtkAdjustment *file_adjustment;
    GtkAdjustment *dir_adjustment;
+   gchar *pix_filename;
 	
    file_list = gtk_type_new(GNOME_TYPE_FILELIST);
+   gnome_window_icon_set_from_default(GTK_WINDOW(file_list));
    gtk_container_set_border_width(GTK_CONTAINER(file_list), 5);
    // gtk_signal_connect(GTK_OBJECT(file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
    gtk_signal_connect(GTK_OBJECT(file_list), "show", GTK_SIGNAL_FUNC(gnome_filelist_show), file_list);
@@ -677,8 +681,9 @@ history_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 {
 	GnomeFileListType *filetype;
-    gchar *string;
-	gchar *filename=g_strdup(gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry)));
+    gchar *s;
+	gchar *filename=g_strdup(gtk_entry_get_text(GTK_ENTRY(
+	  file_list->selection_entry)));
 	filetype = gnome_filelisttype_getfiletype(file_list, 
 	   gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->filetype_combo)->entry)));
 		
@@ -714,14 +719,14 @@ static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 		filename = g_strdup(s->str);
 		g_string_free (s, TRUE);
 	}
-	
-	string = build_full_path(file_list->path, "");
-	gnome_filelist_set_dir(file_list, string);
-	
-	gtk_entry_set_text(GTK_ENTRY(file_list->selection_entry), filename);
-	
+
+	s = build_full_path(file_list->path, "");
+	gnome_filelist_set_dir(file_list, s);
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(file_list->selection_entry), filename);
+
 	g_free(filename);
-    g_free(string);	
+    g_free(s);	
 }
 
 
@@ -809,9 +814,15 @@ static void file_select_event(GtkCTree *tree, gint row, gint col, GdkEvent *even
          }
          else if(!strcmp(file_list->selected, ".."))
          {
+#ifdef DEBUG
+			g_message("Original file path: %s\n", file_list->path); 
+#endif
             path = get_parent_dir(file_list->path);
             g_free(file_list->path);
             file_list->path = path;
+#ifdef DEBUG
+			g_message("Original file path: %s\n", file_list->path); 
+#endif
             gnome_filelist_set_dir(file_list, file_list->path);
          }
 	 else
@@ -1445,10 +1456,9 @@ static void goto_next(GtkWidget *widget, GnomeFileList *file_list)
 
 static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
 {
-   const gchar *path;
-   const gchar *selected;
-   gchar *string;
+   const gchar *path, *selected;
    GList *selected_list;
+   gchar *s;
 	
    selected_list = GTK_CLIST(file_list->file_list)->selection;
    if (g_list_length(selected_list) > 0 && file_list->multiple_selection) {
@@ -1460,9 +1470,9 @@ static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
 
    path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
    selected = gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry));
-   string = build_full_path(path, selected);
+   s = build_full_path(path, selected);
 
-   if(gnome_filelist_check_dir_exists(string))
+   if(gnome_filelist_check_dir_exists(s))
    {
       gtk_widget_set_sensitive(file_list->ok_button, FALSE);
       gtk_widget_set_sensitive(file_list->delete_button, FALSE);
@@ -1471,7 +1481,7 @@ static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
    else
    {
       gtk_widget_set_sensitive(file_list->ok_button, TRUE);
-      if(selected && strlen(selected) && check_if_file_exists(string) && check_can_modify(string))
+      if(selected && strlen(selected) && check_if_file_exists(s) && check_can_modify(s))
       {
          gtk_widget_set_sensitive(file_list->delete_button, TRUE);
          gtk_widget_set_sensitive(file_list->rename_button, TRUE);
@@ -1488,7 +1498,7 @@ static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
    gtk_widget_set_sensitive (file_list->forward_button,
 		   	     file_list->history_position + 1 > 0);
 
-   g_free(string);
+   g_free(s);
 }
 
 gchar *get_parent_dir(const gchar *path)
@@ -1667,7 +1677,7 @@ static void rename_file(GtkWidget *widget, GnomeFileList *file_list)
    selected = gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry));
    full = build_full_path(path, selected);
 
-   dialog = (GnomeDialog *)gnome_dialog_new("Delete File...", GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_CANCEL, NULL);
+   dialog = (GnomeDialog *)gnome_dialog_new("Rename File...", GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_CANCEL, NULL);
    hbox = gtk_hbox_new(FALSE, 0);
    gtk_box_pack_start(GTK_BOX(dialog->vbox), hbox, FALSE, FALSE, 0);
    gtk_widget_show(hbox);
@@ -1717,9 +1727,20 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   GtkWidget *okbutton;
   GtkWidget *cancelbutton;
   /* The window and the entry are in the _GnomeFileList struct */  
-	
+
+  if (file_list->createdir_window)
+  {
+     gdk_window_raise (GTK_WIDGET(file_list->createdir_window)->window);
+     gtk_widget_grab_focus (file_list->createdir_entry);
+	 return;
+  }
   file_list->createdir_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gnome_window_icon_set_from_default(GTK_WINDOW(file_list->createdir_window));
   gtk_window_set_title (GTK_WINDOW (file_list->createdir_window), _("New folder"));
+  gtk_window_set_wmclass (GTK_WINDOW (file_list->createdir_window), "createdir", "Anjuta");
+  gtk_window_set_transient_for (GTK_WINDOW(file_list->createdir_window), 
+  		GTK_WINDOW (file_list));
+  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
 
   vbox1 = gtk_vbox_new (FALSE, 6);  
 	
@@ -1764,8 +1785,6 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   gtk_box_pack_start(GTK_BOX(util_box), cancelbutton, FALSE, FALSE, 5);
   GTK_WIDGET_SET_FLAGS(cancelbutton, GTK_CAN_DEFAULT);
   gtk_widget_show(cancelbutton);   
-   
-  
 
   gtk_signal_connect (GTK_OBJECT (okbutton), "clicked",
                       GTK_SIGNAL_FUNC (create_dir_okbutton_cb),
@@ -1773,11 +1792,19 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   gtk_signal_connect (GTK_OBJECT (cancelbutton), "clicked",
                       GTK_SIGNAL_FUNC (create_dir_cancelbutton_cb),
                       file_list);
+  gtk_signal_connect (GTK_OBJECT (file_list->createdir_window), "delete_event",
+                      GTK_SIGNAL_FUNC (create_dir_delete_cb),
+                      file_list);
 					  
-  gtk_window_set_wmclass (GTK_WINDOW (file_list->createdir_window), "createdir", "Anjuta");
-  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
   gtk_widget_grab_focus (file_list->createdir_entry);
 	
+}
+
+static gint create_dir_delete_cb(GtkWidget *w, GdkEvent* e,
+	GnomeFileList *file_list)
+{
+	file_list->createdir_window = NULL;
+	return FALSE;
 }
 
 static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list)
@@ -1788,19 +1815,21 @@ static void create_dir_okbutton_cb(GtkWidget *button, GnomeFileList *file_list)
    indir = gnome_filelist_get_path(file_list);
    text = gtk_entry_get_text(GTK_ENTRY(file_list->createdir_entry));
    both = g_strdup_printf("%s%s", indir, text);    
-   if (mkdir (both, (S_IRWXU | S_IRGRP | S_IROTH)) != 0) {
+   if (mkdir (both, (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)) != 0) {
 	   gnome_dialog_run_and_close (GNOME_DIALOG (gnome_error_dialog (_("Creating folder failed."))));
    } else {
 	   string = build_full_path(file_list->path, "");
 	   gnome_filelist_set_dir(file_list, string);
 	   g_free(string);
 	   gtk_widget_destroy(file_list->createdir_window);
+	   file_list->createdir_window = NULL;
    }
 }
 
 static void create_dir_cancelbutton_cb(GtkWidget *button, GnomeFileList *file_list)
 {
 	gtk_widget_destroy(file_list->createdir_window);
+	file_list->createdir_window = NULL;
 }
 
 static void home_directory_cb (GtkButton * button, GnomeFileList *file_list)
@@ -1813,18 +1842,7 @@ static void home_directory_cb (GtkButton * button, GnomeFileList *file_list)
 static gboolean check_if_file_exists(const gchar *filename)
 {
    struct stat st;
-   gboolean file = FALSE;
-   gboolean stated = FALSE;
-   FILE *opened;
-   if((opened = fopen(filename, "r")))
-   {
-      file = TRUE;
-      fclose(opened);
-   }
-   stat(filename, &st);
-   if(S_ISREG(st.st_mode))
-      stated = TRUE;
-   return(file && stated ? TRUE : FALSE);
+   return (gboolean) ((0 == stat(filename, &st)) && (S_ISREG(st.st_mode)));
 }
 
 static gboolean check_can_modify(const gchar *filename)

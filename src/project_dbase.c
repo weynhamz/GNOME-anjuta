@@ -32,7 +32,7 @@
 #include "project_dbase.h"
 #include "mainmenu_callbacks.h"
 #include "utilities.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "fileselection.h"
 #include "resources.h"
 #include "controls.h"
@@ -94,17 +94,18 @@ gchar *project_type_map[]=
 	"GTK",
 	"GNOME",
 	"BONOBO",
-	"GTKmm",
-	"GNOMEmm",
+	"glademm (gtkmm 1.2)",
+	"glademm (gnomemm 1.2)",
 	"LIBGLADE",
 	"wxWINDOWS",
 	"GTK 2.0",
-	"GTKmm 2.0",
+	"gtkmm 2.0",
 	"GNOME 2.0",
 	"LIBGLADE2",
-	"GNOMEmm 2.0",
+	"gnomemm 2.0",
 	"XLib",
 	"XLib Dock App",
+	"Qt",
 	NULL
 };
 
@@ -144,6 +145,28 @@ static gchar* default_module_name[]=
 static gchar* default_module_type[]=
 {
 	"",  "", "", "", "", "", "", NULL
+};
+
+/*
+These are the preferences which will be saved along
+with the project. These preferences will override those
+set by the user before loading the project.
+
+In .prj file, we prefix with "preferences."
+those are the pref names in preferences props
+*/
+static const gchar* editor_prefs[] =
+{
+	INDENT_AUTOMATIC,
+	USE_TABS,
+	INDENT_OPENING,
+	INDENT_CLOSING,
+	TAB_SIZE,
+	INDENT_SIZE,
+	AUTOFORMAT_STYLE,
+	AUTOFORMAT_CUSTOM_STYLE,
+	AUTOFORMAT_DISABLE,
+	NULL
 };
 
 void
@@ -359,17 +382,16 @@ project_dbase_new (PropsID pr_props)
 	p->win_height = 400;
 	p->top_proj_dir = NULL;
 	p->current_file_data = NULL;
-	p->excluded_modules = NULL;
 	
 	create_project_dbase_gui (p);
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->fileselection_open = create_fileselection_gui (&fsd1);
 	p->fileselection_add_file = create_fileselection_gui (&fsd2);
-	p->project_config = project_config_new ();
 	p->sel_module = MODULE_SOURCE;
 	p->props = prop_set_new ();
 	prop_set_parent (p->props, pr_props);
+	p->project_config = project_config_new (p->props);
 
 	closed_folder_pix =
 		gdk_pixmap_colormap_create_from_xpm_d(NULL,
@@ -491,10 +513,6 @@ project_dbase_clear (ProjectDBase * p)
 	string_assign (&p->top_proj_dir, NULL);
 	string_assign (&p->proj_filename, NULL);
 	prop_clear (p->props);
-	if (p->excluded_modules) {
-		glist_strings_free(p->excluded_modules);
-		p->excluded_modules = NULL;
-	}
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
@@ -771,7 +789,7 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 gboolean
 project_dbase_save_project (ProjectDBase * p)
 {
-	gchar* str;
+	gchar* str, *str_prop;
 	FILE *fp;
 	gint i;
 
@@ -836,36 +854,51 @@ project_dbase_save_project (ProjectDBase * p)
 
 	str = prop_get (p->props, "project.source.target");
 	if (!str) str = g_strdup ("dummytarget");
-	if (fprintf (fp, "project.source.target=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.source.target=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
-	fprintf (fp, "project.excluded.modules=");
-	if (p->excluded_modules) {
-		GList* node;
-		node = p->excluded_modules;
-		while (node)
-		{
-			if (node->data)
-				if (fprintf (fp, "\\\n\t%s", (gchar*)node->data) < 1)
-					goto error_show;
-			node = g_list_next (node);
-		}
-	}
-	fprintf (fp, "\n\n");
-
 	str = prop_get (p->props, "project.has.gettext");
 	if (!str) str = g_strdup ("1");
-	if (fprintf (fp, "project.has.gettext=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.has.gettext=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
 	str = prop_get (p->props, "project.programming.language");
 	if (!str) str = g_strdup (programming_language_map[PROJECT_PROGRAMMING_LANGUAGE_C]);
-	if (fprintf (fp, "project.programming.language=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.programming.language=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
+	str = prop_get (p->props, "project.excluded.modules");
+	if (!str) str = g_strdup ("intl");
+	if (fprintf (fp, "project.excluded.modules=%s\n\n", str) < 1)
+		goto error_show;
+	g_free (str); str = NULL;
+	
+	str = prop_get (p->props, "project.config.extra.modules.before");
+	if (str)
+	{
+		fprintf (fp, "project.config.extra.modules.before=%s\n", str);
+		g_free (str);
+		str = NULL;
+	}
+	else
+		fprintf (fp, "project.config.extra.modules.before=\n");
+
+	str = prop_get (p->props, "project.config.extra.modules.after");
+	if (str)
+	{
+		fprintf (fp, "project.config.extra.modules.after=%s\n", str);
+		g_free (str);
+		str = NULL;
+	}
+	else
+		fprintf (fp, "project.config.extra.modules.after=\n");
+	
+	if (project_config_save (p->project_config, fp)== FALSE)
+		goto error_show;
+        
 	str = prop_get (p->props, "project.menu.entry");
 	if (!str) str = prop_get (p->props, "project.name");
 	if (!str) str = g_strdup ("Unknown Project");
@@ -899,19 +932,32 @@ project_dbase_save_project (ProjectDBase * p)
 
 	str = prop_get (p->props, "project.configure.options");
 	if (!str) str = g_strdup ("");
-	if (fprintf (fp, "project.configure.options=%s\n\n", str) < 1)
+	if (fprintf (fp, "project.configure.options=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
 
 	/* Yes, from the preferences */
 	str = prop_get (app->preferences->props, "anjuta.program.arguments");
 	if (!str) str = g_strdup ("");
-	if (fprintf (fp, "anjuta.program.arguments=%s\n\n", str) < 1)
+	if (fprintf (fp, "anjuta.program.arguments=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
-
-	if (project_config_save (p->project_config, fp)== FALSE)
-		goto error_show;
+	
+	/* Save the editor preferences if present */
+#ifdef DEBUG
+	printf("Saving editor preferences in the project file\n");
+#endif
+	for(i=0; editor_prefs[i]; i++)
+	{
+		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);
+		str = prop_get(app->project_dbase->props, str_prop);
+		if (str) {
+			fprintf(fp, "%s=%s\n", str_prop, str);
+			g_free(str);
+		}
+		g_free(str_prop);
+	}
+	fprintf(fp, "\n");
 
 	for(i=0; i<MODULE_END_MARK; i++)
 	{
@@ -1057,6 +1103,81 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 	else
 		project_dbase_undock (p);
 	return TRUE;
+}
+
+void project_dbase_sync_tags_image(ProjectDBase *p)
+{
+	gchar* src_dir, *inc_dir;
+	gboolean build_sv = preferences_get_int(app->preferences
+	  , BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences
+	  , BUILD_FILE_BROWSER);
+
+	g_return_if_fail (p != NULL);
+
+	if (p->project_is_open == FALSE)
+		return;
+
+	if (p->top_proj_dir && !p->tm_project)
+		p->tm_project = tm_project_new(p->top_proj_dir, NULL, NULL, TRUE);
+
+	src_dir = project_dbase_get_module_dir (p, MODULE_SOURCE);
+	inc_dir = project_dbase_get_module_dir (p, MODULE_INCLUDE);
+
+	if (src_dir)
+	{
+		gchar* src_path, *inc_path = NULL, *tmp;
+		GList *src_files, *inc_files, *node;
+		TextEditor *te;
+
+		src_path = g_strconcat (src_dir, "/", NULL);
+		if (inc_dir)
+			inc_path = g_strconcat (inc_dir, "/", NULL);
+		src_files = glist_from_data (p->props, "module.source.files");
+		inc_files = glist_from_data (p->props, "module.include.files");
+#ifdef DEBUG
+		g_message("%d source files, %d include files"
+		  , g_list_length(src_files), g_list_length(inc_files));
+#endif
+		glist_strings_prefix (src_files, src_path);
+		if (inc_files && inc_path)
+		{
+			glist_strings_prefix (inc_files, inc_path);
+			src_files = g_list_concat(src_files, inc_files);
+		}
+		for (node = src_files; node; node = g_list_next(node))
+		{
+			tmp = tm_get_real_path((const gchar *) node->data);
+			g_free(node->data);
+			node->data = tmp;
+		}
+		/* Since the open text editors hold a pointer to the
+		source file, set it to NULL since the pointer might have
+		been free()d by the syncing process
+		*/
+		for (node = app->text_editor_list; node; node = g_list_next(node))
+		{
+			te = (TextEditor *) node->data;
+			te->tm_file = NULL;
+		}
+		tm_project_sync(TM_PROJECT(p->tm_project), src_files);
+		/* Set the pointers back again */
+		for (node = app->text_editor_list; node; node = g_list_next(node))
+		{
+			te = (TextEditor *) node->data;
+			te->tm_file = tm_workspace_find_object(TM_WORK_OBJECT(
+			  app->tm_workspace), te->full_filename, TRUE);
+		}
+		glist_strings_free (src_files);
+		g_free (src_path);
+		g_free (src_dir);
+		if (inc_path)
+			g_free (inc_path);
+		if (inc_dir)
+			g_free (inc_dir);
+	}
+	sv_populate(build_sv);
+	fv_populate(build_fv);
 }
 
 void
@@ -1745,11 +1866,43 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 void
 project_dbase_clean_left (ProjectDBase * p)
 {
+	gint i;
+	gboolean pref_changed = FALSE;
+	
+	/* Clear project related preferences that have been set. */
+#ifdef DEBUG
+	printf("Clearing project preferences\n");
+#endif
+	for(i=0; editor_prefs[i]; i++)
+	{
+		gchar *str, *str_prop;
+	
+		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
+		str = prop_get(p->props, str_prop);
+		g_free(str_prop);
+		if (str) {
+			g_free(str);
+			str_prop = g_strdup_printf("%s", editor_prefs[i]);			
+			str = prop_get(app->preferences->props_session, str_prop);
+			g_free(str_prop);
+			if (str) {
+				prop_set_with_key(app->preferences->props, editor_prefs[i], str);
+				g_free(str);
+			} else {
+				prop_set_with_key(app->preferences->props, editor_prefs[i], "");
+			}
+			pref_changed = TRUE;
+		}
+	}
+	
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
 
 	compiler_options_load (app->compiler_options, app->preferences->props);
 	src_paths_load (app->src_paths, app->preferences->props);
+	
+	if (pref_changed)
+		anjuta_apply_preferences ();
 }
 
 /*
@@ -1990,19 +2143,22 @@ project_dbase_update_tree (ProjectDBase * p)
 	{
 		gchar *key, *prefix;
 		GList *list;
-		
+
 		key = g_strconcat ("module.", module_map[i], ".name", NULL);
 		tmp1 = prop_get (p->props, key);
 		g_free (key);
 		if (!tmp1)
 			continue;
-		
+
 		key = g_strconcat ("module.", module_map[i], ".files", NULL);
 		list = glist_from_data (p->props, key);
 		g_free (key);
 		if (!list)
+		{
+			g_free(tmp1);
 			continue;
-		
+		}
+
 		get_pixmask_on_file_type (FILE_TYPE_DIR,
 					  p->widgets.window, &pix_c,
 					  &mask_c, &pix_o, &mask_o);
@@ -2121,6 +2277,74 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 }
 
 void
+project_dbase_import_file_real (ProjectDBase* p, PrjModule selMod, gchar* filename)
+{
+	gchar *comp_dir;
+	GList *list, *mod_files;
+	gchar full_fn[PATH_MAX];
+	gchar *real_fn;
+	gchar *real_modfile;
+
+	selMod = p->sel_module;
+	comp_dir = project_dbase_get_module_dir (p, selMod);
+	mod_files = project_dbase_get_module_files (p, selMod);
+	real_fn = tm_get_real_path(filename);
+	list = mod_files;
+	while (list)
+	{
+		g_snprintf(full_fn, PATH_MAX, "%s/%s", comp_dir, (gchar *) list->data);
+		real_modfile = tm_get_real_path(full_fn);
+		if (0 == strcmp(real_modfile, real_fn))
+		{
+			/*
+			 * file has already been added. So skip with a message 
+			 */
+			gchar *message = g_strconcat(real_modfile, _(" already exists in the project"), NULL); 
+			messagebox(GNOME_MESSAGE_BOX_INFO, message);
+			g_free(message);
+			g_free (comp_dir);
+			g_free(real_modfile);
+			g_free(real_fn);
+			glist_strings_free (mod_files);
+			return;
+		}
+		g_free(real_modfile);
+		list = g_list_next (list);
+	}
+	glist_strings_free (mod_files);
+	/*
+	 * File has not been added. So add it 
+	 */
+	if (!is_file_in_dir(filename, comp_dir))
+	{
+		gchar* fn;
+		/*
+		 * File does not exist in the corroeponding dir. So, import it. 
+		 */
+		fn =
+			g_strconcat (comp_dir, "/",
+				     extract_filename (filename), NULL);
+		force_create_dir (comp_dir);
+		if (!copy_file (filename, fn, TRUE))
+		{
+			g_free (comp_dir);
+			g_free (fn);
+			g_free(real_fn);
+			messagebox (GNOME_MESSAGE_BOX_INFO,
+				    _("Error while copying the file inside the module."));
+			return;
+		}
+		g_free(real_fn);
+		real_fn = tm_get_real_path(fn);
+		g_free(fn);
+	}
+	project_dbase_add_file_to_module (p, selMod, real_fn);
+	g_free (comp_dir);
+	g_free(real_fn);
+	return;
+}
+
+void
 project_dbase_remove_file (ProjectDBase * p)
 {
 	gchar *key, *fn, *files, *pos;
@@ -2227,8 +2451,8 @@ gboolean
 project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 {
 	gchar *prj_buff, buff[512], *str;
-	gint level, read_size, pos;
-	gboolean error_shown, syserr;
+	gint level, read_size, pos, i;
+	gboolean error_shown, syserr, prefs_changed;
 	FILE* fp;
 	
 	prj_buff = NULL;
@@ -2312,8 +2536,6 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 	g_free (prj_buff);
 	prj_buff = NULL;
 
-
-
 done:
 	/* It is necessary to transfer this variable */
 	/* from prj props to preferences props */
@@ -2324,16 +2546,34 @@ done:
 	else
 		prop_set_with_key (app->preferences->props,
 			"anjuta.program.parameters", "");
-	g_free (str);		
+	g_free (str);	
+	
+	/* some preferences may be stored in project file */
+#ifdef DEBUG
+	printf("Loading editor preferences from project\n");
+#endif
+	prefs_changed = FALSE;
+	for(i=0; editor_prefs[i]; i++)
+	{
+		gchar *str_prop;
+		
+		str_prop = g_strdup_printf("preferences.%s", editor_prefs[i]);			
+		str = prop_get(p->props, str_prop);
+		g_free(str_prop);
+		if (str) {
+			prop_set_with_key(app->preferences->props, editor_prefs[i], str);
+			g_free(str);
+			prefs_changed = TRUE;
+		}
+	}
+	if (prefs_changed)
+		anjuta_apply_preferences ();
+	
 	p->is_saved = TRUE;
 	p->top_proj_dir = tm_get_real_path(p->proj_filename);
 	*(strrchr(p->top_proj_dir, '/')) = '\0';
+	prop_set_with_key (p->props, "top.proj.dir", p->top_proj_dir);
 	p->has_cvs = is_cvs_active_for_dir(p->top_proj_dir);
-	/* Load excluded modules */
-	if (p->excluded_modules) {
-		glist_strings_free(p->excluded_modules);
-	}
-	p->excluded_modules = glist_from_data(p->props, "project.excluded.modules");
 
 	compiler_options_load (app->compiler_options, p->props);
 	src_paths_load (app->src_paths, p->props);
@@ -2364,11 +2604,19 @@ go_error:
 gboolean
 project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 {
+	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+
 	/* Now Project setup */
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
 	if (preferences_get_int (app->preferences, AUTOMATIC_TAGS_UPDATE) == 1)
 		project_dbase_update_tags_image(p, TRUE);
+	else
+	{
+		sv_populate(build_sv);
+		fv_populate(build_fv);
+	}
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();
@@ -2376,7 +2624,10 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 	if (show_project)
 		project_dbase_show (p);
 	project_dbase_reload_session(p);
+
+#ifdef USE_GLADEN
 	if( IsGladen() )
 		project_dbase_summon_glade ( p );
+#endif /* USE_GLADEN */
 	return TRUE;
 }

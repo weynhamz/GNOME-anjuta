@@ -504,7 +504,7 @@ static const char *implementationString (const impType imp)
 *   Debugging functions
 */
 
-#ifdef DEBUG
+#ifdef TM_DEBUG
 
 #define boolString(c)   ((c) ? "TRUE" : "FALSE")
 

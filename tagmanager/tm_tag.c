@@ -105,7 +105,7 @@ static int get_tag_type(const char *tag_name)
 		else if (cmp < 0)
 			break;
 	}
-#ifdef DEBUG
+#ifdef TM_DEBUG
 	fprintf(stderr, "Unknown tag type %s\n", tag_name);
 #endif
 	return tm_tag_undef_t;
@@ -161,7 +161,7 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 				tag->atts.entry.access = TAG_ACCESS_DEFAULT;
 			else
 			{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 				g_warning("Unknown access type %s", tag_entry->extensionFields.access);
 #endif
 				tag->atts.entry.access = TAG_ACCESS_UNKNOWN;
@@ -174,7 +174,7 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 				tag->atts.entry.impl = TAG_IMPL_VIRTUAL;
 			else
 			{
-#ifdef DEBUG
+#ifdef TM_DEBUG
 				g_warning("Unknown implementation %s", tag_entry->extensionFields.implementation);
 #endif
 				tag->atts.entry.impl = TAG_IMPL_UNKNOWN;
@@ -283,7 +283,7 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 					tag->atts.entry.impl = *(start + 1);
 					break;
 				default:
-#ifdef DEBUG
+#ifdef TM_DEBUG
 					g_warning("Unknown attribute %s", start + 1);
 #endif
 					break;
@@ -515,7 +515,7 @@ GPtrArray *tm_tags_extract(GPtrArray *tags_array, guint tag_types)
 
 void tm_tags_array_free(GPtrArray *tags_array, gboolean free_all)
 {
-	if (NULL != tags_array)
+	if (tags_array)
 	{
 		guint i;
 		for (i = 0; i < tags_array->len; ++i)

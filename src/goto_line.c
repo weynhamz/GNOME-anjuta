@@ -45,44 +45,43 @@ static gint gotoline_signals[LAST_SIGNAL];
 /* Widget function headers */
 
 /** Jumps Current text buffer to entered line number */
-static void on_go_to_line_ok_clicked (GtkButton * button, gpointer user_data);
-
+static void on_go_to_line_response (GtkDialog* dialog, gint response,
+                                    gpointer user_data);
 
 guint
 gotoline_get_type ()
 {
-  static guint obj_type = 0;
-
-  if (!obj_type)
-    {
-      GtkTypeInfo obj_info;
-
-      obj_info.type_name = "GotoLine";
-      obj_info.object_size = sizeof (GotoLine);
-      obj_info.class_size = sizeof (GotoLineClass);
-      obj_info.class_init_func = (GtkClassInitFunc) gotoline_class_init;
-      obj_info.object_init_func = (GtkObjectInitFunc) gotoline_init;
-      obj_info.reserved_1 = (GtkArgSetFunc) NULL;
-      obj_info.reserved_2 = (GtkArgGetFunc) NULL;
-      obj_info.base_class_init_func = (GtkClassInitFunc) NULL;
-
-      obj_type = gtk_type_unique (gnome_dialog_get_type (), &obj_info);
-    }
-
-  return obj_type;
+	static guint obj_type = 0;
+	
+	if (!obj_type)
+	{
+		static const GTypeInfo obj_info = 
+		{
+			sizeof (GotoLineClass),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) gotoline_class_init,
+			(GClassFinalizeFunc) NULL,
+			NULL,           /* class_data */
+			sizeof (GotoLineClass),
+			0,              /* n_preallocs */
+			(GInstanceInitFunc) gotoline_init,
+			NULL            /* value_table */
+		};
+		obj_type = g_type_register_static (GTK_TYPE_DIALOG,
+		                                   "GotoLine", &obj_info, 0);
+	}
+	return obj_type;
 }
 
 
 static void
 gotoline_class_init (GotoLineClass * klass)
 {
-  GtkObjectClass *object_class;
-
+  GObjectClass *object_class;
   assert (klass != NULL);
-
-  object_class = (GtkObjectClass *) klass;
-
-  gtk_object_class_add_signals (object_class, gotoline_signals, LAST_SIGNAL);
+  object_class = (GObjectClass *) klass;
+  g_object_class_add_signals (object_class, gotoline_signals, LAST_SIGNAL);
 }
 
 
@@ -93,55 +92,41 @@ gotoline_init (GotoLine * obj)
   GtkWidget *frame;
   GtkWidget *numberentry;
   GtkWidget *combo_entry;
-  GtkWidget *button1;
-  GtkWidget *button2;
 
   assert (obj != NULL);
 
   gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
   gtk_window_set_policy (GTK_WINDOW (obj), FALSE, FALSE, FALSE);
   gtk_window_set_title (GTK_WINDOW (obj), "Goto Line ...");
-  gnome_dialog_set_close (GNOME_DIALOG (obj), TRUE);
+  gtk_dialog_set_close (GNOME_DIALOG (obj), TRUE);
 
-  dialog_vbox = GNOME_DIALOG (obj)->vbox;
+  dialog_vbox = GTK_DIALOG (obj)->vbox;
   gtk_widget_show (dialog_vbox);
 
   frame = gtk_frame_new (_(" Goto Line number "));
   gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
 
-  numberentry = gnome_number_entry_new (NULL, NULL);
+  numberentry = gtk_entry_new ();
   gtk_widget_show (numberentry);
   gtk_container_add (GTK_CONTAINER (frame), numberentry);
   gtk_container_set_border_width (GTK_CONTAINER (numberentry), 10);
 
-  combo_entry =
-    gnome_number_entry_gtk_entry (GNOME_NUMBER_ENTRY (numberentry));
-  gtk_widget_show (combo_entry);
-
-  gnome_dialog_append_button (GNOME_DIALOG (obj), GNOME_STOCK_BUTTON_CANCEL);
-  button1 = g_list_last (GNOME_DIALOG (obj)->buttons)->data;
-  gtk_widget_show (button1);
-  GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-
-  gnome_dialog_append_button (GNOME_DIALOG (obj), GNOME_STOCK_BUTTON_OK);
-  button2 = g_list_last (GNOME_DIALOG (obj)->buttons)->data;
-  gtk_widget_show (button2);
-  GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-
+  gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+  gtk_dialog_add_button (GTK_DIALOG (obj), GTK_STOCK_OK, GTK_RESPONSE_OK);
+  
   /** Default to the OK button */
-  gnome_dialog_set_default (GNOME_DIALOG (obj), 1);
+  gtk_dialog_set_default (GNOME_DIALOG (obj), 1);
+  gtk_dialog_has_focus (GNOME_DIALOG (obj), 1);
 
   /** If press enter in line number enter, act as if default button was pressed */
-  gnome_dialog_editable_enters (GNOME_DIALOG (obj),
-				GTK_EDITABLE (combo_entry));
+  gtk_dialog_editable_enters (GNOME_DIALOG (obj),
+				GTK_EDITABLE (numberentry));
 
-  gtk_widget_grab_focus (combo_entry);
-
-  gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-		      GTK_SIGNAL_FUNC (on_go_to_line_ok_clicked),
+  gtk_widget_grab_focus (numberentry);
+  g_signal_connect (G_OBJECT (obj), "response",
+		      G_CALLBACK (on_go_to_line_response),
 		      numberentry);
-
 }
 
 
@@ -153,16 +138,18 @@ gotoline_new ()
 
 
 static void
-on_go_to_line_ok_clicked (GtkButton * button, gpointer user_data)
+on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 {
-  GnomeNumberEntry *ne;
+  GtkEntry *ne;
   TextEditor *te;
   guint num;
 
-  ne = (GnomeNumberEntry *) user_data;
-  te = anjuta_get_current_text_editor ();
-  num = (guint) gnome_number_entry_get_number (ne);
-
-  if (te)
-    text_editor_goto_line (te, num, TRUE);
+  if (response == GTK_RESPONSE_OK) 
+  {
+	ne = (GtkEntry *) user_data;
+	te = anjuta_get_current_text_editor ();
+	num = gtoi (gtk_entry_get_text (ne));
+	if (te)
+		text_editor_goto_line (te, num, TRUE);
+  }
 }

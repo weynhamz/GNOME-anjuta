@@ -30,8 +30,7 @@
 #include <fcntl.h>
 #include <sys/time.h>
 #include <errno.h>
-#include <gnome.h>
-#include <zvt/zvtterm.h>
+#include <libzvt/libzvt.h>
 
 #include "anjuta.h"
 #include "resources.h"
@@ -42,6 +41,12 @@
 
 #define TERMINATE_CHECK_COUNT 10
 /* #define DEBUG */
+
+#ifdef __FreeBSD__
+#ifndef O_SYNC
+#define O_SYNC 0
+#endif /* O_SYNC */
+#endif /* __FreeBSD__ */ 
 
 static void to_terminal_child_terminated (GtkWidget* term, gpointer data);
 static gint launcher_poll_inputs_on_idle (gpointer data);
@@ -174,10 +179,11 @@ launcher_scan_pty()
 		gint len;
 		gchar* chars = NULL;
 		
-		vt_clear_selection (ZVT_TERM(launcher.terminal)->vx);
+		vt_clear_selection ((ZVT_TERM (launcher.terminal))->vx);
 		chars = zvt_term_get_buffer(ZVT_TERM(launcher.terminal),
-		  &len, VT_SELTYPE_LINE, -10000, 0, 10000, 0);
-		vt_clear_selection (ZVT_TERM(launcher.terminal)->vx);
+		                            &len, VT_SELTYPE_LINE, -10000,
+                                    0, 10000, 0);
+		vt_clear_selection (ZVT_TERM (launcher.terminal)->vx);
 		
 		zvt_term_reset(ZVT_TERM(launcher.terminal), TRUE);
 		launcher.char_pos = 1;
@@ -319,10 +325,11 @@ launcher_execute (gchar * command_str,
   gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
 		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);
 
-#ifdef DEBUG
+#ifdef LAUNCHER_DEBUG
   if (launcher.terminal) {
 	  GtkWindow* win;
 	  win = gtk_window_new(0);
+	  gtk_window_set_transient_for(GTK_WINDOW(win), GTK_WINDOW(app->widgets.window));
 	  gtk_container_add(GTK_CONTAINER(win), launcher.terminal);
 	  gtk_widget_show_all(win);
   }
@@ -473,7 +480,7 @@ launcher_pty_check_password(gchar* last_line)
 			/* Password prompt detected */
 			GtkWidget* dialog;
 			gint button;
-			gchar* passwd;
+			const gchar* passwd;
 			gchar* line;
 			
 			dialog = create_password_dialog(last_line);
@@ -481,7 +488,7 @@ launcher_pty_check_password(gchar* last_line)
 			switch(button) {
 				case 0:
 					passwd = gtk_entry_get_text(
-						GTK_ENTRY(gtk_object_get_data(GTK_OBJECT(dialog),
+						GTK_ENTRY(g_object_get_data(G_OBJECT(dialog),
 									"password_entry")));
 					line = g_strconcat(passwd, "\n", NULL);
 					launcher_send_ptyin(line);
@@ -507,32 +514,30 @@ create_password_dialog (gchar* prompt)
 	GtkWidget *hbox;
 	GtkWidget *box;
 	GtkWidget *icon;
-	gchar* icon_file;
 	GtkWidget *label;
 	GtkWidget *entry;
 	
 	g_return_val_if_fail(prompt, NULL);
 	
-	dialog =
-		gnome_dialog_new (prompt, _("Ok"), _("Cancel"), NULL);
+	dialog = gtk_dialog_new_with_buttons (prompt,
+	                        GTK_WINDOW (app->widgets.window),
+	                        GTK_DIALOG_DESTROY_WITH_PARENT,
+	                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                        GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+	gtk_dialog_set_default (GTK_DIALOG (dialog), 0);
+	gtk_dialog_grab_focus (GTK_DIALOG (dialog), 0);
+
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "launcher-password-prompt",
 				"anjuta");
+	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window));
 	
 	hbox = gtk_hbox_new(FALSE, 10);
 	gtk_widget_show(hbox);
-	gtk_box_pack_start_defaults (GTK_BOX
-				     (GNOME_DIALOG (dialog)->vbox),
-				     hbox);
+	gtk_container_add (GTK_CONTAINER (dialog), hbox);
 	
-	icon_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_PASSWORD);
-	if (icon_file) {
-		icon = gnome_pixmap_new_from_file(icon_file);
-		gtk_widget_show(icon);
-		gtk_box_pack_start_defaults (GTK_BOX(hbox), icon);
-		g_free(icon_file);
-	} else {
-		g_warning (ANJUTA_PIXMAP_PASSWORD" counld not be found.");
-	}
+	icon = anjuta_res_get_pixmap_widget (dialog, ANJUTA_PIXMAP_PASSWORD, TRUE);
+	gtk_widget_show(icon);
+	gtk_box_pack_start_defaults (GTK_BOX(hbox), icon);
 	
 	if (strlen(prompt) < 20) {
 		box = gtk_hbox_new(FALSE, 5);
@@ -556,6 +561,7 @@ create_password_dialog (gchar* prompt)
 	gtk_object_set_data_full(GTK_OBJECT(dialog), "password_entry",
 				entry, (GtkDestroyNotify)gtk_widget_unref);
 	gtk_widget_grab_focus(entry);
-	
+	gtk_dialog_editable_enters (GTK_DIALOG (dialog), GTK_EDITABLE (entry));
+
 	return dialog;
 }

@@ -24,21 +24,23 @@
 
 #include "anjuta.h"
 #include "compiler_options.h"
-#include "messagebox.h"
+//#include "messagebox.h"
 #include "compiler_options_cbs.h"
 #include "resources.h"
 #include "anjuta_info.h"
 
-extern GdkPixmap *list_unselect_pixmap, *list_select_pixmap;
-extern GdkBitmap *list_unselect_mask, *list_select_mask;
-
 static void
-on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data);
+on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data)
+{
+	GtkListStore *clist = data;
+	gtk_store_list_clear (clist);
+}
 
 gboolean
 on_comopt_close (GtkWidget * w, gpointer user_data)
 {
 	CompilerOptions *co = user_data;
+	compiler_options_set_in_properties(co, co->props);
 	compiler_options_hide(co);
 	return FALSE;
 }
@@ -46,182 +48,6 @@ on_comopt_close (GtkWidget * w, gpointer user_data)
 void
 on_comopt_help_clicked (GtkButton * button, gpointer user_data)
 {
-}
-
-void
-on_comopt_ok_clicked (GtkButton * button, gpointer user_data)
-{
-	CompilerOptions *co = user_data;
-	on_comopt_apply_clicked (NULL, co);
-	if (NULL != co)
-		gnome_dialog_close(GNOME_DIALOG(co->widgets.window));
-}
-
-void
-on_comopt_apply_clicked (GtkButton * button, gpointer user_data)
-{
-	gint i;
-	CompilerOptions *co = user_data;
-
-	for (i = 0; i < 16; i++)
-	{
-		co->warning_button_state[i] =
-			gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-						      (co->widgets.
-						       warning_button[i]));
-	}
-	for (i = 0; i < 4; i++)
-	{
-		co->optimize_button_state[i] =
-			gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-						      (co->widgets.
-						       optimize_button[i]));
-	}
-	for (i = 0; i < 2; i++)
-	{
-		co->other_button_state[i] =
-			gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
-						      (co->widgets.
-						       other_button[i]));
-	}
-
-	if (co->other_c_flags)
-		g_free (co->other_c_flags);
-	co->other_c_flags =
-		g_strdup (gtk_entry_get_text
-			  (GTK_ENTRY (co->widgets.other_c_flags_entry)));
-	
-	if (co->other_l_flags)
-		g_free (co->other_l_flags);
-	co->other_l_flags =
-		g_strdup (gtk_entry_get_text
-			  (GTK_ENTRY (co->widgets.other_l_flags_entry)));
-	
-	if (co->other_l_libs)
-		g_free (co->other_l_libs);
-	co->other_l_libs =
-		g_strdup (gtk_entry_get_text
-			  (GTK_ENTRY (co->widgets.other_l_libs_entry)));
-	
-	compiler_options_set_in_properties (co, co->props);
-
-	if (app->project_dbase->project_is_open)
-	{
-		app->project_dbase->is_saved = FALSE;
-	}
-	else
-		anjuta_save_settings ();
-}
-
-void
-on_comopt_cancel_clicked (GtkButton * button, gpointer user_data)
-{
-	CompilerOptions *co = user_data;
-	if (NULL != co)
-		gnome_dialog_close(GNOME_DIALOG(co->widgets.window));
-}
-
-void
-on_co_supp_clist_select_row (GtkCList * clist,
-			     gint row,
-			     gint column,
-			     GdkEvent * event, gpointer user_data)
-{
-	CompilerOptions *co = user_data;
-	co->supp_index = row;
-	if (row >= 0 && g_list_length (clist->row_list) > 0)
-	{
-		if (event == NULL)
-			return;
-		if (event->type != GDK_2BUTTON_PRESS)
-			return;
-		if (((GdkEventButton *) event)->button != 1)
-			return;
-		co_clist_row_data_toggle_state (clist, row);
-	}
-}
-
-void
-on_co_inc_clist_select_row (GtkCList * clist,
-			    gint row,
-			    gint column, GdkEvent * event, gpointer user_data)
-{
-	gchar *text;
-	CompilerOptions *co = user_data;
-	co->inc_index = row;
-	if (row >= 0 && g_list_length (clist->row_list) > 0)
-	{
-		gtk_clist_get_text (clist, row, 0, &text);
-		gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), text);
-	}
-}
-
-void
-on_co_lib_stock_clist_select_row (GtkCList * clist,
-				  gint row,
-				  gint column,
-				  GdkEvent * event, gpointer user_data)
-{
-	gchar *text;
-	CompilerOptions *co = user_data;
-	if (row >= 0 && g_list_length (clist->row_list) > 0)
-	{
-		gtk_clist_get_text (clist, row, 0, &text);
-		gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), text);
-	}
-}
-
-void
-on_co_lib_clist_select_row (GtkCList * clist,
-			    gint row,
-			    gint column, GdkEvent * event, gpointer user_data)
-{
-	gchar *text;
-	CompilerOptions *co = user_data;
-	co->lib_index = row;
-	if (row >= 0 && g_list_length (clist->row_list) > 0)
-	{
-		gtk_clist_get_text (clist, row, 1, &text);
-		gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), text);
-		if (event == NULL)
-			return;
-		if (event->type != GDK_2BUTTON_PRESS)
-			return;
-		if (((GdkEventButton *) event)->button != 1)
-			return;
-		co_clist_row_data_toggle_state (clist, row);
-	}
-}
-
-void
-on_co_lib_paths_clist_select_row (GtkCList * clist,
-				  gint row,
-				  gint column,
-				  GdkEvent * event, gpointer user_data)
-{
-	gchar *text;
-	CompilerOptions *co = user_data;
-	co->lib_paths_index = row;
-	if (row >= 0 && g_list_length (clist->row_list) > 0)
-	{
-		gtk_clist_get_text (clist, row, 0, &text);
-		gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), text);
-	}
-}
-
-void
-on_co_def_clist_select_row (GtkCList * clist,
-			    gint row,
-			    gint column, GdkEvent * event, gpointer user_data)
-{
-	gchar *text;
-	CompilerOptions *co = user_data;
-	co->def_index = row;
-	if (row >= 0 && g_list_length (clist->row_list) > 0)
-	{
-		gtk_clist_get_text (clist, row, 0, &text);
-		gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), text);
-	}
 }
 
 void
@@ -261,7 +87,9 @@ on_co_supp_info_clicked (GtkButton * button, gpointer data)
 	str = anjuta_supports[index][ANJUTA_SUPPORT_INSTALL_STATUS];
 	if (str)
 	{
-		gchar *cmd, *count, *path;
+		gchar *cmd, *count;
+		const gchar *path;
+		
 		cmd = g_strdup (str);
 		count = cmd;
 		while (isspace(*count) == FALSE)
@@ -271,8 +99,12 @@ on_co_supp_info_clicked (GtkButton * button, gpointer data)
 			count++;
 		}
 		*count = '\0';
-		path = gnome_is_program_in_path ( cmd );
-		fprintf (tmp, _("    Installed => %s\n"), path);
+		path = g_find_program_in_path ( cmd );
+		if (path)
+			fprintf (tmp, _("    Installed => %s\n"), path);
+		else
+			fprintf (tmp, _("    Not Installed\n"), path);
+			
 		g_free (cmd);
 	}
 	else
@@ -282,396 +114,181 @@ on_co_supp_info_clicked (GtkButton * button, gpointer data)
 	remove (tmp_file);
 }
 
-void
-on_co_supp_help_clicked (GtkButton * button, gpointer data)
+static gboolean
+verify_new_entry (GtkWidget *tree, const gchar *str, gint col)
 {
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree));
+	g_assert (model);
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
+	{
+		gchar *text;
+		gtk_list_store_get (GTK_LIST_STORE(model), col, &text, -1);
+		if (strcmp(str, text) == 0)
+			return FALSE;
+		valid = gtk_tree_model_get_iter_next (model, &iter);
+	}
+	return TRUE;
+}
+
+static void
+add_new_entry (GtkWidget *tree, GtkWidget *entry, gint col)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar *text;
+	
+	text = g_strstrip((gchar*)gtk_entry_get_text (GTK_ENTRY (entry)));
+	if (strlen (text) == 0)
+		return;
+	if (verify_new_entry (tree, text, 0) == FALSE)
+	{
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+		return;
+	}
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree));
+	g_assert (model);
+	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+	if (col == 0)
+		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0, text);
+	else
+		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0,
+			TRUE, col, text, -1);
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
+}
+
+static void
+update_entry (GtkWidget *tree, GtkWidget *entry, gint col)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar *text;
+	
+	text = g_strstrip((gchar*)gtk_entry_get_text (GTK_ENTRY (entry)));
+	if (strlen (text) == 0)
+		return;
+	if (verify_new_entry (tree, text, 0) == FALSE)
+	{
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+		return;
+	}
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree));
+	g_assert (model);
+	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+	if (col == 0)
+		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0, text);
+	else
+		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0,
+			TRUE, col, text, -1);
+	gtk_entry_set_text (GTK_ENTRY (entry), "");
 }
 
 void
 on_co_inc_add_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *dummy[1];
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.inc_entry)));
-	if (strlen (text) == 0)
-		return;
-	dummy[0] = text;
-	
-	max_rows = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.inc_clist), cur_row, 0, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */;
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
-			return;
-		}
-	}
-	gtk_clist_append (GTK_CLIST (co->widgets.inc_clist), dummy);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
-	compiler_options_update_controls (co);
+	add_new_entry (co->widgets.inc_clist, co->widgets.inc_entry, 0);
 }
 
 void
 on_co_inc_update_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	if (g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list) < 1)
-		return;
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.inc_entry));
-	if (strlen (text) == 0)
-		return;
-	
-	max_rows = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.inc_clist), cur_row, 0, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
-			return;
-		}
-	}
-	gtk_clist_set_text (GTK_CLIST (co->widgets.inc_clist), co->inc_index, 0, text);
+	update_entry (co->widgets.inc_clist, co->widgets.inc_entry, 0);
 }
 
 void
 on_co_inc_remove_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list) < 1)
-		return;
-	
-	compiler_options_disconnect_signals(co);
-	
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
-	gtk_clist_remove (GTK_CLIST (co->widgets.inc_clist), co->inc_index);
-	compiler_options_update_controls (co);
-	
-	compiler_options_connect_signals(co);
 }
 
 void
 on_co_inc_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list) < 1)
-		return;
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		     _("Are you sure you want to clear the list?"),
-		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-		     on_clear_clist_confirm_yes_clicked, NULL,
-		     co->widgets.inc_clist);
-}
-
-void
-on_co_inc_help_clicked (GtkButton * button, gpointer data)
-{
 }
 
 void
 on_co_lib_add_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *dummy[2];
-	gchar dumtext[] = "";
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_entry)));
-	if (strlen (text) == 0)
-		return;
-	
-	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_clist), cur_row, 1, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
-			return;
-		}
-	}
-	
-	dummy[0] = dumtext;
-	dummy[1] = text;
-	gtk_clist_append (GTK_CLIST (co->widgets.lib_clist), dummy);
-	co_clist_row_data_set_true (GTK_CLIST(co->widgets.lib_clist), 
-			  GTK_CLIST(co->widgets.lib_clist)->rows-1);
-	compiler_options_update_controls (co);
+	add_new_entry (co->widgets.lib_clist, co->widgets.lib_entry, 1);
 }
 
 void
 on_co_lib_update_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	if (g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list) < 1)
-		return;
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_entry));
-	if (strlen (text) == 0)
-		return;
-	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_clist), cur_row, 1, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
-			return;
-		}
-	}
-	gtk_clist_set_text (GTK_CLIST (co->widgets.lib_clist), co->lib_index,
-			    1, text);
+	update_entry (co->widgets.lib_clist, co->widgets.lib_entry, 1);
 }
 
 void
 on_co_lib_remove_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list) < 1)
-		return;
-	
-	compiler_options_disconnect_signals(co);
-	
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
-	gtk_clist_remove (GTK_CLIST (co->widgets.lib_clist), co->lib_index);
-	compiler_options_update_controls (co);
-	
-	compiler_options_connect_signals(co);
 }
 
 void
 on_co_lib_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list) < 1)
-		return;
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		     _("Are you sure you want to clear the list?"),
-		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-		     on_clear_clist_confirm_yes_clicked, NULL,
-		     co->widgets.lib_clist);
-}
-
-void
-on_co_lib_help_clicked (GtkButton * button, gpointer data)
-{
 }
 
 void
 on_co_lib_paths_add_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *dummy[1];
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_paths_entry)));
-	if (strlen (text) == 0)
-		return;
-	
-	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_paths_clist), cur_row, 0, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
-			return;
-		}
-	}
-	dummy[0] = text;
-	gtk_clist_append (GTK_CLIST (co->widgets.lib_paths_clist), dummy);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
-	compiler_options_update_controls (co);
+	add_new_entry (co->widgets.lib_paths_clist, co->widgets.lib_paths_entry, 0);
 }
 
 void
 on_co_lib_paths_update_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	if (g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list)
-	    < 1)
-		return;
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.lib_paths_entry));
-	if (strlen (text) == 0)
-		return;
-	
-	max_rows = g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.lib_paths_clist), cur_row, 0, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
-			return;
-		}
-	}
-	gtk_clist_set_text (GTK_CLIST (co->widgets.lib_paths_clist),
-			    co->lib_paths_index, 0, text);
+	update_entry (co->widgets.lib_paths_clist, co->widgets.lib_paths_entry, 0);
 }
 
 void
 on_co_lib_paths_remove_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list)
-	    < 1)
-		return;
-	compiler_options_disconnect_signals(co);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
-	gtk_clist_remove (GTK_CLIST (co->widgets.lib_paths_clist),
-			  co->lib_paths_index);
-	compiler_options_update_controls (co);
 }
 
 void
 on_co_lib_paths_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->row_list)
-	    < 1)
-		return;
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		     _("Are you sure you want to clear the list?"),
-		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-		     on_clear_clist_confirm_yes_clicked, NULL,
-		     co->widgets.lib_paths_clist);
-}
-
-void
-on_co_lib_paths_help_clicked (GtkButton * button, gpointer data)
-{
 }
 
 void
 on_co_def_add_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *row_text;
-	gchar *dummy[1];
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-
-	text = g_strstrip(gtk_entry_get_text (GTK_ENTRY (co->widgets.def_entry)));
-	if (strlen (text) == 0)
-		return;
-	dummy[0] = text;
-	max_rows = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.def_clist), cur_row, 0, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
-			return;
-		}
-	}
-	
-	gtk_clist_append (GTK_CLIST (co->widgets.def_clist), dummy);
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
-	compiler_options_update_controls (co);
+	add_new_entry (co->widgets.def_clist, co->widgets.def_entry, 0);
 }
 
 void
 on_co_def_update_clicked (GtkButton * button, gpointer data)
 {
-	gchar *text;
-	gchar *row_text;
-	gint max_rows;
-	gint cur_row;
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list) < 1)
-		return;
-	text = gtk_entry_get_text (GTK_ENTRY (co->widgets.def_entry));
-	if (strlen (text) == 0)
-		return;
-	
-	max_rows = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
-	for (cur_row = 0; cur_row < max_rows; cur_row++)
-	{
-		gtk_clist_get_text(GTK_CLIST (co->widgets.def_clist), cur_row, 0, &row_text);
-		if (strcmp(text, row_text) == 0)
-		{
-			/* Maybe print a message here */
-			gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
-			return;
-		}
-	}
-	gtk_clist_set_text (GTK_CLIST (co->widgets.def_clist), co->def_index,
-			    0, text);
+	update_entry (co->widgets.def_clist, co->widgets.def_entry, 0);
 }
 
 void
 on_co_def_remove_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list) < 1)
-		return;
-	
-	compiler_options_disconnect_signals(co);
-	
-	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
-	gtk_clist_remove (GTK_CLIST (co->widgets.def_clist), co->def_index);
-	compiler_options_update_controls (co);
-	
-	compiler_options_connect_signals(co);
 }
 
 void
 on_co_def_clear_clicked (GtkButton * button, gpointer data)
 {
 	CompilerOptions *co = data;
-	if (g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list) < 1)
-		return;
-	messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		     _("Are you sure you want to clear the list?"),
-		     GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
-		     on_clear_clist_confirm_yes_clicked, NULL,
-		     co->widgets.def_clist);
-}
-
-void
-on_co_def_help_clicked (GtkButton * button, gpointer data)
-{
-}
-
-static void
-on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data)
-{
-	GtkCList *clist = data;
-	gtk_clist_clear (clist);
-	compiler_options_update_controls (app->compiler_options);
 }

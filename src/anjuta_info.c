@@ -28,6 +28,7 @@
 
 #include <gtk/gtk.h>
 
+#include "anjuta.h"
 #include "resources.h"
 #include "utilities.h"
 #include "anjuta_info.h"
@@ -116,7 +117,7 @@ create_anjuta_info_dialog_with_treeview (gint width,
 					GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow);
 
-	model = gtk_list_store_new (1, G_TYPE_STRING);
+	model = GTK_TREE_MODEL (gtk_list_store_new (1, G_TYPE_STRING));
 
 	treeview = gtk_tree_view_new_with_model (model);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow), treeview);

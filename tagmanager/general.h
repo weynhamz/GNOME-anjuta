@@ -183,6 +183,9 @@
 # define HAVE_UNISTD_H 1
 #endif
 
+#ifdef __FreeBSD__
+#include <sys/types.h>
+#endif /* __FreeBSD__ */
 
 /* Define regex if supported */
 #if (defined (HAVE_REGCOMP) && !defined (REGCOMP_BROKEN)) || defined (HAVE_RE_COMPILE_PATTERN)

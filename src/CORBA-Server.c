@@ -18,6 +18,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#ifdef USE_GLADEN
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -512,3 +514,5 @@ impl_ProjectManager_PrjMan_ReloadFile(impl_POA_ProjectManager_PrjMan *
 		anjuta_reload_file( szFullPath );
 
 }
+
+#endif /* USE_GLADEN */

@@ -44,10 +44,12 @@ glade_iface_generate_source_code(gchar* glade_file)
 	switch (project_dbase_get_language (app->project_dbase))
 	{
 		case PROJECT_PROGRAMMING_LANGUAGE_C:
+#ifdef USE_GLADEN
 			if( IsGladen() )
 			{
 				return gladen_write_source( glade_file );
 			}
+#endif /* USE_GLADEN */
 			if (anjuta_is_installed ("glade", TRUE) == FALSE)
 				return FALSE;
 			
@@ -126,9 +128,11 @@ glade_iface_start_glade_editing (gchar* glade_file)
 	gchar *dir, *cmd;
 	g_return_val_if_fail (glade_file != NULL, FALSE);
 
+#ifdef USE_GLADEN
 	if( IsGladen() )
 		return gladen_load_project(glade_file);
-	
+#endif /* USE_GLADEN */
+
 	if (anjuta_is_installed ("glade", TRUE) == FALSE)
 		return FALSE;
 	

@@ -6,7 +6,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 
+#include <glib.h>
+#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -14,11 +17,20 @@
 
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
+#include "UniConversion.h"
 
+/* GLIB must be compiled with thread support, otherwise we
+   will bail on trying to use locks, and that could lead to
+   problems for someone.  `glib-config --libs gthread` needs
+   to be used to get the glib libraries for linking, otherwise
+   g_thread_init will fail */
+#define USE_LOCK defined(G_THREADS_ENABLED) && !defined(G_THREADS_IMPL_NONE)
 /* Use fast way of getting char data on win32 to work around problems
    with gdk_string_extents. */
-#ifdef G_OS_WIN32
 #define FAST_WAY
+
+#ifdef G_OS_WIN32
+#define snprintf _snprintf
 #endif
 
 #ifdef _MSC_VER
@@ -26,7 +38,62 @@
 #pragma warning(disable: 4505)
 #endif
 
-static GdkFont *PFont(Font &f)  {
+struct LOGFONT {
+	int size;
+	bool bold;
+	bool italic;
+	int characterSet;
+	char faceName[300];
+};
+
+#if USE_LOCK
+static GMutex *fontMutex = NULL;
+#endif
+
+static void InitializeGLIBThreads() {
+#if USE_LOCK
+	if (!g_thread_supported()) {
+		g_thread_init(NULL);
+	}
+#endif
+}
+
+static void FontMutexAllocate() {
+#if USE_LOCK
+	if (!fontMutex) {
+		InitializeGLIBThreads();
+		fontMutex = g_mutex_new();
+	}
+#endif
+}
+
+static void FontMutexFree() {
+#if USE_LOCK
+	if (fontMutex) {
+		g_mutex_free(fontMutex);
+		fontMutex = NULL;
+	}
+#endif
+}
+
+static void FontMutexLock() {
+#if USE_LOCK
+	g_mutex_lock(fontMutex);
+#endif
+}
+
+static void FontMutexUnlock() {
+#if USE_LOCK
+	if (fontMutex) {
+		g_mutex_unlock(fontMutex);
+	}
+#endif
+}
+
+// X has a 16 bit coordinate space, so stop drawing here to avoid wrapping
+static const int maxCoordinate = 32000;
+
+static GdkFont *PFont(Font &f) {
 	return reinterpret_cast<GdkFont *>(f.GetID());
 }
 
@@ -69,7 +136,7 @@ void Palette::WantFind(ColourPair &cp, bool want) {
 	if (want) {
 		for (int i = 0; i < used; i++) {
 			if (entries[i].desired == cp.desired)
-				return ;
+				return;
 		}
 
 		if (used < numEntries) {
@@ -81,7 +148,7 @@ void Palette::WantFind(ColourPair &cp, bool want) {
 		for (int i = 0; i < used; i++) {
 			if (entries[i].desired == cp.desired) {
 				cp.allocated = entries[i].allocated;
-				return ;
+				return;
 			}
 		}
 		cp.allocated.Set(cp.desired.AsLong());
@@ -91,8 +158,8 @@ void Palette::WantFind(ColourPair &cp, bool want) {
 void Palette::Allocate(Window &w) {
 	if (allocatedPalette) {
 		gdk_colormap_free_colors(gtk_widget_get_colormap(PWidget(w)),
-		        reinterpret_cast<GdkColor *>(allocatedPalette),
-			allocatedLen);
+		                         reinterpret_cast<GdkColor *>(allocatedPalette),
+		                         allocatedLen);
 		delete [](reinterpret_cast<GdkColor *>(allocatedPalette));
 		allocatedPalette = 0;
 		allocatedLen = 0;
@@ -119,9 +186,6 @@ void Palette::Allocate(Window &w) {
 	delete []successPalette;
 }
 
-Font::Font() : id(0) {}
-
-Font::~Font() {}
 
 static const char *CharacterSetName(int characterSet) {
 	switch (characterSet) {
@@ -168,47 +232,321 @@ static const char *CharacterSetName(int characterSet) {
 	}
 }
 
-void Font::Create(const char *faceName, int characterSet,
-                  int size, bool bold, bool italic) {
-	Release();
-	// If name of the font begins with a '-', assume, that it is
-	// a full fontspec.
-	if (faceName[0] == '-') {
-		id = gdk_font_load(faceName);
-		if (id)
-			return ;
-	}
-	char fontspec[300];
-	fontspec[0] = '\0';
-	strcat(fontspec, "-*-");
-	strcat(fontspec, faceName);
-	if (bold)
-		strcat(fontspec, "-bold");
-	else
-		strcat(fontspec, "-medium");
-	if (italic)
-		strcat(fontspec, "-i");
-	else
-		strcat(fontspec, "-r");
-	strcat(fontspec, "-*-*-*");
-	char sizePts[100];
-	sprintf(sizePts, "-%0d", size * 10);
-	strcat(fontspec, sizePts);
-	strcat(fontspec, "-*-*-*-*-");
-	strcat(fontspec, CharacterSetName(characterSet));
-	id = gdk_font_load(fontspec);
-	if (!id) {
-		// Font not available so substitute a reasonable code font
-		// iso8859 appears to only allow western characters.
-		id = gdk_font_load("*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+static void GenerateFontSpecStrings(const char *fontName, int characterSet,
+                             char *foundary, int foundary_len,
+                             char *faceName, int faceName_len,
+                             char *charset, int charset_len) {
+	// supported font strings include:
+	// foundary-fontface-isoxxx-x
+	// fontface-isoxxx-x
+	// foundary-fontface
+	// fontface
+	if (strchr(fontName, '-')) {
+		char tmp[300];
+		char *d1 = NULL, *d2 = NULL, *d3 = NULL;
+		strncpy(tmp, fontName, sizeof(tmp) - 1);
+		d1 = strchr(tmp, '-');
+		// we know the first dash exists
+		d2 = strchr(d1 + 1, '-');
+		if (d2)
+			d3 = strchr(d2 + 1, '-');
+		if (d3) {
+			// foundary-fontface-isoxxx-x
+			*d2 = '\0';
+			foundary[0] = '-';
+			foundary[1] = '\0';
+			strncpy(faceName, tmp, foundary_len - 1);
+			strncpy(charset, d2 + 1, charset_len - 1);
+		} else if (d2) {
+			// fontface-isoxxx-x
+			*d1 = '\0';
+			strcpy(foundary, "-*-");
+			strncpy(faceName, tmp, faceName_len - 1);
+			strncpy(charset, d1 + 1, charset_len - 1);
+		} else {
+			// foundary-fontface
+			foundary[0] = '-';
+			foundary[1] = '\0';
+			strncpy(faceName, tmp, faceName_len - 1);
+			strncpy(charset, CharacterSetName(characterSet), charset_len - 1);
+		}
+	} else {
+		strncpy(foundary, "-*-", foundary_len);
+		strncpy(faceName, fontName, faceName_len - 1);
+		strncpy(charset, CharacterSetName(characterSet), charset_len - 1);
 	}
 }
 
-void Font::Release() {
+static void SetLogFont(LOGFONT &lf, const char *faceName, int characterSet, int size, bool bold, bool italic) {
+	memset(&lf, 0, sizeof(lf));
+	lf.size = size;
+	lf.bold = bold;
+	lf.italic = italic;
+	lf.characterSet = characterSet;
+	strncpy(lf.faceName, faceName, sizeof(lf.faceName)-1);
+}
+
+/**
+ * Create a hash from the parameters for a font to allow easy checking for identity.
+ * If one font is the same as another, its hash will be the same, but if the hash is the
+ * same then they may still be different.
+ */
+static int HashFont(const char *faceName, int characterSet, int size, bool bold, bool italic) {
+	return
+		size ^
+		(characterSet << 10) ^
+		(bold ? 0x10000000 : 0) ^
+		(italic ? 0x20000000 : 0) ^
+		faceName[0];
+}
+
+class FontCached : Font {
+	FontCached *next;
+	int usage;
+	LOGFONT lf;
+	int hash;
+	FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
+	~FontCached() {}
+	bool SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
+	virtual void Release();
+        static FontID CreateNewFont(const char *fontName, int characterSet,
+                  int size, bool bold, bool italic);
+	static FontCached *first;
+public:
+	static FontID FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_);
+	static void ReleaseId(FontID id_);
+};
+
+FontCached *FontCached::first = 0;
+
+FontCached::FontCached(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) :
+	next(0), usage(0), hash(0) {
+	::SetLogFont(lf, faceName_, characterSet_, size_, bold_, italic_);
+	hash = HashFont(faceName_, characterSet_, size_, bold_, italic_);
+	id = CreateNewFont(faceName_, characterSet_, size_, bold_, italic_);
+	usage = 1;
+}
+
+bool FontCached::SameAs(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) {
+	return
+		lf.size == size_ &&
+		lf.bold == bold_ &&
+		lf.italic == italic_ &&
+		lf.characterSet == characterSet_ &&
+		0 == strcmp(lf.faceName,faceName_);
+}
+
+void FontCached::Release() {
 	if (id)
 		gdk_font_unref(PFont(*this));
 	id = 0;
 }
+
+FontID FontCached::FindOrCreate(const char *faceName_, int characterSet_, int size_, bool bold_, bool italic_) {
+	FontID ret = 0;
+	FontMutexLock();
+	int hashFind = HashFont(faceName_, characterSet_, size_, bold_, italic_);
+	for (FontCached *cur=first; cur; cur=cur->next) {
+		if ((cur->hash == hashFind) &&
+			cur->SameAs(faceName_, characterSet_, size_, bold_, italic_)) {
+			cur->usage++;
+			ret = cur->id;
+		}
+	}
+	if (ret == 0) {
+		FontCached *fc = new FontCached(faceName_, characterSet_, size_, bold_, italic_);
+		if (fc) {
+			fc->next = first;
+			first = fc;
+			ret = fc->id;
+		}
+	}
+	FontMutexUnlock();
+	return ret;
+}
+
+void FontCached::ReleaseId(FontID id_) {
+	FontMutexLock();
+	FontCached **pcur=&first;
+	for (FontCached *cur=first; cur; cur=cur->next) {
+		if (cur->id == id_) {
+			cur->usage--;
+			if (cur->usage == 0) {
+				*pcur = cur->next;
+				cur->Release();
+				cur->next = 0;
+				delete cur;
+			}
+			break;
+		}
+		pcur=&cur->next;
+	}
+	FontMutexUnlock();
+}
+
+FontID FontCached::CreateNewFont(const char *fontName, int characterSet,
+                  int size, bool bold, bool italic) {
+	char fontset[1024];
+	char fontspec[300];
+	char foundary[50];
+	char faceName[100];
+	char charset[50];
+	fontset[0] = '\0';
+	fontspec[0] = '\0';
+	foundary[0] = '\0';
+	faceName[0] = '\0';
+	charset[0] = '\0';
+        FontID newid = 0;
+
+	// If name of the font begins with a '-', assume, that it is
+	// a full fontspec.
+	if (fontName[0] == '-') {
+		if (strchr(fontName, ',')) {
+			newid = gdk_fontset_load(fontName);
+		} else {
+			newid = gdk_font_load(fontName);
+		}
+		if (!newid) {
+			// Font not available so substitute a reasonable code font
+			// iso8859 appears to only allow western characters.
+			newid = gdk_font_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+		}
+		return newid;
+	}
+
+	// it's not a full fontspec, build one.
+
+	// This supports creating a FONT_SET
+	// in a method that allows us to also set size, slant and
+	// weight for the fontset.  The expected input is multiple
+	// partial fontspecs seperated by comma
+	// eg. adobe-courier-iso10646-1,*-courier-iso10646-1,*-*-*-*
+	if (strchr(fontName, ',')) {
+		// build a fontspec and use gdk_fontset_load
+		int remaining = sizeof(fontset);
+		char fontNameCopy[1024];
+		strncpy(fontNameCopy, fontName, sizeof(fontNameCopy) - 1);
+		char *fn = fontNameCopy;
+		char *fp = strchr(fn, ',');
+		for (;;) {
+			const char *spec = "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s";
+			if (fontset[0] != '\0') {
+				// if this is not the first font in the list,
+				// append a comma seperator
+				spec = ",%s%s%s%s-*-*-*-%0d-*-*-*-*-%s";
+			}
+
+			if (fp)
+				*fp = '\0'; // nullify the comma
+			GenerateFontSpecStrings(fn, characterSet,
+			                        foundary, sizeof(foundary),
+			                        faceName, sizeof(faceName),
+			                        charset, sizeof(charset));
+
+			snprintf(fontspec,
+			         sizeof(fontspec) - 1,
+			         spec,
+			         foundary, faceName,
+			         bold ? "-bold" : "-medium",
+			         italic ? "-i" : "-r",
+			         size * 10,
+			         charset);
+
+			// if this is the first font in the list, and
+			// we are doing italic, add an oblique font
+			// to the list
+			if (italic && fontset[0] == '\0') {
+				strncat(fontset, fontspec, remaining - 1);
+				remaining -= strlen(fontset);
+
+				snprintf(fontspec,
+				         sizeof(fontspec) - 1,
+				         ",%s%s%s-o-*-*-*-%0d-*-*-*-*-%s",
+				         foundary, faceName,
+				         bold ? "-bold" : "-medium",
+				         size * 10,
+				         charset);
+			}
+
+			strncat(fontset, fontspec, remaining - 1);
+			remaining -= strlen(fontset);
+
+			if (!fp)
+				break;
+
+			fn = fp + 1;
+			fp = strchr(fn, ',');
+		}
+
+		newid = gdk_fontset_load(fontset);
+		if (newid)
+			return newid;
+
+		// if fontset load failed, fall through, we'll use
+		// the last font entry and continue to try and
+		// get something that matches
+	}
+
+	// single fontspec support
+
+	GenerateFontSpecStrings(fontName, characterSet,
+	                        foundary, sizeof(foundary),
+	                        faceName, sizeof(faceName),
+	                        charset, sizeof(charset));
+
+	snprintf(fontspec,
+	         sizeof(fontspec) - 1,
+	         "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s",
+	         foundary, faceName,
+	         bold ? "-bold" : "-medium",
+	         italic ? "-i" : "-r",
+	         size * 10,
+	         charset);
+	newid = gdk_font_load(fontspec);
+	if (!newid) {
+		// some fonts have oblique, not italic
+		snprintf(fontspec,
+		         sizeof(fontspec) - 1,
+		         "%s%s%s%s-*-*-*-%0d-*-*-*-*-%s",
+		         foundary, faceName,
+		         bold ? "-bold" : "-medium",
+		         italic ? "-o" : "-r",
+		         size * 10,
+		         charset);
+		newid = gdk_font_load(fontspec);
+	}
+	if (!newid) {
+		snprintf(fontspec,
+		         sizeof(fontspec) - 1,
+		         "-*-*-*-*-*-*-*-%0d-*-*-*-*-%s",
+		         size * 10,
+		         charset);
+		newid = gdk_font_load(fontspec);
+	}
+	if (!newid) {
+		// Font not available so substitute a reasonable code font
+		// iso8859 appears to only allow western characters.
+		newid = gdk_font_load("-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-*");
+	}
+	return newid;
+}
+
+
+Font::Font() : id(0) {}
+
+Font::~Font() {}
+
+void Font::Create(const char *faceName, int characterSet, int size, bool bold, bool italic) {
+	Release();
+	id = FontCached::FindOrCreate(faceName, characterSet, size, bold, italic);
+}
+
+void Font::Release() {
+	if (id)
+		FontCached::ReleaseId(id);
+	id = 0;
+}
+
 
 class SurfaceImpl : public Surface {
 	bool unicodeMode;
@@ -339,15 +677,17 @@ void SurfaceImpl::MoveTo(int x_, int y_) {
 }
 
 void SurfaceImpl::LineTo(int x_, int y_) {
-	gdk_draw_line(drawable, gc,
-	              x, y,
-	              x_, y_);
+	if (drawable && gc) {
+		gdk_draw_line(drawable, gc,
+		              x, y,
+		              x_, y_);
+	}
 	x = x_;
 	y = y_;
 }
 
 void SurfaceImpl::Polygon(Point *pts, int npts, ColourAllocated fore,
-                      ColourAllocated back) {
+                          ColourAllocated back) {
 	GdkPoint gpts[20];
 	if (npts < static_cast<int>((sizeof(gpts) / sizeof(gpts[0])))) {
 		for (int i = 0;i < npts;i++) {
@@ -379,7 +719,7 @@ void SurfaceImpl::RectangleDraw(PRectangle rc, ColourAllocated fore, ColourAlloc
 
 void SurfaceImpl::FillRectangle(PRectangle rc, ColourAllocated back) {
 	PenColour(back);
-	if (drawable && (rc.left < 32000)) {	// Protect against out of range
+	if (drawable && (rc.left < maxCoordinate)) {	// Protect against out of range
 		gdk_draw_rectangle(drawable, gc, 1,
 		                   rc.left, rc.top,
 		                   rc.right - rc.left, rc.bottom - rc.top);
@@ -415,15 +755,15 @@ void SurfaceImpl::RoundedRectangle(PRectangle rc, ColourAllocated fore, ColourAl
 	if (((rc.right - rc.left) > 4) && ((rc.bottom - rc.top) > 4)) {
 		// Approximate a round rect with some cut off corners
 		Point pts[] = {
-		    Point(rc.left + 2, rc.top),
-		    Point(rc.right - 2, rc.top),
-		    Point(rc.right, rc.top + 2),
-		    Point(rc.right, rc.bottom - 2),
-		    Point(rc.right - 2, rc.bottom),
-		    Point(rc.left + 2, rc.bottom),
-		    Point(rc.left, rc.bottom - 2),
-		    Point(rc.left, rc.top + 2),
-		};
+		                  Point(rc.left + 2, rc.top),
+		                  Point(rc.right - 2, rc.top),
+		                  Point(rc.right, rc.top + 2),
+		                  Point(rc.right, rc.bottom - 2),
+		                  Point(rc.right - 2, rc.bottom),
+		                  Point(rc.left + 2, rc.bottom),
+		                  Point(rc.left, rc.bottom - 2),
+		                  Point(rc.left, rc.top + 2),
+		              };
 		Polygon(pts, sizeof(pts) / sizeof(pts[0]), fore, back);
 	} else {
 		RectangleDraw(rc, fore, back);
@@ -456,41 +796,121 @@ void SurfaceImpl::Copy(PRectangle rc, Point from, Surface &surfaceSource) {
 	}
 }
 
+#define MAX_US_LEN 5000
+
 void SurfaceImpl::DrawTextNoClip(PRectangle rc, Font &font_, int ybase, const char *s, int len,
-                       ColourAllocated fore, ColourAllocated back) {
+                                 ColourAllocated fore, ColourAllocated back) {
 	FillRectangle(rc, back);
 	PenColour(fore);
-	if (gc && drawable)
-		gdk_draw_text(drawable, PFont(font_), gc, rc.left, ybase, s, len);
+	if (gc && drawable) {
+		// Draw text as a series of segments to avoid limitations in X servers
+		const int segmentLength = 1000;
+		int x = rc.left;
+		if (unicodeMode) {
+			GdkWChar wctext[MAX_US_LEN];
+			GdkWChar *wcp = (GdkWChar *) & wctext;
+			size_t wclen = UCS2FromUTF8(s, len, (wchar_t *)wctext,
+			                            sizeof(wctext) / sizeof(GdkWChar) - 1);
+			wctext[wclen] = L'\0';
+			int lenDraw;
+			while ((wclen > 0) && (x < maxCoordinate)) {
+				lenDraw = Platform::Minimum(wclen, segmentLength);
+				gdk_draw_text_wc(drawable, PFont(font_), gc,
+				                 x, ybase, wcp, lenDraw);
+				wclen -= lenDraw;
+				if (wclen > 0) {
+					x += gdk_text_width_wc(PFont(font_),
+					                       wcp, lenDraw);
+				}
+				wcp += lenDraw;
+			}
+		} else {
+			while ((len > 0) && (x < maxCoordinate)) {
+				int lenDraw = Platform::Minimum(len, segmentLength);
+				gdk_draw_text(drawable, PFont(font_), gc,
+				              x, ybase, s, lenDraw);
+				len -= lenDraw;
+				if (len > 0) {
+					x += gdk_text_width(PFont(font_), s, lenDraw);
+				}
+				s += lenDraw;
+			}
+		}
+	}
 }
 
 // On GTK+, exactly same as DrawTextNoClip
 void SurfaceImpl::DrawTextClipped(PRectangle rc, Font &font_, int ybase, const char *s, int len,
-                              ColourAllocated fore, ColourAllocated back) {
-	FillRectangle(rc, back);
-	PenColour(fore);
-	if (gc && drawable)
-		gdk_draw_text(drawable, PFont(font_), gc, rc.left, ybase, s, len);
+                                  ColourAllocated fore, ColourAllocated back) {
+	DrawTextNoClip(rc, font_, ybase, s, len, fore, back);
 }
 
 void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positions) {
-	int totalWidth = 0;
-	for (int i = 0;i < len;i++) {
-		if (font_.GetID()) {
-			int width = gdk_char_width(PFont(font_), s[i]);
-			totalWidth += width;
+	if (font_.GetID()) {
+		int totalWidth = 0;
+		GdkFont *gf = PFont(font_);
+		if (unicodeMode) {
+			GdkWChar wctext[MAX_US_LEN];
+			size_t wclen = UCS2FromUTF8(s, len, (wchar_t *)wctext, sizeof(wctext) / sizeof(GdkWChar) - 1);
+			wctext[wclen] = L'\0';
+			int poses[MAX_US_LEN];
+			size_t i;
+			for (i = 0; i < wclen; i++) {
+				int width = gdk_char_width_wc(gf, wctext[i]);
+				totalWidth += width;
+				poses[i] = totalWidth;
+			}
+			// map widths back to utf-8 input string
+			size_t ui = 0;
+			i = 0;
+			const unsigned char *us = reinterpret_cast<const unsigned char *>(s);
+			unsigned char uch;
+			while (ui < wclen) {
+				uch = us[i];
+				positions[i++] = poses[ui];
+				if (uch >= 0x80) {
+					if (uch < (0x80 + 0x40 + 0x20)) {
+						positions[i++] = poses[ui];
+					} else {
+						positions[i++] = poses[ui];
+						positions[i++] = poses[ui];
+					}
+				}
+				ui++;
+			}
+			int lastPos = 0;
+			if (i > 0)
+				lastPos = positions[i - 1];
+			while (i < static_cast<size_t>(len)) {
+				positions[i++] = lastPos;
+			}
 		} else {
-			totalWidth++;
+			for (int i = 0; i < len; i++) {
+				int width = gdk_char_width(gf, s[i]);
+				totalWidth += width;
+				positions[i] = totalWidth;
+			}
 		}
-		positions[i] = totalWidth;
+	} else {
+		for (int i = 0; i < len; i++) {
+			positions[i] = i + 1;
+		}
 	}
 }
 
 int SurfaceImpl::WidthText(Font &font_, const char *s, int len) {
-	if (font_.GetID())
-		return gdk_text_width(PFont(font_), s, len);
-	else
+	if (font_.GetID()) {
+		if (unicodeMode) {
+			GdkWChar wctext[MAX_US_LEN];
+			size_t wclen = UCS2FromUTF8(s, len, (wchar_t *)wctext, sizeof(wctext) / sizeof(GdkWChar) - 1);
+			wctext[wclen] = L'\0';
+			int width = gdk_text_width_wc(PFont(font_), wctext, wclen);
+			return width;
+		} else
+			return gdk_text_width(PFont(font_), s, len);
+	} else {
 		return 1;
+	}
 }
 
 int SurfaceImpl::WidthChar(Font &font_, char ch) {
@@ -506,11 +926,11 @@ int SurfaceImpl::WidthChar(Font &font_, char ch) {
 // 3) Call gdk_string_extents with string as 1 but also including accented capitals.
 // Smallest values given by 1 and largest by 3 with 2 in between.
 // Techniques 1 and 2 sometimes chop off extreme portions of ascenders and
-// descenders but are mostly OK except for accented characters like Å which are
+// descenders but are mostly OK except for accented characters like M-E which are
 // rarely used in code.
 
 // This string contains a good range of characters to test for size.
-const char largeSizeString[] = "ÂÃÅÄ `~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
+const char largeSizeString[] = "M-BM-CM-EM-D `~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
                                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const char sizeString[] = "`~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
                           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -528,7 +948,7 @@ int SurfaceImpl::Ascent(Font &font_) {
 	gint descent;
 
 	gdk_string_extents(PFont(font_), sizeString,
-	                   &lbearing, &rbearing, &width, &ascent, &descent);
+					   &lbearing, &rbearing, &width, &ascent, &descent);
 	return ascent;
 #endif
 }
@@ -546,7 +966,7 @@ int SurfaceImpl::Descent(Font &font_) {
 	gint descent;
 
 	gdk_string_extents(PFont(font_), sizeString,
-	                   &lbearing, &rbearing, &width, &ascent, &descent);
+					   &lbearing, &rbearing, &width, &ascent, &descent);
 	return descent;
 #endif
 }
@@ -584,7 +1004,7 @@ void SurfaceImpl::SetClip(PRectangle rc) {
 void SurfaceImpl::FlushCachedState() {}
 
 void SurfaceImpl::SetUnicodeMode(bool unicodeMode_) {
-	unicodeMode=unicodeMode_;
+	unicodeMode = unicodeMode_;
 }
 
 Surface *Surface::Allocate() {
@@ -716,10 +1136,28 @@ void Window::SetTitle(const char *s) {
 	gtk_window_set_title(GTK_WINDOW(id), s);
 }
 
-ListBox::ListBox() : list(0), current(0), desiredVisibleRows(5), maxItemCharacters(0),
-	doubleClickAction(NULL), doubleClickActionData(NULL) {}
+typedef struct {
+	const char **xpm_data;
+	GdkPixmap *pixmap;
+	GdkBitmap *bitmap;
+} ListImage;
 
-ListBox::~ListBox() {}
+ListBox::ListBox() : list(0), current(0), pixhash(NULL), desiredVisibleRows(5), maxItemCharacters(0),
+doubleClickAction(NULL), doubleClickActionData(NULL) {}
+
+static void list_image_free(gpointer key, gpointer value, gpointer user_data) {
+	ListImage *list_image = (ListImage *) value;
+	if (list_image->pixmap)
+		gdk_pixmap_unref(list_image->pixmap);
+	if (list_image->bitmap)
+		gdk_bitmap_unref(list_image->bitmap);
+	g_free(list_image);
+}
+
+ListBox::~ListBox() {
+	g_hash_table_foreach((GHashTable *) pixhash, list_image_free, NULL);
+	g_hash_table_destroy((GHashTable *) pixhash);
+}
 
 static void SelectionAC(GtkWidget *, gint row, gint,
                         GdkEventButton *, gpointer p) {
@@ -768,13 +1206,9 @@ void ListBox::Create(Window &, int) {
 }
 
 void ListBox::SetFont(Font &scint_font) {
-	GtkStyle* style;
-	GdkFont* font;
-	
-	style = gtk_widget_get_style(GTK_WIDGET(PWidget(list)));
-	font = gtk_style_get_font(style);
-	
-	if (!gdk_font_equal(font, PFont(scint_font))) {
+#if GTK_MAJOR_VERSION < 2
+	GtkStyle *style = gtk_widget_get_style(GTK_WIDGET(PWidget(list)));
+	if (!gdk_font_equal(style->font, PFont(scint_font))) {
 		style = gtk_style_copy(style);
 		gdk_font_unref(font);
 		font = PFont(scint_font);
@@ -782,6 +1216,16 @@ void ListBox::SetFont(Font &scint_font) {
 		gtk_widget_set_style(GTK_WIDGET(PWidget(list)), style);
 		gtk_style_unref(style);
 	}
+#else
+	GtkStyle *styleCurrent = gtk_widget_get_style(GTK_WIDGET(PWidget(list)));
+	GdkFont *fontCurrent = gtk_style_get_font(styleCurrent);
+	if (!gdk_font_equal(fontCurrent, PFont(scint_font))) {
+		GtkStyle *styleNew = gtk_style_copy(styleCurrent);
+		gtk_style_set_font(styleNew, PFont(scint_font));
+		gtk_widget_set_style(GTK_WIDGET(PWidget(list)), styleNew);
+		gtk_style_unref(styleCurrent);
+	}
+#endif
 }
 
 void ListBox::SetAverageCharWidth(int width) {
@@ -803,10 +1247,15 @@ PRectangle ListBox::GetDesiredRect() {
 		GtkRequisition req;
 		int height;
 
+#if GTK_MAJOR_VERSION < 2
+		int ythickness = PWidget(list)->style->klass->ythickness;
+#else
+		int ythickness = PWidget(list)->style->ythickness;
+#endif
 		// First calculate height of the clist for our desired visible row count otherwise it tries to expand to the total # of rows
 		height = (rows * GTK_CLIST(list)->row_height
 		          + rows + 1
-		          + 2 * (PWidget(list)->style->ythickness
+		          + 2 * (ythickness
 		                 + GTK_CONTAINER(PWidget(list))->border_width));
 		gtk_widget_set_usize(GTK_WIDGET(PWidget(list)), -1, height);
 
@@ -824,7 +1273,6 @@ PRectangle ListBox::GetDesiredRect() {
 			rc.right = rc.right + 16;
 	}
 	return rc;
-
 }
 
 void ListBox::Clear() {
@@ -832,9 +1280,38 @@ void ListBox::Clear() {
 	maxItemCharacters = 0;
 }
 
-void ListBox::Append(char *s) {
-	char *szs[] = { s, 0};
-	gtk_clist_append(GTK_CLIST(list), szs);
+static void init_pixmap(ListImage *li, GtkWidget *window)
+{
+	li->pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL
+	  , gtk_widget_get_colormap(window), &(li->bitmap), NULL
+	  , (gchar **) li->xpm_data);
+	
+	g_assert(li->pixmap);
+	
+	if (NULL == li->pixmap)
+	{
+		if (li->bitmap)
+			gdk_bitmap_unref(li->bitmap);
+		li->bitmap = NULL;
+	}
+}
+
+#define SPACING 5
+
+void ListBox::Append(char *s, int type) {
+	char *szs[] = { s, NULL };
+	ListImage *list_image = NULL;
+	if (type >= 0)
+		list_image = (ListImage *) g_hash_table_lookup((GHashTable *) pixhash
+	  , (gconstpointer) GINT_TO_POINTER(type));
+	int rownum = gtk_clist_append(GTK_CLIST(list), szs);
+	if (list_image)
+	{
+		if (NULL == list_image->pixmap)
+			init_pixmap(list_image, (GtkWidget *) list);
+		gtk_clist_set_pixtext(GTK_CLIST(list), rownum, 0, s, SPACING
+		  , list_image->pixmap, list_image->bitmap);
+	}
 	size_t len = strlen(s);
 	if (maxItemCharacters < len)
 		maxItemCharacters = len;
@@ -868,8 +1345,19 @@ int ListBox::Find(const char *prefix) {
 }
 
 void ListBox::GetValue(int n, char *value, int len) {
-	char *text = 0;
-	gtk_clist_get_text(GTK_CLIST(list), n, 0, &text);
+	char *text = NULL;
+	GtkCellType type = gtk_clist_get_cell_type(GTK_CLIST(list), n, 0);
+	switch (type)
+	{
+		case GTK_CELL_TEXT:
+			gtk_clist_get_text(GTK_CLIST(list), n, 0, &text);
+			break;
+		case GTK_CELL_PIXTEXT:
+			gtk_clist_get_pixtext(GTK_CLIST(list), n, 0, &text, NULL, NULL, NULL);
+			break;
+		default:
+			break;
+	}
 	if (text && len > 0) {
 		strncpy(value, text, len);
 		value[len - 1] = '\0';
@@ -880,6 +1368,26 @@ void ListBox::GetValue(int n, char *value, int len) {
 
 void ListBox::Sort() {
 	gtk_clist_sort(GTK_CLIST(list));
+}
+
+void ListBox::SetTypeXpm(int type, const char **xpm_data)
+{
+	ListImage *list_image;
+	g_return_if_fail(xpm_data);
+
+	if (NULL == pixhash)
+		pixhash = g_hash_table_new(g_direct_hash, g_direct_equal);
+	else
+	{
+		list_image = (ListImage *) g_hash_table_lookup((GHashTable *) pixhash
+		  , (gconstpointer) GINT_TO_POINTER(type));
+		if (list_image)
+			return;
+	}
+	list_image = g_new0(ListImage, 1);
+	list_image->xpm_data = xpm_data;
+	g_hash_table_insert((GHashTable *) pixhash, GINT_TO_POINTER(type)
+	  , (gpointer) list_image);
 }
 
 Menu::Menu() : id(0) {}
@@ -896,7 +1404,20 @@ void Menu::Destroy() {
 }
 
 void Menu::Show(Point pt, Window &) {
-	gtk_item_factory_popup(reinterpret_cast<GtkItemFactory *>(id), pt.x - 4, pt.y, 3, 0);
+	int screenHeight = gdk_screen_height();
+	int screenWidth = gdk_screen_width();
+	GtkItemFactory *factory = reinterpret_cast<GtkItemFactory *>(id);
+	GtkWidget *widget = gtk_item_factory_get_widget(factory, "<main>");
+	gtk_widget_show_all(widget);
+	GtkRequisition requisition;
+	gtk_widget_size_request(widget, &requisition);
+	if ((pt.x + requisition.width) > screenWidth) {
+		pt.x = screenWidth - requisition.width;
+	}
+	if ((pt.y + requisition.height) > screenHeight) {
+		pt.y = screenHeight - requisition.height;
+	}
+	gtk_item_factory_popup(factory, pt.x - 4, pt.y, 3, 0);
 }
 
 ElapsedTime::ElapsedTime() {
@@ -941,6 +1462,7 @@ int Platform::DefaultFontSize() {
 #ifdef G_OS_WIN32
 	return 10;
 #else
+
 	return 12;
 #endif
 }
@@ -961,6 +1483,12 @@ bool Platform::IsKeyDown(int) {
 long Platform::SendScintilla(
     WindowID w, unsigned int msg, unsigned long wParam, long lParam) {
 	return scintilla_send_message(SCINTILLA(w), msg, wParam, lParam);
+}
+
+long Platform::SendScintillaPointer(
+    WindowID w, unsigned int msg, unsigned long wParam, void *lParam) {
+	return scintilla_send_message(SCINTILLA(w), msg, wParam,
+	                              reinterpret_cast<sptr_t>(lParam));
 }
 
 bool Platform::IsDBCSLeadByte(int /*codePage*/, char /*ch*/) {
@@ -1022,4 +1550,12 @@ int Platform::Clamp(int val, int minVal, int maxVal) {
 	if (val < minVal)
 		val = minVal;
 	return val;
+}
+
+void Platform_Initialise() {
+        FontMutexAllocate();
+}
+
+void Platform_Finalise() {
+	FontMutexFree();
 }

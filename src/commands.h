@@ -118,6 +118,7 @@ gboolean command_editor_load (CommandEditor *p, PropsID pr);
  * functions command_editor_get_command() and command_editor_get_command_file().
  */
 
+#define COMMAND_LANGUAGES "commands.languages"
 #define COMMAND_OPEN_FILE "command.open.file."
 #define COMMAND_VIEW_FILE "command.view.file."
 

@@ -40,38 +40,48 @@ void
 on_search_in_files_add_clicked         (GtkButton       *button,
                                         gpointer         user_data)
 {
-  char *filename[1];
-  FindInFiles* ff = user_data;
-  filename[0] = gtk_entry_get_text(GTK_ENTRY(ff->widgets.file_combo));
-  if(strlen(filename[0]) == 0) return;
-  gtk_clist_append(GTK_CLIST(ff->widgets.clist), filename);
-  gtk_entry_set_text(GTK_ENTRY(ff->widgets.file_combo), "");
-  ff->length++;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	const gchar *filename[1];
+	FindInFiles* ff = user_data;
+	filename[0] = gtk_entry_get_text(GTK_ENTRY(ff->widgets.file_entry));
+	if(strlen(filename[0]) == 0) return;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
+	gtk_list_store_append (GTK_LIST_STORE(model), &iter);
+	gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, filename, -1);
+	gtk_entry_set_text(GTK_ENTRY(ff->widgets.file_entry), "");
+	ff->length++;
 }
 
 void
 on_search_in_files_remove_clicked      (GtkButton       *button,
                                         gpointer         user_data)
 {
-  FindInFiles* ff = user_data;
-  if(ff->length <= 0) return;
-  gtk_clist_remove(GTK_CLIST(ff->widgets.clist), ff->cur_row);
-  ff->length--;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	FindInFiles* ff = user_data;
+	if(ff->cur_row == NULL) return;
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
+	valid = gtk_tree_model_get_iter_from_string (model, &iter, ff->cur_row);
+	gtk_list_store_remove (GTK_LIST_STORE(model), &iter);
+	ff->length--;
 }
 
 void
 on_search_in_files_clear_clicked       (GtkButton       *button,
                                         gpointer         user_data)
 {
-  FindInFiles* ff = user_data;
-  gtk_clist_clear(GTK_CLIST(ff->widgets.clist));
-}
-
-void
-on_search_in_files_help_clicked        (GtkButton       *button,
-                                        gpointer         user_data)
-{
-
+	GtkTreeModel *model;
+	FindInFiles* ff = user_data;
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ff->widgets.clist));
+	gtk_list_store_clear (GTK_LIST_STORE(model));
+	if (ff->cur_row)
+		g_free (ff->cur_row);
+	ff->cur_row = NULL;
+	ff->length = 0;
 }
 
 void
@@ -79,7 +89,8 @@ on_search_in_files_ok_clicked          (GtkButton       *button,
                                         gpointer         user_data)
 {
    FindInFiles* ff = user_data;
-   gchar* temp, *temp2;
+   const gchar *temp;
+   gchar *temp2;
    temp = gtk_entry_get_text(GTK_ENTRY(ff->widgets.regexp_entry));
    if(ff->length <= 0)
    {
@@ -95,7 +106,7 @@ on_search_in_files_ok_clicked          (GtkButton       *button,
        return;
    }
   if (NULL != ff)
-	gnome_dialog_close(GNOME_DIALOG(ff->widgets.window));
+	gtk_dialog_close(GTK_DIALOG(ff->widgets.window));
   find_in_files_process(ff);
 }
 
@@ -105,16 +116,18 @@ on_search_in_files_cancel_clicked      (GtkButton       *button,
 {
   FindInFiles* ff = user_data;
   if (NULL != ff)
-	gnome_dialog_close(GNOME_DIALOG(ff->widgets.window));
+	gtk_dialog_close(GTK_DIALOG(ff->widgets.window));
 }
 
 void
-on_search_in_files_clist_select_row                   (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
+on_search_in_files_clist_row_activated (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
                                         gpointer         user_data)
+
 {
   FindInFiles* ff = user_data;
-  ff->cur_row = row;
+  if (ff->cur_row)
+	  g_free (ff->cur_row);
+  ff->cur_row = gtk_tree_path_to_string(arg1);
 }

@@ -28,7 +28,7 @@
         <title>"ファイルを開く" ダイアログ</title>
         <screenshot>
 		<screeninfo>"ファイルを開く" ダイアログ</screeninfo>
-         <graphic fileref="figures/open_file" format="png" srccredit="andyp"></graphic>
+         <graphic fileref="figures/open_file" format="png" srccredit="andyp">
         </screenshot>
        </figure>
        開くファイルを選択するか入力して <guibutton>OK</guibutton> ボタンをクリックして下さい。気が変わったら <guibutton>キャンセル</guibutton> ボタンをクリックして、ファイルを開かずにダイアログを閉じて下さい。
@@ -115,7 +115,7 @@
     <title>タグ・ツールバー</title>
     <screenshot>
 	 <screeninfo>タグ・ツールバー</screeninfo>
-     <graphic fileref="figures/toolbar_tags" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/toolbar_tags" format="png" srccredit="andyp">
     </screenshot>
    </figure>
    <tip>
@@ -140,7 +140,7 @@
      <title>テキスト検索ダイアログ</title>
      <screenshot>
 	 <screeninfo>テキスト検索ダイアログ</screeninfo>
-       <graphic fileref="figures/find_text" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_text" format="png" srccredit="andyp">
      </screenshot>
     </figure>
 
@@ -162,7 +162,7 @@
      <title>検索と置換ダイアログ</title>
      <screenshot>
 	 <screeninfo>検索と置換ダイアログ</screeninfo>
-       <graphic fileref="figures/find_replace" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_replace" format="png" srccredit="andyp">
      </screenshot>
     </figure>
     
@@ -179,7 +179,7 @@
      <title>ファイルダイアログの中で検索</title>
      <screenshot>
 	 <screeninfo>ファイルダイアログの中で検索</screeninfo>
-       <graphic fileref="figures/find_files" format="png" srccredit="andyp"></graphic>
+       <graphic fileref="figures/find_files" format="png" srccredit="andyp">
      </screenshot>
     </figure>
 	

@@ -127,10 +127,10 @@ TMWorkObject *tm_work_object_new(guint type, const char *file_name, gboolean cre
 
 void tm_work_object_destroy(TMWorkObject *work_object)
 {
-	if (NULL != work_object)
+	if (work_object)
 	{
 		g_free(work_object->file_name);
-		if (NULL != work_object->tags_array)
+		if (work_object->tags_array)
 			g_ptr_array_free(work_object->tags_array, TRUE);
 	}
 }

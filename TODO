@@ -1,39 +1,116 @@
 TODO List:
 ----------
 
+	o RPM spec improvement - see the spec file from freshrpms.net which modifies
+	  the menu location so that Anjuta appears in the top-level Programming menu 
+	  in RH8 (where we belong :-)
+	o Add ignore modules in Project config: Tagmanager does not ignore them.
+Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
 
-** Immediate post-0.1.9:
-
-	o add credits for ALL new contributors
-	
-	o improve the usability of the search/search again couple
-	o new file widget
-	o rewrite manual
-	o improve find functionality
-	o project manager changes
-	
-
-** General:
-
-    o Comments in source files
-	
+	o Bring all indent/format preferences under one tab.
+	o Add more editor preferences.
+	o Add "indicator.automatic" pref in message prefs.
 	o Compiler options: supports
+	o add credits for ALL new contributors
+	o update manual
+	o project manager changes
+	o Add minibuffer-support (for vi and emacs key bindings)
+	o Add Corba client for external access.
+	o List all external tools used by Anjuta and warn user about missing tools
+	on first run.
+
+	o More powerful Search, Search&Replace, Find In Files, etc. (422986, 533297)
+Notes: Have a look at regexxer (uses PCRE). Might be a good idea to reuse the
+code there to revamp the current search/replace interface.
+
+	o Better support for other languages, e.g., Java, Perl, Python, etc.
+		a) TagManager integration (tags, symbol browser, autocomplete, etc.)
+		b) Project types (new project, import, etc.)
+		c) Build and execute support (Make, Build, Execute, etc.)
+	o Revamp wizards:
+		a) New project wizards (Applets, Java, Empty, Web (HTML/PHP), QT/KDE, SDL, OpenGL) (442139, 596075)
+		b) Template based wizards for projects, files and code snippets. (495228)
+		c) Enhance project wizards so that the projects do useful stuff out-of-the-box.
+		d) More flexibility in wizards.
+		e) get ideas from VC++, KDevelop, Kylix, etc.
+		f) Custom wizard (import specified extensions only).
+		g) Better (more flexible) GUI ( Glade based ? Organized by Tabs ala VC ?).
+	o Revamp Scintilla interface:
+		a) Upgrade to latest Scintilla and SciTE.
+Biswa: Done. However, we should try to make Scintilla into a seperate dependency so
+that Scintilla updates can be automatic. This is a bit tricky since the code is pretty
+tightly integrated.
+		b) Fix bugs present in Anjuta but not in SciTE.
+		c) More editor preferences in GUI covering all SciTE/Scintilla properties.
+		d) GUI to map file extensions to languages (Editor + TagManager).
+		e) Better highliting, more languages, better indentation, etc.
+		f) Saving editor preferences on a per-project/multiple presets basis (554492)
+		g) Ability to use multibyte and fonts of different charsets
+		h) Feature requests (489114, 505305, 515658, 533298, 537126, 537127, 566266, 578281, 581258, 593493
+	   	, 594431, 595979, 598005, 604601, 606759)
+		i) GUI for all Scintilla/SciTE preferences (605029)
+		j) As many ultraedit features as possible - seems like a very popular editor :-)
+	o Revamp project manager: (existing/integrate Stef's one ?)
+		a) Support multiple targets of different types (static/shared libs, executables, etc.)
+		b) Import from an existing autotools project (566640)
+		c) Better support for editing Makefile.am, configure.in, etc. (566640)
+		d) Support projects in different languages (Java, HTML/PHP, Python, etc.) (523977, 559165, 618585)
+		e) Support large and flexible projects (442416, 549337, 553579)
+		f) GUI enhancements (552209)
+		g) More flexible make/build system to support cons, ant, etc. (555469, 556364, 558725, 596074, 604171)
+		h) Import project files of other IDEs (VC++, Borland C++, KDevelop, etc.) (593474)
+	o Support user-configurable tools (Tools menu + tool editor) with variable substitution (484187)
+Biswa: Done.
+	o Integration with tools like valgrind, gcov, gtk-doc, Doxygen, gprof, etc.
+Biswa: Tools support does a decent job of integrating external tools. Need scripting
+support to integrate some tools better.
+	o Code refactoring (needs sourcebase) (450159)
+	o Better code browsing:
+		a) Implement intellisense completion (497039, 522445, 604756)
+		b) Call graphs and code reference visualization (ala Source Navigator)
+		c) Better class browser (namespace support, nested classes, more languages, etc.) (521245, 529830, 539573, 556364)
+		d) Make symbol browser work without project & remember expanded nodes while refreshing (577026)
+		e) Local symbol view (583349)
+	o  Make debugger interface more flexible:
+		a) Allow user to use different debugger (e.g. dbx on Solaris) (500392)
+		b) Better support for multi-threaded programs.
+		c) Multi-paned and better integrated with PM (566262)
+		d) Ability to pass custom commands to the debugger and show the output (602798)
+		e) Integrate the watch window in the messages pane after Locals (599543)
+	o  More and better tranlations (Korean, etc.)
+	o  Generic GUI/usability improvements:
+		a) Two find-in-files tabs ala VC++
+		b) Easy switching between various windows using shortcuts (560887)
+		c) Add 'Save' button to the editor context menu. (561310)
+		d) Support 'Sessions' i.e. group of files from different locations (561744)
+		e) Add to project from the file menu (562068)
+		f) Better patching, diffing and merging support ala gtkdiff (570397)
+		g) Use custom tools for indentation (577030)
+Biswa: Possible now with external tools implementation.
+		h) Shortcut to jump between open files (577381)
+		i) Copy selection from the message pane (581498)
+		j) Make file and symbol browsers work outside project mode (585416)
+		k) Customizable menus, toolbars and shortcuts (595361, 595363, 596346)
+		l) Display output in message window rather than a console (604179)
+	o  Make version control more flexible (so that BitKeeper, Arch, Subversion, etc. can be used) (607873)
+	o  Mono (C#) support (standalone files, projects, class browser, wizards, etc.) (614374)
+	o  gnome-db support (617267)
+	o Comments in source files
 	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
 	  imported as a project
-
+Biswa: project Import does a decent job of importing an arbitrary directory. Should
+be good enough for most purposes.
 	o Debugger optimization
-
 	o Utilities
+Biswa: Generic tools implementation allows integrating arbitrary utilities into
+the GUI.
 	o Integration with glade, gtranslator, eog and other bonobo components
-	
 	o Double/single click open file in preferences.
-
 	o Use GtkHTML if available to browse online documentation/manuals
 	o easy (S)RPMS & Debian packages build
 	  (assistant and/or edit the spec or debian dir)
 	o use PHP vars like C ones (with the tags bar); easy since they all
 	  begin with $
-
 
 	o > When the windows are docked, and we resize the main window of Anjuta, 
 	  > the docked window doesn't move with the resize.  As an example, I had 
@@ -45,19 +122,6 @@ TODO List:
 	  Well, that's a problem with the GtkPanedWindows, but I thing we make a
 	  temporary work around fix in anjuta by capturing the resize signal of
 	  the concerned widgets. Anybody care to have look in it? :-)
-		  
-	o > I like the fact that you can right click a file name in the project 
-	  > viewer and view it through a browser for html file for example. I'd like 
-	  > to have the feature also available inside the context sensitive menu of 
-	  > the editor too.  ( Ihave no clue if that's even feasible in the context 
-	  > where scintilla is the editor object and may even control the 
-	  > context-menu...)
-	  
-	o > Would be nice that the FIND always search from the beginning of the file 
-	  > OR that when you get the "Not found" panel that we get a button asking 
-	  > if we want to continue from the top of the file.  Right now, very often 
-	  > the fail claim that the text is not there but if you go to the top and 
-	  > redo the search it works.
 		  
 	o > I had been using Multi-Edit in Windows days, and it had a great feature
 	  > for browsing code (Vim also has it).  It's a cross between searching
@@ -75,14 +139,3 @@ TODO List:
 	  > can add this feature!
 	  
 	  So, watch out guys! Atleast don't miss the beer. :-)
-	  
-
-BUGS:
------
-- For whatever reason db1-devel_1.85-4mdk was not installed by default and
-ld gave me errors (can't find -ldb1). Checking for db1 dependency (both rpm and configure).
-
-- Tooltips that pop up for a function (eg. "printf(") persist
-onscreen when changing source files. 
-This is now fixed but now calltips flicker if the cursor touches
-them.

@@ -52,7 +52,8 @@ gint on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 		       GnomeInteractStyle i_style, gint fast, gpointer data)
 {
 	gchar *argv[] = { "rm",	"-rf", NULL};
-	gchar *prefix, **res_argv;
+	const gchar *prefix;
+	gchar **res_argv;
 	gint res_argc, counter;
 	GList* node;
 

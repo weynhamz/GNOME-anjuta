@@ -19,8 +19,15 @@
 #ifndef _RESOURCES_H_
 #define _RESOURCES_H_
 
-GtkWidget* anjuta_res_lookup_widget (GtkWidget       *widget, const gchar     *widget_name);
-GtkWidget* anjuta_res_get_pixmap_widget (GtkWidget* widget, const gchar* pixfile, gboolean gnome_pixmap);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget, const gchar *widget_name);
+GtkWidget* anjuta_res_get_pixmap_widget (GtkWidget* widget,
+                                         const gchar* pixfile,
+                                         gboolean gnome_pixmap);
 GdkPixbuf* anjuta_res_get_image  (const gchar     *filename);
 
 /* All the return strings MUST be freed */
@@ -42,5 +49,9 @@ void anjuta_res_help_search (const gchar * word);
 
 /* URI handler -- wrapped over gnome_url_show() */
 void anjuta_res_url_show(const char *url);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _RESOURCES_H_ */

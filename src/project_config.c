@@ -28,7 +28,7 @@ static void create_project_config_gui (ProjectConfig * pc);
 static gboolean on_close(GtkWidget *w, gpointer user_data);
 
 ProjectConfig *
-project_config_new (void)
+project_config_new (PropsID props)
 {
 	ProjectConfig *pc;
 	gint i;
@@ -37,6 +37,7 @@ project_config_new (void)
 	if (!pc)
 		return NULL;
 
+	pc->props = props;
 	for (i = 0; i < BUILD_FILE_END_MARK; i++)
 	{
 		pc->disable_overwrite[i] = FALSE;
@@ -50,8 +51,6 @@ project_config_new (void)
 	pc->config_lib_funcs = NULL;
 	pc->config_additional = NULL;
 	pc->config_files = NULL;
-	pc->extra_modules_before = NULL;
-	pc->extra_modules_after = NULL;
 	pc->makefile_am = NULL;
 
 	pc->is_showing = FALSE;
@@ -82,8 +81,6 @@ project_config_clear (ProjectConfig* pc)
 	string_assign (&pc->config_files, NULL);
 	string_assign (&pc->makefile_am, NULL);
 
-	string_assign (&pc->extra_modules_before, NULL);
-	string_assign (&pc->extra_modules_after, NULL);
 	project_config_sync (pc);
 }
 
@@ -101,13 +98,13 @@ project_config_destroy (ProjectConfig * pc)
 	string_assign (&pc->config_characteristics, NULL);
 	string_assign (&pc->config_lib_funcs, NULL);
 	string_assign (&pc->config_additional, NULL);
-	string_assign (&pc->extra_modules_before, NULL);
-	string_assign (&pc->extra_modules_after, NULL);
 	
 	for (i=0; i < BUILD_FILE_END_MARK; i++)
 		gtk_widget_unref (pc->widgets.disable_overwrite_check[i]);
 	
+	gtk_widget_unref (pc->widgets.version_entry);
 	gtk_widget_unref (pc->widgets.description_text);
+	gtk_widget_unref (pc->widgets.ignore_entry);
 	gtk_widget_unref (pc->widgets.config_progs_text);
 	gtk_widget_unref (pc->widgets.config_libs_text);
 	gtk_widget_unref (pc->widgets.config_headers_text);
@@ -156,12 +153,36 @@ project_config_hide (ProjectConfig * pc)
 	pc->is_showing = FALSE;
 }
 
+static gchar *
+get_text (GtkWidget *text_view)
+{
+	GtkTextBuffer *buffer;
+	GtkTextIter start_iter;
+	GtkTextIter end_iter;
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
+	gtk_text_buffer_get_start_iter (buffer, &start_iter);
+	gtk_text_buffer_get_end_iter (buffer, &end_iter);
+	return gtk_text_buffer_get_text (buffer, &start_iter, &end_iter, TRUE);
+}
+
+static void
+set_text (GtkWidget *text_view, const gchar *text)
+{
+	GtkTextBuffer *buffer;
+	if (text)
+	{
+		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_view));
+		gtk_text_buffer_set_text (buffer, text, -1);
+	}
+}
+
 /* This puts the value in the struct into the widgets */
 void
 project_config_sync (ProjectConfig * pc)
 {
 	GtkWidget *entry;
 	gint i;
+	gchar *str;
 
 	g_return_if_fail (pc != NULL);
 
@@ -179,51 +200,50 @@ project_config_sync (ProjectConfig * pc)
 		}
 	}
 	
-	gtk_editable_delete_text (GTK_EDITABLE(pc->widgets.description_text), 0, -1);
-	if (pc->description)
-		gtk_text_insert (GTK_TEXT (pc->widgets.description_text), NULL, NULL, NULL, pc->description, -1);
+	entry = pc->widgets.version_entry;
+	str = prop_get(pc->props, "project.version");
+	if (str) {
+		gtk_entry_set_text (GTK_ENTRY (entry), str);
+		g_free (str);
+	}
+	else
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
 
-	gtk_editable_delete_text (GTK_EDITABLE(pc->widgets.config_progs_text), 0, -1);
-	if (pc->config_progs)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_progs_text), NULL, NULL, NULL, pc->config_progs, -1);
+	set_text (pc->widgets.description_text, pc->description);
 
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.config_libs_text), 0, -1);
-	if (pc->config_libs)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_libs_text), NULL, NULL, NULL, pc->config_libs, -1);
-
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.config_headers_text), 0, -1);
-	if (pc->config_headers)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_headers_text), NULL, NULL, NULL, pc->config_headers, -1);
-
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.config_characteristics_text), 0, -1);
-	if (pc->config_characteristics)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_characteristics_text), NULL, NULL, NULL, pc->config_characteristics, -1);
-
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.config_lib_funcs_text), 0, -1);
-	if (pc->config_lib_funcs)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_lib_funcs_text), NULL, NULL, NULL, pc->config_lib_funcs, -1);
-
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.config_additional_text), 0, -1);
-	if (pc->config_additional)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_additional_text), NULL, NULL, NULL, pc->config_additional, -1);
-
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.config_files_text), 0, -1);
-	if (pc->config_files)
-		gtk_text_insert (GTK_TEXT (pc->widgets.config_files_text), NULL, NULL, NULL, pc->config_files, -1);
-
-	gtk_editable_delete_text (GTK_EDITABLE (pc->widgets.makefile_am_text), 0, -1);
-	if (pc->makefile_am)
-		gtk_text_insert (GTK_TEXT (pc->widgets.makefile_am_text), NULL, NULL, NULL, pc->makefile_am, -1);
-
+	entry = pc->widgets.ignore_entry;
+	str = prop_get (pc->props, "project.excluded.modules");
+	if (str) {
+		gtk_entry_set_text (GTK_ENTRY (entry), str);
+		g_free (str);
+	}
+	else
+		gtk_entry_set_text (GTK_ENTRY (entry), "");
+	
+	set_text (pc->widgets.config_progs_text, pc->config_progs);
+	set_text (pc->widgets.config_libs_text, pc->config_libs);
+	set_text (pc->widgets.config_lib_funcs_text, pc->config_lib_funcs);
+	set_text (pc->widgets.config_headers_text, pc->config_headers);
+	set_text (pc->widgets.config_characteristics_text, pc->config_characteristics);
+	set_text (pc->widgets.config_additional_text, pc->config_additional);
+	set_text (pc->widgets.config_files_text, pc->config_files);
+	set_text (pc->widgets.makefile_am_text, pc->makefile_am);
+	
 	entry = pc->widgets.extra_modules_before_entry;
-	if (pc->extra_modules_before)
-		gtk_entry_set_text (GTK_ENTRY (entry), pc->extra_modules_before);
+	str = prop_get (pc->props, "project.config.extra.modules.before");
+	if (str) {
+		gtk_entry_set_text (GTK_ENTRY (entry), str);
+		g_free (str);
+	}
 	else
 		gtk_entry_set_text (GTK_ENTRY (entry), "");
 
 	entry = pc->widgets.extra_modules_after_entry;
-	if (pc->extra_modules_after)
-		gtk_entry_set_text (GTK_ENTRY (entry), pc->extra_modules_after);
+	str = prop_get (pc->props, "project.config.extra.modules.after");
+	if (str) {
+		gtk_entry_set_text (GTK_ENTRY (entry), str);
+		g_free (str);
+	}
 	else
 		gtk_entry_set_text (GTK_ENTRY (entry), "");
 }
@@ -234,6 +254,7 @@ project_config_get (ProjectConfig * pc)
 {
 	GtkWidget *entry;
 	gint i;
+	gchar* str;
 
 	g_return_if_fail (pc != NULL);
 
@@ -242,61 +263,69 @@ project_config_get (ProjectConfig * pc)
 		pc->disable_overwrite[i] = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 						      (pc->widgets.disable_overwrite_check[i]));
 	}
+
+	entry = pc->widgets.version_entry;
+	str = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	if (str) {
+		prop_set_with_key (pc->props, "project.version", str);
+		g_free (str);
+	} else {
+		prop_set_with_key (pc->props, "project.version", "");
+	}
+	
 	string_assign (&pc->description, NULL);
-	pc->description =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.description_text), 0,
-					-1);
+	pc->description = get_text (pc->widgets.description_text);
+	
+	entry = pc->widgets.ignore_entry;
+	str = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	if (str) {
+		prop_set_with_key (pc->props, "project.excluded.modules", str);
+		g_free (str);
+	} else {
+		prop_set_with_key (pc->props, "project.excluded.modules", "");
+	}
+	
 	string_assign (&pc->config_progs, NULL);
-	pc->config_progs =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.config_progs_text), 0,
-					-1);
+	pc->config_progs = get_text (pc->widgets.config_progs_text);
+	
 	string_assign (&pc->config_libs, NULL);
-	pc->config_libs =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.config_libs_text), 0,
-					-1);
+	pc->config_libs = get_text (pc->widgets.config_libs_text);
+	
 	string_assign (&pc->config_headers, NULL);
-	pc->config_headers =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.config_headers_text), 0,
-					-1);
+	pc->config_headers = get_text (pc->widgets.config_headers_text);
+	
 	string_assign (&pc->config_characteristics, NULL);
-	pc->config_characteristics =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.
-					 config_characteristics_text), 0, -1);
+	pc->config_characteristics = get_text (pc->widgets.config_characteristics_text);
+	
 	string_assign (&pc->config_lib_funcs, NULL);
-	pc->config_lib_funcs =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.config_lib_funcs_text),
-					0, -1);
+	pc->config_lib_funcs = get_text (pc->widgets.config_lib_funcs_text);
+	
 	string_assign (&pc->config_additional, NULL);
-	pc->config_additional =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.config_additional_text),
-					0, -1);
+	pc->config_additional = get_text (pc->widgets.config_additional_text);
+	
 	string_assign (&pc->config_files, NULL);
-	pc->config_files =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.config_files_text),
-					0, -1);
+	pc->config_files = get_text (pc->widgets.config_files_text);
+	
 	string_assign (&pc->makefile_am, NULL);
-	pc->makefile_am =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(pc->widgets.makefile_am_text),
-					0, -1);
+	pc->makefile_am = get_text (pc->widgets.makefile_am_text);
 
 	entry = pc->widgets.extra_modules_before_entry;
-	string_assign (&pc->extra_modules_before, NULL);
-	pc->extra_modules_before =
-		gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	str = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	if (str) {
+		prop_set_with_key (pc->props, "project.config.extra.modules.before", str);
+		g_free (str);
+	} else {
+		prop_set_with_key (pc->props, "project.config.extra.modules.before", "");
+	}
 
 	entry = pc->widgets.extra_modules_after_entry;
-	string_assign (&pc->extra_modules_after, NULL);
-	pc->extra_modules_after =
-		gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	str = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	if (str) {
+		prop_set_with_key (pc->props, "project.config.extra.modules.after", str);
+		g_free (str);
+	} else {
+		prop_set_with_key (pc->props, "project.config.extra.modules.after", "");
+	}
 }
 
 /* Saves everything except the scripts in prj file */
@@ -304,11 +333,12 @@ gboolean
 project_config_save (ProjectConfig * pc, FILE* stream)
 {
 	gint i;
-
+	gchar *str;
+	
 	g_return_val_if_fail (pc != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
 
-	if (fprintf (stream, "project.config.blocked=%d\n\n", (int) pc->blocked) <1)
+	if (fprintf (stream, "project.config.blocked=%d\n", (int) pc->blocked) <1)
 		return FALSE;
 	
 	fprintf (stream, "project.config.disable.overwriting=");
@@ -317,24 +347,7 @@ project_config_save (ProjectConfig * pc, FILE* stream)
 		if (fprintf (stream, "%d ", (int) pc->disable_overwrite[i]) <1)
 			return FALSE;
 	}
-	fprintf (stream, "\n");
-	
-	if (pc->extra_modules_before)
-	{
-		if (fprintf (stream, "project.config.extra.modules.before=%s\n", pc->extra_modules_before) <1)
-			return FALSE;
-	}
-	else
-		fprintf (stream, "project.config.extra.modules.before=\n");
-
-	if (pc->extra_modules_after)
-	{
-		if (fprintf (stream, "project.config.extra.modules.after=%s\n", pc->extra_modules_after) <1)
-			return FALSE;
-	}
-	else
-		fprintf (stream, "project.config.extra.modules.after=\n");
-	fprintf (stream, "\n");
+	fprintf (stream, "\n\n");
 	return TRUE;
 }
 
@@ -413,8 +426,6 @@ project_config_load (ProjectConfig * pc, PropsID props)
 		for (i = 0; i < BUILD_FILE_END_MARK; i++)
 			pc->disable_overwrite[i] = 1;
 	}
-	pc->extra_modules_before = prop_get (props, "project.config.extra.modules.before");
-	pc->extra_modules_after = prop_get (props, "project.config.extra.modules.after");
 	project_config_sync (pc);
 	return TRUE;
 }
@@ -662,35 +673,25 @@ project_config_load_yourself (ProjectConfig * pc, PropsID props)
 }
 
 static void
-on_apply_clicked                       (GtkButton       *button,
-                                        gpointer         user_data)
-{
-	ProjectConfig* pc;
-	pc = user_data;
-	project_config_get (pc);
-	if (app->project_dbase->project_is_open)
-		app->project_dbase->is_saved = FALSE;
-}
-
-static void
-on_ok_clicked                          (GtkButton       *button,
-                                        gpointer         user_data)
+on_response (GtkButton *button, gint response, gpointer user_data)
 {
 	ProjectConfig* pc;
 	pc = (ProjectConfig *)user_data;
-	on_apply_clicked (button, pc);
-	if (NULL != pc)
-		gnome_dialog_close(GNOME_DIALOG(pc->widgets.window));
-}
-
-static void
-on_cancel_clicked                      (GtkButton       *button,
-                                        gpointer         user_data)
-{
-	ProjectConfig* pc;
-	pc = (ProjectConfig *)user_data;
-	if (NULL != pc)
-		gnome_dialog_close(GNOME_DIALOG(pc->widgets.window));
+	g_return_if_fail (pc);
+	switch (response)
+	{
+	case GTK_RESPONSE_OK:
+		gtk_dialog_close(GTK_DIALOG(pc->widgets.window));
+		/* Note: No break here */
+	case GTK_RESPONSE_APPLY:
+		project_config_get (pc);
+		if (app->project_dbase->project_is_open)
+			app->project_dbase->is_saved = FALSE;
+		break;
+	case GTK_RESPONSE_CANCEL:
+		gtk_dialog_close(GTK_DIALOG(pc->widgets.window));
+		break;
+	}
 }
 
 static gboolean
@@ -704,514 +705,32 @@ on_close(GtkWidget *w, gpointer user_data)
 static void
 create_project_config_gui (ProjectConfig * pc)
 {
-	GtkWidget *dialog1;
-	GtkWidget *dialog_vbox1;
-	GtkWidget *notebook1;
-	GtkWidget *frame1;
-	GtkWidget *checkbutton[BUILD_FILE_END_MARK];
-	GtkWidget *label8;
-	GtkWidget *vbox1;
-	GtkWidget *notebook2;
-	GtkWidget *vbox0;
-	GtkWidget *frame0;
-	GtkWidget *scrolledwindow0;
-	GtkWidget *text0;
-	GtkWidget *label0;
-	GtkWidget *frame2;
-	GtkWidget *scrolledwindow1;
-	GtkWidget *text1;
-	GtkWidget *label2;
-	GtkWidget *frame4;
-	GtkWidget *scrolledwindow2;
-	GtkWidget *text2;
-	GtkWidget *label3;
-	GtkWidget *frame5;
-	GtkWidget *scrolledwindow3;
-	GtkWidget *text3;
-	GtkWidget *label4;
-	GtkWidget *frame6;
-	GtkWidget *scrolledwindow4;
-	GtkWidget *text4;
-	GtkWidget *label5;
-	GtkWidget *frame7;
-	GtkWidget *scrolledwindow5;
-	GtkWidget *text5;
-	GtkWidget *label6;
-	GtkWidget *frame8;
-	GtkWidget *scrolledwindow6;
-	GtkWidget *text6;
-	GtkWidget *label10;
-	GtkWidget *frame10;
-	GtkWidget *scrolledwindow8;
-	GtkWidget *text8;
-	GtkWidget *label15;
-	GtkWidget *frame9;
-	GtkWidget *scrolledwindow7;
-	GtkWidget *text7;
-	GtkWidget *label14;
-	GtkWidget *hbox1;
-	GtkWidget *button5;
-	GtkWidget *button4;
-	GtkWidget *label7;
-	GtkWidget *vbox2;
-	GtkWidget *label12;
-	GtkWidget *eventbox1;
-	GtkWidget *entry2;
-	GtkWidget *hseparator1;
-	GtkWidget *label13;
-	GtkWidget *eventbox2;
-	GtkWidget *entry3;
-	GtkWidget *label9;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *button1;
-	GtkWidget *button2;
-	GtkWidget *button3;
 	gint i;
+	
+	pc->widgets.window = glade_xml_get_widget (app->gxml, "project_config_dialog");
+	g_signal_connect (G_OBJECT (pc->widgets.window), "clicked",
+			    G_CALLBACK (on_response), pc);
+	g_signal_connect (G_OBJECT (pc->widgets.window), "close",
+				G_CALLBACK (on_close), pc);
 
-	dialog1 = gnome_dialog_new (_("Project configuration"), NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_conf", "Anjuta");
-	gnome_dialog_close_hides(GNOME_DIALOG(dialog1), TRUE);
-
-	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
-	gtk_widget_show (dialog_vbox1);
-
-	notebook1 = gtk_notebook_new ();
-	gtk_widget_show (notebook1);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), notebook1, TRUE, TRUE, 0);
-
-	frame0 = gtk_frame_new (_("Project Description"));
-	gtk_widget_show (frame0);
-	gtk_container_add (GTK_CONTAINER (notebook1), frame0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame0), 5);
-
-	vbox0 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox0);
-	gtk_container_add (GTK_CONTAINER (frame0), vbox0);
-
-	scrolledwindow0 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow0);
-	gtk_container_add (GTK_CONTAINER (vbox0), scrolledwindow0);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow0), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow0),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text0 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text0);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow0), text0);
-	gtk_text_set_editable (GTK_TEXT (text0), TRUE);
-
-	label0 = gtk_label_new (_("General"));
-	gtk_widget_show (label0);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook1),
-							       0), label0);
-
-	frame1 = gtk_frame_new (_("Disable overwriting Project files"));
-	gtk_widget_show (frame1);
-	gtk_container_add (GTK_CONTAINER (notebook1), frame1);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
-
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox1);
-	gtk_container_add (GTK_CONTAINER (frame1), vbox1);
-
-	checkbutton[0] =
-		gtk_check_button_new_with_label (_("Project configure.in"));
-	gtk_widget_show (checkbutton[0]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[0], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[0]), 5);
-
-	checkbutton[1] =
-		gtk_check_button_new_with_label (_("Top level Makefile.am"));
-	gtk_widget_show (checkbutton[1]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[1], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[1]), 5);
-
-	checkbutton[2] =
-		gtk_check_button_new_with_label (_("Source module Makefile.am"));
-	gtk_widget_show (checkbutton[2]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[2], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[2]), 5);
-
-	checkbutton[3] =
-		gtk_check_button_new_with_label (_("Include module Makefile.am"));
-	gtk_widget_show (checkbutton[3]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[3], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[3]), 5);
-
-	checkbutton[4] =
-		gtk_check_button_new_with_label (_("Help module Makefile.am"));
-	gtk_widget_show (checkbutton[4]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[4], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[4]), 5);
-
-	checkbutton[5] =
-		gtk_check_button_new_with_label (_("Pixmap module Makefile.am"));
-	gtk_widget_show (checkbutton[5]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[5], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[5]), 5);
-
-	checkbutton[6] = gtk_check_button_new_with_label (_("Data module Makefile.am"));
-	gtk_widget_show (checkbutton[6]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[6], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[6]), 5);
-
-	checkbutton[7] = gtk_check_button_new_with_label (_("Doc module Makefile.am"));
-	gtk_widget_show (checkbutton[7]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[7], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[7]), 5);
-
-	checkbutton[8] = gtk_check_button_new_with_label (_("Po module (translation) Makefile.am"));
-	gtk_widget_show (checkbutton[8]);
-	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[8], FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[8]), 5);
-
-	label8 = gtk_label_new (_("Build files"));
-	gtk_widget_show (label8);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook1),
-							       1), label8);
-
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox1);
-	gtk_container_add (GTK_CONTAINER (notebook1), vbox1);
-
-	notebook2 = gtk_notebook_new ();
-	gtk_widget_show (notebook2);
-	gtk_box_pack_start (GTK_BOX (vbox1), notebook2, TRUE, TRUE, 5);
-	gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook2), TRUE);
-	gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook2), GTK_POS_LEFT);
-	gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook2));
-
-	frame2 = gtk_frame_new (_("Check for programs in config.in"));
-	gtk_widget_show (frame2);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame2);
-	gtk_container_set_border_width (GTK_CONTAINER (frame2), 5);
-
-	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow1);
-	gtk_container_add (GTK_CONTAINER (frame2), scrolledwindow1);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text1 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text1);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), text1);
-	gtk_text_set_editable (GTK_TEXT (text1), TRUE);
-
-	label2 = gtk_label_new (_("Program checks"));
-	gtk_widget_show (label2);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2),
-							       0), label2);
-
-	frame4 = gtk_frame_new (_("Check for libraries in config.in"));
-	gtk_widget_show (frame4);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame4);
-	gtk_container_set_border_width (GTK_CONTAINER (frame4), 5);
-
-	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow2);
-	gtk_container_add (GTK_CONTAINER (frame4), scrolledwindow2);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow2), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow2),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text2 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text2);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow2), text2);
-	gtk_text_set_editable (GTK_TEXT (text2), TRUE);
-
-	label3 = gtk_label_new (_("Library checks"));
-	gtk_widget_show (label3);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2),
-							       1), label3);
-
-	frame5 =
-		gtk_frame_new (_
-			       ("Check for header files in config.in"));
-	gtk_widget_show (frame5);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame5);
-	gtk_container_set_border_width (GTK_CONTAINER (frame5), 5);
-
-	scrolledwindow3 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow3);
-	gtk_container_add (GTK_CONTAINER (frame5), scrolledwindow3);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow3), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow3),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text3 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text3);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow3), text3);
-	gtk_text_set_editable (GTK_TEXT (text3), TRUE);
-
-	label4 = gtk_label_new (_("Header checks"));
-	gtk_widget_show (label4);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2),
-							       2), label4);
-
-	frame6 =
-		gtk_frame_new (_
-			       ("Checks for typedefs, structures, and compiler characteristics"));
-	gtk_widget_show (frame6);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame6);
-	gtk_container_set_border_width (GTK_CONTAINER (frame6), 5);
-
-	scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow4);
-	gtk_container_add (GTK_CONTAINER (frame6), scrolledwindow4);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow4), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text4 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text4);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow4), text4);
-	gtk_text_set_editable (GTK_TEXT (text4), TRUE);
-
-	label5 = gtk_label_new (_("Characteristics check"));
-	gtk_widget_show (label5);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2),
-							       3), label5);
-
-	frame7 =
-		gtk_frame_new (_
-			       ("Check for library functions in config.in"));
-	gtk_widget_show (frame7);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame7);
-	gtk_container_set_border_width (GTK_CONTAINER (frame7), 5);
-
-	scrolledwindow5 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow5);
-	gtk_container_add (GTK_CONTAINER (frame7), scrolledwindow5);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow5), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow5),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text5 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text5);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow5), text5);
-	gtk_text_set_editable (GTK_TEXT (text5), TRUE);
-
-	label6 = gtk_label_new (_("Function checks"));
-	gtk_widget_show (label6);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2),
-							       4), label6);
-
-	frame8 = gtk_frame_new (_("Additional scripts in config.in"));
-	gtk_widget_show (frame8);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame8);
-	gtk_container_set_border_width (GTK_CONTAINER (frame8), 5);
-
-	scrolledwindow6 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow6);
-	gtk_container_add (GTK_CONTAINER (frame8), scrolledwindow6);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow6), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow6),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text6 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text6);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow6), text6);
-	gtk_text_set_editable (GTK_TEXT (text6), TRUE);
-
-	label10 = gtk_label_new (_("Additional script"));
-	gtk_widget_show (label10);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2),
-							       5), label10);
-
-	frame10 = gtk_frame_new (_("Files to configure"));
-	gtk_widget_show (frame10);
-	gtk_container_add (GTK_CONTAINER (notebook2), frame10);
-	gtk_container_set_border_width (GTK_CONTAINER (frame10), 5);
-
-	scrolledwindow8 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow8);
-	gtk_container_add (GTK_CONTAINER (frame10), scrolledwindow8);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow8), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow8),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text8 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text8);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow8), text8);
-	gtk_text_set_editable (GTK_TEXT (text8), TRUE);
-
-	label15 = gtk_label_new (_("Files to configure"));
-	gtk_widget_show (label15);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook2), 6), label15);
-
-	hbox1 = gtk_hbox_new (TRUE, 0);
-	/* gtk_widget_show (hbox1); */
-	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, FALSE, FALSE, 0);
-
-	button5 = gnome_stock_button (GNOME_STOCK_BUTTON_HELP);
-	gtk_widget_show (button5);
-	gtk_box_pack_start (GTK_BOX (hbox1), button5, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button5), 5);
-
-	button4 = gtk_button_new_with_label (_("Auto scan the project"));
-	gtk_widget_show (button4);
-	gtk_box_pack_start (GTK_BOX (hbox1), button4, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (button4), 5);
-
-	label7 = gtk_label_new (_("Configuration scripts"));
-	gtk_widget_show (label7);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook1),
-							       2), label7);
-
-	vbox2 = gtk_vbox_new (FALSE, 5);
-	gtk_widget_show (vbox2);
-	gtk_container_add (GTK_CONTAINER (notebook1), vbox2);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox2), 5);
-
-	label12 =
-		gtk_label_new (_
-			       ("Extra modules to be built before source module:"));
-	gtk_widget_show (label12);
-	gtk_misc_set_alignment (GTK_MISC (label12), 0, -1);
-	gtk_box_pack_start (GTK_BOX (vbox2), label12, FALSE, FALSE, 0);
-
-	eventbox1 = gtk_event_box_new ();
-	gtk_widget_show (eventbox1);
-	gtk_box_pack_start (GTK_BOX (vbox2), eventbox1, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (eventbox1), 5);
-
-	entry2 = gtk_entry_new ();
-	gtk_widget_show (entry2);
-	gtk_container_add (GTK_CONTAINER (eventbox1), entry2);
-
-	hseparator1 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator1);
-	gtk_box_pack_start (GTK_BOX (vbox2), hseparator1, FALSE, TRUE, 0);
-
-	label13 =
-		gtk_label_new (_
-			       ("Extra modules to be built after source module:"));
-	gtk_widget_show (label13);
-	gtk_misc_set_alignment (GTK_MISC (label13), 0, -1);
-	gtk_box_pack_start (GTK_BOX (vbox2), label13, FALSE, FALSE, 0);
-
-	eventbox2 = gtk_event_box_new ();
-	gtk_widget_show (eventbox2);
-	gtk_box_pack_start (GTK_BOX (vbox2), eventbox2, FALSE, FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (eventbox2), 5);
-
-	entry3 = gtk_entry_new ();
-	gtk_widget_show (entry3);
-	gtk_container_add (GTK_CONTAINER (eventbox2), entry3);
-
-	label9 = gtk_label_new (_("Modules"));
-	gtk_widget_show (label9);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook1),
-							       3), label9);
-	frame9 = gtk_frame_new (_("Extra scripts at the end of top level Makefile.am"));
-	gtk_widget_show (frame9);
-	gtk_container_add (GTK_CONTAINER (notebook1), frame9);
-	gtk_container_set_border_width (GTK_CONTAINER (frame9), 5);
-
-	scrolledwindow7 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow7);
-	gtk_container_add (GTK_CONTAINER (frame9), scrolledwindow7);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow7), 5);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow7),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-	text7 = gtk_text_new (NULL, NULL);
-	gtk_widget_show (text7);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow7), text7);
-	gtk_text_set_editable (GTK_TEXT (text7), TRUE);
-
-	label14 = gtk_label_new (_("Makefile.am"));
-	gtk_widget_show (label14);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1),
-				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
-							       (notebook1),  4), label14);
-
-	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),
-				   GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_OK);
-	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button1);
-	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_APPLY);
-	button2 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button2);
-	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_CANCEL);
-	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button3);
-	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
-
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC (on_ok_clicked), pc);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC (on_apply_clicked), pc);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC (on_cancel_clicked), pc);
-	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
-				GTK_SIGNAL_FUNC (on_close), pc);
-
-	pc->widgets.window = dialog1;
 	for(i=0; i< BUILD_FILE_END_MARK; i++)
-		pc->widgets.disable_overwrite_check[i] = checkbutton[i];
-	pc->widgets.description_text = text0;
-	pc->widgets.config_progs_text = text1;
-	pc->widgets.config_libs_text = text2;
-	pc->widgets.config_headers_text = text3;
-	pc->widgets.config_characteristics_text = text4;
-	pc->widgets.config_lib_funcs_text = text5;
-	pc->widgets.config_additional_text = text6;
-	pc->widgets.config_files_text = text8;
-	pc->widgets.extra_modules_before_entry = entry2;
-	pc->widgets.extra_modules_after_entry = entry3;
-	pc->widgets.makefile_am_text = text7;
-
-	gtk_widget_ref (pc->widgets.window);
-	for (i=0; i < BUILD_FILE_END_MARK; i++)
-		gtk_widget_ref (pc->widgets.disable_overwrite_check[i]);
-	gtk_widget_ref (pc->widgets.description_text);
-	gtk_widget_ref (pc->widgets.config_progs_text);
-	gtk_widget_ref (pc->widgets.config_libs_text);
-	gtk_widget_ref (pc->widgets.config_headers_text);
-	gtk_widget_ref (pc->widgets.config_characteristics_text);
-	gtk_widget_ref (pc->widgets.config_lib_funcs_text);
-	gtk_widget_ref (pc->widgets.config_additional_text);
-	gtk_widget_ref (pc->widgets.config_files_text);
-	gtk_widget_ref (pc->widgets.extra_modules_before_entry);
-	gtk_widget_ref (pc->widgets.extra_modules_after_entry);
-	gtk_widget_ref (pc->widgets.makefile_am_text);
+	{
+		gchar *key;
+		key = g_strdup_printf ("project_config_build_file_%d", i);
+		pc->widgets.disable_overwrite_check[i] =
+			glade_xml_get_widget (app->gxml, key);
+	}
+	pc->widgets.version_entry = glade_xml_get_widget (app->gxml, "project_config_version");
+	pc->widgets.description_text = glade_xml_get_widget (app->gxml, "project_config_description");
+	pc->widgets.ignore_entry = glade_xml_get_widget (app->gxml, "project_config_ignore");
+	pc->widgets.config_progs_text = glade_xml_get_widget (app->gxml, "project_config_programs");
+	pc->widgets.config_libs_text = glade_xml_get_widget (app->gxml, "project_config_libraries");
+	pc->widgets.config_headers_text = glade_xml_get_widget (app->gxml, "project_config_headers");
+	pc->widgets.config_characteristics_text = glade_xml_get_widget (app->gxml, "project_config_compiler");
+	pc->widgets.config_lib_funcs_text = glade_xml_get_widget (app->gxml, "project_config_functions");
+	pc->widgets.config_additional_text = glade_xml_get_widget (app->gxml, "project_config_additional");
+	pc->widgets.config_files_text = glade_xml_get_widget (app->gxml, "project_config_outputs");
+	pc->widgets.extra_modules_before_entry = glade_xml_get_widget (app->gxml, "project_config_modules_before");
+	pc->widgets.extra_modules_after_entry = glade_xml_get_widget (app->gxml, "project_config_modules_after");
+	pc->widgets.makefile_am_text = glade_xml_get_widget (app->gxml, "project_config_makefile_am");
 }
-
-

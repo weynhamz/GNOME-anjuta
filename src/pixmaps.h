@@ -146,6 +146,7 @@
 #define ANJUTA_PIXMAP_APP_SDL "appwiz_sdl.png"
 #define ANJUTA_PIXMAP_APP_XWIN "appwiz_xlib.png"
 #define ANJUTA_PIXMAP_APP_XWINDOCKAPP "appwiz_xlib.png"
+#define ANJUTA_PIXMAP_APP_QT "appwiz_terminal.png"
 
 #define ANJUTA_PIXMAP_RED_LED "ledred.xpm"
 #define ANJUTA_PIXMAP_GREEN_LED "ledgreen.xpm"
@@ -225,6 +226,7 @@
 #define ANJUTA_PIXMAP_PREFS_AUTOFORMAT     "prefs_autoformat.xpm"
 #define ANJUTA_PIXMAP_PREFS_MESSAGES       "prefs_messages.xpm"
 #define ANJUTA_PIXMAP_PREFS_CVS            "prefs_cvs.xpm"
+#define ANJUTA_PIXMAP_PREFS_TERMINAL       "mini_term.xpm"
 
 /* Useful macros for specifying pixmaps in UIInfo structures */
 /* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ ## F */

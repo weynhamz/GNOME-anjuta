@@ -20,6 +20,8 @@
 #include "message-manager-private.h"
 #include "message-manager-dock.h"
 #include "preferences.h"
+#include "debug_tree.h"
+#include "watch.h"
 
 extern "C"
 {
@@ -28,6 +30,12 @@ extern "C"
 
 #include <zvt/zvtterm.h>
 #include <pwd.h>
+
+#ifdef DEBUG
+  #define DEBUG_PRINT g_message
+#else
+  #define DEBUG_PRINT(ARGS...)
+#endif
 
 // MessageSubwindow (base class for AnjutaMessageWindow and TerminalWindow:
 
@@ -176,7 +184,7 @@ AnjutaMessageWindow::append_buffer()
 	string message = m_line_buffer;
 	m_line_buffer = string();
 	m_messages.push_back(message);
-	
+
 	// Truncate Message:
 	int truncat_mesg = preferences_get_int (get_preferences(), TRUNCAT_MESSAGES);
 	int mesg_first = preferences_get_int (get_preferences(), TRUNCAT_MESG_FIRST);
@@ -209,10 +217,12 @@ AnjutaMessageWindow::append_buffer()
 		if (message.find(" warning: ") != message.npos)
 		{
 			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_warning);
+			anjuta_message_manager_indicate_warning (m_parent, m_type_id, dummy_fn, dummy_int);
 		}
 		else
 		{
 			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_error);
+			anjuta_message_manager_indicate_error (m_parent, m_type_id, dummy_fn, dummy_int);
 		}
 	}
 	else
@@ -245,7 +255,7 @@ AnjutaMessageWindow::get_cur_line() const
 {
 	return m_cur_line;
 }
-			
+
 void
 AnjutaMessageWindow::clear()
 {
@@ -305,34 +315,54 @@ GtkWidget* AnjutaMessageWindow::get_msg_list()
 {
 	return m_msg_list;
 }
-	
-// Terminal
-
-#undef ZVT_FONT
-#define ZVT_FONT "-adobe-courier-medium-r-normal-*-*-120-*-*-m-*-iso8859-1"
-#undef ZVT_SCROLLSIZE
-#define ZVT_SCROLLSIZE 200
 
 TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {	
 	g_return_if_fail(p_amm != NULL);
-  
-	/* A quick hack so that we get a beautiful color terminal */
-  putenv("TERM=xterm");
-	
+
+	/* Set terminal preferences */
+	gchar *font = preferences_get(get_preferences(), TERMINAL_FONT);
+	if (!font) font = g_strdup(DEFAULT_ZVT_FONT);
+	gint scrollsize = preferences_get_int(get_preferences(), TERMINAL_SCROLLSIZE);
+	if (scrollsize < DEFAULT_ZVT_SCROLLSIZE)
+		scrollsize = DEFAULT_ZVT_SCROLLSIZE;
+	if (scrollsize > MAX_ZVT_SCROLLSIZE)
+		scrollsize = MAX_ZVT_SCROLLSIZE;
+	gchar *term = preferences_get(get_preferences(), TERMINAL_TERM);
+    if (!term) term = g_strdup(DEFAULT_ZVT_TERM);
+	guchar *wordclass = (guchar *) preferences_get(get_preferences(), TERMINAL_WORDCLASS);
+	if (!wordclass) wordclass = (guchar *) g_strdup(DEFAULT_ZVT_WORDCLASS);
+	g_snprintf(termenv, 255L, "TERM=%s", term);
+	g_free(term);
+
+	DEBUG_PRINT("Font: '%s'", font);
+	DEBUG_PRINT("Scroll Buffer: '%d'", scrollsize);
+	DEBUG_PRINT("TERM: '%s'", termenv);
+	DEBUG_PRINT("Word characters: '%s'", wordclass);
+
+	putenv(termenv);
+	// putenv("TERM=xterm");
 	m_terminal = zvt_term_new();
-	zvt_term_set_font_name(ZVT_TERM(m_terminal), ZVT_FONT);
-	zvt_term_set_blink(ZVT_TERM(m_terminal), TRUE);
-	zvt_term_set_bell(ZVT_TERM(m_terminal), TRUE);
-	zvt_term_set_scrollback(ZVT_TERM(m_terminal), ZVT_SCROLLSIZE);
-	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m_terminal), TRUE);
-	zvt_term_set_scroll_on_output(ZVT_TERM(m_terminal), FALSE);
+	zvt_term_set_font_name(ZVT_TERM(m_terminal), font);
+	g_free(font);
+	zvt_term_set_blink(ZVT_TERM(m_terminal), preferences_get_int(
+	  get_preferences(), TERMINAL_BLINK) ? TRUE : FALSE);
+	zvt_term_set_bell(ZVT_TERM(m_terminal), preferences_get_int(
+	  get_preferences(), TERMINAL_BELL) ? TRUE : FALSE);
+	zvt_term_set_scrollback(ZVT_TERM(m_terminal), scrollsize);
+	zvt_term_set_scroll_on_keystroke(ZVT_TERM(m_terminal)
+	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_KEY
+	  ) ? TRUE : FALSE);
+	zvt_term_set_scroll_on_output(ZVT_TERM(m_terminal)
+	  , preferences_get_int(get_preferences(), TERMINAL_SCROLL_OUTPUT
+	  ) ? TRUE : FALSE);
 	zvt_term_set_background(ZVT_TERM(m_terminal), NULL, 0, 0);
-	zvt_term_set_wordclass(ZVT_TERM(m_terminal), (unsigned char*) "-A-Za-z0-9/_:.,?+%=");
+	zvt_term_set_wordclass(ZVT_TERM(m_terminal), wordclass);
+	g_free(wordclass);
 #ifdef ZVT_TERM_MATCH_SUPPORT
 	zvt_term_match_add	(ZVT_TERM(m_terminal),
-		"^[-A-Za-z0-9_\\.]+:[0-9]+:.*$",
+		"^[-A-Za-z0-9_\\/.]+:[0-9]+:.*$",
 		VTATTR_UNDERLINE, NULL);
 #endif
 	gtk_widget_show(m_terminal);
@@ -365,7 +395,7 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	gtk_signal_connect (GTK_OBJECT (m_terminal), "focus_in_event",
 		GTK_SIGNAL_FUNC (TerminalWindow::zvterm_focus_in), NULL);
 }
-	
+
 void TerminalWindow::show()
 {
 	if (!m_is_shown)
@@ -398,13 +428,6 @@ void TerminalWindow::hide()
 	}
 }
 
-//#define ZVT_DBG
-#ifdef ZVT_DBG
-  #define DEBUG g_message
-#else
-  #define DEBUG(ARGS...)
-#endif
-
 void mouse_to_char(ZvtTerm *term, int mousex, int mousey, int *x, int *y)
 {
 	*x = mousex/term->charwidth;
@@ -427,16 +450,19 @@ gboolean TerminalWindow::zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event
   if (event->type == GDK_2BUTTON_PRESS && event->button.button==1)
   {
     mouse_to_char(term, (int)event->button.x, (int)event->button.y, &x, &y);
-    DEBUG("coord: %d %d, scrollbackoffset: %d", x, y, term->vx->vt.scrollbackoffset);
+    DEBUG_PRINT("coord: %d %d, scrollbackoffset: %d", x, y, term->vx->vt.scrollbackoffset);
     line = zvt_term_get_buffer(term, NULL, VT_SELTYPE_LINE, 0, y+term->vx->vt.scrollbackoffset, 0, y+term->vx->vt.scrollbackoffset);
-    DEBUG("got line: '%s'", line);
+    DEBUG_PRINT("got line: '%s'", line);
     filename = NULL;
     if (parse_error_line(line, &filename, &lineno))
     {
-      DEBUG("parse_error_line: '%s' %d", filename, lineno);
+      DEBUG_PRINT("parse_error_line: '%s' %d", filename, lineno);
       // look for the file in the cwd
-      procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
-      DEBUG("full linked path: %s", procpath);
+      if (filename[0]!='/')
+        procpath = g_strdup_printf("/proc/%d/cwd/%s", term->vx->vt.childpid, filename);
+      else
+        procpath = g_strdup(filename);
+      DEBUG_PRINT("full linked path: %s", procpath);
       anjuta_goto_file_line (procpath, lineno);
       g_free(procpath);
       g_free(filename);
@@ -479,7 +505,7 @@ void TerminalWindow::zvterm_reinit_child(ZvtTerm* term)
 			}
 			execle (shell->str, name->str, NULL, environ);
 		default:
-      DEBUG("zvt terminal shell pid: %d\n", pid);
+      DEBUG_PRINT("zvt terminal shell pid: %d\n", pid);
 			break;
 	}
 }
@@ -499,4 +525,83 @@ int TerminalWindow::zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event)
 		need_init = false;
 	}
 	return true;
+}
+
+LocalsWindow::LocalsWindow (AnjutaMessageManager * p_amm, int p_type_id,
+		  string p_type, string p_pixmap):
+			MessageSubwindow (p_amm, p_type_id, p_type, p_pixmap)
+{
+	g_return_if_fail (p_amm != NULL);
+
+	m_scrollbar = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (m_scrollbar),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+	gtk_widget_show (m_scrollbar);
+	m_debug_tree = debug_tree_create (m_scrollbar);
+	m_frame = gtk_event_box_new ();
+	gtk_widget_show (m_frame);
+	//gtk_frame_set_shadow_type (GTK_FRAME (m_frame), GTK_SHADOW_IN);
+	gtk_notebook_append_page (GTK_NOTEBOOK (p_amm->intern->notebook),
+				  m_frame, create_label ());
+
+	gtk_container_add (GTK_CONTAINER (m_frame), m_scrollbar);
+}
+
+LocalsWindow::~LocalsWindow ()
+{
+	/* TODO: where is it called? */
+	g_print("Destructor of localwindow called\n");
+	debug_tree_destroy (m_debug_tree);
+}
+
+void
+LocalsWindow::show ()
+{
+	if (!m_is_shown)
+	{
+		GtkWidget *label = create_label ();
+
+		gtk_notebook_append_page (GTK_NOTEBOOK
+					  (m_parent->intern->notebook),
+					  m_frame, label);
+		gtk_widget_unref (m_frame);
+
+		GList *children =
+			gtk_container_children (GTK_CONTAINER
+						(m_parent->intern->notebook));
+		for (uint i = 0; i < g_list_length (children); i++)
+		{
+			if (g_list_nth (children, i)->data == m_frame)
+			{
+				m_page_num = i;
+				break;
+			}
+		}
+		m_is_shown = true;
+	}
+}
+
+void
+LocalsWindow::hide ()
+{
+	if (m_is_shown)
+	{
+		gtk_widget_ref (m_frame);
+		gtk_container_remove (GTK_CONTAINER
+				      (m_parent->intern->notebook), m_frame);
+		m_is_shown = false;
+	}
+}
+
+void
+LocalsWindow::clear ()
+{
+	debug_tree_clear (m_debug_tree);
+}
+
+void
+LocalsWindow::update_view (GList * list)
+{
+	debug_tree_parse_variables (m_debug_tree, list);
 }

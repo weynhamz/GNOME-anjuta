@@ -35,8 +35,6 @@
 #include "lexer.h"
 #include "an_file_view.h"
 
-#define DEBUG
-
 /* struct is private, use functions to access members */
 struct _CVS
 {
@@ -58,8 +56,9 @@ static void on_cvs_terminate (int status, time_t time);
 
 /* Utility functions */
 static void launch_cvs_command (gchar * command, gchar * dir);
-static gchar *get_full_cvsroot (CVS * cvs, ServerType type, 
-		gchar* server, gchar* dir, gchar* user);
+static gchar *get_full_cvsroot (CVS *cvs, ServerType type, 
+                                const gchar *server, const gchar *dir,
+                                const gchar *user);
 static gchar *add_compression (CVS * cvs);
 
 /* Server types translation table */
@@ -190,9 +189,8 @@ cvs_get_diff_use_date(CVS* cvs)
 /* 
 	Free the memory of the cvs module 
 */
-
 void
-cvs_destroy (CVS * cvs)
+cvs_destroy (CVS *cvs)
 {
 	g_return_if_fail (cvs != NULL);
 	g_free (cvs);
@@ -205,13 +203,13 @@ cvs_destroy (CVS * cvs)
 	Updates the working copy of a file in local_dir. 
 	If brach == NULL it is ignored 
 */
-
 void
-cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir)
+cvs_update (CVS *cvs, const gchar *filename,
+            const gchar *branch, gboolean is_dir)
 {
 	gchar *command = NULL;
 	gchar *compression;
-	gchar *file;
+	const gchar *file;
 	gchar *dir;
 
 	g_return_if_fail (cvs != NULL);
@@ -253,12 +251,12 @@ cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir)
 */
 
 void
-cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
-		 gchar * message, gboolean is_dir)
+cvs_commit (CVS *cvs, const gchar *filename, const gchar *revision,
+            const gchar *message, gboolean is_dir)
 {
 	gchar *command;
 	gchar *compression;
-	gchar *file;
+	const gchar *file;
 	gchar *dir;
 	gchar *escaped_message;
 
@@ -303,15 +301,17 @@ cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 	project directory.
 */
 
-void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
-			gchar* dir, gchar* user, gchar* module, gchar* release,
-			gchar* vendor, gchar* message)
+void cvs_import_project (CVS *cvs, ServerType type, const gchar *server,
+			const gchar *dir, const gchar *user, const gchar *module,
+            const gchar *rel, const gchar *ven, const gchar *message)
 {
 	gchar* command;
 	gchar* compression;
 	gchar* cvsroot;
 	gchar* prj_dir;
 	gchar* escaped_message;
+	gchar* vendor;
+	gchar* release;
 	
 	g_return_if_fail (cvs != NULL);
 	g_return_if_fail (app->project_dbase->project_is_open == TRUE);
@@ -327,6 +327,10 @@ void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
 	
 	if (!strlen (module))
 		return;
+	
+	vendor = g_strdup (ven);
+	release = g_strdup (rel);
+	
 	if (!strlen (vendor))
 	{
 		g_free (vendor);
@@ -348,17 +352,18 @@ void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
 	g_free (command);
 	g_free (cvsroot);
 	g_free (compression);
+	g_free (vendor);
+	g_free (release);
 }
-
 
 /*
 	Adds a file to the repository. If message == NULL it is ignored.
 */
 
 void
-cvs_add_file (CVS * cvs, gchar * filename, gchar * message)
+cvs_add_file (CVS *cvs, const gchar *filename, const gchar *message)
 {
-	gchar *file;
+	const gchar *file;
 	gchar *dir;
 	gchar *compression;
 	gchar *command;
@@ -395,9 +400,9 @@ cvs_add_file (CVS * cvs, gchar * filename, gchar * message)
 */
 
 void
-cvs_remove_file (CVS * cvs, gchar * filename)
+cvs_remove_file (CVS *cvs, const gchar *filename)
 {
-	gchar *file;
+	const gchar *file;
 	gchar *dir;
 	gchar *compression;
 	gchar *command;
@@ -428,12 +433,12 @@ cvs_remove_file (CVS * cvs, gchar * filename)
 */
 
 void
-cvs_status (CVS * cvs, gchar * filename, gboolean is_dir)
+cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir)
 {
 	gchar *command;
 	gchar *compression;
 	gchar *dir;
-	gchar *file;
+	const gchar *file;
 
 	g_return_if_fail (cvs != NULL);
 
@@ -479,12 +484,12 @@ cvs_status (CVS * cvs, gchar * filename, gboolean is_dir)
 }
 
 void
-cvs_log (CVS * cvs, gchar * filename, gboolean is_dir)
+cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir)
 {
 	gchar *command;
 	gchar *compression;
 	gchar *dir;
-	gchar *file;
+	const gchar *file;
 
 	g_return_if_fail (cvs != NULL);
 
@@ -539,10 +544,10 @@ cvs_log (CVS * cvs, gchar * filename, gboolean is_dir)
 #define DATE_LENGTH 17
 
 void
-cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
-	       time_t date, gboolean is_dir)
+cvs_diff (CVS *cvs, const gchar *filename, const gchar *revision,
+          time_t date, gboolean is_dir)
 {
-	gchar *file;
+	const gchar *file;
 	gchar *dir;
 	gchar *command;
 	gchar *compression;
@@ -610,8 +615,8 @@ cvs_diff (CVS * cvs, gchar * filename, gchar * revision,
 */
 
 void
-cvs_login (CVS * cvs, ServerType type, gchar* server, gchar* dir, 
-		gchar* user)
+cvs_login (CVS *cvs, ServerType type, const gchar *server,
+           const gchar *dir, const gchar *user)
 {
 	gchar *cvsroot;
 	gchar *command;
@@ -768,8 +773,8 @@ on_cvs_terminate (int status, time_t time)
 */
 
 static gchar *
-get_full_cvsroot (CVS * cvs, ServerType type, gchar* server, 
-		gchar* dir, gchar* user)
+get_full_cvsroot (CVS * cvs, ServerType type, const gchar *server, 
+                  const gchar *dir, const gchar *user)
 {
 	gchar *cvsroot;
 	g_return_val_if_fail (cvs != NULL, NULL);

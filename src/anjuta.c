@@ -23,7 +23,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
-#include <syslog.h>
 #include <ctype.h>
 #include <sys/wait.h>
 
@@ -35,7 +34,6 @@
 #include "fileselection.h"
 #include "utilities.h"
 #include "resources.h"
-#include "messagebox.h"
 #include "launcher.h"
 #include "debugger.h"
 #include "controls.h"
@@ -52,18 +50,13 @@
 #include "properties.h"
 #include "commands.h"
 /*-------------------------------------------------------------------*/
-#define	LOCALS_PLUGIN_DIR	"/.anjuta/plugins"
-
 extern gboolean closing_state;
 static GdkCursor *app_cursor;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
-static void on_message_clicked(GtkObject* obj, char* message);					  
+static void on_message_clicked(GtkObject* obj, char* message);	
+static void on_message_indicate(GtkObject* obj, gint type_name, gchar* file, glong line, gint type);	
 static void anjuta_show_text_editor (TextEditor * te);
-static void plugins_foreach_delete( gpointer data, gpointer user_data );
-static void free_plug_ins( GList * pList );
-static PlugInErr plug_in_init( AnjutaAddInPtr self, const gchar *szModName );
-static GList*scan_AddIns_in_directory( AnjutaApp* pApp, const gchar *szDirName, GList *pList );
 static int select_all_files (const struct dirent *e);
 
 /*-------------------------------------------------------------------*/
@@ -169,6 +162,7 @@ anjuta_new ()
 		app->b_reload_last_project	= TRUE ;
 		app->preferences = preferences_new ();
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
+		gtk_window_set_modal((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
@@ -177,6 +171,7 @@ anjuta_new ()
 		app->messages = ANJUTA_MESSAGE_MANAGER(anjuta_message_manager_new ());
 		create_default_types(app->messages);
 		gtk_signal_connect(GTK_OBJECT(app->messages), "message_clicked", GTK_SIGNAL_FUNC(on_message_clicked), NULL);
+		gtk_signal_connect(GTK_OBJECT(app->messages), "message_indicate", GTK_SIGNAL_FUNC(on_message_indicate), NULL);
 		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
@@ -187,7 +182,6 @@ anjuta_new ()
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 		app->cvs = cvs_new(app->preferences->props);
-
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		gtk_container_add (GTK_CONTAINER (app->widgets.hpaned),
@@ -210,18 +204,8 @@ anjuta_new ()
 		anjuta_update_title ();
 		launcher_init ();
 		debugger_init ();
-		app->addIns_list = scan_AddIns_in_directory( app, PACKAGE_PLUGIN_DIR, NULL );
-		{		
-			gchar *plugin_dir;
-			char const * const home_dir = getenv ("HOME");
-			/* Load the user plugins */
-			if (home_dir != NULL)
-			{
-				plugin_dir = g_strconcat (home_dir, LOCALS_PLUGIN_DIR, NULL);
-				app->addIns_list = scan_AddIns_in_directory( app, plugin_dir, app->addIns_list );
-				g_free (plugin_dir);
-			}
-		}
+		anjuta_plugins_load();
+		anjuta_tools_load();
 		anjuta_load_yourself (app->preferences->props);
 		gtk_widget_set_uposition (app->widgets.window, app->win_pos_x,
 					  app->win_pos_y);
@@ -386,6 +370,7 @@ anjuta_remove_text_editor (TextEditor* te)
 	case TEXT_EDITOR_WINDOWED:
 		app->text_editor_list =
 			g_list_remove (app->text_editor_list, te);
+		on_anjuta_window_focus_in_event (NULL, NULL, NULL);
 		break;
 	}
 	text_editor_destroy (te);
@@ -445,7 +430,7 @@ anjuta_get_notebook_text_editor (gint page_num)
 	page =
 		gtk_notebook_get_nth_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), page_num);
-	te = gtk_object_get_data (GTK_OBJECT (page), "TextEditor");
+	te = g_object_get_data (G_OBJECT (page), "TextEditor");
 	return te;
 }
 
@@ -500,6 +485,7 @@ anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 		}
 		if (strcmp (fn, te->full_filename) == 0)
 		{
+			text_editor_check_disk_status(te, TRUE);
 			if (lineno >= 0)
 				text_editor_goto_line (te, lineno, mark);
 			anjuta_show_text_editor (te);
@@ -738,7 +724,7 @@ anjuta_show_text_editor (TextEditor * te)
 			gtk_notebook_get_nth_page (GTK_NOTEBOOK
 						   (app->widgets.notebook),
 						   i);
-		t = gtk_object_get_data (GTK_OBJECT (page), "TextEditor");
+		t = g_object_get_data (G_OBJECT (page), "TextEditor");
 		if (t == te && GTK_IS_EVENT_BOX (page) && t)
 		{
 			gint page_num;
@@ -1163,6 +1149,12 @@ show_hide_tooltips (gboolean show)
 	gtk_toolbar_set_tooltips(GTK_TOOLBAR(app->widgets.toolbar.format_toolbar.toolbar), show);
 }
 
+void anjuta_set_zoom_factor(gint zoom)
+{
+	TextEditor *te = anjuta_get_current_text_editor();
+	if (te)
+		text_editor_set_zoom_factor(te, zoom);
+}
 
 void
 anjuta_apply_preferences (void)
@@ -1216,7 +1208,6 @@ anjuta_apply_preferences (void)
 	}
 
 	anjuta_message_manager_update(app->messages);
-	cvs_apply_preferences(app->cvs, pr->props);
 
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
@@ -1244,7 +1235,7 @@ anjuta_application_exit(void)
 	{
 		project_dbase_close_project(app->project_dbase) ;
 	}
-	free_plug_ins( app->addIns_list );
+	anjuta_plugins_unload();
 	app->addIns_list	= NULL ;
 }
 
@@ -1261,6 +1252,7 @@ anjuta_clean_exit ()
 		g_strdup_printf ("rm -f %s/anjuta_*.%ld",
 				 app->dirs->tmp, (long) getpid ());
 	pid = gnome_execute_shell (app->dirs->home, tmp);
+	g_free (tmp);
 	if (-1 == pid)
 	{
 		perror("Cleanup failed");
@@ -1699,7 +1691,7 @@ anjuta_not_implemented (char *file, guint line)
 		g_strdup_printf (N_
 				 ("Not yet implemented.\nInsert code at \"%s:%u\""),
 				 file, line);
-	messagebox (GNOME_MESSAGE_BOX_INFO, _(mesg));
+	messagebox (GTK_MESSAGE_INFO, _(mesg));
 	g_free (mesg);
 }
 
@@ -1895,6 +1887,26 @@ anjuta_delete_all_marker (gint marker)
 	}
 }
 
+void 
+anjuta_delete_all_indicators ()
+{
+	GList *node;
+	TextEditor *te;
+
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) node->data;
+		if (te->full_filename == NULL)
+		{
+			node = g_list_next (node);
+			continue;
+		}
+		text_editor_set_indicator (te, -1, -1);
+		node = g_list_next (node);
+	}
+}
+
 gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
 {
 	gboolean save;
@@ -1906,8 +1918,12 @@ gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
 
 gboolean anjuta_is_installed (gchar * prog, gboolean show)
 {
-	if (gnome_is_program_in_path (prog))
+	gchar* prog_path = gnome_is_program_in_path (prog);
+	if (prog_path)
+	{
+		g_free (prog_path);
 		return TRUE;
+	}
 	if (show)
 	{
 		anjuta_error (_
@@ -2021,13 +2037,20 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view, gboolean resize, gb
 
 	item = gnome_app_get_dock_item_by_name (GNOME_APP (app->widgets.window), toolbar_name);
 
+	g_return_if_fail(toolbar_name != NULL);
 	g_return_if_fail (item != NULL);
 	g_return_if_fail (GNOME_IS_DOCK_ITEM (item));
 
 	if (view)
-		gtk_widget_show (GTK_WIDGET (item));
+	{
+		gtk_widget_show(GTK_WIDGET (item));
+		gtk_widget_show(GTK_BIN(item)->child);
+	}
 	else
-		gtk_widget_hide (GTK_WIDGET (item));
+	{
+		gtk_widget_hide(GTK_WIDGET (item));
+		gtk_widget_hide(GTK_BIN(item)->child);
+	}
 	dock = gnome_app_get_dock(GNOME_APP(app->widgets.window));
 	g_return_if_fail (dock != NULL);
 	if (resize)
@@ -2113,207 +2136,6 @@ anjuta_reload_file( const gchar *szFullPath )
 	return;
 }
 
-
-
-AnjutaAddInPtr plug_in_new(void)
-{
-	AnjutaAddInPtr	self = g_new( AnjutaAddIn, 1 );
-	if( NULL != self )
-	{
-		self->m_Handle			= NULL ;
-		self->m_szModName		= NULL ;
-		self->m_bStarted		= FALSE ;
-		self->m_UserData		= NULL ;		
-	
-		self->GetDescr			= NULL ;
-		self->GetVersion		= NULL ;
-		self->Init				= NULL ;
-		self->CleanUp			= NULL ;
-		self->Activate			= NULL ;
-		self->GetMenuTitle		= NULL ;
-		self->GetTooltipText	= NULL ;
-	}
-	return self ;
-}
-
-void 
-plug_in_delete( AnjutaAddInPtr self )
-{
-	g_return_if_fail( NULL != self );
-	
-	if( self->m_Handle && self->CleanUp )
-		(*self->CleanUp)( self->m_Handle, self->m_UserData, app );
-
-	if( NULL != self->m_szModName )
-		g_free( self->m_szModName );
-
-	if( self->m_Handle )
-		g_module_close( self->m_Handle );
-
-	self->m_Handle	= NULL ;
-	
-	g_free( self );
-}
-
-
-static PlugInErr
-plug_in_init( AnjutaAddInPtr self, const gchar *szModName )
-{
-	PlugInErr	pieError = PIE_OK ;
-	
-	g_return_val_if_fail( (NULL != self), PIE_BADPARMS );
-	g_return_val_if_fail( (szModName != NULL ) && strlen(szModName) , PIE_BADPARMS ) ;
-	
-	self->m_szModName	= g_strdup( szModName ) ;
-	self->m_Handle		= g_module_open ( szModName , 0 );
-	if( NULL != self->m_Handle )
-	{
-		/* Symbol load */
-		if( 		g_module_symbol( self->m_Handle, "GetDescr", (gpointer*)&self->GetDescr ) 
-			&&	g_module_symbol( self->m_Handle, "GetVersion", (gpointer*)&self->GetVersion )
-			&&	g_module_symbol( self->m_Handle, "Init", (gpointer*)&self->Init )
-			&&	g_module_symbol( self->m_Handle, "CleanUp", (gpointer*)&self->CleanUp )
-			&&	g_module_symbol( self->m_Handle, "Activate", (gpointer*)&self->Activate )
-			&&	g_module_symbol( self->m_Handle, "GetMenuTitle", (gpointer*)&self->GetMenuTitle )
-			&&	g_module_symbol( self->m_Handle, "GetTooltipText", (gpointer*)&self->GetTooltipText ) )
-		{
-			self->m_bStarted = (*self->Init)( self->m_Handle, &self->m_UserData, app ) ;
-			if( !self->m_bStarted )
-			{
-				pieError = PIE_INITFAILED ;
-			}			
-		} else
-		{
-			self->GetDescr		= NULL ;
-			self->GetVersion	= NULL ;
-			self->Init			= NULL ;
-			self->CleanUp		= NULL ;
-			self->Activate		= NULL ;
-			self->GetMenuTitle	= NULL ;
-			self->m_bStarted	= FALSE ;
-			pieError = PIE_SYMBOLSNOTFOUND ;
-		}
-	} else
-		pieError = PIE_NOTLOADED ;
-	return pieError ;
-}
-
-static gboolean
-Load_plugIn( AnjutaAddInPtr self, const gchar *szModName )
-{
-	gboolean		bOK = FALSE ;
-	PlugInErr	lErr = plug_in_init( self, szModName ) ;
-	const gchar	*pErr = g_module_error();
-	if( NULL == pErr )
-		pErr = "";
-	switch( lErr )
-	{
-	default:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to load plugin %s. Error: %s"), szModName, pErr );
-		break;
-	case PIE_NOTLOADED:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to load plugin %s. Error: %s"), szModName, pErr );
-		break;
-	case PIE_SYMBOLSNOTFOUND:
-		syslog( LOG_WARNING|LOG_USER, _("Plugin protocol %s unknown Error:%s"), szModName, pErr );
-		break;
-	case PIE_INITFAILED:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to start plugin %s"), szModName );
-		break;
-	case PIE_BADPARMS:
-		syslog( LOG_WARNING|LOG_USER, _("Bad parameters to plugin %s. Error: %s"), szModName, pErr );
-		break;
-	case PIE_OK:
-		bOK = TRUE ;
-		break;
-	}
-		
-	if( ! bOK )
-		anjuta_error ( _("Unable to load plugin %s.\nError: %s"), szModName, pErr  );
-	return bOK ;
-}
-
-
-static void
-plugins_foreach_delete( gpointer data, gpointer user_data )
-{
-	plug_in_delete( (AnjutaAddInPtr)data );
-}
-
-static void
-free_plug_ins( GList * pList )
-{
-	if( pList )
-	{
-		g_list_foreach( pList, plugins_foreach_delete, NULL );
-		g_list_free (pList);
-	}
-}
-
-static int
-select_all_files (const struct dirent *e)
-{
-	return TRUE; 
-}
-
-
-static GList *
-scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
-{
-	GList *files;
-	GList *node;
-
-	if (!g_module_supported ())
-		return NULL ;
-	
-	g_return_val_if_fail (pApp != NULL, pList);
-	g_return_val_if_fail (((NULL != szDirName) && strlen(szDirName)), pList);
-
-	files = NULL;
-
-	/* Can not use p->top_proj_dir yet. */
-
-	/* Can not use project_dbase_get_module_dir() yet */
-	files = scan_files_in_dir (szDirName, select_all_files);
-
-	node = files;
-	while (node)
-	{
-		const char* entry_name;
-		gboolean bOK = FALSE;
-			
-		entry_name = (const char*) node->data;
-		node = g_list_next (node);
-
-		if ((NULL != entry_name) && strlen (entry_name) > 3
-			&& (0 == strcmp (&entry_name[strlen(entry_name)-3], ".so")))
-		{
-			/* FIXME: e questo ? bah library_file = g_module_build_path (module_dir, module_file); */
-			gchar *pPIPath = g_strdup_printf ("%s/%s", szDirName, entry_name);
-			AnjutaAddInPtr pPlugIn = plug_in_new ();
-
-			if ((NULL != pPlugIn) && (NULL != pPIPath))
-			{
-				if (Load_plugIn (pPlugIn, pPIPath))
-				{
-					pList = g_list_prepend (pList, pPlugIn);
-					bOK = TRUE ;
-				}
-			} else
-				anjuta_error (_("Out of memory scanning for plugins."));
-
-			g_free (pPIPath);
-
-			if (!bOK && (NULL != pPlugIn))
-				plug_in_delete (pPlugIn);
-		}
-	}
-
-	free_string_list (files);
-
-	return pList;
-}
-
 static void on_message_clicked(GtkObject* obj, char* message)
 {
 	char* fn;
@@ -2323,6 +2145,41 @@ static void on_message_clicked(GtkObject* obj, char* message)
 		anjuta_goto_file_line (fn, ln);
 		g_free (fn);
 	}
+}
+
+static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, glong line, gint indicator)
+{
+	gchar *fn;
+	GList *node;
+
+	TextEditor *te;
+	if (!preferences_get_int_with_default(app->preferences,
+			MESSAGES_INDICATORS_AUTOMATIC, 1)) {
+		return;
+	}
+	g_return_if_fail (file);
+	fn = anjuta_get_full_filename (file);
+	g_return_if_fail (fn);
+	
+	node = app->text_editor_list;
+	while (node)
+	{
+		te = (TextEditor *) node->data;
+		if (te->full_filename == NULL)
+		{
+			node = g_list_next (node);
+			continue;
+		}
+		if (strcmp (fn, te->full_filename) == 0)
+		{
+			if (line >= 0)
+				text_editor_set_indicator (te, line, indicator);
+			g_free (fn);
+			return;
+		}
+		node = g_list_next (node);
+	}
+	g_free (fn);
 }
 
 void

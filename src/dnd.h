@@ -28,8 +28,6 @@
 #ifndef _DND_H_
 #define _DND_H_
 
-BEGIN_GNOME_DECLS
-
 /*
  * Maximum number of mime types that the widget can handle droppings for.
  */
@@ -55,7 +53,5 @@ dnd_drop_init (GtkWidget *widget,
 
 void 
 scintilla_uri_dropped(const char *uri);
-
-END_GNOME_DECLS
 
 #endif	/* _DND_H_ */

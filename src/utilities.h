@@ -107,7 +107,7 @@ gboolean parse_error_line(const gchar *line, gchar **filename, int *lineno);
 /***********************************************************************************/
 
 /* Get a fixed font */
-GdkFont* get_fixed_font (void);
+PangoFontDescription* get_fixed_font (void);
 
 /* Rather tough */
 gboolean read_string(FILE* stream, gchar* token, gchar **str);
@@ -116,10 +116,10 @@ gboolean write_string(FILE* stream, gchar* token, gchar *str);
 gboolean write_line(FILE* stream, gchar *str);
 
 /* Get the filename */
-char* extract_filename(gchar* full_filename);
+const gchar* extract_filename (const gchar* full_filename);
 
 /* Get directory of file, return value must be g_freed */
-char* extract_directory(char* full_filename);
+gchar* extract_directory (const gchar* full_filename);
 
 /* Adds the given string in the list, if it does not already exist. */
 /* The added string will come at the top of the list */
@@ -246,7 +246,7 @@ free_string_list ( GList * pList );
  * Escapes single and double quotes in the given string *
  * Return string must be g_freed()                      *
  ********************************************************/
-gchar* anjuta_util_escape_quotes(gchar* str);
+gchar* anjuta_util_escape_quotes(const gchar* str);
 
 /********************************************************
  * Use this function instead of kill() to send a signal *
@@ -267,5 +267,12 @@ gchar *get_relative_file_name(gchar *dir, gchar *file);
 
 /* Checks if the file exists in the given directory or any of it's subdirectories */
 gboolean is_file_in_dir(const gchar *file, const gchar *dir);
+
+/* Check which gnome-terminal is installed
+ Returns: 0 -- No gnome-terminal
+ Returns: 1 -- Gnome1 gnome-terminal
+ Returns: 2 -- Gnome2 gnome-terminal */
+
+gint anjuta_util_check_gnome_terminal (void);
 
 #endif

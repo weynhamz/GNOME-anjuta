@@ -6,7 +6,7 @@
 
 EXTRA_DIST = create_global_tags.sh
 
-AM_CFLAGS = -I$(top_srcdir)/tagmanager/include -Wall $(GLIB_CFLAGS)
+INCLUDES = -I$(top_srcdir)/tagmanager/include -Wall $(GLIB_CFLAGS)
 
 noinst_PROGRAMS = tm_global_tags
 

@@ -65,9 +65,9 @@ on_search_in_files_clear_clicked       (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_search_in_files_clist_select_row                   (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
+on_search_in_files_clist_row_activated  (GtkTreeView     *treeview,
+                                        GtkTreePath     *arg1,
+                                        GtkTreeViewColumn *arg2,
                                         gpointer         user_data);
+
 #endif

@@ -61,7 +61,7 @@
     <title>Supports dialog</title>
     <screenshot>
 	<screeninfo>Supports dialog</screeninfo>
-     <graphic fileref="figures/supports" format="png" srccredit="andyp"></graphic>
+     <graphic fileref="figures/supports" format="png" srccredit="andyp">
     </screenshot>
    </figure>
    
@@ -72,7 +72,7 @@
    </para>
    
    <important>
-   <title>Important</title>
+   <title>Available supports</title>
    <para>
     Currently, <application>Anjuta</application> has only a few library support 
 	options &mdash; Glib, GTK, GNOME and Bonobo. Some of these are not yet 
@@ -81,7 +81,7 @@
    </important>
    
    <note>
-    <title>Remember</title>
+    <title>Compiler options for supports</title>
     <para>
      Once basic library supports have been specified, there is no need to
      manually set the basic compiler options usually required for these libraries. 
@@ -137,13 +137,13 @@
      <title>Include Paths dialog</title>
      <screenshot>
 	 <screeninfo>Include Paths dialog</screeninfo>
-      <graphic fileref="figures/includes" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/includes" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
    
    <note>
-    <title>Things to note</title>
+    <title>Absolute or Relative include paths?</title>
     <para>
      If the settings are for a project, then all include paths 
      should be relative to the source directory of the project. Avoid using absolute 
@@ -212,13 +212,13 @@
      <title>Library Paths dialog</title>
      <screenshot>
 	 <screeninfo>Library Paths dialog</screeninfo>
-      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/lib_paths" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
    
    <note>
-    <title>Things to note</title>
+    <title>Absolute or Relative include paths?</title>
     <para>
      If the settings are for a project, then all library paths 
      should be relative to the source directory of the project. Avoid using absolute 
@@ -259,7 +259,7 @@
      <title>Libraries dialog</title>
      <screenshot>
 	 <screeninfo>Libraries dialog</screeninfo>
-      <graphic fileref="figures/libraries" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/libraries" format="png" srccredit="andyp">
      </screenshot>
    </figure>
    <para>
@@ -292,10 +292,11 @@
       </para>
       <para>
        <note>
-        <title>Remember</title>
+        <title>Object module paths</title>
         <para>
          Object modules must be specified with an explicit path and must start
-         with an asterisk (*).
+         with an asterisk (*). Explicit path means the path should be relative path of the object
+         from the source dir and the filename should be complete (eg. ../../lib/diagram.o).
         </para>
        </note>
       </para>
@@ -380,7 +381,7 @@
      <title>Defines dialog</title>
      <screenshot>
 	 <screeninfo>Defines dialog</screeninfo>
-      <graphic fileref="figures/defines" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/defines" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -424,7 +425,7 @@
      <title>Warnings dialog</title>
      <screenshot>
 	 <screeninfo>Warnings dialog</screeninfo>
-      <graphic fileref="figures/warnings" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/warnings" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -456,7 +457,7 @@
      <title>Optimization dialog</title>
      <screenshot>
 	 <screeninfo>Optimization dialog</screeninfo>
-      <graphic fileref="figures/optimizations" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/optimizations" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>
@@ -501,7 +502,7 @@
      <title>Other Compiler Settings dialog</title>
      <screenshot>
 	 <screeninfo>Other Compiler Settings dialog</screeninfo>
-      <graphic fileref="figures/other_opts" format="png" srccredit="andyp"></graphic>
+      <graphic fileref="figures/other_opts" format="png" srccredit="andyp">
      </screenshot>
     </figure>
    </para>

@@ -92,7 +92,7 @@ build_file ()
 		return;
 	}
 
-	dirname = g_dirname (te->full_filename);
+	dirname = extract_directory (te->full_filename);
 	chdir (dirname);
 	anjuta_set_execution_dir(dirname);
 	g_free (dirname);

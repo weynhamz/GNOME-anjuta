@@ -46,38 +46,21 @@ struct _CompilerOptionsGui
 	GtkWidget *window;
 
 	GtkWidget *supp_clist;
-	GtkWidget *supp_info_b;
-
 	GtkWidget *inc_clist;
 	GtkWidget *inc_entry;
-	GtkWidget *inc_add_b;
-	GtkWidget *inc_update_b;
-	GtkWidget *inc_remove_b;
-	GtkWidget *inc_clear_b;
 
 	GtkWidget *lib_paths_clist;
 	GtkWidget *lib_paths_entry;
-	GtkWidget *lib_paths_add_b;
-	GtkWidget *lib_paths_update_b;
-	GtkWidget *lib_paths_remove_b;
-	GtkWidget *lib_paths_clear_b;
 
 	GtkWidget *lib_clist;
 	GtkWidget *lib_stock_clist;
 	GtkWidget *lib_entry;
-	GtkWidget *lib_add_b;
-	GtkWidget *lib_update_b;
-	GtkWidget *lib_remove_b;
-	GtkWidget *lib_clear_b;
 
 	GtkWidget *def_clist;
+	GtkWidget *def_stock_clist;
 	GtkWidget *def_entry;
-	GtkWidget *def_add_b;
-	GtkWidget *def_update_b;
-	GtkWidget *def_remove_b;
-	GtkWidget *def_clear_b;
 
-	GtkWidget *warning_button[16];
+	GtkWidget *warnings_clist;
 	GtkWidget *optimize_button[4];
 	GtkWidget *other_button[2];
 
@@ -95,14 +78,6 @@ struct _CompilerOptions
 	gint lib_paths_index;
 	gint def_index;
 
-	gboolean warning_button_state[16];
-	gboolean optimize_button_state[16];
-	gboolean other_button_state[16];
-
-	gchar *other_c_flags;
-	gchar *other_l_flags;
-	gchar *other_l_libs;
-
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y;
 
@@ -116,14 +91,6 @@ struct _CompilerOptions
 };
 
 extern gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK];
-
-void co_clist_row_data_set_true (GtkTreeView *treeview, gint row);
-void co_clist_row_data_set_false (GtkTreeView *treeview, gint row);
-gboolean co_clist_row_data_get_state (GtkTreeView *treeview, gint row);
-void co_clist_row_data_set_state (GtkTreeView *treeview, gint row, gboolean state);
-void co_clist_row_data_toggle_state (GtkTreeView *treeview, gint row);
-
-void create_compiler_options_gui (CompilerOptions * co);
 
 CompilerOptions *compiler_options_new (PropsID props);
 void compiler_options_destroy (CompilerOptions *);
@@ -145,8 +112,5 @@ void compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp);
 
 /* private */
 void compiler_options_set_in_properties (CompilerOptions* co, PropsID props);
-
-void compiler_options_connect_signals(CompilerOptions* co);
-void compiler_options_disconnect_signals(CompilerOptions* co);
 
 #endif

@@ -26,6 +26,8 @@
 #include <zvt/zvtterm.h>
 
 #include "message-manager.h"
+#include "debug_tree.h"
+#include "watch.h"
 
 using std::vector;
 using std::string;
@@ -70,6 +72,7 @@ class MessageSubwindow
 		
 		virtual void show() = 0;
 		virtual void hide() = 0;
+		virtual void clear() = 0;
 		
 		void activate();
 	
@@ -136,16 +139,42 @@ class TerminalWindow : public MessageSubwindow
 	
 		void show();
 		void hide();
+		void clear() { }
+		
 	private:
 		GtkWidget* m_frame;
 		GtkWidget* m_hbox;
 		GtkWidget* m_terminal;
 		GtkWidget* m_scrollbar;
+		char termenv[255];
     
 		static gboolean zvterm_mouse_clicked(GtkWidget* widget, GdkEvent* event, gpointer user_data);
 		static void zvterm_reinit_child(ZvtTerm* term);
 		static void zvterm_terminate(ZvtTerm* term);
 		static int zvterm_focus_in(ZvtTerm* term, GdkEventFocus* event); 
+};
+
+class LocalsWindow : public MessageSubwindow
+{
+	public:
+	
+		LocalsWindow(AnjutaMessageManager* p_amm,
+					 int p_type_id,
+					 string p_type,
+					 string p_pixmap);
+	
+		~LocalsWindow();
+		
+		void show();
+		void hide();
+		void update_view(GList* list);
+		void clear();
+	
+	private:
+	
+		GtkWidget* m_frame;
+		DebugTree* m_debug_tree;
+		GtkWidget* m_scrollbar;
 };
 
 void connect_menuitem_signal(GtkWidget* item, MessageSubwindow* msg_win);

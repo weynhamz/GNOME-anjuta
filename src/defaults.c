@@ -271,7 +271,7 @@ char* default_settings=
 "command.build.clean=$(make) $(anjuta.make.options) clean\n"
 "command.build.clean.all=$(make) $(anjuta.make.options) distclean\n"
 "command.execute.project=./$(project.source.target) $(anjuta.program.arguments)\n"
-"command.terminal=gnome-terminal --command=\"$(anjuta.current.command)\"\n"
+"command.terminal=gnome-terminal --command=\"sh -c \\\"$(anjuta.current.command); read x\\\"\"\n"
 "anjuta.compiler.flags=-O -g\n"
 "anjuta.linker.flags=\n"
 "command.view.file.$(file.patterns.icon)=gnome-iconedit $(current.file.name.ext)\n"

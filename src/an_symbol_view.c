@@ -58,27 +58,47 @@ static char *sv_root_names[] = {
 static AnSymbolView *sv = NULL;
 static GdkPixbuf **sv_pixbufs = NULL;
 
-static SymbolFileInfo *
-symbol_file_info_new (TMSymbol *sym)
+static SymbolFileInfo *symbol_file_info_new(TMSymbol *sym)
 {
 	SymbolFileInfo *sfile = g_new0(SymbolFileInfo, 1);
-
-	if (sym && sym->tag && sym->tag->atts.entry.file) {
+	if (sym && sym->tag && sym->tag->atts.entry.file)
+	{
 		sfile->sym_name = g_strdup(sym->tag->name);
 		sfile->def.name = g_strdup(sym->tag->atts.entry.file->work_object.file_name);
 		sfile->def.line = sym->tag->atts.entry.line;
-
-		if ((tm_tag_function_t == sym->tag->type) && sym->info.equiv) {
+		if ((tm_tag_function_t == sym->tag->type) && sym->info.equiv)
+		{
 			sfile->decl.name = g_strdup(sym->info.equiv->atts.entry.file->work_object.file_name);
 			sfile->decl.line = sym->info.equiv->atts.entry.line;
 		}
 	}
-
 	return sfile;
 }
 
-static void
-symbol_file_info_free(SymbolFileInfo *sfile)
+static SymbolFileInfo *symbol_file_info_dup(SymbolFileInfo *from)
+{
+	if (NULL != from)
+	{
+		SymbolFileInfo *to = g_new0(SymbolFileInfo, 1);
+		if (from->sym_name)
+			to->sym_name = g_strdup(from->sym_name);
+		if (from->def.name)
+		{
+			to->def.name = g_strdup(from->def.name);
+			to->def.line = from->def.line;
+		}
+		if (from->decl.name)
+		{
+			to->decl.name = g_strdup(from->decl.name);
+			to->decl.line = from->decl.line;
+		}
+		return to;
+	}
+	else
+		return NULL;
+}
+
+static void symbol_file_info_free(SymbolFileInfo *sfile)
 {
 	if (sfile)
 	{
@@ -322,17 +342,22 @@ sv_on_event (GtkWidget *widget,
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-
+	SymbolFileInfo *info;
+	
 	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
 
 	view = GTK_TREE_VIEW (widget);
 	model = gtk_tree_view_get_model (view);
 	selection = gtk_tree_view_get_selection (view);
 
-	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
+	if (!gtk_tree_selection_get_selected (selection, NULL, &iter) || !event)
 		return FALSE;
 
-	gtk_tree_mode_get (model, &iter, SVFILE_ENTRY_COLUMN, &sv->sinfo, -1);
+	gtk_tree_mode_get (model, &iter, SVFILE_ENTRY_COLUMN, &info, -1);
+	
+	if (sv->sinfo)
+		symbol_file_info_free(sv->sinfo);
+	sv->sinfo = symbol_file_info_dup(info);
 
 	if (event->type == GDK_BUTTON_PRESS) {
 		GdkEventButton *e = (GdkEventButton *) event;
@@ -452,6 +477,7 @@ sv_create ()
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMNS_NB,
 				    G_TYPE_STRING,
+					G_TYPE_STRING,
 				    G_TYPE_POINTER);
 	g_signal_connect (store, "row_deleted", G_CALLBACK (on_symbol_model_row_deleted), NULL);
 
@@ -503,9 +529,19 @@ sv_clear ()
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
-static void
-sv_assign_node_name (TMSymbol *sym,
-		     GString  *s)
+void sv_hide(void)
+{
+	g_return_if_fail(sv && sv->tree);
+	gtk_widget_hide(sv->tree);
+}
+
+void sv_show(void)
+{
+	g_return_if_fail(sv && sv->tree);
+	gtk_widget_show(sv->tree);
+}
+
+static void sv_assign_node_name(TMSymbol *sym, GString *s)
 {
 	g_assert (sym && sym->tag && s);
 
@@ -529,12 +565,17 @@ sv_assign_node_name (TMSymbol *sym,
 AnSymbolView *
 sv_populate (gboolean full)
 {
-        GtkTreeStore *store;
+	GtkTreeStore *store;
 	GtkTreeIter iter;
 	GtkTreeIter root[sv_root_max_t + 1];
 	SymbolFileInfo *sfile;
 	TMSymbol *symbol_tree = NULL;
+	static gboolean busy = FALSE;
 	GString *s;
+	char *arr[1];
+	// TMSymbol *sym, *sym1, *symbol_tree;
+	// SVNodeType type;
+	GtkTreeIter *selected_item[] = {NULL, NULL, NULL};
 	SVRootType root_type;
 	int i;
 
@@ -544,6 +585,11 @@ sv_populate (gboolean full)
 
 	if (!sv)
 		sv_create();
+
+	if (busy)
+		return sv;
+	else
+		busy = TRUE;
 
 	sv_disconnect ();
 	sv_freeze ();
@@ -558,6 +604,7 @@ sv_populate (gboolean full)
 				    NAME_COLUMN, sv_root_names[root_type],
 				    -1);
 	}
+	// root[sv_root_max_t] = NULL;
 
 	if (!full)
 		goto clean_leave;
@@ -576,13 +623,15 @@ sv_populate (gboolean full)
 		goto clean_leave;
 	}
 
+	sv_hide();
 	s = g_string_sized_new (MAX_STRING_LENGTH);
 
 	for (i = 0; i < symbol_tree->info.children->len; ++i) {
 		TMSymbol *sym = TM_SYMBOL(symbol_tree->info.children->pdata[i]);
 		SVNodeType type;
 		GtkTreeIter parent_item;
-
+		gboolean has_children;
+		
 		if (!sym || ! sym->tag || !sym->tag->atts.entry.file)
 			continue ;
 
@@ -599,26 +648,42 @@ sv_populate (gboolean full)
 			g_string_insert(s, 0,"::");
 			g_string_insert(s, 0, sym->tag->atts.entry.scope);
 		}
-
+		
+		arr[0] = s->str;
+		if ((tm_tag_function_t != sym->tag->type) &&
+			(sym->info.children) && (sym->info.children->len > 0))
+			has_children = TRUE;
+		else
+			has_children = FALSE;
 		sfile = symbol_file_info_new (sym);
-
 		gtk_tree_store_append (store, &iter, &parent_item);
 		gtk_tree_store_set (store, &iter,
 				    PIXBUF_COLUMN, sv_pixbufs[type],
 				    NAME_COLUMN, s->str,
 				    SVFILE_ENTRY_COLUMN, sfile,
 				    -1);
-
-		/* if it has children */
-		if (tm_tag_function_t != sym->tag->type &&
-		    sym->info.children &&
-		    sym->info.children->len > 0) {
+		if (sv->sinfo && NULL == selected_item[0])
+		{
+			if (0 == strcmp(sv->sinfo->sym_name, sfile->sym_name))
+			{
+				if (0 == strcmp(NVL(sv->sinfo->def.name, "")
+				  , NVL(sfile->def.name, "")))
+				{
+					selected_item[0] = gtk_tree_iter_copy(&iter);
+					selected_item[1] = gtk_tree_iter_copy(&parent_item);
+				}
+			}
+		}
+		while (gtk_events_pending())
+			gtk_main_iteration();
+		
+		if (has_children)
+		{
 			int j;
 
 			for (j = 0; j < sym->info.children->len; ++j) {
 				TMSymbol *sym1 = TM_SYMBOL (sym->info.children->pdata[j]);
 				GtkTreeIter sub_iter;
-
 				if (!sym1 || ! sym1->tag || ! sym1->tag->atts.entry.file)
 					continue;
 
@@ -629,23 +694,59 @@ sv_populate (gboolean full)
 
 				sv_assign_node_name (sym1, s);
 
+				arr[0] = s->str;
 				sfile = symbol_file_info_new (sym1);
-
 				gtk_tree_store_append (store, &sub_iter, &iter);
 				gtk_tree_store_set (store, &iter,
 						    PIXBUF_COLUMN, sv_pixbufs[type],
 						    NAME_COLUMN, s->str,
 						    SVFILE_ENTRY_COLUMN, sfile,
 						    -1);
+				if (sv->sinfo && NULL == selected_item[0])
+				{
+					if (0 == strcmp(sv->sinfo->sym_name, sfile->sym_name))
+					{
+						if (0 == strcmp(NVL(sv->sinfo->def.name, "")
+				  		, NVL(sfile->def.name, "")))
+						{
+							selected_item[0] = gtk_tree_iter_copy(&sub_iter);
+							selected_item[1] = gtk_tree_iter_copy(&sub_iter);
+							selected_item[1] = gtk_tree_iter_copy(&parent_item);
+						}
+					}
+				}
+				while (gtk_events_pending())
+					gtk_main_iteration();
 			}
 		}
 	}
-
 	g_string_free (s, TRUE);
 	tm_symbol_tree_free (symbol_tree);
+	
+	if (selected_item[0])
+	{
+		int i;
+
+		for (i=0; i <3; ++ i)
+		{
+			if (selected_item[i])
+				gtk_tree_view_expand(GTK_TREE_VIEW(sv->tree), selected_item[i]);
+		}
+		gtk_tree_view_select(GTK_TREE_VIEW(sv->tree), selected_item[0]);
+		// gtk_ctree_node_moveto((GtkCTree *) sv->tree, selected_item[0], 0, .5, 0);
+		if (selected_item[0])
+			gtk_tree_iter_free (selected_item[0]);
+		if (selected_item[1])
+			gtk_tree_iter_free (selected_item[1]);
+		if (selected_item[2])
+			gtk_tree_iter_free (selected_item[2]);
+	}
+	
+	sv_show();
 
 clean_leave:
 	sv_connect ();
-
+	sv_thaw ();
+	busy = FALSE;
 	return sv;
 }

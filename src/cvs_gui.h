@@ -43,14 +43,9 @@ enum
 struct _CVSFileGUI
 {
 	GtkWidget* dialog;
-	
 	GtkWidget* entry_file;
 	GtkWidget* entry_branch;
 	GtkWidget* text_message; /* only in Commit Dialog */
-	
-	GtkWidget* action_button;
-	GtkWidget* cancel_button;
-	
 	int type;
 };
 
@@ -88,9 +83,6 @@ struct _CVSFileDiffGUI
 	GtkWidget* entry_date;
 	GtkWidget* entry_rev;
 	GtkWidget* check_date;
-	
-	GtkWidget* diff_button;
-	GtkWidget* cancel_button;
 };
 
 extern gchar *server_types[4];

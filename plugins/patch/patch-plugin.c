@@ -17,9 +17,11 @@
 #include "../../src/anjuta.h"
 #include "../../src/launcher.h"
 #include "../../src/anjuta_info.h"
+#include "../../src/anjuta-plugins.h"
 
 gchar   *GetDescr       (void);
 glong    GetVersion     (void);
+gchar *GetMenu(void);
 gboolean Init           (GModule *self, void **pUserData, AnjutaApp* p);
 void     CleanUp        (GModule *self, void *pUserData, AnjutaApp* p);
 void     Activate       (GModule *self, void *pUserData, AnjutaApp* p);
@@ -64,6 +66,11 @@ GetVersion()
 	return 0x100000;
 }
 
+gchar *GetMenu(void)
+{
+	return g_strdup("format");
+}
+
 gboolean
 Init( GModule *self, void **pUserData, AnjutaApp* p )
 {
@@ -94,6 +101,7 @@ Activate( GModule *self, void *pUserData, AnjutaApp* p)
 	gui = g_new0 (PatchPluginGUI, 1);
 	
 	gui->dialog = gnome_dialog_new (_("Patch Plugin"), _("Cancel"), _("Patch"), NULL);
+	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(p->widgets.window));
 	gui->entry_patch_dir = gnome_file_entry_new ("patch-dir", 
 	_("Selected directory to patch"));
 	gui->entry_patch_file = gnome_file_entry_new ("patch-file",
@@ -144,8 +152,8 @@ gchar
 
 static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 {
-	gchar* directory;
-	gchar* patch_file;
+	const gchar* directory;
+	const gchar* patch_file;
 	GString* command = g_string_new (NULL);
 	gchar* message;
 	

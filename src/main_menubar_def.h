@@ -29,80 +29,80 @@ static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_New"),
 	 N_("New file"),
 	 on_new_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
+	 GNOME_APP_PIXMAP_STOCK, "gtk-new",
 	 GDK_N, GDK_CONTROL_MASK, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Open ..."),
 	 N_("Open file"),
 	 on_open1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OPEN,
 	 GDK_O, GDK_CONTROL_MASK, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_Save"),
 	 N_("Save current file"),
 	 on_save1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_SAVE,
 	 GDK_S, GDK_CONTROL_MASK, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Save _As ..."),
 	 N_("Save the current file with a different name"),
 	 on_save_as1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE_AS,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_SAVE_AS,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("Save A_ll"),
 	 N_("Save all currently open files, except new files"),
 	 on_save_all1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_SAVE,
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Close File"),
 	 N_("Close current file"),
 	 on_close_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
 	 GDK_W, GDK_CONTROL_MASK, NULL},
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Close All Files"),
 	 N_("Close all files"),
 	 on_close_all_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
 	 GDK_D, GDK_MOD1_MASK, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("Reload F_ile"),
 	 N_("Reload current file"),
 	 on_reload_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REVERT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REVERT_TO_SAVED,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*8*/
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("N_ew Project ..."),
 	 N_("Create a Project using the Application Wizard"),
 	 on_new_project1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_NEW,
 	 0, 0, NULL},
 	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("_Import Project ..."),
 	 N_("Import an existing code project using the Project Import Wizard"),
 	 on_import_project_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CONVERT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONVERT,
 	 0, 0, NULL},
 	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Open P_roject ..."),
 	 N_("Open a Project"),
 	 on_open_project1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OPEN,
 	 GDK_J, GDK_CONTROL_MASK, NULL},
 	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("Sa_ve Project"),
 	 N_("Save the current Project"),
 	 on_save_project1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_SAVE,
 	 0, 0, NULL},
 	{/*13*/
 	 GNOME_APP_UI_ITEM, N_("Close Pro_ject"),
 	 N_("Close the current Project"),
 	 on_close_project1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*14*/
 	{/*15*/
@@ -122,7 +122,7 @@ static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Print"),
 	 N_("Print the current file"),
 	 anjuta_print_cb, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PRINT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PRINT,
 	 GDK_P, GDK_MOD1_MASK, NULL},
 	{/*19*/
 	 GNOME_APP_UI_ITEM, N_("_Print Preview"),
@@ -154,14 +154,14 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	 /* 0 */
 	 GNOME_APP_UI_ITEM, N_("_Make Selection Uppercase"),
 	 N_("Make the selected text uppercase"),
-	 on_transform_upper1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_UPRCASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Make Selection Lowercase"),
 	 N_("Make the selected text lowercase"),
-	 on_transform_lower1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_LWRCASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 /* 2 */
@@ -203,19 +203,19 @@ static GnomeUIInfo select1_submenu_uiinfo[NUM_SELECT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Select All"),
 	 N_("Select all text in the editor"),
-	 on_select_all1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_SELECTALL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_A, GDK_CONTROL_MASK, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Select to _Brace"),
 	 N_("Select the text in the matching braces"),
-	 on_select_matchbrace1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_SELECTTOBRACE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_A, GDK_MOD1_MASK, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Select Code Block"),
 	 N_("Select the current code block"),
-	 on_select_block1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_SELECTBLOCK, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_B, GDK_MOD1_MASK, NULL},
 	GNOMEUIINFO_END/*3*/
@@ -261,11 +261,11 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
         0, 0, NULL},
 		{/*6*/
 		GNOME_APP_UI_ITEM, N_("ChangeLog entry"),
-    N_("Insert a ChangeLog entry"),
-    on_insert_changelog_entry, NULL, NULL,
-    GNOME_APP_PIXMAP_NONE, NULL,
-    0, 0, NULL},
-    GNOMEUIINFO_END/*7*/
+        N_("Insert a ChangeLog entry"),
+        on_insert_changelog_entry, NULL, NULL,
+        GNOME_APP_PIXMAP_NONE, NULL,
+        0, 0, NULL},
+        GNOMEUIINFO_END/*7*/
 };
 
 #define NUM_TEMPLATE_C_SUBMENUS 4
@@ -379,7 +379,70 @@ static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
     GNOMEUIINFO_END/*4*/
 };
 
-#define NUM_GOTO_SUBMENUS 10
+#define NUM_COMMENT_SUBMENUS 3
+static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
+	{/*0*/
+	 GNOME_APP_UI_ITEM, N_("Block Comment/Uncomment"),
+	 N_("Block comment the selected text"),
+	 on_comment_block, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*1*/
+	 GNOME_APP_UI_ITEM, N_("Box Comment"),
+	 N_("Box comment the selected text"),
+	 on_comment_box, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*2*/
+	 GNOME_APP_UI_ITEM, N_("Stream Comment"),
+	 N_("Stream comment the selected text"),
+	 on_comment_stream, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*10*/
+};
+
+#define NUM_FIND_SUBMENUS 5
+static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
+	{/*0*/
+	 GNOME_APP_UI_ITEM, N_("_Find ..."),
+	 N_("Search for a string or regular expression in the editor"),
+	 on_find1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
+	 GDK_F, GDK_CONTROL_MASK, NULL},
+	
+	{/*1*/
+	 GNOME_APP_UI_ITEM, N_("Find _Next"),
+	 N_("Repeat the last Find command"),
+	 on_findnext1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
+	 GDK_F6, GDK_SHIFT_MASK, NULL},
+	 
+	{/*2*/
+	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
+	N_("Search for and replace a string or regular expression with another string"),
+	on_find_and_replace1_activate, NULL, NULL,
+	GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND_AND_REPLACE,
+	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
+ 
+	{/*3*/
+	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
+	 N_("Search for a string in multiple files or directories"),
+	 on_find_in_files1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	
+	{/*4*/
+	 GNOME_APP_UI_ITEM, N_("_Enter Selection/I-Search"),
+	 N_("Enter the selected text as the search target"),
+	 on_enterselection, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_E, GDK_CONTROL_MASK, NULL},
+	
+	GNOMEUIINFO_END/*5*/
+};
+
+#define NUM_GOTO_SUBMENUS 12
 static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Goto Line number ..."),
@@ -390,7 +453,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Goto Matching _Brace"),
 	 N_("Go to the matching brace in the editor"),
-	 on_goto_matchbrace1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_MATCHBRACE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_M, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{/*2*/
@@ -432,33 +495,45 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 N_("Goto tag definition"),
-	 on_goto_tag_definition_activate, NULL, NULL,
+	 on_goto_tag_activate, (gpointer) TRUE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_D, GDK_CONTROL_MASK, NULL},
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
 	 N_("Goto tag declaration"),
-	 on_goto_tag_declaration_activate, NULL, NULL,
+	 on_goto_tag_activate, (gpointer) FALSE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
-	GNOMEUIINFO_END/*10*/
+	{/*10*/
+	 GNOME_APP_UI_ITEM, N_("Next occurrence"),
+	 N_("Find the next occurrence of current word"),
+	 on_next_occur, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, GDK_CONTROL_MASK, NULL}, 
+    {/*11*/
+	 GNOME_APP_UI_ITEM, N_("Previous occurrence"),
+	 N_("Find the previous occurrence of current word"),
+	 on_prev_occur, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, GDK_CONTROL_MASK, NULL},
+    
+	GNOMEUIINFO_END/*12*/
 };
 
-
-#define	NUM_EDIT_SUBMENUS	21
+#define	NUM_EDIT_SUBMENUS 17
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
 	 N_("Undo the last action"),
-	 on_undo1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_UNDO,
+	 on_editor_command_activate, (gpointer) ANE_UNDO, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_UNDO,
 	 GDK_Z, GDK_CONTROL_MASK, NULL},
 
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Redo"),
 	 N_("Redo the last undone action"),
-	 on_redo1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REDO,
+	 on_editor_command_activate, (gpointer) ANE_REDO, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REDO,
 	 GDK_R, GDK_CONTROL_MASK, NULL},
 
 	 GNOMEUIINFO_SEPARATOR,/*2*/
@@ -466,28 +541,28 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("C_ut"),
 	 N_("Cut the selected text from the editor to the clipboard"),
-	 on_cut1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CUT,
+	 on_editor_command_activate, (gpointer) ANE_CUT, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CUT,
 	 GDK_X, GDK_CONTROL_MASK, NULL},
 	
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Copy"),
 	 N_("Copy the selected text to the clipboard"),
-	 on_copy1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
+	 on_editor_command_activate, (gpointer) ANE_COPY, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
 	 GDK_C, GDK_CONTROL_MASK, NULL},
 	
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Paste"),
 	 N_("Paste the content of clipboard at the current position"),
-	 on_paste1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
+	 on_editor_command_activate, (gpointer) ANE_PASTE, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PASTE,
 	 GDK_V, GDK_CONTROL_MASK, NULL},
 	
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("C_lear"),
 	 N_("Delete the selected text from the editor"),
-	 on_clear1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_CLEAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Delete, 0, NULL},
 	
@@ -514,67 +589,42 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*11*/
-	
-	{/*12*/
-	 GNOME_APP_UI_ITEM, N_("_AutoComplete"),
-	 N_("AutoComplete the current word"),
-	 on_autocomplete1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_Return, GDK_CONTROL_MASK, NULL},
-	
-	{/*13*/
-	 GNOME_APP_UI_ITEM, N_("S_how calltip"),
-	 N_("Show calltip for the function"),
-	 on_calltip1_activate, NULL, NULL,
+	{/*11*/
+	 GNOME_APP_UI_SUBTREE, N_("Co_mment code"),
+	 NULL,
+	 comment_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-
-	 GNOMEUIINFO_SEPARATOR,/*14*/
-	
-	{/*15*/
-	 GNOME_APP_UI_ITEM, N_("_Find ..."),
-	 N_("Search for a string or regular expression in the editor"),
-	 on_find1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F, GDK_CONTROL_MASK, NULL},
-	
-	{/*16*/
-	 GNOME_APP_UI_ITEM, N_("Find _Next"),
-	 N_("Repeat the last Find command"),
-	 on_findnext1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_F6, GDK_SHIFT_MASK, NULL},
-	 
-	{/*17*/
-	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
-	N_("Search for and replace a string or regular expression with another string"),
-	on_find_and_replace1_activate, NULL, NULL,
-	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
-	GDK_F, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
- 
-	{/*18*/
-	 GNOME_APP_UI_ITEM, N_("Fin_d in Files ..."),
-	 N_("Search for a string in multiple files or directories"),
-	 on_find_in_files1_activate, NULL, NULL,
+    {/*12*/
+	 GNOME_APP_UI_SUBTREE, N_("_Search"),
+	 NULL,
+	 find_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	
-	{/*19*/
-	 GNOME_APP_UI_ITEM, N_("_Enter Selection"),
-	 N_("Enter the selected text as the search target"),
-	 on_enterselection, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_E, GDK_CONTROL_MASK, NULL},
-	
-	{/*20*/
+    {/*13*/
 	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
 	 NULL,
 	 goto1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	/*21*/
+	GNOMEUIINFO_SEPARATOR,/*14*/
+	
+	{/*15*/
+	 GNOME_APP_UI_ITEM, N_("_AutoComplete"),
+	 N_("AutoComplete the current word"),
+	 on_editor_command_activate, (gpointer) ANE_COMPLETEWORD, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_Return, GDK_CONTROL_MASK, NULL},
+	
+	{/*16*/
+	 GNOME_APP_UI_ITEM, N_("S_how calltip"),
+	 N_("Show calltip for the function"),
+	 on_calltip1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+
+	/*17*/
 	GNOMEUIINFO_END
 };
 
@@ -583,31 +633,31 @@ static GnomeUIInfo toolbar1_submenu_uiinfo[NUM_TOOLBAR_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Main Toolbar"),
 	 N_("Hide/Unhide Main toolbar"),
-	 on_main_toolbar1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BLANK,
+	 on_anjuta_toolbar_activate, ANJUTA_MAIN_TOOLBAR, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Extended Toolbar"),
 	 N_("Hide/Unhide Extended toolbar"),
-	 on_extended_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_EXTENDED_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Debug Toolbar"),
 	 N_("Hide/Unhide Debug toolbar"),
-	 on_debug_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_DEBUG_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Browser Toolbar"),
 	 N_("Hide/Unhide Browser toolbar"),
-	 on_browser_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_BROWSER_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Format Toolbar"),
 	 N_("Hide/Unhide Format toolbar"),
-	 on_format_toolbar1_activate, NULL, NULL,
+	 on_anjuta_toolbar_activate, ANJUTA_FORMAT_TOOLBAR, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*5*/
@@ -619,7 +669,7 @@ static GnomeUIInfo editor1_submenu_uiinfo[NUM_EDITOR_SUBMENUS+1] = {
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Line numbers margin"),
 	 N_("Show/Hide line numbers"),
 	 on_editor_linenos1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BLANK,
+	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Markers Margin"),
@@ -635,7 +685,7 @@ static GnomeUIInfo editor1_submenu_uiinfo[NUM_EDITOR_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Indentation guides"),
-	 N_("Show/Hide undentation guides"),
+	 N_("Show/Hide indentation guides"),
 	 on_editor_indentguides1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -665,67 +715,67 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[NUM_ZOOMTEXT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("++ Zoom"),
 	 N_("Increase text zoom by 1 unit"),
-	 on_zoom_text_plus_activate, NULL, NULL,
+	 on_zoom_text_activate, "++", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("+8"),
 	 N_("Zoom factor +8"),
-	 on_zoom_text_8_activate, NULL, NULL,
+	 on_zoom_text_activate, "+8", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("+6"),
 	 N_("Zoom factor +6"),
-	 on_zoom_text_6_activate, NULL, NULL,
+	 on_zoom_text_activate, "+6", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("+4"),
 	 N_("Zoom factor +4"),
-	 on_zoom_text_4_activate, NULL, NULL,
+	 on_zoom_text_activate, "+4", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("+2"),
 	 N_("Zoom factor +2"),
-	 on_zoom_text_2_activate, NULL, NULL,
+	 on_zoom_text_activate, "+2", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("0"),
 	 N_("Zoom factor 0"),
-	 on_zoom_text_0_activate, NULL, NULL,
+	 on_zoom_text_activate, "00", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("-2"),
 	 N_("Zoom factor -2"),
-	 on_zoom_text_s2_activate, NULL, NULL,
+	 on_zoom_text_activate, "-2", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("-4"),
 	 N_("Zoom factor -4"),
-	 on_zoom_text_s4_activate, NULL, NULL,
+	 on_zoom_text_activate, "-4", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("-6"),
 	 N_("Zoom factor -6"),
-	 on_zoom_text_s6_activate, NULL, NULL,
+	 on_zoom_text_activate, "-6", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("-8"),
 	 N_("Zoom factor -8"),
-	 on_zoom_text_s8_activate, NULL, NULL,
+	 on_zoom_text_activate, "-8", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("-- Zoom"),
 	 N_("Reduce text zoom by 1 unit"),
-	 on_zoom_text_minus_activate, NULL, NULL,
+	 on_zoom_text_activate, "--", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*11*/
@@ -737,13 +787,13 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Message window"),
 	 N_("Show/Hide the Message window"),
 	 on_messages1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_JUSTIFY_LEFT,
 	 GDK_F1, GDK_CONTROL_MASK, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Project window"),
 	 N_("Show/Hide the Project window"),
 	 on_project_listing1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_JUSTIFY_LEFT,
 	 GDK_F2, GDK_CONTROL_MASK, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("B_ookmarks"),
@@ -818,7 +868,7 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Console"),
 	 N_("Show the console where the program runs"),
 	 on_console1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_MIDI,
+	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F11, GDK_CONTROL_MASK, NULL},
 	{/*17*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("Show _Locals"),
@@ -882,38 +932,38 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 GNOME_APP_UI_SUBTREE, N_("Add File"),
 	 NULL,
 	 add_file1_menu_uiinfo, NULL, NULL,
-	 PIX_STOCK(NEW),
+	 PIX_STOCK(GTK_STOCK_NEW),
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
 	 NULL,
 	 on_project_view1_activate, NULL, NULL,
-	 PIX_STOCK(BOOK_OPEN),
+	 PIX_STOCK(GTK_STOCK_DIALOG_INFO),
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 on_project_edit1_activate, NULL, NULL,
-	 PIX_STOCK(OPEN),
+	 PIX_STOCK(GTK_STOCK_OPEN),
 	 0, 0, NULL},
 	{/*3*/
-	 GNOME_APP_UI_ITEM, N_("Remove"),
+	 GNOME_APP_UI_ITEM, N_("Remove File"),
 	 NULL,
 	 on_project_remove1_activate, NULL, NULL,
-	 PIX_STOCK(CUT),
+	 PIX_STOCK(GTK_STOCK_CUT),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR, /*4*/
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Configure Project"),
 	 N_("Configure options for the current Project"),
 	 on_project_configure1_activate, NULL, NULL,
-	 PIX_STOCK(PREF),
+	 PIX_STOCK(GTK_STOCK_PREFERENCES),
 	 0, 0, NULL},
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Project Info"),
 	 N_("Display the Project information"),
 	 on_project_project_info1_activate, NULL, NULL,
-	 PIX_STOCK(PROP),
+	 PIX_STOCK(GTK_STOCK_PROPERTIES),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR, /*7*/
 	{/*8*/
@@ -926,13 +976,13 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("_Update tags image"),
 	 N_("Update the tags image of the Project/opened files"),
-	 on_update_tags1_activate, NULL, NULL,
-	 PIX_STOCK(FONT),
+	 on_update_tagmanager_activate, (gpointer) FALSE, NULL,
+	 PIX_STOCK(GTK_STOCK_SELECT_FONT),
 	 0, 0, NULL},
 	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Rebuild tags image"),
 	 N_("Rebuild the tags image of the Project"),
-	 on_rebuild_tags1_activate, NULL, NULL,
+	 on_update_tagmanager_activate, (gpointer) TRUE, NULL,
 	 PIX_FILE(TAG),
 	 0, 0, NULL},
 	 {/*12*/
@@ -946,7 +996,7 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Help"),
 	 NULL,
 	 on_project_help1_activate, NULL, NULL,
-	 PIX_STOCK(BOOK_YELLOW),
+	 PIX_STOCK(GTK_STOCK_DIALOG_INFO),
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*15*/
 };
@@ -957,7 +1007,7 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Automatic"),
 	 N_("Automatically determine the highlight style"),
 	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_AUTOMATIC), NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_EXEC,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EXECUTE,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("No Highlight style"),
@@ -1124,18 +1174,18 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Auto _Format"),
 	 N_("Autoformat the current source file"),
 	 on_indent1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_JUSTIFY_LEFT,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Increase Indent"),
 	 N_("Increase indentation of line/selection"),
-	 on_indent_inc1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_INDENT_INCREASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_Decrease Indent"),
 	 N_("Decrease indentation of line/selection"),
-	 on_indent_dcr1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_INDENT_DECREASE, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*3*/
@@ -1149,19 +1199,19 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("_Close All Folds"),
 	 N_("Close all code folds in the editor"),
-	 on_close_folds1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_CLOSE_FOLDALL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Open All Folds"),
 	 N_("Open all code folds in the editor"),
-	 on_open_folds1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_OPEN_FOLDALL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle Current Fold"),
 	 N_("Toggle current code fold in the editor"),
-	 on_toggle_fold1_activate, NULL, NULL,
+	 on_editor_command_activate, (gpointer) ANE_TOGGLE_FOLD, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*9*/
@@ -1180,7 +1230,7 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Compile"),
 	 N_("Compile the current source file"),
 	 on_compile1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CONVERT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONVERT,
 	 GDK_F9, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Compile With _Make"),
@@ -1192,7 +1242,7 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Build"),
 	 N_("Build the source directory of the Project or the current source file"),
 	 on_build_project1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_EXEC,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EXECUTE,
 	 GDK_F10, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Build _All"),
@@ -1251,20 +1301,20 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Stop Build"),
 	 N_("Stop the current compile or build process"),
 	 on_stop_build_make1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_STOP,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_STOP,
 	 GDK_F12, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*17*/
 	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("_Execute"),
 	 N_("Execute the program"),
 	 on_go_execute1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_JUMP_TO,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_JUMP_TO,
 	 GDK_F3, 0, NULL},
 	{/*19*/
 	 GNOME_APP_UI_ITEM, N_("Set _Program params ..."),
 	 N_("Set the execution parameters of the program"),
 	 on_go_execute2_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_JUMP_TO,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_JUMP_TO,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*20*/
 };
@@ -1274,40 +1324,40 @@ static GnomeUIInfo bookmark1_menu_uiinfo[NUM_BOOKMARK_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle bookmark"),
 	 N_("Toggle a bookmark at the current line position"),
-	 on_book_toggle1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_INDEX,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_TOGGLE, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_INDEX,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*1*/
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_First bookmark"),
 	 N_("Jump to the first bookmark in the file"),
-	 on_book_first1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_TOP,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_FIRST, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GOTO_TOP,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("_Previous bookmark"),
 	 N_("Jump to the previous bookmark in the file"),
-	 on_book_prev1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_UP,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_PREV, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_UP,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Next bookmark"),
 	 N_("Jump to the next bookmark in the file"),
-	 on_book_next1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_DOWN,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_NEXT, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_DOWN,
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Last bookmark"),
 	 N_("Jump to the last bookmark in the file"),
-	 on_book_last1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOTTOM,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_LAST, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GOTO_BOTTOM,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*6*/
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Clear all bookmarks"),
 	 N_("Clear bookmarks"),
-	 on_book_clear1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_CLEAR, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*8*/
 };
@@ -1318,7 +1368,7 @@ static GnomeUIInfo execution1_submenu_uiinfo[NUM_EXECUTION_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Run/_Continue"),
 	 N_("Continue the execution of the program"),
 	 on_execution_continue1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_EXEC,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EXECUTE,
 	 GDK_F4, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Step _In"),
@@ -1353,13 +1403,13 @@ static GnomeUIInfo breakpoints1_submenu_uiinfo[NUM_BREAKPOINTS_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Toggle breakpoint"),
 	 N_("Toggle breakpoint at the current location"),
 	 on_toggle_breakpoint1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_INDEX,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_INDEX,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Set Breakpoint ..."),
 	 N_("Set a breakpoint"),
 	 on_set_breakpoint1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_INDEX,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_INDEX,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*2*/
 	{/*3*/
@@ -1378,12 +1428,12 @@ static GnomeUIInfo breakpoints1_submenu_uiinfo[NUM_BREAKPOINTS_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("C_lear all Breakpoints"),
 	 N_("Delete all breakpoints"),
 	 on_clear_breakpoints1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*6*/
 };
 
-#define NUM_INFO_SUBMENUS 8
+#define NUM_INFO_SUBMENUS 9
 static GnomeUIInfo info1_submenu_uiinfo[NUM_INFO_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Info _Target Files"),
@@ -1425,7 +1475,7 @@ static GnomeUIInfo info1_submenu_uiinfo[NUM_INFO_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Info _Current Frame"),
 	 N_("Display information about the current frame of execution"),
 	 on_info_frame_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_BLUE,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("Info Function _Arguments"),
@@ -1433,7 +1483,13 @@ static GnomeUIInfo info1_submenu_uiinfo[NUM_INFO_SUBMENUS+1] = {
 	 on_info_args_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*8*/
+	{/*8*/
+	 GNOME_APP_UI_ITEM, N_("Info _Memory"),
+	 N_("Display accessible memory"),
+	 on_info_memory_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*9*/
 };
 
 #define NUM_DEBUG_SUBMENUS 22
@@ -1442,39 +1498,39 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("_Start Debugger"),
 	 N_("Start the debugging session"),
 	 on_debugger_start_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_EXEC,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EXECUTE,
 	 GDK_F12, GDK_CONTROL_MASK, NULL},
 	GNOMEUIINFO_SEPARATOR,/*1*/
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Load E_xecutable ..."),
 	 N_("Open the executable for debugging"),
 	 on_debugger_open_exec_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OPEN,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Load _Core file ..."),
 	 N_("Load a core file to dissect"),
 	 on_debugger_load_core_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REVERT,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REVERT_TO_SAVED,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Attach to Process ..."),
 	 N_("Attach to a running program"),
 	 on_debugger_attach_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ATTACH,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OK,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*5*/
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("_Restart Program"),
 	 N_("Stop and restart the program"),
 	 on_debugger_restart_prog_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REFRESH,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("S_top Program"),
 	 N_("Stop the program being debugged"),
 	 on_debugger_stop_prog_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_STOP,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_STOP,
 	 0, 0, NULL},
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("_Detach Debugger"),
@@ -1520,7 +1576,7 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("Ins_pect/Evaluate ..."),
 	 N_("Inspect or evaluate an expression or variable"),
 	 on_debugger_inspect_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_OPEN,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 GDK_P, GDK_CONTROL_MASK, NULL},
 	{/*19*/
 	 GNOME_APP_UI_ITEM, N_("Add Expression in _Watch ..."),
@@ -1533,69 +1589,58 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	 GNOME_APP_UI_ITEM, N_("St_op Debugger"),
 	 N_("Say goodbye to the debugger"),
 	 on_debugger_stop_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_STOP,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_STOP,
 	 0, 0, NULL},
 	GNOMEUIINFO_END/*22*/
-};
-
-#define NUM_PLUGINS_SUBMENUS 1
-static GnomeUIInfo plugins_menu_uiinfo[NUM_PLUGINS_SUBMENUS+1] = {
-	{/*0*/
-	 GNOME_APP_UI_ITEM, N_("plugins"),
-	 NULL,
-	 on_nonimplemented_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_END/*1*/
 };
 
 #define NUM_CVS_SUBMENUS 16 
 static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
 	 /* 0 */
-	 GNOME_APP_UI_ITEM, N_("Update file"),
+	 GNOME_APP_UI_ITEM, N_("U_pdate file"),
 	 N_("Update current working copy"),
 	 on_cvs_update_file_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
 	 0, 0, NULL},
 	{
 	 /* 1 */
-	 GNOME_APP_UI_ITEM, N_("Commit file"),
+	 GNOME_APP_UI_ITEM, N_("C_ommit file"),
 	 N_("Commit changes to the repository"),
 	 on_cvs_commit_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 2 */
-	 GNOME_APP_UI_ITEM, N_("Status of file"),
+	 GNOME_APP_UI_ITEM, N_("S_tatus of file"),
 	 N_("Print the status of the current file"),
 	 on_cvs_status_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 3 */
-	 GNOME_APP_UI_ITEM, N_("Get file log"),
+	 GNOME_APP_UI_ITEM, N_("G_et file log"),
 	 N_("Print the CVS log for the current file"),
 	 on_cvs_log_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 4 */
-	 GNOME_APP_UI_ITEM, N_("Add file"),
+	 GNOME_APP_UI_ITEM, N_("_Add file"),
 	 N_("Add the current file to the repository"),
 	 on_cvs_add_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 5 */
-	 GNOME_APP_UI_ITEM, N_("Remove file"),
+	 GNOME_APP_UI_ITEM, N_("_Remove file"),
 	 N_("Remove the current file from the repository"),
 	 on_cvs_remove_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 6 */
-	 GNOME_APP_UI_ITEM, N_("Diff file"),
+	 GNOME_APP_UI_ITEM, N_("D_iff file"),
 	 N_("Create a diff between the working copy and the repository"),
 	 on_cvs_diff_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1603,42 +1648,42 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_SEPARATOR, /* 7 */
 	{
 	 /* 8 */
-	 GNOME_APP_UI_ITEM, N_("Update Project"),
+	 GNOME_APP_UI_ITEM, N_("_Update Project"),
 	 N_("Update the working copy of a Project"),
 	 on_cvs_update_project_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
 	 GDK_U, GDK_MOD1_MASK | GDK_CONTROL_MASK, NULL},
 	{
 	 /* 9 */
-	 GNOME_APP_UI_ITEM, N_("Commit Project"),
+	 GNOME_APP_UI_ITEM, N_("_Commit Project"),
 	 N_("Commit local changes to the repository"),
 	 on_cvs_commit_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 10 */
-	 GNOME_APP_UI_ITEM, N_("Import Project"),
+	 GNOME_APP_UI_ITEM, N_("_Import Project"),
 	 N_("Import Project as a new module in the repository"),
 	 on_cvs_import_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 {
 	 /* 11 */
-	 GNOME_APP_UI_ITEM, N_("Status of Project"),
+	 GNOME_APP_UI_ITEM, N_("_Status of Project"),
 	 N_("Print the status of the Project"),
 	 on_cvs_project_status_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 {
 	 /* 12 */
-	 GNOME_APP_UI_ITEM, N_("Get Project log"),
+	 GNOME_APP_UI_ITEM, N_("Get Project _log"),
 	 N_("Print the CVS log of the Project"),
 	 on_cvs_project_log_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 13 */
-	 GNOME_APP_UI_ITEM, N_("Diff Project"),
+	 GNOME_APP_UI_ITEM, N_("_Diff Project"),
 	 N_("Create a diff between the working copy of the Project and the repository"),
 	 on_cvs_project_diff_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1646,7 +1691,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	GNOMEUIINFO_SEPARATOR, /* 14 */
 	{
 	 /* 15 */
-	 GNOME_APP_UI_ITEM, N_("Login"),
+	 GNOME_APP_UI_ITEM, N_("_Login"),
 	 N_("Login to a CVS server"),
 	 on_cvs_login_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1655,46 +1700,57 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_END,
 };
 
-#define NUM_SETTINGS_SUBMENUS 7
+#define NUM_SETTINGS_SUBMENUS 9
 static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Compiler and Linker Settings ..."),
 	 N_("Settings for the compiler and linker"),
 	 on_set_compiler1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Source Paths ..."),
 	 N_("Specify the source paths for Anjuta to search"),
 	 on_set_src_paths1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("_Commands ..."),
+	 GNOME_APP_UI_ITEM, N_("Co_mmands ..."),
 	 N_("Specify the various commands for use"),
 	 on_set_commands1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*3*/
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Preferences ..."),
 	 N_("Do you prefer coffee to tea? Check it out."),
 	 on_set_preferences1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
 	 0, 0, NULL},
 	{/*5*/
+	 GNOME_APP_UI_ITEM, N_("_Edit user.properties file ..."),
+	 N_("Edit user properties file"),
+	 on_edit_user_properties1_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
+	 0, 0, NULL},
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Set _Default Preferences"),
 	 N_("But I prefer tea."),
 	 on_set_default_preferences1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
 	 0, 0, NULL},
-	{/*6*/
-	 GNOME_APP_UI_ITEM, N_("Customize shortcuts"),
+	{/*7*/
+	 GNOME_APP_UI_ITEM, N_("C_ustomize shortcuts"),
 	 N_("Customize shortcuts associated with menu items"),
 	 on_customize_shortcuts_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END,/*7*/
+	{/*8*/
+	 GNOME_APP_UI_ITEM, N_("_Tools Editor"),
+	 N_("Customize user-defined tools"),
+	 on_tool_editor_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},GNOMEUIINFO_END,/*8*/
 };
 
 #define NUM_HELP_SUBMENUS 18
@@ -1702,70 +1758,70 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	GNOMEUIINFO_HELP ("anjuta"),/*0*/
 	GNOMEUIINFO_SEPARATOR,/*1*/
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Browse GNOME API Pages"),
+	 GNOME_APP_UI_ITEM, N_("Browse GNOME _API Pages"),
 	 N_("The GNOME API pages"),
 	 on_gnome_pages1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 GDK_F1, 0, NULL},
 	{/*3*/
-	 GNOME_APP_UI_ITEM, N_("Browse Man Pages"),
+	 GNOME_APP_UI_ITEM, N_("Browse _Man Pages"),
 	 N_("The good old manual pages"),
 	 on_url_activate, "man:man", NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 0, 0, NULL},
 	{/*4*/
-	 GNOME_APP_UI_ITEM, N_("Browse Info Pages"),
-	 N_("Info pages, where you cannot find what you are looking for"),
+	 GNOME_APP_UI_ITEM, N_("Browse _Info Pages"),
+	 N_("Browse Info pages"),
 	 on_url_activate, "info:info", NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_INFO,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*5*/
 	{/*6*/
-	 GNOME_APP_UI_ITEM, N_("Context Help"),
+	 GNOME_APP_UI_ITEM, N_("_Context Help"),
 	 N_("Search help for the current word in the editor"),
 	 on_context_help_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
  	 GDK_H, GDK_CONTROL_MASK, NULL},
 	{/*7*/
-	 GNOME_APP_UI_ITEM, N_("Search a topic"),
+	 GNOME_APP_UI_ITEM, N_("_Search a topic"),
 	 N_("May I help you?"),
 	 on_search_a_topic1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+	 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*8*/
 	{/*9*/
-	 GNOME_APP_UI_ITEM, N_("Anjuta Home Page"),
+	 GNOME_APP_UI_ITEM, N_("Anjuta _Home Page"),
 	 N_("Online documentation and resources"),
-	 on_url_activate, "http://anjuta.sourceforge.net", NULL,
+	 on_url_activate, "http://anjuta.org", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*10*/
 	{/*11*/
-	 GNOME_APP_UI_ITEM, N_("Libraries API references"),
+	 GNOME_APP_UI_ITEM, N_("_Libraries API references"),
 	 N_("Online reference library for GDK, GLib, GNOME etc.."),
 	 on_url_activate, "http://lidn.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*12*/
-	 GNOME_APP_UI_ITEM, N_("Report Bugs"),
+	 GNOME_APP_UI_ITEM, N_("Report _Bugs"),
 	 N_("Submit a bug report for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*13*/
-	 GNOME_APP_UI_ITEM, N_("Request Features"),
+	 GNOME_APP_UI_ITEM, N_("Request _Features"),
 	 N_("Submit a feature request for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*14*/
-	 GNOME_APP_UI_ITEM, N_("Submit patches"),
+	 GNOME_APP_UI_ITEM, N_("Submit _patches"),
 	 N_("Submit patches for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*15*/
-	 GNOME_APP_UI_ITEM, N_("Ask a question"),
+	 GNOME_APP_UI_ITEM, N_("Ask a _question"),
 	 N_("Submit a question for FAQs"),
 	 on_url_activate, "mailto:anjuta-list@lists.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1775,6 +1831,7 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*18*/
 };
 
+#define NUM_TOPLEVEL_SUBMENUS 11
 static GnomeUIInfo menubar1_uiinfo[] = {
 	GNOMEUIINFO_MENU_FILE_TREE (file1_menu_uiinfo),
 	GNOMEUIINFO_MENU_EDIT_TREE (edit1_menu_uiinfo),
@@ -1810,12 +1867,6 @@ static GnomeUIInfo menubar1_uiinfo[] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
-	 GNOME_APP_UI_SUBTREE, N_("Plug_ins"),
-	 NULL,
-	 plugins_menu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	{
 	 GNOME_APP_UI_SUBTREE, N_("_CVS"),
 	 NULL,
 	 cvs_menu_uiinfo, NULL, NULL,
@@ -1829,6 +1880,39 @@ static GnomeUIInfo menubar1_uiinfo[] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_MENU_HELP_TREE (help1_menu_uiinfo),
 	GNOMEUIINFO_END
+};
+
+/* Add new submenu structure pointers defined above here
+ * which require ref and unref done, except Help submenus.
+ * Help submenu is taken care separatedly.
+ */
+static GnomeUIInfo* anjuta_menus_uiinfo[] = {
+	menubar1_uiinfo,
+	file1_menu_uiinfo,
+	transform1_submenu_uiinfo,
+	select1_submenu_uiinfo,
+	comment_submenu_uiinfo,
+	find_submenu_uiinfo,
+	goto1_submenu_uiinfo,
+	insert_template_c_uiinfo,
+	inserttext1_submenu_uiinfo,
+	insert_submenu_uiinfo,
+	edit1_menu_uiinfo,
+	toolbar1_submenu_uiinfo,
+	editor1_submenu_uiinfo,
+	view1_menu_uiinfo,
+	zoom_text1_submenu_uiinfo,
+	add_file1_menu_uiinfo,
+	project1_menu_uiinfo,
+	hilitetype1_submenu_uiinfo,
+	format1_menu_uiinfo,
+	build1_menu_uiinfo,
+	bookmark1_menu_uiinfo,
+	execution1_submenu_uiinfo,
+	breakpoints1_submenu_uiinfo,
+	info1_submenu_uiinfo,
+	debug1_menu_uiinfo,
+	settings1_menu_uiinfo,
 };
 
 #endif

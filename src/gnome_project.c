@@ -49,15 +49,15 @@ create_new_project (AppWizard * aw)
 	Project_Type* type;
 
 	all_prj_dir  = preferences_get (app->preferences, PROJECTS_DIRECTORY);
-	top_dir = g_strdup_printf ("%s/%s-%s", all_prj_dir, aw->prj_name, aw->version);
+	top_dir = g_strdup_printf ("%s/%s", all_prj_dir, aw->prj_name);
 
-	if (file_is_directory (top_dir))
+	if (file_is_directory (top_dir) || file_is_regular(top_dir))
 	{
 		g_free (all_prj_dir);
 		g_free (top_dir);
 		
 		anjuta_error (
-			_("The Project already exists.\n"
+			_("A project or file with the same name.already exists.\n"
 			    "Project creation aborted."));
 		return FALSE;
 	}

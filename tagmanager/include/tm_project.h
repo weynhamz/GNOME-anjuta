@@ -155,6 +155,14 @@ gboolean tm_project_remove_object(TMProject *project, TMWorkObject *w);
 gboolean tm_project_update(TMWorkObject *work_object, gboolean force
   , gboolean recurse, gboolean update_parent);
 
+/*! Syncs a project with the given list of file names, i.e., removes all files
+** which are not in the list and adding the files which are in the list but not
+** in the project.
+\param project The project pointer
+\param files - A list of file names relative to the top directory.
+*/
+gboolean tm_project_sync(TMProject *project, GList *files);
+
 /*! Recreates the tags array of the project from the tags arrays of the contituent
  source files. Note that unlike TMSourceFile , the projects tags are not owned
  by the project but by the member source files. So, do not do a tm_tag_free() on

@@ -29,9 +29,10 @@
 static const gchar SecFT [] = {"FindText"};
 /*static const gchar SECTION_SEARCH [] =  {"search_text"};*/
 
-gboolean
-on_find_text_close (GtkWidget * widget,
-			   gpointer user_data);
+void
+on_find_text_dialog_response (GtkDialog *dialog, gint response,
+                              gpointer user_data);
+
 FindText *
 find_text_new ()
 {
@@ -53,6 +54,8 @@ find_text_new ()
 		ft->regexp		= GetProfileBool( SecFT, "regexp", FALSE ) ;
 		ft->ignore_case = GetProfileBool( SecFT, "ignore_case", FALSE ) ;
 		ft->whole_word	= GetProfileBool( SecFT, "whole_word", FALSE ) ;
+		ft->incremental_pos = -1;
+		ft->incremental_wrap = FALSE;
 
 		ft->is_showing = FALSE;
 		
@@ -221,231 +224,46 @@ find_text_save_session ( FindText * ft, ProjectDBase *p )
 void
 create_find_text_gui (FindText * ft)
 {
-	GtkWidget *dialog1;
-	GtkWidget *dialog_vbox1;
-	GtkWidget *frame1;
-	GtkWidget *combo1;
-	GtkWidget *combo_entry1;
-	GtkWidget *frame2;
-	GtkWidget *table1;
-	GtkWidget *frame3;
-	GtkWidget *vbox1;
-	GSList *vbox1_group = NULL;
-	GtkWidget *radiobutton1;
-	GtkWidget *radiobutton2;
-	GtkWidget *frame4;
-	GtkWidget *vbox2;
-	GSList *vbox2_group = NULL;
-	GtkWidget *radiobutton4;
-	GtkWidget *radiobutton5;
-	GtkWidget *frame5;
-	GtkWidget *vbox3;
-	GSList *vbox3_group = NULL;
-	GtkWidget *radiobutton6;
-	GtkWidget *radiobutton7;
-	GtkWidget *checkbutton1;
-	GtkWidget *checkbutton2;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *button1;
-	GtkWidget *button2;
-	GtkWidget *button3;
+	ft->f_gui.GUI = glade_xml_get_widget (app->gxml, "find_replace_dialog");
+	gtk_window_set_transient_for (GTK_WINDOW(ft->f_gui.GUI),
+                                  GTK_WINDOW(app->widgets.window));
+	
+	ft->f_gui.combo = glade_xml_get_widget (app->gxml, "find_text_find_combo");
+	ft->f_gui.entry = glade_xml_get_widget (app->gxml, "find_text_find_entry");
+	ft->f_gui.from_begin_radio = glade_xml_get_widget (app->gxml, "find_text_whole_document");
+	ft->f_gui.from_cur_loc_radio = glade_xml_get_widget (app->gxml, "find_text_from_cursor");
+	ft->f_gui.forward_radio = glade_xml_get_widget (app->gxml, "find_text_forwards");
+	ft->f_gui.backward_radio = glade_xml_get_widget (app->gxml, "find_text_backwards");
+	ft->f_gui.regexp_radio = glade_xml_get_widget (app->gxml, "find_text_regexp");
+	ft->f_gui.string_radio = glade_xml_get_widget (app->gxml, "find_text_string");
+	ft->f_gui.ignore_case_check = glade_xml_get_widget (app->gxml, "find_text_ignore_case");
+	ft->f_gui.whole_word_check = glade_xml_get_widget (app->gxml, "find_text_whole_word");
+	
+	g_signal_connect (G_OBJECT (ft->f_gui.GUI), "response",
+	                  G_CALLBACK (on_find_text_dialog_response), ft);
 
-	dialog1 = gnome_dialog_new (_("Find"), NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
-	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "find", "Anjuta");
-	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
-
-	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
-	gtk_widget_show (dialog_vbox1);
-
-	frame1 = gtk_frame_new (_(" RegExp/String to search "));
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), frame1, TRUE, TRUE, 0);
-
-	combo1 = gtk_combo_new ();
-	gtk_widget_show (combo1);
-	gtk_container_add (GTK_CONTAINER (frame1), combo1);
-	gtk_container_set_border_width (GTK_CONTAINER (combo1), 5);
-	gtk_combo_disable_activate (GTK_COMBO (combo1));
-	gtk_combo_set_case_sensitive    (GTK_COMBO (combo1), TRUE);
-	combo_entry1 = GTK_COMBO (combo1)->entry;
-	gtk_widget_show (combo_entry1);
-
-	frame2 = gtk_frame_new (NULL);
-	gtk_widget_show (frame2);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), frame2, TRUE, TRUE, 0);
-
-	table1 = gtk_table_new (2, 3, FALSE);
-	gtk_widget_show (table1);
-	gtk_container_add (GTK_CONTAINER (frame2), table1);
-
-	frame3 = gtk_frame_new (_(" Scope "));
-	gtk_widget_show (frame3);
-	gtk_table_attach (GTK_TABLE (table1), frame3, 0, 1, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame3), 3);
-
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox1);
-	gtk_container_add (GTK_CONTAINER (frame3), vbox1);
-
-	radiobutton1 =
-		gtk_radio_button_new_with_label (vbox1_group,
-						 _("Whole document"));
-	vbox1_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
-	gtk_widget_show (radiobutton1);
-
-	radiobutton2 =
-		gtk_radio_button_new_with_label (vbox1_group,
-						 _("From cursor"));
-	vbox1_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
-	gtk_widget_show (radiobutton2);
-	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton2, FALSE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (vbox1), radiobutton1, FALSE, TRUE, 0);
-
-	frame4 = gtk_frame_new (_(" Direction "));
-	gtk_widget_show (frame4);
-	gtk_table_attach (GTK_TABLE (table1), frame4, 1, 2, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (GTK_FILL), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame4), 3);
-
-	vbox2 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox2);
-	gtk_container_add (GTK_CONTAINER (frame4), vbox2);
-
-	radiobutton4 =
-		gtk_radio_button_new_with_label (vbox2_group, _("Forwards"));
-	vbox2_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
-	gtk_widget_show (radiobutton4);
-	gtk_box_pack_start (GTK_BOX (vbox2), radiobutton4, FALSE, TRUE, 0);
-
-	radiobutton5 =
-		gtk_radio_button_new_with_label (vbox2_group, _("Backwards"));
-	vbox2_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton5));
-	gtk_widget_show (radiobutton5);
-	gtk_box_pack_start (GTK_BOX (vbox2), radiobutton5, FALSE, TRUE, 0);
-
-	frame5 = gtk_frame_new (_("Type"));
-	gtk_widget_show (frame5);
-	gtk_table_attach (GTK_TABLE (table1), frame5, 2, 3, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (GTK_FILL), 0, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (frame5), 3);
-
-	vbox3 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox3);
-	gtk_container_add (GTK_CONTAINER (frame5), vbox3);
-
-	radiobutton6 =
-		gtk_radio_button_new_with_label (vbox3_group, _("RegExp"));
-	vbox3_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton6));
-	gtk_widget_show (radiobutton6);
-	gtk_box_pack_start (GTK_BOX (vbox3), radiobutton6, FALSE, TRUE, 0);
-
-	radiobutton7 =
-		gtk_radio_button_new_with_label (vbox3_group, _("String"));
-	vbox3_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton7));
-	gtk_widget_show (radiobutton7);
-	gtk_box_pack_start (GTK_BOX (vbox3), radiobutton7, FALSE, TRUE, 0);
-
-	checkbutton1 =
-		gtk_check_button_new_with_label (_
-						 ("Ignore case while searching"));
-	gtk_widget_show (checkbutton1);
-	gtk_table_attach (GTK_TABLE (table1), checkbutton1, 1, 3, 1, 2,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (GTK_FILL), 0, 0);
-
-	checkbutton2 =
-		gtk_check_button_new_with_label (_("Whole word"));
-	gtk_widget_show (checkbutton2);
-	gtk_table_attach (GTK_TABLE (table1), checkbutton2, 0, 1, 1, 2,
-			  (GtkAttachOptions) (GTK_FILL),
-			  (GtkAttachOptions) (GTK_FILL), 0, 0);
-
-	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),
-				   GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_HELP);
-	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button1);
-	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_CLOSE);
-	button2 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button2);
-	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    "Find");
-	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button3);
-	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
-
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog1));
-
-	gtk_signal_connect (GTK_OBJECT (dialog1), "close",
-			    GTK_SIGNAL_FUNC (on_find_text_close), ft);
-	gtk_signal_connect (GTK_OBJECT (combo_entry1), "activate",
-			    GTK_SIGNAL_FUNC (on_find_text_ok_clicked), ft);
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC (on_find_text_help_clicked), ft);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC (on_find_text_cancel_clicked),
-			    ft);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC (on_find_text_ok_clicked), ft);
-
-	ft->f_gui.GUI = dialog1;
-	ft->f_gui.combo = combo1;
-	ft->f_gui.entry = combo_entry1;
-	ft->f_gui.from_begin_radio = radiobutton1;
-	ft->f_gui.from_cur_loc_radio = radiobutton2;
-	ft->f_gui.forward_radio = radiobutton4;
-	ft->f_gui.backward_radio = radiobutton5;
-	ft->f_gui.regexp_radio = radiobutton6;
-	ft->f_gui.string_radio = radiobutton7;
-	ft->f_gui.ignore_case_check = checkbutton1;
-	ft->f_gui.whole_word_check = checkbutton2;
-
-	gtk_widget_ref (ft->f_gui.GUI);
-	gtk_widget_ref (ft->f_gui.combo);
-	gtk_widget_ref (ft->f_gui.entry);
-	gtk_widget_ref (ft->f_gui.from_cur_loc_radio);
-	gtk_widget_ref (ft->f_gui.from_begin_radio);
-	gtk_widget_ref (ft->f_gui.forward_radio);
-	gtk_widget_ref (ft->f_gui.backward_radio);
-	gtk_widget_ref (ft->f_gui.regexp_radio);
-	gtk_widget_ref (ft->f_gui.string_radio);
-	gtk_widget_ref (ft->f_gui.ignore_case_check);
-	gtk_widget_ref (ft->f_gui.whole_word_check);
-
-	gtk_widget_grab_focus (combo_entry1);
-	gtk_window_set_transient_for(GTK_WINDOW(ft->f_gui.GUI), GTK_WINDOW(app->widgets.window));
+	gtk_widget_grab_focus (ft->f_gui.entry);
 }
 
 void
-on_find_text_ok_clicked (GtkButton * button, gpointer user_data)
+on_find_text_dialog_response (GtkDialog *dialog, gint response,
+                              gpointer user_data)
 {
 	TextEditor *te;
-	gchar *string, *str;
+	gchar *string;
+	const gchar *str;
 	gchar buff[512];
 	gint ret;
 	FindText *ft = user_data;
 	gboolean radio0, radio1, state;
+
+	if (response == GTK_RESPONSE_HELP)
+		return;
+	if (response != GTK_RESPONSE_OK)
+	{
+		find_text_hide (ft);
+		return;
+	}
 
 	state =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
@@ -522,39 +340,17 @@ on_find_text_ok_clicked (GtkButton * button, gpointer user_data)
 		if (ft->area == TEXT_EDITOR_FIND_SCOPE_CURRENT)
 		{
 			// Ask if user wants to wrap around the doc
-			messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
+			messagebox2 (GTK_MESSAGE_QUESTION,
 					_("No matches. Wrap search around the document?"),
-					GNOME_STOCK_BUTTON_YES,
-					GNOME_STOCK_BUTTON_NO,
-					GTK_SIGNAL_FUNC(on_find_text_start_over), 
-					GTK_SIGNAL_FUNC(on_find_text_cancel_clicked),
+					GTK_STOCK_NO,
+					GTK_STOCK_YES,
+					G_CALLBACK (on_find_text_cancel_clicked),
+					G_CALLBACK (on_find_text_start_over), 
 					user_data);
 		}
 		else
 			anjuta_error (buff);
 	}
-}
-
-void
-on_find_text_cancel_clicked (GtkButton * button, gpointer user_data)
-{
-	FindText *ft = user_data;
-	if (NULL != ft)
-		gnome_dialog_close(GNOME_DIALOG(ft->f_gui.GUI));
-}
-
-void
-on_find_text_help_clicked (GtkButton * button, gpointer user_data)
-{
-}
-
-gboolean
-on_find_text_close (GtkWidget * widget,
-			   gpointer user_data)
-{
-	FindText *ft = (FindText *) user_data;
-	find_text_hide (ft);
-	return FALSE;
 }
 
 void
@@ -572,10 +368,6 @@ on_find_text_start_over (GtkButton * button, gpointer user_data)
 
 	on_find_text_ok_clicked(NULL, app->find_replace->find_text);
 }
-
-
-
-
 
 void
 enter_selection_as_search_target(void)
@@ -602,3 +394,4 @@ gchar *selectionText = NULL;
                g_free (selectionText);
        }       
 }
+

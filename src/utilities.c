@@ -37,8 +37,8 @@
 #include "properties.h"
 #include "resources.h"
 
-gchar *
-extract_filename (gchar * full_filename)
+const gchar *
+extract_filename (const gchar * full_filename)
 {
 
 	gint i;
@@ -59,8 +59,8 @@ extract_filename (gchar * full_filename)
 	return &full_filename[++i];
 }
 
-char* 
-extract_directory(char* full_filename)
+gchar*
+extract_directory(const gchar* full_filename)
 {
 	gint i;
 	gint length;
@@ -846,22 +846,21 @@ force_create_dir (gchar * d)
 	return TRUE;
 }
 
-GdkFont *
+PangoFontDescription *
 get_fixed_font ()
 {
-	static GdkFont *font;
+	static PangoFontDescription *font_desc;
 	static gint done;
 
 	if (done)
-		return font;
-	font =
-		gdk_font_load
-		("-misc-fixed-medium-r-semicondensed-*-*-120-*-*-c-*-iso8859-9");
+		return font_desc;
+	font_desc = pango_font_description_new();
+	pango_font_description_set_from_string (font_desc, "misc medium 12");
 	done = 1;
-	if (font)
+	if (font_desc)
 	{
-		gdk_font_ref (font);
-		return font;
+		// pango_font_ref (font);
+		return font_desc;
 	}
 	g_warning ("Cannot load fixed(misc) font. Using default font.");
 	return NULL;
@@ -929,7 +928,7 @@ gboolean widget_is_child (GtkWidget * parent, GtkWidget * child)
 	{
 		GList *children;
 		GList *node;
-		children = gtk_container_children (GTK_CONTAINER (parent));
+		children = gtk_container_get_children (GTK_CONTAINER (parent));
 		node = children;
 		while (node)
 		{
@@ -1472,16 +1471,16 @@ gchar* GetStrCod( const gchar *szIn )
 }
 
 gchar*
-anjuta_util_escape_quotes(gchar* str)
+anjuta_util_escape_quotes(const gchar* str)
 {
 	gchar buffer[2048];
 	gint index;
-	gchar *s = str;
+	const gchar *s = str;
 	
 	g_return_val_if_fail(str, NULL);
 	index = 0;
 	
-	while(s) {
+	while(*s) {
 		if (index > 2040)
 			break;
 		if (*s == '\"' || *s == '\'' || *s == '\\')
@@ -1553,7 +1552,7 @@ anjuta_util_parse_args_from_string (gchar* string)
 	
 	index = 0;
 	escaped = FALSE;
-	quote = -1;
+	quote = (gchar)-1;
 	s = string;
 	
 	while (*s) {
@@ -1572,14 +1571,14 @@ anjuta_util_parse_args_from_string (gchar* string)
 			escaped = TRUE;
 		} else if (*s == quote) {
 			/* Current char ends a quotation */
-			quote = -1;
+			quote = (gchar)-1;
 			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
 				/* If there is no space after the quotation or it is not
 				   the end of the string */
 				g_warning ("Parse error while parsing program arguments");
 			}
 		} else if ((*s == '\"' || *s == '\'')) {
-			if (quote == -1) {
+			if (quote == (gchar)-1) {
 				/* Current char starts a quotation */
 				quote = *s;
 			} else {
@@ -1611,4 +1610,38 @@ anjuta_util_parse_args_from_string (gchar* string)
 		g_warning ("Unclosed quotation encountered at the end of parsing");
 	}
 	return args;
+}
+
+/* Check which gnome-terminal is installed
+ Returns: 0 -- No gnome-terminal
+ Returns: 1 -- Gnome1 gnome-terminal
+ Returns: 2 -- Gnome2 gnome-terminal */
+
+gint 
+anjuta_util_check_gnome_terminal (void)
+{
+#ifdef DEBUG
+    gchar* term_command = "gnome-terminal --version";
+    gchar* term_command2 = "gnome-terminal --diable-factory --version";
+#else
+    gchar* term_command = "gnome-terminal --version > /dev/null 2> /dev/null";
+    gchar* term_command2 = "gnome-terminal --diable-factory --version > /dev/null 2> /dev/null";
+#endif
+    gint retval;
+    
+    retval = system (term_command);
+    
+    /* Command failed or gnome-terminal not found */
+    if (WEXITSTATUS(retval) != 0)
+        return 0;
+    
+    /* gnome-terminal found: Determine version 1 or 2 */
+    retval = system (term_command2);
+    
+    /* Command failed or gnome-terminal-2 not found */
+    if (WEXITSTATUS(retval) != 0)
+        return 1;
+    
+    /* gnome-terminal-2 found */
+    return 2;
 }

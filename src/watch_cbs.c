@@ -91,7 +91,7 @@ on_watch_clist_unselect_row (GtkCList * clist,
 void
 on_watch_add_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-  GtkWidget *dialog = create_watch_add_dialog ();
+  GtkWidget *dialog = create_watch_add_dialog (GTK_WINDOW(debugger.watch->widgets.window));
   gtk_widget_show (dialog);
 }
 
@@ -134,7 +134,7 @@ on_watch_change_activate (GtkMenuItem * menuitem, gpointer user_data)
   expr_watch_entry_history = 
 		g_list_nth_data (debugger.watch->exprs,
 										 debugger.watch->current_index);
-  dialog = create_watch_change_dialog();
+  dialog = create_watch_change_dialog(GTK_WINDOW(debugger.watch->widgets.window));
   gtk_widget_show (dialog);
 }
 

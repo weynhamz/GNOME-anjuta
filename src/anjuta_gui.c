@@ -93,7 +93,6 @@ create_anjuta_gui (AnjutaApp * appl)
 				     &(appl->widgets.toolbar.main_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar1),
 			       ANJUTA_MAIN_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
 			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
 			       GNOME_DOCK_TOP, 1, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar1), 5);
@@ -108,7 +107,6 @@ create_anjuta_gui (AnjutaApp * appl)
 					  browser_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar2),
 			       ANJUTA_BROWSER_TOOLBAR,
-			       GNOME_DOCK_ITEM_BEH_EXCLUSIVE |
 			       GNOME_DOCK_ITEM_BEH_NEVER_VERTICAL,
 			       GNOME_DOCK_TOP, 2, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);
@@ -308,7 +306,7 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_press_event",
 			    GTK_SIGNAL_FUNC (on_anjuta_window_key_press_event),
 			    NULL);
-  gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_release_event",
+	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_release_event",
           GTK_SIGNAL_FUNC (on_anjuta_window_key_release_event),
           NULL);
 	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "delete_event",

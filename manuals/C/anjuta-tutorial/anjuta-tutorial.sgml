@@ -1,9 +1,10 @@
-<!DOCTYPE article PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.1//EN"[ ]>
+<!DOCTYPE Article PUBLIC "-//OASIS//DTD DocBook V4.0//EN"[
+]>
 
 <article id="index">
 
  <!-- ============= Document Header ============================= -->
- <artheader> 
+ <articleinfo> 
   <title>Starting Off in Anjuta</title>
   <copyright>
    <year>2002</year>
@@ -36,7 +37,7 @@
   <releaseinfo>
    This is version 1.0 of 'Starting Off in Anjuta'.
   </releaseinfo>
- </artheader>
+ </articleinfo>
 
 
  
@@ -152,7 +153,7 @@ Edit the GUI. Now <application>GLADE</application> is executed. You can ideally 
 	   <screenshot>
 	     <screeninfo>Glade windows</screeninfo>
 			<graphic fileref="figures/glade-l" format="png" srccredit="Ishan Chattopadhyaya">
-			</graphic>
+			
 		</screenshot>
 	</figure>
 
@@ -174,7 +175,7 @@ Edit the GUI. Now <application>GLADE</application> is executed. You can ideally 
 	   <screenshot>
 	     <screeninfo>Palette icons</screeninfo>
 			<graphic fileref="figures/icons" format="png" srccredit="Ishan Chattopadhyaya">
-			</graphic>
+			
 		</screenshot>
 	</figure>
 	
@@ -188,7 +189,7 @@ Edit the GUI. Now <application>GLADE</application> is executed. You can ideally 
 	   <screenshot>
 	     <screeninfo>The interface</screeninfo>
 			<graphic fileref="figures/divided" format="png" srccredit="Ishan Chattopadhyaya">
-			</graphic>
+			
 		</screenshot>
 	</figure>
 
@@ -264,7 +265,7 @@ Edit the GUI. Now <application>GLADE</application> is executed. You can ideally 
 	   <screenshot>
 	     <screeninfo>The Final Interface</screeninfo>
 			<graphic fileref="figures/interface" format="png" srccredit="Ishan Chattopadhyaya">
-			</graphic>
+			
 		</screenshot>
 	</figure>
 

@@ -19,8 +19,8 @@
 #define __GTK_GOTO_LINE_H__
 
 
-#include <libgnome/gnome-defs.h>
-#include <libgnomeui/gnome-dialog.h>
+//#include <libgnome/gnome-defs.h>
+#include <gtk/gtk.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -41,14 +41,14 @@ extern "C"
   /** The Base of the gotoline dialog, one per gotoline dialog instance */
   struct _GotoLine
   {
-    GnomeDialog parent;
+    GtkDialog parent;
   };
 
   /** The Base Class of the gotoline dialog, only one in existance 
   \todo Add signal to allow line number to be retrieved when recording a macro */
   struct _GotoLineClass
   {
-    GnomeDialogClass parent_class;
+    GtkDialogClass parent_class;
   };
 
   /** GTK widget implementation function */

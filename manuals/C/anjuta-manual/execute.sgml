@@ -10,7 +10,7 @@
 	or pressing <keycap>F3</keycap>. 
    </para>
    <note>
-   <title>Note</title>
+   <title>Dependencies</title>
    <para>
     Unlike the build stage, execution doesn't check for dependencies 
 	(at least for the time being). In other words, it does not check if the 
@@ -28,7 +28,7 @@
    <title>Setting program parameters</title>
    <screenshot>
    <screeninfo>Setting program parameters</screeninfo>
-    <graphic fileref="figures/arguments" format="png" srccredit="andyp"></graphic>
+    <graphic fileref="figures/arguments" format="png" srccredit="andyp">
    </screenshot>
   </figure>
  </sect1>

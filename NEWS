@@ -1,24 +1,52 @@
-Anjuta 1.0:		(xth June 2002)				-- Andy Piper
+Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
 
-   => Release of Anjuta-1.0 (stable)
+New: Auto-complete takes graphics now.
+NEW: Auto-complete automatic.
+New: Per project editor properties
+New: Sub windows now float above main window.
+New: Project version and excluded modules configuration.
+NEW: Errors and warnings indications in editor.
+New: Tools support and tools editor.
+New: Incremental search (like emacs I-Search)
+Bug fix: Printing now takes editor default fonts
+Bug fix: Rpm package fix
+Bug fix: ChangeLog insert uses spaces (instead of tabs)
+Bug fix: Fixed compiler warnings.
+Bug fix: Fixed debug terminal bug
+Bug fix: Disabled gladen to remove the libssl dep.
+Bug fix: brace indentation works properly.
+Bug fix: Wrap-around search
+Updated: Upgraded scintilla to 1.49+
+Updated: Upgraded editor properties and added new properties.
+Updated: Organized plugins
+
+Anjuta 1.0-beta1:	(1st August 2002)			-- Andy Piper
+
+   => Release of Anjuta-1.0-beta1 (beta)
+
+This precedes the final release of Anjuta for the 
+GNOME 1.x platform...
 
 New: CVS support for Projects and individual files,
      file revisions are displayed in Files pane
 New: Gnome Print support (including syntax colouring)
 New: Patch plugin to apply diffs
 New: Application Wizard support for wxWindows, Xlib, 
-     GNOME2 and Gtk2 Projects, plus option for dynamic 
-	 or static libraries as targets in generic Projects
+     GNOME2, Gtk2 and libglade2 Projects, plus option for 
+	 dynamic or static libraries as targets in generic Projects
 New: user identity preferences enabling new editor functions
+New: better GNOME integration, now uses configured GNOME URL 
+     handlers
+New: MIME handling
+New: Anjuta kickstart tutorial
+New: automatic expression tips during debugging (hover-and-show)
+New: compilation warning/error navigation from terminal
 New: better find functionality
 New: enhanced file selection widget
 New: enhanced Evolution-style about dialog
-New: better GNOME integration, now uses configured GNOME URL 
-     handlers
-New: Anjuta kickstart tutorial
-New: Automatic expression tips during debugging (hover-and-show).
-New: Compilarion warning/error navigation from terminal
-New: Mime handling.
+New: Automatic Variable display when mouse hovered on the
+     variable name (in dubugger mode).
+New: Raw memory veiw for debugger (somewhat resembling ghex).
 
 Updated: synced to Scintilla 1.46
 Updated: many usability improvements to the GUI and menus

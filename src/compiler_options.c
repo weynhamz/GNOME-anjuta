@@ -88,7 +88,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "gnome-config --version"}
 	,
 	{
-	"GTKMM",
+	"gtkmm",
 	 "C++ Bindings for GTK",
 	 "",
 	 "",
@@ -100,7 +100,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	 "gtkmm-config --version"}
 	 ,
 	{
-	 "GNOMEMM",
+	 "gnomemm",
 	 "C++ bindings for GNOME",
 	 "",
 	 "",
@@ -138,7 +138,7 @@ gchar *anjuta_supports[][ANJUTA_SUPPORT_END_MARK] = {
 	ANJUTA_SUPPORTS_END
 };
 
-static char *warning_button_option[] = {
+static gchar *warning_button_option[] = {
 	" -Werror",
 	" -w",
 	" -Wall",
@@ -157,127 +157,227 @@ static char *warning_button_option[] = {
 	" -Woverloaded-virtual"
 };
 
-static char *optimize_button_option[] = {
+static gchar *anjuta_warnings[] = {
+	" -Werror",
+	" -w",
+	" -Wall",
+	" -Wimplicit",
+	" -Wreturn-type",
+	" -Wunused",
+	" -Wswitch",
+	" -Wcomment",
+	" -Wuninitialized",
+	" -Wparentheses",
+	" -Wtraditional",
+	" -Wshadow",
+	" -Wpointer-arith",
+	" -Wmissing-prototypes",
+	" -Winline",
+	" -Woverloaded-virtual",
+	NULL
+};
+
+static gchar *anjuta_defines[] = {
+	"HAVE_CONFIG_H",
+	"DEBUG_LEVEL_2",
+	"DEBUG_LEVEL_1",
+	"DEBUG_LEVEL_0",
+	"RELEASE",
+	NULL,
+};
+
+static gchar *optimize_button_option[] = {
 	"",
 	" -O1",
 	" -O2",
 	" -O3"
 };
 
-static char *other_button_option[] = {
+static gchar *other_button_option[] = {
 	" -g",
 	" -pg",
 };
 
-GdkPixmap *list_unselect_pixmap, *list_select_pixmap;
-GdkBitmap *list_unselect_mask, *list_select_mask;
-
-typedef struct _CoClistItemData CoClistItemData;
-struct _CoClistItemData
+static void co_cid_set (GtkListStore* store, GtkTreeIter *iter, gboolean state)
 {
-	gboolean state;
-};
-
-
-
-static CoClistItemData* co_cid_new (gboolean state)
-{
-	CoClistItemData* cid;
-	cid =g_malloc (sizeof (CoClistItemData));
-	cid->state = state;
-	return cid;
+	// cid->state = state;
 }
 
-static void co_cid_destroy (CoClistItemData* cid)
+static gboolean co_cid_get (GtkListStore* store, GtkTreeIter *iter)
 {
-	g_return_if_fail (cid != NULL);
-	g_free (cid);
+	// return cid->state;
+	return FALSE;
 }
 
-static void co_cid_set (CoClistItemData* cid, gboolean state)
+static gboolean co_cid_toggle (GtkListStore* store, GtkTreeIter *iter)
 {
-	g_return_if_fail (cid != NULL);
-	cid->state = state;
+	return FALSE;
 }
 
-static gboolean co_cid_get (CoClistItemData* cid)
+void create_compiler_options_gui (CompilerOptions *co)
 {
-	g_return_val_if_fail (cid != NULL, FALSE);
-	return cid->state;
+	GtkListStore *list;
+	int i;
+	
+	/* Compiler Options Dialog */
+	co->widgets.window = glade_xml_get_widget (app->gxml, "compiler_options_dialog");
+	co->widgets.supp_clist = glade_xml_get_widget (app->gxml, "supp_clist");
+	co->widgets.inc_clist = glade_xml_get_widget (app->gxml, "inc_clist");
+	co->widgets.inc_entry = glade_xml_get_widget (app->gxml, "inc_entry");
+	co->widgets.lib_paths_clist = glade_xml_get_widget (app->gxml, "lib_paths_clist");
+	co->widgets.lib_paths_entry = glade_xml_get_widget (app->gxml, "lib_paths_entry");
+	co->widgets.lib_clist = glade_xml_get_widget (app->gxml, "lib_clist");
+	co->widgets.lib_stock_clist = glade_xml_get_widget (app->gxml, "lib_stock_clist");
+	co->widgets.lib_entry = glade_xml_get_widget (app->gxml, "lib_entry");
+	co->widgets.def_clist = glade_xml_get_widget (app->gxml, "def_clist");
+	co->widgets.def_stock_clist = glade_xml_get_widget (app->gxml, "def_stock_clist");
+	co->widgets.def_entry = glade_xml_get_widget (app->gxml, "def_entry");
+	co->widgets.warnings_clist = glade_xml_get_widget (app->gxml, "warnings_clist");
+	co->widgets.optimize_button[0] = glade_xml_get_widget (app->gxml, "optimization_b_0");
+	co->widgets.optimize_button[1] = glade_xml_get_widget (app->gxml, "optimization_b_1");
+	co->widgets.optimize_button[2] = glade_xml_get_widget (app->gxml, "optimization_b_2");
+	co->widgets.optimize_button[3] = glade_xml_get_widget (app->gxml, "optimization_b_3");
+	co->widgets.other_button[0] = glade_xml_get_widget (app->gxml, "debugging_b");
+	co->widgets.other_button[1] = glade_xml_get_widget (app->gxml, "profiling_b");
+	co->widgets.other_c_flags_entry = glade_xml_get_widget (app->gxml, "other_c_flags_entry");
+	co->widgets.other_l_flags_entry = glade_xml_get_widget (app->gxml, "other_l_flags_entry");
+	co->widgets.other_l_libs_entry = glade_xml_get_widget (app->gxml, "other_l_libs_entry");
+	
+	gtk_widget_ref (co->widgets.window);
+	gtk_widget_ref (co->widgets.warnings_clist);
+	for (i = 0; i < 4; i++)
+		gtk_widget_ref (co->widgets.optimize_button[i]);
+	for (i = 0; i < 2; i++)
+		gtk_widget_ref (co->widgets.other_button[i]);
+	
+	gtk_widget_ref (co->widgets.inc_clist);
+	gtk_widget_ref (co->widgets.inc_entry);
+	gtk_widget_ref (co->widgets.lib_paths_clist);
+	gtk_widget_ref (co->widgets.lib_paths_entry);
+	gtk_widget_ref (co->widgets.lib_clist);
+	gtk_widget_ref (co->widgets.lib_stock_clist);
+	gtk_widget_ref (co->widgets.lib_entry);
+	gtk_widget_ref (co->widgets.def_clist);
+	gtk_widget_ref (co->widgets.def_stock_clist);
+	gtk_widget_ref (co->widgets.def_entry);
+	gtk_widget_ref (co->widgets.other_c_flags_entry);
+	gtk_widget_ref (co->widgets.other_l_flags_entry);
+	gtk_widget_ref (co->widgets.other_l_libs_entry);
+	gtk_widget_ref (co->widgets.supp_clist);
+
+	/* glade_xml_signal_autoconnect(app->gxml); */
 }
 
-#define co_cid_new_true() co_cid_new (TRUE)
-#define co_cid_new_false() co_cid_new (FALSE)
-
-void co_clist_row_data_set_true (GtkCList* clist, gint row)
+static void
+populate_stock_libs (GtkListStore *tmodel)
 {
-	CoClistItemData* cid;
-	cid = co_cid_new_true();
-	gtk_clist_set_pixmap(clist, row, 0,
-			       list_select_pixmap, list_select_mask);
-	gtk_clist_set_row_data_full (clist, row, cid, (GtkDestroyNotify)  co_cid_destroy);
+	gint i, ch;
+	gchar *stock_file;
+	gchar lib_name[256];
+	gchar desbuff[512];
+	FILE *fp;
+	
+	/* Now read the stock libraries */
+	stock_file =
+		g_strconcat (app->dirs->data, "/stock_libs.anj",
+				 NULL);
+	fp = fopen (stock_file, "r");
+	g_free (stock_file);
+
+	if (fp == NULL)
+		goto down;
+
+	/* Skip the first line which is comment */
+	do
+	{
+		ch = fgetc (fp);
+		if (ch == EOF)
+			goto down;
+	}
+	while (ch != '\n');
+
+	while (feof (fp) == FALSE)
+	{
+		GtkTreeIter iter;
+		
+		/* Read a line at a time */
+		fscanf (fp, "%s", lib_name);	/* The lib name */
+
+		/* Followed by description */
+		i = 0;
+		do
+		{
+			ch = fgetc (fp);
+			if (ch == EOF)
+				goto down;	/* Done when eof */
+			desbuff[i] = (gchar) ch;
+			i++;
+		}
+		while (ch != '\n');
+
+		desbuff[--i] = '\0';
+		
+		gtk_list_store_append (tmodel, &iter);
+		gtk_list_store_set (tmodel, &iter, 0, lib_name, 1, desbuff, -1);
+	}
+
+	  down:
+	if (fp)
+		fclose (fp);
 }
 
-void co_clist_row_data_set_false (GtkCList* clist, gint row)
+static void
+populate_supports (GtkListStore *tmodel)
 {
-	CoClistItemData* cid;
-	cid = co_cid_new_false();
-	gtk_clist_set_pixmap (clist,  row, 0,
-			list_unselect_pixmap, list_unselect_mask);
-	gtk_clist_set_row_data_full (clist, row, cid, (GtkDestroyNotify)  co_cid_destroy);
+	/* Now setup all the available supports */
+	int i = 0;
+	while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID], ANJUTA_SUPPORTS_END_STRING) != 0)
+	{
+		GtkTreeIter iter;
+		gtk_list_store_append (tmodel, &iter);
+		gtk_list_store_set (tmodel, &iter, 0, FALSE, 1, anjuta_supports[i][1], -1);
+		i++;
+	}
+}
+	
+static void
+populate_stock_defs (GtkListStore *tmodel)
+{
+	/* Now setup buildin defines */
+	int i = 0;
+	while (anjuta_defines[i])
+	{
+		GtkTreeIter iter;
+		gtk_list_store_append (tmodel, &iter);
+		gtk_list_store_set (tmodel, &iter, 0, FALSE, 1, anjuta_defines[i], -1);
+		i++;
+	}
 }
 
-void co_clist_row_data_toggle_state (GtkCList* clist, gint row)
+static void
+populate_warnings (GtkListStore *tmodel)
 {
-	CoClistItemData* cid;
-	cid = co_cid_new_false();
-	if (co_clist_row_data_get_state (clist, row))
-		co_clist_row_data_set_false (clist, row);
-	else
-		co_clist_row_data_set_true (clist, row);
-}
-
-gboolean co_clist_row_data_get_state (GtkCList* clist, gint row)
-{
-	CoClistItemData* cid;
-	cid = gtk_clist_get_row_data (clist, row);
-	return co_cid_get (cid);
-}
-
-void co_clist_row_data_set_state (GtkCList* clist, gint row, gboolean state)
-{
-	CoClistItemData* cid;
-	cid = gtk_clist_get_row_data (clist, row);
-	return co_cid_set (cid, state);
+	/* Now setup buildin defines */
+	int i = 0;
+	while (anjuta_warnings[i])
+	{
+		GtkTreeIter iter;
+		gtk_list_store_append (tmodel, &iter);
+		gtk_list_store_set (tmodel, &iter, 0, FALSE, 1, anjuta_warnings[i], -1);
+		i++;
+	}
 }
 
 CompilerOptions *
 compiler_options_new (PropsID props)
 {
-	gint i, ch;
-	gchar *stock_file, *dummy[2];
-	gchar lib_name[256];
-	gchar desbuff[512];
-	FILE *fp;
+	int i;
+	CompilerOptions *co = g_new0 (CompilerOptions, 1);
 
-	CompilerOptions *co = g_malloc (sizeof (CompilerOptions));
 	if (co)
 	{
-		co->other_c_flags = g_strdup ("");
-		co->other_l_flags = g_strdup ("");
-		co->other_l_libs = g_strdup ("");
-
-		for (i = 0; i < 16; i++)
-			co->warning_button_state[i] = FALSE;
-		for (i = 0; i < 4; i++)
-			co->optimize_button_state[i] = FALSE;
-		for (i = 0; i < 2; i++)
-			co->other_button_state[i] = FALSE;
-
-		co->warning_button_state[2] = TRUE;
-		co->optimize_button_state[0] = TRUE;
-		co->other_button_state[0] = TRUE;
-
+		GtkListStore *store;
+		
 		co->supp_index = 0;
 		co->inc_index = 0;
 		co->lib_index = 0;
@@ -291,80 +391,50 @@ compiler_options_new (PropsID props)
 		co->props = props;
 
 		create_compiler_options_gui (co);
-
-		list_unselect_pixmap =
-			gdk_pixmap_colormap_create_from_xpm_d(NULL,
-				gtk_widget_get_colormap(co->widgets.window),
-				&list_unselect_mask, NULL, list_unselect_xpm);
-
-		list_select_pixmap =
-			gdk_pixmap_colormap_create_from_xpm_d(NULL,
-				gtk_widget_get_colormap(co->widgets.window),
-				&list_select_mask, NULL, list_select_xpm);
-
-		/* Now read the stock libraries */
-		stock_file =
-			g_strconcat (app->dirs->data, "/stock_libs.anj",
-				     NULL);
-		fp = fopen (stock_file, "r");
-		g_free (stock_file);
-
-		if (fp == NULL)
-			goto down;
-
-		/* Skip the first line which is comment */
-		do
-		{
-			ch = fgetc (fp);
-			if (ch == EOF)
-				goto down;
-		}
-		while (ch != '\n');
-
-		while (feof (fp) == FALSE)
-		{
-			/* Read a line at a time */
-			fscanf (fp, "%s", lib_name);	/* The lib name */
-
-			/* Followed by description */
-			i = 0;
-			do
-			{
-				ch = fgetc (fp);
-				if (ch == EOF)
-					goto down;	/* Done when eof */
-				desbuff[i] = (gchar) ch;
-				i++;
-			}
-			while (ch != '\n');
-
-			desbuff[--i] = '\0';
-			dummy[0] = lib_name;
-			dummy[1] = desbuff;
-			gtk_clist_append (GTK_CLIST
-					  (co->widgets.lib_stock_clist),
-					  dummy);
-		}
-
-	      down:
-		if (fp)
-			fclose (fp);
-
-		/* Now setup all the available supports */
-		i = 0;
-		while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID], ANJUTA_SUPPORTS_END_STRING) != 0)
-		{
-			gchar *dummy[2];
-			gchar *dum = "";
-
-			dummy[0] = dum;
-			dummy[1] = anjuta_supports[i][1];
-			gtk_clist_append (GTK_CLIST (co->widgets.supp_clist),
-					  dummy);
-			co_clist_row_data_set_false (GTK_CLIST(co->widgets.supp_clist), 
-					  GTK_CLIST(co->widgets.supp_clist)->rows-1);
-			i++;
-		}
+		
+		store = gtk_list_store_new (2, G_TYPE_BOOLEAN, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.supp_clist),
+			GTK_TREE_MODEL(store));
+		populate_supports (store);
+		g_object_unref (G_OBJECT(store));
+		
+		store = gtk_list_store_new (1, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.inc_clist),
+			GTK_TREE_MODEL(store));
+		g_object_unref (G_OBJECT(store));
+		
+		store = gtk_list_store_new (1, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.lib_paths_clist),
+			GTK_TREE_MODEL(store));
+		g_object_unref (G_OBJECT(store));
+		
+		store = gtk_list_store_new (2, G_TYPE_BOOLEAN, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.lib_clist),
+			GTK_TREE_MODEL(store));
+		g_object_unref (G_OBJECT(store));
+			
+		store = gtk_list_store_new (2, G_TYPE_BOOLEAN, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.lib_stock_clist),
+			GTK_TREE_MODEL(store));
+		populate_stock_libs (store);
+		g_object_unref (G_OBJECT(store));
+		
+		store = gtk_list_store_new (2, G_TYPE_BOOLEAN, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.def_clist),
+			GTK_TREE_MODEL(store));
+		g_object_unref (G_OBJECT(store));
+			
+		store = gtk_list_store_new (2, G_TYPE_BOOLEAN, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.def_stock_clist),
+			GTK_TREE_MODEL(store));
+		populate_stock_defs (store);
+		g_object_unref (G_OBJECT(store));
+		
+		store = gtk_list_store_new (2, G_TYPE_BOOLEAN, G_TYPE_STRING);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (co->widgets.warnings_clist),
+			GTK_TREE_MODEL(store));
+		populate_warnings (store);
+		g_object_unref (G_OBJECT(store));
 	}
 	return co;
 }
@@ -376,8 +446,7 @@ compiler_options_destroy (CompilerOptions * co)
 	if (co)
 	{
 		gtk_widget_unref (co->widgets.window);
-		for (i = 0; i < 16; i++)
-			gtk_widget_unref (co->widgets.warning_button[i]);
+		gtk_widget_unref (co->widgets.warnings_clist);
 		for (i = 0; i < 4; i++)
 			gtk_widget_unref (co->widgets.optimize_button[i]);
 		for (i = 0; i < 2; i++)
@@ -385,51 +454,21 @@ compiler_options_destroy (CompilerOptions * co)
 
 		gtk_widget_unref (co->widgets.inc_clist);
 		gtk_widget_unref (co->widgets.inc_entry);
-		gtk_widget_unref (co->widgets.inc_add_b);
-		gtk_widget_unref (co->widgets.inc_update_b);
-		gtk_widget_unref (co->widgets.inc_remove_b);
-		gtk_widget_unref (co->widgets.inc_clear_b);
-
 		gtk_widget_unref (co->widgets.lib_paths_clist);
 		gtk_widget_unref (co->widgets.lib_paths_entry);
-		gtk_widget_unref (co->widgets.lib_paths_add_b);
-		gtk_widget_unref (co->widgets.lib_paths_update_b);
-		gtk_widget_unref (co->widgets.lib_paths_remove_b);
-		gtk_widget_unref (co->widgets.lib_paths_clear_b);
-
 		gtk_widget_unref (co->widgets.lib_clist);
 		gtk_widget_unref (co->widgets.lib_stock_clist);
-
 		gtk_widget_unref (co->widgets.lib_entry);
-		gtk_widget_unref (co->widgets.lib_add_b);
-		gtk_widget_unref (co->widgets.lib_update_b);
-		gtk_widget_unref (co->widgets.lib_remove_b);
-		gtk_widget_unref (co->widgets.lib_clear_b);
-
 		gtk_widget_unref (co->widgets.def_clist);
+		gtk_widget_unref (co->widgets.def_stock_clist);
 		gtk_widget_unref (co->widgets.def_entry);
-		gtk_widget_unref (co->widgets.def_add_b);
-		gtk_widget_unref (co->widgets.def_update_b);
-		gtk_widget_unref (co->widgets.def_remove_b);
-		gtk_widget_unref (co->widgets.def_clear_b);
 		gtk_widget_unref (co->widgets.other_c_flags_entry);
 		gtk_widget_unref (co->widgets.other_l_flags_entry);
 		gtk_widget_unref (co->widgets.other_l_libs_entry);
-
 		gtk_widget_unref (co->widgets.supp_clist);
-		gtk_widget_unref (co->widgets.supp_info_b);
 
 		if (co->widgets.window)
 			gtk_widget_destroy (co->widgets.window);
-		
-		if (co->other_c_flags)
-			g_free (co->other_c_flags);
-		
-		if (co->other_l_flags)
-			g_free (co->other_l_flags);
-		
-		if (co->other_l_libs)
-			g_free (co->other_l_libs);
 		
 		g_free (co);
 		co = NULL;
@@ -447,6 +486,7 @@ gboolean compiler_options_save_yourself (CompilerOptions * co, FILE * stream)
 
 gint compiler_options_save (CompilerOptions * co, FILE * s)
 {
+#if 0
 	gchar *text;
 	gint length, i;
 
@@ -467,7 +507,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			}
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 	
 	length = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
 	fprintf (s, "compiler.options.include.paths=");
@@ -479,7 +519,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	length =
 		g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->
@@ -494,7 +534,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	length = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
 	fprintf (s, "compiler.options.libraries=");
@@ -519,7 +559,7 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	length = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
 	fprintf (s, "compiler.options.defines=");
@@ -532,36 +572,34 @@ gint compiler_options_save (CompilerOptions * co, FILE * s)
 			return FALSE;
 		}
 	}
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.warning.buttons=");
 	for (i = 0; i < 16; i++)
 		fprintf (s, "%d ", (int) co->warning_button_state[i]);
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.optimize.buttons=");
 	for (i = 0; i < 4; i++)
 		fprintf (s, "%d ", (int) co->optimize_button_state[i]);
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
 	fprintf (s, "compiler.options.other.buttons=");
 	for (i = 0; i < 2; i++)
 		fprintf (s, "%d ", (int) co->other_button_state[i]);
-	fprintf (s, "\n\n");
+	fprintf (s, "\n");
 
-	fprintf (s, "compiler.options.other.c.flags=%s",
+	fprintf (s, "compiler.options.other.c.flags=%s\n",
 		 co->other_c_flags);
 	
-	fprintf (s, "\n\n");
-	fprintf (s, "compiler.options.other.l.flags=%s",
+	fprintf (s, "compiler.options.other.l.flags=%s\n",
 		 co->other_l_flags);
-	fprintf (s, "\n\n");
 	
-	fprintf (s, "compiler.options.other.l.libs=%s",
+	fprintf (s, "compiler.options.other.l.libs=%s\n",
 		 co->other_l_libs);
-	fprintf (s, "\n\n");
 
 	return TRUE;
+#endif
 }
 
 gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
@@ -574,37 +612,77 @@ gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
 		prop_get_int (props, "compiler.options.win.pos.y", 100);
 	return TRUE;
 }
+
+#define CLIST_CLEAR_ALL(widget) \
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(widget)); \
+	g_assert (model); \
+	if (model) gtk_list_store_clear (GTK_LIST_STORE (model));
+
+#define CLIST_APPEND_STRING_ALL(property, widget, col) \
+	list = glist_from_data (props, property); \
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(widget)); \
+	g_assert (model); \
+	node = list; \
+	while (node) \
+	{ \
+		gtk_list_store_append (GTK_LIST_STORE(model), &iter); \
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, node->data, -1); \
+		node = g_list_next (node); \
+	} \
+	glist_strings_free (list);
+
+#define CLIST_UPDATE_BOOLEAN_ALL(property, widget, col) \
+	list = glist_from_data (props, property); \
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(widget)); \
+	g_assert (model); \
+	valid = gtk_tree_model_get_iter_first (model, &iter); \
+	node = list; \
+	while (node && valid) \
+	{ \
+		int value = atoi(node->data); \
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, col, value, -1); \
+		node = g_list_next (node); \
+		valid = gtk_tree_model_get_iter_next (model, &iter); \
+	} \
+	glist_strings_free (list);
+
 void
 compiler_options_clear(CompilerOptions *co)
 {
 	gint i;
+	GtkTreeModel* model;
+	GtkTreeIter iter;
+	gboolean valid;
 
 	g_return_if_fail (co != NULL);
 
 	gtk_widget_set_sensitive (co->widgets.supp_clist, TRUE);
 
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.supp_clist));
+	g_assert (model);
+	
 	/* Clear all supports */
-	i = 0;
-	while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID], ANJUTA_SUPPORTS_END_STRING) != 0)
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
 	{
-		co_clist_row_data_set_false (GTK_CLIST(co->widgets.supp_clist), i);
-		i++;
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, FALSE, -1);
+		valid = gtk_tree_model_get_iter_next (model, &iter);
 	}
 
-	gtk_clist_clear (GTK_CLIST (co->widgets.inc_clist));
+	CLIST_CLEAR_ALL(co->widgets.inc_clist);
+	CLIST_CLEAR_ALL(co->widgets.lib_paths_clist);
+	CLIST_CLEAR_ALL(co->widgets.lib_clist);
+	CLIST_CLEAR_ALL(co->widgets.def_clist);
+	
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.inc_entry), "");
-	gtk_clist_clear (GTK_CLIST (co->widgets.lib_paths_clist));
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_paths_entry), "");
-	gtk_clist_clear (GTK_CLIST (co->widgets.lib_clist));
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.lib_entry), "");
-	gtk_clist_clear (GTK_CLIST (co->widgets.def_clist));
 	gtk_entry_set_text (GTK_ENTRY (co->widgets.def_entry), "");
-	for (i = 0; i < 16; i++)
-		co->warning_button_state[i] = FALSE;
+	
 	for (i = 0; i < 4; i++)
-		co->optimize_button_state[i] = FALSE;
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.optimize_button[i]), FALSE);
 	for (i = 0; i < 2; i++)
-		co->other_button_state[i] = FALSE;
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.other_button[i]), FALSE);
 
 	co->supp_index = 0;
 	co->inc_index = 0;
@@ -612,25 +690,41 @@ compiler_options_clear(CompilerOptions *co)
 	co->lib_paths_index = 0;
 	co->def_index = 0;
 
-	co->warning_button_state[2] = TRUE;
-	co->optimize_button_state[0] = TRUE;
-	co->other_button_state[0] = TRUE;
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.warnings_clist));
+	g_assert (model);
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
+	{
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, FALSE, -1);
+		valid = gtk_tree_model_get_iter_next (model, &iter);
+	}
 
-	string_assign (&co->other_c_flags, "");
-	string_assign (&co->other_l_flags, "");
-	string_assign (&co->other_l_libs, "");
-	compiler_options_sync (co);
+	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_c_flags_entry), "");
+	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_l_flags_entry), "");
+	gtk_entry_set_text (GTK_ENTRY(co->widgets.other_l_libs_entry), "");
+	compiler_options_set_in_properties(co, co->props);
 }
+
+#define ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, key, entry) \
+	{ \
+		gchar *str = prop_get ((props), (key)); \
+		if (str) { \
+			gtk_entry_set_text (GTK_ENTRY((entry)), str); \
+			g_free (str); \
+		} else { \
+			gtk_entry_set_text (GTK_ENTRY((entry)), ""); \
+		} \
+	}
 
 void
 compiler_options_load (CompilerOptions * co, PropsID props)
 {
-	gchar *str;
-	gchar *dummy[2];
-	gchar dumtext[] = "";
+	GtkTreeModel *model;
+	GtkTreeIter iter;
 	GList *list, *node;
+	gboolean valid;
 	gint i;
-
+	
 	g_return_if_fail (co != NULL);
 
 	compiler_options_clear (co);
@@ -643,15 +737,18 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 	{
 		if (node->data)
 		{
+			model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.supp_clist));
+			g_assert (model);
+			valid = gtk_tree_model_get_iter_first (model, &iter);
 			while (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID],
-					ANJUTA_SUPPORTS_END_STRING) != 0)
+					ANJUTA_SUPPORTS_END_STRING) != 0 && valid)
 			{
 				if (strcmp (anjuta_supports[i][ANJUTA_SUPPORT_ID], node->data)==0)
 				{
-					
-					co_clist_row_data_set_true (GTK_CLIST (co->widgets.supp_clist), i);
+					gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, TRUE, -1);
 					break;
 				}
+				valid = gtk_tree_model_get_iter_first (model, &iter);
 				i++;
 			}
 		}
@@ -665,186 +762,41 @@ compiler_options_load (CompilerOptions * co, PropsID props)
 		gtk_widget_set_sensitive (co->widgets.supp_clist, FALSE);
 	}
 
-	list = glist_from_data (props, "compiler.options.include.paths");
-	node = list;
-	while (node)
-	{
-		dummy[0] = node->data;
-		gtk_clist_append (GTK_CLIST (co->widgets.inc_clist), dummy);
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
-
-	list = glist_from_data (props, "compiler.options.library.paths");
-	node = list;
-	while (node)
-	{
-		dummy[0] = node->data;
-		gtk_clist_append (GTK_CLIST (co->widgets.lib_paths_clist),
-				  dummy);
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
-
-	list = glist_from_data (props, "compiler.options.libraries");
-	node = list;
-	while (node)
-	{
-		dummy[0] = dumtext;
-		dummy[1] = node->data;
-		if (dummy[1])
-		{
-			gtk_clist_append (GTK_CLIST (co->widgets.lib_clist), dummy);
-			co_clist_row_data_set_true (GTK_CLIST(co->widgets.lib_clist), 
-				  GTK_CLIST(co->widgets.lib_clist)->rows-1);
-		}
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
-
-	list = glist_from_data (props, "compiler.options.libraries.selected");
-	node = list;
-	i=0;
-	while (node)
-	{
-		if (node->data)
-		{
-			gint state;
-			sscanf (node->data, "%d", &state);
-			if (!state)
-				co_clist_row_data_set_false (GTK_CLIST(co->widgets.lib_clist), i);
-		}
-		i++;
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
-
-	list = glist_from_data (props, "compiler.options.defines");
-	node = list;
-	while (node)
-	{
-		dummy[0] = node->data;
-		if (dummy[0]) gtk_clist_append (GTK_CLIST (co->widgets.def_clist), dummy);
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
-
-	list = glist_from_data (props, "compiler.options.warning.buttons");
-	node = list;
-	i = 0;
-	while (node)
-	{
-		gint state;
-		if (node->data)
-		{
-			sscanf (node->data, "%d", &state);
-			co->warning_button_state[i] = state;
-		}
-		i++;
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
-
+	CLIST_APPEND_STRING_ALL ("compiler.options.include.paths", co->widgets.inc_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.library.paths", co->widgets.lib_paths_clist, 0);
+	CLIST_APPEND_STRING_ALL ("compiler.options.libraries", co->widgets.lib_clist, 1);
+	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.libraries.selected", co->widgets.lib_clist, 0);
+	CLIST_APPEND_STIRNG_ALL ("compiler.options.defines", co->widgets.def_clist, 0);
+	CLIST_UPDATE_BOOLEAN_ALL ("compiler.options.warning.buttons", co->widgets.warnings_clist, 0);
+	
 	list = glist_from_data (props, "compiler.options.optimize.buttons");
 	node = list;
 	i = 0;
 	while (node)
 	{
-		gint state;
-		if (node->data)
-		{
-			sscanf (node->data, "%d", &state);
-			co->optimize_button_state[i] = state;
-		}
-		i++;
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.optimize_button[i]),
+			atoi(node->data));
 		node = g_list_next (node);
+		i++;
 	}
 	glist_strings_free (list);
-
+	
 	list = glist_from_data (props, "compiler.options.other.buttons");
 	node = list;
 	i = 0;
-	while (node)
-	{
-		gint state;
-		if (node->data)
-		{
-			sscanf (node->data, "%d", &state);
-			co->other_button_state[i] = state;
-		}
-		i++;
+	while (node) {
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(co->widgets.other_button[i]),
+			atoi(node->data));
 		node = g_list_next (node);
+		i++;
 	}
 	glist_strings_free (list);
 
-	str = prop_get (props, "compiler.options.other.c.flags");
-	if (str)
-	{
-		string_assign (&co->other_c_flags, str);
-		g_free (str);
-	}
-	
-	str = prop_get (props, "compiler.options.other.l.flags");
-	if (str)
-	{
-		string_assign (&co->other_l_flags, str);
-		g_free (str);
-	}
-
-	str = prop_get (props, "compiler.options.other.l.libs");
-	if (str)
-	{
-		string_assign (&co->other_l_libs, str);
-		g_free (str);
-	}
-	compiler_options_sync (co);
-}
-
-void
-compiler_options_sync (CompilerOptions * co)
-{
-	gint i;
-
-	if (!co)
-		return;
-	for (i = 0; i < 16; i++)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					      (co->widgets.warning_button[i]),
-					      co->warning_button_state[i]);
-	}
-	for (i = 0; i < 4; i++)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					      (co->widgets.
-					       optimize_button[i]),
-					      co->optimize_button_state[i]);
-	}
-	for (i = 0; i < 2; i++)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-					      (co->widgets.other_button[i]),
-					      co->other_button_state[i]);
-	}
-
-	if (co->other_c_flags)
-		gtk_entry_set_text (GTK_ENTRY
-				    (co->widgets.other_c_flags_entry),
-				    co->other_c_flags);
-	
-	if (co->other_l_flags)
-		gtk_entry_set_text (GTK_ENTRY
-				    (co->widgets.other_l_flags_entry),
-				    co->other_l_flags);
-	
-	if (co->other_l_libs)
-		gtk_entry_set_text (GTK_ENTRY
-				    (co->widgets.other_l_libs_entry),
-				    co->other_l_libs);
+	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.c.flags", co->widgets.other_c_flags_entry);
+	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.l.flags",	co->widgets.other_l_flags_entry);
+	ASSIGN_PROPERTY_VALUE_TO_ENTRY(props, "compiler.options.other.l.libs", co->widgets.other_l_libs_entry);
 	
 	compiler_options_set_in_properties (co, co->props);
-	compiler_options_update_controls (co);
-	
 }
 
 void
@@ -875,113 +827,73 @@ compiler_options_hide (CompilerOptions * co)
 	co->is_showing = FALSE;
 }
 
-void
-compiler_options_update_controls (CompilerOptions * co)
+#define GET_ALL_STRING_DATA(widget, str, separator, col) \
+{ \
+	GtkTreeModel *model; \
+	GtkTreeIter iter; \
+	gboolean valid; \
+	gchar* tmp; \
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(widget)); \
+	g_assert(model); \
+	valid = gtk_tree_model_get_iter_first(model, &iter); \
+	while (valid) \
+	{ \
+		gchar *text; \
+		gtk_tree_model_get (model, col, &text, -1); \
+		tmp = g_strconcat (str, separator, text, NULL); \
+		g_free (str); \
+		str = tmp; \
+		valid = gtk_tree_model_get_iter_next (model, &iter); \
+	} \
+}
+
+static gchar *
+get_supports (CompilerOptions *co, gint item, gchar *separator)
 {
-	gint length;
-
-	length = g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
-	if (length < 2)
-		gtk_widget_set_sensitive (co->widgets.inc_clear_b, FALSE);
-	else
-		gtk_widget_set_sensitive (co->widgets.inc_clear_b, TRUE);
-	if (length < 1)
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar *str;
+	gint i;
+	
+	str = g_strdup ("");
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.supp_clist));
+	g_assert(model);
+	valid = gtk_tree_model_get_iter_first(model, &iter);
+	i = 0;
+	while (valid)
 	{
-		gtk_widget_set_sensitive (co->widgets.inc_remove_b, FALSE);
-		gtk_widget_set_sensitive (co->widgets.inc_update_b, FALSE);
+		gboolean value;
+		gchar *text, *tmp;
+		
+		gtk_tree_model_get (model, 0, &value, -1);
+		if (!value)
+			continue;
+		text = anjuta_supports [i][item];
+		tmp = g_strconcat (str, text, separator, NULL);
+		g_free (str);
+		str = tmp;
+		valid = gtk_tree_model_get_iter_next (model, &iter);
+		i++;
 	}
-	else
-	{
-		gtk_widget_set_sensitive (co->widgets.inc_remove_b, TRUE);
-		gtk_widget_set_sensitive (co->widgets.inc_update_b, TRUE);
-	}
-
-	length =
-		g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->
-			       row_list);
-	if (length < 2)
-		gtk_widget_set_sensitive (co->widgets.lib_paths_clear_b,
-					  FALSE);
-	else
-		gtk_widget_set_sensitive (co->widgets.lib_paths_clear_b,
-					  TRUE);
-	if (length < 1)
-	{
-		gtk_widget_set_sensitive (co->widgets.lib_paths_remove_b,
-					  FALSE);
-		gtk_widget_set_sensitive (co->widgets.lib_paths_update_b,
-					  FALSE);
-	}
-	else
-	{
-		gtk_widget_set_sensitive (co->widgets.lib_paths_remove_b,
-					  TRUE);
-		gtk_widget_set_sensitive (co->widgets.lib_paths_update_b,
-					  TRUE);
-	}
-
-	length = g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list);
-	if (length < 2)
-		gtk_widget_set_sensitive (co->widgets.lib_clear_b, FALSE);
-	else
-		gtk_widget_set_sensitive (co->widgets.lib_clear_b, TRUE);
-	if (length < 1)
-	{
-		gtk_widget_set_sensitive (co->widgets.lib_remove_b, FALSE);
-		gtk_widget_set_sensitive (co->widgets.lib_update_b, FALSE);
-	}
-	else
-	{
-		gtk_widget_set_sensitive (co->widgets.lib_remove_b, TRUE);
-		gtk_widget_set_sensitive (co->widgets.lib_update_b, TRUE);
-	}
-
-	length = g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
-	if (length < 2)
-		gtk_widget_set_sensitive (co->widgets.def_clear_b, FALSE);
-	else
-		gtk_widget_set_sensitive (co->widgets.def_clear_b, TRUE);
-	if (length < 1)
-	{
-		gtk_widget_set_sensitive (co->widgets.def_remove_b, FALSE);
-		gtk_widget_set_sensitive (co->widgets.def_update_b, FALSE);
-	}
-	else
-	{
-		gtk_widget_set_sensitive (co->widgets.def_remove_b, TRUE);
-		gtk_widget_set_sensitive (co->widgets.def_update_b, TRUE);
-	}
+	return str;
 }
 
 static gchar *
 get_include_paths (CompilerOptions * co, gboolean with_support)
 {
-	gchar *str, *tmp;
-	gchar *text;
-	gint i;
+	gchar *str;
 
 	str = g_strdup ("");
-	for (i = 0;
-	     i < g_list_length (GTK_CLIST (co->widgets.inc_clist)->row_list);
-	     i++)
-	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.inc_clist), i, 0,
-				    &text);
-		tmp = g_strconcat (str, " -I", text, NULL);
-		g_free (str);
-		str = tmp;
-	}
+	GET_ALL_STRING_DATA (co->widgets.inc_clist, str, " -I", 0);
+	
 	if (with_support)
 	{
-		for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
-		{
-			if (co_clist_row_data_get_state (GTK_CLIST (co->widgets.supp_clist), i) == FALSE)
-				continue;
-			text = anjuta_supports [i][ANJUTA_SUPPORT_FILE_CFLAGS];
-			tmp = g_strconcat (str, " ", text, NULL);
-			g_free (str);
-			str = tmp;
-		}
+		gchar *supports = get_supports (co, ANJUTA_SUPPORT_FILE_CFLAGS, " ");
+		gchar *tmp = g_strconcat (str, tmp, NULL);
+		g_free (str);
+		g_free (supports);
+		str = tmp;
 	}
 	return str;
 }
@@ -989,63 +901,52 @@ get_include_paths (CompilerOptions * co, gboolean with_support)
 static gchar *
 get_library_paths (CompilerOptions * co)
 {
-	gchar *str, *tmp;
-	gchar *text;
-	gint i;
+	gchar *str;
 
 	str = g_strdup ("");
-	for (i = 0;
-	     i <
-	     g_list_length (GTK_CLIST (co->widgets.lib_paths_clist)->
-			    row_list); i++)
-	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.lib_paths_clist),
-				    i, 0, &text);
-		tmp = g_strconcat (str, " -L", text, NULL);
-		g_free (str);
-		str = tmp;
-	}
+	GET_ALL_STRING_DATA (co->widgets.lib_paths_clist, str, " -L", 0);
 	return str;
 }
 
 static gchar *
 get_libraries (CompilerOptions * co, gboolean with_support)
 {
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
 	gchar *str, *tmp;
 	gchar *text;
 	gint i;
 
 	str = g_strdup ("");
-	for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.lib_clist)->row_list); i++)
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.lib_clist));
+	g_assert(model);
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	while (valid)
 	{
-		if (co_clist_row_data_get_state (GTK_CLIST (co->widgets.lib_clist), i) == FALSE)
-			continue;
-		gtk_clist_get_text (GTK_CLIST (co->widgets.lib_clist), i, 1,
-				    &text);
+		gboolean value;
 		
-		if (*text == '*') /* If it starts with '*' then consider it as an object file and not a lib file */
-		{
+		gtk_tree_model_get (model, 0, &value, 1, &text, -1);
+		if (!value)
+			continue;
+		
+		 /* If it starts with '*' then consider it as an object file and not a lib file */
+		if (*text == '*')
 			/* Remove the '*' and put the rest */
 			tmp = g_strconcat (str, " ", &text[1], NULL);
-		}
 		else /* Lib file */
-		{
 			tmp = g_strconcat (str, " -l", text, NULL);
-		}
 		g_free (str);
 		str = tmp;
+		valid = gtk_tree_model_get_iter_next (model, &iter);
 	}
 	if (with_support)
 	{
-		for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
-		{
-			if (co_clist_row_data_get_state (GTK_CLIST (co->widgets.supp_clist), i) == FALSE)
-				continue;
-			text = anjuta_supports [i][ANJUTA_SUPPORT_FILE_LIBS];
-			tmp = g_strconcat (str, " ", text, NULL);
-			g_free (str);
-			str = tmp;
-		}
+		gchar *supports = get_supports (co, ANJUTA_SUPPORT_FILE_LIBS, " ");
+		gchar *tmp = g_strconcat (str, tmp, NULL);
+		g_free (str);
+		g_free (supports);
+		str = tmp;
 	}
 	return str;
 }
@@ -1053,20 +954,85 @@ get_libraries (CompilerOptions * co, gboolean with_support)
 static gchar *
 get_defines (CompilerOptions * co)
 {
-	gchar *str, *tmp;
-	gchar *text;
-	gint i;
-
+	gchar *str;
 	str = g_strdup ("");
-	for (i = 0;
-	     i < g_list_length (GTK_CLIST (co->widgets.def_clist)->row_list);
-	     i++)
+	GET_ALL_STRING_DATA (co->widgets.def_clist, str, " -D", 0);
+	return str;
+}
+
+static gchar*
+get_warnings(CompilerOptions *co)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gchar *str, *tmp;
+	gint i;
+	
+	str = g_strdup ("");
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(co->widgets.warnings_clist));
+	g_assert(model);
+	valid = gtk_tree_model_get_iter_first (model, &iter);
+	i = 0;
+	while (valid)
 	{
-		gtk_clist_get_text (GTK_CLIST (co->widgets.def_clist), i, 0,
-				    &text);
-		tmp = g_strconcat (str, " -D", text, NULL);
-		g_free (str);
-		str = tmp;
+		gboolean value;
+		gchar *text;
+		
+		gtk_tree_model_get (model, 0, &value, 1, &text, -1);
+		if (!value)
+			continue;
+		
+		tmp = str;
+		str = g_strconcat (tmp, warning_button_option[i], NULL);
+		g_free (tmp);
+		valid = gtk_tree_model_get_iter_next (model, &iter);
+	}
+	return str;
+}
+
+static gchar*
+get_optimization (CompilerOptions *co)
+{
+	gchar *str;
+	gint i;
+	
+	str = g_strdup ("");
+	for (i = 0; i < 4; i++)
+	{
+		gboolean state;
+		gchar *tmp;
+		
+		state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (co->widgets.optimize_button[i]));
+		if (state)
+		{
+			tmp = str;
+			str = g_strconcat (tmp, optimize_button_option[i], NULL);
+			g_free (tmp);
+		}
+	}
+	return str;
+}
+
+static gchar*
+get_others (CompilerOptions *co)
+{
+	gchar *str;
+	gint i;
+	
+	str = g_strdup ("");
+	for (i = 0; i < 4; i++)
+	{
+		gboolean state;
+		gchar *tmp;
+		
+		state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (co->widgets.other_button[i]));
+		if (state)
+		{
+			tmp = str;
+			str = g_strconcat (tmp, other_button_option[i], NULL);
+			g_free (tmp);
+		}
 	}
 	return str;
 }
@@ -1074,8 +1040,7 @@ get_defines (CompilerOptions * co)
 void
 compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 {
-	gchar *str, *tmp, *buff;
-	gint i;
+	gchar *buff;
 
 	buff = get_include_paths (co, TRUE);
 	prop_set_with_key (props, "anjuta.compiler.includes", buff);
@@ -1093,47 +1058,25 @@ compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 	prop_set_with_key (props, "anjuta.compiler.defines", buff);
 	g_free (buff);
 
-	str = g_strdup ("");
-	for (i = 0; i < 15; i++)
-		if (co->warning_button_state[i])
-		{
-			tmp = str;
-			str = g_strconcat (tmp, warning_button_option[i],
-					     NULL);
-			g_free (tmp);
-			if (i==1)
-				break;
-		}
-	prop_set_with_key (props, "anjuta.compiler.warning.flags", str);
-	g_free (str);
-
-	str = g_strdup ("");
-	for (i = 0; i < 4; i++)
-		if (co->optimize_button_state[i])
-		{
-			tmp = str;
-			str =
-				g_strconcat (tmp, optimize_button_option[i],
-					     NULL);
-			g_free (tmp);
-		}
-	prop_set_with_key (props, "anjuta.compiler.optimization.flags", str);
-	g_free (str);
-
-	str = g_strdup ("");
-	for (i = 0; i < 2; i++)
-		if (co->other_button_state[i])
-		{
-			tmp = str;
-			str = g_strconcat (tmp, other_button_option[i], NULL);
-			g_free (tmp);
-		}
-	prop_set_with_key (props, "anjuta.compiler.other.flags", str);
-	g_free (str);
+	buff = get_warnings(co);
+	prop_set_with_key (props, "anjuta.compiler.warning.flags", buff);
+	g_free (buff);
 	
-	prop_set_with_key (props, "anjuta.compiler.additional.flags", co->other_c_flags);
-	prop_set_with_key (props, "anjuta.linker.additional.flags", co->other_l_flags);
-	prop_set_with_key (props, "anjuta.linker.additional.libs", co->other_l_libs);
+	
+	buff = get_optimization(co);
+	prop_set_with_key (props, "anjuta.compiler.optimization.flags", buff);
+	g_free (buff);
+
+	buff = get_others(co);
+	prop_set_with_key (props, "anjuta.compiler.other.flags", buff);
+	g_free (buff);
+	
+	prop_set_with_key (props, "anjuta.compiler.additional.flags",
+		gtk_entry_get_text (GTK_ENTRY (co->widgets.other_c_flags_entry)));
+	prop_set_with_key (props, "anjuta.linker.additional.flags",
+		gtk_entry_get_text (GTK_ENTRY (co->widgets.other_l_flags_entry)));
+	prop_set_with_key (props, "anjuta.linker.additional.libs",
+		gtk_entry_get_text (GTK_ENTRY (co->widgets.other_l_libs_entry)));
 
 	prop_set_with_key (props, "anjuta.compiler.flags",
 			   "$(anjuta.compiler.includes) $(anjuta.compiler.defines) "
@@ -1147,109 +1090,55 @@ compiler_options_set_in_properties (CompilerOptions * co, PropsID props)
 			   "$(anjuta.linker.additional.flags) $(anjuta.linker.additional.libs)");
 }
 
+#define PRINT_TO_STREAM(stream, format, buff) \
+	if (buff) \
+	{ \
+		if (strlen (buff)) \
+		{ \
+			fprintf (fp, "\\\n\t%s", buff); \
+		} \
+	}
+
+#define PRINT_TO_STREAM_AND_FREE(stream, format, buff) \
+	if (buff) \
+	{ \
+		if (strlen (buff)) \
+		{ \
+			fprintf (fp, "\\\n\t%s", buff); \
+		} \
+		g_free (buff); \
+	}
+
 void
 compiler_options_set_prjincl_in_file (CompilerOptions* co, FILE* fp)
 {
 	gchar *buff;
 	buff = get_include_paths (co, FALSE);
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}	
+	PRINT_TO_STREAM_AND_FREE(fp, "\\\n\t%s", buff);
 }
 
 void
 compiler_options_set_prjcflags_in_file (CompilerOptions * co, FILE* fp)
 {
-	gchar *buff, *tmp;
-	gint i;
-
+	gchar *buff;
 /*
-	for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
-	{
-		if (co_clist_row_data_get_state (GTK_CLIST (co->widgets.supp_clist), i) == FALSE)
-			continue;
-		buff = anjuta_supports [i][ANJUTA_SUPPORT_PRJ_CFLAGS];
-		fprintf (fp, "\\\n\t%s", buff);
-	}
-
+	buff = get_supports (co, ANJUTA_SUPPORT_PRJ_CFLAGS, " ");
+	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
 */
 	buff = get_defines (co);
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
+	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
+	
+	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->widgets.other_c_flags_entry));
+	PRINT_TO_STREAM (fp, "\\\n\t%s", buff);
 
-	if (co->other_c_flags)
-	{
-		if (strlen (co->other_c_flags))
-		{
-			fprintf (fp, "\\\n\t%s", co->other_c_flags);
-		}
-	}
+	buff = get_warnings(co);
+	PRINT_TO_STREAM_AND_FREE(fp, "\\\n\t%s", buff);
 
-	buff = g_strdup ("");
-	for (i = 0; i < 15; i++)
-		if (co->warning_button_state[i])
-		{
-			tmp = buff;
-			buff =
-				g_strconcat (tmp, warning_button_option[i],
-					     NULL);
-			g_free (tmp);
-		}
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
+	buff = get_optimization(co);
+	PRINT_TO_STREAM_AND_FREE(fp, "\\\n\t%s", buff);
 
-	buff = g_strdup ("");
-	for (i = 0; i < 4; i++)
-		if (co->optimize_button_state[i])
-		{
-			tmp = buff;
-			buff =
-				g_strconcat (tmp, optimize_button_option[i],
-					     NULL);
-			g_free (tmp);
-		}
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
-
-	buff = g_strdup ("");
-	for (i = 0; i < 2; i++)
-		if (co->other_button_state[i])
-		{
-			tmp = buff;
-			buff = g_strconcat (tmp, other_button_option[i], NULL);
-			g_free (tmp);
-		}
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
+	buff = get_others(co);
+	PRINT_TO_STREAM_AND_FREE(fp, "\\\n\t%s", buff);
 }
 
 void
@@ -1258,71 +1147,34 @@ compiler_options_set_prjlibs_in_file (CompilerOptions * co, FILE* fp)
 	gchar *buff;
 	
 	buff = get_libraries (co, FALSE);
+	PRINT_TO_STREAM_AND_FREE(fp, "\\\n\t%s", buff);
 	
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
-	
-	if (co->other_l_libs)
-	{
-		if (strlen (co->other_l_libs))
-		{
-			fprintf (fp, "\\\n\t%s", co->other_l_libs);
-		}
-	}
+	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->widgets.other_l_libs_entry));
+	PRINT_TO_STREAM (fp, "\\\n\t%s", buff);
 }
 
 void
 compiler_options_set_prjlflags_in_file (CompilerOptions * co, FILE* fp)
 {
 	gchar *buff;
-/*	gint i; */
 
-	if (co->other_l_flags)
-	{
-		if (strlen (co->other_l_flags))
-		{
-			fprintf (fp, "\\\n\t%s", co->other_l_flags);
-		}
-	}
+	buff = (gchar*)gtk_entry_get_text (GTK_ENTRY(co->widgets.other_l_flags_entry));
+	PRINT_TO_STREAM (fp, "\\\n\t%s", buff);
 	
 	buff = get_library_paths (co);
-	if (buff)
-	{
-		if (strlen (buff))
-		{
-			fprintf (fp, "\\\n\t%s", buff);
-		}
-		g_free (buff);
-	}
+	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
 
 /*
-	for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
-	{
-		if (co_clist_row_data_get_state (GTK_CLIST (co->widgets.supp_clist), i) == FALSE)
-			continue;
-		buff = anjuta_supports [i][ANJUTA_SUPPORT_PRJ_LIBS];
-		fprintf (fp, "\\\n\t%s", buff);
-	}
+	buff = get_supports (co, ANJUTA_SUPPORT_PRJ_LIBS, " ");
+	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
 */
 }
 
 void
 compiler_options_set_prjmacros_in_file (CompilerOptions * co, FILE* fp)
 {
-	gint i;
 	gchar* buff;
 	
-	for (i = 0; i < g_list_length (GTK_CLIST (co->widgets.supp_clist)->row_list); i++)
-	{
-		if (co_clist_row_data_get_state (GTK_CLIST (co->widgets.supp_clist), i) == FALSE)
-			continue;
-		buff = anjuta_supports [i][ANJUTA_SUPPORT_MACROS];
-		fprintf (fp, "%s\n", buff);
-	}
+	buff = get_supports (co, ANJUTA_SUPPORT_MACROS, "\n");
+	PRINT_TO_STREAM_AND_FREE (fp, "\\\n\t%s", buff);
 }

@@ -14,7 +14,7 @@
    <title>動作中の Anjuta IDE</title>
    <screenshot>
    <screeninfo>動作中の Anjuta IDE</screeninfo>
-   <graphic format="png" fileref="figures/scrshot" srccredit="andyp"></graphic>
+   <graphic format="png" fileref="figures/scrshot" srccredit="andyp">
    </screenshot>
    </figure>
   </para>
