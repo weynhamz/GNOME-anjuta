@@ -422,6 +422,7 @@ module.pixmap.files=\
 	manuals/C/anjuta-manual/figures/inspect.png\
 	manuals/C/anjuta-manual/figures/lib_paths.png\
 	manuals/C/anjuta-manual/figures/libraries.png\
+	manuals/C/anjuta-manual/figures/mainwin.png\
 	manuals/C/anjuta-manual/figures/menu_detached.png\
 	manuals/C/anjuta-manual/figures/menu_main.png\
 	manuals/C/anjuta-manual/figures/message_win.png\
@@ -610,24 +611,18 @@ module.doc.files=\
 	TODO\
 	doc/ScintillaDoc.html\
 	manuals/C/anjuta-faqs/anjuta-faqs.sgml\
-	manuals/C/ChangeLog\
 	manuals/C/anjuta-manual/anjuta-manual.sgml\
 	manuals/C/anjuta-manual/authors.sgml\
-	manuals/C/anjuta-manual/chapter01.sgml\
-	manuals/C/anjuta-manual/chapter02.sgml\
-	manuals/C/anjuta-manual/chapter03.sgml\
-	manuals/C/anjuta-manual/chapter04.sgml\
-	manuals/C/anjuta-manual/chapter05.sgml\
-	manuals/C/anjuta-manual/chapter06.sgml\
-	manuals/C/anjuta-manual/chapter07.sgml\
-	manuals/C/anjuta-manual/chapter08.sgml\
-	manuals/C/anjuta-manual/chapter09.sgml\
-	manuals/C/anjuta-manual/chapter10.sgml\
-	manuals/C/anjuta-manual/chapter11.sgml\
-	manuals/C/anjuta-manual/chapter12.sgml\
-	manuals/C/anjuta-manual/chapter13.sgml\
-	manuals/C/anjuta-manual/chapter14.sgml\
-	manuals/C/anjuta-manual/chapter15.sgml\
+	manuals/C/anjuta-manual/introduction.sgml\
+	manuals/C/anjuta-manual/interface.sgml\
+	manuals/C/anjuta-manual/build.sgml\
+	manuals/C/anjuta-manual/compileopts.sgml\
+	manuals/C/anjuta-manual/debugger.sgml\
+	manuals/C/anjuta-manual/execute.sgml\
+	manuals/C/anjuta-manual/fileoperations.sgml\
+	manuals/C/anjuta-manual/preferences.sgml\
+	manuals/C/anjuta-manual/projects.sgml\
+	manuals/C/anjuta-manual/template.sgml\
 	manuals/C/anjuta-manual/license.sgml\
 	po/ChangeLog\
 	macros/ChangeLog

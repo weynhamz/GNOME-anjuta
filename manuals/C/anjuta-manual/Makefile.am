@@ -20,6 +20,7 @@ figs = \
 	figures/inspect.png\
 	figures/lib_paths.png\
 	figures/libraries.png\
+	figures/mainwin.png\
 	figures/menu_detached.png\
 	figures/menu_main.png\
 	figures/message_win.png\
