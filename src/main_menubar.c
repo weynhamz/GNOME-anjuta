@@ -400,7 +400,7 @@ on_project_menu_realize (GtkWidget * widget, gpointer data)
 void
 on_recent_files_menu_item_activate (GtkMenuItem * item, gchar * data)
 {
-	anjuta_append_text_editor (data);
+	anjuta_goto_file_line (data, -1);
 }
 
 void

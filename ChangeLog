@@ -1,3 +1,7 @@
+2003-12-10  Naba Kumar  <naba@gnome.org>
+
+	* Merged changes from cvs branch ANJUTA_1_2_0 (tag: MERGE_LEVEL_3)
+	
 2003-11-30  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Added "cs" "mk" "sr" "sr@Latn" to ALL_LINGUAS.
@@ -48,6 +52,67 @@
 
 	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
 
+2003-12-09  Naba Kumar  <naba@gnome.org>
+
+	* setup-gettext: Fixed a typo.
+	* scintilla/Makefile.am: Fixed a build error for SMP systems.
+
+---- Released version 1.2.0 ---
+
+2003-12-08  Naba Kumar  <naba@gnome.org>
+
+	* src/preferences.c: Fixed compiler error.
+	* global_tags/create_global_tags.sh: Fixed to install properly
+	even when system.tags could not be generated.
+	* NEWS: Updated.
+
+2003-12-06  Naba Kumar  <naba@gnome.org>
+
+	* setup-gettext: Fixed to not generate intl directory with gettextize.
+
+	Patch from:  Karl-Heinz Brünen  <k.bruenen@eprosoft.de>
+	* src/anjuta.c: Filters out unnecessary files from find in files
+	command.
+	
+	* NEWS: Updated.
+	* manuals/C/anjuta-tutorial/anjuta-tutorial.xml: Fixed tutorial
+	* src/widzard_gui.c: Added horiz scrollbar for desc text.
+	
+2003-12-04  Naba Kumar  <naba@gnome.org>
+	
+	* src/gnome_project.c: Enables debug and optimization flags for
+	new projects.
+	
+	Patch from: Pavol Bosik  <Pavol.Bosik@siemens.com>
+	
+	* src/project_dbase_gui.c: combined header and c files for
+	file selector.
+	
+	* plugins/class-gen/clsGen.c: Fixed file name typo in generated file.
+	* data/properties/pascal.properties: Fixed pascal syntax highlighting.
+
+2003-11-30  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "cs" "mk" "sr" "sr@Latn" to ALL_LINGUAS.
+
+2003-11-29  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, anjuta.prj: Bumped version to 1.2.0.
+	* NEWS: Updated.
+
+2003-11-28 Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/main_menubar.c: Now files cannot be opened twice in recently
+	file menu
+
+2003-11-27  Pavol Bosik  <Pavol.Bosik@siemens.com>
+
+	* src/breakpoints.c: Fixed parsing of gdb output for breakpoints in C++
+
+2003-11-28  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/*/*: Updated scintilla to CVS (2003-11-28)
+	
 2003-11-27  Naba Kumar  <naba@gnome.org>
 
 	* src/breakpoints.c, src/launcher.c, src/find_text.c,

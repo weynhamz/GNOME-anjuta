@@ -328,9 +328,9 @@ Edit the GUI. Now <application>GLADE</application> is executed. You can ideally 
 		gchar *text1, *text2; 
 
 		text1 = gtk_entry_get_text (GTK_ENTRY(entry)); 
-		text2 = strcat ("Hello, ", text1); 
+		text2 = g_strconcat ("Hello, ", text1, NULL); 
 		gnome_app_message (GNOME_APP(msgbox), text2); 
-
+		g_free (text2);
 	} </programlisting>
 
 	<para>After this save and close the callbacks.c (use the File 

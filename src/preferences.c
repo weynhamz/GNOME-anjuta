@@ -163,11 +163,14 @@ get_property_value_as_string (AnjutaProperty *prop)
 			gtk_editable_get_chars (GTK_EDITABLE (prop->object), 0, -1);
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
-		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
-		int idx = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
-		if (values[idx] != NULL)
-			text_value = g_strdup(values[idx]);
-		break;
+		{
+			gint idx;
+			values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
+			idx = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
+			if (values[idx] != NULL)
+				text_value = g_strdup(values[idx]);
+			break;
+		}
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
 			GtkTextBuffer *buffer;

@@ -144,7 +144,9 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmCss);
 	LINK_LEXER(lmEiffel);
 	LINK_LEXER(lmEiffelkw);
+	LINK_LEXER(lmErlang);
 	LINK_LEXER(lmESCRIPT);
+	LINK_LEXER(lmForth);
 	LINK_LEXER(lmFortran);
 	LINK_LEXER(lmF77);
 	LINK_LEXER(lmHTML);
@@ -167,6 +169,7 @@ int Scintilla_LinkLexers() {
 	LINK_LEXER(lmLatex);
 	LINK_LEXER(lmNull);
 	LINK_LEXER(lmPascal);
+	LINK_LEXER(lmPB);
 	LINK_LEXER(lmPerl);
 	LINK_LEXER(lmPOV);
 	LINK_LEXER(lmPS);

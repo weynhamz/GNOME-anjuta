@@ -61,6 +61,7 @@ test_scintilla_SOURCES = test-scintilla.cxx
 test_scintilla_LDADD = \
 	$(ANJUTA_LIBS) \
 	$(top_builddir)/scintilla/libscintilla.a
+test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libscintilla.a
 
 update-scintilla:
 	cp $(srcdir)/scintilla/gtk/*.cxx $(srcdir)/

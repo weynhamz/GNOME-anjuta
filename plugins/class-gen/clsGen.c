@@ -1015,7 +1015,7 @@ GenerateSource(CG_Creator *self, FILE* fpOut)
 	{
 		if(!self->m_bInline)
 		{
-			fprintf(fpOut, "//\n// File: %s\n", self->m_szDeclFile);
+			fprintf(fpOut, "//\n// File: %s\n", self->m_szImplFile);
 			
 			{
 				gchar* username =

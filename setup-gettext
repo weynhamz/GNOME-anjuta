@@ -195,8 +195,7 @@ else
 
 		[ -f po/Makevars.template ] && mv po/Makevars.template po/Makevars
 	else
-		[ $VERBOSE -eq 1 ] && echo "  gettextize --copy --force"
-		echo n | gettextize --copy --force || exit;
+		[ $VERBOSE -eq 1 ] && echo "  gettextize --copy --force --intl"
+		echo n | gettextize --copy --force --intl || exit;
 	fi
 fi
-

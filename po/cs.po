@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-24 02:56+0100\n"
-"PO-Revision-Date: 2003-11-24 13:53+0100\n"
+"POT-Creation-Date: 2003-11-28 14:05+0100\n"
+"PO-Revision-Date: 2003-11-28 18:08+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Další"
 msgid "Additional Libraries (LDADD):"
 msgstr "Další knihovny (LDADD):"
 
-#: anjuta.glade.h:13 src/wizard_gui.c:573
+#: anjuta.glade.h:13 src/wizard_gui.c:575
 msgid "Additional Options"
 msgstr "Další volby"
 
@@ -2773,14 +2773,14 @@ msgstr ""
 
 #. For the time being
 #: src/appwizard_cbs.c:282 src/project_dbase.c:1489 src/project_dbase.c:1495
-#: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:115
-#: src/signals_cbs.c:128 src/signals_cbs.c:141
+#: src/project_dbase.c:1498 src/project_import_cbs.c:227 src/signals_cbs.c:114
+#: src/signals_cbs.c:127 src/signals_cbs.c:140
 msgid "Yes"
 msgstr "Ano"
 
 #: src/appwizard_cbs.c:284 src/project_dbase.c:1491 src/project_dbase.c:1500
-#: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
-#: src/signals_cbs.c:143
+#: src/project_import_cbs.c:229 src/signals_cbs.c:116 src/signals_cbs.c:129
+#: src/signals_cbs.c:142
 msgid "No"
 msgstr "Ne"
 
@@ -3553,6 +3553,16 @@ msgstr "Posílám procesu signál %s: %d\n"
 msgid "Error whilst signalling the process."
 msgstr "Chyba při posílání signálu procesu."
 
+#: src/dnd.c:104
+#, c-format
+msgid "File %s is not local."
+msgstr "Soubor %s není místní."
+
+#: src/dnd.c:112
+#, c-format
+msgid "Invalid filename %s."
+msgstr "Neplatný název souboru %s."
+
 #: src/executer.c:53 src/mainmenu_callbacks.c:1709
 msgid "The target executable of this Project is unknown"
 msgstr "Cílový spustitelný soubor tohoto projektu není znám"
@@ -3628,22 +3638,22 @@ msgstr "Řetězec \"%s\" nebyl nalezen ve vybraném textu"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "Řetězec \"%s\" nebyl z aktuálního umístění nalezen"
 
-#: src/find_text.c:156
+#: src/find_text.c:155
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "Hledané \"%s\" nebylo nalezeno v celém dokumentu"
 
-#: src/find_text.c:161
+#: src/find_text.c:160
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "Hledané \"%s\" nebylo nalezeno ve vybraném textu"
 
-#: src/find_text.c:166
+#: src/find_text.c:165
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr "Hledané \"%s\" nebylo nalezeno v aktuálním umístění"
 
-#: src/find_text.c:190
+#: src/find_text.c:189
 msgid "No matches found. Wrap search around the document?"
 msgstr "Nenalezen žádný výsledek. Hledat od druhého konce dokumentu?"
 
@@ -3692,7 +3702,7 @@ msgstr "Nemohu vytvořit soubor: %s"
 msgid "Loading Project ...\n"
 msgstr "Načítám projekt ...\n"
 
-#: src/gnome_project.c:168 src/gnome_project.c:228
+#: src/gnome_project.c:168 src/gnome_project.c:229
 msgid "Saving Project ...\n"
 msgstr "Ukládám projekt ...\n"
 
@@ -3701,35 +3711,35 @@ msgid "Generating source codes ...\n"
 msgstr "Generuji zdrojové kódy ....\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:182
+#: src/gnome_project.c:183
 msgid "Copying icon file ...\n"
 msgstr "Kopíruji soubor ikony ...\n"
 
-#: src/gnome_project.c:196
+#: src/gnome_project.c:197
 msgid "Could not create icon file ...\n"
 msgstr "Nemohu vytvořit soubor ikony ...\n"
 
-#: src/gnome_project.c:210
+#: src/gnome_project.c:211
 msgid "Locating files ...\n"
 msgstr "Hledám soubory ...\n"
 
-#: src/gnome_project.c:232
+#: src/gnome_project.c:233
 msgid "Updating Project ...\n"
 msgstr "Aktualizuji projekt ...\n"
 
-#: src/gnome_project.c:235
+#: src/gnome_project.c:236
 msgid "Running autogen.sh ...\n"
 msgstr "Spouštím autogen.sh ...\n"
 
-#: src/gnome_project.c:247
+#: src/gnome_project.c:248
 msgid "App Wizard"
 msgstr "Kouzelník aplikace"
 
-#: src/gnome_project.c:269
+#: src/gnome_project.c:270
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Automatické generování dokončeno...............Neúspěšně\n"
 
-#: src/gnome_project.c:272
+#: src/gnome_project.c:273
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
@@ -3737,7 +3747,7 @@ msgstr ""
 "Projekt nebyl automaticky vygenerován úspěšně.\n"
 "Spusťte prosím autogen.sh ručně."
 
-#: src/gnome_project.c:278
+#: src/gnome_project.c:279
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
@@ -3745,7 +3755,7 @@ msgstr ""
 "Automatické generování dokončeno...............Úspěšně\n"
 "Nyní projekt sestavte, abyste se na něj mohli PODÍVAT\n"
 
-#: src/gnome_project.c:281
+#: src/gnome_project.c:282
 msgid "Project was successfully auto generated."
 msgstr "Projekt byl úspěšně automaticky vygenerován."
 
@@ -3793,7 +3803,7 @@ msgstr "Nezobrazovat úvodní obrazovku"
 msgid "Recent Files    "
 msgstr "Nedávné soubory "
 
-#: src/main_menubar.c:393 src/project_dbase.c:2038
+#: src/main_menubar.c:393 src/project_dbase.c:2039
 msgid "Recent Projects "
 msgstr "Nedávné projekty"
 
@@ -6241,7 +6251,7 @@ msgstr "Všechny soubor"
 msgid "Unable to load Project: %s"
 msgstr "Nemohu načíst projet: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2477
+#: src/project_dbase.c:466 src/project_dbase.c:2478
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6277,11 +6287,11 @@ msgstr ""
 "neexistuje soubor .glade."
 
 #. Set project title
-#: src/project_dbase.c:2075
+#: src/project_dbase.c:2076
 msgid "Project: "
 msgstr "Projekt: "
 
-#: src/project_dbase.c:2192
+#: src/project_dbase.c:2193
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6290,20 +6300,20 @@ msgstr ""
 "Nemohu získat relativní jméno souboru pro %s\n"
 " v %s"
 
-#: src/project_dbase.c:2257
+#: src/project_dbase.c:2258
 msgid " already exists in the project"
 msgstr " již v projektu existuje"
 
-#: src/project_dbase.c:2290
+#: src/project_dbase.c:2291
 msgid "Error while copying the file inside the module."
 msgstr "Chyba při kopírování souboru uvnitř modulu."
 
-#: src/project_dbase.c:2553 src/project_dbase.c:2556
+#: src/project_dbase.c:2554 src/project_dbase.c:2557
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Chyba při načítání projektu: %s"
 
-#: src/project_dbase.c:2577
+#: src/project_dbase.c:2578
 msgid "Project loaded successfully."
 msgstr "Projekt úspěšně načten."
 
@@ -7596,43 +7606,47 @@ msgstr "Cíl dynamické knihovny"
 msgid "Enter a short description of the Project"
 msgstr "Zadejte krátký popis projektu"
 
-#: src/wizard_gui.c:594
+#: src/wizard_gui.c:596
 msgid "Enter any additional Project options"
 msgstr "Zadejte přídavné možnosti projektu"
 
-#: src/wizard_gui.c:611
+#: src/wizard_gui.c:613
 msgid " Project Options "
 msgstr " Možnosti projektu "
 
-#: src/wizard_gui.c:622
+#: src/wizard_gui.c:624
 msgid "Include GNU Copyright statement in file headings"
 msgstr "Zahrnout do hlaviček prohlášení o copyrightu GNU"
 
-#: src/wizard_gui.c:629
+#: src/wizard_gui.c:631
 msgid "Enable Gettext Support"
 msgstr "Povolit podporu Gettextu"
 
-#: src/wizard_gui.c:636
+#: src/wizard_gui.c:639
+msgid "Generate source code using glade or glademm"
+msgstr "Vygenerovat zdrojový kód pomocí glade nebo glademm"
+
+#: src/wizard_gui.c:646
 msgid "GNOME Menu Entry"
 msgstr "Položka GNOME menu:"
 
-#: src/wizard_gui.c:646
+#: src/wizard_gui.c:656
 msgid "Entry name:"
 msgstr "Název položky:"
 
-#: src/wizard_gui.c:653
+#: src/wizard_gui.c:663
 msgid "Comment:"
 msgstr "Komentář:"
 
-#: src/wizard_gui.c:660
+#: src/wizard_gui.c:670
 msgid "Group:"
 msgstr "Skupina:"
 
-#: src/wizard_gui.c:702
+#: src/wizard_gui.c:712
 msgid "Needs terminal"
 msgstr "Potřebuje terminál"
 
-#: src/wizard_gui.c:743
+#: src/wizard_gui.c:754
 msgid "Summary"
 msgstr "Shrnutí"
 
@@ -7757,35 +7771,14 @@ msgstr "Název složky"
 #~ msgid "Repeat the last Find command"
 #~ msgstr "Zopakovat předchozí příkaz Hledat"
 
-#~ msgid "New"
-#~ msgstr "Nový"
-
-#~ msgid "Open"
-#~ msgstr "Otevřít"
-
-#~ msgid "Save"
-#~ msgstr "Uložit"
-
 #~ msgid "Reload"
 #~ msgstr "Znovu načíst"
-
-#~ msgid "Undo"
-#~ msgstr "Zpět"
-
-#~ msgid "Redo"
-#~ msgstr "Znovu"
 
 #~ msgid "Go To"
 #~ msgstr "Jít na"
 
 #~ msgid "Execute"
 #~ msgstr "Spustit"
-
-#~ msgid "First"
-#~ msgstr "První"
-
-#~ msgid "Last"
-#~ msgstr "Poslední"
 
 #~ msgid "Goto Tag"
 #~ msgstr "Jít na tag"

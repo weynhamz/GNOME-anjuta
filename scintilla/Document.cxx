@@ -50,7 +50,7 @@ Document::Document() {
 	stylingBits = 5;
 	stylingBitsMask = 0x1F;
 	stylingMask = 0;
-	SetWordChars(0);
+	SetDefaultCharClasses();
 	endStyled = 0;
 	styleClock = 0;
 	enteredCount = 0;
@@ -792,6 +792,40 @@ int Document::NextWordStart(int pos, int delta) {
 }
 
 /**
+ * Find the end of the next word in either a forward (delta >= 0) or backwards direction
+ * (delta < 0).
+ * This is looking for a transition between character classes although there is also some
+ * additional movement to transit white space.
+ * Used by cursor movement by word commands.
+ */
+int Document::NextWordEnd(int pos, int delta) {
+	if (delta < 0) {
+		if (pos > 0) {
+			charClassification ccStart = WordCharClass(cb.CharAt(pos-1));
+			if (ccStart != ccSpace) {
+				while (pos > 0 && WordCharClass(cb.CharAt(pos - 1)) == ccStart) {
+					pos--;
+				}
+			}
+			while (pos > 0 && WordCharClass(cb.CharAt(pos - 1)) == ccSpace) {
+				pos--;
+			}
+		}
+	} else {
+		while (pos < Length() && WordCharClass(cb.CharAt(pos)) == ccSpace) {
+			pos++;
+		}
+		if (pos < Length()) {
+			charClassification ccStart = WordCharClass(cb.CharAt(pos));
+			while (pos < Length() && WordCharClass(cb.CharAt(pos)) == ccStart) {
+				pos++;
+			}
+		}
+	}
+	return pos;
+}
+
+/**
  * Check that the character at the given position is a word or punctuation character and that
  * the previous character is of a different character class.
  */
@@ -1085,25 +1119,26 @@ void Document::ChangeCase(Range r, bool makeUpperCase) {
 	}
 }
 
-void Document::SetWordChars(unsigned char *chars) {
-	int ch;
-	for (ch = 0; ch < 256; ch++) {
+void Document::SetDefaultCharClasses() {
+	// Initialize all char classes to default values
+	for (int ch = 0; ch < 256; ch++) {
 		if (ch == '\r' || ch == '\n')
 			charClass[ch] = ccNewLine;
 		else if (ch < 0x20 || ch == ' ')
 			charClass[ch] = ccSpace;
+		else if (ch >= 0x80 || isalnum(ch) || ch == '_')
+			charClass[ch] = ccWord;
 		else
 			charClass[ch] = ccPunctuation;
 	}
+}
+
+void Document::SetCharClasses(unsigned char *chars, charClassification newCharClass) {
+	// Apply the newCharClass to the specifed chars
 	if (chars) {
 		while (*chars) {
-			charClass[*chars] = ccWord;
+			charClass[*chars] = newCharClass;
 			chars++;
-		}
-	} else {
-		for (ch = 0; ch < 256; ch++) {
-			if (ch >= 0x80 || isalnum(ch) || ch == '_')
-				charClass[ch] = ccWord;
 		}
 	}
 }
