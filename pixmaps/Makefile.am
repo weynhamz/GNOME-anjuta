@@ -8,7 +8,7 @@ anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 
 anjuta_pixmaps_DATA = \
 	add.xpm\
-	anjuta_icon.xpm\
+	anjuta_icon.png\
 	anjuta_logo.png\
 	app_wizard.jpg\
 	appwid_blank.xpm\
