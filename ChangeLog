@@ -1,3 +1,14 @@
+2005-01-14  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/search_incremental.c,
+	plugins/editor/search_incremental.h: Fixed incremental search, ctrl-e
+	works now.
+	
+	* plugins/editor/plugin.c, plugins/editor/plugin.h,
+	src/anjuta-callbacks.c: Added ctrl-tabbing and alt-switching of editor
+	tabs.
+
 2005-01-12  Naba Kumar  <naba@gnome.org>
 
 	* configure.in,

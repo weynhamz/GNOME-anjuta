@@ -88,6 +88,43 @@
 
 static gpointer parent_class;
 
+/* Shortcuts implementation */
+enum {
+	m___ = 0,
+	mS__ = GDK_SHIFT_MASK,
+	m_C_ = GDK_CONTROL_MASK,
+	m__M = GDK_MOD1_MASK,
+	mSC_ = GDK_SHIFT_MASK | GDK_CONTROL_MASK,
+};
+
+enum {
+	ID_NEXTBUFFER = 1, /* Note: the value mustn't be 0 ! */
+	ID_PREVBUFFER,
+	ID_FIRSTBUFFER
+};
+
+typedef struct {
+	int modifiers;
+	unsigned int gdk_key;
+	int id;
+} ShortcutMapping;
+
+static ShortcutMapping global_keymap[] = {
+	{ m_C_, GDK_Tab,		 ID_NEXTBUFFER },
+	{ mSC_, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	{ m__M, GDK_1, ID_FIRSTBUFFER },
+	{ m__M, GDK_2, ID_FIRSTBUFFER + 1},
+	{ m__M, GDK_3, ID_FIRSTBUFFER + 2},
+	{ m__M, GDK_4, ID_FIRSTBUFFER + 3},
+	{ m__M, GDK_5, ID_FIRSTBUFFER + 4},
+	{ m__M, GDK_6, ID_FIRSTBUFFER + 5},
+	{ m__M, GDK_7, ID_FIRSTBUFFER + 6},
+	{ m__M, GDK_8, ID_FIRSTBUFFER + 7},
+	{ m__M, GDK_9, ID_FIRSTBUFFER + 8},
+	{ m__M, GDK_0, ID_FIRSTBUFFER + 9},
+	{ 0,   0,		 0 }
+};
+
 static GtkActionEntry actions_file[] = {
   { "ActionFileSave", N_("_Save"), GTK_STOCK_SAVE, "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save1_activate)},
@@ -773,6 +810,106 @@ on_edit_editor_styles (GtkWidget *button, EditorPlugin *plugin)
 	style_editor_show (plugin->style_editor);
 }
 
+
+static gint
+on_window_key_press_event (GtkWidget   *widget,
+				  GdkEventKey *event,
+				  EditorPlugin *plugin)
+{
+	int modifiers;
+	int i;
+
+	g_return_val_if_fail (event != NULL, FALSE);
+
+	modifiers = event->state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
+  
+	for (i = 0; global_keymap[i].id; i++)
+		if (event->keyval == global_keymap[i].gdk_key &&
+		    (event->state & global_keymap[i].modifiers) == global_keymap[i].modifiers)
+			break;
+
+	if (!global_keymap[i].id)
+		return FALSE;
+
+	switch (global_keymap[i].id) {
+	case ID_NEXTBUFFER:
+	case ID_PREVBUFFER: {
+		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
+		int pages_nb;
+		int cur_page;
+
+		if (!notebook->children)
+			return FALSE;
+
+		if (!plugin->g_tabbing)
+		{
+			plugin->g_tabbing = TRUE;
+		}
+
+		pages_nb = g_list_length (notebook->children);
+		cur_page = gtk_notebook_get_current_page (notebook);
+
+		if (global_keymap[i].id == ID_NEXTBUFFER)
+			cur_page = (cur_page < pages_nb - 1) ? cur_page + 1 : 0;
+		else
+			cur_page = cur_page ? cur_page - 1 : pages_nb -1;
+
+		gtk_notebook_set_page (notebook, cur_page);
+
+		break;
+	}
+	default:
+		if (global_keymap[i].id >= ID_FIRSTBUFFER &&
+		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
+		{
+			GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
+			int page_req = global_keymap[i].id - ID_FIRSTBUFFER;
+
+			if (!notebook->children)
+				return FALSE;
+			gtk_notebook_set_page(notebook, page_req);
+		}
+		else
+			return FALSE;
+	}
+
+	/* Note: No reason for a shortcut to do more than one thing a time */
+	gtk_signal_emit_stop_by_name (GTK_OBJECT (ANJUTA_PLUGIN(plugin)->shell),
+								  "key-press-event");
+
+	return TRUE;
+}
+
+static gint
+on_window_key_release_event (GtkWidget   *widget,
+				  GdkEventKey *event,
+				  EditorPlugin *plugin)
+{
+	g_return_val_if_fail (event != NULL, FALSE);
+
+	if (plugin->g_tabbing && ((event->keyval == GDK_Control_L) ||
+		(event->keyval == GDK_Control_R)))
+	{
+		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
+		GtkWidget *widget;
+		int cur_page;
+		plugin->g_tabbing = FALSE;
+		
+		if (anjuta_preferences_get_int (plugin->prefs,
+										EDITOR_TABS_RECENT_FIRST))
+		{
+			/*
+			TTimo: move the current notebook page to first position
+			that maintains Ctrl-TABing on a list of most recently edited files
+			*/
+			cur_page = gtk_notebook_get_current_page (notebook);
+			widget = gtk_notebook_get_nth_page (notebook, cur_page);
+			gtk_notebook_reorder_child (notebook, widget, 0);
+		}
+	}
+	return FALSE;
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -794,11 +931,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
+	editor_plugin->docman = docman;
 	g_signal_connect (G_OBJECT (docman), "editor_changed",
 					  G_CALLBACK (on_editor_changed), plugin);
 	g_signal_connect_swapped (G_OBJECT (status), "busy",
 							  G_CALLBACK (anjuta_docman_set_busy), docman);
-	editor_plugin->docman = docman;
+	g_signal_connect (G_OBJECT (plugin->shell), "key-press-event",
+					  G_CALLBACK (on_window_key_press_event), plugin);
+	g_signal_connect (G_OBJECT (plugin->shell), "key-release-event",
+					  G_CALLBACK (on_window_key_release_event), plugin);
 	
 	if (!initialized)
 	{
@@ -946,6 +1087,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (eplugin->docman),
 										  G_CALLBACK (on_editor_changed),
 										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_window_key_press_event),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_window_key_release_event),
+										  plugin);
 	
 	on_editor_changed (ANJUTA_DOCMAN (eplugin->docman), NULL, plugin);
 	
@@ -990,6 +1137,7 @@ editor_plugin_instance_init (GObject *obj)
 	EditorPlugin *plugin = (EditorPlugin*)obj;
 	plugin->uiid = 0;
 	plugin->style_editor = NULL;
+	plugin->g_tabbing = FALSE;
 }
 
 static void

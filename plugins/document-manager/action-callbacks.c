@@ -1059,17 +1059,33 @@ on_enterselection (GtkAction * action, gpointer user_data)
 	AnjutaDocman *docman;
 	EditorPlugin *plugin;
 	GtkAction *entry_action;
+	TextEditor *te;
+	gchar *selectionText = NULL;
+	GSList *proxies;
 	
 	plugin = (EditorPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+	if (!te) return;
 	
-	// FIXME: enter_selection_as_search_target();
-	
-	entry_action = anjuta_ui_get_action (plugin->ui, "ActionNavigation",
-								   "ActionEditSearchEntry");
+	entry_action = anjuta_ui_get_action (plugin->ui, "ActionGroupNavigation",
+									   "ActionEditSearchEntry");
 	g_return_if_fail (EGG_IS_ENTRY_ACTION (entry_action));
-	// line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	// FIXME: gtk_widget_grab_focus (entry_action);
+	
+	selectionText = text_editor_get_selection (te);
+	if (selectionText != NULL && selectionText[0] != '\0')
+	{
+		egg_entry_action_set_text (EGG_ENTRY_ACTION (entry_action), selectionText);
+	}		
+	/* Which proxy to focus? For now just focus the first one */
+	proxies = gtk_action_get_proxies (GTK_ACTION (entry_action));
+	if (proxies)
+	{
+		GtkWidget *child;
+		child = gtk_bin_get_child (GTK_BIN (proxies->data));
+		gtk_widget_grab_focus (GTK_WIDGET (child));
+	}
+	g_free (selectionText);
 }
 
 void

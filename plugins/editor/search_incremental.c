@@ -47,19 +47,11 @@
 
 #define COMBO_LIST_LENGTH 16
 
-static void
-toolbar_search_start_over (SearchDirection direction);
-
-static void
-toolbar_search_clicked (SearchDirection direction);
-
-static gint
-incremental_search(TextEditor *te, gchar *string, SearchDirection direction);
-
-
+static void toolbar_search_start_over (SearchDirection direction);
+static void toolbar_search_clicked (SearchDirection direction);
+static gint incremental_search(TextEditor *te, gchar *string, SearchDirection direction);
 
 static SearchReplace *sr = NULL;
-
 
 void
 search_incremental_init (AnjutaDocman *dm)
@@ -120,30 +112,6 @@ incremental_search(TextEditor *te, gchar *string, SearchDirection direction)
 	else
 		return -1;
 }
-
-void
-enter_selection_as_search_target(AnjutaDocman *dm)
-{
-	TextEditor *te;
-	gchar *selectionText = NULL;
-
-	//~ if (sr == NULL)
-		//~ sr = create_search_replace_instance();
-	te = anjuta_docman_get_current_editor (dm);
-	if (!te) return;
-		
-	selectionText = (gchar*) text_editor_get_selection (te);
-	if (selectionText != NULL && selectionText[0] != '\0')
-	{
-		anjuta_util_update_string_list (sr->search.expr_history,
-			                selectionText, COMBO_LIST_LENGTH);
-//		entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
-//								 selectionText, FALSE);
-	}
-	if (selectionText != NULL)
-		g_free (selectionText);
-}
-
 
 void
 toolbar_search_incremental_start (AnjutaDocman *dm)
@@ -287,14 +255,6 @@ toolbar_search_clicked (SearchDirection direction)
 		}
 	}
 }
-
-
-void
-toolbar_search_clicked_cb (void)
-{
-	toolbar_search_clicked (SD_FORWARD);
-}
-
 
 static void
 toolbar_search_start_over (SearchDirection direction)

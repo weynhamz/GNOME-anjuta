@@ -16,6 +16,9 @@ struct _EditorPlugin{
 	gint uiid;
 	GList *action_groups;
 	
+	/*! state flag for Ctrl-TAB */
+	gboolean g_tabbing;
+	
 	StyleEditor *style_editor;
 };
 
