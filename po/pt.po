@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.2\n"
-"POT-Creation-Date: 2003-03-03 21:30+0000\n"
-"PO-Revision-Date: 2003-03-03 21:40+0000\n"
+"POT-Creation-Date: 2003-03-16 03:01+0000\n"
+"PO-Revision-Date: 2003-03-16 03:10+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -263,15 +263,15 @@ msgstr "Opções"
 msgid "Source Directories"
 msgstr "Directórios Código"
 
-#: anjuta_dialogs_strings.c:82 anjuta_dialogs_strings.c:94
-msgid "dialog1"
-msgstr "diálogo1"
+#: anjuta_dialogs_strings.c:82
+msgid "Run Configure Script"
+msgstr "Executar Script Configuração"
 
 #: anjuta_dialogs_strings.c:84
 msgid "Configure Parameters"
 msgstr "Configurar Parâmetros"
 
-#: anjuta_dialogs_strings.c:85 src/find_in_files.c:280
+#: anjuta_dialogs_strings.c:85 src/find_in_files.c:301
 msgid "Find in Files"
 msgstr "Encontrar nos Ficheiros"
 
@@ -298,6 +298,10 @@ msgstr "Ficheiro/Directório a adicionar:"
 #: anjuta_dialogs_strings.c:93
 msgid "Search String"
 msgstr "Expressão Procura"
+
+#: anjuta_dialogs_strings.c:94
+msgid "Execute Program"
+msgstr "Executar Aplicação"
 
 #: anjuta_dialogs_strings.c:96
 msgid "Command Line Parameters"
@@ -2028,7 +2032,7 @@ msgstr ""
 msgid "Looking up symbol"
 msgstr "A procurar símbolo"
 
-#: src/anjuta.c:2401 src/find_in_files.c:285
+#: src/anjuta.c:2401 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
 msgstr "A Encontrar nos Ficheiros ....\n"
 
@@ -2142,7 +2146,7 @@ msgstr "Já existe uma ferramenta com o nome '%s'!"
 msgid "Unable to build user interface for tool help"
 msgstr "Incapaz de criar interface de utilizador para ajuda ferramenta"
 
-#: src/anjuta-tools.c:1706 src/debug_tree.c:1502 src/debug_tree.c:1527
+#: src/anjuta-tools.c:1706 src/debug_tree.c:1464 src/debug_tree.c:1486
 msgid "Variable"
 msgstr "Variável"
 
@@ -2150,7 +2154,7 @@ msgstr "Variável"
 msgid "Meaning"
 msgstr "Significado"
 
-#: src/anjuta-tools.c:1718 src/debug_tree.c:1502 src/debug_tree.c:1536
+#: src/anjuta-tools.c:1718 src/debug_tree.c:1464 src/debug_tree.c:1495
 #: src/watch_gui.c:133
 msgid "Value"
 msgstr "Valor"
@@ -2377,7 +2381,7 @@ msgstr "A compilar ficheiro: %s ...\n"
 #: src/build_file.c:130 src/build_project.c:331 src/build_project.c:368
 #: src/build_project.c:406 src/build_project.c:440 src/build_project.c:474
 #: src/clean_project.c:118 src/clean_project.c:201 src/compile.c:198
-#: src/configurer.c:219 src/cvs.c:746 src/find_in_files.c:320
+#: src/configurer.c:219 src/cvs.c:746 src/find_in_files.c:341
 #: src/project_import.c:179
 #, c-format
 msgid "Total time taken: %d secs\n"
@@ -3120,6 +3124,34 @@ msgstr "A enviar o sinal %s para o processo: %d\n"
 msgid "Error whilst signalling the process."
 msgstr "Ocorreu um erro ao sinalizar o processo."
 
+#: src/debug_tree.c:1520
+msgid "Default format"
+msgstr "Formato por omissão"
+
+#: src/debug_tree.c:1524
+msgid "Binary"
+msgstr "Binário"
+
+#: src/debug_tree.c:1527
+msgid "Octal"
+msgstr "Octal"
+
+#: src/debug_tree.c:1530
+msgid "Signed decimal"
+msgstr "Decimal com sinal"
+
+#: src/debug_tree.c:1533
+msgid "Unsigned decimal"
+msgstr "Decimal sem sinal"
+
+#: src/debug_tree.c:1536 src/registers_gui.c:111
+msgid "Hex"
+msgstr "Hex"
+
+#: src/debug_tree.c:1539
+msgid "Char"
+msgstr "Caracter"
+
 #: src/executer.c:53 src/mainmenu_callbacks.c:1700
 msgid "The target executable of this Project is unknown"
 msgstr "Desconhece-se o alvo executável deste Projecto"
@@ -3157,61 +3189,61 @@ msgstr "Este ficheiro não está gravado. Grave-o primeiro."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Incapaz de executar ficheiro. Verifique Definições->Comandos."
 
-#: src/find_in_files.c:306
+#: src/find_in_files.c:327
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Encontrar nos Ficheiros completo.........Insucesso\n"
 
-#: src/find_in_files.c:309
+#: src/find_in_files.c:330
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Encontrar nos Ficheiros completo ... insucesso"
 
-#: src/find_in_files.c:315
+#: src/find_in_files.c:336
 msgid "Find in Files completed...............Successful\n"
 msgstr "Encontrar nos Ficheiros completo.........Sucesso\n"
 
-#: src/find_in_files.c:317
+#: src/find_in_files.c:338
 msgid "Find in Files completed ... successful"
 msgstr "Encontrar nos Ficheiros completo ... sucesso"
 
-#: src/find_in_files_cbs.c:97
+#: src/find_in_files_cbs.c:103
 msgid "No input files supplied."
 msgstr "Nenhum ficheiro de entrada especificado."
 
-#: src/find_in_files_cbs.c:104
+#: src/find_in_files_cbs.c:110
 msgid "No search string supplied."
 msgstr "Nenhuma expressão de procura indicada."
 
-#: src/find_replace.c:331
+#: src/find_replace.c:337
 msgid "Do you want to replace this?"
 msgstr "Deseja substituir isto?"
 
-#: src/find_replace.c:373
+#: src/find_replace.c:395
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "A expressão \"%s\" não foi encontrada no texto seleccionado"
 
-#: src/find_replace.c:378
+#: src/find_replace.c:400
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "A expressão \"%s\" não foi encontrada a partir da localização actual"
 
-#: src/find_text.c:139
+#: src/find_text.c:163
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "A equivalência \"%s\" não foi encontrada em todo o documento"
 
-#: src/find_text.c:144
+#: src/find_text.c:168
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "A equivalência \"%s\" não foi encontrada no texto seleccionado"
 
-#: src/find_text.c:149
+#: src/find_text.c:173
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr ""
 "A equivalência \"%s\" não foi encontrada a partir da localização actual"
 
-#: src/find_text.c:171 src/toolbar_callbacks.c:234
+#: src/find_text.c:196 src/toolbar_callbacks.c:234
 msgid "No matches. Wrap search around the document?"
 msgstr "Nenhuma equivalência. Dar a volta ao documento?"
 
@@ -3301,7 +3333,7 @@ msgstr "Projecto foi auto-gerado com sucesso."
 msgid " Goto Line number "
 msgstr " Ir Para Linha número "
 
-#: src/launcher.c:369 src/text_editor.c:1222
+#: src/launcher.c:369 src/text_editor.c:1225
 msgid "Cannot execute command shell"
 msgstr "Incapaz de executar comando de consola"
 
@@ -6174,10 +6206,6 @@ msgstr "Registos CPU"
 msgid "Register"
 msgstr "Registo"
 
-#: src/registers_gui.c:111
-msgid "Hex"
-msgstr "Hex"
-
 #: src/registers_gui.c:115
 msgid "Decimal"
 msgstr "Decimal"
@@ -6197,7 +6225,7 @@ msgstr "Incapaz de encontrar ficheiro de imagem da aplicação: %s"
 msgid "Could not find application pixmap file: %s"
 msgstr "Incapaz de encontrar ficheiro pixmap da aplicação: %s"
 
-#: src/resources.c:265 src/resources.c:273
+#: src/resources.c:266 src/resources.c:274
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr "Incapaz de executar Devhelp. Certifique-se que está instalado"
 
@@ -6320,33 +6348,33 @@ msgstr "Pilha (Stack)"
 msgid "Couldn't find pixmap file: %s"
 msgstr "Incapaz de encontrar ficheiro pixmap: %s"
 
-#: src/text_editor.c:873
+#: src/text_editor.c:876
 msgid "Loading file ..."
 msgstr "A ler ficheiro ..."
 
-#: src/text_editor.c:879
+#: src/text_editor.c:882
 #, c-format
 msgid "Could not load file: %s"
 msgstr "Incapaz de ler ficheiro: %s"
 
-#: src/text_editor.c:898
+#: src/text_editor.c:901
 msgid "File loaded successfully"
 msgstr "Ficheiro lido com sucesso"
 
-#: src/text_editor.c:913
+#: src/text_editor.c:916
 msgid "Saving file ..."
 msgstr "A gravar ficheiro ..."
 
-#: src/text_editor.c:918
+#: src/text_editor.c:921
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Incapaz de gravar ficheiro: %s."
 
-#: src/text_editor.c:955
+#: src/text_editor.c:958
 msgid "File saved successfully"
 msgstr "Ficheiro gravado com sucesso"
 
-#: src/text_editor.c:1053
+#: src/text_editor.c:1056
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -6357,19 +6385,19 @@ msgstr ""
 "buffer actual.\n"
 "Deseja rele-lo?"
 
-#: src/text_editor.c:1190
+#: src/text_editor.c:1193
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto formatação está desactiva. Altere as definições nas Preferências."
 
-#: src/text_editor.c:1196
+#: src/text_editor.c:1199
 msgid "Auto formatting ..."
 msgstr "A auto formatar ..."
 
-#: src/text_editor.c:1206 src/text_editor.c:1233
+#: src/text_editor.c:1209 src/text_editor.c:1236
 msgid "Error in auto formatting ..."
 msgstr "Erro na auto formatação ..."
 
-#: src/text_editor.c:1239
+#: src/text_editor.c:1242
 msgid "Auto formatting completed"
 msgstr "Auto formatação terminada"
 
@@ -7224,6 +7252,9 @@ msgstr "Objecto Pixbuf"
 msgid "The pixbuf to render."
 msgstr "O pixbuf a renderizar."
 
+#~ msgid "dialog1"
+#~ msgstr "diálogo1"
+
 #~ msgid "Anjuta IDE"
 #~ msgstr "IDE Anjuta"
 
@@ -7555,24 +7586,6 @@ msgstr "O pixbuf a renderizar."
 
 #~ msgid "Configure Environment"
 #~ msgstr "Configurar Ambiente"
-
-#~ msgid "Default format"
-#~ msgstr "Formato por omissão"
-
-#~ msgid "Binary"
-#~ msgstr "Binário"
-
-#~ msgid "Octal"
-#~ msgstr "Octal"
-
-#~ msgid "Signed decimal"
-#~ msgstr "Decimal com sinal"
-
-#~ msgid "Unsigned decimal"
-#~ msgstr "Decimal sem sinal"
-
-#~ msgid "Char"
-#~ msgstr "Caracter"
 
 #~ msgid "Inspect memory"
 #~ msgstr "Inspeccionar memória"
