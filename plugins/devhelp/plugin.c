@@ -205,15 +205,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	priv = devhelp_plugin->priv;
 	
-	/* Add all our editor actions */
+	/* Add action group */
 	priv->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
 										_("Devhelp navigation operations"),
 										actions,
 										G_N_ELEMENTS (actions),
 										devhelp_plugin);
+	/* Adde UI */
 	devhelp_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
+	/* Add widgets */
 	anjuta_shell_add_widget (plugin->shell, priv->notebook,
 							 "AnjutaDevhelpIndex", _("Help"), GTK_STOCK_HELP,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
@@ -229,9 +231,17 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	g_message ("DevhelpPlugin: Dectivating Devhelp plugin ...");
+	
+	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->browser_frame, NULL);
 	anjuta_shell_remove_widget (plugin->shell, ((DevhelpPlugin*)plugin)->priv->notebook, NULL);
+	
+	/* Remove UI */
 	anjuta_ui_unmerge (ui, ((DevhelpPlugin*)plugin)->uiid);
+	
+	/* Remove action group */
+	anjuta_ui_remove_action_group (ui, ((DevhelpPlugin*)plugin)->priv->action_group);
+	
 	return TRUE;
 }
 

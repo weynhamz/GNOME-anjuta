@@ -168,13 +168,15 @@ message_view_plugin_class_init (GObjectClass *klass)
 /*
  * IAnjutaMessagerManager interface implementation 
  */
-static void
+static IAnjutaMessageView*
 ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 						 const gchar *file, const gchar *icon,
 						 GError **e)
 {
+	MessageView* message_view;
 	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
-	anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
+	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
+	return IANJUTA_MESSAGE_VIEW (message_view);
 }
 
 static void

@@ -1,3 +1,37 @@
+2004-09-24  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-ui.c: Fixed a crash bug.
+	* libanjuta/anjuta-plugin.c, libanjuta/plugins.c: Activates plugin
+	in correct way.
+	* plugins/file-manager/plugin.c: Fixed crash in unloading.
+	* plugins/file-loader/plugin.c: Added comments.
+	* plugins/build-basic-autotools/plugin.c: Added comments.
+	* plugins/devhelp/plugin.c: Fixed crash bug. Added comments.
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/message-view.c,
+	plugins/message-view/message-view.h,
+	plugins/message-view/plugin.c: Buffering and appending messages have
+	been separated. message-view implementations cleaned up. Signals
+	Emissions fixed. Messages now displayed in summary and details show
+	as tooltip. Message color highlights fixed. Updated IAnjutaMessageView
+	API.
+	
+	* plugins/message-view/anjuta-message-manager-plugin.glade: Organized
+	preferences.
+	
+	* plugins/build-basic-autotools/Makefile.am,
+	plugins/build-basic-autotools/build-basic-autotools.c: Added regex
+	parsing of output to create message summaries. Uses new message view
+	API.
+	
+	* plugins/editor/anjuta-document-manager.glade: Hidden unnecessary
+	preferences to make dialog box smaller.
+	
+	* plugins/editor/search-replace.c: Fixed compile error with change
+	in IAnjutaMessageView API.
+	
 2004-09-21  Naba Kumar  <naba@gnome.org>
 
 	* plugins/Makefile.am: Deletes old (installed) plugins before

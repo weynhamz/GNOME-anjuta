@@ -19,6 +19,9 @@
 */
 
 #include <config.h>
+#include <ctype.h>
+#include <pcre.h>
+
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-stock.h>
@@ -33,14 +36,121 @@
 
 gpointer parent_class;
 
+typedef struct
+{
+	gchar *pattern;
+	int options;
+	gchar *replace;
+	pcre *regex;
+} BuildPattern;
+
 /* Command processing */
-typedef struct {
-	
+typedef struct
+{
 	gchar *command;
 	IAnjutaMessageView *message_view;
 	AnjutaLauncher *launcher;
-	
 } BuildContext;
+
+static BuildPattern patterns_list[] =
+{
+	{"^\\s*gcc.*?\\-c\\s+([^\\s]+).*?\\-o\\s+(\\.libs/([^\\s]+?)\\.[^\\s]+).*$", 0, N_("Compiling \\1 --> \\3.lo [\\2]"), NULL},
+	{"^\\s*gcc.*?\\-o\\s+(\\.libs/([^\\s]+?)\\.[^\\s]+).*?\\-c\\s+([^\\s]+).*$", 0, N_("Compiling \\3 --> \\2.lo [\\1]"), NULL},
+	{"^\\s*gcc.*?\\-c\\s+([^\\s]+).*?\\-o\\s+([^\\s]+).*$", 0, N_("Compiling \\1 --> \\2"), NULL},
+	{"^\\s*gcc.*?\\-o\\s+([^\\s]+).*?\\-c\\s+([^\\s]+).*$", 0, N_("Compiling \\2 --> \\1"), NULL},
+	{"^\\s*gcc.*?\\-c\\s+([^\\s]+).*$", 0, "Compiling \\1", NULL},
+	{"^.*?libtool \\-\\-mode=compile", 0, N_("Invoking libtool for compilation"), NULL},
+	{"^\\s*gcc.*?\\s+\\-shared\\s+.*?\\-o\\s+([^\\s]+).*$", 0, N_("Building library \\1"), NULL},
+	{"^ar cru\\s+([^\\s]+).*$", 0, N_("Building library \\1"), NULL},
+	{"^\\s*gcc.*?\\-o\\s+([^\\s]+).*$", 0, N_("Building executable \\1"), NULL}
+};
+
+static void
+build_regex_init ()
+{
+	const char *error;
+	int erroffset;
+	int i;
+
+	if (patterns_list[0].regex)
+		return;
+	
+	for (i = 0; i < G_N_ELEMENTS (patterns_list); i++)
+	{
+		patterns_list[i].regex =
+			pcre_compile(
+			   patterns_list[i].pattern,
+			   patterns_list[i].options,
+			   &error,           /* for error message */
+			   &erroffset,       /* for error offset */
+			   NULL);            /* use default character tables */
+		if (patterns_list[i].regex == NULL) {
+			g_warning ("PCRE compilarion failed: %s: %d", error, erroffset);
+		}		
+	}	
+}
+
+/* Regex processing */
+static gchar*
+build_get_summary (const gchar *details, BuildPattern* bp)
+{
+	int rc;
+	int ovector[30];
+	const gchar *iter;
+	GString *ret;
+	gchar *final;
+
+	if (!bp || !bp->regex)
+		return NULL;
+	
+	rc = pcre_exec(
+			bp->regex,             /* result of pcre_compile() */
+			NULL,           /* we didn’t study the pattern */
+			details,        /* the subject string */
+			strlen (details),/* the length of the subject string */
+			0,              /* start at offset 0 in the subject */
+			bp->options,              /* default options */
+			ovector,        /* vector for substring information */
+			30);            /* number of elements in the vector */
+	
+	if (rc < 0)
+		return NULL;
+	
+	ret = g_string_new ("");
+	iter = bp->replace;
+	while (*iter != '\0')
+	{
+		if (*iter == '\\' && isdigit(*(iter + 1)))
+		{
+			char temp[2] = {0, 0};
+			
+			temp[0] = *(iter + 1);
+			int idx = atoi (temp);
+			// g_message ("dodo: %d, %d, %d", idx, ovector[2*idx], ovector[2*idx+1]);
+			ret = g_string_append_len (ret, details + ovector[2*idx],
+									   ovector[2*idx+1] - ovector[2*idx]);
+			iter += 2;
+		}
+		else
+		{
+			const gchar *start;
+			const gchar *end;
+			
+			start = iter;
+			iter = g_utf8_next_char (iter);
+			end = iter;
+			
+			ret = g_string_append_len (ret, start, end - start);
+		}
+	}
+	
+	final = g_string_free (ret, FALSE);
+	if (strlen (final) <= 0) {
+		g_free (final);
+		final = NULL;
+	}
+	return final;
+}
 
 static void
 on_build_mesg_arrived (AnjutaLauncher *launcher,
@@ -48,7 +158,132 @@ on_build_mesg_arrived (AnjutaLauncher *launcher,
 					   const gchar * mesg, gpointer user_data)
 {
 	BuildContext *context = (BuildContext*)user_data;
-	ianjuta_message_view_append (context->message_view, mesg, NULL);
+	ianjuta_message_view_buffer_append (context->message_view, mesg, NULL);
+}
+
+static gboolean
+parse_error_line (const gchar * line, gchar ** filename, int *lineno)
+{
+	gint i = 0;
+	gint j = 0;
+	gint k = 0;
+	gchar *dummy;
+
+	while (line[i++] != ':')
+	{
+		if (i >= strlen (line) || i >= 512 || line[i - 1] == ' ')
+		{
+			goto down;
+		}
+	}
+	if (isdigit (line[i]))
+	{
+		j = i;
+		while (isdigit (line[i++])) ;
+		dummy = g_strndup (&line[j], i - j - 1);
+		*lineno = atoi (dummy);
+		if (dummy)
+			g_free (dummy);
+		dummy = g_strndup (line, j - 1);
+		*filename = g_strdup (g_strstrip (dummy));
+		if (dummy)
+			g_free (dummy);
+		return TRUE;
+	}
+
+      down:
+	i = strlen (line) - 1;
+	while (isspace (line[i]) == FALSE)
+	{
+		i--;
+		if (i < 0)
+		{
+			*filename = NULL;
+			*lineno = 0;
+			return FALSE;
+		}
+	}
+	k = i++;
+	while (line[i++] != ':')
+	{
+		if (i >= strlen (line) || i >= 512 || line[i - 1] == ' ')
+		{
+			*filename = NULL;
+			*lineno = 0;
+			return FALSE;
+		}
+	}
+	if (isdigit (line[i]))
+	{
+		j = i;
+		while (isdigit (line[i++])) ;
+		dummy = g_strndup (&line[j], i - j - 1);
+		*lineno = atoi (dummy);
+		if (dummy)
+			g_free (dummy);
+		dummy = g_strndup (&line[k], j - k - 1);
+		*filename = g_strdup (g_strstrip (dummy));
+		if (dummy)
+			g_free (dummy);
+		return TRUE;
+	}
+	*lineno = 0;
+	*filename = NULL;
+	return FALSE;
+}
+
+static void
+on_build_mesg_format (IAnjutaMessageView *view, const gchar *line,
+					  AnjutaPlugin *plugin)
+{
+	gchar *dummy_fn, *summary;
+	gint dummy_int, re;
+	IAnjutaMessageViewType type;
+	
+	g_return_if_fail (line != NULL);
+	
+	type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+	if (parse_error_line(line, &dummy_fn, &dummy_int))
+	{
+		if (strstr (line, _("warning:")) != NULL)
+			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
+		else
+			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
+		
+		g_free(dummy_fn);
+	}
+	else if (strstr (line, ":") != NULL)
+	{
+		type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
+	}
+	
+	for (re = 0; re < G_N_ELEMENTS (patterns_list); re++)
+	{
+		summary = build_get_summary (line, &patterns_list[re]);
+		if (summary)
+			break;
+	}
+	
+	if (summary)
+	{
+		ianjuta_message_view_append (view, type, summary, line, NULL);
+		g_free (summary);
+	}
+	else
+		ianjuta_message_view_append (view, type, line, "", NULL);
+}
+
+static void
+on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
+					 AnjutaPlugin *plugin)
+{
+	gchar *filename;
+	gint lineno;
+	if (parse_error_line (line, &filename, &lineno))
+	{
+		/* Go to file and line number */
+		g_message ("Go to %s: %d", filename, lineno);
+	}
 }
 
 static void
@@ -64,25 +299,15 @@ on_build_terminated (AnjutaLauncher *launcher,
 	buff1 = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	if (status)
 	{
-		ianjuta_message_view_append (context->message_view,
+		ianjuta_message_view_buffer_append (context->message_view,
 									 _("Completed ... unsuccessful\n"), NULL);
-		/*
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_util_dialog_warning (NULL, _("Completed ... unsuccessful"));
-		*/
 	}
 	else
 	{
-		ianjuta_message_view_append (context->message_view,
+		ianjuta_message_view_buffer_append (context->message_view,
 								   _("Completed ... successful\n"), NULL);
-		/*
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Completed ... successful"));
-		*/
 	}
-	ianjuta_message_view_append (context->message_view, buff1, NULL);
+	ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
 	/*
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
@@ -109,21 +334,27 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 	
 	g_return_if_fail (command != NULL);
 	
+	build_regex_init();
+	
 	context = g_new0 (BuildContext, 1);
 	
 	mesg_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											   IAnjutaMessageManager, NULL);
 	snprintf (mname, 128, _("Build %d"), ++message_pane_count);
-	ianjuta_message_manager_add_view (mesg_manager, mname,
-									  ANJUTA_PIXMAP_MINI_BUILD, NULL);
 	context->message_view =
-		ianjuta_message_manager_get_view_by_name (mesg_manager, mname, NULL);
+		ianjuta_message_manager_add_view (mesg_manager, mname,
+										  ANJUTA_PIXMAP_MINI_BUILD, NULL);
+	g_signal_connect (G_OBJECT (context->message_view), "buffer_flushed",
+					  G_CALLBACK (on_build_mesg_format), plugin);
+	g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
+					  G_CALLBACK (on_build_mesg_parse), plugin);
 	
 	context->launcher = anjuta_launcher_new ();
 	
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);
-	ianjuta_message_view_append (context->message_view, command, NULL);
+	ianjuta_message_view_buffer_append (context->message_view, command, NULL);
+	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	chdir (dir);
 	anjuta_launcher_execute (context->launcher, command,
 							 on_build_mesg_arrived, context);
@@ -197,7 +428,7 @@ fm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->fm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
-	build_execute_command (plugin, dir, "make");
+	build_execute_command (plugin, dir, "make -s");
 }
 
 static void
@@ -470,7 +701,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	/* register actions */
+	/* Add action group */
 	ba_plugin->build_action_group = 
 		anjuta_ui_add_action_group_entries (ui,
 											"ActionGroupBuild",
@@ -478,9 +709,10 @@ activate_plugin (AnjutaPlugin *plugin)
 											build_actions,
 											sizeof(build_actions)/sizeof(GtkActionEntry),
 											plugin);
+	/* Add UI */
 	ba_plugin->build_merge_id = anjuta_ui_merge (ui, UI_FILE);
 
-	/* Register value watches */
+	/* Add watches */
 	ba_plugin->fm_watch_id = 
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
 								 value_added_fm_current_uri,
@@ -500,9 +732,15 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
+	
+	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, ba_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->project_watch_id, TRUE);
+	
+	/* Remove UI */
 	anjuta_ui_unmerge (ui, ba_plugin->build_merge_id);
+	
+	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, ba_plugin->build_action_group);
 	return TRUE;
 }

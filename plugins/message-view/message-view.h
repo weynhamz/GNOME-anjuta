@@ -32,12 +32,11 @@ Property |				Description
 
 G_BEGIN_DECLS
 
-#define MESSAGE_VIEW_TYPE (message_view_get_type ())
-#define MESSAGE_VIEW(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), MESSAGE_VIEW_TYPE, MessageView))
-#define MESSAGE_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), MESSAGE_VIEW_TYPE, MessageViewClass))
-#define MESSAGE_IS_VIEW(obj) (G_TYPE_CHECK_TYPE ((obj), MESSAGE_VIEW_TYPE))
-#define MESSAGE_IS_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), MESSAGE_VIEW_TYPE))
-#define MESSAGE_VIEW_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), MESSAGE_VIEW_TYPE, MessageViewClass))
+#define MESSAGE_VIEW_TYPE        (message_view_get_type ())
+#define MESSAGE_VIEW(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), MESSAGE_VIEW_TYPE, MessageView))
+#define MESSAGE_VIEW_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), MESSAGE_VIEW_TYPE, MessageViewClass))
+#define MESSAGE_IS_VIEW(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), MESSAGE_VIEW_TYPE))
+#define MESSAGE_IS_VIEW_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), MESSAGE_VIEW_TYPE))
 
 typedef struct _MessageView MessageView;
 typedef struct _MessageViewClass MessageViewClass;
@@ -55,22 +54,12 @@ struct _MessageViewClass
 {
 	GtkHBoxClass parent;
 	
-	void (*message_clicked) (GObject* view, const gchar* message);
+	// void (*message_clicked) (GObject* view, const gchar* message);
 };	
 
+/* Note: MessageView implements IAnjutaMessageView interface */
 GType message_view_get_type (void);
 GtkWidget* message_view_new (AnjutaPreferences* prefs);
-
-void message_view_append (MessageView* view, const gchar* message); 
-
-gboolean message_view_select_next (MessageView* view);
-gboolean message_view_select_previous (MessageView* view);
-
-guint message_view_get_line (MessageView* view);
-gchar* message_view_get_message (MessageView* view);
-GList* message_view_get_messages (MessageView* view);
-
-void message_view_clear (MessageView* view);
 
 G_END_DECLS
 

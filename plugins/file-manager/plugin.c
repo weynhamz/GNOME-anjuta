@@ -99,22 +99,22 @@ activate_plugin (AnjutaPlugin *plugin)
 	fm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	fv_init (fm_plugin);
 	
-	/* Action groups */
+	/* Add action group */
 	fm_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (fm_plugin->ui,
 											"ActionGroupFileManager",
 											_("File manager popup actions"),
 											popup_actions, 1, plugin);
-	/* Merge UI */
+	/* Add UI */
 	fm_plugin->merge_id = 
 		anjuta_ui_merge (fm_plugin->ui, UI_FILE);
 	
-	/* Added widget in shell */
+	/* Added widgets */
 	anjuta_shell_add_widget (plugin->shell, fm_plugin->scrolledwindow,
 							 "AnjutaFileManager", _("Files"), GTK_STOCK_OPEN,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	
-	/* Add preferences page */
+	/* Add preferences */
 	gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
 	
 	anjuta_preferences_add_page (fm_plugin->prefs,
@@ -141,9 +141,21 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (fm_plugin->prefs),
 										  G_CALLBACK (preferences_changed),
 										  fm_plugin);
-	anjuta_ui_unmerge (fm_plugin->ui, fm_plugin->merge_id);
-	anjuta_ui_remove_action_group (fm_plugin->ui, fm_plugin->action_group);
+	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, fm_plugin->root_watch_id, FALSE);
+	
+	/* Remove preferences */
+	/* FIXME: */
+	
+	/* Remove widgets */
+	anjuta_shell_remove_widget (plugin->shell, fm_plugin->scrolledwindow, NULL);
+	
+	/* Remove UI */
+	anjuta_ui_unmerge (fm_plugin->ui, fm_plugin->merge_id);
+	
+	/* Remove action group */
+	anjuta_ui_remove_action_group (fm_plugin->ui, fm_plugin->action_group);
+	
 	fm_plugin->root_watch_id = 0;
 	fv_finalize(fm_plugin);
 	return TRUE;

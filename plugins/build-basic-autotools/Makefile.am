@@ -25,6 +25,7 @@ anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(PCRE_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin
@@ -39,6 +40,7 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 	build-basic-autotools.h
 
 # Plugin dependencies
+libanjuta_build_basic_autotools_la_LIBADD = $(PCRE_LIBS)
 
 EXTRA_DIST = \
         $(plugin_in_files) \

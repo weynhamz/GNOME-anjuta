@@ -710,17 +710,17 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool, gboolean load
 			AvailableTool *tool = l->data;
 			if (should_unload (installed_tools, selected_tool, tool)) {
 				/* FIXME: Unload the class and sharedlib if possible */
-				gboolean success = TRUE;
+				gboolean success;
 				AnjutaPlugin *anjuta_tool = ANJUTA_PLUGIN (tool_obj);
-				if (anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_tool))) {
-					anjuta_util_dialog_info (GTK_WINDOW (shell),
-								 "Plugin '%s' do not want to be deactivated",
-											 tool->name);
-					success = FALSE;
-				}
+				
+				success = anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_tool));
 				if (success) {
 					g_object_unref (tool_obj);
 					g_hash_table_remove (installed_tools, tool);
+				} else {
+					anjuta_util_dialog_info (GTK_WINDOW (shell),
+								 "Plugin '%s' do not want to be deactivated",
+											 tool->name);
 				}
 			}
 		}

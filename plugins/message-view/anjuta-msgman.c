@@ -156,6 +156,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 
 	mv = message_view_new (msgman->priv->preferences);
 	g_return_val_if_fail (mv != NULL, NULL);
+	g_object_set (G_OBJECT (mv), "highlite", TRUE, NULL);	
 	gtk_widget_show (mv);
 	page = anjuta_msgman_page_new (mv, name, pixmap);
 

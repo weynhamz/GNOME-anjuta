@@ -356,7 +356,8 @@ search_and_replace (void)
 						snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path
 						  , mi->line + 1, match_line);
 						g_free(match_line);
-						ianjuta_message_view_append(view, buf, NULL);
+						ianjuta_message_view_append(view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+													buf, "", NULL);
 						break;
 					
 					case SA_REPLACE:

@@ -554,12 +554,15 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_message ("AnjutaFileLoaderPlugin: Activating File Loader plugin ...");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	/* Add action group */
 	loader_plugin->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupLoader",
 											_("File Loader"),
 											actions_file,
 											G_N_ELEMENTS (actions_file),
 											plugin);
+	/* Add UI */
 	loader_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* create Recent files menu */
@@ -582,6 +585,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	}
 	else
 		g_warning ("Cannot retrive recent files submenu widget");
+	
+	/* Add watches */
 	loader_plugin->fm_watch_id = 
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
 								 value_added_fm_current_uri,
@@ -599,8 +604,11 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	g_message ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin ...");
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, loader_plugin->fm_watch_id, TRUE);
+	/* Remove UI */
 	anjuta_ui_unmerge (ui, loader_plugin->uiid);
+	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, loader_plugin->action_group);
 	return TRUE;
 }

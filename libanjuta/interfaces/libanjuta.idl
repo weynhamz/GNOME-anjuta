@@ -382,15 +382,25 @@ interface IAnjutaDocumentManager
 
 interface IAnjutaMessageView
 {
+	enum Type
+	{
+		TYPE_NORMAL,
+		TYPE_INFO,
+		TYPE_WARNING,
+		TYPE_ERROR
+	}
+	
 	// Signals
 	void ::message_clicked (const gchar *message);
-
-	void append (const gchar *message);
+	void ::buffer_flushed (const gchar *line);
+	
+	/* Buffer methods */
+	void buffer_append (const gchar *text);
+	void append (Type type, const gchar *summary, const gchar *details);
 	void clear ();
 	void select_next ();
 	void select_previous ();
-	gint get_line ();
-	gchar* get_message ();
+	const gchar* get_current_message ();
 	GList* get_all_messages ();
 }
 
@@ -403,7 +413,7 @@ interface IAnjutaMessageManager
 		DOESNT_EXIST
 	}
 
-	void add_view (const gchar *name, const gchar *icon);
+	IAnjutaMessageView* add_view (const gchar *name, const gchar *icon);
 	void remove_view (IAnjutaMessageView *view);
 	IAnjutaMessageView* get_current_view ();
 	IAnjutaMessageView* get_view_by_name (const gchar *name);

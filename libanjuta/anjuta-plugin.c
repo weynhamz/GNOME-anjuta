@@ -144,7 +144,8 @@ anjuta_plugin_set_property (GObject *object,
 		g_object_ref (plugin->shell);
 		
 		if (ANJUTA_PLUGIN_GET_CLASS (object)->activate)
-			ANJUTA_PLUGIN_GET_CLASS (object)->activate (plugin);
+			// ANJUTA_PLUGIN_GET_CLASS (object)->activate (plugin);
+			anjuta_plugin_activate (ANJUTA_PLUGIN (object));
 
 		g_object_notify (object, "shell");
 		break;

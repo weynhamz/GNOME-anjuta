@@ -272,7 +272,7 @@ tree_store_row_deleted (GtkTreeModel *model, GtkTreePath *path, AnjutaUI *ui)
 	GtkAction *action;
 	GtkTreeIter iter;
 	gtk_tree_model_get_iter (model, &iter, path);
-	gtk_tree_model_get (model, &iter, COLUMN_DATA, &action);
+	gtk_tree_model_get (model, &iter, COLUMN_DATA, &action, -1);
 	if (action)
 		g_object_unref (action);
 }
