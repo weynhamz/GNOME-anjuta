@@ -1,5 +1,12 @@
 2002-05-10  Stephane Demurget  <demurgets@free.fr>
 
+	Fix for #520092.
+
+	* src/main_menubar_def.h: removed the Ctrl-L shortcut for Save All, as
+	  it's already used by scintilla to delete the whole current line.
+
+2002-05-10  Stephane Demurget  <demurgets@free.fr>
+
 	Fix for #525107.
 
 	* src/anjuta_cbs.c: (on_open_filesel_ok_clicked): removed unecessary
@@ -53,7 +60,7 @@
 	  replaced some occurences of the target name by the
 	  project filename, using project_dbase_get_proj_name,
 	  to fix the name of some files.
-	  Fixed fixed a lot of mem leaks.
+	  Fixed a lot of mem leaks.
 	  Various code cleanups.
 
 2002-05-06  Stephane Demurget  <demurgets@free.fr>
