@@ -21,7 +21,7 @@
 {
 	;
 }]]></macro>
-<macro _name="if...else" _category="C" _shortcut=""><![CDATA[if ()
+<macro _name="if...else" _category="C" _shortcut="azerty"><![CDATA[if ()
 {
 	;
 }
@@ -29,6 +29,26 @@ else
 {
 	;
 }]]></macro>
+<macro _name="cvs_author" _category="CVS" _shortcut=""><![CDATA[$Author$
+]]></macro>
+<macro _name="cvs_date" _category="CVS" _shortcut=""><![CDATA[$Date$
+]]></macro>
+<macro _name="cvs_header" _category="CVS" _shortcut=""><![CDATA[$Header$
+]]></macro>
+<macro _name="cvs_id" _category="CVS" _shortcut=""><![CDATA[$Id$
+]]></macro>
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[$Log$
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Revision 1.6  2005/02/21 02:49:40  jnoel
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[Added macro_insert.
+<macro _name="cvs_log" _category="CVS" _shortcut=""><![CDATA[
+]]></macro>
+<macro _name="cvs_name" _category="CVS" _shortcut=""><![CDATA[$Name$
+]]></macro>
+<macro _name="cvs_revision" _category="CVS" _shortcut=""><![CDATA[$Revision$
+]]></macro>
+<macro _name="cvs_source" _category="CVS" _shortcut=""><![CDATA[$Source$
+]]></macro>
 <macro _name="/* GPL */" _category="Licenses" _shortcut=""><![CDATA[/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

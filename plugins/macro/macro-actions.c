@@ -21,10 +21,13 @@
 #include "macro-edit.h"
 
 static gboolean on_shortcut_pressed (GtkWidget *entry, GdkEventKey* event,
-				     MacroPlugin *plugin);
+				                     MacroPlugin *plugin);
 
 static gboolean match_shortcut (MacroPlugin *plugin, GtkTreeIter *iter,
-				gchar key);
+				                gchar key);
+
+static gboolean match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, 
+                              gchar *keyword);
 
 void
 on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
@@ -55,6 +58,87 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 	
 	gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
 	gtk_widget_show_all(window);
+}
+
+static gboolean
+match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, gchar *keyword)
+{
+	gchar *name;
+	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
+		MACRO_NAME, &name, -1);
+	if ( name && strcmp(keyword, name) == 0)
+	{
+		const int CURRENT_POS = -1;
+		gchar* text;
+		gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
+			MACRO_TEXT, &text, -1);
+		if (plugin->current_editor != NULL)
+		{
+			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
+					       CURRENT_POS, text, -1, NULL);
+		}
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/* keyword : macro name  */
+
+static gboolean
+insert_macro (gchar *keyword, MacroPlugin * plugin)
+{
+	GtkTreeIter parent;
+	GtkTreeIter cur_cat;
+	GtkTreeModel *model = macro_db_get_model (plugin->macro_db);
+	
+	gtk_tree_model_get_iter_first (model, &parent);
+	do
+	{
+		if (gtk_tree_model_iter_children (model, &cur_cat, &parent))
+		{
+		do
+		{
+			GtkTreeIter cur_macro;
+			if (gtk_tree_model_iter_children
+			    (model, &cur_macro, &cur_cat))
+			{
+				do
+				{
+					gboolean predefined;
+					gtk_tree_model_get (model, &cur_macro,
+						    MACRO_PREDEFINED,
+						    &predefined, -1);
+					if (predefined)
+					{
+						if (match_keyword (plugin, &cur_macro, keyword))
+						{
+							return TRUE;
+						}
+					}
+				}
+				while (gtk_tree_model_iter_next
+				       (model, &cur_macro));
+			}
+			else
+			{
+				gboolean is_category;
+				gtk_tree_model_get (model, &cur_cat,
+						    MACRO_IS_CATEGORY,
+						    &is_category, -1);
+				if (is_category)
+					continue;
+				
+				if (match_keyword (plugin, &cur_cat, keyword))
+				{
+					return TRUE;
+				}
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &cur_cat));
+		}
+	}
+	while (gtk_tree_model_iter_next (model, &parent));
+	return TRUE;
 }
 
 void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
@@ -162,4 +246,3 @@ match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
 	}
 	return FALSE;
 }
-

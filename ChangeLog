@@ -1,3 +1,11 @@
+2005-02-20  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/macro/macro-actions.[ch], plugins/macro/macros.xml : Added 
+	insert_macro.
+	
+	* plugins/file-wizard/anjuta-file-wizard.glade : Add project & CVS.
+
+
 2005-02-21  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: Fixed IAnjutaDebugManager and
