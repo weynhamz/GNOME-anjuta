@@ -92,4 +92,7 @@ find_text_save_session ( FindText * ft, ProjectDBase *p );
 void
 find_text_load_session( FindText * ft, ProjectDBase *p );
 
+void
+enter_selection_as_search_target(void);
+
 #endif

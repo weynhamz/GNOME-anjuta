@@ -332,6 +332,7 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->find, F);
 	gtk_widget_set_sensitive (em->find_in_files, !L);
 	gtk_widget_set_sensitive (em->find_replace, F);
+	gtk_widget_set_sensitive (em->enter_selection, F);
 	gtk_widget_set_sensitive (em->goto_line, F);
 	gtk_widget_set_sensitive (em->goto_brace, F);
 	gtk_widget_set_sensitive (em->goto_block_start, F);

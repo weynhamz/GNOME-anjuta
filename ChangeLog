@@ -1,3 +1,15 @@
+2002-03-28 Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	Patch from Roy Wood <roy.wood@filogix.com>
+	
+	* src/controls.c, src/find_text.c, src/find_text.h,
+	  src/main_menubar.c, src/main_menubar.h, src/main_menubar_def.h,
+	  src/mainmenu_callbacks.c, src/mainmenu_callbacks.h:
+	  
+	  
+	* src/utilities.c:
+	  Cleaned up code.
+	
 2002-03-27 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/watch.c, src/watch.h, src/watch_cbs.c,

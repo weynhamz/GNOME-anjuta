@@ -2074,3 +2074,10 @@ on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	on_toolbar_find_clicked ( NULL, NULL );
 }
+
+void
+on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
+{
+       enter_selection_as_search_target();
+}
+

@@ -91,6 +91,7 @@ struct _EditSubMenu
 	GtkWidget *repeat_find;	
 	GtkWidget *find_in_files;
 	GtkWidget *find_replace;
+	GtkWidget *enter_selection;
 
 	GtkWidget *goto_line;
 	GtkWidget *goto_brace;

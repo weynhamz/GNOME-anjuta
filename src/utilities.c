@@ -807,23 +807,24 @@ void
 entry_set_text_n_select (GtkWidget * entry, gchar * text,
 			 gboolean use_selection)
 {
-	gchar *chars;
-
 	if (!entry)
 		return;
 	if (GTK_IS_ENTRY (entry) == FALSE)
 		return;
 
-	chars = anjuta_get_current_selection ();
 	if (use_selection)
 	{
 		if (chars)
 		{
+			gchar *chars = anjuta_get_current_selection ();
+
 			gtk_entry_set_text (GTK_ENTRY (entry), chars);
 			gtk_editable_select_region (GTK_EDITABLE (entry), 0,
 						    strlen (gtk_entry_get_text
 							    (GTK_ENTRY
 							     (entry))));
+
+			g_free (chars);
 		}
 		else
 		{
@@ -843,8 +844,6 @@ entry_set_text_n_select (GtkWidget * entry, gchar * text,
 					    strlen (gtk_entry_get_text
 						    (GTK_ENTRY (entry))));
 	}
-	if (chars)
-		g_free (chars);
 }
 
 gboolean

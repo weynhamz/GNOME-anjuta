@@ -752,4 +752,7 @@ void
 on_findnext1_activate                   (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
+void
+on_enterselection (GtkMenuItem * menuitem, gpointer user_data);
+
 #endif

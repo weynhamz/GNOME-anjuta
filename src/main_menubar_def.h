@@ -262,13 +262,13 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	 N_("Go to a particular line in the editor"),
 	 on_goto_line_no1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_G, GDK_CONTROL_MASK, NULL},
+	 GDK_G, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Goto Matching _Brace"),
 	 N_("Go to the matching brace in the editor"),
 	 on_goto_matchbrace1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_M, GDK_CONTROL_MASK, NULL},
+	 GDK_M, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_Goto start of block"),
 	 N_("Go to the start of the current block"),
@@ -297,7 +297,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 };
 
 
-#define	NUM_EDIT_SUBMENUS	22
+#define	NUM_EDIT_SUBMENUS	23
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -410,25 +410,32 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 N_("Repeat the last Find command"),
 	 on_findnext1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
-	 GDK_P, GDK_CONTROL_MASK, NULL},
+	 GDK_G, GDK_CONTROL_MASK, NULL},
 	 
 	{/*19*/
+	 GNOME_APP_UI_ITEM, N_("_Enter Selection"),
+	 N_("Enter the selected text as the search target"),
+	 on_enterselection, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_E, GDK_CONTROL_MASK, NULL},
+	
+	{/*20*/
 	 GNOME_APP_UI_SUBTREE, N_("G_o to"),
 	 NULL,
 	 goto1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
-	GNOMEUIINFO_SEPARATOR,/*20*/
+	GNOMEUIINFO_SEPARATOR,/*21*/
 
-	 {/*21*/
+	 {/*22*/
 	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUI ..."),
 	 N_("Edit application GUI with the Glade GUI editor"),
 	 on_edit_app_gui1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_G, GDK_MOD1_MASK, NULL},
 	
-	/*22*/
+	/*23*/
 	GNOMEUIINFO_END
 };
 

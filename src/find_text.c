@@ -572,3 +572,33 @@ on_find_text_start_over (GtkButton * button, gpointer user_data)
 
 	on_find_text_ok_clicked(NULL, app->find_replace->find_text);
 }
+
+
+
+
+
+void
+enter_selection_as_search_target(void)
+{
+gchar *selectionText = NULL;
+
+       selectionText = anjuta_get_current_selection ();
+       
+       if (selectionText != NULL && selectionText[0] != '\0')
+       {
+       GList   *updatedHistory;
+               
+               updatedHistory = update_string_list (app->find_replace->find_text->find_history, selectionText, COMBO_LIST_LENGTH);
+               
+               app->find_replace->find_text->find_history = updatedHistory;
+               
+               
+               entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry, selectionText, FALSE);
+       }
+       
+       
+       if (selectionText != NULL)
+       {
+               g_free (selectionText);
+       }       
+}
