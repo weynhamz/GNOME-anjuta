@@ -1,5 +1,14 @@
 2004-01-03  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* plugins/message-view/anjuta-msgman.[c/h]:
+	Added message manager for easier message handling with a
+	similar interface as docman. Of course you can still use
+	MessageView standalone.
+	* plugins/Makefile.am: Added message-view because it compiles
+	without errors.
+
+2004-01-03  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* plugins/message-view/*: Added message-view plugin 
 	(still incomplete) 
 	* configure.in: Added plugins/message-view/Makefile

@@ -13,5 +13,7 @@ libanjuta_message_view_la_LIBADD = \
 libanjuta_message_view_la_SOURCES = \
 	plugin.c\
 	plugin.h\
+	anjuta-msgman.c\
+	anjuta-msgman.h\
 	message-view.c\
 	message-view.h
