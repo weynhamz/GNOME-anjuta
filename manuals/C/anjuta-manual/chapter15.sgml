@@ -90,6 +90,10 @@
     </variablelist>
    </para>
 
+      <varlistentry>
+       <term>Christian Rose<email>menthos@menthos.com</email></term>
+	   <listitem><para>Swedish Translation</para></listitem>
+      </varlistentry>
   </sect1>
 
   <!-- ============ Information: Contacts ======== -->
