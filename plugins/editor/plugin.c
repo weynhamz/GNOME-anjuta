@@ -219,7 +219,6 @@ static EggActionGroupEntry actions_comment[] = {
 };
 
 static EggActionGroupEntry actions_navigation[] = {
-  // { "ActionMenuEditGoto", N_("G_oto"), NULL, NULL, NULL, NULL, NULL },
   { "ActionEditGotoLineActivate", N_("_Goto Line number"),
 	GTK_STOCK_JUMP_TO, NULL,
 	N_("Go to a particular line in the editor"),
@@ -560,13 +559,13 @@ shell_set (AnjutaPlugin *plugin)
 						   "width", 150,
 							NULL);
 	g_signal_connect (action, "activate",
-					  G_CALLBACK (on_toolbar_find_clicked), ui);
+					  G_CALLBACK (on_toolbar_find_clicked), plugin);
 	g_signal_connect (action, "changed",
-					  G_CALLBACK (on_toolbar_find_incremental), ui);
+					  G_CALLBACK (on_toolbar_find_incremental), plugin);
 	g_signal_connect (action, "focus-in",
-					  G_CALLBACK (on_toolbar_find_incremental_start), ui);
+					  G_CALLBACK (on_toolbar_find_incremental_start), plugin);
 	g_signal_connect (action, "focus_out",
-					  G_CALLBACK (on_toolbar_find_incremental_end), ui);
+					  G_CALLBACK (on_toolbar_find_incremental_end), plugin);
 	egg_action_group_add_action (group, action);
 	
 	anjuta_ui_add_action_group (ui, "ActionGroupNavigation",

@@ -8,6 +8,13 @@
 			<menuitem name="Quit" verb="ActionExit" />
 		</submenu>
 		<submenu name="MenuEdit" verb="ActionMenuEdit">
+			<placeholder name="PlaceholderEditMenus"/>
+			<placeholder name="PlaceholderSelectMenus"/>
+			<placeholder name="PlaceholderInsertMenus"/>
+			<placeholder name="PlaceholderSearchMenus"/>
+			<submenu name="Goto" verb="ActionMenuEditGoto">
+				<placeholder name="PlaceholderGotoMenus"/>
+			</submenu>
 		</submenu>
 		<submenu name="MenuView" verb="ActionMenuView">
 		</submenu>

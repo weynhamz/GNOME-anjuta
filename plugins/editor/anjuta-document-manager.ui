@@ -105,7 +105,6 @@
 					<menuitem name="NextOccurance" verb="ActionEditGotoOccuranceNext" />
 					<separator name="separator3"/>
 				</placeholder>
-				<placeholder name="PlaceholderGotoMenus"/>
 			</submenu>
 			<separator name="separator3"/>
 			<menuitem name="Autocomplete" verb="ActionEditAutocomplete" />
@@ -195,7 +194,6 @@
 			<toolitem name="Undo" verb="ActionEditUndo" />
 			<toolitem name="Redo" verb="ActionEditRedo" />
 			<separator name="separator2" />
-			<toolitem name="EditorDetach" verb="ActionFormatEditorDetach" />
 			<toolitem name="Print" verb="ActionPrintFile" />
 			<separator name="separator3"/>
 			<toolitem name="SearchNext" verb="ActionEditSearchFindNext" />

@@ -28,6 +28,7 @@ static EggActionGroupEntry menu_entries_file[] = {
 
 static EggActionGroupEntry menu_entries_edit[] = {
   { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL, NULL },
+  { "ActionMenuEditGoto", N_("G_oto"), NULL, NULL, NULL, NULL, NULL },
 };
 
 static EggActionGroupEntry menu_entries_view[] = {

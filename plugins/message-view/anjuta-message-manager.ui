@@ -3,8 +3,10 @@
 	<menu name="MenuMain">
 		<submenu name="MenuEdit" verb="ActionMenuEdit">
 			<submenu name="Goto" verb="ActionMenuEditGoto">
-					<menuitem name="NextMessage" verb="ActionMessageNext" />
-					<menuitem name="PrevMessage" verb="ActionMessagePrev" />
+				<placeholder name="PlaceholderGotoMenus">
+						<menuitem name="NextMessage" verb="ActionMessageNext" />
+						<menuitem name="PrevMessage" verb="ActionMessagePrev" />
+				</placeholder>
 			</submenu>
 		</submenu>
 		<submenu name="MenuView" verb="ActionMenuView">	

@@ -1,3 +1,11 @@
+2004-02-11  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/action-callbacks.c,
+	plugins/editor/anjuta-document-manager.ui,
+	plugins/editor/plugin.c
+	plugins/message-view/anjuta-message-manager.ui,
+	src/anjuta-actions.h, src/anjuta.ui: Fixed Edit->Goto submenu merging.
+	
 2004-02-09  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/message-view/*: MessageView plugin is now loaded

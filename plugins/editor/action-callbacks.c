@@ -1068,7 +1068,7 @@ on_zoom_text_activate (EggAction * action, gpointer user_data)
 		zoom = MIN_ZOOM_FACTOR;
 	g_snprintf(buf, 20, "%d", zoom);
 	prop_set_with_key (p->props, TEXT_ZOOM_FACTOR, buf);
-	anjuta_docman_set_zoom_factor(zoom);
+	// FIXME: anjuta_docman_set_zoom_factor(zoom);
 }
 
 void
