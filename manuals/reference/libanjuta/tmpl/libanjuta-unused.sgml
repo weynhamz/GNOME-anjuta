@@ -18,6 +18,46 @@ Parser for parsing plugins meta data
 Plugin parser
 
 
+<!-- ##### SECTION ./tmpl/fileselection.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/fileselection.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/fileselection.sgml:Short_Description ##### -->
+File selection dialog (deprecated)
+
+
+<!-- ##### SECTION ./tmpl/fileselection.sgml:Title ##### -->
+File selection dialog
+
+
+<!-- ##### SECTION ./tmpl/gnomefilelist.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/gnomefilelist.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/gnomefilelist.sgml:Short_Description ##### -->
+Gnome file selector (deprecated)
+
+
+<!-- ##### SECTION ./tmpl/gnomefilelist.sgml:Title ##### -->
+GnomeFileList
+
+
 <!-- ##### MACRO ANJUTA_PLUGIN_FILE_PARSE_ERROR ##### -->
 <para>
 

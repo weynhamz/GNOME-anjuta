@@ -226,6 +226,25 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @p: 
 
 
+<!-- ##### FUNCTION anjuta_preferences_save_gconf ##### -->
+<para>
+
+</para>
+
+@pr: 
+@filter: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_preferences_load_gconf ##### -->
+<para>
+
+</para>
+
+@pr: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_preferences_foreach ##### -->
 <para>
 

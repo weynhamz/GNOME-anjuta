@@ -146,13 +146,23 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 
 void anjuta_preferences_reset_defaults (AnjutaPreferences *pr);
 
-gboolean anjuta_preferences_save (AnjutaPreferences *pr, FILE *stream);
+gboolean 
+anjuta_preferences_load_gconf (AnjutaPreferences *pr);
+
+gboolean 
+anjuta_preferences_save (AnjutaPreferences *pr, FILE *stream);
 
 /* Save excluding the filtered properties. This will save only those
  * properties which DOES NOT have the flags set to values given by the filter.
  */
-gboolean anjuta_preferences_save_filtered (AnjutaPreferences *pr, FILE *stream,
+gboolean 
+anjuta_preferences_save_filtered (AnjutaPreferences *pr, FILE *stream,
 										   AnjutaPreferencesFilterType filter);
+gboolean 
+anjuta_preferences_save_gconf (AnjutaPreferences *pr,
+										   AnjutaPreferencesFilterType filter);
+
+
 
 /* Calls the callback function for each of the properties with the flags
  * matching with the given filter 

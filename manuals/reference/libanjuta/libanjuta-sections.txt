@@ -116,6 +116,8 @@ anjuta_preferences_register_property_custom
 anjuta_preferences_reset_defaults
 anjuta_preferences_save
 anjuta_preferences_save_filtered
+anjuta_preferences_save_gconf
+anjuta_preferences_load_gconf
 anjuta_preferences_foreach
 anjuta_preferences_sync_to_session
 anjuta_preferences_set
@@ -184,39 +186,6 @@ ANJUTA_IS_UI_CLASS
 AnjutaUIClass
 <SUBSECTION Private>
 AnjutaUIPrivate
-</SECTION>
-
-<SECTION>
-<FILE>gnomefilelist</FILE>
-GnomeFileListType
-<TITLE>GnomeFileList</TITLE>
-gnome_filelist_new
-gnome_filelist_new_with_path
-gnome_filelist_get_filename
-gnome_filelist_get_path
-gnome_filelist_get_filelist
-gnome_filelist_set_title
-gnome_filelist_set_dir
-gnome_filelist_set_filename
-gnome_filelist_set_show_hidden
-gnome_filelist_set_selection_mode
-gnome_filelisttype_makedefaultlist
-gnome_filelisttype_addtype
-gnome_filelisttype_getextentions
-gnome_filelisttype_getdescriptions
-gnome_filelisttype_getcombolist
-gnome_filelisttype_clearfiletypes
-gnome_filelisttype_addtype_f
-gnome_filelisttype_getfiletype
-gnome_filelist_set_combolist
-<SUBSECTION Standard>
-GNOME_FILELIST
-GNOME_IS_FILELIST
-GNOME_TYPE_FILELIST
-gnome_filelist_get_type
-GNOME_FILELIST_CLASS
-GNOME_IS_FILELIST_CLASS
-GnomeFileListClass
 </SECTION>
 
 <SECTION>

@@ -37,6 +37,13 @@ gpointer parent_class;
 static void
 preferences_changed (AnjutaPreferences *prefs, FileManagerPlugin *fv)
 {
+	gchar* root = anjuta_preferences_get(prefs, "root.dir");
+	if (root)
+	{
+		fv_set_root (fv, root);
+	}
+	else
+		fv_set_root (fv, "/");
 	fv_refresh (fv);
 }
 
@@ -62,12 +69,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	anjuta_preferences_add_page (fm_plugin->prefs,
 								gxml, "File Manager", ICON_FILE);
+	preferences_changed(fm_plugin->prefs, fm_plugin);
 	g_signal_connect (G_OBJECT (fm_plugin->prefs), "changed",
 					  G_CALLBACK (preferences_changed), fm_plugin);
 	g_object_unref (G_OBJECT (gxml));
 	
-	/* FIXME: For now just load '/' */
-	fv_set_root (fm_plugin, "/");
 	return TRUE;
 }
 

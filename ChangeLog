@@ -1,3 +1,21 @@
+2004-05-16	Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* libanjuta/anjuta-preferences.[ch]: 
+	Added save/load_gconf functions
+	* src/action_callbacks.[ch], src/preferences.c: 
+	Load global prefs from gconf at startup and save them
+	on exit. Prefs load and save correctly but something resets
+	them to default after loading...
+	* src/Makefile.am: Hack: Add anjuta-preferences.o to LD_ADD.
+	Somehow the linker does not find save/load_gconf functions
+	in libanjuta. Must be a stupid mistake, I would be glad
+	if someone could fix that.
+	* manuals/reference/libanjuta-sections.txt: Added new
+	preferences functions and removed gnome-filelist
+	* plugins/file-manager/anjuta-file-manager-plugin.glade:
+	* plugins/file-manager/plugin.c:
+	Added root-path property
+
 2004-05-14	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* libanjuta/fileselection.[ch], gnomefilelist.[ch]: Removed,

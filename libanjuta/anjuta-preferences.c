@@ -27,6 +27,7 @@
 
 #include <gnome.h>
 #include <glade/glade-parser.h>
+#include <gconf/gconf-client.h>
 
 // #include <style-editor.h>
 
@@ -82,6 +83,7 @@ enum
 static guint anjuta_preferences_signals[SIGNALS_END] = { 0 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
+#define GCONF_PATH "/apps/anjuta/preferences"
 
 static void
 property_destroy (AnjutaProperty *property)
@@ -398,6 +400,54 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 #endif
 	g_free (value);
 	return (return_value > 0);
+}
+
+
+static gboolean
+save_property_gconf (AnjutaPreferences *pr, AnjutaProperty *prop,
+			   AnjutaPreferencesFilterType filter)
+{
+	gchar *value, *gconf_key;
+	gboolean return_value;
+	GConfClient* client;
+	
+	return_value = FALSE;
+	
+	
+	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
+	{
+		value = prop_get (pr->props_session, prop->key);
+	}
+	else
+	{
+		value = prop_get (pr->props, prop->key);
+	}
+	client = gconf_client_get_default();
+	gconf_key = g_strconcat(GCONF_PATH, "/", prop->key, NULL);
+	if (value)
+		return_value = gconf_client_set_string (client, gconf_key, value, NULL);
+	else
+		return_value = gconf_client_set_string (client, gconf_key, "", NULL);
+	g_free (value);
+	g_free (gconf_key);
+	g_object_unref(client);
+	return return_value;
+}
+
+static void set_property_from_gconf(AnjutaPreferences* pr, GConfEntry* entry)
+{
+	gchar* key;
+
+	g_return_if_fail(pr != NULL);
+	g_return_if_fail(entry != NULL);
+	
+	/* This hack ships the GCONF_PATH/ part from the key */
+	key = strrchr(entry->key, '/') + 1;
+#ifdef DEBUG
+	g_message("%s = %s", key, gconf_value_get_string(entry->value));
+#endif
+
+	prop_set_with_key(pr->props_session, entry->key, gconf_value_get_string(entry->value));
 }
 
 /**
@@ -932,6 +982,82 @@ anjuta_preferences_save (AnjutaPreferences *pr, FILE *stream)
 											 ANJUTA_PREFERENCES_FILTER_NONE);	
 }
 
+/**
+ * anjuta_preferences_save_gconf:
+ * @pr: A #AnjutaPreferences object.
+ * @filter: Keys to filter out from saving.
+ * 
+ * Similar to anjuta_preferences_save(), except that property keys with
+ * with matching @filter are not saved. If @filter is
+ * ANJUTA_PREFERENCES_FILTER_NONE, all properties are saved.
+ * Properties are saved into gconf database instead of a file.
+ *
+ * Return value: TRUE if sucessful. FALSE if error occured during save.
+ */
+gboolean 
+anjuta_preferences_save_gconf (AnjutaPreferences *pr,
+										   AnjutaPreferencesFilterType filter)
+{
+	AnjutaProperty *p;
+	GList *node;
+	gboolean ret_val = TRUE;
+	
+#ifdef DEBUG
+	g_message("anjuta_preferences_save_gconf");
+#endif
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	
+	node = pr->priv->properties;
+	while (node)
+	{
+		p = node->data;
+		if (save_property_gconf (pr, p, filter) == FALSE)
+			ret_val = FALSE;
+		node = g_list_next (node);
+	}
+	if (ret_val == FALSE)
+		g_warning ("Error saving some preferences properties");
+	return ret_val;
+}
+
+/**
+ * anjuta_preferences_load_gconf:
+ * @pr: A #AnjutaPreferences object.
+ *
+ * Load preferences from gconf database 
+ *
+ * Return value: TRUE if sucessful. FALSE if error occured during save.
+ */
+gboolean 
+anjuta_preferences_load_gconf (AnjutaPreferences *pr)
+{
+	GConfClient* client;
+	GSList* entries;
+ 
+	g_return_val_if_fail(pr != NULL, FALSE);
+
+#ifdef DEBUG
+	g_message("anjuta_preferences_load_gconf");
+#endif
+
+	client = gconf_client_get_default();
+	gconf_client_add_dir (client, GCONF_PATH,
+                        GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+	entries = gconf_client_all_entries(client, GCONF_PATH, NULL);
+	g_return_val_if_fail(entries != NULL, FALSE);
+	
+	while (entries->next)
+	{
+		set_property_from_gconf(pr, entries->data);
+		gconf_entry_free(entries->data);
+		entries = g_slist_next(entries);
+	}
+	g_slist_free(entries);
+	g_object_unref(client);
+	return TRUE;
+}
+
 static gboolean
 transfer_to_session (AnjutaPreferences *pr, const gchar *key, gpointer data)
 {
@@ -1165,6 +1291,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 					   PACKAGE_PIXMAPS_DIR);
 
 	/* Load the external configuration files */
+#if 0
 	propdir = g_strconcat (PACKAGE_DATA_DIR, "/properties/", NULL);
 	propfile = g_strconcat (propdir, "anjuta.properties", NULL);
 	
@@ -1200,7 +1327,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	prop_read (pr->props_session, propfile, propdir);
 	g_free (propdir);
 	g_free (propfile);
-
+#endif
 	/* A quick hack to fix the 'invisible' browser toolbar */
 	str = prop_get(pr->props_session, "anjuta.version");
 	if (str) {
@@ -1210,11 +1337,10 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	} else {
 		remove("~/.gnome/Anjuta");
 	}
-	/* quick hack ends */
+	/* quick hack ends */		
 	
 	pr->priv->is_showing = FALSE;
-	
-	
+
 	/* Add buttons: Cancel/Apply/Ok */
 	gtk_dialog_add_button (GTK_DIALOG (pr),
 				       GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
@@ -1232,7 +1358,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 static void
 anjuta_preferences_finalize (GObject *obj)
 {
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);	
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
 
 	prop_set_destroy (pr->props_global);
 	prop_set_destroy (pr->props_local);
@@ -1265,7 +1391,7 @@ anjuta_preferences_show (GtkWidget * w)
 static void
 anjuta_preferences_close (GtkDialog *obj)
 {
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);	
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
 	gtk_widget_hide (GTK_WIDGET (pr));
 }
 

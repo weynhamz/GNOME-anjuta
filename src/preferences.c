@@ -34,6 +34,7 @@
 */
 
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-preferences.h>
 #include <glade/glade.h>
 #include <glade/glade-parser.h>
 #include "preferences.h"
@@ -145,4 +146,5 @@ void
 anjuta_preferences_initialize (AnjutaPreferences *pr)
 {
 	add_all_default_pages (pr);
+	anjuta_preferences_load_gconf(pr);
 }

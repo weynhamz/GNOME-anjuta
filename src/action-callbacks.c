@@ -43,8 +43,11 @@
 #include "anjuta.h"
 
 void
-on_exit1_activate (GtkAction * action, GObject *app)
+on_exit1_activate (GtkAction * action, AnjutaApp *app)
 {
+	/* Save preferences before exiting */
+	anjuta_preferences_save_gconf(app->preferences, ANJUTA_PREFERENCES_FILTER_PROJECT);
+	
 	if (on_anjuta_delete_event (GTK_WIDGET (app), NULL, app) == FALSE)
 		on_anjuta_destroy (GTK_WIDGET (app), app);
 }
