@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-12 18:36+0100\n"
-"PO-Revision-Date: 2005-02-13 22:08-0200\n"
+"POT-Creation-Date: 2005-02-15 02:36+0100\n"
+"PO-Revision-Date: 2005-02-15 00:10-0200\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,6 @@ msgstr "    "
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: plugins/gdb/anjuta-gdb.glade.h:1 plugins/macro/anjuta-macro.glade.h:1
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:1
 #: plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
@@ -153,7 +152,6 @@ msgstr "Registradores de CPU"
 #: plugins/editor/anjuta-document-manager.glade.h:39
 #: plugins/file-manager/an_file_view.c:335
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:9
 msgid "CVS"
 msgstr "CVS"
 
@@ -534,8 +532,8 @@ msgid "Open existing file or create a new file."
 msgstr "Abre um arquivo existente ou cria um novo arquivo."
 
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:303
-#: plugins/file-loader/plugin.c:461 plugins/file-loader/plugin.c:620
-#: plugins/file-loader/plugin.c:627 src/toolbar.c:80
+#: plugins/file-loader/plugin.c:499 plugins/file-loader/plugin.c:658
+#: plugins/file-loader/plugin.c:665 src/toolbar.c:80
 msgid "Open file"
 msgstr "Abre um arquivo"
 
@@ -1161,7 +1159,7 @@ msgstr "Objeto Pixbuf"
 msgid "The pixbuf to render."
 msgstr "O pixbuf a renderizar."
 
-#: libanjuta/plugins.c:930
+#: libanjuta/plugins.c:930 plugins/symbol-browser/an_symbol_prefs.c:330
 msgid "Load"
 msgstr "Carregar"
 
@@ -1195,7 +1193,7 @@ msgstr "Largura"
 msgid "Width of the entry."
 msgstr "Largura da entrada."
 
-#: libegg/egg-combo-action.c:294 plugins/symbol-browser/an_symbol_view.c:208
+#: libegg/egg-combo-action.c:294 plugins/symbol-browser/an_symbol_view.c:305
 msgid "Symbol"
 msgstr "Símbolos"
 
@@ -1366,11 +1364,11 @@ msgstr "Procurar"
 msgid "Incremental search"
 msgstr "Procura incremental"
 
-#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:818
+#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:856
 msgid "Open _Recent"
 msgstr "Abrir _Recente"
 
-#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:829
+#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:867
 msgid "Open recent files"
 msgstr "Abre arquivos utilizados recentemente"
 
@@ -1843,7 +1841,7 @@ msgstr "Construtor de Classes"
 #. 7
 #. 9
 #: plugins/class-gen/clsGen.c:1360 plugins/devhelp/plugin.c:250
-#: plugins/devhelp/plugin.c:459 plugins/devhelp/plugin.c:472
+#: plugins/devhelp/plugin.c:476 plugins/devhelp/plugin.c:489
 #: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
 #: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:383
 #: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
@@ -2393,7 +2391,7 @@ msgstr "Carregar Arquivo Executável"
 msgid "Load Core File"
 msgstr "Carregar Arquivo Core"
 
-#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:367
+#: plugins/debug-manager/plugin.c:61 plugins/file-loader/plugin.c:405
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2544,60 +2542,60 @@ msgstr "Impossível executar o comando: \"%s\""
 msgid "Contents"
 msgstr "Conteúdo"
 
-#: plugins/devhelp/plugin.c:253 plugins/devhelp/plugin.c:475
+#: plugins/devhelp/plugin.c:253 plugins/devhelp/plugin.c:492
 msgid "Help display"
 msgstr "Tela de ajuda"
 
-#: plugins/devhelp/plugin.c:338
+#: plugins/devhelp/plugin.c:355
 msgid "Search Help:"
 msgstr "Procurar Ajuda:"
 
-#: plugins/devhelp/plugin.c:356 plugins/editor/plugin.c:243
+#: plugins/devhelp/plugin.c:373 plugins/editor/plugin.c:243
 #: plugins/message-view/plugin.c:57 plugins/symbol-browser/plugin.c:235
 msgid "_Goto"
 msgstr "_Ir Para"
 
-#: plugins/devhelp/plugin.c:364
+#: plugins/devhelp/plugin.c:381
 msgid "Previous Help"
 msgstr "Ajuda Anterior"
 
-#: plugins/devhelp/plugin.c:366
+#: plugins/devhelp/plugin.c:383
 msgid "Go to previous help page"
 msgstr "Vai para a página de ajuda anterior"
 
-#: plugins/devhelp/plugin.c:372
+#: plugins/devhelp/plugin.c:389
 msgid "Next Help"
 msgstr "Próxima Ajuda"
 
-#: plugins/devhelp/plugin.c:374
+#: plugins/devhelp/plugin.c:391
 msgid "Go to next help page"
 msgstr "Vai para a próxima página de ajuda"
 
-#: plugins/devhelp/plugin.c:380
+#: plugins/devhelp/plugin.c:397
 msgid "_API references"
 msgstr "Referências _API"
 
-#: plugins/devhelp/plugin.c:382
+#: plugins/devhelp/plugin.c:399
 msgid "Browse API Pages"
 msgstr "Navegar as Páginas API"
 
-#: plugins/devhelp/plugin.c:388
+#: plugins/devhelp/plugin.c:405
 msgid "_Context Help"
 msgstr "Ajuda de _Contexto"
 
-#: plugins/devhelp/plugin.c:390
+#: plugins/devhelp/plugin.c:407
 msgid "Search help for the current word in the editor"
 msgstr "Procura ajuda para a palavra atual no editor"
 
-#: plugins/devhelp/plugin.c:396
+#: plugins/devhelp/plugin.c:413
 msgid "_Search Help"
 msgstr "_Procurar Ajuda"
 
-#: plugins/devhelp/plugin.c:398
+#: plugins/devhelp/plugin.c:415
 msgid "Search for a term in help"
 msgstr "Procura um termo no help"
 
-#: plugins/devhelp/plugin.c:453
+#: plugins/devhelp/plugin.c:470
 msgid "Devhelp navigation operations"
 msgstr "Operações de navegação do Devhelp"
 
@@ -2634,7 +2632,7 @@ msgstr ""
 "Tem certeza de que quer recarregar o '%s'?\n"
 "Todas as informações não gravadas serão perdidas."
 
-#: plugins/editor/action-callbacks.c:238 plugins/editor/text_editor.c:1438
+#: plugins/editor/action-callbacks.c:238 plugins/editor/text_editor.c:306
 msgid "_Reload"
 msgstr "_Recarregar"
 
@@ -2672,13 +2670,11 @@ msgstr "$(module.source.files) $(module.include.files)"
 
 #: plugins/editor/anjuta-document-manager.glade.h:3
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: plugins/editor/anjuta-document-manager.glade.h:4
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:3
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
@@ -2688,13 +2684,11 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:5
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
 #: plugins/editor/anjuta-document-manager.glade.h:6
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
@@ -2825,7 +2819,6 @@ msgstr "Fundo"
 
 #: plugins/editor/anjuta-document-manager.glade.h:40
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:10
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
@@ -3241,7 +3234,6 @@ msgstr "Ordenar na ordem de abertura"
 
 #: plugins/editor/anjuta-document-manager.glade.h:142
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de diretórios que devem ser "
@@ -3249,7 +3241,6 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:143
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de diretório que devem ser "
@@ -3257,7 +3248,6 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:144
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de arquivos que devem ser "
@@ -3265,7 +3255,6 @@ msgstr ""
 
 #: plugins/editor/anjuta-document-manager.glade.h:145
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de arquivos que devem ser "
@@ -4121,50 +4110,7 @@ msgstr "%d equivalências foram substituidas."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Impossível criar interface de usuário para Procurar e Substituir"
 
-#: plugins/editor/text_editor.c:1099
-msgid "Could not get file info"
-msgstr "Impossível obter as informações do arquivo"
-
-#: plugins/editor/text_editor.c:1106
-msgid "This file is too big. Unable to allocate memory."
-msgstr "O arquivo é muito grande. Impossível alocar memória."
-
-#: plugins/editor/text_editor.c:1113
-msgid "Could not open file"
-msgstr "Impossível abrir o arquivo"
-
-#: plugins/editor/text_editor.c:1121
-msgid "Error while reading from file"
-msgstr "Erro ao ler o arquivo"
-
-#: plugins/editor/text_editor.c:1157
-msgid ""
-"The file does not look like a text file or the file encoding is not "
-"supported. Please check if the encoding of file is in the supported "
-"encodings list. If not, add it from the preferences."
-msgstr ""
-"O arquivo não parece ser um arquivo de texto ou a codificação não é "
-"suportada. Por favor, verifique se a codificação do arquivo é suportada na "
-"relação de codificações. Se ela não for suportada, você deve adicioná-la a "
-"partir de preferências."
-
-#: plugins/editor/text_editor.c:1321
-#, c-format
-msgid ""
-"Could not load file: %s\n"
-"\n"
-"Details: %s"
-msgstr ""
-"Impossível carregar o arquivo: %s\n"
-"\n"
-"Detalhes: %s"
-
-#: plugins/editor/text_editor.c:1361
-#, c-format
-msgid "Could not save file: %s."
-msgstr "Impossível salvar o arquivo: %s."
-
-#: plugins/editor/text_editor.c:1424
+#: plugins/editor/text_editor.c:292
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4175,21 +4121,64 @@ msgstr ""
 "disponível no buffer atualmente.\n"
 "Deseja recarregá-lo?"
 
-#: plugins/editor/text_editor.c:1599
+#: plugins/editor/text_editor.c:1169
+msgid "Could not get file info"
+msgstr "Impossível obter as informações do arquivo"
+
+#: plugins/editor/text_editor.c:1176
+msgid "This file is too big. Unable to allocate memory."
+msgstr "O arquivo é muito grande. Impossível alocar memória."
+
+#: plugins/editor/text_editor.c:1183
+msgid "Could not open file"
+msgstr "Impossível abrir o arquivo"
+
+#: plugins/editor/text_editor.c:1191
+msgid "Error while reading from file"
+msgstr "Erro ao ler o arquivo"
+
+#: plugins/editor/text_editor.c:1227
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
+msgstr ""
+"O arquivo não parece ser um arquivo de texto ou a codificação não é "
+"suportada. Por favor, verifique se a codificação do arquivo é suportada na "
+"relação de codificações. Se ela não for suportada, você deve adicioná-la a "
+"partir de preferências."
+
+#: plugins/editor/text_editor.c:1392
+#, c-format
+msgid ""
+"Could not load file: %s\n"
+"\n"
+"Details: %s"
+msgstr ""
+"Impossível carregar o arquivo: %s\n"
+"\n"
+"Detalhes: %s"
+
+#: plugins/editor/text_editor.c:1439
+#, c-format
+msgid "Could not save file: %s."
+msgstr "Impossível salvar o arquivo: %s."
+
+#: plugins/editor/text_editor.c:1615
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "A autoformatação está desabilitada. Altere os padrões em Preferências."
 
-#: plugins/editor/text_editor.c:1618
+#: plugins/editor/text_editor.c:1634
 msgid "Error in auto formatting ..."
 msgstr "Erro na autoformatação..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1634
+#: plugins/editor/text_editor.c:1650
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "O Anjuta não conhece %s!"
 
-#: plugins/editor/text_editor.c:1659
+#: plugins/editor/text_editor.c:1675
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4198,7 +4187,7 @@ msgstr ""
 "Erro na autoformatação...\n"
 "Detalhes: %s"
 
-#: plugins/editor/text_editor.c:1906
+#: plugins/editor/text_editor.c:1922
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4211,7 +4200,7 @@ msgstr ""
 "Isto pode resultar em um comportamento inapropriado ou instabilidades.\n"
 "O Anjuta vai reverter para as definições (limitadas) padrões"
 
-#: plugins/editor/text_editor_cbs.c:127
+#: plugins/editor/text_editor_cbs.c:126
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autosalvamento de \"%s\" -- Falhou"
@@ -4350,7 +4339,7 @@ msgstr "Fechar"
 msgid "Docked"
 msgstr "Docar"
 
-#: plugins/file-loader/plugin.c:113
+#: plugins/file-loader/plugin.c:151
 #, c-format
 msgid ""
 "<b>Can not open \"%s\"</b>.\n"
@@ -4372,106 +4361,106 @@ msgstr ""
 "\n"
 "Você pode escolher tentar abri-lo com os plugins ou aplicações a seguir."
 
-#: plugins/file-loader/plugin.c:125
+#: plugins/file-loader/plugin.c:163
 msgid "Open with:"
 msgstr "Abrir com:"
 
 #. Document manager plugin
-#: plugins/file-loader/plugin.c:133
+#: plugins/file-loader/plugin.c:171
 msgid "Document Manager"
 msgstr "Gerenciador de Documentos"
 
-#: plugins/file-loader/plugin.c:372
+#: plugins/file-loader/plugin.c:410
 msgid "Anjuta Projects"
 msgstr "Projetos do Anjuta"
 
-#: plugins/file-loader/plugin.c:378
+#: plugins/file-loader/plugin.c:416
 #: plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "Arquivos de código fonte em C/C++"
 
-#: plugins/file-loader/plugin.c:390
+#: plugins/file-loader/plugin.c:428
 msgid "C# source files"
 msgstr "Arquivos de código fonte em C#"
 
-#: plugins/file-loader/plugin.c:396
+#: plugins/file-loader/plugin.c:434
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Arquivos de código fonte em Java"
 
-#: plugins/file-loader/plugin.c:402
+#: plugins/file-loader/plugin.c:440
 msgid "Pascal source files"
 msgstr "Arquivos de código fonte em Pascal"
 
-#: plugins/file-loader/plugin.c:407
+#: plugins/file-loader/plugin.c:445
 msgid "PHP source files"
 msgstr "Arquivos de código fonte em PHP"
 
-#: plugins/file-loader/plugin.c:414
+#: plugins/file-loader/plugin.c:452
 msgid "Perl source files"
 msgstr "Arquivos de código fonte em Perl"
 
-#: plugins/file-loader/plugin.c:420
+#: plugins/file-loader/plugin.c:458
 msgid "Python source files"
 msgstr "Arquivo de código fonte em Python"
 
-#: plugins/file-loader/plugin.c:425
+#: plugins/file-loader/plugin.c:463
 msgid "Hyper text markup files"
 msgstr "Hyper text markup files"
 
-#: plugins/file-loader/plugin.c:434
+#: plugins/file-loader/plugin.c:472
 msgid "Shell scripts files"
 msgstr "Arquivos script de shell"
 
-#: plugins/file-loader/plugin.c:439
+#: plugins/file-loader/plugin.c:477
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: plugins/file-loader/plugin.c:445
+#: plugins/file-loader/plugin.c:483
 msgid "Lua files"
 msgstr "Arquivos Lua"
 
-#: plugins/file-loader/plugin.c:450
+#: plugins/file-loader/plugin.c:488
 msgid "Diff files"
 msgstr "Arquivos diff"
 
-#: plugins/file-loader/plugin.c:610
+#: plugins/file-loader/plugin.c:648
 msgid "_New ..."
 msgstr "_Novo..."
 
-#: plugins/file-loader/plugin.c:612
+#: plugins/file-loader/plugin.c:650
 msgid "New file, project and project components."
 msgstr "Novo arquivo, Projeto e componentes de Projeto."
 
-#: plugins/file-loader/plugin.c:618
+#: plugins/file-loader/plugin.c:656
 msgid "_Open ..."
 msgstr "_Abrir..."
 
-#: plugins/file-loader/plugin.c:626
+#: plugins/file-loader/plugin.c:664
 msgid "_Open"
 msgstr "_Abrir"
 
-#: plugins/file-loader/plugin.c:633
+#: plugins/file-loader/plugin.c:671
 msgid "Open _With"
 msgstr "Abrir _Com"
 
-#: plugins/file-loader/plugin.c:634
+#: plugins/file-loader/plugin.c:672
 msgid "Open with"
 msgstr "Abre com"
 
-#: plugins/file-loader/plugin.c:805
+#: plugins/file-loader/plugin.c:843
 msgid "File Loader"
 msgstr "Carregador de Arquivo"
 
-#: plugins/file-loader/plugin.c:810
+#: plugins/file-loader/plugin.c:848
 msgid "New"
 msgstr "Novo"
 
-#: plugins/file-loader/plugin.c:812
+#: plugins/file-loader/plugin.c:850
 msgid "Open"
 msgstr "Abre"
 
-#: plugins/file-loader/plugin.c:819
+#: plugins/file-loader/plugin.c:857
 msgid "Open recent file"
 msgstr "Abre um arquivo utilizado recentemente"
 
@@ -4572,6 +4561,7 @@ msgstr "Personaliza o navegador de arquivos"
 #: plugins/file-manager/an_file_view.c:641
 #: plugins/file-manager/an_file_view.c:804
 #: plugins/file-manager/an_file_view.c:1075
+#: plugins/symbol-browser/an_symbol_view.c:538
 msgid "Loading ..."
 msgstr "Carregando..."
 
@@ -4580,57 +4570,47 @@ msgid "Rev"
 msgstr "Rev"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:6
 msgid "<b>Directory filter:</b>"
 msgstr "<b>Filtro de diretório:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:7
 msgid "<b>File filter:</b>"
 msgstr "<b>Filtro de arquivos:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:8
 msgid "<b>Root directory if no project is open:</b>"
 msgstr "<b>Diretório root se nenhum projeto está aberto:</b>"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:11
 msgid "Choose directories"
 msgstr "Escolher diretórios"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:12
 msgid "Choose files"
 msgstr "Escolher arquivos"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:13
 msgid "Directory "
 msgstr "Diretório"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:14
 msgid "Do not show hidden directories"
 msgstr "Não mostrar diretórios ocultos"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:15
 msgid "Do not show hidden files"
 msgstr "Não mostrar arquivos ocultos"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:16
 msgid "Ignore directories"
 msgstr "Ignorar diretórios"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:17
 msgid "Ignore files"
 msgstr "Ignorar arquivos"
 
 #: plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade.h:22
+#: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
 msgid "dialog3"
 msgstr "diálogo3"
 
@@ -7445,7 +7425,11 @@ msgstr "Endereço de correio eletrônico do usuário"
 msgid "User name"
 msgstr "Nome do usuário"
 
-#: plugins/project-wizard/druid.c:170
+#: plugins/project-wizard/anjuta-project-wizard.glade.h:18
+msgid "label"
+msgstr "rótulo"
+
+#: plugins/project-wizard/druid.c:174
 msgid ""
 "Confim the following information:\n"
 "\n"
@@ -7453,21 +7437,29 @@ msgstr ""
 "Confirme as seguintes informações:\n"
 "\n"
 
-#: plugins/project-wizard/druid.c:172
+#: plugins/project-wizard/druid.c:176
 msgid "Project Type: "
 msgstr "Tipo de Projeto: "
 
-#: plugins/project-wizard/druid.c:288
+#: plugins/project-wizard/druid.c:289
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Impossível encontrar algum modelo de Projeto em %s"
 
-#: plugins/project-wizard/druid.c:608
+#: plugins/project-wizard/druid.c:465
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "O campo \"%s\" é obrigatório. Por favor, você deve preenche-lo."
 
-#: plugins/project-wizard/druid.c:694
+#: plugins/project-wizard/druid.c:483
+#, c-format
+msgid ""
+"Directory \"%s\" already exist,the creation of the project could fail if "
+"some files cannot be written. Do you want to continue ?"
+msgstr "O diretório \"%s\" já existe, a criação do projeto pode falhar se alguns "
+"arquivos não puderem ser escritos. Você deseja continuar?"
+
+#: plugins/project-wizard/druid.c:763
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -7475,51 +7467,64 @@ msgstr ""
 "Impossível localiza a versão 5 do autoge, por favor, instale o pacote do "
 "autogen. Você pode obtê-lo a partir do sítio: http://autogen.sourceforge.net"
 
-#: plugins/project-wizard/druid.c:702
+#: plugins/project-wizard/druid.c:771
 msgid "Unable to build project wizard user interface"
 msgstr "Impossível criar interface do assistente de Projeto"
 
-#. All files have been installed
-#: plugins/project-wizard/install.c:378
+#: plugins/project-wizard/install.c:373
 msgid "New project has been created successfully"
 msgstr "Projeto foi criado com sucesso"
 
-#: plugins/project-wizard/install.c:444
+#: plugins/project-wizard/install.c:427
+#, c-format
+msgid "Skipping %s, file already exist"
+msgstr "Passando %s, o arquivo já existe"
+
+#: plugins/project-wizard/install.c:451
 #, c-format
 msgid "Creating %s using AutoGen"
 msgstr "Criando %s utilizando o AutoGen"
 
-#: plugins/project-wizard/install.c:448
+#: plugins/project-wizard/install.c:455
 #, c-format
 msgid "Creating %s"
 msgstr "Criando %s"
 
+#: plugins/project-wizard/plugin.c:154
+msgid "New Project Wizard"
+msgstr "Assistente de Criação de um Novo Projeto"
+
 #. Action name
 #. Stock icon, if any
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:51
 #: plugins/sample1/plugin.c:55
 msgid "_Sample action"
 msgstr "_Ação de exemplo"
 
 #. Display label
 #. short-cut
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:53
 #: plugins/sample1/plugin.c:57
 msgid "Sample action"
 msgstr "Ação de exemplo"
 
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:77
 #: plugins/sample1/plugin.c:78
 msgid "Sample file operations"
 msgstr "Operações de arquivo de exemplo"
 
-#: plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:89
-msgid "[+PluginClass+] widget"
-msgstr "Componente [+PluginClass+]"
-
 #: plugins/sample1/plugin.c:84
 msgid "SamplePlugin"
 msgstr "SamplePlugin"
+
+#: plugins/symbol-browser/an_symbol_prefs.c:338
+msgid "API Tags"
+msgstr "Tags API"
+
+#: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
+msgid "<b>Available API tags:</b>"
+msgstr "<b>Tags API disponíveis:</b>"
+
+#: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
+msgid "Create"
+msgstr "Criar"
 
 #: plugins/symbol-browser/plugin.c:239
 msgid "Tag _Definition"
@@ -8255,6 +8260,9 @@ msgstr "Autocompletar"
 msgid "Autocomplete word"
 msgstr "Autocompleta a palavra"
 
+#~ msgid "[+PluginClass+] widget"
+#~ msgstr "Componente [+PluginClass+]"
+
 #~ msgid "Classes"
 #~ msgstr "Classes"
 
@@ -8263,9 +8271,6 @@ msgstr "Autocompleta a palavra"
 
 #~ msgid "Variables"
 #~ msgstr "Variáveis"
-
-#~ msgid "New Project Wizard"
-#~ msgstr "Assistente de Criação de um Novo Projeto"
 
 #~ msgid "Copying %s to %s"
 #~ msgstr "Copiando %s para %s"
