@@ -53,6 +53,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_widget_ref (toolbar1);
 	gtk_widget_show (toolbar1);
 
+#if 0
 #warning "G2: Add LED animation image file path here"
 	filename = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_GREEN_LED);
 	led_anim = gdk_pixbuf_animation_new_from_file (filename, &gerror);
@@ -69,7 +70,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	// gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_led,
 	//			   NULL, NULL);
 	//gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-	
+#endif
 	toolbar->novus = 
 		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, _("New"),
 							  _("New file"),

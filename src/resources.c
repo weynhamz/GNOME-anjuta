@@ -245,7 +245,7 @@ anjuta_res_get_icon_for_file (PropsID props, const gchar *filename)
 	file = extract_filename (filename);
 	value = prop_get_new_expand (props, "icon.", file);
 	if (value == NULL)
-		value = g_strdup (ANJUTA_PIXMAP_FV_UNKNOWN);
+		value = g_strdup ("file_text.png");
 	pixbuf = anjuta_res_get_pixbuf (value);
 	g_free (value);
 	return pixbuf;

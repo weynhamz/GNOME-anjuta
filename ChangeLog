@@ -1,3 +1,21 @@
+2003-05-29  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.glade, anjuta_dialogs_strings.c: Added encoding prefs
+	dialog.
+	
+	* [pixmaps/] cfolder.xpm, console.xpm, file_c.png, file_c.xpm,
+	file_core.png, file_core.xpm, file_cpp.png, file_cpp.xpm,
+	file_exec.png, file_exec.xpm, file_file.png, file_file.xpm,
+	file_h.png, file_h.xpm, file_html.png, file_html.xpm,
+	file_i18n.png, file_i18n.xpm, file_icon.png, file_icon.xpm,
+	file_pix.png, file_pix.xpm, file_text.xpm, file_unknown.png,
+	file_unknown.xpm, ledgreen.xpm, ledred.xpm, ofolder.xpm,
+	print_color.xpm, print_landscape.xpm, print_layout.xpm,
+	print_nocolor.xpm, print_portrait.xpm: Removed unused icons
+
+	* pixmaps/Makefile.am, src/toolbar.c, src/pixmaps.h, src/resources.h:
+	Removed unused icons references.
+
 2003-05-27	Enver ALTIN  <ealtin@casdb.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>

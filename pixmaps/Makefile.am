@@ -53,12 +53,10 @@ anjuta_pixmaps_DATA = \
 	build_all.xpm \
 	build.xpm \
 	calltip.xpm \
-	cfolder.xpm \
 	close_file_small.xpm \
 	close_project.png \
 	compile.xpm \
 	configure.xpm \
-	console.xpm \
 	continue.xpm \
 	debug_stop.xpm \
 	debug.xpm \
@@ -67,18 +65,7 @@ anjuta_pixmaps_DATA = \
 	error-next.png \
 	error-prev-16.png \
 	error-prev.png \
-	file_core.png \
-	file_cpp.png \
-	file_c.png \
-	file_exec.png \
-	file_file.png \
-	file_html.png \
-	file_h.png \
-	file_i18n.png \
-	file_icon.png \
-	file_pix.png \
 	file_text.png \
-	file_unknown.png \
 	fold_close.xpm \
 	fold_open.xpm \
 	fold_toggle.xpm \
@@ -93,8 +80,6 @@ anjuta_pixmaps_DATA = \
 	indent.xpm \
 	inspect.xpm \
 	interrupt.xpm \
-	ledgreen.xpm \
-	ledred.xpm \
 	madeinanjuta.xcf\
 	messages.xpm \
 	mini_build.xpm \
@@ -106,7 +91,6 @@ anjuta_pixmaps_DATA = \
 	mini-modules.xpm \
 	mini_term.xpm \
 	new_folder.xpm \
-	ofolder.xpm \
 	open_project.png \
 	password.png \
 	pointer.xpm \
@@ -118,11 +102,6 @@ anjuta_pixmaps_DATA = \
 	preferences-print.png\
 	preferences-general.png\
 	preferences-terminal.png\
-	print_color.xpm \
-	print_landscape.xpm \
-	print_layout.xpm \
-	print_nocolor.xpm \
-	print_portrait.xpm \
 	project.xpm \
 	registers.xpm \
 	run_to_cursor.xpm \

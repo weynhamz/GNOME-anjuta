@@ -41,8 +41,6 @@
 #define ANJUTA_PIXMAP_SAVE_PROJECT        "save_project.png"
 #define ANJUTA_PIXMAP_CLOSE_PROJECT       "close_project.png"
 #define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
-#define ANJUTA_PIXMAP_PAGE_SETUP          "page_setup.xpm"
-#define ANJUTA_PIXMAP_FIND_IN_FILES       "find_in_files.xpm"
 #define ANJUTA_PIXMAP_MESSAGES            "messages.xpm"
 #define ANJUTA_PIXMAP_PROJECT_LISTING     "project.xpm"
 #define ANJUTA_PIXMAP_BREAKPOINT          "breakpoint.xpm"
@@ -52,25 +50,13 @@
 #define ANJUTA_PIXMAP_INSPECT             "inspect.xpm"
 #define ANJUTA_PIXMAP_FRAME               "frame.xpm"
 #define ANJUTA_PIXMAP_INTERRUPT           "interrupt.xpm"
-#define ANJUTA_PIXMAP_CONSOLE             "console.xpm"
 #define ANJUTA_PIXMAP_COMPILE             "compile.xpm"
 #define ANJUTA_PIXMAP_CONFIGURE           "configure.xpm"
 #define ANJUTA_PIXMAP_BUILD               "build.xpm"
 #define ANJUTA_PIXMAP_DEBUG               "debug.xpm"
 #define ANJUTA_PIXMAP_BUILD_ALL           "build_all.xpm"
-#define ANJUTA_PIXMAP_GREP                "grep.xpm"
-#define ANJUTA_PIXMAP_COMPARE             "compare.xpm"
-#define ANJUTA_PIXMAP_DIFFERENCE          "difference.xpm"
-#define ANJUTA_PIXMAP_FILE_VIEW           "file_view.xpm"
 #define ANJUTA_PIXMAP_INDENT              "indent.xpm"
-#define ANJUTA_PIXMAP_FLOW                "flow.xpm"
-#define ANJUTA_PIXMAP_REFERENCE           "reference.xpm"
-#define ANJUTA_PIXMAP_TRACE               "trace.xpm"
-#define ANJUTA_PIXMAP_ARCHIVE             "archive.xpm"
 #define ANJUTA_PIXMAP_HELP                "help.xpm"
-#define ANJUTA_PIXMAP_CONTENTS            "contents.xpm"
-#define ANJUTA_PIXMAP_INDEX               "index.xpm"
-#define ANJUTA_PIXMAP_MAN_PAGE            "man_page.xpm"
 #define ANJUTA_PIXMAP_DOCK                "dock.xpm"
 #define ANJUTA_PIXMAP_UNDOCK              "undock.png"
 #define ANJUTA_PIXMAP_CONTINUE            "continue.xpm"
@@ -82,12 +68,6 @@
 #define ANJUTA_PIXMAP_POINTER             "pointer.xpm"
 #define ANJUTA_PIXMAP_WIZARD              "wizard.xpm"
 #define ANJUTA_PIXMAP_PASSWORD            "password.png"
-
-#define ANJUTA_PIXMAP_PRINT_LAYOUT        "print_layout.xpm"
-#define ANJUTA_PIXMAP_PRINT_PORTRAIT      "print_portrait.xpm"
-#define ANJUTA_PIXMAP_PRINT_LANDSCAPE     "print_landscape.xpm"
-#define ANJUTA_PIXMAP_PRINT_COLOR         "print_color.xpm"
-#define ANJUTA_PIXMAP_PRINT_NOCOLOR       "print_nocolor.xpm"
 
 /* used for the messages window buttons */
 #define ANJUTA_PIXMAP_MINI_BUILD          "mini_build.xpm"
@@ -120,9 +100,6 @@
 #define ANJUTA_PIXMAP_APP_XWIN            "appwiz_xlib.png"
 #define ANJUTA_PIXMAP_APP_XWINDOCKAPP     "appwiz_xlib.png"
 #define ANJUTA_PIXMAP_APP_QT              "appwiz_terminal.png"
-
-#define ANJUTA_PIXMAP_RED_LED             "ledred.xpm"
-#define ANJUTA_PIXMAP_GREEN_LED           "ledgreen.xpm"
 
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark_toggle.xpm"
 #define ANJUTA_PIXMAP_BOOKMARK_FIRST      "bookmark-first.png"
@@ -166,25 +143,8 @@
 #define ANJUTA_PIXMAP_SV_VARIABLE         "sv_variable.xpm"
 
 /* Common */
-#define ANJUTA_PIXMAP_CLOSED_FOLDER       "cfolder.xpm"
-#define ANJUTA_PIXMAP_OPEN_FOLDER         "ofolder.xpm"
-
-/* File browser */
-#define ANJUTA_PIXMAP_FV_UNKNOWN          "file_unknown.png"
-#define ANJUTA_PIXMAP_FV_TEXT             "file_text.png"
-#define ANJUTA_PIXMAP_FV_IMAGE            "file_pix.png"
-#define ANJUTA_PIXMAP_FV_EXECUTABLE       "file_exec.png"
-#define ANJUTA_PIXMAP_FV_CORE             "file_core.png"
-
-/* Required by Project Manager */
-#define ANJUTA_PIXMAP_EDIT                "file_text.png"
-#define ANJUTA_PIXMAP_VIEW                "file_file.png"
-#define ANJUTA_PIXMAP_INCLUDE             "file_h.png"
-#define ANJUTA_PIXMAP_SOURCE              "file_cpp.png"
-#define ANJUTA_PIXMAP_DATA                "file_unknown.png"
-#define ANJUTA_PIXMAP_PIXMAP              "file_pix.png"
-#define ANJUTA_PIXMAP_TRANSLATION         "file_i18n.png"
-#define ANJUTA_PIXMAP_DOC                 "file_html.png"
+#define ANJUTA_PIXMAP_CLOSED_FOLDER       "bfoldc.xpm"
+#define ANJUTA_PIXMAP_OPEN_FOLDER         "bfoldo.xpm"
 
 /* Useful macros for specifying pixmaps in UIInfo structures */
 /* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, \
