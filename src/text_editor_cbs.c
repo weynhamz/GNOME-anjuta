@@ -65,7 +65,7 @@ on_text_editor_text_buttonpress_event (GtkWidget * widget,
 				       gpointer user_data)
 {
 	TextEditor *te = user_data;
-	text_editor_check_disk_status ( te, FALSE );
+	text_editor_check_disk_status (te, FALSE);
 	return FALSE;
 }
 
@@ -163,18 +163,6 @@ on_text_editor_insert_text (GtkEditable * text,
 			    const gchar * insertion_text,
 			    gint length, gint * pos, TextEditor * te)
 {
-}
-
-void
-on_text_editor_check_yes_clicked (GtkButton * button, TextEditor * te)
-{
-	text_editor_load_file (te);
-}
-
-void
-on_text_editor_check_no_clicked (GtkButton * button, TextEditor * te)
-{
-	te->modified_time = time (NULL);
 }
 
 gboolean on_text_editor_auto_save (gpointer data)

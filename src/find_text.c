@@ -225,9 +225,9 @@ find_text_save_session ( FindText * ft, ProjectDBase *p )
 void
 create_find_text_gui (FindText * ft)
 {
-	ft->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_replace_dialog", NULL);
+	ft->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "find_text_dialog", NULL);
 	glade_xml_signal_autoconnect (ft->gxml);
-	ft->f_gui.GUI = glade_xml_get_widget (ft->gxml, "find_replace_dialog");
+	ft->f_gui.GUI = glade_xml_get_widget (ft->gxml, "find_text_dialog");
 	gtk_widget_hide (ft->f_gui.GUI);
 	gtk_window_set_transient_for (GTK_WINDOW(ft->f_gui.GUI),
                                   GTK_WINDOW(app->widgets.window));

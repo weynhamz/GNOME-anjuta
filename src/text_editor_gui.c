@@ -54,24 +54,10 @@ create_text_editor_gui (TextEditor * te)
 	GtkWidget *dock1;
 	GtkWidget *dock_item1;
 	GtkWidget *toolbar1;
-	GtkWidget *tmp_toolbar_icon;
-	GtkWidget *button1;
-	GtkWidget *button2;
-	GtkWidget *button3;
-	GtkWidget *button5;
-	GtkWidget *button6;
-	GtkWidget *button7;
-	GtkWidget *button8;
-	GtkWidget *button9;
-	GtkWidget *button10;
 	GtkWidget *frame1;
 	GtkWidget *hbox1;
 	GtkWidget *label1;
 	GtkWidget *label2;
-	GtkWidget *button11;
-	GtkWidget *button12;
-	GtkWidget *button14;
-	GtkWidget *button13;
 	GtkWidget *event_box1;
 	GtkWidget *client_frame;
 	GtkWidget *editor1;
@@ -86,8 +72,6 @@ create_text_editor_gui (TextEditor * te)
 	gtk_window_set_default_size (GTK_WINDOW (window1),
 				     te->geom.width, te->geom.height);
 
-#warning "G2: Add proper toolbar dock"
-#if 0
 	dock1 = bonobo_dock_new ();
 	gtk_widget_show (dock1);
 	gtk_container_add (GTK_CONTAINER (window1), dock1);
@@ -96,129 +80,66 @@ create_text_editor_gui (TextEditor * te)
 					  BONOBO_DOCK_ITEM_BEH_EXCLUSIVE |
 					  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING);
 	gtk_widget_show (dock_item1);
-	bonobo_dock_add_item (GNOME_DOCK (dock1), BONOBO_DOCK_ITEM (dock_item1),
+	bonobo_dock_add_item (BONOBO_DOCK (dock1), BONOBO_DOCK_ITEM (dock_item1),
 			     BONOBO_DOCK_TOP, 1, 1, 0, 0);
 	bonobo_dock_item_set_shadow_type (BONOBO_DOCK_ITEM (dock_item1),
 					 GTK_SHADOW_OUT);
-	gtk_container_set_border_width (GTK_CONTAINER (dock_item1), 2);
-
-#else
-	
-	dock1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (dock1);
-	gtk_container_add (GTK_CONTAINER (window1), dock1);
-
-#endif
 
 	toolbar1 = gtk_toolbar_new ();
 	gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar1),
 	                             GTK_ORIENTATION_HORIZONTAL);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_ICONS);
 	gtk_widget_show (toolbar1);
-	gtk_container_add (GTK_CONTAINER (dock1), toolbar1);
-	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
-	//			       GTK_RELIEF_NONE);
-	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
-	//			     GTK_TOOLBAR_SPACE_LINE);
+	gtk_container_add (GTK_CONTAINER (dock_item1), toolbar1);
+	
+	te->buttons.novus = 
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_NEW, _("New"),
+							  _("New file"),
+							  G_CALLBACK (on_new_file1_activate), te);
+	te->buttons.open = 
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_OPEN, _("Open"),
+							  _("Open file"),
+							  G_CALLBACK (on_open1_activate), te);
+	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon = anjuta_res_get_image (ANJUTA_PIXMAP_NEW_FILE);
-	button1 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("New"), _("New Text File"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button1);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_OPEN_FILE);
-	button2 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Open"), _("Open Text File"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button2);
+	te->buttons.save = 
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_SAVE, _("Save"),
+							  _("Save current file"),
+							  G_CALLBACK (on_save1_activate), te);
+	te->buttons.reload =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_REVERT_TO_SAVED,
+						   _("Reload"),
+						   _("Reload current file"),
+						   G_CALLBACK (on_reload_file1_activate), te);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_SAVE_FILE);
-	button3 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Save"), _("Save Current File"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button3);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_RELOAD_FILE);
-	button5 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Reload"),
-					    _("Reload Current File"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_show (button5);
-
+	te->buttons.cut =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_CUT, _("Cut"),
+						   _("Cut to clipboard"),
+						   G_CALLBACK (on_editor_command_activate),
+						   (gpointer) ANE_CUT);
+	te->buttons.copy =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_COPY, _("Copy"),
+						   _("Copy to clipboard"),
+						   G_CALLBACK (on_editor_command_activate),
+						   (gpointer) ANE_COPY);
+	te->buttons.paste =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PASTE, _("Paste"),
+						   _("Paste from clipboard"),
+						   G_CALLBACK (on_editor_command_activate),
+						   (gpointer) ANE_PASTE);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_CUT);
-	button6 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Cut"), _("Cut to clipboard"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button6);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_COPY);
-	button7 = gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					      GTK_TOOLBAR_CHILD_BUTTON,
-					      NULL,
-					      _("Copy"),
-					      _("Copy to clipboard"), NULL,
-					      tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_show (button7);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_PASTE);
-	button8 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Paste"),
-					    _("Paste from clipboard"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_show (button8);
-
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_SEARCH);
-	button9 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Find"),
-					    _("Search the given string"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button9);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_FIND_REPLACE);
-	button10 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Replace"),
-					    _
-					    ("Search and replace the given string"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button10);
-
+	te->buttons.find =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND, _("Find"),
+						   _("Search string"),
+						   G_CALLBACK (on_find1_activate), te);
+	te->buttons.replace =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_FIND_AND_REPLACE,
+						   _("Replace"),
+						   _("Search and replace string"),
+						   G_CALLBACK (on_find_and_replace1_activate), te);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
 	frame1 = gtk_frame_new (NULL);
@@ -227,7 +148,6 @@ create_text_editor_gui (TextEditor * te)
 				   NULL);
 	gtk_widget_set_usize (frame1, 117, -2);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
-	gtk_container_set_border_width (GTK_CONTAINER (frame1), 2);
 	gtk_widget_hide (frame1);
 
 	hbox1 = gtk_hbox_new (FALSE, 0);
@@ -244,63 +164,34 @@ create_text_editor_gui (TextEditor * te)
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_COMPILE);
-	button11 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Compile"),
-					    _("Compile the current file"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button11);
-
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BUILD);
-	button12 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Build"),
-					    _
-					    ("Build current file or the source directory of the Project"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
-	gtk_widget_show (button12);
-
+	te->buttons.compile =
+		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_COMPILE, _("Compile"),
+						   _("Compile the current file"),
+						   G_CALLBACK (on_compile1_activate), te);
+	te->buttons.build =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, _("Print"),
+						   _("Build current file or the source directory of the Project"),
+						   G_CALLBACK (on_build_project1_activate), te);
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_PRINT);
-	button14 =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Print"),
-					    _("Print the current File"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
-	gtk_widget_show (button14);
-
-	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
-
-	tmp_toolbar_icon = anjuta_res_get_image (ANJUTA_PIXMAP_DOCK);
-	button13 = gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
-					       GTK_TOOLBAR_CHILD_BUTTON,
-					       NULL,
-					       _("Attach"),
-					       _
-					       ("Attach the editor window as paged editor"),
-					       NULL, tmp_toolbar_icon, NULL,
-					       NULL);
-	gtk_widget_show (button13);
-
+	te->buttons.print =
+		anjuta_util_toolbar_append_stock (toolbar1, GTK_STOCK_PRINT, _("Print"),
+						   _("Print the current file"),
+						   G_CALLBACK (anjuta_print_cb), te);
+	te->buttons.attach =
+		anjuta_util_toolbar_append_button (toolbar1, ANJUTA_PIXMAP_DOCK, _("Attach"),
+						   _("Attach the current page"),
+						   G_CALLBACK (on_text_editor_dock_activate), te);
+	
 	frame1 = gtk_frame_new (NULL);
 	gtk_widget_show (frame1);
-	//gnome_dock_set_client_area (GNOME_DOCK (dock1), frame1);
-	gtk_container_add (GTK_CONTAINER (dock1), frame1);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_OUT);
+	bonobo_dock_set_client_area (BONOBO_DOCK (dock1), frame1);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_NONE);
 
 	event_box1 = gtk_event_box_new ();
 	gtk_widget_show (event_box1);
-	/* container is not added now, since we don't know if it is windowed or paged */
+	/* container is not added now, since we don't know
+	if it is windowed or paged */
 
 	client_frame = gtk_frame_new (NULL);
 	gtk_widget_show (client_frame);
@@ -320,39 +211,6 @@ create_text_editor_gui (TextEditor * te)
 	gtk_signal_connect (GTK_OBJECT (window1), "size_allocate",
 			    GTK_SIGNAL_FUNC
 			    (on_text_editor_window_size_allocate), te);
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC (on_new_file1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC (on_open1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC (on_save1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button5), "clicked",
-			    GTK_SIGNAL_FUNC (on_reload_file1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button6), "clicked",
-			    GTK_SIGNAL_FUNC (on_editor_command_activate)
-				, (gpointer) ANE_CUT);
-	gtk_signal_connect (GTK_OBJECT (button7), "clicked",
-			    GTK_SIGNAL_FUNC (on_editor_command_activate)
-				, (gpointer) ANE_COPY);
-	gtk_signal_connect (GTK_OBJECT (button8), "clicked",
-			    GTK_SIGNAL_FUNC (on_editor_command_activate)
-				, (gpointer) ANE_PASTE);
-	gtk_signal_connect (GTK_OBJECT (button9), "clicked",
-			    GTK_SIGNAL_FUNC (on_find1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button10), "clicked",
-			    GTK_SIGNAL_FUNC (on_find_and_replace1_activate),
-			    te);
-	gtk_signal_connect (GTK_OBJECT (button11), "clicked",
-			    GTK_SIGNAL_FUNC (on_compile1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button12), "clicked",
-			    GTK_SIGNAL_FUNC (on_build_project1_activate), te);
-	gtk_signal_connect (GTK_OBJECT (button14), "clicked",
-			    GTK_SIGNAL_FUNC (anjuta_print_cb), NULL);
-	gtk_signal_connect (GTK_OBJECT (button13), "clicked",
-			    GTK_SIGNAL_FUNC (on_text_editor_dock_activate),
-			    te);
-/***************************************************************************/
-
 	gtk_signal_connect (GTK_OBJECT (window1), "focus_in_event",
 			    GTK_SIGNAL_FUNC
 			    (on_text_editor_window_focus_in_event), te);
@@ -383,39 +241,4 @@ create_text_editor_gui (TextEditor * te)
 	te->buttons.close = NULL;	/* Created later */
 	te->widgets.tab_label = NULL;	/* Created later */
 	te->widgets.close_pixmap = NULL;	/* Created later */
-	
-	te->buttons.novus = button1;
-	te->buttons.open = button2;
-	te->buttons.save = button3;
-	te->buttons.reload = button5;
-	te->buttons.cut = button6;
-	te->buttons.copy = button7;
-	te->buttons.paste = button8;
-	te->buttons.find = button9;
-	te->buttons.replace = button10;
-	te->buttons.compile = button11;
-	te->buttons.build = button12;
-	te->buttons.print = button14;
-	te->buttons.attach = button13;
-
-	gtk_widget_ref (te->buttons.novus);
-	gtk_widget_ref (te->buttons.novus);
-	gtk_widget_ref (te->buttons.open);
-	gtk_widget_ref (te->buttons.save);
-	gtk_widget_ref (te->buttons.reload);
-	gtk_widget_ref (te->buttons.cut);
-	gtk_widget_ref (te->buttons.copy);
-	gtk_widget_ref (te->buttons.paste);
-	gtk_widget_ref (te->buttons.find);
-	gtk_widget_ref (te->buttons.replace);
-	gtk_widget_ref (te->buttons.compile);
-	gtk_widget_ref (te->buttons.build);
-	gtk_widget_ref (te->buttons.print);
-	gtk_widget_ref (te->buttons.attach);
-
-	gtk_widget_ref (te->widgets.window);
-	gtk_widget_ref (te->widgets.client_area);
-	gtk_widget_ref (te->widgets.client);
-	gtk_widget_ref (te->widgets.editor);
-	gtk_widget_ref (te->widgets.line_label);
 }

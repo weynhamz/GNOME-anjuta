@@ -1,3 +1,13 @@
+2002-01-15  Naba Kumar <naba@gnome.org>
+
+	* src/njuta-tools.c: Fixed translatable strings.
+
+	* src/find_text.c: Fixed dialog creation from glade.
+	
+	* src/text_editor_gui.c, src/text_editor.c,
+	src/text_editor_cbs.c: Completed port of detached text editor
+	to gnome2 plateform.
+	
 2002-01-14  Naba Kumar <naba@gnome.org>
 
 	* src/anjuta.glade, src/preferences.[h,c],

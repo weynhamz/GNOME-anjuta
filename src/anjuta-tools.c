@@ -1670,7 +1670,7 @@ void anjuta_tools_show_variables()
 
 	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_HELP, NULL)))
 	{
-		anjuta_error("Unable to build user interface for tool help");
+		anjuta_error(_("Unable to build user interface for tool help"));
 		return;
 	}
 	dialog = glade_xml_get_widget(xml, TOOL_HELP);
@@ -1761,7 +1761,7 @@ get_user_params(AnUserTool *tool, gint *response_ptr)
 	
 	if (NULL == (xml = glade_xml_new(GLADE_FILE_ANJUTA, TOOL_PARAMS, NULL)))
 	{
-		anjuta_error("Unable to build user interface for tool parameters");
+		anjuta_error(_("Unable to build user interface for tool parameters"));
 		return FALSE;
 	}
 	dialog = glade_xml_get_widget(xml, TOOL_PARAMS);

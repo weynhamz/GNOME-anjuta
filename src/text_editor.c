@@ -235,25 +235,6 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_hide (te->widgets.client);
 		if (te->autosave_on)
 			gtk_timeout_remove (te->autosave_id);
-		gtk_widget_unref (te->widgets.window);
-		gtk_widget_unref (te->widgets.client_area);
-		gtk_widget_unref (te->widgets.client);
-		gtk_widget_unref (te->widgets.line_label);
-		gtk_widget_unref (te->widgets.editor);
-		gtk_widget_unref (te->buttons.novus);
-		gtk_widget_unref (te->buttons.novus);
-		gtk_widget_unref (te->buttons.open);
-		gtk_widget_unref (te->buttons.save);
-		gtk_widget_unref (te->buttons.reload);
-		gtk_widget_unref (te->buttons.cut);
-		gtk_widget_unref (te->buttons.copy);
-		gtk_widget_unref (te->buttons.paste);
-		gtk_widget_unref (te->buttons.find);
-		gtk_widget_unref (te->buttons.replace);
-		gtk_widget_unref (te->buttons.compile);
-		gtk_widget_unref (te->buttons.build);
-		gtk_widget_unref (te->buttons.print);
-		gtk_widget_unref (te->buttons.attach);
 
 		if (te->widgets.window)
 			gtk_widget_destroy (te->widgets.window);
@@ -1001,18 +982,32 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 		if( bForce )
 		{
 			text_editor_load_file (te);
-		} else
+		}
+		else
 		{
+			GtkDialog *dlg;
+			GtkWidget *parent;
+			
 			buff =
 				g_strdup_printf (_
 						 ("The file \"%s\" on the disk is more recent "
 						  "than\nthe current buffer.\nDo you want to reload it?"),
 				te->filename);
-			messagebox2 (GTK_MESSAGE_WARNING, buff,
-					 GTK_STOCK_YES,
-					 GTK_STOCK_NO,
-					 G_CALLBACK (on_text_editor_check_yes_clicked),
-					 G_CALLBACK (on_text_editor_check_no_clicked), te);
+			
+			if (te->mode == TEXT_EDITOR_PAGED)
+				parent = app->widgets.window;
+			else
+				parent = te->widgets.window;
+			
+			dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
+										  GTK_DIALOG_DESTROY_WITH_PARENT,
+										  GTK_MESSAGE_WARNING,
+										  GTK_BUTTONS_YES_NO, buff);
+			g_free (buff);
+			if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
+					text_editor_load_file (te);
+			else
+					te->modified_time = time (NULL);
 			return FALSE;
 		}
 	}
