@@ -1,3 +1,7 @@
+2001-09-13  gettextize  <bug-gnu-utils@gnu.org>
+
+	* Makefile.in.in: Upgrade to gettext-0.10.36.
+
 2001-09-09  Stephane Demurget <demurgets@free.fr>
 
 	* fr.po: updated to latest sources.

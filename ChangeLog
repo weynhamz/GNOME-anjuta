@@ -1,3 +1,8 @@
+2001-09-13  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	 project_type.h, project_type.c, source.c: Applied patch.
+	 patch from Johannes Schmid <clubfan@users.sourceforge.net>
+	 
 2001-09-12  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* configure.in, src/Makefile.am: Using macros for ORBit flags.

@@ -309,7 +309,7 @@ source_write_configure_in (ProjectDBase * data)
 	
 	/* Define PIXMAPS, HELP, MENU DIR so that the app can find installed pixmaps.
 	 */
-	if (type->id == PROJECT_TYPE_GENERIC || type->id == PROJECT_TYPE_GTK || type->id == PROJECT_TYPE_GTKMM)
+	if (!type->gnome_support)
 	{
 		fprintf (fp,
 			 "dnl Set PACKAGE DIRS in config.h.\n"
@@ -317,7 +317,7 @@ source_write_configure_in (ProjectDBase * data)
 			 "packagehelpdir=${packagedatadir}/help\n"
 			 "packagemenudir=${packagedatadir}\n");
 	}
-	if (type->id == PROJECT_TYPE_GNOME || type->id == PROJECT_TYPE_GNOMEMM || type->id == PROJECT_TYPE_BONOBO)
+	if (type->gnome_support)
 	{
 		fprintf (fp,
 			 "dnl Set PACKAGE DIRs in config.h.\n"
@@ -375,8 +375,7 @@ source_write_configure_in (ProjectDBase * data)
 			 "intl/Makefile\n"
 			 "po/Makefile.in\n");
 	}
-	if (type->id == PROJECT_TYPE_GNOME || type->id == PROJECT_TYPE_BONOBO
-			|| type->id == PROJECT_TYPE_GNOMEMM)
+	if (type->gnome_support)
 	{
 		fprintf (fp, "macros/Makefile\n");
 	}
@@ -432,8 +431,7 @@ source_write_configure_in (ProjectDBase * data)
 	}
 	glist_strings_free (list);
 
-	if (type->id == PROJECT_TYPE_GNOME || type ->id == PROJECT_TYPE_BONOBO
-			|| type->id  == PROJECT_TYPE_GNOMEMM)
+	if (type->gnome_support)
 	{
 		fprintf (fp, "%s.desktop\n", target);
 	}
@@ -478,9 +476,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 
 	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf (fp, " intl po");
-	if (type->id == PROJECT_TYPE_GNOME
-		|| type->id == PROJECT_TYPE_GNOMEMM
-		|| type->id == PROJECT_TYPE_BONOBO)
+	if (type->gnome_support)
 		fprintf (fp, " macros");
 
 	if (data->project_config->extra_modules_before)
@@ -526,7 +522,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	fprintf (fp,
 		"\n\nEXTRA_DIST = %s $(%sdoc_DATA)\n\n",
 		extract_filename (data->proj_filename), target);
-	if(type->id == PROJECT_TYPE_GNOME && type->id == PROJECT_TYPE_GNOMEMM || type->id == PROJECT_TYPE_BONOBO)
+	if(type->gnome_support)
 	{
 		gchar *group;
 		

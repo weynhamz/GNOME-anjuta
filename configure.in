@@ -27,6 +27,7 @@ GNOME_X_CHECKS
 dnl we need to check the lib first
 EXTRA_GNOME_LIBS=`gnome-config --libs gnorba`
 EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnorba`
+
 AC_SUBST(EXTRA_GNOME_LIBS)
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 
@@ -37,6 +38,7 @@ if test x$EXTRA_ORBIT_CONFIG = xno; then
 fi
 EXTRA_ORBIT_LIBS=`orbit-config --libs client`
 EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
+
 AC_SUBST(EXTRA_ORBIT_LIBS)
 AC_SUBST(EXTRA_ORBIT_CFLAGS)
 
