@@ -1,3 +1,14 @@
+2002-06-05	Andy Piper	<andy.piper@freeuk.com>
+
+	* data/properties/html.properties: changed some file 
+	associations
+
+2002-06-05 Philip Van Hoof <freax@pandora.be>
+
+ 	* widgets/gnomefilelist.c: Fixed #560759 and #561776
+	
+	Patch reviewed by Andy Piper <andy.piper@freeuk.com>
+
 2002-06-05  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
 	* data/properties/anjuta.properties, src/defaults.c: Make windows

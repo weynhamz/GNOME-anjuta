@@ -355,7 +355,6 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    file_list->cancel_button = gnome_stock_button(GNOME_STOCK_BUTTON_CANCEL);
    gtk_box_pack_start(GTK_BOX(util_box), file_list->cancel_button, FALSE, FALSE, 5);
    GTK_WIDGET_SET_FLAGS(file_list->cancel_button, GTK_CAN_DEFAULT);
-   gtk_widget_grab_default(file_list->cancel_button);
    gtk_widget_show(file_list->cancel_button);   
 
    file_list->folder = (GnomePixmap *)gnome_pixmap_new_from_xpm_d(bfoldc_xpm);
@@ -365,6 +364,9 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
       gnome_filelist_set_dir(file_list, g_get_home_dir ());
 
    file_list->changedironcombo = FALSE;
+
+   gtk_widget_grab_default(file_list->ok_button);
+   gtk_widget_grab_focus (file_list->ok_button);
 
    return GTK_WIDGET(file_list);
 }
@@ -386,6 +388,16 @@ static gint selection_entry_key_press(GtkWidget *widget, GdkEventKey *event, Gno
 	struct dirent *dir;
 	gboolean incurdir=FALSE;
 	
+	if (event->keyval == '~') {
+		gchar *text, *newtext;
+		text = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
+		newtext = g_strdup_printf("%s%s", text, g_get_home_dir());
+		g_free(text);
+		gtk_entry_set_text(GTK_ENTRY(widget), newtext);
+		g_free(newtext);
+		gtk_signal_emit_stop_by_name (GTK_OBJECT(widget), "key_press_event");
+		return TRUE;
+	}
 	if ((event->keyval == GDK_Tab || event->keyval == GDK_KP_Tab)) {
 		filecmp = g_completion_new (NULL);
 
@@ -451,7 +463,7 @@ static gint selection_entry_key_press(GtkWidget *widget, GdkEventKey *event, Gno
 			gtk_signal_emit_stop_by_name (GTK_OBJECT(widget), "key_press_event");
 			return TRUE;
 		}
-		
+
 		g_free(fullprefix);
 		g_free(prepend_str);
 		g_free(full_path);
@@ -1506,7 +1518,7 @@ gchar *build_full_path(const gchar *path, const gchar *selection)
    gchar chr;
    gint malloc_size = 0;
    gint offset = 0;
-	
+
    if (selection[0] == '/') {
       ptr = g_strdup(selection);
       return ptr;
