@@ -54,14 +54,10 @@ typedef enum
 	ANJUTA_PREFERENCES_FILTER_PROJECT = 1
 } AnjutaPreferencesFilterType;
 
-typedef struct {
-	GtkWidget                *object;
-	AnjutaPropertyObjectType  object_type;
-	AnjutaPropertyDataType    data_type;
-	gchar                    *key;
-	gchar                    *default_value;
-	guint                     flags;
-} AnjutaProperty;
+typedef struct _AnjutaProperty AnjutaProperty;
+
+/* Gets the widget associated with the property */
+GtkWidget* anjuta_property_get_widget (AnjutaProperty *prop);
 
 #define ANJUTA_TYPE_PREFERENCES        (anjuta_preferences_get_type ())
 #define ANJUTA_PREFERENCES(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PREFERENCES, AnjutaPreferences))
@@ -157,11 +153,24 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
  */
 gboolean
 anjuta_preferences_register_property_raw (AnjutaPreferences *pr, GtkWidget *object,
-										  AnjutaPropertyObjectType object_type,
-										  AnjutaPropertyDataType  data_type,
 										  const gchar *key,
 										  const gchar *default_value,
-										  guint flags);
+										  guint flags,
+										  AnjutaPropertyObjectType object_type,
+										  AnjutaPropertyDataType  data_type);
+
+/* This is meant for complex widgets which can not be set/get with the
+ * standard object set/get methods. Custom set/get methods are passed for
+ * the property to set/get the value to/from the widget.
+ */
+gboolean
+anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
+											 GtkWidget *object,
+										     const gchar *key,
+										     const gchar *default_value,
+										     guint flags,
+		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+		gchar * (*get_property) (AnjutaProperty *));
 
 /* Resets the default values into the keys */
 void anjuta_preferences_reset_defaults (AnjutaPreferences *);

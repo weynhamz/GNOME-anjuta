@@ -495,7 +495,7 @@ on_add_encodings (GtkButton *button)
 	}
 }
 
-void
+static void
 on_remove_encodings (GtkButton *button)
 {
 	GtkTreeSelection *selection;
@@ -507,22 +507,112 @@ on_remove_encodings (GtkButton *button)
 	selection = gtk_tree_view_get_selection (treeview);
 	if (selection &&
 		gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
 		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+	}
 }
 
-void
-on_preferences_apply (AnjutaPreferences *pref, gpointer data)
+static void
+on_up_encoding (GtkButton *button)
 {
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeView *treeview;
+	
+	treeview = GTK_TREE_VIEW (anjuta_encodings_dialog->supported_treeview);
+	selection = gtk_tree_view_get_selection (treeview);
+	if (selection &&
+		gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		GtkTreePath *path;
+		
+		path = gtk_tree_model_get_path (model, &iter);
+		if (gtk_tree_path_prev (path))
+		{
+			GtkTreeIter prev_iter;
+			gtk_tree_model_get_iter (model, &prev_iter, path);
+			gtk_list_store_swap (GTK_LIST_STORE (model), &prev_iter, &iter);
+		}
+		gtk_tree_path_free (path);
+	}
+}
+
+static void
+on_down_encoding (GtkButton *button)
+{
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeView *treeview;
+	
+	treeview = GTK_TREE_VIEW (anjuta_encodings_dialog->supported_treeview);
+	selection = gtk_tree_view_get_selection (treeview);
+	if (selection &&
+		gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		GtkTreeIter next_iter = iter;
+		if (gtk_tree_model_iter_next (model, &next_iter))
+		{
+			gtk_list_store_swap (GTK_LIST_STORE (model), &iter, &next_iter);
+		}
+	}
+}
+
+static void
+on_stock_selection_changed (GtkTreeSelection *selection)
+{
+	if (gtk_tree_selection_count_selected_rows (selection) > 0)
+		gtk_widget_set_sensitive (anjuta_encodings_dialog->add_button, TRUE);
+	else
+		gtk_widget_set_sensitive (anjuta_encodings_dialog->add_button, FALSE);
+}
+
+static void
+on_supported_selection_changed (GtkTreeSelection *selection)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	if (gtk_tree_selection_get_selected (selection, &model, &iter) > 0)
+	{
+		GtkTreePath *path;
+		gtk_widget_set_sensitive (anjuta_encodings_dialog->remove_button, TRUE);
+		path = gtk_tree_model_get_path (model, &iter);
+		if (gtk_tree_path_prev (path))
+			gtk_widget_set_sensitive (anjuta_encodings_dialog->up_button, TRUE);
+		else
+			gtk_widget_set_sensitive (anjuta_encodings_dialog->up_button, FALSE);
+		gtk_tree_path_free (path);
+		
+		if (gtk_tree_model_iter_next (model, &iter))
+			gtk_widget_set_sensitive (anjuta_encodings_dialog->down_button, TRUE);
+		else
+			gtk_widget_set_sensitive (anjuta_encodings_dialog->down_button, FALSE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive (anjuta_encodings_dialog->remove_button, FALSE);
+		gtk_widget_set_sensitive (anjuta_encodings_dialog->up_button, FALSE);
+		gtk_widget_set_sensitive (anjuta_encodings_dialog->down_button, FALSE);
+	}
+}
+
+static gchar *
+get_property (AnjutaProperty *prop)
+{
+	GtkTreeView *treeview;
 	GString *str;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gboolean valid;
 	gchar *value;
 	
+	treeview = GTK_TREE_VIEW (anjuta_property_get_widget (prop));
+	
 	str = g_string_new ("");
 	
-	model =	gtk_tree_view_get_model (GTK_TREE_VIEW 
-							 (anjuta_encodings_dialog->supported_treeview));
+	model =	gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
 	{
@@ -535,9 +625,46 @@ on_preferences_apply (AnjutaPreferences *pref, gpointer data)
 		valid = gtk_tree_model_iter_next (model, &iter);
 	}
 	value = g_string_free (str, FALSE);
-	anjuta_preferences_set (anjuta_encodings_dialog->pref,
-							"supported.encodings", value);
-	g_free (value);
+	return value;
+}
+
+static void
+set_property (AnjutaProperty *prop, const gchar *value)
+{
+	GtkTreeView *treeview;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GList *list, *node;
+	
+	treeview = GTK_TREE_VIEW (anjuta_property_get_widget (prop));
+	model = gtk_tree_view_get_model (treeview);
+	gtk_list_store_clear (GTK_LIST_STORE (model));
+	
+	if (!value || strlen (value) <= 0)
+		return;
+	
+	/* Fill the model */
+	list = glist_from_string (value);
+	node = list;
+	while (node)
+	{
+		const AnjutaEncoding *enc;
+		gchar *name;
+		GtkTreeIter iter;
+		
+		enc = anjuta_encoding_get_from_charset ((gchar *) node->data);
+		name = anjuta_encoding_to_string (enc);
+		
+		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+				    COLUMN_SUPPORTED_ENCODING_NAME, name,
+					COLUMN_SUPPORTED_ENCODING, enc,
+				    -1);
+		g_free (name);
+
+		node = g_list_next (node);
+	}
+	glist_strings_free (list);
 }
 
 void
@@ -584,6 +711,9 @@ anjuta_encodings_init (AnjutaPreferences *pref)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (stock_treeview));
 	g_return_if_fail (selection != NULL);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_stock_selection_changed), NULL);
+
 	model = create_encodings_treeview_model ();
 	gtk_tree_view_set_model (GTK_TREE_VIEW (stock_treeview), model);
 	g_object_unref (model);
@@ -600,41 +730,35 @@ anjuta_encodings_init (AnjutaPreferences *pref)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (supported_treeview));
 	g_return_if_fail (selection != NULL);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_supported_selection_changed), NULL);
 
 	/* create list store */
 	model = GTK_TREE_MODEL (gtk_list_store_new (SUPPORTED_ENCODING_NUM_COLS,
 												G_TYPE_STRING, G_TYPE_POINTER));
 	gtk_tree_view_set_model (GTK_TREE_VIEW (supported_treeview), model);
-	/* Fill the model */
-	list = glist_from_data (pref->props, "supported.encodings");
-	node = list;
-	while (node)
-	{
-		const AnjutaEncoding *enc;
-		gchar *name;
-		GtkTreeIter iter;
-		
-		enc = anjuta_encoding_get_from_charset ((gchar *) node->data);
-		name = anjuta_encoding_to_string (enc);
-		
-		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-		gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-				    COLUMN_SUPPORTED_ENCODING_NAME, name,
-					COLUMN_SUPPORTED_ENCODING, enc,
-				    -1);
-		g_free (name);
-
-		node = g_list_next (node);
-	}
-	glist_strings_free (list);
 	g_object_unref (model);
+	
+	anjuta_preferences_register_property_custom (pref, supported_treeview,
+												SUPPORTED_ENCODINGS,
+												"ISO-8859-15",
+												0,
+												set_property,
+												get_property);
 
-	g_signal_connect (G_OBJECT (pref), "changed",
-					  G_CALLBACK (on_preferences_apply), NULL);
 	g_signal_connect (G_OBJECT (add_button), "clicked",
 					  G_CALLBACK (on_add_encodings), NULL);
 	g_signal_connect (G_OBJECT (remove_button), "clicked",
 					  G_CALLBACK (on_remove_encodings), NULL);
+	g_signal_connect (G_OBJECT (up_button), "clicked",
+					  G_CALLBACK (on_up_encoding), NULL);
+	g_signal_connect (G_OBJECT (down_button), "clicked",
+					  G_CALLBACK (on_down_encoding), NULL);
+	
+	gtk_widget_set_sensitive (add_button, FALSE);
+	gtk_widget_set_sensitive (remove_button, FALSE);
+	gtk_widget_set_sensitive (up_button, FALSE);
+	gtk_widget_set_sensitive (down_button, FALSE);
 	
 	anjuta_encodings_dialog = g_new0 (AnjutaEncodingsDialog, 1);
 	anjuta_encodings_dialog->pref = pref;

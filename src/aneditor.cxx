@@ -860,7 +860,7 @@ long AnEditor::Find (long flags, char* findWhat) {
 	CharacterRange crange = GetSelection();
 	if (flags & ANEFIND_REVERSE_FLAG) {
 		ft.chrg.cpMin = crange.cpMin - 1;
-		ft.chrg.cpMax = 0;
+		ft.chrg.cpMax = 1;
 	} else {
 		ft.chrg.cpMin = crange.cpMax;
 		ft.chrg.cpMax = LengthDocument();

@@ -35,10 +35,29 @@
 
 #include <glade/glade-parser.h>
 
+struct _AnjutaProperty
+{
+	GtkWidget                *object;
+	gchar                    *key;
+	gchar                    *default_value;
+	guint                     flags;
+	
+	/* Set true if custom set/get to be used */
+	gboolean                  custom;
+	
+	/* For inbuilt generic objects */
+	AnjutaPropertyObjectType  object_type;
+	AnjutaPropertyDataType    data_type;
+	
+	/* For custom objects */
+	void    (*set_property) (AnjutaProperty *prop, const gchar *value);
+	gchar * (*get_property) (AnjutaProperty *prop);
+	
+};
+
 struct _AnjutaPreferencesPriv
 {
 	GList     *properties;
-	//GtkWidget *dialog;
 	gboolean   is_showing;
 };
 
@@ -60,6 +79,13 @@ property_destroy (AnjutaProperty *property)
 	if (property->default_value) g_free (property->key);
 	g_object_unref (G_OBJECT (property->object));
 	g_free (property);
+}
+
+/* Get functions. Add more get functions for AnjutaProperty, if required */
+GtkWidget*
+anjuta_property_get_widget (AnjutaProperty *prop)
+{
+	return prop->object;
 }
 
 static AnjutaPropertyObjectType
@@ -104,6 +130,17 @@ get_property_value_as_string (AnjutaProperty *prop)
 	gint  int_value;
 	gchar *text_value;
 	
+	if (prop->custom)
+	{
+		if (prop->get_property != NULL)
+			return prop->get_property (prop);
+		else
+		{
+			g_warning ("%s: Undefined get_property() for custom object",
+					   prop->key);
+			return NULL;
+		}
+	}
 	switch (prop->object_type)
 	{
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
@@ -175,6 +212,20 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 {
 	gint  int_value;
 	
+	if (prop->custom)
+	{
+		if (prop->set_property != NULL)
+		{
+			prop->set_property (prop, value);
+			return;
+		}
+		else
+		{
+			g_warning ("%s: Undefined set_property() for custom object",
+					   prop->key);
+			return;
+		}
+	}
 	switch (prop->object_type)
 	{
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE:
@@ -312,11 +363,11 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 gboolean
 anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 										  GtkWidget *object,
-										  AnjutaPropertyObjectType object_type,
-										  AnjutaPropertyDataType  data_type,
 										  const gchar *key,
 										  const gchar *default_value,
-										  guint flags)
+										  guint flags,
+										  AnjutaPropertyObjectType object_type,
+										  AnjutaPropertyDataType  data_type)
 {
 	AnjutaProperty *p;
 	
@@ -338,6 +389,45 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 			prop_set_with_key (pr->props_built_in, key, default_value);
 	}
 	p->flags = flags;
+	p->custom = FALSE;
+	p->set_property = NULL;
+	p->get_property = NULL;
+	pr->priv->properties = g_list_append (pr->priv->properties, p);
+	return TRUE;
+}
+
+gboolean
+anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
+											 GtkWidget *object,
+										     const gchar *key,
+										     const gchar *default_value,
+										     guint flags,
+		void    (*set_property) (AnjutaProperty *prop, const gchar *value),
+		gchar * (*get_property) (AnjutaProperty *))
+{
+	AnjutaProperty *p;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (GTK_IS_WIDGET (object), FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
+	g_return_val_if_fail (strlen(key) > 0, FALSE);
+	
+	p = g_new0 (AnjutaProperty, 1);
+	g_object_ref (object);
+	p->object = object;
+	p->object_type = (AnjutaPropertyObjectType) 0;
+	p->data_type = (AnjutaPropertyDataType) 0;
+	p->key = g_strdup (key);
+	if (default_value)
+	{
+		p->default_value = g_strdup (default_value);
+		if (strlen (default_value) > 0)
+			prop_set_with_key (pr->props_built_in, key, default_value);
+	}
+	p->custom = TRUE;
+	p->flags = flags;
+	p->set_property = set_property;
+	p->get_property = get_property;
 	
 	pr->priv->properties = g_list_append (pr->priv->properties, p);
 	return TRUE;
@@ -387,9 +477,9 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 		g_strfreev (fields);
 		return FALSE;
 	}
-	anjuta_preferences_register_property_raw (pr, object, object_type,
-											  data_type, key, default_value,
-											  flags);
+	anjuta_preferences_register_property_raw (pr, object, key, default_value,
+											  flags,  object_type,
+											  data_type);
 	g_strfreev (fields);
 	return TRUE;
 }
