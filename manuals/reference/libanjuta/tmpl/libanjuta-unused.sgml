@@ -1068,6 +1068,249 @@ Properties
 @extentions: 
 @pattern: 
 
+<!-- ##### MACRO IANJUTA_CONTEXT_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_CONTEXT_LIST_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_CONTEXT_TEXT_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_CONTEXT_TREE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_ITERABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_ITERABLE_TREE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_RENDERABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_SAND_BOX_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_TRANSFORMABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContext ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@begin: 
+@clear: 
+@end: 
+
+<!-- ##### STRUCT IAnjutaContextList ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextListIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_size: 
+@render: 
+@set_size: 
+
+<!-- ##### ENUM IAnjutaContextListSize ##### -->
+<para>
+
+</para>
+
+@IANJUTA_CONTEXT_LIST_MINI: 
+@IANJUTA_CONTEXT_LIST_SMALL: 
+@IANJUTA_CONTEXT_LIST_LARGE: 
+
+<!-- ##### STRUCT IAnjutaContextText ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextTextIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_indentation: 
+@render: 
+@set_indentation: 
+
+<!-- ##### STRUCT IAnjutaContextTree ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextTreeIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@down: 
+@up: 
+
+<!-- ##### STRUCT IAnjutaIterable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM IAnjutaIterableError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_ITERABLE_INVALID_ITER: 
+@IANJUTA_ITERABLE_UNSETTABLE: 
+
+<!-- ##### STRUCT IAnjutaIterableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@begin: 
+@copy: 
+@end: 
+@foreach: 
+@free_iter: 
+@get: 
+@get_settable: 
+@next: 
+@previous: 
+@reset: 
+@set: 
+@valid: 
+
+<!-- ##### STRUCT IAnjutaIterableIter ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@c: 
+@d: 
+@e: 
+
+<!-- ##### STRUCT IAnjutaIterableTree ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaIterableTreeIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_children: 
+@has_children: 
+@parent: 
+
+<!-- ##### STRUCT IAnjutaRenderable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM IAnjutaRenderableError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_RENDERABLE_NOT_SUPPORTED: 
+
+<!-- ##### STRUCT IAnjutaRenderableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@render: 
+
+<!-- ##### STRUCT IAnjutaSandBox ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM IAnjutaSandBoxError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_SAND_BOX_ACCESS_VIOLATION: 
+
+<!-- ##### STRUCT IAnjutaSandBoxIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@pop_lock: 
+@push_lock: 
+
+<!-- ##### STRUCT IAnjutaTransformable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaTransformableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@transform: 
+
 <!-- ##### MACRO MAX_NAME_LENGTH ##### -->
 <para>
 
@@ -1649,6 +1892,130 @@ Properties
 @filename: 
 @err: 
 
+<!-- ##### FUNCTION ianjuta_context_begin ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_clear ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_end ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_context_list_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_context_list_get_size ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_context_list_render ##### -->
+<para>
+
+</para>
+
+@obj: 
+@image: 
+@text: 
+@data: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_list_set_size ##### -->
+<para>
+
+</para>
+
+@obj: 
+@size: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_text_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_context_text_get_indentation ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_context_text_render ##### -->
+<para>
+
+</para>
+
+@obj: 
+@text: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_text_set_indentation ##### -->
+<para>
+
+</para>
+
+@obj: 
+@spaces: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_tree_down ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_context_tree_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_context_tree_up ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
 <!-- ##### FUNCTION ianjuta_debugger_is_active ##### -->
 <para>
 
@@ -1729,6 +2096,163 @@ Properties
 @err: 
 @Returns: 
 
+<!-- ##### FUNCTION ianjuta_iterable_begin ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_copy ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_end ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_foreach ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start_iter: 
+@callback: 
+@user_dat: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_free_iter ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_get ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_get_settable ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_next ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_previous ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_reset ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_set ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@data: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_get_children ##### -->
+<para>
+
+</para>
+
+@obj: 
+@ter: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_has_children ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_parent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_valid ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_markable_get_all_marks ##### -->
 <para>
 
@@ -1771,6 +2295,62 @@ Properties
 @e: 
 
 <!-- ##### FUNCTION ianjuta_project_manager_configure ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_renderable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_renderable_render ##### -->
+<para>
+
+</para>
+
+@obj: 
+@context: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_sand_box_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_sand_box_pop_lock ##### -->
+<para>
+
+</para>
+
+@obj: 
+@lock_signature: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_sand_box_push_lock ##### -->
+<para>
+
+</para>
+
+@obj: 
+@lock_signature: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_transformable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_transformable_transform ##### -->
 <para>
 
 </para>

@@ -1,3 +1,16 @@
+2005-03-10  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta_dirs.c, src/anjuta_dirs.h, src/anjuta_gui.c,
+	src/controls.c, src/controls.h, src/fileselection.c,
+	src/fileselection.h, src/glade_iface.c, src/glade_iface.h,
+	src/global.h, src/help.c, src/help.h, src/launcher.c, src/launcher.h,
+	src/main.cpp, src/main_menubar.c, src/main_menubar.h,
+	src/mainmenu_callbacks.c, src/mainmenu_callbacks.h, src/session.c,
+	src/session.h, src/support.c, src/support.h, src/toolbar.c,
+	src/toolbar.h, src/toolbar_callbacks.c, src/toolbar_callbacks.h:
+	Removed these dead files from CVS.
+
+
 2005-03-10  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/file-wizard/action-callbacks.c : Added error message.
