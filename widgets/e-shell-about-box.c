@@ -145,6 +145,7 @@ timeout_callback (void *data)
 	EShellAboutBoxPrivate *priv;
 	GdkRectangle redraw_rect;
 	GtkWidget *widget;
+	GdkFont* font;
 	int line_height;
 	int first_line;
 	int y;
@@ -154,8 +155,8 @@ timeout_callback (void *data)
 	priv = about_box->priv;
 
 	widget = GTK_WIDGET (about_box);
-
-	line_height = widget->style->font->ascent + widget->style->font->descent;
+	font = gtk_style_get_font (widget->style);
+	line_height = font->ascent + font->descent;
 
 	if (priv->text_y_offset < TEXT_HEIGHT) {
 		y = TEXT_Y_OFFSET + (TEXT_HEIGHT - priv->text_y_offset);
@@ -181,9 +182,9 @@ timeout_callback (void *data)
 		else
 			line = _(priv->permuted_text[first_line + i]);
 
-		x = TEXT_X_OFFSET + (TEXT_WIDTH - gdk_string_width (widget->style->font, line)) / 2;
+		x = TEXT_X_OFFSET + (TEXT_WIDTH - gdk_string_width (font, line)) / 2;
 
-		gdk_draw_string (priv->pixmap, widget->style->font, priv->clipped_gc, x, y, line);
+		gdk_draw_string (priv->pixmap, font, priv->clipped_gc, x, y, line);
 
 		y += line_height;
 	}
@@ -264,7 +265,7 @@ impl_realize (GtkWidget *widget)
 	about_box = E_SHELL_ABOUT_BOX (widget);
 	priv = about_box->priv;
 
-	background_pixbuf = gdk_pixbuf_new_from_file (IMAGE_PATH);
+	background_pixbuf = gdk_pixbuf_new_from_file (IMAGE_PATH, NULL);
 	g_assert (background_pixbuf != NULL);
 	g_assert (gdk_pixbuf_get_width (background_pixbuf) == WIDTH);
 	g_assert (gdk_pixbuf_get_height (background_pixbuf) == HEIGHT);
@@ -366,7 +367,7 @@ class_init (GtkObjectClass *object_class)
 	widget_class->size_request = impl_size_request;
 	widget_class->realize      = impl_realize;
 	widget_class->unrealize    = impl_unrealize;
-	widget_class->draw         = impl_draw;
+	// widget_class->draw         = impl_draw;
 	widget_class->expose_event = impl_expose_event;
 }
 

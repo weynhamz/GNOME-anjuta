@@ -136,19 +136,24 @@ GtkWidget* gnome_dirlist_new()
    gtk_button_box_set_spacing(GTK_BUTTON_BOX(util_box), GNOME_PAD);
    gtk_widget_show(util_box);
 
-   dir_list->ok_button = gnome_stock_button(GNOME_STOCK_BUTTON_OK);
+   dir_list->ok_button = gtk_button_new_from_stock (GTK_STOCK_OK);
    gtk_box_pack_start(GTK_BOX(util_box), dir_list->ok_button, FALSE, FALSE, 5);
    GTK_WIDGET_SET_FLAGS(dir_list->ok_button, GTK_CAN_DEFAULT);
    gtk_widget_show(dir_list->ok_button);   
 
-   dir_list->cancel_button = gnome_stock_button(GNOME_STOCK_BUTTON_CANCEL);
+   dir_list->cancel_button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
    gtk_box_pack_start(GTK_BOX(util_box), dir_list->cancel_button, FALSE, FALSE, 5);
    GTK_WIDGET_SET_FLAGS(dir_list->cancel_button, GTK_CAN_DEFAULT);
    gtk_widget_grab_default(dir_list->cancel_button);
    gtk_widget_show(dir_list->cancel_button);   
 
-   dir_list->folder_closed = (GnomePixmap *)gnome_pixmap_new_from_xpm_d(bfoldc_xpm);
-   dir_list->folder_open = (GnomePixmap *)gnome_pixmap_new_from_xpm_d(bfoldo_xpm);
+   // dir_list->folder_closed = (GnomePixmap *)gnome_pixmap_new_from_xpm_d((const gchar**)bfoldc_xpm);
+   // dir_list->folder_open = (GnomePixmap *)gnome_pixmap_new_from_xpm_d((const gchar**)bfoldo_xpm);
+   dir_list->folder_closed_pixmap = gdk_pixmap_create_from_xpm_d (NULL,
+		   &dir_list->folder_closed_bitmap, NULL, bfoldc_xpm);
+   dir_list->folder_open_pixmap = gdk_pixmap_create_from_xpm_d(NULL,
+		   &dir_list->folder_open_bitmap, NULL, bfoldc_xpm);
+   
    gnome_dirlist_set_dir(dir_list);
    gnome_dirlist_fill_dir(dir_list, NULL);
    return GTK_WIDGET(dir_list);
@@ -181,7 +186,7 @@ static void gnome_dirlist_fill_dir(GnomeDirList *dir_list, GtkCTreeNode *parent)
    gchar up_all[] = ".";
    gchar up_one[] = "..";
    GtkCTreeNode *node;
-   gchar *directory;
+   const gchar *directory;
    gchar *str;
 
    gtk_clist_freeze(GTK_CLIST(dir_list->dirs));
@@ -201,9 +206,12 @@ static void gnome_dirlist_fill_dir(GnomeDirList *dir_list, GtkCTreeNode *parent)
          if(S_ISDIR(st.st_mode))
          {
             str = dir->d_name;
-            node = gtk_ctree_insert_node(GTK_CTREE(dir_list->dirs), parent, NULL, &str, 4, dir_list->folder_closed->pixmap, dir_list->folder_closed->mask, dir_list->folder_open->pixmap, dir_list->folder_open->mask, FALSE, FALSE);
+            node = gtk_ctree_insert_node(GTK_CTREE(dir_list->dirs), parent,
+				 NULL, &str, 4, dir_list->folder_closed_pixmap,
+				 dir_list->folder_closed_bitmap, dir_list->folder_open_pixmap,
+				 dir_list->folder_open_bitmap, FALSE, FALSE);
             gtk_ctree_node_set_row_data(GTK_CTREE(dir_list->dirs), node, g_strdup(filename));
-         }	    
+         }
       }
    }
    else
@@ -247,7 +255,7 @@ static void gnome_dirlist_set_dir(GnomeDirList *dir_list)
       gtk_entry_set_text(GTK_ENTRY(dir_list->entry), "/");
 }
 
-gchar *gnome_dirlist_get_dir(GnomeDirList *dir_list)
+const gchar *gnome_dirlist_get_dir(GnomeDirList *dir_list)
 {
    g_return_val_if_fail(dir_list != NULL, NULL);
    g_return_val_if_fail(GNOME_IS_DIRLIST(dir_list), NULL);

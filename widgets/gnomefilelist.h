@@ -97,8 +97,12 @@ struct _GnomeFileList {
    GList *filetypes;
    
    gint selected_row;
-   GnomePixmap *folder;
-   GnomePixmap *file;
+   
+   GdkPixmap *folder_pixmap;
+   GdkBitmap *folder_bitmap;
+   GdkPixmap *file_pixmap;
+   GdkBitmap *file_bitmap;
+   
    gboolean multiple_selection;
    gboolean changedironcombo;
    gchar *entry_text;
@@ -114,7 +118,7 @@ GtkType gnome_filelist_get_type(void);
 GtkWidget* gnome_filelist_new(void);
 
 /* start it off with a particular path */
-GtkWidget *gnome_filelist_new_with_path(gchar *path);
+GtkWidget *gnome_filelist_new_with_path(const gchar *path);
 
 /* get the current selection...make sure to free it with g_free() */
 gchar *gnome_filelist_get_filename(GnomeFileList *file_list);
@@ -123,19 +127,19 @@ GList * gnome_filelist_get_filelist(GnomeFileList * file_list);
 GList * gnome_filelist_get_nodelist(GnomeFileList * file_list);
 gchar * gnome_filelist_get_lastfilename(GnomeFileList * file_list, GList * list);
 
-void gnome_filelist_set_title(GnomeFileList *file_list, gchar *title);
-gboolean gnome_filelist_set_dir(GnomeFileList *file_list, gchar *path);
-gboolean gnome_filelist_set_filename (GnomeFileList *file_list, gchar *fname);
+void gnome_filelist_set_title(GnomeFileList *file_list, const gchar *title);
+gboolean gnome_filelist_set_dir(GnomeFileList *file_list, const gchar *path);
+gboolean gnome_filelist_set_filename (GnomeFileList *file_list, const gchar *fname);
 void gnome_filelist_set_show_hidden (GnomeFileList *file_list, gboolean show_hidden);
 void gnome_filelist_set_selection_mode (GnomeFileList *file_list, GtkSelectionMode mode);
 GList * gnome_filelisttype_makedefaultlist(GList *filetypes);
-GList * gnome_filelisttype_addtype(GList *filetypes, gchar *description, GList *extentions);
-GList * gnome_filelisttype_getextentions(GList *filetypes, gchar *description);
+GList * gnome_filelisttype_addtype(GList *filetypes, const gchar *description, GList *extentions);
+GList * gnome_filelisttype_getextentions(GList *filetypes, const gchar *description);
 GList * gnome_filelisttype_getdescriptions(GList *filetypes);
 GList * gnome_filelisttype_getcombolist(GList *filetypes);
 GList * gnome_filelisttype_clearfiletypes(GnomeFileList *file_list);
-GList * gnome_filelisttype_addtype_f(GList *filetypes, gchar *description, ...);
-GnomeFileListType * gnome_filelisttype_getfiletype(GnomeFileList *file_list, gchar *description);
+GList * gnome_filelisttype_addtype_f(GList *filetypes, const gchar *description, ...);
+GnomeFileListType * gnome_filelisttype_getfiletype(GnomeFileList *file_list, const gchar *description);
 void gnome_filelist_set_combolist(GnomeFileList *file_list, GList *combolist);
 void gnome_filelist_set_multiple_selection (GnomeFileList *file_list, gboolean mode);
 #ifdef __cplusplus /* cpp compatibility */

@@ -50,8 +50,12 @@ struct _GnomeDirList {
    GtkWidget *cancel_button;
    gchar *path;
    gint selected_row;
-   GnomePixmap *folder_closed;
-   GnomePixmap *folder_open;
+   // GnomePixmap *folder_closed;
+   // GnomePixmap *folder_open;
+   GdkPixmap *folder_closed_pixmap;
+   GdkBitmap *folder_closed_bitmap;
+   GdkPixmap *folder_open_pixmap;
+   GdkBitmap *folder_open_bitmap;
 };
 
 struct _GnomeDirListClass {
@@ -60,7 +64,7 @@ struct _GnomeDirListClass {
 
 GtkType gnome_dirlist_get_type(void);
 GtkWidget *gnome_dirlist_new(void);
-gchar *gnome_dirlist_get_dir(GnomeDirList *dir_list);
+const gchar *gnome_dirlist_get_dir(GnomeDirList *dir_list);
 
 #ifdef __cplusplus /* cpp compatibility */
 }
