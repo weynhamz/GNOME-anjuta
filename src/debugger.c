@@ -1054,7 +1054,7 @@ debugger_start_terminal ()
 {
 	gchar *file, *cmd, *encoded_cmd;
 	gchar  dev_name[100];
-	gint   count, index;
+	gint   count, idx;
 	FILE  *fp;
 	pid_t  pid;
 	gchar *argv[20];
@@ -1142,9 +1142,9 @@ debugger_start_terminal ()
 	
 	/* Rearrange the args to be passed to fork */
 	node = args;
-	index = 0;
+	idx = 0;
 	while (node) {
-		argv[index++] = (gchar*)node->data;
+		argv[idx++] = (gchar*)node->data;
 		node = g_list_next (node);
 	}
 	
@@ -1160,8 +1160,8 @@ debugger_start_terminal ()
 	}
 #endif
 	
-	argv[index] = NULL;
-	if (index < 1)
+	argv[idx] = NULL;
+	if (idx < 1)
 		goto error;
 	
 	/* With this command SIGCHILD is not emitted */
@@ -1368,7 +1368,7 @@ on_debugger_update_prog_status (GList * lines, gpointer data)
 	}
     else if ((str = strstr(lines->data, "child lwp ")))
 	{
-		if (sscanf(str, "child lwp %d", &pid) != 1)
+		if (sscanf(str, "child lwp %ld", &pid) != 1)
 		{
 			error = TRUE;
 			goto down;

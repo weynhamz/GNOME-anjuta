@@ -220,9 +220,9 @@ AnjutaMessageWindow::append_buffer()
 	m_messages.push_back(message);
 
 	// Truncate Message:
-	int truncat_mesg = preferences_get_int (get_preferences(), TRUNCAT_MESSAGES);
-	int mesg_first = preferences_get_int (get_preferences(), TRUNCAT_MESG_FIRST);
-	int mesg_last = preferences_get_int (get_preferences(), TRUNCAT_MESG_LAST);
+	int truncat_mesg = anjuta_preferences_get_int (get_preferences(), TRUNCAT_MESSAGES);
+	int mesg_first = anjuta_preferences_get_int (get_preferences(), TRUNCAT_MESG_FIRST);
+	int mesg_last = anjuta_preferences_get_int (get_preferences(), TRUNCAT_MESG_LAST);
 
 	if (truncat_mesg == FALSE
 	    || message.length() <= uint(mesg_first + mesg_last))
@@ -415,8 +415,8 @@ void TerminalWindow::preferences_update ()
 		gtk_combo_set_popdown_strings (GTK_COMBO (m_profile_combo), list);
 		g_list_free (list);
 	}
-	Preferences *pref = get_preferences();
-	setting = preferences_get_int (pref, PREFS_TERMINAL_PROFILE_USE_DEFAULT);
+	AnjutaPreferences *pref = get_preferences();
+	setting = anjuta_preferences_get_int (pref, PREFS_TERMINAL_PROFILE_USE_DEFAULT);
 	if (setting)
 	{
 		/* Use the currently selected profile in gnome-terminal */
@@ -427,7 +427,7 @@ void TerminalWindow::preferences_update ()
 	else
 	{
 		/* Otherwise use the user selected profile */
-		text = preferences_get (pref, PREFS_TERMINAL_PROFILE);
+		text = anjuta_preferences_get (pref, PREFS_TERMINAL_PROFILE);
 		if (!text)
 			text = "Default";
 	}
@@ -534,9 +534,9 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id,
 	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
 						  "preferences_dialog_terminal",
 						  NULL);
-	preferences_add_page (get_preferences(), gxml,
-						  "Terminal",
-						  "preferences-terminal.png");
+	anjuta_preferences_add_page (get_preferences(), gxml,
+								"Terminal",
+								"preferences-terminal.png");
 	m_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
 	button =
 		glade_xml_get_widget (gxml,

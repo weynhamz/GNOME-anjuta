@@ -30,7 +30,6 @@
 #include <glade/glade.h>
 
 #include "text_editor.h"
-#include "anjuta.h"
 #include "fileselection.h"
 #include "utilities.h"
 #include "resources.h"
@@ -41,6 +40,9 @@
 #include "anjuta_info.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
+#include "anjuta-plugins.h"
+#include "anjuta-tools.h"
+#include "anjuta.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -57,7 +59,7 @@ void anjuta_child_terminated (int t);
 static void on_message_clicked(GtkObject* obj, char* message);	
 static void on_message_indicate(GtkObject* obj, MessageIndicatorInfo *info);
 static void anjuta_show_text_editor (TextEditor * te);
-static int select_all_files (const struct dirent *e);
+static void anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app);
 
 /*-------------------------------------------------------------------*/
 
@@ -157,13 +159,20 @@ anjuta_new ()
 		fileselection_set_dir (app->fileselection, wd);
 		
 		app->b_reload_last_project	= TRUE ;
-		app->preferences = preferences_new ();
+		app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
+		gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
+									  GTK_WINDOW (app->widgets.window));
+		gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
+									app->accel_group);
+		g_signal_connect (G_OBJECT (app->preferences), "changed",
+						  G_CALLBACK (anjuta_apply_preferences), app);
 		app->save_as_fileselection = create_fileselection_gui (&fsd2);
 		gtk_window_set_modal ((GtkWindow *) app->save_as_fileselection, TRUE);
 		app->save_as_build_msg_sel = create_fileselection_gui (&fsd3);
 		app->find_replace = find_replace_new ();
 		app->find_in_files = find_in_files_new ();
-		app->compiler_options = compiler_options_new (app->preferences->props);
+		app->compiler_options =
+			compiler_options_new (ANJUTA_PREFERENCES (app->preferences)->props);
 		app->src_paths = src_paths_new ();
 		app->messages = ANJUTA_MESSAGE_MANAGER (anjuta_message_manager_new ());
 		create_default_types (app->messages);
@@ -175,20 +184,24 @@ anjuta_new ()
 						   "message_indicate",
 						   GTK_SIGNAL_FUNC (on_message_indicate),
 						   NULL);
-		app->project_dbase = project_dbase_new (app->preferences->props);
+		app->project_dbase =
+			project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
-		app->command_editor = command_editor_new (app->preferences->props_global,
-					app->preferences->props_local, app->project_dbase->props);
+		app->command_editor =
+			command_editor_new (app->preferences->props_global,
+					app->preferences->props_local,
+					app->project_dbase->props);
 		app->tm_workspace = tm_get_workspace();
 		if (TRUE != tm_workspace_load_global_tags(PACKAGE_DATA_DIR "/system.tags"))
 			g_warning("Unable to load global tag file");
 		app->help_system = anjuta_help_new();
 		app->cvs = cvs_new(app->preferences->props);
-		app->style_editor = style_editor_new (app->preferences->props_global,
-											  app->preferences->props_local,
-											  app->preferences->props_session,
-											  app->preferences->props);
+		app->style_editor =
+			style_editor_new (app->preferences->props_global,
+							  app->preferences->props_local,
+							  app->preferences->props_session,
+							  app->preferences->props);
 		
 		app->widgets.the_client = app->widgets.vpaned;
 		app->widgets.hpaned_client = app->widgets.hpaned;
@@ -214,7 +227,7 @@ anjuta_new ()
 		debugger_init ();
 		anjuta_plugins_load();
 		anjuta_tools_load();
-		anjuta_load_yourself (app->preferences->props);
+		anjuta_load_yourself (ANJUTA_PREFERENCES (app->preferences)->props);
 		gtk_widget_set_uposition (app->widgets.window, app->win_pos_x,
 					  app->win_pos_y);
 		gtk_window_set_default_size (GTK_WINDOW (app->widgets.window),
@@ -224,7 +237,7 @@ anjuta_new ()
 		debug_toolbar_update ();
 		format_toolbar_update ();
 		browser_toolbar_update ();
-		anjuta_apply_preferences();
+		anjuta_apply_preferences(ANJUTA_PREFERENCES (app->preferences), app);
 	}
 	else
 	{
@@ -247,7 +260,8 @@ anjuta_append_text_editor (gchar * filename)
 	gchar *buff;
 
 	cur_page = anjuta_get_current_text_editor ();
-	te = text_editor_new (filename, cur_page, app->preferences);
+	te = text_editor_new (filename, cur_page,
+						  ANJUTA_PREFERENCES (app->preferences));
 	if (te == NULL) return NULL;
 	g_signal_handlers_block_by_func (GTK_OBJECT (app->widgets.notebook),
 				       GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
@@ -288,7 +302,8 @@ anjuta_append_text_editor (gchar * filename)
 		g_free (buff);
 		gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
 
-		if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										EDITOR_TABS_ORDERING))
 			anjuta_order_tabs ();
 		break;
 
@@ -331,12 +346,12 @@ anjuta_remove_text_editor (TextEditor* te)
 		gint max_recent_files;
 
 		max_recent_files =
-			preferences_get_int (app->preferences,
+			anjuta_preferences_get_int (app->preferences,
 					     MAXIMUM_RECENT_FILES);
 		app->recent_files =
-			update_string_list (app->recent_files,
+			glist_path_dedup(update_string_list (app->recent_files,
 					    te->full_filename,
-					    max_recent_files);
+					    max_recent_files));
 		submenu =
 			create_submenu (_("Recent Files "), app->recent_files,
 					GTK_SIGNAL_FUNC
@@ -437,6 +452,9 @@ anjuta_get_notebook_text_editor (gint page_num)
 		gtk_notebook_get_nth_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), page_num);
 	te = g_object_get_data (G_OBJECT (page), "TextEditor");
+	/* TTimo - walk through the tabs easily */
+	if (!page)
+		return NULL;
 	return te;
 }
 
@@ -755,7 +773,7 @@ anjuta_show ()
 	PropsID pr;
 	gchar* key;
 
-	pr = app->preferences->props;
+	pr = ANJUTA_PREFERENCES (app->preferences)->props;
 
 	gtk_widget_show (app->widgets.window);
 
@@ -879,7 +897,7 @@ anjuta_save_yourself (FILE * stream)
 	PropsID pr;
 	gchar* key;
 
-	pr = app->preferences->props;
+	pr = ANJUTA_PREFERENCES (app->preferences)->props;
 
 	gdk_window_get_root_origin (app->widgets.window->window,
 				    &app->win_pos_x, &app->win_pos_y);
@@ -898,23 +916,33 @@ anjuta_save_yourself (FILE * stream)
 		 GTK_PANED (app->widgets.hpaned)->child1_size);
 
 	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".visible", NULL);
-	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	fprintf (stream, "%s=%d\n", key,
+		anjuta_preferences_get_int_with_default (ANJUTA_PREFERENCES
+												 (app->preferences), key, 1));
 	g_free (key);
 
 	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".visible", NULL);
-	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	fprintf (stream, "%s=%d\n", key,
+		anjuta_preferences_get_int_with_default (ANJUTA_PREFERENCES
+												 (app->preferences), key, 1));
 	g_free (key);
 
 	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".visible", NULL);
-	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	fprintf (stream, "%s=%d\n", key,
+		anjuta_preferences_get_int_with_default (ANJUTA_PREFERENCES
+												 (app->preferences), key, 1));
 	g_free (key);
 
 	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".visible", NULL);
-	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	fprintf (stream, "%s=%d\n", key,
+		anjuta_preferences_get_int_with_default (ANJUTA_PREFERENCES
+												 (app->preferences), key, 1));
 	g_free (key);
 
 	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".visible", NULL);
-	fprintf (stream, "%s=%d\n", key, prop_get_int (app->preferences->props, key, 1));
+	fprintf (stream, "%s=%d\n", key,
+		anjuta_preferences_get_int_with_default (ANJUTA_PREFERENCES
+												 (app->preferences), key, 1));
 	g_free (key);
 
 	fprintf (stream, "view.eol=%d\n", prop_get_int (pr, "view.eol", 0));
@@ -985,12 +1013,13 @@ anjuta_save_yourself (FILE * stream)
 	style_editor_save_yourself (app->style_editor, stream);
 	if (app->project_dbase->project_is_open)
 	{
-		preferences_save_filtered (app->preferences, stream,
-								   PREFERENCES_FILTER_PROJECT);
+		anjuta_preferences_save_filtered (ANJUTA_PREFERENCES (app->preferences),
+										  stream,
+										  ANJUTA_PREFERENCES_FILTER_PROJECT);
 	}
 	else
 	{
-		preferences_save (app->preferences, stream);
+		anjuta_preferences_save (ANJUTA_PREFERENCES (app->preferences), stream);
 	}
 	return TRUE;
 }
@@ -1180,19 +1209,18 @@ void anjuta_apply_styles (void)
 }
 
 void
-anjuta_apply_preferences (void)
+anjuta_apply_preferences (AnjutaPreferences *pr, AnjutaApp *app)
 {
 	TextEditor *te;
 	gint i;
 	gint no_tag;
 	gint show_tooltips;
 
-	Preferences *pr = app->preferences;
+	app->bUseComponentUI = anjuta_preferences_get_int (pr, USE_COMPONENTS);
+	app->b_reload_last_project =
+		anjuta_preferences_get_int (pr , RELOAD_LAST_PROJECT);
 	
-	app->bUseComponentUI = preferences_get_int (pr, USE_COMPONENTS);
-	app->b_reload_last_project	= preferences_get_int (pr , RELOAD_LAST_PROJECT);
-	
-	no_tag = preferences_get_int (pr, EDITOR_TABS_HIDE);
+	no_tag = anjuta_preferences_get_int (pr, EDITOR_TABS_HIDE);
 
 	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (app->widgets.notebook),
 				    !no_tag);
@@ -1201,7 +1229,7 @@ anjuta_apply_preferences (void)
 	{
 		gchar *tag_pos;
 
-		tag_pos = preferences_get (pr, EDITOR_TABS_POS);
+		tag_pos = anjuta_preferences_get (pr, EDITOR_TABS_POS);
 		if (!tag_pos) {
 			gtk_notebook_set_tab_pos (GTK_NOTEBOOK
 						  (app->widgets.notebook),
@@ -1226,7 +1254,7 @@ anjuta_apply_preferences (void)
 			g_free (tag_pos);
 		}
 
-		if (preferences_get_int (pr, EDITOR_TABS_ORDERING))
+		if (anjuta_preferences_get_int (pr, EDITOR_TABS_ORDERING))
 			anjuta_order_tabs ();
 	}
 
@@ -1235,10 +1263,10 @@ anjuta_apply_preferences (void)
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
 		te = (TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
-		text_editor_update_preferences (te);
+		// text_editor_update_preferences (te);
 		anjuta_refresh_breakpoints (te);
 	}
-	show_tooltips = preferences_get_int (pr, SHOW_TOOLTIPS);
+	show_tooltips = anjuta_preferences_get_int (pr, SHOW_TOOLTIPS);
 	show_hide_tooltips(show_tooltips);
 }
 
@@ -1545,7 +1573,7 @@ anjuta_set_file_properties (gchar* file)
 
 	g_return_if_fail (file != NULL);
 	full_filename = g_strdup (file);
-	props = app->preferences->props;
+	props = ANJUTA_PREFERENCES (app->preferences)->props;
 	dir = g_dirname (full_filename);
 	filename = extract_filename (full_filename);
 	ext = get_file_extension ((gchar*) filename);
@@ -1867,21 +1895,19 @@ anjuta_register_child_process (pid_t pid,
 void
 anjuta_unregister_child_process (pid_t pid)
 {
-	gint index;
-	index = g_list_index (app->registered_child_processes, (int *) pid);
+	gint idx;
+	idx = g_list_index (app->registered_child_processes, (int *) pid);
 	app->registered_child_processes =
 		g_list_remove (app->registered_child_processes, (int *) pid);
 	app->registered_child_processes_cb =
 		g_list_remove (app->registered_child_processes_cb,
-			       g_list_nth_data (app->
-						registered_child_processes_cb,
-						index));
+					   g_list_nth_data (app->registered_child_processes_cb,
+										idx));
 	app->registered_child_processes_cb_data =
 		g_list_remove (app->registered_child_processes_cb_data,
-			       g_list_nth_data (app->
-
-						registered_child_processes_cb_data,
-						index));}
+					   g_list_nth_data (app->registered_child_processes_cb_data,
+										idx));
+}
 
 void
 anjuta_foreach_child_processes (GFunc cb, gpointer data)
@@ -1893,19 +1919,19 @@ void
 anjuta_child_terminated (int t)
 {
 	int status;
-	gint index;
+	gint idx;
 	pid_t pid;
 	int (*callback) (int st, gpointer d);
 	gpointer cb_data;
 	pid = waitpid (0, &status, WNOHANG);
 	if (pid < 1)
 		return;
-	index = g_list_index (app->registered_child_processes, (int *) pid);
-	if (index < 0)
+	idx = g_list_index (app->registered_child_processes, (int *) pid);
+	if (idx < 0)
 		return;
 	callback =
-		g_list_nth_data (app->registered_child_processes_cb, index);
-	cb_data = g_list_nth_data (app->registered_child_processes_cb, index);
+		g_list_nth_data (app->registered_child_processes_cb, idx);
+	cb_data = g_list_nth_data (app->registered_child_processes_cb, idx);
 	if (callback)
 		(*callback) (status, cb_data);
 	anjuta_unregister_child_process (pid);
@@ -2028,7 +2054,8 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 	}
 	prj = project_dbase_get_proj_name (app->project_dbase);
 	if (!prj)	prj = g_strdup (_("None"));
-	zoom = prop_get_int (app->preferences->props, TEXT_ZOOM_FACTOR, 0);
+	zoom = anjuta_preferences_get_int_with_default (ANJUTA_PREFERENCES
+									(app->preferences), TEXT_ZOOM_FACTOR, 0);
 	if (sci)
 	{
 		gint editor_mode;
@@ -2106,7 +2133,8 @@ anjuta_toolbar_set_view (gchar* toolbar_name, gboolean view,
 	if (set_in_props)
 	{
 		key = g_strconcat (toolbar_name, ".visible", NULL);
-		preferences_set_int (app->preferences, key, view);
+		anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+									key, view);
 		g_free (key);
 	}
 
@@ -2141,7 +2169,8 @@ anjuta_get_file_property (gchar* key, gchar* filename, gint default_value)
 	g_return_val_if_fail (filename != NULL, default_value);
 	g_return_val_if_fail (strlen (filename) != 0,  default_value);
 
-	value_str = prop_get_new_expand (app->preferences->props, key, filename);
+	value_str = prop_get_new_expand (ANJUTA_PREFERENCES(app->preferences)->props,
+									 key, filename);
 	if (!value_str)
 		return default_value;
 	value = atoi (value_str);
@@ -2228,8 +2257,9 @@ static void on_message_indicate (GtkObject* obj, MessageIndicatorInfo *info)
 	GList *node;
 
 	TextEditor *te;
-	if (!preferences_get_int_with_default(app->preferences,
-			MESSAGES_INDICATORS_AUTOMATIC, 1)) {
+	if (!anjuta_preferences_get_int_with_default(ANJUTA_PREFERENCES
+												 (app->preferences),
+											MESSAGES_INDICATORS_AUTOMATIC, 1)) {
 		return;
 	}
 	g_return_if_fail (info);

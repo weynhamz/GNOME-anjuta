@@ -322,4 +322,9 @@ executer_load_session( Executer *e, ProjectDBase *p )
 
 	e->m_PgmArgs	= session_load_strings( p, SECSTR(SECTION_EXECUTERARGS), e->m_PgmArgs );
 	e->terminal		= session_get_bool( p, SECSTR(SECTION_EXECUTER), szRunInTerminalItem, TRUE);
+	if (e->m_PgmArgs && e->m_PgmArgs->data)
+	{
+		prop_set_with_key (e->props, EXECUTER_PROGRAM_ARGS_KEY,
+						   e->m_PgmArgs->data);
+	}
 }

@@ -104,15 +104,21 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	
 	if (!app) return TRUE;
 	file_not_saved = FALSE;
-	max_recent_files = preferences_get_int (app->preferences, MAXIMUM_RECENT_FILES);
-	max_recent_prjs = preferences_get_int (app->preferences, MAXIMUM_RECENT_PROJECTS);
+	max_recent_files = 
+		anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									MAXIMUM_RECENT_FILES);
+	max_recent_prjs =
+		anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									MAXIMUM_RECENT_PROJECTS);
 	list = app->text_editor_list;
 	while (list)
 	{
 		te = list->data;
 		if (te->full_filename)
-			app->recent_files = update_string_list (app->recent_files,
-					te->full_filename, max_recent_files);
+			app->recent_files =
+				glist_path_dedup(update_string_list (app->recent_files,
+													 te->full_filename,
+													 max_recent_files));
 		if (!text_editor_is_saved (te))
 			file_not_saved = TRUE;
 		list = g_list_next (list);
@@ -120,9 +126,9 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	if (app->project_dbase->project_is_open)
 	{
 		app->recent_projects =
-			update_string_list (app->recent_projects,
-					    app->project_dbase->proj_filename,
-					    max_recent_prjs);
+				glist_path_dedup(update_string_list (app->recent_projects,
+												app->project_dbase->proj_filename,
+													 max_recent_files));
 	}
 	anjuta_save_settings ();
 
@@ -155,13 +161,27 @@ on_anjuta_destroy (GtkWidget * w, gpointer data)
 	/* Nothing to be done here */
 }
 
+/*! state flag for Ctrl-TAB */
+static gboolean g_tabbing = FALSE;
+
 void
 on_anjuta_notebook_switch_page (GtkNotebook * notebook,
-				GtkNotebookPage * page,
-				gint page_num, gpointer user_data)
+								GtkNotebookPage * page,
+								gint page_num, gpointer user_data)
 {
+	GtkWidget *widget;
+	
 	anjuta_set_current_text_editor (anjuta_get_notebook_text_editor
-					(page_num));
+									(page_num));
+	if (!g_tabbing && anjuta_preferences_get_int (app->preferences,
+												  EDITOR_TABS_RECENT_FIRST))
+	{
+		/* TTimo: reorder so that the most recently used files are always
+		 * at the beginning of the tab list
+		 */
+		widget = gtk_notebook_get_nth_page (notebook, page_num);
+		gtk_notebook_reorder_child (notebook, widget, 0);
+	}
 	anjuta_grab_text_focus ();
 }
 
@@ -217,7 +237,8 @@ enum {
 
 enum {
 	ID_NEXTBUFFER = 1, /* Note: the value mustn't be 0 ! */
-	ID_PREVBUFFER
+	ID_PREVBUFFER,
+	ID_FIRSTBUFFER
 };
 
 typedef struct {
@@ -229,13 +250,18 @@ typedef struct {
 static ShortcutMapping global_keymap[] = {
 	{ m_C, GDK_Tab,		 ID_NEXTBUFFER },
 	{ mSC, GDK_ISO_Left_Tab, ID_PREVBUFFER },
+	{ m_C, GDK_1, ID_FIRSTBUFFER },
+	{ m_C, GDK_2, ID_FIRSTBUFFER + 1},
+	{ m_C, GDK_3, ID_FIRSTBUFFER + 2},
+	{ m_C, GDK_4, ID_FIRSTBUFFER + 3},
+	{ m_C, GDK_5, ID_FIRSTBUFFER + 4},
+	{ m_C, GDK_6, ID_FIRSTBUFFER + 5},
+	{ m_C, GDK_7, ID_FIRSTBUFFER + 6},
+	{ m_C, GDK_8, ID_FIRSTBUFFER + 7},
+	{ m_C, GDK_9, ID_FIRSTBUFFER + 8},
+	{ m_C, GDK_0, ID_FIRSTBUFFER + 9},
 	{ 0,   0,		 0 }
 };
-
-/*!
-state flag for Ctrl-TAB
-*/
-static gboolean g_tabbing = FALSE;
 
 gint
 on_anjuta_window_key_press_event (GtkWidget   *widget,
@@ -269,11 +295,11 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		if (!notebook->children)
 			return FALSE;
 
-    if (!g_tabbing)
-    {
-      g_tabbing = TRUE;
-    }
-    
+		if (!g_tabbing)
+		{
+			g_tabbing = TRUE;
+		}
+
 		pages_nb = g_list_length (notebook->children);
 		cur_page = gtk_notebook_get_current_page (notebook);
 
@@ -287,7 +313,18 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		break;
 	}
 	default:
-		return FALSE;
+		if (global_keymap[i].id >= ID_FIRSTBUFFER &&
+		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
+		{
+			GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
+			int page_req = global_keymap[i].id - ID_FIRSTBUFFER;
+
+			if (!notebook->children)
+				return FALSE;
+			gtk_notebook_set_page(notebook, page_req);
+		}
+		else
+			return FALSE;
 	}
 
 	/* Note: No reason for a shortcut to do more than one thing a time */
@@ -305,22 +342,27 @@ on_anjuta_window_key_release_event (GtkWidget   *widget,
 	g_return_val_if_fail (GNOME_IS_APP (widget), FALSE);
 	g_return_val_if_fail (event != NULL, FALSE);
 
-  if (g_tabbing && ((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)))
-  {
+	if (g_tabbing && ((event->keyval == GDK_Control_L) ||
+		(event->keyval == GDK_Control_R)))
+	{
 		GtkNotebook *notebook = GTK_NOTEBOOK (app->widgets.notebook);
-    GtkWidget *widget;
-    int cur_page;
-    g_tabbing = FALSE;
-    /*
-    move the current notebook page to first position
-    that maintains Ctrl-TABing on a list of most recently edited files
-    */
-    cur_page = gtk_notebook_get_current_page (notebook);
-    widget = gtk_notebook_get_nth_page (notebook, cur_page);
-    gtk_notebook_reorder_child (notebook, widget, 0);
-  }
-  
-  return FALSE;
+		GtkWidget *widget;
+		int cur_page;
+		g_tabbing = FALSE;
+		
+		if (anjuta_preferences_get_int (app->preferences,
+										EDITOR_TABS_RECENT_FIRST))
+		{
+			/*
+			TTimo: move the current notebook page to first position
+			that maintains Ctrl-TABing on a list of most recently edited files
+			*/
+			cur_page = gtk_notebook_get_current_page (notebook);
+			widget = gtk_notebook_get_nth_page (notebook, cur_page);
+			gtk_notebook_reorder_child (notebook, widget, 0);
+		}
+	}
+	return FALSE;
 }
 
 void
@@ -488,7 +530,8 @@ on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 		save_as_real ();
 	g_free (filename);
 
-	if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									EDITOR_TABS_ORDERING))
 		anjuta_order_tabs ();
 }
 

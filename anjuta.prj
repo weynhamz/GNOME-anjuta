@@ -700,6 +700,7 @@ module.po.files=\
 	tr.po\
 	uk.po\
 	zh_CN.po\
-	zh_TW.po
+	zh_TW.po\
+	hi.po
 
 project.src.paths=

@@ -91,7 +91,7 @@ struct _AnjutaApp
 	AnjutaMessageManager *messages;
 	ProjectDBase *project_dbase;
 	CommandEditor *command_editor;
-	Preferences *preferences;
+	AnjutaPreferences *preferences;
 	CompilerOptions *compiler_options;
 	SrcPaths *src_paths;
 	TextEditor *current_text_editor;
@@ -185,7 +185,6 @@ gboolean anjuta_goto_local_tag(TextEditor *te, const char *qual_name);
 void anjuta_goto_tag(const char *symbol, TextEditor *te,
 					 gboolean prefer_definition);
 void anjuta_set_zoom_factor(gint zoom);
-void anjuta_apply_preferences (void);
 void anjuta_apply_styles (void);
 void anjuta_load_cmdline_files (void);
 

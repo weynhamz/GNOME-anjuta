@@ -161,7 +161,8 @@ gtree_insert_files (GtkTreeView *treeview, GtkTreeIter *parent,
 		if (node->data == NULL)
 			continue;
 		
-		pixbuf = anjuta_res_get_icon_for_file (app->preferences->props,
+		pixbuf = anjuta_res_get_icon_for_file (ANJUTA_PREFERENCES
+											   (app->preferences)->props,
 											   node->data);
 		full_fname = g_strconcat (dir_prefix, "/", node->data, NULL);
 		pfd = project_file_data_new (NULL, mod, node->data, full_fname);
@@ -207,6 +208,13 @@ project_file_data_destroy (ProjectFileData * pfd)
 	if (pfd->full_filename)
 		g_free (pfd->full_filename);
 	g_free (pfd);
+}
+
+static void
+project_preferences_changed (AnjutaPreferences *pr, ProjectDBase *p)
+{
+	if (p->project_is_open)
+		p->is_saved = FALSE;
 }
 
 ProjectDBase *
@@ -259,6 +267,9 @@ project_dbase_new (PropsID pr_props)
 	p->props = prop_set_new ();
 	prop_set_parent (p->props, pr_props);
 	p->project_config = project_config_new (p->props);
+	
+	g_signal_connect (G_OBJECT (app->preferences), "changed",
+					  G_CALLBACK (project_preferences_changed), p);
 	return p;
 }
 
@@ -322,6 +333,7 @@ project_dbase_clear (ProjectDBase * p)
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
+	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
 	p->is_saved = TRUE;
 	p->m_prj_ShowLocal	= SHOW_LOCALS_DEFAULT ;
 	extended_toolbar_update ();
@@ -402,7 +414,9 @@ project_dbase_open_project (ProjectDBase * p)
 	gchar *all_projects_dir;
 	
 	project_dbase_make_default_filetype_list(p);
-	all_projects_dir = preferences_get (app->preferences, PROJECTS_DIRECTORY);
+	all_projects_dir =
+		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+								PROJECTS_DIRECTORY);
 	chdir (all_projects_dir);
 	fileselection_set_dir (p->fileselection_open, all_projects_dir);
 	gtk_widget_show (p->fileselection_open);
@@ -570,6 +584,7 @@ project_dbase_reload_session (ProjectDBase * p)
 	find_replace_load_session( app->find_replace, p );
 	executer_load_session( app->executer, p );
 	find_in_files_load_session( app->find_in_files, p );
+	fv_session_load (p);
 	p->m_prj_ShowLocal = session_get_bool (p, SECSTR(SECTION_PROJECTDBASE),
 										   szShowLocalsItem,
 										   SHOW_LOCALS_DEFAULT );
@@ -601,7 +616,7 @@ project_dbase_load_project (ProjectDBase * p, const gchar *project_file,
 }
 
 static gboolean
-save_project_preference_property (Preferences *pr, const gchar *key,
+save_project_preference_property (AnjutaPreferences *pr, const gchar *key,
 								  gpointer data)
 {
 	gchar *str;
@@ -773,18 +788,20 @@ project_dbase_save_project (ProjectDBase * p)
 	g_free (str); str = NULL;
 
 	/* Yes, from the preferences */
-	str = prop_get (app->preferences->props, "anjuta.program.arguments");
+	str = anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+								  "anjuta.program.arguments");
 	if (!str) str = g_strdup ("");
 	if (fprintf (fp, "anjuta.program.arguments=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
-	
+
 	/* Save the editor preferences if present */
 #ifdef DEBUG
 	printf("Saving editor preferences in the project file\n");
 #endif
-	preferences_foreach (app->preferences, PREFERENCES_FILTER_PROJECT,
-						 save_project_preference_property, fp);
+	anjuta_preferences_foreach (ANJUTA_PREFERENCES (app->preferences),
+								ANJUTA_PREFERENCES_FILTER_PROJECT,
+								save_project_preference_property, fp);
 	fprintf(fp, "\n");
 
 	for(i=0; i<MODULE_END_MARK; i++)
@@ -919,11 +936,10 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 
 void project_dbase_sync_tags_image(ProjectDBase *p)
 {
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
 	gchar* src_dir, *inc_dir;
-	gboolean build_sv = preferences_get_int(app->preferences
-	  , BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = preferences_get_int(app->preferences
-	  , BUILD_FILE_BROWSER);
+	gboolean build_sv = anjuta_preferences_get_int (pr, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
 
 	g_return_if_fail (p != NULL);
 
@@ -996,8 +1012,9 @@ void
 project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild)
 {
 	gchar* src_dir;
-	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
+	gboolean build_sv = anjuta_preferences_get_int (pr, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
 
 	g_return_if_fail (p != NULL);
 
@@ -1041,31 +1058,57 @@ project_dbase_save_session_files (ProjectDBase * p)
 {
 	GList	*node;
 	gint	nIndex = 0;
+	GList	*editors = NULL;
+	GList	*match;
+	gint	i;
+	TextEditor* te;
 
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->project_is_open == TRUE);
 	
 	/* Save session.... */
 	session_clear_section (p, SECSTR (SECTION_FILELIST));
+	/* 
+	TTimo - save using the tabs order, and push the docked files afterwards
+	(the docked files are not remembered as docked status anyway)
+	*/
 	node = app->text_editor_list;
 	while (node)
 	{
-		TextEditor* te;
 		te = node->data;
-		if(te)
-		{
-			if (te->full_filename)
-			{
-				session_save_string_n (p, SECSTR (SECTION_FILELIST),
-									   nIndex, te->full_filename);
-				session_save_long_n (p, SECSTR (SECTION_FILENUMBER),
-									 nIndex, te->current_line);
-				project_dbase_save_markers (p, te, nIndex);
-				nIndex++;
-			}
-		}
+		if(te && te->full_filename)
+			editors = g_list_append(editors, te);
 		node = node->next;
 	}
+	i = 0;
+	while(( te = anjuta_get_notebook_text_editor(i)))
+	{
+		GList *match = g_list_find(editors, te);
+		if (match)
+		{
+			te = (TextEditor *)match->data;
+			session_save_string_n( p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
+			session_save_long_n( p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
+			project_dbase_save_markers( p, te, nIndex );
+			editors = g_list_remove_link(editors, match);
+			g_list_free(match);
+			nIndex++;			
+		} else
+			g_warning("Did not find notebook tab %d in text_editor_list\n", i);
+		i++;
+	}
+	/* remaining items (if any) where docked */
+	match = editors;
+	while(match)
+	{
+		te = (TextEditor *)match->data;
+		session_save_string_n (p, SECSTR(SECTION_FILELIST), nIndex, te->full_filename );
+		session_save_long_n (p, SECSTR(SECTION_FILENUMBER), nIndex, te->current_line );
+		project_dbase_save_markers (p, te, nIndex);
+		nIndex++;
+		match = g_list_next(match);
+	}
+	g_list_free(editors);
 }
 
 static void
@@ -1276,11 +1319,12 @@ session_load_node_expansion_states (ProjectDBase *p)
 static void
 project_dbase_save_session (ProjectDBase * p)
 {
-	debugger_save_session_breakpoints( p );
-	project_dbase_save_session_files ( p );
-	find_replace_save_session( app->find_replace, p );
-	executer_save_session( app->executer, p );
-	find_in_files_save_session( app->find_in_files, p );
+	debugger_save_session_breakpoints (p);
+	project_dbase_save_session_files (p);
+	find_replace_save_session (app->find_replace, p);
+	executer_save_session (app->executer, p);
+	find_in_files_save_session (app->find_in_files, p);
+	fv_session_save (p);
 	session_save_bool (p, SECSTR (SECTION_PROJECTDBASE),
 					   szShowLocalsItem, p->m_prj_ShowLocal );
 	session_save_node_expansion_states (p);
@@ -1351,6 +1395,7 @@ project_dbase_close_project (ProjectDBase * p)
 	sv_clear();
 	fv_clear();
 	p->project_is_open = FALSE;
+    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
 }
 
 void
@@ -1875,7 +1920,8 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 }
 
 static gboolean
-restore_preference_property (Preferences *pr, const gchar *key, gpointer data)
+restore_preference_property (AnjutaPreferences *pr,
+							 const gchar *key, gpointer data)
 {
 	gchar *str, *str_prop;
 	ProjectDBase *p = data;
@@ -1893,19 +1939,20 @@ restore_preference_property (Preferences *pr, const gchar *key, gpointer data)
 void
 project_dbase_clean_left (ProjectDBase * p)
 {
-	gint i;
-	
 	/* Clear project related preferences that have been set. */
 #ifdef DEBUG
 	g_message ("Clearing project preferences\n");
 #endif
-	preferences_foreach (app->preferences, PREFERENCES_FILTER_PROJECT,
-						 restore_preference_property, p);
+	anjuta_preferences_foreach (ANJUTA_PREFERENCES (app->preferences),
+								ANJUTA_PREFERENCES_FILTER_PROJECT,
+								restore_preference_property, p);
 	project_dbase_clear (p);
 	project_config_clear (p->project_config);
 
-	compiler_options_load (app->compiler_options, app->preferences->props);
-	src_paths_load (app->src_paths, app->preferences->props);
+	compiler_options_load (app->compiler_options,
+						   ANJUTA_PREFERENCES (app->preferences)->props);
+	src_paths_load (app->src_paths,
+				    ANJUTA_PREFERENCES (app->preferences)->props);
 	anjuta_apply_styles ();
 }
 
@@ -1995,14 +2042,14 @@ project_dbase_update_menu (ProjectDBase * p)
 	gint max_recent_prjs;
 
 	max_recent_prjs =
-		preferences_get_int (app->preferences,
-				     MAXIMUM_RECENT_PROJECTS);
+		anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+				     				MAXIMUM_RECENT_PROJECTS);
 	if (p->project_is_open)
 	{
 		app->recent_projects =
-			update_string_list (app->recent_projects,
-					    p->proj_filename,
-					    max_recent_prjs);
+			glist_path_dedup(update_string_list (app->recent_projects,
+												 p->proj_filename,
+												 max_recent_prjs));
 		submenu =
 			create_submenu (_("Recent Projects "),
 					app->recent_projects,
@@ -2142,8 +2189,10 @@ project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 {
 	gchar *mod_files, *file_list, *new_file_list, *comp_dir;
 	gchar *relative_fn;
-	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+	
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
+	gboolean build_sv = anjuta_preferences_get_int(pr, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = anjuta_preferences_get_int(pr, BUILD_FILE_BROWSER);
 
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->sel_module < MODULE_END_MARK);
@@ -2376,7 +2425,8 @@ project_dbase_set_show_locals( ProjectDBase * p,  const gboolean bActive )
 }
 
 static gboolean
-load_preferences_property (Preferences *pr, const gchar *key, gpointer data)
+load_preferences_property (AnjutaPreferences *pr,
+						   const gchar *key, gpointer data)
 {
 	ProjectDBase *p;
 	gchar *str_prop, *str;
@@ -2412,6 +2462,7 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 		project_dbase_clean_left (p);
 
 	p->project_is_open = TRUE;
+	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, FALSE);
 	p->proj_filename = g_strdup(filename);
 	
 	/* Doing some check before actual loading */
@@ -2489,11 +2540,11 @@ done:
 	/* from prj props to preferences props */
 	str = prop_get (p->props, "anjuta.program.parameters");
 	if (str)
-		prop_set_with_key (app->preferences->props,
-						   "anjuta.program.parameters", str);
+		anjuta_preferences_set (ANJUTA_PREFERENCES (app->preferences),
+							   "anjuta.program.parameters", str);
 	else
-		prop_set_with_key (app->preferences->props,
-						   "anjuta.program.parameters", "");
+		anjuta_preferences_set (ANJUTA_PREFERENCES (app->preferences),
+							   "anjuta.program.parameters", "");
 	g_free (str);	
 	
 	/* some preferences may be stored in project file */
@@ -2501,10 +2552,12 @@ done:
 	g_message ("Loading editor preferences from project");
 #endif
 	/* Save the current preferences in session database */
-	preferences_sync_to_session (app->preferences);
+	anjuta_preferences_sync_to_session (ANJUTA_PREFERENCES (app->preferences));
+	
 	/* Transfer preferences from project to preferences database */
-	preferences_foreach (app->preferences, PREFERENCES_FILTER_PROJECT,
-						 load_preferences_property, p);
+	anjuta_preferences_foreach (ANJUTA_PREFERENCES (app->preferences),
+								ANJUTA_PREFERENCES_FILTER_PROJECT,
+								load_preferences_property, p);
 	/* Update the preferences */
 	anjuta_apply_styles ();
 	
@@ -2523,17 +2576,15 @@ go_error:
 	if (!error_shown) /* If error is not yet shown */
 	{
 		if (syserr)
-		{
-			anjuta_system_error (errno, _("Error in loading Project: %s"), p->proj_filename);
-		}
+			anjuta_system_error (errno, _("Error in loading Project: %s"),
+								 p->proj_filename);
 		else
-		{
 			anjuta_error (_("Error in loading Project: %s"), p->proj_filename);
-		}
 	}
 	prop_clear (p->props);
 	string_assign (&p->proj_filename, NULL);
 	p->proj_filename = NULL;
+	gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects, TRUE);
 	p->project_is_open = FALSE;
 	if (prj_buff) g_free (prj_buff);
 	if (fp) fclose (fp);
@@ -2543,13 +2594,15 @@ go_error:
 gboolean
 project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 {
-	gboolean build_sv = preferences_get_int(app->preferences, BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = preferences_get_int(app->preferences, BUILD_FILE_BROWSER);
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
+	gboolean build_sv = anjuta_preferences_get_int (pr, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
+	gboolean auto_update = anjuta_preferences_get_int (pr, AUTOMATIC_TAGS_UPDATE);
 
 	/* Now Project setup */
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
-	if (preferences_get_int (app->preferences, AUTOMATIC_TAGS_UPDATE) == 1)
+	if (auto_update)
 		project_dbase_update_tags_image(p, TRUE);
 	else
 	{

@@ -177,8 +177,6 @@ main (int argc, char *argv[])
 	/* Get the command line files */
 	command_args = get_command_line_args (program);
 
-	/* Libglade stuff */
-	// glade_gnome_init();
 	if (!no_splash)
 		splash_screen ();
 	

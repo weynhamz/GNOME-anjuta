@@ -134,7 +134,8 @@ build_file_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Build completed ... unsuccessful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Build completed ... unsuccessful"));
 	}
 	else
@@ -142,11 +143,13 @@ build_file_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Build completed ... successful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Build completed ... successful"));
 	}
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);

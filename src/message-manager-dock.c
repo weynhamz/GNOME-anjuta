@@ -99,8 +99,8 @@ on_delete_event (GtkWidget * widget, GdkEvent * event, gpointer data)
 }
 
 // Function must be here because I cannot include anjuta.h in c++ files
-Preferences *
+AnjutaPreferences *
 get_preferences ()
 {
-	return app->preferences;
+	return ANJUTA_PREFERENCES (app->preferences);
 }

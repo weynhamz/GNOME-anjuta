@@ -179,7 +179,8 @@ project_import_terminated (int status, time_t time)
 	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
 				(gint) time);
 	anjuta_message_manager_append (app->messages, buff, MESSAGE_BUILD);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 
 	if (piw->filename == NULL)

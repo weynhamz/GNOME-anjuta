@@ -122,7 +122,6 @@ gboolean
 on_toolbar_find_incremental_start (GtkEntry *entry,
 	GdkEvent *e, gpointer user_data)
 {
-	gchar *entry_text;
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (!te) return FALSE;
 	app->find_replace->find_text->incremental_pos =
@@ -245,7 +244,8 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 				"Failling I-Search: '%s'. Press Enter or click Find to overwrap.",
 				string);
 				app->find_replace->find_text->incremental_wrap = TRUE;
-				if (preferences_get(app->preferences, BEEP_ON_BUILD_COMPLETE))
+				if (anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+											BEEP_ON_BUILD_COMPLETE))
 					gdk_beep();
 			}
 			else

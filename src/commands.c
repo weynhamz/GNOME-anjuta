@@ -534,7 +534,7 @@ on_language_menu_changed (GtkOptionMenu *optionmenu,
 	CommandData *cdata;
 	CommandEditor *ce;
 	const gchar *str;
-	gint index;
+	gint idx;
 
 	ce = user_data;
 	g_return_if_fail (ce != NULL);
@@ -553,8 +553,8 @@ on_language_menu_changed (GtkOptionMenu *optionmenu,
 		string_assign (&ce->priv->current_command_data->execute, str);
 	}
 
-	index= gtk_option_menu_get_history (GTK_OPTION_MENU (optionmenu));
-	str = prog_language_map[index * 2];
+	idx = gtk_option_menu_get_history (GTK_OPTION_MENU (optionmenu));
+	str = prog_language_map[idx * 2];
 	cdata = (CommandData *) gtk_object_get_data (GTK_OBJECT (ce->priv->widgets.window), str);
 	g_return_if_fail (cdata != NULL);
 

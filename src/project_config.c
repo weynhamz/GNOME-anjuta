@@ -437,7 +437,6 @@ gboolean
 project_config_save (ProjectConfig * pc, FILE* stream)
 {
 	gint i;
-	gchar *str;
 	
 	g_return_val_if_fail (pc != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);

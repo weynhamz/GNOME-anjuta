@@ -219,37 +219,23 @@ anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
 }
 
 GtkWidget *
-anjuta_preferences_dialog_get (void)
+anjuta_preferences_dialog_new (void)
 {
-	static GtkWidget *widget = NULL;
-
-	if (!widget) {
-		widget = gtk_widget_new (ANJUTA_TYPE_PREFERENCES_DIALOG, 
-					 "title", _("Anjuta Preferences"),
-					 NULL);
-		gtk_window_set_default_size (GTK_WINDOW (widget),
-					     400, 350);
-
-		g_signal_connect (widget, "delete_event", 
-				  G_CALLBACK (delete_event_cb), NULL);
-
-	}
-
-	return widget;
+	return gtk_widget_new (ANJUTA_TYPE_PREFERENCES_DIALOG, 
+				 "title", _("Anjuta Preferences Dialog"),
+				 NULL);
 }
 
 void
-anjuta_preferences_dialog_add_page (const char *name,
-				    GdkPixbuf *icon,
-				    GtkWidget *page)
+anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
+									const char *name,
+									GdkPixbuf *icon,
+									GtkWidget *page)
 {
-	AnjutaPreferencesDialog *dlg;
 	GtkTreeIter iter;
 	
-	dlg = ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_dialog_get ());
-
 	gtk_widget_show (page);
-
+	
 	gtk_notebook_append_page (GTK_NOTEBOOK (dlg->priv->notebook), 
 				  page, NULL);
 
@@ -263,11 +249,8 @@ anjuta_preferences_dialog_add_page (const char *name,
 }
 
 void
-anjuta_preferences_dialog_remove_page (const char *name)
+anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
+									   const char *name)
 {
-	AnjutaPreferencesDialog *dlg;
-	
-	dlg = ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_dialog_get ());
-
 	/* FIXME */
 }

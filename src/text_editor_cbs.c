@@ -143,7 +143,7 @@ on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 	gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
 	anjuta_update_page_label(te);
 
-	if (preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
+	if (anjuta_preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))
 		anjuta_order_tabs ();
 }
 
@@ -172,7 +172,7 @@ gboolean on_text_editor_auto_save (gpointer data)
 
 	if (!te)
 		return FALSE;
-	if (preferences_get_int (te->preferences, SAVE_AUTOMATIC) == FALSE)
+	if (anjuta_preferences_get_int (te->preferences, SAVE_AUTOMATIC) == FALSE)
 	{
 		te->autosave_on = FALSE;
 		return FALSE;

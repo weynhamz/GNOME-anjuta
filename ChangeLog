@@ -1,3 +1,42 @@
+2003-02-28  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, anjuta.spec.in: Updated dependency packages version.
+	* configure.in, (removed) acconfig.h: Eliminated autoheader templates.
+	* src/preferences.c: Added debug assertions.
+	* anjuta.glade, anjuta_dialogs_strings.c: Added a preferences for
+	editor to enable/disable bringing the recent editor tabs first.
+	
+	* tagmanager/tm_file_entry.c, tagmanager/tm_project.c,
+	tagmanager/include/tm_file_entry.h, src/*.[h,c], scintilla/*.[h,cxx],
+	scintilla/include/*.h, plugins/class-gen/clsGen.c, printing/print.c:
+	Merged with CVS branch ANJUTA_1_0_0 and brought in new search replace
+	and	bug fixes. Also code clean ups.
+	
+	* (new) src/search-replace.[h,c]: New search replace implementation
+	from ANJUTA_1_0_0 branch.
+	
+	* (new) src/windows-dialog.[h,c]: New windows management class
+	[work in progress].
+
+2003-02-28  Naba Kumar  <naba@gnome.org>
+
+	* plugins/class-gen/clsGen.c, printing/print.c, src/an_file_view.c,
+	src/anjuta-tools.c, src/anjuta.c, src/anjuta.h, src/anjuta_cbs.c,
+	src/appwizard.c, src/build_file.c, src/build_project.c,
+	src/clean_project.c, src/compile.c, src/configurer.c,
+	src/find_in_files.c, src/gnome_project.c, src/mainmenu_callbacks.c,
+	src/message-manager-dock.c, src/message-manager-dock.h,
+	src/message-manager-private.cc, src/message-manager.cc,
+	src/preferences-dialog.c, src/preferences-dialog.h,
+	src/preferences.c, src/preferences.h, src/project_dbase.c,
+	src/project_dbase_gui.c, src/project_import.c, src/text_editor.c,
+	src/text_editor.h, src/text_editor_cbs.c, src/toolbar_callbacks.c
+	src/utilities.c, src/utilities.h:
+	
+	Widgetized Preferences and gave proper function names.
+
+	* src/executer.c: Fixed a session loading bug.
+	
 2003-02-27  Naba Kumar  <naba@gnome.org>
 
 	* printing/print.c: Fixed printing font bug that failed to load the

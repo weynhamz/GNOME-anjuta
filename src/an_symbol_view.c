@@ -599,13 +599,13 @@ sv_clear ()
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
-void sv_hide(void)
+static void sv_hide(void)
 {
 	g_return_if_fail(sv && sv->tree);
 	gtk_widget_hide(sv->tree);
 }
 
-void sv_show(void)
+static void sv_show(void)
 {
 	g_return_if_fail(sv && sv->tree);
 	gtk_widget_show(sv->tree);

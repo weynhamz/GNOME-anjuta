@@ -44,11 +44,14 @@ struct _AnjutaPreferencesDialogClass {
 
 GType anjuta_preferences_dialog_get_type (void);
 
-GtkWidget *anjuta_preferences_dialog_get (void);
+GtkWidget *anjuta_preferences_dialog_new (void);
 
-void anjuta_preferences_dialog_add_page (const char *name,
+void anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
+										 const char *name,
 										 GdkPixbuf *icon,
 										 GtkWidget *page);
-void anjuta_preferences_dialog_remove_page (const char *name);
+
+void anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
+											const char *name);
 
 #endif

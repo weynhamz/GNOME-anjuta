@@ -68,7 +68,8 @@ build_project ()
 		anjuta_set_execution_dir(src_dir);
 		g_free (src_dir);
 	
-		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+		if(anjuta_preferences_get_int(ANJUTA_PREFERENCES (app->preferences),
+									  BUILD_OPTION_AUTOSAVE))
 		{
 			anjuta_save_all_files();
 		}
@@ -125,10 +126,9 @@ build_all_project ()
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 		
-		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
-		{
+		if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									   BUILD_OPTION_AUTOSAVE))
 			anjuta_save_all_files();
-		}
 	
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
@@ -179,10 +179,9 @@ build_dist_project ()
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 		
-		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
-		{
+		if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									   BUILD_OPTION_AUTOSAVE))
 			anjuta_save_all_files();
-		}
 
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
@@ -270,10 +269,9 @@ build_autogen_project ()
 			}
 		}
 		
-		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
-		{
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										BUILD_OPTION_AUTOSAVE))
 			anjuta_save_all_files();
-		}
 	
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
@@ -315,7 +313,8 @@ build_terminated (int status, time_t time)
 				 _
 				 ("Build completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Build terminated with error(s)."));
 	}
 	else
@@ -324,7 +323,8 @@ build_terminated (int status, time_t time)
 				 _
 				 ("Build completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Build completed ... successful."));
 	}
 	buff1 =
@@ -332,8 +332,11 @@ build_terminated (int status, time_t time)
 				 (gint) time);
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	g_free(buff1);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
+	
 	anjuta_update_app_status (TRUE, NULL);
 }
 
@@ -348,7 +351,8 @@ build_all_terminated (int status, time_t time)
 				 _
 				 ("Build All completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Build All completed...............Unsuccessful"));
 	}
 	else
@@ -356,7 +360,8 @@ build_all_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Build All completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Build All completed ... successful"));
 	}
 	buff1 =
@@ -364,7 +369,8 @@ build_all_terminated (int status, time_t time)
 				 (gint) time);
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
@@ -380,7 +386,8 @@ build_dist_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Build Distribution completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Build Distribution completed ... unsuccessful"));
 	}
 	else
@@ -391,14 +398,16 @@ build_dist_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("The source tarball can be found in the top level directory of the Project.\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Build Distribution completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
@@ -414,7 +423,8 @@ build_install_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Install completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Install completed...............Unsuccessful"));
 	}
 	else
@@ -422,14 +432,16 @@ build_install_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Install completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Install completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
@@ -445,7 +457,8 @@ build_autogen_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Auto generation completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_warning (_("Auto generation completed ... unsuccessful"));
 	}
 	else
@@ -453,14 +466,16 @@ build_autogen_terminated (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 				 _("Auto generation completed...............Successful\nNow Configure the Project.\n"),
 				 MESSAGE_BUILD);
-		if (preferences_get_int (app->preferences, DIALOG_ON_BUILD_COMPLETE))
+		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+										DIALOG_ON_BUILD_COMPLETE))
 			anjuta_status (_("Auto generation completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);
@@ -483,7 +498,8 @@ install_as_root (GtkWidget* button, gpointer data)
 	chdir (app->project_dbase->top_proj_dir);
 	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 	
-	if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+	if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+								   BUILD_OPTION_AUTOSAVE))
 	{
 		anjuta_save_all_files();
 	}
@@ -524,7 +540,8 @@ install_as_user (GtkWidget* button, gpointer data)
 	chdir (app->project_dbase->top_proj_dir);
 	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 	
-	if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+	if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+								   BUILD_OPTION_AUTOSAVE))
 	{
 		anjuta_save_all_files();
 	}

@@ -2,6 +2,7 @@
 
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
+	$(PCRE_CFLAGS)\
 	-I$(srcdir)/../scintilla/include \
 	-I$(srcdir)/../tagmanager/include \
 	-I$(srcdir)/../widgets \
@@ -161,6 +162,8 @@ anjuta_SOURCES = \
 	registers_cbs.c\
 	registers_cbs.h\
 	registers_gui.c\
+	search-replace.h\
+	search-replace.c\
 	sharedlib.c\
 	sharedlib.h\
 	sharedlib_cbs.c\
@@ -201,6 +204,8 @@ anjuta_SOURCES = \
 	watch_cbs.c\
 	watch_cbs.h\
 	watch_gui.c\
+	windows-dialog.c\
+	windows-dialog.h\
 	wizard_gui.h\
 	wizard_gui.c\
 	appwiz_page4.c\
@@ -223,8 +228,10 @@ anjuta_SOURCES = \
 	widget-registry.h\
 	widget-registry.c
 
+
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) \
+	$(PCRE_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\

@@ -525,7 +525,7 @@ PrintJobInfo*
 anjuta_print_job_info_new (void)
 {
 	PrintJobInfo *pji;
-	Preferences *p = app->preferences;
+	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
 	char *paper_name;
 	gint i;
 
@@ -561,17 +561,23 @@ anjuta_print_job_info_new (void)
 	}
 	
 	/* Zoom factor */
-	pji->zoom_factor = preferences_get_int_with_default(p, TEXT_ZOOM_FACTOR, 0);
+	pji->zoom_factor =
+		anjuta_preferences_get_int_with_default (p, TEXT_ZOOM_FACTOR, 0);
 	
 	/* Line number printing details */
-	pji->print_line_numbers = preferences_get_int_with_default (p, PRINT_LINENUM_COUNT, 1);
+	pji->print_line_numbers =
+		anjuta_preferences_get_int_with_default (p, PRINT_LINENUM_COUNT, 1);
 	pji->print_line_numbers = pji->print_line_numbers >= 0? pji->print_line_numbers: 0;
 	
 	/* Other preferences. */
-	pji->print_header = preferences_get_int_with_default (p, PRINT_HEADER, 1);
-	pji->print_color = preferences_get_int_with_default (p, PRINT_COLOR, 1);
-	pji->wrapping = preferences_get_int_with_default (p, PRINT_WRAP, 1);
-	pji->tab_size = preferences_get_int_with_default (p, TAB_SIZE, 8);
+	pji->print_header =
+		anjuta_preferences_get_int_with_default (p, PRINT_HEADER, 1);
+	pji->print_color =
+		anjuta_preferences_get_int_with_default (p, PRINT_COLOR, 1);
+	pji->wrapping =
+		anjuta_preferences_get_int_with_default (p, PRINT_WRAP, 1);
+	pji->tab_size =
+		anjuta_preferences_get_int_with_default (p, TAB_SIZE, 8);
 	pji->range_type = GNOME_PRINT_RANGE_ALL;
 	
 	/* State variables initializations */

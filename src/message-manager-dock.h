@@ -39,7 +39,7 @@ amm_hide_docked (void);
 void
 amm_show_docked (void);
 	
-Preferences* get_preferences (void);
+AnjutaPreferences* get_preferences (void);
 
 #ifdef __cplusplus
 }

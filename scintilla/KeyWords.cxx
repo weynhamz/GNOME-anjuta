@@ -52,14 +52,14 @@ int LexerModule::GetNumWordLists() const {
 	}
 }
 
-const char * LexerModule::GetWordListDescription(int index) const {
+const char * LexerModule::GetWordListDescription(int idx) const {
 	static const char *emptyStr = "";
 
-	PLATFORM_ASSERT(index < GetNumWordLists());
-	if (index >= GetNumWordLists()) {
+	PLATFORM_ASSERT(idx < GetNumWordLists());
+	if (idx >= GetNumWordLists()) {
 		return emptyStr;
 	} else {
-		return wordListDescriptions[index];
+		return wordListDescriptions[idx];
  	}
 }
  

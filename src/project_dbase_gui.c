@@ -560,10 +560,10 @@ create_project_dbase_gui (ProjectDBase * p)
 	GtkCList *clist1;
 	AnSymbolView *sv;
 	AnFileView *fv;
-	gboolean build_sv = preferences_get_int (app->preferences,
-											 BUILD_SYMBOL_BROWSER);
-	gboolean build_fv = preferences_get_int (app->preferences,
-											 BUILD_FILE_BROWSER);
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (app->preferences);
+	
+	gboolean build_sv = anjuta_preferences_get_int (pr, BUILD_SYMBOL_BROWSER);
+	gboolean build_fv = anjuta_preferences_get_int (pr, BUILD_FILE_BROWSER);
 
 	window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_transient_for (GTK_WINDOW (window1),

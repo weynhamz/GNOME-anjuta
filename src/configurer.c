@@ -219,7 +219,7 @@ conf_terminated (int status, time_t time)
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
 	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
 	anjuta_update_app_status (TRUE, NULL);

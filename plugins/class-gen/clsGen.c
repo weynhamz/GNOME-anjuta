@@ -746,8 +746,13 @@ GenerateHeader(CG_Creator *self, FILE* fpOut)
 		fprintf(fpOut, "//\n// File: %s\n", self->m_szDeclFile);
 		
 		{
-			gchar* username = preferences_get(self->m_pApp->preferences, IDENT_NAME);
-			gchar* email =preferences_get(self->m_pApp->preferences, IDENT_EMAIL);
+			gchar* username =
+				anjuta_preferences_get (ANJUTA_PREFERENCES
+									   (self->m_pApp->preferences), IDENT_NAME);
+			gchar* email =
+				anjuta_preferences_get (ANJUTA_PREFERENCES
+										(self->m_pApp->preferences),
+										IDENT_EMAIL);
 			fprintf( fpOut, "// Created by: %s <%s>\n"
 			  , username?username:"", email?email:"" );
 			SAFE_FREE(username);
@@ -874,8 +879,14 @@ GenerateHeader(CG_Creator *self, FILE* fpOut)
 		fprintf(fpOut, "/*\n * File: %s\n", self->m_szDeclFile);
 		
 		{
-			gchar* username = preferences_get(self->m_pApp->preferences, IDENT_NAME);
-			gchar* email= preferences_get(self->m_pApp->preferences, IDENT_EMAIL);
+			gchar* username =
+				anjuta_preferences_get (ANJUTA_PREFERENCES
+										(self->m_pApp->preferences),
+										IDENT_NAME);
+			gchar* email=
+				anjuta_preferences_get (ANJUTA_PREFERENCES
+										(self->m_pApp->preferences),
+										IDENT_EMAIL);
 			fprintf( fpOut, " * Created by: %s <%s>\n"
 			  , username?username:"", email?email:"" );
 			SAFE_FREE(username);
@@ -1007,10 +1018,14 @@ GenerateSource(CG_Creator *self, FILE* fpOut)
 			fprintf(fpOut, "//\n// File: %s\n", self->m_szDeclFile);
 			
 			{
-				gchar* username = preferences_get(self->m_pApp->preferences
-				  , IDENT_NAME);
-				gchar* email = preferences_get(self->m_pApp->preferences
-				  , IDENT_EMAIL);;
+				gchar* username =
+					anjuta_preferences_get (ANJUTA_PREFERENCES
+											(self->m_pApp->preferences),
+				  							IDENT_NAME);
+				gchar* email =
+					anjuta_preferences_get (ANJUTA_PREFERENCES
+											(self->m_pApp->preferences),
+				  							IDENT_EMAIL);
 				fprintf( fpOut, "// Created by: %s <%s>\n"
 				, username?username:"", email?email:"");
 				SAFE_FREE(username);
@@ -1105,10 +1120,14 @@ GenerateSource(CG_Creator *self, FILE* fpOut)
 			fprintf(fpOut, "/*\n * File: %s\n", self->m_szDeclFile);
 			
 			{
-				gchar* username = preferences_get(self->m_pApp->preferences
-				  , IDENT_NAME);
-				gchar* email = preferences_get(self->m_pApp->preferences
-				  , IDENT_EMAIL);
+				gchar* username =
+					anjuta_preferences_get (ANJUTA_PREFERENCES
+											(self->m_pApp->preferences),
+				  							IDENT_NAME);
+				gchar* email =
+					anjuta_preferences_get (ANJUTA_PREFERENCES
+											(self->m_pApp->preferences),
+				  							IDENT_EMAIL);
 				fprintf( fpOut, " * Created by: %s <%s>\n"
 				  , username?username:"", email?email:"");
 			}

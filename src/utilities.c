@@ -230,8 +230,8 @@ FileExtType get_file_ext_type (gchar * file)
 		return FILE_TYPE_UNKNOWN;
 
 	filetype_str =
-		prop_get_new_expand (app->preferences->props, "filetype.",
-				     file);
+		prop_get_new_expand (ANJUTA_PREFERENCES (app->preferences)->props,
+							 "filetype.", file);
 	if (filetype_str == NULL)
 		return FILE_TYPE_UNKNOWN;
 
@@ -871,7 +871,9 @@ remove_white_spaces (gchar * text)
 	guint src_count, dest_count, tab_count;
 	gchar buff[2048];	/* Let us hope that it does not overflow */
 
-	tab_count = preferences_get_int (app->preferences, TAB_SIZE);
+	tab_count =
+		anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									TAB_SIZE);
 	dest_count = 0;
 	for (src_count = 0; src_count < strlen (text); src_count++)
 	{
@@ -1058,6 +1060,40 @@ glist_strings_dup (GList * list)
 		node = g_list_next (node);
 	}
 	return new_list;
+}
+
+/* Dedup a list of paths - duplicates are removed from the tail.
+** Useful for deduping Recent Files and Recent Projects */
+GList *glist_path_dedup(GList *list)
+{
+	GList *nlist = NULL, *tmp, *tmp1;
+	gchar *path;
+	struct stat s;
+	for (tmp = list; tmp; tmp = g_list_next(tmp))
+	{
+		path = tm_get_real_path((const gchar *) tmp->data);
+		if (0 != stat(path, &s))
+		{
+			g_free(path);
+		}
+		else
+		{
+			for (tmp1 = nlist; tmp1; tmp1 = g_list_next(tmp1))
+			{
+				if (0 == strcmp((const char *) tmp1->data, path))
+				{
+					g_free(path);
+					path = NULL;
+					break;
+				}
+			}
+			if (path)
+			nlist = g_list_prepend(nlist, path);
+		}
+	}
+	glist_strings_free(list);
+	nlist = g_list_reverse(nlist);
+	return nlist;
 }
 
 static gint
@@ -1482,21 +1518,21 @@ gchar*
 anjuta_util_escape_quotes(const gchar* str)
 {
 	gchar buffer[2048];
-	gint index;
+	gint idx;
 	const gchar *s = str;
 	
 	g_return_val_if_fail(str, NULL);
-	index = 0;
+	idx = 0;
 	
 	while(*s) {
-		if (index > 2040)
+		if (idx > 2040)
 			break;
 		if (*s == '\"' || *s == '\'' || *s == '\\')
-			buffer[index++] = '\\';
-		buffer[index++] = *s;
+			buffer[idx++] = '\\';
+		buffer[idx++] = *s;
 		s++;
 	}
-	buffer[index] = '\0';
+	buffer[idx] = '\0';
 	return g_strdup(buffer);
 }
 
@@ -1555,10 +1591,10 @@ anjuta_util_parse_args_from_string (gchar* string)
 	gboolean escaped;
 	gchar    quote;
 	gchar    buffer[2048], *s;
-	gint     index;
+	gint     idx;
 	GList* args = NULL;
 	
-	index = 0;
+	idx = 0;
 	escaped = FALSE;
 	quote = (gchar)-1;
 	s = string;
@@ -1572,7 +1608,7 @@ anjuta_util_parse_args_from_string (gchar* string)
 	while (*s) {
 		if (escaped) {
 			/* The current char was escaped */
-			buffer[index++] = *s;
+			buffer[idx++] = *s;
 			escaped = FALSE;
 		} else if (*s == '\\') {
 			/* Current char is an escape */
@@ -1591,28 +1627,28 @@ anjuta_util_parse_args_from_string (gchar* string)
 				quote = *s;
 			} else {
 				/* Just a quote char inside quote */
-				buffer[index++] = *s;
+				buffer[idx++] = *s;
 			}
 		} else if (quote > 0){
 			/* Any other char inside quote */
-			buffer[index++] = *s;
+			buffer[idx++] = *s;
 		} else if (isspace(*s)) {
 			/* Any white space outside quote */
-			if (index > 0) {
-				buffer[index++] = '\0';
+			if (idx > 0) {
+				buffer[idx++] = '\0';
 				args = g_list_append (args, g_strdup (buffer));
-				index = 0;
+				idx = 0;
 			}
 		} else {
-			buffer[index++] = *s;
+			buffer[idx++] = *s;
 		}
 		s++;
 	}
-	if (index > 0) {
+	if (idx > 0) {
 		/* There are chars in the buffer. Flush as the last arg */
-		buffer[index++] = '\0';
+		buffer[idx++] = '\0';
 		args = g_list_append (args, g_strdup (buffer));
-		index = 0;
+		idx = 0;
 	}
 	if (quote > 0) {
 		g_warning ("Unclosed quotation encountered at the end of parsing");
@@ -1652,6 +1688,43 @@ anjuta_util_check_gnome_terminal (void)
     
     /* gnome-terminal-2 found */
     return 2;
+}
+
+int type_from_string(StringMap *map, const char *str)
+{
+	int i = 0;
+
+	while (-1 != map[i].type)
+	{
+		if (0 == strcmp(map[i].name, str))
+			return map[i].type;
+		++ i;
+	}
+	return -1;
+}
+
+const char *string_from_type(StringMap *map, int type)
+{
+	int i = 0;
+	while (-1 != map[i].type)
+	{
+		if (map[i].type == type)
+			return map[i].name;
+		++ i;
+	}
+	return "";
+}
+
+GList *glist_from_map(StringMap *map)
+{
+	GList *out_list = NULL;
+	int i = 0;
+	while (-1 != map[i].type)
+	{
+		out_list = g_list_append(out_list, map[i].name);
+		++ i;
+	}
+	return out_list;
 }
 
 static gint

@@ -29,7 +29,8 @@ typedef enum
 {
 	tm_file_unknown_t, /*!< Unknown file type/file does not exist */
 	tm_file_regular_t, /*!< Is a regular file */
-	tm_file_dir_t /*!< Is a directory */
+	tm_file_dir_t, /*!< Is a directory */
+	tm_file_link_t /*!< Is a symbolic link */
 } TMFileType;
 
 /*!
@@ -66,24 +67,29 @@ gint tm_file_entry_compare(TMFileEntry *e1, TMFileEntry *e2);
 
 /*! Function to create a new file entry structure.
 \param path Path to the file for which the entry is to be created.
-\param parent SHould be NULL for the first call. Since the function calls
+\param parent Should be NULL for the first call. Since the function calls
  itself recursively, this parameter is required to build the hierarchy.
 \param recurse Whether the entry is to be recursively scanned (for
  directories only)
-\param match Null terminated list of file names to match. If set to NULL,
+\param file_match List of file name patterns to match. If set to NULL,
  all files match. You can use wildcards like '*.c'. See the example program
- for usage. Note that match list is only applied to files, not directories.
-\param ignore Opposite of match. All files matching any of the patterns
- supplied are ignored. If set to NULL, no file is ignored. Should be a NULL
- terminated list. See the example for usage. As opposed to match list, ignore
- list is applied to files as well as directories.
-\param ignore_hidden If set to TRUE, hidden files (files starting with '.')
+ for usage.
+\param file_unmatch Opposite of file_match. All files matching any of the patterns
+ supplied are ignored. If set to NULL, no file is ignored.
+\param dir_match List of directory name patterns to match. If set to NULL,
+ all directories match. You can use wildcards like '\.*'.
+\param dir_unmatch Opposite of dir_match. All directories matching any of the
+ patterns supplied are ignored. If set to NULL, no directory is ignored.
+\param ignore_hidden_files If set to TRUE, hidden files (starting with '.')
+ are ignored.
+\param ignore_hidden_dirs If set to TRUE, hidden directories (starting with '.')
  are ignored.
 \return Populated TMFileEntry structure on success, NULL on failure.
 */
 TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
-  , gboolean recurse, const char **match, const char **ignore
-  , gboolean ignore_hidden);
+  , gboolean recurse, GList *file_match, GList *file_unmatch
+  , GList *dir_match, GList *dir_unmatch, gboolean ignore_hidden_files
+  , gboolean ignore_hidden_dirs);
 
 /*! Frees a TMFileEntry structure. Freeing is recursive, so all child
  entries are freed as well.
@@ -104,6 +110,12 @@ void tm_file_entry_foreach(TMFileEntry *entry, TMFileEntryFunc func
 /*! This is a sample function to show the use of tm_file_entry_foreach().
 */
 void tm_file_entry_print(TMFileEntry *entry, gpointer user_data, guint level);
+
+/* Creates a list of path names from a TMFileEntry structure.
+\param entry The TMFileEntry structure.
+\files Current file list. Should be NULL.
+*/
+GList *tm_file_entry_list(TMFileEntry *entry, GList *files);
 
 #ifdef __cplusplus
 }

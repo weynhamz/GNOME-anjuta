@@ -1,4 +1,4 @@
-/*
+/* 
  * session.h Copyright (C) 2001  lb
  * 
  * This program is free software; you can redistribute it and/or modify it
@@ -40,79 +40,78 @@ enum _SessionSectionTypes {
 	SECTION_PROJECT_TREE,
 	SECTION_SYMBOL_TREE,
 	SECTION_FILE_TREE,
+	SECTION_FILE_VIEW,
 	SECTION_END
 };
 
-typedef enum _SessionSectionTypes SessionSectionTypes ;
-	
-const gchar	*SessionSectionString( const SessionSectionTypes p_Session );
+typedef enum _SessionSectionTypes SessionSectionTypes;
+
+const gchar *SessionSectionString (const SessionSectionTypes p_Session);
 
 #define	SECSTR(x)	SessionSectionString( x )
 
 /* Config (gnome) */
-void write_config(void);
-gchar *GetProfileString( const gchar* szSection, const gchar* szItem, const gchar* szDefault ); 
-gboolean GetProfileBool( const gchar* szSection, const gchar* szItem, const gboolean bDefault ); 
-gint GetProfileInt( const gchar* szSection, const gchar* szItem, const gint iDefault ); 
+void write_config (void);
+gchar *GetProfileString (const gchar * szSection, const gchar * szItem,
+						 const gchar * szDefault);
+gboolean GetProfileBool (const gchar * szSection, const gchar * szItem,
+						 const gboolean bDefault);
+gint GetProfileInt (const gchar * szSection, const gchar * szItem,
+					const gint iDefault);
 
-gboolean WriteProfileString( const gchar* szSection, const gchar* szItem, const gchar* szValue ); 
-gboolean WriteProfileBool( const gchar* szSection, const gchar* szItem, const gboolean bValue ); 
-gboolean WriteProfileInt( const gchar* szSection, const gchar* szItem, const gint iValue ); 
+gboolean WriteProfileString (const gchar * szSection, const gchar * szItem,
+							 const gchar * szValue);
+gboolean WriteProfileBool (const gchar * szSection, const gchar * szItem,
+						   const gboolean bValue);
+gboolean WriteProfileInt (const gchar * szSection, const gchar * szItem,
+						  const gint iValue);
 
 /* Session management */
-void
-session_sync(void);
+void session_sync (void);
+
 /* Changed: n is for a vector */
+void session_save_string_n (ProjectDBase * p, const gchar * szSection,
+							const gint nItem, const gchar * szValue);
 void
-session_save_string_n( ProjectDBase * p, const gchar *szSection, const gint nItem, const gchar *szValue );
+     session_save_string (ProjectDBase * p, const gchar * szSection,
+						  const gchar * szItem, const gchar * szValue);
 void
-session_save_string( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gchar *szValue );
-void
-session_save_long_n( ProjectDBase * p, const gchar *szSection, const gint nItem, const glong lValue );
-glong
-session_get_long_n( ProjectDBase * p, const gchar *szSection, const gint nItem, const glong lValue );
-gchar*
-session_get_string_n( ProjectDBase * p, const gchar *szSection, const gint nItem, const gchar *szValue );
-gchar*
-session_get_string( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gchar *szValue );
-gboolean
-session_clear_section( ProjectDBase * p, const gchar *szSection );
-gchar * 
-GetSessionFile( ProjectDBase * p );
-void
-session_get_strings( ProjectDBase * p, const gchar *szSection, gint *pnItems, gchar*** argvp );
-gpointer
-session_get_iterator( ProjectDBase * p, const gchar *szSection );
-void
-session_save_strings( ProjectDBase *p, const gchar *szSession, GList *pLStrings );
+     session_save_long_n (ProjectDBase * p, const gchar * szSection,
+						  const gint nItem, const glong lValue);
+glong session_get_long_n (ProjectDBase * p, const gchar * szSection,
+						  const gint nItem, const glong lValue);
+gchar *session_get_string_n (ProjectDBase * p, const gchar * szSection,
+							 const gint nItem, const gchar * szValue);
+gchar *session_get_string (ProjectDBase * p, const gchar * szSection,
+						   const gchar * szItem, const gchar * szValue);
+gboolean session_clear_section (ProjectDBase * p, const gchar * szSection);
+gchar *GetSessionFile (ProjectDBase * p);
+void session_get_strings (ProjectDBase * p, const gchar * szSection,
+						  gint * pnItems, gchar *** argvp);
+gpointer session_get_iterator (ProjectDBase * p, const gchar * szSection);
+void session_save_strings (ProjectDBase * p, const gchar * szSession,
+						   GList * pLStrings);
 
-GList*
-session_load_strings(ProjectDBase * p, const gchar *szSection, GList *pList );
+GList *session_load_strings (ProjectDBase * p, const gchar * szSection,
+							 GList * pList);
 
-void
-session_save_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bVal );
+void session_save_bool (ProjectDBase * p, const gchar * szSection,
+						const gchar * szItem, const gboolean bVal);
 
-gboolean
-session_get_bool( ProjectDBase * p, const gchar *szSection, const gchar *szItem, const gboolean bValDefault );
+gboolean session_get_bool (ProjectDBase * p, const gchar * szSection,
+						   const gchar * szItem, const gboolean bValDefault);
 
-gboolean
-anjuta_save_strings( const gchar *szSection, GList *pLStrings );
-gboolean
-anjuta_session_clear_section( const gchar *szSection );
-GList*
-anjuta_session_load_strings( const gchar *szSection, GList *pList );
-gpointer
-anjuta_session_get_iterator( const gchar *szSection );
-gboolean
-anjuta_session_save_strings( const gchar *szSection, GList *pLStrings );
+gboolean anjuta_save_strings (const gchar * szSection, GList * pLStrings);
+gboolean anjuta_session_clear_section (const gchar * szSection);
+GList *anjuta_session_load_strings (const gchar * szSection, GList * pList);
+gpointer anjuta_session_get_iterator (const gchar * szSection);
+gboolean anjuta_session_save_strings (const gchar * szSection,
+									  GList * pLStrings);
 
 // Global Anjuta configuration
 #define	GLOBAL_SECTION_SEARCHPATTERNS	"searchpatterns"
-GList*
-config_load_strings( const gchar *szSection, GList *pList );
-gpointer
-config_get_iterator( const gchar *szSection );
-gboolean
-config_copy_strings( const gchar *szSection );
+GList *config_load_strings (const gchar * szSection, GList * pList);
+gpointer config_get_iterator (const gchar * szSection);
+gboolean config_copy_strings (const gchar * szSection);
 
 #endif	/*_SESSION_H_*/

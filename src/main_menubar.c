@@ -25,6 +25,7 @@
 #include "anjuta.h"
 #include "pixmaps.h"
 #include "mainmenu_callbacks.h"
+#include "search-replace.h"
 #include "main_menubar_def.h"
 #include "fileselection.h"
 #include "widget-registry.h"

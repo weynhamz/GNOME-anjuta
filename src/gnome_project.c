@@ -48,7 +48,9 @@ create_new_project (AppWizard * aw)
 	gint i;
 	Project_Type* type;
 
-	all_prj_dir  = preferences_get (app->preferences, PROJECTS_DIRECTORY);
+	all_prj_dir  =
+		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+								PROJECTS_DIRECTORY);
 	top_dir = g_strdup_printf ("%s/%s", all_prj_dir, aw->prj_name);
 
 	if (file_is_directory (top_dir) || file_is_regular(top_dir))
@@ -272,7 +274,7 @@ new_prj_terminated (int status, time_t t)
 	project_dbase_update_tags_image(app->project_dbase, TRUE);
 	project_dbase_show (app->project_dbase);
 
-	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
+	if (anjuta_preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	anjuta_update_app_status (TRUE, NULL);
 }

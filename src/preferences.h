@@ -21,7 +21,8 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
-#include "properties.h"
+#include <properties.h>
+#include <preferences-dialog.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -49,9 +50,9 @@ typedef enum
 
 typedef enum
 {
-	PREFERENCES_FILTER_NONE = 0,
-	PREFERENCES_FILTER_PROJECT = 1
-} PreferencesFilterType;
+	ANJUTA_PREFERENCES_FILTER_NONE = 0,
+	ANJUTA_PREFERENCES_FILTER_PROJECT = 1
+} AnjutaPreferencesFilterType;
 
 typedef struct {
 	GtkWidget                *object;
@@ -62,24 +63,44 @@ typedef struct {
 	guint                     flags;
 } AnjutaProperty;
 
-typedef struct _Preferences Preferences;
-typedef struct _PreferencesPriv PreferencesPriv;
+#define ANJUTA_TYPE_PREFERENCES        (anjuta_preferences_get_type ())
+#define ANJUTA_PREFERENCES(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PREFERENCES, AnjutaPreferences))
+#define ANJUTA_PREFERENCES_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_PREFERENCES, AnjutaPreferencesClass))
+#define ANJUTA_IS_PREFERENCES(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PREFERENCES))
+#define ANJUTA_IS_PREFERENCES_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PREFERENCES))
 
-struct _Preferences
+typedef struct _AnjutaPreferences        AnjutaPreferences;
+typedef struct _AnjutaPreferencesClass   AnjutaPreferencesClass;
+typedef struct _AnjutaPreferencesPriv    AnjutaPreferencesPriv;
+
+struct _AnjutaPreferences
 {
+	AnjutaPreferencesDialog parent;
+	
 	PropsID props_build_in;
 	PropsID props_global;
 	PropsID props_local;
 	PropsID props_session;
 	PropsID props;
 	
-	PreferencesPriv *priv;
+	AnjutaPreferencesPriv *priv;
 };
 
-typedef gboolean (*PreferencesCallback) (Preferences *pr, const gchar *key,
-										 gpointer data);
+struct _AnjutaPreferencesClass
+{
+	GtkDialogClass parent;
+	
+	void (*changed) (GtkWidget *pref);
+};
+
+typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
+											   const gchar *key,
+											   gpointer data);
+
+GType anjuta_preferences_get_type (void);
+
 /* Preferences */
-Preferences *preferences_new (void);
+GtkWidget *anjuta_preferences_new (void);
 
 /* Add a page to the preferences sytem.
  * gxml: The GladeXML object of the glade dialog containing the page widget.
@@ -111,84 +132,81 @@ Preferences *preferences_new (void);
  * icon_filename: File name (of the form filename.png) of the icon representing
  *     the preference page.
  */
-void preferences_add_page (Preferences* pr, GladeXML *gxml,
-						   const char* glade_widget_name,
-						   const gchar *icon_filename);
+void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
+								  const char* glade_widget_name,
+								  const gchar *icon_filename);
 
 /* This will register all the properties names of the format described above
  * without considering the UI. Useful if you have the widgets shown elsewhere
  * but you want them to be part of preferences system.
  */
-void preferences_register_all_properties_from_glade_xml (Preferences* pr,
-														 GladeXML *gxml);
+void anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences* pr,
+																GladeXML *gxml);
 /* This registers only one widget. The widget could be shown elsewhere.
  * the property_description should be of the form described before.
  */
 gboolean
-preferences_register_property_from_string (Preferences *pr,
-                                           GtkWidget *object,
-                                           const gchar *property_description);
+anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
+												  GtkWidget *object,
+												  const gchar *property_desc);
 
 /* This also registers only one widget, but instead of supplying the property
  * parameters as a single parsable string (as done in previous method), it
  * takes them separately.
  */
 gboolean
-preferences_register_property_raw (Preferences *pr, GtkWidget *object,
-								   AnjutaPropertyObjectType object_type,
-								   AnjutaPropertyDataType  data_type,
-								   const gchar *key, const gchar *default_value,
-								   guint flags);
+anjuta_preferences_register_property_raw (AnjutaPreferences *pr, GtkWidget *object,
+										  AnjutaPropertyObjectType object_type,
+										  AnjutaPropertyDataType  data_type,
+										  const gchar *key,
+										  const gchar *default_value,
+										  guint flags);
 
 /* Resets the default values into the keys */
-void preferences_reset_defaults (Preferences *);
-
-/* General show/hide/destroy fundas */
-void preferences_hide (Preferences *);
-void preferences_show (Preferences *);
-void preferences_destroy (Preferences *);
+void anjuta_preferences_reset_defaults (AnjutaPreferences *);
 
 /* Save and (Loading is done in _new()) */
-gboolean preferences_save (Preferences * p, FILE * stream);
+gboolean anjuta_preferences_save (AnjutaPreferences * p, FILE * stream);
 
 /* Save excluding the filtered properties. This will save only those
  * properties which DOES NOT have the flags set to values given by the filter.
  */
-gboolean preferences_save_filtered (Preferences * p, FILE * stream,
-									PreferencesFilterType filter);
+gboolean anjuta_preferences_save_filtered (AnjutaPreferences * p, FILE * stream,
+										   AnjutaPreferencesFilterType filter);
 
 /* Calls the callback function for each of the properties with the flags
  * matching with the given filter 
  */
-void
-preferences_foreach (Preferences * pr, PreferencesFilterType filter,
-					 PreferencesCallback callback, gpointer data);
+void anjuta_preferences_foreach (AnjutaPreferences * pr,
+								 AnjutaPreferencesFilterType filter,
+								 AnjutaPreferencesCallback callback,
+								 gpointer data);
 
 /* This will transfer all the properties values from the main
 properties database to the parent session properties database */
-void preferences_sync_to_session (Preferences *pr);
+void anjuta_preferences_sync_to_session (AnjutaPreferences *pr);
 
 /* Sets the value (string) of a key */
-void preferences_set (Preferences *, gchar * key, gchar * value);
+void anjuta_preferences_set (AnjutaPreferences *, gchar * key, gchar * value);
 
 /* Sets the value (int) of a key */
-void preferences_set_int (Preferences *, gchar * key, gint value);
+void anjuta_preferences_set_int (AnjutaPreferences *, gchar * key, gint value);
 
 /* Gets the value (string) of a key */
 /* Must free the return string */
-gchar *preferences_get (Preferences * p, gchar * key);
+gchar * anjuta_preferences_get (AnjutaPreferences * p, gchar * key);
 
 /* Gets the value (int) of a key. If not found, 0 is returned */
-gint preferences_get_int (Preferences * p, gchar * key);
+gint anjuta_preferences_get_int (AnjutaPreferences * p, gchar * key);
 
 /* Gets the value (int) of a key. If not found, the default_value is returned */
-gint preferences_get_int_with_default (Preferences * p,
-									   gchar *key, gint default_value);
+gint anjuta_preferences_get_int_with_default (AnjutaPreferences * p,
+											  gchar *key, gint default_value);
 
-gchar *preferences_default_get (Preferences * p, gchar * key);
+gchar * anjuta_preferences_default_get (AnjutaPreferences * p, gchar * key);
 
 /* Gets the value (int) of a key */
-gint preferences_default_get_int (Preferences * p, gchar * key);
+gint anjuta_preferences_default_get_int (AnjutaPreferences * p, gchar * key);
 
 /*
  * Preferences KEY definitions.
@@ -240,7 +258,7 @@ gint preferences_default_get_int (Preferences * p, gchar * key);
 #define EDITOR_TABS_POS            "editor.tabs.pos"
 #define EDITOR_TABS_HIDE           "editor.tabs.hide"
 #define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
-#define EDITOR_TABS_RECENT_FIRST   "editor.tabs.resent.first"
+#define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
 
 #define STRIP_TRAILING_SPACES      "strip.trailing.spaces"
 #define FOLD_ON_OPEN               "fold.on.open"
@@ -282,38 +300,38 @@ gint preferences_default_get_int (Preferences * p, gchar * key);
 #define IDENT_EMAIL                "ident.email"
 
 /* Miscellaneous */
-#define CHARACTER_SET "character.set"
+// #define CHARACTER_SET "character.set"
 
 /* Terminal preferences */
-#define TERMINAL_FONT			"terminal.font"
-#define TERMINAL_SCROLLSIZE		"terminal.scrollsize"
-#define TERMINAL_TERM			"terminal.term"
-#define TERMINAL_WORDCLASS		"terminal.wordclass"
-#define TERMINAL_BLINK			"terminal.blink"
-#define TERMINAL_BELL			"terminal.bell"
-#define TERMINAL_SCROLL_KEY		"terminal.scroll.keystroke"
-#define TERMINAL_SCROLL_OUTPUT	"terminal.scroll.output"
+// #define TERMINAL_FONT			"terminal.font"
+// #define TERMINAL_SCROLLSIZE		"terminal.scrollsize"
+// #define TERMINAL_TERM			"terminal.term"
+// #define TERMINAL_WORDCLASS		"terminal.wordclass"
+// #define TERMINAL_BLINK			"terminal.blink"
+// #define TERMINAL_BELL			"terminal.bell"
+// #define TERMINAL_SCROLL_KEY		"terminal.scroll.keystroke"
+// #define TERMINAL_SCROLL_OUTPUT	"terminal.scroll.output"
 
 /*
 ** Provide some reasonable failsafe values for the embedded
 ** terminal widget - Biswa
 */
-#ifndef DEFAULT_ZVT_FONT
-#define DEFAULT_ZVT_FONT "Courier 12"
-#endif
+// #ifndef DEFAULT_ZVT_FONT
+// #define DEFAULT_ZVT_FONT "Courier 12"
+// #endif
 
-#ifndef DEFAULT_ZVT_SCROLLSIZE
-#define DEFAULT_ZVT_SCROLLSIZE 200
-#define MAX_ZVT_SCROLLSIZE 100000
-#endif
+// #ifndef DEFAULT_ZVT_SCROLLSIZE
+// #define DEFAULT_ZVT_SCROLLSIZE 200
+//~ #define MAX_ZVT_SCROLLSIZE 100000
+//~ #endif
 
-#ifndef DEFAULT_ZVT_TERM
-#define DEFAULT_ZVT_TERM "xterm"
-#endif
+//~ #ifndef DEFAULT_ZVT_TERM
+//~ #define DEFAULT_ZVT_TERM "xterm"
+//~ #endif
 
-#ifndef DEFAULT_ZVT_WORDCLASS
-#define DEFAULT_ZVT_WORDCLASS "-A-Za-z0-9/_:.,?+%="
-#endif
+//~ #ifndef DEFAULT_ZVT_WORDCLASS
+//~ #define DEFAULT_ZVT_WORDCLASS "-A-Za-z0-9/_:.,?+%="
+//~ #endif
 
 #ifdef __cplusplus
 };

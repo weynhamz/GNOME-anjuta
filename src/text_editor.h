@@ -92,7 +92,7 @@ struct _TextEditor
 
 	glong current_line;
 
-	Preferences *preferences;
+	AnjutaPreferences *preferences;
 
 /* Geometry */
 	TextEditorGeom geom;
@@ -123,7 +123,7 @@ struct _TextEditor
 void create_text_editor_gui (TextEditor * te);
 
 TextEditor *text_editor_new (gchar * full_filename,
-			     TextEditor * parent, Preferences * pr);
+							 TextEditor * parent, AnjutaPreferences * pr);
 
 void text_editor_freeze (TextEditor * te);
 
@@ -143,8 +143,9 @@ void text_editor_undo (TextEditor * te);
 void text_editor_redo (TextEditor * te);
 
 glong
-text_editor_find (TextEditor * te, const gchar * str, gint scope, gboolean forward,
-		  gboolean regexp, gboolean ignore_case, gboolean whole_word);
+text_editor_find (TextEditor * te, const gchar * str, gint scope,
+				  gboolean forward, gboolean regexp, gboolean ignore_case,
+				  gboolean whole_word);
 
 void text_editor_replace_selection (TextEditor * te, const gchar * r_str);
 
@@ -170,7 +171,6 @@ gboolean text_editor_has_selection (TextEditor * te);
 glong text_editor_get_selection_start (TextEditor * te);
 glong text_editor_get_selection_end (TextEditor * te);
 
-void text_editor_update_preferences (TextEditor * te);
 void text_editor_update_controls (TextEditor * te);
 
 void text_editor_dock (TextEditor * te, GtkWidget * container);

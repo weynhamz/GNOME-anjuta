@@ -19,11 +19,13 @@
 #ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
+#define FREE(x) if (x) g_free(x), x = NULL
+
 #include <dirent.h>
 #include <stdio.h>
 
 #define COMBO_LIST_LENGTH \
-		preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)
+		anjuta_preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)
 
 #define _STR(S) ((S)?(S):"")
 
@@ -268,27 +270,39 @@ gchar *get_relative_file_name(gchar *dir, gchar *file);
 /* Checks if the file exists in the given directory or any of it's subdirectories */
 gboolean is_file_in_dir(const gchar *file, const gchar *dir);
 
+GList *glist_path_dedup(GList *list);
+
 /* Check which gnome-terminal is installed
  Returns: 0 -- No gnome-terminal
  Returns: 1 -- Gnome1 gnome-terminal
  Returns: 2 -- Gnome2 gnome-terminal */
-
 gint anjuta_util_check_gnome_terminal (void);
 
-void
-anjuta_util_color_from_string (const gchar * val,
-							   guint8 * r, guint8 * g, guint8 * b);
+/* String integer mapping utility functions */
+typedef struct _StringMap
+{
+	int type;
+	char *name;
+} StringMap;
 
-gchar *
-anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
+int type_from_string(StringMap *map, const char *str);
+const char *string_from_type(StringMap *map, int type);
+GList *glist_from_map(StringMap *map);
 
-GtkWidget *
-anjuta_util_toolbar_append_button (GtkWidget *toolbar, const gchar *iconfile,
-					   const gchar *label, const gchar *tooltip,
-					   GtkSignalFunc callback, gpointer user_data);
+void anjuta_util_color_from_string (const gchar * val,
+									guint8 * r, guint8 * g, guint8 * b);
+
+gchar *anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
+
+GtkWidget * anjuta_util_toolbar_append_button (GtkWidget *toolbar,
+											   const gchar *iconfile,
+											   const gchar *label,
+											   const gchar *tooltip,
+											   GtkSignalFunc callback,
+											   gpointer user_data);
 GtkWidget *
 anjuta_util_toolbar_append_stock (GtkWidget *toolbar, const gchar *stock_icon,
-					   const gchar *label, const gchar *tooltip,
-					   GtkSignalFunc callback, gpointer user_data);
+								  const gchar *label, const gchar *tooltip,
+								  GtkSignalFunc callback, gpointer user_data);
 
 #endif

@@ -728,9 +728,9 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 {
 	g_return_if_fail(amm != NULL);
 	
-	Preferences* p = get_preferences();
+	AnjutaPreferences* p = get_preferences();
 	
-	char* tag_pos = preferences_get(p, MESSAGES_TAG_POS);
+	char* tag_pos = anjuta_preferences_get(p, MESSAGES_TAG_POS);
 	if (tag_pos != NULL)
 	{
 		if (strcasecmp(tag_pos, "top")==0)
@@ -748,7 +748,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 	guint8 r, g, b;
 	guint factor = ((guint16) -1) / ((guint8) -1);
 	char* color;
-	color = preferences_get(p, MESSAGES_COLOR_ERROR);
+	color = anjuta_preferences_get(p, MESSAGES_COLOR_ERROR);
 	if (color)
 	{
 		anjuta_util_color_from_string (color, &r, &g, &b);
@@ -758,7 +758,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 		g_free(color);
 	}
 	
-	color = preferences_get(p, MESSAGES_COLOR_WARNING);
+	color = anjuta_preferences_get (p, MESSAGES_COLOR_WARNING);
 	if (color)
 	{
 		anjuta_util_color_from_string (color, &r, &g, &b);
@@ -767,7 +767,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 		amm->intern->color_warning.blue = b * factor;
 		g_free(color);
 	}
-	color = preferences_get(p, MESSAGES_COLOR_MESSAGES1);
+	color = anjuta_preferences_get(p, MESSAGES_COLOR_MESSAGES1);
 	if (color)
 	{
 		anjuta_util_color_from_string (color, &r, &g, &b);
@@ -776,7 +776,7 @@ anjuta_message_manager_update(AnjutaMessageManager* amm)
 		amm->intern->color_message1.blue = b * factor;
 		g_free(color);
 	}
-	color = preferences_get(p, MESSAGES_COLOR_MESSAGES2);
+	color = anjuta_preferences_get(p, MESSAGES_COLOR_MESSAGES2);
 	if (color)
 	{
 		anjuta_util_color_from_string (color, &r, &g, &b);

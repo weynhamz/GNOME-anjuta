@@ -5,6 +5,8 @@ New: Preferences management.
 New: Tools management.
 New: 
 Updated: Scintilla 1.50
+Updated: Session management. It now saves tree states.
+
 
 Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
 

@@ -464,7 +464,7 @@ cvs_status (CVS *cvs, const gchar *filename, gboolean is_dir)
 	
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
-	diff_editor->force_hilite = TE_LEXER_NONE;
+	diff_editor->force_hilite = TE_LEXER_DIFF;
 	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
 
@@ -515,7 +515,7 @@ cvs_log (CVS *cvs, const gchar *filename, gboolean is_dir)
 
 	// Create Text Editor for diff
 	diff_editor = anjuta_append_text_editor(NULL);
-	diff_editor->force_hilite = TE_LEXER_NONE;
+	diff_editor->force_hilite = TE_LEXER_DIFF;
 	diff_editor->used_by_cvs = TRUE;
 	text_editor_set_hilite_type (diff_editor);
 

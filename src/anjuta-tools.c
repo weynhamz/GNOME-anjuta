@@ -80,6 +80,7 @@ R7: Tool Storage
 #include "message-manager.h"
 #include "widget-registry.h"
 #include "anjuta.h"
+#include "launcher.h"
 #include "anjuta-tools.h"
 
 #define GTK
@@ -128,6 +129,7 @@ typedef struct _AnUserTool
 	gboolean detached;
 	gboolean run_in_terminal;
 	gboolean user_params;
+	gboolean autosave;
 	gchar *location;
 	gchar *icon;
 	gchar *shortcut;
@@ -161,7 +163,6 @@ GString *current_tool_output = NULL;
 GString *current_tool_error = NULL;
 
 /* Destroys memory allocated to an user tool */
-#define FREE(x) if (x) g_free(x)
 static void an_user_tool_free(AnUserTool *tool, gboolean remove_from_list)
 {
 	if (tool)
@@ -237,7 +238,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 		g_warning ("Anjuta tools xml parse error: Invalide Node");
 		return NULL;
 	}
-	
+
 	tool = g_new0 (AnUserTool, 1);
 	/* Set default values */
 	tool->enabled = TRUE;
@@ -276,6 +277,7 @@ static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 		else NUMMATCH(node, detached)
 		else NUMMATCH(node, run_in_terminal)
 		else NUMMATCH(node, user_params)
+		else NUMMATCH(node, autosave)
 		else STRMATCH(node, location)
 		else STRMATCH(node, icon)
 		else STRMATCH(node, shortcut)
@@ -335,6 +337,7 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 	NUMWRITE(detached)
 	NUMWRITE(run_in_terminal)
 	NUMWRITE(user_params)
+	NUMWRITE(autosave)
 	STRWRITE(location)
 	STRWRITE(icon)
 	STRWRITE(shortcut)
@@ -498,6 +501,10 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		if (response != GTK_RESPONSE_OK) /* No OK button clicked */
 			return;
 	}
+	if (tool->autosave)
+	{
+		anjuta_save_all_files();
+	}
 	/* Expand variables to get the full command */
 	if (app->current_text_editor)
 	{
@@ -505,8 +512,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		gchar *word;
 		anjuta_set_file_properties(app->current_text_editor->full_filename);
 		word = text_editor_get_current_word(app->current_text_editor);
-		prop_set_with_key(app->preferences->props, "current.file.selection"
-		  , word?word:"");
+		anjuta_preferences_set (ANJUTA_PREFERENCES (app->preferences),
+								"current.file.selection", word?word:"");
 		if (word)
 			g_free(word);
 	}
@@ -644,6 +651,7 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 	xmlDocPtr xml_doc;
 	struct stat st;
 	AnUserTool *tool;
+	gboolean status = TRUE;
 
 #ifdef TOOL_DEBUG
 	g_message("Loading tools from %s\n", file_name);
@@ -672,13 +680,16 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 		else
 		{
 			g_warning ("Anjuta tools xml parse error: Invalid xml document");
+			status = FALSE;
 		}
 		xmlFreeDoc(xml_doc);
 	}
 	else
 	{
 		g_warning ("Anjuta tools xml parse error: Invalid xml document");
+		status = FALSE;
 	}
+	return status;
 }
 
 gboolean anjuta_tools_load(void)
@@ -691,7 +702,7 @@ gboolean anjuta_tools_load(void)
 
 	/* Now, user tools */
 	snprintf(file_name, PATH_MAX, "%s/%s", app->dirs->settings, TOOLS_FILE);
-	anjuta_tools_load_from_file(file_name);
+	return anjuta_tools_load_from_file(file_name);
 }
 
 /* While saving, save only the user tools since it is unlikely that the
@@ -798,6 +809,7 @@ typedef struct _AnToolEditor
 	GtkToggleButton *enabled_tb;
 	GtkToggleButton *detached_tb;
 	GtkToggleButton *terminal_tb;
+	GtkToggleButton *autosave_tb;
 	GtkToggleButton *file_tb;
 	GtkToggleButton *project_tb;
 	GtkToggleButton *params_tb;
@@ -831,6 +843,7 @@ static AnToolEditor *ted = NULL;
 #define TOOL_DETACHED "tool.detached"
 #define TOOL_TERMINAL "tool.run_in_terminal"
 #define TOOL_USER_PARAMS "tool.user_params"
+#define TOOL_AUTOSAVE "tool.autosave"
 #define TOOL_FILE_LEVEL "tool.file_level"
 #define TOOL_PROJECT_LEVEL "tool.project_level"
 #define TOOL_INPUT_TYPE "tool.input.type"
@@ -939,12 +952,6 @@ gboolean anjuta_tools_edit(void)
 	return TRUE;
 }
 
-typedef struct _StringMap
-{
-	int type;
-	char *name;
-} StringMap;
-
 StringMap input_type_strings[] = {
   { AN_TINP_NONE, "None" }
 , { AN_TINP_BUFFER, "Current buffer" }
@@ -968,43 +975,6 @@ StringMap output_strings[] = {
 , { AN_TBUF_POPUP, "Show as a popup message" }
 , { -1, NULL }
 };
-
-static int type_from_string(StringMap *map, const char *str)
-{
-	int i = 0;
-
-	while (-1 != map[i].type)
-	{
-		if (0 == strcmp(map[i].name, str))
-			return map[i].type;
-		++ i;
-	}
-	return -1;
-}
-
-static const char *string_from_type(StringMap *map, int type)
-{
-	int i = 0;
-	while (-1 != map[i].type)
-	{
-		if (map[i].type == type)
-			return map[i].name;
-		++ i;
-	}
-	return "";
-}
-
-static GList *glist_from_map(StringMap *map)
-{
-	GList *out_list = NULL;
-	int i = 0;
-	while (-1 != map[i].type)
-	{
-		out_list = g_list_append(out_list, map[i].name);
-		++ i;
-	}
-	return out_list;
-}
 
 static void clear_tool_editor()
 {
@@ -1056,6 +1026,7 @@ static void populate_tool_editor(void)
 		gtk_toggle_button_set_active(ted->detached_tb, ted->tool->detached);
 		gtk_toggle_button_set_active(ted->terminal_tb, ted->tool->run_in_terminal);
 		gtk_toggle_button_set_active(ted->params_tb, ted->tool->user_params);
+		gtk_toggle_button_set_active(ted->autosave_tb, ted->tool->autosave);
 		gtk_toggle_button_set_active(ted->file_tb, ted->tool->file_level);
 		gtk_toggle_button_set_active(ted->project_tb, ted->tool->project_level);
 		if (ted->tool->input_type)
@@ -1136,6 +1107,7 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 	ted->detached_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_DETACHED);
 	ted->terminal_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_TERMINAL);
 	ted->params_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_USER_PARAMS);
+	ted->autosave_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_AUTOSAVE);
 	ted->file_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_FILE_LEVEL);
 	ted->project_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_PROJECT_LEVEL);
 	ted->input_type_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_INPUT_TYPE);
@@ -1341,6 +1313,7 @@ static AnUserTool *an_user_tool_from_gui(void)
 	tool->detached = gtk_toggle_button_get_active(ted->detached_tb);
 	tool->run_in_terminal = gtk_toggle_button_get_active(ted->terminal_tb);
 	tool->user_params = gtk_toggle_button_get_active(ted->params_tb);
+	tool->autosave = gtk_toggle_button_get_active(ted->autosave_tb);
 	tool->file_level = gtk_toggle_button_get_active(ted->file_tb);
 	tool->project_level = gtk_toggle_button_get_active(ted->project_tb);
 	s = gtk_editable_get_chars(ted->input_type_en, 0, -1);
@@ -1675,15 +1648,6 @@ static struct
 , {USE_COMPONENTS, "Use components"}
 , {IDENT_NAME, "User name"}
 , {IDENT_EMAIL, "User e-mail address"}
-, {CHARACTER_SET, "Current character set"}
-, {TERMINAL_FONT, "Font of the embedded terminal"}
-, {TERMINAL_SCROLLSIZE, "Scroll buffer of the embedded terminal"}
-, {TERMINAL_TERM, "Type (TERM) of the embedded terminal"}
-, {TERMINAL_WORDCLASS, "Wordclass (used for selecting words) for terminal"}
-, {TERMINAL_BLINK, "Enable blinking cursor for terminal"}
-, {TERMINAL_BELL, "Enable terminal bell"}
-, {TERMINAL_SCROLL_KEY, "Enable terminal scroll on keystroke"}
-, {TERMINAL_SCROLL_OUTPUT, "Enable terminal scroll on output"}
 , {"anjuta.home.directory", "Home directory for Anjuta"}
 , {"anjuta.data.directory", "Data directory for anjuta"}
 , {"anjuta.pixmap.directory", "Pixmap directory for anjuta"}
@@ -1764,11 +1728,10 @@ void anjuta_tools_show_variables()
 	{
 		/* Update file level properties */
 		gchar *word;
-		g_message("Setting editor properties..");
 		anjuta_set_file_properties(app->current_text_editor->full_filename);
 		word = text_editor_get_current_word(app->current_text_editor);
-		prop_set_with_key(app->preferences->props, "current.file.selection"
-		  , word?word:"");
+		anjuta_preferences_set (ANJUTA_PREFERENCES (app->preferences),
+								"current.file.selection", word?word:"");
 		if (word)
 			g_free(word);
 	}

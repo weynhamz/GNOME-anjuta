@@ -49,8 +49,6 @@
 #include "resources.h"
 #include "executer.h"
 #include "controls.h"
-//#include "signals_cbs.h"
-//#include "watch_cbs.h"
 #include "help.h"
 #include "project_import.h"
 #include "cvs_gui.h"
@@ -62,6 +60,7 @@
 #include "file_history.h"
 #include "memory.h"
 #include "fileselection.h"
+#include "anjuta-tools.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -300,7 +299,7 @@ on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 	//gtk_notebook_set_page (GTK_NOTEBOOK
 	//		       (app->preferences->notebook), 4);
-	preferences_show (app->preferences);
+	gtk_widget_show (GTK_WIDGET (app->preferences));
 }
 
 void
@@ -453,7 +452,9 @@ insert_username(void)
 	
 	Username = getenv("USERNAME");
 	if (!Username)
-		Username = preferences_get(app->preferences, IDENT_NAME);
+		Username =
+			anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+									IDENT_NAME);
 	if (!Username)
 		Username = getenv("USER");
 	return Username;
@@ -476,7 +477,9 @@ static gchar *insert_name(void)
 {
 	gchar *Username;
 
-  Username = preferences_get(app->preferences, IDENT_NAME);
+	Username =
+		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+								IDENT_NAME);
 	  if (!Username)
 			Username = getenv("USERNAME");
 		if (!Username)
@@ -489,7 +492,9 @@ static gchar *insert_email(void)
 	gchar *email;
 	gchar *Username;
 
-	email = preferences_get(app->preferences, IDENT_EMAIL);
+	email =
+		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
+								IDENT_EMAIL);
 	if (!email)
 	{
 		email = getenv("HOSTNAME");
@@ -1163,8 +1168,8 @@ on_editor_linenos1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "margin.linenumber.visible",
-			     state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"margin.linenumber.visible", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1182,7 +1187,8 @@ on_editor_markers1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "margin.marker.visible", state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"margin.marker.visible", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1199,7 +1205,8 @@ on_editor_codefold1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "margin.fold.visible", state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"margin.fold.visible", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1216,8 +1223,8 @@ on_editor_indentguides1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "view.indentation.guides",
-			     state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"view.indentation.guides", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1234,7 +1241,8 @@ on_editor_whitespaces1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "view.whitespace", state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"view.whitespace", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1251,7 +1259,8 @@ on_editor_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "view.eol", state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"view.eol", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1268,7 +1277,8 @@ on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GList *node;
 	TextEditor *te;
 	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
-	preferences_set_int (app->preferences, "view.line.wrap", state);
+	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
+								"view.line.wrap", state);
 	node = app->text_editor_list;
 	while (node)
 	{
@@ -1284,7 +1294,7 @@ on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_zoom_text_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	Preferences *p = app->preferences;
+	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
 	gint zoom;
 	gchar buf[20];
 	const gchar *zoom_text = (const gchar *) user_data;
@@ -1963,7 +1973,7 @@ on_set_commands1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_set_preferences1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	preferences_show (app->preferences);
+	gtk_widget_show (GTK_WIDGET (app->preferences));
 }
 
 void
@@ -1985,7 +1995,7 @@ void
 on_set_default_preferences1_activate (GtkMenuItem * menuitem,
 				      gpointer user_data)
 {
-	preferences_reset_defaults (app->preferences);
+	anjuta_preferences_reset_defaults (ANJUTA_PREFERENCES (app->preferences));
 }
 
 void
@@ -2032,7 +2042,6 @@ void
 on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor* te;
-	gboolean ret;
 	gchar *buf = NULL;
 
 	te = anjuta_get_current_text_editor();

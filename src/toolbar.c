@@ -744,7 +744,6 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	GtkWidget *button9;
 	GtkWidget *button10;
 	GtkWidget *button11;
-	GtkTooltips *tooltips;
 	GtkWidget *tmp_toolbar_icon;
 
 	window1 = anjuta_gui;

@@ -107,8 +107,11 @@ static void initialize_markers (TextEditor* te)
 	}
 }
 
+static void text_editor_update_preferences (AnjutaPreferences *pr,
+											TextEditor * te);
+
 TextEditor *
-text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
+text_editor_new (gchar * filename, TextEditor * parent, AnjutaPreferences * eo)
 {
 	gchar *buff;
 	TextEditor *te;
@@ -190,8 +193,10 @@ text_editor_new (gchar * filename, TextEditor * parent, Preferences * eo)
 		}
 	}
 	te->menu = text_editor_menu_new ();
-	text_editor_update_preferences (te);
+	text_editor_update_preferences (te->preferences, te);
 	text_editor_update_controls (te);
+	g_signal_connect (G_OBJECT (te->preferences), "changed",
+					  G_CALLBACK (text_editor_update_preferences), te);
 	return te;
 }
 
@@ -212,7 +217,8 @@ text_editor_thaw (TextEditor * te)
 void
 text_editor_set_hilite_type (TextEditor * te)
 {
-	if (preferences_get_int(te->preferences, DISABLE_SYNTAX_HILIGHTING))
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
+									DISABLE_SYNTAX_HILIGHTING))
 		te->force_hilite = TE_LEXER_NONE;
 	aneditor_command (te->editor_id, ANE_SETLANGUAGE, te->force_hilite,
 			  0);
@@ -473,8 +479,10 @@ text_editor_set_marker (TextEditor *te, glong line, gint marker)
 	/* A bug perhaps */
 	/* So counterbalance it with line-1 */
 	/* Using the macros linenum_* */
-	return scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_MARKERADD,
-		linenum_text_editor_to_scintilla (line), marker);
+	return scintilla_send_message (SCINTILLA (te->widgets.editor),
+								   SCI_MARKERADD,
+								   linenum_text_editor_to_scintilla (line),
+								   marker);
 }
 
 gint
@@ -483,52 +491,67 @@ text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
 	glong start, end;
 	gchar ch;
 	glong indic_mask[] = {INDIC0_MASK, INDIC1_MASK, INDIC2_MASK};
-	glong current_mask;
 	
 	g_return_val_if_fail (te != NULL, -1);
 	g_return_val_if_fail (IS_SCINTILLA (te->widgets.editor) == TRUE, -1);
 
 	if (line > 0) {
 		line = linenum_text_editor_to_scintilla (line);
-		start = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE, line, 0);
-		end = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE, line+1, 0) - 1;
+		start = scintilla_send_message (SCINTILLA (te->widgets.editor),
+										SCI_POSITIONFROMLINE, line, 0);
+		end = scintilla_send_message (SCINTILLA (te->widgets.editor),
+									  SCI_POSITIONFROMLINE, line+1, 0) - 1;
 	
-		g_return_val_if_fail (end >= start, -1);
-		
-		do {
-			ch = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETCHARAT, start, 0);
+		if (end >= start)
+			return -1;
+
+		do
+		{
+			ch = scintilla_send_message (SCINTILLA (te->widgets.editor),
+										 SCI_GETCHARAT, start, 0);
 			start++;
 		} while (isspace(ch));
 		start--;
 		
 		do {
-			ch = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETCHARAT, end, 0);
+			ch = scintilla_send_message (SCINTILLA (te->widgets.editor),
+										 SCI_GETCHARAT, end, 0);
 			end--;
 		} while (isspace(ch));
 		end++;
-		if (end < start) return;
+		if (end < start) return -1;
 		
 		if (indicator >= 0 && indicator < 3) {
 			char current_mask;
-			current_mask = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETSTYLEAT, start, 0);
+			current_mask =
+				scintilla_send_message (SCINTILLA (te->widgets.editor),
+										SCI_GETSTYLEAT, start, 0);
 			current_mask &= INDICS_MASK;
 			current_mask |= indic_mask[indicator];
-			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_STARTSTYLING, start, INDICS_MASK);
-			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSTYLING, end-start+1, current_mask);
+			scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_STARTSTYLING, start, INDICS_MASK);
+			scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_SETSTYLING, end-start+1, current_mask);
 		} else {
-			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_STARTSTYLING, start, INDICS_MASK);
-			scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSTYLING, end-start+1, 0);
+			scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_STARTSTYLING, start, INDICS_MASK);
+			scintilla_send_message (SCINTILLA (te->widgets.editor),
+									SCI_SETSTYLING, end-start+1, 0);
 		}
 	} else {
 		if (indicator < 0) {
 			glong last;
-			last = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETTEXTLENGTH, 0, 0);
+			last = scintilla_send_message (SCINTILLA (te->widgets.editor),
+										   SCI_GETTEXTLENGTH, 0, 0);
 			if (last > 0) {
-				scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_STARTSTYLING, 0, INDICS_MASK);
-				scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_SETSTYLING, last, 0);
+				scintilla_send_message (SCINTILLA (te->widgets.editor),
+										SCI_STARTSTYLING, 0, INDICS_MASK);
+				scintilla_send_message (SCINTILLA (te->widgets.editor),
+										SCI_SETSTYLING, last, 0);
 			}
 		}
 	}
+	return 0;
 }
 
 void
@@ -749,7 +772,9 @@ load_from_file (TextEditor * te, gchar * fn)
 	nchars = fread (buffer, 1, size, fp);
 	
 	if (size != nchars) g_warning ("File size and loaded size not matching");
-	dos_filter = preferences_get_int ( te->preferences, DOS_EOL_CHECK);
+	dos_filter = 
+		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
+									DOS_EOL_CHECK);
 	
 	/* Set editor mode */
 	editor_mode =  determine_editor_mode(buffer, nchars);
@@ -789,7 +814,7 @@ save_to_file (TextEditor * te, gchar * fn)
 	fp = fopen (fn, "wb");
 	if (!fp)
 		return FALSE;
-	strip = prop_get_int (te->props_base, "strip.trailing.spaces", 1);
+	strip = prop_get_int (te->props_base, STRIP_TRAILING_SPACES, 0);
 	nchars = scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_GETLENGTH, 0, 0);
 	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
@@ -800,12 +825,18 @@ save_to_file (TextEditor * te, gchar * fn)
 		gint dos_filter, editor_mode;
 		
 		size = strlen (data);
+		/* Strip trailing spaces */
+		if (strip)
+		{
+			while (size > 0 && isspace(data[size - 1]))
+				-- size;
+		}
 		if ((size > 1) && ('\n' != data[size-1]))
 		{
 			data[size] = '\n';
 			++ size;
 		}
-		dos_filter = preferences_get_int( te->preferences, DOS_EOL_CHECK );
+		dos_filter = anjuta_preferences_get_int( te->preferences, DOS_EOL_CHECK );
 		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_GETEOLMODE, 0, 0);
 #ifdef DEBUG
@@ -860,7 +891,7 @@ text_editor_load_file (TextEditor * te)
 	scintilla_send_message (SCINTILLA (te->widgets.editor),
 				SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te);
-	if (preferences_get_int (te->preferences, FOLD_ON_OPEN))
+	if (anjuta_preferences_get_int (te->preferences, FOLD_ON_OPEN))
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
 	}
@@ -891,7 +922,7 @@ text_editor_save_file (TextEditor * te)
 	{
 		te->modified_time = time (NULL);
 		tags_update =
-			preferences_get_int (te->preferences,
+			anjuta_preferences_get_int (te->preferences,
 					     AUTOMATIC_TAGS_UPDATE);
 		if (tags_update)
 		{
@@ -903,8 +934,17 @@ text_editor_save_file (TextEditor * te)
 			{
 				check_tm_file(te);
 				if (te->tm_file)
+				{
+					GList *tmp;
+					TextEditor *te1;
 					tm_source_file_update(TM_WORK_OBJECT(te->tm_file)
 					  , FALSE, FALSE, TRUE);
+					for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
+					{
+						te1 = (TextEditor *) tmp->data;
+						text_editor_set_hilite_type(te1);
+					}
+				}
 			}
 		}
 		/* we need to update UI with the call to scintilla */
@@ -930,15 +970,13 @@ text_editor_recover_yourself (TextEditor * te, FILE * stream)
 }
 
 void
-text_editor_update_preferences (TextEditor * te)
+text_editor_update_preferences (AnjutaPreferences *pr, TextEditor * te)
 {
-	Preferences *pr;
 	gboolean auto_save;
 	guint auto_save_timer;
 
-	auto_save = preferences_get_int (te->preferences, SAVE_AUTOMATIC);
-	auto_save_timer =
-		preferences_get_int (te->preferences, AUTOSAVE_TIMER);
+	auto_save = anjuta_preferences_get_int (pr, SAVE_AUTOMATIC);
+	auto_save_timer = anjuta_preferences_get_int (pr, AUTOSAVE_TIMER);
 
 	g_return_if_fail (te != NULL);
 	pr = te->preferences;
@@ -974,8 +1012,8 @@ text_editor_update_preferences (TextEditor * te)
 		te->autosave_on = FALSE;
 	}
 	text_editor_set_hilite_type (te);
-	text_editor_set_zoom_factor(te, preferences_get_int (te->preferences,
-														 "text.zoom.factor"));
+	text_editor_set_zoom_factor(te, anjuta_preferences_get_int (pr,
+														 TEXT_ZOOM_FACTOR));
 }
 
 gboolean
@@ -1147,7 +1185,7 @@ text_editor_autoformat (TextEditor * te)
 
 	if (anjuta_is_installed ("indent", TRUE) == FALSE)
 		return;
-	if (preferences_get_int (app->preferences, AUTOFORMAT_DISABLE))
+	if (anjuta_preferences_get_int (app->preferences, AUTOFORMAT_DISABLE))
 	{
 		anjuta_warning (_("Auto format is currently disabled. Change the setting in Preferences."));
 		return;
@@ -1169,7 +1207,7 @@ text_editor_autoformat (TextEditor * te)
 		return;
 	}
 
-	fopts = preferences_get (te->preferences, AUTOFORMAT_CUSTOM_STYLE);
+	fopts = anjuta_preferences_get (te->preferences, AUTOFORMAT_CUSTOM_STYLE);
 	cmd = g_strconcat ("indent ", fopts, " ", file, NULL);
 	g_free (fopts);
 
@@ -1235,6 +1273,7 @@ text_editor_delete_marker (TextEditor* te, glong line, gint marker)
 	scintilla_send_message (SCINTILLA(te->widgets.editor),
 		SCI_MARKERDELETE, linenum_text_editor_to_scintilla (line), marker);
 }
+
 gint
 text_editor_line_from_handle (TextEditor* te, gint marker_handle)
 {
@@ -1252,7 +1291,6 @@ gint text_editor_get_bookmark_line( TextEditor* te, const glong nLineStart )
 {
 	return aneditor_command (te->editor_id, ANE_GETBOOKMARK_POS, nLineStart, 0 );
 }
-
 
 gint text_editor_get_num_bookmarks(TextEditor* te)
 {
