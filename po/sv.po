@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2001-12-19 04:25+0100\n"
-"PO-Revision-Date: 2001-12-19 04:25+0100\n"
+"POT-Creation-Date: 2001-12-21 17:58+0100\n"
+"PO-Revision-Date: 2001-12-21 17:58+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "Lägg till funktion"
 msgid "Function declaration:"
 msgstr "Funktionsdeklaration:"
 
-#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
+#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:149
 #: src/project_dbase_gui.c:1185
 #, c-format
 msgid "Couldn't find pixmap file: %s"
@@ -196,18 +196,18 @@ msgid "Both C and C++"
 msgstr "Både C och C++"
 
 #: src/appwiz_page3.c:112
-msgid "Enter a short project description"
-msgstr "Ange en kort projektbeskrivning"
+msgid "Enter a short description of the Project"
+msgstr "Ange en kort beskrivning av projektet"
 
-#: src/appwiz_page3.c:160
+#: src/appwiz_page3.c:162
 msgid "Executable target"
 msgstr "Körbart mål"
 
-#: src/appwiz_page3.c:167
+#: src/appwiz_page3.c:169
 msgid "Static library target"
 msgstr "Statiskt biblioteksmål"
 
-#: src/appwiz_page3.c:173
+#: src/appwiz_page3.c:175
 msgid "Dynamic library target"
 msgstr "Dynamiskt biblioteksmål"
 
@@ -284,7 +284,7 @@ msgstr "Språk:           "
 msgid "Gettext Support: "
 msgstr "Gettext-stöd:    "
 
-#: src/appwizard_gui.c:36
+#: src/appwizard_gui.c:38
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -305,27 +305,27 @@ msgstr ""
 "kan vara omöjligt att ändra en del av\n"
 "inställningarna senare."
 
-#: src/appwizard_gui.c:99 src/appwizard_gui.c:131
+#: src/appwizard_gui.c:101 src/appwizard_gui.c:133
 msgid "Application Wizard"
 msgstr "Programguide"
 
-#: src/appwizard_gui.c:161
+#: src/appwizard_gui.c:163
 msgid "Project Type"
 msgstr "Projekttyp"
 
-#: src/appwizard_gui.c:186
+#: src/appwizard_gui.c:188
 msgid "Basic Information"
 msgstr "Grundläggande information"
 
-#: src/appwizard_gui.c:212 src/project_config.c:748
+#: src/appwizard_gui.c:214 src/project_config.c:748
 msgid "Project Description"
 msgstr "Projektbeskrivning"
 
-#: src/appwizard_gui.c:237 src/compiler_options_gui.c:1104
+#: src/appwizard_gui.c:239 src/compiler_options_gui.c:1104
 msgid "Additional Options"
 msgstr "Ytterligare alternativ"
 
-#: src/appwizard_gui.c:265
+#: src/appwizard_gui.c:267
 msgid "Summary"
 msgstr "Sammanfattning"
 
