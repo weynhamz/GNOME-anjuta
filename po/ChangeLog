@@ -1,3 +1,12 @@
+2001-08-26  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Updated Swedish translation. Thanks to
+	Göran Weinholt <weinholt@telia.com> for a really amazing amount of
+	help!
+
+	* POTFILES.in: Added anjuta.desktop.in.in so that we can translate it
+	with xml-i18n-tools.
+
 2001-08-21  Stephane Demurget <demurgets@free.fr>
 
 	* fr.po: updated to latest sources.

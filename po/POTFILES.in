@@ -1,10 +1,17 @@
 # List of source files containing translatable strings.
+# Please keep this list in alphabetical order.
 
 ## Created by Anjuta - will be overwritten
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
 # Source files
+anjuta.desktop.in.in
+ccview/cccmd.cc
+ccview/cccproj.cc
+ccview/ccview_main.cc
+ccview/func_dialog.cc
+ccview/support.c
 src/aneditor.cxx
 src/aneditor.h
 src/anjuta.h
@@ -162,11 +169,3 @@ src/resources.c
 src/resources.h
 src/notebook.c
 src/notebook.h
-
-anjuta.desktop.in
-
-ccview/cccmd.cc
-ccview/cccproj.cc
-ccview/ccview_main.cc
-ccview/func_dialog.cc
-ccview/support.c
