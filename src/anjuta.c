@@ -1859,12 +1859,16 @@ plug_in_delete( AnjutaAddInPtr self )
 	
 	if( self->m_Handle && self->CleanUp )
 		(*self->CleanUp)( self->m_Handle, self->m_UserData, app );
+
 	if( NULL != self->m_szModName )
 		g_free( self->m_szModName );
+
 	if( self->m_Handle )
 		g_module_close( self->m_Handle );
+
 	self->m_Handle	= NULL ;
-	free( self );
+
+	g_free( self );
 }
 
 
