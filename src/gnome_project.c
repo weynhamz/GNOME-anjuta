@@ -153,6 +153,8 @@ create_new_project (AppWizard * aw)
 		//free_project_type(type);
 		//type = NULL ;
 	}
+	fprintf(fp, "compiler.options.warning.buttons=0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 \n");
+	fprintf(fp, "compiler.options.optimize.buttons=1 0 0 0 \n\n");
 	fclose(fp);
 	an_message_manager_append (app->messages, _("Loading Project ...\n"),
 								   MESSAGE_BUILD);

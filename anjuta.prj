@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.2.0
+anjuta.version=1.1.98
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -54,11 +54,11 @@ anjuta.program.arguments=
 preferences.build.option.jobs=0
 preferences.build.option.silent=0
 preferences.build.option.autosave=0
+preferences.anjuta.make.options=-k
 preferences.make=make
 preferences.build.option.keep.going=0
 preferences.build.option.warn.undef=0
 preferences.autoformat.custom.style=-bad -bap -bbb -sob -nbbo -nbc -bl -fca -fc1 -lc78 -d0 -c50 -cd33 -cp10 -sc -ncdb -bl -bli0 -ncdw -cli0 -cbi4 -ss -pcs -cs -bs -saf -sai -saw -di16 -nbfda -psl -brs -i8 -ci4 -lp -ts4 -l78 -nhnl -pmt
-preferences.autoformat.style=Custom style
 preferences.indent.opening=0
 preferences.autoformat.disable=0
 preferences.indent.automatic=1
