@@ -242,7 +242,7 @@ escape_quotes(gchar* str)
 void
 executer_execute (Executer * e)
 {
-	gchar *dir, *cmd, *command, *escaped_cmd;
+	gchar *dir, *cmd, *command;
 
 	/* Doing some checks before actualing starting */
 	if (app->project_dbase->project_is_open) /* Project mode */
@@ -346,30 +346,34 @@ executer_execute (Executer * e)
 		dir = g_dirname (te->full_filename);
 	}
 	command = g_strconcat ("anjuta_launcher ", cmd, NULL);
-
-#ifdef DEBUG
-	g_message("Raw Command is: %s", command);
-#endif
-	
-	escaped_cmd = escape_quotes(command);
-	g_free(command);
-	command = escaped_cmd;
-
-#ifdef DEBUG
-	g_message("Raw Command is: %s", command);
-#endif
-	
-	prop_set_with_key (e->props, "anjuta.current.command", command);
 	string_free (cmd);
+
+#ifdef DEBUG
+	g_message("Raw Command is: %s", command);
+#endif
 	
 	/* Get command and execute */
 	if(e->terminal)
-		cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
-	else
-		cmd = g_strdup (command);
+	{
+		gchar* escaped_cmd;
+		escaped_cmd = escape_quotes(command);
+		prop_set_with_key (e->props, "anjuta.current.command", escaped_cmd);
 
 #ifdef DEBUG
-	g_message("Command is: %s", cmd);
+		g_message("Escaped Command is: %s", escaped_cmd);
+#endif
+		
+		cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
+		g_free(escaped_cmd);
+	}
+	else
+	{
+		prop_set_with_key (e->props, "anjuta.current.command", command);
+		cmd = g_strdup (command);
+	}
+
+#ifdef DEBUG
+	g_message("Final Command is: %s", cmd);
 #endif
 	
 	anjuta_set_execution_dir (dir);

@@ -26,6 +26,7 @@ EXTRA_DIST = \
 	xml-i18n-merge.in \
 	xml-i18n-update.in \
 	autogen.sh \
+	anjuta.prj\
 	$(anjutadoc_DATA)
 
 @XML_I18N_MERGE_DESKTOP_RULE@

@@ -1,3 +1,14 @@
+2002-01-28  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/executer.c:
+	
+	  Because of the spaces escaping, the command could not be
+	  executed when run without terminal. Now fixed.
+	  
+	* anjuta.prj, Makefile.am:
+	
+	  Added anjuta project file.
+	
 2002-01-27  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/message-manager-private.h, message-manager-private.cc,
