@@ -113,12 +113,9 @@ on_insert_header_template(GtkAction * action, gpointer user_data)
 void
 on_insert_header(GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *editor;
-	AnjutaPreferences *prefs;
-	prefs = get_preferences (ANJUTA_PLUGIN (user_data));
-	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	if(editor)
-		insert_header(editor, prefs, CMT_C);
+	IAnjutaMacro *macro = get_macro(user_data);
+	if (macro)
+		ianjuta_macro_insert (macro, "Header_c", NULL);
 }
 
 void

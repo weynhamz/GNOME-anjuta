@@ -1,5 +1,13 @@
 2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
+	* plugins/file-wizard/action-callbacks.c, plugins/macro/macro-util.c, 
+	plugins/macro/macros.xml :
+	
+	Fixed a bug. Added Header macro.
+
+	
+2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
 	* plugins/file-wizard/action-callbacks.c, 
 	plugins/file-wizard/file.c, plugins/macro/macro-util.c
 	plugins/macro/macros.xml :

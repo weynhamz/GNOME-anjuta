@@ -23,10 +23,13 @@ get_date_time(void)
 {
 	time_t cur_time = time(NULL);
 	gchar *DateTime;
+	gchar *buffer;
 
 	DateTime = g_new(gchar, 100);
 	sprintf(DateTime,ctime(&cur_time));
-	return DateTime;
+	buffer = g_strndup(DateTime, strlen(DateTime) - 1);
+	g_free(DateTime);
+	return buffer;
 }
 
 static gchar *
@@ -110,7 +113,7 @@ get_filename(MacroPlugin * plugin)
 	gchar *filename;
 	
 	te = get_current_editor (plugin);
-	filename = ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL);	
+	filename = g_strdup(ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL));	
 
 	return filename;
 }
@@ -118,8 +121,12 @@ get_filename(MacroPlugin * plugin)
 static gchar *
 get_filename_up(MacroPlugin * plugin)
 {
+	gchar *name;
+	
 	gchar *filename = get_filename(plugin);
-	return g_ascii_strup(get_filename(plugin), -1);
+	name = g_ascii_strup(filename, -1);
+	g_free(filename);
+	return name;
 }
 
 static gchar *

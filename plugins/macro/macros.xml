@@ -112,5 +112,13 @@ extern "C"
 
 #endif /* _@FILE_NAME_UP_PREFIX@_H */
 ]]></macro>
+<macro _name="Header_c" _category="EXPAND" _shortcut=""><![CDATA[/***************************************************************************
+ *            @FILE_NAME@
+ *
+ *  @DATE_TIME@
+ *  Copyright  @DATE_Y@  @USER_NAME@
+ *  <@EMAIL@>
+ ****************************************************************************/
 
+]]></macro>
 </anjuta-macros>
