@@ -93,14 +93,6 @@ src/file_history.c
 src/file_history.h
 src/fileselection.c
 src/fileselection.h
-src/find_in_files.c
-src/find_in_files.h
-src/find_in_files_cbs.c
-src/find_in_files_cbs.h
-src/find_replace.c
-src/find_replace.h
-src/find_text.c
-src/find_text.h
 src/glade_iface.c
 src/glade_iface.h
 src/global.h
@@ -153,6 +145,7 @@ src/registers_gui.c
 src/resources.c
 src/resources.h
 src/search-replace.c
+src/search_incremental.c
 src/session.c
 src/session.h
 src/sharedlib.c
