@@ -1,5 +1,19 @@
 2001-09-21  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/message.c:
+	
+	one extra button for message win is being created -- Fixed.
+	
+	The frame should be hidden and not only the pix_lab when
+	that message pane is hidden (aBts[nIndex].bVisible == FALSE)
+	-- Fixed.
+	
+	* pixmaps/mini_locals.xpm (new file), pixmaps/Makefile.am: 
+	
+	For the time being it is same as mini_cvs.xpm.
+	
+2001-09-21  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/find_repace.c: Fixed the vanishing find/replace dialog box.
 
 	Patch from rikul <null@acm.org>

@@ -505,7 +505,7 @@ static char *MGetCaption( const MessageType type )
 	case MESSAGE_DEBUG: return _("Debug messages"); break;
 	case MESSAGE_FIND: return _("Find messages"); break;
 	case MESSAGE_CVS: return _("CVS messages"); break;
-	case MESSAGE_LOCALS: return _("Locals"); break;
+	case MESSAGE_LOCALS: return _("Debug Locals Listing"); break;
 	}
 }
 
@@ -545,7 +545,6 @@ msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1,
 	GtkWidget *pix_lab;
 	
 	frame = gtk_frame_new (NULL);
-	gtk_widget_show (frame);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1),
 				   frame, MGetCaption(nIndex), NULL);
 	gtk_widget_set_usize (frame, 80, -1);
@@ -560,8 +559,11 @@ msg_create_buttons(GtkWidget *mesg_gui, GtkWidget *toolbar1,
 	pix_lab =
 		create_xpm_label_box (mesg_gui, aBts[nIndex].nBitmapID, FALSE,
 							MGetStr(nIndex) );
+	gtk_widget_show (pix_lab);
+	
 	if( aBts[nIndex].bVisible )
-		gtk_widget_show (pix_lab);
+		gtk_widget_show (frame);
+	
 	gtk_container_add (GTK_CONTAINER (button), pix_lab);
 	return button ;
 }
@@ -617,7 +619,7 @@ create_mesg_gui (Messages * m)
 	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
 				     GTK_TOOLBAR_SPACE_LINE);
 
-	for( i =0 ; i < MESSAGE_TYPE_END+1 ; i ++ )
+	for( i =0 ; i < MESSAGE_TYPE_END; i ++ )
 		button[i] = msg_create_buttons( mesg_gui, toolbar1, i, (MESSAGE_BUILD==i)?TRUE:FALSE );
 
 
