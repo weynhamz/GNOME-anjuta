@@ -27,11 +27,10 @@
 
 #define COMPATIBILITY_LEVEL    1
 
-typedef enum _ProjectType ProjectType;
+//typedef enum _ProjectType ProjectType;
 typedef struct _ProjectDBase ProjectDBase;
 typedef struct _ProjectDBaseGui ProjectDBaseGui;
 typedef struct _ProjectFileData ProjectFileData;
-typedef enum _PrjModule PrjModule;
 
 /* Do not break the sequence of the following enums.*/
 /* only append */
@@ -46,6 +45,7 @@ enum _PrjModule
 	MODULE_PO,
 	MODULE_END_MARK
 };
+typedef enum _PrjModule PrjModule;
 
 /* Do not break the sequence of the following enums.*/
 /* only append */

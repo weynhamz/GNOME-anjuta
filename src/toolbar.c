@@ -358,7 +358,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 
 	toolbar->toolbar = toolbar1;
 
-	toolbar->new = toolbar_new;
+	toolbar->novus = toolbar_new;
 	toolbar->open = toolbar_open;
 	toolbar->save = toolbar_save;
 	toolbar->save_all = toolbar_save_all;

@@ -29,6 +29,10 @@
 #include "attach_process.h"
 #include "project_dbase.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define DB_CMD_NONE			0x0
 #define DB_CMD_SO_MESG		0x1
 #define DB_CMD_SE_DIALOG	0x2
@@ -154,5 +158,10 @@ void on_debugger_update_prog_status (GList * lines, gpointer data);
 void debugger_reload_session_breakpoints( ProjectDBase *p);
 void debugger_save_session_breakpoints( ProjectDBase *p );
 gboolean debugger_is_engaged(void);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -2,6 +2,18 @@
 
 	* pixmaps/anjuta_splash.png: New splash from Misha.
 	
+	Patch from: Pierre Sarrazin <sarrazip@sympatico.ca>
+	
+	* src/breakpoints.h, src/debugger.h, src/project_dbase.h,
+	src/text_editor.c, src/text_editor.h, src/text_editor_gui.c,
+	src/toolbar.c, src/toolbar.h: C++ fixes so that these could work
+	with c++ sources.
+	
+	* src/aneditor.cxx: Automatic expression tips during debugging
+	session.
+	
+	* NEWS: Updated.
+	
 2002-06-28  patch from Jens Georg <mail@jensgeorg.de>
 
 	* doc/Makefile.am, configure.in: Updated for new launcher manpage.

@@ -24,13 +24,13 @@
 #include "text_editor.h"
 #include "project_dbase.h"
 
-typedef enum _BreakpointType BreakpointType;
 typedef struct _BreakpointItem BreakpointItem;
 typedef struct _BreakpointsDBase BreakpointsDBase;
 typedef struct _BreakpointsDBaseGui BreakpointsDBaseGui;
 
 enum _BreakpointType
 { breakpoint, watchpoint, catchpoint };
+typedef enum _BreakpointType BreakpointType;
 
 struct _BreakpointItem
 {

@@ -33,7 +33,6 @@
 typedef struct _TextEditorButtons TextEditorButtons;
 typedef struct _TextEditorGui TextEditorGui;
 typedef struct _TextEditor TextEditor;
-typedef enum _TextEditorMode TextEditorMode;
 typedef struct _TextEditorGeom TextEditorGeom;
 
 enum _TextEditorMode
@@ -41,6 +40,7 @@ enum _TextEditorMode
 	TEXT_EDITOR_PAGED,
 	TEXT_EDITOR_WINDOWED
 };
+typedef enum _TextEditorMode TextEditorMode;
 
 struct _TextEditorGeom
 {
@@ -49,7 +49,7 @@ struct _TextEditorGeom
 
 struct _TextEditorButtons
 {
-	GtkWidget *new;
+	GtkWidget *novus;  /* Old name was 'new', which is a C++ token */
 	GtkWidget *open;
 	GtkWidget *save;
 	GtkWidget *reload;

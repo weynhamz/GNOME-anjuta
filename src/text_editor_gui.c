@@ -364,7 +364,7 @@ create_text_editor_gui (TextEditor * te)
 	te->widgets.tab_label = NULL;	/* Created later */
 	te->widgets.close_pixmap = NULL;	/* Created later */
 	
-	te->buttons.new = button1;
+	te->buttons.novus = button1;
 	te->buttons.open = button2;
 	te->buttons.save = button3;
 	te->buttons.reload = button5;
@@ -378,8 +378,8 @@ create_text_editor_gui (TextEditor * te)
 	te->buttons.print = button14;
 	te->buttons.attach = button13;
 
-	gtk_widget_ref (te->buttons.new);
-	gtk_widget_ref (te->buttons.new);
+	gtk_widget_ref (te->buttons.novus);
+	gtk_widget_ref (te->buttons.novus);
 	gtk_widget_ref (te->buttons.open);
 	gtk_widget_ref (te->buttons.save);
 	gtk_widget_ref (te->buttons.reload);

@@ -16,6 +16,7 @@ New: enhanced Evolution-style about dialog
 New: better GNOME integration, now uses configured GNOME URL 
      handlers
 New: Anjuta kickstart tutorial
+New: Automatic expression tips durring debugging (hover-and-show).
 
 Updated: synced to Scintilla 1.46
 Updated: many usability improvements to the GUI and menus

@@ -54,6 +54,13 @@
 
 #include "tm_tagmanager.h"
 
+#include <string>
+#include <memory>
+
+using namespace std;
+
+#include "debugger.h"
+
 // #define DEBUG
 
 #define ANE_MARKER_BOOKMARK 0
@@ -196,6 +203,9 @@ protected:
 	void BraceMatch();
 	bool GetCurrentWord(char* buffer, int maxlength);
 
+	bool FindWordInRegion(char *buffer, int maxlength, char *linebuf, int current);
+	bool GetWordAtPosition(char* buffer, int maxlength, int pos);
+
 	void IndentationIncrease();
 	void IndentationDecrease();
 	void ClearDocument();
@@ -222,6 +232,7 @@ protected:
 	void Expand(int &line, bool doExpand, bool force=false, 
 		int visLevels=0, int level=-1);
 	bool MarginClick(int position,int modifiers);
+	void HandleDwellStart(int mousePos);
 	void Notify(SCNotification *notification);
 
 	void BookmarkToggle( int lineno = -1 );
@@ -275,7 +286,22 @@ public:
 
 	void FocusInEvent(GtkWidget* widget);
 	void FocusOutEvent(GtkWidget* widget);
+	void EvalOutputArrived(GList* lines, int textPos, const string &expression);
 };
+
+
+class ExpressionEvaluationTipInfo
+// Utility class to help displaying expression values in tips.
+{
+public:
+	AnEditor *editor;
+	int textPos;
+	string expression;
+
+	ExpressionEvaluationTipInfo(AnEditor *e, int pos, const string &expr)
+	  : editor(e), textPos(pos), expression(expr) {}
+};
+
 
 static void lowerCaseString(char *s);
 
@@ -368,6 +394,10 @@ AnEditor::AnEditor(PropSetFile* p) {
 	SendEditor(SCI_USEPOPUP, false);
 	/* Set default editor mode */
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
+
+
+	/* Ask for SCN_DWELLSTART and SCN_DWELLEND events: */
+	SendEditor(SCI_SETMOUSEDWELLTIME, 750 /*milliseconds*/);
 }
 
 void
@@ -811,24 +841,53 @@ bool AnEditor::StartAutoComplete() {
 	return true;
 }
 
-bool AnEditor::GetCurrentWord(char* buffer, int lenght){
+bool AnEditor::GetCurrentWord(char* buffer, int length) {
 	char linebuf[1000];
 	int current = GetLine(linebuf, sizeof(linebuf));
+	return FindWordInRegion(buffer, length, linebuf, current);
+}
 
-	int startword = current;
-	while (startword> 0 && !nonFuncChar(linebuf[startword - 1]))
+bool AnEditor::FindWordInRegion(char *word, int maxlength, char *region, int offset) {
+/*
+	Tries to find a word in the region designated by 'region'
+	around the position given by 'offset' in that region.
+	If a word is found, it is copied (with a terminating '\0'
+	character) into 'word', which must be a buffer of at least
+	'maxlength' characters; the method then returns true.
+	If no word is found, the buffer designated by 'word'
+	remains unmodified and the method returns false.
+*/
+	int startword = offset;
+	while (startword> 0 && !nonFuncChar(region[startword - 1]))
 		startword--;
-	int endword = current;
-	while (linebuf[endword] && !nonFuncChar(linebuf[endword]))
+	int endword = offset;
+	while (region[endword] && !nonFuncChar(region[endword]))
 		endword++;
 	if(startword == endword)
 		return false;
 	
-	linebuf[endword] = '\0';
-	int cplen = (lenght < (endword-startword+1))?lenght:(endword-startword+1);
-	strncpy (buffer, &linebuf[startword], cplen);
+	region[endword] = '\0';
+	int cplen = (maxlength < (endword-startword+1))?maxlength:(endword-startword+1);
+	strncpy (word, &region[startword], cplen);
 	return true;
 }
+
+bool AnEditor::GetWordAtPosition(char* buffer, int maxlength, int pos) {
+/*
+	Tries to find a word around position 'pos' in the text
+	and writes this '\0'-terminated word to 'buffer',
+	which must be a buffer of at least 'maxlength' characters.
+	Returns true if a word is found, false otherwise.
+*/
+	const int radius = 500;
+	int start = (pos >= radius ? pos - radius : 0);
+	int doclen = LengthDocument();
+	int end = (doclen - pos >= radius ? pos + radius : doclen);
+	char chunk[2 * radius + 1];
+	GetRange(start, end, chunk, false);
+	return FindWordInRegion(buffer, maxlength, chunk, pos - start);
+}
+
 
 #if 0 // Already defined in glib
 const char *strcasestr(const char *str, const char *pattn) {
@@ -1692,6 +1751,112 @@ void AnEditor::NotifySignal(GtkWidget *, gint /*wParam*/, gpointer lParam, AnEdi
 	anedit->Notify(reinterpret_cast<SCNotification *>(lParam));
 }
 
+
+static void
+eval_output_arrived_for_aneditor(GList* lines, gpointer data)
+{
+	// We expect lines->data to be a string of the form VARIABLE = VALUE,
+	// and 'data' to be a pointer to an object of type
+	// 'ExpressionEvaluationTipInfo'.
+
+	if (data == NULL)
+		return;
+
+	auto_ptr<ExpressionEvaluationTipInfo> info(
+			(ExpressionEvaluationTipInfo *) data);
+
+	if (info->editor == NULL)
+	    return;
+
+	info->editor->EvalOutputArrived(lines, info->textPos, info->expression);
+}
+
+
+void AnEditor::EvalOutputArrived(GList* lines, int textPos, const string &expression) {
+	if (textPos <= 0)
+	    return;
+	if (g_list_length(lines) == 0 || lines->data == NULL)
+	    return;
+
+	string result = (char *) lines->data;
+	string::size_type posEquals = result.find(" = ");
+	if (posEquals != string::npos)
+	    result.replace(0, posEquals, expression);
+
+	SendEditorString(SCI_CALLTIPSHOW, textPos, result.c_str());
+	SendEditor(SCI_CALLTIPSETHLT, 0, result.length());
+}
+
+
+void AnEditor::HandleDwellStart(int mousePos) {
+	if (mousePos == -1)
+		return;
+
+	char expr[256];
+
+	CharacterRange crange = GetSelection();
+	if (crange.cpMin == crange.cpMax
+			|| mousePos < crange.cpMin
+			|| mousePos >= crange.cpMax)
+	{
+		// There is no selection, or the mouse pointer is
+		// out of the selection, so we search for a word
+		// around the mouse pointer:
+		if (!GetWordAtPosition(expr, sizeof(expr), mousePos))
+			return;
+	}
+	else
+	{
+		long lensel = crange.cpMax - crange.cpMin;
+		long max = sizeof(expr) - 1;
+		guint end = (lensel < max ? crange.cpMax : crange.cpMin + max);
+		GetRange(crange.cpMin, end, expr, false);
+
+		// If there is any control character except TAB
+		// in the expression, disregard it.
+		size_t i;
+		for (i = 0; i < end - crange.cpMin; i++)
+			if ((unsigned char) expr[i] < ' ' && expr[i] != '\t')
+				return;
+		if (i < end - crange.cpMin)
+		    return;
+	}
+
+	if (!debugger_is_active() || !debugger_is_ready())
+	{
+		string s = string(expr) + ": " + _("debugger not active");
+		SendEditorString(SCI_CALLTIPSHOW, mousePos, s.c_str());
+		return;
+	}
+
+	// Imitation of on_eval_ok_clicked():
+	// The function eval_output_arrived_for_aneditor() will
+	// be called eventually by the debugger with the result
+	// of the print command for 'expr', and with the 'info'
+	// pointer.  That function must call delete on 'info'.
+	//
+	// We don't turn GDB "pretty printing" on because we want
+	// the entire value on a single line, in the case of a
+	// struct or class.
+	// We don't want static members of classes to clutter up
+	// the displayed tip, however.
+
+	debugger_put_cmd_in_queqe ("set verbose off", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set print static-members off",
+				DB_CMD_NONE, NULL, NULL);
+	gchar *printcmd = g_strconcat ("print ", expr, NULL);
+	ExpressionEvaluationTipInfo *info =
+			new ExpressionEvaluationTipInfo(this, mousePos, expr);
+	debugger_put_cmd_in_queqe (printcmd, DB_CMD_NONE,
+				eval_output_arrived_for_aneditor, info);
+	debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
+	debugger_put_cmd_in_queqe ("set print static-members on",
+				DB_CMD_NONE, NULL, NULL);
+	g_free (printcmd);
+	debugger_execute_cmd_in_queqe ();
+}
+
+
 void AnEditor::Notify(SCNotification *notification) {
 	switch (notification->nmhdr.code) {
 	case SCN_KEY:{
@@ -1739,6 +1904,15 @@ void AnEditor::Notify(SCNotification *notification) {
 			EnsureRangeVisible(notification->position, notification->position + notification->length);
 		}
 		break;
+
+	case SCN_DWELLSTART:
+		HandleDwellStart(notification->position);
+		break;
+
+	case SCN_DWELLEND:
+		SendEditor(SCI_CALLTIPCANCEL);
+		break;
+
 	}
 }
 

@@ -238,8 +238,8 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_unref (te->widgets.client);
 		gtk_widget_unref (te->widgets.line_label);
 		gtk_widget_unref (te->widgets.editor);
-		gtk_widget_unref (te->buttons.new);
-		gtk_widget_unref (te->buttons.new);
+		gtk_widget_unref (te->buttons.novus);
+		gtk_widget_unref (te->buttons.novus);
 		gtk_widget_unref (te->buttons.open);
 		gtk_widget_unref (te->buttons.save);
 		gtk_widget_unref (te->buttons.reload);

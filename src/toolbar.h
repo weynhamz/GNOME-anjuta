@@ -32,7 +32,7 @@ struct _MainToolbar
 {
 	GtkWidget *toolbar;
 
-	GtkWidget *new;
+	GtkWidget *novus;  /* Old name was 'new', which is a C++ token */
 	GtkWidget *open;
 
 	GtkWidget *save;
