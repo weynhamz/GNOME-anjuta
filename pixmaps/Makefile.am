@@ -151,4 +151,10 @@ anjuta_pixmaps_DATA = \
 	watch.xpm \
 	wizard.xpm
 
-EXTRA_DIST = $(anjuta_pixmaps_DATA)
+anjuta_glade_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_pixmaps_DATA = \
+	start-with-wizard.png \
+	start-with-import.png \
+	start-with-open.png
+
+EXTRA_DIST = $(anjuta_pixmaps_DATA) $(anjuta_glade_pixmaps_DATA)

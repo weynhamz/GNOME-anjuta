@@ -491,3 +491,31 @@ gchar *s = N_("Default");
 gchar *s = N_("Use currently selected profile in GNOME terminal");
 gchar *s = N_("Terminal options");
 gchar *s = N_("Anjuta windows");
+gchar *s = N_("Anjuta start with dialog");
+gchar *s = N_("Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skelleton of various types of Project.");
+gchar *s = N_("Application Wizard");
+gchar *s = N_("Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data lose or modification done to the project.");
+gchar *s = N_("Import Wizard");
+gchar *s = N_("Open existing Project.");
+gchar *s = N_("Open last working Project");
+gchar *s = N_("Open Project");
+gchar *s = N_("Open existing file or create a new file.");
+gchar *s = N_("New file");
+gchar *s = N_("Open file");
+gchar *s = N_("Do not show start with dialog again.");
+gchar *s = N_("Anjuta setup wizard");
+gchar *s = N_("Anjuta Setup Wizard");
+gchar *s = N_("Anjuta setup wizard will guide with the initial setup of Anjuta. These setup could be changed later from Anjuta settings menu (Main menu->Settings). ");
+gchar *s = N_("Windows style");
+gchar *s = N_("Undocked style presents Anjuta\n"
+              "in with all sub-windows undocked\n"
+              "from the main window.");
+gchar *s = N_("Docked style presents Anjuta \n"
+              "in the classic IDE form with all\n"
+              "sub-windows docked on the\n"
+              "main window.");
+gchar *s = N_("Docked style");
+gchar *s = N_("Undocked style");
+gchar *s = N_("Syntax highlighting style");
+gchar *s = N_("Helper applications");
+gchar *s = N_("Summary");

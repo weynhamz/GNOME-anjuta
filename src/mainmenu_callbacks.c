@@ -2005,6 +2005,19 @@ on_set_default_preferences1_activate (GtkMenuItem * menuitem,
 }
 
 void
+on_start_with_dialog_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	start_with_dialog_show (GTK_WINDOW (app->widgets.window),
+							app->preferences, TRUE);
+}
+
+void
+on_setup_wizard_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	// TODO.
+}
+
+void
 on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {

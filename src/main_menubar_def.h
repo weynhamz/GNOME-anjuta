@@ -1706,7 +1706,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_END,
 };
 
-#define NUM_SETTINGS_SUBMENUS 11
+#define NUM_SETTINGS_SUBMENUS 14
 static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Compiler and Linker Settings ..."),
@@ -1769,7 +1769,20 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 on_tool_editor_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	 GNOMEUIINFO_END,/*11*/
+	GNOMEUIINFO_SEPARATOR,/*11*/
+	{/*12*/
+	 GNOME_APP_UI_ITEM, N_("St_art-with dialog"),
+	 N_("Show start-with dialog"),
+	 on_start_with_dialog_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{/*13*/
+	 GNOME_APP_UI_ITEM, N_("An_juta setup wizard"),
+	 N_("Setup wizard for first time run"),
+	 on_setup_wizard_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	 GNOMEUIINFO_END,/*14*/
 };
 
 #define NUM_HELP_SUBMENUS 18

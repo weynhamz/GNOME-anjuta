@@ -225,6 +225,8 @@ anjuta_SOURCES = \
 	resources.h\
 	session.c\
 	session.h\
+	start-with.c\
+	start-with.h\
 	style-editor.c\
 	style-editor.h\
 	widget-registry.h\

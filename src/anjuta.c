@@ -43,6 +43,7 @@
 #include "anjuta-plugins.h"
 #include "anjuta-tools.h"
 #include "pixmaps.h"
+#include "start-with.h"
 #include "anjuta.h"
 
 #define GTK
@@ -792,6 +793,8 @@ anjuta_show ()
 	pr = ANJUTA_PREFERENCES (app->preferences)->props;
 
 	gtk_widget_show (app->widgets.window);
+	start_with_dialog_show (GTK_WINDOW (app->widgets.window),
+							app->preferences, FALSE);
 
 	/* Editor stuffs */
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
@@ -1009,6 +1012,8 @@ anjuta_save_yourself (FILE * stream)
 			
 		fprintf (stream, "%s\n\n", last_open_project_path );
 	}
+	
+	start_with_dialog_save_yourself(app->preferences, stream);
 	
 	anjuta_message_manager_save_yourself (app->messages, stream);
 	project_dbase_save_yourself (app->project_dbase, stream);

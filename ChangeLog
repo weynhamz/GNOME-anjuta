@@ -1,3 +1,17 @@
+2003-03-29  Naba Kumar  <naba@gnome.org>
+
+	* src/main_menubar_def.h, mainmenu_callbacks.[c,h], src/anjuta.c
+	src/Makefile.am, pixmaps/Makefile.am, anjuta.glade,
+	anjuta_dialogs_strings.c, (new) src/start-with.[c,h],
+	(new) pixmaps/start-with-wizard.png,
+	(new) pixmaps/start-with-import.png,
+	(new) pixmaps/start-with-open.png Added Start with dialog which pops
+	up on anjuta start-up to give quick access to opening file/project or
+	creation wizards.
+
+	* src/main.c: Sets proper data directory for the gnome
+	program.
+
 2003-03-27  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* src/text_editor.c: Fixed error/warning indicators.
 
