@@ -21,11 +21,11 @@
 #include <config.h>
 #include <gtk/gtk.h>
 
-#include <dh-book-tree.h>
-#include <dh-history.h>
-#include <dh-html.h>
-#include <dh-search.h>
-#include <dh-base.h>
+#include <devhelp/dh-book-tree.h>
+#include <devhelp/dh-history.h>
+#include <devhelp/dh-html.h>
+#include <devhelp/dh-search.h>
+#include <devhelp/dh-base.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include "plugin.h"
