@@ -29,11 +29,14 @@
  *
  * Modification history:
  *
- * Revision 1.9  2002/06/04 18:35:56  andyp
- * Fixed commenting problems
+ * $Log$
+ * Revision 1.11.2.1  2002/11/20 07:32:03  naba
+ * 	* scintilla/*/*: Synced to latest scintilla 1.49
+ * 	* scintilla/LexAsm.cxx, scintilla/LexFortran.cxx, src/Makefile.am:
+ * 	New lexers added.
  *
- * Revision 1.8  2002/05/29 15:48:43  naba
- * Upgraded to the vanilla scintilla 1.46
+ * Revision 1.7  2002/09/28 00:33:28  nyamatongwe
+ * Fixed problem with character ranges caused by expansion to 8 bits.
  *
  * Revision 1.6  2001/04/29 13:32:10  nyamatongwe
  * Addition of new target methods - versions of ReplaceTarget that take counted
@@ -690,7 +693,7 @@ static char chrtyp[MAXCHR] = {
 
 #define ANYSKIP	2 	/* [CLO] ANY END ...	     */
 #define CHRSKIP	3	/* [CLO] CHR chr END ...     */
-#define CCLSKIP 18	/* [CLO] CCL 16bytes END ... */
+#define CCLSKIP 34	/* [CLO] CCL 32bytes END ... */
 
 int RESearch::PMatch(CharacterIndexer &ci, int lp, int endp, char *ap) {
 	int op, c, n;

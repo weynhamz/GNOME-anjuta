@@ -64,11 +64,18 @@ void ScintillaBase::RefreshColourPalette(Palette &pal, bool want) {
 }
 
 void ScintillaBase::AddCharUTF(char *s, unsigned int len, bool treatAsDBCS) {
-	bool acActiveBeforeCharAdded = ac.Active();
-	if (!acActiveBeforeCharAdded || !ac.IsFillUpChar(*s))
+	bool isFillUp = ac.Active() && ac.IsFillUpChar(*s);
+	if (!isFillUp) {
 		Editor::AddCharUTF(s, len, treatAsDBCS);
-	if (acActiveBeforeCharAdded)
-		AutoCompleteChanged(s[0]);
+	}
+	if (ac.Active()) {
+		AutoCompleteCharacterAdded(s[0]);
+		// For fill ups add the character after the autocompletion has 
+		// triggered so containers see the key so can display a calltip.
+		if (isFillUp) {
+			Editor::AddCharUTF(s, len, treatAsDBCS);
+		}
+	}
 }
 
 void ScintillaBase::Command(int cmdId) {
@@ -138,12 +145,12 @@ int ScintillaBase::KeyCommand(unsigned int iMessage) {
 			return 0;
 		case SCI_DELETEBACK:
 			DelCharBack(true);
-			AutoCompleteChanged();
+			AutoCompleteCharacterDeleted();
 			EnsureCaretVisible();
 			return 0;
 		case SCI_DELETEBACKNOTLINE:
 			DelCharBack(false);
-			AutoCompleteChanged();
+			AutoCompleteCharacterDeleted();
 			EnsureCaretVisible();
 			return 0;
 		case SCI_TAB:
@@ -244,8 +251,8 @@ void ScintillaBase::AutoCompleteStart(int lenEntered, const char *list) {
 	// Make an allowance for large strings in list
 	rcList.left = pt.x - 5;
 	rcList.right = rcList.left + widthLB;
-	if (pt.y >= rcClient.bottom - heightLB &&  // Wont fit below.
-	        pt.y >= (rcClient.bottom + rcClient.top) / 2) { // and there is more room above.
+	if (((pt.y + vs.lineHeight) >= (rcClient.bottom - heightAlloced)) &&  // Wont fit below.
+	        ((pt.y + vs.lineHeight / 2) >= (rcClient.bottom + rcClient.top) / 2)) { // and there is more room above.
 		rcList.top = pt.y - heightAlloced;
 	} else {
 		rcList.top = pt.y + vs.lineHeight;
@@ -276,13 +283,9 @@ void ScintillaBase::AutoCompleteMoveToCurrentWord() {
 	ac.Select(wordCurrent);
 }
 
-void ScintillaBase::AutoCompleteChanged(char ch) {
+void ScintillaBase::AutoCompleteCharacterAdded(char ch) {
 	if (ac.IsFillUpChar(ch)) {
-		AutoCompleteCompleted(ch);
-	} else if (currentPos <= ac.posStart - ac.startLen) {
-		ac.Cancel();
-	} else if (ac.cancelAtStartPos && currentPos <= ac.posStart) {
-		ac.Cancel();
+		AutoCompleteCompleted();
 	} else if (ac.IsStopChar(ch)) {
 		ac.Cancel();
 	} else {
@@ -290,7 +293,17 @@ void ScintillaBase::AutoCompleteChanged(char ch) {
 	}
 }
 
-void ScintillaBase::AutoCompleteCompleted(char fillUp/*='\0'*/) {
+void ScintillaBase::AutoCompleteCharacterDeleted() {
+	if (currentPos <= ac.posStart - ac.startLen) {
+		ac.Cancel();
+	} else if (ac.cancelAtStartPos && (currentPos <= ac.posStart)) {
+		ac.Cancel();
+	} else {
+		AutoCompleteMoveToCurrentWord();
+	}
+}
+
+void ScintillaBase::AutoCompleteCompleted() {
 	int item = ac.lb.GetSelection();
 	char selected[1000];
 	if (item != -1) {
@@ -323,8 +336,6 @@ void ScintillaBase::AutoCompleteCompleted(char fillUp/*='\0'*/) {
 	SetEmptySelection(ac.posStart);
 	if (item != -1) {
 		SString piece = selected;
-		if (fillUp)
-			piece += fillUp;
 		pdoc->InsertString(firstPos, piece.c_str());
 		SetEmptySelection(firstPos + piece.length());
 	}
@@ -332,18 +343,20 @@ void ScintillaBase::AutoCompleteCompleted(char fillUp/*='\0'*/) {
 }
 
 void ScintillaBase::ContextMenu(Point pt) {
-	bool writable = !WndProc(SCI_GETREADONLY, 0, 0);
-	popup.CreatePopUp();
-	AddToPopUp("Undo", idcmdUndo, writable && pdoc->CanUndo());
-	AddToPopUp("Redo", idcmdRedo, writable && pdoc->CanRedo());
-	AddToPopUp("");
-	AddToPopUp("Cut", idcmdCut, writable && currentPos != anchor);
-	AddToPopUp("Copy", idcmdCopy, currentPos != anchor);
-	AddToPopUp("Paste", idcmdPaste, writable && WndProc(SCI_CANPASTE, 0, 0));
-	AddToPopUp("Delete", idcmdDelete, writable && currentPos != anchor);
-	AddToPopUp("");
-	AddToPopUp("Select All", idcmdSelectAll);
-	popup.Show(pt, wMain);
+	if (displayPopupMenu) {
+		bool writable = !WndProc(SCI_GETREADONLY, 0, 0);
+		popup.CreatePopUp();
+		AddToPopUp("Undo", idcmdUndo, writable && pdoc->CanUndo());
+		AddToPopUp("Redo", idcmdRedo, writable && pdoc->CanRedo());
+		AddToPopUp("");
+		AddToPopUp("Cut", idcmdCut, writable && currentPos != anchor);
+		AddToPopUp("Copy", idcmdCopy, currentPos != anchor);
+		AddToPopUp("Paste", idcmdPaste, writable && WndProc(SCI_CANPASTE, 0, 0));
+		AddToPopUp("Delete", idcmdDelete, writable && currentPos != anchor);
+		AddToPopUp("");
+		AddToPopUp("Select All", idcmdSelectAll);
+		popup.Show(pt, wMain);
+	}
 }
 
 void ScintillaBase::CancelModes() {

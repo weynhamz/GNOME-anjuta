@@ -33,6 +33,8 @@ libscintilla_a_SOURCES =\
 	LexPython.cxx \
 	LexSQL.cxx \
 	LexVB.cxx \
+	LexAsm.cxx \
+	LexFortran.cxx \
 	LexCrontab.cxx\
 	LexEiffel.cxx\
 	LexLisp.cxx\

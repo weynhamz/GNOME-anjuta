@@ -1,3 +1,9 @@
+2002-11-20  Naba Kumar <naba@gnome.org>
+
+	* scintilla/*/*: Synced to latest scintilla 1.49
+	* scintilla/LexAsm.cxx, scintilla/LexFortran.cxx, src/Makefile.am:
+	New lexers added.
+	
 2002-11-19  Naba Kumar <naba@gnome.org>
 
 	Patch from Timothee Besset <ttimo@idsoftware.com>

@@ -354,7 +354,9 @@ bool Document::DeleteChars(int pos, int len) {
 		NotifyModifyAttempt();
 		enteredReadOnlyCount--;
 	}
-	if (enteredCount == 0) {
+	if (enteredCount != 0) {
+		return false;
+	} else {
 		enteredCount++;
 		if (!cb.IsReadOnly()) {
 			NotifyModified(
@@ -388,7 +390,9 @@ bool Document::InsertStyledString(int position, char *s, int insertLength) {
 		NotifyModifyAttempt();
 		enteredReadOnlyCount--;
 	}
-	if (enteredCount == 0) {
+	if (enteredCount != 0) {
+		return false;
+	} else {
 		enteredCount++;
 		if (!cb.IsReadOnly()) {
 			NotifyModified(
@@ -520,7 +524,7 @@ bool Document::InsertString(int position, const char *s, size_t insertLength) {
 			sWithStyle[i*2] = s[i];
 			sWithStyle[i*2 + 1] = 0;
 		}
-		changed = InsertStyledString(position*2, sWithStyle, 
+		changed = InsertStyledString(position*2, sWithStyle,
 			static_cast<int>(insertLength*2));
 		delete []sWithStyle;
 	}
@@ -741,7 +745,7 @@ int Document::ExtendWordSelect(int pos, int delta, bool onlyWordCharacters) {
 }
 
 /**
- * Find the start of the next word in either a forward (delta >= 0) or backwards direction 
+ * Find the start of the next word in either a forward (delta >= 0) or backwards direction
  * (delta < 0).
  * This is looking for a transition between character classes although there is also some
  * additional movement to transit white space.
@@ -794,7 +798,7 @@ bool Document::IsWordEndAt(int pos) {
 }
 
 /**
- * Check that the given range is has transitions between character classes at both 
+ * Check that the given range is has transitions between character classes at both
  * ends and where the characters on the inside are word or punctuation characters.
  */
 bool Document::IsWordAt(int start, int end) {
@@ -823,8 +827,9 @@ class DocumentIndexer : public CharacterIndexer {
 	Document *pdoc;
 	int end;
 public:
-DocumentIndexer(Document *pdoc_, int end_) :
-	pdoc(pdoc_), end(end_) {}
+	DocumentIndexer(Document *pdoc_, int end_) :
+		pdoc(pdoc_), end(end_) {
+	}
 
 	virtual char CharAt(int index) {
 		if (index < 0 || index >= end)
@@ -848,16 +853,10 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 		if (!pre)
 			return -1;
 
-		int startPos;
-		int endPos;
+		int increment = (minPos <= maxPos) ? 1 : -1;
 
-		if (minPos <= maxPos) {
-			startPos = minPos;
-			endPos = maxPos;
-		} else {
-			startPos = maxPos;
-			endPos = minPos;
-		}
+		int startPos = minPos;
+		int endPos = maxPos;
 
 		// Range endpoints should not be inside DBCS characters, but just in case, move them.
 		startPos = MovePositionOutsideChar(startPos, 1, false);
@@ -873,7 +872,9 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 		//     Replace: $(\1-\2)
 		int lineRangeStart = LineFromPosition(startPos);
 		int lineRangeEnd = LineFromPosition(endPos);
-		if ((startPos >= LineEnd(lineRangeStart)) && (lineRangeStart < lineRangeEnd)) {
+		if ((increment == 1) &&
+			(startPos >= LineEnd(lineRangeStart)) &&
+			(lineRangeStart < lineRangeEnd)) {
 			// the start position is at end of line or between line end characters.
 			lineRangeStart++;
 			startPos = LineStart(lineRangeStart);
@@ -881,7 +882,7 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 		int pos = -1;
 		int lenRet = 0;
 		char searchEnd = s[*length - 1];
-		if (*length == 1) {
+		if ((increment == 1) && (*length == 1)) {
 			// These produce empty selections so nudge them on if needed
 			if (s[0] == '^') {
 				if (startPos == LineStart(lineRangeStart))
@@ -893,15 +894,16 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 			lineRangeStart = LineFromPosition(startPos);
 			lineRangeEnd = LineFromPosition(endPos);
 		}
-		for (int line = lineRangeStart; line <= lineRangeEnd; line++) {
+		int lineRangeBreak = lineRangeEnd + increment;
+		for (int line = lineRangeStart; line != lineRangeBreak; line += increment) {
 			int startOfLine = LineStart(line);
 			int endOfLine = LineEnd(line);
-			if (line == lineRangeStart) {
+			if ((increment == 1) && (line == lineRangeStart)) {
 				if ((startPos != startOfLine) && (s[0] == '^'))
 					continue;	// Can't match start of line if start position after start of line
 				startOfLine = startPos;
 			}
-			if (line == lineRangeEnd) {
+			if ((increment == 1) && (line == lineRangeEnd)) {
 				if ((endPos != endOfLine) && (searchEnd == '$'))
 					continue;	// Can't match end of line if end position before end of line
 				endOfLine = endPos;
@@ -911,6 +913,20 @@ long Document::FindText(int minPos, int maxPos, const char *s,
 			if (success) {
 				pos = pre->bopat[0];
 				lenRet = pre->eopat[0] - pre->bopat[0];
+				if (increment == -1) {
+					// Check for the last match on this line.
+					while (success && (pre->eopat[0] < endOfLine)) {
+						success = pre->Execute(di, pre->eopat[0], endOfLine);
+						if (success) {
+							if (pre->eopat[0] <= minPos) {
+								pos = pre->bopat[0];
+								lenRet = pre->eopat[0] - pre->bopat[0];
+							} else {
+								success = 0;
+							}
+						}
+					}
+				}
 				break;
 			}
 		}
@@ -1062,7 +1078,7 @@ void Document::SetWordChars(unsigned char *chars) {
 		}
 	} else {
 		for (ch = 0; ch < 256; ch++) {
-			if (ch >= 0x80 || isalnum(ch) || ch == '_') 
+			if (ch >= 0x80 || isalnum(ch) || ch == '_')
 				charClass[ch] = ccWord;
 		}
 	}
@@ -1082,9 +1098,12 @@ void Document::StartStyling(int position, char mask) {
 	endStyled = position;
 }
 
-void Document::SetStyleFor(int length, char style) {
-	if (enteredCount == 0) {
+bool Document::SetStyleFor(int length, char style) {
+	if (enteredCount != 0) {
+		return false;
+	} else {
 		enteredCount++;
+		style &= stylingMask;
 		int prevEndStyled = endStyled;
 		if (cb.SetStyleFor(endStyled, length, style, stylingMask)) {
 			DocModification mh(SC_MOD_CHANGESTYLE | SC_PERFORMED_USER,
@@ -1093,26 +1112,32 @@ void Document::SetStyleFor(int length, char style) {
 		}
 		endStyled += length;
 		enteredCount--;
+		return true;
 	}
 }
 
-void Document::SetStyles(int length, char *styles) {
-	if (enteredCount == 0) {
+bool Document::SetStyles(int length, char *styles) {
+	if (enteredCount != 0) {
+		return false;
+	} else {
 		enteredCount++;
 		int prevEndStyled = endStyled;
 		bool didChange = false;
+		int lastChange = 0;
 		for (int iPos = 0; iPos < length; iPos++, endStyled++) {
 			PLATFORM_ASSERT(endStyled < Length());
 			if (cb.SetStyleAt(endStyled, styles[iPos], stylingMask)) {
 				didChange = true;
+				lastChange = iPos;
 			}
 		}
 		if (didChange) {
 			DocModification mh(SC_MOD_CHANGESTYLE | SC_PERFORMED_USER,
-			                   prevEndStyled, endStyled - prevEndStyled);
+			                   prevEndStyled, lastChange);
 			NotifyModified(mh);
 		}
 		enteredCount--;
+		return true;
 	}
 }
 
@@ -1122,10 +1147,11 @@ bool Document::EnsureStyledTo(int pos) {
 		if (styleClock > 0x100000) {
 			styleClock = 0;
 		}
+		// Ask the watchers to style, and stop as soon as one responds.
+		for (int i = 0; pos > GetEndStyled() && i < lenWatchers; i++) {
+			watchers[i].watcher->NotifyStyleNeeded(this, watchers[i].userData, pos);
+		}
 	}
-	// Ask the watchers to style, and stop as soon as one responds.
-	for (int i = 0; pos > GetEndStyled() && i < lenWatchers; i++)
-		watchers[i].watcher->NotifyStyleNeeded(this, watchers[i].userData, pos);
 	return pos <= GetEndStyled();
 }
 

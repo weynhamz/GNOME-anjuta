@@ -228,7 +228,7 @@ static bool IsSuffixCaseInsensitive(const char *target, const char *suffix) {
 	size_t lensuffix = strlen(suffix);
 	if (lensuffix > lentarget)
 		return false;
-	for (int i = lensuffix - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(lensuffix) - 1; i >= 0; i--) {
 		if (MakeUpperCase(target[i + lentarget - lensuffix]) !=
 		        MakeUpperCase(suffix[i]))
 			return false;
@@ -328,9 +328,9 @@ void PropSet::Clear() {
 		while (p) {
 			Property *pNext = p->next;
 			p->hash = 0;
-			delete []p->key;
+			delete p->key;
 			p->key = 0;
-			delete []p->val;
+			delete p->val;
 			p->val = 0;
 			delete p;
 			p = pNext;
@@ -411,33 +411,38 @@ bool PropSet::GetNext(char ** key, char ** val) {
 	return false;
 }
 
-static bool iswordsep(char ch, bool onlyLineEnds) {
-	if (!isspace(ch))
-		return false;
-	if (!onlyLineEnds)
-		return true;
-	return ch == '\r' || ch == '\n';
-}
-
 /**
  * Creates an array that points into each word in the string and puts \0 terminators
  * after each word.
  */
 static char **ArrayFromWordList(char *wordlist, int *len, bool onlyLineEnds = false) {
-	char prev = '\n';
+	int prev = '\n';
 	int words = 0;
-	for (int j = 0; wordlist[j]; j++) {
-		if (!iswordsep(wordlist[j], onlyLineEnds) && iswordsep(prev, onlyLineEnds))
-			words++;
-		prev = wordlist[j];
+	// For rapid determination of whether a character is a separator, build
+	// a look up table.
+	bool wordSeparator[256];
+	for (int i=0;i<256; i++) {
+		wordSeparator[i] = false;
 	}
-	char **keywords = new char * [words + 1];
+	wordSeparator['\r'] = true;
+	wordSeparator['\n'] = true;
+	if (!onlyLineEnds) {
+		wordSeparator[' '] = true;
+		wordSeparator['\t'] = true;
+	}
+	for (int j = 0; wordlist[j]; j++) {
+		int curr = static_cast<unsigned char>(wordlist[j]);
+		if (!wordSeparator[curr] && wordSeparator[prev])
+			words++;
+		prev = curr;
+	}
+	char **keywords = new char *[words + 1];
 	if (keywords) {
 		words = 0;
 		prev = '\0';
 		size_t slen = strlen(wordlist);
 		for (size_t k = 0; k < slen; k++) {
-			if (!iswordsep(wordlist[k], onlyLineEnds)) {
+			if (!wordSeparator[static_cast<unsigned char>(wordlist[k])]) {
 				if (!prev) {
 					keywords[words] = &wordlist[k];
 					words++;
