@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-24 02:29-0500\n"
-"PO-Revision-Date: 2005-03-24 12:57-0400\n"
+"POT-Creation-Date: 2005-03-25 21:23-0500\n"
+"PO-Revision-Date: 2005-03-25 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2652,6 +2652,15 @@ msgstr "There is no line number %d in \"%s\"."
 #: plugins/editor/action-callbacks.c:1203
 msgid "No matches. Wrap search around the document?"
 msgstr "No matches. Continue search at top?"
+
+#: plugins/editor/action-callbacks.c:1213
+#, c-format
+msgid ""
+"Incremental search for '%s' failed. Press Enter or click Find to continue "
+"searching at the top."
+msgstr ""
+"Incremental search for '%s' failed. Press Enter or click Find to continue "
+"searching at the top."
 
 #: plugins/editor/action-callbacks.c:1220
 #, c-format
