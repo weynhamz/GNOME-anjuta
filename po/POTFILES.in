@@ -87,6 +87,8 @@ src/dnd.c
 src/dnd.h
 src/executer.c
 src/executer.h
+src/file.c
+src/file.h
 src/file_history.c
 src/file_history.h
 src/fileselection.c

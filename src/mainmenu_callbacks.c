@@ -25,11 +25,11 @@
 #include <signal.h>
 #include <string.h>
 #include <sched.h>
-#include <time.h>
 #include <sys/wait.h>
 #include <errno.h>
 
 #include <gnome.h>
+
 #include <libgnomeui/gnome-window-icon.h>
 
 #include "anjuta.h"
@@ -67,19 +67,16 @@
 #include "signals_cbs.h"
 #include "watch_cbs.h"
 #include "start-with.h"
+#include "file.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
 gboolean closing_state;		/* Do not tamper with this variable  */
 
-static char *insert_date_time(void);
-
-static gchar *insert_header_c( TextEditor *te);
-
 void
 on_new_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	anjuta_append_text_editor (NULL);
+	display_new_file();
 }
 
 
@@ -370,546 +367,124 @@ on_transform_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
 }
 
-static gchar *
-insert_c_gpl_notice(void)
-{
-	gchar *GPLNotice =
-	"/*\n"
-	" *  This program is free software; you can redistribute it and/or modify\n"
-	" *  it under the terms of the GNU General Public License as published by\n"
-	" *  the Free Software Foundation; either version 2 of the License, or\n"
-	" *  (at your option) any later version.\n"
-	" *\n"
-	" *  This program is distributed in the hope that it will be useful,\n"
-	" *  but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	" *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	" *  GNU Library General Public License for more details.\n"
-	" *\n"
-	" *  You should have received a copy of the GNU General Public License\n"
-	" *  along with this program; if not, write to the Free Software\n"
-	" *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-	" */\n"
-	" \n";
-
-	return  GPLNotice;
-}
-
 void
 on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *GPLNotice;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	GPLNotice = insert_c_gpl_notice();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
-}
-
-static gchar *
-insert_cpp_gpl_notice(void)
-{
-	gchar *GPLNotice =
-	"// This program is free software; you can redistribute it and/or modify\n"
-	"// it under the terms of the GNU General Public License as published by\n"
-	"// the Free Software Foundation; either version 2 of the License, or\n"
-	"// (at your option) any later version.\n"
-	"//\n"
-	"// This program is distributed in the hope that it will be useful,\n"
-	"// but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	"// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	"// GNU Library General Public License for more details.\n"
-	"//\n"
-	"// You should have received a copy of the GNU General Public License\n"
-	"// along with this program; if not, write to the Free Software\n"
-	"// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-	"\n";
-
-	return GPLNotice;
+	file_insert_c_gpl_notice();
 }
 
 void
 on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *GPLNotice;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	GPLNotice = insert_cpp_gpl_notice();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
-}
-
-static gchar *
-insert_py_gpl_notice(void)
-{
-	char *GPLNotice =
-	"# This program is free software; you can redistribute it and/or modify\n"
-	"# it under the terms of the GNU General Public License as published by\n"
-	"# the Free Software Foundation; either version 2 of the License, or\n"
-	"# (at your option) any later version.\n"
-	"#\n"
-	"# This program is distributed in the hope that it will be useful,\n"
-	"# but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	"# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	"# GNU Library General Public License for more details.\n"
-	"#\n"
-	"# You should have received a copy of the GNU General Public License\n"
-	"# along with this program; if not, write to the Free Software\n"
-	"# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
-	"\n";
-	return GPLNotice;
+	file_insert_cpp_gpl_notice();
 }
 
 void
 on_insert_py_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *GPLNotice;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	GPLNotice = insert_py_gpl_notice();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)GPLNotice);
-}
-
-static gchar *
-insert_username(void)
-{
-	gchar *Username;
-	
-	Username = getenv("USERNAME");
-	if (!Username)
-		Username =
-			anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-									IDENT_NAME);
-	if (!Username)
-		Username = getenv("USER");
-	return Username;
+	file_insert_py_gpl_notice();
 }
 
 void
 on_insert_username(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *Username;
-		
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	Username = insert_username();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)Username);
-}
-
-static gchar *insert_name(void)
-{
-	gchar *Username;
-
-	Username =
-		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-								IDENT_NAME);
-	  if (!Username)
-			Username = getenv("USERNAME");
-		if (!Username)
-			Username = getenv("USER");
-	return Username;
-}
-
-static gchar *insert_email(void)
-{
-	gchar *email;
-	gchar *Username;
-
-	email =
-		anjuta_preferences_get (ANJUTA_PREFERENCES (app->preferences),
-								IDENT_EMAIL);
-	if (!email)
-	{
-		email = getenv("HOSTNAME");
-		Username = getenv("USERNAME");
-		if (!Username)
-			Username = getenv("USER");
-		email = g_strconcat(Username, "@", email, NULL);
-	}
-	return email;
-}
-
-
-static gchar *
-insert_copyright(void)
-{
-	gchar *Username;
-	gchar *copyright;
-	gchar datetime[20];
-	struct tm *lt;
-	time_t cur_time = time(NULL);
-
-	lt = localtime(&cur_time);
-	strftime (datetime, 20, N_("%Y"), lt);
-	Username = insert_name();
-	copyright = g_strconcat("Copyright  ", datetime, "  ", Username, NULL);
-
-	return copyright;
-}
-
-static gchar *
-insert_changelog_entry(void)
-{
-	gchar *Username;
-	gchar *email;
-	gchar *CLEntry;
-	gchar datetime[20];
-	struct tm *lt;
-	time_t cur_time = time(NULL);
-
-	CLEntry = g_new(gchar, 200);
-	lt = localtime(&cur_time);
-	strftime (datetime, 20, N_("%Y-%m-%d"), lt);
-
-	Username =  insert_name();
-	email = insert_email();
-	sprintf(CLEntry,"%s  %s <%s>\n", datetime, Username, email);
-	g_free(email);
-  	
-	return  CLEntry;
+	file_insert_username();
 }
 
 void
 on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *changelog;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-  	return;
-	changelog = insert_changelog_entry();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)changelog);
-	g_free(changelog);
-}
-
-static char *
-insert_date_time(void)
-{
-	time_t cur_time = time(NULL);
-	gchar *DateTime;
-
-	DateTime = g_new(gchar, 100);
-	sprintf(DateTime,ctime(&cur_time));
-	return DateTime;
-}                                                            ;
+	file_insert_changelog_entry();
+}                                                          ;
 
 void
 on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *DateTime;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	DateTime = insert_date_time();
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)DateTime);
-	g_free(DateTime);
+	file_insert_date_time();
 }
-
-static gchar *
-insert_header_template(TextEditor *te)
-{
-	gchar *header_template =
-	"_H\n"
-	"\n"
-	"#ifdef __cplusplus\n"
-	"extern \"C\"\n"
-	"{\n"
-	"#endif\n"
-	"\n"
-	"#ifdef __cplusplus\n"
-	"}\n"
-	"#endif\n"
-	"\n"
-	"#endif /* _";
-	gchar *buffer;
-	gchar *name = NULL;
-	gchar mesg[256];
-	gint i;
-
-	i = strlen(te->filename);
-	if ( g_strcasecmp((te->filename) + i - 2, ".h") == 0)
-		name = g_strndup(te->filename, i - 2);
-	else
-	{
-		sprintf(mesg, _("The file \"%s\" is not a header file."),
-				te->filename);
-		anjuta_warning (mesg);
-		return NULL;
-	}
-	g_strup(name);  /* do not use with GTK2 */
-	buffer = g_strconcat("#ifndef _", name, "_H\n#define _", name,
-						header_template, name, "_H */\n", NULL);
-
-	g_free(name);
-	return buffer;
-}
-
 
 void
 on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *header;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-
-	header =  insert_header_template(te);
-	if (header == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header);
-	g_free(header);
-}
-
-static gchar *
-insert_header_c( TextEditor *te)
-{
- 	gchar *buffer;
-	gchar *tmp;
-	gchar *star;
-	gchar *copyright;
-	gchar *email;
-
-	star =  g_strnfill(75, '*');
-	tmp = g_strdup(te->filename);
-	buffer = g_strconcat("/", star, "\n *            ", tmp, "\n *\n", NULL);
-	g_free(tmp);
-	tmp = insert_date_time();
-	buffer = g_strconcat( buffer, " *  ", tmp, NULL);
-	g_free(tmp);
-	copyright = insert_copyright();
-	buffer = g_strconcat(buffer, " *  ", copyright, "\n", NULL);
-	g_free(copyright);
-	email = insert_email();
-	buffer = g_strconcat(buffer, " *  ", email, "\n", NULL);
-	g_free(email);
-	buffer = g_strconcat(buffer, " ", star, "*/\n", NULL);
-	g_free(star);
-
-	return buffer;
+	file_insert_header_template();
 }
 
 void
 on_insert_header(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *header;
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-
-	header = insert_header_c(te);
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)header);
-	g_free(header);
+	file_insert_header();
 }
 
 void
 on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *switch_template =
-	"switch ( )\n"
-	"{\n"
-	"\tcase  :\n"
-	"\t\t;\n"
-	"\t\tbreak;\n"
-	"\tcase  :\n"
-	"\t\t;\n"
-	"\t\tbreak;\n"
-	"\tdefaults:\n"
-	"\t\t;\n"
-	"\t\tbreak;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)switch_template);
+	file_insert_switch_template();
 }
 
 void
 on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *for_template =
-	"for ( ; ; )\n"
-	"{\n"
-	"\t;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)for_template);
+	file_insert_for_template();
 }
 
 void
 on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *while_template =
-	"while ( )\n"
-	"{\n"
-	"\t;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)while_template);
+	file_insert_while_template();
 }
 
 void
 on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *ifelse_template =
-	"if ( )\n"
-	"{\n"
-	"\t;\n"
-	"}\n"
-	"else\n"
-	"{\n"
-	"\t;\n"
-	"}\n";
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)ifelse_template);
+	file_insert_ifelse_template();
 }
 
 void
 on_insert_cvs_author(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Author";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-	
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_author();
 }
 
 void
 on_insert_cvs_date(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Date";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_date();
 }
 
 void
 on_insert_cvs_header(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Header";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_header();
 }
 
 void
 on_insert_cvs_id(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Id";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_id();
 }
 
 void
 on_insert_cvs_log(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Log";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_log();
 }
 
 void
 on_insert_cvs_name(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Name";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_name();
 }
 
 void
 on_insert_cvs_revision(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Revision";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_revision();
 }
 
 void
 on_insert_cvs_source(GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	gchar *cvs_string_value = "Source";
-	gchar *cvs_string;
-	
-	cvs_string = g_strconcat("$", cvs_string_value, "$\n", NULL);
-
-	te = anjuta_get_current_text_editor ();
-	if (te == NULL)
-		return;
-	aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)cvs_string);
+	file_insert_cvs_source();
 }
 
 void
@@ -1562,123 +1137,57 @@ on_execution_run_to_cursor1_activate (GtkMenuItem * menuitem,
 void
 on_info_targets_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info target",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_target (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_program_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info program",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
-				   on_debugger_update_prog_status, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_program (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_udot_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info udot",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_udot (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_threads_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info threads",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_threads (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_variables_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info variables",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_variables (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_locals_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info locals",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_locals (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_frame_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info frame",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_frame (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void
 on_info_args_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("info args",
-				   DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-				   debugger_dialog_message, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
-				   NULL);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_args (debugger_dialog_message);
+	debugger_query_execute ();
 }
 
 void

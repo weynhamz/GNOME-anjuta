@@ -146,6 +146,7 @@ module.include.files=\
 	src/defaults.h\
 	src/dnd.h\
 	src/executer.h\
+	src/file.h\
 	src/file_history.h\
 	src/fileselection.h\
 	src/find_in_files.h\
@@ -337,6 +338,7 @@ module.source.files=\
 	src/defaults.c\
 	src/dnd.c\
 	src/executer.c\
+	src/file.c\
 	src/file_history.c\
 	src/fileselection.c\
 	src/find_in_files.c\

@@ -164,3 +164,21 @@ build_execute_command (const gchar *command)
 	return anjuta_launcher_execute (app->launcher, command,
 									on_build_mesg_arrived, NULL);
 }
+
+gboolean
+build_execute_shell_command (const gchar *command)
+{
+	gchar *args[4];
+	gboolean ret_val;
+	args[0] = "sh";
+	args[1] = "-c";
+	args[2] = g_strdup(command);
+	args[3] = NULL;
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (on_build_terminated), NULL);
+	ret_val = anjuta_launcher_execute_v (app->launcher, args,
+									  on_build_mesg_arrived, NULL);
+	
+	g_free(args[2]);
+	return ret_val;	
+}

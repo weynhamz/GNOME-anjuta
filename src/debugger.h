@@ -99,7 +99,7 @@ gboolean debugger_is_ready (void);
 
 /*  Private. Don't touch */
 gchar *debugger_start_terminal (void);
-void debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
+void debugger_put_cmd_in_queqe (const gchar cmd[], gint flags,
 				void (*parser) (GList * outputs, gpointer data), gpointer data);
 void debugger_execute_cmd_in_queqe (void);
 void debugger_update_controls (void);
@@ -145,6 +145,45 @@ void debugger_frame (void);
 void debugger_signal (const gchar * sig, gboolean show_error);/*eg: "SIGTERM"*/
 void debugger_custom_command (void);
 void debugger_shared_library (void);
+
+
+void debugger_query_execute (void);
+void debugger_query_evaluate_expr_tip (const gchar *expr,
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+void debugger_query_evaluate_expr (const gchar *expr,
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+void debugger_query_info_target (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_program (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_udot (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_threads (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_variables (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_locals (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_frame (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_args (
+			void (*parser) (GList *outputs, gpointer data));
+void debugger_query_info_breakpoints (
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+
+void debugger_breakpoints_enable_all (
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+void debugger_breakpoints_disable_all (
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+void debugger_breakpoint_delete (gint id,
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+void debugger_breakpoint_enable (gint id,
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+void debugger_breakpoint_disable (gint id,
+			void (*parser) (GList *outputs, gpointer data), gpointer data);
+
+
+void debugger_update_src_dirs (void);
 
 void on_debugger_update_prog_status (GList * lines, gpointer data);
 void debugger_reload_session_breakpoints( ProjectDBase *p);

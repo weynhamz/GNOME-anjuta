@@ -146,10 +146,7 @@ static gboolean breakpoints_dbase_set_from_item (BreakpointsDBase *bd,
 void
 breakpoints_info (GList * outputs, gpointer data )
 {
-	BreakpointsDBase* bd = data;
-	
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-	                           breakpoints_dbase_update, bd);
+	debugger_query_info_breakpoints (breakpoints_dbase_update, data);
 }
 
 void
@@ -164,10 +161,10 @@ enable_all_breakpoints (BreakpointsDBase* bd)
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	debugger_put_cmd_in_queqe ("enable breakpoints", DB_CMD_ALL,
-	                           breakpoints_info, bd);
+	debugger_breakpoints_enable_all (breakpoints_info, bd);
 	an_message_manager_append (app->messages, _("All breakpoints enabled:\n"),
-	                           MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
+	                           MESSAGE_DEBUG);
+	debugger_query_execute ();
 }
 
 void
@@ -182,10 +179,10 @@ disable_all_breakpoints (BreakpointsDBase* bd)
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	debugger_put_cmd_in_queqe ("disable breakpoints", DB_CMD_ALL,
-	                           breakpoints_info, bd);
+	debugger_breakpoints_disable_all (breakpoints_info, bd);
 	an_message_manager_append (app->messages, _("All breakpoints disabled:\n"),
-	                           MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
+	                           MESSAGE_DEBUG);
+	debugger_query_execute ();
 }
 
 void
@@ -227,10 +224,10 @@ delete_breakpoint (gint id, BreakpointsDBase* bd, gboolean end)
 				list_bp = list_bp->next;
 			}
 		}
-	
+
 		debugger_put_cmd_in_queqe (cmd, DB_CMD_ALL, breakpoints_info, bd);	
-		debugger_execute_cmd_in_queqe ();
-		
+		debugger_query_execute ();
+
 		g_free(cmd);
 		g_list_free(list_bp);
 	}
@@ -252,11 +249,10 @@ void
 property_destroy_breakpoint (BreakpointsDBase* bd, GladeXML *gxml,
 	BreakpointItem *bid, GtkWidget *dialog)
 {
-	gchar buff[20];
 	static Properties prop;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	g_message ("In function: delete_breakpoint()");
+	g_message ("In function: property_destroy_breakpoint()");
 #endif
 	
 	if (debugger_is_active () == FALSE)
@@ -268,19 +264,15 @@ property_destroy_breakpoint (BreakpointsDBase* bd, GladeXML *gxml,
 	prop.gxml = gxml;
 	prop.bid = bid;
 	prop.dialog = dialog;
-	
-	sprintf (buff, "delete %d", bid->id);
-	
-	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, property_add_item, &prop);	
-	debugger_execute_cmd_in_queqe ();
+
+	debugger_breakpoint_delete (bid->id, property_add_item, &prop);
+	debugger_query_execute ();
 }
 
 
 void
 enable_breakpoint (gint id, BreakpointsDBase* bd)
 {
-	gchar buff[20];
-
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: enable_breakpoint()");
 #endif
@@ -289,16 +281,14 @@ enable_breakpoint (gint id, BreakpointsDBase* bd)
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	sprintf (buff, "enable %d", id);
-	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, breakpoints_info, bd);
-	debugger_execute_cmd_in_queqe ();
+
+	debugger_breakpoint_enable (id, breakpoints_info, bd);
+	debugger_query_execute ();
 }
 
 void
 disable_breakpoint (gint id, BreakpointsDBase* bd)
 {
-	gchar buff[20];
-
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: disable_breakpoint()");
 #endif
@@ -307,9 +297,8 @@ disable_breakpoint (gint id, BreakpointsDBase* bd)
 		return;
 	if (debugger_is_ready () == FALSE)
 		return;
-	sprintf (buff, "disable %d", id);
-	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL, breakpoints_info, bd);
-	debugger_execute_cmd_in_queqe ();
+	debugger_breakpoint_disable (id, breakpoints_info, bd);
+	debugger_query_execute ();
 }
 
 
@@ -505,10 +494,9 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 {
 	GList *outputs;
 	BreakpointsDBase* bd = data;	
-	
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-								breakpoints_dbase_update, bd);
-	debugger_execute_cmd_in_queqe ();
+
+	debugger_query_info_breakpoints (breakpoints_dbase_update, bd);
+	debugger_query_execute ();
 	outputs = remove_blank_lines (lines);
 
 	if (outputs == NULL)
@@ -583,7 +571,7 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 			debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
 									   pass_item_add_mesg_arrived,
 									   bid->bd);
-			debugger_execute_cmd_in_queqe ();
+			debugger_query_execute ();
 			g_free (buff);
 		}
 	}
@@ -593,11 +581,8 @@ bk_item_add_mesg_arrived (GList * lines, gpointer data)
 	}
 
 down_label:
-	debugger_put_cmd_in_queqe ("info breakpoints",
-							   DB_CMD_NONE,
-							   breakpoints_dbase_update,
-							   bid->bd);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_info_breakpoints (breakpoints_dbase_update, bid->bd);
+	debugger_query_execute ();
 	if (outputs)
 		g_list_free (outputs);
 
@@ -642,16 +627,15 @@ bk_item_add (BreakpointsDBase *bd, GladeXML *gxml, BreakpointItem *bid)
 								   bk_item_add_mesg_arrived,
 								   bid);
 		g_free (buff);
-		debugger_execute_cmd_in_queqe ();
+		debugger_query_execute ();
 		return TRUE;
 	}
 	else
 	{
 		anjuta_error_parented (dialog, 
 				_("You must give a valid location to set the breakpoint."));
-		debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-								   breakpoints_dbase_update, bd);
-		debugger_execute_cmd_in_queqe ();
+		debugger_query_info_breakpoints (breakpoints_dbase_update, bd);
+		debugger_query_execute ();
 		return TRUE;
 	}
 }
@@ -1103,7 +1087,7 @@ experimental_not_use_breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
 				   bk_item_add_mesg_arrived,
 				   bid);
 	g_free (buff);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_execute ();
 }
 #endif
 
@@ -1245,16 +1229,14 @@ breakpoints_dbase_set_from_item (BreakpointsDBase *bd, BreakpointItem *bi,
 		buff =
 			g_strdup_printf ("break %s:%u if %s", bi->file, bi->line,
 							 bi->condition);
-		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL, NULL);
-		g_free (buff);
 	}
 	else
 	{
 		buff =
 			g_strdup_printf ("break %s:%u", bi->file, bi->line);
-		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL, NULL);
-		g_free (buff);
 	}
+	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, NULL, NULL);
+	g_free (buff);
 	if (bi->pass > 0)
 	{
 		buff = g_strdup_printf ("ignore $bpnum %d", bi->pass);
@@ -1294,9 +1276,7 @@ breakpoints_dbase_set_all (BreakpointsDBase * bd)
 
 	if (old)
 		anjuta_warning (_("Old breakpoints disabled."));
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-							   breakpoints_dbase_update,
-							   bd);
+	debugger_query_info_breakpoints (breakpoints_dbase_update, bd);
 }
 
 gboolean
@@ -1661,7 +1641,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 							   bk_item_add_mesg_arrived,
 							   bid);
 	g_free (buff);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_execute ();
 	return TRUE;
 }
 

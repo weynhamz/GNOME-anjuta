@@ -206,7 +206,6 @@ on_eval_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	GtkEntry *ent;
 	const gchar *buff1;
-	gchar *buff2;
 
 	ent = (GtkEntry *) user_data;
 	buff1 = gtk_entry_get_text (ent);
@@ -216,15 +215,8 @@ on_eval_ok_clicked (GtkButton * button, gpointer user_data)
 		g_free (eval_entry_history);
 	eval_entry_history = g_strdup (buff1);
 
-	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set verbose off", DB_CMD_NONE, NULL, NULL);
-	buff2 = g_strconcat ("print ", buff1, NULL);
-	debugger_put_cmd_in_queqe (buff2, DB_CMD_SE_MESG | DB_CMD_SE_DIALOG,
-							   eval_output_arrived, g_strdup (buff1));
-	debugger_put_cmd_in_queqe ("set verbose on", DB_CMD_NONE, NULL, NULL);
-	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL, NULL);
-	g_free (buff2);
-	debugger_execute_cmd_in_queqe ();
+	debugger_query_evaluate_expr (buff1, eval_output_arrived, g_strdup (buff1));
+	debugger_query_execute ();
 }
 
 

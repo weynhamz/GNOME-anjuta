@@ -178,8 +178,8 @@ set_fileselection_file_types(ProjectDBase * p)
 			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".h", ".H", ".hh", ".hxx", ".hpp", ".h++", ".c", ".pc", ".sc", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".C", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Java source files"), ".java", ".js", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Pascal files"), ".pas", NULL);
-			ftypes = fileselection_addtype_f (ftypes, _("PHP files"), ".php", ".php?", ".phtml", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Perl files"), ".pl", ".pm", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("PHP files"), ".php", ".php?", ".phtml", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Python files"), ".py", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Shell Script files"), ".sh", ".ksh", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Visual Basic files"), ".vb", ".vbs", NULL);

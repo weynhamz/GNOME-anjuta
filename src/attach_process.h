@@ -22,12 +22,16 @@
 
 #include <gnome.h>
 
+typedef struct _AttachProcessPriv AttachProcessPriv;
 typedef struct _AttachProcess AttachProcess;
 struct _AttachProcess
 {
     GtkWidget*  dialog;
     GtkWidget*  treeview;
 	gint        pid;
+
+	/* Private */
+	AttachProcessPriv *priv;
 };
 
 AttachProcess* attach_process_new (void);

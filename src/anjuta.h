@@ -180,7 +180,7 @@ void anjuta_session_restore (GnomeClient* client);
 GList *anjuta_get_file_list(void);
 const GList *anjuta_get_tag_list(TextEditor *te, guint tag_types);
 
-TextEditor *anjuta_append_text_editor (gchar * filename);
+TextEditor *anjuta_append_text_editor (gchar * filename, gchar * name);
 
 void anjuta_remove_text_editor (TextEditor* te);
 void anjuta_remove_current_text_editor (void);

@@ -145,7 +145,7 @@ compile_file (gboolean use_make)
 	anjuta_set_execution_dir(dirname);
 	g_free (dirname);
 
-	if (build_execute_command (cmd) == FALSE)
+	if (build_execute_shell_command (cmd) == FALSE)
 	{
 		g_free (cmd);
 		return;

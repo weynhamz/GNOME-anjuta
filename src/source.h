@@ -22,6 +22,16 @@
 
 #include "project_dbase.h"
 
+#define CPP_HELLO_WORLD		"#include <iostream>\n"					\
+							"int main()\n{\n"						\
+							"\tstd::cout << \"Hello world\" << std::endl;\n" \
+							"\treturn 0;\n}\n\n"
+
+#define C_HELLO_WORLD		"#include <stdio.h>\n"					\
+							"int main()\n{\n"						\
+							"\tprintf(\"Hello world\\n\");\n"		\
+							"\treturn (0);\n}\n\n"
+
 gboolean source_write_generic_main_c (ProjectDBase *data);
 gboolean source_write_wxwin_main_c (ProjectDBase *data);
 gboolean source_write_xwin_main_c (ProjectDBase *data);

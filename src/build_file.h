@@ -22,5 +22,6 @@
 
 void build_file(void);
 gboolean build_execute_command (const gchar *command);
+gboolean build_execute_shell_command (const gchar *command);
 
 #endif

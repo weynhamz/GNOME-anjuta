@@ -1,3 +1,24 @@
+Anjuta 1.2.1 (? Jan 2004) -- Naba Kumar, Johannes Schmid
+
+New: "New File" with some options for newly created files
+Bug fix: #849914, #840159
+Bug fix: compile file works with shell expression line `command` now
+Bug fix: Buildiing on SMP systems
+Bug fix: debugger improvements & cleanups
+Bug fix: Sample file confirms to C++-Standard now
+
+Thanks to Pavol Bosik, Jean-Noel Guiheneuf, Dan Elphick 
+and Stefano Vallarino for their patches.
+
+From this release on anjuta has two new development responsibilities
+alongside with Naba Kumar <naba@gnome.org>:
+Jean-Noel Guiheneuf <Jnoel@cvs.gnome.org>
+Johannes Schmid <jhs@cvs.gnome.org>
+
+If you want to support anjuta development please contact the
+list <anjuta-devel@list.sourceforge.net>, more manpower is much-needed.
+You can also make a donation through the SF.net donation system now.
+
 Anjuta 1.2.0 (8 Dec 2003) -- Naba Kumar
 
 Updated: Prompts users for unsaved files during project closing.

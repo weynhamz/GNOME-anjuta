@@ -204,8 +204,8 @@ static gchar *anjuta_warnings[] = {
 	" -Wparentheses",              "Warning for missing parentheses",
 	" -Wtraditional",         "Warning for differences to traditionanl syntax",
 	" -Wshadow",                   "Warning for variable shadowing",
-	" -Wpointer-arith",            "Warning for missing prototypes",
-	" -Wmissing-prototypes",       "Warning for suspected pointer arithmetic",
+	" -Wpointer-arith",            "Warning for suspected pointer arithmetic",
+	" -Wmissing-prototypes",       "Warning for missing prototypes",
 	" -Winline",                   "Warning if declarations cannot be inlined",
 	" -Woverloaded-virtual",        "Warning for overloaded virtuals",
 	NULL, NULL

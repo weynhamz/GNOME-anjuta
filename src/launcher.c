@@ -349,6 +349,13 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 		gtk_timeout_add (50, anjuta_launcher_check_for_execution_done,
 						 launcher);
 	}
+	
+	/* This case is not very good, but it blocks the whole IDE
+	because we never new if the child has finished */
+	else if (launcher->priv->stdout_is_done &&
+			 launcher->priv->stderr_is_done)
+		gtk_timeout_add(200, anjuta_launcher_check_for_execution_done,
+						 launcher);
 }
 
 /* Password dialog */
@@ -759,9 +766,12 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 #endif
 
 	if (launcher->priv->stdout_is_done == FALSE ||
-		launcher->priv->stderr_is_done == FALSE ||
-		launcher->priv->child_has_terminated == FALSE)
+	    launcher->priv->stderr_is_done == FALSE)
 		return TRUE;
+#ifdef DEBUG
+	if (launcher->priv->child_has_terminated == FALSE)
+		g_message ("launcher: We missed the exit of the child");
+#endif
 	
 	anjuta_launcher_execution_done_cleanup (launcher);
 	return FALSE;
@@ -905,14 +915,14 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	cfsetospeed(&termios_flags, __MAX_BAUD);
 	tcsetattr(pty_master_fd, TCSANOW, &termios_flags);
 
-	launcher->priv->stdout_watch = 
-		g_io_add_watch (launcher->priv->stdout_channel,
-						G_IO_IN | G_IO_ERR | G_IO_HUP,
-						(GIOFunc)anjuta_launcher_scan_output, launcher);
 	launcher->priv->stderr_watch = 
 		g_io_add_watch (launcher->priv->stderr_channel,
 						G_IO_IN | G_IO_ERR | G_IO_HUP,
 						(GIOFunc)anjuta_launcher_scan_error, launcher);
+	launcher->priv->stdout_watch = 
+		g_io_add_watch (launcher->priv->stdout_channel,
+						G_IO_IN | G_IO_ERR | G_IO_HUP,
+						(GIOFunc)anjuta_launcher_scan_output, launcher);
 	launcher->priv->pty_watch = 
 		g_io_add_watch (launcher->priv->pty_channel,
 						G_IO_IN | G_IO_ERR, /* Do not hook up for G_IO_HUP */
@@ -976,7 +986,8 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 	}
 	*args_ptr = NULL;
 
-	ret = anjuta_launcher_execute_v (launcher, args, callback, callback_data);
+	ret = anjuta_launcher_execute_v (launcher, args, 
+		callback, callback_data);
 	g_free (args);
 	glist_strings_free (args_list);
 	return ret;

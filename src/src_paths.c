@@ -31,6 +31,7 @@
 #include "resources.h"
 #include "properties.h"
 #include "src_paths.h"
+#include "debugger.h"
 
 #define PROJECT_SRC_PATHS "project.src.paths"
 
@@ -104,6 +105,10 @@ on_delete_event (GtkWidget *widget, GdkEvent *event, SrcPaths *co)
 {
 	sync_to_props (co);
 	co->priv->dialog = NULL;
+	if (debugger_is_active ())
+	{
+		debugger_update_src_dirs ();
+	}
 	return FALSE;
 }
 

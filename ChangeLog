@@ -1,3 +1,61 @@
+2003-13-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* src/project_dbase_gui.c: Alphabetical order ;-)
+	* src/compiler_options.c: Fixed bug #867539
+	* src/launcher.c: Workaround for bugs #864922, #849928,
+	#846386 and #845782: The launcher no longer hangs but does
+	not get the exit status correctly sometimes.
+	* Changes suggested by Bosik are obviously already in without
+	any Changelog entry (ClsGen.c, project_dbase_gui.c)
+	* NEWS, README, anjuta.prj, configure.in: 
+	Changed version to 1.2.1
+	
+	Patch from Andreas Volz <andreas99@users.sourceforge.net>:
+	* anjuta_dialogs_strings.c, anjuta.glade: 
+	Fixed bugs #860906, #859329
+	
+	Patch from grzegol@pld-linux.org
+	* anjuta.desktop.in.in: Fixes bug #858993 (Follow 
+	freedesktop.org standard)
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Stefano Vallarino <stevalla@libero.it>:
+	* src/source.[c/h]: Fixes cpp sample file to conform to 
+	ISO/IEC 14882, C++-Standard 
+
+2003-12-31  Dan Elphick  <dre00r@ecs.soton.ac.uk>
+ 
+ 	Review by Johannes Schmid <jhs@cvs.gnome.org>
+	* src/build_file.[ch]: Add build_execute_shell_command which executes the
+ 	command using sh -c.
+ 	* src/compile.c: Use build_execute_shell_command when compiling single
+ 	files.
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Pavol Bosik  <Pavol.Bosik@siemens.com>:
+	* src/breakpoints.c: Code cleanup, workaroud for possible 
+	launcher bug
+	* src/src_paths.c: Update debugger dirs on directory change
+
+2003-12-31  Pavol Bosik  <Pavol.Bosik@siemens.com>
+ 
+ 	Review by Johannes Schmid <jhs@cvs.gnome.org>
+	* src/attach_process.c, src/attach_process.h, anjuta.glade:
+ 	sortable headers, process tree, removal of path and process params
+ 	* src/debugger.c, src/debugger.h, anjuta/src/aneditor.cxx,
+ 	anjuta/src/mainmenu_callbacks.c, anjuta/src/watch_cbs.c:
+ 	code cleanup
+
+2003-12-31  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from: Jean-Noel Guiheneuf <jnoel@lotuscompounds.com>
+	* anjuta.glade, src/mainmenu_callbacks.c, src/file.[c/h]:
+	Add a dialog for "New file" which lets the user set the 
+	filename and to add copyright/header templates to the file
+	* Review: Changed function names to contain modules name (file_)
+
 2003-12-09  Naba Kumar  <naba@gnome.org>
 
 	* setup-gettext: Fixed a typo.

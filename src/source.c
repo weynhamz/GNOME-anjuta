@@ -1785,25 +1785,9 @@ source_write_generic_main_c (ProjectDBase *data)
 	fprintf(fp,
 		"/*\tThis file will not be overwritten */\n\n");
 	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C)
-	{
-		fprintf(fp,
-			"#include <stdio.h>\n"
-			"int main()\n\n"
-			"{\n"
-			"\tprintf(\"Hello world\\n\");\n"
-			"\treturn (0);\n"
-			"}\n\n");
-	}
+		fprintf(fp,C_HELLO_WORLD);
 	else
-	{
-		fprintf(fp,
-			"#include <iostream.h>\n"
-			"int main()\n\n"
-			"{\n"
-			"\tcout << \"Hello world\\n\";\n"
-			"\treturn (0);\n"
-			"}\n\n");
-	}
+		fprintf(fp,CPP_HELLO_WORLD);
 	fclose (fp);
 	g_free (filename);
 	return TRUE;
@@ -1889,15 +1873,7 @@ source_write_libglade_main_c (ProjectDBase *data)
 			"}\n", gladefile);
 	}
 	else
-	{
-		fprintf(fp,
-			"#include <iostream.h>\n"
-			"int main()\n\n"
-			"{\n"
-			"\tcout << \"Hello world\\n\";\n"
-			"\treturn (0);\n"
-			"}\n\n");
-	}
+		fprintf(fp,CPP_HELLO_WORLD);
 	fclose (fp);
 	g_free (filename);
 	return TRUE;
@@ -1983,15 +1959,7 @@ source_write_libglade2_main_c (ProjectDBase *data)
 			"}\n", gladefile);
 	}
 	else
-	{
-		fprintf(fp,
-			"#include <iostream.h>\n"
-			"int main()\n\n"
-			"{\n"
-			"\tcout << \"Hello world\\n\";\n"
-			"\treturn (0);\n"
-			"}\n\n");
-	}
+		fprintf(fp,CPP_HELLO_WORLD);
 	fclose (fp);
 	g_free (filename);
 	return TRUE;
