@@ -1366,85 +1366,85 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
 	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Commit"),
-	 N_("Commit your changes to the repositry"),
+	 N_("Commit changes to the repository"),
 	 on_cvs_commit_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 2 */
 	 GNOME_APP_UI_ITEM, N_("Status"),
-	 N_("Print the status of a file"),
+	 N_("Print the status of the current file"),
 	 on_cvs_status_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 3 */
 	 GNOME_APP_UI_ITEM, N_("Get Log"),
-	 N_("Print the cvs log"),
+	 N_("Print the CVS log"),
 	 on_cvs_log_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 4 */
 	 GNOME_APP_UI_ITEM, N_("Add file"),
-	 N_("Add a file to the repositry"),
+	 N_("Add the current file to the repository"),
 	 on_cvs_add_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 5 */
 	 GNOME_APP_UI_ITEM, N_("Remove file"),
-	 N_("Remove a file from the repositry"),
+	 N_("Remove the current file from the repository"),
 	 on_cvs_remove_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 6 */
 	 GNOME_APP_UI_ITEM, N_("Diff"),
-	 N_("Make a diff between a the working copy and the repositry"),
+	 N_("Create a diff between the working copy and the repository"),
 	 on_cvs_diff_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 GNOMEUIINFO_SEPARATOR, /* 7 */
 	{
 	 /* 8 */
-	 GNOME_APP_UI_ITEM, N_("Update project"),
-	 N_("Update the working copy of a project"),
+	 GNOME_APP_UI_ITEM, N_("Update Project"),
+	 N_("Update the working copy of a Project"),
 	 on_cvs_update_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_U, GDK_MOD1_MASK | GDK_CONTROL_MASK, NULL},
 	{
 	 /* 9 */
-	 GNOME_APP_UI_ITEM, N_("Commit project"),
-	 N_("Commit the local changes in your project to the repositry"),
+	 GNOME_APP_UI_ITEM, N_("Commit Project"),
+	 N_("Commit local changes to the repository"),
 	 on_cvs_commit_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 10 */
-	 GNOME_APP_UI_ITEM, N_("Import project"),
-	 N_("Import project to a new module in the repositry"),
+	 GNOME_APP_UI_ITEM, N_("Import Project"),
+	 N_("Import Project as a new module in the repository"),
 	 on_cvs_import_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 {
 	 /* 11 */
-	 GNOME_APP_UI_ITEM, N_("Status project"),
-	 N_("Print the status of the project"),
+	 GNOME_APP_UI_ITEM, N_("Status Project"),
+	 N_("Print the status of the Project"),
 	 on_cvs_project_status_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 {
 	 /* 12 */
-	 GNOME_APP_UI_ITEM, N_("Get project log"),
-	 N_("Print the status of the project"),
+	 GNOME_APP_UI_ITEM, N_("Get Project log"),
+	 N_("Print the CVS log of the Project"),
 	 on_cvs_project_log_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 13 */
-	 GNOME_APP_UI_ITEM, N_("Diff project"),
-	 N_("Make a diff between the working copy and the repositry of a project"),
+	 GNOME_APP_UI_ITEM, N_("Diff Project"),
+	 N_("Create a diff between the working copy of the Project and the repository"),
 	 on_cvs_project_diff_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1452,7 +1452,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
 	 /* 15 */
 	 GNOME_APP_UI_ITEM, N_("Login"),
-	 N_("Login to a password server"),
+	 N_("Login to a CVS server"),
 	 on_cvs_login_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},

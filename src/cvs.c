@@ -221,7 +221,7 @@ cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir)
 }
 
 /* 
-	Commits the changes in the working copy to the repositry.
+	Commits the changes in the working copy to the repository.
 	message is the log message. 
 */
 
@@ -270,7 +270,7 @@ cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 }
 
 /* 
-	Import a project to a repositry. Fails if no project is currently
+	Import a project to a repository. Fails if no project is currently
 	open. The base directory of the project is set the checked out 
 	project directory.
 */
@@ -324,7 +324,7 @@ void cvs_import_project (CVS * cvs, ServerType type, gchar* server,
 
 
 /*
-	Adds a file to the repositry. If message == NULL it is ignored.
+	Adds a file to the repository. If message == NULL it is ignored.
 */
 
 void

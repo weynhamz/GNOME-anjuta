@@ -1,3 +1,10 @@
+2002-04-16 Andy Piper <andy.piper@freeuk.com>
+
+	* src/cvs.c, src/main_menubar_def.h: made message strings
+	consistent with existing standards from our own documentation 
+	(such as uppercase P in Project, corrected spelling of 
+	repository, etc.)
+
 2002-04-16 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/cvs_gui.c: Cleaned up gui and aligned various
@@ -11,7 +18,7 @@
 	* src/find_in_files.c, src/gnome_project.c,
 	src/project_import.c, src/cvs.c, src/configure.c, src/compile.c,
 	src/clean.c, src/clean_project.c, src/build_project.c,
-	src/build_file.c: Modified to hadle the new
+	src/build_file.c: Modified to handle the new
 	child exit code.
 	
 2002-04-15 Dan Elphick <dre00r@ecs.soton.ac.uk>
