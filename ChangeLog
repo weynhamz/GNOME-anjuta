@@ -1,3 +1,8 @@
+2005-01-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-marshal.[c,h]: Removed from cvs, because
+	they are generated.
+	
 2005-01-26  Naba Kumar  <naba@gnome.org>
 
 	* mime/Makefile.am, (new)gnome-mime-application-x-anjuta.png:
