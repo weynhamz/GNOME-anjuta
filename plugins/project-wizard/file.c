@@ -40,9 +40,17 @@ struct _NPWFile {
 	NPWFileType type;
 	gchar* source;
 	gchar* destination;
+	gint attribute;
 	NPWFileList* owner;
 	GNode* node;
 };
+
+typedef enum {
+	NPW_EXECUTE_FILE = 1 << 0,
+	NPW_PROJECT_FILE = 1 << 1,
+	NPW_AUTOGEN_SET = 1 << 2,
+	NPW_AUTOGEN_FILE = 1 << 3
+} NPWFileAttributes;
 
 // Header
 
@@ -56,7 +64,8 @@ npw_file_new(NPWFileList* owner)
 	this = g_chunk_new0(NPWFile, owner->data_pool);
 	this->owner = owner;
 	this->node = g_node_append_data(owner->list, this);
-
+	this->attribute = 0;
+	
 	return this;
 }
 
@@ -107,6 +116,68 @@ const gchar*
 npw_file_get_source(const NPWFile* this)
 {
 	return this->source;
+}
+
+void
+npw_file_set_execute(NPWFile* this, gboolean value)
+{
+	if (value)
+	{
+		this->attribute |= NPW_EXECUTE_FILE;
+	}
+	else
+	{
+		this->attribute &= ~NPW_EXECUTE_FILE;
+	}
+}
+
+gboolean
+npw_file_get_execute(const NPWFile* this)
+{
+	return this->attribute & NPW_EXECUTE_FILE;
+}
+
+void
+npw_file_set_project(NPWFile* this, gboolean value)
+{
+	if (value)
+	{
+		this->attribute |= NPW_PROJECT_FILE;
+	}
+	else
+	{
+		this->attribute &= ~NPW_PROJECT_FILE;
+	}
+}
+
+gboolean
+npw_file_get_project(const NPWFile* this)
+{
+	return this->attribute & NPW_PROJECT_FILE;
+}
+
+void
+npw_file_set_autogen(NPWFile* this, NPWFileBooleanValue value)
+{
+	switch(value)
+	{
+	case NPW_TRUE:
+		this->attribute |= NPW_AUTOGEN_FILE | NPW_AUTOGEN_SET;
+		break;
+	case NPW_FALSE:
+		this->attribute |= NPW_AUTOGEN_SET;
+		this->attribute &= ~NPW_AUTOGEN_FILE;
+		break;
+	case NPW_DEFAULT:
+		this->attribute &= ~(NPW_AUTOGEN_SET | NPW_AUTOGEN_FILE);
+		break;
+	}
+}
+
+NPWFileBooleanValue
+npw_file_get_autogen(const NPWFile* this)
+{
+	return this->attribute & NPW_AUTOGEN_SET ? (this->attribute & NPW_AUTOGEN_FILE ? NPW_TRUE : NPW_FALSE) : NPW_DEFAULT;
 }
 
 const NPWFile*

@@ -113,7 +113,7 @@ npw_autogen_add_default_definition(NPWAutogen* this, AnjutaPreferences* pref)
 
 	// Add project directory
 	value = anjuta_preferences_get(pref, "anjuta.project.directory");
-	value = "~/Projects";
+//	value = "~/Projects";
 	g_string_append_printf(def->data,"%s = \"%s\";\n", "AnjutaProjectDirectory", value);
 
 	return TRUE;

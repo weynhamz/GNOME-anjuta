@@ -25,22 +25,32 @@
 
 #include "druid.h"
 
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-//	NPWPlugin *w_plugin = (NPWPlugin*)plugin;
+	GladeXML* gxml;
+	NPWPlugin *w_plugin = (NPWPlugin*)plugin;
 	
 	g_message ("Project Wizard Plugin: Activating project wizard plugin...");
 
+	/* Create the messages preferences page */
+	w_plugin->pref = anjuta_shell_get_preferences (plugin->shell, NULL);
+	gxml = glade_xml_new (GLADE_FILE, "New Project Wizard", NULL);
+	anjuta_preferences_add_page (w_plugin->pref, gxml, "New Project Wizard", ICON_FILE);
+	g_object_unref (gxml);
+	
 	return TRUE;
 }
 
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-//	NPWPlugin *w_plugin = (NPWPlugin*)plugin;
+	//NPWPlugin *w_plugin = (NPWPlugin*)plugin;
 
 	g_message ("Project Wizard Plugin: Deactivating project wizard plugin...");
+
+	//anjuta_preferences_remove_page(w_plugin->pref, "New Project Wizard");
 
 	return TRUE;
 }

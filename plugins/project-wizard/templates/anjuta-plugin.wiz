@@ -61,7 +61,7 @@
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			<file source="NEWS"/>
 			<file source="README"/>
-			<script source="autogen.sh"/>
+			<file source="autogen.sh" execute="yes"/>
 			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 			[+IF (=(get "HaveI18n") "1")+]
 			<directory source="po">

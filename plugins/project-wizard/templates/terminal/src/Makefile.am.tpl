@@ -3,18 +3,21 @@
 
 ## Created by Anjuta
 
-INCLUDES = -DPACKAGE_SRC_DIR=\"$(srcdir)\" -DPACKAGE_DATA_DIR=\"$(datadir)\" [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
+INCLUDES = \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
 
 AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = [+(string-downcase (get "Name"))+]
+bin_PROGRAMS = [+NameLower+]
 
-[+(string->c-name! (string-downcase (get "Name")))+]_SOURCES = \
+[+NameCLower+]_SOURCES = \
 	main.c
 
-[+(string->c-name! (string-downcase (get "Name")))+]_LDFLAGS = 
+[+NameCLower+]_LDFLAGS = 
 
-[+(string->c-name! (string-downcase (get "Name")))+]_LDADD = [+IF (=(get "HavePackage") "1")+]$(PACKAGE_LIBS)[+ENDIF+]
+[+NameCLower+]_LDADD = [+IF (=(get "HavePackage") "1")+]$(PACKAGE_LIBS)[+ENDIF+]
 

@@ -34,13 +34,14 @@
  * program's installation directory.
  */
 #define GLADE_FILE PACKAGE_SRC_DIR"/[+NameLower+].glade"
-// #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade"
+/* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade" */
 
 int
 main (int argc, char *argv[])
 {
 	GtkWidget *window;
 [+IF (=(get "HaveGlade") "1")+]
+	GladeXML *gxml;
 [+ENDIF+]
 [+IF (=(get "HaveI18n") "1")+]
 #ifdef ENABLE_NLS

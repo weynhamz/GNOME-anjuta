@@ -20,9 +20,9 @@
 	<hidden name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
 	<hidden name="HavePackage" default="1"/>
 [+IF (=(get "HaveGlade") "1")+]
-	<hidden name="PackageModule1" default="gtk+2.0 libglade-2.0"/>
+	<hidden name="PackageModule1" default="gtk+-2.0 libglade-2.0"/>
 [+ELSE+]
-	<hidden name="PackageModule1" default="gtk+2.0"/>
+	<hidden name="PackageModule1" default="gtk+-2.0"/>
 [+ENDIF+]
 	<boolean name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
 	<boolean name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
@@ -49,7 +49,7 @@
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			<file source="NEWS"/>
 			<file source="README"/>
-			<script source="autogen.sh"/>
+			<file source="autogen.sh" execute="yes"/>
 			<file source="configure.in.tpl" destination="configure.in"/>
 			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 			[+IF (=(get "HaveI18n") "1") +]

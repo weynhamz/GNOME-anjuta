@@ -4,8 +4,8 @@
 
 SUBDIRS = src [+IF (=(get "HaveI18n") "1") +]po[+ENDIF+]
 
-[+(string->c-name! (string-downcase (get "Name")))+]docdir = ${prefix}/doc/[+Name+]
-[+(string->c-name! (string-downcase (get "Name")))+]doc_DATA = \
+[+NameCLower+]docdir = ${prefix}/doc/[+NameLower+]
+[+NameCLower+]doc_DATA = \
 	README\
 	COPYING\
 	AUTHORS\
@@ -13,7 +13,7 @@ SUBDIRS = src [+IF (=(get "HaveI18n") "1") +]po[+ENDIF+]
 	INSTALL\
 	NEWS
 
-EXTRA_DIST = $([+(string->c-name! (string-downcase (get "Name")))+]doc_DATA)
+EXTRA_DIST = $([+NameCLower+]doc_DATA)
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

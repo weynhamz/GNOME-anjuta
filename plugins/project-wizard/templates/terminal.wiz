@@ -42,9 +42,9 @@
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			<file source="NEWS"/>
 			<file source="README"/>
-			<script source="autogen.sh"/>
+			<file source="autogen.sh" execute="yes"/>
 			<file source="configure.in.tpl" destination="configure.in"/>
-			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+			<file destination="[+NameLower+].anjuta" source="project.anjuta" project="yes"/>
 			<directory source="src">
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 				<file source="main.c"/>

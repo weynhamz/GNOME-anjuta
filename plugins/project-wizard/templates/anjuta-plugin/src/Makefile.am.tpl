@@ -31,6 +31,7 @@ plugin_in_files = [+NameLower+].plugin.in
 
 # Include paths
 INCLUDES = \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
 	-DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \

@@ -23,6 +23,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/anjuta-preferences.h>
 
 typedef struct _NPWPlugin NPWPlugin;
 typedef struct _NPWPluginClass NPWPluginClass;
@@ -33,6 +34,7 @@ struct _NPWPlugin {
 	struct _NPWDruid* druid;
 	struct _NPWInstall* install;
 	IAnjutaMessageView* view;
+	AnjutaPreferences *pref;
 };
 
 struct _NPWPluginClass {

@@ -281,6 +281,14 @@ anjuta_launcher_init (AnjutaLauncher * obj)
 	anjuta_launcher_initialize (obj);
 }
 
+/**
+ * anjuta_launcher_is_busy:
+ * @launcher: a AnjutaLancher object.
+ *
+ * Tells if the laucher is currently executing any command.
+ *
+ * Return value: TRUE if launcher is busy, otherwisee FALSE.
+ */
 gboolean
 anjuta_launcher_is_busy (AnjutaLauncher *launcher)
 {
@@ -296,6 +304,13 @@ anjuta_launcher_set_busy (AnjutaLauncher *launcher, gboolean flag)
 		g_signal_emit_by_name (G_OBJECT (launcher), "busy", flag);
 }
 
+/**
+ * anjuta_launcher_send_stdin:
+ * @launcher: a AnjutaLancher object.
+ * @input_str: The string to send to STDIN of the process.
+ * 
+ * Sends a string to Standard input of the process currently being executed.
+ */
 void
 anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 {
@@ -305,6 +320,15 @@ anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 	anjuta_launcher_send_ptyin (launcher, input_str);
 }
 
+/**
+ * anjuta_launcher_send_ptyin:
+ * @launcher: a AnjutaLancher object.
+ * @input_str: The string to send to PTY of the process.
+ * 
+ * Sends a string to TTY input of the process currently being executed.
+ * Mostly useful for entering passwords and other inputs which are directly
+ * read from TTY input of the process.
+ */
 void
 anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 {
@@ -325,6 +349,13 @@ anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 	}
 }
 
+/**
+ * anjuta_launcher_reset:
+ * @launcher: a AnjutaLancher object.
+ * 
+ * Resets the launcher and kills (SIGTERM) current process, if it is still
+ * executing.
+ */
 void
 anjuta_launcher_reset (AnjutaLauncher *launcher)
 {
@@ -332,12 +363,26 @@ anjuta_launcher_reset (AnjutaLauncher *launcher)
 		kill (launcher->priv->child_pid, SIGTERM);
 }
 
+/**
+ * anjuta_launcher_send_stdin:
+ * @launcher: a AnjutaLancher object.
+ * 
+ * Sends a kernel signal to the process that is being executed.
+ */
 void
 anjuta_launcher_signal (AnjutaLauncher *launcher, int sig)
 {
 	kill (launcher->priv->child_pid, sig);
 }
 
+/**
+ * anjuta_launcher_get_child_pid:
+ * @launcher: a AnjutaLancher object.
+ * 
+ * Gets the Process ID of the child being executed.
+ *
+ * Return value: Process ID of the child.
+ */
 pid_t
 anjuta_launcher_get_child_pid (AnjutaLauncher *launcher)
 {
@@ -781,6 +826,15 @@ anjuta_launcher_child_terminated (int status, gpointer data)
 	anjuta_launcher_synchronize (launcher);
 }
 
+/**
+ * anjuta_launcher_set_encoding:
+ * @launcher: a AnjutaLancher object.
+ * @charset: Character set to use for Input/Output with the process.
+ * 
+ * Sets the character set to use for Input/Output with the process.
+ *
+ * Return value: TRUE if successful, otherwise FALSE.
+ */
 gboolean
 anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 {
@@ -929,6 +983,18 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	return child_pid;
 }
 
+/**
+ * anjuta_launcher_execute_v:
+ * @launcher: a AnjutaLancher object.
+ * @args: Command args.
+ * @callback: The callback for delivering output from the process.
+ * @callback_data: Callback data for the above callback.
+ * 
+ * The first of the @args is the command itself. The rest are sent to the
+ * as it's arguments. This function works similar to anjuta_launcher_execute().
+ * 
+ * Return value: TRUE if successfully launched, otherwise FALSE.
+ */
 gboolean
 anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[],
 						   AnjutaLauncherOutputCallback callback,
@@ -957,6 +1023,22 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const args[],
 	return TRUE;
 }
 
+/**
+ * anjuta_launcher_execute:
+ * @launcher: a AnjutaLancher object.
+ * @command_str: The command to execute.
+ * @callback: The callback for delivering output from the process.
+ * @callback_data: Callback data for the above callback.
+ * 
+ * Executes a command in the launcher. Both outputs (STDOUT and STDERR) are
+ * delivered to the above callback. The data are delivered as they arrive
+ * from the process and could be of any lenght. If the process asks for
+ * passwords, the user will be automatically prompted with a dialog to enter
+ * it. Please note that not all formats of the password are recognized. Those
+ * with the standard 'assword:' substring in the prompt should work well.
+ * 
+ * Return value: TRUE if successfully launched, otherwise FALSE.
+ */
 gboolean
 anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 						 AnjutaLauncherOutputCallback callback,
@@ -986,6 +1068,16 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 	return ret;
 }
 
+/**
+ * anjuta_launcher_echo:
+ * @launcher: a AnjutaLancher object.
+ * @echo_on: Echo ON flag.
+ * 
+ * Sets if input (those given in STDIN) should enabled or disabled. By default,
+ * it is disabled.
+ *
+ * Return value: TRUE if successfully set, otherwise FALSE.
+ */
 gboolean
 anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 								   gboolean echo_on)
@@ -995,6 +1087,14 @@ anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 	return past_value;
 }
 
+/**
+ * anjuta_launcher_new:
+ * 
+ * Sets if input (those given in STDIN) should enabled or disabled. By default,
+ * it is disabled.
+ *
+ * Return value: a new instance of AnjutaLancher class.
+ */
 AnjutaLauncher*
 anjuta_launcher_new ()
 {

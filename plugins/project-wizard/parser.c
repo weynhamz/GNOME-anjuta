@@ -43,7 +43,6 @@ typedef enum {
 	NPW_STRING_TAG,
 	NPW_DIRECTORY_TAG,
 	NPW_FILE_TAG,
-	// NPW_FILE_TAG,
 	NPW_SCRIPT_TAG,
 	NPW_CONTENT_TAG,
 	NPW_UNKNOW_TAG
@@ -59,6 +58,9 @@ typedef enum {
 	NPW_MANDATORY_ATTRIBUTE,
 	NPW_SOURCE_ATTRIBUTE,
 	NPW_DESTINATION_ATTRIBUTE,
+	NPW_EXECUTE_ATTRIBUTE,
+	NPW_PROJECT_ATTRIBUTE,
+	NPW_AUTOGEN_ATTRIBUTE,
 	NPW_UNKNOW_ATTRIBUTE
 } NPWAttribute;
 
@@ -209,10 +211,28 @@ parse_attribute(const char* name)
 	{
 		return NPW_DESTINATION_ATTRIBUTE;
 	}
+	else if (strcmp("execute", name) == 0)
+	{
+		return NPW_EXECUTE_ATTRIBUTE;
+	}
+	else if (strcmp("project", name) == 0)
+	{
+		return NPW_PROJECT_ATTRIBUTE;
+	}
+	else if (strcmp("autogen", name) == 0)
+	{
+		return NPW_AUTOGEN_ATTRIBUTE;
+	}
 	else
 	{
 		return NPW_UNKNOW_ATTRIBUTE;
 	}
+}
+
+static gboolean
+parse_boolean_string(const gchar* value)
+{
+	return g_ascii_strcasecmp("no", value) && g_ascii_strcasecmp("0", value) && g_ascii_strcasecmp("false", value);
 }
 
 // Parse Header
@@ -694,6 +714,10 @@ file_parse_start_element (GMarkupParseContext* context,
 	{
 		const gchar* source;
 		const gchar* destination;
+		gboolean execute;
+		gboolean project;
+		gboolean autogen;
+		gboolean autogen_set;
 		char* path;
 		char* fullname;
 		NPWFile* file;
@@ -701,6 +725,9 @@ file_parse_start_element (GMarkupParseContext* context,
 		parser->tag = tag;
 		source = NULL;
 		destination = NULL;
+		execute = FALSE;
+		project = FALSE;
+		autogen_set = FALSE;
 		while (*attributes != NULL)
 		{
 			switch (parse_attribute(*attributes))
@@ -710,6 +737,16 @@ file_parse_start_element (GMarkupParseContext* context,
 				break;
 			case NPW_DESTINATION_ATTRIBUTE:
 				destination = *values;
+				break;
+			case NPW_PROJECT_ATTRIBUTE:
+				project = parse_boolean_string(*values);
+				break;
+			case NPW_EXECUTE_ATTRIBUTE:
+				execute = parse_boolean_string(*values);
+				break;
+			case NPW_AUTOGEN_ATTRIBUTE:
+				autogen = parse_boolean_string(*values);
+				autogen_set = TRUE;
 				break;
 			default:
 				break;
@@ -735,8 +772,11 @@ file_parse_start_element (GMarkupParseContext* context,
 		{
 		case NPW_FILE_TAG:
 		case NPW_SCRIPT_TAG:
+			// Remove this after removing all script tag in template file
+			if (tag == NPW_SCRIPT_TAG) execute = TRUE;
+			//
 			file = npw_file_new(parser->list);
-			npw_file_set_type(file, tag == NPW_SCRIPT_TAG ? NPW_SCRIPT : NPW_FILE);
+			npw_file_set_type(file, NPW_FILE);
 			path = g_queue_peek_nth(parser->src_path,0);
 			if (g_path_is_absolute (source) || path == NULL)
 			{
@@ -758,6 +798,12 @@ file_parse_start_element (GMarkupParseContext* context,
 				fullname = g_build_filename(path, destination, NULL);
 				npw_file_set_destination(file, fullname);
 				g_free(fullname);
+			}
+			npw_file_set_execute(file, execute);
+			npw_file_set_project(file, project);
+			if (autogen_set)
+			{
+				npw_file_set_autogen(file, autogen ? NPW_TRUE : NPW_FALSE);
 			}
 			break;
 		case NPW_DIRECTORY_TAG:

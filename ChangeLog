@@ -1,3 +1,35 @@
+2005-01-15  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-launcher.c: Added API docs.
+	
+	* plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/gtk/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/gtk/src/main.c,
+	plugins/project-wizard/templates/terminal/Makefile.am.tpl,
+	plugins/project-wizard/templates/terminal/src/Makefile.am.tpl: Fixed
+	template files.
+
+	Patch from: Sébastien Granjoux <seb.sfo@free.fr>
+	* plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/autogen.c,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/druid.h,
+	plugins/project-wizard/file.c,
+	plugins/project-wizard/file.h,
+	plugins/project-wizard/install.c,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/plugin.c,
+	plugins/project-wizard/plugin.h: Add a preferences dialog: used for
+	setting the default project directory. Fix HIDDEN property, it's
+	working but I think we could make this cleaner. Removed the
+	copy of the string in mandatory_property. Add an optional autogen
+	attribute, to force or avoid using autogen on some files, default
+	without any attribute is autodetect.+ Replace the script tag with
+	a normal file tag and an attribute execute.
+	
 2005-01-14  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/action-callbacks.c,

@@ -34,7 +34,6 @@
 #include "install.h"
 #include "autogen.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-project-wizard.glade"
 #define PROJECT_WIZARD_DIRECTORY PACKAGE_DATA_DIR"/project"
 #define PIXMAP_APPWIZ_LOGO PACKAGE_DATA_DIR"/glade/applogo.png"
 #define PIXMAP_APPWIZ_WATERMARK PACKAGE_DATA_DIR"/glade/appwizard.png"
@@ -406,6 +405,10 @@ npw_property_get_widget_value(NPWProperty* property)
 	case NPW_FILE_PROPERTY:
 		value = gnome_file_entry_get_full_path(GNOME_FILE_ENTRY(npw_property_get_widget(property)), FALSE);
 		break;
+	case NPW_HIDDEN_PROPERTY:
+		// FIXME
+		value = npw_property_get_value(property);
+		break;
 	default:
 		break;
 	}
@@ -442,7 +445,7 @@ cb_save_old_property(NPWProperty* property, gpointer data)
 };
 
 /* Returns the first mandatory property which has no value given */
-static gchar*
+static const gchar*
 npw_druid_save_valid_values(NPWDruid* this)
 {
 	NPWPropertyContext ctx;
@@ -453,12 +456,13 @@ npw_druid_save_valid_values(NPWDruid* this)
 	ctx.page = page;
 	ctx.required_property = NULL;
 	npw_page_foreach_property(page, cb_save_valid_property, &ctx);
-	if (ctx.required_property)
-	{
-		return g_strdup (ctx.required_property);
-
-	}
-	return NULL;
+//	if (ctx.required_property)
+//	{
+//		return g_strdup (ctx.required_property);
+//
+//	}
+//	return NULL;
+	return ctx.required_property;
 }
 
 static void
@@ -501,10 +505,6 @@ npw_druid_destroy(NPWDruid* this)
 		this->tooltips = NULL;
 	}
 	if (this->page_list != NULL)
-	if (this->property_value != NULL)
-	{
-		npw_property_values_destroy(this->property_value);
-	}
 	{
 		NPWPage* page;
 
@@ -514,6 +514,10 @@ npw_druid_destroy(NPWDruid* this)
 			npw_page_destroy(page);
 		}
 		g_queue_free(this->page_list);
+	}
+	if (this->property_value != NULL)
+	{
+		npw_property_values_destroy(this->property_value);
 	}
 	if (this->gen != NULL)
 	{
@@ -607,7 +611,7 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 	else
 	{
 		// Current is one of the property page
-		gchar *mandatory_property;
+		const gchar *mandatory_property;
 		
 		// mandatory_property = npw_druid_save_all_values(this);
 		mandatory_property = npw_druid_save_valid_values(this);
@@ -618,7 +622,7 @@ on_druid_next(GnomeDruidPage* page, GtkWidget* widget, NPWDruid* this)
 									  _("Field \"%s\" is mandatory. Please enter it."),
 									  mandatory_property);
 			this->page--;
-			g_free (mandatory_property);
+			// g_free (mandatory_property);
 			
 			/* Unset busy */
 			npw_druid_set_busy (this, FALSE);
@@ -720,6 +724,7 @@ npw_druid_new(NPWPlugin* plugin)
 	this->page = 0;
 	this->busy = FALSE;
 	this->page_list = NULL;
+	this->property_value = npw_property_values_new();
 	this->gen = npw_autogen_new();
 	this->plugin = plugin;
 
