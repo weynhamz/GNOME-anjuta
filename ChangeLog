@@ -1,3 +1,9 @@
+2002-07-24  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+
+	* tm_project.c: Added *.i and *.pc to C code files.
+	* data/Makefile.am, plugins/class-gen/Makefile.am: Build fixes.
+	* src/project_dbase.c: Project dir realpath()ed.
+
 2002-07-17  Stephane Demurget  <demurgets@free.fr>
 
 	* */*/*.{c, cxx, h, py}:

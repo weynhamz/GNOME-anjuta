@@ -23,12 +23,12 @@
 
 #define TM_FILE_NAME ".tm_project.cache"
 
-static const char *s_sources[] = { "*.c" /* C files */
+static const char *s_sources[] = { "*.c", "*.pc" /* C/Pro*C files */
 	, "*.C", "*.cpp", "*.cc", "*.cxx", "*.c++" /* C++ files */
-	, "*.h", "*.hh", "*.hpp", "*.H", "*.h++" /* Header files */
-#if 0
+	, "*.h", "*.hh", "*.hpp", "*.H", "*.h++", "*.i" /* Header files */
 	, "*.oaf", "*.gob", "*.idl" /* CORBA/Bonobo files */
 	, "*.l", "*.y" /* Lex/Yacc files */
+#if 0
 	, "*.ui", "*.moc" /* KDE/QT Files */
 	, "*.glade" /* UI files */
 #endif
@@ -389,7 +389,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 		}
 	}
 	fclose(fp);
-	tm_project_recreate_tags_array(project);
+	tm_project_update((TMWorkObject *) project, FALSE, TRUE, TRUE);
 	return TRUE;
 }
 

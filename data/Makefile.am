@@ -21,7 +21,6 @@ anjuta_data_DATA = \
 	autogen.sh.gnomemm\
 	autogen.sh.wxwin
 
-EXTRA_DIST = $(anjuta_data_DATA)
 
 anjuta_mimedir = $(prefix)/share/mime-info
 
@@ -34,6 +33,8 @@ MACROS = \
 	*.m4
 
 MACROS_dir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/gnome
+
+EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_mime_DATA)
 
 install-data-local: system.tags
 	mkdir -p $(MACROS_dir)

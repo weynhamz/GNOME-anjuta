@@ -5,6 +5,8 @@
 #
 ANJUTA_SRC_DIR = $(top_srcdir)/src
 
+EXTRA_DIST = class_logo.xpm
+
 #
 # Where to install the plugin
 #
