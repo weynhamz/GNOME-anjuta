@@ -1,5 +1,9 @@
 2004-03-29  Naba Kumar  <naba@gnome.org>
 
+	* data/properties/ada.properties: Fixed syntax colors. Patch
+	from Gabriel Rossetti <gabriel.rossetti _at_ eivd.ch>
+	(bug #923474).
+
 	* src/source.c, src/gnome_project.c, src/appwizard_cbs.c,
 	src/appwiz_page2.c:	Correctly defines PACKAGE_DATA_DIR for
 	generated projects, so that their pixmap files are
