@@ -1,6 +1,7 @@
 2002-12-12  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.glade, src/anjuta-tools.c, src/text_editor.[ch]
 	, src/mainmenu_callbacks.c, controls.c: Tools editor stuff.
+	* TODO.biswa: Added to help me track things better.
 
 2002-12-11  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
