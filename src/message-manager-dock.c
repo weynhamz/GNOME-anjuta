@@ -31,7 +31,7 @@ amm_undock (GtkWidget * amm, GtkWidget ** window)
 	if (amm->parent != NULL)
 		amm_hide_docked ();
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (*window));
+	gtk_window_add_accel_group (GTK_WINDOW (*window), app->accel_group);
 	gtk_signal_connect (GTK_OBJECT (*window), "delete_event",
 			    GTK_SIGNAL_FUNC (on_delete_event), amm);
 

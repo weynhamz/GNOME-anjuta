@@ -635,7 +635,7 @@ gboolean compiler_options_load_yourself (CompilerOptions * co, PropsID props)
 	list = glist_from_data (props, property); \
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(widget)); \
 	g_assert (model); \
-	valid = gtk_tree_model_iter_first (model, &iter); \
+	valid = gtk_tree_model_get_iter_first (model, &iter); \
 	node = list; \
 	while (node && valid) \
 	{ \

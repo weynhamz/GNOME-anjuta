@@ -116,7 +116,7 @@ create_cpu_registers_gui(CpuRegisters *cr)
   gtk_widget_show (label8);
   gtk_clist_set_column_widget (GTK_CLIST (clist4), 2, label8);
 
-  gtk_accel_group_attach( app->accel_group, GTK_OBJECT(window3));
+  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group);
 
   gtk_signal_connect (GTK_OBJECT (clist4), "select_row",
                       GTK_SIGNAL_FUNC (on_registers_clist_select_row),

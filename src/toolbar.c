@@ -605,10 +605,10 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar2);
 	gtk_widget_show (toolbar2);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
+	//			       GTK_RELIEF_NONE);
 
 	tmp_toolbar_icon =
 		anjuta_res_get_pixmap_widget (window1,
@@ -1105,10 +1105,10 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar2), GTK_TOOLBAR_ICONS);
 	gtk_widget_ref (toolbar2);
 	gtk_widget_show (toolbar2);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
+	//			       GTK_RELIEF_NONE);
 
 	tmp_toolbar_icon =
 		anjuta_res_get_pixmap_widget (window1,

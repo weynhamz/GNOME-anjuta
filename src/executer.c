@@ -250,7 +250,7 @@ create_executer_dialog (Executer * e)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->m_gui.check_terminal),
 	                              e->terminal);
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (e->m_gui.dialog));
+	gtk_window_add_accel_group (GTK_WINDOW (e->m_gui.dialog), app->accel_group);
 
 	g_signal_connect (G_OBJECT (e->m_gui.combo_entry1), "changed",
 			    G_CALLBACK (on_executer_entry_changed), e);

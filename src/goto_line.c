@@ -81,7 +81,7 @@ gotoline_class_init (GotoLineClass * klass)
   GObjectClass *object_class;
   assert (klass != NULL);
   object_class = (GObjectClass *) klass;
-  g_object_class_add_signals (object_class, gotoline_signals, LAST_SIGNAL);
+  //g_object_class_add_signals (object_class, gotoline_signals, LAST_SIGNAL);
 }
 
 
@@ -148,7 +148,7 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
   {
 	ne = (GtkEntry *) user_data;
 	te = anjuta_get_current_text_editor ();
-	num = gtoi (gtk_entry_get_text (ne));
+	num = atoi (gtk_entry_get_text (ne));
 	if (te)
 		text_editor_goto_line (te, num, TRUE);
   }

@@ -136,7 +136,7 @@ create_app_wizard_gui (AppWizard * aw)
 	
 	
 	/* buttons, callbacks etc. */
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
+	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
 	gtk_signal_connect (GTK_OBJECT (druid1), "cancel",
 			    GTK_SIGNAL_FUNC (on_druid1_cancel), aw);

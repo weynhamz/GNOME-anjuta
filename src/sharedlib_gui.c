@@ -120,7 +120,7 @@ create_sharedlibs_gui(Sharedlibs *sl)
                       GTK_SIGNAL_FUNC (on_sharedlibs_event),
                       sl);
 
-  gtk_accel_group_attach( app->accel_group, GTK_OBJECT(window3));
+  gtk_window_add_accel_group (GTK_WINDOW (window3), app->accel_group);
 
   sl->widgets.window = window3;
   sl->widgets.clist = clist4;

@@ -384,7 +384,7 @@ fv_disconnect ()
 {
 	g_return_if_fail (fv != NULL);
 
-	g_signal_disconnect_by_func (fv->tree, G_CALLBACK (fv_on_event), NULL);
+	g_signal_handlers_block_by_func (fv->tree, G_CALLBACK (fv_on_event), NULL);
 }
 
 static void
@@ -392,7 +392,7 @@ fv_connect ()
 {
 	g_return_if_fail (fv != NULL && fv->tree);
 
-	g_signal_connect (fv->tree, "event", G_CALLBACK (fv_on_event), NULL);
+	g_signal_handlers_unblock_by_func (fv->tree, G_CALLBACK (fv_on_event), NULL);
 }
 
 static void

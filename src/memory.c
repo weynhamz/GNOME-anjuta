@@ -530,7 +530,7 @@ mem_clear_gtktext (GtkTextView *text)
   gint length;
   GtkTextBuffer *buffer;
   buffer = gtk_text_view_get_buffer (text);
-  gtk_text_buffer_clear (buffer);
+  gtk_text_buffer_set_text (buffer, "", -1);
 }
 
 static void

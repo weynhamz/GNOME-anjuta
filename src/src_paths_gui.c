@@ -85,7 +85,7 @@ create_src_paths_gui (SrcPaths* co)
   gtk_widget_show (button_cancel);
   GTK_WIDGET_SET_FLAGS (button_cancel, GTK_CAN_DEFAULT);
 
-  gtk_accel_group_attach( app->accel_group, GTK_OBJECT(window1));
+  gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
   gtk_signal_connect (GTK_OBJECT (dialog1), "close",
                       GTK_SIGNAL_FUNC (on_src_paths_close),

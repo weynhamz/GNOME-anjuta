@@ -73,8 +73,7 @@ create_project_import_gui (void)
 	gtk_window_set_position (GTK_WINDOW (piw->widgets.window),
 				 GTK_WIN_POS_CENTER);
     gnome_window_icon_set_from_default(GTK_WINDOW(piw->widgets.window));
-	gtk_accel_group_attach (app->accel_group,
-				GTK_OBJECT (piw->widgets.window));
+	gtk_window_add_accel_group (GTK_WINDOW (piw->widgets.window), app->accel_group);
 
 	piw->widgets.druid = gnome_druid_new ();
 	gtk_widget_show (piw->widgets.druid);

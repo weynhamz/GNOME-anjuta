@@ -95,11 +95,11 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_MAIN_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
 			       BONOBO_DOCK_TOP, 1, 0, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar1), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar1), 5);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar1),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar1),
+	//			       GTK_RELIEF_NONE);
 	
 	toolbar2 =
 		create_browser_toolbar (anjuta_gui,
@@ -109,11 +109,11 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_BROWSER_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL,
 			       BONOBO_DOCK_TOP, 2, 0, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar2), 5);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar2),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar2),
+	//			       GTK_RELIEF_NONE);
 
 	toolbar3 =
 		create_debug_toolbar (anjuta_gui,
@@ -123,11 +123,11 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_DEBUG_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NORMAL,
 			       BONOBO_DOCK_TOP, 3, 0, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar3),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar3),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar3),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar3),
+	//			       GTK_RELIEF_NONE);
 
 	toolbar4 =
 		create_format_toolbar (anjuta_gui,
@@ -136,11 +136,11 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_FORMAT_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NORMAL,
 			       BONOBO_DOCK_TOP, 3, 1, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar4), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar4),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar4),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar4), 5);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar4),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar4),
+	//			       GTK_RELIEF_NONE);
 
 	toolbar5 =
 		create_extended_toolbar (anjuta_gui,
@@ -150,11 +150,11 @@ create_anjuta_gui (AnjutaApp * appl)
 			       ANJUTA_EXTENDED_TOOLBAR,
 			       BONOBO_DOCK_ITEM_BEH_NORMAL,
 			       BONOBO_DOCK_TOP, 4, 0, 0);
-	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar5), 5);
-	gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar5),
-				     GTK_TOOLBAR_SPACE_LINE);
-	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar5),
-				       GTK_RELIEF_NONE);
+	//gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar5), 5);
+	//gtk_toolbar_set_space_style (GTK_TOOLBAR (toolbar5),
+	//			     GTK_TOOLBAR_SPACE_LINE);
+	//gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar5),
+	//			       GTK_RELIEF_NONE);
 	
 	//	 Use a vbox, not an eventbox, to support gtk_widget_reparent() stuff
 	//	done when hiding/showing project and message panes

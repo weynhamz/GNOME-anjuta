@@ -95,8 +95,8 @@ on_cvs_dialog_response (GtkWidget *dialog, gint response, CVSFileGUI *gui)
 		branch = gtk_editable_get_chars (GTK_EDITABLE (gtk_entry_branch),
 		                                 0, -1);
 		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(gui->text_message));
-		gtk_text_buffer_iter_get_at_offset (buffer, &start, 0);
-		gtk_text_buffer_iter_get_at_offset (buffer, &end, -1);
+		gtk_text_buffer_get_iter_at_offset (buffer, &start, 0);
+		gtk_text_buffer_get_iter_at_offset (buffer, &end, -1);
 		message = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
 	
 		if (strlen (filename) == 0)
@@ -219,8 +219,8 @@ on_cvs_import_dialog_response (GtkWidget *dialog, gint response,
 		                              (GNOME_ENTRY (gui->entry_release))));
 		
 		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(gui->text_message));
-		gtk_text_buffer_iter_get_at_offset (buffer, &start, 0);
-		gtk_text_buffer_iter_get_at_offset (buffer, &end, -1);
+		gtk_text_buffer_get_iter_at_offset (buffer, &start, 0);
+		gtk_text_buffer_get_iter_at_offset (buffer, &end, -1);
 		message = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
 		
 		cvs_import_project (app->cvs, type, server, dir, user, module, 

@@ -67,7 +67,7 @@ create_find_in_files_gui (FindInFiles *sf)
 	gtk_widget_ref (sf->widgets.regexp_entry);
 	gtk_widget_ref (sf->widgets.regexp_combo);
 	
-	gtk_accel_group_attach(app->accel_group, GTK_OBJECT(sf->widgets.window));
+	gtk_window_add_accel_group (GTK_WINDOW (sf->widgets.window), app->accel_group);
 
 	g_signal_connect (G_OBJECT (sf->widgets.clist), "row_activated",
 					  G_CALLBACK (on_search_in_files_clist_row_activated),
@@ -96,7 +96,7 @@ create_find_in_files_gui (FindInFiles *sf)
 					  G_CALLBACK (on_search_in_files_ok_clicked),
 					  sf);
 
-	g_window_set_transient_for(GTK_WINDOW(sf->widgets.window),
+	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window),
 	                             GTK_WINDOW(app->widgets.window));
 }
 
@@ -248,8 +248,8 @@ find_in_files_process (FindInFiles * ff)
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while(valid)
 	{
-		gtk_list_store_get (GTK_LIST_STORE (model), &iter, 0, &file, -1);
-		valid = gtk_tree_model_get_iter_next (model, &iter);
+		gtk_tree_model_get (model, &iter, 0, &file, -1);
+		valid = gtk_tree_model_iter_next (model, &iter);
 		temp = g_strconcat (command, " ", file, " ", NULL);
 		g_free (command);
 		command = temp;

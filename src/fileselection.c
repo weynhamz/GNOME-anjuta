@@ -149,8 +149,7 @@ create_fileselection_gui (FileSelData * fsd)
 	gtk_widget_show (fileselection_cancel);
 	GTK_WIDGET_SET_FLAGS (fileselection_cancel, GTK_CAN_DEFAULT);
 
-	gtk_accel_group_attach (app->accel_group,
-				GTK_OBJECT (fileselection_gui));
+	gtk_window_add_accel_group (GTK_WINDOW (fileselection_gui), app->accel_group);
 
 	gtk_signal_connect (GTK_OBJECT (fileselection_gui), "delete_event",
 			    GTK_SIGNAL_FUNC (on_file_selection_delete_event),

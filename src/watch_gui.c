@@ -136,7 +136,7 @@ create_expr_watch_gui (ExprWatch * ew)
   gtk_clist_set_column_justification (GTK_CLIST (clist1), 1,
 				      GTK_JUSTIFY_LEFT);
 
-  gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
+  gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
   gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
 		      GTK_SIGNAL_FUNC (on_watch_delete_event), ew);

@@ -33,7 +33,7 @@ static void
 on_clear_clist_confirm_yes_clicked (GtkButton * button, gpointer data)
 {
 	GtkListStore *clist = data;
-	gtk_store_list_clear (clist);
+	gtk_list_store_clear (clist);
 }
 
 gboolean
@@ -155,9 +155,9 @@ add_new_entry (GtkWidget *tree, GtkWidget *entry, gint col)
 	g_assert (model);
 	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 	if (col == 0)
-		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0, text);
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, text);
 	else
-		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0,
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0,
 			TRUE, col, text, -1);
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 }
@@ -182,9 +182,9 @@ update_entry (GtkWidget *tree, GtkWidget *entry, gint col)
 	g_assert (model);
 	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 	if (col == 0)
-		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0, text);
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, text);
 	else
-		gtk_store_list_set (GTK_LIST_STORE(model), &iter, 0,
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0,
 			TRUE, col, text, -1);
 	gtk_entry_set_text (GTK_ENTRY (entry), "");
 }

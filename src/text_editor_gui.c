@@ -313,7 +313,7 @@ create_text_editor_gui (TextEditor * te)
 	scintilla_set_id (SCINTILLA (editor1), current_id++);
 	gtk_container_add (GTK_CONTAINER (client_frame), editor1);
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
+	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
 	gtk_signal_connect (GTK_OBJECT (window1), "realize",
 			    GTK_SIGNAL_FUNC (on_text_editor_window_realize),

@@ -1,3 +1,28 @@
+2003-01-10  Naba Kumar  <naba@gnome.org>
+
+	* src/an_file_view.c,
+	src/anjuta_gui.c,
+	src/appwizard_gui.c,
+	src/compiler_options.c,
+	src/compiler_options_cbs.c,
+	src/cvs_cbs.c,
+	src/executer.c,
+	src/fileselection.c,
+	src/find_in_files.c,
+	src/goto_line.c,
+	src/main_menubar.c,
+	src/memory.c,
+	src/message-manager-dock.c,
+	src/preferences.c,
+	src/project_dbase_gui.c,
+	src/project_import_gui.c,
+	src/registers_gui.c,
+	src/sharedlib_gui.c,
+	src/src_paths_gui.c,
+	src/text_editor_gui.c,
+	src/toolbar.c,
+	src/watch_gui.c: GNOME2 porting. Fixed unresolved symbols
+
 2003-01-09  Naba Kumar <naba@gnome.org>
 
 	* scintilla/RESearch.cxx: Removed cvs logging as it was creating

@@ -536,7 +536,7 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_ctree_set_expander_style (GTK_CTREE(ctree1), GTK_CTREE_EXPANDER_SQUARE);
 	gtk_widget_show (ctree1);
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (window1));
+	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
 	gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
 			    GTK_SIGNAL_FUNC

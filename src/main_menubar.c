@@ -302,8 +302,8 @@ main_menu_install_hints (GtkWidget* ap)
 		int submenu_size = sizeof(*anjuta_menus_uiinfo[i])/sizeof(GnomeUIInfo);
 		for (j = 0; j < submenu_size; j++) {
 			gtk_widget_ref (anjuta_menus_uiinfo[i][j].widget);
-			gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
-				GTK_OBJECT(anjuta_menus_uiinfo[i][j].widget));
+			//gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
+			//	GTK_OBJECT(anjuta_menus_uiinfo[i][j].widget));
 		}
 	}
 	/* Help menu is separate because we don't want to reference
@@ -311,8 +311,8 @@ main_menu_install_hints (GtkWidget* ap)
 	 */
 	for (i = 1; i < NUM_HELP_SUBMENUS; i++) {
 		gtk_widget_ref (help1_menu_uiinfo[i].widget);
-		gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
-			GTK_OBJECT(help1_menu_uiinfo[i].widget));
+		//gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
+		//	GTK_OBJECT(help1_menu_uiinfo[i].widget));
 	}
 	
 	gnome_app_install_appbar_menu_hints (GNOME_APPBAR

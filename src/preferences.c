@@ -495,7 +495,7 @@ create_preferences_gui (Preferences * pr)
 	pr->priv->notebook = glade_xml_get_widget (app->gxml, "preferences_notebook");
 	pr->priv->dialog = glade_xml_get_widget (app->gxml, "preferences_dialog");
 
-	gtk_accel_group_attach (app->accel_group, GTK_OBJECT (pr->priv->dialog));
+	gtk_window_add_accel_group (GTK_WINDOW (pr->priv->dialog), app->accel_group);
 
 	g_signal_connect (G_OBJECT (pr->priv->dialog), "close",
 			    G_CALLBACK (on_preferences_dialog_close), pr);
