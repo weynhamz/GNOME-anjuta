@@ -27,13 +27,10 @@
 #include "main_menubar_def.h"
 #include "fileselection.h"
 
-void on_file_menu_realize (GtkWidget * widget, gpointer data);
-
-void on_project_menu_realize (GtkWidget * widget, gpointer data);
-/*-------------------------------------------------------------------------------------------*/
+static void on_file_menu_realize (GtkWidget * widget, gpointer data);
+static void on_project_menu_realize (GtkWidget * widget, gpointer data);
 static void on_plugins_menu_realize (GtkWidget * widget, gpointer data);
 static void on_plugins_menu_item_activate (GtkMenuItem * item, AnjutaAddInPtr pPlug );
-/*-------------------------------------------------------------------------------------------*/
 
 void
 create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
@@ -349,6 +346,10 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	/* unimplemented */
 	gtk_widget_hide (menubar1_uiinfo[9].widget);
 
+
+	/* Note: this is because we don't know yet what's the contents of these
+	         menus*/
+	
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_files), "realize",
 			    GTK_SIGNAL_FUNC (on_file_menu_realize), NULL);
 
@@ -422,6 +423,12 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	gint i;
 	submenu = gtk_menu_new ();
 
+	/* FIXME: what about the user opinion on tearoff menuitems ?
+	          perhaps (s)he has desactivated the option. */
+	item = gtk_tearoff_menu_item_new ();
+	gtk_menu_append (GTK_MENU (submenu), item);
+	gtk_widget_show (item);
+
 	item = gtk_menu_item_new ();
 	gtk_menu_append (GTK_MENU (submenu), item);
 	gtk_widget_show (item);
@@ -461,58 +468,44 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	return GTK_WIDGET (submenu);
 }
 
-static 
-GtkWidget *
-create_submenu_plugin (gchar * title, GList * pList, GtkSignalFunc callback_func)
+static GtkWidget *
+create_submenu_plugin (GList * pList, GtkSignalFunc callback_func)
 {
 	GtkWidget *submenu;
 	GtkWidget *item;
 	gint i;
+
 	submenu = gtk_menu_new ();
 
-	item = gtk_menu_item_new ();
+	/* FIXME: what about the user opinion on tearoff menuitems ?
+	          perhaps (s)he has desactivated the option. */
+	item = gtk_tearoff_menu_item_new ();
 	gtk_menu_append (GTK_MENU (submenu), item);
 	gtk_widget_show (item);
 
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
+	for (i = 0; i < g_list_length (pList); i++) {
+		AnjutaAddInPtr pPlug;
+		gchar *szTitle;
 
-	item = gtk_menu_item_new_with_label (title);
-	gtk_widget_set_sensitive (item, FALSE);
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
-	for (i = 0; i < g_list_length (pList); i++)
-	{
-		AnjutaAddInPtr	pPlug;
-		gchar			*szTitle ;
 		pPlug = (AnjutaAddInPtr) (g_list_nth (pList, i)->data);
 		szTitle = (*pPlug->GetMenuTitle)( pPlug->m_Handle, pPlug->m_UserData ) ;
+
 		item = gtk_menu_item_new_with_label ( szTitle );
+
 		g_free( szTitle );
+
 		gtk_menu_append (GTK_MENU (submenu), item);
 		gtk_widget_show (item);
 		gtk_signal_connect (GTK_OBJECT (item), "activate",
 				    callback_func, pPlug );
 	}
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
-
-	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
-	gtk_widget_show (item);
 
 	gtk_widget_show (submenu);
+
 	return GTK_WIDGET (submenu);
 }
 
-void
+static void
 on_file_menu_realize (GtkWidget * widget, gpointer data)
 {
 	GtkWidget *submenu =
@@ -526,11 +519,16 @@ on_file_menu_realize (GtkWidget * widget, gpointer data)
 static void
 on_plugins_menu_realize (GtkWidget * widget, gpointer data)
 {
-	GtkWidget *submenu =
-		create_submenu_plugin (_("Plug Ins"), app->addIns_list,
-				GTK_SIGNAL_FUNC
-				(on_plugins_menu_item_activate));
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
+	if (app->addIns_list) {
+		GtkWidget *submenu =
+			create_submenu_plugin (app->addIns_list,
+					GTK_SIGNAL_FUNC
+					(on_plugins_menu_item_activate));
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
+	} else
+		/* Note: we only hide it to keep a proper ref counting */
+		gtk_widget_hide (widget);
+		
 }
 
 static void
@@ -539,7 +537,7 @@ on_plugins_menu_item_activate (GtkMenuItem * item, AnjutaAddInPtr pPlug )
 	(*pPlug->Activate)( pPlug->m_Handle, pPlug->m_UserData, app ) ;
 }
 
-void
+static void
 on_project_menu_realize (GtkWidget * widget, gpointer data)
 {
 	GtkWidget *submenu =
