@@ -9,6 +9,8 @@
 	
 	* src/anjuta.ui, src/Makefile.am: Fixed UI file and its
 	installation directory.
+	
+	* src/text_editor_cbs.c: Fixed closing of file.
 
 2003-09-14  Hasbullah Bin Pit <sebol@ikhlas.com>
                                                                                 
