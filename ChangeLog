@@ -1,3 +1,7 @@
+2003-09-14  Hasbullah Bin Pit <sebol@ikhlas.com>
+                                                                                
+        * configure.in: Added 'ms' (Malay) to ALL_LINGUAS.
+
 2003-09-11  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
