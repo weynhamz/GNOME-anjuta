@@ -44,7 +44,7 @@ enum
 
 /* Do not use translation here */
 static gchar*
-prog_language_map[]=
+prog_language_map_buildin[]=
 {
 	"C", "c",
 	"C++", "cpp",
@@ -58,6 +58,8 @@ prog_language_map[]=
 	"LaTex", "latex",
 	NULL, NULL
 };
+
+static gchar **prog_language_map;
 
 /* Ditto */
 static gchar *
@@ -105,6 +107,8 @@ CommandEditor*
 command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 {
 	CommandEditor* ce;
+	GList *command_lang_info;
+	
 	ce = g_malloc (sizeof (CommandEditor));
 	if (!ce) return NULL;
 	ce->props = p;
@@ -118,7 +122,29 @@ command_editor_new (PropsID p_global, PropsID p_user, PropsID p)
 	/* Don't worry dialog is unsinkable */
 	ce->win_width = 0;
 	ce->win_height = 0;
-	
+
+	command_lang_info = glist_from_data (p, COMMAND_LANGUAGES);	
+	if (!command_lang_info)
+		prog_language_map = prog_language_map_buildin;
+	else {
+		GList *node;
+		gint length, count;
+		
+		node = command_lang_info;
+		length = g_list_length(node);
+		prog_language_map = (gchar**) g_new (gchar*, length+3);
+		count = 0;
+		
+		while (node) {
+			if (node->data) {
+				prog_language_map[count++] = g_strdup((gchar*)node->data);
+			}
+			node = g_list_next (node);
+		}
+		prog_language_map[count++] = NULL;
+		prog_language_map[count++] = NULL;
+		glist_strings_free (command_lang_info);
+	}
 	create_command_editor_gui (ce);
 	return ce;
 }
