@@ -685,7 +685,7 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 }
 
 static void
-sv_finalize (GObject * obj)
+anjuta_symbol_view_finalize (GObject * obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
 	DEBUG_PRINT ("Finalizing symbolview widget");
@@ -693,12 +693,13 @@ sv_finalize (GObject * obj)
 	anjuta_symbol_view_clear (sv);
 	
 	g_hash_table_destroy (sv->priv->tm_files);
+	tm_workspace_free ((gpointer) sv->priv->tm_workspace);
 	g_free (sv->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
-sv_dispose (GObject * obj)
+anjuta_symbol_view_dispose (GObject * obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
 	
@@ -750,6 +751,7 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	sv->priv->tm_files = g_hash_table_new_full (g_str_hash, g_str_equal,
 						    g_free,
 						    destroy_tm_hash_value);
+	/* Load gloabal tags on gtk idle */
 	if (!tm_workspace_load_global_tags (PACKAGE_DATA_DIR "/system.tags"))
 		g_warning ("Unable to load global tag file");
 
@@ -768,8 +770,8 @@ anjuta_symbol_view_class_init (AnjutaSymbolViewClass * klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 	svc = ANJUTA_SYMBOL_VIEW_CLASS (klass);
-	object_class->finalize = sv_finalize;
-	object_class->dispose = sv_dispose;
+	object_class->finalize = anjuta_symbol_view_finalize;
+	object_class->dispose = anjuta_symbol_view_dispose;
 }
 
 GType

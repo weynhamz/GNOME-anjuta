@@ -1315,6 +1315,14 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 	TextEditor *te;
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
 	te = anjuta_docman_add_editor (docman, NULL, filename);
+	/* 
+	 * connect to update_ui so we can manage editor's signals, like
+	 * col/line updatings
+	 */
+	g_signal_connect (G_OBJECT (te), "update_ui",
+					  G_CALLBACK (on_editor_update_ui),
+					  ANJUTA_PLUGIN (plugin));
+	
 	if (content && strlen (content) > 0)
 		aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)content);
 	return IANJUTA_EDITOR (te);

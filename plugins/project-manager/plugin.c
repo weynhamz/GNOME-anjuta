@@ -456,6 +456,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	AnjutaUI *ui;
 	GtkAction *action;
 	GbfTreeData *data;
+	gchar *selected_uri;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
@@ -482,7 +483,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 									   "ActionPopupProjectRemove");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		gbf_tree_data_free (data);
-		return;
+		goto finally;
 	}
 	
 	gbf_tree_data_free (data);
@@ -497,7 +498,7 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 									   "ActionPopupProjectRemove");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		gbf_tree_data_free (data);
-		return;
+		goto finally;
 	}
 	
 	gbf_tree_data_free (data);
@@ -515,7 +516,17 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 									   "ActionPopupProjectRemove");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		gbf_tree_data_free (data);
-		return;
+		goto finally;
+	}
+finally:
+	selected_uri =
+		ianjuta_project_manager_get_selected (IANJUTA_PROJECT_MANAGER (plugin),
+											  NULL);
+	if (selected_uri)
+	{
+		g_signal_emit_by_name (G_OBJECT (plugin), "element_selected",
+							   selected_uri);
+		g_free (selected_uri);
 	}
 }
 
@@ -947,19 +958,354 @@ ifile_open (IAnjutaFile *project_manager,
 	g_free (dirname);
 }
 
-static void
-iproject_manager_configure (IAnjutaProjectManager *project_manager,
-							GError **err)
+/* IAnjutaProjectManager implementation */
+
+static GnomeVFSFileType
+uri_get_type (const gchar *uri)
 {
+	GnomeVFSFileInfo info;
+	gnome_vfs_get_file_info (uri, &info, 0);
+	return info.type;
 }
 
-#if 0
-static gchar*
-iproject_manager_get_selected (IAnjutaProjectManager *file_manager, GError **err)
+static gboolean
+uri_is_inside_project (ProjectManagerPlugin *plugin, const gchar *uri)
 {
-	return pm_get_selected_file_path((ProjectManagerPlugin*) file_manager);
+	const gchar *dir_uri;
+	
+	if (uri_get_type (uri) | GNOME_VFS_FILE_TYPE_DIRECTORY)
+	{
+		dir_uri = plugin->project_uri;
+	}
+	else
+	{
+		GnomeVFSURI *vfs_uri, *parent_uri;
+		
+		vfs_uri = gnome_vfs_uri_new (plugin->project_uri);
+		parent_uri = gnome_vfs_uri_get_parent (vfs_uri);
+		dir_uri = gnome_vfs_uri_get_path (parent_uri);
+		gnome_vfs_uri_unref (vfs_uri);
+		gnome_vfs_uri_unref (parent_uri);
+	}
+	if (strncmp (uri, dir_uri, strlen (dir_uri)) == 0)
+		return TRUE;
+	else
+		return FALSE;
 }
-#endif
+
+static gchar *
+get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
+{
+	gchar *path, *ptr;
+	gchar *uri;
+	const gchar *project_root;
+	
+	path = g_strdup (id);
+	ptr = strchr (path, ':');
+	if (ptr)
+	{
+		*ptr = '\0';
+	}
+	
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					  "project_root_uri", G_TYPE_STRING,
+					  &project_root, NULL);
+	uri = g_build_filename (project_root, path, NULL);
+	g_free (path);
+	return uri;
+}
+
+static const gchar *
+get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri)
+{
+	const gchar *project_root;
+	
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					  "project_root_uri", G_TYPE_STRING,
+					  &project_root, NULL);
+	return uri + strlen (project_root);
+}
+
+static IAnjutaProjectManagerElementType
+iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
+								   const gchar *element_uri,
+								   GError **err)
+{
+	GnomeVFSFileType ftype;
+	ProjectManagerPlugin *plugin;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
+						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project),
+						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
+	g_return_val_if_fail (uri_is_inside_project (plugin, element_uri),
+						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
+	
+	ftype = uri_get_type (element_uri);
+	if (ftype | GNOME_VFS_FILE_TYPE_DIRECTORY)
+	{
+		return IANJUTA_PROJECT_MANAGER_GROUP;
+	}
+	else if (ianjuta_project_manager_get_target_type (project_manager,
+													  element_uri, NULL) !=
+				IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN)
+	{
+		return IANJUTA_PROJECT_MANAGER_TARGET;
+	}
+	else if (ftype | GNOME_VFS_FILE_TYPE_REGULAR)
+	{
+		return IANJUTA_PROJECT_MANAGER_SOURCE;
+	}
+	return IANJUTA_PROJECT_MANAGER_UNKNOWN;
+}
+
+static GList*
+iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
+							   IAnjutaProjectManagerElementType element_type,
+							   GError **err)
+{
+	GList *elements;
+	ProjectManagerPlugin *plugin;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
+	
+	elements = NULL;
+	switch (element_type)
+	{
+		case IANJUTA_PROJECT_MANAGER_SOURCE:
+		{
+			GList *sources, *node;
+			GbfProjectTargetSource *source;
+			sources = gbf_project_get_all_sources (plugin->project, NULL);
+			node = sources;
+			while (node)
+			{
+				source = (GbfProjectTargetSource*) node->data;
+				elements = g_list_prepend (elements,
+										   g_strdup (source->source_uri));
+				gbf_project_target_source_free (source);
+				node = node->next;
+			}
+			g_list_free (sources);
+			break;
+		}
+		case IANJUTA_PROJECT_MANAGER_TARGET:
+		{
+			GList *targets, *node;
+			GbfProjectTarget *target;
+			targets = gbf_project_get_all_targets (plugin->project, NULL);
+			node = targets;
+			while (node)
+			{
+				target = (GbfProjectTarget*) node->data;
+				elements = g_list_prepend (elements,
+										   get_element_uri_from_id (plugin,
+																	target->id));
+				gbf_project_target_free (target);
+				node = node->next;
+			}
+			g_list_free (targets);
+			break;
+		}
+		case IANJUTA_PROJECT_MANAGER_GROUP:
+			g_warning ("Unimplemented: get groups");
+		default:
+			elements = NULL;
+	}
+	return g_list_reverse (elements);
+}
+
+static IAnjutaProjectManagerTargetType
+iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
+								   const gchar *target_uri,
+								   GError **err)
+{
+	IAnjutaProjectManagerElementType element_type;
+	ProjectManagerPlugin *plugin;
+	GbfProjectTarget *data;
+	const gchar *rel_path;
+	gchar *test_id;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
+						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project),
+						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
+	
+	element_type = ianjuta_project_manager_get_element_type (project_manager,
+															 target_uri, NULL);
+	
+	g_return_val_if_fail (uri_is_inside_project (plugin, target_uri),
+						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
+	
+	rel_path = get_element_relative_path (plugin, target_uri);
+	
+	/* Test for shared lib */
+	test_id = g_strconcat (rel_path, ":shared_lib", NULL);
+	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+	g_free (test_id);
+	if (data)
+	{
+		gbf_project_target_free (data);
+		return IANJUTA_PROJECT_MANAGER_TARGET_SHAREDLIB;
+	}
+	/* Test for static lib */
+	test_id = g_strconcat (rel_path, ":static_lib", NULL);
+	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+	g_free (test_id);
+	if (data)
+	{
+		gbf_project_target_free (data);
+		return IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB;
+	}
+	/* Test for program */
+	test_id = g_strconcat (rel_path, ":program", NULL);
+	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+	g_free (test_id);
+	if (data)
+	{
+		gbf_project_target_free (data);
+		return IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB;
+	}
+	return IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN;
+}
+
+static GList*
+iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
+							  IAnjutaProjectManagerTargetType target_type,
+							  GError **err)
+{
+	GList *targets, *node;
+	GbfProjectTarget *target;
+	GList *elements;
+	ProjectManagerPlugin *plugin;
+	const gchar *target_type_str;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
+	
+	elements = NULL;
+	targets = gbf_project_get_all_targets (plugin->project, NULL);
+	
+	switch (target_type)
+	{
+		case IANJUTA_PROJECT_MANAGER_TARGET_SHAREDLIB:
+			target_type_str = "shared_lib";
+			break;
+		case IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB:
+			target_type_str = "static_lib";
+			break;
+		case IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE:
+			target_type_str = "executable";
+			break;
+		default:
+			g_warning ("Unsupported target type");
+			return NULL;
+	}
+	
+	node = targets;
+	while (node)
+	{
+		target = (GbfProjectTarget*) node->data;
+		if (strcmp (target->type, target_type_str) == 0)
+		{
+			elements = g_list_prepend (elements,
+									   g_strdup (target->name));
+		}
+		gbf_project_target_free (target);
+		node = node->next;
+	}
+	g_list_free (targets);
+	return g_list_reverse (elements);
+}
+
+static gchar*
+iproject_manager_get_parent (IAnjutaProjectManager *project_manager,
+							 const gchar *element_uri,
+							 GError **err)
+{
+	IAnjutaProjectManagerElementType type;
+	ProjectManagerPlugin *plugin;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
+	
+	type = ianjuta_project_manager_get_element_type (project_manager,
+													 element_uri, NULL);
+	/* FIXME: */
+	return NULL;
+}
+
+static GList*
+iproject_manager_get_children (IAnjutaProjectManager *project_manager,
+							   const gchar *element_uri,
+							   GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
+	/* FIXME: */
+	return NULL;
+}
+
+static gchar*
+iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
+							   GError **err)
+{
+	gchar *uri;
+	GbfTreeData *data;
+	ProjectManagerPlugin *plugin;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
+	
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET_SOURCE);
+	if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
+	{
+		uri = g_strdup (data->uri);
+		gbf_tree_data_free (data);
+		return uri;
+	}
+	
+	gbf_tree_data_free (data);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET);
+	if (data && data->type == GBF_TREE_NODE_TARGET)
+	{
+		gbf_tree_data_free (data);
+		uri = get_element_uri_from_id (plugin, data->id);
+		gbf_tree_data_free (data);
+		return uri;
+	}
+	
+	gbf_tree_data_free (data);
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_GROUP);
+	if (data && data->type == GBF_TREE_NODE_GROUP)
+	{
+		uri = g_strdup (data->uri);
+		gbf_tree_data_free (data);
+		return uri;;
+	}
+	
+	return NULL;
+}
 
 static void
 ifile_iface_init(IAnjutaFileIface *iface)
@@ -970,7 +1316,13 @@ ifile_iface_init(IAnjutaFileIface *iface)
 static void
 iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 {
-	iface->configure = iproject_manager_configure;
+	iface->get_element_type = iproject_manager_get_element_type;
+	iface->get_elements = iproject_manager_get_elements;
+	iface->get_target_type = iproject_manager_get_target_type;
+	iface->get_targets = iproject_manager_get_targets;
+	iface->get_parent = iproject_manager_get_parent;
+	iface->get_children = iproject_manager_get_children;
+	iface->get_selected = iproject_manager_get_selected;
 }
 
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);

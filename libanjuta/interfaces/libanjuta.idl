@@ -202,12 +202,11 @@ interface IAnjutaMarkable
 // Implemented by plugins which can build (e.g module manager plugins).
 interface IAnjutaBuildable
 {
-	void compile (const gchar* filename);
-	void build (const gchar *directory);
-	void clean (const gchar *directory);
-	void install (const gchar *directory);
-	void configure (const gchar *directory);
-	void generate(const gchar *directory);
+	void build (const gchar *uri);
+	void clean (const gchar *uri);
+	void install (const gchar *uri);
+	void configure (const gchar *uri);
+	void generate (const gchar *uri);
 }
 
 // Studio profile. Like c++ profile, java profile etc.
@@ -490,13 +489,36 @@ interface IAnjutaTerminal
 
 interface IAnjutaProjectManager
 {
-	void ::added (const gchar *uri);
-	void ::removed (const gchar *uri);
-	void ::selected (const gchar *uri);
+	enum ElementType
+	{
+		UNKNOWN,
+		SOURCE,
+		TARGET,
+		GROUP
+	}
 	
-	GList *get_sources();
-	GList *get_targets();
-	void configure();
+	enum TargetType
+	{
+		TARGET_UNKNOWN,
+		TARGET_SHAREDLIB,
+		TARGET_STATICLIB,
+		TARGET_EXECUTABLE
+	}
+	
+	// Signals
+	void ::element_added (const gchar *element_uri);
+	void ::element_removed (const gchar *element_uri);
+	void ::element_selected (const gchar *element_uri);
+	
+	ElementType get_element_type (const gchar *element_uri);
+	GList* get_elements (ElementType element_type);
+	
+	TargetType get_target_type (const gchar *target_uri);
+	GList* get_targets (TargetType target_type);
+	
+	gchar* get_parent (const gchar *element_uri);
+	GList* get_children (const gchar *element_uri);
+	gchar* get_selected ();
 }
 
 interface IAnjutaTodo

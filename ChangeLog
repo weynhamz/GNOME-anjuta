@@ -1,3 +1,14 @@
+2005-02-03  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/project-manager/plugin.c: Implemented IAnjutaProjectManager
+	interface.
+	
+	* plugins/symbol-browser/an_symbol_view.c: Fixed memory leaks.
+
+	Patch from Massimo Cora <maxcvs@email.it>:
+	* plugins/editor/plugin.c: Fixed update UI for created buffers.
+	
 2005-02-01  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-launcher.c, libanjuta/anjuta-launcher.h,
