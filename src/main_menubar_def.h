@@ -382,19 +382,19 @@ static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
 #define NUM_COMMENT_SUBMENUS 3
 static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	{/*0*/
-	 GNOME_APP_UI_ITEM, N_("Block Comemnt/Uncomment"),
+	 GNOME_APP_UI_ITEM, N_("Block Comment/Uncomment"),
 	 N_("Block comment the selected text"),
 	 on_comment_block, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("Box Comemnt"),
+	 GNOME_APP_UI_ITEM, N_("Box Comment"),
 	 N_("Box comment the selected text"),
 	 on_comment_box, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Stream Comemnt"),
+	 GNOME_APP_UI_ITEM, N_("Stream Comment"),
 	 N_("Stream comment the selected text"),
 	 on_comment_stream, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -433,7 +433,7 @@ static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	 0, 0, NULL},
 	
 	{/*4*/
-	 GNOME_APP_UI_ITEM, N_("_Enter Selection"),
+	 GNOME_APP_UI_ITEM, N_("_Enter Selection/I-Search"),
 	 N_("Enter the selected text as the search target"),
 	 on_enterselection, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1598,49 +1598,49 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	{
 	 /* 0 */
-	 GNOME_APP_UI_ITEM, N_("Update file"),
+	 GNOME_APP_UI_ITEM, N_("U_pdate file"),
 	 N_("Update current working copy"),
 	 on_cvs_update_file_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REFRESH,
 	 0, 0, NULL},
 	{
 	 /* 1 */
-	 GNOME_APP_UI_ITEM, N_("Commit file"),
+	 GNOME_APP_UI_ITEM, N_("C_ommit file"),
 	 N_("Commit changes to the repository"),
 	 on_cvs_commit_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 2 */
-	 GNOME_APP_UI_ITEM, N_("Status of file"),
+	 GNOME_APP_UI_ITEM, N_("S_tatus of file"),
 	 N_("Print the status of the current file"),
 	 on_cvs_status_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 3 */
-	 GNOME_APP_UI_ITEM, N_("Get file log"),
+	 GNOME_APP_UI_ITEM, N_("G_et file log"),
 	 N_("Print the CVS log for the current file"),
 	 on_cvs_log_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 4 */
-	 GNOME_APP_UI_ITEM, N_("Add file"),
+	 GNOME_APP_UI_ITEM, N_("_Add file"),
 	 N_("Add the current file to the repository"),
 	 on_cvs_add_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 5 */
-	 GNOME_APP_UI_ITEM, N_("Remove file"),
+	 GNOME_APP_UI_ITEM, N_("_Remove file"),
 	 N_("Remove the current file from the repository"),
 	 on_cvs_remove_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 6 */
-	 GNOME_APP_UI_ITEM, N_("Diff file"),
+	 GNOME_APP_UI_ITEM, N_("D_iff file"),
 	 N_("Create a diff between the working copy and the repository"),
 	 on_cvs_diff_file_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1648,42 +1648,42 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_SEPARATOR, /* 7 */
 	{
 	 /* 8 */
-	 GNOME_APP_UI_ITEM, N_("Update Project"),
+	 GNOME_APP_UI_ITEM, N_("_Update Project"),
 	 N_("Update the working copy of a Project"),
 	 on_cvs_update_project_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REFRESH,
 	 GDK_U, GDK_MOD1_MASK | GDK_CONTROL_MASK, NULL},
 	{
 	 /* 9 */
-	 GNOME_APP_UI_ITEM, N_("Commit Project"),
+	 GNOME_APP_UI_ITEM, N_("_Commit Project"),
 	 N_("Commit local changes to the repository"),
 	 on_cvs_commit_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 10 */
-	 GNOME_APP_UI_ITEM, N_("Import Project"),
+	 GNOME_APP_UI_ITEM, N_("_Import Project"),
 	 N_("Import Project as a new module in the repository"),
 	 on_cvs_import_project_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 {
 	 /* 11 */
-	 GNOME_APP_UI_ITEM, N_("Status of Project"),
+	 GNOME_APP_UI_ITEM, N_("_Status of Project"),
 	 N_("Print the status of the Project"),
 	 on_cvs_project_status_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	 {
 	 /* 12 */
-	 GNOME_APP_UI_ITEM, N_("Get Project log"),
+	 GNOME_APP_UI_ITEM, N_("Get Project _log"),
 	 N_("Print the CVS log of the Project"),
 	 on_cvs_project_log_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 13 */
-	 GNOME_APP_UI_ITEM, N_("Diff Project"),
+	 GNOME_APP_UI_ITEM, N_("_Diff Project"),
 	 N_("Create a diff between the working copy of the Project and the repository"),
 	 on_cvs_project_diff_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1691,7 +1691,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	GNOMEUIINFO_SEPARATOR, /* 14 */
 	{
 	 /* 15 */
-	 GNOME_APP_UI_ITEM, N_("Login"),
+	 GNOME_APP_UI_ITEM, N_("_Login"),
 	 N_("Login to a CVS server"),
 	 on_cvs_login_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1715,7 +1715,7 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("_Commands ..."),
+	 GNOME_APP_UI_ITEM, N_("Co_mmands ..."),
 	 N_("Specify the various commands for use"),
 	 on_set_commands1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
@@ -1740,13 +1740,13 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
 	 0, 0, NULL},
 	{/*7*/
-	 GNOME_APP_UI_ITEM, N_("Customize shortcuts"),
+	 GNOME_APP_UI_ITEM, N_("C_ustomize shortcuts"),
 	 N_("Customize shortcuts associated with menu items"),
 	 on_customize_shortcuts_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*8*/
-	 GNOME_APP_UI_ITEM, N_("Tool Editor"),
+	 GNOME_APP_UI_ITEM, N_("_Tools Editor"),
 	 N_("Customize user-defined tools"),
 	 on_tool_editor_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1758,70 +1758,70 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	GNOMEUIINFO_HELP ("anjuta"),/*0*/
 	GNOMEUIINFO_SEPARATOR,/*1*/
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Browse GNOME API Pages"),
+	 GNOME_APP_UI_ITEM, N_("Browse GNOME _API Pages"),
 	 N_("The GNOME API pages"),
 	 on_gnome_pages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 GDK_F1, 0, NULL},
 	{/*3*/
-	 GNOME_APP_UI_ITEM, N_("Browse Man Pages"),
+	 GNOME_APP_UI_ITEM, N_("Browse _Man Pages"),
 	 N_("The good old manual pages"),
 	 on_url_activate, "man:man", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 0, 0, NULL},
 	{/*4*/
-	 GNOME_APP_UI_ITEM, N_("Browse Info Pages"),
+	 GNOME_APP_UI_ITEM, N_("Browse _Info Pages"),
 	 N_("Browse Info pages"),
 	 on_url_activate, "info:info", NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*5*/
 	{/*6*/
-	 GNOME_APP_UI_ITEM, N_("Context Help"),
+	 GNOME_APP_UI_ITEM, N_("_Context Help"),
 	 N_("Search help for the current word in the editor"),
 	 on_context_help_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
  	 GDK_H, GDK_CONTROL_MASK, NULL},
 	{/*7*/
-	 GNOME_APP_UI_ITEM, N_("Search a topic"),
+	 GNOME_APP_UI_ITEM, N_("_Search a topic"),
 	 N_("May I help you?"),
 	 on_search_a_topic1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*8*/
 	{/*9*/
-	 GNOME_APP_UI_ITEM, N_("Anjuta Home Page"),
+	 GNOME_APP_UI_ITEM, N_("Anjuta _Home Page"),
 	 N_("Online documentation and resources"),
 	 on_url_activate, "http://anjuta.org", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*10*/
 	{/*11*/
-	 GNOME_APP_UI_ITEM, N_("Libraries API references"),
+	 GNOME_APP_UI_ITEM, N_("_Libraries API references"),
 	 N_("Online reference library for GDK, GLib, GNOME etc.."),
 	 on_url_activate, "http://lidn.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*12*/
-	 GNOME_APP_UI_ITEM, N_("Report Bugs"),
+	 GNOME_APP_UI_ITEM, N_("Report _Bugs"),
 	 N_("Submit a bug report for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*13*/
-	 GNOME_APP_UI_ITEM, N_("Request Features"),
+	 GNOME_APP_UI_ITEM, N_("Request _Features"),
 	 N_("Submit a feature request for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*14*/
-	 GNOME_APP_UI_ITEM, N_("Submit patches"),
+	 GNOME_APP_UI_ITEM, N_("Submit _patches"),
 	 N_("Submit patches for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*15*/
-	 GNOME_APP_UI_ITEM, N_("Ask a question"),
+	 GNOME_APP_UI_ITEM, N_("Ask a _question"),
 	 N_("Submit a question for FAQs"),
 	 on_url_activate, "mailto:anjuta-list@lists.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,

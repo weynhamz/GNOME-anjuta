@@ -140,12 +140,15 @@ create_executer_dialog (Executer * e)
 
 	e->m_gui.combo1 = gtk_combo_new ();
 	gtk_widget_show (e->m_gui.combo1);
+	gtk_combo_disable_activate (GTK_COMBO(e->m_gui.combo1));
 	gtk_container_add (GTK_CONTAINER (frame1), e->m_gui.combo1);
 
 	gtk_container_set_border_width (GTK_CONTAINER (e->m_gui.combo1), 5);
 
 	e->m_gui.combo_entry1 = GTK_COMBO (e->m_gui.combo1)->entry;
 	gtk_widget_show (e->m_gui.combo_entry1);
+	gnome_dialog_editable_enters (GNOME_DIALOG(e->m_gui.dialog),
+		GTK_EDITABLE (e->m_gui.combo_entry1));
 
 	e->m_gui.check_terminal = gtk_check_button_new_with_label (_("Run in Terminal"));
 	gtk_widget_show (e->m_gui.check_terminal);
@@ -171,6 +174,9 @@ create_executer_dialog (Executer * e)
 	gtk_widget_show (button3);
 	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
 
+	gnome_dialog_set_default (GNOME_DIALOG(e->m_gui.dialog), 0);
+	gnome_dialog_grab_focus (GNOME_DIALOG(e->m_gui.dialog), 0);
+	
 	options = prop_get (e->props, EXECUTER_PROGRAM_ARGS_KEY);
 	if (options)
 	{
@@ -386,5 +392,3 @@ executer_load_session( Executer *e, ProjectDBase *p )
 	e->m_PgmArgs	= session_load_strings( p, SECSTR(SECTION_EXECUTERARGS), e->m_PgmArgs );
 	e->terminal		= session_get_bool( p, SECSTR(SECTION_EXECUTER), szRunInTerminalItem, TRUE);
 }
-
-

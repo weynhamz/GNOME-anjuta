@@ -194,6 +194,8 @@ create_breakpoints_dbase_gui (BreakpointsDBase *bd)
   gtk_widget_show (button2);
   GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
 
+  gtk_widget_grab_focus (clist1);
+
   gtk_accel_group_attach( app->accel_group, GTK_OBJECT(dialog1));
 
   gtk_signal_connect (GTK_OBJECT (button7), "clicked",

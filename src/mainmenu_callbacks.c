@@ -2139,7 +2139,8 @@ on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
 {
-       enter_selection_as_search_target();
+    enter_selection_as_search_target();
+	gtk_widget_grab_focus (app->widgets.toolbar.main_toolbar.find_entry);
 }
 
 void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)

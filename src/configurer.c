@@ -124,6 +124,7 @@ create_configurer_dialog (Configurer * c)
 
 	combo3 = gtk_combo_new ();
 	gtk_widget_show (combo3);
+	gtk_combo_disable_activate (GTK_COMBO(combo3));
 	gtk_container_add (GTK_CONTAINER (frame4), combo3);
 	gtk_container_set_border_width (GTK_CONTAINER (combo3), 5);
 
@@ -137,6 +138,7 @@ create_configurer_dialog (Configurer * c)
 
 	combo2 = gtk_combo_new ();
 	gtk_widget_show (combo2);
+	gtk_combo_disable_activate (GTK_COMBO(combo2));
 	gtk_container_add (GTK_CONTAINER (frame3), combo2);
 	gtk_container_set_border_width (GTK_CONTAINER (combo2), 5);
 
@@ -162,6 +164,11 @@ create_configurer_dialog (Configurer * c)
 	GTK_WIDGET_UNSET_FLAGS (button6, GTK_CAN_FOCUS);
 	GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
 
+	gnome_dialog_set_default (GNOME_DIALOG(dialog2), 0);
+	gnome_dialog_grab_focus (GNOME_DIALOG(dialog2), 0);
+	gnome_dialog_editable_enters (GNOME_DIALOG(dialog2), GTK_EDITABLE(combo_entry2));
+	gtk_widget_grab_focus (combo_entry2);
+
 	options = prop_get (c->props, "project.configure.options");
 	if (options)
 	{
@@ -184,6 +191,8 @@ create_configurer_dialog (Configurer * c)
 			    GTK_SIGNAL_FUNC (on_configurer_environment_changed), c);
 	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
 			    GTK_SIGNAL_FUNC (on_configurer_ok_clicked), c);
+	gtk_signal_connect (GTK_OBJECT (combo_entry3), "activate",
+			    GTK_SIGNAL_FUNC (gtk_widget_grab_focus), combo_entry2);
 
 	return dialog2;
 }

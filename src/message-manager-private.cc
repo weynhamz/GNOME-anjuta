@@ -31,6 +31,12 @@ extern "C"
 #include <zvt/zvtterm.h>
 #include <pwd.h>
 
+#ifdef DEBUG
+  #define DEBUG_PRINT g_message
+#else
+  #define DEBUG_PRINT(ARGS...)
+#endif
+
 // MessageSubwindow (base class for AnjutaMessageWindow and TerminalWindow:
 
 MessageSubwindow::MessageSubwindow(AnjutaMessageManager* p_amm, int p_type_id, string p_type, string p_pixmap)
@@ -330,12 +336,11 @@ TerminalWindow::TerminalWindow(AnjutaMessageManager* p_amm, int p_type_id, strin
 	g_snprintf(termenv, 255L, "TERM=%s", term);
 	g_free(term);
 
-#ifdef DEBUG
-	g_message("Font: '%s'\n", font);
-	g_message("Scroll Buffer: '%d'\n", scrollsize);
-	g_message("TERM: '%s'\n", termenv);
-	g_message("Word characters: '%s'\n", wordclass);
-#endif
+	DEBUG_PRINT("Font: '%s'", font);
+	DEBUG_PRINT("Scroll Buffer: '%d'", scrollsize);
+	DEBUG_PRINT("TERM: '%s'", termenv);
+	DEBUG_PRINT("Word characters: '%s'", wordclass);
+
 	putenv(termenv);
 	// putenv("TERM=xterm");
 	m_terminal = zvt_term_new();
@@ -422,12 +427,6 @@ void TerminalWindow::hide()
 		m_is_shown = false;
 	}
 }
-
-#ifdef DEBUG
-  #define DEBUG_PRINT g_message
-#else
-  #define DEBUG_PRINT(ARGS...)
-#endif
 
 void mouse_to_char(ZvtTerm *term, int mousex, int mousey, int *x, int *y)
 {

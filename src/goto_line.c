@@ -119,18 +119,19 @@ gotoline_init (GotoLine * obj)
     gnome_number_entry_gtk_entry (GNOME_NUMBER_ENTRY (numberentry));
   gtk_widget_show (combo_entry);
 
-  gnome_dialog_append_button (GNOME_DIALOG (obj), GNOME_STOCK_BUTTON_CANCEL);
+  gnome_dialog_append_button (GNOME_DIALOG (obj), GNOME_STOCK_BUTTON_OK);
   button1 = g_list_last (GNOME_DIALOG (obj)->buttons)->data;
   gtk_widget_show (button1);
   GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
 
-  gnome_dialog_append_button (GNOME_DIALOG (obj), GNOME_STOCK_BUTTON_OK);
+  gnome_dialog_append_button (GNOME_DIALOG (obj), GNOME_STOCK_BUTTON_CANCEL);
   button2 = g_list_last (GNOME_DIALOG (obj)->buttons)->data;
   gtk_widget_show (button2);
   GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
 
   /** Default to the OK button */
-  gnome_dialog_set_default (GNOME_DIALOG (obj), 1);
+  gnome_dialog_set_default (GNOME_DIALOG (obj), 0);
+  gtk_widget_grab_focus (GTK_WIDGET(button1));
 
   /** If press enter in line number enter, act as if default button was pressed */
   gnome_dialog_editable_enters (GNOME_DIALOG (obj),
@@ -138,10 +139,9 @@ gotoline_init (GotoLine * obj)
 
   gtk_widget_grab_focus (combo_entry);
 
-  gtk_signal_connect (GTK_OBJECT (button2), "clicked",
+  gtk_signal_connect (GTK_OBJECT (button1), "clicked",
 		      GTK_SIGNAL_FUNC (on_go_to_line_ok_clicked),
 		      numberentry);
-
 }
 
 

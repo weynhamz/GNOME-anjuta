@@ -393,6 +393,18 @@ text_editor_get_current_lineno (TextEditor * te)
 	return linenum_scintilla_to_text_editor(count);
 }
 
+glong
+text_editor_get_current_position (TextEditor * te)
+{
+	guint count;
+	
+	g_return_val_if_fail (te != NULL, 0);
+
+	count =	scintilla_send_message (SCINTILLA (te->widgets.editor),
+					SCI_GETCURRENTPOS, 0, 0);
+	return count;
+}
+
 gboolean
 text_editor_goto_point (TextEditor * te, glong point)
 {
@@ -1077,6 +1089,18 @@ text_editor_has_selection (TextEditor * te)
 	to = scintilla_send_message (SCINTILLA (te->widgets.editor),
 				     SCI_GETSELECTIONEND, 0, 0);
 	return (from == to) ? FALSE : TRUE;
+}
+
+glong text_editor_get_selection_start (TextEditor * te)
+{
+	return scintilla_send_message (SCINTILLA (te->widgets.editor),
+				       SCI_GETSELECTIONSTART, 0, 0);
+}
+	
+glong text_editor_get_selection_end (TextEditor * te)
+{
+	return scintilla_send_message (SCINTILLA (te->widgets.editor),
+				     SCI_GETSELECTIONEND, 0, 0);
 }
 
 gchar*

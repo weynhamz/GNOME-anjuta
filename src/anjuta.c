@@ -1247,6 +1247,7 @@ anjuta_clean_exit ()
 		g_strdup_printf ("rm -f %s/anjuta_*.%ld",
 				 app->dirs->tmp, (long) getpid ());
 	pid = gnome_execute_shell (app->dirs->home, tmp);
+	g_free (tmp);
 	if (-1 == pid)
 	{
 		perror("Cleanup failed");
@@ -1912,8 +1913,12 @@ gboolean anjuta_set_auto_gtk_update (gboolean auto_flag)
 
 gboolean anjuta_is_installed (gchar * prog, gboolean show)
 {
-	if (gnome_is_program_in_path (prog))
+	gchar* prog_path = gnome_is_program_in_path (prog);
+	if (prog_path)
+	{
+		g_free (prog_path);
 		return TRUE;
+	}
 	if (show)
 	{
 		anjuta_error (_
@@ -2159,9 +2164,11 @@ static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, gl
 			if (line >= 0)
 				text_editor_set_indicator (te, line, indicator);
 			g_free (fn);
+			return;
 		}
 		node = g_list_next (node);
 	}
+	g_free (fn);
 }
 
 void

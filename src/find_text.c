@@ -53,6 +53,8 @@ find_text_new ()
 		ft->regexp		= GetProfileBool( SecFT, "regexp", FALSE ) ;
 		ft->ignore_case = GetProfileBool( SecFT, "ignore_case", FALSE ) ;
 		ft->whole_word	= GetProfileBool( SecFT, "whole_word", FALSE ) ;
+		ft->incremental_pos = -1;
+		ft->incremental_wrap = FALSE;
 
 		ft->is_showing = FALSE;
 		

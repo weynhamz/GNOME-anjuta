@@ -522,6 +522,9 @@ create_password_dialog (gchar* prompt)
 	
 	dialog =
 		gnome_dialog_new (prompt, _("Ok"), _("Cancel"), NULL);
+	gnome_dialog_set_default (GNOME_DIALOG(dialog), 0);
+	gnome_dialog_grab_focus (GNOME_DIALOG(dialog), 0);
+
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "launcher-password-prompt",
 				"anjuta");
 	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window));
@@ -564,6 +567,7 @@ create_password_dialog (gchar* prompt)
 	gtk_object_set_data_full(GTK_OBJECT(dialog), "password_entry",
 				entry, (GtkDestroyNotify)gtk_widget_unref);
 	gtk_widget_grab_focus(entry);
-	
+	gnome_dialog_editable_enters (GNOME_DIALOG (dialog), GTK_EDITABLE (entry));
+
 	return dialog;
 }

@@ -144,6 +144,7 @@ create_anjuta_help_gui (AnjutaHelp* help)
 
   combo1 = gtk_combo_new ();
   gtk_widget_show (combo1);
+  gtk_combo_disable_activate (GTK_COMBO(combo1));
   gtk_box_pack_start (GTK_BOX (dialog_vbox1), combo1, FALSE, FALSE, 0);
 
   combo_entry1 = GTK_COMBO (combo1)->entry;
@@ -183,14 +184,17 @@ create_anjuta_help_gui (AnjutaHelp* help)
   gtk_widget_show (button2);
   GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
   
+  gnome_dialog_set_default (GNOME_DIALOG(dialog1), 0);
+  gnome_dialog_grab_focus (GNOME_DIALOG(dialog1), 0);
+  gnome_dialog_editable_enters (GNOME_DIALOG(dialog1),
+	  GTK_EDITABLE(combo_entry1));
+  gtk_widget_grab_focus (combo_entry1);
+  
   gtk_signal_connect (GTK_OBJECT (button1), "clicked",
                       GTK_SIGNAL_FUNC (on_ok_clicked),
                       help);
   gtk_signal_connect (GTK_OBJECT (button2), "clicked",
                       GTK_SIGNAL_FUNC (on_cancel_clicked),
-                      help);
-  gtk_signal_connect (GTK_OBJECT (combo_entry1), "activate",
-                      GTK_SIGNAL_FUNC (on_ok_clicked),
                       help);
   gtk_signal_connect (GTK_OBJECT (dialog1), "close",
 				  	  GTK_SIGNAL_FUNC (on_close),

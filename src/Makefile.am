@@ -246,6 +246,7 @@ anjuta_LDADD =  \
 
 
 EXTRA_DIST = \
+	anjuta_dialog_strings.c\
 	glades.h\
 	glades.c\
 	Prj-skelimpl.c\

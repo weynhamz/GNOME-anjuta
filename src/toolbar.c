@@ -342,6 +342,18 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 			    (GTK_COMBO (toolbar_find_combo)->entry),
 			    "activate",
 			    GTK_SIGNAL_FUNC (on_toolbar_find_clicked), NULL);
+	gtk_signal_connect (GTK_OBJECT
+			    (GTK_COMBO (toolbar_find_combo)->entry),
+			    "changed",
+			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental), NULL);
+	gtk_signal_connect (GTK_OBJECT
+			    (GTK_COMBO (toolbar_find_combo)->entry),
+			    "focus_in_event",
+			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental_start), NULL);
+	gtk_signal_connect (GTK_OBJECT
+			    (GTK_COMBO (toolbar_find_combo)->entry),
+			    "focus_out_event",
+			    GTK_SIGNAL_FUNC (on_toolbar_find_incremental_end), NULL);
 
 	gtk_signal_connect (GTK_OBJECT (toolbar_goto), "clicked",
 			    GTK_SIGNAL_FUNC (on_toolbar_goto_clicked), NULL);

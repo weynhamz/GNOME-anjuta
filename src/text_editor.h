@@ -149,6 +149,7 @@ text_editor_find (TextEditor * te, gchar * str, gint scope, gboolean forward,
 void text_editor_replace_selection (TextEditor * te, gchar * r_str);
 
 guint text_editor_get_total_lines (TextEditor * te);
+glong text_editor_get_current_position (TextEditor * te);
 guint text_editor_get_current_lineno (TextEditor * te);
 gchar* text_editor_get_selection (TextEditor * te);
 
@@ -166,6 +167,8 @@ gboolean text_editor_save_file (TextEditor * te);
 
 gboolean text_editor_is_saved (TextEditor * te);
 gboolean text_editor_has_selection (TextEditor * te);
+glong text_editor_get_selection_start (TextEditor * te);
+glong text_editor_get_selection_end (TextEditor * te);
 
 void text_editor_update_preferences (TextEditor * te);
 void text_editor_update_controls (TextEditor * te);

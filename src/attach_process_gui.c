@@ -118,6 +118,11 @@ create_attach_process_gui (AttachProcess* ap)
   gtk_widget_show (button3);
   GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
 
+  gnome_dialog_set_default (GNOME_DIALOG(dialog1), 1);
+  gnome_dialog_grab_focus (GNOME_DIALOG(dialog1), 1);
+
+  gtk_widget_grab_focus (clist1);
+  
   gtk_accel_group_attach(app->accel_group, GTK_OBJECT(dialog1));
 
   gtk_signal_connect (GTK_OBJECT (dialog1), "close",
@@ -147,4 +152,6 @@ create_attach_process_gui (AttachProcess* ap)
   ap->widgets.clist = clist1;
   gtk_widget_ref(clist1);
 }
+
+
 

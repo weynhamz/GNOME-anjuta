@@ -70,6 +70,8 @@ create_anjuta_info_dialog_with_less (gint height, gint width)
   button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
   gtk_widget_show (button1);
   GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
+  gnome_dialog_set_default (GNOME_DIALOG(dialog1), 0);
+  gnome_dialog_grab_focus (GNOME_DIALOG(dialog1), 0);
 
   gtk_widget_ref (less1);
   gtk_widget_show (dialog1);
@@ -131,6 +133,9 @@ create_anjuta_info_dialog_with_clist (gint height, gint width)
   button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
   gtk_widget_show (button1);
   GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
+
+  gnome_dialog_set_default (GNOME_DIALOG(dialog1), 0);
+  gnome_dialog_grab_focus (GNOME_DIALOG(dialog1), 0);
 
   gtk_widget_ref (clist1);
   gtk_widget_show (dialog1);

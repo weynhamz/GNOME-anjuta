@@ -75,6 +75,7 @@ R7: Tool Storage
 
 #include <gnome.h>
 #include <glade/glade.h>
+#include <libxml/parser.h>
 
 #include "scroll-menu.h"
 #include "main_menubar.h"
@@ -90,9 +91,7 @@ R7: Tool Storage
 #include "SciLexer.h"
 #include "ScintillaWidget.h"
 
-#define SEPERATOR '\001'
-#define LINESEP '\002'
-#define TOOLS_FILE "tools.properties"
+#define TOOLS_FILE "tools.xml"
 
 /** Defines how output should be handled */
 typedef enum _AnToolOutputAction
@@ -192,65 +191,97 @@ static void an_user_tool_free(AnUserTool *tool, gboolean remove_from_list)
 	}
 }
 
-/* Creates a new tool item from the given buffer. Returns NULL
-** on error. Note that the buffer passed is modified. On return,
-** it will contain the position upto which read happened.
-*/
-#define STRMATCH(p) if (0 == strcmp(#p, name)) tool->p = g_strdup(value);
-#define NUMMATCH(p) if (0 == strcmp(#p, name)) tool->p = atoi(value);
-static AnUserTool *an_user_tool_new(char **buf)
+/* Creates a new tool item from an xml node */
+#define STRMATCH(node, key) \
+	if (strcmp(node->name, #key) == 0) \
+	{ \
+		char* text = xmlNodeGetContent(node); \
+		tool->key = NULL; \
+		if (text) \
+		{ \
+			tool->key = g_strdup(text); \
+			g_free (text); \
+		} \
+		else \
+			g_warning ("Anjuta tools xml parse error: Invalid node"); \
+	}
+
+#define NUMMATCH(node, key) \
+	if (strcmp(node->name, #key) == 0) \
+	{ \
+		char* text = xmlNodeGetContent(node); \
+		tool->key = 0; \
+		if (text) \
+		{ \
+			tool->key = atoi(text); \
+			g_free (text); \
+		} \
+		else \
+			g_warning ("Anjuta tools xml parse error: Invalid node"); \
+	}
+
+static AnUserTool *an_user_tool_new(xmlNodePtr tool_node)
 {
 	AnUserTool *tool, *tool1;
-	char *s = *buf;
-	char *name;
-	char *value;
-	char *seppos;
-	char *colpos;
-
-#ifdef TOOL_DEBUG
-	fprintf(stderr, "Got line: '%s'\n", buf);
-#endif
-
+	xmlChar *name;
+	xmlNodePtr node;
+	
+	g_return_val_if_fail (tool_node, NULL);
+	if (xmlIsBlankNode(tool_node) || !tool_node->name ||
+		strcmp(tool_node->name, "tool") != 0)
+	{
+		g_warning ("Anjuta tools xml parse error: Invalide Node");
+		return NULL;
+	}
+	
 	tool = g_new0(AnUserTool, 1);
 	/* Set default values */
 	tool->enabled = TRUE;
 	tool->output = MESSAGE_STDOUT;
 	tool->error = MESSAGE_STDERR;
-	while (*s != LINESEP && *s != '\0')
+	name = xmlGetProp (tool_node, "name");
+	if (name)
 	{
-		if (NULL == (colpos = strchr(s, ':')))
-			break;
-		if (NULL == (seppos = strchr(colpos + 1, SEPERATOR)))
-			break;
-		*colpos = '\0';
-		*seppos = '\0';
-		name = s;
-		value = colpos + 1;
-		STRMATCH(name)
-		else STRMATCH(command)
-		else NUMMATCH(enabled)
-		else NUMMATCH(file_level)
-		else NUMMATCH(project_level)
-		else NUMMATCH(detached)
-		else NUMMATCH(run_in_terminal)
-		else NUMMATCH(user_params)
-		else STRMATCH(location)
-		else STRMATCH(icon)
-		else STRMATCH(shortcut)
-		else STRMATCH(working_dir)
-		else NUMMATCH(input_type)
-		else STRMATCH(input)
-		else NUMMATCH(output)
-		else NUMMATCH(error)
-		s = seppos + 1;
+		tool->name = g_strdup (name);
+		g_free (name);
 	}
-	*buf = s;
+	else
+	{
+		g_warning ("Anjuta tools xml parse error: Invalide Node");
+		an_user_tool_free(tool, FALSE);
+		return NULL;
+	}
+		
+	node = tool_node->childs;
+	while (node)
+	{
+		if (!node->name) {
+			g_warning ("Anjuta tools xml parse error: Invalid node");
+			node = node->next;
+			continue;
+		}
+		/*if*/ STRMATCH(node, command)
+		else NUMMATCH(node, enabled)
+		else NUMMATCH(node, file_level)
+		else NUMMATCH(node, project_level)
+		else NUMMATCH(node, detached)
+		else NUMMATCH(node, run_in_terminal)
+		else NUMMATCH(node, user_params)
+		else STRMATCH(node, location)
+		else STRMATCH(node, icon)
+		else STRMATCH(node, shortcut)
+		else STRMATCH(node, working_dir)
+		else NUMMATCH(node, input_type)
+		else STRMATCH(node, input)
+		else NUMMATCH(node, output)
+		else NUMMATCH(node, error)
+		node = node->next;
+	}
+
 	/* Check if the minimum required fields were populated */
 	if (NULL == tool->name || NULL == tool->command)
 	{
-#ifdef TOOL_DEBUG
-		fprintf(stderr, "Got a tool with no name or command!\n");
-#endif
+		g_warning ("Got a tool with no name or command!\n");
 		an_user_tool_free(tool, FALSE);
 		return NULL;
 	}
@@ -275,30 +306,19 @@ static AnUserTool *an_user_tool_new(char **buf)
 	return tool;
 }
 
-/* Writes tool information to the given file. Properties are written as
-** <name>:<value> pairs and seperated by the SEPERATOR character. End
-** of line is indicated by the LINESEP character followed by a newline.
-** A simple newline won't work because the plan is to allow the user
-** to write simple scripts directly inside the tool. Note that the
-** SEPERATOR and LINESEP characters are ASCII values 1 and 2, which
-** should not occur in normal text - that's why they were chosen.
-**
-** FIXME: We really should be using XML here but I'm not familiar with
-** LibXML2 API. If some kind folk could convert this mess into XML storage,
-** I'll be really grateful.
-*/
+/* Writes tool information to the given file in xml format */
 #define STRWRITE(p) if (tool->p && '\0' != tool->p[0]) \
 	{\
-		if (1 > fprintf(f, "%s:%s%c", #p, tool->p, SEPERATOR))\
+		if (1 > fprintf(f, "\t\t<%s>%s</%s>\n", #p, tool->p, #p))\
 			return FALSE;\
 	}
-#define NUMWRITE(p) if (1 > fprintf(f, "%s:%d%c", #p, tool->p, SEPERATOR))\
+#define NUMWRITE(p) if (1 > fprintf(f, "\t\t<%s>%d</%s>\n", #p, tool->p, #p))\
 	{\
 		return FALSE;\
 	}
 static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 {
-	STRWRITE(name)
+	fprintf (f, "\t<tool name=\"%s\">\n", tool->name);
 	STRWRITE(command)
 	NUMWRITE(enabled)
 	NUMWRITE(file_level)
@@ -314,10 +334,8 @@ static gboolean an_user_tool_save(AnUserTool *tool, FILE *f)
 	STRWRITE(input)
 	NUMWRITE(output)
 	NUMWRITE(error)
-	if (1 > fprintf(f, "%c\n", LINESEP))
-		return FALSE;
-	else
-		return TRUE;
+	fprintf (f, "\t</tool>\n");
+	return TRUE;
 }
 
 /* Simplistic output handler - needs to be enhanced */
@@ -444,11 +462,11 @@ static void tool_terminate_handler(gint status, time_t time)
 }
 
 /* Popup a dialog to ask for user parameters */
-static char *get_user_params(AnUserTool *tool);
+static char *get_user_params(AnUserTool *tool, gboolean *button);
 
 /* Menu activate handler which executes the tool. It should do command
 ** substitution, input, output and error redirection, setting the
-** working directory, etc. Currently, itjust executes the tool and
+** working directory, etc. Currently, it just executes the tool and
 ** appends output and error to output and error panes of the message
 ** manager.
 */
@@ -464,7 +482,10 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	/* Ask for user parameters if required */
 	if (tool->user_params)
 	{
-		params = get_user_params(tool);
+		gboolean button;
+		params = get_user_params(tool, &button);
+		if (button != 0) /* No OK button clicked */
+			return;
 	}
 	/* Expand variables to get the full command */
 	if (app->current_text_editor)
@@ -605,22 +626,12 @@ static void an_user_tool_activate(AnUserTool *tool)
 	}
 }
 
-/* Loads toolset from a configuration file. Tools properties are saved
-** as <property>:<value> pairs seperated by the SEPERATOR character.
-** Lines starting with '#' are treated as comments.
-*/
+/* Loads toolset from a xml configuration file.
+ * Tools properties are saved xml format */
 static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 {
-	int fd;
-	char *buf;
+	xmlDocPtr xml_doc;
 	struct stat st;
-	char menu[256];
-	char name[256];
-	char command[BUFSIZ];
-	int params;
-	int n_bytes = 0;
-	int bytes_read = 0;
-	char *s;
 	AnUserTool *tool;
 
 #ifdef TOOL_DEBUG
@@ -632,35 +643,31 @@ static gboolean anjuta_tools_load_from_file(const gchar *file_name)
 		** defined any tools, or there might not be any global tools */
 		return TRUE;
 	}
-
-	if (0 > (fd = open(file_name, O_RDONLY)))
+	xml_doc = xmlParseFile (file_name);
+	if (xml_doc)
 	{
-		anjuta_system_error(errno, "Unable to open tools file %s for reading"
-		  , file_name);
-		return FALSE;
-	}
-
-	/* Read the file contents into buffer at one go for speed */
-	buf = g_malloc(st.st_size + 1);
-	for(n_bytes = 0, bytes_read = 0;st.st_size > n_bytes; n_bytes += bytes_read)
-	{
-		if (0 > (bytes_read = read(fd, buf + n_bytes, st.st_size - n_bytes)))
+		xmlNodePtr root, node;
+		root = xmlDocGetRootElement(xml_doc);
+		if (root && root->name && strcmp (root->name, "anjuta-tools") == 0)
 		{
-			anjuta_system_error(errno, "Unable to read from tools file %s"
-			  , file_name);
-			g_free(buf);
-			close(fd);
-			return FALSE;
+			node = root->childs;
+			while (node)
+			{
+				tool = an_user_tool_new(node);
+				if (tool) an_user_tool_activate(tool);
+				node = node->next;
+			}
 		}
+		else
+		{
+			g_warning ("Anjuta tools xml parse error: Invalid xml document");
+		}
+		xmlFreeDoc(xml_doc);
 	}
-	buf[st.st_size] = '\0';
-	for (s = buf; (NULL != (tool = an_user_tool_new(&s))); s += 2)
+	else
 	{
-		an_user_tool_activate(tool);
+		g_warning ("Anjuta tools xml parse error: Invalid xml document");
 	}
-	anjuta_tools_sensitize();
-	close(fd);
-	return TRUE;
 }
 
 gboolean anjuta_tools_load(void)
@@ -692,6 +699,8 @@ gboolean anjuta_tools_save(void)
 		anjuta_error("Unable to open %s for writing", file);
 		return FALSE;
 	}
+	fprintf (f, "<?xml version=\"1.0\"?>\n");
+	fprintf (f, "<anjuta-tools>\n");
 	for (tmp = tool_list; tmp; tmp = g_slist_next(tmp))
 	{
 		tool = (AnUserTool *) tmp->data;
@@ -704,6 +713,7 @@ gboolean anjuta_tools_save(void)
 			}
 		}
 	}
+	fprintf (f, "</anjuta-tools>\n");
 	fclose(f);
 	return TRUE;
 }
@@ -1228,8 +1238,8 @@ void on_user_tool_delete_clicked(GtkButton *button, gpointer user_data)
 		snprintf(question, 10000, N_("Are you sure you want to delete tool '%s'")
 		  , tl->tool->name);
 		messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
-		  _(question), GNOME_STOCK_BUTTON_NO, GNOME_STOCK_BUTTON_YES, NULL
-		  , GTK_SIGNAL_FUNC(really_delete_tool), NULL);
+		  _(question), GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO,
+		  GTK_SIGNAL_FUNC(really_delete_tool), NULL, NULL);
 	}
 }
 
@@ -1664,11 +1674,12 @@ on_user_tool_help_ok_clicked(GtkButton *button, gpointer user_data)
 }
 
 /* Popup a dialog to ask for user parameters */
-static char *get_user_params(AnUserTool *tool)
+static char *get_user_params(AnUserTool *tool, gboolean *button)
 {
 	if (NULL == tp)
 	{
 		char glade_file[PATH_MAX];
+		char title[256];
 
 		tp = g_new0(AnToolParams, 1);
 		snprintf(glade_file, PATH_MAX, "%s/%s", PACKAGE_DATA_DIR, GLADE_FILE);
@@ -1680,6 +1691,8 @@ static char *get_user_params(AnUserTool *tool)
 			return FALSE;
 		}
 		tp->dialog = glade_xml_get_widget(tp->xml, TOOL_PARAMS);
+		snprintf(title, 256, _("%s: Command line parameters"), tool->name);
+		gtk_window_set_title (GTK_WINDOW(tp->dialog), title);
 		gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
 		  , GTK_WINDOW(app->widgets.window));
 		gtk_widget_ref(tp->dialog);
@@ -1687,8 +1700,11 @@ static char *get_user_params(AnUserTool *tool)
 		gtk_widget_ref((GtkWidget *) tp->params_en);
 		tp->params_com = (GtkCombo *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN_COMBO);
 		gtk_widget_ref((GtkWidget *) tp->params_com);
+		gtk_combo_disable_activate (GTK_COMBO(tp->params_com));
+		gnome_dialog_editable_enters (GNOME_DIALOG (tp->dialog),
+			GTK_EDITABLE(GTK_COMBO(tp->params_com)->entry));
 		glade_xml_signal_autoconnect(tp->xml);
 	}
-	gnome_dialog_run_and_close((GnomeDialog *) tp->dialog);
+	*button = gnome_dialog_run_and_close((GnomeDialog *) tp->dialog);
 	return gtk_editable_get_chars(tp->params_en, 0, -1);
 }
