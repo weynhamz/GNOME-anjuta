@@ -104,7 +104,7 @@ free_string_list ( GList * pList )
 
 
 gboolean
-parse_error_line (gchar * line, gchar ** filename, int *lineno)
+parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 {
 	gint i = 0;
 	gint j = 0;
@@ -1250,8 +1250,8 @@ select_only_file (const struct dirent *e)
         * and return the box. */
 GtkWidget*
 create_xpm_label_box( GtkWidget *parent,
-                                 gchar     *xpm_filename, gboolean gnome_pixmap,
-                                 gchar     *label_text )
+                                 const gchar     *xpm_filename, gboolean gnome_pixmap,
+                                 const gchar     *label_text )
        {
            GtkWidget *box1;
            GtkWidget *label;
@@ -1367,7 +1367,7 @@ gchar *WriteBufS( gchar* szDst, const gchar* szVal )
 			szSrc++ ;
 		}
 		*szDst++ = ',' ;
-		*szDst = '\0' ;	}
+		*szDst = '\0' ;	}
 	return szDst ;
 }
 
@@ -1382,7 +1382,7 @@ static int GetHexAs( const gchar c )
 }
 
 static gchar GetHexb( const gchar c1, const gchar c2 )
-{	return GetHexAs( c1 ) * 16 + GetHexAs( c2 ) ;
+{	return GetHexAs( c1 ) * 16 + GetHexAs( c2 ) ;
 }
 
 gchar* GetStrCod( const gchar *szIn )

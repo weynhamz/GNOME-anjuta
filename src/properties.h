@@ -23,6 +23,7 @@
 #include <glib.h>
 
 #ifdef __cplusplus
+#include "PropSet.h"
 
 class PropSetFile : public PropSet {
 public:

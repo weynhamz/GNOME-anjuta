@@ -55,6 +55,8 @@ static void on_debugger_load_core_filesel_cancel_clicked (GtkButton * button,
 							  gpointer user_data);
 static void debugger_stop_terminal (void);
 
+static void debugger_info_locals_cb(GList* list, gpointer data);
+
 void
 debugger_init ()
 {
@@ -172,10 +174,10 @@ on_debugger_open_exec_filesel_ok_clicked (GtkButton * button,
 	filename = fileselection_get_filename (debugger.open_exec_filesel);
 	if (!filename)
 		return;
-	messages_append (app->messages, _("Loading Executable: "),
+	anjuta_message_manager_append (app->messages, _("Loading Executable: "),
 			 MESSAGE_DEBUG);
-	messages_append (app->messages, filename, MESSAGE_DEBUG);
-	messages_append (app->messages, "\n", MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
 	command = g_strconcat ("file ", filename, NULL);
 	dir = g_dirname (filename);
@@ -223,9 +225,9 @@ on_debugger_load_core_filesel_ok_clicked (GtkButton * button,
 	filename = fileselection_get_filename (debugger.load_core_filesel);
 	if (!filename)
 		return;
-	messages_append (app->messages, _("Loading Core: "), MESSAGE_DEBUG);
-	messages_append (app->messages, filename, MESSAGE_DEBUG);
-	messages_append (app->messages, "\n", MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, _("Loading Core: "), MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, filename, MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 
 	command = g_strconcat ("core file ", filename, NULL);
 	dir = g_dirname (filename);
@@ -634,27 +636,27 @@ debugger_start (gchar * prog)
 	debugger.starting = TRUE;
 	ret = launcher_execute (command_str, gdb_stdout_line_arrived,
 				gdb_stderr_line_arrived, gdb_terminated);
-	messages_clear (app->messages, MESSAGE_DEBUG);
+	anjuta_message_manager_clear (app->messages, MESSAGE_DEBUG);
 	if (ret == TRUE)
 	{
 		anjuta_update_app_status (TRUE, _("Debugger"));
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Getting ready to start debugging session ...\n"),
 				 MESSAGE_DEBUG);
-		messages_append (app->messages, _("Loading Executable: "),
+		anjuta_message_manager_append (app->messages, _("Loading Executable: "),
 				 MESSAGE_DEBUG);
 
 		if (prog)
 		{
-			messages_append (app->messages, prog, MESSAGE_DEBUG);
-			messages_append (app->messages, "\n", MESSAGE_DEBUG);
+			anjuta_message_manager_append (app->messages, prog, MESSAGE_DEBUG);
+			anjuta_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 		}
 		else
 		{
-			messages_append (app->messages, _("No executable specified\n"),
+			anjuta_message_manager_append (app->messages, _("No executable specified\n"),
 					 MESSAGE_DEBUG);
-			messages_append (app->messages,
+			anjuta_message_manager_append (app->messages,
 					 _
 					 ("Open an executable or attach to a process to start debugging.\n"),
 					 MESSAGE_DEBUG);
@@ -662,16 +664,16 @@ debugger_start (gchar * prog)
 	}
 	else
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("There was an error whilst launching the debugger.\n"),
 				 MESSAGE_DEBUG);
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Make sure 'gdb' is installed on the system.\n"),
 				 MESSAGE_DEBUG);
 	}
-	messages_show (app->messages, MESSAGE_DEBUG);
+	anjuta_message_manager_show (app->messages, MESSAGE_DEBUG);
 	g_free (command_str);
 }
 
@@ -747,7 +749,7 @@ debugger_stdo_flush ()
 				       g_strdup (" "));
 		if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 		{
-			messages_append (app->messages, "\n", MESSAGE_DEBUG);
+			anjuta_message_manager_append (app->messages, "\n", MESSAGE_DEBUG);
 		}
 		return;
 	}
@@ -808,12 +810,12 @@ debugger_stdo_flush ()
 		{
 			if (debugger.current_cmd.flags & DB_CMD_SE_MESG)
 			{
-				messages_append (app->messages, _("Error: "),
+				anjuta_message_manager_append (app->messages, _("Error: "),
 						 MESSAGE_DEBUG);
-				messages_append (app->messages,
+				anjuta_message_manager_append (app->messages,
 						 (gchar *) list->data,
 						 MESSAGE_DEBUG);
-				messages_append (app->messages, "\n",
+				anjuta_message_manager_append (app->messages, "\n",
 						 MESSAGE_DEBUG);
 			}
 			if (list->data)
@@ -832,7 +834,7 @@ debugger_stdo_flush ()
 						   DB_CMD_NONE,
 						   signals_update,
 						   debugger.signals);
-			messages_append (app->messages,
+			anjuta_message_manager_append (app->messages,
 					 _("Debugger is ready.\n"),
 					 MESSAGE_DEBUG);
 		}
@@ -874,9 +876,9 @@ debugger_stdo_flush ()
 				if (debugger.current_cmd.
 				    flags & DB_CMD_SO_MESG)
 				{
-					messages_append (app->messages, line,
+					anjuta_message_manager_append (app->messages, line,
 							 MESSAGE_DEBUG);
-					messages_append (app->messages, "\n",
+					anjuta_message_manager_append (app->messages, "\n",
 							 MESSAGE_DEBUG);
 				}
 			}
@@ -894,9 +896,9 @@ debugger_stdo_flush ()
 			}
 			if (debugger.current_cmd.flags & DB_CMD_SO_MESG)
 			{
-				messages_append (app->messages, line,
+				anjuta_message_manager_append (app->messages, line,
 						 MESSAGE_DEBUG);
-				messages_append (app->messages, "\n",
+				anjuta_message_manager_append (app->messages, "\n",
 						 MESSAGE_DEBUG);
 			}
 		}
@@ -938,7 +940,7 @@ gdb_terminated (int status, time_t t)
 	debugger_stop_terminal ();
 
 	/* Good Bye message */
-	messages_append (app->messages,
+	anjuta_message_manager_append (app->messages,
 			 _
 			 ("\nWell, did you find the BUG? Debugging session completed.\n\n"),
 			 MESSAGE_DEBUG);
@@ -1175,7 +1177,7 @@ debugger_start_program (void)
 	term = debugger_start_terminal ();
 	if (!term)
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Warning: No debug terminal. Redirecting stdio to /dev/null.\n"),
 				 MESSAGE_DEBUG);
@@ -1195,7 +1197,7 @@ debugger_start_program (void)
 	g_free (cmd);
 	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
 				   on_debugger_update_prog_status, NULL);
-	messages_append (app->messages, _("Running program ... \n"),
+	anjuta_message_manager_append (app->messages, _("Running program ... \n"),
 			 MESSAGE_DEBUG);
 }
 
@@ -1302,7 +1304,7 @@ debugger_attach_process_confirmed (GtkWidget * but, gpointer data)
 	if (debugger_is_ready () == FALSE)
 		return;
 	buf = g_strdup_printf (_("Attaching to process: %d\n"), pid);
-	messages_append (app->messages, buf, MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, buf, MESSAGE_DEBUG);
 	g_free (buf);
 	buf = g_strdup_printf ("attach %d", pid);
 	debugger.prog_is_attached = TRUE;
@@ -1398,7 +1400,7 @@ debugger_stop_program ()
 					   NULL);
 		debugger_execute_cmd_in_queqe ();
 	}
-	messages_append (app->messages, "Program forcefully terminated\n",
+	anjuta_message_manager_append (app->messages, "Program forcefully terminated\n",
 			 MESSAGE_DEBUG);
 	debugger_stop_terminal ();
 	debugger.stack->current_frame = 0;
@@ -1422,7 +1424,7 @@ debugger_detach_process ()
 	buff =
 		g_strdup_printf (_("Detaching the process: %d\n"),
 				 (int) debugger.child_pid);
-	messages_append (app->messages, buff, MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
 	g_free (buff);
 	debugger_put_cmd_in_queqe ("detach", DB_CMD_ALL, NULL, NULL);
 	debugger_put_cmd_in_queqe ("info program", DB_CMD_NONE,
@@ -1625,7 +1627,7 @@ debugger_enable_all_breakpoints ()
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
-	messages_append (app->messages, _("All breakpoints enabled:\n"),
+	anjuta_message_manager_append (app->messages, _("All breakpoints enabled:\n"),
 			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
 }
 
@@ -1667,7 +1669,7 @@ debugger_disable_all_breakpoints ()
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
-	messages_append (app->messages, _("All breakpoints disabled:\n"),
+	anjuta_message_manager_append (app->messages, _("All breakpoints disabled:\n"),
 			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
 }
 
@@ -1709,7 +1711,7 @@ debugger_delete_all_breakpoints ()
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 				   breakpoints_dbase_update,
 				   debugger.breakpoints_dbase);
-	messages_append (app->messages, _("All breakpoints deleted:\n"),
+	anjuta_message_manager_append (app->messages, _("All breakpoints deleted:\n"),
 			 MESSAGE_DEBUG); debugger_execute_cmd_in_queqe ();
 }
 
@@ -1744,7 +1746,7 @@ debugger_interrupt ()
 	buff =
 		g_strdup_printf (_("Interrupting the process: %d\n"),
 				 (int) debugger.child_pid);
-	messages_append (app->messages, buff, MESSAGE_DEBUG);
+	anjuta_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
 	g_free (buff);
 	debugger.stack->current_frame = 0;
 	kill (debugger.child_pid, SIGINT);
@@ -1773,7 +1775,7 @@ debugger_signal (gchar * sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 			g_strdup_printf (_
 					 ("Sending signal %s to the process: %d\n"),
 					 sig, (int) debugger.child_pid);
-		messages_append (app->messages, buff, MESSAGE_DEBUG);
+		anjuta_message_manager_append (app->messages, buff, MESSAGE_DEBUG);
 		g_free (buff);
 	}
 
@@ -1837,15 +1839,15 @@ locals_update_controls(void)
 		return ;
 	if( !app->project_dbase->m_prj_ShowLocal )
 		return ;
-	message_clear_locals();
+	anjuta_message_manager_clear(app->messages, MESSAGE_LOCALS);
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
 	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set verbos off", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("info locals",
 				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
-				   message_info_locals, NULL);
-	debugger_put_cmd_in_queqe ("set verbos on", DB_CMD_NONE, NULL, NULL);
+				   debugger_info_locals_cb, NULL);
+	debugger_put_cmd_in_queqe ("set verbosme on", DB_CMD_NONE, NULL, NULL);
 	debugger_put_cmd_in_queqe ("set print pretty off", DB_CMD_NONE, NULL,
 				   NULL);
 }
@@ -1865,4 +1867,9 @@ debugger_info_prg(void)
 	locals_update_controls();
 
 	debugger_execute_cmd_in_queqe ();
+}
+
+static void debugger_info_locals_cb(GList* list, gpointer data)
+{
+	anjuta_message_manager_info_locals(app->messages, list, data);
 }

@@ -474,12 +474,7 @@ on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
 {
 	gchar *filename;
 	FILE *msgfile; 
-	GList *msgdata;
 	
-	if (! app->messages->data[MESSAGE_BUILD])
-			return;
-	gtk_clist_freeze(app->messages->clist[MESSAGE_BUILD]);
-
 	filename = fileselection_get_filename (app->save_as_build_msg_sel);
 	msgfile = fopen(filename, "w");
 	if (! msgfile)
@@ -488,17 +483,10 @@ on_build_msg_save_overwrite(GtkButton * button, gpointer user_data)
 		return;
 	}
 	
-	msgdata = g_list_first(app->messages->data[MESSAGE_BUILD]);
-	while (msgdata)
-	{
-		fprintf(msgfile, "%s\n", (char*)msgdata->data);
-		msgdata = g_list_next(msgdata);
-	}
+	anjuta_message_manager_save_build(app->messages, msgfile);
 			
 	fclose(msgfile);
 
-	
-	gtk_clist_thaw(app->messages->clist[MESSAGE_BUILD]);
 	return;
 }
 
@@ -520,14 +508,14 @@ on_prj_list_hide_button_clicked (GtkButton * button, gpointer user_data)
 void
 on_mesg_win_hide_button_clicked (GtkButton * button, gpointer user_data)
 {
-	messages_hide (app->messages);
+	gtk_widget_hide(GTK_WIDGET(app->messages));
 }
 
 
 void
 on_mesg_win_undock_button_clicked (GtkButton * button, gpointer user_data)
 {
-	messages_undock (app->messages);
+	anjuta_message_manager_undock (app->messages);
 }
 
 void

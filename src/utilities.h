@@ -24,7 +24,6 @@
 #define COMBO_LIST_LENGTH \
 		preferences_get_int (app->preferences, MAXIMUM_COMBO_HISTORY)
 
-typedef enum _FileExtType FileExtType;
 
 /* Any addition to this enum must be synced with the
 function get_file_ext_type() */
@@ -71,6 +70,8 @@ enum _FileExtType
 	FILE_TYPE_END_MARK
 };
 
+typedef enum _FileExtType FileExtType;
+
 /****************************************************************************/
 /*  Functions that dynamic allocate memory. Return value(s) should be g_freed */
 /****************************************************************************/
@@ -95,7 +96,7 @@ gchar* string_from_glist (GList* list);
 /* file name and line number */
 /* filename is set at (*filename), line number in lineno*/
 /* Don't forget to g_free (*filename)*/
-gboolean parse_error_line(gchar *line, gchar **filename, int *lineno);
+gboolean parse_error_line(const gchar *line, gchar **filename, int *lineno);
 
 /***********************************************************************************/
 /*  Functions that do not dynamic allocate memory. Return value should not be g_freed */
@@ -213,8 +214,8 @@ GList* remove_blank_lines(GList* lines);
         * and return the box. */
 GtkWidget*
 create_xpm_label_box( GtkWidget *parent,
-                                 gchar     *xpm_filename, gboolean gnome_pixmap,
-                                 gchar     *label_text );
+                                 const gchar     *xpm_filename, gboolean gnome_pixmap,
+                                 const gchar     *label_text );
 /* Excluding the final 0 */
 gint calc_string_len( const gchar *szStr );
 gint calc_gnum_len( void /*const gint iVal*/ );
@@ -232,6 +233,5 @@ gchar *WriteBufS( gchar* szDst, const gchar* szVal );
 
 void
 free_string_list ( GList * pList );
-
 
 #endif

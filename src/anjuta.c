@@ -56,6 +56,7 @@ static GdkCursor *app_cursor;
 void anjuta_child_terminated (int t);
 static void on_anjuta_window_selected (GtkMenuItem * menuitem,
 				       gpointer user_data);
+static void on_message_clicked(GtkObject* obj, char* message);					  
 static void anjuta_show_text_editor (TextEditor * te);
 static void plugins_foreach_delete( gpointer data, gpointer user_data );
 static void free_plug_ins( GList * pList );
@@ -158,7 +159,9 @@ anjuta_new ()
 		app->preferences = preferences_new ();
 		app->compiler_options = compiler_options_new (app->preferences->props);
 		app->src_paths = src_paths_new ();
-		app->messages = messages_new ();
+		app->messages = ANJUTA_MESSAGE_MANAGER(anjuta_message_manager_new ());
+		create_default_types(app->messages);
+		gtk_signal_connect(GTK_OBJECT(app->messages), "message_clicked", GTK_SIGNAL_FUNC(on_message_clicked), NULL);
 		app->project_dbase = project_dbase_new (app->preferences->props);
 		app->configurer = configurer_new (app->project_dbase->props);
 		app->executer = executer_new (app->project_dbase->props);
@@ -177,15 +180,14 @@ anjuta_new ()
 		gtk_notebook_popup_enable (GTK_NOTEBOOK
 					   (app->widgets.notebook));
 		gtk_box_pack_start (GTK_BOX (app->widgets.mesg_win_container),
-				    app->messages->client, TRUE, TRUE, 0);
+				    GTK_WIDGET(app->messages), TRUE, TRUE, 0);
 		gtk_box_pack_start (GTK_BOX
 				    (app->widgets.
 				     project_dbase_win_container),
 				    app->project_dbase->widgets.client, TRUE,
 				    TRUE, 0);
 		project_dbase_hide (app->project_dbase);
-		messages_hide (app->messages);
-
+		gtk_widget_hide(GTK_WIDGET(app->messages));
 		gtk_paned_set_position (GTK_PANED (app->widgets.vpaned),
 					app->vpaned_height);
 		gtk_paned_set_position (GTK_PANED (app->widgets.hpaned),
@@ -646,7 +648,7 @@ anjuta_show ()
 	g_free (key);
 	
 	update_gtk ();
-	messages_append (app->messages,
+	anjuta_message_manager_append (app->messages,
 			 _("CVS is not yet implemented. :-(\n"), MESSAGE_CVS);
 	
 	if (app->dirs->first_time)
@@ -766,7 +768,7 @@ gboolean anjuta_save_yourself (FILE * stream)
 #endif
 
 	fprintf (stream, "\n\n");
-	messages_save_yourself (app->messages, stream);
+	anjuta_message_manager_save_yourself (app->messages, stream);
 	project_dbase_save_yourself (app->project_dbase, stream);
 
 	compiler_options_save_yourself (app->compiler_options, stream);
@@ -817,7 +819,7 @@ gboolean anjuta_load_yourself (PropsID pr)
 #else
 	app->recent_projects = anjuta_session_load_strings( SECSTR(SECTION_RECENTPROJECTS), NULL );
 #endif
-	messages_load_yourself (app->messages, pr);
+	anjuta_message_manager_load_yourself (app->messages, pr);
 	project_dbase_load_yourself (app->project_dbase, pr);
 	preferences_load_yourself (app->preferences, pr);
 	compiler_options_load_yourself (app->compiler_options, pr);
@@ -977,7 +979,7 @@ anjuta_apply_preferences (void)
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK
 					    (app->widgets.notebook), TRUE);
 	}
-	messages_update (app->messages);
+	anjuta_message_manager_update(app->messages);
 	for (i = 0; i < g_list_length (app->text_editor_list); i++)
 	{
 		te =	(TextEditor*) (g_list_nth (app->text_editor_list, i)->data);
@@ -1084,7 +1086,7 @@ anjuta_clean_exit ()
 	if (app->src_paths)
 		src_paths_destroy (app->src_paths);
 	if (app->messages)
-		messages_destroy (app->messages);
+		gtk_widget_destroy(GTK_WIDGET(app->messages));
 	if (app->project_dbase)
 		project_dbase_destroy (app->project_dbase);
 	if (app->command_editor)
@@ -2050,3 +2052,13 @@ scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
 	return pList;
 }
 
+static void on_message_clicked(GtkObject* obj, char* message)
+{
+	char* fn;
+	int ln;
+	if (parse_error_line (message, &fn, &ln))
+	{
+		anjuta_goto_file_line (fn, ln);
+		g_free (fn);
+	}
+}

@@ -70,16 +70,16 @@ clean_project ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Clean"));
-		messages_clear (app->messages, MESSAGE_BUILD);
-		messages_append (app->messages,
+		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages,
 				 _("Cleaning the source directory of the project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		messages_append (app->messages, prj_name, MESSAGE_BUILD);
-		messages_append (app->messages, " ...\n", MESSAGE_BUILD);
-		messages_append (app->messages, cmd, MESSAGE_BUILD);
-		messages_append (app->messages, "\n", MESSAGE_BUILD);
-		messages_show (app->messages, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, "", MESSAGE_BUILD); // Maybe something is missing here
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -88,7 +88,7 @@ clean_project ()
 void
 clean_mesg_arrived (gchar * mesg)
 {
-	messages_append (app->messages, mesg, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 void
@@ -98,7 +98,7 @@ clean_terminated (int status, time_t time)
 
 	if (WEXITSTATUS (status))
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Cleaning completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
@@ -106,7 +106,7 @@ clean_terminated (int status, time_t time)
 	}
 	else
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Cleaning completed...............Successful\n"),
 				 MESSAGE_BUILD);
@@ -115,7 +115,7 @@ clean_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	messages_append (app->messages, buff1, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);
@@ -156,16 +156,16 @@ clean_all_project ()
 			return;
 		}
 		anjuta_update_app_status (TRUE, _("Clean All"));
-		messages_clear (app->messages, MESSAGE_BUILD);
-		messages_append (app->messages,
+		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages,
 				 _("Cleaning whole of the project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
-		messages_append (app->messages, prj_name, MESSAGE_BUILD);
-		messages_append (app->messages, " ...\n", MESSAGE_BUILD);
-		messages_append (app->messages, cmd, MESSAGE_BUILD);
-		messages_append (app->messages, "\n", MESSAGE_BUILD);
-		messages_show (app->messages, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
+		anjuta_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
+		anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
 		g_free (cmd);
 		g_free (prj_name);
 	}
@@ -178,7 +178,7 @@ clean_all_terminated (int status, time_t time)
 
 	if (WEXITSTATUS (status))
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Clean all completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
@@ -186,7 +186,7 @@ clean_all_terminated (int status, time_t time)
 	}
 	else
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Clean all completed...............Successful\n"),
 				 MESSAGE_BUILD);
@@ -195,7 +195,7 @@ clean_all_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	messages_append (app->messages, buff1, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);

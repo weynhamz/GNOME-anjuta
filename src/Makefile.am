@@ -123,8 +123,12 @@ anjuta_SOURCES = \
 	mainmenu_callbacks.h\
 	messagebox.c\
 	messagebox.h\
-	messages.c\
-	messages.h\
+	message-manager.cc\
+	message-manager.h\
+	message-manager-private.cc\
+	message-manager-private.h\
+	message-manager-dock.c\
+	message-manager-dock.h\
 	pixmaps.h\
 	preferences.c\
 	preferences.h\

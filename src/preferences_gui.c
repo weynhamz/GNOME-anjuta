@@ -28,7 +28,7 @@
 #include <gnome.h>
 
 #include "anjuta.h"
-#include "messages.h"
+#include "message-manager.h"
 #include "resources.h"
 #include "preferences.h"
 #include "properties.h"

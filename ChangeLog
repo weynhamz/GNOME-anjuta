@@ -1,3 +1,55 @@
+2002-01-07  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/project_dbase_gui.c: Fixed crash of anjuta
+	when project first created.
+	
+	* src/gnome_project.c: It now updates the tags manager
+	when new projects are created.
+	
+2002-01-07  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Thanks Johannes Schmid <johannes.schmid@gmx.de>
+	  for this big patch.
+	
+	* src/messages.[c,h]: Removed files.
+
+	* src/message-manager.[cc,h],
+	  src/message-manager-dock.[c,h],
+	  src/message-manager-private.[cc,h]
+	  New files.
+
+	* src/anjuta.c, src/anjuta.h, src/anjuta_cbs.c, src/build_file.c
+	  src/build_project.c, src/clean_project.c, src/compile.c
+	  src/configurer.c, src/debugger.c, src/find_in_files.c
+	  src/mainmenu_callbacks.c, src/preferences.h
+	  src/preferences_gui.c, src/properties.h
+	  src/utilities.c, src/utilities.h:
+	  The new messages widget.
+	  New features:
+	    - Use of GtkNotebook instead of ToggleButtons
+	      and show/hide
+	    - Popupmenu to show and hide message types and
+	      to dock/undock in detach mode
+
+	  All other things should work as they did with the
+	  old message window. Currently the keyboard short-cuts
+	  do not work in detached mode.
+	  
+	  Some functions in utitlities.[c,h] changed.
+	  so that they take const arguments where this is possible
+	  
+	* src/Makefile.am, po/POTFILES.in:
+	  Removed messages.[c,h] and
+	  added message-manager.[cc,h], message-manager-dock.[c,h],
+	  message-manager-private.[cc,h]
+	  
+	* src/message-manager.h: Removed "include <bonobo.h>"
+	  and added a newline at the end of the file.
+	  
+	* src/message-manager-private.cc:
+	  Set clist's width setting to Automatic.
+	  Set scroll window's scroll bars to Automatic.
+	  
 2002-01-05  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* text_editor_menu.c:

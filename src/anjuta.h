@@ -29,7 +29,7 @@
 #include "src_paths.h"
 #include "find_replace.h"
 #include "find_in_files.h"
-#include "messages.h"
+#include "message-manager.h"
 #include "project_dbase.h"
 #include "commands.h"
 #include "breakpoints.h"
@@ -115,7 +115,7 @@ struct _AnjutaApp
 
 	GtkAccelGroup *accel_group;
 	FindAndReplace *find_replace;
-	Messages *messages;
+	AnjutaMessageManager *messages;
 	ProjectDBase *project_dbase;
 	CommandEditor *command_editor;
 	Preferences *preferences;
@@ -382,6 +382,5 @@ anjuta_save_file_if_modified( const gchar *szFullPath );
 
 
 #include "session.h"
-
 
 #endif

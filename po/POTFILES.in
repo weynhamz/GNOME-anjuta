@@ -92,8 +92,12 @@ src/mainmenu_callbacks.c
 src/mainmenu_callbacks.h
 src/messagebox.c
 src/messagebox.h
-src/messages.c
-src/messages.h
+src/message-manager.cc
+src/message-manager.h
+src/message-manager-dock.c
+src/message-manager-dock.h
+src/message-manager-private.cc
+src/message-manager-private.h
 src/pixmaps.h
 src/preferences.c
 src/preferences.h

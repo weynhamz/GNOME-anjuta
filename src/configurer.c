@@ -201,15 +201,15 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	}
 	g_free (tmp);
 	anjuta_update_app_status (TRUE, _("Configure"));
-	messages_clear (app->messages, MESSAGE_BUILD);
-	messages_append (app->messages, _("Configuring the project ....\n"), MESSAGE_BUILD);
-	messages_show (app->messages, MESSAGE_BUILD);
+	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Configuring the project ....\n"), MESSAGE_BUILD);
+	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
 }
 
 static void
 conf_mesg_arrived (gchar * mesg)
 {
-	messages_append (app->messages, mesg, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 static void
@@ -219,7 +219,7 @@ conf_terminated (int status, time_t time)
 
 	if (WEXITSTATUS (status))
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Configure completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
@@ -227,7 +227,7 @@ conf_terminated (int status, time_t time)
 	}
 	else
 	{
-		messages_append (app->messages,
+		anjuta_message_manager_append (app->messages,
 				 _
 				 ("Configure completed...............Successful\n"),
 				 MESSAGE_BUILD);
@@ -236,7 +236,7 @@ conf_terminated (int status, time_t time)
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
 				 (gint) time);
-	messages_append (app->messages, buff1, MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 	g_free (buff1);

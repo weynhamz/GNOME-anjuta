@@ -38,7 +38,7 @@
 #include "build_project.h"
 #include "clean_project.h"
 #include "preferences.h"
-#include "messages.h"
+#include "message-manager.h"
 #include "compile.h"
 #include "launcher.h"
 #include "appwizard.h"
@@ -596,13 +596,13 @@ on_goto_block_end1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_goto_prev_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	messages_previous_message (app->messages);
+	anjuta_message_manager_previous (app->messages);
 }
 
 void
 on_goto_next_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	messages_next_message (app->messages);
+	anjuta_message_manager_next (app->messages);
 }
 
 void
@@ -615,7 +615,7 @@ on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	if (app->messages->data[MESSAGE_BUILD])
+	if (!anjuta_message_manager_build_is_empty(app->messages))
 		gtk_widget_show (app->save_as_build_msg_sel);
 	else
 		anjuta_error("There are no build messages.");
@@ -630,11 +630,11 @@ void
 on_messages1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	gboolean state;
-	state = app->messages->is_showing;
+	state = anjuta_message_manager_is_shown(app->messages);
 	if(state) {
-		messages_hide (app->messages);
+		gtk_widget_hide(GTK_WIDGET(app->messages));
 	} else {
-		messages_show (app->messages, MESSAGE_TYPE_END);
+		anjuta_message_manager_show (app->messages, MESSAGE_NONE);
 	}
 }
 

@@ -22,6 +22,11 @@
 #include <gnome.h>
 #include "properties.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 typedef struct _PreferencesWidgets PreferencesWidgets;
 typedef struct _Preferences Preferences;
 typedef struct _StyleData StyleData;
@@ -281,5 +286,9 @@ void preferences_set_build_options(Preferences* p);
 
 void
 ColorFromString (const gchar * val, guint8 * r, guint8 * g, guint8 * b);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif
