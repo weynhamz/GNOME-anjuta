@@ -29,6 +29,8 @@ libanjuta_gdb_la_SOURCES = \
 	debugger.h \
 	debug_tree.c \
 	debug_tree.h \
+	locals.c \
+	locals.h \
 	memory.c \
 	memory.h \
 	plugin.c \

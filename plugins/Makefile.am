@@ -2,11 +2,10 @@
 
 ## The '.' is to make sure install-data-hook rule is executed first
 SUBDIRS = . \
-	sample1 \
 	gtodo \
 	message-view \
 	editor \
-	debugger \
+	debug-manager \
 	gdb \
 	devhelp \
 	file-manager \
@@ -18,6 +17,8 @@ SUBDIRS = . \
 	project-manager \
 	project-manager \
 	symbol-browser
+#	sample1
+#	cvs-plugin
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

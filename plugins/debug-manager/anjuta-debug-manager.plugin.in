@@ -1,0 +1,9 @@
+[Anjuta Plugin]
+_Name=Debug Manager
+_Description=Debug Manager plugin.
+Location=anjuta-debug-manager:DebugManagerPlugin
+Icon=anjuta-debug-manager.plugin.png
+Interfaces=IAnjutaFile
+
+[File Loader]
+SupportedMimetypes=application/x-executable

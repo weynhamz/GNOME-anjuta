@@ -20,9 +20,10 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
-#include <libanjuta/interfaces/ianjuta-debugger-be.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
 #include "debugger.h"
@@ -58,6 +59,24 @@ append_message (const gchar* message)
 
 	ianjuta_message_view_append (message_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
 			message, "", NULL);
+}
+
+
+IAnjutaDocumentManager *
+gdb_get_document_manager (void)
+{
+	GObject *obj = anjuta_shell_get_object (ANJUTA_PLUGIN (gdb_plugin)->shell,
+			"IAnjutaDocumentManager", NULL);
+	return IANJUTA_DOCUMENT_MANAGER (obj);
+}
+
+
+void
+gdb_goto_file_line (const gchar *filename, gint lineno)
+{
+	IAnjutaDocumentManager *docman = gdb_get_document_manager ();
+	ianjuta_document_manager_goto_file_line (docman, filename, lineno,
+			NULL /* TODO */);
 }
 
 
@@ -107,6 +126,15 @@ get_launcher (void)
 	g_return_val_if_fail (gdb_plugin != NULL, NULL);
 
 	return gdb_plugin->launcher;
+}
+
+
+void
+gdb_add_widget (GtkWidget *w, const gchar *name, const gchar * title,
+		const gchar *icon)
+{
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (gdb_plugin)->shell, w, name, title,
+			icon, ANJUTA_SHELL_PLACEMENT_FLOATING, NULL);
 }
 
 
@@ -203,21 +231,70 @@ gdb_plugin_class_init (GObjectClass* klass)
 }
 
 
-/* Implementation of IAnjutaDebuggerBE interface */
+/* Implementation of IAnjutaDebugger interface */
 static void
-idebugger_be_start (IAnjutaDebuggerBE *plugin, const gchar *prog, GError **err)
+idebugger_start (IAnjutaDebugger *plugin, const gchar *prog, GError **err)
 {
 	debugger_start (prog);
 }
 
 static void
-idebugger_be_iface_init (IAnjutaDebuggerBEIface *iface)
+idebugger_load_executable (IAnjutaDebugger *plugin, const gchar *prog, GError **err)
 {
-	iface->start = idebugger_be_start;
+	debugger_load_executable (prog);
+}
+
+static void
+idebugger_load_core (IAnjutaDebugger *plugin, const gchar *core, GError **err)
+{
+	debugger_load_core (core);
+}
+
+static void
+idebugger_run_continue (IAnjutaDebugger *plugin, GError **err)
+{
+	debugger_run ();
+}
+
+static void
+idebugger_step_in (IAnjutaDebugger *plugin, GError **err)
+{
+	debugger_step_in ();
+}
+
+static void
+idebugger_step_over (IAnjutaDebugger *plugin, GError **err)
+{
+	debugger_step_over ();
+}
+
+static void
+idebugger_step_out (IAnjutaDebugger *plugin, GError **err)
+{
+	debugger_step_out ();
+}
+
+static void
+idebugger_toggle_breakpoint (IAnjutaDebugger *plugin, GError **err)
+{
+	debugger_toggle_breakpoint ();
+}
+
+static void
+idebugger_iface_init (IAnjutaDebuggerIface *iface)
+{
+	iface->start = idebugger_start;
+	iface->load_executable = idebugger_load_executable;
+	iface->load_core = idebugger_load_core;
+	iface->run_continue = idebugger_run_continue;
+	iface->step_in = idebugger_step_in;
+	iface->step_over = idebugger_step_over;
+	iface->step_out = idebugger_step_out;
+	iface->toggle_breakpoint = idebugger_toggle_breakpoint;
 }
 
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
-ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_be, IANJUTA_TYPE_DEBUGGER_BE);
+ANJUTA_PLUGIN_ADD_INTERFACE(idebugger, IANJUTA_TYPE_DEBUGGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GdbPlugin, gdb_plugin);

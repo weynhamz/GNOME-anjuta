@@ -25,6 +25,7 @@
 #include "registers.h"
 #include "watch.h"
 #include "stack_trace.h"
+#include "locals.h"
 #include "signals.h"
 #include "sharedlib.h"
 /* TODO #include "project_dbase.h" */
@@ -60,13 +61,11 @@ struct _Debugger
 	gint post_execution_flag;
 	pid_t child_pid;
 
-	GtkWidget *open_exec_filesel;
-	GtkWidget *load_core_filesel;
-
 	ExprWatch *watch;
 	BreakpointsDBase *breakpoints_dbase;
 	CpuRegisters *cpu_registers;
 	StackTrace *stack;
+	Locals *locals;
 	Signals *signals;
 	Sharedlibs *sharedlibs;
 
@@ -92,7 +91,9 @@ void debugger_init (void);
 void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
 /* TODO gboolean debugger_load_yourself (PropsID props); */
-void debugger_start (const gchar * prog);
+void debugger_start (const gchar *prog);
+void debugger_load_executable (const gchar *prog);
+void debugger_load_core (const gchar *core);
 gboolean debugger_is_active (void);
 gboolean debugger_is_ready (void);
 
@@ -111,9 +112,6 @@ void debugger_dialog_message (GList * lines, gpointer data);
 void debugger_dialog_error (GList * lines, gpointer data);
 
 /* Public */
-void debugger_open_exec_file (void);
-void debugger_load_core_file (void);
-
 void debugger_attach_process (gint pid);
 void debugger_restart_program (void);
 void debugger_start_program (void);
@@ -125,11 +123,12 @@ void debugger_run (void);
 void debugger_step_in (void);
 void debugger_step_over (void);
 void debugger_step_out (void);
-void debugger_continue (void);
 void debugger_run_to_location (const gchar * loc);
 
 void debugger_toggle_breakpoint (void);
+/* TODO: can remove ?
 void debugger_toggle_tmp_breakpoint (void);
+*/
 
 void debugger_enable_breakpoint (gint id);
 void debugger_enable_all_breakpoints (void);

@@ -42,13 +42,17 @@
 @g_iface: 
 @get_attributes: 
 @get_current_word: 
+@get_filename: 
 @get_length: 
+@get_lineno: 
 @get_position: 
 @get_selection: 
 @get_text: 
 @goto_line: 
+@goto_line_ex: 
 @goto_position: 
 @insert: 
+@is_marker_set: 
 
 <!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->
 <para>

@@ -1850,6 +1850,13 @@ itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 }
 
 static void
+itext_editor_goto_line_ex (IAnjutaEditor *editor, gint lineno, gboolean mark,
+		gboolean make_visible, GError **e)
+{
+	text_editor_goto_line (TEXT_EDITOR (editor), lineno, mark, make_visible);
+}
+
+static void
 itext_editor_goto_position (IAnjutaEditor *editor, gint position, GError **e)
 {
 	text_editor_goto_point (TEXT_EDITOR (editor), position);
@@ -1884,6 +1891,12 @@ itext_editor_get_position (IAnjutaEditor *editor, GError **e)
 }
 
 static gint
+itext_editor_get_lineno (IAnjutaEditor *editor, GError **e)
+{
+	return text_editor_get_current_lineno (TEXT_EDITOR (editor));
+}
+
+static gint
 itext_editor_get_length (IAnjutaEditor *editor, GError **e)
 {
 	return aneditor_command (TEXT_EDITOR (editor)->editor_id,
@@ -1907,18 +1920,35 @@ itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
 					  length, (long)txt);
 }
 
+static gboolean
+itext_editor_is_marker_set (IAnjutaEditor *editor, gint lineno, gint marker,
+		GError **e)
+{
+	return text_editor_is_marker_set (TEXT_EDITOR (editor), lineno, marker);
+}
+
+static const gchar *
+itext_editor_get_filename (IAnjutaEditor *editor, GError **e)
+{
+	return (TEXT_EDITOR (editor))->filename;
+}
+
 static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->goto_line = itext_editor_goto_line;
+	iface->goto_line_ex = itext_editor_goto_line_ex;
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
 	iface->get_selection = itext_editor_get_selection;
 	iface->get_attributes = itext_editor_get_attributes;
 	iface->get_position = itext_editor_get_position;
+	iface->get_lineno = itext_editor_get_lineno;
 	iface->get_length = itext_editor_get_length;
 	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
+	iface->is_marker_set = itext_editor_is_marker_set;
+	iface->get_filename = itext_editor_get_filename;
 }
 
 static gchar*

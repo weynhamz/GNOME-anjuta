@@ -1,4 +1,9 @@
-2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
+2004-11-03  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/gdb, plugins/debug-manager: Applied debugger patch
+	from Bosik, Pavol <pavol.bosik@radiantsystems.com>
+
+2004-11-03  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/*: Mess up with cvs and lost some of 
 	my cvs-plugin files...

@@ -714,6 +714,7 @@ plugins/editor/Makefile
 plugins/message-view/Makefile
 plugins/debugger/Makefile
 plugins/gdb/Makefile
+plugins/debug-manager/Makefile
 plugins/devhelp/Makefile
 plugins/file-manager/Makefile
 plugins/file-loader/Makefile

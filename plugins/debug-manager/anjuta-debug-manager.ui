@@ -1,0 +1,26 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderDebugMenus">
+			<menu name="MenuDebug" action="ActionMenuDebug">
+				<placeholder name="PlaceHolderDebugStartMenus">
+					<menuitem name="StartDebugger" action="ActionStartDebugger" />
+					<separator name="separator1"/>
+					<menuitem name="LoadExecutable" action="ActionLoadExecutable" />
+					<menuitem name="LoadCore" action="ActionLoadCore" />
+					<menuitem name="AttachToProcess" action="ActionAttachToProcess" />
+					<separator name="separator2"/>
+					<menu name="Execution" action="ActionMenuExecution">
+						<menuitem name="LoadExecutable" action="ActionRunContinue" />
+						<menuitem name="StepIn" action="ActionStepIn" />
+						<menuitem name="StepOver" action="ActionStepOver" />
+						<menuitem name="StepOut" action="ActionStepOut" />
+					</menu>
+					<menu name="Breakpoints" action="ActionMenuBreakpoints">
+						<menuitem name="ToggleBreakpoint" action="ActionToggleBreakpoint" />
+					</menu>
+				</placeholder>
+			</menu>
+		</placeholder>
+	</menubar>
+</ui>

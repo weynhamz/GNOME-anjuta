@@ -355,13 +355,65 @@ interface IAnjutaEditor
 	
 	void   insert (int position, const gchar *text, gint length);
 	void   goto_line (gint lineno);
+
+	/**
+	 * itext_editor_goto_line_ex:
+	 * @obj: Self
+	 * @lineno: Number of line to go to
+	 * @mark: Specifies whether the line will be marked
+	 * @make_visible: Specifies whether the editor view will be adjusted so that the line gets visible
+	 * @err: Error propagation and reporting
+	 *
+	 * Apart from going to the specified line, this function allows some
+	 * additional flags to be specified.
+	 *
+	 * Return value: None.
+	 */
+	void   goto_line_ex (gint lineno, gboolean mark, gboolean make_visible);
+
 	void   goto_position (gint position);
 	gchar* get_selection ();
 	gchar* get_text (gint start, gint end);
 	gchar* get_attributes (gint start, gint end);
 	gint   get_position ();
+
+	/**
+	 * itext_editor_get_lineno:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Obtains number of the current line in the editor.
+	 *
+	 * Return value: Line number.
+	 */
+	gint   get_lineno ();
+
 	gint   get_length ();
 	gchar* get_current_word ();
+
+	/**
+	 * itext_editor_is_marker_set:
+	 * @obj: Self
+	 * @lineno: Number of line which will be checked for the marker
+	 * @marker: Type of the marker
+	 * @err: Error propagation and reporting
+	 *
+	 * Checks whether the specified line contains particular marker.
+	 *
+	 * Return value: Whether the line contains the marker.
+	 */
+	gboolean is_marker_set (gint lineno, gint marker);
+
+	/**
+	 * itext_editor_get_filename:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Allows obtaining of the filename the editor was loaded from.
+	 *
+	 * Return value: The name of the file. Not to be freed by caller.
+	 */
+	gchar * get_filename ();
 }
 
 interface IAnjutaDocumentManager
@@ -524,7 +576,16 @@ interface IAnjutaWizard
  * }
  */
 
-interface IAnjutaDebuggerBE
+interface IAnjutaDebugger
 {
-	void start(const gchar *prog);
+	void start (const gchar *prog);
+	void load_executable (const gchar *prog);
+	void load_core (const gchar *core);
+
+	void run_continue ();
+	void step_in ();
+	void step_over ();
+	void step_out ();
+
+	void toggle_breakpoint ();
 }

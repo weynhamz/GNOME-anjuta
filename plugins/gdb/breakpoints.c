@@ -1612,6 +1612,7 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase *bd, TextEditor *te)
 }
 
 //gboolean flag;
+*/
 
 static gboolean
 on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
@@ -1620,60 +1621,70 @@ on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
 	BreakpointItem *item;
 	gint moved_line, line;
 	BreakpointsDBase* bd;
-	TextEditor *te = anjuta_get_current_text_editor ();
-	
+	IAnjutaDocumentManager *docman;
+	IAnjutaEditor *te;
+	gchar *filename;
+
+	docman = gdb_get_document_manager ();
+	te = ianjuta_document_manager_get_current_editor (docman, NULL /* TODO */);
+
 	bd = (BreakpointsDBase *) data;
 	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, DATA_COLUMN, &item, -1);
 	if (item->handle_invalid)
 		return FALSE;
 
-	if (strcmp (te->filename, item->file) != 0)
+	filename = itext_editor_get_filename (te, NULL /* TODO */);
+	if (strcmp (filename, item->file) != 0)
 		return FALSE;
-	line = text_editor_get_current_lineno (te);
-	moved_line = text_editor_line_from_handle(te, item->handle);
+	line = itext_editor_get_lineno (te, NULL /* TODO */);
+// TODO:	moved_line = text_editor_line_from_handle(te, item->handle);
 	//if (moved_line == line && moved_line >= 0)
 	if (item->line == line && item->line >= 0)
 	{
 		 //delete breakpoint marker from screen
-		text_editor_delete_marker (te, line, BREAKPOINTS_MARKER);
+// TODO:		text_editor_delete_marker (te, line, BREAKPOINTS_MARKER);
 		// delete breakpoint in debugger
 		delete_breakpoint (item->id, bd, FALSE);
 	}
 	return FALSE;
 }
-*/
+
 
 /*  if l == 0  :  line = current line */
 /*  return FALSE if debugger not active */
-/* TODO
 gboolean
 breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 {
 	guint line;
 	BreakpointItem *bid;
 	gchar *buff;
-	TextEditor* te;
+	IAnjutaDocumentManager *docman;
+	IAnjutaEditor *te;
+	gchar *filename;
 
-	g_return_val_if_fail (bd != NULL, FALSE);
-	te = anjuta_get_current_text_editor ();
-	g_return_val_if_fail (te != NULL, FALSE);
-	
 	if (debugger_is_active() == FALSE) return FALSE;
 	if (debugger_is_ready() == FALSE) return FALSE;
 
+	g_return_val_if_fail (bd != NULL, FALSE);
+
+	docman = gdb_get_document_manager ();
+	g_return_val_if_fail (docman != NULL, FALSE);
+	te = ianjuta_document_manager_get_current_editor (docman, NULL /* TODO */);
+	g_return_val_if_fail (te != NULL, FALSE);
+	
 	if (l == 0)
-		line = text_editor_get_current_lineno (te);
+		line = itext_editor_get_lineno (te, NULL /* TODO */);
 	else
 	{
 		line = l;
-		text_editor_goto_line (te, line, FALSE, TRUE);
+		itext_editor_goto_line_ex (te, line, FALSE, TRUE, NULL /* TODO */);
 	}
 	/* Is breakpoint set? */
-/* TODO	if (text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER) ||
-		text_editor_is_marker_set (te, line, BREAKPOINTS_MARKER_DISABLE))
+	if (itext_editor_is_marker_set (te, line, BREAKPOINTS_MARKER, NULL /* TODO */) ||
+		itext_editor_is_marker_set (te, line, BREAKPOINTS_MARKER_DISABLE, NULL /* TODO */))
 	{
 		/* Breakpoint is set. So, delete it. */
-/* TODO		GtkTreeModel *model;
+		GtkTreeModel *model;
 		
 		model = gtk_tree_view_get_model (GTK_TREE_VIEW (bd->priv->treeview));
 		
@@ -1681,13 +1692,14 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 		delete_breakpoint (0, bd, TRUE);
 		return TRUE;
 	}
-	
+
 	/* Breakpoint is not set. So, set it. */
-/* TODO	bid = breakpoint_item_new ();
+	bid = breakpoint_item_new ();
 	bid->pass = 0;
 	bid->bd = bd;
 
-	buff = g_strdup_printf ("break %s:%d", te->filename, line);
+	filename = itext_editor_get_filename (te, NULL /* TODO */);
+	buff = g_strdup_printf ("break %s:%d", filename, line);
 	debugger_put_cmd_in_queqe (buff, DB_CMD_ALL,
 							   bk_item_add_mesg_arrived,
 							   bid);
@@ -1695,7 +1707,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd, guint l)
 	debugger_execute_cmd_in_queqe ();
 	return TRUE;
 }
-*/
+
 
 /*  return FALSE if debugger not active */
 gboolean
