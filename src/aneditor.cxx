@@ -2936,20 +2936,34 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	}
 
 	for (int i = 0; i < 3; i++) {
+		
+		SString value_str;
 		long default_indic_type[] = {INDIC_TT, INDIC_DIAGONAL, INDIC_SQUIGGLE};
 		char *default_indic_color[] = {"0000FF", "#00FF00", "#FF0000"};
 		
 		char key[200];
 		sprintf(key, "indicator.%d.style", i);
 
-		int value_int = props->GetInt(key);
-		if (value_int > 0) {
-			SendEditor(SCI_INDICSETSTYLE, i, value_int);
+		value_str = props->Get(key);
+		if (value_str.length() > 0) {
+			if (strcasecmp (value_str.c_str(), "underline-plain") == 0) {
+				SendEditor(SCI_INDICSETSTYLE, i, INDIC_PLAIN);
+			} else if (strcasecmp (value_str.c_str(), "underline-tt") == 0) {
+				SendEditor(SCI_INDICSETSTYLE, i, INDIC_TT);
+			} else if (strcasecmp (value_str.c_str(), "underline-squiggle") == 0) {
+				SendEditor(SCI_INDICSETSTYLE, i, INDIC_SQUIGGLE);
+			} else if (strcasecmp (value_str.c_str(), "strike-out") == 0) {
+				SendEditor(SCI_INDICSETSTYLE, i, INDIC_STRIKE);
+			} else if (strcasecmp (value_str.c_str(), "diagonal") == 0) {
+				SendEditor(SCI_INDICSETSTYLE, i, INDIC_DIAGONAL);
+			} else {
+				SendEditor(SCI_INDICSETSTYLE, i, default_indic_type[i]);
+			}
 		} else {
 			SendEditor(SCI_INDICSETSTYLE, i, default_indic_type[i]);
 		}
 		sprintf(key, "indicator.%d.color", i);
-		SString value_str = props->GetExpanded(key);
+		value_str = props->GetExpanded(key);
 		if (value_str.length()) {
 			SendEditor(SCI_INDICSETFORE, i, ColourFromString(value_str.c_str()).AsLong());
 		} else {

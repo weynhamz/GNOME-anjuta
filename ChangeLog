@@ -1,4 +1,8 @@
 2003-01-28  Naba Kumar <naba@gnome.org>
+	
+	* data/properties/anjuta.properties, src/aneditor.cxx,
+	src/anjuta.glade, src/anjuta_dialogs_strings.c: Converted indicators
+	properties into text properties (earlier it was int properties).
 
 	* TODO: Updated
 	

@@ -8669,7 +8669,7 @@
 			      <property name="editable">False</property>
 			      <property name="visibility">True</property>
 			      <property name="max_length">0</property>
-			      <property name="text" translatable="yes"></property>
+			      <property name="text" translatable="yes">Underline-Plain</property>
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char" translatable="yes">*</property>
 			      <property name="activates_default">False</property>
@@ -8682,7 +8682,7 @@
 			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2650">
+				<widget class="GtkListItem" id="listitem2832">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Underline-Plain</property>
@@ -8690,26 +8690,34 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2651">
+				<widget class="GtkListItem" id="listitem2833">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Strike-Out</property>
+				  <property name="label" translatable="yes">Underline-Squiggle</property>
 				</widget>
 			      </child>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2652">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Underline-Wiggle</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2653">
+				<widget class="GtkListItem" id="listitem2834">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Underline-TT</property>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkListItem" id="listitem2835">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="label" translatable="yes">Diagonal</property>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkListItem" id="listitem2836">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="label" translatable="yes">Strike-Out</property>
 				</widget>
 			      </child>
 			    </widget>
@@ -8735,13 +8743,13 @@
 			  <property name="enable_arrows_always">False</property>
 
 			  <child internal-child="entry">
-			    <widget class="GtkEntry" id="preferences_entry:text:Underline-Wiggle:0:indicators.style.warning">
+			    <widget class="GtkEntry" id="preferences_entry:text:Underline-Squiggle:0:indicators.style.warning">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">False</property>
 			      <property name="visibility">True</property>
 			      <property name="max_length">0</property>
-			      <property name="text" translatable="yes"></property>
+			      <property name="text" translatable="yes">Underline-Plain</property>
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char" translatable="yes">*</property>
 			      <property name="activates_default">False</property>
@@ -8754,7 +8762,7 @@
 			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2657">
+				<widget class="GtkListItem" id="listitem2845">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Underline-Plain</property>
@@ -8762,26 +8770,34 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2658">
+				<widget class="GtkListItem" id="listitem2846">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Strike-Out</property>
+				  <property name="label" translatable="yes">Underline-Squiggle</property>
 				</widget>
 			      </child>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2659">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Underline-Wiggle</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2660">
+				<widget class="GtkListItem" id="listitem2847">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Underline-TT</property>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkListItem" id="listitem2848">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="label" translatable="yes">Diagonal</property>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkListItem" id="listitem2849">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="label" translatable="yes">Strike-Out</property>
 				</widget>
 			      </child>
 			    </widget>
@@ -8813,7 +8829,7 @@
 			      <property name="editable">False</property>
 			      <property name="visibility">True</property>
 			      <property name="max_length">0</property>
-			      <property name="text" translatable="yes"></property>
+			      <property name="text" translatable="yes">Underline-Plain</property>
 			      <property name="has_frame">True</property>
 			      <property name="invisible_char" translatable="yes">*</property>
 			      <property name="activates_default">False</property>
@@ -8826,7 +8842,7 @@
 			      <property name="selection_mode">GTK_SELECTION_BROWSE</property>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2664">
+				<widget class="GtkListItem" id="listitem2850">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Underline-Plain</property>
@@ -8834,26 +8850,34 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2665">
+				<widget class="GtkListItem" id="listitem2851">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Strike-Out</property>
+				  <property name="label" translatable="yes">Underline-Squiggle</property>
 				</widget>
 			      </child>
 
 			      <child>
-				<widget class="GtkListItem" id="listitem2666">
-				  <property name="visible">True</property>
-				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Underline-Wiggle</property>
-				</widget>
-			      </child>
-
-			      <child>
-				<widget class="GtkListItem" id="listitem2667">
+				<widget class="GtkListItem" id="listitem2852">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">Underline-TT</property>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkListItem" id="listitem2853">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="label" translatable="yes">Diagonal</property>
+				</widget>
+			      </child>
+
+			      <child>
+				<widget class="GtkListItem" id="listitem2854">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="label" translatable="yes">Strike-Out</property>
 				</widget>
 			      </child>
 			    </widget>
