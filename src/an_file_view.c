@@ -5,6 +5,7 @@
 #include <gnome.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
+#include <libgnomevfs/gnome-vfs-mime.h>
 
 #include "anjuta.h"
 #include "resources.h"
@@ -43,7 +44,7 @@ static GdkPixbuf **fv_pixbufs = NULL;
 	g_free (pix_file);
 
 static void
-fv_load_pixmaps ()
+fv_load_pixbufs ()
 {
 	char *pix_file;
 
@@ -54,13 +55,13 @@ fv_load_pixmaps ()
 
 	fv_pixbufs = g_new (GdkPixbuf *, fv_max_t + 1);
 
-	CREATE_FV_ICON(fv_unknown_t, ANJUTA_PIXMAP_FV_UNKNOWN);
-	CREATE_FV_ICON(fv_text_t, ANJUTA_PIXMAP_FV_TEXT);
-	CREATE_FV_ICON(fv_image_t, ANJUTA_PIXMAP_FV_IMAGE);
-	CREATE_FV_ICON(fv_exec_t, ANJUTA_PIXMAP_FV_EXECUTABLE);
-	CREATE_FV_ICON(fv_core_t, ANJUTA_PIXMAP_FV_CORE);
-	CREATE_FV_ICON(fv_cfolder_t, ANJUTA_PIXMAP_CLOSED_FOLDER);
-	CREATE_FV_ICON(fv_ofolder_t, ANJUTA_PIXMAP_OPEN_FOLDER);
+	CREATE_FV_ICON (fv_unknown_t, ANJUTA_PIXMAP_FV_UNKNOWN);
+	CREATE_FV_ICON (fv_text_t, ANJUTA_PIXMAP_FV_TEXT);
+	CREATE_FV_ICON (fv_image_t, ANJUTA_PIXMAP_FV_IMAGE);
+	CREATE_FV_ICON (fv_exec_t, ANJUTA_PIXMAP_FV_EXECUTABLE);
+	CREATE_FV_ICON (fv_core_t, ANJUTA_PIXMAP_FV_CORE);
+	CREATE_FV_ICON (fv_cfolder_t, ANJUTA_PIXMAP_CLOSED_FOLDER);
+	CREATE_FV_ICON (fv_ofolder_t, ANJUTA_PIXMAP_OPEN_FOLDER);
 
 	fv_pixbufs[fv_max_t] = NULL;
 }
@@ -68,7 +69,7 @@ fv_load_pixmaps ()
 static FVFileType
 fv_get_file_type (const char *name)
 {
-	const char *mime_type = gnome_vfs_mime_type_from_name(name);
+	const char *mime_type = gnome_vfs_mime_type_from_name (name);
 
 	if (0 == strncmp(mime_type, "text/", 5))
 		return fv_text_t;
@@ -98,18 +99,22 @@ anjuta_fv_open_file (const char *path,
 		GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application(mime_type);
 		if ((app) && (app->command))
 		{
-			if (NULL != strstr(app->command, "anjuta"))
-				anjuta_goto_file_line_mark((char *) path, -1, FALSE);
+			if (NULL != strstr (app->command, "anjuta"))
+				anjuta_goto_file_line_mark ((char *) path, -1, FALSE);
 			else
 			{
 				char **argv = g_new(char *, 3);
+
 				argv[0] = app->command;
 				argv[1] = (char *) path;
 				argv[2] = NULL;
-				if (-1 == gnome_execute_async(NULL, 2, argv))
-				  anjuta_warning(_("Unable to open %s in %s"), path, app->command);
+
+				if (-1 == gnome_execute_async (NULL, 2, argv))
+					anjuta_warning(_("Unable to open %s in %s"), path, app->command);
+
 				g_free(argv);
 			}
+
 			gnome_vfs_mime_application_free(app);
 			status = TRUE;
 		}
@@ -237,7 +242,7 @@ static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 fv_context_handler, (gpointer) OPEN, NULL,
-	 PIX_STOCK (GTK_STOCK_OPEN),
+	 PIX_STOCK(GTK_STOCK_OPEN),
 	 0, 0, NULL}
 	,
 	{/* 1 */
@@ -336,7 +341,7 @@ fv_on_event (GtkWidget *widget,
 		if (e->button == 3) {
 			gboolean has_cvs_entry = (fv->curr_entry && fv->curr_entry->version);
 
-			GTK_CHECK_MENU_ITEM(fv->menu.docked)->active = app->project_dbase->is_docked;
+			GTK_CHECK_MENU_ITEM (fv->menu.docked)->active = app->project_dbase->is_docked;
 
 			gtk_widget_set_sensitive (fv->menu.cvs.top,    app->project_dbase->has_cvs);
 			gtk_widget_set_sensitive (fv->menu.cvs.update, has_cvs_entry);
@@ -367,7 +372,7 @@ fv_on_event (GtkWidget *widget,
 				if (!gtk_tree_model_iter_has_child (model, &iter))
 					anjuta_fv_open_file (fv->curr_entry->path, TRUE);
 
-				break;
+				return TRUE;
 		}
 	}
 
@@ -380,6 +385,14 @@ fv_disconnect ()
 	g_return_if_fail (fv != NULL);
 
 	g_signal_disconnect_by_func (fv->tree, G_CALLBACK (fv_on_event), NULL);
+}
+
+static void
+fv_connect ()
+{
+	g_return_if_fail (fv != NULL && fv->tree);
+
+	g_signal_connect (fv->tree, "event", G_CALLBACK (fv_on_event), NULL);
 }
 
 static void
@@ -404,14 +417,6 @@ on_file_view_row_collapsed (GtkTreeView *view,
 	gtk_tree_store_set (store, iter,
 			    PIXBUF_COLUMN, fv_pixbufs[fv_cfolder_t],
 			    -1);
-}
-
-static void
-fv_connect ()
-{
-	g_return_if_fail (fv != NULL && fv->tree);
-
-	g_signal_connect (fv->tree, "event", G_CALLBACK (fv_on_event), NULL);
 }
 
 static void
@@ -472,7 +477,7 @@ fv_create ()
 
 	/* The remaining bits */
 	if (!fv_pixbufs)
-		fv_load_pixmaps ();
+		fv_load_pixbufs ();
 
 	fv_create_context_menu ();
 	fv_connect ();

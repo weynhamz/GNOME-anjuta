@@ -47,7 +47,8 @@ PKG_CHECK_MODULES(ANJUTA, \
 	libgnomeui-2.0 >= $GNOME_UI_REQUIRED \
 	libgnomeprint-2.0 >= $GNOME_PRINT_REQUIRED \
 	libgnomeprintui-2.0 >= $GNOME_PRINT_UI_REQUIRED \
-	gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED)
+	gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED \
+	gnome-vfs-module-2.0 >= $GNOME_VFS_REQUIRED)
 
 AC_SUBST(ANJUTA_CFLAGS)
 AC_SUBST(ANJUTA_LIBS)
