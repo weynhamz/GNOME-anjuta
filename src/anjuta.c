@@ -2400,7 +2400,8 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	if ((NULL == s) || (isspace(*s) || ('\0' == *s)))
 		return;
 
-	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s,
+	// exclude my own tag and backup files
+	snprintf(command, BUFSIZ, "grep -FInHr --exclude=\"CVS\" --exclude=\"tm.tags\" --exclude=\"tags.cache\" --exclude=\".*\" --exclude=\"*~\" --exclude=\"*.o\" '%s' %s", s,
 			 project_dbase_get_dir(app->project_dbase));
 	
 	g_signal_connect (app->launcher, "child-exited",

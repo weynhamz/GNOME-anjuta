@@ -1,3 +1,13 @@
+2003-12-06  Naba Kumar  <naba@gnome.org>
+
+	* setup-gettext: Fixed to not generate intl directory with gettextize.
+
+	Patch from:  Karl-Heinz Brünen  <k.bruenen@eprosoft.de>
+	* src/anjuta.c: Filters out unnecessary files from find in files
+	command.
+	
+	* NEWS: Updated.
+	
 2003-12-04  Naba Kumar  <naba@gnome.org>
 	
 	* src/gnome_project.c: Enables debug and optimization flags for
