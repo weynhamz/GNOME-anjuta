@@ -4,7 +4,6 @@ scintilla_INCLUDES = \
 	Accessor.h \
 	KeyWords.h \
 	Platform.h \
-	PosRegExp.h \
 	PropSet.h \
 	SciLexer.h \
 	Scintilla.h \

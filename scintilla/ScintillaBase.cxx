@@ -41,6 +41,7 @@ ScintillaBase::ScintillaBase() {
 	lexCurrent = 0;
 	for (int wl = 0;wl < numWordLists;wl++)
 		keyWordLists[wl] = new WordList;
+	keyWordLists[numWordLists] = 0;
 #endif
 }
 
@@ -361,8 +362,11 @@ void ScintillaBase::Colourise(int start, int end) {
 		end = lengthDoc;
 	int len = end - start;
 
+	PLATFORM_ASSERT(len >= 0);
+	PLATFORM_ASSERT(start + len <= lengthDoc);
+
 	//WindowAccessor styler(wMain.GetID(), props);
-	DocumentAccessor styler(pdoc, props);
+	DocumentAccessor styler(pdoc, props, wMain.GetID());
 
 	int styleStart = 0;
 	if (start > 0)
@@ -458,6 +462,13 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 		listType = wParam;
 		AutoCompleteStart(0, reinterpret_cast<const char *>(lParam));
 		break;
+
+	case SCI_AUTOCSETAUTOHIDE:
+		ac.autoHide = wParam;
+		break;
+
+	case SCI_AUTOCGETAUTOHIDE:
+		return ac.autoHide;
 
 	case SCI_CALLTIPSHOW: {
 			AutoCompleteCancel();

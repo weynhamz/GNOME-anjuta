@@ -57,5 +57,3 @@ libscintilla_a_SOURCES =\
 	Style.h \
 	UniConversion.h \
 	ViewStyle.h
-
-EXTRA_DIST = PosRegExp.cxx

@@ -10,6 +10,9 @@
 #include <time.h>
 
 #include "Platform.h"
+#if PLAT_GTK_WIN32
+#include "Windows.h"
+#endif
 
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
@@ -59,10 +62,19 @@ class ScintillaGTK : public ScintillaBase {
 	GtkWidgetClass *parentClass;
 
 	static GdkAtom clipboard_atom;
+ 
+#if PLAT_GTK_WIN32
+	CLIPFORMAT cfColumnSelect;
+#endif
 
 	// Input context used for supporting internationalized key entry
 	GdkIC *ic;
 	GdkICAttr *ic_attr;
+
+	// Wheel mouse support
+	GTimeVal lastWheelMouseTime;
+	gint lastWheelMouseDirection;       
+	gint wheelMouseIntensity;
 
 	// Private so ScintillaGTK objects can not be copied
 ScintillaGTK(const ScintillaGTK &) : ScintillaBase() {}
@@ -71,7 +83,7 @@ ScintillaGTK(const ScintillaGTK &) : ScintillaBase() {}
 public:
 	ScintillaGTK(_ScintillaObject *sci_);
 	virtual ~ScintillaGTK();
-	static void ClassInit(GtkWidgetClass *widget_class);
+	static void ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class);
 
 private:
 	virtual void Initialise();
@@ -132,10 +144,13 @@ private:
 	static void ScrollHSignal(GtkAdjustment *adj, ScintillaGTK *sciThis);
 	static gint Press(GtkWidget *widget, GdkEventButton *event);
 	static gint MouseRelease(GtkWidget *widget, GdkEventButton *event);
+#if PLAT_GTK_WIN32
+	static gint ScrollEvent(GtkWidget *widget, GdkEventScroll *event);
+#endif
 	static gint Motion(GtkWidget *widget, GdkEventMotion *event);
 	static gint KeyPress(GtkWidget *widget, GdkEventKey *event);
 	static gint KeyRelease(GtkWidget *widget, GdkEventKey *event);
-	static gint DestroyWindow(GtkWidget *widget, GdkEventAny *event);
+	static void Destroy(GtkObject *object);
 	static void SelectionReceived(GtkWidget *widget, GtkSelectionData *selection_data,
 	                              guint time);
 	static void SelectionGet(GtkWidget *widget, GtkSelectionData *selection_data,
@@ -168,6 +183,7 @@ enum {
 };
 
 static gint scintilla_signals[LAST_SIGNAL] = { 0 };
+static GtkWidgetClass* parent_class = NULL;
 
 GdkAtom ScintillaGTK::clipboard_atom = GDK_NONE;
 
@@ -188,9 +204,28 @@ ScintillaGTK::ScintillaGTK(_ScintillaObject *sci_) :
 		pasteBuffer(0), pasteBufferIsRectangular(false),
 		capturedMouse(false), dragWasDropped(false),
 		primarySelectionCopy(0), parentClass(0),
-		ic(NULL), ic_attr(NULL) {
+		ic(NULL), ic_attr(NULL), lastWheelMouseDirection(0),
+		wheelMouseIntensity(0) {
 	sci = sci_;
 	wMain = GTK_WIDGET(sci);
+
+#if PLAT_GTK_WIN32       
+ 	// There does not seem to be a real standard for indicating that the clipboard
+	// contains a rectangular selection, so copy Developer Studio.
+	cfColumnSelect = static_cast<CLIPFORMAT>(
+		::RegisterClipboardFormat("MSDEVColumnSelect"));
+
+  	// Get intellimouse parameters when running on win32; otherwise use
+	// reasonable default     
+#ifndef SPI_GETWHEELSCROLLLINES
+#define SPI_GETWHEELSCROLLLINES   104
+#endif
+	::SystemParametersInfo(SPI_GETWHEELSCROLLLINES, 0, &ucWheelScrollLines, 0);
+#else
+	ucWheelScrollLines = 4;
+#endif
+	lastWheelMouseTime.tv_sec = 0;
+	lastWheelMouseTime.tv_usec = 0;
 
 	Initialise();
 }
@@ -735,6 +770,13 @@ void ScintillaGTK::Copy() {
 		gtk_selection_owner_set(GTK_WIDGET(wMain.GetID()),
 		                        clipboard_atom,
 		                        GDK_CURRENT_TIME);
+#if PLAT_GTK_WIN32              
+		if (selType == selRectangle) {
+			::OpenClipboard(NULL);
+			::SetClipboardData(cfColumnSelect, 0);
+			::CloseClipboard();
+		}
+#endif              
 	}
 }
 
@@ -808,18 +850,47 @@ void ScintillaGTK::ReceivedSelection(GtkSelectionData *selection_data) {
 		        (selection_data->length > 0)) {
 			char *ptr = reinterpret_cast<char *>(selection_data->data);
 			unsigned int len = selection_data->length;
-			for (unsigned int i = 0; i < static_cast<unsigned int>(selection_data->length); i++) {
+			unsigned int i;
+			for (i = 0; i < static_cast<unsigned int>(selection_data->length); i++) {
 				if ((len == static_cast<unsigned int>(selection_data->length)) && (0 == ptr[i]))
 					len = i;
+			}                     
+#if PLAT_GTK_WIN32
+			/* Need to convert \n to correct newline form for this file as win32gtk always returns */
+			/* only \n line delimiter from clipboard */
+			char *tmpstr = new char [2 * len];
+			char *dptr = tmpstr;
+			char *sptr = ptr;
+			unsigned int newlen = len;                     
+			for (i = 0; i < len; i++) {
+				if (*sptr == '\n') {
+					if (pdoc->eolMode != SC_EOL_LF)
+						*dptr++ = '\r';
+					if (pdoc->eolMode != SC_EOL_CR)
+						*dptr++ = '\n';
+					if (pdoc->eolMode == SC_EOL_CRLF)
+						newlen++;
+					sptr++;
+				}
+				else {
+					*dptr++ = *sptr++;
+				}
 			}
+			ptr = tmpstr;
+			len = newlen;
+#endif
 			pdoc->BeginUndoAction();
 			int selStart = SelectionStart();
 			if (selection_data->selection != GDK_SELECTION_PRIMARY) {
 				ClearSelection();
 			}
 			// Check for "\n\0" ending to string indicating that selection is rectangular
+#if PLAT_GTK_WIN32
+			bool isRectangular = ::IsClipboardFormatAvailable(cfColumnSelect);
+#else
 			bool isRectangular = ((selection_data->length > 1) &&
 			                      (ptr[selection_data->length - 1] == 0 && ptr[selection_data->length - 2] == '\n'));
+#endif
 			if (isRectangular) {
 				PasteRectangular(selStart, ptr, len);
 			} else {
@@ -827,6 +898,9 @@ void ScintillaGTK::ReceivedSelection(GtkSelectionData *selection_data) {
 				SetEmptySelection(currentPos + len);
 			}
 			pdoc->EndUndoAction();
+#if PLAT_GTK_WIN32
+			delete []tmpstr;
+#endif
 		}
 	}
 	Redraw();
@@ -838,8 +912,12 @@ void ScintillaGTK::ReceivedDrop(GtkSelectionData *selection_data) {
 		if (selection_data->length > 0) {
 			char *ptr = reinterpret_cast<char *>(selection_data->data);
 			// 3rd argument is false because the deletion of the moved data is handle by GetSelection
+#if PLAT_GTK_WIN32
+			bool isRectangular = ::IsClipboardFormatAvailable(cfColumnSelect);
+#else
 			bool isRectangular = ((selection_data->length > 1) &&
 			                      (ptr[selection_data->length - 1] == 0 && ptr[selection_data->length - 2] == '\n'));
+#endif
 			DropAt(posDrop, ptr, false, isRectangular);
 		}
 	} else {
@@ -849,7 +927,13 @@ void ScintillaGTK::ReceivedDrop(GtkSelectionData *selection_data) {
 	Redraw();
 }
 
-void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, char *text, bool isRectangular) {
+// Preprocessor used to avoid warnings here
+#if PLAT_GTK_WIN32
+void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, char *text, bool) 
+#else
+void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, char *text, bool isRectangular) 
+#endif
+{
 	char *selBuffer = text;
 	char *tmpBuffer = NULL; // Buffer to be freed
 
@@ -862,6 +946,29 @@ void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, ch
 		}
 	}
 
+#if PLAT_GTK_WIN32
+	// win32gtk requires \n delimited lines and doesn't work right with
+	// other line formats, so make a copy of the clip text now with 
+	// newlines converted
+	char *tmpstr = new char[strlen(selBuffer) + 1];
+	char *sptr = selBuffer;
+	char *dptr = tmpstr;
+	while (*sptr != '\0') {
+		if (pdoc->eolMode == SC_EOL_CR && *sptr == '\r') {
+			*dptr++ = '\n';
+			sptr++;
+		}
+		else if (pdoc->eolMode != SC_EOL_CR && *sptr == '\r') {
+			sptr++;
+		}
+		else {
+			*dptr++ = *sptr++;
+		}
+	}
+	*dptr = '\0';       
+	selBuffer = tmpstr;
+#endif
+
 	if (info == TARGET_STRING) {
 		int len = strlen(selBuffer);
 		// Here is a somewhat evil kludge.
@@ -869,8 +976,12 @@ void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, ch
 		// and need some way to mark the clipping as being stream or rectangular,
 		// the terminating \0 is included in the length for rectangular clippings.
 		// All other tested aplications behave benignly by ignoring the \0.
+		// The #if is here because on Windows cfColumnSelect clip entry is used 
+                // instead as standard indicator of rectangularness (so no need to kludge)
+#if PLAT_GTK_WIN32 == 0
 		if (isRectangular)
 			len++;
+#endif
 		gtk_selection_data_set(selection_data, GDK_SELECTION_TYPE_STRING,
 		                       8, reinterpret_cast<unsigned char *>(selBuffer),
 		                       len);
@@ -887,6 +998,9 @@ void ScintillaGTK::GetSelection(GtkSelectionData *selection_data, guint info, ch
 	}
 
 	delete []tmpBuffer;
+#if PLAT_GTK_WIN32
+	delete []tmpstr;
+#endif
 }
 
 void ScintillaGTK::UnclaimSelection(GdkEventSelection *selection_event) {
@@ -991,7 +1105,7 @@ gint ScintillaGTK::Press(GtkWidget *widget, GdkEventButton *event) {
 		gdk_window_get_origin(sciThis->wMain.GetID()->window, &ox, &oy);
 		sciThis->ContextMenu(Point(pt.x + ox, pt.y + oy));
 	} else if (event->button == 4) {
-		// Wheel scrolling up
+		// Wheel scrolling up (only xwin gtk does it this way)
 		if (ctrl)
 			gtk_adjustment_set_value(GTK_ADJUSTMENT(sciThis->adjustmenth), (
 			                             (sciThis->xOffset) / 2 ) - 6);
@@ -999,7 +1113,7 @@ gint ScintillaGTK::Press(GtkWidget *widget, GdkEventButton *event) {
 			gtk_adjustment_set_value(GTK_ADJUSTMENT(sciThis->adjustmentv),
 			                         sciThis->topLine - 3);
 	} else if ( event->button == 5 ) {
-		// Wheel scrolling down
+		// Wheel scrolling down (only xwin gtk does it this way)
 		if (ctrl)
 			gtk_adjustment_set_value(GTK_ADJUSTMENT(sciThis->adjustmenth), (
 			                             (sciThis->xOffset) / 2 ) + 6);
@@ -1029,6 +1143,71 @@ gint ScintillaGTK::MouseRelease(GtkWidget *widget, GdkEventButton *event) {
 	}
 	return FALSE;
 }
+
+// win32gtk has a special wheel mouse event for whatever reason and doesn't
+// use the button4/5 trick used under X windows.
+#if PLAT_GTK_WIN32
+gint ScintillaGTK::ScrollEvent(GtkWidget *widget,
+                               GdkEventScroll *event) {
+	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
+
+	if (widget == NULL || event == NULL)
+		return FALSE;
+
+	// Compute amount and direction to scroll (even tho on win32 there is
+	// intensity of scrolling info in the native message, gtk doesn't
+	// support this so we simulate similarly adaptive scrolling)
+	int cLineScroll;
+	int timeDelta = 1000000;
+	GTimeVal curTime;
+	g_get_current_time(&curTime);
+	if (curTime.tv_sec == sciThis->lastWheelMouseTime.tv_sec)
+		timeDelta = curTime.tv_usec - sciThis->lastWheelMouseTime.tv_usec;
+	else if (curTime.tv_sec == sciThis->lastWheelMouseTime.tv_sec + 1) 
+		timeDelta = 1000000 + (curTime.tv_usec - sciThis->lastWheelMouseTime.tv_usec);
+	if ((event->direction == sciThis->lastWheelMouseDirection) && (timeDelta < 250000)) {
+		if (sciThis->wheelMouseIntensity < 12)
+			sciThis->wheelMouseIntensity++;
+		cLineScroll = sciThis->wheelMouseIntensity;
+	} else {
+		cLineScroll = sciThis->ucWheelScrollLines;
+		if (cLineScroll == 0)
+			cLineScroll = 4;
+		sciThis->wheelMouseIntensity = cLineScroll;
+	}
+	if (event->direction == GDK_SCROLL_UP) {
+		cLineScroll *= -1;
+	}
+	g_get_current_time(&sciThis->lastWheelMouseTime);
+	sciThis->lastWheelMouseDirection = event->direction;
+
+	// Note:  Unpatched versions of win32gtk don't set the 'state' value so 
+	// only regular scrolling is supported there.  Also, unpatched win32gtk
+	// issues spurious button 2 mouse events during wheeling, which can cause
+	// problems (a patch for both was submitted by archaeopteryx.com on 13Jun2001)
+
+	// Data zoom not supported
+	if (event->state & GDK_SHIFT_MASK) {
+		return FALSE;
+	}
+
+	// Text font size zoom
+	if (event->state & GDK_CONTROL_MASK) {
+		if (cLineScroll < 0) {
+			sciThis->KeyCommand(SCI_ZOOMIN);
+			return TRUE;
+		} else {
+			sciThis->KeyCommand(SCI_ZOOMOUT);
+			return TRUE;
+		}
+
+	// Regular scrolling
+	} else {
+		sciThis->ScrollTo(sciThis->topLine + cLineScroll);
+		return TRUE;
+	}
+}
+#endif
 
 gint ScintillaGTK::Motion(GtkWidget *widget, GdkEventMotion *event) {
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
@@ -1125,7 +1304,8 @@ static int KeyTranslate(int keyIn) {
 
 gint ScintillaGTK::KeyPress(GtkWidget *widget, GdkEventKey *event) {
 	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
-	//Platform::DebugPrintf("SC-key: %d %x\n",event->keyval, event->state);
+	//Platform::DebugPrintf("SC-key: %d %x [%s]\n", 
+	//	event->keyval, event->state, (event->length > 0) ? event->string : "empty");
 	bool shift = event->state & GDK_SHIFT_MASK;
 	bool ctrl = event->state & GDK_CONTROL_MASK;
 	bool alt = event->state & GDK_MOD1_MASK;
@@ -1134,6 +1314,10 @@ gint ScintillaGTK::KeyPress(GtkWidget *widget, GdkEventKey *event) {
 		key = toupper(key);
 	else if (!ctrl && (key >= GDK_KP_Multiply && key <= GDK_KP_9))
 		key &= 0x7F;
+	// Hack for keys over 256 and below command keys but makes Hungarian work.
+	// This will have to change for Unicode
+	else if ((key >= 0x100) && (key < 0x1000))
+		key &= 0xff;
 	else
 		key = KeyTranslate(key);
 
@@ -1150,12 +1334,15 @@ gint ScintillaGTK::KeyRelease(GtkWidget *, GdkEventKey * /*event*/) {
 	return FALSE;
 }
 
-gint ScintillaGTK::DestroyWindow(GtkWidget *widget, GdkEventAny *) {
-	ScintillaGTK *sciThis = ScintillaFromWidget(widget);
-	//Platform::DebugPrintf("Destroying window %x %x\n", sciThis, widget);
+void ScintillaGTK::Destroy(GtkObject* object) {
+	ScintillaGTK *sciThis = ScintillaFromWidget(GTK_WIDGET(object));
+	//Platform::DebugPrintf("Destroying %x %x\n", sciThis, object);
 	sciThis->Finalise();
+      
+	if (GTK_OBJECT_CLASS (parent_class)->destroy)
+		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+
 	delete sciThis;
-	return FALSE;
 }
 
 static void DrawChild(GtkWidget *widget, GdkRectangle *area) {
@@ -1370,11 +1557,13 @@ guint scintilla_get_type() {
 	return scintilla_type;
 }
 
-void ScintillaGTK::ClassInit(GtkWidgetClass *widget_class) {
+void ScintillaGTK::ClassInit(GtkObjectClass* object_class, GtkWidgetClass *widget_class) {
 	// Define default signal handlers for the class:  Could move more
 	// of the signal handlers here (those that currently attached to wDraw
 	// in Initialise() may require coordinate translation?)
-	widget_class->destroy_event = DestroyWindow;
+
+	object_class->destroy = Destroy;  
+
 	widget_class->size_request = SizeRequest;
 	widget_class->size_allocate = SizeAllocate;
 	widget_class->expose_event = ExposeMain;
@@ -1383,7 +1572,9 @@ void ScintillaGTK::ClassInit(GtkWidgetClass *widget_class) {
 	widget_class->motion_notify_event = Motion;
 	widget_class->button_press_event = Press;
 	widget_class->button_release_event = MouseRelease;
-
+#if PLAT_GTK_WIN32
+	widget_class->scroll_event = ScrollEvent;
+#endif
 	widget_class->key_press_event = KeyPress;
 	widget_class->key_release_event = KeyRelease;
 	widget_class->focus_in_event = FocusIn;
@@ -1410,6 +1601,8 @@ static void scintilla_class_init(ScintillaClass *klass) {
 	GtkObjectClass *object_class = (GtkObjectClass*) klass;
 	GtkWidgetClass *widget_class = (GtkWidgetClass*) klass;
 
+	parent_class = (GtkWidgetClass*) gtk_type_class (gtk_container_get_type ());
+
 	scintilla_signals[COMMAND_SIGNAL] = gtk_signal_new(
 	                                        "command",
 	                                        GTK_RUN_LAST,
@@ -1434,7 +1627,7 @@ static void scintilla_class_init(ScintillaClass *klass) {
 	klass->command = NULL;
 	klass->notify = NULL;
 
-	ScintillaGTK::ClassInit(widget_class);
+	ScintillaGTK::ClassInit(object_class, widget_class);
 }
 
 static void scintilla_init(ScintillaObject *sci) {

@@ -418,22 +418,19 @@ UndoHistory::~UndoHistory() {
 }
 
 void UndoHistory::EnsureUndoRoom() {
-	//Platform::DebugPrintf("%% %d action %d %d %d\n", at, position, length, currentAction);
-	if (currentAction >= 2) {
-		// Have to test that there is room for 2 more actions in the array
-		// as two actions may be created by this function
-		if (currentAction >= (lenActions - 2)) {
-			// Run out of undo nodes so extend the array
-			int lenActionsNew = lenActions * 2;
-			Action *actionsNew = new Action[lenActionsNew];
-			if (!actionsNew)
-				return ;
-			for (int act = 0; act <= currentAction; act++)
-				actionsNew[act].Grab(&actions[act]);
-			delete []actions;
-			lenActions = lenActionsNew;
-			actions = actionsNew;
-		}
+	// Have to test that there is room for 2 more actions in the array
+	// as two actions may be created by the calling function
+	if (currentAction >= (lenActions - 2)) {
+		// Run out of undo nodes so extend the array
+		int lenActionsNew = lenActions * 2;
+		Action *actionsNew = new Action[lenActionsNew];
+		if (!actionsNew)
+			return ;
+		for (int act = 0; act <= currentAction; act++)
+			actionsNew[act].Grab(&actions[act]);
+		delete []actions;
+		lenActions = lenActionsNew;
+		actions = actionsNew;
 	}
 }
 
@@ -597,6 +594,7 @@ CellBuffer::CellBuffer(int initialLength) {
 	part2body = body + gaplen;
 	readOnly = false;
 	collectingUndo = true;
+	growSize = 4000;
 }
 
 CellBuffer::~CellBuffer() {
@@ -627,7 +625,9 @@ void CellBuffer::RoomFor(int insertionLength) {
 	if (gaplen <= insertionLength) {
 		//Platform::DebugPrintf("need room %d %d\n", gaplen, insertionLength);
 		GapTo(length);
-		int newSize = size + insertionLength + 4000;
+		if (growSize * 6 < size)
+			growSize *= 2;
+		int newSize = size + insertionLength + growSize;
 		//Platform::DebugPrintf("moved gap %d\n", newSize);
 		char *newBody = new char[newSize];
 		memcpy(newBody, body, size);
@@ -748,6 +748,8 @@ bool CellBuffer::SetStyleAt(int position, char style, char mask) {
 bool CellBuffer::SetStyleFor(int position, int lengthStyle, char style, char mask) {
 	int bytePos = position * 2 + 1;
 	bool changed = false;
+	PLATFORM_ASSERT(lengthStyle == 0 ||
+		(lengthStyle > 0 && lengthStyle + position < length));
 	while (lengthStyle--) {
 		char curVal = ByteAt(bytePos);
 		if ((curVal & mask) != style) {
@@ -794,7 +796,7 @@ int CellBuffer::LineStart(int line) {
 	if (line < 0)
 		return 0;
 	else if (line > lv.lines)
-		return length;
+		return Length();
 	else
 		return lv.linesData[line].startPosition;
 }

@@ -68,8 +68,21 @@ void LexerModule::Lex(unsigned int startPos, int lengthDoc, int initStyle,
 
 void LexerModule::Fold(unsigned int startPos, int lengthDoc, int initStyle,
 	  WordList *keywordlists[], Accessor &styler) {
-	if (fnFolder)
+	if (fnFolder) {
+		int lineCurrent = styler.GetLine(startPos);
+		// Move back one line in case deletion wrecked current line fold state
+		if (lineCurrent > 0) {
+			lineCurrent--;
+			int newStartPos = styler.LineStart(lineCurrent);
+			lengthDoc += startPos - newStartPos;
+			startPos = newStartPos;
+			initStyle = 0;
+			if (startPos > 0) {
+				initStyle = styler.StyleAt(startPos - 1);
+			}
+		}
 		fnFolder(startPos, lengthDoc, initStyle, keywordlists, styler);
+	}
 }
 
 static void ColouriseNullDoc(unsigned int startPos, int length, int, WordList *[],
@@ -94,6 +107,11 @@ LexerModule lmNull(SCLEX_NULL, ColouriseNullDoc, "null");
 
 int wxForceScintillaLexers(void) {
   extern LexerModule lmAda;
+  extern LexerModule lmAVE;
+  extern LexerModule lmConf;
+  extern LexerModule lmDiff;
+  extern LexerModule lmLatex;
+  extern LexerModule lmPascal;
   extern LexerModule lmCPP;
   extern LexerModule lmHTML;
   extern LexerModule lmXML;
@@ -105,9 +123,15 @@ int wxForceScintillaLexers(void) {
   extern LexerModule lmPython;
   extern LexerModule lmSQL;
   extern LexerModule lmVB;
+  extern LexerModule lmRuby;
 
   if (
       &lmAda
+      && &lmAVE
+      && &lmConf
+      && &lmDiff
+      && &lmLatex
+      && &lmPascal
       && &lmCPP
       && &lmHTML
       && &lmXML
@@ -119,6 +143,7 @@ int wxForceScintillaLexers(void) {
       && &lmPython
       && &lmSQL
       && &lmVB
+      && &lmRuby      
       )
     {
       return 1;

@@ -151,45 +151,45 @@ Font::~Font() {}
 static const char *CharacterSetName(int characterSet) {
 	switch (characterSet) {
 	case SC_CHARSET_ANSI:
-		return "iso8859";
+		return "iso8859-*";
 	case SC_CHARSET_DEFAULT:
-		return "iso8859";
+		return "iso8859-*";
 	case SC_CHARSET_BALTIC:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_CHINESEBIG5:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_EASTEUROPE:
-		return "iso8859-2";
+		return "*-2";
 	case SC_CHARSET_GB2312:
-		return "gb2312.1980";
+		return "gb2312.1980-*";
 	case SC_CHARSET_GREEK:
-		return "adobe";
+		return "*-7";
 	case SC_CHARSET_HANGUL:
-		return "ksc5601.1987";
+		return "ksc5601.1987-*";
 	case SC_CHARSET_MAC:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_OEM:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_RUSSIAN:
-		return "*";
+		return "*-r";
 	case SC_CHARSET_SHIFTJIS:
-		return "jisx0208.1983";
+		return "jisx0208.1983-*";
 	case SC_CHARSET_SYMBOL:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_TURKISH:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_JOHAB:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_HEBREW:
-		return "*";
+		return "*-8";
 	case SC_CHARSET_ARABIC:
-		return "*";
+		return "*-6";
 	case SC_CHARSET_VIETNAMESE:
-		return "*";
+		return "*-*";
 	case SC_CHARSET_THAI:
-		return "*";
+		return "*-*";
 	default:
-		return "*";
+		return "*-*";
 	}
 }
 
@@ -221,7 +221,6 @@ void Font::Create(const char *faceName, int characterSet,
 	strcat(fontspec, sizePts);
 	strcat(fontspec, "-*-*-*-*-");
 	strcat(fontspec, CharacterSetName(characterSet));
-	strcat(fontspec, "-*");
 	id = gdk_font_load(fontspec);
 	if (!id) {
 		// Font not available so substitute a reasonable code font
@@ -272,6 +271,8 @@ void Surface::Init(GdkDrawable *drawable_) {
 	Release();
 	drawable = drawable_;
 	gc = gdk_gc_new(drawable_);
+	//gdk_gc_set_line_attributes(gc, 1, 
+	//	GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_BEVEL);
 	createdGC = true;
 	inited = true;
 }
@@ -282,6 +283,8 @@ void Surface::InitPixMap(int width, int height, Surface *surface_) {
 		ppixmap = gdk_pixmap_new(surface_->drawable, width, height, -1);
 	drawable = ppixmap;
 	gc = gdk_gc_new(surface_->drawable);
+	//gdk_gc_set_line_attributes(gc, 1, 
+	//	GDK_LINE_SOLID, GDK_CAP_NOT_LAST, GDK_JOIN_BEVEL);
 	createdGC = true;
 	inited = true;
 }
@@ -315,8 +318,6 @@ void Surface::LineTo(int x_, int y_) {
 
 void Surface::Polygon(Point *pts, int npts, Colour fore,
                       Colour back) {
-	// Nasty casts works because Point is exactly same as GdkPoint
-	// Oh no it doesn't...
 	GdkPoint gpts[20];
 	if (npts < static_cast<int>((sizeof(gpts) / sizeof(gpts[0])))) {
 		for (int i = 0;i < npts;i++) {
@@ -324,8 +325,6 @@ void Surface::Polygon(Point *pts, int npts, Colour fore,
 			gpts[i].y = pts[i].y;
 		}
 		PenColour(back);
-		//gdk_draw_polygon(drawable, gc, 1,
-		//                 reinterpret_cast<GdkPoint *>(pts), npts);
 		gdk_draw_polygon(drawable, gc, 1, gpts, npts);
 		PenColour(fore);
 		gdk_draw_polygon(drawable, gc, 0, gpts, npts);
@@ -336,24 +335,24 @@ void Surface::RectangleDraw(PRectangle rc, Colour fore, Colour back) {
 	if (gc && drawable) {
 		PenColour(back);
 		gdk_draw_rectangle(drawable, gc, 1,
-		                   rc.left, rc.top,
-		                   rc.right - rc.left + 1, rc.bottom - rc.top + 1);
+		                   rc.left + 1, rc.top + 1,
+		                   rc.right - rc.left - 2, rc.bottom - rc.top - 2);
+
 		PenColour(fore);
+		// The subtraction of 1 off the width and height here shouldn't be needed but 
+		// otherwise a different rectangle is drawn than would be done if the fill parameter == 1
 		gdk_draw_rectangle(drawable, gc, 0,
 		                   rc.left, rc.top,
-		                   rc.right - rc.left + 1, rc.bottom - rc.top + 1);
+		                   rc.right - rc.left - 1, rc.bottom - rc.top - 1);
 	}
 }
 
 void Surface::FillRectangle(PRectangle rc, Colour back) {
-	// GTK+ rectangles include their lower and right edges
-	rc.bottom--;
-	rc.right--;
 	PenColour(back);
 	if (drawable) {
 		gdk_draw_rectangle(drawable, gc, 1,
 		                   rc.left, rc.top,
-		                   rc.right - rc.left + 1, rc.bottom - rc.top + 1);
+		                   rc.right - rc.left, rc.bottom - rc.top);
 	}
 }
 
@@ -404,13 +403,15 @@ void Surface::RoundedRectangle(PRectangle rc, Colour fore, Colour back) {
 void Surface::Ellipse(PRectangle rc, Colour fore, Colour back) {
 	PenColour(back);
 	gdk_draw_arc(drawable, gc, 1,
-	             rc.left, rc.top,
-	             rc.right - rc.left, rc.bottom - rc.top,
+	             rc.left + 1, rc.top + 1,
+	             rc.right - rc.left - 2, rc.bottom - rc.top - 2,
 	             0, 32767);
+
+	// The subtraction of 1 here is similar to the case for RectangleDraw
 	PenColour(fore);
 	gdk_draw_arc(drawable, gc, 0,
 	             rc.left, rc.top,
-	             rc.right - rc.left, rc.bottom - rc.top,
+	             rc.right - rc.left - 1, rc.bottom - rc.top - 1,
 	             0, 32767);
 }
 
@@ -639,7 +640,6 @@ void Window::SetFont(Font &) {
 }
 
 void Window::SetCursor(Cursor curs) {
-	if(!id->window) return; // Varify if the widow exists.
 	switch (curs) {
 	case cursorText:
 		gdk_window_set_cursor(id->window, gdk_cursor_new(GDK_XTERM));

@@ -19,6 +19,8 @@
 	
 	* src/mainmenu_callbacks.c: Fixed gpl strings to avoid compiler warnings
 	  about the unterminated strings.
+	  
+	* scintilla/*: Updated scintilla to 1.3.9 version.
 	
 2001-08-28  Naba Kumar <kh_naba@users.sourceforge.net>
 	

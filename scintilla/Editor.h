@@ -104,6 +104,9 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	Point lastClick;
 	unsigned int lastClickTime;
+	int dwellDelay;
+	int ticksToDwell;
+	bool dwelling;
 	enum { selChar, selWord, selLine } selectionType;
 	Point ptMouseLast;
 	bool firstExpose;
@@ -118,6 +121,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	int anchor;
 	int targetStart;
 	int targetEnd;
+	int searchFlags;
 	int topLine;
 	int posTopLine;
 	
@@ -178,9 +182,10 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	int LinesOnScreen();
 	int LinesToScroll();
 	int MaxScrollPos();
-	Point LocationFromPosition(unsigned int pos);
-	int XFromPosition(unsigned int pos);
+	Point LocationFromPosition(int pos);
+	int XFromPosition(int pos);
 	int PositionFromLocation(Point pt);
+	int PositionFromLocationClose(Point pt);
 	int PositionFromLineX(int line, int x);
 	int LineFromLocation(Point pt);
 	void SetTopLine(int topLineNew);
@@ -212,6 +217,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void DropCaret();
 	void InvalidateCaret();
 
+	int SubstituteMarkerIfEmpty(int markerCheck, int markerDefault);
 	void PaintSelMargin(Surface *surface, PRectangle &rc);
         void LayoutLine(int line, Surface *surface, ViewStyle &vstyle, LineLayout &ll);
 	void DrawLine(Surface *surface, ViewStyle &vsDraw, int line, int lineVisible, int xStart, 
@@ -248,7 +254,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	virtual void NotifyFocus(bool focus);
 	virtual void NotifyParent(SCNotification scn) = 0;
 	virtual void NotifyStyleToNeeded(int endStyleNeeded);
-	void NotifyChar(char ch);
+	void NotifyChar(int ch);
 	void NotifyMove(int position);
 	void NotifySavePoint(bool isSavePoint);
 	void NotifyModifyAttempt();
@@ -257,6 +263,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void NotifyPainted();
 	bool NotifyMarginClick(Point pt, bool shift, bool ctrl, bool alt);
 	void NotifyNeedShown(int pos, int len);
+	void NotifyDwelling(Point pt, bool state);
 	
 	void NotifyModifyAttempt(Document *document, void *userData);
 	void NotifySavePoint(Document *document, void *userData, bool atSavePoint);
@@ -285,6 +292,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	long FindText(unsigned int iMessage, unsigned long wParam, long lParam);
 	void SearchAnchor();
 	long SearchText(unsigned int iMessage, unsigned long wParam, long lParam);
+	long SearchInTarget(const char *text, int length);
 	void GoToLine(int lineNo);
 
 	char *CopyRange(int start, int end);
@@ -301,6 +309,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	bool PointInSelection(Point pt);
 	bool PointInSelMargin(Point pt);
 	void LineSelection(int lineCurrent_, int lineAnchor_);
+	void DwellEnd(bool mouseMoved);
 	virtual void ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, bool alt);
 	void ButtonMove(Point pt);
 	void ButtonUp(Point pt, unsigned int curTime, bool ctrl);
@@ -319,8 +328,8 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	
 	void Expand(int &line, bool doExpand);
 	void ToggleContraction(int line);
-	void EnsureLineVisible(int lineDoc);
-	int ReplaceTarget(bool replacePatterns, const char *text);
+	void EnsureLineVisible(int lineDoc, bool enforcePolicy);
+	int ReplaceTarget(bool replacePatterns, const char *text, int length=-1);
 
 	virtual sptr_t DefWndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) = 0;
 	
