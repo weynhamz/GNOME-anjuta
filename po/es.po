@@ -1,24 +1,25 @@
+# translation of anjuta.ANJUTA_1_2_0.po to Spanish
 # translation of anjuta.ANJUTA_1_2_0.es.po to Spanish
 # Spanish translation of Anjuta.
 # Copyright © 2001-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2001.
-# Francisco Javier Fernandez <serrador@arrakis.es>,2003
+# Francisco Javier Fernandez <serrador@arrakis.es>,2003.
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
-# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003
-# Francisco Javier Fernández <serrador@arrakis.es>, 2003
+# Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.ANJUTA_1_2_0.es\n"
+"Project-Id-Version: anjuta.ANJUTA_1_2_0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-09 19:10+0200\n"
-"PO-Revision-Date: 2003-08-10 03:12+0200\n"
+"POT-Creation-Date: 2003-08-23 11:21+0200\n"
+"PO-Revision-Date: 2003-08-27 06:30+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -142,8 +143,7 @@ msgstr "Autoguardar"
 
 #: anjuta.glade.h:28
 msgid "Autosave editor files before build starts"
-msgstr ""
-"Autoguardar los archivos del editor antes de que se inicie la construcción"
+msgstr "Autoguardar los archivos del editor antes de que se inicie la construcción"
 
 #: anjuta.glade.h:29
 msgid "Back color:"
@@ -620,7 +620,11 @@ msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be built after the source (src/) directory during \"make\"."
-msgstr " Dar una lista separada por espacios de directorios a ser compilados después  de cada módulo fuente. Esto será establecido en configure y los Makefiles  serán generados para ellos. Serán construidos después del directorio fuente  (src/) durante «make»."
+msgstr ""
+" Dar una lista separada por espacios de directorios a ser compilados "
+"después  de cada módulo fuente. Esto será establecido en configure y los "
+"Makefiles  serán generados para ellos. Serán construidos después del "
+"directorio fuente  (src/) durante «make»."
 
 #: anjuta.glade.h:144
 msgid ""
@@ -718,7 +722,11 @@ msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data lose or modification done to the project."
-msgstr " Importar un proyecto existente. El Asistente de Importación le guiará a  través de la importación de un proyecto existente a Anjuta y lo convertirá  en un proyecto Anjuta. No habrá pérdida de datos o modificaciones hechas al  proyecto."
+msgstr ""
+" Importar un proyecto existente. El Asistente de Importación le guiará a  "
+"través de la importación de un proyecto existente a Anjuta y lo convertirá  "
+"en un proyecto Anjuta. No habrá pérdida de datos o modificaciones hechas al  "
+"proyecto."
 
 #: anjuta.glade.h:166
 msgid "Include Paths"
@@ -1220,8 +1228,7 @@ msgstr "Lista separada por espacios de patrones de nombres de archivo a ignorar"
 
 #: anjuta.glade.h:287
 msgid "Space-seperated list of file name patterns to match"
-msgstr ""
-"Lista separada por espacios de patrones de nombres de archivo a coincidir"
+msgstr "Lista separada por espacios de patrones de nombres de archivo a coincidir"
 
 #: anjuta.glade.h:288
 msgid "Standard error:"
@@ -1517,9 +1524,10 @@ msgid "Locked"
 msgstr "Bloqueado"
 
 #: gdl/gdl-dock-item.c:283
-msgid ""
-"If set, the dock item cannot be dragged around and it doesn't show a grip"
-msgstr " Si se establece, el elemento empotrable no puede arrastrarse y no muestra un tirador"
+msgid "If set, the dock item cannot be dragged around and it doesn't show a grip"
+msgstr ""
+" Si se establece, el elemento empotrable no puede arrastrarse y no muestra "
+"un tirador"
 
 #: gdl/gdl-dock-item.c:291
 msgid "Preferred width"
@@ -1558,8 +1566,7 @@ msgstr ""
 #: gdl/gdl-dock-item.c:1149
 #, c-format
 msgid "Unsupported docking strategy %s in dock object of type %s"
-msgstr ""
-"Estrategia de empotrado no soportada %s en objeto empotrable de tipo %s"
+msgstr "Estrategia de empotrado no soportada %s en objeto empotrable de tipo %s"
 
 #. Hide menuitem.
 #: gdl/gdl-dock-item.c:1231
@@ -1582,8 +1589,7 @@ msgstr "Principal"
 
 #: gdl/gdl-dock-layout.c:126
 msgid "GdlDockMaster object which the layout object is attached to"
-msgstr ""
-"Objeto GdlDockMaster con el cuál el objeto de disposición está encajado"
+msgstr "Objeto GdlDockMaster con el cuál el objeto de disposición está encajado"
 
 #: gdl/gdl-dock-layout.c:133
 msgid "Dirty"
@@ -1727,8 +1733,7 @@ msgstr "No se puede empotrar %p a %p porque pertenecen a diferentes dueños"
 
 #: gdl/gdl-dock-object.c:583
 #, c-format
-msgid ""
-"Attempt to bind to %p an already bound dock object %p (current master: %p)"
+msgid "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
 "Se intentó vincular a %p un objeto empotrable ya vinculado %p (dueño "
 "actual : %p)"
@@ -1811,8 +1816,7 @@ msgstr "Indica si el empotrable está flotando en su propia ventana"
 
 #: gdl/gdl-dock.c:186
 msgid "Default title for the newly created floating docks"
-msgstr ""
-"Título preestablecido para los empotrables flotantes nuevamente creados"
+msgstr "Título preestablecido para los empotrables flotantes nuevamente creados"
 
 #: gdl/gdl-dock.c:192
 msgid "Width"
@@ -1991,8 +1995,7 @@ msgid "V 0.0.2 (June 11, 2002)"
 msgstr "V 0.0.2 (11 de junio de 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
-msgid ""
-"TODO: add the ability to declare member functions and their parameters here."
+msgid "TODO: add the ability to declare member functions and their parameters here."
 msgstr ""
 "POR hacer: añadir la capacidad para declarar funciones miembro y sus "
 "parámetros aquí."
@@ -2183,12 +2186,13 @@ msgstr "No se puede abrir el archivo %s en %s"
 msgid ""
 "No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
-msgstr " No hay visor predeterminado para el tipo mime %s.\n Establezca uno en el centro de control GNOME"
+msgstr ""
+" No hay visor predeterminado para el tipo mime %s.\n"
+" Establezca uno en el centro de control GNOME"
 
 #: src/an_file_view.c:267
 msgid "Unable to build user interface for file filter"
-msgstr ""
-"No se pudo compilar el interfaz de usuario para el el filtro de archivo"
+msgstr "No se pudo compilar el interfaz de usuario para el el filtro de archivo"
 
 #. 0
 #: src/an_file_view.c:348
@@ -2509,7 +2513,7 @@ msgstr "Ya existe una herramienta con el nombre «%s»."
 msgid "Unable to build user interface for tool help"
 msgstr "No se puede construir el interfaz de usuario para la ayuda de herramienta"
 
-#: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
+#: src/anjuta-tools.c:1781 src/debug_tree.c:1454 src/debug_tree.c:1474
 #: src/watch_gui.c:127
 msgid "Variable"
 msgstr "Variable"
@@ -2518,7 +2522,7 @@ msgstr "Variable"
 msgid "Meaning"
 msgstr "Significado"
 
-#: src/anjuta-tools.c:1793 src/debug_tree.c:1458 src/debug_tree.c:1487
+#: src/anjuta-tools.c:1793 src/debug_tree.c:1454 src/debug_tree.c:1483
 #: src/watch_gui.c:136
 msgid "Value"
 msgstr "Valor"
@@ -2654,7 +2658,9 @@ msgstr "Buscando en archivos ...\n"
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
-msgstr " Algunos archivos (o el proyecto) no han sido guardados.\n ¿Todavía desea salir?"
+msgstr ""
+" Algunos archivos (o el proyecto) no han sido guardados.\n"
+" ¿Todavía desea salir?"
 
 #: src/anjuta_cbs.c:504
 #, c-format
@@ -2665,7 +2671,7 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
+#: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:343
 msgid "_Replace"
 msgstr "_Reemplazar"
 
@@ -2677,10 +2683,10 @@ msgstr "No se puede abrir el archivo para escritura"
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
-"Do you want to overwrite it?."
+"Do you want to replace it with the one you are saving?."
 msgstr ""
 "El archivo «%s» ya existe.\n"
-"¿Desea sobreescribirlo?"
+"¿Desea reemplazarlo con el que está intentando guardar?"
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
@@ -2839,7 +2845,7 @@ msgstr "Condición"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:166 src/debugger.c:1793
+#: src/breakpoints.c:166 src/debugger.c:1814
 msgid "All breakpoints enabled:\n"
 msgstr "Activados todos los puntos de ruptura:\n"
 
@@ -2848,7 +2854,7 @@ msgstr "Activados todos los puntos de ruptura:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:184 src/debugger.c:1839
+#: src/breakpoints.c:184 src/debugger.c:1860
 msgid "All breakpoints disabled:\n"
 msgstr "Desactivados todos los puntos de ruptura:\n"
 
@@ -2879,8 +2885,7 @@ msgstr "El ejecutable está actualizado, no necesita ser construido de nuevo."
 
 #: src/build_file.c:91
 msgid "No build command has been specified for this type of file."
-msgstr ""
-"No se ha especificado un comando de construcción para este tipo de archivo."
+msgstr "No se ha especificado un comando de construcción para este tipo de archivo."
 
 #: src/build_file.c:109
 #, c-format
@@ -2994,21 +2999,18 @@ msgstr "Construir todo terminó ... correctamente"
 
 #: src/build_project.c:411
 msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr ""
-"La construcción de la distribución terminó...............Incorrectamente\n"
+msgstr "La construcción de la distribución terminó...............Incorrectamente\n"
 
 #: src/build_project.c:415
 msgid "Build Distribution completed ... unsuccessful"
-msgstr ""
-"La construcción de la distribución terminó...............incorrectamente"
+msgstr "La construcción de la distribución terminó...............incorrectamente"
 
 #: src/build_project.c:420
 msgid "Build Distribution completed...............Successful\n"
 msgstr "Construir la distribución terminó...............correctamente\n"
 
 #: src/build_project.c:423
-msgid ""
-"The source tarball can be found in the top level directory of the Project.\n"
+msgid "The source tarball can be found in the top level directory of the Project.\n"
 msgstr ""
 "El tarball del fuente puede encontrarse en el directorio de nivel superior "
 "del proyecto.\n"
@@ -3458,57 +3460,57 @@ msgstr "Opciones del servidor"
 msgid "Import settings"
 msgstr "Importar opciones"
 
-#: src/debug_tree.c:1498
+#: src/debug_tree.c:1494
 msgid "Default format"
 msgstr "Formato preestablecido"
 
-#: src/debug_tree.c:1502
+#: src/debug_tree.c:1498
 msgid "Binary"
 msgstr "Binario"
 
-#: src/debug_tree.c:1505
+#: src/debug_tree.c:1501
 msgid "Octal"
 msgstr "Octal"
 
-#: src/debug_tree.c:1508
+#: src/debug_tree.c:1504
 msgid "Signed decimal"
 msgstr "Decimal con signo"
 
-#: src/debug_tree.c:1511
+#: src/debug_tree.c:1507
 msgid "Unsigned decimal"
 msgstr "Decimal sin signo"
 
-#: src/debug_tree.c:1514 src/registers_gui.c:111
+#: src/debug_tree.c:1510 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Hexa"
 
-#: src/debug_tree.c:1517
+#: src/debug_tree.c:1513
 msgid "Char"
 msgstr "Carácter"
 
-#: src/debug_tree.c:1522
+#: src/debug_tree.c:1518
 msgid "Inspect memory"
 msgstr "Inspeccionar memoria"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:84
+#: src/debugger.c:85
 msgid "Load Executable File"
 msgstr "Carga un archivo ejecutable"
 
 #. Must declare static, because it will be used forever
-#: src/debugger.c:90
+#: src/debugger.c:91
 msgid "Load Core File"
 msgstr "Carga un archivo core"
 
-#: src/debugger.c:196 src/debugger.c:645
+#: src/debugger.c:197 src/debugger.c:646
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable: "
 
-#: src/debugger.c:247
+#: src/debugger.c:248
 msgid "Loading Core: "
 msgstr "Cargando core: "
 
-#: src/debugger.c:292 src/debugger.c:320
+#: src/debugger.c:293 src/debugger.c:321
 msgid ""
 "You have a process ATTACHED under the debugger.\n"
 "Please detach it first and then load the executable file."
@@ -3516,7 +3518,7 @@ msgstr ""
 "Ya tiene un proceso ADJUNTO al depurador.\n"
 "Sepárelo primero y cargue el archivo ejecutable."
 
-#: src/debugger.c:295 src/debugger.c:323
+#: src/debugger.c:296 src/debugger.c:324
 msgid ""
 "You have a process RUNNING under the debugger.\n"
 "Please stop it first and then load the executable file."
@@ -3524,7 +3526,7 @@ msgstr ""
 "Tiene un proceso EJECUTÁNDOSE en el depurador.\n"
 "Deténgalo y cargue después el archivo ejecutable."
 
-#: src/debugger.c:572
+#: src/debugger.c:573
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -3535,39 +3537,39 @@ msgstr ""
 "No se puede inicializar el depurador.\n"
 "Asegúrese de haber instalado Anjuta correctamente."
 
-#: src/debugger.c:641
+#: src/debugger.c:642
 msgid "Debugger"
 msgstr "Depurador"
 
-#: src/debugger.c:643
+#: src/debugger.c:644
 msgid "Getting ready to start debugging session ...\n"
 msgstr "Preparándose para iniciar la sesión de depuración...\n"
 
-#: src/debugger.c:656
+#: src/debugger.c:657
 msgid "No executable specified\n"
 msgstr "No se especificó el ejecutable\n"
 
-#: src/debugger.c:659
+#: src/debugger.c:660
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abrir un ejecutable o adjuntar a un proceso para iniciar depuración.\n"
 
-#: src/debugger.c:666
+#: src/debugger.c:667
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: src/debugger.c:669
+#: src/debugger.c:670
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de tener «gdb» instalado en el sistema.\n"
 
-#: src/debugger.c:808
+#: src/debugger.c:832
 msgid "Error: "
 msgstr "Error: "
 
-#: src/debugger.c:829
+#: src/debugger.c:853
 msgid "Debugger is ready.\n"
 msgstr "El depurador está preparado.\n"
 
-#: src/debugger.c:936
+#: src/debugger.c:957
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -3577,28 +3579,28 @@ msgstr ""
 "Bien, ¿encontró el bug? Sesión de depuración completada.\n"
 "\n"
 
-#: src/debugger.c:1171
+#: src/debugger.c:1192
 msgid "Cannot execute gnome-terminal"
 msgstr "No se puede ejecutar gnome-terminal"
 
-#: src/debugger.c:1206
+#: src/debugger.c:1227
 msgid "Cannot start terminal for debugging."
 msgstr "No se puede iniciar el terminal para depuración."
 
-#: src/debugger.c:1270
+#: src/debugger.c:1291
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
 msgstr "Aviso: No hay terminal. Redirigiendo stdio hacia /dev/null.\n"
 
-#: src/debugger.c:1289
+#: src/debugger.c:1310
 msgid "Running program ... \n"
 msgstr "Ejecutando programa ... \n"
 
-#: src/debugger.c:1419
+#: src/debugger.c:1440
 #, c-format
 msgid "Attaching to process: %d\n"
 msgstr "Adjuntando a proceso: %d\n"
 
-#: src/debugger.c:1449
+#: src/debugger.c:1470
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -3606,16 +3608,16 @@ msgstr ""
 "Ya existe un proceso ejecutándose.\n"
 "¿Desea terminarlo y adjuntarse al proceso nuevo?"
 
-#: src/debugger.c:1461
+#: src/debugger.c:1482
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede adjuntarse a sí mismo."
 
-#: src/debugger.c:1547
+#: src/debugger.c:1568
 #, c-format
 msgid "Detaching the process: %d\n"
 msgstr "Separando el proceso: %d\n"
 
-#: src/debugger.c:1603
+#: src/debugger.c:1624
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -3623,7 +3625,7 @@ msgstr ""
 "El programa está ADJUNTO.\n"
 "¿Aún desea detener el depurador?"
 
-#: src/debugger.c:1606
+#: src/debugger.c:1627
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3636,21 +3638,21 @@ msgstr ""
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/debugger.c:1885
+#: src/debugger.c:1906
 msgid "All breakpoints deleted:\n"
 msgstr "Borrados todos los puntos de ruptura:\n"
 
-#: src/debugger.c:1918
+#: src/debugger.c:1939
 #, c-format
 msgid "Interrupting the process: %d\n"
 msgstr "Interrumpiendo el proceso: %d\n"
 
-#: src/debugger.c:1950
+#: src/debugger.c:1971
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
 msgstr "Enviando señal %s al proceso: %d\n"
 
-#: src/debugger.c:1971
+#: src/debugger.c:1992
 msgid "Error whilst signalling the process."
 msgstr "Hubo un error al enviar la señal al proceso."
 
@@ -3716,15 +3718,15 @@ msgid "No search string supplied."
 msgstr "No se ha proporcionado una cadena de búsqueda."
 
 #: src/find_replace.c:337
-msgid "Do you want to replace this?"
-msgstr "¿Desea reemplazarlo?"
+msgid "Do you want to replace this occurence?"
+msgstr "¿Desea reemplazar esta aparición?"
 
-#: src/find_replace.c:398
+#: src/find_replace.c:399
 #, c-format
 msgid "The string \"%s\" was not found in the selected text"
 msgstr "La cadena «%s» no se encontró en el texto seleccionado"
 
-#: src/find_replace.c:403
+#: src/find_replace.c:404
 #, c-format
 msgid "The string \"%s\" was not found from the current location"
 msgstr "La cadena «%s» no se encontró desde la posición actual"
@@ -4079,8 +4081,7 @@ msgstr "Convertir caracteres EOL a mayoría de EOL"
 
 #: src/main_menubar_def.h:193
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
-"Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
+msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
 
 #. 0
 #: src/main_menubar_def.h:204
@@ -4224,8 +4225,7 @@ msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "Insertar la palabra clave CVS Date (fecha y hora del cambio)"
 
 #: src/main_menubar_def.h:334
-msgid ""
-"Insert the CVS Header keyword (full path, revision, date, author, state)"
+msgid "Insert the CVS Header keyword (full path, revision, date, author, state)"
 msgstr ""
 "Insertar la palabra clave CVS Header (ruta completa, revisión, fecha, autor, "
 "estado)"
@@ -4324,8 +4324,7 @@ msgid "Find and R_eplace ..."
 msgstr "Buscar y r_eemplazar ..."
 
 #: src/main_menubar_def.h:441
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "Buscar y reemplazar una cadena o expresión con otra cadena"
 
 #. 3
@@ -4932,8 +4931,7 @@ msgstr "Act_ualizar imagen de etiquetas"
 
 #: src/main_menubar_def.h:980
 msgid "Update the tags image of the Project/opened files"
-msgstr ""
-"Actualizar la imagen de las etiquetas de los archivos abiertos del proyecto"
+msgstr "Actualizar la imagen de las etiquetas de los archivos abiertos del proyecto"
 
 #. 11
 #: src/main_menubar_def.h:985
@@ -5548,8 +5546,7 @@ msgstr "Información de archivos _objetivo"
 
 #: src/main_menubar_def.h:1442
 msgid "Display information on the files the debugger is active with"
-msgstr ""
-"Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
 
 #. 1
 #: src/main_menubar_def.h:1447
@@ -5836,10 +5833,8 @@ msgid "_Diff Project"
 msgstr "_Diff del proyecto"
 
 #: src/main_menubar_def.h:1689
-msgid ""
-"Create a diff between the working copy of the Project and the repository"
-msgstr ""
-"Crear una diferencia entre la copia de trabajo del proyecto y el repositorio"
+msgid "Create a diff between the working copy of the Project and the repository"
+msgstr "Crear una diferencia entre la copia de trabajo del proyecto y el repositorio"
 
 #. 15
 #: src/main_menubar_def.h:1696
@@ -6616,7 +6611,7 @@ msgstr "Seleccione lenguaje regional"
 msgid "Unable to find pixmap file: %s"
 msgstr "No se puede encontrar el archivo de imagen: %s"
 
-#: src/project_dbase_gui.c:1344
+#: src/project_dbase_gui.c:1342
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6626,12 +6621,12 @@ msgstr ""
 "El archivo «%s» no existe.\n"
 "¿Desea crearlo ahora?"
 
-#: src/project_dbase_gui.c:1362
+#: src/project_dbase_gui.c:1360
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "El archivo no es válido: %s."
 
-#: src/project_dbase_gui.c:1372
+#: src/project_dbase_gui.c:1370
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6675,8 +6670,7 @@ msgstr "Importar proyecto terminó...correctamente"
 
 #: src/project_import.c:189
 msgid "Could not import Project: no project file found!"
-msgstr ""
-"No se puede importar el proyecto: No se encontró el archivo del proyecto."
+msgstr "No se puede importar el proyecto: No se encontró el archivo del proyecto."
 
 #: src/project_import.c:196
 msgid "Opening Project...please wait"
@@ -6924,15 +6918,17 @@ msgstr "No se puede encontrar el archivo de imagen : %s"
 
 #: src/text_editor.c:887
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
 #: src/text_editor.c:933
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
-msgstr " El archivo no parece ser un archivo de texto o la codificación del archivo  no está soportada. Verifique que la codificación del archivo está soportada  por la lista de codificaciones. Si no, añádala desde las preferencias."
+msgstr ""
+" El archivo no parece ser un archivo de texto o la codificación del archivo  "
+"no está soportada. Verifique que la codificación del archivo está soportada  "
+"por la lista de codificaciones. Si no, añádala desde las preferencias."
 
 #: src/text_editor.c:1106
 msgid "Loading file ..."
@@ -7815,6 +7811,13 @@ msgstr "La creación de la carpeta falló «%s»: %s"
 msgid "Folder name:"
 msgstr "Nombre de carpeta:"
 
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?."
+#~ msgstr ""
+#~ "El archivo «%s» ya existe.\n"
+#~ "¿Desea sobreescribirlo?"
+
 #~ msgid "window1"
 #~ msgstr "ventana1"
 
@@ -8654,3 +8657,4 @@ msgstr "Nombre de carpeta:"
 
 #~ msgid "Multiple selection mode"
 #~ msgstr "Modo de seleción múltiple"
+
