@@ -1,3 +1,7 @@
+2002-01-29  Andy Piper <andy.piper@freeuk.com>
+
+	* HACKING: added info on creating windows and dialogs
+
 2002-01-29  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/tm_file_view.c:

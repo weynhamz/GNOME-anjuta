@@ -244,7 +244,15 @@ the menu widget em->insert_* (as specified in main_menubar.h)
 ------------------------------------------------
 FIXME.
 
-4) Property/Config management:
+
+4) Dialogs and Windows:
+-----------------------
+When adding new dialogs or windows, please ensure...
+- the WMCLASS attribute is set to a unique value
+- a default button is defined
+
+
+5) Property/Config management:
 ------------------------------
 Anjuta does not use gconf (at least, not now), and instead has its own config 
 manager/properties manager. The source for this is in src/properties.cxx.
@@ -259,8 +267,8 @@ When Anjuta was started, there were not many application support libraries.
 To cope up with the requirements, anjuta had to implement the supports within
 itself. And it is still going.
 
-5) Global shortcut keys:
------------------------
+6) Global shortcut keys:
+------------------------
 
 The following callback (located in anjuta.c) :
 
@@ -279,8 +287,8 @@ Note : It's possible to install such an handler in the other windows if it's
 really needed, so the new callback can propagate the event to app (the GnomeApp)
 and we'll have a central place for those shortcuts.
 
-How to add a global shortcut :
-- - - - - - - - - - - - - - 
+6a) How to add a global shortcut:
+---------------------------------
 
 It's pretty self-explainatory, but here's the "howto" :
 
