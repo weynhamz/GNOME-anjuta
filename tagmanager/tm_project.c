@@ -12,9 +12,13 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <fnmatch.h>
 
+#include "options.h"
+#define LIBCTAGS_DEFINED
 #include "tm_tag.h"
 #include "tm_workspace.h"
 #include "tm_source_file.h"
@@ -329,9 +333,24 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 			tm_project_recreate_tags_array(project);
 	}
 	work_object->analyze_time = time(NULL);
-	if ((work_object->parent) && (update_parent) && (update_tags))
+	if ((work_object->parent) && (update_parent))
 		tm_workspace_update(work_object->parent, TRUE, FALSE, FALSE);
 	return update_tags;
+}
+
+
+#define IGNORE_FILE ".tm_ignore"
+static void tm_project_set_ignorelist(TMProject *project)
+{
+	struct stat s;
+	char *ignore_file = g_strconcat(project->dir, "/", IGNORE_FILE, NULL);
+	if (0 == stat(ignore_file, &s))
+	{
+		if (NULL != Option.ignore)
+			stringListClear(Option.ignore);
+		addIgnoreListFromFile(ignore_file);
+	}
+	g_free(ignore_file);
 }
 
 gboolean tm_project_open(TMProject *project, gboolean force)
@@ -345,6 +364,7 @@ gboolean tm_project_open(TMProject *project, gboolean force)
 #ifdef TM_DEBUG
 	g_message("Opening project %s", project->work_object.file_name);
 #endif
+	tm_project_set_ignorelist(project);
 	if (NULL == (fp = fopen(project->work_object.file_name, "r")))
 		return FALSE;
 	while (NULL != (tag = tm_tag_new_from_file(source_file, fp)))

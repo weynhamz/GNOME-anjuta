@@ -1015,7 +1015,7 @@ static void readIgnoreList (const char *const list)
     eFree (newList);
 }
 
-static void addIgnoreListFromFile (const char *const fileName)
+void addIgnoreListFromFile (const char *const fileName)
 {
     stringList* tokens = stringListNewFromFile (fileName);
     if (Option.ignore == NULL)
