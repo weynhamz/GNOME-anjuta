@@ -150,8 +150,6 @@ src/stack_trace_cbs.c
 src/stack_trace_cbs.h
 src/stack_trace_gui.c
 src/support.c
-src/tags_manager.c
-src/tags_manager.h
 src/text_editor.c
 src/text_editor.h
 src/text_editor_cbs.c

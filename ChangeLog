@@ -1,5 +1,13 @@
 2002-01-31  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/main.c: Fixed bug #  (Unable to open files on
+	double click in project window from second trial onwards when
+	the project is opened from command line).
+	
+	* po/POTFILES.in: Removed tags_manager.[h,c]
+	
+2002-01-31  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/preferences.c:
 	  A quick hack to fix the 'invisible' browser toolbar when
 	  upgrading from 0.1.8 to 0.1.9

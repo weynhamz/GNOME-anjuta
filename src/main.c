@@ -92,12 +92,22 @@ main (int argc, char *argv[])
 	if (args)
 	{
 		gint i;
+		gchar* cur_dir;
 		i = 0;
-		while (args[i])
-		{
-			command_args = g_list_append (command_args, g_strdup(args[i]));
+		
+		cur_dir = g_get_current_dir ();
+		
+		while (args[i]) {
+			gchar *full_name;
+			if (args[i][0] != '/') {
+				full_name = g_strconcat (cur_dir, "/", args[i], NULL);
+			} else {
+				full_name = g_strdup(args[i]);
+			}
+			command_args = g_list_append (command_args, full_name);
 			i++;
 		}
+		g_free (cur_dir);
 	}
 	poptFreeContext(context);
 
