@@ -48,12 +48,12 @@ build_project ()
 		if (ret == FALSE)
 			return;
 	}
-
+	
 	src_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
 	if (src_dir)
 	{
 		gchar *prj_name, *cmd;
-	
+		
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_MODULE);
 		if (cmd == NULL)
 		{
@@ -64,6 +64,11 @@ build_project ()
 		chdir (src_dir);
 		anjuta_set_execution_dir(src_dir);
 		g_free (src_dir);
+	
+		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+		{
+			anjuta_save_all_files();
+		}
 	
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
@@ -105,7 +110,7 @@ build_all_project ()
 		if (ret == FALSE)
 			return;
 	}
-
+	
 	if (app->project_dbase->project_is_open)
 	{
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_PROJECT);
@@ -116,6 +121,12 @@ build_all_project ()
 		}
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
+		
+		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+		{
+			anjuta_save_all_files();
+		}
+	
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
 		     build_all_terminated) == FALSE)
@@ -152,7 +163,7 @@ build_dist_project ()
 		if (ret == FALSE)
 			return;
 	}
-
+	
 	if (app->project_dbase->project_is_open)
 	{
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_TARBALL);
@@ -164,6 +175,12 @@ build_dist_project ()
 		}
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
+		
+		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+		{
+			anjuta_save_all_files();
+		}
+
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
 		     build_dist_terminated) == FALSE)
@@ -213,6 +230,12 @@ build_install_project ()
 		}
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
+		
+		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+		{
+			anjuta_save_all_files();
+		}
+	
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
 		     build_install_terminated) == FALSE)
@@ -267,6 +290,12 @@ build_autogen_project ()
 				return;
 			}
 		}
+		
+		if(preferences_get_int(app->preferences, BUILD_OPTION_AUTOSAVE))
+		{
+			anjuta_save_all_files();
+		}
+	
 		if (launcher_execute
 		    (cmd, build_mesg_arrived, build_mesg_arrived,
 		     build_autogen_terminated) == FALSE)

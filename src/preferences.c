@@ -157,7 +157,8 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.build_debug_check);
 		gtk_widget_unref (pr->widgets.build_warn_undef_check);
 		gtk_widget_unref (pr->widgets.build_jobs_spin);
-
+		// gtk_widget_unref (pr->widgets.build_autosave_check);
+		
 		gtk_widget_unref (pr->widgets.auto_save_check);
 		gtk_widget_unref (pr->widgets.auto_indent_check);
 		gtk_widget_unref (pr->widgets.tab_size_spin);
@@ -309,6 +310,12 @@ preferences_sync (Preferences * pr)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (pr->widgets.build_warn_undef_check),
 				      preferences_get_int (pr, BUILD_OPTION_WARN_UNDEF));
+
+		
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.build_autosave_check),
+				      preferences_get_int (pr, BUILD_OPTION_AUTOSAVE));
+		 
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON
 				   (pr->widgets.build_jobs_spin),
 				   preferences_get_int (pr, BUILD_OPTION_JOBS));
@@ -685,7 +692,9 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 
 	fprintf (fp, "%s=%d\n", BUILD_OPTION_JOBS,
 		 preferences_get_int (pr, BUILD_OPTION_JOBS));
-
+	fprintf (fp, "%s=%d", BUILD_OPTION_AUTOSAVE,
+		 preferences_get_int (pr, BUILD_OPTION_AUTOSAVE));
+	
 	/* Page 2 */
 	for (i = 0;; i += 2)
 	{

@@ -1,5 +1,27 @@
 2002-01-17	Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/preferences.h,
+	  src/preferences.c,
+	  src/preferences_gui.c:
+	  
+	  Adds the functionality to Anjuta to auto save your unsaved
+	  files before you build a project.
+
+	  Patch submitted by: 
+	  jason <jason_williams@suth.com>
+	  
+	* src/anjuta.[h,c]:
+	  Added function for save all files.
+	
+	* src/mainmenu_callbacks.c:
+	  Modified to use the above function.
+	
+	* src/build_project.c:
+	  Save all files before build if it is set in the
+	  preferences.
+
+2002-01-17	Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/message-manager-private.cc
 	  src/message-manager-private.h
 	  src/message-manager.cc:

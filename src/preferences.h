@@ -72,6 +72,7 @@ struct _PreferencesWidgets
 	GtkWidget *build_debug_check;
 	GtkWidget *build_warn_undef_check;
 	GtkWidget *build_jobs_spin;
+	GtkWidget *build_autosave_check;
 
 	/*
 	 * * page2 
@@ -258,6 +259,7 @@ void preferences_set_build_options(Preferences* p);
 #define BUILD_OPTION_SILENT "build.option.silent"
 #define BUILD_OPTION_WARN_UNDEF "build.option.warn.undef"
 #define BUILD_OPTION_JOBS "build.option.jobs"
+#define BUILD_OPTION_AUTOSAVE "build.option.autosave"
 
 #define DISABLE_SYNTAX_HILIGHTING "disable.syntax.hilighting"
 #define SAVE_AUTOMATIC "save.automatic"

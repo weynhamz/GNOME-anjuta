@@ -213,6 +213,8 @@ TextEditor *anjuta_get_notebook_text_editor (gint page_num);
 
 void anjuta_save_settings (void);
 
+void anjuta_save_all_files(void);
+
 gboolean anjuta_save_yourself (FILE * stream);
 
 gboolean anjuta_load_yourself (PropsID pr);

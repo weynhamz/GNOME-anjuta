@@ -534,6 +534,7 @@ create_preferences_page1 (Preferences * p)
 	GtkWidget *checkbutton2;
 	GtkWidget *checkbutton3;
 	GtkWidget *checkbutton6;
+	GtkWidget *checkbutton7;
 	GtkWidget *hseparator1;
 	GtkWidget *hbox1;
 	GtkWidget *label1;
@@ -576,6 +577,14 @@ create_preferences_page1 (Preferences * p)
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton6, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton6), 5);
 
+	checkbutton7 =
+		gtk_check_button_new_with_label(_
+						("Autosave Before Build"));
+	gtk_widget_show(checkbutton7);
+	gtk_box_pack_start(GTK_BOX (vbox1), checkbutton7, FALSE, FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (checkbutton7), 5);
+	
+
 	hseparator1 = gtk_hseparator_new ();
 	gtk_widget_show (hseparator1);
 	gtk_box_pack_start (GTK_BOX (vbox1), hseparator1, FALSE, FALSE, 0);
@@ -601,12 +610,14 @@ create_preferences_page1 (Preferences * p)
 	p->widgets.build_debug_check = checkbutton3;
 	p->widgets.build_warn_undef_check = checkbutton6;
 	p->widgets.build_jobs_spin = spinbutton1;
-
+	p->widgets.build_autosave_check = checkbutton7;
+		
 	gtk_widget_ref (checkbutton1);
 	gtk_widget_ref (checkbutton2);
 	gtk_widget_ref (checkbutton3);
 	gtk_widget_ref (checkbutton6);
 	gtk_widget_ref (spinbutton1);
+	gtk_widget_ref (checkbutton7);
 	
 	return frame1;
 }
@@ -1810,9 +1821,13 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.build_warn_undef_check)));
 
+	preferences_set_int (pr, BUILD_OPTION_AUTOSAVE, 
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+				     			   (pr->widgets.build_autosave_check)));
 	preferences_set_int (pr, BUILD_OPTION_JOBS,
 			     gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON
 							       (pr->widgets.build_jobs_spin)));
+
 
 /* page 2 */
 	for (i = 0;; i += 2)

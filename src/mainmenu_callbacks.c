@@ -110,17 +110,7 @@ on_save_as1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_save_all1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	TextEditor *te;
-	int i;
-	tags_manager_freeze (app->tags_manager);
-	for (i = 0; i < g_list_length (app->text_editor_list); i++)
-	{
-		te = g_list_nth_data (app->text_editor_list, i);
-		if (te->full_filename && !text_editor_is_saved (te))
-			text_editor_save_file (te);
-	}
-	tags_manager_thaw (app->tags_manager);
-	anjuta_status (_("All files saved ..."));
+	anjuta_save_all_files();
 }
 
 void
