@@ -1729,6 +1729,17 @@ text_editor_set_popup_menu (TextEditor *te, GtkWidget *popup_menu)
 	te->popup_menu = popup_menu;
 }
 
+void
+text_editor_set_busy (TextEditor *te, gboolean state)
+{
+	if (state)
+		scintilla_send_message (SCINTILLA (te->scintilla),
+								SCI_SETCURSOR, SC_CURSORWAIT, 0);
+	else
+		scintilla_send_message (SCINTILLA (te->scintilla),
+								SCI_SETCURSOR, SC_CURSORNORMAL, 0);
+}
+
 gint
 text_editor_get_props ()
 {

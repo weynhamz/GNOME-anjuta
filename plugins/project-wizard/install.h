@@ -1,6 +1,7 @@
-/* 
-    gnome_project.h
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+    install.h
+    Copyright (C) 2004 Sebastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,9 +18,21 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _GNOME_PROJECT_H_
-#define _GNOME_PROJECT_H_
+#ifndef __INSTALL_H__
+#define __INSTALL_H__
 
-gboolean create_new_project (AppWizard *aw);
+#include <glib.h>
+#include <libanjuta/anjuta-plugin.h>
+
+#include "file.h"
+
+typedef struct _NPWInstall NPWInstall;
+
+NPWInstall* npw_install_new(struct _NPWPlugin* plugin);
+void npw_install_destroy(NPWInstall* this);
+
+gboolean npw_install_set_property(NPWInstall* this, GQueue* page_list, AnjutaPlugin* plugin);
+gboolean npw_install_set_wizard_file(NPWInstall* this, const gchar* filename);
+gboolean npw_install_launch(NPWInstall* this);
 
 #endif

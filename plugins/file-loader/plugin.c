@@ -36,6 +36,7 @@
 #include <libegg/recent-files/egg-recent-view-gtk.h>
 
 #include "plugin.h"
+#include "dnd.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-loader-plugin.ui"
 
@@ -740,6 +741,12 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
+static void
+dnd_dropped (const gchar *uri, gpointer plugin)
+{
+	ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin), uri, FALSE, NULL);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -792,6 +799,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	else
 		g_warning ("Cannot retrive recent files submenu widget");
 	
+	/* Install drag n drop handler */
+	dnd_drop_init (GTK_WIDGET (plugin->shell), dnd_dropped, plugin,
+				   "text/plain", "text/html", "text/source", "application-x/anjuta",
+				   NULL);
+	
 	/* Add watches */
 	loader_plugin->fm_watch_id = 
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
@@ -812,6 +824,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, loader_plugin->fm_watch_id, TRUE);
+	/* Uninstall dnd */
+	dnd_drop_finalize (GTK_WIDGET (plugin->shell), plugin);
 	/* Remove UI */
 	anjuta_ui_unmerge (ui, loader_plugin->uiid);
 	/* Remove action group */

@@ -1009,6 +1009,7 @@ create_plugin_page (AnjutaShell *shell)
 	GtkWidget *scrolled;
 	GtkListStore *store;
 	GHashTable *installed_tools;
+	AnjutaStatus *status;
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	
@@ -1040,6 +1041,9 @@ create_plugin_page (AnjutaShell *shell)
 	g_object_set_data (G_OBJECT (store), "Shell", shell);
 
 	gtk_widget_show_all (vbox);
+	
+	status = anjuta_shell_get_status (shell, NULL);
+	anjuta_status_add_widget (status, vbox);
 	
 	return vbox;
 }

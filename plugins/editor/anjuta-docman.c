@@ -1156,5 +1156,23 @@ anjuta_docman_get_all_editors (AnjutaDocman *docman)
 	return editors;
 }
 
+void
+anjuta_docman_set_busy (AnjutaDocman *docman, gboolean state)
+{
+	GList *node;
+	
+	node = docman->priv->editors;
+	while (node)
+	{
+		AnjutaDocmanPage *page;
+		TextEditor *te;
+		page = (AnjutaDocmanPage *) node->data;
+		te = (TextEditor *) page->widget;
+		text_editor_set_busy (te, state);
+		node = g_list_next (node);
+	}
+	gdk_flush ();
+}
+
 ANJUTA_TYPE_BEGIN(AnjutaDocman, anjuta_docman, GTK_TYPE_NOTEBOOK);
 ANJUTA_TYPE_END;

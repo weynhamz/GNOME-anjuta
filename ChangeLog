@@ -1,3 +1,71 @@
+2005-01-02  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-status.c, libanjuta/anjuta-status.h,
+	libanjuta/plugins.c: Added "busy" signal in AnjutaStatus. Added
+	anjuta_status_add_widget() to allow setting busy cursor on non
+	toplevel windows.
+
+	* plugins/cvs-plugin/plugin.c: Fixed memory leaks.
+
+	* plugins/editor/anjuta-document-manager.plugin.in: Updated accepted
+	mime types to take text/source also.
+	
+	* plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-docman.h,
+	plugins/editor/plugin.c,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_cbs.c: Listen for busy signal from
+	AnjutaStatus and set busy cursor on editors.
+
+	* plugins/file-loader/Makefile.am,
+	plugins/file-loader/plugin.c,
+	(added) plugins/file-loader/dnd.c,
+	(added) plugins/file-loader/dnd.h, Added drag and drop file receives.
+
+ 	* src/anjuta.c: Hide anjuta window before destruction.
+ 
+	Patch from Sébastien Granjoux  <seb.sfo@free.fr>:
+	* configure.in, plugins/Makefile.am,
+	(removed) plugins/project-wizard/appwiz_page1.c,
+	(removed) plugins/project-wizard/appwiz_page2.c,
+	(removed) plugins/project-wizard/appwiz_page3.c,
+	(removed) plugins/project-wizard/appwiz_page4.c,
+	(removed) plugins/project-wizard/appwizard.c,
+	(removed) plugins/project-wizard/appwizard.h,
+	(removed) plugins/project-wizard/appwizard_cbs.c,
+	(removed) plugins/project-wizard/appwizard_cbs.h,
+	(removed) plugins/project-wizard/appwizard_gui.c,
+	(removed) plugins/project-wizard/gnome_project.c,
+	(removed) plugins/project-wizard/gnome_project.h,
+	(removed) plugins/project-wizard/wizard_gui.c,
+	(removed) plugins/project-wizard/wizard_gui.h,
+	(added) plugins/project-wizard/.cvsignore,
+	(added) plugins/project-wizard/Makefile.am,
+	(added) plugins/project-wizard/anjuta-project-wizard-plugin.png,
+	(added) plugins/project-wizard/anjuta-project-wizard.glade,
+	(added) plugins/project-wizard/anjuta-project-wizard.plugin.in,
+	(added) plugins/project-wizard/applogo.png,
+	(added) plugins/project-wizard/appwizard.png,
+	(added) plugins/project-wizard/autogen.c,
+	(added) plugins/project-wizard/autogen.h,
+	(added) plugins/project-wizard/druid.c,
+	(added) plugins/project-wizard/druid.h,
+	(added) plugins/project-wizard/file.c,
+	(added) plugins/project-wizard/file.h,
+	(added) plugins/project-wizard/header.c,
+	(added) plugins/project-wizard/header.h,
+	(added) plugins/project-wizard/install.c,
+	(added) plugins/project-wizard/install.h,
+	(added) plugins/project-wizard/parser.c,
+	(added) plugins/project-wizard/parser.h,
+	(added) plugins/project-wizard/plugin.c,
+	(added) plugins/project-wizard/plugin.h,
+	(added) plugins/project-wizard/property.c,
+	(added) plugins/project-wizard/property.h: Removed old application-wizard
+	codes and added new template based (autogen based) project wizard
+	implemented by Sébastien Granjoux  <seb.sfo@free.fr>
+
 2005-01-01  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/cvs-plugin/plugin.c: Fixed crash bug

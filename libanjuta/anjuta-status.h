@@ -42,6 +42,9 @@ struct _AnjutaStatus
 struct _AnjutaStatusClass
 {
 	GnomeAppBarClass parent_class;
+	
+	/* signals */
+	void (*busy) (AnjutaStatus *status, gboolean state);
 };
 
 GType anjuta_status_get_type (void);
@@ -53,4 +56,6 @@ void anjuta_status_busy_push (AnjutaStatus *status);
 void anjuta_status_busy_pop (AnjutaStatus *status);
 void anjuta_status_set_default (AnjutaStatus *status, const gchar *label,
 								const gchar *value_format, ...);
+void anjuta_status_add_widget (AnjutaStatus *status, GtkWidget *widget);
+
 #endif

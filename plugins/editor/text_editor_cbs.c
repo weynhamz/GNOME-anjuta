@@ -113,6 +113,21 @@ gboolean on_text_editor_auto_save (gpointer data)
 	return TRUE;
 }
 
+static void 
+scintilla_uri_dropped (TextEditor *te, const char *uri)
+{
+	GtkWidget *parent;
+	GtkSelectionData tmp;
+	
+	tmp.data = (guchar *) uri;
+
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
+	if (parent)
+		g_signal_emit_by_name (G_OBJECT (parent), "drag_data_received",
+							   NULL, 0, 0, &tmp, 0, 0);
+	return;
+}
+
 gboolean timerclick = FALSE;
 
 static gboolean
@@ -125,9 +140,6 @@ click_timeout (TextEditor *te)
 	if (timerclick)
 	{
 		timerclick = FALSE;
-		text_editor_goto_line (te, line, -1, TRUE);
-		aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
-		
 		/* Emit (single) clicked signal */
 		g_signal_emit_by_name (G_OBJECT (te), "marker_clicked", FALSE, line);
 	}
@@ -149,8 +161,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	switch (nt->nmhdr.code)
 	{
 	case SCN_URIDROPPED:
-		// FIXME:
-		// scintilla_uri_dropped(nt->text);
+		scintilla_uri_dropped(te, nt->text);
 		break;
 	case SCN_SAVEPOINTREACHED:
 		g_signal_emit_by_name(G_OBJECT (te), "save_point", TRUE);
@@ -163,7 +174,6 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		text_editor_update_controls (te);
 		return;
 	case SCN_UPDATEUI:
-		//FIXME: anjuta_update_app_status (FALSE, NULL);
 		te->current_line = text_editor_get_current_lineno (te);
 		g_signal_emit_by_name(G_OBJECT (te), "update_ui");
 		return;
@@ -183,6 +193,8 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 			if (timerclick)
 			{
 				timerclick = FALSE;
+				text_editor_goto_line (te, line, -1, TRUE);
+				aneditor_command (te->editor_id, ANE_BOOKMARK_TOGGLE, 0, 0);
 				/* Emit (double) clicked signal */
 				g_signal_emit_by_name (G_OBJECT (te), "marker_clicked",
 									   TRUE, line);

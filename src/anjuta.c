@@ -104,6 +104,7 @@ on_anjuta_destroy (GtkWidget * w, gpointer data)
 {
 	DEBUG_PRINT ("AnjutaApp destroy event");
 	/* Nothing to be done here */
+	gtk_widget_hide (w);
 	gtk_main_quit ();
 }
 

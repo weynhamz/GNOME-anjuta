@@ -26,7 +26,8 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-loader.la
 
 # Plugin sources
-libanjuta_loader_la_SOURCES = plugin.c plugin.h
+libanjuta_loader_la_SOURCES = plugin.c plugin.h \
+	dnd.c 
 
 libanjuta_loader_la_LDFLAGS = -module
 

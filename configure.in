@@ -722,6 +722,7 @@ plugins/profile-default/Makefile
 plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
 plugins/cvs-plugin/Makefile
+plugins/project-wizard/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/C/Makefile

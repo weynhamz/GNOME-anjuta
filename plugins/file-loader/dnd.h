@@ -46,12 +46,10 @@
  * - ... [char *mime_type]
  *	NULL terminated list of accepted mime types.
  */
-void
-dnd_drop_init (GtkWidget *widget,
-	       void (* data_dropped) (gchar *filename, gpointer data),
-	       gpointer data, ...);
+void dnd_drop_init (GtkWidget *widget,
+	 				void (* data_dropped) (const gchar *uri, gpointer data),
+					gpointer data, ...);
 
-void 
-scintilla_uri_dropped(const char *uri);
+void dnd_drop_finalize (GtkWidget *widget, gpointer user_data);
 
 #endif	/* _DND_H_ */

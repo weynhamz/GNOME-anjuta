@@ -96,6 +96,8 @@ void anjuta_docman_open_file (AnjutaDocman *docman);
 
 void anjuta_docman_save_as_file (AnjutaDocman *docman);
 
+void anjuta_docman_set_busy (AnjutaDocman *docman, gboolean state);
+
 G_END_DECLS
 
 #endif

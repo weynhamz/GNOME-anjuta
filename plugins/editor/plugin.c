@@ -427,11 +427,11 @@ static GtkActionEntry actions_bookmark[] = {
 	N_("Jump to the first bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_first_activate)},
   { "ActionBookmarkPrevious", N_("_Previous bookmark"),
-	GTK_STOCK_GO_BACK, NULL,
+	GTK_STOCK_GO_BACK, "<control>comma",
 	N_("Jump to the previous bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_prev_activate)},
   { "ActionBookmarkNext", N_("_Next bookmark"),
-	GTK_STOCK_GO_FORWARD, NULL,
+	GTK_STOCK_GO_FORWARD, "<control>period",
 	N_("Jump to the next bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_next_activate)},
   { "ActionBookmarkLast", N_("_Last bookmark"),
@@ -779,17 +779,21 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *action;
 	GladeXML *gxml;
 	gint i;
+	AnjutaStatus *status;
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin ...");
 	editor_plugin = (EditorPlugin*) plugin;
 	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
 	g_signal_connect (G_OBJECT (docman), "editor_changed",
 					  G_CALLBACK (on_editor_changed), plugin);
+	g_signal_connect_swapped (G_OBJECT (status), "busy",
+							  G_CALLBACK (anjuta_docman_set_busy), docman);
 	editor_plugin->docman = docman;
 	
 	if (!initialized)
@@ -922,11 +926,20 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	// GtkIconFactory *icon_factory;
 	EditorPlugin *eplugin;
 	AnjutaUI *ui;
+	AnjutaStatus *status;
 	GList *node;
 	
-	eplugin = (EditorPlugin*)plugin;
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
+	
+	eplugin = (EditorPlugin*)plugin;
+
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	status = anjuta_shell_get_status (plugin->shell, NULL);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (status),
+										  G_CALLBACK (anjuta_docman_set_busy),
+										  eplugin->docman);
+	
 	anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;

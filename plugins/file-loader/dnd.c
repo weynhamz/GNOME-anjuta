@@ -47,7 +47,7 @@ static int dnd_mime_table_length = 0;
 /*
  * A pointer to the user supplied function which handles the "droppings".
  */
-static void (* dnd_data_dropped) (gchar *filename, gpointer user_data) = NULL;
+static void (* dnd_data_dropped) (const gchar *uri, gpointer user_data) = NULL;
 
 /*
  * Callback for the drag_data_received signal, emitted whenever something is
@@ -87,7 +87,8 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		{
 			*current_end = '\0';
 		}
-
+		dnd_data_dropped (current, user_data);
+		/*
 		filename = g_filename_from_uri (current, &hostname, NULL);
 		if (! filename && ! hostname)
 		{
@@ -111,7 +112,7 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		{
 			g_warning (_("Invalid filename %s."), current);
 		}
-
+		*/
 		current = current_end + 1;
 	}
 	
@@ -124,7 +125,7 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
  */
 void
 dnd_drop_init (GtkWidget *widget,
-	       void (* data_dropped) (gchar *file_name, gpointer user_data),
+	       void (* data_dropped) (const gchar *uri, gpointer user_data),
 	       gpointer user_data, ...)
 {
 	va_list list;
@@ -141,6 +142,7 @@ dnd_drop_init (GtkWidget *widget,
 	 * Get all the mime types given by user and prepare the GtkTargetEntry
 	 * structure.
 	 */
+	dnd_mime_table_length = 0;
 	va_start (list, user_data);
 	while ((mime_type = va_arg (list, gchar *)) != NULL) {
 		g_assert (mime_type != NULL);
@@ -174,20 +176,16 @@ dnd_drop_init (GtkWidget *widget,
 	 * Connect callback for the "drag_data_received" signal, emitted by the
 	 * wigdet whenever a "drop" is made.
 	 */
-	gtk_signal_connect (GTK_OBJECT (widget), "drag_data_received",
-			    GTK_SIGNAL_FUNC (drag_data_received_cb),
-			    (gpointer) user_data);
+	g_signal_connect (G_OBJECT (widget), "drag_data_received",
+					  G_CALLBACK (drag_data_received_cb),
+					  (gpointer) user_data);
 	return;
 }
 
-
-void 
-scintilla_uri_dropped(const char *uri)
+void
+dnd_drop_finalize (GtkWidget *widget, gpointer user_data)
 {
-	GtkSelectionData tmp;
-	
-	tmp.data = (guchar *) uri;
-
-	drag_data_received_cb (NULL, NULL, 0, 0, &tmp, 0,0,NULL);
-	return;
+	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+					G_CALLBACK (drag_data_received_cb), user_data);
+	dnd_data_dropped = NULL;
 }

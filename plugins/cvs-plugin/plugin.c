@@ -218,6 +218,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	{
 		g_object_set (G_OBJECT (cvs_menu_action), "sensitive", FALSE, NULL);
 	}
+	g_free (cvs_dir);
 }
 
 static void
