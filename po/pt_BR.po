@@ -14,13 +14,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta_ANJUTA_1_2_0_pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-27 14:53-0400\n"
-"PO-Revision-Date: 2004-07-26 18:32-0300\n"
+"POT-Creation-Date: 2004-07-28 02:56+0200\n"
+"PO-Revision-Date: 2004-07-29 00:43-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -85,8 +85,7 @@ msgstr "Carregar o último Projeto automaticamente"
 
 #: anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
-msgstr ""
-"Salvar automaticamente arquivos do editor antes do início da compilação"
+msgstr "Salvar automaticamente os arquivos abertos no editor antes do início da compilação"
 
 #: anjuta.glade.h:15
 msgid "Beep on job complete"
@@ -115,11 +114,11 @@ msgstr "Comando de Build:"
 
 #: anjuta.glade.h:21
 msgid "Build file browser automatically"
-msgstr "Monta o navegador de arquivos automaticamente"
+msgstr "Montar o navegador de arquivos automaticamente"
 
 #: anjuta.glade.h:22
 msgid "Build files"
-msgstr "Arquivos de Build (compilar e linkar)"
+msgstr "Arquivos de Build (compilação e linkagem)"
 
 #: anjuta.glade.h:23
 msgid "Build options"
@@ -127,7 +126,7 @@ msgstr "Opções do comando Build (Compilação e Linkagem)"
 
 #: anjuta.glade.h:24
 msgid "Build symbol browser automatically"
-msgstr "Monta o navegador de símbolos automaticamente"
+msgstr "Montar o navegador de símbolos automaticamente"
 
 #: anjuta.glade.h:25 plugins/debugger/registers_gui.c:89
 msgid "CPU Registers"
@@ -144,7 +143,7 @@ msgstr "Opções de comando CVS"
 
 #: anjuta.glade.h:28
 msgid "CVS compression level:"
-msgstr "Nivel de compressão CVS:"
+msgstr "Nível de compressão CVS:"
 
 #: anjuta.glade.h:29
 msgid "CVS context diff format"
@@ -196,7 +195,7 @@ msgstr "Flags do Compilador (CFLAGS):"
 
 #: anjuta.glade.h:41
 msgid "Compiler and linker options"
-msgstr "Opções de compilação e link"
+msgstr "Opções de compilação e linkagem"
 
 #: anjuta.glade.h:42
 msgid "Configuration"
@@ -212,7 +211,7 @@ msgstr "Configurar Parâmetros"
 
 #: anjuta.glade.h:45
 msgid "Data module Makefile.am"
-msgstr "Makefile.am do módulo de dados"
+msgstr "Makefile.am de módulo de dados"
 
 #. 13
 #: anjuta.glade.h:46 plugins/editor/text_editor_menu.c:321 src/toolbar.c:306
@@ -233,7 +232,7 @@ msgstr "Descrição:"
 
 #: anjuta.glade.h:50
 msgid "Dialog on job complete"
-msgstr "Diálogo ao terminar tarefa"
+msgstr "Mostrar um diálogo ao terminar tarefa"
 
 #: anjuta.glade.h:51
 msgid "Directories"
@@ -269,7 +268,7 @@ msgstr "Habilitar Análise de Perfil"
 
 #: anjuta.glade.h:59
 msgid "Enable _all"
-msgstr "_Habilitar todos"
+msgstr "_Habilitar tudo"
 
 #: anjuta.glade.h:60 plugins/debugger/breakpoints.c:113
 msgid "Enabled"
@@ -317,9 +316,9 @@ msgid ""
 "will be built after the source (src/) directory during \"make\"."
 msgstr ""
 "Forneça uma lista separada por espaços de diretórios a serem compilados "
-"depois do módulo fonte. Isto será definido em configure.in, e Makefiles "
-"serão gerados para eles. Eles serão compilados depois do diretório fonte "
-"(src/) durante o \"make\"."
+"depois do módulo fonte. Isto será definido em configure.in e Makefiles serão "
+"gerados para eles. Eles serão compilados depois do diretório fonte (src/) "
+"durante o \"make\"."
 
 #: anjuta.glade.h:70
 msgid ""
@@ -328,7 +327,7 @@ msgid ""
 "They will be built before the source (src/) directory during \"make\"."
 msgstr ""
 "Forneça uma lista separada por espaços de diretórios a serem compilados "
-"antes do módulo fonte. Isto será definido em configure.in, e Makefiles serão "
+"antes do módulo fonte. Isto será definido em configure.in e Makefiles serão "
 "gerados para eles. Eles serão compilados antes do diretório fonte (src/) "
 "durante o \"make\"."
 
@@ -354,7 +353,7 @@ msgstr "Ocultar parâ_metros de processo"
 
 #: anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr "Otimização de Alto Nível (Funções inlined sempre que possível)"
+msgstr "Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
 
 #: anjuta.glade.h:77
 msgid "History sizes"
@@ -374,9 +373,9 @@ msgid ""
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data loss or modification done to the project."
 msgstr ""
-"Importar um projeto existente. O Assistente de Importação irá guiá-lo na "
+"Importar um Projeto existente. O Assistente de Importação irá guiá-lo na "
 "importação e conversão de um Projeto já existente para um Projeto Anjuta. "
-"Não haverá perda de dados ou modificações no projeto original."
+"Não haverá perda de dados ou modificações no Projeto original."
 
 #: anjuta.glade.h:81
 msgid "Include Paths"
@@ -392,7 +391,7 @@ msgstr "Páginas Info"
 
 #: anjuta.glade.h:84
 msgid "Input string:"
-msgstr "Expressão de entrada:"
+msgstr "String de entrada:"
 
 #: anjuta.glade.h:85 plugins/editor/text_editor_menu.c:176 src/toolbar.c:599
 msgid "Inspect"
@@ -432,7 +431,7 @@ msgstr "Carregar padrões do _usuário"
 
 #: anjuta.glade.h:94
 msgid "Low-Level Optimization (Machine dependent optimization)"
-msgstr "Otimização de Baixo Nível (Otimização dependente da máquina)"
+msgstr "Otimização de Baixo Nível (otimização dependente da máquina)"
 
 #: anjuta.glade.h:95
 msgid "Makefile.am"
@@ -448,7 +447,7 @@ msgstr "Número máximo de tarefas independentes (0 == sem limite)"
 
 #: anjuta.glade.h:98
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
-msgstr "Otimização de Médio Nível (Sem relação tamanho-velocidade)"
+msgstr "Otimização de Nível Médio (sem compromisso tamanho-velocidade)"
 
 #: anjuta.glade.h:99
 msgid "Memory"
@@ -484,9 +483,9 @@ msgid ""
 "preferences and will be loaded from and saved with the project. If there is "
 "no project open, they will be global preferences."
 msgstr ""
-"Nota: Se existir um projeto aberto, as preferências nesta página são "
-"preferências deste projeto e serão carregadas e salvas com ele. Se nenhum "
-"projeto estiver aberto, elas serão consideradas preferências globais."
+"Nota: se já existe um Projeto aberto, as preferências desta página serão "
+"preferências deste Projeto, sendo carregadas e salvas com ele. Se nenhum "
+"Projeto estiver aberto, elas serão consideradas preferências gloais."
 
 #. Must declare static, because it will be used forever
 #: anjuta.glade.h:107 plugins/project-manager/project_dbase.c:198
@@ -559,7 +558,7 @@ msgstr "Projeto"
 
 #: anjuta.glade.h:123
 msgid "Project Configuration"
-msgstr "Configuração do Projeto"
+msgstr "Configurar Projeto"
 
 #: anjuta.glade.h:124 plugins/project-wizard/wizard_gui.c:470
 msgid "Project Description"
@@ -571,11 +570,11 @@ msgstr "Versão do Projeto"
 
 #: anjuta.glade.h:126
 msgid "Project configure.in"
-msgstr "Configure.in do projeto"
+msgstr "Configure.in do Projeto"
 
 #: anjuta.glade.h:127
 msgid "Project level"
-msgstr "Nível do projeto"
+msgstr "Nível do Projeto"
 
 #: anjuta.glade.h:128
 msgid "Projects:"
@@ -591,8 +590,7 @@ msgstr "Projetos Recentes:"
 
 #: anjuta.glade.h:131
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr ""
-"Reinicializar todas as tags associadas durante a atualização (perde ramo) [-"
+msgstr "Reinicializar todas as tags associadas durante a atualização (perde ramos) [-"
 "A]"
 
 #: anjuta.glade.h:132
@@ -621,7 +619,7 @@ msgstr "Salva todos arquivos"
 
 #: anjuta.glade.h:138
 msgid "Scripts at the end of top level Makefile.am"
-msgstr "Scripts ao final do Makefile.am raíz"
+msgstr "Scripts ao final do arquivo Makefile.am do diretório raíz"
 
 #: anjuta.glade.h:139 plugins/debugger/signals_gui.c:210
 msgid "Set Signal Property"
@@ -674,8 +672,8 @@ msgid ""
 "skeleton of various Project types."
 msgstr ""
 "Iniciar um novo Projeto. O Assistente de Aplicação irá guiá-lo durante a "
-"criação do Projeto. Com o Assistente de Aplicação, você será capaz de criar "
-"a estrutura de vários tipos de Projetos."
+"criação do Projeto. Com a ajuda do Assistente de Aplicação, você poderá "
+"criar a estrutura de vários tipos de Projetos diferentes."
 
 #: anjuta.glade.h:151
 msgid "Stop:"
@@ -700,7 +698,7 @@ msgstr "Editor de Ferramentas"
 
 #: anjuta.glade.h:156
 msgid "Top level Makefile.am"
-msgstr "Makefile.am Raíz"
+msgstr "Makefile.am do diretório raíz"
 
 #: anjuta.glade.h:157 plugins/cvs-plugin/cvs_gui.c:73
 #: plugins/debugger/registers_gui.c:48 plugins/debugger/sharedlib_gui.c:41
@@ -801,7 +799,7 @@ msgstr "_Localização:"
 
 #: anjuta.glade.h:179
 msgid "_Make a file:"
-msgstr "_Fazer um arquivo:"
+msgstr "_Compilar um arquivo com make:"
 
 #: anjuta.glade.h:180
 msgid "_Pass:"
@@ -1147,8 +1145,7 @@ msgstr "Redimensionável"
 
 #: libegg/egg-dock-item.c:260
 msgid "If set, the dock item can be resized when docked in a paned"
-msgstr ""
-"Se ativado, o item docado pode ser redimensionável quando docado em um painel"
+msgstr "Se ativado, o item docado pode ser redimensionável quando docado em um painel"
 
 #: libegg/egg-dock-item.c:267
 msgid "Item behavior"
@@ -1650,8 +1647,7 @@ msgstr "Ícone de zoom"
 
 #: plugins/build/build_file.c:48
 msgid "This file has not been saved. Save it first and then build."
-msgstr ""
-"Este arquivo não foi salvo. Salve-o primeiro e então utilize o comando build."
+msgstr "Este arquivo não foi salvo. Salve-o primeiro e então utilize o comando build."
 
 #: plugins/build/build_file.c:73
 msgid "The executable is up-to-date, there is no need to build it again."
@@ -1808,9 +1804,9 @@ msgid ""
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
 msgstr ""
-"Você alterou algumas das opções de compilação do projeto, você\n"
+"Você alterou algumas das opções de compilação do Projeto, você\n"
 "gostaria que a primeira ação de compilação e geração do executável\n"
-"(build) provocasse um compilação completa do projeto?"
+"(build) provocasse um compilação completa do Projeto?"
 
 #: plugins/build/compiler_options.c:726
 #: plugins/project-manager/src_paths.c:218
@@ -1912,19 +1908,19 @@ msgstr "_Build project"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:91
 msgid "Build whole project"
-msgstr "Compila todo o projeto"
+msgstr "Compila todo o Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:96
 msgid "_Install project"
-msgstr "_Instalar projeto"
+msgstr "_Instalar Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:97
 msgid "Install whole project"
-msgstr "Instala todo o projeto"
+msgstr "Instala todo o Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:102
 msgid "_Clean project"
-msgstr "_Limpar o projeto"
+msgstr "_Limpar o Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:103
 msgid "Clean whole project"
@@ -1936,7 +1932,7 @@ msgstr "C_onfigurar..."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:109
 msgid "Configure project"
-msgstr "Configura o projeto"
+msgstr "Configura o Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:114
 msgid "_Auto generate ..."
@@ -1944,15 +1940,15 @@ msgstr "_Auto gerar..."
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:115
 msgid "Autogenrate project files"
-msgstr "Gera automaticamente os arquivos de projeto"
+msgstr "Gera automaticamente os arquivos do Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:120
 msgid "Build _distribution"
-msgstr "Gerar uma _distribuição"
+msgstr "Gerar _distribuição"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:121
 msgid "Build project distribution"
-msgstr "Gera um arquivo .tar para distribuição do projeto"
+msgstr "Gera um arquivo .tar.gz para distribuição do Projeto"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:126
 msgid "_Build module"
@@ -1961,7 +1957,7 @@ msgstr "_Build module"
 #: plugins/build-basic-autotools/build-basic-autotools.c:127
 #: plugins/build-basic-autotools/build-basic-autotools.c:185
 msgid "Build module"
-msgstr "Compila e linka um módulo"
+msgstr "Compila e linka (build) um módulo"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:132
 msgid "_Install module"
@@ -2011,7 +2007,7 @@ msgstr "Comandos de compilação popup"
 
 #: plugins/build-basic-autotools/build-basic-autotools.c:389
 msgid "Build commands"
-msgstr "Comandos de construção do arquivo executável"
+msgstr "Comandos de compilação e linkagem (build) do arquivo executável"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
@@ -2078,19 +2074,19 @@ msgstr "Navega para o nome do arquivo de declarações."
 
 #: plugins/class-gen/clsGen.c:1418
 msgid "Browse for the implementation file name."
-msgstr "Navegar o nome do arquivo de implementações."
+msgstr "Navegar para o nome do arquivo de implementações."
 
 #: plugins/class-gen/clsGen.c:1428
 msgid "Enter the name of the class your new class will inherit from."
-msgstr "Informe o nome da classe  que a sua nova classe irá herdar."
+msgstr "Informe o nome da classe que a sua nova classe irá herdar."
 
 #: plugins/class-gen/clsGen.c:1453
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
 msgstr ""
-"Este plugin irá criar uma classe do tipo especificado e adicioná-la ao seu "
-"projeto. "
+"Este plugin irá criar uma classe do tipo especificado e vai adicioná-la ao seu "
+"Projeto. "
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
@@ -2124,7 +2120,7 @@ msgid ""
 "in the header file and will not create a source file."
 msgstr ""
 "Quando selecionado, o plugin irá gerar a declaração e a implementação no "
-"arquivo de cabeçalho e não irá criar um arquivo de código fonte."
+"arquivo de cabeçalho e não criará um arquivo de código fonte."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
@@ -2213,7 +2209,7 @@ msgstr "CVS obtendo estado "
 #: plugins/cvs-plugin/cvs.c:501 plugins/cvs-plugin/cvs.c:556
 #: plugins/cvs-plugin/cvs.c:635 plugins/cvs-plugin/cvs.c:891
 msgid "There are jobs running, please wait until they are finished"
-msgstr "Existem tarefas em execução, aguarde até que elas terminem"
+msgstr "Existem tarefas em execução, aguarde até que elas estejam finalizadas"
 
 #: plugins/cvs-plugin/cvs.c:541
 msgid "Getting CVS log "
@@ -2229,11 +2225,11 @@ msgstr "CVS iniciando sessão "
 
 #: plugins/cvs-plugin/cvs.c:765 plugins/project-manager/project_import.c:181
 msgid "Project import completed...unsuccessful\n"
-msgstr "Importação do projeto concluída... sem sucesso\n"
+msgstr "Importação do Projeto concluída... sem sucesso\n"
 
 #: plugins/cvs-plugin/cvs.c:767 plugins/project-manager/project_import.c:183
 msgid "Project import completed...unsuccessful"
-msgstr "Importação do projeto concluída... sem sucesso"
+msgstr "Importação do Projeto concluída... sem sucesso"
 
 #: plugins/cvs-plugin/cvs.c:772
 msgid "CVS completed...successful\n"
@@ -2253,7 +2249,7 @@ msgstr "pronto\n"
 
 #: plugins/cvs-plugin/cvs_cbs.c:41
 msgid "You do not need to login to a local server"
-msgstr "Não é necessário iniciar sessão em um servidor local"
+msgstr "Não é necessário iniciar uma sessão em um servidor local"
 
 #: plugins/cvs-plugin/cvs_gui.c:30
 msgid "Local"
@@ -2481,7 +2477,7 @@ msgstr "Deve ser fornecida uma localização válida para o ponto de interrupç�
 
 #: plugins/debugger/breakpoints.c:775
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "Tem certeza de que deseja excluir todos os pontos de interrupção?"
+msgstr "Você tem certeza de que deseja excluir todos os pontos de interrupção?"
 
 #: plugins/debugger/breakpoints.c:1298
 msgid "Old breakpoints disabled."
@@ -2621,7 +2617,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Bem, encontrou o BUG? Sessão de depuração terminada.\n"
+"Bem, você encontrou o BUG? Sessão de depuração terminada.\n"
 "\n"
 
 #: plugins/debugger/debugger.c:1202
@@ -2634,8 +2630,7 @@ msgstr "Impossível iniciar o terminal para depuração."
 
 #: plugins/debugger/debugger.c:1301
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr ""
-"Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/null.\n"
+msgstr "Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/null.\n"
 
 #: plugins/debugger/debugger.c:1320
 msgid "Running program ... \n"
@@ -2696,7 +2691,7 @@ msgstr "Interrompendo o processo: %d\n"
 #: plugins/debugger/debugger.c:1982
 #, c-format
 msgid "Sending signal %s to the process: %d\n"
-msgstr "Enviando sinal %s para o processo: %d\n"
+msgstr "Enviando sinal %s ao processo: %d\n"
 
 #: plugins/debugger/debugger.c:2003
 msgid "Error whilst signalling the process."
@@ -3788,7 +3783,7 @@ msgstr "Prj/Propriedades"
 
 #: plugins/editor/plugin.c:378
 msgid "Force the highlight style to project/properties files"
-msgstr "Força o estilo de realce para arquivos de projeto/propriedades"
+msgstr "Força o estilo de realce para arquivos de Projeto/propriedades"
 
 #: plugins/editor/plugin.c:380
 msgid "Conf"
@@ -4257,7 +4252,7 @@ msgstr "Interromper"
 
 #: plugins/editor/text_editor_menu.c:193
 msgid "Toggle Line numbers"
-msgstr "Alternar número de Linhas"
+msgstr "Alternar Número de Linhas"
 
 #: plugins/editor/text_editor_menu.c:200
 msgid "Toggle Marker Margin"
@@ -4317,7 +4312,7 @@ msgstr "Trocar .h/.c"
 #. 10
 #: plugins/editor/text_editor_menu.c:303 src/toolbar.c:512
 msgid "Go"
-msgstr "Ir para"
+msgstr "Ir Para"
 
 #. 11
 #: plugins/editor/text_editor_menu.c:311 plugins/editor/text_editor_menu.c:433
@@ -4329,7 +4324,7 @@ msgstr "Marcas"
 #: plugins/editor/text_editor_menu.c:341
 #: plugins/symbol-browser/an_symbol_view.c:296
 msgid "Find Usage"
-msgstr "Procurar Utilização"
+msgstr "Procurar Usos da Região Selecionada"
 
 #. 18
 #: plugins/editor/text_editor_menu.c:349
@@ -4433,11 +4428,11 @@ msgstr "Doca/Desdoca a Janela de Projeto"
 #. 6
 #: plugins/file-manager/an_file_view.c:394
 msgid "Customize"
-msgstr "Customizar"
+msgstr "Personalizar"
 
 #: plugins/file-manager/an_file_view.c:395
 msgid "Customize the file browser"
-msgstr "Customizar o navegador de arquivos"
+msgstr "Personaliza o navegador de arquivos"
 
 #: plugins/file-manager/an_file_view.c:675
 #: plugins/file-manager/an_file_view.c:787
@@ -4603,7 +4598,7 @@ msgstr "Adicionar ao Projeto"
 
 #: plugins/project-manager/project_dbase.c:362
 msgid "Anjuta project files"
-msgstr "Arquivos de projeto do Anjuta"
+msgstr "Arquivos de Projeto do Anjuta"
 
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
@@ -4648,8 +4643,8 @@ msgid ""
 "[Project]->[Project Configuration]->[GUI editor command]"
 msgstr ""
 "Não existe um arquivo .glade no diretório principal do Projeto. Se o glade "
-"não é usado para edição de GUI, especifique um comando customizado para ele "
-"em [Projeto]->[Configuração Projeto]->[Comando editor GUI]"
+"não é usado para edição de GUI, especifique um comando personalizado "
+"para ele em [Projeto]->[Configurar Projeto]->[Comando do editor GUI]"
 
 #: plugins/project-manager/project_dbase.c:1605
 msgid ""
@@ -4680,7 +4675,7 @@ msgstr ""
 
 #: plugins/project-manager/project_dbase.c:2241
 msgid " already exists in the project"
-msgstr " já existe no projeto"
+msgstr " já existe no Projeto"
 
 #: plugins/project-manager/project_dbase.c:2274
 msgid "Error while copying the file inside the module."
@@ -4796,7 +4791,7 @@ msgstr "Adicionar arquivo ao módulo: "
 #. 0
 #: plugins/project-manager/project_dbase_gui.c:259
 msgid "Include file"
-msgstr "Arquivo de inclusão"
+msgstr "Arquivo de include"
 
 #. 1
 #: plugins/project-manager/project_dbase_gui.c:265
@@ -4837,7 +4832,7 @@ msgstr "Adicionar Arquivo"
 #. 5
 #: plugins/project-manager/project_dbase_gui.c:330
 msgid "Configure Project"
-msgstr "Configurar o Projeto"
+msgstr "Configurar Projeto"
 
 #. 6
 #: plugins/project-manager/project_dbase_gui.c:336
@@ -4910,7 +4905,7 @@ msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
-"O projeto não está salvo.\n"
+"O Projeto não está salvo.\n"
 "Deseja salvá-lo antes de fechar?"
 
 #: plugins/project-manager/project_dbase_gui.c:1076
@@ -5076,15 +5071,15 @@ msgstr "Importando o Projeto... por favor, aguarde"
 
 #: plugins/project-manager/project_import.c:188
 msgid "Project import completed...successful\n"
-msgstr "Importação de projeto finalizada... com sucesso\n"
+msgstr "Importação de Projeto finalizada... com sucesso\n"
 
 #: plugins/project-manager/project_import.c:190
 msgid "Project import completed...successful"
-msgstr "Importação do projeto finalizada... com sucesso"
+msgstr "Importação do Projeto finalizada... com sucesso"
 
 #: plugins/project-manager/project_import.c:206
 msgid "Could not import Project: no project file found!"
-msgstr "Impossível importar Projeto: nenhum arquivo de projeto encontrado!"
+msgstr "Impossível importar Projeto: nenhum arquivo de Projeto encontrado!"
 
 #: plugins/project-manager/project_import.c:213
 msgid "Opening Project...please wait"
@@ -5154,7 +5149,7 @@ msgid ""
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
 "A operação de importação já foi iniciada.\n"
-"Clique em Cancelar para passar a fase de customização, ou Avançar para "
+"Clique em Cancelar para passar a fase de personalização, ou Avançar para "
 "continuar."
 
 #: plugins/project-manager/project_import_gui.c:46
@@ -5167,7 +5162,7 @@ msgid ""
 "THIS IS AN EXPERIMENTAL FEATURE\n"
 msgstr ""
 "O Assistente de Importação de Projeto pesquisa o diretório\n"
-"de um projeto já existente e tenta importar a sua estrutura\n"
+"de um Projeto já existente e tenta importar a sua estrutura\n"
 "para um Projeto Anjuta. Haverá uma oportunidade de se\n"
 "atualizar todos os valores auto-detectados durante o processo\n"
 "de importação.\n"
@@ -5185,11 +5180,11 @@ msgstr "Selecione um diretório"
 
 #: plugins/project-manager/project_import_gui.c:207
 msgid "Select top level directory of an existing project"
-msgstr "Selecione o diretório raiz de um projeto já existente"
+msgstr "Selecione o diretório raiz de um Projeto já existente"
 
 #: plugins/project-manager/project_import_gui.c:211
 msgid "Select existing project directory"
-msgstr "Selecione o diretório do um projeto já existente"
+msgstr "Selecione o diretório do um Projeto já existente"
 
 #: plugins/project-manager/project_import_gui.c:225
 msgid "Click Forward to begin the import"
@@ -5211,7 +5206,7 @@ msgstr "Caminhos de Código"
 
 #: plugins/project-wizard/appwizard_cbs.c:126
 msgid "Project name"
-msgstr "Nome do projeto"
+msgstr "Nome do Projeto"
 
 #: plugins/project-wizard/appwizard_cbs.c:127
 msgid "Source target name"
@@ -5219,7 +5214,7 @@ msgstr "Nome do arquivo de fonte do alvo"
 
 #: plugins/project-wizard/appwizard_cbs.c:128
 msgid "Project version"
-msgstr "Versão do projeto"
+msgstr "Versão do Projeto"
 
 #: plugins/project-wizard/appwizard_cbs.c:224
 #, c-format
@@ -5242,7 +5237,7 @@ msgid ""
 "settings later."
 msgstr ""
 "O Assistente de Aplicação irá gerar a estrutura\n"
-"básica de um projeto, incluindo todos os arquivos\n"
+"básica de um Projeto, incluindo todos os arquivos\n"
 "de compilação. Ele solicitará alguns detalhes sobre\n"
 "a estrutura inicial da aplicação.\n"
 "\n"
@@ -5255,7 +5250,7 @@ msgid ""
 "A project or file with the same name.already exists.\n"
 "Project creation aborted."
 msgstr ""
-"Um projeto ou arquivo com o mesmo nome já existe.\n"
+"Um Projeto ou arquivo com o mesmo nome já existe.\n"
 "Criação de Projeto abortada."
 
 #: plugins/project-wizard/gnome_project.c:81
@@ -5383,7 +5378,7 @@ msgstr "Informações Básicas"
 
 #: plugins/project-wizard/wizard_gui.c:283
 msgid "Enter the basic Project information"
-msgstr "Forneça algumas informações básicas do projeto"
+msgstr "Forneça algumas informações básicas do Projeto"
 
 #: plugins/project-wizard/wizard_gui.c:306
 msgid "Project Version:"
@@ -5625,7 +5620,7 @@ msgstr "Barras de Ferramen_ta"
 
 #: src/anjuta-actions.h:40
 msgid "_Settings"
-msgstr "Definiçõe_s"
+msgstr "Co_nfigurar"
 
 #: src/anjuta-actions.h:42
 msgid "_Preferences ..."
@@ -5645,11 +5640,11 @@ msgstr "Mas eu prefiro chá."
 
 #: src/anjuta-actions.h:50
 msgid "C_ustomize shortcuts"
-msgstr "C_ustomizar atalhos"
+msgstr "_Personalizar atalhos"
 
 #: src/anjuta-actions.h:51
 msgid "Customize shortcuts associated with menu items"
-msgstr "Customiza atalhos associados aos itens de menu"
+msgstr "Personaliza atalhos associados aos itens de menu"
 
 #: src/anjuta-actions.h:54
 msgid "Layout manager"
@@ -5673,11 +5668,11 @@ msgstr "_Ajuda"
 
 #: src/anjuta-actions.h:66
 msgid "The GNOME API pages"
-msgstr "As páginas da API GNOME"
+msgstr "As páginas do GNOME API"
 
 #: src/anjuta-actions.h:67
 msgid "Browse GNOME _API Pages"
-msgstr "Navegar as Páginas do _API GNOME"
+msgstr "Navegar as Páginas do GNOME _API"
 
 #: src/anjuta-actions.h:70
 msgid "Browse _Man Pages"
@@ -5713,7 +5708,7 @@ msgstr "Posso ajudá-lo?"
 
 #: src/anjuta-actions.h:86
 msgid "Anjuta _Home Page"
-msgstr "Página do An_juta"
+msgstr "_Home Page do Anjuta"
 
 #: src/anjuta-actions.h:87
 msgid "Online documentation and resources"
@@ -5753,7 +5748,7 @@ msgstr "Envia patches para o Anjuta"
 
 #: src/anjuta-actions.h:106
 msgid "Ask a _question"
-msgstr "Fazer uma per_gunta"
+msgstr "Enviar uma per_gunta"
 
 #: src/anjuta-actions.h:107
 msgid "Submit a question for FAQs"
@@ -5835,9 +5830,9 @@ msgid ""
 "Warning: Your generated project will still be fine, though.\n"
 msgstr ""
 "Aviso: Impossível geral o código C/C++.\n"
-"Aviso: Isto ocorreu porque ou o glade (em projetos gtk/gnome) ou o glademm "
-"(em projetos gtkmm/gnomemm) não está intalado.\n"
-"Aviso: O projeto gerado continuará correto, apesar disso.\n"
+"Aviso: Isto ocorreu porque ou o glade (em Projetos gtk/gnome) ou o glademm "
+"(em Projetos gtkmm/gnomemm) não está intalado.\n"
+"Aviso: O Projeto gerado continuará correto, apesar disso.\n"
 
 #: src/glade_iface.c:108
 msgid "Cannot fork glade."
@@ -5944,11 +5939,11 @@ msgstr "Executa o configurador"
 msgid "Build current file, or build the source directory of the Project"
 msgstr ""
 "Compila e linka o arquivo atual, ou compila e linka todo o diretório fonte "
-"do projeto"
+"do Projeto"
 
 #: src/toolbar.c:286
 msgid "Build_all"
-msgstr "Compil_ar e linkar todo o projeto"
+msgstr "Compil_ar e linkar todo o Projeto"
 
 #: src/toolbar.c:288
 msgid "Build from the top directory of the Project"
