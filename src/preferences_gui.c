@@ -1838,7 +1838,8 @@ create_preferences_pagemsg (Preferences* p)
 	GtkWidget* label4;
 	GtkWidget* label5;
 	GtkWidget* label6;
-	
+	GtkWidget* checkbutton10;
+	GtkWidget* frame_indicators;
 	
 	gint i;
 	
@@ -1980,6 +1981,17 @@ create_preferences_pagemsg (Preferences* p)
 	label5 = gtk_label_new(_("Program messages:"));
 	label6 = gtk_label_new(_("Other messages:"));
 	
+	frame_indicators = gtk_frame_new(_("Indicator"));
+	gtk_widget_show(frame_indicators);
+	gtk_container_set_border_width (GTK_CONTAINER (frame_indicators), 5);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame_indicators, FALSE, FALSE, 0);
+
+	checkbutton10 =
+		gtk_check_button_new_with_label (_("Enable automatic messages indicators"));
+	gtk_widget_show (checkbutton10);
+	gtk_container_set_border_width (GTK_CONTAINER (checkbutton10), 5);
+	gtk_container_add (GTK_CONTAINER(frame_indicators), checkbutton10);
+
 	gtk_table_attach (GTK_TABLE (table_colors), label3, 0, 1, 0, 1,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 5, 0);
@@ -2014,6 +2026,8 @@ create_preferences_pagemsg (Preferences* p)
 	p->widgets.color_picker[2] = color_picker_messages1;
 	gtk_widget_ref(color_picker_messages2);
 	p->widgets.color_picker[3] = color_picker_messages2;
+	gtk_widget_ref(checkbutton10);
+	p->widgets.auto_indicator_check= checkbutton10;
 	
 	gtk_container_add(GTK_CONTAINER(frame_colors), table_colors);
 	gtk_container_set_border_width(GTK_CONTAINER(frame_colors), 5);
@@ -2462,6 +2476,10 @@ on_preferences_apply_clicked (GtkButton * button, gpointer user_data)
 			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
 							   (pr->widgets.
 							    truncat_mesg_check)));
+	preferences_set_int (pr, MESSAGES_INDICATORS_AUTOMATIC,
+			     gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+							   (pr->widgets.
+							    auto_indicator_check)));
 								
 	if (gtk_toggle_button_get_active
 	    (GTK_TOGGLE_BUTTON (pr->widgets.tag_pos_msg_radio[0])) == TRUE)

@@ -147,7 +147,7 @@ struct _PreferencesWidgets
 	GtkWidget *mesg_last_spin;
 	GtkWidget *tag_pos_msg_radio[4];
 	GtkWidget *color_picker[4];
-	
+	GtkWidget *auto_indicator_check;
 	
 	/*
 	 * * Page 7

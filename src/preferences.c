@@ -217,6 +217,7 @@ preferences_destroy (Preferences * pr)
 		gtk_widget_unref (pr->widgets.build_file_tree);
 		gtk_widget_unref (pr->widgets.show_tooltips);
 		gtk_widget_unref (pr->widgets.no_tag_check);
+		gtk_widget_unref (pr->widgets.auto_indicator_check);
 		for (i = 0; i < 4; i++)
 			gtk_widget_unref (pr->widgets.tag_pos_radio[i]);
 
@@ -568,6 +569,10 @@ preferences_sync (Preferences * pr)
 				   (pr->widgets.mesg_last_spin),
 				   preferences_get_int (pr,
 							TRUNCAT_MESG_LAST));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
+				      (pr->widgets.auto_indicator_check),
+				      preferences_get_int (pr,
+							   MESSAGES_INDICATORS_AUTOMATIC));
 	
 	str = preferences_get (pr, MESSAGES_TAG_POS);
 	if (str != NULL)
@@ -1018,6 +1023,9 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	str = preferences_get (pr, MESSAGES_COLOR_MESSAGES2);
 	fprintf (fp, "%s=%s\n", MESSAGES_COLOR_MESSAGES2, str);
 	g_free(str);
+
+	fprintf (fp, "%s=%d\n", MESSAGES_INDICATORS_AUTOMATIC,
+		 preferences_get_int (pr, MESSAGES_INDICATORS_AUTOMATIC));
 	
 	/* Page 7 */
 	str = preferences_get (pr, EDITOR_TAG_POS);

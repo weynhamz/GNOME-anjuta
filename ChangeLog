@@ -8,6 +8,13 @@
 
 2002-12-01  Naba Kumar <naba@gnome.org>
 
+	* data/anjuta.properties: Fixed caching problem on 
+	indicators.
+	* src/preferences.c, src/preferences_gui.c: Implemented automatic
+	indicators prefs.
+	
+2002-12-01  Naba Kumar <naba@gnome.org>
+
 	* data/properies/anjuta.properties: Corrected "indicators.automatic"
 	property name.
 	* src/anjuta.c, src/preferences.h: Added MESSAGES_INDCATORS_AUTOMATIC
