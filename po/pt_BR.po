@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-13 18:38+0100\n"
-"PO-Revision-Date: 2005-03-17 08:38-0300\n"
+"POT-Creation-Date: 2005-03-18 02:40+0100\n"
+"PO-Revision-Date: 2005-03-18 10:26-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -423,7 +423,7 @@ msgid "Inspect"
 msgstr "Inspecionar"
 
 #: anjuta.glade.h:86
-msgid "Keep going when some targets can not be made"
+msgid "Keep going when some targets cannot be made"
 msgstr "Continuar mesmo quando alguns alvos não puderem ser construídos"
 
 #: anjuta.glade.h:87 plugins/debug-manager/anjuta-debug-manager.glade.h:14
@@ -528,8 +528,8 @@ msgid "Open existing file or create a new file."
 msgstr "Abre um arquivo existente ou cria um novo arquivo."
 
 #: anjuta.glade.h:110 plugins/editor/anjuta-docman.c:303
-#: plugins/file-loader/plugin.c:527 plugins/file-loader/plugin.c:783
-#: plugins/file-loader/plugin.c:790
+#: plugins/file-loader/plugin.c:526 plugins/file-loader/plugin.c:782
+#: plugins/file-loader/plugin.c:789
 msgid "Open file"
 msgstr "Abre um arquivo"
 
@@ -1021,7 +1021,8 @@ msgid "launcher.c: Failed to set channel encoding!"
 msgstr "laucher.c: Falhar ao definir o canal de codificação!"
 
 #: libanjuta/anjuta-launcher.c:913 libanjuta/resources.c:253
-#: libanjuta/resources.c:262
+#: libanjuta/resources.c:262 plugins/debug-manager/utilities.c:1663
+#: plugins/gdb/utilities.c:277
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Impossível executar o comando: \"%s\""
@@ -1363,11 +1364,11 @@ msgstr "Procurar"
 msgid "Incremental search"
 msgstr "Procura incremental"
 
-#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:1039
+#: libegg/test-actions.c:155 plugins/file-loader/plugin.c:1038
 msgid "Open _Recent"
 msgstr "Abrir _Recente"
 
-#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:1050
+#: libegg/test-actions.c:156 plugins/file-loader/plugin.c:1049
 msgid "Open recent files"
 msgstr "Abre arquivos utilizados recentemente"
 
@@ -1825,131 +1826,157 @@ msgid "Select source file"
 msgstr "Arquivo de código fonte selecionado"
 
 #: plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
+msgid "* Base Class Name:"
+msgstr "* Nome da Classe Base:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
+msgid "* Class Function Prefix:"
+msgstr "* Prefixo de Função de Classe:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
+msgid "* Class name:"
+msgstr "* Nome da classe:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
+msgid "* GObject Type Prefix:"
+msgstr "* Tipo de Prefixo do GObject:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
+msgid "* GObject Type:"
+msgstr "* Tipo do GObject:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
+msgid "* Output Header File:"
+msgstr "* Arquivo Cabeçalho de Saída:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
+msgid "* Output Source File:"
+msgstr "* Arquivo Fonte de Saída:"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
 msgid ""
 "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
-"<span size=\"large\" weight=\"bold\">Construtor de Modelo de Classe GObject</span>"
+"<span size=\"large\" weight=\"bold\">Construtor de Modelo de Classe GObject</"
+"span>"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
-msgstr "<span size=\"large\" weight=\"bold\">Construtor de Classe C++ Genérica</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Construtor de Classe C++ Genérica</span>"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
+msgid "Add to Repository"
+msgstr "Adicionar ao Repositório"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
+msgid "Add to current Project?"
+msgstr "Adicionar ao Projeto atual?"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
+#: plugins/file-wizard/anjuta-file-wizard.glade.h:6
+msgid "Add to project"
+msgstr "Adicionar ao Projeto"
+
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
 msgid "Author Email:"
 msgstr "Correio Eletrônico do Autor:"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
 msgid "Author Name:"
 msgstr "Nome do Autor:"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
 msgid "Author/Date-Time"
 msgstr "Autor/Data_Hora"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
-msgid "Base Class Name:"
-msgstr "Nome da Classe Base:"
-
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
 msgid "Base Class:"
 msgstr "ClasseBase:"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
 msgid "Base class inheritance:"
 msgstr "Hereditariedade da classe base:"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:18
 msgid "Browse"
 msgstr "Navegar"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
 msgid "Browse for the declaration file name."
 msgstr "Navega para o nome do arquivo de declarações."
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Browse for the implementation file name."
 msgstr "Navegar para o nome do arquivo de implementações."
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
-msgid "Class Function Prefix:"
-msgstr "Prefixo de Função de Classe:"
-
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Class Generator"
 msgstr "Gerador de Classe"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
 msgid "Class Options:"
 msgstr "Opções da Classe:"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
-msgid "Class name:"
-msgstr "Nome da classe:"
-
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:16
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 #: plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
 msgid "Create"
 msgstr "Criar"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:17
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Enter the name for the class you want to add."
 msgstr "Informe o nome da classe que deseja adicionar."
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:18
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 msgid "Enter the name of the class your new class will inherit from."
 msgstr "Informe o nome da classe que a sua nova classe irá herdar."
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
 msgid "GObject Class"
 msgstr "Classe GObject"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
-msgid "GObject Type Prefix:"
-msgstr "Tipo de Prefixo do GObject:"
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
+msgid ""
+"General Public License (GPL)\n"
+"Lesser General Public License (LGPL)\n"
+"No License\n"
+msgstr ""
+"General Public License (GPL)\n"
+"Lesser General Public License (LGPL)\n"
+"No License\n"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
-msgid "GObject Type:"
-msgstr "Tipo de GObject:"
-
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
-msgid "GPL Notice"
-msgstr "Aviso GPL"
-
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:31
 msgid "Generic C++ Class"
 msgstr "Classe C++ Genérica"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:32
 msgid "Inline the declaration and implementation"
 msgstr "Torna inline a declaração e a implementação"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
-msgid "Output Header File:"
-msgstr "Arquivo Cabeçalho de Saída:"
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:33
+msgid "License: "
+msgstr "Licença: "
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
-msgid "Output Source File:"
-msgstr "Arquivo Fonte de Saída:"
-
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:34
 msgid "Source/Header Headings:"
 msgstr "Cabeçalhos de Fonte/Cabeçalho:"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:35
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. Note that the creating class's parameters will be taken from the "
-"active tab."
+"active tab. Please be sure to fill all required fields marked by *."
 msgstr ""
 "Este plugin irá criar uma classe do tipo especificado e vai adicioná-la ao "
-"seu Projeto. Note que os parâmetros da classe criada serão obtidos a "
-"partir da aba ativa."
+"seu Projeto. Note que os parâmetros da classe criada serão obtidos a partir "
+"da aba ativa. Por favor, tenha certeza de preencher todos os campos requeridos "
+"marcados com um *."
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
 msgid "Virtual destructor"
 msgstr "Destructor virtual"
 
-#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:30
+#: plugins/class-gen/anjuta-class-gen-plugin.glade.h:37
 msgid ""
 "public\n"
 "protected\n"
@@ -1959,11 +1986,11 @@ msgstr ""
 "protected\n"
 "private"
 
-#: plugins/class-gen/class_gen.c:151 plugins/class-gen/class_gen.c:349
-msgid "Please check your fields."
-msgstr "Por favor, verifique os seus campos."
+#: plugins/class-gen/class_gen.c:140
+msgid "Please check your required fields."
+msgstr "Por favor, verifique os campos requeridos."
 
-#: plugins/class-gen/class_gen.c:188
+#: plugins/class-gen/class_gen.c:190
 msgid ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
@@ -1971,13 +1998,13 @@ msgstr ""
 "Um erro ocorreu ao tentar escrever o Modelo de Classe GObject. Verifique as "
 "permissões do arquivo."
 
-#: plugins/class-gen/class_gen.c:395
+#: plugins/class-gen/class_gen.c:362
+msgid "Please fill required fields."
+msgstr "Por favor, preencha os campos requeridos."
+
+#: plugins/class-gen/class_gen.c:420
 msgid "Error in writing files"
 msgstr "Erro ao escrever arquivos"
-
-#: plugins/class-gen/plugin.c:150
-msgid "A project must be open before creating a class"
-msgstr "Um Projeto deve estar aberto antes de se criar uma classe"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "/usr/bin/cvs"
@@ -2405,7 +2432,7 @@ msgstr "Impossível abrir o arquivo: %s\n"
 msgid "Load Target to debug"
 msgstr "Carregar o Alvo para depuração"
 
-#: plugins/debug-manager/plugin.c:57 plugins/file-loader/plugin.c:433
+#: plugins/debug-manager/plugin.c:57 plugins/file-loader/plugin.c:432
 #: plugins/project-manager/project_dbase.c:363
 #: plugins/project-manager/project_dbase_gui.c:153
 #: plugins/project-manager/project_dbase_gui.c:170
@@ -2536,11 +2563,6 @@ msgstr "Diga adeus para o depurador"
 #: plugins/debug-manager/plugin.c:443
 msgid "Debugger operations"
 msgstr "Operações de depuração"
-
-#: plugins/debug-manager/utilities.c:1663 plugins/gdb/utilities.c:277
-#, c-format
-msgid "Can not execute command: \"%s\""
-msgstr "Impossível executar o comando: \"%s\""
 
 #: plugins/devhelp/plugin.c:231
 msgid "Contents"
@@ -4361,10 +4383,10 @@ msgstr "Docar"
 #: plugins/file-loader/plugin.c:170
 #, c-format
 msgid ""
-"<b>Can not open \"%s\"</b>.\n"
+"<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no suitable plugin capable of handlingthis file. Neither has a "
-"default action or applicationbeen configured for this file.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "Mime type: %s.\n"
 "\n"
@@ -4372,121 +4394,121 @@ msgid ""
 msgstr ""
 "<b>Impossível abrir \"%s\"</b>.\n"
 "\n"
-"Não existe nenhum plugin capaz de manipular este arquivo. Nem nenhuma ação "
-"ou aplicação padrão para este arquivo está configuradapara este arquivo.\n"
+"Não existe nenhum plugin, ação padrão, ou aplicação configurada para "
+"manipular este tipo de arquivo.\n"
 "\n"
 "Mime type: %s.\n"
 "\n"
 "Você pode escolher tentar abrí-lo com os plugins ou aplicações a seguir."
 
-#: plugins/file-loader/plugin.c:191
+#: plugins/file-loader/plugin.c:190
 msgid "Open with:"
 msgstr "Abrir com:"
 
 #. Document manager plugin
-#: plugins/file-loader/plugin.c:199
+#: plugins/file-loader/plugin.c:198
 msgid "Document Manager"
 msgstr "Gerenciador de Documentos"
 
-#: plugins/file-loader/plugin.c:438
+#: plugins/file-loader/plugin.c:437
 msgid "Anjuta Projects"
 msgstr "Projetos do Anjuta"
 
-#: plugins/file-loader/plugin.c:444
+#: plugins/file-loader/plugin.c:443
 #: plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "Arquivos de código fonte em C/C++"
 
-#: plugins/file-loader/plugin.c:456
+#: plugins/file-loader/plugin.c:455
 msgid "C# source files"
 msgstr "Arquivos de código fonte em C#"
 
-#: plugins/file-loader/plugin.c:462
+#: plugins/file-loader/plugin.c:461
 #: plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Arquivos de código fonte em Java"
 
-#: plugins/file-loader/plugin.c:468
+#: plugins/file-loader/plugin.c:467
 msgid "Pascal source files"
 msgstr "Arquivos de código fonte em Pascal"
 
-#: plugins/file-loader/plugin.c:473
+#: plugins/file-loader/plugin.c:472
 msgid "PHP source files"
 msgstr "Arquivos de código fonte em PHP"
 
-#: plugins/file-loader/plugin.c:480
+#: plugins/file-loader/plugin.c:479
 msgid "Perl source files"
 msgstr "Arquivos de código fonte em Perl"
 
-#: plugins/file-loader/plugin.c:486
+#: plugins/file-loader/plugin.c:485
 msgid "Python source files"
 msgstr "Arquivo de código fonte em Python"
 
-#: plugins/file-loader/plugin.c:491
+#: plugins/file-loader/plugin.c:490
 msgid "Hyper text markup files"
 msgstr "Hyper text markup files"
 
-#: plugins/file-loader/plugin.c:500
+#: plugins/file-loader/plugin.c:499
 msgid "Shell scripts files"
 msgstr "Arquivos script de shell"
 
-#: plugins/file-loader/plugin.c:505
+#: plugins/file-loader/plugin.c:504
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: plugins/file-loader/plugin.c:511
+#: plugins/file-loader/plugin.c:510
 msgid "Lua files"
 msgstr "Arquivos Lua"
 
-#: plugins/file-loader/plugin.c:516
+#: plugins/file-loader/plugin.c:515
 msgid "Diff files"
 msgstr "Arquivos diff"
 
-#: plugins/file-loader/plugin.c:773
+#: plugins/file-loader/plugin.c:772
 msgid "_New ..."
 msgstr "_Novo..."
 
-#: plugins/file-loader/plugin.c:775
+#: plugins/file-loader/plugin.c:774
 msgid "New empty editor."
 msgstr "Novo editor vazio."
 
-#: plugins/file-loader/plugin.c:781
+#: plugins/file-loader/plugin.c:780
 msgid "_Open ..."
 msgstr "_Abrir..."
 
-#: plugins/file-loader/plugin.c:789
+#: plugins/file-loader/plugin.c:788
 msgid "_Open"
 msgstr "_Abrir"
 
-#: plugins/file-loader/plugin.c:796
+#: plugins/file-loader/plugin.c:795
 msgid "Open _With"
 msgstr "Abrir _Com"
 
-#: plugins/file-loader/plugin.c:797
+#: plugins/file-loader/plugin.c:796
 msgid "Open with"
 msgstr "Abre com"
 
-#: plugins/file-loader/plugin.c:1014
+#: plugins/file-loader/plugin.c:1013
 msgid "File Loader"
 msgstr "Carregador de Arquivo"
 
-#: plugins/file-loader/plugin.c:1020
+#: plugins/file-loader/plugin.c:1019
 msgid "_Wizard"
 msgstr "_Assistente"
 
-#: plugins/file-loader/plugin.c:1021
+#: plugins/file-loader/plugin.c:1020
 msgid "New file, project and project components."
 msgstr "Novo arquivo, Projeto e componentes de Projeto."
 
-#: plugins/file-loader/plugin.c:1030
+#: plugins/file-loader/plugin.c:1029
 msgid "New"
 msgstr "Novo"
 
-#: plugins/file-loader/plugin.c:1033
+#: plugins/file-loader/plugin.c:1032
 msgid "Open"
 msgstr "Abre"
 
-#: plugins/file-loader/plugin.c:1040
+#: plugins/file-loader/plugin.c:1039
 msgid "Open recent file"
 msgstr "Abre um arquivo utilizado recentemente"
 
@@ -4583,10 +4605,6 @@ msgstr "Adiciona Informação de Licença"
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:5
 msgid "Add to CVS"
 msgstr "Adicionar ao CVS"
-
-#: plugins/file-wizard/anjuta-file-wizard.glade.h:6
-msgid "Add to project"
-msgstr "Adicionar ao Projeto"
 
 #: plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid "Create corresponding header file"
@@ -6473,7 +6491,8 @@ msgstr "<b>Notificação</b>"
 #: plugins/gtodo/preferences.c:179
 #, c-format
 msgid "Allow to do items to notifiy me when they are due in %i minutes"
-msgstr "Permite itens de tarefa notificar-me quando devem ser finalizados em %i "
+msgstr ""
+"Permite itens de tarefa notificar-me quando devem ser finalizados em %i "
 "minutos"
 
 #: plugins/gtodo/preferences.c:186
@@ -6959,7 +6978,7 @@ msgstr "Recuperando a última sessão..."
 #: plugins/profile-default/plugin.c:544
 #, c-format
 msgid ""
-"Can not open: %s\n"
+"Cannot open: %s\n"
 "&s"
 msgstr ""
 "Impossível abrir: %s\n"
@@ -6973,7 +6992,7 @@ msgstr "Sem permissão de leitura para:%s"
 #: plugins/profile-default/plugin.c:554 plugins/profile-default/plugin.c:563
 #, c-format
 msgid ""
-"Can not open: %s\n"
+"Cannot open: %s\n"
 "XML parse error."
 msgstr ""
 "Impossível abrir: %s\n"
@@ -6982,7 +7001,7 @@ msgstr ""
 #: plugins/profile-default/plugin.c:573 plugins/profile-default/plugin.c:764
 #, c-format
 msgid ""
-"Can not open: %s\n"
+"Cannot open: %s\n"
 "Does not look like a valid Anjuta project."
 msgstr ""
 "Impossível abrir: %s\n"
@@ -6990,7 +7009,9 @@ msgstr ""
 
 #: plugins/project-import/anjuta-project-import.glade.h:1
 msgid "Enter the base path of your project (where configure.in can be found):"
-msgstr "Entre com o caminho base para seu Projeto (onde o arquivo configure.in pode ser encontrado):"
+msgstr ""
+"Entre com o caminho base para seu Projeto (onde o arquivo configure.in pode "
+"ser encontrado):"
 
 #: plugins/project-import/anjuta-project-import.glade.h:2
 msgid "Enter the project name:"
@@ -7027,8 +7048,8 @@ msgstr ""
 
 #: plugins/project-import/project-import.c:258
 msgid ""
-"Generation of project file failed. Pleasecheck if you have write access to "
-"the projectdirectory!"
+"Generation of project file failed. Please check if you have write access to "
+"the project directory!"
 msgstr ""
 "A geração do projeto falhou. Por favor, verifique se você tem as permissões "
 "de escrita para o diretório de projeto!"
@@ -7975,7 +7996,9 @@ msgstr "Operações do Subversion"
 
 #: plugins/subversion/subversion-callbacks.c:63
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "O comando do Subversion está em execução - por favor, aguarde sua finalização!"
+msgstr ""
+"O comando do Subversion está em execução - por favor, aguarde sua "
+"finalização!"
 
 #: plugins/subversion/svn-notify.c:68
 msgid "Add"
@@ -8242,9 +8265,9 @@ msgid "_Lock Dock Layout"
 msgstr "_Travar o Layout de Docagem"
 
 #: src/anjuta-actions.h:49
-msgid "Lock the current dock layout so that widgets can not moved"
-msgstr "Trava o layout de docagem de modo que os componentes não podem "
-"ser movimentados"
+msgid "Lock the current dock layout so that widgets cannot be moved"
+msgstr "Trava o layout de docagem atual de modo que os componentes não podem ser "
+"movimentados"
 
 #: src/anjuta-actions.h:54 src/shell.c:78
 msgid "_Settings"
@@ -8413,6 +8436,15 @@ msgstr "Testa o grupo de ação do shell"
 #: src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
+
+#~ msgid "GPL Notice"
+#~ msgstr "Aviso GPL"
+
+#~ msgid "A project must be open before creating a class"
+#~ msgstr "Um Projeto deve estar aberto antes de se criar uma classe"
+
+#~ msgid "Can not execute command: \"%s\""
+#~ msgstr "Impossível executar o comando: \"%s\""
 
 #~ msgid "Class name not valid"
 #~ msgstr "Nome de classe inválido"
@@ -8662,9 +8694,6 @@ msgstr "Shell de teste do Anjuta"
 
 #~ msgid "Save Project"
 #~ msgstr "Salva o Projeto"
-
-#~ msgid "Save the current Project"
-#~ msgstr "Salva o Projeto atual"
 
 #~ msgid "Close Project"
 #~ msgstr "Fecha o Projeto atual"
