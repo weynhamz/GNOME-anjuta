@@ -7,7 +7,11 @@
 INCLUDES = \
 	-I$(top_srcdir)/intl \
 	$(GNOME_INCLUDEDIR)\
-	 -I../scintilla/include -I../widgets -I../ccview -I.. -I.\
+	 -I$(srcdir)/../scintilla/include \
+	 -I$(srcdir)/../widgets \
+	 -I$(srcdir)/../ccview \
+	 -I$(srcdir)/../pixmaps \
+	 -I.. -I. \
 	 -DHAVE_CONFIG_H\
 	 -Wall -Wimplicit -Wreturn-type -Wunused -Wswitch -Wcomment -Wuninitialized -Wparentheses -Wtraditional -Wpointer-arith -Wmissing-prototypes\
 	 -O1\

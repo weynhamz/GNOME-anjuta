@@ -28,8 +28,8 @@
 #include "anjuta.h"
 #include "resources.h"
 #include "compiler_options.h"
-#include "pixmaps/list_unselect.xpm"
-#include "pixmaps/list_select.xpm"
+#include "../pixmaps/list_unselect.xpm"
+#include "../pixmaps/list_select.xpm"
 
 #define ANJUTA_SUPPORTS_END_STRING "SUPPORTS_END"
 #define ANJUTA_SUPPORTS_END \

@@ -7,6 +7,9 @@ AC_INIT(configure.in)
 AM_INIT_AUTOMAKE(anjuta, 0.1.6)
 AM_CONFIG_HEADER(config.h)
 
+dnl Initialize xml-i18n-tools
+AM_PROG_XML_I18N_TOOLS
+
 AC_ISC_POSIX
 AC_PROG_CC
 AC_PROG_CXX
@@ -26,9 +29,6 @@ dnl ***************************************************************************
 dnl Check for Gnome XML
 dnl ***************************************************************************
 GNOME_XML_CHECK
-
-dnl Initialize xml-i18n-tools
-AM_PROG_XML_I18N_TOOLS
 
 dnl ***************************************************************************
 dnl Check for ScrollKeeper

@@ -2,6 +2,17 @@
 
 	* README: updated requirements.
 
+	* scintilla/Makefile.am,
+	  src/Makefile.am: fixed includes using $(srcdir), as the distcheck
+	  target can't be realized (custom build path).
+
+	* Makefile.am: added xml-i18n-* and anjuta.spec.in as EXTRA_DIST.
+	  Removed install-data-local.
+
+	* src/compiler_options.c: changed the include paths of the pixmaps.
+	  we hadn't any warning because of the include paths passed to the
+	  compiler. Thanks to make distcheck for reporting this.
+
 
 2001-07-31  Stephane Demurget <demurgets@free.fr>
 

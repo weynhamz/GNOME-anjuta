@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.6\n"
-"POT-Creation-Date: 2001-07-30 22:52+0200\n"
+"POT-Creation-Date: 2001-08-01 15:08+0200\n"
 "PO-Revision-Date: 2001-07-30 23:40+0200\n"
 "Last-Translator: (null) <(null)>\n"
 "Language-Team: (null)\n"
@@ -555,8 +555,7 @@ msgstr "La construction de la distribution a échouée\n"
 
 #: src/build_project.c:373
 msgid "Build-Distribution completed ... unsuccessful"
-msgstr ""
-"La construction de la distribution s'est interrompue à la suite d'une erreur"
+msgstr "La construction de la distribution s'est interrompue à la suite d'une erreur"
 
 #: src/build_project.c:379
 msgid "Build-Distribution completed...............Successful\n"
@@ -735,8 +734,7 @@ msgstr ""
 
 #: src/compile.c:129
 msgid "The object file is up to date. No need to compile again."
-msgstr ""
-"Le fichier objet est déjà à jour, il n'est donc pas utile de le regénérer."
+msgstr "Le fichier objet est déjà à jour, il n'est donc pas utile de le regénérer."
 
 #: src/compile.c:143
 msgid "I do not really know how to compile this file."
@@ -980,9 +978,7 @@ msgstr "Avertissements pour les prototypes de fonctions manquants"
 
 #: src/compiler_options_gui.c:958
 msgid "Warning for Un-Inline-able declarations"
-msgstr ""
-"Avertissements pour les déclarations de fonctions 'inline' qui ne peuvent "
-"l'être"
+msgstr "Avertissements pour les déclarations de fonctions 'inline' qui ne peuvent l'être"
 
 #: src/compiler_options_gui.c:966
 msgid "Warning for Overloaded-virtuals"
@@ -1176,8 +1172,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Mhhh, j'espère que vous avez trouvé le bogue ;) :: Session de débogage "
-"terminée.\n"
+"Mhhh, j'espère que vous avez trouvé le bogue ;) :: Session de débogage terminée.\n"
 "\n"
 
 #: src/debugger.c:1100
@@ -1190,9 +1185,7 @@ msgstr "Erreur : impossible d'ouvrir un terminal pour le débogage."
 
 #: src/debugger.c:1182
 msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr ""
-"Avertissement : Aucun terminal de débogage. Redirection de la sortie vers "
-"/dev/null.\n"
+msgstr "Avertissement : Aucun terminal de débogage. Redirection de la sortie vers /dev/null.\n"
 
 #: src/debugger.c:1200
 msgid "Running program ... \n"
@@ -1214,8 +1207,8 @@ msgstr ""
 #: src/debugger.c:1344
 msgid "You FOOL! I can not attach to myself."
 msgstr ""
-"A mon avis, vous devez être plus que largement positif au moindre alcootest "
-"!\nComment voulez-vous que je m'attache en plein exécution ?"
+"A mon avis, vous devez être plus que largement positif au moindre alcootest !\n"
+"Comment voulez-vous que je m'attache en plein exécution ?"
 
 #: src/debugger.c:1427
 #, c-format
@@ -1450,8 +1443,7 @@ msgstr "Aucune occurence de \"%s\" n'a été trouvé dans le texte sélectionné"
 #: src/find_text.c:451 src/toolbar_callbacks.c:158
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
-msgstr ""
-"Aucune occurence de \"%s\" n'a été trouvé à partir de la position courante"
+msgstr "Aucune occurence de \"%s\" n'a été trouvé à partir de la position courante"
 
 #: src/gnome_project.c:59
 msgid ""
@@ -1891,9 +1883,7 @@ msgstr "Chercher et _remplacer ..."
 #: src/main_menubar_def.h:320
 #, fuzzy
 msgid "Search for and replace a string or regexp with another string"
-msgstr ""
-"Recherche et remplace une chaîne ou une expression regulière par une autre "
-"chaîne"
+msgstr "Recherche et remplace une chaîne ou une expression regulière par une autre chaîne"
 
 #: src/main_menubar_def.h:328
 msgid "G_o to"
@@ -2619,8 +2609,7 @@ msgstr "_Autogénération"
 
 #: src/main_menubar_def.h:943
 msgid "Auto generate all the build files"
-msgstr ""
-"Génère automatiquement tous les fichiers servant à la construction du projet"
+msgstr "Génère automatiquement tous les fichiers servant à la construction du projet"
 
 #: src/main_menubar_def.h:949
 msgid "Clea_n"
@@ -2869,9 +2858,7 @@ msgstr "Charger image _mémoire"
 #: src/main_menubar_def.h:1162
 #, fuzzy
 msgid "Load a core file to dissect"
-msgstr ""
-"Charge une image mémoire afin de trouver plus facilement l'origine d'un "
-"problème"
+msgstr "Charge une image mémoire afin de trouver plus facilement l'origine d'un problème"
 
 #: src/main_menubar_def.h:1167
 msgid "_Attach to Process ..."
@@ -3023,8 +3010,7 @@ msgstr "Chemins des _sources"
 
 #: src/main_menubar_def.h:1336
 msgid "Specify the source paths for the Anjuta to search"
-msgstr ""
-"Permet de spécifier les chemins des fichiers sources qu'Anjuta doit chercher"
+msgstr "Permet de spécifier les chemins des fichiers sources qu'Anjuta doit chercher"
 
 #: src/main_menubar_def.h:1341
 msgid "_Commands ..."
@@ -3361,8 +3347,7 @@ msgstr "Boîte de dialogue à la fin des tâches"
 #: src/preferences_gui.c:524
 #, fuzzy
 msgid "Keep going when some targets cannot be made"
-msgstr ""
-"Continuer la construction quand certaines cibles ne peuvent être fabriquées"
+msgstr "Continuer la construction quand certaines cibles ne peuvent être fabriquées"
 
 #: src/preferences_gui.c:531
 msgid "Silent: Don't echo commands"
@@ -3540,35 +3525,35 @@ msgstr "Nombre de caractères de début à afficher"
 msgid "Number of last characters to show"
 msgstr "Nombre de caractères de fin à afficher"
 
-#: src/preferences_gui.c:1348
+#: src/preferences_gui.c:1346
 msgid " Notebook tags position "
 msgstr " Position des onglets du carnet de notes "
 
-#: src/preferences_gui.c:1359
+#: src/preferences_gui.c:1357
 msgid "Do not show notebook title tags"
 msgstr "Ne pas afficher ces onglets"
 
-#: src/preferences_gui.c:1373
+#: src/preferences_gui.c:1371
 msgid "Top"
 msgstr "Haut"
 
-#: src/preferences_gui.c:1382
+#: src/preferences_gui.c:1380
 msgid "Bottom"
 msgstr "Bas"
 
-#: src/preferences_gui.c:1391
+#: src/preferences_gui.c:1389
 msgid "Left"
 msgstr "Gauche"
 
-#: src/preferences_gui.c:1400
+#: src/preferences_gui.c:1398
 msgid "Right"
 msgstr "Droit"
 
-#: src/preferences_gui.c:1408
+#: src/preferences_gui.c:1406
 msgid " Tags Browser "
 msgstr " Navigateur des balises "
 
-#: src/preferences_gui.c:1415
+#: src/preferences_gui.c:1413
 msgid "Update tags image automatically"
 msgstr "Mettre à jour automatiquement"
 
@@ -3598,10 +3583,9 @@ msgid ""
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it.:-("
 msgstr ""
-"Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure "
-"d'Anjuta.\n"
-"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
+"Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
+"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus d'infos).\n"
+"En attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:665
 #, fuzzy, c-format
@@ -3611,8 +3595,8 @@ msgid ""
 "For the time being, I am too old to load it. :-("
 msgstr ""
 "Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
-"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
+"Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus d'infos).\n"
+"En attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:725
 msgid "Project loaded successfully."
@@ -3722,8 +3706,7 @@ msgstr "En-têtes"
 
 #: src/project_config.c:930
 msgid "Checks for typedefs, structures, and compiler characteristics."
-msgstr ""
-"Vérification des caractéristiques des typedefs, structures et compilateurs"
+msgstr "Vérification des caractéristiques des typedefs, structures et compilateurs"
 
 #: src/project_config.c:947
 msgid "characteristics check"
@@ -4105,7 +4088,8 @@ msgstr " Stopper :"
 msgid " Print: "
 msgstr " Imprimer :"
 
-#. set the size to that of our splash image.#: src/anjuta_gui.c:72 src/splash.c:92
+#. set the size to that of our splash image.
+#: src/anjuta_gui.c:72 src/splash.c:92
 msgid "Anjuta"
 msgstr "Anjuta"
 
@@ -4144,8 +4128,7 @@ msgstr "# *********** NE PAS EDITER OU RENOMMER CE FICHIER ************\n"
 #: src/tags_manager.c:188
 msgid ""
 "# ******************* Created by  Anjuta ********************************\n"
-msgstr ""
-"# ******************* Créé par Anjuta ***********************************\n"
+msgstr "# ******************* Créé par Anjuta ***********************************\n"
 
 #: src/tags_manager.c:191
 msgid "# ***************** Anjuta Tags cache file ********************\n"
@@ -4924,8 +4907,8 @@ msgid "Unkown project type."
 msgstr "Type de projet inconnu."
 
 #: src/anjuta.c:64 src/anjuta.c:71
-#, c-format
-msgid "Anjuta: Caught signal %i!"
+#, fuzzy, c-format
+msgid "Anjuta: Caught signal %d (%s) !"
 msgstr "Anjuta: Signal %i capturé !"
 
 #. Must declare static, because it will be used forever
@@ -5012,9 +4995,7 @@ msgstr "INS"
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s"
-msgstr ""
-"  Projet: %s       Zoom: %d       Ligne: %04d       Col: %03d       %s       "
-"Tâche: %s"
+msgstr "  Projet: %s       Zoom: %d       Ligne: %04d       Col: %03d       %s       Tâche: %s"
 
 #: src/anjuta_gui.c:202 src/anjuta_gui.c:291
 msgid "Click here to undock this window"

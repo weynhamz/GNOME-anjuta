@@ -16,20 +16,16 @@ anjutadoc_DATA = \
 	TODO\
 	ABOUT-NLS
 
-EXTRA_DIST = anjuta.prj $(anjutadoc_DATA)
+EXTRA_DIST = \
+	anjuta.prj \
+	anjuta.spec.in \
+	xml-i18n-extract.in \
+	xml-i18n-merge.in \
+	xml-i18n-update.in \
+	$(anjutadoc_DATA)
 
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
 gnomemenu_DATA = anjuta.desktop
-
-
-install-data-local:
-	install -d -m 0755 $(pkgdatadir)
-	install -d -m 0755 $(pkgdatadir)/gnome
-	install -m 0644 macros/Makefile.am $(pkgdatadir)/gnome
-	install -m 0644 macros/autogen.sh $(pkgdatadir)/gnome
-	install -m 0644 macros/*.m4 $(pkgdatadir)/gnome
-	install -m 0644 macros/ChangeLog $(pkgdatadir)/gnome
-
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

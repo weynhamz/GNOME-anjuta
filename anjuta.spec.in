@@ -4,20 +4,22 @@
 %define	serial		1
 %define	prefix		/usr
 
-Summary:		Linux IDE for C and C++
-Name:			%{name}
-Version:		%{version}
-Release:		%{release}
-Serial:			%{serial}
-Copyright:		GPL2
-Group:			Development/Tools
-URL:			http://anjuta.sourceforge.net/
+Summary:	Linux IDE for C and C++
+Name:		%{name}
+Version:	%{version}
+Release:	%{release}
+Serial:		%{serial}
+Copyright:	GPL2
+Group:		Development/Tools
+URL:		http://anjuta.sourceforge.net/
 Vendor:		Naba kumar <kh_naba@users.sourceforge.net>
-Source:			%{name}-%{version}.tar.gz
-BuildRoot:		/var/tmp/%{name}-%{version}
+Source:		%{name}-%{version}.tar.gz
+BuildRoot:	/var/tmp/%{name}-%{version}
+Docdir:		%{_docdir}
+Requires:	glib >= 1.2.8, gtk+ >= 1.2.8, gnome-libs >= 1.2.8, scrollkeeper >= 0.1.4
 
-Distribution:	sourceforge
-Packager:		Naba kumar <kh_naba@users.sourceforge.net>
+Distribution:	Any
+Packager:	Naba kumar <kh_naba@yahoo.com>
 
 %description
 Anjuta is a versatile Integrated Development Environment (IDE) for C and C++ 
@@ -48,13 +50,17 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
+%{prefix}/share/gnome/help/anjuta/C/*
 
+%defattr(-,root,root)
 %{prefix}/bin/anjuta
 %{prefix}/bin/anjuta_launcher
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
-%{prefix}/doc/anjuta
 %{prefix}/share/anjuta
+%{prefix}/share/doc/anjuta
 %{prefix}/share/gnome/help/anjuta
 %{prefix}/share/pixmaps/anjuta
 %{prefix}/share/omf/anjuta
+%{prefix}/share/manuals/anjuta
+%{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
