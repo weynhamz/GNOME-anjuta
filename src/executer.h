@@ -31,12 +31,12 @@ struct _ExecuterGUI {
 
 struct _Executer
 {
-	GladeXML *gxml;
 	PropsID		props;
 	gboolean    terminal;
 	GList		*m_PgmArgs;	/* The program arguments */
 	/* UI */
 	ExecuterGUI	m_gui;
+	gboolean is_showing;
 };
 
 #define EXECUTER_PROGRAM_ARGS_KEY "anjuta.program.arguments"

@@ -70,8 +70,8 @@ void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 gboolean closing_state;		/* Do not tamper with this variable  */
 
 static char *insert_date_time(void);
-
 static gchar *insert_header_c( TextEditor *te);
+static gchar* get_debugger_program();
 
 void
 on_new_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1536,18 +1536,33 @@ on_execution_run_to_cursor1_activate (GtkMenuItem * menuitem,
 {
 	guint line;
 	gchar *buff;
+	gchar *t;
 	TextEditor* te;
 
 	te = anjuta_get_current_text_editor();
 	g_return_if_fail (te != NULL);
 	g_return_if_fail (te->full_filename != NULL);
-	if (debugger_is_active()==FALSE) return;
-	if (debugger_is_ready()==FALSE) return;
 
 	line = text_editor_get_current_lineno (te);
-
 	buff = g_strdup_printf ("%s:%d", te->filename, line);
+		
+	/* if debugger not active - start it and run program */
+	if (debugger_is_active () == FALSE)
+	{
+		gchar *prog = get_debugger_program();
+		if (prog)
+		{
+			t = g_strconcat ("tbreak ", buff, NULL);
+			debugger_start (prog, t);			
+			g_free (prog);
+			g_free (t);
+		}
+	}
+	else /* debugger active - send command to the debugger to run to this location */
+	{
 	debugger_run_to_location (buff);
+	}
+	
 	g_free (buff);
 }
 
@@ -1688,60 +1703,10 @@ on_info_memory_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	gchar *prog, *temp;
-	gint s_re, e_re;
-	struct stat s_stat, e_stat;
-	TextEditor *te;
-
-	prog = NULL;
-	if (app->project_dbase->project_is_open)
-	{
-		gint target_type;
-		target_type = project_dbase_get_target_type (app->project_dbase);
-		if (target_type >= PROJECT_TARGET_TYPE_END_MARK)
-			anjuta_error (_("The target executable of this Project is unknown"));
-		else if ( target_type != PROJECT_TARGET_TYPE_EXECUTABLE)
-			anjuta_warning (_("The target executable of this Project is not executable"));
-		prog = project_dbase_get_source_target (app->project_dbase);
-		if (file_is_executable (prog) == FALSE)
-		{
-			anjuta_warning(_("The target executable does not exist for this Project"));
+	gchar* prog = get_debugger_program();
+	debugger_start (prog, NULL);
+	if (prog) 
 			g_free (prog);
-			prog = NULL;
-		}
-	}
-	else
-	{
-		te = anjuta_get_current_text_editor ();
-		if (te)
-		{
-			if (te->full_filename)
-			{
-				prog = g_strdup (te->full_filename);
-				temp = get_file_extension (prog);
-				if (temp)
-					*(--temp) = '\0';
-				s_re = stat (te->full_filename, &s_stat);
-				e_re = stat (prog, &e_stat);
-				if ((e_re != 0) || (s_re != 0))
-				{
-					anjuta_warning(_("No executable for this file."));
-					g_free (prog);
-					prog = NULL;
-				}
-				else if ((!text_editor_is_saved (te)) || (e_stat.st_mtime < s_stat.st_mtime))
-				{
-					anjuta_warning (_("The executable is not up-to-date."));
-				}
-			}
-			else
-			{
-				anjuta_warning(_("No executable for this file."));
-			}
-		}
-	}
-	debugger_start (prog);
-	if (prog) g_free (prog);
 }
 
 void
@@ -2153,4 +2118,62 @@ void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
 void on_tool_editor_activate(GtkMenuItem *menuitem, gpointer user_data)
 {
 	anjuta_tools_edit();
+}
+
+static gchar* get_debugger_program()
+{
+	gchar *prog, *temp;
+	gint s_re, e_re;
+	struct stat s_stat, e_stat;
+	TextEditor *te;
+
+	prog = NULL;
+	if (app->project_dbase->project_is_open)
+	{
+		gint target_type;
+		target_type = project_dbase_get_target_type (app->project_dbase);
+		if (target_type >= PROJECT_TARGET_TYPE_END_MARK)
+			anjuta_error (_("The target executable of this Project is unknown"));
+		else if ( target_type != PROJECT_TARGET_TYPE_EXECUTABLE)
+			anjuta_warning (_("The target executable of this Project is not executable"));
+		prog = project_dbase_get_source_target (app->project_dbase);
+		if (file_is_executable (prog) == FALSE)
+		{
+			anjuta_warning(_("The target executable does not exist for this Project"));
+			g_free (prog);
+			prog = NULL;
+		}
+	}
+	else
+	{
+		te = anjuta_get_current_text_editor ();
+		if (te)
+		{
+			if (te->full_filename)
+			{
+				prog = g_strdup (te->full_filename);
+				temp = get_file_extension (prog);
+				if (temp)
+					*(--temp) = '\0';
+				s_re = stat (te->full_filename, &s_stat);
+				e_re = stat (prog, &e_stat);
+				if ((e_re != 0) || (s_re != 0))
+				{
+					anjuta_warning(_("No executable for this file."));
+					g_free (prog);
+					prog = NULL;
+				}
+				else if ((!text_editor_is_saved (te)) || (e_stat.st_mtime < s_stat.st_mtime))
+				{
+					anjuta_warning (_("The executable is not up-to-date."));
+				}
+			}
+			else
+			{
+				anjuta_warning(_("No executable for this file."));
+			}
+		}
+	}
+
+	return prog;	
 }

@@ -851,38 +851,38 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 on_program_stack1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F7, GDK_CONTROL_MASK, NULL},*/
-	{/*11*/
+	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("Shared _Libraries"),
 	 N_("Show shared libraries loaded by the program"),
 	 on_shared_lib1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F8, GDK_CONTROL_MASK, NULL},
-	{/*12*/
+	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("_Kernel Signals"),
 	 N_("Show the kernel signals editor window"),
 	 on_kernal_signals1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F9, GDK_CONTROL_MASK, NULL},
-	{/*13*/
+	{/*12*/
 	 GNOME_APP_UI_ITEM, N_("_Dump Window"),
 	 N_("Show memory dump window"),
 	 on_dump_window1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F10, GDK_CONTROL_MASK, NULL},
-	GNOMEUIINFO_SEPARATOR, /*14*/
-	{/*15*/
+	GNOMEUIINFO_SEPARATOR, /*13*/
+	{/*14*/
 	 GNOME_APP_UI_ITEM, N_("_Console"),
 	 N_("Show the console where the program runs"),
 	 on_console1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F11, GDK_CONTROL_MASK, NULL},
-	{/*16*/
+	{/*15*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("Show _Locals"),
 	 N_("Show/Hide Local variables in Message window"),
 	 on_showhide_locals, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END /*17*/
+	GNOMEUIINFO_END /*16*/
 };
 
 #define NUM_IMPORTFILE_SUBMENUS 7

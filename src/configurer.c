@@ -92,6 +92,8 @@ create_configurer_dialog (Configurer * c)
 	g_signal_connect (G_OBJECT (entry), "changed",
 			    G_CALLBACK (on_configurer_entry_changed), c);
 	
+	/* Not implemented yet
+	
 	entry = glade_xml_get_widget (gxml, "configurer_environment_entry");
 	options = prop_get (c->props, "project.configure.environment");
 	if (options)
@@ -100,7 +102,8 @@ create_configurer_dialog (Configurer * c)
 		g_free (options);
 	}
 	g_signal_connect (G_OBJECT (entry), "changed",
-			    G_CALLBACK (on_configurer_environment_changed), c);
+			    G_CALLBACK (on_configurer_environment_changed), c); */
+
 	g_object_unref (G_OBJECT (gxml));
 	
 	/* gtk_accel_group_attach (app->accel_group, GTK_OBJECT (dialog)); */
@@ -186,7 +189,7 @@ on_configurer_response (GtkDialog* dialog, gint res, gpointer user_data)
 		an_message_manager_append (app->messages, _("Configuring the Project ....\n"), MESSAGE_BUILD);
 		an_message_manager_show (app->messages, MESSAGE_BUILD);
 	}
-	g_object_unref (G_OBJECT (dialog));
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static void

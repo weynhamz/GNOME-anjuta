@@ -109,6 +109,8 @@ static void breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase *bd);
 static gboolean breakpoint_item_load (BreakpointItem *bi, gchar *szStr );
 static void on_treeview_enabled_toggled (GtkCellRendererToggle *cell,
 										 gchar *path_str, gpointer data);
+static void 
+breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt);
 
 #define BREAKPOINTS_MARKER 1
 
@@ -246,8 +248,7 @@ fine:
 };
 
 static void
-on_bk_remove_clicked (GtkWidget *button,
-		      gpointer   data)
+on_bk_remove_clicked (GtkWidget *button, gpointer   data)
 {
 	BreakpointsDBase *bd;
 	BreakpointItem *bi;
@@ -263,6 +264,7 @@ on_bk_remove_clicked (GtkWidget *button,
 	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
 	if (valid)
 	{
+		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);		
 		debugger_delete_breakpoint (bi->id);
 		gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 	}
@@ -982,6 +984,8 @@ breakpoints_dbase_hide (BreakpointsDBase * bd)
 	bd->priv->is_showing = FALSE;
 }
 
+/* call back for the gdb 'info breakpoints' command'
+   parse the gdb output and updates the db accordingly */
 void
 breakpoints_dbase_update (GList * outputs, gpointer data)
 {
@@ -992,7 +996,7 @@ breakpoints_dbase_update (GList * outputs, gpointer data)
 	bd = (BreakpointsDBase *) data;
 
 	list = remove_blank_lines (outputs);
-	breakpoints_dbase_clear (debugger.breakpoints_dbase);
+	breakpoints_dbase_clear (bd);
 	if (g_list_length (list) < 2)
 	{
 		g_list_free (list);
@@ -1119,7 +1123,7 @@ breakpoints_dbase_set_all (BreakpointsDBase * bd)
 		anjuta_warning (_("Old breakpoints disabled."));
 	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
 							   breakpoints_dbase_update,
-							   debugger.breakpoints_dbase);
+							   bd);
 }
 
 gboolean
@@ -1182,7 +1186,7 @@ breakpoints_dbase_update_controls (BreakpointsDBase * bd)
 	gtk_widget_set_sensitive (bd->priv->disableall_button, A && R);
 }
 
-void
+static void
 breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 {
 	BreakpointItem *bi;
@@ -1309,6 +1313,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd, gchar * brkpnt)
 		store = GTK_TREE_STORE (gtk_tree_view_get_model
 							(GTK_TREE_VIEW (bd->priv->treeview)));
 		gtk_tree_store_append (store, &iter, NULL);
+		
 		gtk_tree_store_set (store, &iter,
 				    ENABLED_COLUMN, bi->enable,
 				    FILENAME_COLUMN, file,
@@ -1406,8 +1411,12 @@ on_delete_matching_foreach (GtkTreeModel *model, GtkTreePath *path,
 	moved_line = text_editor_line_from_handle(te, item->handle);
 	if (moved_line == line && moved_line >= 0)
 	{
+		// delete breakpoint marker from screen
 		text_editor_delete_marker (te, line, BREAKPOINTS_MARKER);
+		// delete breakpoint in debugger
 		debugger_delete_breakpoint (item->id);
+		// remove breakpoint from database
+		gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
 		return TRUE;
 	}
 	return FALSE;
@@ -1467,4 +1476,3 @@ void breakpoints_dbase_remove_all (BreakpointsDBase *bd)
 {
 	on_bk_remove_clicked (NULL, bd);
 }
-

@@ -459,10 +459,10 @@ anjuta_get_notebook_text_editor (gint page_num)
 	page =
 		gtk_notebook_get_nth_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), page_num);
-	te = g_object_get_data (G_OBJECT (page), "TextEditor");
-	/* TTimo - walk through the tabs easily */
 	if (!page)
 		return NULL;
+	te = g_object_get_data (G_OBJECT (page), "TextEditor");
+	/* TTimo - walk through the tabs easily */
 	return te;
 }
 

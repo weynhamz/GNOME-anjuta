@@ -92,12 +92,12 @@ void debugger_init (void);
 void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
 gboolean debugger_load_yourself (PropsID props);
-void debugger_start (gchar * prog);
+void debugger_start (const gchar *prog, const gchar *initial_command);
 gboolean debugger_is_active (void);
 gboolean debugger_is_ready (void);
 
 /*  Private. Don't touch */
-gchar *debugger_start_terminal (void);
+//gchar *debugger_start_terminal (void);
 DebuggerCommand *debugger_get_next_command (void);
 void debugger_set_next_command (void);
 void debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
@@ -107,28 +107,21 @@ void debugger_put_cmd_in_queqe (gchar cmd[], gint flags,
 void debugger_clear_buffers (void);
 void debugger_clear_cmd_queqe (void);
 void debugger_execute_cmd_in_queqe (void);
-void debugger_update_controls (void);
 void debugger_set_active (gboolean busy_state);
 void debugger_set_ready (gboolean busy_state);
-
-void debugger_stdo_flush (void);
-void debugger_stde_flush (void);
 void gdb_stdout_line_arrived (gchar * line);
 void gdb_stderr_line_arrived (gchar * line);
-void gdb_terminated (int status, time_t);
 void debugger_dialog_message (GList * lines, gpointer data);
 void debugger_dialog_error (GList * lines, gpointer data);
 
 /* Public */
 void debugger_open_exec_file (void);
 void debugger_load_core_file (void);
-
 void debugger_attach_process (gint pid);
 void debugger_restart_program (void);
-void debugger_start_program (void);
 void debugger_stop_program (void);
 void debugger_detach_process (void);
-void debugger_stop (void);
+gboolean debugger_stop (void);
 
 void debugger_run (void);
 void debugger_step_in (void);

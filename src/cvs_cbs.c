@@ -168,7 +168,7 @@ on_cvs_diff_dialog_response (GtkWidget* dialog, gint response,
 		
 		filename = gtk_entry_get_text (GTK_ENTRY (gtk_file_entry));
 		revision = gtk_entry_get_text (GTK_ENTRY (gtk_rev_entry));
-		time = gnome_date_edit_get_date (GNOME_DATE_EDIT (gui->entry_date));
+		time = gnome_date_edit_get_time (GNOME_DATE_EDIT (gui->entry_date));
 		state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (gui->check_date));
 		cvs_set_diff_use_date (app->cvs, state);
 		if (strlen (filename) > 0)

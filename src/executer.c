@@ -193,6 +193,7 @@ on_executer_dialog_response (GtkDialog *dialog, gint response,
 							   gtk_entry_get_text (GTK_ENTRY (e->m_gui.combo_entry1)),
 								COMBO_LIST_LENGTH);
 	}
+	e->is_showing = FALSE;
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
@@ -226,15 +227,17 @@ create_executer_dialog (Executer * e)
 	GtkWidget *button1;
 	GtkWidget *button3;
 	gchar* options;
+	GladeXML *gxml;
 
-	e->gxml = glade_xml_new (GLADE_FILE_ANJUTA, "executer_dialog", NULL);
-	glade_xml_signal_autoconnect (e->gxml);
-	e->m_gui.dialog = glade_xml_get_widget (e->gxml, "executer_dialog");
+	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "executer_dialog", NULL);
+	glade_xml_signal_autoconnect (gxml);
+	e->m_gui.dialog = glade_xml_get_widget (gxml, "executer_dialog");
 	gtk_widget_hide (e->m_gui.dialog);
-	e->m_gui.combo1 = glade_xml_get_widget (e->gxml, "executer_combo");
-	e->m_gui.combo_entry1 = glade_xml_get_widget (e->gxml, "executer_entry");
+	e->m_gui.combo1 = glade_xml_get_widget (gxml, "executer_combo");
+	e->m_gui.combo_entry1 = glade_xml_get_widget (gxml, "executer_entry");
 	e->m_gui.check_terminal = 
-		glade_xml_get_widget (e->gxml, "executer_run_in_term_check");
+		glade_xml_get_widget (gxml, "executer_run_in_term_check");
+	g_object_unref (gxml);
 	
 	gtk_window_set_transient_for (GTK_WINDOW(e->m_gui.dialog),
 	                              GTK_WINDOW(app->widgets.window));
@@ -270,6 +273,7 @@ executer_new (PropsID props)
 		e->props = props;
 		e->terminal = TRUE;
 		e->m_PgmArgs	= NULL ;
+		e->is_showing = FALSE;
 	}
 	return e;
 }
@@ -287,7 +291,6 @@ executer_destroy (Executer * e)
 			if (e->m_PgmArgs)
 				g_list_free (e->m_PgmArgs);
 		}
-		g_object_unref (e->gxml);
 		g_free (e);
 	}
 }
@@ -295,11 +298,15 @@ executer_destroy (Executer * e)
 void
 executer_show (Executer * e)
 {
-	gtk_widget_show (create_executer_dialog (e));		
-	if (e->m_PgmArgs)
-		gtk_combo_set_popdown_strings (GTK_COMBO (e->m_gui.combo1),
-					       	e->m_PgmArgs );
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->m_gui.check_terminal), e->terminal);
+	if (!e->is_showing)
+	{
+		gtk_widget_show (create_executer_dialog (e));		
+		if (e->m_PgmArgs)
+			gtk_combo_set_popdown_strings (GTK_COMBO (e->m_gui.combo1),
+								e->m_PgmArgs );
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->m_gui.check_terminal), e->terminal);
+		e->is_showing = TRUE;
+	}
 }
 
 void
