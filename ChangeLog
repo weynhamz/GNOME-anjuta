@@ -1,3 +1,20 @@
+2005-03-26  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* manuals/C/anjuta-manual/fileoperations.xml,
+    manuals/C/anjuta-manual/figures/open_file.png,
+    manuals/C/anjuta-manual/figures/open_file_multiple.png,
+    manuals/C/anjuta-manual/figures/prefs_print.png,
+    manuals/C/anjuta-manual/figures/print_dlg.png,
+    manuals/C/anjuta-manual/figures/print_preview.png.
+	* Added Files:
+    manuals/C/anjuta-manual/figures/add_edit_macro.png,
+    manuals/C/anjuta-manual/figures/display_macro.png,
+    manuals/C/anjuta-manual/figures/insert_text.png,
+    manuals/C/anjuta-manual/figures/keyword_macro.png,
+    manuals/C/anjuta-manual/figures/new_file_wizard.png,
+    manuals/C/anjuta-manual/figures/save_as_file.png :
+	Updated Anjuta Manual (File Operations)
+
 2005-03-23  Adam Weinberger  <adamw@gnome.org>
 
 	* plugins/editor/action-callbacks.c,

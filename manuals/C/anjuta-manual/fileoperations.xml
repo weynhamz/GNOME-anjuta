@@ -1,30 +1,148 @@
  <chapter id="file-operations">
   <title>File Operations</title>
+  
   <!-- ============= File operations: Creating a new file === -->
   <sect1 id="creating-files">
    <title>Creating a New File and inserting texts</title>
-   <para>
-    To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu>
-    <guimenuitem>New</guimenuitem></menuchoice> from the menubar, or click on the 
-    <guibutton>New File</guibutton> button on the toolbar. A new page will 
-    appear in the editor (or a new window if the parent document is windowed). 
-    This new document will be named <filename>newfile#1</filename>, 
-    <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
-    so on. 
-   </para>
-   <para>
-    <application>Anjuta</application> occatinally also creates new files during some
-	operations. For example, some CVS operations, such as diff, file log, file status
-	etc, create new files and add the output there. These could be saved in real file
-	just like normal new files.
-   </para>
-   <para>
-    To insert popular text bits in the file, place the cursor at the insertion point
-	and select the right insert text menu item from <menuchoice><guisubmenu>File</guisubmenu>
-	<guisubmenu>Insert Text</guisubmenu></menuchoice>. Some of the text bits use the
-	user information (such as name and email) provided in Preferences (General page).
-	So make sure you set them to correct values before inserting texts.
-   </para>
+    <sect2 id="new-file">
+    <title>Creating New File</title>
+     <para>
+     To create a new file, choose <menuchoice><guisubmenu>File</guisubmenu>
+     <guimenuitem>New</guimenuitem></menuchoice> from the menubar, or click on the 
+     <guibutton>New File</guibutton> button on the toolbar. A new page will 
+     appear in the editor (or a new window if the parent document is windowed). 
+     This new document will be named <filename>newfile#1</filename>, 
+     <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
+     so on. 
+     </para>
+    </sect2>
+    <sect2 id="file-wizard">
+    <title>File Wizard</title>
+     <para>
+      A wizard can also be used to create a new file.To create a new file, choose
+      <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Wizard</guisubmenu> 
+      <guimenuitem>File Wizard</guimenuitem></menuchoice> from the menubar.
+      This will open the New File Wizard dialog. Select the file type. Enter the File name. 
+      The suffix will be automatically added. 
+      You can add a license information (according to your license choice) and a header.
+      In case of C-C++ header file, you can also add an header template.
+      Click <guibutton>OK</guibutton> to validate the creation.
+      <figure id="new-file-wizard">
+       <title>New File Wizard</title>
+       <screenshot>
+        <screeninfo>The Open File dialog</screeninfo>
+        <graphic fileref="figures/new_file_wizard.png" format="PNG" srccredit="jnoel"></graphic>
+       </screenshot>
+      </figure>
+     </para>
+     <para>
+       <application>Anjuta</application> occatinally also creates new files during some
+        operations. For example, some CVS operations, such as diff, file log, file status
+        etc, create new files and add the output there. These could be saved in real file
+        just like normal new files.
+     </para>
+     </sect2>
+     <sect2 id="inserting-texts">
+      <title>Inserting Texts</title>
+      <para>
+        To insert popular text bits in the file, place the cursor at the insertion point
+        and select the right insert text menu item from <menuchoice><guisubmenu>File</guisubmenu>
+        <guisubmenu>Insert Text</guisubmenu></menuchoice>. Some of the text bits use the
+        user information (such as name and email) provided in Preferences (General page).
+        So make sure you set them to correct values before inserting texts.
+        <figure id="insert-text">
+         <title>Insert Text</title>
+          <screenshot>
+           <screeninfo>The Open File dialog</screeninfo>
+           <graphic fileref="figures/insert_text.png" format="PNG" srccredit="jnoel"></graphic>
+          </screenshot>
+        </figure>	
+      </para>
+     </sect2>
+     <sect2 id="inserting-macros">
+      <title>Inserting Macros</title>
+       <para>
+         Macros can be used to quickly edit repetitive sequences of text.
+       </para>
+       <important>
+       <para>
+        Macro plugin must be activated.
+       </para>
+       </important>
+      <sect3 id="inserting">
+       <title>Inserting</title>
+       <para>
+        Two types of macros are available: Anjuta macros and User macros (My macros). Anjuta macros 
+        are not modifiable by the user. On the other hand, User macros can be defined and modified by 
+        the user.
+       </para>
+       <para>
+        To insert macro, move the cursor at the desired place. Select  
+        <menuchoice><guisubmenu>Edit</guisubmenu><guisubmenu>Macros</guisubmenu>
+        <guimenuitem>Macros...</guimenuitem></menuchoice>. The dialog window appears. Select the 
+        wanted macro in the list. The result of the macro expansion is displayed in the window and a
+        summary is shown in the dialog window. Choose <guibutton>Insert</guibutton>. The expanded macro
+        text is inserted at the cursor position.
+       </para>
+       <para>
+        Another possibility to insert macro is to select <menuchoice><guisubmenu>Edit</guisubmenu>
+        <guisubmenu>Macros</guisubmenu><guimenuitem>Insert Macro...</guimenuitem></menuchoice>, 
+        then to press the wanted macro shortcut.
+        <figure id="display-macro">
+         <title>Macro</title>
+          <screenshot>
+           <screeninfo>The Macro dialog</screeninfo>
+           <graphic fileref="figures/display_macro.png" format="PNG" srccredit="jnoel"></graphic>
+          </screenshot>
+        </figure>
+       </para>
+       </sect3>
+       <sect3 id="defining-macro">
+        <title>Defining Macros</title>
+        <para>
+          From the Insert-Macro window, choose <guibutton>Add</guibutton> or select <menuchoice>
+          <guisubmenu>Edit</guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Add Macro...
+          </guimenuitem></menuchoice>. The Add/Edit window appears. Enter the macro name, choose or 
+          define a category and enter a shortcut. Then edit text relative to your macro. The character 
+          ' | ' will indicate the cursor position after the macro insertion. Choose
+          <guibutton>OK</guibutton>. The macro is added to the list.
+        </para>
+        <para>
+          The user can also erase a macro by selecting it in the list (only My Macros) then by choosing
+          <guibutton>Remove</guibutton>.
+        </para>
+        <para>
+          Same manner, macro can be edited and modified by selecting it in the list then by choosing
+         <guibutton>Edit</guibutton>.
+         <figure id="add-edit-macro">
+          <title>Add/Edit Macro</title>
+          <screenshot>
+           <screeninfo>Add Edit dialog</screeninfo>
+           <graphic fileref="figures/add_edit_macro.png" format="PNG" srccredit="jnoel"></graphic>
+          </screenshot>
+         </figure>	
+        </para>
+       </sect3>
+       <sect3 id="macro-keyword">
+        <title>Macro Keywords</title>
+        <para>
+          Macros Keywords are available. They can be integrated in the macro definitions. The names of
+          these macro Keywords start and finish by the character ' @ '.
+        </para>
+        <para>
+         Available macro keywords are : @DATE_TIME@, @DATE_YMD@, @DATE_Y@, @USER_NAME@, @FILE_NAME@,
+         @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, @TABSIZE@, @INDENTSIZE@, @USETABS@.
+         <figure id="keyword-macro">
+         <title>Keyword Macro</title>
+          <screenshot>
+           <screeninfo>The Keyword macro</screeninfo>
+           <graphic fileref="figures/keyword_macro.png" format="PNG" srccredit="jnoel"></graphic>
+          </screenshot>
+         </figure>	
+        </para>
+      </sect3>
+     </sect2>
+
    <important>
    <title>Save file</title>
    <para>
@@ -51,20 +169,18 @@
         <title>Open File dialog</title>
         <screenshot>
 		<screeninfo>The Open File dialog</screeninfo>
-         <graphic fileref="figures/open_file.png" format="PNG" srccredit="naba"></graphic>
+         <graphic fileref="figures/open_file.png" format="PNG" srccredit="jnoel"></graphic>
         </screenshot>
        </figure>
        Select or enter the file you want to open, then click 
-	   <guibutton>OK</guibutton>. To open more than one file at once, select multiple files
+	   <guibutton>Open</guibutton>. To open more than one file at once, select multiple files
 	   to open by first pressing CTRL and clicking the files in the list and
-	   press <guibutton>OK</guibutton>. If you change your mind, click 
+	   press <guibutton>Open</guibutton>. If you change your mind, click 
 	   <guibutton>Cancel</guibutton> to dismiss the dialog without opening 
 	   the file.
       </para>
 	  <para>
-	   Pressing TAB in the selection entry box works as auto complete for the file
-	   path. It behaves just like the usual shell auto complete and could be very helpful
-	   when the filenames are too long to type. For selecting multiple files at once,
+	   For selecting multiple files at once,
 	   select a file in the dialog and press CTRL once. This will bring the file selection
 	   dialog in multiple-select mode and multiple files could be selected from the list.
 	   Multiple file select mode is simlar to single file select mode, except that the file
@@ -74,12 +190,12 @@
         <title>Open Multiple File dialog</title>
         <screenshot>
 		<screeninfo>The Open File dialog in multiple-select mode</screeninfo>
-         <graphic fileref="figures/open_file_multiple.png" format="PNG" srccredit="naba"></graphic>
+         <graphic fileref="figures/open_file_multiple.png" format="PNG" srccredit="jnoel"></graphic>
         </screenshot>
        </figure>
 	  </para>
 	  <para>
-	   The <guibutton>Show Hidden</guibutton>, if switched on (pressed in), will make the hidden
+	   The <bold>Show Hidden</bold>, if switched on (Click right), will make the hidden
 	   files (files starting with "."; visible in the file list. Depress it to make
 	   them hide. <application>Anjuta</application> fileselection dialog also has inbuild
 	   file type filter. Select the appropiate file type filter in the dialog and the file
@@ -95,18 +211,22 @@
 	   the <guibutton>Save</guibutton> button on the toolbar, or press 
 	   <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. This will 
 	   save the file. If the file is new, a <interface>Save As</interface> dialog will 
-	   appear. Enter a filename and click <guibutton>OK</guibutton> to save the new file 
+	   appear. Enter a filename and click <guibutton>Save</guibutton> to save the new file 
 	   with the name supplied.
+	   <screenshot>
+	    <screeninfo>The Save As File</screeninfo>
+            <graphic fileref="figures/save_as_file.png" format="PNG" srccredit="jnoel"></graphic>
+           </screenshot>
       </para>
      </listitem>
-      
+
      <listitem>
       <para>
       <emphasis>Saving a file with a different name:</emphasis> 
 	  You can explicitly save a file with a new filename. To do this, choose 
 	  <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Save As</guimenuitem></menuchoice> 
 	  from the menubar. A <interface>Save As</interface> dialog will appear prompting you to 
-	  enter the new filename. Enter the name and click <guibutton>OK</guibutton>.
+	  enter the new filename. Enter the name and click <guibutton>Save</guibutton>.
       </para>
       <note>
        <title>File save as overwrite</title>
@@ -173,7 +293,7 @@
        </figure>
        </para>
        <para>
-	   The <emphasis>Line Numbers Margin</emphasis> is lagest of all the three margins (and slightly
+	   The <emphasis>Line Numbers Margin</emphasis> is largest of all the three margins (and slightly
 	   darker then rest) and displays the document's line numbers.
 	   <emphasis>Line Number Margin</emphasis> could be made visible
 	   or invisible by toggling <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
@@ -187,7 +307,8 @@
 	   to mark the give line. The markers which will be displayed in this margin are Bookmark marker
 	   (rectangular blue colored icon), Breakpoint marker (circular red colored) and Line indicator
 	   (pointed arrow yellow colored). Bookmark marker is used to indicate bookmaked lines which could
-	   be toggled from <menuchoice><guimenu>Bookmark</guimenu><guimenuitem>Toggle Bookmark</guimenuitem></menuchoice>
+	   be toggled from <menuchoice><guimenu>Goto</guimenu><guisubmenu>Bookmark</guisubmenu><guimenuitem>
+	   Toggle Bookmark</guimenuitem></menuchoice>
 	   with the cursor placed in that line. The breakpoint marker is used in debugger to mark the
 	   line with debugging breakpoints (see debugging section for more details). The line indicator
 	   marker is used to indicate a line when we do a jump from another part, for example when
@@ -248,7 +369,8 @@
 	file extension. If <application>Anjuta</application> cannot determine the type of 
 	the file, there will be no syntax highlighting. You can explicitly force a particular 
 	highlight style by selecting the style from the menu 
-	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Force Highlight Style</guimenuitem></menuchoice>.
+	<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu><guisubmenu>
+	Highlight Mode</guisubmenu></menuchoice>.
    </para>
    </sect2>
    <sect2 id="codefolding">
@@ -270,14 +392,13 @@
    <sect2 id="autoformat">
     <title>Auto-formatting source code</title>
     <para>
-    If the current file is a C or C++ source or header file, then it is possible to
-    automatically indent (auto-format) the file. This gives a clean look to
-    the source code, increases legibility, reduces the likelihood of syntax errors,
-    and above all it saves time. This can be performed by clicking on the 
-	<guibutton>Auto-format</guibutton> button in the main toolbar or choosing 
-	<menuchoice><guisubmenu>Format</guisubmenu><guimenuitem>Auto-format</guimenuitem></menuchoice> 
-	on the menubar. Change the style of formatting by customizing the 
-	choices in the preferences.
+      If the current file is a C or C++ source or header file, then it is possible to
+      automatically indent (auto-format) the file. This gives a clean look to
+      the source code, increases legibility, reduces the likelihood of syntax errors,
+      and above all it saves time. This can be performed by choosing 
+      <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Auto-format
+      </guimenuitem></menuchoice> on the menubar. Change the style of formatting by customizing the 
+      choices in the preferences.
     </para>
     <note>
 	<title>indent</title>
@@ -357,7 +478,23 @@
    <title>Searching for and Replacing text in files</title>
    <sect2 id="searching">
     <title>Searching</title>
-	
+	     <para>
+     To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
+     string in the current file, choose <menuchoice><guisubmenu>Edit</guisubmenu>
+	 <guimenuitem>Find</guimenuitem></menuchoice> or press <keycombo><keycap>Alt</keycap>
+	 <keycap>F</keycap></keycombo>. This will open the <interface>Find</interface> dialog.
+    </para>
+        <figure id="find-text">
+     <title>Find Text dialog</title>
+     <screenshot>
+       <graphic fileref="figures/find_text.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+
+     <sect3 id="bibi">
+     <title>Searching xxxxxxx for and Replacing text in files</title>
+
+     </sect3>
     <para>
      To search for a <emphasis>text</emphasis> or <emphasis>regular expression</emphasis>
      string in the current file, choose <menuchoice><guisubmenu>Edit</guisubmenu>
@@ -394,7 +531,6 @@
    
    <sect2 id="replacing">
     <title>Searching and replacing</title>
-    
 	<figure id="find-and-replace">
      <title>Find and Replace dialog</title>
      <screenshot>
@@ -460,24 +596,22 @@
 	 It will render the current file and present a preview of the print. Source codes which
 	 are hilighted in the editor are also highlighted similarly in the print (or preview). Addtional
 	 options are available to print with the line numbers, wrapped lines and/or headers in the
-	 print preferences from <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Page Setup</guimenuitem></menuchoice>.
+	 Editor printing preferences from <menuchoice><guisubmenu>Settings</guisubmenu><guimenuitem>Preferences.
+	 </guimenuitem></menuchoice>
 	 <figure>
        <title>Print preview of a C file</title>
        <screenshot>
 	   <screeninfo>Print preview</screeninfo>
-        <graphic fileref="figures/print_preview.png" format="PNG" srccredit="naba"></graphic>
+        <graphic fileref="figures/print_preview.png" format="PNG" srccredit="jnoel"></graphic>
        </screenshot>
      </figure>
 	</para> 
     <para>
-	In the page setup (or print preferences), print margins, landscaped or portrait page layout
-	and paper type could also be set. Remember to set them up properly according to your printer,
-	otherwise printing may not come up properly.
 	 <figure>
        <title>Print Preferences</title>
        <screenshot>
 	   <screeninfo>Print preferences</screeninfo>
-        <graphic fileref="figures/prefs_print.png" format="PNG" srccredit="naba"></graphic>
+        <graphic fileref="figures/prefs_print.png" format="PNG" srccredit="jnoel"></graphic>
        </screenshot>
      </figure>
 	</para>
@@ -487,11 +621,16 @@
 	or <guibutton>Print</guibutton> from the print preview window. This will bring up the
 	actual print dialog as shown below. Select the appropriate print parameters and print
 	the file with <guibutton>Print</guibutton> on it.
+	</para>
+	<para>
+	Landscaped or portrait page layout, paper size, page orientation
+	and paper type could also be set. Remember to set them up properly according to your printer,
+	otherwise printing may not come up properly.
 	  <figure>
        <title>Print Dialog</title>
        <screenshot>
 	   <screeninfo>Print dialog</screeninfo>
-        <graphic fileref="figures/print_dlg.png" format="PNG" srccredit="naba"></graphic>
+        <graphic fileref="figures/print_dlg.png" format="PNG" srccredit="jnoel"></graphic>
        </screenshot>
       </figure>
 	</para>
