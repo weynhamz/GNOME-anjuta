@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 09:36+0200\n"
+"POT-Creation-Date: 2005-02-22 09:45+0200\n"
 "PO-Revision-Date: 2005-02-19 19:09+0200\n"
 "Last-Translator: Socrates Vavilis <s_vavilis@yahoo.fr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -89,7 +89,7 @@ msgstr "Αυτόματη φόρτωση τελευταίου Έργου"
 
 #: anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
-msgstr "Αυτόματη·αποθήκευση·αρχείων επεξεργαστή πριν αρχίσει η κατασκευή"
+msgstr "Αυτόματη αποθήκευση αρχείων επεξεργαστή πριν αρχίσει η κατασκευή"
 
 #: anjuta.glade.h:15
 #, fuzzy
@@ -689,7 +689,7 @@ msgstr "Αποθήκευση όλων των αρχείων"
 
 #: anjuta.glade.h:138
 msgid "Scripts at the end of top level Makefile.am"
-msgstr "Σενάρια στο τέλος του Makefile.am κορυφαίου επιπέδου·"
+msgstr "Σενάρια στο τέλος του Makefile.am κορυφαίου επιπέδου "
 
 #: anjuta.glade.h:139 plugins/debug-manager/anjuta-debug-manager.glade.h:21
 #: plugins/gdb/anjuta-gdb.glade.h:21 plugins/gdb/signals_gui.c:210
@@ -9642,8 +9642,8 @@ msgstr "Αυτόματη Συμπλήρωση λέξης"
 #~ "Call to gdl_dock_object_dock in a dock object %p (object type is %s) "
 #~ "which hasn't implemented this method"
 #~ msgstr ""
-#~ "Κλήση στο·gdl_dock_object_dock·σε αντικείμενο·αγκίστρου %p·(αντικείμενο "
-#~ "τύπου·%s)·στο ·οποίο·αυτή η μέθοδος δεν έχει υλοποιηθεί"
+#~ "Κλήση στο gdl_dock_object_dock σε αντικείμενο αγκίστρου %p (αντικείμενο "
+#~ "τύπου %s) στο  οποίο αυτή η μέθοδος δεν έχει υλοποιηθεί"
 
 #~ msgid ""
 #~ "Dock operation requested in a non-bound object %p. The application might "
