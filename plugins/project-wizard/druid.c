@@ -717,6 +717,7 @@ npw_druid_add_default_property (NPWDruid* this)
 {
 	NPWValue* value;
 	const gchar* s;
+	gchar* email;
 	AnjutaPreferences* pref;
 
 	pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (this->plugin)->shell, NULL);
@@ -741,6 +742,13 @@ npw_druid_add_default_property (NPWDruid* this)
 	/* Add Email address */
 	value = npw_value_heap_find_value (this->values, EMAIL_ADDRESS_PROPERTY);
 	s = anjuta_preferences_get (pref, "anjuta.project.email");
+	/* If Email address not defined in Preferences */
+	if (!s || strlen(s) == 0)
+	{
+		if (!(s = getenv("USERNAME")) || strlen(s) == 0)
+			s = getenv("USER");
+		s = g_strconcat(s, "@", getenv("HOSTNAME"), NULL);
+	}
 	npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
 }
 

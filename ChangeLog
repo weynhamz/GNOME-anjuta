@@ -1,3 +1,9 @@
+2005-02-16  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/project-wizard/druid.c :
+	
+	Found system Email address if not defined in Preferences.
+
 2005-02-16	Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/project-wizard/gtkmm.wiz
