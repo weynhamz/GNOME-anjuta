@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 typedef struct _AnjutaShell      AnjutaShell;
 typedef struct _AnjutaShellIface AnjutaShellIface;
-//typedef enum   _AnjutaShellError AnjutaShellError;
+typedef enum   _AnjutaShellError AnjutaShellError;
 
 struct _AnjutaShellIface {
 	GTypeInterface g_iface;
@@ -58,18 +58,6 @@ void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 				     const char      *name,
 				     const char      *title,
 				     GError         **error);
-/*void   anjuta_shell_add_control     (AnjutaShell     *shell,
-				     Bonobo_Control   ctrl,
-				     const char      *name,
-				     const char      *title,
-				     GError         **error);
-void   anjuta_shell_add_preferences (AnjutaShell     *shell,
-				     GtkWidget       *widget,
-				     const char      *name,
-				     const char      *title,
-				     GdkPixbuf       *icon,
-				     GError         **error);
-*/
 void   anjuta_shell_add_value       (AnjutaShell     *shell,
 				     const char      *name,
 				     const GValue    *value,

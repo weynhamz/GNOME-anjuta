@@ -1,3 +1,11 @@
+2004-02-16  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, libanjuta/Makefile.am, libanjuta/interface/*:
+	Added interfaces and IAnjutaEditor editor interface.
+	* plugins/editor/text_editor.c: Implemented IAnjutaEditor
+	interface.
+	* libanjuta/anjuta-shell.h: Fixed bug.
+	
 2004-02-13  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Requires devhelp 0.8.1 (0.8 is broken).

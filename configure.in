@@ -595,6 +595,7 @@ scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile
 libanjuta/libanjuta.pc
+libanjuta/interfaces/Makefile
 src/Makefile
 pixmaps/Makefile
 data/Makefile

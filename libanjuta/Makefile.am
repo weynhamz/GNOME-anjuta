@@ -1,3 +1,6 @@
+
+SUBDIRS = interfaces
+
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	-I$(top_builddir)/scintilla/include \

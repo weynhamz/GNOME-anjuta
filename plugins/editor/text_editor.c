@@ -1,6 +1,6 @@
 /*
  * text_editor.c
- * Copyright (C) 2000  Kh. Naba Kumar Singh
+ * Copyright (C) 2000 - 2004  Naba Kumar
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/properties.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 // #include "global.h"
 // #include "anjuta.h"
@@ -97,9 +98,6 @@ text_editor_class_init (TextEditorClass *klass)
 	parent_class = g_type_class_peek_parent (klass);
 	object_class->finalize = text_editor_destroy;
 }
-
-ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
-ANJUTA_TYPE_END;
 
 /* marker fore and back colors */
 static glong marker_prop[] = 
@@ -1668,3 +1666,60 @@ text_editor_grab_focus (TextEditor *te)
 	g_return_if_fail (IS_TEXT_EDITOR (te));
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GRABFOCUS, 0, 0);
 }
+
+/* IAnjutaEditor interface implementation */
+static gchar*
+itext_editor_get_selection (IAnjutaEditor *editor, GError **error)
+{
+	return text_editor_get_selection (TEXT_EDITOR (editor));
+}
+
+static gchar*
+itext_editor_get_filename (IAnjutaEditor *editor, GError **error)
+{
+	TextEditor *text_editor;
+	if (text_editor->filename)
+		return g_strdup (text_editor->filename);
+	return NULL;
+}
+
+static void
+itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
+{
+	text_editor_goto_line (TEXT_EDITOR (editor), lineno, TRUE, TRUE);
+}
+
+static gchar*
+itext_editor_get_text (IAnjutaEditor *editor, gint start, gint end,
+						 GError **e)
+{
+	gint nchars;
+	gchar *data;
+	TextEditor *te = TEXT_EDITOR (editor);
+	nchars = scintilla_send_message (SCINTILLA (te->scintilla),
+									 SCI_GETLENGTH, 0, 0);
+	data =	(gchar *) aneditor_command (te->editor_id,
+										ANE_GETTEXTRANGE, 0, nchars);
+	return data;
+}
+
+static gchar*
+itext_editor_get_attributes (IAnjutaEditor *editor, gint start,
+							   gint end, GError **e)
+{
+	return NULL;
+}
+
+static void
+ianjuta_editor_iface_init (IAnjutaEditorIface *iface)
+{
+	iface->goto_line = itext_editor_goto_line;
+	iface->get_filename = itext_editor_get_filename;
+	iface->get_text = itext_editor_get_text;
+	iface->get_selection = itext_editor_get_selection;
+	iface->get_attributes = itext_editor_get_attributes;
+}
+
+ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
+ANJUTA_INTERFACE(ianjuta_editor, IANJUTA_TYPE_EDITOR);
+ANJUTA_TYPE_END;
