@@ -9,6 +9,10 @@
 	
 	* configure.in, plugins/Makefile.am, plugins/class-gen/*:
 	Added class-gen in the configure output and class-gen module.
+	
+	* data/internal.properties:
+	Correct mis-spelled "jave" to "java".
+	Added file.is.source for *.h, *.c, *.cpp properties.
 
 2001-12-31  Stephane Demurget  <demurgets@free.fr>
 
