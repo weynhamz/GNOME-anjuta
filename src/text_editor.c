@@ -1561,7 +1561,6 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	GtkWidget *label;
 	GtkWidget *box;
 	GtkRequisition r;
-	GtkStyle *style;
 	GdkColor color;
 	
 	g_return_val_if_fail(te != NULL, NULL);
@@ -1588,11 +1587,12 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	color.green = 0;
 	color.blue = 0;
 	
-	style = gtk_widget_get_style(button15);
-	style->fg[GTK_STATE_NORMAL] = color;
-	gtk_widget_set_style(button15, style);
+	gtk_widget_modify_fg (button15, GTK_STATE_NORMAL, &color);
+	gtk_widget_modify_fg (button15, GTK_STATE_INSENSITIVE, &color);
+	gtk_widget_modify_fg (button15, GTK_STATE_ACTIVE, &color);
+	gtk_widget_modify_fg (button15, GTK_STATE_PRELIGHT, &color);
+	gtk_widget_modify_fg (button15, GTK_STATE_SELECTED, &color);
 	gtk_widget_show(button15);
-	
 	
 	box = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);

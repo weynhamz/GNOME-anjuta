@@ -1,9 +1,24 @@
+2003-06-11  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.c, src/text_editor.c: Fixed bug #715270. 'Changed' file name
+	color (red highlight) now cosistent for inactive tabs also.
+	
+	* src/main_menubar.c, src/main_menubar_def.h: Fixed bug #715261. Moved
+	'Advanced search and replace' in Edit->Search submenu.
+	
+	* data/properties/tcltk.properties: Fixed bug #731851. Added line
+	wrappings '\' where	they were missing.
+	
+	* src/mainmenu_callbacks.c: Fixed bug #751715. The 'Customize menu'
+	message is now more descriptive and details the correct thing to do
+	for GNOME2 desktop.
+	
 2003-06-10  Naba Kumar  <naba@gnome.org>
 
 	* autogen.sh.generic, autogen.sh.gtk, autogen.sh.gtkmm
 	autogen.sh.wxwin, macros/autogen.sh, macros2/autogen.sh:
 	Removed any reference to particular version of automake/autoconf
-	so that they could work with newer versions.
+	so that they could work with newer versions (Bug #659394).
 
 	* src/anjuta-encodings.c, src/anjuta-encodings.h, anjuta.glade,
 	src/anjuta.c: Added coded to add/remove supported encodings.

@@ -408,7 +408,7 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*10*/
 };
 
-#define NUM_FIND_SUBMENUS 5
+#define NUM_FIND_SUBMENUS 7
 static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Find ..."),
@@ -445,7 +445,16 @@ static GnomeUIInfo find_submenu_uiinfo[NUM_FIND_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_CONTROL_MASK, NULL},
 	
-	GNOMEUIINFO_END/*5*/
+	 GNOMEUIINFO_SEPARATOR, /*5*/
+
+	{/*6*/
+	 GNOME_APP_UI_ITEM, N_("Advanced search and re_place"),
+	 N_("Advanced Search And Replace"),
+	 anjuta_search_replace_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	
+	GNOMEUIINFO_END/*7*/
 };
 
 #define NUM_GOTO_SUBMENUS 12
@@ -526,7 +535,7 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*12*/
 };
 
-#define	NUM_EDIT_SUBMENUS 18
+#define	NUM_EDIT_SUBMENUS 17
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -630,13 +639,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 
-	{/*17*/
-	 GNOME_APP_UI_ITEM, N_("Search And Re_place"),
-	 N_("New Search And Replace stuff"),
-	 anjuta_search_replace_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	/*18*/
+	/*17*/
 	GNOMEUIINFO_END
 };
 

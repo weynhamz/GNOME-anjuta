@@ -2116,8 +2116,11 @@ on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
 void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
 {
 	GtkWidget *dialog;
-	gchar *message = _("Hover the mouse pointer over any menu item and press"
-					"\n the shortcut key to associate with it.");
+	gchar *message = _("You need to run gconf-editor, look for the key"
+					   " 'desktop/gnome/interface/can_change_accels' and"
+					   " set this toggle button ON. Then you can hover the"
+					   " mouse pointer over any menu item and press the"
+					   " shortcut key to associate with it.");
 	anjuta_information (message);
 }
 

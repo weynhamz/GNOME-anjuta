@@ -141,7 +141,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.bookmarks = view1_menu_uiinfo[2].widget;
 	mb->view.breakpoints = view1_menu_uiinfo[8].widget;
 	mb->view.registers = view1_menu_uiinfo[9].widget;
-	//mb->view.program_stack = view1_menu_uiinfo[10].widget;
+	/* mb->view.program_stack = view1_menu_uiinfo[10].widget; */
 	mb->view.shared_lib = view1_menu_uiinfo[10].widget;
 	mb->view.signals = view1_menu_uiinfo[11].widget;
 	mb->view.dump_window = view1_menu_uiinfo[12].widget;

@@ -1171,7 +1171,6 @@ anjuta_update_title ()
 void
 anjuta_update_page_label (TextEditor *te)
 {
-	GtkRcStyle *rc_style;
 	GdkColor tmpcolor;
 
 	if (te == NULL)
@@ -1191,15 +1190,11 @@ anjuta_update_page_label (TextEditor *te)
 	{
 		gdk_color_parse("red",&tmpcolor);
 	}
-	
-	rc_style = gtk_rc_style_new();
-			
-	rc_style->fg[GTK_STATE_NORMAL] = tmpcolor;
-	rc_style->color_flags[GTK_STATE_NORMAL] = GTK_RC_FG;
-
-	gtk_widget_modify_style(te->widgets.tab_label, rc_style);
-	
-	gtk_rc_style_unref(rc_style);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_NORMAL, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_INSENSITIVE, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_ACTIVE, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_PRELIGHT, &tmpcolor);
+	gtk_widget_modify_fg (te->widgets.tab_label, GTK_STATE_SELECTED, &tmpcolor);
 }
 
 void 
