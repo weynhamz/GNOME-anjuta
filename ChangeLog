@@ -1,9 +1,9 @@
 2001-08-01  Fatih Demir <kabalak@gtranslator.org>
 
-	* .cvsignore & ABOUT-NLS: Erh, this file shouldn't be in CVS.
+	* anjuta.desktop.(in(.in)), configure.in & Makefile.am: Get the desktop
+		file to work: merge translations.
 
-	* anjuta.desktop.in: Made the desktop file being ready for 
-		xml-i18n-tools action.
+	* .cvsignore & ABOUT-NLS: Erh, "ABOUT-NLS" shouldn't be in CVS.
 
 	* NEWS, README, THANKS & TODO: Spelling fixes.
 

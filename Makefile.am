@@ -17,6 +17,7 @@ anjutadoc_DATA = \
 	ABOUT-NLS
 
 EXTRA_DIST = \
+	anjuta.desktop.in.in \
 	anjuta.prj \
 	anjuta.spec.in \
 	xml-i18n-extract.in \
@@ -24,8 +25,12 @@ EXTRA_DIST = \
 	xml-i18n-update.in \
 	$(anjutadoc_DATA)
 
+@XML_I18N_MERGE_DESKTOP_RULE@
+
 gnomemenudir = $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development
-gnomemenu_DATA = anjuta.desktop
+
+gnomemenu_premerge_file = anjuta.desktop.in
+gnomemenu_DATA = $(gnomemenu_premerge_file:.desktop.in=.desktop)
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

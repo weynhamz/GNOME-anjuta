@@ -161,6 +161,8 @@ src/resources.h
 src/notebook.c
 src/notebook.h
 
+anjuta.desktop.in
+
 ccview/cccmd.cc
 ccview/cccproj.cc
 ccview/ccview_main.cc

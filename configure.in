@@ -145,6 +145,6 @@ pixmaps/Makefile
 data/Makefile
 doc/Makefile
 launcher/Makefile
-anjuta.desktop
+anjuta.desktop.in
 ])
 
