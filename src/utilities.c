@@ -70,7 +70,9 @@ resolved_file_name(gchar *full_filename)
 		final_filename = g_strdup(real_filename);
 	else
 		final_filename = g_strdup(full_filename);
+#ifdef DEBUG
 	g_message("%s -> %s", NSTR(full_filename), NSTR(final_filename));
+#endif
 	return final_filename;
 }
 

@@ -1,5 +1,17 @@
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/an_symbol_view.c: Added MAX_STRING_LENGTH
+	
+	* tagmanager/tm_source_file.c, regex.c, parse.c:
+	  defined and delimited g_messages within #debug.
+	  
+	* src/preferences.c, data/anjuta.properties:
+	  saved/defied message-manager tag position in string.
+	  Message tag possition is saved between sessions. And
+	  and tag position bottom as default.
+	  
+2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	Patch submitted by:
 	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 

@@ -1076,7 +1076,9 @@ tags_manager_set_filename (TagsManager * tm, gchar * fn)
 	{
 		if (tm->cur_file)
 		{
-			/* g_message("Files are %s and %s", tm->cur_file, fn); */
+#ifdef DEBUG
+			g_message("Files are %s and %s", tm->cur_file, fn);
+#endif
 			if (strcmp (tm->cur_file, extract_filename (fn)) == 0)
 				return;
 		}

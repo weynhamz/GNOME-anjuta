@@ -559,17 +559,20 @@ extern boolean processRegexOption (const char *const option,
     if (dash != NULL  &&  strncmp (option, "regex", dash - option) == 0)
     {
 #ifdef HAVE_REGEX
-	langType language;
-	language = getNamedLanguage (dash + 1);
-	if (language == LANG_IGNORE)
-	    error (WARNING, "unknown language in --%s option", option);
-	else
-	    processLanguageRegex (language, parameter);
-#else
-	error (WARNING, "regex support not available; required for --%s option",
-	   option);
+		langType language;
+		language = getNamedLanguage (dash + 1);
+		if (language == LANG_IGNORE) {
+#ifdef DEBUG
+			error (WARNING, "unknown language in --%s option", option);
 #endif
-	handled = TRUE;
+		} else {
+			processLanguageRegex (language, parameter);
+		}
+#else
+		error (WARNING, "regex support not available; required for --%s option",
+		   option);
+#endif
+		handled = TRUE;
     }
     return handled;
 }

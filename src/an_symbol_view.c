@@ -8,6 +8,8 @@
 
 #include "an_symbol_view.h"
 
+#define MAX_STRING_LENGTH 256
+
 static SymbolFileInfo *symbol_file_info_new(TMSymbol *sym)
 {
 	SymbolFileInfo *sfile = g_new0(SymbolFileInfo, 1);
@@ -403,7 +405,7 @@ AnSymbolView *sv_populate(void)
 		goto clean_leave;
 	}
 
-	s = g_string_sized_new(255);
+	s = g_string_sized_new(MAX_STRING_LENGTH);
 	for (i=0; i < symbol_tree->info.children->len; ++i)
 	{
 		sym = TM_SYMBOL(symbol_tree->info.children->pdata[i]);

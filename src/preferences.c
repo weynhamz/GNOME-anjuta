@@ -487,10 +487,10 @@ preferences_sync (Preferences * pr)
 	str = preferences_get (pr, MESSAGES_TAG_POS);
 	if (str != NULL)
 	{
-		if (strcmp (str, "bottom") == 0)
+		if (strcmp (str, "top") == 0)
 		{
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-							  (pr->widgets.tag_pos_msg_radio[1]),
+							  (pr->widgets.tag_pos_msg_radio[0]),
 							  TRUE);
 		}
 		else if (strcmp (str, "left") == 0)
@@ -508,14 +508,14 @@ preferences_sync (Preferences * pr)
 		else
 		{
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-							  (pr->widgets.tag_pos_msg_radio[2]),
+							  (pr->widgets.tag_pos_msg_radio[1]),
 							  TRUE);
 		}
 		g_free (str);
 	}
 	else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
-							(pr->widgets.tag_pos_msg_radio[2]), TRUE);
+							(pr->widgets.tag_pos_msg_radio[1]), TRUE);
 
 	str = preferences_get(pr, MESSAGES_COLOR_ERROR);
 	if (str)
@@ -790,8 +790,11 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	fprintf (fp, "%s=%d\n", TRUNCAT_MESG_LAST,
 		 preferences_get_int (pr, TRUNCAT_MESG_LAST));
 	
-	fprintf (fp, "%s=%d\n", MESSAGES_TAG_POS,
-		 preferences_get_int (pr, MESSAGES_TAG_POS));
+	str = preferences_get (pr, MESSAGES_TAG_POS);
+	if (str) {
+		fprintf (fp, "%s=%s\n", MESSAGES_TAG_POS, str);
+		g_free (str);
+	}
 
 	str = preferences_get (pr, MESSAGES_COLOR_ERROR);
 	fprintf (fp, "%s=%s\n", MESSAGES_COLOR_ERROR, str);
