@@ -1,43 +1,52 @@
+2002-05-03  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
+
+	Patch reviewed by Stephane Demurget <demurgets@free.fr>.
+
+	Fix for #539574.
+
+	* src/anjuta.c (anjuta_system_error): checks for the error number to
+	know wheter the error description is needed or not.
+
 2002-05-03 Naba Kumar <kh_naba@users.sourceforge.net>
 
-    * pixmaps/anjuta_logo.png: New about logo.
+	* pixmaps/anjuta_logo.png: New about logo.
     
-    * pixmaps/anjuta_icon.png: New icon from Misha. The
-    old one had trouble with some gtk themes.
+	* pixmaps/anjuta_icon.png: New icon from Misha. The
+	old one had trouble with some gtk themes.
     
-    * about.c: Removed. No longer needed.
+	* about.c: Removed. No longer needed.
 
-    * mainmenu_callbacks.c: Removed reference of about.h
+	* mainmenu_callbacks.c: Removed reference of about.h
     
 2002-05-03  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 
-    Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
+	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* widgets/e-shell-about-box.[ch], configure.in, Makefile.am,
 	  mainmenu_callbacks.c, widgets/Makefile.am: Implemented the new
-	  About Dialog (thanks to the Evolution team for the cool widget!)
+	About Dialog (thanks to the Evolution team for the cool widget!)
 
 2002-05-03 Naba Kumar <kh_naba@users.sourceforge.net>
 
-    Patch from lbell <lbell@tsc4.com>
+	Patch from lbell <lbell@tsc4.com>
     
-    * src/find_in_files.c, src/find_in_files.h,
-    src/anjuta.c: Added save_yourself, load_yourself routines.
+	* src/find_in_files.c, src/find_in_files.h,
+	  src/anjuta.c: Added save_yourself, load_yourself routines.
     
-    * src/find_in_files.{h,c}, src/find_in_files_gui.c:
-    Added "Append messages" toggle button. This will enable
-    the search results to be appended to the already existing
-    results.
+	* src/find_in_files.{h,c}, src/find_in_files_gui.c:
+	Added "Append messages" toggle button. This will enable
+	the search results to be appended to the already existing
+	results.
     
-    * src/debugger.c: Fixed a typo.
+	* src/debugger.c: Fixed a typo.
     
-    * src/find_text.c, src/breakpoints.c, src/project_dbase.c,
-    src/session.c, src/session.h: Improved session management.
+	* src/find_text.c, src/breakpoints.c, src/project_dbase.c,
+	  src/session.c, src/session.h: Improved session management.
 
 2002-05-03  Naba Kumar <kh_naba@users.sourceforge.net>
 
-    * THANKS, FUTURE, AUTHORS: Changed my email and
-    avoided yahoo.com.
+	* THANKS, FUTURE, AUTHORS: Changed my email and
+	avoided yahoo.com.
 
 2002-05-02  Stephane Demurget  <demurgets@free.fr>
 

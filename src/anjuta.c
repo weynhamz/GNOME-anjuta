@@ -1383,10 +1383,14 @@ anjuta_system_error (gint errnum, gchar * mesg, ... )
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	
-	tot_mesg = g_strconcat (message, _("\nSystem: "), g_strerror(errnum), NULL);
+
+	if (0 != errnum) {
+		tot_mesg = g_strconcat (message, _("\nSystem: "), g_strerror(errnum), NULL);
+		g_free (message);
+	} else
+		tot_mesg = message;
+
 	gnome_app_error (GNOME_APP (app->widgets.window), tot_mesg);
-	g_free (message);
 	g_free (tot_mesg);
 }
 
