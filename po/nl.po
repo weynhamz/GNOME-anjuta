@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-07 11:47+0200\n"
+"POT-Creation-Date: 2003-07-16 11:12+0200\n"
 "PO-Revision-Date: 2003-02-25 23:35+0100\n"
 "Last-Translator: Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -488,7 +488,7 @@ msgstr "Document module Makefile.am"
 msgid "Draw line below folded lines"
 msgstr ""
 
-#: anjuta.glade.h:123 anjuta_dialogs_strings.c:232
+#: anjuta.glade.h:100 anjuta_dialogs_strings.c:232
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -557,7 +557,7 @@ msgstr ""
 msgid "Enable python quoted strings folding"
 msgstr ""
 
-#: anjuta.glade.h:139 anjuta_dialogs_strings.c:261 src/breakpoints.c:111
+#: anjuta.glade.h:116 anjuta_dialogs_strings.c:261 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
@@ -676,7 +676,7 @@ msgid "GUI editor command:"
 msgstr ""
 
 #. 3
-#: anjuta.glade.h:166 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:392
+#: anjuta.glade.h:142 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:392
 msgid "General"
 msgstr "Algemeen"
 
@@ -916,7 +916,7 @@ msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr ""
 "Optimalisatie op gemiddeld niveau (zonder ruimte-snelheid wisselwerking)"
 
-#: anjuta.glade.h:222 anjuta_dialogs_strings.c:532
+#: anjuta.glade.h:195 anjuta_dialogs_strings.c:474
 msgid "Memory"
 msgstr "Geheugen"
 
@@ -1215,7 +1215,7 @@ msgstr "Reikwijdte"
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Extra scripts aan het eind van bovenste Makefile.am"
 
-#: anjuta.glade.h:290 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
+#: anjuta.glade.h:260 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
 #: src/search-replace.c:1495 src/search-replace.c:1501
 msgid "Search"
 msgstr "Zoeken"
@@ -1284,7 +1284,7 @@ msgstr "Selectie achtergrond:"
 msgid "Selection foreground:"
 msgstr "Selectie voorgrond:"
 
-#: anjuta.glade.h:305 anjuta_dialogs_strings.c:240
+#: anjuta.glade.h:275 anjuta_dialogs_strings.c:240
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -1359,7 +1359,7 @@ msgid ""
 "skelleton of various types of Project."
 msgstr ""
 
-#: anjuta.glade.h:324 anjuta_dialogs_strings.c:110
+#: anjuta.glade.h:292 anjuta_dialogs_strings.c:110
 #: anjuta_dialogs_strings.c:125
 msgid "String"
 msgstr "Tekenreeks"
@@ -1437,7 +1437,7 @@ msgstr "Onderstreept"
 #: src/registers_gui.c:47 src/sharedlib_gui.c:40 src/signals_gui.c:54
 #: src/stack_trace.c:370
 msgid "Update"
-msgstr "Update"
+msgstr "Verversen"
 
 #: anjuta.glade.h:310 anjuta_dialogs_strings.c:338
 msgid "Update tags image automatically"
@@ -1542,7 +1542,7 @@ msgstr "_Voorwaarde:"
 msgid "_Disable all"
 msgstr "Alles _uitschakelen"
 
-#: anjuta.glade.h:377 anjuta_dialogs_strings.c:224
+#: anjuta.glade.h:334 anjuta_dialogs_strings.c:224
 msgid "_Edit"
 msgstr "Be_werken"
 
@@ -1560,7 +1560,7 @@ msgstr "_Taal:"
 
 #: anjuta.glade.h:338 anjuta_dialogs_strings.c:16
 msgid "_Location:"
-msgstr "_Locatie:"
+msgstr "_Lokatie:"
 
 #: anjuta.glade.h:339 anjuta_dialogs_strings.c:38
 msgid "_Make a file:"
@@ -1592,7 +1592,7 @@ msgstr "_Console:"
 
 #: anjuta.glade.h:346 anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
 msgid "_Update"
-msgstr "_Update"
+msgstr "_Verversen"
 
 #: anjuta_dialogs_strings.c:327 anjuta_dialogs_strings.c:478
 msgid "window1"
@@ -1787,7 +1787,7 @@ msgid "Item"
 msgstr "Item"
 
 #: gdl/gdl-dock-layout.c:737 gdl/gdl-dock-object.c:120
-#: src/compiler_options.c:816 src/windows-dialog.c:294
+#: src/compiler_options.c:816
 msgid "Name"
 msgstr "Naam"
 
@@ -2086,7 +2086,7 @@ msgstr "Klassen"
 
 #. 13
 #. 14
-#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1017
+#: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:998
 #: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace.c:385 src/toolbar.c:159
 #: src/watch_gui.c:74
@@ -2906,9 +2906,8 @@ msgstr ""
 "Wilt u het overschrijven?."
 
 #: src/anjuta_cbs.c:511 src/anjuta_cbs.c:575 src/find_replace.c:342
-#, fuzzy
 msgid "_Replace"
-msgstr "Vervang"
+msgstr "_Vervangen"
 
 #: src/anjuta_cbs.c:544
 #, fuzzy
@@ -3591,9 +3590,8 @@ msgid "Extern(rsh)"
 msgstr ""
 
 #: src/cvs_gui.c:30
-#, fuzzy
 msgid "Server"
-msgstr "Stap over"
+msgstr "Server"
 
 #: src/cvs_gui.c:72
 #, fuzzy
@@ -4329,7 +4327,7 @@ msgstr "Af_drukken"
 
 #: src/main_menubar_def.h:123 src/text_editor_gui.c:179 src/toolbar.c:110
 msgid "Print the current file"
-msgstr "Druk het huidige bestand af"
+msgstr "Het huidige bestand afdrukken"
 
 #. 19
 #: src/main_menubar_def.h:128
@@ -4851,7 +4849,7 @@ msgstr "Doe de laatste ongedane aktie opnieuw"
 #. 3
 #: src/main_menubar_def.h:569
 msgid "C_ut"
-msgstr "C_ut"
+msgstr "K_nippen"
 
 #: src/main_menubar_def.h:570
 msgid "Cut the selected text from the editor to the clipboard"
@@ -5552,7 +5550,7 @@ msgid "Force the highlight style to Lisp"
 msgstr "Forceer de belichtingsstijl naar Lisp"
 
 #. 25
-#: src/main_menubar_def.h:1178
+#: src/main_menubar_def.h:1159
 msgid "Ruby"
 msgstr "Robijn"
 
@@ -6464,7 +6462,7 @@ msgstr "_Debug"
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1923
+#: src/main_menubar_def.h:1904
 msgid "_Settings"
 msgstr "_Instellingen"
 
@@ -6497,7 +6495,7 @@ msgstr ""
 "Weet u zeker dat u %s wilt herladen? \n"
 "Aanpassingen die niet bewaard zijn, zullen verloren gaan. "
 
-#: src/mainmenu_callbacks.c:248 src/text_editor.c:1306
+#: src/mainmenu_callbacks.c:248 src/text_editor.c:1308
 msgid "_Reload"
 msgstr "He_rladen"
 
@@ -6543,7 +6541,7 @@ msgstr ""
 msgid "Non accessible address !"
 msgstr ""
 
-#: src/message-manager.cc:42 src/text_editor_gui.c:135 src/toolbar.c:114
+#: src/message-manager.cc:44 src/text_editor_gui.c:135 src/toolbar.c:114
 msgid "Find"
 msgstr "Zoeken"
 
@@ -6925,7 +6923,7 @@ msgstr "Catalaans"
 
 #: src/project_dbase_gui.c:1139
 msgid "Czech"
-msgstr "Tjechisch"
+msgstr "Tsjechisch"
 
 #: src/project_dbase_gui.c:1140
 msgid "Danish"
@@ -6998,7 +6996,7 @@ msgstr "Russisch"
 
 #: src/project_dbase_gui.c:1161
 msgid "Slovak"
-msgstr "Slovaans"
+msgstr "Slowaaks"
 
 #: src/project_dbase_gui.c:1163
 msgid "Simplified Chinese"
@@ -7442,7 +7440,7 @@ msgstr "Opslaan"
 
 #: src/text_editor_gui.c:111 src/toolbar.c:87
 msgid "Reload"
-msgstr "Herladen"
+msgstr "Verversen"
 
 #. 0
 #: src/text_editor_gui.c:118 src/text_editor_menu.c:239
@@ -7707,7 +7705,7 @@ msgstr "Ga naar eerste bladwijzer in dit document"
 
 #: src/toolbar.c:397 src/toolbar.c:419
 msgid "Prev"
-msgstr "Vorig"
+msgstr "Vorige"
 
 #: src/toolbar.c:398
 msgid "Goto previous bookmark in this document"
@@ -8132,7 +8130,7 @@ msgstr "Item naam:"
 
 #: src/wizard_gui.c:653
 msgid "Comment:"
-msgstr "Commentaar:"
+msgstr "Opmerking:"
 
 #: src/wizard_gui.c:660
 msgid "Group:"
