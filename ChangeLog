@@ -4,6 +4,7 @@
 	* plugins/editor/anjuta-docman.c, plugins/message-view/anjuta-msgman.c,
 	plugins/message-view/message-view.c: Fixed finalize and dispose
 	methods.
+	* plugins/debugger/*: Removed from cvs (development now in debug-manager).
 
 2004-11-17  Pavol Bosik  <pavol.bosik@radiantsystems.com>
 

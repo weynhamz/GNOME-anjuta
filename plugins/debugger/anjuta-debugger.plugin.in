@@ -1,9 +1,0 @@
-[Anjuta Plugin]
-_Name=Debugger
-_Description=Debugger plugin.
-Location=anjuta-debugger:DebuggerPlugin
-Icon=anjuta-debugger.plugin.png
-Interfaces=IAnjutaFile
-
-[File Loader]
-SupportedMimetypes=application/x-executable
