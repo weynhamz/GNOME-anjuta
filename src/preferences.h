@@ -334,6 +334,7 @@ void preferences_set_build_options(Preferences* p);
 #define MESSAGES_COLOR_WARNING   "messages.color.warning"
 #define MESSAGES_COLOR_MESSAGES1 "messages.color.messages1"
 #define MESSAGES_COLOR_MESSAGES2 "messages.color.messages2"
+#define MESSAGES_INDICATORS_AUTOMATIC "indicators.automatic"
 
 #define AUTOMATIC_TAGS_UPDATE   "automatic.tags.update"
 #define BUILD_SYMBOL_BROWSER	 "build.symbol.browser"

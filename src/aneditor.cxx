@@ -1101,7 +1101,7 @@ bool AnEditor::FindWordInRegion(char *word, int maxlength, char *region, int off
 	while (startword> 0 && wordCharacters.contains(region[startword - 1]))
 		startword--;
 	int endword = offset;
-	while (region[endword] && wordCharacters.contains(region[endword - 1]))
+	while (region[endword] && wordCharacters.contains(region[endword]))
 		endword++;
 	if(startword == endword)
 		return false;

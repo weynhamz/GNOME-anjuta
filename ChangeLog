@@ -1,3 +1,10 @@
+2002-12-01  Naba Kumar <naba@gnome.org>
+
+	* src/anjuta.c, src/preferences.h: Added MESSAGES_INDCATORS_AUTOMATIC
+	property and uses it.
+	* src/aneditor.cxx: Fixed a bug associated with selection a word at
+	current cursor.
+	
 2002-11-30  Naba Kumar <naba@gnome.org>
 
 	* src/debugger.c: Fixed a typo.

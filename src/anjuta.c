@@ -2137,7 +2137,10 @@ static void on_message_indicate (GtkObject* obj, gint type_name, gchar* file, gl
 	GList *node;
 
 	TextEditor *te;
-
+	if (!preferences_get_int_with_default(app->preferences,
+			MESSAGES_INDICATORS_AUTOMATIC, 1)) {
+		return;
+	}
 	g_return_if_fail (file);
 	fn = anjuta_get_full_filename (file);
 	g_return_if_fail (fn);
