@@ -14,10 +14,10 @@ static gint dir_compare_func(gchar *txt1, gchar *txt2);
 static void set_file_selection(GnomeFileList *file_list);
 static gboolean set_dir_internal (GnomeFileList *file_list, gchar *path);
 static gboolean gnome_filelist_check_dir_exists(gchar *path);
-static gint g_list_find_string_pos (GList *list, gchar *new_entry);
+// static gint g_list_find_string_pos (GList *list, gchar *new_entry);
 static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event);
 static void refresh_listing(GtkWidget *widget, GnomeFileList *file_list);
-static void goto_directory(GtkWidget *widget, GnomeFileList *file_list);
+// static void goto_directory(GtkWidget *widget, GnomeFileList *file_list);
 static void goto_parent(GtkWidget *widget, GnomeFileList *file_list);
 static void goto_prev(GtkWidget *widget, GnomeFileList *file_list);
 static void goto_next(GtkWidget *widget, GnomeFileList *file_list);
@@ -103,6 +103,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    
    file_list = gtk_type_new(GNOME_TYPE_FILELIST);
    gtk_container_set_border_width(GTK_CONTAINER(file_list), 5);
+   // gtk_signal_connect(GTK_OBJECT(file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
 
    main_box = gtk_vbox_new(FALSE, 5);
    gtk_container_add(GTK_CONTAINER(file_list), main_box);
@@ -113,28 +114,28 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_widget_show(toolbar);
 
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_BACK, 21, 21);
-   file_list->back_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Go to the previous directory", 0, pixmapwid, GTK_SIGNAL_FUNC(goto_prev), file_list);
+   file_list->back_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Go to the previous directory"), 0, pixmapwid, GTK_SIGNAL_FUNC(goto_prev), file_list);
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_FORWARD, 21, 21);
    file_list->forward_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Go to the next directory", 0, pixmapwid, GTK_SIGNAL_FUNC(goto_next), file_list);
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_HOME, 21, 21);
-   file_list->home_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Go to home directory", 0, pixmapwid, GTK_SIGNAL_FUNC(home_directory_cb), file_list);
+   file_list->home_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Go to home directory"), 0, pixmapwid, GTK_SIGNAL_FUNC(home_directory_cb), file_list);
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_UNDO, 21, 21);
-   parent_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Go to parent directory", 0, pixmapwid, GTK_SIGNAL_FUNC(goto_parent), file_list);
+   parent_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Go to parent directory"), 0, pixmapwid, GTK_SIGNAL_FUNC(goto_parent), file_list);
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_REFRESH, 21, 21);
-   refresh_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Refresh listing", 0, pixmapwid, GTK_SIGNAL_FUNC(refresh_listing), file_list);
+   refresh_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Refresh listing"), 0, pixmapwid, GTK_SIGNAL_FUNC(refresh_listing), file_list);
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_CLOSE, 21, 21);
-   file_list->delete_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Delete file", 0, pixmapwid, GTK_SIGNAL_FUNC(delete_file), file_list); 
+   file_list->delete_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Delete file"), 0, pixmapwid, GTK_SIGNAL_FUNC(delete_file), file_list); 
    pixmapwid = gnome_stock_pixmap_widget_at_size(GTK_WIDGET(file_list), GNOME_STOCK_PIXMAP_CONVERT, 21, 21);
-   file_list->rename_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, "Rename file", 0, pixmapwid, GTK_SIGNAL_FUNC(rename_file), file_list);
+   file_list->rename_button = gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), 0, _("Rename file"), 0, pixmapwid, GTK_SIGNAL_FUNC(rename_file), file_list);
    
    gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
 
    file_list->show_hidden_button = gtk_toggle_button_new();
    gtk_widget_show (file_list->show_hidden_button);
-   gtk_toolbar_append_widget (GTK_TOOLBAR(toolbar), file_list->show_hidden_button, "Show hidden files and directories", NULL);
+   gtk_toolbar_append_widget (GTK_TOOLBAR(toolbar), file_list->show_hidden_button, _("Show hidden files and directories"), NULL);
    gtk_signal_connect (GTK_OBJECT(file_list->show_hidden_button), "toggled", GTK_SIGNAL_FUNC(show_hidden_toggled), file_list);
    
    hbox = gtk_hbox_new(FALSE, 0);
@@ -145,7 +146,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_widget_show (pixmapwid);
    gtk_box_pack_start (GTK_BOX(hbox), pixmapwid, FALSE, FALSE, 0);
    
-   label1 = gtk_label_new ("Show Hidden");
+   label1 = gtk_label_new (_("Show Hidden"));
    gtk_widget_show (label1);
    gtk_box_pack_start (GTK_BOX(hbox), label1, TRUE, TRUE, 3);
 
@@ -153,7 +154,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_box_pack_start(GTK_BOX(main_box), util_box, TRUE, TRUE, 0);
    gtk_widget_show(util_box);
 
-   label = gtk_label_new("Directory: ");
+   label = gtk_label_new(_("Directory: "));
    gtk_box_pack_start(GTK_BOX(util_box), label, FALSE, FALSE, 0);
    gtk_widget_show(label);
 
@@ -188,7 +189,7 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_signal_connect(GTK_OBJECT(file_list->directory_list), "select_row", GTK_SIGNAL_FUNC(file_select_event), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->directory_list), "unselect_row", GTK_SIGNAL_FUNC(file_unselect_event), file_list);
    gtk_paned_add1(GTK_PANED(paned), scrolled_window);
-   gtk_clist_set_column_title(GTK_CLIST(file_list->directory_list), 0, "Directories");
+   gtk_clist_set_column_title(GTK_CLIST(file_list->directory_list), 0, _("Directories"));
    gtk_widget_show(file_list->directory_list);
    
    scrolled_window = gtk_scrolled_window_new(0, 0);
@@ -197,12 +198,12 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_widget_show(scrolled_window);
 
    file_list->file_list = gtk_ctree_new(1, 0);
-	//gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_EXTENDED);
-//	gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
-	gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_SINGLE);
-	file_list->multiple_selection = TRUE;
-//   gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_SINGLE);
-//   gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_MULTIPLE);
+   // gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_EXTENDED);
+   // gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
+   gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_SINGLE);
+   file_list->multiple_selection = FALSE;
+   // gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_SINGLE);
+   // gtk_clist_set_selection_mode(GTK_CLIST(file_list->file_list), GTK_SELECTION_MULTIPLE);
    gtk_clist_set_shadow_type(GTK_CLIST(file_list->file_list), GTK_SHADOW_ETCHED_IN);
    gtk_clist_set_column_justification(GTK_CLIST(file_list->file_list), 0, GTK_JUSTIFY_LEFT);
    gtk_clist_set_row_height(GTK_CLIST(file_list->file_list), 18);
@@ -211,23 +212,24 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_ctree_set_line_style (GTK_CTREE(file_list->file_list), GTK_CTREE_LINES_NONE);
    gtk_clist_column_titles_passive(GTK_CLIST(file_list->file_list));
    gtk_container_add(GTK_CONTAINER(scrolled_window), file_list->file_list);
- gtk_widget_set_events(file_list->file_list, 
+   gtk_widget_set_events(file_list->file_list, 
                                         GDK_KEY_PRESS_MASK);
 
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "key_press_event", GTK_SIGNAL_FUNC(gnome_filelist_key_press), 0);
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "select_row", GTK_SIGNAL_FUNC(file_select_event), file_list);
    gtk_signal_connect(GTK_OBJECT(file_list->file_list), "unselect_row", GTK_SIGNAL_FUNC(file_unselect_event), file_list);
    gtk_paned_add2(GTK_PANED(paned), scrolled_window);
-   gtk_clist_set_column_title(GTK_CLIST(file_list->file_list), 0, "Files");
+   gtk_clist_set_column_title(GTK_CLIST(file_list->file_list), 0, _("Files"));
    gtk_widget_show(file_list->file_list);
 
    util_box = gtk_hbox_new(FALSE, 0);
    gtk_box_pack_start(GTK_BOX(main_box), util_box, TRUE, TRUE, 0);
    gtk_widget_show(util_box);
 
-   label = gtk_label_new("Selection: ");
-   gtk_box_pack_start(GTK_BOX(util_box), label, FALSE, FALSE, 0);
+   label = gtk_label_new(_("Selection: "));
+   gtk_box_pack_start(GTK_BOX(util_box), label, FALSE, TRUE, 0);
    gtk_widget_show(label);
+   file_list->selection_label = label;
    
    file_list->selection_entry = gtk_entry_new();
    gtk_box_pack_start(GTK_BOX(util_box), file_list->selection_entry, TRUE, TRUE, 0);
@@ -345,9 +347,23 @@ static void file_select_event(GtkCTree *tree, gint row, gint col, GdkEvent *even
 
 static void file_unselect_event(GtkCTree *tree, gint row, gint col, GdkEvent *event, GnomeFileList *file_list)
 {
-   file_list->selected_row = -1;   
-   g_free(file_list->selected);
-   file_list->selected = NULL;
+   GList* selected_list;
+	
+   selected_list = GTK_CLIST(file_list->file_list)->selection;
+   if (g_list_length(selected_list) > 0 && file_list->multiple_selection) {
+	    GtkCTreeNode* node;
+		gchar *text;
+	    node = g_list_last(selected_list)->data;
+		gtk_ctree_select(GTK_CTREE(file_list->file_list), node);
+		gtk_ctree_node_get_pixtext(GTK_CTREE(file_list->file_list),
+			node, 0, &text, NULL, NULL, NULL);
+	    g_free(file_list->selected);
+	    file_list->selected = g_strdup(text);
+   } else {
+	   file_list->selected_row = -1;
+	   g_free(file_list->selected);
+	   file_list->selected = NULL;
+   }
    set_file_selection(file_list);
 }
 
@@ -499,7 +515,7 @@ gchar *gnome_filelist_get_filename(GnomeFileList *file_list)
    g_return_val_if_fail(GNOME_IS_FILELIST(file_list), NULL);
    path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
    filename = gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry));
-   full = g_strconcat(path, filename, NULL);
+   full = build_full_path(path, filename);
    return(full);
 }
 
@@ -688,6 +704,7 @@ static gboolean gnome_filelist_check_dir_exists(gchar *path)
    return(TRUE);
 }
 
+#if 0
 static gint g_list_find_string_pos (GList *list, gchar *new_entry)
 {
    gint i = 0;
@@ -704,6 +721,7 @@ static gint g_list_find_string_pos (GList *list, gchar *new_entry)
 
    return -1;
 }
+#endif
 
 static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event)
 {
@@ -787,7 +805,17 @@ static gint gnome_filelist_key_press(GtkWidget *widget, GdkEventKey *event)
 	else if(event->keyval == GDK_Control_L || event->keyval == GDK_Control_R)
 	{
 		// printf("Control pressed\n");
-		gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
+		if (file_list->multiple_selection == FALSE) {
+			gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_MULTIPLE);
+			file_list->multiple_selection = TRUE;
+			gtk_widget_hide (file_list->selection_entry);
+			gtk_label_set_text (GTK_LABEL(file_list->selection_label), _("Multiple selection mode"));
+		} else {
+			gnome_filelist_set_selection_mode(file_list, GTK_SELECTION_SINGLE);
+			file_list->multiple_selection = FALSE;
+			gtk_widget_show (file_list->selection_entry);
+			gtk_label_set_text (GTK_LABEL(file_list->selection_label), _("Selection: "));
+		}
 	}
 	
    if(row >= 0 && row < clist->rows)
@@ -816,6 +844,7 @@ static void refresh_listing(GtkWidget *widget, GnomeFileList *file_list)
    g_free(string);
 }
 
+#if 0
 static void goto_directory(GtkWidget *widget, GnomeFileList *file_list)
 {
    gchar *string, *util, *path, *selected, *new_string;
@@ -843,6 +872,7 @@ static void goto_directory(GtkWidget *widget, GnomeFileList *file_list)
    file_list->history_position = -1;
    g_free(string);
 }
+#endif
 
 static void goto_parent(GtkWidget *widget, GnomeFileList *file_list)
 {
@@ -884,7 +914,16 @@ static void goto_next(GtkWidget *widget, GnomeFileList *file_list)
 static void check_ok_button_cb(GtkWidget *widget, GnomeFileList *file_list)
 {
    gchar *path, *selected, *string;
-   
+   GList *selected_list;
+	
+   selected_list = GTK_CLIST(file_list->file_list)->selection;
+   if (g_list_length(selected_list) > 0 && file_list->multiple_selection) {
+      gtk_widget_set_sensitive(file_list->ok_button, TRUE);
+      gtk_widget_set_sensitive(file_list->delete_button, FALSE);
+      gtk_widget_set_sensitive(file_list->rename_button, FALSE);
+	  return;
+   }
+
    path = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry));
    selected = gtk_entry_get_text(GTK_ENTRY(file_list->selection_entry));
    string = build_full_path(path, selected);
@@ -947,6 +986,11 @@ gchar *build_full_path(const gchar *path, const gchar *selection)
    gchar chr;
    gint malloc_size = 0;
    gint offset = 0;
+	
+   if (selection[0] == '/') {
+      ptr = g_strdup(selection);
+      return ptr;
+   }
    offset =  strlen(path) - 1;
    chr = path[offset];
    malloc_size = strlen(path) + 1;

@@ -1,5 +1,21 @@
 2002-01-28  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/gnomefilelist.h, src/gnomefilelist.c:
+	
+	  Fixed multiple selection bug. The OK button is
+	  sensitive when in multiple mode, if the no. of
+	  selection is one or more.
+	  
+	  Toggle between single and multiple selection mode
+	  and multiple mode display.
+	  
+	  Fixed strings to translable strings.
+	  
+	  Fixed some compiler warnings by commenting out
+	  unused functions.
+	  
+2002-01-28  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/project_dbase.c: App status bar now updates
 	  with the project name when the project is loaded.
 	

@@ -49,9 +49,11 @@ struct _GnomeFileList {
    GtkWidget *directory_list;
    GtkWidget *file_list;
    GtkWidget *filter_combo;
+   GtkWidget *selection_label;
    GtkWidget *selection_entry;
    GtkWidget *ok_button;
    GtkWidget *cancel_button;
+	
    gboolean show_hidden;
    gchar *path;
    gchar *selected;
@@ -61,7 +63,7 @@ struct _GnomeFileList {
    gint selected_row;
    GnomePixmap *folder;
    GnomePixmap *file;
-	gboolean multiple_selection;
+   gboolean multiple_selection;
 
    gchar *entry_text;
 };
