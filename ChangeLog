@@ -6,6 +6,9 @@
 	
 	* data/properties/anjuta.properties: Do not defualt to -k make option.
 	bug #875486.
+
+	* manuals/C/anjuta-manual/build.xml: Changed build shortcut to F11.
+	bug #877683.
 	
 2004-02-25  Adam Weinberger  <adamw@FreeBSD.org>
 
