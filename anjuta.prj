@@ -645,7 +645,7 @@ module.doc.files=\
 	README\
 	THANKS\
 	TODO\
-	doc/anjuta.1\
+	doc/anjuta.1.in\
 	doc/ScintillaDoc.html\
 	manuals/C/anjuta-faqs/anjuta-faqs.sgml\
 	manuals/C/anjuta-manual/anjuta-manual.sgml\
@@ -721,5 +721,7 @@ project.source.paths=\
 	widgets\
 	tagmanager\
 	launcher\
-	scintilla
+	scintilla\
+	global-tags\
+	printing
 

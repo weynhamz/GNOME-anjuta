@@ -33,6 +33,7 @@
 #include "launcher.h"
 #include "anjuta.h"
 #include "lexer.h"
+#include "an_file_view.h"
 
 #define DEBUG
 
@@ -67,7 +68,11 @@ static gchar *server_type_identifiers[CVS_END] =
 
 /* Text editor for diff */
 static TextEditor *diff_editor = NULL;
-		
+
+/* Update FileView ? */ 
+
+static gboolean update_fileview = FALSE;
+	
 /* 
 	Initialisize cvs module. Read values from properties. 
 */
@@ -234,6 +239,7 @@ cvs_update (CVS * cvs, gchar * filename, gchar * branch, gboolean is_dir)
 	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 	
+	update_fileview = TRUE;
 	launch_cvs_command (command, dir);
 
 	g_free (command);
@@ -283,8 +289,9 @@ cvs_commit (CVS * cvs, gchar * filename, gchar * revision,
 	anjuta_message_manager_append (app->messages, filename, MESSAGE_CVS);
 	anjuta_message_manager_append (app->messages, " ...\n", MESSAGE_CVS);
 
+	update_fileview = TRUE;
 	launch_cvs_command (command, dir);
-
+	
 	g_free (command);
 	g_free (compression);
 	g_free (dir);
@@ -734,6 +741,15 @@ on_cvs_terminate (int status, time_t time)
 	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
 				(gint) time);
 	anjuta_message_manager_append (app->messages, buff, MESSAGE_CVS);
+	
+	if (update_fileview && app->project_dbase->project_is_open)
+	{
+		anjuta_message_manager_append (app->messages, _("Updating versions in file tree..."), MESSAGE_CVS);
+		fv_populate(TRUE);
+		anjuta_message_manager_append (app->messages, _("done\n"), MESSAGE_CVS);
+	}
+	update_fileview = FALSE;
+		
 	
 	if (diff_editor != NULL)
 	{

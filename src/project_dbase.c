@@ -2156,7 +2156,17 @@ project_dbase_remove_file (ProjectDBase * p)
 	full_fn = g_strconcat(cmp_dir, "/", fn, NULL);
 	source_file = tm_project_find_file(p->tm_project, full_fn, FALSE);
 	if (source_file)
+	{
+		GList *node;
+		TextEditor *te;
 		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
+		for (node = app->text_editor_list; node; node = g_list_next(node))
+		{
+			te = (TextEditor *) node->data;
+			if (te && (source_file == te->tm_file))
+				te->tm_file = NULL;
+		}
+	}
  	else
  		g_warning("Unable to find %s in project", full_fn);
 	g_free(cmp_dir);

@@ -9,4 +9,6 @@ anjuta_docdir = $(prefix)/@NO_PREFIX_PACKAGE_DOC_DIR@
 anjuta_doc_DATA = \
 	ScintillaDoc.html
 
-EXTRA_DIST = $(anjuta_doc_DATA)
+man_MANS=anjuta.1
+
+EXTRA_DIST = $(anjuta_doc_DATA) $(man_MANS)

@@ -1,3 +1,29 @@
+2002-06-11  Johannes Schmid <clubfan@users.sourceforge.net>
+	
+	* src/cvs.c: FileView is automatically updated after a 
+	cvs commit/update.
+	
+2002-06-11	Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* anjuta.prj: Added source directories
+	* configure.in, src/Makefile.am, widgets/Makefile.am: Consolidated
+	gdk_pixbuf CFLAGS and LIBS.
+	* global-tags/create_global_tags.sh: Pick up SDL tags.
+	* src/anjuta.c, src/build_project.c, 
+	src/message-manager-private.cc: Fix memory management bugs.
+	* src/main_menubar.c, src/project_dbase_gui.c: Hide unimplemented
+	features.
+	* src/project_dbase.c: fix #566337
+
+2002-06-11	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/preferences_gui.c: message strings reviewed
+		
+	* anjuta.prj, configure.in, doc/Makefile.am, data/welcome.txt.in, 
+	doc/anjuta.1.in: install man page, update version numbers automatically
+	(patch from Jens Georg <mail@jensgeorg.de>)
+	* data/welcome.txt, doc/anjuta.1: files removed
+
 2002-06-11  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/preferences.h, src/preferences.h, src/anjuta.c:

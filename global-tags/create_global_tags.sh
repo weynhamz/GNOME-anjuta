@@ -18,6 +18,19 @@ if [ ! -z "$WX_PREFIX" ]; then
   CFLAGS="$CFLAGS $WX_CFLAGS"
 fi
 
+SDL_PREFIX=`sdl-config --prefix`
+if [ ! -z "$SDL_PREFIX" ]; then
+  SDL_CFLAGS=`sdl-config --cflags`
+  for cflag in $SDL_CFLAGS
+  do
+    dir=`echo $cflag | sed 's/^-I//'`
+    if [ -d "$dir" ]
+    then
+      FILES="$FILES $dir/*.h"
+    fi
+  done
+  CFLAGS="$CFLAGS $SDL_CFLAGS"
+fi
 
 GNOME_PREFIX=`gnome-config --prefix gnome 2>/dev/null`
 if [ ! -z "$GNOME_PREFIX" ]

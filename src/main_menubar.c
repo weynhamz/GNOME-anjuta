@@ -255,9 +255,12 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	/* Unimplemented */
 	gtk_widget_hide (file1_menu_uiinfo[15].widget);
 	gtk_widget_hide (file1_menu_uiinfo[16].widget);
+	gtk_widget_hide (edit1_menu_uiinfo[13].widget);
 	gtk_widget_hide (view1_menu_uiinfo[2].widget);
 	gtk_widget_hide (view1_menu_uiinfo[14].widget);
 	gtk_widget_hide (view1_menu_uiinfo[16].widget);
+	gtk_widget_hide (project1_menu_uiinfo[13].widget);
+	gtk_widget_hide (project1_menu_uiinfo[14].widget);
 
 	/* Note: this is because we don't know yet what's the
 	 *contents of these menus

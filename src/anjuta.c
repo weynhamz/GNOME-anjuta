@@ -2041,6 +2041,7 @@ anjuta_get_file_property (gchar* key, gchar* filename, gint default_value)
 	if (!value_str)
 		return default_value;
 	value = atoi (value_str);
+	g_free(value_str);
 	return value;
 }
 

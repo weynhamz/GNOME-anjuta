@@ -478,6 +478,7 @@ create_project_menus (ProjectDBase * p)
 	p->widgets.menu_configure = menu1_uiinfo[5].widget;
 	p->widgets.menu_info = menu1_uiinfo[6].widget;
 	p->widgets.menu_docked = menu1_uiinfo[8].widget;
+	gtk_widget_hide(menu1_uiinfo[9].widget); /* Help unimplemented */
 	gtk_widget_ref (menu);
 }
 

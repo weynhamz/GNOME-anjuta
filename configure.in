@@ -135,12 +135,6 @@ EXTRA_ORBIT_CFLAGS=`orbit-config --cflags client`
 AC_SUBST(EXTRA_ORBIT_LIBS)
 AC_SUBST(EXTRA_ORBIT_CFLAGS)
 
-EXTRA_PIXBUF_LIBS=`gdk-pixbuf-config --libs`
-EXTRA_PIXBUF_CFLAGS=`gdk-pixbuf-config --cflags`
-
-AC_SUBST(EXTRA_PIXBUF_LIBS)
-AC_SUBST(EXTRA_PIXBUF_CFLAGS)
-
 IDL_CFLAGS=`gnome-config --cflags idl`
 
 dnl Checks for header files.
@@ -412,7 +406,9 @@ anjuta.spec
 src/Makefile
 pixmaps/Makefile
 data/Makefile
+data/welcome.txt
 data/properties/Makefile
+doc/anjuta.1
 doc/Makefile
 scripts/Makefile
 scripts/anjuta_import.sh
@@ -422,4 +418,5 @@ plugins/sample1/Makefile
 plugins/class-gen/Makefile
 plugins/patch/Makefile
 anjuta.desktop.in
+
 ])

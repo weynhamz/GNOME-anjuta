@@ -436,14 +436,14 @@ create_preferences_page0 (Preferences * pr)
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 3);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 3);
 
-	label11 = gtk_label_new(_("UserName:"));
+	label11 = gtk_label_new(_("User Name: "));
 	gtk_widget_show (label11);
 	gtk_misc_set_alignment(GTK_MISC(label11), -1, 0);
 	gtk_table_attach (GTK_TABLE (table11), label11, 0, 1, 0, 1,
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (0), 0, 0);
 
-	label12 = gtk_label_new(_("UserEmail:"));
+	label12 = gtk_label_new(_("User Email: "));
 	gtk_widget_show (label12);
 	gtk_misc_set_alignment(GTK_MISC(label12), -1, 0);
 	gtk_table_attach (GTK_TABLE (table11), label12, 0, 1, 1, 2,
@@ -519,7 +519,7 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (GTK_FILL),
 			  (GtkAttachOptions) (GTK_FILL), 0, 0);
 
-	frame1 = gtk_frame_new (_(" Job Options "));
+	frame1 = gtk_frame_new (_(" Options "));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);

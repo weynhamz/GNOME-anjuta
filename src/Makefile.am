@@ -241,7 +241,6 @@ anjuta_LDADD =  \
 	$(GNOMEUI_LIBS)\
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
-	$(EXTRA_PIXBUF_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
 	$(top_builddir)/widgets/libwidgets.a\

@@ -181,7 +181,7 @@ AnjutaMessageWindow::append_buffer()
 	int truncat_mesg = preferences_get_int (get_preferences(), TRUNCAT_MESSAGES);
 	int mesg_first = preferences_get_int (get_preferences(), TRUNCAT_MESG_FIRST);
 	int mesg_last = preferences_get_int (get_preferences(), TRUNCAT_MESG_LAST);
-	
+
 	if (truncat_mesg == FALSE
 	    || message.length() <= uint(mesg_first + mesg_last))
 	{
@@ -198,9 +198,9 @@ AnjutaMessageWindow::append_buffer()
 		char* msg = new char[m1.length() + 1];
 		strcpy(msg, m1.c_str());
 		gtk_clist_append(GTK_CLIST(m_msg_list), &msg);
-		delete msg;		
+		delete []msg;	
 	}
-	
+
 	// Highlite messages:
 	int dummy_int;
 	char* dummy_fn;
@@ -226,8 +226,8 @@ AnjutaMessageWindow::append_buffer()
 			gtk_clist_set_foreground(GTK_CLIST(m_msg_list), m_messages.size() - 1, &m_parent->intern->color_message2);
 		}
 	}
-	delete dummy_fn;
-	
+	g_free(dummy_fn);
+
 	gtk_clist_thaw(GTK_CLIST(m_msg_list));
 	gtk_clist_columns_autosize (GTK_CLIST(m_msg_list));
 	if (update_adj) 
