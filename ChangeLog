@@ -1,3 +1,19 @@
+2002-08-14  Stephane Demurget  <demurgets@free.fr>
+
+	Added missing keywords reported by Lucca Bellonda <lbell@tsc4.com>.
+
+	* data/properties/sql.properties: added the DATETIME data type.
+
+	* data/properties/html.properties: added the foreach php keyword.
+
+2002-08-08  Stephane Demurget  <demurgets@free.fr>
+
+	* widgets/Makefile.am: removed blank line after the last backslash
+	for avoiding a warning from automake.
+
+	* configure.in:
+	* src/Makefile.am: added the ORBit-2 dep.
+
 2002-08-08  Stephane Demurget  <demurgets@free.fr>
 
 	* AUTHORS: added Biswa, because I wonder why noone already have
