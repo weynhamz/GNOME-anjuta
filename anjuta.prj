@@ -97,7 +97,7 @@ module.incude.files=
 
 module.source.name=src
 module.source.type=
-module.source.expanded=0
+module.source.expanded=1
 module.source.files=\
 	aneditor.cxx\
 	aneditor.h\
