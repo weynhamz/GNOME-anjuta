@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.8\n"
 "POT-Creation-Date: 2002-01-26 19:53+0530\n"
-"PO-Revision-Date: 2001-11-27 23:38+0200\n"
+"PO-Revision-Date: 2002-01-26 23:03+0100\n"
 "Last-Translator: Stéphane Démurget <demurgets@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,9 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
-#, fuzzy
 msgid "Anjuta IDE"
-msgstr "EDI Anjuta C/C++"
+msgstr "EDI Anjuta"
 
 #: anjuta.desktop.in.in.h:2
 msgid "Integrated Development Environment"
@@ -24,91 +23,83 @@ msgstr "Environnement de développement intégré"
 
 #: plugins/class-gen/clsGen.c:197
 msgid "Class name not valid"
-msgstr ""
+msgstr "Nom de classe invalide"
 
 #: plugins/class-gen/clsGen.c:202
 msgid "Declaration filename not valid"
-msgstr ""
+msgstr "Nom du fichier contenant les déclarations invalide"
 
 #: plugins/class-gen/clsGen.c:207
 msgid "Implementation filename not valid"
-msgstr ""
+msgstr "Nom du fichier contenant l'implémentation invalide"
 
 #: plugins/class-gen/clsGen.c:506
-#, fuzzy
 msgid "Error in importing source file"
-msgstr "Erreur lors de l'écriture dans le fichier : %s."
+msgstr "Erreur lors de l'import du fichier source"
 
 #: plugins/class-gen/clsGen.c:510
 msgid "Error in importing include file"
-msgstr ""
+msgstr "Erreur lors de l'import du fichier d'en-tête"
 
 #: plugins/class-gen/clsGen.c:513
-#, fuzzy
 msgid "Error in importing files"
-msgstr "Erreur lors de l'écriture dans le fichier : %s."
+msgstr "Erreur lors de l'import des fichiers"
 
 #: plugins/class-gen/clsGen.c:542
-#, fuzzy
 msgid "Class Creator"
-msgstr "Classes"
+msgstr "Générateur de classes"
 
 #: plugins/class-gen/clsGen.c:549
-#, fuzzy
 msgid "New Class "
-msgstr "Classe :"
+msgstr "Nouvelle classe"
 
 #: plugins/class-gen/clsGen.c:563 plugins/class-gen/clsGen.c:572
 msgid "Browse..."
-msgstr ""
+msgstr "Parcourir..."
 
 #: plugins/class-gen/clsGen.c:599
-#, fuzzy
 msgid "Class Name:"
-msgstr "Classe :"
+msgstr "Nom de la classe"
 
 #: plugins/class-gen/clsGen.c:608
-#, fuzzy
 msgid "Declaration File:"
-msgstr "Déclarations"
+msgstr "Fichier contenant l'en-tête :"
 
 #: plugins/class-gen/clsGen.c:617
-#, fuzzy
 msgid "Implementation File:"
-msgstr "Fichier de documentation"
+msgstr "Fichier contenant l'implémentation :"
 
 #: plugins/sample1/plugin-sample1.c:8
 msgid "Sample Plugin Description. Holla!"
-msgstr ""
+msgstr "Description du greffon de démonstration. Salut !"
 
 #: plugins/sample1/plugin-sample1.c:32
 msgid "Hello world!"
-msgstr ""
+msgstr "Bonjour le monde !"
 
 #: plugins/sample1/plugin-sample1.c:33
 msgid "Sample plugin!"
-msgstr ""
+msgstr "Greffon de démonstration !"
 
 #: plugins/sample1/plugin-sample1.c:41
 msgid "Sample plugin"
-msgstr ""
+msgstr "Greffon de démonstration"
 
 #: plugins/sample1/plugin-sample1.c:47
 msgid "This is a sample plugin"
-msgstr ""
+msgstr "Ceci est un greffon de démonstration"
 
 #: src/CORBA-Server.c:196
 msgid "CORBA Module not Initialized"
-msgstr ""
+msgstr "Module CORBA non initialisé"
 
 #: src/CORBA-Server.c:448 src/project_dbase_gui.c:1225
 msgid "Error while copying the file inside the module."
 msgstr "Erreur lors de la copie du fichier dans le module."
 
 #: src/about.c:68
-#, fuzzy
 msgid "Copyright (c) 1999-2002 Naba Kumar"
-msgstr "Copyright (c) 1999-2001 Naba Kumar"
+msgstr "Copyright (c) 1999-2002 Naba Kumar"
 
 #: src/about.c:79
 msgid "Anjuta Home Site"
@@ -130,7 +121,6 @@ msgid "Save File As"
 msgstr "Enregistrer fichier sous"
 
 #: src/anjuta.c:227
-#, fuzzy
 msgid "Cannot create application... exiting\n"
 msgstr "Impossible de créer l'application ... sortie\n"
 
@@ -152,12 +142,12 @@ msgid "All files saved ..."
 msgstr "Tous les fichiers ont été enregistrés ..."
 
 #: src/anjuta.c:1023
-#, fuzzy, c-format
+#, c-format
 msgid "Anjuta: %s (Saved)"
 msgstr "Anjuta : %s (Enregistré)"
 
 #: src/anjuta.c:1038
-#, fuzzy, c-format
+#, c-format
 msgid "Anjuta: %s (Unsaved)"
 msgstr "Anjuta : %s (Non enregistré)"
 
@@ -191,12 +181,12 @@ msgid "Activate this to select this window"
 msgstr "Sélectionne cette fenêtre"
 
 #: src/anjuta.c:1850
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"\"%s\" n'est pas installé sur votre machine.\n"
+"Le programme \"%s\" n'est pas installé sur votre machine.\n"
 "Installez-le puis redémarrer Anjuta."
 
 #: src/anjuta.c:1876 src/anjuta.c:1931
@@ -205,20 +195,19 @@ msgstr "Aucun"
 
 #: src/anjuta.c:1886
 msgid "Dos (CRLF)"
-msgstr ""
+msgstr "DOS (CR/LF)"
 
 #: src/anjuta.c:1889 src/anjuta.c:1923
 msgid "Unix (LF)"
-msgstr ""
+msgstr "Unix (LF)"
 
 #: src/anjuta.c:1892
 msgid "Mac (CR)"
-msgstr ""
+msgstr "MacOS (CR)"
 
 #: src/anjuta.c:1895
-#, fuzzy
 msgid "Unknown"
-msgstr "Unions"
+msgstr "Inconnu"
 
 #: src/anjuta.c:1912
 msgid "OVR"
@@ -229,33 +218,33 @@ msgid "INS"
 msgstr "INS"
 
 #: src/anjuta.c:1934
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
 "  Projet: %s       Zoom: %d       Ligne: %04d       Col: %03d       %s       "
-"Tâche: %s"
+"Tâche: %s       Mode: %s"
 
 #: src/anjuta.c:2147 src/anjuta.c:2150
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
-msgstr ""
+msgstr "Impossible de charger le greffon %s. Erreur : %s"
 
 #: src/anjuta.c:2153
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
-msgstr ""
+msgstr "Protocole du greffon %s inconnu. Erreur : %s"
 
 #: src/anjuta.c:2156
 #, c-format
 msgid "Unable to Start Plug in Module %s"
-msgstr ""
+msgstr "Impossible de démarrer le greffon %s"
 
 #: src/anjuta.c:2159
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
-msgstr ""
+msgstr "Paramètres du greffon %s invalides. Erreur : %s"
 
 #: src/anjuta.c:2167
 #, c-format
@@ -263,10 +252,12 @@ msgid ""
 "Unable to load plugin %s.\n"
 "Error %s"
 msgstr ""
+"Impossible de charger le greffon %s.\n"
+"Erreur : %s"
 
 #: src/anjuta.c:2238
 msgid "Out of Memory scanning for plugins."
-msgstr ""
+msgstr "Manque de mémoire lors de la recherche de greffons."
 
 #: src/anjuta_cbs.c:128
 msgid ""
@@ -312,9 +303,8 @@ msgid "Information"
 msgstr "Information"
 
 #: src/appwiz_page1.c:98
-#, fuzzy
 msgid "Select the type of application to be developed"
-msgstr "Sélectionnez le type d'application que vous souhaitez développer"
+msgstr "Sélectionnez le type d'application à développer"
 
 #: src/appwiz_page1.c:134
 msgid "Generic/Terminal project"
@@ -329,23 +319,20 @@ msgid "GNOME project"
 msgstr "Projet GNOME"
 
 #: src/appwiz_page1.c:146
-#, fuzzy
 msgid "GTKmm project"
-msgstr "Projet GTK"
+msgstr "Projet GTKmm"
 
 #: src/appwiz_page1.c:150
-#, fuzzy
 msgid "GNOMEmm project"
-msgstr "Projet GNOME"
+msgstr "Projet GNOMEmm"
 
 #: src/appwiz_page1.c:154
 msgid "Bonobo component"
 msgstr "Composant Bonobo"
 
 #: src/appwiz_page1.c:158
-#, fuzzy
 msgid "LibGlade project"
-msgstr "Construire le projet"
+msgstr "Projet LibGlade"
 
 #: src/appwiz_page2.c:154
 msgid "Enter the basic Project information"
@@ -384,9 +371,8 @@ msgid "Both C and C++"
 msgstr "Mixte C/C++"
 
 #: src/appwiz_page3.c:112
-#, fuzzy
 msgid "Enter a short description of the Project"
-msgstr "Entrez une courte description du projet"
+msgstr "Entrez une description courte du projet"
 
 #: src/appwiz_page3.c:163
 msgid "Executable target"
@@ -401,9 +387,8 @@ msgid "Dynamic library target"
 msgstr "Cible de librairie dynamique"
 
 #: src/appwiz_page4.c:109
-#, fuzzy
 msgid "Enter any additional Project options"
-msgstr "Saisissez les informations basiques sur le projet"
+msgstr "Saisissez les options supplémentaires du projet"
 
 #: src/appwiz_page4.c:126
 msgid " Project Options "
@@ -507,12 +492,10 @@ msgid "Language:        "
 msgstr "Langage de prog. :   "
 
 #: src/appwizard_cbs.c:263
-#, fuzzy
 msgid "Gettext Support: "
 msgstr "Support de gettext : "
 
 #: src/appwizard_gui.c:38
-#, fuzzy
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -524,42 +507,37 @@ msgid ""
 "settings later."
 msgstr ""
 "L'assistant de création d'applications va générer\n"
-"l'arborescence de votre application, en incluant\n"
+"un squelette basique pour le projet, en incluant\n"
 "tous les fichiers nécessaires à sa construction. Il\n"
 "vous faudra répondre à une série de question\n"
-"visant à établir sa structure initiale.\n"
+"visant à établir cette structure initiale.\n"
 "\n"
 "Répondez aux questions attentivement, car vous ne\n"
-"pourrez peut-être pas changer ces réponses plus tard.\n"
-"\n"
-"Appuyez sur Suivant pour continuer ..."
+"pourrez peut-être pas changer ces réponses plus tard."
 
 #: src/appwizard_gui.c:101 src/appwizard_gui.c:133
 msgid "Application Wizard"
 msgstr "Assistant de création d'une application"
 
 #: src/appwizard_gui.c:163
-#, fuzzy
 msgid "Project Type"
-msgstr "Type de projet :"
+msgstr "Type de projet"
 
 #: src/appwizard_gui.c:188
-#, fuzzy
 msgid "Basic Information"
-msgstr "Information"
+msgstr "Information basique"
 
 #: src/appwizard_gui.c:214 src/project_config.c:748
 msgid "Project Description"
 msgstr "Description du projet"
 
 #: src/appwizard_gui.c:239 src/compiler_options_gui.c:1093
-#, fuzzy
 msgid "Additional Options"
-msgstr "Scripts"
+msgstr "Options supplémentaires"
 
 #: src/appwizard_gui.c:267
 msgid "Summary"
-msgstr ""
+msgstr "Résumé"
 
 #: src/attach_process.c:118
 #, c-format
@@ -998,9 +976,8 @@ msgid "Compile File:"
 msgstr "Compilation d'un fichier source :"
 
 #: src/commands.c:648
-#, fuzzy
 msgid "Make File:"
-msgstr "Makefile"
+msgstr "Construction d'un fichier :"
 
 #: src/commands.c:656
 msgid "Build File:"
@@ -1246,66 +1223,56 @@ msgid "All Warnings"
 msgstr "Tous les avertissements"
 
 #: src/compiler_options_gui.c:859
-#, fuzzy
 msgid "Warning for implicit declarations"
 msgstr "Avertissements sur les déclarations implicites"
 
 #: src/compiler_options_gui.c:867
-#, fuzzy
 msgid "Warning for mismatched return types"
 msgstr "Avertissements sur les types de retour qui ne concordent pas"
 
 #: src/compiler_options_gui.c:875
-#, fuzzy
 msgid "Warning for unused variables"
 msgstr "Avertissements sur les variables inutilisées"
 
 #: src/compiler_options_gui.c:883
-#, fuzzy
 msgid "Warning for unhandled switch case with enums"
-msgstr "Avertissements sur les branchements (switch) non pris en charge"
+msgstr ""
+"Avertissements sur les branchements (switch) non pris en charge avec une "
+"énumération"
 
 #: src/compiler_options_gui.c:891
-#, fuzzy
 msgid "Warning for nested comment"
 msgstr "Avertissements sur les commentaires imbriqués"
 
 #: src/compiler_options_gui.c:899
-#, fuzzy
 msgid "Warning for uninitialized variable use"
-msgstr "Avertissements sur l'utilisation des variables non-initialisées"
+msgstr "Avertissements sur l'utilisation de variables non-initialisées"
 
 #: src/compiler_options_gui.c:907
-#, fuzzy
 msgid "Warning for missing parentheses"
 msgstr "Avertissements sur les parenthèses manquantes"
 
 #: src/compiler_options_gui.c:915
-#, fuzzy
 msgid "Warning on differences to traditional syntax"
 msgstr "Avertissements sur la syntaxe inhabituelle"
 
 #: src/compiler_options_gui.c:923
-#, fuzzy
 msgid "Warning for variable shadowing"
 msgstr "Avertissements sur les variables en masquant d'autres"
 
 #: src/compiler_options_gui.c:931
-#, fuzzy
 msgid "Warning for suspected pointer arithmetic"
 msgstr "Avertissements sur l'arithmétique douteuse avec des pointeurs"
 
 #: src/compiler_options_gui.c:939
-#, fuzzy
 msgid "Warning for missing prototypes"
-msgstr "Avertissements pour les prototypes de fonctions manquants"
+msgstr "Avertissements sur les prototypes de fonctions manquants"
 
 #: src/compiler_options_gui.c:947
 msgid "Warning if declarations cannot be inlined"
-msgstr ""
+msgstr "Avertissement sur les déclarations ne pouvant pas être 'inline'"
 
 #: src/compiler_options_gui.c:955
-#, fuzzy
 msgid "Warning for overloaded virtuals"
 msgstr "Avertissements sur les méthodes virtuelles surchargées"
 
@@ -1314,17 +1281,14 @@ msgid "No optimization"
 msgstr "Aucune optimisation"
 
 #: src/compiler_options_gui.c:1001
-#, fuzzy
 msgid "Low-level optimization (machine-dependent)"
 msgstr "Optimisation standard (dépendante de la machine)"
 
 #: src/compiler_options_gui.c:1011
-#, fuzzy
 msgid "Higher-level optimization (without space-speed tradeoff)"
 msgstr "Optimisation avancée (sans désavantage taille/vitesse)"
 
 #: src/compiler_options_gui.c:1021
-#, fuzzy
 msgid "Fastest-code optimization (functions inlined whereever possible"
 msgstr "Optimisation maximale (fonctions 'inline' dès que possible)"
 
@@ -1467,7 +1431,6 @@ msgstr ""
 "processus au débogueur avant de pouvoir débuter une session de débogage.\n"
 
 #: src/debugger.c:669
-#, fuzzy
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Une erreur est survenue lors du lancement du débogueur !!\n"
 
@@ -1484,7 +1447,6 @@ msgid "Debugger is ready.\n"
 msgstr "Le débogueur est prêt.\n"
 
 #: src/debugger.c:945
-#, fuzzy
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
@@ -1528,7 +1490,7 @@ msgstr ""
 
 #: src/debugger.c:1342
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "Impossible d'attacher Anjuta au débogueur."
 
 #: src/debugger.c:1425
 #, c-format
@@ -1558,7 +1520,6 @@ msgid "Sending signal %s to the process: %d\n"
 msgstr "Envoi du signal %s au processus de PID %d\n"
 
 #: src/debugger.c:1806
-#, fuzzy
 msgid "There was an error whilst signalling the process."
 msgstr "Une erreur est survenue lors de l'envoi du signal au processus."
 
@@ -1588,7 +1549,6 @@ msgid "Target of this project is not executable"
 msgstr "La cible de ce projet n'est pas exécutable"
 
 #: src/executer.c:267 src/mainmenu_callbacks.c:1640
-#, fuzzy
 msgid "Executable does not exist for this project."
 msgstr "L'exécutable n'existe pas pour ce projet."
 
@@ -1761,7 +1721,6 @@ msgid "Whole document"
 msgstr "Document tout entier"
 
 #: src/find_text.c:300
-#, fuzzy
 msgid "From cursor"
 msgstr "A partir du curseur"
 
@@ -1784,6 +1743,8 @@ msgstr ""
 #: src/find_text.c:521
 msgid "No matches. Wrap search around the document?"
 msgstr ""
+"Aucune correspondance trouvée. Voulez-vous réitérer\n"
+"la recherche à partir du début du document ?"
 
 #: src/glade_iface.c:72 src/glades.c:69
 msgid "Cannot fork glade."
@@ -1806,32 +1767,31 @@ msgstr "Impossible de créer le fichier : %s."
 
 #: src/glades.c:392 src/glades.c:402 src/glades.c:412
 msgid "You need to set the Translatable Strings File option"
-msgstr ""
+msgstr "Vous devez définir le nom du fichier des traductions"
 
 #: src/glades.c:396 src/glades.c:406
 msgid "You need to set the Project Directory option"
-msgstr ""
+msgstr "Vous devez définir le répertoire du projet"
 
 #: src/glades.c:398 src/glades.c:408
 msgid "You need to set the Project File option"
-msgstr ""
+msgstr "Vous devez définir le nom du fichier du projet"
 
 #: src/glades.c:414
 msgid "You need to set the Project Name option"
-msgstr ""
+msgstr "Vous devez définir le nom du projet"
 
 #: src/glades.c:416
-#, fuzzy
 msgid "You need to set the Program Name option"
-msgstr "Interrompt l'exécution du programme"
+msgstr "Vous devez définir le nom de programme"
 
 #: src/glades.c:419
 msgid "You need to set the Source Directory option"
-msgstr ""
+msgstr "Vous devez définir le répertoire des sources"
 
 #: src/glades.c:422
 msgid "You need to set the Pixmaps Directory option"
-msgstr ""
+msgstr "Vous devez définir le répertoire des images"
 
 #: src/gnome_project.c:60
 msgid ""
@@ -1963,9 +1923,8 @@ msgid "_New"
 msgstr "_Nouveau"
 
 #: src/main_menubar_def.h:38
-#, fuzzy
 msgid "New file"
-msgstr "Ouvrir fichier"
+msgstr "Nouveau fichier"
 
 #: src/main_menubar_def.h:43
 msgid "_Open ..."
@@ -2028,7 +1987,6 @@ msgid "N_ew Project ..."
 msgstr "No_uveau projet ..."
 
 #: src/main_menubar_def.h:87
-#, fuzzy
 msgid "Create a Project using the application wizard"
 msgstr "Crée un projet à l'aide de l'assistant"
 
@@ -2108,14 +2066,12 @@ msgstr "Convertit la sélection en minuscule"
 
 #. 3
 #: src/main_menubar_def.h:167
-#, fuzzy
 msgid "Convert EOL chars to CRLF"
-msgstr "Conversion CR/LF<->LF"
+msgstr "Conversion LF<->CR/LF"
 
 #: src/main_menubar_def.h:168
-#, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "Convertit les retours charriot au format UNIX"
+msgstr "Convertit les retours charriot au format UNIX au format DOS (CR/LF)"
 
 #. 4
 #: src/main_menubar_def.h:174
@@ -2123,31 +2079,27 @@ msgid "Convert EOL chars to LF"
 msgstr "Conversion CR/LF<->LF"
 
 #: src/main_menubar_def.h:175
-#, fuzzy
 msgid "Convert End Of Line characters to UNIX EOL (LF)"
-msgstr "Convertit les retours charriot au format UNIX"
+msgstr "Convertit les retours charriot au format UNIX (LF)"
 
 #. 5
 #: src/main_menubar_def.h:181
-#, fuzzy
 msgid "Convert EOL chars to CR"
-msgstr "Conversion CR/LF<->LF"
+msgstr "Conversion <->CR"
 
 #: src/main_menubar_def.h:182
-#, fuzzy
 msgid "Convert End Of Line characters to MacOS EOL (CR)"
-msgstr "Convertit les retours charriot au format UNIX"
+msgstr "Convertit les retours charriot au format UNIX au format MacOS (CR)"
 
 #. 6
 #: src/main_menubar_def.h:188
-#, fuzzy
 msgid "Convert EOL chars to majority EOL"
-msgstr "Conversion CR/LF<->LF"
+msgstr "Conversion LF<->LF majeur"
 
 #: src/main_menubar_def.h:189
-#, fuzzy
-msgid "Convert End Of Line characters to mojority of the EOL found in the file"
-msgstr "Convertit les retours charriot au format UNIX"
+msgid ""
+"Convert End Of Line characters to mojority of the EOL found in the file"
+msgstr "Convertit les retours charriot au format UNIX au format majeur"
 
 #: src/main_menubar_def.h:199
 msgid "_Select All"
@@ -2190,24 +2142,20 @@ msgid "Insert GPL notice with C++ style comments"
 msgstr "Insert la notice GPL avec le style de commentaires du C++"
 
 #: src/main_menubar_def.h:233
-#, fuzzy
 msgid "# GPL Notice"
-msgstr "// Notice GPL"
+msgstr "# Notice GPL"
 
 #: src/main_menubar_def.h:234
-#, fuzzy
 msgid "Insert GPL notice with Python style comments"
-msgstr "Insert la notice GPL avec le style de commentaires du C"
+msgstr "Insert la notice GPL avec le style de commentaires du langage Python"
 
 #: src/main_menubar_def.h:239
-#, fuzzy
 msgid "Current Username"
-msgstr "_Image courante"
+msgstr "Nom d'utilisateur courant"
 
 #: src/main_menubar_def.h:240
-#, fuzzy
 msgid "Insert name of current user"
-msgstr "Renomme le fichier courant"
+msgstr "Insert le nom de l'utilisateur courant"
 
 #: src/main_menubar_def.h:245
 msgid "Current Date & Time"
@@ -2219,11 +2167,11 @@ msgstr "Insert la date et l'heure"
 
 #: src/main_menubar_def.h:251
 msgid "Header File Template"
-msgstr ""
+msgstr "Squelette du fichier d'en-tête"
 
 #: src/main_menubar_def.h:252
 msgid "Insert a standard header file template"
-msgstr ""
+msgstr "Insére un squelette de fichier d'en-tête"
 
 #: src/main_menubar_def.h:262
 msgid "_Goto Line no ..."
@@ -2396,12 +2344,11 @@ msgstr ""
 #. 18
 #: src/main_menubar_def.h:410
 msgid "Find _Next"
-msgstr ""
+msgstr "Chercher _suivant"
 
 #: src/main_menubar_def.h:411
-#, fuzzy
 msgid "Repeat the Last Find command"
-msgstr "Refait la dernière action annulée"
+msgstr "Répète la dernière commande de recherche"
 
 #. 19
 #: src/main_menubar_def.h:417
@@ -2421,14 +2368,12 @@ msgstr "Edite l'IHM de l'application avec Glade"
 #. 22
 #. 23
 #: src/main_menubar_def.h:435
-#, fuzzy
 msgid "Save Build Messages"
-msgstr "Messages des commandes"
+msgstr "Enregistre les messages de construction"
 
 #: src/main_menubar_def.h:436
-#, fuzzy
 msgid "Save build messages to file"
-msgstr "Messages des commandes"
+msgstr "Enregistre les messages de construction dans un fichier"
 
 #: src/main_menubar_def.h:446
 msgid "_Main Toolbar"
@@ -2732,13 +2677,12 @@ msgstr "Affiche la console où s'exécute le programme"
 
 #. 20
 #: src/main_menubar_def.h:692
-#, fuzzy
 msgid "Show _Locals"
-msgstr "_Montrer appel"
+msgstr "_Montrer var. locales"
 
 #: src/main_menubar_def.h:693
 msgid "Show/Hide Local Variables in MessagePane"
-msgstr ""
+msgstr "Afficher/cacher les var. locales dans la fenêtre des messages"
 
 #: src/main_menubar_def.h:702 src/project_dbase_gui.c:333
 msgid "Include file"
@@ -2989,23 +2933,20 @@ msgid "Force the highlight style to UNIX conf files"
 msgstr "Met en place la coloration syntaxique des fichiers de config. UNIX"
 
 #: src/main_menubar_def.h:941
-#, fuzzy
 msgid "Ada"
-msgstr "Ajouter"
+msgstr "Ada"
 
 #: src/main_menubar_def.h:942
-#, fuzzy
 msgid "Force the highlight style to Ada"
-msgstr "Met en place la coloration syntaxique de LUA"
+msgstr "Met en place la coloration syntaxique d'Ada"
 
 #: src/main_menubar_def.h:947
 msgid "Baan"
-msgstr ""
+msgstr "Baan"
 
 #: src/main_menubar_def.h:948
-#, fuzzy
 msgid "Force the highlight style to Baan"
-msgstr "Met en place la coloration syntaxique du Pascal"
+msgstr "Met en place la coloration syntaxique de Baan"
 
 #: src/main_menubar_def.h:957
 msgid "Auto _Format"
@@ -3084,14 +3025,12 @@ msgid "Compile the current source file"
 msgstr "Compile le fichier source courant"
 
 #: src/main_menubar_def.h:1026
-#, fuzzy
 msgid "Compile With _Make"
-msgstr "Compilation d'un fichier source :"
+msgstr "Compilation avec _Make"
 
 #: src/main_menubar_def.h:1027
-#, fuzzy
 msgid "Compile the current source file using Make"
-msgstr "Compile le fichier source courant"
+msgstr "Compile le fichier source courant avec Make"
 
 #: src/main_menubar_def.h:1032 src/main_menubar_def.h:1588
 msgid "_Build"
@@ -3457,7 +3396,7 @@ msgstr "On dit ciao au débogueur"
 
 #: src/main_menubar_def.h:1371
 msgid "plugins"
-msgstr ""
+msgstr "Greffons"
 
 #: src/main_menubar_def.h:1381
 msgid "Grep Utility"
@@ -3520,7 +3459,6 @@ msgid "_Source Paths ..."
 msgstr "Chemins des _sources"
 
 #: src/main_menubar_def.h:1468
-#, fuzzy
 msgid "Specify the source paths for Anjuta to search"
 msgstr ""
 "Permet de spécifier les chemins des fichiers sources qu'Anjuta doit chercher"
@@ -3538,7 +3476,6 @@ msgid "_Preferences ..."
 msgstr "Préfé_rences"
 
 #: src/main_menubar_def.h:1481
-#, fuzzy
 msgid "Do you prefer coffee to tea? Check it out."
 msgstr "Vous préférez les blondes ou les brunes ? A vous de choisir ..."
 
@@ -3657,7 +3594,7 @@ msgstr "_Débogage"
 
 #: src/main_menubar_def.h:1606
 msgid "Plug_ins"
-msgstr ""
+msgstr "_Greffons"
 
 #: src/main_menubar_def.h:1612
 msgid "_Utilities"
@@ -3750,23 +3687,21 @@ msgid "CVS"
 msgstr "CVS"
 
 #: src/message-manager.cc:43
-#, fuzzy
 msgid "Locals"
-msgstr "Dernier"
+msgstr "Var. locales"
 
 #: src/message-manager.cc:44
-#, fuzzy
 msgid "Terminal"
-msgstr "Démarrer dans un terminal"
+msgstr "Terminal"
 
 #: src/message-manager.cc:146 src/project_dbase_gui.c:425
 msgid "Dock/Undock"
 msgstr "Attacher/Détacher"
 
 #: src/message-manager.cc:266
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find message type %s!\n"
-msgstr "Impossible de trouver l'image gnome : %s"
+msgstr "Impossible de trouver le type de message %s !\n"
 
 #: src/message-manager.cc:472 src/preferences_gui.c:230 src/toolbar.c:294
 msgid "Messages"
@@ -3780,6 +3715,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Impossible de charger les fichiers de configuration globaux :\n"
+"%s.\n"
+"Cela va peut-être entraîner de mauvais comportements ou une instabilité.\n"
+"Anjuta va se limiter à sa configuration interne."
 
 #: src/preferences.c:626
 msgid ""
@@ -3818,9 +3757,8 @@ msgid "misc"
 msgstr "Divers"
 
 #: src/preferences_gui.c:249
-#, fuzzy
 msgid "Components"
-msgstr "Commentaire :"
+msgstr "Composants"
 
 #: src/preferences_gui.c:334
 msgid " Directories "
@@ -3889,7 +3827,7 @@ msgstr "Avertissement des références aux variables non définies."
 
 #: src/preferences_gui.c:582
 msgid "Autosave Before Build"
-msgstr ""
+msgstr "Enregistrer avant de construire"
 
 #: src/preferences_gui.c:597
 msgid "Max no of jobs:"
@@ -3974,7 +3912,7 @@ msgstr "Vérification des accolades"
 
 #: src/preferences_gui.c:1012
 msgid "Filter extrageneous chars in DOS mode"
-msgstr ""
+msgstr "Filtrer les caractères superflux du mode DOS"
 
 #: src/preferences_gui.c:1064
 msgid "Tab size in spaces"
@@ -4069,29 +4007,24 @@ msgid "Right"
 msgstr "Droit"
 
 #: src/preferences_gui.c:1466
-#, fuzzy
 msgid "Colors"
-msgstr "Fermer"
+msgstr "Couleurs"
 
 #: src/preferences_gui.c:1474
-#, fuzzy
 msgid "Errors:"
-msgstr "Erreur :"
+msgstr "Erreurs :"
 
 #: src/preferences_gui.c:1475
-#, fuzzy
 msgid "Warnings:"
-msgstr "Avertissements"
+msgstr "Avertissements :"
 
 #: src/preferences_gui.c:1476
-#, fuzzy
 msgid "Program messages:"
-msgstr "Nom du programme :"
+msgstr "Messages du programme :"
 
 #: src/preferences_gui.c:1477
-#, fuzzy
 msgid "Other messages:"
-msgstr "Messages de débogage"
+msgstr "Autres messages :"
 
 #: src/preferences_gui.c:1562
 msgid "Do not show notebook title tags"
@@ -4106,13 +4039,12 @@ msgid "Update tags image automatically"
 msgstr "Mettre à jour automatiquement"
 
 #: src/preferences_gui.c:1676
-#, fuzzy
 msgid " Components"
-msgstr "Composant Bonobo"
+msgstr " Composants"
 
 #: src/preferences_gui.c:1688
 msgid "Use Glade Components (experimental)"
-msgstr ""
+msgstr "Utiliser les composants Glade (expérimental)"
 
 #: src/project_config.c:737
 msgid "Project configuration"
@@ -4258,12 +4190,12 @@ msgid "Project: None"
 msgstr "Projet: Aucun"
 
 #: src/project_dbase.c:616 src/project_dbase.c:635
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load project: %s"
 msgstr "Impossible de charger le projet : %s"
 
 #: src/project_dbase.c:627
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error: You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
@@ -4272,11 +4204,10 @@ msgstr ""
 "Erreur : Ce projet ne peut être ouvert que par la version %s ou supérieure "
 "d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\n"
-"En attendant, je suis trop vieux pour le charger. =("
+"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:782
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
@@ -4284,8 +4215,7 @@ msgid ""
 msgstr ""
 "Ce projet ne peut être ouvert que par la version %s ou supérieure d'Anjuta.\n"
 "Veuillez mettre à jour Anjuta à la dernière version (Aide pour plus "
-"d'infos).\n"
-"En attendant, je suis trop vieux pour le charger. =("
+"d'infos).\nEn attendant, je suis trop vieux pour le charger. =("
 
 #: src/project_dbase.c:841
 msgid "Project loaded successfully."
@@ -4357,9 +4287,8 @@ msgid "Files"
 msgstr "Fichiers"
 
 #: src/project_dbase_gui.c:491
-#, fuzzy
 msgid "Symbols"
-msgstr "Styles"
+msgstr "Symboles"
 
 #: src/project_dbase_gui.c:498 src/toolbar.c:283
 msgid "Project"
@@ -4687,13 +4616,13 @@ msgid "Error writing to file: %s."
 msgstr "Erreur lors de l'écriture dans le fichier : %s."
 
 #: src/source.c:1274
-#, fuzzy, c-format
+#, c-format
 msgid "Error writing to : %s."
 msgstr "Erreur lors de l'écriture dans le fichier : %s."
 
 #: src/source.c:1485
 msgid "Project type does not support glade."
-msgstr ""
+msgstr "Ce type de projet ne supporte pas Glade."
 
 #. set the size to that of our splash image.
 #: src/splash.c:92
@@ -4789,12 +4718,10 @@ msgid "Updating Tags image completed"
 msgstr "Mise à jour de la liste des balises effectuée"
 
 #: src/tags_manager.c:833
-#, fuzzy
 msgid "Synchronization of Tags image failed"
 msgstr "La mise à jour de la liste des balises a échouée"
 
 #: src/text_editor.c:762
-#, fuzzy
 msgid "Loading file ..."
 msgstr "Chargement du fichier ..."
 
@@ -4804,54 +4731,48 @@ msgid "Could not load file: %s"
 msgstr "Impossible de charger le fichier : %s"
 
 #: src/text_editor.c:797
-#, fuzzy
 msgid "File loaded successfully"
 msgstr "Fichier chargé correctement"
 
 #: src/text_editor.c:812
-#, fuzzy
 msgid "Saving file ..."
 msgstr "Enregistrement du fichier ..."
 
 #: src/text_editor.c:817
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save file: %s."
 msgstr "Impossible d'enregistrer le fichier : %s"
 
 #: src/text_editor.c:844
-#, fuzzy
 msgid "File saved successfully"
 msgstr "Fichier enregistré correctement"
 
 #: src/text_editor.c:939
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING: The file \"%s\" in the disk is more recent than\n"
 "the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"Avertissement : le fichier %s est plus récent que\n"
-"la version actuelle. Voulez-vous le recharger ?"
+"Avertissement : la version du fichier %s est plus récente sur le système de "
+"fichiers.\n"
+"Voulez-vous le recharger ?"
 
 #: src/text_editor.c:1055
-#, fuzzy
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Le formatage automatique est désactivé. Vous pouvez\n"
 "l'activer dans les préférences."
 
 #: src/text_editor.c:1061
-#, fuzzy
 msgid "Auto formatting ..."
 msgstr "Formatage automatique ..."
 
 #: src/text_editor.c:1071 src/text_editor.c:1098
-#, fuzzy
 msgid "Error in auto formatting ..."
 msgstr "Erreur lors du formatage automatique ..."
 
 #: src/text_editor.c:1104
-#, fuzzy
 msgid "Auto formatting completed"
 msgstr "Formatage automatique terminé"
 
@@ -4957,19 +4878,16 @@ msgid "Attach the editor window as paged editor"
 msgstr "Attache la fenêtre de l'éditeur dans l'interface"
 
 #: src/text_editor_menu.c:72
-#, fuzzy
 msgid "Back"
 msgstr "En arrière"
 
 #: src/text_editor_menu.c:86
-#, fuzzy
 msgid "History"
-msgstr " Taille de l'historique "
+msgstr "Historique"
 
 #: src/text_editor_menu.c:95
-#, fuzzy
 msgid "Symbol Definition"
-msgstr "_Définition de la classe"
+msgstr "Définition du symbole"
 
 #: src/text_editor_menu.c:103
 msgid "Prev mesg"
@@ -5297,9 +5215,8 @@ msgid "Watch"
 msgstr "Inspecteur d'expressions"
 
 #: src/toolbar.c:1050
-#, fuzzy
 msgid "Watch expressions during execution"
-msgstr "Inspecte des expressions lors de l'exécution"
+msgstr "Inspecter des expressions lors de l'exécution"
 
 #: src/toolbar.c:1062
 msgid "Stack trace of the program"
@@ -5480,9 +5397,8 @@ msgid "Inspect/Evaluate Expression"
 msgstr "Inspecte/Evalue une expression"
 
 #: src/watch_gui.c:255
-#, fuzzy
 msgid "Add To Watch"
-msgstr "Ajouter au projet"
+msgstr "Ajouter à l'inspecteur"
 
 #~ msgid "/_Func Definition"
 #~ msgstr "/Définition _fonction"

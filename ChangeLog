@@ -1,3 +1,7 @@
+2002-01-26  Stephane Demurget  <demurgets@free.fr>
+
+	* po/fr.po: updated to the latest sources.
+
 2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* scripts/Makefile.am:
@@ -166,11 +170,6 @@
 	* tagmanager/*/*:
 	
 	  Upgraded to tagmanager-0.7
-
-2002-01-24	Johannes Schmid <clubfan@users.sourceforge.net>
-	* src/anjuta_cbs.c: Fixed bug #506441
-	* src/watch_gui.c: Changed layout of eval dialog so that
-	it fits on a 800x600 desktop with German translation. 
 
 2002-01-24	Johannes Schmid <clubfan@users.sourceforge.net>
 	* src/anjuta_cbs.c: Fixed bug #506441
