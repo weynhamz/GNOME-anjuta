@@ -53,7 +53,11 @@
 	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
 	manuals/reference/libanjuta/tmpl/pixmaps.sgml:
 	Updated API documentations.
-	
+
+2004-09-01  Amanpreet Singh Alam  <aalam@redhat.com>
+
+	* configure.in: Added Punjabi to ALL_LINGUAS
+
 2004-07-29  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Added file-loader plugin Makefile path and
