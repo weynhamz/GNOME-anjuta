@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjyuta 0.1.9-pre\n"
-"POT-Creation-Date: 2001-12-20 17:29+0900\n"
-"PO-Revision-Date: 2001-12-20 17:25+0900\n"
+"POT-Creation-Date: 2001-12-23 23:03+0900\n"
+"PO-Revision-Date: 2001-12-23 23:02+0900\n"
 "Last-Translator: Takeshi Aihana <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgstr "関数の追加"
 msgid "Function declaration:"
 msgstr "関数の宣言:"
 
-#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:147
+#: ccview/support.c:100 ccview/support.c:138 src/appwiz_page3.c:149
 #: src/project_dbase_gui.c:1185
 #, c-format
 msgid "Couldn't find pixmap file: %s"
@@ -194,18 +194,18 @@ msgid "Both C and C++"
 msgstr "C/C++ 言語の両方"
 
 #: src/appwiz_page3.c:112
-msgid "Enter a short project description"
-msgstr "プロジェクトの短い説明、紹介を入力して下さい。"
+msgid "Enter a short description of the Project"
+msgstr "プロジェクトに対する短い説明を入力して下さい"
 
-#: src/appwiz_page3.c:160
+#: src/appwiz_page3.c:162
 msgid "Executable target"
 msgstr "実行型式の対象"
 
-#: src/appwiz_page3.c:167
+#: src/appwiz_page3.c:169
 msgid "Static library target"
 msgstr "静的 (Static) ライブラリの対象"
 
-#: src/appwiz_page3.c:173
+#: src/appwiz_page3.c:175
 msgid "Dynamic library target"
 msgstr "動的 (Dinamic) ライブラリの対象"
 
@@ -282,7 +282,7 @@ msgstr "言語:        "
 msgid "Gettext Support: "
 msgstr "Gettext サポート: "
 
-#: src/appwizard_gui.c:36
+#: src/appwizard_gui.c:38
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -302,27 +302,27 @@ msgstr ""
 "いくつかあるので、その質問に\n"
 "注意深く答えて下さい。"
 
-#: src/appwizard_gui.c:99 src/appwizard_gui.c:131
+#: src/appwizard_gui.c:101 src/appwizard_gui.c:133
 msgid "Application Wizard"
 msgstr "アプリケーション・ウィザード"
 
-#: src/appwizard_gui.c:161
+#: src/appwizard_gui.c:163
 msgid "Project Type"
 msgstr "プロジェクトの種類"
 
-#: src/appwizard_gui.c:186
+#: src/appwizard_gui.c:188
 msgid "Basic Information"
 msgstr "基本情報"
 
-#: src/appwizard_gui.c:212 src/project_config.c:748
+#: src/appwizard_gui.c:214 src/project_config.c:748
 msgid "Project Description"
 msgstr "プロジェクトの説明/紹介"
 
-#: src/appwizard_gui.c:237 src/compiler_options_gui.c:1104
+#: src/appwizard_gui.c:239 src/compiler_options_gui.c:1104
 msgid "Additional Options"
 msgstr "オプションの追加"
 
-#: src/appwizard_gui.c:265
+#: src/appwizard_gui.c:267
 msgid "Summary"
 msgstr "サマリ"
 
@@ -368,7 +368,7 @@ msgstr "コマンド名"
 msgid "Update"
 msgstr "更新"
 
-#: src/attach_process_gui.c:109 src/text_editor_gui.c:271
+#: src/attach_process_gui.c:109 src/text_editor_gui.c:274
 msgid "Attach"
 msgstr "添付"
 
@@ -384,7 +384,7 @@ msgstr "はい"
 msgid "NO"
 msgstr "いいえ"
 
-#: src/breakpoints.c:700 src/main_menubar_def.h:534 src/text_editor_gui.c:224
+#: src/breakpoints.c:700 src/main_menubar_def.h:534 src/text_editor_gui.c:227
 msgid "0"
 msgstr "0"
 
@@ -495,7 +495,7 @@ msgid "I do not really know how to build this file."
 msgstr "このファイルのビルド方法が不明です。"
 
 #: src/build_file.c:107 src/messages.c:535 src/preferences_gui.c:176
-#: src/text_editor_gui.c:246 src/toolbar.c:474
+#: src/text_editor_gui.c:249 src/toolbar.c:474
 msgid "Build"
 msgstr "ビルド"
 
@@ -801,7 +801,7 @@ msgstr ""
 msgid "I do not really know how to compile this file."
 msgstr "このファイルのコンパイル方法が不明です。"
 
-#: src/compile.c:156 src/text_editor_gui.c:235 src/toolbar.c:451
+#: src/compile.c:156 src/text_editor_gui.c:238 src/toolbar.c:451
 msgid "Compile"
 msgstr "コンパイル"
 
@@ -1482,7 +1482,7 @@ msgstr "指定した範囲内に文字列 \"%s\" が見つかりませんでした。"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "現在の場所から文字列 \"%s\" が見つかりませんでした。"
 
-#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:187
+#: src/find_text.c:251 src/messages.c:537 src/text_editor_gui.c:190
 #: src/toolbar.c:231
 msgid "Find"
 msgstr "検索"
@@ -1654,7 +1654,7 @@ msgstr "プラグイン"
 msgid "_New"
 msgstr "新規(_N)"
 
-#: src/main_menubar_def.h:48 src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/main_menubar_def.h:48 src/text_editor_gui.c:115 src/toolbar.c:109
 msgid "New Text File"
 msgstr "新規にテキストファイルを作成します"
 
@@ -4197,7 +4197,7 @@ msgstr "シグナル"
 msgid "Stop"
 msgstr "停止"
 
-#: src/signals_gui.c:125 src/text_editor_gui.c:260 src/toolbar.c:218
+#: src/signals_gui.c:125 src/text_editor_gui.c:263 src/toolbar.c:218
 msgid "Print"
 msgstr "表示"
 
@@ -4346,97 +4346,97 @@ msgstr "書式の自動整形中にエラーが発生 ..."
 msgid "Auto formating completed"
 msgstr "書式の自動整形が完了"
 
-#: src/text_editor_cbs.c:176
+#: src/text_editor_cbs.c:186
 #, c-format
 msgid "Autosaved \"%s\""
 msgstr "自動保存 \"%s\""
 
-#: src/text_editor_cbs.c:180
+#: src/text_editor_cbs.c:190
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "自動保存 \"%s\" -- 失敗"
 
-#: src/text_editor_gui.c:112 src/toolbar.c:109
+#: src/text_editor_gui.c:115 src/toolbar.c:109
 msgid "New"
 msgstr "新規"
 
-#: src/text_editor_gui.c:122 src/toolbar.c:120
+#: src/text_editor_gui.c:125 src/toolbar.c:120
 msgid "Open"
 msgstr "開く"
 
-#: src/text_editor_gui.c:122
+#: src/text_editor_gui.c:125
 msgid "Open Text File"
 msgstr "既存のテキストファイルを開きます"
 
-#: src/text_editor_gui.c:134 src/toolbar.c:133
+#: src/text_editor_gui.c:137 src/toolbar.c:133
 msgid "Save"
 msgstr "保存"
 
-#: src/text_editor_gui.c:134
+#: src/text_editor_gui.c:137
 msgid "Save Current File"
 msgstr "このファイルを保存します"
 
-#: src/text_editor_gui.c:144 src/toolbar.c:168
+#: src/text_editor_gui.c:147 src/toolbar.c:168
 msgid "Reload"
 msgstr "リロード"
 
-#: src/text_editor_gui.c:145
+#: src/text_editor_gui.c:148
 msgid "Reload Current File"
 msgstr "このファイルをリロードします"
 
-#: src/text_editor_gui.c:156 src/text_editor_menu.c:202
+#: src/text_editor_gui.c:159 src/text_editor_menu.c:202
 msgid "Cut"
 msgstr "切り取り"
 
-#: src/text_editor_gui.c:156
+#: src/text_editor_gui.c:159
 msgid "Cut to clipboard"
 msgstr "クリップボードへ切り取り"
 
-#: src/text_editor_gui.c:165 src/text_editor_menu.c:209
+#: src/text_editor_gui.c:168 src/text_editor_menu.c:209
 msgid "Copy"
 msgstr "コピー"
 
-#: src/text_editor_gui.c:166
+#: src/text_editor_gui.c:169
 msgid "Copy to clipboard"
 msgstr "クリップボードへコピー"
 
-#: src/text_editor_gui.c:175 src/text_editor_menu.c:216
+#: src/text_editor_gui.c:178 src/text_editor_menu.c:216
 msgid "Paste"
 msgstr "貼り付け"
 
-#: src/text_editor_gui.c:176
+#: src/text_editor_gui.c:179
 msgid "Paste from clipboard"
 msgstr "クリップボードから貼り付け"
 
-#: src/text_editor_gui.c:188
+#: src/text_editor_gui.c:191
 msgid "Search the given string"
 msgstr "指定した文字列の検索"
 
-#: src/text_editor_gui.c:198
+#: src/text_editor_gui.c:201
 msgid "Replace"
 msgstr "置換"
 
-#: src/text_editor_gui.c:200
+#: src/text_editor_gui.c:203
 msgid "Search and replace the given string"
 msgstr "指定した文字列で検索と置換"
 
-#: src/text_editor_gui.c:220
+#: src/text_editor_gui.c:223
 msgid "line: "
 msgstr "行:"
 
-#: src/text_editor_gui.c:236 src/toolbar.c:452
+#: src/text_editor_gui.c:239 src/toolbar.c:452
 msgid "Compile the current file"
 msgstr "このファイルをコンパイル"
 
-#: src/text_editor_gui.c:248
+#: src/text_editor_gui.c:251
 msgid "Build current File or Build the source directory of the Project"
 msgstr "このファイルのビルドまたはプロジェクトのソースディレクトリをビルド"
 
-#: src/text_editor_gui.c:261
+#: src/text_editor_gui.c:264
 msgid "Print the current File"
 msgstr "このファイルを印刷します"
 
-#: src/text_editor_gui.c:273
+#: src/text_editor_gui.c:276
 msgid "Attach the editor window as paged editor"
 msgstr "編集ウィンドウをページエディタとして組み込み"
 
@@ -4960,11 +4960,11 @@ msgstr "式の検証/評価"
 msgid "Add To Watch"
 msgstr "監視へ追加"
 
-#: src/about.c:65
+#: src/about.c:66
 msgid "Copyright (c) 1999-2001 Naba Kumar"
 msgstr "Copyright (C) 1999-2001 Naba Kumar"
 
-#: src/about.c:76
+#: src/about.c:77
 msgid "Anjuta Home Site"
 msgstr "Anjuta ホームページへどうぞ"
 
@@ -5037,42 +5037,42 @@ msgstr "名前を付けて保存"
 msgid "Cannot create application...exiting\n"
 msgstr "アプリケーションが生成できませんでした...終了します。\n"
 
-#: src/anjuta.c:272 src/anjuta.c:276 src/anjuta.c:855 src/anjuta.c:871
+#: src/anjuta.c:280 src/anjuta.c:284 src/anjuta.c:873 src/anjuta.c:889
 #, c-format
 msgid "Anjuta: %s"
 msgstr "Anjuta: %s"
 
-#: src/anjuta.c:338
+#: src/anjuta.c:346
 msgid "Recent Files "
 msgstr "最近開いたファイル "
 
-#: src/anjuta.c:641
+#: src/anjuta.c:659
 msgid "CVS is not yet implemented. :-(\n"
 msgstr "CVS 機能は未だ実装されていません。:-(\n"
 
-#: src/anjuta.c:688
+#: src/anjuta.c:706
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * このファイルの編集または名前の変更は厳禁 ** Anjuta が作成 **\n"
 
-#: src/anjuta.c:848
+#: src/anjuta.c:866
 #, c-format
 msgid "Anjuta: %s(Saved)"
 msgstr "Anjuta: %s (保存済み)"
 
-#: src/anjuta.c:863
+#: src/anjuta.c:881
 #, c-format
 msgid "Anjuta: %s(Unsaved)"
 msgstr "Anjuta: %s (未保存)"
 
-#: src/anjuta.c:890
+#: src/anjuta.c:908
 msgid "Anjuta: No file"
 msgstr "Anjuta: ファイルなし"
 
-#: src/anjuta.c:1149
+#: src/anjuta.c:1167
 msgid "ERROR: "
 msgstr "エラー: "
 
-#: src/anjuta.c:1166
+#: src/anjuta.c:1184
 msgid ""
 "\n"
 "System: "
@@ -5080,7 +5080,7 @@ msgstr ""
 "\n"
 "システム: "
 
-#: src/anjuta.c:1400
+#: src/anjuta.c:1418
 #, c-format
 msgid ""
 "Not yet implemented.\n"
@@ -5089,11 +5089,11 @@ msgstr ""
 "まだ実装されていません。\n"
 "\"%s:%u\" にコードを追加して下さい"
 
-#: src/anjuta.c:1616
+#: src/anjuta.c:1634
 msgid "Activate this to select this window"
 msgstr "このウィンドウを選択するには、これを起動して下さい"
 
-#: src/anjuta.c:1663
+#: src/anjuta.c:1681
 #, c-format
 msgid ""
 "You do not have \"%s\" installed in your box.\n"
@@ -5102,19 +5102,19 @@ msgstr ""
 "システムに \"%s\" がインストールされていません。\n"
 "インストール後に Anjuta を再起動して下さい。"
 
-#: src/anjuta.c:1689 src/anjuta.c:1724
+#: src/anjuta.c:1707 src/anjuta.c:1742
 msgid "None"
 msgstr "なし"
 
-#: src/anjuta.c:1706
+#: src/anjuta.c:1724
 msgid "OVR"
 msgstr "OVR"
 
-#: src/anjuta.c:1710 src/anjuta.c:1716
+#: src/anjuta.c:1728 src/anjuta.c:1734
 msgid "INS"
 msgstr "INS"
 
-#: src/anjuta.c:1727
+#: src/anjuta.c:1745
 #, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
@@ -5123,27 +5123,27 @@ msgstr ""
 "  プロジェクト: %s  倍率: %d       行: %04d         列: %03d        %s       "
 "ジョブ: %s"
 
-#: src/anjuta.c:1939 src/anjuta.c:1942
+#: src/anjuta.c:1957 src/anjuta.c:1960
 #, c-format
 msgid "Unable to Load Plug in Module %s. Err: %s"
 msgstr "モジュール %s のプラグインを読み込めません。Err: %s"
 
-#: src/anjuta.c:1945
+#: src/anjuta.c:1963
 #, c-format
 msgid "Plug in Module protocol unknown %s Err:%s"
 msgstr "不明なプロトコル %s のモジュール・プラグインです。Err: %s"
 
-#: src/anjuta.c:1948
+#: src/anjuta.c:1966
 #, c-format
 msgid "Unable to Start Plug in Module %s"
 msgstr "モジュール %s のプラグインを起動できません。"
 
-#: src/anjuta.c:1951
+#: src/anjuta.c:1969
 #, c-format
 msgid "Bad Parameters to Plug in %s. Err: %s"
 msgstr "プラグイン %s に対して不適当なパラメータです。Err: %s"
 
-#: src/anjuta.c:1959
+#: src/anjuta.c:1977
 #, c-format
 msgid ""
 "Unable to load plugin %s.\n"
@@ -5152,7 +5152,7 @@ msgstr ""
 "プラグイン %s を読み込めません。\n"
 "Error %s"
 
-#: src/anjuta.c:2029
+#: src/anjuta.c:2047
 msgid "Out of Memory scanning for plugins."
 msgstr "プラグイン検出に必要なメモリがありません。"
 
