@@ -1,5 +1,14 @@
 2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* plugins/cvs-plugin/*: Mess up with cvs and lost some of 
+	my cvs-plugin files...
+	I hope I have rescued everything possible.
+	
+	* Naba: Could you please fix sample1 because I messed it up to 
+	but there should be a histroy of this directory we should commit
+
+2004-10-22  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* plugins/cvs-plugin/cvs-execute.[ch]: Add basic command execute infrastructure
 	* plugins/cvs-plugin/plugin.c, /plugins/cvs-plugin/anjuta-cvs-plugin.glade:
 	Added preferences dialog (not yet complete)
