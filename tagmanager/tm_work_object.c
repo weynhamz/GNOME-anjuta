@@ -97,10 +97,9 @@ gboolean tm_work_object_init(TMWorkObject *work_object, guint type, const char *
 time_t tm_get_file_timestamp(const char *file_name)
 {
 	struct stat s;
-	if (!file_name || strlen(file_name) == 0) {
-		g_warning("Empty file encountered!!");
-		return (time_t) 0;
-	}
+
+	g_return_val_if_fail(file_name, 0);
+
 	if (0 != stat(file_name, &s))
 	{
 		g_warning("Unable to stat %s", file_name);

@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ctype.h>
 #include <sys/types.h>
 #include <string.h>
 
@@ -327,7 +328,7 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 	for (i = 0; i < 2; ++i)
 	{
 		match = matches[i];
-		if ((match) && (*match))
+		if (match && *match)
 		{
 			while (TRUE)
 			{
@@ -351,4 +352,53 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
 	}
 	tm_tags_sort(tags, attrs, TRUE);
 	return tags;
+}
+
+
+const GPtrArray *tm_workspace_get_parents(const gchar *name)
+{
+	static TMTagAttrType type[] = { tm_tag_attr_name_t, tm_tag_attr_none_t };
+	static GPtrArray *parents = NULL;
+	const GPtrArray *matches;
+	guint i = 0;
+	guint j;
+	gchar **klasses;
+	gchar **klass;
+	TMTag *tag;
+
+	g_return_val_if_fail(name && isalpha(*name),NULL);
+
+	if (NULL == parents)
+		parents = g_ptr_array_new();
+	else
+		g_ptr_array_set_size(parents, 0);
+	matches = tm_workspace_find(name, tm_tag_class_t, type, FALSE);
+	if ((NULL == matches) || (0 == matches->len))
+		return NULL;
+	g_ptr_array_add(parents, matches->pdata[0]);
+	while (i < parents->len)
+	{
+		tag = TM_TAG(parents->pdata[i]);
+		if ((NULL != tag->atts.entry.inheritance) && (isalpha(tag->atts.entry.inheritance[0])))
+		{
+			klasses = g_strsplit(tag->atts.entry.inheritance, ",", 10);
+			for (klass = klasses; (NULL != *klass); ++ klass)
+			{
+				for (j=0; j < parents->len; ++j)
+				{
+					if (0 == strcmp(*klass, TM_TAG(parents->pdata[j])->name))
+						break;
+				}
+				if (parents->len == j)
+				{
+					matches = tm_workspace_find(*klass, tm_tag_class_t, type, FALSE);
+					if ((NULL != matches) && (0 < matches->len))
+						g_ptr_array_add(parents, matches->pdata[0]);
+				}
+			}
+			g_strfreev(klasses);
+		}
+		++ i;
+	}
+	return parents;
 }

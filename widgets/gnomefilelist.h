@@ -100,7 +100,7 @@ struct _GnomeFileList {
    GnomePixmap *folder;
    GnomePixmap *file;
    gboolean multiple_selection;
-
+   gboolean changedironcombo;
    gchar *entry_text;
 };
 

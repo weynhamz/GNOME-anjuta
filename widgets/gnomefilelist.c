@@ -67,6 +67,8 @@ static gboolean check_if_file_exists(gchar *filename);
 static gboolean check_can_modify(gchar *filename);
 static void show_hidden_toggled(GtkToggleButton* b, gpointer data);
 static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list);
+static void history_combo_go(GtkWidget *widget, GnomeFileList *file_list);
+static void history_combo_clicked(GtkWidget *widget, GnomeFileList *file_list);
 static void file_scrollbar_value_changed(GtkAdjustment *adjustment, GnomeFileList *file_list);
 static void dir_scrollbar_value_changed(GtkAdjustment *adjustment, GnomeFileList *file_list);
 /* end function declarations */
@@ -205,8 +207,9 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    gtk_combo_disable_activate(GTK_COMBO(file_list->history_combo));
    gtk_box_pack_start(GTK_BOX(util_box), file_list->history_combo, TRUE, TRUE, 0);
    gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry), FALSE);
-   gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "changed", GTK_SIGNAL_FUNC(check_ok_button_cb), file_list);
+   gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "changed", GTK_SIGNAL_FUNC(history_combo_go), file_list);
    gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->entry), "activate", GTK_SIGNAL_FUNC(check_goto), file_list);
+   gtk_signal_connect(GTK_OBJECT(GTK_COMBO(file_list->history_combo)->button), "clicked", GTK_SIGNAL_FUNC(history_combo_clicked), file_list);
    gtk_widget_show(file_list->history_combo);
 
    paned = gtk_hpaned_new();
@@ -357,12 +360,11 @@ GtkWidget *gnome_filelist_new_with_path(gchar *path)
    
    if(!gnome_filelist_set_dir(file_list, path))
       gnome_filelist_set_dir(file_list, g_get_home_dir ());
-   
+
+   file_list->changedironcombo = FALSE;
+
    return GTK_WIDGET(file_list);
 }
-
-
-
 
 static gint selection_entry_key_press(GtkWidget *widget, GdkEventKey *event, GnomeFileList *file_list) 
 {
@@ -640,12 +642,39 @@ gnome_filelist_file_matches(GnomeFileListType *filetype, gchar *filename, gboole
 			extentions = g_list_next (extentions);
 			break;
 		}
+
 		extentions = g_list_next(extentions);
    	}
+
 	extentions = g_list_first(extentions);
-	
+
 	return match;			
 }
+
+static void
+history_combo_clicked(GtkWidget *widget, GnomeFileList *file_list)
+{
+	file_list->changedironcombo = TRUE;
+	/*check_goto(widget, file_list);*/
+}
+
+static void
+history_combo_go(GtkWidget *widget, GnomeFileList *file_list)
+{
+	if (file_list->changedironcombo) {
+		gchar *text = g_strdup(gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(file_list->history_combo)->entry)));
+
+		file_list->changedironcombo = FALSE;
+		set_dir_internal (file_list, text);
+
+		g_free(text);
+
+		gtk_signal_emit_stop_by_name (GTK_OBJECT(widget), "changed");
+	} else
+		check_ok_button_cb(widget, file_list);
+}
+
+
 static void filetype_combo_go(GtkWidget *widget, GnomeFileList *file_list)
 {
 	GnomeFileListType *filetype;

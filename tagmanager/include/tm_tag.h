@@ -302,6 +302,18 @@ void tm_tag_destroy(TMTag *tag);
 void tm_tag_free(gpointer tag);
 
 /*!
+ Returns the type of tag as a string
+ \param tag The tag whose type is required
+*/
+const char *tm_tag_type_name(const TMTag *tag);
+
+/*!
+ Returns the TMTagType given the name of the type. Reverse of tm_tag_type_name.
+ \param tag_name Name of the tag type
+*/
+TMTagType tm_tag_name_type(const char* tag_name);
+
+/*!
   Prints information about a tag to the given file pointer.
   \param tag The tag whose info is required.
   \fp The file pointer of teh file to print the info to.
@@ -317,12 +329,6 @@ void tm_tags_array_print(GPtrArray *tags, FILE *fp);
   Returns the depth of tag scope (useful for finding tag hierarchy
 */
 gint tm_tag_scope_depth(const TMTag *t);
-
-/* Returns the name corrosponding to a tag type */
-const char *tm_tag_type_name(const TMTag *tag);
-
-/* Returns the tag type corrosponding to a tag name */
-int tm_tag_name_type(const char* tag_name);
 
 #ifdef __cplusplus
 }

@@ -45,8 +45,8 @@ extern "C"
 */
 typedef struct _TMWorkspace
 {
-	TMWorkObject work_object;
-	GPtrArray *global_tags;
+	TMWorkObject work_object; /*!< The parent work object */
+	GPtrArray *global_tags; /*!< Global tags loaded at startup */
 	GPtrArray *work_objects; /*!< An array of TMWorkObject pointers */
 } TMWorkspace;
 
@@ -131,6 +131,11 @@ gboolean tm_workspace_update(TMWorkObject *workspace, gboolean force
 */
 const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *attrs
  , gboolean partial);
+
+/*! Returns a list of parent classes for the given class name
+ \param name Name of the class
+ \return A GPtrArray of TMTag pointers (includes the TMTag for the class) */
+const GPtrArray *tm_workspace_get_parents(const gchar *name);
 
 /*! Frees the workspace structure and all child work objects. Use only when
  exiting from the main program.

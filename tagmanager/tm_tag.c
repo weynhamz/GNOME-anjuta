@@ -582,9 +582,10 @@ const char *tm_tag_type_name(const TMTag *tag)
 	return NULL;
 }
 
-int tm_tag_name_type(const char* tag_name)
+TMTagType tm_tag_name_type(const char* tag_name)
 {
-	g_return_val_if_fail(tag_name, -1);
+	g_return_val_if_fail(tag_name, tm_tag_undef_t);
+
 	if (strcmp(tag_name, "class") == 0) return tm_tag_class_t;
 	else if (strcmp(tag_name, "enum") == 0) return tm_tag_enum_t;
 	else if (strcmp(tag_name, "enumval") == 0) return tm_tag_enumerator_t;
@@ -604,7 +605,7 @@ int tm_tag_name_type(const char* tag_name)
 	else if (strcmp(tag_name, "define") == 0) return tm_tag_macro_t;
 	else if (strcmp(tag_name, "macro") == 0) return tm_tag_macro_with_arg_t;
 	else if (strcmp(tag_name, "file") == 0) return tm_tag_file_t;
-	else return -1;
+	else return tm_tag_undef_t;
 }
 
 static const char *tm_tag_impl_name(TMTag *tag)
@@ -656,7 +657,7 @@ void tm_tag_print(TMTag *tag, FILE *fp)
 	if (tag->atts.entry.arglist)
 		fprintf(fp, "%s", tag->atts.entry.arglist);
 	if (tag->atts.entry.inheritance)
-		fprintf(fp, " : public %s", tag->atts.entry.inheritance);
+		fprintf(fp, " : from %s", tag->atts.entry.inheritance);
 	if ((tag->atts.entry.file) && (tag->atts.entry.line > 0))
 		fprintf(fp, "[%s:%ld]", tag->atts.entry.file->work_object.file_name
 		  , tag->atts.entry.line);
