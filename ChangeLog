@@ -1,4 +1,16 @@
 2001-08-22  Naba Kumar <kh_naba@users.sourceforge.net>
+	
+	* appwiz_page2.c: Applied patch for disabling auto-upper-casting of
+	   project name in application widzard.
+	   [Patch from: Yannick Koehler <yannick.koehler@colubris.com>	]
+
+	* executer.c: hacked to change the behavior of the executer dialog. Now, instead
+	  of the 'OK' button there is an 'Execute' one.
+	  [ Patch from: Giovanni Corriga <valkadesh@libero.it>	]
+	
+	* executer.c: Changed cancel button to close button. That was more appropriate.
+	  
+2001-08-22  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* HACKING: corrected >>>>>>> Config management.
 	

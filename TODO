@@ -25,6 +25,55 @@ Todo List:
 	o easy (S)RPMS & Debian packages build
 	  (assistant and/or edit the spec or debian dir)
 
+	o > When the windows are docked, and we resize the main window of Anjuta, 
+	  > the docked window doesn't move with the resize.  As an example, I had 
+	  > the build window at the bottom of the main window and when resizing the 
+	  > window to make it smaller on the vertical axis the build window didn't 
+	  > moved up.  A user friendly behavior would be to move the window up and 
+	  > keep it proportianally with the main window or something like that.
+	  
+	  Well, that's a problem with the GtkPanedWindows, but I thing we make a
+	  temporary work around fix in anjuta by capturing the resize signal of
+	  the concerned widgets. Anybody care to have look in it? :-)
+	
+	o > It woudl be nice that when Opening a project only the *.prj files showed 
+	  > up by default.  And that the pattern be available for editing inside the 
+	  > file dialog.
+	  
+	o > I like the fact that you can right click a file name in the project 
+	  > viewer and view it through a browser for html file for example. I'd like 
+	  > to have the feature also available inside the context sensitive menu of 
+	  > the editor too.  ( Ihave no clue if that's even feasible in the context 
+	  > where scintilla is the editor object and may even control the 
+	  > context-menu...)
+	  
+	o > Would be nice that the FIND always search from the beginning of the file 
+	  > OR that when you get the "Not found" panel that we get a button asking 
+	  > if we want to continue from the top of the file.  Right now, very often 
+	  > the fail claim that the text is not there but if you go to the top and 
+	  > redo the search it works.
+	
+	o > I'd like to create a new project file, but without generating all the 
+	  > source and other things (as I've already got a stable setup, and I just 
+	  > want to evaluate anjuta). Is this possible? If not, it'd be nice to have 
+	  > it added to the suggestions list.
+	  
+	o > I had been using Multi-Edit in Windows days, and it had a great feature
+	  > for browsing code (Vim also has it).  It's a cross between searching
+	  > and syntax highlighting.  You enter a regular expression in a
+	  > search-like window, and it highlights all occurences of that expression
+	  > and leaves it that way for as long as you want (like syntax
+	  > highlighting).  I just set it to normal text on a yellow background so
+	  > it's easy to see and easy to read.  This is very useful when trying to
+	  > learn how a function or variable is used.  I used it all the time when
+	  > learning someone else's code, and it's great for following registers in
+	  > assembly code.
+
+	  > This is one of those things that became a habit for me and I really miss
+	  > it.  I'll gladly buy someone beer, lunch, dinner, or whatever if they
+	  > can add this feature!
+	  
+	  So, watch out guys! Atleast don't miss the beer. :-)
 
 BUGS:
 -----

@@ -56,11 +56,17 @@ on_prj_name_entry_focus_out_event (GtkWidget * widget,
 {
 	gchar *temp;
 	AppWizard *aw = user_data;
+/* 
+	23 Aug 2001 - Yannick Koehler 
+		Disabling Project Name Capitalization.
+*/
+#if 0 
 	if (aw->prj_name)
 	{
 		aw->prj_name[0] = toupper (aw->prj_name[0]);
 		gtk_entry_set_text (GTK_ENTRY (widget), aw->prj_name);
 	}
+#endif
 	temp = g_strdup_printf ("%s Version %s", aw->prj_name, aw->version);
 	gtk_entry_set_text (GTK_ENTRY (aw->widgets.menu_entry_entry), temp);
 	gtk_entry_set_text (GTK_ENTRY (aw->widgets.menu_comment_entry), temp);

@@ -67,6 +67,11 @@ executer_show (Executer * e)
 	gtk_widget_show (create_executer_dialog (e));
 }
 
+void on_executer_run_button_clicked (GtkButton* button, gpointer user_data)
+{
+  executer_execute((Executer*)user_data);
+}
+
 static GtkWidget *
 create_executer_dialog (Executer * e)
 {
@@ -82,7 +87,7 @@ create_executer_dialog (Executer * e)
 	GtkWidget *button3;
 	gchar* options;
 
-	dialog1 = gnome_dialog_new (_("Execute"), NULL);
+	dialog1 = gnome_dialog_new (_("Execute with arguments"), NULL);
 	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "exec", "Anjuta");
@@ -96,7 +101,7 @@ create_executer_dialog (Executer * e)
 	gtk_widget_show (vbox1);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox1, TRUE, TRUE, 0);
 
-	frame1 = gtk_frame_new (_("Command arguments (if any)"));
+	frame1 = gtk_frame_new (_("Command arguments"));
 	gtk_widget_show (frame1);
 	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
@@ -118,7 +123,7 @@ create_executer_dialog (Executer * e)
 	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
 	gtk_widget_show (dialog_action_area1);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),
-				   GTK_BUTTONBOX_EDGE);
+				   GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
 
 	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
@@ -128,7 +133,7 @@ create_executer_dialog (Executer * e)
 	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
 
 	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_CANCEL);
+				    GNOME_STOCK_BUTTON_CLOSE);
 	button3 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
 	gtk_widget_show (button3);
 	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
@@ -148,6 +153,13 @@ create_executer_dialog (Executer * e)
 	gtk_signal_connect (GTK_OBJECT (checkbutton1), "toggled",
 			    GTK_SIGNAL_FUNC (on_executer_checkbutton_toggled),
 			    e);
+	/* FIXME: fix this mess of braces, maybe overriding gnome_dialog_append_dialog */
+	gtk_label_set_text(GTK_LABEL((g_list_last(gtk_container_children(GTK_CONTAINER((g_list_last(gtk_container_children(GTK_CONTAINER((g_list_first(gtk_container_children(GTK_CONTAINER(button1))))->data))))->data))))->data), _("Execute"));
+	gtk_widget_show(button1);
+	
+	gtk_signal_connect (GTK_OBJECT(button1), "clicked",
+				GTK_SIGNAL_FUNC(on_executer_run_button_clicked),
+				e);
 
 	gtk_widget_grab_focus (button1);
 	gtk_widget_grab_default (button1);
@@ -297,3 +309,4 @@ executer_execute (Executer * e)
 	string_free (command);
 	string_free (cmd);
 }
+
