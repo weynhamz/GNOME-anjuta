@@ -1,3 +1,10 @@
+2003-11-07  Naba Kumar  <naba@gnome.org>
+
+	* anjuta.spec.in: Revived docs package and combined all docs into
+	one package.
+	* configure.in: Bumped version to 1.1.98 rc2
+	* NEWS: Updated.
+
 2003-11-06  Naba Kumar  <naba@gnome.org>
 
 	* src/mainmenu_callback.[c,h], src/main_menubar_def.h: Added help

@@ -59,26 +59,12 @@ programming facilities. It is basically a GUI interface for the collection
 of command line programming utilities and tools available for the GNU system. 
 These are usually run via a text console, and can be unfriendly to use.
 
-%package i18n
-Summary: Anjuta i18n Translations
+%package docs
+Summary: Anjuta docuemntations package.
 Group: Development/Tools
 
-%description i18n
-Translations of Anjuta UI elements in various languages.
-
-%package docs-en
-Summary: Anjuta docuemntation in English.
-Group: Development/Tools
-
-%description docs-en
-Anjuta documentation in English.
-
-%package docs-ja
-Summary: Anjuta docuemntation in Japanese.
-Group: Development/Tools
-
-%description docs-ja
-Anjuta documentation in Japanese.
+%description docs
+Anjuta documentations.
 
 %prep
 %setup -q
@@ -90,9 +76,16 @@ make %{?_smp_mflags}
 %install
 rm -rf %{buildroot}
 %makeinstall
+rm -fr %{buildroot}/var/scrollkeeper
 
 %clean
 rm -rf %{buildroot}
+
+%post
+scrollkeeper-update || :
+
+%postun
+scrollkeeper-update || :
 
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
@@ -109,3 +102,8 @@ rm -rf %{buildroot}
 %{_datadir}/mimelnk/application/x-anjuta-project.desktop
 %{_datadir}/locale
 %{_mandir}/man1/*
+
+%files docs
+%defattr(-, root, root)
+%{_datadir}/gnome/help/%{name}
+%{_datadir}/omf/%{name}
