@@ -49,24 +49,18 @@ make prefix=$RPM_BUILD_ROOT%{prefix} install
 %clean
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
 
+%post
+scrollkeeper-update
+
 %files
 %doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
-%{prefix}/share/gnome/help/anjuta/C
-%{prefix}/share/gnome/help/anjuta/C/anjuta-faqs
-%{prefix}/share/gnome/help/anjuta/C/anjuta-faqs/figures
-%{prefix}/share/gnome/help/anjuta/C/anjuta-faqs/stylesheet-images
-%{prefix}/share/gnome/help/anjuta/C/anjuta-manual
-%{prefix}/share/gnome/help/anjuta/C/anjuta-manual/figures
-%{prefix}/share/gnome/help/anjuta/C/anjuta-manual/stylesheet-images
 
 %defattr(-,root,root)
 %{prefix}/bin/anjuta
 %{prefix}/bin/anjuta_launcher
 %{prefix}/share/gnome/apps/Development/anjuta.desktop
 %{prefix}/share/anjuta
-%{prefix}/share/doc/anjuta
 %{prefix}/share/gnome/help/anjuta
 %{prefix}/share/pixmaps/anjuta
 %{prefix}/share/omf/anjuta
-%{prefix}/share/manuals/anjuta
 %{prefix}/share/locale/*/LC_MESSAGES/anjuta.mo
