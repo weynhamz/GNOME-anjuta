@@ -35,16 +35,16 @@ notebook_focus (GtkContainer     *container,
 	  -1:
 	  g_list_index (notebook->children, notebook->cur_page);
 
-//  g_print("size=%d\ncur=%d\n",size,cur);
+/*  g_print("size=%d\ncur=%d\n",size,cur); */
   switch (direction)
     {
-    case GTK_DIR_TAB_FORWARD:
+    case GTK_DIR_RIGHT:
 	    if(cur < size-1)
 		gtk_notebook_next_page(notebook);
 	    else
 		    gtk_notebook_set_page(notebook,0);
       break;
-    case GTK_DIR_TAB_BACKWARD:
+    case GTK_DIR_LEFT:
 	    if(cur > 0)
 		gtk_notebook_prev_page(notebook);
 	    else

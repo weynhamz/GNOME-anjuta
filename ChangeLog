@@ -1,3 +1,11 @@
+2001-10-03	Andy Piper	<andy.piper@freeuk.com>
+
+	* src/notebook.c: applied patch from rikul <null@acm.org> to fix bug
+	#452436
+	* data/internal.properties: default fold style now set to 3 :-)
+	* applied patch from rikul <null@acm.org> to turn notebook tab 
+	headings red when file has been edited.
+
 2001-10-02  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Added "no" to ALL_LINGUAS.

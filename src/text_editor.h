@@ -69,6 +69,7 @@ struct _TextEditorGui
 	GtkWidget *client;
 	GtkWidget *line_label;
 	GtkWidget *editor;
+	GtkWidget *tab_label;
 };
 
 struct _TextEditor

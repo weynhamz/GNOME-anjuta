@@ -172,6 +172,7 @@ void anjuta_application_exit(void);
 void anjuta_clean_exit (void);
 
 void anjuta_update_title (void);
+void anjuta_update_page_label (TextEditor *te);
 
 void anjuta_set_file_properties (gchar * full_filename);
 void anjuta_open_file (gchar * filename);

@@ -360,7 +360,8 @@ create_text_editor_gui (TextEditor * te)
 	te->widgets.client = event_box1;
 	te->widgets.editor = editor1;
 	te->widgets.line_label = label2;
-
+	te->widgets.tab_label = NULL;	/* Created later */
+	
 	te->buttons.new = button1;
 	te->buttons.open = button2;
 	te->buttons.save = button3;

@@ -107,6 +107,7 @@ on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 	GtkWidget *label, *eventbox;
 	TextEditor *te = anjuta_get_current_text_editor ();
 	label = gtk_label_new (te->filename);
+	te->widgets.tab_label = label;
 	gtk_widget_show (label);
 	eventbox = gtk_event_box_new ();
 	gtk_widget_show (eventbox);
@@ -121,6 +122,7 @@ on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 	gtk_window_set_title (GTK_WINDOW (app->widgets.window),
 			      te->full_filename);
 	gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
+	anjuta_update_page_label(te);
 }
 
 void
@@ -198,6 +200,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		break;
 	case SCN_SAVEPOINTREACHED:
 	case SCN_SAVEPOINTLEFT:
+		anjuta_update_page_label(te);
 		anjuta_update_title ();
 		update_main_menubar ();
 		text_editor_update_controls (te);
@@ -205,7 +208,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	case SCN_UPDATEUI:
 		anjuta_update_app_status (FALSE, NULL);
 		te->current_line = text_editor_get_current_lineno (te);
-
+		
 /*	case SCEN_SETFOCUS:
 	case SCEN_KILLFOCUS:
 	case SCN_STYLENEEDED:

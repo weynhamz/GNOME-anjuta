@@ -223,6 +223,7 @@ anjuta_append_text_editor (gchar * filename)
 	{
 	case TEXT_EDITOR_PAGED:
 		label = gtk_label_new (te->filename);
+		te->widgets.tab_label = label;
 		gtk_widget_show (label);
 		eventbox = gtk_event_box_new ();
 		gtk_widget_show (eventbox);
@@ -842,6 +843,40 @@ anjuta_update_title ()
 		gtk_window_set_title (GTK_WINDOW (app->widgets.window),
 				      _("Anjuta: No file"));
 	}
+}
+
+void
+anjuta_update_page_label (TextEditor *te)
+{
+	GtkRcStyle *rc_style;
+	GdkColor tmpcolor;
+
+	if (te == NULL)
+		return;
+	
+	if (te->mode == TEXT_EDITOR_WINDOWED)
+		return;
+	
+	if (te->widgets.tab_label == NULL)
+		return;
+			
+	if (text_editor_is_saved(te))
+	{
+		gdk_color_parse("black",&tmpcolor);
+	}
+	else
+	{
+		gdk_color_parse("red",&tmpcolor);
+	}
+	
+	rc_style = gtk_rc_style_new();
+			
+	rc_style->fg[GTK_STATE_NORMAL] = tmpcolor;
+	rc_style->color_flags[GTK_STATE_NORMAL] = GTK_RC_FG;
+
+	gtk_widget_modify_style(te->widgets.tab_label, rc_style);
+	
+	gtk_rc_style_unref(rc_style);
 }
 
 void
