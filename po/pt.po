@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2003-09-27 16:17+0100\n"
-"PO-Revision-Date: 2003-09-27 16:20+0000\n"
+"POT-Creation-Date: 2003-10-08 22:30+0100\n"
+"PO-Revision-Date: 2003-10-08 22:35+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -339,11 +339,11 @@ msgstr "Estilo Costumizado"
 
 #: anjuta.glade.h:78
 msgid ""
-"Custom style,GNU coding style,Kernighan & Ritchie style,Original Berkeley "
+"Custom style,GNU coding style,Kernighan and Ritchie style,Original Berkeley "
 "style,Style of Kangleipak,Hello World style,Crazy boy style"
 msgstr ""
-"Estilo costumizado, estilo codificação GNU, estilo Kernighan & Ritchie, "
-"estilo Original Berkeley, Estilo de Kangleipak, estilo Olá Mundo, estilo "
+"Estilo costumizado,Estilo codificação GNU,Estilo Kernighan e Ritchie,"
+"Estilo original Berkeley,Estilo de Kangleipak,Estilo Olá Mundo,Estilo "
 "Rapaz Maluco"
 
 #: anjuta.glade.h:79
@@ -564,7 +564,7 @@ msgstr "Procurar & Substituir"
 msgid "Find and replace"
 msgstr "Procurar e substituir"
 
-#: anjuta.glade.h:132 src/find_in_files.c:302
+#: anjuta.glade.h:132 src/find_in_files.c:316
 msgid "Find in Files"
 msgstr "Encontrar nos Ficheiros"
 
@@ -2635,7 +2635,7 @@ msgstr ""
 msgid "Looking up symbol"
 msgstr "A procurar símbolo"
 
-#: src/anjuta.c:2413 src/find_in_files.c:308
+#: src/anjuta.c:2413 src/find_in_files.c:322
 msgid "Finding in Files ....\n"
 msgstr "A Encontrar nos Ficheiros ....\n"
 
@@ -2711,13 +2711,13 @@ msgstr ""
 "Tem de indicar um campo %s valido para prosseguir."
 
 #. For the time being
-#: src/appwizard_cbs.c:282 src/project_dbase.c:1484 src/project_dbase.c:1490
-#: src/project_dbase.c:1493 src/project_import_cbs.c:227 src/signals_cbs.c:115
+#: src/appwizard_cbs.c:282 src/project_dbase.c:1492 src/project_dbase.c:1498
+#: src/project_dbase.c:1501 src/project_import_cbs.c:227 src/signals_cbs.c:115
 #: src/signals_cbs.c:128 src/signals_cbs.c:141
 msgid "Yes"
 msgstr "Sim"
 
-#: src/appwizard_cbs.c:284 src/project_dbase.c:1486 src/project_dbase.c:1495
+#: src/appwizard_cbs.c:284 src/project_dbase.c:1494 src/project_dbase.c:1503
 #: src/project_import_cbs.c:229 src/signals_cbs.c:117 src/signals_cbs.c:130
 #: src/signals_cbs.c:143
 msgid "No"
@@ -2878,7 +2878,7 @@ msgstr ""
 msgid "Building file: %s ...\n"
 msgstr "A compilar ficheiro: %s ...\n"
 
-#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:346
+#: src/build_file.c:132 src/cvs.c:776 src/find_in_files.c:360
 #: src/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
@@ -2900,63 +2900,63 @@ msgstr "Terminado ... sucesso\n"
 msgid "Completed ... successful"
 msgstr "Terminado... sucesso"
 
-#: src/build_project.c:72 src/compile.c:61
+#: src/build_project.c:76 src/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "Incapaz de compilar módulo. Verifique Definições->Comandos."
 
-#: src/build_project.c:91 src/build_project.c:152 src/compile.c:74
+#: src/build_project.c:95 src/build_project.c:160 src/compile.c:74
 msgid "Build Project"
 msgstr "Compilar Projecto"
 
-#: src/build_project.c:93 src/compile.c:76
+#: src/build_project.c:97 src/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "A compilar directório de código do Projecto: "
 
-#: src/build_project.c:137
+#: src/build_project.c:145
 msgid "Unable to build Project. Check Settings->Commands."
 msgstr "Incapaz de compilar Projecto. Verifique Definições->Comandos."
 
-#: src/build_project.c:155
+#: src/build_project.c:163
 msgid "Building the whole Project: "
 msgstr "A compilar todo o Projecto: "
 
-#: src/build_project.c:188
+#: src/build_project.c:196
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr "Incapaz de criar ficheiro tar. Verifique Definições->Comandos."
 
-#: src/build_project.c:203
+#: src/build_project.c:211
 msgid "Build Distribution"
 msgstr "Compilar Distribuição"
 
-#: src/build_project.c:207
+#: src/build_project.c:215
 msgid "Building the distribution package of the Project: "
 msgstr "A compilar o pacote de distribuição do Projecto: "
 
-#: src/build_project.c:239
+#: src/build_project.c:247
 msgid "Do you prefer installing as root ?"
 msgstr "Prefere instalar como root ?"
 
-#: src/build_project.c:277
+#: src/build_project.c:285
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Incapaz de auto gerar. Verifique Definições->Comandos."
 
-#: src/build_project.c:291
+#: src/build_project.c:299
 msgid "Auto generate Project"
 msgstr "Auto-gerar Projecto"
 
-#: src/build_project.c:294
+#: src/build_project.c:302
 msgid "Auto generating the Project: "
 msgstr "A auto-gerar o Projecto: "
 
-#: src/build_project.c:316 src/build_project.c:354
+#: src/build_project.c:324 src/build_project.c:362
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "Incapaz de instalar Projecto. Verifique Definições->Comandos."
 
-#: src/build_project.c:331 src/build_project.c:366
+#: src/build_project.c:339 src/build_project.c:374
 msgid "Install Project"
 msgstr "Instalar Projecto"
 
-#: src/build_project.c:333 src/build_project.c:368
+#: src/build_project.c:341 src/build_project.c:376
 msgid "Installing the Project: "
 msgstr "A Instalar o Projecto: "
 
@@ -3535,19 +3535,19 @@ msgstr "Este ficheiro não está gravado. Grave-o primeiro."
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Incapaz de executar ficheiro. Verifique Definições->Comandos."
 
-#: src/find_in_files.c:335
+#: src/find_in_files.c:349
 msgid "Find in Files completed...............Unsuccessful\n"
 msgstr "Encontrar nos Ficheiros completo.........Insucesso\n"
 
-#: src/find_in_files.c:337
+#: src/find_in_files.c:351
 msgid "Find in Files completed ... unsuccessful"
 msgstr "Encontrar nos Ficheiros completo ... insucesso"
 
-#: src/find_in_files.c:342
+#: src/find_in_files.c:356
 msgid "Find in Files completed...............Successful\n"
 msgstr "Encontrar nos Ficheiros completo.........Sucesso\n"
 
-#: src/find_in_files.c:344
+#: src/find_in_files.c:358
 msgid "Find in Files completed ... successful"
 msgstr "Encontrar nos Ficheiros completo ... sucesso"
 
@@ -3573,23 +3573,23 @@ msgstr "A expressão \"%s\" não foi encontrada no texto seleccionado"
 msgid "The string \"%s\" was not found from the current location"
 msgstr "A expressão \"%s\" não foi encontrada a partir da localização actual"
 
-#: src/find_text.c:163
+#: src/find_text.c:156
 #, c-format
 msgid "The match \"%s\" was not found in the whole document"
 msgstr "A equivalência \"%s\" não foi encontrada em todo o documento"
 
-#: src/find_text.c:168
+#: src/find_text.c:161
 #, c-format
 msgid "The match \"%s\" was not found in the selected text"
 msgstr "A equivalência \"%s\" não foi encontrada no texto seleccionado"
 
-#: src/find_text.c:173
+#: src/find_text.c:166
 #, c-format
 msgid "The match \"%s\" was not found from the current location"
 msgstr ""
 "A equivalência \"%s\" não foi encontrada a partir da localização actual"
 
-#: src/find_text.c:197
+#: src/find_text.c:190
 msgid "No matches found. Wrap search around the document?"
 msgstr "Nenhuma equivalência encontrada. Dar a volta ao documento?"
 
@@ -3723,7 +3723,7 @@ msgstr "Não mostrar o ecrã de logotipo"
 msgid "Recent Files    "
 msgstr "Ficheiros Recentes "
 
-#: src/main_menubar.c:392 src/project_dbase.c:2033
+#: src/main_menubar.c:392 src/project_dbase.c:2041
 msgid "Recent Projects "
 msgstr "Projectos Recentes "
 
@@ -6132,7 +6132,7 @@ msgstr "Todos os ficheiros"
 msgid "Unable to load Project: %s"
 msgstr "Incapaz de ler Projecto: %s"
 
-#: src/project_dbase.c:466 src/project_dbase.c:2472
+#: src/project_dbase.c:466 src/project_dbase.c:2480
 #, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
@@ -6141,15 +6141,15 @@ msgstr ""
 "Necessita do Anjuta versão %s ou posterior para abrir este Projecto.\n"
 "Actualize o Anjuta para a versão mais recente (Ajuda para mais informações)."
 
-#: src/project_dbase.c:846
+#: src/project_dbase.c:849
 msgid "Project saved successfully"
 msgstr "Projecto gravado com sucesso"
 
-#: src/project_dbase.c:852 src/project_dbase.c:854
+#: src/project_dbase.c:855 src/project_dbase.c:857
 msgid "Unable to save the Project."
 msgstr "Incapaz de gravar Projecto."
 
-#: src/project_dbase.c:1561
+#: src/project_dbase.c:1569
 msgid ""
 "A .glade file does not exist in the top level Project directory. If you do "
 "not use glade for GUI editing,  please specify a custom command for it in "
@@ -6159,7 +6159,7 @@ msgstr ""
 "utiliza o glade para edição do GUI, especifique um comando costumizado para "
 "ele em [Projecto]->[Configuração Projecto]->[Comando editor GUI]"
 
-#: src/project_dbase.c:1623
+#: src/project_dbase.c:1631
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
@@ -6168,11 +6168,11 @@ msgstr ""
 "no directório de topo do Projecto."
 
 #. Set project title
-#: src/project_dbase.c:2070
+#: src/project_dbase.c:2078
 msgid "Project: "
 msgstr "Projecto: "
 
-#: src/project_dbase.c:2187
+#: src/project_dbase.c:2195
 #, c-format
 msgid ""
 "Unable to get relative file name for %s\n"
@@ -6181,20 +6181,20 @@ msgstr ""
 "Incapaz de obter nome relativo do ficheiro para %s\n"
 " em %s"
 
-#: src/project_dbase.c:2252
+#: src/project_dbase.c:2260
 msgid " already exists in the project"
 msgstr " já existe no projecto"
 
-#: src/project_dbase.c:2285
+#: src/project_dbase.c:2293
 msgid "Error while copying the file inside the module."
 msgstr "Erro ao compilar os ficheiros dentro do módulo."
 
-#: src/project_dbase.c:2548 src/project_dbase.c:2551
+#: src/project_dbase.c:2556 src/project_dbase.c:2559
 #, c-format
 msgid "Error in loading Project: %s"
 msgstr "Erro na leitura do Projecto: %s"
 
-#: src/project_dbase.c:2572
+#: src/project_dbase.c:2580
 msgid "Project loaded successfully."
 msgstr "Projecto aberto com sucesso."
 
