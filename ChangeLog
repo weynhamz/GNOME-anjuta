@@ -1,3 +1,11 @@
+2004-05-14  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/editor/anjuta-docman.c
+	* plugins/editor/text_editor.c:
+	Made close button working, made multiple selection in
+	File/Open dialog possble, fixed crash bug if file cannot
+	be opened.
+
 2004-05-13  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/editor/action-callbacks.c

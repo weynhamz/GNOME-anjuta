@@ -1124,15 +1124,12 @@ text_editor_load_file (TextEditor * te)
 	te->modified_time = time (NULL);
 	if (load_from_file (te, te->uri, &err) == FALSE)
 	{
-		GtkWidget *parent;
-		/* FIXME:
-		/* parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
-		anjuta_util_dialog_error (GTK_WINDOW (parent),
+		anjuta_util_dialog_error (NULL,
 								  _("Could not load file: %s\n\nDetails: %s"),
 								  te->filename, err);
 		g_free (err);
 		// FIXME: anjuta_set_active ();
-		text_editor_thaw (te);*/
+		text_editor_thaw (te);
 		return FALSE;
 	}
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS,

@@ -29,6 +29,8 @@
 #include "text_editor.h"
 #include "anjuta-docman.h"
 #include "file_history.h"
+#include "plugin.h"
+#include "action-callbacks.h"
 
 gboolean closing_state;
 
@@ -58,11 +60,17 @@ struct _AnjutaDocmanPage {
 typedef struct _AnjutaDocmanPage AnjutaDocmanPage;
 
 static void
-on_text_editor_notebook_close_page (GtkNotebook * notebook,
-				GtkNotebookPage * page,
-				gint page_num, AnjutaDocman* docman)
+on_text_editor_notebook_close_page (GtkButton* button, 
+									AnjutaDocman* docman)
 {
-	/* on_close_file1_activate (NULL, docman);*/
+	/* This is a hack because we cannot get the real
+	Editor plugin */
+	EditorPlugin* dummy_plugin = g_new0(EditorPlugin, 1);
+	dummy_plugin->docman = GTK_WIDGET(docman);
+
+	on_close_file1_activate (NULL, dummy_plugin);
+	
+	g_free(dummy_plugin);
 }
 
 static void
@@ -203,16 +211,6 @@ on_open_filesel_ok_clicked (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 	
 	list = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 	elements = g_slist_length(list);
-	/* If filename is only written in entry but not selected (Bug #506441)
-	if (elements == 0)
-	{
-		entry_filename = fileselection_get_filename(docman->priv->fileselection);
-		if (entry_filename)
-		{
-			list = g_list_append(list, entry_filename);
-			elements++;
-		}
-	}*/
 	for(i=0;i<elements;i++)
 	{
 		uri = g_strdup(g_slist_nth_data(list,i));
@@ -227,7 +225,6 @@ on_open_filesel_ok_clicked (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 		g_slist_remove(list, entry_filename);
 		g_free(entry_filename);
 	}
-	/* g_free(list); */
 }
 
 static void
@@ -276,35 +273,6 @@ save_as_real (AnjutaDocman *docman)
 		else
 		{
 			text_editor_set_hilite_type(te);
-#if 0
-			if (te->mode == TEXT_EDITOR_PAGED)
-			{
-				GtkLabel* label;
-				
-				page_num =
-					gtk_notebook_get_current_page (GTK_NOTEBOOK
-									   (app->notebook));
-				g_return_if_fail (page_num >= 0);
-				child =
-					gtk_notebook_get_nth_page (GTK_NOTEBOOK
-								   (app->notebook), page_num);
-				/* This crashes */
-				/* gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (app->notebook),
-								 child,
-								 anjuta_get_notebook_text_editor
-								 (page_num)->filename);
-				*/
-				label = GTK_LABEL(te->widgets.tab_label);
-				gtk_label_set_text(GTK_LABEL(label),
-								   anjuta_get_notebook_text_editor
-								   (page_num)->filename);
-	
-				gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->notebook),
-								child,
-								anjuta_get_notebook_text_editor
-								(page_num)->filename);
-			}
-#endif
 		}
 		// anjuta_update_title ();
 	}
@@ -366,6 +334,7 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
 									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 									NULL);
+	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(dialog), TRUE);
 	g_signal_connect(G_OBJECT(dialog), "response", 
 					G_CALLBACK(on_open_filesel_ok_clicked), docman);
 	g_signal_connect_swapped (GTK_OBJECT (dialog), 
@@ -468,8 +437,13 @@ anjuta_docman_add_editor (AnjutaDocman *docman, gchar *uri, gchar *name)
 	// cur_page = anjuta_docman_get_current_editor ();
 	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
 						  uri, name);
+	/* File cannot be loaded, texteditor brings up an error dialog */
+	if (te == NULL)
+	{
+		return NULL;
+	}
+	
 	gtk_widget_show (te);
-	g_return_val_if_fail (te != NULL, NULL);
 	page = anjuta_docman_page_new (te, docman);
 	
 	anjuta_docman_set_current_editor (docman, TEXT_EDITOR (te));

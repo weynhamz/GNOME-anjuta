@@ -117,7 +117,6 @@ on_close_file1_activate (GtkAction * action, gpointer user_data)
 	if (te->used_by_cvs) {
 		GtkWidget* dialog;
 		gint value;
-		
 		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
 		    GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION,
 			GTK_BUTTONS_YES_NO,
