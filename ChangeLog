@@ -1,6 +1,8 @@
 2003-03-24  Naba Kumar  <naba@gnome.org>
 
 	* src/getline.c: CVS added the file -- part of previous patch.
+	* src/defaults.c: Fixed default compiler options (used for
+	initial projects generation) to avoid unnecessary warnings.
 
 2003-03-24  Michael Tindal <etherscape@paradoxpoint.com>
 	* configure.in, src/Makefile.am, src/getline.c, data/Makefile.am:
