@@ -999,7 +999,10 @@ connect_menuitem_signal (GtkWidget * item, MessageSubwindow * msg_win)
 void
 disconnect_menuitem_signal (GtkWidget * item, MessageSubwindow * msg_win)
 {
-	g_signal_stop_emission_by_name (G_OBJECT (item), "toggled");
+	// g_signal_stop_emission_by_name (G_OBJECT (item), "toggled");
+	g_signal_handlers_disconnect_by_func (G_OBJECT (item),
+										  (void *) on_show_hide_tab,
+										  msg_win);
 }
 
 void
