@@ -1,3 +1,7 @@
+2005-01-01  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/cvs-plugin/plugin.c: Fixed crash bug
+
 2004-12-30  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* template/*,
