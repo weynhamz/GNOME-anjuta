@@ -106,7 +106,7 @@ struct				/* Launcher */
   void (*stderr_arrived) (gchar *);
   void (*child_terminated) (gint status, time_t time);
 
-} launcher;
+} launcher = {FALSE, NULL};
 
 /* By any means DO NOT call launcher_init() more than once */
 void
@@ -320,7 +320,11 @@ launcher_execute (gchar * command_str,
 
   shell = gnome_util_user_shell();
   
-  launcher.terminal = zvt_term_new ();
+  /* A launcher should not be using more than one terminal */
+  if (launcher.terminal)
+	  zvt_term_reset((ZvtTerm *) launcher.terminal, TRUE);
+  else
+	  launcher.terminal = zvt_term_new ();
   zvt_term_set_size(ZVT_TERM (launcher.terminal), 100, 100);
   gtk_signal_connect (GTK_OBJECT (launcher.terminal), "child_died", 
 		GTK_SIGNAL_FUNC (to_terminal_child_terminated), NULL);

@@ -53,7 +53,7 @@
 #include "commands.h"
 /*-------------------------------------------------------------------*/
 extern gboolean closing_state;
-static GdkCursor *app_cursor;
+static GdkCursor *app_cursor = NULL;
 /*-------------------------------------------------------------------*/
 void anjuta_child_terminated (int t);
 static void on_message_clicked(GtkObject* obj, char* message);	

@@ -1,5 +1,7 @@
-2003-02-26  Naba Kumar  <naba@gnome.org>
+2003-02-27  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* src/project_dbase.c, src/anjuta.c, src/launcher.c: Bug fixes.
 
+2003-02-26  Naba Kumar  <naba@gnome.org>
 	* manuals/C/anjuta-faqs/anjuta-faqs.sgml, FUTURE, Makefile.am:
 	Updated faq and removed FUTURE, because it does not show
 	accurate information.
