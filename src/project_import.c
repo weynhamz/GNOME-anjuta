@@ -179,6 +179,8 @@ project_import_terminated (int status, time_t time)
 
 	gnome_druid_set_page (GNOME_DRUID (piw->widgets.druid),
 			      GNOME_DRUID_PAGE (piw->widgets.page[2]));
+	// Disable back button
+	gtk_widget_set_sensitive(GNOME_DRUID(piw->widgets.druid)->back, FALSE);
 }
 
 /* This is from a gtk example but it looks nice ;-) */

@@ -51,7 +51,7 @@ on_page2_next (GnomeDruidPage * page2, gpointer arg1, gpointer data)
 		return TRUE;
 	}
 	project_import_start (directory, piw);
-	g_free (directory);
+	g_free (directory);	
 	return TRUE;
 }
 
@@ -96,6 +96,10 @@ on_page3_next (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 						       language_c_cpp_radio),
 						      TRUE);
 		}
+		
+		// Enable back button
+		gtk_widget_set_sensitive (GNOME_DRUID(piw->widgets.druid)->back, TRUE);
+		gtk_widget_show (GNOME_DRUID(piw->widgets.druid)->back);
 		return FALSE;
 	}
 }
@@ -159,6 +163,19 @@ on_page5_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 					      (piw->widgets.term_check),
 					      piw->prj_menu_need_terminal);
 
+	// Deacticate Menu entries for none Gnome projects
+	if (piw->prj_type == PROJECT_TYPE_GNOME || 
+		piw->prj_type == PROJECT_TYPE_GNOMEMM)
+	{
+		gtk_widget_set_sensitive(piw->widgets.menu_frame,
+				TRUE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive(piw->widgets.menu_frame, 
+				FALSE);
+	}
+	
 /*
 	gtk_entry_set_text(GTK_ENTRY(piw->widgets.menu_entry_entry), piw->prj_menu_entry);
 	gtk_entry_set_text(GTK_ENTRY(piw->widgets.menu_comment_entry), piw->prj_menu_comment);
@@ -254,6 +271,7 @@ on_page2_back (GnomeDruidPage * page2, gpointer arg1, gpointer data)
 gboolean
 on_page3_back (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 {
+	// We should never come here because this button is disabled
 	anjuta_error (_("The import operation has already begun.\nClick Cancel to skip the customisation stage, or Next to continue."));
 	return TRUE;
 }
@@ -261,6 +279,11 @@ on_page3_back (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 gboolean
 on_page4_back (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 {
+	// Disable back button (seems like I cannot make it insensitive in
+	// a callback of itself)
+	// TODO: Make this working somehow
+	gtk_widget_set_sensitive(GNOME_DRUID(arg1)->back, FALSE);
+	
 	return FALSE;
 }
 
@@ -287,9 +310,14 @@ on_page_finish_back (GnomeDruidPage * page_finish,
 void
 on_druid_cancel (GnomeDruid * druid, gpointer user_data)
 {
+	ProjectDBase* p = app->project_dbase;
 	ProjectImportWizard *piw = (ProjectImportWizard *) user_data;
 	g_assert (user_data != NULL);
-
+	
+	// If we had already opened a the imported project file it will be closed now
+	if (p->project_is_open == TRUE)
+		project_dbase_close_project(p);
+	
 	gtk_widget_hide (piw->widgets.window);
 	destroy_project_import_gui ();
 	return;
