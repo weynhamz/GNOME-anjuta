@@ -1,5 +1,9 @@
 2001-12-23	Andy Piper	<andy.piper@freeuk.com>
 
+	* src/about.c, THANKS: added Jens to the credits
+	
+2001-12-23	Andy Piper	<andy.piper@freeuk.com>
+
 	* pixmaps/close_file_small.xpm, pixmaps/Makefile.am, src/anjuta.c,
 	  src/text_editor.h, src/pixmaps.h, src/text_editor_cbs.c,
 	  src/text_editor_cbs.h, src/text_editor_gui.c: patch from Jens

@@ -52,6 +52,7 @@ create_about_gui ()
 		"Yannick Koehler <yannick.koehler@colubris.com>", 
 		"Giovanni Corriga <valkadesh@libero.it>",
 		"Dan Elphick <dre00r@ecs.soton.ac.uk>",
+		"Jens Georg <mail@jensgeorg.de>",
 		"Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>",
 		NULL
 	};
