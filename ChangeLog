@@ -1,3 +1,13 @@
+2003-04-28  Naba Kumar  <naba@gnome.org>
+
+	* po/POTFILES.in: Remvoded deleted files.
+	
+	* pixmaps/Makefile.am, pixmaps/windows-style-docked.png,
+	pixmaps/windows-style-undocked.png: Added setup wizard's images.
+
+	* src/anjuta-tools.c: Fixed a bug where working dir (when the tool
+	is executed as detached) is not set properly.
+	
 2003-04-25  Naba Kumar  <naba@gnome.org>
 	
 	* anjuta.prj: Updated.

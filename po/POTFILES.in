@@ -146,8 +146,6 @@ src/signals_gui.c
 src/signals.h
 src/source.c
 src/source.h
-src/splash.c
-src/splash.h
 src/src_paths.c
 src/src_paths.h
 src/stack_trace.c

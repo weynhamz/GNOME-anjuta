@@ -514,7 +514,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	AnUserTool *tool = (AnUserTool *) data;
 	const gchar *params = NULL;
 	gchar *command;
-
+	gchar *working_dir;
+	
 #ifdef TOOL_DEBUG
 	g_message("Tool: %s (%s)\n", tool->name, tool->command);
 #endif
@@ -553,18 +554,16 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	/* Set the current working directory */
 	if (tool->working_dir)
 	{
-		gchar *working_dir = prop_expand(app->project_dbase->props
+		working_dir = prop_expand(app->project_dbase->props
 		  , tool->working_dir);
-		if (working_dir)
-		{
-#ifdef TOOL_DEBUG
-			g_message("Working dir is %s", working_dir);
-#endif
-			anjuta_set_execution_dir(working_dir);
-			chdir(working_dir);
-			g_free(working_dir);
-		}
+	} else {
+		working_dir = g_strdup (getenv("HOME"));
 	}
+#ifdef TOOL_DEBUG
+	g_message("Working dir is %s", working_dir);
+#endif
+	anjuta_set_execution_dir(working_dir);
+	chdir(working_dir);
 	if (tool->detached)
 	{
 		/* Detached mode - execute and forget about it */
@@ -586,7 +585,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 #ifdef TOOL_DEBUG
 		g_message("Final command: '%s'\n", command);
 #endif
-		gnome_execute_shell(tool->working_dir, command);
+		gnome_execute_shell(working_dir, command);
 	}
 	else
 	{
@@ -655,6 +654,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		}
 		g_free(command);
 	}
+	g_free(working_dir);
 }
 
 /* Activates a tool */
