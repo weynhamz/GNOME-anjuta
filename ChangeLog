@@ -1,3 +1,11 @@
+2001-12-14 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/anjuta.c, anjuta.h, text_editor.c, text_editor.h:
+	
+	Fixed bug #460335
+	fixes the Forget of the cursor position when tab is brought active
+	from project manager.
+	
 2001-12-13 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/messages.c

@@ -457,13 +457,13 @@ anjuta_get_current_selection ()
 }
 
 TextEditor *
-anjuta_goto_file_line (gchar * fname, guint lineno)
+anjuta_goto_file_line (gchar * fname, glong lineno)
 {
 	return anjuta_goto_file_line_mark (fname, lineno, TRUE);
 }
 
 TextEditor *
-anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark)
+anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark)
 {
 	gchar *fn;
 	GList *node;
@@ -1217,7 +1217,7 @@ anjuta_open_file (gchar* fname)
 	g_free (cmd);
 	if(list == NULL)
 	{
-		anjuta_goto_file_line (fname, -1);
+		anjuta_goto_file_line_mark (fname, -1, FALSE);
 		return;
 	}
 	if (anjuta_is_installed ((gchar*)list->data, TRUE))

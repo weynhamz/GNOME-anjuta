@@ -376,7 +376,7 @@ text_editor_get_current_lineno (TextEditor * te)
 }
 
 gboolean
-text_editor_goto_point (TextEditor * te, guint point)
+text_editor_goto_point (TextEditor * te, glong point)
 {
 	g_return_val_if_fail (te != NULL, FALSE);
 	g_return_val_if_fail(IS_SCINTILLA (te->widgets.editor) == TRUE, FALSE);
@@ -387,7 +387,7 @@ text_editor_goto_point (TextEditor * te, guint point)
 }
 
 gboolean
-text_editor_goto_line (TextEditor * te, guint line, gboolean mark)
+text_editor_goto_line (TextEditor * te, glong line, gboolean mark)
 {
 	gint selpos;
 	g_return_val_if_fail (te != NULL, FALSE);
@@ -1128,7 +1128,7 @@ text_editor_autoformat (TextEditor * te)
 }
 
 gboolean
-text_editor_is_marker_set (TextEditor* te, gint line, gint marker)
+text_editor_is_marker_set (TextEditor* te, glong line, gint marker)
 {
 	gint state;
 
@@ -1142,7 +1142,7 @@ text_editor_is_marker_set (TextEditor* te, gint line, gint marker)
 }
 
 void
-text_editor_delete_marker (TextEditor* te, gint line, gint marker)
+text_editor_delete_marker (TextEditor* te, glong line, gint marker)
 {
 	g_return_if_fail (te != NULL);
 	g_return_if_fail (line >= 0);
@@ -1164,7 +1164,7 @@ text_editor_line_from_handle (TextEditor* te, gint marker_handle)
 	return linenum_scintilla_to_text_editor (line);
 }
 
-gint text_editor_get_bookmark_line( TextEditor* te, const gint nLineStart )
+gint text_editor_get_bookmark_line( TextEditor* te, const glong nLineStart )
 {
 	return aneditor_command (te->editor_id, ANE_GETBOOKMARK_POS, nLineStart, 0 );
 }

@@ -148,8 +148,8 @@ guint text_editor_get_total_lines (TextEditor * te);
 guint text_editor_get_current_lineno (TextEditor * te);
 gchar* text_editor_get_selection (TextEditor * te);
 
-gboolean text_editor_goto_point (TextEditor * te, guint num);
-gboolean text_editor_goto_line (TextEditor * te, guint num, gboolean mark);
+gboolean text_editor_goto_point (TextEditor * te, glong num);
+gboolean text_editor_goto_line (TextEditor * te, glong num, gboolean mark);
 gint text_editor_goto_block_start (TextEditor* te);
 gint text_editor_goto_block_end (TextEditor* te);
 
@@ -175,10 +175,10 @@ gboolean text_editor_recover_yourself (TextEditor * te, FILE * stream);
 gboolean text_editor_check_disk_status (TextEditor * te, const gboolean bForce );
 
 void text_editor_autoformat (TextEditor * te);
-gboolean text_editor_is_marker_set (TextEditor* te, gint line, gint marker);
-void text_editor_delete_marker (TextEditor* te, gint line, gint marker);
+gboolean text_editor_is_marker_set (TextEditor* te, glong line, gint marker);
+void text_editor_delete_marker (TextEditor* te, glong line, gint marker);
 gint text_editor_line_from_handle (TextEditor* te, gint marker_handle);
-gint text_editor_get_bookmark_line( TextEditor* te, const gint nLineStart );
+gint text_editor_get_bookmark_line( TextEditor* te, const glong nLineStart );
 gint text_editor_get_num_bookmarks(TextEditor* te);
 
 

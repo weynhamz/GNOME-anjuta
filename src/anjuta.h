@@ -199,8 +199,8 @@ GtkWidget *anjuta_get_current_text (void);
 
 gchar *anjuta_get_current_selection (void);
 
-TextEditor*  anjuta_goto_file_line (gchar * fname, guint lineno);
-TextEditor*  anjuta_goto_file_line_mark (gchar * fname, guint lineno, gboolean mark);
+TextEditor*  anjuta_goto_file_line (gchar * fname, glong lineno);
+TextEditor*  anjuta_goto_file_line_mark (gchar * fname, glong lineno, gboolean mark);
 
 void anjuta_apply_preferences (void);
 void anjuta_load_cmdline_files (void);
