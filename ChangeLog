@@ -1,3 +1,24 @@
+2002-05-27	Jean-Noel Guiheneuf	<jnoel@saudionline.com.sa>
+
+	* src/project_import_gui.c: disallow allow the selection of files in
+	  the browse dialog.
+	* src/mainmenu_callbacks.c, src/preferences.c: cleanups to identity
+	  preferences code.
+        
+2002-05-27	Biswapesh Chattopadhyay	<biswapesh_chatterjee@tcscal.co.in>
+
+	* src/an_file_view.c, src/an_symbol_view.c, src/text_editor_menu.c,
+	  src/main_menubar_def.h, src/pixmaps.h, :Added some icons to menu items.
+	* src/controls.c, src/main_menubar.[ch]:Some menu organization cleanups.
+	* src/project_dbase.[ch], src/project_dbase_gui.c: Adding files to projects
+	  now works properly.
+	* src/gnome_project.c, src/mainmenu_callbacks.[ch]: Minor API change.
+	* scintilla/include/PropSet.h, tagmanager/read.c: Accept '$' in identifiers.
+	* src/utilities.[ch]: Added some utility functions.
+	* tagmanager/tm_project.c: Fix for bug in file removal from project.
+	
+	Patch reviewed by Andy Piper <andy.piper@freeuk.com>
+
 2002-05-26	Andy Piper	<andy.piper@freeuk.com>
 
 	* HACKING: info on FIXME statements and removed ccview references

@@ -182,8 +182,9 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 	gtk_widget_show (label1);
 
 	piw->widgets.file_entry = gnome_file_entry_new ("project_import",
-							_
-							("Select existing project directory"));
+							_("Select existing project directory"));
+	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(piw->widgets.file_entry), TRUE);
+	
 	gtk_widget_show (piw->widgets.file_entry);
 	gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, TRUE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.file_entry,

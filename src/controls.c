@@ -344,20 +344,19 @@ update_main_menubar ()
 	gtk_widget_set_sensitive (em->edit_app_gui, P && G);
 	gtk_widget_set_sensitive (vm->show_hide_locals, P && G);
 
-	gtk_widget_set_sensitive (pm->add_src, P);
-	gtk_widget_set_sensitive (pm->add_pix, P);
-	gtk_widget_set_sensitive (pm->add_doc, P);
-	gtk_widget_set_sensitive (pm->add_data, P);
-	gtk_widget_set_sensitive (pm->add_po, P);
-	gtk_widget_set_sensitive (pm->add_inc, P);
-	gtk_widget_set_sensitive (pm->add_hlp, P);
-	gtk_widget_set_sensitive (pm->remove, P);
+	gtk_widget_set_sensitive (pm->add_file, P);
+	gtk_widget_set_sensitive (pm->edit_file, P);
+	gtk_widget_set_sensitive (pm->view_file, P);
+	gtk_widget_set_sensitive (pm->remove_file, P);
 	gtk_widget_set_sensitive (pm->configure, P);
-	gtk_widget_set_sensitive (pm->info, P);
+	gtk_widget_set_sensitive (pm->project_info, P);
+	gtk_widget_set_sensitive (pm->dock_undock, P);
+	gtk_widget_set_sensitive (pm->update_tags, P);
+	gtk_widget_set_sensitive (pm->rebuild_tags, P);
+	gtk_widget_set_sensitive (pm->project_help, P);
 
 	gtk_widget_set_sensitive (ftm->force_hilite, F);
 	gtk_widget_set_sensitive (ftm->indent, I);
-	gtk_widget_set_sensitive (ftm->update_tags, UT);
 	gtk_widget_set_sensitive (ftm->close_folds, FLD);
 	gtk_widget_set_sensitive (ftm->open_folds, FLD);
 	gtk_widget_set_sensitive (ftm->toggle_fold, FLD);

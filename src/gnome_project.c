@@ -248,7 +248,7 @@ new_prj_terminated (int status, time_t t)
 		anjuta_status (_("Project was successfully auto generated."));
 	}
 
-	project_dbase_update_tags_image(app->project_dbase);
+	project_dbase_update_tags_image(app->project_dbase, TRUE);
 	project_dbase_show (app->project_dbase);
 
 	if (preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))

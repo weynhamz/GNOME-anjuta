@@ -513,7 +513,7 @@ on_insert_username(GtkMenuItem * menuitem, gpointer user_data)
 		Username = getenv("USERNAME");
 		if (!Username)
 			Username = preferences_get(app->preferences, IDENT_NAME);
-		if (!Username || !g_strcasecmp(Username, "(null)"))
+		if (!Username)
 			Username = getenv("USER");
 		
 		te = anjuta_get_current_text_editor ();
@@ -537,11 +537,15 @@ on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data)
 	  strftime (datetime, 20, N_("%Y-%m-%d"), lt);
 
 	  Username = preferences_get(app->preferences, IDENT_NAME);
-	  if (!g_strcasecmp(Username, "(null)"))
+	  if (!Username)
 		  Username = getenv("USERNAME");
+	  if (!Username)
+		  Username = getenv("USER");
+
 	  email = preferences_get(app->preferences, IDENT_EMAIL);
-	  if (!email /*|| !g_strcasecmp(email, "(null)")*/)
+	  if (!email)
 		  email = getenv("HOSTNAME");
+	      email = g_strconcat(Username, "@", email, NULL);
 
 	  sprintf(CLEntry,"%s\t%s\t<%s>\n", datetime, Username, email);
 	  te = anjuta_get_current_text_editor ();
@@ -1115,6 +1119,20 @@ on_prj_info1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 }
 
+void
+on_update_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	if (app->project_dbase->project_is_open)
+		project_dbase_update_tags_image(app->project_dbase, FALSE);
+}
+
+void
+on_rebuild_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
+{
+	if (app->project_dbase->project_is_open)
+		project_dbase_update_tags_image(app->project_dbase, TRUE);
+}
+
 /*************************************************************************/
 void
 on_force_hilite1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -1156,13 +1174,6 @@ on_indent_dcr1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	if (te == NULL)
 		return;
 	aneditor_command (te->editor_id, ANE_INDENT_DECREASE, 0, 0);
-}
-
-void
-on_update_tags1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	if (app->project_dbase->project_is_open)
-		project_dbase_update_tags_image(app->project_dbase);
 }
 
 void

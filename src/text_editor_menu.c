@@ -30,6 +30,7 @@
 #include "resources.h"
 #include "text_editor_menu.h"
 #include "anjuta.h"
+#include "pixmaps.h"
 #include "mainmenu_callbacks.h"
 #include "toolbar_callbacks.h"
 #include "debugger.h"
@@ -72,21 +73,14 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Back"),
 	 NULL,
 	 on_go_back_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(BACK),
  	 0, 0, NULL}
 	 ,
 	{
 	 GNOME_APP_UI_ITEM, N_("Forward"),
 	 NULL,
 	 on_go_forward_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
- 	 0, 0, NULL}
-	 ,
-	{
-	 GNOME_APP_UI_ITEM, N_("History"),
-	 NULL,
-	 on_history_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(FORWARD),
  	 0, 0, NULL}
 	 ,
 	 GNOMEUIINFO_SEPARATOR
@@ -95,14 +89,14 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 NULL,
 	 on_goto_tag_definition_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(TAG),
  	 0, 0, NULL}
 	 ,
 	{
 	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
 	 NULL,
 	 on_goto_tag_declaration_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(JUMP_TO),
  	 0, 0, NULL}
 	 ,
 	GNOMEUIINFO_SEPARATOR,
@@ -110,25 +104,25 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Prev mesg"),
 	 NULL,
 	 on_goto_prev_mesg1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(UP),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Next mesg"),
 	 NULL,
 	 on_goto_next_mesg1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(DOWN),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Prev bookmark"),
 	 NULL,
 	 on_book_prev1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(BOOKMARK_PREV),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Next bookmark"),
 	 NULL,
 	 on_book_next1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(BOOKMARK_NEXT),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
 };
@@ -138,52 +132,52 @@ GnomeUIInfo text_editor_menu_debug_submenu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Toggle breakpoint"),
 	 NULL,
 	 on_toggle_breakpoint1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(BREAKPOINT),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Step in"),
 	 NULL,
 	 on_execution_step_in1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(STEP_IN),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Step over"),
 	 NULL,
 	 on_execution_step_over1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(STEP_OVER),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Step out"),
 	 NULL,
 	 on_execution_step_out1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(STEP_OUT),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Run to cursor"),
 	 NULL,
 	 on_execution_run_to_cursor1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(RUN_TO_CURSOR),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Run/Continue"),
 	 NULL,
 	 on_execution_continue1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(CONTINUE),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Inspect"),
 	 NULL,
 	 on_debugger_inspect_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(INSPECT),
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Interrupt"),
 	 NULL,
 	 on_debugger_interrupt_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(INTERRUPT),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
 };
@@ -241,23 +235,23 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Cut"),
 	 NULL,
 	 on_cut1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL}
+	 PIX_STOCK(CUT),
+	 GDK_x, GDK_CONTROL_MASK, NULL}
 	,
 	{
 	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Copy"),
 	 NULL,
 	 on_copy1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL}
+	 PIX_STOCK(COPY),
+	 GDK_c, GDK_CONTROL_MASK, NULL}
 	,
 	{
 	 /* 2 */
 	 GNOME_APP_UI_ITEM, N_("Paste"),
 	 NULL,
 	 on_paste1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(PASTE),
 	 GDK_v, GDK_CONTROL_MASK, NULL}
 	,
 	/* 3 */
@@ -267,8 +261,8 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Context Help"),
 	 NULL,
 	 on_context_help_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
- 	 0, 0, NULL}
+	 PIX_STOCK(BOOK_RED),
+ 	 GDK_h, GDK_CONTROL_MASK, NULL}
 	 ,
 	/* 5 */
 	GNOMEUIINFO_SEPARATOR,
@@ -277,7 +271,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
 	 NULL,
 	 on_book_toggle1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(BOOKMARK_TOGGLE),
 	 0, 0, NULL}
 	,
 	{
@@ -285,7 +279,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Auto format"),
 	 NULL,
 	 on_indent1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(INDENT_AUTO),
 	 0, 0, NULL}
 	,
 	{
@@ -303,7 +297,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("Go"),
 	 NULL,
 	 text_editor_menu_goto_submenu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(GOTO),
 	 0, 0, NULL}
 	,
 	{
@@ -311,7 +305,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Tags"),
 	 NULL,
 	 NULL, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(TAG),
 	 0, 0, NULL}
 	,
 	 /* 12 */
@@ -321,7 +315,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("Debug"),
 	 NULL,
 	 text_editor_menu_debug_submenu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(DEBUG),
 	 0, 0, NULL}
 	,
 	 /* 14 */
@@ -331,7 +325,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_SUBTREE, N_("Options"),
 	 NULL,
 	 text_editor_menu_options_submenu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(PREF),
 	 0, 0, NULL}
 	,
 	 /* 16 */
@@ -341,7 +335,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Find Usage"),
 	 NULL,
 	 on_lookup_symbol_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(SEARCH),
 	 0, 0, NULL}
 	,
 	{
@@ -349,7 +343,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 GNOME_APP_UI_ITEM, N_("Close"),
 	 NULL,
 	 on_close_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(CLOSE),
 	 0, 0, NULL}
 	,
 	 /* 19 */

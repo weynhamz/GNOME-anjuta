@@ -23,6 +23,7 @@
 #include <gnome.h>
 
 #include "anjuta.h"
+#include "pixmaps.h"
 #include "mainmenu_callbacks.h"
 #include "main_menubar_def.h"
 #include "fileselection.h"
@@ -125,31 +126,29 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.dump_window = view1_menu_uiinfo[14].widget;
 	mb->view.console = view1_menu_uiinfo[16].widget;
 	mb->view.show_hide_locals = view1_menu_uiinfo[17].widget;
-	
+
 	/* Project submenu */
-	mb->project.add_inc = import_file1_menu_uiinfo[0].widget;
-	mb->project.add_src = import_file1_menu_uiinfo[1].widget;
-	mb->project.add_hlp = import_file1_menu_uiinfo[2].widget;
-	mb->project.add_data = import_file1_menu_uiinfo[3].widget;
-	mb->project.add_pix = import_file1_menu_uiinfo[4].widget;
-	mb->project.add_po = import_file1_menu_uiinfo[5].widget;
-	mb->project.add_doc = import_file1_menu_uiinfo[6].widget;
-	mb->project.new_file = project1_menu_uiinfo[0].widget;
-	mb->project.remove = project1_menu_uiinfo[2].widget;
-	mb->project.configure = project1_menu_uiinfo[4].widget;
-	mb->project.info = project1_menu_uiinfo[5].widget;
-	
+	mb->project.add_file = project1_menu_uiinfo[0].widget;
+	mb->project.view_file = project1_menu_uiinfo[1].widget;
+	mb->project.edit_file = project1_menu_uiinfo[2].widget;
+	mb->project.remove_file = project1_menu_uiinfo[3].widget;
+	mb->project.configure = project1_menu_uiinfo[5].widget;
+	mb->project.project_info = project1_menu_uiinfo[6].widget;
+	mb->project.dock_undock = project1_menu_uiinfo[8].widget;
+	mb->project.update_tags = project1_menu_uiinfo[10].widget;
+	mb->project.rebuild_tags = project1_menu_uiinfo[11].widget;
+	mb->project.project_help = project1_menu_uiinfo[13].widget;
+
 	/* Format submenu */
 	mb->format.indent = format1_menu_uiinfo[0].widget;
 	mb->format.indent_inc = format1_menu_uiinfo[1].widget;
 	mb->format.indent_dcr = format1_menu_uiinfo[2].widget;
-	mb->format.update_tags = format1_menu_uiinfo[4].widget;
-	mb->format.force_hilite = format1_menu_uiinfo[6].widget;
-	mb->format.close_folds = format1_menu_uiinfo[8].widget;
-	mb->format.open_folds = format1_menu_uiinfo[9].widget;
-	mb->format.toggle_fold = format1_menu_uiinfo[10].widget;
-	mb->format.detach = format1_menu_uiinfo[12].widget;
-	
+	mb->format.force_hilite = format1_menu_uiinfo[4].widget;
+	mb->format.close_folds = format1_menu_uiinfo[6].widget;
+	mb->format.open_folds = format1_menu_uiinfo[7].widget;
+	mb->format.toggle_fold = format1_menu_uiinfo[8].widget;
+	mb->format.detach = format1_menu_uiinfo[10].widget;
+
 	/* Build submenu */
 	mb->build.compile = build1_menu_uiinfo[0].widget;
 	mb->build.make = build1_menu_uiinfo[1].widget;
@@ -165,7 +164,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->build.stop_build = build1_menu_uiinfo[16].widget;
 	mb->build.execute = build1_menu_uiinfo[18].widget;
 	mb->build.execute_params = build1_menu_uiinfo[19].widget;
-	
+
 	/* Bookmark submenu */
 	mb->bookmark.toggle = bookmark1_menu_uiinfo[0].widget;
 	mb->bookmark.first = bookmark1_menu_uiinfo[2].widget;
@@ -205,7 +204,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->debug.inspect = debug1_menu_uiinfo[18].widget;
 	mb->debug.add_watch = debug1_menu_uiinfo[19].widget;
 	mb->debug.stop = debug1_menu_uiinfo[21].widget;
-	
+
 	/* CVS submenu */
 	mb->cvs.update_file = cvs_menu_uiinfo[0].widget;
 	mb->cvs.commit_file = cvs_menu_uiinfo[1].widget;
@@ -221,14 +220,14 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->cvs.log_project = cvs_menu_uiinfo[12].widget;
 	mb->cvs.diff_project = cvs_menu_uiinfo[13].widget;
 	mb->cvs.login = cvs_menu_uiinfo[15].widget;
-	
+
 	/* Settings submenu */
 	mb->settings.compiler = settings1_menu_uiinfo[0].widget;
 	mb->settings.src_paths = settings1_menu_uiinfo[1].widget;
 	mb->settings.commands = settings1_menu_uiinfo[2].widget;
 	mb->settings.preferences = settings1_menu_uiinfo[4].widget;
 	mb->settings.default_preferences = settings1_menu_uiinfo[5].widget;
-	
+
 	/* Help submenu */
 	mb->help.gnome = help1_menu_uiinfo[2].widget;
 	mb->help.man = help1_menu_uiinfo[3].widget;
@@ -236,15 +235,13 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->help.context_help = help1_menu_uiinfo[6].widget;
 	mb->help.search = help1_menu_uiinfo[7].widget;
 	mb->help.about = help1_menu_uiinfo[17].widget;
-	
+
 	/* Unimplemented */
 	gtk_widget_hide (file1_menu_uiinfo[15].widget);
 	gtk_widget_hide (file1_menu_uiinfo[16].widget);
 	gtk_widget_hide (view1_menu_uiinfo[2].widget);
 	gtk_widget_hide (view1_menu_uiinfo[14].widget);
 	gtk_widget_hide (view1_menu_uiinfo[16].widget);
-	gtk_widget_hide (import_file1_menu_uiinfo[0].widget);
-	gtk_widget_hide (project1_menu_uiinfo[0].widget);
 
 	/* Note: this is because we don't know yet what's the
 	 *contents of these menus
@@ -254,7 +251,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 			    GTK_SIGNAL_FUNC (on_file_menu_realize), NULL);
 	gtk_signal_connect (GTK_OBJECT (mb->file.recent_projects), "realize",
 			    GTK_SIGNAL_FUNC (on_project_menu_realize), NULL);
-	
+
 	/* Plugin Menu */
 	gtk_signal_connect (GTK_OBJECT (menubar1_uiinfo[8].widget), "realize",
 			    GTK_SIGNAL_FUNC (on_plugins_menu_realize), NULL);
@@ -326,9 +323,9 @@ main_menu_install_hints (GtkWidget* ap)
 	}
 	
 	for (i = 0; i < NUM_IMPORTFILE_SUBMENUS; i++) {
-		gtk_widget_ref (import_file1_menu_uiinfo[i].widget);
+		gtk_widget_ref (add_file1_menu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group,
-			GTK_OBJECT(import_file1_menu_uiinfo[i].widget));
+			GTK_OBJECT(add_file1_menu_uiinfo[i].widget));
 	}
 	
 	for (i = 0; i < NUM_PROJECT_SUBMENUS; i++) {

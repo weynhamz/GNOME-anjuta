@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 
 #include <gnome.h>
 #include "anjuta.h"
@@ -32,19 +33,12 @@
 #include "fileselection.h"
 #include "an_symbol_view.h"
 #include "an_file_view.h"
+#include "pixmaps.h"
 
 extern gchar *module_map[];
 
 static void on_project_dbase_remove_confirm_yes_clicked (GtkButton * button,
 							 gpointer user_data);
-static void add_file (ProjectDBase * p);
-
-void
-on_project_add_new1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
 
 void
 on_project_view1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -53,10 +47,9 @@ on_project_view1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	g_return_if_fail (p->widgets.current_node != NULL);
 	g_return_if_fail (p->current_file_data != NULL);
 	if (p->widgets.current_node && p->current_file_data) {
-		anjuta_view_file (p->current_file_data->full_filename);
+		anjuta_fv_open_file(p->current_file_data->full_filename, FALSE);
 	}
 }
-
 
 void
 on_project_edit1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -64,7 +57,7 @@ on_project_edit1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	ProjectDBase *p = app->project_dbase;
 	g_return_if_fail (p->widgets.current_node != NULL);
 	g_return_if_fail (p->current_file_data != NULL);
-	anjuta_open_file (p->current_file_data->full_filename);
+	anjuta_fv_open_file(p->current_file_data->full_filename, TRUE);
 }
 
 void
@@ -116,61 +109,6 @@ void
 on_project_help1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 
-}
-
-
-void
-on_project_include_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_INCLUDE;
-	add_file (app->project_dbase);
-}
-
-void
-on_project_source_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_SOURCE;
-	add_file (app->project_dbase);
-}
-
-void
-on_project_help_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_HELP;
-	add_file (app->project_dbase);
-}
-
-
-void
-on_project_data_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_DATA;
-	add_file (app->project_dbase);
-}
-
-
-void
-on_project_pixmap_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_PIXMAP;
-	add_file (app->project_dbase);
-}
-
-
-void
-on_project_translation_file1_activate (GtkMenuItem * menuitem,
-				       gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_PO;
-	add_file (app->project_dbase);
-}
-
-
-void
-on_project_doc_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-	app->project_dbase->sel_module = MODULE_DOC;
-	add_file (app->project_dbase);
 }
 
 static gint
@@ -309,9 +247,8 @@ on_project_dbase_event (GtkWidget * widget,
 }
 
 static void
-add_file (ProjectDBase * p)
+set_fileselection_file_types(ProjectDBase * p)
 {
-	gchar *title;
 	GList *ftypes=NULL;
 	GList *combolist=NULL;
 
@@ -329,13 +266,13 @@ add_file (ProjectDBase * p)
 
 		case MODULE_SOURCE:
 			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);  
-			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".hpp", ".h", ".hh", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("C/C++ source files"), ".c", ".cc", ".cxx", ".cpp", ".c++", ".cs", ".C", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Java source files"), ".java", ".js", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Pascal files"), ".pas", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("PHP files"), ".php", ".php?", ".phtml", NULL);
-			ftypes = fileselection_addtype_f (ftypes, _("Perl files"), ".pl", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Perl files"), ".pl", ".pm", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Python files"), ".py", NULL);
-			ftypes = fileselection_addtype_f (ftypes, _("Shell Script files"), ".sh", NULL);
+			ftypes = fileselection_addtype_f (ftypes, _("Shell Script files"), ".sh", ".ksh", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _("Visual Basic files"), ".vb", ".vbs", NULL);
 			ftypes = fileselection_addtype_f (ftypes, _(".lua files"), ".lua", NULL);
 			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
@@ -386,124 +323,141 @@ add_file (ProjectDBase * p)
 			break;
 
 		case MODULE_INCLUDE:
+			p->fileselection_add_file = fileselection_clearfiletypes (p->fileselection_add_file);
+			ftypes = fileselection_addtype_f (ftypes, _("C/C++ Headers"), ".h", ".H", ".hh", ".hxx", ".hpp", ".h++", NULL);
+			ftypes = fileselection_addtype (ftypes, _("All files"), NULL);
+			p->fileselection_add_file = fileselection_storetypes (p->fileselection_add_file, ftypes);
+			combolist = fileselection_getcombolist (p->fileselection_add_file, ftypes);
+			fileselection_set_combolist (p->fileselection_add_file, combolist);					
 			break;
 
 		default: /* Note: MODULE_END_MARK mustn't be handled */
 			break;
 	}
-		
-	title =
-		g_strconcat ("Add file to module: ",
-			     module_map[p->sel_module], NULL);
-	gtk_window_set_title (GTK_WINDOW (p->fileselection_add_file), title);
+}
+
+/* This function gets called whenever the user chooses to create or import a new
+file for the project. The user data contains the file type chosen + 1. Further, if
+the user has chosen 'New' instead of 'Add', the sign bit is negative */
+void
+on_project_add_file1_activate(GtkMenuItem *menuitem, gpointer user_data)
+{
+	gchar *title;
+	ProjectDBase *p = app->project_dbase;
+	gboolean new_file = FALSE;
+
+	g_return_if_fail(menuitem && user_data && p);
+	if (0 > (gint) user_data)
+	{
+		new_file = TRUE;
+		p->sel_module = (- (gint) user_data) - 1;
+	}
+	else
+		p->sel_module = (gint) user_data - 1;
+	set_fileselection_file_types(p);
+	title =	g_strconcat (_("Add file to module: "), module_map[p->sel_module], NULL);
+	gtk_window_set_title (GTK_WINDOW(p->fileselection_add_file), title);
 	g_free (title);
+	fileselection_set_dir(p->fileselection_add_file, p->top_proj_dir);
 	gtk_widget_show (p->fileselection_add_file);
 }
 
-static GnomeUIInfo import_file1_menu_uiinfo[] = {
-	{
+static GnomeUIInfo add_file1_menu_uiinfo[] = {
+	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Include file"),
 	 NULL,
-	 on_project_include_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_INCLUDE + 1), NULL,
+	 PIX_FILE(INCLUDE),
 	 0, 0, NULL},
-	{
+	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Source file"),
 	 NULL,
-	 on_project_source_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_SOURCE + 1), NULL,
+	 PIX_FILE(SOURCE),
 	 0, 0, NULL},
-	{
+	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Help file"),
 	 NULL,
-	 on_project_help_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_HELP + 1), NULL,
+	 PIX_FILE(HELP),
 	 0, 0, NULL},
-	{
+	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Data file"),
 	 NULL,
-	 on_project_data_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_DATA + 1), NULL,
+	 PIX_FILE(DATA),
 	 0, 0, NULL},
-	{
+	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("Pixmap file"),
 	 NULL,
-	 on_project_pixmap_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_PIXMAP + 1), NULL,
+	 PIX_FILE(PIXMAP),
 	 0, 0, NULL},
-	{
+	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Translation file"),
 	 NULL,
-	 on_project_translation_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_PO + 1), NULL,
+	 PIX_FILE(TRANSLATION),
 	 0, 0, NULL},
-	{
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Doc file"),
 	 NULL,
-	 on_project_doc_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_DOC + 1), NULL,
+	 PIX_FILE(DOC),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
 };
 
 static GnomeUIInfo menu1_uiinfo[] = {
-	{
-	 GNOME_APP_UI_ITEM, N_("Add New"),
+	{ /*0*/
+	 GNOME_APP_UI_SUBTREE, N_("Add File"),
 	 NULL,
-	 on_project_add_new1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 add_file1_menu_uiinfo, NULL, NULL,
+	 PIX_STOCK(NEW),
 	 0, 0, NULL},
-	{
-	 GNOME_APP_UI_SUBTREE, N_("Import File"),
-	 NULL,
-	 import_file1_menu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
+	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("View"),
 	 NULL,
 	 on_project_view1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(VIEW),
 	 0, 0, NULL},
-	{
+	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Edit"),
 	 NULL,
 	 on_project_edit1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(EDIT),
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
+	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Remove"),
 	 NULL,
 	 on_project_remove1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(CUT),
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
+	GNOMEUIINFO_SEPARATOR, /*4*/
+	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Configure Project"),
 	 NULL,
 	 on_project_configure1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(PREF),
 	 0, 0, NULL},
-	{
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Project Info"),
 	 NULL,
 	 on_project_project_info1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(PROP),
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,
-	{
+	GNOMEUIINFO_SEPARATOR, /*7*/
+	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
 	 NULL,
 	 on_project_dock_undock1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_FILE(DOCK),
 	 0, 0, NULL},
-	{
+	{/*9*/
 	 GNOME_APP_UI_ITEM, N_("Help"),
 	 NULL,
 	 on_project_help1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(BOOK_YELLOW),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
 };
@@ -517,17 +471,12 @@ create_project_menus (ProjectDBase * p)
 	gnome_app_fill_menu (GTK_MENU_SHELL (menu), menu1_uiinfo,
 			     NULL, FALSE, 0);
 	p->widgets.menu = menu;
-	p->widgets.menu_import = menu1_uiinfo[1].widget;
-	p->widgets.menu_view = menu1_uiinfo[3].widget;
-	p->widgets.menu_edit = menu1_uiinfo[4].widget;
-	p->widgets.menu_remove = menu1_uiinfo[6].widget;
-	p->widgets.menu_configure = menu1_uiinfo[8].widget;
-	p->widgets.menu_info = menu1_uiinfo[9].widget;
-	
-	/* unimplemented*/
-	gtk_widget_hide (import_file1_menu_uiinfo[0].widget);
-	gtk_widget_hide (menu1_uiinfo[0].widget);
-	
+	p->widgets.menu_import = menu1_uiinfo[0].widget;
+	p->widgets.menu_view = menu1_uiinfo[1].widget;
+	p->widgets.menu_edit = menu1_uiinfo[2].widget;
+	p->widgets.menu_remove = menu1_uiinfo[3].widget;
+	p->widgets.menu_configure = menu1_uiinfo[5].widget;
+	p->widgets.menu_info = menu1_uiinfo[6].widget;
 	gtk_widget_ref (menu);
 }
 
@@ -1240,8 +1189,12 @@ create_langsel_dialog (void)
 static void
 on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 {
-	gchar *filename, *dir, *comp_dir;
+	gchar *filename;
+	gchar *comp_dir;
 	GList *list, *mod_files;
+	gchar full_fn[PATH_MAX];
+	gchar *real_fn;
+	gchar *real_modfile;
 
 	ProjectDBase *p = user_data;
 
@@ -1250,34 +1203,37 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 	filename =  fileselection_get_filename (p->fileselection_add_file);
 	if (!filename)
 		return;
-	dir = g_dirname (filename);
 
 	comp_dir = project_dbase_get_module_dir (p, p->sel_module);
 	mod_files = project_dbase_get_module_files (p, p->sel_module);
+	real_fn = tm_get_real_path(filename);
 	list = mod_files;
 	while (list)
 	{
-		if (strcmp (extract_filename (filename), list->data) == 0)
+		g_snprintf(full_fn, PATH_MAX, "%s/%s", comp_dir, (gchar *) list->data);
+		real_modfile = tm_get_real_path(full_fn);
+		if (0 == strcmp(real_modfile, real_fn))
 		{
 			/*
 			 * file has already been added. So skip with a message 
 			 */
 			messagebox (GNOME_MESSAGE_BOX_INFO,
-				    _
-				    ("This file has already been added to the Project"));
-			g_free (dir);
+				 _("This file has already been added to the Project"));
 			g_free (comp_dir);
 			g_free (filename);
+			g_free(real_modfile);
+			g_free(real_fn);
 			glist_strings_free (mod_files);
 			return;
 		}
+		g_free(real_modfile);
 		list = g_list_next (list);
 	}
 	glist_strings_free (mod_files);
 	/*
 	 * File has not been added. So add it 
 	 */
-	if (!is_file_same(dir, comp_dir))
+	if (!is_file_in_dir(filename, comp_dir))
 	{
 		gchar* fn;
 		/*
@@ -1289,39 +1245,38 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 		force_create_dir (comp_dir);
 		if (!copy_file (filename, fn, TRUE))
 		{
-			g_free (dir);
 			g_free (comp_dir);
 			g_free (fn);
 			g_free (filename);
+			g_free(real_fn);
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _("Error while copying the file inside the module."));
 			return;
 		}
-		tm_project_update(app->project_dbase->tm_project, FALSE
-		  , TRUE, TRUE);
-		sv_populate();
-		fv_populate();
 		g_free(fn);
 	}
-	project_dbase_add_file_to_module (p, p->sel_module, filename);
-	g_free (dir);
+	project_dbase_add_file_to_module (p, p->sel_module, real_fn);
 	g_free (comp_dir);
 	g_free (filename);
+	g_free(real_fn);
 	return;
 }
 
 void
 on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
-	gchar *filename, *dir, *comp_dir, *mesg;
-	ProjectDBase *p = user_data;
+	gchar *filename;
+	gchar *comp_dir;
+	ProjectDBase *p = (ProjectDBase *) user_data;
 	GList * list;
 	int i;
+	struct stat s;
 	int num_elements;
 
 	list = fileselection_get_nodelist(p->fileselection_add_file);
 	num_elements = g_list_length(list);
-	
+
+	g_print("Inside addfile:\n");
 	for(i=0;i<num_elements;i++)
 	{
 		gpointer list_data;
@@ -1332,42 +1287,49 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	
 		if (!filename)
 			return;
-		if (file_is_regular (filename) == FALSE)
+		g_print("Got file %s\n", filename);
+		if (0 != stat(filename, &s))
+		{
+			int button;
+			gchar *mesg = g_strdup_printf (_("\"%s\"\ndoes not exist."
+					  "\nDo you want to create it now ?"), filename);
+			GtkWidget * label = gtk_label_new(mesg);
+			GtkWidget * dialog = gnome_dialog_new("Create File confirm",
+						GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO, NULL);
+			gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
+			gtk_widget_show(label);
+			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
+			g_free(mesg);
+			if(button != 0)
+			{
+				g_free(filename);
+				continue;
+			}
+		}
+		else if (!S_ISREG(s.st_mode))
 		{
 			anjuta_error (_("Not a regular file: %s."), filename);
 			g_free (filename);
 			continue;
 		}
-		dir = g_dirname (filename);
 		comp_dir = project_dbase_get_module_dir (p, p->sel_module);
-		mesg =
-			g_strdup_printf (_
-					 ("\"%s\"\ndoes not exist in the current module directory."
-					  "\nDo you want to IMPORT (copy) it into the module?"),
-					filename);
-
-		if (is_file_same(dir, comp_dir))
+		if (is_file_in_dir(filename, comp_dir))
 			on_prj_import_confirm_yes (NULL, user_data);
 		else
 		{
 			int button;
+			gchar *mesg = g_strdup_printf (_("\"%s\"\ndoes not exist in the current module directory."
+					  "\nDo you want to IMPORT (copy) it into the module?"), filename);
 			GtkWidget * label = gtk_label_new(mesg);
-			GtkWidget * dialog = gnome_dialog_new(
-						"Import File confirm",
-						GNOME_STOCK_BUTTON_YES,
-						GNOME_STOCK_BUTTON_NO,
-						NULL);
+			GtkWidget * dialog = gnome_dialog_new("Import File confirm",
+						GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO, NULL);
 			gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
 			gtk_widget_show(label);
 			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
+			g_free(mesg);
 			if(button == 0)
 				on_prj_import_confirm_yes (NULL, p);
 		}
-		
-		
-		// gtk_widget_hide (p->fileselection_add_file);
-		g_free (dir);
-		g_free (mesg);
 		g_free (comp_dir);
 		g_free (filename);
 	}

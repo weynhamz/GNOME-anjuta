@@ -1060,7 +1060,7 @@ project_dbase_load_yourself (ProjectDBase * p, PropsID props)
 }
 
 void
-project_dbase_update_tags_image(ProjectDBase* p)
+project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild)
 {
 	gchar* src_dir;
 
@@ -1072,7 +1072,7 @@ project_dbase_update_tags_image(ProjectDBase* p)
 	if (p->tm_project)
 	{
 		if (((NULL == TM_PROJECT(p->tm_project)->file_list) ||
-			(0 == TM_PROJECT(p->tm_project)->file_list->len))
+			(0 == TM_PROJECT(p->tm_project)->file_list->len) || rebuild)
 			&& (p->top_proj_dir))
 			tm_project_autoscan(TM_PROJECT(p->tm_project));
 		else
@@ -2045,27 +2045,44 @@ void
 project_dbase_add_file_to_module (ProjectDBase * p, PrjModule module,
 				  gchar * filename)
 {
-	gchar *mod_files, *file_list, *new_file_list;
+	gchar *mod_files, *file_list, *new_file_list, *comp_dir, *relative_fn;
 
 	g_return_if_fail (p != NULL);
 	g_return_if_fail (p->sel_module < MODULE_END_MARK);
 
-	mod_files =
-		g_strconcat ("module.", module_map[module], ".files", NULL);
-	g_return_if_fail (mod_files != NULL);
+	if (NULL == (comp_dir = project_dbase_get_module_dir (p, module)))
+	{
+		g_warning("Unable to get component directory!");
+		return;
+	}
+	relative_fn = get_relative_file_name(comp_dir, filename);
+	g_free(comp_dir);
+	if (!relative_fn)
+	{
+		anjuta_error(_("Unable to get relative file name for %s in %s"), filename, comp_dir);
+		return;
+	}
+
+	if (NULL == (mod_files = g_strconcat ("module.", module_map[module], ".files", NULL)))
+	{
+		g_warning("mod_files for %s is NULL", module_map[module]);
+		g_free(relative_fn);
+		return;
+	}
 	file_list = prop_get (p->props, mod_files);
 	if (!file_list)
 		file_list = g_strdup ("");
-	new_file_list =
-		g_strconcat (file_list, " ", extract_filename (filename),
-			     NULL);
+	new_file_list =	g_strconcat (file_list, " ", relative_fn, NULL);
 	prop_set_with_key (p->props, mod_files, new_file_list);
 	g_free (new_file_list);
 	g_free (file_list);
 	g_free (mod_files);
+	g_free(relative_fn);
 	if ((MODULE_INCLUDE == module) || (MODULE_SOURCE == module))
 		tm_project_add_file(TM_PROJECT(p->tm_project), filename, TRUE);
 	project_dbase_update_tree (p);
+	sv_populate();
+	fv_populate();
 	p->is_saved = FALSE;
 }
 
@@ -2073,10 +2090,11 @@ void
 project_dbase_remove_file (ProjectDBase * p)
 {
 	gchar *key, *fn, *files, *pos;
+	gchar *cmp_dir, *full_fn;
 	gint i;
 	TMWorkObject *source_file;
 	PrjModule module;
-	
+
 	module = p->current_file_data->module;
 	key = g_strconcat ("module.", module_map[module], ".files", NULL);
 	files = prop_get (p->props, key);
@@ -2085,15 +2103,14 @@ project_dbase_remove_file (ProjectDBase * p)
 		g_free (key);
 		return;
 	}
-	source_file = tm_project_find_file(p->tm_project, p->current_file_data->filename, FALSE);
-	if (source_file)
-		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
- 	else
- 		g_warning("Unable to find %s in project", p->current_file_data->filename);
 	
 	/* fn = extract_filename (p->current_file_data->filename); */
-	fn = p->current_file_data->filename;
-
+	if (NULL == (fn = p->current_file_data->filename))
+	{
+		g_free(files);
+		g_free(key);
+		return;
+	}
 	pos = strstr (files, fn);
 	if (pos == NULL)
 	{
@@ -2105,11 +2122,23 @@ project_dbase_remove_file (ProjectDBase * p)
 	{
 		*pos++ = ' ';
 	}
+	if (NULL == (cmp_dir = project_dbase_get_module_dir (p, module)))
+	{
+		g_warning("Unable to get component directory!");
+		return;
+	}
+	full_fn = g_strconcat(cmp_dir, "/", fn, NULL);
+	source_file = tm_project_find_file(p->tm_project, full_fn, FALSE);
+	if (source_file)
+		tm_project_remove_object(TM_PROJECT(p->tm_project), source_file);
+ 	else
+ 		g_warning("Unable to find %s in project", full_fn);
+	g_free(cmp_dir);
+	g_free(full_fn);
 	prop_set_with_key (p->props, key, files);
 	gtk_ctree_remove_node (GTK_CTREE (p->widgets.ctree),
 		p->widgets.current_node);
 	p->is_saved = FALSE;
-
 	/* Check if the module is empty */
 	files = prop_get (p->props, key);
 	if (files == NULL)
@@ -2293,7 +2322,7 @@ project_dbase_load_project_finish (ProjectDBase * p, gboolean show_project)
 	/* Now Project setup */
 	project_dbase_update_tree (p);
 	extended_toolbar_update ();
-	project_dbase_update_tags_image(p);
+	project_dbase_update_tags_image(p, TRUE);
 	anjuta_update_app_status(FALSE, NULL);
 	anjuta_status (_("Project loaded successfully."));
 	anjuta_set_active ();

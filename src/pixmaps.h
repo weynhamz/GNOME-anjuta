@@ -193,7 +193,22 @@
 #define ANJUTA_PIXMAP_FV_EXECUTABLE "fv_exec.xpm"
 #define ANJUTA_PIXMAP_FV_CORE "fv_core.xpm"
 
+/* Required by Project Manager */
+#define ANJUTA_PIXMAP_EDIT "fv_text.xpm"
+#define ANJUTA_PIXMAP_VIEW "file_file.xpm"
+#define ANJUTA_PIXMAP_INCLUDE "file_h.xpm"
+#define ANJUTA_PIXMAP_SOURCE "file_cpp.xpm"
+#define ANJUTA_PIXMAP_DATA "fv_unknown.xpm"
+#define ANJUTA_PIXMAP_PIXMAP "fv_image.xpm"
+#define ANJUTA_PIXMAP_TRANSLATION "fv_unknown.xpm"
+#define ANJUTA_PIXMAP_DOC "fv_text.xpm"
+
 /* Tag Combo */
 #define ANJUTA_PIXMAP_TAG "an_tag.xpm"
+
+/* Useful macros for specifying pixmaps in UIInfo structures */
+/* #define PIX_FILE(F) GNOME_APP_PIXMAP_FILENAME, PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ ## F */
+#define PIX_FILE(F) GNOME_APP_PIXMAP_NONE, NULL
+#define PIX_STOCK(F) GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ ## F
 
 #endif

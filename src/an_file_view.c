@@ -70,7 +70,7 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 {
 	gboolean status = FALSE;
 	const char *mime_type = gnome_vfs_get_file_mime_type(path, NULL, FALSE);
-	if (use_anjuta)
+	if (use_anjuta && (NULL != strstr(mime_type, "text")))
 	{
 		anjuta_goto_file_line_mark((char *) path, -1, FALSE);
 		status = TRUE;
@@ -127,30 +127,42 @@ static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
 	}
 }
 
+static GnomeUIInfo an_file_view_menu_uiinfo[] = {
+	{/* 0 */
+	 GNOME_APP_UI_ITEM, N_("Open"),
+	 NULL,
+	 fv_context_handler, (gpointer) OPEN, NULL,
+	 PIX_STOCK(OPEN),
+	 0, 0, NULL}
+	,
+	{/* 1 */
+	 GNOME_APP_UI_ITEM, N_("View"),
+	 NULL,
+	 fv_context_handler, (gpointer) VIEW, NULL,
+	 PIX_STOCK(BOOK_OPEN),
+	 0, 0, NULL}
+	,
+	{/* 2 */
+	 GNOME_APP_UI_ITEM, N_("Refresh"),
+	 NULL,
+	 fv_context_handler, (gpointer) REFRESH, NULL,
+	 PIX_STOCK(REFRESH),
+	 0, 0, NULL}
+	,
+	GNOMEUIINFO_END /* 3 */
+};
+
 static void fv_create_context_menu(void)
 {
-	GtkWidget *item;
+	int i;
+
 	fv->menu = gtk_menu_new();
 	gtk_widget_ref(fv->menu);
+	gnome_app_fill_menu (GTK_MENU_SHELL (fv->menu),
+	  an_file_view_menu_uiinfo, NULL, FALSE, 0);
+	for (i=0; i < sizeof(an_file_view_menu_uiinfo)/sizeof(an_file_view_menu_uiinfo[0]); ++i)
+		gtk_widget_ref(an_file_view_menu_uiinfo[i].widget);
 	gtk_widget_show(fv->menu);
-	item = gtk_menu_item_new_with_label(_("Open"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(fv_context_handler)
-	  , (gpointer) OPEN);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(fv->menu), item);
-	item = gtk_menu_item_new_with_label(_("View in Default Viewer"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(fv_context_handler)
-	  , (gpointer) VIEW);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(fv->menu), item);
-	item = gtk_menu_item_new_with_label(_("Refresh Tree"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(fv_context_handler)
-	  , (gpointer) REFRESH);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(fv->menu), item);
 }
 
 static gboolean

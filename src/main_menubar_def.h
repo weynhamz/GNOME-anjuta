@@ -715,86 +715,119 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 };
 
 #define NUM_IMPORTFILE_SUBMENUS 7
-static GnomeUIInfo import_file1_menu_uiinfo[NUM_IMPORTFILE_SUBMENUS+1] = {
+static GnomeUIInfo add_file1_menu_uiinfo[] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Include file"),
 	 NULL,
-	 on_project_include_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_INCLUDE + 1), NULL,
+	 PIX_FILE(INCLUDE),
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("Source file"),
 	 NULL,
-	 on_project_source_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_SOURCE + 1), NULL,
+	 PIX_FILE(SOURCE),
 	 0, 0, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("Help file"),
 	 NULL,
-	 on_project_help_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_HELP + 1), NULL,
+	 PIX_FILE(HELP),
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Data file"),
 	 NULL,
-	 on_project_data_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_DATA + 1), NULL,
+	 PIX_FILE(DATA),
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("Pixmap file"),
 	 NULL,
-	 on_project_pixmap_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_PIXMAP + 1), NULL,
+	 PIX_FILE(PIXMAP),
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Translation file"),
 	 NULL,
-	 on_project_translation_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_PO + 1), NULL,
+	 PIX_FILE(TRANSLATION),
 	 0, 0, NULL},
 	{/*6*/
-	 GNOME_APP_UI_ITEM, N_("Documentation file"),
+	 GNOME_APP_UI_ITEM, N_("Doc file"),
 	 NULL,
-	 on_project_doc_file1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_add_file1_activate, GINT_TO_POINTER(MODULE_DOC + 1), NULL,
+	 PIX_FILE(DOC),
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*7*/
+	GNOMEUIINFO_END /*7*/
 };
 
-#define NUM_PROJECT_SUBMENUS 6
+#define NUM_PROJECT_SUBMENUS 14
 static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
-	{/*0*/
-	 GNOME_APP_UI_ITEM, N_("Add New"),
+	{ /*0*/
+	 GNOME_APP_UI_SUBTREE, N_("Add File"),
 	 NULL,
-	 on_project_add_new1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 add_file1_menu_uiinfo, NULL, NULL,
+	 PIX_STOCK(NEW),
 	 0, 0, NULL},
 	{/*1*/
-	 GNOME_APP_UI_SUBTREE, N_("Import File"),
+	 GNOME_APP_UI_ITEM, N_("View"),
 	 NULL,
-	 import_file1_menu_uiinfo, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 on_project_view1_activate, NULL, NULL,
+	 PIX_FILE(VIEW),
 	 0, 0, NULL},
 	{/*2*/
+	 GNOME_APP_UI_ITEM, N_("Edit"),
+	 NULL,
+	 on_project_edit1_activate, NULL, NULL,
+	 PIX_FILE(EDIT),
+	 0, 0, NULL},
+	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Remove"),
-	 N_("Remove the current file from the Project"),
+	 NULL,
 	 on_project_remove1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_NONE, NULL,
+	 PIX_STOCK(CUT),
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*3*/
-	{/*4*/
-	 GNOME_APP_UI_ITEM, N_("Project _Configuration ..."),
-	 N_("Edit the configuration of the Project"),
-	 on_project_configure1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
-	 0, 0, NULL},
+	GNOMEUIINFO_SEPARATOR, /*4*/
 	{/*5*/
-	 GNOME_APP_UI_ITEM, N_("Project _Information"),
-	 N_("Detailed information about the Project"),
-	 on_project_project_info1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_OPEN,
+	 GNOME_APP_UI_ITEM, N_("Configure Project"),
+	 N_("Configure options for the current Project"),
+	 on_project_configure1_activate, NULL, NULL,
+	 PIX_STOCK(PREF),
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*6*/
+	{/*6*/
+	 GNOME_APP_UI_ITEM, N_("Project Info"),
+	 N_("Display the Project information"),
+	 on_project_project_info1_activate, NULL, NULL,
+	 PIX_STOCK(PROP),
+	 0, 0, NULL},
+	GNOMEUIINFO_SEPARATOR, /*7*/
+	{/*8*/
+	 GNOME_APP_UI_ITEM, N_("Dock/Undock"),
+	 N_("Dock/Undock the Project Window"),
+	 on_project_dock_undock1_activate, NULL, NULL,
+	 PIX_FILE(DOCK),
+	 0, 0, NULL},
+	 GNOMEUIINFO_SEPARATOR,/*9*/
+	{/*10*/
+	 GNOME_APP_UI_ITEM, N_("_Update tags image"),
+	 N_("Update the tags image of the Project/opened files"),
+	 on_update_tags1_activate, NULL, NULL,
+	 PIX_STOCK(FONT),
+	 0, 0, NULL},
+	{/*11*/
+	 GNOME_APP_UI_ITEM, N_("Rebuild tags image"),
+	 N_("Rebuild the tags image of the Project"),
+	 on_rebuild_tags1_activate, NULL, NULL,
+	 PIX_FILE(TAG),
+	 0, 0, NULL},
+	 GNOMEUIINFO_SEPARATOR,/*12*/
+	{/*13*/
+	 GNOME_APP_UI_ITEM, N_("Help"),
+	 NULL,
+	 on_project_help1_activate, NULL, NULL,
+	 PIX_STOCK(BOOK_YELLOW),
+	 0, 0, NULL},
+	GNOMEUIINFO_END/*14*/
 };
 
 #define NUM_HILITE_SUBMENUS 27
@@ -807,7 +840,7 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("No Highlight style"),
-	 N_("Force the highlight style to None"),
+	 N_("Remove the current highlight style"),
 	 on_force_hilite1_activate, GUINT_TO_POINTER (TE_LEXER_NONE), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -964,11 +997,11 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[NUM_HILITE_SUBMENUS+1] = {
 	GNOMEUIINFO_END/*27*/
 };
 
-#define NUM_FORMAT_SUBMENUS 13
+#define NUM_FORMAT_SUBMENUS 11
 static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("Auto _Format"),
-	 N_("Autoformat C and C++ source files"),
+	 N_("Autoformat the current source file"),
 	 on_indent1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 0, 0, NULL},
@@ -986,45 +1019,38 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*3*/
 	{/*4*/
-	 GNOME_APP_UI_ITEM, N_("_Update tags image"),
-	 N_("Update the tags image of the project/opened files"),
-	 on_update_tags1_activate, NULL, NULL,
-	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_FONT,
-	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*5*/
-	{/*6*/
 	 GNOME_APP_UI_SUBTREE, N_("Force _Highlight Style"),
 	 NULL,
 	 hilitetype1_submenu_uiinfo, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*7*/
-	{/*8*/
+	GNOMEUIINFO_SEPARATOR,/*5*/
+	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("_Close All Folds"),
 	 N_("Close all code folds in the editor"),
 	 on_close_folds1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*9*/
+	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Open All Folds"),
 	 N_("Open all code folds of the editor"),
 	 on_open_folds1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	{/*10*/
+	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle Current Fold"),
 	 N_("Toggle current code fold of the editor"),
 	 on_toggle_fold1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_SEPARATOR,/*11*/
-	{/*12*/
+	GNOMEUIINFO_SEPARATOR,/*9*/
+	{/*10*/
 	 GNOME_APP_UI_ITEM, N_("D_etach Current Document"),
-	 N_("Detach the current editor into a separate window"),
+	 N_("Detach the current document into a separate editor window"),
 	 on_detach1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*14*/
+	GNOMEUIINFO_END/*11*/
 };
 
 #define NUM_BUILD_SUBMENUS 20
@@ -1126,39 +1152,39 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 static GnomeUIInfo bookmark1_menu_uiinfo[NUM_BOOKMARK_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle bookmark"),
-	 NULL,
+	 N_("Toggle a bookmark at the current line position"),
 	 on_book_toggle1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_INDEX,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*1*/
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_First bookmark"),
-	 NULL,
+	 N_("Jump to the first bookmark in the file"),
 	 on_book_first1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_TOP,
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("_Previous bookmark"),
-	 NULL,
+	 N_("Jump to the previous bookmark in the file"),
 	 on_book_prev1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_UP,
 	 0, 0, NULL},
 	{/*4*/
 	 GNOME_APP_UI_ITEM, N_("_Next bookmark"),
-	 NULL,
+	 N_("Jump to the next bookmark in the file"),
 	 on_book_next1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_DOWN,
 	 0, 0, NULL},
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("_Last bookmark"),
-	 NULL,
+	 N_("Jump to the last bookmark in the file"),
 	 on_book_last1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOTTOM,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*6*/
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Clear all bookmarks"),
-	 NULL,
+	 N_("Clear bookmarks"),
 	 on_book_clear1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
 	 0, 0, NULL},

@@ -24,15 +24,15 @@
 #define TM_FILE_NAME ".tm_project.cache"
 
 static const char *s_sources[] = { "*.c" /* C files */
-	, "*.C", "*.cpp", "*.cc", "*.cxx" /* C++ files */
-	, "*.h", "*.hh", "*.hpp" /* Header files */
+	, "*.C", "*.cpp", "*.cc", "*.cxx", "*.c++" /* C++ files */
+	, "*.h", "*.hh", "*.hpp", "*.H", "*.h++" /* Header files */
 #if 0
 	, "*.oaf", "*.gob", "*.idl" /* CORBA/Bonobo files */
 	, "*.l", "*.y" /* Lex/Yacc files */
 	, "*.ui", "*.moc" /* KDE/QT Files */
 	, "*.glade" /* UI files */
 #endif
-	, "*.java", "*.pl", "*.py" /* Other languages */
+	, "*.java", "*.pl", "*.pm", "*.py", "*.sh" /* Other languages */
 	, NULL /* Must terminate with NULL */
 };
 
@@ -148,6 +148,9 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 				{
 					TM_SOURCE_FILE(source_file)->inactive = FALSE;
 					g_free(path);
+#ifdef DEBUG
+					g_message("File %s already exists in project", file_name);
+#endif
 					return TRUE;
 				}
 			}
@@ -155,7 +158,10 @@ gboolean tm_project_add_file(TMProject *project, const char *file_name
 		g_free(path);
 	}
 	if (NULL == (source_file = tm_source_file_new(file_name, TRUE)))
+	{
+		g_warning("Unable to create source file for file %s", file_name);
 		return FALSE;
+	}
 	source_file->parent = TM_WORK_OBJECT(project);
 	if (NULL == project->file_list)
 		project->file_list = g_ptr_array_new();
@@ -196,9 +202,9 @@ TMWorkObject *tm_project_find_file(TMWorkObject *work_object
 		for (i=0; i < project->file_list->len; ++i)
 		{
 			if (name_only)
-				name1 = TM_WORK_OBJECT(project->file_list->pdata[i])->file_name;
-			else
 				name1 = TM_WORK_OBJECT(project->file_list->pdata[i])->short_name;
+			else
+				name1 = TM_WORK_OBJECT(project->file_list->pdata[i])->file_name;
 			if (0 == strcmp(name, name1))
 			{
 				g_free(name);
@@ -411,30 +417,11 @@ static void tm_project_add_file_recursive(TMFileEntry *entry
 
 gboolean tm_project_autoscan(TMProject *project)
 {
-	static char *makefile[] = { "Makefile.am", "Makefile.in", "Makefile" };
-	char buf[PATH_MAX];
-	gboolean status = FALSE;
 	TMFileEntry *root_dir;
-	guint i;
-	struct stat s;
 
 	if (!project || !IS_TM_PROJECT(TM_WORK_OBJECT(project))
 	  || (!project->dir))
 		return FALSE;
-	for (i = 0; i < sizeof(makefile)/sizeof(char *); ++i)
-	{
-		g_snprintf(buf, PATH_MAX, "%s/%s", project->dir, makefile[i]);
-		if (0 == stat(buf, &s) && S_ISREG(s.st_mode))
-		{
-			status = TRUE;
-			break;
-		}
-	}
-	if (!status)
-	{
-		g_warning("%s is not a top level project directory", project->dir);
-		return FALSE;
-	}
 	if (!(root_dir = tm_file_entry_new(project->dir, NULL, TRUE
 		, project->sources, project->ignore, TRUE)))
 	{

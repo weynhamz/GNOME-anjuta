@@ -236,36 +236,49 @@ static void sv_context_handler(GtkMenuItem *item, gpointer user_data)
 	}
 }
 
+static GnomeUIInfo an_symbol_view_menu_uiinfo[] = {
+	{/* 0 */
+	 GNOME_APP_UI_ITEM, N_("Goto Definition"),
+	 NULL,
+	 sv_context_handler, (gpointer) GOTO_DEFINITION, NULL,
+	 PIX_FILE(TAG),
+	 0, 0, NULL}
+	,
+	{/* 1 */
+	 GNOME_APP_UI_ITEM, N_("Goto Declaration"),
+	 NULL,
+	 sv_context_handler, (gpointer) GOTO_DECLARATION, NULL,
+	 PIX_FILE(TAG),
+	 0, 0, NULL}
+	,
+	{/* 2 */
+	 GNOME_APP_UI_ITEM, N_("Find Usage"),
+	 NULL,
+	 sv_context_handler, (gpointer) SEARCH, NULL,
+	 PIX_STOCK(SEARCH),
+	 0, 0, NULL}
+	,
+	{/* 3 */
+	 GNOME_APP_UI_ITEM, N_("Refresh"),
+	 NULL,
+	 sv_context_handler, (gpointer) REFRESH, NULL,
+	 PIX_STOCK(REFRESH),
+	 0, 0, NULL}
+	,
+	GNOMEUIINFO_END /* 4 */
+};
+
 static void sv_create_context_menu(void)
 {
-	GtkWidget *item;
+	int i;
+
 	sv->menu = gtk_menu_new();
 	gtk_widget_ref(sv->menu);
+	gnome_app_fill_menu (GTK_MENU_SHELL (sv->menu),
+	  an_symbol_view_menu_uiinfo, NULL, FALSE, 0);
+	for (i=0; i < sizeof(an_symbol_view_menu_uiinfo)/sizeof(an_symbol_view_menu_uiinfo[0]); ++i)
+		gtk_widget_ref(an_symbol_view_menu_uiinfo[i].widget);
 	gtk_widget_show(sv->menu);
-	item = gtk_menu_item_new_with_label(_("Goto Definition"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(sv_context_handler)
-	  , (gpointer) GOTO_DEFINITION);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(sv->menu), item);
-	item = gtk_menu_item_new_with_label(_("Goto Declaration"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(sv_context_handler)
-	  , (gpointer) GOTO_DECLARATION);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(sv->menu), item);
-	item = gtk_menu_item_new_with_label(_("Find Usage"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(sv_context_handler)
-	  , (gpointer) SEARCH);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(sv->menu), item);
-	item = gtk_menu_item_new_with_label(_("Refresh Tree"));
-	gtk_signal_connect(GTK_OBJECT(item), "activate"
-	  , GTK_SIGNAL_FUNC(sv_context_handler)
-	  , (gpointer) REFRESH);
-	gtk_widget_show(item);
-	gtk_menu_append(GTK_MENU(sv->menu), item);
 }
 
 static gboolean

@@ -1506,3 +1506,33 @@ anjuta_util_escape_quotes(gchar* str)
 		return g_strdup(buffer);
 }
 
+gchar *get_relative_file_name(gchar *dir, gchar *file)
+{
+	gchar *real_dir = tm_get_real_path(dir);
+	gchar *real_file = tm_get_real_path(file);
+	gchar *retval = NULL;
+
+	if (real_dir && real_file)
+	{
+		guint dir_len = strlen(real_dir);
+		if (0 == strncmp(real_file, real_dir, dir_len))
+			retval = g_strdup(real_file + dir_len + 1);
+	}
+	g_free(real_dir);
+	g_free(real_file);
+	return retval;
+}
+
+gboolean is_file_in_dir(const gchar *file, const gchar *dir)
+{
+	gboolean status = FALSE;
+
+	gchar *real_file_name = tm_get_real_path(file);
+	gchar *real_dir_name = tm_get_real_path(dir);
+	if (real_file_name && real_dir_name &&
+	  (0 == strncmp(real_file_name, real_dir_name, strlen(real_dir_name))))
+		status = TRUE;
+	g_free(real_file_name);
+	g_free(real_dir_name);
+	return status;
+}

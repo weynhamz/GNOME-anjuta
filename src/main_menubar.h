@@ -139,17 +139,16 @@ struct _ViewSubMenu
 
 struct _ProjectSubMenu
 {
-	GtkWidget *new_file;
-	GtkWidget *add_inc;
-	GtkWidget *add_src;
-	GtkWidget *add_hlp;
-	GtkWidget *add_data;
-	GtkWidget *add_pix;
-	GtkWidget *add_po;
-	GtkWidget *add_doc;
-	GtkWidget *remove;
+	GtkWidget *add_file;
+	GtkWidget *view_file;
+	GtkWidget *edit_file;
+	GtkWidget *remove_file;
 	GtkWidget *configure;
-	GtkWidget *info;
+	GtkWidget *project_info;
+	GtkWidget *dock_undock;
+	GtkWidget *update_tags;
+	GtkWidget *rebuild_tags;
+	GtkWidget *project_help;
 };
 
 struct _FormatSubMenu
@@ -158,7 +157,6 @@ struct _FormatSubMenu
 	GtkWidget *indent_inc;
 	GtkWidget *indent_dcr;
 	GtkWidget *force_hilite;
-	GtkWidget *update_tags;
 	GtkWidget *open_folds;
 	GtkWidget *close_folds;
 	GtkWidget *toggle_fold;

@@ -270,7 +270,7 @@ preferences_set_int (Preferences * pr, gchar * key, gint value)
 void
 preferences_sync (Preferences * pr)
 {
-	gchar *str;
+	gchar *str, *str2;
 	gint i;
 	gint8 r, g, b;
 
@@ -647,17 +647,19 @@ preferences_sync (Preferences * pr)
 
 	/* Page Identification */
 	str = preferences_get (pr, IDENT_NAME);
-	if (!str /*|| !g_strcasecmp(str, "(null)")*/)
+	if (!str)
 		str = getenv("USERNAME");
 	if (!str)
 		str = getenv("USER");
 	gtk_entry_set_text (GTK_ENTRY (pr->widgets.name_entry), str);
 
-	/* FIXME: we should default to user@host, not just host */
-	str = preferences_get (pr, IDENT_EMAIL);
-	if (!str /*|| !g_strcasecmp(str, "(null)")*/)
-		str = getenv("HOSTNAME");
-	gtk_entry_set_text (GTK_ENTRY (pr->widgets.email_entry), str);
+	str2 = preferences_get (pr, IDENT_EMAIL);
+	if (!str2)
+	{
+		str2 = getenv("HOSTNAME");
+		str2 = g_strconcat(str, "@", str2, NULL);
+	}
+	gtk_entry_set_text (GTK_ENTRY (pr->widgets.email_entry), str2);
 }
 
 void
@@ -908,7 +910,7 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	fprintf (fp, "preferences.win.pos.x=%d\n", pr->win_pos_x);
 	fprintf (fp, "preferences.win.pos.y=%d\n", pr->win_pos_y);
 	fprintf (fp, "text.zoom.factor=%d\n",
-		 preferences_get_int (pr, "text.zoom.factor"));
+	preferences_get_int (pr, "text.zoom.factor"));
 
 	/* Identification */
 	str = preferences_get (pr, IDENT_NAME);

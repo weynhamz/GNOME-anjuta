@@ -329,6 +329,11 @@ on_indent_dcr1_activate             (GtkMenuItem     *menuitem,
 void
 on_update_tags1_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
+
+void
+on_rebuild_tags1_activate			(GtkMenuItem * menuitem,
+										gpointer user_data);
+
 void
 on_close_folds1_activate             (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

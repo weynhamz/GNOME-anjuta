@@ -250,4 +250,10 @@ free_string_list ( GList * pList );
  ********************************************************/
 gchar* anjuta_util_escape_quotes(gchar* str);
 
+/* Gets the relative filename w.r.t the given directory */
+gchar *get_relative_file_name(gchar *dir, gchar *file);
+
+/* Checks if the file exists in the given directory or any of it's subdirectories */
+gboolean is_file_in_dir(const gchar *file, const gchar *dir);
+
 #endif

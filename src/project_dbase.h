@@ -196,7 +196,7 @@ project_dbase_close_project (ProjectDBase * p);
 
 gboolean project_dbase_save_project (ProjectDBase * p);
 
-void project_dbase_update_tags_image(ProjectDBase* p);
+void project_dbase_update_tags_image(ProjectDBase* p, gboolean rebuild);
 
 gboolean project_dbase_save_yourself (ProjectDBase * p, FILE * stream);
 
@@ -358,19 +358,7 @@ on_project_dock_undock1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void
 on_project_help1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void
-on_project_include_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_project_source_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_project_help_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_project_data_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_project_pixmap_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_project_translation_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
-void
-on_project_doc_file1_activate (GtkMenuItem * menuitem, gpointer user_data);
+on_project_add_file1_activate(GtkMenuItem *menuitem, gpointer user_data);
 
 #endif
 
