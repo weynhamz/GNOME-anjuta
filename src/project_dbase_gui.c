@@ -73,7 +73,7 @@ on_project_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	buff =
 		g_strdup_printf (_("Are you sure you want to remove the item\n"
 				  		 "'%s' from the Project?"),
-	extract_filename (p->current_file_data->filename));
+						 extract_filename (p->current_file_data->filename));
 	dialog = gtk_message_dialog_new (GTK_WINDOW (p->widgets.window),
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,

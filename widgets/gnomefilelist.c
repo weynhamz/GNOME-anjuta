@@ -1721,6 +1721,8 @@ build_full_path (const gchar * path, const gchar * selection)
 	gchar chr;
 	gint malloc_size = 0;
 	gint offset = 0;
+	
+	g_return_val_if_fail (path != NULL, NULL);
 
 	if (selection[0] == '/')
 	{

@@ -1,3 +1,9 @@
+2003-04-10  Naba Kumar  <naba@gnome.org>
+
+	* configurer.[c,h]: Fixed dialog to close properly.
+	* src/project_dbase.c, widgets/gnomefilelist.c: Added
+	debugging asserts.
+	
 2003-04-09  Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.prj: Removed unnecessary files, load with 1.2.0
 	* plugins/class-gen/Makefile.am, plugins/patch/Makefile.am,

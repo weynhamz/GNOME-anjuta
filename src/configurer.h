@@ -26,7 +26,6 @@ typedef struct _Configurer Configurer;
 
 struct _Configurer
 {
-	GladeXML *gxml;
 	PropsID props;
 };
 

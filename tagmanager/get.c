@@ -662,6 +662,7 @@ static void stripCodeBuffer(char *buf)
 {
 	int i = 0, pos = 0;
 	ParseState state = st_none_t, prev_state = st_none_t;
+	
 	while (buf[i] != '\0')
 	{
 		switch(buf[i])
