@@ -16,7 +16,6 @@ SUBDIRS = . \
 	profile-default \
 	file-wizard \
 	project-manager \
-	cvs-plugin
 	project-manager \
 	symbol-browser
 

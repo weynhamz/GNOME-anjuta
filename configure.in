@@ -709,7 +709,6 @@ plugins/Makefile
 plugins/sample1/Makefile
 plugins/gtodo/Makefile
 plugins/class-gen/Makefile
-plugins/cvs-plugin/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile
