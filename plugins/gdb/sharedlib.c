@@ -147,17 +147,13 @@ sharedlibs_load_yourself(Sharedlibs* ew, PropsID props)
 void
 sharedlibs_destroy(Sharedlibs* sg)
 {
-  if(sg)
-  {
-     sharedlibs_clear(sg);
-     gtk_widget_unref(sg->widgets.window);
-     gtk_widget_unref(sg->widgets.clist);
-     gtk_widget_unref(sg->widgets.menu);
-     gtk_widget_unref(sg->widgets.menu_update);
-     if(GTK_IS_WIDGET(sg->widgets.window))
-              gtk_widget_destroy(sg->widgets.window);
-     g_free(sg);
-  }
+	if(sg)
+	{
+		sharedlibs_clear(sg);
+		gtk_widget_destroy(sg->widgets.window);
+		gtk_widget_destroy(sg->widgets.menu);
+		g_free(sg);
+	}
 }
 
 void

@@ -112,10 +112,10 @@ memory_info_new (guchar *ptr)
 	}
 
 	memapp->dialog = glade_xml_get_widget (memapp->xml, MEMORY_DIALOG);
-	
+	/*
 	for (i=0; NULL != glade_names[i]; ++i)
 		gtk_widget_ref (glade_xml_get_widget (memapp->xml, glade_names[i]));
-
+	*/
 	init_name_memory (memapp);
 	init_widget_memory (memapp);
 	init_event_memory (memapp);

@@ -42,13 +42,6 @@
 #define GDB_PROMPT  "GDB is waiting for command =>"
 #define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
 
-#define STACK_ICON_FILE "anjuta-gdb.plugin.png"
-#define WATCH_ICON_FILE "anjuta-gdb.plugin.png"
-#define LOCALS_ICON_FILE "anjuta-gdb.plugin.png"
-#define REGISTERS_ICON_FILE "anjuta-gdb.plugin.png"
-#define SIGNALS_ICON_FILE "anjuta-gdb.plugin.png"
-#define SHAREDLIBS_ICON_FILE "anjuta-gdb.plugin.png"
-
 Debugger debugger;
 
 enum {
@@ -116,16 +109,19 @@ debugger_init (GdbPlugin *plugin)
 	debugger.breakpoints_dbase = breakpoints_dbase_new (ANJUTA_PLUGIN (plugin));
 	
 	debugger.stack = stack_trace_new ();
-	debugger_add_widget (stack_trace_get_treeview (debugger.stack),
-						 "AnjutaDebuggerStack", _("Stack"), STACK_ICON_FILE);
+	debugger_add_widget (stack_trace_get_main_widget (debugger.stack),
+						 "AnjutaDebuggerStack", _("Stack"),
+						 "gdb-stack-icon");
 	
 	debugger.locals = locals_create ();
 	debugger_add_widget (locals_get_main_widget (debugger.locals),
-						 "AnjutaDebuggerLocals", _("Locals"), LOCALS_ICON_FILE);
+						 "AnjutaDebuggerLocals", _("Locals"),
+						 "gdb-locals-icon");
 	
 	debugger.watch = expr_watch_new ();
-	debugger_add_widget (debugger.watch->widgets.clist, "AnjutaDebuggerWatch",
-						 _("Watches"), WATCH_ICON_FILE);
+	debugger_add_widget (debugger.watch->widgets.scrolledwindow,
+						 "AnjutaDebuggerWatch", _("Watches"),
+						 "gdb-watch-icon");
 	
 	debugger.cpu_registers = cpu_registers_new ();
 	debugger.signals = signals_new ();
@@ -236,6 +232,11 @@ debugger_shutdown ()
 	DEBUG_PRINT ("In function: debugger_shutdown()");
 
 	debugger_stop_terminal();
+	
+	debugger_set_active (FALSE);
+	debugger_set_ready (FALSE);
+	
+	/* Widgets are automatically removed from shell when they are destroyed */
 	if (debugger.breakpoints_dbase)
 		breakpoints_dbase_destroy (debugger.breakpoints_dbase);
 	if (debugger.locals)

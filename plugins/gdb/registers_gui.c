@@ -136,11 +136,4 @@ create_cpu_registers_gui(CpuRegisters *cr)
   cr->widgets.menu = create_register_menu();
   cr->widgets.menu_modify = register_menu_uiinfo[0].widget;
   cr->widgets.menu_update = register_menu_uiinfo[1].widget;
-  
-  gtk_widget_ref(cr->widgets.window);
-  gtk_widget_ref(cr->widgets.clist);
-  gtk_widget_ref(cr->widgets.menu);
-  gtk_widget_ref(cr->widgets.menu_modify);
-  gtk_widget_ref(cr->widgets.menu_update);
-
 }

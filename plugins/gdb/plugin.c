@@ -263,6 +263,34 @@ static GtkActionEntry actions_gdb[] =
 	}
 };
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+#if 0
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (GDB_PIXMAP_STACK_ICON, "gdb-stack-icon");
+	REGISTER_ICON (GDB_PIXMAP_WATCH_ICON, "gdb-locals-icon");
+	REGISTER_ICON (GDB_PIXMAP_LOCALS_ICON, "gdb-watch-icon");
+}
+#endif
+
 static void
 on_debug_buffer_flushed (IAnjutaMessageView *view, const gchar* line,
 		AnjutaPlugin *plugin)
@@ -452,7 +480,7 @@ gdb_plugin_update_ui (GdbPlugin *plugin)
 }
 
 static gboolean
-activate_plugin (AnjutaPlugin* plugin)
+gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 {
 	AnjutaUI *ui;
 	GObject *obj;
@@ -507,7 +535,7 @@ activate_plugin (AnjutaPlugin* plugin)
 }
 
 static gboolean
-deactivate_plugin (AnjutaPlugin* plugin)
+gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 {
 	GdbPlugin *gdb_plugin;
 	AnjutaUI *ui;
@@ -515,18 +543,19 @@ deactivate_plugin (AnjutaPlugin* plugin)
 
 	gdb_plugin = (GdbPlugin*)plugin;
 	
-	/* TODO: remove view */
-
 	/* Unmerge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, gdb_plugin->merge_id);
-	anjuta_ui_remove_action_group (ui, gdb_plugin->action_group);
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, gdb_plugin->project_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, gdb_plugin->editor_watch_id, TRUE);
 	
+	/* Views were removed from shell when they are destroyed */
 	debugger_shutdown ();
+	
+	/* Remvove action groups */
+	anjuta_ui_remove_action_group (ui, gdb_plugin->action_group);
 
 	return TRUE;
 }
@@ -559,8 +588,8 @@ gdb_plugin_class_init (GObjectClass* klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->activate = activate_plugin;
-	plugin_class->deactivate = deactivate_plugin;
+	plugin_class->activate = gdb_plugin_activate_plugin;
+	plugin_class->deactivate = gdb_plugin_deactivate_plugin;
 	klass->dispose = dispose;
 }
 

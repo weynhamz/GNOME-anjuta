@@ -28,7 +28,7 @@ typedef struct _StackTrace StackTrace;
 StackTrace *stack_trace_new (void);
 
 /* Getters */
-GtkWidget *stack_trace_get_treeview (StackTrace *st);
+GtkWidget *stack_trace_get_main_widget (StackTrace *st);
 
 void stack_trace_clear (StackTrace *st);
 void stack_trace_set_frame (StackTrace *st, gint frame);

@@ -32,9 +32,9 @@ enum {
 	WATCH_N_COLUMNS
 };
 
-
 struct _ExprWatchGui
 {
+	GtkWidget*   scrolledwindow;
     GtkWidget*   clist;
     GtkWidget*   menu_add;
     GtkWidget*   menu_remove;

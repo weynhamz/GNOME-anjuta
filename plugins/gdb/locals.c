@@ -43,7 +43,10 @@ locals_create (void)
 
 	main_w = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (main_w),
-			GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (main_w),
+										 GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (main_w), debug_tree->tree);
 	gtk_widget_show_all (main_w);
 
@@ -53,7 +56,6 @@ locals_create (void)
 	return locals;
 }
 
-
 GtkWidget *
 locals_get_main_widget (Locals *l)
 {
@@ -62,7 +64,6 @@ locals_get_main_widget (Locals *l)
 	return l->main_w;
 }
 
-
 void
 locals_clear (Locals *l)
 {
@@ -70,7 +71,6 @@ locals_clear (Locals *l)
 
 	debug_tree_clear (l->debug_tree);
 }
-
 
 void locals_update (Locals *l, GList *lines, gpointer data)
 {
@@ -82,19 +82,12 @@ void locals_update (Locals *l, GList *lines, gpointer data)
 	debug_tree_parse_variables (l->debug_tree, lines);
 }
 
-
 void
 locals_destroy (Locals *l)
 {
 	g_return_if_fail (l != NULL);
 
-// TODO: test me !
-//	gdb_remove_widget ();
-
 	debug_tree_destroy (l->debug_tree);
-
-//	gtk_container_remove (GTK_CONTAINER (l->main_w), l->debug_tree->tree);
 	gtk_widget_destroy (GTK_WIDGET (l->main_w));
-
 	g_free (l);
 }

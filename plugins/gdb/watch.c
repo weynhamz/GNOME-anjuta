@@ -149,13 +149,8 @@ expr_watch_destroy (ExprWatch * ew)
 	if (ew)
 	{
 		expr_watch_clear (ew);
-		gtk_widget_unref (ew->widgets.clist);
-		gtk_widget_unref (ew->widgets.menu_add);
-		gtk_widget_unref (ew->widgets.menu_remove);
-		gtk_widget_unref (ew->widgets.menu_clear);
-		gtk_widget_unref (ew->widgets.menu_update);
-		gtk_widget_unref (ew->widgets.menu_toggle);
-		gtk_widget_unref (ew->widgets.menu);
+		gtk_widget_destroy (ew->widgets.scrolledwindow);
+		gtk_widget_destroy (ew->widgets.menu);
 		g_free (ew);
 	}
 }

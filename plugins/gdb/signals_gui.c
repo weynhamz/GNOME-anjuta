@@ -151,13 +151,6 @@ create_signals_gui(Signals *cr)
   cr->widgets.menu_modify = signals_menu_uiinfo[0].widget;
   cr->widgets.menu_signal = signals_menu_uiinfo[1].widget;
   cr->widgets.menu_update = signals_menu_uiinfo[2].widget;
-
-  gtk_widget_ref(cr->widgets.window);
-  gtk_widget_ref(cr->widgets.clist);
-  gtk_widget_ref(cr->widgets.menu);
-  gtk_widget_ref(cr->widgets.menu_modify);
-  gtk_widget_ref(cr->widgets.menu_signal);
-  gtk_widget_ref(cr->widgets.menu_update);
 }
 
 GtkWidget*

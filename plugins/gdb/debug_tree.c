@@ -1542,8 +1542,10 @@ debug_tree_destroy (DebugTree * d_tree)
 	
 	g_return_if_fail (d_tree);
 	
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (d_tree->tree));
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
+	gtk_widget_destroy (d_tree->tree);
+	gtk_widget_destroy (d_tree->middle_click_menu);
 	g_free (d_tree);
 }
 

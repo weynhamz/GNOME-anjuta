@@ -146,18 +146,13 @@ cpu_registers_load_yourself(CpuRegisters* ew, PropsID props)
 void
 cpu_registers_destroy(CpuRegisters* cr)
 {
-  if(cr)
-  {
-     cpu_registers_clear(cr);
-     gtk_widget_unref(cr->widgets.window);
-     gtk_widget_unref(cr->widgets.clist);
-     gtk_widget_unref(cr->widgets.menu);
-     gtk_widget_unref(cr->widgets.menu_modify);
-     gtk_widget_unref(cr->widgets.menu_update);
-     if(GTK_IS_WIDGET(cr->widgets.window))
-              gtk_widget_destroy(cr->widgets.window);
-     g_free(cr);
-  }
+	if(cr)
+	{
+		cpu_registers_clear(cr);
+		gtk_widget_destroy(cr->widgets.window);
+		gtk_widget_destroy(cr->widgets.menu);
+		g_free(cr);
+	}
 }
 
 void

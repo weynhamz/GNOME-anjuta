@@ -110,8 +110,18 @@ create_expr_watch_gui (ExprWatch * ew)
 	model = GTK_TREE_MODEL(gtk_list_store_new(WATCH_N_COLUMNS,
 											GTK_TYPE_STRING,
 											GTK_TYPE_STRING));
+	ew->widgets.scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (ew->widgets.scrolledwindow);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ew->widgets.scrolledwindow),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (ew->widgets.scrolledwindow),
+										 GTK_SHADOW_IN);
 	
 	ew->widgets.clist = gtk_tree_view_new_with_model(model);
+	gtk_widget_show (ew->widgets.clist);
+	gtk_container_add (GTK_CONTAINER (ew->widgets.scrolledwindow),
+					   ew->widgets.clist);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ew->widgets.clist));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	g_object_unref (G_OBJECT (model));
@@ -143,15 +153,6 @@ create_expr_watch_gui (ExprWatch * ew)
 	ew->widgets.menu_clear = watch_menu_uiinfo[3].widget;
 	ew->widgets.menu_toggle = watch_menu_uiinfo[4].widget;
 	ew->widgets.menu_change = watch_menu_uiinfo[5].widget;
-	
-	gtk_widget_ref (ew->widgets.clist);
-	gtk_widget_ref (ew->widgets.menu_add);
-	gtk_widget_ref (ew->widgets.menu_remove);
-	gtk_widget_ref (ew->widgets.menu_clear);
-	gtk_widget_ref (ew->widgets.menu_update);
-	gtk_widget_ref (ew->widgets.menu_toggle);
-	gtk_widget_ref (ew->widgets.menu_change);
-	gtk_widget_ref (ew->widgets.menu);
 	
 	expr_watch_entry_history = NULL;
 	eval_entry_history = NULL;

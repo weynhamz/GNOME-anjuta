@@ -820,6 +820,7 @@ npw_druid_new (NPWPlugin* plugin)
 	this->dialog = glade_xml_get_widget (xml, NEW_PROJECT_DIALOG);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog),
 								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
+	this->tooltips = NULL;
 	/* add GtkIconView in the program as it's not handled by libglade */
 	this->druid = GNOME_DRUID (glade_xml_get_widget (xml, DRUID_WIDGET));
 	this->selection_page = GNOME_DRUID_PAGE (glade_xml_get_widget (xml, DRUID_SELECTION_PAGE));

@@ -1,3 +1,36 @@
+2005-03-09  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Added new message-manager tasks.
+	
+	* manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-text.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-renderable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-sand-box.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-transformable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+	
+	* plugins/gdb/debug_tree.c, plugins/gdb/debugger.c,
+	plugins/gdb/locals.c, plugins/gdb/memory.c, plugins/gdb/plugin.c,
+	plugins/gdb/registers.c, plugins/gdb/registers_gui.c,
+	plugins/gdb/sharedlib.c, plugins/gdb/sharedlib_gui.c,
+	plugins/gdb/signals.c, plugins/gdb/signals_gui.c,
+	plugins/gdb/stack_trace.c, plugins/gdb/stack_trace.h,
+	plugins/gdb/watch.c, plugins/gdb/watch.h, plugins/gdb/watch_gui.c:
+	Removed debugger widgets from shell on debugger shutdown. Added
+	scrolled windows for docked widgets. Removed unnecessary widget refs
+	and unrefs. Destroy widgets correctly on debugger shutdown.
+	
+	* plugins/project-wizard/anjuta-project-wizard.glade: Added frame
+	with project description title. Removed frame shadow.
+	
+	* plugins/project-wizard/druid.c: Initializes tooltips.
+	
+	* scintilla/Makefile.am: Fixed comiple error.
+
 2005-03-08  Adam Weinberger  <adamw@gnome.org>
 
 	* plugins/class-gen/anjuta-class-gen-plugin.glade,

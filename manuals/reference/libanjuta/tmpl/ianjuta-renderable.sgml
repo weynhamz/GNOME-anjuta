@@ -14,3 +14,49 @@ ianjuta-renderable
 
 </para>
 
+<!-- ##### ENUM IAnjutaRenderableError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_RENDERABLE_NOT_SUPPORTED: 
+
+<!-- ##### MACRO IANJUTA_RENDERABLE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaRenderable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaRenderableIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@render: 
+
+<!-- ##### FUNCTION ianjuta_renderable_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_renderable_render ##### -->
+<para>
+
+</para>
+
+@obj: 
+@context: 
+@err: 
+
+

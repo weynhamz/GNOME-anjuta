@@ -235,7 +235,7 @@ corresponding workspace symbols are not updated. That is when
 activated (eg. symbol pane), the old location is used.</comment>
     </item>
   </category>
-  <category title="Documentation" place="16">
+  <category title="Documentation" place="17">
     <item>
       <attribute id="1098255636" priority="1" done="0" start_date="731874" notify="0" last_edited="1101603303"/>
       <summary>Update</summary>
@@ -348,6 +348,17 @@ instead of full path names.</comment>
       <summary>Make next/previous work</summary>
       <comment>Make next/previous action work</comment>
     </item>
+    <item>
+      <attribute id="1110343095" priority="1" done="0" start_date="732014" enddate="99999999" notify="0" endtime="-60" last_edited="1110343095"/>
+      <summary>Next/Prev shortcuts</summary>
+      <comment>Next and prev menuitems should have shortcuts similar
+to anjuta 1.x.</comment>
+    </item>
+    <item>
+      <attribute id="1110343137" priority="1" done="0" start_date="732014" enddate="99999999" notify="0" endtime="-60" last_edited="1110343137"/>
+      <summary>Save messages</summary>
+      <comment>There should be a menuitem "Save messages ..." similar to anjuta 1.x.</comment>
+    </item>
   </category>
   <category title="Plugin: Debugger" place="14">
     <item>
@@ -376,6 +387,23 @@ the debugger should start anyway without loading any exec.</comment>
       <attribute id="1109412369" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1109412369"/>
       <summary>Be able to create multiple terminals</summary>
       <comment>Be able to create multiple terminals</comment>
+    </item>
+  </category>
+  <category title="Plugin: Default Profile" place="16">
+    <item>
+      <attribute id="1110343521" priority="1" done="0" start_date="732014" enddate="99999999" notify="0" endtime="-60" last_edited="1110343521"/>
+      <summary>The profile should record user activated plugins</summary>
+      <comment>During the course of usage, the user could have activated
+or deactived
+various plugins. The profile plugin should record this
+events as a diff of the default selected plugins. That is, if any
+of the default plugins have been deactivated or non-default
+plugins have been deactivated. Then these should be
+saved in session. If project is open, the session should be
+project session and the default plugins are the ones determined
+by the project
+file. Other the session is global and default plugins are
+the system default plugins.</comment>
     </item>
   </category>
 </gtodo>

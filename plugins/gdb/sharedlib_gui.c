@@ -129,9 +129,4 @@ create_sharedlibs_gui(Sharedlibs *sl)
   sl->widgets.clist = clist4;
   sl->widgets.menu = create_sharedlibs_menu();
   sl->widgets.menu_update = sharedlibs_menu_uiinfo[0].widget;
-
-  gtk_widget_ref(sl->widgets.window);
-  gtk_widget_ref(sl->widgets.clist);
-  gtk_widget_ref(sl->widgets.menu);
-  gtk_widget_ref(sl->widgets.menu_update);
 }

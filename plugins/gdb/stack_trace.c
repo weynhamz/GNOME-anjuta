@@ -38,6 +38,7 @@
 typedef struct _StackTraceGui StackTraceGui;
 struct _StackTraceGui
 {
+  GtkWidget *scrolledwindow;
   GtkWidget *clist;
   GtkWidget *menu;
   GtkWidget *menu_set;
@@ -430,8 +431,19 @@ create_stack_trace_gui(StackTrace *st)
 											   GDK_TYPE_PIXBUF,
 											   GTK_TYPE_STRING,
 											   GTK_TYPE_STRING));
+	st->widgets.scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (st->widgets.scrolledwindow);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (st->widgets.scrolledwindow),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (st->widgets.scrolledwindow),
+										 GTK_SHADOW_IN);
 	
 	st->widgets.clist = gtk_tree_view_new_with_model (model);
+	gtk_widget_show (st->widgets.clist);
+	gtk_container_add (GTK_CONTAINER (st->widgets.scrolledwindow),
+					   st->widgets.clist);
+	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (st->widgets.clist));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	g_object_unref (G_OBJECT (model));
@@ -478,13 +490,6 @@ create_stack_trace_gui(StackTrace *st)
 	st->widgets.menu_info = stack_menu_uiinfo[1].widget; 
 	st->widgets.menu_update = stack_menu_uiinfo[2].widget;
 	st->widgets.menu_view = stack_menu_uiinfo[3].widget;
-	
-	gtk_widget_ref(st->widgets.clist);
-	gtk_widget_ref(st->widgets.menu);
-	gtk_widget_ref(st->widgets.menu_set);
-	gtk_widget_ref(st->widgets.menu_info);
-	gtk_widget_ref(st->widgets.menu_update);
-	gtk_widget_ref(st->widgets.menu_view);
 }
 
 static void
@@ -615,14 +620,10 @@ stack_trace_destroy (StackTrace * st)
 	if (st)
 	{
 		stack_trace_clear (st);
-		gtk_widget_unref (st->widgets.clist);
-		gtk_widget_unref (st->widgets.menu);
-		gtk_widget_unref (st->widgets.menu_set);
-		gtk_widget_unref (st->widgets.menu_info);
-		gtk_widget_unref (st->widgets.menu_update);
-		gtk_widget_unref (st->widgets.menu_view);
 		if (pointer_pix)
 			g_object_unref (pointer_pix);
+		gtk_widget_destroy (st->widgets.menu);
+		gtk_widget_destroy (st->widgets.scrolledwindow);
 		g_free (st);
 	}
 }
@@ -648,7 +649,7 @@ stack_trace_set_frame (StackTrace *st, gint frame)
 }
 
 GtkWidget*
-stack_trace_get_treeview (StackTrace *st)
+stack_trace_get_main_widget (StackTrace *st)
 {
-	return st->widgets.clist;
+	return st->widgets.scrolledwindow;
 }
