@@ -282,10 +282,10 @@ on_header_browse_clicked(GtkButton* button, gpointer user_data)
 	
 	self->header_file_selection = gtk_file_selection_new("Select header file.");
 	gtk_window_set_modal(GTK_WINDOW(self->header_file_selection), FALSE);
-	gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(self->header_file_selection)->ok_button),
+	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(self->header_file_selection)->ok_button),
 						"clicked", GTK_SIGNAL_FUNC(on_header_file_selection), self);
 	
-	gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(self->header_file_selection)->cancel_button),
+	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(self->header_file_selection)->cancel_button),
 						"clicked", GTK_SIGNAL_FUNC(on_header_file_selection_cancel), self);
 
 	gtk_file_selection_complete(GTK_FILE_SELECTION(self->header_file_selection), "*.h");
@@ -300,10 +300,10 @@ on_source_browse_clicked(GtkButton* button, gpointer user_data)
 
 	self->source_file_selection = gtk_file_selection_new("Select source file.");
 	gtk_window_set_modal(GTK_WINDOW(self->source_file_selection), FALSE);
-	gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(self->source_file_selection)->ok_button),
+	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(self->source_file_selection)->ok_button),
 						"clicked", GTK_SIGNAL_FUNC(on_source_file_selection), self);
 	
-	gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(self->source_file_selection)->cancel_button),
+	g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(self->source_file_selection)->cancel_button),
 						"clicked", GTK_SIGNAL_FUNC(on_source_file_selection_cancel), self);
 	
 	SAFE_FREE(self->m_szClassType);
@@ -1654,31 +1654,31 @@ CreateDialogClass(CG_Creator *self)
   gtk_object_set_data (GTK_OBJECT (self->dlgClass), "tooltips", self->tooltips);
 
   // setup callbacks
-  gtk_signal_connect (GTK_OBJECT (self->dlgClass), "delete_event",
+  g_signal_connect (G_OBJECT (self->dlgClass), "delete_event",
 					  GTK_SIGNAL_FUNC (on_delete_event),
 					  self);
-  gtk_signal_connect (GTK_OBJECT (self->button_browse_header_file), "clicked",
+  g_signal_connect (G_OBJECT (self->button_browse_header_file), "clicked",
                       GTK_SIGNAL_FUNC (on_header_browse_clicked),
                       self);
-  gtk_signal_connect (GTK_OBJECT (self->button_browse_source_file), "clicked",
+  g_signal_connect (G_OBJECT (self->button_browse_source_file), "clicked",
                       GTK_SIGNAL_FUNC (on_source_browse_clicked),
                       self);
-  gtk_signal_connect (GTK_OBJECT (self->button_finish), "clicked",
+  g_signal_connect (G_OBJECT (self->button_finish), "clicked",
 					  GTK_SIGNAL_FUNC (on_finish_clicked),
 					  self);
-  gtk_signal_connect (GTK_OBJECT (self->button_cancel), "clicked",
+  g_signal_connect (G_OBJECT (self->button_cancel), "clicked",
 					  GTK_SIGNAL_FUNC (on_cancel_clicked),
 					  self);
-  gtk_signal_connect (GTK_OBJECT (self->button_help), "clicked",
+  g_signal_connect (G_OBJECT (self->button_help), "clicked",
 					  GTK_SIGNAL_FUNC (on_help_clicked),
 					  self);
-  gtk_signal_connect (GTK_OBJECT (self->entry_class_name), "changed",
+  g_signal_connect (G_OBJECT (self->entry_class_name), "changed",
                       GTK_SIGNAL_FUNC (on_class_name_changed),
                       self);
-  gtk_signal_connect (GTK_OBJECT (self->combo_class_type_entry), "changed",
+  g_signal_connect (G_OBJECT (self->combo_class_type_entry), "changed",
                       GTK_SIGNAL_FUNC (on_class_type_changed),
                       self);
-  gtk_signal_connect (GTK_OBJECT (self->checkbutton_inline), "toggled",
+  g_signal_connect (G_OBJECT (self->checkbutton_inline), "toggled",
 					  GTK_SIGNAL_FUNC (on_inline_toggled),
 					  self);
   gtk_widget_grab_focus(self->entry_class_name);

@@ -168,10 +168,6 @@ GString *current_tool_error = NULL;
 /* Signal prototypes to fix GCC warnings. Note that we cannot declare
 these as static since then signal autoconnect won't work :-(
 */
-void on_user_tool_select(GtkCList *clist, gint row, gint column,
-  GdkEventButton *event, gpointer user_data);
-void on_user_tool_unselect(GtkCList *clist, gint row, gint column,
-  GdkEventButton *event, gpointer user_data);
 void on_user_tool_ok_clicked(GtkButton *button, gpointer user_data);
 void on_user_tool_edit_clicked(GtkButton *button, gpointer user_data);
 void on_user_tool_new_clicked(GtkButton *button, gpointer user_data);
@@ -702,7 +698,7 @@ static void an_user_tool_activate(AnUserTool *tool)
 		gtk_widget_ref(tool->menu_item);
 		g_signal_connect (G_OBJECT (tool->menu_item), "activate"
 		  , G_CALLBACK (execute_tool), tool);
-		gtk_menu_append(GTK_MENU(submenu), tool->menu_item);
+		gtk_menu_shell_append(GTK_MENU_SHELL (submenu), tool->menu_item);
 		if (tool->shortcut && tool->shortcut[0] != '\0')
 		{
 			guint mask = 0;

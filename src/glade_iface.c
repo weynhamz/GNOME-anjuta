@@ -23,6 +23,7 @@
 #include <gnome.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <string.h>
 
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -87,7 +88,7 @@ glade_iface_generate_source_code(gchar* glade_file)
 					return FALSE;
 				}
 				
-				dir = g_dirname (glade_file);
+				dir = g_path_get_dirname (glade_file);
 				if(dir)
 				{
 					force_create_dir (dir);
@@ -123,7 +124,7 @@ glade_iface_generate_source_code(gchar* glade_file)
 					return FALSE;
 				}
 	
-				dir = g_dirname (glade_file);
+				dir = g_path_get_dirname (glade_file);
 				if(dir)
 				{
 					force_create_dir (dir);
@@ -170,7 +171,7 @@ glade_iface_generate_source_code(gchar* glade_file)
 					return FALSE;
 				}
 				
-				dir = g_dirname (glade_file);
+				dir = g_path_get_dirname (glade_file);
 				if(dir)
 				{
 					force_create_dir (dir);
@@ -206,7 +207,7 @@ glade_iface_generate_source_code(gchar* glade_file)
 					return FALSE;
 				}
 	
-				dir = g_dirname (glade_file);
+				dir = g_path_get_dirname (glade_file);
 				if(dir)
 				{
 					force_create_dir (dir);
@@ -265,7 +266,7 @@ glade_iface_start_glade_editing (gchar* glade_file)
 		if (anjuta_is_installed ("glade", TRUE) == FALSE)
 			return FALSE;
 	}
-	dir = g_dirname (glade_file);
+	dir = g_path_get_dirname (glade_file);
 	/* gnome_execute_shell (dir, cmd) is evil. It overwrites SIGCHLD */;
 	pid = fork();
 	if (pid == 0)

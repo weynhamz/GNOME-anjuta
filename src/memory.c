@@ -25,6 +25,7 @@
 #include "config.h"
 #endif
 
+#include <string.h>
 
 #include <gnome.h>
 #include <glade/glade.h>
@@ -213,27 +214,27 @@ init_widget_memory (MemApp *memapp)
 void
 init_event_memory (MemApp *memapp)
 {
-	gtk_signal_connect (GTK_OBJECT (memapp->button_inspect), "clicked",
-						GTK_SIGNAL_FUNC (on_button_inspect_clicked), memapp);
-	gtk_signal_connect (GTK_OBJECT (memapp->button_quit), "clicked",
-						GTK_SIGNAL_FUNC (on_button_quit_clicked), memapp);
-	gtk_signal_connect (GTK_OBJECT (memapp->adr_entry), "insert_text",
-						GTK_SIGNAL_FUNC (on_adr_entry_insert_text), NULL);
-	gtk_signal_connect (GTK_OBJECT (memapp->dialog), "destroy",
-						GTK_SIGNAL_FUNC (on_dialog_memory_destroy), memapp);
-	gtk_signal_connect (GTK_OBJECT (memapp->dialog),
+	g_signal_connect (G_OBJECT (memapp->button_inspect), "clicked",
+						G_CALLBACK (on_button_inspect_clicked), memapp);
+	g_signal_connect (G_OBJECT (memapp->button_quit), "clicked",
+						G_CALLBACK (on_button_quit_clicked), memapp);
+	g_signal_connect (G_OBJECT (memapp->adr_entry), "insert_text",
+						G_CALLBACK (on_adr_entry_insert_text), NULL);
+	g_signal_connect (G_OBJECT (memapp->dialog), "destroy",
+						G_CALLBACK (on_dialog_memory_destroy), memapp);
+	g_signal_connect (G_OBJECT (memapp->dialog),
 						"key_press_event",
-						GTK_SIGNAL_FUNC (on_text1_key_press_event), memapp);
-	gtk_signal_connect (GTK_OBJECT (memapp->data_textview),
+						G_CALLBACK (on_text1_key_press_event), memapp);
+	g_signal_connect (G_OBJECT (memapp->data_textview),
 						"button_release_event",
-						GTK_SIGNAL_FUNC (on_text_data_button_release_event),
+						G_CALLBACK (on_text_data_button_release_event),
 						memapp);
-	gtk_signal_connect (GTK_OBJECT (memapp->eventbox_up), "button_press_event",
-						GTK_SIGNAL_FUNC (on_eventbox_up_button_press_event),
+	g_signal_connect (G_OBJECT (memapp->eventbox_up), "button_press_event",
+						G_CALLBACK (on_eventbox_up_button_press_event),
 						memapp);
-	gtk_signal_connect (GTK_OBJECT (memapp->eventbox_down),
+	g_signal_connect (G_OBJECT (memapp->eventbox_down),
 						"button_press_event",
-						GTK_SIGNAL_FUNC (on_eventbox_down_button_press_event),
+						G_CALLBACK (on_eventbox_down_button_press_event),
 						memapp);
 }
 
@@ -249,7 +250,7 @@ on_adr_entry_insert_text (GtkEditable *editable, const gchar *text,
 		if (!g_ascii_isxdigit (*text))
 		{
 			gdk_beep ();
-			gtk_signal_emit_stop_by_name (GTK_OBJECT (editable), "insert_text");
+			g_signal_stop_emission_by_name (G_OBJECT (editable), "insert_text");
 		}
 		return;
 	}
@@ -259,7 +260,7 @@ on_adr_entry_insert_text (GtkEditable *editable, const gchar *text,
 		if (!g_ascii_isxdigit (text[i]))
 		{
 			gdk_beep ();
-			gtk_signal_emit_stop_by_name (GTK_OBJECT (editable), "insert_text");
+			g_signal_stop_emission_by_name (G_OBJECT (editable), "insert_text");
 			return;
 		}
 	}
@@ -479,9 +480,9 @@ select_new_data (MemApp *memapp, GtkTextIter *start, GtkTextIter *end)
 
 	gtk_text_buffer_apply_tag_by_name (memapp->data_buffer, "data_select",
 									   start, end);
-	gtk_signal_emit_by_name (GTK_OBJECT (memapp->data_textview),
+	g_signal_emit_by_name (G_OBJECT (memapp->data_textview),
 							 "button_press_event",
-							 GTK_SIGNAL_FUNC (dummy), memapp);
+							 G_CALLBACK (dummy), memapp);
 }
 
 static gboolean

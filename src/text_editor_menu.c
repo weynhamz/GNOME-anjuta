@@ -43,7 +43,7 @@ on_tem_dock_undock_activate (GtkWidget* menuitem, gpointer data);
 static void
 on_tem_toggle_linenum_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.editor_linenos),
 				 "activate");
 }
@@ -51,7 +51,7 @@ on_tem_toggle_linenum_activate (GtkWidget* menuitem, gpointer data)
 static void
 on_tem_toggle_marker_margin_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.editor_markers),
 				 "activate");
 }
@@ -59,7 +59,7 @@ on_tem_toggle_marker_margin_activate (GtkWidget* menuitem, gpointer data)
 static void
 on_tem_toggle_code_fold_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.editor_folds),
 				 "activate");
 }
@@ -67,7 +67,7 @@ on_tem_toggle_code_fold_activate (GtkWidget* menuitem, gpointer data)
 static void
 on_tem_toggle_guides_activate (GtkWidget* menuitem, gpointer data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.editor_indentguides),
 				 "activate");
 }
@@ -429,7 +429,7 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	{
 		submenu =
 			create_submenu (N_("Tags"), (GList *) local_tags,
-					GTK_SIGNAL_FUNC
+					G_CALLBACK
 					(on_text_editor_menu_tags_activate));
 		gtk_menu_item_set_submenu (GTK_MENU_ITEM
 					   (menu->functions), submenu);

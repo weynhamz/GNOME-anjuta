@@ -116,9 +116,9 @@ compatibility_0_compiler_options_load (PropsID props, FILE* s)
 			return FALSE;
 		}
 		if (state)
-			list = g_list_append (list, strdup("1"));
+			list = g_list_append (list, g_strdup("1"));
 		else
-			list = g_list_append (list, strdup("0"));
+			list = g_list_append (list, g_strdup("0"));
 	}
 	buff = string_from_glist (list);
 	glist_strings_free  (list);

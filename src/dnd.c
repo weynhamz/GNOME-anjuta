@@ -174,8 +174,8 @@ dnd_drop_init (GtkWidget *widget,
 	 * Connect callback for the "drag_data_received" signal, emitted by the
 	 * wigdet whenever a "drop" is made.
 	 */
-	gtk_signal_connect (GTK_OBJECT (widget), "drag_data_received",
-			    GTK_SIGNAL_FUNC (drag_data_received_cb),
+	g_signal_connect (G_OBJECT (widget), "drag_data_received",
+			    G_CALLBACK (drag_data_received_cb),
 			    (gpointer) user_data);
 	return;
 }

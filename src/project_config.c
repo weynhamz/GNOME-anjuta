@@ -20,6 +20,8 @@
 #  include <config.h>
 #endif
 
+#include <string.h>
+
 #include "anjuta.h"
 #include "project_config.h"
 #include "utilities.h"
@@ -155,8 +157,8 @@ project_config_show (ProjectConfig * pc)
 		return;
 	}
 	project_config_sync (pc);
-	gtk_widget_set_uposition (pc->priv->window,
-				  pc->priv->win_pos_x, pc->priv->win_pos_y);
+	gtk_window_move (GTK_WINDOW (pc->priv->window),
+					 pc->priv->win_pos_x, pc->priv->win_pos_y);
 	gtk_window_set_default_size (GTK_WINDOW
 				     (pc->priv->window),
 				     pc->priv->win_width, pc->priv->win_height);
@@ -172,8 +174,9 @@ project_config_hide (ProjectConfig * pc)
 		return;
 	gdk_window_get_root_origin (pc->priv->window->window,
 				    &pc->priv->win_pos_x, &pc->priv->win_pos_y);
-	gdk_window_get_size (pc->priv->window->window, &pc->priv->win_width,
-			     &pc->priv->win_height);
+	gdk_drawable_get_size (GDK_DRAWABLE (pc->priv->window->window),
+						   &pc->priv->win_width,
+						   &pc->priv->win_height);
 	gtk_widget_hide (pc->priv->window);
 	pc->priv->is_showing = FALSE;
 }
@@ -751,7 +754,7 @@ project_config_save_yourself (ProjectConfig * pc, FILE* stream)
 	{
 		gdk_window_get_root_origin (pc->priv->window->window,
 					    &pc->priv->win_pos_x, &pc->priv->win_pos_y);
-		gdk_window_get_size (pc->priv->window->window,
+		gdk_drawable_get_size (GDK_DRAWABLE (pc->priv->window->window),
 				     &pc->priv->win_width, &pc->priv->win_height);
 	}
 	fprintf (stream, "project.config.win.pos.x=%d\n", pc->priv->win_pos_x);

@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     watch_gui.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
@@ -108,8 +109,8 @@ create_expr_watch_gui (ExprWatch * ew)
 	GtkCellRenderer *renderer;	
 	
 	model = GTK_TREE_MODEL(gtk_list_store_new(WATCH_N_COLUMNS,
-											GTK_TYPE_STRING,
-											GTK_TYPE_STRING));
+											G_TYPE_STRING,
+											G_TYPE_STRING));
 	
 	ew->widgets.clist = gtk_tree_view_new_with_model(model);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ew->widgets.clist));
@@ -164,19 +165,19 @@ create_watch_add_dialog (ExprWatch *ew)
 	GtkWidget *dialog_vbox3;
 	GtkWidget *label15;
 	GtkWidget *entry7;
-	GtkWidget *dialog_action_area3;
-	GtkWidget *button18;
-	GtkWidget *button19;
-	GtkWidget *button20;
 	
-	dialog3 = gnome_dialog_new (_("Add Watch Expression"), NULL);
-	
+	dialog3 = gtk_dialog_new_with_buttons (_("Add Watch Expression"),
+										   GTK_WINDOW (app->widgets.window),
+										   GTK_DIALOG_DESTROY_WITH_PARENT,
+										   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+										   GTK_STOCK_OK, GTK_RESPONSE_OK,
+										   NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog3), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
-	gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog3), FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
-	gnome_dialog_set_close (GNOME_DIALOG (dialog3), TRUE);
 	
-	dialog_vbox3 = GNOME_DIALOG (dialog3)->vbox;
+	dialog_vbox3 = GTK_DIALOG (dialog3)->vbox;
 	gtk_widget_show (dialog_vbox3);
 	
 	label15 = gtk_label_new (_("Add expression to watch"));
@@ -184,40 +185,16 @@ create_watch_add_dialog (ExprWatch *ew)
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), label15, FALSE, FALSE, 0);
 	
 	entry7 = gtk_entry_new ();
-	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
+	gtk_entry_set_activates_default (GTK_ENTRY (entry7), TRUE);
 	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
 	gtk_widget_show (entry7);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
 	
-	dialog_action_area3 = GNOME_DIALOG (dialog3)->action_area;
-	gtk_widget_show (dialog_action_area3);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3),
-				 GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area3), 8);
+	/* We will be passing the entry box as user data. So .. */
+	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
 	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3),
-				  GNOME_STOCK_BUTTON_HELP);
-	button18 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button18);
-	GTK_WIDGET_SET_FLAGS (button18, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
-	button19 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button19);
-	GTK_WIDGET_SET_FLAGS (button19, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3),
-				  GNOME_STOCK_BUTTON_OK);
-	button20 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button20);
-	GTK_WIDGET_SET_FLAGS (button20, GTK_CAN_DEFAULT);
-	
-	gtk_signal_connect (GTK_OBJECT (button18), "clicked",
-			  GTK_SIGNAL_FUNC (on_ew_add_help_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button20), "clicked",
-			  GTK_SIGNAL_FUNC (on_ew_add_ok_clicked), entry7);
-	gtk_signal_connect (GTK_OBJECT (entry7), "activate",
-			  GTK_SIGNAL_FUNC (on_ew_entry_activate), dialog3);
+	g_signal_connect (G_OBJECT (dialog3), "response",
+			  G_CALLBACK (on_ew_add_response), entry7);
 	
 	gtk_widget_grab_focus(entry7);
 	return dialog3;
@@ -230,19 +207,19 @@ create_watch_change_dialog (ExprWatch *ew)
 	GtkWidget *dialog_vbox3;
 	GtkWidget *label15;
 	GtkWidget *entry7;
-	GtkWidget *dialog_action_area3;
-	GtkWidget *button18;
-	GtkWidget *button19;
-	GtkWidget *button20;
 	
-	dialog3 = gnome_dialog_new (_("Modify Watch Expression"), NULL);
-	
+	dialog3 = gtk_dialog_new_with_buttons (_("Modify Watch Expression"),
+										   GTK_WINDOW (app->widgets.window),
+										   GTK_DIALOG_DESTROY_WITH_PARENT,
+										   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+										   GTK_STOCK_OK, GTK_RESPONSE_OK,
+										   NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog3), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
-	gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog3), FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
-	gnome_dialog_set_close (GNOME_DIALOG (dialog3), TRUE);
 	
-	dialog_vbox3 = GNOME_DIALOG (dialog3)->vbox;
+	dialog_vbox3 = GTK_DIALOG (dialog3)->vbox;
 	gtk_widget_show (dialog_vbox3);
 	
 	label15 = gtk_label_new (_("Modify watched expression"));
@@ -250,40 +227,16 @@ create_watch_change_dialog (ExprWatch *ew)
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), label15, FALSE, FALSE, 0);
 	
 	entry7 = gtk_entry_new ();
-	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
+	gtk_entry_set_activates_default (GTK_ENTRY (entry7), TRUE);
 	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE);
 	gtk_widget_show (entry7);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
 	
-	dialog_action_area3 = GNOME_DIALOG (dialog3)->action_area;
-	gtk_widget_show (dialog_action_area3);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3),
-				 GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area3), 8);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3),
-				  GNOME_STOCK_BUTTON_HELP);
-	button18 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button18);
-	GTK_WIDGET_SET_FLAGS (button18, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
-	button19 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button19);
-	GTK_WIDGET_SET_FLAGS (button19, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3),
-				  GNOME_STOCK_BUTTON_OK);
-	button20 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button20);
-	GTK_WIDGET_SET_FLAGS (button20, GTK_CAN_DEFAULT);
-	
-	gtk_signal_connect (GTK_OBJECT (button18), "clicked",
-			  GTK_SIGNAL_FUNC (on_ew_change_help_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button20), "clicked",
-			  GTK_SIGNAL_FUNC (on_ew_change_ok_clicked), entry7);
-	gtk_signal_connect (GTK_OBJECT (entry7), "activate",
-			  GTK_SIGNAL_FUNC (on_ew_entry_change_activate), dialog3);
+	/* We will be passing the entry box as user data. So .. */
+	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
+
+	g_signal_connect (G_OBJECT (dialog3), "response",
+			  G_CALLBACK (on_ew_change_response), entry7);
 	
 	gtk_widget_grab_focus(entry7);
 	return dialog3;
@@ -296,20 +249,21 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	GtkWidget *dialog_vbox4;
 	GtkWidget *label16;
 	GtkWidget *entry8;
-	GtkWidget *dialog_action_area4;
-	GtkWidget *button21;
-	GtkWidget *button22;
-	GtkWidget *button23;
 	GtkWidget *addWatchButton;
 	
-	dialog4 = gnome_dialog_new (_("Inspect/Evaluate"), NULL);
+	dialog4 = gtk_dialog_new_with_buttons (_("Inspect/Evaluate"),
+										   GTK_WINDOW (app->widgets.window),
+										   GTK_DIALOG_DESTROY_WITH_PARENT,
+										   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+										   GTK_STOCK_OK, GTK_RESPONSE_OK,
+										   NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog4), GTK_RESPONSE_OK);
 	gtk_window_set_transient_for (GTK_WINDOW(dialog4), GTK_WINDOW(parent));
 	gtk_window_set_position (GTK_WINDOW (dialog4), GTK_WIN_POS_MOUSE);
-	gtk_window_set_policy (GTK_WINDOW (dialog4), FALSE, FALSE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog4), FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog4), "inspeval", "Anjuta");
-	gnome_dialog_set_close (GNOME_DIALOG (dialog4), TRUE);
 	
-	dialog_vbox4 = GNOME_DIALOG (dialog4)->vbox;
+	dialog_vbox4 = GTK_DIALOG (dialog4)->vbox;
 	gtk_widget_show (dialog_vbox4);
 	
 	label16 = gtk_label_new (_("Inspect/Evaluate Expression"));
@@ -317,45 +271,22 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	gtk_box_pack_start (GTK_BOX (dialog_vbox4), label16, FALSE, FALSE, 0);
 	
 	entry8 = gtk_entry_new ();
-	g_object_set_data (G_OBJECT (entry8), "user_data", ew);  
+	gtk_entry_set_activates_default (GTK_ENTRY (entry8), TRUE);
 	entry_set_text_n_select (entry8, eval_entry_history, TRUE);
 	gtk_widget_show (entry8);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox4), entry8, FALSE, FALSE, 0);
-	
+
+	/* We will be passing the entry box as user data. So .. */
+	g_object_set_data (G_OBJECT (entry8), "user_data", ew);  
+
 	addWatchButton = gtk_button_new_with_label(_("Add To Watch"));
 	gtk_widget_show(addWatchButton);
 	gtk_box_pack_end(GTK_BOX (dialog_vbox4), addWatchButton, FALSE, FALSE, 0);
 	
-	dialog_action_area4 = GNOME_DIALOG (dialog4)->action_area;
-	gtk_widget_show (dialog_action_area4);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4),
-				 GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area4), 8);
-	gnome_dialog_append_button (GNOME_DIALOG (dialog4),
-				  GNOME_STOCK_BUTTON_HELP);
-	button21 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
-	gtk_widget_show (button21);
-	GTK_WIDGET_SET_FLAGS (button21, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog4), GNOME_STOCK_BUTTON_CANCEL);
-	button22 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
-	gtk_widget_show (button22);
-	GTK_WIDGET_SET_FLAGS (button22, GTK_CAN_DEFAULT);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog4),
-				  GNOME_STOCK_BUTTON_OK);
-	button23 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
-	gtk_widget_show (button23);
-	GTK_WIDGET_SET_FLAGS (button23, GTK_CAN_DEFAULT);
-	
-	gtk_signal_connect (GTK_OBJECT (button21), "clicked",
-			  GTK_SIGNAL_FUNC (on_eval_help_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button23), "clicked",
-			  GTK_SIGNAL_FUNC (on_eval_ok_clicked), entry8);
-	gtk_signal_connect (GTK_OBJECT (entry8), "activate",
-			  GTK_SIGNAL_FUNC (on_eval_entry_activate), dialog4);
-	gtk_signal_connect (GTK_OBJECT (addWatchButton), "clicked",
-			  GTK_SIGNAL_FUNC (on_eval_add_watch), entry8);
+	g_signal_connect (G_OBJECT (dialog4), "response",
+			  G_CALLBACK (on_eval_response), entry8);
+	g_signal_connect (G_OBJECT (addWatchButton), "clicked",
+			  G_CALLBACK (on_eval_add_watch), entry8);
 	
 	gtk_widget_grab_focus(entry8);
 	return dialog4;

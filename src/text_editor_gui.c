@@ -67,8 +67,8 @@ create_text_editor_gui (TextEditor * te)
 	gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
 	gnome_window_icon_set_from_default((GtkWindow *) window1);
 	gtk_window_set_wmclass (GTK_WINDOW (window1), "editor", "Anjuta");
-	gtk_widget_set_usize (window1, 200, 200);
-	gtk_widget_set_uposition (window1, te->geom.x, te->geom.y);
+	gtk_widget_set_size_request (window1, 200, 200);
+	gtk_window_move (GTK_WINDOW (window1), te->geom.x, te->geom.y);
 	gtk_window_set_default_size (GTK_WINDOW (window1),
 				     te->geom.width, te->geom.height);
 
@@ -144,7 +144,7 @@ create_text_editor_gui (TextEditor * te)
 	gtk_widget_show (frame1);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), frame1, NULL,
 				   NULL);
-	gtk_widget_set_usize (frame1, 117, -2);
+	gtk_widget_set_size_request (frame1, 117, -1);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
 	gtk_widget_hide (frame1);
 
@@ -203,33 +203,30 @@ create_text_editor_gui (TextEditor * te)
 
 	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
-	gtk_signal_connect (GTK_OBJECT (window1), "realize",
-			    GTK_SIGNAL_FUNC (on_text_editor_window_realize),
+	g_signal_connect (G_OBJECT (window1), "realize",
+			    G_CALLBACK (on_text_editor_window_realize),
 			    te);
-	gtk_signal_connect (GTK_OBJECT (window1), "size_allocate",
-			    GTK_SIGNAL_FUNC
+	g_signal_connect (G_OBJECT (window1), "size_allocate",
+			    G_CALLBACK
 			    (on_text_editor_window_size_allocate), te);
-	gtk_signal_connect (GTK_OBJECT (window1), "focus_in_event",
-			    GTK_SIGNAL_FUNC
+	g_signal_connect (G_OBJECT (window1), "focus_in_event",
+			    G_CALLBACK
 			    (on_text_editor_window_focus_in_event), te);
-	gtk_signal_connect (GTK_OBJECT (window1), "delete_event",
-			    GTK_SIGNAL_FUNC (on_text_editor_window_delete),
+	g_signal_connect (G_OBJECT (window1), "delete_event",
+			    G_CALLBACK (on_text_editor_window_delete),
 			    te);
-	gtk_signal_connect (GTK_OBJECT (event_box1), "realize",
-			    GTK_SIGNAL_FUNC (on_text_editor_client_realize),
+	g_signal_connect (G_OBJECT (event_box1), "realize",
+			    G_CALLBACK (on_text_editor_client_realize),
 			    te);
 
-	gtk_signal_connect (GTK_OBJECT (editor1), "event",
-			    GTK_SIGNAL_FUNC (on_text_editor_text_event), te);
-	gtk_signal_connect (GTK_OBJECT (editor1), "button_press_event",
-			    GTK_SIGNAL_FUNC
-			    (on_text_editor_text_buttonpress_event), te);
-	gtk_signal_connect_after (GTK_OBJECT (editor1), "size_allocate",
-			    GTK_SIGNAL_FUNC
-			    (on_text_editor_scintilla_size_allocate), te);
-	gtk_signal_connect (GTK_OBJECT (editor1), "sci-notify",
-			    GTK_SIGNAL_FUNC (on_text_editor_scintilla_notify),
-			    te);
+	g_signal_connect (G_OBJECT (editor1), "event",
+			    G_CALLBACK (on_text_editor_text_event), te);
+	g_signal_connect (G_OBJECT (editor1), "button_press_event",
+			    G_CALLBACK (on_text_editor_text_buttonpress_event), te);
+	g_signal_connect_after (G_OBJECT (editor1), "size_allocate",
+			    G_CALLBACK (on_text_editor_scintilla_size_allocate), te);
+	g_signal_connect (G_OBJECT (editor1), "sci-notify",
+			    G_CALLBACK (on_text_editor_scintilla_notify), te);
 
 	te->widgets.window = window1;
 	te->widgets.client_area = frame1;

@@ -1,3 +1,5 @@
+
+#include <string.h>
 #include <gnome.h>
 
 #include "widget-registry.h"
@@ -16,8 +18,7 @@ void an_register_submenu(const gchar *name, GtkWidget *submenu)
 		default_submenu = submenu;
 	else
 	{
-		gchar *lname = g_strdup(name);
-		g_strdown(lname);
+		gchar *lname = g_ascii_strdown(name, strlen(name));
 		if (NULL == g_hash_table_lookup(registry, lname))
 			g_hash_table_insert(registry, (gpointer) lname, submenu);
 		else
@@ -34,8 +35,7 @@ GtkWidget *an_get_submenu(const gchar *name)
 		return default_submenu;
 	else
 	{
-		gchar *lname = g_strdup(name);
-		g_strdown(lname);
+		gchar *lname = g_ascii_strdown(name, strlen(name));
 		submenu = g_hash_table_lookup(registry, lname);
 		g_free(lname);
 		if (NULL == submenu)

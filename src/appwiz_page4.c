@@ -64,28 +64,28 @@ on_use_glade_checkbutton_toggled (GtkToggleButton * tb, gpointer user_data)
 void
 create_app_wizard_page4 (AppWizard * aw)
 {
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.file_header_check), "toggled",
-			    GTK_SIGNAL_FUNC (on_gpl_checkbutton_toggled), aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.gettext_support_check), "toggled",
-			    GTK_SIGNAL_FUNC(on_gettext_support_checkbutton_toggled), aw);
+	g_signal_connect (G_OBJECT (aw->widgets.file_header_check), "toggled",
+			    G_CALLBACK (on_gpl_checkbutton_toggled), aw);
+	g_signal_connect (G_OBJECT (aw->widgets.gettext_support_check), "toggled",
+			    G_CALLBACK(on_gettext_support_checkbutton_toggled), aw);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.menu_entry_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->menu_entry);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.menu_entry_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_realize), aw->menu_entry);
+	g_signal_connect (G_OBJECT (aw->widgets.menu_entry_entry), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->menu_entry);
+	g_signal_connect (G_OBJECT (aw->widgets.menu_entry_entry), "realize",
+			    G_CALLBACK (on_aw_text_entry_realize), aw->menu_entry);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.menu_comment_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->menu_comment);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.menu_comment_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_realize), aw->menu_comment);
+	g_signal_connect (G_OBJECT (aw->widgets.menu_comment_entry), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->menu_comment);
+	g_signal_connect (G_OBJECT (aw->widgets.menu_comment_entry), "realize",
+			    G_CALLBACK (on_aw_text_entry_realize), aw->menu_comment);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.app_group_combo), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->app_group);
+	g_signal_connect (G_OBJECT (aw->widgets.app_group_combo), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->app_group);
 	
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.term_check), "toggled",
-			    GTK_SIGNAL_FUNC(on_need_term_checkbutton_toggled), aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.use_glade_check), "toggled",
-			    GTK_SIGNAL_FUNC(on_use_glade_checkbutton_toggled), aw);
+	g_signal_connect (G_OBJECT (aw->widgets.term_check), "toggled",
+			    G_CALLBACK(on_need_term_checkbutton_toggled), aw);
+	g_signal_connect (G_OBJECT (aw->widgets.use_glade_check), "toggled",
+			    G_CALLBACK(on_use_glade_checkbutton_toggled), aw);
 
 	gtk_widget_ref (aw->widgets.gettext_support_check);
 	gtk_widget_ref (aw->widgets.file_header_check);

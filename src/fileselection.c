@@ -154,14 +154,14 @@ create_fileselection_gui (FileSelData * fsd)
 
 	gtk_window_add_accel_group (GTK_WINDOW (fileselection_gui), app->accel_group);
 
-	gtk_signal_connect (GTK_OBJECT (fileselection_gui), "delete_event",
-			    GTK_SIGNAL_FUNC (on_file_selection_delete_event),
+	g_signal_connect (G_OBJECT (fileselection_gui), "delete_event",
+			    G_CALLBACK (on_file_selection_delete_event),
 			    fsd);
-	// gtk_signal_connect (GTK_OBJECT (fileselection_ok), "clicked",
-	//		    GTK_SIGNAL_FUNC (on_file_selection_ok_clicked),
+	// g_signal_connect (G_OBJECT (fileselection_ok), "clicked",
+	//		    G_CALLBACK (on_file_selection_ok_clicked),
 	//		    fsd);
-	// gtk_signal_connect (GTK_OBJECT (fileselection_cancel), "clicked",
-	//		    GTK_SIGNAL_FUNC (on_file_selection_cancel_clicked),
+	// g_signal_connect (G_OBJECT (fileselection_cancel), "clicked",
+	//		    G_CALLBACK (on_file_selection_cancel_clicked),
 	//		    fsd);
 	g_signal_connect (G_OBJECT (fileselection_gui), "response",
 				G_CALLBACK (on_file_selection_response), fsd);

@@ -104,34 +104,34 @@ on_lang_c_cpp_toggled                  (GtkToggleButton *togglebutton,
 void
 create_app_wizard_page2 (AppWizard * aw)
 {
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.prj_name_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_prj_name_entry_changed), aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.prj_name_entry), "focus_out_event",
-			    GTK_SIGNAL_FUNC(on_prj_name_entry_focus_out_event), aw);
+	g_signal_connect (G_OBJECT (aw->widgets.prj_name_entry), "changed",
+			    G_CALLBACK (on_prj_name_entry_changed), aw);
+	g_signal_connect (G_OBJECT (aw->widgets.prj_name_entry), "focus_out_event",
+			    G_CALLBACK(on_prj_name_entry_focus_out_event), aw);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.prj_name_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->prj_name);
+	g_signal_connect (G_OBJECT (aw->widgets.prj_name_entry), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->prj_name);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->target);
+	g_signal_connect (G_OBJECT (aw->widgets.target_entry), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->target);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.version_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->version);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.version_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_realize), aw->version);
+	g_signal_connect (G_OBJECT (aw->widgets.version_entry), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->version);
+	g_signal_connect (G_OBJECT (aw->widgets.version_entry), "realize",
+			    G_CALLBACK (on_aw_text_entry_realize), aw->version);
 
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.author_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_changed), &aw->author);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.author_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_aw_text_entry_realize), aw->author);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.language_c_radio), "toggled",
-		      GTK_SIGNAL_FUNC (on_lang_c_toggled),
+	g_signal_connect (G_OBJECT (aw->widgets.author_entry), "changed",
+			    G_CALLBACK (on_aw_text_entry_changed), &aw->author);
+	g_signal_connect (G_OBJECT (aw->widgets.author_entry), "realize",
+			    G_CALLBACK (on_aw_text_entry_realize), aw->author);
+	g_signal_connect (G_OBJECT (aw->widgets.language_c_radio), "toggled",
+		      G_CALLBACK (on_lang_c_toggled),
 		      aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.language_cpp_radio), "toggled",
-		      GTK_SIGNAL_FUNC (on_lang_cpp_toggled),
+	g_signal_connect (G_OBJECT (aw->widgets.language_cpp_radio), "toggled",
+		      G_CALLBACK (on_lang_cpp_toggled),
 		      aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.language_c_cpp_radio), "toggled",
-		      GTK_SIGNAL_FUNC (on_lang_c_cpp_toggled),
+	g_signal_connect (G_OBJECT (aw->widgets.language_c_cpp_radio), "toggled",
+		      G_CALLBACK (on_lang_c_cpp_toggled),
 		      aw);
 
 	gtk_widget_ref (aw->widgets.prj_name_entry);

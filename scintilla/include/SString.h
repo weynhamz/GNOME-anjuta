@@ -8,6 +8,8 @@
 #ifndef SSTRING_H
 #define SSTRING_H
 
+#include <string.h>
+
 // These functions are implemented because each platform calls them something different.
 int CompareCaseInsensitive(const char *a, const char *b);
 int CompareNCaseInsensitive(const char *a, const char *b, size_t len);

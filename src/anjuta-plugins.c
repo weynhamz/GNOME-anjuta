@@ -3,6 +3,7 @@
 #endif
 
 #include <syslog.h>
+#include <string.h>
 
 #include <gnome.h>
 #include "anjuta.h"
@@ -79,7 +80,7 @@ static AnPlugErr plug_in_init(AnjutaPlugIn *self, const gchar *szModName)
 					  szTitle);
 					gtk_widget_ref(self->menu_item);
 					g_free(szTitle);
-					gtk_menu_append(GTK_MENU(submenu), self->menu_item);
+					gtk_menu_shell_append(GTK_MENU_SHELL (submenu), self->menu_item);
 					gtk_widget_show(self->menu_item);
 					g_signal_connect (G_OBJECT (self->menu_item), "activate"
 					  , G_CALLBACK (plug_in_callback), self);

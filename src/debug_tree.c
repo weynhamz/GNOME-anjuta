@@ -124,10 +124,10 @@ build_menu_item (gchar * menutext, GtkSignalFunc signalhandler,
 		menuitem = gtk_menu_item_new ();
 
 	if (signalhandler)
-		gtk_signal_connect (GTK_OBJECT (menuitem), "activate",signalhandler,data);
+		g_signal_connect (G_OBJECT (menuitem), "activate",signalhandler,data);
 
 	if (menu)
-		gtk_menu_append (GTK_MENU (menu), menuitem);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
 	return menuitem;
 }
@@ -848,7 +848,7 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 	while (success)
 	{
 		gtk_tree_model_get (model, &iter, DTREE_ENTRY_COLUMN, &data, -1);			
-		if (data && g_strcasecmp (var_name, data->name) == 0) {
+		if (data && g_ascii_strcasecmp (var_name, data->name) == 0) {
 			found = TRUE;
 			break;
 		}
@@ -877,7 +877,7 @@ set_item (GtkTreeView* ctree, GtkTreeIter* parent, const gchar * var_name,
 											 * deleted by caller */
 			/* Set red color if var modified */
 			data->modified =
-					(g_strcasecmp (value, data->value) != 0) ? TRUE : FALSE;
+					(g_ascii_strcasecmp (value, data->value) != 0) ? TRUE : FALSE;
 			gtk_tree_store_set(GTK_TREE_STORE(model), &iter,
 								   VALUE_COLUMN, val,-1);
 		}
@@ -956,10 +956,10 @@ determine_type (gchar * buf)
 	// (void (*)(void)) 0x804a944 <f(E *, char)> - so is this - ugly!!!
 	if (*buf == '{')
 	{
-		if (g_strncasecmp (buf, "{{", 2) == 0)
+		if (g_ascii_strncasecmp (buf, "{{", 2) == 0)
 			return TYPE_ARRAY;
 
-		if (g_strncasecmp (buf, "{<No data fields>}", 18) == 0)
+		if (g_ascii_strncasecmp (buf, "{<No data fields>}", 18) == 0)
 			return TYPE_VALUE;
 
 		buf++;
@@ -985,7 +985,7 @@ determine_type (gchar * buf)
 				if (*(buf + 1) == ',' || *(buf + 1) == '\n' || !*(buf + 1))
 					return TYPE_ARRAY;			 // Hmm a single element
 												 // array??
-				if (g_strncasecmp (buf + 1, " 0x", 3) == 0)
+				if (g_ascii_strncasecmp (buf + 1, " 0x", 3) == 0)
 					return TYPE_POINTER;		 // What about references?
 				return TYPE_UNKNOWN;			 // very odd?
 			case '(':
@@ -1005,7 +1005,7 @@ determine_type (gchar * buf)
 	// some sort of address. We need to sort out if we have
 	// a 0x888888 "this is a char*" type which we'll term a value
 	// or whether we just have an address
-	if (g_strncasecmp (buf, "0x", 2) == 0)
+	if (g_ascii_strncasecmp (buf, "0x", 2) == 0)
 	{
 		while (*buf)
 		{
@@ -1040,7 +1040,7 @@ determine_type (gchar * buf)
 	}
 
 	buf = skip_token_value (buf);
-	if ((g_strncasecmp (buf, " = ", 3) == 0) || (*buf == '='))
+	if ((g_ascii_strncasecmp (buf, " = ", 3) == 0) || (*buf == '='))
 		return TYPE_NAME;
 
 	return TYPE_VALUE;
@@ -1054,11 +1054,11 @@ skip_string (gchar *buf)
 		buf = skip_quotes (buf, *buf);
 		while (*buf)
 		{
-			if ((g_strncasecmp (buf, ", \"", 3) == 0) ||
-				(g_strncasecmp (buf, ", '", 3) == 0))
+			if ((g_ascii_strncasecmp (buf, ", \"", 3) == 0) ||
+				(g_ascii_strncasecmp (buf, ", '", 3) == 0))
 				buf = skip_quotes (buf + 2, *(buf + 2));
 
-			else if (g_strncasecmp (buf, " <", 2) == 0)	// take care of
+			else if (g_ascii_strncasecmp (buf, " <", 2) == 0)	// take care of
 														// <repeats
 				buf = skip_delim (buf + 1, '<', '>');
 			else
@@ -1502,31 +1502,31 @@ debug_tree_create ()
 	
 	d_tree->middle_click_menu = gtk_menu_new ();
 	build_menu_item (_("Default format"),
-					 GTK_SIGNAL_FUNC(on_format_default_clicked),
+					 G_CALLBACK(on_format_default_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	add_menu_separator (d_tree->middle_click_menu);
 	build_menu_item (_("Binary"),
-					 GTK_SIGNAL_FUNC(on_format_binary_clicked),
+					 G_CALLBACK(on_format_binary_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	build_menu_item (_("Octal"),
-					 GTK_SIGNAL_FUNC(on_format_octal_clicked),
+					 G_CALLBACK(on_format_octal_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	build_menu_item (_("Signed decimal"),
-					 GTK_SIGNAL_FUNC(on_format_signed_decimal_clicked),
+					 G_CALLBACK(on_format_signed_decimal_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	build_menu_item (_("Unsigned decimal"),
-					 GTK_SIGNAL_FUNC(on_format_unsigned_decimal_clicked),
+					 G_CALLBACK(on_format_unsigned_decimal_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	build_menu_item (_("Hex"),
-					 GTK_SIGNAL_FUNC(on_format_hex_clicked), 
+					 G_CALLBACK(on_format_hex_clicked), 
 					 d_tree->middle_click_menu, d_tree);
 	build_menu_item (_("Char"),
-					 GTK_SIGNAL_FUNC(on_format_char_clicked),
+					 G_CALLBACK(on_format_char_clicked),
 					 d_tree->middle_click_menu, d_tree);
 
 	add_menu_separator (d_tree->middle_click_menu);
 	build_menu_item (_("Inspect memory"),
-					 GTK_SIGNAL_FUNC(on_inspect_memory_clicked),
+					 G_CALLBACK(on_inspect_memory_clicked),
 					 d_tree->middle_click_menu, d_tree);
 	
 	return d_tree;

@@ -1648,8 +1648,9 @@ compiler_options_show (CompilerOptions * co)
 		gdk_window_raise (co->priv->widgets.window->window);
 		return;
 	}
-	gtk_widget_set_uposition (co->priv->widgets.window, co->priv->win_pos_x,
-							  co->priv->win_pos_y);
+	gtk_window_move (GTK_WINDOW (co->priv->widgets.window), 
+								 co->priv->win_pos_x,
+								 co->priv->win_pos_y);
 	gtk_widget_show (co->priv->widgets.window);
 	co->priv->is_showing = TRUE;
 }

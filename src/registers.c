@@ -85,8 +85,10 @@ cpu_registers_show(CpuRegisters* ew)
      {
 		 gdk_window_raise(ew->widgets.window->window);
      }
-     gtk_widget_set_uposition(ew->widgets.window, ew->win_pos_x, ew->win_pos_y);
-     gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window), ew->win_width, ew->win_height);
+     gtk_window_move (GTK_WINDOW (ew->widgets.window),
+					  ew->win_pos_x, ew->win_pos_y);
+     gtk_window_set_default_size(GTK_WINDOW(ew->widgets.window),
+								 ew->win_width, ew->win_height);
      gtk_widget_show(ew->widgets.window);
      ew->is_showing = TRUE;
 	 if (debugger_is_active() && debugger_is_ready())
@@ -104,7 +106,8 @@ cpu_registers_hide(CpuRegisters* ew)
   {
      if(ew->is_showing == FALSE) return;
      gdk_window_get_root_origin(ew ->widgets.window->window, &ew->win_pos_x, &ew->win_pos_y);
-     gdk_window_get_size(ew ->widgets.window->window, &ew->win_width, &ew->win_height);
+     gdk_drawable_get_size(GDK_DRAWABLE (ew ->widgets.window->window),
+						   &ew->win_width, &ew->win_height);
      gtk_widget_hide(ew->widgets.window);
      ew->is_showing = FALSE;
   }
@@ -119,7 +122,8 @@ cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream)
 	{
 		gdk_window_get_root_origin (ew->widgets.window->window, &ew->win_pos_x,
 		      &ew->win_pos_y);
-		gdk_window_get_size (ew->widgets.window->window, &ew->win_width, &ew->win_height);
+		gdk_drawable_get_size (GDK_DRAWABLE (ew->widgets.window->window),
+							   &ew->win_width, &ew->win_height);
 	}
 	fprintf(stream, "registers.win.pos.x=%d\n", ew->win_pos_x);
 	fprintf(stream, "registers.win.pos.y=%d\n", ew->win_pos_y);

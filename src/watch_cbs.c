@@ -18,6 +18,8 @@
 #  include <config.h>
 #endif
 
+#include <string.h>
+
 #include <gnome.h>
 #include "anjuta.h"
 #include "debugger.h"
@@ -131,65 +133,28 @@ on_watch_update_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_watch_help_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_watch_help_activate                 (GtkMenuItem     *menuitem,
+                                        gpointer         user_data)
 {
-
 }
 
 void
-on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
+on_ew_add_response (GtkWidget *dlg, gint res, gpointer user_data)
 {
 	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data),
 													"user_data");
-	add_watch_entry ((GtkEntry *) user_data, ew);
+	if (res == GTK_RESPONSE_OK)
+		add_watch_entry ((GtkEntry *) user_data, ew);
+	gtk_widget_destroy (dlg);
 }
 
 void
-on_ew_add_help_clicked (GtkButton * button, gpointer user_data)
+on_ew_change_response (GtkWidget *dlg, gint res, gpointer user_data)
 {
-
-}
-
-void
-on_ew_entry_activate (GtkWidget * wid, gpointer user_data)
-{
-	on_ew_add_ok_clicked (NULL, wid);
-	gtk_widget_destroy (GTK_WIDGET (user_data));
-}
-
-void
-on_ew_entry_change_activate (GtkWidget * wid, gpointer user_data)
-{
-	on_ew_change_ok_clicked (NULL, wid);
-	gtk_widget_destroy (GTK_WIDGET (user_data));
-}
-
-void
-on_ew_change_help_clicked (GtkButton * wid, gpointer user_data)
-{
-
-}
-
-void
-on_ew_change_ok_clicked (GtkButton * wid, gpointer user_data)
-{
-	ExprWatch* ew =(ExprWatch*)g_object_get_data(G_OBJECT(user_data),"user_data");	
-	change_watch_entry ((GtkEntry *) user_data, ew);
-}
-
-
-
-void
-on_eval_help_clicked (GtkButton * button, gpointer user_data)
-{
-
-}
-
-void
-on_eval_entry_activate (GtkWidget * wid, gpointer user_data)
-{
-	on_eval_ok_clicked (NULL, wid);
-	gtk_widget_destroy (GTK_WIDGET (user_data));
+	ExprWatch* ew =(ExprWatch*)g_object_get_data(G_OBJECT(user_data),"user_data");
+	if (res == GTK_RESPONSE_OK)
+		change_watch_entry ((GtkEntry *) user_data, ew);
+	gtk_widget_destroy (dlg);
 }
 
 void
@@ -199,26 +164,27 @@ on_eval_add_watch (GtkButton * button, gpointer user_data)
 	add_watch_entry ((GtkEntry *) user_data, ew);
 }
 
-
-
 void
-on_eval_ok_clicked (GtkButton * button, gpointer user_data)
+on_eval_response (GtkWidget *dlg, gint res, gpointer user_data)
 {
-	GtkEntry *ent;
-	const gchar *buff1;
-
-	ent = (GtkEntry *) user_data;
-	buff1 = gtk_entry_get_text (ent);
-	if (strlen (buff1) == 0)
-		return;
-	if (eval_entry_history)
-		g_free (eval_entry_history);
-	eval_entry_history = g_strdup (buff1);
-
-	debugger_query_evaluate_expr (buff1, eval_output_arrived, g_strdup (buff1));
-	debugger_query_execute ();
+	if (res == GTK_RESPONSE_OK)
+	{
+		GtkEntry *ent;
+		const gchar *buff1;
+	
+		ent = (GtkEntry *) user_data;
+		buff1 = gtk_entry_get_text (ent);
+		if (strlen (buff1) == 0)
+			return;
+		if (eval_entry_history)
+			g_free (eval_entry_history);
+		eval_entry_history = g_strdup (buff1);
+	
+		debugger_query_evaluate_expr (buff1, eval_output_arrived, g_strdup (buff1));
+		debugger_query_execute ();
+	}
+	gtk_widget_destroy (dlg);
 }
-
 
 void
 expr_watch_update (GList * lines, gpointer data)

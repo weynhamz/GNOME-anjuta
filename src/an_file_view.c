@@ -2,6 +2,7 @@
 #include <config.h>
 #endif
 
+#include <string.h>
 #include <gnome.h>
 #include <glade/glade.h>
 #include <libgnomevfs/gnome-vfs.h>

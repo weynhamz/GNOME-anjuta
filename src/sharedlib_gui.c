@@ -84,8 +84,6 @@ create_sharedlibs_gui(Sharedlibs *sl)
 	GtkWidget *topwindow;
 	GtkTreeView *view;
 	GtkListStore *store;
-	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *column;
 	guint i;
 
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "window.debugger.sharedlibs",
@@ -113,14 +111,15 @@ create_sharedlibs_gui(Sharedlibs *sl)
 								G_TYPE_STRING,
 								G_TYPE_STRING);
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
-	g_object_unref (G_OBJECT (store));
 	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
 				GTK_SELECTION_BROWSE);
 	gtk_tree_view_set_search_column (view, COLUMN_SHARED_LIB);
 
-	renderer = gtk_cell_renderer_text_new ();
 	for (i = 0; i < COLUMNS_NB; i++)
 	{
+		GtkCellRenderer *renderer;
+		GtkTreeViewColumn *column;
+		renderer = gtk_cell_renderer_text_new ();
 		column = gtk_tree_view_column_new_with_attributes (column_names[i],
 					renderer, "text", i, NULL);
 		gtk_tree_view_column_set_sort_column_id (column, i);
@@ -129,17 +128,18 @@ create_sharedlibs_gui(Sharedlibs *sl)
 	}
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 				COLUMN_SHARED_LIB, GTK_SORT_ASCENDING);
-	gtk_object_unref (GTK_OBJECT (renderer));
+	
+	g_object_unref (G_OBJECT (store));
 
 	// signals
-	gtk_signal_connect (GTK_OBJECT (topwindow), "delete_event",
-				GTK_SIGNAL_FUNC (on_sharedlibs_delete_event), sl);
-	gtk_signal_connect (GTK_OBJECT (topwindow), "close",
-				GTK_SIGNAL_FUNC (on_sharedlibs_close), sl);
-	gtk_signal_connect (GTK_OBJECT (topwindow), "response",
-				GTK_SIGNAL_FUNC (on_sharedlibs_response), sl);
-	gtk_signal_connect (GTK_OBJECT (view), "event",
-				GTK_SIGNAL_FUNC (on_sharedlibs_event), sl);
+	g_signal_connect (G_OBJECT (topwindow), "delete_event",
+				G_CALLBACK (on_sharedlibs_delete_event), sl);
+	g_signal_connect (G_OBJECT (topwindow), "close",
+				G_CALLBACK (on_sharedlibs_close), sl);
+	g_signal_connect (G_OBJECT (topwindow), "response",
+				G_CALLBACK (on_sharedlibs_response), sl);
+	g_signal_connect (G_OBJECT (view), "event",
+				G_CALLBACK (on_sharedlibs_event), sl);
 
 	// other stuff
 	gtk_window_add_accel_group (GTK_WINDOW (topwindow), app->accel_group);

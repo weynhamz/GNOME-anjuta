@@ -124,8 +124,8 @@ project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 	an_message_manager_show (app->messages, MESSAGE_BUILD);
 
 	gtk_widget_show (piw->widgets.progressbar);
-	gtk_progress_set_activity_mode (GTK_PROGRESS
-					(piw->widgets.progressbar), TRUE);
+	// gtk_progress_set_activity_mode (GTK_PROGRESS
+	//				(piw->widgets.progressbar), TRUE);
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
 			    _("Importing Project...please wait"));
 	piw->progress_timer_id = gtk_timeout_add (AN_IMPORT_TIMEOUT,
@@ -229,16 +229,11 @@ gboolean
 progressbar_timeout (gpointer data)
 {
 	gfloat new_val;
-	GtkAdjustment *adj;
 
-	new_val = gtk_progress_get_value (GTK_PROGRESS (data)) + 1;
-
-	adj = GTK_PROGRESS (data)->adjustment;
-	if (new_val > adj->upper)
-		new_val = adj->lower;
-
-	gtk_progress_set_value (GTK_PROGRESS (data), new_val);
-
+	new_val = gtk_progress_bar_get_fraction (GTK_PROGRESS_BAR (data)) + 0.05;
+	if (new_val > 1.0)
+		new_val = 0.0;
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (data), new_val);
 	return TRUE;
 }
 

@@ -270,6 +270,7 @@ create_src_paths_gui (SrcPaths *co)
 													   PATHS_COLUMN,
 													   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (co->priv->clist), column);
+	
 	g_object_unref (G_OBJECT(store));
 	
 	/* Connect signals */

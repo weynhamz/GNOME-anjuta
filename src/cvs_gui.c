@@ -127,13 +127,13 @@ create_cvs_gui (CVS *cvs, int dialog_type, gchar* filename, gboolean is_project)
 
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
 	gtk_widget_show (gui->entry_file);
-	gtk_widget_set_usize (gui->entry_file, 400, -1);
+	gtk_widget_set_size_request (gui->entry_file, 400, -1);
 	
 	text_frame = gtk_frame_new (NULL);
 	gtk_frame_set_shadow_type (GTK_FRAME (text_frame), GTK_SHADOW_IN);
 	
 	gui->text_message = gtk_text_view_new ();
-	gtk_widget_set_usize (gui->text_message, 400, 150);
+	gtk_widget_set_size_request (gui->text_message, 400, 150);
 	gtk_container_add (GTK_CONTAINER (text_frame), gui->text_message);
 	
 	gui->entry_branch = gnome_entry_new ("cvs-branch");
@@ -240,7 +240,7 @@ create_cvs_diff_gui (CVS *cvs, gchar *filename, gboolean is_project)
 
 	gui->entry_file = gnome_file_entry_new ("cvs-file", _("Select file"));
 	gtkentry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (gui->entry_file));
-	gtk_widget_set_usize (gtkentry, 400, -1);
+	gtk_widget_set_size_request (gtkentry, 400, -1);
 	
 	if(filename == NULL)
 	{
@@ -535,7 +535,7 @@ void create_cvs_import_gui (CVS *cvs)
 	gui->entry_vendor = gnome_entry_new ("cvs-vendor");
 	gui->text_message = gtk_text_view_new ();
 	// gtk_text_set_editable (GTK_TEXT (gui->text_message), TRUE);
-	gtk_widget_set_usize(GTK_WIDGET(gui->text_message), 400, 150);
+	gtk_widget_set_size_request (GTK_WIDGET(gui->text_message), 400, 150);
 	
 	gtk_table_attach (GTK_TABLE (import_table),
 	                  gui->entry_module,

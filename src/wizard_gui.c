@@ -86,12 +86,12 @@ create_project_type_selection_page (GnomeDruid * druid, GtkWidget ** iconlist)
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
-	gnome_druid_page_standard_set_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_background (GNOME_DRUID_PAGE_STANDARD
 						(page), &page_bg_color);
-	gnome_druid_page_standard_set_logo_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_logo_background (GNOME_DRUID_PAGE_STANDARD
 						     (page),
 						     &page_logo_bg_color);
-	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_title_foreground (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (page), _("Project Type"));
@@ -250,12 +250,12 @@ create_project_props_page (GnomeDruid * druid,
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
-	gnome_druid_page_standard_set_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_background (GNOME_DRUID_PAGE_STANDARD
 						(page), &page_bg_color);
-	gnome_druid_page_standard_set_logo_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_logo_background (GNOME_DRUID_PAGE_STANDARD
 						     (page),
 						     &page_logo_bg_color);
-	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_title_foreground (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (page), _("Basic Information"));
@@ -360,7 +360,7 @@ create_project_props_page (GnomeDruid * druid,
 
 	radiobutton4 = gtk_radio_button_new_with_label (hbox3_group, _("C"));
 	hbox3_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
+		gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton4));
 	gtk_widget_show (radiobutton4);
 	gtk_box_pack_start (GTK_BOX (hbox3), radiobutton4, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton4), 5);
@@ -368,7 +368,7 @@ create_project_props_page (GnomeDruid * druid,
 	radiobutton5 =
 		gtk_radio_button_new_with_label (hbox3_group, _("C++"));
 	hbox3_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton5));
+		gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton5));
 	gtk_widget_show (radiobutton5);
 	gtk_box_pack_start (GTK_BOX (hbox3), radiobutton5, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton5), 5);
@@ -377,7 +377,7 @@ create_project_props_page (GnomeDruid * druid,
 		gtk_radio_button_new_with_label (hbox3_group,
 						 _("Both C and C++"));
 	hbox3_group =
-		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton6));
+		gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton6));
 	gtk_widget_show (radiobutton6);
 	gtk_box_pack_start (GTK_BOX (hbox3), radiobutton6, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton6), 5);
@@ -399,20 +399,20 @@ create_project_props_page (GnomeDruid * druid,
 	gtk_box_pack_start (GTK_BOX (hbox4), hbox5, TRUE, TRUE, 0);
 	
 	radiobutton1 = gtk_radio_button_new_with_label (hbox5_group, _("Executable target"));
-	hbox5_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton1));
+	hbox5_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton1));
 	gtk_widget_show (radiobutton1);
 	gtk_box_pack_start (GTK_BOX (hbox5), radiobutton1, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton1), 5);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radiobutton1), TRUE);
 	
 	radiobutton2 = gtk_radio_button_new_with_label (hbox5_group, _("Static library target"));
-	hbox5_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton2));
+	hbox5_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton2));
 	gtk_widget_show (radiobutton2);
 	gtk_box_pack_start (GTK_BOX (hbox5), radiobutton2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton2), 5);
 	
 	radiobutton3 = gtk_radio_button_new_with_label (hbox5_group, _("Dynamic library target"));
-	hbox5_group = gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton3));
+	hbox5_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton3));
 	gtk_widget_show (radiobutton3);
 	gtk_box_pack_start (GTK_BOX (hbox5), radiobutton3, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (radiobutton3), 5);
@@ -458,12 +458,12 @@ create_project_description_page (GnomeDruid * druid,
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
-	gnome_druid_page_standard_set_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_background (GNOME_DRUID_PAGE_STANDARD
 						(page), &page_bg_color);
-	gnome_druid_page_standard_set_logo_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_logo_background (GNOME_DRUID_PAGE_STANDARD
 						     (page),
 						     &page_logo_bg_color);
-	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_title_foreground (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (page), _("Project Description"));
@@ -564,12 +564,12 @@ create_project_menu_page (GnomeDruid * druid,
 	gtk_widget_show_all (page);
 	gnome_druid_append_page (GNOME_DRUID (druid),
 				 GNOME_DRUID_PAGE (page));
-	gnome_druid_page_standard_set_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_background (GNOME_DRUID_PAGE_STANDARD
 						(page), &page_bg_color);
-	gnome_druid_page_standard_set_logo_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_logo_background (GNOME_DRUID_PAGE_STANDARD
 						     (page),
 						     &page_logo_bg_color);
-	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_title_foreground (GNOME_DRUID_PAGE_STANDARD
 						   (page), &page_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
 					     (page), _("Additional Options"));
@@ -693,7 +693,7 @@ create_project_menu_page (GnomeDruid * druid,
 			  (GtkAttachOptions) (0), 0, 0);
 
 	combo_entry1 = GTK_COMBO (combo1)->entry;
-	gtk_entry_set_editable (GTK_ENTRY (combo_entry1), FALSE);
+	gtk_editable_set_editable (GTK_EDITABLE (combo_entry1), FALSE);
 
 	list = NULL;
 	i = 0;

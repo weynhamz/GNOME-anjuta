@@ -516,7 +516,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 				{
 					if (tolower(s->search_str[0]) == tolower(fb->buf[fb->pos]))
 					{
-						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos
+						if (0 == g_ascii_strncasecmp(s->search_str, fb->buf + fb->pos
 						  , match_len) &&  extra_match(fb, s, match_len))
 						{
 							mi = g_new0(MatchInfo, 1);
@@ -556,7 +556,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 				{
 					if (tolower(s->search_str[0]) == tolower(fb->buf[fb->pos]))
 					{
-						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos
+						if (0 == g_ascii_strncasecmp(s->search_str, fb->buf + fb->pos
 						  , match_len) &&  extra_match(fb, s, match_len))
 						{
 							mi = g_new0(MatchInfo, 1);

@@ -1,6 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = include
-INCLUDES = -I$(srcdir)/include $(GLIB_CFLAGS)
+INCLUDES = -I$(srcdir)/include $(GLIB_CFLAGS) \
+	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+	-DGDK_PIXBUF_DEPRECATED \
+	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
+
 noinst_LIBRARIES = libctags.a
 libctags_a_SOURCES =\
 	debug.h\
@@ -63,4 +67,3 @@ libctags_a_SOURCES =\
 	tm_symbol.c\
 	tm_file_entry.c\
 	tm_tagmanager.c
-

@@ -21,6 +21,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+/* FIXME: GtkCombo still using deprecated GtkList */
+#ifdef GTK_DISABLE_DEPRECATED
+#    undef GTK_DISABLE_DEPRECATED
+#    include <gtk/gtklist.h>
+#    define GTK_DISABLE_DEPRECATED
+#endif
+
 #include <gnome.h>
 #include <glade/glade.h>
 
@@ -557,11 +564,11 @@ search_set_combo(gchar *name_combo, gchar *name_entry, GtkSignalFunc function,
 	
 	combo = GTK_COMBO(sr_get_gladewidget(name_combo)->widget);
 	entry = sr_get_gladewidget(name_entry)->widget;
-	gtk_signal_disconnect_by_func(GTK_OBJECT(entry),(GtkSignalFunc)
+	g_signal_handlers_disconnect_by_func(G_OBJECT(entry),(GtkSignalFunc)
 	                              function , NULL);
 	
 	gtk_list_select_item(GTK_LIST(combo->list), command);
-	gtk_signal_connect(GTK_OBJECT(entry),"changed", (GtkSignalFunc)
+	g_signal_connect(G_OBJECT(entry),"changed", (GtkSignalFunc)
 	                   function, NULL);
 }
 
@@ -1024,16 +1031,16 @@ search_update_combos(void)
 				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
 					sr->search.expr_history);
 				
-				gtk_signal_disconnect_by_func(
-					GTK_OBJECT(app->widgets.toolbar.main_toolbar.find_entry), 
+				g_signal_handlers_disconnect_by_func(
+					G_OBJECT(app->widgets.toolbar.main_toolbar.find_entry), 
 					(GtkSignalFunc)on_toolbar_find_incremental, 
 					NULL);
 				entry_set_text_n_select (app->widgets.toolbar.main_toolbar.find_entry,
 								search_word, FALSE);
-				gtk_signal_connect (
-					GTK_OBJECT(app->widgets.toolbar.main_toolbar.find_entry),
+				g_signal_connect (
+					G_OBJECT(app->widgets.toolbar.main_toolbar.find_entry),
 					"changed",
-					GTK_SIGNAL_FUNC (on_toolbar_find_incremental),
+					G_CALLBACK (on_toolbar_find_incremental),
 					NULL);
 			}
 		}
@@ -1167,9 +1174,9 @@ search_disconnect_set_toggle_connect(const gchar *name, GtkSignalFunc function,
 	GtkWidget *button;
 	
 	button = sr_get_gladewidget(name)->widget;
-	gtk_signal_disconnect_by_func(GTK_OBJECT(button), function, NULL);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(button), function, NULL);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), active);
-	gtk_signal_connect(GTK_OBJECT(button), "toggled", function, NULL);
+	g_signal_connect(G_OBJECT(button), "toggled", function, NULL);
 }
 
 

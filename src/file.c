@@ -153,7 +153,7 @@ create_new_file_dialog(void)
 	for (i=0; i < (sizeof(new_file_type) / sizeof(NewfileType)); i++)
 	{
 		menuitem = gtk_menu_item_new_with_label(new_file_type[i].name);
-		gtk_menu_append(GTK_MENU(menu), menuitem);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
 		gtk_widget_show(menuitem);
 	}
 	gtk_option_menu_set_menu(GTK_OPTION_MENU(optionmenu), menu);
@@ -163,7 +163,7 @@ create_new_file_dialog(void)
 
 	gtk_dialog_set_default_response (GTK_DIALOG(nfg->dialog), GTK_RESPONSE_OK);
 	glade_xml_signal_autoconnect(nfg->xml);
-	gtk_signal_emit_by_name(GTK_OBJECT (optionmenu), "changed");
+	g_signal_emit_by_name(G_OBJECT (optionmenu), "changed");
 	
 	return TRUE;
 }
@@ -425,11 +425,12 @@ file_insert_header_templ(TextEditor *te)
 	"#endif /* _";
 	gchar *buffer;
 	gchar *name = NULL;
+	gchar *uname = NULL;
 	gchar mesg[256];
 	gint i;
 
 	i = strlen(te->filename);
-	if ( g_strcasecmp((te->filename) + i - 2, ".h") == 0)
+	if ( g_ascii_strcasecmp((te->filename) + i - 2, ".h") == 0)
 		name = g_strndup(te->filename, i - 2);
 	else
 	{
@@ -438,10 +439,10 @@ file_insert_header_templ(TextEditor *te)
 		anjuta_warning (mesg);
 		return NULL;
 	}
-	g_strup(name);  /* do not use with GTK2 */
-	buffer = g_strconcat("#ifndef _", name, "_H\n#define _", name,
-						header_template, name, "_H */\n", NULL);
-
+	uname = g_ascii_strup(name, strlen(name));  /* Should we use g_utf8_strup() instead? */
+	buffer = g_strconcat("#ifndef _", uname, "_H\n#define _", uname,
+						header_template, uname, "_H */\n", NULL);
+	g_free (uname);
 	g_free(name);
 	return buffer;
 }

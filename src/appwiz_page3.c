@@ -74,14 +74,14 @@ create_app_wizard_page3 (AppWizard * aw)
 {
 	// Do not get confused, the radiobuttons are on page 2 now but
 	// the callbacks are connected here...
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_exec_radio),
-			"toggled", GTK_SIGNAL_FUNC (on_target_exec_toggled),
+	g_signal_connect (G_OBJECT (aw->widgets.target_exec_radio),
+			"toggled", G_CALLBACK (on_target_exec_toggled),
 		      aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_slib_radio),
-			"toggled", GTK_SIGNAL_FUNC (on_target_slib_toggled),
+	g_signal_connect (G_OBJECT (aw->widgets.target_slib_radio),
+			"toggled", G_CALLBACK (on_target_slib_toggled),
 		      aw);
-	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_dlib_radio), 
-			"toggled", GTK_SIGNAL_FUNC (on_target_dlib_toggled),
+	g_signal_connect (G_OBJECT (aw->widgets.target_dlib_radio), 
+			"toggled", G_CALLBACK (on_target_dlib_toggled),
 		      aw);
 	gtk_widget_ref (aw->widgets.description_text);
 	gtk_widget_ref (aw->widgets.target_exec_radio);

@@ -90,8 +90,6 @@ create_cpu_registers_gui(CpuRegisters *cr)
 	GtkWidget *topwindow;
 	GtkTreeView *view;
 	GtkListStore *store;
-	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *column;
 	guint i;
 
 	gxml = glade_xml_new (GLADE_FILE_ANJUTA, "window.debugger.registers",
@@ -116,29 +114,29 @@ create_cpu_registers_gui(CpuRegisters *cr)
 								G_TYPE_STRING,
 								G_TYPE_STRING);
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
-	g_object_unref (G_OBJECT (store));
+	
 	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
 				GTK_SELECTION_BROWSE);
 	gtk_tree_view_set_search_column (view, COLUMN_REGS);
 	gtk_tree_view_set_headers_clickable (view, FALSE);
 
-	renderer = gtk_cell_renderer_text_new ();
 	for (i = 0; i < COLUMNS_NB; i++)
 	{
+		GtkCellRenderer *renderer;
+		GtkTreeViewColumn *column;
+		renderer = gtk_cell_renderer_text_new ();
 		column = gtk_tree_view_column_new_with_attributes (column_names[i],
 					renderer, "text", i, NULL);
-//		gtk_tree_view_column_set_sort_column_id (column, i);
+		// gtk_tree_view_column_set_sort_column_id (column, i);
 		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 		gtk_tree_view_append_column (view, column);
 	}
-//	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
-//				COLUMN_REGS, GTK_SORT_ASCENDING);
-	g_object_unref (G_OBJECT (renderer));
+	// gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+	//			COLUMN_REGS, GTK_SORT_ASCENDING);
 
+	g_object_unref (G_OBJECT (store));
+	
 	// signals	
-	// g_signal_connect (G_OBJECT (gtk_tree_view_get_selection
-	//			(GTK_TREE_VIEW (view))), "changed",
-	//				  G_CALLBACK (on_registers_clist_select_row), cr);
 	g_signal_connect (G_OBJECT (topwindow), "delete_event",
 				G_CALLBACK (on_registers_delete_event), cr);
 	g_signal_connect (G_OBJECT (topwindow), "close",

@@ -342,7 +342,7 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 		else
 			cur_page = cur_page ? cur_page - 1 : pages_nb -1;
 
-		gtk_notebook_set_page (notebook, cur_page);
+		gtk_notebook_set_current_page (notebook, cur_page);
 
 		break;
 	}
@@ -355,14 +355,14 @@ on_anjuta_window_key_press_event (GtkWidget   *widget,
 
 			if (!notebook->children)
 				return FALSE;
-			gtk_notebook_set_page(notebook, page_req);
+			gtk_notebook_set_current_page (notebook, page_req);
 		}
 		else
 			return FALSE;
 	}
 
 	/* Note: No reason for a shortcut to do more than one thing a time */
-	gtk_signal_emit_stop_by_name (GTK_OBJECT (widget), "key_press_event");
+	g_signal_stop_emission_by_name (G_OBJECT (widget), "key_press_event");
 
 	return TRUE;
 }

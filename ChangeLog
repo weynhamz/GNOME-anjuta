@@ -1,3 +1,43 @@
+2004-03-06  Naba Kumar  <naba@gnome.org>
+
+	* src/registers_gui.c: Fixed possible crash bug.
+	* src/signals_cbs.[c,h], src/signals_gui.c: Removed.
+	* src/signals.[c,h]: Used tree view and glade file for dialog.
+	* src/Makefile.am, src/about.c, src/an_file_view.c,
+	src/an_symbol_view.c, src/anjuta-plugins.c, src/anjuta-tools.c,
+	src/anjuta.c, src/anjuta_cbs.c, src/anjuta_gui.c, src/anjuta_info.c,
+	src/appwiz_page1.c, src/appwiz_page2.c, src/appwiz_page3.c,
+	src/appwiz_page4.c, src/appwizard_gui.c, src/breakpoints.c,
+	src/commands.c, src/compatibility_0.c, src/compiler_options.c,
+	src/cvs.c, src/cvs_cbs.c, src/cvs_gui.c, src/debug_tree.c,
+	src/debugger.c, src/dnd.c, src/file.c, src/fileselection.c,
+	src/glade_iface.c, src/goto_line.c, src/help.c, src/launcher.c,
+	src/launcher.h, src/main.c, src/main_menubar.c,
+	src/mainmenu_callbacks.c, src/memory.c, src/message-manager-dock.c,
+	src/message-manager-private.cc, src/message-manager.cc,
+	src/preferences.c, src/project_config.c, src/project_dbase.c,
+	src/project_dbase_gui.c, src/project_import.c, src/project_import_cbs.c,
+	src/project_import_gui.c, src/registers.c, src/registers_cbs.c,
+	src/registers_cbs.h, src/registers_gui.c, src/resources.c,
+	src/search-replace.c, src/search-replace_backend.c,
+	src/search_incremental.c, src/search_preferences.c,
+	src/sharedlib.c, src/sharedlib_gui.c, src/signals.c,
+	src/signals.h, src/signals_cbs.c, src/signals_cbs.h,
+	src/signals_gui.c, src/source.c, src/src_paths.c,
+	src/stack_trace.c, src/start-with.c, src/style-editor.c,
+	src/support.c, src/text_editor.c, src/text_editor_cbs.c,
+	src/text_editor_gui.c, src/text_editor_menu.c, src/toolbar.c,
+	src/toolbar_callbacks.c, src/watch_cbs.c, src/watch_cbs.h,
+	src/watch_gui.c, src/widget-registry.c, src/wizard_gui.c,
+	tagmanager/Makefile.am, scintilla/include/SString.h,
+	widgets/Makefile.am, widgets/gnomefilelist.c:
+
+	Removed all deprecated codes and substituted
+	with newer APIs. Fixed some possible crash bugs where cell renderers
+	were being shared.
+	
+	* scintilla/patches/scintilla-minor.patch: Minor patch.
+
 2004-04-06  Naba Kumar  <naba@gnome.org>
 
 	* src/project_dbase.c, src/project_dbase_gui.c: Refreshes the project

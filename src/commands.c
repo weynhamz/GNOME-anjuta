@@ -279,8 +279,8 @@ sync_from_props (CommandEditor *ce, PropsID pr)
 		
 		/* Yes, prog_language_map[i] and not [i+1] */
 		string_assign (&cdata->key, prog_language_map[i]);
-		gtk_object_set_data_full (GTK_OBJECT (ce->priv->widgets.window),
-			cdata->key, cdata, (GtkDestroyNotify) command_data_destroy);
+		g_object_set_data_full (G_OBJECT (ce->priv->widgets.window),
+			cdata->key, cdata, (GDestroyNotify) command_data_destroy);
 	}
 	ce->priv->current_command_data = NULL;
 	g_signal_emit_by_name (ce->priv->widgets.language_om, "changed");
@@ -556,7 +556,7 @@ on_language_menu_changed (GtkOptionMenu *optionmenu,
 
 	idx = gtk_option_menu_get_history (GTK_OPTION_MENU (optionmenu));
 	str = prog_language_map[idx * 2];
-	cdata = (CommandData *) gtk_object_get_data (GTK_OBJECT (ce->priv->widgets.window), str);
+	cdata = (CommandData *) g_object_get_data (G_OBJECT (ce->priv->widgets.window), str);
 	g_return_if_fail (cdata != NULL);
 
 	if (cdata->compile)
@@ -619,7 +619,7 @@ sync_to_props (CommandEditor* ce)
 		if (prog_language_map [i] == NULL) break;
 		
 		/* Yes, prog_language_map[i] and not [i+1] */
-		cdata = (CommandData *) gtk_object_get_data (GTK_OBJECT (ce->priv->widgets.window), prog_language_map[i]);
+		cdata = (CommandData *) g_object_get_data (G_OBJECT (ce->priv->widgets.window), prog_language_map[i]);
 
 		g_return_if_fail (cdata != NULL);
 		

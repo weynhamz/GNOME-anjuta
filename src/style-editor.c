@@ -20,6 +20,7 @@
 #  include <config.h>
 #endif
 
+#include <string.h>
 #include <ctype.h>
 #include <gnome.h>
 #include <glade/glade.h>
@@ -682,7 +683,7 @@ sync_from_props (StyleEditor *se)
 					  (GtkDestroyNotify)style_data_destroy);
 	}
 	se->priv->default_style =
-		gtk_object_get_data (GTK_OBJECT (se->priv->dialog),
+		g_object_get_data (G_OBJECT (se->priv->dialog),
 				     hilite_style[0]);
 	se->priv->current_style = NULL;
 
@@ -768,7 +769,7 @@ sync_to_props (StyleEditor *se)
 		if (hilite_style[i] == NULL)
 			break;
 		sdata =
-			gtk_object_get_data (GTK_OBJECT (se->priv->dialog),
+			g_object_get_data (G_OBJECT (se->priv->dialog),
 								 hilite_style[i]);
 		str = style_data_get_string (sdata);
 		if (str)

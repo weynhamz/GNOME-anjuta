@@ -65,7 +65,6 @@
 #include "search_incremental.h"
 #include "anjuta_info.h"
 #include "watch_gui.h"
-#include "signals_cbs.h"
 #include "watch_cbs.h"
 #include "start-with.h"
 #include "file.h"
@@ -1342,7 +1341,7 @@ on_debugger_interrupt_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_debugger_signal_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	on_signals_send_activate (NULL, debugger.signals);
+	signals_show(debugger.signals);
 }
 
 void

@@ -671,8 +671,8 @@ on_preferences_dialog_response (GtkDialog *dialog,
 			/* Note: No break here */
 		case GTK_RESPONSE_APPLY:
 			preferences_objects_to_prop (pr);
-			gtk_signal_emit (GTK_OBJECT (pr),
-							 anjuta_preferences_signals[CHANGED]);
+			g_signal_emit (G_OBJECT (pr),
+						   anjuta_preferences_signals[CHANGED], 0);
 			break;
 		case GTK_RESPONSE_CANCEL:
 			gtk_widget_hide (GTK_WIDGET (pr));

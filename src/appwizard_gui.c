@@ -139,20 +139,20 @@ create_app_wizard_gui (AppWizard * aw)
 	/* buttons, callbacks etc. */
 	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 
-	gtk_signal_connect (GTK_OBJECT (druid1), "cancel",
-			    GTK_SIGNAL_FUNC (on_druid1_cancel), aw);
-	gtk_signal_connect (GTK_OBJECT (druidpagestandard1), "next",
-			    GTK_SIGNAL_FUNC (on_druidpagestandard1_next), aw);
-	gtk_signal_connect (GTK_OBJECT (druidpagestandard2), "next",
-			    GTK_SIGNAL_FUNC (on_druidpagestandard2_next), aw);
-	gtk_signal_connect (GTK_OBJECT (druidpagestandard3), "next",
-			    GTK_SIGNAL_FUNC (on_druidpagestandard3_next), aw);
-	gtk_signal_connect (GTK_OBJECT (druidpagestandard4), "next",
-			    GTK_SIGNAL_FUNC (on_druidpagestandard4_next), aw);
-	gtk_signal_connect (GTK_OBJECT (druidpagefinish1), "finish",
-			    GTK_SIGNAL_FUNC (on_druidpagefinish1_finish), aw);
-	gtk_signal_connect (GTK_OBJECT (druidpagefinish1), "back",
-			    GTK_SIGNAL_FUNC (on_druidpagefinish1_back), aw);
+	g_signal_connect (G_OBJECT (druid1), "cancel",
+			    G_CALLBACK (on_druid1_cancel), aw);
+	g_signal_connect (G_OBJECT (druidpagestandard1), "next",
+			    G_CALLBACK (on_druidpagestandard1_next), aw);
+	g_signal_connect (G_OBJECT (druidpagestandard2), "next",
+			    G_CALLBACK (on_druidpagestandard2_next), aw);
+	g_signal_connect (G_OBJECT (druidpagestandard3), "next",
+			    G_CALLBACK (on_druidpagestandard3_next), aw);
+	g_signal_connect (G_OBJECT (druidpagestandard4), "next",
+			    G_CALLBACK (on_druidpagestandard4_next), aw);
+	g_signal_connect (G_OBJECT (druidpagefinish1), "finish",
+			    G_CALLBACK (on_druidpagefinish1_finish), aw);
+	g_signal_connect (G_OBJECT (druidpagefinish1), "back",
+			    G_CALLBACK (on_druidpagefinish1_back), aw);
 	
 	aw->widgets.page[0] = druidpagestart1;
 	gtk_widget_ref (druidpagestart1);

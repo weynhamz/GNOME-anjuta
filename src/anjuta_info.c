@@ -57,7 +57,7 @@ create_dialog_with_textview (GtkWindow *parent, gint width,
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
 										  NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
 	gtk_widget_show (dialog);
@@ -107,7 +107,7 @@ create_dialog_with_treeview (GtkWindow *parent, gint width,
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
 										  NULL);
-	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 400, 250);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "infoless", "Anjuta");
 	gtk_widget_show (dialog);
@@ -149,7 +149,7 @@ anjuta_info_show_file (const gchar *path,
 
 	g_return_val_if_fail (path != NULL, FALSE);
 
-	if (!g_file_exists (path))
+	if (!g_file_test(path, G_FILE_TEST_EXISTS))
 		return FALSE;
 
 	if ((f = fopen (path, "r")) == NULL)

@@ -26,13 +26,6 @@ void
 on_registers_close(GtkWidget* w, gpointer data);
 void
 on_registers_response(GtkWidget* w, gint res, gpointer data);
-
-void
-on_registers_clist_select_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
 void
 on_register_modify_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data);

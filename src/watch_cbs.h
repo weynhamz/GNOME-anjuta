@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     watch_cbs.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
@@ -17,23 +18,12 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+#ifndef _WATCH_CBS_H_
+#define _WATCH_CBS_H_
 
 #include <gnome.h>
 #include "watch.h"
 
-
-/*void
-on_watch_clist_select_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-void
-on_watch_clist_unselect_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);*/
 void
 on_watch_add_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -68,45 +58,20 @@ on_watch_event                (GtkWidget       *widget,
                                         gpointer         user_data);
 
 /********************************************************************************/
-void
-on_ew_add_help_clicked                 (GtkButton       *button,
+
+void on_ew_add_response                (GtkWidget       *dlg, gint res,
                                         gpointer         user_data);
 
-void
-on_ew_add_ok_clicked                   (GtkButton       *button,
+void on_ew_change_response             (GtkWidget       *dlg, gint res,
                                         gpointer         user_data);
 
-void
-on_ew_entry_activate                   (GtkWidget  *button,
+/********************************************************************************/
+void on_eval_response                  (GtkWidget       *dlg, gint res,
                                         gpointer         user_data);
 
-void
-on_ew_change_help_clicked              (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_ew_change_ok_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_ew_entry_change_activate            (GtkWidget *button,
+void on_eval_add_watch                 (GtkButton * button,
                                         gpointer user_data);
 
 /********************************************************************************/
-void
-on_eval_help_clicked                   (GtkButton       *button,
-                                        gpointer         user_data);
 
-void
-on_eval_ok_clicked                     (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_eval_entry_activate                 (GtkWidget   *button,		
-					gpointer         user_data);
-
-void
-on_eval_add_watch		       (GtkButton * button,
-                                        gpointer user_data);
-
-/********************************************************************************/
+#endif

@@ -131,9 +131,9 @@ Activate( GModule *self, void *pUserData, AnjutaApp* p)
 	gui->ok_button = g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
 	gui->cancel_button = g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
 	
-	gtk_signal_connect (GTK_OBJECT (gui->ok_button), "clicked", 
+	g_signal_connect (G_OBJECT (gui->ok_button), "clicked", 
 			GTK_SIGNAL_FUNC(on_ok_clicked), gui);
-	gtk_signal_connect (GTK_OBJECT (gui->cancel_button), "clicked", 
+	g_signal_connect (G_OBJECT (gui->cancel_button), "clicked", 
 			GTK_SIGNAL_FUNC(on_cancel_clicked), gui);
 
 	gtk_container_set_border_width (GTK_CONTAINER (GNOME_DIALOG (gui->dialog)->vbox), 5);

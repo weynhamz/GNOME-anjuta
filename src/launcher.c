@@ -28,6 +28,8 @@
 #include <gnome.h>
 #include <termios.h>
 
+#include <string.h>
+
 #include "pixmaps.h"
 #include "launcher.h"
 #include "resources.h"
@@ -252,8 +254,8 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 									 child_exited_signal),
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__INT_INT_ULONG,
-					G_TYPE_NONE, 3, GTK_TYPE_INT,
-					GTK_TYPE_INT, GTK_TYPE_ULONG);
+					G_TYPE_NONE, 3, G_TYPE_INT,
+					G_TYPE_INT, G_TYPE_ULONG);
 	
 	launcher_signals[BUSY_SIGNAL] =
 		g_signal_new ("busy",
@@ -263,7 +265,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 									 busy_signal),
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__BOOLEAN,
-					G_TYPE_NONE, 1, GTK_TYPE_BOOL);
+					G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 	
 	object_class->dispose = anjuta_launcher_dispose;
 	object_class->finalize = anjuta_launcher_finalize;
@@ -412,7 +414,7 @@ create_password_dialog (const gchar* prompt)
 	gtk_box_pack_start (GTK_BOX (box), entry, FALSE, FALSE, 0);
 	
 	gtk_widget_ref (entry);
-	gtk_object_set_data_full (GTK_OBJECT (dialog), "password_entry",
+	g_object_set_data_full (G_OBJECT (dialog), "password_entry",
 							  gtk_widget_ref (entry),
 							  (GDestroyNotify) gtk_widget_unref);
 	gtk_widget_grab_focus (entry);
@@ -438,7 +440,7 @@ anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 		if (strlen (last_line) < strlen (prompt))
 			return;
 		prompt_index = &last_line[strlen (last_line) - strlen (prompt)];
-		if (strcasecmp (prompt_index, prompt) == 0) {
+		if (g_ascii_strcasecmp (prompt_index, prompt) == 0) {
 			/* Password prompt detected */
 			GtkWidget* dialog;
 			gint button;

@@ -170,11 +170,11 @@ main (int argc, char *argv[])
 	
 	/* Session management */
 	client = gnome_master_client();
-	gtk_signal_connect(GTK_OBJECT(client), "save_yourself",
-			   GTK_SIGNAL_FUNC(on_anjuta_session_save_yourself),
+	g_signal_connect(G_OBJECT(client), "save_yourself",
+			   G_CALLBACK(on_anjuta_session_save_yourself),
 			   (gpointer) argv[0]);
-	gtk_signal_connect(GTK_OBJECT(client), "die",
-			   GTK_SIGNAL_FUNC(on_anjuta_session_die), NULL);
+	g_signal_connect(G_OBJECT(client), "die",
+			   G_CALLBACK(on_anjuta_session_die), NULL);
 
 	/* Get the command line files */
 	command_args = get_command_line_args (program);

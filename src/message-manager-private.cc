@@ -248,8 +248,12 @@ AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
 	// Create Tree
-	m_tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(
-		gtk_list_store_new(N_COLUMNS, G_TYPE_INT, GDK_TYPE_COLOR, G_TYPE_STRING)));
+	GtkListStore *store = gtk_list_store_new(N_COLUMNS, G_TYPE_INT,
+											 GDK_TYPE_COLOR,
+											 G_TYPE_STRING);
+	m_tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+	g_object_unref (store);
+	
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(m_tree), FALSE);
 	GtkCellRenderer* renderer = gtk_cell_renderer_text_new();
 	GtkTreeViewColumn* column = gtk_tree_view_column_new();

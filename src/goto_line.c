@@ -96,7 +96,7 @@ gotoline_init (GotoLine * obj)
   assert (obj != NULL);
 
   gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
-  gtk_window_set_policy (GTK_WINDOW (obj), FALSE, FALSE, FALSE);
+  gtk_window_set_resizable (GTK_WINDOW (obj), FALSE);
   gtk_window_set_title (GTK_WINDOW (obj), "Goto Line ...");
 
   dialog_vbox = GTK_DIALOG (obj)->vbox;
@@ -129,7 +129,7 @@ gotoline_init (GotoLine * obj)
 GtkWidget *
 gotoline_new ()
 {
-  return GTK_WIDGET (gtk_type_new (gotoline_get_type ()));
+  return GTK_WIDGET (g_type_create_instance (gotoline_get_type ()));
 }
 
 

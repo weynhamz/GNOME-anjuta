@@ -144,7 +144,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar->line_entry,
 				   _("Enter the line number to go to"),
 				   NULL);
-	gtk_widget_set_usize (toolbar->line_entry, 53, -2);
+	gtk_widget_set_size_request (toolbar->line_entry, 53, -1);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
 	toolbar->project =
@@ -161,21 +161,21 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 						   _("Context sensitive help"),
 						   G_CALLBACK (on_toolbar_help_clicked), NULL);
 	
-	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "activate",
-						GTK_SIGNAL_FUNC (on_toolbar_find_clicked),
+	g_signal_connect (G_OBJECT (toolbar->find_entry), "activate",
+						G_CALLBACK (on_toolbar_find_clicked),
 						NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "changed",
-						GTK_SIGNAL_FUNC (on_toolbar_find_incremental),
+	g_signal_connect (G_OBJECT (toolbar->find_entry), "changed",
+						G_CALLBACK (on_toolbar_find_incremental),
 						NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "focus_in_event",
-						GTK_SIGNAL_FUNC (on_toolbar_find_incremental_start),
+	g_signal_connect (G_OBJECT (toolbar->find_entry), "focus_in_event",
+						G_CALLBACK (on_toolbar_find_incremental_start),
 						NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar->find_entry), "focus_out_event",
-						GTK_SIGNAL_FUNC (on_toolbar_find_incremental_end),
+	g_signal_connect (G_OBJECT (toolbar->find_entry), "focus_out_event",
+						G_CALLBACK (on_toolbar_find_incremental_end),
 						NULL);
 
-	gtk_signal_connect (GTK_OBJECT (toolbar->line_entry), "activate",
-			    GTK_SIGNAL_FUNC (on_toolbar_goto_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar->line_entry), "activate",
+			    G_CALLBACK (on_toolbar_goto_clicked), NULL);
 
 	toolbar->toolbar = toolbar1;
 	return toolbar1;
@@ -317,33 +317,33 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_ref (toolbar_stop);
 	gtk_widget_show (toolbar_stop);
 
-	gtk_signal_connect (GTK_OBJECT (toolbar_open_project), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_open_project_clicked),
+	g_signal_connect (G_OBJECT (toolbar_open_project), "clicked",
+			    G_CALLBACK (on_toolbar_open_project_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_save_project), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_save_project_clicked),
+	g_signal_connect (G_OBJECT (toolbar_save_project), "clicked",
+			    G_CALLBACK (on_toolbar_save_project_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_close_project), "clicked",
-			    GTK_SIGNAL_FUNC
+	g_signal_connect (G_OBJECT (toolbar_close_project), "clicked",
+			    G_CALLBACK
 			    (on_toolbar_close_project_clicked), NULL);
 
-	gtk_signal_connect (GTK_OBJECT (toolbar_compile), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_compile_clicked),
+	g_signal_connect (G_OBJECT (toolbar_compile), "clicked",
+			    G_CALLBACK (on_toolbar_compile_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_configure), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_configure_clicked),
+	g_signal_connect (G_OBJECT (toolbar_configure), "clicked",
+			    G_CALLBACK (on_toolbar_configure_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_build), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_build_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_build_all), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_build_all_clicked),
+	g_signal_connect (G_OBJECT (toolbar_build), "clicked",
+			    G_CALLBACK (on_toolbar_build_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_build_all), "clicked",
+			    G_CALLBACK (on_toolbar_build_all_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_exec), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_exec_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_debug), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_debug_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_stop), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_stop_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_exec), "clicked",
+			    G_CALLBACK (on_toolbar_exec_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_debug), "clicked",
+			    G_CALLBACK (on_toolbar_debug_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_stop), "clicked",
+			    G_CALLBACK (on_toolbar_stop_clicked), NULL);
 
 	toolbar->toolbar = toolbar2;
 	toolbar->open_project = toolbar_open_project;
@@ -458,7 +458,7 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 
 	toolbar->tag_combo = gtk_combo_new ();
 	gtk_combo_set_case_sensitive (GTK_COMBO (toolbar->tag_combo), TRUE);
-	gtk_widget_set_usize(toolbar->tag_combo, 256, -1);
+	gtk_widget_set_size_request(toolbar->tag_combo, 256, -1);
 	gtk_widget_show (toolbar->tag_combo);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar->tag_combo,
 							   NULL, NULL);
@@ -671,40 +671,40 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 	gtk_widget_ref (toolbar_stop);
 	gtk_widget_show (toolbar_stop);
 
-	gtk_signal_connect (GTK_OBJECT (toolbar_run_to_cursor), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_run_to_cursor_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_run_to_cursor), "clicked",
+			    G_CALLBACK (on_toolbar_run_to_cursor_clicked), NULL);
 
-	gtk_signal_connect (GTK_OBJECT (toolbar_step_in), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_step_in_clicked),
+	g_signal_connect (G_OBJECT (toolbar_step_in), "clicked",
+			    G_CALLBACK (on_toolbar_step_in_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_step_out), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_step_out_clicked),
+	g_signal_connect (G_OBJECT (toolbar_step_out), "clicked",
+			    G_CALLBACK (on_toolbar_step_out_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_step_over), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_step_over_clicked),
+	g_signal_connect (G_OBJECT (toolbar_step_over), "clicked",
+			    G_CALLBACK (on_toolbar_step_over_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_toggle_bp), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_toggle_bp_clicked),
+	g_signal_connect (G_OBJECT (toolbar_toggle_bp), "clicked",
+			    G_CALLBACK (on_toolbar_toggle_bp_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_go), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_go_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_go), "clicked",
+			    G_CALLBACK (on_toolbar_go_clicked), NULL);
 
 	/*
-	gtk_signal_connect (GTK_OBJECT (toolbar_watch), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_watch_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_watch), "clicked",
+			    G_CALLBACK (on_toolbar_watch_clicked), NULL);
 	*/
-	gtk_signal_connect (GTK_OBJECT (toolbar_signals), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_signals_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_frame), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_frame_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_registers), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_registers_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_inspect), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_inspect_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_interrupt), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_interrupt_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (toolbar_stop), "clicked",
-			    GTK_SIGNAL_FUNC (on_toolbar_debug_stop_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_signals), "clicked",
+			    G_CALLBACK (on_toolbar_signals_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_frame), "clicked",
+			    G_CALLBACK (on_toolbar_frame_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_registers), "clicked",
+			    G_CALLBACK (on_toolbar_registers_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_inspect), "clicked",
+			    G_CALLBACK (on_toolbar_inspect_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_interrupt), "clicked",
+			    G_CALLBACK (on_toolbar_interrupt_clicked), NULL);
+	g_signal_connect (G_OBJECT (toolbar_stop), "clicked",
+			    G_CALLBACK (on_toolbar_debug_stop_clicked), NULL);
 
 	toolbar->toolbar = toolbar3;
 	toolbar->go = toolbar_go;
@@ -887,35 +887,35 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 	gtk_widget_ref (button11);
 	gtk_widget_show (button11);
 
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_fold_toggle_clicked),
+	g_signal_connect (G_OBJECT (button2), "clicked",
+			    G_CALLBACK (on_format_fold_toggle_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_fold_open_clicked),
+	g_signal_connect (G_OBJECT (button3), "clicked",
+			    G_CALLBACK (on_format_fold_open_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_fold_close_clicked),
+	g_signal_connect (G_OBJECT (button4), "clicked",
+			    G_CALLBACK (on_format_fold_close_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button5), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_block_select_clicked),
+	g_signal_connect (G_OBJECT (button5), "clicked",
+			    G_CALLBACK (on_format_block_select_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button6), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_indent_inc_clicked),
+	g_signal_connect (G_OBJECT (button6), "clicked",
+			    G_CALLBACK (on_format_indent_inc_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button7), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_indent_dcr_clicked),
+	g_signal_connect (G_OBJECT (button7), "clicked",
+			    G_CALLBACK (on_format_indent_dcr_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button8), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_indent_auto_clicked),
+	g_signal_connect (G_OBJECT (button8), "clicked",
+			    G_CALLBACK (on_format_indent_auto_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button9), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_indent_style_clicked),
+	g_signal_connect (G_OBJECT (button9), "clicked",
+			    G_CALLBACK (on_format_indent_style_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button10), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_calltip_clicked),
+	g_signal_connect (G_OBJECT (button10), "clicked",
+			    G_CALLBACK (on_format_calltip_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button11), "clicked",
-			    GTK_SIGNAL_FUNC (on_format_autocomplete_clicked),
+	g_signal_connect (G_OBJECT (button11), "clicked",
+			    G_CALLBACK (on_format_autocomplete_clicked),
 			    NULL);
 
 	toolbar->toolbar = toolbar2;

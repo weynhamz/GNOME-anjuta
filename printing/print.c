@@ -24,6 +24,8 @@
 #endif
 
 #include <ctype.h>
+#include <string.h>
+
 #include <gnome.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeprint/gnome-print.h>
@@ -877,7 +879,8 @@ anjuta_print_progress_tick(PrintJobInfo * pji, guint index)
 	percentage = (float)index/pji->buffer_size;
 	if (percentage < 0.0) percentage = 0.0;
 	if (percentage > 1.0) percentage = 1.0;
-	gtk_progress_set_percentage (GTK_PROGRESS(pji->progress_bar), percentage);
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pji->progress_bar),
+								   percentage);
 }
 
 static void

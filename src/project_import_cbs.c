@@ -123,7 +123,14 @@ on_page4_next (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 	if (!strlen (name) || !strlen (author)
 	    || !strlen (version) || !strlen (target))
 	{
-		gnome_ok_dialog (_("Please complete all of the required fields"));
+		GtkWidget *dlg =
+		gtk_message_dialog_new (GTK_WINDOW (piw->widgets.window),
+								GTK_DIALOG_DESTROY_WITH_PARENT,
+								GTK_MESSAGE_WARNING,
+								GTK_BUTTONS_OK,
+								_("Please complete all of the required fields"));
+		gtk_dialog_run (GTK_DIALOG (dlg));
+		gtk_widget_destroy (dlg);
 		return TRUE;
 	}
 	

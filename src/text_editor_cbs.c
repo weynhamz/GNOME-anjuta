@@ -98,9 +98,9 @@ on_text_editor_notebook_close_page (GtkNotebook * notebook,
 				GtkNotebookPage * page,
 				gint page_num, gpointer user_data)
 {
-	 gtk_signal_emit_by_name (GTK_OBJECT
-                             (app->widgets.menubar.file.close_file),
-                             "activate");
+	 g_signal_emit_by_name (G_OBJECT
+                            (app->widgets.menubar.file.close_file),
+                            "activate");
 }
 
 gboolean
@@ -128,7 +128,7 @@ on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 
 	/* For your kind info, this same data are also set in */
 	/* the function anjuta_append_text_editor() */
-	gtk_object_set_data (GTK_OBJECT (eventbox), "TextEditor", te);
+	g_object_set_data (G_OBJECT (eventbox), "TextEditor", te);
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (app->widgets.notebook),
 				   eventbox, tab_widget);
@@ -137,7 +137,7 @@ on_text_editor_dock_activate (GtkButton * button, gpointer user_data)
 	gtk_notebook_set_menu_label_text(GTK_NOTEBOOK
 					(app->widgets.notebook), eventbox,
 					te->filename);
-	gtk_notebook_set_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (app->widgets.notebook), 0);
 	anjuta_update_page_label(te);
 
 	if (anjuta_preferences_get_int (app->preferences, EDITOR_TABS_ORDERING))

@@ -256,7 +256,6 @@ text_editor_destroy (TextEditor * te)
 		gtk_widget_unref (te->widgets.window);
 		gtk_widget_unref (te->widgets.client_area);
 		gtk_widget_unref (te->widgets.client);
-#warning "G2: Strange we are missing one _unref() somewhere"
 		// gtk_widget_unref (te->widgets.editor);
 		gtk_widget_unref (te->widgets.line_label);
 		
@@ -1487,11 +1486,11 @@ get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
 	};
 	
 	gint n;
-	if (g_strcasecmp (name_style, "Custom style") == 0)
+	if (g_ascii_strcasecmp (name_style, "Custom style") == 0)
 		return anjuta_preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
 	for (n=0; n < (sizeof(indentstyle)/sizeof(IndentStyle)); n++)
 	{		
-		if (g_strcasecmp (name_style, (indentstyle[n].name)) == 0)
+		if (g_ascii_strcasecmp (name_style, (indentstyle[n].name)) == 0)
 			return g_strdup(indentstyle[n].style);
 	}
 	return NULL;
@@ -1688,8 +1687,8 @@ GtkWidget* text_editor_tab_widget_new(TextEditor* te)
 	
 	gtk_widget_show(box);
 
-	gtk_signal_connect (GTK_OBJECT (button15), "clicked",
-				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_page),
+	g_signal_connect (G_OBJECT (button15), "clicked",
+				G_CALLBACK(on_text_editor_notebook_close_page),
 				te);
 
 	te->widgets.close_pixmap = close_pixmap;

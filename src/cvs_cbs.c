@@ -19,6 +19,7 @@
 #include "anjuta.h"
 
 #include <time.h>
+#include <string.h>
 
 static ServerType get_server_type (GtkEntry* entry);
 /* static void on_cvs_login_cancel (GtkWidget* button, CVSLoginGUI* gui); */
@@ -38,7 +39,13 @@ on_cvs_login_dialog_response (GtkWidget *dialog, gint response, CVSLoginGUI *gui
 		stype = get_server_type (GTK_ENTRY (GTK_COMBO (gui->combo_type)->entry));
 		if (stype == CVS_LOCAL)
 		{
-			gnome_ok_dialog (_("You do not need to login to a local server"));
+			GtkWidget *dlg = 
+			gtk_message_dialog_new (GTK_WINDOW (dialog),
+									GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+									_("You do not need to login to a local server"));
+			gtk_dialog_run (GTK_DIALOG (dlg));
+			gtk_widget_destroy (dlg);
 			return;
 		}
 		server = gtk_entry_get_text (GTK_ENTRY (gnome_entry_gtk_entry

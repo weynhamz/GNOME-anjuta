@@ -32,8 +32,8 @@ amm_undock (GtkWidget * amm, GtkWidget ** window)
 		amm_hide_docked ();
 
 	gtk_window_add_accel_group (GTK_WINDOW (*window), app->accel_group);
-	gtk_signal_connect (GTK_OBJECT (*window), "delete_event",
-			    GTK_SIGNAL_FUNC (on_delete_event), amm);
+	g_signal_connect (G_OBJECT (*window), "delete_event",
+			    G_CALLBACK (on_delete_event), amm);
 
 	gtk_widget_ref (amm);
 	gtk_container_remove (GTK_CONTAINER (app->widgets.mesg_win_container),

@@ -10,10 +10,10 @@ INCLUDES = \
 	-I$(srcdir)/../widgets \
 	-I$(srcdir)/../pixmaps \
 	-I$(srcdir)/../printing \
-	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
-#	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
-#	-DGDK_PIXBUF_DEPRECATED \
-#	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
+	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
+	-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED \
+	-DGDK_PIXBUF_DEPRECATED \
+	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
 BUILT_SOURCES = \
 	anjuta-marshalers.h \
@@ -37,6 +37,7 @@ stamp-anjuta-marshalers.h: anjuta-marshalers.list
 
 $(srcdir)/anjuta-marshalers.c: anjuta-marshalers.list
 	cd $(srcdir) \
+	&& echo "#include \"anjuta-marshalers.h\"" > xgen-gmlc \
 	&& @GLIB_GENMARSHAL@ --prefix=anjuta_cclosure_marshal \
 	anjuta-marshalers.list --body >> xgen-gmlc \
 	&& cp xgen-gmlc anjuta-marshalers.c \
@@ -182,9 +183,6 @@ anjuta_SOURCES = \
 	sharedlib_gui.c\
 	signals.c\
 	signals.h\
-	signals_cbs.c\
-	signals_cbs.h\
-	signals_gui.c\
 	src_paths.c\
 	src_paths.h\
 	stack_trace.c\

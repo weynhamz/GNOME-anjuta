@@ -616,7 +616,7 @@ static void sv_assign_node_name(TMSymbol *sym, GString *s)
 
 		default:
 			if (sym->tag->atts.entry.var_type)
-				g_string_sprintfa (s, " [%s]", sym->tag->atts.entry.var_type);
+				g_string_append_printf (s, " [%s]", sym->tag->atts.entry.var_type);
 			break;
 	}
 }

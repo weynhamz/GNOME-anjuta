@@ -424,8 +424,8 @@ create_stack_trace_gui(StackTrace *st)
 	
 	model = GTK_TREE_MODEL(gtk_list_store_new (STACK_TRACE_N_COLUMNS,
 											   GDK_TYPE_PIXBUF,
-											   GTK_TYPE_STRING,
-											   GTK_TYPE_STRING));
+											   G_TYPE_STRING,
+											   G_TYPE_STRING));
 	
 	st->widgets.clist = gtk_tree_view_new_with_model (model);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (st->widgets.clist));

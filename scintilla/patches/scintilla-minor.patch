@@ -1,0 +1,12 @@
+diff -u scintilla/include/SString.h scintilla-new/include/SString.h
+--- scintilla/include/SString.h       Fri Mar 26 22:06:20 2004
++++ scintilla-new/include/SString.h   Sun Mar 28 23:04:49 2004
+@@ -8,6 +8,8 @@
+ #ifndef SSTRING_H
+ #define SSTRING_H
+ 
++#include <string.h>
++
+ // These functions are implemented because each platform calls them something different.
+ int CompareCaseInsensitive(const char *a, const char *b);
+ int CompareNCaseInsensitive(const char *a, const char *b, size_t len);

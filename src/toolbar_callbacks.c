@@ -36,7 +36,7 @@
 void
 on_toolbar_new_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.new_file),
 				 "activate");
 }
@@ -45,7 +45,7 @@ on_toolbar_new_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_open_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.open_file),
 				 "activate");
 }
@@ -54,7 +54,7 @@ on_toolbar_open_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_save_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.save_file),
 				 "activate");
 }
@@ -62,7 +62,7 @@ on_toolbar_save_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_save_all_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.save_all_file),
 				 "activate");
 }
@@ -70,7 +70,7 @@ on_toolbar_save_all_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_close_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.close_file),
 				 "activate");
 }
@@ -79,7 +79,7 @@ on_toolbar_close_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_reload_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.reload_file),
 				 "activate");
 }
@@ -88,7 +88,7 @@ on_toolbar_reload_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_undo_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.undo),
 				 "activate");
 }
@@ -97,7 +97,7 @@ on_toolbar_undo_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_redo_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.redo),
 				 "activate");
 }
@@ -105,7 +105,7 @@ on_toolbar_redo_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_print_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.print),
 				 "activate");
 }
@@ -113,7 +113,7 @@ on_toolbar_print_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_detach_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.detach),
 				 "activate");
 }
@@ -190,7 +190,7 @@ on_toolbar_tag_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_project_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.project_listing),
 				 "activate");
 }
@@ -198,7 +198,7 @@ on_toolbar_project_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_messages_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.messages),
 				 "activate");
 }
@@ -213,7 +213,7 @@ on_toolbar_help_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_open_project_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.open_project),
 				 "activate");
 }
@@ -221,7 +221,7 @@ on_toolbar_open_project_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_save_project_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.save_project),
 				 "activate");
 }
@@ -229,7 +229,7 @@ on_toolbar_save_project_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_close_project_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.file.close_project),
 				 "activate");
 }
@@ -237,7 +237,7 @@ on_toolbar_close_project_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_compile_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.build.compile),
 				 "activate");
 }
@@ -245,7 +245,7 @@ on_toolbar_compile_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_configure_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.build.configure),
 				 "activate");
 }
@@ -253,7 +253,7 @@ on_toolbar_configure_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_build_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.build.build),
 				 "activate");
 }
@@ -261,7 +261,7 @@ on_toolbar_build_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_build_all_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.build.build_all),
 				 "activate");
 }
@@ -269,7 +269,7 @@ on_toolbar_build_all_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_exec_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.build.execute),
 				 "activate");
 }
@@ -277,7 +277,7 @@ on_toolbar_exec_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_debug_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.start_debug),
 				 "activate");
 }
@@ -285,7 +285,7 @@ on_toolbar_debug_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_stop_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.build.stop_build),
 				 "activate");
 }
@@ -293,7 +293,7 @@ on_toolbar_stop_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_go_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.cont),
 				 "activate");
 }
@@ -301,7 +301,7 @@ on_toolbar_go_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_run_to_cursor_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.run_to_cursor),
 				 "activate");
 }
@@ -309,7 +309,7 @@ on_toolbar_run_to_cursor_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_step_in_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.step_in),
 				 "activate");
 }
@@ -318,7 +318,7 @@ on_toolbar_step_in_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_step_out_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.step_out),
 				 "activate");
 }
@@ -326,7 +326,7 @@ on_toolbar_step_out_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_step_over_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.step_over),
 				 "activate");
 }
@@ -334,7 +334,7 @@ on_toolbar_step_over_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_toggle_bp_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.tog_break),
 				 "activate");
 }
@@ -343,7 +343,7 @@ on_toolbar_toggle_bp_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.variable_watch),
 				 "activate");
 }
@@ -351,7 +351,7 @@ on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_signals_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.signals),
 				 "activate");
 }
@@ -359,7 +359,7 @@ on_toolbar_signals_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_registers_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.view.registers),
 				 "activate");
 }
@@ -367,7 +367,7 @@ on_toolbar_registers_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_frame_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.info_frame),
 				 "activate");
 }
@@ -375,7 +375,7 @@ on_toolbar_frame_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_inspect_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.inspect),
 				 "activate");
 }
@@ -383,7 +383,7 @@ on_toolbar_inspect_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_interrupt_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.interrupt),
 				 "activate");
 }
@@ -391,7 +391,7 @@ on_toolbar_interrupt_clicked (GtkButton * button, gpointer user_data)
 void
 on_toolbar_debug_stop_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.debug.stop),
 				 "activate");
 }
@@ -407,7 +407,7 @@ on_browser_wizard_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_toggle_bookmark_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.bookmark.toggle),
 				 "activate");
 }
@@ -415,7 +415,7 @@ on_browser_toggle_bookmark_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_first_bookmark_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.bookmark.first),
 				 "activate");
 }
@@ -423,7 +423,7 @@ on_browser_first_bookmark_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_prev_bookmark_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.bookmark.prev),
 				 "activate");
 }
@@ -431,7 +431,7 @@ on_browser_prev_bookmark_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_next_bookmark_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.bookmark.next),
 				 "activate");
 }
@@ -439,7 +439,7 @@ on_browser_next_bookmark_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_last_bookmark_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.bookmark.last),
 				 "activate");
 }
@@ -447,7 +447,7 @@ on_browser_last_bookmark_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_prev_mesg_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.goto_prev_mesg),
 				 "activate");
 }
@@ -455,7 +455,7 @@ on_browser_prev_mesg_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_next_mesg_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.goto_next_mesg),
 				 "activate");
 }
@@ -463,7 +463,7 @@ on_browser_next_mesg_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_block_start_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.goto_block_start),
 				 "activate");
 }
@@ -471,7 +471,7 @@ on_browser_block_start_clicked (GtkButton * button, gpointer user_data)
 void
 on_browser_block_end_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.goto_block_end),
 				 "activate");
 }
@@ -479,7 +479,7 @@ on_browser_block_end_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_fold_toggle_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.toggle_fold),
 				 "activate");
 }
@@ -487,7 +487,7 @@ on_format_fold_toggle_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_fold_open_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.open_folds),
 				 "activate");
 }
@@ -495,7 +495,7 @@ on_format_fold_open_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_fold_close_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.close_folds),
 				 "activate");
 }
@@ -503,7 +503,7 @@ on_format_fold_close_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_indent_inc_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.indent_inc),
 				 "activate");
 }
@@ -511,7 +511,7 @@ on_format_indent_inc_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_indent_dcr_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.indent_dcr),
 				 "activate");
 }
@@ -519,7 +519,7 @@ on_format_indent_dcr_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_indent_auto_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.format.indent),
 				 "activate");
 }
@@ -529,7 +529,7 @@ on_format_indent_style_clicked (GtkButton * button, gpointer user_data)
 {
 /*	gtk_notebook_set_page (GTK_NOTEBOOK
 			       (app->preferences->widgets.notebook), 5);
-*/	gtk_signal_emit_by_name (GTK_OBJECT
+*/	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.settings.preferences),
 				 "activate");
 }
@@ -537,7 +537,7 @@ on_format_indent_style_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_block_select_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.select_block),
 				 "activate");
 }
@@ -550,7 +550,7 @@ on_format_calltip_clicked (GtkButton * button, gpointer user_data)
 void
 on_format_autocomplete_clicked (GtkButton * button, gpointer user_data)
 {
-	gtk_signal_emit_by_name (GTK_OBJECT
+	g_signal_emit_by_name (G_OBJECT
 				 (app->widgets.menubar.edit.autocomplete),
 				 "activate");
 }

@@ -787,9 +787,7 @@ on_bk_enableall_clicked (GtkWidget *button, gpointer data)
 							ENABLED_COLUMN, TRUE, -1);
 		valid = gtk_tree_model_iter_next (model, &iter);
 	}
-
-#warning "G2 port: change the active state of the enabled column"
-	 enable_all_breakpoints (bd);
+	enable_all_breakpoints (bd);
 }
 
 static void
@@ -808,7 +806,6 @@ on_bk_disableall_clicked (GtkWidget *button, gpointer data)
 							ENABLED_COLUMN, FALSE, -1);
 		valid = gtk_tree_model_iter_next (model, &iter);
 	}
-#warning "G2 port: change the active state of the enabled column"
 	disable_all_breakpoints (bd);
 }
 
@@ -881,8 +878,8 @@ breakpoints_dbase_new ()
 	if (bd) {
 		GtkTreeView *view;
 		GtkTreeStore *store;
-		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
+		GtkCellRenderer *renderer;
 		int i;
 
 		/* breakpoints dialog */
@@ -938,9 +935,9 @@ breakpoints_dbase_new ()
 						  G_CALLBACK (on_treeview_enabled_toggled), bd);
 		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 		gtk_tree_view_append_column (view, column);
-		renderer = gtk_cell_renderer_text_new ();
 
 		for (i = FILENAME_COLUMN; i < (COLUMNS_NB - 1); i++) {
+			renderer = gtk_cell_renderer_text_new ();
 			column =
 				gtk_tree_view_column_new_with_attributes (column_names[i],
 													renderer, "text", i, NULL);
@@ -1142,9 +1139,9 @@ breakpoints_dbase_show (BreakpointsDBase *bd)
 		gdk_window_raise (bd->priv->window->window);
 		return;
 	}
-	gtk_widget_set_uposition (bd->priv->window,
-							  bd->priv->win_pos_x,
-							  bd->priv->win_pos_y);
+	gtk_window_move (GTK_WINDOW (bd->priv->window),
+					 bd->priv->win_pos_x,
+					 bd->priv->win_pos_y);
 	gtk_window_set_default_size (GTK_WINDOW
 								 (bd->priv->window),
 								 bd->priv->win_width,
@@ -1162,7 +1159,7 @@ breakpoints_dbase_hide (BreakpointsDBase *bd)
 	gdk_window_get_root_origin (bd->priv->window->
 								window, &bd->priv->win_pos_x,
 								&bd->priv->win_pos_y);
-	gdk_window_get_size (bd->priv->window->window,
+	gdk_drawable_get_size (bd->priv->window->window,
 						 &bd->priv->win_width, &bd->priv->win_height);
 	gtk_widget_hide (bd->priv->window);
 	bd->priv->is_showing = FALSE;
@@ -1309,7 +1306,7 @@ breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE *stream)
 	{
 		gdk_window_get_root_origin (bd->priv->window->window,
 					&bd->priv->win_pos_x, &bd->priv->win_pos_y);
-		gdk_window_get_size (bd->priv->window->window,
+		gdk_drawable_get_size (GDK_DRAWABLE (bd->priv->window->window),
 					&bd->priv->win_width, &bd->priv->win_height);
 	}
 	fprintf (stream, "breakpoints.win.pos.x=%d\n", bd->priv->win_pos_x);
@@ -1408,6 +1405,7 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 			ptr = strchr (fileln, ':');
 			if (ptr)
 			{
+				gchar *basename;
 				ptr1 = strchr (ptr, '\n');
 				if (ptr1)
 				{
@@ -1436,7 +1434,9 @@ breakpoints_dbase_add_brkpnt (BreakpointsDBase *bd, gchar *brkpnt)
 				strcpy (line, ptr);
 				ptr--;
 				*ptr = '\0';
-				strcpy (file, g_basename (fileln));
+				basename = g_path_get_basename (fileln);
+				strcpy (file, basename);
+				g_free (basename);
 			}
 		}
 

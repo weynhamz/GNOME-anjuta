@@ -29,6 +29,7 @@
 #include "config.h"
 #endif
 
+#include <string.h>
 
 #include <gnome.h>
 
@@ -125,7 +126,7 @@ search_preferences_find_setting(gchar *name)
 	for(list = sps->setting; list; list=g_list_next(list))
 	{
 		ss = list->data;
-		if (g_strcasecmp(name, ss->name) == 0)
+		if (g_ascii_strcasecmp(name, ss->name) == 0)
 			return ss;
 	}	
 	return NULL;
@@ -140,7 +141,7 @@ on_search_preferences_clear_default_foreach (GtkTreeModel *model, GtkTreePath *p
 	
 	gtk_tree_model_get (model, iter, PREF_NAME_COLUMN, &t_name,
 	                                 PREF_ACTIVE_COLUMN, &active, -1);
-	if ((data != NULL) && (g_strcasecmp(t_name, (gchar*) data) == 0))
+	if ((data != NULL) && (g_ascii_strcasecmp(t_name, (gchar*) data) == 0))
 	{
 		gtk_tree_store_set (GTK_TREE_STORE (model), iter, 
 		                    PREF_DEFAULT_COLUMN, TRUE,

@@ -324,8 +324,8 @@ project_dbase_show (ProjectDBase * p)
 		}
 		else		/* Is not docked */
 		{
-			gtk_widget_set_uposition (p->widgets.window,
-						  p->win_pos_x, p->win_pos_y);
+			gtk_window_move (GTK_WINDOW (p->widgets.window),
+							 p->win_pos_x, p->win_pos_y);
 			gtk_window_set_default_size (GTK_WINDOW
 						     (p->widgets.window),
 						     p->win_width,
@@ -353,7 +353,7 @@ project_dbase_hide (ProjectDBase * p)
 			gdk_window_get_root_origin (p->widgets.window->window,
 						    &p->win_pos_x,
 						    &p->win_pos_y);
-			gdk_window_get_size (p->widgets.window->window,
+			gdk_drawable_get_size (GDK_DRAWABLE (p->widgets.window->window),
 					     &p->win_width, &p->win_height);
 			gtk_widget_hide (p->widgets.window);
 		}
@@ -877,8 +877,8 @@ project_dbase_save_yourself (ProjectDBase * p, FILE * stream)
 	{
 		gdk_window_get_root_origin (p->widgets.window->window,
 					    &p->win_pos_x, &p->win_pos_y);
-		gdk_window_get_size (p->widgets.window->window, &p->win_width,
-				     &p->win_height);
+		gdk_drawable_get_size (GDK_DRAWABLE (p->widgets.window->window),
+							   &p->win_width, &p->win_height);
 	}
 	fprintf (stream, "project.win.pos.x=%d\n", p->win_pos_x);
 	fprintf (stream, "project.win.pos.y=%d\n", p->win_pos_y);
@@ -1882,7 +1882,7 @@ project_dbase_scan_files_in_module(ProjectDBase* p, PrjModule module, gboolean w
 	files = NULL;
 
 	/* Can not use p->top_proj_dir yet. */
-	top_dir = g_dirname (p->proj_filename);
+	top_dir = g_path_get_dirname (p->proj_filename);
 
 	/* Can not use project_dbase_get_module_dir() yet */
 	key = g_strconcat ("module.", module_map[module], ".name", NULL);
@@ -2057,7 +2057,7 @@ project_dbase_update_menu (ProjectDBase * p)
 		submenu =
 			create_submenu (_("Recent Projects "),
 					app->recent_projects,
-					GTK_SIGNAL_FUNC
+					G_CALLBACK
 					(on_recent_projects_menu_item_activate));
 		gtk_menu_item_set_submenu (GTK_MENU_ITEM
 					   (app->widgets.menubar.

@@ -276,10 +276,10 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	gtk_widget_hide(settings1_menu_uiinfo[13].widget);
 
 	/* Recent files and project submenu */
-	gtk_signal_connect (GTK_OBJECT (mb->file.recent_files), "realize",
-			    GTK_SIGNAL_FUNC (on_file_menu_realize), NULL);
-	gtk_signal_connect (GTK_OBJECT (mb->file.recent_projects), "realize",
-			    GTK_SIGNAL_FUNC (on_project_menu_realize), NULL);
+	g_signal_connect (G_OBJECT (mb->file.recent_files), "realize",
+			    G_CALLBACK (on_file_menu_realize), NULL);
+	g_signal_connect (G_OBJECT (mb->file.recent_projects), "realize",
+			    G_CALLBACK (on_project_menu_realize), NULL);
 
 	/* Populate the menu map */
 	an_register_submenu("file", GTK_MENU_ITEM(menubar1_uiinfo[0].widget)->submenu);
@@ -349,16 +349,16 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 	/* FIXME: what about the user opinion on tearoff menuitems ?
 	          perhaps (s)he has deactivated the option. */
 	item = gtk_tearoff_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
 	gtk_widget_show (item);
 
 	item = gtk_menu_item_new_with_label (title);
 	gtk_widget_set_sensitive (item, FALSE);
-	gtk_menu_append (GTK_MENU (submenu), item);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
 	gtk_widget_show (item);
 
 	item = gtk_menu_item_new ();
-	gtk_menu_append (GTK_MENU (submenu), item);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
 	gtk_widget_show (item);
 
 	for (i = 0; i < g_list_length (strings); i++)
@@ -366,9 +366,9 @@ create_submenu (gchar * title, GList * strings, GtkSignalFunc callback_func)
 		gchar *text;
 		text = (gchar *) (g_list_nth (strings, i)->data);
 		item = gtk_menu_item_new_with_label (text);
-		gtk_menu_append (GTK_MENU (submenu), item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
 		gtk_widget_show (item);
-		gtk_signal_connect (GTK_OBJECT (item), "activate",
+		g_signal_connect (G_OBJECT (item), "activate",
 				    callback_func, text);
 	}
 	gtk_widget_show (submenu);
@@ -380,7 +380,7 @@ on_file_menu_realize (GtkWidget * widget, gpointer data)
 {
 	GtkWidget *submenu =
 		create_submenu (_("Recent Files    "), app->recent_files,
-				GTK_SIGNAL_FUNC
+				G_CALLBACK
 				(on_recent_files_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
 	app->widgets.menubar.file.recent_files = widget;
@@ -391,7 +391,7 @@ on_project_menu_realize (GtkWidget * widget, gpointer data)
 {
 	GtkWidget *submenu =
 		create_submenu (_("Recent Projects "), app->recent_projects,
-				GTK_SIGNAL_FUNC
+				G_CALLBACK
 				(on_recent_projects_menu_item_activate));
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (widget), submenu);
 	app->widgets.menubar.file.recent_projects = widget;

@@ -86,7 +86,7 @@ on_wizard_app_icon_select (GnomeIconList * gil, gint num,
 void
 create_app_wizard_page1 (AppWizard * aw)
 {
-  gtk_signal_connect (GTK_OBJECT (aw->widgets.icon_list), "select_icon",
-		      GTK_SIGNAL_FUNC (on_wizard_app_icon_select), aw);
+  g_signal_connect (G_OBJECT (aw->widgets.icon_list), "select_icon",
+		      G_CALLBACK (on_wizard_app_icon_select), aw);
   gnome_icon_list_select_icon (GNOME_ICON_LIST (aw->widgets.icon_list), 2);
 }

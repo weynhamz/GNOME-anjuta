@@ -175,13 +175,13 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 	gtk_widget_show_all (piw->widgets.page[1]);
 	gnome_druid_append_page (GNOME_DRUID (piw->widgets.druid),
 				 GNOME_DRUID_PAGE (piw->widgets.page[1]));
-	gnome_druid_page_standard_set_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_background (GNOME_DRUID_PAGE_STANDARD
 						(piw->widgets.page[1]),
 						&page2_bg_color);
-	gnome_druid_page_standard_set_logo_bg_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_logo_background (GNOME_DRUID_PAGE_STANDARD
 						     (piw->widgets.page[1]),
 						     &page2_logo_bg_color);
-	gnome_druid_page_standard_set_title_color (GNOME_DRUID_PAGE_STANDARD
+	gnome_druid_page_standard_set_title_foreground (GNOME_DRUID_PAGE_STANDARD
 						   (piw->widgets.page[1]),
 						   &page2_title_color);
 	gnome_druid_page_standard_set_title (GNOME_DRUID_PAGE_STANDARD
@@ -208,7 +208,7 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 
 	piw->widgets.file_entry = gnome_file_entry_new ("project_import",
 							_("Select existing project directory"));
-	gnome_file_entry_set_directory(GNOME_FILE_ENTRY(piw->widgets.file_entry), TRUE);
+	gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY(piw->widgets.file_entry), TRUE);
 	
 	gtk_widget_show (piw->widgets.file_entry);
 	gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, TRUE, 5);

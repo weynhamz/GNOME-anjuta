@@ -71,10 +71,10 @@ create_anjuta_gui (AnjutaApp * appl)
 	gnome_window_icon_set_default_from_file(PACKAGE_PIXMAPS_DIR "/" ANJUTA_PIXMAP_ICON);
 	tooltips = gtk_tooltips_new ();
 	anjuta_gui = gnome_app_new ("Anjuta", "Anjuta");
-	gtk_widget_set_uposition (anjuta_gui, 0, 0);
-	gtk_widget_set_usize (anjuta_gui, 500, 116);
+	gtk_window_move (GTK_WINDOW (anjuta_gui), 0, 0);
+	gtk_widget_set_size_request (anjuta_gui, 500, 116);
 	gtk_window_set_default_size (GTK_WINDOW (anjuta_gui), 700, 400);
-	gtk_window_set_policy (GTK_WINDOW (anjuta_gui), FALSE, TRUE, FALSE);
+	gtk_window_set_resizable (GTK_WINDOW (anjuta_gui), TRUE);
 	gtk_window_set_wmclass (GTK_WINDOW (anjuta_gui), "mainide", "Anjuta");
 	
 	/* Add file drag and drop support */
@@ -296,33 +296,33 @@ create_anjuta_gui (AnjutaApp * appl)
 	gtk_widget_show (appbar1);
 	gnome_app_set_statusbar (GNOME_APP (anjuta_gui), appbar1);
 
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "focus_in_event",
-			    GTK_SIGNAL_FUNC (on_anjuta_window_focus_in_event),
+	g_signal_connect (G_OBJECT (anjuta_gui), "focus_in_event",
+			    G_CALLBACK (on_anjuta_window_focus_in_event),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_press_event",
-			    GTK_SIGNAL_FUNC (on_anjuta_window_key_press_event),
+	g_signal_connect (G_OBJECT (anjuta_gui), "key_press_event",
+			    G_CALLBACK (on_anjuta_window_key_press_event),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "key_release_event",
-          GTK_SIGNAL_FUNC (on_anjuta_window_key_release_event),
+	g_signal_connect (G_OBJECT (anjuta_gui), "key_release_event",
+          G_CALLBACK (on_anjuta_window_key_release_event),
           NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "delete_event",
-			    GTK_SIGNAL_FUNC (on_anjuta_delete), NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_gui), "destroy",
-			    GTK_SIGNAL_FUNC (on_anjuta_destroy), NULL);
-	gtk_signal_connect (GTK_OBJECT (anjuta_notebook), "switch_page",
-			    GTK_SIGNAL_FUNC (on_anjuta_notebook_switch_page),
+	g_signal_connect (G_OBJECT (anjuta_gui), "delete_event",
+			    G_CALLBACK (on_anjuta_delete), NULL);
+	g_signal_connect (G_OBJECT (anjuta_gui), "destroy",
+			    G_CALLBACK (on_anjuta_destroy), NULL);
+	g_signal_connect (G_OBJECT (anjuta_notebook), "switch_page",
+			    G_CALLBACK (on_anjuta_notebook_switch_page),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button1), "clicked",
-			    GTK_SIGNAL_FUNC
+	g_signal_connect (G_OBJECT (button1), "clicked",
+			    G_CALLBACK
 			    (on_prj_list_undock_button_clicked), NULL);
-	gtk_signal_connect (GTK_OBJECT (button3), "clicked",
-			    GTK_SIGNAL_FUNC (on_prj_list_hide_button_clicked),
+	g_signal_connect (G_OBJECT (button3), "clicked",
+			    G_CALLBACK (on_prj_list_hide_button_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button4), "clicked",
-			    GTK_SIGNAL_FUNC (on_mesg_win_hide_button_clicked),
+	g_signal_connect (G_OBJECT (button4), "clicked",
+			    G_CALLBACK (on_mesg_win_hide_button_clicked),
 			    NULL);
-	gtk_signal_connect (GTK_OBJECT (button2), "clicked",
-			    GTK_SIGNAL_FUNC
+	g_signal_connect (G_OBJECT (button2), "clicked",
+			    G_CALLBACK
 			    (on_mesg_win_undock_button_clicked), NULL);
 
 	app->accel_group = GNOME_APP (anjuta_gui)->accel_group;

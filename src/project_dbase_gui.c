@@ -607,7 +607,7 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_widget_show (scrolledwindow1);
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (notebook1), scrolledwindow1,
 							   gtk_label_new(_("Project")));
-	gtk_notebook_set_page (GTK_NOTEBOOK (notebook1), 0);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook1), 0);
 
 	store = gtk_tree_store_new (N_PROJECT_COLUMNS,
 								GDK_TYPE_PIXBUF,
@@ -639,6 +639,8 @@ create_project_dbase_gui (ProjectDBase * p)
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (ctree1), column);
 
 	/* Signals */
+	g_signal_connect (G_OBJECT (window1), "delete_event",
+					  G_CALLBACK (on_project_dbase_win_delete_event), p);
 	g_signal_connect (G_OBJECT(store), "row_deleted",
 					  G_CALLBACK (on_tree_model_row_deleted), NULL);
 	g_signal_connect (G_OBJECT(ctree1), "row_expanded",
@@ -651,11 +653,9 @@ create_project_dbase_gui (ProjectDBase * p)
 					  G_CALLBACK (on_tree_view_row_activated), p);
 	g_signal_connect (G_OBJECT(selection), "changed",
 					  G_CALLBACK (on_tree_selection_changed), p);
+	
 	g_object_unref (store);
 
-	g_signal_connect (G_OBJECT (window1), "delete_event",
-					  G_CALLBACK (on_project_dbase_win_delete_event), p);
-	
 	gtk_window_add_accel_group (GTK_WINDOW (window1), app->accel_group);
 	
 	p->widgets.window = window1;
@@ -731,15 +731,21 @@ create_project_dbase_info_gui (gchar * lab[])
 	GtkWidget *label31;
 	GtkWidget *frame17;
 	GtkWidget *label32;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *button1;
 
-	dialog1 = gnome_dialog_new (_("Project Information"), NULL);
+	dialog1 = gtk_dialog_new_with_buttons (_("Project Information"),
+										   GTK_WINDOW(app->widgets.window),
+										   GTK_DIALOG_DESTROY_WITH_PARENT,
+										   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
+										   NULL);
 	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_info", "Anjuta");
-	gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog1), GTK_RESPONSE_CANCEL);
+	g_signal_connect_swapped (G_OBJECT (dialog1), 
+							  "response", 
+							  G_CALLBACK (gtk_widget_destroy),
+							  G_OBJECT (dialog1));
 
-	dialog_vbox1 = GNOME_DIALOG (dialog1)->vbox;
+	dialog_vbox1 = GTK_DIALOG (dialog1)->vbox;
 	gtk_widget_show (dialog_vbox1);
 
 	frame1 = gtk_frame_new (_(" Project Information "));
@@ -1094,18 +1100,6 @@ create_project_dbase_info_gui (gchar * lab[])
 	gtk_misc_set_padding (GTK_MISC (label32), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label32), 0, -1);
 
-	dialog_action_area1 = GNOME_DIALOG (dialog1)->action_area;
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),
-				   GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area1), 8);
-
-	gnome_dialog_append_button (GNOME_DIALOG (dialog1),
-				    GNOME_STOCK_BUTTON_CLOSE);
-	button1 = g_list_last (GNOME_DIALOG (dialog1)->buttons)->data;
-	gtk_widget_show (button1);
-	GTK_WIDGET_SET_FLAGS (button1, GTK_CAN_DEFAULT);
-
 	return dialog1;
 }
 
@@ -1298,8 +1292,8 @@ create_langsel_dialog (void)
 	gtk_widget_show (button3);
 	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
 
-	gtk_signal_connect (GTK_OBJECT (combo_entry1), "changed",
-			    GTK_SIGNAL_FUNC (on_lang_combo_entry_changed),
+	g_signal_connect (G_OBJECT (combo_entry1), "changed",
+			    G_CALLBACK (on_lang_combo_entry_changed),
 			    NULL);
 
 	return dialog1;
@@ -1342,14 +1336,19 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 			gchar *mesg = g_strdup_printf (_("\"%s\"\ndoes not exist."
 					  "\nDo you want to create it now ?"), filename);
 			GtkWidget * label = gtk_label_new(mesg);
-			GtkWidget * dialog = gnome_dialog_new("Create File confirm",
-						GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO, NULL);
+			GtkWidget * dialog = gtk_dialog_new_with_buttons (_("Create File confirm"),
+												GTK_WINDOW(app->widgets.window),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												GTK_STOCK_YES, GTK_RESPONSE_YES,
+												GTK_STOCK_NO, GTK_RESPONSE_NO,
+												NULL);
 			gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window));
-			gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
+			gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
 			gtk_widget_show(label);
-			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
+			gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+			button = gtk_dialog_run (GTK_DIALOG(dialog));
 			g_free(mesg);
-			if(button != 0)
+			if(button != GTK_RESPONSE_YES)
 				continue;
 		}
 		else if (!S_ISREG(s.st_mode))
@@ -1369,15 +1368,18 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 			gchar *mesg = g_strdup_printf (_("\"%s\"\ndoes not exist in the current module directory."
 					  "\nDo you want to IMPORT (copy) it into the module?"), filename);
 			GtkWidget * label = gtk_label_new(mesg);
-			GtkWidget * dialog = gnome_dialog_new("Import File confirm",
-						GNOME_STOCK_BUTTON_YES, GNOME_STOCK_BUTTON_NO, NULL);
+			GtkWidget * dialog = gtk_dialog_new_with_buttons (_("Import File confirm"),
+												GTK_WINDOW(app->widgets.window),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												GTK_STOCK_YES, GTK_RESPONSE_YES,
+												GTK_STOCK_NO, GTK_RESPONSE_NO,
+												NULL);
 			gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window));
-			gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
+			gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox),label,TRUE, TRUE, 0);
 			gtk_widget_show(label);
-			button = gnome_dialog_run_and_close(GNOME_DIALOG(dialog));
+			button = gtk_dialog_run (GTK_DIALOG(dialog));
 			g_free(mesg);
-			if(button == 0)
-			{
+			if(button == GTK_RESPONSE_YES)
 				on_prj_import_confirm_yes (NULL, filename, p);
 				files_added = TRUE;
 			}

@@ -48,18 +48,6 @@ on_registers_response(GtkWidget* w, gint res, gpointer data)
 }
 
 void
-on_registers_clist_select_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data)
-{
-    CpuRegisters *cr;
-    cr = (CpuRegisters *)user_data;
-    cr->current_index = row;
-}
-
-void
 on_register_modify_activate            (GtkMenuItem     *menuitem,
                                         gpointer         user_data)
 {

@@ -23,6 +23,7 @@
 
 #define _GNU_SOURCE
 #include <stdio.h>
+#include <string.h>
 
 #include <gnome.h>
 #include "pixmaps.h"
