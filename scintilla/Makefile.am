@@ -56,4 +56,11 @@ libscintilla_a_SOURCES =\
 	ScintillaBase.h \
 	Style.h \
 	UniConversion.h \
-	ViewStyle.h
+	ViewStyle.h\
+	LexCrontab.cxx\
+	LexEiffel.cxx\
+	LexLisp.cxx\
+	LexRuby.cxx\
+	StyleContext.h\
+	StyleContext.cxx
+

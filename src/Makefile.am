@@ -16,6 +16,23 @@ INCLUDES = \
  	-O1\
  	-g
 
+SCILEXERS =\
+	../scintilla/LexCPP.o\
+	../scintilla/LexConf.o\
+	../scintilla/LexHTML.o\
+	../scintilla/LexLua.o\
+	../scintilla/LexOthers.o\
+	../scintilla/LexPerl.o\
+	../scintilla/LexPython.o\
+	../scintilla/LexSQL.o\
+	../scintilla/LexVB.o\
+	../scintilla/LexPascal.o\
+	../scintilla/LexAVE.o\
+	../scintilla/LexCrontab.o\
+	../scintilla/LexEiffel.o\
+	../scintilla/LexLisp.o\
+	../scintilla/LexRuby.o
+
 bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
@@ -198,11 +215,6 @@ anjuta_LDADD =  \
 	$(EXTRA_GNOME_LIBS)\
 	$(EXTRA_ORBIT_LIBS)\
 	-L../scintilla -L../widgets -L../ccview\
-	../scintilla/LexCPP.o ../scintilla/LexConf.o ../scintilla/LexHTML.o\
-	../scintilla/LexLua.o ../scintilla/LexOthers.o ../scintilla/LexPerl.o\
-	../scintilla/LexPython.o ../scintilla/LexSQL.o ../scintilla/LexVB.o\
-	../scintilla/LexPascal.o ../scintilla/LexAVE.o -lwidgets -lccview -lxml\
-	-lscintilla
-
-	
-# -lIIOP -lORBitutil -lgnorba -lORBit
+	-lwidgets -lccview -lxml\
+	-lscintilla\
+	$(SCILEXERS)

@@ -1,3 +1,11 @@
+2001-10-16  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Upgraded scintilla to 1.4.
+	* Added 6 files:  LexCrontab.cxx LexEiffel.cxx LexRuby.cxx
+		LexLisp.cxx StyleContext.cxx StyleContext.h
+	* src/Makefile.am: Added 4 lexers and separated lexer objects
+		from the main link variable.
+
 2001-10-14  Stephane Demurget  <demurgets@free.fr>
 
 	* THANKS: added Luca, even if it shouldn't be my role to write
