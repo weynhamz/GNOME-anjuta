@@ -23,6 +23,9 @@
 	* scintilla/*/*: Update scintilla to current CVS (just after 1.55 release,
 	2003-09-29).
 
+	* scintilla/LexMPT.cxx, scintilla/LexMetapost.cxx, scintilla/LexTeX.cxx,
+	scintilla/LexYAML.cxx: Added new scintilla lexers.
+
 2003-09-26  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Only connects to kernel SIGCHLD signal.
