@@ -2361,7 +2361,7 @@ int AnEditor::IndentOfBlock(int line) {
 		WindowAccessor acc(wEditor.GetID(), *props);
 		int currentPos = SendEditor(SCI_POSITIONFROMLINE, backLine + 1);
 		
-		while (backLine > 0) {
+		while (backLine >= 0) {
 			int thisLineStart = SendEditor(SCI_POSITIONFROMLINE, backLine);
 			int nextLineStart = currentPos;
 			// printf("Scanning at line: %d (%d)\n", backLine, currentPos);
@@ -2407,6 +2407,16 @@ int AnEditor::IndentOfBlock(int line) {
 								pos = currentPos;
 							}
 						} else {
+							foundTerminator = true;
+							break;
+						}
+					}
+				} else if ((acc.StyleAt(pos) == statementIndent.styleNumber) &&
+						   (acc.StyleAt(pos+1) != statementIndent.styleNumber)) {
+					char buffer[128];
+					if (GetWordAtPosition (buffer, 128, pos)) {
+						if (includes (statementIndent, buffer)) {
+							printf ("Found keyword terminator before unmatched (\n");
 							foundTerminator = true;
 							break;
 						}
