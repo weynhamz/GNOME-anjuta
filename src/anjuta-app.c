@@ -475,9 +475,20 @@ on_widget_destroy (GtkWidget *widget, AnjutaApp *app)
 static void
 on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 {
-	DEBUG_PRINT ("Widget removed from container");
-	g_hash_table_foreach_remove (app->widgets, remove_from_widgets_hash,
-								 widget);
+	GtkWidget *dock_item;
+
+	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
+	if (dock_item)
+	{
+		g_signal_handlers_disconnect_by_func (G_OBJECT (dock_item),
+					G_CALLBACK (on_widget_remove), app);
+		gdl_dock_item_unbind (GDL_DOCK_ITEM(dock_item));
+	}
+	if (g_hash_table_foreach_remove (app->widgets,
+									 remove_from_widgets_hash,
+									 widget)){
+		DEBUG_PRINT ("Widget removed from container");
+	}
 }
 
 static void
@@ -487,7 +498,7 @@ on_widget_removed_from_hash (gpointer widget)
 	GtkWidget *menuitem;
 	GdlDockItem *dockitem;
 	
-	// DEBUG_PRINT ("Removing widget from hash");
+	DEBUG_PRINT ("Removing widget from hash");
 	
 	app = g_object_get_data (G_OBJECT (widget), "app-object");
 	dockitem = g_object_get_data (G_OBJECT (widget), "dockitem");
@@ -498,10 +509,10 @@ on_widget_removed_from_hash (gpointer widget)
 	g_object_set_data (G_OBJECT (widget), "dockitem", NULL);
 	g_object_set_data (G_OBJECT (widget), "menuitem", NULL);
 
-	g_signal_handlers_disconnect_by_func (G_OBJECT (dockitem),
-				G_CALLBACK (on_widget_remove), app);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
 				G_CALLBACK (on_widget_destroy), app);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (dockitem),
+				G_CALLBACK (on_widget_remove), app);
 	
 	g_object_unref (G_OBJECT (widget));
 }
@@ -583,7 +594,7 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	*/
 	g_signal_connect (G_OBJECT (item), "remove",
 					  G_CALLBACK (on_widget_remove), app);
-	g_signal_connect (G_OBJECT (widget), "destroy",
+	g_signal_connect_after (G_OBJECT (widget), "destroy",
 					  G_CALLBACK (on_widget_destroy), app);
 }
 

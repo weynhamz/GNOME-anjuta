@@ -160,6 +160,20 @@ initialize_markers (TextEditor* te)
 	}
 }
 
+#ifdef DEBUG
+static void
+on_scintila_already_destroyed (gpointer te, GObject *obj)
+{
+	DEBUG_PRINT ("Scintilla object has been destroyed");
+}
+
+static void
+on_te_already_destroyed (gpointer te, GObject *obj)
+{
+	DEBUG_PRINT ("TextEditor object has been destroyed");
+}
+#endif
+
 GtkWidget *
 text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
@@ -198,7 +212,10 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	gtk_signal_connect (GTK_OBJECT (te->scintilla), "sci-notify",
 			    GTK_SIGNAL_FUNC (on_text_editor_scintilla_notify),
 			    te);
-
+#ifdef DEBUG
+	g_object_weak_ref (G_OBJECT (te->scintilla), on_scintila_already_destroyed, te);
+	g_object_weak_ref (G_OBJECT (te), on_te_already_destroyed, te);
+#endif
 	initialize_markers (te);
 
 	if (uri)

@@ -1,3 +1,30 @@
+2005-01-03  Naba Kumar  <naba@gnome.org>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c: Use weak ref
+	to destroy build context when message view is destroyed.
+	
+	* plugins/editor/aneditor.cxx: Sink scintilla widget in aneditor, hold
+	a ref to it and unref in destructor. AnEditor class wants to be the
+	owner of scintilla widget. Fixed compile warnings with signed/unsigned
+	comparisions.
+	
+	* plugins/editor/anjuta-docman.c: Removed unnecessary refs/unrefs. They
+	complicate the scene. Removed editor widget from AnjutaDocman when
+	the widget is destroyed.
+	
+	* plugins/editor/plugin.c: Destroy docman widget instead of just removing
+	from shell. It will be removed from shell when the widget is destroyed.
+	
+	* plugins/editor/text_editor.c: Added debug codes to track object
+	finalizations.
+
+	* plugins/message-view/anjuta-msgman.c: Remove message view on
+	widget destroy. Destroy message view on remove. Removed all views
+	correctly.
+	
+	* anjuta/src/anjuta-app.c: Removed widgets correctly when they are removed
+	from container.
+
 2005-01-02  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/file-wizard/action-callbacks.c,

@@ -484,6 +484,8 @@ AnEditor::AnEditor(PropSetFile* p) {
 	props = p;
 	
 	wEditor = scintilla_new();
+	g_object_ref (G_OBJECT (wEditor.GetID()));
+	gtk_object_sink (GTK_OBJECT (wEditor.GetID()));
 	scintilla_set_id(SCINTILLA(wEditor.GetID()), 0);
 
 	fnEditor = reinterpret_cast<SciFnDirect>(Platform::SendScintilla(
@@ -538,6 +540,7 @@ AnEditor::SetAccelGroup(GtkAccelGroup* acl) {
 }
 
 AnEditor::~AnEditor() {
+	g_object_unref (G_OBJECT (wEditor.GetID()));
 }
 
 long AnEditor::SendEditor(unsigned int msg, unsigned long wParam, long lParam) {
@@ -1220,10 +1223,10 @@ void AnEditor::ContinueCallTip() {
 void AnEditor::ContinueCallTip_new() {
 	SString linebuf;
 	GetLine(linebuf);
-	int current = GetCaretInLine();
+	unsigned current = GetCaretInLine();
 	int commas = 0;
 	
-	for (int i = call_tip_node.call_tip_start_pos; i < current; i++) {
+	for (unsigned i = call_tip_node.call_tip_start_pos; i < current; i++) {
 		
 		unsigned char ch = linebuf[i];
 
@@ -1231,7 +1234,7 @@ void AnEditor::ContinueCallTip_new() {
 		//	if found	we'll skip them to evitate commas problems
 		if ( ch == '(' ) {
 			int braces = 1;
-			for ( int k = i+1; k < linebuf.length(); k++ ) {
+			for (unsigned k = i+1; k < linebuf.length(); k++ ) {
 				if ( linebuf[k] == '(' ) {
 					braces++;
 				}

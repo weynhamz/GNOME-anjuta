@@ -534,8 +534,9 @@ on_build_terminated (AnjutaLauncher *launcher,
 }
 
 static void
-on_message_view_destroyed (GtkWidget *view, BuildContext *context)
+on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 {
+	DEBUG_PRINT ("Destroying build context");
 	context->message_view = NULL;
 	build_context_destroy (context);
 }
@@ -572,9 +573,11 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 					  G_CALLBACK (on_build_mesg_format), context);
 	g_signal_connect (G_OBJECT (context->message_view), "message_clicked",
 					  G_CALLBACK (on_build_mesg_parse), context);
-	g_signal_connect (G_OBJECT (context->message_view), "destroy",
+	g_object_weak_ref (G_OBJECT (context->message_view),
+					   (GWeakNotify)on_message_view_destroyed, context);
+	/*g_signal_connect (G_OBJECT (context->message_view), "destroy",
 					  G_CALLBACK (on_message_view_destroyed), context);
-	
+	*/
 	context->launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (context->launcher), "child-exited",
 					  G_CALLBACK (on_build_terminated), context);

@@ -81,9 +81,9 @@ editor_tab_widget_destroy (AnjutaDocmanPage* page)
 	g_return_if_fail(page != NULL);
 	g_return_if_fail(page->close_button != NULL);
 
-	g_object_unref (G_OBJECT (page->close_button));
-	g_object_unref (G_OBJECT (page->close_image));
-	g_object_unref (G_OBJECT (page->label));
+	// g_object_unref (G_OBJECT (page->close_button));
+	// g_object_unref (G_OBJECT (page->close_image));
+	// g_object_unref (G_OBJECT (page->label));
 	
 	page->close_image = NULL;
 	page->close_button = NULL;
@@ -149,9 +149,9 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	page->close_button = button15;
 	page->label = label;
 	
-	g_object_ref (page->close_button);
-	g_object_ref (page->close_image);
-	g_object_ref (page->label);
+	// g_object_ref (page->close_button);
+	// g_object_ref (page->close_image);
+	// g_object_ref (page->label);
 
 	return box;
 }
@@ -163,7 +163,7 @@ anjuta_docman_page_new (GtkWidget *editor, AnjutaDocman* docman)
 	
 	page = g_new0 (AnjutaDocmanPage, 1);
 	page->widget = GTK_WIDGET (editor);
-	g_object_ref (G_OBJECT (page->widget));
+	// g_object_ref (G_OBJECT (page->widget));
 	page->box = editor_tab_widget_new (page, docman);
 	return page;
 }
@@ -172,7 +172,7 @@ static void
 anjuta_docman_page_destroy (AnjutaDocmanPage *page)
 {
 	editor_tab_widget_destroy (page);
-	g_object_unref (G_OBJECT (page->widget));
+	// g_object_unref (G_OBJECT (page->widget));
 	g_free (page);
 }
 
@@ -488,6 +488,7 @@ on_notebook_switch_page (GtkNotebook * notebook,
 						 gint page_num, AnjutaDocman *docman)
 {
 	GtkWidget *widget;
+	DEBUG_PRINT ("Switching notebook page");
 	/* TTimo: reorder so that the most recently used files are always
 	 * at the beginning of the tab list
 	 */
@@ -501,11 +502,74 @@ on_notebook_switch_page (GtkNotebook * notebook,
 	}
 }
 
+static AnjutaDocmanPage *
+anjuta_docman_page_from_widget (AnjutaDocman *docman, TextEditor *te)
+{
+	GList *node;
+	node = docman->priv->editors;
+	while (node)
+	{
+		AnjutaDocmanPage *page;
+		page = node->data;
+		g_assert (page);
+		if (page->widget == GTK_WIDGET (te))
+			return page;
+		node = g_list_next (node);
+	}
+	return NULL;
+}
+
 static void
 on_editor_save_point (TextEditor *editor, gboolean entering,
 					  AnjutaDocman *docman)
 {
 	anjuta_docman_update_page_label (docman, GTK_WIDGET (editor));
+}
+
+static void
+on_editor_destroy (TextEditor *te, AnjutaDocman *docman)
+{
+	// GtkWidget *submenu;
+	// GtkWidget *wid;
+	AnjutaDocmanPage *page;
+	gint page_num;
+	
+	DEBUG_PRINT ("text editor destroy");
+
+	page = anjuta_docman_page_from_widget (docman, te);
+	gtk_signal_handler_block_by_func (GTK_OBJECT (docman),
+				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
+				       docman);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te),
+										  G_CALLBACK (on_editor_save_point),
+										  docman);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (te),
+										  G_CALLBACK (on_editor_destroy),
+										  docman);
+#if 0 // FIXME
+	breakpoints_dbase_clear_all_in_editor (debugger.breakpoints_dbase, te);
+#endif
+	
+	docman->priv->editors = g_list_remove (docman->priv->editors, page);
+	anjuta_docman_page_destroy (page);
+
+	if (docman->priv->current_editor == te)
+		anjuta_docman_set_current_editor (docman, NULL);
+	
+	/* This is called to set the next active document */
+	if (GTK_NOTEBOOK (docman)->children == NULL)
+		anjuta_docman_set_current_editor (docman, NULL);
+	else
+	{
+		GtkWidget *current_editor;
+		page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
+		current_editor = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman),
+													page_num);
+		anjuta_docman_set_current_editor (docman, TEXT_EDITOR (current_editor));
+	}
+	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
+			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
+			    docman);
 }
 
 TextEditor *
@@ -545,77 +609,23 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 			    docman);
 	g_signal_connect (G_OBJECT (te), "save_point",
 					  G_CALLBACK (on_editor_save_point), docman);
+	g_signal_connect (G_OBJECT (te), "destroy",
+					  G_CALLBACK (on_editor_destroy), docman);
 	
 	anjuta_docman_set_current_editor(docman, TEXT_EDITOR (te));
 	return TEXT_EDITOR (te);
 }
 
-static AnjutaDocmanPage *
-anjuta_docman_page_from_widget (AnjutaDocman *docman, TextEditor *te)
-{
-	GList *node;
-	node = docman->priv->editors;
-	while (node)
-	{
-		AnjutaDocmanPage *page;
-		page = node->data;
-		g_assert (page);
-		if (page->widget == GTK_WIDGET (te))
-			return page;
-		node = g_list_next (node);
-	}
-	return NULL;
-}
-
 void
 anjuta_docman_remove_editor (AnjutaDocman *docman, TextEditor* te)
 {
-	// GtkWidget *submenu;
-	// GtkWidget *wid;
-	AnjutaDocmanPage *page;
-	gint page_num;
-	
 	if (!te)
 		te = anjuta_docman_get_current_editor (docman);
 
 	if (te == NULL)
 		return;
 
-	page = anjuta_docman_page_from_widget (docman, te);
-
-	gtk_signal_handler_block_by_func (GTK_OBJECT (docman),
-				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
-				       docman);
-	g_signal_handlers_disconnect_by_func (G_OBJECT (te),
-										  G_CALLBACK (on_editor_save_point),
-										  docman);
-#if 0 // FIXME
-	breakpoints_dbase_clear_all_in_editor (debugger.breakpoints_dbase, te);
-#endif
-	
-	page_num = 
-		gtk_notebook_page_num (GTK_NOTEBOOK (docman), GTK_WIDGET (te));
-	gtk_notebook_remove_page (GTK_NOTEBOOK (docman), page_num);
-	docman->priv->editors = g_list_remove (docman->priv->editors, page);
-	anjuta_docman_page_destroy (page);
-	
-	if (docman->priv->current_editor == te)
-		anjuta_docman_set_current_editor (docman, NULL);
-	
-	/* This is called to set the next active document */
-	if (GTK_NOTEBOOK (docman)->children == NULL)
-		anjuta_docman_set_current_editor (docman, NULL);
-	else
-	{
-		GtkWidget *current_editor;
-		page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
-		current_editor = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman),
-													page_num);
-		anjuta_docman_set_current_editor (docman, TEXT_EDITOR (current_editor));
-	}
-	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
-			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
-			    docman);
+	gtk_widget_destroy (GTK_WIDGET (te));
 }
 
 void

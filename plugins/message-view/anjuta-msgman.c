@@ -207,6 +207,43 @@ anjuta_msgman_page_from_widget (AnjutaMsgman * msgman, MessageView * mv)
 	return NULL;
 }
 
+static void
+on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
+{
+	AnjutaMsgmanPage *page;
+	gint page_num;
+
+	page = anjuta_msgman_page_from_widget (msgman, view);
+
+	g_signal_handlers_disconnect_by_func (G_OBJECT (view),
+					  G_CALLBACK (on_message_view_destroy), msgman);
+
+	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
+									 GTK_SIGNAL_FUNC
+									 (on_notebook_switch_page), msgman);
+
+	page_num =
+		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
+						       GTK_WIDGET (view));
+	msgman->priv->views = g_list_remove (msgman->priv->views, page);
+	anjuta_msgman_page_destroy (page);
+
+	// gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
+	
+	/* This is called to set the next active document */
+	if (GTK_NOTEBOOK (msgman)->children == NULL)
+		anjuta_msgman_set_current_view (msgman, NULL);
+	else
+	{
+//FIXME
+		//gtk_widget_grab_focus (GTK_WIDGET (view)); 
+	}
+
+	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
+									   GTK_SIGNAL_FUNC
+									   (on_notebook_switch_page), msgman);
+}
+
 MessageView *
 anjuta_msgman_add_view (AnjutaMsgman * msgman,
 			const gchar * name, const gchar * pixmap)
@@ -233,6 +270,8 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (msgman), mv, page->box);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), 0);
 	
+	g_signal_connect (G_OBJECT (mv), "destroy",
+					  G_CALLBACK (on_message_view_destroy), msgman);
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
 									   GTK_SIGNAL_FUNC
 									   (on_notebook_switch_page), msgman);
@@ -242,68 +281,43 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 void
 anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView *passed_view)
 {
-	AnjutaMsgmanPage *page;
-	gint page_num;
 	MessageView *view;
 
 	view = passed_view;
-	
 	if (!view)
 		view = anjuta_msgman_get_current_view (msgman);
 
 	g_return_if_fail (view != NULL);
-
-	page = anjuta_msgman_page_from_widget (msgman, view);
-
-	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
-									 GTK_SIGNAL_FUNC
-									 (on_notebook_switch_page), msgman);
-
-	page_num =
-		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
-						       GTK_WIDGET (view));
-	msgman->priv->views = g_list_remove (msgman->priv->views, page);
-	anjuta_msgman_page_destroy (page);
-
-	gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
-	
-	/* This is called to set the next active document */
-	if (GTK_NOTEBOOK (msgman)->children == NULL)
-		anjuta_msgman_set_current_view (msgman, NULL);
-	else
-	{
-//FIXME
-		//gtk_widget_grab_focus (GTK_WIDGET (view)); 
-	}
-
-	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
-									   GTK_SIGNAL_FUNC
-									   (on_notebook_switch_page), msgman);
+	gtk_widget_destroy (GTK_WIDGET (view));
 }
 
 void
 anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 {
-	GList *node;
+	GList *views, *node;
 	AnjutaMsgmanPage *page;
-	gint page_num;
 	
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
 									 GTK_SIGNAL_FUNC
 									 (on_notebook_switch_page), msgman);
+	views = NULL;
 	node = msgman->priv->views;
 	while (node)
 	{
 		page = node->data;
-	
-		page_num =
-			gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
-								   GTK_WIDGET (page->widget));
-		anjuta_msgman_page_destroy (page);
-		gtk_notebook_remove_page (GTK_NOTEBOOK (msgman), page_num);
+		views = g_list_prepend (views, page->widget);
 		node = g_list_next (node);
 	}
+	node = views;
+	while (node)
+	{
+		gtk_widget_destroy (GTK_WIDGET (node->data));
+		node = g_list_next (node);
+	}
+	
 	g_list_free (msgman->priv->views);
+	g_list_free (views);
+	
 	msgman->priv->views = NULL;
 	anjuta_msgman_set_current_view (msgman, NULL);
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),

@@ -940,7 +940,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 										  G_CALLBACK (anjuta_docman_set_busy),
 										  eplugin->docman);
 	
-	anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
+	// anjuta_shell_remove_widget (plugin->shell, eplugin->docman, NULL);
+	gtk_widget_destroy (eplugin->docman);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;
 	while (node)
