@@ -248,7 +248,6 @@ cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
 	ianjuta_message_view_append (plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 command, "", NULL);
-
 	anjuta_launcher_execute (plugin->launcher, command,
 							 output, plugin);
 }

@@ -371,13 +371,17 @@ static void
 on_message_row_deleted (GtkTreeModel *model, GtkTreePath *path,
 						MessageView *view)
 {
-	Message *message;
+#warning "We cannot do that because the row is no longer valid"
+	/* I think it is a bad idea to store a struct in the tree-view
+	because we should better use three columns for message,
+	details and summary */
+	/*Message *message;
 	GtkTreeIter iter;
 	
 	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
 	if (message)
-		message_free (message);
+		message_free (message);*/
 }
 
 /* Send a signal if a message was double-clicked or ENTER or SPACE was pressed */

@@ -20,6 +20,15 @@
 	
 	* manuals/reference/template (removed)
 	Removed old api reference
+	
+	* plugins/message-view/message-view.c:
+	"Fixed" crash in on_row_deleted and added a
+	comment that I cannot work this way. We will
+	have to change everything a bit to avoid losing
+	memory there.
+	
+	* plugins/text-editor/text_editor.c:
+	Update line number width on file save
 
 
 2005-01-07  Naba Kumar  <naba@gnome.org>
