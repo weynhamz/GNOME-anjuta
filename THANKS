@@ -9,6 +9,9 @@ is now.
 
 	- Roel Vanhout <roel@stack.be>, for his find and bookmarks patches,
 
+	- Pierre Sarrazin <sarrazip@sympatico.ca>, for his bug reports and 
+	  patches for the file widget,
+	
 	- Roy Wood <roy.wood@filogix.com>, for fixing the clipboard problem
 	  and code cleanups,
 

@@ -29,6 +29,7 @@
 
 #include "resources.h"
 #include "text_editor_menu.h"
+#include "text_editor_cbs.h"
 #include "anjuta.h"
 #include "pixmaps.h"
 #include "mainmenu_callbacks.h"
@@ -346,7 +347,23 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 PIX_STOCK(CLOSE),
 	 0, 0, NULL}
 	,
+	{
 	 /* 19 */
+	 GNOME_APP_UI_ITEM, N_("Detach"),
+	 NULL,
+	 on_detach1_activate, NULL, NULL,
+	 PIX_FILE(DETACH),
+	 0, 0, NULL}
+	,
+	{
+	 /* 20 */
+	 GNOME_APP_UI_ITEM, N_("Attach"),
+	 NULL,
+	 on_text_editor_dock_activate, NULL, NULL,
+	 PIX_FILE(ATTACH),
+	 0, 0, NULL}
+	,
+	 /* 21 */
 	GNOMEUIINFO_END
 };
 
@@ -386,8 +403,8 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	const GList *local_tags;
 	GtkWidget *submenu;
 	TextEditor *te;
-	gboolean A;
-	
+	gboolean A, B;
+
 	g_return_if_fail (menu != NULL);
 
 	te = anjuta_get_current_text_editor ();
@@ -395,6 +412,7 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 		return;
 
 	A = debugger_is_active ();
+	B = (te->mode == TEXT_EDITOR_WINDOWED);
 
 	local_tags = anjuta_get_tag_list(te, tm_tag_max_t);
 	if (local_tags)
@@ -420,6 +438,8 @@ text_editor_menu_popup (TextEditorMenu * menu, GdkEventButton * bevent)
 	}
 	gtk_widget_set_sensitive (menu->debug, A);
 	gtk_widget_set_sensitive(menu->context_help, app->has_devhelp);
+	gtk_widget_set_sensitive(menu->attach, B);
+	gtk_widget_set_sensitive(menu->detach, !B);
 	gtk_menu_popup (GTK_MENU (menu->GUI), NULL, NULL, NULL, NULL,
 			bevent->button, bevent->time);
 }
@@ -444,6 +464,8 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		menu->swap = text_editor_menu_uiinfo[8].widget;
 		menu->functions = text_editor_menu_uiinfo[11].widget;
 		menu->debug = text_editor_menu_uiinfo[13].widget;
+		menu->detach = text_editor_menu_uiinfo[19].widget;
+		menu->attach = text_editor_menu_uiinfo[20].widget;
 
 		gtk_widget_ref (menu->GUI);
 		gtk_widget_ref (menu->cut);
@@ -454,6 +476,8 @@ create_text_editor_menu_gui (TextEditorMenu * menu)
 		gtk_widget_ref (menu->swap);
 		gtk_widget_ref (menu->functions);
 		gtk_widget_ref (menu->debug);
+		gtk_widget_ref (menu->detach);
+		gtk_widget_ref (menu->attach);
 	}
 }
 

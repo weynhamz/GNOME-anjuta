@@ -1314,7 +1314,7 @@ source_write_desktop_entry (ProjectDBase * data)
 	name = prop_get (data->props, "project.menu.entry");
 	if (!name)
 		name = g_strdup ("Dummy");
-	comment = prop_get (data->props, "project.menu.commnent");
+	comment = prop_get (data->props, "project.menu.comment");
 	if (!comment)
 		comment = g_strdup ("No comment");
 	icon = prop_get (data->props, "project.menu.icon");
@@ -1439,7 +1439,7 @@ source_write_glade_file (ProjectDBase * data)
 	else
 		fprintf(fp, "  <gnome_support>True</gnome_support>\n");
 	
-	if (prop_get_int (data->props, "project.has.gettex", 1))
+	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf(fp, "  <gettext_support>True</gettext_support>\n");
 	else
 		fprintf(fp, "  <gettext_support>False</gettext_support>\n");
@@ -2489,7 +2489,7 @@ source_write_build_files (ProjectDBase * data)
 				if (!ret) return FALSE;
 				break;
 			default:
-				anjuta_error (_("Project type does not support Glade."));
+				anjuta_error (_("The Project type you have chosen does not support the use of Glade."));
 				free_project_type(type);
 				return FALSE;
 		}

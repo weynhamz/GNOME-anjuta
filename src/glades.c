@@ -249,7 +249,7 @@ gladen_write_glade_file ( ProjectDBase * data )
 	else
 		fprintf(fp, "  <gnome_support>True</gnome_support>\n");
 	
-	if (prop_get_int (data->props, "project.has.gettex", 1))
+	if (prop_get_int (data->props, "project.has.gettext", 1))
 		fprintf(fp, "  <gettext_support>True</gettext_support>\n");
 	else
 		fprintf(fp, "  <gettext_support>False</gettext_support>\n");

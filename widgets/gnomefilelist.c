@@ -32,6 +32,9 @@
 #include "../pixmaps/bfoldc.xpm"
 #include "../pixmaps/file_file.xpm"
 
+#include <pwd.h>
+#include <sys/types.h>
+
 /* function declarations */
 static void gnome_filelist_class_init(GnomeFileListClass *klass);
 static void gnome_filelist_init(GnomeFileList *file_list);
@@ -1508,6 +1511,47 @@ gchar *build_full_path(const gchar *path, const gchar *selection)
       ptr = g_strdup(selection);
       return ptr;
    }
+
+   if (selection[0] == '~') {
+      /* Expand "~user" or "~" into the appropriate home directory: */
+
+      gchar *homedir = NULL;
+      struct passwd *pw;
+      gint i;
+
+      /* Look for slash or end of string: */
+      for (i = 1; selection[i] != '\0' && selection[i] != '/'; i++)
+	 ;
+      if (i == 1)
+      {
+	 /* We have "~" or "~/...": */
+	 pw = getpwuid(getuid());
+	 if (pw != NULL)
+	    homedir = g_strdup(pw->pw_dir);
+      }
+      else
+      {
+	 gchar *username = g_strdup(selection + 1);
+	 username[i - 1] = '\0';
+	 pw = getpwnam(username);
+	 if (pw != NULL)
+	    homedir = g_strdup(pw->pw_dir);
+	 g_free(username);
+      }
+
+      if (homedir != NULL)
+      {
+	 ptr = g_new(char, strlen(homedir) + strlen(selection + i) + 1);
+	 strcpy(ptr, homedir);
+	 strcat(ptr, selection + i);
+	 g_free(homedir);
+	 return ptr;
+      }
+
+      /* Could not expand ~ -- return string as is and let caller fail... */
+      return g_strdup(selection);
+   }
+
    offset =  strlen(path) - 1;
    chr = path[offset];
    malloc_size = strlen(path) + 1;

@@ -623,13 +623,13 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[NUM_ZOOMTEXT_SUBMENUS+1] = {
 #define	NUM_VIEW_SUBMENUS	18
 static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	{/*0*/
-	 GNOME_APP_UI_ITEM, N_("_Messages"),
+	 GNOME_APP_UI_ITEM, N_("_Message window"),
 	 N_("Show/Hide the Message window"),
 	 on_messages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 GDK_F1, GDK_CONTROL_MASK, NULL},
 	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("_Project Listing"),
+	 GNOME_APP_UI_ITEM, N_("_Project window"),
 	 N_("Show/Hide the Project window"),
 	 on_project_listing1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
@@ -667,7 +667,7 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_SUBMENUS+1] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F4, GDK_CONTROL_MASK, NULL},
 	{/*9*/
-	 GNOME_APP_UI_ITEM, N_("_Watch Window"),
+	 GNOME_APP_UI_ITEM, N_("Expression _Watch"),
 	 N_("Show expression watch window"),
 	 on_watch_window1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -774,16 +774,16 @@ static GnomeUIInfo project1_menu_uiinfo[NUM_PROJECT_SUBMENUS+1] = {
 	 PIX_STOCK(NEW),
 	 0, 0, NULL},
 	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("View"),
+	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
 	 NULL,
 	 on_project_view1_activate, NULL, NULL,
-	 PIX_FILE(VIEW),
+	 PIX_STOCK(BOOK_OPEN),
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Edit"),
+	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 on_project_edit1_activate, NULL, NULL,
-	 PIX_FILE(EDIT),
+	 PIX_STOCK(OPEN),
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Remove"),
@@ -1043,13 +1043,13 @@ static GnomeUIInfo format1_menu_uiinfo[NUM_FORMAT_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{/*7*/
 	 GNOME_APP_UI_ITEM, N_("_Open All Folds"),
-	 N_("Open all code folds of the editor"),
+	 N_("Open all code folds in the editor"),
 	 on_open_folds1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*8*/
 	 GNOME_APP_UI_ITEM, N_("_Toggle Current Fold"),
-	 N_("Toggle current code fold of the editor"),
+	 N_("Toggle current code fold in the editor"),
 	 on_toggle_fold1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1079,7 +1079,7 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 GDK_F9, GDK_SHIFT_MASK, NULL},
 	{/*2*/
 	 GNOME_APP_UI_ITEM, N_("_Build"),
-	 N_("Build the source directory of the Project/current source file"),
+	 N_("Build the source directory of the Project or the current source file"),
 	 on_build_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_EXEC,
 	 GDK_F10, 0, NULL},
@@ -1092,7 +1092,7 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	GNOMEUIINFO_SEPARATOR,/*4*/
 	{/*5*/
 	 GNOME_APP_UI_ITEM, N_("Save Build Messages"),
-	 N_("Save build messages to file"),
+	 N_("Save build messages to a file"),
 	 on_save_build_messages_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1118,7 +1118,7 @@ static GnomeUIInfo build1_menu_uiinfo[NUM_BUILD_SUBMENUS+1] = {
 	 0, 0, NULL},
 	{/*11*/
 	 GNOME_APP_UI_ITEM, N_("Auto _generate ..."),
-	 N_("Auto generate all the build files"),
+	 N_("Auto generate all the build files for the Project"),
 	 on_autogen_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1544,7 +1544,7 @@ static GnomeUIInfo cvs_menu_uiinfo[NUM_CVS_SUBMENUS+1] = {
 	 GNOMEUIINFO_END,
 };
 
-#define NUM_SETTINGS_SUBMENUS 6
+#define NUM_SETTINGS_SUBMENUS 7
 static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Compiler and Linker Settings ..."),
@@ -1577,7 +1577,13 @@ static GnomeUIInfo settings1_menu_uiinfo[NUM_SETTINGS_SUBMENUS+1] = {
 	 on_set_default_preferences1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
 	 0, 0, NULL},
-	GNOMEUIINFO_END,/*6*/
+	{/*6*/
+	 GNOME_APP_UI_ITEM, N_("Customize shortcuts"),
+	 N_("Customize shortcuts associated with menu items"),
+	 on_customize_shortcuts_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	GNOMEUIINFO_END,/*7*/
 };
 
 #define NUM_HELP_SUBMENUS 18

@@ -41,7 +41,7 @@ static void project_import_stderr_line_arrived (gchar * line);
 static void project_import_terminated (int status, time_t time);
 
 /* The maximum time allowed for importing a project (in seconds).
-This might seem a bit hih - but then, shell scripts are slow.
+This might seem a bit high - but then, shell scripts are slow.
 We can safely reduce this to a minute or so once we finish
 re-writing the import script in C - Biswa */
 
@@ -87,7 +87,7 @@ project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
 	if (ret)
 	{
-		tmp = g_strdup_printf (_("Importing project from %s ...\n"),
+		tmp = g_strdup_printf (_("Importing Project from %s ...\n"),
 				       topleveldir);
 		anjuta_message_manager_append (app->messages, tmp,
 					       MESSAGE_BUILD);
@@ -108,7 +108,7 @@ project_import_start (gchar * topleveldir, ProjectImportWizard * piw)
 	gtk_progress_set_activity_mode (GTK_PROGRESS
 					(piw->widgets.progressbar), TRUE);
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
-			    _("Importing project...please wait!"));
+			    _("Importing Project...please wait"));
 	timer = gtk_timeout_add (AN_IMPORT_TIMEOUT, progressbar_timeout,
 				 GTK_PROGRESS_BAR (piw->widgets.progressbar));
 	return ret;
@@ -122,7 +122,7 @@ project_import_stdout_line_arrived (gchar * line)
 		return;
 
 	anjuta_message_manager_append (app->messages, line, MESSAGE_BUILD);
-	if (sscanf (line, "Created project file %s successfully.", filename)
+	if (sscanf (line, "Created Project file %s successfully.", filename)
 	    == 1)
 	{
 		piw->filename = g_strdup (filename);
@@ -169,17 +169,17 @@ project_import_terminated (int status, time_t time)
 	if (piw->filename == NULL)
 	{
 		anjuta_error (_
-			      ("Could not import project: Unexpected error!"));
+			      ("Could not import project: Unexpected error"));
 		destroy_project_import_gui ();
 		return;
 	}
 	full_path = g_strdup_printf ("%s/%s", piw->directory, piw->filename);
 
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
-			    _("Opening project...please wait!"));
+			    _("Opening Project...please wait"));
 	if (!project_import_load_project_values (full_path))
 	{
-		anjuta_error (_("Could not open generated project file!"));
+		anjuta_error (_("Could not open generated Project file"));
 		destroy_project_import_gui ();
 		return;
 	}

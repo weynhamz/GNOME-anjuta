@@ -1990,15 +1990,32 @@ on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor* te;
 	gboolean ret;
-	gchar buffer[1000];
+	gchar *buffer = NULL;
 
 	te = anjuta_get_current_text_editor();
 	if(!te) return;
-	ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, (long)sizeof(buffer));
-	if (!ret)
-		return;
-	else
-		anjuta_search_sources_for_symbol(buffer);\
+	if (text_editor_has_selection(te))
+	{
+		buffer = text_editor_get_selection(te);
+		g_strstrip(buffer);
+		if ('\0' == *buffer)
+		{
+			g_free(buffer);
+			buffer = NULL;
+		}
+	}
+	if (NULL == buffer)
+	{
+		buffer = g_new(char, 256);
+		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
+		if (!ret)
+		{
+			g_free(buffer);
+			return;
+		}
+	}
+	anjuta_search_sources_for_symbol(buffer);
+	g_free(buffer);
 }
 
 void
@@ -2106,3 +2123,12 @@ on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
        enter_selection_as_search_target();
 }
 
+void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
+{
+	gchar *message = _("Hover the mouse pointer over any menu item and press"
+	  "\n" "the shortcut key to associate with it.");
+	GnomeMessageBox *messagebox = (GnomeMessageBox *) gnome_message_box_new(message
+	  , GNOME_MESSAGE_BOX_INFO, GNOME_STOCK_BUTTON_OK, NULL);
+	gtk_window_set_modal((GtkWindow *) messagebox, TRUE);
+	gnome_dialog_run_and_close((GnomeDialog *) messagebox);
+}

@@ -71,7 +71,7 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 {
 	gboolean status = FALSE;
 	const char *mime_type = gnome_vfs_get_file_mime_type(path, NULL, FALSE);
-	if (use_anjuta && (NULL != strstr(mime_type, "text")))
+	if (use_anjuta)
 	{
 		anjuta_goto_file_line_mark((char *) path, -1, FALSE);
 		status = TRUE;
@@ -81,12 +81,18 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 		GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application(mime_type);
 		if ((app) && (app->command))
 		{
-			char **argv = g_new(char *, 3);
-			argv[0] = app->command;
-			argv[1] = (char *) path;
-			argv[2] = NULL;
-			if (-1 == gnome_execute_async(NULL, 2, argv))
-				anjuta_warning(_("Unable to open %s in %s"), path, app->command);
+			if (NULL != strstr(app->command, "anjuta"))
+				anjuta_goto_file_line_mark((char *) path, -1, FALSE);
+			else
+			{
+				char **argv = g_new(char *, 3);
+				argv[0] = app->command;
+				argv[1] = (char *) path;
+				argv[2] = NULL;
+				if (-1 == gnome_execute_async(NULL, 2, argv))
+				  anjuta_warning(_("Unable to open %s in %s"), path, app->command);
+				g_free(argv);
+			}
 			gnome_vfs_mime_application_free(app);
 			status = TRUE;
 		}
@@ -130,14 +136,14 @@ static void fv_context_handler(GtkMenuItem *item, gpointer user_data)
 
 static GnomeUIInfo an_file_view_menu_uiinfo[] = {
 	{/* 0 */
-	 GNOME_APP_UI_ITEM, N_("Open"),
+	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 fv_context_handler, (gpointer) OPEN, NULL,
 	 PIX_STOCK(OPEN),
 	 0, 0, NULL}
 	,
 	{/* 1 */
-	 GNOME_APP_UI_ITEM, N_("View"),
+	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
 	 NULL,
 	 fv_context_handler, (gpointer) VIEW, NULL,
 	 PIX_STOCK(BOOK_OPEN),

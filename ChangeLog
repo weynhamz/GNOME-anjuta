@@ -1,3 +1,46 @@
+2002-06-05  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* data/properties/anjuta.properties, src/defaults.c: Make windows
+	docked by default, fix the big fonts bug.
+	
+	* src/an_file_view.c, src/main_menubar_def.h, 
+	src/project_dbase_gui.c: sanitized the Edit/View mess.
+	
+	* src/main_menubar_def.h, src/main_menu_callbacks.c: Add an item
+	for customizing shortcuts.
+	
+	* src/mainmenu_callbacks.c: Search for selected word if present.
+	
+	* src/text_editor_menu.c: Added context menu options for docking
+	and undocking editor windows.
+	
+	* src/main_menubar.h, src/main_menubar.c: more support for the 
+	shortcuts menu item.
+	
+	Patch reviewed by Andy Piper <andy.piper@freeuk.com>
+
+2002-06-05	Andy Piper	<andy.piper@freeuk.com>
+
+	* scintilla/RESearch.cxx: removed CVS Log keyword to prevent
+	all commit messages being written to top of the file
+	
+	* src/main_menubar_def.h: message strings reviewed
+	
+	* src/project_import.c: message strings reviewed
+	
+	* src/source.c, src/glades.c: message strings reviewed. Fixed 
+	some bugs around reading the project properties for creating 
+	.glade and .desktop files in the Application Wizard. There were
+	typos in the property names being retrieved
+	
+	* widgets/gnomefilelist.c: changed build_full_path to make 
+	the file widget support ~
+	Patch from Pierre Sarrazin <sarrazip@sympatico.ca>
+	
+	* THANKS, widgets/e-shell-about-box.c, 
+	manuals/anjuta-manual/C/authors.sgml: updated for new
+	patch
+
 2002-06-05  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/project_dbase.c: Fixed the file-path-corruption bug
@@ -19,7 +62,7 @@
 	
 	* data/anjuta.mime: oops! cvs added
 	
-	* src/RESearch.cxx: fixed up a problem with comments
+	* scintilla/RESearch.cxx: fixed up a problem with comments
 	
 	* global-tags/create_global_tags.sh: redirect errors to /dev/null
 	to avoid messages about missing libs

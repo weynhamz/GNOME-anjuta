@@ -416,16 +416,16 @@ static GnomeUIInfo menu1_uiinfo[] = {
 	 PIX_STOCK(NEW),
 	 0, 0, NULL},
 	{/*1*/
-	 GNOME_APP_UI_ITEM, N_("View"),
+	 GNOME_APP_UI_ITEM, N_("Open in default viewer"),
 	 NULL,
 	 on_project_view1_activate, NULL, NULL,
-	 PIX_FILE(VIEW),
+	 PIX_STOCK(BOOK_OPEN),
 	 0, 0, NULL},
 	{/*2*/
-	 GNOME_APP_UI_ITEM, N_("Edit"),
+	 GNOME_APP_UI_ITEM, N_("Open in Anjuta"),
 	 NULL,
 	 on_project_edit1_activate, NULL, NULL,
-	 PIX_FILE(EDIT),
+	 PIX_STOCK(OPEN),
 	 0, 0, NULL},
 	{/*3*/
 	 GNOME_APP_UI_ITEM, N_("Remove"),
