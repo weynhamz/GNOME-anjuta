@@ -525,6 +525,10 @@ static GList *get_project_file_list(void)
 	return files;
 }
 
+static gboolean isawordchar(int c)
+{
+	return (isalnum(c) || '_' == c);
+}
 
 static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 {
@@ -534,28 +538,25 @@ static gboolean extra_match(FileBuffer *fb, SearchExpression *s, gint match_len)
 	e = fb->buf[fb->pos+match_len];
 	
 	if (s->whole_line)
-		if ((fb->pos == 0 || b == '\n') && (e == '\0'	|| e == '\n'))
+		if ((fb->pos == 0 || b == '\n' || b == '\r') &&
+			(e == '\0'	|| e == '\n' || e == '\r'))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->whole_word)
-		if ((fb->pos ==0 || b ==' ' || b=='\t' || b == '\n' || b == '(' || 
-			b == '"' || b == '[') && 
-			(e=='\0' || e=='\n' || e==' ' || e =='\t' || e ==')' || 
-			e =='"' || e ==']'))
+		if ((fb->pos ==0 || !isawordchar(b)) && 
+			(e=='\0' || !isawordchar(e)))
 			return TRUE;
 		else
 			return FALSE;
 	else if (s->word_start)
-		if (fb->pos ==0 || b ==' ' || b=='\t' || b == '\n' || b == '(' || 
-			b == '"' || b == '[')
+		if (fb->pos ==0 || !isawordchar(b))
 			return TRUE;
 		else
 			return FALSE;	
-	else return TRUE;		
+	else
+		return TRUE;
 }
-
-
 
 /* Returns the next match in the passed buffer. The search expression should
 ** be pre-compiled. The returned pointer should be freed with match_info_free()
