@@ -1,6 +1,7 @@
 INCLUDES = \
 	-DG_LOG_DOMAIN=\"Gdl\"\
 	-DGDL_GLADEDIR=\"$(gladedir)\"\
+	-I$(top_srcdir)\
 	-I$(top_srcdir)/intl\
 	-I$(srcdir)\
 	$(ANJUTA_CFLAGS)\
@@ -56,9 +57,9 @@ libgdl_a_SOURCES = \
 	libgdlmarshal.h \
 	libgdlmarshal.c
 
-noinst_PROGRAMS=test-dock
+check_PROGRAMS=test-dock
 test_dock_sources=test-dock.c
-test_dock_LDADD=$(srcdir)/libgdl.a $(ANJUTA_LIBS)
+test_dock_LDADD=./libgdl.a $(ANJUTA_LIBS)
 
 gladedir=$(datadir)/anjuta/gdl/glade
 glade_DATA = layout.glade
