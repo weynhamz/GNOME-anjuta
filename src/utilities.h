@@ -272,6 +272,8 @@ gboolean is_file_in_dir(const gchar *file, const gchar *dir);
  Returns: 1 -- Gnome1 gnome-terminal
  Returns: 2 -- Gnome2 gnome-terminal */
 
+GList *glist_path_dedup(GList *list);
+
 gint anjuta_util_check_gnome_terminal (void);
 
 #endif

@@ -490,9 +490,10 @@ text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
 		line = linenum_text_editor_to_scintilla (line);
 		start = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE, line, 0);
 		end = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_POSITIONFROMLINE, line+1, 0) - 1;
-	
-		g_return_val_if_fail (end >= start, -1);
-		
+
+		if (end >= start)
+            return -1;
+
 		do {
 			ch = scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_GETCHARAT, start, 0);
 			start++;
@@ -787,7 +788,7 @@ save_to_file (TextEditor * te, gchar * fn)
 	fp = fopen (fn, "wb");
 	if (!fp)
 		return FALSE;
-	strip = prop_get_int (te->props_base, "strip.trailing.spaces", 1);
+	strip = prop_get_int (te->props_base, STRIP_TRAILING_SPACES, 0);
 	nchars = scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_GETLENGTH, 0, 0);
 	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
@@ -798,6 +799,12 @@ save_to_file (TextEditor * te, gchar * fn)
 		gint dos_filter, editor_mode;
 		
 		size = strlen (data);
+        /* Strip trailing spaces */
+        if (strip)
+        {
+            while (size > 0 && isspace(data[size - 1]))
+                -- size;
+        }
 		if ((size > 1) && ('\n' != data[size-1]))
 		{
 			data[size] = '\n';

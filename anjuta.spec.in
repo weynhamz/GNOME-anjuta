@@ -112,6 +112,7 @@ scrollkeeper-update || :
 %{prefix}/share/omf/anjuta/anjuta-tutorial-C.omf
 %{prefix}/share/omf/anjuta/anjuta-faqs-C.omf
 %{prefix}/share/omf/anjuta/anjuta-manual-C.omf
+%{prefix}/var/scrollkeeper/*
 
 %files docs-ja
 %defattr(-, root, root)

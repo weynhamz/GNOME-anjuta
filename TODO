@@ -1,14 +1,17 @@
 TODO List:
 ----------
 
+	o Faster file/synbol selection (somewhat like I-Search for project/symbol/file
+	trees ?) Would be nice to have filters as well.
+	o Macro recording. Scintilla has this - needs to be integrated in the GUI
 	o Bug #616226: Save full font name instead of an abbreviated version.
 	o RPM spec improvement - see the spec file from freshrpms.net which modifies
 	  the menu location so that Anjuta appears in the top-level Programming menu 
 	  in RH8 (where we belong :-)
-Biswa: I've updated anjuta.spec.in. Need to test whether this works properly.
+	Biswa: I've updated anjuta.spec.in. Need to test whether this works properly.
 
 	o Add ignore modules in Project config: Tagmanager does not ignore them.
-Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
+	Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
 
 	o Bring all indent/format preferences under one tab.
 	o Add more editor preferences.
@@ -23,15 +26,16 @@ Biswa: 'Rebuild Tags Image' now syncs tagManager with project file list.
 	on first run.
 
 	o More powerful Search, Search&Replace, Find In Files, etc. (422986, 533297)
-Notes: Have a look at regexxer (uses PCRE). Might be a good idea to reuse the
-code there to revamp the current search/replace interface.
+	Notes: Have a look at regexxer (uses PCRE). Might be a good idea to reuse the
+	code there to revamp the current search/replace interface.
 
 	o Better support for other languages, e.g., Java, Perl, Python, etc.
 		a) TagManager integration (tags, symbol browser, autocomplete, etc.)
 		b) Project types (new project, import, etc.)
 		c) Build and execute support (Make, Build, Execute, etc.)
 	o Revamp wizards:
-		a) New project wizards (Applets, Java, Empty, Web (HTML/PHP), QT/KDE, SDL, OpenGL) (442139, 596075)
+		a) New project wizards (Applets, Java, Empty, Web (HTML/PHP), QT/KDE, SDL
+		, OpenGL) (442139, 596075)
 		b) Template based wizards for projects, files and code snippets. (495228)
 		c) Enhance project wizards so that the projects do useful stuff out-of-the-box.
 		d) More flexibility in wizards.
@@ -40,9 +44,9 @@ code there to revamp the current search/replace interface.
 		g) Better (more flexible) GUI ( Glade based ? Organized by Tabs ala VC ?).
 	o Revamp Scintilla interface:
 		a) Upgrade to latest Scintilla and SciTE.
-Biswa: Done. However, we should try to make Scintilla into a seperate dependency so
-that Scintilla updates can be automatic. This is a bit tricky since the code is pretty
-tightly integrated.
+		Biswa: Done. However, we should try to make Scintilla into a seperate dependency so
+		that Scintilla updates can be automatic. This is a bit tricky since the code is pretty
+		tightly integrated.
 		b) Fix bugs present in Anjuta but not in SciTE.
 		c) More editor preferences in GUI covering all SciTE/Scintilla properties.
 		d) GUI to map file extensions to languages (Editor + TagManager).
@@ -62,11 +66,9 @@ tightly integrated.
 		f) GUI enhancements (552209)
 		g) More flexible make/build system to support cons, ant, etc. (555469, 556364, 558725, 596074, 604171)
 		h) Import project files of other IDEs (VC++, Borland C++, KDevelop, etc.) (593474)
-	o Support user-configurable tools (Tools menu + tool editor) with variable substitution (484187)
-Biswa: Done.
 	o Integration with tools like valgrind, gcov, gtk-doc, Doxygen, gprof, etc.
-Biswa: Tools support does a decent job of integrating external tools. Need scripting
-support to integrate some tools better.
+	Biswa: Tools support does a decent job of integrating external tools. Need scripting
+	support to integrate some tools better.
 	o Code refactoring (needs sourcebase) (450159)
 	o Better code browsing:
 		a) Implement intellisense completion (497039, 522445, 604756)
@@ -88,8 +90,6 @@ support to integrate some tools better.
 		d) Support 'Sessions' i.e. group of files from different locations (561744)
 		e) Add to project from the file menu (562068)
 		f) Better patching, diffing and merging support ala gtkdiff (570397)
-		g) Use custom tools for indentation (577030)
-Biswa: Possible now with external tools implementation.
 		h) Shortcut to jump between open files (577381)
 		i) Copy selection from the message pane (581498)
 		j) Make file and symbol browsers work outside project mode (585416)
@@ -101,12 +101,12 @@ Biswa: Possible now with external tools implementation.
 	o Comments in source files
 	o Being able to open a source rpm (.src.rpm) or a .tgz tarball and have it
 	  imported as a project
-Biswa: project Import does a decent job of importing an arbitrary directory. Should
-be good enough for most purposes.
+	Biswa: project Import does a decent job of importing an arbitrary directory. Should
+	be good enough for most purposes.
 	o Debugger optimization
 	o Utilities
-Biswa: Generic tools implementation allows integrating arbitrary utilities into
-the GUI.
+	Biswa: Generic tools implementation allows integrating arbitrary utilities into
+	the GUI.
 	o Integration with glade, gtranslator, eog and other bonobo components
 	o Double/single click open file in preferences.
 	o Use GtkHTML if available to browse online documentation/manuals
@@ -121,11 +121,11 @@ the GUI.
 	  > window to make it smaller on the vertical axis the build window didn't 
 	  > moved up.  A user friendly behavior would be to move the window up and 
 	  > keep it proportianally with the main window or something like that.
-	  
+
 	  Well, that's a problem with the GtkPanedWindows, but I thing we make a
 	  temporary work around fix in anjuta by capturing the resize signal of
 	  the concerned widgets. Anybody care to have look in it? :-)
-		  
+
 	o > I had been using Multi-Edit in Windows days, and it had a great feature
 	  > for browsing code (Vim also has it).  It's a cross between searching
 	  > and syntax highlighting.  You enter a regular expression in a
@@ -142,3 +142,5 @@ the GUI.
 	  > can add this feature!
 	  
 	  So, watch out guys! Atleast don't miss the beer. :-)
+	Biswa: Added in the requirements docs for Search/Replace rewrite.
+

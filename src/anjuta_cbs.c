@@ -107,8 +107,9 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	{
 		te = list->data;
 		if (te->full_filename)
-			app->recent_files = update_string_list (app->recent_files,
-					te->full_filename, max_recent_files);
+			app->recent_files = glist_path_dedup(
+              update_string_list (app->recent_files
+              , te->full_filename, max_recent_files));
 		if (!text_editor_is_saved (te))
 			file_not_saved = TRUE;
 		list = g_list_next (list);
@@ -116,9 +117,9 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	if (app->project_dbase->project_is_open)
 	{
 		app->recent_projects =
-			update_string_list (app->recent_projects,
+			glist_path_dedup(update_string_list (app->recent_projects,
 					    app->project_dbase->proj_filename,
-					    max_recent_prjs);
+					    max_recent_prjs));
 	}
 	anjuta_save_settings ();
 

@@ -36,6 +36,7 @@
 #include "launcher.h"
 #include "properties.h"
 #include "resources.h"
+#include "tm_tagmanager.h"
 
 gchar *
 extract_filename (gchar * full_filename)
@@ -1036,15 +1037,38 @@ glist_strings_dup (GList * list)
 	return new_list;
 }
 
-/* Dedup a list of strings - duplicates are removed from the tail */
-GList *glist_strings_dedup(GList *list)
+/* Dedup a list of paths - duplicates are removed from the tail.
+** Useful for deduping Recent Files and Recent Projects */
+GList *glist_path_dedup(GList *list)
 {
-	GList *tmp = list;
-	gchar *str;
-
-	while (tmp)
+    GList *nlist = NULL, *tmp, *tmp1;
+    gchar *path, path1;
+    struct stat s;
+	for (tmp = list; tmp; tmp = g_list_next(tmp))
 	{
+        path = tm_get_real_path((const gchar *) tmp->data);
+        if (0 != stat(path, &s))
+        {
+            g_free(path);
+        }
+        else
+        {
+            for (tmp1 = nlist; tmp1; tmp1 = g_list_next(tmp1))
+            {
+                if (0 == strcmp((const char *) tmp1->data, path))
+                {
+                    g_free(path);
+                    path = NULL;
+                    break;
+                }
+            }
+            if (path)
+                nlist = g_list_prepend(nlist, path);
+        }
 	}
+    glist_strings_free(list);
+    nlist = g_list_reverse(nlist);
+    return nlist;
 }
 
 void

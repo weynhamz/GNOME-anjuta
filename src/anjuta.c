@@ -324,9 +324,9 @@ anjuta_remove_text_editor (TextEditor* te)
 			preferences_get_int (app->preferences,
 					     MAXIMUM_RECENT_FILES);
 		app->recent_files =
-			update_string_list (app->recent_files,
+			glist_path_dedup(update_string_list (app->recent_files,
 					    te->full_filename,
-					    max_recent_files);
+					    max_recent_files));
 		submenu =
 			create_submenu (_("Recent Files "), app->recent_files,
 					GTK_SIGNAL_FUNC

@@ -516,6 +516,8 @@ project_dbase_clear (ProjectDBase * p)
 	gtk_window_set_title (GTK_WINDOW (p->widgets.window),
 			      _("Project: None"));
 	p->project_is_open = FALSE;
+    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects
+      , TRUE);
 	p->is_saved = TRUE;
 	p->m_prj_ShowLocal	= SHOW_LOCALS_DEFAULT ;
 	extended_toolbar_update ();
@@ -1357,6 +1359,8 @@ project_dbase_close_project (ProjectDBase * p)
 	sv_clear();
 	fv_clear();
 	p->project_is_open = FALSE;
+    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects
+      , TRUE);
 }
 
 void
@@ -2072,9 +2076,9 @@ project_dbase_update_menu (ProjectDBase * p)
 	if (p->project_is_open)
 	{
 		app->recent_projects =
-			update_string_list (app->recent_projects,
+			glist_path_dedup(update_string_list (app->recent_projects,
 					    p->proj_filename,
-					    max_recent_prjs);
+					    max_recent_prjs));
 		submenu =
 			create_submenu (_("Recent Projects "),
 					app->recent_projects,
@@ -2465,6 +2469,8 @@ project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 		project_dbase_clean_left (p);
 
 	p->project_is_open = TRUE;
+    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects
+      , FALSE);
 	p->proj_filename = g_strdup(filename);
 	
 	/* Doing some check before actual loading */
@@ -2596,6 +2602,8 @@ go_error:
 	string_assign (&p->proj_filename, NULL);
 	p->proj_filename = NULL;
 	p->project_is_open = FALSE;
+    gtk_widget_set_sensitive(app->widgets.menubar.file.recent_projects
+      , TRUE);
 	if (prj_buff) g_free (prj_buff);
 	if (fp) fclose (fp);
 	return FALSE;

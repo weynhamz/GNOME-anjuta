@@ -1,3 +1,10 @@
+2002-12-23  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+	* anjuta.spec.in: Add scrollkeeper docs to docs distribution.
+	* configure.in: Bumped up version number.
+	* src/anjuta.c, src/anjuta_cbs.c, src/project_dbase.c
+	, src/text_editor.c, src/utilities.c, src/utilities.h
+	, widgets/gnomefilelist.c: Minor bugfixes.
+
 2002-12-20  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
 	* anjuta.glade, anjuta.spec.in, configure.in, src/Makefile.am
 	, src/search-replace.[ch], anjuta.prj: Starting new search and

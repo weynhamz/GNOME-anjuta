@@ -1755,7 +1755,6 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   gtk_window_set_wmclass (GTK_WINDOW (file_list->createdir_window), "createdir", "Anjuta");
   gtk_window_set_transient_for (GTK_WINDOW(file_list->createdir_window), 
   		GTK_WINDOW (file_list));
-  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
 
   vbox1 = gtk_vbox_new (FALSE, 6);  
 	
@@ -1810,8 +1809,9 @@ static void create_dir(GtkWidget *widget, GnomeFileList *file_list)
   gtk_signal_connect (GTK_OBJECT (file_list->createdir_window), "delete_event",
                       GTK_SIGNAL_FUNC (create_dir_delete_cb),
                       file_list);
-					  
-  gtk_widget_grab_focus (file_list->createdir_entry);
+  gtk_window_set_modal(GTK_WINDOW(file_list->createdir_window), TRUE);
+  gtk_widget_show(GTK_WIDGET(file_list->createdir_window));
+  /* gtk_widget_grab_focus (file_list->createdir_entry); */
 	
 }
 
