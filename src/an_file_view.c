@@ -70,7 +70,7 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 {
 	gboolean status = FALSE;
 	const char *mime_type = gnome_vfs_get_file_mime_type(path, NULL, FALSE);
-	if (use_anjuta && (0 == strncmp(mime_type, "text/", 5)))
+	if (use_anjuta)
 	{
 		anjuta_goto_file_line_mark((char *) path, -1, FALSE);
 		status = TRUE;
@@ -85,9 +85,14 @@ gboolean anjuta_fv_open_file(const char *path, gboolean use_anjuta)
 			argv[1] = (char *) path;
 			argv[2] = NULL;
 			if (-1 == gnome_execute_async(NULL, 2, argv))
-				anjuta_warning(N_("Unable to open %s in %s"), path, app->command);
+				anjuta_warning(_("Unable to open %s in %s"), path, app->command);
 			gnome_vfs_mime_application_free(app);
 			status = TRUE;
+		}
+		else
+		{
+			anjuta_warning(_("No default viewer specified for the mime type %s.\n"
+					"Please set it in GNOME control center"), mime_type);
 		}
 	}
 	return status;
@@ -128,19 +133,19 @@ static void fv_create_context_menu(void)
 	fv->menu = gtk_menu_new();
 	gtk_widget_ref(fv->menu);
 	gtk_widget_show(fv->menu);
-	item = gtk_menu_item_new_with_label(N_("Open"));
+	item = gtk_menu_item_new_with_label(_("Open"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(fv_context_handler)
 	  , (gpointer) OPEN);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(fv->menu), item);
-	item = gtk_menu_item_new_with_label(N_("View in Default Viewer"));
+	item = gtk_menu_item_new_with_label(_("View in Default Viewer"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(fv_context_handler)
 	  , (gpointer) VIEW);
 	gtk_widget_show(item);
 	gtk_menu_append(GTK_MENU(fv->menu), item);
-	item = gtk_menu_item_new_with_label(N_("Refresh Tree"));
+	item = gtk_menu_item_new_with_label(_("Refresh Tree"));
 	gtk_signal_connect(GTK_OBJECT(item), "activate"
 	  , GTK_SIGNAL_FUNC(fv_context_handler)
 	  , (gpointer) REFRESH);

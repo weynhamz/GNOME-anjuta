@@ -1,3 +1,17 @@
+2002-02-25  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/an_file_view.c:
+	anjuta was unable to open some files becuase they were not being
+	recognized as "text/*" mime type (example files *.rej, *.in, etc.).
+	Removed mime checking when opeining with anjuta, becuase it doesn't
+	hurt to open binary files in anjuta (some even may want to do so).
+	
+	Added a warning when mime type is not set when "view with default
+	viewer" is activated.
+	
+	* src/an_file_view.c, an_symbol_view.c:
+	Converted N_() to _() where ever appropriate in the strings.
+	
 2002-02-25  Johannes Schmid <clubfan@users.sourceforge.net>
 	
 	* src/appwizard_gui.c, src/appwizard_cbs.c
