@@ -1,3 +1,9 @@
+2001-12-07  Pablo Saratxaga  <pablo@mandrakesoft.com>
+
+	* src/splash.c: removed a DOS end of line of a comment (so the *.po
+	  files are free of that char)
+	* configure.in: added "az" to ALL_LINGUAS
+
 2001-11-29	Andy Piper	<andy.piper@freeuk.com>
 
 	* tagmanager/tm_workspace.c, src/project_dbase.c: critical

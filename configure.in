@@ -267,7 +267,7 @@ dnl Checks for Additional stuffs.
 
 
 dnl Languages which your application supports
-ALL_LINGUAS="de es fr it ja nl no pl pt_BR ru sv ta tr uk zh_CN zh_TW"
+ALL_LINGUAS="az de es fr it ja nl no pl pt_BR ru sv ta tr uk zh_CN zh_TW"
 AM_GNOME_GETTEXT
 
 dnl Set PACKAGE_LOCALE_DIR in config.h.
