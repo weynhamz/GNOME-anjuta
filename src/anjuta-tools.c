@@ -655,6 +655,34 @@ static void an_user_tool_activate(AnUserTool *tool)
 		gtk_signal_connect(GTK_OBJECT(tool->menu_item), "activate"
 		  , execute_tool, tool);
 		gtk_menu_append(GTK_MENU(submenu), tool->menu_item);
+		if (tool->shortcut && tool->shortcut[0] != '\0')
+		{
+			guint mask = 0;
+			guint accel_key = '\0';
+			char *c = tool->shortcut;
+			while (*c != '\0')
+			{
+				switch(*c)
+				{
+					case '^':
+						mask |= GDK_CONTROL_MASK;
+						break;
+					case '+':
+						mask |= GDK_SHIFT_MASK;
+						break;
+					case '#':
+						mask |= GDK_MOD1_MASK;
+						break;
+					default:
+						accel_key = *c;
+						break;
+				}
+				++ c;
+			}
+			gtk_widget_add_accelerator(tool->menu_item, "activate", app->accel_group
+			  , accel_key, mask ? mask : GDK_CONTROL_MASK | GDK_SHIFT_MASK
+			  , GTK_ACCEL_VISIBLE);
+		}
 		gtk_widget_show(tool->menu_item);
 	}
 }
