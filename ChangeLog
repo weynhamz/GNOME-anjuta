@@ -1,9 +1,10 @@
 2004-02-18  Franco Catrin  <fcatrin@tuxpan.com>
 
 	* src/mainmenu_callbacks.c, widgets/gnomefilelist.c
-	Use defined file name when saving new files
-	(fixes bug #898105)
-	Happy birthday to me :-)
+	Use defined file name when saving new files	(fixes bug #898105)
+	Don't change filename when clicking on a directory
+	
+	BTW: Happy birthday to me :-)
 	
 2004-02-18  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* src/search-replace.c : Fixed a crash bug 

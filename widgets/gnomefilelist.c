@@ -1083,7 +1083,7 @@ on_selection_changed_dir (GtkTreeSelection * selection,
 			if (file_list->selected)
 				g_free (file_list->selected);
 			file_list->selected = g_strdup (selected);
-			set_file_selection (file_list);
+			set_dir_selection (file_list);
 		}
 	}
 }
