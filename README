@@ -1,4 +1,4 @@
-                         Anjuta Version 0.1.7 Release
+                         Anjuta Version 0.1.8 Release
 
                        Copyright (C) 2000 Kh. Naba Kumar Singh.
                        Home site => http://anjuta.sourceforge.net
@@ -48,14 +48,14 @@ Presently available features in Anjuta:
 ---------------------------------------
 
 	1. Fully customizable integrated editor.
-		o Automatic syntax hilighting.
+		o Automatic syntax highlighting.
 		o Automatic code formatting.
 		o Code folding/hiding.
 		o Line numbers/markers display.
 		o Text zooming.
-		o Code autocompletion
+		o Code autocompletion.
 		o Calltips for Linux/GNOME function prototypes.
-		o Automatic indentation and indentation guides
+		o Automatic indentation and indentation guides.
 		o ... and much more.
 	
 	2. Each file opened can be operated in either paged mode or windowed mode. 
@@ -86,30 +86,20 @@ Presently available features in Anjuta:
 
 	11. Above all, she is beautiful. 
 	
-Some of the 'immediately' needed features:
-------------------------------------------
-
-    1. Interactive help system. 
-    2. More advanced interaction (Bonobo component) with Glade to facilitate GUI editing. 
-    3. Source code version management system (CVS). 
-    4. Support for Help development system with SGML. 
-    5. Making it faster.  ??
- 
 Contact Email addresses for Anjuta:
----------------------------------
+-----------------------------------
 
-For personal contacts, reach me at:
-	o Main programmer => Naba kumar <kh_naba@users.sourceforge.net>.
+For personal contacts, reach us at:
+	o 1.x series Maintainer => Andy Piper <andy.piper@freeuk.com>
+	o Main programmer => Naba kumar <kh_naba@users.sourceforge.net>
 
 Anjuta Home site:	http://anjuta.sourceforge.net.
-	For General description.
-
 Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
-	For all project activities and downloads.
 
 For general discussions and queries use the discussion forums (two forums) 
 at the project site.
-Please report bugs at the projects bug tracking system or the mailing 
+Please report bugs at the projec
+ts bug tracking system or the mailing 
 lists at the project site.
 News of Anjuta is also available at the project site.
 
