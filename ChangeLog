@@ -1,3 +1,28 @@
+2003-02-03  Naba Kumar <naba@gnome.org>
+
+	* src/anjuta.glade, src/anjuta_dialogs_strings.c: Added edge.column
+	editor preferences. and fixes dialogs.
+
+	* printing/print.c, src/text_editor_gui.c, src/main_menu_callbacks.h:
+	Fixed linenumbers and header margins when they are disabled and
+	removed unused header files.
+
+	* src/attact_process.[h,c], src/debugger.c: Attach to process
+	now works.
+
+	* src/help.c: Fixed dialog response.
+
+	* TODO: Updated.
+
+	* data/properties/anjuta.properties: Corrected typo.
+
+	* src/controls.c, src/toolbar.c: Fixed non-working location navigation,
+	Change the signal to "changed" in entry from "selection-changed" in
+	list.
+
+	* src/an_file_view.c, src/an_symbol_view.c: Fixed keyboard navigation
+	short-cuts.
+
 2003-01-31  Naba Kumar <naba@gnome.org>
 
 	* configure.in: Upgraded to use libgnomeprint-2.2

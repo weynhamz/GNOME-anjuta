@@ -476,8 +476,8 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 						  NULL);
 
 	/* Goto Tag signal handlers */
-	gtk_signal_connect (GTK_OBJECT(GTK_COMBO(toolbar->tag_combo)->list),
-			    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
+	g_signal_connect (G_OBJECT (GTK_COMBO(toolbar->tag_combo)->entry),
+					  "changed", G_CALLBACK (on_toolbar_tag_clicked), NULL);
 
 	toolbar->toolbar = toolbar2;
 	return toolbar2;

@@ -21,7 +21,7 @@
 
 #include <gnome.h>
 #include "lexer.h"
-#include "print-doc.h"
+#include "print.h"
 
 #define NUM_FILE_SUBMENUS 25
 static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {

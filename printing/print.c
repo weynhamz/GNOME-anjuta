@@ -481,6 +481,32 @@ anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 		gnome_print_convert_distance (&pji->margin_bottom, unit,
 									  GNOME_PRINT_PS_UNIT);
 	}
+	if (pji->print_line_numbers <= 0)
+	{
+		pji->margin_numbers = 0.0;
+	}
+	if (pji->print_header)
+	{
+		pji->margin_header  =
+				anjuta_print_get_font_height (pji, AN_PRINT_DEFAULT_TEXT_STYLE);
+		pji->margin_header  *= 2.5;
+	}
+	else
+	{
+		pji->margin_header = 0.0;
+	}
+	if (pji->print_line_numbers > 0)
+	{
+		pji->margin_numbers =
+				anjuta_print_get_text_width (pji, AN_PRINT_LINENUMBER_STYLE,
+											 FALSE, "0");
+		pji->margin_numbers *= 5; /* Digits in linenumbers */
+		pji->margin_numbers += 5; /* Spacer */
+	}
+	else
+	{
+		pji->margin_numbers = 0.0;
+	}
 }
 
 PrintJobInfo*
@@ -528,9 +554,7 @@ anjuta_print_job_info_new (void)
 	/* Line number printing details */
 	pji->print_line_numbers = preferences_get_int_with_default (p, PRINT_LINENUM_COUNT, 1);
 	pji->print_line_numbers = pji->print_line_numbers >= 0? pji->print_line_numbers: 0;
-	if (pji->print_line_numbers == 0) {
-		pji->margin_numbers = 0.0;
-	}
+	
 	/* Other preferences. */
 	pji->print_header = preferences_get_int_with_default (p, PRINT_HEADER, 1);
 	pji->print_color = preferences_get_int_with_default (p, PRINT_COLOR, 1);
@@ -550,15 +574,10 @@ anjuta_print_job_info_new (void)
 	for (i = 0; i < AN_PRINT_MAX_STYLES; i++) pji->styles_pool[i] = NULL;
 	
 	/* Margin settings */
-	pji->margin_left    = preferences_get_int_with_default(p, PRINT_MARGIN_LEFT, 54);
-	pji->margin_right   = preferences_get_int_with_default(p, PRINT_MARGIN_RIGHT, 54);
-	pji->margin_top     = preferences_get_int_with_default(p, PRINT_MARGIN_TOP, 54);
-	pji->margin_bottom  = preferences_get_int_with_default(p, PRINT_MARGIN_BOTTOM, 54);
-	pji->margin_header  = anjuta_print_get_font_height (pji, AN_PRINT_DEFAULT_TEXT_STYLE);
-	pji->margin_header  *= 2.5;
-	pji->margin_numbers = anjuta_print_get_text_width (pji, AN_PRINT_LINENUMBER_STYLE, FALSE, "0");
-	pji->margin_numbers *= 5; /* Digits in linenumbers */
-	pji->margin_numbers += 5; /* Spacer */
+	// pji->margin_left    = preferences_get_int_with_default(p, PRINT_MARGIN_LEFT, 54);
+	// pji->margin_right   = preferences_get_int_with_default(p, PRINT_MARGIN_RIGHT, 54);
+	// pji->margin_top     = preferences_get_int_with_default(p, PRINT_MARGIN_TOP, 54);
+	// pji->margin_bottom  = preferences_get_int_with_default(p, PRINT_MARGIN_BOTTOM, 54);
 	
 	return pji;
 }

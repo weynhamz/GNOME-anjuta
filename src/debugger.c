@@ -146,8 +146,6 @@ debugger_save_yourself (FILE * stream)
 		return FALSE;
 	if (!sharedlibs_save_yourself (debugger.sharedlibs, stream))
 		return FALSE;
-	if (!attach_process_save_yourself (debugger.attach_process, stream))
-		return FALSE;
 	if (!stack_trace_save_yourself (debugger.stack, stream))
 		return FALSE;
 	return TRUE;
@@ -171,8 +169,6 @@ debugger_load_yourself (PropsID stream)
 	if (!signals_load_yourself (debugger.signals, stream))
 		return FALSE;
 	if (!sharedlibs_load_yourself (debugger.sharedlibs, stream))
-		return FALSE;
-	if (!attach_process_load_yourself (debugger.attach_process, stream))
 		return FALSE;
 	if (!stack_trace_load_yourself (debugger.stack, stream))
 		return FALSE;

@@ -21,61 +21,17 @@
 #define _ATTACH_PROCESS_H_
 
 #include <gnome.h>
-#include <glade/glade.h>
-#include "properties.h"
 
-typedef struct _AttachProcessGui AttachProcessGui;
 typedef struct _AttachProcess AttachProcess;
-
-struct _AttachProcessGui
-{
-    GtkWidget*   window;
-    GtkWidget*   treeview;
-    GtkWidget*   update_button;
-    GtkWidget*   attach_button;
-};
-
 struct _AttachProcess
 {
-  GladeXML *gxml;
-  AttachProcessGui  widgets;
-  gint		pid;
-  gboolean	is_showing;
-  gint		win_pos_x, win_pos_y;
-  gint		win_width, win_height;
+    GtkWidget*  dialog;
+    GtkWidget*  treeview;
+	gint        pid;
 };
 
-AttachProcess*
-attach_process_new(void);
-
-void
-create_attach_process_gui(AttachProcess* ap);
-
-void
-attach_process_clear(AttachProcess *ap);
-
-void
-attach_process_update(AttachProcess *ap);
-
-void
-attach_process_destroy(AttachProcess*ap);
-
-gboolean
-attach_process_save_yourself(AttachProcess* ap, FILE* stream);
-
-gboolean
-attach_process_load_yourself(AttachProcess* ap, PropsID props);
-
-void
-attach_process_show(AttachProcess * ap);
-
-void
-attach_process_hide(AttachProcess * ap);
-
-void
-attach_process_add_pid (AttachProcess * ap, gchar * line);
-
-void
-attach_process_output_arrived(GList *outputs, gpointer data);
+AttachProcess* attach_process_new (void);
+void attach_process_destroy (AttachProcess *ap);
+void attach_process_show (AttachProcess *ap);
 
 #endif

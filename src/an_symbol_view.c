@@ -333,6 +333,14 @@ sv_create_context_menu ()
 	gtk_widget_show_all(sv->menu.top);
 }
 
+static gboolean
+on_treeview_row_search (GtkTreeModel *model, gint column,
+						const gchar *key, GtkTreeIter *iter, gpointer data)
+{
+	g_message ("Search key == '%s'", key);
+	return FALSE;
+}
+
 static void
 on_treeview_row_activated (GtkTreeView *view)
 {
@@ -401,16 +409,38 @@ on_treeview_event (GtkWidget *widget,
 			return TRUE;
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
+		GtkTreePath *path;
 		GdkEventKey *e = (GdkEventKey *) event;
 
 		switch (e->keyval) {
 			case GDK_Return:
 				if (!gtk_tree_model_iter_has_child (model, &iter))
+				{
 					anjuta_goto_file_line_mark (sv->sinfo->def.name,
 								    sv->sinfo->def.line,
 								    TRUE);
-
-				return TRUE;
+					return TRUE;
+				}
+			case GDK_Left:
+				if (gtk_tree_model_iter_has_child (model, &iter))
+				{
+					path = gtk_tree_model_get_path (model, &iter);
+					gtk_tree_view_collapse_row (GTK_TREE_VIEW (sv->tree),
+												path);
+					gtk_tree_path_free (path);
+					return TRUE;
+				}
+			case GDK_Right:
+				if (gtk_tree_model_iter_has_child (model, &iter))
+				{
+					path = gtk_tree_model_get_path (model, &iter);
+					gtk_tree_view_expand_row (GTK_TREE_VIEW (sv->tree),
+											  path, FALSE);
+					gtk_tree_path_free (path);
+					return TRUE;
+				}
+			default:
+				return FALSE;
 		}
 	}
 
@@ -514,6 +544,13 @@ sv_create ()
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (sv->tree));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 	gtk_container_add (GTK_CONTAINER (sv->win), sv->tree);
+
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (sv->tree), NAME_COLUMN);
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (sv->tree),
+										 on_treeview_row_search,
+										 NULL, NULL);
+	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (sv->tree), TRUE);
+
 	g_signal_connect (sv->tree, "row_expanded",
 					  G_CALLBACK (on_symbol_view_row_expanded), NULL);
 	g_signal_connect (sv->tree, "row_collapsed",

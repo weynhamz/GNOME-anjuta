@@ -374,14 +374,36 @@ on_tree_view_event  (GtkWidget *widget,
 					((GdkEventButton *) event)->time);
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
+		GtkTreePath *path;
 		GdkEventKey *e = (GdkEventKey *) event;
 
 		switch (e->keyval) {
 			case GDK_Return:
 				if (!gtk_tree_model_iter_has_child (model, &iter))
+				{
 					anjuta_fv_open_file (fv->curr_entry->path, TRUE);
-
-				return TRUE;
+					return TRUE;
+				}
+			case GDK_Left:
+				if (gtk_tree_model_iter_has_child (model, &iter))
+				{
+					path = gtk_tree_model_get_path (model, &iter);
+					gtk_tree_view_collapse_row (GTK_TREE_VIEW (fv->tree),
+												path);
+					gtk_tree_path_free (path);
+					return TRUE;
+				}
+			case GDK_Right:
+				if (gtk_tree_model_iter_has_child (model, &iter))
+				{
+					path = gtk_tree_model_get_path (model, &iter);
+					gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree),
+											  path, FALSE);
+					gtk_tree_path_free (path);
+					return TRUE;
+				}
+			default:
+				return FALSE;
 		}
 	}
 

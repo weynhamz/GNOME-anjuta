@@ -4,8 +4,6 @@ TODO List:
 	o Anjuta can open same file in multiple text editors.
 	  --> TagManager should not remove the file from it's database if
 	  another copy of the file is still open -- it crashes.
-	o Move "Disable syntax hilighting" property from preferences to
-	  style editor.
 	o Support "Style themes".
 	o Save compiler options settings.
 	o Debugger windows should not be updated if it's not shown

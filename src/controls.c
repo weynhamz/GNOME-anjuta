@@ -210,14 +210,14 @@ browser_toolbar_update()
 	if (F)
 	{
 		const GList *tags = anjuta_get_tag_list(te, tm_tag_max_t);
-		gtk_signal_disconnect_by_func(GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list)
-			  , GTK_SIGNAL_FUNC(on_toolbar_tag_clicked), NULL);
+		g_signal_handlers_block_by_func (GTK_OBJECT (GTK_COMBO (bt->tag_combo)->entry),
+										 G_CALLBACK (on_toolbar_tag_clicked), NULL);
 		if (tags)
-			gtk_combo_set_popdown_strings(GTK_COMBO(bt->tag_combo), (GList *) tags);
+			gtk_combo_set_popdown_strings (GTK_COMBO(bt->tag_combo), (GList *) tags);
 		gtk_widget_set_sensitive (bt->tag, (tags != NULL));
 		gtk_widget_set_sensitive (bt->tag_combo, (tags != NULL));
-		gtk_signal_connect (GTK_OBJECT(GTK_COMBO(bt->tag_combo)->list),
-		    "selection-changed", GTK_SIGNAL_FUNC (on_toolbar_tag_clicked), NULL);
+		g_signal_handlers_unblock_by_func (GTK_OBJECT(GTK_COMBO(bt->tag_combo)->entry),
+										   G_CALLBACK (on_toolbar_tag_clicked), NULL);
 	}
 }
 
