@@ -90,3 +90,5 @@ update-scintilla:
 	for patchfile in patches/*.diff; do \
 		patch -p1 < $$patchfile; \
 	done
+
+EXTRA_DIST=lexers.make

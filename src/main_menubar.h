@@ -71,6 +71,7 @@ struct _EditSubMenu
 	GtkWidget *convert_auto;
 
 	GtkWidget *insert_header;
+	GtkWidget *insert_custom_indent;
 	GtkWidget *insert_c_switch;
 	GtkWidget *insert_c_for;
 	GtkWidget *insert_c_while;

@@ -1042,6 +1042,14 @@ void on_comment_stream (GtkMenuItem * menuitem, gpointer user_data)
     aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
 }
 
+void on_insert_custom_indent (GtkMenuItem * menuitem, gpointer user_data)
+{
+    TextEditor* te;
+	te = anjuta_get_current_text_editor();
+	if(!te) return;
+    aneditor_command (te->editor_id, ANE_CUSTOMINDENT, 0, 0);
+}
+
 void
 on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {

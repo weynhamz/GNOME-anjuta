@@ -2,6 +2,7 @@ anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 
 INCLUDES = \
 	-I$(top_srcdir)/intl\
+	-I$(top_srcdir)\
 	-I$(srcdir)\
 	$(ANJUTA_CFLAGS)\
 	-DHAVE_CONFIG_H\

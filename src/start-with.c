@@ -53,7 +53,9 @@ on_open_project_clicked (GtkButton *button, gpointer data)
 static void
 on_open_last_project_clicked (GtkButton *button, gpointer data)
 {
-	GtkWidget *dialog = GTK_WIDGET (data);
+	GtkWidget *dialog = GTK_WIDGET (data);	
+	/*  Do not allow a second click  */
+	gtk_widget_set_sensitive (GTK_WIDGET (button), FALSE);
 	gchar *prj_filename = anjuta_preferences_get (app->preferences,
 												  "anjuta.last.open.project");
 	project_dbase_load_project (app->project_dbase, prj_filename, TRUE);

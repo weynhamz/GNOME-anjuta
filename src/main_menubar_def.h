@@ -362,7 +362,7 @@ static GnomeUIInfo insert_cvskeyword_submenu_uiinfo[NUM_CVSKEYWORD_SUBMENUS+1] =
    	GNOMEUIINFO_END/*8*/
 };
 
-#define NUM_INSERT_SUBMENUS 4
+#define NUM_INSERT_SUBMENUS 6
 static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
     {/*0*/
     GNOME_APP_UI_ITEM, N_("Header"),
@@ -388,7 +388,14 @@ static GnomeUIInfo insert_submenu_uiinfo[NUM_INSERT_SUBMENUS+1] = {
 		inserttext1_submenu_uiinfo, NULL, NULL,
 		GNOME_APP_PIXMAP_NONE, NULL,
 		0, 0, NULL},
-    GNOMEUIINFO_END/*4*/
+		GNOMEUIINFO_SEPARATOR,/*4*/
+	  {/*5*/
+	 	GNOME_APP_UI_ITEM, N_("Custom Indent"),
+	 	N_("Indent Mode, Offset, Tab-width"),
+	 	on_insert_custom_indent, NULL, NULL,
+	 	GNOME_APP_PIXMAP_NONE, NULL,
+	 	0, 0, NULL},
+    GNOMEUIINFO_END/*6*/
 };
 
 #define NUM_COMMENT_SUBMENUS 3
@@ -411,7 +418,7 @@ static GnomeUIInfo comment_submenu_uiinfo[NUM_COMMENT_SUBMENUS+1] = {
 	 on_comment_stream, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-	GNOMEUIINFO_END/*10*/
+	GNOMEUIINFO_END/*3*/
 };
 
 #define NUM_FIND_SUBMENUS 8

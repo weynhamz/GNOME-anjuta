@@ -57,6 +57,7 @@ void on_prev_occur (GtkMenuItem * menuitem, gpointer user_data);
 void on_comment_block (GtkMenuItem * menuitem, gpointer user_data);
 void on_comment_box (GtkMenuItem * menuitem, gpointer user_data);
 void on_comment_stream (GtkMenuItem * menuitem, gpointer user_data);
+void on_insert_custom_indent (GtkMenuItem * menuitem, gpointer user_data);
 
 void on_goto_block_start1_activate (GtkMenuItem * menuitem, gpointer user_data);
 void on_goto_block_end1_activate (GtkMenuItem * menuitem, gpointer user_data);

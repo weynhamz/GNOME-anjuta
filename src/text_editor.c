@@ -1463,6 +1463,34 @@ text_editor_get_selection (TextEditor * te)
 	return tr.lpstrText;
 }
 
+static gchar *
+get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
+{
+	typedef struct _IndentStyle{
+		gchar *name;
+		gchar *style;
+	}IndentStyle;
+	
+	static struct _IndentStyle indentstyle[] = {
+		{"GNU coding style", " -gnu"},
+		{"Kernighan and Ritchie style", " -kr"},
+		{"Original Berkeley style", " -orig"},
+		{"Style of Kangleipak", " -i8 -sc -bli0 -bl0 -cbi0 -ss"},
+		{"Hello World style", " -gnu -i0 -bli0 -cbi0 -cdb -sc -bl0 -ss"},
+		{"Crazy boy style", " "}
+	};
+	
+	gint n;
+	if (g_strcasecmp (name_style, "Custom style") == 0)
+		return anjuta_preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
+	for (n=0; n < (sizeof(indentstyle)/sizeof(IndentStyle)); n++)
+	{		
+		if (g_strcasecmp (name_style, _(indentstyle[n].name)) == 0)
+			return g_strdup(indentstyle[n].style);
+	}
+	return NULL;
+}
+
 void
 text_editor_autoformat (TextEditor * te)
 {
@@ -1495,7 +1523,23 @@ text_editor_autoformat (TextEditor * te)
 		return;
 	}
 
-	fopts = anjuta_preferences_get (te->preferences, AUTOFORMAT_CUSTOM_STYLE);
+	fopts = get_indent_style(te->preferences, 
+							 anjuta_preferences_get (te->preferences,
+													 AUTOFORMAT_STYLE));
+	if (!fopts)
+	{
+		gchar *msg;
+		
+		remove (file);
+		g_free (file);
+		text_editor_thaw (te);
+		anjuta_set_active ();
+		msg = g_strdup_printf (_("Anjuta does not know %s!"),
+			anjuta_preferences_get (te->preferences, AUTOFORMAT_STYLE));
+		anjuta_warning (msg);
+		g_free(msg);
+		return;
+	}
 	cmd = g_strconcat ("indent ", fopts, " ", file, NULL);
 	g_free (fopts);
 

@@ -68,6 +68,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.convert_auto = transform1_submenu_uiinfo[6].widget;
 	
 	mb->edit.insert_header = insert_submenu_uiinfo[0].widget;
+	mb->edit.insert_custom_indent = insert_submenu_uiinfo[5].widget;	
 	mb->edit.insert_c_switch = insert_template_c_uiinfo[0].widget;
 	mb->edit.insert_c_for = insert_template_c_uiinfo[1].widget;
 	mb->edit.insert_c_while = insert_template_c_uiinfo[2].widget;

@@ -792,7 +792,7 @@ function_select(TextEditor *te)
 	                                    SCI_GETFOLDLEVEL, line, 0) ;	
 	if ((fold_level & 0xFF) != 0)
 	{
-		while((fold_level & 0x10FF) != 0x1000)
+		while((fold_level & 0x10FF) != 0x1000 && line >= 0)
 			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                    SCI_GETFOLDLEVEL, --line, 0) ;
 		start = scintilla_send_message(SCINTILLA(te->widgets.editor), 
@@ -803,6 +803,7 @@ function_select(TextEditor *te)
 		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
 			fold_level = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
+
 		end = scintilla_send_message(SCINTILLA(te->widgets.editor), 
 	                                 SCI_POSITIONFROMLINE, line , 0);
 		scintilla_send_message(SCINTILLA(te->widgets.editor), 

@@ -269,6 +269,8 @@ protected:
 	bool CanBeCommented(bool box_stream);
 	bool StartBoxComment();
 	bool StartStreamComment();
+	SString GetMode(SString language); 
+	bool InsertCustomIndent();
 
 	unsigned int GetLinePartsInStyle(int line, int style1, int style2, SString sv[], int len);
 	void SetLineIndentation(int line, int indent);
@@ -1693,6 +1695,129 @@ bool AnEditor::StartStreamComment() {
 	return true;
 }
 
+
+SString AnEditor::GetMode(SString language) {
+	SString mode;	
+	if (strcmp(language.c_str(), "cpp") == 0)
+	{
+		mode += " Mode: C;";
+		if (props->GetInt("use.tabs"))
+			mode += " indent-tabs-mode: t;";
+		mode += " c-basic-offset: ";
+		mode +=  g_strdup_printf("%d", props->GetInt("indent.size"));
+		mode += "; tab-width: ";
+		mode +=  g_strdup_printf("%d ", props->GetInt("tabsize"));
+	}
+//~ Other languages
+//~ .....
+	return mode;
+}
+
+/*	Insert or Modify a Comment line 
+	giving File indent  */
+bool AnEditor::InsertCustomIndent() {
+	#define MAXBUF 1000
+	
+	SString fileNameForExtension = ExtensionFileName();
+	SString language = props->GetNewExpand("lexer.", fileNameForExtension.c_str());
+	SString start_box_base("comment.box.start.");
+	start_box_base += language;
+	SString start_stream_base("comment.stream.start.");
+	start_stream_base += language;
+	SString end_box_base("comment.box.end.");
+	end_box_base += language;
+	SString end_stream_base("comment.stream.end.");
+	end_stream_base += language;
+	SString start_box = props->Get(start_box_base.c_str());
+	SString start_stream = props->Get(start_stream_base.c_str());
+	SString end_box = props->Get(end_box_base.c_str());
+	SString end_stream = props->Get(end_stream_base.c_str());
+	SString mark("-*-");
+	int text_length = SendEditor(SCI_GETTEXTLENGTH);
+	char buf[MAXBUF];
+	int bufmax = text_length < MAXBUF ? text_length : MAXBUF;
+	
+	GetRange(wEditor, 0, bufmax - 1, buf);
+	
+	bool start_comment = false;
+	bool indent_comment = false;
+	int end_indent_comment = 0;
+	
+	for (int index = 0; index < bufmax; index++)
+	{
+		if (!start_comment)
+		{
+			if (memcmp(buf+index, start_box.c_str(), start_box.length()) == 0)
+			{
+				index += (start_box.length() - 1);
+				start_comment = true;
+				continue;
+			}
+			if (memcmp(buf+index, start_stream.c_str(), start_stream.length()) == 0)
+			{
+				index += (start_stream.length() - 1);
+				start_comment = true;
+				continue;
+			}
+			if (buf[index] != ' ' && buf[index] != '\t' && buf[index] != '\n')
+				break;
+		}
+		else
+		{
+			if (!indent_comment)
+			{
+				if (buf[index] == ' ' || buf[index] == '\t' || buf[index] == '\n')
+					continue;
+				if (memcmp(buf+index, mark.c_str(), 3) == 0)
+				{
+					index += 3;
+					indent_comment = true;
+				}
+				else
+					break;
+			}
+			else
+			{
+				if (memcmp(buf+index, end_box.c_str(), end_box.length()) == 0)
+				{
+					end_indent_comment = index + end_box.length() - 1;
+					break;
+				}
+				if (memcmp(buf+index, end_stream.c_str(), end_stream.length()) == 0)
+				{
+					end_indent_comment = index + end_stream.length() - 1;
+					break;
+				}
+			}
+		}		
+	}
+	SString mode = GetMode(language);
+	if (mode.c_str() != "")
+	{
+		SString comment ;
+		comment += start_stream.c_str() ;
+		comment += " ";
+		comment += mark.c_str();
+		comment += mode.c_str();
+		comment += mark.c_str();
+		comment += " ";
+		comment += end_stream.c_str() ;
+	
+		if (indent_comment)
+		{
+			SendEditor(SCI_SETSEL, 0, end_indent_comment + 1);
+			SendEditorString(SCI_REPLACESEL, 0, comment.c_str());
+		}
+		else
+		{
+			comment += "\n\n";
+			SendEditorString(SCI_INSERTTEXT, 0, comment.c_str());
+		}
+	}
+	return TRUE;
+}
+	
+
 /**
  * Return the length of the given line, not counting the EOL.
  */
@@ -2431,6 +2556,9 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	
 	case ANE_STREAMCOMMENT:
 		return StartStreamComment();
+	
+	case ANE_CUSTOMINDENT:
+		return InsertCustomIndent();
 	
 	case ANE_WORDSELECT:
 		WordSelect();
