@@ -25,6 +25,11 @@ Todo List:
 	o easy (S)RPMS & Debian packages build
 	  (assistant and/or edit the spec or debian dir)
 	o embedding a zvt term
+	o use PHP vars like C ones (with the tags bar); easy since they all
+	  begin with $
+	o add an insert-GPL-statement (depending on the selected language) menu
+	  entry
+	  
 
 	o > When the windows are docked, and we resize the main window of Anjuta, 
 	  > the docked window doesn't move with the resize.  As an example, I had 

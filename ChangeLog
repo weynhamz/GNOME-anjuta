@@ -1,3 +1,16 @@
+2001-08-26  Stephane Demurget <demurgets@free.fr>
+
+	All these modifications have been pointed out by
+	Gregory Schmitt <gregory.schmitt@free.fr>, so thanks to him.
+
+	* data/internal.properties: two fixes for the PHP lexer.
+	  this out.
+
+	* fr.po: minor fixes.
+
+	* TODO: added a couple of PHP suggestions from Gregory Schmitt.
+
+
 2001-08-22  Naba Kumar <kh_naba@users.sourceforge.net>
 	
 	* appwiz_page2.c: Applied patch for disabling auto-upper-casting of
