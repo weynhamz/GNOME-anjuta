@@ -6,6 +6,11 @@
 	* src/toolbar_callbacks.c: Fixed search combo pulldown bug.
 	* src/toolbar.c: Code clean-ups.
 	
+	* tagmanager/tm_file_entry.c, tagmanager/tm_project.c,
+	tagmanager/tm_symbol.c: Used g_return_if_fail() instead of g_assert().
+	
+	* src/message-manager-private.[cc,h]: Removed dead codes.
+	
 2003-06-24  Naba Kumar  <naba@gnome.org>
 
 	* src/search-replace.c: Shows the dialog properly, even when it is

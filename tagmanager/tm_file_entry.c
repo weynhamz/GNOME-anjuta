@@ -115,7 +115,8 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	struct stat s;
 	char *entries = NULL;
 
-	g_assert(path);
+	g_return_val_if_fail (path != NULL, NULL);
+	
 	/* TTimo - don't follow symlinks */
 	if (tm_file_entry_type(path) == tm_file_link_t)
 		return NULL;
@@ -241,8 +242,8 @@ void tm_file_entry_free(gpointer entry)
 void tm_file_entry_foreach(TMFileEntry *entry, TMFileEntryFunc func
   , gpointer user_data, guint level, gboolean reverse)
 {
-	g_assert(entry);
-	g_assert(func);
+	g_return_if_fail (entry != NULL);
+	g_return_if_fail (func != NULL);
 
 	if ((reverse) && (entry->children))
 	{

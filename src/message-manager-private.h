@@ -118,9 +118,6 @@ class AnMessageWindow : public MessageSubwindow
 		void add_to_buffer(char c);
 		void append_buffer();
 		
-		// Only for callbacks!
-		// void set_cur_line(int line) {m_line = line;};
-		
 		int get_cur_line();
 		string get_cur_msg();
 		
@@ -137,14 +134,12 @@ class AnMessageWindow : public MessageSubwindow
 		GtkWidget* m_tree;
 		GtkWidget* m_scrolled_win;
 		
-		// int m_line;
 		vector<string> m_messages;
 		string m_line_buffer;
 
 		gulong adj_chgd_hdlr;
 
 		static gboolean on_mesg_event (GtkTreeView* list, GdkEvent * event, gpointer data);
-		// static void on_selection_changed(GtkTreeSelection* select, gpointer data);
 		static void on_adjustment_changed(GtkAdjustment* adj, gpointer data);
 		static void on_adjustment_value_changed(GtkAdjustment* adj, gpointer data);
 };

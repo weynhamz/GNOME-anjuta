@@ -26,7 +26,7 @@ void tm_symbol_print(TMSymbol *sym, guint level)
 {
 	guint i;
 
-	g_assert(sym);
+	g_retrun_if_fail (sym != NULL);
 	for (i=0; i < level; ++i)
 		fputc('\t', stderr);
 	fprintf(stderr, "%s\n", (sym->tag)?sym->tag->name:"Root");

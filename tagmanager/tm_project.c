@@ -118,7 +118,7 @@ TMWorkObject *tm_project_new(const char *dir, const char **sources
 
 void tm_project_destroy(TMProject *project)
 {
-	g_assert(project);
+	g_return_if_fail (project != NULL);
 #ifdef TM_DEBUG
 	g_message("Destroying project: %s", project->work_object.file_name);
 #endif
