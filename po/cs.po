@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-24 18:36+0100\n"
-"PO-Revision-Date: 2004-12-25 14:33+0100\n"
+"POT-Creation-Date: 2004-12-26 18:36+0100\n"
+"PO-Revision-Date: 2004-12-26 23:42+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "IDE Anjuta"
 
-#: anjuta.desktop.in.in.h:2 src/about.c:97 src/main.c:122 src/main.cpp:122
+#: anjuta.desktop.in.in.h:2 src/about.c:97 src/main.c:129 src/main.cpp:122
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
 
@@ -265,7 +265,7 @@ msgstr "Příště dialog Začít s nezobrazovat."
 msgid "Document module Makefile.am"
 msgstr "Makefile.am modulu dokumentů"
 
-#: anjuta.glade.h:56 src/anjuta-app.c:348 src/anjuta_gui.c:105
+#: anjuta.glade.h:56 src/anjuta-app.c:293 src/anjuta_gui.c:105
 msgid "Edit"
 msgstr "Úpravy"
 
@@ -298,7 +298,7 @@ msgstr "Spustit program"
 
 #. Register actions
 #: anjuta.glade.h:63 plugins/file-manager/an_file_view.c:923
-#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:345 src/anjuta_gui.c:102
+#: plugins/gdb/breakpoints.c:116 src/anjuta-app.c:290 src/anjuta_gui.c:102
 msgid "File"
 msgstr "Soubor"
 
@@ -650,7 +650,7 @@ msgstr "Skripty na konci Makefile.am nejvyšší úrovně"
 msgid "Set Signal Property"
 msgstr "Nastavit vlastnost signálu"
 
-#: anjuta.glade.h:140 src/anjuta-app.c:354 src/anjuta_gui.c:120
+#: anjuta.glade.h:140 src/anjuta-app.c:299 src/anjuta_gui.c:120
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -756,7 +756,7 @@ msgstr "Jméno uživatele."
 msgid "Version:"
 msgstr "Verze:"
 
-#: anjuta.glade.h:164 src/anjuta-app.c:351 src/anjuta_gui.c:111
+#: anjuta.glade.h:164 src/anjuta-app.c:296 src/anjuta_gui.c:111
 msgid "View"
 msgstr "Zobrazení"
 
@@ -1044,19 +1044,19 @@ msgid "Anjuta Preferences"
 msgstr "Nastavení Anjuty"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: libanjuta/anjuta-ui.c:811
+#: libanjuta/anjuta-ui.c:813
 msgid "Action"
 msgstr "Akce"
 
-#: libanjuta/anjuta-ui.c:829
+#: libanjuta/anjuta-ui.c:831
 msgid "Visible"
 msgstr "Viditelný"
 
-#: libanjuta/anjuta-ui.c:840
+#: libanjuta/anjuta-ui.c:842
 msgid "Sensitive"
 msgstr "Citlivá"
 
-#: libanjuta/anjuta-ui.c:849
+#: libanjuta/anjuta-ui.c:851
 msgid "Shortcut"
 msgstr "Zkratka"
 
@@ -1815,7 +1815,7 @@ msgstr "Tvůrce tříd"
 #: plugins/gdb/registers_gui.c:56 plugins/gdb/sharedlib_gui.c:49
 #: plugins/gdb/signals_gui.c:63 plugins/gdb/stack_trace.c:381
 #: plugins/gdb/watch_gui.c:74 plugins/project-manager/project_dbase_gui.c:343
-#: src/anjuta-app.c:357 src/anjuta_gui.c:123
+#: src/anjuta-app.c:302 src/anjuta_gui.c:123
 msgid "Help"
 msgstr "Nápověda"
 
@@ -1982,7 +1982,8 @@ msgid ""
 msgstr ""
 "<b>Upozornění: </b>\n"
 "\n"
-"Stisknutí OK odstraní soubor z disku a z CVS. Soubor samozřejmě nebude odstraněn z CVS, než použijete potvrzení CVS. <b>Byli jste varováni!</b>"
+"Stisknutí OK odstraní soubor z disku a z CVS. Soubor samozřejmě nebude "
+"odstraněn z CVS, než použijete potvrzení CVS. <b>Byli jste varováni!</b>"
 
 #: plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "Be verbose"
@@ -4624,7 +4625,9 @@ msgid ""
 msgstr ""
 "<b>Nemohu otevřít \"%s\"</b>.\n"
 "\n"
-"Neexistuje zásuvný modul schopný zpracovat tento soubor. Ve vašem prostředí pracovní plochy nebyla nastavena implicitní akce ani aplikace pro tento soubor.\n"
+"Neexistuje zásuvný modul schopný zpracovat tento soubor. Ve vašem prostředí "
+"pracovní plochy nebyla nastavena implicitní akce ani aplikace pro tento "
+"soubor.\n"
 "\n"
 "Typ mime: %s.\n"
 "\n"
@@ -5326,7 +5329,8 @@ msgstr "Nezadán spustitelný soubor."
 
 #: plugins/gdb/debugger.c:576
 msgid "Open an executable or attach to a process to start debugging."
-msgstr "Začněte ladit otevřením spustitelného souboru nebo připojením k procesu."
+msgstr ""
+"Začněte ladit otevřením spustitelného souboru nebo připojením k procesu."
 
 #: plugins/gdb/debugger.c:581
 msgid "There was an error whilst launching the debugger."
@@ -6134,7 +6138,9 @@ msgstr "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 msgid ""
 "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux."
 "org)</span>"
-msgstr "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)</span>"
+msgstr ""
+"<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux."
+"org)</span>"
 
 #: plugins/gtodo/libgtodo.c:609
 msgid "No permission to read the file."
@@ -6191,42 +6197,54 @@ msgstr "<b>Souhrn:</b>\t%s"
 msgid ""
 "\n"
 "<b>Due date:</b>\t%s"
-msgstr "\n<b>Termín dokončení:</b>\t%s"
+msgstr ""
+"\n"
+"<b>Termín dokončení:</b>\t%s"
 
 #: plugins/gtodo/list_tooltip.c:53
 #, c-format
 msgid ""
 "\n"
 "<b>Due date:</b>\t%s at %02i:%02i"
-msgstr "\n<b>Termín dokončení:</b>\t%s v %02i:%02i"
+msgstr ""
+"\n"
+"<b>Termín dokončení:</b>\t%s v %02i:%02i"
 
 #: plugins/gtodo/list_tooltip.c:61
 #, c-format
 msgid ""
 "\n"
 "<b>Priority:</b>\t\t<span color=\"dark green\">%s</span>"
-msgstr "\n<b>Priorita:</b>\t\t<span color=\"dark green\">%s</span>"
+msgstr ""
+"\n"
+"<b>Priorita:</b>\t\t<span color=\"dark green\">%s</span>"
 
 #: plugins/gtodo/list_tooltip.c:65
 #, c-format
 msgid ""
 "\n"
 "<b>Priority:</b>\t\t%s"
-msgstr "\n<b>Priorita:</b>\t\t%s"
+msgstr ""
+"\n"
+"<b>Priorita:</b>\t\t%s"
 
 #: plugins/gtodo/list_tooltip.c:69
 #, c-format
 msgid ""
 "\n"
 "<b>Priority:</b>\t\t<span color=\"red\">%s</span>"
-msgstr "\n<b>Priorita:</b>\t\t<span color=\"red\">%s</span>"
+msgstr ""
+"\n"
+"<b>Priorita:</b>\t\t<span color=\"red\">%s</span>"
 
 #: plugins/gtodo/list_tooltip.c:73
 #, c-format
 msgid ""
 "\n"
 "<b>Comment:</b>\t%s"
-msgstr "\n<b>Poznámka:</b>\t%s"
+msgstr ""
+"\n"
+"<b>Poznámka:</b>\t%s"
 
 #: plugins/gtodo/main.c:191
 msgid "--help"
@@ -6281,7 +6299,8 @@ msgid ""
 "minutes:</span>\n"
 " %s"
 msgstr ""
-"<spam weight=\"bold\" size=\"larger\">Následující úkol má být dokončen za %i minut:</span>\n"
+"<spam weight=\"bold\" size=\"larger\">Následující úkol má být dokončen za %i "
+"minut:</span>\n"
 " %s"
 
 #: plugins/gtodo/notification.c:67
@@ -6290,7 +6309,8 @@ msgid ""
 "<span weight=\"bold\" size=\"larger\">The following item is due:</span>\n"
 "\"%s\""
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Následující úkol má být dokončen:</span>\n"
+"<span weight=\"bold\" size=\"larger\">Následující úkol má být dokončen:</"
+"span>\n"
 "\"%s\""
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
@@ -6440,7 +6460,8 @@ msgid ""
 "I hope to get this fixed soon"
 msgstr ""
 "Zobrazování tipů v seznamu úkolů je ještě ve vývoji.\n"
-"Kvůli nějakému divnému chování v gtk to funguje jen s zakázanými nadpisy sloupců.\n"
+"Kvůli nějakému divnému chování v gtk to funguje jen s zakázanými nadpisy "
+"sloupců.\n"
 "Doufám, že to brzo opravím"
 
 #: plugins/gtodo/tasklists.c:9
@@ -6684,7 +6705,9 @@ msgstr ""
 msgid ""
 "Are you sure you want to remove the following from project?\n"
 "\n"
-msgstr "Opravdu chcete odstranit z projektu následující?\n\n"
+msgstr ""
+"Opravdu chcete odstranit z projektu následující?\n"
+"\n"
 
 #: plugins/project-manager/plugin.c:352
 msgid "_Project"
@@ -7783,11 +7806,11 @@ msgstr "%s: Parametry na příkazovém řádku"
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: src/action-callbacks.c:72 src/action-callbacks.c:93 src/shell.c:64
+#: src/action-callbacks.c:77 src/action-callbacks.c:98 src/shell.c:64
 msgid "Anjuta Plugins"
 msgstr "Zásuvné moduly Anjuty"
 
-#: src/action-callbacks.c:107 src/mainmenu_callbacks.c:836
+#: src/action-callbacks.c:112 src/mainmenu_callbacks.c:836
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -7795,7 +7818,7 @@ msgstr ""
 "Nemohu zobrazit nápovědu. Přesvědčte se prosím, že je nainstalován balíček "
 "dokumentace Anjuty. Můžete jej stáhnout z http://anjuta.org"
 
-#: src/anjuta.c:80 src/anjuta_cbs.c:93
+#: src/anjuta.c:84 src/anjuta_cbs.c:93
 msgid ""
 "One or more files are not saved.\n"
 "Do you still want to exit?"
@@ -7939,21 +7962,21 @@ msgstr "O _aplikaci"
 msgid "About Anjuta"
 msgstr "O Anjutě"
 
-#: src/anjuta-app.c:448 src/shell.c:212
+#: src/anjuta-app.c:416 src/shell.c:212
 msgid "Value doesn't exist"
 msgstr "Hodnota neexistuje"
 
 # Supposedly this will be distributed with the project, so no localization
-#: src/anjuta-app.c:814
+#: src/anjuta-app.c:928
 #, c-format
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 msgstr "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
 
-#: src/anjuta-app.c:1070
+#: src/anjuta-app.c:1184
 msgid "Looking up symbol"
 msgstr "Vyhledávám symbol"
 
-#: src/anjuta-app.c:1072
+#: src/anjuta-app.c:1186
 msgid "Finding in Files ....\n"
 msgstr "Hledám v souborech ....\n"
 
@@ -8048,17 +8071,21 @@ msgstr "launcher.c: chyba roury PTY!"
 msgid "Cannot execute command shell"
 msgstr "Nemohu spustit shell příkazů"
 
-#: src/main.c:51 src/main.cpp:51
+#: src/main.c:52 src/main.cpp:51
 msgid "Specify the size and location of the main window"
 msgstr "Určení velikosti a umístění hlavního okna"
 
-#: src/main.c:52 src/main.cpp:52
+#: src/main.c:53 src/main.cpp:52
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "ŠÍŘKAxVÝŠKA+XPOS+YPOS"
 
-#: src/main.c:57 src/main.cpp:57
+#: src/main.c:58 src/main.cpp:57
 msgid "Do not show the splashscreen"
 msgstr "Nezobrazovat úvodní obrazovku"
+
+#: src/main.c:64
+msgid "Shutdown anjuta properly releasing all resources (for debugging)"
+msgstr "Ukončit anjutu správně a uvolnit všechny zdroje (pro ladění)"
 
 #: src/mainmenu_callbacks.c:545
 msgid "The executable is not up-to-date."
