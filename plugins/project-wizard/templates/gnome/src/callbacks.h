@@ -3,7 +3,7 @@
 
 [+IF (=(get "IncludeGNUHeader") "1") +]/*
 	callbacks.h
-	Copyright (C) [+Author+]
+	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
 
 [+(gpl "callbacks.h"  "\t")+]
 */[+ENDIF+]

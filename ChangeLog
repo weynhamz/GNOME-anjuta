@@ -1,3 +1,15 @@
+2005-02-13  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	*plugins/project-wizard/templates/*.wiz,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/templates/terminal/src/main.c,
+	plugins/project-wizard/templates/gtk/src/*.[ch],
+	plugins/project-wizard/templates/gtk/src/Makefile.am,
+	plugins/project-wizard/templates/gnome/src/*.[ch],
+	plugins/project-wizard/templates/anjuta-plugin/src/*.[ch] :
+	Add Copyright date & Email address,
+	Correct terminal project.
+	
 2005-02-12  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/property.c: Fixed hidden

@@ -54,6 +54,7 @@
 
 #define ANJUTA_PROJECT_DIRECTORY_PROPERTY "AnjutaProjectDirectory"
 #define USER_NAME_PROPERTY "UserName"
+#define EMAIL_ADDRESS_PROPERTY "EmailAddress"
 
 /* Widget and signal name found in glade file
  *---------------------------------------------------------------------------*/
@@ -709,6 +710,10 @@ npw_druid_add_default_property (NPWDruid* this)
 		npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
 		g_free (s);
 	}
+	/* Add Email address */
+	value = npw_value_heap_find_value (this->values, EMAIL_ADDRESS_PROPERTY);
+	s = anjuta_preferences_get (pref, "anjuta.project.email");
+	npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
 }
 
 /* Druid public functions

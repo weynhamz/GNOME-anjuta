@@ -3,7 +3,7 @@
 
 [+IF (=(get "IncludeGNUHeader") "1") +]/*
 	interface.h
-	Copyright (C) [+Author+]
+	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
 
 [+(gpl "interface.h"  "\t")+]
 */[+ENDIF+]

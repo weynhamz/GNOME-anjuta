@@ -2,10 +2,10 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 
 [+IF (=(get "IncludeGNUHeader") "1") +]/*
-  plugin.h
-  Copyright (C) [+Author+]
+	plugin.h
+	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
 
-[+(gpl "plugin.h"  "  ")+]
+[+(gpl "plugin.h"  "\t")+]
 */[+ENDIF+]
 
 

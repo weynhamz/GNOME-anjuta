@@ -8,6 +8,7 @@
 <page name="basic" _label="Basic information" _description="General Project Infromation">
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="foobar-sample" summary="yes" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
+	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
 </page>
 
@@ -26,7 +27,7 @@
 		<item name="LGPL" _label="Lesser General Public License(LGPL)"/>
 		<item name="BSD"/>
 	</property>
-	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes"/>
+	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
 </page>
 
 [+IF (=(get "HavePackage") "1")+]
@@ -41,24 +42,26 @@
 
 <content>
 	<directory source="." destination="[+Destination+]">
-		<file source="AUTHORS"/>
-		<file source="ChangeLog"/>
-		<file source="Makefile.am.tpl" destination="Makefile.am"/>
-		<file source="NEWS"/>
-		<file source="README"/>
-		<file source="autogen.sh" executable="yes"/>
-		<file source="configure.in.tpl" destination="configure.in"/>
-		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
-		<directory source="src">
-			<file source="Makefile.am.tpl" destination="Makefile.am"/>
-			<file source="main.c"/>
-		</directory>
-		[+IF (=(get "HaveI18n") "1") +]
-		<directory source="po">
+		<directory source="terminal" destination="[+NameLower+]">
+			<file source="AUTHORS"/>
 			<file source="ChangeLog"/>
-			<file source="POTFILES.in"/>
+			<file source="Makefile.am.tpl" destination="Makefile.am"/>
+			<file source="NEWS"/>
+			<file source="README"/>
+			<file source="autogen.sh" executable="yes"/>
+			<file source="configure.in.tpl" destination="configure.in"/>
+			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+			<directory source="src">
+				<file source="Makefile.am.tpl" destination="Makefile.am"/>
+				<file source="main.c"/>
+			</directory>
+			[+IF (=(get "HaveI18n") "1") +]
+			<directory source="po">
+				<file source="ChangeLog"/>
+				<file source="POTFILES.in"/>
+			</directory>
+			[+ENDIF+]
 		</directory>
-		[+ENDIF+]
 	</directory>
 </content>
 

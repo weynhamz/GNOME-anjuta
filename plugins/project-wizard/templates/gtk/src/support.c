@@ -3,7 +3,7 @@
 
 [+IF (=(get "IncludeGNUHeader") "1") +]/*
 	support.c
-	Copyright (C) [+Author+]
+	Copyright (C) [+Author+] [+(shell "date +%Y")+] <[+Email+]>
 
 [+(gpl "support.c"  "\t")+]
 */[+ENDIF+]

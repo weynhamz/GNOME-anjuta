@@ -8,6 +8,7 @@
 <page name="basic" _label="Basic information" _description="General Project Infromation">
 	<property type="string" name="Name" _label="Project Name:" _description="Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)" default="anjuta-plugin-foobar" summary="yes" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
+	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
 </page>
