@@ -1210,7 +1210,7 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 			if (search_wrap == FALSE)
 			{
 				anjuta_status_push(status,
-					-("Incremental search for '%S' failed. Press Enter or click Find to continue searching at the top."),
+					_("Incremental search for '%s' failed. Press Enter or click Find to continue searching at the top."),
 					string);
 				search_params->wrap = 1;
 				gdk_beep();
