@@ -1,3 +1,20 @@
+2003-06-10  Naba Kumar  <naba@gnome.org>
+
+	* autogen.sh.generic, autogen.sh.gtk, autogen.sh.gtkmm
+	autogen.sh.wxwin, macros/autogen.sh, macros2/autogen.sh:
+	Removed any reference to particular version of automake/autoconf
+	so that they could work with newer versions.
+
+	* src/anjuta-encodings.c, src/anjuta-encodings.h, anjuta.glade,
+	src/anjuta.c: Added coded to add/remove supported encodings.
+	
+	* src/appwizard.c, src/appwizard.h, src/gnome_project.c,
+	src/preferences.c, src/project_dbase.c, src/project_dbase.h,
+	src/project_import.c, src/project_type.c, src/project_type.h,
+	src/source.c, src/wizard_gui.c: Added a new field called 'deprecated'
+	in the projects typtes. Code clean ups. Removed GTK1/GNOME1
+	from the project wizard.
+
 2003-06-06  Naba Kumar  <naba@gnome.org>
 
 	Patch from Etay Meiri  <etay-m@bezeqint.net>
