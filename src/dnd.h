@@ -53,6 +53,9 @@ dnd_drop_init (GtkWidget *widget,
 	       void (* data_dropped) (gchar *filename, gpointer data),
 	       gpointer data, ...);
 
+void 
+scintilla_uri_dropped(const char *uri);
+
 END_GNOME_DECLS
 
 #endif	/* _DND_H_ */

@@ -193,6 +193,9 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	nt = lParam;
 	switch (nt->nmhdr.code)
 	{
+	case SCN_URIDROPPED:
+		scintilla_uri_dropped(nt->text);
+		break;
 	case SCN_SAVEPOINTREACHED:
 	case SCN_SAVEPOINTLEFT:
 		anjuta_update_title ();

@@ -1,3 +1,11 @@
+2001-09-19  Naba Kumar <kh_naba@sourceforge.net>
+
+	* status.pl (new): Wrote a perl script to display the
+	  translation statistics.
+	  
+	  I hope you people will find it useful. Just run
+	  the script and you get statistics.
+	  
 2001-09-15  Carlos Perelló Marín <carlos@gnome-db.org>
 
 	* de.po: Header fixed.

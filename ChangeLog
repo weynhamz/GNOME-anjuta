@@ -1,3 +1,8 @@
+2001-09-19  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* Fixed dnd of files within scintilla.
+	patch from:  rikul <null@acm.org>
+	
 2001-09-18  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* Applied patch from Luca.
