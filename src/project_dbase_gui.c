@@ -1334,8 +1334,8 @@ on_add_prjfilesel_ok_clicked (GtkDialog * button, gpointer user_data)
 		gchar *comp_dir;
 		const gchar *filename = node->data;
 		
-		if (!filename || strlen(filename))
-			break;
+		if (!filename || strlen(filename) <= 0)
+			continue;
 		if (0 != stat(filename, &s))
 		{
 			int button;
