@@ -255,7 +255,7 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[NUM_INSERTTEXT_SUBMENUS+1] = {
        GNOMEUIINFO_END/*6*/
 };
 
-#define NUM_GOTO_SUBMENUS 6
+#define NUM_GOTO_SUBMENUS 10
 static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Goto Line number ..."),
@@ -293,7 +293,31 @@ static GnomeUIInfo goto1_submenu_uiinfo[NUM_GOTO_SUBMENUS+1] = {
 	 on_goto_next_mesg1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_N, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
-	GNOMEUIINFO_END/*6*/
+	{/*6*/
+	 GNOME_APP_UI_ITEM, N_("_Go Back"),
+	 N_("Go back"),
+	 on_go_back_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_B, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
+	{/*7*/
+	 GNOME_APP_UI_ITEM, N_("_Go Forward"),
+	 N_("Go forward"),
+	 on_go_forward_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_F, GDK_CONTROL_MASK | GDK_MOD1_MASK, NULL},
+	{/*8*/
+	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
+	 N_("Goto tag definition"),
+	 on_goto_tag_definition_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_D, GDK_CONTROL_MASK, NULL},
+	{/*9*/
+	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
+	 N_("Goto tag declaration"),
+	 on_goto_tag_declaration_activate, NULL, NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 GDK_D, GDK_CONTROL_MASK | GDK_SHIFT_MASK, NULL},
+	GNOMEUIINFO_END/*10*/
 };
 
 

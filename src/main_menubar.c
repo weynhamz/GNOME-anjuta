@@ -94,6 +94,10 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->edit.goto_block_end = goto1_submenu_uiinfo[3].widget;
 	mb->edit.goto_prev_mesg = goto1_submenu_uiinfo[4].widget;
 	mb->edit.goto_next_mesg = goto1_submenu_uiinfo[5].widget;
+	mb->edit.go_back = goto1_submenu_uiinfo[6].widget;
+	mb->edit.go_forward = goto1_submenu_uiinfo[7].widget;
+	mb->edit.goto_tag_def = goto1_submenu_uiinfo[8].widget;
+	mb->edit.goto_tag_decl = goto1_submenu_uiinfo[9].widget;
 	mb->edit.edit_app_gui = edit1_menu_uiinfo[22].widget;
 
 	/* View Submenu */

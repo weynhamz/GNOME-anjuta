@@ -1,3 +1,8 @@
+2002-05-14  Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>
+
+	* src/main_menubar.[ch], main_menubar_def.h: Added back/forward
+	  and goto tag menu items to main menu.
+
 2002-05-09  Andy Piper <andy.piper@freeuk.com>
 
 	* THANKS, widgets/e-shell-about-box.c, 

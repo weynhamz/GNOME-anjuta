@@ -99,6 +99,10 @@ struct _EditSubMenu
 	GtkWidget *goto_block_end;
 	GtkWidget *goto_prev_mesg;
 	GtkWidget *goto_next_mesg;
+	GtkWidget *go_back;
+	GtkWidget *go_forward;
+	GtkWidget *goto_tag_def;
+	GtkWidget *goto_tag_decl;
 
 	GtkWidget *edit_app_gui;
 };
