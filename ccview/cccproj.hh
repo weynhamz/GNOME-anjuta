@@ -214,8 +214,11 @@ public:
     funct_pos get_first_function() const {return functions.begin();}
     funct_pos get_last_function() const {return functions.end();}
     const memberfunction& get_function(funct_pos in) const {return (*in).second;}
-    const memberfunction& get_function_from_name(const char *nin) {
-        return functions[nin];}
+    const memberfunction& get_function_from_name(const char *nin) const
+	{
+		ccclass* cls=(ccclass*)this; // FIXME: Typecasting from const* to non-const
+        return cls->functions[nin];
+	}
     const char* get_file_from_function(const char *func);
     int get_line_from_function(const char *func);
     const char* get_decl_file_from_function(const char *func);
