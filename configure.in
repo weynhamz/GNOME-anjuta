@@ -126,6 +126,10 @@ PKG_CHECK_MODULES(ANJUTA, \
 	libxml-2.0 >= $LIBXML_REQUIRED \
 	pango >= $PANGO_REQUIRED)
 
+LIBEGG_PREFIX=/home/gnome/gnome2/cvs/libegg
+ANJUTA_CFLAGS="${ANJUTA_CFLAGS} -I${LIBEGG_PREFIX}"
+ANJUTA_LIBS="$ANJUTA_LIBS ${LIBEGG_PREFIX}/libegg/menu/libegg-menu.la ${LIBEGG_PREFIX}/libegg/treeviewutils/libegg-treeview.la"
+
 AC_SUBST(ANJUTA_CFLAGS)
 AC_SUBST(ANJUTA_LIBS)
 

@@ -243,9 +243,6 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 				/* Set font size to (arbitrary) 12 points */
 				font_name = g_strconcat (tmp, " 12", NULL);
 				g_free (tmp);
-#ifdef DEBUG
-				g_message ("Terminal font set as: %s", font_name);
-#endif
 				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
 												 (prop->object), font_name);
 				g_free (font_name);
@@ -284,9 +281,6 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 	return_value = 0;
 	if ((filter != ANJUTA_PREFERENCES_FILTER_NONE) && (prop->flags & filter))
 	{
-#ifdef DEBUG
-		g_message ("Skipping (filtered) property '%s'", prop->key);
-#endif
 		value = prop_get (pr->props_session, prop->key);
 	}
 	else
@@ -796,9 +790,6 @@ add_all_default_pages (AnjutaPreferences *pr)
 	
 	node = glade_xml_get_widget_prefix (gxml,"preferences_dialog");
 
-#ifdef DEBUG
-	g_message ("Number of preferences page found: %d", g_list_length (node));
-#endif
 	while (node)
 	{
 		const gchar *name;
@@ -819,11 +810,6 @@ add_all_default_pages (AnjutaPreferences *pr)
 			}
 		node = g_list_next (node);
 	}
-#if 0
-	button = glade_xml_get_widget (gxml, "edit_syntax_highlighting");
-	g_signal_connect (G_OBJECT (button), "clicked",
-					  G_CALLBACK (on_style_editor_clicked), pr);
-#endif
 	g_object_unref (gxml);
 }
 
@@ -880,8 +866,6 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	
 	pr->priv = g_new0(AnjutaPreferencesPriv, 1);
 	pr->priv->properties = NULL;
-	
-	g_message ("Initializing AP Instance");
 	
 	pr->props_build_in = prop_set_new ();
 	pr->props_global = prop_set_new ();
@@ -1039,8 +1023,6 @@ anjuta_preferences_class_init (AnjutaPreferencesClass *class)
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 	GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (class);
-	
-	g_message ("Initializing AP class");
 	
 	parent_class = g_type_class_peek_parent (class);
 	

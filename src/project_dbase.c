@@ -598,8 +598,8 @@ project_dbase_reload_session (ProjectDBase * p)
 										   SHOW_LOCALS_DEFAULT );
 	
 	/* Updates the menu */
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal);
+	//gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
+	//		(app->widgets.menubar.view.show_hide_locals), p->m_prj_ShowLocal);
 }
 
 gboolean
@@ -1409,8 +1409,16 @@ project_dbase_close_project (ProjectDBase * p)
 void
 project_dbase_update_docked_status(void)
 {
-	gboolean status = app->project_dbase->project_is_open & app->project_dbase->is_docked;
-	GTK_CHECK_MENU_ITEM(app->widgets.menubar.project.dock_undock)->active = status;
+	EggAction *action;
+	
+	gboolean status = app->project_dbase->project_is_open &
+							app->project_dbase->is_docked;
+	
+	action = 
+		anjuta_ui_get_action (app->ui, "ActionGroupProject",
+							  "ActionProjectDock");
+	
+	//egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action), status);
 	GTK_CHECK_MENU_ITEM(app->project_dbase->widgets.menu_docked)->active = status;
 }
 
@@ -2054,6 +2062,8 @@ project_dbase_update_menu (ProjectDBase * p)
 				     				MAXIMUM_RECENT_PROJECTS);
 	if (p->project_is_open)
 	{
+		GtkWidget *recent_submenu;
+		
 		app->recent_projects =
 			glist_path_dedup(update_string_list (app->recent_projects,
 												 p->proj_filename,
@@ -2063,9 +2073,10 @@ project_dbase_update_menu (ProjectDBase * p)
 					app->recent_projects,
 					GTK_SIGNAL_FUNC
 					(on_recent_projects_menu_item_activate));
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM
-					   (app->widgets.menubar.
-					    file.recent_projects), submenu);
+		recent_submenu =
+			egg_menu_merge_get_widget (anjuta_ui_get_menu_merge (app->ui),
+									   "/MenuMain/MenuFile/RecentProjects");
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM (recent_submenu), submenu);
 	}
 }
 

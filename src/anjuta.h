@@ -47,6 +47,7 @@
 #include "tm_tagmanager.h"
 #include "file_history.h"
 #include "windows-dialog.h"
+#include "anjuta-ui.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \
@@ -90,6 +91,7 @@ struct _AnjutaApp
 	GList *text_editor_list;
 
 	GtkAccelGroup *accel_group;
+	AnjutaUI *ui;
 	FindAndReplace *find_replace;
 	AnMessageManager *messages;
 	ProjectDBase *project_dbase;
@@ -126,7 +128,9 @@ struct _AnjutaApp
 	gboolean in_progress;
 	gint busy_count;
 	gboolean first_time_expose;
-	gboolean has_devhelp; /* If Devhelp is installed, Context Help should be enabled */
+	
+	 /* If Devhelp is installed, Context Help should be enabled */
+	gboolean has_devhelp;
 
 	/* dir where command executes */
 	gchar *execution_dir;

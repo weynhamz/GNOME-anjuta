@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+LIBEGG_PATH = /home/gnome/gnome2/cvs/libegg
+
 INCLUDES = \
 	$(ANJUTA_CFLAGS)\
 	$(PCRE_CFLAGS)\
@@ -53,6 +55,7 @@ anjuta_SOURCES = \
 	anjuta-tools.h\
 	anjuta-plugins.c\
 	anjuta-plugins.h\
+	anjuta-ui.c\
 	aneditor.cxx\
 	aneditor.h\
 	anjuta.h\
@@ -232,7 +235,6 @@ anjuta_SOURCES = \
 	widget-registry.h\
 	widget-registry.c
 
-
 anjuta_LDADD =  \
 	$(ANJUTA_LIBS) \
 	$(PCRE_LIBS)\
@@ -242,3 +244,7 @@ anjuta_LDADD =  \
 	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
+
+anjuta_DEPENDENCIES =
+	$(LIBEGG_PATH)/libegg/menu/libegg-menu.la \
+	$(LIBEGG_PATH)/libegg/treeviewutils/libegg-treeview.la

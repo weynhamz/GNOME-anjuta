@@ -447,7 +447,9 @@ module.source.files=\
 	widgets/cell-renderer-captioned-image.c\
 	widgets/gnomefilelist.c\
 	widgets/e-splash.c\
-	scintilla/LexPOV.cxx
+	scintilla/LexPOV.cxx\
+	src/anjuta-ui.c\
+	src/anjuta-ui.h
 
 module.pixmap.name=.
 module.pixmap.type=

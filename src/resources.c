@@ -79,9 +79,6 @@ anjuta_res_get_pixbuf (const gchar * filename)
 	image = g_hash_table_lookup (pixbuf_hash, pathname);
 	if (image == NULL)
 	{
-#ifdef DEBUG
-		g_message ("Loading pixmap: %s", pathname);
-#endif
 		image = gdk_pixbuf_new_from_file (pathname, &error);
 		g_hash_table_insert (pixbuf_hash, g_strdup(pathname), image);
 	}

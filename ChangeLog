@@ -1,3 +1,15 @@
+2003-09-05  Naba Kumar  <naba@gnome.org>
+
+	* src/Makefile.am, src/anjuta.c, src/anjuta.h, src/anjuta_gui.c,
+	src/controls.c, src/controls.h, src/mainmenu_callbacks.c,
+	src/mainmenu_callbacks.h, src/preferences.c, src/preferences.h,
+	src/project_dbase.c, src/resources.c, src/toolbar_callbacks.c,
+	src/toolbar_callbacks.h, configure.in, anjuta.glade, anjuta.prj,
+	anjuta_dialogs_strings.c, (new) src/anjuta-actions.h,
+	(new)src/anjuta-stock.h, (new) src/anjuta-ui.[c,h],
+	(new) src/anjuta.ui: Implemented UI (menus and toolbars) merging
+	using libegg. Initial commit -- compiles but is not complete.
+
 2003-08-08  Abel Cheung  <maddog@linux.org.hk>
 
 	* anjuta.glade, anjuta_dialog_strings.c: Fix typo. (#107513)

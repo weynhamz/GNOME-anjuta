@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * preferences.h
  * Copyright (C) 2000 - 2003  Naba Kumar  <naba@gnome.org>

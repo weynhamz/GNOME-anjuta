@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include <gnome.h>
+#include <libegg/menu/egg-entry-action.h>
 
 #include "anjuta.h"
 #include "text_editor.h"
@@ -32,9 +33,8 @@
 #include "toolbar_callbacks.h"
 #include "debugger.h"
 
-
 void
-on_toolbar_new_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_new_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.new_file),
@@ -43,7 +43,7 @@ on_toolbar_new_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_open_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_open_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.open_file),
@@ -52,7 +52,7 @@ on_toolbar_open_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_save_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_save_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.save_file),
@@ -60,7 +60,7 @@ on_toolbar_save_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_save_all_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_save_all_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.save_all_file),
@@ -68,7 +68,7 @@ on_toolbar_save_all_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_close_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_close_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.close_file),
@@ -77,7 +77,7 @@ on_toolbar_close_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_reload_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_reload_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.reload_file),
@@ -86,7 +86,7 @@ on_toolbar_reload_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_undo_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_undo_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.undo),
@@ -95,7 +95,7 @@ on_toolbar_undo_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_redo_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_redo_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.redo),
@@ -103,7 +103,7 @@ on_toolbar_redo_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_print_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_print_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.print),
@@ -111,7 +111,7 @@ on_toolbar_print_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_detach_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_detach_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.detach),
@@ -119,8 +119,7 @@ on_toolbar_detach_clicked (GtkButton * button, gpointer user_data)
 }
 
 gboolean
-on_toolbar_find_incremental_start (GtkEntry *entry,
-	GdkEvent *e, gpointer user_data)
+on_toolbar_find_incremental_start (EggAction *action, gpointer user_data)
 {
 	TextEditor *te = anjuta_get_current_text_editor();
 	if (!te) return FALSE;
@@ -131,34 +130,45 @@ on_toolbar_find_incremental_start (GtkEntry *entry,
 }
 
 gboolean
-on_toolbar_find_incremental_end (GtkEntry *entry,
-	GdkEvent *e, gpointer user_data)
+on_toolbar_find_incremental_end (EggAction *action, gpointer user_data)
 {
 	gchar *string;
 	const gchar *string1;
 	app->find_replace->find_text->incremental_pos = -1;
 
-	string1 =
-		gtk_entry_get_text (GTK_ENTRY
-				    (app->widgets.toolbar.main_toolbar.
-				     find_entry));
+	if (EGG_IS_ENTRY_ACTION (action))
+	{
+		string1 = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
+	else
+	{
+		AnjutaUI *ui;
+		EggEntryAction *entry_action;
+		ui = ANJUTA_UI (app->ui);
+		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+									   "ActionEditSearchEntry");
+		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
+		string1 = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
 	if (!string1 || strlen (string1) == 0)
 		return FALSE;
 	string = g_strdup (string1);
 	app->find_replace->find_text->find_history =
 		update_string_list (app->find_replace->find_text->
 				    find_history, string, COMBO_LIST_LENGTH);
+	/*
 	gtk_combo_set_popdown_strings (GTK_COMBO
 				       (app->widgets.toolbar.main_toolbar.
 					find_combo),
 				       app->find_replace->find_text->
 				       find_history);
+	*/
 	g_free (string);
 	return FALSE;
 }
 
 void
-on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
+on_toolbar_find_incremental (EggAction *action, gpointer user_data)
 {
 	const gchar *entry_text;
 	
@@ -167,10 +177,20 @@ on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 	if (app->find_replace->find_text->incremental_pos < 0) return;
 	text_editor_goto_point (te, app->find_replace->find_text->incremental_pos);
 
-	entry_text = 
-		gtk_entry_get_text (GTK_ENTRY
-				    (app->widgets.toolbar.main_toolbar.
-				     find_entry));
+	if (EGG_IS_ENTRY_ACTION (action))
+	{
+		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
+	else
+	{
+		AnjutaUI *ui;
+		EggEntryAction *entry_action;
+		ui = ANJUTA_UI (app->ui);
+		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+									   "ActionEditSearchEntry");
+		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
+		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
 	if (!entry_text || strlen(entry_text) < 1) return;
 	
 	/* Search forward by default */
@@ -179,7 +199,7 @@ on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data)
 }
 
 static void
-on_toolbar_find_start_over (GtkButton * button, gpointer user_data)
+on_toolbar_find_start_over (EggAction * action, gpointer user_data)
 {
 	TextEditor *te = anjuta_get_current_text_editor();
 	long length;
@@ -193,11 +213,11 @@ on_toolbar_find_start_over (GtkButton * button, gpointer user_data)
 		/* search from doc end */
 		aneditor_command (te->editor_id, ANE_GOTOLINE, length, 0);
 
-	on_toolbar_find_clicked (NULL, NULL);
+	on_toolbar_find_clicked (action, NULL);
 }
 
 void
-on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_find_clicked (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	const gchar *string;
@@ -212,10 +232,20 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 		aneditor_command (te->editor_id, ANE_GOTOLINE, 0, 0);
 		app->find_replace->find_text->incremental_wrap = FALSE;
 	}
-	string =
-		gtk_entry_get_text (GTK_ENTRY
-				    (app->widgets.toolbar.main_toolbar.
-				     find_entry));
+	if (EGG_IS_ENTRY_ACTION (action))
+	{
+		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
+	else
+	{
+		AnjutaUI *ui;
+		EggEntryAction *entry_action;
+		ui = ANJUTA_UI (app->ui);
+		action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
+									   "ActionEditSearchEntry");
+		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
+		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
 	ret = text_editor_find (te, string,
 				TEXT_EDITOR_FIND_SCOPE_CURRENT,
 				app->find_replace->find_text->forward,
@@ -233,7 +263,7 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 											 GTK_BUTTONS_YES_NO,
 					_("No matches. Wrap search around the document?"));
 			if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-				on_toolbar_find_start_over (NULL, NULL);
+				on_toolbar_find_start_over (action, NULL);
 			gtk_widget_destroy (dialog);
 		}
 		else
@@ -257,32 +287,50 @@ on_toolbar_find_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_goto_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_goto_activate (EggAction *action, gpointer user_data)
+{
+	anjuta_ui_activate_action_by_path (app->ui,
+		"ActionGroupNavigation/ActionEditGotoLineEntry");
+}
+
+void
+on_toolbar_goto_clicked (EggAction *action, gpointer user_data)
 {
 	TextEditor *te;
 	guint line;
 	const gchar *line_ascii;
 
+	if (EGG_IS_ENTRY_ACTION (action))
+	{
+		line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
+	else
+	{
+		AnjutaUI *ui;
+		EggEntryAction *entry_action;
+		ui = ANJUTA_UI (app->ui);
+		action = anjuta_ui_get_action (ui, "ActionNavigation",
+									   "ActionEditSearchEntry");
+		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
+		line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
+	}
+	if (strlen (line_ascii) == 0)
+		return;
+	
 	te = anjuta_get_current_text_editor ();
 	if (te)
 	{
-		line_ascii =
-			gtk_entry_get_text (GTK_ENTRY
-					    (app->widgets.toolbar.
-					     main_toolbar.line_entry));
-		if (strlen (line_ascii) == 0)
-			return;
 		line = atoi (line_ascii);
 		if (text_editor_goto_line (te, line, TRUE) == FALSE)
 		{
-			anjuta_error (_("There is line number %d in \"%s\"."),
+			anjuta_error (_("There is no line number %d in \"%s\"."),
 				 line, te->filename);
 		}
 	}
 }
 
 void
-on_toolbar_tag_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_tag_clicked (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	const gchar *string;
@@ -299,7 +347,7 @@ on_toolbar_tag_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_project_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.view.project_listing),
@@ -307,7 +355,7 @@ on_toolbar_project_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_messages_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_messages_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.view.messages),
@@ -316,13 +364,13 @@ on_toolbar_messages_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_help_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_help_clicked (EggAction * action, gpointer user_data)
 {
 	on_context_help_activate(NULL, NULL);
 }
 
 void
-on_toolbar_open_project_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_open_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.open_project),
@@ -330,7 +378,7 @@ on_toolbar_open_project_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_save_project_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_save_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.save_project),
@@ -338,7 +386,7 @@ on_toolbar_save_project_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_close_project_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_close_project_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.file.close_project),
@@ -346,7 +394,7 @@ on_toolbar_close_project_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_compile_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_compile_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.build.compile),
@@ -354,7 +402,7 @@ on_toolbar_compile_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_configure_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_configure_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.build.configure),
@@ -362,7 +410,7 @@ on_toolbar_configure_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_build_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_build_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.build.build),
@@ -370,7 +418,7 @@ on_toolbar_build_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_build_all_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_build_all_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.build.build_all),
@@ -378,7 +426,7 @@ on_toolbar_build_all_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_exec_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_exec_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.build.execute),
@@ -386,7 +434,7 @@ on_toolbar_exec_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_debug_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_debug_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.start_debug),
@@ -394,7 +442,7 @@ on_toolbar_debug_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_stop_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_stop_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.build.stop_build),
@@ -402,7 +450,7 @@ on_toolbar_stop_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_go_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_go_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.cont),
@@ -410,7 +458,7 @@ on_toolbar_go_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_run_to_cursor_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_run_to_cursor_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.run_to_cursor),
@@ -418,7 +466,7 @@ on_toolbar_run_to_cursor_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_step_in_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_step_in_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.step_in),
@@ -427,7 +475,7 @@ on_toolbar_step_in_clicked (GtkButton * button, gpointer user_data)
 
 
 void
-on_toolbar_step_out_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_step_out_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.step_out),
@@ -435,7 +483,7 @@ on_toolbar_step_out_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_step_over_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_step_over_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.step_over),
@@ -443,7 +491,7 @@ on_toolbar_step_over_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_toggle_bp_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_toggle_bp_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.tog_break),
@@ -452,7 +500,7 @@ on_toolbar_toggle_bp_clicked (GtkButton * button, gpointer user_data)
 
 /*
 void
-on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_watch_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.view.variable_watch),
@@ -460,7 +508,7 @@ on_toolbar_watch_clicked (GtkButton * button, gpointer user_data)
 }
 */
 void
-on_toolbar_stack_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_stack_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.view.program_stack),
@@ -468,7 +516,7 @@ on_toolbar_stack_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_registers_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_registers_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.view.registers),
@@ -476,7 +524,7 @@ on_toolbar_registers_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_frame_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_frame_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.info_frame),
@@ -484,7 +532,7 @@ on_toolbar_frame_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_inspect_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_inspect_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.inspect),
@@ -492,7 +540,7 @@ on_toolbar_inspect_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_interrupt_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_interrupt_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.interrupt),
@@ -500,7 +548,7 @@ on_toolbar_interrupt_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_toolbar_debug_stop_clicked (GtkButton * button, gpointer user_data)
+on_toolbar_debug_stop_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.debug.stop),
@@ -510,13 +558,13 @@ on_toolbar_debug_stop_clicked (GtkButton * button, gpointer user_data)
 /*******************************************************************************/
 
 void
-on_browser_wizard_clicked (GtkButton * button, gpointer user_data)
+on_browser_wizard_clicked (EggAction * action, gpointer user_data)
 {
 
 }
 
 void
-on_browser_toggle_bookmark_clicked (GtkButton * button, gpointer user_data)
+on_browser_toggle_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.bookmark.toggle),
@@ -524,7 +572,7 @@ on_browser_toggle_bookmark_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_first_bookmark_clicked (GtkButton * button, gpointer user_data)
+on_browser_first_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.bookmark.first),
@@ -532,7 +580,7 @@ on_browser_first_bookmark_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_prev_bookmark_clicked (GtkButton * button, gpointer user_data)
+on_browser_prev_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.bookmark.prev),
@@ -540,7 +588,7 @@ on_browser_prev_bookmark_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_next_bookmark_clicked (GtkButton * button, gpointer user_data)
+on_browser_next_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.bookmark.next),
@@ -548,7 +596,7 @@ on_browser_next_bookmark_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_last_bookmark_clicked (GtkButton * button, gpointer user_data)
+on_browser_last_bookmark_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.bookmark.last),
@@ -556,7 +604,7 @@ on_browser_last_bookmark_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_prev_mesg_clicked (GtkButton * button, gpointer user_data)
+on_browser_prev_mesg_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.goto_prev_mesg),
@@ -564,7 +612,7 @@ on_browser_prev_mesg_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_next_mesg_clicked (GtkButton * button, gpointer user_data)
+on_browser_next_mesg_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.goto_next_mesg),
@@ -572,7 +620,7 @@ on_browser_next_mesg_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_block_start_clicked (GtkButton * button, gpointer user_data)
+on_browser_block_start_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.goto_block_start),
@@ -580,7 +628,7 @@ on_browser_block_start_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_browser_block_end_clicked (GtkButton * button, gpointer user_data)
+on_browser_block_end_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.goto_block_end),
@@ -588,7 +636,7 @@ on_browser_block_end_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_fold_toggle_clicked (GtkButton * button, gpointer user_data)
+on_format_fold_toggle_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.toggle_fold),
@@ -596,7 +644,7 @@ on_format_fold_toggle_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_fold_open_clicked (GtkButton * button, gpointer user_data)
+on_format_fold_open_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.open_folds),
@@ -604,7 +652,7 @@ on_format_fold_open_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_fold_close_clicked (GtkButton * button, gpointer user_data)
+on_format_fold_close_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.close_folds),
@@ -612,7 +660,7 @@ on_format_fold_close_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_indent_inc_clicked (GtkButton * button, gpointer user_data)
+on_format_indent_inc_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.indent_inc),
@@ -620,7 +668,7 @@ on_format_indent_inc_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_indent_dcr_clicked (GtkButton * button, gpointer user_data)
+on_format_indent_dcr_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.indent_dcr),
@@ -628,7 +676,7 @@ on_format_indent_dcr_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_indent_auto_clicked (GtkButton * button, gpointer user_data)
+on_format_indent_auto_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.format.indent),
@@ -636,7 +684,7 @@ on_format_indent_auto_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_indent_style_clicked (GtkButton * button, gpointer user_data)
+on_format_indent_style_clicked (EggAction * action, gpointer user_data)
 {
 /*	gtk_notebook_set_page (GTK_NOTEBOOK
 			       (app->preferences->widgets.notebook), 5);
@@ -646,7 +694,7 @@ on_format_indent_style_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_block_select_clicked (GtkButton * button, gpointer user_data)
+on_format_block_select_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.select_block),
@@ -654,12 +702,12 @@ on_format_block_select_clicked (GtkButton * button, gpointer user_data)
 }
 
 void
-on_format_calltip_clicked (GtkButton * button, gpointer user_data)
+on_format_calltip_clicked (EggAction * action, gpointer user_data)
 {
 }
 
 void
-on_format_autocomplete_clicked (GtkButton * button, gpointer user_data)
+on_format_autocomplete_clicked (EggAction * action, gpointer user_data)
 {
 	gtk_signal_emit_by_name (GTK_OBJECT
 				 (app->widgets.menubar.edit.autocomplete),

@@ -65,7 +65,7 @@
 #include "search-replace.h"
 #include "anjuta_info.h"
 
-void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
+void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
 
 gboolean closing_state;		/* Do not tamper with this variable  */
 
@@ -74,21 +74,21 @@ static char *insert_date_time(void);
 static gchar *insert_header_c( TextEditor *te);
 
 void
-on_new_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_new_file1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_append_text_editor (NULL);
 }
 
 
 void
-on_open1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_open1_activate (EggAction * action, gpointer user_data)
 {
 	gtk_widget_show (app->fileselection);
 }
 
 
 void
-on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_save1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean ret;
 	TextEditor *te;
@@ -116,7 +116,7 @@ on_save1_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 
 void
-on_save_as1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_save_as1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 
@@ -128,13 +128,13 @@ on_save_as1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_save_all1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_save_all1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_save_all_files();
 }
 
 void
-on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_close_file1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 
@@ -198,7 +198,7 @@ on_close_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_close_all_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_close_all_file1_activate (EggAction * action, gpointer user_data)
 {
 	GList *node;
 	
@@ -222,7 +222,7 @@ on_close_all_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_reload_file1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar mesg[256];
@@ -251,7 +251,7 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_new_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_new_project1_activate (EggAction * action, gpointer user_data)
 {
 	if (app->project_dbase->project_is_open)
 	{
@@ -263,40 +263,40 @@ on_new_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_import_project_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_import_project_activate (EggAction * action, gpointer user_data)
 {
 	create_project_import_gui ();
 }
 
 void
-on_open_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_open_project1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_open_project();
 }
 
 void
-on_save_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_save_project1_activate (EggAction * action, gpointer user_data)
 {
 	project_dbase_save_project (app->project_dbase);
 }
 
 
 void
-on_close_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_close_project1_activate (EggAction * action, gpointer user_data)
 {
 	project_dbase_close_project (app->project_dbase);
 }
 
 
 void
-on_rename1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_rename1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 
 void
-on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_page_setup1_activate (EggAction * action, gpointer user_data)
 {
 #warning "G3: Show print setup preferences page here"
 
@@ -306,14 +306,14 @@ on_page_setup1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_nonimplemented_activate(GtkMenuItem * menuitem, gpointer user_data)
+on_nonimplemented_activate(EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 
 void
-on_exit1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_exit1_activate (EggAction * action, gpointer user_data)
 {
 	if (on_anjuta_delete (NULL, NULL, NULL) == FALSE)
 		on_anjuta_destroy (NULL, NULL);
@@ -321,7 +321,7 @@ on_exit1_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 
 void
-on_editor_command_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_command_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
@@ -331,7 +331,7 @@ on_editor_command_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_select_function (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_select_function (EggAction *action, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
@@ -341,7 +341,7 @@ on_editor_select_function (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_transform_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_transform_eolchars1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	glong mode = (glong)user_data;
@@ -377,7 +377,7 @@ insert_c_gpl_notice(void)
 }
 
 void
-on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_c_gpl_notice(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *GPLNotice;
@@ -412,7 +412,7 @@ insert_cpp_gpl_notice(void)
 }
 
 void
-on_insert_cpp_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cpp_gpl_notice(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *GPLNotice;
@@ -446,7 +446,7 @@ insert_py_gpl_notice(void)
 }
 
 void
-on_insert_py_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_py_gpl_notice(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *GPLNotice;
@@ -474,7 +474,7 @@ insert_username(void)
 }
 
 void
-on_insert_username(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_username(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *Username;
@@ -560,7 +560,7 @@ insert_changelog_entry(void)
 }
 
 void
-on_insert_changelog_entry(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_changelog_entry(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *changelog;
@@ -585,7 +585,7 @@ insert_date_time(void)
 }                                                            ;
 
 void
-on_insert_date_time(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_date_time(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *DateTime;
@@ -639,7 +639,7 @@ insert_header_template(TextEditor *te)
 
 
 void
-on_insert_header_template(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_header_template(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *header;
@@ -684,7 +684,7 @@ insert_header_c( TextEditor *te)
 }
 
 void
-on_insert_header(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_header(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *header;
@@ -699,7 +699,7 @@ on_insert_header(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_switch_template(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *switch_template =
@@ -723,7 +723,7 @@ on_insert_switch_template(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_for_template(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *for_template =
@@ -739,7 +739,7 @@ on_insert_for_template(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_while_template(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *while_template =
@@ -755,7 +755,7 @@ on_insert_while_template(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_ifelse_template(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *ifelse_template =
@@ -775,7 +775,7 @@ on_insert_ifelse_template(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_author(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_author(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Author";
@@ -790,7 +790,7 @@ on_insert_cvs_author(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_date(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_date(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Date";
@@ -805,7 +805,7 @@ on_insert_cvs_date(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_header(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_header(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Header";
@@ -820,7 +820,7 @@ on_insert_cvs_header(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_id(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_id(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Id";
@@ -835,7 +835,7 @@ on_insert_cvs_id(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_log(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_log(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Log";
@@ -850,7 +850,7 @@ on_insert_cvs_log(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_name(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_name(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Name";
@@ -865,7 +865,7 @@ on_insert_cvs_name(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_revision(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_revision(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Revision";
@@ -880,7 +880,7 @@ on_insert_cvs_revision(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_insert_cvs_source(GtkMenuItem * menuitem, gpointer user_data)
+on_insert_cvs_source(EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	gchar *cvs_string_value = "Source";
@@ -895,7 +895,7 @@ on_insert_cvs_source(GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_autocomplete1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_autocomplete1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
@@ -905,34 +905,34 @@ on_autocomplete1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_calltip1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_calltip1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 void
-on_find1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_find1_activate (EggAction * action, gpointer user_data)
 {
 	find_text_show (app->find_replace->find_text);
 }
 
 
 void
-on_find_in_files1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_find_in_files1_activate (EggAction * action, gpointer user_data)
 {
 	find_in_files_show (app->find_in_files);
 }
 
 
 void
-on_find_and_replace1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_find_and_replace1_activate (EggAction * action, gpointer user_data)
 {
 	find_replace_show (app->find_replace);
 }
 
 
 
-void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
+void on_prev_occur(EggAction * action, gpointer user_data)
 {
     TextEditor* te;
 	gboolean ret;
@@ -966,7 +966,7 @@ void on_prev_occur(GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-void on_next_occur(GtkMenuItem * menuitem, gpointer user_data)
+void on_next_occur(EggAction * action, gpointer user_data)
 {
     TextEditor* te;
 	gboolean ret;
@@ -1000,7 +1000,7 @@ void on_next_occur(GtkMenuItem * menuitem, gpointer user_data)
 
 }
 
-void on_comment_block (GtkMenuItem * menuitem, gpointer user_data)
+void on_comment_block (EggAction * action, gpointer user_data)
 {
     TextEditor* te;
 	te = anjuta_get_current_text_editor();
@@ -1008,7 +1008,7 @@ void on_comment_block (GtkMenuItem * menuitem, gpointer user_data)
     aneditor_command (te->editor_id, ANE_BLOCKCOMMENT, 0, 0);
 }
 
-void on_comment_box (GtkMenuItem * menuitem, gpointer user_data)
+void on_comment_box (EggAction * action, gpointer user_data)
 {
     TextEditor* te;
 	te = anjuta_get_current_text_editor();
@@ -1016,7 +1016,7 @@ void on_comment_box (GtkMenuItem * menuitem, gpointer user_data)
     aneditor_command (te->editor_id, ANE_BOXCOMMENT, 0, 0);
 }
 
-void on_comment_stream (GtkMenuItem * menuitem, gpointer user_data)
+void on_comment_stream (EggAction * action, gpointer user_data)
 {
     TextEditor* te;
 	te = anjuta_get_current_text_editor();
@@ -1025,7 +1025,7 @@ void on_comment_stream (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_line_no1_activate (EggAction * action, gpointer user_data)
 {
 	GtkWidget *gt;
 	gt = gotoline_new ();
@@ -1033,7 +1033,7 @@ on_goto_line_no1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_block_start1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_block_start1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
@@ -1043,7 +1043,7 @@ on_goto_block_start1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_block_end1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_block_end1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
@@ -1053,26 +1053,26 @@ on_goto_block_end1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_prev_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_prev_mesg1_activate (EggAction * action, gpointer user_data)
 {
 	an_message_manager_previous (app->messages);
 }
 
 void
-on_goto_next_mesg1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_next_mesg1_activate (EggAction * action, gpointer user_data)
 {
 	an_message_manager_next (app->messages);
 }
 
 void
-on_edit_app_gui1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_edit_app_gui1_activate (EggAction * action, gpointer user_data)
 {
 	project_dbase_edit_gui (app->project_dbase);
 }
 
 
 void
-on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_save_build_messages_activate (EggAction * action, gpointer user_data)
 {
 	if (!an_message_manager_build_is_empty(app->messages))
 		gtk_widget_show (app->save_as_build_msg_sel);
@@ -1086,7 +1086,7 @@ on_save_build_messages_activate (GtkMenuItem * menuitem, gpointer user_data)
 /***********************************************************************/
 
 void
-on_messages1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_messages1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	state = an_message_manager_is_shown(app->messages);
@@ -1098,7 +1098,7 @@ on_messages1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_project_listing1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_project_listing1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	state = app->project_dbase->is_showing;
@@ -1110,66 +1110,64 @@ on_project_listing1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_bookmarks1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_bookmarks1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 void
-on_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_breakpoints1_activate (EggAction * action, gpointer user_data)
 {
 	breakpoints_dbase_show (debugger.breakpoints_dbase);
 }
 
 
 void
-on_registers1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_registers1_activate (EggAction * action, gpointer user_data)
 {
 	cpu_registers_show (debugger.cpu_registers);
 }
 
-
-
 void
-on_shared_lib1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_shared_lib1_activate (EggAction * action, gpointer user_data)
 {
 	sharedlibs_show (debugger.sharedlibs);
 }
 
 void
-on_kernal_signals1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_kernal_signals1_activate (EggAction * action, gpointer user_data)
 {
 	signals_show (debugger.signals);
 }
 
 void
-on_dump_window1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_dump_window1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 
 void
-on_console1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_console1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_not_implemented (__FILE__, __LINE__);
 }
 
 void
-on_showhide_locals(GtkMenuItem * menuitem, gpointer user_data)
+on_showhide_locals(EggAction * action, gpointer user_data)
 {
-	project_dbase_set_show_locals( app->project_dbase, GTK_CHECK_MENU_ITEM (menuitem)->active ) ;
+	project_dbase_set_show_locals( app->project_dbase, GTK_CHECK_MENU_ITEM (action)->active ) ;
 }
 
 /************************************************************************/
 
 void
-on_editor_linenos1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_linenos1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"margin.linenumber.visible", state);
 	node = app->text_editor_list;
@@ -1183,12 +1181,12 @@ on_editor_linenos1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_markers1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_markers1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION  (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"margin.marker.visible", state);
 	node = app->text_editor_list;
@@ -1201,12 +1199,12 @@ on_editor_markers1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_codefold1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_codefold1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"margin.fold.visible", state);
 	node = app->text_editor_list;
@@ -1219,12 +1217,12 @@ on_editor_codefold1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_indentguides1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_indentguides1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"view.indentation.guides", state);
 	node = app->text_editor_list;
@@ -1237,12 +1235,12 @@ on_editor_indentguides1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_whitespaces1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_whitespaces1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"view.whitespace", state);
 	node = app->text_editor_list;
@@ -1255,12 +1253,12 @@ on_editor_whitespaces1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_eolchars1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"view.eol", state);
 	node = app->text_editor_list;
@@ -1273,12 +1271,12 @@ on_editor_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_editor_linewrap1_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
 	GList *node;
 	TextEditor *te;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_preferences_set_int (ANJUTA_PREFERENCES (app->preferences),
 								"view.line.wrap", state);
 	node = app->text_editor_list;
@@ -1294,7 +1292,7 @@ on_editor_linewrap1_activate (GtkMenuItem * menuitem, gpointer user_data)
 #define MIN_ZOOM_FACTOR -8
 
 void
-on_zoom_text_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_zoom_text_activate (EggAction * action, gpointer user_data)
 {
 	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
 	gint zoom;
@@ -1319,15 +1317,15 @@ on_zoom_text_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_anjuta_toolbar_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_anjuta_toolbar_activate (EggAction * action, gpointer user_data)
 {
 	gboolean state;
-	state = GTK_CHECK_MENU_ITEM (menuitem)->active;
+	state = (int) EGG_TOGGLE_ACTION (action)->active;
 	anjuta_toolbar_set_view ((gchar *) user_data, state, TRUE, TRUE);
 }
 
 void
-on_update_tagmanager_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_update_tagmanager_activate (EggAction * action, gpointer user_data)
 {
 	if (app->project_dbase->project_is_open)
 	{
@@ -1340,7 +1338,7 @@ on_update_tagmanager_activate (GtkMenuItem * menuitem, gpointer user_data)
 
 /*************************************************************************/
 void
-on_force_hilite1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_force_hilite1_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor *te;
 	te = anjuta_get_current_text_editor ();
@@ -1351,7 +1349,7 @@ on_force_hilite1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_indent1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_indent1_activate (EggAction * action, gpointer user_data)
 {
     //trying to restore line no where i was before autoformat invoked
     gint lineno;
@@ -1366,7 +1364,7 @@ on_indent1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_detach1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_detach1_activate (EggAction * action, gpointer user_data)
 {
 	gint page_num;
 	TextEditor *te;
@@ -1389,149 +1387,149 @@ on_detach1_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_ordertab1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_ordertab1_activate (EggAction * action, gpointer user_data)
 {
-	if (GTK_CHECK_MENU_ITEM(menuitem)->active)
+	if (GTK_CHECK_MENU_ITEM(action)->active)
 		anjuta_order_tabs();
 }
 
 /*************************************************************************/
 void
-on_compile1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_compile1_activate (EggAction * action, gpointer user_data)
 {
 	compile_file (FALSE);
 }
 
 void
-on_make1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_make1_activate (EggAction * action, gpointer user_data)
 {
 	compile_file (TRUE);
 }
 
 void
-on_build_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_build_project1_activate (EggAction * action, gpointer user_data)
 {
 	build_project ();
 }
 
 void
-on_install_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_install_project1_activate (EggAction * action, gpointer user_data)
 {
 	build_install_project ();
 }
 
 void
-on_autogen_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_autogen_project1_activate (EggAction * action, gpointer user_data)
 {
 	build_autogen_project ();
 }
 
 void
-on_build_dist_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_build_dist_project1_activate (EggAction * action, gpointer user_data)
 {
 	build_dist_project ();
 }
 
 void
-on_build_all_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_build_all_project1_activate (EggAction * action, gpointer user_data)
 {
 	build_all_project ();
 }
 
 void
-on_configure_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_configure_project1_activate (EggAction * action, gpointer user_data)
 {
 	configurer_show (app->configurer);
 }
 
 void
-on_clean_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_clean_project1_activate (EggAction * action, gpointer user_data)
 {
 	clean_project ();
 }
 
 void
-on_clean_all_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_clean_all_project1_activate (EggAction * action, gpointer user_data)
 {
 	clean_all_project ();
 }
 
 void
-on_stop_build_make1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_stop_build_make1_activate (EggAction * action, gpointer user_data)
 {
 	launcher_reset ();
 }
 
 void
-on_go_execute1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_go_execute1_activate (EggAction * action, gpointer user_data)
 {
 	executer_execute (app->executer);
 }
 
 void
-on_go_execute2_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_go_execute2_activate (EggAction * action, gpointer user_data)
 {
 	executer_show (app->executer);
 }
 
 void
-on_toggle_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_toggle_breakpoint1_activate (EggAction * action, gpointer user_data)
 {
 	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase);
 }
 
 void
-on_set_breakpoint1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_set_breakpoint1_activate (EggAction * action, gpointer user_data)
 {
 	breakpoints_dbase_add (debugger.breakpoints_dbase);
 }
 
 void
-on_disable_all_breakpoints1_activate (GtkMenuItem * menuitem,
+on_disable_all_breakpoints1_activate (EggAction * action,
 				      gpointer user_data)
 {
 	breakpoints_dbase_disable_all (debugger.breakpoints_dbase);
 }
 
 void
-on_show_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_show_breakpoints1_activate (EggAction * action, gpointer user_data)
 {
 	breakpoints_dbase_show (debugger.breakpoints_dbase);
 }
 
 void
-on_clear_breakpoints1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_clear_breakpoints1_activate (EggAction * action, gpointer user_data)
 {
 	breakpoints_dbase_remove_all (debugger.breakpoints_dbase);
 }
 
 /*******************************************************************************/
 void
-on_execution_continue1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_execution_continue1_activate (EggAction * action, gpointer user_data)
 {
 	debugger_run ();
 }
 
 void
-on_execution_step_in1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_execution_step_in1_activate (EggAction * action, gpointer user_data)
 {
 	debugger_step_in ();
 }
 
 void
-on_execution_step_out1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_execution_step_out1_activate (EggAction * action, gpointer user_data)
 {
 	debugger_step_out ();
 }
 
 void
-on_execution_step_over1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_execution_step_over1_activate (EggAction * action, gpointer user_data)
 {
 	debugger_step_over ();
 }
 
 void
-on_execution_run_to_cursor1_activate (GtkMenuItem * menuitem,
+on_execution_run_to_cursor1_activate (EggAction * action,
 				      gpointer user_data)
 {
 	guint line;
@@ -1553,7 +1551,7 @@ on_execution_run_to_cursor1_activate (GtkMenuItem * menuitem,
 
 /*******************************************************************************/
 void
-on_info_targets_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_targets_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1568,7 +1566,7 @@ on_info_targets_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_program_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_program_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1585,7 +1583,7 @@ on_info_program_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_udot_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_udot_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1600,7 +1598,7 @@ on_info_udot_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_threads_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_threads_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1615,7 +1613,7 @@ on_info_threads_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_variables_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_variables_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1630,7 +1628,7 @@ on_info_variables_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_locals_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_locals_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1645,7 +1643,7 @@ on_info_locals_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_frame_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_frame_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1660,7 +1658,7 @@ on_info_frame_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_args_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_args_activate (EggAction * action, gpointer user_data)
 {
 	debugger_put_cmd_in_queqe ("set print pretty on", DB_CMD_NONE, NULL,
 				   NULL);
@@ -1675,7 +1673,7 @@ on_info_args_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_info_memory_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_info_memory_activate (EggAction * action, gpointer user_data)
 {
 	GtkWidget *win_memory;
 
@@ -1686,7 +1684,7 @@ on_info_memory_activate (GtkMenuItem * menuitem, gpointer user_data)
 /********************************************************************************/
 
 void
-on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_start_activate (EggAction * action, gpointer user_data)
 {
 	gchar *prog, *temp;
 	gint s_re, e_re;
@@ -1745,13 +1743,13 @@ on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_debugger_open_exec_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_open_exec_activate (EggAction * action, gpointer user_data)
 {
 	debugger_open_exec_file ();
 }
 
 void
-on_debugger_attach_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_attach_activate (EggAction * action, gpointer user_data)
 {
 	if (debugger_is_active ())
 		attach_process_show (debugger.attach_process);
@@ -1760,31 +1758,31 @@ on_debugger_attach_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_debugger_load_core_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_load_core_activate (EggAction * action, gpointer user_data)
 {
 	debugger_load_core_file ();
 }
 
 void
-on_debugger_restart_prog_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_restart_prog_activate (EggAction * action, gpointer user_data)
 {
 	debugger_restart_program ();
 }
 
 void
-on_debugger_stop_prog_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_stop_prog_activate (EggAction * action, gpointer user_data)
 {
 	debugger_stop_program ();
 }
 
 void
-on_debugger_detach_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_detach_activate (EggAction * action, gpointer user_data)
 {
 	debugger_detach_process ();
 }
 
 void
-on_debugger_stop_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_stop_activate (EggAction * action, gpointer user_data)
 {
 	debugger_stop ();
 }
@@ -1796,32 +1794,32 @@ on_debugger_confirm_stop_yes_clicked (GtkButton * button, gpointer data)
 }
 
 void
-on_debugger_interrupt_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_interrupt_activate (EggAction * action, gpointer user_data)
 {
 	debugger_interrupt ();
 }
 
 void
-on_debugger_signal_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_signal_activate (EggAction * action, gpointer user_data)
 {
 	on_signals_send_activate (NULL, debugger.signals);
 }
 
 void
-on_debugger_inspect_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_inspect_activate (EggAction * action, gpointer user_data)
 {
 	GtkWidget *w = create_eval_dialog (GTK_WINDOW(app->widgets.window), debugger.watch);
 	gtk_widget_show (w);
 }
 
 void
-on_debugger_add_watch_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_debugger_add_watch_activate (EggAction * action, gpointer user_data)
 {
 	on_watch_add_activate (NULL, NULL);
 }
 
 void
-on_debugger_custom_command_activate (GtkMenuItem * menuitem,
+on_debugger_custom_command_activate (EggAction * action,
 				     gpointer user_data)
 {
 	debugger_custom_command ();
@@ -1830,69 +1828,69 @@ on_debugger_custom_command_activate (GtkMenuItem * menuitem,
 /************************************************************************************************/
 
 void
-on_windows1_new_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_windows1_new_activate (EggAction * action, gpointer user_data)
 {
 	on_new_file1_activate (NULL, NULL);
 }
 
 void
-on_windows1_close_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_windows1_close_activate (EggAction * action, gpointer user_data)
 {
 	on_close_file1_activate (NULL, NULL);
 }
 
 /*************************************************************************************************/
 void
-on_cvs_update_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_update_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_gui(app->cvs, CVS_ACTION_UPDATE, NULL, FALSE);
 }
 
 void
-on_cvs_commit_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_commit_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_gui(app->cvs, CVS_ACTION_COMMIT, NULL, FALSE);
 }
 
 void
-on_cvs_status_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_status_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_gui(app->cvs, CVS_ACTION_STATUS, NULL, FALSE);
 }
 
 void
-on_cvs_log_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_log_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_gui(app->cvs, CVS_ACTION_LOG, NULL, FALSE);
 }
 
 void
-on_cvs_add_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_add_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_gui(app->cvs, CVS_ACTION_ADD, NULL, FALSE);
 }
 
 void
-on_cvs_remove_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_remove_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_gui(app->cvs, CVS_ACTION_REMOVE, NULL, FALSE);
 }
 
 void
-on_cvs_diff_file_activate                  (GtkMenuItem     *menuitem,
+on_cvs_diff_file_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_diff_gui (app->cvs, NULL, FALSE);
 }
 
 void
-on_cvs_update_project_activate                  (GtkMenuItem     *menuitem,
+on_cvs_update_project_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	gchar* prj;
@@ -1901,7 +1899,7 @@ on_cvs_update_project_activate                  (GtkMenuItem     *menuitem,
 }
 
 void
-on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
+on_cvs_commit_project_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	gchar* prj;
@@ -1912,14 +1910,14 @@ on_cvs_commit_project_activate                  (GtkMenuItem     *menuitem,
 }
 
 void
-on_cvs_import_project_activate                  (GtkMenuItem     *menuitem,
+on_cvs_import_project_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_import_gui (app->cvs);
 }
 
 void
-on_cvs_project_status_activate                  (GtkMenuItem     *menuitem,
+on_cvs_project_status_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	gchar* prj;
@@ -1928,7 +1926,7 @@ on_cvs_project_status_activate                  (GtkMenuItem     *menuitem,
 }
 
 void
-on_cvs_project_log_activate                  (GtkMenuItem     *menuitem,
+on_cvs_project_log_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	gchar* prj;
@@ -1937,7 +1935,7 @@ on_cvs_project_log_activate                  (GtkMenuItem     *menuitem,
 }
 
 void
-on_cvs_project_diff_activate                  (GtkMenuItem     *menuitem,
+on_cvs_project_diff_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	gchar* prj;
@@ -1946,7 +1944,7 @@ on_cvs_project_diff_activate                  (GtkMenuItem     *menuitem,
 }
 
 void
-on_cvs_login_activate                  (GtkMenuItem     *menuitem,
+on_cvs_login_activate                  (EggAction     *action,
                                         gpointer         user_data)
 {
 	create_cvs_login_gui (app->cvs);
@@ -1954,43 +1952,43 @@ on_cvs_login_activate                  (GtkMenuItem     *menuitem,
 
 /************************************************************************************************/
 void
-on_set_compiler1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_set_compiler1_activate (EggAction * action, gpointer user_data)
 {
 	compiler_options_show (app->compiler_options);
 }
 
 void
-on_set_src_paths1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_set_src_paths1_activate (EggAction * action, gpointer user_data)
 {
 	src_paths_show (app->src_paths);
 }
 
 void
-on_set_commands1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_set_commands1_activate (EggAction * action, gpointer user_data)
 {
 	command_editor_show (app->command_editor);
 }
 
 void
-on_set_preferences1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_set_preferences1_activate (EggAction * action, gpointer user_data)
 {
 	gtk_widget_show (GTK_WIDGET (app->preferences));
 }
 
 void
-on_set_style_editor_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_set_style_editor_activate (EggAction * action, gpointer user_data)
 {
 	style_editor_show (app->style_editor);
 }
 
 void
-on_file_view_filters_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_file_view_filters_activate (EggAction * action, gpointer user_data)
 {
 	fv_customize(TRUE);
 }
 
 void
-on_edit_user_properties1_activate           (GtkMenuItem     *menuitem,
+on_edit_user_properties1_activate           (EggAction     *action,
                                         gpointer         user_data)
 {
 	gchar* user_propfile = g_strconcat (app->dirs->home, "/.anjuta" PREF_SUFFIX "/user.properties", NULL);
@@ -1999,27 +1997,27 @@ on_edit_user_properties1_activate           (GtkMenuItem     *menuitem,
 }
 
 void
-on_set_default_preferences1_activate (GtkMenuItem * menuitem,
+on_set_default_preferences1_activate (EggAction * action,
 				      gpointer user_data)
 {
 	anjuta_preferences_reset_defaults (ANJUTA_PREFERENCES (app->preferences));
 }
 
 void
-on_start_with_dialog_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_start_with_dialog_activate (EggAction * action, gpointer user_data)
 {
 	start_with_dialog_show (GTK_WINDOW (app->widgets.window),
 							app->preferences, TRUE);
 }
 
 void
-on_setup_wizard_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_setup_wizard_activate (EggAction * action, gpointer user_data)
 {
 	// TODO.
 }
 
 void
-on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
+on_gnome_pages1_activate            (EggAction     *action,
                                         gpointer         user_data)
 {
 	if (anjuta_is_installed ("devhelp", TRUE))
@@ -2029,7 +2027,7 @@ on_gnome_pages1_activate            (GtkMenuItem     *menuitem,
 }
 
 void
-on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_context_help_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor* te;
 	gboolean ret;
@@ -2043,7 +2041,7 @@ on_context_help_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_goto_tag_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor* te;
 	gboolean ret;
@@ -2059,7 +2057,7 @@ on_goto_tag_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_lookup_symbol_activate (EggAction * action, gpointer user_data)
 {
 	TextEditor* te;
 	gchar *buf = NULL;
@@ -2075,31 +2073,31 @@ on_lookup_symbol_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_go_back_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_go_back_activate (EggAction * action, gpointer user_data)
 {
 	an_file_history_back();
 }
 
 void
-on_go_forward_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_go_forward_activate (EggAction * action, gpointer user_data)
 {
 	an_file_history_forward();
 }
 
 void
-on_history_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_history_activate (EggAction * action, gpointer user_data)
 {
 	an_file_history_dump();
 }
 
 void
-on_search_a_topic1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_search_a_topic1_activate (EggAction * action, gpointer user_data)
 {
 	anjuta_help_show (app->help_system);
 }
 
 void
-on_url_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_url_activate (EggAction * action, gpointer user_data)
 {
 	if (user_data)
 	{
@@ -2123,34 +2121,31 @@ about_box_event_callback (GtkWidget *widget,
 }
 
 void
-on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_about1_activate (EggAction * action, gpointer user_data)
 {
 	GtkWidget *about_dlg = about_box_new ();
 	gtk_widget_show (about_dlg);
 }
 
 void
-on_findnext1_activate (GtkMenuItem * menuitem, gpointer user_data)
+on_findnext1_activate (EggAction * action, gpointer user_data)
 {
-	on_toolbar_find_clicked ( NULL, NULL );
+	on_toolbar_find_clicked (action, NULL );
 }
 
 void
-on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
+on_enterselection (EggAction * action, gpointer user_data)
 {
     enter_selection_as_search_target();
 	gtk_widget_grab_focus (app->widgets.toolbar.main_toolbar.find_entry);
 }
 
-void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
+void on_customize_shortcuts_activate(EggAction *action, gpointer user_data)
 {
-	GtkWidget *dialog;
-	gchar *message = _("Hover the mouse pointer over any menu item and press"
-					"\n the shortcut key to associate with it.");
-	anjuta_information (message);
+	gtk_widget_show (GTK_WIDGET (app->ui));
 }
 
-void on_tool_editor_activate(GtkMenuItem *menuitem, gpointer user_data)
+void on_tool_editor_activate(EggAction *action, gpointer user_data)
 {
 	anjuta_tools_edit();
 }

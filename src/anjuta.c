@@ -28,6 +28,7 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
+#include <libegg/menu/egg-toggle-action.h>
 
 #include "text_editor.h"
 #include "fileselection.h"
@@ -156,10 +157,11 @@ anjuta_new ()
 		app->fileselection = create_fileselection_gui (&fsd1);
 		
 		/* Set to the current dir */
-		getcwd(wd, PATH_MAX);
+		getcwd (wd, PATH_MAX);
 		fileselection_set_dir (app->fileselection, wd);
 		
 		app->b_reload_last_project	= TRUE ;
+		
 		app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
 		app->windows_dialog =
 			ANJUTA_WINDOWS_DIALOG (anjuta_windows_dialog_new
@@ -352,6 +354,7 @@ anjuta_remove_text_editor (TextEditor* te)
 	if (te->full_filename != NULL)
 	{
 		gint max_recent_files;
+		GtkWidget *recent_submenu;
 
 		max_recent_files =
 			anjuta_preferences_get_int (app->preferences,
@@ -364,9 +367,9 @@ anjuta_remove_text_editor (TextEditor* te)
 			create_submenu (_("Recent Files "), app->recent_files,
 					GTK_SIGNAL_FUNC
 					(on_recent_files_menu_item_activate));
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM
-					   (app->widgets.menubar.file.
-					    recent_files), submenu);
+		recent_submenu = egg_menu_merge_get_widget (anjuta_ui_get_menu_merge (app->ui),
+													"/MenuMain/MenuFile/RecentFiles");
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM(recent_submenu), submenu);
 	}
 	breakpoints_dbase_clear_all_in_editor (debugger.breakpoints_dbase, te);
 	switch (te->mode)
@@ -779,7 +782,7 @@ void
 anjuta_show ()
 {
 	PropsID pr;
-	gchar* key;
+	EggAction *action;
 
 	pr = ANJUTA_PREFERENCES (app->preferences)->props;
 
@@ -788,84 +791,48 @@ anjuta_show ()
 							app->preferences, FALSE);
 
 	/* Editor stuffs */
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_linenos), prop_get_int (pr,
-									"margin.linenumber.visible",
-									0));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_markers), prop_get_int (pr,
-									"margin.marker.visible",
-									0));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_folds), prop_get_int (pr,
-								      "margin.fold.visible",
-								      0));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_indentguides),
-					prop_get_int (pr,
-						      "view.indentation.guides",
-						      0));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_whitespaces),
-					prop_get_int (pr, "view.whitespace",
-						      0));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_eolchars), prop_get_int (pr,
-									 "view.eol",
-									 0));
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-					(app->widgets.menubar.view.
-					 editor_linewrap), prop_get_int (pr,
-									 "view.line.wrap",
-									 1));
-
-	/* Hide all toolbars, since corresponding toggle menu items */
-	/* (in the View submenu) are all initially off */
-	/* We do not resize or set the change in props */
-	anjuta_toolbar_set_view (ANJUTA_MAIN_TOOLBAR, FALSE, FALSE, FALSE);
-	anjuta_toolbar_set_view (ANJUTA_EXTENDED_TOOLBAR, FALSE, FALSE, FALSE);
-	anjuta_toolbar_set_view (ANJUTA_DEBUG_TOOLBAR, FALSE, FALSE, FALSE);
-	anjuta_toolbar_set_view (ANJUTA_BROWSER_TOOLBAR, FALSE, FALSE, FALSE);
-	anjuta_toolbar_set_view (ANJUTA_FORMAT_TOOLBAR, FALSE, FALSE, FALSE);
-
-	/* Now we are synced with the menu items */
-	/* Show/Hide the necessary toolbars */
-	key = g_strconcat (ANJUTA_MAIN_TOOLBAR, ".visible", NULL);
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar. view.main_toolbar),
-			prop_get_int (pr, key, 1));
-	g_free (key);
-
-	key = g_strconcat (ANJUTA_EXTENDED_TOOLBAR, ".visible", NULL);
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar. view.extended_toolbar),
-			prop_get_int (pr, key, 1));
-	g_free (key);
-
-	key = g_strconcat (ANJUTA_DEBUG_TOOLBAR, ".visible", NULL);
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar. view.debug_toolbar),
-			prop_get_int (pr, key, 1));
-	g_free (key);
-
-	key = g_strconcat (ANJUTA_BROWSER_TOOLBAR, ".visible", NULL);
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar. view.browser_toolbar),
-			prop_get_int (pr, key, 1));
-	g_free (key);
-
-	key = g_strconcat (ANJUTA_FORMAT_TOOLBAR, ".visible", NULL);
-	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM
-			(app->widgets.menubar. view.format_toolbar),
-			prop_get_int (pr, key, 1));
-	g_free (key);
-	
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorLinenumbers");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"margin.linenumber.visible",
+												0));
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorMarkers");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"margin.marker.visible",
+												0));
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorFolds");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"margin.fold.visible",
+												0));
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorGuides");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"view.indentation.guides",
+												0));
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorSpaces");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"view.whitespace",
+												0));
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorEOL");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"view.eol",
+												0));
+	action = anjuta_ui_get_action (app->ui, "ActionGroupView",
+								   "ActionViewEditorWrapping");
+	egg_toggle_action_set_active (EGG_TOGGLE_ACTION (action),
+								  prop_get_int (pr,
+												"view.line.wrap",
+												1));
 	update_gtk ();
 		
 	if (app->dirs->first_time)

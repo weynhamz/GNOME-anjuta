@@ -36,6 +36,8 @@
 #include "Scintilla.h"
 #include "ScintillaWidget.h"
 
+#ifndef __NO_CONTROLS
+
 void update_main_menubar ();
 
 void
@@ -498,3 +500,4 @@ update_led_animator ()
 	}
 #endif
 }
+#endif

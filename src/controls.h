@@ -18,6 +18,20 @@
 */
 #ifndef _CONTROLS_H_
 #define _CONTROLS_H_
+#define __NO_CONTROLS
+
+#ifdef __NO_CONTROLS
+
+#define main_toolbar_update()
+#define debug_toolbar_update()
+#define extended_toolbar_update() 
+#define format_toolbar_update()
+#define browser_toolbar_update()
+
+#define update_main_menubar()
+#define update_led_animator()
+
+#else
 
 void main_toolbar_update(void);
 void debug_toolbar_update(void);
@@ -27,5 +41,7 @@ void browser_toolbar_update(void);
 
 void update_main_menubar(void);
 void update_led_animator(void);
+
+#endif
 
 #endif

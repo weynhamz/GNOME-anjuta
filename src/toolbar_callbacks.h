@@ -20,6 +20,7 @@
 #define AN_TOOLBAR_CALLBACKS_H
 
 #include <gnome.h>
+#include <libegg/menu/egg-action.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -27,74 +28,65 @@ extern "C"
 #endif
 
 void
-on_toolbar_new_clicked                 (GtkButton       *button,
+on_toolbar_new_clicked                 (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_open_clicked                (GtkButton       *button,
+on_toolbar_open_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_save_clicked                (GtkButton       *button,
+on_toolbar_save_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_save_all_clicked                (GtkButton       *button,
+on_toolbar_save_all_clicked                (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_close_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_toolbar_reload_clicked              (GtkButton       *button,
+on_toolbar_close_clicked               (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_undo_clicked                (GtkButton       *button,
+on_toolbar_reload_clicked              (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_redo_clicked                (GtkButton       *button,
+on_toolbar_undo_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_print_clicked                (GtkButton       *button,
+on_toolbar_redo_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_detach_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
-
-gboolean
-on_toolbar_find_incremental_start (GtkEntry *entry,
-								  GdkEvent* e, gpointer user_data);
-gboolean
-on_toolbar_find_incremental_end (GtkEntry *entry,
-								  GdkEvent*e, gpointer user_data);
-void
-on_toolbar_find_incremental (GtkEntry *entry, gpointer user_data);
-
-void
-on_toolbar_find_clicked                (GtkButton       *button,
+on_toolbar_print_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_goto_clicked                (GtkButton       *button,
+on_toolbar_detach_clicked                (EggAction       *action,
+                                        gpointer         user_data);
+
+gboolean on_toolbar_find_incremental_start (EggAction *action, gpointer user_data);
+gboolean on_toolbar_find_incremental_end (EggAction *action, gpointer user_data);
+void on_toolbar_find_incremental (EggAction *action, gpointer user_data);
+void on_toolbar_find_clicked (EggAction *action, gpointer user_data);
+
+void on_toolbar_goto_activate (EggAction *action, gpointer user_data);
+void on_toolbar_goto_clicked (EggAction *action, gpointer user_data);
+
+void
+on_toolbar_tag_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_tag_clicked                (GtkButton       *button,
+on_toolbar_project_clicked                (EggAction       *action,
+                                        gpointer         user_data);
+void
+on_toolbar_messages_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_project_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_toolbar_messages_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_toolbar_help_clicked                (GtkButton       *button,
+on_toolbar_help_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 
@@ -107,145 +99,145 @@ on_toolbar_function_entry_changed      (GtkEditable     *editable,
                                         gpointer         user_data);
 
 void
-on_toolbar_open_project_clicked                (GtkButton       *button,
+on_toolbar_open_project_clicked                (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_save_project_clicked                (GtkButton       *button,
+on_toolbar_save_project_clicked                (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_close_project_clicked                (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_toolbar_compile_clicked             (GtkButton       *button,
+on_toolbar_close_project_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_configure_clicked             (GtkButton       *button,
+on_toolbar_compile_clicked             (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_build_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
-void
-on_toolbar_build_all_clicked               (GtkButton       *button,
+on_toolbar_configure_clicked             (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_exec_clicked               (GtkButton       *button,
+on_toolbar_build_clicked               (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_debug_clicked               (GtkButton       *button,
-                                        gpointer         user_data);
-
-void
-on_toolbar_stop_clicked                (GtkButton       *button,
+on_toolbar_build_all_clicked               (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_go_clicked                  (GtkButton       *button,
+on_toolbar_exec_clicked               (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_run_to_cursor_clicked (GtkButton * button, gpointer user_data);
-
-void
-on_toolbar_step_in_clicked                (GtkButton       *button,
+on_toolbar_debug_clicked               (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_step_out_clicked        (GtkButton       *button,
+on_toolbar_stop_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_step_over_clicked        (GtkButton       *button,
+on_toolbar_go_clicked                  (EggAction       *action,
+                                        gpointer         user_data);
+void
+on_toolbar_run_to_cursor_clicked (EggAction * action, gpointer user_data);
+
+void
+on_toolbar_step_in_clicked                (EggAction       *action,
                                         gpointer         user_data);
 
 void
-on_toolbar_toggle_bp_clicked           (GtkButton       *button,
+on_toolbar_step_out_clicked        (EggAction       *action,
+                                        gpointer         user_data);
+
+void
+on_toolbar_step_over_clicked        (EggAction       *action,
+                                        gpointer         user_data);
+
+void
+on_toolbar_toggle_bp_clicked           (EggAction       *action,
                                         gpointer         user_data);
 /*
 void
-on_toolbar_watch_clicked           (GtkButton       *button,
+on_toolbar_watch_clicked           (EggAction       *action,
                                         gpointer         user_data);
 */
 void
-on_toolbar_stack_clicked           (GtkButton       *button,
+on_toolbar_stack_clicked           (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_registers_clicked           (GtkButton       *button,
+on_toolbar_registers_clicked           (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_frame_clicked           (GtkButton       *button,
+on_toolbar_frame_clicked           (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_inspect_clicked           (GtkButton       *button,
+on_toolbar_inspect_clicked           (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_interrupt_clicked           (GtkButton       *button,
+on_toolbar_interrupt_clicked           (EggAction       *action,
                                         gpointer         user_data);
 void
-on_toolbar_debug_stop_clicked           (GtkButton       *button,
+on_toolbar_debug_stop_clicked           (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_wizard_clicked  (GtkButton       *button,
+on_browser_wizard_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_toggle_bookmark_clicked  (GtkButton       *button,
+on_browser_toggle_bookmark_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_first_bookmark_clicked  (GtkButton       *button,
+on_browser_first_bookmark_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_prev_bookmark_clicked  (GtkButton       *button,
+on_browser_prev_bookmark_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_next_bookmark_clicked  (GtkButton       *button,
+on_browser_next_bookmark_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_last_bookmark_clicked  (GtkButton       *button,
+on_browser_last_bookmark_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_prev_mesg_clicked  (GtkButton       *button,
+on_browser_prev_mesg_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_next_mesg_clicked  (GtkButton       *button,
+on_browser_next_mesg_clicked  (EggAction       *action,
                                         gpointer         user_data);
 void
-on_browser_block_start_clicked   (GtkButton       *button,
+on_browser_block_start_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_browser_block_end_clicked   (GtkButton       *button,
+on_browser_block_end_clicked   (EggAction       *action,
                   gpointer         user_data);
 
 void
-on_format_fold_toggle_clicked   (GtkButton       *button,
+on_format_fold_toggle_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_fold_open_clicked   (GtkButton       *button,
+on_format_fold_open_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_fold_close_clicked   (GtkButton       *button,
+on_format_fold_close_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_indent_inc_clicked   (GtkButton       *button,
+on_format_indent_inc_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_indent_dcr_clicked   (GtkButton       *button,
+on_format_indent_dcr_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_indent_auto_clicked   (GtkButton       *button,
+on_format_indent_auto_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_indent_style_clicked   (GtkButton       *button,
+on_format_indent_style_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_block_select_clicked   (GtkButton       *button,
+on_format_block_select_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_calltip_clicked   (GtkButton       *button,
+on_format_calltip_clicked   (EggAction       *action,
                   gpointer         user_data);
 void
-on_format_autocomplete_clicked   (GtkButton       *button,
+on_format_autocomplete_clicked   (EggAction       *action,
                   gpointer         user_data);
 
 #ifdef __cplusplus
