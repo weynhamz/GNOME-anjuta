@@ -2089,7 +2089,7 @@ on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
         gtk_widget_show (about_box);
 
         about_box_window = gtk_window_new (GTK_WINDOW_DIALOG);
-		gtk_window_set_transient_for(GTK_WINDOW(about_box_window), GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
 		gnome_window_icon_set_from_default((GtkWindow *) about_box_window);
         gtk_window_set_policy (GTK_WINDOW (about_box_window), FALSE, FALSE, FALSE);
         gtk_signal_connect (GTK_OBJECT (about_box_window), "button_press_event",

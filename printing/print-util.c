@@ -102,7 +102,7 @@ void anjuta_print_progress_start(PrintJobInfo * pji)
 	progress_bar = gtk_progress_bar_new();
 	dialog = GNOME_DIALOG (gnome_dialog_new (_("Printing .."),
 	  GNOME_STOCK_BUTTON_CANCEL, NULL));
-	gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(dialog), GTK_WINDOW(app->widgets.window)); */
 	gnome_dialog_button_connect (dialog, 0
 	  ,GTK_SIGNAL_FUNC(anjuta_print_progress_clicked), pji);
 	pji->progress_dialog = dialog;

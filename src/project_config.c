@@ -807,7 +807,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gint i;
 
 	dialog1 = gnome_dialog_new (_("Project configuration"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window)); */
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, TRUE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "proj_conf", "Anjuta");
 	gnome_dialog_close_hides(GNOME_DIALOG(dialog1), TRUE);

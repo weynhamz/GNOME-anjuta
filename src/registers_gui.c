@@ -83,7 +83,7 @@ create_cpu_registers_gui(CpuRegisters *cr)
   GtkWidget *label8;
 
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app->widgets.window));
+  /* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("CPU Registers"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "cpu_registers", "Anjuta");

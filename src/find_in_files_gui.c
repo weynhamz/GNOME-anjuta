@@ -65,7 +65,7 @@ create_find_in_files_gui (FindInFiles *sf)
   GtkWidget *nocvs;
 
   dialog3 = gnome_dialog_new (_("Find in Files"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(app->widgets.window));
+  /* gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(app->widgets.window)); */
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_CENTER);
 /*  gtk_window_set_modal (GTK_WINDOW (dialog3), TRUE); */
   gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
@@ -244,6 +244,5 @@ create_find_in_files_gui (FindInFiles *sf)
   sf->widgets.nocvs = nocvs;
 	  gtk_widget_ref(nocvs);
 
-	gtk_window_set_transient_for(GTK_WINDOW(sf->widgets.window), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
 }
-

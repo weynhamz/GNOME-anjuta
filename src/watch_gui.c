@@ -101,7 +101,7 @@ create_expr_watch_gui (ExprWatch * ew)
   GtkWidget *label2;
 
   window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
+  /* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
   gtk_widget_set_usize (window1, 300, -2);
   gtk_window_set_title (GTK_WINDOW (window1), _("Expression Watch"));
   gtk_window_set_wmclass (GTK_WINDOW (window1), "expr_watch", "Anjuta");
@@ -181,7 +181,7 @@ create_watch_add_dialog (GtkWindow* parent)
   GtkWidget *button20;
 
   dialog3 = gnome_dialog_new (_("Add Watch Expression"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(parent));
+  /* gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(parent)); */
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
@@ -246,7 +246,7 @@ create_watch_change_dialog (GtkWindow* parent)
   GtkWidget *button20;
 
   dialog3 = gnome_dialog_new (_("Modify Watch Expression"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(parent));
+  /* gtk_window_set_transient_for (GTK_WINDOW(dialog3), GTK_WINDOW(parent)); */
   gtk_window_set_position (GTK_WINDOW (dialog3), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog3), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog3), "watch_add", "Anjuta");
@@ -312,7 +312,7 @@ create_eval_dialog (GtkWindow* parent)
   GtkWidget *addWatchButton;
 
   dialog4 = gnome_dialog_new (_("Inspect/Evaluate"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog4), GTK_WINDOW(parent));
+  /* gtk_window_set_transient_for (GTK_WINDOW(dialog4), GTK_WINDOW(parent)); */
   gtk_window_set_position (GTK_WINDOW (dialog4), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog4), FALSE, FALSE, FALSE);
   gtk_window_set_wmclass (GTK_WINDOW (dialog4), "inspeval", "Anjuta");

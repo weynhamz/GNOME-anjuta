@@ -83,6 +83,8 @@ R7: Tool Storage
 #include "widget-registry.h"
 #include "anjuta.h"
 #include "launcher.h"
+#include "debugger.h"
+
 #include "anjuta-tools.h"
 
 #define GTK
@@ -353,8 +355,15 @@ static void tool_stdout_handler(gchar *line)
 		if (current_tool->output <= MESSAGE_MAX && current_tool->output >= 0)
 		{
 			/* Send the message to the proper message pane */
-			anjuta_message_manager_append (app->messages, line
-			  ,current_tool->output);
+			switch (current_tool->output)
+			{
+				case MESSAGE_DEBUG:
+					debugger_put_cmd_in_queqe(line, DB_CMD_NONE, NULL, NULL);
+					break;
+				default:
+					anjuta_message_manager_append (app->messages, line
+			  		,current_tool->output);
+			}
 		}
 		else
 		{
@@ -514,6 +523,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		  , word?word:"");
 		if (word)
 			g_free(word);
+		prop_set_int_with_key(app->preferences->props, "current.file.lineno"
+		  , text_editor_get_current_lineno(app->current_text_editor));
 	}
 	if (params)
 	{
@@ -618,7 +629,8 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 			command = g_strconcat("sh -c \"", escaped_cmd, "<", tmp_file, "\"", NULL);
 			g_free(buf);
 		}
-		if (tool->output <= MESSAGE_MAX && tool->output >= 0)
+		if (tool->output <= MESSAGE_MAX && tool->output >= 0 &&
+			tool->output != MESSAGE_DEBUG)
 		{
 			anjuta_message_manager_clear(app->messages, tool->output);
 			anjuta_message_manager_show(app->messages, tool->output);
@@ -629,7 +641,7 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		if (FALSE == launcher_execute(command, tool_stdout_handler
 	  	  , tool_stderr_handler, tool_terminate_handler))
 		{
-			anjuta_error("%s: Unable to launch!", tool->command);
+			anjuta_error("%s: Unable to launch!", command);
 		}
 		g_free(command);
 	}
@@ -929,8 +941,8 @@ gboolean anjuta_tools_edit(void)
 			return FALSE;
 		}
 		tl->dialog = glade_xml_get_widget(tl->xml, TOOL_LIST);
-		gtk_window_set_transient_for (GTK_WINDOW(tl->dialog)
-		  , GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for (GTK_WINDOW(tl->dialog)
+		  , GTK_WINDOW(app->widgets.window)); */
 		gtk_widget_ref(tl->dialog);
 		tl->clist = (GtkCList *) glade_xml_get_widget(tl->xml, TOOL_CLIST);
 		gtk_widget_ref((GtkWidget *) tl->clist);
@@ -1111,8 +1123,8 @@ static gboolean show_tool_editor(AnUserTool *tool, gboolean editing)
 			return FALSE;
 		}
 		ted->dialog = glade_xml_get_widget(ted->xml, TOOL_EDITOR);
-		gtk_window_set_transient_for (GTK_WINDOW(ted->dialog)
-		  , GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for (GTK_WINDOW(ted->dialog)
+		  , GTK_WINDOW(app->widgets.window)); */
 		gtk_widget_ref(ted->dialog);
 		ted->name_en = (GtkEditable *) glade_xml_get_widget(ted->xml, TOOL_NAME);
 		gtk_widget_ref((GtkWidget *) ted->name_en);
@@ -1416,6 +1428,7 @@ static struct
 , {CURRENT_FILE_DIRECTORY, "Directory of the current file" }
 , {CURRENT_FILE_EXTENSION, "Extension of the current file" }
 , {"current.file.selection", "Selected/focussed word in the current buffer"}
+, {"current.file.lineno", "Current line number in the open buffer"}
 , {"top.proj.dir", "Top project directory" }
 , {"project.name", "Name of the project" }
 , {"project.type", "Type of project, e.g. GNOME"}
@@ -1643,8 +1656,8 @@ gboolean on_user_tool_edit_help_clicked(GtkButton *button, gpointer user_data)
 			return FALSE;
 		}
 		th->dialog = glade_xml_get_widget(th->xml, TOOL_HELP);
-		gtk_window_set_transient_for (GTK_WINDOW(th->dialog)
-		  , GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for (GTK_WINDOW(th->dialog)
+		  , GTK_WINDOW(app->widgets.window)); */
 		gtk_widget_ref(th->dialog);
 		th->clist = (GtkCList *) glade_xml_get_widget(th->xml, TOOL_HELP_CLIST);
 		gtk_widget_ref((GtkWidget *) th->clist);
@@ -1720,8 +1733,8 @@ static char *get_user_params(AnUserTool *tool, gboolean *button)
 		tp->dialog = glade_xml_get_widget(tp->xml, TOOL_PARAMS);
 		snprintf(title, 256, _("%s: Command line parameters"), tool->name);
 		gtk_window_set_title (GTK_WINDOW(tp->dialog), title);
-		gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
-		  , GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for (GTK_WINDOW(tp->dialog)
+		  , GTK_WINDOW(app->widgets.window)); */
 		gtk_widget_ref(tp->dialog);
 		tp->params_en = (GtkEditable *) glade_xml_get_widget(tp->xml, TOOL_PARAMS_EN);
 		gtk_widget_ref((GtkWidget *) tp->params_en);

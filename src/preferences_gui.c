@@ -150,7 +150,7 @@ create_preferences_gui (Preferences * pr)
 	GtkWidget *preferences_cancel;
 
 	dialog1 = gnome_dialog_new (_("Preferences"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window)); */
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, TRUE);
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
 	window2 = dialog1;

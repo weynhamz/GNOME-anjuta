@@ -133,7 +133,7 @@ create_anjuta_help_gui (AnjutaHelp* help)
   GtkWidget *button2;
 
   dialog1 = gnome_dialog_new (_("Search Help"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
+  /* gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window)); */
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
   gnome_dialog_set_close (GNOME_DIALOG (dialog1), TRUE);
   gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
@@ -214,4 +214,3 @@ create_anjuta_help_gui (AnjutaHelp* help)
   gtk_widget_ref (radiobutton2);
   gtk_widget_ref (radiobutton3);
 }
-

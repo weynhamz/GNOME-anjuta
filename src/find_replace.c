@@ -329,7 +329,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	GtkWidget *button11;
 
 	dialog2 = gnome_dialog_new (_("Find and Replace"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog2), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(dialog2), GTK_WINDOW(app->widgets.window)); */
 	gtk_window_set_policy (GTK_WINDOW (dialog2), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog2), "find_repl", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog2), TRUE);
@@ -554,7 +554,7 @@ create_find_replace_gui (FindAndReplace * fr)
 	gtk_widget_ref (fr->r_gui.whole_word_check);
 
 	gtk_widget_grab_focus (combo_entry2);
-	gtk_window_set_transient_for(GTK_WINDOW(fr->r_gui.GUI), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
 }
 
 static GtkWidget *
@@ -703,4 +703,3 @@ on_replace_text_close (GtkWidget * widget,
 	return FALSE;
 }
 */
-

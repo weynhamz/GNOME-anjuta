@@ -101,7 +101,7 @@ Activate( GModule *self, void *pUserData, AnjutaApp* p)
 	gui = g_new0 (PatchPluginGUI, 1);
 	
 	gui->dialog = gnome_dialog_new (_("Patch Plugin"), _("Cancel"), _("Patch"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(p->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(p->widgets.window)); */
 	gui->entry_patch_dir = gnome_file_entry_new ("patch-dir", 
 	_("Selected directory to patch"));
 	gui->entry_patch_file = gnome_file_entry_new ("patch-file",
@@ -216,4 +216,3 @@ static void on_patch_terminate (int status, time_t time)
 		anjuta_message_manager_append (app->messages,
 			_("Patch successful.\n"), MESSAGE_BUILD);	}
 }
-

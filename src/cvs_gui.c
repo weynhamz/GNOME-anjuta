@@ -108,7 +108,7 @@ create_cvs_gui (CVS * cvs, int dialog_type, gchar* filename, gboolean bypass_dia
 		gnome_dialog_new (title, button_label, _("Cancel"), NULL);
 	gtk_window_set_wmclass (GTK_WINDOW (gui->dialog), "cvs-file",
 				"anjuta");
-	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window)); */
 	table = gtk_table_new (5, 2, FALSE);
 	gtk_widget_show (table);
 
@@ -229,7 +229,7 @@ create_cvs_diff_gui (CVS * cvs, gchar* filename, gboolean bypass_dialog)
 	gui->dialog =
 		gnome_dialog_new (_("CVS: Diff file"), _("Diff"), _("Cancel"),
 				  NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window)); */
 	gui->diff_button =
 		g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
 	gui->cancel_button =
@@ -339,7 +339,7 @@ create_cvs_login_gui (CVS * cvs)
 	gui = g_new0(CVSLoginGUI, 1);
 	
 	gui->dialog = gnome_dialog_new (_("CVS Login"), _("Login"), _("Cancel"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window)); */
 	
 	gui->combo_type = gtk_combo_new();
 	gui->entry_user = gnome_entry_new ("cvs-user");
@@ -562,7 +562,7 @@ void create_cvs_import_gui (CVS* cvs)
 	gtk_table_attach_defaults (GTK_TABLE (table), import_frame, 0, 1, 1, 2);
 	
 	gui->dialog = gnome_dialog_new (_("CVS: Import Project"), "Import", "Cancel", NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(gui->dialog), GTK_WINDOW(app->widgets.window)); */
 	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG(gui->dialog)->vbox), table);
 	
 	ok_button =
@@ -579,4 +579,4 @@ void create_cvs_import_gui (CVS* cvs)
 			GTK_SIGNAL_FUNC(on_cvs_type_combo_changed), gui);
 	
 	gtk_widget_show_all (gui->dialog);
-}	
+}

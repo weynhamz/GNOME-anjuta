@@ -324,8 +324,8 @@ static void fv_customize(gboolean really_show)
 		SET_WIDGET(dir_unmatch_combo, GtkCombo, DIR_FILTER_UNMATCH_COMBO);
 		SET_WIDGET(ignore_hidden_dirs_tb, GtkToggleButton, DIR_FILTER_IGNORE_HIDDEN);
 		SET_WIDGET(ok_button, GtkButton, OK_BUTTON);
-		gtk_window_set_transient_for (GTK_WINDOW(ff->dialog)
-		  , GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for (GTK_WINDOW(ff->dialog)
+		  , GTK_WINDOW(app->widgets.window)); */
 		glade_xml_signal_autoconnect(ff->xml);
 	}
 	if (really_show && !ff->showing)

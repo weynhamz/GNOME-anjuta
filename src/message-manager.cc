@@ -599,7 +599,7 @@ anjuta_message_manager_undock (AnjutaMessageManager * amm)
 		amm->intern->is_docked = false;
 		
 		amm->intern->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-		gtk_window_set_transient_for(GTK_WINDOW(amm->intern->window), GTK_WINDOW(app->widgets.window));
+		/* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
 		gnome_window_icon_set_from_default((GtkWindow *) amm->intern->window);
 		gtk_window_set_wmclass(GTK_WINDOW(amm->intern->window), "message-manager", "anjuta");
 		gtk_window_set_title(GTK_WINDOW(amm->intern->window), _("Messages"));

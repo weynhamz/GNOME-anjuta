@@ -253,7 +253,7 @@ create_find_text_gui (FindText * ft)
 	GtkWidget *button3;
 
 	dialog1 = gnome_dialog_new (_("Find"), NULL);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(app->widgets.window)); */
 	gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
 	gtk_window_set_wmclass (GTK_WINDOW (dialog1), "find", "Anjuta");
 	gnome_dialog_close_hides (GNOME_DIALOG (dialog1), TRUE);
@@ -437,7 +437,7 @@ create_find_text_gui (FindText * ft)
 	gtk_widget_ref (ft->f_gui.whole_word_check);
 
 	gtk_widget_grab_focus (combo_entry1);
-	gtk_window_set_transient_for(GTK_WINDOW(ft->f_gui.GUI), GTK_WINDOW(app->widgets.window));
+	/* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
 }
 
 void
@@ -605,4 +605,3 @@ gchar *selectionText = NULL;
                g_free (selectionText);
        }       
 }
-

@@ -97,7 +97,7 @@ create_stack_trace_gui(StackTrace *st)
   GtkWidget *label3;
 
   window1 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window1), GTK_WINDOW(app->widgets.window));
+  /* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
   gtk_window_set_title (GTK_WINDOW (window1), _("Stack Trace"));
   gtk_window_set_wmclass (GTK_WINDOW (window1), "stack_trace", "Anjuta");
   gnome_window_icon_set_from_default(GTK_WINDOW(window1));

@@ -49,7 +49,9 @@ fi
 
 # The following list si incomplete - please feel free to add to it.
 checkProgram 'GNU Grep' 'grep --version | grep GNU' 'ftp.gnu.org'
-checkProgram 'GNU Grep' 'm4 --version | grep GNU' 'ftp.gnu.org'
+checkProgram 'GNU Find' 'find --version | grep GNU' 'ftp.gnu.org'
+checkProgram 'GNU Awk' 'gawk --version' 'ftp.gnu.org'
+checkProgram 'GNU M4' 'm4 --version | grep GNU' 'ftp.gnu.org'
 checkProgram 'GNU C' 'gcc --version' 'gcc.gnu.org'
 checkProgram 'GNU Make' 'gmake --version' 'ftp.gnu.org'
 checkProgram 'Perl' 'perl --version' 'www.perl.com'

@@ -88,7 +88,7 @@ create_signals_gui(Signals *cr)
   GtkWidget *label6, *label7, *label8, *label9, *label10;
 
   window3 = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_transient_for(GTK_WINDOW(window3), GTK_WINDOW(app->widgets.window));
+  /* gtk_window_set_transient_for(GTK_WINDOW(self->dlgClass), GTK_WINDOW(self->m_pApp->widgets.window)); */
   gtk_widget_set_usize (window3, 170, -2);
   gtk_window_set_title (GTK_WINDOW (window3), _("Kernel signals"));
   gtk_window_set_wmclass (GTK_WINDOW (window3), "signals", "Anjuta");
@@ -207,7 +207,7 @@ create_signals_set_dialog (Signals *s)
        s->pass = FALSE;
 
   dialog1 = gnome_dialog_new (_("Set Signal Property"), NULL);
-  gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(s->widgets.window));
+  /* gtk_window_set_transient_for (GTK_WINDOW(dialog1), GTK_WINDOW(s->widgets.window)); */
   GTK_WINDOW (dialog1)->type = GTK_WINDOW_DIALOG;
   gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_MOUSE);
   gtk_window_set_policy (GTK_WINDOW (dialog1), FALSE, FALSE, FALSE);
