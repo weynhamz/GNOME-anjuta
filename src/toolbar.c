@@ -288,14 +288,11 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_ref (toolbar_build_all);
 	gtk_widget_show (toolbar_build_all);
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_EXECUTE);
 	toolbar_exec =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Execute"),
-					    _("Execute the program"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_EXECUTE,
+										  _("Execute"),
+										  _("Execute the program"),
+										  NULL, NULL);
 	gtk_widget_ref (toolbar_exec);
 	gtk_widget_show (toolbar_exec);
 
@@ -310,14 +307,11 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 	gtk_widget_ref (toolbar_debug);
 	gtk_widget_show (toolbar_debug);
 
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_BUILD_STOP);
 	toolbar_stop =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Stop"),
-					    _("Stop/interrupt compile or build"), NULL,
-					    tmp_toolbar_icon, NULL, NULL);
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_STOP,
+										  _("Stop"),
+										  _("Stop/interrupt compile or build"),
+										  NULL, NULL);
 	gtk_widget_ref (toolbar_stop);
 	gtk_widget_show (toolbar_stop);
 
@@ -534,15 +528,11 @@ create_browser_toolbar (GtkWidget * anjuta_gui, BrowserToolbar * toolbar)
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar2), toolbar_tag_label,
 				   NULL, NULL);
 	
-	tmp_toolbar_icon =
-		anjuta_res_get_image (ANJUTA_PIXMAP_TAG);
 	toolbar_tag =
-		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
-					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Goto Tag"),
-					    _("Search for the given tag in the current file"),
-					    NULL, tmp_toolbar_icon, NULL,
-					    NULL);
+		anjuta_util_toolbar_append_stock (toolbar2, GTK_STOCK_JUMP_TO,
+										  _("Goto Tag"),
+						_("Search for the given tag in the current file"),
+										  NULL, NULL);
 	gtk_widget_ref (toolbar_tag);
 	gtk_widget_show (toolbar_tag);
 

@@ -28,8 +28,6 @@
 #include "anjuta.h"
 #include "resources.h"
 #include "compiler_options.h"
-#include "../pixmaps/list_unselect.xpm"
-#include "../pixmaps/list_select.xpm"
 
 typedef struct
 {

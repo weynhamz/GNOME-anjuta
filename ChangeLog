@@ -1,5 +1,10 @@
 2003-01-23  Naba Kumar <naba@gnome.org>
 
+	* src/compiler_options.c, src/pixmaps.h, src/toolbar.c: Fixed to use
+	correct stock icons.
+	
+	Makefile.am: Removed non-generated files.
+	
 	* pixmaps/{add.xpm, an_tag.xpm, autocomplete.xpm, block_end.xpm,
 	block_start.xpm, bookmark_first.xpm, bookmark_last.xpm,
 	bookmark_next.xpm, bookmark_prev.xpm, build_stop.xpm,

@@ -24,9 +24,6 @@ anjutadoc_DATA = \
 EXTRA_DIST = \
 	anjuta.desktop.in.in \
 	anjuta.spec.in \
-	xml-i18n-extract.in \
-	xml-i18n-merge.in \
-	xml-i18n-update.in \
 	autogen.sh \
 	anjuta.prj \
 	setup-gettext \
