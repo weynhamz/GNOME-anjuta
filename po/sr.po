@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 23.32\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-05 13:30+0100\n"
-"PO-Revision-Date: 2003-11-05 13:36+0100\n"
+"POT-Creation-Date: 2003-11-07 02:55+0100\n"
+"PO-Revision-Date: 2003-11-07 02:58+0100\n"
 "Last-Translator: Слободан Средојевић <ssl@uns.ns.ac.yu>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -3704,31 +3704,31 @@ msgstr "Успешно аутоматско стварање пројекта."
 msgid " Goto Line number "
 msgstr "Иди на број линије "
 
-#: src/launcher.c:596
+#: src/launcher.c:597
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr "launcher.c: грешка при читању садржаног стандардног излаза\n"
 
-#: src/launcher.c:608
+#: src/launcher.c:609
 msgid "launcher.c: STDOUT pipe closed"
 msgstr "launcher.c: цев стандардног излаза је затворена"
 
-#: src/launcher.c:644
+#: src/launcher.c:645
 msgid "launcher.c: Error while reading child stderr"
 msgstr "launcher.c: грешка при читању садржаног стандардног излаза за грешке"
 
-#: src/launcher.c:656
+#: src/launcher.c:657
 msgid "launcher.c: STDERR pipe closed"
 msgstr "launcher.c: цев стандардног излаза за грешке је затворена"
 
-#: src/launcher.c:697
+#: src/launcher.c:698
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: грешка при читању садржаног терминала\n"
 
-#: src/launcher.c:715
+#: src/launcher.c:716
 msgid "launcher.c: PTY pipe error!"
 msgstr "launcher.c: цев терминала је затворена"
 
-#: src/launcher.c:842 src/text_editor.c:1554
+#: src/launcher.c:844 src/text_editor.c:1554
 msgid "Cannot execute command shell"
 msgstr "Не могу покренути интерпретатор наредби"
 
@@ -5175,7 +5175,7 @@ msgid "Compile the current source file using Make"
 msgstr "Преводи датотеку са изворним кодом користећи програм мејк (make)"
 
 #. 2
-#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1888
+#: src/main_menubar_def.h:1252 src/main_menubar_def.h:1905
 msgid "_Build"
 msgstr "_Преведи и повежи"
 
@@ -5857,130 +5857,156 @@ msgid "Setup wizard for first time run"
 msgstr "Чаробњак који се појављује када први пут покренете програм"
 
 #. 0
+#: src/main_menubar_def.h:1795
+msgid "Anjuta Manual"
+msgstr "Упутство за Анјуту"
+
+#: src/main_menubar_def.h:1796
+msgid "Anjuta IDE Manual"
+msgstr "Упутство за окружење Анјута"
+
 #. 1
+#: src/main_menubar_def.h:1801
+msgid "Anjuta Tutorial"
+msgstr "Водич кроз Анјуту"
+
+#: src/main_menubar_def.h:1802
+msgid "Anjuta IDE Tutorial"
+msgstr "Водич кроз окружење Анјуту"
+
 #. 2
-#: src/main_menubar_def.h:1797
+#: src/main_menubar_def.h:1807
+msgid "Anjuta Faqs"
+msgstr "Питања и одговори за Анјуту"
+
+#: src/main_menubar_def.h:1808
+msgid "Anjuta IDE Faqs"
+msgstr "Питања и одговори за окружење Анјуту"
+
+#. 3
+#. 4
+#: src/main_menubar_def.h:1814
 msgid "Browse GNOME _API Pages"
 msgstr "Прегледај Гном API странице"
 
-#: src/main_menubar_def.h:1798
+#: src/main_menubar_def.h:1815
 msgid "The GNOME API pages"
 msgstr "Гном API странице"
 
-#. 3
-#: src/main_menubar_def.h:1803
+#. 5
+#: src/main_menubar_def.h:1820
 msgid "Browse _Man Pages"
 msgstr "Пре_гледај man странице"
 
-#: src/main_menubar_def.h:1804
+#: src/main_menubar_def.h:1821
 msgid "The good old manual pages"
 msgstr "Старе добре man странице"
 
-#. 4
-#: src/main_menubar_def.h:1809
+#. 6
+#: src/main_menubar_def.h:1826
 msgid "Browse _Info Pages"
 msgstr "Прегл_едај info странице"
 
-#: src/main_menubar_def.h:1810
+#: src/main_menubar_def.h:1827
 msgid "Browse Info pages"
 msgstr "Прегледај info странице"
 
-#. 5
-#. 6
-#: src/main_menubar_def.h:1816
+#. 7
+#. 8
+#: src/main_menubar_def.h:1833
 msgid "_Context Help"
 msgstr "_Помоћ на основу контекста"
 
-#: src/main_menubar_def.h:1817
+#: src/main_menubar_def.h:1834
 msgid "Search help for the current word in the editor"
 msgstr "Претражи помоћ за текућу реч у програму за унос текста"
 
-#. 7
-#: src/main_menubar_def.h:1822
+#. 9
+#: src/main_menubar_def.h:1839
 msgid "_Search a topic"
 msgstr "_Претражи по темама"
 
-#: src/main_menubar_def.h:1823
+#: src/main_menubar_def.h:1840
 msgid "May I help you?"
 msgstr "Увек на услузи!"
 
-#. 8
-#. 9
-#: src/main_menubar_def.h:1829
+#. 10
+#. 11
+#: src/main_menubar_def.h:1846
 msgid "Anjuta _Home Page"
 msgstr "Интернет страница Анјута пројекта"
 
-#: src/main_menubar_def.h:1830
+#: src/main_menubar_def.h:1847
 msgid "Online documentation and resources"
 msgstr "Документација и извори знања доступни на мрежи"
 
-#. 10
-#. 11
-#: src/main_menubar_def.h:1836
+#. 12
+#. 13
+#: src/main_menubar_def.h:1853
 msgid "_Libraries API references"
 msgstr "Референце за програмске спреге _библиотека"
 
-#: src/main_menubar_def.h:1837
+#: src/main_menubar_def.h:1854
 msgid "Online reference library for GDK, GLib, GNOME etc.."
 msgstr "Библиотека референци на мрежи за GDK, GLib, Гном(GNOME) итд..."
 
-#. 12
-#: src/main_menubar_def.h:1842
+#. 14
+#: src/main_menubar_def.h:1859
 msgid "Report _Bugs"
 msgstr "_Пријави грешке"
 
-#: src/main_menubar_def.h:1843
+#: src/main_menubar_def.h:1860
 msgid "Submit a bug report for Anjuta"
 msgstr "Пријавите грешке у програму"
 
-#. 13
-#: src/main_menubar_def.h:1848
+#. 15
+#: src/main_menubar_def.h:1865
 msgid "Request _Features"
 msgstr "_Захтев за побољшањем"
 
-#: src/main_menubar_def.h:1849
+#: src/main_menubar_def.h:1866
 msgid "Submit a feature request for Anjuta"
 msgstr "Пошаљите захтев за побољшање програма"
 
-#. 14
-#: src/main_menubar_def.h:1854
+#. 16
+#: src/main_menubar_def.h:1871
 msgid "Submit _patches"
 msgstr "_Пошаљите закрпе"
 
-#: src/main_menubar_def.h:1855
+#: src/main_menubar_def.h:1872
 msgid "Submit patches for Anjuta"
 msgstr "Пошаљите закрпе за програм"
 
-#. 15
-#: src/main_menubar_def.h:1860
+#. 17
+#: src/main_menubar_def.h:1877
 msgid "Ask a _question"
 msgstr "_Поставите питање"
 
-#: src/main_menubar_def.h:1861
+#: src/main_menubar_def.h:1878
 msgid "Submit a question for FAQs"
 msgstr "Пошаљите питање за списак најчешћихј питања (FAQ)"
 
-#: src/main_menubar_def.h:1876
+#: src/main_menubar_def.h:1893
 msgid "_Project"
 msgstr "_Пројекат"
 
-#: src/main_menubar_def.h:1882
+#: src/main_menubar_def.h:1899
 msgid "For_mat"
 msgstr "_Формат"
 
-#: src/main_menubar_def.h:1894
+#: src/main_menubar_def.h:1911
 msgid "Bookmar_k"
 msgstr "_Ознаке"
 
-#: src/main_menubar_def.h:1900
+#: src/main_menubar_def.h:1917
 msgid "_Debug"
 msgstr "_Проналажење грешака"
 
-#: src/main_menubar_def.h:1906
+#: src/main_menubar_def.h:1923
 msgid "_CVS"
 msgstr "_CVS"
 
-#: src/main_menubar_def.h:1912
+#: src/main_menubar_def.h:1929
 msgid "_Settings"
 msgstr "_Подешавања"
 
@@ -6041,7 +6067,14 @@ msgstr "Извршна датотека није најновија."
 msgid "Debugger is not running. Start it first."
 msgstr "Програм за проналажење грешака није покренут. Прво га покрените."
 
-#: src/mainmenu_callbacks.c:2156
+# bug: is install -> is installed
+#: src/mainmenu_callbacks.c:2032
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
+msgstr "Не могу да прикажем помоћ. Проверите да ли је пакет са документацијом Анјуте инсталиран. Можете га преузети са http://anjuta.org"
+
+#: src/mainmenu_callbacks.c:2165
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
