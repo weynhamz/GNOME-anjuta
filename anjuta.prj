@@ -75,7 +75,7 @@ project.configure.options=--prefix=/usr
 
 anjuta.program.arguments=
 
-project.config.disable.overwriting=1 0 1 1 1 1 1 1 1 
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
 project.config.extra.modules.before=scintilla widgets manuals omf-install
 project.config.extra.modules.after=launcher
 
@@ -86,7 +86,7 @@ module.incude.files=
 
 module.source.name=src
 module.source.type=
-module.source.expanded=0
+module.source.expanded=1
 module.source.files=\
 	aneditor.cxx\
 	aneditor.h\
@@ -385,7 +385,7 @@ module.data.files=\
 	autogen.sh.gtk\
 	autogen.sh.generic\
 	linux-gnome-c.api\
-	tags2api.py
+	tags2api.py\
 
 module.help.name=help
 module.help.type=
@@ -404,7 +404,8 @@ module.po.files=\
 	ja.po\
 	tr.po\
 	es.po\
-	fr.po
+	fr.po\
+	it.po
 
 compiler.options.supports=GNOME 
 

@@ -187,7 +187,7 @@ int select_only_file (const struct dirent *e);
 void glist_strings_free(GList* list);
 void glist_strings_prefix (GList * list, gchar *prefix);
 void glist_strings_sufix (GList * list, gchar *sufix);
-void glist_strings_sort (GList * list);
+GList* glist_strings_sort (GList * list);
 
 /**********************************************************/
 /* Both the returned glist and the data should be g_freed */
