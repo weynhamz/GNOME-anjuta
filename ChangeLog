@@ -8,6 +8,7 @@
 	crash bug associated with translated combo box list in preferences
 	dialog (in different locale other than en_US). Used widget names
 	to pass the combo list items.
+	* po/POTFILES.in: Updated.
 	
 2003-06-21  Naba Kumar  <naba@gnome.org>
 

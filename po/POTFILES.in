@@ -169,9 +169,6 @@ src/src_paths.c
 src/src_paths.h
 src/stack_trace.c
 src/stack_trace.h
-src/stack_trace_cbs.c
-src/stack_trace_cbs.h
-src/stack_trace_gui.c
 src/style-editor.c
 src/style-editor.h
 src/support.c
