@@ -88,6 +88,14 @@ static GtkActionEntry actions_cvs[] = {
 		G_CALLBACK (on_cvs_status_activate)    /* action callback */
 	},
 	{
+		"ActionCVSLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Show Log"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Show the log of a file/directory"),                      /* Tooltip */
+		G_CALLBACK (on_cvs_log_activate)    /* action callback */
+	},
+	{
 		"ActionCVSImport",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
 		N_("_Import Tree"),                     /* Display label */

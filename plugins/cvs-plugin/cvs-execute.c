@@ -28,8 +28,12 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include <glade/glade.h>
+#include <pcre.h>
 
 #define CVS_ICON ""
+#define CVS_INFO_REGEXP "cvs update:."
+#define CVS_ERR_REGEXP "^C ."
+
 
 static GtkWidget* status_text;
 
@@ -38,13 +42,39 @@ on_cvs_mesg_format (IAnjutaMessageView *view, const gchar *line,
 					  AnjutaPlugin *plugin)
 {
 	IAnjutaMessageViewType type;
+	pcre *info, *err;
+	const gchar *err_buf;
+	int err_ptr, output[16];
 	
 	g_return_if_fail (line != NULL);
+
+	/* Compile the regexps for message types. */
+	if (!(info = pcre_compile(CVS_INFO_REGEXP, 0, &err_buf, &err_ptr, NULL)))
+	{
+		g_free((gchar *) err_buf);
+		return;
+	}
+	if (!(err = pcre_compile(CVS_ERR_REGEXP, 0, &err_buf, &err_ptr, NULL)))
+	{
+		g_free((gchar *) err_buf);
+		return;
+	}		
 	
-	type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
-	/* FIXME: Use regex to determine different message type */
-	
+	/* Match against type regexps to find the message type. */
+	if (pcre_exec(info, NULL, line, strlen(line), 0, 0, output, 16) >= 0)
+	{
+		type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
+	}
+	else if (pcre_exec(err, NULL, line, strlen(line), 0, 0, output, 16) >= 0)
+	{
+		type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
+	}
+	else type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+
 	ianjuta_message_view_append (view, type, line, "", NULL);
+	
+	pcre_free(info);
+	pcre_free(err);
 }
 
 static void
@@ -254,6 +284,19 @@ cvs_execute_diff(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
 	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("cvs.diff"), "", NULL);
+
+
+	cvs_execute_common(plugin, command, dir, on_cvs_diff);
+}
+
+void
+cvs_execute_log(CVSPlugin* plugin, const gchar* command, const gchar* dir)
+{
+	IAnjutaDocumentManager *docman;
+	
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+	                                     IAnjutaDocumentManager, NULL);
+	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("cvs.log"), "", NULL);
 
 
 	cvs_execute_common(plugin, command, dir, on_cvs_diff);

@@ -18,14 +18,15 @@ cvs_plugin_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 INCLUDES= \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(LIBANJUTA_CFLAGS)
+	$(LIBANJUTA_CFLAGS) \
+	$(PCRE_CFLAGS)
 
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-cvs-plugin.la
 
 libanjuta_cvs_plugin_la_LDFLAGS = -module
 libanjuta_cvs_plugin_la_LIBADD = \
-	$(LIBANJUTA_LIBS)
+	$(LIBANJUTA_LIBS) $(PCRE_LIBS)
 
 libanjuta_cvs_plugin_la_SOURCES = \
 	plugin.c\

@@ -12,6 +12,7 @@
 				<separator name="separator2"/>
 				<menuitem name="Diff" action="ActionCVSDiff" />
 				<menuitem name="Status" action="ActionCVSStatus" />
+				<menuitem name="Log" action="ActionCVSLog" />
 				<separator name="separator3"/>
 				<menuitem name="ImportTree" action="ActionCVSImport" />
 			</placeholder>

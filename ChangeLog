@@ -1,3 +1,16 @@
+2004-12-23  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Mark R. Pariente  <markpariente@cmu.edu>
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
+	plugins/cvs-plugin/anjuta-cvs.ui,
+	plugins/cvs-plugin/cvs-actions.c,
+	plugins/cvs-plugin/cvs-actions.h,
+	plugins/cvs-plugin/cvs-execute.c,
+	plugins/cvs-plugin/cvs-execute.h,
+	plugins/cvs-plugin/Makefile.am,
+	plugins/cvs-plugin/plugin.c: Added cvs message highlighting.
+	Added cvs log command.
+
 2004-12-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/cvs-plugin/cvs-actions.c: Use current editor filename as 

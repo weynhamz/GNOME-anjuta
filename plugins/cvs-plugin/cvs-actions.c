@@ -324,6 +324,7 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 	GladeXML* gxml;
 	GtkWidget* dialog; 
 	GtkWidget* fileentry;
+	GtkWidget* revisionentry;
 	
 	gint result;
 	gxml = glade_xml_new(GLADE_FILE, "cvs_update", NULL);
@@ -339,6 +340,7 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 	{
 		gchar* filename;
 		gchar* command;
+		gchar* revision;
 		
 		GString* options;
 		GtkWidget* createdir;
@@ -354,9 +356,20 @@ void on_cvs_update_activate (GtkAction* action, CVSPlugin* plugin)
 		add_option(removedir, options, "-P");
 		createdir = glade_xml_get_widget(gxml, "cvs_createdir");
 		add_option(createdir, options, "-d");
-		removesticky = glade_xml_get_widget(gxml, "cvs_removesticky");
-		add_option(removesticky, options, "-A");
 
+		revisionentry = glade_xml_get_widget(gxml, "cvs_revision");
+		revision = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
+		if (strlen(revision))
+		{
+			g_string_append_printf(options, " -r %s", revision);
+		}
+		else
+		{
+			removesticky = glade_xml_get_widget(gxml, "cvs_removesticky");
+			add_option(removesticky, options, "-A");
+		}
+		g_free(revision);
+		
 		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 		if (!strlen(filename))
 			break;	
@@ -419,6 +432,8 @@ void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 		GtkWidget* revisionentry;
 		GString* options;
 
+		options = g_string_new("");
+
 		revisionentry = glade_xml_get_widget(gxml, "cvs_revision");
 		rev = g_strdup(gtk_entry_get_text(GTK_ENTRY(revisionentry)));
 		if (strlen(rev))
@@ -427,7 +442,6 @@ void on_cvs_diff_activate (GtkAction* action, CVSPlugin* plugin)
 		}
 		g_free(rev);
 		
-		options = g_string_new("");
 		norecurse = glade_xml_get_widget(gxml, "cvs_norecurse");
 		add_option(norecurse, options, "-l");
 		
@@ -531,4 +545,66 @@ void on_cvs_status_activate (GtkAction* action, CVSPlugin* plugin)
 void on_cvs_import_activate (GtkAction* action, CVSPlugin* plugin)
 {
 
+}
+
+void on_cvs_log_activate (GtkAction* action, CVSPlugin* plugin)
+{
+	GladeXML* gxml;
+	GtkWidget* dialog; 
+	GtkWidget* fileentry;
+	
+	gint result;
+	gxml = glade_xml_new(GLADE_FILE, "cvs_log", NULL);
+	
+	dialog = glade_xml_get_widget(gxml, "cvs_log");
+	fileentry = glade_xml_get_widget(gxml, "cvs_filename");
+	set_editor_filename(plugin, fileentry);
+	
+	result = gtk_dialog_run (GTK_DIALOG (dialog));
+	switch (result)
+	{
+	case GTK_RESPONSE_OK:
+	{
+		gchar* filename;
+		gchar* command;
+		GtkWidget* norecurse;
+		GtkWidget* verbose;
+		GString* options;
+
+		options = g_string_new("");
+		
+		norecurse = glade_xml_get_widget(gxml, "cvs_norecurse");
+		add_option(norecurse, options, "-l");
+		
+		verbose = glade_xml_get_widget(gxml, "cvs_verbose");
+		if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(verbose)))
+		{
+			g_string_append(options, " -h");
+		}
+		
+		filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		if (!strlen(filename))
+			break;	
+		
+		if (!is_directory(filename))
+		{
+			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
+									 NULL), "log", options->str, basename(filename));
+			cvs_execute_log(plugin, command, dirname(filename));
+		}
+		else
+		{
+			command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
+									 NULL), "log", options->str, "");
+			cvs_execute_log(plugin, command, filename);
+		}
+		g_free(command);
+		g_free(filename);
+		g_string_free(options, TRUE);
+		break;
+		}
+	default:
+		break;
+	}
+	gtk_widget_destroy (dialog);
 }

@@ -32,4 +32,7 @@ cvs_execute_status(CVSPlugin* plugin, const gchar* command, const gchar* dir);
 void
 cvs_execute_diff(CVSPlugin* plugin, const gchar* command, const gchar* dir);
 
+void
+cvs_execute_log(CVSPlugin* plugin, const gchar* command, const gchar* dir);
+
 #endif
