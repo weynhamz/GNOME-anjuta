@@ -1,3 +1,16 @@
+2002-07-18  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.am (SUBDIRS): Add m4.
+	(ACLOCAL_AMFLAGS): New variable.
+	(EXTRA_DIST): Add config.rpath.
+	* configure.in (AC_OUTPUT): Add po/Makefile.in, m4/Makefile.
+
+2002-07-17  Stephane Demurget  <demurgets@free.fr>
+
+	* */*/*.{c, cxx, h, py}:
+	* scintilla/include/Scintilla.iface: UNIXified all sources thanks to a
+	nifty script from Timothee Besset <ttimo@idsoftware.com>.
+
 2002-07-15	Naba Kumar	<kh_naba@users.sourceforge.net>
 	
 	* NEWS: Updated.

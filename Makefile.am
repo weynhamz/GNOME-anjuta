@@ -3,7 +3,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-SUBDIRS = intl po macros tagmanager global-tags scintilla \
+SUBDIRS = m4  intl po macros tagmanager global-tags scintilla \
 	widgets printing manuals omf-install pixmaps data \
 	doc launcher plugins scripts src
 
@@ -19,7 +19,7 @@ anjutadoc_DATA = \
 	ABOUT-NLS\
 	FUTURE
 
-EXTRA_DIST = \
+EXTRA_DIST = config.rpath  \
 	anjuta.desktop.in.in \
 	anjuta.spec.in \
 	xml-i18n-extract.in \
@@ -46,3 +46,5 @@ dist-hook:
 
 rpm: dist
 	rpm -ta $(distdir).tar.gz
+
+ACLOCAL_AMFLAGS = -I m4
