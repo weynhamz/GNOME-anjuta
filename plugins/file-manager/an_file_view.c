@@ -65,84 +65,19 @@ void on_file_filter_response (GtkWidget *dlg, gint res, gpointer user_data);
 void on_file_filter_close (GtkWidget *dlg, gpointer user_data);
 #endif
 
-#if 0
-static gboolean anjuta_file_iface_open(FileManagerPlugin* fv, const char* path)
-{
-	AnjutaShell* shell = ANJUTA_PLUGIN(fv)->shell;		
-	IAnjutaDocumentManager* docman = anjuta_shell_get_interface(shell, IAnjutaDocumentManager, NULL);
-	g_return_val_if_fail(docman != NULL, FALSE);
-	
-	if (IANJUTA_IS_FILE(docman))
-	{
-		ianjuta_file_open(IANJUTA_FILE(docman), path, NULL);
-	}
-	return TRUE;
-}
-
 static gboolean
-anjuta_fv_open_file (FileManagerPlugin * fv, const char *path, gboolean use_anjuta)
+anjuta_fv_open_file (FileManagerPlugin * fv, const char *path)
 {
-	gboolean status = FALSE;
-	const char *mime_type = gnome_vfs_get_mime_type(path);
-	if (use_anjuta)
-	{
-		status = anjuta_file_iface_open(fv, path);
-	}
-	else
-	{
-		GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application(mime_type);
-		if ((app) && (app->command))
-		{
-			if (NULL != strstr (app->command, "anjuta"))
-				status = anjuta_file_iface_open(fv, path);
-			else
-			{
-				char **argv = g_new(char *, 3);
-
-				argv[0] = app->command;
-				argv[1] = (char *) path;
-				argv[2] = NULL;
-
-				if (-1 == gnome_execute_async (NULL, 2, argv))
-				{
-					//anjuta_warning(_("Unable to open %s in %s"), path, app->command);
-				}
-
-				g_free(argv);
-			}
-
-			gnome_vfs_mime_application_free(app);
-			status = TRUE;
-		}
-		else
-		{
-			/*anjuta_warning(_("No default viewer specified for the mime type %s.\n"
-					"Please set it in GNOME control center"), mime_type);*/
-		}
-	}
-	return status;
-}
-
-typedef enum {
-	OPEN,
-	VIEW,
-	REFRESH,
-	CUSTOMIZE,
-	MENU_MAX
-} FVSignal;
-
-#endif
-
-
-static gboolean
-anjuta_fv_open_file (FileManagerPlugin * fv, const char *path, gboolean use_anjuta)
-{
+	gchar *uri;
 	GObject *obj;
+	
 	IAnjutaFileLoader *loader;
 	g_return_val_if_fail (path != NULL, FALSE);
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (fv)->shell,
 										 IAnjutaFileLoader, NULL);
-	obj = ianjuta_file_loader_load (loader, path, FALSE, NULL);
+	uri = gnome_vfs_get_uri_from_local_path (path);
+	obj = ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+	g_free (uri);
 	return (obj == NULL)? FALSE:TRUE;
 }
 
@@ -460,7 +395,7 @@ on_treeview_row_activated (GtkTreeView *view,
 
 	path = fv_get_selected_file_path (fv);
 	if (path)
-		anjuta_fv_open_file (fv, path, TRUE);
+		anjuta_fv_open_file (fv, path);
 	g_free (path);
 }
 
@@ -525,7 +460,7 @@ on_tree_view_event  (GtkWidget *widget,
 				{
 					gchar *path = fv_get_selected_file_path(fv);
 					if (path && !g_file_test (path, G_FILE_TEST_IS_DIR))
-						anjuta_fv_open_file (fv, path, TRUE);
+						anjuta_fv_open_file (fv, path);
 					g_free (path);
 					return TRUE;
 				}
@@ -809,15 +744,17 @@ on_file_view_row_collapsed (GtkTreeView *view,
 static void
 on_tree_view_selection_changed (GtkTreeSelection *sel, FileManagerPlugin *fv)
 {
-	gchar *filename;
+	gchar *filename, *uri;
 	GValue *value;
 	
 	filename = fv_get_selected_file_path (fv);
+	uri = gnome_vfs_get_uri_from_local_path (filename);
+	g_free (filename);
 	value = g_new0 (GValue, 1);
 	g_value_init (value, G_TYPE_STRING);
-	g_value_take_string (value, filename);
+	g_value_take_string (value, uri);
 	anjuta_shell_add_value (ANJUTA_PLUGIN(fv)->shell,
-							"file_manager_current_filename",
+							"file_manager_current_uri",
 							value, NULL);
 }
 

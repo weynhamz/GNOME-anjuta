@@ -19,4 +19,14 @@
 			</menu>
 		</placeholder>
 	</menubar>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileBuild">
+			<menu name="PopupFileBuild" action="ActionPopupBuild">
+				<menuitem name="PopupBuildCompile" action="ActionPopupBuildCompile"/>
+				<menuitem name="PopupBuildBuild" action="ActionPopupBuildBuild"/>
+				<menuitem name="PopupBuildInstall" action="ActionPopupBuildInstall"/>
+				<menuitem name="PopupBuildClean" action="ActionPopupBuildClean"/>
+			</menu>
+		</placeholder>
+	</popup>
 </ui>

@@ -1,3 +1,28 @@
+2004-09-21  Naba Kumar  <naba@gnome.org>
+
+	* plugins/Makefile.am: Deletes old (installed) plugins before
+	installing new ones.
+	
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h: Uses exported
+	file URI from filemanager. Only disables/enables build submenu in file
+	manager, instead of merging/unmerging.
+	
+	* plugins/editor/anjuta-docman.c: Fixed a crash bug when opening
+	non-text files.
+	
+	* plugins/file-loader/anjuta-loader-plugin.ui,
+	plugins/file-loader/plugin.c, plugins/file-loader/plugin.h:
+	Implemented "Open with" file manager submenu. Displays error message
+	when file can not be opened.
+	
+	* plugins/file-manager/an_file_view.c: Renamed
+	file_manager_current_filename value name to file_manager_current_uri
+	and exports proper URI.
+	
+	* plugins/gtodo/plugin.c: Display name changed to "Tasks".
+
 2004-09-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/anjuta-docman.c, plugins/editor/plugin.c,

@@ -10,6 +10,13 @@
 			</placeholder>
 		</menu>
 	</menubar>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileOpen">
+			<menuitem name="Open" action="ActionPopupOpen"/>
+			<menuitem name="OpenWith" action="ActionPopupOpenWith"/>
+			<separator/>
+		</placeholder>
+	</popup>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="Open" action="ActionFileOpen" />

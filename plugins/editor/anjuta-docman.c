@@ -438,13 +438,12 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri, const gchar *n
 	
 	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
 						  uri, name);
-	text_editor_set_popup_menu (TEXT_EDITOR (te), docman->priv->popup_menu);
-	
 	/* File cannot be loaded, texteditor brings up an error dialog */
 	if (te == NULL)
 	{
 		return NULL;
 	}
+	text_editor_set_popup_menu (TEXT_EDITOR (te), docman->priv->popup_menu);
 	
 	gtk_widget_show (te);
 	page = anjuta_docman_page_new (te, docman);

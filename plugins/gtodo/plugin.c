@@ -60,7 +60,7 @@ static GtkActionEntry actions_todo_view[] = {
 	{
 		"ActionMenuViewTodo",
 		NULL,
-		N_("_Todo manager"),
+		N_("_Tasks"),
 		NULL, NULL, NULL,
 	},
 };
@@ -104,7 +104,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GTodoPlugin *gtodo_plugin;
 	GdkPixbuf *pixbuf;
 	
-	g_message ("GTodoPlugin: Activating Todo plugin ...");
+	g_message ("GTodoPlugin: Activating Task manager plugin ...");
 	gtodo_plugin = (GTodoPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -122,18 +122,18 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* Add all our editor actions */
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupTodoView",
-										_("Todo view submenu"),
+										_("Tasks manager"),
 										actions_todo_view,
 										G_N_ELEMENTS (actions_todo_view),
 										plugin);
 	anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
-										_("Todo view operations"),
+										_("Tasks manager"),
 										actions_view,
 										G_N_ELEMENTS (actions_view),
 										plugin);
 	gtodo_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
-							 "AnjutaTodoPlugin", _("Todo Manager"),
+							 "AnjutaTodoPlugin", _("Tasks"),
 							 "gtodo", /* Icon stock */
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 	return TRUE;
@@ -143,7 +143,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("GTodoPlugin: Dectivating GTodo plugin ...");
+	g_message ("GTodoPlugin: Dectivating Tasks manager plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, ((GTodoPlugin*)plugin)->widget,
 								NULL);
 	anjuta_ui_unmerge (ui, ((GTodoPlugin*)plugin)->uiid);
