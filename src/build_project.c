@@ -74,7 +74,7 @@ build_project ()
 		}
 		anjuta_update_app_status (TRUE, _("Build Project"));
 		messages_clear (app->messages, MESSAGE_BUILD);
-		messages_append (app->messages, _("Building source directory of the project: "),
+		messages_append (app->messages, _("Building source directory of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		messages_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -111,7 +111,7 @@ build_all_project ()
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_PROJECT);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_("Unable to build project. Check Preferences->Commands."));
+			anjuta_warning (_("Unable to build Project. Check Preferences->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -126,7 +126,7 @@ build_all_project ()
 		anjuta_update_app_status (TRUE, _("Build Project"));
 		messages_clear (app->messages, MESSAGE_BUILD);
 		messages_append (app->messages,
-				 _("Building the whole project: "),
+				 _("Building the whole Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		messages_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -175,7 +175,7 @@ build_dist_project ()
 		messages_clear (app->messages, MESSAGE_BUILD);
 		messages_append (app->messages,
 				 _
-				 ("Building the distribution package of the project: "),
+				 ("Building the distribution package of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		messages_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -208,7 +208,7 @@ build_install_project ()
 		if (cmd == NULL)
 		{
 			anjuta_warning (_
-					("Unable to Install project. Check Preferences->Commands."));
+					("Unable to Install Project. Check Preferences->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -222,7 +222,7 @@ build_install_project ()
 		}
 		anjuta_update_app_status (TRUE, _("Install Project"));
 		messages_clear (app->messages, MESSAGE_BUILD);
-		messages_append (app->messages, _("Installing the project: "),
+		messages_append (app->messages, _("Installing the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		messages_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -263,7 +263,7 @@ build_autogen_project ()
 			if (cmd == NULL)
 			{
 				anjuta_warning (_
-						("Unable to autogenerate. Check Preferences->Commands."));
+						("Unable to auto generate. Check Preferences->Commands."));
 				return;
 			}
 		}
@@ -277,7 +277,7 @@ build_autogen_project ()
 		anjuta_update_app_status (TRUE, _("Autogen Project"));
 		messages_clear (app->messages, MESSAGE_BUILD);
 		messages_append (app->messages,
-				 _("Autogenerating the project: "),
+				 _("Auto generating the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		messages_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -335,18 +335,18 @@ build_all_terminated (int status, time_t time)
 	{
 		messages_append (app->messages,
 				 _
-				 ("Build all completed...............Unsuccessful\n"),
+				 ("Build All completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
 		anjuta_warning (_
-				("Build all completed...............Unsuccessful"));
+				("Build All completed...............Unsuccessful"));
 	}
 	else
 	{
 		messages_append (app->messages,
 				 _
-				 ("Build all completed...............Successful\n"),
+				 ("Build All completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Build all completed ... successful"));
+		anjuta_status (_("Build All completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),
@@ -436,18 +436,18 @@ build_autogen_terminated (int status, time_t time)
 	{
 		messages_append (app->messages,
 				 _
-				 ("Autogenaration completed...............Unsuccessful\n"),
+				 ("Auto generation completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
 		anjuta_warning (_
-				("Autogenaration completed ... unsuccessful"));
+				("Auto generation completed ... unsuccessful"));
 	}
 	else
 	{
 		messages_append (app->messages,
 				 _
-				 ("Autogenaration completed...............Successful\nNow Configure the Project.\n"),
+				 ("Auto generation completed...............Successful\nNow Configure the Project.\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Autogenaration completed ... successful"));
+		anjuta_status (_("Auto generation completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),

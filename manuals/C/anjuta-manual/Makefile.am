@@ -43,12 +43,7 @@ figs = \
 	figures/toolbar_tags.png\
 	figures/warnings.png\
 	figures/watch_add.png\
-	figures/watch.png\
-	stylesheet-images/caution.gif\
-	stylesheet-images/important.gif\
-	stylesheet-images/note.gif\
-	stylesheet-images/tip.gif\
-	stylesheet-images/warning.gif
+	figures/watch.png
 
 sgml_ents =\
 	chapter01.sgml\

@@ -41,25 +41,25 @@ static GnomeUIInfo file1_menu_uiinfo[] = {
 	 GDK_N, GDK_MOD1_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Open ..."),
-	 N_("Open Text File"),
+	 N_("Open file"),
 	 on_open1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
 	 GDK_O, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Save"),
-	 N_("Save Current File"),
+	 N_("Save current file"),
 	 on_save1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
 	 GDK_S, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Save _As ..."),
-	 N_("Save the current file to a different file"),
+	 N_("Save the current file with a different name"),
 	 on_save_as1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE_AS,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Save A_ll"),
-	 N_("Save all currently opened files, except new files"),
+	 N_("Save all currently open files, except new files"),
 	 on_save_all1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
 	 GDK_L, GDK_CONTROL_MASK, NULL},
@@ -287,7 +287,7 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	
 	{
 	 GNOME_APP_UI_ITEM, N_("_AutoComplete"),
-	 N_("Auto complete the current word"),
+	 N_("AutoComplete the current word"),
 	 on_autocomplete1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_Return, GDK_CONTROL_MASK, NULL},
@@ -303,21 +303,21 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	
 	{
 	 GNOME_APP_UI_ITEM, N_("_Find ..."),
-	 N_("Search a string or regexp in the editor"),
+	 N_("Search for a string or regexp in the editor"),
 	 on_find1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 GDK_F, GDK_MOD1_MASK, NULL},
 	
 	{
 	 GNOME_APP_UI_ITEM, N_("Fin_d in files ..."),
-	 N_("Search a string in multiple files or directories"),
+	 N_("Search for a string in multiple files or directories"),
 	 on_find_in_files1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	
 	{
 	GNOME_APP_UI_ITEM, N_("Find and R_eplace ..."),
-	N_("Search and replace a string or regexp with another string"),
+	N_("Search for and replace a string or regexp with another string"),
 	on_find_and_replace1_activate, NULL, NULL,
 	GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SRCHRPL,
 	GDK_R, GDK_MOD1_MASK, NULL},
@@ -334,8 +334,8 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	
 	{
-	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUIs ..."),
-	 N_("Edit your application GUIs with Glade GUI editor"),
+	 GNOME_APP_UI_ITEM, N_("Ed_it Application GUI ..."),
+	 N_("Edit application GUI with the Glade GUI editor"),
 	 on_edit_app_gui1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_E, GDK_MOD1_MASK, NULL},
@@ -346,42 +346,42 @@ static GnomeUIInfo edit1_menu_uiinfo[] = {
 static GnomeUIInfo toolbar1_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Main Toolbar"),
-	 N_("Hide/Unhide main toolbar"),
+	 N_("Hide/Unhide Main toolbar"),
 	 on_main_toolbar1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BLANK,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Extended Toolbar"),
-	 N_("Hide/Unhide extended toolbar"),
+	 N_("Hide/Unhide Extended toolbar"),
 	 on_extended_toolbar1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Tags Toolbar"),
-	 N_("Hide/Unhide tags toolbar"),
+	 N_("Hide/Unhide Tags toolbar"),
 	 on_tags_toolbar1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Debug Toolbar"),
-	 N_("Hide/Unhide debug toolbar"),
+	 N_("Hide/Unhide Debug toolbar"),
 	 on_debug_toolbar1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Browser Toolbar"),
-	 N_("Hide/Unhide browser toolbar"),
+	 N_("Hide/Unhide Browser toolbar"),
 	 on_browser_toolbar1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Format Toolbar"),
-	 N_("Hide/Unhide format toolbar"),
+	 N_("Hide/Unhide Format toolbar"),
 	 on_format_toolbar1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -391,37 +391,37 @@ static GnomeUIInfo toolbar1_submenu_uiinfo[] = {
 static GnomeUIInfo editor1_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Line numbers margin"),
-	 N_("Show/Hide Line numbers"),
+	 N_("Show/Hide line numbers"),
 	 on_editor_linenos1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BLANK,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Markers Margin"),
-	 N_("Show/Hide Markers margins"),
+	 N_("Show/Hide markers margin"),
 	 on_editor_markers1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Code fold margin"),
-	 N_("Show/Hide Code fold margin"),
+	 N_("Show/Hide code fold margin"),
 	 on_editor_codefold1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Indentation guides"),
-	 N_("Show/Hide Indentation guides"),
+	 N_("Show/Hide undentation guides"),
 	 on_editor_indentguides1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_White spaces"),
-	 N_("Show/Hide White spaces"),
+	 N_("Show/Hide white spaces"),
 	 on_editor_whitespaces1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_TOGGLEITEM, N_("_Line end characters"),
-	 N_("Hide/Unhide debug toolbar"),
+	 N_("Show/Hide line end characters"),
 	 on_editor_eolchars1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -431,7 +431,7 @@ static GnomeUIInfo editor1_submenu_uiinfo[] = {
 static GnomeUIInfo zoom_text1_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("++ Zoom"),
-	 N_("Zoom text size by 1 unit"),
+	 N_("Increase text zoom by 1 unit"),
 	 on_zoom_text_plus_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -491,7 +491,7 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("-- Zoom"),
-	 N_("Unzoom text size by 1 unit"),
+	 N_("Reduce text zoom by 1 unit"),
 	 on_zoom_text_minus_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -501,19 +501,19 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[] = {
 static GnomeUIInfo view1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_Messages"),
-	 N_("Show/Hide the message window"),
+	 N_("Show/Hide the Message window"),
 	 on_messages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 GDK_F1, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Project Listing"),
-	 N_("Show/Hide the project window"),
+	 N_("Show/Hide the Project window"),
 	 on_project_listing1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 GDK_F2, GDK_CONTROL_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("B_ookmarks"),
-	 N_("Show the bookmark window"),
+	 N_("Show the Bookmark window"),
 	 on_bookmarks1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F3, GDK_CONTROL_MASK, NULL},
@@ -630,7 +630,7 @@ static GnomeUIInfo import_file1_menu_uiinfo[] = {
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
-	 GNOME_APP_UI_ITEM, N_("Doc file"),
+	 GNOME_APP_UI_ITEM, N_("Documentation file"),
 	 NULL,
 	 on_project_doc_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -654,7 +654,7 @@ static GnomeUIInfo project1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Remove"),
-	 NULL,
+	 N_("Remove the current file from the project"),
 	 on_project_remove1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -838,7 +838,7 @@ static GnomeUIInfo hilitetype1_submenu_uiinfo[] = {
 static GnomeUIInfo format1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Auto _Format"),
-	 N_("This will autoformat C and C++ source files"),
+	 N_("Autoformat C and C++ source files"),
 	 on_indent1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ALIGN_LEFT,
 	 0, 0, NULL},
@@ -857,7 +857,7 @@ static GnomeUIInfo format1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("_Update tags image"),
-	 N_("This will update the tags image of the project/opened files"),
+	 N_("Update the tags image of the project/opened files"),
 	 on_update_tags1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_FONT,
 	 0, 0, NULL},
@@ -890,7 +890,7 @@ static GnomeUIInfo format1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("D_etach Current Document"),
-	 N_("Detach the current editor into a seperate window"),
+	 N_("Detach the current editor into a separate window"),
 	 on_detach1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -921,7 +921,7 @@ static GnomeUIInfo build1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("_Install"),
-	 N_("Install the project in your computer"),
+	 N_("Install the project on your system"),
 	 on_install_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -947,7 +947,7 @@ static GnomeUIInfo build1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Clea_n"),
-	 N_("Clean your source directory"),
+	 N_("Clean the source directory"),
 	 on_clean_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1031,19 +1031,19 @@ static GnomeUIInfo execution1_submenu_uiinfo[] = {
 	 GDK_F4, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Step _In"),
-	 N_("Single step into functions"),
+	 N_("Single step into function"),
 	 on_execution_step_in1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F5, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Step O_ver"),
-	 N_("Single step over functions"),
+	 N_("Single step over function"),
 	 on_execution_step_over1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F6, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Step _Out"),
-	 N_("Single step out of the functions"),
+	 N_("Single step out of the function"),
 	 on_execution_step_out1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F7, 0, NULL},
@@ -1078,13 +1078,13 @@ static GnomeUIInfo breakpoints1_submenu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Disable all Breakpoints"),
-	 N_("This will deactivate all the breakpoints"),
+	 N_("Deactivate all breakpoints"),
 	 on_disable_all_breakpoints1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("C_lear all Breakpoints"),
-	 N_("This will delete all the breakpoints"),
+	 N_("Delete all breakpoints"),
 	 on_clear_breakpoints1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
 	 0, 0, NULL},
@@ -1094,49 +1094,49 @@ static GnomeUIInfo breakpoints1_submenu_uiinfo[] = {
 static GnomeUIInfo info1_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Target Files"),
-	 N_("The files which the debugger is active with"),
+	 N_("Display information on the files the debugger is active with"),
 	 on_info_targets_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Program"),
-	 N_("Get the information about the execution status of the program"),
+	 N_("Display information on the execution status of the program"),
 	 on_info_program_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Kernel User Struct"),
-	 N_("Get the contents of kernel 'struct user' for current child"),
+	 N_("Display the contents of kernel 'struct user' for current child"),
 	 on_info_udot_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Threads"),
-	 N_("Get the IDs of currently known threads"),
+	 N_("Display the IDs of currently known threads"),
 	 on_info_threads_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Global variables"),
-	 N_("All the global and static variables of the program"),
+	 N_("Display all global and static variables of the program"),
 	 on_info_variables_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Local variables"),
-	 N_("All the local variables of the current frame"),
+	 N_("Display local variables of the current frame"),
 	 on_info_locals_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info _Current Frame"),
-	 N_("Show the information about the current frame of execution"),
+	 N_("Display information about the current frame of execution"),
 	 on_info_frame_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_BLUE,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Info Function _Arguments"),
-	 N_("Function arguments of the current frame"),
+	 N_("Display function arguments of the current frame"),
 	 on_info_args_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1165,7 +1165,7 @@ static GnomeUIInfo debug1_menu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Attach to Process ..."),
-	 N_("Attach to an already running program"),
+	 N_("Attach to a running program"),
 	 on_debugger_attach_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ATTACH,
 	 0, 0, NULL},
@@ -1178,26 +1178,26 @@ static GnomeUIInfo debug1_menu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("S_top Program"),
-	 N_("Stop the debugging program"),
+	 N_("Stop the program being debugged"),
 	 on_debugger_stop_prog_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_STOP,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Detach Debugger"),
-	 N_("Detach the program if you have attached to it"),
+	 N_("Detach from an attached program"),
 	 on_debugger_detach_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("I_nterrupt Program"),
-	 N_("Interrupt the program execution"),
+	 N_("Interrupt execution of the program"),
 	 on_debugger_interrupt_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F1, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Si_gnal to Process"),
-	 N_("Send a kernel signal to the debugging process"),
+	 N_("Send a kernel signal to the process being debugged"),
 	 on_debugger_signal_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1327,7 +1327,7 @@ static GnomeUIInfo windows1_menu_uiinfo[] = {
 static GnomeUIInfo settings1_menu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("_Compiler and Linker Settings ..."),
-	 N_("Settings that are meant for compiler and linker"),
+	 N_("Settings for the compiler and linker"),
 	 on_set_compiler1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
 	 0, 0, NULL},
@@ -1383,32 +1383,32 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Anjuta Home site"),
-	 N_("On-line documentations and resources"),
+	 N_("Online documentation and resources"),
 	 on_url_activate, "http://anjuta.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Libraries API references"),
-	 N_("On-line Library references for gdk, glib, gnome etc.."),
+	 N_("Online reference library for GDK, GLib, GNOME etc.."),
 	 on_url_activate, "http://www.lidn.org", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Report Bugs"),
-	 N_("Submit a bug report for anjuta."),
+	 N_("Submit a bug report for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Request Features"),
-	 N_("Submit a feature request for anjtua"),
+	 N_("Submit a feature request for Anjtua"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Submit patches"),
-	 N_("Submit patches for anjuta"),
+	 N_("Submit patches for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},

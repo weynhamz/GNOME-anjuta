@@ -42,14 +42,20 @@ AC_SUBST(SCROLLKEEPER_REQUIRED)
 
 
 dnl Checks for libraries.
-dnl FIXME: Check for libdb1.a
-AC_CHECK_LIB(db1,main)
 
 
 dnl Checks for header files.
+
+
 dnl Checks for typedefs, structures, and compiler characteristics.
+
+
 dnl Checks for library functions.
+
+
 dnl Checks for Additional stuffs.
+
+
 
 dnl Languages which your application supports
 ALL_LINGUAS="es fr it ja tr"

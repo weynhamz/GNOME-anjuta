@@ -117,7 +117,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	toolbar_open =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Open"), _("Open Text File"),
+					    _("Open"), _("Open file"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_open);
@@ -130,7 +130,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	toolbar_save =
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
-					    _("Save"), _("Save Current File"),
+					    _("Save"), _("Save current file"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_save);
@@ -143,7 +143,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Save All"),
 					    _
-					    ("Save all currently opened Files, execpt Newfiles"),
+					    ("Save all currently open files, except new files"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_save_all);
@@ -155,7 +155,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Close"),
-					    _("Close Current File"), NULL,
+					    _("Close current file"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_close);
 	gtk_widget_show (toolbar_close);
@@ -166,7 +166,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Reload"),
-					    _("Reload Current File"), NULL,
+					    _("Reload current file"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_reload);
 	gtk_widget_show (toolbar_reload);
@@ -190,7 +190,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Redo"),
-					    _("Redo the last udone action"),
+					    _("Redo the last undone action"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_redo);
@@ -216,7 +216,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Print"),
-					    _("Print the current File"), NULL,
+					    _("Print the current file"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_print);
 	gtk_widget_show (toolbar_print);
@@ -229,7 +229,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Find"),
-					    _("Search the given string"),
+					    _("Search for the given string in the current file"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_find);
@@ -247,7 +247,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_widget_show (toolbar_find_entry);
 	gtk_tooltips_set_tip (tooltips, toolbar_find_entry,
 			      _
-			      ("Enter the string to be searched in the current file"),
+			      ("Enter the string to search for"),
 			      NULL);
 
 	gtk_toolbar_append_space (GTK_TOOLBAR (toolbar1));
@@ -258,7 +258,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Go To"),
-					    _("Go to the given line number"),
+					    _("Go to the given line number in the current file"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_goto);
@@ -269,7 +269,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 	gtk_widget_show (toolbar_line_entry);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), toolbar_line_entry,
 				   _
-				   ("Enter the line no. to go in the current file"),
+				   ("Enter the line number to go to"),
 				   NULL);
 	gtk_widget_set_usize (toolbar_line_entry, 53, -2);
 
@@ -281,7 +281,7 @@ create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar1),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Project"),
-					    _("Project Listing"), NULL,
+					    _("Show/Hide the Project window"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_project);
 	gtk_widget_show (toolbar_project);
@@ -464,7 +464,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Configure"),
-					    _("Run Configure"), NULL,
+					    _("Run configure"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_configure);
 	gtk_widget_show (toolbar_configure);
@@ -476,7 +476,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Build"),
 					    _
-					    ("Build current File or Build the source directory of the Project"),
+					    ("Build current file, or build the source directory of the Project"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_build);
@@ -501,7 +501,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Execute"),
-					    _("Execute the Program"), NULL,
+					    _("Execute the program"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_exec);
 	gtk_widget_show (toolbar_exec);
@@ -523,7 +523,7 @@ create_extended_toolbar (GtkWidget * anjuta_gui, ExtendedToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Stop"),
-					    _("Stop Compile or Build"), NULL,
+					    _("Stop/interrupt compile or build"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_stop);
 	gtk_widget_show (toolbar_stop);
@@ -604,7 +604,7 @@ create_tags_toolbar (GtkWidget * anjuta_gui, TagsToolbar * toolbar)
 	gtk_widget_ref (optionmenu1);
 	gtk_widget_show (optionmenu1);
 	gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar1), optionmenu1,
-				   _("Tag Type"), NULL);
+				   _("Select the type of tag"), NULL);
 	optionmenu1_menu = create_tag_menu ();
 
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (optionmenu1),
@@ -970,7 +970,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Step Over"),
-					    _("step over the function"), NULL,
+					    _("Step over the function"), NULL,
 					    tmp_toolbar_icon, NULL, NULL);
 	gtk_widget_ref (toolbar_step_over);
 	gtk_widget_show (toolbar_step_over);
@@ -981,7 +981,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar3),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Step Out"),
-					    _("step out of the function"),
+					    _("Step out of the function"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_step_out);
@@ -996,7 +996,7 @@ create_debug_toolbar (GtkWidget * anjuta_gui, DebugToolbar * toolbar)
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Interrupt"),
 					    _
-					    ("Interrupt the Program execution"),
+					    ("Interrupt execution of the program"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (toolbar_interrupt);
@@ -1270,7 +1270,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Autoformat"),
 					    _
-					    ("Automatically format the codes"),
+					    ("Automatically format the code"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (button8);
@@ -1283,7 +1283,7 @@ create_format_toolbar (GtkWidget * anjuta_gui, FormatToolbar * toolbar)
 		gtk_toolbar_append_element (GTK_TOOLBAR (toolbar2),
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Format style"),
-					    _("Select autoformat style"),
+					    _("Configure style to use for auto format"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_ref (button9);

@@ -976,7 +976,7 @@ create_project_confirm_dlg ()
 
 	mesgbox = gnome_message_box_new (
 		_("Project is not saved.\n"
-		"Doy you want to save it before closing?"),
+		"Do you want to save it before closing?"),
 	       GNOME_MESSAGE_BOX_QUESTION, NULL);
 	gtk_window_set_policy (GTK_WINDOW (mesgbox), FALSE, FALSE, FALSE);
 	dialog_vbox9 = GNOME_DIALOG (mesgbox)->vbox;

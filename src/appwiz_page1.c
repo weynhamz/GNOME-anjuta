@@ -127,23 +127,23 @@ create_app_wizard_page1 (AppWizard * aw)
 
   if (icon1_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon1_file, _("Generic/Terminal-based Project"));
+			  icon1_file, _("Generic/Terminal project"));
 
   if (icon2_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon2_file, _("GTK-based Project"));
+			  icon2_file, _("GTK project"));
 
   if (icon3_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon3_file, _("GNOME-based Project Project"));
+			  icon3_file, _("GNOME project"));
 
   if (icon4_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
-			  icon4_file, _("GTK-- based project"));
+			  icon4_file, _("GTK-- project"));
   
   if (icon5_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
- 			  icon5_file, _("GNOME-- based project"));
+ 			  icon5_file, _("GNOME-- project"));
   
   if (icon6_file)
 	  gnome_icon_list_append (GNOME_ICON_LIST (iconlist1),
