@@ -113,7 +113,10 @@ create_app_wizard_gui (AppWizard * aw)
 	gtk_widget_show (druid_vbox2);
 	
 	druidpagestandard3 = create_project_description_page(GNOME_DRUID(druid1),
-			&aw->widgets.description_text, NULL, NULL, NULL);
+			&aw->widgets.description_text, 
+			&aw->widgets.target_exec_radio,
+			&aw->widgets.target_slib_radio,
+			&aw->widgets.target_dlib_radio);
 	druid_vbox3 = GNOME_DRUID_PAGE_STANDARD (druidpagestandard3)->vbox;
 	gtk_widget_show(druid_vbox3);
 	

@@ -114,11 +114,11 @@ app_wizard_destroy (AppWizard * aw)
 	gtk_widget_unref (aw->widgets.language_c_radio);
 	gtk_widget_unref (aw->widgets.language_cpp_radio);
 	gtk_widget_unref (aw->widgets.language_c_cpp_radio);
-#if 0
+	
 	gtk_widget_unref (aw->widgets.target_exec_radio);
 	gtk_widget_unref (aw->widgets.target_slib_radio);
 	gtk_widget_unref (aw->widgets.target_dlib_radio);
-#endif
+
 	if (GTK_IS_WIDGET (aw->widgets.window))
 		gtk_widget_destroy (aw->widgets.window);
 	string_assign (&aw->prj_name, NULL);

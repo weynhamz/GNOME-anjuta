@@ -110,7 +110,18 @@ on_druidpagestandard2_next (GnomeDruidPage *
 
 	aw = user_data;
 	g_return_val_if_fail (aw != NULL, FALSE);
-
+	
+	if (aw->prj_type != PROJECT_TYPE_GENERIC)
+	{
+		gtk_widget_set_sensitive(aw->widgets.target_slib_radio, FALSE);
+		gtk_widget_set_sensitive(aw->widgets.target_dlib_radio, FALSE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive(aw->widgets.target_slib_radio, TRUE);
+		gtk_widget_set_sensitive(aw->widgets.target_dlib_radio, TRUE);
+	}
+	
 	error_no = 0;
 	/*
 	 * Check for valid Project name
@@ -229,6 +240,11 @@ on_druidpagestandard4_next (GnomeDruidPage *
 	AppWizard *aw;
 	gchar *text, *gt_support, *icon;
 	aw = user_data;
+	if (aw->target_type != PROJECT_TARGET_TYPE_EXECUTABLE)
+	{
+		aw->target = g_strconcat("lib", aw->target, NULL);
+	}
+	
 	icon =
 		gnome_icon_entry_get_filename (GNOME_ICON_ENTRY
 					       (aw->widgets.icon_entry));

@@ -33,7 +33,6 @@
 #include "appwizard_cbs.h"
 #include "pixmaps.h"
 
-#if 0
 static void
 on_target_exec_toggled                 (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
@@ -69,29 +68,21 @@ on_target_dlib_toggled                 (GtkToggleButton *togglebutton,
 	if (gtk_toggle_button_get_active(togglebutton))
 		aw->target_type = PROJECT_TARGET_TYPE_DYNAMIC_LIB;
 }
-#endif
 
 void
 create_app_wizard_page3 (AppWizard * aw)
 {
-#if 0 /* Not implemented yet */
-	gtk_signal_connect (GTK_OBJECT (radiobutton1), "toggled",
-		      GTK_SIGNAL_FUNC (on_target_exec_toggled),
+	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_exec_radio),
+			"toggled", GTK_SIGNAL_FUNC (on_target_exec_toggled),
 		      aw);
-	gtk_signal_connect (GTK_OBJECT (radiobutton2), "toggled",
-		      GTK_SIGNAL_FUNC (on_target_slib_toggled),
+	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_slib_radio),
+			"toggled", GTK_SIGNAL_FUNC (on_target_slib_toggled),
 		      aw);
-	gtk_signal_connect (GTK_OBJECT (radiobutton3), "toggled",
-		      GTK_SIGNAL_FUNC (on_target_dlib_toggled),
+	gtk_signal_connect (GTK_OBJECT (aw->widgets.target_dlib_radio), 
+			"toggled", GTK_SIGNAL_FUNC (on_target_dlib_toggled),
 		      aw);
-#endif
 	gtk_widget_ref (aw->widgets.description_text);
-#if 0	
-	aw->widgets.target_exec_radio = radiobutton1;
-	gtk_widget_ref (radiobutton1);
-	aw->widgets.target_slib_radio = radiobutton2;
-	gtk_widget_ref (radiobutton2);
-	aw->widgets.target_dlib_radio = radiobutton3;
-	gtk_widget_ref (radiobutton3);
-#endif
-}
+	gtk_widget_ref (aw->widgets.target_exec_radio);
+	gtk_widget_ref (aw->widgets.target_slib_radio);
+	gtk_widget_ref (aw->widgets.target_dlib_radio);
+}	

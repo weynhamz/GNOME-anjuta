@@ -244,6 +244,11 @@ source_write_configure_in (ProjectDBase * data)
 	}
 	fprintf(fp, "AM_PROG_CC_STDC\n"
 		 "AC_HEADER_STDC\n");
+	if (project_dbase_get_source_target != 
+		PROJECT_TARGET_TYPE_EXECUTABLE)
+	{
+		fprintf (fp, "AM_PROG_LIBTOOL\n");
+	}
  	fprintf(fp, type->configure_macros);
 	fprintf (fp, "\n");
 	project_config_write_scripts (data->project_config, fp);
@@ -770,16 +775,181 @@ source_write_executable_source_files (ProjectDBase * data)
 static gboolean
 source_write_static_lib_source_files (ProjectDBase * data)
 {
-	g_return_val_if_fail (data != NULL, FALSE);
+	FILE *fp;
+	gchar *src_dir, *filename, *actual_file, *target;
+	Project_Type* type;
+	gint lang;
 	
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	type = project_dbase_get_project_type(data);
+
+	if (project_dbase_module_is_empty (data, MODULE_SOURCE))
+		return TRUE;
+	
+	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
+	force_create_dir (src_dir);
+	g_free (src_dir);
+
+	src_dir = project_dbase_get_module_name (data, MODULE_SOURCE);
+	filename = get_a_tmp_file();
+	actual_file =	g_strconcat (data->top_proj_dir, "/", src_dir, "/Makefile.am", NULL);
+	g_free (src_dir);
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		free_project_type(type);
+		g_free (actual_file);
+		return FALSE;
+	}
+
+	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
+	source_write_no_modify_warning (data, fp);
+	/* If the project directory is the source directory, we need to output
+	 * SUBDIRS here. */
+	/* Fixed bug #460321 "Problem with optimization options" by separating 
+	   INCLUDE AND C(XX)FLAGS. Johannes Schmid 3.2.2002 */ 
+	
+	fprintf (fp, "INCLUDES =");
+	fprintf (fp, type->cflags);
+	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	
+	lang = project_dbase_get_language(data);
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
+		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
+	{
+		fprintf (fp, "CFLAGS =");
+		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+		fprintf (fp, "\n\n");
+	}
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
+		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
+	{
+		fprintf (fp, "CXXFLAGS =");
+		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+		fprintf (fp, "\n\n");
+	}
+	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	fprintf (fp, "lib_LIBRARIES = %s%s\n\n", target, ".a");
+	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "a");
+	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
+
+	/* automake says that this is invalid */
+	/* fprintf (fp, "%s_%s_LDFLAGS = ", target, "a");*/
+	compiler_options_set_prjlflags_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	
+	fprintf (fp, "%s_%s_LIBADD = ", target, "a");
+	fprintf (fp, type->ldadd);
+	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	fclose (fp);
+	
+	if (move_file_if_not_same(filename, actual_file) == FALSE)
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
+	
+	g_free (actual_file);
+	g_free (target);
+	free_project_type(type);
+	g_free (filename);
 	return TRUE;
 }
 
 static gboolean
 source_write_dynamic_lib_source_files (ProjectDBase * data)
 {
-	g_return_val_if_fail (data != NULL, FALSE);
+	FILE *fp;
+	gchar *src_dir, *filename, *actual_file, *target;
+	Project_Type* type;
+	gint lang;
 	
+	g_return_val_if_fail (data != NULL, FALSE);
+
+	type = project_dbase_get_project_type(data);
+
+	if (project_dbase_module_is_empty (data, MODULE_SOURCE))
+		return TRUE;
+	
+	src_dir = project_dbase_get_module_dir (data, MODULE_SOURCE);
+	force_create_dir (src_dir);
+	g_free (src_dir);
+
+	src_dir = project_dbase_get_module_name (data, MODULE_SOURCE);
+	filename = get_a_tmp_file();
+	actual_file =	g_strconcat (data->top_proj_dir, "/", src_dir, "/Makefile.am", NULL);
+	g_free (src_dir);
+
+	fp = fopen (filename, "w");
+	if (fp == NULL)
+	{
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
+		g_free (filename);
+		free_project_type(type);
+		g_free (actual_file);
+		return FALSE;
+	}
+
+	fprintf (fp,"## Process this file with automake to produce Makefile.in\n\n");
+	source_write_no_modify_warning (data, fp);
+	/* If the project directory is the source directory, we need to output
+	 * SUBDIRS here. */
+	/* Fixed bug #460321 "Problem with optimization options" by separating 
+	   INCLUDE AND C(XX)FLAGS. Johannes Schmid 3.2.2002 */ 
+	
+	fprintf (fp, "INCLUDES =");
+	fprintf (fp, type->cflags);
+	compiler_options_set_prjincl_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	
+	lang = project_dbase_get_language(data);
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_C ||
+		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
+	{
+		fprintf (fp, "CFLAGS =");
+		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+		fprintf (fp, "\n\n");
+	}
+	if (lang == PROJECT_PROGRAMMING_LANGUAGE_CPP ||
+		lang == PROJECT_PROGRAMMING_LANGUAGE_C_CPP)
+	{
+		fprintf (fp, "CXXFLAGS =");
+		compiler_options_set_prjcflags_in_file (app->compiler_options, fp);
+		fprintf (fp, "\n\n");
+	}
+	
+	target =
+		prop_get (data->props, "project.source.target");
+	g_strdelimit (target, "-", '_');
+	fprintf (fp, "lib_LTLIBRARIES = %s%s\n\n", target, ".la");
+	fprintf (fp, "%s_%s_SOURCES = \\\n", target, "la");
+	source_write_module_file_list (data, fp, TRUE, NULL, MODULE_SOURCE);
+
+	fprintf (fp, "%s_%s_LDFLAGS = ", target, "la");
+	/* If any equivalent for this could be done in type->... */
+	/* fprintf (fp, type->ldadd); */
+	compiler_options_set_prjlflags_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	
+	fprintf (fp, "%s_%s_LIBADD = ", target, "la");
+	fprintf (fp, type->ldadd);
+	compiler_options_set_prjlibs_in_file (app->compiler_options, fp);
+	fprintf (fp, "\n\n");
+	fclose (fp);
+	
+	if (move_file_if_not_same(filename, actual_file) == FALSE)
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
+	
+	g_free (actual_file);
+	g_free (target);
+	free_project_type(type);
+	g_free (filename);
 	return TRUE;
 }
 
