@@ -1,3 +1,10 @@
+2003-11-11  Naba Kumar  <naba@gnome.org>
+
+	* src/glade_iface.c: Avoids error conditions for glade or glademm not
+	found. It simply doesn't generate the c/c++ codes and continues with
+	just a warning.
+	* NEWS: Updated.
+	
 2003-11-10  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade, anjuta_dialogs_strings.c: Fixed typos in
