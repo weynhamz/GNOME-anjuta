@@ -7,6 +7,8 @@
 	  compiler_options_set_prjlflags_in_file();
 	
 	* src/source.c: projects/src/Makefile.am now have LDFLAGS set.
+	
+	* src/compiler_options_gui.c: Trimmed some UI for the 'others' page.
 	  
 2001-10-26	Andy Piper	<andy.piper@freeuk.com>
 

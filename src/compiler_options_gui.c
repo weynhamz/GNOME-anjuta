@@ -1077,7 +1077,6 @@ create_compiler_options_page7 (CompilerOptions * co)
 	GtkWidget *entry2;
 	GtkWidget *entry3;
 	GtkWidget *checkbutton[2];
-	GtkWidget *hseparator2;
 	gint i;
 
 	frame = gtk_frame_new (NULL);
@@ -1102,26 +1101,24 @@ create_compiler_options_page7 (CompilerOptions * co)
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[1], FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[1]), 5);
 
-	hseparator2 = gtk_hseparator_new ();
-	gtk_widget_show (hseparator2);
-	gtk_box_pack_start (GTK_BOX (vbox1), hseparator2, TRUE, TRUE, 0);
-
 	frame1 = gtk_frame_new (_("Additional Options"));
 	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox1), frame1, FALSE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
 
 	table1 = gtk_table_new(3, 2, FALSE);
 	gtk_widget_show (table1);
+	gtk_container_set_border_width (GTK_CONTAINER (table1), 5);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 5);
-	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 5);
 	gtk_container_add (GTK_CONTAINER (frame1), table1);
 	
 	label1 = gtk_label_new("Compiler flags:");
 	gtk_widget_show (label1);
+	gtk_misc_set_alignment (GTK_MISC (label1), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label1, 0, 1, 0, 1,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+			  (GtkAttachOptions) 0,
+			  (GtkAttachOptions) 0, 0, 0);
 	
 	entry1 = gtk_entry_new ();
 	gtk_widget_show (entry1);
@@ -1131,9 +1128,10 @@ create_compiler_options_page7 (CompilerOptions * co)
 	
 	label2 = gtk_label_new("Linker flags:");
 	gtk_widget_show (label2);
+	gtk_misc_set_alignment (GTK_MISC (label2), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label2, 0, 1, 1, 2,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+			  (GtkAttachOptions) 0,
+			  (GtkAttachOptions) 0, 0, 0);
 	
 	entry2 = gtk_entry_new ();
 	gtk_widget_show (entry2);
@@ -1143,9 +1141,10 @@ create_compiler_options_page7 (CompilerOptions * co)
 
 	label3 = gtk_label_new("Additional libraries:");
 	gtk_widget_show (label3);
+	gtk_misc_set_alignment (GTK_MISC (label3), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label3, 0, 1, 2, 3,
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-			  (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+			  (GtkAttachOptions) 0,
+			  (GtkAttachOptions) 0, 0, 0);
 	
 	entry3 = gtk_entry_new ();
 	gtk_widget_show (entry3);
