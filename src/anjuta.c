@@ -262,6 +262,9 @@ anjuta_append_text_editor (gchar * filename)
 		gtk_notebook_prepend_page (GTK_NOTEBOOK
 					   (app->widgets.notebook), eventbox,
 					   tab_widget);
+		gtk_notebook_set_menu_label_text(GTK_NOTEBOOK
+						(app->widgets.notebook), eventbox,
+						te->filename);
 
 		gtk_container_add (GTK_CONTAINER (eventbox),
 				   te->widgets.client);

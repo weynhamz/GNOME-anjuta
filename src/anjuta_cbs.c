@@ -307,6 +307,11 @@ on_save_as_overwrite_yes_clicked (GtkButton * button, gpointer user_data)
 			label = GTK_LABEL(te->widgets.tab_label);
 			gtk_label_set_text(GTK_LABEL(label), anjuta_get_notebook_text_editor
 							 (page_num)->filename);
+
+			gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(app->widgets.notebook),
+							child,
+							anjuta_get_notebook_text_editor
+							(page_num)->filename);
 		}
 	}
 	anjuta_update_title ();
