@@ -1,3 +1,8 @@
+2001-08-07  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/text_editor_menu.c: Added menu item for context help
+	  (patch from Andy Piper <squiggle@ukgateway.net>)
+	
 2001-08-06  Stephane Demurget <demurgets@free.fr>
 
 	* ccview/cccproj.cc: added missing i18n strings.
@@ -5,7 +10,6 @@
 	* data/welcome.txt: bumped version to 0.1.6.
 
 	* src/anjuta.c: fixed a compilation error due to devhelp integration.
-
 
 2001-08-06  Naba Kumar <kh_naba@users.sourceforge.net>
 	
