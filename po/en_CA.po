@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-16 12:02-0500\n"
-"PO-Revision-Date: 2005-03-16 12:57-0400\n"
+"POT-Creation-Date: 2005-03-22 03:15-0500\n"
+"PO-Revision-Date: 2005-03-22 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -532,7 +532,7 @@ msgstr "Open existing Project."
 msgid "Open existing file or create a new file."
 msgstr "Open existing file or create a new file."
 
-#: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:303
+#: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:320
 #: ../plugins/file-loader/plugin.c:526 ../plugins/file-loader/plugin.c:782
 #: ../plugins/file-loader/plugin.c:789
 msgid "Open file"
@@ -2729,7 +2729,7 @@ msgstr ""
 msgid "Failling Overwrapped I-Search: %s."
 msgstr "Search for '%s' (continued at top) failed."
 
-#: ../plugins/editor/anjuta-docman.c:276 ../src/anjuta_cbs.c:426
+#: ../plugins/editor/anjuta-docman.c:293 ../src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2738,14 +2738,18 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 
-#: ../plugins/editor/anjuta-docman.c:283 ../src/anjuta-callbacks.c:79
+#: ../plugins/editor/anjuta-docman.c:300 ../src/anjuta-callbacks.c:79
 #: ../src/anjuta_cbs.c:433 ../src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "_Replace"
 
-#: ../plugins/editor/anjuta-docman.c:324
+#: ../plugins/editor/anjuta-docman.c:341
 msgid "Save file as"
 msgstr "Save file as"
+
+#: ../plugins/editor/anjuta-docman.c:639
+msgid "Path:"
+msgstr "Path:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:1
 msgid "$(module.source.files) $(module.include.files)"
