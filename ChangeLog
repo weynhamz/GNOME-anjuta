@@ -1,3 +1,13 @@
+2002-03-25 Naba Kumar <kh_naba@users.sourceforge.net>
+
+	Patch submitted by Roy Wood <roy.wood@filogix.com>
+	
+	* src/anjuta_gui.c, src/message-manager-dock.c,
+	  src/project_dbase.c:
+	  
+	  fixed the copy/paste bug by rewriting dock/undock
+	  code.
+
 2002-03-22  Johannes Schmid <clubfan@users.sourceforge.net>
 
 	Reviewed by Naba Kumar <kh_naba@users.sourceforge.net>

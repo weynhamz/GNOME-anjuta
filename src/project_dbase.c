@@ -1715,6 +1715,8 @@ project_dbase_clean_left (ProjectDBase * p)
 /*
  * Private functions: Do not use
  */
+
+/*
 void
 project_dbase_detach (ProjectDBase * p)
 {
@@ -1784,6 +1786,82 @@ project_dbase_attach (ProjectDBase * p)
 		app->widgets.hpaned_client = app->widgets.hpaned;
 		app->widgets.the_client = app->widgets.hpaned;
 	}
+	gtk_widget_show (app->widgets.the_client);
+}
+*/
+
+/*
+	Here we handle juggling the user interface to hide/show the project pane.
+
+	Note that the current *fully-populated* Anjuta interface consists of a vbox 
+	which in turn contains a vpane.  The vpane contains the message pane at
+	the bottom, and an hpane at the top.  The hpane contains the project pane
+	on the left, and a notebook on the right.  The notebook contains multiple
+	Scintilla pages.  Note that this is the fully-populated interface, as it is
+	initially created.  Since the project and message panes can be hidden or
+	detached, things are not always this way!  
+
+	Actually, the above description applies to the client area of the main window,
+	and ignores the menus and toolbars, etc.
+	
+	Previously, juggling the interface was done by a bunch of gtk_container_add()
+	and gtk_container_remove() calls.  Unfortunately, this lead to a bug in
+	selection handling (i.e. copy/paste) for the Scintilla pages.  To fix this,
+	I've switched to using gtk_widget_reparent(), and all is well.  By the way,
+	the bug was due to the internal gtk/gdk selection handling code which looks
+	at the gdk window for the selection owner.  When a widget is removed from a
+	container, its gdk window is destroyed, even if the widget is not.  This means
+	that gtk/gdk gets confused when a widget that owns the selection has its gdk
+	window changed.  And yes, using gtk_widget_reparent() preserves the gdk window.
+	
+	Note that the same arguments apply to the code in message-manager-dock.c.
+*/
+
+void
+project_dbase_detach (ProjectDBase * p)
+{
+	gtk_widget_reparent (app->project_dbase->widgets.client, app->project_dbase->widgets.client_area);
+
+	gtk_widget_reparent (app->widgets.notebook, app->widgets.client_area);
+
+	if (app->widgets.the_client == app->widgets.vpaned)
+	{
+		gtk_container_remove (GTK_CONTAINER (app->widgets.vpaned), app->widgets.hpaned);
+		gtk_widget_reparent (app->widgets.notebook, app->widgets.vpaned);
+	}
+	
+	else
+	{
+		gtk_container_remove (GTK_CONTAINER (app->widgets.client_area), app->widgets.hpaned);
+
+		app->widgets.the_client = app->widgets.notebook;
+	}
+
+	app->widgets.hpaned_client = app->widgets.notebook;
+}
+
+
+void
+project_dbase_attach (ProjectDBase * p)
+{
+	gtk_widget_reparent (app->project_dbase->widgets.client, app->widgets.project_dbase_win_container);
+
+	if (app->widgets.the_client == app->widgets.vpaned)
+	{
+		gtk_container_add (GTK_CONTAINER (app->widgets.vpaned), app->widgets.hpaned);
+	}
+	else
+	{
+		gtk_container_add (GTK_CONTAINER(app->widgets.client_area), app->widgets.hpaned);
+
+		app->widgets.the_client = app->widgets.hpaned;
+	}
+	
+	
+	gtk_widget_reparent (app->widgets.notebook,app->widgets.hpaned);
+	
+	app->widgets.hpaned_client = app->widgets.hpaned;
+	
 	gtk_widget_show (app->widgets.the_client);
 }
 

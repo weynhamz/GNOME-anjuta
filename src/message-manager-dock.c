@@ -60,34 +60,36 @@ amm_dock (GtkWidget * amm, GtkWidget ** window)
 	gtk_widget_show (app->widgets.mesg_win_container);
 }
 
+
+/*
+	Here we handle juggling the user interface to hide/show the message pane.
+	
+	The use of gtk_widget_reparent() here is very important.   See the comments
+	in project_dbase.c for more info.
+*/
+
 void
 amm_hide_docked (void)
 {
 	gtk_widget_hide (app->widgets.mesg_win_container);
-	gtk_container_remove (GTK_CONTAINER (app->widgets.client_area),
-			      app->widgets.the_client);
-	if (app->widgets.hpaned_client->parent == app->widgets.vpaned)
-		gtk_container_remove (GTK_CONTAINER (app->widgets.vpaned),
-				      app->widgets.hpaned_client);
-	gtk_container_add (GTK_CONTAINER (app->widgets.client_area),
-			   app->widgets.hpaned_client);
+
+	gtk_widget_reparent (app->widgets.hpaned_client, app->widgets.client_area);
+	gtk_container_remove (GTK_CONTAINER (app->widgets.client_area), app->widgets.vpaned);
+
 	app->widgets.the_client = app->widgets.hpaned_client;
 }
 
 void
 amm_show_docked (void)
 {
-	gtk_widget_hide (app->widgets.mesg_win_container);
-	gtk_container_remove (GTK_CONTAINER (app->widgets.client_area),
-			      app->widgets.the_client);
-	gtk_container_add (GTK_CONTAINER (app->widgets.vpaned),
-			   app->widgets.hpaned_client);
-	gtk_container_add (GTK_CONTAINER (app->widgets.client_area),
-			   app->widgets.vpaned);
+	gtk_container_add (GTK_CONTAINER (app->widgets.client_area), app->widgets.vpaned);
+	gtk_widget_reparent (app->widgets.hpaned_client, app->widgets.vpaned);
 
 	gtk_widget_show_all (app->widgets.mesg_win_container);
+
 	app->widgets.the_client = app->widgets.vpaned;
 }
+
 
 static gboolean
 on_delete_event (GtkWidget * widget, GdkEvent * event, gpointer data)

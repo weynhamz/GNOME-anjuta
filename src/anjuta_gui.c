@@ -36,7 +36,7 @@ create_anjuta_gui (AnjutaApp * appl)
 {
 	GtkWidget *anjuta_gui;
 	GtkWidget *dock1;
-	GtkWidget *eventbox1;
+	GtkWidget *vbox0;
 	GtkWidget *toolbar1;
 	GtkWidget *toolbar2;
 	GtkWidget *toolbar3;
@@ -156,16 +156,19 @@ create_anjuta_gui (AnjutaApp * appl)
 				     GTK_TOOLBAR_SPACE_LINE);
 	gtk_toolbar_set_button_relief (GTK_TOOLBAR (toolbar5),
 				       GTK_RELIEF_NONE);
-
-	eventbox1 = gtk_event_box_new ();
-	gtk_widget_ref (eventbox1);
-	gtk_widget_show (eventbox1);
-	gnome_app_set_contents (GNOME_APP (anjuta_gui), eventbox1);
+	
+	//	 Use a vbox, not an eventbox, to support gtk_widget_reparent() stuff
+	//	done when hiding/showing project and message panes
+	
+	vbox0 = gtk_vbox_new(FALSE,0);
+	gtk_widget_ref (vbox0);
+	gtk_widget_show (vbox0);
+	gnome_app_set_contents (GNOME_APP (anjuta_gui), vbox0);
 
 	vpaned1 = gtk_vpaned_new ();
 	gtk_widget_ref (vpaned1);
 	gtk_widget_show (vpaned1);
-	gtk_container_add (GTK_CONTAINER (eventbox1), vpaned1);
+	gtk_container_add (GTK_CONTAINER (vbox0), vpaned1);
 	gtk_paned_set_gutter_size (GTK_PANED (vpaned1), 8);
 	gtk_paned_set_handle_size (GTK_PANED (vpaned1), 8);
 
@@ -329,7 +332,7 @@ create_anjuta_gui (AnjutaApp * appl)
 
 	app->accel_group = GNOME_APP (anjuta_gui)->accel_group;
 	app->widgets.window = anjuta_gui;
-	app->widgets.client_area = eventbox1;
+	app->widgets.client_area = vbox0;
 	app->widgets.notebook = anjuta_notebook;
 	app->widgets.appbar = appbar1;
 	app->widgets.hpaned = hpaned1;
