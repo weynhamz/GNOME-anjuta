@@ -1009,7 +1009,7 @@ create_preferences_page3 (Preferences * p)
 			  (GtkAttachOptions) (0), 0, 0);
 			  
 	checkbutton13 =
-		gtk_check_button_new_with_label(_("Save in DOS format"));
+		gtk_check_button_new_with_label(_("Filter extrageneous chars in DOS mode"));
 	gtk_widget_show (checkbutton13);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton13, 0, 1, 7, 8,
 			(GtkAttachOptions) (GTK_FILL),
@@ -1017,7 +1017,7 @@ create_preferences_page3 (Preferences * p)
 
 	vseparator1 = gtk_vseparator_new ();
 	gtk_widget_show (vseparator1);
-	gtk_table_attach (GTK_TABLE (table2), vseparator1, 1, 2, 0, 7,
+	gtk_table_attach (GTK_TABLE (table2), vseparator1, 1, 2, 0, 8,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (GTK_FILL), 6, 0);
 

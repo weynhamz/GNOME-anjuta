@@ -52,6 +52,9 @@
 #include "aneditor.h"
 #include "controls.h"
 
+/* Debug flag */
+#define DEBUG
+
 /* Marker 0 is defined for bookmarks */
 #define TEXT_EDITOR_LINEMARKER	2
 
@@ -514,7 +517,7 @@ static struct {
  *
  */
 static size_t
-filter_chars( gchar *data_, size_t size )
+filter_chars_in_dos_mode(gchar *data_, size_t size )
 {
 	int k;
 	size_t i;
@@ -542,10 +545,9 @@ filter_chars( gchar *data_, size_t size )
  * save buffer. filter chars and set dos-like CR/LF if dos_text is set.
  */
 static size_t
-save_filtered( FILE * f, gchar *data_, size_t size, gint dos_text )
+save_filtered_in_dos_mode(FILE * f, gchar *data_, size_t size)
 {
 	size_t i, j;
-	gchar dos_eol_data[] = { 0x0d, 0x0a };
 	unsigned char *data;
 	unsigned char *tr_map;
 	int k;
@@ -560,39 +562,19 @@ save_filtered( FILE * f, gchar *data_, size_t size, gint dos_text )
 	i = 0; j = 0;
 	while ( i < size )
 	{
-		if ( data[i] == 0x0d )
-		{
-			/* ignore CR */
-			i++;
-			continue;
-		}
-		if ( data[i]==0x0a )
-		{
-			/* create CR+LF or LF */
-			if ( dos_text )
-				j += fwrite( dos_eol_data, 1, 2, f );
+		if (data[i]>=128) {
+			/* convert dos-text */
+			if ( tr_map[data[i]] != 0 )
+				j += fwrite( &tr_map[data[i]], 1, 1, f );
 			else
+				/* char not found, skip transform */
 				j += fwrite( &data[i], 1, 1, f );
 			i++;
-		}
-		else if ( data[i]>=128 && dos_text )
-		  {
-		    /* convert dos-text */
-		    if ( tr_map[data[i]] != 0 )
-		      j += fwrite( &tr_map[data[i]], 1, 1, f );
-		    else
-		      /* char not found, skip transform */
-		      j += fwrite( &data[i], 1, 1, f );
-
-		    i++;
-		  }
-		else
-		  {
+		} else {
 			/* write normal chars */
 			j += fwrite( &data[i], 1, 1, f );
 			i++;
-		  }
-		
+		}
 	}
 
 	if ( tr_map )
@@ -602,24 +584,58 @@ save_filtered( FILE * f, gchar *data_, size_t size, gint dos_text )
 	return size;
 }
 
-/*
- * Check end-of-line type. Returns true, if it is DOS <cr><lf> type. 
- */
-static gboolean
-is_dos_eol ( const gchar * buffer, gint size )
+static gint
+determine_editor_mode(gchar* buffer, glong size)
 {
-	int i;
-	int cr = 0;
+	gint i;
+	guint cr, lf, crlf, max_mode;
+	gint mode;
+	
+	cr = lf = crlf = 0;
 	
 	for ( i = 0; i < size ; i++ )
 	{
-		if ( buffer[i] == 0x0a ) // LF
-			break;
-		if ( buffer[i] == 0x0d ) // CR
-			cr = TRUE;
+		if ( buffer[i] == 0x0a ){
+			// LF
+			// mode = SC_EOF_LF;
+			lf++;
+		} else if ( buffer[i] == 0x0d ) {
+			if (i >= (size-1)) {
+				// Last char
+				// CR
+				// mode = SC_EOL_CR;
+				cr++;
+			} else {
+				if (buffer[i+1] != 0x0a) {
+					// CR
+					// mode = SC_EOL_CR;
+					cr++;
+				} else {
+					// CRLF
+					// mode = SC_EOL_CRLF;
+					crlf++;
+				}
+				i++;
+			}
+		}
 	}
-	
-	return cr;
+
+	/* Vote for the maximum */
+	mode = SC_EOL_LF;
+	max_mode = lf;
+	if (crlf > max_mode) {
+		mode = SC_EOL_CRLF;
+		max_mode = crlf;
+	}
+	if (cr > max_mode) {
+		mode = SC_EOL_CR;
+		max_mode = cr;
+	}
+#ifdef DEBUG
+	g_message("EOL chars: LR = %d, CR = %d, CRLF = %d", lf, cr, crlf);
+	g_message("Autodetected Editor mode [%d]", mode);
+#endif
+	return mode;
 }
 
 static gboolean
@@ -627,8 +643,7 @@ load_from_file (TextEditor * te, gchar * fn)
 {
 	FILE *fp;
 	gchar *buffer;
-	gint nchars;
-	gint dos_text;
+	gint nchars, dos_filter, editor_mode;
 	struct stat st;
 	size_t size;
 
@@ -655,18 +670,27 @@ load_from_file (TextEditor * te, gchar * fn)
 	}
 	/* Crude way of loading, but faster */
 	nchars = fread (buffer, 1, size, fp);
-	/* check EOL type */
-	dos_text = is_dos_eol(buffer,nchars);
-	preferences_set_int ( te->preferences, DOS_EOL_CHECK, 
-			      dos_text );
-	preferences_sync( te->preferences );
-	if ( dos_text )
-	  nchars = filter_chars( buffer, nchars );
-       
-	if (size != nchars)
-		g_warning ("File size and loaded size not matching");
+	
+	if (size != nchars) g_warning ("File size and loaded size not matching");
+	dos_filter = preferences_get_int ( te->preferences, DOS_EOL_CHECK);
+	
+	/* Set editor mode */
+	editor_mode =  determine_editor_mode(buffer, nchars);
+	scintilla_send_message (SCINTILLA (te->widgets.editor),
+			SCI_SETEOLMODE, editor_mode, 0);
+#ifdef DEBUG
+	g_message("Loaded in editor mode [%d]", editor_mode);
+#endif
+
+	if (dos_filter && editor_mode == SC_EOL_CRLF){
+#ifdef DEBUG
+		g_message("Filtering Extrageneous DOS characters in dos mode [Dos => Unix]");
+#endif
+		nchars = filter_chars_in_dos_mode( buffer, nchars );
+	}
 	scintilla_send_message (SCINTILLA (te->widgets.editor), SCI_ADDTEXT,
 				nchars, (long) buffer);
+	
 	g_free (buffer);
 	if (ferror (fp))
 	{
@@ -676,57 +700,6 @@ load_from_file (TextEditor * te, gchar * fn)
 	fclose (fp);
 	return TRUE;
 }
-
-#if 0
-
-static gint
-strip_trailing_spaces (char *data, int ds, gboolean lastBlock)
-{
-	gint lastRead;
-	gchar *w;
-	gint i;
-
-	w = data;
-	lastRead = 0;
-
-	for (i = 0; i < ds; i++)
-	{
-		gchar ch;
-
-		ch = data[i];
-		if ((ch == ' ') || (ch == '\t'))
-		{
-			/* Swallow those spaces */
-		}
-		else if ((ch == '\r') || (ch == '\n'))
-		{
-			*w++ = ch;
-			lastRead = i + 1;
-		}
-		else
-		{
-			while (lastRead < i)
-			{
-				*w++ = data[lastRead++];
-			}
-			*w++ = ch;
-			lastRead = i + 1;
-		}
-	}
-	/* If a non-final block, then preserve whitespace
-	 * at end of block as it may be significant.
-	 */
-	if (!lastBlock)
-	{
-		while (lastRead < ds)
-		{
-			*w++ = data[lastRead++];
-		}
-	}
-	return w - data;
-}
-
-#endif
 
 static gboolean
 save_to_file (TextEditor * te, gchar * fn)
@@ -740,24 +713,32 @@ save_to_file (TextEditor * te, gchar * fn)
 	if (!fp)
 		return FALSE;
 	strip = prop_get_int (te->props_base, "strip.trailing.spaces", 1);
-	nchars =
-		scintilla_send_message (SCINTILLA (te->widgets.editor),
+	nchars = scintilla_send_message (SCINTILLA (te->widgets.editor),
 					SCI_GETLENGTH, 0, 0);
-	data =
-		(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
+	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
 					    0, nchars);
 	if (data)
 	{
 		size_t size;
-		gint dos_text;
+		gint dos_filter, editor_mode;
 		
 		size = strlen (data);
-		dos_text = preferences_get_int( te->preferences, DOS_EOL_CHECK );
+		dos_filter = preferences_get_int( te->preferences, DOS_EOL_CHECK );
+		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
+					SCI_GETEOLMODE, 0, 0);
+#ifdef DEBUG
+		g_message("Saving in editor mode [%d]", editor_mode);
+#endif
 		if (size != nchars)
-			g_warning
-				("Text length and number of bytes saved is not equal");
-//		size = fwrite (data, size, 1, fp);
-		size = save_filtered( fp, data, size, dos_text );
+			g_warning("Text length and number of bytes saved is not equal");
+		if (editor_mode == SC_EOL_CRLF && dos_filter) {
+#ifdef DEBUG
+			g_message("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
+#endif
+			size = save_filtered_in_dos_mode( fp, data, size);
+		} else {
+			size = fwrite (data, size, 1, fp);
+		}
 		g_free (data);
 	}
 	if (ferror (fp))

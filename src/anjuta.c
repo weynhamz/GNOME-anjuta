@@ -1843,7 +1843,7 @@ gboolean anjuta_is_installed (gchar * prog, gboolean show)
 void
 anjuta_update_app_status (gboolean set_job, gchar* job_name)
 {
-	gchar *prj, *edit, *job;
+	gchar *prj, *edit, *job, *mode;
 	guint line, col, caret_pos;
 	gchar *str;
 	gint zoom;
@@ -1864,6 +1864,25 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 	zoom = prop_get_int (app->preferences->props, "text.zoom.factor", 0);
 	if (sci)
 	{
+		gint editor_mode;
+		
+		editor_mode =  scintilla_send_message (SCINTILLA (te->widgets.editor),
+			SCI_GETEOLMODE, 0, 0);
+		switch (editor_mode) {
+			case SC_EOL_CRLF:
+				mode = g_strdup(_("Dos (CRLF)"));
+				break;
+			case SC_EOL_LF:
+				mode = g_strdup(_("Unix (LF)"));
+				break;
+			case SC_EOL_CR:
+				mode = g_strdup(_("Mac (CR)"));
+				break;
+			default:
+				mode = g_strdup(_("Unknown"));
+				break;
+		}
+
 		caret_pos =
 			scintilla_send_message (SCINTILLA (sci),
 						SCI_GETCURRENTPOS, 0, 0);
@@ -1888,6 +1907,7 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 	{
 		line = col = 0;
 		edit = g_strdup (_("INS"));
+		mode = g_strdup(_("Unix (LF)"));
 	}
 	if (set_job)
 		string_assign (&app->cur_job, job_name);
@@ -1898,13 +1918,14 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 		job = g_strdup (_("None"));
 	str =
 		g_strdup_printf(
-		_("  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       Job: %s"),
-		 prj, zoom, line+1, col, edit, job);
+		_("  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       Job: %s       Mode: %s"),
+		 prj, zoom, line+1, col, edit, job, mode);
 	gnome_appbar_set_default (GNOME_APPBAR (app->widgets.appbar), str);
 	g_free (str);
 	g_free (prj);
 	g_free (edit);
 	g_free (job);
+	g_free (mode);
 }
 
 void

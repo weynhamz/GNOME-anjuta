@@ -348,10 +348,12 @@ AnEditor::AnEditor(PropSetFile* p) {
 		GtkSignalFunc(NotifySignal), this);
 
 	/* We will handle all accels ourself */
-/*	SendEditor(SCI_CLEARALLCMDKEYS);*/
+	/* SendEditor(SCI_CLEARALLCMDKEYS); */
 
 	/*We have got our own popup menu */
 	SendEditor(SCI_USEPOPUP, false);
+	/* Set default editor mode */
+	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 }
 
 void
@@ -1310,12 +1312,15 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_EOL_CONVERT:
 		switch (wParam) {
 			case ANE_EOL_CRLF:
+				SendEditor(SCI_SETEOLMODE, SC_EOL_CRLF);
 				SendEditor(SCI_CONVERTEOLS, SC_EOL_CRLF);
 				break;
 			case ANE_EOL_LF:
+				SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 				SendEditor(SCI_CONVERTEOLS, SC_EOL_LF);
 				break;
 			case ANE_EOL_CR:
+				SendEditor(SCI_SETEOLMODE, SC_EOL_CR);
 				SendEditor(SCI_CONVERTEOLS, SC_EOL_CR);
 				break;
 			default:
@@ -1861,14 +1866,14 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	}
 	else
 	{
-	SString kw1 = props->GetNewExpand("keywords2.", fileNameForExtension.c_str());
-	SendEditorString(SCI_SETKEYWORDS, 1, kw1.c_str());
-	SString kw2 = props->GetNewExpand("keywords3.", fileNameForExtension.c_str());
-	SendEditorString(SCI_SETKEYWORDS, 2, kw2.c_str());
-	SString kw3 = props->GetNewExpand("keywords4.", fileNameForExtension.c_str());
-	SendEditorString(SCI_SETKEYWORDS, 3, kw3.c_str());
-	SString kw4 = props->GetNewExpand("keywords5.", fileNameForExtension.c_str());
-	SendEditorString(SCI_SETKEYWORDS, 4, kw4.c_str());
+		SString kw1 = props->GetNewExpand("keywords2.", fileNameForExtension.c_str());
+		SendEditorString(SCI_SETKEYWORDS, 1, kw1.c_str());
+		SString kw2 = props->GetNewExpand("keywords3.", fileNameForExtension.c_str());
+		SendEditorString(SCI_SETKEYWORDS, 2, kw2.c_str());
+		SString kw3 = props->GetNewExpand("keywords4.", fileNameForExtension.c_str());
+		SendEditorString(SCI_SETKEYWORDS, 3, kw3.c_str());
+		SString kw4 = props->GetNewExpand("keywords5.", fileNameForExtension.c_str());
+		SendEditorString(SCI_SETKEYWORDS, 4, kw4.c_str());
 	}
 
 	SString fold = props->Get("fold");
@@ -1902,8 +1907,6 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	SString ttwl = props->Get("tab.timmy.whinge.level");
 	SendEditorString(SCI_SETPROPERTY, reinterpret_cast<unsigned long>("tab.timmy.whinge.level"),
 	                 ttwl.c_str());
-
-	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 
 	characterSet = props->GetInt("character.set");
 

@@ -15,6 +15,22 @@
 	* src/aneditor.h, aneditor.c:
 	  Added three commands (with definitions) for EOL conversions.
 	  
+	* src/text_editor.c:
+	  Editor detects file mode from the file content and
+	  set the editing mode to CR/LF/CRLF automatically.
+	  Refined Dos mode extrageneous chars filter
+	  This will make sure that filter works only in Dos mode and not
+	  in other modes.
+	  
+	* src/anjuta.c: Editor mode display in status bar.
+	
+	* src/preferences_gui.c: Changed the string for dos mode
+	  filter to more sensible string.
+	
+	* src/aneditor.c: Default editor mode sets during widget creation
+	  and not everty time the properties are loaded. This makes sure
+	  that the auto-detected mode is not overridden by the default mode.
+	  
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/an_symbol_view.c: Added MAX_STRING_LENGTH
