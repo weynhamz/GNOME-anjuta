@@ -5,7 +5,6 @@
 <requires lib="gnome"/>
 
 <widget class="GtkDialog" id="attach_process_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Attach to process</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
@@ -261,7 +260,6 @@
 </widget>
 
 <widget class="GtkDialog" id="breakpoints_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Breakpoints</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -453,7 +451,6 @@
 </widget>
 
 <widget class="GtkDialog" id="breakpoint_properties_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Breakpoint properties</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -680,7 +677,6 @@
 
 <widget class="GtkDialog" id="commands_dialog">
   <property name="width_request">628</property>
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Commands</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -2921,7 +2917,6 @@
 </widget>
 
 <widget class="GtkDialog" id="source_paths_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Source Directories</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -3133,7 +3128,6 @@
 </widget>
 
 <widget class="GtkDialog" id="configurer_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">dialog1</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
@@ -3273,7 +3267,6 @@
 
 <widget class="GtkDialog" id="find_in_files_dialog">
   <property name="border_width">5</property>
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Find in Files</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -3641,7 +3634,6 @@
 </widget>
 
 <widget class="GtkDialog" id="executer_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">dialog1</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -3798,7 +3790,6 @@
 </widget>
 
 <widget class="GtkDialog" id="find_replace_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Find and replace</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -7980,7 +7971,6 @@
 </widget>
 
 <widget class="GtkDialog" id="dialog.tool.list">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">User Tools</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -8132,7 +8122,6 @@
 </widget>
 
 <widget class="GtkDialog" id="dialog.tool.edit">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Tool Editor</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -9065,7 +9054,6 @@
 </widget>
 
 <widget class="GtkDialog" id="dialog.tool.params">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Command line parameters</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -9876,7 +9864,6 @@
 </widget>
 
 <widget class="GtkDialog" id="style_editor_dialog">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">Syntax highlight editor</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
