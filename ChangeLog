@@ -1,5 +1,9 @@
 2004-03-25  Naba Kumar  <naba@gnome.org>
 
+	* src/attach_process.c, anjuta.glade, anjuta_dialogs_strings: Fixed a
+	crash bug with attach process dialog and made the dialog closable
+	with 'esc'.
+	
 	* src/breakpoints.c: Fixed bug #895536 (breakpoint glyphs do not
 	always display within the margin.)
 	

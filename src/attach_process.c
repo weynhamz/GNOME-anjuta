@@ -125,7 +125,9 @@ attach_process_clear (AttachProcess * ap, gint ClearRequest)
 	// dialog widget
 	if (ClearRequest == CLEAR_FINAL)
 	{
-		gtk_widget_destroy (ap->dialog);
+		// The dialog is destroyed at the places where this
+		// function is called.
+		// gtk_widget_destroy (ap->dialog);
 		ap->dialog = NULL;
 	}
 }
@@ -459,8 +461,9 @@ on_response (GtkWidget* dialog, gint res, gpointer data)
 			break;
 		case GTK_RESPONSE_OK:
 			if (ap->pid > 0) debugger_attach_process (ap->pid);
-		case GTK_RESPONSE_CLOSE:
+		case GTK_RESPONSE_CANCEL:
 			attach_process_clear (ap, CLEAR_FINAL);
+			gtk_widget_destroy (dialog);
 	}
 }
 
@@ -518,7 +521,6 @@ attach_process_show (AttachProcess * ap)
 	GladeXML *gxml;
 	GtkTreeView *view;
 	GtkTreeStore *store;
-	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 	GtkCheckButton *checkb_hide_paths;
 	GtkCheckButton *checkb_hide_params;
@@ -548,11 +550,13 @@ attach_process_show (AttachProcess * ap)
 	gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
 	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
 					 GTK_SELECTION_SINGLE);
-	g_object_unref (G_OBJECT (store));
 
-	renderer = gtk_cell_renderer_text_new ();
 	for (i = 0; i < COLUMNS_NB; i++) {
+		
 		GtkTreeViewColumn *column;
+		GtkCellRenderer *renderer;
+		
+		renderer = gtk_cell_renderer_text_new ();
 
 		column = gtk_tree_view_column_new_with_attributes (column_names[i],
 													renderer, "text", i, NULL);
@@ -567,7 +571,6 @@ attach_process_show (AttachProcess * ap)
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 					START_COLUMN, GTK_SORT_DESCENDING);
 	gtk_tree_view_set_search_column (view, COMMAND_COLUMN);
-	gtk_object_unref (GTK_OBJECT (renderer));
 
 	ap->priv->hide_paths = gtk_toggle_button_get_active (
 						GTK_TOGGLE_BUTTON (checkb_hide_paths));
@@ -595,6 +598,8 @@ attach_process_show (AttachProcess * ap)
 	gtk_window_set_transient_for (GTK_WINDOW (ap->dialog),
 								  GTK_WINDOW (app->widgets.window));
 	gtk_widget_show (ap->dialog);
+	
+	g_object_unref (G_OBJECT (store));
 }
 
 void
