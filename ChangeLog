@@ -1,5 +1,11 @@
+2003-09-08  Franco Catrin L.  <fcatrin@tuxpan.cl>
+
+	* src/anjuta.desktop.in.in: Added Encoding attribute (required).
+	
 2003-09-08  Naba Kumar  <naba@gnome.org>
 
+	* TODO: Updated.
+	
 	Patch from Jean-Noel Guiheneuf  <jnoel@saudionline.com.sa>
 	* src/find_in_files.c, src/find_replace.c, src/search_replace.c:
 	Fixed bug #798717, Find - Find&Replace - Find in files bug;

@@ -1,6 +1,8 @@
 TODO List:
 ----------
-	o PTY in doesn't work (eg. CVS login will not work). Fix it.
+	o PTY in doesn't work (eg. CVS login will not work).
+	o STDOUT and STDERR outputs doesn't seem to come in proper timing
+	(resulting in mixed or missed text).
 	o Apply branch patches to HEAD - esp. Jean-Noel's patches to comment/S&R
 Search/Replace and Tools done. Need to apply the comment patch.
 	o Breakpoints does not get reloaded from session.
