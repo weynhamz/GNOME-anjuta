@@ -22,7 +22,7 @@ Anjuta 1.x maintainer
 [the Anjuta/gIDE merger announcement in full....]
 
 Date:          2001.11.09 04:33
-From:          Naba Kumar <kh_naba@yahoo.com>
+From:          Naba Kumar <kh_naba@users.sourceforge.net>
 To:            gnome-devtools@gnome.org
 Cc:            anjuta-devel@lists.sourceforge.net
 Subject:       [Anjuta-devel] Anjuta and gIDE merged!
@@ -34,7 +34,7 @@ called Anjuta Dev Studio, and resides in the anjuta2 module on gnome
 cvs.  It is based on the gIDE codebase. The project will be
 co-maintained by:
 
-Naba Kumar <kh_naba@yahoo.com> (the former maintainer of Anjuta).
+Naba Kumar <kh_naba@users.sourceforge.net> (the former maintainer of Anjuta).
 JP Rosevear <jpr@ximian.com> (the former maintainer of gIDE).
 
 The lead developers (besides the above two mentioned co-maintainers) who
