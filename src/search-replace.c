@@ -773,7 +773,8 @@ static void search_and_replace(void)
 		if (fb)
 		{
 			fb->pos = se->start_pos;
-			while (NULL != (mi = get_next_match(fb, se->direction, &(s->expr))))
+			while ((NULL != (mi = get_next_match(fb, se->direction, &(s->expr))))
+				&& (se->end_pos == -1 || mi->pos+mi->len <= se->end_pos) )
 			{
 				switch (s->action)
 				{
@@ -1234,3 +1235,4 @@ void anjuta_search_replace_activate(void)
 	/* Show the dialog */
 	show_dialog();
 }
+
