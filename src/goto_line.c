@@ -106,7 +106,7 @@ gotoline_init (GotoLine * obj)
   dialog_vbox = GNOME_DIALOG (obj)->vbox;
   gtk_widget_show (dialog_vbox);
 
-  frame = gtk_frame_new (_(" Goto Line No. "));
+  frame = gtk_frame_new (_(" Goto Line number "));
   gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (dialog_vbox), frame, FALSE, FALSE, 0);
 

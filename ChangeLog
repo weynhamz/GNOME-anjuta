@@ -1,3 +1,26 @@
+2002-01-28	Andy Piper	<andy.piper@freeuk.com>
+
+	* HACKING: added information on best practices for writing
+	  application messages and GUI labels
+	  
+	* src/CORBA-Server.c, src/about.c, src/anjuta.c, 
+	  src/breakpoints.c, src/build_file.c, src/build_project.c, 
+	  src/clean_project.c, src/compile.c, 
+	  src/compiler_options_cbs.c, src/compiler_options_gui.c, 
+	  src/configurer.c, src/debugger.c, src/executer.c, 
+	  src/find_in_files.c, src/find_in_files_cbs.c, 
+	  src/find_replace.c, src/find_text.c, src/glades.c, 
+	  src/gnome_project.c, src/goto_line.c, src/main.c, 
+	  src/main_menubar.c, src/main_menubar_def.h, 
+	  src/mainmenu_callbacks.c, src/preferences_gui.c, 
+	  src/project_config.c, src/project_dbase.c, 
+	  src/project_dbase_gui.c, src/resources.c, src/source.c, 
+	  src/support.c, src/tags_manager.c, src/text_editor.c, 
+	  src/text_editor_gui.c, src/text_editor_menu.c, 
+	  src/toolbar_callbacks.c, src/utilities.c: 
+	  lots of minor message updates to make them more user-friendly 
+	  and consistent
+
 2002-01-28  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/executer.c:

@@ -43,7 +43,7 @@ poptOption anjuta_options[] = {
 	 	NULL, '\0', POPT_ARG_INTL_DOMAIN, PACKAGE,
 	 	0, NULL, NULL
 	},
-	{"no-splash", 's', POPT_ARG_NONE, &no_splash, 0, N_("Don't show the splashscreen"), NULL},
+	{"no-splash", 's', POPT_ARG_NONE, &no_splash, 0, N_("Do not show the splashscreen"), NULL},
 	POPT_AUTOHELP {NULL}
 };
 

@@ -67,7 +67,7 @@ create_about_gui ()
 	about_gui = gnome_about_new ("Anjuta", VERSION,
 		_("Copyright (c) 1999-2002 Naba Kumar"),
 		authors,
-		NULL, about_imgfile);
+		"An Integrated Development Environment for GNOME", about_imgfile);
 	if(about_imgfile)
 		g_free (about_imgfile);
 	gtk_window_set_modal (GTK_WINDOW (about_gui), FALSE);
@@ -76,7 +76,7 @@ create_about_gui ()
 	
 	vbox1 = GNOME_DIALOG (about_gui)->vbox;
 
-	href1 = gnome_href_new ("http://anjuta.sourceforge.net/", _("Anjuta Home Site"));
+	href1 = gnome_href_new ("http://anjuta.sourceforge.net/", _("Anjuta Home Page"));
 	gtk_widget_show (href1);
 	gtk_box_pack_start (GTK_BOX (vbox1), href1, FALSE, FALSE, 0);
 	gtk_box_reorder_child (GTK_BOX (vbox1), href1, 1);

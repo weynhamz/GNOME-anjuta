@@ -254,17 +254,17 @@ executer_execute (Executer * e)
 		target_type = project_dbase_get_target_type (app->project_dbase);
 		if (target_type >= PROJECT_TARGET_TYPE_END_MARK)
 		{
-			anjuta_error (_("Target of this project is unknown"));
+			anjuta_error (_("The target executable of this Project is unknown"));
 			return;
 		}
 		else if ( target_type != PROJECT_TARGET_TYPE_EXECUTABLE)
 		{
-			anjuta_warning (_("Target of this project is not executable"));
+			anjuta_warning (_("The target executable of this Project is not executable"));
 		}
 		prog = project_dbase_get_source_target (app->project_dbase);
 		if (file_is_executable (prog) == FALSE)
 		{
-			anjuta_warning(_("Executable does not exist for this project."));
+			anjuta_warning(_("The target executable does not exist for this Project"));
 			string_free (prog);
 			return;
 		}
@@ -277,7 +277,7 @@ executer_execute (Executer * e)
 		te = anjuta_get_current_text_editor ();
 		if (!te)
 		{
-			anjuta_warning(_("No file or project opened."));
+			anjuta_warning(_("No file or Project opened."));
 			return;
 		}
 		if (te->full_filename == NULL)
@@ -318,7 +318,7 @@ executer_execute (Executer * e)
 			COMMAND_EXECUTE_PROJECT);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_("Unable to execute project. Check Settings->Commands."));
+			anjuta_warning (_("Unable to execute Project. Check Settings->Commands."));
 			return;
 		}
 		dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE);
@@ -332,7 +332,7 @@ executer_execute (Executer * e)
 
 		if (te->full_filename == NULL || text_editor_is_saved(te) == FALSE)
 		{
-			anjuta_warning (_("This file is not saved. Save it first."));
+			anjuta_warning (_("This file has not been saved. Save it first."));
 			return;
 		}
 		anjuta_set_file_properties (te->full_filename);
@@ -391,7 +391,7 @@ executer_save_session( Executer *e, ProjectDBase *p )
 	g_return_if_fail( NULL != e );
 	g_return_if_fail( NULL != p );
 	g_return_if_fail( p->project_is_open );
-	/* Save 'run reminal option' */
+	/* Save 'run in terminal option' */
 	session_save_bool( p, SECSTR(SECTION_EXECUTER), szRunInTerminalItem, e->terminal );
 	session_save_strings( p, SECSTR(SECTION_EXECUTERARGS), e->m_PgmArgs );
 }

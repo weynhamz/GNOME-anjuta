@@ -797,7 +797,7 @@ create_project_config_gui (ProjectConfig * pc)
 							       (notebook1),
 							       0), label0);
 
-	frame1 = gtk_frame_new (_("Disable Overwriting project files"));
+	frame1 = gtk_frame_new (_("Disable overwriting Project files"));
 	gtk_widget_show (frame1);
 	gtk_container_add (GTK_CONTAINER (notebook1), frame1);
 	gtk_container_set_border_width (GTK_CONTAINER (frame1), 5);
@@ -807,7 +807,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_container_add (GTK_CONTAINER (frame1), vbox1);
 
 	checkbutton[0] =
-		gtk_check_button_new_with_label (_("Project's configure.in"));
+		gtk_check_button_new_with_label (_("Project configure.in"));
 	gtk_widget_show (checkbutton[0]);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[0], FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton[0]), 5);
@@ -899,7 +899,7 @@ create_project_config_gui (ProjectConfig * pc)
 							       (notebook2),
 							       0), label2);
 
-	frame4 = gtk_frame_new (_("Check for libs in config.in"));
+	frame4 = gtk_frame_new (_("Check for libraries in config.in"));
 	gtk_widget_show (frame4);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame4);
 	gtk_container_set_border_width (GTK_CONTAINER (frame4), 5);
@@ -977,7 +977,7 @@ create_project_config_gui (ProjectConfig * pc)
 
 	frame7 =
 		gtk_frame_new (_
-			       ("Check for lib functions in config.in"));
+			       ("Check for library functions in config.in"));
 	gtk_widget_show (frame7);
 	gtk_container_add (GTK_CONTAINER (notebook2), frame7);
 	gtk_container_set_border_width (GTK_CONTAINER (frame7), 5);
@@ -994,7 +994,7 @@ create_project_config_gui (ProjectConfig * pc)
 	gtk_container_add (GTK_CONTAINER (scrolledwindow5), text5);
 	gtk_text_set_editable (GTK_TEXT (text5), TRUE);
 
-	label6 = gtk_label_new (_("Lib functions checks"));
+	label6 = gtk_label_new (_("Function checks"));
 	gtk_widget_show (label6);
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook2),
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
@@ -1116,7 +1116,7 @@ create_project_config_gui (ProjectConfig * pc)
 				    gtk_notebook_get_nth_page (GTK_NOTEBOOK
 							       (notebook1),
 							       3), label9);
-	frame9 = gtk_frame_new (_("Extra scripts at the end of Top Makefile.am"));
+	frame9 = gtk_frame_new (_("Extra scripts at the end of top level Makefile.am"));
 	gtk_widget_show (frame9);
 	gtk_container_add (GTK_CONTAINER (notebook1), frame9);
 	gtk_container_set_border_width (GTK_CONTAINER (frame9), 5);

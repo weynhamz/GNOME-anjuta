@@ -863,7 +863,7 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* b)
 			}
 			node = g_list_next (node);
 		}
-		g_warning (_("Funny, Breakpoint is set in the doc, but couldn't find the ID"));
+		g_warning (_("Breakpoint is set, but the ID could not be found."));
 		return;
 	}
 	

@@ -1813,7 +1813,7 @@ anjuta_fill_windows_menu ()
 	if (count > 0)
 	{
 		gnome_app_insert_menus (GNOME_APP (app->widgets.window),
-					"_Windows/Cl_ose Current window",
+					"_Windows/Cl_ose current window",
 					sep);
 		for (i = (count - 1); i >= 0; i--)
 		{
@@ -1883,7 +1883,7 @@ anjuta_update_app_status (gboolean set_job, gchar* job_name)
 			SCI_GETEOLMODE, 0, 0);
 		switch (editor_mode) {
 			case SC_EOL_CRLF:
-				mode = g_strdup(_("Dos (CRLF)"));
+				mode = g_strdup(_("DOS (CRLF)"));
 				break;
 			case SC_EOL_LF:
 				mode = g_strdup(_("Unix (LF)"));
@@ -2144,19 +2144,19 @@ Load_plugIn( AnjutaAddInPtr self, const gchar *szModName )
 	switch( lErr )
 	{
 	default:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to Load Plug in Module %s. Err: %s"), szModName, pErr );
+		syslog( LOG_WARNING|LOG_USER, _("Unable to load plugin %s. Error: %s"), szModName, pErr );
 		break;
 	case PIE_NOTLOADED:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to Load Plug in Module %s. Err: %s"), szModName, pErr );
+		syslog( LOG_WARNING|LOG_USER, _("Unable to load plugin %s. Error: %s"), szModName, pErr );
 		break;
 	case PIE_SYMBOLSNOTFOUND:
-		syslog( LOG_WARNING|LOG_USER, _("Plug in Module protocol unknown %s Err:%s"), szModName, pErr );
+		syslog( LOG_WARNING|LOG_USER, _("Plugin protocol %s unknown Error:%s"), szModName, pErr );
 		break;
 	case PIE_INITFAILED:
-		syslog( LOG_WARNING|LOG_USER, _("Unable to Start Plug in Module %s"), szModName );
+		syslog( LOG_WARNING|LOG_USER, _("Unable to start plugin %s"), szModName );
 		break;
 	case PIE_BADPARMS:
-		syslog( LOG_WARNING|LOG_USER, _("Bad Parameters to Plug in %s. Err: %s"), szModName, pErr );
+		syslog( LOG_WARNING|LOG_USER, _("Bad parameters to plugin %s. Error: %s"), szModName, pErr );
 		break;
 	case PIE_OK:
 		bOK = TRUE ;
@@ -2164,7 +2164,7 @@ Load_plugIn( AnjutaAddInPtr self, const gchar *szModName )
 	}
 		
 	if( ! bOK )
-		anjuta_error ( _("Unable to load plugin %s.\nError %s"), szModName, pErr  );
+		anjuta_error ( _("Unable to load plugin %s.\nError: %s"), szModName, pErr  );
 	return bOK ;
 }
 
@@ -2235,7 +2235,7 @@ scan_AddIns_in_directory (AnjutaApp* pApp, const gchar *szDirName, GList *pList)
 					bOK = TRUE ;
 				}
 			} else
-				anjuta_error (_("Out of Memory scanning for plugins."));
+				anjuta_error (_("Out of memory scanning for plugins."));
 
 			g_free (pPIPath);
 

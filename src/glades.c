@@ -207,7 +207,7 @@ gladen_write_glade_file ( ProjectDBase * data )
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		return FALSE;
 	}

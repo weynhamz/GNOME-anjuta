@@ -245,7 +245,7 @@ create_text_editor_gui (TextEditor * te)
 					    GTK_TOOLBAR_CHILD_BUTTON, NULL,
 					    _("Build"),
 					    _
-					    ("Build current File or Build the source directory of the Project"),
+					    ("Build current file or the source directory of the Project"),
 					    NULL, tmp_toolbar_icon, NULL,
 					    NULL);
 	gtk_widget_show (button12);

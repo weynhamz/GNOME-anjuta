@@ -1631,13 +1631,13 @@ on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
 		gint target_type;
 		target_type = project_dbase_get_target_type (app->project_dbase);
 		if (target_type >= PROJECT_TARGET_TYPE_END_MARK)
-			anjuta_error (_("Target of this project is unknown"));
+			anjuta_error (_("The target executable of this Project is unknown"));
 		else if ( target_type != PROJECT_TARGET_TYPE_EXECUTABLE)
-			anjuta_warning (_("Target of this project is not executable"));
+			anjuta_warning (_("The target executable of this Project is not executable"));
 		prog = project_dbase_get_source_target (app->project_dbase);
 		if (file_is_executable (prog) == FALSE)
 		{
-			anjuta_warning(_("Executable does not exist for this project."));
+			anjuta_warning(_("The target executable does not exist for this Project"));
 			g_free (prog);
 			prog = NULL;
 		}
@@ -1663,7 +1663,7 @@ on_debugger_start_activate (GtkMenuItem * menuitem, gpointer user_data)
 				}
 				else if ((!text_editor_is_saved (te)) || (e_stat.st_mtime < s_stat.st_mtime))
 				{
-					anjuta_warning (_("Executable is not up-to-date."));
+					anjuta_warning (_("The executable is not up-to-date."));
 				}
 			}
 			else
@@ -1734,7 +1734,7 @@ on_debugger_stop_activate (GtkMenuItem * menuitem, gpointer user_data)
 		{
 			messagebox2 (GNOME_MESSAGE_BOX_QUESTION,
 				     _
-				     ("Program is running.\nDo you still want to stop Debugger?"),
+				     ("Program is RUNNING.\nDo you still want to stop Debugger?"),
 				     GNOME_STOCK_BUTTON_YES,
 				     GNOME_STOCK_BUTTON_NO,
 				     on_debugger_confirm_stop_yes_clicked,

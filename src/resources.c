@@ -129,7 +129,7 @@ anjuta_res_get_pixmap_widget (GtkWidget * widget, const gchar * pixfile,
 		gnome_pixfile = gnome_pixmap_file (pixfile);
 		if (!gnome_pixfile)
 		{
-			g_warning (_("Could not find gnome pixmap file: %s"),
+			g_warning (_("Could not find GNOME pixmap file: %s"),
 				   pixfile);
 			g_free (pathname);
 			return create_dummy_pixmap (widget, gnome_pixmap);

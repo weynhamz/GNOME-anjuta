@@ -57,7 +57,7 @@ build_project ()
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_MODULE);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_("Unable to build module. Check Preferences->Commands."));
+			anjuta_warning (_("Unable to build module. Check Settings->Commands."));
 			g_free (src_dir);
 			return;
 		}
@@ -116,7 +116,7 @@ build_all_project ()
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_PROJECT);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_("Unable to build Project. Check Preferences->Commands."));
+			anjuta_warning (_("Unable to build Project. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -170,7 +170,7 @@ build_dist_project ()
 		if (cmd == NULL)
 		{
 			anjuta_warning (_
-					("Unable to build tarball. Check Preferences->Commands."));
+					("Unable to build tarball. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -225,7 +225,7 @@ build_install_project ()
 		if (cmd == NULL)
 		{
 			anjuta_warning (_
-					("Unable to Install Project. Check Preferences->Commands."));
+					("Unable to install Project. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -286,7 +286,7 @@ build_autogen_project ()
 			if (cmd == NULL)
 			{
 				anjuta_warning (_
-						("Unable to auto generate. Check Preferences->Commands."));
+						("Unable to auto generate. Check Settings->Commands."));
 				return;
 			}
 		}
@@ -303,7 +303,7 @@ build_autogen_project ()
 			g_free (cmd);
 			return;
 		}
-		anjuta_update_app_status (TRUE, _("Autogen Project"));
+		anjuta_update_app_status (TRUE, _("Auto generate Project"));
 		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages,
 				 _("Auto generating the Project: "),
@@ -396,23 +396,23 @@ build_dist_terminated (int status, time_t time)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _
-				 ("Build-Distribution completed...............Unsuccessful\n"),
+				 ("Build Distribution completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
 		anjuta_warning (_
-				("Build-Distribution completed ... unsuccessful"));
+				("Build Distribution completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
 				 _
-				 ("Build-Distribution completed...............Successful\n"),
+				 ("Build Distribution completed...............Successful\n"),
 				 MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages,
 				 _
-				 ("You will find the source tarball in the top level directory of the project\n"),
+				 ("The source tarball can be found in the top level directory of the project.\n"),
 				 MESSAGE_BUILD);
 		anjuta_status (_
-			       ("Build-Distribution completed ... successful"));
+			       ("Build Distribution completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),

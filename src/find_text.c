@@ -316,14 +316,14 @@ create_find_text_gui (FindText * ft)
 	gtk_container_add (GTK_CONTAINER (frame4), vbox2);
 
 	radiobutton4 =
-		gtk_radio_button_new_with_label (vbox2_group, _("Forward"));
+		gtk_radio_button_new_with_label (vbox2_group, _("Forwards"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton4));
 	gtk_widget_show (radiobutton4);
 	gtk_box_pack_start (GTK_BOX (vbox2), radiobutton4, FALSE, TRUE, 0);
 
 	radiobutton5 =
-		gtk_radio_button_new_with_label (vbox2_group, _("Backward"));
+		gtk_radio_button_new_with_label (vbox2_group, _("Backwards"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton5));
 	gtk_widget_show (radiobutton5);

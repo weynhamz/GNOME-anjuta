@@ -244,19 +244,19 @@ on_co_supp_info_clicked (GtkButton * button, gpointer data)
 	fprintf (tmp, _("Description:\n"));
 	fprintf (tmp, "%s\n\n", anjuta_supports[index][ANJUTA_SUPPORT_DESCRIPTION]);
 	fprintf (tmp, _("Dependencies: %s\n\n"), anjuta_supports[index][ANJUTA_SUPPORT_DEPENDENCY]);
-	fprintf (tmp, _("Macros in configure.in fie:\n"));
+	fprintf (tmp, _("Macros in configure.in file:\n"));
 	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_MACROS]);
-	fprintf (tmp, _("Variable(s) for cflags: %s\n\n"),
+	fprintf (tmp, _("Variables for cflags: %s\n\n"),
 		 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_CFLAGS]);
-	fprintf (tmp, _("Variable(s) for Libs: %s\n\n"),
+	fprintf (tmp, _("Variables for libraries: %s\n\n"),
 		 anjuta_supports[index][ANJUTA_SUPPORT_PRJ_LIBS]);
-	fprintf (tmp, _("Compile time Cflags: %s\n\n"),
+	fprintf (tmp, _("Compile time cflags: %s\n\n"),
 		 anjuta_supports[index][ANJUTA_SUPPORT_FILE_CFLAGS]);
-	fprintf (tmp, _("Compile time Libs: %s\n\n"),
+	fprintf (tmp, _("Compile time libraries: %s\n\n"),
 		 anjuta_supports[index][ANJUTA_SUPPORT_FILE_LIBS]);
 	fprintf (tmp, _("Entries in acconfig.h file:\n"));
 	fprintf (tmp, "%s\n", anjuta_supports[index][ANJUTA_SUPPORT_ACCONFIG_H]);
-	fprintf (tmp, _("Installed status:\n"));
+	fprintf (tmp, _("Installation status:\n"));
 	str = anjuta_supports[index][ANJUTA_SUPPORT_INSTALL_STATUS];
 	if (str)
 	{

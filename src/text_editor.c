@@ -936,7 +936,7 @@ text_editor_check_disk_status (TextEditor * te, const gboolean bForce )
 		{
 			buff =
 				g_strdup_printf (_
-						 ("WARNING: The file \"%s\" in the disk is more recent "
+						 ("The file \"%s\" on the disk is more recent "
 						  "than\nthe current buffer.\nDo you want to reload it?"),
 				te->filename);
 			messagebox2 (GNOME_MESSAGE_BOX_WARNING, buff,

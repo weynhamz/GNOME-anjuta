@@ -183,7 +183,7 @@ GnomeUIInfo text_editor_menu_debug_submenu_uiinfo[] = {
 
 GnomeUIInfo text_editor_menu_options_submenu_uiinfo[] = {
 	{
-	 GNOME_APP_UI_ITEM, N_("Toggle Linenums"),
+	 GNOME_APP_UI_ITEM, N_("Toggle Line numbers"),
 	 NULL,
 	 on_tem_toggle_linenum_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,

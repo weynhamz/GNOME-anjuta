@@ -43,6 +43,7 @@ Key elements:
 * ccview/ - the C++ class viewer
 * launcher/ - launcher wrapper used by the debugger
 * tagmanager/ - the tagmanager library
+* plugins/ - plugin components (see the sample for more information)
 
 
 Scintilla
@@ -69,6 +70,48 @@ objects from Scintilla must be referenced in src/Makefile.am in order
 to get linked into Anjuta.
 
 
+Messages and translations
+-------------------------
+
+There are a few rules we ask contributors to follow when adding new
+message strings and labels to Anjuta.
+
+1. BE CONSISTENT!! 
+a) refer to the standard GNOME Word List in the GNOME Style Guide 
+(http://developer.gnome.org/documents/style-guide/) when referencing 
+different user interface features, and then use the same terminology 
+throughout. Try to ensure that your use of words matches the rest of
+the code.
+b) make sure that mixed case is only used where it makes sense to do so.
+
+Example: "Unable to Start Plug in Module %s".
+This message is not ideal since the standard terminology is "plugin" (so 
+please do not use "Plug in", "plug-in", etc.). Also, in this case there 
+is no reason for the words "start" and "module" to being with an uppercase 
+letter.
+
+There are a few standard terms we use - in particular:
+- plugin
+- Project (always with an uppercase P)
+
+2. Do not use contractions (don't, can't, etc.). These can make a message 
+difficult to translate.
+
+3. Do not use colloquial expressions. They may seem cool or amusing, but 
+actually they can be hard to translate into all languages. Also, although as 
+developers it is OK to have fun, messages with certain language in them can be 
+intimidating for new or inexperienced users, and are not very professional.
+
+Example: "You FOOL! I can not attach to myself." 
+This message was originally used in the debugger code, and was removed some 
+time ago. It is quite fun, but a new user might be put off. 
+
+4. Do not use the first person "I" for referring to Anjuta in messages 
+(again, the previous message is an example of this). This is bad practice in 
+technical writing. If you need to refer to Anjuta itself, please use the word
+"Anjuta"! :-)
+
+
 Documentation
 -------------
 
@@ -82,6 +125,7 @@ and menus are converted to RGB and the Script-Fu Drop Shadow effect applied
 
 Translations of application messages are stored in the standard po/ 
 directory structure at the top level of the source tree.
+
 
 
 Graphics
@@ -113,8 +157,8 @@ class updates etc. While aynchronous event-driven implementation is more
 complex than it's synchronous counter part, it gives a smooth and non-frustrative
 operation. :-)
 
-1.a) Executing external commands in non-blocking mode:
-------------------------------------------------------
+1a) Executing external commands in non-blocking mode:
+-----------------------------------------------------
 
 launcher (launcher.[c,h]) is the class responsible for executing external commands in
 non-blocking mode. launcher_execute takes 4 arguments, first is the command
@@ -143,8 +187,8 @@ Refer to the file launcher.h for further information.
 
 Remember to use this launcher instead of gtk/glib non-blocking IO interface.
 
-1.b) Process synchronization:
------------------------------
+1b) Process synchronization:
+----------------------------
 
 The rest of the processes, which are quick (less that 1/10 sec) in execution
 or whose IO interfaces are not necessary, can safely be forked just like a

@@ -84,7 +84,7 @@ static GnomeUIInfo file1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("N_ew Project ..."),
-	 N_("Create a Project using the application wizard"),
+	 N_("Create a Project using the Application Wizard"),
 	 on_new_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
@@ -172,14 +172,14 @@ static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	{
 	 /* 4 */
 	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to LF"),
-	 N_("Convert End Of Line characters to UNIX EOL (LF)"),
+	 N_("Convert End Of Line characters to Unix EOL (LF)"),
 	 on_transform_eolchars1_activate, GUINT_TO_POINTER (ANE_EOL_LF), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 /* 5 */
 	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to CR"),
-	 N_("Convert End Of Line characters to MacOS EOL (CR)"),
+	 N_("Convert End Of Line characters to Mac OS EOL (CR)"),
 	 on_transform_eolchars1_activate, GUINT_TO_POINTER (ANE_EOL_CR), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -259,7 +259,7 @@ static GnomeUIInfo inserttext1_submenu_uiinfo[] = {
 
 static GnomeUIInfo goto1_submenu_uiinfo[] = {
 	{
-	 GNOME_APP_UI_ITEM, N_("_Goto Line no ..."),
+	 GNOME_APP_UI_ITEM, N_("_Goto Line number ..."),
 	 N_("Go to a particular line in the editor"),
 	 on_goto_line_no1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -408,7 +408,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	
 	{/*18*/
 	 GNOME_APP_UI_ITEM, N_("Find _Next"),
-	 N_("Repeat the Last Find command"),
+	 N_("Repeat the last Find command"),
 	 on_findnext1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 	 GDK_P, GDK_CONTROL_MASK, NULL},
@@ -690,7 +690,7 @@ static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_MENUS+1] = {
 	 GDK_F11, GDK_CONTROL_MASK, NULL},
 	{/*20*/
 	 GNOME_APP_UI_TOGGLEITEM, N_("Show _Locals"),
-	 N_("Show/Hide Local Variables in MessagePane"),
+	 N_("Show/Hide Local variables in Message window"),
 	 on_showhide_locals, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -759,45 +759,45 @@ static GnomeUIInfo project1_menu_uiinfo[] = {
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Remove"),
-	 N_("Remove the current file from the project"),
+	 N_("Remove the current file from the Project"),
 	 on_project_remove1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, "READ_ME",
-	 N_("Open the README file of the project"),
+	 N_("Open the README file of the Project"),
 	 on_prj_readme1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, "_TODO",
-	 N_("Open the TODO file of the project"),
+	 N_("Open the TODO file of the Project"),
 	 on_prj_todo1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, "Change_Log",
-	 N_("Open the ChangeLog file of the project"),
+	 N_("Open the ChangeLog file of the Project"),
 	 on_prj_changelog1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, "_NEWS",
-	 N_("Open the NEWS file of the project"),
+	 N_("Open the NEWS file of the Project"),
 	 on_prj_news1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Project _Configuration ..."),
-	 N_("Edit the configuration of the project"),
+	 N_("Edit the configuration of the Project"),
 	 on_project_configure1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PREF,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Project _Information"),
-	 N_("Detailed information about the project"),
+	 N_("Detailed information about the Project"),
 	 on_project_project_info1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_OPEN,
 	 0, 0, NULL},
@@ -1030,33 +1030,33 @@ static GnomeUIInfo build1_menu_uiinfo[] = {
 	 GDK_F9, GDK_SHIFT_MASK, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("_Build"),
-	 N_("Build the source directory of the project/current source file"),
+	 N_("Build the source directory of the Project/current source file"),
 	 on_build_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_EXEC,
 	 GDK_F10, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Build _All"),
-	 N_("Build the whole project"),
+	 N_("Build the whole Project"),
 	 on_build_all_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 GDK_F11, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("_Install"),
-	 N_("Install the project on your system"),
+	 N_("Install the Project on your system"),
 	 on_install_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Build _Distribution"),
-	 N_("Build the distribution tarball of the project"),
+	 N_("Build the distribution tarball of the Project"),
 	 on_build_dist_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
 	 GNOME_APP_UI_ITEM, N_("Con_figure ..."),
-	 N_("Configure the project"),
+	 N_("Configure the Project"),
 	 on_configure_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1075,7 +1075,7 @@ static GnomeUIInfo build1_menu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Clean A_ll"),
-	 N_("Clean the whole project directory"),
+	 N_("Clean the whole Project directory"),
 	 on_clean_all_project1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
@@ -1438,7 +1438,7 @@ static GnomeUIInfo utilities1_menu_uiinfo[] = {
 
 static GnomeUIInfo windows1_menu_uiinfo[] = {
 	{
-	 GNOME_APP_UI_ITEM, N_("_Create New Window"),
+	 GNOME_APP_UI_ITEM, N_("_Create new window"),
 	 N_("Open a new file window"),
 	 on_windows1_new_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
@@ -1448,7 +1448,7 @@ static GnomeUIInfo windows1_menu_uiinfo[] = {
  given below. Otherwise, I won't be able to find it.
 */
 	{
-	 GNOME_APP_UI_ITEM, "Cl_ose Current window",
+	 GNOME_APP_UI_ITEM, "Cl_ose current window",
 	 N_("Close current document window"),
 	 on_windows1_close_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
@@ -1495,8 +1495,8 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	GNOMEUIINFO_HELP ("anjuta"),
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 GNOME_APP_UI_ITEM, N_("Browse Gnome API Pages"),
-	 N_("The gnome API pages"),
+	 GNOME_APP_UI_ITEM, N_("Browse GNOME API Pages"),
+	 N_("The GNOME API pages"),
 	 on_gnome_pages1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
 	 GDK_F1, 0, NULL},
@@ -1527,7 +1527,7 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,
 	{
-	 GNOME_APP_UI_ITEM, N_("Anjuta Home site"),
+	 GNOME_APP_UI_ITEM, N_("Anjuta Home Page"),
 	 N_("Online documentation and resources"),
 	 on_url_activate, "http://anjuta.sourceforge.net", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
@@ -1547,7 +1547,7 @@ static GnomeUIInfo help1_menu_uiinfo[] = {
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Request Features"),
-	 N_("Submit a feature request for Anjtua"),
+	 N_("Submit a feature request for Anjuta"),
 	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},

@@ -84,16 +84,14 @@ on_search_in_files_ok_clicked          (GtkButton       *button,
    temp = gtk_entry_get_text(GTK_ENTRY(ff->widgets.regexp_entry));
    if(ff->length <= 0)
    {
-       anjuta_error(_("ERROR: No input files supplied."\
-                              "\nI am wondering where will I search."));
+       anjuta_error(_("No input files supplied."));
        return;
    }
    temp2 = g_strdup(temp);
    temp = g_strchomp(temp2);
    if(temp == NULL || strlen(temp) == 0)
    {
-       anjuta_error(_("ERROR: No search string supplied."\
-                              "\nI am wondering what to search."));
+       anjuta_error(_("No search string supplied."));
        g_free(temp2);
        return;
    }

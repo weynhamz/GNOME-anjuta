@@ -57,7 +57,7 @@ compile_file_with_make ()
 		cmd = command_editor_get_command (app->command_editor, COMMAND_BUILD_MODULE);
 		if (cmd == NULL)
 		{
-			anjuta_warning (_("Unable to build module. Check Preferences->Commands."));
+			anjuta_warning (_("Unable to build module. Check Settings->Commands."));
 			g_free (src_dir);
 			return;
 		}
@@ -74,7 +74,7 @@ compile_file_with_make ()
 		}
 		anjuta_update_app_status (TRUE, _("Build Project"));
 		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-		anjuta_message_manager_append (app->messages, _("Building source directory of the project: "),
+		anjuta_message_manager_append (app->messages, _("Building source directory of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -105,7 +105,7 @@ compile_file (gboolean use_make)
 	
 	if (te->full_filename == NULL)
 	{
-		anjuta_warning (_("This file is not saved. Save it first and then compile."));
+		anjuta_warning (_("This file has not been saved. Save it first and then compile."));
 		return;
 	}
 	if (text_editor_is_saved(te) == FALSE)
@@ -126,7 +126,7 @@ compile_file (gboolean use_make)
 	flg = stat (filename, &st2);
 	if ((flg == 0) && (st2.st_mtime > st1.st_mtime))
 	{
-		anjuta_warning (_("The object file is up to date. No need to compile again."));
+		anjuta_warning (_("The object file is up-to-date, there is no need to compile it again."));
 		g_free (filename);
 		return;
 	}
@@ -138,7 +138,7 @@ compile_file (gboolean use_make)
 		use_make?COMMAND_MAKE_FILE:COMMAND_COMPILE_FILE, te->filename);
 	if (cmd == NULL)
 	{
-		anjuta_warning (_("I do not really know how to compile this file."));
+		anjuta_warning (_("No compile command has been specified for this type of file."));
 		return;
 	}
 	dirname = g_dirname (te->full_filename);

@@ -72,7 +72,7 @@ create_dummy_pixmap                    (GtkWidget       *widget,
   gdkpixmap = gdk_pixmap_colormap_create_from_xpm_d (NULL, colormap, &mask,
                                                      NULL, dummy_pixmap_xpm);
   if (gdkpixmap == NULL)
-    g_error ("Couldn't create replacement pixmap.");
+    g_error ("Unable to create replacement pixmap.");
   pixmap = gtk_pixmap_new (gdkpixmap, mask);
   gdk_pixmap_unref (gdkpixmap);
   gdk_bitmap_unref (mask);
@@ -97,7 +97,7 @@ create_pixmap                          (GtkWidget       *widget,
   pathname = gnome_pixmap_file (filename);
   if (!pathname)
     {
-      g_warning (_("Couldn't find pixmap file: %s"), filename);
+      g_warning (_("Unable to find pixmap file: %s"), filename);
       return create_dummy_pixmap (widget, gnome_pixmap);
     }
 
@@ -113,7 +113,7 @@ create_pixmap                          (GtkWidget       *widget,
                                                    NULL, pathname);
   if (gdkpixmap == NULL)
     {
-      g_warning (_("Couldn't create pixmap from file: %s"), pathname);
+      g_warning (_("Unable to create pixmap from file: %s"), pathname);
       g_free (pathname);
       return create_dummy_pixmap (widget, gnome_pixmap);
     }
@@ -135,7 +135,7 @@ create_image                           (const gchar     *filename)
   pathname = gnome_pixmap_file (filename);
   if (!pathname)
     {
-      g_warning (_("Couldn't find pixmap file: %s"), filename);
+      g_warning (_("Unable to find pixmap file: %s"), filename);
       return NULL;
     }
 

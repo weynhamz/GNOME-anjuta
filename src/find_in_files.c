@@ -175,7 +175,7 @@ find_in_files_process (FindInFiles * ff)
 		g_free (command);
 		return;
 	}
-	anjuta_update_app_status (TRUE, _("Find in files"));
+	anjuta_update_app_status (TRUE, _("Find in Files"));
 	g_free (command);
 	anjuta_message_manager_clear (app->messages, MESSAGE_FIND);
 	anjuta_message_manager_append (app->messages, _("Finding in Files ....\n"),

@@ -103,7 +103,7 @@ create_configurer_dialog (Configurer * c)
 	gtk_widget_show (vbox2);
 	gtk_container_add (GTK_CONTAINER (frame2), vbox2);
 
-	frame3 = gtk_frame_new (_("Configure Options (if any)"));
+	frame3 = gtk_frame_new (_("Configure Options"));
 	gtk_widget_show (frame3);
 	gtk_box_pack_start (GTK_BOX (vbox2), frame3, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (frame3), 5);
@@ -179,8 +179,8 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	if (file_is_executable ("./configure") == FALSE)
 	{
 		anjuta_error (_
-			      ("Project does not have executable configure script.\n"
-			       "You need to autogen the project first."));
+			      ("Project does not have an executable configure script.\n"
+			       "Auto generate the Project first."));
 		return;
 	}
 	options = prop_get (cof->props, "project.configure.options");
@@ -202,7 +202,7 @@ on_configurer_ok_clicked (GtkButton * button, gpointer user_data)
 	g_free (tmp);
 	anjuta_update_app_status (TRUE, _("Configure"));
 	anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
-	anjuta_message_manager_append (app->messages, _("Configuring the project ....\n"), MESSAGE_BUILD);
+	anjuta_message_manager_append (app->messages, _("Configuring the Project ....\n"), MESSAGE_BUILD);
 	anjuta_message_manager_show (app->messages, MESSAGE_BUILD);
 }
 

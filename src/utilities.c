@@ -712,7 +712,7 @@ copy_file (gchar * src, gchar * dest, gboolean show_error)
 	if (input_fp == NULL)
 	{
 		if( show_error)
-			anjuta_system_error (errno, _("Couldn't read file: %s."), src);
+			anjuta_system_error (errno, _("Unable to read file: %s."), src);
 		return FALSE;
 	}
 	
@@ -720,7 +720,7 @@ copy_file (gchar * src, gchar * dest, gboolean show_error)
 	if (output_fp == NULL)
 	{
 		if( show_error)
-			anjuta_system_error (errno, _("Couldn't create file: %s."), dest);
+			anjuta_system_error (errno, _("Unable to create file: %s."), dest);
 		fclose (input_fp);
 		return TRUE;
 	}
@@ -754,7 +754,7 @@ copy_file (gchar * src, gchar * dest, gboolean show_error)
 	fclose (output_fp);
 	
 	if( show_error && (error == FALSE))
-		anjuta_system_error (errno, _("Couldn't complete file copy"));
+		anjuta_system_error (errno, _("Unable to complete file copy"));
 	return error;
 }
 

@@ -643,7 +643,7 @@ update_using_ctags (TagsManager * tm, gchar * filename)
 	close (stdout_pipe[1]);
 	if (pid < 0)
 	{
-		anjuta_system_error (errno, _("Cannot fork to execute ctags. I donno why!!\nIn %s:%d"),
+		anjuta_system_error (errno, _("Cannot fork to execute ctags.\nIn %s:%d"),
 					 __FILE__, __LINE__);
 		close (stdout_pipe[0]);
 		return FALSE;
@@ -762,7 +762,7 @@ tags_manager_update_image (TagsManager * tm, GList * files)
 		tm->update_counter = 0;
 		tm->update_in_progress = TRUE;
 	
-		anjuta_init_progress (_("Synchronizing and updating Tags Image ... hold on"),
+		anjuta_init_progress (_("Synchronizing and updating tags image ... please wait"),
 			g_list_length (files), on_tags_manager_updt_img_cancel, tm);
 	
 		gtk_idle_add (on_tags_manager_on_idle, tm);
@@ -794,7 +794,7 @@ on_tags_manager_on_idle (gpointer data)
 	if (tm->update_counter >= g_list_length (tm->update_file_list))
 	{
 		tags_manager_thaw (tm);
-		anjuta_done_progress (_("Updating Tags image completed"));
+		anjuta_done_progress (_("Updating tags image completed"));
 		glist_strings_free (tm->update_file_list);
 		tm->update_in_progress = FALSE;
 		tm->update_file_list = NULL;
@@ -830,7 +830,7 @@ on_tags_manager_on_idle (gpointer data)
 	if (fn)
 		g_free (fn);
 	tags_manager_thaw (tm);
-	anjuta_done_progress (_("Synchronization of Tags image failed"));
+	anjuta_done_progress (_("Synchronization of tags image failed"));
 	glist_strings_free (tm->update_file_list);
 	tm->update_file_list = NULL;
 	tm->update_in_progress = FALSE;

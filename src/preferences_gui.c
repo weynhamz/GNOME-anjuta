@@ -381,14 +381,14 @@ create_preferences_page0 (Preferences * pr)
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 0, 0);
 
-	label3 = gtk_label_new (_("Rpms:"));
+	label3 = gtk_label_new (_("RPMs:"));
 	gtk_widget_show (label3);
 	gtk_misc_set_alignment (GTK_MISC (label3), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label3, 0, 1, 2, 3,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 0, 0);
 
-	label4 = gtk_label_new (_("Srpms:"));
+	label4 = gtk_label_new (_("SRPMs:"));
 	gtk_widget_show (label4);
 	gtk_misc_set_alignment (GTK_MISC (label4), 0, -1);
 	gtk_table_attach (GTK_TABLE (table1), label4, 0, 1, 3, 4,
@@ -558,7 +558,7 @@ create_preferences_page1 (Preferences * p)
 
 	checkbutton2 =
 		gtk_check_button_new_with_label (_
-						 ("Silent: Don't echo commands"));
+						 ("Silent: do not echo commands"));
 	gtk_widget_show (checkbutton2);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton2, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton2), 5);
@@ -579,7 +579,7 @@ create_preferences_page1 (Preferences * p)
 
 	checkbutton7 =
 		gtk_check_button_new_with_label(_
-						("Autosave Before Build"));
+						("Autosave before Build"));
 	gtk_widget_show(checkbutton7);
 	gtk_box_pack_start(GTK_BOX (vbox1), checkbutton7, FALSE, FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton7), 5);
@@ -594,7 +594,7 @@ create_preferences_page1 (Preferences * p)
 	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, FALSE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox1), 5);
 
-	label1 = gtk_label_new (_("Max no of jobs:"));
+	label1 = gtk_label_new (_("Max number of jobs:"));
 	gtk_widget_show (label1);
 	gtk_box_pack_start (GTK_BOX (hbox1), label1, FALSE, TRUE, 0);
 	gtk_misc_set_padding (GTK_MISC (label1), 19, 0);
@@ -1009,7 +1009,7 @@ create_preferences_page3 (Preferences * p)
 			  (GtkAttachOptions) (0), 0, 0);
 			  
 	checkbutton13 =
-		gtk_check_button_new_with_label(_("Filter extrageneous chars in DOS mode"));
+		gtk_check_button_new_with_label(_("Filter extraneous chars in DOS mode"));
 	gtk_widget_show (checkbutton13);
 	gtk_table_attach (GTK_TABLE (table2), checkbutton13, 0, 1, 7, 8,
 			(GtkAttachOptions) (GTK_FILL),

@@ -572,8 +572,8 @@ debugger_start (gchar * prog)
 	tmp = g_strconcat (app->dirs->data, "/", "gdb.init", NULL);
 	if (file_is_regular (tmp) == FALSE)
 	{
-		anjuta_error (_("I can not find: %s.\n"
-				   "Unable to initialize Debugger. :-(\n"
+		anjuta_error (_("Unable to find: %s.\n"
+				   "Unable to initialize debugger.\n"
 				   "Make sure Anjuta is installed correctly."), tmp);
 		g_free (tmp);
 		debugger_set_active (FALSE);

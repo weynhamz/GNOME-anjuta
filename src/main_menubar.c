@@ -576,7 +576,7 @@ on_recent_projects_menu_item_activate (GtkMenuItem * item, gchar * data)
 	if (app->project_dbase->project_is_open)
 	{
 		anjuta_warning (_
-				("You have a project opened. Close it first."));
+				("A Project is already open. Close it first."));
 		return;
 	}
 	fileselection_set_filename (app->project_dbase->fileselection_open, data);

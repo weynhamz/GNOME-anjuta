@@ -48,7 +48,7 @@ build_file ()
 		return;
 	if (te->full_filename == NULL)
 	{
-		anjuta_warning (_("File is not saved. Save it and build."));
+		anjuta_warning (_("This file has not been saved. Save it first and then build."));
 		return;
 	}
 	if (text_editor_is_saved (te) == FALSE)
@@ -73,7 +73,7 @@ build_file ()
 		if ((flg == 0) && (st2.st_mtime > st1.st_mtime))
 		{
 			anjuta_warning (_
-					("The executable is up-to-date. No need to build again."));
+					("The executable is up-to-date, there is no need to build it again."));
 			g_free (filename);
 			return;
 		}
@@ -89,7 +89,7 @@ build_file ()
 	if (cmd == NULL)
 	{
 		anjuta_warning (_
-				("I do not really know how to build this file."));
+				("No build command has been specified for this type of file."));
 		return;
 	}
 	dirname = g_dirname (te->full_filename);

@@ -314,7 +314,7 @@ project_dbase_new (PropsID pr_props)
 	};
 
 	/* Must declare static, because it will be used forever */
-	static FileSelData fsd2 = { N_("Add To Project"), NULL,
+	static FileSelData fsd2 = { N_("Add to Project"), NULL,
 		on_add_prjfilesel_ok_clicked,
 		on_add_prjfilesel_cancel_clicked,
 		NULL
@@ -618,7 +618,7 @@ load_from_buffer (ProjectDBase* p, gchar* prj_buff, gint loc)
 		temp = g_strdup (" ");
 	if (strcmp (temp, "project") != 0)
 	{
-		anjuta_error (_("Unable to load project: %s"), p->proj_filename);
+		anjuta_error (_("Unable to load Project: %s"), p->proj_filename);
 		g_free (temp);
 		return FALSE;
 	}
@@ -629,15 +629,14 @@ load_from_buffer (ProjectDBase* p, gchar* prj_buff, gint loc)
 		gchar *ver;
 		ver = prop_get (p->props, "anjuta.version");
 		anjuta_error(_
-					 ("Error: You need Anjuta version %s or later to open this project.\n"
-					  "Please upgrade Anjuta to the latest version (Help for more information).\n"
-					  "For the time being, I am too old to load it."), ver);
+				   ("Anjuta version %s or later is required to open this Project.\n"
+					"Please upgrade to the latest version of Anjuta (Help for more information)."), ver);
 		g_free (ver);
 		return FALSE;
 	}
 	if (project_config_load(p->project_config, p->props)== FALSE)
 	{
-		anjuta_error (_("Unable to load project: %s"), p->proj_filename);
+		anjuta_error (_("Unable to load Project: %s"), p->proj_filename);
 		return FALSE;
 	}
 	return TRUE;
@@ -776,7 +775,7 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 			fclose (fp);
 			goto done;
 		default:
-			anjuta_error ("Unknown compatibility level of the project");
+			anjuta_error ("Unknown compatibility level of the Project");
 			error_shown = TRUE;
 			goto go_error;
 		}
@@ -784,11 +783,10 @@ project_dbase_load_project (ProjectDBase * p, gboolean show_project)
 	if (level > COMPATIBILITY_LEVEL)
 	{
 		anjuta_error (_
-		 ("You need Anjuta version %s or later to "
+		 ("Anjuta version %s or later is required to "
 		"open this project.\n"
-		"Please upgrade Anjuta to the latest version "
-		"(Help for more information).\n"
-		"For the time being, I am too old to load it."), buff);
+		"Please upgradeto the latest version of Anjuta "
+		"(Help for more information)."), buff);
 		error_shown = TRUE;
 		goto go_error;
 	}
@@ -917,7 +915,7 @@ project_dbase_save_project (ProjectDBase * p)
 		goto error_show;
 
 	str = prop_get (p->props, "project.name");
-	if (!str) str = g_strdup ("Unkown_Project");
+	if (!str) str = g_strdup ("Unknown Project");
 	if (fprintf (fp, "project.name=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
@@ -980,7 +978,7 @@ project_dbase_save_project (ProjectDBase * p)
 
 	str = prop_get (p->props, "project.menu.entry");
 	if (!str) str = prop_get (p->props, "project.name");
-	if (!str) str = g_strdup ("Unkown project");
+	if (!str) str = g_strdup ("Unknown Project");
 	if (fprintf (fp, "project.menu.entry=%s\n", str) < 1)
 		goto error_show;
 	g_free (str); str = NULL;
@@ -1112,15 +1110,15 @@ project_dbase_save_project (ProjectDBase * p)
 	p->is_saved = TRUE;
 	fclose (fp);
 	source_write_build_files (p);
-	anjuta_status (_("Project Saved Successfully"));
+	anjuta_status (_("Project saved successfully"));
 	anjuta_set_active ();
 	return TRUE;
 
 error_show:
 	if (str) g_free (str);
-	anjuta_system_error (errno, _("Unable to save the project."));
+	anjuta_system_error (errno, _("Unable to save the Project."));
 	fclose (fp);
-	anjuta_status (_("Unable to save the project."));
+	anjuta_status (_("Unable to save the Project."));
 	anjuta_set_active ();
 	p->is_saved = FALSE;
 	return FALSE;
@@ -1520,8 +1518,8 @@ project_dbase_summon_glade (ProjectDBase *p)
 	{
 		g_free (filename);
 		anjuta_error (
-			_("The Project glade file does not\n"
-			"exist in the top level project directory."));
+			_("A .glade file does not\n"
+			"exist in the top level Project directory."));
 		return FALSE;
 	}
 	ret = glade_iface_start_glade_editing (filename);
@@ -1553,8 +1551,8 @@ project_dbase_generate_source_code (ProjectDBase *p)
 	if (file_is_regular (filename) == FALSE)
 	{
 		anjuta_error (
-			_("The Project glade file does not\n"
-			"exist in the top level project directory."));
+			_("A .glade file does not\n"
+			"exist in the top level Project directory."));
 		ret = source_write_generic_main_c (p);
 	}
 	else

@@ -193,7 +193,7 @@ MainLoop(int *pargc, char *argv[], CORBA_ORB corb )
 		LocalServerEnd( GetCorbaManager() );
 		return 0;
 	} else
-		MessageBox( _("CORBA Module not Initialized") );
+		MessageBox( _("CORBA Module not initialized") );
 	return -1;
 
 }

@@ -248,7 +248,7 @@ create_compiler_options_page0 (CompilerOptions * co)
 				      GTK_SELECTION_BROWSE);
 	gtk_clist_column_titles_show (GTK_CLIST (clist1));
 
-	label7 = gtk_label_new (_("Select the Supports to add"));
+	label7 = gtk_label_new (_("Select the support libraries to add"));
 	gtk_widget_show (label7);
 	gtk_clist_set_column_widget (GTK_CLIST (clist1), 1, label7);
 
@@ -821,7 +821,7 @@ create_compiler_options_page5 (CompilerOptions * co)
 
 	checkbutton[0] =
 		gtk_check_button_new_with_label (_
-						 ("Treat warnings as errors."));
+						 ("Treat warnings as errors"));
 	gtk_widget_show (checkbutton[0]);
 	gtk_box_pack_start (GTK_BOX (vbox1), checkbutton[0], FALSE, FALSE, 0);
 
@@ -1018,7 +1018,7 @@ create_compiler_options_page6 (CompilerOptions * co)
 	radiobutton[3] =
 		gtk_radio_button_new_with_label (vbox2_group,
 						 _
-						 ("Fastest-code optimization (functions inlined whereever possible"));
+						 ("Fastest-code optimization (functions inlined where possible"));
 	vbox2_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton[3]));
 	gtk_widget_show (radiobutton[3]);
@@ -1035,10 +1035,10 @@ create_compiler_options_page6 (CompilerOptions * co)
 	gtk_widget_show (frame1);
 
 	label1 = gtk_label_new (
-		_("With optimization enabled, you might have some difficulty\n"
-	          "debugging your program. So it is not a good idea to enable\n"
-		  "both debug and optimization options, unless what you want\n"
-		  "is to debug the optimized code."));
+		_("With optimization enabled, you may have some difficulty\n"
+	      "debugging your program. Avoid enabling both debug and\n"
+		  "optimization options, unless you want to\n"
+		  "debug the optimized code."));
 	gtk_widget_show (label1);
 	gtk_misc_set_alignment (GTK_MISC (label1), 0.5, 0.5);
 	gtk_container_add (GTK_CONTAINER (frame1), label1);

@@ -81,7 +81,7 @@ on_project_remove1_activate (GtkMenuItem * menuitem, gpointer user_data)
 	buff =
 		g_strdup_printf (_
 				 ("Are you sure you want to remove the item\n\"%s\""
-				  " from the Project Data Base?"),
+				  " from the Project?"),
 extract_filename (p->current_file_data->filename));
 	messagebox2 (GNOME_MESSAGE_BOX_QUESTION, buff, GNOME_STOCK_BUTTON_YES,
 		     GNOME_STOCK_BUTTON_NO,
@@ -247,7 +247,7 @@ on_open_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 	if (p->project_is_open)
 	{
 		messagebox2 (GNOME_MESSAGE_BOX_WARNING,
-			     _("There is already a project opened." \
+			     _("There is already a Project open." \
 			       "Do you want to close it first?"),
 			     GNOME_STOCK_BUTTON_YES,
 			     GNOME_STOCK_BUTTON_NO,
@@ -731,35 +731,35 @@ create_project_dbase_info_gui (gchar * lab[])
 			  (GtkAttachOptions) (0), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label11), 0, -1);
 
-	label13 = gtk_label_new (_("No of src files:"));
+	label13 = gtk_label_new (_("Source files:"));
 	gtk_widget_show (label13);
 	gtk_table_attach (GTK_TABLE (table1), label13, 3, 4, 4, 5,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label13), 0, -1);
 
-	label15 = gtk_label_new (_("No of help files:"));
+	label15 = gtk_label_new (_("Help files:"));
 	gtk_widget_show (label15);
 	gtk_table_attach (GTK_TABLE (table1), label15, 3, 4, 5, 6,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label15), 0, -1);
 
-	label17 = gtk_label_new (_("No of data files:"));
+	label17 = gtk_label_new (_("Data files:"));
 	gtk_widget_show (label17);
 	gtk_table_attach (GTK_TABLE (table1), label17, 3, 4, 6, 7,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label17), 0, -1);
 
-	label19 = gtk_label_new (_("No of pix files:"));
+	label19 = gtk_label_new (_("Pixmap files:"));
 	gtk_widget_show (label19);
 	gtk_table_attach (GTK_TABLE (table1), label19, 3, 4, 8, 9,
 			  (GtkAttachOptions) (0),
 			  (GtkAttachOptions) (0), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label19), 0, -1);
 
-	label21 = gtk_label_new (_("No of doc files:"));
+	label21 = gtk_label_new (_("Doc files:"));
 	gtk_widget_show (label21);
 	gtk_table_attach (GTK_TABLE (table1), label21, 3, 4, 9, 10,
 			  (GtkAttachOptions) (0),
@@ -780,7 +780,7 @@ create_project_dbase_info_gui (gchar * lab[])
 	gtk_misc_set_padding (GTK_MISC (label22), 3, 0);
 	gtk_misc_set_alignment (GTK_MISC (label22), 0, -1);
 
-	label23 = gtk_label_new (_("No of po files:"));
+	label23 = gtk_label_new (_("Po files:"));
 	gtk_widget_show (label23);
 	gtk_table_attach (GTK_TABLE (table1), label23, 3, 4, 10, 11,
 			  (GtkAttachOptions) (0),
@@ -1080,7 +1080,7 @@ create_langsel_dialog (void)
 	gtk_widget_show (table1);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1), table1, TRUE, TRUE, 0);
 
-	label1 = gtk_label_new (_("Select Regional Language:"));
+	label1 = gtk_label_new (_("Select regional language:"));
 	gtk_widget_ref (label1);
 	gtk_object_set_data_full (GTK_OBJECT (dialog1), "label1", label1,
 				  (GtkDestroyNotify) gtk_widget_unref);
@@ -1120,7 +1120,7 @@ create_langsel_dialog (void)
 		gnome_pixmap_load_file (GNOME_PIXMAP (pixmap1),
 					pixmap1_filename);
 	else
-		g_warning (_("Couldn't find pixmap file: %s"),
+		g_warning (_("Unable to find pixmap file: %s"),
 			   "gnome-globe.png");
 	g_free (pixmap1_filename);
 	gtk_widget_ref (pixmap1);
@@ -1192,7 +1192,7 @@ on_prj_import_confirm_yes (GtkButton * button, gpointer user_data)
 			 */
 			messagebox (GNOME_MESSAGE_BOX_INFO,
 				    _
-				    ("This file has already been added to the project."));
+				    ("This file has already been added to the Project"));
 			g_free (dir);
 			g_free (comp_dir);
 			g_free (filename);
@@ -1279,7 +1279,7 @@ on_add_prjfilesel_ok_clicked (GtkButton * button, gpointer user_data)
 		mesg =
 			g_strdup_printf (_
 					 ("\"%s\"\ndoes not exist in the current module directory."
-					  "\nDo you want to IMPORT (copy) into the module?"),
+					  "\nDo you want to IMPORT (copy) it into the module?"),
 					filename);
 		if (strcmp (dir, comp_dir) == 0)
 			on_prj_import_confirm_yes (NULL, user_data);

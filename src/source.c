@@ -118,7 +118,7 @@ source_create_file_if_not_exist (const gchar * directory,
 		}
 		else
 		{
-			anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+			anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 			ret = FALSE;
 		}
 	}
@@ -165,7 +165,7 @@ source_write_autogen_sh (ProjectDBase * data)
 
 	if (!copy_file (srcbuffer, destbuffer, FALSE))
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), destbuffer);
+		anjuta_system_error (errno, _("Unable to create file: %s."), destbuffer);
 		g_free (destbuffer);
 		g_free (srcbuffer);
 		return FALSE;
@@ -203,7 +203,7 @@ source_write_configure_in (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		return FALSE;
@@ -439,7 +439,7 @@ source_write_configure_in (ProjectDBase * data)
 	fclose (fp);
 
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (filename);
 	g_free (actual_file);
 	g_free (target);
@@ -463,7 +463,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		return FALSE;
@@ -548,7 +548,7 @@ source_write_toplevel_makefile_am (ProjectDBase * data)
 		  "\n");
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
@@ -614,7 +614,7 @@ source_write_macros_files (ProjectDBase * data)
 		{
 			if (!copy_file (srcbuffer, destbuffer, FALSE))
 			{
-				anjuta_system_error (errno, _("Couldn't create file: %s."), destbuffer);
+				anjuta_system_error (errno, _("Unable to create file: %s."), destbuffer);
 				g_free (srcbuffer);
 				g_free (destbuffer);
 				return FALSE;
@@ -654,7 +654,7 @@ source_write_po_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		return FALSE;
@@ -669,7 +669,7 @@ source_write_po_files (ProjectDBase * data)
 	source_write_module_file_list (data, fp, FALSE, prefix, MODULE_SOURCE);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (prefix);
 	g_free (filename);
@@ -702,7 +702,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		free_project_type(type);
 		g_free (actual_file);
@@ -738,7 +738,7 @@ source_write_executable_source_files (ProjectDBase * data)
 	fclose (fp);
 	
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	
 	g_free (actual_file);
 	g_free (target);
@@ -810,7 +810,7 @@ source_write_include_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		return FALSE;
@@ -829,7 +829,7 @@ source_write_include_files (ProjectDBase * data)
 	fprintf (fp, "EXTRA_DIST = $(%s_include_DATA)\n", target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
@@ -862,7 +862,7 @@ source_write_pixmap_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		free_project_type(type);
@@ -882,7 +882,7 @@ source_write_pixmap_files (ProjectDBase * data)
 	fprintf (fp, "EXTRA_DIST = $(%s_pixmaps_DATA)\n", target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
@@ -915,7 +915,7 @@ source_write_help_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		free_project_type(type);
 		g_free (actual_file);
@@ -935,7 +935,7 @@ source_write_help_files (ProjectDBase * data)
 	fprintf (fp, "EXTRA_DIST = $(%s_help_DATA)\n", target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
 	free_project_type(type);
@@ -966,7 +966,7 @@ source_write_doc_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		return FALSE;
@@ -984,7 +984,7 @@ source_write_doc_files (ProjectDBase * data)
 	fprintf (fp, "EXTRA_DIST = $(%s_doc_DATA)\n", target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
@@ -1014,7 +1014,7 @@ source_write_data_files (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		g_free (actual_file);
 		return FALSE;
@@ -1032,7 +1032,7 @@ source_write_data_files (ProjectDBase * data)
 	fprintf (fp, "EXTRA_DIST = $(%s_data_DATA)\n", target);
 	fclose (fp);
 	if (move_file_if_not_same(filename, actual_file) == FALSE)
-		anjuta_system_error (errno, _("Couldn't create file: %s."), actual_file);
+		anjuta_system_error (errno, _("Unable to create file: %s."), actual_file);
 	g_free (actual_file);
 	g_free (target);
 	g_free (filename);
@@ -1059,7 +1059,7 @@ source_write_acconfig_h (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		return FALSE;
 	}
@@ -1112,7 +1112,7 @@ source_write_desktop_entry (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		return FALSE;
 	}
@@ -1188,7 +1188,7 @@ source_write_glade_file (ProjectDBase * data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		free_project_type(type);
 		g_free (filename);
 		return FALSE;
@@ -1271,7 +1271,7 @@ source_write_glade_file (ProjectDBase * data)
 	free_project_type(type);
 	fflush( fp );
 	if( ferror( fp ) )
-	{		anjuta_system_error (errno, _("Error writing to : %s."), filename);
+	{		anjuta_system_error (errno, _("Error writing to: %s."), filename);
 		bOK = FALSE ;
 	}
 	fclose (fp);
@@ -1320,7 +1320,7 @@ source_write_generic_main_c (ProjectDBase *data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		return FALSE;
 	}
@@ -1393,7 +1393,7 @@ source_write_libglade_main_c (ProjectDBase *data)
 	fp = fopen (filename, "w");
 	if (fp == NULL)
 	{
-		anjuta_system_error (errno, _("Couldn't create file: %s."), filename);
+		anjuta_system_error (errno, _("Unable to create file: %s."), filename);
 		g_free (filename);
 		return FALSE;
 	}
@@ -1482,7 +1482,7 @@ source_write_build_files (ProjectDBase * data)
 				if (!ret) return FALSE;
 				break;
 			default:
-				anjuta_error (_("Project type does not support glade."));
+				anjuta_error (_("Project type does not support Glade."));
 				free_project_type(type);
 				return FALSE;
 		}

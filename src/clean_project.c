@@ -58,7 +58,7 @@ clean_project ()
 		if (cmd == NULL)
 		{
 			anjuta_warning (_
-					("Unable to clean project. Check Preferences->Commands."));
+					("Unable to clean Project. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -72,7 +72,7 @@ clean_project ()
 		anjuta_update_app_status (TRUE, _("Clean"));
 		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages,
-				 _("Cleaning the source directory of the project: "),
+				 _("Cleaning the source directory of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -144,7 +144,7 @@ clean_all_project ()
 		if (cmd == NULL)
 		{
 			anjuta_warning (_
-					("Unable to clean all project. Check Preferences->Commands."));
+					("Unable to Clean All for the Project. Check Settings->Commands."));
 			return;
 		}
 		chdir (app->project_dbase->top_proj_dir);
@@ -158,7 +158,7 @@ clean_all_project ()
 		anjuta_update_app_status (TRUE, _("Clean All"));
 		anjuta_message_manager_clear (app->messages, MESSAGE_BUILD);
 		anjuta_message_manager_append (app->messages,
-				 _("Cleaning whole of the project: "),
+				 _("Cleaning whole of the Project: "),
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		anjuta_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
@@ -180,17 +180,17 @@ clean_all_terminated (int status, time_t time)
 	{
 		anjuta_message_manager_append (app->messages,
 				 _
-				 ("Clean all completed...............Unsuccessful\n"),
+				 ("Clean All completed...............Unsuccessful\n"),
 				 MESSAGE_BUILD);
-		anjuta_warning (_("Clean all completed ... unsuccessful"));
+		anjuta_warning (_("Clean All completed ... unsuccessful"));
 	}
 	else
 	{
 		anjuta_message_manager_append (app->messages,
 				 _
-				 ("Clean all completed...............Successful\n"),
+				 ("Clean All completed...............Successful\n"),
 				 MESSAGE_BUILD);
-		anjuta_status (_("Clean all completed ... successful"));
+		anjuta_status (_("Clean All completed ... successful"));
 	}
 	buff1 =
 		g_strdup_printf (_("Total time taken: %d secs\n"),

@@ -413,14 +413,14 @@ create_find_replace_gui (FindAndReplace * fr)
 	gtk_container_add (GTK_CONTAINER (frame12), vbox6);
 
 	radiobutton18 =
-		gtk_radio_button_new_with_label (vbox6_group, _("Forward"));
+		gtk_radio_button_new_with_label (vbox6_group, _("Forwards"));
 	vbox6_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton18));
 	gtk_widget_show (radiobutton18);
 	gtk_box_pack_start (GTK_BOX (vbox6), radiobutton18, FALSE, TRUE, 0);
 
 	radiobutton19 =
-		gtk_radio_button_new_with_label (vbox6_group, _("Backward"));
+		gtk_radio_button_new_with_label (vbox6_group, _("Backwards"));
 	vbox6_group =
 		gtk_radio_button_group (GTK_RADIO_BUTTON (radiobutton19));
 	gtk_widget_show (radiobutton19);
