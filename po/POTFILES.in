@@ -113,6 +113,9 @@ src/project_config.h
 src/project_dbase.c
 src/project_dbase.h
 src/project_dbase_gui.c
+src/project_import.c
+src/project_import_cbs.c
+src/project_import_gui.c
 src/properties.cxx
 src/properties.h
 src/registers.c
@@ -168,6 +171,7 @@ src/watch.h
 src/watch_cbs.c
 src/watch_cbs.h
 src/watch_gui.c
+src/wizard_gui.c
 widgets/gnomedirlist.c
 widgets/gnomefilelist.c
 widgets/scroll-menu.c
