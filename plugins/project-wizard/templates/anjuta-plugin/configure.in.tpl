@@ -32,11 +32,32 @@ AM_GLIB_GNU_GETTEXT
 AM_PROG_LIBTOOL
 [+ENDIF+]
 
+PKG_CHECK_MODULES(LIBANJUTA, [libanjuta-1.0])
+AC_SUBST(LIBANJUTA_CFLAGS)
+AC_SUBST(LIBANJUTA_LIBS)
+
 [+IF (=(get "HavePackage") "1")+]
 PKG_CHECK_MODULES(PACKAGE, [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
 [+ENDIF+]
+
+dnl Setup Plugin directories
+dnl ------------------------
+anjutalibdir=`pkg-config --variable=libdir libanjuta-1.0`
+anjutadatadir=`pkg-config --variable=datadir libanjuta-1.0`
+AC_SUBST(anjutalibdir)
+AC_SUBST(anjutadatadir)
+anjuta_plugin_dir='$(anjutalibdir)/anjuta'
+anjuta_data_dir='$(anjutadatadir)/anjuta'
+anjuta_ui_dir='$(anjutadatadir)/anjuta/ui'
+anjuta_glade_dir='$(anjutadatadir)/anjuta/glade'
+anjuta_image_dir='$(anjutadatadir)/pixmaps/anjuta'
+AC_SUBST(anjuta_plugin_dir)
+AC_SUBST(anjuta_data_dir)
+AC_SUBST(anjuta_ui_dir)
+AC_SUBST(anjuta_glade_dir)
+AC_SUBST(anjuta_image_dir)
 
 [+IF (=(get "HaveGtkDoc") "1")+]
 ##################################################
@@ -76,5 +97,6 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 AC_OUTPUT([
 Makefile
 src/Makefile
+src/[+NameLower+].plugin
 [+IF (=(get "HaveI18n") "1")+]po/Makefile.in[+ENDIF+]
 ])

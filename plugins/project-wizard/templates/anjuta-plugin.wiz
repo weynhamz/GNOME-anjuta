@@ -6,34 +6,45 @@
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="Nothing">
-	<string name="PluginTitle" _label="Plugin Title:" _description="Display title of the plugin" default="Anjuta Sample Plugin" summary="yes" mandatory="yes"/>
-	<string name="PluginDescription" _label="Plugin Description:" _description="Display description of the plugin" default="A sample demonstration plugin" summary="yes" mandatory="yes"/>
-	<string name="PluginName" _label="Plugin Name:" _description="Name of the plugin shared library" default="anjuta-plugin-sample" summary="yes" mandatory="yes"/>
-	<string name="PluginClass" _label="Plugin Class Name:" _description="Plugin class name" default="AnjutaSamplePlugin" summary="yes" mandatory="yes"/>
-	<string name="Author" _label="Author:" _description="" default="unknown"/>
-	<string name="Version" _label="Version:" default="0.1"/>
-	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]"/>
+	<string name="Name" _label="Project Name:" _description="Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)" default="anjuta-plugin-foobar" summary="yes" mandatory="yes"/>
+	<string name="Author" _label="Author:" _description="" default="unknown" mandatory="yes"/>
+	<string name="Version" _label="Version:" default="0.1" mandatory="yes"/>
+	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
 </page>
 
 <page name="options" _label="Project options" _description="Options for project build system">
-	<boolean name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
-	<boolean name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
-	<boolean name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
-</page>
-
-<page name="plugin-options" _label="Additional options" _description="Additional options">
+	<hidden name="NameUpper" default="[+(string-upcase (get "Name"))+]"/>
+	<hidden name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
+	<hidden name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
+	<hidden name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
+	<string name="PluginTitle" _label="Plugin Title:" _description="Display title of the plugin" default="Anjuta Foobar Sample Plugin" summary="yes" mandatory="yes"/>
+	<string name="PluginDescription" _label="Plugin Description:" _description="Display description of the plugin" default="A sample demonstration plugin for Anjuta" summary="yes" mandatory="yes"/>
+	<string name="PluginClass" _label="Plugin Class Name:" _description="Plugin class name" default="AnjutaFoobarPlugin" summary="yes" mandatory="yes"/>
 	<string name="PluginDependencies" _label="Plugin Dependencies:" _description="Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)" default="" summary="yes" mandatory="no"/>
 	<file name="IconFile" _label="Icon File:" _description="Icon file for the plugin" summary="yes" mandatory="yes"/>
 	<boolean name="HasGladeFile" _label="Create glade interface file" _description="Create a template glade interface file" default="1"/>
 	<boolean name="HasUI" _label="Plugin has menus or/and toolbars" _description="Whether the plugin has menus or toolbars" default="1"/>
+	<hidden name="HaveI18n" default="1"/>
+	<hidden name="HaveSharedlib" default="1"/>
+	<boolean name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
+</page>
+
+<page name="packages" _label="Configure external packages" _description="Configure external packages">
+	<boolean name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
+	<boolean name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
+[+IF (=(get "HavePackage") "1")+]
+	<string name="PackageModule1" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'" mandatory="yes"/>
+	<string name="PackageModule2" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<string name="PackageModule3" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<string name="PackageModule4" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<string name="PackageModule5" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+[+ENDIF+]
 </page>
 
 <page name="watches" _label="Values to watch" _description="Shell values to watch">
 	<string name="value1" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
 	<string name="value2" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
 	<string name="value3" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
-	<string name="value4" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
-	<string name="value5" _label="Value Name:" _description="Name of the value to watch" default="" summary="yes" mandatory="no"/>
 </page>
 
 <page name="compoments" _label="Implement plugin interfaces" _description="Plugin interfaces to implement">
@@ -44,36 +55,40 @@
 
 <content>
 	<directory source="." destination="[+Destination+]">
-		<directory source="terminal" destination="[+PluginName+]">
+		<directory source="terminal" destination="[+NameLower+]">
 			<file source="AUTHORS"/>
 			<file source="ChangeLog"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			<file source="NEWS"/>
 			<file source="README"/>
-			<file source="configure.in.tpl" destination="configure.in"/>
 			<script source="autogen.sh"/>
-			<file destination="[+PluginName+].anjuta" source="project.anjuta"/>
-			[+IF (=(get "HaveI18n") "1") +]
+			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+			[+IF (=(get "HaveI18n") "1")+]
 			<directory source="po">
 				<file source="ChangeLog"/>
-				<files source="POTFILES.in"/>
 			</directory>
 			[+ENDIF+]
 		</directory>
-		<directory source="anjuta-plugin" destination="[+PluginName+]">
+		<directory source="anjuta-plugin" destination="[+NameLower+]">
+			<file source="configure.in.tpl" destination="configure.in"/>
 			<directory source="src">
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 				<file source="plugin.c"/>
 				<file source="plugin.h"/>
-				<file source="[+IconFile+]" destination="[+PluginName+].png"/>
-				<file source="plugin.plugin.in" destination="[+PluginName+].plugin.in"/>
-				[+IF (=(get "HasUI") "1") +]
-					<file source="plugin.ui" destination="[+PluginName+].ui"/>
+				<file source="[+IconFile+]" destination="[+NameLower+].png"/>
+				<file source="plugin.plugin.in" destination="[+NameLower+].plugin.in"/>
+				[+IF (=(get "HasUI") "1")+]
+					<file source="plugin.ui" destination="[+NameLower+].ui"/>
 				[+ENDIF+]
-				[+IF (=(get "HasGladeFile") "1") +]
-					<file source="plugin.glade" destination="[+PluginName+].glade"/>
+				[+IF (=(get "HasGladeFile") "1")+]
+					<file source="plugin.glade" destination="[+NameLower+].glade"/>
 				[+ENDIF+]
 			</directory>
+			[+IF (=(get "HaveI18n") "1")+]
+			<directory source="po">
+				<file source="POTFILES.in"/>
+			</directory>
+			[+ENDIF+]
 		</directory>
 	</directory>
 </content>

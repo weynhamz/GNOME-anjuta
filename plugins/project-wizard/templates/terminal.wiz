@@ -1,18 +1,22 @@
 <project-wizard>
-	<name>terminal</name>
-	<description>A simple C program</description>
+	<name>Generic</name>
+	<description>A Generic C project</description>
 	<icon>appwiz_terminal.png</icon>
 	<category>C</category>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="Nothing">
-	<string name="Name" _label="Project Name:" _description="project name" default="Test" summary="yes" mandatory="yes"/>
-	<string name="Author" _label="Author:" _description="" default="unknown"/>
-	<string name="Version" _label="Version:" default="0.1"/>
-	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]"/>
+	<string name="Name" _label="Project Name:" _description="project name" default="foobar-sample" summary="yes" mandatory="yes"/>
+	<string name="Author" _label="Author:" _description="" default="unknown" mandatory="yes"/>
+	<string name="Version" _label="Version:" default="0.1" mandatory="yes"/>
+	<directory name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]" mandatory="yes"/>
 </page>
 
 <page name="options" _label="Project options" _description="Options for project build system">
+	<hidden name="NameUpper" default="[+(string-upcase (get "Name"))+]"/>
+	<hidden name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
+	<hidden name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
+	<hidden name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
 	<boolean name="IncludeGNUHeader" _label="Include GNU Header:" _description="Include GPL header in source files as comments" default="1"/>
 	<boolean name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
 	<boolean name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
@@ -22,13 +26,17 @@
 
 [+IF (=(get "HavePackage") "1")+]
 <page name="packages" _label="Configure external packages" _description="Configure external packages">
-	<string name="PackageModules" _label="Packages to configure:" _description="Give a list of packages that your project will use along with the versions required. For example, give a list like 'libgnomeui-2.0 >= 2.5.0 libglade-2.0 >= 2.0.0 eel-2.0 >= 2.5.0' etc." default="libgnomeui-2.0 >= 2.0.0"/>
+	<string name="PackageModule1" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'" mandatory="yes"/>
+	<string name="PackageModule2" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<string name="PackageModule3" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<string name="PackageModule4" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
+	<string name="PackageModule5" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
 </page>
 [+ENDIF+]
 
 <content>
 	<directory source="." destination="[+Destination+]">
-		<directory source="terminal" destination="[+Name+]">
+		<directory source="terminal" destination="[+NameLower+]">
 			<file source="AUTHORS"/>
 			<file source="ChangeLog"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
@@ -36,7 +44,7 @@
 			<file source="README"/>
 			<script source="autogen.sh"/>
 			<file source="configure.in.tpl" destination="configure.in"/>
-			<file destination="[+Name+].anjuta" source="project.anjuta"/>
+			<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 			<directory source="src">
 				<file source="Makefile.am.tpl" destination="Makefile.am"/>
 				<file source="main.c"/>

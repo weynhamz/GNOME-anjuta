@@ -33,6 +33,7 @@ typedef struct _NPWValueList NPWValueList;
 // Property
 
 typedef enum {
+	NPW_HIDDEN_PROPERTY,
 	NPW_BOOLEAN_PROPERTY,
 	NPW_INTEGER_PROPERTY,
 	NPW_STRING_PROPERTY,

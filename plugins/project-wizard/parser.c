@@ -37,6 +37,7 @@ typedef enum {
 	NPW_CATEGORY_TAG,
 	NPW_ICON_TAG,
 	NPW_PAGE_TAG,
+	NPW_HIDDEN_TAG,
 	NPW_BOOLEAN_TAG,
 	NPW_INTEGER_TAG,
 	NPW_STRING_TAG,
@@ -139,6 +140,10 @@ parse_tag(const char* name)
 	{
 		return NPW_FILE_TAG;
 	}
+	else if (strcmp("hidden", name) == 0)
+	{
+		return NPW_HIDDEN_TAG;
+	}
 	else if (strcmp("boolean", name) == 0)
 	{
 		return NPW_BOOLEAN_TAG;
@@ -184,7 +189,7 @@ parse_attribute(const char* name)
 	{
 		return NPW_DESCRIPTION_ATTRIBUTE;
 	}
-	else if (strcmp("default", name) == 0)
+	else if (strcmp("default", name) == 0 || strcmp("value", name) == 0)
 	{
 		return NPW_DEFAULT_ATTRIBUTE;
 	}
@@ -456,6 +461,9 @@ page_parse_start_element (GMarkupParseContext* context,
 			parser->tag = tag;
 			switch(tag)
 			{
+			case NPW_HIDDEN_TAG:
+				parser->property = npw_property_new(parser->page, NPW_HIDDEN_PROPERTY);
+				break;
 			case NPW_BOOLEAN_TAG:
 				parser->property = npw_property_new(parser->page, NPW_BOOLEAN_PROPERTY);
 				break;

@@ -214,6 +214,9 @@ cb_druid_add_property(NPWProperty* property, gpointer data)
 	const gchar* description;
 
 	value = npw_property_get_value(property);
+	if (npw_property_get_type(property) == NPW_HIDDEN_PROPERTY)
+		return;
+	
 	description = npw_property_get_description (property);
 	
 	switch(npw_property_get_type(property))

@@ -1,6 +1,7 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
+datadir=@datadir@
 includedir=@includedir@/libanjuta-1.0
 idldir=@datadir@/idl/libanjuta-1.0
 

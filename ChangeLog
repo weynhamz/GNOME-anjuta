@@ -1,5 +1,29 @@
 2005-01-07  Naba Kumar  <naba@gnome.org>
 
+	* configure.in,
+	libanjuta/libanjuta-1.0.pc.in,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.h,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/anjuta-plugin/Makefile.am,
+	(added) plugins/project-wizard/templates/anjuta-plugin/configure.in.tpl,
+	(added) plugins/project-wizard/templates/anjuta-plugin/po/.cvsignore,
+	(added) plugins/project-wizard/templates/anjuta-plugin/po/Makefile.am,
+	(added) plugins/project-wizard/templates/anjuta-plugin/po/POTFILES.in,
+	plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.h,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.plugin.in,
+	plugins/project-wizard/templates/terminal/configure.in.tpl,
+	plugins/project-wizard/templates/terminal/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/terminal/src/main.c: Implemented
+	a new property type -- hidden. Fixed terminal and anjuta-plugin
+	project templates.
+
+2005-01-07  Naba Kumar  <naba@gnome.org>
+
 	* templates/anjuta-plugin.wiz,
 	templates/terminal.wiz,
 	templates/terminal/Makefile.am.tpl,

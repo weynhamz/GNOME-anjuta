@@ -26,10 +26,10 @@
 #include "plugin.h"
 
 [+IF (=(get "HasUI") "1") +]
-#define UI_FILE PACKAGE_DATA_DIR"/ui/[+PluginName+].ui"
+#define UI_FILE ANJUTA_DATA_DIR"/ui/[+NameLower+].ui"
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
-#define GLADE_FILE PACKAGE_DATA_DIR"/ui/[+PluginName+].glade"
+#define GLADE_FILE ANJUTA_DATA_DIR"/ui/[+NameLower+].glade"
 [+ENDIF+]
 
 static gpointer parent_class;
@@ -68,7 +68,7 @@ static GtkActionEntry actions_file[] = {
 [+ENDIF+]
 
 static gboolean
-[+(string->c-name! (string-downcase (get "PluginName")))+]_activate (AnjutaPlugin *plugin)
+[+NameCLower+]_activate (AnjutaPlugin *plugin)
 {
 [+IF (=(get "HasUI") "1") +]
 	AnjutaUI *ui;
@@ -77,25 +77,25 @@ static gboolean
 	GtkWidget *wid;
 	GladeXML *gxml;
 [+ENDIF+]
-	[+PluginClass+] *[+(string->c-name! (string-downcase (get "PluginName")))+];
+	[+PluginClass+] *[+NameCLower+];
 	
 	g_message ("[+PluginClass+]: Activating [+PluginClass+] plugin ...");
-	[+(string->c-name! (string-downcase (get "PluginName")))+] = ([+PluginClass+]*) plugin;
+	[+NameCLower+] = ([+PluginClass+]*) plugin;
 [+IF (=(get "HasUI") "1") +]
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+PluginName+]",
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+NameLower+]",
 										_("Sample file operations"),
 										actions_file,
 										G_N_ELEMENTS (actions_file),
 										plugin);
-	[+(string->c-name! (string-downcase (get "PluginName")))+]->uiid = anjuta_ui_merge (ui, UI_FILE);
+	[+NameCLower+]->uiid = anjuta_ui_merge (ui, UI_FILE);
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
 	/* Add plugin widgets to Shell */
 	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
 	wid = glade_xml_get_widget (gxml, "top_container");
-	[+(string->c-name! (string-downcase (get "PluginName")))+]->widget = wid;
+	[+NameCLower+]->widget = wid;
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "[+PluginClass+]Widget", _("[+PluginClass+] widget"), NULL,
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
@@ -105,7 +105,7 @@ static gboolean
 }
 
 static gboolean
-[+(string->c-name! (string-downcase (get "PluginName")))+]_deactivate (AnjutaPlugin *plugin)
+[+NameCLower+]_deactivate (AnjutaPlugin *plugin)
 {
 [+IF (=(get "HasUI") "1") +]
 	AnjutaUI *ui;
@@ -123,21 +123,21 @@ static gboolean
 }
 
 static void
-[+(string->c-name! (string-downcase (get "PluginName")))+]_finalize (GObject *obj)
+[+NameCLower+]_finalize (GObject *obj)
 {
 	/* Finalization codes here */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
-[+(string->c-name! (string-downcase (get "PluginName")))+]_dispose (GObject *obj)
+[+NameCLower+]_dispose (GObject *obj)
 {
 	/* Disposition codes */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
-[+(string->c-name! (string-downcase (get "PluginName")))+]_instance_init (GObject *obj)
+[+NameCLower+]_instance_init (GObject *obj)
 {
 	[+PluginClass+] *plugin = ([+PluginClass+]*)obj;
 [+IF (=(get "HasUI") "1") +]
@@ -149,17 +149,17 @@ static void
 }
 
 static void
-[+(string->c-name! (string-downcase (get "PluginName")))+]_class_init (GObjectClass *klass) 
+[+NameCLower+]_class_init (GObjectClass *klass) 
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->activate = [+(string->c-name! (string-downcase (get "PluginName")))+]_activate;
-	plugin_class->deactivate = [+(string->c-name! (string-downcase (get "PluginName")))+]_deactivate;
-	klass->finalize = [+(string->c-name! (string-downcase (get "PluginName")))+]_finalize;
-	klass->dispose = [+(string->c-name! (string-downcase (get "PluginName")))+]_dispose;
+	plugin_class->activate = [+NameCLower+]_activate;
+	plugin_class->deactivate = [+NameCLower+]_deactivate;
+	klass->finalize = [+NameCLower+]_finalize;
+	klass->dispose = [+NameCLower+]_dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE ([+PluginClass+], [+(string->c-name! (string-downcase (get "PluginName")))+]);
-ANJUTA_SIMPLE_PLUGIN ([+PluginClass+], [+(string->c-name! (string-downcase (get "PluginName")))+]);
+ANJUTA_PLUGIN_BOILERPLATE ([+PluginClass+], [+NameCLower+]);
+ANJUTA_SIMPLE_PLUGIN ([+PluginClass+], [+NameCLower+]);

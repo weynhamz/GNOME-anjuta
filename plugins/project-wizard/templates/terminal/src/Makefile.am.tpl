@@ -3,7 +3,7 @@
 
 ## Created by Anjuta
 
-INCLUDES = [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
+INCLUDES = -DPACKAGE_DATA_DIR=\"$(datadir)\" [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
 
 AM_CFLAGS =\
 	 -Wall\
