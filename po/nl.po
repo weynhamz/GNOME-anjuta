@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.0\n"
-"POT-Creation-Date: 2003-07-27 11:17+0200\n"
-"PO-Revision-Date: 2003-07-27 19:44+0100\n"
+"POT-Creation-Date: 2003-07-28 03:08+0200\n"
+"PO-Revision-Date: 2003-07-29 18:35+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,9 +13,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: anjuta.desktop.in.in.h:1
-#, fuzzy
 msgid "Anjuta IDE"
-msgstr "Anjuta C/C++ IDE"
+msgstr "Anjuta IDE"
 
 #: anjuta.desktop.in.in.h:2 src/about.c:96 src/main.c:173
 msgid "Integrated Development Environment"
@@ -128,7 +127,7 @@ msgstr "Doorzoek de hulp bij Anjuta"
 
 #: anjuta.glade.h:17 anjuta_dialogs_strings.c:462
 msgid "Anjuta start with dialog"
-msgstr ""
+msgstr "Anjuta·start·met·dialoogvenster"
 
 #: anjuta.glade.h:18 anjuta_dialogs_strings.c:89
 msgid "Append messages"
@@ -181,7 +180,7 @@ msgstr "Automatisch bewaard \"%s\""
 
 #: anjuta.glade.h:28 anjuta_dialogs_strings.c:358
 msgid "Autosave editor files before build starts"
-msgstr "Bestanden automatisch opslaan voor compileren"
+msgstr "Bestanden automatisch opslaan voor bouwen"
 
 #: anjuta.glade.h:29 anjuta_dialogs_strings.c:305
 msgid "Back color:"
@@ -214,11 +213,11 @@ msgstr "Breekpunten"
 #: anjuta.glade.h:36 anjuta_dialogs_strings.c:236 src/build_file.c:107
 #: src/message-manager.cc:43 src/text_editor_gui.c:172 src/toolbar.c:271
 msgid "Build"
-msgstr "Bouw"
+msgstr "Bouwen"
 
 #: anjuta.glade.h:37 anjuta_dialogs_strings.c:349
 msgid "Build command:"
-msgstr "Compileeropdracht:"
+msgstr "Bouw-opdracht:"
 
 #: anjuta.glade.h:38 anjuta_dialogs_strings.c:337
 msgid "Build file browser automatically"
@@ -226,7 +225,7 @@ msgstr "Maak automatisch een bestandsoverzicht"
 
 #: anjuta.glade.h:39 anjuta_dialogs_strings.c:211
 msgid "Build files"
-msgstr "Bouw bestanden"
+msgstr "Bestanden bouwen"
 
 #: anjuta.glade.h:40 anjuta_dialogs_strings.c:357
 msgid "Build options"
@@ -234,7 +233,7 @@ msgstr "Bouw-opties"
 
 #: anjuta.glade.h:41 anjuta_dialogs_strings.c:336
 msgid "Build symbol browser automatically"
-msgstr "Symboolbladermogelijkheid automatisch compileren"
+msgstr "Symboolbladermogelijkheid automatisch bouwen"
 
 #. 2
 #: anjuta.glade.h:42 anjuta_dialogs_strings.c:164 anjuta_dialogs_strings.c:239
@@ -281,7 +280,7 @@ msgstr "Cursorkleur:"
 
 #: anjuta.glade.h:52 anjuta_dialogs_strings.c:388
 msgid "Caret blink period in milli-seconds"
-msgstr ""
+msgstr "Knippersnelheid·van·cursor·in·miiliseconden"
 
 #: anjuta.glade.h:53 anjuta_dialogs_strings.c:133
 #, fuzzy
@@ -333,7 +332,7 @@ msgstr "Sluit"
 
 #: anjuta.glade.h:63 anjuta_dialogs_strings.c:389
 msgid "Column at edge indicator"
-msgstr ""
+msgstr "Kolom·aan·rand·indicator"
 
 #: anjuta.glade.h:64 anjuta_dialogs_strings.c:333
 msgid "Combo Popdown:"
@@ -361,7 +360,7 @@ msgstr "Veelgebruikte opdrachten"
 
 #: anjuta.glade.h:70 anjuta_dialogs_strings.c:375
 msgid "Compact folding"
-msgstr ""
+msgstr "Compact·vouwen"
 
 #: anjuta.glade.h:71 anjuta_dialogs_strings.c:215
 msgid "Compiler"
@@ -465,9 +464,8 @@ msgid "Disable syntax highlighting"
 msgstr "Uitschakelen belichtingsstijl"
 
 #: anjuta.glade.h:94 anjuta_dialogs_strings.c:290
-#, fuzzy
 msgid "Do not show hidden directories"
-msgstr "Brondirectory opschonen"
+msgstr "Verborgen mappen niet weergeven"
 
 #: anjuta.glade.h:95 anjuta_dialogs_strings.c:280
 #, fuzzy
@@ -489,7 +487,7 @@ msgstr "Document module Makefile.am"
 
 #: anjuta.glade.h:99 anjuta_dialogs_strings.c:376
 msgid "Draw line below folded lines"
-msgstr ""
+msgstr "Lijn·onder·opgevouwen·lijnen·tekenen"
 
 #: anjuta.glade.h:100 anjuta_dialogs_strings.c:232
 msgid "Edit"
@@ -528,7 +526,7 @@ msgstr "Inschakelen automatisch inspringen"
 
 #: anjuta.glade.h:108 anjuta_dialogs_strings.c:432
 msgid "Enable automatic messages indicators"
-msgstr ""
+msgstr "Automatische·berichtindicatoren·inschakelen"
 
 #: anjuta.glade.h:109 anjuta_dialogs_strings.c:382
 msgid "Enable braces check"
@@ -554,11 +552,11 @@ msgstr "Aanzetten profiling"
 
 #: anjuta.glade.h:114 anjuta_dialogs_strings.c:372
 msgid "Enable python comments folding"
-msgstr ""
+msgstr "Python·commentaarvouwen·inschakelen"
 
 #: anjuta.glade.h:115 anjuta_dialogs_strings.c:373
 msgid "Enable python quoted strings folding"
-msgstr ""
+msgstr "Python·citaat-tekenreeksen·vouwen·inschakelen"
 
 #: anjuta.glade.h:116 anjuta_dialogs_strings.c:261 src/breakpoints.c:111
 msgid "Enabled"
@@ -566,11 +564,11 @@ msgstr "Ingeschakeld"
 
 #: anjuta.glade.h:117 anjuta_dialogs_strings.c:482
 msgid "Encoding to use when saving files"
-msgstr ""
+msgstr "Te·gebruiken·codering·bij·opslaan·van·bestanden"
 
 #: anjuta.glade.h:118 anjuta_dialogs_strings.c:477
 msgid "Enter a Hexa adress or select one in the data"
-msgstr ""
+msgstr "Geef·een·Hex-adres·of·kies·er·een·in·de·data"
 
 #: anjuta.glade.h:119 anjuta_dialogs_strings.c:411
 #, fuzzy
@@ -583,12 +581,11 @@ msgstr ""
 
 #: anjuta.glade.h:120 anjuta_dialogs_strings.c:435
 msgid "Error message indicator style:"
-msgstr ""
+msgstr "Foutmelding·indicatorstijl:"
 
 #: anjuta.glade.h:121 anjuta_dialogs_strings.c:440
-#, fuzzy
 msgid "Errors messages:"
-msgstr "Programmanaam:"
+msgstr "Foutmeldingen:"
 
 #: anjuta.glade.h:122 anjuta_dialogs_strings.c:94
 #, fuzzy
@@ -597,7 +594,7 @@ msgstr "Voer het programma uit"
 
 #: anjuta.glade.h:123 anjuta_dialogs_strings.c:176
 msgid "Expand regex back references"
-msgstr ""
+msgstr "'Regexp·back·references'·uitklappen"
 
 #: anjuta.glade.h:124 anjuta_dialogs_strings.c:231 src/an_file_view.c:665
 #: src/breakpoints.c:111
@@ -605,9 +602,8 @@ msgid "File"
 msgstr "Bestand"
 
 #: anjuta.glade.h:125 anjuta_dialogs_strings.c:169
-#, fuzzy
 msgid "File Filter"
-msgstr "_Sluit bestand"
+msgstr "Bestandsfilter"
 
 #: anjuta.glade.h:126 anjuta_dialogs_strings.c:281
 #, fuzzy
@@ -616,15 +612,15 @@ msgstr "Bouw bestanden"
 
 #: anjuta.glade.h:127 anjuta_dialogs_strings.c:246
 msgid "File level"
-msgstr ""
+msgstr "Bestandsniveau"
 
 #: anjuta.glade.h:128 anjuta_dialogs_strings.c:90
 msgid "File/Directory to add:"
-msgstr "Bestand/Directory toe te voegen:"
+msgstr "Bestand/map om toe te voegen:"
 
 #: anjuta.glade.h:129 anjuta_dialogs_strings.c:384
 msgid "Filter extraneous characters in DOS mode"
-msgstr ""
+msgstr "Extra·tekens·filteren·in·DOS-stand"
 
 #: anjuta.glade.h:130 anjuta_dialogs_strings.c:129
 #, fuzzy
@@ -676,7 +672,7 @@ msgstr "Functies"
 
 #: anjuta.glade.h:141 anjuta_dialogs_strings.c:190
 msgid "GUI editor command:"
-msgstr ""
+msgstr "GUI-editor·opdracht:"
 
 #. 3
 #: anjuta.glade.h:142 anjuta_dialogs_strings.c:195 src/main_menubar_def.h:392
@@ -689,6 +685,10 @@ msgid ""
 "This will be set in configure and Makefiles will be generated for them. They "
 "will be built after the source (src/) directory during \"make\"."
 msgstr ""
+"·Geef·een·door·spaties·gescheiden·lijst·van·mappen·om·te·bouwen·na·de·broncode."
+"·Dit·zal·in·configure."
+"in·worden·ingesteld·en·de·nodige·Makefiles·worden·ervoor·gemaakt."
+"·Ze·zullen·na·de·map·met·broncode·(src/)·gebouwd·worden·tijden·\"make\"."
 
 #: anjuta.glade.h:144 anjuta_dialogs_strings.c:196
 msgid ""
@@ -696,6 +696,10 @@ msgid ""
 "This will be set in configure.in and Makefiles will be generated for them. "
 "They will be built before the source (src/) directory during \"make\"."
 msgstr ""
+"·Geef·een·door·spaties·gescheiden·lijst·van·mappen·om·te·bouwen·voor·de·broncode."
+"·Dit·zal·in·configure."
+"in·worden·ingesteld·en·de·nodige·Makefiles·worden·ervoor·gemaakt."
+"·Ze·zullen·voor·de·map·met·broncode·(src/)·gebouwd·worden·tijden·\"make\"."
 
 #: anjuta.glade.h:145 anjuta_dialogs_strings.c:181
 msgid "Gnome API"
@@ -703,7 +707,7 @@ msgstr "Gnome API"
 
 #: anjuta.glade.h:146 anjuta_dialogs_strings.c:132
 msgid "Greedy matching"
-msgstr ""
+msgstr "Greedy·matchen"
 
 #: anjuta.glade.h:147 anjuta_dialogs_strings.c:27
 msgid "HTML _viewer:"
@@ -731,7 +735,7 @@ msgstr "Geschiedenisgrootte"
 
 #: anjuta.glade.h:153 anjuta_dialogs_strings.c:194
 msgid "Ignome files and directories"
-msgstr ""
+msgstr "Bestanden en mappen negeren"
 
 #: anjuta.glade.h:154 anjuta_dialogs_strings.c:167
 #, fuzzy
@@ -769,7 +773,7 @@ msgstr "Binaire bestanden negeren"
 #: anjuta.glade.h:161 anjuta_dialogs_strings.c:114
 #: anjuta_dialogs_strings.c:128
 msgid "Ignore case"
-msgstr ""
+msgstr "Hoofdletterongevoelig"
 
 #: anjuta.glade.h:162 anjuta_dialogs_strings.c:283
 #, fuzzy
@@ -792,6 +796,9 @@ msgid ""
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data lose or modification done to the project."
 msgstr ""
+"·Bestaand·project·importeren.·De·import-"
+"assistent·zal·u·helpen·bij·het·importeren·van·een·bestaand·project·naar·een·Anjuta-"
+"project.·Er·zal·niets·aan·uw·project·worden·gewijzigd."
 
 #: anjuta.glade.h:166 anjuta_dialogs_strings.c:50
 msgid "Include Paths"
@@ -813,7 +820,7 @@ msgstr "Indent ophogen"
 
 #: anjuta.glade.h:170 anjuta_dialogs_strings.c:415
 msgid "Indentation and auto-format options"
-msgstr ""
+msgstr "Insping-·en·Auto-Opmaakopties"
 
 #: anjuta.glade.h:171 anjuta_dialogs_strings.c:400
 #, fuzzy
@@ -831,7 +838,7 @@ msgstr "Info pagina's"
 
 #: anjuta.glade.h:174 anjuta_dialogs_strings.c:251
 msgid "Input string:"
-msgstr ""
+msgstr "Tekenreeks:"
 
 #: anjuta.glade.h:175 anjuta_dialogs_strings.c:475 src/text_editor_menu.c:174
 #: src/toolbar.c:604
@@ -871,7 +878,7 @@ msgstr "Regel"
 
 #: anjuta.glade.h:183 anjuta_dialogs_strings.c:73
 msgid "Linker Flags (LDFLAGS):"
-msgstr ""
+msgstr "Linkvlaggen·(LDFLAGS):"
 
 #: anjuta.glade.h:184 anjuta_dialogs_strings.c:44
 msgid "Load _global defaults"
@@ -879,11 +886,11 @@ msgstr "Laad _fabrieksinstellingen"
 
 #: anjuta.glade.h:185 anjuta_dialogs_strings.c:45
 msgid "Load _user defaults"
-msgstr "Laad _gebruikersinstellingen"
+msgstr "Standaard·_gebruikersinstellingen·laden"
 
 #: anjuta.glade.h:186 anjuta_dialogs_strings.c:64
 msgid "Low-Level Optimization (Machine dependent optimization)"
-msgstr "Optimalisatie op laag niveau (Machine afhankelijk)"
+msgstr "Optimalisatie op laag niveau (Machine afhankelijke·optimalisatie)"
 
 #: anjuta.glade.h:187 anjuta_dialogs_strings.c:222
 msgid "Makefile.am"
@@ -895,24 +902,23 @@ msgstr "Man pagina's"
 
 #: anjuta.glade.h:189 anjuta_dialogs_strings.c:135
 msgid "Match at start of word"
-msgstr ""
+msgstr "Matchen·op·begin·van·woord"
 
 #: anjuta.glade.h:190 anjuta_dialogs_strings.c:136
 msgid "Match complete lines"
-msgstr ""
+msgstr "Hele·regels·matchen"
 
 #: anjuta.glade.h:191 anjuta_dialogs_strings.c:137
-#, fuzzy
 msgid "Match complete words"
-msgstr "Autoafmaken woord"
+msgstr "Complete·woorden·matchen"
 
 #: anjuta.glade.h:192 anjuta_dialogs_strings.c:170
 msgid "Max. Actions"
-msgstr ""
+msgstr "Max·acties"
 
 #: anjuta.glade.h:193 anjuta_dialogs_strings.c:354
 msgid "Maximum number of independent jobs (0 == no limit)"
-msgstr ""
+msgstr "Aantal·onafhankelijke·taken·(·0·=·ongelimiteerd)"
 
 #: anjuta.glade.h:194 anjuta_dialogs_strings.c:65
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
@@ -925,7 +931,7 @@ msgstr "Geheugen"
 
 #: anjuta.glade.h:196 anjuta_dialogs_strings.c:259
 msgid "Menu icon:"
-msgstr ""
+msgstr "Menupictogram:"
 
 #: anjuta.glade.h:197 anjuta_dialogs_strings.c:228
 msgid "Menu location:"
@@ -937,9 +943,8 @@ msgid "Message colors"
 msgstr "Boodschappen"
 
 #: anjuta.glade.h:199 anjuta_dialogs_strings.c:431
-#, fuzzy
 msgid "Messages options"
-msgstr "Boodschappen"
+msgstr "Berichtopties"
 
 #: anjuta.glade.h:200 anjuta_dialogs_strings.c:390
 #, fuzzy
@@ -947,9 +952,8 @@ msgid "Misc options"
 msgstr "Projectopties"
 
 #: anjuta.glade.h:201 anjuta_dialogs_strings.c:417
-#, fuzzy
 msgid "Mode:"
-msgstr "Modules"
+msgstr "Stand:"
 
 #: anjuta.glade.h:202 anjuta_dialogs_strings.c:200
 msgid "Modules"
@@ -957,7 +961,7 @@ msgstr "Modules"
 
 #: anjuta.glade.h:203 anjuta_dialogs_strings.c:419
 msgid "Monochrome"
-msgstr ""
+msgstr "Monochroom"
 
 #: anjuta.glade.h:204 anjuta_dialogs_strings.c:226
 msgid "Name:"
@@ -965,9 +969,8 @@ msgstr "Naam:"
 
 #: anjuta.glade.h:205 anjuta_dialogs_strings.c:471 src/main_menubar_def.h:30
 #: src/text_editor_gui.c:97 src/toolbar.c:76
-#, fuzzy
 msgid "New file"
-msgstr "Open bestand"
+msgstr "Nieuw·bestand"
 
 #: anjuta.glade.h:206 anjuta_dialogs_strings.c:171
 #, fuzzy
@@ -980,12 +983,11 @@ msgstr "Geen optimalisatie"
 
 #: anjuta.glade.h:208 anjuta_dialogs_strings.c:433
 msgid "Normal message indicator style:"
-msgstr ""
+msgstr "Normaal·bericht·indicatorstijl:"
 
 #: anjuta.glade.h:209 anjuta_dialogs_strings.c:442
-#, fuzzy
 msgid "Normal messages:"
-msgstr "Programmanaam:"
+msgstr "Normale·berichten:"
 
 #: anjuta.glade.h:210 anjuta_dialogs_strings.c:360
 #: anjuta_dialogs_strings.c:414
@@ -994,11 +996,13 @@ msgid ""
 "preferences and will be loaded from and saved with the project. If there is "
 "no project open, they will be global preferences."
 msgstr ""
+"Let·op:"
+"·Als·u·een·project·geopend·heeft·zullen·deze·voorkeuren·specifiek·voor·dit·project·zijn·en·geladen·en·opgeslagen·worden·tezamen·met·het·project."
+"·Als·u·geen·project·geopend·heeft,·zijn·de·voorkeuren·globaal."
 
 #: anjuta.glade.h:211 anjuta_dialogs_strings.c:427
-#, fuzzy
 msgid "Number of first characters to show:"
-msgstr "Aantal eerste karakters dat getoond wordt"
+msgstr "Aantal te·tonen·eerste karakters:"
 
 #: anjuta.glade.h:212 anjuta_dialogs_strings.c:428
 #, fuzzy
@@ -1009,7 +1013,7 @@ msgstr "Aantal laatste karakters dat getoond wordt"
 #: anjuta.glade.h:213 anjuta_dialogs_strings.c:469 src/project_dbase.c:220
 #: src/toolbar.c:211
 msgid "Open Project"
-msgstr "Open Project"
+msgstr "Project·openen"
 
 #: anjuta.glade.h:214 anjuta_dialogs_strings.c:467
 #, fuzzy
@@ -1018,7 +1022,7 @@ msgstr "Open een project"
 
 #: anjuta.glade.h:215 anjuta_dialogs_strings.c:470
 msgid "Open existing file or create a new file."
-msgstr ""
+msgstr "Bestaand·bestand·openen·of·nieuw·bestand·aanmaken."
 
 #: anjuta.glade.h:216 anjuta_dialogs_strings.c:472 src/main_menubar_def.h:36
 #: src/text_editor_gui.c:101 src/toolbar.c:80
@@ -1026,9 +1030,8 @@ msgid "Open file"
 msgstr "Open bestand"
 
 #: anjuta.glade.h:217 anjuta_dialogs_strings.c:468
-#, fuzzy
 msgid "Open last working Project"
-msgstr "Open een project"
+msgstr "Laatste·werkproject·openen"
 
 #: anjuta.glade.h:218 anjuta_dialogs_strings.c:67
 msgid "Optimization"
@@ -1045,9 +1048,8 @@ msgid "Other colors"
 msgstr "Overige kleuren"
 
 #: anjuta.glade.h:221 anjuta_dialogs_strings.c:443
-#, fuzzy
 msgid "Other messages:"
-msgstr "Debug boodschappen"
+msgstr "Overige·berichten:"
 
 #: anjuta.glade.h:222 anjuta_dialogs_strings.c:359 src/an_symbol_view.c:54
 msgid "Others"
@@ -1055,7 +1057,7 @@ msgstr "Overigen"
 
 #: anjuta.glade.h:223 anjuta_dialogs_strings.c:218
 msgid "Output files"
-msgstr "Uitvoer bestanden"
+msgstr "Uitvoerbestanden"
 
 #: anjuta.glade.h:224 anjuta_dialogs_strings.c:313
 #: anjuta_dialogs_strings.c:314 anjuta_dialogs_strings.c:322
@@ -1080,20 +1082,19 @@ msgstr "Positie:"
 
 #: anjuta.glade.h:228 anjuta_dialogs_strings.c:292
 msgid "Press this button to dismiss the dialog"
-msgstr ""
+msgstr "Druk·op·deze·knop·om·het·dialoogvenster·te·sluiten"
 
 #: anjuta.glade.h:229 anjuta_dialogs_strings.c:406
 msgid "Pressing backspace un-indents"
-msgstr ""
+msgstr "Backspace·verwijdert·inspinging"
 
 #: anjuta.glade.h:230 anjuta_dialogs_strings.c:405
 msgid "Pressing tab indents"
-msgstr ""
+msgstr "Tab·springt·in"
 
 #: anjuta.glade.h:231 anjuta_dialogs_strings.c:424
-#, fuzzy
 msgid "Print options"
-msgstr "Projectopties"
+msgstr "Afdrukopties"
 
 #: anjuta.glade.h:232 anjuta_dialogs_strings.c:212
 msgid "Programs"
@@ -1110,7 +1111,7 @@ msgstr "Project configuratie"
 
 #: anjuta.glade.h:235 anjuta_dialogs_strings.c:192 src/wizard_gui.c:469
 msgid "Project Description"
-msgstr "Projectomschrijving"
+msgstr "Projectbeschrijving"
 
 #: anjuta.glade.h:236 anjuta_dialogs_strings.c:191
 msgid "Project Version"
@@ -1143,7 +1144,7 @@ msgstr "Recente Projecten:"
 #: anjuta.glade.h:243 anjuta_dialogs_strings.c:109
 #: anjuta_dialogs_strings.c:124
 msgid "Regexp"
-msgstr "Reguliere expressie"
+msgstr "Regexp"
 
 #: anjuta.glade.h:244 anjuta_dialogs_strings.c:100
 #: anjuta_dialogs_strings.c:117
@@ -1151,9 +1152,8 @@ msgid "Regexp/String to find"
 msgstr "Reguliere expressie/tekst om te zoeken"
 
 #: anjuta.glade.h:245 anjuta_dialogs_strings.c:131
-#, fuzzy
 msgid "Regular Expression"
-msgstr "Expressie"
+msgstr "Reguliere·expressie"
 
 #: anjuta.glade.h:246 anjuta_dialogs_strings.c:296
 msgid "Reload Session Defaults"
@@ -1161,7 +1161,7 @@ msgstr "Herlaad sessie instellingen"
 
 #: anjuta.glade.h:247 anjuta_dialogs_strings.c:295
 msgid "Reload System Defaults"
-msgstr "Herlaad fabrieksinstellingen"
+msgstr "Fabrieksinstellingen·herladen"
 
 #: anjuta.glade.h:248 anjuta_dialogs_strings.c:177
 #, fuzzy
@@ -1169,35 +1169,34 @@ msgid "Replace Expression"
 msgstr "Expressie"
 
 #: anjuta.glade.h:249 anjuta_dialogs_strings.c:174
-#, fuzzy
 msgid "Replace With:"
-msgstr "Vervang"
+msgstr "Vervangen·door:"
 
 #: anjuta.glade.h:250 anjuta_dialogs_strings.c:452
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr ""
+"Alle·blijvende·tags·resetten·tijdens·bijwerken·(branch-"
+"informatie·gaat·verloren)·[-A]"
 
 #: anjuta.glade.h:251 anjuta_dialogs_strings.c:82
-#, fuzzy
 msgid "Run Configure Script"
-msgstr "Uitvoeren configure"
+msgstr "Configure-script·uitvoeren"
 
 #: anjuta.glade.h:252 anjuta_dialogs_strings.c:244
 msgid "Run detached"
-msgstr ""
+msgstr "Losgekoppeld·uitvoeren"
 
 #: anjuta.glade.h:253 anjuta_dialogs_strings.c:97
 msgid "Run in Terminal"
-msgstr "Uitvoeren in console"
+msgstr "Uitvoeren in terminal"
 
 #: anjuta.glade.h:254 anjuta_dialogs_strings.c:245
 msgid "Run in terminal"
 msgstr "Uitvoeren in console"
 
 #: anjuta.glade.h:255 anjuta_dialogs_strings.c:262
-#, fuzzy
 msgid "Save all files"
-msgstr "Sluit alles"
+msgstr "Alle·bestanden·opslaan"
 
 #: anjuta.glade.h:256 anjuta_dialogs_strings.c:363
 #, fuzzy
@@ -1205,9 +1204,8 @@ msgid "Save files interval in minutes"
 msgstr "Autosave tijdsinterval in minuten"
 
 #: anjuta.glade.h:257 anjuta_dialogs_strings.c:364
-#, fuzzy
 msgid "Save session interval in minutes"
-msgstr "Sessie-tijdsinterval in minuten"
+msgstr "Sessie·opslaginterval·in·minuten"
 
 #: anjuta.glade.h:258 anjuta_dialogs_strings.c:105
 #: anjuta_dialogs_strings.c:120
@@ -1216,7 +1214,7 @@ msgstr "Reikwijdte"
 
 #: anjuta.glade.h:259 anjuta_dialogs_strings.c:221
 msgid "Scripts at the end of top level Makefile.am"
-msgstr "Extra scripts aan het eind van bovenste Makefile.am"
+msgstr "Scripts aan het eind van bovenste Makefile.am"
 
 #: anjuta.glade.h:260 anjuta_dialogs_strings.c:178 src/search-replace.c:1332
 #: src/search-replace.c:1495 src/search-replace.c:1501
@@ -1224,9 +1222,8 @@ msgid "Search"
 msgstr "Zoeken"
 
 #: anjuta.glade.h:261 anjuta_dialogs_strings.c:172
-#, fuzzy
 msgid "Search Action:"
-msgstr "Zoektekst"
+msgstr "Zoekactie:"
 
 #: anjuta.glade.h:262 anjuta_dialogs_strings.c:141
 #, fuzzy
@@ -1234,9 +1231,8 @@ msgid "Search Direction:"
 msgstr "Richting"
 
 #: anjuta.glade.h:263 anjuta_dialogs_strings.c:138
-#, fuzzy
 msgid "Search Expression"
-msgstr "Toevoegen Watch expressie"
+msgstr "Zoekexpressie"
 
 #: anjuta.glade.h:264 anjuta_dialogs_strings.c:130
 #, fuzzy
@@ -1244,13 +1240,12 @@ msgid "Search Expression:"
 msgstr "Toevoegen Watch expressie"
 
 #: anjuta.glade.h:265 anjuta_dialogs_strings.c:139
-#, fuzzy
 msgid "Search In:"
-msgstr "Zoek Help"
+msgstr "Zoeken·in:"
 
 #: anjuta.glade.h:266 anjuta_dialogs_strings.c:168
 msgid "Search Recursively"
-msgstr ""
+msgstr "Recursief·zoeken"
 
 #: anjuta.glade.h:267 anjuta_dialogs_strings.c:93
 msgid "Search String"
@@ -1262,9 +1257,8 @@ msgid "Search Target"
 msgstr "Zoekpaden"
 
 #: anjuta.glade.h:269 anjuta_dialogs_strings.c:146
-#, fuzzy
 msgid "Search Variable"
-msgstr "Variablen"
+msgstr "Zoekvariabele"
 
 #: anjuta.glade.h:270 anjuta_dialogs_strings.c:111
 #: anjuta_dialogs_strings.c:126
@@ -1273,7 +1267,7 @@ msgstr "Manier van zoeken"
 
 #: anjuta.glade.h:271 anjuta_dialogs_strings.c:315
 msgid "Select highlight style to edit:"
-msgstr "Selekteer een belichtingsstijl om te wijzigen:"
+msgstr "Selecteer een belichtingsstijl om te bewerken:"
 
 #: anjuta.glade.h:272 anjuta_dialogs_strings.c:299
 msgid "Select theme:"
@@ -1293,27 +1287,27 @@ msgstr "Instellingen"
 
 #: anjuta.glade.h:276 anjuta_dialogs_strings.c:256
 msgid "Short cut:"
-msgstr ""
+msgstr "Snelkoppeling:"
 
 #: anjuta.glade.h:277 anjuta_dialogs_strings.c:341
 msgid "Show tooltips"
-msgstr "Toon hulpballon"
+msgstr "Hulpballonnen·tonen"
 
 #: anjuta.glade.h:278 anjuta_dialogs_strings.c:352
 msgid "Silent. That is, do not echo shell commads during make"
-msgstr ""
+msgstr "Stil.·Dat·betekent:·opdrachten·niet·weergeven·tijdens·de·'make'"
 
 #: anjuta.glade.h:279 anjuta_dialogs_strings.c:392
 msgid "Sorted by most recent use"
-msgstr ""
+msgstr "Sorteren·op·recent·gebruik"
 
 #: anjuta.glade.h:280 anjuta_dialogs_strings.c:393
 msgid "Sorted in alphabetical order"
-msgstr ""
+msgstr "Alfabetisch·gesorteerd"
 
 #: anjuta.glade.h:281 anjuta_dialogs_strings.c:391
 msgid "Sorted in the order you open them"
-msgstr ""
+msgstr "Sorteren·op·openvolgorde"
 
 #: anjuta.glade.h:282 anjuta_dialogs_strings.c:79
 msgid "Source Directories"
@@ -1321,39 +1315,39 @@ msgstr "Bron mappen"
 
 #: anjuta.glade.h:283 anjuta_dialogs_strings.c:203
 msgid "Source module Makefile.am"
-msgstr "Bron module Makefile.am"
+msgstr "Bronmodule Makefile.am"
 
 #: anjuta.glade.h:284 anjuta_dialogs_strings.c:162
 #: anjuta_dialogs_strings.c:286
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr ""
+msgstr "Door·spaties·gescheiden·lijst·van·te·negeren·mapnaampatronen"
 
 #: anjuta.glade.h:285 anjuta_dialogs_strings.c:159
 #: anjuta_dialogs_strings.c:284
 msgid "Space-seperated list of directory name patterns to match"
-msgstr ""
+msgstr "Door·spaties·gescheiden·lijst·van·mappatronen·om·te·matchen"
 
 #: anjuta.glade.h:286 anjuta_dialogs_strings.c:154
 #: anjuta_dialogs_strings.c:277
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr ""
+msgstr "Door·spaties·gescheiden·lijst·van·te·negeren·bestandsnaampatronen"
 
 #: anjuta.glade.h:287 anjuta_dialogs_strings.c:148
 #: anjuta_dialogs_strings.c:271
 msgid "Space-seperated list of file name patterns to match"
-msgstr ""
+msgstr "Door·spaties·gescheiden·lijst·van·bestandsnaampatronen·om·te·matchen"
 
 #: anjuta.glade.h:288 anjuta_dialogs_strings.c:255
 msgid "Standard error:"
-msgstr ""
+msgstr "Standaardfout:"
 
 #: anjuta.glade.h:289 anjuta_dialogs_strings.c:249
 msgid "Standard input:"
-msgstr ""
+msgstr "Standaardinvoer:"
 
 #: anjuta.glade.h:290 anjuta_dialogs_strings.c:252
 msgid "Standard output:"
-msgstr ""
+msgstr "Standaarduitvoer:"
 
 #: anjuta.glade.h:291 anjuta_dialogs_strings.c:463
 msgid ""
@@ -1361,6 +1355,9 @@ msgid ""
 "creation. With the Application Wizard, you will be able to create the "
 "skelleton of various types of Project."
 msgstr ""
+"·Start·met·een·nieuw·project.·De·applicatie-"
+"assistent·zal·u·helpen·bij·het·aanmaken·van·het·project.·Met·de·applicatie-"
+"assistent·kunt·op·eenvoudige·wijze·de·kapstok·voor·diverse·typen·projecten·opbouwen."
 
 #: anjuta.glade.h:292 anjuta_dialogs_strings.c:110
 #: anjuta_dialogs_strings.c:125
@@ -1369,7 +1366,7 @@ msgstr "Tekenreeks"
 
 #: anjuta.glade.h:293 anjuta_dialogs_strings.c:102
 msgid "String to replace"
-msgstr "Tekst om te vervangen"
+msgstr "Te·vervangen·tekst"
 
 #: anjuta.glade.h:294 anjuta_dialogs_strings.c:383
 msgid "Strip trailling spaces on file save"
@@ -1377,7 +1374,7 @@ msgstr "Verwijder beginspaties bij opslaan bestand"
 
 #: anjuta.glade.h:295 anjuta_dialogs_strings.c:483 src/anjuta-encodings.c:723
 msgid "Supported Encodings"
-msgstr ""
+msgstr "Ondersteunde·coderingen"
 
 #: anjuta.glade.h:296 anjuta_dialogs_strings.c:47
 msgid "Supports"
@@ -1385,7 +1382,7 @@ msgstr "Ondersteunt"
 
 #: anjuta.glade.h:297 anjuta_dialogs_strings.c:293
 msgid "Syntax highlight editor"
-msgstr "Belichtingsstijl wijzigen"
+msgstr "Belichtingsstijl bewerken"
 
 #: anjuta.glade.h:298 anjuta_dialogs_strings.c:399
 #, fuzzy
@@ -1394,7 +1391,7 @@ msgstr "Tabgrootte in spaties"
 
 #: anjuta.glade.h:299 anjuta_dialogs_strings.c:429
 msgid "Tabs position:"
-msgstr ""
+msgstr "Tabpositie:"
 
 #: anjuta.glade.h:300 anjuta_dialogs_strings.c:188
 #, fuzzy
@@ -1402,9 +1399,8 @@ msgid "Target:"
 msgstr "Tag:"
 
 #: anjuta.glade.h:301 anjuta_dialogs_strings.c:461
-#, fuzzy
 msgid "Terminal options"
-msgstr "Uitvoeren in console"
+msgstr "Terminalopties"
 
 #: anjuta.glade.h:302 anjuta_dialogs_strings.c:301
 msgid "Theme"
@@ -1413,7 +1409,7 @@ msgstr "Thema"
 #: anjuta.glade.h:303 anjuta_dialogs_strings.c:225
 #: anjuta_dialogs_strings.c:263
 msgid "Tool Editor"
-msgstr "Hulpmiddelen aanpassen"
+msgstr "Hulpmiddelen bewerken"
 
 #: anjuta.glade.h:304 anjuta_dialogs_strings.c:202
 msgid "Top level Makefile.am"
@@ -1421,15 +1417,15 @@ msgstr "Top level Makefile.am"
 
 #: anjuta.glade.h:305 anjuta_dialogs_strings.c:426
 msgid "Truncate long messages"
-msgstr "Afbreken lange boodschappen"
+msgstr "Lange berichten·afbreken"
 
 #: anjuta.glade.h:306 anjuta_dialogs_strings.c:481
 msgid "Try to save in current locale's encoding"
-msgstr ""
+msgstr "In·codering·van·huidge·omgeving·proberen·op·te·slaan"
 
 #: anjuta.glade.h:307 anjuta_dialogs_strings.c:480
 msgid "Try to save in original encoding"
-msgstr ""
+msgstr "Probeer·op·te·slaan·in·originele·codering"
 
 #: anjuta.glade.h:308 anjuta_dialogs_strings.c:312
 msgid "Underlined"
@@ -1444,37 +1440,37 @@ msgstr "Verversen"
 
 #: anjuta.glade.h:310 anjuta_dialogs_strings.c:338
 msgid "Update tags image automatically"
-msgstr "Automatisch bijwerken tags image"
+msgstr "Tag-afbeelding·automatisch·verversen"
 
 #: anjuta.glade.h:311 anjuta_dialogs_strings.c:457
 msgid "Use GNOME terminal profile:"
-msgstr ""
+msgstr "GNOME·terminalprofiel·gebruiken:"
 
 #: anjuta.glade.h:312 anjuta_dialogs_strings.c:460
 msgid "Use currently selected profile in GNOME terminal"
-msgstr ""
+msgstr "Gebruik·huidig·geselecteerd·GNOME-terminal·profiel"
 
 #: anjuta.glade.h:313 anjuta_dialogs_strings.c:306
 #: anjuta_dialogs_strings.c:307 anjuta_dialogs_strings.c:308
 #: anjuta_dialogs_strings.c:309
 msgid "Use default"
-msgstr "Gebruik fabrieksinstellingen"
+msgstr "Standaard·gebruiken"
 
 #: anjuta.glade.h:314 anjuta_dialogs_strings.c:402
 msgid "Use tabs for indentation"
-msgstr "Gebruik tags in plaats van inspringen"
+msgstr "Gebruik·tabs·voor·inspringen"
 
 #: anjuta.glade.h:315 anjuta_dialogs_strings.c:223
 msgid "User Tools"
-msgstr "_Gebruikers werkbalk"
+msgstr "Gebruikershulpmiddelen"
 
 #: anjuta.glade.h:316 anjuta_dialogs_strings.c:344
 msgid "User email address:"
-msgstr ""
+msgstr "E-mail·adres·van·gebruiker:"
 
 #: anjuta.glade.h:317 anjuta_dialogs_strings.c:347
 msgid "User information"
-msgstr "Gebruikers informatie"
+msgstr "Gebruikersinformatie"
 
 #: anjuta.glade.h:318 anjuta_dialogs_strings.c:343
 msgid "User name:"
@@ -1483,7 +1479,7 @@ msgstr "Gebruikersnaam:"
 #: anjuta.glade.h:319 anjuta_dialogs_strings.c:264
 #: anjuta_dialogs_strings.c:265
 msgid "Variable list"
-msgstr "Variabelen"
+msgstr "Variabelenlijst"
 
 #: anjuta.glade.h:320 anjuta_dialogs_strings.c:186 src/project_dbase_gui.c:932
 msgid "Version:"
@@ -1491,51 +1487,50 @@ msgstr "Versie:"
 
 #: anjuta.glade.h:321 anjuta_dialogs_strings.c:233
 msgid "View"
-msgstr "Bekijk"
+msgstr "Weergeven"
 
 #: anjuta.glade.h:322 anjuta_dialogs_strings.c:353
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr ""
-"Waarschuw als een ongedefinieerde variable wordt gebruikt in de Makefile"
+"Waarschuw als een ongedefinieerde variabele wordt gebruikt in de Makefile"
 
 #: anjuta.glade.h:323 anjuta_dialogs_strings.c:434
 msgid "Warning message indicator style:"
-msgstr ""
+msgstr "Waarschuwingsbericht·indicatorstijl:"
 
 #: anjuta.glade.h:324 anjuta_dialogs_strings.c:62
 msgid "Warnings"
 msgstr "Waarschuwingen"
 
 #: anjuta.glade.h:325 anjuta_dialogs_strings.c:441
-#, fuzzy
 msgid "Warnings messages:"
-msgstr "Zoek boodschappen"
+msgstr "Waarschuwingsberichten:"
 
 #: anjuta.glade.h:326 anjuta_dialogs_strings.c:103
 #: anjuta_dialogs_strings.c:118
 msgid "Whole document"
-msgstr "Geheel document"
+msgstr "Gehele document"
 
 #: anjuta.glade.h:327 anjuta_dialogs_strings.c:112
 #: anjuta_dialogs_strings.c:127
 msgid "Whole word"
-msgstr "Geheel woord"
+msgstr "Hele·woord"
 
 #: anjuta.glade.h:328 anjuta_dialogs_strings.c:242
 msgid "Working directory:"
-msgstr ""
+msgstr "Werkmap:"
 
 #: anjuta.glade.h:329 anjuta_dialogs_strings.c:385
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Bladwijzerzoekopdracht·doorgaan·na·documenteinde"
 
 #: anjuta.glade.h:330 anjuta_dialogs_strings.c:9
 msgid "_Attach"
-msgstr "_Verbinden"
+msgstr "Bij_voegen"
 
 #: anjuta.glade.h:331 anjuta_dialogs_strings.c:36
 msgid "_Build a file:"
-msgstr "_Bouw een bestand:"
+msgstr "Een·bestand·_bouwen:"
 
 #: anjuta.glade.h:332 anjuta_dialogs_strings.c:17
 msgid "_Condition:"
@@ -1555,7 +1550,7 @@ msgstr "_Uitvoeren:"
 
 #: anjuta.glade.h:336 anjuta_dialogs_strings.c:26
 msgid "_Image editor:"
-msgstr "Afbeeldings editor:"
+msgstr "_Afbeeldings-editor:"
 
 #: anjuta.glade.h:337 anjuta_dialogs_strings.c:42
 msgid "_Language:"
@@ -1571,7 +1566,7 @@ msgstr "Maak een bestand:"
 
 #: anjuta.glade.h:340 anjuta_dialogs_strings.c:18
 msgid "_Pass:"
-msgstr "_Passeer:"
+msgstr "_Pass:"
 
 #: anjuta.glade.h:341 anjuta_dialogs_strings.c:25
 msgid "_Pixmap editor:"
@@ -1579,7 +1574,7 @@ msgstr "_Pictogram editor:"
 
 #: anjuta.glade.h:342 anjuta_dialogs_strings.c:10
 msgid "_Process to attach to:"
-msgstr "_Selekteer het te verbinden proces:  "
+msgstr "_Proces·om·bij·te·voegen:"
 
 #: anjuta.glade.h:343 anjuta_dialogs_strings.c:14
 msgid "_Remove all"
@@ -1587,11 +1582,11 @@ msgstr "_Verwijder alles"
 
 #: anjuta.glade.h:344 anjuta_dialogs_strings.c:297
 msgid "_Save Theme As"
-msgstr "_Bewaar thema als"
+msgstr "_Thema·opslaan·als"
 
 #: anjuta.glade.h:345 anjuta_dialogs_strings.c:28
 msgid "_Terminal:"
-msgstr "_Console:"
+msgstr "_Terminal:"
 
 #: anjuta.glade.h:346 anjuta_dialogs_strings.c:8 anjuta_dialogs_strings.c:80
 msgid "_Update"
@@ -1610,47 +1605,40 @@ msgid "window3"
 msgstr "venster3"
 
 #: anjuta_dialogs_strings.c:398
-#, fuzzy
 msgid "window4"
-msgstr "Dock venster"
+msgstr "venster4"
 
 #: anjuta_dialogs_strings.c:416
-#, fuzzy
 msgid "window5"
-msgstr "Dock venster"
+msgstr "venster5"
 
 #: anjuta_dialogs_strings.c:425
-#, fuzzy
 msgid "window6"
-msgstr "Dock venster"
+msgstr "venster6"
 
 #: anjuta_dialogs_strings.c:449
-#, fuzzy
 msgid "window7"
-msgstr "Dock venster"
+msgstr "venster7"
 
 #: anjuta_dialogs_strings.c:456
-#, fuzzy
 msgid "window8"
-msgstr "Dock venster"
+msgstr "venster8"
 
 #: gdl/gdl-dock-item-grip.c:244
-#, fuzzy
 msgid "Dock the toolbar"
-msgstr "_Debug werkbalk"
+msgstr "Werkbalk·aankoppelen"
 
 #: gdl/gdl-dock-item-grip.c:245
 msgid "Un dock the toolbar"
-msgstr "Werkbalk vrijmaken"
+msgstr "Werkbalk lokoppelen"
 
 #: gdl/gdl-dock-item.c:242
 msgid "Orientation"
 msgstr "Oriëntatie"
 
 #: gdl/gdl-dock-item.c:243
-#, fuzzy
 msgid "Orientation of the docking item"
-msgstr "Verhoog indentatie van blok/regel"
+msgstr "Oriëntatie·van·het·aankoppelobject"
 
 #: gdl/gdl-dock-item.c:258
 msgid "Resizable"
@@ -1658,9 +1646,7 @@ msgstr "Herschaalbaar"
 
 #: gdl/gdl-dock-item.c:259
 msgid "If set, the dock item can be resized when docked in a paned"
-msgstr ""
-"Indien aangezet, kan het dok-item worden aangepast als het is vastgezet in "
-"een venster"
+msgstr "Wanneer·ingeschakeld, kan het aangekoppelde·object worden aangepast"
 
 #: gdl/gdl-dock-item.c:266
 msgid "Item behavior"
@@ -1671,8 +1657,8 @@ msgid ""
 "General behavior for the dock item (i.e. whether it can float, if it's "
 "locked, etc.)"
 msgstr ""
-"Globale gedrag van het dok-item (of het kan zweven, of het is vastgezet, "
-"enz.)"
+" Algemeen gedrag van het aangekoppelde·item (of het kan zweven, of het is "
+"vastgezet, enz.)"
 
 #: gdl/gdl-dock-item.c:275
 msgid "Grip size"
@@ -1681,10 +1667,10 @@ msgstr "Greep-grootte"
 #: gdl/gdl-dock-item.c:276
 msgid "Size in pixels of the grip to drag the dock item"
 msgstr ""
-"Afmeting in pixels van de greep waarmee het dok-item kan worden gesleept"
+" Afmeting in pixels van de greep waarmee het aangekoppelde·item kan worden "
+"versleept"
 
 #: gdl/gdl-dock-item.c:282 gdl/gdl-dock-master.c:143
-#, fuzzy
 msgid "Locked"
 msgstr "Vergrendeld"
 
@@ -1692,8 +1678,8 @@ msgstr "Vergrendeld"
 msgid ""
 "If set, the dock item cannot be dragged around and it doesn't show a grip"
 msgstr ""
-"Indien aangezet, kan het dok-item niet worden versleept en bezit het geen "
-"greep."
+"·Wanneer·ingeschakeld, kan het aangekoppelde·item niet worden versleept en "
+"bezit het geen greep."
 
 #: gdl/gdl-dock-item.c:291
 msgid "Preferred width"
@@ -1701,7 +1687,7 @@ msgstr "Gewenste breedte"
 
 #: gdl/gdl-dock-item.c:292
 msgid "Preferred width for the dock item"
-msgstr "Gewenste breedte van het dok-item"
+msgstr "Gewenste breedte van het aangekoppelde·item"
 
 #: gdl/gdl-dock-item.c:298
 msgid "Preferred height"
@@ -1709,7 +1695,7 @@ msgstr "Gewenste hoogte"
 
 #: gdl/gdl-dock-item.c:299
 msgid "Preferred height for the dock item"
-msgstr "Gewenste hoogte van het dok-item"
+msgstr "Gewenste hoogte van het aangekoppelde·item"
 
 #: gdl/gdl-dock-item.c:546
 #, c-format
@@ -1717,8 +1703,8 @@ msgid ""
 "You can't add a dock object (%p of type %s) inside a %s. Use a GdlDock or "
 "some other compound dock object."
 msgstr ""
-"U kunt een dok-object (%p van type %s) niet toevoegen aan een %s. Gebruik "
-"GdlDock of een ander samengesteld dok-object."
+" U kunt een aangekoppeld·object (%p van type %s) niet toevoegen aan een %s. "
+"Gebruik GdlDock of een ander samengesteld aangekoppeld·object."
 
 #: gdl/gdl-dock-item.c:553
 #, c-format
@@ -1726,13 +1712,15 @@ msgid ""
 "Attempting to add a widget with type %s to a %s, but it can only contain one "
 "widget at a time; it already contains a widget of type %s"
 msgstr ""
-"Poging om een widget met type %s toe te voegen aan %s, maar het kan slechts "
+" Poging om een widget met type %s toe te voegen aan %s, maar het kan slechts "
 "één widget per keer bevatten; het bevat reeds een widget van type %s"
 
 #: gdl/gdl-dock-item.c:1149
 #, c-format
 msgid "Unsupported docking strategy %s in dock object of type %s"
-msgstr "Niet ondersteunde dok-strategie %s is dok-object van type %s"
+msgstr ""
+"Niet ondersteunde aankoppelingsstrategie %s in aangekoppeld·object van type %"
+"s"
 
 #. Hide menuitem.
 #: gdl/gdl-dock-item.c:1231
@@ -1742,9 +1730,8 @@ msgstr "Verbergen"
 
 #. Lock menuitem
 #: gdl/gdl-dock-item.c:1237
-#, fuzzy
 msgid "Lock"
-msgstr "Localen"
+msgstr "Vergrendelen"
 
 #: gdl/gdl-dock-item.c:1404
 #, c-format
@@ -1752,18 +1739,16 @@ msgid "Attempt to bind an unbound item %p"
 msgstr "Poging om een niet gebonden item %p te binden"
 
 #: gdl/gdl-dock-layout.c:125
-#, fuzzy
 msgid "Master"
-msgstr "Plakken"
+msgstr "Meester"
 
 #: gdl/gdl-dock-layout.c:126
 msgid "GdlDockMaster object which the layout object is attached to"
 msgstr "GdlDockMaster-object waaraan het layout-object is gebonden"
 
 #: gdl/gdl-dock-layout.c:133
-#, fuzzy
 msgid "Dirty"
-msgstr "Directories"
+msgstr "Vies"
 
 #: gdl/gdl-dock-layout.c:134
 msgid "True if the layouts have changed and need to be saved to a file"
@@ -1773,7 +1758,7 @@ msgstr ""
 
 #: gdl/gdl-dock-layout.c:447
 msgid "You must provide a name for the layout"
-msgstr "U moet een naam geven voor de layout"
+msgstr "U moet een naam geven aan de opmaak"
 
 #. FIXME: pop up an error dialog
 #: gdl/gdl-dock-layout.c:625
@@ -1801,7 +1786,7 @@ msgstr "Doc bestand"
 
 #: gdl/gdl-dock-layout.c:782 gdl/layout.glade.h:4
 msgid "Saved layouts"
-msgstr "Opgeslagen layouts"
+msgstr "Opgeslagen opmaken"
 
 #: gdl/gdl-dock-layout.c:824
 #, c-format
@@ -1814,7 +1799,7 @@ msgstr ""
 
 #: gdl/gdl-dock-layout.c:1303
 msgid "Layout managment"
-msgstr "Layout-beheer"
+msgstr "Opmaakbeheer"
 
 #: gdl/gdl-dock-master.c:136 gdl/gdl-dock.c:185
 #, fuzzy
@@ -1823,7 +1808,8 @@ msgstr "Gebruik fabrieksinstellingen"
 
 #: gdl/gdl-dock-master.c:137
 msgid "Default title for newly created floating docks"
-msgstr "Standaard-titel voor nieuw aangemaakte zwevende dokken"
+msgstr ""
+"Standaard-titel voor nieuw aangemaakte zwevende 'aangekoppelde·objecten'"
 
 #: gdl/gdl-dock-master.c:144
 msgid ""
@@ -1840,8 +1826,8 @@ msgid ""
 "master %p: unable to add object %p[%s] to the hash.  There already is an "
 "item with that name (%p)."
 msgstr ""
-"meester %p: kon object %p[%s] niet aan de hak-tabel toevoegen.  Er is reeds "
-"een item met die naam (%p)"
+" meester %p: kon object %p[%s] niet aan de hash-tabel toevoegen.  Er is "
+"reeds  een item met die naam (%p)."
 
 #: gdl/gdl-dock-master.c:906
 #, c-format
@@ -1863,7 +1849,7 @@ msgstr "Ontbind de huidige pagina"
 
 #: gdl/gdl-dock-object.c:121
 msgid "Unique name for identifying the dock object"
-msgstr "Unieke naam voor identificatie van het dok-object"
+msgstr "Unieke naam voor identificatie van het aangekoppelde·object"
 
 #: gdl/gdl-dock-object.c:128
 #, fuzzy
@@ -1872,7 +1858,7 @@ msgstr "Item naam:"
 
 #: gdl/gdl-dock-object.c:129
 msgid "Human readable name for the dock object"
-msgstr "Leesbare naam voor het dok-object"
+msgstr "Leesbare naam voor het aangekoppelde·object"
 
 #: gdl/gdl-dock-object.c:135
 msgid "Dock master"
@@ -1880,7 +1866,7 @@ msgstr "Dok-meester"
 
 #: gdl/gdl-dock-object.c:136
 msgid "Dock master this dock object is bound to"
-msgstr "Dok-meester aan welke dit dok is gebonden"
+msgstr "Meester aan welke dit object is gebonden"
 
 #: gdl/gdl-dock-object.c:405
 #, c-format
@@ -1897,8 +1883,8 @@ msgid ""
 "Dock operation requested in a non-bound object %p. The application might "
 "crash"
 msgstr ""
-"Dok-operatie (vastzetten) aangevraagd voor een ongebonden object %p. De "
-"toepassing kan mogelijk crashen."
+" Operatie aangevraagd in een ongebonden object %p. De toepassing kan "
+"mogelijk crashen."
 
 #: gdl/gdl-dock-object.c:541
 #, c-format
@@ -1911,8 +1897,8 @@ msgstr ""
 msgid ""
 "Attempt to bind to %p an already bound dock object %p (current master: %p)"
 msgstr ""
-"Poging om %p te binden aan een reeds gebonden dok-object %p (huidige "
-"meester: %p)"
+" Poging om %p te binden aan een reeds gebonden object %p (huidige meester: %"
+"p)"
 
 #: gdl/gdl-dock-paned.c:134
 msgid "Position"
@@ -1932,8 +1918,8 @@ msgid ""
 "Whether the placeholder will stick to its host or move up the hierarchy when "
 "the host is redocked"
 msgstr ""
-"Of de plaatshouder trouw blijft aan zijn gastheer, of een trede hoger op de "
-"hierarchie klimt wanneer de gastheer opnieuw wordt vastgezet."
+" Of de plaatshouder trouw blijft aan zijn host, of een trede hoger op de  "
+"hierarchie klimt wanneer de host opnieuw wordt aangekoppeld."
 
 #: gdl/gdl-dock-placeholder.c:135
 msgid "Host"
@@ -1941,7 +1927,7 @@ msgstr "Host"
 
 #: gdl/gdl-dock-placeholder.c:136
 msgid "The dock object this placeholder is attached to"
-msgstr "Het dok-object waaraan deze plaatshouder is gebonden"
+msgstr "Het aangekoppelde·object waaraan deze plaatshouder is gebonden"
 
 #: gdl/gdl-dock-placeholder.c:143
 #, fuzzy
@@ -2051,9 +2037,8 @@ msgid "Layout Managment"
 msgstr "Backup Manager"
 
 #: gdl/layout.glade.h:5
-#, fuzzy
 msgid "_Load"
-msgstr "Localen"
+msgstr "_Laden"
 
 #: gdl/layout.glade.h:6
 msgid "_Lock dock items"
@@ -2061,11 +2046,11 @@ msgstr "Dok-items _vastzetten"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
-msgstr ""
+msgstr "Klassenaam·ongeldig"
 
 #: plugins/class-gen/clsGen.c:456
 msgid "Base class name not valid"
-msgstr ""
+msgstr "Basis·klassenaam·ongeldig"
 
 #: plugins/class-gen/clsGen.c:462
 #, fuzzy
@@ -2102,17 +2087,16 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: plugins/class-gen/clsGen.c:1361
-#, fuzzy
 msgid "Finish"
-msgstr "Fins"
+msgstr "Klaar"
 
 #: plugins/class-gen/clsGen.c:1378
 msgid "Enter the name for the class you want to add."
-msgstr ""
+msgstr "Geef·de·naam·van·de·klasse·die·u·wilt·toevoegen."
 
 #: plugins/class-gen/clsGen.c:1388
 msgid "Enter the declaration file name."
-msgstr ""
+msgstr "Geef·de·declaratiebestandsnaam."
 
 #: plugins/class-gen/clsGen.c:1398
 #, fuzzy
@@ -2125,21 +2109,23 @@ msgstr "..."
 
 #: plugins/class-gen/clsGen.c:1408
 msgid "Browse for the declaration file name."
-msgstr ""
+msgstr "Bladeren·naar·de·declaratiebestandsnaam."
 
 #: plugins/class-gen/clsGen.c:1418
 msgid "Browse for the implementation file name."
-msgstr ""
+msgstr "Bladeren"
 
 #: plugins/class-gen/clsGen.c:1428
 msgid "Enter the name of the class your new class will inherit from."
-msgstr ""
+msgstr "Geef de naam van de klasse waarvan uw klasse zal overerven."
 
 #: plugins/class-gen/clsGen.c:1453
 msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. "
 msgstr ""
+"Deze plugin zal een door u gespecificeerde klasse maken en toevoegen aan uw "
+"project."
 
 #. gtk_widget_set_usize (self->label_description, 400, 16);
 #: plugins/class-gen/clsGen.c:1462
@@ -2159,15 +2145,15 @@ msgstr "Bronbestand"
 
 #: plugins/class-gen/clsGen.c:1492
 msgid "Base class:   "
-msgstr ""
+msgstr "Basisklasse:"
 
 #: plugins/class-gen/clsGen.c:1502
 msgid "Base class inheritance: "
-msgstr ""
+msgstr "Basisklasse overerving:"
 
 #: plugins/class-gen/clsGen.c:1538
 msgid "Inline the declaration and implementation"
-msgstr ""
+msgstr "Declaratie en implementatie inline maken"
 
 #. gtk_widget_set_usize (self->checkbutton_inline, 224, 24);
 #: plugins/class-gen/clsGen.c:1546
@@ -2175,23 +2161,25 @@ msgid ""
 "If checked, the plugin will generate both the declaration and implementation "
 "in the header file and will not create a source file."
 msgstr ""
+"Wanneer ingesteld, zal de plugin zowel de declaratie als de implementatie in "
+"het headerbestand zetten en geen bestand met broncode maken."
 
 #: plugins/class-gen/clsGen.c:1548
 msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
-msgstr ""
+msgstr "Door:  Dave Huseby <huseby@linuxprogrammer.org>"
 
 #: plugins/class-gen/clsGen.c:1559
 msgid "V 0.0.2 (June 11, 2002)"
-msgstr ""
+msgstr "V 0.0.2 (11 juni, 2002)"
 
 #: plugins/class-gen/clsGen.c:1570
 msgid ""
 "TODO: add the ability to declare member functions and their parameters here."
-msgstr ""
+msgstr "TODO: de mogelijkheid om lidfuncties en parameters hier te declareren."
 
 #: plugins/class-gen/clsGen.c:1580
 msgid "Welcome to the Anjuta Class Builder. "
-msgstr ""
+msgstr "Welkom bij de Anjuta klassebouwer."
 
 #. gtk_widget_set_usize (self->label_welcome, 184, 16);
 #: plugins/class-gen/clsGen.c:1589
@@ -2215,20 +2203,22 @@ msgstr "Update"
 
 #: plugins/class-gen/clsGen.c:1618
 msgid "Choose the type of inheritence from the base class."
-msgstr ""
+msgstr "Kies het overervingstype van de basisklasse."
 
 #: plugins/class-gen/clsGen.c:1622
 msgid "Virtual destructor"
-msgstr ""
+msgstr "Virtuele destructor"
 
 #. gtk_widget_set_usize (self->checkbutton_virtual_destructor, 112, 24);
 #: plugins/class-gen/clsGen.c:1630
 msgid "If checked, the destructor of your class will be declared virtual."
 msgstr ""
+"Wanneer ingeschakeld, zal de destructor van uw klasse virtueel gedeclareerd "
+"worden."
 
 #: plugins/class-gen/clsGen.c:1640 plugins/class-gen/clsGen.c:1652
 msgid "Generic C++ Class"
-msgstr ""
+msgstr "Algemene C++ klasse"
 
 #: plugins/class-gen/clsGen.c:1641
 #, fuzzy
@@ -2242,21 +2232,19 @@ msgstr "Selecteer het type applicatie dat u wilt ontwikkelen"
 
 #: plugins/patch/patch-plugin.c:60
 msgid "Interface to patch Projects or individual files"
-msgstr ""
+msgstr "Interface om projecten of bestanden te patchen"
 
 #: plugins/patch/patch-plugin.c:96
-#, fuzzy
 msgid "File/Dir to patch"
-msgstr "Bestand/Directory toe te voegen:"
+msgstr "Bestand/map om te patchen"
 
 #: plugins/patch/patch-plugin.c:97
-#, fuzzy
 msgid "Patch file"
-msgstr "Databestand"
+msgstr "Patchbestand"
 
 #: plugins/patch/patch-plugin.c:98
 msgid "Patch level (-p)"
-msgstr ""
+msgstr "Patch-niveau (-p)"
 
 #: plugins/patch/patch-plugin.c:103
 #, fuzzy
@@ -2275,7 +2263,7 @@ msgstr "Selekteer het te verbinden proces:  "
 
 #: plugins/patch/patch-plugin.c:108
 msgid "Selected patch file"
-msgstr ""
+msgstr "Kies patchbestand"
 
 #: plugins/patch/patch-plugin.c:144
 #, fuzzy
@@ -2284,24 +2272,24 @@ msgstr "plugins"
 
 #: plugins/patch/patch-plugin.c:150
 msgid "The patch plugin"
-msgstr ""
+msgstr "De patchplugin"
 
 #: plugins/patch/patch-plugin.c:168
 msgid "Please select the directory where the patch should be applied"
-msgstr ""
+msgstr "Kies de map waar de patch op toegepast zou moeten worden"
 
 #: plugins/patch/patch-plugin.c:175
 #, c-format
 msgid "Patching %s using %s\n"
-msgstr ""
+msgstr "Patchen van %s met %s\n"
 
 #: plugins/patch/patch-plugin.c:181
 msgid "Patching...\n"
-msgstr ""
+msgstr "Patchen...\n"
 
 #: plugins/patch/patch-plugin.c:188
 msgid "There are unfinished jobs, please wait until they are finished"
-msgstr ""
+msgstr "Er zijn nog actieve taken, wacht a.u.b. tot deze zijn afgelopen"
 
 #: plugins/patch/patch-plugin.c:212
 msgid ""
@@ -2309,6 +2297,9 @@ msgid ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
+"Patchen mislukt!\n"
+"Bekijk de foutmeldingen.\n"
+"Analyseer en verwijder geweigerde bestanden.\n"
 
 #: plugins/patch/patch-plugin.c:219
 #, fuzzy
@@ -2317,15 +2308,15 @@ msgstr "Project geladen succesvol"
 
 #: plugins/sample1/plugin-sample1.c:17
 msgid "Sample Plugin Description. Holla!"
-msgstr ""
+msgstr "Voorbeeldplugin beschrijving. HEUJ!"
 
 #: plugins/sample1/plugin-sample1.c:47
 msgid "Hello world!"
-msgstr ""
+msgstr "Hallo wereld!"
 
 #: plugins/sample1/plugin-sample1.c:48
 msgid "Sample plugin!"
-msgstr ""
+msgstr "Voorbeeldplugin!"
 
 #: plugins/sample1/plugin-sample1.c:56
 #, fuzzy
@@ -2334,7 +2325,7 @@ msgstr "plugins"
 
 #: plugins/sample1/plugin-sample1.c:62
 msgid "This is a sample plugin"
-msgstr ""
+msgstr "Dit is een voorbeeldplugin"
 
 #: printing/print.c:535
 #, fuzzy
@@ -2354,7 +2345,7 @@ msgstr "Bestand: %s"
 #: printing/print.c:790
 #, c-format
 msgid "%d"
-msgstr ""
+msgstr "%d"
 
 #: printing/print.c:910
 #, fuzzy
@@ -2391,10 +2382,12 @@ msgid ""
 "No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
 msgstr ""
+"Geen standaardweergave gegeven voor mimetype %s.\n"
+"U moet dit instellen in het GNOME Configuratiecentrum"
 
 #: src/an_file_view.c:267
 msgid "Unable to build user interface for file filter"
-msgstr ""
+msgstr "Kan gebruikersinterface voor bestandsfilter niet opbouwen"
 
 #. 0
 #: src/an_file_view.c:348
@@ -2404,7 +2397,7 @@ msgstr "Bijwerken bestand:"
 
 #: src/an_file_view.c:349 src/main_menubar_def.h:1604
 msgid "Update current working copy"
-msgstr ""
+msgstr "Huidige werkversie bijwerken"
 
 #. 1
 #: src/an_file_view.c:355
@@ -2414,7 +2407,7 @@ msgstr "Compileer"
 
 #: src/an_file_view.c:356 src/main_menubar_def.h:1611
 msgid "Commit changes to the repository"
-msgstr ""
+msgstr "Veranderingen opsturen naar de repos"
 
 #. 2
 #: src/an_file_view.c:362
@@ -2468,7 +2461,7 @@ msgstr "Doc bestand"
 
 #: src/an_file_view.c:391 src/main_menubar_def.h:1646
 msgid "Create a diff between the working copy and the repository"
-msgstr ""
+msgstr "Een diff maken van de verschillen tussen de werkversie en de repos"
 
 #. 0
 #: src/an_file_view.c:400 src/main_menubar_def.h:946
@@ -2481,7 +2474,7 @@ msgstr "Anjuta"
 #: src/an_file_view.c:407 src/main_menubar_def.h:940
 #: src/project_dbase_gui.c:329
 msgid "Open in default viewer"
-msgstr ""
+msgstr "Openen met standaardweergave"
 
 #. 3
 #: src/an_file_view.c:421 src/an_symbol_view.c:302
@@ -2510,7 +2503,7 @@ msgstr "Aanpassen"
 
 #: src/an_file_view.c:437
 msgid "Customize the file browser"
-msgstr ""
+msgstr "Bestandsbeheer aanpassen"
 
 #: src/an_file_view.c:678
 #, fuzzy
@@ -2723,7 +2716,7 @@ msgstr "Aan"
 
 #: src/anjuta-tools.c:1163
 msgid "Unable to build user interface for tool editor"
-msgstr ""
+msgstr "Kan de gebruikersinterface voor de gereedschaps-editor niet opbouwen"
 
 #: src/anjuta-tools.c:1359
 #, fuzzy, c-format
@@ -2732,20 +2725,20 @@ msgstr "Weet u zeker dat u de lijst leeg wilt maken?"
 
 #: src/anjuta-tools.c:1461
 msgid "You must provide a tool name!"
-msgstr ""
+msgstr "U moet een gereedschapsnaam geven!"
 
 #: src/anjuta-tools.c:1467
 msgid "You must provide a tool command!"
-msgstr ""
+msgstr "U moet een gereedschapsopdracht geven!"
 
 #: src/anjuta-tools.c:1482
 #, c-format
 msgid "A tool with the name '%s' already exists!"
-msgstr ""
+msgstr "Een stuk gereedschap met de naam '%s' bestaat al!"
 
 #: src/anjuta-tools.c:1766
 msgid "Unable to build user interface for tool help"
-msgstr ""
+msgstr "Kan de gebruikersinterface voor gereedschapshulp niet opbouwen"
 
 #: src/anjuta-tools.c:1781 src/debug_tree.c:1458 src/debug_tree.c:1478
 #: src/watch_gui.c:127
@@ -2765,7 +2758,7 @@ msgstr "Waarde"
 
 #: src/anjuta-tools.c:1856
 msgid "Unable to build user interface for tool parameters"
-msgstr ""
+msgstr "Kan de gebruikersinterface voor gereedschapsparameters niet opbouwen"
 
 #: src/anjuta-tools.c:1860
 #, fuzzy, c-format
@@ -2851,15 +2844,15 @@ msgstr "Geen"
 
 #: src/anjuta.c:2096
 msgid "DOS (CRLF)"
-msgstr ""
+msgstr "DOS (CRLF)"
 
 #: src/anjuta.c:2099 src/anjuta.c:2133
 msgid "Unix (LF)"
-msgstr ""
+msgstr "Unix (LF)"
 
 #: src/anjuta.c:2102
 msgid "Mac (CR)"
-msgstr ""
+msgstr "Mac (CR)"
 
 #: src/anjuta.c:2105
 msgid "Unknown"
@@ -2884,7 +2877,7 @@ msgstr ""
 
 #: src/anjuta.c:2381
 msgid "Looking up symbol"
-msgstr ""
+msgstr "Opzoeken van symbool"
 
 #: src/anjuta.c:2383 src/find_in_files.c:306
 msgid "Finding in Files ....\n"
@@ -2928,7 +2921,7 @@ msgstr ""
 
 #: src/anjuta_dirs.c:51
 msgid "Unable to create settings directory.\n"
-msgstr "Kon de voorkeursdirectory niet maken\n"
+msgstr "Kon de voorkeurenmap niet aanmaken\n"
 
 #: src/anjuta_gui.c:191 src/anjuta_gui.c:280
 msgid "Click here to undock this window"
@@ -3131,7 +3124,7 @@ msgstr "Het doelbestand is al bijgewerkt. Geen reden om opnieuw te bouwen."
 
 #: src/build_file.c:91
 msgid "No build command has been specified for this type of file."
-msgstr ""
+msgstr "Geen bouwopdracht voor dit type bestand gegeven."
 
 #: src/build_file.c:109
 #, c-format
@@ -3174,7 +3167,7 @@ msgstr "Bouw project"
 
 #: src/build_project.c:102 src/compile.c:80
 msgid "Building source directory of the Project: "
-msgstr "Bouwen brondirectory van het project:"
+msgstr "Bouwen bronmap van het project:"
 
 #: src/build_project.c:146
 #, fuzzy
@@ -3201,7 +3194,7 @@ msgstr "Bouw het distributiepakket van het project: "
 
 #: src/build_project.c:252
 msgid "Do you prefer installing as root ?"
-msgstr ""
+msgstr "Wilt u liever als supergebruiker (root) installeren?"
 
 #: src/build_project.c:291
 #, fuzzy
@@ -3401,7 +3394,7 @@ msgstr ""
 
 #: src/compile.c:144
 msgid "No compile command has been specified for this type of file."
-msgstr ""
+msgstr "Geen compileeropdracht gespecificeerd voor dit type bestand."
 
 #: src/compile.c:158 src/text_editor_gui.c:168 src/toolbar.c:248
 msgid "Compile"
@@ -3426,6 +3419,9 @@ msgid ""
 "would you like the next build action to perform a complete\n"
 "rebuild of the project?"
 msgstr ""
+"U heeft sommige compileeropties van het project gewijzigd.\n"
+"Wilt u de eerstvolgende keer het project compleet opnieuw\n"
+"bouwen?"
 
 #: src/compiler_options.c:743 src/src_paths.c:218
 #, fuzzy
@@ -3511,39 +3507,39 @@ msgstr "Bijwerken bestand:"
 
 #: src/cvs.c:304
 msgid "CVS Committing "
-msgstr ""
+msgstr "CVS Committen"
 
 #: src/cvs.c:365
 msgid "CVS Importing...\n"
-msgstr ""
+msgstr "CVS Importeren...\n"
 
 #: src/cvs.c:405
 msgid "CVS Adding "
-msgstr ""
+msgstr "CVS Toevoegen "
 
 #: src/cvs.c:437
 msgid "CVS Removing "
-msgstr ""
+msgstr "CVS Verwijderen "
 
 #: src/cvs.c:478
 msgid "Getting CVS status "
-msgstr ""
+msgstr "Ophalen van CVS-status"
 
 #: src/cvs.c:493 src/cvs.c:544 src/cvs.c:620 src/cvs.c:860
 msgid "There are jobs running, please wait until they are finished"
-msgstr ""
+msgstr "Er zijn onafgeronde taken, wacht tot deze afgelopen zijn"
 
 #: src/cvs.c:529
 msgid "Getting CVS log "
-msgstr ""
+msgstr "Ophalen van CVS-logboek"
 
 #: src/cvs.c:605
 msgid "CVS diffing "
-msgstr ""
+msgstr "CVS Verschillen opzoeken"
 
 #: src/cvs.c:649
 msgid "CVS login "
-msgstr ""
+msgstr "CVS Aanmelden"
 
 #: src/cvs.c:753 src/project_import.c:167
 #, fuzzy
@@ -3577,7 +3573,7 @@ msgstr "Geen"
 
 #: src/cvs_cbs.c:40
 msgid "You do not need to login to a local server"
-msgstr ""
+msgstr "U hoeft zich niet aan te melden bij een lokale server"
 
 #: src/cvs_gui.c:30
 #, fuzzy
@@ -3590,7 +3586,7 @@ msgstr "Wachtwoord"
 
 #: src/cvs_gui.c:30
 msgid "Extern(rsh)"
-msgstr ""
+msgstr "Extern(rsh)"
 
 #: src/cvs_gui.c:30
 msgid "Server"
@@ -3603,7 +3599,7 @@ msgstr "Update"
 
 #: src/cvs_gui.c:76
 msgid "CVS: Commit"
-msgstr ""
+msgstr "CVS: Committen"
 
 #: src/cvs_gui.c:77
 #, fuzzy
@@ -3612,7 +3608,7 @@ msgstr "Commentaar:"
 
 #: src/cvs_gui.c:80
 msgid "CVS: Status"
-msgstr ""
+msgstr "CVS: Status"
 
 #: src/cvs_gui.c:81
 #, fuzzy
@@ -3621,7 +3617,7 @@ msgstr "Toon _Localen"
 
 #: src/cvs_gui.c:84
 msgid "CVS: Log"
-msgstr ""
+msgstr "CVS: Logboek"
 
 #: src/cvs_gui.c:85
 #, fuzzy
@@ -3630,7 +3626,7 @@ msgstr "Toon aanroeptip"
 
 #: src/cvs_gui.c:88
 msgid "CVS: Add file"
-msgstr ""
+msgstr "CVS: Bestand toevoegen"
 
 #: src/cvs_gui.c:89
 msgid "Add"
@@ -3638,7 +3634,7 @@ msgstr "Toevoegen"
 
 #: src/cvs_gui.c:92
 msgid "CVS: Remove file"
-msgstr ""
+msgstr "CVS: Bestand verwijderen"
 
 #. 3
 #: src/cvs_gui.c:93 src/project_dbase_gui.c:341 src/watch_gui.c:43
@@ -3651,6 +3647,11 @@ msgid ""
 "to apply to the repository. It will still be possible to retrieve older "
 "revisions of the file."
 msgstr ""
+"LET OP: Het bestand zal van de schijf verwijderd worden. Gebruik \"cvs commit"
+"\"\n"
+"om het toe te passen op de repos. Het zal nog steeds mogelijk zijn om "
+"oudere\n"
+"revisies van het bestand op te halen."
 
 #: src/cvs_gui.c:120 src/cvs_gui.c:239
 #, fuzzy
@@ -3659,7 +3660,7 @@ msgstr "Bestand: "
 
 #: src/cvs_gui.c:122
 msgid "Branch: "
-msgstr ""
+msgstr "Branch: "
 
 #: src/cvs_gui.c:124 src/cvs_gui.c:292
 #, fuzzy
@@ -3678,7 +3679,7 @@ msgstr "_Selecteer Alles"
 
 #: src/cvs_gui.c:226
 msgid "CVS: Diff file"
-msgstr ""
+msgstr "CVS: Verschillen van bestand opzoeken"
 
 #. 17
 #: src/cvs_gui.c:230 src/main_menubar_def.h:1111
@@ -3687,11 +3688,11 @@ msgstr "Diff"
 
 #: src/cvs_gui.c:266
 msgid "Date: "
-msgstr ""
+msgstr "Datum: "
 
 #: src/cvs_gui.c:336
 msgid "CVS Login"
-msgstr ""
+msgstr "CVS Aanmelden"
 
 #: src/cvs_gui.c:340
 #, fuzzy
@@ -3700,7 +3701,7 @@ msgstr "Aanmelden"
 
 #: src/cvs_gui.c:350 src/cvs_gui.c:445
 msgid "Server type: "
-msgstr ""
+msgstr "Servertype: "
 
 #: src/cvs_gui.c:351 src/cvs_gui.c:448
 #, fuzzy
@@ -3709,11 +3710,11 @@ msgstr "Info _Huidig Frame"
 
 #: src/cvs_gui.c:352 src/cvs_gui.c:446
 msgid "Server: "
-msgstr ""
+msgstr "Server: "
 
 #: src/cvs_gui.c:353
 msgid "Directory on the server: "
-msgstr ""
+msgstr "Map op de server: "
 
 #: src/cvs_gui.c:432
 #, fuzzy
@@ -3727,7 +3728,7 @@ msgstr "Importeren"
 
 #: src/cvs_gui.c:447
 msgid "Dir on the server: "
-msgstr ""
+msgstr "Map op de server: "
 
 #: src/cvs_gui.c:472
 #, fuzzy
@@ -3741,7 +3742,7 @@ msgstr "Klasse:"
 
 #: src/cvs_gui.c:474
 msgid "Vendor tag: "
-msgstr ""
+msgstr "Verkoperslabel:"
 
 #: src/cvs_gui.c:530
 #, fuzzy
@@ -3912,7 +3913,7 @@ msgstr ""
 
 #: src/debugger.c:1461
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "Anjuta kan zich niet aan zichzelf aankoppelen."
 
 #: src/debugger.c:1547
 #, c-format
@@ -4021,7 +4022,7 @@ msgstr "Zoeken in bestand compleet ... succesvol"
 
 #: src/find_in_files_cbs.c:103
 msgid "No input files supplied."
-msgstr ""
+msgstr "Geen invoerbestanden gegeven."
 
 #: src/find_in_files_cbs.c:110
 #, fuzzy
@@ -4167,12 +4168,12 @@ msgstr "Ga naar regel nr. "
 #: src/launcher.c:173
 #, c-format
 msgid "launcher.c: error while reading child stdout - %s\n"
-msgstr ""
+msgstr "launcher.c: fout bij lezen van standaarduitvoer - %s\n"
 
 #: src/launcher.c:200
 #, c-format
 msgid "launcher.c: error while reading child stderr - %s\n"
-msgstr ""
+msgstr "launcher.c: fout bij lezen van standaard foutmeldingsuitvoer - %s\n"
 
 #: src/launcher.c:377 src/text_editor.c:1468
 msgid "Cannot execute command shell"
@@ -4275,6 +4276,8 @@ msgstr "Ni_euw project ..."
 #: src/main_menubar_def.h:85
 msgid "Import an existing code project using the Project Import Wizard"
 msgstr ""
+"Een bestaand programmeerproject importeren met de assistent \"Project "
+"importeren\""
 
 #. 11
 #: src/main_menubar_def.h:90
@@ -4526,24 +4529,24 @@ msgstr "Invoeren huidige datum & tijd"
 #. 5
 #: src/main_menubar_def.h:275
 msgid "Header File Template"
-msgstr ""
+msgstr "Sjabloon headerbestand"
 
 #: src/main_menubar_def.h:276
 msgid "Insert a standard header file template"
-msgstr ""
+msgstr "Een standaardsjabloon voor een headerbestand invoegen"
 
 #. 6
 #: src/main_menubar_def.h:281
 msgid "ChangeLog entry"
-msgstr ""
+msgstr "ChangeLog ingang"
 
 #: src/main_menubar_def.h:282
 msgid "Insert a ChangeLog entry"
-msgstr ""
+msgstr "Een ChangeLog ingang invoeren"
 
 #: src/main_menubar_def.h:293
 msgid "Insert a switch template"
-msgstr ""
+msgstr "Een switch-sjabloon invoegen"
 
 #: src/main_menubar_def.h:299
 #, fuzzy
@@ -4552,44 +4555,44 @@ msgstr "_Invoer tekst"
 
 #: src/main_menubar_def.h:305
 msgid "Insert a while template"
-msgstr ""
+msgstr "Een while-sjabloon invoegen"
 
 #: src/main_menubar_def.h:311
 msgid "Insert an if...else template"
-msgstr ""
+msgstr "Een if...else-sjabloon invoegen"
 
 #: src/main_menubar_def.h:322
 msgid "Insert the CVS Author keyword (author of the change)"
-msgstr ""
+msgstr "CVS-auteur invoegen (auteur van de verandering)"
 
 #: src/main_menubar_def.h:328
 msgid "Insert the CVS Date keyword (date and time of the change)"
-msgstr ""
+msgstr "CVS-datum invoegen (datum en tijd van de verandering)"
 
 #: src/main_menubar_def.h:334
 msgid ""
 "Insert the CVS Header keyword (full path, revision, date, author, state)"
-msgstr ""
+msgstr "CVS-header invoegen (volledig pad, revisie, datum, auteur, staat)"
 
 #: src/main_menubar_def.h:340
 msgid "Insert the CVS Id keyword (file, revision, date, author)"
-msgstr ""
+msgstr "CVS-ID invoegen (bestand, revisie, datum, auteur)"
 
 #: src/main_menubar_def.h:346
 msgid "Insert the CVS Log keyword (log message)"
-msgstr ""
+msgstr "CVS-log invoegen (logboekbericht)"
 
 #: src/main_menubar_def.h:352
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
-msgstr ""
+msgstr "CVS-naam invoegen (naam van de sticky-tag)"
 
 #: src/main_menubar_def.h:358
 msgid "Insert the CVS Revision keyword (revision number)"
-msgstr ""
+msgstr "CVS-revisie invoegen (revisienummer)"
 
 #: src/main_menubar_def.h:364
 msgid "Insert the CVS Source keyword (full path)"
-msgstr ""
+msgstr "CVS-broncode invoegen (volledig pad)"
 
 #. 0
 #: src/main_menubar_def.h:374
@@ -4599,12 +4602,12 @@ msgstr "Kop"
 
 #: src/main_menubar_def.h:375
 msgid "Insert a file header"
-msgstr ""
+msgstr "Bestandsheader invoegen"
 
 #. 1
 #: src/main_menubar_def.h:380
 msgid "C template"
-msgstr ""
+msgstr "C-sjabloon"
 
 #: src/main_menubar_def.h:381
 #, fuzzy
@@ -4614,7 +4617,7 @@ msgstr "_Invoer tekst"
 #. 2
 #: src/main_menubar_def.h:386
 msgid "CVS keyword"
-msgstr ""
+msgstr "CVS sleutelwoorden"
 
 #. 0
 #: src/main_menubar_def.h:403
@@ -4814,20 +4817,20 @@ msgstr "Functie declaratie:"
 #. 10
 #: src/main_menubar_def.h:535
 msgid "Next occurrence"
-msgstr ""
+msgstr "Volgende overeenkomende"
 
 #: src/main_menubar_def.h:536
 msgid "Find the next occurrence of current word"
-msgstr ""
+msgstr "De volgende overeenkomende tekenreeks opzoeken"
 
 #. 11
 #: src/main_menubar_def.h:541
 msgid "Previous occurrence"
-msgstr ""
+msgstr "Vorige overeenkomende"
 
 #: src/main_menubar_def.h:542
 msgid "Find the previous occurrence of current word"
-msgstr ""
+msgstr "De vorige overeenkomende tekenreeks opzoeken"
 
 #. 0
 #: src/main_menubar_def.h:553
@@ -5042,11 +5045,11 @@ msgstr "Toon/Verberg regeleinde karakters"
 #. 6
 #: src/main_menubar_def.h:732
 msgid "Line _wrapping"
-msgstr ""
+msgstr "Regel_afbreking"
 
 #: src/main_menubar_def.h:733
 msgid "Enable/disable line wrapping"
-msgstr ""
+msgstr "Regelafbreking in-/uitschakelen"
 
 #. 0
 #: src/main_menubar_def.h:743
@@ -5227,7 +5230,7 @@ msgstr "Toont het kernel signalen editor venster"
 #. 12
 #: src/main_menubar_def.h:876
 msgid "Memory _Dump"
-msgstr ""
+msgstr "Geheugen_dump"
 
 #: src/main_menubar_def.h:877
 msgid "Show memory dump window"
@@ -5537,7 +5540,7 @@ msgstr "Forceer de belichtingsstijl naar Ada"
 #. 23
 #: src/main_menubar_def.h:1147
 msgid "Baan"
-msgstr ""
+msgstr "Baan"
 
 #: src/main_menubar_def.h:1148
 msgid "Force the highlight style to Baan"
@@ -5546,7 +5549,7 @@ msgstr "Forceer de belichtingsstijl naar Baan"
 #. 24
 #: src/main_menubar_def.h:1153
 msgid "Lisp"
-msgstr ""
+msgstr "Lisp"
 
 #: src/main_menubar_def.h:1154
 msgid "Force the highlight style to Lisp"
@@ -5666,7 +5669,7 @@ msgstr "B_ouw"
 
 #: src/main_menubar_def.h:1245
 msgid "Build the source directory of the Project or the current source file"
-msgstr "Bouw de brondirectory van het project of het huidige bronbestand"
+msgstr "De bronmap van het project of het huidige bronbestand bouwen"
 
 #. 3
 #: src/main_menubar_def.h:1250
@@ -5733,7 +5736,7 @@ msgstr "Opscho_nen"
 
 #: src/main_menubar_def.h:1291
 msgid "Clean the source directory"
-msgstr "Brondirectory opschonen"
+msgstr "Broncode-map opschonen"
 
 #. 14
 #: src/main_menubar_def.h:1296
@@ -5999,7 +6002,7 @@ msgstr "_Geheugen informatie"
 
 #: src/main_menubar_def.h:1490
 msgid "Display accessible memory"
-msgstr ""
+msgstr "Bereikbaar geheugen weergeven"
 
 #. 0
 #: src/main_menubar_def.h:1500
@@ -6146,7 +6149,7 @@ msgstr "Toestand van het bestand"
 #. 3
 #: src/main_menubar_def.h:1624
 msgid "G_et file log"
-msgstr ""
+msgstr "Logbestand _ophalen"
 
 #. 4
 #: src/main_menubar_def.h:1631
@@ -6188,7 +6191,7 @@ msgstr "_Project importeren"
 
 #: src/main_menubar_def.h:1668
 msgid "Import Project as a new module in the repository"
-msgstr ""
+msgstr "Project als nieuwe module importeren in de repos"
 
 #. 11
 #: src/main_menubar_def.h:1674
@@ -6216,7 +6219,7 @@ msgstr "_Diff project"
 #: src/main_menubar_def.h:1689
 msgid ""
 "Create a diff between the working copy of the Project and the repository"
-msgstr ""
+msgstr "Een diff maken van de verschillen tussen het project en de repos"
 
 #. 15
 #: src/main_menubar_def.h:1696
@@ -6267,7 +6270,7 @@ msgstr "Geeft u de voorkeur voor koffie boven thee? Kijk er even naar."
 #. 5
 #: src/main_menubar_def.h:1733
 msgid "_Editor colors and fonts ..."
-msgstr ""
+msgstr "_Kleuren en lettertypen ..."
 
 #: src/main_menubar_def.h:1734
 msgid "Syntax highlighting settings"
@@ -6287,11 +6290,11 @@ msgstr "Bouw bestanden"
 #. 7
 #: src/main_menubar_def.h:1745
 msgid "_Edit user.properties file ..."
-msgstr ""
+msgstr "Bestand user.properties be_werken ..."
 
 #: src/main_menubar_def.h:1746
 msgid "Edit user properties file"
-msgstr ""
+msgstr "Bestand user.properties bewerken"
 
 #. 8
 #: src/main_menubar_def.h:1751
@@ -6306,11 +6309,11 @@ msgstr "Maar ik geef de voorkeur aan thee"
 #. 9
 #: src/main_menubar_def.h:1757
 msgid "C_ustomize shortcuts"
-msgstr ""
+msgstr "Snelkoppelingen _aanpassen"
 
 #: src/main_menubar_def.h:1758
 msgid "Customize shortcuts associated with menu items"
-msgstr ""
+msgstr "Aan menu-opties gekoppelde sneltoetsen bewerken"
 
 #. 10
 #: src/main_menubar_def.h:1763
@@ -6319,17 +6322,17 @@ msgstr "Hulpmiddelen aanpassen"
 
 #: src/main_menubar_def.h:1764
 msgid "Customize user-defined tools"
-msgstr ""
+msgstr "Eigen gereedschappen aanpassen"
 
 #. 11
 #. 12
 #: src/main_menubar_def.h:1770
 msgid "St_art-with dialog"
-msgstr ""
+msgstr "'St_arten met' dialoogvenster"
 
 #: src/main_menubar_def.h:1771
 msgid "Show start-with dialog"
-msgstr ""
+msgstr "Het 'Starten met' dialoogvenster tonen"
 
 #. 13
 #: src/main_menubar_def.h:1776
@@ -6339,7 +6342,7 @@ msgstr "Doorzoek de hulp bij Anjuta"
 
 #: src/main_menubar_def.h:1777
 msgid "Setup wizard for first time run"
-msgstr ""
+msgstr "Instelassistent voor de eerste keer"
 
 #. 0
 #. 1
@@ -6475,6 +6478,9 @@ msgid ""
 "Closing it will result in stopping the process.\n"
 "Do you still want close the editor?"
 msgstr ""
+"De editor wordt gebruik als standaarduitvoer van een actie.\n"
+"Als u deze sluit, zal het proces ook stoppen.\n"
+"Weet u zeker dat u de editor wilt sluiten?"
 
 #: src/mainmenu_callbacks.c:170
 #, c-format
@@ -6504,7 +6510,7 @@ msgstr "He_rladen"
 
 #: src/mainmenu_callbacks.c:556
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/mainmenu_callbacks.c:575
 msgid "%Y-%m-%d"
@@ -6542,7 +6548,7 @@ msgstr ""
 
 #: src/memory.c:421
 msgid "Non accessible address !"
-msgstr ""
+msgstr "Adres niet bereikbaar!"
 
 #: src/message-manager.cc:44 src/text_editor_gui.c:135 src/toolbar.c:114
 msgid "Find"
@@ -6738,7 +6744,7 @@ msgstr "Helpbestand"
 
 #: src/project_dbase_gui.c:178 src/project_dbase_gui.c:237
 msgid "C/C++ Headers"
-msgstr ""
+msgstr "C/C++ Headers"
 
 #: src/project_dbase_gui.c:179 widgets/gnomefilelist.c:717
 #, fuzzy
@@ -6777,7 +6783,7 @@ msgstr "Bewaar huidig bestand"
 
 #: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:741
 msgid "Visual Basic files"
-msgstr ""
+msgstr "Visual Basic bestanden"
 
 #: src/project_dbase_gui.c:187 widgets/gnomefilelist.c:749
 #, fuzzy
@@ -6831,7 +6837,7 @@ msgstr "Open bestand"
 
 #: src/project_dbase_gui.c:268
 msgid "Add file to module: "
-msgstr ""
+msgstr "Bestand aan module toevoegen:"
 
 #: src/project_dbase_gui.c:598 widgets/gnomefilelist.c:403
 msgid "Files"
@@ -7070,11 +7076,11 @@ msgstr "Bijwerken project ...\n"
 
 #: src/project_import.c:116
 msgid "Could not launch script!\n"
-msgstr ""
+msgstr "Kan script niet starten!\n"
 
 #: src/project_import.c:127
 msgid "Importing Project...please wait"
-msgstr ""
+msgstr "Importeren van project...een ogenblik geduld alstublieft"
 
 #: src/project_import.c:175
 #, fuzzy
@@ -7088,7 +7094,7 @@ msgstr "Compileer compleet ... succesvol"
 
 #: src/project_import.c:189
 msgid "Could not import Project: no project file found!"
-msgstr ""
+msgstr "Kan project niet importeren: geen projectbestand gevonden!"
 
 #: src/project_import.c:196
 #, fuzzy
@@ -7668,7 +7674,7 @@ msgstr "Uitvoeren configure"
 
 #: src/toolbar.c:273
 msgid "Build current file, or build the source directory of the Project"
-msgstr "Bouw huidig bestand, of bouw de brondirectory van het project"
+msgstr "Huidige bestand bouwen, of de bronmap van het project bouwen"
 
 #: src/toolbar.c:284
 msgid "Build_all"
@@ -7676,7 +7682,7 @@ msgstr "Bouw alles"
 
 #: src/toolbar.c:286
 msgid "Build from the top directory of the Project"
-msgstr "Bouw van de bovenste directory van het project"
+msgstr "Bouw vanaf de bovenste map van het project"
 
 #: src/toolbar.c:294
 msgid "Execute"
@@ -8169,19 +8175,16 @@ msgid "Go to the previous directory"
 msgstr "Ga naar de vorige boodschap"
 
 #: widgets/gnomefilelist.c:228
-#, fuzzy
 msgid "Go to the next directory"
-msgstr "Brondirectory opschonen"
+msgstr "Ga naar volgende map"
 
 #: widgets/gnomefilelist.c:232
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Schoon de hele projectdirectory op"
+msgstr "Ga naar oudermap"
 
 #: widgets/gnomefilelist.c:237
-#, fuzzy
 msgid "Go to home directory"
-msgstr "Brondirectory opschonen"
+msgstr "Ga naar persoonlijke map"
 
 #: widgets/gnomefilelist.c:243
 msgid "Refresh listing"
@@ -8275,6 +8278,5 @@ msgid "Creating folder failed '%s': %s"
 msgstr ""
 
 #: widgets/gnomefilelist.c:2002
-#, fuzzy
 msgid "Folder name:"
-msgstr "Item naam:"
+msgstr "Mapnaam:"
