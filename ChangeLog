@@ -1,3 +1,10 @@
+2004-04-26  Naba Kumar  <naba@gnome.org>
+
+	* (added) manuals/reference/libanjuta/anjuta-architecture.dia,
+	(added) manuals/reference/libanjuta/anjuta-architecture.png,
+	manuals/reference/libanjuta/libanjuta-docs.sgml: Added
+	architecture diagram and a new chapter on plugins description file.
+
 2004-04-25  Naba Kumar  <naba@gnome.org>
 
 	*  libanjuta/anjuta-children.h,
