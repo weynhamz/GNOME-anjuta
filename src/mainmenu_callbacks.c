@@ -402,12 +402,13 @@ void
 on_transform_eolchars1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	TextEditor *te;
+	glong mode = (glong)user_data;
+	
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
 		return;
-	aneditor_command (te->editor_id, ANE_EOL_CONVERT, 0, 0);
+	aneditor_command (te->editor_id, ANE_EOL_CONVERT, mode, 0);
 }
-
 
 void
 on_insert_c_gpl_notice(GtkMenuItem * menuitem, gpointer user_data)

@@ -144,25 +144,53 @@ static GnomeUIInfo file1_menu_uiinfo[] = {
 	GNOMEUIINFO_END
 };
 
-static GnomeUIInfo transform1_submenu_uiinfo[] = {
+# define NUM_TRANSFORM_SUBMENUS (7)
+static GnomeUIInfo transform1_submenu_uiinfo[NUM_TRANSFORM_SUBMENUS+1] = {
 	{
+	 /* 0 */
 	 GNOME_APP_UI_ITEM, N_("_Make Selection Uppercase"),
 	 N_("Make the selected text uppercase"),
 	 on_transform_upper1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{
+	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Make Selection Lowercase"),
 	 N_("Make the selected text lowercase"),
 	 on_transform_lower1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
+	 /* 2 */
+	 GNOMEUIINFO_SEPARATOR,
 	{
-	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to LF"),
-	 N_("Convert End Of Line characters to UNIX EOL (line feed: LF)"),
-	 on_transform_eolchars1_activate, NULL, NULL,
+	 /* 3 */
+	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to CRLF"),
+	 N_("Convert End Of Line characters to DOS EOL (CRLF)"),
+	 on_transform_eolchars1_activate, GUINT_TO_POINTER (ANE_EOL_CRLF), NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
+	{
+	 /* 4 */
+	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to LF"),
+	 N_("Convert End Of Line characters to UNIX EOL (LF)"),
+	 on_transform_eolchars1_activate, GUINT_TO_POINTER (ANE_EOL_LF), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 5 */
+	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to CR"),
+	 N_("Convert End Of Line characters to MacOS EOL (CR)"),
+	 on_transform_eolchars1_activate, GUINT_TO_POINTER (ANE_EOL_CR), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	{
+	 /* 6 */
+	 GNOME_APP_UI_ITEM, N_("Convert EOL chars to majority EOL"),
+	 N_("Convert End Of Line characters to mojority of the EOL found in the file"),
+	 on_transform_eolchars1_activate, GUINT_TO_POINTER (0), NULL,
+	 GNOME_APP_PIXMAP_NONE, NULL,
+	 0, 0, NULL},
+	 /* 7 */
 	GNOMEUIINFO_END
 };
 
@@ -271,7 +299,6 @@ static GnomeUIInfo goto1_submenu_uiinfo[] = {
 
 
 #define	NUM_EDIT_MENUS	(24)
-
 static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("U_ndo"),
@@ -410,7 +437,7 @@ static GnomeUIInfo edit1_menu_uiinfo[NUM_EDIT_MENUS+1] = {
 	 on_save_build_messages_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
-
+	/*24*/
 	GNOMEUIINFO_END
 };
 
@@ -569,8 +596,8 @@ static GnomeUIInfo zoom_text1_submenu_uiinfo[] = {
 	GNOMEUIINFO_END
 };
 
-#define	NVIEWMENUS	(21)
-static GnomeUIInfo view1_menu_uiinfo[NVIEWMENUS+1] = {
+#define	NUM_VIEW_MENUS	(21)
+static GnomeUIInfo view1_menu_uiinfo[NUM_VIEW_MENUS+1] = {
 	{/*0*/
 	 GNOME_APP_UI_ITEM, N_("_Messages"),
 	 N_("Show/Hide the Message window"),

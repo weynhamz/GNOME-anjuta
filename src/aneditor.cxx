@@ -54,6 +54,8 @@
 
 #include "tm_tagmanager.h"
 
+#define DEBUG
+
 #define ANE_MARKER_BOOKMARK 0
 #define MAX_PATH 260
 #define MAXIMUM(x, y)	((x>y)?x:y)
@@ -1306,7 +1308,20 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		break;
 
 	case ANE_EOL_CONVERT:
-		SendEditor(SCI_CONVERTEOLS, SendEditor(SCI_GETEOLMODE));
+		switch (wParam) {
+			case ANE_EOL_CRLF:
+				SendEditor(SCI_CONVERTEOLS, SC_EOL_CRLF);
+				break;
+			case ANE_EOL_LF:
+				SendEditor(SCI_CONVERTEOLS, SC_EOL_LF);
+				break;
+			case ANE_EOL_CR:
+				SendEditor(SCI_CONVERTEOLS, SC_EOL_CR);
+				break;
+			default:
+				SendEditor(SCI_CONVERTEOLS, SendEditor(SCI_GETEOLMODE));
+				break;
+		}
 		break;
 
 	case ANE_WORDPARTLEFT:

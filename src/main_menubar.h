@@ -63,15 +63,20 @@ struct _EditSubMenu
 	GtkWidget *copy;
 	GtkWidget *paste;
 	GtkWidget *clear;
+	
 	GtkWidget *uppercase;
 	GtkWidget *lowercase;
-	GtkWidget *convert;
-    GtkWidget *insert_c_gpl;
-    GtkWidget *insert_cpp_gpl;
+	GtkWidget *convert_crlf;
+	GtkWidget *convert_lf;
+	GtkWidget *convert_cr;
+	GtkWidget *convert_auto;
+	
+	GtkWidget *insert_c_gpl;
+	GtkWidget *insert_cpp_gpl;
 	GtkWidget *insert_py_gpl;
 	GtkWidget *insert_username;
-    GtkWidget *insert_datetime;
-    GtkWidget *insert_header_template;
+	GtkWidget *insert_datetime;
+	GtkWidget *insert_header_template;
 
 	GtkWidget *select_all;
 	GtkWidget *select_brace;

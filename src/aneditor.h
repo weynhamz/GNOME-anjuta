@@ -95,7 +95,6 @@ extern "C" {
 #define   ANE_GETLENGTH                 ANE_COMMAND_BASE+59
 #define   ANE_GET_LINENO                ANE_COMMAND_BASE+60
 
-
 typedef guint AnEditorID;
 typedef struct _FindParameters FindParameters;
 

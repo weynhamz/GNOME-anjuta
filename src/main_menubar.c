@@ -70,8 +70,12 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 
 	mb->edit.uppercase = transform1_submenu_uiinfo[0].widget;
 	mb->edit.lowercase = transform1_submenu_uiinfo[1].widget;
-	mb->edit.convert = transform1_submenu_uiinfo[2].widget;
-	for (i = 0; i < 3; i++)
+	mb->edit.convert_crlf = transform1_submenu_uiinfo[3].widget;
+	mb->edit.convert_lf = transform1_submenu_uiinfo[4].widget;
+	mb->edit.convert_cr = transform1_submenu_uiinfo[5].widget;
+	mb->edit.convert_auto = transform1_submenu_uiinfo[6].widget;
+	
+	for (i = 0; i < NUM_TRANSFORM_SUBMENUS; i++)
 	{
 		gtk_widget_ref (transform1_submenu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(transform1_submenu_uiinfo[i].widget));
@@ -79,9 +83,9 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	
 	mb->edit.insert_c_gpl = inserttext1_submenu_uiinfo[0].widget;
 	mb->edit.insert_cpp_gpl = inserttext1_submenu_uiinfo[1].widget;
-    mb->edit.insert_py_gpl = inserttext1_submenu_uiinfo[2].widget;
-    mb->edit.insert_username = inserttext1_submenu_uiinfo[3].widget;
-    mb->edit.insert_datetime = inserttext1_submenu_uiinfo[4].widget;
+	mb->edit.insert_py_gpl = inserttext1_submenu_uiinfo[2].widget;
+	mb->edit.insert_username = inserttext1_submenu_uiinfo[3].widget;
+	mb->edit.insert_datetime = inserttext1_submenu_uiinfo[4].widget;
 	mb->edit.insert_header_template = inserttext1_submenu_uiinfo[5].widget;
 	for (i = 0; i < 6; i++)
 	{
@@ -154,7 +158,7 @@ create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 	mb->view.dump_window = view1_menu_uiinfo[17].widget;
 	mb->view.console = view1_menu_uiinfo[19].widget;
 	mb->view.show_hide_locals = view1_menu_uiinfo[20].widget;
-	for (i = 0; i < NVIEWMENUS ; i++)
+	for (i = 0; i < NUM_VIEW_MENUS ; i++)
 	{
 		gtk_widget_ref (view1_menu_uiinfo[i].widget);
 		gtk_accel_group_attach(GNOME_APP(ap)->accel_group, GTK_OBJECT(view1_menu_uiinfo[i].widget));
@@ -378,44 +382,67 @@ void
 main_menu_unref ()
 {
 	gint i;
+	
 	for (i = 0; i < 23; i++)
 		gtk_widget_unref (file1_menu_uiinfo[i].widget);
+	
+	for (i = 0; i < NUM_TRANSFORM_SUBMENUS ; i++)
+		gtk_widget_unref (transform1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 3; i++)
 		gtk_widget_unref (select1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (goto1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (inserttext1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < NUM_EDIT_MENUS ; i++)
 		gtk_widget_unref (edit1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 11; i++)
 		gtk_widget_unref (toolbar1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (editor1_submenu_uiinfo[i].widget);
-	for (i = 0; i < NVIEWMENUS; i++)
+	
+	for (i = 0; i < NUM_VIEW_MENUS; i++)
 		gtk_widget_unref (view1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 17; i++)
 		gtk_widget_unref (project1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 13; i++)
 		gtk_widget_unref (format1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 18; i++)
 		gtk_widget_unref (build1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 8; i++)
 		gtk_widget_unref (bookmark1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 5; i++)
 		gtk_widget_unref (execution1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (breakpoints1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 8; i++)
 		gtk_widget_unref (info1_submenu_uiinfo[i].widget);
+	
 	for (i = 0; i < 22; i++)
 		gtk_widget_unref (debug1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 9; i++)
 		gtk_widget_unref (utilities1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 2; i++)
 		gtk_widget_unref (windows1_menu_uiinfo[i].widget);
+	
 	for (i = 0; i < 6; i++)
 		gtk_widget_unref (settings1_menu_uiinfo[i].widget);
+	
 	for (i = 1; i < 18; i++)
 		gtk_widget_unref (help1_menu_uiinfo[i].widget);
 }

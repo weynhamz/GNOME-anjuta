@@ -1,8 +1,20 @@
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* scripts/*: Added files which I forgot previously.
+	
 	* src/aneditor.h: Lined up commands definition for better look.
 	
+	* src/mainmenu_callbacks.c. main_menu_def.h, main_menubar.c,
+	  main_menubar.h, control.c:
+	  Added three more convert EOL chars submenu items in transform.
+	  Reformatted some some.
+	
+	* data/anjuta.properties:
+	  Reformatted a line.
+	
+	* src/aneditor.h, aneditor.c:
+	  Added three commands (with definitions) for EOL conversions.
+	  
 2002-01-25  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/an_symbol_view.c: Added MAX_STRING_LENGTH
