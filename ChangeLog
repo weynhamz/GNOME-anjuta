@@ -8,6 +8,9 @@
 	  Fixed toolbar names which were causing confusions in the toolbar
 	  show/hide.
 	  
+	* src/main.c:
+	  Substituted "anjuta" with PACKAGE
+	  
 	* src/project_import_gui.c: 
 	  Consistensy: wm_class should be set with "Anjuta" and not "anjuta"
 	  
