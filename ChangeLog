@@ -1,4 +1,13 @@
 2004-04-27  Naba Kumar  <naba@gnome.org>
+	
+	* libanjuta/anjuta-preferences.c,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-children.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-ui.sgml:
+	Wrote more documentations.
 
 	* (removed) plugins/message-view/imessage-view.c,
 	(removed) plugins/message-view/ianjuta-msgman.c,

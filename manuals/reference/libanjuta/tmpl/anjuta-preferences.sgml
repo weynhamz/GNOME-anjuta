@@ -6,7 +6,40 @@ Anjuta Prefereces system.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+#AnjutaPreferences is a way to let plugins register their preferences. There
+are mainly two ways a plugin could register its preferences in Anjuta.
+</para>
+<para>
+	First is to not use #AnjutaPreferences at all. Simply register a
+	preferences page in #AnjutaPreferencesDialog using the function
+	anjuta_preferences_dialog_add_page(). The plugin should take
+	care of loading, saving and widgets synchronization of the
+	preferences values. It is particularly useful if the plugin
+	uses gconf system for its preferences. Also no "changed"
+	signal will be emitted from it.
+</para>
+<para>
+	Second is to use anjuta_preferences_add_page(), which will
+	automatically register the preferences keys and values from
+	a glade xml file. The glade xml file contains a preferences
+	page of the plugin. The widget names in the page are
+	given in a particular way (see anjuta_preferences_add_page()) to
+	let it know property key details. Loading, saving and
+	widget synchronization are automatically done. "changed" signal is
+	emitted when a preference is changed.
+</para>
+<para>
+	anjuta_preferences_register_all_properties_from_glade_xml() only registers
+	the preferences propery keys for automatic loading, saving and widget
+	syncrhronization, but does not add the page in preferences dialog. It
+	is useful if the plugin wants to show the preferences page somewhere else.
+</para>
+<para>
+	anjuta_preferences_register_property_from_string() is similar to 
+	anjuta_preferences_register_all_properties_from_glade_xml(), but it only
+	registers one property, the detail of which is given in its arguments.
+	anjuta_preferences_register_property_custom() is used to register a
+	property that uses a widget which is not supported by #AnjutaPreferences.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -294,6 +327,4 @@ Anjuta Prefereces system.
 @key: 
 @Returns: 
 <!-- # Unused Parameters # -->
-@p: 
-
-
+@p:

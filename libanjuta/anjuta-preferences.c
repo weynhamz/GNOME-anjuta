@@ -640,6 +640,16 @@ anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences *pr
 	}
 }
 
+/**
+ * anjuta_preferences_get:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the value of @key as string. Returned string should be g_freed() when not
+ * required.
+ *
+ * Return value: Key value as string or NULL if the key is not defined.
+ */
 inline gchar *
 anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 {
@@ -648,6 +658,15 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 	return prop_get (pr->props, key);
 }
 
+/**
+ * anjuta_preferences_get_int:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the value of @key as integer.
+ *
+ * Return value: Key value as integer or 0 if the key is not defined.
+ */
 inline gint
 anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 {
@@ -656,6 +675,17 @@ anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 	return prop_get_int (pr->props, key, 0);
 }
 
+/**
+ * anjuta_preferences_get_int_with_default:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @default_value: Default value to return if the key is not defined.
+ *
+ * Gets the value of @key as integer.
+ *
+ * Return value: Key value as integer or @default_value if the
+ * key is not defined.
+ */
 inline gint
 anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
 										 const gchar *key, gint default_value)
@@ -665,6 +695,17 @@ anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
 	return prop_get_int (pr->props, key, default_value);
 }
 
+/**
+ * anjuta_preferences_default_get:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the default value of @key as string. The default value of the key
+ * is the value defined in System defaults (generally installed during 
+ * program installation). Returned value must be g_freed() when not required.
+ *
+ * Return value: Default key value as string or NULL if not defined.
+ */
 inline gchar *
 anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
 {
@@ -673,6 +714,17 @@ anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
 	return prop_get (pr->props_local, key);
 }
 
+/**
+ * anjuta_preferences_default_get_int:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the default value of @key as integer. The default value of the key
+ * is the value defined in System defaults (generally installed during 
+ * program installation).
+ *
+ * Return value: Default key value as integer or 0 if the key is not defined.
+ */
 inline gint
 anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
 {
@@ -681,6 +733,14 @@ anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
 	return prop_get_int (pr->props_local, key, 0);
 }
 
+/**
+ * anjuta_preferences_set:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @value: Value of the key.
+ *
+ * Sets the value of @key in current session.
+ */
 inline void
 anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
 						const gchar *value)
@@ -694,6 +754,14 @@ anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
 		prop_set_with_key (pr->props, key, "");
 }
 
+/**
+ * anjuta_preferences_set_int:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @value: Integer value of the key.
+ *
+ * Sets the value of @key in current session.
+ */
 inline void
 anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 							gint value)
@@ -776,7 +844,17 @@ anjuta_preferences_reset_defaults (AnjutaPreferences * pr)
 	gtk_widget_destroy (dlg);
 }
 
-/* Save excluding the filtered properties */
+/**
+ * anjuta_preferences_foreach:
+ * @pr: A #AnjutaPreferences object.
+ * @filter: Keys to filter out from the loop.
+ * @callback: User callback function.
+ * @data: User data passed to @callback
+ *
+ * Calls @callback function for each of the registered property keys. Keys
+ * with matching @filter flags are left out of the loop. If @filter is
+ * ANJUTA_PREFERENCES_FILTER_NONE, all properties are selected for the loop.
+ */
 void
 anjuta_preferences_foreach (AnjutaPreferences *pr,
 							AnjutaPreferencesFilterType filter,
@@ -805,7 +883,18 @@ anjuta_preferences_foreach (AnjutaPreferences *pr,
 	}
 }
 
-/* Save excluding the filtered properties */
+/**
+ * anjuta_preferences_save_filtered:
+ * @pr: A #AnjutaPreferences object.
+ * @stream: File stream.
+ * @filter: Keys to filter out from saving.
+ * 
+ * Similar to anjuta_preferences_save(), except that property keys with
+ * with matching @filter are not saved. If @filter is
+ * ANJUTA_PREFERENCES_FILTER_NONE, all properties are saved.
+ *
+ * Return value: TRUE if sucessful. FALSE if error occured during save.
+ */
 gboolean
 anjuta_preferences_save_filtered (AnjutaPreferences *pr, FILE *stream,
 								  AnjutaPreferencesFilterType filter)
@@ -835,7 +924,8 @@ anjuta_preferences_save_filtered (AnjutaPreferences *pr, FILE *stream,
  * @pr: a #AnjutaPreferences object.
  * @stream: File stream where the preferences will be saved.
  *
- * Save and (Loading is done in _new())
+ * Saves all properties in the given FILE stream. Saved format is
+ * key=value, separated by line breaks.
  *
  * Return value: TRUE if sucessful
  */
@@ -860,6 +950,13 @@ transfer_to_session (AnjutaPreferences *pr, const gchar *key, gpointer data)
 	return TRUE;
 }
 
+/**
+ * anjuta_preferences_sync_to_session:
+ * @pr: a #AnjutaPreferences object.
+ *
+ * All property values are transfered to session level from current level
+ * (eg. project level).
+ */
 void
 anjuta_preferences_sync_to_session (AnjutaPreferences *pr)
 {

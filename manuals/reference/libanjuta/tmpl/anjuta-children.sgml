@@ -7,12 +7,16 @@ Children management in Anjuta
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 All child processes in anjuta are registred using API here. SIGCHLD should
-never be used directly. Call anjuta_children_init() somewhere in the begining
-of your program. and use anjuta_children_register() and
+never be used directly. Use anjuta_children_register() or
 anjuta_children_unregister() to register or unregister a child process.
 Notifications are sent if callback function is given in
 anjuta_children_register(), which can be used in lieu of hooking SIGCHLD
 signal.
+</para>
+<para>
+plugin developers should not bother about anjuta_children_init() and
+anjuta_children_finalize() functions. They are only for the shell
+implementor.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -72,6 +76,3 @@ signal.
 <para>
 
 </para>
-
-
-

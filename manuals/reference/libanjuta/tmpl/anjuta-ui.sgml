@@ -7,8 +7,8 @@ User Interface manager
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 	#AnjutaUI subclasses #GtkUIManager, so you should really read #GtkUIManager
-	documentation first. This documentation will cover only the relevent
-	API.
+	documentation first to know about Actions, UI merging and UI XML file
+	format. This documentation will cover only the relevent	APIs.
 </para>
 <para>
 	#AnjutaUI has its own methods for adding action groups, which is differnt

@@ -8,9 +8,12 @@ Application shell interface
 <para>
 	Shell is the playground where plugins are loaded and their UI
 	widgets shown. It is also a place where plugins export objects for letting
-	other pluings to use. Widget placement in the shell is not covered by
-	#AnjutaShell api and, therefore, is the responsibility of the
-	shell implementor. Plugins can add widgets in the shell with
+	other pluings to use. Plugins are loaded into shell on demand, but some
+	plugins are loaded on startup (such as help and text editor plugin).
+	Demand to load a plugin can be made by requesting for a primary inferface
+	using anjuta_shell_get_interface() or anjuta_shell_get_object().
+	
+	Plugins can add widgets in shell with
 	anjuta_shell_add_widget() and remove with anjuta_shell_remove_widget()
 	functions.
 </para>
@@ -24,7 +27,7 @@ Application shell interface
 	#AnjutaShell allows plugins to export arbitrary objects as <emphasis>
 	values</emphasis> in its <emphasis>Values System</emphasis>. "value_added"
 	and "value_removed" signals are emitted when a value is added to or
-	removed from the <emphasis>Values System</emphasis>, hence notifying the
+	removed from the <emphasis>Values System</emphasis>, hence notifying
 	plugins of its state. However, plugins should really not connect directly
 	to these signals, because they are emitted for all values
 	and not just for the values the plugin is interested in. Instead,
@@ -48,7 +51,7 @@ Application shell interface
 </para>
 <para>
 	Plugins can find other plugins with anjuta_shell_get_object() or 
-	anjuta_shell_get_interface() based on their primary interface.
+	anjuta_shell_get_interface() based on their primary interfaces.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -217,6 +220,4 @@ Application shell interface
 
 @shell: 
 @iface_type: 
-@error: 
-
-
+@error:
