@@ -20,6 +20,7 @@
 #  include <config.h>
 #endif
 
+#include <ctype.h>
 #include <gnome.h>
 #include <glade/glade.h>
 
@@ -264,7 +265,6 @@ static void
 style_data_set_font_size_from_pango (StyleData * sdata, const gchar *font)
 {
 	PangoFontDescription *desc;
-	const gchar *font_family;
 	
 	desc = pango_font_description_from_string (font);
 	sdata->size = pango_font_description_get_size (desc) / PANGO_SCALE;
@@ -612,10 +612,7 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 	p->priv->current_style =
 		g_object_get_data (G_OBJECT (p->priv->dialog),
 				     style_item);
-#ifdef DEBUG
-	g_message ("Getting style data for: '%s' ==> 0x%X",
-			   style_item, p->priv->current_style);
-#endif
+	
 	g_return_if_fail (p->priv->current_style);
 	
 	/* We need to first toggle then set active to work properly */
@@ -649,7 +646,7 @@ sync_from_props (StyleEditor *se)
 {
 	gint i;
 	gchar *str;
-	guint8 r, g, b, a;
+	guint8 r, g, b;
 	
 	/* Never hurts to use g_object_*_data as temp hash buffer */
 	for (i = 0;; i += 2)

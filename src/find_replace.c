@@ -42,12 +42,10 @@ static gboolean on_replace_dialog_key_press (GtkWidget *widget,
                                              GdkEventKey *event,
                                              gpointer user_data);
 
-
 /*
 static gboolean
 on_replace_text_close (GtkWidget * widget,
 				  gpointer user_data);
-*/
 
 static gboolean
 on_find_replace_delete_event (GtkDialog *dialog, GdkEvent *event,
@@ -56,6 +54,7 @@ on_find_replace_delete_event (GtkDialog *dialog, GdkEvent *event,
 	find_replace_hide (ft);
 	return TRUE;
 }
+*/
 
 FindAndReplace *
 find_replace_new ()

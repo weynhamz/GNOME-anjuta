@@ -106,7 +106,7 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
   , gboolean ignore_hidden_dirs)
 {
 	TMFileEntry *entry;
-	GList *tmp;
+	/* GList *tmp; */
 	char *real_path;
 	DIR *dir;
 	struct dirent *dir_entry;

@@ -1,3 +1,47 @@
+2003-09-08  Naba Kumar  <naba@gnome.org>
+
+	* TODO: Updated.
+	* src/utilities.[c,h]: a function takes contant args.
+	* src/anjuta.[c,h]: Fixed child registering/unregistering routine.
+	Now the child terminated signal is emitted properly.
+	* src/Makefile.am: Used $(top_srcdir) for referring to 
+	scintilla objects.
+	* (new) src/anjuta-marshalers.list, src/Makefile.am: Added marshalers
+	definitions file which will generate anjuta-marshalers.[c,h] files.
+	* src/.cvsignore: Updated.
+	* src/build_project.c: Changed su command to preserve quotes.
+	* src/anjuta-tools.c, tagmanager/tm_project.c,
+	tagmanager/tm_workspace.c: Use standard tmp file.
+	* configure.in: Cleaned up. Provide -g -O0 flags for final build also
+	so that users could report bugs easily.
+	* configure.in, anjuta.spec.in: Removed libzvt references/dependency.
+	
+	* tagmanager/tm_workspace.c, tm_file_entry.c, widgets/gnomefilelist.c,
+	printing/print.c, plugins/sample1/plugin-sample1.c, src/an_file_view.c,
+	src/an_symbol_view.c, src/utilities.[c,h], src/anjuta-encodings.c,
+	src/attach_process.c, src/breakpoints.c, src/commands.c,
+	src/compiler_options.c, src/configurer.c, src/cvs_gui.c,
+	src/cvs_cbs.c, src/debug_tree.c, src/debugger.c, src/executer.c,
+	src/find_in_files.c, src/find_in_files_cbs.c, src/mainmenu_callbacks.c,
+	src/memory.c, src/message-manager-private.c, src/preferences.c,
+	src/project_config.c, src/project_dbase.c, src/source.h, src/src_paths.c,
+	src/search-replace.[c,h], stack_trace.c, text_editor.c,
+	src/text_editor_cbs.c, src/toolbars.c, src/watch.c, src/watch_gui.c,
+	src/source.c, src/anjuta.c, src/glade_iface.c, src/style_editor.c:
+	Fixed compile warnings and cleanup.
+	
+	* src/launcher.[c,h], src/anjuta-tools.c, src/build_file.c,
+	src/build_project.c, src/clean_project.c, src/compile.c, src/configurer.c,
+	src/cvs.c, src/find_in_files.c, src/gnome_project.c, src/project_import.c: 
+	Removed libzvt usage and implemented child spawing differently. Launcher is
+	now proper GObject, which can be created multiple times (and can be
+	operated in parallel).
+
+	* src/appwizard_cbs.c: Fixed bug #740881 (crash on project wizard).
+	* src/project_import_gui.c, src/project_import_cbs.c,
+	src/project_import.[c,h], mainmenu_callbacks.c: Fixed bug #766070
+	(crash on project import). Removed deprecared codes.
+	
 2003-09-03 Johannes Schmid <clubfan@users.sourceforge.net>
 	
 	* src/cvs.c: Fixed cvs output bug.
@@ -72,6 +116,14 @@
 2003-08-08  Abel Cheung  <maddog@linux.org.hk>
 
 	* src/text_editor.c: Fix translatable string (#113934).
+
+2003-07-04  Naba Kumar  <naba@gnome.org>
+
+	* src/compiler_options.c, src/project_dbase.c: Fixed build failure
+	bug when there is no project open. Bug #____.
+	
+	* src/source.c: Fixed a bug with build failure with non-gnome
+	project with glade-generated source (eg. gtk2). Bug #____.
 
 2003-06-26  Naba Kumar  <naba@gnome.org>
 

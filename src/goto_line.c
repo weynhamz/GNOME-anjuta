@@ -30,17 +30,17 @@
 
 
 /* Widget implementation headers */
-
+/*
 enum
 {
   LAST_SIGNAL
 };
+*/
 
 static void gotoline_class_init (GotoLineClass * klass);
 static void gotoline_init (GotoLine * obj);
 
-static gint gotoline_signals[LAST_SIGNAL + 1];
-
+/* static gint gotoline_signals[LAST_SIGNAL + 1]; */
 
 /* Widget function headers */
 
@@ -91,7 +91,6 @@ gotoline_init (GotoLine * obj)
   GtkWidget *dialog_vbox;
   GtkWidget *frame;
   GtkWidget *numberentry;
-  GtkWidget *combo_entry;
   GtkWidget *vbox;
 	
   assert (obj != NULL);

@@ -22,6 +22,7 @@
 #include <gnome.h>
 #include <glade/glade.h>
 #include "project_dbase.h"
+#include "launcher.h"
 
 #define FR_CENTRE     -1
 
@@ -65,8 +66,12 @@ gboolean find_in_files_load_yourself (FindInFiles *fr, PropsID props);
 
 /* private */
 /* FIXME: Used in anjuta.c. Eliminate them and make me static funcs */
-void find_in_files_terminated (int status, time_t t);
-void find_in_files_mesg_arrived (const gchar *mesg);
+void find_in_files_terminated (AnjutaLauncher *launcher,
+							   gint child_pid, gint status, gulong time_taken,
+							   gpointer data);
+void find_in_files_mesg_arrived (AnjutaLauncher *launcher,
+								 AnjutaLauncherOutputType output_type,
+								 const gchar * mesg, gpointer data);
 
 /* FIXME: Used in project_dbase.c. Eliminate them and make me static funcs */
 void find_in_files_process (FindInFiles *ff);

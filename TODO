@@ -1,13 +1,10 @@
 TODO List:
 ----------
+	o PTY in doesn't work (eg. CVS login will not work). Fix it.
 	o Apply branch patches to HEAD - esp. Jean-Noel's patches to comment/S&R
 Search/Replace and Tools done. Need to apply the comment patch.
-	o Configure dialog is broken.
-	o Save compiler options settings.
-	o s/zvt/vte/ terminal.
 	o Breakpoints does not get reloaded from session.
 	o Busy indicator (flashing LED) not yet implemented.
-	o Stop build does not work.
 	o Build preferences (-k) not being saved.
 	
 	o Anjuta can open same file in multiple text editors.

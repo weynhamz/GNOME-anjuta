@@ -417,6 +417,20 @@ static void tool_stderr_handler (const gchar *line)
 	}
 }
 
+static void tool_output_handler (AnjutaLauncher *launcher,
+								 AnjutaLauncherOutputType output_type,
+								 const gchar * mesg, gpointer data)
+{
+	switch (output_type)
+	{
+	case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+		tool_stderr_handler (mesg);
+		break;
+	default:
+		tool_stdout_handler (mesg);
+	}
+}
+
 /* Handle non-message output and error lines from current tool */
 static void handle_tool_output(int type, GString *s, gboolean is_error)
 {
@@ -469,8 +483,16 @@ static void handle_tool_output(int type, GString *s, gboolean is_error)
 ** message panes. Otherwise, we need to decide what to do with the output
 ** and error and do it.
 */
-static void tool_terminate_handler(gint status, time_t time)
+static void tool_terminate_handler (AnjutaLauncher *launcher,
+									gint child_pid, gint status,
+									gulong time_taken, gpointer data)
 {
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (tool_output_handler),
+										  NULL);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (tool_terminate_handler),
+										  NULL);
 	if (current_tool)
 	{
 		if (current_tool->error <= MESSAGE_MAX  && current_tool->error >= 0)
@@ -619,8 +641,12 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 		{
 			int fd;
 			int buflen = strlen(buf);
-			gchar* escaped_cmd;
-			snprintf(tmp_file, PATH_MAX, "/tmp/anjuta.%d.XXXXXX", getpid());
+			gchar* escaped_cmd, *real_tmp_file;
+			
+			real_tmp_file = get_a_tmp_file();
+			strncpy (tmp_file, real_tmp_file, PATH_MAX);
+			g_free (real_tmp_file);
+			
 			if (0 > (fd = mkstemp(tmp_file)))
 			{
 				anjuta_system_error(errno, "Unable to create temporary file %s!"
@@ -647,8 +673,12 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 #ifdef TOOL_DEBUG
 	g_message("Final command: '%s'\n", command);
 #endif
-		if (FALSE == launcher_execute(command, tool_stdout_handler
-	  	  , tool_stderr_handler, tool_terminate_handler))
+		g_signal_connect (app->launcher, "output-arrived",
+						  G_CALLBACK (tool_output_handler), NULL);
+		g_signal_connect (app->launcher, "child-exited",
+						  G_CALLBACK (tool_terminate_handler), NULL);
+		
+		if (FALSE == anjuta_launcher_execute(app->launcher, command))
 		{
 			anjuta_error("%s: Unable to launch!", command);
 		}

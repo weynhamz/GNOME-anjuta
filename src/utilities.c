@@ -784,7 +784,7 @@ update_gtk ()
 {
 	/* Do not update gtk when launcher is busy */
 	/* This will freeze the application till the launcher is done */
-	if (launcher_is_busy () == TRUE)
+	if (anjuta_launcher_is_busy (app->launcher) == TRUE)
 		return;
 	if (app->auto_gtk_update == FALSE)
 		return;
@@ -1586,11 +1586,12 @@ anjuta_util_kill (pid_t process_id, const gchar* signal)
 }
 
 GList*
-anjuta_util_parse_args_from_string (gchar* string)
+anjuta_util_parse_args_from_string (const gchar* string)
 {
 	gboolean escaped;
 	gchar    quote;
-	gchar    buffer[2048], *s;
+	gchar    buffer[2048];
+	const gchar *s;
 	gint     idx;
 	GList* args = NULL;
 	
@@ -1845,8 +1846,8 @@ anjuta_button_new_with_stock_image (const gchar* text, const gchar* stock_id)
 }
 
 GtkWidget*
-anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text, const gchar* stock_id,
-			 gint response_id)
+anjuta_dialog_add_button (GtkDialog *dialog, const gchar* text,
+						  const gchar* stock_id, gint response_id)
 {
 	GtkWidget *button;
 	

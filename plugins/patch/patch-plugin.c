@@ -35,8 +35,12 @@ static void patch_level_changed (GtkAdjustment *adj);
 static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui);
 static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui);
 
-static void on_msg_arrived (const gchar* line);
-static void on_patch_terminate (int status, time_t time);
+static void on_msg_arrived (AnjutaLauncher *launcher,
+							AnjutaLauncherOutputType output_type,
+							const gchar* line, gpointer data);
+static void on_patch_terminated (AnjutaLauncher *launcher,
+								 gint child_pid, gint status, gulong time_taken,
+								 gpointer data);
 
 struct _PatchPluginGUI
 {
@@ -179,10 +183,14 @@ static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	an_message_manager_append (app->messages, message, MESSAGE_BUILD);
 	an_message_manager_append (app->messages,
 			_("Patching...\n"), MESSAGE_BUILD);
+
+	g_signal_connect (app->launcher, "output-arrived",
+					  G_CALLBACK (on_msg_arrived), NULL);
+	g_signal_connect (app->launcher, "child-exited",
+					  G_CALLBACK (on_patch_terminated), NULL);
 	
-	if (!launcher_is_busy())
-		launcher_execute (command->str, on_msg_arrived, on_msg_arrived, 
-			on_patch_terminate);
+	if (!anjuta_launcher_is_busy (app->launcher))
+		anjuta_launcher_execute (app->launcher, command->str);
 	else
 		gnome_ok_dialog (
 			_("There are unfinished jobs, please wait until they are finished"));
@@ -198,14 +206,24 @@ static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui)
 	g_free(gui);
 }
 
-static void on_msg_arrived (const gchar* line)
+static void on_msg_arrived (AnjutaLauncher *launcher,
+							AnjutaLauncherOutputType output_type,
+							const gchar* line, gpointer data)
 {
 	g_return_if_fail (line != NULL);
 	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
 }
 
-static void on_patch_terminate (int status, time_t time)
+static void on_patch_terminated (AnjutaLauncher *launcher,
+								 gint child_pid, gint status, gulong time_taken,
+								 gpointer data)
 {
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (on_msg_arrived),
+										  NULL);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (on_patch_terminated),
+										  NULL);
 	if (status)
 	{
 		an_message_manager_append (app->messages,

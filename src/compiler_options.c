@@ -20,9 +20,13 @@
 #  include <config.h>
 #endif
 
+#include <ctype.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+
+#define _GNU_SOURCE
+#include <stdio.h>
 
 #include <gnome.h>
 #include "anjuta.h"
@@ -77,9 +81,8 @@ struct _CompilerOptionsPriv
 	PropsID props;
 };
 
-
 static void create_compiler_options_gui (CompilerOptions *co);
-
+static void on_remove_from_clist_clicked (GtkButton * button, gpointer data);
 
 #define ANJUTA_SUPPORTS_END_STRING "SUPPORTS_END"
 #define ANJUTA_SUPPORTS_END \
@@ -280,22 +283,6 @@ enum {
 /* private */
 static void compiler_options_set_in_properties (CompilerOptions* co,
 												PropsID props);
-
-static void co_cid_set (GtkListStore* store, GtkTreeIter *iter, gboolean state)
-{
-	// cid->state = state;
-}
-
-static gboolean co_cid_get (GtkListStore* store, GtkTreeIter *iter)
-{
-	// return cid->state;
-	return FALSE;
-}
-
-static gboolean co_cid_toggle (GtkListStore* store, GtkTreeIter *iter)
-{
-	return FALSE;
-}
 
 static void
 populate_stock_libs (GtkListStore *tmodel)
@@ -504,14 +491,6 @@ toggle_signal_info_new (CompilerOptions *co, gint col)
 }
 
 static void
-entry_signal_info_destroy (EntrySignalInfo *info)
-{
-	g_return_if_fail (info);
-	g_free (info);
-}
-
-
-static void
 on_comp_finish (CompilerOptions* co)
 {
 	gboolean should_rebuild;
@@ -539,7 +518,7 @@ static gboolean
 on_compt_delete_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
 	CompilerOptions *co = data;
-	g_return_if_fail (co);	
+	g_return_val_if_fail (co, TRUE);	
 	
 	on_comp_finish (co);
 	compiler_options_hide(co);
@@ -644,7 +623,6 @@ on_add_to_clist_clicked (GtkButton * button, gpointer data)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	gboolean valid;
 	gchar *text;
 	gchar *str;
 	EntrySignalInfo *info = data;
@@ -682,7 +660,6 @@ on_update_in_clist_clicked (GtkButton * button, gpointer data)
 	GtkTreeModel *model;
 	GtkTreeSelection *sel;
 	GtkTreeIter iter;
-	gboolean valid;
 	gchar *text, *str;
 	EntrySignalInfo *info = data;
 	GtkTreeView *tree = info->tree;
@@ -712,17 +689,15 @@ on_update_in_clist_clicked (GtkButton * button, gpointer data)
 	compiler_options_set_dirty_flag (info->co, TRUE);
 }
 
-void
+static void
 on_remove_from_clist_clicked (GtkButton * button, gpointer data)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GtkTreeSelection *sel;
-	gboolean valid;
 	EntrySignalInfo *info = data;
 	GtkTreeView *tree = info->tree;
 	GtkEntry *entry = info->entry;
-	gint col = info->col;
 	
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW(tree));
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
@@ -746,8 +721,7 @@ on_clear_clist_clicked (GtkButton * button, gpointer data)
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
 								  GTK_MESSAGE_QUESTION,
 								  GTK_BUTTONS_NONE,
-								  _("Do you want to clear the list?"),
-								  NULL);
+								  _("Do you want to clear the list?"));
 	gtk_dialog_add_buttons (GTK_DIALOG (win),
 							GTK_STOCK_CANCEL,	GTK_RESPONSE_CANCEL,
 							GTK_STOCK_CLEAR,	GTK_RESPONSE_YES,
@@ -769,7 +743,7 @@ void create_compiler_options_gui (CompilerOptions *co)
 	GtkTreeView *clist;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
-	GtkListStore *store, *list;
+	GtkListStore *store;
 	GtkCellRenderer *renderer;
 	GtkWidget *button;
 	int i;
@@ -1211,7 +1185,6 @@ void create_compiler_options_gui (CompilerOptions *co)
 CompilerOptions *
 compiler_options_new (PropsID props)
 {
-	int i;
 	CompilerOptions *co = g_new0 (CompilerOptions, 1);
 	
 	co->priv = g_new0 (CompilerOptionsPriv, 1);

@@ -3536,7 +3536,6 @@ void
 aneditor_destroy(AnEditorID id)
 {
   AnEditor* ed;
-  GtkWidget *w;
 
   ed = aneditor_get(id);
   if(!ed) return;

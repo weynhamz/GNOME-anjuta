@@ -599,18 +599,6 @@ sv_clear ()
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
-static void sv_hide(void)
-{
-	g_return_if_fail(sv && sv->tree);
-	gtk_widget_hide(sv->tree);
-}
-
-static void sv_show(void)
-{
-	g_return_if_fail(sv && sv->tree);
-	gtk_widget_show(sv->tree);
-}
-
 static void sv_assign_node_name(TMSymbol *sym, GString *s)
 {
 	g_assert (sym && sym->tag && s);

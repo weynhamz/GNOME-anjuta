@@ -81,7 +81,7 @@ anjuta_exit_signal_handler (int t)
 }
 
 void
-anjuta_connect_kernel_signals ()
+anjuta_kernel_signals_connect ()
 {
 	signal(SIGSEGV, anjuta_fatal_signal_handler);
 	signal(SIGILL, anjuta_fatal_signal_handler);
@@ -92,13 +92,34 @@ anjuta_connect_kernel_signals ()
 	signal(SIGHUP, anjuta_exit_signal_handler);
 	signal(SIGQUIT, anjuta_exit_signal_handler);
 
-	signal (SIGCHLD, anjuta_child_terminated);
+	signal(SIGCHLD, anjuta_child_terminated);
+}
+
+void
+anjuta_kernel_signals_disconnect ()
+{
+	signal(SIGSEGV, SIG_DFL);
+	signal(SIGILL, SIG_DFL);
+	signal(SIGABRT, SIG_DFL);
+	signal(SIGSEGV, SIG_DFL);
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGHUP, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+
+	signal(SIGCHLD, SIG_DFL);
+}
+
+static void
+update_ui_from_launcher (AnjutaLauncher *launcher, gboolean busy_flag)
+{
+	main_toolbar_update ();
+	extended_toolbar_update ();
 }
 
 void
 anjuta_new ()
 {
-	char wd[PATH_MAX];
 	app = (AnjutaApp *) g_malloc0(sizeof (AnjutaApp));
 	if (app)
 	{
@@ -222,7 +243,9 @@ anjuta_new ()
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
 		
-		launcher_init ();
+		app->launcher = ANJUTA_LAUNCHER (anjuta_launcher_new ());
+		g_signal_connect (G_OBJECT (app->launcher), "busy",
+						  G_CALLBACK (update_ui_from_launcher), NULL);
 		debugger_init ();
 		anjuta_plugins_load();
 		anjuta_tools_load();
@@ -1293,29 +1316,21 @@ anjuta_application_exit(void)
 void
 anjuta_clean_exit ()
 {
-	gchar *tmp;
-	pid_t pid;
-
-	g_return_if_fail (app != NULL);
-
-	/* This will remove all tmp files */
-	tmp =
-		g_strdup_printf ("rm -f %s/anjuta_*.%ld",
-				 app->dirs->tmp, (long) getpid ());
-	pid = gnome_execute_shell (app->dirs->home, tmp);
-	g_free (tmp);
-	if (-1 == pid)
+	anjuta_kernel_signals_disconnect ();
+	if (app)
 	{
-		perror("Cleanup failed");
-		exit(1);
+		gchar cmd[512];
+		/* This will remove all tmp files */
+		snprintf (cmd, 511, "rm -f %s/anjuta_*.%ld",
+				  app->dirs->tmp, (long) getpid ());
+		system (cmd);
 	}
-	waitpid (pid, NULL, 0);
 
 /* Is it necessary to free up all the memos on exit? */
 /* Assuming that it is not, I am disabling the following */
 /* Basically, because it is faster */
-
 #if 0				/* From here */
+
 	if (app->project_dbase->project_is_open)
 		project_dbase_close_project (app->project_dbase);
 	debugger_stop ();
@@ -1635,8 +1650,6 @@ anjuta_get_full_filename (gchar * fn)
 	gchar *real_path;
 	const gchar *fname;
 	GList *list, *node;
-	gchar *text;
-	gint i;
 
 	g_return_val_if_fail(fn, NULL);
 	real_path = tm_get_real_path(fn);
@@ -1925,17 +1938,21 @@ void
 anjuta_unregister_child_process (pid_t pid)
 {
 	gint idx;
+	GList *ptr;
+	
 	idx = g_list_index (app->registered_child_processes, (int *) pid);
 	app->registered_child_processes =
 		g_list_remove (app->registered_child_processes, (int *) pid);
+	
+	ptr = g_list_nth (app->registered_child_processes_cb, idx);
+	// g_assert (ptr != NULL);
 	app->registered_child_processes_cb =
-		g_list_remove (app->registered_child_processes_cb,
-					   g_list_nth_data (app->registered_child_processes_cb,
-										idx));
+		g_list_delete_link (app->registered_child_processes_cb, ptr);
+	
+	ptr = g_list_nth (app->registered_child_processes_cb_data, idx);
+	// g_assert (data != NULL);
 	app->registered_child_processes_cb_data =
-		g_list_remove (app->registered_child_processes_cb_data,
-					   g_list_nth_data (app->registered_child_processes_cb_data,
-										idx));
+		g_list_delete_link (app->registered_child_processes_cb_data, ptr);
 }
 
 void
@@ -1952,7 +1969,9 @@ anjuta_child_terminated (int t)
 	pid_t pid;
 	int (*callback) (int st, gpointer d);
 	gpointer cb_data;
-	pid = waitpid (0, &status, WNOHANG);
+	
+	pid = waitpid (-1, &status, WNOHANG);
+	
 	if (pid < 1)
 		return;
 	idx = g_list_index (app->registered_child_processes, (int *) pid);
@@ -1960,10 +1979,13 @@ anjuta_child_terminated (int t)
 		return;
 	callback =
 		g_list_nth_data (app->registered_child_processes_cb, idx);
-	cb_data = g_list_nth_data (app->registered_child_processes_cb, idx);
+	g_return_if_fail (callback != NULL);
+	
+	cb_data = g_list_nth_data (app->registered_child_processes_cb_data, idx);
 	if (callback)
 		(*callback) (status, cb_data);
 	anjuta_unregister_child_process (pid);
+	signal(SIGCHLD, anjuta_child_terminated);
 }
 
 void
@@ -2373,15 +2395,21 @@ void anjuta_search_sources_for_symbol(const gchar *s)
 	if ((NULL == s) || (isspace(*s) || ('\0' == *s)))
 		return;
 
-	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s
-	  , project_dbase_get_dir(app->project_dbase));
-	if (launcher_execute (command, find_in_files_mesg_arrived
-	  , find_in_files_mesg_arrived, find_in_files_terminated) == FALSE)
+	snprintf(command, BUFSIZ, "grep -FInHr '%s' %s", s,
+			 project_dbase_get_dir(app->project_dbase));
+	
+	g_signal_connect (app->launcher, "output-arrived",
+					  G_CALLBACK (find_in_files_mesg_arrived), NULL);
+	g_signal_connect (app->launcher, "child-exited",
+					  G_CALLBACK (find_in_files_terminated), NULL);
+	
+	if (anjuta_launcher_execute (app->launcher, command) == FALSE)
 		return;
+	
 	anjuta_update_app_status (TRUE, _("Looking up symbol"));
 	an_message_manager_clear (app->messages, MESSAGE_FIND);
 	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
-	  MESSAGE_FIND);
+							   MESSAGE_FIND);
 	an_message_manager_show (app->messages, MESSAGE_FIND);
 }
 

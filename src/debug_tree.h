@@ -74,7 +74,7 @@ struct _Parsepointer
 	gboolean is_pointer;
 };
 
-DebugTree* debug_tree_create ();
+DebugTree* debug_tree_create (void);
 void debug_tree_destroy (DebugTree* d_tree);
 void debug_tree_clear (DebugTree* tree);
 void debug_tree_parse_variables (DebugTree* tree, GList* list);

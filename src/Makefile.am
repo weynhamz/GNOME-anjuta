@@ -15,32 +15,50 @@ INCLUDES = \
 #	-DGDK_PIXBUF_DEPRECATED \
 #	-DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED
 
+$(srcdir)/anjuta-marshalers.h: stamp-anjuta-marshalers.h
+	@true
+stamp-anjuta-marshalers.h: anjuta-marshalers.list
+	cd $(srcdir) \                                                                            \
+	&& @GLIB_GENMARSHAL@ --prefix=anjuta_cclosure_marshal \
+	anjuta-marshalers.list --header >> xgen-gmlh \
+	&& (cmp -s xgen-gmlh anjuta-marshalers.h || \
+	cp xgen-gmlh anjuta-marshalers.h) \
+	&& rm -f xgen-gmlh \
+	&& echo timestamp > $(@F)
+
+$(srcdir)/anjuta-marshalers.c: anjuta-marshalers.list
+	cd $(srcdir) \
+	&& @GLIB_GENMARSHAL@ --prefix=anjuta_cclosure_marshal \
+	anjuta-marshalers.list --body >> xgen-gmlc \
+	&& cp xgen-gmlc anjuta-marshalers.c \
+	&& rm -f xgen-gmlc
+
 SCILEXERS =\
-	../scintilla/StyleContext.o\
-	../scintilla/LexCPP.o\
-	../scintilla/LexConf.o\
-	../scintilla/LexHTML.o\
-	../scintilla/LexLua.o\
-	../scintilla/LexOthers.o\
-	../scintilla/LexPerl.o\
-	../scintilla/LexPython.o\
-	../scintilla/LexSQL.o\
-	../scintilla/LexVB.o\
-	../scintilla/LexPascal.o\
-	../scintilla/LexAVE.o\
-	../scintilla/LexCrontab.o\
-	../scintilla/LexEiffel.o\
-	../scintilla/LexLisp.o\
-	../scintilla/LexRuby.o\
-	../scintilla/LexBullant.o\
-	../scintilla/LexAda.o\
-	../scintilla/LexBaan.o\
-	../scintilla/LexMatlab.o \
-	../scintilla/LexAsm.o \
-	../scintilla/LexFortran.o \
-	../scintilla/LexCSS.o \
-	../scintilla/LexEScript.o \
-	../scintilla/LexLout.o
+	$(top_srcdir)/scintilla/StyleContext.o\
+	$(top_srcdir)/scintilla/LexCPP.o\
+	$(top_srcdir)/scintilla/LexConf.o\
+	$(top_srcdir)/scintilla/LexHTML.o\
+	$(top_srcdir)/scintilla/LexLua.o\
+	$(top_srcdir)/scintilla/LexOthers.o\
+	$(top_srcdir)/scintilla/LexPerl.o\
+	$(top_srcdir)/scintilla/LexPython.o\
+	$(top_srcdir)/scintilla/LexSQL.o\
+	$(top_srcdir)/scintilla/LexVB.o\
+	$(top_srcdir)/scintilla/LexPascal.o\
+	$(top_srcdir)/scintilla/LexAVE.o\
+	$(top_srcdir)/scintilla/LexCrontab.o\
+	$(top_srcdir)/scintilla/LexEiffel.o\
+	$(top_srcdir)/scintilla/LexLisp.o\
+	$(top_srcdir)/scintilla/LexRuby.o\
+	$(top_srcdir)/scintilla/LexBullant.o\
+	$(top_srcdir)/scintilla/LexAda.o\
+	$(top_srcdir)/scintilla/LexBaan.o\
+	$(top_srcdir)/scintilla/LexMatlab.o \
+	$(top_srcdir)/scintilla/LexAsm.o \
+	$(top_srcdir)/scintilla/LexFortran.o \
+	$(top_srcdir)/scintilla/LexCSS.o \
+	$(top_srcdir)/scintilla/LexEScript.o \
+	$(top_srcdir)/scintilla/LexLout.o
 
 bin_PROGRAMS = anjuta
 
@@ -65,6 +83,8 @@ anjuta_SOURCES = \
 	anjuta-encodings.h\
 	anjuta_info.c\
 	anjuta_info.h\
+	anjuta-marshalers.c\
+	anjuta-marshalers.h\
 	appwiz_page1.c\
 	appwiz_page2.c\
 	appwiz_page3.c\
@@ -231,9 +251,8 @@ anjuta_SOURCES = \
 	widget-registry.h\
 	widget-registry.c
 
-
 anjuta_LDADD =  \
-	$(ANJUTA_LIBS) \
+	$(ANJUTA_LIBS) -lutil\
 	$(PCRE_LIBS)\
 	$(top_builddir)/scintilla/libscintilla.a\
 	$(top_builddir)/tagmanager/libctags.a\
@@ -241,3 +260,5 @@ anjuta_LDADD =  \
 	$(top_builddir)/gdl/libgdl.a\
 	$(top_builddir)/printing/libanjutaprint.a\
 	$(SCILEXERS)
+
+EXTRA_DIST = anjuta-marshalers.list stamp-anjuta-marshalers.h

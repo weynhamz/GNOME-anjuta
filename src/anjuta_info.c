@@ -167,7 +167,6 @@ anjuta_info_show_command (const gchar *command_line,
 			  gint         width,
 			  gint         height)
 {
-	GtkWidget *textview;
 	GError *err = NULL;
 	gchar *std_output = NULL;
 	gboolean ret;
@@ -220,7 +219,6 @@ anjuta_info_show_filestream (FILE *f,
 	GtkWidget *textview;
 	GtkTextBuffer *buffer;
 	gchar buf[ANJUTA_INFO_TEXTVIEW_BUFSIZE];
-	gboolean ret;
 
 	g_return_val_if_fail (f != NULL, FALSE);
 
@@ -249,7 +247,6 @@ anjuta_info_show_fd (int  file_descriptor,
 		     gint height)
 {
 	FILE *f;
-	gboolean ret;
 
 	if ((f = fdopen (file_descriptor, "r")) == NULL)
 		return FALSE;

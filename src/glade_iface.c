@@ -24,6 +24,9 @@
 #include <errno.h>
 #include <sys/wait.h>
 
+#define _GNU_SOURCE
+#include <stdio.h>
+
 #include "anjuta.h"
 #include "project_dbase.h"
 #include "glade_iface.h"

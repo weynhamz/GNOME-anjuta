@@ -67,8 +67,10 @@ static void set_file_selection (GnomeFileList * file_list);
 static gboolean set_dir_internal (GnomeFileList * file_list,
 								  const gchar * path);
 
-// static gint g_list_find_string_pos (GList *list, gchar *new_entry);
+/*
+static gint g_list_find_string_pos (GList *list, gchar *new_entry);
 static gint gnome_filelist_key_press (GtkWidget * widget, GdkEventKey * event);
+*/
 static gint selection_entry_key_press (GtkWidget * widget, GdkEventKey * event,
 									   GnomeFileList * file_list);
 static void refresh_listing (GtkWidget * widget, GnomeFileList * file_list);
@@ -84,12 +86,14 @@ static void check_goto (GtkWidget * widget, GnomeFileList * file_list);
 static void delete_file (GtkWidget * widget, GnomeFileList * file_list);
 static void rename_file (GtkWidget * widget, GnomeFileList * file_list);
 static void create_dir (GtkWidget * widget, GnomeFileList * file_list);
+/*
 static gint create_dir_delete_cb (GtkWidget * widget, GdkEvent * e,
 								  GnomeFileList * file_list);
 static void create_dir_okbutton_cb (GtkWidget * button,
 									GnomeFileList * file_list);
 static void create_dir_cancelbutton_cb (GtkWidget * button,
 										GnomeFileList * file_list);
+*/
 static void home_directory_cb (GtkButton * button, GnomeFileList * file_list);
 static gboolean check_if_file_exists (const gchar * filename);
 static gboolean check_can_modify (const gchar * filename);
@@ -179,11 +183,8 @@ gnome_filelist_new_with_path (const gchar * path)
 {
 	GnomeFileList *file_list;
 	GtkWidget *main_box;
-	GtkWidget *hbox;
-	GtkWidget *label1;
 	GtkWidget *util_box;
 	GtkWidget *toolbar;
-	GtkWidget *pixmapwid;
 	GtkWidget *paned;
 	GtkWidget *label;
 	GtkWidget *combolabel;
@@ -193,7 +194,6 @@ gnome_filelist_new_with_path (const gchar * path)
 	GList *combolist = NULL;
 	GtkAdjustment *file_adjustment;
 	GtkAdjustment *dir_adjustment;
-	gchar *pix_filename;
 	GtkListStore *store;
 	GtkTreeSelection *selection;
 	GtkCellRenderer *renderer;
@@ -1341,9 +1341,7 @@ on_selected_foreach (GtkTreeModel *model, GtkTreePath *path,
 GList *
 gnome_filelist_get_filelist (GnomeFileList * file_list)
 {
-	GtkTreeIter iter;
 	GtkTreeSelection *selection;
-	GtkTreeModel *model;
 	const gchar *path = NULL;
 	GList *list = NULL;
 	GList *node;
@@ -1663,7 +1661,7 @@ static void
 check_ok_button_cb (GtkWidget * widget, GnomeFileList * file_list)
 {
 	const gchar *path, *selected;
-	GList *selected_list;
+	/* GList *selected_list; */
 	gchar *s;
 
 #if 0

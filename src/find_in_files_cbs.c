@@ -126,7 +126,6 @@ on_search_in_files_changed (GtkTreeSelection            *selection,
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	GtkTreePath *path;
-	gchar *filename;
 	FindInFiles *ff = user_data;
 
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
@@ -163,4 +162,3 @@ on_search_in_files_key_press (GtkWidget                 *widget,
 	}
 	return FALSE;
 }
-

@@ -46,6 +46,7 @@
 #include "style-editor.h"
 #include "tm_tagmanager.h"
 #include "file_history.h"
+#include "launcher.h"
 
 #define g_strdup_printfs2(_FORMAT_, _STR_) \
 	{ \
@@ -107,6 +108,7 @@ struct _AnjutaApp
 	AnjutaHelp* help_system;
 	CVS* cvs;
 	StyleEditor *style_editor;
+	AnjutaLauncher *launcher;
 	
 	GList *registered_windows;
 	GList *registered_child_processes;
@@ -167,7 +169,9 @@ extern AnjutaApp *app;
 extern GList* command_args;
 
 void create_anjuta_gui (AnjutaApp * appl);
-void anjuta_connect_kernel_signals(void);
+void anjuta_kernel_signals_connect (void);
+void anjuta_kernel_signals_disconnect (void);
+
 void anjuta_die_imidiately(void);
 void anjuta_new (void);
 void anjuta_show (void);

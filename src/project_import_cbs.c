@@ -146,14 +146,20 @@ on_page4_next (GnomeDruidPage * page4, gpointer arg1, gpointer data)
 gboolean
 on_page5_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 {
+	GtkTextBuffer *buffer;
+	GtkTextIter start, end;
 	ProjectImportWizard *piw = (ProjectImportWizard *) data;
-	g_assert (data != NULL);
+	
+	g_return_val_if_fail (data != NULL, TRUE);
 
 	g_free (piw->prj_description);
+	buffer =
+		gtk_text_view_get_buffer (GTK_TEXT_VIEW (piw->widgets.description_text));
+	gtk_text_buffer_get_start_iter (buffer, &start);
+	gtk_text_buffer_get_end_iter (buffer, &end);
+	
 	piw->prj_description =
-		gtk_editable_get_chars (GTK_EDITABLE
-					(piw->widgets.description_text), 0,
-					-1);
+		gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
 
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON
 				      (piw->widgets.gettext_support_check),
@@ -194,7 +200,7 @@ on_page6_next (GnomeDruidPage * page, gpointer arg1, gpointer data)
 {
 	gchar *text, *gt_support, *icon;
 	ProjectImportWizard *piw = (ProjectImportWizard *) data;
-	g_assert (data != NULL);
+	g_return_val_if_fail (data != NULL, TRUE);
 
 	piw->prj_has_gettext =
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
@@ -245,14 +251,15 @@ gboolean
 on_page_finish_finish (GnomeDruidPage * page_finish,
 		       gpointer arg1, gpointer data)
 {
+	ProjectImportWizard *piw = (ProjectImportWizard*)data;
 	gchar *filename =
 		g_strdup_printf ("%s/%s.prj", piw->directory, piw->prj_name);
-	g_assert (data != NULL);
+	g_return_val_if_fail (data != NULL, TRUE);
 
 	// Delete old, maybe wrong project file (e.g. _PACKAGE.prj)
 	remove (piw->filename);
 
-	project_import_save_values (data);
+	project_import_save_values (piw);
 	string_assign (&app->project_dbase->proj_filename, NULL);
 	app->project_dbase->proj_filename = g_strdup (filename);
 	project_dbase_save_project (app->project_dbase);
@@ -261,7 +268,7 @@ on_page_finish_finish (GnomeDruidPage * page_finish,
 	project_dbase_load_project_finish (app->project_dbase, TRUE);
 	g_free (filename);
 	gtk_widget_hide (piw->widgets.window);
-	destroy_project_import_gui ();
+	project_import_destroy (piw);
 	return FALSE;
 }
 
@@ -275,7 +282,8 @@ gboolean
 on_page3_back (GnomeDruidPage * page3, gpointer arg1, gpointer data)
 {
 	// We should never come here because this button is disabled
-	anjuta_error (_("The import operation has already begun.\nClick Cancel to skip the customisation stage, or Next to continue."));
+	anjuta_error (_("The import operation has already begun.\n"
+		"Click Cancel to skip the customisation stage, or Next to continue."));
 	return TRUE;
 }
 
@@ -315,14 +323,22 @@ on_druid_cancel (GnomeDruid * druid, gpointer user_data)
 {
 	ProjectDBase* p = app->project_dbase;
 	ProjectImportWizard *piw = (ProjectImportWizard *) user_data;
-	g_assert (user_data != NULL);
+	g_return_if_fail (user_data != NULL);
 	
 	// If we had already opened a the imported project file it will be closed now
 	if (p->project_is_open == TRUE)
 		project_dbase_close_project(p);
 	
 	gtk_widget_hide (piw->widgets.window);
-	destroy_project_import_gui ();
+	
+	/* If the script is already running. Stop it and destroy piw later */
+	if (piw->progress_timer_id)
+	{
+		piw->canceled = TRUE;
+		anjuta_launcher_reset (app->launcher);
+	}
+	else
+		project_import_destroy (piw);
 	return;
 }
 

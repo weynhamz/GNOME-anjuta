@@ -322,8 +322,6 @@ create_cvs_login_gui (CVS *cvs)
 	GtkWidget* server_label;
 	GtkWidget* dir_label;
 	GtkWidget* table;
-	GtkWidget* ok_button;
-	GtkWidget* cancel_button;
 	
 	GList* strings;
 	int i;
@@ -418,8 +416,6 @@ void create_cvs_import_gui (CVS *cvs)
 	GtkWidget* release_label;
 	GtkWidget* vendor_label;
 	GtkWidget* table;
-	GtkWidget* ok_button;
-	GtkWidget* cancel_button;
 	GtkWidget* server_frame;
 	GtkWidget* server_table;
 	GtkWidget* import_frame;

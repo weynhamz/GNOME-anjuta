@@ -221,12 +221,6 @@ on_executer_checkbutton_toggled (GtkToggleButton * togglebutton,
 static GtkWidget *
 create_executer_dialog (Executer * e)
 {
-	GtkWidget *dialog_vbox1;
-	GtkWidget *vbox1;
-	GtkWidget *frame1;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *button1;
-	GtkWidget *button3;
 	gchar* options;
 	GladeXML *gxml;
 

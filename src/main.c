@@ -160,7 +160,7 @@ main (int argc, char *argv[])
 #endif
 	
 	/* Connect the necessary kernal signals */
-	anjuta_connect_kernel_signals();
+	anjuta_kernel_signals_connect ();
 
 	data_dir = g_strdup (PACKAGE_DATA_DIR);
 	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';

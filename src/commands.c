@@ -689,12 +689,3 @@ on_delete_event (GtkWidget *w, GdkEvent *event,
 	command_editor_hide (ce);
 	return FALSE;
 }
-
-static gint
-get_label_max_width(GtkWidget *widget, gint size)
-{
-	GtkRequisition requisition;
-
-	gtk_widget_size_request(widget, &requisition);
-	return MAX(size, requisition.width);
-}

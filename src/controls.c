@@ -118,7 +118,7 @@ extended_toolbar_update ()
 		return;
 	et = &(app->widgets.toolbar.extended_toolbar);
 	P = app->project_dbase->project_is_open;
-	L = launcher_is_busy ();
+	L = anjuta_launcher_is_busy (app->launcher);
 	A = debugger_is_active ();
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)
@@ -258,7 +258,7 @@ update_main_menubar ()
 		G = TRUE;
 	else
 		G = FALSE;
-	L = launcher_is_busy ();
+	L = anjuta_launcher_is_busy (app->launcher);
 
 	te = anjuta_get_current_text_editor ();
 	if (te == NULL)

@@ -64,6 +64,9 @@
 #include "search-replace.h"
 #include "anjuta_info.h"
 #include "watch_gui.h"
+#include "signals_cbs.h"
+#include "watch_cbs.h"
+#include "start-with.h"
 
 void on_toolbar_find_clicked (GtkButton * button, gpointer user_data);
 
@@ -244,8 +247,9 @@ on_reload_file1_activate (GtkMenuItem * menuitem, gpointer user_data)
 									 GTK_BUTTONS_NONE, mesg);
 	gtk_dialog_add_button (GTK_DIALOG (dialog),
 						   GTK_STOCK_CANCEL,	GTK_RESPONSE_NO);
-	anjuta_dialog_add_button (GTK_WINDOW (dialog),
-							  _("_Reload"),		GTK_STOCK_REVERT_TO_SAVED,	GTK_RESPONSE_YES);
+	anjuta_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
+							  GTK_STOCK_REVERT_TO_SAVED,
+							  GTK_RESPONSE_YES);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 									 GTK_RESPONSE_NO);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
@@ -271,7 +275,10 @@ on_new_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_import_project_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	create_project_import_gui ();
+	/* Note: ProjectImportWizard object, which is created by the
+	following call, will be automatically destroyed when the Import is
+	done or canceled. We do not need to take care of it. */
+	project_import_new ();
 }
 
 void
@@ -1451,7 +1458,7 @@ on_clean_all_project1_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_stop_build_make1_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	launcher_reset ();
+	anjuta_launcher_reset (app->launcher);
 }
 
 void
@@ -2098,6 +2105,7 @@ on_url_activate (GtkMenuItem * menuitem, gpointer user_data)
 	}
 }
 
+/*
 static int
 about_box_event_callback (GtkWidget *widget,
                           GdkEvent *event,
@@ -2112,6 +2120,7 @@ about_box_event_callback (GtkWidget *widget,
 
         return TRUE;
 }
+*/
 
 void
 on_about1_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -2135,7 +2144,6 @@ on_enterselection (GtkMenuItem * menuitem, gpointer user_data)
 
 void on_customize_shortcuts_activate(GtkMenuItem *menuitem, gpointer user_data)
 {
-	GtkWidget *dialog;
 	gchar *message = _("You need to run gconf-editor, look for the key"
 					   " 'desktop/gnome/interface/can_change_accels' and"
 					   " set this toggle button ON. Then you can hover the"

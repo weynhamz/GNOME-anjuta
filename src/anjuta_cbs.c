@@ -491,7 +491,7 @@ save_as_real (void)
 void
 on_save_as_filesel_ok_clicked (GtkButton * button, gpointer user_data)
 {
-	gchar *filename, *buff;
+	gchar *filename;
 
 	filename = fileselection_get_filename (app->save_as_fileselection);
 	if (file_is_regular (filename))

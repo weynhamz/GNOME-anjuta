@@ -118,28 +118,6 @@ static gchar* default_module_type[]=
 	"",  "", "", "", "", "", "", NULL
 };
 
-/*
-These are the preferences which will be saved along
-with the project. These preferences will override those
-set by the user before loading the project.
-
-In .prj file, we prefix with "preferences."
-those are the pref names in preferences props
-*/
-static const gchar* editor_prefs[] =
-{
-	INDENT_AUTOMATIC,
-	USE_TABS,
-	INDENT_OPENING,
-	INDENT_CLOSING,
-	TAB_SIZE,
-	INDENT_SIZE,
-	AUTOFORMAT_STYLE,
-	AUTOFORMAT_CUSTOM_STYLE,
-	AUTOFORMAT_DISABLE,
-	NULL
-};
-
 static void
 gtree_insert_files (GtkTreeView *treeview, GtkTreeIter *parent,
 					PrjModule mod,  gchar *dir_prefix, GList *items)
@@ -214,7 +192,6 @@ ProjectDBase *
 project_dbase_new (PropsID pr_props)
 {
 	ProjectDBase *p;
-	gint i;
 	
 	/* Must declare static, because it will be used forever */
 	static FileSelData fsd1 = { N_("Open Project"), NULL,
@@ -303,7 +280,6 @@ project_dbase_destroy (ProjectDBase * p)
 static void
 project_dbase_clear_ctree (ProjectDBase * p)
 {
-	gint i;
 	GtkTreeStore *store;
 	
 	if (!p)
@@ -632,7 +608,7 @@ save_project_preference_property (AnjutaPreferences *pr, const gchar *key,
 gboolean
 project_dbase_save_project (ProjectDBase * p)
 {
-	gchar* str, *str_prop;
+	gchar* str;
 	FILE *fp;
 	gint i;
 
@@ -806,11 +782,6 @@ project_dbase_save_project (ProjectDBase * p)
 	{
 		gchar *key;
 		GList *files, *node;
-		gchar *filename;
-		GdkPixmap *pixc, *pixo;
-		GdkBitmap *maskc, *masko;
-		gint8 space;
-		gboolean is_leaf, expanded;
 
 		if (i != MODULE_PO)
 		{
@@ -1164,7 +1135,7 @@ tree_view_get_expansion_states (GtkTreeView *treeview)
 	return map;
 }
 
-void
+static void
 tree_view_set_expansion_states (GtkTreeView *treeview,
 								GList *expansion_states)
 {
@@ -1244,7 +1215,6 @@ static void
 session_load_node_expansion_states (ProjectDBase *p)
 {
 	GList *expansion_states = NULL;
-	GList *node;
 	gpointer config_iterator;
 
 	g_return_if_fail (p != NULL);
@@ -1930,8 +1900,7 @@ static gboolean
 restore_preference_property (AnjutaPreferences *pr,
 							 const gchar *key, gpointer data)
 {
-	gchar *str, *str_prop;
-	ProjectDBase *p = data;
+	gchar *str;
 
 	str = prop_get (pr->props_session, key);
 	if (str) {
@@ -2075,7 +2044,7 @@ project_dbase_update_tree (ProjectDBase * p)
 	gint i;
 
 	GtkTreeStore *store;
-	GtkTreeIter iter, parent, sub_parent;
+	GtkTreeIter parent, sub_parent;
 	GdkPixbuf *pixbuf;
 	ProjectFileData *pfd;
 	GList *saved_map = NULL;
@@ -2161,7 +2130,7 @@ project_dbase_update_tree (ProjectDBase * p)
 		GtkTreePath *path;
 		
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (store),
-										&sub_parent);
+										&parent);
 		gtk_tree_view_expand_row (GTK_TREE_VIEW (p->widgets.treeview),
 								  path, FALSE);
 		gtk_tree_path_free (path);
@@ -2445,8 +2414,8 @@ gboolean
 project_dbase_load_project_file (ProjectDBase * p, gchar * filename)
 {
 	gchar *prj_buff, buff[512], *str;
-	gint level, read_size, pos, i;
-	gboolean error_shown, syserr, prefs_changed;
+	gint level, read_size, pos;
+	gboolean error_shown, syserr;
 	FILE* fp;
 	
 	prj_buff = NULL;

@@ -32,9 +32,7 @@
 #include "launcher.h"
 #include "message-manager.h"
 #include "compile.h"
-
-static void compile_mesg_arrived (const gchar* mesg);
-static void compile_terminated (int status, time_t time);
+#include "build_file.h"
 
 #if 0
 
@@ -68,9 +66,7 @@ compile_file_with_make ()
 		anjuta_set_execution_dir(src_dir);
 		g_free (src_dir);
 	
-		if (launcher_execute
-		    (cmd, build_mesg_arrived, build_mesg_arrived,
-		     build_terminated) == FALSE)
+		if (build_execute_command (cmd) == FALSE)
 		{
 			g_free (cmd);
 			return;
@@ -149,8 +145,7 @@ compile_file (gboolean use_make)
 	anjuta_set_execution_dir(dirname);
 	g_free (dirname);
 
-	if (launcher_execute (cmd, compile_mesg_arrived,
-		compile_mesg_arrived, compile_terminated) == FALSE)
+	if (build_execute_command (cmd) == FALSE)
 	{
 		g_free (cmd);
 		return;
@@ -164,46 +159,4 @@ compile_file (gboolean use_make)
 	an_message_manager_show (app->messages, MESSAGE_BUILD);
 	g_free (buff);
 	g_free (cmd);
-}
-
-void
-compile_mesg_arrived (const gchar * mesg)
-{
-	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
-}
-
-void
-compile_terminated (int status, time_t time)
-{
-	gchar *buff1;
-
-	if (status)
-	{
-		an_message_manager_append (app->messages,
-				 _("Compile completed ... unsuccessful"),
-				 MESSAGE_BUILD);
-		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_warning (_("Compile completed ... unsuccessful"));
-	}
-	else
-	{
-		an_message_manager_append (app->messages,
-				 _("Compile completed ... successful"),
-				 MESSAGE_BUILD);
-		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Compile completed ... successful"));
-	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (int) time);
-	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									BEEP_ON_BUILD_COMPLETE))
-		gdk_beep ();
-	g_free (buff1);
-	anjuta_update_app_status (TRUE, NULL);
 }

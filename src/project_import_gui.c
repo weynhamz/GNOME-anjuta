@@ -49,9 +49,10 @@ greetings_text ()
 		 "THIS IS AN EXPERIMENTAL FEATURE\n");
 }
 
-void
-create_project_import_gui (void)
+ProjectImportWizard *
+project_import_new (void)
 {
+	ProjectImportWizard *piw;
 	FileSubMenu *fm = &(app->widgets.menubar.file);
 
 	gtk_widget_set_sensitive(fm->new_project, FALSE);
@@ -62,7 +63,9 @@ create_project_import_gui (void)
 
 	piw = g_new0 (ProjectImportWizard, 1);
 	piw->filename = NULL;
-
+	piw->progress_timer_id = 0;
+	piw->canceled = FALSE;
+	
 	piw->widgets.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_transient_for(GTK_WINDOW(piw->widgets.window),
 			GTK_WINDOW(app->widgets.window));
@@ -88,43 +91,47 @@ create_project_import_gui (void)
 	create_import_wizard_page6 (piw);
 	create_import_wizard_page_finish (piw);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.druid), "cancel",
-			    GTK_SIGNAL_FUNC (on_druid_cancel), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.druid), "cancel",
+			    G_CALLBACK (on_druid_cancel), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[0]), "next",
+			    G_CALLBACK (on_page_start_next), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[1]), "next",
+			    G_CALLBACK (on_page2_next), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[2]), "next",
+			    G_CALLBACK (on_page3_next), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[3]), "next",
+			    G_CALLBACK (on_page4_next), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[4]), "next",
+			    G_CALLBACK (on_page5_next), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[5]), "next",
+			    G_CALLBACK (on_page6_next), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[6]), "finish",
+			    G_CALLBACK (on_page_finish_finish), piw);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[0]), "next",
-			    GTK_SIGNAL_FUNC (on_page_start_next), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[1]), "next",
-			    GTK_SIGNAL_FUNC (on_page2_next), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[2]), "next",
-			    GTK_SIGNAL_FUNC (on_page3_next), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[3]), "next",
-			    GTK_SIGNAL_FUNC (on_page4_next), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[4]), "next",
-			    GTK_SIGNAL_FUNC (on_page5_next), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[5]), "next",
-			    GTK_SIGNAL_FUNC (on_page6_next), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[6]), "finish",
-			    GTK_SIGNAL_FUNC (on_page_finish_finish), piw);
-
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[1]), "back",
-			    GTK_SIGNAL_FUNC (on_page2_back), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[2]), "back",
-			    GTK_SIGNAL_FUNC (on_page3_back), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[3]), "back",
-			    GTK_SIGNAL_FUNC (on_page4_back), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[4]), "back",
-			    GTK_SIGNAL_FUNC (on_page5_back), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[5]), "back",
-			    GTK_SIGNAL_FUNC (on_page6_back), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.page[6]), "back",
-			    GTK_SIGNAL_FUNC (on_page_finish_back), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[1]), "back",
+			    G_CALLBACK (on_page2_back), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[2]), "back",
+			    G_CALLBACK (on_page3_back), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[3]), "back",
+			    G_CALLBACK (on_page4_back), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[4]), "back",
+			    G_CALLBACK (on_page5_back), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.page[5]), "back",
+			    G_CALLBACK (on_page6_back), piw);
+	g_signal_connect (GTK_OBJECT (piw->widgets.page[6]), "back",
+			    G_CALLBACK (on_page_finish_back), piw);
 
 	gtk_widget_show (piw->widgets.window);
+	return piw;
 }
 
 void
-destroy_project_import_gui (void)
+project_import_destroy (ProjectImportWizard *piw)
 {
+	if (piw->progress_timer_id)
+		gtk_timeout_remove (piw->progress_timer_id);
+	piw->progress_timer_id = 0;
+	
 	// This should destroy all underlying widgets
 	gtk_widget_hide(piw->widgets.window);
 	gtk_widget_destroy (piw->widgets.window);
@@ -214,11 +221,10 @@ create_import_wizard_page2 (ProjectImportWizard * piw)
 			    FALSE, TRUE, 5);
 	
 	piw->widgets.label =
-		gtk_label_new (_("Click Next to begin the import"));
+		gtk_label_new (_("Click Forward to begin the import"));
 	gtk_widget_show (piw->widgets.label);
 	gtk_box_pack_start (GTK_BOX (vbox2), piw->widgets.label, FALSE, TRUE,
 			    40);
-
 }
 
 void
@@ -228,9 +234,9 @@ create_import_wizard_page3 (ProjectImportWizard * piw)
 		create_project_type_selection_page (GNOME_DRUID
 						    (piw->widgets.druid),
 						    &piw->widgets.iconlist);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.iconlist),
+	g_signal_connect (G_OBJECT (piw->widgets.iconlist),
 			    "select_icon",
-			    GTK_SIGNAL_FUNC (on_wizard_import_icon_select),
+			    G_CALLBACK (on_wizard_import_icon_select),
 			    piw);
 }
 
@@ -248,31 +254,31 @@ create_import_wizard_page4 (ProjectImportWizard * piw)
 					   &piw->widgets.language_c_cpp_radio,
 						NULL, NULL, NULL);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.prj_name_entry), "focus_out_event",
-			    GTK_SIGNAL_FUNC(on_prj_name_entry_focus_out_event), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.prj_name_entry), "focus_out_event",
+			    G_CALLBACK (on_prj_name_entry_focus_out_event), piw);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.prj_name_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_name);
+	g_signal_connect (G_OBJECT (piw->widgets.prj_name_entry), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_name);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.target_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_source_target);
+	g_signal_connect (G_OBJECT (piw->widgets.target_entry), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_source_target);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.version_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_version);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.version_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_realize), piw->prj_version);
+	g_signal_connect (G_OBJECT (piw->widgets.version_entry), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_version);
+	g_signal_connect (G_OBJECT (piw->widgets.version_entry), "realize",
+			    G_CALLBACK (on_piw_text_entry_realize), piw->prj_version);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.author_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_author);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.author_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_realize), piw->prj_author);
+	g_signal_connect (G_OBJECT (piw->widgets.author_entry), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_author);
+	g_signal_connect (G_OBJECT (piw->widgets.author_entry), "realize",
+			    G_CALLBACK (on_piw_text_entry_realize), piw->prj_author);
 	
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.language_c_radio), "toggled",
-			    GTK_SIGNAL_FUNC (on_lang_c_toggled), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.language_cpp_radio), "toggled",
-			    GTK_SIGNAL_FUNC (on_lang_cpp_toggled), piw);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.language_c_cpp_radio), "toggled",
-			    GTK_SIGNAL_FUNC (on_lang_c_cpp_toggled), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.language_c_radio), "toggled",
+			    G_CALLBACK (on_lang_c_toggled), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.language_cpp_radio), "toggled",
+			    G_CALLBACK (on_lang_cpp_toggled), piw);
+	g_signal_connect (G_OBJECT (piw->widgets.language_c_cpp_radio), "toggled",
+			    G_CALLBACK (on_lang_c_cpp_toggled), piw);
 }
 
 void
@@ -295,18 +301,18 @@ void create_import_wizard_page6 (ProjectImportWizard * piw)
 			&piw->widgets.file_header_check,
 			&piw->widgets.gettext_support_check);
 	
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.menu_entry_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_menu_entry);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.menu_entry_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_realize), piw->prj_menu_entry);
+	g_signal_connect (G_OBJECT (piw->widgets.menu_entry_entry), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_menu_entry);
+	g_signal_connect (G_OBJECT (piw->widgets.menu_entry_entry), "realize",
+			    G_CALLBACK (on_piw_text_entry_realize), piw->prj_menu_entry);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.menu_comment_entry), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_menu_comment);
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.menu_comment_entry), "realize",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_realize), piw->prj_menu_comment);
+	g_signal_connect (G_OBJECT (piw->widgets.menu_comment_entry), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_menu_comment);
+	g_signal_connect (G_OBJECT (piw->widgets.menu_comment_entry), "realize",
+			    G_CALLBACK (on_piw_text_entry_realize), piw->prj_menu_comment);
 
-	gtk_signal_connect (GTK_OBJECT (piw->widgets.app_group_combo), "changed",
-			    GTK_SIGNAL_FUNC (on_piw_text_entry_changed), &piw->prj_menu_group);
+	g_signal_connect (G_OBJECT (piw->widgets.app_group_combo), "changed",
+			    G_CALLBACK (on_piw_text_entry_changed), &piw->prj_menu_group);
 }
 
 void

@@ -831,7 +831,7 @@ convert_to_utf8 (const gchar *content, gsize len,
 						(gpointer) locale_encoding);
 #ifdef DEBUG
 			g_message ("Current charset = %s", locale_charset);
-			g_message ("Current encoding = %s", locale_encoding);
+			/* g_message ("Current encoding = %s", locale_encoding); */
 #endif
 		}
 	}
@@ -848,7 +848,7 @@ convert_to_utf8 (const gchar *content, gsize len,
 
 		charset = anjuta_encoding_get_charset (enc);
 #ifdef DEBUG
-		g_message ("Trying to convert %ld bytes of data into UTF-8.", len);
+		g_message ("Trying to convert %d bytes of data into UTF-8.", len);
 #endif
 		fflush (stdout);
 		utf8_content = convert_to_utf8_from_charset (content, len, charset);
@@ -934,7 +934,6 @@ load_from_file (TextEditor *te, gchar *fn, gchar **err)
 		else
 		{
 			gchar *converted_text;
-			gint len = -1;
 	
 			converted_text = convert_to_utf8 (buffer, nchars, &te->encoding);
 
@@ -1354,7 +1353,7 @@ text_editor_update_controls (TextEditor * te)
 	if (te == NULL)
 		return;
 	S = text_editor_is_saved (te);
-	L = launcher_is_busy ();
+	L = anjuta_launcher_is_busy (app->launcher);
 	P = app->project_dbase->project_is_open;
 
 	switch (get_file_ext_type (te->filename))

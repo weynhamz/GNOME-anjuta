@@ -146,7 +146,6 @@ find_in_files_new ()
 void
 find_in_files_destroy (FindInFiles * ff)
 {
-	gint i;
 	if (ff)
 	{
 		gtk_widget_unref (ff->widgets.window);
@@ -236,7 +235,6 @@ find_in_files_process (FindInFiles * ff)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gboolean valid;
-	gint i;
 	gchar *command, *temp, *file;
 	gboolean case_sensitive, ignore_binary, nocvs;
 
@@ -290,56 +288,64 @@ find_in_files_process (FindInFiles * ff)
 #endif
 
 	anjuta_clear_execution_dir();
-	if (launcher_execute (command,
-			      find_in_files_mesg_arrived,
-			      find_in_files_mesg_arrived,
-			      find_in_files_terminated) == FALSE)
+	g_signal_connect (app->launcher, "output-arrived",
+					  G_CALLBACK (find_in_files_mesg_arrived), NULL);
+	g_signal_connect (app->launcher, "child-exited",
+					  G_CALLBACK (find_in_files_terminated), NULL);
+	
+	if (anjuta_launcher_execute (app->launcher, command) == FALSE)
 	{
 		g_free (command);
 		return;
 	}
 	anjuta_update_app_status (TRUE, _("Find in Files"));
-	if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(ff->widgets.append_messages)))
+	if(!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON
+									  (ff->widgets.append_messages)))
 	{
 		an_message_manager_clear (app->messages, MESSAGE_FIND);
 	}
 	an_message_manager_append (app->messages, _("Finding in Files ....\n"),
-			 MESSAGE_FIND);
+							   MESSAGE_FIND);
 	an_message_manager_show (app->messages, MESSAGE_FIND);
 	g_free (command);
 }
 
 void
-find_in_files_mesg_arrived (const gchar * mesg)
+find_in_files_mesg_arrived (AnjutaLauncher *launcher,
+							AnjutaLauncherOutputType output_type,
+							const gchar * mesg, gpointer data)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_FIND);
 }
 
 void
-find_in_files_terminated (int status, time_t time)
+find_in_files_terminated (AnjutaLauncher *launcher,
+						  gint child_pid, gint status, gulong time_taken,
+						  gpointer data)
 {
 	gchar *buff1;
 
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+									  G_CALLBACK (find_in_files_mesg_arrived),
+										  NULL);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (find_in_files_terminated),
+										  NULL);
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-				 _
-				 ("Find in Files completed...............Unsuccessful\n"),
+				 _("Find in Files completed...............Unsuccessful\n"),
 				 MESSAGE_FIND);
-		anjuta_warning (_
-				("Find in Files completed ... unsuccessful"));
+		anjuta_warning (_("Find in Files completed ... unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-				 _
-				 ("Find in Files completed...............Successful\n"),
+				 _("Find in Files completed...............Successful\n"),
 				 MESSAGE_FIND);
 		anjuta_status (_("Find in Files completed ... successful"));
 	}
-	buff1 =
-		g_strdup_printf (_("Total time taken: %d secs\n"),
-				 (gint) time);
+	buff1 =	g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	an_message_manager_append (app->messages, buff1, MESSAGE_FIND);
 	if (anjuta_preferences_get_int (app->preferences, BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();

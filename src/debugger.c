@@ -76,7 +76,13 @@ static void debugger_set_next_command (void);
 static void gdb_stdout_line_arrived (const gchar * line);
 static void gdb_stderr_line_arrived (const gchar * line);
 static gchar * gdb_convert_line_to_UTF (const gchar * line);
-static void gdb_terminated (int status, time_t);
+
+static void on_gdb_output_arrived (AnjutaLauncher *launcher,
+								   AnjutaLauncherOutputType output_type,
+								   const gchar *chars, gpointer data);
+static void on_gdb_terminated (AnjutaLauncher *launcher,
+							   gint child_pid, gint status,
+							   gulong t, gpointer data);
 
 void
 debugger_init ()
@@ -547,8 +553,6 @@ debugger_start (const gchar * prog)
 	gchar *exec_dir;
 	gboolean ret;
 	GList *list, *node;
-	gint i;
-
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: debugger_start()");
@@ -634,8 +638,14 @@ debugger_start (const gchar * prog)
 	}
 	g_free (dir);
 	debugger.starting = TRUE;
-	ret = launcher_execute (command_str, gdb_stdout_line_arrived,
-				gdb_stderr_line_arrived, gdb_terminated);
+
+	// Prepare for launch.	
+	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
+					  G_CALLBACK (on_gdb_output_arrived), NULL);
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (on_gdb_terminated), NULL);
+	
+	ret = anjuta_launcher_execute (app->launcher, command_str);
 	an_message_manager_clear (app->messages, MESSAGE_DEBUG);
 	if (ret == TRUE)
 	{
@@ -723,6 +733,24 @@ gdb_stderr_line_arrived (const gchar * chars)
 				chars[i];
 			debugger.stde_cur_char_pos++;
 		}
+	}
+}
+
+static void
+on_gdb_output_arrived (AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar *chars, gpointer data)
+{
+	switch (output_type)
+	{
+	case ANJUTA_LAUNCHER_OUTPUT_STDERR:
+		gdb_stderr_line_arrived (chars);
+		break;
+	case ANJUTA_LAUNCHER_OUTPUT_STDOUT:
+		gdb_stdout_line_arrived (chars);
+		break;
+	default:
+		break;
 	}
 }
 
@@ -940,9 +968,16 @@ debugger_stde_flush ()
 }
 
 static void
-gdb_terminated (int status, time_t t)
+on_gdb_terminated (AnjutaLauncher *launcher,
+				gint child_pid, gint status, gulong t, gpointer data)
 {
-
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (on_gdb_output_arrived),
+										  NULL);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
+										  G_CALLBACK (on_gdb_terminated),
+										  NULL);
+	
 #ifdef ANJUTA_DEBUG_DEBUGGER
 	g_message ("In function: gdb_terminated()");
 #endif
@@ -987,7 +1022,7 @@ debugger_command (const gchar * com)
 	g_message ("Executing gdb command %s\n",com);
 #endif
 	debugger_set_ready (FALSE);
-	launcher_send_stdin (com);
+	anjuta_launcher_send_stdin (app->launcher, com);
 }
 
 void
@@ -1080,7 +1115,6 @@ debugger_start_terminal ()
 	GList *args, *node;
 
 #ifdef ANJUTA_DEBUG_DEBUGGER
-	gint i; /* Used later */
 	g_message ("In function: debugger_start_terminal()");
 #endif
 	
@@ -1477,7 +1511,8 @@ debugger_attach_process (gint pid)
 			debugger_attach_process_real (pid);
 		gtk_widget_destroy (dialog);
 	}
-	else if (getpid () == pid || launcher_get_child_pid () == pid)
+	else if (getpid () == pid ||
+			 anjuta_launcher_get_child_pid (app->launcher) == pid)
 	{
 		anjuta_error (_("Anjuta is unable to attach to itself."));
 		return;

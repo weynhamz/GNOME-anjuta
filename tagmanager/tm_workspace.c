@@ -27,7 +27,8 @@ guint workspace_class_id = 0;
 
 static gboolean tm_create_workspace(void)
 {
-	char *file_name = g_strdup_printf("%s/%d", P_tmpdir, getpid());
+	char *file_name = g_strdup_printf("%s/anjuta_%ld.%d",
+									  P_tmpdir, time (NULL), getpid());
 #ifdef TM_DEBUG
 	g_message("Workspace created: %s", file_name);
 #endif
@@ -234,7 +235,9 @@ gboolean tm_workspace_create_global_tags(const char *pre_process, const char **i
 	printf("writing out files to %s\n", temp_file);
 	for(idx_main = 0; idx_main < g_list_length(includes_files); idx_main++)
 	{
-		char *str = g_strdup_printf("#include \"%s\"\n", g_list_nth_data(includes_files, idx_main));
+		char *str = g_strdup_printf("#include \"%s\"\n",
+									(char*)g_list_nth_data(includes_files,
+														   idx_main));
 		int str_len = strlen(str);
 
 		fwrite(str, str_len, 1, fp);

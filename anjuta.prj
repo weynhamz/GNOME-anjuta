@@ -1,4 +1,4 @@
-# Anjuta Version 1.1.1 
+# Anjuta Version 1.1.97 
 Compatibility Level: 1 
 
 <PROJECT_DESCRIPTION_START>
@@ -24,7 +24,7 @@ a number of advanced programming facilities.<PROJECT_DESCRIPTION_END>
 
 props.file.type=project
 
-anjuta.version=1.1.1
+anjuta.version=1.1.97
 anjuta.compatibility.level=1
 
 project.name=anjuta
@@ -54,7 +54,6 @@ anjuta.program.arguments=
 preferences.build.option.jobs=0
 preferences.build.option.silent=0
 preferences.build.option.autosave=0
-preferences.anjuta.make.options=-k
 preferences.make=make
 preferences.build.option.keep.going=0
 preferences.build.option.warn.undef=0

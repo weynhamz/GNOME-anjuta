@@ -200,6 +200,7 @@ get_property_value_as_string (AnjutaProperty *prop)
 	return text_value;
 }
 
+/*
 static gint
 get_property_value_as_int (AnjutaProperty *prop)
 {
@@ -210,7 +211,7 @@ get_property_value_as_int (AnjutaProperty *prop)
 	g_free (text_value);	
 	return int_value;
 }
-
+*/
 static void
 set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 {
@@ -324,6 +325,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 	}
 }
 
+/*
 static void
 set_property_value_as_int (AnjutaProperty *prop, gint value)
 {
@@ -332,6 +334,7 @@ set_property_value_as_int (AnjutaProperty *prop, gint value)
 	set_property_value_as_string (prop, text_value);
 	g_free (text_value);	
 }
+*/
 
 static gboolean
 save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
@@ -471,7 +474,6 @@ anjuta_preferences_register_property_from_string (AnjutaPreferences *pr,
 												  const gchar *property_desc)
 {
 	gchar **fields;
-	gchar *field;
 	gint  n_fields;
 	
 	AnjutaPropertyObjectType object_type;
@@ -650,6 +652,7 @@ preferences_objects_to_prop (AnjutaPreferences *pr)
 		}
 		node = g_list_next (node);
 	}
+	return TRUE;
 }
 
 static void
@@ -737,8 +740,8 @@ anjuta_preferences_save_filtered (AnjutaPreferences * pr, FILE * fp,
 	GList *node;
 	gboolean ret_val = TRUE;
 	
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (fp != NULL);
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (fp != NULL, FALSE);
 	
 	node = pr->priv->properties;
 	while (node)
@@ -792,7 +795,6 @@ on_preferences_dialog_delete_event (GtkDialog *dialog,
 									GdkEvent *event,
 									gpointer user_data)
 {
-	AnjutaPreferences *pr = (AnjutaPreferences*) user_data;
 	gtk_widget_hide (GTK_WIDGET(dialog));
 	return TRUE;
 }
@@ -816,12 +818,7 @@ preferences_prop_to_objects (AnjutaPreferences *pr)
 		}
 		node = g_list_next (node);
 	}
-}
-
-static void
-on_style_editor_clicked (GtkWidget *button, AnjutaPreferences *pr)
-{
-	// FIXME: style_editor_show (app->style_editor);
+	return TRUE;
 }
 
 void
@@ -935,7 +932,6 @@ glade_get_from_toplevel_child_name_nth(GladeInterface *gi,
 static void
 add_all_default_pages (AnjutaPreferences *pr)
 {
-	GtkWidget *button,*button1, *wid;
 	GladeXML *gxml;
 	GList *node;
 	
@@ -1019,7 +1015,6 @@ anjuta_preferences_dispose (GObject *obj)
 static void
 anjuta_preferences_instance_init (AnjutaPreferences *pr)
 {
-	GtkWidget *button;
 	gchar *propdir, *propfile, *str;
 	
 	pr->priv = g_new0(AnjutaPreferencesPriv, 1);
@@ -1159,7 +1154,7 @@ anjuta_preferences_hide (GtkWidget *w)
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (w));
 }
 
-void
+static void
 anjuta_preferences_show (GtkWidget * w)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (w);

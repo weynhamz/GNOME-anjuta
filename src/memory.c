@@ -347,8 +347,7 @@ debugger_memory_cbs (GList* list, MemApp *memapp)
 	gint line, i;
 	gint car;
 	GtkWidget *win_mem;
-	GtkTextBuffer *buffer;
-	
+
 	if (memapp->new_window)
 	{
 		win_mem = memory_info_new (memapp->adr);
@@ -405,7 +404,7 @@ debugger_memory_cbs (GList* list, MemApp *memapp)
 	}
 }
 
-gboolean
+static gboolean
 memory_timeout (MemApp * memapp)
 {	
 	if (debugger_is_ready())

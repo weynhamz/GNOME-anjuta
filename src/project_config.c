@@ -69,7 +69,6 @@ struct _ProjectConfigPriv
 };
 
 static void create_project_config_gui (ProjectConfig * pc);
-static gboolean on_close(GtkWidget *w, gpointer user_data);
 
 ProjectConfig *
 project_config_new (PropsID props)
@@ -130,8 +129,6 @@ project_config_clear (ProjectConfig* pc)
 void
 project_config_destroy (ProjectConfig * pc)
 {
-	gint i;
-	
 	g_return_if_fail (pc != NULL);
 	
 	string_assign (&pc->priv->description, NULL);

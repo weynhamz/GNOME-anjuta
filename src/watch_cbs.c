@@ -44,12 +44,12 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 		return FALSE;
 
 	if (((GdkEventButton *) event)->button == 3) {
-	bevent = (GdkEventButton *) event;
-	bevent->button = 1;
-	expr_watch_update_controls (ew);
-	gtk_menu_popup (GTK_MENU (ew->widgets.menu), NULL, NULL, NULL, NULL,
-					bevent->button, bevent->time);
-	return TRUE;
+		bevent = (GdkEventButton *) event;
+		bevent->button = 1;
+		expr_watch_update_controls (ew);
+		gtk_menu_popup (GTK_MENU (ew->widgets.menu), NULL, NULL, NULL, NULL,
+						bevent->button, bevent->time);
+		return TRUE;
 	}
 
 	view = GTK_TREE_VIEW (widget);
@@ -61,8 +61,8 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 		g_warning("Error getting selection\n");
 		return FALSE;
 	}
+	return FALSE;
 }
-
 
 void
 on_watch_add_activate (GtkMenuItem * menuitem, gpointer user_data)
@@ -76,7 +76,6 @@ on_watch_add_activate (GtkMenuItem * menuitem, gpointer user_data)
 void
 on_watch_remove_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
-	gchar *exp;
 	GtkTreeView *view;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -328,7 +327,7 @@ add_watch_entry (GtkEntry * ent, ExprWatch* ew)
 static void
 change_watch_entry (GtkEntry * ent, ExprWatch* ew)
 {
-	gchar *row, *exp, *buff;
+	gchar *row, *buff;
 	GtkTreeView *view;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;

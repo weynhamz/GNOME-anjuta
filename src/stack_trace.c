@@ -29,11 +29,7 @@
 #include "debugger.h"
 #include "utilities.h"
 #include "pixmaps.h"
-
-/* Including pixmaps at compile time */
-/* So that these at least work when gnome pixmaps are not found */
-#include "../pixmaps/pointer.xpm"
-#include "../pixmaps/blank.xpm"
+#include "anjuta.h"
 
 typedef struct _StackTraceGui StackTraceGui;
 struct _StackTraceGui
@@ -86,7 +82,6 @@ get_current_iter (StackTrace* st, GtkTreeIter* iter)
 {
 	GtkTreeView *view;
 	GtkTreeSelection *selection;
-	gchar* count = NULL;
 	
 	view = GTK_TREE_VIEW (st->widgets.clist);
 	selection = gtk_tree_view_get_selection (view);
@@ -106,7 +101,6 @@ get_current_iter (StackTrace* st, GtkTreeIter* iter)
 static gboolean
 get_file_and_line_from_frame (gchar* frame, gchar** file, glong* lineno)
 {   
-	int line;
 	char* end;
 	char* colon;
 
@@ -492,10 +486,8 @@ create_stack_trace_gui(StackTrace *st)
 static void
 add_frame (StackTrace * st, gchar * line)
 {
-	gchar frame_no[10], *dummy_fn;
+	gchar frame_no[10];
 	gint count;
-	GdkColor blue = { 16, 0, 0, -1 };
-	GdkColor red = { 16, -1, 0, 0 };
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GdkPixbuf *pic;
@@ -569,8 +561,6 @@ stack_trace_update (GList * outputs, gpointer data)
 {
 	StackTrace *st;
 	gchar *ptr;
-	gfloat adj_value;
-	GtkAdjustment *adj;
 	GList *list, *node;
 
 	st = (StackTrace *) data;

@@ -83,13 +83,17 @@ struct _ProjectImportWizard
 	gboolean prj_menu_need_terminal;
 	gchar* prj_description;
 	
+	gint progress_timer_id;
+	gboolean canceled;
 	ProjectImportWizardGUI widgets;
 };
 
-extern ProjectImportWizard* piw;
+/* Note: ProjectImportWizard object, which is created by the
+following call, will be automatically destroyed when the Import is
+done or canceled. We do not need to take care of it. */
+ProjectImportWizard* project_import_new (void);
 
-void create_project_import_gui (void);
-void destroy_project_import_gui (void);
+void project_import_destroy (ProjectImportWizard *piw);
 gboolean project_import_start (const gchar *topleveldir,
 							   ProjectImportWizard *piw);
 void project_import_save_values (ProjectImportWizard *piw);

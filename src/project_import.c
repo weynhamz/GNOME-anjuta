@@ -39,11 +39,15 @@
 #include "utilities.h"
 #include "project_dbase.h"
 
-static gboolean project_import_load_project_values (gchar * filename);
+static gboolean project_import_load_project_values (ProjectImportWizard *piw,
+													gchar * filename);
 
-static void project_import_stdout_line_arrived (const gchar * line);
-static void project_import_stderr_line_arrived (const gchar * line);
-static void project_import_terminated (int status, time_t time);
+static void on_import_output_arrived (AnjutaLauncher *launcher,
+									  AnjutaLauncherOutputType output_type,
+									  const gchar * line, gpointer data);
+static void on_import_terminated (AnjutaLauncher *launcher,
+								  gint child_pid, gint status,
+								  gulong time_taken, gpointer data);
 
 /* The maximum time allowed for importing a project (in seconds).
 This might seem a bit high - but then, shell scripts are slow.
@@ -53,10 +57,6 @@ re-writing the import script in C - Biswa */
 #define AN_IMPORT_TIMEOUT 600
 
 gboolean progressbar_timeout (gpointer data);
-
-static int timer;
-
-ProjectImportWizard *piw;
 
 #define IMPORT_SCRIPT PACKAGE_BIN_DIR "/anjuta_import.sh"
 
@@ -96,9 +96,13 @@ project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 	}
 	command = g_strdup_printf (IMPORT_SCRIPT " \"%s\"", topleveldir);
 	g_message("Command: %s", command);
-	ret = launcher_execute (command, project_import_stdout_line_arrived,
-				project_import_stderr_line_arrived,
-				project_import_terminated);
+	
+	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
+					  G_CALLBACK (on_import_output_arrived), piw);
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (on_import_terminated), piw);
+
+	ret = anjuta_launcher_execute (app->launcher, command);
 	g_free(command);
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
 	if (ret)
@@ -125,79 +129,96 @@ project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 					(piw->widgets.progressbar), TRUE);
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
 			    _("Importing Project...please wait"));
-	timer = gtk_timeout_add (AN_IMPORT_TIMEOUT, progressbar_timeout,
-				 GTK_PROGRESS_BAR (piw->widgets.progressbar));
+	piw->progress_timer_id = gtk_timeout_add (AN_IMPORT_TIMEOUT,
+											  progressbar_timeout,
+								 GTK_PROGRESS_BAR (piw->widgets.progressbar));
 	return ret;
 }
 
 static void
-project_import_stdout_line_arrived (const gchar * line)
+on_import_output_arrived (AnjutaLauncher *launcher,
+						  AnjutaLauncherOutputType output_type,
+						  const gchar * line, gpointer data)
 {
 	gchar filename[512];
 	gchar *pos;
+	ProjectImportWizard *piw = (ProjectImportWizard*)data;
+	
 	if (!line)
 		return;
 	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
-	if (NULL != (pos = strstr(line, "Created project file ")))
+	if (output_type == ANJUTA_LAUNCHER_OUTPUT_STDOUT)
 	{
-		if (sscanf (pos, "Created project file %s successfully.", filename) == 1)
-			piw->filename = g_strdup (filename);
+		if (NULL != (pos = strstr(line, "Created project file ")))
+		{
+			if (sscanf (pos, "Created project file %s successfully.", filename) == 1)
+				piw->filename = g_strdup (filename);
+		}
 	}
 }
 
 static void
-project_import_stderr_line_arrived (const gchar * line)
-{
-	an_message_manager_append (app->messages, line, MESSAGE_BUILD);
-}
-
-static void
-project_import_terminated (int status, time_t time)
+on_import_terminated (AnjutaLauncher *launcher,
+					  gint child_pid, gint status, gulong time_taken,
+					  gpointer data)
 {
 	gchar *full_path;
 	gchar *buff;
+	ProjectImportWizard *piw = (ProjectImportWizard*)data;
+	
+	if (piw->progress_timer_id)
+		gtk_timeout_remove (piw->progress_timer_id);
+	piw->progress_timer_id = 0;
+	
+	g_signal_handlers_disconnect_by_func (launcher,
+										  G_CALLBACK (on_import_output_arrived),
+										  NULL);
+	g_signal_handlers_disconnect_by_func (launcher,
+										  G_CALLBACK (on_import_terminated),
+										  NULL);
 
-	gtk_timeout_remove (timer);
 	anjuta_update_app_status (TRUE, NULL);
 
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-					       _
-					       ("Project import completed...unsuccessful\n"),
+					       _("Project import completed...unsuccessful\n"),
 					       MESSAGE_BUILD);
 		anjuta_status (_("Project import completed...unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-					       _
-					       ("Project import completed...successful\n"),
+					       _("Project import completed...successful\n"),
 					       MESSAGE_BUILD);
 		anjuta_status (_("Project import completed...successful"));
 	}
-	buff = g_strdup_printf (_("Total time taken: %d secs\n"),
-				(gint) time);
+	buff = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 									BEEP_ON_BUILD_COMPLETE))
 		gdk_beep ();
 
+	/* If the import operation was canceled. Just destroy it and return */
+	if (piw->canceled == TRUE)
+	{
+		project_import_destroy (piw);
+		return;
+	}
 	if (piw->filename == NULL)
 	{
-		anjuta_error (_
-			      ("Could not import Project: no project file found!"));
-		destroy_project_import_gui ();
+		anjuta_error (_("Could not import Project: no project file found!"));
+		project_import_destroy (piw);
 		return;
 	}
 	full_path = g_strdup_printf ("%s/%s", piw->directory, piw->filename);
 
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
-			    _("Opening Project...please wait"));
-	if (!project_import_load_project_values (full_path))
+						_("Opening Project...please wait"));
+	if (!project_import_load_project_values (piw, full_path))
 	{
 		anjuta_error (_("Could not open generated Project file"));
-		destroy_project_import_gui ();
+		project_import_destroy (piw);
 		return;
 	}
 
@@ -226,7 +247,7 @@ progressbar_timeout (gpointer data)
 }
 
 static gboolean
-project_import_load_project_values (gchar * filename)
+project_import_load_project_values (ProjectImportWizard *piw, gchar * filename)
 {
 	ProjectType *type;
 	ProjectDBase *p = app->project_dbase;

@@ -21,6 +21,7 @@
 #include <time.h>
 
 static ServerType get_server_type (GtkEntry* entry);
+/* static void on_cvs_login_cancel (GtkWidget* button, CVSLoginGUI* gui); */
 
 void
 on_cvs_login_dialog_response (GtkWidget *dialog, gint response, CVSLoginGUI *gui)
@@ -53,12 +54,15 @@ on_cvs_login_dialog_response (GtkWidget *dialog, gint response, CVSLoginGUI *gui
 	g_free (gui);
 }
 
-void on_cvs_login_cancel (GtkWidget* button, CVSLoginGUI* gui)
+#if 0
+static void
+on_cvs_login_cancel (GtkWidget* button, CVSLoginGUI* gui)
 {
 	gtk_widget_hide (gui->dialog);
 	gtk_widget_destroy (gui->dialog);
 	g_free (gui);
 }
+#endif
 
 /*
 	Called when the user presses ok or cancel in the cvs file dialog.

@@ -35,8 +35,11 @@
 #include "gnome_project.h"
 #include "fileselection.h"
 
-static void new_prj_mesg_arrived (const gchar * mesg);
-static void new_prj_terminated (int status, time_t t);
+static void new_prj_mesg_arrived (AnjutaLauncher *launcher,
+								  AnjutaLauncherOutputType output_type,
+								  const gchar * mesg, gpointer data);
+static void new_prj_terminated (AnjutaLauncher *launcher, gint child_pid,
+								gint status, time_t t, gpointer data);
 
 gboolean
 create_new_project (AppWizard * aw)
@@ -232,10 +235,12 @@ create_new_project (AppWizard * aw)
 	an_message_manager_append (app->messages, _("Running autogen.sh ...\n"),
 								   MESSAGE_BUILD);
 	chdir (app->project_dbase->top_proj_dir);
-	if (launcher_execute ("./autogen.sh",
-			new_prj_mesg_arrived,
-			new_prj_mesg_arrived,
-			new_prj_terminated) == FALSE)
+	
+	g_signal_connect (G_OBJECT (app->launcher), "output-arrived",
+					  G_CALLBACK (new_prj_mesg_arrived), NULL);
+	g_signal_connect (G_OBJECT (app->launcher), "child-exited",
+					  G_CALLBACK (new_prj_terminated), NULL);
+	if (anjuta_launcher_execute (app->launcher, "./autogen.sh") == FALSE)
 	{
 		anjuta_error ("Could not run ./autogen.sh");
 		return FALSE;
@@ -245,14 +250,23 @@ create_new_project (AppWizard * aw)
 }
 
 static void
-new_prj_mesg_arrived (const gchar * mesg)
+new_prj_mesg_arrived (AnjutaLauncher *launcher,
+					  AnjutaLauncherOutputType output_type,
+					  const gchar * mesg, gpointer data)
 {
 	an_message_manager_append (app->messages, mesg, MESSAGE_BUILD);
 }
 
 static void
-new_prj_terminated (int status, time_t t)
+new_prj_terminated (AnjutaLauncher *launcher, gint child_pid,
+					gint status, time_t t, gpointer data)
 {
+	g_signal_handlers_disconnect_by_func (launcher,
+										  G_CALLBACK (new_prj_mesg_arrived),
+										  NULL);
+	g_signal_handlers_disconnect_by_func (launcher,
+										  G_CALLBACK (new_prj_terminated),
+										  NULL);
 	if (status)
 	{
 		an_message_manager_append (app->messages,

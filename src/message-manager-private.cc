@@ -240,8 +240,6 @@ AnMessageWindow::AnMessageWindow(AnMessageManager* p_amm,
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(m_scrolled_win),
 					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
-	GtkWidget* label = create_label();
-	
 	// Create Tree
 	m_tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(
 		gtk_list_store_new(N_COLUMNS, G_TYPE_INT, GDK_TYPE_COLOR, G_TYPE_STRING)));
@@ -289,9 +287,9 @@ AnMessageWindow::add_to_buffer(char c)
 void
 AnMessageWindow::append_buffer()
 {
-	GtkAdjustment* adj =
+/*	GtkAdjustment* adj =
 			gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW
-												     (m_scrolled_win));
+												     (m_scrolled_win)); */
 	string message = m_line_buffer;
 	m_line_buffer = string();
 	m_messages.push_back(message);
@@ -377,7 +375,7 @@ string
 AnMessageWindow::get_cur_msg()
 {
 	int line = get_cur_line();
-	if (line < 0 || line >= m_messages.size())
+	if (line < 0 || ((unsigned int)line) >= m_messages.size())
 		return "";
 	return m_messages[line];
 }
@@ -698,7 +696,7 @@ TerminalWindow::TerminalWindow(AnMessageManager* p_amm, int p_type_id,
 							   string p_type, string p_pixmap)
 	: MessageSubwindow(p_amm, p_type_id, p_type, p_pixmap)
 {
-	GtkWidget *vte, *sb, *frame, *hbox, *button;
+	GtkWidget *sb, *frame, *hbox, *button;
 	GladeXML *gxml;
 	
 	g_return_if_fail(p_amm != NULL);

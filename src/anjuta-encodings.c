@@ -632,7 +632,6 @@ static void
 set_property (AnjutaProperty *prop, const gchar *value)
 {
 	GtkTreeView *treeview;
-	GtkTreeIter iter;
 	GtkTreeModel *model;
 	GList *list, *node;
 	
@@ -681,7 +680,6 @@ anjuta_encodings_init (AnjutaPreferences *pref)
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
-	GList *list, *node;
 	
 	g_return_if_fail (anjuta_encodings_dialog == NULL);
 	

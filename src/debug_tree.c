@@ -171,7 +171,6 @@ debug_tree_on_middle_click (GtkWidget *widget,
 	GdkEventButton *buttonevent = NULL;
 	DebugTree *d_tree = NULL;
 	GtkTreeView *tree = NULL;
-	gint row;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
 	TrimmableItem *node_data = NULL;
@@ -517,6 +516,7 @@ debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
 	/* g_free (comm); */
 }
 
+#if 0
 static void
 on_debug_tree_row_expanded (GtkTreeView * ctree, GtkTreeIter* iter,
 							GtkTreePath* path, gpointer data)
@@ -541,6 +541,7 @@ on_debug_tree_row_expanded (GtkTreeView * ctree, GtkTreeIter* iter,
 		gtk_tree_iter_free(iter);
 	}
 }
+#endif
 
 static gboolean
 debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
@@ -553,7 +554,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 	GtkTreeIter iter;
 	GdkEventButton *buttonevent = NULL;
 	
-	g_return_if_fail (GTK_IS_TREE_VIEW (widget));
+	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
 
 	if (event->type == GDK_BUTTON_PRESS) {
 		buttonevent = (GdkEventButton *) event;
@@ -580,7 +581,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 	if (!data)
 	{
 		g_warning("Unable to get data\n");
-		return;
+		return FALSE;
 	}
 
 	/* g_print ("SELECT : %p %d %s %s %d %d\n", node, data->dataType,
@@ -611,7 +612,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 		}
 	}
 	else
-		g_print("% is not expandable\n",data->name);
+		g_warning ("%s is not expandable\n", data->name);
 	
 	return TRUE;
 }
@@ -623,8 +624,6 @@ parse_data (GtkTreeView* ctree, GtkTreeIter* parent, gchar * buf)
 	gchar *var_name = NULL;
 	gchar *value = NULL;
 	DataType dataType;
-	gchar *t;
-	GtkTreeView *view;
 	GtkTreeModel *model;
 
 	g_return_if_fail (parent);
@@ -1451,7 +1450,6 @@ debug_tree_create ()
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
-	gchar *tree_title[] = { _("Variable"), _("Value") };
 	DebugTree *d_tree = g_malloc (sizeof (DebugTree));
 
 	model = GTK_TREE_MODEL (gtk_tree_store_new

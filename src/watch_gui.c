@@ -102,8 +102,6 @@ create_watch_menu (ExprWatch* ew)
 void
 create_expr_watch_gui (ExprWatch * ew)
 {
-	GtkWidget *label1;
-	GtkWidget *label2;
 	GtkTreeModel* model;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;

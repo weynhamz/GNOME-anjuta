@@ -21,5 +21,6 @@
 #define _BUILD_FILE_H_
 
 void build_file(void);
+gboolean build_execute_command (const gchar *command);
 
 #endif

@@ -135,6 +135,9 @@ static void on_treeview_enabled_toggled (GtkCellRendererToggle *cell,
 										 gchar *path_str, gpointer data);
 static void breakpoints_dbase_add_brkpnt (BreakpointsDBase * bd,
 										  gchar * brkpnt);
+static gboolean breakpoints_dbase_set_from_item (BreakpointsDBase *bd,
+												 BreakpointItem *bi,
+												 gboolean add_to_treeview);
 
 #define BREAKPOINTS_MARKER 1
 #define BREAKPOINTS_MARKER_DISABLE 4
@@ -545,7 +548,6 @@ pass_item_add_mesg_arrived (GList * lines, gpointer data)
 static void
 bk_item_add_mesg_arrived (GList * lines, gpointer data)
 {
-	BreakpointsDBase *bd;
 	BreakpointItem *bid;
 	GList *outputs;
 
@@ -730,11 +732,11 @@ on_bk_add_clicked (GtkWidget *button, gpointer data)
 						  "breakpoint_properties_dialog", NULL);
 	dialog = glade_xml_get_widget (gxml, "breakpoint_properties_dialog");
 	
-	if( te = anjuta_get_current_text_editor()) 
+	if((te = anjuta_get_current_text_editor())) 
 	{
 		if (te->filename)
 		{
-			if (line = text_editor_get_current_lineno (te))
+			if ((line = text_editor_get_current_lineno (te)))
 				buff = g_strdup_printf("%s:%d", te->filename, line);
 			else
 				buff = g_strdup_printf("%s", te->filename);
@@ -762,16 +764,13 @@ static void
 on_bk_removeall_clicked (GtkWidget *button, BreakpointsDBase *bd)
 {
 	GtkWidget *dialog;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
 	
 	dialog = gtk_message_dialog_new (GTK_WINDOW (bd->priv->window),
 									 GTK_DIALOG_MODAL |
 										GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_NONE,
-					_("Are you sure you want to delete all the breakpoints?"),
-									 NULL);
+					_("Are you sure you want to delete all the breakpoints?"));
 	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
 							GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
 							GTK_STOCK_DELETE, GTK_RESPONSE_YES,
@@ -885,7 +884,6 @@ breakpoints_dbase_new ()
 		GtkTreeStore *store;
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
-		struct BkItemData *data;
 		int i;
 
 		/* breakpoints dialog */
@@ -987,22 +985,18 @@ breakpoints_dbase_new ()
 void
 breakpoints_dbase_destroy (BreakpointsDBase * bd)
 {
-	BreakpointItem *bi;
-	gint i;
+	g_return_if_fail (bd != NULL);
+	if (bd->priv->cond_history)
+		g_free (bd->priv->cond_history);
+	if (bd->priv->pass_history)
+		g_free (bd->priv->pass_history);
+	if (bd->priv->loc_history)
+		g_free (bd->priv->loc_history);
 
-	if (bd) {
-		if (bd->priv->cond_history)
-			g_free (bd->priv->cond_history);
-		if (bd->priv->pass_history)
-			g_free (bd->priv->pass_history);
-		if (bd->priv->loc_history)
-			g_free (bd->priv->loc_history);
-
-		gtk_widget_destroy (bd->priv->window);
-		g_object_unref (bd->priv->gxml);
-		g_free (bd->priv);
-		g_free (bd);
-	}
+	gtk_widget_destroy (bd->priv->window);
+	g_object_unref (bd->priv->gxml);
+	g_free (bd->priv);
+	g_free (bd);
 }
 
 /* FIXME: Dont' make it static */
@@ -1040,7 +1034,6 @@ breakpoints_dbase_load (BreakpointsDBase *bd, ProjectDBase *p)
 {
 	gpointer config_iterator;
 	guint loaded = 0;
-	GList *breakpoints = NULL;
 
 	g_return_if_fail (p != NULL);
 	breakpoints_dbase_clear(bd);
@@ -1132,7 +1125,6 @@ breakpoints_dbase_clear (BreakpointsDBase *bd)
 static void
 breakpoints_dbase_delete_all_breakpoints (BreakpointsDBase *bd)
 {
-	gint i;
 	g_return_if_fail (bd != NULL);
 }
 
@@ -1225,7 +1217,7 @@ breakpoints_dbase_update (GList * outputs, gpointer data)
 	g_list_free (list);
 }
 
-gboolean
+static gboolean
 breakpoints_dbase_set_from_item (BreakpointsDBase *bd, BreakpointItem *bi,
 								 gboolean add_to_treeview)
 {

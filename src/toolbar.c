@@ -37,12 +37,12 @@ GtkWidget *
 create_main_toolbar (GtkWidget * anjuta_gui, MainToolbar * toolbar)
 {
 	GtkWidget *toolbar1;
-	GtkWidget *toolbar_led;
+	/* GtkWidget *toolbar_led; */
 	GtkTooltips *tooltips;
-	GtkWidget *tmp_toolbar_icon;
-	gchar *filename;
-	GdkPixbufAnimation *led_anim;
-	GError *gerror = NULL;
+	/* GtkWidget *tmp_toolbar_icon; */
+	/* gchar *filename; */
+	/* GdkPixbufAnimation *led_anim; */
+	/* GError *gerror = NULL; */
 
 	tooltips = gtk_tooltips_new ();
 

@@ -428,7 +428,7 @@ anjuta_print_get_text_width_sized (PrintJobInfo *pji,
 	return width;
 }
 
-void 
+static void 
 anjuta_print_job_info_destroy(PrintJobInfo *pji)
 {
 	int i;
@@ -457,7 +457,6 @@ static void
 anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 {
 	const GnomePrintUnit *unit;
-	gint orientation;
 	
 	gnome_print_job_get_page_size_from_config (pji->config, 
 											   &pji->page_width,
@@ -521,12 +520,11 @@ anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 	}
 }
 
-PrintJobInfo*
+static PrintJobInfo*
 anjuta_print_job_info_new (void)
 {
 	PrintJobInfo *pji;
 	AnjutaPreferences *p = ANJUTA_PREFERENCES (app->preferences);
-	char *paper_name;
 	gint i;
 
 	pji = g_new0(PrintJobInfo, 1);
@@ -646,7 +644,8 @@ anjuta_print_set_style (PrintJobInfo *pji, gint style)
 									pji->current_font_height : font_height;
 }
 
-void anjuta_print_new_page (PrintJobInfo *pji)
+static void
+anjuta_print_new_page (PrintJobInfo *pji)
 {
 	gchar page[256];
 	
@@ -867,7 +866,8 @@ anjuta_print_begin (PrintJobInfo * pji)
 	pji->cursor_x = pji->margin_left + pji->margin_numbers;
 }
 
-void anjuta_print_end(PrintJobInfo * pji)
+static void
+anjuta_print_end(PrintJobInfo * pji)
 {
 	gnome_print_showpage(pji->pc);
 	gnome_print_context_close (pji->pc);
