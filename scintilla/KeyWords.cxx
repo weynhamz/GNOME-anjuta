@@ -2,7 +2,7 @@
 /** @file KeyWords.cxx
  ** Colourise for particular languages.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <stdlib.h>
@@ -98,6 +98,10 @@ static void ColouriseNullDoc(unsigned int startPos, int length, int, WordList *[
 LexerModule lmNull(SCLEX_NULL, ColouriseNullDoc, "null");
 
 #ifdef __vms
+#define LINK_LEXERS
+#endif
+
+#ifdef LINK_LEXERS
 
 // The following code forces a reference to all of the Scintilla lexers.
 // If we don't do something like this, then the linker tends to "optimize"
@@ -106,6 +110,10 @@ LexerModule lmNull(SCLEX_NULL, ColouriseNullDoc, "null");
 // Taken from wxWindow's stc.cpp. Walter.
 
 int wxForceScintillaLexers(void) {
+	return Scintilla_LinkLexers();
+}
+
+int Scintilla_LinkLexers() {
   extern LexerModule lmAda;
   extern LexerModule lmAVE;
   extern LexerModule lmBaan;

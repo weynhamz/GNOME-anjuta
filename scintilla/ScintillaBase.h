@@ -2,7 +2,7 @@
 /** @file ScintillaBase.h
  ** Defines an enhanced subclass of Editor with calltips, autocomplete and context menu.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #ifndef SCINTILLABASE_H
@@ -57,7 +57,7 @@ protected:
 
 	virtual void RefreshColourPalette(Palette &pal, bool want);
 
-	virtual void AddCharUTF(char *s, unsigned int len);
+	virtual void AddCharUTF(char *s, unsigned int len, bool treatAsDBCS=false);
 	void Command(int cmdId);
 	virtual void CancelModes();
 	virtual int KeyCommand(unsigned int iMessage);

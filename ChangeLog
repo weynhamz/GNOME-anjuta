@@ -1,4 +1,49 @@
-Naba Kumar <kh_naba@users.sourceforge.net>
+2002-05-06  Stephane Demurget  <demurgets@free.fr>
+
+	Merged with latest (1.44) scintilla.
+
+	Added: - The calltip.<lexer>.end.definition property to display help
+	         text on a second line of calltip.
+	       - The calltip.<lexer>.word.characters property to correctly find
+		 calltips for functions that include characters like '$' which
+		 is not normally considered a word character.
+	       - The use.monospaced property to determine initial state of
+		 Use Monospaced Font setting.
+
+	Bugs fixed: Too many to mention; please see :
+	            http://www.scintilla.org/ScintillaHistory.html for the
+		    full changes list.
+
+	* scintilla/*/*: updated nearly all files.
+
+	* TODO: removed the need of a scintilla merge.
+
+	Merged with latest (1.44) SciTE properties.
+
+	* data/properties/anjuta.properties: added the wrap, use.monospaced
+	  properties.
+
+	* data/properties/html.properties: added a missing php extension, and
+	  updated php keywords to the latest reference.
+
+	* data/properties/pascal.properties: added commands to compile, build
+	  and execute pascal applications.
+
+	* data/properties/lua.properties: added styles for statements.
+
+	* data/properties/bash.properties: added the declare keyword.
+
+	Fixed distchecking.
+
+	* global-tags/Makefile.am,
+	  global-tags/create-global-tags.sh: used some kind of ugly hack to
+	  make distchek work, since noone has proposed some better way.
+
+	* src/main_menubar_def.h: Ctrl-W is now associated to close file,
+	  and Ctrl-N replace Alt-N for new file according to the Gnome design
+	  reference.
+
+2002-05-06 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* widgets/gnomedirlist.c
 	widgets/gnomedirlist.h
@@ -7,7 +52,7 @@ Naba Kumar <kh_naba@users.sourceforge.net>
 
 	Added GPL headings in the file.
 
-Naba Kumar <kh_naba@users.sourceforge.net>
+2002-05-06 Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* src/attach_process.c
 	src/attach_process_cbs.c

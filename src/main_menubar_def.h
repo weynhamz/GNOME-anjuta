@@ -29,7 +29,7 @@ static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	 N_("New file"),
 	 on_new_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_NEW,
-	 GDK_N, GDK_MOD1_MASK, NULL},
+	 GDK_N, GDK_CONTROL_MASK, NULL},
 	{/*1*/
 	 GNOME_APP_UI_ITEM, N_("_Open ..."),
 	 N_("Open file"),
@@ -59,7 +59,7 @@ static GnomeUIInfo file1_menu_uiinfo[NUM_FILE_SUBMENUS+1] = {
 	 N_("Close current file"),
 	 on_close_file1_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
-	 GDK_D, GDK_MOD1_MASK, NULL},
+	 GDK_W, GDK_CONTROL_MASK, NULL},
 	{/*6*/
 	 GNOME_APP_UI_ITEM, N_("Close All Files"),
 	 N_("Close all files"),
@@ -1325,7 +1325,7 @@ static GnomeUIInfo debug1_menu_uiinfo[NUM_DEBUG_SUBMENUS+1] = {
 	 N_("Add expression or variable to the watch"),
 	 on_debugger_add_watch_activate, NULL, NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
-	 GDK_W, GDK_CONTROL_MASK, NULL},
+	 0, 0, NULL},
 	GNOMEUIINFO_SEPARATOR,/*20*/
 	{/*21*/
 	 GNOME_APP_UI_ITEM, N_("St_op Debugger"),

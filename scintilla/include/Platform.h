@@ -3,7 +3,7 @@
  ** Interface to platform facilities. Also includes some basic utilities.
  ** Implemented in PlatGTK.cxx for GTK+/Linux, PlatWin.cxx for Windows, and PlatWX.cxx for wxWindows.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #ifndef PLATFORM_H
@@ -18,8 +18,13 @@
 #define PLAT_GTK_WIN32 0
 #define PLAT_WIN 0
 #define PLAT_WX  0
+#define PLAT_FOX 0
 
-#if defined(__WX__)
+#if defined(FOX)
+#undef PLAT_FOX
+#define PLAT_FOX 1
+
+#elif defined(__WX__)
 #undef PLAT_WX
 #define PLAT_WX  1
 
@@ -46,6 +51,7 @@ typedef void *FontID;
 typedef void *SurfaceID;
 typedef void *WindowID;
 typedef void *MenuID;
+typedef void *TickerID;
 
 /**
  * A geometric point class.
@@ -447,7 +453,7 @@ public:
 
 // Shut up annoying Visual C++ warnings:
 #ifdef _MSC_VER
-#pragma warning(disable: 4244 4309 4514 4710 4800)
+#pragma warning(disable: 4244 4309 4514 4710)
 #endif
 
 #endif

@@ -2,7 +2,7 @@
 /** @file LexPython.cxx
  ** Lexer for Python.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <stdlib.h>
@@ -276,8 +276,8 @@ static void FoldPyDoc(unsigned int startPos, int length, int /*initStyle - unuse
 	const int maxPos = startPos + length;
 	const int maxLines = styler.GetLine(maxPos-1);             // Requested last line
 	const int docLines = styler.GetLine(styler.Length() - 1);  // Available last line
-	const bool foldComment = styler.GetPropertyInt("fold.comment.python");
-	const bool foldQuotes = styler.GetPropertyInt("fold.quotes.python");
+	const bool foldComment = styler.GetPropertyInt("fold.comment.python") != 0;
+	const bool foldQuotes = styler.GetPropertyInt("fold.quotes.python") != 0;
 	
 	// Backtrack to previous non-blank line so we can determine indent level
 	// for any white space lines (needed esp. within triple quoted strings)

@@ -2,6 +2,9 @@
 
 ## This file defines the interface to Scintilla
 
+## Copyright 2000-2002 by Neil Hodgson <neilh@scintilla.org>
+## The License.txt file describes the conditions under which this software may be distributed.
+
 ## A line starting with ## is a pure comment and should be stripped by readers.
 ## A line starting with #! is for future shbang use
 ## A line starting with # followed by a space is a documentation comment and refers
@@ -253,6 +256,8 @@ val SC_MARKNUM_FOLDERSUB=29
 val SC_MARKNUM_FOLDER=30
 val SC_MARKNUM_FOLDEROPEN=31
 
+val SC_MASK_FOLDERS=0xFE000000
+
 # Set the symbol used for a particular marker number.
 fun void MarkerDefine=2040(int markerNumber, int markerSymbol)
 
@@ -426,10 +431,10 @@ val INDIC_SQUIGGLE=1
 val INDIC_TT=2
 val INDIC_DIAGONAL=3
 val INDIC_STRIKE=4
-val INDIC0_MASK=32
-val INDIC1_MASK=64
-val INDIC2_MASK=128
-val INDICS_MASK=INDIC0_MASK | INDIC1_MASK | INDIC2_MASK
+val INDIC0_MASK=0x20
+val INDIC1_MASK=0x40
+val INDIC2_MASK=0x80
+val INDICS_MASK=0xE0
 
 # Set an indicator to plain, squiggle or TT.
 set void IndicSetStyle=2080(int indic, int style)
@@ -473,6 +478,7 @@ get colour GetCaretLineBack=2097(,)
 set void SetCaretLineBack=2098(colour back,)
 
 # Set a style to be changeable or not (read only).
+# Experimental feature, currently buggy.
 set void StyleSetChangeable=2099(int style, bool changeable)
 
 # Display a auto-completion list.
@@ -513,7 +519,8 @@ set void AutoCSetCancelAtStart=2110(bool cancel,)
 # Retrieve whether auto-completion cancelled by backspacing before start.
 get bool AutoCGetCancelAtStart=2111(,)
 
-# Define a set of character that when typed fills up the selected word.
+# Define a set of characters that when typed will cause the autocompletion to 
+# choose the selected item.
 set void AutoCSetFillUps=2112(, string characterSet)
 
 # Should a single item auto-completion list automatically choose the item.
@@ -536,6 +543,12 @@ set void AutoCSetAutoHide=2118(bool autoHide,)
 
 # Retrieve whether or not autocompletion is hidden automatically when nothing matches
 get bool AutoCGetAutoHide=2119(,)
+
+# Set whether or not autocompletion deletes any word characters after the inserted text upon completion
+set void AutoCSetDropRestOfWord=2270(bool dropRestOfWord,)
+
+# Retrieve whether or not autocompletion deletes any word characters after the inserted text upon completion
+get bool AutoCGetDropRestOfWord=2271(,)
 
 # Set the number of spaces used for one level of indentation.
 set void SetIndent=2122(int indentSize,)
@@ -894,10 +907,10 @@ set void SetMouseDwellTime=2264(int periodMilliseconds,)
 get int GetMouseDwellTime=2265(,)
 
 # Get position of start of word
-fun int WordStartPosition=2266(position pos,)
+fun int WordStartPosition=2266(position pos, bool onlyWordCharacters)
 
 # Get position of end of word
-fun int WordEndPosition=2267(position pos,)
+fun int WordEndPosition=2267(position pos, bool onlyWordCharacters)
 
 val SC_WRAP_NONE=0
 val SC_WRAP_WORD=1
@@ -1544,6 +1557,11 @@ val SCE_LUA_PREPROCESSOR=9
 val SCE_LUA_OPERATOR=10
 val SCE_LUA_IDENTIFIER=11
 val SCE_LUA_STRINGEOL=12
+val SCE_LUA_WORD2=13
+val SCE_LUA_WORD3=14
+val SCE_LUA_WORD4=15
+val SCE_LUA_WORD5=16
+val SCE_LUA_WORD6=17
 # Lexical states for SCLEX_ERRORLIST
 val SCE_ERR_DEFAULT=0
 val SCE_ERR_PYTHON=1

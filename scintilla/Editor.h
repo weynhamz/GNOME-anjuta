@@ -2,7 +2,7 @@
 /** @file Editor.h
  ** Defines the main editor class.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #ifndef EDITOR_H
@@ -26,7 +26,7 @@ public:
 	bool ticking;
 	int ticksToWait;
 	enum {tickSize = 100};
-	int tickerID;
+	TickerID tickerID;
 
 	Timer();
 };
@@ -36,7 +36,7 @@ public:
 class LineLayout {
 public:
 	/// Drawing is only performed for @a maxLineLength characters on each line.
-	enum {maxLineLength = 16000};
+	enum {maxLineLength = 8000};
 	int numCharsInLine;
 	int xHighlightGuide;
 	bool highlightColumn;
@@ -217,9 +217,9 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	// Wrapping support
 	enum { eWrapNone, eWrapWord } wrapState;
-	enum { wrapWidthInfinite = 0x7ffffff};
+	enum { wrapWidthInfinite = 0x7ffffff };
 	int wrapWidth;
-	bool needWrap;
+	int docLineLastWrapped;
 
 	Document *pdoc;
 
@@ -270,12 +270,14 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	virtual void ScrollText(int linesToMove);
 	void HorizontalScrollTo(int xPos);
 	void MoveCaretInsideView();
+	int DisplayFromPosition(int pos);
 	void EnsureCaretVisible(bool useMargin=true, bool vert=true, bool horiz=true);
 	void ShowCaretAtCurrentPosition();
 	void DropCaret();
 	void InvalidateCaret();
 
-	bool WrapLines(int *goodTopLine);
+	void NeedWrapping(int docLineStartWrapping=0);
+	bool WrapLines();
 
 	int SubstituteMarkerIfEmpty(int markerCheck, int markerDefault);
 	void PaintSelMargin(Surface *surface, PRectangle &rc);
@@ -294,7 +296,7 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	void ChangeSize();
 
 	void AddChar(char ch);
-	virtual void AddCharUTF(char *s, unsigned int len);
+	virtual void AddCharUTF(char *s, unsigned int len, bool treatAsDBCS=false);
 	void ClearSelection();
 	void ClearAll();
     	void ClearDocumentStyle();

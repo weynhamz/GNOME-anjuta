@@ -1,6 +1,6 @@
 FILES="/usr/include/*.h /usr/local/include/*.h"
 BASEDIR=`pwd`
-PROGDIR=`dirname $0`
+PROGDIR=. # `dirname $0`
 GLOBAL_TAGS_FILE=$BASEDIR/system.tags
 CFLAGS=""
 

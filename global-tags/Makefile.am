@@ -18,5 +18,5 @@ LDFLAGS = $(GLIB_LIBS)
 system.tags: create_global_tags.sh tm_global_tags
 	echo "Detecting header files and Generating global symbols ....."
 	chmod +x $(srcdir)/create_global_tags.sh
-	$(srcdir)/create_global_tags.sh
+	(cd $(top_builddir)/global-tags; $(srcdir)/create_global_tags.sh)
 

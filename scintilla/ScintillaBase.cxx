@@ -2,7 +2,7 @@
 /** @file ScintillaBase.cxx
  ** An enhanced subclass of Editor with calltips, autocomplete and context menu.
  **/
-// Copyright 1998-2001 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2002 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <stdlib.h>
@@ -63,10 +63,10 @@ void ScintillaBase::RefreshColourPalette(Palette &pal, bool want) {
 	ct.RefreshColourPalette(pal, want);
 }
 
-void ScintillaBase::AddCharUTF(char *s, unsigned int len) {
+void ScintillaBase::AddCharUTF(char *s, unsigned int len, bool treatAsDBCS) {
 	bool acActiveBeforeCharAdded = ac.Active();
 	if (!acActiveBeforeCharAdded || !ac.IsFillUpChar(*s))
-		Editor::AddCharUTF(s, len);
+		Editor::AddCharUTF(s, len, treatAsDBCS);
 	if (acActiveBeforeCharAdded)
 		AutoCompleteChanged(s[0]);
 }
@@ -307,14 +307,18 @@ void ScintillaBase::AutoCompleteCompleted(char fillUp/*='\0'*/) {
 		scn.lParam = 0;
 		scn.text = userListSelected.c_str();
 		NotifyParent(scn);
-		return ;
+		return;
 	}
 
 	Position firstPos = ac.posStart - ac.startLen;
-	if (currentPos < firstPos)
-		return ;
-	if (currentPos != firstPos) {
-		pdoc->DeleteChars(firstPos, currentPos - firstPos);
+	Position endPos = currentPos;
+	if (ac.dropRestOfWord)
+		endPos = pdoc->ExtendWordSelect(endPos, 1, true);
+	if (endPos < firstPos)
+		return;
+	pdoc->BeginUndoAction();
+	if (endPos != firstPos) {
+		pdoc->DeleteChars(firstPos, endPos - firstPos);
 	}
 	SetEmptySelection(ac.posStart);
 	if (item != -1) {
@@ -324,6 +328,7 @@ void ScintillaBase::AutoCompleteCompleted(char fillUp/*='\0'*/) {
 		pdoc->InsertString(firstPos, piece.c_str());
 		SetEmptySelection(firstPos + piece.length());
 	}
+	pdoc->EndUndoAction();
 }
 
 void ScintillaBase::ContextMenu(Point pt) {
@@ -404,7 +409,7 @@ void ScintillaBase::NotifyStyleToNeeded(int endStyleNeeded) {
 		int lineEndStyled = WndProc(SCI_LINEFROMPOSITION, endStyled, 0);
 		endStyled = WndProc(SCI_POSITIONFROMLINE, lineEndStyled, 0);
 		Colourise(endStyled, endStyleNeeded);
-		return ;
+		return;
 	}
 #endif
 	Editor::NotifyStyleToNeeded(endStyleNeeded);
@@ -447,7 +452,7 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 		break;
 
 	case SCI_AUTOCSETCANCELATSTART:
-		ac.cancelAtStartPos = wParam;
+		ac.cancelAtStartPos = wParam != 0;
 		break;
 
 	case SCI_AUTOCGETCANCELATSTART:
@@ -458,14 +463,14 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 		break;
 
 	case SCI_AUTOCSETCHOOSESINGLE:
-		ac.chooseSingle = wParam;
+		ac.chooseSingle = wParam != 0;
 		break;
 
 	case SCI_AUTOCGETCHOOSESINGLE:
 		return ac.chooseSingle;
 
 	case SCI_AUTOCSETIGNORECASE:
-		ac.ignoreCase = wParam;
+		ac.ignoreCase = wParam != 0;
 		break;
 
 	case SCI_AUTOCGETIGNORECASE:
@@ -477,11 +482,18 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 		break;
 
 	case SCI_AUTOCSETAUTOHIDE:
-		ac.autoHide = wParam;
+		ac.autoHide = wParam != 0;
 		break;
 
 	case SCI_AUTOCGETAUTOHIDE:
 		return ac.autoHide;
+
+	case SCI_AUTOCSETDROPRESTOFWORD:
+		ac.dropRestOfWord = wParam != 0;
+		break;
+
+	case SCI_AUTOCGETDROPRESTOFWORD:
+		return ac.dropRestOfWord;
 
 	case SCI_CALLTIPSHOW: {
 			AutoCompleteCancel();
@@ -529,7 +541,7 @@ sptr_t ScintillaBase::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lPara
 		break;
 
 	case SCI_USEPOPUP:
-		displayPopupMenu = wParam;
+		displayPopupMenu = wParam != 0;
 		break;
 
 #ifdef SCI_LEXER
