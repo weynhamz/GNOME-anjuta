@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "POT-Creation-Date: 2002-03-12 14:43+0100\n"
-"PO-Revision-Date: 2002-03-10 18:56CEST\n"
+"PO-Revision-Date: 2002-03-13 16:51CEST\n"
 "Last-Translator: Martin Lacko <lacko@host.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -15,9 +15,8 @@ msgstr ""
 "X-Generator: KBabel 0.9.5\n"
 
 #: anjuta.desktop.in.in.h:1
-#, fuzzy
 msgid "Anjuta IDE"
-msgstr "Anjuta C/C++ IDE"
+msgstr "Anjuta IDE"
 
 #: anjuta.desktop.in.in.h:2
 msgid "Integrated Development Environment"
@@ -25,114 +24,103 @@ msgstr "Integrované vývojové prostredie"
 
 #: plugins/class-gen/clsGen.c:122 plugins/class-gen/clsGen.c:154
 #: plugins/class-gen/clsGen.c:629
-#, fuzzy
 msgid "Class Creator"
-msgstr "Triedy"
+msgstr "Tvorca tried"
 
 #: plugins/class-gen/clsGen.c:144
 msgid "No project open, can not add class!"
-msgstr ""
+msgstr "Nie je otvorený žiadny projekt, nemôžem pridať triedu!"
 
 #: plugins/class-gen/clsGen.c:149
 msgid "Class Creator C/C++ 1.0"
-msgstr ""
+msgstr "Tvorca tried C/C++ 1.0"
 
 #: plugins/class-gen/clsGen.c:225
 msgid "Class name not valid"
-msgstr ""
+msgstr "Názov triedy nie je správny"
 
 #: plugins/class-gen/clsGen.c:230
 msgid "Declaration filename not valid"
-msgstr ""
+msgstr "Názov súboru deklarácií nie je správny"
 
 #: plugins/class-gen/clsGen.c:235
 msgid "Implementation filename not valid"
-msgstr ""
+msgstr "Názov súboru implementácií nie je správny"
 
 #: plugins/class-gen/clsGen.c:590
-#, fuzzy
 msgid "Error importing source file"
-msgstr "Pri zápise do súboru %s nastala chyba."
+msgstr "Pri importe zdrojového súboru nastala chyba"
 
 #: plugins/class-gen/clsGen.c:594
-#, fuzzy
 msgid "Error importing include file"
-msgstr "Pri zápise do súboru %s nastala chyba."
+msgstr "Pri importe vloženého súboru nastala chyba"
 
 #: plugins/class-gen/clsGen.c:597
-#, fuzzy
 msgid "Error importing files"
-msgstr "Pri zápise do súboru %s nastala chyba."
+msgstr "Pri importe súborov nastala chyba"
 
 #: plugins/class-gen/clsGen.c:636
-#, fuzzy
 msgid "New Class :"
-msgstr "Trieda:"
+msgstr "Nová trieda:"
 
 #: plugins/class-gen/clsGen.c:650 plugins/class-gen/clsGen.c:659
 msgid "Browse..."
-msgstr ""
+msgstr "Prehĺadávať..."
 
 #: plugins/class-gen/clsGen.c:687
-#, fuzzy
 msgid "Class Name:"
-msgstr "Trieda:"
+msgstr "Názov triedy:"
 
 #: plugins/class-gen/clsGen.c:696
-#, fuzzy
 msgid "Declaration File:"
-msgstr "Deklarácie"
+msgstr "Súbor deklarácie:"
 
 #: plugins/class-gen/clsGen.c:705
-#, fuzzy
 msgid "Implementation File:"
-msgstr "Súbor dokumentácie"
+msgstr "Súbor implementácie:"
 
 #: plugins/sample1/plugin-sample1.c:16
 msgid "Sample Plugin Description. Holla!"
-msgstr ""
+msgstr "Popis príkladového doplnku. Holla!"
 
 #: plugins/sample1/plugin-sample1.c:40
 msgid "Hello world!"
-msgstr ""
+msgstr "Nazdar svet!"
 
 #: plugins/sample1/plugin-sample1.c:41
 msgid "Sample plugin!"
-msgstr ""
+msgstr "Príkladový doplnok!"
 
 #: plugins/sample1/plugin-sample1.c:49
-#, fuzzy
 msgid "Sample plugin"
-msgstr "doplnky"
+msgstr "Príkladový doplnok"
 
 #: plugins/sample1/plugin-sample1.c:55
 msgid "This is a sample plugin"
-msgstr ""
+msgstr "Toto je príkladový doplnok"
 
 #: src/CORBA-Server.c:196
 msgid "CORBA Module not initialized"
-msgstr ""
+msgstr "Modul CORBY nebol inicializovaný"
 
 #: src/CORBA-Server.c:448 src/project_dbase_gui.c:1220
 msgid "Error while copying the file inside the module."
 msgstr "Chyba pri kopírovaní súboru do modulu."
 
 #: src/about.c:71
-#, fuzzy
 msgid "Copyright (c) 1999-2002 Naba Kumar"
 msgstr "Copyright (c) 1999-2001 Naba Kumar"
 
 #. 8
 #. 9
 #: src/about.c:82 src/main_menubar_def.h:1423
-#, fuzzy
 msgid "Anjuta Home Page"
 msgstr "Domovská stránka Anjuty"
 
 #: src/an_file_view.c:88
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open %s in %s"
-msgstr "Nemôžem otvoriť súbor: %s\n"
+msgstr "Nepodarilo sa otvoriť %s v %s"
 
 #: src/an_file_view.c:94
 #, c-format
@@ -140,6 +128,8 @@ msgid ""
 "No default viewer specified for the mime type %s.\n"
 "Please set it in GNOME control center"
 msgstr ""
+"Pre súborový-typ %s nie je nastavený žiadny predvolený prehliadač.\n"
+"Nastavte ho prosím v Kontrolnom centre GNOME"
 
 #: src/an_file_view.c:136 src/text_editor_gui.c:122 src/toolbar.c:120
 msgid "Open"
@@ -147,11 +137,11 @@ msgstr "Otvoriť"
 
 #: src/an_file_view.c:142
 msgid "View in Default Viewer"
-msgstr ""
+msgstr "Zobraziť v predvolenom prehliadači"
 
 #: src/an_file_view.c:148 src/an_symbol_view.c:249
 msgid "Refresh Tree"
-msgstr ""
+msgstr "Obnoviť strom"
 
 #: src/an_symbol_view.c:72 src/compiler_options_gui.c:152
 msgid "Others"
@@ -178,14 +168,12 @@ msgid "Macros"
 msgstr "Makrá"
 
 #: src/an_symbol_view.c:237
-#, fuzzy
 msgid "Goto Definition"
-msgstr "/Definícia _funkcie"
+msgstr "Prejsť na definíciu"
 
 #: src/an_symbol_view.c:243
-#, fuzzy
 msgid "Goto Declaration"
-msgstr "Deklarácie"
+msgstr "Prejsť na deklaráciu"
 
 #: src/anjuta.c:73 src/anjuta.c:80
 #, c-format
@@ -203,7 +191,6 @@ msgid "Save File As"
 msgstr "Uložiť súbor ako"
 
 #: src/anjuta.c:226
-#, fuzzy
 msgid "Cannot create application... exiting\n"
 msgstr "Nepodarilo sa vytvoriť aplikáciu ... ukončujem \n"
 
@@ -218,22 +205,21 @@ msgstr "Nedávne súbory "
 
 #: src/anjuta.c:911
 msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
-msgstr ""
-"# * NEUPRAVUJTE ALEBO NEPREMENÚVAJTE TENTO SÚBOR ** Vytvorené Anjutou ** \n"
+msgstr "# * NEUPRAVUJTE ALEBO NEPREMENÚVAJTE TENTO SÚBOR ** Vytvorené Anjutou ** \n"
 
 #: src/anjuta.c:1066
 msgid "All files saved ..."
 msgstr "Všetky súbory boli uložené ..."
 
 #: src/anjuta.c:1094
-#, fuzzy, c-format
+#, c-format
 msgid "Anjuta: %s (Saved)"
-msgstr "Anjuta: %s(Uložené)"
+msgstr "Anjuta: %s (uložené)"
 
 #: src/anjuta.c:1109
-#, fuzzy, c-format
+#, c-format
 msgid "Anjuta: %s (Unsaved)"
-msgstr "Anjuta: %s(Neuložené)"
+msgstr "Anjuta: %s (neuložené)"
 
 #: src/anjuta.c:1134
 msgid "Anjuta: No file"
@@ -261,13 +247,13 @@ msgstr ""
 "Vložiť kód na \"%s:%u\""
 
 #: src/anjuta.c:1884
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Install it and then restart Anjuta."
 msgstr ""
-"Nemáte nainštalovaný \"%s\".\n"
-"Nainštalujte ho a reštartujte Anjutu."
+"Pomôcka \"%s\" nie je nainštalovaná.\n"
+"Nainštalujte ju a reštartujte Anjutu."
 
 #: src/anjuta.c:1910 src/anjuta.c:1965
 msgid "None"
@@ -275,20 +261,19 @@ msgstr "Žiadny"
 
 #: src/anjuta.c:1920
 msgid "DOS (CRLF)"
-msgstr ""
+msgstr "DOS (CRLF)"
 
 #: src/anjuta.c:1923 src/anjuta.c:1957
 msgid "Unix (LF)"
-msgstr ""
+msgstr "Unix (LF)"
 
 #: src/anjuta.c:1926
 msgid "Mac (CR)"
-msgstr ""
+msgstr "Mac (CR)"
 
 #: src/anjuta.c:1929
-#, fuzzy
 msgid "Unknown"
-msgstr "Uniony"
+msgstr "Neznámy"
 
 #: src/anjuta.c:1946
 msgid "OVR"
@@ -299,49 +284,46 @@ msgid "INS"
 msgstr "INS"
 
 #: src/anjuta.c:1968
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  Project: %s       Zoom: %d       Line: %04d       Col: %03d       %s       "
 "Job: %s       Mode: %s"
 msgstr ""
-"  Projekt: %s      Lupa: %d      Riadok: %04d      Stĺpec: %03d      %s      "
-"Úloha: %s"
+"  Project: %s       Lupa: %d       Riadok: %04d       Bunka: %03d       %s       "
+"Úloha: %s       Režim: %s"
 
 #: src/anjuta.c:2181 src/anjuta.c:2184
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load plugin %s. Error: %s"
-msgstr ""
-"Nepodarilo sa nahrať doplnok %s.\n"
-"Chyba %s"
+msgstr "Nepodarilo sa nahrať doplnok %s. Chyba: %s"
 
 #: src/anjuta.c:2187
-#, fuzzy, c-format
+#, c-format
 msgid "Plugin protocol %s unknown Error:%s"
-msgstr "Neznámy protokol modulu: %s Chyba: %s"
+msgstr "Protokol doplnku %s neznáma chyba: %s"
 
 #: src/anjuta.c:2190
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to start plugin %s"
-msgstr "Nepodarilo sa spustiť modul %s"
+msgstr "Nepodarilo sa spustiť doplnok %s"
 
 #: src/anjuta.c:2193
-#, fuzzy, c-format
+#, c-format
 msgid "Bad parameters to plugin %s. Error: %s"
-msgstr "Chybné parametre pre doplnok %s. Chyba: %s"
+msgstr "Chybný parameter pre doplnok %s. Chyba: %s"
 
 #: src/anjuta.c:2201
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Unable to load plugin %s.\n"
 "Error: %s"
 msgstr ""
 "Nepodarilo sa nahrať doplnok %s.\n"
-"Chyba %s"
+"Chyba: %s"
 
 #: src/anjuta.c:2272
-#, fuzzy
 msgid "Out of memory scanning for plugins."
-msgstr "Pri prehĺadávaní doplnkov došlo k vyčerpaniu pamäte."
+msgstr "Pri hĺadaní doplnku som sa dostala mimo pamäť."
 
 #: src/anjuta_cbs.c:128
 msgid ""
@@ -404,8 +386,8 @@ msgid ""
 "Invalid %s field:\n"
 "You must supply a valid %s field to proceed further."
 msgstr ""
-"Chybné %s políčko:\n"
-"Nusíte ho nahradiť správnym %s políčkom."
+"Chybné políčko %s :\n"
+"Nusíte ho nahradiť správnym políčkom %s ."
 
 #. For the time being
 #: src/appwizard_cbs.c:269 src/project_dbase.c:1339 src/project_dbase.c:1344
@@ -457,12 +439,10 @@ msgid "Language:        "
 msgstr "Jazyk:        "
 
 #: src/appwizard_cbs.c:281 src/project_import_cbs.c:233
-#, fuzzy
 msgid "Gettext Support: "
 msgstr "Podpora gettextu: "
 
 #: src/appwizard_gui.c:39
-#, fuzzy
 msgid ""
 "The Application Wizard will generate a basic\n"
 "skeleton for a project, including all of the\n"
@@ -473,16 +453,15 @@ msgid ""
 "may not be possible to change some of the\n"
 "settings later."
 msgstr ""
-"Sprievodca aplikáciou vygeneruje jednoduchú\n"
-"kostru pre vašu aplikáciu, vrátane všetkých\n"
-"zostavovacích súborov. Bude sa vás pýtať na\n"
-"základnú počiatočnú štruktúru aplikácie, ktorú\n"
-"chcete vyvíjať.\n"
+"Sprievodca aplikáciou vytvorí jednoduchú\n"
+"kostru projektu, vrátane zostavovacích\n"
+"súborov. Bude sa vás pítať na jednotlivé\n"
+"podrobnosti pre vytváranie štruktúry\n"
+"aplikácie.\n"
 "\n"
-"Prosím odpovedzte na otázky veľmi opatrnne,\n"
-"nakoľko mnohé z nich sa už nebudú dať zmeniť.\n"
-"\n"
-"Ak chcete pokračovať, kliknite na Ďalej ..."
+"Odpovedzte prosím na otázky opatrnne\n"
+"Pretože niektoré z nich už nebude možné\n"
+"neskôr zmeniť."
 
 #: src/appwizard_gui.c:82 src/appwizard_gui.c:95
 msgid "Application Wizard"
@@ -532,7 +511,7 @@ msgstr "Aktualizovať"
 
 #: src/attach_process_gui.c:110 src/text_editor_gui.c:271
 msgid "Attach"
-msgstr "\bPripojiť"
+msgstr "Pripojiť"
 
 #: src/breakpoints.c:529
 msgid "Old breakpoints disabled."
@@ -552,9 +531,8 @@ msgid "0"
 msgstr "0"
 
 #: src/breakpoints.c:865
-#, fuzzy
 msgid "Breakpoint is set, but the ID could not be found."
-msgstr "Sranda, našiel som v zarážku, ale nemôžem nájsť zodpovedajúce ID"
+msgstr "Zarážka je nastavená, ale ID nebolo nájdené."
 
 #: src/breakpoints_cbs.c:99
 msgid "Are you sure you want to delete all breakpoints?"
@@ -644,18 +622,16 @@ msgid "Pass:"
 msgstr "Po prechode:"
 
 #: src/build_file.c:51
-#, fuzzy
 msgid "This file has not been saved. Save it first and then build."
-msgstr "Súbor nie je uložený. Najprv ho uložte a potom skompilujte."
+msgstr "Tento súbor nebol uložený. Uložte ho a potom spustite zostavovanie."
 
 #: src/build_file.c:76
-#, fuzzy
 msgid "The executable is up-to-date, there is no need to build it again."
-msgstr "Spustiteĺný súbor je aktuálny. Kompilácia nie je potrebná."
+msgstr "Spustiteĺný súbor je aktuálny, nie je potrebné ho znova vytvárať."
 
 #: src/build_file.c:92
 msgid "No build command has been specified for this type of file."
-msgstr ""
+msgstr "Pre tento typ súboru nebol zadaný žiadny zostavovací príkaz."
 
 #: src/build_file.c:107 src/message-manager.cc:43 src/preferences_gui.c:179
 #: src/text_editor_gui.c:246 src/toolbar.c:474
@@ -692,9 +668,8 @@ msgid "Build completed ... successful"
 msgstr "Kompilácia ukončená ... úspešne"
 
 #: src/build_project.c:60 src/compile.c:60
-#, fuzzy
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "Nepodarilo sa skompilovať modul. Skontrolujte Možnosti->Príkazy."
+msgstr "Nepodarilo sa zostaviť doplnok. Skontrolujte Možnosti->Príkazy."
 
 #: src/build_project.c:80 src/build_project.c:137 src/compile.c:75
 msgid "Build Project"
@@ -705,18 +680,16 @@ msgid "Building source directory of the Project: "
 msgstr "Kompilujem zdrojový priečinok projektu:"
 
 #: src/build_project.c:119
-#, fuzzy
 msgid "Unable to build Project. Check Settings->Commands."
-msgstr "Nepodarilo sa spustiť projekt. Skontrolujte Možnosti->Príkazy."
+msgstr "Nepodarilo sa zostaviť projekt. Skontrolujte Možnosti->Príkazy."
 
 #: src/build_project.c:140
 msgid "Building the whole Project: "
 msgstr "Kompilujem celý projekt."
 
 #: src/build_project.c:173
-#, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
-msgstr "Nepodarilo sa vytvoriť tar-balíček. Skontrolujte Možnosti->Príkazy."
+msgstr "Nepodarilo sa vytvoriť balíček tar. Skontrolujte Možnosti->Príkazy."
 
 #: src/build_project.c:191
 msgid "Build Distribution"
@@ -727,9 +700,8 @@ msgid "Building the distribution package of the Project: "
 msgstr "Kompilovať distribučný balík projektu:"
 
 #: src/build_project.c:228
-#, fuzzy
 msgid "Unable to install Project. Check Settings->Commands."
-msgstr "Nepodarilo sa spustiť projekt. Skontrolujte Možnosti->Príkazy."
+msgstr "Nepodarilo sa nainštalovať projekt. Skontrolujte Možnosti->Príkazy."
 
 #: src/build_project.c:246
 msgid "Install Project"
@@ -740,14 +712,12 @@ msgid "Installing the Project: "
 msgstr "Inštalujem projekt:"
 
 #: src/build_project.c:289
-#, fuzzy
 msgid "Unable to auto generate. Check Settings->Commands."
 msgstr "Automatické vytvorenie zlyhalo. Skontrolujte Možnosti->Príkazy."
 
 #: src/build_project.c:306
-#, fuzzy
 msgid "Auto generate Project"
-msgstr "Vytváram automagicky generovaný projekt:"
+msgstr "Automaticky vytvoriť projekt"
 
 #: src/build_project.c:309
 msgid "Auto generating the Project: "
@@ -786,28 +756,28 @@ msgid "Build All completed ... successful"
 msgstr "Úplná kompilácia ukončená ... úspešne"
 
 #: src/build_project.c:400
-#, fuzzy
 msgid "Build Distribution completed...............Unsuccessful\n"
-msgstr "Kompilácia distribúcie ukončená...........Neúspešne\n"
+msgstr ""
+"Kompilácia distribúcie ukončená.....Úspešne "
+"\n"
 
 #: src/build_project.c:403
-#, fuzzy
 msgid "Build Distribution completed ... unsuccessful"
 msgstr "Kompilácia distribúcie ukončená ... neúspešne"
 
 #: src/build_project.c:408
-#, fuzzy
 msgid "Build Distribution completed...............Successful\n"
-msgstr "Kompilácia distribúcia ukončená..............Úspešne\n"
+msgstr ""
+"Kompilácia distrubúcie ukončená......Úspešne "
+"\n"
 
 #: src/build_project.c:411
-#, fuzzy
-msgid ""
-"The source tarball can be found in the top level directory of the project.\n"
-msgstr "Zdrojový tar-balíček môžete nájsť v hlavnom adresári projektu\n"
+msgid "The source tarball can be found in the top level directory of the project.\n"
+msgstr ""
+"Zdrojový balíček tar môžete nájsť v hlavnom priečinku projektu. "
+"\n"
 
 #: src/build_project.c:414
-#, fuzzy
 msgid "Build Distribution completed ... successful"
 msgstr "Kompilácia distribúcie ukončená ... úspešne"
 
@@ -848,16 +818,14 @@ msgid "Auto generation completed ... successful"
 msgstr "Automatické vytvorenie ukončené ... úspešne"
 
 #: src/clean_project.c:61
-#, fuzzy
 msgid "Unable to clean Project. Check Settings->Commands."
-msgstr "Nepodarilo sa spustiť projekt. Skontrolujte Možnosti->Príkazy."
+msgstr "Nepodarilo sa vyčistiť projekt. Skontrolujte Možnosti->Príkazy."
 
 #: src/clean_project.c:72
 msgid "Clean"
 msgstr "Vyčistiť"
 
 #: src/clean_project.c:75
-#, fuzzy
 msgid "Cleaning the source directory of the Project: "
 msgstr "Čistím zdrojový adresár projektu: "
 
@@ -878,36 +846,30 @@ msgid "Cleaning completed ... successful"
 msgstr "Čistenie ukončené ... úspešne"
 
 #: src/clean_project.c:147
-#, fuzzy
 msgid "Unable to Clean All for the Project. Check Settings->Commands."
-msgstr "Nepodarilo sa spustiť projekt. Skontrolujte Možnosti->Príkazy."
+msgstr "Nepodarilo sa vyčistiť všetko v projekte. Skontrolujte Možnosti->Príkazy."
 
 #: src/clean_project.c:158
 msgid "Clean All"
 msgstr "Vyčistiť všetky"
 
 #: src/clean_project.c:161
-#, fuzzy
 msgid "Cleaning whole of the Project: "
 msgstr "Čistím celý projetk:"
 
 #: src/clean_project.c:182
-#, fuzzy
 msgid "Clean All completed...............Unsuccessful\n"
 msgstr "Čistenie všetkých ukončené.........Neúspešne\n"
 
 #: src/clean_project.c:185
-#, fuzzy
 msgid "Clean All completed ... unsuccessful"
 msgstr "Čistenie všetkých ukončené ... neúspešne"
 
 #: src/clean_project.c:190
-#, fuzzy
 msgid "Clean All completed...............Successful\n"
 msgstr "Čistenie všetkých ukončené........Úspešne\n"
 
 #: src/clean_project.c:193
-#, fuzzy
 msgid "Clean All completed ... successful"
 msgstr "Čistenie všetkých ukončené ... úspešne"
 
@@ -928,9 +890,8 @@ msgid "Compile File:"
 msgstr "Kompilovať súbor:"
 
 #: src/commands.c:647
-#, fuzzy
 msgid "Make File:"
-msgstr "Súbory make"
+msgstr "Make príkaz:"
 
 #: src/commands.c:655
 msgid "Build File:"
@@ -965,18 +926,16 @@ msgid "Load user defaults"
 msgstr "Nahrať používateĺské predvolené vlastnosti"
 
 #: src/compile.c:108
-#, fuzzy
 msgid "This file has not been saved. Save it first and then compile."
-msgstr "Súbor nie je uložený. Najprv ho uložte a potom skompilujte."
+msgstr "Tento súbor nebol uložený. Uložte ho a potom spustite kompiláciu."
 
 #: src/compile.c:129
-#, fuzzy
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr "Objektový súbor je aktuálny. Kompilácia nie je potrebná."
+msgstr "Objektový súbor je aktuálny, nie je potrebné ho znova kompilovať."
 
 #: src/compile.c:141
 msgid "No compile command has been specified for this type of file."
-msgstr ""
+msgstr "Pre tento typ súboru nebol zadaný žiadny kompilačný príkaz."
 
 #: src/compile.c:154 src/text_editor_gui.c:235 src/toolbar.c:451
 msgid "Compile"
@@ -1021,25 +980,27 @@ msgid ""
 "Dependencies: %s\n"
 "\n"
 msgstr ""
-"Závislosti:%s\n"
+"Závislosti: %s "
+"\n"
 "\n"
 
 #: src/compiler_options_cbs.c:248
-#, fuzzy
 msgid "Macros in configure.in file:\n"
-msgstr "Makrá v súbore configure.in:\n"
+msgstr ""
+"Makrá v súbore configure.in: "
+"\n"
 
 #: src/compiler_options_cbs.c:250
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Variables for cflags: %s\n"
 "\n"
 msgstr ""
-"Premenné pre c-značky (cflags): %s\n"
+"Premenné pre cflags: %s \n"
 "\n"
 
 #: src/compiler_options_cbs.c:252
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Variables for libraries: %s\n"
 "\n"
@@ -1048,21 +1009,21 @@ msgstr ""
 "\n"
 
 #: src/compiler_options_cbs.c:254
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Compile time cflags: %s\n"
 "\n"
 msgstr ""
-"Kompilovať časové c-značky (cflags): %s\n"
+"Kompilačný čas cflags: %s\n"
 "\n"
 
 #: src/compiler_options_cbs.c:256
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Compile time libraries: %s\n"
 "\n"
 msgstr ""
-"Kompilovať časové kničnice: %s\n"
+"Kompilačný čas knižníc: %s\n"
 "\n"
 
 #: src/compiler_options_cbs.c:258
@@ -1070,9 +1031,10 @@ msgid "Entries in acconfig.h file:\n"
 msgstr "Údaje v súbore acconfig.h:\n"
 
 #: src/compiler_options_cbs.c:260
-#, fuzzy
 msgid "Installation status:\n"
-msgstr "Stav inštalácie:\n"
+msgstr ""
+"Stav inštalácie: "
+"\n"
 
 #: src/compiler_options_cbs.c:275
 #, c-format
@@ -1122,9 +1084,8 @@ msgid "Optimization"
 msgstr "Optimalizácia"
 
 #: src/compiler_options_gui.c:250
-#, fuzzy
 msgid "Select the support libraries to add"
-msgstr "Vyberte podporu, ktorú chcete pridať"
+msgstr "Vybrerte podporované knižnice, ktoré chcete pridať"
 
 #: src/compiler_options_gui.c:259
 msgid "Info"
@@ -1163,7 +1124,6 @@ msgid "Description"
 msgstr "Popis"
 
 #: src/compiler_options_gui.c:823
-#, fuzzy
 msgid "Treat warnings as errors"
 msgstr "Pokladať varovania za chyby."
 
@@ -1240,7 +1200,6 @@ msgid "Higher-level optimization (without space-speed tradeoff)"
 msgstr "Vysokoúrovňová optimalizácia (without space-speed tradeoff)"
 
 #: src/compiler_options_gui.c:1020
-#, fuzzy
 msgid "Fastest-code optimization (functions inlined where possible"
 msgstr "Optimalizácia rýchlosti (funkcie vložiť inline vždy, keď je to možné)"
 
@@ -1249,16 +1208,16 @@ msgid "Note"
 msgstr "Poznámka"
 
 #: src/compiler_options_gui.c:1037
-#, fuzzy
 msgid ""
 "With optimization enabled, you may have some difficulty\n"
 "debugging your program. Avoid enabling both debug and\n"
 "optimization options, unless you want to\n"
 "debug the optimized code."
 msgstr ""
-"Zapnutím optimalizácie môže nastať niekoĺko problémov\n"
-"pri ladení vášho programu. Takže zapnúť obe možnosti ladenia\n"
-"aj optimalizácie naraz."
+"So zapnutou optimalizáciou môžete mať problémy\n"
+"pri ladení programu. Nedoporučujeme mať zapnuté\n"
+"oboje ladiace aj optimalizačné možnosti, pokým\n"
+"nechcete ladiť alebo optimalizovať kód."
 
 #: src/compiler_options_gui.c:1079
 msgid "Enable Debugging"
@@ -1277,23 +1236,22 @@ msgid "Configure"
 msgstr "Konfigurovať"
 
 #: src/configurer.c:106
-#, fuzzy
 msgid "Configure Options"
-msgstr "Možnosti konfigurácia (ak nejaké sú)"
+msgstr "Možnosti konfigurácie"
 
 #: src/configurer.c:182
-#, fuzzy
 msgid ""
 "Project does not have an executable configure script.\n"
 "Auto generate the Project first."
 msgstr ""
-"Projekt nemá spustiteĺný konfiguračný skript.\n"
-"Musíte najprv automaticky generovať projekt."
+"Projekt nemá spustiteĺný konfiguračný skript\n"
+"Najprv vyberte automatické vytvorenie projektu."
 
 #: src/configurer.c:205
-#, fuzzy
 msgid "Configuring the Project ....\n"
-msgstr "Konfigurujem projekt ....\n"
+msgstr ""
+"Konfigurujem projekt ... "
+"\n"
 
 #: src/configurer.c:224
 msgid "Configure completed...............Unsuccessful\n"
@@ -1312,14 +1270,12 @@ msgid "Configure completed ... successful"
 msgstr "Konfigurácia ukončená ... úspešne"
 
 #: src/controls.c:217 src/toolbar.c:739
-#, fuzzy
 msgid "Tags: "
-msgstr "Tag:"
+msgstr "Tagy:"
 
 #: src/controls.c:223
-#, fuzzy
 msgid "No Tags"
-msgstr "Bez varovaní"
+msgstr "Žiadne tagy"
 
 #. Must declare static, because it will be used forever
 #: src/debugger.c:64
@@ -1372,14 +1328,14 @@ msgstr ""
 "Najprv ho zastavte a potom nahrajte core súbor."
 
 #: src/debugger.c:575
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Unable to find: %s.\n"
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 msgstr ""
-"Nemôžem nájsť: %s.\n"
-"Nepodarilo sa inicializovať Odlaďovač. :-(\n"
+"Nepodarilo sa nájsť %s.\n"
+"Nepodarilo sa zinicializovať odlaďovač.\n"
 "Uistite sa, že je Anjuta správne nainštalovaná."
 
 #: src/debugger.c:642
@@ -1396,13 +1352,13 @@ msgstr "No executable specified\n"
 
 #: src/debugger.c:661
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
-"Na začatie ladenia otvorte spustiteĺný súbor alebo sa pripojte k procesu.\n"
+msgstr "Na začatie ladenia otvorte spustiteĺný súbor alebo sa pripojte k procesu.\n"
 
 #: src/debugger.c:669
-#, fuzzy
 msgid "There was an error whilst launching the debugger.\n"
-msgstr "Počas spúštania odlaďovača sa vyskytla chyba!!\n"
+msgstr ""
+"Počas spúštania odlaďovača sa vyskytla chyba. "
+"\n"
 
 #: src/debugger.c:673
 msgid "Make sure 'gdb' is installed on the system.\n"
@@ -1417,14 +1373,14 @@ msgid "Debugger is ready.\n"
 msgstr "Odlaďovač je pripravený.\n"
 
 #: src/debugger.c:945
-#, fuzzy
 msgid ""
 "\n"
 "Well, did you find the BUG? Debugging session completed.\n"
 "\n"
 msgstr ""
 "\n"
-"Takže, našli ste CHYBU? :: Sekcia ladenia bola ukončená.\n"
+"Tak čo našli ste BUG? Odlaďovanie ukončené.\n"
+"\n"
 
 #: src/debugger.c:1100
 msgid "Cannot execute gnome-terminal"
@@ -1457,7 +1413,7 @@ msgstr ""
 
 #: src/debugger.c:1342
 msgid "Anjuta is unable to attach to itself."
-msgstr ""
+msgstr "Anjuta sa nemôže pripojiť sama na seba."
 
 #: src/debugger.c:1425
 #, c-format
@@ -1487,7 +1443,6 @@ msgid "Sending signal %s to the process: %d\n"
 msgstr "Posielam signál %s procesu: %d\n"
 
 #: src/debugger.c:1806
-#, fuzzy
 msgid "There was an error whilst signalling the process."
 msgstr "Počas signalizovania procesu nastala chyba."
 
@@ -1509,22 +1464,18 @@ msgid "Execute"
 msgstr "Spustiť"
 
 #: src/executer.c:257 src/mainmenu_callbacks.c:1568
-#, fuzzy
 msgid "The target executable of this Project is unknown"
-msgstr "Nie je známy cieĺ tohoto projektu"
+msgstr "Cieĺový spustiteĺný súbor tohoto projektu nie je známy"
 
 #: src/executer.c:262 src/mainmenu_callbacks.c:1570
-#, fuzzy
 msgid "The target executable of this Project is not executable"
-msgstr "Cieĺ tohoto projektu nie je spustiteĺný súbor"
+msgstr "Cieĺový spustiteĺný súbor tohoto projektu nie je spustiteĺný"
 
 #: src/executer.c:267 src/mainmenu_callbacks.c:1574
-#, fuzzy
 msgid "The target executable does not exist for this Project"
 msgstr "Spustiteĺný súbor tohoto projektu neexistuje."
 
 #: src/executer.c:280
-#, fuzzy
 msgid "No file or Project opened."
 msgstr "Nie je otvorený žiadny súbor alebo projekt."
 
@@ -1538,14 +1489,12 @@ msgid "Executable is not up-to-date."
 msgstr "Spustiteĺný súbor nie je aktuálny."
 
 #: src/executer.c:321
-#, fuzzy
 msgid "Unable to execute Project. Check Settings->Commands."
 msgstr "Nepodarilo sa spustiť projekt. Skontrolujte Možnosti->Príkazy."
 
 #: src/executer.c:335
-#, fuzzy
 msgid "This file has not been saved. Save it first."
-msgstr "Súbor nie je uložený. Najprv ho uložte."
+msgstr "Tento súbor nebol uložený. Najprv ho uložte."
 
 #: src/executer.c:343
 msgid "Unable to execute file. Check Settings->Commands."
@@ -1577,12 +1526,11 @@ msgstr "Hĺadanie v súboroch ukončené ... úspešne"
 
 #: src/find_in_files_cbs.c:86
 msgid "No input files supplied."
-msgstr ""
+msgstr "Nebol zadaný vupný súbor."
 
 #: src/find_in_files_cbs.c:93
-#, fuzzy
 msgid "No search string supplied."
-msgstr "Hľadaný text"
+msgstr "Nebol zadaný hĺadaný reťazec."
 
 #: src/find_in_files_gui.c:89
 msgid "File/Directory to add:"
@@ -1597,9 +1545,8 @@ msgid "Case Sensitive"
 msgstr "Rozlišovať veĺkosť písmen"
 
 #: src/find_in_files_gui.c:154
-#, fuzzy
 msgid "Ignore binary files"
-msgstr "Nájsť v súboroch"
+msgstr "Preskočiť binárne súbory"
 
 #: src/find_in_files_gui.c:159
 msgid " Search String"
@@ -1634,12 +1581,10 @@ msgid " Direction "
 msgstr " Smer "
 
 #: src/find_replace.c:415 src/find_text.c:321
-#, fuzzy
 msgid "Forwards"
 msgstr "Dopredu"
 
 #: src/find_replace.c:422 src/find_text.c:328
-#, fuzzy
 msgid "Backwards"
 msgstr "Späť"
 
@@ -1729,51 +1674,51 @@ msgstr "Nepodarilo sa zahnúť glade--."
 #: src/source.c:1111 src/source.c:1130 src/source.c:1161 src/source.c:1179
 #: src/source.c:1209 src/source.c:1227 src/source.c:1254 src/source.c:1308
 #: src/source.c:1390 src/source.c:1523 src/source.c:1595 src/utilities.c:723
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create file: %s."
-msgstr "Nemôžem otvoriť súbor: %s\n"
+msgstr "NEpodarilo sa vytvoriť súbor: %s."
 
 #: src/glades.c:394 src/glades.c:404 src/glades.c:414
 msgid "You need to set the Translatable Strings File option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Súbor s prekladovými reťazcami"
 
 #: src/glades.c:398 src/glades.c:408
 msgid "You need to set the Project Directory option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Projektový priečinok"
 
 #: src/glades.c:400 src/glades.c:410
 msgid "You need to set the Project File option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Projektový súbor"
 
 #: src/glades.c:416
 msgid "You need to set the Project Name option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Názov projektu"
 
 #: src/glades.c:418
 msgid "You need to set the Program Name option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Názov programu"
 
 #: src/glades.c:421
 msgid "You need to set the Source Directory option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Zdrojový priečinok"
 
 #: src/glades.c:424
 msgid "You need to set the Pixmaps Directory option"
-msgstr ""
+msgstr "Potrebujete nastaviť možnosť Priečinok pixmáp"
 
 #: src/gnome_project.c:60
-#, fuzzy
 msgid ""
 "The Project already exists.\n"
 "Project creation aborted."
 msgstr ""
-"Projekt už existuje\n"
-"Vytvorenie projektu zrušené."
+"Projekt už existuje.\n"
+"Vytvorenie projektu bolo zrušené."
 
 #: src/gnome_project.c:75
-#, fuzzy
 msgid "Generating Project ...\n"
-msgstr "Vytváram projekt ...\n"
+msgstr ""
+"Generujem projekt ... "
+"\n"
 
 #: src/gnome_project.c:81
 #, c-format
@@ -1781,18 +1726,19 @@ msgid "Cannot create file: %s"
 msgstr "Nepodarilo sa vytvoriť súbor: %s"
 
 #: src/gnome_project.c:150
-#, fuzzy
 msgid "Loading Project ...\n"
-msgstr "Nahrávam projekt ...\n"
+msgstr ""
+"Nahrávam projekt ... "
+"\n"
 
 #: src/gnome_project.c:154 src/gnome_project.c:205
-#, fuzzy
 msgid "Saving Project ...\n"
-msgstr "Ukladám projekt ...\n"
+msgstr ""
+"Ukladám projekt ... "
+"\n"
 
 #. Source codes are generated
 #: src/gnome_project.c:160
-#, fuzzy
 msgid "Generating source codes ...\n"
 msgstr "Vytváram zdrojové kódy ...\n"
 
@@ -1810,12 +1756,12 @@ msgid "Locating files ...\n"
 msgstr "Hĺadám súbory ...\n"
 
 #: src/gnome_project.c:208
-#, fuzzy
 msgid "Updating Project ...\n"
-msgstr "Aktualizujem projekt ...\n"
+msgstr ""
+"Aktualizujem projekt ... "
+"\n"
 
 #: src/gnome_project.c:210
-#, fuzzy
 msgid "Running autogen.sh ...\n"
 msgstr "Spúšťam autogen.sh ...\n"
 
@@ -1824,32 +1770,29 @@ msgid "App Wizard"
 msgstr "Sprievodca aplikáciou"
 
 #: src/gnome_project.c:238
-#, fuzzy
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
 msgstr ""
 "Projekt nebol úspešne automaticky vytvorený.\n"
-"Myslím, že to budete musieť urobiť ručne."
+"Spustite prosím autogen.sh manuálne."
 
 #: src/gnome_project.c:244
-#, fuzzy
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
 msgstr ""
-"Automatické vytvorenie ukončené.............Úspešne\n"
-"Teraz skompilujte projekt a môžete si ho pozrieť\n"
+"Automatické vytváranie ukončené......Úspešne\n"
+"Teraz Zostavte projekt, ak sa naň chcete pozrieť. "
+"\n"
 
 #: src/gnome_project.c:247
-#, fuzzy
 msgid "Project was successfully auto generated."
 msgstr "Projekt bol úspešne automaticky vytvorený."
 
 #: src/goto_line.c:109
-#, fuzzy
 msgid " Goto Line number "
-msgstr "Prejsť na riadok číslo "
+msgstr "Prejsť na riadok "
 
 #: src/help.c:136
 msgid "Search Help"
@@ -1872,7 +1815,6 @@ msgid "Cannot execute command shell"
 msgstr "Nepodarilo sa spustiť šelovský príkaz"
 
 #: src/main.c:48
-#, fuzzy
 msgid "Do not show the splashscreen"
 msgstr "Neukazovať úvodnú obrazovku"
 
@@ -1890,9 +1832,8 @@ msgid "_New"
 msgstr "_Nový"
 
 #: src/main_menubar_def.h:29
-#, fuzzy
 msgid "New file"
-msgstr "Otvoriť súbor"
+msgstr "Nový súbor"
 
 #. 1
 #: src/main_menubar_def.h:34
@@ -1964,19 +1905,17 @@ msgid "N_ew Project ..."
 msgstr "Nový proj_ekt ..."
 
 #: src/main_menubar_def.h:78
-#, fuzzy
 msgid "Create a Project using the Application Wizard"
-msgstr "Vytvoriť projekt použitím sprievodcu aplikáciou"
+msgstr "Vytvoriť projekt použitím Sprievodcu aplikáciou"
 
 #. 10
 #: src/main_menubar_def.h:83
-#, fuzzy
 msgid "_Import Project ..."
-msgstr "Nový proj_ekt ..."
+msgstr "_Importovať projekt ..."
 
 #: src/main_menubar_def.h:84
 msgid "Import an existing code project using the Project Import Wizard"
-msgstr ""
+msgstr "Importovať existujúci kód použitím Sprievodcu importom projektu"
 
 #. 11
 #: src/main_menubar_def.h:89
@@ -2065,14 +2004,12 @@ msgstr "Zmeniť vybraný text na malé písmená"
 
 #. 3
 #: src/main_menubar_def.h:164
-#, fuzzy
 msgid "Convert EOL chars to CRLF"
-msgstr "Zmeniť znaky EOL na LF"
+msgstr "Konvertovať EOL znaky na CRLF"
 
 #: src/main_menubar_def.h:165
-#, fuzzy
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
+msgstr "Konvertovať znaky konca riadku na DOSovské koncové znaky (CRLF)"
 
 #. 4
 #: src/main_menubar_def.h:171
@@ -2080,31 +2017,26 @@ msgid "Convert EOL chars to LF"
 msgstr "Zmeniť znaky EOL na LF"
 
 #: src/main_menubar_def.h:172
-#, fuzzy
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
+msgstr "Konvertovať znaky konca súboru na Unixové znaky (LF)"
 
 #. 5
 #: src/main_menubar_def.h:178
-#, fuzzy
 msgid "Convert EOL chars to CR"
-msgstr "Zmeniť znaky EOL na LF"
+msgstr "Konvertovať EOL znaky na CR"
 
 #: src/main_menubar_def.h:179
-#, fuzzy
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
+msgstr "Konvertovať znaky konca súboru na Mac-ovské znaky (CR)"
 
 #. 6
 #: src/main_menubar_def.h:185
-#, fuzzy
 msgid "Convert EOL chars to majority EOL"
-msgstr "Zmeniť znaky EOL na LF"
+msgstr "Konvertovať EOL znaky na majoritné EOL"
 
 #: src/main_menubar_def.h:186
-#, fuzzy
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Zmeniť znak koniec riadku (EOL) na Unixový EOL (LF)"
+msgstr "Konvertovať znaky konca riadku na majoritné EOL nájdené v dokumente"
 
 #. 0
 #: src/main_menubar_def.h:197
@@ -2153,25 +2085,21 @@ msgstr "Vložiť GPL poznámku v C++ štýle"
 
 #. 2
 #: src/main_menubar_def.h:232
-#, fuzzy
 msgid "# GPL Notice"
-msgstr "// GPL poznámka"
+msgstr "# GPL poznámka"
 
 #: src/main_menubar_def.h:233
-#, fuzzy
 msgid "Insert GPL notice with Python style comments"
-msgstr "Vložiť GPL poznámku v C štýle"
+msgstr "Vložiť GPL poznámku v Python štýle"
 
 #. 3
 #: src/main_menubar_def.h:238
-#, fuzzy
 msgid "Current Username"
-msgstr "Informácie _aktuálneho rámu"
+msgstr "Meno aktuálneho používateĺa"
 
 #: src/main_menubar_def.h:239
-#, fuzzy
 msgid "Insert name of current user"
-msgstr "Premenovať aktuálny súbor"
+msgstr "Vložiť meno aktuálneho používateĺa"
 
 #. 4
 #: src/main_menubar_def.h:244
@@ -2185,15 +2113,14 @@ msgstr "Vložiť aktuálny dátum a čas"
 #. 5
 #: src/main_menubar_def.h:250
 msgid "Header File Template"
-msgstr ""
+msgstr "Šablóna hlavičky súboru"
 
 #: src/main_menubar_def.h:251
 msgid "Insert a standard header file template"
-msgstr ""
+msgstr "Vložiť štandardnú šablónu hlavičky súboru"
 
 #. 0
 #: src/main_menubar_def.h:261
-#, fuzzy
 msgid "_Goto Line number ..."
 msgstr "_Prejsť na riadok ..."
 
@@ -2343,13 +2270,11 @@ msgid "_Find ..."
 msgstr "_Nájsť..."
 
 #: src/main_menubar_def.h:389
-#, fuzzy
 msgid "Search for a string or regular expression in the editor"
-msgstr "Nájsť v editore text alebo výraz"
+msgstr "Hľadať reťazec regulárneho výrazu v editore"
 
 #. 16
 #: src/main_menubar_def.h:395
-#, fuzzy
 msgid "Fin_d in Files ..."
 msgstr "Nájsť v sú_boroch ..."
 
@@ -2363,10 +2288,8 @@ msgid "Find and R_eplace ..."
 msgstr "Nájsť a nahrad_iť..."
 
 #: src/main_menubar_def.h:403
-#, fuzzy
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr "Nájsť a nahradiť reťazec alebo výraz v inom reťazci"
+msgid "Search for and replace a string or regular expression with another string"
+msgstr "Hľadať a nahradiť reťazec alebo regulárny výraz v inom reťazci"
 
 #. 18
 #: src/main_menubar_def.h:409
@@ -2374,9 +2297,8 @@ msgid "Find _Next"
 msgstr "_Nájsť ďalší"
 
 #: src/main_menubar_def.h:410
-#, fuzzy
 msgid "Repeat the last Find command"
-msgstr "Opakovať posledné hĺadanie"
+msgstr "Opakovať ostatný príkaz hĺadania"
 
 #. 19
 #: src/main_menubar_def.h:416
@@ -2709,7 +2631,6 @@ msgid "Show _Locals"
 msgstr "Ukázať prem_enné"
 
 #: src/main_menubar_def.h:673
-#, fuzzy
 msgid "Show/Hide Local variables in Message window"
 msgstr "Ukázať/skryť lokálne premenné v okne správ"
 
@@ -2759,7 +2680,6 @@ msgid "Import File"
 msgstr "Importovať súbor"
 
 #: src/main_menubar_def.h:743
-#, fuzzy
 msgid "Remove the current file from the Project"
 msgstr "Odstrániť aktuálny súbor z projektu"
 
@@ -2770,7 +2690,6 @@ msgid "Project _Configuration ..."
 msgstr "_Nastavenie projektu ..."
 
 #: src/main_menubar_def.h:750
-#, fuzzy
 msgid "Edit the configuration of the Project"
 msgstr "Upraviť nastavenie projektu"
 
@@ -2780,7 +2699,6 @@ msgid "Project _Information"
 msgstr "_Informácie o projekte"
 
 #: src/main_menubar_def.h:756
-#, fuzzy
 msgid "Detailed information about the Project"
 msgstr "Detailné informácie o projekte"
 
@@ -2984,24 +2902,21 @@ msgstr "Pvovoliť zvýraznenie UNIXových konfiguračných súborov"
 
 #. 22
 #: src/main_menubar_def.h:898
-#, fuzzy
 msgid "Ada"
-msgstr "Pridať"
+msgstr "Ada"
 
 #: src/main_menubar_def.h:899
-#, fuzzy
 msgid "Force the highlight style to Ada"
-msgstr "Povoliť štýl zvýrazňovania pre LUA"
+msgstr "Povoliť štýl zvýrazňovania pre Adu"
 
 #. 23
 #: src/main_menubar_def.h:904
 msgid "Baan"
-msgstr ""
+msgstr "Baan"
 
 #: src/main_menubar_def.h:905
-#, fuzzy
 msgid "Force the highlight style to Baan"
-msgstr "Povoliť štýl zvýrazňovania pre Pascal"
+msgstr "Povoliť štýl zvýrazňovania pre Baan"
 
 #. 0
 #: src/main_menubar_def.h:915
@@ -3095,14 +3010,12 @@ msgstr "Kompilovať aktuálny zdrojový súbor"
 
 #. 1
 #: src/main_menubar_def.h:984
-#, fuzzy
 msgid "Compile With _Make"
-msgstr "Kompilovať súbor:"
+msgstr "Kompilovať pomocou _make"
 
 #: src/main_menubar_def.h:985
-#, fuzzy
 msgid "Compile the current source file using Make"
-msgstr "Kompilovať aktuálny zdrojový súbor"
+msgstr "Kompilovať aktuálny zdrojový súbor použítím make"
 
 #. 2
 #: src/main_menubar_def.h:990 src/main_menubar_def.h:1481
@@ -3110,7 +3023,6 @@ msgid "_Build"
 msgstr "_Zostaviť"
 
 #: src/main_menubar_def.h:991
-#, fuzzy
 msgid "Build the source directory of the Project/current source file"
 msgstr "Skompilovať zdrojový adresár projektu/aktuálny zdrojový súbor"
 
@@ -3120,7 +3032,6 @@ msgid "Build _All"
 msgstr "Kompilov_ať všetky"
 
 #: src/main_menubar_def.h:997
-#, fuzzy
 msgid "Build the whole Project"
 msgstr "Kompilovať celý projekt"
 
@@ -3141,7 +3052,6 @@ msgid "_Install"
 msgstr "_Inštalovať"
 
 #: src/main_menubar_def.h:1011
-#, fuzzy
 msgid "Install the Project on your system"
 msgstr "Inštalovať projekt do vašeho systému"
 
@@ -3151,7 +3061,6 @@ msgid "Build _Distribution"
 msgstr "Kompilovať _distribúciu"
 
 #: src/main_menubar_def.h:1017
-#, fuzzy
 msgid "Build the distribution tarball of the Project"
 msgstr "Kompilovať distribučný tar-balíček projektu"
 
@@ -3162,7 +3071,6 @@ msgid "Con_figure ..."
 msgstr "Kon_figurovať ..."
 
 #: src/main_menubar_def.h:1024
-#, fuzzy
 msgid "Configure the Project"
 msgstr "Konfigurovať projekt"
 
@@ -3191,7 +3099,6 @@ msgid "Clean A_ll"
 msgstr "Vyči_stiť všetko"
 
 #: src/main_menubar_def.h:1043
-#, fuzzy
 msgid "Clean the whole Project directory"
 msgstr "Vyčistiť celý adresár projektu"
 
@@ -3450,11 +3357,11 @@ msgstr "Nahrať core súbor na rozobratie"
 #. 4
 #: src/main_menubar_def.h:1259
 msgid "_Attach to Process ..."
-msgstr "\bPripojiť sa k procesu ..."
+msgstr "_Pripojiť sa k procesu ..."
 
 #: src/main_menubar_def.h:1260
 msgid "Attach to a running program"
-msgstr "\bPripojiť sa k bežiacemu programu"
+msgstr "Pripojiť sa k bežiacemu programu"
 
 #. 5
 #. 6
@@ -3564,9 +3471,8 @@ msgid "_Source Paths ..."
 msgstr "_Zdrojové cesty ..."
 
 #: src/main_menubar_def.h:1360
-#, fuzzy
 msgid "Specify the source paths for Anjuta to search"
-msgstr "Zadať zdrojové cesty, v ktorých bude Anjuta vyhĺadávať"
+msgstr "Zadajte zdrojovú cestu, kde má Anjuta hĺadať"
 
 #. 2
 #: src/main_menubar_def.h:1365
@@ -3600,12 +3506,10 @@ msgstr "Ale ja dávam prednosť čaju."
 #. 1
 #. 2
 #: src/main_menubar_def.h:1391
-#, fuzzy
 msgid "Browse GNOME API Pages"
 msgstr "Prezerať API stránky Gnome"
 
 #: src/main_menubar_def.h:1392
-#, fuzzy
 msgid "The GNOME API pages"
 msgstr "API stránky gnome"
 
@@ -3675,9 +3579,8 @@ msgid "Request Features"
 msgstr "Funkcie žiadosti"
 
 #: src/main_menubar_def.h:1443
-#, fuzzy
 msgid "Submit a feature request for Anjuta"
-msgstr "Odoslať žiadosť o funkcii Anjuty"
+msgstr "Odoslať žiadosť o funkciu Anjuty"
 
 #. 14
 #: src/main_menubar_def.h:1448
@@ -3714,9 +3617,8 @@ msgid "_Debug"
 msgstr "La_diť"
 
 #: src/main_menubar_def.h:1499
-#, fuzzy
 msgid "Plug_ins"
-msgstr "doplnky"
+msgstr "_Doplnky"
 
 #: src/main_menubar_def.h:1505
 msgid "_Settings"
@@ -3767,7 +3669,6 @@ msgid "Are you sure you want to print the current file?"
 msgstr "Ste si istí, že chcete vytlačiť aktuálny súbor?"
 
 #: src/mainmenu_callbacks.c:1600
-#, fuzzy
 msgid "The executable is not up-to-date."
 msgstr "Spustiteĺný súbor nie je aktuálny."
 
@@ -3784,7 +3685,6 @@ msgstr ""
 "Naozaj chcete vypnúť odlaďovač?"
 
 #: src/mainmenu_callbacks.c:1671
-#, fuzzy
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -3806,18 +3706,19 @@ msgid "Locals"
 msgstr "Lokálne premenné"
 
 #: src/message-manager.cc:44
-#, fuzzy
 msgid "Terminal"
-msgstr "Spustiť v termináli"
+msgstr "Terminál"
 
 #: src/message-manager.cc:147 src/project_dbase_gui.c:420
 msgid "Dock/Undock"
 msgstr "Dokovať/Osamostatniť"
 
 #: src/message-manager.cc:271
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find message type %s!\n"
-msgstr "Nepodarilo sa nájsť súbor gnome pixmapy: %s"
+msgstr ""
+"Nepodarilo sa nájsť typ správy: %s! "
+"\n"
 
 #: src/message-manager.cc:483 src/preferences_gui.c:229 src/toolbar.c:294
 msgid "Messages"
@@ -3831,6 +3732,14 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Nepodarilo sa nahrať Globálne predvolené vlastnosti\n"
+"a konfiguračné súbory:\n"
+"%s.\n"
+"Toto môže byť spôsobené nestabilitou alebo "
+"\n"
+"nesprávnym chodom. "
+"\n"
+"Anjuta bude spätne preložená s (limitovanými) možnosťami"
 
 #: src/preferences.c:642
 msgid ""
@@ -3885,13 +3794,12 @@ msgid "Tarballs:"
 msgstr "Balíčky tar:"
 
 #: src/preferences_gui.c:385
-#, fuzzy
 msgid "RPMs:"
 msgstr "Rpm:"
 
 #: src/preferences_gui.c:392
 msgid "SRPMs:"
-msgstr ""
+msgstr "Srpm:"
 
 #: src/preferences_gui.c:399
 msgid " History size "
@@ -3910,9 +3818,8 @@ msgid "Combo Popdown:"
 msgstr "Vysunutie roletky:"
 
 #: src/preferences_gui.c:429
-#, fuzzy
 msgid "Load automatically last project"
-msgstr "Automaticky formátovať kód"
+msgstr "Automaticky nahrať ostatný projekt"
 
 #: src/preferences_gui.c:492
 msgid " Job Options "
@@ -3931,7 +3838,6 @@ msgid "Keep going when some targets cannot be made"
 msgstr "Pokračovať, aj v prípade, že sa nepodarí vytvoriť niektorý z cieĺov"
 
 #: src/preferences_gui.c:577
-#, fuzzy
 msgid "Silent: do not echo commands"
 msgstr "Ticho: Neukazovať príkazy"
 
@@ -3945,10 +3851,9 @@ msgstr "Varovať pri odkazovaní sa na nedefinovanú premennú"
 
 #: src/preferences_gui.c:598
 msgid "Autosave before Build"
-msgstr ""
+msgstr "Automaticky uložiť pred kompiláciou"
 
 #: src/preferences_gui.c:613
-#, fuzzy
 msgid "Max number of jobs:"
 msgstr "Maximum úloh:"
 
@@ -4031,7 +3936,7 @@ msgstr "Kontrola zátvoriek"
 
 #: src/preferences_gui.c:1028
 msgid "Filter extraneous chars in DOS mode"
-msgstr ""
+msgstr "Filtrovať cudzie znaky v DOS režime"
 
 #: src/preferences_gui.c:1080
 msgid "Tab size in spaces"
@@ -4127,29 +4032,24 @@ msgid "Right"
 msgstr "Vpravo"
 
 #: src/preferences_gui.c:1482
-#, fuzzy
 msgid "Colors"
-msgstr "Zatvoriť"
+msgstr "Farby"
 
 #: src/preferences_gui.c:1490
-#, fuzzy
 msgid "Errors:"
-msgstr "Chyba: "
+msgstr "Chyby:"
 
 #: src/preferences_gui.c:1491
-#, fuzzy
 msgid "Warnings:"
-msgstr "Varovania"
+msgstr "Varovania:"
 
 #: src/preferences_gui.c:1492
-#, fuzzy
 msgid "Program messages:"
-msgstr "Názov programu:"
+msgstr "Správy programu:"
 
 #: src/preferences_gui.c:1493
-#, fuzzy
 msgid "Other messages:"
-msgstr "Správy ladenia"
+msgstr "Ostatné správy:"
 
 #: src/preferences_gui.c:1578
 msgid "Do not show notebook title tags"
@@ -4180,14 +4080,12 @@ msgid "Project Description"
 msgstr "Popis projektu"
 
 #: src/project_config.c:811
-#, fuzzy
 msgid "Disable overwriting Project files"
-msgstr "Vypnúť prepisovanie súborov projektu"
+msgstr "Vypnúť prepisovanie projektových súborov"
 
 #: src/project_config.c:821
-#, fuzzy
 msgid "Project configure.in"
-msgstr "configure.in projektu"
+msgstr "Projektový configure.in"
 
 #: src/project_config.c:827
 msgid "Top level Makefile.am"
@@ -4234,9 +4132,8 @@ msgid "Program checks"
 msgstr "Kontrola programov"
 
 #: src/project_config.c:913
-#, fuzzy
 msgid "Check for libraries in config.in"
-msgstr "Skontrolovať knižnice v config.in"
+msgstr "Skontrolovať knižnice v configure.in"
 
 #: src/project_config.c:930
 msgid "Library checks"
@@ -4259,14 +4156,12 @@ msgid "Characteristics check"
 msgstr "Kontrola charakteristík"
 
 #: src/project_config.c:991
-#, fuzzy
 msgid "Check for library functions in config.in"
 msgstr "Skontrolovať knižničné funkcie v config.in"
 
 #: src/project_config.c:1008
-#, fuzzy
 msgid "Function checks"
-msgstr "Knotrola knižničných funkcií"
+msgstr "Kontrola funkcií"
 
 #: src/project_config.c:1015
 msgid "Additional scripts in config.in"
@@ -4301,7 +4196,6 @@ msgid "Modules"
 msgstr "Moduly"
 
 #: src/project_config.c:1130
-#, fuzzy
 msgid "Extra scripts at the end of top level Makefile.am"
 msgstr "Extra skripty na konci hlavného Makefile.am"
 
@@ -4316,7 +4210,6 @@ msgstr "Otvoriť projekt"
 
 #. Must declare static, because it will be used forever
 #: src/project_dbase.c:322
-#, fuzzy
 msgid "Add to Project"
 msgstr "Pridať do projektu"
 
@@ -4325,47 +4218,42 @@ msgid "Project: None"
 msgstr "Projekt: žiadny"
 
 #: src/project_dbase.c:559
-#, fuzzy
 msgid "Anjuta project files"
-msgstr "Anjuta: Súbor neexistuje"
+msgstr "Projektové súbory Anjuty"
 
 #: src/project_dbase.c:560 widgets/gnomefilelist.c:538
-#, fuzzy
 msgid "All files"
-msgstr "Kompilovať súbory"
+msgstr "Všetky súbory"
 
 #: src/project_dbase.c:643 src/project_dbase.c:661
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load Project: %s"
-msgstr "Nemôžem spustiť: %s."
+msgstr "Nepodarilo sa nahrať projekt: %s"
 
 #: src/project_dbase.c:654
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Anjuta version %s or later is required to open this Project.\n"
 "Please upgrade to the latest version of Anjuta (Help for more information)."
 msgstr ""
-"Na otvorenie tohoto projektu potrebujete %s alebo novšiu verziu programu "
-"Anjuta . \n"
-"Aktualizujte si prosím Vašu Anjutu na ostatnú verziu (viac informácií "
-"nájdete v pomocníkovi)."
+"Na otvorenie tohoto projektu potrebujete %s alebo novšiu verziu programu Anjuta . \n"
+"Aktualizujte si prosím Vašu Anjutu na ostatnú verziu (viac informácií nájdete v pomocníkovi)."
 
 #: src/project_dbase.c:997
-#, fuzzy
 msgid "Project saved successfully"
 msgstr "Projekt bol úspešne uložený"
 
 #: src/project_dbase.c:1003 src/project_dbase.c:1005
-#, fuzzy
 msgid "Unable to save the Project."
 msgstr "Nepodarilo sa uložiť projekt."
 
 #: src/project_dbase.c:1402 src/project_dbase.c:1438
-#, fuzzy
 msgid ""
 "A .glade file does not\n"
 "exist in the top level Project directory."
-msgstr "V hlavném adresári projektu neexistuje glade súbor."
+msgstr ""
+"Súbor .glade neexistuje\n"
+"v hlavnom priečinku projektu."
 
 #. Set project title
 #: src/project_dbase.c:1845
@@ -4373,16 +4261,14 @@ msgid "Project: "
 msgstr "Projekt:"
 
 #: src/project_dbase.c:2097
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You need Anjuta version %s or later to open this project.\n"
 "Please upgrade Anjuta to the latest version (Help for more information).\n"
 "For the time being, I am too old to load it."
 msgstr ""
-"Na otvorenie tohoto projektu potrebujete %s alebo novšiu verziu programu "
-"Anjuta . \n"
-"Aktualizujte si prosím Vašu Anjutu na ostatnú verziu (viac informácií "
-"nájdete v pomocníkovi)."
+"Na otvorenie tohoto projektu potrebujete %s alebo novšiu verziu programu Anjuta . \n"
+"Aktualizujte si prosím Vašu Anjutu na ostatnú verziu (viac informácií nájdete v pomocníkovi)."
 
 #: src/project_dbase.c:2166 src/project_dbase.c:2170
 #, c-format
@@ -4394,18 +4280,17 @@ msgid "Project loaded successfully."
 msgstr "Projekt bol úspešne nahraný."
 
 #: src/project_dbase_gui.c:83
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to remove the item\n"
 "\"%s\" from the Project?"
 msgstr ""
-"Ste si istí, že chcete vymazať položku\n"
-"\"%s\" z databázy projektu?"
+"Ste si istí, že chcete vymazať z projektu položku\n"
+" \"%s\"?"
 
 #: src/project_dbase_gui.c:251
-#, fuzzy
 msgid "There is already a Project open.Do you want to close it first?"
-msgstr "Už je otvorený projekt. Chcete ho najskôr ukončiť?"
+msgstr "Projekt je už otovorený. Chcete ho najskôr ukončiť?"
 
 #: src/project_dbase_gui.c:364
 msgid "Doc file"
@@ -4434,9 +4319,8 @@ msgid "Files"
 msgstr "Súbory"
 
 #: src/project_dbase_gui.c:486
-#, fuzzy
 msgid "Symbols"
-msgstr "Štýly"
+msgstr "Symboly"
 
 #: src/project_dbase_gui.c:493 src/toolbar.c:283
 msgid "Project"
@@ -4463,34 +4347,28 @@ msgid "Program Name:"
 msgstr "Názov programu:"
 
 #: src/project_dbase_gui.c:729
-#, fuzzy
 msgid "Source files:"
-msgstr "Zdrojový súbor"
+msgstr "Zdrojové súbory:"
 
 #: src/project_dbase_gui.c:736
-#, fuzzy
 msgid "Help files:"
-msgstr "Pomocník"
+msgstr "Súbory pomocníka:"
 
 #: src/project_dbase_gui.c:743
-#, fuzzy
 msgid "Data files:"
-msgstr "Dátový súbor"
+msgstr "Dátové súbory:"
 
 #: src/project_dbase_gui.c:750
-#, fuzzy
 msgid "Pixmap files:"
-msgstr "Súbor pixmapy"
+msgstr "Súbory pixmáp:"
 
 #: src/project_dbase_gui.c:757
-#, fuzzy
 msgid "Doc files:"
-msgstr "Dokumentačný súbor"
+msgstr "Dokumentačné súbory:"
 
 #: src/project_dbase_gui.c:778
-#, fuzzy
 msgid "Po files:"
-msgstr "Dokumentačný súbor"
+msgstr "Prekladové súbory"
 
 #: src/project_dbase_gui.c:785
 msgid "Version:"
@@ -4637,80 +4515,81 @@ msgid "Select regional language"
 msgstr "Vyberte regionálny jazyk"
 
 #: src/project_dbase_gui.c:1078
-#, fuzzy
 msgid "Select regional language:"
-msgstr "Vyberte regionálny jazyk"
+msgstr "Vybrerte regionálny jazyk:"
 
 #: src/project_dbase_gui.c:1118 src/support.c:100 src/support.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find pixmap file: %s"
-msgstr "Nemôžem nájsť súbor pixmapy: %s"
+msgstr "Nepodarilo sa nájsť súbor pixmapy: %s"
 
 #: src/project_dbase_gui.c:1190
-#, fuzzy
 msgid "This file has already been added to the Project"
 msgstr "Tento súbor už je obsiahnutý v projekte."
 
 #: src/project_dbase_gui.c:1268
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\"%s\"\n"
 "does not exist in the current module directory.\n"
 "Do you want to IMPORT (copy) it into the module?"
 msgstr ""
 "\"%s\"\n"
-"neexistuje v aktuálnom priečinku modulu.\n"
-"Prejete si ho importovať (skopírovať) do modulu?"
+"neexistuje v aktuálnom modulovom priečinku.\n"
+"Prejete si ho importovať (skopírovar) do modulu?"
 
 #: src/project_import.c:83
-#, fuzzy, c-format
+#, c-format
 msgid "Importing project from %s ...\n"
-msgstr "Aktualizujem projekt ...\n"
+msgstr ""
+"Importujem projekt z %s ... "
+"\n"
 
 #: src/project_import.c:93
 msgid "Could not launch script!\n"
 msgstr ""
+"Nepodarilo sa spustiť skript! "
+"\n"
 
 #: src/project_import.c:104
 msgid "Importing project...please wait!"
-msgstr ""
+msgstr "Importujem projekt...čakajte prosím!"
 
 #: src/project_import.c:144
-#, fuzzy
 msgid "Project import completed...unsuccessful\n"
-msgstr "Kompilácia ukončená ... neúspešne"
+msgstr ""
+"Import projektu ukončený...neúspešne "
+"\n"
 
 #: src/project_import.c:146
-#, fuzzy
 msgid "Project import completed...unsuccessful"
-msgstr "Kompilácia ukončená ... neúspešne"
+msgstr "Import projektu ukončený...neúspešne"
 
 #: src/project_import.c:152
-#, fuzzy
 msgid "Project import completed...successful\n"
-msgstr "Kompilácai ukončená ... úspešne"
+msgstr ""
+"Import projektu ukončený...úspešne "
+"\n"
 
 #: src/project_import.c:154
-#, fuzzy
 msgid "Project import completed...successful"
-msgstr "Kompilácai ukončená ... úspešne"
+msgstr "Import projektu ukončený...úspešne"
 
 #: src/project_import.c:165
 msgid "Could not import project: Unexpected error!"
-msgstr ""
+msgstr "Nepodarilo sa importovať projekt: Neznáma chyba!"
 
 #: src/project_import.c:172
 msgid "Opening project...please wait!"
-msgstr ""
+msgstr "Otváram projekt...čakajte prosím!"
 
 #: src/project_import.c:175
-#, fuzzy
 msgid "Could not open generated project file!"
-msgstr "Nepodarilo sa nahrať projekt: %s"
+msgstr "Nepodarilo sa otvoriť vytvorený projektový súbor!"
 
 #: src/project_import_cbs.c:126
 msgid "Please fill in all needed values!"
-msgstr ""
+msgstr "Vložte prosím všetky požadované hodnoty!"
 
 #. We should never come here because this button is disabled
 #: src/project_import_cbs.c:275
@@ -4718,6 +4597,8 @@ msgid ""
 "The import operation has already begun.\n"
 "Click Cancel to skip the customisation stage, or Next to continue."
 msgstr ""
+"Operácia imprtu už začala.\n"
+"Kliknite na Zrušiť, ak chcete preskočiť časť úprav, alebo Ďalej, ak chcete porkačovať."
 
 #: src/project_import_gui.c:37
 msgid ""
@@ -4728,31 +4609,33 @@ msgid ""
 "\n"
 "THIS IS AN EXPERIMENTAL FEATURE\n"
 msgstr ""
+"Spreivodca importom projektu prehĺadal priečinok\n"
+"kódov existujúceho projektu a pokúsi sa importovať jeho\n"
+"štruktúru do projektu Anjuty. Budú aktualizované všetky\n"
+"automaticky zistené hodnoty počas vykonávania importu.\n"
+"\n"
+"TOTO JE EXPERIMENTÁLNA SÚČASŤ "
+"\n"
 
 #: src/project_import_gui.c:52 src/project_import_gui.c:132
-#, fuzzy
 msgid "Project Import Wizard"
-msgstr "Informácie o projekte"
+msgstr "Sprievodca importom projektu"
 
 #: src/project_import_gui.c:163
-#, fuzzy
 msgid "Select directory"
-msgstr "Vybrať po _zátvorku"
+msgstr "Vyberte priečinok"
 
 #: src/project_import_gui.c:181
-#, fuzzy
 msgid "Select top level directory of an existing project"
-msgstr "Čistím zdrojový adresár projektu: "
+msgstr "Vyberte hlavný priečinok existujúceho projektu"
 
 #: src/project_import_gui.c:186
-#, fuzzy
 msgid "Select existing project directory"
-msgstr "Vyčistiť celý adresár projektu"
+msgstr "Vyberte priečinok existujúceho projektu"
 
 #: src/project_import_gui.c:198
-#, fuzzy
 msgid "Click Next to begin the import"
-msgstr "Tu kliknite pre skrytie tohoto okna"
+msgstr "Ak chcete importovať, stlačte Ďalej"
 
 #: src/registers_gui.c:38
 msgid "Modify"
@@ -4794,9 +4677,9 @@ msgid "Could not find application pixmap file: %s"
 msgstr "Nepodarilo sa nájsť súbor pixmapy aplikácie: %s"
 
 #: src/resources.c:132
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find GNOME pixmap file: %s"
-msgstr "Nemôžem nájsť súbor pixmapy: %s"
+msgstr "Nepodarilo sa nájsť súbor gnome pixmapy: %s"
 
 #: src/resources.c:149
 #, c-format
@@ -4869,14 +4752,13 @@ msgid "Error writing to file: %s."
 msgstr "Pri zápise do súboru %s nastala chyba."
 
 #: src/source.c:1474
-#, fuzzy, c-format
+#, c-format
 msgid "Error writing to: %s."
-msgstr "Pri zápise do %s nastala chyba."
+msgstr "Chyba pri zápise: %s."
 
 #: src/source.c:1689
-#, fuzzy
 msgid "Project type does not support Glade."
-msgstr "Typ projektu nepodporuje glade."
+msgstr "Typ projektu nepodporuje Glade."
 
 #. set the size to that of our splash image.
 #: src/splash.c:92
@@ -4912,12 +4794,11 @@ msgid "Stack"
 msgstr "Zásobník"
 
 #: src/support.c:116
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create pixmap from file: %s"
-msgstr "Nepodarilo sa vytvoriť súbor pixmapy z: %s"
+msgstr "Nepodarilo sa vytvoriť súbor pixmapy: %s"
 
 #: src/text_editor.c:760
-#, fuzzy
 msgid "Loading file ..."
 msgstr "Nahrávam súbor ..."
 
@@ -4927,52 +4808,46 @@ msgid "Could not load file: %s"
 msgstr "Nepodarilo sa nahrať súbor: %s"
 
 #: src/text_editor.c:785
-#, fuzzy
 msgid "File loaded successfully"
 msgstr "Súbor bol úspešne nahratý"
 
 #: src/text_editor.c:800
-#, fuzzy
 msgid "Saving file ..."
 msgstr "Ukladám súbor ..."
 
 #: src/text_editor.c:805
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save file: %s."
 msgstr "Nepodarilo sa uložiť súbor: %s."
 
 #: src/text_editor.c:831
-#, fuzzy
 msgid "File saved successfully"
 msgstr "Súbor bol úspešne uložený"
 
 #: src/text_editor.c:926
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file \"%s\" on the disk is more recent than\n"
 "the current buffer.\n"
 "Do you want to reload it?"
 msgstr ""
-"Varovanie: Súbor \"%s\" na disku je novší ako v buffery.\n"
-"Chcete ho obnoviť?"
+"Súbor \"%s\" je novší, ako ten vo \n"
+"vyrovnávacej pamäti\n"
+"Prejete si ho znovu načítať?"
 
 #: src/text_editor.c:1042
-#, fuzzy
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr "Autoformát je vypnutý. Ak chcete, môžete ho zapnúť v Možnostiach."
+msgstr "Automatické formátovanie ie momentálne vypnuté. Zmeniť to môžete v Možnostiach."
 
 #: src/text_editor.c:1048
-#, fuzzy
 msgid "Auto formatting ..."
 msgstr "Automatické formátovanie ..."
 
 #: src/text_editor.c:1058 src/text_editor.c:1085
-#, fuzzy
 msgid "Error in auto formatting ..."
 msgstr "Chyba automatického formátovania ..."
 
 #: src/text_editor.c:1091
-#, fuzzy
 msgid "Auto formatting completed"
 msgstr "Automatické formátovanie ukončené"
 
@@ -5062,9 +4937,8 @@ msgid "Compile the current file"
 msgstr "Kompilovať aktuálny súbor"
 
 #: src/text_editor_gui.c:248
-#, fuzzy
 msgid "Build current file or the source directory of the Project"
-msgstr "Kompilovať aktuálny súbor, alebo kompilovať adresár projektu"
+msgstr "Kompilovať aktuálny súbor alebo zdrojový priečinok projetku"
 
 #: src/text_editor_gui.c:261
 msgid "Print the current File"
@@ -5075,28 +4949,24 @@ msgid "Attach the editor window as paged editor"
 msgstr "Pripojiť okno ako stránkovaný editor"
 
 #: src/text_editor_menu.c:72
-#, fuzzy
 msgid "Back"
-msgstr "Zásobník"
+msgstr "Späť"
 
 #: src/text_editor_menu.c:79
 msgid "Forward"
 msgstr "Dopredu"
 
 #: src/text_editor_menu.c:86
-#, fuzzy
 msgid "History"
-msgstr " Veĺkosť histórie "
+msgstr "História"
 
 #: src/text_editor_menu.c:95
-#, fuzzy
 msgid "Tag Definition"
-msgstr "/Definí_cia triedy"
+msgstr "Definícia tagu"
 
 #: src/text_editor_menu.c:102
-#, fuzzy
 msgid "Tag Declaration"
-msgstr "Deklarácie"
+msgstr "Deklarácia tagu"
 
 #: src/text_editor_menu.c:110
 msgid "Prev mesg"
@@ -5143,7 +5013,6 @@ msgid "Interrupt"
 msgstr "Prerušiť"
 
 #: src/text_editor_menu.c:193
-#, fuzzy
 msgid "Toggle Line numbers"
 msgstr "Prepnúť číslovanie riadkov"
 
@@ -5189,9 +5058,8 @@ msgstr "Choď"
 
 #. 11
 #: src/text_editor_menu.c:311 src/text_editor_menu.c:401
-#, fuzzy
 msgid "Tags"
-msgstr "Tag:"
+msgstr "Tagy"
 
 #. 15
 #: src/text_editor_menu.c:331
@@ -5359,19 +5227,16 @@ msgid "Goto end of current code block"
 msgstr "Prejsť na koniec aktuálneho bloku kódu"
 
 #: src/toolbar.c:750
-#, fuzzy
 msgid "Goto Tag"
-msgstr "Prejsť na"
+msgstr "Prejsť na tag"
 
 #: src/toolbar.c:751
-#, fuzzy
 msgid "Search for the given tag in the current file"
-msgstr "Hľadať zadaný reťazec v aktuálnom súbore"
+msgstr "Hľadať zadaný tag v aktuálnom dokumente"
 
 #: src/toolbar.c:771
-#, fuzzy
 msgid "Enter the tag to jump to"
-msgstr "Zadajte hĺadaný reťazec"
+msgstr "Zadajte tag, na ktorý chcete skočiť"
 
 #: src/toolbar.c:863
 msgid "Go or continue execution"
@@ -5518,19 +5383,18 @@ msgid "Autocomplete word"
 msgstr "Automaticky doplniť slovo"
 
 #: src/toolbar_callbacks.c:181
-#, fuzzy, c-format
+#, c-format
 msgid "There is line number %d in \"%s\"."
 msgstr "Je tam číslo riadku %d v \"%s\"."
 
 #: src/utilities.c:715
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to read file: %s."
-msgstr "Nemôžem otvoriť súbor: %s\n"
+msgstr "Neopodarilo sa prečítať súbor: %s."
 
 #: src/utilities.c:757
-#, fuzzy
 msgid "Unable to complete file copy"
-msgstr "Nemôžem dokončiť kopírovanie súboru"
+msgstr "Nepodarilo sa dokončiť kopírovanie súboru"
 
 #: src/watch.c:90
 msgid "< Not defined in current context >"
@@ -5581,14 +5445,12 @@ msgid "Add To Watch"
 msgstr "Pridať do pohĺadov"
 
 #: src/wizard_gui.c:100
-#, fuzzy
 msgid "Project Type"
-msgstr "Typ projektu:"
+msgstr "Typ projektu"
 
 #: src/wizard_gui.c:122
-#, fuzzy
 msgid "Select the type of application to be developed"
-msgstr "Vyberte tip aplikácie, ktorú chcete vyvíjať"
+msgstr "Vyberte typ aplikácie, ktorú chcete vyvíjať"
 
 #: src/wizard_gui.c:159
 msgid "Generic/Terminal project"
@@ -5603,28 +5465,24 @@ msgid "GNOME project"
 msgstr "GNOME projekt"
 
 #: src/wizard_gui.c:171
-#, fuzzy
 msgid "GTKmm project"
-msgstr "GTK projekt"
+msgstr "GTKmm projekt"
 
 #: src/wizard_gui.c:175
-#, fuzzy
 msgid "GNOMEmm project"
-msgstr "GNOME projekt"
+msgstr "GNOMEmm projekt"
 
 #: src/wizard_gui.c:179
 msgid "Bonobo component"
 msgstr "Bonobo komponent"
 
 #: src/wizard_gui.c:183
-#, fuzzy
 msgid "LibGlade project"
-msgstr "Kompilovať pojekt"
+msgstr "LibGlade pojekt"
 
 #: src/wizard_gui.c:254
-#, fuzzy
 msgid "Basic Information"
-msgstr "Informácia"
+msgstr "Základné informácie"
 
 #: src/wizard_gui.c:275
 msgid "Enter the basic Project information"
@@ -5659,9 +5517,8 @@ msgid "Both C and C++"
 msgstr "Oba C aj C++"
 
 #: src/wizard_gui.c:378
-#, fuzzy
 msgid "Target type"
-msgstr "Typ zdroja:     "
+msgstr "Cieĺový typ"
 
 #: src/wizard_gui.c:394
 msgid "Executable target"
@@ -5676,14 +5533,12 @@ msgid "Dynamic library target"
 msgstr "Dinamická knižnica"
 
 #: src/wizard_gui.c:483
-#, fuzzy
 msgid "Enter a short description of the Project"
 msgstr "Zadajte krátky popis projektu"
 
 #: src/wizard_gui.c:587
-#, fuzzy
 msgid "Enter any additional Project options"
-msgstr "Zadajte základné informácie o projekte"
+msgstr "Zadajte všetky potrebné možnosti projektu"
 
 #: src/wizard_gui.c:604
 msgid " Project Options "
@@ -5719,470 +5574,129 @@ msgstr "Potrebuje terminál"
 
 #: src/wizard_gui.c:739
 msgid "Summary"
-msgstr ""
+msgstr "Súhrn"
 
 #: widgets/gnomefilelist.c:159
-#, fuzzy
 msgid "Go to the previous directory"
-msgstr "Prejde na predchádzajúcu správu"
+msgstr "Prejsť do predchádzajúceho adresára"
 
 #: widgets/gnomefilelist.c:164
-#, fuzzy
 msgid "Go to home directory"
-msgstr "Vyčistiť všetky zdrojové adresáre"
+msgstr "Prejsť do domovského adresára"
 
 #: widgets/gnomefilelist.c:167
-#, fuzzy
 msgid "Go to parent directory"
-msgstr "Vyčistiť celý adresár projektu"
+msgstr "Prejsť do nadradeného adresára"
 
 #: widgets/gnomefilelist.c:169
 msgid "Refresh listing"
-msgstr ""
+msgstr "Obnoviť"
 
 #: widgets/gnomefilelist.c:172
-#, fuzzy
 msgid "Delete file"
-msgstr "Vymazať všetky"
+msgstr "Vymazať súbor"
 
 #: widgets/gnomefilelist.c:174
-#, fuzzy
 msgid "Rename file"
-msgstr "Otvoriť súbor"
+msgstr "Premenovať súbor"
 
 #: widgets/gnomefilelist.c:176
-#, fuzzy
 msgid "Create new folder"
-msgstr "_Vytvoriť nové okno"
+msgstr "Vytvoriť nový priečinok"
 
 #: widgets/gnomefilelist.c:182
-#, fuzzy
 msgid "Show hidden files and directories"
-msgstr "Ukázať/skryť ziadok a znaky"
+msgstr "Ukázať skryté súbory a priečinky"
 
 #: widgets/gnomefilelist.c:193
 msgid "Show Hidden"
-msgstr ""
+msgstr "Ukázať skryté"
 
 #: widgets/gnomefilelist.c:201
-#, fuzzy
 msgid "Directory: "
-msgstr " Adresáre "
+msgstr "Adresár: "
 
 #: widgets/gnomefilelist.c:242
-#, fuzzy
 msgid "Directories"
-msgstr " Adresáre "
+msgstr "Adresáre"
 
 #: widgets/gnomefilelist.c:287 widgets/gnomefilelist.c:1293
-#, fuzzy
 msgid "Selection: "
-msgstr "Vybrať"
+msgstr "Výber: "
 
 #: widgets/gnomefilelist.c:311
-#, fuzzy
 msgid "File type: "
-msgstr "Súbor:"
+msgstr "Typ súboru: "
 
 #: widgets/gnomefilelist.c:540
-#, fuzzy
 msgid "C/C++ source files"
-msgstr "Zdrojový súbor"
+msgstr "Zdrojový súbor C/C++"
 
 #: widgets/gnomefilelist.c:541
-#, fuzzy
 msgid "Java files"
-msgstr "Dátový súbor"
+msgstr "Java súbory"
 
 #: widgets/gnomefilelist.c:542
-#, fuzzy
 msgid "Pascal files"
-msgstr "Pascal"
+msgstr "Pascal súbory"
 
 #: widgets/gnomefilelist.c:543
-#, fuzzy
 msgid "PHP files"
-msgstr "Pomocník"
+msgstr "PHP súbory"
 
 #: widgets/gnomefilelist.c:544
-#, fuzzy
 msgid "Perl files"
-msgstr "Pomocník"
+msgstr "Perl súbory"
 
 #: widgets/gnomefilelist.c:545
-#, fuzzy
 msgid "Python files"
-msgstr "Python"
+msgstr "Python súbory"
 
 #: widgets/gnomefilelist.c:546
 msgid "Hyper Text Markup files"
-msgstr ""
+msgstr "Súbory Hypertextových značkovacích jazykov"
 
 #: widgets/gnomefilelist.c:547
-#, fuzzy
 msgid "Shell Script files"
-msgstr "Uložiť aktuálny súbor"
+msgstr "Súbory skriptov šelu"
 
 #: widgets/gnomefilelist.c:548
-#, fuzzy
 msgid "Config files"
-msgstr "Konfigurovať"
+msgstr "Konfiguračné súbory"
 
 #: widgets/gnomefilelist.c:549
 msgid "Visual Basic files"
-msgstr ""
+msgstr "Súbory Visual Basicu"
 
 #: widgets/gnomefilelist.c:550
-#, fuzzy
 msgid "Properties files"
-msgstr "Prj/Vlastnosti"
+msgstr "Súbory vlastností"
 
 #: widgets/gnomefilelist.c:551
-#, fuzzy
 msgid ".mak files"
-msgstr "Súbory make"
+msgstr "Súbory .mak"
 
 #: widgets/gnomefilelist.c:552
-#, fuzzy
 msgid ".lua files"
-msgstr "Kompilovať súbory"
+msgstr "Súbory .lua"
 
 #: widgets/gnomefilelist.c:553
-#, fuzzy
 msgid "Diff files"
-msgstr "Dokumentačný súbor"
+msgstr "Diff súbory"
 
 #: widgets/gnomefilelist.c:1287
 msgid "Multiple selection mode"
-msgstr ""
+msgstr "Režim mnohonásobného výberu"
 
 #: widgets/gnomefilelist.c:1606
 msgid "New folder"
-msgstr ""
+msgstr "Nový priečinok"
 
 #: widgets/gnomefilelist.c:1614
-#, fuzzy
 msgid "Folder name:"
-msgstr "Názov položky:"
+msgstr "Názov priečinka:"
 
 #: widgets/gnomefilelist.c:1674
 msgid "Creating folder failed."
-msgstr ""
+msgstr "Vytvorenie priečinku zlyhalo."
 
-#~ msgid "/Function _Declaration"
-#~ msgstr "/_Deklarácia funkcie"
-
-#~ msgid "/_Shell here"
-#~ msgstr "/_Shell tu"
-
-#~ msgid "/_Open"
-#~ msgstr "/_Otvoriť"
-
-#~ msgid "Cannot execute ctags"
-#~ msgstr "Nemôžem spustiť ctags"
-
-#~ msgid ""
-#~ "Cannot fork to execute ctags. I donno why!!\n"
-#~ "In %s:%d"
-#~ msgstr ""
-#~ "Nepodarilo sa zahnúť spustené ctags.\n"
-#~ "v %s%d."
-
-#~ msgid "Scanning and Updating files. Please Wait ..."
-#~ msgstr "Prezerám a aktualizujem súbory. Čakajte prosím ..."
-
-#~ msgid "Updating file:"
-#~ msgstr "Aktualizujem súbor:"
-
-#~ msgid "Updating file: "
-#~ msgstr "Aktualizujem súbor: "
-
-#~ msgid "Add Function"
-#~ msgstr "Pridať funkciu"
-
-#~ msgid "Function declaration:"
-#~ msgstr "Deklarácia funkcie"
-
-#~ msgid "Couldn't create pixmap from file: %s"
-#~ msgstr "Nemôžem vytvoriť pixmapu zo súboru: %s"
-
-#~ msgid "GTK-- project"
-#~ msgstr "GTK-- projekt"
-
-#~ msgid "GNOME-- project"
-#~ msgstr "GNOME-- projekt"
-
-#~ msgid "Application Wizard:     Page 1 of 6"
-#~ msgstr "Sprievodca aplikáciou:   Strana 1 zo 6"
-
-#~ msgid "Application Wizard:     Page 2 of 6"
-#~ msgstr "Sprievodca aplikáciou:   Strana 2 zo 6"
-
-#~ msgid "Application Wizard:     Page 3 of 6"
-#~ msgstr "Sprievodca aplikáciou:   Strana 3 zo 6"
-
-#~ msgid "Application Wizard:     Page 4 of 6"
-#~ msgstr "Sprievodca aplikáciou:   Strana 4 zo 6"
-
-#~ msgid "Application Wizard:     Page 5 of 6"
-#~ msgstr "Sprievodca aplikáciou:   Strana 5 zo 6"
-
-#~ msgid "Application Wizard:     Page 6 of 6"
-#~ msgstr "Sprievodca aplikáciou:   Strana 6 zo 6"
-
-#~ msgid "File is not saved. Save it and build."
-#~ msgstr "Súbor nie je uložený. Uložte ho a môžete zostavovať."
-
-#~ msgid "I do not really know how to build this file."
-#~ msgstr "Neviem, ako mám skompilovať tento súbor."
-
-#~ msgid "Unable to build Project. Check Preferences->Commands."
-#~ msgstr "Nepodarilo sa skompilovať projekt. Skontrolujte Možnosti->Príkazy."
-
-#~ msgid "Unable to Install Project. Check Preferences->Commands."
-#~ msgstr "Nepodarilo sa nainštalovať projekt. Skontrolujte Možnosti->Príkazy."
-
-#~ msgid "Autogen Project"
-#~ msgstr "Automaticky vytvoriť projekt"
-
-#~ msgid "Unable to clean project. Check Preferences->Commands."
-#~ msgstr "Nepodarilo sa vyčistiť projekt. Skontrolujte Možnosti->Príkazy."
-
-#~ msgid "Unable to clean all project. Check Preferences->Commands."
-#~ msgstr ""
-#~ "Nepodarilo sa vyčistiť všetky projekty. Skontrolujte Možnosti->Príkazy."
-
-#~ msgid "Building source directory of the project: "
-#~ msgstr "Vytvoriť zdrojový priečinok projektu: "
-
-#~ msgid "I do not really know how to compile this file."
-#~ msgstr "Neviem, ako mám skompilovať tento súbor."
-
-#~ msgid "You FOOL! I can not attach to myself."
-#~ msgstr "Nerobte zo mňa hlupáka! Nemôžem sa pripojiť sám na seba."
-
-#~ msgid ""
-#~ "ERROR: No input files supplied.\n"
-#~ "I am wondering where will I search."
-#~ msgstr ""
-#~ "CHYBA: Nebol zadaný vstupný súbor.\n"
-#~ "Neviem, kde mám hĺadať."
-
-#~ msgid ""
-#~ "ERROR: No search string supplied.\n"
-#~ "I am wondering what to search."
-#~ msgstr ""
-#~ "CHYBA: Nebol zadaný hĺadaný text.\n"
-#~ "Neviem, čo mám hĺadať."
-
-#~ msgid "Again saving  project ...\n"
-#~ msgstr "Znovu ukladám projekt ...\n"
-
-#~ msgid "Autogeneration completed...............Unsuccessful\n"
-#~ msgstr "Automatické vytvorenie ukončené ..............neúspešne\n"
-
-#~ msgid "Plug Ins"
-#~ msgstr "Doplnky"
-
-#~ msgid "You have a project opened. Close it first."
-#~ msgstr "Máte otvorený projekt. Najprv ho zatvorte."
-
-#~ msgid "project1"
-#~ msgstr "projekt1"
-
-#~ msgid "_Plug Ins"
-#~ msgstr "Do_plnky"
-
-#~ msgid "_Tags Toolbar"
-#~ msgstr "_Tagy"
-
-#~ msgid "Hide/Unhide Tags toolbar"
-#~ msgstr "Skryť/ukázať panel tagov"
-
-#~ msgid "Open the README file of the project"
-#~ msgstr "Otvoriť README súbor projektu"
-
-#~ msgid "Open the TODO file of the project"
-#~ msgstr "Otvoriť TODO súbor projektu"
-
-#~ msgid "Open the ChangeLog file of the project"
-#~ msgstr "Otvoriť súbor zmien (ChangeLog) projektu"
-
-#~ msgid "Open the NEWS file of the project"
-#~ msgstr "Otvoriť NEWS súbor projektu"
-
-#~ msgid "Grep Utility"
-#~ msgstr "Grep"
-
-#~ msgid "Compare two files"
-#~ msgstr "Porovnať dva súbory"
-
-#~ msgid "Diff Utility"
-#~ msgstr "Diff"
-
-#~ msgid "File View (Char/Octal/Hex)"
-#~ msgstr "Zobrazenie súboru (znak/oktal/hex)"
-
-#~ msgid "C Flow"
-#~ msgstr "C tok"
-
-#~ msgid "C Cross-reference"
-#~ msgstr "Referenčná príručka jazyka C"
-
-#~ msgid "C Trace"
-#~ msgstr "C trasa"
-
-#~ msgid "Backup Manager"
-#~ msgstr "Správca záloh"
-
-#~ msgid "Open a new file window"
-#~ msgstr "Otvoriť nové okno súboru"
-
-#~ msgid "Close current document window"
-#~ msgstr "Zatvoriť okno aktuálneho dokumentu"
-
-#~ msgid "_Utilities"
-#~ msgstr "P_omôcky"
-
-#~ msgid "Tags image update successfully."
-#~ msgstr "Vzhĺad tagov bol úspešne aktualizovaný."
-
-#~ msgid "Cannot launch gnome-help-browser"
-#~ msgstr "Nepodarilo sa spustiť prehliadač pomocníka Gnome"
-
-#~ msgid "Unknown type in Message window\n"
-#~ msgstr "Neznámy typ v okne správ \n"
-
-#~ msgid "Build messages"
-#~ msgstr "Správy kompilácie"
-
-#~ msgid "Find messages"
-#~ msgstr "Nájsť správy"
-
-#~ msgid "CVS messages"
-#~ msgstr "CVS správy"
-
-#~ msgid "Debug Locals Listing"
-#~ msgstr "Ladiť zoznam lokálnych prem."
-
-#~ msgid "Embedded Terminal"
-#~ msgstr "Vložený terminál"
-
-#~ msgid "Term"
-#~ msgstr "Termín"
-
-#~ msgid "Dock window"
-#~ msgstr "Okno doku"
-
-#~ msgid "Dock"
-#~ msgstr "Dok"
-
-#~ msgid "Srpms:"
-#~ msgstr "Srpm:"
-
-#~ msgid "Save in DOS format"
-#~ msgstr "Uložiť v DOS formáte"
-
-#~ msgid ""
-#~ "Error: You need Anjuta version %s or later to open this project.\n"
-#~ "Please upgrade Anjuta to the latest version (Help for more information).\n"
-#~ "For the time being, I am too old to load it.:-("
-#~ msgstr ""
-#~ "Chyba: Na otvorenie tohoto projektu potrebujete %s alebo novšiu verziu "
-#~ "programu Anjuta . \n"
-#~ "Aktualizujte si prosím Vašu Anjutu na ostatnú verziu (viac informácií "
-#~ "nájdete v pomocníkovi)."
-
-#~ msgid "No of src files:"
-#~ msgstr "Počet zdrojových súborov:"
-
-#~ msgid "No of help files:"
-#~ msgstr "Počet súborov pomocníka:"
-
-#~ msgid "No of data files:"
-#~ msgstr "Počet dátových súborov:"
-
-#~ msgid "No of pix files:"
-#~ msgstr "Počet obrázkových súborov:"
-
-#~ msgid "No of doc files:"
-#~ msgstr "Počet dokumentačných súborov:"
-
-#~ msgid "No of po files:"
-#~ msgstr "Počet po súborov:"
-
-#~ msgid "Select Regional Language:"
-#~ msgstr "Vyberte regionálny jazyk:"
-
-#~ msgid "# *********** DO NOT EDIT OR RENAME THIS FILE *****************\n"
-#~ msgstr ""
-#~ "# ********* NEUPRAVUJTE ALEBO NEPREMENÚVAJTE TENTO SÚBOR **********\n"
-
-#~ msgid ""
-#~ "# ******************* Created by  Anjuta "
-#~ "********************************\n"
-#~ msgstr ""
-#~ "# ************************** Vytvorené v Anjute "
-#~ "******************************** \n"
-
-#~ msgid "# ***************** Anjuta Tags cache file ********************\n"
-#~ msgstr ""
-#~ "# ****************** Súbor vyrovnávacej pamäte tagov Anjuty "
-#~ "******************** \n"
-
-#~ msgid "Function:"
-#~ msgstr "Funkcia:"
-
-#~ msgid "Mem Func:"
-#~ msgstr "Pam. funkcia:"
-
-#~ msgid "Synchronizing and updating Tags Image ... hold on"
-#~ msgstr "Synchronizácia a aktualizácia vzhĺadu tagov ... zapnutá"
-
-#~ msgid "Updating Tags image completed"
-#~ msgstr "Aktualizácia vzhĺadu tagov ukončená"
-
-#~ msgid "Syncdronization of Tags image failed"
-#~ msgstr "Synchránizácia vzhĺadu tagov zlyhala"
-
-#~ msgid "Build current File or Build the source directory of the Project"
-#~ msgstr "Kompilovať aktuálny súbor alebo zdrojový priečinok projektu"
-
-#~ msgid "Functions "
-#~ msgstr "Funkcie "
-
-#~ msgid "Select the type of tag"
-#~ msgstr "Vyberte typ tagu"
-
-#~ msgid "Source File"
-#~ msgstr "Zdrojový súbor"
-
-#~ msgid "Tag in the file"
-#~ msgstr "Tag v súbore"
-
-#~ msgid "wizard"
-#~ msgstr "sprievodca"
-
-#~ msgid "The Wizard"
-#~ msgstr "Sprievodca"
-
-#~ msgid "Enums"
-#~ msgstr "Vymenované typy"
-
-#~ msgid "Couldn't read file: %s."
-#~ msgstr "Nemôžem čítať súbor: %s."
-
-#~ msgid "Couldn't create file: %s."
-#~ msgstr "Nemôžem vytvoriť súbor: %s."
-
-#~ msgid "Anjuta Home Site"
-#~ msgstr "Domovská stránka Anjuty"
-
-#~ msgid "CVS is not yet implemented. :-(\n"
-#~ msgstr "CVS nie je momentálne implementované :-( \n"
-
-#~ msgid "Activate this to select this window"
-#~ msgstr "Aktivovanie na výber tohoto okna"
-
-#~ msgid "Unable to Load Plug in Module %s. Err: %s"
-#~ msgstr "Nepodarilo sa nahrať modul %s. Chyba: %s"
