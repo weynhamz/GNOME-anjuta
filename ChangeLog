@@ -1,5 +1,8 @@
 2005-01-16  Naba Kumar  <naba@gnome.org>
 
+	* plugins/edtior/text_editor_menu.c, src/anjuta-actions.h,
+	plugins/edtior/anjuta-docman.c: Fixed build errors.
+	
 	* libanjuta/Makefile.am, libanjuta/anjuta-debug.h,
 	libanjuta/anjuta-launcher.c, libanjuta/anjuta-plugin-description.c,
 	libanjuta/anjuta-plugin.c, libanjuta/anjuta-preferences.c,

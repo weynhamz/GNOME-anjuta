@@ -17,7 +17,6 @@
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
-#include <libanjuta/anjuta-stock.h>
 #include "action-callbacks.h"
 
 static GtkActionEntry menu_entries_file[] = {

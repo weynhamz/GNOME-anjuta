@@ -26,7 +26,6 @@
 
 #include <gnome.h>
 
-#include <libanjuta/pixmaps.h>
 #include <libanjuta/resources.h>
 
 #include "text_editor_menu.h"
