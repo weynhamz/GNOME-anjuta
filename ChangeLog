@@ -1,4 +1,28 @@
-2004-08-15  Naba Kumar  <naba@gnome.org>
+2004-08-16  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, src/layout.xml,
+	plugins/profile-default/plugin.c,
+	libanjuta/interfaces/libanjuta.idl,
+	plugins/Makefile.am, (added) plugins/gtodo/*: Added Todo plugin.
+	
+	* configure.in, plugins/Makefile.am,
+	plugins/project-manager/.cvsignore, 
+	plugins/project-manager/Makefile.am,
+	plugins/project-manager/anjuta-project-manager-plugin.png,
+	plugins/project-manager/anjuta-project-manager.plugin.in,
+	plugins/project-manager/anjuta-project-manager.ui,
+	plugins/project-manager/plugin.c,
+	plugins/project-manager/plugin.h: Added project manager plugin
+	based on gnome-build.
+	
+	* Makefile.am, mime/Makefile.am, mime/anjuta.applications,
+	mime/anjuta.keys, mime/anjuta.mime: Added anjuta files mime types.
+	
+	* manuals/reference/libanjuta/tmpl/e-splash.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	manuals/reference/libanjuta/tmpl/properties.sgml: Updated.
+    
+2004-08-16  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/action-callbacks.c: Fixed compile error.
 	

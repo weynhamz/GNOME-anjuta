@@ -23,6 +23,8 @@ LIBXML_REQUIRED=2.4.23
 PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
 LIBDEVHELP_REQUIRED=0.9
+LIBGTODO_REQUIRED=0.15
+GNOMEBUILD_REQUIRED=0.1.0
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GOBJECT_REQUIRED)
@@ -44,6 +46,8 @@ AC_SUBST(PANGO_REQUIRED)
 AC_SUBST(VTE_NEW_REQUIRED)
 AC_SUBST(PCRE_REQUIRED)
 AC_SUBST(LIBDEVHELP_REQUIRED)
+AC_SUBST(LIBGTODO_REQUIRED)
+AC_SUBST(GNOMEBUILD_REQUIRED)
 
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
@@ -173,11 +177,27 @@ PKG_CHECK_MODULES(GDL, gdl-1.0 >= 0.4.0)
 AC_SUBST(GDL_CFLAGS)
 AC_SUBST(GDL_LIBS)
 
+PKG_CHECK_MODULES(LIBXSLT, libxslt)
+AC_SUBST(LIBXSLT_CFLAGS)
+AC_SUBST(LIBXSLT_LIBS)
+
 dnl Check for Devhelp
 dnl -----------------
 PKG_CHECK_MODULES(PLUGIN_DEVHELP, libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED)
 AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
 AC_SUBST(PLUGIN_DEVHELP_LIBS)
+
+dnl Check for GTodo
+dnl -----------------
+dnl PKG_CHECK_MODULES(PLUGIN_GTODO, libgtodo-1.0 >= $LIBGTODO_REQUIRED)
+dnl AC_SUBST(PLUGIN_GTODO_CFLAGS)
+dnl AC_SUBST(PLUGIN_GTODO_LIBS)
+
+dnl Check for Gnome Build
+dnl ---------------------
+PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
+AC_SUBST(PLUGIN_GNOMEBUILD_CFLAGS)
+AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
 
 dnl ***************************************************************************
 dnl Check for old vte version
@@ -631,6 +651,7 @@ scripts/anjuta_import.sh
 launcher/Makefile
 plugins/Makefile
 plugins/sample1/Makefile
+plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
@@ -642,6 +663,7 @@ plugins/file-wizard/Makefile
 plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/profile-default/Makefile
+plugins/project-manager/Makefile
 template/Makefile
 anjuta.desktop.in
 manuals/Makefile
@@ -660,4 +682,5 @@ manuals/reference/libanjuta/Makefile
 manuals/reference/libanjuta/version.xml
 manuals/reference/template/Makefile
 manuals/reference/template/version.xml
+mime/Makefile
 ])

@@ -1,0 +1,3 @@
+application/x-anjuta
+	open=anjuta %f
+	view=anjuta %f

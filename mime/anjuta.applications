@@ -1,0 +1,7 @@
+anjuta
+	command=anjuta
+	name=Anjuta Integrated Development Environment
+	can_open_multiple_files=true
+	expects_uris=false
+	requires_terminal=false
+	mime_types=application/x-anjuta

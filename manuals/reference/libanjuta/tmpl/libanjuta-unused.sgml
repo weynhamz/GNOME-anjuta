@@ -457,6 +457,12 @@ GnomeFileList
 </para>
 
 
+<!-- ##### TYPEDEF PropsID ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### FUNCTION Read ##### -->
 <para>
 
@@ -907,4 +913,143 @@ GnomeFileList
 @editor: 
 @e: 
 @Returns: 
+
+<!-- ##### FUNCTION prop_clear ##### -->
+<para>
+
+</para>
+
+@p: 
+
+<!-- ##### FUNCTION prop_expand ##### -->
+<para>
+
+</para>
+
+@p: 
+@withvars: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_get ##### -->
+<para>
+
+</para>
+
+@p: 
+@key: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_get_expanded ##### -->
+<para>
+
+</para>
+
+@p: 
+@key: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_get_int ##### -->
+<para>
+
+</para>
+
+@p: 
+@key: 
+@defaultValue: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_get_new_expand ##### -->
+<para>
+
+</para>
+
+@p: 
+@keybase: 
+@filename: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_get_pointer ##### -->
+<para>
+
+</para>
+
+@p: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_get_wild ##### -->
+<para>
+
+</para>
+
+@p: 
+@keybase: 
+@filename: 
+@Returns: 
+
+<!-- ##### FUNCTION prop_read ##### -->
+<para>
+
+</para>
+
+@p: 
+@filename: 
+@directoryForImports: 
+
+<!-- ##### FUNCTION prop_read_from_memory ##### -->
+<para>
+
+</para>
+
+@p: 
+@data: 
+@len: 
+@directoryForImports: 
+
+<!-- ##### FUNCTION prop_set ##### -->
+<para>
+
+</para>
+
+@p: 
+@keyval: 
+
+<!-- ##### FUNCTION prop_set_destroy ##### -->
+<para>
+
+</para>
+
+@p: 
+
+<!-- ##### FUNCTION prop_set_int_with_key ##### -->
+<para>
+
+</para>
+
+@p: 
+@key: 
+@val: 
+
+<!-- ##### FUNCTION prop_set_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION prop_set_parent ##### -->
+<para>
+
+</para>
+
+@p1: 
+@p2: 
+
+<!-- ##### FUNCTION prop_set_with_key ##### -->
+<para>
+
+</para>
+
+@p: 
+@key: 
+@val: 
 

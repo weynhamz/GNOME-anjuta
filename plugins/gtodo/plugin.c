@@ -1,0 +1,193 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+    plugin.c
+    Copyright (C) 2000 Naba Kumar
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+#include <config.h>
+#include <libanjuta/anjuta-shell.h>
+#include <libanjuta/resources.h>
+#include <libanjuta/interfaces/ianjuta-todo.h>
+
+//#include <libgtodo/main.h>
+#include "main.h"
+#include "plugin.h"
+
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-gtodo.ui"
+#define ICON_FILE "anjuta-gtodo-plugin.png"
+
+gpointer parent_class;
+
+static void
+on_hide_completed_action_activate (GtkAction *action, GTodoPlugin *plugin)
+{
+	gboolean state;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+	gtodo_set_hide_done (state);
+}
+
+static void
+on_hide_due_date_action_activate (GtkAction *action, GTodoPlugin *plugin)
+{
+	gboolean state;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+	gtodo_set_hide_due (state);
+}
+
+static void
+on_hide_end_date_action_activate (GtkAction *action, GTodoPlugin *plugin)
+{
+	gboolean state;
+	state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+	gtodo_set_hide_nodate (state);
+}
+
+static GtkActionEntry actions_todo_view[] = {
+	{
+		"ActionMenuViewTodo",
+		NULL,
+		N_("_Todo manager"),
+		NULL, NULL, NULL,
+	},
+};
+
+static GtkToggleActionEntry actions_view[] = {
+	{
+		"ActionViewTodoHideCompleted",
+		NULL,
+		N_("Hide _Completed Items"),
+		NULL,
+		N_("Hide completed todo items"),
+		G_CALLBACK (on_hide_completed_action_activate),
+		FALSE
+	},
+	{
+		"ActionViewTodoHideDueDate",
+		NULL,
+		N_("Hide items that are past _due date"),
+		NULL,
+		N_("Hide items that are past due date"),
+		G_CALLBACK (on_hide_due_date_action_activate),
+		FALSE
+	},
+	{
+		"ActionViewTodoHideEndDate",
+		NULL,
+		N_("Hide items without an _end date"),
+		NULL,
+		N_("Hide items without an end date"),
+		G_CALLBACK (on_hide_end_date_action_activate),
+		FALSE
+	}
+};
+
+static gboolean
+activate_plugin (AnjutaPlugin *plugin)
+{
+	GtkWidget *wid;
+	AnjutaUI *ui;
+	AnjutaPreferences *prefs;
+	GTodoPlugin *gtodo_plugin;
+	GdkPixbuf *pixbuf;
+	
+	g_message ("GTodoPlugin: Activating Todo plugin ...");
+	gtodo_plugin = (GTodoPlugin*) plugin;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	gtodo_load_settings();
+	
+	wid = gui_create_todo_widget();
+	gtk_widget_show_all (wid);
+	gtodo_plugin->widget = wid;
+	
+	pixbuf = anjuta_res_get_pixbuf (ICON_FILE);
+	gtodo_plugin->prefs = preferences_widget();
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
+								 "Todo Manager", pixbuf, gtodo_plugin->prefs);
+
+	/* Add all our editor actions */
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupTodoView",
+										_("Todo view submenu"),
+										actions_todo_view,
+										G_N_ELEMENTS (actions_todo_view),
+										plugin);
+	anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
+										_("Todo view operations"),
+										actions_view,
+										G_N_ELEMENTS (actions_view),
+										plugin);
+	gtodo_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	anjuta_shell_add_widget (plugin->shell, wid,
+							 "AnjutaTodoPlugin", _("Todo Manager"),
+							 "gtodo", /* Icon stock */
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	return TRUE;
+}
+
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	g_message ("GTodoPlugin: Dectivating GTodo plugin ...");
+	anjuta_shell_remove_widget (plugin->shell, ((GTodoPlugin*)plugin)->widget,
+								NULL);
+	anjuta_ui_unmerge (ui, ((GTodoPlugin*)plugin)->uiid);
+	return TRUE;
+}
+
+static void
+dispose (GObject *obj)
+{
+	// SamplePlugin *plugin = (SamplePlugin*)obj;
+}
+
+static void
+gtodo_plugin_instance_init (GObject *obj)
+{
+	GTodoPlugin *plugin = (GTodoPlugin*)obj;
+	plugin->uiid = 0;
+}
+
+static void
+gtodo_plugin_class_init (GObjectClass *klass) 
+{
+	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
+
+	parent_class = g_type_class_peek_parent (klass);
+
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
+	klass->dispose = dispose;
+}
+
+static void
+itodo_load (IAnjutaTodo *profile, gchar *filename, GError **err)
+{
+}
+
+static void
+itodo_iface_init(IAnjutaTodoIface *iface)
+{
+	iface->load = itodo_load;
+}
+
+ANJUTA_PLUGIN_BEGIN (GTodoPlugin, gtodo_plugin);
+ANJUTA_INTERFACE (itodo, IANJUTA_TYPE_TODO);
+ANJUTA_PLUGIN_END;
+
+ANJUTA_SIMPLE_PLUGIN (GTodoPlugin, gtodo_plugin);

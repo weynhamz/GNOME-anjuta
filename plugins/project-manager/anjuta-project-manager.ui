@@ -1,0 +1,19 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+	<placeholder name="PlaceHolderProjectMenus">
+		<menu name="MenuProject" action="ActionMenuProject">
+				<menuitem name="AddGroup" action="ActionProjectAddGroup" />
+				<menuitem name="AddTarget" action="ActionProjectAddTarget" />
+				<menuitem name="AddSource" action="ActionProjectAddSource" />
+				<separator/>
+				<menuitem name="CloseProject" action="ActionProjectCloseProject" />
+		</menu>
+	</placeholder>
+	</menubar>
+	<popup name="PopupProjectManager">
+		<placeholder name="PlaceholderPopupProjectBuild"/>
+		<separator/>
+		<menuitem name="PopupProjectManagerRefresh" action="ActionPopupProjectManagerRefresh"/>
+	</popup>
+</ui>

@@ -81,6 +81,7 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 		"IAnjutaFileManager",
 		"IAnjutaTerminal",
 		"IAnjutaBuildable",
+		"IAnjutaTodo",
 		NULL
 	};
 	max_icons = 0;

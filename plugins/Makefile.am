@@ -1,5 +1,6 @@
 SUBDIRS = \
 	sample1 \
+	gtodo \
 	message-view \
 	editor \
 	devhelp \
@@ -8,5 +9,5 @@ SUBDIRS = \
 	build-basic-autotools \
 	file-loader \
 	profile-default \
-	file-wizard
-
+	file-wizard \
+	project-manager

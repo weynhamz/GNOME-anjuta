@@ -1,0 +1,9 @@
+[Anjuta Plugin]
+_Name=Project Manager Plugin
+_Description=Project Manager Plugin for Anjuta.
+Location=anjuta-project-manager:ProjectManagerPlugin
+Icon=anjuta-project-manager-plugin.png
+Interfaces=IAnjutaFile
+
+[File Loader]
+SupportedMimeTypes=application/x-anjuta

@@ -49,6 +49,8 @@ ESplash
 
 @splash: 
 @icon_pixbuf: 
+@title: 
+@desc: 
 @Returns: 
 <!-- # Unused Parameters # -->
 @icon: 

@@ -453,6 +453,11 @@ interface IAnjutaProjectManager
 	void configure();
 }
 
+interface IAnjutaTodo
+{
+	void load(gchar *filename);
+}
+
 interface IAnjutaWizard
 {
 	void activate();
