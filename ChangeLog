@@ -1,5 +1,17 @@
 2002-06-11  Naba Kumar <kh_naba@users.sourceforge.net>
 
+	* src/preferences.h, src/preferences.h, src/anjuta.c:
+	Removed the reference of MESSAGE_WINDOW_VISIBLE. They are
+	not required as per the discussions in the mailing list.
+	
+	* src/preferences_gui.c: Removed the "Misc",
+	"User" and "Components" preference tab and shifted the
+	preferences to other relevent pages.
+	
+	* src/debugger.c: Comment the debug flag.
+	
+2002-06-11  Naba Kumar <kh_naba@users.sourceforge.net>
+
 	* src/utilities.c (anjuta_util_escape_quotes): taken care
 	to escape '\' too. Fixed crash bug when term could not be
 	started. Corrected error message.

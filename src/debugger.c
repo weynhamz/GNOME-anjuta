@@ -41,7 +41,7 @@
 /* if you use it, please remember to comment   */
 /* it out again once the bug is fixed :-)      */
 
-#define ANJUTA_DEBUG_DEBUGGER
+/* #define ANJUTA_DEBUG_DEBUGGER */
 
 enum {
 	DEBUGGER_NONE,

@@ -1011,8 +1011,6 @@ gboolean preferences_save_yourself (Preferences * pr, FILE * fp)
 	fprintf (fp, "preferences.win.pos.x=%d\n", pr->win_pos_x);
 	fprintf (fp, "preferences.win.pos.y=%d\n", pr->win_pos_y);
 	fprintf (fp, "%s=%d\n", TEXT_ZOOM_FACTOR, preferences_get_int(pr, TEXT_ZOOM_FACTOR));
-	fprintf (fp, "%s=%d\n", MESSAGES_WINDOW_VISIBLE,
-	  anjuta_message_manager_is_shown(app->messages));
 
 	/* Identification */
 	str = preferences_get (pr, IDENT_NAME);
