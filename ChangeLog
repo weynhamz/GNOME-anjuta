@@ -1,5 +1,36 @@
 2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
 	
+	* src/anjuta.[ch], src/message-manager.[ch], 
+	src/text_editor_cbs.c, src/anjuta-tools.c:
+	
+	Patch from Yang Hong - yangh@users.sourceforge.net:
+	realtime func/macros/var/struct define exporer in
+	message windows.
+
+	I create a new tab in message windows. container a
+	common text_editor as same as which one in editor window.
+
+	locate related file:line with the current focused keywords.
+
+2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* src/: Patch from bursig@poczta.fm:
+	
+	- autocompletion exploration of struct/unions/classes
+	functionality after ./->/:: operator. (work for local
+	vars.)
+	- better symbol viewer.
+	- tags duplications fix. (all opened files first create
+	new tags and then load tags cache from file)
+	- small crach tmp fix in debug code (please put
+	breakpoint in anjuta creatTags() function and run)
+	- remove "anonumous" struct/union/class mebers and
+	replased by "%s_fake_%d" names. (better will be
+	randomes names ...)
+	- pointer dettection in tags system.
+	
+2004-10-20  Johannes Schmid <jhs@cvs.gnome.org>
+	
 	* src/, scintilla: Fix for IA64 from sbrabec@users.sourceforge.net
 	* Patch from sbrabec@users.sourceforge.net to fix bug #956649
 	* src/file.c: Patch from apatterno@users.sourceforge.net:
