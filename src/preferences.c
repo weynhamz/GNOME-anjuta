@@ -120,6 +120,17 @@ preferences_new ()
 		g_free (propdir);
 		g_free (propfile);
 
+		/* A quick hack to fix the 'invisible' browser toolbar */
+		str = prop_get(pr->props_session, "anjuta.version");
+		if (str) {
+			if (strcmp(str, VERSION) != 0)
+				remove("~/.gnome/Anjuta");
+			g_free (str);
+		} else {
+			remove("~/.gnome/Anjuta");
+		}
+		/* quick hack ends */
+		
 		preferences_set_build_options (pr);
 		pr->current_style = NULL;
 		pr->is_showing = FALSE;

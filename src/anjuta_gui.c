@@ -121,7 +121,7 @@ create_anjuta_gui (AnjutaApp * appl)
 					 &(appl->widgets.toolbar.
 					   debug_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar3),
-			       ANJUTA_EXTENDED_TOOLBAR,
+			       ANJUTA_DEBUG_TOOLBAR,
 			       GNOME_DOCK_ITEM_BEH_NORMAL,
 			       GNOME_DOCK_TOP, 3, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar3), 5);
@@ -134,7 +134,7 @@ create_anjuta_gui (AnjutaApp * appl)
 		create_format_toolbar (anjuta_gui,
 				      &(appl->widgets.toolbar.format_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar4),
-			       ANJUTA_DEBUG_TOOLBAR,
+			       ANJUTA_FORMAT_TOOLBAR,
 			       GNOME_DOCK_ITEM_BEH_NORMAL,
 			       GNOME_DOCK_TOP, 3, 1, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar4), 5);
@@ -148,7 +148,7 @@ create_anjuta_gui (AnjutaApp * appl)
 				       &(appl->widgets.toolbar.
 					 extended_toolbar));
 	gnome_app_add_toolbar (GNOME_APP (anjuta_gui), GTK_TOOLBAR (toolbar5),
-			       ANJUTA_FORMAT_TOOLBAR,
+			       ANJUTA_EXTENDED_TOOLBAR,
 			       GNOME_DOCK_ITEM_BEH_NORMAL,
 			       GNOME_DOCK_TOP, 4, 0, 0);
 	gtk_toolbar_set_space_size (GTK_TOOLBAR (toolbar5), 5);

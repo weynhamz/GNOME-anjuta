@@ -1,3 +1,13 @@
+2002-01-31  Naba Kumar <kh_naba@users.sourceforge.net>
+
+	* src/preferences.c:
+	  A quick hack to fix the 'invisible' browser toolbar when
+	  upgrading from 0.1.8 to 0.1.9
+	  
+	* src/anjuta.c:
+	  Fixed toolbar names which were causing confusions in the toolbar
+	  show/hide.
+	  
 2002-01-30  Andy Piper <andy.piper@freeuk.com>
 
 	* src/appwizard_cbs.c, project_import_cbs.c, 
