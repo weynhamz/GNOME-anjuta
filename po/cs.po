@@ -1,5 +1,6 @@
 # Czech translation of anjuta.
-# Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2003, 2004 THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2004 Miloslav Trmac <mitr@volny.cz>
 # This file is distributed under the same license as the anjuta package.
 # Miloslav Trmac <mitr@volny.cz>, 2003.
 #
@@ -7,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-28 14:05+0100\n"
-"PO-Revision-Date: 2003-11-28 18:08+0100\n"
+"POT-Creation-Date: 2004-01-03 19:01+0100\n"
+"PO-Revision-Date: 2004-01-03 23:22+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -346,38 +347,38 @@ msgid "Configure Parameters"
 msgstr "Parametry configure"
 
 #: anjuta.glade.h:80
-msgid "Costom style"
-msgstr "Vlastní styl"
-
-#: anjuta.glade.h:81
 msgid "Crazy boy style"
 msgstr "Styl šílený kluk"
 
-#: anjuta.glade.h:82
+#: anjuta.glade.h:81
 msgid "Custom style"
 msgstr "Vlastní styl"
 
-#: anjuta.glade.h:83
+#: anjuta.glade.h:82
 msgid "Customize File Browser"
 msgstr "Upravit prohlížeč souborů"
 
-#: anjuta.glade.h:84
+#: anjuta.glade.h:83
 msgid "Customize what is to be shown in the file tree"
 msgstr "Upravit, co se má zobrazovat ve stromu souborů"
 
-#: anjuta.glade.h:85
+#: anjuta.glade.h:84
 msgid "Data module Makefile.am"
 msgstr "Makefile.am modulu dat"
 
 #. 13
-#: anjuta.glade.h:86 src/message-manager.cc:49 src/text_editor_menu.c:319
+#: anjuta.glade.h:85 src/message-manager.cc:49 src/text_editor_menu.c:319
 #: src/toolbar.c:306
 msgid "Debug"
 msgstr "Ladění"
 
-#: anjuta.glade.h:87
+#: anjuta.glade.h:86
 msgid "Debugging and Profiling"
 msgstr "Ladění a profilování"
+
+#: anjuta.glade.h:87
+msgid "Default"
+msgstr "Implicitní"
 
 #: anjuta.glade.h:88
 msgid "Defines"
@@ -420,106 +421,118 @@ msgid "Disable syntax highlighting"
 msgstr "Zakázat zvýrazňování syntaxe"
 
 #: anjuta.glade.h:98
+msgid "Display process _tree"
+msgstr "Zobrazit _strom procesů"
+
+#: anjuta.glade.h:99
 msgid "Do not show hidden directories"
 msgstr "Nezobrazovat skryté adresáře"
 
-#: anjuta.glade.h:99
+#: anjuta.glade.h:100
 msgid "Do not show hidden files"
 msgstr "Nezobrazovat skryté soubory"
 
-#: anjuta.glade.h:100
+#: anjuta.glade.h:101
 msgid "Do not show start with dialog again."
 msgstr "Příště dialog Začít s nezobrazovat."
 
-#: anjuta.glade.h:101
+#: anjuta.glade.h:102
 msgid "Do not show tabs"
 msgstr "Nezobrazovat záložky"
 
-#: anjuta.glade.h:102
+#: anjuta.glade.h:103
 msgid "Document module Makefile.am"
 msgstr "Makefile.am modulu dokumentů"
 
-#: anjuta.glade.h:103
+#: anjuta.glade.h:104
 msgid "Draw line below folded lines"
 msgstr "Kreslit čáru pod složenými řádky"
 
-#: anjuta.glade.h:104
+#: anjuta.glade.h:105
 msgid "Edit"
 msgstr "Úpravy"
 
-#: anjuta.glade.h:105
+#: anjuta.glade.h:106
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Šířka kurzoru editoru v pixelech"
 
-#: anjuta.glade.h:106
+#: anjuta.glade.h:107
 msgid "Editor tabs"
 msgstr "Záložky editoru"
 
-#: anjuta.glade.h:107
+#: anjuta.glade.h:108
 msgid "Enable Debugging"
 msgstr "Povolit ladění"
 
-#: anjuta.glade.h:108
+#: anjuta.glade.h:109
 msgid "Enable HTML tags folding"
 msgstr "Povolit skládání tagů HTML"
 
-#: anjuta.glade.h:109
+#: anjuta.glade.h:110
 msgid "Enable Profiling"
 msgstr "Povolit profilování"
 
-#: anjuta.glade.h:110
+#: anjuta.glade.h:111
 msgid "Enable _all"
 msgstr "Povolit _vše"
 
-#: anjuta.glade.h:111
+#: anjuta.glade.h:112
 msgid "Enable automatic indentation"
 msgstr "Povolit automatické odsazování"
 
-#: anjuta.glade.h:112
+#: anjuta.glade.h:113
 msgid "Enable automatic messages indicators"
 msgstr "Povolit automatické indikátory zpráv"
 
-#: anjuta.glade.h:113
+#: anjuta.glade.h:114
 msgid "Enable braces check"
 msgstr "Povolit kontrolu složených závorek"
 
-#: anjuta.glade.h:114
+#: anjuta.glade.h:115
 msgid "Enable code folding"
 msgstr "Povolit skládání kódu"
 
-#: anjuta.glade.h:115
+#: anjuta.glade.h:116
 msgid "Enable comments folding"
 msgstr "Povolit skládání komentářů"
 
-#: anjuta.glade.h:116
+#: anjuta.glade.h:117
 msgid "Enable files autosave"
 msgstr "Povolit automatické ukládání souborů"
 
-#: anjuta.glade.h:117
+#: anjuta.glade.h:118
 msgid "Enable line wrap"
 msgstr "Povolit lámání řádek"
 
-#: anjuta.glade.h:118
+#: anjuta.glade.h:119
 msgid "Enable python comments folding"
 msgstr "Povolit skládání komentářů pythonu"
 
-#: anjuta.glade.h:119
+#: anjuta.glade.h:120
 msgid "Enable python quoted strings folding"
 msgstr "Povolit skládání quoted řetězců pythonu"
 
-#: anjuta.glade.h:120 src/breakpoints.c:111
+#: anjuta.glade.h:121 src/breakpoints.c:111
 msgid "Enabled"
 msgstr "Povoleno"
 
-#: anjuta.glade.h:121
+#: anjuta.glade.h:122
 msgid "Encoding to use when saving files"
 msgstr "Kódování, které používat při ukládání souborů"
 
-#: anjuta.glade.h:122
+#: anjuta.glade.h:123
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
 
-#: anjuta.glade.h:123
+#: anjuta.glade.h:124
+msgid ""
+"Enter the File name.\n"
+"The extension will be added according to the type."
+msgstr ""
+"Zadejte název souboru.\n"
+"Přípona bude přidána podle typu."
+
+#: anjuta.glade.h:126
 msgid ""
 "Enter the command line arguments for the 'indent' program. Read the info "
 "page for 'indent' for more details"
@@ -527,104 +540,116 @@ msgstr ""
 "Zadejte argumenty na příkazovém řádku pro program 'indent'. Pro více "
 "informací si přečtěte stranu info o 'indent'"
 
-#: anjuta.glade.h:124
+#: anjuta.glade.h:127
 msgid "Error message indicator style:"
 msgstr "Styl indikátoru chybové zprávy:"
 
-#: anjuta.glade.h:125
+#: anjuta.glade.h:128
 msgid "Errors messages:"
 msgstr "Chybové zprávy:"
 
-#: anjuta.glade.h:126
+#: anjuta.glade.h:129
 msgid "Execute Program"
 msgstr "Spustit program"
 
-#: anjuta.glade.h:127
+#: anjuta.glade.h:130
 msgid "Expand regex back references"
 msgstr "Rozvinout odkazy zpět na regex"
 
-#: anjuta.glade.h:128 src/an_file_view.c:671 src/breakpoints.c:111
+#: anjuta.glade.h:131 src/an_file_view.c:671 src/breakpoints.c:111
 msgid "File"
 msgstr "Soubor"
 
-#: anjuta.glade.h:129
+#: anjuta.glade.h:132
 msgid "File Filter"
 msgstr "Filtr souborů"
 
-#: anjuta.glade.h:130
+#: anjuta.glade.h:133
 msgid "File filter"
 msgstr "Filtr souborů"
 
-#: anjuta.glade.h:131
+#: anjuta.glade.h:134
 msgid "File level"
 msgstr "Úroveň souboru"
 
-#: anjuta.glade.h:132
+#: anjuta.glade.h:135
+msgid "File name:"
+msgstr "Název souboru:"
+
+#: anjuta.glade.h:136
+msgid "File type:"
+msgstr "Typ souboru:"
+
+#: anjuta.glade.h:137
 msgid "File/Directory to add:"
 msgstr "Soubor/adresář, který přidat:"
 
-#: anjuta.glade.h:133
+#: anjuta.glade.h:138
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtrovat přebytečné znaky v režimu DOS"
 
-#: anjuta.glade.h:134
+#: anjuta.glade.h:139
 msgid "Find & Replace"
 msgstr "Hledat & nahradit"
 
-#: anjuta.glade.h:135
+#: anjuta.glade.h:140
 msgid "Find and replace"
 msgstr "Hledat a nahradit"
 
-#: anjuta.glade.h:136 src/find_in_files.c:316
+#: anjuta.glade.h:141 src/find_in_files.c:316
 msgid "Find in Files"
 msgstr "Hledat v souborech"
 
-#: anjuta.glade.h:137
+#: anjuta.glade.h:142
 msgid "Fold style:"
 msgstr "Styl skládání:"
 
-#: anjuta.glade.h:138
+#: anjuta.glade.h:143
 msgid "Font:"
 msgstr "Písmo:"
 
-#: anjuta.glade.h:139
+#: anjuta.glade.h:144
 msgid "Fore color:"
 msgstr "Barva popředí:"
 
-#: anjuta.glade.h:140
+#: anjuta.glade.h:145
 msgid "Format"
 msgstr "Formát"
 
-#: anjuta.glade.h:141 src/toolbar.c:856
+#: anjuta.glade.h:146 src/toolbar.c:856
 msgid "Format style"
 msgstr "Styl formátování"
 
-#: anjuta.glade.h:142
+#: anjuta.glade.h:147
 msgid "Forwards"
 msgstr "Dopředu"
 
-#: anjuta.glade.h:143
+#: anjuta.glade.h:148
 msgid "From cursor"
 msgstr "Od kurzoru"
 
-#: anjuta.glade.h:144 src/an_symbol_view.c:54
+#: anjuta.glade.h:149 src/an_symbol_view.c:54
 msgid "Functions"
 msgstr "Funkce"
 
-#: anjuta.glade.h:145
+#: anjuta.glade.h:150
 msgid "GNU coding style"
 msgstr "Styl kódování GNU"
 
-#: anjuta.glade.h:146
+#: anjuta.glade.h:151
+msgid "GPL Notice"
+msgstr "Upozornění GPL"
+
+#: anjuta.glade.h:152
 msgid "GUI editor command:"
 msgstr "Příkaz editoru GUI:"
 
 #. 3
-#: anjuta.glade.h:147 src/main_menubar_def.h:386
+#: anjuta.glade.h:153 src/main_menubar_def.h:386
 msgid "General"
 msgstr "Obecné"
 
-#: anjuta.glade.h:148
+#: anjuta.glade.h:154
 msgid ""
 "Give a space separated list of directories to be built after source module. "
 "This will be set in configure and Makefiles will be generated for them. They "
@@ -634,7 +659,7 @@ msgstr ""
 "zdrojovém modulu. Bude nastaven v configure.in a budou pro ně vygenerovány "
 "Makefile. Budou při \"make\" sestaveny po adresáři zdrojů (src/)."
 
-#: anjuta.glade.h:149
+#: anjuta.glade.h:155
 msgid ""
 "Give a space separated list of directories to be built before source module. "
 "This will be set in configure.in and Makefiles will be generated for them. "
@@ -644,91 +669,105 @@ msgstr ""
 "zdrojovým modulem. Bude nastaven v configure.in a budou pro ně vygenerovány "
 "Makefile. Budou při \"make\" sestaveny před adresářem zdrojů (src/)."
 
-#: anjuta.glade.h:150
+#: anjuta.glade.h:156
 msgid "Gnome API"
 msgstr "Gnome API"
 
-#: anjuta.glade.h:151
+#: anjuta.glade.h:157
 msgid "Greedy matching"
 msgstr "Hladové hledání"
 
-#: anjuta.glade.h:152
+#: anjuta.glade.h:158
 msgid "HTML _viewer:"
 msgstr "_Prohlížeč HTML:"
 
-#: anjuta.glade.h:153
+#. 0
+#: anjuta.glade.h:159 src/main_menubar_def.h:368
+msgid "Header"
+msgstr "Hlavička"
+
+#. 5
+#: anjuta.glade.h:160 src/main_menubar_def.h:269
+msgid "Header File Template"
+msgstr "Šablona hlavičkového souboru"
+
+#: anjuta.glade.h:161
 msgid "Headers"
 msgstr "Hlavičky"
 
-#: anjuta.glade.h:154
+#: anjuta.glade.h:162
 msgid "Hello World style"
 msgstr "Styl Ahoj světe"
 
-#: anjuta.glade.h:155
+#: anjuta.glade.h:163
 msgid "Help module Makefile.am"
 msgstr "Makefile.am modulu nápovědy"
 
-#: anjuta.glade.h:156
+#: anjuta.glade.h:164
+msgid "Hide process para_meters"
+msgstr "Skrýt _parametry procesu"
+
+#: anjuta.glade.h:165
 msgid "High-Level Optimization (Functions inlined wherever possible)"
 msgstr "Vysoká úroveň optimalizace (Funkce inline, kdykoli je to možné)"
 
-#: anjuta.glade.h:157
+#: anjuta.glade.h:166
 msgid "Highlight style"
 msgstr "Styl zvýraznění"
 
-#: anjuta.glade.h:158
+#: anjuta.glade.h:167
 msgid "History sizes"
 msgstr "Velikosti historií"
 
-#: anjuta.glade.h:159
+#: anjuta.glade.h:168
 msgid "Ignore Binary Files"
 msgstr "Ignorovat binární soubory"
 
-#: anjuta.glade.h:160
+#: anjuta.glade.h:169
 msgid "Ignore CVS directory"
 msgstr "Ignorovat adresář CVS"
 
-#: anjuta.glade.h:161
+#: anjuta.glade.h:170
 msgid "Ignore Directories:"
 msgstr "Ignorovat adresáře:"
 
-#: anjuta.glade.h:162
+#: anjuta.glade.h:171
 msgid "Ignore Files:"
 msgstr "Ignorovat soubory:"
 
-#: anjuta.glade.h:163
+#: anjuta.glade.h:172
 msgid "Ignore Hidden Directories"
 msgstr "Ignorovat skryté adresáře"
 
-#: anjuta.glade.h:164
+#: anjuta.glade.h:173
 msgid "Ignore Hidden Files"
 msgstr "Ignorovat skryté soubory"
 
-#: anjuta.glade.h:165
+#: anjuta.glade.h:174
 msgid "Ignore binary files"
 msgstr "Ignorovat binární soubory"
 
-#: anjuta.glade.h:166
+#: anjuta.glade.h:175
 msgid "Ignore case"
 msgstr "Ignorovat velikost písmen"
 
-#: anjuta.glade.h:167
+#: anjuta.glade.h:176
 msgid "Ignore directories"
 msgstr "Ignorované adresáře"
 
-#: anjuta.glade.h:168
+#: anjuta.glade.h:177
 msgid "Ignore files"
 msgstr "Ignorované soubory"
 
-#: anjuta.glade.h:169
+#: anjuta.glade.h:178
 msgid "Ignore files and directories"
 msgstr "Ignorovat soubory a adresáře"
 
-#: anjuta.glade.h:170
+#: anjuta.glade.h:179
 msgid "Import Wizard"
 msgstr "Kouzelník importu"
 
-#: anjuta.glade.h:171
+#: anjuta.glade.h:180
 msgid ""
 "Import existing project. The Import Wizard will guide you to import an "
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
@@ -738,193 +777,197 @@ msgstr ""
 "existujícího projektu do Anjuty a jeho konverzí do projektu Anjuty. V "
 "projektu nedojde k žádné ztrátě dat nebo změnám."
 
-#: anjuta.glade.h:172
+#: anjuta.glade.h:181
 msgid "Include Paths"
 msgstr "Cesty include"
 
-#: anjuta.glade.h:173
+#: anjuta.glade.h:182
 msgid "Include module Makefile.am"
 msgstr "Makefile.am modulu include"
 
-#: anjuta.glade.h:174
+#: anjuta.glade.h:183
 msgid "Indent closing braces"
 msgstr "Odsazovat uzavírací složené závorky"
 
-#: anjuta.glade.h:175
+#: anjuta.glade.h:184
 msgid "Indent opening braces"
 msgstr "Odsazovat otevírací složené závorky"
 
-#: anjuta.glade.h:176
+#: anjuta.glade.h:185
 msgid "Indentation and auto-format options"
 msgstr "Možnosti odsazení a automatického formátování"
 
-#: anjuta.glade.h:177
+#: anjuta.glade.h:186
 msgid "Indentation size in spaces:"
 msgstr "Velikost odsazení v mezerách:"
 
-#: anjuta.glade.h:178
+#: anjuta.glade.h:187
 msgid "Indicators"
 msgstr "Indikátory"
 
-#: anjuta.glade.h:179
+#: anjuta.glade.h:188
 msgid "Info Pages"
 msgstr "Stránky info"
 
-#: anjuta.glade.h:180
+#: anjuta.glade.h:189
 msgid "Input string:"
 msgstr "Řetězec na vstupu:"
 
-#: anjuta.glade.h:181 src/text_editor_menu.c:174 src/toolbar.c:599
+#: anjuta.glade.h:190 src/text_editor_menu.c:174 src/toolbar.c:599
 msgid "Inspect"
 msgstr "Zkoumat"
 
-#: anjuta.glade.h:182
+#: anjuta.glade.h:191
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: anjuta.glade.h:183
+#: anjuta.glade.h:192
 msgid "Keep going when some targets can not be made"
 msgstr "Pokračovat, když nemohou být provedeny některé cíle"
 
-#: anjuta.glade.h:184
+#: anjuta.glade.h:193
 msgid "Kernighan and Ritchie style"
 msgstr "Styl Kernighan a Ritchie"
 
-#: anjuta.glade.h:185
+#: anjuta.glade.h:194
 msgid "Language-specific commands:"
 msgstr "Příkazy specifické pro jazyk:"
 
-#: anjuta.glade.h:186
+#: anjuta.glade.h:195
 msgid "Left"
 msgstr "Vlevo"
 
-#: anjuta.glade.h:187
+#: anjuta.glade.h:196
 msgid "Libraries"
 msgstr "Knihovny"
 
-#: anjuta.glade.h:188
+#: anjuta.glade.h:197
 msgid "Library Paths"
 msgstr "Cesty knihoven"
 
-#: anjuta.glade.h:189
+#: anjuta.glade.h:198
 msgid "Line numbers margin width in pixels"
 msgstr "Šířka okraje s čísly řádek v pixelech"
 
-#: anjuta.glade.h:190 printing/print.c:1011 src/anjuta_info.c:126
+#: anjuta.glade.h:199 printing/print.c:1011 src/anjuta_info.c:126
 msgid "Lines"
 msgstr "Řádek"
 
-#: anjuta.glade.h:191
+#: anjuta.glade.h:200
 msgid "Linker Flags (LDFLAGS):"
 msgstr "Přepínače linkeru (LDFLAGS):"
 
-#: anjuta.glade.h:192
+#: anjuta.glade.h:201
 msgid "Load _global defaults"
 msgstr "Načíst _globální implicitní hodnoty"
 
-#: anjuta.glade.h:193
+#: anjuta.glade.h:202
 msgid "Load _user defaults"
 msgstr "Načíst implicitní hodnoty _uživatele"
 
-#: anjuta.glade.h:194
+#: anjuta.glade.h:203
 msgid "Low-Level Optimization (Machine dependent optimization)"
 msgstr "Nízká úroveň optimalizace (Závislá na stroji)"
 
-#: anjuta.glade.h:195
+#: anjuta.glade.h:204
 msgid "Makefile.am"
 msgstr "Makefile.am"
 
-#: anjuta.glade.h:196
+#: anjuta.glade.h:205
 msgid "Man pages"
 msgstr "Stránky man"
 
-#: anjuta.glade.h:197
+#: anjuta.glade.h:206
 msgid "Match at start of word"
 msgstr "Hledat na začátku slova"
 
-#: anjuta.glade.h:198
+#: anjuta.glade.h:207
 msgid "Match complete lines"
 msgstr "Hledat celé řádky"
 
-#: anjuta.glade.h:199
+#: anjuta.glade.h:208
 msgid "Match complete words"
 msgstr "Hledat celá slova"
 
-#: anjuta.glade.h:200
+#: anjuta.glade.h:209
 msgid "Max. Actions"
 msgstr "Max. akcí"
 
-#: anjuta.glade.h:201
+#: anjuta.glade.h:210
 msgid "Maximum number of independent jobs (0 == no limit)"
 msgstr "Maximální počet nezávislých úloh (0 == bez limitu)"
 
-#: anjuta.glade.h:202
+#: anjuta.glade.h:211
 msgid "Medium-Level Optimization (Without space-speed trade-off)"
 msgstr ""
 "Střední úroveň optimalizace (Bez rozhodování mezi velikostí a rychlostí)"
 
-#: anjuta.glade.h:203
+#: anjuta.glade.h:212
 msgid "Memory"
 msgstr "Paměť"
 
-#: anjuta.glade.h:204
+#: anjuta.glade.h:213
 msgid "Menu icon:"
 msgstr "Ikona menu:"
 
-#: anjuta.glade.h:205
+#: anjuta.glade.h:214
 msgid "Menu location:"
 msgstr "Umístění v menu:"
 
-#: anjuta.glade.h:206
+#: anjuta.glade.h:215
 msgid "Message colors"
 msgstr "Barvy zpráv"
 
-#: anjuta.glade.h:207
+#: anjuta.glade.h:216
 msgid "Messages options"
 msgstr "Možnosti zpráv"
 
-#: anjuta.glade.h:208
+#: anjuta.glade.h:217
 msgid "Misc options"
 msgstr "Různé možnosti"
 
-#: anjuta.glade.h:209
+#: anjuta.glade.h:218
 msgid "Mode:"
 msgstr "Režim:"
 
-#: anjuta.glade.h:210
+#: anjuta.glade.h:219
 msgid "Modules"
 msgstr "Moduly"
 
-#: anjuta.glade.h:211
+#: anjuta.glade.h:220
 msgid "Monochrome"
 msgstr "Monochromatický"
 
-#: anjuta.glade.h:212
+#: anjuta.glade.h:221
 msgid "Name:"
 msgstr "Název:"
 
-#: anjuta.glade.h:213 src/main_menubar_def.h:30 src/text_editor_gui.c:97
+#: anjuta.glade.h:222
+msgid "New File"
+msgstr "Nový soubor"
+
+#: anjuta.glade.h:223 src/main_menubar_def.h:30 src/text_editor_gui.c:97
 #: src/toolbar.c:76
 msgid "New file"
 msgstr "Nový soubor"
 
-#: anjuta.glade.h:214
+#: anjuta.glade.h:224
 msgid "No Limit"
 msgstr "Bez limitu"
 
-#: anjuta.glade.h:215
+#: anjuta.glade.h:225
 msgid "No Optimization"
 msgstr "Žádná optimalizace"
 
-#: anjuta.glade.h:216
+#: anjuta.glade.h:226
 msgid "Normal message indicator style:"
 msgstr "Styl indikátoru normální zprávy:"
 
-#: anjuta.glade.h:217
+#: anjuta.glade.h:227
 msgid "Normal messages:"
 msgstr "Normální zprávy:"
 
-#: anjuta.glade.h:218
+#: anjuta.glade.h:228
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -934,348 +977,348 @@ msgstr ""
 "projektu a budou načítána a ukládána s projektem. Není-li otevřený projekt, "
 "jsou to globální nastavení."
 
-#: anjuta.glade.h:219
+#: anjuta.glade.h:229
 msgid "Number of first characters to show:"
 msgstr "Počet prvních znaků, které zobrazit:"
 
-#: anjuta.glade.h:220
+#: anjuta.glade.h:230
 msgid "Number of last characters to show:"
 msgstr "Počet posledních znaků, které zobrazit:"
 
 #. Must declare static, because it will be used forever
-#: anjuta.glade.h:221 src/project_dbase.c:197 src/toolbar.c:213
+#: anjuta.glade.h:231 src/project_dbase.c:197 src/toolbar.c:213
 msgid "Open Project"
 msgstr "Otevřít projekt"
 
-#: anjuta.glade.h:222
+#: anjuta.glade.h:232
 msgid "Open existing Project."
 msgstr "Otevřít existující projekt"
 
-#: anjuta.glade.h:223
+#: anjuta.glade.h:233
 msgid "Open existing file or create a new file."
 msgstr "Otevřít existující nebo vytvořit nový soubor."
 
-#: anjuta.glade.h:224 src/main_menubar_def.h:36 src/text_editor_gui.c:101
+#: anjuta.glade.h:234 src/main_menubar_def.h:36 src/text_editor_gui.c:101
 #: src/toolbar.c:80
 msgid "Open file"
 msgstr "Otevřít soubor"
 
-#: anjuta.glade.h:225
+#: anjuta.glade.h:235
 msgid "Open last working Project"
 msgstr "Otevřít poslední použitý projekt"
 
-#: anjuta.glade.h:226
+#: anjuta.glade.h:236
 msgid "Optimization"
 msgstr "Optimalizace"
 
 #. 15
-#: anjuta.glade.h:227 src/text_editor_menu.c:329
+#: anjuta.glade.h:237 src/text_editor_menu.c:329
 msgid "Options"
 msgstr "Možnosti"
 
-#: anjuta.glade.h:228
+#: anjuta.glade.h:238
 msgid "Original Berkeley style"
 msgstr "Původní styl Berkeley"
 
-#: anjuta.glade.h:229
+#: anjuta.glade.h:239
 msgid "Other colors"
 msgstr "Jiné barvy"
 
-#: anjuta.glade.h:230
+#: anjuta.glade.h:240
 msgid "Other messages:"
 msgstr "Jiné zprávy:"
 
-#: anjuta.glade.h:231 src/an_symbol_view.c:54
+#: anjuta.glade.h:241 src/an_symbol_view.c:54
 msgid "Others"
 msgstr "Jení"
 
-#: anjuta.glade.h:232
+#: anjuta.glade.h:242
 msgid "Output files"
 msgstr "Výstupní soubory"
 
-#: anjuta.glade.h:233
+#: anjuta.glade.h:243
 msgid "Pick a color"
 msgstr "Zvolte barvu"
 
-#: anjuta.glade.h:234
+#: anjuta.glade.h:244
 msgid "Pixmap module Makefile.am"
 msgstr "Makefile.am modulu pixmap"
 
-#: anjuta.glade.h:235
+#: anjuta.glade.h:245
 msgid "Plus/Minus"
 msgstr "Plus/Mínus"
 
-#: anjuta.glade.h:236
+#: anjuta.glade.h:246
 msgid "Po module (translation) Makefile.am"
 msgstr "Makefile.am modulu po (překladů)"
 
-#: anjuta.glade.h:237
+#: anjuta.glade.h:247
 msgid "Position:"
 msgstr "Pozice:"
 
-#: anjuta.glade.h:238
+#: anjuta.glade.h:248
 msgid "Press this button to dismiss the dialog"
 msgstr "Stisknutím tohoto tlačítka zavřete dialog"
 
-#: anjuta.glade.h:239
+#: anjuta.glade.h:249
 msgid "Pressing backspace un-indents"
 msgstr "Stisk backspace ruší odsazení"
 
-#: anjuta.glade.h:240
+#: anjuta.glade.h:250
 msgid "Pressing tab indents"
 msgstr "Stisk tab odsazuje"
 
-#: anjuta.glade.h:241
+#: anjuta.glade.h:251
 msgid "Print options"
 msgstr "Možnosti tisku"
 
-#: anjuta.glade.h:242
+#: anjuta.glade.h:252
 msgid "Programs"
 msgstr "Programy"
 
-#: anjuta.glade.h:243 src/project_dbase_gui.c:610 src/project_dbase_gui.c:627
+#: anjuta.glade.h:253 src/project_dbase_gui.c:609 src/project_dbase_gui.c:626
 #: src/toolbar.c:150
 msgid "Project"
 msgstr "Projekt"
 
-#: anjuta.glade.h:244
+#: anjuta.glade.h:254
 msgid "Project Configuration"
 msgstr "Konfigurace projektu"
 
-#: anjuta.glade.h:245 src/wizard_gui.c:469
+#: anjuta.glade.h:255 src/wizard_gui.c:469
 msgid "Project Description"
 msgstr "Popis projektu"
 
-#: anjuta.glade.h:246
+#: anjuta.glade.h:256
 msgid "Project Version"
 msgstr "Verze projektu"
 
-#: anjuta.glade.h:247
+#: anjuta.glade.h:257
 msgid "Project configure.in"
 msgstr "configure.in projektu"
 
-#: anjuta.glade.h:248
+#: anjuta.glade.h:258
 msgid "Project level"
 msgstr "Úroveň projektu"
 
-#: anjuta.glade.h:249
+#: anjuta.glade.h:259
 msgid "Projects:"
 msgstr "Projekty:"
 
-#: anjuta.glade.h:250
+#: anjuta.glade.h:260
 msgid "Prompt before replace"
 msgstr "Zeptat se před nahrazením"
 
-#: anjuta.glade.h:251
+#: anjuta.glade.h:261
 msgid "Recent Files:"
 msgstr "Nedávné soubory:"
 
-#: anjuta.glade.h:252
+#: anjuta.glade.h:262
 msgid "Recent Projects:"
 msgstr "Nedávné projekty:"
 
-#: anjuta.glade.h:253
+#: anjuta.glade.h:263
 msgid "Regexp"
 msgstr "Regexp"
 
-#: anjuta.glade.h:254
+#: anjuta.glade.h:264
 msgid "Regexp/String to find"
 msgstr "Regexp/řetězec, který hledat"
 
-#: anjuta.glade.h:255
+#: anjuta.glade.h:265
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: anjuta.glade.h:256
+#: anjuta.glade.h:266
 msgid "Reload Session Defaults"
 msgstr "Znovu načíst implicitní nastavení sezení"
 
-#: anjuta.glade.h:257
+#: anjuta.glade.h:267
 msgid "Reload System Defaults"
 msgstr "Znovu načíst implicitní nastavení systému"
 
-#: anjuta.glade.h:258
+#: anjuta.glade.h:268
 msgid "Replace Expression"
 msgstr "Nahradit výrazem"
 
-#: anjuta.glade.h:259
+#: anjuta.glade.h:269
 msgid "Replace With:"
 msgstr "Nahradit s:"
 
-#: anjuta.glade.h:260
+#: anjuta.glade.h:270
 msgid "Reset all sticky tags during update (looses branch) [-A]"
 msgstr "Vynulovat při update všechny přilepené značky (ztratí větev) [-A]"
 
-#: anjuta.glade.h:261
+#: anjuta.glade.h:271
 msgid "Right"
 msgstr "Vpravo"
 
-#: anjuta.glade.h:262
+#: anjuta.glade.h:272
 msgid "Run Configure Script"
 msgstr "Spustit skript configure"
 
-#: anjuta.glade.h:263
+#: anjuta.glade.h:273
 msgid "Run detached"
 msgstr "Spustit odpojený"
 
-#: anjuta.glade.h:264
+#: anjuta.glade.h:274
 msgid "Run in Terminal"
 msgstr "Spustit v terminálu"
 
-#: anjuta.glade.h:265
+#: anjuta.glade.h:275
 msgid "Run in terminal"
 msgstr "Spustit v terminálu"
 
-#: anjuta.glade.h:266
+#: anjuta.glade.h:276
 msgid "Save all files"
 msgstr "Uložit všechny soubory"
 
-#: anjuta.glade.h:267
+#: anjuta.glade.h:277
 msgid "Save files interval in minutes"
 msgstr "Interval ukládání souborů v minutách"
 
-#: anjuta.glade.h:268
+#: anjuta.glade.h:278
 msgid "Save session interval in minutes"
 msgstr "Interval ukládání sezení v minutách"
 
-#: anjuta.glade.h:269
+#: anjuta.glade.h:279
 msgid "Scope"
 msgstr "Rozsah"
 
-#: anjuta.glade.h:270
+#: anjuta.glade.h:280
 msgid "Scripts at the end of top level Makefile.am"
 msgstr "Skripty na konci Makefile.am nejvyšší úrovně"
 
-#: anjuta.glade.h:271 src/search-replace.c:1362 src/search-replace.c:1528
+#: anjuta.glade.h:281 src/search-replace.c:1362 src/search-replace.c:1528
 #: src/search-replace.c:1534
 msgid "Search"
 msgstr "Hledat"
 
-#: anjuta.glade.h:272
+#: anjuta.glade.h:282
 msgid "Search Action:"
 msgstr "Akce hledání:"
 
-#: anjuta.glade.h:273
+#: anjuta.glade.h:283
 msgid "Search Direction:"
 msgstr "Směr hledání:"
 
-#: anjuta.glade.h:274
+#: anjuta.glade.h:284
 msgid "Search Expression"
 msgstr "Výraz hledání"
 
-#: anjuta.glade.h:275
+#: anjuta.glade.h:285
 msgid "Search Expression:"
 msgstr "Hledaný výraz:"
 
-#: anjuta.glade.h:276
+#: anjuta.glade.h:286
 msgid "Search In:"
 msgstr "Hledat v:"
 
-#: anjuta.glade.h:277
+#: anjuta.glade.h:287
 msgid "Search Recursively"
 msgstr "Hledat rekurzivně"
 
-#: anjuta.glade.h:278
+#: anjuta.glade.h:288
 msgid "Search String"
 msgstr "Hledaný řetězec"
 
-#: anjuta.glade.h:279
+#: anjuta.glade.h:289
 msgid "Search Target"
 msgstr "Cíl hledání"
 
-#: anjuta.glade.h:280
+#: anjuta.glade.h:290
 msgid "Search Variable"
 msgstr "Hledat proměnnou"
 
-#: anjuta.glade.h:281
+#: anjuta.glade.h:291
 msgid "Search type"
 msgstr "Typ hledání"
 
-#: anjuta.glade.h:282
+#: anjuta.glade.h:292
 msgid "Select highlight style to edit:"
 msgstr "Zvolte styl zvýraznění, který upravit:"
 
-#: anjuta.glade.h:283
+#: anjuta.glade.h:293
 msgid "Select theme:"
 msgstr "Zvolte téma:"
 
-#: anjuta.glade.h:284
+#: anjuta.glade.h:294
 msgid "Selection background:"
 msgstr "Pozadí výběru:"
 
-#: anjuta.glade.h:285
+#: anjuta.glade.h:295
 msgid "Selection foreground:"
 msgstr "Popředí výběru:"
 
-#: anjuta.glade.h:286
+#: anjuta.glade.h:296
 msgid "Settings"
 msgstr "Nastavení"
 
-#: anjuta.glade.h:287
+#: anjuta.glade.h:297
 msgid "Short cut:"
 msgstr "Zkratka:"
 
-#: anjuta.glade.h:288
+#: anjuta.glade.h:298
 msgid "Show tooltips"
 msgstr "Zobrazovat nástrojové tipy"
 
-#: anjuta.glade.h:289
+#: anjuta.glade.h:299
 msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Tiché. Tj. nevypisovat příkazy shellu při make"
 
-#: anjuta.glade.h:290
+#: anjuta.glade.h:300
 msgid "Sorted by most recent use"
 msgstr "Setřízeno podle posledního použití"
 
-#: anjuta.glade.h:291
+#: anjuta.glade.h:301
 msgid "Sorted in alphabetical order"
 msgstr "Setřízeno v abecedním pořadí"
 
-#: anjuta.glade.h:292
+#: anjuta.glade.h:302
 msgid "Sorted in the order you open them"
 msgstr "Setřízeno v pořadí, ve kterém je otvíráte"
 
-#: anjuta.glade.h:293
+#: anjuta.glade.h:303
 msgid "Source Directories"
 msgstr "Adresáře zdrojů"
 
-#: anjuta.glade.h:294
+#: anjuta.glade.h:304
 msgid "Source module Makefile.am"
 msgstr "Makefile.am zdrojového modulu"
 
-#: anjuta.glade.h:295
+#: anjuta.glade.h:305
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Seznam vzorů názvů adresářů, které ignorovat, oddělený mezerami"
 
-#: anjuta.glade.h:296
+#: anjuta.glade.h:306
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Seznam vzorů názvů adresářů, které hledat, oddělený mezerami"
 
-#: anjuta.glade.h:297
+#: anjuta.glade.h:307
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Seznam vzorů názvů souborů, které ignorovat, oddělený mezerami"
 
-#: anjuta.glade.h:298
+#: anjuta.glade.h:308
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Seznam vzorů názvů souborů, které hledat, oddělený mezerami"
 
-#: anjuta.glade.h:299
+#: anjuta.glade.h:309
 msgid "Squares"
 msgstr "Čtverce"
 
-#: anjuta.glade.h:300
+#: anjuta.glade.h:310
 msgid "Standard error:"
 msgstr "Standardní chyby:"
 
-#: anjuta.glade.h:301
+#: anjuta.glade.h:311
 msgid "Standard input:"
 msgstr "Standardní vstup:"
 
-#: anjuta.glade.h:302
+#: anjuta.glade.h:312
 msgid "Standard output:"
 msgstr "Standardní výstup:"
 
-#: anjuta.glade.h:303
+#: anjuta.glade.h:313
 msgid ""
 "Start with a new Project. Application wizard will guide you with Project "
 "creation. With the Application Wizard, you will be able to create the "
@@ -1284,248 +1327,252 @@ msgstr ""
 "Začít s novým projektem. Kouzelník aplikace vás provede vytvořením projektu. "
 "S kouzelníkem aplikace budete moci vytvořit kostru různých typů projektů."
 
-#: anjuta.glade.h:304
+#: anjuta.glade.h:314
 msgid "Strike-Out"
 msgstr "Přeškrtnutí"
 
-#: anjuta.glade.h:305
+#: anjuta.glade.h:315
 msgid "String"
 msgstr "Řetězec"
 
-#: anjuta.glade.h:306
+#: anjuta.glade.h:316
 msgid "String to replace"
 msgstr "Řetězec, který nahradit"
 
-#: anjuta.glade.h:307
+#: anjuta.glade.h:317
 msgid "Strip trailling spaces on file save"
 msgstr "Odstranit mezery na konci řádku při uložení souboru"
 
-#: anjuta.glade.h:308
+#: anjuta.glade.h:318
 msgid "Style of Kangleipak"
 msgstr "Styl Kangleipak"
 
-#: anjuta.glade.h:309 src/anjuta-encodings.c:721
+#: anjuta.glade.h:319 src/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Podporovaná kódování"
 
-#: anjuta.glade.h:310
+#: anjuta.glade.h:320
 msgid "Supports"
 msgstr "Podporuje"
 
-#: anjuta.glade.h:311
+#: anjuta.glade.h:321
 msgid "Syntax highlight editor"
 msgstr "Editor se zvýrazněním syntaxe"
 
-#: anjuta.glade.h:312
+#: anjuta.glade.h:322
 msgid "Tab size in spaces:"
 msgstr "Velikost tabelátoru v mezerách:"
 
-#: anjuta.glade.h:313
+#: anjuta.glade.h:323
 msgid "Tabs position:"
 msgstr "Pozice tabelátorů:"
 
-#: anjuta.glade.h:314
+#: anjuta.glade.h:324
 msgid "Target:"
 msgstr "Cíl:"
 
-#: anjuta.glade.h:315
+#: anjuta.glade.h:325
 msgid "Terminal options"
 msgstr "Možnosti terminálu"
 
-#: anjuta.glade.h:316
+#: anjuta.glade.h:326
 msgid "Theme"
 msgstr "Téma"
 
-#: anjuta.glade.h:317
+#: anjuta.glade.h:327
 msgid "Tool Editor"
 msgstr "Editor nástrojů"
 
-#: anjuta.glade.h:318
+#: anjuta.glade.h:328
 msgid "Top"
 msgstr "Nahoře"
 
-#: anjuta.glade.h:319
+#: anjuta.glade.h:329
 msgid "Top level Makefile.am"
 msgstr "Makefile.am nejvyšší úrovně"
 
-#: anjuta.glade.h:320
+#: anjuta.glade.h:330
 msgid "Truncate long messages"
 msgstr "Oříznout dlouhé zprávy"
 
-#: anjuta.glade.h:321
+#: anjuta.glade.h:331
 msgid "Try to save in current locale's encoding"
 msgstr "Zkusit uložit v kódování aktuálního locale"
 
-#: anjuta.glade.h:322
+#: anjuta.glade.h:332
 msgid "Try to save in original encoding"
 msgstr "Zkusit uložit v původním kódování"
 
-#: anjuta.glade.h:323
+#: anjuta.glade.h:333
 msgid "Underline Plain"
 msgstr "Jednoduché podtržení"
 
-#: anjuta.glade.h:324
+#: anjuta.glade.h:334
 msgid "Underline Squiggle"
 msgstr "Podtržení vlnkou"
 
-#: anjuta.glade.h:325
+#: anjuta.glade.h:335
 msgid "Underline-TT"
 msgstr "Podtržené neproporcionální"
 
-#: anjuta.glade.h:326
+#: anjuta.glade.h:336
 msgid "Underlined"
 msgstr "Podtržené"
 
-#: anjuta.glade.h:327 src/cvs_gui.c:73 src/registers_gui.c:47
+#: anjuta.glade.h:337 src/cvs_gui.c:73 src/registers_gui.c:47
 #: src/sharedlib_gui.c:40 src/signals_gui.c:54 src/stack_trace.c:364
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: anjuta.glade.h:328
+#: anjuta.glade.h:338
 msgid "Update tags image automatically"
 msgstr "Automaticky aktualizovat obraz tags"
 
-#: anjuta.glade.h:329
+#: anjuta.glade.h:339
 msgid "Use GNOME terminal profile:"
 msgstr "Použít profil GNOME terminálu:"
 
-#: anjuta.glade.h:330
+#: anjuta.glade.h:340
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Použít aktuální zvolený profil v GNOME terminálu"
 
-#: anjuta.glade.h:331
+#: anjuta.glade.h:341
 msgid "Use default"
 msgstr "Použít implicitní"
 
-#: anjuta.glade.h:332
+#: anjuta.glade.h:342
 msgid "Use tabs for indentation"
 msgstr "Používat pro odsazování tabelátory"
 
-#: anjuta.glade.h:333
+#: anjuta.glade.h:343
 msgid "User Tools"
 msgstr "Nástroje uživatele"
 
-#: anjuta.glade.h:334
+#: anjuta.glade.h:344
 msgid "User email address:"
 msgstr "E-mailová adresa uživatele:"
 
-#: anjuta.glade.h:335
+#: anjuta.glade.h:345
 msgid "User information"
 msgstr "Informace o uživateli"
 
-#: anjuta.glade.h:336
+#: anjuta.glade.h:346
 msgid "User name:"
 msgstr "Jméno uživatele."
 
-#: anjuta.glade.h:337
+#: anjuta.glade.h:347
 msgid "Variable list"
 msgstr "Seznam proměnných"
 
-#: anjuta.glade.h:338 src/project_dbase_gui.c:932
+#: anjuta.glade.h:348 src/project_dbase_gui.c:931
 msgid "Version:"
 msgstr "Verze:"
 
-#: anjuta.glade.h:339
+#: anjuta.glade.h:349
 msgid "View"
 msgstr "Zobrazení"
 
-#: anjuta.glade.h:340
+#: anjuta.glade.h:350
 msgid "Warn when an undefined variable is referenced in the Makefile"
 msgstr "Varovat, když se v Makefile odkazuje na nedefinovanou proměnnou"
 
-#: anjuta.glade.h:341
+#: anjuta.glade.h:351
 msgid "Warning message indicator style:"
 msgstr "Styl indikátoru zprávy varování:"
 
-#: anjuta.glade.h:342
+#: anjuta.glade.h:352
 msgid "Warnings"
 msgstr "Varování"
 
-#: anjuta.glade.h:343
+#: anjuta.glade.h:353
 msgid "Warnings messages:"
 msgstr "Zprávy varování:"
 
-#: anjuta.glade.h:344
+#: anjuta.glade.h:354
 msgid "Whole document"
 msgstr "Celý dokument"
 
-#: anjuta.glade.h:345
+#: anjuta.glade.h:355
 msgid "Whole word"
 msgstr "Celé slovo"
 
-#: anjuta.glade.h:346
+#: anjuta.glade.h:356
 msgid "Working directory:"
 msgstr "Pracovní adresář:"
 
-#: anjuta.glade.h:347
+#: anjuta.glade.h:357
 msgid "Wrap bookmarks search around"
 msgstr "Při hledání záložek pokračovat přes konec"
 
-#: anjuta.glade.h:348
+#: anjuta.glade.h:358
 msgid "_Attach"
 msgstr "_Připojit"
 
-#: anjuta.glade.h:349
+#: anjuta.glade.h:359
 msgid "_Build a file:"
 msgstr "_Sestavit soubor:"
 
-#: anjuta.glade.h:350
+#: anjuta.glade.h:360
 msgid "_Condition:"
 msgstr "_Podmínka:"
 
-#: anjuta.glade.h:351
+#: anjuta.glade.h:361
 msgid "_Disable all"
 msgstr "_Zakázat vše"
 
-#: anjuta.glade.h:352
+#: anjuta.glade.h:362
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: anjuta.glade.h:353
+#: anjuta.glade.h:363
 msgid "_Execute:"
 msgstr "_Spustit:"
 
-#: anjuta.glade.h:354
+#: anjuta.glade.h:364
+msgid "_Hide paths"
+msgstr "_Skrýt cesty"
+
+#: anjuta.glade.h:365
 msgid "_Image editor:"
 msgstr "Editor _obrázků:"
 
-#: anjuta.glade.h:355
+#: anjuta.glade.h:366
 msgid "_Language:"
 msgstr "_Jazyk:"
 
-#: anjuta.glade.h:356
+#: anjuta.glade.h:367
 msgid "_Location:"
 msgstr "_Umístění:"
 
-#: anjuta.glade.h:357
+#: anjuta.glade.h:368
 msgid "_Make a file:"
 msgstr "_Vytvořit soubor:"
 
-#: anjuta.glade.h:358
+#: anjuta.glade.h:369
 msgid "_Pass:"
 msgstr "_Průchod:"
 
-#: anjuta.glade.h:359
+#: anjuta.glade.h:370
 msgid "_Pixmap editor:"
 msgstr "Editor _pixmap:"
 
-#: anjuta.glade.h:360
+#: anjuta.glade.h:371
 msgid "_Process to attach to:"
 msgstr "Proces, _ke kterému se připojit:"
 
-#: anjuta.glade.h:361
+#: anjuta.glade.h:372
 msgid "_Remove all"
 msgstr "_Odstranit vše"
 
-#: anjuta.glade.h:362
+#: anjuta.glade.h:373
 msgid "_Save Theme As"
 msgstr "_Uložit téma jako"
 
-#: anjuta.glade.h:363
+#: anjuta.glade.h:374
 msgid "_Terminal:"
 msgstr "_Terminál:"
 
-#: anjuta.glade.h:364
+#: anjuta.glade.h:375
 msgid "_Update"
 msgstr "_Aktualizovat"
 
@@ -1953,7 +2000,7 @@ msgstr "Tvůrce tříd"
 #. 13
 #. 14
 #: plugins/class-gen/clsGen.c:1343 src/main_menubar_def.h:1006
-#: src/project_dbase_gui.c:367 src/registers_gui.c:55 src/sharedlib_gui.c:48
+#: src/project_dbase_gui.c:366 src/registers_gui.c:55 src/sharedlib_gui.c:48
 #: src/signals_gui.c:62 src/stack_trace.c:379 src/watch_gui.c:74
 msgid "Help"
 msgstr "Nápověda"
@@ -2307,13 +2354,13 @@ msgstr "Vytvořit diff mezi pracovní kopií a úložištěm"
 
 #. 0
 #: src/an_file_view.c:406 src/main_menubar_def.h:954
-#: src/project_dbase_gui.c:335
+#: src/project_dbase_gui.c:334
 msgid "Open in Anjuta"
 msgstr "Otevřít v Anjutě"
 
 #. 1
 #: src/an_file_view.c:413 src/main_menubar_def.h:948
-#: src/project_dbase_gui.c:329
+#: src/project_dbase_gui.c:328
 msgid "Open in default viewer"
 msgstr "Otevřít v implicitním prohlížeči"
 
@@ -2325,7 +2372,7 @@ msgstr "Obnovit"
 #. 4
 #. 5
 #: src/an_file_view.c:435 src/an_symbol_view.c:309 src/main_menubar_def.h:980
-#: src/message-manager.cc:143 src/project_dbase_gui.c:361
+#: src/message-manager.cc:143 src/project_dbase_gui.c:360
 #: src/text_editor_menu.c:355
 msgid "Docked"
 msgstr "Zadokován"
@@ -2413,7 +2460,7 @@ msgid "Arabic"
 msgstr "Arabské"
 
 #: src/anjuta-encodings.c:143 src/anjuta-encodings.c:241
-#: src/project_dbase_gui.c:1142
+#: src/project_dbase_gui.c:1141
 msgid "Greek"
 msgstr "Řečtina"
 
@@ -2427,7 +2474,7 @@ msgid "Hebrew"
 msgstr "Hebrejské"
 
 #: src/anjuta-encodings.c:149 src/anjuta-encodings.c:204
-#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1162
+#: src/anjuta-encodings.c:243 src/project_dbase_gui.c:1161
 msgid "Turkish"
 msgstr "Turecké"
 
@@ -2439,7 +2486,7 @@ msgstr "Severské"
 msgid "Celtic"
 msgstr "Keltské"
 
-#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1159
+#: src/anjuta-encodings.c:159 src/project_dbase_gui.c:1158
 msgid "Romanian"
 msgstr "Rumunština"
 
@@ -2468,7 +2515,7 @@ msgstr "Japonské"
 
 #: src/anjuta-encodings.c:182 src/anjuta-encodings.c:213
 #: src/anjuta-encodings.c:217 src/anjuta-encodings.c:230
-#: src/project_dbase_gui.c:1153
+#: src/project_dbase_gui.c:1152
 msgid "Korean"
 msgstr "Korejské"
 
@@ -2691,11 +2738,11 @@ msgstr ""
 "  Projekt: %s   Zvětšení: %d      Řádek: %04d   Sloupec: %03d       %s     "
 "Úloha: %s      Režim: %s"
 
-#: src/anjuta.c:2413
+#: src/anjuta.c:2414
 msgid "Looking up symbol"
 msgstr "Vyhledávám symbol"
 
-#: src/anjuta.c:2415 src/find_in_files.c:322
+#: src/anjuta.c:2416 src/find_in_files.c:322
 msgid "Finding in Files ....\n"
 msgstr "Hledám v souborech ....\n"
 
@@ -2841,28 +2888,28 @@ msgstr ""
 "některá nastavení možná nebude možné později\n"
 "změnit."
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Pid"
 msgstr "Pid"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "User"
 msgstr "Uživatel"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Time"
 msgstr "Čas"
 
-#: src/attach_process.c:47
+#: src/attach_process.c:68
 msgid "Command"
 msgstr "Příkaz"
 
-#: src/attach_process.c:131
+#: src/attach_process.c:400
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "Nemohu spustit: %s."
 
-#: src/attach_process.c:141
+#: src/attach_process.c:413
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "Nemohu otevřít soubor: %s\n"
@@ -2888,7 +2935,7 @@ msgstr "Podmínka"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:169 src/debugger.c:1825
+#: src/breakpoints.c:165 src/debugger.c:1825
 msgid "All breakpoints enabled:\n"
 msgstr "Všechny breakpointy povoleny:\n"
 
@@ -2897,24 +2944,24 @@ msgstr "Všechny breakpointy povoleny:\n"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: src/breakpoints.c:187 src/debugger.c:1871
+#: src/breakpoints.c:183 src/debugger.c:1871
 msgid "All breakpoints disabled:\n"
 msgstr "Všechny breakpointy zakázány:\n"
 
-#: src/breakpoints.c:651
+#: src/breakpoints.c:636
 msgid "You must give a valid location to set the breakpoint."
 msgstr "Pro nastavení breakpointu musíte zadat platné umístění."
 
-#: src/breakpoints.c:773
+#: src/breakpoints.c:757
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Jste si jisti, že chcete odstranit všechny breakpointy?"
 
-#: src/breakpoints.c:1296
+#: src/breakpoints.c:1278
 msgid "Old breakpoints disabled."
 msgstr "Staré breakpointy zakázány."
 
 #. 5
-#: src/breakpoints.c:1439 src/main_menubar_def.h:781 src/text_editor_gui.c:159
+#: src/breakpoints.c:1416 src/main_menubar_def.h:781 src/text_editor_gui.c:159
 msgid "0"
 msgstr "0"
 
@@ -3072,7 +3119,7 @@ msgstr ""
 "chcete, aby další akce sestavení provedla úplný\n"
 "překlad celého projektu?"
 
-#: src/compiler_options.c:724 src/src_paths.c:217
+#: src/compiler_options.c:724 src/src_paths.c:222
 msgid "Do you want to clear the list?"
 msgstr "Chcete smazat seznam?"
 
@@ -3250,7 +3297,7 @@ msgid "CVS: Remove file"
 msgstr "CVS: Odstranit soubor"
 
 #. 3
-#: src/cvs_gui.c:93 src/project_dbase_gui.c:341 src/watch_gui.c:43
+#: src/cvs_gui.c:93 src/project_dbase_gui.c:340 src/watch_gui.c:43
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -3563,15 +3610,15 @@ msgstr "Soubor %s není místní."
 msgid "Invalid filename %s."
 msgstr "Neplatný název souboru %s."
 
-#: src/executer.c:53 src/mainmenu_callbacks.c:1709
+#: src/executer.c:53 src/mainmenu_callbacks.c:1218
 msgid "The target executable of this Project is unknown"
 msgstr "Cílový spustitelný soubor tohoto projektu není znám"
 
-#: src/executer.c:58 src/mainmenu_callbacks.c:1711
+#: src/executer.c:58 src/mainmenu_callbacks.c:1220
 msgid "The target executable of this Project is not executable"
 msgstr "Cílový spustitelný soubor tohoto projektu není spustitelný"
 
-#: src/executer.c:63 src/mainmenu_callbacks.c:1715
+#: src/executer.c:63 src/mainmenu_callbacks.c:1224
 msgid "The target executable does not exist for this Project"
 msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 
@@ -3579,8 +3626,8 @@ msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 msgid "No file or Project opened."
 msgstr "Neotevřen žádný soubor ani projekt."
 
-#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1735
-#: src/mainmenu_callbacks.c:1746
+#: src/executer.c:81 src/executer.c:100 src/mainmenu_callbacks.c:1244
+#: src/mainmenu_callbacks.c:1255
 msgid "No executable for this file."
 msgstr "Pro tento soubor neexistuje spustitelný soubor."
 
@@ -3599,6 +3646,59 @@ msgstr "Tento soubor nebyl uložen. Nejdříve jej uložte."
 #: src/executer.c:139
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Nemohu spustit soubor. Zkontrolujte Nastavení->Příkazy."
+
+#: src/file.c:101
+msgid "C Source File"
+msgstr "Zdrojový soubor v C"
+
+#: src/file.c:102
+msgid "C -C++ Header File"
+msgstr "Hlavičkový soubor C/C++"
+
+#: src/file.c:103
+msgid "C++ Source File"
+msgstr "Zdrojový soubor v C++"
+
+#: src/file.c:104
+msgid "C# Source File"
+msgstr "Zdrojový soubor v C#"
+
+#: src/file.c:105
+msgid "Java Source File"
+msgstr "Zdrojový soubor v Javě"
+
+#: src/file.c:106
+msgid "Perl Source File"
+msgstr "Zdrojový soubor v Perlu"
+
+#: src/file.c:107
+msgid "Python Source File"
+msgstr "Zdrojový soubor v Pythonu"
+
+#: src/file.c:108
+msgid "Shell Script File"
+msgstr "Soubor skriptu shellu"
+
+#: src/file.c:109
+msgid "Other"
+msgstr "Jiný"
+
+#: src/file.c:145
+msgid "Unable to build user interface for New File"
+msgstr "Nemohu sestavit uživatelské rozhraní pro Nový soubor"
+
+#: src/file.c:439
+#, c-format
+msgid "The file \"%s\" is not a header file."
+msgstr "Soubor \"%s\" není hlavičkový soubor."
+
+#: src/file.c:548
+msgid "%Y"
+msgstr "%Y"
+
+#: src/file.c:567
+msgid "%Y-%m-%d"
+msgstr "%d.%m.%Y"
 
 #: src/find_in_files.c:349
 msgid "Find in Files completed...............Unsuccessful\n"
@@ -3698,48 +3798,48 @@ msgstr "Generuji projekt ...\n"
 msgid "Cannot create file: %s"
 msgstr "Nemohu vytvořit soubor: %s"
 
-#: src/gnome_project.c:157
+#: src/gnome_project.c:159
 msgid "Loading Project ...\n"
 msgstr "Načítám projekt ...\n"
 
-#: src/gnome_project.c:168 src/gnome_project.c:229
+#: src/gnome_project.c:170 src/gnome_project.c:231
 msgid "Saving Project ...\n"
 msgstr "Ukládám projekt ...\n"
 
-#: src/gnome_project.c:176
+#: src/gnome_project.c:178
 msgid "Generating source codes ...\n"
 msgstr "Generuji zdrojové kódy ....\n"
 
 #. Creating icon pixmap file for gnome projects
-#: src/gnome_project.c:183
+#: src/gnome_project.c:185
 msgid "Copying icon file ...\n"
 msgstr "Kopíruji soubor ikony ...\n"
 
-#: src/gnome_project.c:197
+#: src/gnome_project.c:199
 msgid "Could not create icon file ...\n"
 msgstr "Nemohu vytvořit soubor ikony ...\n"
 
-#: src/gnome_project.c:211
+#: src/gnome_project.c:213
 msgid "Locating files ...\n"
 msgstr "Hledám soubory ...\n"
 
-#: src/gnome_project.c:233
+#: src/gnome_project.c:235
 msgid "Updating Project ...\n"
 msgstr "Aktualizuji projekt ...\n"
 
-#: src/gnome_project.c:236
+#: src/gnome_project.c:238
 msgid "Running autogen.sh ...\n"
 msgstr "Spouštím autogen.sh ...\n"
 
-#: src/gnome_project.c:248
+#: src/gnome_project.c:250
 msgid "App Wizard"
 msgstr "Kouzelník aplikace"
 
-#: src/gnome_project.c:270
+#: src/gnome_project.c:272
 msgid "Auto generation completed...............Unsuccessful\n"
 msgstr "Automatické generování dokončeno...............Neúspěšně\n"
 
-#: src/gnome_project.c:273
+#: src/gnome_project.c:275
 msgid ""
 "The Project was not successfully auto generated.\n"
 "Please run autogen.sh manually."
@@ -3747,7 +3847,7 @@ msgstr ""
 "Projekt nebyl automaticky vygenerován úspěšně.\n"
 "Spusťte prosím autogen.sh ručně."
 
-#: src/gnome_project.c:279
+#: src/gnome_project.c:281
 msgid ""
 "Auto generation completed...............Successful\n"
 "Now Build the Project to have a LOOK at it\n"
@@ -3755,7 +3855,7 @@ msgstr ""
 "Automatické generování dokončeno...............Úspěšně\n"
 "Nyní projekt sestavte, abyste se na něj mohli PODÍVAT\n"
 
-#: src/gnome_project.c:282
+#: src/gnome_project.c:284
 msgid "Project was successfully auto generated."
 msgstr "Projekt byl úspěšně automaticky vygenerován."
 
@@ -3763,35 +3863,35 @@ msgstr "Projekt byl úspěšně automaticky vygenerován."
 msgid " Goto Line number "
 msgstr " Jít na řádek číslo "
 
-#: src/launcher.c:582
+#: src/launcher.c:589
 msgid "launcher.c: Error while reading child stdout\n"
 msgstr "launcher.c: Chyba při čtení stdout potomka\n"
 
-#: src/launcher.c:594
+#: src/launcher.c:601
 msgid "launcher.c: STDOUT pipe closed"
 msgstr "launcher.c: roura STDOUT zavřena"
 
-#: src/launcher.c:630
+#: src/launcher.c:637
 msgid "launcher.c: Error while reading child stderr"
 msgstr "launcher.c: Chyba při čtení stderr potomka"
 
-#: src/launcher.c:642
+#: src/launcher.c:649
 msgid "launcher.c: STDERR pipe closed"
 msgstr "launcher.c: roura STDERR zavřena"
 
-#: src/launcher.c:683
+#: src/launcher.c:690
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Chyba při čtení pty potomka\n"
 
-#: src/launcher.c:701
+#: src/launcher.c:708
 msgid "launcher.c: PTY pipe error!"
 msgstr "launcher.c: chyba roury PTY!"
 
-#: src/launcher.c:803
+#: src/launcher.c:813
 msgid "launcher.c: Failed to set channel encoding!"
 msgstr "launcher.c: Nemohu nastavit kódování kanálu!"
 
-#: src/launcher.c:853 src/text_editor.c:1556
+#: src/launcher.c:863 src/text_editor.c:1560
 msgid "Cannot execute command shell"
 msgstr "Nemohu spustit příkazový shell"
 
@@ -4111,11 +4211,6 @@ msgstr "Aktuální datum & čas"
 msgid "Insert current date & time"
 msgstr "Vložit aktuální datum & čas"
 
-#. 5
-#: src/main_menubar_def.h:269
-msgid "Header File Template"
-msgstr "Šablona hlavičkového souboru"
-
 #: src/main_menubar_def.h:270
 msgid "Insert a standard header file template"
 msgstr "Vložit standardní šablonu hlavičkového souboru"
@@ -4178,11 +4273,6 @@ msgstr "Vložit klíčové slovo CVS Revision (číslo revize)"
 #: src/main_menubar_def.h:358
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "Vložit klíčové slovo CVS Source (plná cesta)"
-
-#. 0
-#: src/main_menubar_def.h:368
-msgid "Header"
-msgstr "Hlavička"
 
 #: src/main_menubar_def.h:369
 msgid "Insert a file header"
@@ -4809,42 +4899,42 @@ msgid "Show memory dump window"
 msgstr "Zobrazit okno výpisu paměti"
 
 #. 0
-#: src/main_menubar_def.h:895 src/project_dbase_gui.c:277
+#: src/main_menubar_def.h:895 src/project_dbase_gui.c:276
 msgid "Include file"
 msgstr "Soubor include"
 
 #. 1
-#: src/main_menubar_def.h:901 src/project_dbase_gui.c:283
+#: src/main_menubar_def.h:901 src/project_dbase_gui.c:282
 msgid "Source file"
 msgstr "Zdrojový soubor"
 
 #. 2
-#: src/main_menubar_def.h:907 src/project_dbase_gui.c:289
+#: src/main_menubar_def.h:907 src/project_dbase_gui.c:288
 msgid "Help file"
 msgstr "Soubor nápovědy"
 
 #. 3
-#: src/main_menubar_def.h:913 src/project_dbase_gui.c:295
+#: src/main_menubar_def.h:913 src/project_dbase_gui.c:294
 msgid "Data file"
 msgstr "Datový soubor"
 
 #. 4
-#: src/main_menubar_def.h:919 src/project_dbase_gui.c:301
+#: src/main_menubar_def.h:919 src/project_dbase_gui.c:300
 msgid "Pixmap file"
 msgstr "Soubor pixmapy"
 
 #. 5
-#: src/main_menubar_def.h:925 src/project_dbase_gui.c:307
+#: src/main_menubar_def.h:925 src/project_dbase_gui.c:306
 msgid "Translation file"
 msgstr "Soubor překladu"
 
 #. 6
-#: src/main_menubar_def.h:931 src/project_dbase_gui.c:313
+#: src/main_menubar_def.h:931 src/project_dbase_gui.c:312
 msgid "Doc file"
 msgstr "Soubor dokumentace"
 
 #. 0
-#: src/main_menubar_def.h:942 src/project_dbase_gui.c:323
+#: src/main_menubar_def.h:942 src/project_dbase_gui.c:322
 msgid "Add File"
 msgstr "Přidat soubor"
 
@@ -4855,7 +4945,7 @@ msgstr "Odstranit soubor"
 
 #. 4
 #. 5
-#: src/main_menubar_def.h:967 src/project_dbase_gui.c:348
+#: src/main_menubar_def.h:967 src/project_dbase_gui.c:347
 msgid "Configure Project"
 msgstr "Konfigurovat projekt"
 
@@ -4864,7 +4954,7 @@ msgid "Configure options for the current Project"
 msgstr "Konfigurovat možnosti aktuálního projektu"
 
 #. 6
-#: src/main_menubar_def.h:973 src/project_dbase_gui.c:354
+#: src/main_menubar_def.h:973 src/project_dbase_gui.c:353
 msgid "Project Info"
 msgstr "Informace o projektu"
 
@@ -6057,7 +6147,7 @@ msgstr "_CVS"
 msgid "_Settings"
 msgstr "_Nastavení"
 
-#: src/mainmenu_callbacks.c:159
+#: src/mainmenu_callbacks.c:156
 msgid ""
 "The editor is being used as output buffer for an operation.\n"
 "Closing it will result in stopping the process.\n"
@@ -6067,7 +6157,7 @@ msgstr ""
 "Jeho zavření způsobí zastavení procesu.\n"
 "Chcete přesto zavřít editor?"
 
-#: src/mainmenu_callbacks.c:173
+#: src/mainmenu_callbacks.c:170
 #, c-format
 msgid ""
 "The file '%s' is not saved.\n"
@@ -6076,11 +6166,11 @@ msgstr ""
 "Soubor '%s' není uložen.\n"
 "Chcete jej před zavřením uložit?"
 
-#: src/mainmenu_callbacks.c:183 src/project_dbase_gui.c:1127
+#: src/mainmenu_callbacks.c:180 src/project_dbase_gui.c:1126
 msgid "Do_n't save"
 msgstr "_Neukládat"
 
-#: src/mainmenu_callbacks.c:240
+#: src/mainmenu_callbacks.c:237
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -6089,32 +6179,19 @@ msgstr ""
 "Jste si jisti, že chcete znovu načíst '%s'?\n"
 "Neuložené změny budou ztraceny."
 
-#: src/mainmenu_callbacks.c:250 src/text_editor.c:1352
+#: src/mainmenu_callbacks.c:247 src/text_editor.c:1356
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
-#: src/mainmenu_callbacks.c:551
-msgid "%Y"
-msgstr "%Y"
-
-#: src/mainmenu_callbacks.c:570
-msgid "%Y-%m-%d"
-msgstr "%d.%m.%Y"
-
-#: src/mainmenu_callbacks.c:645
-#, c-format
-msgid "The file \"%s\" is not a header file."
-msgstr "Soubor \"%s\" není hlavičkový soubor."
-
-#: src/mainmenu_callbacks.c:1741
+#: src/mainmenu_callbacks.c:1250
 msgid "The executable is not up-to-date."
 msgstr "Spustitelný soubor není aktuální."
 
-#: src/mainmenu_callbacks.c:1766
+#: src/mainmenu_callbacks.c:1275
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger neběží. Nejdříve jej spusťte."
 
-#: src/mainmenu_callbacks.c:2032
+#: src/mainmenu_callbacks.c:1541
 msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
@@ -6122,7 +6199,7 @@ msgstr ""
 "Nemohu zobrazit nápovědu. Přesvědčte se prosím, že je nainstalován balíček "
 "dokumentace Anjuty. Můžete jej stáhnout z http://anjuta.org"
 
-#: src/mainmenu_callbacks.c:2165
+#: src/mainmenu_callbacks.c:1674
 msgid ""
 "You need to run gconf-editor, look for the key 'desktop/gnome/interface/"
 "can_change_accels' and set this toggle button ON. Then you can hover the "
@@ -6134,15 +6211,15 @@ msgstr ""
 "ukazatel myši nad libovolnou položkou menu a stisknout klávesovou zkratku, "
 "kterou s ní asociovat."
 
-#: src/memory.c:111
+#: src/memory.c:108
 msgid "Unable to build user interface for Memory\n"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Paměť\n"
 
-#: src/memory.c:413
+#: src/memory.c:410
 msgid "Enter a Hexa address or Select one in the data"
 msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
 
-#: src/memory.c:420
+#: src/memory.c:417
 msgid "Non accessible address !"
 msgstr "Nepřístupná adresa !"
 
@@ -6196,7 +6273,7 @@ msgstr "Kategorie"
 msgid "Anjuta Preferences Dialog"
 msgstr "Dialog nastavení Anjuty"
 
-#: src/preferences.c:695
+#: src/preferences.c:698
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -6204,11 +6281,11 @@ msgstr ""
 "Jste si jisti, že chcete vrátit nastavení na jejich\n"
 "implicitní hodnoty?"
 
-#: src/preferences.c:698
+#: src/preferences.c:701
 msgid "_Reset"
 msgstr "_Vynulovat"
 
-#: src/preferences.c:1073
+#: src/preferences.c:1076
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6221,7 +6298,7 @@ msgstr ""
 "To může způsobit nesprávné chování nebo nestabilitu.\n"
 "Anjuta použije vestavěná (omezená) nastavení"
 
-#: src/preferences.c:1205
+#: src/preferences.c:1208
 msgid "Anjuta Preferences"
 msgstr "Nastavení Anjuty"
 
@@ -6230,7 +6307,7 @@ msgstr "Nastavení Anjuty"
 msgid "Add to Project"
 msgstr "Přidat do projektu"
 
-#: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:586
+#: src/project_dbase.c:233 src/project_dbase.c:303 src/project_dbase_gui.c:585
 msgid "Project: None"
 msgstr "Projekt: Žádný"
 
@@ -6239,9 +6316,9 @@ msgid "Anjuta project files"
 msgstr "Soubory projektů Anjuty"
 
 #: src/project_dbase.c:374 src/project_dbase_gui.c:170
-#: src/project_dbase_gui.c:188 src/project_dbase_gui.c:200
-#: src/project_dbase_gui.c:208 src/project_dbase_gui.c:220
-#: src/project_dbase_gui.c:229 src/project_dbase_gui.c:238
+#: src/project_dbase_gui.c:187 src/project_dbase_gui.c:199
+#: src/project_dbase_gui.c:207 src/project_dbase_gui.c:219
+#: src/project_dbase_gui.c:228 src/project_dbase_gui.c:237
 #: widgets/gnomefilelist.c:714
 msgid "All files"
 msgstr "Všechny soubor"
@@ -6334,155 +6411,155 @@ msgstr "Jeden projekt je již otevřen. Chcete jej nejdříve zavřít?"
 msgid "Help files"
 msgstr "Soubory nápovědy"
 
-#: src/project_dbase_gui.c:178 src/project_dbase_gui.c:237
-msgid "C/C++ Headers"
-msgstr "Hlavičky C/C++"
-
-#: src/project_dbase_gui.c:179 widgets/gnomefilelist.c:717
+#: src/project_dbase_gui.c:178 widgets/gnomefilelist.c:717
 msgid "C/C++ source files"
 msgstr "Zdrojové soubory v C/C++"
 
-#: src/project_dbase_gui.c:180
+#: src/project_dbase_gui.c:179
 msgid "Java source files"
 msgstr "Zdrojové soubory v Javě"
 
-#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:724
+#: src/project_dbase_gui.c:180 widgets/gnomefilelist.c:724
 msgid "Pascal files"
 msgstr "Soubory v Pascalu"
+
+#: src/project_dbase_gui.c:181 widgets/gnomefilelist.c:729
+msgid "Perl files"
+msgstr "Soubory v Perlu"
 
 #: src/project_dbase_gui.c:182 widgets/gnomefilelist.c:726
 msgid "PHP files"
 msgstr "Soubory v PHP"
 
-#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:729
-msgid "Perl files"
-msgstr "Soubory v Perlu"
-
-#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:731
+#: src/project_dbase_gui.c:183 widgets/gnomefilelist.c:731
 msgid "Python files"
 msgstr "Soubory v Pythonu"
 
-#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:736
+#: src/project_dbase_gui.c:184 widgets/gnomefilelist.c:736
 msgid "Shell Script files"
 msgstr "Soubory skriptů shellu"
 
-#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:741
+#: src/project_dbase_gui.c:185 widgets/gnomefilelist.c:741
 msgid "Visual Basic files"
 msgstr "Soubory ve Visual Basicu"
 
-#: src/project_dbase_gui.c:187 widgets/gnomefilelist.c:749
+#: src/project_dbase_gui.c:186 widgets/gnomefilelist.c:749
 msgid ".lua files"
 msgstr "Soubory .lua"
 
-#: src/project_dbase_gui.c:196
+#: src/project_dbase_gui.c:195
 msgid "PNG files"
 msgstr "Soubory PNG"
 
-#: src/project_dbase_gui.c:197
+#: src/project_dbase_gui.c:196
 msgid "JPG files"
 msgstr "Soubory JPG"
 
-#: src/project_dbase_gui.c:198
+#: src/project_dbase_gui.c:197
 msgid "BMP files"
 msgstr "Soubory BMP"
 
-#: src/project_dbase_gui.c:199
+#: src/project_dbase_gui.c:198
 msgid "GIF files"
 msgstr "Soubory GIF"
 
-#: src/project_dbase_gui.c:216
+#: src/project_dbase_gui.c:215
 msgid "Text files"
 msgstr "Textové soubory"
 
-#: src/project_dbase_gui.c:217
+#: src/project_dbase_gui.c:216
 msgid "XML files"
 msgstr "Soubory XML"
 
-#: src/project_dbase_gui.c:218
+#: src/project_dbase_gui.c:217
 msgid "HTML files"
 msgstr "Soubory HTML"
 
-#: src/project_dbase_gui.c:219
+#: src/project_dbase_gui.c:218
 msgid "DOC files"
 msgstr "Soubory DOC"
 
-#: src/project_dbase_gui.c:228
+#: src/project_dbase_gui.c:227
 msgid "PO files"
 msgstr "Soubory PO"
 
-#: src/project_dbase_gui.c:268
+#: src/project_dbase_gui.c:236
+msgid "C/C++ Headers"
+msgstr "Hlavičky C/C++"
+
+#: src/project_dbase_gui.c:267
 msgid "Add file to module: "
 msgstr "Přidat soubor do modulu: "
 
-#: src/project_dbase_gui.c:598 widgets/gnomefilelist.c:403
+#: src/project_dbase_gui.c:597 widgets/gnomefilelist.c:403
 msgid "Files"
 msgstr "Soubory"
 
-#: src/project_dbase_gui.c:602
+#: src/project_dbase_gui.c:601
 msgid "Symbols"
 msgstr "Symboly"
 
-#: src/project_dbase_gui.c:738
+#: src/project_dbase_gui.c:737
 msgid "Project Information"
 msgstr "Informace o projektu"
 
-#: src/project_dbase_gui.c:746
+#: src/project_dbase_gui.c:745
 msgid " Project Information "
 msgstr " Informace o projektu "
 
-#: src/project_dbase_gui.c:782
+#: src/project_dbase_gui.c:781
 msgid "Author:"
 msgstr "Autor:"
 
-#: src/project_dbase_gui.c:790 src/wizard_gui.c:298
+#: src/project_dbase_gui.c:789 src/wizard_gui.c:298
 msgid "Project Name:"
 msgstr "Název projektu:"
 
-#: src/project_dbase_gui.c:869
+#: src/project_dbase_gui.c:868
 msgid "Program Name:"
 msgstr "Název programu:"
 
-#: src/project_dbase_gui.c:876
+#: src/project_dbase_gui.c:875
 msgid "Source files:"
 msgstr "Zdrojové soubory:"
 
-#: src/project_dbase_gui.c:883
+#: src/project_dbase_gui.c:882
 msgid "Help files:"
 msgstr "Soubory nápovědy:"
 
-#: src/project_dbase_gui.c:890
+#: src/project_dbase_gui.c:889
 msgid "Data files:"
 msgstr "Datové soubory:"
 
-#: src/project_dbase_gui.c:897
+#: src/project_dbase_gui.c:896
 msgid "Pixmap files:"
 msgstr "Soubory pixmap:"
 
-#: src/project_dbase_gui.c:904
+#: src/project_dbase_gui.c:903
 msgid "Doc files:"
 msgstr "Soubory dokumentace:"
 
-#: src/project_dbase_gui.c:925
+#: src/project_dbase_gui.c:924
 msgid "Po files:"
 msgstr "Soubory po:"
 
-#: src/project_dbase_gui.c:955
+#: src/project_dbase_gui.c:954
 msgid "GUI editable by Glade:"
 msgstr "GUI upravitelné v Glade:"
 
-#: src/project_dbase_gui.c:977
+#: src/project_dbase_gui.c:976
 msgid "Makefiles managed:"
 msgstr "Spravované Makefile:"
 
-#: src/project_dbase_gui.c:1019
+#: src/project_dbase_gui.c:1018
 msgid "Gettext support:"
 msgstr "Podpora gettextu:"
 
-#: src/project_dbase_gui.c:1077
+#: src/project_dbase_gui.c:1076
 msgid "Project Type:"
 msgstr "Typ projektu:"
 
-#: src/project_dbase_gui.c:1122
+#: src/project_dbase_gui.c:1121
 msgid ""
 "Project is not saved.\n"
 "Do you want to save it before closing?"
@@ -6490,116 +6567,116 @@ msgstr ""
 "Projekt není uložen.\n"
 "Chcete jej před zavřením uložit?"
 
-#: src/project_dbase_gui.c:1137 src/project_dbase_gui.c:1257
+#: src/project_dbase_gui.c:1136 src/project_dbase_gui.c:1256
 msgid "Breton"
 msgstr "Bretonština"
 
-#: src/project_dbase_gui.c:1138
+#: src/project_dbase_gui.c:1137
 msgid "Catalan"
 msgstr "Katalánština"
 
-#: src/project_dbase_gui.c:1139
+#: src/project_dbase_gui.c:1138
 msgid "Czech"
 msgstr "Čeština"
 
-#: src/project_dbase_gui.c:1140
+#: src/project_dbase_gui.c:1139
 msgid "Danish"
 msgstr "Dánština"
 
-#: src/project_dbase_gui.c:1141
+#: src/project_dbase_gui.c:1140
 msgid "German"
 msgstr "Němčina"
 
-#: src/project_dbase_gui.c:1143
+#: src/project_dbase_gui.c:1142
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/project_dbase_gui.c:1144
+#: src/project_dbase_gui.c:1143
 msgid "Spanish"
 msgstr "Španělština"
 
-#: src/project_dbase_gui.c:1145
+#: src/project_dbase_gui.c:1144
 msgid "Finnish"
 msgstr "Finština"
 
-#: src/project_dbase_gui.c:1146
+#: src/project_dbase_gui.c:1145
 msgid "French"
 msgstr "Francouzština"
 
-#: src/project_dbase_gui.c:1147
+#: src/project_dbase_gui.c:1146
 msgid "Herbrew"
 msgstr "Hebrejština"
 
-#: src/project_dbase_gui.c:1148 src/project_dbase_gui.c:1152
+#: src/project_dbase_gui.c:1147 src/project_dbase_gui.c:1151
 msgid "Croatian"
 msgstr "Chorvatština"
 
-#: src/project_dbase_gui.c:1149
+#: src/project_dbase_gui.c:1148
 msgid "Hungarian"
 msgstr "Maďarština"
 
-#: src/project_dbase_gui.c:1150
+#: src/project_dbase_gui.c:1149
 msgid "Islandic"
 msgstr "Islandština"
 
-#: src/project_dbase_gui.c:1151
+#: src/project_dbase_gui.c:1150
 msgid "Italian"
 msgstr "Italština"
 
-#: src/project_dbase_gui.c:1154
+#: src/project_dbase_gui.c:1153
 msgid "Macedonian"
 msgstr "Makedonština"
 
-#: src/project_dbase_gui.c:1155
+#: src/project_dbase_gui.c:1154
 msgid "Dutch"
 msgstr "Holandština"
 
-#: src/project_dbase_gui.c:1156
+#: src/project_dbase_gui.c:1155
 msgid "Norwegian"
 msgstr "Norština"
 
-#: src/project_dbase_gui.c:1157
+#: src/project_dbase_gui.c:1156
 msgid "Polish"
 msgstr "Polština"
 
-#: src/project_dbase_gui.c:1158
+#: src/project_dbase_gui.c:1157
 msgid "Portuguese"
 msgstr "Portugalština"
 
-#: src/project_dbase_gui.c:1160
+#: src/project_dbase_gui.c:1159
 msgid "Russian"
 msgstr "Ruština"
 
-#: src/project_dbase_gui.c:1161
+#: src/project_dbase_gui.c:1160
 msgid "Slovak"
 msgstr "Slovenština"
 
-#: src/project_dbase_gui.c:1163
+#: src/project_dbase_gui.c:1162
 msgid "Simplified Chinese"
 msgstr "Zjednodušená čínština"
 
-#: src/project_dbase_gui.c:1164
+#: src/project_dbase_gui.c:1163
 msgid "Chinese"
 msgstr "Čínština"
 
-#: src/project_dbase_gui.c:1165
+#: src/project_dbase_gui.c:1164
 msgid "Estonian"
 msgstr "Estonština"
 
-#: src/project_dbase_gui.c:1209
+#: src/project_dbase_gui.c:1208
 msgid "Select regional language"
 msgstr "Vyberte jazyk regionu"
 
-#: src/project_dbase_gui.c:1225
+#: src/project_dbase_gui.c:1224
 msgid "Select regional language:"
 msgstr "Vyberte jazyk regionu:"
 
-#: src/project_dbase_gui.c:1265
+#: src/project_dbase_gui.c:1264
 #, c-format
 msgid "Unable to find pixmap file: %s"
 msgstr "Nemohu nalézt soubor pixmapy: %s"
 
-#: src/project_dbase_gui.c:1342
+#: src/project_dbase_gui.c:1341
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6610,12 +6687,12 @@ msgstr ""
 "neexistuje.\n"
 "Chcete jej nyní vytvořit?"
 
-#: src/project_dbase_gui.c:1360
+#: src/project_dbase_gui.c:1359
 #, c-format
 msgid "Not a regular file: %s."
 msgstr "Není obyčejný soubor: %s."
 
-#: src/project_dbase_gui.c:1370
+#: src/project_dbase_gui.c:1369
 #, c-format
 msgid ""
 "\"%s\"\n"
@@ -6775,7 +6852,7 @@ msgstr "Byl dosažen maximální počet výsledků."
 msgid "%d matches have been replaced."
 msgstr "Bylo nahrazeno %d výsledků."
 
-#: src/search-replace.c:1749
+#: src/search-replace.c:1747
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
@@ -6848,9 +6925,9 @@ msgstr "Chyba při zapisování soubor: %s."
 #: src/source.c:1180 src/source.c:1211 src/source.c:1229 src/source.c:1259
 #: src/source.c:1277 src/source.c:1306 src/source.c:1355 src/source.c:1392
 #: src/source.c:1436 src/source.c:1517 src/source.c:1649 src/source.c:1689
-#: src/source.c:1779 src/source.c:1852 src/source.c:1946 src/source.c:2027
-#: src/source.c:2085 src/source.c:2199 src/source.c:2262 src/source.c:2568
-#: src/source.c:2703 src/utilities.c:744
+#: src/source.c:1779 src/source.c:1836 src/source.c:1922 src/source.c:1995
+#: src/source.c:2053 src/source.c:2167 src/source.c:2230 src/source.c:2536
+#: src/source.c:2671 src/utilities.c:744
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "Nemohu vytvořit soubor: %s."
@@ -6860,7 +6937,7 @@ msgstr "Nemohu vytvořit soubor: %s."
 msgid "Error writing to: %s."
 msgstr "Chyba při zápisu do: %s."
 
-#: src/src_paths.c:262
+#: src/src_paths.c:267
 msgid "Source Paths"
 msgstr "Zdrojové cesty"
 
@@ -6905,11 +6982,11 @@ msgstr "Aktivační záznam"
 msgid "Couldn't find pixmap file: %s"
 msgstr "Nemohu nalézt soubor pixmapy: %s"
 
-#: src/text_editor.c:932
+#: src/text_editor.c:936
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tento soubor je příliš velký. Nemohu alokovat paměť."
 
-#: src/text_editor.c:977
+#: src/text_editor.c:981
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -6919,11 +6996,11 @@ msgstr ""
 "podporováno. Zkontrolujte prosím, jestli je kódování souboru v seznamu "
 "podporovaných kódování. Pokud není, přidejte ji v nastavení."
 
-#: src/text_editor.c:1150
+#: src/text_editor.c:1154
 msgid "Loading file ..."
 msgstr "Načítám soubor ..."
 
-#: src/text_editor.c:1156
+#: src/text_editor.c:1160
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -6934,24 +7011,24 @@ msgstr ""
 "\n"
 "Detaily: %s"
 
-#: src/text_editor.c:1177
+#: src/text_editor.c:1181
 msgid "File loaded successfully"
 msgstr "Soubor úspěšně načten"
 
-#: src/text_editor.c:1192
+#: src/text_editor.c:1196
 msgid "Saving file ..."
 msgstr "Ukládám soubor ..."
 
-#: src/text_editor.c:1197
+#: src/text_editor.c:1201
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nemohu uložit soubor: %s."
 
-#: src/text_editor.c:1237
+#: src/text_editor.c:1241
 msgid "File saved successfully"
 msgstr "Soubor úspěšně uložen"
 
-#: src/text_editor.c:1335
+#: src/text_editor.c:1339
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -6962,24 +7039,24 @@ msgstr ""
 "aktuální buffer.\n"
 "Chcete jej znovu načíst?"
 
-#: src/text_editor.c:1508
+#: src/text_editor.c:1512
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Automatické formátování je momentálně zakázáno. Změňte to v Nastavení."
 
-#: src/text_editor.c:1514
+#: src/text_editor.c:1518
 msgid "Auto formatting ..."
 msgstr "Automaticky formátuji ..."
 
-#: src/text_editor.c:1524
+#: src/text_editor.c:1528
 msgid "Error in auto formatting ..."
 msgstr "Chyba při automatickém formátování ..."
 
-#: src/text_editor.c:1539
+#: src/text_editor.c:1543
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta nezná %s!"
 
-#: src/text_editor.c:1567
+#: src/text_editor.c:1571
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -6988,7 +7065,7 @@ msgstr ""
 "Chyba při automatickém formátování ...\n"
 "Detaily: %s"
 
-#: src/text_editor.c:1574
+#: src/text_editor.c:1578
 msgid "Auto formatting completed"
 msgstr "Automatické formátování dokončeno"
 
@@ -7450,7 +7527,7 @@ msgstr "Nemohu číst soubor: %s."
 msgid "Unable to complete file copy"
 msgstr "Nemohu dokončit kopírování souboru"
 
-#: src/watch_cbs.c:236
+#: src/watch_cbs.c:228
 msgid "< Not defined in current context >"
 msgstr "< Nedefinováno v aktuálním kontextu >"
 
@@ -7690,11 +7767,11 @@ msgstr "Obnovit výpis"
 msgid "Delete file"
 msgstr "Odstranit soubor"
 
-#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1889
+#: widgets/gnomefilelist.c:253 widgets/gnomefilelist.c:1890
 msgid "Rename file"
 msgstr "Přejmenovat soubor"
 
-#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1988
+#: widgets/gnomefilelist.c:257 widgets/gnomefilelist.c:1989
 msgid "Create new folder"
 msgstr "Vytvořit nový adresář"
 
@@ -7742,31 +7819,31 @@ msgstr "Soubory .mak"
 msgid "Diff files"
 msgstr "Soubory diff"
 
-#: widgets/gnomefilelist.c:1854
+#: widgets/gnomefilelist.c:1855
 #, c-format
 msgid "Really delete %s?"
 msgstr "Opravdu odstranit %s?"
 
-#: widgets/gnomefilelist.c:1901
+#: widgets/gnomefilelist.c:1902
 msgid "Rename file to:"
 msgstr "Přejmenovat soubor na:"
 
-#: widgets/gnomefilelist.c:1927
+#: widgets/gnomefilelist.c:1928
 #, c-format
 msgid "Renaming file failed '%s': %s"
 msgstr "Přejmenování souboru selhalo '%s': %s"
 
-#: widgets/gnomefilelist.c:1960
+#: widgets/gnomefilelist.c:1961
 #, c-format
 msgid "Creating folder failed '%s': %s"
 msgstr "Vytváření složky selhalo '%s': %s"
 
-#: widgets/gnomefilelist.c:2000
+#: widgets/gnomefilelist.c:2001
 msgid "Folder name:"
 msgstr "Název složky"
 
-#~ msgid "Default"
-#~ msgstr "Implicitní"
+#~ msgid "Costom style"
+#~ msgstr "Vlastní styl"
 
 #~ msgid "Repeat the last Find command"
 #~ msgstr "Zopakovat předchozí příkaz Hledat"
