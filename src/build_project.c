@@ -39,6 +39,7 @@
 /* Private */
 static void install_as_root (GtkWidget* button, gpointer data);
 static void install_as_user (GtkWidget* button, gpointer data);
+static gchar *prepare_build (gchar *cmd);
 
 void
 build_project ()
@@ -81,11 +82,7 @@ build_project ()
 		anjuta_set_execution_dir(src_dir);
 		g_free (src_dir);
 	
-		if(anjuta_preferences_get_int(ANJUTA_PREFERENCES (app->preferences),
-									  BUILD_OPTION_AUTOSAVE))
-		{
-			anjuta_save_all_files();
-		}
+		cmd = prepare_build(cmd);
 	
 		if (build_execute_command (cmd) == FALSE)
 		{
@@ -148,10 +145,8 @@ build_all_project ()
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 		
-		if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									   BUILD_OPTION_AUTOSAVE))
-			anjuta_save_all_files();
-	
+		cmd = prepare_build(cmd);
+		
 		if (build_execute_command (cmd) == FALSE)
 		{
 			g_free (cmd);
@@ -199,10 +194,8 @@ build_dist_project ()
 		chdir (app->project_dbase->top_proj_dir);
 		anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 		
-		if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-									   BUILD_OPTION_AUTOSAVE))
-			anjuta_save_all_files();
-
+		cmd = prepare_build(cmd);
+		
 		if (build_execute_command (cmd) == FALSE)
 		{
 			g_free (cmd);
@@ -287,10 +280,12 @@ build_autogen_project ()
 			}
 		}
 		
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										BUILD_OPTION_AUTOSAVE))
+		if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+									   BUILD_OPTION_AUTOSAVE))
+		{
 			anjuta_save_all_files();
-	
+		}
+		
 		if (build_execute_command (cmd) == FALSE)
 		{
 			g_free (cmd);
@@ -330,11 +325,7 @@ install_as_root (GtkWidget* button, gpointer data)
 	chdir (app->project_dbase->top_proj_dir);
 	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 	
-	if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-								   BUILD_OPTION_AUTOSAVE))
-	{
-		anjuta_save_all_files();
-	}
+	cmd = prepare_build(cmd);
 
 	anjuta_update_app_status (TRUE, _("Install Project"));
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
@@ -365,11 +356,7 @@ install_as_user (GtkWidget* button, gpointer data)
 	chdir (app->project_dbase->top_proj_dir);
 	anjuta_set_execution_dir(app->project_dbase->top_proj_dir);
 	
-	if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-								   BUILD_OPTION_AUTOSAVE))
-	{
-		anjuta_save_all_files();
-	}
+	cmd = prepare_build(cmd);
 
 	anjuta_update_app_status (TRUE, _("Install Project"));
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
@@ -384,4 +371,25 @@ install_as_user (GtkWidget* button, gpointer data)
 	g_free (prj_name);
 	build_execute_command (cmd);
 	g_free (cmd);
+}
+
+static gchar *
+prepare_build (gchar *cmd)
+{
+	if(anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
+								   BUILD_OPTION_AUTOSAVE))
+	{
+		anjuta_save_all_files();
+	}
+	
+	if(anjuta_preferences_get_int(ANJUTA_PREFERENCES (app->preferences),
+								  BUILD_OPTION_SILENT))
+	{
+		gchar *tmp;
+		tmp = cmd;
+		cmd = g_strconcat(cmd, " -s", NULL);
+		g_free(tmp);
+	}
+	
+	return cmd;
 }

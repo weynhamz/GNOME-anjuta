@@ -1,3 +1,7 @@
+2004-02-13  Franco Catrin  <fcatrin@tuxpan.com>
+	* src/build_project.c
+	Use built.silent option from preferences (fix bug #895726)
+	
 2004-02-11  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
