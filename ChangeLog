@@ -1,3 +1,8 @@
+2005-01-22  Naba Kumar  <naba@gnome.org>
+
+	* plugins/symbol-browser/plugin.c: Changed c++ coments
+	to c commnets and formated code to anjuta coding styles.
+	
 2005-01-21  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, autogen.sh: Fixed build errors in newer automake.

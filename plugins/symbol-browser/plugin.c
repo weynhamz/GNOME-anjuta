@@ -46,17 +46,13 @@
 
 static gpointer parent_class = NULL;
 
-//static void treeview_signals_block (SymbolBrowserPlugin *sv_plugin);
-//static void treeview_signals_unblock (SymbolBrowserPlugin *sv_plugin);
-
-// these will block signals on treeview and treesearch callbacks functions
+/* these will block signals on treeview and treesearch callbacks functions */
 static void trees_signals_block (SymbolBrowserPlugin *sv_plugin);
 static void trees_signals_unblock (SymbolBrowserPlugin *sv_plugin);
 
-
-static void on_treesearch_symbol_selected_event( AnjutaSymbolSearch *search, 
-																 AnjutaSymbolInfo *sym, 
-																 SymbolBrowserPlugin *sv_plugin );
+static void on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search, 
+												 AnjutaSymbolInfo *sym, 
+												 SymbolBrowserPlugin *sv_plugin );
 
 
 static void
@@ -252,21 +248,19 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			trees_signals_block (sv_plugin);
 			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), root_dir);
 			
-			//
-			// FIXME: should it be better to pass just an AnjutaSymbolView object to
-			// for example anjuta_symbol_search_set_variables() and let it calls 
-			// anjuta_symbol_view_get_* functions?
-			//
-			// set some variables on anjuta_symbol_search
+			/*
+			 * FIXME: should it be better to pass just an AnjutaSymbolView object to
+			 * for example anjuta_symbol_search_set_variables() and let it calls 
+			 * anjuta_symbol_view_get_* functions?
+			 *
+			 * set some variables on anjuta_symbol_search
+			 */
+			anjuta_symbol_search_set_keywords_symbols (ANJUTA_SYMBOL_SEARCH (sv_plugin->ss), 
+				anjuta_symbol_view_get_keywords_symbols (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree)));
 			
-			// setting keywords_symbols
-			anjuta_symbol_search_set_keywords_symbols( ANJUTA_SYMBOL_SEARCH( sv_plugin->ss), 
-						anjuta_symbol_view_get_keywords_symbols( ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree)));
-			
-			// setting pixbufs
-			anjuta_symbol_search_set_pixbufs( ANJUTA_SYMBOL_SEARCH( sv_plugin->ss), 
-						anjuta_symbol_view_get_pixbuf( ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree)));
-
+			/* setting pixbufs */
+			anjuta_symbol_search_set_pixbufs (ANJUTA_SYMBOL_SEARCH (sv_plugin->ss), 
+						anjuta_symbol_view_get_pixbuf (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree)));
 			
 			trees_signals_unblock (sv_plugin);
 		}
@@ -282,7 +276,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	sv_plugin = (SymbolBrowserPlugin *)plugin;
 	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-	// FIXME: add anjuta_search cleanings... check to g_free() the sfiles too on anjuta_symbol_view
+	/* FIXME: add anjuta_search cleanings... check to g_free() the sfiles too on anjuta_symbol_view */
 }
 
 
@@ -379,7 +373,8 @@ trees_signals_block (SymbolBrowserPlugin *sv_plugin)
 									 G_CALLBACK (on_treeview_event), NULL);
 
 	g_signal_handlers_block_by_func (G_OBJECT (sv_plugin->ss),
-									 G_CALLBACK (on_treesearch_symbol_selected_event), NULL);
+									 G_CALLBACK (on_treesearch_symbol_selected_event),
+									 NULL);
 	
 }
 
@@ -390,8 +385,8 @@ trees_signals_unblock (SymbolBrowserPlugin *sv_plugin)
 									 G_CALLBACK (on_treeview_event), NULL);
 	
 	g_signal_handlers_unblock_by_func (G_OBJECT (sv_plugin->ss),
-									 G_CALLBACK (on_treesearch_symbol_selected_event), NULL);
-	
+									 G_CALLBACK (on_treesearch_symbol_selected_event),
+									 NULL);
 }
 
 static void
@@ -414,25 +409,24 @@ on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 			if (IANJUTA_IS_MARKABLE (sv_plugin->current_editor))
 			{
 				ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sv_plugin->current_editor),
-								IANJUTA_MARKABLE_BASIC, NULL);
+													 IANJUTA_MARKABLE_BASIC,
+													 NULL);
 
 				ianjuta_markable_mark (IANJUTA_MARKABLE (sv_plugin->current_editor),
-								line, IANJUTA_MARKABLE_BASIC, NULL);
+									   line, IANJUTA_MARKABLE_BASIC, NULL);
 			}
 		}
 	}
 }
 
 
-// -----------------------------------------------------------------------------
-// will manage the click of mouse and other events on search->hitlist treeview
-//
-
+/* -----------------------------------------------------------------------------
+ * will manage the click of mouse and other events on search->hitlist treeview
+ */
 static void
-on_treesearch_symbol_selected_event( AnjutaSymbolSearch *search, 
-												 AnjutaSymbolInfo *sym, 
-												 SymbolBrowserPlugin *sv_plugin ) {
-	
+on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search,
+									 AnjutaSymbolInfo *sym,
+									 SymbolBrowserPlugin *sv_plugin) {
 	gboolean ret;
 	gint line;
 	const gchar *file;
@@ -592,7 +586,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
 		
-//		g_message( "adding file_symbol_model to egg_combo_action..........." );
+		/* g_message ("adding file_symbol_model to egg_combo_action..........." ); */
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 		
@@ -658,54 +652,52 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Create widgets */
 	sv_plugin->sw = gtk_notebook_new();
 	
-	//
-	// anjuta symbol view
-	//
+	/* anjuta symbol view */
 
-	// create symbol-view scrolled window	
+	/* create symbol-view scrolled window */
 	sv_plugin->sv = gtk_scrolled_window_new (NULL, NULL);
-	sv_plugin->sv_tab_label = gtk_label_new( _("Tree" ));
-	// setting up some properties
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sv), GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (	GTK_SCROLLED_WINDOW (sv_plugin->sv),
-												GTK_POLICY_AUTOMATIC,
-												GTK_POLICY_AUTOMATIC);
+	sv_plugin->sv_tab_label = gtk_label_new (_("Tree" ));
+	/* setting up some properties */
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sv),
+										 GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sv),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
 	
 	sv_plugin->sv_tree = anjuta_symbol_view_new ();
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv_tree),
 							   (gpointer*)&sv_plugin->sv_tree);
 
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv_tree), TRUE);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv_plugin->sv_tree),
+									   TRUE);
 
 	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "event-after",
 					  G_CALLBACK (on_treeview_event), plugin);
 	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "row_activated",
 					  G_CALLBACK (on_treeview_row_activated), plugin);
 
-	gtk_container_add( GTK_CONTAINER(sv_plugin->sv), sv_plugin->sv_tree );
-	// add the scrolled window to the notebook
-	gtk_notebook_append_page( GTK_NOTEBOOK(sv_plugin->sw), sv_plugin->sv, sv_plugin->sv_tab_label );
+	gtk_container_add (GTK_CONTAINER(sv_plugin->sv), sv_plugin->sv_tree);
+	/* add the scrolled window to the notebook */
+	gtk_notebook_append_page (GTK_NOTEBOOK(sv_plugin->sw),
+							  sv_plugin->sv, sv_plugin->sv_tab_label );
 
-
-	//
-	// anjuta symbol search 
-	//
+	/* anjuta symbol search */
 	
-	sv_plugin->ss = anjuta_symbol_search_new( );
-	sv_plugin->ss_tab_label = gtk_label_new( _("Search" ));	
+	sv_plugin->ss = anjuta_symbol_search_new ();
+	sv_plugin->ss_tab_label = gtk_label_new (_("Search" ));
 
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->ss),
 							   (gpointer*)&sv_plugin->ss);
 
-	gtk_notebook_append_page( GTK_NOTEBOOK(sv_plugin->sw), sv_plugin->ss, sv_plugin->ss_tab_label );
+	gtk_notebook_append_page (GTK_NOTEBOOK(sv_plugin->sw), sv_plugin->ss,
+							  sv_plugin->ss_tab_label );
 
 	gtk_widget_show_all (sv_plugin->sw);
 
-	// connect some signals
+	/* connect some signals */
 	g_signal_connect (G_OBJECT (sv_plugin->ss), "symbol_selected",
-					  G_CALLBACK (on_treesearch_symbol_selected_event), plugin);
-
-
+					  G_CALLBACK (on_treesearch_symbol_selected_event),
+					  plugin);
 
 	/* Add action group */
 	sv_plugin->action_group = 
@@ -717,7 +709,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											plugin);
 	group = gtk_action_group_new ("ActionGroupSymbolNavigation");
 
-	// create a new combobox in style of libegg... 
+	/* create a new combobox in style of libegg... */
 	action = g_object_new (EGG_TYPE_COMBO_ACTION,
 						   "name", "ActionGotoSymbol",
 						   "label", _("Goto symbol"),
@@ -790,10 +782,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->sw = NULL;
 	sv_plugin->sv_tree = NULL;
 	
-	
-// FIXME: destroy all the others objects on sv_plugin and symbol_search...
-	
-	
+	/* FIXME: destroy all the others objects on sv_plugin and symbol_search. */
+
 	return TRUE;
 }
 
