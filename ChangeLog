@@ -1,3 +1,9 @@
+2005-02-04  Naba Kumar  <naba@gnome.org>
+
+	* plugins/glade/plugin.c: Fixed glade function calls.
+	* configure.in: Fixed a typo.
+	* TODO.tasks: Updated.
+
 2005-02-03  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-manager/plugin.c: Fixed memory corruption.

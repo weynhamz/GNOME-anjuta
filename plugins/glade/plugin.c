@@ -195,7 +195,7 @@ glade_save (GladePlugin *plugin, GladeProject *project, const gchar *path)
 	AnjutaStatus *status;
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell, NULL);
-	if (!glade_project_save (project, path))
+	if (!glade_project_save (project, path, NULL))
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
 									_("Invalid glade file name"));
@@ -211,7 +211,7 @@ on_save_activated (GtkAction *action, GladePlugin *plugin)
 	GladeApp *gpw;
 	GladeProject *project;
 	GtkWidget *filechooser;
-	const gchar *path = NULL;
+	gchar *path = NULL;
 
 	gpw = plugin->priv->gpw;
 	project = glade_app_get_active_project (GLADE_APP (gpw));
@@ -220,7 +220,7 @@ on_save_activated (GtkAction *action, GladePlugin *plugin)
 		AnjutaStatus *status;
 		
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell, NULL);
-		if (glade_project_save (project, project->path)) {
+		if (glade_project_save (project, project->path, NULL)) {
 			anjuta_status_set (status, _("Glade project '%s' saved"), project->name);
 		} else {
 			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
@@ -235,7 +235,7 @@ on_save_activated (GtkAction *action, GladePlugin *plugin)
 											  GLADE_FILE_DIALOG_ACTION_SAVE);
 	
 	if (gtk_dialog_run (GTK_DIALOG(filechooser)) == GTK_RESPONSE_OK)
-		path = glade_util_file_dialog_get_filename (filechooser);
+		path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser));
 
 	gtk_widget_destroy (filechooser);
 
@@ -243,6 +243,7 @@ on_save_activated (GtkAction *action, GladePlugin *plugin)
 		return;
 
 	glade_save (plugin, project, path);
+	g_free (path);
 }
 
 static void
@@ -251,7 +252,7 @@ on_save_as_activated (GtkAction *action, GladePlugin *plugin)
 	GladeApp *gpw;
 	GladeProject *project;
 	GtkWidget *filechooser;
-	const gchar *path = NULL;
+	gchar *path = NULL;
 
 	gpw = plugin->priv->gpw;
 	project = glade_app_get_active_project (GLADE_APP (gpw));
@@ -261,7 +262,7 @@ on_save_as_activated (GtkAction *action, GladePlugin *plugin)
 											  GLADE_FILE_DIALOG_ACTION_SAVE);
 
 	if (gtk_dialog_run (GTK_DIALOG(filechooser)) == GTK_RESPONSE_OK)
-		path = glade_util_file_dialog_get_filename (filechooser);
+		path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser));
 
 	gtk_widget_destroy (filechooser);
 
@@ -269,6 +270,7 @@ on_save_as_activated (GtkAction *action, GladePlugin *plugin)
 		return;
 
 	glade_save (plugin, project, path);
+	g_free (path);
 }
 
 static gboolean
@@ -311,19 +313,19 @@ glade_confirm_close_project (GladePlugin *plugin, GladeProject *project)
 		 */
 		if (project->path != NULL)
 		{
-			close = glade_project_save (project, project->path);
+			close = glade_project_save (project, project->path, NULL);
 		}
 		else
 		{
 			GtkWidget *filechooser;
-			const gchar *path = NULL;
+			gchar *path = NULL;
 
 			filechooser = glade_util_file_dialog_new (_("Save glade project..."),
 									GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								   GLADE_FILE_DIALOG_ACTION_SAVE);
 
 			if (gtk_dialog_run (GTK_DIALOG(filechooser)) == GTK_RESPONSE_OK)
-				path = glade_util_file_dialog_get_filename (filechooser);
+				path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser));
 
 			gtk_widget_destroy (filechooser);
 
@@ -331,7 +333,7 @@ glade_confirm_close_project (GladePlugin *plugin, GladeProject *project)
 				break;
 
 			glade_save (plugin, project, path);
-
+			g_free (path);
 			close = FALSE;
 		}
 		break;
