@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
-"POT-Creation-Date: 2003-03-24 17:29+0530\n"
-"PO-Revision-Date: 2002-03-08 15:46+0100\n"
+"POT-Creation-Date: 2003-03-26 02:44+0100\n"
+"PO-Revision-Date: 2002-03-26 02:46+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -267,9 +267,8 @@ msgid "Source Directories"
 msgstr "Källkodskataloger"
 
 #: anjuta_dialogs_strings.c:82
-#, fuzzy
 msgid "Run Configure Script"
-msgstr "Kör configure"
+msgstr "Kör configure-skript"
 
 #: anjuta_dialogs_strings.c:84
 msgid "Configure Parameters"
@@ -304,9 +303,8 @@ msgid "Search String"
 msgstr "Sök sträng"
 
 #: anjuta_dialogs_strings.c:94
-#, fuzzy
 msgid "Execute Program"
-msgstr "Kör programmet"
+msgstr "Kör program"
 
 #: anjuta_dialogs_strings.c:96
 msgid "Command Line Parameters"
@@ -377,17 +375,14 @@ msgid "Ignore case"
 msgstr "Ignorera skillnad på gemener/VERSALER"
 
 #: anjuta_dialogs_strings.c:129
-#, fuzzy
 msgid "Find & Replace"
 msgstr "Sök och ersätt"
 
 #: anjuta_dialogs_strings.c:130 anjuta_dialogs_strings.c:138
-#, fuzzy
 msgid "Search Expression"
-msgstr "Sökuttryck:"
+msgstr "Sökuttryck"
 
 #: anjuta_dialogs_strings.c:131
-#, fuzzy
 msgid "Regular Expression"
 msgstr "Reguljärt uttryck"
 
@@ -412,31 +407,26 @@ msgid "Match complete words"
 msgstr "Matcha hela ord"
 
 #: anjuta_dialogs_strings.c:139
-#, fuzzy
 msgid "Search In"
-msgstr "Sök i:"
+msgstr "Sök i"
 
 #: anjuta_dialogs_strings.c:140
-#, fuzzy
 msgid "Search Action"
-msgstr "Sökåtgärd:"
+msgstr "Sökåtgärd"
 
 #: anjuta_dialogs_strings.c:142
-#, fuzzy
 msgid "Search Direction"
-msgstr "Sökriktning:"
+msgstr "Sökriktning"
 
 #: anjuta_dialogs_strings.c:146
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
 #: anjuta_dialogs_strings.c:147
-#, fuzzy
 msgid "Search Variable"
 msgstr "Sök variabel"
 
 #: anjuta_dialogs_strings.c:148
-#, fuzzy
 msgid "Choose Files"
 msgstr "Välj filer"
 
@@ -461,7 +451,6 @@ msgstr ""
 "README AUTHORS ChangeLog *.m4"
 
 #: anjuta_dialogs_strings.c:154
-#, fuzzy
 msgid "Ignore Files"
 msgstr "Ignorera filer"
 
@@ -474,17 +463,14 @@ msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
 #: anjuta_dialogs_strings.c:158
-#, fuzzy
 msgid "Ignore Hidden Files"
 msgstr "Ignorera dolda filer"
 
 #: anjuta_dialogs_strings.c:159
-#, fuzzy
 msgid "Ignore Binary Files"
 msgstr "Ignorera binära filer"
 
 #: anjuta_dialogs_strings.c:160
-#, fuzzy
 msgid "Choose Directories"
 msgstr "Välj kataloger"
 
@@ -493,7 +479,6 @@ msgid "Space-seperated list of directory name patterns to match"
 msgstr "Blankstegsseparerad lista med katalognamnsmönster att matcha"
 
 #: anjuta_dialogs_strings.c:163
-#, fuzzy
 msgid "Ignore Directories"
 msgstr "Ignorera kataloger"
 
@@ -512,39 +497,32 @@ msgid "CVS intl po"
 msgstr "CVS intl po"
 
 #: anjuta_dialogs_strings.c:168
-#, fuzzy
 msgid "Ignore Hidden Directories"
 msgstr "Ignorera dolda kataloger"
 
 #: anjuta_dialogs_strings.c:169
-#, fuzzy
 msgid "Search Recursively"
 msgstr "Sök rekursivt"
 
 #: anjuta_dialogs_strings.c:170
-#, fuzzy
 msgid "File Filter"
 msgstr "Filfilter"
 
 #: anjuta_dialogs_strings.c:171
-#, fuzzy
 msgid "Max. Actions"
 msgstr "Maximalt antal åtgärder"
 
 #: anjuta_dialogs_strings.c:172
-#, fuzzy
 msgid "No Limit"
 msgstr "Ingen gräns"
 
 #: anjuta_dialogs_strings.c:173
-#, fuzzy
 msgid "Search Target"
-msgstr "Sökvägar för sökning"
+msgstr "Sökmål"
 
 #: anjuta_dialogs_strings.c:174
-#, fuzzy
 msgid "Replace With"
-msgstr "Ersätt med:"
+msgstr "Ersätt med"
 
 #: anjuta_dialogs_strings.c:176
 msgid "Expand regex back references"
@@ -555,9 +533,8 @@ msgid "Replace"
 msgstr "Ersätt"
 
 #: anjuta_dialogs_strings.c:178
-#, fuzzy
 msgid "Replace Expression"
-msgstr "Reguljärt uttryck"
+msgstr "Ersättningsuttryck"
 
 #: anjuta_dialogs_strings.c:179
 msgid "Search"
@@ -1528,9 +1505,8 @@ msgid "Terminal options"
 msgstr "Terminalalternativ"
 
 #: anjuta_dialogs_strings.c:493
-#, fuzzy
 msgid "Anjuta windows"
-msgstr "Anjuta: Sök"
+msgstr "Anjuta-fönster"
 
 #: plugins/class-gen/clsGen.c:449
 msgid "Class name not valid"
@@ -3159,35 +3135,32 @@ msgid "Error whilst signalling the process."
 msgstr "Fel under signalering till processen."
 
 #: src/debug_tree.c:1520
-#, fuzzy
 msgid "Default format"
-msgstr "Autoformatering"
+msgstr "Standardformat"
 
 #: src/debug_tree.c:1524
-#, fuzzy
 msgid "Binary"
-msgstr "Bibliotek"
+msgstr "Binärt"
 
 #: src/debug_tree.c:1527
 msgid "Octal"
-msgstr ""
+msgstr "Oktalt"
 
 #: src/debug_tree.c:1530
 msgid "Signed decimal"
-msgstr ""
+msgstr "Decimalt med tecken"
 
 #: src/debug_tree.c:1533
 msgid "Unsigned decimal"
-msgstr ""
+msgstr "Decimalt utan tecken"
 
 #: src/debug_tree.c:1536 src/registers_gui.c:111
 msgid "Hex"
 msgstr "Hexadecimalt"
 
 #: src/debug_tree.c:1539
-#, fuzzy
 msgid "Char"
-msgstr "Töm"
+msgstr "Tecken"
 
 #: src/executer.c:53 src/mainmenu_callbacks.c:1700
 msgid "The target executable of this Project is unknown"
@@ -5435,13 +5408,12 @@ msgstr "Inställningar för syntaxfärgning"
 
 #. 6
 #: src/main_menubar_def.h:1743
-#, fuzzy
 msgid "Windows settings ..."
-msgstr "Skriver ut..."
+msgstr "Fönsterinställningar..."
 
 #: src/main_menubar_def.h:1744
 msgid "Edit windows settings"
-msgstr ""
+msgstr "Redigera fönsterinställningar"
 
 #. 7
 #: src/main_menubar_def.h:1749
@@ -7297,6 +7269,9 @@ msgstr "Pixbuf-objekt"
 #: widgets/cell-renderer-captioned-image.c:215
 msgid "The pixbuf to render."
 msgstr "Pixbuf att rendera."
+
+#~ msgid "Windows settings..."
+#~ msgstr "Fönsterinställningar..."
 
 #~ msgid "dialog1"
 #~ msgstr "dialog1"
