@@ -151,6 +151,11 @@ get_property_value_as_string (AnjutaProperty *prop)
 		}
 		break;
 	}
+	if (text_value && (strlen (text_value) == 0))
+	{
+		g_free (text_value);
+		text_value = NULL;
+	}
 	return text_value;
 }
 
@@ -176,7 +181,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		if (value) 
 			int_value = atoi (value);
 		else
-			int_value = atoi (prop->default_value);
+			int_value = 0;
 		
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop->object),
 		                              int_value);
@@ -186,7 +191,8 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		if (value) 
 			int_value = atoi (value);
 		else
-			int_value = atoi (prop->default_value);
+			int_value = 0;
+		
 		gtk_spin_button_set_value (GTK_SPIN_BUTTON (prop->object), int_value);
 		break;
 	
@@ -194,9 +200,9 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		if (value)
 			gtk_entry_set_text (GTK_ENTRY (prop->object), value);
 		else
-			gtk_entry_set_text (GTK_ENTRY (prop->object),
-								(gchar*) prop->default_value);
+			gtk_entry_set_text (GTK_ENTRY (prop->object), "");
 		break;
+		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_TEXT:
 		{
 			GtkTextBuffer *buffer;
@@ -204,19 +210,16 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			if (value)
 				gtk_text_buffer_set_text (buffer, value, -1);
 			else
-				gtk_text_buffer_set_text (buffer, (gchar*) prop->default_value,
-										  -1);
+				gtk_text_buffer_set_text (buffer, "", -1);
 		}
 		break;
+		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 		{
 			guint8 r, g, b;
 			
 			if (value)
 				anjuta_util_color_from_string (value, &r, &g, &b);
-			else if (prop->default_value)
-				anjuta_util_color_from_string (prop->default_value,
-											   &r, &g, &b);
 			else
 				r = g = b = 0;
 			
@@ -224,6 +227,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 									   r, g, b, 8);
 		}
 		break;
+		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
 		if (value)
 		{
@@ -256,11 +260,11 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 												 (prop->object), value);
 			}
 		}
-		else
+		/* else
 		{
 			gnome_font_picker_set_font_name (GNOME_FONT_PICKER (prop->object),
-											 prop->default_value);
-		}
+											 "A standard font");
+		}*/
 		break;
 	}
 }
@@ -295,6 +299,8 @@ save_property (AnjutaPreferences *pr, AnjutaProperty *prop,
 	}
 	if (value)
 		return_value = fprintf (fp, "%s=%s\n", prop->key, value);
+	else
+		return_value = fprintf (fp, "%s=\n", prop->key);
 #ifdef DEBUG
 	if (return_value <= 0)
 		g_warning ("Error saving property '%s'", prop->key);
@@ -326,7 +332,11 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->data_type = data_type;
 	p->key = g_strdup (key);
 	if (default_value)
+	{
 		p->default_value = g_strdup (default_value);
+		if (strlen (default_value) > 0)
+			prop_set_with_key (pr->props_built_in, key, default_value);
+	}
 	p->flags = flags;
 	
 	pr->priv->properties = g_list_append (pr->priv->properties, p);
@@ -484,8 +494,11 @@ anjuta_preferences_set (AnjutaPreferences * pr, gchar * key, gchar * value)
 {
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
 	g_return_if_fail (key != NULL);
-	g_return_if_fail (value != NULL);
-	prop_set_with_key (pr->props, key, value);
+
+	if (value && (strlen (value) > 0))
+		prop_set_with_key (pr->props, key, value);
+	else
+		prop_set_with_key (pr->props, key, "");
 }
 
 inline void
@@ -507,11 +520,8 @@ preferences_objects_to_prop (AnjutaPreferences *pr)
 		gchar *value;
 		p = node->data;
 		value = get_property_value_as_string (p);
-		if (value)
-		{
-			anjuta_preferences_set (pr, p->key, value);
-			g_free (value);
-		}
+		anjuta_preferences_set (pr, p->key, value);
+		g_free (value);
 		node = g_list_next (node);
 	}
 }
@@ -879,51 +889,51 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	
 	g_message ("Initializing AP Instance");
 	
-	pr->props_build_in = prop_set_new ();
+	pr->props_built_in = prop_set_new ();
 	pr->props_global = prop_set_new ();
 	pr->props_local = prop_set_new ();
 	pr->props_session = prop_set_new ();
 	pr->props = prop_set_new ();
 
-	prop_clear (pr->props_build_in);
+	prop_clear (pr->props_built_in);
 	prop_clear (pr->props_global);
 	prop_clear (pr->props_local);
 	prop_clear (pr->props_session);
 	prop_clear (pr->props);
 
-	prop_set_parent (pr->props_global, pr->props_build_in);
+	prop_set_parent (pr->props_global, pr->props_built_in);
 	prop_set_parent (pr->props_local, pr->props_global);
 	prop_set_parent (pr->props_session, pr->props_local);
 	prop_set_parent (pr->props, pr->props_session);
 
 	/* Reading the build in default properties */
-	prop_read_from_memory (pr->props_build_in,
+	prop_read_from_memory (pr->props_built_in,
 						   default_settings, strlen(default_settings), "");
 
 	/* Dynamic properties: Default paths */
 	str = g_strconcat (g_getenv("HOME"), "/Projects", NULL);
-	prop_set_with_key (pr->props_build_in, "projects.directory", str);
+	prop_set_with_key (pr->props_built_in, "projects.directory", str);
 	g_free (str);
 	
 	str = g_strconcat (g_getenv("HOME"), "/Tarballs", NULL);
-	prop_set_with_key (pr->props_build_in, "tarballs.directory", str);
+	prop_set_with_key (pr->props_built_in, "tarballs.directory", str);
 	g_free (str);
 
 	str = g_strconcat (g_getenv("HOME"), "/Rpms", NULL);
-	prop_set_with_key (pr->props_build_in, "rpms.directory", str);
+	prop_set_with_key (pr->props_built_in, "rpms.directory", str);
 	g_free (str);
 	
 	str = g_strconcat (g_getenv("HOME"), "/Tarballs", NULL);
-	prop_set_with_key (pr->props_build_in, "srpms.directory", str);
+	prop_set_with_key (pr->props_built_in, "srpms.directory", str);
 	g_free (str);
 	
 	str = g_strdup (g_getenv("HOME"));
-	prop_set_with_key (pr->props_build_in, "anjuta.home.directory", str);
+	prop_set_with_key (pr->props_built_in, "anjuta.home.directory", str);
 	g_free (str);
 	
-	prop_set_with_key (pr->props_build_in, "anjuta.data.directory",
+	prop_set_with_key (pr->props_built_in, "anjuta.data.directory",
 					   PACKAGE_DATA_DIR);
-	prop_set_with_key (pr->props_build_in, "anjuta.pixmap.directory",
+	prop_set_with_key (pr->props_built_in, "anjuta.pixmap.directory",
 					   PACKAGE_PIXMAPS_DIR);
 
 	/* Load the external configuration files */

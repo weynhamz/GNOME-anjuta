@@ -87,57 +87,6 @@ void PropSetFile::Read(const char *filename, const char *directoryForImports) {
 
 }
 
-static bool IncludesVar(const char *value, const char *key) {
-	const char *var = strstr(value, "$(");
-	while (var) {
-		if (isprefix(var + 2, key) && (var[2 + strlen(key)] == ')')) {
-			// Found $(key) which would lead to an infinite loop so exit
-			return true;
-		}
-		var = strstr(var + 2, ")");
-		if (var)
-			var = strstr(var + 1, "$(");
-	}
-	return false;
-}
-
-inline unsigned int HashString(const char *s, size_t len) {
-	unsigned int ret = 0;
-	while (len--) {
-		ret <<= 4;
-		ret ^= *s;
-		s++;
-	}
-	return ret;
-}
-                                                                                
-
-gchar *PropSetFile::GetString(const char *key)
-{
-	unsigned int hash = HashString(key, strlen(key));
-	for (Property *p = props[hash % hashRoots]; p; p = p->next) {
-		if ((hash == p->hash) && (0 == strcmp(p->key, key))) {
-			return g_strdup (p->val);
-		}
-	}
-	if (superPS) {
-		// Failed here, so try in base property set
-		return static_cast<PropSetFile *>(superPS)->GetString(key);
-	} else {
-		return NULL;
-	}
-}
-
-gchar *PropSetFile::GetExpandedString(const char *key)
-{
-	gchar *val = GetString(key);
-	if (val == NULL)
-		return NULL;
-    if (IncludesVar(val, key))
-        return val;
-    return g_strdup (Expand (val).c_str());
-}
-
 // Global property bank for anjuta.
 static GList *anjuta_propset;
 
@@ -238,19 +187,25 @@ gchar*
 prop_get(PropsID handle, const gchar *key)
 {
   PropSetFile* p;
+  SString s;
   if (!key) return NULL;
   p = get_propset(handle);
   if(!p) return NULL;
-  return p->GetString(key);;
+  s = p->Get(key);
+  if (strlen(s.c_str()) == 0) return NULL;
+  return g_strdup(s.c_str());
 }
 
 gchar*
 prop_get_expanded(PropsID handle, const gchar *key)
 {
   PropSetFile* p;
+  SString s;
   p = get_propset(handle);
   if(!p) return NULL;
-  return p->GetExpandedString(key);
+  s = p->GetExpanded(key);
+  if (strlen(s.c_str()) == 0) return NULL;
+  return g_strdup(s.c_str());
 }
 
 gchar*

@@ -32,9 +32,6 @@ public:
 	bool ReadLine(char *data, bool ifIsTrue, const char *directoryForImports=0);
 	void ReadFromMemory(const char *data, int len, const char *directoryForImports=0);
 	void Read(const char *filename, const char *directoryForImports);
-
-	gchar *GetString(const char *key);
-	gchar *GetExpandedString(const char *key);
 };
 
 extern "C" {

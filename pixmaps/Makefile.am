@@ -95,6 +95,7 @@ anjuta_pixmaps_DATA = \
 	password.png \
 	pointer.xpm \
 	preferences-build.png\
+	preferences-encodings.png\
 	preferences-indentation.png\
 	preferences-cvs.png\
 	preferences-messages.png\

@@ -757,6 +757,7 @@ fv_add_tree_entry (TMFileEntry *entry,
 					    REV_COLUMN, child->version ? child->version : "",
 					    TMFILE_ENTRY_COLUMN, child,
 					    -1);
+			gdk_pixbuf_unref (pixbuf);
 		}
 	}
 }

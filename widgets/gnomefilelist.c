@@ -33,6 +33,7 @@
 #include <pwd.h>
 #include <sys/types.h>
 #include <libgnomeui/gnome-window-icon.h>
+#include <gdl/gdl-icons.h>
 
 enum
 {
@@ -48,8 +49,9 @@ enum
 	N_DIRECTORY_COLUMNS
 };
 
+static GdlIcons *icon_set = NULL;
+
 #define FILE_PIXMAP_FOLDER PACKAGE_PIXMAPS_DIR"/bfoldc.xpm"
-#define FILE_PIXMAP_FILE   PACKAGE_PIXMAPS_DIR"/file_text.png"
 
 /* function declarations */
 static void gnome_filelist_class_init (GnomeFileListClass * klass);
@@ -162,6 +164,8 @@ gnome_filelist_init (GnomeFileList * file_list)
 	file_list->path = 0;
 	file_list->selected = 0;
 	file_list->history_position = -1;
+	if (!icon_set)
+		icon_set = gdl_icons_new (24, 16.0);
 }
 
 GtkWidget *
@@ -498,8 +502,6 @@ gnome_filelist_new_with_path (const gchar * path)
 
 	file_list->folder_pixbuf =
 		gdk_pixbuf_new_from_file (FILE_PIXMAP_FOLDER, NULL);
-	file_list->file_pixbuf =
-		gdk_pixbuf_new_from_file (FILE_PIXMAP_FILE, NULL);
 
 	if (!gnome_filelist_set_dir (file_list, path))
 		gnome_filelist_set_dir (file_list, g_get_home_dir ());
@@ -1194,11 +1196,17 @@ gnome_filelist_get_dirs (GnomeFileList * file_list)
 		temp = files_list;
 		while (temp != NULL)
 		{
+			GdkPixbuf *pixbuf;
+			gchar *uri;
+			uri = g_strconcat (file_list->path, "/", (gchar*) temp->data, NULL);
+			pixbuf = gdl_icons_get_uri_icon (icon_set, uri);
+			g_free (uri);
 			gtk_list_store_append (GTK_LIST_STORE (file_model), &iter);
 			gtk_list_store_set (GTK_LIST_STORE (file_model), &iter,
 								FILE_PIXBUF_COLUMN,
-								file_list->file_pixbuf,
+								pixbuf,
 								FILE_COLUMN, (gchar*) temp->data, -1);
+			gdk_pixbuf_unref (pixbuf);
 			g_free (temp->data);
 			temp = g_list_next (temp);
 		}

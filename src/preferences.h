@@ -77,7 +77,7 @@ struct _AnjutaPreferences
 {
 	AnjutaPreferencesDialog parent;
 	
-	PropsID props_build_in;
+	PropsID props_built_in;
 	PropsID props_global;
 	PropsID props_local;
 	PropsID props_session;

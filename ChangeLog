@@ -1,3 +1,22 @@
+2003-06-02  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/PropSet.h, src/properties.[ch]*: Reversed the patch to
+	return NULL for undefined properties and "" for defined but empty
+	strings. It was creating many problems where both are assumed to be
+	same. And besides, it doesn't matter to differentiate the two (the
+	problem with preferences was due to a different bug).
+
+	* src/prefereces.[c,h]: Fixed to handle empty and blank properties
+	correctly. Also, s/props_build_in/props_built_in/g.
+	
+	* widgets/gnomefilelist.[c,h]: Uses gdl theme icons for file
+	list.
+	
+	* src/an_file_view.c: Unrefed pixbufs when done with them.
+
+	* pixmaps/Makefile.am, (added) pixmaps/preferences-encodings.png,
+	(removed) file_text.png: Added and removed pixmaps.
+	
 2003-05-30  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.glade: Fixed encodings preferences dialog

@@ -92,7 +92,6 @@ struct _GnomeFileList {
    GList *history;
    GList *filetypes;
    GdkPixbuf *folder_pixbuf;
-   GdkPixbuf *file_pixbuf;
    gboolean changedironcombo;
    gchar *entry_text;
 };
