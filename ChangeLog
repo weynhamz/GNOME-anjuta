@@ -1,3 +1,10 @@
+2004-12-17  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/file-loader/Makefile.am,
+	plugins/file-loader/plugin.c,
+	plugins/project-manager/plugin.c: Fixed memory corruption
+	and disposition codes. Added missing plugin.h in Makefile.am.
+
 2004-12-16  Naba Kumar  <naba@gnome.org>
 
 	* plugins/symbol-browser/an_symbol_view.c,

@@ -748,7 +748,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
-	g_message ("AnjutaFileLoaderPlugin: Activating File Loader plugin ...");
+	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Activating File Loader plugin ...");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -805,7 +805,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
-	g_message ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin ...");
+	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin ...");
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, loader_plugin->fm_watch_id, TRUE);

@@ -663,8 +663,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* We already get a ref on model */
 	view = gbf_project_view_new ();
 	g_object_ref (view);
+	
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view),
 							 GTK_TREE_MODEL (model));
+	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	g_signal_connect (view, "uri-activated",
 					  G_CALLBACK (on_uri_activated), plugin);
@@ -743,18 +745,21 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = (ProjectManagerPlugin*) plugin;
 	
+	g_object_unref (G_OBJECT (pm_plugin->model));
+	g_object_unref (G_OBJECT (pm_plugin->view));
+	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, pm_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, pm_plugin->editor_watch_id, TRUE);
 	
 	// pm_finalize(pm_plugin);
+	/* Widget is destroyed when removed from the shell */
 	anjuta_shell_remove_widget (plugin->shell, pm_plugin->scrolledwindow, NULL);
+	
 	anjuta_ui_unmerge (pm_plugin->ui, pm_plugin->merge_id);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pm_action_group);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->popup_action_group);
-	g_object_unref (G_OBJECT (pm_plugin->model));
-	g_object_unref (G_OBJECT (pm_plugin->view));
-	gtk_widget_destroy (pm_plugin->scrolledwindow);
+	
 	return TRUE;
 }
 
