@@ -1,7 +1,9 @@
 2001-07-29  Stephane Demurget <demurgets@free.fr>
+	
 	* po/fr.po: fixed some grammar things.
 	  Thanks to Pierre Sarrazin <sarrazip@sympatico.ca> for having pointed
 	  this out.
+	
 	* src/utilities.c: (file_is_link): use lstat instead of stat.
 
 2001-07-27  Naba Kumar <kh_naba@123india.com>
