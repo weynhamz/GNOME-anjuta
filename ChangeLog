@@ -1,5 +1,9 @@
 2005-04-06  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Marked completed items.
+	
+2005-04-06  Naba Kumar  <naba@gnome.org>
+
 	* plugins/subversion/svn-backend.c: Fixed subversion plugin
 	compile error.
 	
