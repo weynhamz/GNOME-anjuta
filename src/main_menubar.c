@@ -36,6 +36,7 @@ static void on_project_menu_realize (GtkWidget * widget, gpointer data);
 void
 create_main_menubar (GtkWidget * ap, MainMenuBar * mb)
 {
+	gnome_app_ui_configure_configurable(menubar1_uiinfo);
 	gnome_app_create_menus (GNOME_APP (ap), menubar1_uiinfo);
 
 	/* File submenu */

@@ -104,6 +104,7 @@ gint on_anjuta_delete (GtkWidget * w, GdkEvent * event, gpointer data)
 	gint max_recent_files, max_recent_prjs;
 	
 	if (!app) return TRUE;
+	gnome_accelerators_sync();
 	file_not_saved = FALSE;
 	p = app->project_dbase;
 	

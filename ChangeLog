@@ -1,3 +1,16 @@
+2005-04-07  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Giuseppe Corbelli <cowo@lugbs.linux.it>:
+	* src/anjuta_cbs.c
+	src/main_menubar.c:
+	
+	I noticed that in 1_2_0 branch custom menu accelerators are not
+	saved/restored. I submitted a bug report on SF (bug #1082504)
+	Here's a small patch that addresses the problem. Just a 
+	gnome_app_ui_configure_configurable at the beginning of 
+	create_main_menubar and
+	gnome_accelerators_sync in on_anjuta_delete
+
 2005-04-06  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	Anonymous patch from SF Tracker
