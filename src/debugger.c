@@ -1150,7 +1150,11 @@ debugger_start_terminal ()
 	/* cmd = prop_get_expanded (app->preferences->props, "command.terminal"); */
 	cmd = command_editor_get_command (app->command_editor, COMMAND_TERMINAL);
 	if (!cmd) goto error;
-	
+
+	/* Test if command is executable */
+	if (!gnome_vfs_is_executable_command_string(cmd))
+		goto error;
+
 	args = anjuta_util_parse_args_from_string (cmd);
     
     /* Fix gnome-terminal1 and gnome-terminal2 confusion */

@@ -1679,7 +1679,7 @@ GList*
 anjuta_util_parse_args_from_string (const gchar* string)
 {
 	gboolean escaped;
-	gchar    quote;
+	gint8    quote;
 	gchar    buffer[2048];
 	const gchar *s;
 	gint     idx;
@@ -1687,7 +1687,7 @@ anjuta_util_parse_args_from_string (const gchar* string)
 	
 	idx = 0;
 	escaped = FALSE;
-	quote = (gchar)-1;
+	quote = (gint8)-1;
 	s = string;
 	
 	while (*s) {
@@ -1706,14 +1706,14 @@ anjuta_util_parse_args_from_string (const gchar* string)
 			escaped = TRUE;
 		} else if (*s == quote) {
 			/* Current char ends a quotation */
-			quote = (gchar)-1;
+			quote = (gint8)-1;
 			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
 				/* If there is no space after the quotation or it is not
 				   the end of the string */
 				g_warning ("Parse error while parsing program arguments");
 			}
 		} else if ((*s == '\"' || *s == '\'')) {
-			if (quote == (gchar)-1) {
+			if (quote == (gint8)-1) {
 				/* Current char starts a quotation */
 				quote = *s;
 			} else {

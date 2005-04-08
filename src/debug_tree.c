@@ -1448,8 +1448,7 @@ debug_tree_cell_data_func (GtkTreeViewColumn *tree_column,
 
 	gtk_tree_model_get (tree_model, iter, DTREE_ENTRY_COLUMN, &item_data, -1);
 	g_value_reset (&gvalue);
-	/* fix me : 'item_data' can be NULL */
-	g_value_set_static_string (&gvalue, colors[(item_data && item_data->modified ? 1 : 0)]);
+	g_value_set_static_string (&gvalue, colors[item_data->modified ? 1 : 0]);
 	g_object_set_property (G_OBJECT (cell), "foreground", &gvalue);
 }
 

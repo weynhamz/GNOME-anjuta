@@ -551,6 +551,7 @@ project_dbase_reload_session (ProjectDBase * p)
 
 	g_return_if_fail( NULL != p );
 	debugger_reload_session_breakpoints(p);	
+	project_reload_session_files(p);
 	fv_session_load (p);
 	if (auto_update)
 		project_dbase_update_tags_image(p, TRUE);
@@ -559,7 +560,6 @@ project_dbase_reload_session (ProjectDBase * p)
 		sv_populate(build_sv);
 		fv_populate(build_fv);
 	}
-	project_reload_session_files(p);
 	session_load_node_expansion_states (p);
 	executer_load_session( app->executer, p );
 	p->clean_before_build = 

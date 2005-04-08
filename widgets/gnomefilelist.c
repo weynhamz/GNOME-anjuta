@@ -1233,7 +1233,6 @@ gnome_filelist_get_dirs (GnomeFileList * file_list)
 								FILE_PIXBUF_COLUMN,
 								pixbuf,
 								FILE_COLUMN, (gchar*) temp->data, -1);
-			gdk_pixbuf_unref (pixbuf);
 			g_free (temp->data);
 			temp = g_list_next (temp);
 		}
