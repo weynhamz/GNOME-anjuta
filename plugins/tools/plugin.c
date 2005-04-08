@@ -88,6 +88,7 @@ R7: Tool Storage
 #include "fileop.h"
 #include "tool.h"
 #include "editor.h"
+#include "variable.h"
 
 #include <libanjuta/anjuta-shell.h>
 
@@ -102,6 +103,7 @@ struct _ATPPlugin {
 	gint uiid;
 	ATPToolList list;
 	ATPToolDialog dialog;
+	ATPVariable variable;
 	IAnjutaMessageView* view;
 	AnjutaLauncher* launcher;
 };
@@ -207,6 +209,12 @@ atp_plugin_get_tool_dialog (const ATPPlugin *this)
 	return &(((ATPPlugin *)this)->dialog);
 }
 
+ATPVariable*
+atp_plugin_get_variable (const ATPPlugin *this)
+{
+	return &(((ATPPlugin *)this)->variable);
+}
+
 /*---------------------------------------------------------------------------*/
 
 /* Used in dispose */
@@ -250,7 +258,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	ATPPlugin *this = (ATPPlugin*)plugin;
 	AnjutaUI *ui;
 	GtkMenu* menu;
-	GtkMenuItem* sep;
+	GtkWidget* sep;
 	
 	g_message ("Tools Plugin: Activating tools plugin...");
 	
@@ -265,7 +273,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 
 	/* Load tools */
 	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), "/MenuMain/Tools"))));
-	atp_tool_list_initialize (&this->list, plugin, menu);
+	atp_tool_list_initialize (&this->list, this, menu);
 	atp_anjuta_tools_load (this);
 	sep = gtk_separator_menu_item_new();
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (sep));
@@ -275,6 +283,8 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 
 	/* initialize dialog box */
 	atp_tool_dialog_new_at (&this->dialog, this);
+
+	atp_variable_construct (&this->variable, plugin->shell);
 	
 	return TRUE;
 }
@@ -292,6 +302,7 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 
 	atp_tool_list_destroy (&this->list);
 	atp_tool_dialog_free_at (&this->dialog);
+	atp_variable_destroy (&this->variable);
 
 	return TRUE;
 }

@@ -1,3 +1,29 @@
+2005-04-07  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/Makefile.am,
+	plugins/tools/variable.c,
+	plugins/tools/variable.h:
+	Add new code for handling variables
+
+	* plugins/tools/anjuta-tools.glade:
+	Improve tool editor dialog
+	Add variable selection dialog
+
+	* plugin/tools/dialog.c,
+	plugins/tools/dialog.h,
+	plugins/tools/plugin.c,
+	plugins/tools/plugin.h:
+	Add variable object
+	Add a function to get it
+
+	* plugins/tools/editor.c:
+	Add gui code for variable selection dialog
+
+	* plugins/tools/execute.c:
+	Use variables for executing command
+	
+	* Naba: Compile warning fixes.
+
 2005-04-06  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Marked completed items.

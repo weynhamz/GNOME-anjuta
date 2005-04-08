@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    dialog.h
-    Copyright (C) 2003 Biswapesh Chattopadhyay
+    variable.h
+    Copyright (C) 2005 Sebastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,33 +18,23 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef __DIALOG_H__
-#define __DIALOG_H__
+#ifndef __VARIABLE_H__
+#define __VARIABLE_H__
 
-#include "plugin.h"
-#include "editor.h"
-#include "variable.h"
+#include <libanjuta/anjuta-shell.h>
 
-#include <gtk/gtk.h>
+#include <glib.h>
 
-typedef struct _ATPToolDialog ATPToolDialog;
+typedef AnjutaShell* ATPVariable;
 
-struct _ATPToolDialog {
-	GtkDialog* dialog;
-	GtkTreeView* view;
-	ATPToolEditorList tedl;
-	ATPPlugin* plugin;
-};
+ATPVariable* atp_variable_construct (ATPVariable* this, AnjutaShell* shell);
+void atp_variable_destroy (ATPVariable* this);
 
-void atp_tool_dialog_new_at (ATPToolDialog *this, ATPPlugin *plugin);
-void atp_tool_dialog_free_at (ATPToolDialog *this);
-
-GtkWindow* atp_tool_dialog_get_window (const ATPToolDialog *this);
-void atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select);
-
-ATPVariable* atp_tool_dialog_get_variable (const ATPToolDialog *this);
-
-gboolean atp_tool_dialog_show (ATPToolDialog *this);
-void atp_tool_dialog_close (ATPToolDialog *this);
+guint atp_variable_get_count (const ATPVariable* this);
+const gchar* atp_variable_get_name (const ATPVariable* this, guint id);
+const gchar* atp_variable_get_help (const ATPVariable* this, guint id);
+gchar* atp_variable_get_value_from_id (const ATPVariable* this, guint id);
+gchar* atp_variable_get_value (const ATPVariable* this, const gchar* name);
+gchar* atp_variable_get_value_from_name_part (const ATPVariable* this, const gchar* name, gsize length);
 
 #endif

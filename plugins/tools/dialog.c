@@ -261,7 +261,7 @@ on_tool_add (GtkButton *button, gpointer user_data)
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
 	ATPToolEditor *ted;
-	guint position;
+	/* guint position; */
 
 	tool = get_current_tool (this);
 
@@ -471,11 +471,11 @@ gboolean
 atp_tool_dialog_show (ATPToolDialog* this)
 {
 	GladeXML *xml;
-	GList *list;
+	/* GList *list; */
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GtkTreeSelection *selection;
+	/* GtkTreeSelection *selection; */
 
 	if (this->dialog != NULL)
 	{
@@ -557,6 +557,12 @@ GtkWindow*
 atp_tool_dialog_get_window (const ATPToolDialog *this)
 {
 	return GTK_WINDOW (this->dialog);
+}
+
+ATPVariable*
+atp_tool_dialog_get_variable (const ATPToolDialog *this)
+{
+	return atp_plugin_get_variable (this->plugin);
 }
 
 void

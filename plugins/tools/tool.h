@@ -102,7 +102,7 @@ ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATP
 
 ATPUserTool *atp_user_tool_next (const ATPUserTool* this);
 ATPUserTool *atp_user_tool_previous (const ATPUserTool* this);
-ATPUserTool *atp_user_tool_in (const ATPUserTool* this, ATPToolStore storage);
+ATPUserTool *atp_user_tool_in (ATPUserTool* this, ATPToolStore storage);
 /*ATPUserTool *atp_user_tool_next_in (ATPUserTool* this);*/
 
 ATPToolList *atp_tool_list_initialize (ATPToolList *this, ATPPlugin* plugin, GtkMenu* menu);

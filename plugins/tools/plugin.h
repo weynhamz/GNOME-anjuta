@@ -27,6 +27,8 @@
 
 #include <gtk/gtk.h>
 
+#include "variable.h"
+
 typedef struct _ATPPlugin ATPPlugin;
 typedef struct _ATPPluginClass ATPPluginClass;
 
@@ -40,6 +42,7 @@ void atp_plugin_set_treeview(ATPPlugin* this, GtkTreeView* dialog);*/
 
 struct _ATPToolList* atp_plugin_get_tool_list (const ATPPlugin *this);
 struct _ATPToolDialog* atp_plugin_get_tool_dialog (const ATPPlugin *this);
+ATPVariable* atp_plugin_get_variable (const ATPPlugin *this);
 GtkWindow* atp_plugin_get_app_window (const ATPPlugin *this);
 
 IAnjutaMessageView* atp_plugin_create_view (ATPPlugin* this);

@@ -42,7 +42,9 @@ libanjuta_tools_la_SOURCES= \
 	editor.c \
 	editor.h \
 	execute.c \
-	execute.h
+	execute.h \
+	variable.c \
+	variable.h
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

@@ -132,6 +132,7 @@ parser_warning (GMarkupParseContext* ctx, const gchar* format,...)
 	g_free (msg);
 }
 
+#if 0
 static void
 parser_critical (GMarkupParseContext* ctx, const gchar* format,...)
 {
@@ -146,6 +147,7 @@ parser_critical (GMarkupParseContext* ctx, const gchar* format,...)
 	va_end (args);
 	g_free (msg);
 }
+#endif
 
 /* Load anjuta-tools
  *---------------------------------------------------------------------------*/
@@ -405,7 +407,7 @@ atp_tool_parser_end_parse (ATPToolParser* this, GError** error)
 
 /* Loads toolset from a xml configuration file.
  * Tools properties are saved xml format */
-gboolean
+static gboolean
 atp_tool_list_load_from_file (ATPToolList* this, const gchar* filename, ATPToolStore storage)
 {
 	gchar* content;

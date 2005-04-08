@@ -27,6 +27,8 @@
 
 #include "execute.h"
 
+#include "variable.h"
+
 /*---------------------------------------------------------------------------*/
 
 
@@ -60,18 +62,50 @@ void
 atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 {
 	ATPPlugin* plugin;
+	ATPVariable* variable;
 	AnjutaLauncher* launcher;
-	gchar *cmd;
+	GString* cmd;
+	const gchar* args;
+	gchar* val;
+	guint len;
 
 	plugin = atp_user_tool_get_plugin (this);
 
 	atp_plugin_create_view (plugin);
 	
 	launcher = atp_plugin_get_launcher (plugin);	
+	variable = atp_plugin_get_variable (plugin);
 	g_signal_connect (G_OBJECT (launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
-	cmd = g_strconcat(atp_user_tool_get_command (this), " ", atp_user_tool_get_param (this), NULL);
-	anjuta_launcher_execute (launcher, cmd, on_run_output, plugin);
-	g_free (cmd);
+	/* Make command line */
+	cmd = g_string_new (atp_user_tool_get_command (this));
+	/* Replace variable if necessary */
+	args = atp_user_tool_get_param (this); 
+	if (args != NULL)
+	{
+		for (; *args != '\0'; args += len)
+		{
+			for (len = 0; (args[len] != '\0') && g_ascii_isspace (args[len]); len++);
+			g_string_append_len (cmd, args, len);
+			args += len;
+			for (len = 0; (args[len] != '\0') && !g_ascii_isspace (args[len]); len++);
+			if (len)
+			{
+				val = atp_variable_get_value_from_name_part (variable, args, len);
+				if (val)
+				{
+					g_string_append (cmd, val);
+				}
+				else
+				{
+					g_string_append_len (cmd, args, len);
+				}
+				g_free (val);
+			}
+		}
+	}
+	
+	anjuta_launcher_execute (launcher, cmd->str, on_run_output, plugin);
+	g_string_free (cmd, TRUE);
 }
 
 

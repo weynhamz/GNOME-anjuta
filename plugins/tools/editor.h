@@ -36,6 +36,7 @@ struct _ATPToolDialog;
 
 ATPToolEditor* atp_tool_editor_new (ATPUserTool *tool, ATPToolEditorList* list, struct _ATPToolDialog* dialog);
 gboolean atp_tool_editor_free (ATPToolEditor* this);
+gboolean atp_tool_editor_show (ATPToolEditor* this);
 
 void atp_tool_editor_list_new_at (ATPToolEditorList* this);
 void atp_tool_editor_list_free_at (ATPToolEditorList* this);

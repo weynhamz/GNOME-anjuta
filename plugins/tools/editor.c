@@ -29,8 +29,34 @@
 
 #include "dialog.h"
 #include "tool.h"
+#include "variable.h"
+
+#include <string.h>
 
 /*---------------------------------------------------------------------------*/
+
+/* Variable dialog */
+
+typedef enum {
+	ATP_VARIABLE_DEFAULT = 0,
+	ATP_VARIABLE_REPLACE = 1 << 1
+} ATPVariableType;
+
+typedef struct _ATPVariableDialog
+{
+	GtkDialog* dialog;
+	GtkTreeView* view;
+	ATPToolEditor* editor;
+	GtkEditable* entry;
+	ATPVariableType type;
+} ATPVariableDialog;	
+
+enum {
+	ATP_VARIABLE_NAME_COLUMN,
+	ATP_VARIABLE_MEAN_COLUMN,
+	ATP_VARIABLE_VALUE_COLUMN,
+	ATP_N_VARIABLE_COLUMNS,
+};
 
 /* Structure containing the required properties of the tool editor GUI */
 struct _ATPToolEditor
@@ -39,7 +65,9 @@ struct _ATPToolEditor
 	GtkEditable *name_en;
 	GtkEditable *command_en;
 	GtkEditable *param_en;
+	ATPVariableDialog param_var;
 	GtkEditable *dir_en;
+	ATPVariableDialog dir_var;
 	GtkToggleButton *enabled_tb;
 	ATPUserTool *tool;
 	ATPToolDialog* parent;
@@ -80,6 +108,13 @@ struct _ATPToolEditor
 #define TOOL_ENABLED "enable_toggle"
 
 #define EDITOR_RESPONSE_SIGNAL "on_editor_dialog_response"
+#define EDITOR_PARAM_VARIABLE_SIGNAL "on_variable_parameter"
+#define EDITOR_DIR_VARIABLE_SIGNAL "on_variable_directory"
+
+#define TOOL_VARIABLE "variable_dialog"
+#define VARIABLE_TREEVIEW "variable_treeview"
+#define VARIABLE_RESPONSE_SIGNAL "on_variable_dialog_response"
+#define VARIABLE_ACTIVATE_SIGNAL "on_variable_activate_row"
 
 #if 0
 #define TOOL_CLIST "tools.clist"
@@ -131,6 +166,218 @@ StringMap output_strings[] = {
 , { -1, NULL }
 };
 #endif
+
+/* Tool variable dialog
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+atp_variable_dialog_construct (ATPVariableDialog* this, ATPToolEditor* editor, ATPVariableType type)
+{
+	this->dialog = NULL;
+	this->editor = editor;
+	this->type = type;
+
+	return TRUE;
+}
+
+static void
+atp_variable_dialog_destroy (ATPVariableDialog* this)
+{
+	if (this->dialog)
+	{
+		gtk_widget_destroy (GTK_WIDGET (this->dialog));
+		this->dialog = NULL;
+	}
+}
+
+static void
+atp_variable_dialog_set_entry (ATPVariableDialog *this, GtkEditable* entry)
+{
+	this->entry = entry;
+}
+
+static void
+atp_variable_dialog_populate (ATPVariableDialog* this)
+{
+	GtkTreeModel *model;
+	ATPVariable* variable;
+	guint i;
+
+	variable = atp_tool_dialog_get_variable (this->editor->parent);
+	model = gtk_tree_view_get_model (this->view);
+	gtk_list_store_clear (GTK_LIST_STORE(model));
+
+	for (i = atp_variable_get_count(variable); i > 0;)
+	{
+		GtkTreeIter iter;
+		gchar* value;
+		const gchar* value_col;
+
+		--i;
+		value = atp_variable_get_value_from_id (variable, i);
+		value_col = (value == NULL) ? _("undefined") : value;
+		gtk_list_store_append (GTK_LIST_STORE(model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter,
+				ATP_VARIABLE_NAME_COLUMN,
+				atp_variable_get_name(variable, i),
+				ATP_VARIABLE_MEAN_COLUMN,
+				atp_variable_get_help(variable, i),
+				ATP_VARIABLE_VALUE_COLUMN,
+				value_col,
+				-1);
+		if (value) g_free (value);
+	}
+}
+
+static void
+atp_variable_dialog_add_text(ATPVariableDialog *this, const gchar* text)
+{
+	gint pos;
+
+	g_return_if_fail (this->entry);
+
+	if (text != NULL)
+	{
+		gchar* next;
+
+		if (this->type == ATP_VARIABLE_REPLACE)
+		{
+			gtk_editable_delete_text (this->entry, 0, -1);
+		}
+		pos = gtk_editable_get_position(this->entry);
+		/* Add space before if useful */
+		if (pos != 0)
+		{
+			next = gtk_editable_get_chars (this->entry, pos - 1, pos);
+
+			if (!g_ascii_isspace (*next))
+			{
+				gtk_editable_insert_text (this->entry, " ", 1, &pos);
+			}
+			g_free (next);
+		}
+		gtk_editable_insert_text (this->entry, text, strlen(text), &pos);
+		/* Add space after if useful */
+		next = gtk_editable_get_chars (this->entry, pos, pos + 1);
+		if (next != NULL)
+		{
+			if (!g_ascii_isspace (*next))
+			{
+				gtk_editable_insert_text (this->entry, " ",1, &pos);
+			}
+			g_free (next);
+		}
+	}
+}
+
+static gchar*
+get_current_name (GtkTreeView *view)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *sel;
+	GtkTreeIter iter;
+	gchar* name;
+
+	model = gtk_tree_view_get_model (view);
+	sel = gtk_tree_view_get_selection (view);
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		gtk_tree_model_get (model, &iter, ATP_VARIABLE_NAME_COLUMN, &name, -1);
+
+		return name;
+	}
+
+	return NULL;
+}
+
+static void
+on_variable_activate (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *column, gpointer user_data)
+{
+	ATPVariableDialog *this = (ATPVariableDialog*)user_data;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	gchar* name;
+
+	/* Get Selected variable name */
+	model = gtk_tree_view_get_model (treeview);
+	gtk_tree_model_get_iter (model, &iter, path);
+	gtk_tree_model_get (model, &iter, ATP_VARIABLE_NAME_COLUMN, &name, -1);
+
+	atp_variable_dialog_add_text (this, name);	
+
+	gtk_widget_hide (GTK_WIDGET (this->dialog));
+}
+
+static void
+on_variable_response (GtkDialog *dialog, gint response, gpointer user_data)
+{
+	ATPVariableDialog *this = (ATPVariableDialog *)user_data;
+	gchar* name;
+
+	switch (response)
+	{
+	case GTK_RESPONSE_OK:
+		name = get_current_name (this->view);
+		atp_variable_dialog_add_text (this, name);
+		break;
+	default:
+		break;
+	}
+
+	gtk_widget_hide (GTK_WIDGET (this->dialog));
+}
+
+static gboolean
+atp_variable_dialog_show (ATPVariableDialog* this)
+{
+	GladeXML *xml;
+	GtkTreeModel *model;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+
+	if (this->dialog != NULL)
+	{
+		/* Display dialog box */
+		if (this->dialog) gtk_window_present (GTK_WINDOW (this->dialog));
+		return TRUE;
+	}
+	
+	if (NULL == (xml = glade_xml_new(GLADE_FILE, TOOL_VARIABLE, NULL)))
+	{
+		anjuta_util_dialog_error (NULL, _("Unable to build user interface for tool variable"));
+		return FALSE;
+	}
+	this->dialog = GTK_DIALOG (glade_xml_get_widget(xml, TOOL_VARIABLE));
+	gtk_widget_show (GTK_WIDGET (this->dialog));
+	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), GTK_WINDOW (this->editor->dialog));
+
+	/* Create variable list */
+	this->view = (GtkTreeView *) glade_xml_get_widget(xml, VARIABLE_TREEVIEW);
+	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_VARIABLE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING));
+	gtk_tree_view_set_model (this->view, model);
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Variable"), renderer, "text", ATP_VARIABLE_NAME_COLUMN, NULL);
+	gtk_tree_view_append_column (this->view, column);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Meaning"), renderer, "text", ATP_VARIABLE_MEAN_COLUMN, NULL);
+	gtk_tree_view_append_column (this->view, column);
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Value"), renderer, "text", ATP_VARIABLE_VALUE_COLUMN, NULL);
+	gtk_tree_view_append_column (this->view, column);
+	g_object_unref (model);
+	atp_variable_dialog_populate (this);
+
+	/* Connect all signals */	
+	glade_xml_signal_connect_data (xml, VARIABLE_RESPONSE_SIGNAL, GTK_SIGNAL_FUNC (on_variable_response), this);
+	glade_xml_signal_connect_data (xml, VARIABLE_ACTIVATE_SIGNAL, GTK_SIGNAL_FUNC (on_variable_activate), this);
+
+	g_object_unref (xml);
+	return TRUE;
+}
+
+/* Tool editor dialog
+ *---------------------------------------------------------------------------*/
 
 static void
 atp_clear_tool_editor(ATPToolEditor* ted)
@@ -775,6 +1022,22 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 	atp_tool_editor_free (ted);
 }
 
+static void
+on_editor_param_variable_show (GtkButton *button, gpointer user_data)
+{
+	ATPToolEditor* this = (ATPToolEditor*)user_data;
+
+	atp_variable_dialog_show (&this->param_var);	
+}
+
+static void
+on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
+{
+	ATPToolEditor* this = (ATPToolEditor*)user_data;
+
+	atp_variable_dialog_show (&this->dir_var);
+}
+
 gboolean
 atp_tool_editor_show (ATPToolEditor* ted)
 {
@@ -795,6 +1058,8 @@ atp_tool_editor_show (ATPToolEditor* ted)
 	ted->command_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_COMMAND);
 	ted->param_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_PARAM);
 	ted->dir_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_WORKING_DIR);
+	atp_variable_dialog_set_entry (&ted->param_var, ted->param_en);
+	atp_variable_dialog_set_entry (&ted->dir_var, ted->dir_en);
 
 	#if 0
 	ted->enabled_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_ENABLED);
@@ -821,9 +1086,10 @@ atp_tool_editor_show (ATPToolEditor* ted)
 	gtk_combo_set_popdown_strings(ted->error_com, strlist);
 	g_list_free(strlist);
 	#endif
-	
+
 	atp_clear_tool_editor(ted);
 	atp_populate_tool_editor(ted);
+
 	#if 0
 	set_tool_editor_widget_sensitivity(ted->tool->detached
 	  , (ted->tool->input_type == AN_TINP_STRING));
@@ -831,6 +1097,8 @@ atp_tool_editor_show (ATPToolEditor* ted)
 
 	/* Connect all signals */	
 	glade_xml_signal_connect_data (xml, EDITOR_RESPONSE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_response), ted);
+	glade_xml_signal_connect_data (xml, EDITOR_PARAM_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_param_variable_show), ted);
+	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_dir_variable_show), ted);
 
 	#if 0
 	g_signal_connect (G_OBJECT (ted->dialog), "delete_event",
@@ -865,6 +1133,8 @@ atp_tool_editor_new (ATPUserTool *tool, ATPToolEditorList *list, struct _ATPTool
 	ted->parent = dialog;
 	ted->owner = list;
 	ted->tool = tool;
+	atp_variable_dialog_construct (&ted->param_var, ted, ATP_VARIABLE_DEFAULT);
+	atp_variable_dialog_construct (&ted->dir_var, ted, ATP_VARIABLE_REPLACE);
 
 	/* Add it in the list */
 	if (list != NULL)
@@ -880,6 +1150,9 @@ gboolean
 atp_tool_editor_free (ATPToolEditor *this)
 {
 	ATPToolEditor **prev;
+
+	atp_variable_dialog_destroy (&this->param_var);
+	atp_variable_dialog_destroy (&this->dir_var);
 
 	if (this->owner == NULL)
 	{

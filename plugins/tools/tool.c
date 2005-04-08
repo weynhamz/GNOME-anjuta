@@ -69,7 +69,8 @@ struct _ATPUserTool
 /* Tool list object
  *---------------------------------------------------------------------------*/
 
-ATPToolList *atp_tool_list_initialize (ATPToolList* this, ATPPlugin* plugin, GtkMenu* menu)
+ATPToolList *
+atp_tool_list_initialize (ATPToolList* this, ATPPlugin* plugin, GtkMenu* menu)
 {
 	this->menu = menu;
 	this->plugin = plugin;
@@ -78,6 +79,7 @@ ATPToolList *atp_tool_list_initialize (ATPToolList* this, ATPPlugin* plugin, Gtk
 	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
 	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
 	this->data_pool = g_mem_chunk_new ("tool pool", sizeof (ATPUserTool), STRING_CHUNK_SIZE * sizeof (ATPUserTool) / 4, G_ALLOC_AND_FREE);
+	return this;
 }
 
 void atp_tool_list_destroy (ATPToolList* this)
@@ -87,10 +89,11 @@ void atp_tool_list_destroy (ATPToolList* this)
 	g_mem_chunk_destroy (this->data_pool);
 }
 
+#if 0
 static ATPUserTool *
 atp_tool_list_get_tool (const ATPToolList *this, const gchar *name)
 {
-	ATPUserTool *tool;
+	/* ATPUserTool *tool; */
 
 	return (ATPUserTool *)g_hash_table_lookup (this->hash, name);
 }
@@ -112,6 +115,7 @@ atp_tool_list_get_tool_in (const ATPToolList *this, const gchar *name, ATPToolSt
 
 	return tool;
 }
+#endif
 
 static ATPUserTool *
 atp_tool_list_last (const ATPToolList *this)
@@ -588,7 +592,7 @@ atp_user_tool_previous (const ATPUserTool *this)
 }
 
 ATPUserTool*
-atp_user_tool_in (const ATPUserTool *this, ATPToolStore storage)
+atp_user_tool_in (ATPUserTool *this, ATPToolStore storage)
 {
 	ATPUserTool* tool;
 
@@ -612,7 +616,7 @@ atp_user_tool_activate (ATPUserTool *this, GtkMenu* submenu)
 	//gtk_widget_ref (this->menu);
 	g_signal_connect (G_OBJECT (this->menu), "activate", G_CALLBACK (atp_user_tool_execute), this);
 	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), GTK_WIDGET (this->menu));
-	gtk_widget_show(this->menu);
+	gtk_widget_show(GTK_WIDGET (this->menu));
 
 	return TRUE;
 }
