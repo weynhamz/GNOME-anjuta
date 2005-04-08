@@ -105,7 +105,8 @@ MessageSubwindow::MessageSubwindow(AnMessageManager* p_amm,
 }
 
 GtkWidget* 
-MessageSubwindow::create_scrolled_window(GtkWidget* widget_in_window)
+MessageSubwindow::create_scrolled_window(GtkWidget* widget_in_window,
+	bool viewport)
 {
 	GtkWidget* scrolled_win = gtk_scrolled_window_new(NULL, NULL);
 	gtk_widget_show(scrolled_win);
@@ -113,7 +114,12 @@ MessageSubwindow::create_scrolled_window(GtkWidget* widget_in_window)
 									GTK_POLICY_AUTOMATIC, 
 									GTK_POLICY_AUTOMATIC);
 	
-	gtk_container_add(GTK_CONTAINER(scrolled_win), widget_in_window);
+	
+	if (!viewport)
+		gtk_container_add(GTK_CONTAINER(scrolled_win), widget_in_window);
+	else
+		gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_win),
+			widget_in_window);
 	gtk_widget_show(widget_in_window);
 	
 	GtkWidget* label = create_label();
@@ -977,7 +983,7 @@ WidgetWindow::~WidgetWindow ()
 void
 WidgetWindow::set_widget(GtkWidget* widget)
 {
-	m_scrollbar = create_scrolled_window(widget);
+	m_scrollbar = create_scrolled_window(widget, TRUE);
 }
 
 void

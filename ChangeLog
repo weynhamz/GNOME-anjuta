@@ -3,7 +3,14 @@
 	Patches from the debian package from Rob Bradford <robster@debian.org>:
 	* widgets/gnomefilelist.c: Fix pixbuf bug
 	* src/debugger.c: Check if file is executable
-	* src/utilities.c: Use correct data types	
+	* src/utilities.c: Use correct data types
+
+	* tagmanager/tm_workspace.c: Speed up tags generation
+	Applied patch Igor V. Kovalenko - garrisonko@users.sf.net with fixes from
+	HEAD. 
+	
+	* src/message-manager-private.h
+	widgets/e-splash.c: Fixed GTK-Warnings
 
 2005-04-07  Johannes Schmid <jhs@cvs.gnome.org>
 	

@@ -317,7 +317,7 @@ e_splash_construct (ESplash *splash,
 	g_signal_connect (G_OBJECT (splash), "button-press-event",
 			  G_CALLBACK (button_press_event), splash);
 	
-	g_object_set (G_OBJECT (splash), "type", GTK_WINDOW_TOPLEVEL, NULL);
+	/* g_object_set (G_OBJECT (splash), "type", GTK_WINDOW_TOPLEVEL, NULL); */
 	gtk_window_set_decorated(GTK_WINDOW(splash), FALSE);
 	gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (splash), FALSE);

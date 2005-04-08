@@ -71,7 +71,8 @@ class MessageSubwindow
 	
 		AnMessageManager* get_parent() const;
 		
-		GtkWidget* create_scrolled_window(GtkWidget* widget_in_window);
+		GtkWidget* create_scrolled_window(GtkWidget* widget_in_window, 
+										bool viewport = FALSE);
 		
 		virtual void show() = 0;
 		virtual void hide() = 0;
