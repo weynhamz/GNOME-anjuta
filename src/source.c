@@ -277,7 +277,21 @@ source_write_configure_in (ProjectDBase * data)
  	fprintf(fp, type->configure_macros);
 	fprintf (fp, "\n");
 
-
+	/* If we have gettext, make sure PACKAGE_LOCALE_DIR is properly 
+	   defineed */
+	if (prop_get_int (data->props, "project.has.gettext", 1))
+	{
+		fprintf(fp,
+			"\n"
+			"dnl Set PACKAGE_LOCALE_DIR in config.h.\n"
+			"if test \"x${prefix}\" = \"xNONE\"; then\n"
+			"  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, \"${ac_default_prefix}/"
+			"${DATADIRNAME}/locale\", [Package local directory])\n"
+			"else\n"
+			"  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, \"${prefix}/"
+			"${DATADIRNAME}/locale\", [Package local directory])\n"
+			"fi\n");
+	}
 
 	/* Define PACKAGE_SOURCE_DIR in config.h so the app can find uninstalled
 	 * pixmaps. */
