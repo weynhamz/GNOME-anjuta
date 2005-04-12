@@ -324,8 +324,8 @@ on_tool_up (GtkButton *button, gpointer user_data)
 		{
 			atp_tool_list_move (atp_plugin_get_tool_list (this->plugin), prev, tool);
 		}
+		atp_tool_dialog_refresh (this, atp_user_tool_get_name (tool));
 	}
-	atp_tool_dialog_refresh (this, atp_user_tool_get_name (tool));
 }
 
 static void
@@ -343,8 +343,8 @@ on_tool_down (GtkButton *button, gpointer user_data)
 		{
 			atp_tool_list_move (atp_plugin_get_tool_list (this->plugin), tool, next);
 		}
+		atp_tool_dialog_refresh (this, atp_user_tool_get_name (tool));
 	}
-	atp_tool_dialog_refresh (this, atp_user_tool_get_name (tool));
 }
 
 static void

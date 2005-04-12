@@ -1,3 +1,8 @@
+2005-04-12  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/tools/dialog.c plugins/tools/tool.c :
+	Fixed bugs.
+
 2005-04-06  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Load default session only when

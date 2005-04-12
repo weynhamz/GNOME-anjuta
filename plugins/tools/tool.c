@@ -219,6 +219,8 @@ atp_tool_list_remove (ATPToolList *this, ATPUserTool* tool)
 		if (this->list == tool)
 		{
 			this->list = tool->next;
+			if (tool->next == NULL)
+				return NULL;
 			tool->next->prev = NULL;
 		}
 		else
