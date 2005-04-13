@@ -282,8 +282,10 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 	gchar *buff;
 	TextEditor *te = TEXT_EDITOR (user_data);
 	
-	if (event_type != GNOME_VFS_MONITOR_EVENT_CHANGED ||
-		event_type != GNOME_VFS_MONITOR_EVENT_CREATED)
+	DEBUG_PRINT ("File changed!!!");
+	
+	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
+		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
 		return;
 	
 	buff =

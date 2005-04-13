@@ -52,15 +52,15 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(PCRE_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
+	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-I$(top_builddir)/scintilla/include \
 	-I$(top_builddir)/tagmanager/include
 
-#	-I$(top_builddir)/pixmaps
-
 libanjuta_editor_la_LIBADD = \
 	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
+	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
