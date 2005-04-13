@@ -1,6 +1,12 @@
 2005-04-08  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	Patch from James Liggett <krliggett@cox.net>:
+	* src/project.c
+	src/source.c: Fix: Configure macros where not added from project config
+
+2005-04-08  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from James Liggett <krliggett@cox.net>:
 	* src/source.c: Fixed gettext problem
 
 2005-04-08  Johannes Schmid <jhs@cvs.gnome.org>

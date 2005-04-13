@@ -275,7 +275,8 @@ source_write_configure_in (ProjectDBase * data)
 		fprintf (fp, "AM_PROG_LIBTOOL\n\n");
 	}
  	fprintf(fp, type->configure_macros);
-	fprintf (fp, "\n");
+	fprintf (fp, "\n\n");
+	project_config_write_scripts (data->project_config, fp);
 
 	/* If we have gettext, make sure PACKAGE_LOCALE_DIR is properly 
 	   defineed */

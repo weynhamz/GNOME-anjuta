@@ -713,35 +713,74 @@ project_config_write_scripts (ProjectConfig * pc, FILE* stream)
 	g_return_val_if_fail (pc != NULL, FALSE);
 	g_return_val_if_fail (stream != NULL, FALSE);
 
-	fprintf (stream, "dnl Checks for programs.\n");
 	if (pc->priv->config_progs)
-		if (fprintf (stream, "%s\n\n", pc->priv->config_progs) <1)
-			return FALSE;
+	{	
+		if (strlen(pc->priv->config_progs) > 0)
+		{
+			fprintf (stream, "dnl Checks for programs.\n");	
+			
+			if (fprintf (stream, "%s\n\n", pc->priv->config_progs) <1)
+				return FALSE;
+		}
+	}
 	
-	fprintf (stream, "dnl Checks for libraries.\n");
 	if (pc->priv->config_libs)
-		if (fprintf (stream, "%s\n\n", pc->priv->config_libs) <1)
-			return FALSE;
+	{
+		if (strlen(pc->priv->config_libs) > 0)
+		{
+			fprintf (stream, "dnl Checks for libraries.\n");
+			
+			if (fprintf (stream, "%s\n\n", pc->priv->config_libs) <1)
+				return FALSE;
+		}
+	}
 	
-	fprintf (stream, "dnl Checks for header files.\n");
 	if (pc->priv->config_headers)
-		if (fprintf (stream, "%s\n\n", pc->priv->config_headers) < 1)
-			return FALSE;
+	{
+		if (strlen(pc->priv->config_headers) > 0)
+		{
+			fprintf (stream, "dnl Checks for header files.\n");
+		
+			if (fprintf (stream, "%s\n\n", pc->priv->config_headers) < 1)
+				return FALSE;
+		}
+	}
 	
-	fprintf (stream, "dnl Checks for typedefs, structures, and compiler characteristics.\n");
 	if (pc->priv->config_characteristics)
-		if (fprintf (stream, "%s\n\n", pc->priv->config_characteristics) < 1)
-			return FALSE;
+	{	
+		if (strlen(pc->priv->config_characteristics) > 0)
+		{
+			fprintf (stream, "dnl Checks for typedefs, structures, and compiler"
+						" characteristics.\n");
+		
+			if (fprintf (stream, "%s\n\n", 
+					pc->priv->config_characteristics) < 1)
+				return FALSE;
+		}
+	}
 	
-	fprintf (stream, "dnl Checks for library functions.\n");
 	if (pc->priv->config_lib_funcs)
-		if (fprintf (stream, "%s\n\n", pc->priv->config_lib_funcs) < 1)
-			return FALSE;
-
-	fprintf (stream, "dnl Checks for Additional stuffs.\n");
+	{
+		if (strlen(pc->priv->config_lib_funcs) > 0)
+		{
+			fprintf (stream, "dnl Checks for library functions.\n");
+		
+			if (fprintf (stream, "%s\n\n", pc->priv->config_lib_funcs) < 1)
+				return FALSE;
+		}
+	}
+	
 	if (pc->priv->config_additional)
-		if (fprintf (stream, "%s\n\n", pc->priv->config_additional) < 1)
-			return FALSE;
+	{
+		if (strlen(pc->priv->config_additional) > 0)
+		{
+			fprintf (stream, "dnl Checks for Additional stuffs.\n");
+		
+			if (fprintf (stream, "%s\n\n", pc->priv->config_additional) < 1)
+				return FALSE;
+		}
+	}
+	
 	return TRUE;
 }
 
