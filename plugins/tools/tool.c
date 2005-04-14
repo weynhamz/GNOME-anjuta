@@ -40,9 +40,11 @@ struct _ATPUserTool
 	gchar *command;
 	gchar *param;
 	gchar *working_dir;
-	gboolean enabled;
+	ATPToolFlag flags;
+	ATPOutputType output;
+	ATPOutputType error;
 	ATPToolStore storage;
-	GtkMenuItem* menu;
+	GtkWidget* menu_item;
 	guint position;
 	ATPToolList *owner;
 	ATPUserTool *over;
@@ -62,15 +64,58 @@ struct _ATPUserTool
 	gchar *input;
 	ATPOutput output; /* MESSAGE_* or AN_TBUF_* */
 	ATPOutput error; /* MESSAGE_* or AN_TBUF_* */
-	GtkWidget *menu_item;
 	#endif
 };
+
+/* string must be defined in the same order than ATPOutputType enum */
+
+static struct
+{
+	char *name;
+} output_type_list[] = {
+  {"Same than output"}
+, {"Existing message pane"}
+, {"New message pane"}
+, {"New buffer"}
+, {"Replace buffer"}
+, {"Insert in buffer"}
+, {"Append in buffer"}
+, {"Popup dialog"}
+, {"Discard output"}
+};
+
+/* Tool helper functions
+ *---------------------------------------------------------------------------*/
+
+const char* 
+atp_get_string_from_output_type (ATPOutputType type)
+{
+	if (type >= ATP_OUTPUT_TYPE_COUNT) return NULL;
+
+	return output_type_list[type].name;
+}
+
+ATPOutputType 
+atp_get_output_type_from_string (const gchar* type)
+{
+	guint i;
+
+	for (i = 0; i < ATP_OUTPUT_TYPE_COUNT; ++i)
+	{
+		if (strcmp (type, output_type_list[i].name) == 0)
+		{
+			return (ATPOutputType)i;
+		}
+	}
+
+	return ATP_UNKNOWN;
+}
 
 /* Tool list object
  *---------------------------------------------------------------------------*/
 
 ATPToolList *
-atp_tool_list_initialize (ATPToolList* this, ATPPlugin* plugin, GtkMenu* menu)
+atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin, GtkMenu* menu)
 {
 	this->menu = menu;
 	this->plugin = plugin;
@@ -79,6 +124,7 @@ atp_tool_list_initialize (ATPToolList* this, ATPPlugin* plugin, GtkMenu* menu)
 	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
 	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
 	this->data_pool = g_mem_chunk_new ("tool pool", sizeof (ATPUserTool), STRING_CHUNK_SIZE * sizeof (ATPUserTool) / 4, G_ALLOC_AND_FREE);
+
 	return this;
 }
 
@@ -93,8 +139,6 @@ void atp_tool_list_destroy (ATPToolList* this)
 static ATPUserTool *
 atp_tool_list_get_tool (const ATPToolList *this, const gchar *name)
 {
-	/* ATPUserTool *tool; */
-
 	return (ATPUserTool *)g_hash_table_lookup (this->hash, name);
 }
 
@@ -219,9 +263,10 @@ atp_tool_list_remove (ATPToolList *this, ATPUserTool* tool)
 		if (this->list == tool)
 		{
 			this->list = tool->next;
-			if (tool->next == NULL)
-				return NULL;
-			tool->next->prev = NULL;
+			if (tool->next != NULL)
+			{
+				tool->next->prev = NULL;
+			}
 		}
 		else
 		{
@@ -436,18 +481,6 @@ gboolean atp_tool_list_activate (ATPToolList *this)
 	return TRUE;
 }
 
-/*ATPUserTool* atp_tool_list_first_in (ATPToolList *this, ATPToolStore storage)
-{
-	ATPUserTool *next;
-
-	for (next = this->list[storage]; next != NULL; next = next->next)
-	{
-		if (next->name != NULL) break;
-	}
-
-	return next;
-}*/
-
 /* Tool object
  *
  *---------------------------------------------------------------------------*/
@@ -460,7 +493,7 @@ atp_user_tool_free (ATPUserTool *this)
 	atp_tool_list_remove (this->owner, this);
 	atp_tool_list_unregister (this->owner, this);
 
-	if (this->menu) gtk_widget_destroy (GTK_WIDGET(this->menu));
+	if (this->menu_item) gtk_widget_destroy (this->menu_item);
 	g_chunk_free (this, this->owner->data_pool);
 }
 
@@ -515,15 +548,58 @@ atp_user_tool_get_working_dir (const ATPUserTool* this)
 }
 
 void
-atp_user_tool_set_enable (ATPUserTool* this, gboolean value)
+atp_user_tool_set_flag (ATPUserTool* this, ATPToolFlag flag)
 {
-	this->enabled = value;
+	switch (flag & ATP_OPERATION)
+	{
+	case ATP_SET:
+		this->flags |= flag;
+		break;
+	case ATP_CLEAR:
+		this->flags &= ~flag;
+		break;
+	case ATP_TOGGLE:
+		this->flags ^= flag;
+		break;
+	default:
+		g_return_if_reached();
+	}
+	
+	if ((flag & ATP_TOOL_ENABLE) && (this->menu_item != NULL))
+	{
+		/* Enable or disable menu item */
+		gtk_widget_set_sensitive (this->menu_item, this->flags & ATP_TOOL_ENABLE);
+	}
 }
 
 gboolean
-atp_user_tool_get_enable (const ATPUserTool* this)
+atp_user_tool_get_flag (const ATPUserTool* this, ATPToolFlag flag)
 {
-	return this->enabled;
+	return this->flags & flag ? TRUE : FALSE;
+}
+
+void
+atp_user_tool_set_output (ATPUserTool *this, ATPOutputType output)
+{
+	this->output = output;
+}
+
+ATPOutputType
+atp_user_tool_get_output (const ATPUserTool *this)
+{
+	return this->output;
+}
+
+void
+atp_user_tool_set_error (ATPUserTool *this, ATPOutputType error)
+{
+	this->error = error;
+}
+
+ATPOutputType
+atp_user_tool_get_error (const ATPUserTool *this )
+{
+	return this->error;
 }
 
 ATPPlugin*
@@ -609,32 +685,17 @@ atp_user_tool_in (ATPUserTool *this, ATPToolStore storage)
 gboolean
 atp_user_tool_activate (ATPUserTool *this, GtkMenu* submenu)
 {
-	if (this->menu != NULL)
+	if (this->menu_item != NULL)
 	{
-		gtk_widget_destroy (GTK_WIDGET(this->menu));
+		gtk_widget_destroy (this->menu_item);
 	}
 
-	this->menu = gtk_menu_item_new_with_mnemonic (this->name);
-	//gtk_widget_ref (this->menu);
-	g_signal_connect (G_OBJECT (this->menu), "activate", G_CALLBACK (atp_user_tool_execute), this);
-	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), GTK_WIDGET (this->menu));
-	gtk_widget_show(GTK_WIDGET (this->menu));
+	this->menu_item = gtk_menu_item_new_with_mnemonic (this->name);
+	gtk_widget_set_sensitive (this->menu_item, this->flags & ATP_TOOL_ENABLE);
+	g_signal_connect (G_OBJECT (this->menu_item), "activate", G_CALLBACK (atp_user_tool_execute), this);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), this->menu_item);
+	gtk_widget_show(this->menu_item);
 
 	return TRUE;
 }
 
-#if 0
-ATPUserTool*
-atp_user_tool_next_in (ATPUserTool *this)
-{
-	ATPUserTool* next;
-
-	for (next = this->next; next != NULL; next = next->next)
-	{
-		/* Skip tool with empty name */
-		if (next->name != NULL) break;
-	}
-
-	return next;
-}
-#endif

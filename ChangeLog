@@ -1,3 +1,37 @@
+2005-04-13  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/anjuta-tools.glade:
+	Add new properties in tool editor dialog
+	Cosmetic improvements
+	
+	* plugins/tools/anjuta-tools.ui:
+	Attach tool menu as a build menu
+
+	* plugins/tools/dialog.c:
+	Set tool menu item sensitivity in tool list
+	Fix bugs
+
+	* plugins/tools/editor.c,
+	plugins/tools/editor.h,
+	plugins/tools/fileop.c,
+	plugins/tools/tool.c,
+	plugins/tools/tool.h:
+	Add new properties (active, save file...)
+	Most of them are still not implemented
+
+	* plugins/tools/execute.c,
+	plugins/tools/execute.h:
+	Reorganize code to support multiple run
+	Support run in terminal
+	
+	* plugins/tools/plugin.c
+	plugins/tools/plugin.h:
+	Move message handling in execute.c
+
+	* plugins/tools/variable.h,
+	plugins/tools/variable.c:
+	Add useful variables
+ 	
 2005-04-13  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor.c: Fixed file monitoring condition.

@@ -1,11 +1,11 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderBuildMenus">
 		<menu name="Tools" action="ActionMenuTools">
-			<placeholder name="PlaceholderToolsMenus">
 				<menuitem name="Configure" action="ActionConfigureTools" />
 				<separator name="separator1" />
-			</placeholder>
 		</menu>
+		</placeholder>
 	</menubar>
 </ui>

@@ -227,7 +227,7 @@ static void really_delete_tool ()
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (tl->clist));
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
-		gtk_tree_model_get (model, &iter,
+		gtk_tree_model_get (model, &iter, ATP_TOOLS_ENABLED_COLUMN, enable, -1);
 		                    AN_TOOLS_DATA_COLUMN, &tool, -1);
 		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
 		if (tool)
@@ -261,7 +261,6 @@ on_tool_add (GtkButton *button, gpointer user_data)
 	ATPToolDialog *this = (ATPToolDialog *)user_data;
 	ATPUserTool *tool;
 	ATPToolEditor *ted;
-	/* guint position; */
 
 	tool = get_current_tool (this);
 
@@ -285,7 +284,7 @@ on_tool_edit (GtkButton *button, gpointer user_data)
 	ATPToolEditor *ted;
 
 	tool = get_current_tool (this);
-	if (tool != NULL);
+	if (tool != NULL)
 	{
 		ted = atp_tool_editor_new (tool, &this->tedl, this);
 		atp_tool_editor_show (ted);
@@ -345,6 +344,25 @@ on_tool_down (GtkButton *button, gpointer user_data)
 		}
 		atp_tool_dialog_refresh (this, atp_user_tool_get_name (tool));
 	}
+}
+
+static void
+on_tool_enable (GtkCellRendererToggle *cell_renderer, const gchar *path, gpointer user_data)
+{
+	ATPToolDialog *this = (ATPToolDialog *)user_data;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	ATPUserTool *tool;
+
+	model = gtk_tree_view_get_model (this->view);
+	if (gtk_tree_model_get_iter_from_string (model, &iter, path))
+	{
+		gtk_tree_model_get (model, &iter, ATP_TOOLS_DATA_COLUMN, &tool, -1);
+		atp_user_tool_set_flag (tool, ATP_TOOL_ENABLE | ATP_TOGGLE);
+
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, ATP_TOOLS_ENABLED_COLUMN,
+				atp_user_tool_get_flag (tool, ATP_TOOL_ENABLE), -1);
+	}	
 }
 
 static void
@@ -447,7 +465,7 @@ atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select)
 		gtk_list_store_append (GTK_LIST_STORE(model), &iter);
 		gtk_list_store_set (GTK_LIST_STORE(model), &iter,
 				ATP_TOOLS_ENABLED_COLUMN,
-				atp_user_tool_get_enable (tool),
+				atp_user_tool_get_flag (tool, ATP_TOOL_ENABLE),
 				ATP_TOOLS_NAME_COLUMN,
 				atp_user_tool_get_name (tool),
 				ATP_TOOLS_DATA_COLUMN, tool,
@@ -471,11 +489,9 @@ gboolean
 atp_tool_dialog_show (ATPToolDialog* this)
 {
 	GladeXML *xml;
-	/* GList *list; */
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	/* GtkTreeSelection *selection; */
 
 	if (this->dialog != NULL)
 	{
@@ -499,6 +515,7 @@ atp_tool_dialog_show (ATPToolDialog* this)
 	gtk_tree_view_set_model (this->view, model);
 	
 	renderer = gtk_cell_renderer_toggle_new ();
+	g_signal_connect (G_OBJECT (renderer), "toggled", G_CALLBACK (on_tool_enable), this);
 	column = gtk_tree_view_column_new_with_attributes ("", renderer,
 	   "active", ATP_TOOLS_ENABLED_COLUMN, NULL);
 	gtk_tree_view_append_column (this->view, column);
@@ -550,7 +567,7 @@ atp_tool_dialog_close (ATPToolDialog *this)
 		gtk_widget_destroy (GTK_WIDGET(this->dialog));
 		this->dialog = NULL;
 	}
-	atp_tool_editor_list_free_at (&this->tedl);
+	atp_tool_editor_list_destroy (&this->tedl);
 }
 
 GtkWindow*
@@ -570,7 +587,7 @@ atp_tool_dialog_new_at (ATPToolDialog *this, ATPPlugin *plugin)
 {
 	this->plugin = plugin;
 	this->dialog = NULL;
-	atp_tool_editor_list_new_at (&this->tedl);
+	atp_tool_editor_list_construct (&this->tedl);
 }
 
 void

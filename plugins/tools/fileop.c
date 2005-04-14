@@ -34,6 +34,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -51,6 +52,10 @@ typedef enum {
 	ATP_PARAM_TAG,
 	ATP_WORKING_DIR_TAG,
 	ATP_ENABLE_TAG,
+	ATP_AUTOSAVE_TAG,
+	ATP_TERMINAL_TAG,
+	ATP_OUTPUT_TAG,
+	ATP_ERROR_TAG,
 	ATP_UNKNOW_TAG
 } ATPTag;
 
@@ -91,6 +96,22 @@ parse_tag (const gchar* name)
 	else if (strcmp ("enabled", name) == 0)
 	{
 		return ATP_ENABLE_TAG;
+	}
+	else if (strcmp ("autosave", name) == 0)
+	{
+		return ATP_AUTOSAVE_TAG;
+	}
+	else if (strcmp ("run_in_terminal", name) == 0)
+	{
+		return ATP_TERMINAL_TAG;
+	}
+	else if (strcmp ("output", name) == 0)
+	{
+		return ATP_OUTPUT_TAG;
+	}
+	else if (strcmp ("error", name) == 0)
+	{
+		return ATP_ERROR_TAG;
 	}	
 	else
 	{
@@ -115,6 +136,12 @@ static gboolean
 parse_boolean_string (const gchar* value)
 {
 	return g_ascii_strcasecmp ("no", value) && g_ascii_strcasecmp ("0", value) && g_ascii_strcasecmp ("false", value);
+}
+
+static gint
+parse_integer_string (const gchar* value)
+{
+	return atoi(value);
 }
 
 static void
@@ -249,6 +276,10 @@ parse_tool_start (GMarkupParseContext* context,
 			case ATP_PARAM_TAG:
 			case ATP_WORKING_DIR_TAG:
 			case ATP_ENABLE_TAG:
+			case ATP_AUTOSAVE_TAG:
+			case ATP_TERMINAL_TAG:
+			case ATP_OUTPUT_TAG:
+			case ATP_ERROR_TAG:
 				known = TRUE;
 				break;
 			case ATP_UNKNOW_TAG:
@@ -340,7 +371,23 @@ parse_tool_text (GMarkupParseContext* context,
 			break;
 		case ATP_ENABLE_TAG:
 			g_return_if_fail (parser->tool);
-			atp_user_tool_set_enable (parser->tool, parse_boolean_string (text));
+			atp_user_tool_set_flag (parser->tool, ATP_TOOL_ENABLE | (parse_boolean_string (text) ? ATP_SET : ATP_CLEAR));
+			break;
+		case ATP_AUTOSAVE_TAG:
+			g_return_if_fail (parser->tool);
+			atp_user_tool_set_flag (parser->tool, ATP_TOOL_AUTOSAVE | (parse_boolean_string (text) ? ATP_SET : ATP_CLEAR));
+			break;
+		case ATP_TERMINAL_TAG:
+			g_return_if_fail (parser->tool);
+			atp_user_tool_set_flag (parser->tool, ATP_TOOL_TERMINAL | (parse_boolean_string (text) ? ATP_SET : ATP_CLEAR));
+			break;
+		case ATP_OUTPUT_TAG:
+			g_return_if_fail (parser->tool);
+			atp_user_tool_set_output (parser->tool, parse_integer_string (text));
+			break;
+		case ATP_ERROR_TAG:
+			g_return_if_fail (parser->tool);
+			atp_user_tool_set_error (parser->tool, parse_integer_string (text));
 			break;
 		case ATP_ANJUTA_TOOLS_TAG:
 		case ATP_TOOL_TAG:
@@ -488,66 +535,62 @@ atp_anjuta_tools_load(ATPPlugin* plugin)
 	}
 #endif
 
+static gboolean
+write_xml_string (const gchar* value, const gchar* tag, gchar** head, FILE *f)
+{
+	gchar* line;
+
+	if (value == NULL) return FALSE;
+
+	/* Check if we need the header */
+	if (*head != NULL)
+	{
+		fputs(*head, f);
+		g_free (*head);
+		*head = NULL;
+	}
+
+	/* Write xml line */
+	line = g_markup_printf_escaped ("\t\t<%s>%s</%s>\n", tag, value, tag);
+	fputs (line, f);
+	g_free (line);
+
+	return TRUE;
+}
+
+static gboolean
+write_xml_boolean (gboolean value, const gchar* tag, gchar** head, FILE *f)
+{
+	return write_xml_string (value ? "1" : "0", tag, head, f);
+}
+
+static gboolean
+write_xml_integer (gint value, const gchar* tag, gchar** head, FILE *f)
+{
+	gchar buffer[33];
+
+	sprintf (buffer,"%d", value);
+
+	return write_xml_string (buffer, tag, head, f);
+}
+
 /* Writes tool information to the given file in xml format */
 static gboolean
 atp_user_tool_save (ATPUserTool *tool, FILE *f)
 {
-	gchar* line;
 	gchar* head;
-	gboolean put_head;
-	gint i;
-	const gchar* s;
 
 	head = g_strdup_printf ("\t<tool name=\"%s\">\n", atp_user_tool_get_name (tool));
-	put_head = FALSE;
-	s = atp_user_tool_get_command (tool);
-	if (s != NULL)
-	{
-		if (!put_head)
-		{
-			fputs(head, f);
-			put_head = TRUE;
-		}
-		line = g_markup_printf_escaped ("\t\t<command>%s</command>\n", s);
-		fputs (line, f);
-		g_free (line);
-	}
-	s = atp_user_tool_get_param (tool);
-	if (s != NULL)
-	{
-		if (!put_head)
-		{
-			fputs(head, f);
-			put_head = TRUE;
-		}
-		line = g_markup_printf_escaped ("\t\t<parameter>%s</parameter>\n", s);
-		fputs (line, f);
-		g_free (line);
-	}
-	s = atp_user_tool_get_working_dir (tool);
-	if (s != NULL)
-	{
-		if (!put_head)
-		{
-			fputs(head, f);
-			put_head = TRUE;
-		}
-		line = g_markup_printf_escaped ("\t\t<working_dir>%s</working_dir>\n", s);
-		fputs (line, f);
-		g_free (line);
-	}
-	i = atp_user_tool_get_enable (tool);
-	if (i != -1)
-	{
-		if (!put_head)
-		{
-			fputs(head, f);
-			put_head = TRUE;
-		}
-		line = g_markup_printf_escaped ("\t\t<enabled>%d</enabled>\n", i);
-		fputs (line, f);
-		g_free (line);
-	}
+
+	write_xml_string (atp_user_tool_get_command (tool), "command", &head, f);
+	write_xml_string (atp_user_tool_get_param (tool), "parameter", &head, f);
+	write_xml_string (atp_user_tool_get_working_dir (tool), "working_dir", &head, f);
+	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_ENABLE), "enabled", &head, f);
+	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_AUTOSAVE), "autosave", &head, f);
+	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_TERMINAL), "run_in_terminal", &head, f);
+	write_xml_integer (atp_user_tool_get_output (tool), "output", &head, f);
+	write_xml_integer (atp_user_tool_get_error (tool), "error", &head, f);
+
 	#if 0
 	NUMWRITE(file_level)
 	NUMWRITE(project_level)
@@ -564,12 +607,18 @@ atp_user_tool_save (ATPUserTool *tool, FILE *f)
 	NUMWRITE(error)
 	#endif
 
-	if (put_head)
+	if (head == NULL)
 	{
 		fprintf (f, "\t</tool>\n");
+
+		return TRUE;
 	}
-	g_free (head);
-	return TRUE;
+	else
+	{
+		g_free (head);
+
+		return FALSE;
+	}
 }
 
 /* While saving, save only the user tools since it is unlikely that the

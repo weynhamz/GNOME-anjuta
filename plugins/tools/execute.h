@@ -23,6 +23,16 @@
 
 #include "tool.h"
 
+#include <glib.h>
+
+typedef struct _ATPContextList
+{
+	GSList* list;
+} ATPContextList;
+
 void atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this);
+
+ATPContextList *atp_context_list_construct (ATPContextList *this);
+void atp_context_list_destroy (ATPContextList *this);
 
 #endif

@@ -32,22 +32,14 @@
 typedef struct _ATPPlugin ATPPlugin;
 typedef struct _ATPPluginClass ATPPluginClass;
 
-/*GtkDialog* atp_plugin_get_dialog (const ATPPlugin *this);
-void atp_plugin_show_dialog (const ATPPlugin *this);
-void atp_plugin_close_dialog(ATPPlugin *this);
-void atp_plugin_set_dialog (ATPPlugin *this, GtkDialog *dialog);
-
-GtkTreeView* atp_plugin_get_treeview(const ATPPlugin* this);
-void atp_plugin_set_treeview(ATPPlugin* this, GtkTreeView* dialog);*/
-
 struct _ATPToolList* atp_plugin_get_tool_list (const ATPPlugin *this);
 struct _ATPToolDialog* atp_plugin_get_tool_dialog (const ATPPlugin *this);
 ATPVariable* atp_plugin_get_variable (const ATPPlugin *this);
+struct _ATPContextList* atp_plugin_get_context_list (const ATPPlugin *this);
 GtkWindow* atp_plugin_get_app_window (const ATPPlugin *this);
 
-IAnjutaMessageView* atp_plugin_create_view (ATPPlugin* this);
+/*IAnjutaMessageView* atp_plugin_create_view (ATPPlugin* this);
 void atp_plugin_append_view (ATPPlugin* this, const gchar* text);
-void atp_plugin_print_view (ATPPlugin* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details);
+void atp_plugin_print_view (ATPPlugin* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details);*/
 
-AnjutaLauncher* atp_plugin_get_launcher (ATPPlugin* this);
 #endif

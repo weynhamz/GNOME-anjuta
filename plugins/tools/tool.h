@@ -26,18 +26,31 @@
 
 #include "plugin.h"
 
-#if 0
 /** Defines how output should be handled */
-typedef enum _ATPToolOutputAction
+typedef enum _ATPOutputType
 {
+	ATP_UNKNOWN = -1,
+	ATP_SAME = 0,
+	ATP_COMMON_MESSAGE,
+	ATP_PRIVATE_MESSAGE,
+	ATP_NEW_BUFFER,
+	ATP_REPLACE_BUFFER,
+	ATP_INSERT_BUFFER,
+	ATP_APPEND_BUFFER,
+	ATP_POPUP_DIALOG,
+	ATP_NULL,
+	ATP_OUTPUT_TYPE_COUNT
+#if 0
 	ATP_TBUF_NEW, /* Create a new buffer and put output into it */
 	ATP_TBUF_REPLACE, /* Replace exisitng buffer content with output */
 	ATP_TBUF_INSERT, /* Insert at cursor position in the current buffer */
 	ATP_TBUF_APPEND, /* Append output to the end of the buffer */
 	ATP_TBUF_REPLACESEL, /* Replace the current selection with the output */
 	ATP_TBUF_POPUP /* Show result in a popup window */
-} ATPToolOutputAction;
+#endif
+} ATPOutputType;
 
+#if 0
 /** Defines what to supply to the standard input of the tool  */
 typedef enum _ATPToolInputType
 {
@@ -62,6 +75,17 @@ typedef enum _ATPToolStore
 	ATP_LAST_TSTORE
 } ATPToolStore;
 
+typedef enum _ATPToolFlag
+{
+	ATP_CLEAR = 0,
+	ATP_SET = 1,
+	ATP_TOGGLE = 2,
+	ATP_OPERATION = 3,
+	ATP_TOOL_ENABLE = 1 << 2,
+	ATP_TOOL_AUTOSAVE = 1 << 3,
+	ATP_TOOL_TERMINAL = 1 << 4
+} ATPToolFlag;
+
 typedef struct _ATPUserTool ATPUserTool;
 typedef struct _ATPToolList ATPToolList;
 typedef guint ATPToolListPos;
@@ -78,6 +102,8 @@ struct _ATPToolList
 
 void atp_user_tool_free(ATPUserTool *tool);
 
+const char* atp_get_string_from_output_type (ATPOutputType type);
+ATPOutputType atp_get_output_type_from_string (const gchar* type);
 
 gboolean atp_user_tool_set_name (ATPUserTool *this, const gchar *value);
 const gchar* atp_user_tool_get_name (const ATPUserTool* this);
@@ -91,8 +117,14 @@ const gchar* atp_user_tool_get_param (const ATPUserTool* this);
 void atp_user_tool_set_working_dir (ATPUserTool* this, const gchar* value);
 const gchar* atp_user_tool_get_working_dir (const ATPUserTool* this);
 
-void atp_user_tool_set_enable (ATPUserTool* this, gboolean value);
-gboolean atp_user_tool_get_enable (const ATPUserTool* this);
+void atp_user_tool_set_flag (ATPUserTool *this, ATPToolFlag flag);
+gboolean atp_user_tool_get_flag (const ATPUserTool *this, ATPToolFlag flag);
+
+void atp_user_tool_set_output (ATPUserTool *this, ATPOutputType type);
+ATPOutputType atp_user_tool_get_output (const ATPUserTool *this);
+
+void atp_user_tool_set_error (ATPUserTool *this, ATPOutputType type);
+ATPOutputType atp_user_tool_get_error (const ATPUserTool *this);
 
 ATPPlugin* atp_user_tool_get_plugin (ATPUserTool* this);
 
@@ -103,9 +135,10 @@ ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATP
 ATPUserTool *atp_user_tool_next (const ATPUserTool* this);
 ATPUserTool *atp_user_tool_previous (const ATPUserTool* this);
 ATPUserTool *atp_user_tool_in (ATPUserTool* this, ATPToolStore storage);
-/*ATPUserTool *atp_user_tool_next_in (ATPUserTool* this);*/
 
-ATPToolList *atp_tool_list_initialize (ATPToolList *this, ATPPlugin* plugin, GtkMenu* menu);
+
+
+ATPToolList *atp_tool_list_construct (ATPToolList *this, ATPPlugin* plugin, GtkMenu* menu);
 void atp_tool_list_destroy (ATPToolList *this);
 
 ATPUserTool* atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore storage);
@@ -113,6 +146,5 @@ ATPUserTool* atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATP
 ATPUserTool* atp_tool_list_first (ATPToolList *this);
 ATPUserTool* atp_tool_list_move (ATPToolList *this, ATPUserTool *tool, ATPUserTool *position);
 gboolean atp_tool_list_activate (ATPToolList *this);
-/*ATPUserTool* atp_tool_list_first_in (ATPToolList *this, ATPToolStore storage);*/
 
 #endif

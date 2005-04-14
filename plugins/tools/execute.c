@@ -31,6 +31,7 @@
 
 /*---------------------------------------------------------------------------*/
 
+#define ICON_FILE "anjuta-tools-plugin.png"
 
 /* Widget and signal name found in glade file
  *---------------------------------------------------------------------------*/
@@ -41,76 +42,306 @@
 
 /*---------------------------------------------------------------------------*/
 
-/* Save tools file
+/* Command processing */
+
+typedef struct
+{
+	ATPOutputType type;
+	union
+	{
+		IAnjutaMessageView* view;
+		gint id;
+	};
+} ATPOutputContext;
+
+typedef struct
+{
+	ATPOutputContext output;
+	ATPOutputContext error;
+	AnjutaPlugin *plugin;
+	AnjutaLauncher *launcher;
+	gboolean busy;
+} ATPExecutionContext;
+
+/* Output context
  *---------------------------------------------------------------------------*/
 
 static void
-on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, ATPUserTool* this)
+atp_output_context_append_view (ATPOutputContext* this, const gchar* text)
 {
-	// Do nothing
+	if (this->view)
+	{
+		ianjuta_message_view_buffer_append (this->view, text, NULL);
+	}
+}
+
+static void
+atp_output_context_print_view (ATPOutputContext* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details)
+{
+	if (this->view)
+	{
+		ianjuta_message_view_append (this->view, type, summary, details, NULL);
+	}
+}
+
+static void
+on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
+						 ATPOutputContext *this)
+{
+	atp_output_context_print_view (this, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line, "");
+}
+
+static ATPOutputContext*
+atp_output_context_construct (ATPOutputContext *this, AnjutaPlugin *plugin)
+{
+	IAnjutaMessageManager* man;
+
+	man = anjuta_shell_get_interface (plugin->shell, IAnjutaMessageManager, NULL);
+
+	this->view = ianjuta_message_manager_add_view (man, _("Anjuta Tools"), ICON_FILE, NULL);
+	if (this->view != NULL)
+	{
+		g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
+						  G_CALLBACK (on_message_buffer_flush), this);
+		g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
+	}
+	else
+	{
+		ianjuta_message_view_clear (this->view, NULL);
+	}
+
+	return this;
+}
+
+static void
+atp_output_context_destroy (ATPOutputContext *this, AnjutaPlugin* plugin)
+{
+	switch (this->type)
+	{
+	case ATP_NULL:
+	case ATP_SAME:
+		break;
+	case ATP_COMMON_MESSAGE:
+	case ATP_PRIVATE_MESSAGE:
+		if (this->view)
+		{
+			IAnjutaMessageManager *man;
+
+			man = anjuta_shell_get_interface (plugin->shell, IAnjutaMessageManager, NULL);
+			ianjuta_message_manager_remove_view (man, this->view, NULL);
+			this->view = NULL;
+		}
+		break;
+	case ATP_NEW_BUFFER:
+	case ATP_REPLACE_BUFFER:
+	case ATP_INSERT_BUFFER:
+	case ATP_APPEND_BUFFER:
+	case ATP_POPUP_DIALOG:
+		/* TODO: Work in progress */
+		break;
+	}
+}
+
+/* Execute context
+ *---------------------------------------------------------------------------*/
+
+static void
+on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, gpointer user_data)
+{
+	ATPExecutionContext *this = (ATPExecutionContext *)user_data;
+
+	/* TODO: add all code */
+	this->busy = FALSE;
 }
 
 static void
 on_run_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gchar* output, gpointer user_data)
 {
-	ATPPlugin* this = (ATPPlugin*)user_data;
-
-	atp_plugin_append_view (this, output);
+	ATPExecutionContext* this = (ATPExecutionContext*)user_data;
+	
+	/* TODO: add all code */
+	atp_output_context_append_view (&this->output, output);
 }
+
+static ATPExecutionContext*
+atp_execution_context_new (AnjutaPlugin *plugin)
+{
+	ATPExecutionContext *this;
+
+	this = g_new0 (ATPExecutionContext, 1);
+
+	this->plugin = plugin;
+	this->launcher =  anjuta_launcher_new ();
+	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
+
+	atp_output_context_construct (&this->output, plugin);
+
+	return this;
+}
+
+static void
+atp_execution_context_free (ATPExecutionContext* this)
+{
+	atp_output_context_destroy (&this->output, this->plugin);
+	atp_output_context_destroy (&this->error, this->plugin);
+
+	if (this->launcher)
+	{
+		if (anjuta_launcher_is_busy (this->launcher))
+			anjuta_launcher_reset (this->launcher);
+		g_object_unref (this->launcher);
+	}
+
+	g_free (this);
+}
+
+static void
+atp_execution_context_execute (ATPExecutionContext* this, const gchar* command)
+{
+	anjuta_launcher_execute (this->launcher, command, on_run_output, this);
+	this->busy = TRUE;
+}
+
+/* Execute context list
+ *---------------------------------------------------------------------------*/
+
+ATPContextList *
+atp_context_list_construct (ATPContextList *this)
+{
+	this->list = NULL;
+	return this;
+}
+
+void
+atp_context_list_destroy (ATPContextList *this)
+{
+	GSList *item;
+
+	for (item = this->list; item != NULL;)
+	{
+		this->list = g_slist_remove_link (this->list, item);
+
+		atp_execution_context_free ((ATPExecutionContext *)item->data);
+		g_slist_free (item);
+	}
+}
+
+static ATPExecutionContext*
+atp_context_list_find_context (ATPContextList *this, AnjutaPlugin *plugin)
+{
+	ATPExecutionContext* context;
+
+	context = atp_execution_context_new (plugin);
+	this->list = g_slist_prepend (this->list, context);
+
+	return context;
+}
+
+/* Execute tools
+ *---------------------------------------------------------------------------*/
 
 void
 atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 {
 	ATPPlugin* plugin;
 	ATPVariable* variable;
-	AnjutaLauncher* launcher;
-	GString* cmd;
-	const gchar* args;
+	ATPContextList* list;
+	ATPExecutionContext* context;
+	GString* string;
+	gchar* dir;
+	gchar* cmd;
+	const gchar* param;
 	gchar* val;
 	guint len;
 
 	plugin = atp_user_tool_get_plugin (this);
-
-	atp_plugin_create_view (plugin);
-	
-	launcher = atp_plugin_get_launcher (plugin);	
 	variable = atp_plugin_get_variable (plugin);
-	g_signal_connect (G_OBJECT (launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
+	
 	/* Make command line */
-	cmd = g_string_new (atp_user_tool_get_command (this));
-	/* Replace variable if necessary */
-	args = atp_user_tool_get_param (this); 
-	if (args != NULL)
+	string = g_string_new (atp_user_tool_get_command (this));
+	g_string_append_c (string, ' ');
+
+	/* Add argument and replace variable*/
+	param = atp_user_tool_get_param (this); 
+	if (param != NULL)
 	{
-		for (; *args != '\0'; args += len)
+		for (; *param != '\0'; param += len)
 		{
-			for (len = 0; (args[len] != '\0') && g_ascii_isspace (args[len]); len++);
-			g_string_append_len (cmd, args, len);
-			args += len;
-			for (len = 0; (args[len] != '\0') && !g_ascii_isspace (args[len]); len++);
+			for (len = 0; (param[len] != '\0') && g_ascii_isspace (param[len]); len++);
+			g_string_append_len (string, param, len);
+			param += len;
+			for (len = 0; (param[len] != '\0') && !g_ascii_isspace (param[len]); len++);
 			if (len)
 			{
-				val = atp_variable_get_value_from_name_part (variable, args, len);
+				val = atp_variable_get_value_from_name_part (variable, param, len);
 				if (val)
 				{
-					g_string_append (cmd, val);
+					g_string_append (string, val);
 				}
 				else
 				{
-					g_string_append_len (cmd, args, len);
+					g_string_append_len (string, param, len);
 				}
 				g_free (val);
 			}
 		}
 	}
-	
-	anjuta_launcher_execute (launcher, cmd->str, on_run_output, plugin);
-	g_string_free (cmd, TRUE);
+	/* Remove leading space, trailing space and empty string */
+	cmd = g_string_free (string, FALSE);
+	g_strstrip (cmd);
+	if ((cmd != NULL) && (*cmd == '\0'))
+	{
+		g_free (cmd);
+		cmd = NULL;
+	}
+
+	/* Get working directory and replace variable */
+	param = atp_user_tool_get_working_dir (this);
+	dir = atp_variable_get_value (variable, param);
+	if (dir == NULL) dir = g_strdup (param);
+	/* Remove leading space, trailing space and empty string */
+	g_strstrip (dir);
+	if ((dir != NULL) && (*dir == '\0'))
+	{
+		g_free (dir);
+		dir = NULL;
+	}
+
+	if (atp_user_tool_get_flag (this, ATP_TOOL_TERMINAL))
+	{
+		/* Run in a terminal */
+		/* don't need a execution context, launch and forget */
+
+		gnome_execute_terminal_shell (dir, cmd);
+	}
+	else
+	{
+		list = atp_plugin_get_context_list (plugin);
+
+		context = atp_context_list_find_context (list, ANJUTA_PLUGIN(plugin));
+
+		/* Set working directory */
+		if (dir != NULL)
+		{
+			val = g_get_current_dir();
+			chdir (dir);
+		}
+
+		/* Run command */
+		atp_execution_context_execute (context, cmd);
+
+		/* Restore previous current directory */
+		if (dir != NULL)
+		{
+			chdir (val);
+			g_free (val);
+		}
+	}
+
+	if (dir != NULL) g_free (dir);
+	if (cmd != NULL) g_free (cmd);
 }
 
-
-/* Save tools file
- *---------------------------------------------------------------------------*/
 
 #if 0
 /* Popup a dialog to ask for user parameters */
@@ -147,7 +378,8 @@ get_user_params(AnUserTool *tool, gint *response_ptr)
 
 
 /* Simplistic output handler - needs to be enhanced */
-static void tool_stdout_handler (const gchar *line)
+static void
+tool_stdout_handler (const gchar *line)
 {
 	if (line && current_tool)
 	{
@@ -170,7 +402,8 @@ static void tool_stdout_handler (const gchar *line)
 }
 
 /* Simplistic error handler - needs to be enhanced */
-static void tool_stderr_handler (const gchar *line)
+static void
+tool_stderr_handler (const gchar *line)
 {
 	if (line && current_tool)
 	{
@@ -192,9 +425,10 @@ static void tool_stderr_handler (const gchar *line)
 	}
 }
 
-static void tool_output_handler (AnjutaLauncher *launcher,
-								 AnjutaLauncherOutputType output_type,
-								 const gchar * mesg, gpointer data)
+static void
+tool_output_handler (AnjutaLauncher *launcher,
+					 AnjutaLauncherOutputType output_type,
+					 const gchar * mesg, gpointer data)
 {
 	switch (output_type)
 	{
@@ -207,7 +441,8 @@ static void tool_output_handler (AnjutaLauncher *launcher,
 }
 
 /* Handle non-message output and error lines from current tool */
-static void handle_tool_output(int type, GString *s, gboolean is_error)
+static void
+handle_tool_output(int type, GString *s, gboolean is_error)
 {
 	TextEditor *te;
 	int sci_message = -1;
@@ -258,9 +493,10 @@ static void handle_tool_output(int type, GString *s, gboolean is_error)
 ** message panes. Otherwise, we need to decide what to do with the output
 ** and error and do it.
 */
-static void tool_terminate_handler (AnjutaLauncher *launcher,
-									gint child_pid, gint status,
-									gulong time_taken, gpointer data)
+static void
+tool_terminate_handler (AnjutaLauncher *launcher,
+						gint child_pid, gint status,
+						gulong time_taken, gpointer data)
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (tool_terminate_handler),
@@ -303,7 +539,8 @@ static void tool_terminate_handler (AnjutaLauncher *launcher,
 */
 static const gchar *get_user_params(AnUserTool *tool, gint *response_ptr);
 
-static void execute_tool(GtkMenuItem *item, gpointer data)
+static void
+execute_tool(GtkMenuItem *item, gpointer data)
 {
 	AnUserTool *tool = (AnUserTool *) data;
 	const gchar *params = NULL;
@@ -458,4 +695,3 @@ static void execute_tool(GtkMenuItem *item, gpointer data)
 	g_free(working_dir);
 }
 #endif
-

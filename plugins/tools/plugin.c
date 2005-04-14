@@ -89,6 +89,7 @@ R7: Tool Storage
 #include "tool.h"
 #include "editor.h"
 #include "variable.h"
+#include "execute.h"
 
 #include <libanjuta/anjuta-shell.h>
 
@@ -104,8 +105,7 @@ struct _ATPPlugin {
 	ATPToolList list;
 	ATPToolDialog dialog;
 	ATPVariable variable;
-	IAnjutaMessageView* view;
-	AnjutaLauncher* launcher;
+	ATPContextList context;
 };
 
 struct _ATPPluginClass {
@@ -215,6 +215,12 @@ atp_plugin_get_variable (const ATPPlugin *this)
 	return &(((ATPPlugin *)this)->variable);
 }
 
+ATPContextList* 
+atp_plugin_get_context_list (const ATPPlugin *this)
+{
+	return &(((ATPPlugin *)this)->context);
+}
+
 /*---------------------------------------------------------------------------*/
 
 /* Used in dispose */
@@ -223,10 +229,10 @@ static gpointer parent_class;
 static void
 atp_plugin_instance_init (GObject *obj)
 {
-	ATPPlugin *this = (ATPPlugin*)obj;
+/*	ATPPlugin *this = (ATPPlugin*)obj;
 
 	this->view = NULL;
-	this->launcher = NULL;
+	this->launcher = NULL;*/
 }
 
 /* dispose is used to unref object created with instance_init */
@@ -234,10 +240,10 @@ atp_plugin_instance_init (GObject *obj)
 static void
 atp_plugin_dispose (GObject *obj)
 {
-	ATPPlugin *this = (ATPPlugin*)obj;
+/*	ATPPlugin *this = (ATPPlugin*)obj;
 
-	/* Warning this function could be called several times */
-	if (this->view != NULL)
+	Warning this function could be called several times */
+	/*if (this->view != NULL)
 	{
 		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)&this->view);
 		this->view = NULL;
@@ -245,7 +251,7 @@ atp_plugin_dispose (GObject *obj)
 	if (this->launcher != NULL)
 	{
 		g_object_unref (G_OBJECT(this->launcher));
-	}
+	}*/
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
 }
@@ -259,6 +265,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	GtkMenu* menu;
 	GtkWidget* sep;
+	/* GtkMenuItem *item; */
 	
 	g_message ("Tools Plugin: Activating tools plugin...");
 	
@@ -272,12 +279,12 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	/* Load tools */
-	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), "/MenuMain/Tools"))));
-	atp_tool_list_initialize (&this->list, this, menu);
+	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), "/MenuMain/PlaceHolderBuildMenus/Tools"))));
+	atp_tool_list_construct (&this->list, this, menu);
 	atp_anjuta_tools_load (this);
 	sep = gtk_separator_menu_item_new();
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu), GTK_WIDGET (sep));
-	gtk_widget_show (GTK_WIDGET (sep));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), sep);
+	gtk_widget_show (sep);
 	
 	atp_tool_list_activate (&this->list);
 
@@ -285,6 +292,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	atp_tool_dialog_new_at (&this->dialog, this);
 
 	atp_variable_construct (&this->variable, plugin->shell);
+	atp_context_list_construct (&this->context);
 	
 	return TRUE;
 }
@@ -302,6 +310,7 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 
 	atp_tool_list_destroy (&this->list);
 	atp_tool_dialog_free_at (&this->dialog);
+	atp_context_list_destroy (&this->context);
 	atp_variable_destroy (&this->variable);
 
 	return TRUE;
@@ -325,7 +334,7 @@ ANJUTA_SIMPLE_PLUGIN (ATPPlugin, atp_plugin);
 /* Control access to anjuta message view to avoid a closed view
  *---------------------------------------------------------------------------*/
 
-static void
+/*static void
 on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
 						 ATPPlugin *this)
 {
@@ -383,4 +392,4 @@ atp_plugin_get_launcher (ATPPlugin* this)
 	}
 
 	return this->launcher;
-}
+}*/

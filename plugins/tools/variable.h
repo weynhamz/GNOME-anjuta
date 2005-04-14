@@ -27,12 +27,19 @@
 
 typedef AnjutaShell* ATPVariable;
 
+typedef enum {
+	ATP_DEFAULT = 0,
+	ATP_DIRECTORY = 1 << 1,
+	ATP_NONE = 1 << 15
+} ATPFlags;
+	
 ATPVariable* atp_variable_construct (ATPVariable* this, AnjutaShell* shell);
 void atp_variable_destroy (ATPVariable* this);
 
 guint atp_variable_get_count (const ATPVariable* this);
 const gchar* atp_variable_get_name (const ATPVariable* this, guint id);
 const gchar* atp_variable_get_help (const ATPVariable* this, guint id);
+ATPFlags atp_variable_get_flag (const ATPVariable* this, guint id);
 gchar* atp_variable_get_value_from_id (const ATPVariable* this, guint id);
 gchar* atp_variable_get_value (const ATPVariable* this, const gchar* name);
 gchar* atp_variable_get_value_from_name_part (const ATPVariable* this, const gchar* name, gsize length);

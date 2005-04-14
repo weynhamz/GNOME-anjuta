@@ -27,6 +27,8 @@
 
 #include "variable.h"
 
+#include <libgnomevfs/gnome-vfs.h>
+
 #include <glib/gi18n.h>
 
 #include <string.h>
@@ -36,13 +38,35 @@
 /* List of variables understood by the tools editor and their values.
  *---------------------------------------------------------------------------*/
 
+/* enum and following variable_list table must be in the same order */
+
+enum {
+	ATP_PROJECT_ROOT_URI = 0,
+	ATP_PROJECT_ROOT_DIRECTORY,
+	ATP_FILE_MANAGER_CURRENT_URI,
+	ATP_FILE_MANAGER_CURRENT_DIRECTORY,
+	ATP_FILE_MANAGER_CURRENT_PATH,
+	ATP_FILE_MANAGER_CURRENT_FILENAME,
+	ATP_FILE_MANAGER_CURRENT_BASENAME,
+	ATP_FILE_MANAGER_CURRENT_EXTENSION,
+	ATP_VARIABLE_COUNT
+		
+};
+
 static struct
 {
 	char *name;
 	char *help;
+	ATPFlags flag;
 } variable_list[] = {
-  {"project_root_uri", "?" }
-, {"file_manager_uri", "?" }
+  {"project_root_uri", "project root URI", ATP_DEFAULT}
+, {"project_root_directory", "project root path", ATP_DIRECTORY }
+, {"file_manager_current_uri", "selected file manager URI", ATP_DEFAULT }
+, {"file_manager_current_directory", "selected file manager directory", ATP_DIRECTORY }
+, {"file_manager_current_path", "selected file manager path", ATP_DEFAULT }
+, {"file_manager_current_filename", "selected file manager file name", ATP_DEFAULT }
+, {"file_manager_current_basename", "selected file manager file name without extension", ATP_DEFAULT }
+, {"file_manager_current_extension", "selected file manager file extension", ATP_DEFAULT }
 #if 0
   {CURRENT_FULL_FILENAME_WITH_EXT, "Current full filename with extension" }
 , {CURRENT_FULL_FILENAME, "Current full filename without extension" }
@@ -248,7 +272,6 @@ static struct
 , {"anjuta.compiler.flags", "Default compiler flags"}
 , {"anjuta.linker.flags", "Default linler flags"}
 #endif
-, {NULL, NULL}
 };
 
 
@@ -258,23 +281,25 @@ static struct
 guint
 atp_variable_get_count (const ATPVariable* this)
 {
-	guint i;
-
-	for (i = 0; variable_list[i].name != NULL; ++i);
-
-	return i;
+	return ATP_VARIABLE_COUNT;
 }
 
 const gchar*
 atp_variable_get_name (const ATPVariable* this, guint id)
 {
-	return variable_list[id].name;
+	return id >= ATP_VARIABLE_COUNT ? NULL : variable_list[id].name;
 }
 
 const gchar*
 atp_variable_get_help (const ATPVariable* this, guint id)
 {
-	return _(variable_list[id].help);
+	return id >= ATP_VARIABLE_COUNT ? NULL : _(variable_list[id].help);
+}
+
+ATPFlags
+atp_variable_get_flag (const ATPVariable* this, guint id)
+{
+	return id >= ATP_VARIABLE_COUNT ? ATP_NONE : variable_list[id].flag;
 }
 
 static guint
@@ -282,7 +307,7 @@ atp_variable_get_id (const ATPVariable* this, const gchar* name)
 {
 	guint i;
 
-	for (i = 0; variable_list[i].name != NULL; ++i)
+	for (i = 0; i < ATP_VARIABLE_COUNT; ++i)
 	{
 		if (strcmp (variable_list[i].name, name) == 0) break;
 	}
@@ -295,7 +320,7 @@ atp_variable_get_id_from_name_part (const ATPVariable* this, const gchar* name, 
 {
 	guint i;
 
-	for (i = 0; variable_list[i].name != NULL; ++i)
+	for (i = 0; i < ATP_VARIABLE_COUNT; ++i)
 	{
 		if ((strncmp (variable_list[i].name, name, length) == 0)
 			      	&& (variable_list[i].name[length] == '\0')) break;
@@ -324,27 +349,96 @@ atp_variable_get_value_from_name_part (const ATPVariable* this, const gchar* nam
 	return atp_variable_get_value_from_id (this, id);
 }
 
-gchar*
-atp_variable_get_value_from_id (const ATPVariable* this, guint id)
+static gchar*
+atp_variable_get_anjuta_variable (const ATPVariable *this, guint id)
 {
 	gchar* string;
 	GValue value = {0,};
 	GError* err = NULL;
 
+	anjuta_shell_get_value (*this, variable_list[id].name, &value, &err);
+	if (err != NULL)
+	{
+		/* Value probably does not exist */
+		g_error_free (err);
+		return NULL;
+	}
+	string = G_VALUE_HOLDS (&value, G_TYPE_STRING) ? g_value_dup_string (&value) : NULL;
+	g_value_unset (&value);
+
+	return string;
+}
+
+static gchar*
+atp_variable_get_path_from_anjuta_variable (const ATPVariable *this, guint id)
+{
+	gchar *var;
+	gchar *dir;
+
+	var = atp_variable_get_anjuta_variable (this, id);
+	if (var == NULL) return NULL;
+	dir = gnome_vfs_get_local_path_from_uri (var);
+	g_free (var);
+
+	return dir;
+}
+
+gchar*
+atp_variable_get_value_from_id (const ATPVariable* this, guint id)
+{
+	char *path;
+	char *val;
+	char *ext;
+
 	switch (id)
 	{
-	case 0:
-	case 1:
-		anjuta_shell_get_value (*this, variable_list[id].name, &value, &err);
-		if (err != NULL)
+	case ATP_PROJECT_ROOT_URI:
+	case ATP_FILE_MANAGER_CURRENT_URI:
+		return atp_variable_get_anjuta_variable (this, id);
+	case ATP_PROJECT_ROOT_DIRECTORY:
+		return atp_variable_get_path_from_anjuta_variable (this, ATP_PROJECT_ROOT_URI);
+	case ATP_FILE_MANAGER_CURRENT_DIRECTORY:
+		path = atp_variable_get_path_from_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
+		if (path != NULL)
 		{
-			/* Value probably does not exist */
-			g_error_free (err);
-			return NULL;
+			val = g_path_get_dirname (path);
+			g_free (path);
+			return val;
 		}
-		string = G_VALUE_HOLDS (&value, G_TYPE_STRING) ? g_value_dup_string (&value) : NULL;
-		g_value_unset (&value);
-		return string;
+		return path;
+	case ATP_FILE_MANAGER_CURRENT_PATH:
+		return atp_variable_get_path_from_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
+	case ATP_FILE_MANAGER_CURRENT_FILENAME:
+		path = atp_variable_get_path_from_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
+		if (path != NULL)
+		{
+			val = g_path_get_basename (path);
+			g_free (path);
+			return val;
+		}
+		return path;
+	case ATP_FILE_MANAGER_CURRENT_BASENAME:
+		path = atp_variable_get_path_from_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
+		if (path != NULL)
+		{
+			val = g_path_get_basename (path);
+			g_free (path);
+			ext = strrchr (val, '.');
+			if (ext != NULL) *ext = '\0';	
+			return val;
+		}
+		return path;
+	case ATP_FILE_MANAGER_CURRENT_EXTENSION:
+		path = atp_variable_get_path_from_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
+		if (path != NULL)
+		{
+			val = g_path_get_basename (path);
+			g_free (path);
+			ext = strrchr (val, '.');
+			if (ext != NULL) strcpy(val, ext);
+			return val;
+		}
+		return path;
 	default:
 		return NULL;
 	}
@@ -354,7 +448,8 @@ ATPVariable*
 atp_variable_construct (ATPVariable* this, AnjutaShell* shell)
 {
 	*this = shell;
-	return NULL; /* FIXME */
+
+	return this;
 }
 
 void
