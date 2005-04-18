@@ -229,10 +229,6 @@ static gpointer parent_class;
 static void
 atp_plugin_instance_init (GObject *obj)
 {
-/*	ATPPlugin *this = (ATPPlugin*)obj;
-
-	this->view = NULL;
-	this->launcher = NULL;*/
 }
 
 /* dispose is used to unref object created with instance_init */
@@ -240,18 +236,7 @@ atp_plugin_instance_init (GObject *obj)
 static void
 atp_plugin_dispose (GObject *obj)
 {
-/*	ATPPlugin *this = (ATPPlugin*)obj;
-
-	Warning this function could be called several times */
-	/*if (this->view != NULL)
-	{
-		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)&this->view);
-		this->view = NULL;
-	}
-	if (this->launcher != NULL)
-	{
-		g_object_unref (G_OBJECT(this->launcher));
-	}*/
+	/* Warning this function could be called several times */
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (obj)));
 }
@@ -265,7 +250,6 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	GtkMenu* menu;
 	GtkWidget* sep;
-	/* GtkMenuItem *item; */
 	
 	g_message ("Tools Plugin: Activating tools plugin...");
 	

@@ -53,7 +53,7 @@ enum {
 		
 };
 
-static struct
+static const struct
 {
 	char *name;
 	char *help;

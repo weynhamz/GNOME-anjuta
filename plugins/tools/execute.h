@@ -27,7 +27,7 @@
 
 typedef struct _ATPContextList
 {
-	GSList* list;
+	GList* list;
 } ATPContextList;
 
 void atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this);

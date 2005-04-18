@@ -1,3 +1,18 @@
+2005-04-17  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/execute.c,
+	plugins/tools/execute.h:
+	Implement save all files before running a command
+	Implement all options for stdout and stderr except replace buffer
+	Allow running several tools
+
+	* plugins/tools/plugin.c:
+	Move anjuta launcher in execute.c
+
+	* plugins/tools/tools.h,
+	plugins/tools/variable.c:
+	Small changes
+
 2005-04-13  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/anjuta-tools.glade:
@@ -58,7 +73,7 @@
 	Improve tool editor dialog
 	Add variable selection dialog
 
-	* plugin/tools/dialog.c,
+	* plugins/tools/dialog.c,
 	plugins/tools/dialog.h,
 	plugins/tools/plugin.c,
 	plugins/tools/plugin.h:
