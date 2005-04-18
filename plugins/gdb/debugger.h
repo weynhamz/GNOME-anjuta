@@ -94,7 +94,7 @@ void debugger_init (GdbPlugin *plugin);
 void debugger_shutdown (void);
 gboolean debugger_save_yourself (FILE * stream);
 /* TODO gboolean debugger_load_yourself (PropsID props); */
-void debugger_start (const gchar *prog);
+void debugger_start (const gchar *prog, gboolean is_libtool_prog);
 void debugger_load_executable (const gchar *prog);
 void debugger_load_core (const gchar *core);
 gboolean debugger_is_active (void);

@@ -529,7 +529,7 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	debugger_init (gdb_plugin);
-	debugger_start (NULL);
+	/* debugger_start (NULL); */
 
 	return TRUE;
 }
@@ -609,10 +609,12 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 
 	gdb_plugin = (GdbPlugin*)G_OBJECT (plugin);
 	
-	if (debugger_is_active() == FALSE) return;
-	if (debugger_is_ready() == FALSE) return;
+	/* if (debugger_is_active() == FALSE) return; */
+	if (debugger_is_active() &&
+		debugger_is_ready() == FALSE) return;
 	
-	if (strlen(prog_uri) > 6 &&
+	if (debugger_is_active() &&
+		strlen(prog_uri) > 6 &&
 		strncmp (prog_uri, "pid://", 6) == 0)
 	{
 		long lpid;
@@ -625,27 +627,87 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 			debugger_attach_process (pid);
 		return;
 	}
-	vfs_uri = gnome_vfs_uri_new (prog_uri);
-
-	g_return_if_fail (vfs_uri != NULL);
 	
-	if (gnome_vfs_uri_is_local (vfs_uri))
+	if (debugger_is_active() == FALSE &&
+		(prog_uri == NULL || strlen (prog_uri) <= 0))
 	{
-		gchar *mime_type;
-		const gchar *filename;
-		
-		mime_type = gnome_vfs_get_mime_type (prog_uri);
-		filename = gnome_vfs_uri_get_path (vfs_uri);
-		if (strcmp (mime_type, "application/x-executable") == 0)
-			debugger_load_executable (filename);
-		else if (strcmp (mime_type, "application/x-core") == 0)
-			debugger_load_core (filename);
-		else
-			g_warning ("Debugger: Do not know how to load mime type: %s",
-					   mime_type);
-		g_free (mime_type);
+		debugger_start (NULL, FALSE);
 	}
-	gnome_vfs_uri_unref (vfs_uri);
+	else
+	{
+		vfs_uri = gnome_vfs_uri_new (prog_uri);
+	
+		g_return_if_fail (vfs_uri != NULL);
+		
+		if (gnome_vfs_uri_is_local (vfs_uri))
+		{
+			gchar *mime_type;
+			const gchar *filename;
+			
+			mime_type = gnome_vfs_get_mime_type (prog_uri);
+			filename = gnome_vfs_uri_get_path (vfs_uri);
+			if (strcmp (mime_type, "application/x-executable") == 0)
+			{
+				if (debugger_is_active())
+					debugger_load_executable (filename);
+				else
+					debugger_start (filename, FALSE);
+			}
+			else if (strcmp (mime_type, "application/x-shellscript") == 0)
+			{
+				/* Sounds like a libtool executable */
+				if (debugger_is_active())
+				{
+					gchar *basename;
+					gchar *dirname;
+					gchar *proper_path;
+					
+					/* FIXME: By this time, debugger may have already been
+					 * started without libtool support. But anyway try to load
+					 * the proper executable found in .libs/ directory.
+					 */
+					basename = g_path_get_basename (filename);
+					dirname = g_path_get_dirname (filename);
+					proper_path = g_build_filename (dirname, ".libs", basename, NULL);
+					if (g_file_test (proper_path, G_FILE_TEST_IS_EXECUTABLE))
+					{
+						debugger_load_executable (proper_path);
+					}
+					else
+					{
+						debugger_load_executable (filename);
+					}
+					g_free (proper_path);
+					g_free (dirname);
+					g_free (basename);
+				}
+				else
+				{
+					/* FIXME: We should really do more checks to confirm that
+					 * this target is indeed libtool target
+					 */
+					debugger_start (filename, TRUE);
+				}
+			}
+			else if (debugger_is_active() &&
+					 strcmp (mime_type, "application/x-core") == 0)
+			{
+				debugger_load_core (filename);
+			}
+			else if (debugger_is_active())
+			{
+				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (debugger.plugin)->shell),
+										  "Debugger can not load '%s' which is of mime type: '%s'",
+										  filename, mime_type);
+			}
+			else if (debugger_is_active() == FALSE)
+			{
+				debugger_start (NULL, FALSE);
+			}
+			g_free (mime_type);
+		}
+		gnome_vfs_uri_unref (vfs_uri);
+	}
 }
 
 static void

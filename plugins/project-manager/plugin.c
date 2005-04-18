@@ -1311,7 +1311,7 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 							  GError **err)
 {
 	GList *targets, *node;
-	GbfProjectTarget *target;
+	const gchar *target_id;
 	GList *elements;
 	ProjectManagerPlugin *plugin;
 	const gchar *target_type_str;
@@ -1320,9 +1320,6 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	
 	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), NULL);
-	
-	elements = NULL;
-	targets = gbf_project_get_all_targets (plugin->project, NULL);
 	
 	switch (target_type)
 	{
@@ -1333,23 +1330,32 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 			target_type_str = "static_lib";
 			break;
 		case IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE:
-			target_type_str = "executable";
+			target_type_str = "program";
 			break;
 		default:
 			g_warning ("Unsupported target type");
 			return NULL;
 	}
 	
+	elements = NULL;
+	targets = gbf_project_get_all_targets (plugin->project, NULL);
 	node = targets;
 	while (node)
 	{
-		target = (GbfProjectTarget*) node->data;
-		if (strcmp (target->type, target_type_str) == 0)
+		const gchar *t_type;
+		
+		target_id = (const gchar*) node->data;
+		
+		t_type = strrchr (target_id, ':');
+		if (t_type && strlen (t_type) > 2)
 		{
-			elements = g_list_prepend (elements,
-									   g_strdup (target->name));
+			t_type++;
+			if (strcmp (t_type, target_type_str) == 0)
+			{
+				gchar *target_uri = get_element_uri_from_id (plugin, target_id);
+				elements = g_list_prepend (elements, target_uri);
+			}
 		}
-		gbf_project_target_free (target);
 		node = node->next;
 	}
 	g_list_free (targets);

@@ -25,6 +25,7 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-debugger-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
 #include "plugin.h"
@@ -102,9 +103,8 @@ on_load_file_response (GtkDialog* dialog, gint response,
 
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 	
-	if (!plugin->debugger)
-		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-										uri, NULL);
+	ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
+									uri, NULL);
 	g_free (uri);
 }
 
@@ -112,8 +112,127 @@ static void
 on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (!plugin->debugger)
-		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-										"", NULL);
+	{
+		if (!plugin->project_root_uri)
+		{
+			ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
+											"", NULL);
+		}
+		else
+		{
+			GList *exec_targets;
+			IAnjutaProjectManager *pm;
+			
+			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+											 IAnjutaProjectManager, NULL);
+			g_return_if_fail (pm != NULL);
+			exec_targets =
+			ianjuta_project_manager_get_targets (pm, 
+								 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
+												 NULL);
+			if (exec_targets == NULL)
+			{
+				ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
+												"", NULL);
+			}
+			else if (g_list_length (exec_targets) == 1)
+			{
+				ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
+												(gchar*)exec_targets->data,
+												NULL);
+				g_free (exec_targets->data);
+				g_list_free (exec_targets);
+			}
+			else
+			{
+				GtkWidget *dlg, *treeview, *sc;
+				GtkTreeViewColumn *column;
+				GtkCellRenderer *renderer;
+				GtkListStore *store;
+				gint response;
+				GList *node;
+				GtkTreeIter iter;
+				const gchar *sel_target = NULL;
+				
+				dlg = gtk_dialog_new_with_buttons (_("Select debugging target"),
+												   GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+												   GTK_DIALOG_DESTROY_WITH_PARENT,
+												   GTK_STOCK_OK,
+												   GTK_RESPONSE_ACCEPT,
+												   GTK_STOCK_CANCEL,
+												   GTK_RESPONSE_REJECT,
+												   NULL);
+				gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
+				sc = gtk_scrolled_window_new (NULL, NULL);
+				gtk_container_set_border_width (GTK_CONTAINER (sc), 5);
+				
+				gtk_widget_show (sc);
+				gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sc),
+													 GTK_SHADOW_IN);
+				gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sc),
+												GTK_POLICY_AUTOMATIC,
+												GTK_POLICY_AUTOMATIC);
+				
+				gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), sc,
+									TRUE, TRUE, 5);
+			
+				store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+				node = exec_targets;
+				while (node)
+				{
+					const gchar *rel_path;
+				
+					rel_path =
+					    (gchar*)node->data +
+					     strlen (plugin->project_root_uri) + 1;
+					gtk_list_store_append (store, &iter);
+					gtk_list_store_set (store, &iter, 0, rel_path, 1,
+										node->data, -1);
+					g_free (node->data);
+					node = g_list_next (node);
+				}
+				g_list_free (exec_targets);
+				
+				treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+				gtk_container_add (GTK_CONTAINER (sc), treeview);
+				gtk_widget_show (treeview);
+				g_object_unref (store);
+				
+				column = gtk_tree_view_column_new ();
+				gtk_tree_view_column_set_sizing (column,
+												 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+				gtk_tree_view_column_set_title (column, _("Select debugging target"));
+				
+				renderer = gtk_cell_renderer_text_new ();
+				gtk_tree_view_column_pack_start (column, renderer, FALSE);
+				gtk_tree_view_column_add_attribute (column, renderer, "text",
+													0);
+				gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+				gtk_tree_view_set_expander_column (GTK_TREE_VIEW (treeview), column);
+				
+				/* Run dialog */
+				response = gtk_dialog_run (GTK_DIALOG (dlg));
+				if (response == GTK_RESPONSE_ACCEPT)
+				{
+					GtkTreeSelection *sel;
+					sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
+					if (gtk_tree_selection_get_selected (sel,
+														 (GtkTreeModel**)(&store),
+														 &iter))
+					{
+						gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 1,
+											&sel_target, -1);
+					}
+				}
+				gtk_widget_destroy (dlg);
+				if (sel_target)
+				{
+					ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
+													sel_target, NULL);
+				}
+			}
+		}
+	}
 }
 
 static void
@@ -148,9 +267,11 @@ on_attach_to_project_action_activate (GtkAction* action, DebugManagerPlugin* plu
 		long lpid = selected_pid;
 		
 		buffer = g_strdup_printf ("pid://%ld", lpid);
+		/*
 		if (!plugin->debugger)
 			ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 											"", NULL);
+		*/
 		if (plugin->debugger)
 			ianjuta_debugger_load (plugin->debugger, buffer, NULL);
 		g_free (buffer);
@@ -161,10 +282,11 @@ static void
 on_run_continue_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	IAnjutaDebugger *debugger = get_anjuta_debugger_iface (plugin);
-
+	/*
 	if (!plugin->debugger)
 		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 										"", NULL);
+	*/
 	if (plugin->debugger)
 		ianjuta_debugger_run_continue (debugger, NULL /* TODO */);
 }
@@ -173,10 +295,11 @@ static void
 on_step_in_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	IAnjutaDebugger *debugger = get_anjuta_debugger_iface (plugin);
-
+	/*
 	if (!plugin->debugger)
 		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 										"", NULL);
+	*/
 	if (plugin->debugger)
 		ianjuta_debugger_step_in (debugger, NULL /* TODO */);
 }
@@ -184,9 +307,11 @@ on_step_in_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 static void
 on_step_over_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
+	/*
 	if (!plugin->debugger)
 		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 										"", NULL);
+	*/
 	if (plugin->debugger)
 		ianjuta_debugger_step_over (plugin->debugger, NULL /* TODO */);
 }
@@ -194,9 +319,11 @@ on_step_over_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 static void
 on_step_out_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
+	/*
 	if (!plugin->debugger)
 		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 										"", NULL);
+	*/
 	if (plugin->debugger)
 		ianjuta_debugger_step_out (plugin->debugger, NULL /* TODO */);
 }
@@ -206,10 +333,11 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	gchar *uri;
 	gint line;
-	
+	/*
 	if (!plugin->debugger)
 		ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 										"", NULL);
+	*/
 	if (!plugin->debugger)
 		return;
 	
@@ -326,7 +454,7 @@ debug_manager_plugin_update_ui (DebugManagerPlugin *plugin)
 	/* We set busy FALSE even if debugger is not yet started because
 	 * following actions will automatically start the debugger.
 	 */
-	gboolean is_busy = FALSE;
+	gboolean is_busy = TRUE;
 	
 	if (plugin->debugger)
 	{
@@ -346,7 +474,8 @@ debug_manager_plugin_update_ui (DebugManagerPlugin *plugin)
 
 	action = anjuta_ui_get_action (ui, "ActionGroupDebug",
 								   "ActionDebuggerLoad");
-	g_object_set (G_OBJECT (action), "sensitive", !is_busy, NULL);
+	g_object_set (G_OBJECT (action), "sensitive",
+				  (plugin->debugger == NULL) || !is_busy, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupDebug",
 								   "ActionDebuggerAttachToProcess");
@@ -524,11 +653,8 @@ idebugger_manager_start (IAnjutaDebuggerManager *debugman,
 						 const gchar *prog_uri, GError** e)
 {
 	DebugManagerPlugin *plugin = (DebugManagerPlugin *) debugman;
-	get_anjuta_debugger_iface (plugin);
-	if (!prog_uri || strlen (prog_uri) <= 0)
-	{
-		/* FIXME: Load the exec file */
-	}
+	IAnjutaDebugger *idebugger = get_anjuta_debugger_iface (plugin);
+	ianjuta_debugger_load (idebugger, prog_uri, NULL);
 }
 
 static gboolean
@@ -596,7 +722,8 @@ idebugger_manager_iface_init (IAnjutaDebuggerManagerIface *iface)
 static void
 ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 {
-	// FIXME:
+	ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
+									uri, NULL);
 }
 
 static gchar*

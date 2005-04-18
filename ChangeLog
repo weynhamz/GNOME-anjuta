@@ -1,3 +1,15 @@
+2005-04-18  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Marked completed items.
+	
+	* plugins/debug-manager/plugin.c, plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,	plugins/gdb/plugin.c,
+	plugins/project-manager/plugin.c: Prompt user for the debugging
+	target (select from a list of project's executable targets) and
+	correctly start debugger. Take care of libtool wrapping when the
+	target selected is libtool target. Fixed debugger menu items
+	sensitivity.
+
 2005-04-17  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/execute.c,

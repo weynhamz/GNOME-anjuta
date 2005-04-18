@@ -421,7 +421,7 @@ debugger_execute_cmd_in_queqe ()
 }
 
 void
-debugger_start (const gchar * prog)
+debugger_start (const gchar * prog, gboolean is_libtool_prog)
 {
 	gchar *command_str, *dir, *tmp, *text, *msg;
 	gchar *exec_dir;
@@ -502,17 +502,32 @@ debugger_start (const gchar * prog)
 /* TODO
 		anjuta_set_execution_dir (tmp);
 */
-		command_str =
-			g_strdup_printf
-			("gdb -q -f -n %s -cd=%s -x %s/gdb.init %s", dir, tmp,
-			 PACKAGE_DATA_DIR, prog);
+		if (is_libtool_prog == FALSE)
+			command_str =
+			    g_strdup_printf
+			       ("gdb -q -f -n %s -cd=%s -x %s/gdb.init %s", dir, tmp,
+			        PACKAGE_DATA_DIR, prog);
+		else
+			command_str =
+			    g_strdup_printf
+			       ("libtool --mode=execute gdb -q -f -n %s -cd=%s -x %s/gdb.init %s", dir, tmp,
+			        PACKAGE_DATA_DIR, prog);
 		g_free (tmp);
 	}
 	else
 	{
-		command_str =
-			g_strdup_printf ("gdb -q -f -n %s -x %s/gdb.init ",
-					 dir, PACKAGE_DATA_DIR);
+		if (is_libtool_prog == FALSE)
+		{
+			command_str =
+				g_strdup_printf ("gdb -q -f -n %s -x %s/gdb.init ",
+						 dir, PACKAGE_DATA_DIR);
+		}
+		else
+		{
+			command_str =
+				g_strdup_printf ("libtool --mode=execute gdb -q -f -n %s -x %s/gdb.init ",
+						 dir, PACKAGE_DATA_DIR);
+		}
 	}
 	g_free (dir);
 	debugger.starting = TRUE;
