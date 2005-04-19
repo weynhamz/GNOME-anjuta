@@ -267,7 +267,6 @@ search_and_replace (void)
 		return;
 	
 	end_activity = FALSE;
-	search_make_sensitive(FALSE);
 	
 	entries = create_search_entries(s);
 	
@@ -485,7 +484,6 @@ search_and_replace (void)
 		search_set_toggle_direction(SD_FORWARD);
 	}
 	
-	search_make_sensitive(TRUE);
 	return;
 }
 

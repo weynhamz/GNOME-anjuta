@@ -1,3 +1,8 @@
+2005-04-19  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/editor/search-replace.c :
+	Fixed bug (Search dialog unsensitive freezed Search button).
+
 2005-04-18  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Marked completed items.
