@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Anjuta 1.20\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-15 22:10+0000\n"
-"PO-Revision-Date: 2005-02-15 22:40+0100\n"
+"PO-Revision-Date: 2005-04-19 21:40+0100\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4410,7 +4410,6 @@ msgid "Close"
 msgstr "Close"
 
 #. 19
-#. 5
 #: ../plugins/editor/text_editor_menu.c:356
 #: ../plugins/file-manager/an_file_view.c:350
 msgid "Docked"
@@ -4427,6 +4426,13 @@ msgid ""
 "\n"
 "You may choose to try opening it with following plugins or applications."
 msgstr ""
+"<b>Can not open \"%s\"</b>.\n"
+"\n"
+"There is no suitable plugin capable of handling this file. Nor any default action or application for this file has been configured in your desktop.\n"
+"\n"
+"Mime type: %s.\n"
+"\n"
+"You may choose to try opening it with the following plugins or applications."
 
 #: ../plugins/file-loader/plugin.c:163
 msgid "Open with:"
@@ -5011,14 +5017,12 @@ msgid "Condition"
 msgstr "Condition"
 
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-#. debugger.breakpoints_dbase);
 #: ../plugins/gdb/breakpoints.c:184
 #: ../plugins/gdb/debugger.c:1738
 msgid "All breakpoints enabled:"
 msgstr "All breakpoints enabled:"
 
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-#. debugger.breakpoints_dbase);
 #: ../plugins/gdb/breakpoints.c:202
 #: ../plugins/gdb/debugger.c:1784
 msgid "All breakpoints disabled:"
@@ -5181,7 +5185,6 @@ msgstr ""
 "Do you still want to stop Debugger?"
 
 #. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-#. debugger.breakpoints_dbase);
 #: ../plugins/gdb/debugger.c:1830
 msgid "All breakpoints deleted:"
 msgstr "All breakpoints deleted:"
@@ -5906,7 +5909,7 @@ msgstr "/View/Sorting/Date, Done, Priority"
 
 #: ../plugins/gtodo/gtodo.c:121
 msgid "/_ToDo"
-msgstr ""
+msgstr "/_ToDo"
 
 #: ../plugins/gtodo/gtodo.c:122
 msgid "/ToDo/_New Task List"
@@ -5934,7 +5937,7 @@ msgstr "/ToDo/_Hide or Show Window"
 
 #: ../plugins/gtodo/gtodo.c:130
 msgid "/ToDo/_Preferences"
-msgstr ""
+msgstr "/ToDo/_Preferences"
 
 #: ../plugins/gtodo/gtodo.c:131
 msgid "/ToDo/_Edit Categories"
@@ -5942,7 +5945,7 @@ msgstr "/ToDo/_Edit Categories"
 
 #: ../plugins/gtodo/gtodo.c:133
 msgid "/ToDo/_Quit"
-msgstr ""
+msgstr "/ToDo/_Quit"
 
 #: ../plugins/gtodo/gtodo.c:134
 msgid "/_Item"
@@ -6402,6 +6405,9 @@ msgid ""
 "Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
 "I hope to get this fixed soon"
 msgstr ""
+"Showing Tooltips in the todo list is still very alpha.\n"
+"Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
+"I hope to get this fixed soon"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -7519,7 +7525,7 @@ msgstr "Field \"%s\" is mandatory. Please enter it."
 #: ../plugins/project-wizard/druid.c:483
 #, c-format
 msgid "Directory \"%s\" already exist,the creation of the project could fail if some files cannot be written. Do you want to continue ?"
-msgstr ""
+msgstr "Directory \"%s\" already exist,the creation of the project could fail if some files cannot be written. Do you want to continue?"
 
 #: ../plugins/project-wizard/druid.c:763
 msgid "Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"
@@ -7558,7 +7564,7 @@ msgstr "New Project Wizard"
 
 #: ../plugins/project-wizard/property.c:252
 msgid "Icone choice"
-msgstr ""
+msgstr "Icon choice"
 
 #. Action name
 #: ../plugins/sample1/plugin.c:55
