@@ -538,7 +538,6 @@ search_replace_next_previous(SearchDirection dir)
 	
 	if (sr)
 	{
-		g_print("sr non null\n");
 		save_action = sr->search.action;
 		save_type = sr->search.range.type;
 		save_direction = sr->search.range.direction;
@@ -1265,6 +1264,7 @@ on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
 	}
 }
 
+/*
 static void
 search_make_sensitive(gboolean sensitive)
 {
@@ -1282,6 +1282,7 @@ search_make_sensitive(gboolean sensitive)
 			gtk_widget_set_sensitive(widget, sensitive);
 	}
 }
+*/
 
 void
 on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
