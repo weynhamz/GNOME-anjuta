@@ -1,3 +1,21 @@
+2005-04-18  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-children.[ch],
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	libanjuta/anjuta-launcher.c, plugins/terminal/terminal.c:
+	Removed anjuta_children_init() function,
+	because it is done automatically when first invoked. Introduced
+	anjuta_children_recover() to recover the child signalling. Fixed
+	child exit management to correctly recover the exit status.
+	
+	* libanjuta/anjuta-launcher.c: Fixed anjuta_launcher_dispose()
+	to properly shutdown the launcher and to kill the running process
+	(without emitting any signal).
+	
+	* plugins/gdb/debugger.c, plugins/gdb/debugger.h, plugins/gdb/plugin.c,
+	plugins/gdb/plugin.h: Fixed debugger to properly shutdown, kill both
+	gdb and program instance.
+
 2005-04-19  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/editor/search-replace.c :

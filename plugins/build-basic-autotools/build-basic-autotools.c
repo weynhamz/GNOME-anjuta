@@ -140,8 +140,10 @@ build_context_destroy (BuildContext *context)
 		gtk_widget_destroy (GTK_WIDGET (context->message_view));
 	if (context->launcher)
 	{
+		/*
 		if (anjuta_launcher_is_busy (context->launcher))
 			anjuta_launcher_reset (context->launcher);
+		*/
 		g_object_unref (context->launcher);
 	}
 	if (context->build_dir_stack)

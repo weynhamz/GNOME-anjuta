@@ -19,9 +19,9 @@
 
 #include <libanjuta/anjuta-children.h>
 
-static GList *registered_child_processes;
-static GList *registered_child_processes_cb;
-static GList *registered_child_processes_cb_data;
+static GList *registered_child_processes = NULL;
+static GList *registered_child_processes_cb = NULL;
+static GList *registered_child_processes_cb_data = NULL;
 
 static void
 anjuta_child_terminated (int t)
@@ -32,38 +32,35 @@ anjuta_child_terminated (int t)
 	int (*callback) (int st, gpointer d);
 	gpointer cb_data;
 	
-	pid = waitpid (-1, &status, WNOHANG);
-	
-	if (pid < 1)
-		return;
-	idx = g_list_index (registered_child_processes, (int *) pid);
-	if (idx < 0)
-		return;
-	callback =
-		g_list_nth_data (registered_child_processes_cb, idx);
-	g_return_if_fail (callback != NULL);
-	
-	cb_data = g_list_nth_data (registered_child_processes_cb_data, idx);
-	if (callback)
-		(*callback) (status, cb_data);
-	anjuta_children_unregister (pid);
-	signal(SIGCHLD, anjuta_child_terminated);
+	while (1)
+	{
+		pid = waitpid (-1, &status, WNOHANG);
+		
+		if (pid < 1)
+			return;
+		idx = g_list_index (registered_child_processes, (int *) pid);
+		if (idx < 0)
+			continue;
+		callback =
+			g_list_nth_data (registered_child_processes_cb, idx);
+		g_return_if_fail (callback != NULL);
+		
+		cb_data = g_list_nth_data (registered_child_processes_cb_data, idx);
+		if (callback)
+			(*callback) (status, cb_data);
+		anjuta_children_unregister (pid);
+		anjuta_children_recover ();
+	}
 }
 
 /**
- * anjuta_children_init:
+ * anjuta_children_recover:
  * 
- * Initializes the children management. Call this somewhere in the begining
- * of your program. Please note that if you are using this for children
- * management, do not hook up SIGCHLD anywhere in your program. Instead
- * use the #anjuta_children_register() to get notified for child exits.
+ * Recovers child management signaling.
  */
 void
-anjuta_children_init()
+anjuta_children_recover ()
 {
-	registered_child_processes = NULL;
-	registered_child_processes_cb = NULL;
-	registered_child_processes_cb_data = NULL;
 	signal(SIGCHLD, anjuta_child_terminated);
 }
 
@@ -85,6 +82,9 @@ anjuta_children_register (pid_t pid,
 						  AnjutaChildTerminatedCallback ch_terminated,
 						  gpointer data)
 {
+	/* Reinforce possible loss in signal callback */
+	anjuta_children_recover ();
+	
 	if (pid < 1)
 		return;
 	registered_child_processes =
@@ -114,12 +114,12 @@ anjuta_children_unregister (pid_t pid)
 		g_list_remove (registered_child_processes, (int *) pid);
 	
 	ptr = g_list_nth (registered_child_processes_cb, idx);
-	// g_assert (ptr != NULL);
+
 	registered_child_processes_cb =
 		g_list_delete_link (registered_child_processes_cb, ptr);
 	
 	ptr = g_list_nth (registered_child_processes_cb_data, idx);
-	// g_assert (data != NULL);
+
 	registered_child_processes_cb_data =
 		g_list_delete_link (registered_child_processes_cb_data, ptr);
 }

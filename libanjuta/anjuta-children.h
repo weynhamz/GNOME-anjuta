@@ -35,12 +35,12 @@
 typedef  void (*AnjutaChildTerminatedCallback) (int exit_staus,
 												gpointer user_data);
 
-void anjuta_children_init(void);
 void anjuta_children_register (pid_t pid,
 							   AnjutaChildTerminatedCallback ch_terminated,
 							   gpointer data);
 void anjuta_children_unregister (pid_t pid);
 void anjuta_children_foreach (GFunc cb, gpointer data);
+void anjuta_children_recover (void);
 void anjuta_children_finalize(void);
 
 #endif

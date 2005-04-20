@@ -14,7 +14,6 @@ struct _GdbPlugin
 {
 	AnjutaPlugin parent;
 	gint uiid;
-	AnjutaLauncher *launcher;
 	
 	gint merge_id;
 	GtkActionGroup *action_group;

@@ -63,6 +63,7 @@ struct _Debugger
 	pid_t child_pid;
 
 	GdbPlugin *plugin;
+	AnjutaLauncher *launcher;
 
 	ExprWatch *watch;
 	BreakpointsDBase *breakpoints_dbase;

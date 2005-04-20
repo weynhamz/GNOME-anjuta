@@ -91,6 +91,7 @@ struct _AnjutaLauncherPriv
 	
 	/* Synchronization in progress */
 	gboolean in_synchronization;
+	guint completion_check_timeout;
 	
 	/* Start time of execution */
 	time_t start_time;
@@ -119,6 +120,8 @@ enum
 static void anjuta_launcher_class_init (AnjutaLauncherClass * klass);
 static void anjuta_launcher_init (AnjutaLauncher * obj);
 static gboolean anjuta_launcher_check_for_execution_done (gpointer data);
+static void anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
+													gboolean emit_signal);
 
 static guint launcher_signals[LAST_SIGNAL] = { 0 };
 static AnjutaLauncherClass *parent_class;
@@ -154,6 +157,7 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	
 	/* Synchronization in progress */
 	obj->priv->in_synchronization = FALSE;
+	obj->priv->completion_check_timeout = -1;
 	
 	/* Start time of execution */
 	obj->priv->start_time = 0;
@@ -195,7 +199,14 @@ anjuta_launcher_get_type ()
 static void
 anjuta_launcher_dispose (GObject *obj)
 {
-	/* AnjutaLauncher *launcher = ANJUTA_LAUNCHER (obj); */
+	AnjutaLauncher *launcher = ANJUTA_LAUNCHER (obj);
+	if (anjuta_launcher_is_busy (launcher))
+	{
+		anjuta_children_unregister (launcher->priv->child_pid);
+		anjuta_launcher_reset (launcher);
+		anjuta_launcher_execution_done_cleanup (launcher, FALSE);
+		launcher->priv->busy = FALSE;
+	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -203,32 +214,6 @@ static void
 anjuta_launcher_finalize (GObject *obj)
 {
 	AnjutaLauncher *launcher = ANJUTA_LAUNCHER (obj);	
-	/* FIXME: Test this Clean up procedure when launcher is still busy */
-	if (anjuta_launcher_is_busy (launcher))
-	{
-		anjuta_children_unregister (launcher->priv->child_pid);
-		if (!launcher->priv->stdout_is_done)
-		{
-			g_source_remove (launcher->priv->stdout_watch);
-			g_io_channel_shutdown (launcher->priv->stdout_channel, TRUE, NULL);
-			g_io_channel_unref (launcher->priv->stdout_channel);
-		}
-		if (!launcher->priv->stderr_is_done)
-		{
-			g_source_remove (launcher->priv->stderr_watch);
-			g_io_channel_shutdown (launcher->priv->stderr_channel, TRUE, NULL);
-			g_io_channel_unref (launcher->priv->stderr_channel);
-		}
-		
-		/* Shutdown pty */
-		g_source_remove (launcher->priv->pty_watch);
-		g_io_channel_shutdown (launcher->priv->pty_channel, TRUE, NULL);
-		g_io_channel_unref (launcher->priv->pty_channel);
-		
-		/* Shutdowin stdin */
-		//g_io_channel_shutdown (launcher->priv->stdin_channel, TRUE, NULL);
-		//g_io_channel_unref (launcher->priv->stdin_channel);
-	}
 	g_free (launcher->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -243,17 +228,6 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	// DEBUG_PRINT ("Initializing launcher class");
 	
 	parent_class = g_type_class_peek_parent (klass);
-	/*
-	launcher_signals[OUTPUT_ARRIVED_SIGNAL] =
-		g_signal_new ("output-arrived",
-					G_TYPE_FROM_CLASS (object_class),
-					G_SIGNAL_RUN_FIRST,
-					G_STRUCT_OFFSET (AnjutaLauncherClass,
-									 output_arrived_signal),
-					NULL, NULL,
-					anjuta_cclosure_marshal_VOID__INT_STRING,
-					G_TYPE_NONE, 2, GTK_TYPE_INT, GTK_TYPE_STRING);
-	*/
 	launcher_signals[CHILD_EXITED_SIGNAL] =
 		g_signal_new ("child-exited",
 					G_TYPE_FROM_CLASS (object_class),
@@ -407,16 +381,20 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 		launcher->priv->stderr_is_done)
 	{
 		launcher->priv->in_synchronization = TRUE;
-		gtk_timeout_add (50, anjuta_launcher_check_for_execution_done,
-						 launcher);
+		launcher->priv->completion_check_timeout = 
+		    g_timeout_add (50, anjuta_launcher_check_for_execution_done,
+							 launcher);
 	}
 	
 	/* This case is not very good, but it blocks the whole IDE
 	because we never new if the child has finished */
 	else if (launcher->priv->stdout_is_done &&
 			 launcher->priv->stderr_is_done)
-		gtk_timeout_add(200, anjuta_launcher_check_for_execution_done,
-						 launcher);
+	{
+		launcher->priv->completion_check_timeout = 
+		    g_timeout_add(200, anjuta_launcher_check_for_execution_done,
+							launcher);
+	}
 }
 
 /* Password dialog */
@@ -758,42 +736,53 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 }
 
 static void
-anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher)
+anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
+										gboolean emit_signal)
 {
 	gint child_status, child_pid;
 	time_t start_time;
 	
-	/* PTY is not synchronized. So it is removed explicitly. */
-	g_source_remove (launcher->priv->pty_watch);
+	if (launcher->priv->completion_check_timeout >= 0)
+		g_source_remove (launcher->priv->completion_check_timeout);
 	
-	g_io_channel_shutdown (launcher->priv->stdout_channel, TRUE, NULL);
-	g_io_channel_shutdown (launcher->priv->stderr_channel, TRUE, NULL);
-	//g_io_channel_shutdown (launcher->priv->stdin_channel, TRUE, NULL);
-	g_io_channel_shutdown (launcher->priv->pty_channel, TRUE, NULL);
+	g_source_remove (launcher->priv->pty_watch);
+	g_source_remove (launcher->priv->stdout_watch);
+	g_source_remove (launcher->priv->stderr_watch);
+
+	g_io_channel_shutdown (launcher->priv->stdout_channel, emit_signal, NULL);
+	g_io_channel_shutdown (launcher->priv->stderr_channel, emit_signal, NULL);
+	g_io_channel_shutdown (launcher->priv->pty_channel, emit_signal, NULL);
 	
 	g_io_channel_unref (launcher->priv->stdout_channel);
 	g_io_channel_unref (launcher->priv->stderr_channel);
-	//g_io_channel_unref (launcher->priv->stdin_channel);
 	g_io_channel_unref (launcher->priv->pty_channel);
 	
 	if (launcher->priv->pty_output_buffer)
 		g_free (launcher->priv->pty_output_buffer);
-
+	if (launcher->priv->stdout_buffer)
+		g_free (launcher->priv->stdout_buffer);
+	if (launcher->priv->stderr_buffer)
+		g_free (launcher->priv->stdout_buffer);
+	
 	/* Save them before we re-initialize */
 	child_status = launcher->priv->child_status;
 	child_pid = launcher->priv->child_pid;
 	start_time = launcher->priv->start_time;
 	
-	anjuta_launcher_set_busy (launcher, FALSE);
+	if (emit_signal)
+		anjuta_launcher_set_busy (launcher, FALSE);
+	
 	anjuta_launcher_initialize (launcher);
 	
 	/* Call this here, after set_busy (FALSE) so we are able to 
 	   launch a new child from the terminate function.
 	   (by clubfan 2002-04-07)
 	*/
-	// DEBUG_PRINT ("Exit status: %d", child_status);
-	g_signal_emit_by_name (launcher, "child-exited", child_pid, child_status,
-						   time (NULL) - start_time);
+	/* DEBUG_PRINT ("Exit status: %d", child_status); */
+	if (emit_signal)
+		g_signal_emit_by_name (launcher, "child-exited", child_pid,
+							   child_status,
+							   time (NULL) - start_time);
 }
 
 /* monitors closure of stdout stderr and pty through a gtk_timeout_add setup */
@@ -813,10 +802,10 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 	if (launcher->priv->child_has_terminated == FALSE)
 	{
 		// DEBUG_PRINT ("launcher: We missed the exit of the child");
-		anjuta_children_init();
+		anjuta_children_recover();
 	}
-	
-	anjuta_launcher_execution_done_cleanup (launcher);
+	launcher->priv->completion_check_timeout = -1;
+	anjuta_launcher_execution_done_cleanup (launcher, TRUE);
 	return FALSE;
 }
 
@@ -860,7 +849,7 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 
 	if (! r)
 	{
-		g_warning (_("launcher.c: Failed to set channel encoding!"));
+		g_warning ("launcher.c: Failed to set channel encoding!");
 	}
 	return r;
 }
@@ -870,7 +859,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 {
 	char *working_dir;
 	int pty_master_fd, md;
-	int stdout_pipe[2], stderr_pipe[2]/*, stdin_pipe[2]*/;
+	int stdout_pipe[2], stderr_pipe[2];
 	pid_t child_pid;
 	struct termios termios_flags;
 	const gchar *charset;
@@ -880,7 +869,6 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	/* The pipes */
 	pipe (stderr_pipe);
 	pipe (stdout_pipe);
-	// pipe (stdin_pipe);
 
 	/* Fork the command */
 	child_pid = forkpty (&pty_master_fd, NULL, NULL, NULL);
@@ -890,13 +878,10 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		dup (stderr_pipe[1]);
 		close (1);
 		dup (stdout_pipe[1]);
-		/*close (0);
-		dup (stdin_pipe[0]);
-		*/
+		
 		/* Close unnecessary pipes */
 		close (stderr_pipe[0]);
 		close (stdout_pipe[0]);
-		// close (stdin_pipe[1]);
 		
 		/*
 		if ((ioctl(pty_slave_fd, TIOCSCTTY, NULL))
@@ -918,7 +903,6 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	/* Close parent's side pipes */
 	close (stderr_pipe[1]);
 	close (stdout_pipe[1]);
-	// close (stdin_pipe[0]);
 	
 	if (child_pid < 0)
 	{
@@ -926,7 +910,6 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		/* Close parent's side pipes */
 		close (stderr_pipe[0]);
 		close (stdout_pipe[0]);
-		// close (stdin_pipe[1]);
 		return child_pid;
 	}
 	
@@ -945,7 +928,6 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->child_pid = child_pid;
 	launcher->priv->stderr_channel = g_io_channel_unix_new (stderr_pipe[0]);
 	launcher->priv->stdout_channel = g_io_channel_unix_new (stdout_pipe[0]);
-	// launcher->priv->stdin_channel = g_io_channel_unix_new (stdin_pipe[1]);
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
 
 	g_get_charset (&charset);

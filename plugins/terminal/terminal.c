@@ -353,7 +353,7 @@ terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
 	
 	/* The fork command above overwirtes our SIGCHLD signal handler.
 	 * Restore it */
-	anjuta_children_init ();
+	anjuta_children_recover ();
 	preferences_changed (term_plugin->prefs, term_plugin);
 }
 

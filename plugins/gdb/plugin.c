@@ -367,9 +367,8 @@ gdb_plugin_update_ui (GdbPlugin *plugin)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	gboolean L, DA, DR, Pr, PrA;
+	gboolean DA, DR, Pr, PrA;
 	
-	L = anjuta_launcher_is_busy (plugin->launcher);
 	/*
 	P = (plugin->project_root_uri != NULL);
 	F = (plugin->current_editor != NULL);
@@ -504,8 +503,6 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 			G_CALLBACK (on_debug_mesg_clicked), plugin);
 	ianjuta_message_manager_set_current_view (message_manager, message_view, NULL);
 
-	gdb_plugin->launcher = anjuta_launcher_new ();
-	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Add action group */
@@ -529,7 +526,6 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
 	debugger_init (gdb_plugin);
-	/* debugger_start (NULL); */
 
 	return TRUE;
 }
@@ -539,7 +535,8 @@ gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 {
 	GdbPlugin *gdb_plugin;
 	AnjutaUI *ui;
-	g_message ("GdbPlugin: Deactivating Gdb plugin ...");
+	
+	DEBUG_PRINT ("GdbPlugin: Deactivating Gdb plugin ...");
 
 	gdb_plugin = (GdbPlugin*)plugin;
 	
@@ -571,8 +568,7 @@ gdb_plugin_instance_init (GObject* obj)
 {
 	GdbPlugin *plugin = (GdbPlugin *) obj;
 	plugin->uiid = 0;
-	plugin->launcher = NULL;
-	
+
 	plugin->merge_id = 0;
 	plugin->editor_watch_id = 0;
 	plugin->project_watch_id = 0;

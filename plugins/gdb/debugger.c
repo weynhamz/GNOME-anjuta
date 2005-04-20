@@ -87,6 +87,7 @@ debugger_init (GdbPlugin *plugin)
 	DEBUG_PRINT ("In function: debugger_init()");
 
 	debugger.plugin = plugin;
+	debugger.launcher = anjuta_launcher_new ();
 	debugger.prog_is_running = FALSE;
 	debugger.starting = FALSE;
 	debugger.gdb_stdo_outputs = NULL;
@@ -232,9 +233,15 @@ debugger_shutdown ()
 	DEBUG_PRINT ("In function: debugger_shutdown()");
 
 	debugger_stop_terminal();
-	
+	/* debugger_stop (); */
 	debugger_set_active (FALSE);
 	debugger_set_ready (FALSE);
+	
+	g_object_unref (debugger.launcher);
+	if (debugger.child_pid > 0)
+	{
+		kill (debugger.child_pid, SIGKILL);
+	}
 	
 	/* Widgets are automatically removed from shell when they are destroyed */
 	if (debugger.breakpoints_dbase)
@@ -251,6 +258,24 @@ debugger_shutdown ()
 		signals_destroy (debugger.signals);
 	if (debugger.sharedlibs)
 		sharedlibs_destroy (debugger.sharedlibs);
+	
+	debugger_clear_cmd_queqe ();
+	
+	debugger.breakpoints_dbase = NULL;
+	debugger.locals = NULL;
+	debugger.watch = NULL;
+	debugger.cpu_registers = NULL;
+	debugger.stack = NULL;
+	debugger.signals = NULL;
+	debugger.sharedlibs = NULL;
+	debugger.launcher = NULL;
+	debugger.gdb_stde_outputs = NULL;
+	debugger.gdb_stdo_outputs = NULL;
+	debugger.cmd_queqe = NULL;
+	
+	/* Good Bye message */
+	gdb_util_append_message (ANJUTA_PLUGIN (debugger.plugin),
+							 "Debugging session completed.\n");
 }
 
 void
@@ -260,7 +285,8 @@ debugger_set_active (gboolean state)
 	{
 		// DEBUG_PRINT ("In function: debugger_set_active()");
 		debugger.active = state;
-		debugger_update_controls ();
+		if (debugger.breakpoints_dbase)
+			debugger_update_controls ();
 	}
 }
 
@@ -272,7 +298,8 @@ debugger_set_ready (gboolean state)
 		// DEBUG_PRINT ("In function: debugger_set_ready()");
 		debugger.ready = state;
 		/*	if (debugger.cmd_queue == NULL) */
-		debugger_update_controls ();
+		if (debugger.breakpoints_dbase)
+			debugger_update_controls ();
 		g_signal_emit_by_name (G_OBJECT (debugger.plugin), "busy", state);
 	}
 }
@@ -533,7 +560,7 @@ debugger_start (const gchar * prog, gboolean is_libtool_prog)
 	debugger.starting = TRUE;
 
 	// Prepare for launch.
-	AnjutaLauncher *launcher = debugger.plugin->launcher;
+	AnjutaLauncher *launcher = debugger.launcher;
 	g_signal_connect (G_OBJECT (launcher), "child-exited",
 					  G_CALLBACK (on_gdb_terminated), NULL);
 	ret = anjuta_launcher_execute (launcher, command_str,
@@ -839,10 +866,15 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 							 "\nWell, did you find the BUG? Debugging session completed.\n");
 
 	/* Ready to start again */
-	cpu_registers_clear (debugger.cpu_registers);
-	stack_trace_clear (debugger.stack);
-	signals_clear (debugger.signals);
-	sharedlibs_clear (debugger.sharedlibs);
+	if (debugger.cpu_registers)
+		cpu_registers_clear (debugger.cpu_registers);
+	if (debugger.stack)
+		stack_trace_clear (debugger.stack);
+	if (debugger.signals)
+		signals_clear (debugger.signals);
+	if (debugger.sharedlibs)
+		sharedlibs_clear (debugger.sharedlibs);
+	
 	debugger_set_active (FALSE);
 	debugger_set_ready (TRUE);
 	debugger.prog_is_running = FALSE;
@@ -869,7 +901,7 @@ debugger_command (const gchar * com)
 
 	debugger_set_ready (FALSE);
 	cmd = g_strconcat (com, "\n", NULL);
-	anjuta_launcher_send_stdin (debugger.plugin->launcher, cmd);
+	anjuta_launcher_send_stdin (debugger.launcher, cmd);
 	g_free (cmd);
 }
 
@@ -1356,7 +1388,7 @@ debugger_attach_process (pid_t pid)
 		gtk_widget_destroy (dialog);
 	}
 	else if (getpid () == pid ||
-			 anjuta_launcher_get_child_pid (debugger.plugin->launcher) == pid)
+			 anjuta_launcher_get_child_pid (debugger.launcher) == pid)
 	{
 		anjuta_util_dialog_error (parent,
 								  _("Anjuta is unable to attach to itself."));
@@ -1469,8 +1501,8 @@ debugger_stop_real (void)
 		debugger_put_cmd_in_queqe ("quit", DB_CMD_NONE, NULL, NULL);
 		debugger_execute_cmd_in_queqe ();
 		
-	stack_trace_set_frame (debugger.stack, 0);
-	debugger_stop_terminal();
+		stack_trace_set_frame (debugger.stack, 0);
+		debugger_stop_terminal();
 	}
 }
 
