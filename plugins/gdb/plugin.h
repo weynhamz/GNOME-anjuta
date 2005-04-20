@@ -3,6 +3,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/interfaces/ianjuta-message-view.h>
 
 /* TODO: remove UI from here */
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
@@ -22,6 +23,7 @@ struct _GdbPlugin
 	
 	GObject *current_editor;
 	gchar *project_root_uri;
+	IAnjutaMessageView *mesg_view;
 };
 
 struct _GdbPluginClass

@@ -360,8 +360,5 @@ gint gdb_util_calc_gnum_len( void /*const gint iVal*/ );
 void gdb_util_show_messages (AnjutaPlugin *plugin);
 void gdb_util_clear_messages (AnjutaPlugin *plugin);
 void gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message);
-void gdb_util_append_message_info (AnjutaPlugin *plugin, const gchar* message);
-void gdb_util_append_message_error (AnjutaPlugin *plugin, const gchar* message);
-void gdb_util_append_message_warning (AnjutaPlugin *plugin, const gchar* message);
 
 #endif

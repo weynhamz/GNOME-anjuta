@@ -35,8 +35,10 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
+#include "plugin.h"
 #include "utilities.h"
 
+#define ICON_FILE "anjuta-gdb.plugin.png"
 #define	SRCH_CHAR	'\\'
 
 static int
@@ -319,28 +321,67 @@ gdb_util_check_gnome_terminal (void)
     return 2;
 }
 
+/* Debugger message manager management */
+
 static const gchar * MESSAGE_VIEW_TITLE = N_("Debug");
+
+static void
+on_gdb_util_mesg_view_destroy(GdbPlugin* plugin, gpointer destroyed_view)
+{
+	plugin->mesg_view = NULL;
+}
+
+static void
+on_gdb_util_debug_buffer_flushed (IAnjutaMessageView *view, const gchar* line,
+								  AnjutaPlugin *plugin)
+{
+	g_return_if_fail (line != NULL);
+
+	IAnjutaMessageViewType type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+	ianjuta_message_view_append (view, type, line, "", NULL);
+}
+
+static void
+on_gdb_util_debug_mesg_clicked (IAnjutaMessageView* view, const gchar* line,
+					   AnjutaPlugin* plugin)
+{
+	/* FIXME: Parse the given line */
+}
 
 static IAnjutaMessageView *
 gdb_util_get_message_view (AnjutaPlugin *plugin)
 {
 	GObject *obj;
+	IAnjutaMessageView *message_view;
 	IAnjutaMessageManager *message_manager = NULL;
+	GdbPlugin *gdb_plugin = (GdbPlugin*)plugin;
 
 	g_return_val_if_fail (plugin != NULL, NULL);
 
+	if (gdb_plugin->mesg_view)
+		return gdb_plugin->mesg_view;
+	
 	/* TODO: error checking */
 	obj = anjuta_shell_get_object (plugin->shell, "IAnjutaMessageManager",
 								   NULL);
 	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
-	return ianjuta_message_manager_get_view_by_name (message_manager,
-													 MESSAGE_VIEW_TITLE, NULL);
+	message_view = ianjuta_message_manager_add_view (
+			message_manager, MESSAGE_VIEW_TITLE, ICON_FILE, NULL);
+	g_object_weak_ref (G_OBJECT (message_view), 
+					  (GWeakNotify)on_gdb_util_mesg_view_destroy, plugin);
+	g_signal_connect (G_OBJECT (message_view), "buffer-flushed",
+			G_CALLBACK (on_gdb_util_debug_buffer_flushed), plugin);
+	g_signal_connect (G_OBJECT (message_view), "message-clicked",
+			G_CALLBACK (on_gdb_util_debug_mesg_clicked), plugin);
+	ianjuta_message_manager_set_current_view (message_manager, message_view,
+											  NULL);
+	gdb_plugin->mesg_view = message_view;
+	
+	return message_view;
 }
 
-static void
-gdb_util_append_message_generic (AnjutaPlugin *plugin,
-								 IAnjutaMessageViewType message_type,
-								 const gchar *message)
+void
+gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message)
 {
 	IAnjutaMessageView *message_view = NULL;
 
@@ -348,35 +389,8 @@ gdb_util_append_message_generic (AnjutaPlugin *plugin,
 
 	/* TODO: error checking */
 	message_view = gdb_util_get_message_view (plugin);
-	ianjuta_message_view_append (message_view, message_type, message, "", NULL);
-}
-
-void
-gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message)
-{
-	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
-									 message);
-}
-
-void
-gdb_util_append_message_info (AnjutaPlugin *plugin, const gchar* message)
-{
-	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-			message);
-}
-
-void
-gdb_util_append_message_error (AnjutaPlugin *plugin, const gchar* message)
-{
-	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
-			message);
-}
-
-void
-gdb_util_append_message_warning (AnjutaPlugin *plugin, const gchar* message)
-{
-	gdb_util_append_message_generic (plugin, IANJUTA_MESSAGE_VIEW_TYPE_WARNING,
-			message);
+	ianjuta_message_view_buffer_append (message_view, message, NULL);
+	ianjuta_message_view_buffer_append (message_view, "\n", NULL);
 }
 
 void
@@ -390,9 +404,9 @@ gdb_util_show_messages (AnjutaPlugin *plugin)
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
 			"IAnjutaMessageManager", NULL);
 	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
-	message_view = ianjuta_message_manager_get_view_by_name (
-			message_manager, MESSAGE_VIEW_TITLE, NULL);
-	ianjuta_message_manager_set_current_view (message_manager, message_view, NULL);
+	message_view = gdb_util_get_message_view (plugin);
+	ianjuta_message_manager_set_current_view (message_manager, message_view,
+											  NULL);
 }
 
 void

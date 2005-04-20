@@ -1,4 +1,19 @@
-2005-04-18  Naba Kumar  <naba@gnome.org>
+2005-04-20  Naba Kumar  <naba@gnome.org>
+
+	* manuals/reference/libanjuta/tmpl/anjuta-children.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-text.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-renderable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-sand-box.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-transformable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+	
+	* plugins/gdb/plugin.[ch], plugins/gdb/utilities.[ch]: Fixed gdb
+	message view management.
 
 	* libanjuta/anjuta-children.[ch],
 	plugins/build-basic-autotools/build-basic-autotools.c,

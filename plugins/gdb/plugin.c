@@ -39,8 +39,6 @@
 
 static gpointer parent_class;
 
-static const gchar * MESSAGE_VIEW_TITLE = N_("Debug");
-
 /* GDB actions */
 
 static GtkActionEntry actions_gdb[] =
@@ -292,24 +290,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 #endif
 
 static void
-on_debug_buffer_flushed (IAnjutaMessageView *view, const gchar* line,
-		AnjutaPlugin *plugin)
-{
-	g_return_if_fail (line != NULL);
-
-	IAnjutaMessageViewType type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
-	ianjuta_message_view_append (view, type, line, "", NULL);
-}
-
-
-static void
-on_debug_mesg_clicked (IAnjutaMessageView* view, const gchar* line,
-		AnjutaPlugin* plugin)
-{
-	/* TODO */
-}
-
-static void
 value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 							  const GValue *value, gpointer user_data)
 {
@@ -482,26 +462,11 @@ static gboolean
 gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 {
 	AnjutaUI *ui;
-	GObject *obj;
-	IAnjutaMessageManager *message_manager;
-	IAnjutaMessageView *message_view;
 	GdbPlugin *gdb_plugin = (GdbPlugin *) plugin;
 
 	DEBUG_PRINT ("GdbPlugin: Activating Gdb plugin ...");
 
 	/* Query for object implementing IAnjutaMessageManager interface */
-	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
-								   "IAnjutaMessageManager", NULL);
-	message_manager = IANJUTA_MESSAGE_MANAGER (obj);
-
-	/* TODO: error checking */
-	message_view = ianjuta_message_manager_add_view (
-			message_manager, MESSAGE_VIEW_TITLE, ICON_FILE, NULL);
-	g_signal_connect (G_OBJECT (message_view), "buffer_flushed",
-			G_CALLBACK (on_debug_buffer_flushed), plugin);
-	g_signal_connect (G_OBJECT (message_view), "message_clicked",
-			G_CALLBACK (on_debug_mesg_clicked), plugin);
-	ianjuta_message_manager_set_current_view (message_manager, message_view, NULL);
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -568,7 +533,7 @@ gdb_plugin_instance_init (GObject* obj)
 {
 	GdbPlugin *plugin = (GdbPlugin *) obj;
 	plugin->uiid = 0;
-
+	plugin->mesg_view = NULL;
 	plugin->merge_id = 0;
 	plugin->editor_watch_id = 0;
 	plugin->project_watch_id = 0;
