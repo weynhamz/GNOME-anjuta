@@ -28,6 +28,7 @@ LIBDEVHELP_REQUIRED=0.9
 LIBGTODO_REQUIRED=0.15
 GNOMEBUILD_REQUIRED=0.1.0
 LIBGLADEUI_REQUIRED=0.1
+LIBGRAPHVIZ_REQUIRED=2.2.1
 
 AC_SUBST(GLIB_REQUIRED)
 AC_SUBST(GOBJECT_REQUIRED)
@@ -242,8 +243,23 @@ dnl Check for Glade3
 dnl ---------------------
 PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 >= $LIBGLADEUI_REQUIRED], [libgladeui_found="yes"], [libgladeui_found="no"])
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$libgladeui_found = xyes])
-AC_SUBST(PLUGIN_GLADE_CFLAGS)	  
+AC_SUBST(PLUGIN_GLADE_CFLAGS)
 AC_SUBST(PLUGIN_GLADE_LIBS)
+
+dnl Check for graphviz (class inheritance plugin)
+dnl ----------------------------------------------
+dnl FIXME: For some strange reason graphviz-devel rpm install the *.pc files
+dnl in /usr/lib/graphviz/pkgconfig, instead of usual /usr/lib/pkgconfig. This
+dnl makes pkgconfig check fail if we don't add the above path in
+dnl PKG_CONFIG_PATH. We have added both /usr/lib/graphviz/pkgconfig and
+dnl /usr/local/lib/pkgconfig paths. If graphviz is installed in other prefix
+dnl (other than /usr or /usr/local), following pkgconfig check will fail.
+dnl ----------------------------------------------
+PKG_CONFIG_PATH="/usr/local/lib/graphviz/pkgconfig:/usr/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CHECK_MODULES(PLUGIN_CLASS_INHERITANCE, [libdotneato >= $LIBGRAPHVIZ_REQUIRED libdotgen >= $LIBGRAPHVIZ_REQUIRED], [libgraphviz_found="yes"], [libgraphviz_found="no"])
+AM_CONDITIONAL(HAVE_PLUGIN_CLASS_INHERITANCE, [test x$libgraphviz_found = xyes])
+AC_SUBST(PLUGIN_CLASS_INHERITANCE_CFLAGS)
+AC_SUBST(PLUGIN_CLASS_INHERITANCE_LIBS)
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
@@ -877,6 +893,7 @@ plugins/project-wizard/Makefile
 plugins/macro/Makefile
 plugins/subversion/Makefile
 plugins/tools/Makefile
+plugins/class-inheritance/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile

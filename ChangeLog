@@ -1,3 +1,23 @@
+2005-04-21  Naba Kumar  <naba@gnome.org>
+
+	Patch from  Massimo Cora <maxcvs@email.it>:
+
+	* configure.in, plugins/Makefile.am
+	(new) plugins/class-inheritance/.cvsignore,
+	(new) plugins/class-inheritance/Makefile.am,
+	(new) plugins/class-inheritance/anjuta-class-inheritance.plugin.in,
+	(new) plugins/class-inheritance/class-inherit.c,
+	(new) plugins/class-inheritance/class-inherit.h,
+	(new) plugins/class-inheritance/plugin.c,
+	(new) plugins/class-inheritance/plugin.h,
+	(new) plugins/class-inheritance/class-inheritance.png: Added class
+	inheritance plugin.
+	
+	Changes by naba: Added pkgconfig check for graphviz and conditionally
+	build graphviz.
+	
+	* plugins/patch/.cvsignore, plugins/tools/.cvsignore: Updated.
+
 2005-04-20  Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/tmpl/anjuta-children.sgml,
