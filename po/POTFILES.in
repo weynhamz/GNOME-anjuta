@@ -28,6 +28,8 @@ plugins/build/compiler_options.c
 plugins/build/configurer.c
 plugins/build/executer.c
 plugins/build-basic-autotools/build-basic-autotools.c
+plugins/class-inheritance/class-inherit.c
+plugins/class-inheritance/plugin.c
 plugins/class-gen/action-callbacks.c
 plugins/class-gen/anjuta-class-gen-plugin.glade
 plugins/class-gen/class_gen.c
@@ -138,7 +140,12 @@ plugins/symbol-browser/anjuta-symbol-browser-plugin.glade
 plugins/symbol-browser/plugin.c
 plugins/terminal/anjuta-terminal-plugin.glade
 plugins/terminal/terminal.c
-plugins/tools/anjuta-tools.c
+plugins/tools/anjuta-tools.glade
+plugins/tools/dialog.c
+plugins/tools/editor.c
+plugins/tools/execute.c
+plugins/tools/fileop.c
+plugins/tools/plugin.c
 src/about.c
 src/action-callbacks.c
 src/anjuta.c
