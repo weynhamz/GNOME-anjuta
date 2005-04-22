@@ -1,3 +1,6 @@
+
+SUBDIRS = images
+
 # Plugin UI file
 symbol_browser_uidir = $(anjuta_ui_dir)
 symbol_browser_ui_DATA = anjuta-symbol-browser-plugin.ui
@@ -9,21 +12,7 @@ symbol_browser_glade_DATA = anjuta-symbol-browser-plugin.glade
 # Plugin pixmap files
 symbol_browser_pixmapsdir = $(anjuta_image_dir)
 symbol_browser_pixmaps_DATA = \
-	anjuta-symbol-browser-plugin.png \
-	sv_class.xpm \
-	sv_private_var.xpm \
-	sv_public_var.xpm \
-	sv_unknown.xpm \
-	sv_function.xpm \
-	sv_protected_fun.xpm \
-	sv_static_fun.xpm \
-	sv_variable.xpm \
-	sv_macro.xpm \
-	sv_protected_var.xpm \
-	sv_static_var.xpm \
-	sv_private_fun.xpm \
-	sv_public_fun.xpm \
-	sv_struct.xpm
+	anjuta-symbol-browser-plugin.png
 
 # Plugin description file
 plugin_in_files = anjuta-symbol-browser.plugin.in

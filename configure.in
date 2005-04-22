@@ -888,6 +888,7 @@ plugins/build-basic-autotools/Makefile
 plugins/profile-default/Makefile
 plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
+plugins/symbol-browser/images/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile

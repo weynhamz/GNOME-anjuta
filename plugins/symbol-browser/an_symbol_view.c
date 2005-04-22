@@ -37,22 +37,6 @@
 
 #define MAX_STRING_LENGTH 256
 
-/* Pixmaps for symbol browsers */
-#define ANJUTA_PIXMAP_SV_UNKNOWN          "sv_unknown.xpm"
-#define ANJUTA_PIXMAP_SV_CLASS            "sv_class.xpm"
-#define ANJUTA_PIXMAP_SV_FUNCTION         "sv_function.xpm"
-#define ANJUTA_PIXMAP_SV_MACRO            "sv_macro.xpm"
-#define ANJUTA_PIXMAP_SV_PRIVATE_FUN      "sv_private_fun.xpm"
-#define ANJUTA_PIXMAP_SV_PRIVATE_VAR      "sv_private_var.xpm"
-#define ANJUTA_PIXMAP_SV_PROTECTED_FUN    "sv_protected_fun.xpm"
-#define ANJUTA_PIXMAP_SV_PROTECTED_VAR    "sv_protected_var.xpm"
-#define ANJUTA_PIXMAP_SV_PUBLIC_FUN       "sv_public_fun.xpm"
-#define ANJUTA_PIXMAP_SV_PUBLIC_VAR       "sv_public_var.xpm"
-#define ANJUTA_PIXMAP_SV_STATIC_FUN       "sv_static_fun.xpm"
-#define ANJUTA_PIXMAP_SV_STATIC_VAR       "sv_static_var.xpm"
-#define ANJUTA_PIXMAP_SV_STRUCT           "sv_struct.xpm"
-#define ANJUTA_PIXMAP_SV_VARIABLE         "sv_variable.xpm"
-
 struct _AnjutaSymbolViewPriv
 {
 	TMWorkObject *tm_project;
@@ -100,21 +84,22 @@ sv_load_symbol_pixbufs (AnjutaSymbolView * sv)
 
 	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
 
-	CREATE_SV_ICON (sv_none_t, ANJUTA_PIXMAP_SV_UNKNOWN);
-	CREATE_SV_ICON (sv_class_t, ANJUTA_PIXMAP_SV_CLASS);
-	CREATE_SV_ICON (sv_struct_t, ANJUTA_PIXMAP_SV_STRUCT);
-	CREATE_SV_ICON (sv_union_t, ANJUTA_PIXMAP_SV_STRUCT);
-	CREATE_SV_ICON (sv_typedef_t, ANJUTA_PIXMAP_SV_VARIABLE);
-	CREATE_SV_ICON (sv_function_t, ANJUTA_PIXMAP_SV_FUNCTION);
-	CREATE_SV_ICON (sv_variable_t, ANJUTA_PIXMAP_SV_VARIABLE);
-	CREATE_SV_ICON (sv_enumerator_t, ANJUTA_PIXMAP_SV_UNKNOWN);
-	CREATE_SV_ICON (sv_macro_t, ANJUTA_PIXMAP_SV_MACRO);
-	CREATE_SV_ICON (sv_private_func_t, ANJUTA_PIXMAP_SV_PRIVATE_FUN);
-	CREATE_SV_ICON (sv_private_var_t, ANJUTA_PIXMAP_SV_PRIVATE_VAR);
-	CREATE_SV_ICON (sv_protected_func_t, ANJUTA_PIXMAP_SV_PROTECTED_FUN);
-	CREATE_SV_ICON (sv_protected_var_t, ANJUTA_PIXMAP_SV_PROTECTED_VAR);
-	CREATE_SV_ICON (sv_public_func_t, ANJUTA_PIXMAP_SV_PUBLIC_FUN);
-	CREATE_SV_ICON (sv_public_var_t, ANJUTA_PIXMAP_SV_PUBLIC_VAR);
+	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
+	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
+	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");
+	CREATE_SV_ICON (sv_typedef_t,           "Icons.16x16.Reference");
+	CREATE_SV_ICON (sv_function_t,          "Icons.16x16.Method");
+	CREATE_SV_ICON (sv_variable_t,          "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_enumerator_t,        "Icons.16x16.Enum");
+	CREATE_SV_ICON (sv_macro_t,             "Icons.16x16.Field");
+	CREATE_SV_ICON (sv_private_func_t,      "Icons.16x16.PrivateMethod");
+	CREATE_SV_ICON (sv_private_var_t,       "Icons.16x16.PrivateProperty");
+	CREATE_SV_ICON (sv_protected_func_t,    "Icons.16x16.ProtectedMethod");
+	CREATE_SV_ICON (sv_protected_var_t,     "Icons.16x16.ProtectedProperty");
+	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
+	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
+	
 	sv_symbol_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
 							    "application/directory-normal");
 	sv_symbol_pixbufs[sv_ofolder_t] = gdl_icons_get_mime_icon (icon_set,
