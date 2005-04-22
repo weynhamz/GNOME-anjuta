@@ -1,5 +1,24 @@
 2005-04-22  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Updated.
+	
+	* plugins/class-inheritance/Makefile.am,
+	plugins/subversion/Makefile.am: Do not install plugin files when
+	plugin build condition is false.
+	
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h,
+	plugins/file-loader/anjuta-loader-plugin.ui,
+	plugins/file-loader/dnd.c,
+	plugins/file-loader/plugin.c,
+	plugins/file-loader/plugin.h,
+	plugins/project-manager/anjuta-project-manager.ui,
+	plugins/project-manager/plugin.c: Added open file and build context
+	menu in project manager context menu.
+
+2005-04-22  Naba Kumar  <naba@gnome.org>
+
 	* configure.in: Added message output showing conditional plugins to
 	build or not.
 	

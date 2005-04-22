@@ -675,6 +675,10 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 		g_hash_table_insert (target_ext, ".cc", ".o");
 		g_hash_table_insert (target_ext, ".in", "");
 		g_hash_table_insert (target_ext, ".in.in", ".in");
+		g_hash_table_insert (target_ext, ".la", ".la");
+		g_hash_table_insert (target_ext, ".a", ".a");
+		g_hash_table_insert (target_ext, ".so", ".so");
+		g_hash_table_insert (target_ext, ".java", ".class");
 	}
 	
 	g_return_val_if_fail (file != NULL, FALSE);
@@ -698,6 +702,14 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 			g_free (command);
 			ret = TRUE;
 		}
+	} else {
+		/* If file has no extension, take it as target itself */
+		gchar *command;
+		command = g_strconcat (MAKE_COMMAND, " ",
+							   file_basename, NULL);
+		build_execute_command (plugin, file_dirname, command);
+		g_free (command);
+		ret = TRUE;
 	}
 	g_free (file_basename);
 	g_free (file_dirname);
@@ -882,6 +894,58 @@ fm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	build_execute_command (plugin, dir, MAKE_COMMAND" clean");
 }
 
+/* Project manager context menu */
+static void
+pm_compile (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	if (plugin->pm_current_filename)
+	{
+		build_compile_file_real (plugin, plugin->pm_current_filename);
+	}
+}
+
+static void
+pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	gchar *dir;
+	
+	g_return_if_fail (plugin->pm_current_filename != NULL);
+	
+	if (g_file_test (plugin->pm_current_filename, G_FILE_TEST_IS_DIR))
+		dir = g_strdup (plugin->pm_current_filename);
+	else
+		dir = g_path_get_dirname (plugin->pm_current_filename);
+	build_execute_command (plugin, dir, MAKE_COMMAND);
+}
+
+static void
+pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	gchar *dir;
+	
+	g_return_if_fail (plugin->pm_current_filename != NULL);
+	
+	if (g_file_test (plugin->pm_current_filename, G_FILE_TEST_IS_DIR))
+		dir = g_strdup (plugin->pm_current_filename);
+	else
+		dir = g_path_get_dirname (plugin->pm_current_filename);
+	build_execute_command (plugin, dir, MAKE_COMMAND" install");
+}
+
+static void
+pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	gchar *dir;
+	
+	g_return_if_fail (plugin->pm_current_filename != NULL);
+	
+	if (g_file_test (plugin->pm_current_filename, G_FILE_TEST_IS_DIR))
+		dir = g_strdup (plugin->pm_current_filename);
+	else
+		dir = g_path_get_dirname (plugin->pm_current_filename);
+	build_execute_command (plugin, dir, MAKE_COMMAND" clean");
+}
+
 static GtkActionEntry build_actions[] = 
 {
 	{
@@ -975,6 +1039,34 @@ static GtkActionEntry build_actions[] =
 		N_("_Clean"), NULL,
 		N_("Clean module"),
 		G_CALLBACK (fm_clean)
+	},
+	{
+		"ActionPopupPMBuild", NULL,
+		N_("_Build"), NULL, NULL, NULL
+	},
+	{
+		"ActionPopupPMBuildCompile", GTK_STOCK_CONVERT,
+		N_("_Compile"), NULL,
+		N_("Complie file"),
+		G_CALLBACK (pm_compile)
+	},
+	{
+		"ActionPopupPMBuildBuild", GTK_STOCK_EXECUTE,
+		N_("_Build"), NULL,
+		N_("Build module"),
+		G_CALLBACK (pm_build)
+	},
+	{
+		"ActionPopupPMBuildInstall", NULL,
+		N_("_Install"), NULL,
+		N_("Install module"),
+		G_CALLBACK (pm_install)
+	},
+	{
+		"ActionPopupPMBuildClean", NULL,
+		N_("_Clean"), NULL,
+		N_("Clean module"),
+		G_CALLBACK (pm_clean)
 	}
 };
 
@@ -1242,6 +1334,70 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 }
 
 static void
+value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	const gchar *uri;
+	gchar *dirname, *filename;
+	gboolean makefile_exists, is_dir;
+	
+	uri = g_value_get_string (value);
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	g_return_if_fail (filename != NULL);
+	
+	/*
+	if (g_file_test (filename, G_FILE_TEST_EXISTS) == FALSE)
+		return;
+	*/
+	
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	if (ba_plugin->pm_current_filename)
+		g_free (ba_plugin->pm_current_filename);
+	ba_plugin->pm_current_filename = filename;
+	
+	is_dir = g_file_test (filename, G_FILE_TEST_IS_DIR);
+	if (is_dir)
+		dirname = g_strdup (filename);
+	else
+		dirname = g_path_get_dirname (filename);
+	makefile_exists = directory_has_makefile (dirname);
+	g_free (dirname);
+	
+	if (!makefile_exists)
+		return;
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupPMBuild");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+										"ActionPopupPMBuildCompile");
+	if (is_dir)
+		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	else
+		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+}
+
+static void
+value_removed_pm_current_uri (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
+	
+	if (ba_plugin->pm_current_filename)
+		g_free (ba_plugin->pm_current_filename);
+	ba_plugin->pm_current_filename = NULL;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupPMBuild");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+}
+
+static void
 value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 							  const GValue *value, gpointer user_data)
 {
@@ -1351,6 +1507,10 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
 								 value_added_fm_current_uri,
 								 value_removed_fm_current_uri, NULL);
+	ba_plugin->pm_watch_id = 
+		anjuta_plugin_add_watch (plugin, "project_manager_current_uri",
+								 value_added_pm_current_uri,
+								 value_removed_pm_current_uri, NULL);
 	ba_plugin->project_watch_id = 
 		anjuta_plugin_add_watch (plugin, "project_root_uri",
 								 value_added_project_root_uri,
@@ -1373,6 +1533,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, ba_plugin->fm_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, ba_plugin->pm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->project_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, ba_plugin->editor_watch_id, TRUE);
 	
@@ -1396,6 +1557,8 @@ finalize (GObject *obj)
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
 	if (ba_plugin->fm_current_filename)
 		g_free (ba_plugin->fm_current_filename);
+	if (ba_plugin->pm_current_filename)
+		g_free (ba_plugin->pm_current_filename);
 	if (ba_plugin->project_root_dir)
 		g_free (ba_plugin->project_root_dir);
 	if (ba_plugin->current_editor_filename)
@@ -1409,6 +1572,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
 	ba_plugin->fm_current_filename = NULL;
+	ba_plugin->pm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->contexts_pool = NULL;

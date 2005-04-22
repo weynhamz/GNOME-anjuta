@@ -18,6 +18,13 @@
 			<separator/>
 		</placeholder>
 	</popup>
+	<popup name="PopupProjectManager">
+		<placeholder name="PlaceholderPopupProjectOpen">
+			<menuitem name="Open" action="ActionPopupPMOpen"/>
+			<menuitem name="OpenWith" action="ActionPopupPMOpenWith"/>
+			<separator/>
+		</placeholder>
+	</popup>
 	<toolbar name="ToolbarMain">
 		<placeholder name="PlaceholderFileToolbar">
 			<toolitem name="New" action="ActionFileNew" />

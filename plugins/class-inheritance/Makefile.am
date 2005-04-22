@@ -1,3 +1,6 @@
+
+if HAVE_PLUGIN_CLASS_INHERITANCE
+
 # Plugin Icon file
 cls_inheritance_pixmapsdir = $(anjuta_image_dir)
 cls_inheritance_pixmaps_DATA = class-inheritance.png
@@ -27,8 +30,6 @@ INCLUDES = \
 	
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
-
-if HAVE_PLUGIN_CLASS_INHERITANCE
 
 # The plugin
 plugin_LTLIBRARIES = libanjuta-class-inheritance.la

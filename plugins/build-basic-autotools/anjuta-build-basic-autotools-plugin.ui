@@ -29,4 +29,14 @@
 			</menu>
 		</placeholder>
 	</popup>
+	<popup name="PopupProjectManager">
+		<placeholder name="PlaceholderPopupProjectBuild">
+			<menu name="PopupProjectBuild" action="ActionPopupPMBuild">
+				<menuitem name="Compile" action="ActionPopupPMBuildCompile"/>
+				<menuitem name="Build" action="ActionPopupPMBuildBuild"/>
+				<menuitem name="Install" action="ActionPopupPMBuildInstall"/>
+				<menuitem name="Clean" action="ActionPopupPMBuildClean"/>
+			</menu>
+		</placeholder>
+	</popup>
 </ui>

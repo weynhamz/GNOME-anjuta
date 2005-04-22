@@ -58,8 +58,8 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 		       gint x, gint y, GtkSelectionData *data,
 		       guint info, guint time, gpointer user_data)
 {
-	gchar *current, *current_end, *current_fixed;
-	gchar *hostname, *filename;
+	gchar *current, *current_end /*, *current_fixed */;
+	/* gchar *hostname, *filename */;
 	
 	/*
 	 * Check to see that we got the name of the file. Impossible that it is

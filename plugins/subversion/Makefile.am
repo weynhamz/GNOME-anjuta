@@ -1,3 +1,6 @@
+
+if BUILD_SVN
+
 # Plugin glade file
 subversion_gladedir = $(anjuta_glade_dir)
 subversion_glade_DATA = anjuta-subversion.glade
@@ -26,9 +29,7 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 libanjuta_subversion_la_LDFLAGS = -module
 
-if BUILD_SVN
 plugin_LTLIBRARIES = libanjuta-subversion.la
-
 
 libanjuta_subversion_la_LIBADD = \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS) $(SVN_LIB)

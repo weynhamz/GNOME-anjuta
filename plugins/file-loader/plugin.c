@@ -694,24 +694,16 @@ on_recent_files_tooltip (GtkTooltips *tooltips, GtkWidget *menu_item,
 */
 
 static void
-fm_open (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
-{
-	if (plugin->fm_current_uri)
-		open_file (plugin, plugin->fm_current_uri);
-}
-
-static void
-fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
+open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
+				const gchar *uri)
 {
 	// GSList *plugin_descs;
 	GList *mime_apps;
 	GnomeVFSMimeApplication *mime_app;
 	gchar *mime_type;
 	gint idx;
-	const gchar *uri;
 	AnjutaPluginDescription *desc;
 	
-	uri = plugin->fm_current_uri;
 	idx = (gint) g_object_get_data (G_OBJECT (menuitem), "index");
 	desc = (AnjutaPluginDescription*) g_object_get_data (G_OBJECT (menuitem),
 														 "desc");
@@ -741,7 +733,7 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 			else
 			{
 				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-										  "Failed to activate plugin: %s",
+										  _("Failed to activate plugin: %s"),
 										  location);
 			}
 			g_free (location);
@@ -763,6 +755,34 @@ fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 	}
 	gnome_vfs_mime_application_list_free (mime_apps);
 	g_free (mime_type);
+}
+
+static void
+fm_open (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
+{
+	if (plugin->fm_current_uri)
+		open_file (plugin, plugin->fm_current_uri);
+}
+
+static void
+fm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
+{
+	if (plugin->fm_current_uri)
+		open_file_with (plugin, menuitem, plugin->fm_current_uri);
+}
+
+static void
+pm_open (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
+{
+	if (plugin->pm_current_uri)
+		open_file (plugin, plugin->pm_current_uri);
+}
+
+static void
+pm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
+{
+	if (plugin->pm_current_uri)
+		open_file_with (plugin, menuitem, plugin->pm_current_uri);
 }
 
 static GtkActionEntry actions_file[] = {
@@ -794,51 +814,49 @@ static GtkActionEntry actions_file[] = {
 		NULL,
 		N_("Open _With"), NULL,
 		N_("Open with"), NULL
+	},
+	{
+		"ActionPopupPMOpen",
+		GTK_STOCK_OPEN,
+		N_("_Open"), NULL,
+		N_("Open file"),
+		G_CALLBACK (pm_open)
+	},
+	{
+		"ActionPopupPMOpenWith",
+		NULL,
+		N_("Open _With"), NULL,
+		N_("Open with"), NULL
 	}
 };
 
-static void
-value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
-							const GValue *value, gpointer data)
+static gboolean
+create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
+						  const gchar *uri, GCallback callback,
+						  gpointer callback_data)
 {
-	AnjutaUI *ui;
-	const gchar *uri;
-	AnjutaFileLoaderPlugin *fl_plugin;
-	GtkAction *action;
-	
 	GList *mime_apps, *node;
 	GnomeVFSMimeApplication *mime_app;
-	
 	GSList *plugin_descs, *snode;
-	
-	GtkWidget *menu, *menuitem, *parentmenu;
+	GtkWidget *menu, *menuitem;
 	gchar *mime_type;
 	gint idx;
+	gboolean ret;
 	
-	uri = g_value_get_string (value);
-	g_return_if_fail (name != NULL);
-
-	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	g_return_val_if_fail (GTK_IS_MENU_ITEM (parentmenu), FALSE);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupOpen");
-	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
-								   "ActionPopupOpenWith");
-	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	
-	if (fl_plugin->fm_current_uri)
-		g_free (fl_plugin->fm_current_uri);
-	fl_plugin->fm_current_uri = g_strdup (uri);
+	menu = gtk_menu_new ();
+	gtk_widget_show (menu);
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (parentmenu), menu);
 	
 	mime_type = get_uri_mime_type (uri);
-	menu = gtk_menu_new ();
+	if (mime_type == NULL)
+		return FALSE;
 	
 	idx = 0;
 	
 	/* Open with plugins menu items */
-	plugin_descs = get_available_plugins_for_mime (fl_plugin, mime_type);
+	plugin_descs = get_available_plugins_for_mime (plugin, mime_type);
 	snode = plugin_descs;
 	while (snode)
 	{
@@ -858,7 +876,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		g_object_set_data (G_OBJECT (menuitem), "index", (gpointer)(idx));
 		g_object_set_data (G_OBJECT (menuitem), "desc", (gpointer)(desc));
 		g_signal_connect (G_OBJECT (menuitem), "activate",
-						  G_CALLBACK (fm_open_with), plugin);
+						  G_CALLBACK (callback), callback_data);
 		gtk_menu_append (menu, menuitem);
 		g_free (name);
 		snode = g_slist_next (snode);
@@ -882,27 +900,58 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 		menuitem = gtk_menu_item_new_with_label (mime_app->name);
 		g_object_set_data (G_OBJECT (menuitem), "index", (gpointer)(idx));
 		g_signal_connect (G_OBJECT (menuitem), "activate",
-						  G_CALLBACK (fm_open_with), plugin);
+						  G_CALLBACK (callback), callback_data);
 		gtk_menu_append (menu, menuitem);
 		node = g_list_next (node);
 		idx++;
 	}
 	gtk_widget_show_all (menu);
-	parentmenu =
-		gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
-					"/PopupFileManager/PlaceholderPopupFileOpen/OpenWith");
-	g_assert (GTK_IS_MENU_ITEM (parentmenu));
-	if (parentmenu)
-	{
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM (parentmenu), menu);
-		if (mime_apps == NULL && plugin_descs == NULL)
-		{
-			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-		}
-	}
+	
+	if (mime_apps == NULL && plugin_descs == NULL)
+		ret = FALSE;
+	else
+		ret = TRUE;
+	
 	gnome_vfs_mime_application_list_free (mime_apps);
 	if (plugin_descs)
 		g_slist_free (plugin_descs);
+	
+	return ret;
+}
+						  
+static void
+value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	const gchar *uri;
+	AnjutaFileLoaderPlugin *fl_plugin;
+	GtkAction *action;
+	GtkWidget *parentmenu;
+	
+	uri = g_value_get_string (value);
+	g_return_if_fail (name != NULL);
+
+	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupOpen");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+								   "ActionPopupOpenWith");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	
+	if (fl_plugin->fm_current_uri)
+		g_free (fl_plugin->fm_current_uri);
+	fl_plugin->fm_current_uri = g_strdup (uri);
+	
+	parentmenu =
+		gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
+					"/PopupFileManager/PlaceholderPopupFileOpen/OpenWith");
+	if (!create_open_with_submenu (fl_plugin, parentmenu, uri,
+								   G_CALLBACK (fm_open_with), plugin))
+		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
 static void
@@ -925,6 +974,64 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
 								   "ActionPopupOpenWith");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+}
+
+static void
+value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	AnjutaUI *ui;
+	const gchar *uri;
+	AnjutaFileLoaderPlugin *fl_plugin;
+	GtkAction *action;
+	GtkWidget *parentmenu;
+	
+	uri = g_value_get_string (value);
+	g_return_if_fail (name != NULL);
+	
+	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupPMOpen");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+								   "ActionPopupPMOpenWith");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+	
+	if (fl_plugin->pm_current_uri)
+		g_free (fl_plugin->pm_current_uri);
+	fl_plugin->pm_current_uri = g_strdup (uri);
+	
+	parentmenu =
+		gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui),
+					"/PopupProjectManager/PlaceholderPopupProjectOpen/OpenWith");
+	if (!create_open_with_submenu (fl_plugin, parentmenu, uri,
+								   G_CALLBACK (pm_open_with), plugin))
+		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+}
+
+static void
+value_removed_pm_current_uri (AnjutaPlugin *plugin,
+							  const char *name, gpointer data)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	AnjutaFileLoaderPlugin *fl_plugin;
+
+	fl_plugin = (AnjutaFileLoaderPlugin*)plugin;
+	
+	if (fl_plugin->pm_current_uri)
+		g_free (fl_plugin->pm_current_uri);
+	fl_plugin->pm_current_uri = NULL;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupPMOpen");
+	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+								   "ActionPopupPMOpenWith");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
@@ -1062,6 +1169,10 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
 								 value_added_fm_current_uri,
 								 value_removed_fm_current_uri, NULL);
+	loader_plugin->pm_watch_id = 
+		anjuta_plugin_add_watch (plugin, "project_manager_current_uri",
+								 value_added_pm_current_uri,
+								 value_removed_pm_current_uri, NULL);
 	
 	/* Connect to session */
 	g_signal_connect (G_OBJECT (plugin->shell), "load_session",
@@ -1086,6 +1197,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, loader_plugin->fm_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, loader_plugin->pm_watch_id, TRUE);
 	/* Uninstall dnd */
 	dnd_drop_finalize (GTK_WIDGET (plugin->shell), plugin);
 	/* Remove UI */
@@ -1117,7 +1229,10 @@ static void
 anjuta_file_loader_plugin_instance_init (GObject *obj)
 {
 	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
+	
 	plugin->fm_current_uri = NULL;
+	plugin->pm_current_uri = NULL;
+	
 	plugin->recent_files_model_top =
 		egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
 	egg_recent_model_set_limit (plugin->recent_files_model_top, 5);

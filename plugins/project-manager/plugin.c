@@ -674,9 +674,19 @@ finally:
 											  NULL);
 	if (selected_uri)
 	{
+		GValue *value;
+		value = g_new0 (GValue, 1);
+		g_value_init (value, G_TYPE_STRING);
+		g_value_set_string (value, selected_uri);
+		anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
+								"project_manager_current_uri",
+								value, NULL);
 		g_signal_emit_by_name (G_OBJECT (plugin), "element_selected",
 							   selected_uri);
 		g_free (selected_uri);
+	} else {
+		anjuta_shell_remove_value (ANJUTA_PLUGIN(plugin)->shell,
+								   "project_manager_current_uri", NULL);
 	}
 }
 

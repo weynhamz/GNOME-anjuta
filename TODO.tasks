@@ -94,12 +94,6 @@ Most of the API should be exposed.</comment>
 not by add/remove) into plugins/editor/ directory.</comment>
     </item>
     <item>
-      <attribute id="1107253663" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253663"/>
-      <summary>gnome vfs notification for 'File changed on disk'</summary>
-      <comment>Implement gnome vfs monitor for file changed on disk and
-prompt user to reload it.</comment>
-    </item>
-    <item>
       <attribute id="1107240087" priority="1" done="1" start_date="731978" completed_date="731987" notify="0" last_edited="1108058172"/>
       <summary>Enable 'Tab' auto-indentation</summary>
       <comment>Automatic indentation (ala emacs) is working in Editor. For cpp lexer,
@@ -123,6 +117,12 @@ busy/unbusy on AnjutaStatus during split operation</comment>
       <summary>Hover tooltip on editor tabs</summary>
       <comment>Implement a hover tooltip (similar to gedit) giving details of the
 current file. Details like Directory path, cvs rev number etc. should be there.</comment>
+    </item>
+    <item>
+      <attribute id="1107253663" priority="1" done="1" start_date="731978" completed_date="732049" notify="0" last_edited="1113397470"/>
+      <summary>gnome vfs notification for 'File changed on disk'</summary>
+      <comment>Implement gnome vfs monitor for file changed on disk and
+prompt user to reload it.</comment>
     </item>
     <item>
       <attribute id="1098253712" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1113463797"/>
@@ -165,12 +165,6 @@ This will correspond to the "Properties" method in our project manager.</comment
   <category title="Plugin: File Manager" place="7"/>
   <category title="Plugin: Automake Build" place="4">
     <item>
-      <attribute id="1098254207" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098255751"/>
-      <summary>Project manager watch</summary>
-      <comment>Watch current project's target or source and depending on it,
-merge context menu into project manager.</comment>
-    </item>
-    <item>
       <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1107241480"/>
       <summary>Define compile commands</summary>
       <comment>Define compile commands for various file extensions.
@@ -181,6 +175,12 @@ from a file name for invoking 'make'. Also, if there is no Makefile
 found in the directory with which to invoke the compile command,
 user should be prompted to create a Makefile (possibly filling it
 up with some template contents).</comment>
+    </item>
+    <item>
+      <attribute id="1098254207" priority="1" done="1" start_date="731874" completed_date="732059" notify="0" last_edited="1114205327"/>
+      <summary>Project manager watch</summary>
+      <comment>Watch current project's target or source and depending on it,
+merge context menu into project manager.</comment>
     </item>
   </category>
   <category title="Plugin: Symbol Browser" place="10">
@@ -260,15 +260,15 @@ tags in database.</comment>
   </category>
   <category title="Plugin: File Loader" place="6">
     <item>
-      <attribute id="1098254131" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1098256394"/>
-      <summary>Project manager watch</summary>
-      <comment>Watch current project target or source and merge open
-with context menu in project manager.</comment>
-    </item>
-    <item>
       <attribute id="1098256384" priority="1" done="1" start_date="731874" completed_date="732012" notify="0" last_edited="1110230616"/>
       <summary>Open with plugins</summary>
       <comment>Add open with plugins menus along with open with programs menus.</comment>
+    </item>
+    <item>
+      <attribute id="1098254131" priority="1" done="1" start_date="731874" completed_date="732059" notify="0" last_edited="1114205338"/>
+      <summary>Project manager watch</summary>
+      <comment>Watch current project target or source and merge open
+with context menu in project manager.</comment>
     </item>
   </category>
   <category title="libanjuta-interfaces" place="3">
@@ -371,9 +371,9 @@ to anjuta 1.x.</comment>
       <comment>There should be a menuitem "Save messages ..." similar to anjuta 1.x.</comment>
     </item>
     <item>
-      <attribute id="1114162476" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114162476"/>
+      <attribute id="1114162476" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114205428"/>
       <summary>Complete preferences hooks</summary>
-      <comment>Some preferences don't work/not implement.</comment>
+      <comment>Tab position preferences does not work.</comment>
     </item>
   </category>
   <category title="Plugin: Debugger" place="14">

@@ -13,6 +13,7 @@
 	</placeholder>
 	</menubar>
 	<popup name="PopupProjectManager">
+		<placeholder name="PlaceholderPopupProjectOpen"/>
 		<placeholder name="PlaceholderPopupProjectBuild"/>
 		<menuitem name="AddGroup" action="ActionPopupProjectAddGroup"/>
 		<menuitem name="AddTarget" action="ActionPopupProjectAddTarget"/>
