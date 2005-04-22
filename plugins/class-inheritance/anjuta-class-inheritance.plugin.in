@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 Location=anjuta-class-inheritance:AnjutaClassInheritance
 Icon=class-inheritance.png
-_Name=Anjuta Class Inheritance
+_Name=Class Inheritance
 _Description=A graph painter for the inheritance of the classes.
 Authors=Massimo Cora' <maxcvs@email.it>

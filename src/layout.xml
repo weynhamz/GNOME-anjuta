@@ -21,6 +21,7 @@
 								<item name="AnjutaDocumentManager" orientation="horizontal" locked="no"/>
 								<item name="AnjutaDevhelpDisplay" orientation="horizontal" locked="no"/>
 								<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
+								<item name="AnjutaClassInheritance" orientation="horizontal" locked="no"/>
 								<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
 								<placeholder name="ph_center" next-placement="center"/>
 							</notebook>

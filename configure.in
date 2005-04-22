@@ -941,3 +941,28 @@ manuals/reference/libanjuta/Makefile
 manuals/reference/libanjuta/version.xml
 mime/Makefile
 ])
+echo " "
+echo "-------------------------------------------------------------------"
+echo "Conditionally built plugins:"
+echo "-------------------------------------------------------------------"
+if [ test -n "$SVN_INCLUDE" ]; then
+        echo "Building subversion plugin: ............................YES"
+else
+        echo "Building subversion plugin: ............................NO"
+		echo "        Requires subversion; http://subversion.org"
+fi
+
+if [ test x$libgladeui_found = xyes ]; then
+        echo "Building glade plugin: .................................YES"
+else
+        echo "Building glade plugin: .................................NO"
+		echo "        Requires glade-3; CVS cvs.gnome.org, module glade-3"
+fi
+
+if [ test x$libgraphviz_found = xyes ]; then
+        echo "Building class inheritance plugin: .....................YES"
+else
+        echo "Building class inheritance plugin: .....................NO"
+		echo "        Requires graphviz; http://graphviz.org"
+fi
+echo "-------------------------------------------------------------------"

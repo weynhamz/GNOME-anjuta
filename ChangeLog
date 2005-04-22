@@ -1,6 +1,16 @@
 2005-04-22  Naba Kumar  <naba@gnome.org>
 
-	configure.in,
+	* configure.in: Added message output showing conditional plugins to
+	build or not.
+	
+	* src/layout.xml: Added layout for class-inheritance plugin widget.
+	
+	* plugins/class-inheritance/anjuta-class-inheritance.plugin.in: Fixed
+	plugin name to remove redundant terms.
+	
+	* TODO.tasks: Updated.
+	
+	* configure.in,
 	plugins/symbol-browser/Makefile.am,
 	plugins/symbol-browser/an_symbol_view.c,
 	(removed) plugins/symbol-browser/sv_class.xpm,
