@@ -1,3 +1,7 @@
+2005-04-23  Naba Kumar  <naba@gnome.org>
+
+	* plugins/terminal/terminal.c: Fixed crash on termial docking.
+
 2005-04-22  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/templates/java-logo.png: Smaller icons.

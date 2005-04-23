@@ -402,6 +402,48 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 	return FALSE;
 }
 
+/* VTE has a terrible bug where it could crash when container is changed.
+ * The problem has been traced in vte where its style-set handler does not
+ * adequately check if the widget is realized, resulting in a crash when
+ * style-set occurs in an unrealized vte widget.
+ * 
+ * This work around blocks all style-set signal emissions when the vte
+ * widget is unrealized. -Naba
+ */
+static void
+terminal_realize_cb (GtkWidget *term, TerminalPlugin *plugin)
+{
+	gint count;
+	static gboolean first_time = TRUE;
+	
+	if (first_time)
+	{
+		/* First time realize does not have the signals blocked */
+		first_time = FALSE;
+		return;
+	}
+	count = g_signal_handlers_unblock_matched (term,
+											   G_SIGNAL_MATCH_DATA,
+											   0,
+											   g_quark_from_string ("style-set"),
+											   NULL,
+											   NULL,
+											   NULL);
+}
+
+static void
+terminal_unrealize_cb (GtkWidget *term, TerminalPlugin *plugin)
+{
+	gint count;
+	count = g_signal_handlers_block_matched (term,
+											 G_SIGNAL_MATCH_DATA,
+											 0,
+											 g_quark_from_string ("style-set"),
+											 NULL,
+											 NULL,
+											 NULL);
+}
+
 static void
 terminal_destroy_cb (GtkWidget *widget, TerminalPlugin *term)
 {
@@ -431,6 +473,10 @@ terminal_create (TerminalPlugin *term_plugin)
 					  G_CALLBACK (terminal_destroy_cb), term_plugin);
 	g_signal_connect (G_OBJECT (term_plugin->term), "event",
 					  G_CALLBACK (terminal_keypress_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->term), "realize",
+					  G_CALLBACK (terminal_realize_cb), term_plugin);
+	g_signal_connect (G_OBJECT (term_plugin->term), "unrealize",
+					  G_CALLBACK (terminal_unrealize_cb), term_plugin);
 
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term_plugin->term)->adjustment));
 	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
