@@ -26,8 +26,9 @@
 	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
 	<property type="hidden" name="HavePackage" default="0"/>
-	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
 	<property type="boolean" name="HaveGtkDoc" _label="Add gtk-doc system:" _description="gtk-doc is used to compile API documentations for GObject based classes" default="0"/>
+	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
+	<property type="boolean" name="HaveJavaClasses" _label="Compile java bytecodes (.class) files:" _description="If enabled, java bytecodes (.class) files will also be created in addition to natively compiled codes. Otherwise, only native executable will be created." default="1"/>
 	<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
 </page>
 
@@ -59,7 +60,7 @@
 	<directory source="java" destination="[+Destination+]">
 		<file source="configure.in.tpl" destination="configure.in"/>
 		<directory source="src">
-			<file source="main.java" destination="[+NameLower+].java"/>
+			<file source="main.java" destination="[+MainClass+].java"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		</directory>
 	</directory>

@@ -352,6 +352,7 @@ sv_assign_node_name (TMSymbol * sym, GString * s)
 	switch (sym->tag->type)
 	{
 	case tm_tag_function_t:
+	case tm_tag_method_t:
 	case tm_tag_prototype_t:
 	case tm_tag_macro_with_arg_t:
 		if (sym->tag->atts.entry.arglist)
@@ -490,7 +491,7 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 			if (!sym1 || ! sym1->tag)
 				continue;
 			
-			type = anjuta_symbol_info_get_node_type (sym1);
+			type = anjuta_symbol_info_get_node_type (sym1, NULL);
 			
 			if (sv_none_t == type)
 				continue;
@@ -841,50 +842,6 @@ anjuta_symbol_view_get_file_symbol_model (AnjutaSymbolView * sv)
 	return sv->priv->file_symbol_model;
 }
 
-static SVNodeType
-tm_tag_type_to_sv_type (TMTagType tm_type)
-{
-	switch (tm_type)
-	{
-	case tm_tag_undef_t:
-		return sv_none_t;
-	case tm_tag_class_t:
-		return sv_class_t;
-	case tm_tag_enum_t:
-	case tm_tag_enumerator_t:
-		return sv_struct_t;
-	case tm_tag_field_t:
-	case tm_tag_function_t:
-		return sv_function_t;
-	case tm_tag_interface_t:
-		return sv_class_t;
-	case tm_tag_member_t:
-		return sv_private_var_t;
-	case tm_tag_method_t:
-		return sv_private_func_t;
-	case tm_tag_namespace_t:
-		return sv_class_t;
-	case tm_tag_package_t:
-		return sv_none_t;
-	case tm_tag_prototype_t:
-		return sv_function_t;
-	case tm_tag_struct_t:
-		return sv_struct_t;
-	case tm_tag_typedef_t:
-		return sv_class_t;
-	case tm_tag_union_t:
-		return sv_struct_t;
-	case tm_tag_variable_t:
-	case tm_tag_externvar_t:
-		return sv_variable_t;
-	case tm_tag_macro_t:
-	case tm_tag_macro_with_arg_t:
-		return sv_macro_t;
-	default:
-		return sv_none_t;
-	}
-}
-
 static GtkTreeModel *
 create_file_symbols_model (AnjutaSymbolView * sv, TMWorkObject * tm_file,
 			   guint tag_types)
@@ -914,7 +871,7 @@ create_file_symbols_model (AnjutaSymbolView * sv, TMWorkObject * tm_file,
 			if (tag->type & tag_types)
 			{
 				SVNodeType sv_type =
-					tm_tag_type_to_sv_type (tag->type);
+				    anjuta_symbol_info_get_node_type (NULL, tag);
 
 				if ((NULL != tag->atts.entry.scope)
 				    && isalpha (tag->atts.entry.scope[0]))

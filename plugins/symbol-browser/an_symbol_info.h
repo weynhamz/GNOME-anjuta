@@ -88,9 +88,13 @@ struct _AnjutaSymbolInfo
 };
 
 GType anjuta_symbol_info_get_type (void);
-AnjutaSymbolInfo *anjuta_symbol_info_new (TMSymbol * sym, SVNodeType node_type);
+AnjutaSymbolInfo *anjuta_symbol_info_new (TMSymbol *sym, SVNodeType node_type);
 void anjuta_symbol_info_free (AnjutaSymbolInfo *sym);
-SVNodeType anjuta_symbol_info_get_node_type (TMSymbol * sym);
+
+/* If sym is give sym->tag is used, otherwise the passed tag is used
+ * to determine the sv node type
+ */
+SVNodeType anjuta_symbol_info_get_node_type (TMSymbol *sym, TMTag *tag);
 SVRootType anjuta_symbol_info_get_root_type (SVNodeType type);
 
 G_END_DECLS

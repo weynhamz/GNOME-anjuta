@@ -584,7 +584,7 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 				symbol->tag = tag;
 				
 				sym = anjuta_symbol_info_new (symbol,
-							  anjuta_symbol_info_get_node_type (symbol));
+							  anjuta_symbol_info_get_node_type (symbol, NULL));
 				
 				if (sym->sym_name)
 				{

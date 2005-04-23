@@ -853,13 +853,13 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, con
 	if(tag && tag->atts.entry.file)
 	{
 		local = tm_tags_extract(tag->atts.entry.file->work_object.tags_array,
-								(tm_tag_function_t|tm_tag_member_t|
+								(tm_tag_function_t|tm_tag_member_t|tm_tag_field_t|
 								 tm_tag_method_t|tm_tag_enumerator_t));
 	}
 	else
 	{
 		local = tm_tags_extract(theWorkspace->work_object.tags_array,
-								(tm_tag_function_t|tm_tag_member_t|
+								(tm_tag_function_t|tm_tag_member_t|tm_tag_field_t|
 								 tm_tag_method_t|tm_tag_enumerator_t));
 	}
 	if (local)
@@ -870,7 +870,9 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, con
 	if(!found && search_global)
 	{
 	    GPtrArray *global = tm_tags_extract(theWorkspace->global_tags,
-	       (tm_tag_member_t|tm_tag_method_t|tm_tag_function_t|tm_tag_enumerator_t));
+											(tm_tag_member_t|tm_tag_field_t|
+											 tm_tag_method_t|tm_tag_function_t|
+											 tm_tag_enumerator_t));
 	    if (global)
 	    {
 			find_scope_members_tags(global, tags, langJava, new_name, filename);

@@ -400,7 +400,6 @@ on_treeview_event (GtkWidget *widget,
 	GtkTreeView *view;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
-	GtkTreeIter iter;
 
 	g_return_val_if_fail (GTK_IS_TREE_VIEW (widget), FALSE);
 
@@ -425,7 +424,6 @@ on_treeview_event (GtkWidget *widget,
 			return TRUE;
 		}
 	} else if (event->type == GDK_KEY_PRESS) {
-		GtkTreePath *path;
 		GdkEventKey *e = (GdkEventKey *) event;
 
 		switch (e->keyval) {

@@ -1,5 +1,21 @@
 2005-04-22  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/templates/java-logo.png: Smaller icons.
+	
+	* plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/java/src/Makefile.am.tpl: Add option
+	to create bytecodes (.class) files.
+	
+	* plugins/symbol-browser/an_symbol_info.c,
+	plugins/symbol-browser/an_symbol_info.h,
+	plugins/symbol-browser/an_symbol_search.c,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/plugin.c,
+	tagmanager/tm_workspace.c: Fixed java symbols view. Fixed icon types
+	in file symbol list.
+
+2005-04-22  Naba Kumar  <naba@gnome.org>
+
 	* TODO.tasks: Updated.
 	
 	* plugins/class-inheritance/Makefile.am,

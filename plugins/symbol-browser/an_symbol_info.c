@@ -123,15 +123,32 @@ GType anjuta_symbol_info_get_type (void) {
 }
 
 SVNodeType
-anjuta_symbol_info_get_node_type (TMSymbol * sym)
+anjuta_symbol_info_get_node_type (TMSymbol *sym, TMTag *tag)
 {
+	TMTagType t_type;
 	SVNodeType type;
 	char access;
-
-	if (!sym || !sym->tag || (tm_tag_file_t == sym->tag->type))
+	
+	if (sym == NULL && tag == NULL)
 		return sv_none_t;
-	access = sym->tag->atts.entry.access;
-	switch (sym->tag->type)
+
+	if (sym && sym->tag == NULL)
+		return sv_none_t;
+	
+	if (sym)
+		t_type = sym->tag->type;
+	else
+		t_type = tag->type;
+	
+	if (t_type == tm_tag_file_t)
+		return sv_none_t;
+	
+	if (sym)
+		access = sym->tag->atts.entry.access;
+	else
+		access = tag->atts.entry.access;
+	
+	switch (t_type)
 	{
 	case tm_tag_class_t:
 		type = sv_class_t;
@@ -144,7 +161,8 @@ anjuta_symbol_info_get_node_type (TMSymbol * sym)
 		break;
 	case tm_tag_function_t:
 	case tm_tag_prototype_t:
-		if ((sym->info.equiv) && (TAG_ACCESS_UNKNOWN == access))
+	case tm_tag_method_t:
+		if (sym && (sym->info.equiv) && (TAG_ACCESS_UNKNOWN == access))
 			access = sym->info.equiv->atts.entry.access;
 		switch (access)
 		{
@@ -163,6 +181,7 @@ anjuta_symbol_info_get_node_type (TMSymbol * sym)
 		}
 		break;
 	case tm_tag_member_t:
+	case tm_tag_field_t:
 		switch (access)
 		{
 		case TAG_ACCESS_PRIVATE:
