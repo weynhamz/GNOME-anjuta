@@ -203,7 +203,6 @@ static gboolean word_in_list(GList *list, gchar *word);
 static GList* list_max_items(GList *list, guint nb_max);
 static void search_update_combos (void);
 static void replace_update_combos (void);
-static void search_make_sensitive(gboolean sensitive);
 static void search_direction_changed(SearchDirection dir);
 static void search_set_direction(SearchDirection dir);
 static void search_set_toggle_direction(SearchDirection dir);
@@ -250,7 +249,6 @@ search_and_replace (void)
 	s = &(sr->search);
 
 	end_activity = FALSE;
-	search_make_sensitive(FALSE);
 	
 	entries = create_search_entries(s);
 	
@@ -452,7 +450,6 @@ search_and_replace (void)
 		search_set_toggle_direction(SD_FORWARD);
 	}
 	
-	search_make_sensitive(TRUE);
 	return;
 }
 
@@ -1219,23 +1216,6 @@ on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
 	}
 }
 
-static void
-search_make_sensitive(gboolean sensitive)
-{
-	static char *widgets[] = {
-		SEARCH_EXPR_FRAME, SEARCH_TARGET_FRAME, CLOSE_BUTTON, SEARCH_BUTTON,
-		JUMP_BUTTON
-	};
-	gint i;
-	GtkWidget *widget;
-	
-	for (i=0; i < sizeof(widgets)/sizeof(widgets[0]); ++i)
-	{
-		widget = sr_get_gladewidget(widgets[i])->widget;
-		if (NULL != widget)
-			gtk_widget_set_sensitive(widget, sensitive);
-	}
-}
 
 void
 on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data)
