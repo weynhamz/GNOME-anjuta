@@ -1,6 +1,12 @@
+2005-04-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	*  plugins/editor/search-replace.c :
+	Displayed full path in Search pane window. 
+	Bug 300231 : Selected line in Search pane window .
+		
 2005-04-23  Naba Kumar  <naba@gnome.org>
 
-	* plugins/terminal/terminal.c: Fixed crash on termial docking.
+	* plugins/terminal/terminal.c: Fixed crash on terminal docking.
 
 2005-04-22  Naba Kumar  <naba@gnome.org>
 

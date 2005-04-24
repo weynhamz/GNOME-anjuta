@@ -189,6 +189,9 @@ static GladeWidget glade_widgets[] = {
 
 /***********************************************************/
 
+static void
+write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, MatchInfo *mi);
+static gboolean on_message_clicked (GObject* object, gchar* message, gpointer data);
 static void save_not_opened_files(FileBuffer *fb);
 static gboolean replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str);
 static void search_set_action(SearchAction action);
@@ -210,7 +213,6 @@ static gboolean word_in_list(GList *list, gchar *word);
 static GList* list_max_items(GList *list, guint nb_max);
 static void search_update_combos (void);
 static void replace_update_combos (void);
-static void search_make_sensitive(gboolean sensitive);
 static void search_direction_changed(SearchDirection dir);
 static void search_set_direction(SearchDirection dir);
 static void search_set_toggle_direction(SearchDirection dir);
@@ -245,14 +247,12 @@ search_and_replace (void)
 {
 	GList *entries;
 	GList *tmp;
-	char buf[BUFSIZ];
 	SearchEntry *se;
 	FileBuffer *fb;
 	static MatchInfo *mi;
 	Search *s;
 	gint offset;
 	static gint os=0;
-	gchar *match_line;
 	gint nb_results;
 	static long start_sel = 0;
 	static long end_sel = 0;
@@ -285,9 +285,12 @@ search_and_replace (void)
 		if (view == NULL)	
 		{
 			// FIXME: Put a nice icon here:
+
 			ianjuta_message_manager_add_view(msgman, name, "anjuta_icon.png", NULL);	
 			view = ianjuta_message_manager_get_view_by_name(msgman, name, NULL);
 			g_return_if_fail(view != NULL);
+			g_signal_connect (G_OBJECT(view), "message_clicked", 
+			                  G_CALLBACK (on_message_clicked), NULL);
 		}
 		ianjuta_message_manager_set_current_view(msgman, view, NULL);
 	}
@@ -314,7 +317,7 @@ search_and_replace (void)
 		else /* if (SE_FILE == se->type) */
 			fb = file_buffer_new_from_path(se->path, NULL, -1, 0);
 		if (fb)
-		{
+		{		
 			fb->pos = se->start_pos;
 			offset = 0;
 
@@ -358,12 +361,7 @@ search_and_replace (void)
 						break;
 						
 					case SA_FIND_PANE: 
-						match_line = file_match_line_from_pos(fb, mi->pos);
-						snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path
-						  , mi->line + 1, match_line);
-						g_free(match_line);
-						ianjuta_message_view_append(view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
-													buf, "", NULL);
+						write_message_pane(view, fb, se, mi);
 						break;
 					
 					case SA_REPLACE:
@@ -485,6 +483,57 @@ search_and_replace (void)
 	}
 	
 	return;
+}
+
+static void
+write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, MatchInfo *mi)
+{
+	gchar *match_line;
+	char buf[BUFSIZ];
+	gchar *tmp;
+	
+	match_line = file_match_line_from_pos(fb, mi->pos);
+
+	if (SE_BUFFER == se->type)
+	{
+		tmp = g_strrstr(fb->path, "/");
+		tmp = g_strndup(fb->path, tmp + 1 -(fb->path));
+		snprintf(buf, BUFSIZ, "%s%s:%ld:%s\n", tmp, se->te->filename, 
+		         mi->line + 1, match_line);
+		g_free(tmp);
+	}
+	else /* if (SE_FILE == se->type) */
+	{
+		snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path, mi->line + 1, match_line);
+	}
+
+	g_free(match_line);
+	ianjuta_message_view_append(view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, buf, "", NULL);
+}
+
+
+static gboolean
+on_message_clicked (GObject* object, gchar* message, gpointer data)
+{
+	gchar *ptr, *ptr2;
+	gchar *path, *nline;
+	gint line;
+		
+	if (!(ptr = g_strstr_len(message, strlen(message), ":")) )
+		return FALSE;
+	path = g_strndup(message, ptr - message);
+	
+	ptr++;
+	if (!(ptr2 = g_strstr_len(ptr, strlen(ptr), ":")) )
+		return FALSE;
+	nline = g_strndup(ptr, ptr2 - ptr);
+	line = atoi(nline);
+							
+	anjuta_docman_goto_file_line (sr->docman, path, line);  
+	
+	g_free(path);
+	g_free(nline);
+	return FALSE;
 }
 
 static void
