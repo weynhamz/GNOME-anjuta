@@ -1,3 +1,32 @@
+2005-04-24  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor.c:
+	Add erase_all and replace_selection function to IAnjutaEditor
+
+	* plugins/tools/anjuta-tools.glade,
+	plugins/tools/fileop.c,
+	plugins/tools/editor.c,
+	plugins/tools/tool.c
+	plugins/tools/tool.h:
+	Add shortcut and icon 
+
+	* plugins/tools/variable.c,
+	plugins/tools/variable.h:
+	Add a variable asking parameters at run time
+
+	* plugins/tools/execute.c:
+	Add a warning message for missing document manager
+	Add replace buffer and replace selection output
+	Correct an error in popup output
+
+	* plugins/tools/plugin.c,
+	plugins/tools/plugin.h,
+	plugins/tools/anjuta-tools.ui,
+	src/anjuta.ui:
+	Few clean up
+	Attach tools menu to a new place
+
 2005-04-23  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/plugins.c, src/about.c, src/about.h,

@@ -31,6 +31,8 @@
 #include "tool.h"
 #include "variable.h"
 
+#include <libgnomeui/libgnomeui.h>
+
 #include <gtk/gtk.h>
 
 #include <string.h>
@@ -75,6 +77,9 @@ struct _ATPToolEditor
 	GtkToggleButton *autosave_tb;
 	GtkComboBox *output_com;
 	GtkComboBox *error_com;
+	GtkToggleButton *shortcut_bt;
+	GnomeIconEntry *icon_en;
+	gchar* shortcut;
 	ATPUserTool *tool;
 	ATPToolDialog* parent;
 	ATPToolEditorList* owner;
@@ -109,10 +114,14 @@ struct _ATPToolEditor
 #define TOOL_TERMINAL "terminal_checkbox"
 #define TOOL_OUTPUT "output_combo"
 #define TOOL_ERROR "error_combo"
+#define TOOL_SHORTCUT "shortcut_bt"
+#define TOOL_ICON "icon_entry"
 
 #define EDITOR_RESPONSE_SIGNAL "on_editor_dialog_response"
 #define EDITOR_PARAM_VARIABLE_SIGNAL "on_variable_parameter"
 #define EDITOR_DIR_VARIABLE_SIGNAL "on_variable_directory"
+#define EDITOR_TOGGLE_TERMINAL_SIGNAL "on_toggle_terminal"
+#define EDITOR_TOGGLE_SHORCUT_SIGNAL "on_toggle_shorcut"
 
 #define TOOL_VARIABLE "variable_dialog"
 #define VARIABLE_TREEVIEW "variable_treeview"
@@ -270,9 +279,17 @@ atp_variable_dialog_populate (ATPVariableDialog* this, ATPFlags flag)
 
 		--i;
 		if ((flag == ATP_DEFAULT) || (flag & atp_variable_get_flag (variable, i)))
-		{			
-			value = atp_variable_get_value_from_id (variable, i);
-			value_col = (value == NULL) ? _("undefined") : value;
+		{
+			if (atp_variable_get_flag (variable, i) & ATP_INTERACTIVE)
+			{
+				value = NULL;
+				value_col = _("ask at runtime");
+			}
+			else
+			{
+				value = atp_variable_get_value_from_id (variable, i);
+				value_col = (value == NULL) ? _("undefined") : value;
+			}
 			gtk_list_store_append (GTK_LIST_STORE(model), &iter);
 			gtk_list_store_set (GTK_LIST_STORE(model), &iter,
 				ATP_VARIABLE_NAME_COLUMN,
@@ -468,10 +485,36 @@ atp_clear_tool_editor(ATPToolEditor* ted)
 }
 
 static void
+atp_update_sensitivity(ATPToolEditor *ted)
+{
+	gboolean en;
+
+	en = gtk_toggle_button_get_active (ted->terminal_tb);
+
+	gtk_widget_set_sensitive((GtkWidget *) ted->output_com, !en);
+	gtk_widget_set_sensitive((GtkWidget *) ted->error_com, !en);
+}
+
+static
+atp_editor_update_shortcut (ATPToolEditor* ted)
+{
+	if (ted->shortcut != NULL)
+	{
+		gtk_button_set_label (GTK_BUTTON (ted->shortcut_bt), ted->shortcut);
+	}
+	else
+	{
+		gtk_button_set_label (GTK_BUTTON (ted->shortcut_bt), _("Disabled"));
+	}
+}
+
+static void
 atp_populate_tool_editor(ATPToolEditor* ted)
 {
 	int pos;
 	const gchar* value;
+	guint accel_key;
+	GdkModifierType accel_mods;
 
 	g_return_if_fail (ted != NULL);
 
@@ -508,6 +551,19 @@ atp_populate_tool_editor(ATPToolEditor* ted)
 
 	set_combo_box_value (ted->output_com, _(atp_get_string_from_output_type (atp_user_tool_get_output (ted->tool))));
 	set_combo_box_value (ted->error_com, _(atp_get_string_from_output_type (atp_user_tool_get_error (ted->tool))));
+
+	if (ted->shortcut != NULL) g_free (ted->shortcut);
+	if (atp_user_tool_get_accelerator (ted->tool, &accel_key, &accel_mods))
+	{
+		ted->shortcut = gtk_accelerator_name (accel_key, accel_mods);
+	}
+	else
+	{
+		ted->shortcut = NULL;
+	}
+	atp_editor_update_shortcut (ted);
+
+	gnome_icon_entry_set_filename (ted->icon_en, atp_user_tool_get_icon (ted->tool));
 	
 	#if 0
 	if (ted->tool->location)
@@ -558,16 +614,7 @@ atp_populate_tool_editor(ATPToolEditor* ted)
 	#endif
 }
 
-static void
-atp_update_sensitivity(ATPToolEditor *ted)
-{
-	gboolean en;
 
-	en = gtk_toggle_button_get_active (ted->terminal_tb);
-
-	gtk_widget_set_sensitive((GtkWidget *) ted->output_com, !en);
-	gtk_widget_set_sensitive((GtkWidget *) ted->error_com, !en);
-}
 
 #if 0
 
@@ -1056,7 +1103,7 @@ atp_tool_editor_fill_from_gui(ATPToolEditor *this)
 #endif
 
 static void
-on_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
+on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 {
 	ATPToolEditor *ted = (ATPToolEditor *)user_data;
 
@@ -1070,6 +1117,8 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 	const gchar* name;
 	const gchar* data;
 	gchar* value;
+	guint accel_key;
+	GdkModifierType accel_mods;
 
 	if (response == GTK_RESPONSE_OK)
 	{
@@ -1113,6 +1162,21 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		value = get_combo_box_value (ted->error_com);	
 		atp_user_tool_set_error (ted->tool, atp_get_output_type_from_string (value));
 		g_free (value);	
+
+		if (ted->shortcut == NULL)
+		{
+			accel_key = 0;
+			accel_mods = 0;
+		}
+		else
+		{
+			gtk_accelerator_parse (ted->shortcut, &accel_key, &accel_mods);
+		}
+		atp_user_tool_set_accelerator (ted->tool, accel_key, accel_mods);
+
+		value = gnome_icon_entry_get_filename (ted->icon_en);	
+		atp_user_tool_set_icon (ted->tool, value);
+		g_free (value);	
 	}
 
 	atp_tool_dialog_refresh (ted->parent, name);
@@ -1133,6 +1197,90 @@ on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 
 	atp_variable_dialog_show (&this->dir_var, ATP_DIRECTORY);
+}
+
+static gboolean
+on_editor_get_keys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+{
+	ATPToolEditor *ted = (ATPToolEditor*)user_data;
+  	GdkDisplay *display;
+  	guint accel_key;
+	GdkModifierType	accel_mods;
+  	GdkModifierType consumed_mods;
+	gboolean delete = FALSE;
+	gboolean edited = FALSE;
+
+  	switch (event->keyval)
+    	{
+	case GDK_Shift_L:
+	case GDK_Shift_R:
+	case GDK_Control_L:
+	case GDK_Control_R:
+	case GDK_Alt_L:
+	case GDK_Alt_R:
+		return TRUE;
+	case GDK_Escape:
+		break;
+	case GDK_Delete:
+	case GDK_KP_Delete:
+	case GDK_BackSpace:
+		delete = TRUE;
+		break;
+	default:
+  		display = gtk_widget_get_display (widget);
+		gdk_keymap_translate_keyboard_state (gdk_keymap_get_for_display (display),
+                                       event->hardware_keycode,
+                                       event->state,
+                                       event->group,
+                                       NULL, NULL, NULL, &consumed_mods);
+
+		accel_key = gdk_keyval_to_lower (event->keyval);
+		accel_mods = (event->state & gtk_accelerator_get_default_mod_mask () & ~consumed_mods);
+
+		/* If lowercasing affects the keysym, then we need to include SHIFT
+		* in the modifiers, We re-upper case when we match against the
+		* keyval, but display and save in caseless form.
+		*/
+		if (accel_key != event->keyval)
+			accel_mods |= GDK_SHIFT_MASK;
+
+		edited = gtk_accelerator_valid (accel_key, accel_mods);
+		break;
+	}
+
+	if (delete || edited)
+	{
+		/* Remove previous shortcut */
+		if (ted->shortcut != NULL) g_free (ted->shortcut);
+
+		/* Set new one */
+		ted->shortcut = delete ? NULL : gtk_accelerator_name (accel_key, accel_mods);
+	}
+	
+	gtk_toggle_button_set_active (ted->shortcut_bt, FALSE);
+
+	return TRUE;
+}
+
+static void
+on_editor_shortcut_toggle (GtkToggleButton *tb, gpointer user_data)
+{
+	ATPToolEditor *ted = (ATPToolEditor *)user_data;
+
+	if (gtk_toggle_button_get_active (tb))
+	{
+		gtk_grab_add(GTK_WIDGET(tb));
+
+  		g_signal_connect (G_OBJECT (tb), "key_press_event", G_CALLBACK (on_editor_get_keys), ted);
+  		gtk_button_set_label (GTK_BUTTON (tb), _("New accelerator..."));
+	}
+	else
+	{
+		g_signal_handlers_disconnect_by_func (G_OBJECT (ted->shortcut_bt), G_CALLBACK (on_editor_get_keys), ted);
+		gtk_grab_remove (GTK_WIDGET(ted->shortcut_bt));
+
+		atp_editor_update_shortcut (ted);
+	}
 }
 
 gboolean
@@ -1163,6 +1311,8 @@ atp_tool_editor_show (ATPToolEditor* ted)
 	ted->autosave_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_AUTOSAVE);
 	ted->output_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_OUTPUT);
 	ted->error_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_ERROR);
+	ted->shortcut_bt = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_SHORTCUT);
+	ted->icon_en = (GnomeIconEntry *) glade_xml_get_widget(xml, TOOL_ICON);
 
 	/* Add combox box value */
 	gtk_combo_box_append_text (ted->error_com, _(atp_get_string_from_output_type (0)));	
@@ -1171,7 +1321,6 @@ atp_tool_editor_show (ATPToolEditor* ted)
 		gtk_combo_box_append_text (ted->output_com, _(atp_get_string_from_output_type (i)));
 		gtk_combo_box_append_text (ted->error_com, _(atp_get_string_from_output_type (i)));	
 	}
-
 
 	#if 0
 	ted->detached_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_DETACHED);
@@ -1205,8 +1354,8 @@ atp_tool_editor_show (ATPToolEditor* ted)
 	glade_xml_signal_connect_data (xml, EDITOR_RESPONSE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_response), ted);
 	glade_xml_signal_connect_data (xml, EDITOR_PARAM_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_param_variable_show), ted);
 	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_dir_variable_show), ted);
-
-	g_signal_connect (G_OBJECT (ted->terminal_tb), "toggled", G_CALLBACK (on_terminal_toggle), ted);
+	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SHORCUT_SIGNAL, GTK_SIGNAL_FUNC (on_editor_shortcut_toggle), ted);
+	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_TERMINAL_SIGNAL, GTK_SIGNAL_FUNC (on_editor_terminal_toggle), ted);
 
 	#if 0
 	g_signal_connect (G_OBJECT (ted->dialog), "delete_event",
@@ -1261,6 +1410,8 @@ atp_tool_editor_free (ATPToolEditor *this)
 
 	atp_variable_dialog_destroy (&this->param_var);
 	atp_variable_dialog_destroy (&this->dir_var);
+
+	if (this->shortcut != NULL) g_free (this->shortcut);
 
 	if (this->owner == NULL)
 	{

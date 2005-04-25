@@ -26,6 +26,9 @@
 #include <config.h>
 
 #include "tool.h"
+
+#include <libanjuta/anjuta-ui.h>
+
 #include "execute.h"
 
 /*---------------------------------------------------------------------------*/
@@ -45,6 +48,9 @@ struct _ATPUserTool
 	ATPOutputType error;
 	ATPToolStore storage;
 	GtkWidget* menu_item;
+	guint accel_key;
+	GdkModifierType accel_mods;
+	gchar *icon;
 	guint position;
 	ATPToolList *owner;
 	ATPUserTool *over;
@@ -80,6 +86,7 @@ static struct
 , {"Replace buffer"}
 , {"Insert in buffer"}
 , {"Append in buffer"}
+, {"Replace selection"}
 , {"Popup dialog"}
 , {"Discard output"}
 };
@@ -115,9 +122,9 @@ atp_get_output_type_from_string (const gchar* type)
  *---------------------------------------------------------------------------*/
 
 ATPToolList *
-atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin, GtkMenu* menu)
+atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin, AnjutaUI *ui)
 {
-	this->menu = menu;
+	this->ui = ui;
 	this->plugin = plugin;
 	/*memset (this->list, 0, sizeof(this->list)); */
 	this->list = NULL;
@@ -472,10 +479,15 @@ ATPUserTool* atp_tool_list_first (ATPToolList *this)
 gboolean atp_tool_list_activate (ATPToolList *this)
 {
 	ATPUserTool *next;
+	GtkMenu* menu;
+	GtkAccelGroup* group;
+
+	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(this->ui), MENU_PLACEHOLDER))));
+	group = anjuta_ui_get_accel_group(this->ui);
 
 	for (next = this->list; next != NULL; next = atp_user_tool_next (next))
 	{
-		atp_user_tool_activate (next, this->menu);
+		atp_user_tool_activate (next, menu, group);
 	}
 
 	return TRUE;
@@ -602,6 +614,32 @@ atp_user_tool_get_error (const ATPUserTool *this )
 	return this->error;
 }
 
+void
+atp_user_tool_set_accelerator (ATPUserTool *this, guint key, GdkModifierType mods)
+{
+	this->accel_key = key;
+	this->accel_mods = mods;
+}
+
+gboolean
+atp_user_tool_get_accelerator (const ATPUserTool *this, guint *key, GdkModifierType *mods)
+{
+	*key = this->accel_key;
+	*mods = this->accel_mods;
+
+	return this->accel_key != 0;
+}
+
+void atp_user_tool_set_icon (ATPUserTool *this, const gchar* value)
+{
+	this->icon = value == NULL ? NULL : g_string_chunk_insert_const (this->owner->string_pool, value);
+}
+
+const gchar* atp_user_tool_get_icon (ATPUserTool *this)
+{
+	return this->icon;
+}
+
 ATPPlugin*
 atp_user_tool_get_plugin (ATPUserTool* this)
 {
@@ -683,16 +721,48 @@ atp_user_tool_in (ATPUserTool *this, ATPToolStore storage)
 }
 
 gboolean
-atp_user_tool_activate (ATPUserTool *this, GtkMenu* submenu)
+atp_user_tool_activate (ATPUserTool *this, GtkMenu *submenu, GtkAccelGroup *group)
 {
+	/* Remove previous menu */
 	if (this->menu_item != NULL)
 	{
+		/* destroy signal and icon at the same time */
 		gtk_widget_destroy (this->menu_item);
 	}
 
-	this->menu_item = gtk_menu_item_new_with_mnemonic (this->name);
+	/* Create new menu item */
+	this->menu_item = gtk_image_menu_item_new_with_mnemonic (this->name);
 	gtk_widget_set_sensitive (this->menu_item, this->flags & ATP_TOOL_ENABLE);
+
+	/* Add icon */
+	if ((this->menu_item != NULL) && (this->icon != NULL))
+	{
+		GdkPixbuf *pixbuf;
+	       	GdkPixbuf *scaled_pixbuf;
+		gint height, width;
+			
+		gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (this->menu_item), GTK_ICON_SIZE_MENU, &width, &height);
+
+		pixbuf = gdk_pixbuf_new_from_file (this->icon, NULL);
+		if (pixbuf)
+		{
+			GtkWidget* icon;
+
+			scaled_pixbuf = gdk_pixbuf_scale_simple (pixbuf, width, height, GDK_INTERP_BILINEAR);
+			icon = gtk_image_new_from_pixbuf (scaled_pixbuf);
+			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (this->menu_item), icon);
+                	g_object_unref (pixbuf);
+			g_object_unref (scaled_pixbuf);
+		}
+	}
+
 	g_signal_connect (G_OBJECT (this->menu_item), "activate", G_CALLBACK (atp_user_tool_execute), this);
+
+	if (this->accel_key != 0)
+	{
+		gtk_widget_add_accelerator(this->menu_item, "activate", group, this->accel_key, this->accel_mods, GTK_ACCEL_VISIBLE);
+	}
+
 	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), this->menu_item);
 	gtk_widget_show(this->menu_item);
 

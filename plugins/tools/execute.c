@@ -110,6 +110,7 @@ save_all_files (AnjutaPlugin *plugin)
 
 	save = FALSE;	
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaDocumentManager, NULL);
+	/* No document manager, so no file to save */
 	if (docman == NULL) return FALSE;
 
 	for (node = ianjuta_document_manager_get_editors (docman, NULL); node != NULL; node = g_list_next (node))
@@ -207,13 +208,12 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 		}
 		break;
 	case ATP_NEW_BUFFER:
-		ianjuta_editor_append (this->editor, text, strlen(text), NULL);
-		break;
 	case ATP_REPLACE_BUFFER:
-		/* TODO: I don't know how to do this */
+		ianjuta_editor_append (this->editor, text, strlen(text), NULL);
 		break;
 	case ATP_INSERT_BUFFER:
 	case ATP_APPEND_BUFFER:
+	case ATP_REPLACE_SELECTION:	
 	case ATP_POPUP_DIALOG:
 		g_string_append (this->buffer, text);	
 		break;
@@ -244,6 +244,7 @@ atp_output_context_print_command (ATPOutputContext *this, const gchar* command)
 	case ATP_REPLACE_BUFFER:
 	case ATP_INSERT_BUFFER:
 	case ATP_APPEND_BUFFER:
+	case ATP_REPLACE_SELECTION:
 	case ATP_POPUP_DIALOG:
 		/* Do nothing for all these cases */
 		break;
@@ -302,18 +303,24 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
+	case ATP_REPLACE_SELECTION:
+		ianjuta_editor_replace_selection (this->editor, this->buffer->str, this->buffer->len, NULL);
+		g_string_free (this->buffer, TRUE);
+		this->buffer = NULL;
+		break;
 	case ATP_POPUP_DIALOG:
 		if (this->buffer->len)
 		{
 			if (this == &this->execution->output)
 			{
-				anjuta_util_dialog_error (NULL, this->buffer->str);
+				anjuta_util_dialog_info (NULL, this->buffer->str);
 			}
 			else
 			{
-				anjuta_util_dialog_info (NULL, this->buffer->str);
+				anjuta_util_dialog_error (NULL, this->buffer->str);
 			}
 			g_string_free (this->buffer, TRUE);
+			this->buffer = NULL;
 		}
 		break;
 	}
@@ -327,6 +334,7 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 	IAnjutaDocumentManager *docman;
 	IAnjutaEditor *ed;
 
+	this->type = type;
 	switch (this->type)
 	{
 	case ATP_NULL:
@@ -336,16 +344,29 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 	case ATP_NEW_MESSAGE:
 		this->created = FALSE;
 		break;
+	case ATP_REPLACE_BUFFER:
+		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
+		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+		if (this->editor != NULL)
+		{
+			ianjuta_editor_erase_all (this->editor, NULL);
+			break;
+		}
+		/* Go through, try to create a new buffer */
 	case ATP_NEW_BUFFER:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
-		this->editor = ianjuta_document_manager_add_buffer (docman, this->execution->name,"", NULL);
-	case ATP_REPLACE_BUFFER:
-		/* TODO: I don't know how to do this */
+		this->editor = docman == NULL ? NULL : ianjuta_document_manager_add_buffer (docman, this->execution->name,"", NULL);
+		if (this->editor == NULL)
+		{
+			anjuta_util_dialog_warning (NULL, _("Unable to create a buffer, command aborted"));
+			return NULL;
+		}
 		break;
 	case ATP_INSERT_BUFFER:
 	case ATP_APPEND_BUFFER:
+	case ATP_REPLACE_SELECTION:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
-		this->editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 		if (this->editor == NULL)
 		{
 			anjuta_util_dialog_warning (NULL, _("No document currently open, command aborted"));
@@ -373,7 +394,6 @@ static ATPOutputContext*
 atp_output_context_construct (ATPOutputContext *this, ATPExecutionContext *execution, ATPOutputType type)
 {
 
-	this->type = type;
 	this->execution = execution;
 	this->view = NULL;
 	this->buffer = NULL;
@@ -483,8 +503,6 @@ atp_execution_context_free (ATPExecutionContext* this)
 
 	if (this->launcher)
 	{
-		if (anjuta_launcher_is_busy (this->launcher))
-			anjuta_launcher_reset (this->launcher);
 		g_object_unref (this->launcher);
 	}
 	if (this->name) g_free (this->name);
@@ -497,6 +515,7 @@ atp_execution_context_execute (ATPExecutionContext* this, const gchar* command)
 {
 	atp_output_context_print_command (&this->output, command);
 	anjuta_launcher_execute (this->launcher, command, on_run_output, this);
+	anjuta_launcher_set_encoding (this->launcher, NULL);
 	this->busy = TRUE;
 }
 

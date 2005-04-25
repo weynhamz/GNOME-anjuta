@@ -27,6 +27,8 @@
 
 #include "variable.h"
 
+#include <libanjuta/anjuta-utils.h>
+
 #include <libgnomevfs/gnome-vfs.h>
 
 #include <glib/gi18n.h>
@@ -49,6 +51,7 @@ enum {
 	ATP_FILE_MANAGER_CURRENT_FILENAME,
 	ATP_FILE_MANAGER_CURRENT_BASENAME,
 	ATP_FILE_MANAGER_CURRENT_EXTENSION,
+	ATP_ASK_USER_STRING,
 	ATP_VARIABLE_COUNT
 		
 };
@@ -67,6 +70,7 @@ static const struct
 , {"file_manager_current_filename", "selected file manager file name", ATP_DEFAULT }
 , {"file_manager_current_basename", "selected file manager file name without extension", ATP_DEFAULT }
 , {"file_manager_current_extension", "selected file manager file extension", ATP_DEFAULT }
+, {"ask_user_string", "ask the user to get additional parameters", ATP_INTERACTIVE }
 #if 0
   {CURRENT_FULL_FILENAME_WITH_EXT, "Current full filename with extension" }
 , {CURRENT_FULL_FILENAME, "Current full filename without extension" }
@@ -439,6 +443,12 @@ atp_variable_get_value_from_id (const ATPVariable* this, guint id)
 			return val;
 		}
 		return path;
+	case ATP_ASK_USER_STRING:
+		val = NULL;
+		anjuta_util_dialog_input (NULL, _("Command line parameters"), &val);
+		if (val == NULL) val = g_new0 (gchar, 1);
+
+		return val;
 	default:
 		return NULL;
 	}

@@ -148,49 +148,6 @@ static GtkActionEntry actions_tools[] = {
 /* Access plugin variable
  *---------------------------------------------------------------------------*/
 
-/*GtkDialog*
-atp_plugin_get_dialog (const ATPPlugin* this)
-{
-	return this->dialog;
-}
-
-void
-atp_plugin_set_dialog (ATPPlugin* this, GtkDialog* dialog)
-{
-	if (this->dialog != NULL) gtk_widget_destroy (GTK_WIDGET(this->dialog));
-
-	this->dialog = dialog;
-}
-
-void
-atp_plugin_show_dialog (const ATPPlugin* this)
-{
-	gtk_widget_show (GTK_WIDGET(this->dialog));
-	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), GTK_WINDOW (ANJUTA_PLUGIN (this)->shell));
-}
-
-void
-atp_plugin_close_dialog (ATPPlugin *this)
-{
-	gtk_widget_destroy (GTK_WIDGET(this->dialog));
-	this->dialog = NULL;
-	this->view = NULL;
-}
-
-GtkTreeView*
-atp_plugin_get_treeview (const ATPPlugin* this)
-{
-	return this->view;
-}
-
-void
-atp_plugin_set_treeview (ATPPlugin* this, GtkTreeView* view)
-{
-	if (this->view != NULL) gtk_widget_destroy (GTK_WIDGET(view));
-
-	this->view = view;
-}*/
-
 GtkWindow*
 atp_plugin_get_app_window (const ATPPlugin *this)
 {
@@ -263,10 +220,10 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	/* Load tools */
-	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), "/MenuMain/PlaceHolderBuildMenus/Tools"))));
-	atp_tool_list_construct (&this->list, this, menu);
-	atp_anjuta_tools_load (this);
+	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), MENU_PLACEHOLDER))));
 	sep = gtk_separator_menu_item_new();
+	atp_tool_list_construct (&this->list, this, ui);
+	atp_anjuta_tools_load (this);
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), sep);
 	gtk_widget_show (sep);
 	
@@ -314,66 +271,3 @@ atp_plugin_class_init (GObjectClass *klass)
 
 ANJUTA_PLUGIN_BOILERPLATE (ATPPlugin, atp_plugin);
 ANJUTA_SIMPLE_PLUGIN (ATPPlugin, atp_plugin);
-
-/* Control access to anjuta message view to avoid a closed view
- *---------------------------------------------------------------------------*/
-
-/*static void
-on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
-						 ATPPlugin *this)
-{
-	atp_plugin_print_view (this, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line, "");
-}
-
-IAnjutaMessageView* 
-atp_plugin_create_view (ATPPlugin* this)
-{
-	if (this->view == NULL)
-	{
-		IAnjutaMessageManager* man;
-
-		man = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaMessageManager, NULL);
-		this->view = ianjuta_message_manager_add_view (man, _("Anjuta Tools"), ICON_FILE, NULL);
-		if (this->view != NULL)
-		{
-			g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
-							  G_CALLBACK (on_message_buffer_flush), this);
-			g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
-		}
-	}
-	else
-	{
-		ianjuta_message_view_clear (this->view, NULL);
-	}
-
-	return this->view;
-}
-
-void
-atp_plugin_append_view (ATPPlugin* this, const gchar* text)
-{
-	if (this->view)
-	{
-		ianjuta_message_view_buffer_append (this->view, text, NULL);
-	}
-}
-
-void
-atp_plugin_print_view (ATPPlugin* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details)
-{
-	if (this->view)
-	{
-		ianjuta_message_view_append (this->view, type, summary, details, NULL);
-	}
-}
-
-AnjutaLauncher*
-atp_plugin_get_launcher (ATPPlugin* this)
-{
-	if (this->launcher == NULL)
-	{
-		this->launcher = anjuta_launcher_new ();
-	}
-
-	return this->launcher;
-}*/

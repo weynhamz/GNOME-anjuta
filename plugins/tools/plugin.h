@@ -29,6 +29,12 @@
 
 #include "variable.h"
 
+/*---------------------------------------------------------------------------*/
+
+#define MENU_PLACEHOLDER "/MenuMain/PlaceHolderToolMenus/Tools"
+
+/*---------------------------------------------------------------------------*/
+
 typedef struct _ATPPlugin ATPPlugin;
 typedef struct _ATPPluginClass ATPPluginClass;
 

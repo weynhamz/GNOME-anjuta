@@ -24,6 +24,7 @@
 		<placeholder name="PlaceHolderProjectMenus"/>
 		<placeholder name="PlaceHolderFormatMenus"/>
 		<placeholder name="PlaceHolderBuildMenus"/>
+		<placeholder name="PlaceHolderToolMenus"/>
 		<placeholder name="PlaceHolderDesignerMenus"/>
 		<placeholder name="PlaceHolderDebugMenus"/>
 		<placeholder name="PlaceHolderVersionControlMenus"/>

@@ -56,6 +56,8 @@ typedef enum {
 	ATP_TERMINAL_TAG,
 	ATP_OUTPUT_TAG,
 	ATP_ERROR_TAG,
+	ATP_SHORTCUT_TAG,
+	ATP_ICON_TAG,
 	ATP_UNKNOW_TAG
 } ATPTag;
 
@@ -112,6 +114,14 @@ parse_tag (const gchar* name)
 	else if (strcmp ("error", name) == 0)
 	{
 		return ATP_ERROR_TAG;
+	}
+	else if (strcmp ("shortcut", name) == 0)
+	{
+		return ATP_SHORTCUT_TAG;
+	}	
+	else if (strcmp ("icon", name) == 0)
+	{
+		return ATP_ICON_TAG;
 	}	
 	else
 	{
@@ -280,6 +290,8 @@ parse_tool_start (GMarkupParseContext* context,
 			case ATP_TERMINAL_TAG:
 			case ATP_OUTPUT_TAG:
 			case ATP_ERROR_TAG:
+			case ATP_SHORTCUT_TAG:
+			case ATP_ICON_TAG:
 				known = TRUE;
 				break;
 			case ATP_UNKNOW_TAG:
@@ -349,6 +361,8 @@ parse_tool_text (GMarkupParseContext* context,
 	GError** error)
 {
 	ATPToolParser* parser = (ATPToolParser*)data;
+	guint accel_key;
+	GdkModifierType accel_mods;
 
 	if (parser->unknown == 0)
 	{
@@ -388,6 +402,16 @@ parse_tool_text (GMarkupParseContext* context,
 		case ATP_ERROR_TAG:
 			g_return_if_fail (parser->tool);
 			atp_user_tool_set_error (parser->tool, parse_integer_string (text));
+			break;
+		case ATP_SHORTCUT_TAG:
+			g_return_if_fail (parser->tool);
+			gtk_accelerator_parse (text, &accel_key, &accel_mods);
+			atp_user_tool_set_accelerator (parser->tool, accel_key, accel_mods);
+			break;
+		case ATP_ICON_TAG:
+			g_return_if_fail (parser->tool);
+
+			atp_user_tool_set_icon (parser->tool, text);
 			break;
 		case ATP_ANJUTA_TOOLS_TAG:
 		case ATP_TOOL_TAG:
@@ -574,11 +598,26 @@ write_xml_integer (gint value, const gchar* tag, gchar** head, FILE *f)
 	return write_xml_string (buffer, tag, head, f);
 }
 
+static gboolean
+write_xml_accelerator (guint key, GdkModifierType mods, const gchar* tag, gchar** head, FILE *f)
+{
+	gchar* value;
+	gboolean ok;
+
+	value = gtk_accelerator_name (key, mods);
+	ok = write_xml_string (value, tag, head, f);
+	g_free (value);
+
+	return ok;
+}
+
 /* Writes tool information to the given file in xml format */
 static gboolean
 atp_user_tool_save (ATPUserTool *tool, FILE *f)
 {
 	gchar* head;
+	guint key;
+	GdkModifierType mask;
 
 	head = g_strdup_printf ("\t<tool name=\"%s\">\n", atp_user_tool_get_name (tool));
 
@@ -590,6 +629,9 @@ atp_user_tool_save (ATPUserTool *tool, FILE *f)
 	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_TERMINAL), "run_in_terminal", &head, f);
 	write_xml_integer (atp_user_tool_get_output (tool), "output", &head, f);
 	write_xml_integer (atp_user_tool_get_error (tool), "error", &head, f);
+	atp_user_tool_get_accelerator (tool, &key, &mask);
+	write_xml_accelerator (key, mask, "shortcut", &head, f);
+	write_xml_string (atp_user_tool_get_icon (tool), "icon", &head, f);
 
 	#if 0
 	NUMWRITE(file_level)

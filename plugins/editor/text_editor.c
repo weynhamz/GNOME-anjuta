@@ -2124,6 +2124,28 @@ itext_editor_append (IAnjutaEditor *editor, const gchar *txt,
 	g_free (text_to_insert);
 }
 
+static void
+itext_editor_replace_selection (IAnjutaEditor *editor, const gchar *txt,
+					 gint length, GError **e)
+{
+	gchar *text_to_insert;
+	if (length >= 0)
+		text_to_insert = g_strndup (txt, length);
+	else
+		text_to_insert = g_strdup (txt);
+	
+	text_editor_replace_selection (TEXT_EDITOR (editor), text_to_insert);
+
+	g_free (text_to_insert);
+}
+
+static void
+itext_editor_erase_all (IAnjutaEditor *editor, GError **e)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla), SCI_CLEARALL,
+							0, 0);
+}
+
 static const gchar *
 itext_editor_get_filename (IAnjutaEditor *editor, GError **e)
 {
@@ -2137,6 +2159,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
 	iface->get_selection = itext_editor_get_selection;
+	iface->replace_selection = itext_editor_replace_selection;
 	iface->get_attributes = itext_editor_get_attributes;
 	iface->get_position = itext_editor_get_position;
 	iface->get_lineno = itext_editor_get_lineno;
@@ -2144,6 +2167,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
 	iface->append = itext_editor_append;
+	iface->erase_all = itext_editor_erase_all;
 	iface->get_filename = itext_editor_get_filename;
 }
 

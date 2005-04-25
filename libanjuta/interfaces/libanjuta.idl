@@ -307,12 +307,14 @@ interface IAnjutaEditor
 	// Signals.
 	void   ::char_added (gint position, gchar ch);
 	void   ::update_ui ();
-	
+
+	void   erase_all ();	
 	void   insert (int position, const gchar *text, gint length);
 	void   append (const gchar *text, gint length);
 	void   goto_line (gint lineno);
 	void   goto_position (gint position);
 	gchar* get_selection ();
+	void   replace_selection (const gchar *text, gint length);
 	gchar* get_text (gint start, gint end);
 	gchar* get_attributes (gint start, gint end);
 	gint   get_position ();

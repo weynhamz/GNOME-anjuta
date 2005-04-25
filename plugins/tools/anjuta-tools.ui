@@ -1,7 +1,7 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
-		<placeholder name="PlaceHolderBuildMenus">
+		<placeholder name="PlaceHolderToolMenus">
 		<menu name="Tools" action="ActionMenuTools">
 				<menuitem name="Configure" action="ActionConfigureTools" />
 				<separator name="separator1" />

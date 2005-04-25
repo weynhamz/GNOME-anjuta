@@ -30,6 +30,7 @@ typedef AnjutaShell* ATPVariable;
 typedef enum {
 	ATP_DEFAULT = 0,
 	ATP_DIRECTORY = 1 << 1,
+	ATP_INTERACTIVE = 1 << 2,
 	ATP_NONE = 1 << 15
 } ATPFlags;
 	

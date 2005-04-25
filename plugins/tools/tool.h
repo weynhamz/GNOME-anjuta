@@ -21,10 +21,11 @@
 #ifndef __TOOL_H__
 #define __TOOL_H__
 
-#include <glib.h>
+#include "plugin.h"
+
 #include <gtk/gtk.h>
 
-#include "plugin.h"
+#include <glib.h>
 
 /** Defines how output should be handled */
 typedef enum _ATPOutputType
@@ -37,6 +38,7 @@ typedef enum _ATPOutputType
 	ATP_REPLACE_BUFFER,
 	ATP_INSERT_BUFFER,
 	ATP_APPEND_BUFFER,
+	ATP_REPLACE_SELECTION,
 	ATP_POPUP_DIALOG,
 	ATP_NULL,
 	ATP_OUTPUT_TYPE_COUNT
@@ -95,7 +97,7 @@ struct _ATPToolList
 	GHashTable* hash;
 	GStringChunk* string_pool ;
 	GMemChunk* data_pool;
-	GtkMenu* menu;
+	AnjutaUI* ui;
 	ATPUserTool* list;
 	ATPPlugin* plugin;
 };
@@ -126,9 +128,16 @@ ATPOutputType atp_user_tool_get_output (const ATPUserTool *this);
 void atp_user_tool_set_error (ATPUserTool *this, ATPOutputType type);
 ATPOutputType atp_user_tool_get_error (const ATPUserTool *this);
 
+void atp_user_tool_set_accelerator (ATPUserTool *this, guint key, GdkModifierType mods);
+gboolean atp_user_tool_get_accelerator (const ATPUserTool *this, guint *key, GdkModifierType *mods);
+
+void atp_user_tool_set_icon (ATPUserTool *this, const gchar* value);
+const gchar* atp_user_tool_get_icon (ATPUserTool *this);
+	
+
 ATPPlugin* atp_user_tool_get_plugin (ATPUserTool* this);
 
-gboolean atp_user_tool_activate (ATPUserTool* this, GtkMenu* submenu);
+gboolean atp_user_tool_activate (ATPUserTool* this, GtkMenu* submenu, GtkAccelGroup* group);
 
 ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATPToolStore storage);
 
@@ -138,7 +147,7 @@ ATPUserTool *atp_user_tool_in (ATPUserTool* this, ATPToolStore storage);
 
 
 
-ATPToolList *atp_tool_list_construct (ATPToolList *this, ATPPlugin* plugin, GtkMenu* menu);
+ATPToolList *atp_tool_list_construct (ATPToolList *this, ATPPlugin* plugin, AnjutaUI* ui);
 void atp_tool_list_destroy (ATPToolList *this);
 
 ATPUserTool* atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore storage);
