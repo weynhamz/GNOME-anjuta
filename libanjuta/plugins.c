@@ -1344,6 +1344,19 @@ anjuta_plugins_query (AnjutaShell *shell,
 	GSList *selected_plugins = NULL;
 	GSList *available = available_tools;
 	
+	if (section_name == NULL)
+	{
+		/* If no query is given, select all plugins */
+		while (available)
+		{
+			AvailableTool *tool = available->data;
+			AnjutaPluginDescription *desc = tool->description;
+			selected_plugins = g_slist_prepend (selected_plugins, desc);
+			available = g_slist_next (available);
+		}
+		return g_slist_reverse (selected_plugins);
+	}
+	
 	g_return_val_if_fail (section_name != NULL, NULL);
 	g_return_val_if_fail (attribute_name != NULL, NULL);
 	g_return_val_if_fail (attribute_value != NULL, NULL);

@@ -23,6 +23,8 @@
 #endif
 
 #include <gnome.h>
+#include <libanjuta/plugins.h>
+
 #include "about.h"
 
 #define ANJUTA_PIXMAP_LOGO			"anjuta_logo2.png"
@@ -35,7 +37,8 @@ const gchar *documenters[MAX_CREDIT];
 gchar *translators;
 
 
-gchar *about_read_line(FILE *fp)
+static gchar*
+about_read_line(FILE *fp)
 {
 	static gchar tpn[MAX_CAR];
 	char *pt;
@@ -160,8 +163,6 @@ about_free_credit(void)
 	g_free(translators);
 }
 
-
-
 GtkWidget *
 about_box_new ()
 {
@@ -201,4 +202,85 @@ about_box_new ()
 	/* Free authors, documenters, translators */
 	about_free_credit();
 	return dialog;
+}
+
+static void
+on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
+{
+	gchar *name = NULL;
+	gchar *authors = NULL;
+	gchar **authors_v = NULL;
+	gchar *icon = NULL;
+	gchar *d = NULL;
+	GdkPixbuf *pix = NULL;
+	GtkWidget *dialog;
+	
+	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+										  "Name", &name);
+	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+										  "Description", &d);
+	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+										  "Icon", &icon);
+	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+										  "Authors", &authors);
+	if (icon)
+	{
+		gchar *path = g_build_filename (PACKAGE_PIXMAPS_DIR, icon, NULL);
+		pix = gdk_pixbuf_new_from_file (path, NULL);
+		g_free (path);
+	}
+	if (authors)
+	{
+		authors_v = g_strsplit(authors, ",", -1);
+	}
+	dialog = gnome_about_new (name, VERSION, _("Anjuta plugin"), d,
+							  authors_v, NULL, NULL, pix);
+	gtk_widget_show (dialog);
+	g_object_unref (pix);
+	g_strfreev (authors_v);
+	g_free (name);
+	g_free (d);
+	g_free (authors);
+	g_free (icon);
+}
+
+void
+about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
+{
+	GtkWidget *submenu;
+	GSList *plugin_descs, *node;
+	
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	g_return_if_fail (GTK_IS_MENU_ITEM (menuitem));
+	
+	submenu = gtk_menu_new ();
+	gtk_widget_show (submenu);
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
+	
+	plugin_descs = anjuta_plugins_query (shell, NULL, NULL, NULL, NULL);
+	node = plugin_descs;
+	while (node)
+	{
+		gchar *label;
+		GtkWidget *item;
+		AnjutaPluginDescription *desc = node->data;
+		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Name", &label))
+		{
+			gchar *authors;
+			if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+													  "Authors", &authors))
+			{
+				item = gtk_menu_item_new_with_label (label);
+				gtk_widget_show (item);
+				g_signal_connect (G_OBJECT (item), "activate",
+								  G_CALLBACK (on_about_plugin_activate),
+								  desc);
+				gtk_menu_shell_append (GTK_MENU_SHELL (submenu), item);
+				g_free (authors);
+			}
+			g_free (label);
+		}
+		node = g_slist_next (node);
+	}
 }

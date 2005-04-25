@@ -1,3 +1,10 @@
+2005-04-23  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/plugins.c, src/about.c, src/about.h,
+	src/anjuta-actions.h, src/anjuta-app.c, src/anjuta.ui,
+	plugins/class-gen/anjuta-class-gen.plugin.in: Added about
+	plugins (about box for plugins) menu.
+
 2005-04-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	*  plugins/editor/search-replace.c :

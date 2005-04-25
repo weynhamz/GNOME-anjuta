@@ -43,6 +43,7 @@
 #include "anjuta-app.h"
 #include "anjuta-callbacks.h"
 #include "anjuta-actions.h"
+#include "about.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
 
@@ -362,7 +363,7 @@ static void
 anjuta_app_instance_init (AnjutaApp *app)
 {
 	gint merge_id;
-	GtkWidget *toolbar_menu;
+	GtkWidget *toolbar_menu, *about_menu;
 	GtkWidget *view_menu, *hbox;
 	GtkWidget *dockbar;
 	GdkGeometry size_hints = {
@@ -477,6 +478,12 @@ anjuta_app_instance_init (AnjutaApp *app)
 								  "/MenuMain/MenuView");
 	app->view_menu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (view_menu));
 	
+	/* Create about plugins menu */
+	about_menu = 
+		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
+								  "/MenuMain/PlaceHolderHelpMenus/MenuHelp/PlaceHolderHelpAbout/AboutPlugins");
+	about_create_plugins_submenu (ANJUTA_SHELL (app), about_menu);
+							  
 	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 								  GTK_WINDOW (app));
 	/*

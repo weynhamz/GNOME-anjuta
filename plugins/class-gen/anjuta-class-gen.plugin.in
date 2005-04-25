@@ -5,4 +5,3 @@ Location=anjuta-class-gen:AnjutaClassGenPlugin
 Icon=class_logo.xpm
 Interfaces=IAnjutaWizard
 UserActivatable=no
-Authors=Massimo Cora' <maxcvs@email.it>, Dave Huseby <huseby@linuxprogrammer.org>, Aaron Bockover <aaron@aaronbock.net>

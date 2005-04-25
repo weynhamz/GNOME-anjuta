@@ -21,6 +21,9 @@
 #ifndef __ABOUT_H__
 #define __ABOUT_H__
 
+#include <libanjuta/anjuta-shell.h>
+
 GtkWidget *about_box_new (void);
+void about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem);
 
 #endif

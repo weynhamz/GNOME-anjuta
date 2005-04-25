@@ -103,5 +103,9 @@ static GtkActionEntry menu_entries_help[] = {
   { "ActionAboutAnjuta", GNOME_STOCK_ABOUT,
     N_("_About"), NULL,
 	N_("About Anjuta"),
-    G_CALLBACK (on_about_activate)}
+    G_CALLBACK (on_about_activate)},
+  { "ActionAboutPlugins", GNOME_STOCK_ABOUT,
+    N_("About External _Plugins"), NULL,
+	N_("About third party Anjuta plugins"),
+    NULL}
 };
