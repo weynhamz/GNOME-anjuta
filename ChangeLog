@@ -1,4 +1,7 @@
-2005-04-24  Sebastien Granjoux  <seb.sfo@free.fr>
+2005-04-25  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/property.c:
+	Correct a memory leak
 
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/editor/text_editor.c:
@@ -27,7 +30,7 @@
 	Few clean up
 	Attach tools menu to a new place
 
-2005-04-23  Naba Kumar  <naba@gnome.org>
+2005-04-25  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/plugins.c, src/about.c, src/about.h,
 	src/anjuta-actions.h, src/anjuta-app.c, src/anjuta.ui,

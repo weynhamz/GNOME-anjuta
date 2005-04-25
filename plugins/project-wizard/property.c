@@ -331,39 +331,31 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 static gboolean
 npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 {
+	gchar* alloc_value = NULL;
 	const gchar* value = NULL;
+	gboolean ok;
 
 	switch (this->type)
 	{
 	case NPW_INTEGER_PROPERTY:
-		{
-			char buff[215];
-			gint int_value;
-			
-			int_value = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (this->widget));
-			snprintf (buff, 215, "%d", int_value);
-			value = buff;
-		}
+		alloc_value = g_strdup_printf("%d", gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (this->widget)));
+		value = alloc_value;
 		break;
 	case NPW_BOOLEAN_PROPERTY:
-		{
-			char buff[215];
-			gint int_value;
-			
-			int_value = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (this->widget));
-			snprintf (buff, 215, "%d", int_value);
-			value = buff;
-		}
+		alloc_value = g_strdup_printf("%d", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (this->widget)));
+		value = alloc_value;
 		break;
 	case NPW_STRING_PROPERTY:
 		value = gtk_entry_get_text (GTK_ENTRY (this->widget));
 		break;
 	case NPW_DIRECTORY_PROPERTY:
 	case NPW_FILE_PROPERTY:
-		value = gnome_file_entry_get_full_path (GNOME_FILE_ENTRY (this->widget), FALSE);
+		alloc_value = gnome_file_entry_get_full_path (GNOME_FILE_ENTRY (this->widget), FALSE);
+		value = alloc_value;
 		break;
 	case NPW_ICON_PROPERTY:
-		value = gnome_icon_entry_get_filename(GNOME_ICON_ENTRY(this->widget));
+		alloc_value = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (this->widget));
+		value = alloc_value;
 		break;
 	case NPW_LIST_PROPERTY:
 	{
@@ -392,7 +384,10 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 		tag |= NPW_DEFAULT_VALUE;
 	}
 	
-	return npw_value_heap_set_value (this->owner->value, this->value, value, tag);
+	ok = npw_value_heap_set_value (this->owner->value, this->value, value, tag);
+	if (alloc_value != NULL) g_free (alloc_value);
+
+	return ok;
 }
 
 gboolean
