@@ -1,5 +1,7 @@
 2005-04-26  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Updated.
+
 	* plugins/file-loader/plugin.c,
 	plugins/project-import/anjuta-project-import.plugin.in,
 	plugins/project-import/plugin.c,
