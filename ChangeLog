@@ -1,5 +1,8 @@
 2005-04-26  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/anjuta-shell.c: Remove widget from the queue also when
+	removing it from the shell.
+
 	* libanjuta/anjuta-shell.c,
 	libanjuta/anjuta-shell.h,
 	plugins/profile-default/plugin.c: Implemented freeze/thaw for shell
