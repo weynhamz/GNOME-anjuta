@@ -1,3 +1,8 @@
+
+# Plugin UI file
+build_gladedir = $(anjuta_glade_dir)
+build_glade_DATA = anjuta-build-basic-autotools-plugin.glade
+
 # Plugin UI file
 build_uidir = $(anjuta_ui_dir)
 build_ui_DATA = anjuta-build-basic-autotools-plugin.ui
@@ -33,7 +38,9 @@ plugin_LTLIBRARIES = libanjuta-build-basic-autotools.la
 # Plugin sources
 libanjuta_build_basic_autotools_la_SOURCES = \
 	build-basic-autotools.c \
-	build-basic-autotools.h
+	build-basic-autotools.h \
+	executer.c \
+	executer.h 
 
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \

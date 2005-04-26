@@ -33,6 +33,7 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 #include "build-basic-autotools.h"
+#include "executer.h"
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
@@ -810,6 +811,12 @@ build_distribution_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 }
 
 static void
+build_execute_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
+{
+	execute_program (plugin, NULL);
+}
+
+static void
 build_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
@@ -987,6 +994,12 @@ static GtkActionEntry build_actions[] =
 		N_("Build _Tarball"), NULL,
 		N_("Build project tarball distribution"),
 		G_CALLBACK (build_distribution_project)
+	},
+	{
+		"ActionBuildExecute", NULL,
+		N_("_Execute program"), NULL,
+		N_("Execute program"),
+		G_CALLBACK (build_execute_project)
 	},
 	{
 		"ActionBuildBuildModule", GTK_STOCK_EXECUTE,
@@ -1642,6 +1655,17 @@ ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 }
 
 static void
+ibuildable_execute (IAnjutaBuildable *manager, const gchar *uri,
+					GError **err)
+{
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
+	if (uri && strlen (uri) > 0)
+		execute_program (plugin, uri);
+	else
+		execute_program (plugin, NULL);
+}
+
+static void
 ibuildable_iface_init (IAnjutaBuildableIface *iface)
 {
 	/* iface->compile = ibuildable_compile; */
@@ -1650,10 +1674,33 @@ ibuildable_iface_init (IAnjutaBuildableIface *iface)
 	iface->install = ibuildable_install;
 	iface->configure = ibuildable_configure;
 	iface->generate = ibuildable_generate;
+	iface->execute = ibuildable_execute;
+}
+
+static void
+ifile_open (IAnjutaFile *manager, const gchar *uri,
+			GError **err)
+{
+	ianjuta_buildable_execute (IANJUTA_BUILDABLE (manager), uri, NULL);
+}
+
+static gchar*
+ifile_get_uri (IAnjutaFile *manager, GError **err)
+{
+	g_warning ("Unsupported operation");
+	return NULL;
+}
+
+static void
+ifile_iface_init (IAnjutaFileIface *iface)
+{
+	iface->open = ifile_open;
+	iface->get_uri = ifile_get_uri;
 }
 
 ANJUTA_PLUGIN_BEGIN (BasicAutotoolsPlugin, basic_autotools_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (ibuildable, IANJUTA_TYPE_BUILDABLE);
+ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (BasicAutotoolsPlugin, basic_autotools_plugin);

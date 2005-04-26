@@ -207,6 +207,7 @@ interface IAnjutaBuildable
 	void install (const gchar *uri);
 	void configure (const gchar *uri);
 	void generate (const gchar *uri);
+	void execute (const gchar *uri);
 }
 
 // Studio profile. Like c++ profile, java profile etc.
@@ -498,7 +499,7 @@ interface IAnjutaFileManager
 interface IAnjutaTerminal
 {
 	#include <sys/types.h>
-	pid_t execute_command (const gchar *command);
+	pid_t execute_command (const gchar* directory, const gchar *command);
 }
 
 interface IAnjutaProjectManager

@@ -1,4 +1,7 @@
 
+#ifndef __BUILD_BASIC_AUTOTOOLS_H__
+#define __BUILD_BASIC_AUTOTOOLS_H__
+
 #include <libanjuta/anjuta-plugin.h>
 
 typedef struct _BasicAutotoolsPlugin BasicAutotoolsPlugin;
@@ -30,3 +33,5 @@ struct _BasicAutotoolsPlugin{
 struct _BasicAutotoolsPluginClass{
 	AnjutaPluginClass parent_class;
 };
+
+#endif

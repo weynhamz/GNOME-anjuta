@@ -406,7 +406,7 @@ releases. Use gdb's MI interface to communicate with it.</comment>
       <comment>Be able to create multiple terminals</comment>
     </item>
     <item>
-      <attribute id="1114162428" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114162428"/>
+      <attribute id="1114162428" priority="1" done="1" start_date="732058" completed_date="732061" notify="0" last_edited="1114423086"/>
       <summary>Fix crash on docking</summary>
       <comment>Terminal plugin crashes Anjuta when docking. A serious bug (could be in GDL).</comment>
     </item>

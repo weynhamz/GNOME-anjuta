@@ -209,8 +209,15 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 		desc = (AnjutaPluginDescription *)(snode->data);
 		
 		name = NULL;
-		anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-											  "Name", &name);
+		
+		anjuta_plugin_description_get_string (desc, "File Loader",
+											  "Title", &name);
+		
+		if (!name)
+		{
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Name", &name);
+		}
 		if (!name)
 		{
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
@@ -622,8 +629,10 @@ on_create_submenu (gpointer user_data)
 		
 		icon = NULL;
 		name = NULL;
-		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-														 "Name", &str))
+		if (anjuta_plugin_description_get_string (desc, "Wizard",
+												  "Title", &str) ||
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Name", &str))
 		{
 			count++;
 			if (count < 10)
@@ -865,8 +874,13 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 		
 		desc = (AnjutaPluginDescription *)(snode->data);
 		name = NULL;
-		anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-											  "Name", &name);
+		anjuta_plugin_description_get_string (desc, "File Loader",
+											  "Title", &name);
+		if (!name)
+		{
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Name", &name);
+		}
 		if (!name)
 		{
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",

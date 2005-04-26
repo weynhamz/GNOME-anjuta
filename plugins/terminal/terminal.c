@@ -286,7 +286,7 @@ use_default_profile_cb (GtkToggleButton *button,
 }
 
 static char **
-get_child_environment (GtkWidget *term)
+get_child_environment (void)
 {
 	/* code from gnome-terminal, sort of. */
 	char **p;
@@ -321,17 +321,74 @@ get_child_environment (GtkWidget *term)
 	return retval;
 }
 
-static void
-terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
+static pid_t
+terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
+				  const gchar *command)
 {
-	VteTerminal *term = VTE_TERMINAL (widget);
-	struct passwd *pw;
-	const char *shell;
-	const char *dir;
-	char **env;
+	char **env, **args, **args_ptr;
+	GList *args_list, *args_list_ptr;
+	gchar *dir;
+	VteTerminal *term;
+	
+	g_return_val_if_fail (command != NULL, 0);
+	
+	/* Prepare command args */
+	args_list = anjuta_util_parse_args_from_string (command);
+	args = g_new (char*, g_list_length (args_list) + 1);
+	args_list_ptr = args_list;
+	args_ptr = args;
+	while (args_list_ptr)
+	{
+		*args_ptr = (char*) args_list_ptr->data;
+		args_list_ptr = g_list_next (args_list_ptr);
+		args_ptr++;
+	}
+	*args_ptr = NULL;
+	
+	if (directory == NULL)
+		dir = g_path_get_dirname (args[0]);
+	else
+		dir = g_strdup (directory);
+	
+	term = VTE_TERMINAL (term_plugin->term);
 	
 	vte_terminal_reset (term, TRUE, TRUE);
 
+	env = get_child_environment ();
+	
+#if OLD_VTE == 1
+	if (dir)
+		chdir (dir);
+	term_plugin->child_pid = vte_terminal_fork_command (term, args[0],
+														args, env);
+#else
+	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
+														env, dir, 0, 0, 0);
+#endif
+	g_free (dir);
+	g_strfreev (env);
+	g_free (args);
+	g_list_foreach (args_list, (GFunc)g_free, NULL);
+	g_list_free (args_list);
+	
+	/* The fork command above overwirtes our SIGCHLD signal handler.
+	 * Restore it */
+	anjuta_children_recover ();
+	preferences_changed (term_plugin->prefs, term_plugin);
+	
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
+								 term_plugin->frame, NULL);
+	
+	return term_plugin->child_pid;
+}
+
+static void
+terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
+{
+	struct passwd *pw;
+	const char *shell;
+	const char *dir;
+	
 	pw = getpwuid (getuid ());
 	if (pw) {
 		shell = pw->pw_shell;
@@ -340,21 +397,7 @@ terminal_init_cb (GtkWidget *widget, TerminalPlugin *term_plugin)
 		shell = "/bin/sh";
 		dir = "/";
 	}
-	
-	env = get_child_environment (widget);
-#if OLD_VTE == 1
-	term_plugin->child_pid = vte_terminal_fork_command (term, shell,
-														NULL, env);
-#else
-	term_plugin->child_pid = vte_terminal_fork_command (term, shell, NULL,
-														env, dir, 0, 0, 0);
-#endif
-	g_strfreev (env);
-	
-	/* The fork command above overwirtes our SIGCHLD signal handler.
-	 * Restore it */
-	anjuta_children_recover ();
-	preferences_changed (term_plugin->prefs, term_plugin);
+	terminal_execute (term_plugin, dir, shell);
 }
 
 static gboolean
@@ -362,6 +405,10 @@ terminal_focus_cb (GtkWidget *widget, GdkEvent  *event,
 				   TerminalPlugin *term) 
 {
 	static gboolean need_init = TRUE;
+	
+	if (term->child_pid > 0)
+		need_init = FALSE;
+	
 	if (need_init)
 	{
 		terminal_init_cb (widget, term);
@@ -429,6 +476,7 @@ terminal_realize_cb (GtkWidget *term, TerminalPlugin *plugin)
 											   NULL,
 											   NULL,
 											   NULL);
+	DEBUG_PRINT ("Unlocked %d terminal signal", count);
 }
 
 static void
@@ -442,6 +490,7 @@ terminal_unrealize_cb (GtkWidget *term, TerminalPlugin *plugin)
 											 NULL,
 											 NULL,
 											 NULL);
+	DEBUG_PRINT ("Blocked %d terminal signal", count);
 }
 
 static void
@@ -530,8 +579,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	TerminalPlugin *term_plugin;
 	static gboolean initialized = FALSE;
 	
+	DEBUG_PRINT ("TerminalPlugin: Activating Terminal plugin ...");
 	
-	g_message ("TerminalPlugin: Activating Terminal plugin ...");
 	term_plugin = (TerminalPlugin*) plugin;
 	term_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -628,10 +677,20 @@ terminal_plugin_class_init (GObjectClass *klass)
 
 static pid_t
 iterminal_execute_command (IAnjutaTerminal *terminal,
+						   const gchar *directory,
 						   const gchar *command, GError **err)
 {
-	//FIXME:
-	return 0;
+	TerminalPlugin *plugin;
+	const gchar *dir;
+	
+	plugin = (TerminalPlugin*)G_OBJECT (terminal);
+	
+	if (directory == NULL || strlen (directory) <= 0)
+		dir = NULL;
+	else
+		dir = directory;
+	
+	return terminal_execute (plugin, directory, command);
 }
 
 static void

@@ -3,7 +3,11 @@ _Name=Automake Build
 _Description=Basic autotools build plugin.
 Location=anjuta-build-basic-autotools:BasicAutotoolsPlugin
 Icon=anjuta-build-basic-autotools-plugin.png
-Interfaces=IAnjutaBuildable
+Interfaces=IAnjutaBuildable,IAnjutaFile
+
+[File Loader]
+_Title=Execute
+SupportedMimeTypes=application/x-executable
 
 [Build]
 Supported-Build-Types=make

@@ -16,6 +16,8 @@
 				<separator name="separator12"/>
 				<menuitem name="CleanModule" action="ActionBuildCleanModule"/>
 				<menuitem name="CleanProject" action="ActionBuildCleanProject"/>
+				<separator name="separator13"/>
+				<menuitem name="Execute" action="ActionBuildExecute"/>
 			</menu>
 		</placeholder>
 	</menubar>

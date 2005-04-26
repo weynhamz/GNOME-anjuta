@@ -1,3 +1,29 @@
+2005-04-26  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+	
+	* libanjuta/interfaces/libanjuta.idl: Added execute method for
+	IAnjutaBuildable interface.
+	
+	* plugins/build-basic-autotools/Makefile.am,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.ui,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h: Added "Execute"
+	interface and UI for executing project/file programs. Implemented
+	IAnjutaFile interface so that executables could be opened directly.
+	
+	* plugins/class-inheritance/anjuta-class-inheritance.plugin.in: Removed
+	Authors line (Reserved for external plugins, which do not have a way to
+	show their credits).
+	
+	* plugins/file-loader/plugin.c: Read "Title" from [Wizard] and
+	[File Loader] group for menu labels (default to "Name" if it is not
+	defined.
+	
+	* plugins/terminal/terminal.c: Implemented IAnjutaTerminal interface
+	for executing external commands.
+
 2005-04-25  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/property.c:
