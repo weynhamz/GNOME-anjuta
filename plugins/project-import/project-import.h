@@ -54,6 +54,10 @@ struct _ProjectImportClass
 
 GType project_import_get_type(void);
 ProjectImport *project_import_new(AnjutaPlugin* plugin);
+
+void project_import_set_name (ProjectImport *pi, const gchar *name);
+void project_import_set_directory (ProjectImport *pi, const gchar *directory);
+
 gboolean project_import_generate_file(ProjectImport* pi, const gchar* prjfile);
 
 #endif /* PROJECT_IMPORT_H */

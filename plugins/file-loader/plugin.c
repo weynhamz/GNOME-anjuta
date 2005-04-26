@@ -75,10 +75,13 @@ get_uri_mime_type (const gchar *uri)
 	{
 		mime_type = gnome_vfs_get_mime_type (uri);
 	}
-	else if (path_has_extension (path, "anjuta") ||
-			 path_has_extension (path, "prj"))
+	else if (path_has_extension (path, "anjuta"))
 	{
 		mime_type = g_strdup ("application/x-anjuta");
+	}
+	else if (path_has_extension (path, "prj"))
+	{
+		mime_type = g_strdup ("application/x-anjuta-old");
 	}
 	else if (path_has_extension (path, "ui"))
 	{

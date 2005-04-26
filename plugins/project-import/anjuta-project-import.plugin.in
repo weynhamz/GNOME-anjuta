@@ -4,4 +4,7 @@ _Description=Import an existing autotools project to anjuta
 Location=anjuta-project-import:AnjutaProjectImportPlugin
 Icon=anjuta-project-import-plugin.png
 UserActivatable=no
-Interfaces=IAnjutaWizard
+Interfaces=IAnjutaWizard,IAnjutaFile
+
+[File Loader]
+SupportedMimeTypes=application/x-anjuta-old

@@ -22,6 +22,7 @@
 #include <gtk/gtkactiongroup.h>
 #include <libgnome/gnome-i18n.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 
 #include "plugin.h"
 #include "project-import.h"
@@ -92,8 +93,43 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 	iface->activate = iwizard_activate;
 }
 
+static void
+ifile_open (IAnjutaFile *file, const gchar *uri, GError **err)
+{
+	gchar *dir, *ext, *project_name;
+	ProjectImport* pi;
+	AnjutaProjectImportPlugin* plugin = (AnjutaProjectImportPlugin*) file;
+	
+	g_return_if_fail (uri != NULL && strlen (uri) > 0);
+	
+	dir = g_path_get_dirname (uri);
+	project_name = g_path_get_basename (uri);
+	ext = strrchr (project_name, '.');
+	if (ext)
+		*ext = '\0';
+	
+	pi = project_import_new(ANJUTA_PLUGIN(plugin));
+	project_import_set_name (pi, project_name);
+	project_import_set_directory (pi, dir);
+}
+
+static gchar*
+ifile_get_uri (IAnjutaFile *file, GError **err)
+{
+	g_warning ("Unsupported operation");
+	return NULL;
+}
+
+static void
+ifile_iface_init (IAnjutaFileIface *iface)
+{
+	iface->open = ifile_open;
+	iface->get_uri = ifile_get_uri;
+}
+
 ANJUTA_PLUGIN_BEGIN (AnjutaProjectImportPlugin, project_import_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(iwizard, IANJUTA_TYPE_WIZARD);
+ANJUTA_PLUGIN_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (AnjutaProjectImportPlugin, project_import_plugin);

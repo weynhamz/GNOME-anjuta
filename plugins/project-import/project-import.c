@@ -231,6 +231,24 @@ project_import_new(AnjutaPlugin* plugin)
 	return obj;
 }
 
+void
+project_import_set_name (ProjectImport *pi, const gchar *name)
+{
+	g_return_if_fail (IS_PROJECT_IMPORT (pi));
+	g_return_if_fail (name != NULL);
+	
+	gtk_entry_set_text (GTK_ENTRY (pi->import_name), name);
+}
+
+void
+project_import_set_directory (ProjectImport *pi, const gchar *directory)
+{
+	g_return_if_fail (IS_PROJECT_IMPORT (pi));
+	g_return_if_fail (directory != NULL);
+	
+	gtk_entry_set_text (GTK_ENTRY (pi->import_path), directory);
+}
+
 gboolean
 project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 {

@@ -1,5 +1,14 @@
 2005-04-26  Naba Kumar  <naba@gnome.org>
 
+	* plugins/file-loader/plugin.c,
+	plugins/project-import/anjuta-project-import.plugin.in,
+	plugins/project-import/plugin.c,
+	plugins/project-import/project-import.c,
+	plugins/project-import/project-import.h: Be able to import older
+	anjuta projects.
+
+2005-04-26  Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/anjuta-shell.c: Remove widget from the queue also when
 	removing it from the shell.
 
