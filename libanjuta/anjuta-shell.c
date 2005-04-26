@@ -4,6 +4,44 @@
 #include <gobject/gvaluecollector.h>
 #include "anjuta-shell.h"
 #include "anjuta-marshal.h"
+#include "anjuta-debug.h"
+
+typedef struct {
+	GtkWidget *widget;
+	gchar *name;
+	gchar *title;
+	gchar *stock_id;
+	AnjutaShellPlacement placement;
+} WidgetQueueData;
+
+static void
+on_widget_data_free (WidgetQueueData *data)
+{
+	g_object_unref (data->widget);
+	g_free (data->name);
+	g_free (data->title);
+	g_free (data->stock_id);
+	g_free (data);
+}
+
+static void
+on_widget_data_add (WidgetQueueData *data, AnjutaShell *shell)
+{
+	ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, data->widget,
+												data->name,
+												data->title,
+												data->stock_id,
+												data->placement,
+												NULL);
+}
+
+static void
+on_destroy_widget_queue (gpointer data)
+{
+	GQueue *queue = (GQueue*)data;
+	g_queue_foreach (queue, (GFunc)on_widget_data_free, NULL);
+	g_queue_free (queue);
+}
 
 GQuark 
 anjuta_shell_error_quark (void)
@@ -15,6 +53,68 @@ anjuta_shell_error_quark (void)
 	}
 	
 	return quark;
+}
+
+/**
+ * anjuta_shell_freeze:
+ * @shell: A #AnjutaShell interface.
+ * @error: Error propagation object.
+ *
+ * Freezes addition of any UI elements (widgets) in the shell. All widget
+ * additions are queued for later additions when freeze count reaches 0.
+ * Any number of this function can be called and each call will increase
+ * the freeze count. anjuta_shell_thaw() will reduce the freeze count by
+ * 1 and real thawing happens when the count reaches 0.
+ */
+void
+anjuta_shell_freeze (AnjutaShell *shell, GError *err)
+{
+	gint freeze_count;
+	
+	g_return_if_fail (shell != NULL);
+	freeze_count = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (shell),
+													   "__freeze_count"));
+	freeze_count++;
+	g_object_set_data (G_OBJECT (shell), "__freeze_count",
+					   GINT_TO_POINTER (freeze_count));
+}
+
+/**
+ * anjuta_shell_thaw:
+ * @shell: A #AnjutaShell interface.
+ * @error: Error propagation object.
+ *
+ * Reduces the freeze count by one and performs pending widget additions
+ * when the count reaches 0.
+ */
+void
+anjuta_shell_thaw (AnjutaShell *shell, GError *err)
+{
+	gint freeze_count;
+	
+	g_return_if_fail (shell != NULL);
+	freeze_count = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (shell),
+													   "__freeze_count"));
+	freeze_count--;
+	if (freeze_count < 0)
+		freeze_count = 0;
+	g_object_set_data (G_OBJECT (shell), "__freeze_count",
+					   GINT_TO_POINTER (freeze_count));
+	
+	if (freeze_count <= 0)
+	{
+		/* Add all pending widgets */
+		DEBUG_PRINT ("Thawing shell ...");
+		
+		GQueue *queue;
+		queue = g_object_get_data (G_OBJECT (shell), "__widget_queue");
+		if (queue)
+		{
+			g_queue_reverse (queue);
+			g_queue_foreach (queue, (GFunc)on_widget_data_add, shell);
+			g_object_set_data (G_OBJECT (shell), "__widget_queue", NULL);
+		}
+	}
 }
 
 /**
@@ -42,6 +142,9 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 			 AnjutaShellPlacement placement,
 			 GError **error)
 {
+	GQueue *widget_queue;
+	gint freeze_count;
+	
 	g_return_if_fail (shell != NULL);
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
 	g_return_if_fail (widget != NULL);
@@ -49,9 +152,37 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 	g_return_if_fail (name != NULL);
 	g_return_if_fail (title != NULL);
 
-	ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, widget, name,
-												title, stock_id,
-												placement, error);
+	freeze_count = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (shell),
+													   "__freeze_count"));
+	if (freeze_count <= 0)
+	{
+		ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, widget, name,
+													title, stock_id,
+													placement, error);
+	}
+	else
+	{
+		/* Queue the operation */
+		WidgetQueueData *qd;
+		
+		widget_queue = g_object_get_data (G_OBJECT (shell), "__widget_queue");
+		if (!widget_queue)
+		{
+			widget_queue = g_queue_new ();
+			g_object_set_data_full (G_OBJECT (shell), "__widget_queue",
+									widget_queue, on_destroy_widget_queue);
+		}
+		qd = g_new0(WidgetQueueData, 1);
+		g_object_ref (G_OBJECT (widget));
+		qd->widget = widget;
+		qd->name = g_strdup (name);
+		qd->title = g_strdup (title);
+		if (stock_id)
+			qd->stock_id = g_strdup (stock_id);
+		qd->placement = placement;
+		
+		g_queue_push_head (widget_queue, qd);
+	}
 }
 
 /**

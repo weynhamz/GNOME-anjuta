@@ -93,6 +93,9 @@ AnjutaUI* anjuta_shell_get_ui (AnjutaShell *shell, GError **err);
 AnjutaPreferences* anjuta_shell_get_preferences (AnjutaShell *shell,
 												 GError **err);
 
+void anjuta_shell_freeze (AnjutaShell *shell, GError *err);
+void anjuta_shell_thaw (AnjutaShell *shell, GError *err);
+
 void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 									 GtkWidget       *widget,
 									 const char      *name,

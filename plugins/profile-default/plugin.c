@@ -332,6 +332,9 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 	gint i, max_icons;
 	max_icons = 0;
 	
+	/* Freeze shell operations */
+	anjuta_shell_freeze (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	
 	/* First of all close existing project profile */
 	if (plugin->project_uri)
 		default_profile_plugin_close (plugin);
@@ -473,6 +476,8 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 		while (gtk_events_pending ())
 			gtk_main_iteration ();
 	}
+	/* Thaw shell operations */
+	anjuta_shell_thaw (ANJUTA_PLUGIN (plugin)->shell, NULL);
 }
 
 static gboolean
@@ -869,9 +874,15 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	plugin = (DefaultProfilePlugin*)G_OBJECT (ifile);
 	
-	if (!default_profile_plugin_load (plugin, uri, NULL, FALSE, e))
-		return; /* FIXME: Propagate error */
+	/* Freeze shell */
+	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
 	
+	if (!default_profile_plugin_load (plugin, uri, NULL, FALSE, e))
+	{
+		/* Thaw shell */
+		anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
+		return; /* FIXME: Propagate error */
+	}	
 	/* Set project uri */
 	vfs_uri = gnome_vfs_uri_new (uri);
 	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
@@ -890,6 +901,9 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 							"project_root_uri",
 							value, NULL);
 	update_ui (plugin);
+	
+	/* Thaw shell */
+	anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
 	
 	/* Load Project session */
 	session_dir = default_profile_plugin_get_session_dir (plugin);
