@@ -56,6 +56,31 @@ static void on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search,
 												 AnjutaSymbolInfo *sym, 
 												 SymbolBrowserPlugin *sv_plugin);
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "symbol-browser-plugin-icon");
+}
+
 static void
 goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 {
@@ -742,6 +767,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	SymbolBrowserPlugin *sv_plugin;
 	
 	DEBUG_PRINT ("SymbolBrowserPlugin: Activating Symbol Manager plugin ...");
+	
+	register_stock_icons (plugin);
+	
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
 	sv_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	sv_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -833,7 +861,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Added widgets */
 	anjuta_shell_add_widget (plugin->shell, sv_plugin->sw,
 							 "AnjutaSymbolBrowser", _("Symbols"),
-							 GTK_STOCK_OPEN,
+							 "symbol-browser-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	
 	/* set up project directory watch */

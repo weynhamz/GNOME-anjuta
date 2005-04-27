@@ -1,4 +1,7 @@
-2005-04-26  Naba Kumar  <naba@gnome.org>
+2005-04-27  Naba Kumar  <naba@gnome.org>
+
+	* plugins/class-inheritance/plugin.c,
+	plugins/symbol-browser/plugin.c: Added stock icons.
 	
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade,
 	plugins/build-basic-autotools/executer.c,
