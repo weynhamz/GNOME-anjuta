@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-25 12:37-0400\n"
-"PO-Revision-Date: 2005-04-25 12:57-0400\n"
+"POT-Creation-Date: 2005-04-27 15:39-0400\n"
+"PO-Revision-Date: 2005-04-27 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -537,8 +537,8 @@ msgid "Open existing file or create a new file."
 msgstr "Open existing file or create a new file."
 
 #: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:320
-#: ../plugins/file-loader/plugin.c:526 ../plugins/file-loader/plugin.c:802
-#: ../plugins/file-loader/plugin.c:809 ../plugins/file-loader/plugin.c:822
+#: ../plugins/file-loader/plugin.c:536 ../plugins/file-loader/plugin.c:814
+#: ../plugins/file-loader/plugin.c:821 ../plugins/file-loader/plugin.c:834
 msgid "Open file"
 msgstr "Open file"
 
@@ -1398,24 +1398,24 @@ msgid "_Lock dock items"
 msgstr "_Lock dock items"
 
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:216
-#: ../plugins/editor/plugin.c:1160 ../plugins/editor/search-replace.c:776
+#: ../plugins/editor/plugin.c:1176 ../plugins/editor/search-replace.c:776
 #: ../plugins/editor/search-replace.c:1411
 #: ../plugins/editor/search-replace.c:1418
 #: ../plugins/editor/search-replace.c:1430
 #: ../plugins/editor/search-replace.c:1731
-#: ../plugins/symbol-browser/plugin.c:783
+#: ../plugins/symbol-browser/plugin.c:811
 msgid "Search"
 msgstr "Search"
 
-#: ../libegg/test-actions.c:141 ../plugins/editor/plugin.c:1161
+#: ../libegg/test-actions.c:141 ../plugins/editor/plugin.c:1177
 msgid "Incremental search"
 msgstr "Incremental search"
 
-#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1145
+#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1162
 msgid "Open _Recent"
 msgstr "Open _Recent"
 
-#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1156
+#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1173
 msgid "Open recent files"
 msgstr "Open recent files"
 
@@ -1437,14 +1437,14 @@ msgid "Building file: %s ...\n"
 msgstr "Building file: %s...\n"
 
 #: ../plugins/build/build_file.c:132
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:509
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:510
 #: ../plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Total time taken: %lu secs\n"
 
 #: ../plugins/build/build_file.c:136
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:514
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:515
 msgid "Completed ... unsuccessful\n"
 msgstr "Completed... unsuccessful\n"
 
@@ -1453,7 +1453,7 @@ msgid "Completed ... unsuccessful"
 msgstr "Completed... unsuccessful"
 
 #: ../plugins/build/build_file.c:145
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:519
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:520
 msgid "Completed ... successful\n"
 msgstr "Completed... successful\n"
 
@@ -1673,196 +1673,204 @@ msgstr "Unable to execute file. Check Settings->Commands."
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:391
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:392
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entering directory `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:392
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:393
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entering directory `%s'"
 
 #. Traslation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:405
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:406
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Leaving directory `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:406
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:407
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Leaving directory `%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:426
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:427
 msgid "warning:"
 msgstr "warning:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:570
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:571
 #, c-format
 msgid "Build %d: %s"
 msgstr "Build %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:759
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:786
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:760
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:787
 msgid "Configure Parameters:"
 msgstr "Configure Parameters:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:953
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1017
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1045
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1055
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1224
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:960
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1030
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1058
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1237
 msgid "_Build"
 msgstr "_Build"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:957
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:964
 msgid "_Build Project"
 msgstr "_Build Project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:958
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:965
 msgid "Build whole project"
 msgstr "Build whole project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:963
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:970
 msgid "_Install Project"
 msgstr "_Install Project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:964
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:971
 msgid "Install whole project"
 msgstr "Install whole project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:969
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:976
 msgid "_Clean Project"
 msgstr "_Clean Project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:970
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:977
 msgid "Clean whole project"
 msgstr "Clean whole project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:975
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:982
 msgid "Run C_onfigure ..."
 msgstr "Run C_onfigure..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:976
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:983
 msgid "Configure project"
 msgstr "Configure project"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:981
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:988
 msgid "Run _Autogenerate ..."
 msgstr "Run _Autogenerate..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:982
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:989
 msgid "Autogenrate project files"
 msgstr "Autogenerate project files"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:987
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:994
 msgid "Build _Tarball"
 msgstr "Build _Tarball"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:988
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:995
 msgid "Build project tarball distribution"
 msgstr "Build project tarball distribution"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:993
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1000
+msgid "_Execute program"
+msgstr "_Execute program"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1001
+msgid "Execute program"
+msgstr "Execute program"
+
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
 msgid "_Build Module"
 msgstr "_Build Module"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:994
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1007
 msgid "Build module associated with current file"
 msgstr "Build module associated with current file"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:999
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
 msgid "_Install Module"
 msgstr "_Install Module"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1000
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1013
 msgid "Install module associated with current file"
 msgstr "Install module associated with current file"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1005
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1018
 msgid "_Clean Module"
 msgstr "_Clean Module"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1019
 msgid "Clean module associated with current file"
 msgstr "Clean module associated with current file"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1011
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1024
 msgid "Co_mpile File"
 msgstr "Co_mpile File"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1025
 msgid "Compile current editor file"
 msgstr "Compile current editor file"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1021
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1049
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1034
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1062
 msgid "_Compile"
 msgstr "_Compile"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1022
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1050
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1035
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1063
 msgid "Complie file"
 msgstr "Compile file"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1028
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1056
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1041
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1069
 msgid "Build module"
 msgstr "Build module"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1033
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1061
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1228
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1046
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1074
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1241
 msgid "_Install"
 msgstr "_Install"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1034
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1062
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1047
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1075
 msgid "Install module"
 msgstr "Install module"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1039
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1067
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1232
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1052
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1080
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1245
 msgid "_Clean"
 msgstr "_Clean"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1053
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1081
 msgid "Clean module"
 msgstr "Clean module"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1236
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1249
 msgid "Co_mpile"
 msgstr "Co_mpile"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1245
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1258
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1252
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1265
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Install (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1259
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1272
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Clean (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1266
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1279
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpile (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1495
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1508
 msgid "Build commands"
 msgstr "Build commands"
 
-#: ../plugins/class-inheritance/plugin.c:94
+#: ../plugins/class-inheritance/plugin.c:122
 msgid "Inheritance Graph"
 msgstr "Inheritance Graph"
 
@@ -2481,7 +2489,7 @@ msgstr "Unable to open the file: %s\n"
 msgid "Load Target to debug"
 msgstr "Load Target to debug"
 
-#: ../plugins/debug-manager/plugin.c:58 ../plugins/file-loader/plugin.c:432
+#: ../plugins/debug-manager/plugin.c:58 ../plugins/file-loader/plugin.c:442
 #: ../plugins/project-manager/project_dbase.c:363
 #: ../plugins/project-manager/project_dbase_gui.c:153
 #: ../plugins/project-manager/project_dbase_gui.c:170
@@ -2640,7 +2648,7 @@ msgid "Search Help:"
 msgstr "Search Help:"
 
 #: ../plugins/devhelp/plugin.c:373 ../plugins/editor/plugin.c:249
-#: ../plugins/message-view/plugin.c:63 ../plugins/symbol-browser/plugin.c:235
+#: ../plugins/message-view/plugin.c:63 ../plugins/symbol-browser/plugin.c:260
 msgid "_Goto"
 msgstr "_Goto"
 
@@ -2767,7 +2775,7 @@ msgstr "_Replace"
 msgid "Save file as"
 msgstr "Save file as"
 
-#: ../plugins/editor/anjuta-docman.c:639
+#: ../plugins/editor/anjuta-docman.c:648
 msgid "Path:"
 msgstr "Path:"
 
@@ -3002,7 +3010,7 @@ msgid "Do not show tabs"
 msgstr "Do not show tabs"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:59
-#: ../plugins/editor/plugin.c:1183
+#: ../plugins/editor/plugin.c:1199
 msgid "Documents"
 msgstr "Documents"
 
@@ -4102,19 +4110,19 @@ msgid "Mode"
 msgstr "Mode"
 
 #. Automatic highlight menu
-#: ../plugins/editor/plugin.c:998
+#: ../plugins/editor/plugin.c:1012
 msgid "Automatic"
 msgstr "Automatic"
 
-#: ../plugins/editor/plugin.c:1149
+#: ../plugins/editor/plugin.c:1165
 msgid "Goto line"
 msgstr "Goto line"
 
-#: ../plugins/editor/plugin.c:1150
+#: ../plugins/editor/plugin.c:1166
 msgid "Enter the line number to jump and press enter"
 msgstr "Enter the line number to jump and press enter"
 
-#: ../plugins/editor/plugin.c:1178
+#: ../plugins/editor/plugin.c:1194
 msgid "Editor quick navigations"
 msgstr "Editor quick navigations"
 
@@ -4430,7 +4438,7 @@ msgstr "Close"
 msgid "Docked"
 msgstr "Docked"
 
-#: ../plugins/file-loader/plugin.c:170
+#: ../plugins/file-loader/plugin.c:173
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -4451,119 +4459,119 @@ msgstr ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 
-#: ../plugins/file-loader/plugin.c:190
+#: ../plugins/file-loader/plugin.c:193
 msgid "Open with:"
 msgstr "Open with:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:198
+#: ../plugins/file-loader/plugin.c:201
 msgid "Document Manager"
 msgstr "Document Manager"
 
-#: ../plugins/file-loader/plugin.c:437
+#: ../plugins/file-loader/plugin.c:447
 msgid "Anjuta Projects"
 msgstr "Anjuta Projects"
 
-#: ../plugins/file-loader/plugin.c:443
+#: ../plugins/file-loader/plugin.c:453
 #: ../plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "C/C++ source files"
 
-#: ../plugins/file-loader/plugin.c:455
+#: ../plugins/file-loader/plugin.c:465
 msgid "C# source files"
 msgstr "C# source files"
 
-#: ../plugins/file-loader/plugin.c:461
+#: ../plugins/file-loader/plugin.c:471
 #: ../plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Java source files"
 
-#: ../plugins/file-loader/plugin.c:467
+#: ../plugins/file-loader/plugin.c:477
 msgid "Pascal source files"
 msgstr "Pascal source files"
 
-#: ../plugins/file-loader/plugin.c:472
+#: ../plugins/file-loader/plugin.c:482
 msgid "PHP source files"
 msgstr "PHP source files"
 
-#: ../plugins/file-loader/plugin.c:479
+#: ../plugins/file-loader/plugin.c:489
 msgid "Perl source files"
 msgstr "Perl source files"
 
-#: ../plugins/file-loader/plugin.c:485
+#: ../plugins/file-loader/plugin.c:495
 msgid "Python source files"
 msgstr "Python source files"
 
-#: ../plugins/file-loader/plugin.c:490
+#: ../plugins/file-loader/plugin.c:500
 msgid "Hyper text markup files"
 msgstr "Hypertext markup files"
 
-#: ../plugins/file-loader/plugin.c:499
+#: ../plugins/file-loader/plugin.c:509
 msgid "Shell scripts files"
 msgstr "Shell scripts files"
 
-#: ../plugins/file-loader/plugin.c:504
+#: ../plugins/file-loader/plugin.c:514
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: ../plugins/file-loader/plugin.c:510
+#: ../plugins/file-loader/plugin.c:520
 msgid "Lua files"
 msgstr "Lua files"
 
-#: ../plugins/file-loader/plugin.c:515
+#: ../plugins/file-loader/plugin.c:525
 msgid "Diff files"
 msgstr "Diff files"
 
-#: ../plugins/file-loader/plugin.c:736
+#: ../plugins/file-loader/plugin.c:748
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Failed to activate plugin: %s"
 
-#: ../plugins/file-loader/plugin.c:792
+#: ../plugins/file-loader/plugin.c:804
 msgid "_New ..."
 msgstr "_New..."
 
-#: ../plugins/file-loader/plugin.c:794
+#: ../plugins/file-loader/plugin.c:806
 msgid "New empty editor."
 msgstr "New empty editor."
 
-#: ../plugins/file-loader/plugin.c:800
+#: ../plugins/file-loader/plugin.c:812
 msgid "_Open ..."
 msgstr "_Open..."
 
-#: ../plugins/file-loader/plugin.c:808 ../plugins/file-loader/plugin.c:821
+#: ../plugins/file-loader/plugin.c:820 ../plugins/file-loader/plugin.c:833
 msgid "_Open"
 msgstr "_Open"
 
-#: ../plugins/file-loader/plugin.c:815 ../plugins/file-loader/plugin.c:828
+#: ../plugins/file-loader/plugin.c:827 ../plugins/file-loader/plugin.c:840
 msgid "Open _With"
 msgstr "Open _With"
 
-#: ../plugins/file-loader/plugin.c:816 ../plugins/file-loader/plugin.c:829
+#: ../plugins/file-loader/plugin.c:828 ../plugins/file-loader/plugin.c:841
 msgid "Open with"
 msgstr "Open with"
 
-#: ../plugins/file-loader/plugin.c:1120
+#: ../plugins/file-loader/plugin.c:1137
 msgid "File Loader"
 msgstr "File Loader"
 
-#: ../plugins/file-loader/plugin.c:1126
+#: ../plugins/file-loader/plugin.c:1143
 msgid "_Wizard"
 msgstr "_Wizard"
 
-#: ../plugins/file-loader/plugin.c:1127
+#: ../plugins/file-loader/plugin.c:1144
 msgid "New file, project and project components."
 msgstr "New file, project and project components."
 
-#: ../plugins/file-loader/plugin.c:1136
+#: ../plugins/file-loader/plugin.c:1153
 msgid "New"
 msgstr "New"
 
-#: ../plugins/file-loader/plugin.c:1139
+#: ../plugins/file-loader/plugin.c:1156
 msgid "Open"
 msgstr "Open"
 
-#: ../plugins/file-loader/plugin.c:1146
+#: ../plugins/file-loader/plugin.c:1163
 msgid "Open recent file"
 msgstr "Open recent file"
 
@@ -4624,7 +4632,7 @@ msgid "dialog3"
 msgstr "dialog3"
 
 #: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:518
-#: ../plugins/symbol-browser/plugin.c:279
+#: ../plugins/symbol-browser/plugin.c:304
 msgid "_Refresh"
 msgstr "_Refresh"
 
@@ -7021,17 +7029,17 @@ msgstr "Close project"
 msgid "Profile actions"
 msgstr "Profile actions"
 
-#: ../plugins/profile-default/plugin.c:394
+#: ../plugins/profile-default/plugin.c:397
 msgid "Last Session ..."
 msgstr "Last Session ..."
 
-#: ../plugins/profile-default/plugin.c:395
+#: ../plugins/profile-default/plugin.c:398
 msgid "Restoring last session ..."
 msgstr "Restoring last session ..."
 
-#: ../plugins/profile-default/plugin.c:513
-#: ../plugins/profile-default/plugin.c:533
-#: ../plugins/profile-default/plugin.c:544
+#: ../plugins/profile-default/plugin.c:518
+#: ../plugins/profile-default/plugin.c:538
+#: ../plugins/profile-default/plugin.c:549
 #, c-format
 msgid ""
 "Cannot open: %s\n"
@@ -7040,13 +7048,13 @@ msgstr ""
 "Cannot open: %s\n"
 "&s"
 
-#: ../plugins/profile-default/plugin.c:525
+#: ../plugins/profile-default/plugin.c:530
 #, c-format
 msgid "No read permission for: %s"
 msgstr "No read permission for: %s"
 
-#: ../plugins/profile-default/plugin.c:554
-#: ../plugins/profile-default/plugin.c:563
+#: ../plugins/profile-default/plugin.c:559
+#: ../plugins/profile-default/plugin.c:568
 #, c-format
 msgid ""
 "Cannot open: %s\n"
@@ -7055,8 +7063,8 @@ msgstr ""
 "Cannot open: %s\n"
 "XML parse error."
 
-#: ../plugins/profile-default/plugin.c:573
-#: ../plugins/profile-default/plugin.c:764
+#: ../plugins/profile-default/plugin.c:578
+#: ../plugins/profile-default/plugin.c:769
 #, c-format
 msgid ""
 "Cannot open: %s\n"
@@ -7102,7 +7110,7 @@ msgstr ""
 "Project name: %s\n"
 "Project path: %s\n"
 
-#: ../plugins/project-import/project-import.c:258
+#: ../plugins/project-import/project-import.c:276
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
 "the project directory!"
@@ -8145,65 +8153,65 @@ msgstr "API Tags"
 msgid "<b>Available API tags:</b>"
 msgstr "<b>Available API tags:</b>"
 
-#: ../plugins/symbol-browser/plugin.c:239
+#: ../plugins/symbol-browser/plugin.c:264
 msgid "Tag _Definition"
 msgstr "Tag _Definition"
 
-#: ../plugins/symbol-browser/plugin.c:241
-#: ../plugins/symbol-browser/plugin.c:257
+#: ../plugins/symbol-browser/plugin.c:266
+#: ../plugins/symbol-browser/plugin.c:282
 msgid "Goto symbol definition"
 msgstr "Go to symbol definition"
 
-#: ../plugins/symbol-browser/plugin.c:247
+#: ../plugins/symbol-browser/plugin.c:272
 msgid "Tag De_claration"
 msgstr "Tag De_claration"
 
-#: ../plugins/symbol-browser/plugin.c:249
-#: ../plugins/symbol-browser/plugin.c:265
+#: ../plugins/symbol-browser/plugin.c:274
+#: ../plugins/symbol-browser/plugin.c:290
 msgid "Goto symbol declaration"
 msgstr "Go to symbol declaration"
 
-#: ../plugins/symbol-browser/plugin.c:255
+#: ../plugins/symbol-browser/plugin.c:280
 msgid "Goto _Definition"
 msgstr "Go to _Definition"
 
-#: ../plugins/symbol-browser/plugin.c:263
+#: ../plugins/symbol-browser/plugin.c:288
 msgid "Goto De_claration"
 msgstr "Go to De_claration"
 
-#: ../plugins/symbol-browser/plugin.c:271
+#: ../plugins/symbol-browser/plugin.c:296
 msgid "_Find Usage"
 msgstr "_Find Usage"
 
-#: ../plugins/symbol-browser/plugin.c:273
+#: ../plugins/symbol-browser/plugin.c:298
 msgid "Find usage of symbol in project"
 msgstr "Find usage of symbol in project"
 
-#: ../plugins/symbol-browser/plugin.c:281
+#: ../plugins/symbol-browser/plugin.c:306
 msgid "Refresh symbol browser tree"
 msgstr "Refresh symbol browser tree"
 
-#: ../plugins/symbol-browser/plugin.c:757
+#: ../plugins/symbol-browser/plugin.c:785
 msgid "Tree"
 msgstr "Tree"
 
-#: ../plugins/symbol-browser/plugin.c:807
+#: ../plugins/symbol-browser/plugin.c:835
 msgid "Symbol browser popup actions"
 msgstr "Symbol browser popup actions"
 
-#: ../plugins/symbol-browser/plugin.c:816
+#: ../plugins/symbol-browser/plugin.c:844
 msgid "Goto symbol"
 msgstr "Go to symbol"
 
-#: ../plugins/symbol-browser/plugin.c:817
+#: ../plugins/symbol-browser/plugin.c:845
 msgid "Select the symbol to go"
 msgstr "Select the symbol to go to"
 
-#: ../plugins/symbol-browser/plugin.c:826
+#: ../plugins/symbol-browser/plugin.c:854
 msgid "Symbol navigations"
 msgstr "Symbol navigations"
 
-#: ../plugins/symbol-browser/plugin.c:835
+#: ../plugins/symbol-browser/plugin.c:863
 msgid "Symbols"
 msgstr "Symbols"
 
@@ -8219,7 +8227,7 @@ msgstr "Use GNOME terminal profile:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Use currently selected profile in GNOME terminal"
 
-#: ../plugins/terminal/terminal.c:563
+#: ../plugins/terminal/terminal.c:612
 msgid "Terminal"
 msgstr "Terminal"
 
