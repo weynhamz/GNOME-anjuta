@@ -1,5 +1,12 @@
 2005-04-26  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade,
+	plugins/build-basic-autotools/executer.c,
+	plugins/build-basic-autotools/executer.h: Added missing files
+	for the execute programs implementation.
 
+2005-04-26  Naba Kumar  <naba@gnome.org>
+	
 	* TODO.tasks: Updated.
 
 	* plugins/file-loader/plugin.c,
