@@ -1,5 +1,9 @@
 2005-04-27  Naba Kumar  <naba@gnome.org>
-	
+
+	* libanjuta/Makefile.am, libanjuta/interfaces/Makefile.am.iface,
+	libegg/Makefile.am,	libegg/treeviewutils/Makefile.am,
+	scintilla/Makefile.am: Fixed 'make distcheck' errors.
+
 	* plugins/editor/anjuta-docman.c,
 	plugins/editor/anjuta-docman.h,
 	plugins/editor/plugin.c: Emit editor-added signal from docman

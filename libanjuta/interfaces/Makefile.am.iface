@@ -1,7 +1,8 @@
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(GTK_CFLAGS) \
-	$(DEPRECATED_FLAGS)
+	$(DEPRECATED_FLAGS) \
+	-I$(top_srcdir)
 
 AM_CFLAGS = -Werror
 MODULE_NAME = libanjuta
@@ -23,3 +24,9 @@ iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	echo "changing to $$savedir" && \
 	make && \
 	cd $$savedir
+
+EXTRA_DIST = \
+	iface-built.stamp \
+	libanjuta.idl \
+	Makefile.am.iface \
+	anjuta-idl-compiler.pl

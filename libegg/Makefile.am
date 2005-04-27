@@ -1,5 +1,5 @@
 
-SUBDIRS = util treeviewutils menu
+SUBDIRS = util treeviewutils menu recent-files
 
 gladefiledir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
 gladefile_DATA = layout.glade
@@ -12,11 +12,12 @@ INCLUDES = \
 	-DGDK_DISABLE_DEPRECATED \
 	-DG_DISABLE_DEPRECATED \
 	-DEGG_GLADEDIR=\"$(gladefiledir)\" \
-	-I$(top_builddir)/libegg \
-	-I$(top_builddir)/libegg/menu \
-	-I$(top_builddir)/libegg/treeviewutils \
-	-I$(top_builddir)/libegg/util \
-	-I$(top_builddir)/libegg/recent-files
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/libegg \
+	-I$(top_srcdir)/libegg/menu \
+	-I$(top_srcdir)/libegg/treeviewutils \
+	-I$(top_srcdir)/libegg/util \
+	-I$(top_srcdir)/libegg/recent-files
 
 lib_LTLIBRARIES = libanjuta-egg.la
 

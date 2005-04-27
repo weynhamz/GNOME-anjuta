@@ -17,6 +17,7 @@ libanjuta_scintilla_la_SOURCES =\
 	CallTip.cxx \
 	CellBuffer.cxx \
 	ContractionState.cxx \
+	Converter.h \
 	ExternalLexer.cxx \
 	ExternalLexer.h \
 	Document.cxx \

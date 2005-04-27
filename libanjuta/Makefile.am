@@ -3,10 +3,10 @@ SUBDIRS = interfaces
 
 INCLUDES = \
 	$(WARN_CFLAGS) \
-	-I$(top_builddir) \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_UI_CFLAGS) \
-	$(GLADE_CFLAGS)
+	$(GLADE_CFLAGS) \
+	-I$(top_srcdir)
 
 lib_LTLIBRARIES=libanjuta.la
 
@@ -41,14 +41,9 @@ libanjuta_la_SOURCES= \
 	plugins.c \
 	plugins.h
 
-##	properties.cxx \
-##	properties.h \
-##	properties_cxx.h \
-##	defaults.h \
-##	defaults.c \
-
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 libanjutainclude_HEADERS = \
+	libanjuta.h \
 	anjuta-debug.h \
 	anjuta-shell.h \
 	anjuta-status.h \
@@ -64,9 +59,8 @@ libanjutainclude_HEADERS = \
 	anjuta-children.h \
 	anjuta-session.h \
 	glue-plugin.h \
+	glue-factory.h \
 	resources.h
-
-##	properties.h \
 
 BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h
 
