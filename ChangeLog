@@ -1,4 +1,9 @@
 2005-04-27  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/editor/anjuta-docman.c,
+	plugins/editor/anjuta-docman.h,
+	plugins/editor/plugin.c: Emit editor-added signal from docman
+	and connect signals to new editor correctly.
 
 	* plugins/class-inheritance/plugin.c,
 	plugins/symbol-browser/plugin.c: Added stock icons.

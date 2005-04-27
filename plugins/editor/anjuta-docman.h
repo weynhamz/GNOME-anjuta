@@ -49,6 +49,7 @@ struct _AnjutaDocmanClass {
 	GtkNotebookClass parent_class;
 	
 	/* Signals */
+	void (*editor_added) (TextEditor *editor);
 	void (*editor_changed) (TextEditor *current_editor);
 };
 

@@ -756,6 +756,20 @@ on_editor_update_ui (IAnjutaEditor *editor, EditorPlugin *plugin)
 }
 
 static void
+on_editor_added (AnjutaDocman *docman, TextEditor *te,
+				   AnjutaPlugin *plugin)
+{
+	g_signal_connect (G_OBJECT (te), "update_ui",
+					  G_CALLBACK (on_editor_update_ui),
+					  ANJUTA_PLUGIN (plugin));
+	g_signal_connect (G_OBJECT (te), "save_point",
+					  G_CALLBACK (on_editor_update_save_ui),
+					  ANJUTA_PLUGIN (plugin));
+	anjuta_shell_present_widget (plugin->shell,
+								 GTK_WIDGET (docman), NULL);
+}
+
+static void
 on_editor_changed (AnjutaDocman *docman, TextEditor *te,
 				   AnjutaPlugin *plugin)
 {
@@ -1067,6 +1081,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
 	editor_plugin->docman = docman;
+	g_signal_connect (G_OBJECT (docman), "editor_added",
+					  G_CALLBACK (on_editor_added), plugin);
 	g_signal_connect (G_OBJECT (docman), "editor_changed",
 					  G_CALLBACK (on_editor_changed), plugin);
 	g_signal_connect_swapped (G_OBJECT (status), "busy",
@@ -1377,20 +1393,14 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 	TextEditor *te;
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
 	te = anjuta_docman_add_editor (docman, NULL, filename);
-	/* 
-	 * connect to update_ui so we can manage editor's signals, like
-	 * col/line updatings
-	 */
-	g_signal_connect (G_OBJECT (te), "update_ui",
-					  G_CALLBACK (on_editor_update_ui),
-					  ANJUTA_PLUGIN (plugin));
-	g_signal_connect (G_OBJECT (te), "save_point",
-					  G_CALLBACK (on_editor_update_save_ui),
-					  ANJUTA_PLUGIN (plugin));
-	
-	if (content && strlen (content) > 0)
-		aneditor_command (te->editor_id, ANE_INSERTTEXT, -1, (long)content);
-	return IANJUTA_EDITOR (te);
+	if (te)
+	{
+		if (content && strlen (content) > 0)
+			aneditor_command (te->editor_id, ANE_INSERTTEXT, -1,
+							  (long)content);
+		return IANJUTA_EDITOR (te);
+	}
+	return NULL;
 }
 
 static void
@@ -1415,17 +1425,6 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 	
 	docman = ANJUTA_DOCMAN ((((EditorPlugin*)plugin)->docman));
 	te = anjuta_docman_goto_file_line (docman, uri, -1);
-	if (te)
-	{
-		g_signal_connect (G_OBJECT (te), "update_ui",
-						  G_CALLBACK (on_editor_update_ui),
-						  ANJUTA_PLUGIN (plugin));
-		g_signal_connect (G_OBJECT (te), "save_point",
-						  G_CALLBACK (on_editor_update_save_ui),
-						  ANJUTA_PLUGIN (plugin));
-	}
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 GTK_WIDGET (docman), NULL);
 }
 
 static gchar*

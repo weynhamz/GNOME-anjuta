@@ -481,6 +481,15 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 		initialized = TRUE;
 		
 		/* Signal */
+		g_signal_new ("editor_added",
+			ANJUTA_TYPE_DOCMAN,
+			G_SIGNAL_RUN_LAST,
+			G_STRUCT_OFFSET (AnjutaDocmanClass, editor_added),
+			NULL, NULL,
+			g_cclosure_marshal_VOID__OBJECT,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_OBJECT);
 		g_signal_new ("editor_changed",
 			ANJUTA_TYPE_DOCMAN,
 			G_SIGNAL_RUN_LAST,
@@ -663,6 +672,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 	g_signal_connect (G_OBJECT (te), "destroy",
 					  G_CALLBACK (on_editor_destroy), docman);
 	
+	g_signal_emit_by_name (docman, "editor_added", te);
 	anjuta_docman_set_current_editor(docman, TEXT_EDITOR (te));
 	return TEXT_EDITOR (te);
 }
