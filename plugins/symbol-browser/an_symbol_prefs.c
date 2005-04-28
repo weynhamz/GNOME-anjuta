@@ -20,10 +20,12 @@
 
 #include <config.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <dirent.h>
 #include <string.h>
 #include <gtk/gtktreeview.h>
 #include <gtk/gtkliststore.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include "an_symbol_prefs.h"
@@ -306,10 +308,329 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 	anjuta_status_busy_pop (status);
 }
 
+static void
+on_add_directory_clicked (GtkWidget *button, GtkListStore *store)
+{
+	GtkTreeIter iter;
+	GtkWidget *fileselection;
+	GtkWidget *parent;
+	
+	parent = gtk_widget_get_toplevel (button);
+	fileselection = gtk_file_chooser_dialog_new (_("Select directory"),
+												 GTK_WINDOW (parent),
+												 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+												 GTK_STOCK_CANCEL,
+												 GTK_RESPONSE_CANCEL,
+												 GTK_STOCK_OK,
+												 GTK_RESPONSE_OK,
+												 NULL);
+	if (gtk_dialog_run (GTK_DIALOG (fileselection)) == GTK_RESPONSE_OK)
+	{
+		GSList *dirs, *node;
+		
+		/* Only local files since we can only create tags for local files */
+		dirs = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (fileselection));
+		
+		node = dirs;
+		while (node)
+		{
+			gchar *dir = node->data;
+			gtk_list_store_append (store, &iter);
+			gtk_list_store_set (store, &iter, 0, dir, -1);
+			g_free (dir);
+			node = g_slist_next (node);
+		}
+		g_slist_free (dirs);
+	}
+	gtk_widget_destroy (fileselection);
+}
+
+static void
+refresh_tags_list (SymbolBrowserPlugin *plugin)
+{
+	GtkListStore *new_tags_store;
+	new_tags_store = create_store (plugin->prefs);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (plugin->pref_tree_view),
+							 GTK_TREE_MODEL (new_tags_store));
+	g_object_unref (new_tags_store);
+}
+
+static void
+on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
+{
+	GtkWidget *treeview, *button, *dlg, *name_entry;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkListStore *store;
+	AnjutaPreferences *pref;
+	GladeXML *gxml;
+	
+	/* Make sure program anjuta-tags can be found */
+	if (!anjuta_util_prog_is_installed ("anjuta-tags", TRUE))
+		return;
+	
+	pref = plugin->prefs;
+	gxml = glade_xml_new (GLADE_FILE, "create.symbol.tags.dialog", NULL);
+	
+	dlg = glade_xml_get_widget (gxml, "create.symbol.tags.dialog");
+	treeview = glade_xml_get_widget (gxml, "directory_list_treeview");
+	name_entry = glade_xml_get_widget (gxml, "symbol_tags_name_entry");
+	
+	store = gtk_list_store_new (1, G_TYPE_STRING);
+	gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
+							 GTK_TREE_MODEL (store));
+
+	/* Add the column for stock treeview */
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Directories to scan"),
+													  renderer, "text",
+													  0,
+													  NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_set_search_column (GTK_TREE_VIEW (treeview),
+									 COLUMN_NAME);
+	
+	button = glade_xml_get_widget (gxml, "add_directory_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_add_directory_clicked), store);
+	
+	button = glade_xml_get_widget (gxml, "clear_list_button");
+	g_signal_connect_swapped (G_OBJECT (button), "clicked",
+							  G_CALLBACK (gtk_list_store_clear), store);
+	
+	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (plugin->prefs));
+	while (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_OK)
+	{
+		GtkTreeIter iter;
+		gchar **argv, *tmp;
+		const gchar *name;
+		gint argc;
+		pid_t pid;
+		
+		name = gtk_entry_get_text (GTK_ENTRY (name_entry));
+		
+		argc = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store),
+											   NULL) * 3 + 3;
+		
+		if (name == NULL || strlen (name) <= 0 || argc <= 3)
+		{
+			/* Validation failed */
+			GtkWidget *edlg;
+			
+			edlg = gtk_message_dialog_new (GTK_WINDOW (dlg),
+										   GTK_DIALOG_DESTROY_WITH_PARENT,
+										   GTK_MESSAGE_ERROR,
+										   GTK_BUTTONS_CLOSE,
+										  _("Please enter a name and at least one directory."));
+			gtk_dialog_run (GTK_DIALOG (edlg));
+			gtk_widget_destroy (edlg);
+			continue;
+		}
+		
+		argv = g_new0 (gchar*, argc);
+		
+		argv[0] = g_strdup ("anjuta-tags");
+		tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, name, NULL);
+		argv[1] = g_strconcat (tmp, ".anjutatags", NULL);
+		g_free (tmp);
+		
+		argc = 2;
+		if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
+		{
+			do
+			{
+				const gchar *dir;
+				gchar *files;
+				
+				gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
+									0, &dir, -1);
+				
+				files = g_build_filename (dir, "*.h", NULL);
+				DEBUG_PRINT ("%d: Adding scan files '%s'", argc, files);
+				argv[argc++] = g_strconcat ("\"", files, "\"", NULL);
+				g_free (files);
+				
+				files = g_build_filename (dir, "*", "*.h", NULL);
+				DEBUG_PRINT ("%d: Adding scan files '%s'", argc, files);
+				argv[argc++] = g_strconcat ("\"", files, "\"", NULL);
+				g_free (files);
+				
+				files = g_build_filename (dir, "*", "*", "*.h", NULL);
+				DEBUG_PRINT ("%d: Adding scan files '%s'", argc, files);
+				argv[argc++] = g_strconcat ("\"", files, "\"", NULL);
+				g_free (files);
+			}
+			while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
+		}
+		
+		/* Create local tags directory */
+		tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
+		if ((pid = fork()) == 0)
+		{
+			execlp ("mkdir", "mkdir", "-p", tmp, NULL);
+			perror ("Could not execute mkdir");
+		}
+		waitpid (pid, NULL, 0);
+		g_free (tmp);
+		
+		/* Execute anjuta-tags to create tags for the given files */
+		if ((pid = fork()) == 0)
+		{
+			execvp ("anjuta-tags", argv);
+			perror ("Could not execute anjuta-tags");
+		}
+		waitpid (pid, NULL, 0);
+		
+		/* Compress the tags file */
+		if ((pid = fork()) == 0)
+		{
+			execlp ("gzip", "gzip", "-f", argv[1], NULL);
+			perror ("Could not execute gzip");
+		}
+		waitpid (pid, NULL, 0);
+		
+		g_strfreev (argv);
+		
+		/* Refresh the tags list */
+		refresh_tags_list (plugin);
+		break;
+	}
+	g_object_unref (store);
+	g_object_unref (gxml);
+	gtk_widget_destroy (dlg);
+}
+
+static void
+on_add_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
+{
+	GtkWidget *fileselection;
+	GtkWidget *parent;
+	GtkFileFilter *filter;
+	
+	parent = gtk_widget_get_toplevel (button);
+	
+	fileselection = gtk_file_chooser_dialog_new (_("Select directory"),
+												 GTK_WINDOW (parent),
+												 GTK_FILE_CHOOSER_ACTION_OPEN,
+												 GTK_STOCK_CANCEL,
+												 GTK_RESPONSE_CANCEL,
+												 GTK_STOCK_OK,
+												 GTK_RESPONSE_OK,
+												 NULL);
+	filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (filter, _("Anjuta tags files"));
+	gtk_file_filter_add_pattern (filter, "*.anjutatags.gz");
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (fileselection), filter);
+	
+	if (gtk_dialog_run (GTK_DIALOG (fileselection)) == GTK_RESPONSE_OK)
+	{
+		GSList *uris, *node;
+		gchar *tmp;
+		pid_t pid;
+		
+		/* Create local tags directory */
+		tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
+		if ((pid = fork()) == 0)
+		{
+			execlp ("mkdir", "mkdir", "-p", tmp, NULL);
+			perror ("Could not execute mkdir");
+		}
+		waitpid (pid, NULL, 0);
+		g_free (tmp);
+		
+		uris = gtk_file_chooser_get_uris (GTK_FILE_CHOOSER (fileselection));
+		
+		node = uris;
+		while (node)
+		{
+			gchar *dest, *src, *basename;
+			
+			src = node->data;
+			basename = g_path_get_basename (src);
+			dest = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, basename, NULL);
+			g_free (basename);
+			
+			/* Copy the tags file in local tags directory */
+			GnomeVFSURI* source_uri = gnome_vfs_uri_new(src);
+			GnomeVFSURI* dest_uri = gnome_vfs_uri_new(dest);
+	
+			GnomeVFSResult error = gnome_vfs_xfer_uri (source_uri,
+													   dest_uri,
+													   GNOME_VFS_XFER_DEFAULT,
+													   GNOME_VFS_XFER_ERROR_MODE_ABORT,
+													   GNOME_VFS_XFER_OVERWRITE_MODE_ABORT,
+													   NULL,
+													   NULL);
+			if (error != GNOME_VFS_OK)
+			{
+				const gchar *err;
+				
+				err = gnome_vfs_result_to_string (error);
+				anjuta_util_dialog_error (GTK_WINDOW (fileselection),
+										  "Adding tags file '%s' failed: %s",
+										  src, err);
+			}
+			gnome_vfs_uri_unref (source_uri);
+			gnome_vfs_uri_unref (dest_uri);
+			g_free (dest);
+			g_free (src);
+			node = g_slist_next (node);
+		}
+		if (uris)
+		{
+			refresh_tags_list (plugin);
+		}
+		g_slist_free (uris);
+	}
+	gtk_widget_destroy (fileselection);
+}
+
+static void
+on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
+{
+	GtkWidget *parent;
+	GtkTreeSelection *sel;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	
+	parent = gtk_widget_get_toplevel (button);
+	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (plugin->pref_tree_view));
+	if (gtk_tree_selection_get_selected (sel, &model, &iter))
+	{
+		const gchar *tags_filename;
+		gtk_tree_model_get (model, &iter, 1, &tags_filename, -1);
+		if (tags_filename)
+		{
+			gchar *file_path, *path;
+			path = g_build_filename (g_get_home_dir(), LOCAL_TAGS_DIR,
+									 tags_filename, NULL);
+			file_path = g_strconcat (path, ".anjutatags.gz", NULL);
+			
+			if (!g_file_test (file_path, G_FILE_TEST_EXISTS))
+			{
+				anjuta_util_dialog_error (GTK_WINDOW (parent),
+										  "Can not remove tags file '%s': "
+										  "You can only remove tags you created or added",
+										  tags_filename);
+			}
+			else if (anjuta_util_dialog_boolean_question (GTK_WINDOW (parent),
+														  "Are you sure you want to remove the tags file '%s'?",
+														  tags_filename))
+			{
+				unlink (file_path);
+				refresh_tags_list (plugin);
+			}
+			g_free (file_path);
+			g_free (path);
+		}
+	}
+}
+
 static GtkWidget *
 prefs_page_init (SymbolBrowserPlugin *plugin)
 {
-	GtkWidget *treeview;
+	GtkWidget *treeview, *button;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GtkListStore *store;
@@ -343,6 +664,18 @@ prefs_page_init (SymbolBrowserPlugin *plugin)
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_set_search_column (GTK_TREE_VIEW (treeview),
 									 COLUMN_NAME);
+	
+	button = glade_xml_get_widget (gxml, "create_tags_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_create_tags_clicked), plugin);
+	
+	button = glade_xml_get_widget (gxml, "add_tags_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_add_tags_clicked), plugin);
+	
+	button = glade_xml_get_widget (gxml, "remove_tags_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_remove_tags_clicked), plugin);
 	
 	g_object_unref (store);
 	g_object_unref (gxml);

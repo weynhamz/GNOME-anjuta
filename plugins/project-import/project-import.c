@@ -115,6 +115,8 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 								name, path);
 	gnome_druid_page_edge_set_text(GNOME_DRUID_PAGE_EDGE(pi->import_finish),
 								   summary);
+	gnome_vfs_uri_unref(conf_uri);
+	gnome_vfs_uri_unref(make_uri);
 	g_free(summary);
 	return FALSE;							   
 }
@@ -266,16 +268,24 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 						GNOME_VFS_XFER_OVERWRITE_MODE_ABORT,
 						NULL,
 						NULL);
+	gnome_vfs_uri_unref (source_uri);
+	gnome_vfs_uri_unref (dest_uri);
 	
 	if (error != GNOME_VFS_OK)
 	{
-		gtk_dialog_run(GTK_DIALOG(gtk_message_dialog_new(GTK_WINDOW(pi->window), 
-							   GTK_DIALOG_MODAL,
-							   GTK_MESSAGE_ERROR, 
-							   GTK_BUTTONS_OK,
-							   _("Generation of project file failed. Please "
-								 "check if you have write access to the project "
-								 "directory!"))));
+		GtkWidget *dlg;
+		
+		dlg = gtk_message_dialog_new(GTK_WINDOW(pi->window), 
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_ERROR, 
+									 GTK_BUTTONS_OK,
+									 _("Generation of project file failed. Please "
+									   "check if you have write access to the project "
+									   "directory: %s"),
+									 gnome_vfs_result_to_string (error));
+		
+		gtk_dialog_run(GTK_DIALOG(dlg));
+		gtk_widget_destroy (dlg);
 		return FALSE;
 	}
 	return TRUE;

@@ -1,3 +1,18 @@
+2005-04-28  Naba Kumar  <naba@gnome.org>
+
+	* plugins/symbol-browser/an_symbol_prefs.c
+	plugins/symbol-browser/anjuta-symbol-browser-plugin.glade: Added
+	implementation to create/add/remove custom tags files in symbol
+	brower preferences.
+
+	* global-tags/Makefile.am: Exclude bin target anjuta-tags from
+	EXTRA_DIST.
+
+	* plugins/project-import/project-import.c: Fixed memory leaks and
+	use correct debug prints.
+	
+	* TODO.tasks: Updated.
+	
 2005-04-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/Makefile.am, libanjuta/interfaces/Makefile.am.iface,

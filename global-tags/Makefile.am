@@ -4,7 +4,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-EXTRA_DIST = create_global_tags.sh anjuta-tags
+EXTRA_DIST = create_global_tags.sh
 
 INCLUDES = -I$(top_srcdir)/tagmanager/include -Wall $(GLIB_CFLAGS)
 
