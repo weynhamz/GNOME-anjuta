@@ -1,4 +1,4 @@
-2005-04-28  Naba Kumar  <naba@gnome.org>
+2005-04-29  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/Makefile.am, src/Makefile.am: Include libutil in libanjuta.
 
