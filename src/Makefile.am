@@ -31,7 +31,6 @@ anjuta_SOURCES = \
 	main.c
 
 anjuta_LDADD =  \
-	-lutil \
 	$(GNOME_UI_LIBS) \
 	$(GDL_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la
@@ -43,5 +42,4 @@ anjuta_LDADD =  \
 
 anjuta_shell_SOURCES = shell.c
 anjuta_shell_LDADD =  \
-	-lutil \
 	$(top_builddir)/libanjuta/libanjuta.la

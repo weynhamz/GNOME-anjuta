@@ -362,7 +362,7 @@ debugger_set_next_command ()
    ready and active */
 void
 debugger_put_cmd_in_queqe (const gchar cmd[], gint flags,
-			   void (*parser) (GList * outputs, gpointer data), gpointer data)
+						   DebuggerCLIFunc parser, gpointer data)
 {
 	DebuggerCommand *dc;
 
@@ -1960,7 +1960,7 @@ static void query_set_print_pretty (gboolean state)
 }
 
 void debugger_query_evaluate_expr_tip (const gchar *expr,
-			void (*parser) (GList *outputs, gpointer data), gpointer data)
+									   DebuggerCLIFunc parser, gpointer data)
 {
 	query_set_verbose (FALSE);
 	query_set_print_staticmembers (FALSE);
@@ -1995,13 +1995,12 @@ static void debugger_query_info_cmd (
 	query_set_verbose (TRUE);
 }
 
-void debugger_query_info_target (void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_target (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info target", parser);
 }
 
-void debugger_query_info_program (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_program (DebuggerCLIFunc parser)
 {
 	query_set_print_pretty (TRUE);
 	query_set_verbose (FALSE);
@@ -2013,38 +2012,32 @@ void debugger_query_info_program (
 	query_set_verbose (TRUE);
 }
 
-void debugger_query_info_udot (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_udot (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info udot", parser);
 }
 
-void debugger_query_info_threads (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_threads (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info threads", parser);
 }
 
-void debugger_query_info_variables (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_variables (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info variables", parser);
 }
 
-void debugger_query_info_locals (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_locals (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info locals", parser);
 }
 
-void debugger_query_info_frame (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_frame (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info frame", parser);
 }
 
-void debugger_query_info_args (
-			void (*parser) (GList *outputs, gpointer data))
+void debugger_query_info_args (DebuggerCLIFunc parser)
 {
 	debugger_query_info_cmd ("info args", parser);
 }

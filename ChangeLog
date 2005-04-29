@@ -1,5 +1,25 @@
 2005-04-28  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/Makefile.am, src/Makefile.am: Include libutil in libanjuta.
+
+	* plugins/editor/text_editor.c: Fixed line marker interpretation.
+	
+	* data/gdb.init, plugins/gdb/Makefile.am, plugins/gdb/breakpoints.c,
+	plugins/gdb/breakpoints.h, plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h, (added) plugins/gdb/gdbmi-test.c,
+	(added) plugins/gdb/gdbmi.c, (added) plugins/gdb/gdbmi.h: Started
+	working on gdb MI interface. Completed MI parser interface.
+
+	Patch from  Massimo Cora <maxcvs@email.it>:
+	* plugins/class-inheritance/Makefile.am,
+	plugins/class-inheritance/class-inherit.c,
+	plugins/class-inheritance/class-inherit.h,
+	plugins/class-inheritance/plugin.c,
+	plugins/class-inheritance/plugin.h: Update to class inheritance plugin.
+	Used system theme for colors. Display class members on mouse click.
+	
+2005-04-28  Naba Kumar  <naba@gnome.org>
+
 	* plugins/symbol-browser/an_symbol_prefs.c
 	plugins/symbol-browser/anjuta-symbol-browser-plugin.glade: Added
 	implementation to create/add/remove custom tags files in symbol

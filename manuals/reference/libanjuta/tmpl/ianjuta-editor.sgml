@@ -43,6 +43,7 @@
 @char_added: 
 @update_ui: 
 @append: 
+@erase_all: 
 @get_attributes: 
 @get_current_word: 
 @get_filename: 
@@ -54,6 +55,7 @@
 @goto_line: 
 @goto_position: 
 @insert: 
+@replace_selection: 
 
 <!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->
 <para>

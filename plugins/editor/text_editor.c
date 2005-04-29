@@ -56,9 +56,22 @@
 #include "text_editor_prefs.h"
 
 /* Marker 0 is defined for bookmarks */
-#define TEXT_EDITOR_LINEMARKER	2
+#define TEXT_EDITOR_BOOKMARK                0
+#define TEXT_EDITOR_LINEMARKER              1
+#define TEXT_EDITOR_BREAKPOINT_DISABLED     2
+#define TEXT_EDITOR_BREAKPOINT_ENABLED      3
 
 #define MARKER_PROP_END 0xaaaaaa /* Do not define any color with this value */
+
+/* marker fore and back colors */
+static glong marker_prop[] = 
+{
+	SC_MARK_ROUNDRECT,      0x00007f, 0xffff80,	/* Bookmark */
+	SC_MARK_SHORTARROW,     0x00007f, 0x00ffff,	/* Line mark */
+	SC_MARK_CIRCLE,         0x00007f, 0xffffff,	/* Breakpoint mark (disabled) */
+	SC_MARK_CIRCLE,         0x00007f, 0xff80ff,	/* Breakpoint mark (enabled) */
+	MARKER_PROP_END,	                        /* end */
+};
 
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
@@ -98,15 +111,6 @@ text_editor_class_init (TextEditorClass *klass)
 	object_class->finalize = text_editor_finalize;
 	object_class->dispose = text_editor_dispose;
 }
-
-/* marker fore and back colors */
-static glong marker_prop[] = 
-{
-	SC_MARK_ROUNDRECT,      0x00007f, 0xffff80,	/* Bookmark */
-	SC_MARK_CIRCLE,         0x00007f, 0xff80ff,	/* Breakpoint mark */
-	SC_MARK_SHORTARROW,     0x00007f, 0x00ffff,	/* Line mark */
-	MARKER_PROP_END,	                        /* end */
-};
 
 #if 0
 static void
@@ -2251,11 +2255,9 @@ ifile_iface_init (IAnjutaFileIface *iface)
 	iface->get_uri = ifile_get_uri;
 }
 
-
 /* Implementation of the IAnjutaMarkable interface */
 static gint
-imarkable_mark (IAnjutaMarkable* editor, gint location,
-		IAnjutaMarkableMarker marker, GError** e)
+marker_ianjuta_to_editor (IAnjutaMarkableMarker marker)
 {
 	gint mark;
 	switch (marker)
@@ -2264,45 +2266,56 @@ imarkable_mark (IAnjutaMarkable* editor, gint location,
 			mark = TEXT_EDITOR_LINEMARKER;
 			break;
 		case IANJUTA_MARKABLE_LIGHT:
-			mark = 0;
+			mark = TEXT_EDITOR_BOOKMARK;
 			break;
 		case IANJUTA_MARKABLE_ATTENTIVE:
-			mark = 1;
+			mark = TEXT_EDITOR_BREAKPOINT_DISABLED;
 			break;
 		case IANJUTA_MARKABLE_INTENSE:
-			mark = 3;
+			mark = TEXT_EDITOR_BREAKPOINT_ENABLED;
 			break;
 		default:
 			mark = TEXT_EDITOR_LINEMARKER;
 	}
-	return text_editor_set_marker (TEXT_EDITOR (editor), location, mark);
+	return mark;
+}
+
+static gint
+imarkable_mark (IAnjutaMarkable* editor, gint location,
+				IAnjutaMarkableMarker marker, GError** e)
+{
+	return text_editor_set_marker (TEXT_EDITOR (editor), location,
+								   marker_ianjuta_to_editor (marker));
 }
 
 static gint
 imarkable_location_from_handle (IAnjutaMarkable* editor, gint handle, GError** e)
 {
-	return text_editor_line_from_handle(TEXT_EDITOR (editor), handle);
+	return text_editor_line_from_handle (TEXT_EDITOR (editor), handle);
 }
 
 static void
 imarkable_unmark (IAnjutaMarkable* editor, gint location,
-		IAnjutaMarkableMarker marker, GError** e)
+				  IAnjutaMarkableMarker marker, GError** e)
 {
-	text_editor_delete_marker (TEXT_EDITOR (editor), location, marker);
+	text_editor_delete_marker (TEXT_EDITOR (editor), location,
+							   marker_ianjuta_to_editor (marker));
 }
 
 static gboolean
 imarkable_is_marker_set (IAnjutaMarkable* editor, gint location,
-		IAnjutaMarkableMarker marker, GError** e)
+						 IAnjutaMarkableMarker marker, GError** e)
 {
-	return text_editor_is_marker_set (TEXT_EDITOR (editor), location, marker);
+	return text_editor_is_marker_set (TEXT_EDITOR (editor), location,
+									  marker_ianjuta_to_editor (marker));
 }
 
 static void
 imarkable_delete_all_markers (IAnjutaMarkable* editor,
-		IAnjutaMarkableMarker marker, GError** e)
+							  IAnjutaMarkableMarker marker, GError** e)
 {
-	text_editor_delete_marker_all (TEXT_EDITOR (editor), marker);
+	text_editor_delete_marker_all (TEXT_EDITOR (editor),
+								   marker_ianjuta_to_editor (marker));
 }
 
 static void

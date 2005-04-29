@@ -21,10 +21,9 @@
 #define _BREAKPOINTS_DBASE_H_
 
 #include <glade/glade.h>
-/* TODO #include "properties.h" */
-/* TODO #include "project_dbase.h" */
 #include <stdio.h>
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 typedef struct _BreakpointsDBase BreakpointsDBase;
 typedef struct _BreakpointsDBasePriv BreakpointsDBasePriv;
@@ -33,7 +32,6 @@ struct _BreakpointsDBase
 {
 	BreakpointsDBasePriv *priv;
 };
-
 
 BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin);
 
@@ -88,8 +86,10 @@ void breakpoints_dbase_set_all (BreakpointsDBase * bd);
 
 void breakpoints_dbase_update_controls (BreakpointsDBase * bd);
 
-// FIXME: void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, TextEditor* te);
+void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd,
+										  IAnjutaEditor* te);
 
-// FIXME: void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, TextEditor* te);
+void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd,
+											IAnjutaEditor* te);
 
 #endif

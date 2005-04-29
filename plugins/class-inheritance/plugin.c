@@ -71,6 +71,9 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaClassInheritance *ci_plugin;
 	ci_plugin = (AnjutaClassInheritance*) plugin;
 	
+	/* clean up the canvas */
+	class_inheritance_clean_canvas (ci_plugin);
+	
 	if (ci_plugin->top_dir)
 		g_free(ci_plugin->top_dir);
 	ci_plugin->top_dir = NULL;
@@ -104,10 +107,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
 	AnjutaClassInheritance *class_inheritance;
-
-	GtkWidget *wid;
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("AnjutaClassInheritance: Activating AnjutaClassInheritance plugin ...");
@@ -137,20 +137,24 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	g_message ("AnjutaClassInheritance: Dectivating AnjutaClassInheritance plugin ...");
+	DEBUG_PRINT ("AnjutaClassInheritance: Dectivating AnjutaClassInheritance plugin ...");
 
+	/* clean up the canvas [e.g. destroys it's elements */
+	class_inheritance_clean_canvas ((AnjutaClassInheritance*)plugin);
+	
 	/* Container holds the last ref to this widget so it will be destroyed as
 	 * soon as removed. No need to separately destroy it. */
 	/* In most cases, only toplevel widgets (windows) require explicit 
 	 * destruction, because when you destroy a toplevel its children will 
 	 * be destroyed as well. */
-	anjuta_shell_remove_widget (plugin->shell, ((AnjutaClassInheritance*)plugin)->widget,
+	anjuta_shell_remove_widget (plugin->shell,
+								((AnjutaClassInheritance*)plugin)->widget,
 								NULL);
 
-	
-	
 	/* Remove watches */
-	anjuta_plugin_remove_watch (plugin, ((AnjutaClassInheritance*)plugin)->root_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin,
+								((AnjutaClassInheritance*)plugin)->root_watch_id,
+								TRUE);
 	return TRUE;
 }
 

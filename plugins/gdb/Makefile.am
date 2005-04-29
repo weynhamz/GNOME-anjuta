@@ -67,7 +67,13 @@ libanjuta_gdb_la_SOURCES = \
 	info.c \
 	info.h \
 	utilities.c \
-	utilities.h
+	utilities.h \
+	gdbmi.c \
+	gdbmi.h 
+
+noinst_PROGRAMS = gdbmi-test
+gdbmi_test_SOURCES = gdbmi-test.c
+gdbmi_test_LDADD = $(top_builddir)/plugins/gdb/libanjuta-gdb.la
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \

@@ -49,6 +49,7 @@ ianjuta-terminal
 </para>
 
 @obj: 
+@directory: 
 @command: 
 @err: 
 @Returns: 

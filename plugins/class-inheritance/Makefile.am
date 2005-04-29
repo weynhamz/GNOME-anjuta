@@ -24,10 +24,11 @@ cls_inheritance_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 INCLUDES = \
 	$(LIBANJUTA_CFLAGS) \
 	$(WARN_CFLAGS) \
+	$(GDL_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PLUGIN_CLASS_INHERITANCE_CFLAGS) \
 	-I$(top_srcdir)/tagmanager/include
-	
+
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
 

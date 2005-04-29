@@ -36,6 +36,7 @@ ianjuta-buildable
 @build: 
 @clean: 
 @configure: 
+@execute: 
 @generate: 
 @install: 
 

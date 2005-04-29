@@ -29,6 +29,8 @@
 #include <graphviz/dotneato.h>	/* libgraph */
 #include <graphviz/graph.h>
 
+// FIXME
+#include <tm_tagmanager.h>
 
 typedef struct _AnjutaClassInheritance AnjutaClassInheritance;
 typedef struct _AnjutaClassInheritanceClass AnjutaClassInheritanceClass;
@@ -38,10 +40,17 @@ struct _AnjutaClassInheritance {
 	
 	GtkWidget *widget;			/* a vbox */
 	GtkWidget *update_button;	
+	GtkWidget *menu;
+	GtkWidget *update;
+	
 	GtkWidget *canvas;
-	GList *item_list;
+	GList *drawable_list;		/* GnomeCanvasItem* list. Edges, arrows and texts */
+	GList *node_list;				/* NodeData* list */
 	
 	Agraph_t *graph;	
+	
+	/* FIXME: remove this one and use an interface */
+	TMWorkObject *tm_project;
 	
 	gchar *top_dir;
 	guint root_watch_id;

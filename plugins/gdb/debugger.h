@@ -30,6 +30,7 @@
 #include "sharedlib.h"
 /* TODO #include "project_dbase.h" */
 #include "plugin.h"
+#include "gdbmi.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,11 +46,14 @@ extern "C" {
 typedef struct _Debugger Debugger;
 typedef struct _DebuggerCommand DebuggerCommand;
 
+typedef void (*DebuggerCLIFunc) (GList * outputs, gpointer data);
+typedef void (*DebuggerMIFunc) (GDBMIValue *val, gpointer data);
+
 struct _DebuggerCommand
 {
 	char cmd[DEBUGGER_COMMAND_MAX_LENGTH];
 	gint flags;
-	void (*parser) (GList * outputs, gpointer data);
+	DebuggerCLIFunc parser;
 	gpointer data;
 };
 
@@ -104,7 +108,7 @@ gboolean debugger_is_ready (void);
 /*  Private. Don't touch */
 gchar *debugger_start_terminal (void);
 void debugger_put_cmd_in_queqe (const gchar cmd[], gint flags,
-				void (*parser) (GList * outputs, gpointer data), gpointer data);
+								DebuggerCLIFunc parser, gpointer data);
 void debugger_execute_cmd_in_queqe (void);
 void debugger_update_controls (void);
 void debugger_set_active (gboolean busy_state);
@@ -151,26 +155,20 @@ void debugger_shared_library (void);
 
 void debugger_query_execute (void);
 void debugger_query_evaluate_expr_tip (const gchar *expr,
-			void (*parser) (GList *outputs, gpointer data), gpointer data);
+									   DebuggerCLIFunc parser,
+									   gpointer data);
 void debugger_query_evaluate_expr (const gchar *expr,
-			void (*parser) (GList *outputs, gpointer data), gpointer data);
-void debugger_query_info_target (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_program (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_udot (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_threads (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_variables (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_locals (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_frame (
-			void (*parser) (GList *outputs, gpointer data));
-void debugger_query_info_args (
-			void (*parser) (GList *outputs, gpointer data));
+								   DebuggerCLIFunc parser,
+								   gpointer data);
 
+void debugger_query_info_target (DebuggerCLIFunc parser);
+void debugger_query_info_program (DebuggerCLIFunc parser);
+void debugger_query_info_udot (DebuggerCLIFunc parser);
+void debugger_query_info_threads (DebuggerCLIFunc parser);
+void debugger_query_info_variables (DebuggerCLIFunc parser);
+void debugger_query_info_locals (DebuggerCLIFunc parser);
+void debugger_query_info_frame (DebuggerCLIFunc parser);
+void debugger_query_info_args (DebuggerCLIFunc parser);
 
 void on_debugger_update_prog_status (GList * lines, gpointer data);
 /* TODO void debugger_reload_session_breakpoints( ProjectDBase *p); */
