@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-30 23:15+0200\n"
-"PO-Revision-Date: 2005-04-30 23:37+0200\n"
+"POT-Creation-Date: 2005-05-01 16:34+0200\n"
+"PO-Revision-Date: 2005-05-01 16:36+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,8 @@ msgstr "Cargar automáticamente el último proyecto"
 
 #: ../anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
-msgstr "Autoguardar los archivos del editor antes de que se inicie la construcción"
+msgstr ""
+"Autoguardar los archivos del editor antes de que se inicie la construcción"
 
 #: ../anjuta.glade.h:15
 msgid "Beep on job complete"
@@ -643,7 +644,8 @@ msgstr "Proyectos recientes:"
 
 #: ../anjuta.glade.h:131
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr "Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-A]"
+msgstr ""
+"Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-A]"
 
 #: ../anjuta.glade.h:132
 msgid "Run Configure Script"
@@ -1439,7 +1441,8 @@ msgstr "El ejecutable está actualizado, no necesita ser construido de nuevo."
 
 #: ../plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr "No se ha especificado un comando de construcción para este tipo de archivo."
+msgstr ""
+"No se ha especificado un comando de construcción para este tipo de archivo."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
@@ -1934,7 +1937,8 @@ msgid "* Output Source File:"
 msgstr "Archivo de código fuente de salida:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid ""
+"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 "<span size=\"large\" weight=\"bold\">Constructor de Plantillas de Clase "
 "GObject</span>"
@@ -3374,22 +3378,26 @@ msgstr "Ordenados en orden de apertura"
 #: ../plugins/editor/anjuta-document-manager.glade.h:142
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de directorio a ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio a ignorar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:143
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de directorio a coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio a coincidir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de archivo a ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo a ignorar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:145
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de archivo a coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo a coincidir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:146
 msgid "Squares"
@@ -3591,7 +3599,8 @@ msgstr "Convertir caracteres EOL a mayoría de EOL"
 
 #: ../plugins/editor/plugin.c:188
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
+msgstr ""
+"Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
 
 #: ../plugins/editor/plugin.c:193
 msgid "_Select"
@@ -3650,7 +3659,8 @@ msgid "Find and R_eplace ..."
 msgstr "Buscar y r_eemplazar ..."
 
 #: ../plugins/editor/plugin.c:220
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr "Buscar y reemplazar una cadena o expresión con otra cadena"
 
 #: ../plugins/editor/plugin.c:222
@@ -4245,7 +4255,8 @@ msgstr "No se pudo obtener la información del archivo"
 
 #: ../plugins/editor/text_editor.c:1181
 msgid "This file is too big. Unable to allocate memory."
-msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr ""
+"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
 #: ../plugins/editor/text_editor.c:1188
 msgid "Could not open file"
@@ -5263,7 +5274,8 @@ msgstr "Información de archivos _objetivo"
 
 #: ../plugins/gdb/plugin.c:115
 msgid "Display information on the files the debugger is active with"
-msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr ""
+"Mostrar información de los archivos con los que el depurador está trabajando"
 
 #: ../plugins/gdb/plugin.c:121
 msgid "Info _Program"
@@ -5805,7 +5817,8 @@ msgstr "<i>iniciado: %s \tdetenido: %s</i>"
 
 #: ../plugins/gtodo/callback.c:12
 msgid "You need to select a todo item before you can remove it"
-msgstr "Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
+msgstr ""
+"Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
 
 #: ../plugins/gtodo/callback.c:15
 msgid "Are you sure you want to remove the selected todo item?"
@@ -5813,7 +5826,8 @@ msgstr "¿Seguro que quiere eliminar el elemento pendiente seleccionado?"
 
 #: ../plugins/gtodo/callback.c:98
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr "¿Seguro que quiere eliminar todos los elementos pendientes completados?"
+msgstr ""
+"¿Seguro que quiere eliminar todos los elementos pendientes completados?"
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
@@ -6271,7 +6285,8 @@ msgstr "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 
 #: ../plugins/gtodo/interface.c:270
 msgid "gToDo is a small and simple todo list written in gtk+-2.0"
-msgstr "gToDo es una lista de tareas pendientes pequeña y simple escrita en gtk+-2.0"
+msgstr ""
+"gToDo es una lista de tareas pendientes pequeña y simple escrita en gtk+-2.0"
 
 #: ../plugins/gtodo/interface.c:273
 msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
@@ -6423,7 +6438,8 @@ msgstr "--new"
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
+msgstr ""
+"Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
 
 #: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:78
 msgid "Delete"
@@ -6586,7 +6602,8 @@ msgstr "<b>Notificación</b>"
 #: ../plugins/gtodo/preferences.c:179
 #, c-format
 msgid "Allow to do items to notifiy me when they are due in %i minutes"
-msgstr "Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
+msgstr ""
+"Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:186
 msgid "Show Notification Tray Icon"
@@ -7757,7 +7774,8 @@ msgstr "Importar proyecto terminó...correctamente"
 
 #: ../plugins/project-manager/project_import.c:206
 msgid "Could not import Project: no project file found!"
-msgstr "No se puede importar el proyecto: No se encontró el archivo del proyecto."
+msgstr ""
+"No se puede importar el proyecto: No se encontró el archivo del proyecto."
 
 #: ../plugins/project-manager/project_import.c:213
 msgid "Opening Project...please wait"
@@ -8098,7 +8116,8 @@ msgstr "Operaciones de Subversion"
 
 #: ../plugins/subversion/subversion-callbacks.c:63
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
+msgstr ""
+"Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
 
 #: ../plugins/subversion/svn-notify.c:68
 msgid "Add"
@@ -8170,7 +8189,7 @@ msgstr "Efectuar postfix"
 
 #: ../plugins/subversion/svn-notify.c:168
 msgid "Blame revision"
-msgstr ""
+msgstr "Censurar revisión"
 
 #: ../plugins/subversion/svn-thread.c:59 ../plugins/subversion/svn-thread.c:64
 msgid "Subversion"
@@ -8325,7 +8344,8 @@ msgstr "¿Está seguro de querer borrar la herramienta «%s»?"
 
 #: ../plugins/tools/dialog.c:505
 msgid "Unable to build user interface for tool list"
-msgstr "No se pudo construir el interfaz de usuario para la lista de herramientas"
+msgstr ""
+"No se pudo construir el interfaz de usuario para la lista de herramientas"
 
 #: ../plugins/tools/dialog.c:524
 msgid "Tool"
@@ -8341,7 +8361,8 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:423
 msgid "Unable to build user interface for tool variable"
-msgstr "No se pudo construir el interfaz de usuario para la  herramienta de variable"
+msgstr ""
+"No se pudo construir el interfaz de usuario para la  herramienta de variable"
 
 #: ../plugins/tools/editor.c:439 ../plugins/tools/editor.c:1013
 msgid "Meaning"
@@ -8362,7 +8383,8 @@ msgstr "Ya existe una herramienta con el nombre «%s»."
 
 #: ../plugins/tools/editor.c:992
 msgid "Unable to build user interface for tool help"
-msgstr "No se puede construir el interfaz de usuario para la ayuda de herramienta"
+msgstr ""
+"No se puede construir el interfaz de usuario para la ayuda de herramienta"
 
 #: ../plugins/tools/editor.c:1141
 msgid "A tool with the same name already exists!"
@@ -8374,7 +8396,8 @@ msgstr "Acelerador nuevo..."
 
 #: ../plugins/tools/editor.c:1294
 msgid "Unable to build user interface for tool editor"
-msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr ""
+"No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #. Only for output data
 #: ../plugins/tools/execute.c:191
@@ -8673,7 +8696,8 @@ msgstr "No mostrar la pantalla de inicio"
 
 #: ../src/main.c:67
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Detener anjuta apropiadamente soltando todos los recursos (para depuración)"
+msgstr ""
+"Detener anjuta apropiadamente soltando todos los recursos (para depuración)"
 
 #: ../src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -8690,4 +8714,3 @@ msgstr "Grupo de acción de la shell de pruebas"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de pruebas de Anjuta"
-
