@@ -1,5 +1,10 @@
 2005-04-29  Naba Kumar  <naba@gnome.org>
 
+	* plugins/class-inheritance/class-inherit.c,
+	plugins/class-inheritance/plugin.c,
+	plugins/class-inheritance/plugin.h: Fixed crash bug when no symbols could
+	be found for a class. Formated code.
+
 	Patch from: Curtis Magyar  <curtm4n@gmail.com>:
 	* plugins/editor/anjuta-docman.c: Fixed alpabetical ordering
 	of editor tabs.

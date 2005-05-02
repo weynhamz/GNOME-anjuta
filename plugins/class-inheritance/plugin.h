@@ -32,20 +32,22 @@
 // FIXME
 #include <tm_tagmanager.h>
 
+G_BEGIN_DECLS
+
 typedef struct _AnjutaClassInheritance AnjutaClassInheritance;
 typedef struct _AnjutaClassInheritanceClass AnjutaClassInheritanceClass;
 
 struct _AnjutaClassInheritance {
 	AnjutaPlugin parent;
 	
-	GtkWidget *widget;			/* a vbox */
+	GtkWidget *widget;        /* a vbox */
 	GtkWidget *update_button;	
 	GtkWidget *menu;
 	GtkWidget *update;
 	
 	GtkWidget *canvas;
-	GList *drawable_list;		/* GnomeCanvasItem* list. Edges, arrows and texts */
-	GList *node_list;				/* NodeData* list */
+	GList *drawable_list;   /* GnomeCanvasItem* list. Edges, arrows and texts */
+	GList *node_list;		/* NodeData* list */
 	
 	Agraph_t *graph;	
 	
@@ -60,5 +62,7 @@ struct _AnjutaClassInheritance {
 struct _AnjutaClassInheritanceClass {
 	AnjutaPluginClass parent_class;
 };
+
+G_END_DECLS
 
 #endif

@@ -101,7 +101,8 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "class-inheritance-plugin-icon");
+	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE,
+				   "class-inheritance-plugin-icon");
 }
 
 static gboolean
@@ -110,7 +111,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaClassInheritance *class_inheritance;
 	static gboolean initialized = FALSE;
 	
-	DEBUG_PRINT ("AnjutaClassInheritance: Activating AnjutaClassInheritance plugin ...");
+	DEBUG_PRINT ("AnjutaClassInheritance: Activating plugin ...");
 	
 	register_stock_icons (plugin);
 	
@@ -137,7 +138,7 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	DEBUG_PRINT ("AnjutaClassInheritance: Dectivating AnjutaClassInheritance plugin ...");
+	DEBUG_PRINT ("AnjutaClassInheritance: Dectivating plugin ...");
 
 	/* clean up the canvas [e.g. destroys it's elements */
 	class_inheritance_clean_canvas ((AnjutaClassInheritance*)plugin);
@@ -153,7 +154,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin,
-								((AnjutaClassInheritance*)plugin)->root_watch_id,
+								((AnjutaClassInheritance*)
+								 plugin)->root_watch_id,
 								TRUE);
 	return TRUE;
 }
