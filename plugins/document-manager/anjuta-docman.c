@@ -1124,37 +1124,32 @@ do_ordertab1 (const void *a, const void *b)
 }
 
 static void
-anjuta_docman_order_tabs(AnjutaDocman *docman)
+anjuta_docman_order_tabs (AnjutaDocman *docman)
 {
-	gint i,j;
-	GList *children;
-	GtkWidget *widget,*label;
+	gint i, num_pages;
+	GtkWidget *widget;
 	order_struct *tab_labels;
-	children = gtk_container_children (GTK_CONTAINER(docman));
 	
-	j = g_list_length(children);
-	if (j<2)
+	num_pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK(docman));
+	if (num_pages < 2)
 		return;
-	tab_labels = g_new0(order_struct,j);
-	for (i=0;i<j;i++)
+	tab_labels = g_new0 (order_struct, num_pages);
+	for (i = 0; i < num_pages; i++)
 	{
-		widget = gtk_notebook_get_nth_page (GTK_NOTEBOOK(docman), i);
-		if (widget)
+		if((widget = gtk_notebook_get_nth_page (GTK_NOTEBOOK(docman),
+												i)) == NULL)
 		{
-			label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (docman), widget);
-			children = gtk_container_children (GTK_CONTAINER (label));
-			for (; children; children = g_list_next(children))
-			{
-				if (GTK_IS_LABEL (children->data))
-				{
-					tab_labels[i].m_label = GTK_LABEL (children->data)->label;
-					tab_labels[i].m_widget = widget;
-				}
-			}
+			tab_labels[i].m_label = NULL;
+			tab_labels[i].m_widget = NULL;
+		}
+		else
+		{
+			tab_labels[i].m_widget = widget;
+			tab_labels[i].m_label = TEXT_EDITOR(widget)->filename;
 		}
 	}
-	qsort (tab_labels, j , sizeof(order_struct), do_ordertab1);
-	for (i=0;i<j;i++)
+	qsort (tab_labels, num_pages, sizeof(order_struct), do_ordertab1);
+	for (i = 0; i < num_pages; i++)
 		gtk_notebook_reorder_child (GTK_NOTEBOOK (docman),
 									tab_labels[i].m_widget, i);
 	g_free (tab_labels);
