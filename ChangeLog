@@ -1,3 +1,35 @@
+2005-05-01  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-launcher.c:
+	Keep trying sending data until all bytes have been written
+
+	* plugins/tools/anjuta-tools.glade,
+	plugins/tools/editor.c:
+	Add a combo box to defined data from stdin
+
+	* plugins/tools/execute.c:
+	Send data in stdin if needed
+	Code cleanups
+
+	* plugins/tools/fileop.c,
+	plugins/tools/tool.h,
+	plugins/tools/tool.c:
+	Store, load and save stdin data
+	Use tools-2.xml instead of tools.xml
+
+	* plugins/tools/plugin.c,
+	plugins/tools/plugin.h:
+	Code cleanups
+
+	* plugins/tools/dialog.c,
+	plugins/tools/dialog.h:
+	Few code cleanups
+
+	* plugins/tools/variable.c,
+	plugins/tools/variable.h:
+	Add editor related variables
+	Code cleanups
+ 
 2005-04-29  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/Makefile.am, src/Makefile.am: Include libutil in libanjuta.

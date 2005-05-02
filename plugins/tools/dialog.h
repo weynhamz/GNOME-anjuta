@@ -36,8 +36,8 @@ struct _ATPToolDialog {
 	ATPPlugin* plugin;
 };
 
-void atp_tool_dialog_new_at (ATPToolDialog *this, ATPPlugin *plugin);
-void atp_tool_dialog_free_at (ATPToolDialog *this);
+void atp_tool_dialog_construct (ATPToolDialog *this, ATPPlugin *plugin);
+void atp_tool_dialog_destroy (ATPToolDialog *this);
 
 GtkWindow* atp_tool_dialog_get_window (const ATPToolDialog *this);
 void atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select);

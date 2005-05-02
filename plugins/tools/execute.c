@@ -131,6 +131,65 @@ save_all_files (AnjutaPlugin *plugin)
 	return save;
 }
 
+/* Replace variable in source and add prefix separated with a space */
+static gchar*
+replace_variable (const gchar* prefix,  const gchar* source, ATPVariable* variable)
+{
+	guint len;
+	gchar *val;
+	GString* str;
+
+	/* Create string and add prefix */
+	str = g_string_new (prefix);
+	if (prefix != NULL)
+	{
+		g_string_append_c (str, ' ');
+	}
+
+	/* Add source and replace variable */	
+	if (source != NULL)
+	{
+		for (; *source != '\0'; source += len)
+		{
+			for (len = 0; (source[len] != '\0') && g_ascii_isspace (source[len]); len++);
+			g_string_append_len (str, source, len);
+			source += len;
+			for (len = 0; (source[len] != '\0') && !g_ascii_isspace (source[len]); len++);
+			if ((len > 3) && (source[0] == '$') && (source[1] == '(') && (source[len - 1] == ')'))
+			{
+				val = atp_variable_get_value_from_name_part (variable, source + 2, len - 3);
+				if (val)
+				{
+					g_string_append (str, val);
+				}
+				else
+				{
+					g_string_append_len (str, source, len);
+				}
+				g_free (val);
+			}
+			else
+			{
+				g_string_append_len (str, source, len);
+			}
+		}
+	}
+
+	/* Remove leading space, trailing space and empty string */
+	val = g_string_free (str, FALSE);
+	if (val != NULL)
+	{
+		g_strstrip (val);
+		if ((val != NULL) && (*val == '\0'))
+		{
+			g_free (val);
+			val = NULL;
+		}
+	}
+
+	return val;
+}
+
 /* Output context
  *---------------------------------------------------------------------------*/
 
@@ -147,20 +206,20 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 {
 	const gchar* str;
 
-	if (this->type == ATP_SAME)
+	if (this->type == ATP_TOUT_SAME)
 	{
 		this = &this->execution->output;
 	}
 	switch (this->type)
 	{
-	case ATP_SAME:
+	case ATP_TOUT_SAME:
 		/* output should not use this */
 		g_return_val_if_reached (TRUE);
 		break;
-	case ATP_NULL:
+	case ATP_TOUT_NULL:
 		break;
-	case ATP_COMMON_MESSAGE:
-	case ATP_NEW_MESSAGE:
+	case ATP_TOUT_COMMON_PANE:
+	case ATP_TOUT_NEW_PANE:
 		/* Check if the view has already been created */
 		if (this->created == FALSE)
 		{
@@ -180,7 +239,7 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 			{
 				ianjuta_message_view_clear (this->view, NULL);
 			}
-			if (this->execution->error.type == ATP_SAME)
+			if (this->execution->error.type == ATP_TOUT_SAME)
 			{
 				/* Same message used for all outputs */
 				str = "";
@@ -207,14 +266,14 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 			ianjuta_message_view_buffer_append (this->view, text, NULL);
 		}
 		break;
-	case ATP_NEW_BUFFER:
-	case ATP_REPLACE_BUFFER:
+	case ATP_TOUT_NEW_BUFFER:
+	case ATP_TOUT_REPLACE_BUFFER:
 		ianjuta_editor_append (this->editor, text, strlen(text), NULL);
 		break;
-	case ATP_INSERT_BUFFER:
-	case ATP_APPEND_BUFFER:
-	case ATP_REPLACE_SELECTION:	
-	case ATP_POPUP_DIALOG:
+	case ATP_TOUT_INSERT_BUFFER:
+	case ATP_TOUT_APPEND_BUFFER:
+	case ATP_TOUT_REPLACE_SELECTION:	
+	case ATP_TOUT_POPUP_DIALOG:
 		g_string_append (this->buffer, text);	
 		break;
 	}
@@ -230,22 +289,22 @@ atp_output_context_print_command (ATPOutputContext *this, const gchar* command)
 	ok = TRUE;
 	switch (this->type)
 	{
-	case ATP_NULL:
-	case ATP_SAME:
+	case ATP_TOUT_NULL:
+	case ATP_TOUT_SAME:
 		break;
-	case ATP_COMMON_MESSAGE:
-	case ATP_NEW_MESSAGE:
+	case ATP_TOUT_COMMON_PANE:
+	case ATP_TOUT_NEW_PANE:
 		
 		ok = atp_output_context_print (this, _("Running command: "));
 		ok &= atp_output_context_print (this, command);
 		ok &= atp_output_context_print (this, "...\n");	
 		break;
-	case ATP_NEW_BUFFER:
-	case ATP_REPLACE_BUFFER:
-	case ATP_INSERT_BUFFER:
-	case ATP_APPEND_BUFFER:
-	case ATP_REPLACE_SELECTION:
-	case ATP_POPUP_DIALOG:
+	case ATP_TOUT_NEW_BUFFER:
+	case ATP_TOUT_REPLACE_BUFFER:
+	case ATP_TOUT_INSERT_BUFFER:
+	case ATP_TOUT_APPEND_BUFFER:
+	case ATP_TOUT_REPLACE_SELECTION:
+	case ATP_TOUT_POPUP_DIALOG:
 		/* Do nothing for all these cases */
 		break;
 	}
@@ -263,11 +322,11 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 	ok = TRUE;
 	switch (this->type)
 	{
-	case ATP_NULL:
-	case ATP_SAME:
+	case ATP_TOUT_NULL:
+	case ATP_TOUT_SAME:
 		break;
-	case ATP_COMMON_MESSAGE:
-	case ATP_NEW_MESSAGE:
+	case ATP_TOUT_COMMON_PANE:
+	case ATP_TOUT_NEW_PANE:
 		if (this == &this->execution->output)
 		{
 			if (error)
@@ -289,26 +348,26 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 
 		}
 		break;
-	case ATP_NEW_BUFFER:
-	case ATP_REPLACE_BUFFER:
+	case ATP_TOUT_NEW_BUFFER:
+	case ATP_TOUT_REPLACE_BUFFER:
 		/* Do nothing  */
 		break;
-	case ATP_INSERT_BUFFER:
+	case ATP_TOUT_INSERT_BUFFER:
 		ianjuta_editor_insert (this->editor, this->position, this->buffer->str, this->buffer->len, NULL);
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
-	case ATP_APPEND_BUFFER:
+	case ATP_TOUT_APPEND_BUFFER:
 		ianjuta_editor_append (this->editor, this->buffer->str, this->buffer->len, NULL);
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
-	case ATP_REPLACE_SELECTION:
+	case ATP_TOUT_REPLACE_SELECTION:
 		ianjuta_editor_replace_selection (this->editor, this->buffer->str, this->buffer->len, NULL);
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
-	case ATP_POPUP_DIALOG:
+	case ATP_TOUT_POPUP_DIALOG:
 		if (this->buffer->len)
 		{
 			if (this == &this->execution->output)
@@ -337,14 +396,14 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 	this->type = type;
 	switch (this->type)
 	{
-	case ATP_NULL:
-	case ATP_SAME:
+	case ATP_TOUT_NULL:
+	case ATP_TOUT_SAME:
 		break;
-	case ATP_COMMON_MESSAGE:
-	case ATP_NEW_MESSAGE:
+	case ATP_TOUT_COMMON_PANE:
+	case ATP_TOUT_NEW_PANE:
 		this->created = FALSE;
 		break;
-	case ATP_REPLACE_BUFFER:
+	case ATP_TOUT_REPLACE_BUFFER:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
 		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 		if (this->editor != NULL)
@@ -353,7 +412,7 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 			break;
 		}
 		/* Go through, try to create a new buffer */
-	case ATP_NEW_BUFFER:
+	case ATP_TOUT_NEW_BUFFER:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
 		this->editor = docman == NULL ? NULL : ianjuta_document_manager_add_buffer (docman, this->execution->name,"", NULL);
 		if (this->editor == NULL)
@@ -362,9 +421,9 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 			return NULL;
 		}
 		break;
-	case ATP_INSERT_BUFFER:
-	case ATP_APPEND_BUFFER:
-	case ATP_REPLACE_SELECTION:
+	case ATP_TOUT_INSERT_BUFFER:
+	case ATP_TOUT_APPEND_BUFFER:
+	case ATP_TOUT_REPLACE_SELECTION:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
 		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 		if (this->editor == NULL)
@@ -374,7 +433,7 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 		}
 		this->position = ianjuta_editor_get_position (this->editor, NULL);
 		/* No break, need a buffer too */
-	case ATP_POPUP_DIALOG:
+	case ATP_TOUT_POPUP_DIALOG:
 		if (this->buffer == NULL)
 		{
 			this->buffer = g_string_new ("");
@@ -511,12 +570,22 @@ atp_execution_context_free (ATPExecutionContext* this)
 }
 
 static void
-atp_execution_context_execute (ATPExecutionContext* this, const gchar* command)
+atp_execution_context_execute (ATPExecutionContext* this, const gchar* command, const gchar* input)
 {
+
 	atp_output_context_print_command (&this->output, command);
 	anjuta_launcher_execute (this->launcher, command, on_run_output, this);
 	anjuta_launcher_set_encoding (this->launcher, NULL);
 	this->busy = TRUE;
+
+	/* Send stdin data if needed */
+	if (input != NULL)
+	{
+		int i;
+		anjuta_launcher_send_stdin (this->launcher, input);
+		/* Send end marker */
+		anjuta_launcher_send_stdin (this->launcher, "\x04");
+	}
 }
 
 /* Execute context list
@@ -557,9 +626,9 @@ atp_context_list_find_context (ATPContextList *this, AnjutaPlugin *plugin, const
 	pane = 0;
 	best = 0;
 	context = NULL;
-	new_pane = (output == ATP_NEW_MESSAGE) || (error == ATP_NEW_MESSAGE);
-	output_pane = (output == ATP_NEW_MESSAGE) || (output == ATP_COMMON_MESSAGE);
-	error_pane = (error == ATP_NEW_MESSAGE) || (error == ATP_COMMON_MESSAGE);
+	new_pane = (output == ATP_TOUT_NEW_PANE) || (error == ATP_TOUT_NEW_PANE);
+	output_pane = (output == ATP_TOUT_NEW_PANE) || (output == ATP_TOUT_COMMON_PANE);
+	error_pane = (error == ATP_TOUT_NEW_PANE) || (error == ATP_TOUT_COMMON_PANE);
 	for (node = this->list; node != NULL; node = g_list_next (node))
 	{
 		ATPExecutionContext* current;
@@ -625,9 +694,11 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 	ATPVariable* variable;
 	ATPContextList* list;
 	ATPExecutionContext* context;
-	GString* string;
+	IAnjutaDocumentManager *docman;
+	IAnjutaEditor *ed;
 	gchar* dir;
 	gchar* cmd;
+	gchar* input;
 	const gchar* param;
 	gchar* val;
 	guint len;
@@ -642,68 +713,10 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 	}
 	
 	/* Make command line */
-	string = g_string_new (atp_user_tool_get_command (this));
-	g_string_append_c (string, ' ');
-
-	/* Add argument and replace variable*/
-	param = atp_user_tool_get_param (this); 
-	if (param != NULL)
-	{
-		for (; *param != '\0'; param += len)
-		{
-			for (len = 0; (param[len] != '\0') && g_ascii_isspace (param[len]); len++);
-			g_string_append_len (string, param, len);
-			param += len;
-			for (len = 0; (param[len] != '\0') && !g_ascii_isspace (param[len]); len++);
-			if (len)
-			{
-				val = atp_variable_get_value_from_name_part (variable, param, len);
-				if (val)
-				{
-					g_string_append (string, val);
-				}
-				else
-				{
-					g_string_append_len (string, param, len);
-				}
-				g_free (val);
-			}
-		}
-	}
-	/* Remove leading space, trailing space and empty string */
-	cmd = g_string_free (string, FALSE);
-	g_strstrip (cmd);
-	if ((cmd != NULL) && (*cmd == '\0'))
-	{
-		g_free (cmd);
-		cmd = NULL;
-	}
+	cmd = replace_variable (atp_user_tool_get_command (this), atp_user_tool_get_param (this), variable);
 
 	/* Get working directory and replace variable */
-	for(param = atp_user_tool_get_working_dir (this);g_ascii_isspace(*param); param++);
-	for(len = 0; param[len] != '\0';++len)
-	{
-		if (param[len] == G_DIR_SEPARATOR) break;
-	}
-	dir = atp_variable_get_value_from_name_part (variable, param, len);
-	if (dir == NULL)
-	{	       
-		dir = g_strdup (param);
-	}
-	else if (param[len] != '\0')
-	{
-		/* Append additional directory */
-		val = g_strconcat(dir, param + len, NULL);
-		g_free (dir);
-		dir = val;
-	}
-	/* Remove leading space, trailing space and empty string */
-	g_strstrip (dir);
-	if ((dir != NULL) && (*dir == '\0'))
-	{
-		g_free (dir);
-		dir = NULL;
-	}
+	dir = replace_variable (NULL, atp_user_tool_get_working_dir (this), variable);
 
 	if (atp_user_tool_get_flag (this, ATP_TOOL_TERMINAL))
 	{
@@ -714,6 +727,47 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 	}
 	else
 	{
+		/* Get stdin if necessary */
+		input = NULL;
+		switch (atp_user_tool_get_input (this))
+		{
+		case ATP_TIN_BUFFER:
+			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaDocumentManager, NULL);
+			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+			if (ed != NULL)
+			{
+				len = ianjuta_editor_get_length (ed, NULL);
+				input = ianjuta_editor_get_text (ed, 0, len, NULL);
+			}
+			break;
+		case ATP_TIN_SELECTION:
+			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaDocumentManager, NULL);
+			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+			if (ed != NULL)
+			{
+				input = ianjuta_editor_get_selection (ed, NULL);
+			}
+			break;
+		case ATP_TIN_STRING:
+			input = replace_variable (NULL, atp_user_tool_get_input_string (this), variable);
+			break;
+		case ATP_TIN_FILE:
+			val = replace_variable (NULL, atp_user_tool_get_input_string (this), variable);
+			if ((val == NULL) || (!g_file_get_contents (val, &input, NULL, NULL)))
+			{
+				anjuta_util_dialog_error (NULL,_("Unable to open input file %s, Command aborted"), val == NULL ? "(null)" : val);		
+				if (val != NULL) g_free (val);
+				if (dir != NULL) g_free (dir);
+				if (cmd != NULL) g_free (cmd);
+
+				return;
+			}
+			g_free (val);
+			break;
+		default:
+			break;
+		}
+
 		list = atp_plugin_get_context_list (plugin);
 
 		context = atp_context_list_find_context (list, ANJUTA_PLUGIN(plugin),
@@ -731,7 +785,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			}
 	
 			/* Run command */
-			atp_execution_context_execute (context, cmd);
+			atp_execution_context_execute (context, cmd, input);
 
 			/* Restore previous current directory */
 			if (dir != NULL)
@@ -740,6 +794,8 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 				g_free (val);
 			}
 		}
+
+		if (input != NULL) g_free(input);
 	}
 
 	if (dir != NULL) g_free (dir);

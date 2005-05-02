@@ -19,17 +19,18 @@
 */
 
 /*
- * External tool data
- * 
+ * Keep all external tool data. All tools are in a list which take care of
+ * allocating all memory needed by each tool.
+ *
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
 
 #include "tool.h"
 
-#include <libanjuta/anjuta-ui.h>
-
 #include "execute.h"
+
+#include <libanjuta/anjuta-ui.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -40,85 +41,69 @@
 struct _ATPUserTool
 {
 	gchar *name;
-	gchar *command;
+	gchar *command;		/* Command and parameters are in two variables */
 	gchar *param;
 	gchar *working_dir;
 	ATPToolFlag flags;
 	ATPOutputType output;
 	ATPOutputType error;
+	ATPInputType input;
+	gchar *input_string;
 	ATPToolStore storage;
 	GtkWidget* menu_item;
 	guint accel_key;
 	GdkModifierType accel_mods;
 	gchar *icon;
-	guint position;
-	ATPToolList *owner;
-	ATPUserTool *over;
-	ATPUserTool *next;
-	ATPUserTool *prev;
-	#if 0
-	gboolean file_level;
-	gboolean project_level;
-	gboolean detached;
-	gboolean run_in_terminal;
-	gboolean user_params;
-	gboolean autosave;
-	gchar *location;
-	gchar *icon;
-	gchar *shortcut;
-	int input_type; /* AnToolInputType */
-	gchar *input;
-	ATPOutput output; /* MESSAGE_* or AN_TBUF_* */
-	ATPOutput error; /* MESSAGE_* or AN_TBUF_* */
-	#endif
+	ATPToolList *owner;	 
+	ATPUserTool *over;	/* Same tool in another storage */
+	ATPUserTool *next;	/* Next tool in the list */
+	ATPUserTool *prev;	/* Previous tool in the list */
 };
 
-/* string must be defined in the same order than ATPOutputType enum */
-
-static struct
-{
-	char *name;
-} output_type_list[] = {
-  {"Same than output"}
-, {"Existing message pane"}
-, {"New message pane"}
-, {"New buffer"}
-, {"Replace buffer"}
-, {"Insert in buffer"}
-, {"Append in buffer"}
-, {"Replace selection"}
-, {"Popup dialog"}
-, {"Discard output"}
-};
-
-/* Tool helper functions
+/* Tools helper functions (map enum to string) 
  *---------------------------------------------------------------------------*/
 
-const char* 
-atp_get_string_from_output_type (ATPOutputType type)
-{
-	if (type >= ATP_OUTPUT_TYPE_COUNT) return NULL;
+ATPEnumType output_type_list[] = {
+ {ATP_TOUT_SAME, "Same than output"},
+ {ATP_TOUT_COMMON_PANE, "Existing message pane"},
+ {ATP_TOUT_NEW_PANE, "New message pane"},
+ {ATP_TOUT_NEW_BUFFER, "New buffer"},
+ {ATP_TOUT_REPLACE_BUFFER, "Replace buffer"},
+ {ATP_TOUT_INSERT_BUFFER, "Insert in buffer"},
+ {ATP_TOUT_APPEND_BUFFER, "Append to buffer"},
+ {ATP_TOUT_REPLACE_SELECTION, "Replace selection"},
+ {ATP_TOUT_POPUP_DIALOG, "Popup dialog"},
+ {ATP_TOUT_NULL, "Discard output"},
+ {-1, NULL}
+};
 
-	return output_type_list[type].name;
+ATPEnumType input_type_list[] = {
+ {ATP_TIN_NONE, "None"},
+ {ATP_TIN_BUFFER, "Current buffer"},
+ {ATP_TIN_SELECTION, "Current selection"},
+ {ATP_TIN_STRING, "String"},
+ {ATP_TIN_FILE, "File"},
+ {-1, NULL}
+};
+
+/*---------------------------------------------------------------------------*/
+
+const ATPEnumType* atp_get_output_type_list (void)
+{
+	return &output_type_list[1];
 }
 
-ATPOutputType 
-atp_get_output_type_from_string (const gchar* type)
+const ATPEnumType* atp_get_error_type_list (void)
 {
-	guint i;
-
-	for (i = 0; i < ATP_OUTPUT_TYPE_COUNT; ++i)
-	{
-		if (strcmp (type, output_type_list[i].name) == 0)
-		{
-			return (ATPOutputType)i;
-		}
-	}
-
-	return ATP_UNKNOWN;
+	return &output_type_list[0];
 }
 
-/* Tool list object
+const ATPEnumType* atp_get_input_type_list (void)
+{
+	return &input_type_list[0];
+}
+
+/* Tool list object containing all tools
  *---------------------------------------------------------------------------*/
 
 ATPToolList *
@@ -126,7 +111,6 @@ atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin, AnjutaUI *ui)
 {
 	this->ui = ui;
 	this->plugin = plugin;
-	/*memset (this->list, 0, sizeof(this->list)); */
 	this->list = NULL;
 	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
 	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
@@ -141,32 +125,6 @@ void atp_tool_list_destroy (ATPToolList* this)
 	g_string_chunk_free (this->string_pool);
 	g_mem_chunk_destroy (this->data_pool);
 }
-
-#if 0
-static ATPUserTool *
-atp_tool_list_get_tool (const ATPToolList *this, const gchar *name)
-{
-	return (ATPUserTool *)g_hash_table_lookup (this->hash, name);
-}
-
-static ATPUserTool *
-atp_tool_list_get_tool_in (const ATPToolList *this, const gchar *name, ATPToolStore storage)
-{
-	ATPUserTool *tool;
-	
-	g_return_val_if_fail (name, NULL);
-
-	tool = (ATPUserTool *)g_hash_table_lookup (this->hash, name);
-
-	/* Search tool in the list */
-	for(; tool != NULL;  tool = tool->over)
-	{
-		if (storage == tool->storage) break;
-	}
-
-	return tool;
-}
-#endif
 
 static ATPUserTool *
 atp_tool_list_last (const ATPToolList *this)
@@ -612,6 +570,25 @@ ATPOutputType
 atp_user_tool_get_error (const ATPUserTool *this )
 {
 	return this->error;
+}
+
+void
+atp_user_tool_set_input (ATPUserTool *this, ATPInputType type, const gchar* value)
+{
+	this->input = type;
+	this->input_string = value == NULL ? NULL : g_string_chunk_insert_const (this->owner->string_pool, value);
+}
+
+ATPInputType
+atp_user_tool_get_input (const ATPUserTool *this )
+{
+	return this->input;
+}
+
+const gchar* 
+atp_user_tool_get_input_string (const ATPUserTool *this )
+{
+	return this->input_string;
 }
 
 void

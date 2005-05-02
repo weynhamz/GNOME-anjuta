@@ -316,17 +316,24 @@ anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar * input_str)
 	GError *err = NULL;
 	
 	if (!input_str || strlen (input_str) == 0) return;
-	
-	g_io_channel_write_chars (launcher->priv->pty_channel,
+
+	do
+	{	
+		g_io_channel_write_chars (launcher->priv->pty_channel,
 							  input_str, strlen (input_str),
 							  &bytes_written, &err);
-	g_io_channel_flush (launcher->priv->pty_channel, NULL);
-	if (err)
-	{
-		g_warning ("Error encountered while writing to PTY!. %s",
-				   err->message);
-		g_error_free (err);
+		g_io_channel_flush (launcher->priv->pty_channel, NULL);
+		if (err)
+		{
+			g_warning ("Error encountered while writing to PTY!. %s",
+					   err->message);
+			g_error_free (err);
+
+			return;
+		}
+		input_str += bytes_written;
 	}
+	while (*input_str);
 }
 
 /**

@@ -40,7 +40,7 @@
 
 #define ANJUTA_TOOLS_DIRECTORY PACKAGE_DATA_DIR
 #define LOCAL_ANJUTA_TOOLS_DIRECTORY "/.anjuta"
-#define TOOLS_FILE	"tools.xml"
+#define TOOLS_FILE	"tools-2.xml"
 
 /*---------------------------------------------------------------------------*/
 
@@ -56,6 +56,8 @@ typedef enum {
 	ATP_TERMINAL_TAG,
 	ATP_OUTPUT_TAG,
 	ATP_ERROR_TAG,
+	ATP_INPUT_TAG,
+	ATP_INPUT_VALUE_TAG,
 	ATP_SHORTCUT_TAG,
 	ATP_ICON_TAG,
 	ATP_UNKNOW_TAG
@@ -114,6 +116,14 @@ parse_tag (const gchar* name)
 	else if (strcmp ("error", name) == 0)
 	{
 		return ATP_ERROR_TAG;
+	}
+	else if (strcmp ("input_type", name) == 0)
+	{
+		return ATP_INPUT_TAG;
+	}
+	else if (strcmp ("input", name) == 0)
+	{
+		return ATP_INPUT_VALUE_TAG;
 	}
 	else if (strcmp ("shortcut", name) == 0)
 	{
@@ -290,6 +300,8 @@ parse_tool_start (GMarkupParseContext* context,
 			case ATP_TERMINAL_TAG:
 			case ATP_OUTPUT_TAG:
 			case ATP_ERROR_TAG:
+			case ATP_INPUT_TAG:
+			case ATP_INPUT_VALUE_TAG:
 			case ATP_SHORTCUT_TAG:
 			case ATP_ICON_TAG:
 				known = TRUE;
@@ -402,6 +414,14 @@ parse_tool_text (GMarkupParseContext* context,
 		case ATP_ERROR_TAG:
 			g_return_if_fail (parser->tool);
 			atp_user_tool_set_error (parser->tool, parse_integer_string (text));
+			break;
+		case ATP_INPUT_TAG:
+			g_return_if_fail (parser->tool);
+			atp_user_tool_set_input (parser->tool, parse_integer_string (text), NULL);
+			break;
+		case ATP_INPUT_VALUE_TAG:
+			g_return_if_fail (parser->tool);
+			atp_user_tool_set_input (parser->tool, atp_user_tool_get_input (parser->tool), text);
 			break;
 		case ATP_SHORTCUT_TAG:
 			g_return_if_fail (parser->tool);
@@ -629,25 +649,11 @@ atp_user_tool_save (ATPUserTool *tool, FILE *f)
 	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_TERMINAL), "run_in_terminal", &head, f);
 	write_xml_integer (atp_user_tool_get_output (tool), "output", &head, f);
 	write_xml_integer (atp_user_tool_get_error (tool), "error", &head, f);
+	write_xml_integer (atp_user_tool_get_input (tool), "input_type", &head, f);
+	write_xml_string (atp_user_tool_get_input_string (tool), "input", &head, f);
 	atp_user_tool_get_accelerator (tool, &key, &mask);
 	write_xml_accelerator (key, mask, "shortcut", &head, f);
 	write_xml_string (atp_user_tool_get_icon (tool), "icon", &head, f);
-
-	#if 0
-	NUMWRITE(file_level)
-	NUMWRITE(project_level)
-	NUMWRITE(detached)
-	NUMWRITE(run_in_terminal)
-	NUMWRITE(user_params)
-	NUMWRITE(autosave)
-	STRWRITE(location)
-	STRWRITE(icon)
-	STRWRITE(shortcut)
-	NUMWRITE(input_type)
-	STRWRITE(input)
-	NUMWRITE(output)
-	NUMWRITE(error)
-	#endif
 
 	if (head == NULL)
 	{

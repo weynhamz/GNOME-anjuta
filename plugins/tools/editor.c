@@ -77,6 +77,11 @@ struct _ATPToolEditor
 	GtkToggleButton *autosave_tb;
 	GtkComboBox *output_com;
 	GtkComboBox *error_com;
+	GtkComboBox *input_com;
+	GtkEditable *input_en;
+	GtkButton *input_var_bt;
+	ATPVariableDialog input_file_var;
+	ATPVariableDialog input_string_var;
 	GtkToggleButton *shortcut_bt;
 	GnomeIconEntry *icon_en;
 	gchar* shortcut;
@@ -114,12 +119,17 @@ struct _ATPToolEditor
 #define TOOL_TERMINAL "terminal_checkbox"
 #define TOOL_OUTPUT "output_combo"
 #define TOOL_ERROR "error_combo"
+#define TOOL_INPUT "input_combo"
+#define TOOL_INPUT_VALUE "input_entry"
+#define TOOL_INPUT_VARIABLE "input_button"
 #define TOOL_SHORTCUT "shortcut_bt"
 #define TOOL_ICON "icon_entry"
 
 #define EDITOR_RESPONSE_SIGNAL "on_editor_dialog_response"
 #define EDITOR_PARAM_VARIABLE_SIGNAL "on_variable_parameter"
 #define EDITOR_DIR_VARIABLE_SIGNAL "on_variable_directory"
+#define EDITOR_INPUT_VARIABLE_SIGNAL "on_variable_input"
+#define EDITOR_INPUT_CHANGED_SIGNAL "on_input_changed"
 #define EDITOR_TOGGLE_TERMINAL_SIGNAL "on_toggle_terminal"
 #define EDITOR_TOGGLE_SHORCUT_SIGNAL "on_toggle_shorcut"
 
@@ -182,45 +192,60 @@ StringMap output_strings[] = {
 /* Add helper function
  *---------------------------------------------------------------------------*/
 
-static gchar*
+void
+set_combo_box_enum_model (GtkComboBox* combo_box, const ATPEnumType* list)
+{
+	GtkTreeModel *model;
+
+	model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_INT));
+
+	for (; list->id != -1;++list)
+	{
+		GtkTreeIter iter;
+
+		gtk_list_store_append (GTK_LIST_STORE(model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter, 0, _(list->name), 1, list->id, -1);
+	}
+	gtk_combo_box_set_model (combo_box, model);
+}
+
+gint
 get_combo_box_value (GtkComboBox* combo_box)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gchar* value = NULL;
+	gint value = -1;
 
 	if (gtk_combo_box_get_active_iter (combo_box, &iter))
 	{
 		model = gtk_combo_box_get_model (combo_box);
-		gtk_tree_model_get (model, &iter, 0, &value, -1);
+		gtk_tree_model_get (model, &iter, 1, &value, -1);
 	}
 
 	return value;
 }
 
 static gboolean
-set_combo_box_value (GtkComboBox* combo_box, const gchar* value)
+set_combo_box_value (GtkComboBox* combo_box, gint value)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gchar* current = NULL;
+	gint current;
 
-	if (value != NULL)
+	if (value != -1)
 	{
 		model = gtk_combo_box_get_model (combo_box);
 		if (gtk_tree_model_get_iter_first (model, &iter))
 		{
 			do
 			{
-				gtk_tree_model_get (model, &iter, 0, &current, -1);
-				if (strcmp (value, current) == 0)
+				gtk_tree_model_get (model, &iter, 1, &current, -1);
+				if (value == current)
 				{
-					g_free (current);
 					gtk_combo_box_set_active_iter (combo_box, &iter);
 	
 					return TRUE;
 				}
-				g_free (current);
 			}
 			while (gtk_tree_model_iter_next (model, &iter));
 		}
@@ -278,9 +303,9 @@ atp_variable_dialog_populate (ATPVariableDialog* this, ATPFlags flag)
 		const gchar* value_col;
 
 		--i;
-		if ((flag == ATP_DEFAULT) || (flag & atp_variable_get_flag (variable, i)))
+		if ((flag == ATP_DEFAULT_VARIABLE) || (flag & atp_variable_get_flag (variable, i)))
 		{
-			if (atp_variable_get_flag (variable, i) & ATP_INTERACTIVE)
+			if (atp_variable_get_flag (variable, i) & ATP_INTERACTIVE_VARIABLE)
 			{
 				value = NULL;
 				value_col = _("ask at runtime");
@@ -305,7 +330,7 @@ atp_variable_dialog_populate (ATPVariableDialog* this, ATPFlags flag)
 }
 
 static void
-atp_variable_dialog_add_text(ATPVariableDialog *this, const gchar* text)
+atp_variable_dialog_add_variable(ATPVariableDialog *this, const gchar* text)
 {
 	gint pos;
 
@@ -332,7 +357,9 @@ atp_variable_dialog_add_text(ATPVariableDialog *this, const gchar* text)
 			}
 			g_free (next);
 		}
+		gtk_editable_insert_text (this->entry, "$(", 2, &pos);
 		gtk_editable_insert_text (this->entry, text, strlen(text), &pos);
+		gtk_editable_insert_text (this->entry, ")", 1, &pos);
 		/* Add space after if useful */
 		next = gtk_editable_get_chars (this->entry, pos, pos + 1);
 		if (next != NULL)
@@ -379,7 +406,7 @@ on_variable_activate (GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColum
 	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_tree_model_get (model, &iter, ATP_VARIABLE_NAME_COLUMN, &name, -1);
 
-	atp_variable_dialog_add_text (this, name);	
+	atp_variable_dialog_add_variable (this, name);	
 
 	gtk_widget_hide (GTK_WIDGET (this->dialog));
 }
@@ -394,7 +421,7 @@ on_variable_response (GtkDialog *dialog, gint response, gpointer user_data)
 	{
 	case GTK_RESPONSE_OK:
 		name = get_current_name (this->view);
-		atp_variable_dialog_add_text (this, name);
+		atp_variable_dialog_add_variable (this, name);
 		break;
 	default:
 		break;
@@ -489,10 +516,33 @@ atp_update_sensitivity(ATPToolEditor *ted)
 {
 	gboolean en;
 
+	/* Deactivate output and input setting if a terminal is used */
 	en = gtk_toggle_button_get_active (ted->terminal_tb);
-
 	gtk_widget_set_sensitive((GtkWidget *) ted->output_com, !en);
 	gtk_widget_set_sensitive((GtkWidget *) ted->error_com, !en);
+	gtk_widget_set_sensitive((GtkWidget *) ted->input_com, !en);
+
+	/* input value is available for a few input type only */
+	if (!en)
+	{
+		switch (get_combo_box_value (ted->input_com))
+		{
+		case ATP_TIN_FILE:
+		case ATP_TIN_STRING:
+			en = TRUE;
+			break;
+		default:
+			en = FALSE;
+			break;
+		}
+		gtk_widget_set_sensitive((GtkWidget *) ted->input_en, en);
+		gtk_widget_set_sensitive((GtkWidget *) ted->input_var_bt, en);
+	}
+	else
+	{
+		gtk_widget_set_sensitive((GtkWidget *) ted->input_en, FALSE);
+		gtk_widget_set_sensitive((GtkWidget *) ted->input_var_bt, FALSE);
+	}
 }
 
 static
@@ -549,8 +599,21 @@ atp_populate_tool_editor(ATPToolEditor* ted)
 	gtk_toggle_button_set_active (ted->autosave_tb, atp_user_tool_get_flag (ted->tool, ATP_TOOL_AUTOSAVE));
 	gtk_toggle_button_set_active (ted->terminal_tb, atp_user_tool_get_flag (ted->tool, ATP_TOOL_TERMINAL));
 
-	set_combo_box_value (ted->output_com, _(atp_get_string_from_output_type (atp_user_tool_get_output (ted->tool))));
-	set_combo_box_value (ted->error_com, _(atp_get_string_from_output_type (atp_user_tool_get_error (ted->tool))));
+	set_combo_box_value (ted->output_com, atp_user_tool_get_output (ted->tool));
+	set_combo_box_value (ted->error_com, atp_user_tool_get_error (ted->tool));
+	set_combo_box_value (ted->input_com, atp_user_tool_get_input (ted->tool));
+	switch (atp_user_tool_get_input (ted->tool))
+	{
+	case ATP_TIN_FILE:
+	case ATP_TIN_STRING:
+		value = atp_user_tool_get_input_string (ted->tool);
+		if (value)
+		{
+			gtk_editable_insert_text(ted->input_en, value, strlen(value), &pos);
+		}
+		break;
+	}
+	atp_update_sensitivity (ted);
 
 	if (ted->shortcut != NULL) g_free (ted->shortcut);
 	if (atp_user_tool_get_accelerator (ted->tool, &accel_key, &accel_mods))
@@ -1111,14 +1174,25 @@ on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 }
 
 static void
+on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
+{
+	ATPToolEditor *ted = (ATPToolEditor *)user_data;
+
+	atp_update_sensitivity (ted);
+}
+
+static void
 on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 {
 	ATPToolEditor* ted = (ATPToolEditor*)user_data;
 	const gchar* name;
 	const gchar* data;
+	ATPInputType in_type;
 	gchar* value;
 	guint accel_key;
 	GdkModifierType accel_mods;
+	GtkAccelGroup* group;
+	AnjutaUI* ui;
 
 	if (response == GTK_RESPONSE_OK)
 	{
@@ -1141,7 +1215,27 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			anjuta_util_dialog_error(NULL, _("A tool with the same name already exists!"));
 			return;
 		}
+		
+		if (ted->shortcut == NULL)
+		{
+			accel_key = 0;
+			accel_mods = 0;
+		}
+		else
+		{
+			gtk_accelerator_parse (ted->shortcut, &accel_key, &accel_mods);
+			ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(ted->parent->plugin)->shell, NULL);
+			group = anjuta_ui_get_accel_group(ui);
+			if (gtk_accel_group_query (group, accel_key, accel_mods, NULL) != NULL)
+			{
+				if (!anjuta_util_dialog_boolean_question (NULL, _("The shortcut is already used by another component in Anjuta. Do you want to keep it anyway ?")))
+				{
+					return;
+				}
+			}
+		}
 
+		/* Set new tool data */
 		atp_user_tool_set_command (ted->tool, data);
 
 		data = gtk_editable_get_chars(ted->param_en, 0, -1);
@@ -1156,22 +1250,21 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 
 		atp_user_tool_set_flag (ted->tool, ATP_TOOL_TERMINAL | (gtk_toggle_button_get_active(ted->terminal_tb) ? ATP_SET : ATP_CLEAR));
 
-		value = get_combo_box_value (ted->output_com);	
-		atp_user_tool_set_output (ted->tool, atp_get_output_type_from_string (value));
-		g_free (value);	
-		value = get_combo_box_value (ted->error_com);	
-		atp_user_tool_set_error (ted->tool, atp_get_output_type_from_string (value));
-		g_free (value);	
+		atp_user_tool_set_output (ted->tool, get_combo_box_value (ted->output_com));
+		atp_user_tool_set_error (ted->tool, get_combo_box_value (ted->error_com));
+		in_type = get_combo_box_value (ted->input_com);
+		switch (in_type)
+		{
+		case ATP_TIN_FILE:
+		case ATP_TIN_STRING:
+			data = gtk_editable_get_chars(ted->input_en, 0, -1);
+			atp_user_tool_set_input (ted->tool, in_type, data);
+			break;
+		default:
+			atp_user_tool_set_input (ted->tool, in_type, NULL);
+			break;
+		}
 
-		if (ted->shortcut == NULL)
-		{
-			accel_key = 0;
-			accel_mods = 0;
-		}
-		else
-		{
-			gtk_accelerator_parse (ted->shortcut, &accel_key, &accel_mods);
-		}
 		atp_user_tool_set_accelerator (ted->tool, accel_key, accel_mods);
 
 		value = gnome_icon_entry_get_filename (ted->icon_en);	
@@ -1188,7 +1281,7 @@ on_editor_param_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 
-	atp_variable_dialog_show (&this->param_var, ATP_DEFAULT);	
+	atp_variable_dialog_show (&this->param_var, ATP_DEFAULT_VARIABLE);	
 }
 
 static void
@@ -1196,7 +1289,23 @@ on_editor_dir_variable_show (GtkButton *button, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
 
-	atp_variable_dialog_show (&this->dir_var, ATP_DIRECTORY);
+	atp_variable_dialog_show (&this->dir_var, ATP_DIRECTORY_VARIABLE);
+}
+
+static void
+on_editor_input_variable_show (GtkButton *button, gpointer user_data)
+{
+	ATPToolEditor* this = (ATPToolEditor*)user_data;
+
+	switch (get_combo_box_value (this->input_com))
+	{
+	case ATP_TIN_FILE:
+		atp_variable_dialog_show (&this->input_file_var, ATP_FILE_VARIABLE);
+		break;
+	case ATP_TIN_STRING:
+		atp_variable_dialog_show (&this->input_string_var, ATP_DEFAULT_VARIABLE);
+		break;
+	}
 }
 
 static gboolean
@@ -1311,16 +1420,18 @@ atp_tool_editor_show (ATPToolEditor* ted)
 	ted->autosave_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_AUTOSAVE);
 	ted->output_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_OUTPUT);
 	ted->error_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_ERROR);
+	ted->input_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_INPUT);
+	ted->input_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_INPUT_VALUE);
+	ted->input_var_bt = (GtkButton *) glade_xml_get_widget(xml, TOOL_INPUT_VARIABLE);
 	ted->shortcut_bt = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_SHORTCUT);
+	atp_variable_dialog_set_entry (&ted->input_file_var, ted->input_en);
+	atp_variable_dialog_set_entry (&ted->input_string_var, ted->input_en);
 	ted->icon_en = (GnomeIconEntry *) glade_xml_get_widget(xml, TOOL_ICON);
 
 	/* Add combox box value */
-	gtk_combo_box_append_text (ted->error_com, _(atp_get_string_from_output_type (0)));	
-	for (i = 1; i < ATP_OUTPUT_TYPE_COUNT; i++)
-	{
-		gtk_combo_box_append_text (ted->output_com, _(atp_get_string_from_output_type (i)));
-		gtk_combo_box_append_text (ted->error_com, _(atp_get_string_from_output_type (i)));	
-	}
+	set_combo_box_enum_model (ted->error_com, atp_get_error_type_list());
+	set_combo_box_enum_model (ted->output_com, atp_get_output_type_list());
+	set_combo_box_enum_model (ted->input_com, atp_get_input_type_list());
 
 	#if 0
 	ted->detached_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_DETACHED);
@@ -1356,6 +1467,8 @@ atp_tool_editor_show (ATPToolEditor* ted)
 	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_dir_variable_show), ted);
 	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SHORCUT_SIGNAL, GTK_SIGNAL_FUNC (on_editor_shortcut_toggle), ted);
 	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_TERMINAL_SIGNAL, GTK_SIGNAL_FUNC (on_editor_terminal_toggle), ted);
+	glade_xml_signal_connect_data (xml, EDITOR_INPUT_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_input_variable_show), ted);
+	glade_xml_signal_connect_data (xml, EDITOR_INPUT_CHANGED_SIGNAL, GTK_SIGNAL_FUNC (on_editor_input_changed), ted);
 
 	#if 0
 	g_signal_connect (G_OBJECT (ted->dialog), "delete_event",
@@ -1392,6 +1505,8 @@ atp_tool_editor_new (ATPUserTool *tool, ATPToolEditorList *list, struct _ATPTool
 	ted->tool = tool;
 	atp_variable_dialog_construct (&ted->param_var, ted, ATP_VARIABLE_DEFAULT);
 	atp_variable_dialog_construct (&ted->dir_var, ted, ATP_VARIABLE_REPLACE);
+	atp_variable_dialog_construct (&ted->input_file_var, ted, ATP_VARIABLE_REPLACE);
+	atp_variable_dialog_construct (&ted->input_string_var, ted, ATP_VARIABLE_REPLACE);
 
 	/* Add it in the list */
 	if (list != NULL)
@@ -1408,8 +1523,10 @@ atp_tool_editor_free (ATPToolEditor *this)
 {
 	ATPToolEditor **prev;
 
-	atp_variable_dialog_destroy (&this->param_var);
+	atp_variable_dialog_destroy (&this->input_string_var);
+	atp_variable_dialog_destroy (&this->input_file_var);
 	atp_variable_dialog_destroy (&this->dir_var);
+	atp_variable_dialog_destroy (&this->param_var);
 
 	if (this->shortcut != NULL) g_free (this->shortcut);
 

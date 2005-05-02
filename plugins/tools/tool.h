@@ -27,48 +27,43 @@
 
 #include <glib.h>
 
-/** Defines how output should be handled */
+/* Defines how output (stdout and stderr) should be handled */
 typedef enum _ATPOutputType
 {
-	ATP_UNKNOWN = -1,
-	ATP_SAME = 0,
-	ATP_COMMON_MESSAGE,
-	ATP_NEW_MESSAGE,
-	ATP_NEW_BUFFER,
-	ATP_REPLACE_BUFFER,
-	ATP_INSERT_BUFFER,
-	ATP_APPEND_BUFFER,
-	ATP_REPLACE_SELECTION,
-	ATP_POPUP_DIALOG,
-	ATP_NULL,
+	ATP_TOUT_UNKNOWN = -1,
+	ATP_TOUT_SAME = 0,
+	ATP_TOUT_COMMON_PANE,
+	ATP_TOUT_NEW_PANE,
+	ATP_TOUT_NEW_BUFFER,
+	ATP_TOUT_REPLACE_BUFFER,
+	ATP_TOUT_INSERT_BUFFER,
+	ATP_TOUT_APPEND_BUFFER,
+	ATP_TOUT_REPLACE_SELECTION,
+	ATP_TOUT_POPUP_DIALOG,
+	ATP_TOUT_NULL,
 	ATP_OUTPUT_TYPE_COUNT
-#if 0
-	ATP_TBUF_NEW, /* Create a new buffer and put output into it */
-	ATP_TBUF_REPLACE, /* Replace exisitng buffer content with output */
-	ATP_TBUF_INSERT, /* Insert at cursor position in the current buffer */
-	ATP_TBUF_APPEND, /* Append output to the end of the buffer */
-	ATP_TBUF_REPLACESEL, /* Replace the current selection with the output */
-	ATP_TBUF_POPUP /* Show result in a popup window */
-#endif
 } ATPOutputType;
 
-#if 0
-/** Defines what to supply to the standard input of the tool  */
-typedef enum _ATPToolInputType
+/* Defines how input should be handled */
+typedef enum _ATPInputType
 {
-	ATP_TINP_NONE = 0, /* No input */
-	ATP_TINP_BUFFER, /* Contents of current buffer */
-	ATP_TINP_STRING /* User defined string (variables will be expanded) */
-} ATPToolInputType;
+	ATP_TIN_UNKNOWN = -1,
+	ATP_TIN_NONE = 0,
+	ATP_TIN_BUFFER,
+	ATP_TIN_SELECTION,
+	ATP_TIN_STRING,
+	ATP_TIN_FILE,
+	ATP_INPUT_TYPE_COUNT
+} ATPInputType;
 
-typedef enum _ATPOutput
+/* Simple type to associate an identifier and a string */
+typedef struct _ATPEnumType
 {
-	ATP_MESSAGE_STDERR,
-	ATP_MESSAGE_STDOUT
-} ATPOutput;
-#endif
+	gint id;
+	const gchar* name;
+} ATPEnumType;
 
-/** Defines how and where tool information will be stored. */
+/* Defines how and where tool information will be stored. */
 typedef enum _ATPToolStore
 {
 	ATP_TSTORE_GLOBAL = 0,
@@ -77,12 +72,15 @@ typedef enum _ATPToolStore
 	ATP_LAST_TSTORE
 } ATPToolStore;
 
+/* Additional tool information */
 typedef enum _ATPToolFlag
 {
+	/* Select the operation needed on the flag */
 	ATP_CLEAR = 0,
 	ATP_SET = 1,
 	ATP_TOGGLE = 2,
 	ATP_OPERATION = 3,
+	/* Tool flags */
 	ATP_TOOL_ENABLE = 1 << 2,
 	ATP_TOOL_AUTOSAVE = 1 << 3,
 	ATP_TOOL_TERMINAL = 1 << 4
@@ -90,7 +88,6 @@ typedef enum _ATPToolFlag
 
 typedef struct _ATPUserTool ATPUserTool;
 typedef struct _ATPToolList ATPToolList;
-typedef guint ATPToolListPos;
 
 struct _ATPToolList
 {
@@ -102,10 +99,12 @@ struct _ATPToolList
 	ATPPlugin* plugin;
 };
 
+ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATPToolStore storage);
 void atp_user_tool_free(ATPUserTool *tool);
 
-const char* atp_get_string_from_output_type (ATPOutputType type);
-ATPOutputType atp_get_output_type_from_string (const gchar* type);
+const ATPEnumType* atp_get_output_type_list (void);
+const ATPEnumType* atp_get_error_type_list (void);
+const ATPEnumType* atp_get_input_type_list (void);
 
 gboolean atp_user_tool_set_name (ATPUserTool *this, const gchar *value);
 const gchar* atp_user_tool_get_name (const ATPUserTool* this);
@@ -128,32 +127,33 @@ ATPOutputType atp_user_tool_get_output (const ATPUserTool *this);
 void atp_user_tool_set_error (ATPUserTool *this, ATPOutputType type);
 ATPOutputType atp_user_tool_get_error (const ATPUserTool *this);
 
+void atp_user_tool_set_input (ATPUserTool *this, ATPInputType type, const gchar* value);
+ATPInputType atp_user_tool_get_input (const ATPUserTool *this);
+const gchar* atp_user_tool_get_input_string (const ATPUserTool *this);
+
 void atp_user_tool_set_accelerator (ATPUserTool *this, guint key, GdkModifierType mods);
 gboolean atp_user_tool_get_accelerator (const ATPUserTool *this, guint *key, GdkModifierType *mods);
 
 void atp_user_tool_set_icon (ATPUserTool *this, const gchar* value);
 const gchar* atp_user_tool_get_icon (ATPUserTool *this);
-	
 
 ATPPlugin* atp_user_tool_get_plugin (ATPUserTool* this);
-
-gboolean atp_user_tool_activate (ATPUserTool* this, GtkMenu* submenu, GtkAccelGroup* group);
-
-ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATPToolStore storage);
 
 ATPUserTool *atp_user_tool_next (const ATPUserTool* this);
 ATPUserTool *atp_user_tool_previous (const ATPUserTool* this);
 ATPUserTool *atp_user_tool_in (ATPUserTool* this, ATPToolStore storage);
 
+gboolean atp_user_tool_activate (ATPUserTool* this, GtkMenu* submenu, GtkAccelGroup* group);
 
+/*---------------------------------------------------------------------------*/
 
 ATPToolList *atp_tool_list_construct (ATPToolList *this, ATPPlugin* plugin, AnjutaUI* ui);
 void atp_tool_list_destroy (ATPToolList *this);
 
 ATPUserTool* atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore storage);
-
 ATPUserTool* atp_tool_list_first (ATPToolList *this);
 ATPUserTool* atp_tool_list_move (ATPToolList *this, ATPUserTool *tool, ATPUserTool *position);
+
 gboolean atp_tool_list_activate (ATPToolList *this);
 
 #endif

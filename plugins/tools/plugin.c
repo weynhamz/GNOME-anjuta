@@ -24,6 +24,7 @@ Convention:
 (M) = Must have
 (R) = Recommended
 (N) = Nice to have
+(U) = Unecessary
 (D) = Done (Implemented)
 (P) = Partly implemented
 
@@ -39,16 +40,17 @@ implemented. Feel free to add/remove/reprioritize these items but please
 discuss in the devel list before making any major changes.
 
 R1: Modify GUI at program startup
-	1) (P) Add new menu items associated with external commands.
-	2) (N) Add drop-down toolbar item for easy access to all tools.
-	3) (P) Should be appendable under any of the top/sub level menus.
-	4) (N) Should be able to associate icons.
-	5) (R) Should be able to associate shortcuts.
+	1) (D) Add new menu items associated with external commands.
+	2) (D) Add drop-down toolbar item for easy access to all tools.
+	4) (D) Should be able to associate icons.
+	5) (D) Should be able to associate shortcuts.
+	5) (U) Should be appendable under any of the top/sub level menus.
 
 R2: Command line parameters
 	1) (D) Pass variable command-line parameters to the tool.
 	2) (D) Use existing properties system to pass parameters.
-	3) (N) Ask user at run-time for parameters.
+	3) (D) Ask user at run-time for parameters.
+	4) (U) Generate a dialog for asking several parameters at run time
 
 R3: Working directory
 	1) (D) Specify working directory for the tool.
@@ -57,13 +59,14 @@ R3: Working directory
 R4: Standard input to the tool
 	1) (D) Specify current buffer as standard input.
 	2) (D) Specify property variables as standard input.
-	3) (N) Specify list of open files as standard input.
+	3) (D) Specify list of open files as standard input.
 
 R5: Output and error redirection
-	1) (D) Output to any of the message pane windows.
+	1) (D) Output to a message pane windows.
 	2) (D) Run in terminal (detached mode).
 	3) (D) Output to current/new buffer.
 	4) (D) Show output in a popup window.
+	5) (U) Try to parser error and warning messages
 
 R6: Tool manipulation GUI
 	1) (D) Add/remove tools with all options.
@@ -71,7 +74,7 @@ R6: Tool manipulation GUI
 
 R7: Tool Storage
 	1) (D) Gloabal and local tool storage.
-	2) (R) Override global tools with local settings.
+	2) (D) Override global tools with local settings.
 	3) (N) Project specific tools (load/unload with project)
 */
 
@@ -96,6 +99,7 @@ R7: Tool Storage
 /*---------------------------------------------------------------------------*/
 
 #define ICON_FILE "anjuta-tools-plugin.png"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-tools.ui"
 
 /*---------------------------------------------------------------------------*/
 
@@ -112,7 +116,6 @@ struct _ATPPluginClass {
 	AnjutaPluginClass parent_class;
 };
 
-
 /* Call backs
  *---------------------------------------------------------------------------*/
 
@@ -123,8 +126,6 @@ atp_on_menu_tools_configure (GtkAction* action, ATPPlugin* plugin)
 };
 
 /*---------------------------------------------------------------------------*/
-
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-tools.ui"
 
 static GtkActionEntry actions_tools[] = {
 	{
@@ -145,39 +146,6 @@ static GtkActionEntry actions_tools[] = {
 	}
 };
 		 
-/* Access plugin variable
- *---------------------------------------------------------------------------*/
-
-GtkWindow*
-atp_plugin_get_app_window (const ATPPlugin *this)
-{
-	return GTK_WINDOW (ANJUTA_PLUGIN (this)->shell);
-}
-
-ATPToolList*
-atp_plugin_get_tool_list (const ATPPlugin* this)
-{
-	return &(((ATPPlugin *)this)->list);
-}
-
-ATPToolDialog*
-atp_plugin_get_tool_dialog (const ATPPlugin *this)
-{
-	return &(((ATPPlugin *)this)->dialog);
-}
-
-ATPVariable*
-atp_plugin_get_variable (const ATPPlugin *this)
-{
-	return &(((ATPPlugin *)this)->variable);
-}
-
-ATPContextList* 
-atp_plugin_get_context_list (const ATPPlugin *this)
-{
-	return &(((ATPPlugin *)this)->context);
-}
-
 /*---------------------------------------------------------------------------*/
 
 /* Used in dispose */
@@ -221,17 +189,19 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 
 	/* Load tools */
 	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(ui), MENU_PLACEHOLDER))));
+
+	/* Add a separator */
 	sep = gtk_separator_menu_item_new();
-	atp_tool_list_construct (&this->list, this, ui);
-	atp_anjuta_tools_load (this);
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), sep);
 	gtk_widget_show (sep);
-	
+
+	/* Add tool menu item */
+	atp_tool_list_construct (&this->list, this, ui);
+	atp_anjuta_tools_load (this);
 	atp_tool_list_activate (&this->list);
 
-	/* initialize dialog box */
-	atp_tool_dialog_new_at (&this->dialog, this);
-
+	/* initialization */
+	atp_tool_dialog_construct (&this->dialog, this);
 	atp_variable_construct (&this->variable, plugin->shell);
 	atp_context_list_construct (&this->context);
 	
@@ -246,13 +216,13 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 
 	g_message ("Tools Plugin: Deactivating tools plugin...");
 
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_unmerge (ui, this->uiid);
-
-	atp_tool_list_destroy (&this->list);
-	atp_tool_dialog_free_at (&this->dialog);
 	atp_context_list_destroy (&this->context);
 	atp_variable_destroy (&this->variable);
+	atp_tool_dialog_destroy (&this->dialog);
+	atp_tool_list_destroy (&this->list);
+
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	anjuta_ui_unmerge (ui, this->uiid);
 
 	return TRUE;
 }
@@ -271,3 +241,36 @@ atp_plugin_class_init (GObjectClass *klass)
 
 ANJUTA_PLUGIN_BOILERPLATE (ATPPlugin, atp_plugin);
 ANJUTA_SIMPLE_PLUGIN (ATPPlugin, atp_plugin);
+
+/* Access plugin variables
+ *---------------------------------------------------------------------------*/
+
+GtkWindow*
+atp_plugin_get_app_window (const ATPPlugin *this)
+{
+	return GTK_WINDOW (ANJUTA_PLUGIN (this)->shell);
+}
+
+ATPToolList*
+atp_plugin_get_tool_list (const ATPPlugin* this)
+{
+	return &(((ATPPlugin *)this)->list);
+}
+
+ATPToolDialog*
+atp_plugin_get_tool_dialog (const ATPPlugin *this)
+{
+	return &(((ATPPlugin *)this)->dialog);
+}
+
+ATPVariable*
+atp_plugin_get_variable (const ATPPlugin *this)
+{
+	return &(((ATPPlugin *)this)->variable);
+}
+
+ATPContextList* 
+atp_plugin_get_context_list (const ATPPlugin *this)
+{
+	return &(((ATPPlugin *)this)->context);
+}

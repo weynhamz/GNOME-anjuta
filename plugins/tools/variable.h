@@ -25,13 +25,17 @@
 
 #include <glib.h>
 
-typedef AnjutaShell* ATPVariable;
+typedef struct _ATPVariable
+{
+	AnjutaShell* shell;
+} ATPVariable;
 
 typedef enum {
-	ATP_DEFAULT = 0,
-	ATP_DIRECTORY = 1 << 1,
-	ATP_INTERACTIVE = 1 << 2,
-	ATP_NONE = 1 << 15
+	ATP_DEFAULT_VARIABLE = 0,
+	ATP_DIRECTORY_VARIABLE = 1 << 1,	/* Variable is a directory */
+	ATP_FILE_VARIABLE = 1 << 2,		/* Variable is a filename */
+	ATP_INTERACTIVE_VARIABLE = 1 << 3,	/* Variable display a dialog */
+	ATP_NO_VARIABLE = 1 << 15
 } ATPFlags;
 	
 ATPVariable* atp_variable_construct (ATPVariable* this, AnjutaShell* shell);
@@ -41,6 +45,7 @@ guint atp_variable_get_count (const ATPVariable* this);
 const gchar* atp_variable_get_name (const ATPVariable* this, guint id);
 const gchar* atp_variable_get_help (const ATPVariable* this, guint id);
 ATPFlags atp_variable_get_flag (const ATPVariable* this, guint id);
+
 gchar* atp_variable_get_value_from_id (const ATPVariable* this, guint id);
 gchar* atp_variable_get_value (const ATPVariable* this, const gchar* name);
 gchar* atp_variable_get_value_from_name_part (const ATPVariable* this, const gchar* name, gsize length);

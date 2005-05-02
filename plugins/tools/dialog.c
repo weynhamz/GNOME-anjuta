@@ -583,7 +583,7 @@ atp_tool_dialog_get_variable (const ATPToolDialog *this)
 }
 
 void
-atp_tool_dialog_new_at (ATPToolDialog *this, ATPPlugin *plugin)
+atp_tool_dialog_construct (ATPToolDialog *this, ATPPlugin *plugin)
 {
 	this->plugin = plugin;
 	this->dialog = NULL;
@@ -591,7 +591,7 @@ atp_tool_dialog_new_at (ATPToolDialog *this, ATPPlugin *plugin)
 }
 
 void
-atp_tool_dialog_free_at (ATPToolDialog *this)
+atp_tool_dialog_destroy (ATPToolDialog *this)
 {
 	atp_tool_dialog_close (this);
 }
