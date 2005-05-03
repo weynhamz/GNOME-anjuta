@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-01 16:34+0200\n"
-"PO-Revision-Date: 2005-05-01 16:36+0200\n"
+"POT-Creation-Date: 2005-05-03 11:21+0200\n"
+"PO-Revision-Date: 2005-05-03 11:22+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -721,11 +721,11 @@ msgstr "Módulo de fuentes Makefile.am"
 msgid "Standard error:"
 msgstr "Error estándar:"
 
-#: ../anjuta.glade.h:148
+#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:12
 msgid "Standard input:"
 msgstr "Entrada estándar:"
 
-#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:12
+#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:13
 msgid "Standard output:"
 msgstr "Salida estándar:"
 
@@ -759,7 +759,7 @@ msgstr ""
 msgid "Target:"
 msgstr "Objetivo:"
 
-#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:13
+#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:14
 msgid "Tool Editor"
 msgstr "Editor de herramientas"
 
@@ -767,7 +767,7 @@ msgstr "Editor de herramientas"
 msgid "Top level Makefile.am"
 msgstr "Makefile.am nivel superior"
 
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:802
+#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:875
 #: ../plugins/gdb/registers_gui.c:48 ../plugins/gdb/sharedlib_gui.c:41
 #: ../plugins/gdb/signals_gui.c:55 ../plugins/gdb/stack_trace.c:369
 #: ../plugins/subversion/svn-notify.c:118
@@ -778,7 +778,7 @@ msgstr "Actualizar"
 msgid "Update tags image automatically"
 msgstr "Actualizar imagen de etiquetas automáticamente"
 
-#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:14
+#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:15
 msgid "User Tools"
 msgstr "Herramientas de usuario"
 
@@ -811,7 +811,7 @@ msgstr "Avisar cuando una variable indefinida sea referenciada en el Makefile"
 msgid "Warnings"
 msgstr "Advertencias"
 
-#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:16
+#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Working directory:"
 msgstr "Directorio de trabajo:"
 
@@ -851,7 +851,7 @@ msgid "_Disable all"
 msgstr "_Desactivar todos"
 
 #: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
-#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:17
+#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
 #: ../src/anjuta-actions.h:30 ../src/shell.c:76
 msgid "_Edit"
 msgstr "_Editar"
@@ -1052,11 +1052,11 @@ msgstr "Codificaciones soportadas"
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:715
+#: ../libanjuta/anjuta-launcher.c:722
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: error al leer pty hija\n"
 
-#: ../libanjuta/anjuta-launcher.c:898 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:905 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/debug-manager/utilities.c:1663
 #: ../plugins/gdb/utilities.c:279
 #, c-format
@@ -1274,7 +1274,7 @@ msgstr "Modo del acelerador"
 msgid "The type of accelerator."
 msgstr "Tipo del acelerador"
 
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:507
+#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:557
 msgid "Disabled"
 msgstr "Desactivado"
 
@@ -1470,7 +1470,7 @@ msgstr "Completado ... incorrectamente"
 msgid "Completed ... successful\n"
 msgstr "Completado .... correctamente\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:281
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:340
 msgid "Completed ... successful"
 msgstr "Completado ... correctamente"
 
@@ -1885,15 +1885,15 @@ msgid "Build commands"
 msgstr "Comandos de construcción"
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:287
+#: ../plugins/class-inheritance/class-inherit.c:304
 msgid "Fixed data-view"
 msgstr "Vista de datos fijos"
 
-#: ../plugins/class-inheritance/class-inherit.c:803
+#: ../plugins/class-inheritance/class-inherit.c:876
 msgid "Update the graph"
 msgstr "Actualizar la gráfica"
 
-#: ../plugins/class-inheritance/plugin.c:122
+#: ../plugins/class-inheritance/plugin.c:123
 msgid "Inheritance Graph"
 msgstr "Gráfico de herencia"
 
@@ -5008,12 +5008,12 @@ msgid "0"
 msgstr "0"
 
 #: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:135
-#: ../plugins/tools/editor.c:436 ../plugins/tools/editor.c:1007
+#: ../plugins/tools/editor.c:463 ../plugins/tools/editor.c:1070
 msgid "Variable"
 msgstr "Variable"
 
 #: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:144
-#: ../plugins/tools/editor.c:442 ../plugins/tools/editor.c:1019
+#: ../plugins/tools/editor.c:469 ../plugins/tools/editor.c:1082
 msgid "Value"
 msgstr "Valor"
 
@@ -8325,15 +8325,15 @@ msgstr "Eleentos del menú:"
 msgid "Parameters:"
 msgstr "Parámetros:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:15
+#: ../plugins/tools/anjuta-tools.glade.h:16
 msgid "Variable list"
 msgstr "Lista de variables"
 
-#: ../plugins/tools/anjuta-tools.glade.h:18
+#: ../plugins/tools/anjuta-tools.glade.h:19
 msgid "_Variable..."
 msgstr "_Variable..."
 
-#: ../plugins/tools/anjuta-tools.glade.h:19
+#: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "toggle"
 msgstr "alternar"
 
@@ -8351,124 +8351,135 @@ msgstr ""
 msgid "Tool"
 msgstr "Herramienta"
 
-#: ../plugins/tools/editor.c:286
+#: ../plugins/tools/editor.c:311
 msgid "ask at runtime"
 msgstr "preguntar en tiempo de ejecución"
 
-#: ../plugins/tools/editor.c:291
+#: ../plugins/tools/editor.c:316
 msgid "undefined"
 msgstr "indefinido"
 
-#: ../plugins/tools/editor.c:423
+#: ../plugins/tools/editor.c:450
 msgid "Unable to build user interface for tool variable"
 msgstr ""
 "No se pudo construir el interfaz de usuario para la  herramienta de variable"
 
-#: ../plugins/tools/editor.c:439 ../plugins/tools/editor.c:1013
+#: ../plugins/tools/editor.c:466 ../plugins/tools/editor.c:1076
 msgid "Meaning"
 msgstr "Significado"
 
-#: ../plugins/tools/editor.c:687 ../plugins/tools/editor.c:1129
+#: ../plugins/tools/editor.c:750 ../plugins/tools/editor.c:1203
 msgid "You must provide a tool name!"
 msgstr "Debe proporcionar un nombre de herramienta."
 
-#: ../plugins/tools/editor.c:693 ../plugins/tools/editor.c:1135
+#: ../plugins/tools/editor.c:756 ../plugins/tools/editor.c:1209
 msgid "You must provide a tool command!"
 msgstr "Debe proporcionar un comando de herramienta."
 
-#: ../plugins/tools/editor.c:708
+#: ../plugins/tools/editor.c:771
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr "Ya existe una herramienta con el nombre «%s»."
 
-#: ../plugins/tools/editor.c:992
+#: ../plugins/tools/editor.c:1055
 msgid "Unable to build user interface for tool help"
 msgstr ""
 "No se puede construir el interfaz de usuario para la ayuda de herramienta"
 
-#: ../plugins/tools/editor.c:1141
+#: ../plugins/tools/editor.c:1215
 msgid "A tool with the same name already exists!"
 msgstr "Ya existe una herramienta con el mismo nombre."
 
-#: ../plugins/tools/editor.c:1275
+#: ../plugins/tools/editor.c:1231
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway ?"
+msgstr "El atajo ya se usa en otro componenete de Anjuta. ¿Quiere conservarlo de todas formas?"
+
+#: ../plugins/tools/editor.c:1384
 msgid "New accelerator..."
 msgstr "Acelerador nuevo..."
 
-#: ../plugins/tools/editor.c:1294
+#: ../plugins/tools/editor.c:1403
 msgid "Unable to build user interface for tool editor"
 msgstr ""
 "No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #. Only for output data
-#: ../plugins/tools/execute.c:191
+#: ../plugins/tools/execute.c:250
 msgid "(output)"
 msgstr "(salida)"
 
 #. Only for error data
-#: ../plugins/tools/execute.c:196
+#: ../plugins/tools/execute.c:255
 msgid "(error)"
 msgstr "(error)"
 
-#: ../plugins/tools/execute.c:239
+#: ../plugins/tools/execute.c:298
 msgid "Running command: "
 msgstr "Comando en ejecución:"
 
-#: ../plugins/tools/execute.c:275
+#: ../plugins/tools/execute.c:334
 msgid "Completed ... unsuccessful with "
 msgstr "Completado ... incorrectamente"
 
-#: ../plugins/tools/execute.c:361
+#: ../plugins/tools/execute.c:420
 msgid "Unable to create a buffer, command aborted"
 msgstr "No puedo crear un búfer, comando abortado"
 
-#: ../plugins/tools/execute.c:372
+#: ../plugins/tools/execute.c:431
 msgid "No document currently open, command aborted"
 msgstr "No hay ningún documento abierto actualmente, orden abortada"
 
-#: ../plugins/tools/execute.c:763
+#: ../plugins/tools/execute.c:758
+#, c-format
+msgid "Unable to open input file %s, Command aborted"
+msgstr "No se puede abrir el archivo de entrada %s, comando abortado"
+
+#: ../plugins/tools/execute.c:819
 msgid "Unable to build user interface for tool parameters"
 msgstr ""
 "No se pudo construir el interfaz de usuario para los parámetros de "
 "herramienta"
 
-#: ../plugins/tools/execute.c:767
+#: ../plugins/tools/execute.c:823
 #, c-format
 msgid "%s: Command line parameters"
 msgstr "%s: Parámetros del línea de comando"
 
-#: ../plugins/tools/fileop.c:261
+#: ../plugins/tools/fileop.c:271
 msgid "Missing tool name"
 msgstr "Falta el nombre de la herramienta"
 
-#: ../plugins/tools/fileop.c:278
+#: ../plugins/tools/fileop.c:288
 #, c-format
 msgid "Unexpected element \"%s\""
 msgstr "Elemento inesperado «%s»"
 
-#: ../plugins/tools/fileop.c:539
+#: ../plugins/tools/fileop.c:559
 msgid "Error when loading external tools"
 msgstr "Error al cargar herramientas externas"
 
-#: ../plugins/tools/fileop.c:683
+#: ../plugins/tools/fileop.c:689
 #, c-format
 msgid "Unable to open %s for writing"
 msgstr "No se puede abrir el archivo %s para escribir"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/tools/plugin.c:133
+#: ../plugins/tools/plugin.c:134
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: ../plugins/tools/plugin.c:141
+#: ../plugins/tools/plugin.c:142
 msgid "_Configure"
 msgstr "_Configurar"
 
-#: ../plugins/tools/plugin.c:143
+#: ../plugins/tools/plugin.c:144
 msgid "Configure external tools"
 msgstr "Configurar herramientas externas"
 
-#: ../plugins/tools/plugin.c:216
+#: ../plugins/tools/plugin.c:184
 msgid "Tool operations"
 msgstr "Operaciones con herramientas"
 
