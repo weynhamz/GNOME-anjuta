@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-27 15:39-0400\n"
-"PO-Revision-Date: 2005-04-27 12:57-0400\n"
+"POT-Creation-Date: 2005-05-04 01:18-0400\n"
+"PO-Revision-Date: 2005-05-04 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,7 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../plugins/tools/anjuta-tools.glade.h:1
 msgid "*"
@@ -294,7 +295,7 @@ msgstr "Enable Profiling"
 msgid "Enable _all"
 msgstr "Enable _all"
 
-#: ../anjuta.glade.h:60 ../plugins/gdb/breakpoints.c:116
+#: ../anjuta.glade.h:60 ../plugins/gdb/breakpoints.c:117
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Enabled"
@@ -313,7 +314,7 @@ msgstr "Execute Program"
 
 #. Register actions
 #: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
-#: ../plugins/gdb/breakpoints.c:116 ../src/anjuta-app.c:439
+#: ../plugins/gdb/breakpoints.c:117 ../src/anjuta-app.c:439
 msgid "File"
 msgstr "File"
 
@@ -501,6 +502,7 @@ msgid "Modules"
 msgstr "Modules"
 
 #: ../anjuta.glade.h:103 ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Name:"
@@ -711,11 +713,11 @@ msgstr "Source module Makefile.am"
 msgid "Standard error:"
 msgstr "Standard error:"
 
-#: ../anjuta.glade.h:148
+#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:12
 msgid "Standard input:"
 msgstr "Standard input:"
 
-#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:12
+#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:13
 msgid "Standard output:"
 msgstr "Standard output:"
 
@@ -747,7 +749,7 @@ msgstr "Supports are only available to File mode compilation and build."
 msgid "Target:"
 msgstr "Target:"
 
-#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:13
+#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:14
 msgid "Tool Editor"
 msgstr "Tool Editor"
 
@@ -755,7 +757,7 @@ msgstr "Tool Editor"
 msgid "Top level Makefile.am"
 msgstr "Top level Makefile.am"
 
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:493
+#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:875
 #: ../plugins/gdb/registers_gui.c:48 ../plugins/gdb/sharedlib_gui.c:41
 #: ../plugins/gdb/signals_gui.c:55 ../plugins/gdb/stack_trace.c:369
 #: ../plugins/subversion/svn-notify.c:118
@@ -766,7 +768,7 @@ msgstr "Update"
 msgid "Update tags image automatically"
 msgstr "Update tags image automatically"
 
-#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:14
+#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:15
 msgid "User Tools"
 msgstr "User Tools"
 
@@ -799,7 +801,7 @@ msgstr "Warn when an undefined variable is referenced in the Makefile"
 msgid "Warnings"
 msgstr "Warnings"
 
-#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:16
+#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Working directory:"
 msgstr "Working directory:"
 
@@ -839,7 +841,7 @@ msgid "_Disable all"
 msgstr "_Disable all"
 
 #: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
-#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:17
+#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
 #: ../src/anjuta-actions.h:30 ../src/shell.c:76
 msgid "_Edit"
 msgstr "_Edit"
@@ -1040,11 +1042,11 @@ msgstr "Stock Encodings"
 msgid "Supported Encodings"
 msgstr "Supported Encodings"
 
-#: ../libanjuta/anjuta-launcher.c:715
+#: ../libanjuta/anjuta-launcher.c:722
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Error while reading child pty\n"
 
-#: ../libanjuta/anjuta-launcher.c:898 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:905 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/debug-manager/utilities.c:1663
 #: ../plugins/gdb/utilities.c:279
 #, c-format
@@ -1199,7 +1201,7 @@ msgstr "Pixbuf Object"
 msgid "The pixbuf to render."
 msgstr "The pixbuf to render."
 
-#: ../libanjuta/plugins.c:946 ../plugins/symbol-browser/an_symbol_prefs.c:330
+#: ../libanjuta/plugins.c:946 ../plugins/symbol-browser/an_symbol_prefs.c:651
 msgid "Load"
 msgstr "Load"
 
@@ -1262,7 +1264,7 @@ msgstr "Accelerator Mode"
 msgid "The type of accelerator."
 msgstr "The type of accelerator."
 
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:507
+#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:557
 msgid "Disabled"
 msgstr "Disabled"
 
@@ -1457,7 +1459,7 @@ msgstr "Completed... unsuccessful"
 msgid "Completed ... successful\n"
 msgstr "Completed... successful\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:281
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:340
 msgid "Completed ... successful"
 msgstr "Completed... successful"
 
@@ -1870,7 +1872,16 @@ msgstr "Co_mpile (%s)"
 msgid "Build commands"
 msgstr "Build commands"
 
-#: ../plugins/class-inheritance/plugin.c:122
+#. create the check menuitem
+#: ../plugins/class-inheritance/class-inherit.c:304
+msgid "Fixed data-view"
+msgstr "Fixed data-view"
+
+#: ../plugins/class-inheritance/class-inherit.c:876
+msgid "Update the graph"
+msgstr "Update the graph"
+
+#: ../plugins/class-inheritance/plugin.c:123
 msgid "Inheritance Graph"
 msgstr "Inheritance Graph"
 
@@ -1977,7 +1988,7 @@ msgid "Class Options:"
 msgstr "Class Options:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 msgid "Create"
 msgstr "Create"
 
@@ -2730,7 +2741,7 @@ msgstr ""
 "Any unsaved changes will be lost."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:307
+#: ../plugins/editor/text_editor.c:311
 msgid "_Reload"
 msgstr "_Reload"
 
@@ -4097,7 +4108,7 @@ msgid "Zoom"
 msgstr "Zoom"
 
 #: ../plugins/editor/plugin.c:730 ../plugins/editor/plugin.c:741
-#: ../plugins/gdb/breakpoints.c:116
+#: ../plugins/gdb/breakpoints.c:117
 msgid "Line"
 msgstr "Line"
 
@@ -4205,7 +4216,7 @@ msgstr "%d matches have been replaced."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Unable to build user interface for Search And Replace"
 
-#: ../plugins/editor/text_editor.c:293
+#: ../plugins/editor/text_editor.c:297
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4216,23 +4227,23 @@ msgstr ""
 "the current buffer.\n"
 "Do you want to reload it?"
 
-#: ../plugins/editor/text_editor.c:1170
+#: ../plugins/editor/text_editor.c:1174
 msgid "Could not get file info"
 msgstr "Could not get file info"
 
-#: ../plugins/editor/text_editor.c:1177
+#: ../plugins/editor/text_editor.c:1181
 msgid "This file is too big. Unable to allocate memory."
 msgstr "This file is too big. Unable to allocate memory."
 
-#: ../plugins/editor/text_editor.c:1184
+#: ../plugins/editor/text_editor.c:1188
 msgid "Could not open file"
 msgstr "Could not open file"
 
-#: ../plugins/editor/text_editor.c:1192
+#: ../plugins/editor/text_editor.c:1196
 msgid "Error while reading from file"
 msgstr "Error while reading from file"
 
-#: ../plugins/editor/text_editor.c:1228
+#: ../plugins/editor/text_editor.c:1232
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4242,7 +4253,7 @@ msgstr ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 
-#: ../plugins/editor/text_editor.c:1393
+#: ../plugins/editor/text_editor.c:1397
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4253,26 +4264,26 @@ msgstr ""
 "\n"
 "Details: %s"
 
-#: ../plugins/editor/text_editor.c:1440
+#: ../plugins/editor/text_editor.c:1444
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Could not save file: %s."
 
-#: ../plugins/editor/text_editor.c:1616
+#: ../plugins/editor/text_editor.c:1620
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto format is currently disabled. Change the setting in Preferences."
 
-#: ../plugins/editor/text_editor.c:1635
+#: ../plugins/editor/text_editor.c:1639
 msgid "Error in auto formatting ..."
 msgstr "Error in auto formatting..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1651
+#: ../plugins/editor/text_editor.c:1655
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta does not know %s!"
 
-#: ../plugins/editor/text_editor.c:1676
+#: ../plugins/editor/text_editor.c:1680
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4281,7 +4292,7 @@ msgstr ""
 "Error in auto formatting...\n"
 "Details: %s"
 
-#: ../plugins/editor/text_editor.c:1923
+#: ../plugins/editor/text_editor.c:1927
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4627,7 +4638,7 @@ msgid "Ignore files"
 msgstr "Ignore files"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "dialog3"
 
@@ -4935,19 +4946,19 @@ msgstr "The executable is not up-to-date."
 msgid "Debugger is not running. Start it first."
 msgstr "Debugger is not running. Start it first."
 
-#: ../plugins/gdb/breakpoints.c:117
+#: ../plugins/gdb/breakpoints.c:118
 msgid "Function"
 msgstr "Function"
 
-#: ../plugins/gdb/breakpoints.c:117 ../plugins/gdb/signals_gui.c:128
+#: ../plugins/gdb/breakpoints.c:118 ../plugins/gdb/signals_gui.c:128
 msgid "Pass"
 msgstr "Pass"
 
-#: ../plugins/gdb/breakpoints.c:117
+#: ../plugins/gdb/breakpoints.c:118
 msgid "Condition"
 msgstr "Condition"
 
-#: ../plugins/gdb/breakpoints.c:184 ../plugins/gdb/debugger.c:1705
+#: ../plugins/gdb/breakpoints.c:183 ../plugins/gdb/debugger.c:1705
 msgid "All breakpoints enabled:"
 msgstr "All breakpoints enabled:"
 
@@ -4956,25 +4967,29 @@ msgstr "All breakpoints enabled:"
 #. breakpoints_dbase_update,
 #. debugger.breakpoints_dbase);
 #.
-#: ../plugins/gdb/breakpoints.c:202 ../plugins/gdb/debugger.c:1746
+#: ../plugins/gdb/breakpoints.c:201 ../plugins/gdb/debugger.c:1746
 msgid "All breakpoints disabled:"
 msgstr "All breakpoints disabled:"
 
-#: ../plugins/gdb/breakpoints.c:801
+#: ../plugins/gdb/breakpoints.c:673
+msgid "You must give a valid location to set the breakpoint."
+msgstr "You must give a valid location to set the breakpoint."
+
+#: ../plugins/gdb/breakpoints.c:797
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Are you sure you want to delete all the breakpoints?"
 
-#: ../plugins/gdb/breakpoints.c:1524
+#: ../plugins/gdb/breakpoints.c:1514
 msgid "0"
 msgstr "0"
 
 #: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:135
-#: ../plugins/tools/editor.c:436 ../plugins/tools/editor.c:1007
+#: ../plugins/tools/editor.c:463 ../plugins/tools/editor.c:1070
 msgid "Variable"
 msgstr "Variable"
 
 #: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:144
-#: ../plugins/tools/editor.c:442 ../plugins/tools/editor.c:1019
+#: ../plugins/tools/editor.c:469 ../plugins/tools/editor.c:1082
 msgid "Value"
 msgstr "Value"
 
@@ -7110,13 +7125,14 @@ msgstr ""
 "Project name: %s\n"
 "Project path: %s\n"
 
-#: ../plugins/project-import/project-import.c:276
+#: ../plugins/project-import/project-import.c:282
+#, c-format
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
-"the project directory!"
+"the project directory: %s"
 msgstr ""
-"Generation of project file failed. Please ensure that you have write access "
-"to the project directory!"
+"Generation of project file failed. Please ensure that you have write access to "
+"the project directory: %s"
 
 #: ../plugins/project-manager/plugin.c:334
 #, c-format
@@ -7811,6 +7827,8 @@ msgid "Project Import Wizard"
 msgstr "Project Import Wizard"
 
 #: ../plugins/project-manager/project_import_gui.c:190
+#: ../plugins/symbol-browser/an_symbol_prefs.c:319
+#: ../plugins/symbol-browser/an_symbol_prefs.c:513
 msgid "Select directory"
 msgstr "Select directory"
 
@@ -8145,13 +8163,45 @@ msgstr "Subversion"
 msgid "Subversion command finished!"
 msgstr "Subversion command finished!"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:338
+#: ../plugins/symbol-browser/an_symbol_prefs.c:385
+msgid "Directories to scan"
+msgstr "Directories to scan"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:425
+msgid "Please enter a name and at least one directory."
+msgstr "Please enter a name and at least one directory."
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:522
+msgid "Anjuta tags files"
+msgstr "Anjuta tags files"
+
+#: ../plugins/symbol-browser/an_symbol_prefs.c:659
 msgid "API Tags"
 msgstr "API Tags"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:2
 msgid "<b>Available API tags:</b>"
 msgstr "<b>Available API tags:</b>"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
+msgid "<b>Create API tags:</b>"
+msgstr "<b>Create API tags:</b>"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
+msgid "Add directories in the list to scan:"
+msgstr "Add directories in the list to scan:"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
+msgid "Add directory"
+msgstr "Add directory"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
+msgid "Crea_te"
+msgstr "Crea_te"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
+msgid "dialog1"
+msgstr "dialogue1"
 
 #: ../plugins/symbol-browser/plugin.c:264
 msgid "Tag _Definition"
@@ -8239,15 +8289,15 @@ msgstr "Menu Items:"
 msgid "Parameters:"
 msgstr "Parameters:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:15
+#: ../plugins/tools/anjuta-tools.glade.h:16
 msgid "Variable list"
 msgstr "Variable list"
 
-#: ../plugins/tools/anjuta-tools.glade.h:18
+#: ../plugins/tools/anjuta-tools.glade.h:19
 msgid "_Variable..."
 msgstr "_Variable..."
 
-#: ../plugins/tools/anjuta-tools.glade.h:19
+#: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "toggle"
 msgstr "toggle"
 
@@ -8264,119 +8314,132 @@ msgstr "Unable to build user interface for tool list"
 msgid "Tool"
 msgstr "Tool"
 
-#: ../plugins/tools/editor.c:286
+#: ../plugins/tools/editor.c:311
 msgid "ask at runtime"
 msgstr "ask at runtime"
 
-#: ../plugins/tools/editor.c:291
+#: ../plugins/tools/editor.c:316
 msgid "undefined"
 msgstr "undefined"
 
-#: ../plugins/tools/editor.c:423
+#: ../plugins/tools/editor.c:450
 msgid "Unable to build user interface for tool variable"
 msgstr "Unable to build user interface for tool variable"
 
-#: ../plugins/tools/editor.c:439 ../plugins/tools/editor.c:1013
+#: ../plugins/tools/editor.c:466 ../plugins/tools/editor.c:1076
 msgid "Meaning"
 msgstr "Meaning"
 
-#: ../plugins/tools/editor.c:687 ../plugins/tools/editor.c:1129
+#: ../plugins/tools/editor.c:750 ../plugins/tools/editor.c:1203
 msgid "You must provide a tool name!"
 msgstr "You must provide a tool name!"
 
-#: ../plugins/tools/editor.c:693 ../plugins/tools/editor.c:1135
+#: ../plugins/tools/editor.c:756 ../plugins/tools/editor.c:1209
 msgid "You must provide a tool command!"
 msgstr "You must provide a tool command!"
 
-#: ../plugins/tools/editor.c:708
+#: ../plugins/tools/editor.c:771
 #, c-format
 msgid "A tool with the name '%s' already exists!"
 msgstr "A tool with the name '%s' already exists!"
 
-#: ../plugins/tools/editor.c:992
+#: ../plugins/tools/editor.c:1055
 msgid "Unable to build user interface for tool help"
 msgstr "Unable to build user interface for tool help"
 
-#: ../plugins/tools/editor.c:1141
+#: ../plugins/tools/editor.c:1215
 msgid "A tool with the same name already exists!"
 msgstr "A tool with the same name already exists!"
 
-#: ../plugins/tools/editor.c:1275
+#: ../plugins/tools/editor.c:1231
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway ?"
+msgstr ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway?"
+
+#: ../plugins/tools/editor.c:1384
 msgid "New accelerator..."
 msgstr "New accelerator..."
 
-#: ../plugins/tools/editor.c:1294
+#: ../plugins/tools/editor.c:1403
 msgid "Unable to build user interface for tool editor"
 msgstr "Unable to build user interface for tool editor"
 
 #. Only for output data
-#: ../plugins/tools/execute.c:191
+#: ../plugins/tools/execute.c:250
 msgid "(output)"
 msgstr "(output)"
 
 #. Only for error data
-#: ../plugins/tools/execute.c:196
+#: ../plugins/tools/execute.c:255
 msgid "(error)"
 msgstr "(error)"
 
-#: ../plugins/tools/execute.c:239
+#: ../plugins/tools/execute.c:298
 msgid "Running command: "
 msgstr "Running command: "
 
-#: ../plugins/tools/execute.c:275
+#: ../plugins/tools/execute.c:334
 msgid "Completed ... unsuccessful with "
 msgstr "Completed... unsuccessful with "
 
-#: ../plugins/tools/execute.c:361
+#: ../plugins/tools/execute.c:420
 msgid "Unable to create a buffer, command aborted"
 msgstr "Unable to create a buffer; command aborted"
 
-#: ../plugins/tools/execute.c:372
+#: ../plugins/tools/execute.c:431
 msgid "No document currently open, command aborted"
 msgstr "No document currently open; command aborted"
 
-#: ../plugins/tools/execute.c:763
+#: ../plugins/tools/execute.c:758
+#, c-format
+msgid "Unable to open input file %s, Command aborted"
+msgstr "Unable to open input file %s, Command aborted"
+
+#: ../plugins/tools/execute.c:819
 msgid "Unable to build user interface for tool parameters"
 msgstr "Unable to build user interface for tool parameters"
 
-#: ../plugins/tools/execute.c:767
+#: ../plugins/tools/execute.c:823
 #, c-format
 msgid "%s: Command line parameters"
 msgstr "%s: Command line parameters"
 
-#: ../plugins/tools/fileop.c:261
+#: ../plugins/tools/fileop.c:271
 msgid "Missing tool name"
 msgstr "Missing tool name"
 
-#: ../plugins/tools/fileop.c:278
+#: ../plugins/tools/fileop.c:288
 #, c-format
 msgid "Unexpected element \"%s\""
 msgstr "Unexpected element \"%s\""
 
-#: ../plugins/tools/fileop.c:539
+#: ../plugins/tools/fileop.c:559
 msgid "Error when loading external tools"
 msgstr "Error when loading external tools"
 
-#: ../plugins/tools/fileop.c:683
+#: ../plugins/tools/fileop.c:689
 #, c-format
 msgid "Unable to open %s for writing"
 msgstr "Unable to open %s for writing"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/tools/plugin.c:133
+#: ../plugins/tools/plugin.c:134
 msgid "_Tools"
 msgstr "_Tools"
 
-#: ../plugins/tools/plugin.c:141
+#: ../plugins/tools/plugin.c:142
 msgid "_Configure"
 msgstr "_Configure"
 
-#: ../plugins/tools/plugin.c:143
+#: ../plugins/tools/plugin.c:144
 msgid "Configure external tools"
 msgstr "Configure external tools"
 
-#: ../plugins/tools/plugin.c:216
+#: ../plugins/tools/plugin.c:184
 msgid "Tool operations"
 msgstr "Tool operations"
 
