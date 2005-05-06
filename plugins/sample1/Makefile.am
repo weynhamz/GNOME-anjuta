@@ -36,14 +36,16 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-sample.la
 
 # Plugin sources
-libanjuta_sample_la_SOURCES = plugin.c
+libanjuta_sample_la_SOURCES = \
+	plugin.c \
+	plugin.h
 
 # Plugin dependencies
 libanjuta_sample_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \
-        $(plugin_in_files) \
-        $(sample_plugin_DATA) \
+	$(plugin_in_files) \
+	$(sample_plugin_DATA) \
 	$(sample_ui_DATA) \
 	$(sample_pixmaps_DATA)

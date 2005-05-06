@@ -35,11 +35,10 @@ anjuta_LDADD =  \
 	$(GDL_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la
 
-#anjuta_DEPENDENCIES = \
-#	$(top_builddir)/libanjuta/libanjuta.la
-#	$(top_builddir)/libegg/menu/libegg-menu.a \
-#	$(top_builddir)/libegg/treeviewutils/libegg-treeview.a
-
-anjuta_shell_SOURCES = shell.c
+anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
 	$(top_builddir)/libanjuta/libanjuta.la
+
+EXTRA_DIST = \
+	$(anjuta_ui_DATA) \
+	$(anjuta_layout_DATA)

@@ -62,6 +62,48 @@ static void anjuta_symbol_view_add_children (AnjutaSymbolView *sv,
 											 GtkTreeIter *iter);
 static void anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv);
 
+static void
+destroy_tm_hash_value (gpointer data)
+{
+	AnjutaSymbolView *sv;
+	TMWorkObject *tm_file;
+
+	sv = g_object_get_data (G_OBJECT (data), "symbol_view");
+	tm_file = g_object_get_data (G_OBJECT (data), "tm_file");
+
+	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
+	if (tm_file)
+	{
+		if (tm_file->parent ==
+		    TM_WORK_OBJECT (sv->priv->tm_workspace))
+		{
+			DEBUG_PRINT ("Removing tm_file");
+			tm_workspace_remove_object (tm_file, TRUE);
+		}
+	}
+	g_object_unref (G_OBJECT (data));
+}
+
+static gboolean
+on_remove_project_tm_files (gpointer key, gpointer val, gpointer data)
+{
+	AnjutaSymbolView *sv;
+	TMWorkObject *tm_file;
+
+	sv = g_object_get_data (G_OBJECT (val), "symbol_view");
+	tm_file = g_object_get_data (G_OBJECT (val), "tm_file");
+
+	g_return_val_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv), FALSE);
+	
+	if (tm_file &&
+		tm_file->parent == TM_WORK_OBJECT (sv->priv->tm_project))
+	{
+		DEBUG_PRINT ("Removing tm_file");
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static gboolean
 on_treeview_row_search (GtkTreeModel * model, gint column,
 			const gchar * key, GtkTreeIter * iter, gpointer data)
@@ -104,7 +146,8 @@ on_symbol_view_refresh_idle (gpointer data)
 
 static void
 on_symbol_view_row_expanded (GtkTreeView * view,
-			     GtkTreeIter * iter, GtkTreePath * iter_path, AnjutaSymbolView *sv)
+							 GtkTreeIter * iter, GtkTreePath *iter_path,
+							 AnjutaSymbolView *sv)
 {
 	// GdkPixbuf *pix;
 	// gchar *full_path;
@@ -190,7 +233,7 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 
 static void
 on_symbol_view_row_collapsed (GtkTreeView * view,
-			      GtkTreeIter * iter, GtkTreePath * path)
+							  GtkTreeIter * iter, GtkTreePath * path)
 {
 }
 
@@ -277,6 +320,9 @@ anjuta_symbol_view_clear (AnjutaSymbolView * sv)
 		sv->priv->symbols = NULL;
 		sv->priv->symbols_need_update = FALSE;
 	}
+	g_hash_table_foreach_remove (sv->priv->tm_files,
+								 on_remove_project_tm_files,
+								 sv);
 	if (sv->priv->tm_project)
 	{
 		tm_project_free (sv->priv->tm_project);
@@ -573,28 +619,6 @@ enum
 	COL_PIX, COL_NAME, COL_LINE, N_COLS
 };
 
-static void
-destroy_tm_hash_value (gpointer data)
-{
-	AnjutaSymbolView *sv;
-	TMWorkObject *tm_file;
-
-	sv = g_object_get_data (G_OBJECT (data), "symbol_view");
-	tm_file = g_object_get_data (G_OBJECT (data), "tm_file");
-
-	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
-	if (tm_file)
-	{
-		if (tm_file->parent ==
-		    TM_WORK_OBJECT (sv->priv->tm_workspace))
-		{
-			DEBUG_PRINT ("Removing tm_file");
-			tm_workspace_remove_object (tm_file, TRUE);
-		}
-	}
-	g_object_unref (G_OBJECT (data));
-}
-
 /* Anjuta symbol view class */
 static void
 anjuta_symbol_view_instance_init (GObject * obj)
@@ -608,8 +632,8 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	sv->priv->symbols_need_update = FALSE;
 	sv->priv->tm_workspace = tm_get_workspace ();
 	sv->priv->tm_files = g_hash_table_new_full (g_str_hash, g_str_equal,
-						    g_free,
-						    destroy_tm_hash_value);
+												g_free,
+												destroy_tm_hash_value);
 	
 	system_tags_path = g_build_filename (g_get_home_dir(), ".anjuta",
 										 "system-tags.cache", NULL);
@@ -668,21 +692,14 @@ anjuta_symbol_view_new (void)
 void
 anjuta_symbol_view_update (AnjutaSymbolView * sv, GList *source_files)
 {
-	gboolean rebuild = FALSE;
+	g_return_if_fail (sv->priv->tm_project != NULL);
 	
 	if (sv->priv->tm_project)
 	{
-		if ((TM_PROJECT (sv->priv->tm_project)->file_list == NULL) ||
-		    (TM_PROJECT (sv->priv->tm_project)->file_list->len <= 0)
-		    || rebuild)
-		{
-			tm_project_autoscan (TM_PROJECT (sv->priv->tm_project));
-		}
-		else
-		{
-			tm_project_update (sv->priv->tm_project, TRUE, TRUE, TRUE);
+		if (source_files)
 			tm_project_sync (TM_PROJECT (sv->priv->tm_project), source_files);
-		}
+		else
+			tm_project_autoscan (TM_PROJECT (sv->priv->tm_project));
 		tm_project_save (TM_PROJECT (sv->priv->tm_project));
 		anjuta_symbol_view_refresh_tree (sv);
 	}
@@ -871,8 +888,8 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 		DEBUG_PRINT ("Adding Symbol URI: %s", file_uri);
 		tm_file =
 			tm_workspace_find_object (TM_WORK_OBJECT
-						  (sv->priv->tm_workspace),
-						  uri, FALSE);
+									  (sv->priv->tm_workspace),
+									  uri, FALSE);
 		if (!tm_file)
 		{
 			tm_file = tm_source_file_new (uri, TRUE);
@@ -882,7 +899,7 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 		else
 		{
 			tm_source_file_update (TM_WORK_OBJECT (tm_file), TRUE,
-					       FALSE, TRUE);
+								   FALSE, TRUE);
 			if (sv->priv->tm_project &&
 				TM_WORK_OBJECT (tm_file)->parent == sv->priv->tm_project)
 			{
@@ -893,13 +910,13 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 		if (tm_file)
 		{
 			store = create_file_symbols_model (sv, tm_file,
-							   tm_tag_max_t);
+											   tm_tag_max_t);
 			g_object_set_data (G_OBJECT (store), "tm_file",
-					   tm_file);
+							   tm_file);
 			g_object_set_data (G_OBJECT (store), "symbol_view",
-					   sv);
+							   sv);
 			g_hash_table_insert (sv->priv->tm_files,
-					     g_strdup (uri), store);
+								 g_strdup (uri), store);
 		}
 	}
 	sv->priv->file_symbol_model = store;
@@ -952,8 +969,8 @@ anjuta_symbol_view_workspace_update_file (AnjutaSymbolView * sv,
 		uri = &old_file_uri[7];
 		success =
 			g_hash_table_lookup_extended (sv->priv->tm_files, uri,
-						      (gpointer *) & orig_key,
-						      (gpointer *) & store);
+										  (gpointer *) & orig_key,
+										  (gpointer *) & store);
 		if (success)
 		{
 			if (strcmp (old_file_uri, new_file_uri) != 0)
@@ -1010,10 +1027,10 @@ anjuta_symbol_view_workspace_get_line (AnjutaSymbolView * sv,
 
 gboolean
 anjuta_symbol_view_get_file_symbol (AnjutaSymbolView * sv,
-				    const gchar * symbol,
-				    gboolean prefer_definition,
-				    const gchar ** const filename,
-				    gint * line)
+									const gchar * symbol,
+									gboolean prefer_definition,
+									const gchar ** const filename,
+									gint * line)
 {
 	TMWorkObject *tm_file;
 	GPtrArray *tags;

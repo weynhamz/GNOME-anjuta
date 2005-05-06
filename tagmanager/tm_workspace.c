@@ -790,8 +790,9 @@ static int find_scope_members_tags(const GPtrArray *all, GPtrArray *tags,
   return (int)tags->len;
 }
 
-const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, const char *name,
-												 gboolean search_global)
+const GPtrArray*
+tm_workspace_find_scope_members(const GPtrArray *file_tags, const char *name,
+								gboolean search_global)
 {
 	static GPtrArray *tags = NULL;
 	GPtrArray *local = NULL;
@@ -799,7 +800,7 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, con
 	char *filename = NULL;
 	int found = 0, del = 0;
 	static langType langJava = -1;
-	TMTag *tag = NULL;	
+	TMTag *tag = NULL;
 	
 	/* FIXME */
 	/* langJava = getNamedLanguage ("Java"); */
@@ -849,13 +850,18 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, con
 			if(tag->atts.entry.scope && tag->atts.entry.scope[0] != '\0')
 			{
 				del = 1;
-				if(tag->atts.entry.file && tag->atts.entry.file->lang == langJava)
+				if(tag->atts.entry.file &&
+				   tag->atts.entry.file->lang == langJava)
 				{
-					new_name = g_strdup_printf("%s.%s",tag->atts.entry.scope, new_name);
+					new_name = g_strdup_printf("%s.%s",
+											   tag->atts.entry.scope,
+											   new_name);
 				}
 				else
 				{
-					new_name = g_strdup_printf("%s::%s",tag->atts.entry.scope, new_name);
+					new_name = g_strdup_printf("%s::%s",
+											   tag->atts.entry.scope,
+											   new_name);
 				}
 			}
 			break;
@@ -871,29 +877,36 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags, con
 	if(tag && tag->atts.entry.file)
 	{
 		local = tm_tags_extract(tag->atts.entry.file->work_object.tags_array,
-								(tm_tag_function_t|tm_tag_member_t|tm_tag_field_t|
-								 tm_tag_method_t|tm_tag_enumerator_t));
+								(tm_tag_function_t | tm_tag_prototype_t |
+								 tm_tag_member_t | tm_tag_field_t |
+								 tm_tag_method_t | tm_tag_enumerator_t));
 	}
 	else
 	{
 		local = tm_tags_extract(theWorkspace->work_object.tags_array,
-								(tm_tag_function_t|tm_tag_member_t|tm_tag_field_t|
-								 tm_tag_method_t|tm_tag_enumerator_t));
+								(tm_tag_function_t | tm_tag_prototype_t |
+								 tm_tag_member_t | tm_tag_field_t |
+								 tm_tag_method_t |tm_tag_enumerator_t));
 	}
 	if (local)
 	{
-		found = find_scope_members_tags(local, tags, langJava, new_name, filename);
+		found = find_scope_members_tags(local, tags,
+										langJava, new_name, filename);
 		g_ptr_array_free(local, TRUE);
 	}
 	if(!found && search_global)
 	{
 	    GPtrArray *global = tm_tags_extract(theWorkspace->global_tags,
-											(tm_tag_member_t|tm_tag_field_t|
-											 tm_tag_method_t|tm_tag_function_t|
+											(tm_tag_member_t |
+											 tm_tag_prototype_t |
+											 tm_tag_field_t |
+											 tm_tag_method_t |
+											 tm_tag_function_t |
 											 tm_tag_enumerator_t));
 	    if (global)
 	    {
-			find_scope_members_tags(global, tags, langJava, new_name, filename);
+			find_scope_members_tags(global, tags, langJava,
+									new_name, filename);
 			g_ptr_array_free(global, TRUE);
 	    }
 	}

@@ -1,5 +1,5 @@
 
-# Plugin UI file
+# Plugin glade file
 build_gladedir = $(anjuta_glade_dir)
 build_glade_DATA = anjuta-build-basic-autotools-plugin.glade
 
@@ -51,4 +51,6 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(build_plugin_DATA) \
 	$(build_ui_DATA) \
-	$(build_pixmaps_DATA)
+	$(build_pixmaps_DATA) \
+	$(build_glade_DATA) \
+	$(build_data_DATA)

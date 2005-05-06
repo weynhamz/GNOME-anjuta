@@ -1,4 +1,21 @@
 2005-05-06  Naba Kumar  <naba@gnome.org>
+	
+	* TODO.tasks: Updated.
+	
+	* plugins/build-basic-autotools/Makefile.am,
+	plugins/file-loader/Makefile.am,
+	plugins/profile-default/Makefile.am,
+	plugins/sample1/Makefile.am,
+	plugins/symbol-browser/images/Makefile.am,
+	src/Makefile.am: Fixed 'make distcheck' errors.
+
+	* plugins/symbol-browser/an_symbol_view.c: Removed unnecessary
+	updates.
+
+	* tagmanager/tm_workspace.c: Include prototypes in getting
+	scope members.
+
+2005-05-06  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Updated.
 	

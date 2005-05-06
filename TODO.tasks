@@ -241,15 +241,15 @@ on add/remove of sources.</comment>
 tags in database.</comment>
     </item>
     <item>
-      <attribute id="1114330128" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1114330128"/>
-      <summary>Create IAnjutaSymbols interface</summary>
-      <comment>Create and implement IAnjutaSymbols interface for symbol-browser
-plugin that can work with most languages type system.</comment>
-    </item>
-    <item>
       <attribute id="1114162285" priority="1" done="1" start_date="732058" completed_date="732065" notify="0" last_edited="1114713785"/>
       <summary>Add dialog to create symbol tags in preferences</summary>
       <comment>Add dialog to create symbol tags in preferences</comment>
+    </item>
+    <item>
+      <attribute id="1114330128" priority="1" done="1" start_date="732060" completed_date="732072" notify="0" last_edited="1115364308"/>
+      <summary>Create IAnjutaSymbols interface</summary>
+      <comment>Create and implement IAnjutaSymbols interface for symbol-browser
+plugin that can work with most languages type system.</comment>
     </item>
   </category>
   <category title="Documentation" place="20">

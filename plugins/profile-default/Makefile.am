@@ -32,7 +32,9 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-default-profile.la
 
 # Plugin sources
-libanjuta_default_profile_la_SOURCES = plugin.c
+libanjuta_default_profile_la_SOURCES = \
+	plugin.c \
+	plugin.h
 
 # Plugin dependencies
 libanjuta_default_profile_la_LIBADD = $(LIBANJUTA_LIBS) $(LIBXML_LIBS)

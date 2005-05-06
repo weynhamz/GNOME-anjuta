@@ -38,3 +38,5 @@ symbol_browser_icons_DATA = \
 	Icons.16x16.ProtectedProperty\
 	Icons.16x16.ProtectedStruct\
 	Icons.16x16.Reference
+
+EXTRA_DIST = $(symbol_browser_icons_DATA)
