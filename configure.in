@@ -263,7 +263,7 @@ AC_SUBST(PLUGIN_CLASS_INHERITANCE_LIBS)
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
-LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_builddir)'
+LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir)'
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)

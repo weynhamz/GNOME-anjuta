@@ -561,7 +561,7 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 	
 	if (strlen (string))
 	{
-		tags = tm_workspace_find (string, tm_tag_max_t, NULL, TRUE);
+		tags = tm_workspace_find (string, tm_tag_max_t, NULL, TRUE, TRUE);
 		if (tags && (tags->len > 0))
 		{
 			GList *completion_list;
@@ -593,8 +593,7 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 					
 					gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
 								PIXBUF_COLUMN,
-								anjuta_symbol_view_get_pixbuf (priv->sv,
-															   sym->node_type),
+								anjuta_symbol_info_get_pixbuf (sym->node_type),
 								NAME_COLUMN, tag->name,
 								SVFILE_ENTRY_COLUMN, sym, -1);
 					

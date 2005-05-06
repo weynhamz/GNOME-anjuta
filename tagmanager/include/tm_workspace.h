@@ -141,7 +141,7 @@ void tm_workspace_dump(void);
  \return Array of matching tags. Do not free() it since it is a static member.
 */
 const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *attrs
- , gboolean partial);
+ , gboolean partial, gboolean global_search);
 
 /*! Returns all matching members tags found in given struct/union/class name.
  \param name Name of the struct/union/class.

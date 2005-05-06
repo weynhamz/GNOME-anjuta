@@ -1,3 +1,48 @@
+2005-05-06  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+	
+	* configure.in, plugins/cvs-plugin/Makefile.am,
+	plugins/debug-manager/Makefile.am,
+	plugins/devhelp/Makefile.am,
+	plugins/editor/Makefile.am,
+	plugins/gdb/Makefile.am: Fixed 'make distcheck' errors.
+	
+	* libanjuta/interfaces/libanjuta.idl: Defined IAnjutaSymbol,
+	IAnjutaSymbolManager, IAnjutaIterable and IAnjutaIterableTree
+	interfaces.
+	
+	* tagmanager/tm_workspace.c,
+	tagmanager/include/tm_workspace.h,
+	plugins/editor/aneditor-autocomplete.cxx,
+	plugins/editor/aneditor-calltip.cxx: Fixed fill_find_tags_array()
+	to return all matching tag types when no name is given instead of
+	returning empty array.
+	
+	* plugins/symbol-browser/Makefile.am,
+	(added) plugins/symbol-browser/an_symbol.c,
+	(added) plugins/symbol-browser/an_symbol.h,
+	plugins/symbol-browser/an_symbol_info.c,
+	plugins/symbol-browser/an_symbol_info.h,
+	(added) plugins/symbol-browser/an_symbol_iter.c,
+	(added) plugins/symbol-browser/an_symbol_iter.h,
+	plugins/symbol-browser/an_symbol_search.c,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/an_symbol_view.h,
+	plugins/symbol-browser/anjuta-symbol-browser.plugin.in,
+	plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/plugin.h: Implemented IAnjutaSymbol wrapper
+	for tags. Implemented IAnjutaSymbolManager interface in symbol-browser
+	plugin and implemented IAnjutaIterable interface for symbol search
+	and iteration.
+
+	* plugins/class-inheritance/Makefile.am,
+	plugins/class-inheritance/class-inherit.c,
+	plugins/class-inheritance/class-inherit.h,
+	plugins/class-inheritance/plugin.h: Use the newly added
+	IAnjutaSymbolManager/IAnjutaSymbol/IAnjutaIterable intefaces and
+	get rid of libanjuta-ctags.la dependencies.
+
 2005-05-02  Naba Kumar  <naba@gnome.org>
 
 	* plugins/class-inheritance/class-inherit.c,

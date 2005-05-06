@@ -27,6 +27,7 @@ plugin_LTLIBRARIES = libanjuta-gdb.la
 libanjuta_gdb_la_LIBADD = $(LIBANJUTA_LIBS)
 
 libanjuta_gdb_la_SOURCES = \
+	global.h \
 	breakpoints.c \
 	breakpoints.h \
 	debugger.c \
@@ -79,4 +80,5 @@ EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \
 	$(plugin_in_files) \
 	$(anjuta_plugin_DATA) \
-	$(gdb_ui_DATA)
+	$(gdb_ui_DATA) \
+	$(anjuta_glade_DATA)

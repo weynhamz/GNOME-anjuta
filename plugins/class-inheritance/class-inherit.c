@@ -18,15 +18,11 @@
  */
  
 #include <glib.h>
-#include <libanjuta/anjuta-debug.h>
-
 #include <graphviz/dotneato.h>	/* libgraph */
 #include <graphviz/graph.h>
-
-// FIXME: for debug.
-#include <tm_tagmanager.h>
-#include <gdl/gdl-icons.h>
-#include <libanjuta/resources.h>
+#include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 
 #include "plugin.h"
 #include "class-inherit.h"
@@ -39,162 +35,6 @@
 				INCH_TO_PIXELS_CONVERSION_FACTOR * inch_size
 
 #define NODE_FONT_DEFAULT "-*-clean-medium-r-normal-*-10-*-*-*-*-*-*"
-
-//*/ FIXME: this part should be implemented by the interface.
-static GdkPixbuf **sv_symbol_pixbufs = NULL;
-static GdlIcons *icon_set = NULL;
-
-typedef enum
-{
-	sv_none_t,
-	sv_class_t,
-	sv_struct_t,
-	sv_union_t,
-	sv_typedef_t,
-	sv_function_t,
-	sv_variable_t,
-	sv_enumerator_t,
-	sv_macro_t,
-	sv_private_func_t,
-	sv_private_var_t,
-	sv_protected_func_t,
-	sv_protected_var_t,
-	sv_public_func_t,
-	sv_public_var_t,
-	sv_cfolder_t,
-	sv_ofolder_t,
-	sv_max_t
-} SVNodeType;
-
-#define CREATE_SV_ICON(N, F) \
-	pix_file = anjuta_res_get_pixmap_file (F); \
-	sv_symbol_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
-	g_free (pix_file);
-
-
-static SVNodeType
-get_node_type (TMTag *tag)
-{
-	TMTagType t_type;
-	SVNodeType type;
-	char access;
-	
-	if (tag == NULL)
-		return sv_none_t;
-
-	t_type = tag->type;
-	
-	if (t_type == tm_tag_file_t)
-		return sv_none_t;
-	
-	access = tag->atts.entry.access;
-	
-	switch (t_type)
-	{
-	case tm_tag_class_t:
-		type = sv_class_t;
-		break;
-	case tm_tag_struct_t:
-		type = sv_struct_t;
-		break;
-	case tm_tag_union_t:
-		type = sv_union_t;
-		break;
-	case tm_tag_function_t:
-	case tm_tag_prototype_t:
-	case tm_tag_method_t:
-		switch (access)
-		{
-		case TAG_ACCESS_PRIVATE:
-			type = sv_private_func_t;
-			break;
-		case TAG_ACCESS_PROTECTED:
-			type = sv_protected_func_t;
-			break;
-		case TAG_ACCESS_PUBLIC:
-			type = sv_public_func_t;
-			break;
-		default:
-			type = sv_function_t;
-			break;
-		}
-		break;
-	case tm_tag_member_t:
-	case tm_tag_field_t:
-		switch (access)
-		{
-		case TAG_ACCESS_PRIVATE:
-			type = sv_private_var_t;
-			break;
-		case TAG_ACCESS_PROTECTED:
-			type = sv_protected_var_t;
-			break;
-		case TAG_ACCESS_PUBLIC:
-			type = sv_public_var_t;
-			break;
-		default:
-			type = sv_variable_t;
-			break;
-		}
-		break;
-	case tm_tag_externvar_t:
-	case tm_tag_variable_t:
-		type = sv_variable_t;
-		break;
-	case tm_tag_macro_t:
-	case tm_tag_macro_with_arg_t:
-		type = sv_macro_t;
-		break;
-	case tm_tag_typedef_t:
-		type = sv_typedef_t;
-		break;
-	case tm_tag_enumerator_t:
-		type = sv_enumerator_t;
-		break;
-	default:
-		type = sv_none_t;
-		break;
-	}
-	return type;
-}
-
-static void
-sv_load_symbol_pixbufs () {
-	gchar *pix_file;
-
-	if (sv_symbol_pixbufs)
-		return;
-
-	if (icon_set == NULL)
-		icon_set = gdl_icons_new (16);
-
-	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
-
-	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
-	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
-	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
-	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");
-	CREATE_SV_ICON (sv_typedef_t,           "Icons.16x16.Reference");
-	CREATE_SV_ICON (sv_function_t,          "Icons.16x16.Method");
-	CREATE_SV_ICON (sv_variable_t,          "Icons.16x16.Literal");
-	CREATE_SV_ICON (sv_enumerator_t,        "Icons.16x16.Enum");
-	CREATE_SV_ICON (sv_macro_t,             "Icons.16x16.Field");
-	CREATE_SV_ICON (sv_private_func_t,      "Icons.16x16.PrivateMethod");
-	CREATE_SV_ICON (sv_private_var_t,       "Icons.16x16.PrivateProperty");
-	CREATE_SV_ICON (sv_protected_func_t,    "Icons.16x16.ProtectedMethod");
-	CREATE_SV_ICON (sv_protected_var_t,     "Icons.16x16.ProtectedProperty");
-	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
-	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
-	
-	sv_symbol_pixbufs[sv_cfolder_t] =
-		gdl_icons_get_mime_icon (icon_set,
-								 "application/directory-normal");
-	sv_symbol_pixbufs[sv_ofolder_t] =
-		gdl_icons_get_mime_icon (icon_set,
-								 "application/directory-normal");
-	sv_symbol_pixbufs[sv_max_t] = NULL;
-}
-//*/
 
 static gint
 on_canvas_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data) {
@@ -234,88 +74,112 @@ on_toggled_menuitem_clicked (GtkCheckMenuItem *checkmenuitem,
 		node->anchored = TRUE;
 }
 
+static void
+on_member_menuitem_clicked (GtkMenuItem *menuitem, gpointer data)
+{
+	NodeData *node;
+	const gchar *file;
+	gint line;
+	
+	node = (NodeData*)data;
+	file = g_object_get_data (G_OBJECT (menuitem), "__file");
+	line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "__line"));
+	if (file)
+	{
+		/* Goto file line */
+		IAnjutaDocumentManager *dm;
+		dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (node->plugin)->shell,
+										 IAnjutaDocumentManager, NULL);
+		if (dm)
+		{
+			ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
+		}
+	}
+}
 
 static void
-cls_inherit_show_dynamic_class_popup_menu (GdkEvent *event, NodeData* nodedata)
+cls_inherit_show_dynamic_class_popup_menu (GdkEvent *event,
+										   NodeData* nodedata)
 {
-	/* check whether we yet have a menu. If we don't have one create it,
-	 * else popup
-	 */
-	if (!nodedata->menu) {
-		GtkWidget *item, *image;
-		GtkWidget *checkitem;
-		int i, symbols_tags_len;
-		
-		sv_load_symbol_pixbufs ();
-		nodedata->menu = gtk_menu_new();
-
-		/* search throught the symbols */	
-		/* FIXME: change here when we'll have an interface. */
-		/* WARNING: we may have a crash here if the symbols' pointers change.
-		Decide what is the best thing to do after the interface.. */
-		if (strlen (nodedata->name) && !nodedata->symbols_tags)
-		{
-			symbols_tags_len = 0;
-			nodedata->symbols_tags = tm_workspace_find (nodedata->name, 
-														tm_tag_attr_name_t |
-														tm_tag_attr_scope_t,
-														NULL, TRUE);
-				
-			if (nodedata->symbols_tags)
-				symbols_tags_len = nodedata->symbols_tags->len;
-			
-			for (i = 0; i < symbols_tags_len; i++)
-			{
-				if (((TMTag*)nodedata->symbols_tags->pdata[i])->name)
-					DEBUG_PRINT ("!tag name out of %d found is %s",
-								 nodedata->symbols_tags->len, 
-								 ((TMTag*)nodedata->symbols_tags->pdata[i])->name);
-			}
-			if (nodedata->name)
-				nodedata->symbols_tags =
-					tm_workspace_find_scope_members (NULL,
-													 nodedata->name, TRUE);
-		}
-		
-		symbols_tags_len = 0;
-		if (nodedata->symbols_tags)
-			symbols_tags_len = nodedata->symbols_tags->len;
-		
-		/* fill up the menu */
-		for (i = 0; i < symbols_tags_len; i++)
-		{
-			DEBUG_PRINT ("!!!-->tag name out of %d found is %s", 
-						 nodedata->symbols_tags->len, 
-						 ((TMTag*)nodedata->symbols_tags->pdata[i])->name);
-			item = gtk_image_menu_item_new_with_label (((TMTag*)nodedata->symbols_tags->pdata[i])->name);
- 		
-			/* TODO: g_signal_connect the item to the callback that,
-			 * once clicked, will reach	the right file/line in the editor
-			 */
-			image = gtk_image_new_from_pixbuf (
-				sv_symbol_pixbufs [get_node_type ((TMTag*)nodedata->
-								   symbols_tags->pdata[i])]);
-			
-			gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);		
-			gtk_container_add (GTK_CONTAINER (nodedata->menu), item);
-		}
+	GtkWidget *item, *image;
+	GtkWidget *checkitem;
 	
-		/* create the check menuitem */
-		checkitem = gtk_check_menu_item_new_with_label (_("Fixed data-view"));
-		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (checkitem),
-										nodedata->anchored);
-		
-		g_signal_connect (G_OBJECT (checkitem), "toggled",
-			    					G_CALLBACK (on_toggled_menuitem_clicked),
-			    					nodedata);
-		
-		gtk_container_add (GTK_CONTAINER (nodedata->menu), checkitem);
+	/* Destroy the old menu before creating a new one */
+	if (nodedata->menu)
+	{
+		gtk_widget_destroy (nodedata->menu);
 	}
+		
+	nodedata->menu = gtk_menu_new();
+	if (nodedata->name && strlen (nodedata->name))
+	{
+		IAnjutaSymbolManager *sm;
+		sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (nodedata->plugin)->shell,
+										 IAnjutaSymbolManager, NULL);
+		if (sm)
+		{
+			IAnjutaIterable *iter;
+			iter = ianjuta_symbol_manager_get_members (sm, nodedata->name,
+													   FALSE, NULL);
+			if (iter && ianjuta_iterable_get_length (iter, NULL) > 0)
+			{
+				do
+				{
+					IAnjutaSymbol *symbol;
+					
+					symbol = ianjuta_iterable_get (iter,
+												   IANJUTA_TYPE_SYMBOL,
+												   NULL);
+					if (symbol)
+					{
+						const gchar *name, *file;
+						GdkPixbuf *pixbuf;
+						gint line;
+						
+						name = ianjuta_symbol_name (symbol, NULL);
+						pixbuf = ianjuta_symbol_icon (symbol, NULL);
+						file = ianjuta_symbol_file (symbol, NULL);
+						line = ianjuta_symbol_line (symbol, NULL);
+						
+						item = gtk_image_menu_item_new_with_label (name);
+						image = gtk_image_new_from_pixbuf (pixbuf);
+						gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM
+													   (item), image);
+						
+						if (file)
+						{
+							g_object_set_data_full (G_OBJECT (item), "__file",
+													g_strdup (file), g_free);
+							g_object_set_data (G_OBJECT (item), "__line",
+											   GINT_TO_POINTER (line));
+						}
+						gtk_container_add (GTK_CONTAINER (nodedata->menu),
+										   item);
+						g_signal_connect (G_OBJECT (item), "activate",
+													G_CALLBACK (on_member_menuitem_clicked),
+													nodedata);
+					}
+				} while (ianjuta_iterable_next (iter, NULL));
+			}
+			if (iter)
+				g_object_unref (iter);
+		}
+	}
+	/* create the check menuitem */
+	checkitem = gtk_check_menu_item_new_with_label (_("Fixed data-view"));
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (checkitem),
+									nodedata->anchored);
+	
+	g_signal_connect (G_OBJECT (checkitem), "toggled",
+								G_CALLBACK (on_toggled_menuitem_clicked),
+								nodedata);
+	
+	gtk_container_add (GTK_CONTAINER (nodedata->menu), checkitem);
 	
 	gtk_widget_show_all (nodedata->menu);
 	gtk_menu_popup (GTK_MENU (nodedata->menu), NULL, NULL,
-	                NULL, NULL,
-	                event->button.button, event->button.time);	
+	                NULL, NULL, event->button.button,
+					event->button.time);	
 }
 
 static gint
@@ -420,17 +284,8 @@ cls_inherit_nodedata_destroy (NodeData *node_data)
 		gtk_widget_destroy (node_data->menu);
 		node_data->menu = NULL;
 	}
-	
-	// FIXME: maybe we need to change here after interface.
-	if (node_data->symbols_tags)
-	{
-		g_ptr_array_free (node_data->symbols_tags, TRUE);
-		node_data->symbols_tags = NULL;
-	}
-
 	node_data->anchored = FALSE;	
 }
-
 
 /*----------------------------------------------------------------------------
  * clean the canvas and all its painted objects.
@@ -463,7 +318,7 @@ class_inheritance_clean_canvas (AnjutaClassInheritance *plugin)
  * add a node to an Agraph.
  */
 static gboolean
-cls_inherit_add_node (AnjutaClassInheritance *plugin, gchar* node_name)
+cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 {
 	Agnode_t *node;
 	Agsym_t *sym;
@@ -473,7 +328,7 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, gchar* node_name)
 		cls_inherit_graph_init (plugin, _(DEFAULT_GRAPH_NAME));
 	
 	/* let's add the node to the graph */
-	if ((node = agnode (plugin->graph, node_name)) == NULL)
+	if ((node = agnode (plugin->graph, (gchar*)node_name)) == NULL)
 		return FALSE;
 	
 	/* Set an attribute - in this case one that affects the visible rendering */
@@ -496,7 +351,7 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, gchar* node_name)
 		sym = agnodeattr(plugin->graph, "ratio", "");
 	agxset(node, sym->index, "expand");	
 	
-	DEBUG_PRINT ("added node %s....", node_name);	
+	/* DEBUG_PRINT ("added node %s....", node_name); */
 	return TRUE;
 }
 
@@ -504,10 +359,10 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, gchar* node_name)
  * add an edge to an Agraph.
  */
 static gboolean
-cls_inherit_add_edge (AnjutaClassInheritance *plugin, gchar* node_from,
-					  gchar* node_to)
+cls_inherit_add_edge (AnjutaClassInheritance *plugin,
+					  const gchar* node_from,
+					  const gchar* node_to)
 {
-	
 	Agedge_t *edge;
 	Agnode_t *n_from, *n_to;
 
@@ -517,16 +372,16 @@ cls_inherit_add_edge (AnjutaClassInheritance *plugin, gchar* node_from,
 	if (!plugin->graph)
 		return FALSE;
 	
-	if ((n_from = agfindnode (plugin->graph, node_from)) == NULL)
+	if ((n_from = agfindnode (plugin->graph, (gchar*)node_from)) == NULL)
 		return FALSE;
 	
-	if ((n_to = agfindnode (plugin->graph, node_to)) == NULL)
+	if ((n_to = agfindnode (plugin->graph, (gchar*)node_to)) == NULL)
 		return FALSE;
 	
 	if ((edge = agedge (plugin->graph, n_from, n_to)) == NULL)
 		return FALSE;
 	
-	DEBUG_PRINT ("added edge: %s ---> %s", node_from, node_to);
+	/* DEBUG_PRINT ("added edge: %s ---> %s", node_from, node_to); */
 	return TRUE;
 }
 
@@ -554,7 +409,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	/* compiles nodes/edges informations, such as positions, coordinates etc */
 	dot_layout (plugin->graph);
 	
-/*/ DEBUG	
+	/*/ DEBUG
 	num_nodes = agnnodes (plugin->graph);
 	DEBUG_PRINT ("num of nodes: %d", num_nodes); 
 	for (node = agfstnode (plugin->graph); node; node = agnxtnode (plugin->graph, node)) {
@@ -563,7 +418,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 		DEBUG_PRINT("%d,%d. rw is %d\n", p.x, p.y, ND_rw_i(node));
 	}	
 	agwrite (plugin->graph, stdout);	
-//*/
+	//*/
 	
 	/* set the size of the canvas. We need this to set the scrolling.. */
 	max_canvas_size_x = max_canvas_size_y = CANVAS_MIN_SIZE;
@@ -592,12 +447,12 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 		p = ND_coord_i(node);
 		node_width = ND_width (node);
 		node_height = ND_height (node);
-/*/		
+		/*/
 		DEBUG_PRINT ( "*******NODE %s: width is %f so %f-->%f; height is %f so %f-->%f; p.x %d; p.y %d", 
 						ND_label (node)->text, width, p.x - INCH_TO_PIXELS (width)/2, p.x + INCH_TO_PIXELS (width)/2,
 													  height, p.y - INCH_TO_PIXELS (height)/2, p.y + INCH_TO_PIXELS (height)/2,
 													  p.x, p.y );
-/*/		
+		/*/
 		
 		/* --- node --- */
 		/* create the nodedata item and then add it to the list */
@@ -606,7 +461,6 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 		/* set the plugin reference */
 		node_data->plugin = plugin;
 		node_data->anchored = FALSE;
-		node_data->symbols_tags = NULL;
 		node_data->name = g_strdup (ND_label (node)->text);
 		
 		node_data->canvas_item =
@@ -779,72 +633,106 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 void
 class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 {
-	/* guint type;	*/
-	/* GnomeCanvasPoints *points; */
-
-	// FIXME: use tm_manager from the interface. Change here!!
-	/* trying to retrieve tags... */
-	int j;
+	IAnjutaSymbolManager *sm;
+	IAnjutaIterable *iter;
+	IAnjutaSymbol *symbol;
+	GList *classes, *node;
+	GHashTable *class_parents;
+	gboolean first;
 
 	g_return_if_fail (plugin != NULL);
 
 	if (plugin->top_dir == NULL)
 		return;
 	
-	// FIXME: with interface: update if a tm_project yet exists or generate a new tm_project
-	plugin->tm_project = tm_project_new (plugin->top_dir, NULL, NULL, FALSE);
-
-	DEBUG_PRINT ("Updating graph: total nodes: %d",
-				 plugin->tm_project->tags_array->len );
+	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+									 IAnjutaSymbolManager, NULL);
+	if (!sm)
+		return;
 	
-	/* search throught the tree list of symbols */
-	for (j = 0; j < plugin->tm_project->tags_array->len; j++)
+	iter = ianjuta_symbol_manager_search (sm, IANJUTA_SYMBOL_TYPE_CLASS,
+										  "", FALSE, FALSE, NULL);
+	if (!iter)
+		return;
+	
+	DEBUG_PRINT ("Number of classes found = %d",
+				 ianjuta_iterable_get_length (iter, NULL));
+	
+	if (ianjuta_iterable_get_length (iter, NULL) <= 0)
 	{
-		TMTag *tag = TM_TAG (plugin->tm_project->tags_array->pdata[j]);
-		gchar **inherits;
+		g_object_unref (iter);
+		return;
+	}
+	
+	/* Get all classes */
+	classes = NULL;
+	class_parents = g_hash_table_new_full (g_str_hash, g_str_equal,
+										   g_free, g_free);
+	first = TRUE;
+	while (first || ianjuta_iterable_next (iter, NULL))
+	{
+		const gchar *class_name, *parents, *old_parents;
 		
-		if (tag == NULL)
+		first = FALSE;
+		
+		symbol = ianjuta_iterable_get (iter, IANJUTA_TYPE_SYMBOL, NULL);
+		if (!symbol)
 			continue;
 		
-		if (tag->type == tm_tag_class_t && tag->atts.entry.inheritance != NULL)
-		{
-			int i;
-			inherits = g_strsplit_set (tag->atts.entry.inheritance, ";:,", 0);
-			
-			for (i=0; inherits[i] != NULL; i++) {
-				if (strcmp (inherits[i], "") == 0)
-					continue;
-				
-				cls_inherit_add_node (plugin, tag->name);
-				cls_inherit_add_node (plugin, inherits[i]);
-				cls_inherit_add_edge (plugin, inherits[i], tag->name );
-			}
-			
-			/* free the allocated strings-array. No need to check for a NULL
-			 * value with this function
-			 */
-			g_strfreev (inherits);
-		}
-	}
+		class_name = ianjuta_symbol_name (symbol, NULL);
+		parents = ianjuta_symbol_inheritance (symbol, NULL);
 		
-/*/ DEBUG GRAPH. Decomment here to have one more graph to display.
+		if (!class_name || !parents || strlen (class_name) <= 0 ||
+			strlen (parents) <= 0)
+			continue;
+		
+		if ((old_parents = g_hash_table_lookup (class_parents, class_name)))
+		{
+			if (strcmp (parents, old_parents) != 0)
+			{
+				g_warning ("Class '%s' has different parents '%s' and '%s'",
+						   class_name, old_parents, parents);
+			}
+			continue;
+		}
+		g_hash_table_insert (class_parents, g_strdup (class_name),
+							 g_strdup (parents));
+		classes = g_list_prepend (classes, g_strdup (class_name));
+	}
+	classes = g_list_reverse (classes);
+	g_object_unref (iter);
 	
-	cls_inherit_add_node (plugin, "first");
-	cls_inherit_add_node (plugin, "second");
-	cls_inherit_add_node (plugin, "third");
-	cls_inherit_add_node (plugin, "fourth");
-	cls_inherit_add_node (plugin, "fifth");
-	cls_inherit_add_node (plugin, "sixth");
-
-	cls_inherit_add_edge (plugin, "first", "second");
-	cls_inherit_add_edge (plugin, "second", "third");
-	cls_inherit_add_edge (plugin, "first", "third");
-	cls_inherit_add_edge (plugin, "third", "fourth");
-	cls_inherit_add_edge (plugin, "fifth", "sixth");
-	cls_inherit_add_edge (plugin, "first", "fourth");
-	cls_inherit_add_edge (plugin, "first", "fifth");
-	cls_inherit_add_edge (plugin, "third", "fifth");
-//*/	
+	/* For all classes get their parents */
+	node = classes;
+	while (node)
+	{
+		const gchar *class_name, *parents;
+		gchar **parentsv, **ptr;
+		
+		class_name = node->data;
+		parents = g_hash_table_lookup (class_parents, class_name);
+		parentsv = g_strsplit_set (parents, ";:,", -1);
+		
+		ptr = parentsv;
+		while (*ptr)
+		{
+			if (strcmp (*ptr, "") == 0)
+			{
+				ptr++;
+				continue;
+			}
+			cls_inherit_add_node (plugin, class_name);
+			cls_inherit_add_node (plugin, *ptr);
+			cls_inherit_add_edge (plugin, *ptr, class_name);
+			
+			DEBUG_PRINT ("%s:%s", *ptr, class_name);
+			ptr++;
+		}
+		g_strfreev (parentsv);
+		node = g_list_next (node);
+	}
+	g_list_foreach (classes, (GFunc)g_free, NULL);
+	g_list_free (classes);
 	cls_inherit_draw_graph (plugin);	
 }
 
@@ -855,7 +743,6 @@ static void
 on_update_menu_item_selected (GtkMenuItem *item,
 							  AnjutaClassInheritance *plugin)
 {
-	
 	class_inheritance_update_graph (plugin);
 }
 

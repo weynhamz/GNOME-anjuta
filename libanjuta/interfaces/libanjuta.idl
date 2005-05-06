@@ -199,6 +199,70 @@ interface IAnjutaMarkable
 	void delete_all_markers (Marker marker);
 }
 
+interface IAnjutaIterable
+{
+	// Set iter to first element position. Returns FALSE if
+	// there is no element in the iterable (hence does not have last).
+	gboolean first ();
+	
+	// Set the iter position to next element position. Returns FALSE if there
+	// is no next element.
+	gboolean next ();
+	
+	// Set the iter position to previous element position. Returns FALSE if
+	// there is no previous element.
+	gboolean previous ();
+	
+	// Set iter position to last element position. Returns FALSE if
+	// there is no element in the iterable (hence does not have last).
+	gboolean last ();
+	
+	// Call callback for each element.
+	void foreach (GFunc callback, gpointer user_data);
+	
+	// Gets the value at current iter position.
+	// Interpretation of 'data' really depends on implementation and is of
+	// type 'data_type'. get_nth() gets the element at given position without
+	// altering the position of current iter.
+	gpointer get (GType data_type);
+	gpointer get_nth (GType data_type, gint position);
+	
+	// Index of the current iter in the iterable
+	gint get_position ();
+	
+	// Length of the iterable
+	gint get_length ();
+	
+	// If the iterable is settable
+	gboolean get_settable ();
+	
+	// Sets the value at current iter position. The iterable be be settable.
+	// Interpretation of 'data' really depends on implementation. The data
+	// must be of type 'data_type'.
+	void set (GType data_type, gpointer data);
+	void set_nth (GType data_type, gpointer data, gint position);
+	
+	interface IAnjutaIterableTree
+	{
+		// Set iter position to parent of curernt iter. If there is no parent,
+		// returns FALSE (current iter position is not changed)
+		gboolean parent ();
+		
+		// Iter position set to first child of current iter. If there is no
+		// children, return NULL (iter position is not changed).
+		gboolean children ();
+		
+		// Returns true if current iter has children
+		gboolean has_children ();
+		
+		// Call callback for each element in post order.
+		void foreach_post (GFunc callback, gpointer user_data);
+		
+		// Call callback for each element in pre order.
+		void foreach_pre (GFunc callback, gpointer user_data);
+	}
+}
+
 // Implemented by plugins which can build (e.g module manager plugins).
 interface IAnjutaBuildable
 {
@@ -639,4 +703,87 @@ interface IAnjutaMacro
 	 * Insert Macro to editor
 	 */
 	void insert(const gchar* key);
+}
+
+interface IAnjutaSymbol
+{
+	#include <gdk/gdkpixbuf.h>
+	
+	enum Type
+	{
+		TYPE_UNDEF = 0,                // Unknown type
+		TYPE_CLASS = 1,                // Class declaration
+		TYPE_ENUM = 2,                 // Enum declaration
+		TYPE_ENUMERATOR = 4,           // Enumerator value
+		TYPE_FIELD = 8,                // Field (Java only)
+		TYPE_FUNCTION = 16,            // Function definition
+		TYPE_INTERFACE = 32,           // Interface (Java only)
+		TYPE_MEMBER = 64,              // Member variable of class/struct
+		TYPE_METHOD = 128,             // Class method (Java only)
+		TYPE_NAMESPACE = 256,          // Namespace declaration
+		TYPE_PACKAGE = 512,            // Package (Java only)
+		TYPE_PROTOTYPE = 1024,         // Function prototype
+		TYPE_STRUCT = 2048,            // Struct declaration
+		TYPE_TYPEDEF = 4096,           // Typedef
+		TYPE_UNION = 8192,             // Union
+		TYPE_VARIABLE = 16384,         // Variable
+		TYPE_EXTERNVAR = 32768,        // Extern or forward declaration
+		TYPE_MACRO = 65536,            //  Macro (without arguments)
+		TYPE_MACRO_WITH_ARG = 131072,  // Parameterized macro
+		TYPE_FILE = 262144,            // File (Pseudo tag)
+		TYPE_OTHER = 524288,           // Other (non C/C++/Java tag)
+		TYPE_MAX = 1048575             // Maximum value
+	}
+
+	// Field masks -- used mainly for search
+	enum Field
+	{
+		FIELD_NONE = 0,                 // Undefined
+		FIELD_NAME = 1,                 // Name field
+		FIELD_TYPE = 2,                 // Type field
+		FIELD_FILE = 4,                 // File field
+		FIELD_LINE = 8,                 // Line number field
+		FIELD_POSITION = 16,            // Byte pos of symbol (Obsolete)
+		FIELD_SCOPE = 32,               // Scope of the symbol field
+		FIELD_INHERITANCE = 64,         // Parent classes
+		FIELD_ARGUMENTS = 128,          // Argument list
+		FIELD_LOCAL = 256,              // If it has local scope
+		FIELD_TIME = 512,               // Modification time (File symbol only)
+		FIELD_VARTYPE = 1024,           // Variable Type
+		FIELD_ACCESS = 2048,            // Access type
+		FIELD_IMPLEMENTATION = 4096,    // Implementation (e.g. virtual)
+		FIELD_LANGUAGE = 8192,          // Language (File symbols only)
+		FIELD_INACTIVE = 16384,         // Inactive file (File symbols only)
+		FIELD_POINTER = 32768,          // Inactive file (File symbols only)
+		FIELD_MAX = 65535               // Maximum value
+	}
+	
+	// Methods
+	Type type ();                // Symbol type
+	const gchar *name ();        // Symbol name
+	const gchar *args ();        // Args list (functions/prototypes/macros)
+	const gchar *scope ();       // Scope of symbol
+	const gchar *inheritance (); // Parent classes
+	const gchar *var_type ();    // Variable type (maps to struct for typedefs)
+	const gchar access ();       // Access type (public/protected/private/etc.)
+	const gchar impl ();         // Implementation (e.g. virtual)
+	const gchar *file ();        // File in which the symbol occurs
+	gulong line ();              // Line number of the symbol
+	gboolean is_local ();        // Is the symbol of local scope
+	gboolean is_pointer ();      // Is the symbol Pointer?
+	
+	GdkPixbuf *icon ();          // Pixbuf icon representing the symbol
+}
+
+interface IAnjutaSymbolManager
+{
+	#include "ianjuta-iterable.h"
+	#include "ianjuta-symbol.h"
+
+	// Database query. Returned iterable must be unrefed after use.
+	IAnjutaIterable* search (IAnjutaSymbolType match_types, const gchar *match_name, gboolean partial_name_match, gboolean global_search);
+	
+	// Database query. Returned iterable must be unrefed after use.
+	IAnjutaIterable* get_members (const gchar *symbol_name, gboolean global_search);
+	IAnjutaIterable* get_parents (const gchar *symbol_name);
 }

@@ -26,8 +26,7 @@ INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(GDL_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(PLUGIN_CLASS_INHERITANCE_CFLAGS) \
-	-I$(top_srcdir)/tagmanager/include
+	$(PLUGIN_CLASS_INHERITANCE_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -38,8 +37,7 @@ plugin_LTLIBRARIES = libanjuta-class-inheritance.la
 # Plugin dependencies
 libanjuta_class_inheritance_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_CLASS_INHERITANCE_LIBS) \
-	$(top_builddir)/tagmanager/libanjuta-ctags.la
+	$(PLUGIN_CLASS_INHERITANCE_LIBS)
 
 # Plugin sources
 libanjuta_class_inheritance_la_SOURCES = \

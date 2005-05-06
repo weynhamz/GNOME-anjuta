@@ -29,9 +29,6 @@
 #include <graphviz/dotneato.h>	/* libgraph */
 #include <graphviz/graph.h>
 
-// FIXME
-#include <tm_tagmanager.h>
-
 G_BEGIN_DECLS
 
 typedef struct _AnjutaClassInheritance AnjutaClassInheritance;
@@ -50,9 +47,6 @@ struct _AnjutaClassInheritance {
 	GList *node_list;		/* NodeData* list */
 	
 	Agraph_t *graph;	
-	
-	/* FIXME: remove this one and use an interface */
-	TMWorkObject *tm_project;
 	
 	gchar *top_dir;
 	guint root_watch_id;

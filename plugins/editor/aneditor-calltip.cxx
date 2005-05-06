@@ -75,7 +75,7 @@ bool AnEditor::StartCallTip_new() {
 											  tm_tag_prototype_t |
 											  tm_tag_function_t |
 											  tm_tag_macro_with_arg_t,
-											  attrs, FALSE);
+											  attrs, FALSE, TRUE);
 	if (tags && (tags->len > 0))
 	{
 		call_tip_node.max_def = (tags->len < 20)? tags->len:20;
@@ -320,7 +320,7 @@ void AnEditor::CompleteCallTip() {
 											  tm_tag_prototype_t |
 											  tm_tag_function_t |
 											  tm_tag_macro_with_arg_t,
-											  attrs, FALSE);
+											  attrs, FALSE, TRUE);
 	
 	// we'll provide a function calltip
 	if (tags && (tags->len > 0))

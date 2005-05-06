@@ -29,16 +29,17 @@ libanjuta_cvs_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS)
 
 libanjuta_cvs_plugin_la_SOURCES = \
-	plugin.c\
-	plugin.h\
-	cvs-actions.c\
-	cvs-actions.h\
-	cvs-execute.c\
-	cvs-execute.h                     \
-	cvs-callbacks.c                     \
-	cvs-callbacks.h                     \
-	cvs-interface.c                     \
-	cvs-interface.h 
+	plugin.c \
+	plugin.h \
+	cvs-actions.c \
+	cvs-actions.h \
+	cvs-execute.c \
+	cvs-execute.h \
+	cvs-callbacks.c \
+	cvs-callbacks.h \
+	cvs-interface.c \
+	cvs-interface.h
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(cvs_plugin_pixmaps_DATA) \

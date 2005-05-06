@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
-    Copyright (C) 2000 Naba Kumar
+    Copyright (C) Naba Kumar  <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
-
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/plugins.h>
 #include <libegg/menu/egg-combo-action.h>
 
@@ -40,6 +40,7 @@
 #include "an_symbol_search.h"
 #include "an_symbol_info.h"
 #include "an_symbol_prefs.h"
+#include "an_symbol_iter.h"
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-browser-plugin.ui"
@@ -982,7 +983,79 @@ symbol_browser_plugin_class_init (SymbolBrowserPluginClass *klass)
 	object_class->finalize = finalize;
 }
 
+static IAnjutaIterable*
+isymbol_manager_search (IAnjutaSymbolManager *sm,
+						IAnjutaSymbolType match_types,
+						const gchar *match_name,
+						gboolean partial_name_match,
+						gboolean global_search,
+						GError **err)
+{
+	const GPtrArray *tags_array;
+	AnjutaSymbolIter *iter = NULL;
+	const gchar *name;
+	
+	if (match_name && strlen (match_name) > 0)
+		name = match_name;
+	else
+		name = NULL;
+	
+	tags_array = tm_workspace_find (name, match_types, NULL,
+									partial_name_match, global_search);
+	if (tags_array)
+	{
+		iter = anjuta_symbol_iter_new (tags_array);
+		return IANJUTA_ITERABLE (iter);
+	}
+	return NULL;
+}
+
+static IAnjutaIterable*
+isymbol_manager_get_members (IAnjutaSymbolManager *sm,
+							 const gchar *symbol_name,
+							 gboolean global_search,
+							 GError **err)
+{
+	const GPtrArray *tags_array;
+	AnjutaSymbolIter *iter = NULL;
+	
+	tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
+												  global_search);
+	if (tags_array)
+	{
+		iter = anjuta_symbol_iter_new (tags_array);
+		return IANJUTA_ITERABLE (iter);
+	}
+	return NULL;
+}
+
+static IAnjutaIterable*
+isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
+							 const gchar *symbol_name,
+							 GError **err)
+{
+	const GPtrArray *tags_array;
+	AnjutaSymbolIter *iter = NULL;
+	
+	tags_array = tm_workspace_get_parents (symbol_name);
+	if (tags_array)
+	{
+		iter = anjuta_symbol_iter_new (tags_array);
+		return IANJUTA_ITERABLE (iter);
+	}
+	return NULL;
+}
+
+static void
+isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
+{
+	iface->search = isymbol_manager_search;
+	iface->get_members = isymbol_manager_get_members;
+	iface->get_parents = isymbol_manager_get_parents;
+}
+
 ANJUTA_PLUGIN_BEGIN (SymbolBrowserPlugin, symbol_browser_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE (isymbol_manager, IANJUTA_TYPE_SYMBOL_MANAGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (SymbolBrowserPlugin, symbol_browser_plugin);

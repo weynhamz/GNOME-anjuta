@@ -26,8 +26,6 @@
 #include <libgnomeui/gnome-stock-icons.h>
 #include <libgnome/gnome-i18n.h>
 #include <libgnome/gnome-macros.h>
-#include <gdl/gdl-icons.h>
-#include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
@@ -56,8 +54,6 @@ enum
 	COLUMNS_NB
 };
 
-static GdlIcons *icon_set = NULL;
-static GdkPixbuf **sv_symbol_pixbufs = NULL;
 static GtkTreeViewClass *parent_class;
 
 static void anjuta_symbol_view_add_children (AnjutaSymbolView *sv,
@@ -65,60 +61,6 @@ static void anjuta_symbol_view_add_children (AnjutaSymbolView *sv,
 											 GtkTreeStore *store,
 											 GtkTreeIter *iter);
 static void anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv);
-
-#define CREATE_SV_ICON(N, F) \
-	pix_file = anjuta_res_get_pixmap_file (F); \
-	sv_symbol_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
-	g_free (pix_file);
-
-static void
-sv_load_symbol_pixbufs (AnjutaSymbolView * sv)
-{
-	gchar *pix_file;
-
-	if (sv_symbol_pixbufs)
-		return;
-
-	if (icon_set == NULL)
-		icon_set = gdl_icons_new (16);
-
-	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
-
-	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
-	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
-	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
-	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");
-	CREATE_SV_ICON (sv_typedef_t,           "Icons.16x16.Reference");
-	CREATE_SV_ICON (sv_function_t,          "Icons.16x16.Method");
-	CREATE_SV_ICON (sv_variable_t,          "Icons.16x16.Literal");
-	CREATE_SV_ICON (sv_enumerator_t,        "Icons.16x16.Enum");
-	CREATE_SV_ICON (sv_macro_t,             "Icons.16x16.Field");
-	CREATE_SV_ICON (sv_private_func_t,      "Icons.16x16.PrivateMethod");
-	CREATE_SV_ICON (sv_private_var_t,       "Icons.16x16.PrivateProperty");
-	CREATE_SV_ICON (sv_protected_func_t,    "Icons.16x16.ProtectedMethod");
-	CREATE_SV_ICON (sv_protected_var_t,     "Icons.16x16.ProtectedProperty");
-	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
-	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
-	
-	sv_symbol_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
-							    "application/directory-normal");
-	sv_symbol_pixbufs[sv_ofolder_t] = gdl_icons_get_mime_icon (icon_set,
-							    "application/directory-normal");
-	sv_symbol_pixbufs[sv_max_t] = NULL;
-}
-
-/*-----------------------------------------------------------------------------
- * return the pixbufs. It will initialize pixbufs first if they weren't before
- */
-GdkPixbuf *
-anjuta_symbol_view_get_pixbuf (AnjutaSymbolView * sv, SVNodeType node_type)
-{
-	if (!sv_symbol_pixbufs)
-		sv_load_symbol_pixbufs (sv);
-	g_return_val_if_fail (node_type >=0 && node_type < sv_max_t, NULL);
-		
-	return sv_symbol_pixbufs[node_type];
-}
 
 static gboolean
 on_treeview_row_search (GtkTreeModel * model, gint column,
@@ -509,7 +451,7 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 			gtk_tree_store_append (store, &sub_iter, iter);
 			gtk_tree_store_set (store, &sub_iter,
 								PIXBUF_COLUMN,
-							    anjuta_symbol_view_get_pixbuf (sv, type),
+							    anjuta_symbol_info_get_pixbuf (type),
 								NAME_COLUMN, s->str,
 								SVFILE_ENTRY_COLUMN, sfile,
 								SYMBOL_NODE, sym1,
@@ -899,7 +841,7 @@ create_file_symbols_model (AnjutaSymbolView * sv, TMWorkObject * tm_file,
 				/* filling the row */
 				gtk_tree_store_set (store, &iter,
 						    COL_PIX,
-							anjuta_symbol_view_get_pixbuf (sv, sv_type),
+							anjuta_symbol_info_get_pixbuf (sv_type),
 						    COL_NAME, tag_name,
 						    COL_LINE, tag->atts.entry.line, -1);
 				g_free (tag_name);

@@ -54,8 +54,8 @@ INCLUDES = \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	-I$(top_builddir)/scintilla/include \
-	-I$(top_builddir)/tagmanager/include
+	-I$(top_srcdir)/scintilla/include \
+	-I$(top_srcdir)/tagmanager/include
 
 libanjuta_editor_la_LIBADD = \
 	$(PCRE_LIBS) \
@@ -87,6 +87,7 @@ libanjuta_editor_la_SOURCES= \
 	anjuta-docman.h \
 	lexer.h \
 	plugin.c \
+	plugin.h \
 	action-callbacks.c\
 	action-callbacks.h\
 	file_history.c \

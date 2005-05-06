@@ -443,7 +443,7 @@ the system default plugins.</comment>
   </category>
   <category title="Plugin: Executer" place="12">
     <item>
-      <attribute id="1114329750" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1114329750"/>
+      <attribute id="1114329750" priority="1" done="1" start_date="732060" completed_date="732068" notify="0" last_edited="1115021443"/>
       <summary>Create executor plugin</summary>
       <comment>Create executer plugin that implements IAnjutaFile interface
 and merges a menuitem called "Execute" in 'Project' submenu

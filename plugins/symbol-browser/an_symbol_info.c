@@ -22,8 +22,9 @@
 #include <config.h>
 #endif
 
+#include <gdl/gdl-icons.h>
+#include <libanjuta/resources.h>
 #include "an_symbol_info.h"
-
 
 static AnjutaSymbolInfo* symbol_info_dup (const AnjutaSymbolInfo *from);
 static void symbol_info_free (AnjutaSymbolInfo *sfile);
@@ -123,7 +124,7 @@ GType anjuta_symbol_info_get_type (void) {
 }
 
 SVNodeType
-anjuta_symbol_info_get_node_type (TMSymbol *sym, TMTag *tag)
+anjuta_symbol_info_get_node_type (const TMSymbol *sym, const TMTag *tag)
 {
 	TMTagType t_type;
 	SVNodeType type;
@@ -243,4 +244,61 @@ anjuta_symbol_info_get_root_type (SVNodeType type)
 	default:
 		return sv_root_none_t;
 	}
+}
+
+static GdlIcons *icon_set = NULL;
+static GdkPixbuf **sv_symbol_pixbufs = NULL;
+
+#define CREATE_SV_ICON(N, F) \
+	pix_file = anjuta_res_get_pixmap_file (F); \
+	sv_symbol_pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
+	g_free (pix_file);
+
+static void
+sv_load_symbol_pixbufs (void)
+{
+	gchar *pix_file;
+
+	if (sv_symbol_pixbufs)
+		return;
+
+	if (icon_set == NULL)
+		icon_set = gdl_icons_new (16);
+
+	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
+
+	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
+	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
+	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");
+	CREATE_SV_ICON (sv_typedef_t,           "Icons.16x16.Reference");
+	CREATE_SV_ICON (sv_function_t,          "Icons.16x16.Method");
+	CREATE_SV_ICON (sv_variable_t,          "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_enumerator_t,        "Icons.16x16.Enum");
+	CREATE_SV_ICON (sv_macro_t,             "Icons.16x16.Field");
+	CREATE_SV_ICON (sv_private_func_t,      "Icons.16x16.PrivateMethod");
+	CREATE_SV_ICON (sv_private_var_t,       "Icons.16x16.PrivateProperty");
+	CREATE_SV_ICON (sv_protected_func_t,    "Icons.16x16.ProtectedMethod");
+	CREATE_SV_ICON (sv_protected_var_t,     "Icons.16x16.ProtectedProperty");
+	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
+	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
+	
+	sv_symbol_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
+							    "application/directory-normal");
+	sv_symbol_pixbufs[sv_ofolder_t] = gdl_icons_get_mime_icon (icon_set,
+							    "application/directory-normal");
+	sv_symbol_pixbufs[sv_max_t] = NULL;
+}
+
+/*-----------------------------------------------------------------------------
+ * return the pixbufs. It will initialize pixbufs first if they weren't before
+ */
+GdkPixbuf*
+anjuta_symbol_info_get_pixbuf  (SVNodeType node_type)
+{
+	if (!sv_symbol_pixbufs)
+		sv_load_symbol_pixbufs ();
+	g_return_val_if_fail (node_type >=0 && node_type < sv_max_t, NULL);
+		
+	return sv_symbol_pixbufs[node_type];
 }

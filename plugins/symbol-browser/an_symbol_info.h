@@ -94,8 +94,12 @@ void anjuta_symbol_info_free (AnjutaSymbolInfo *sym);
 /* If sym is give sym->tag is used, otherwise the passed tag is used
  * to determine the sv node type
  */
-SVNodeType anjuta_symbol_info_get_node_type (TMSymbol *sym, TMTag *tag);
+SVNodeType anjuta_symbol_info_get_node_type (const TMSymbol *sym,
+											 const TMTag *tag);
 SVRootType anjuta_symbol_info_get_root_type (SVNodeType type);
+
+/* Returns the icon pixbuf. Caller does not get a reference. */
+GdkPixbuf* anjuta_symbol_info_get_pixbuf  (SVNodeType type);
 
 G_END_DECLS
 #endif /* __AN_SYMBOL_INFO_H__ */

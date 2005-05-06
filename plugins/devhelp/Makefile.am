@@ -29,7 +29,9 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-devhelp.la
 
 # Plugin sources
-libanjuta_devhelp_la_SOURCES = plugin.c
+libanjuta_devhelp_la_SOURCES = \
+	plugin.c \
+	plugin.h
 
 # Plugin dependencies
 libanjuta_devhelp_la_LIBADD = \
@@ -37,7 +39,7 @@ libanjuta_devhelp_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \
-        $(plugin_in_files) \
-        $(devhelp_plugin_DATA) \
+	$(plugin_in_files) \
+	$(devhelp_plugin_DATA) \
 	$(devhelp_ui_DATA) \
 	$(devhelp_pixmaps_DATA)

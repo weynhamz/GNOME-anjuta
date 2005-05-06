@@ -85,9 +85,6 @@ gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,
 											 gboolean prefer_definition,
 											 const gchar** const filename,
 											 gint *line);
-/* Caller does not get a reference */
-GdkPixbuf *anjuta_symbol_view_get_pixbuf (AnjutaSymbolView *sv,
-										  SVNodeType node_type);
 
 G_END_DECLS
 

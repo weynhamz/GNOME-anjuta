@@ -22,32 +22,22 @@
 
 #include "plugin.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+G_BEGIN_DECLS
 
 void class_inheritance_base_gui_init (AnjutaClassInheritance *plugin);
 void class_inheritance_update_graph (AnjutaClassInheritance *plugin);
 void class_inheritance_clean_canvas (AnjutaClassInheritance *plugin);
 
 typedef struct _NodeData {
-	GnomeCanvasItem *canvas_item;		/* item itself */
-	gchar *name;							/* the name of the class */
-	
-	gboolean anchored;					/* should it be anchored [e.g. paint all the 
-												   data to the grah?] */
+	GnomeCanvasItem *canvas_item;  /* item itself */
+	gchar *name;                   /* the name of the class */
+	gboolean anchored;             /* should it be anchored [e.g. paint all the 
+	                                * data to the grah?]
+	                                */
 	GtkWidget *menu;
-	
-	GPtrArray *symbols_tags;			/* at the start it's null. The first time we
-													look for it we save the pointer so we can have
-													a quicker access to its members */
-	
 	AnjutaClassInheritance *plugin;
 } NodeData;
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _CLASS_INHERIT_H */

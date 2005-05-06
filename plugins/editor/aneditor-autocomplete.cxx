@@ -86,7 +86,7 @@ bool AnEditor::StartAutoComplete() {
 	linebuf.change(current, '\0');
 	const char *root = linebuf.c_str() + startword;
 	int rootlen = current - startword;
-	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE);
+	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE, TRUE);
 	if (NULL != tags)
 	{
 		GString *words = g_string_sized_new(100);
@@ -367,7 +367,7 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 														   tm_tag_typedef_t |
 														   tm_tag_union_t  |
 														   tm_tag_namespace_t),
-														  NULL, FALSE);  
+														  NULL, FALSE, TRUE);
 				doclen = tags->len;
 				match = (TMTag **)tags->pdata;
 			}
@@ -617,7 +617,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 			if (!count || !match || !(*match))
 			{
 				/* search in global variables and functions tag's entrys */
-				tags = tm_workspace_find(root, types, attrs, FALSE);  
+				tags = tm_workspace_find(root, types, attrs, FALSE, TRUE);  
 				count = tags->len;
 				match = NULL;
 			}
@@ -879,7 +879,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	if (SCLEX_CPP == lexLanguage)
 	{
 		const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t,
-												  NULL, TRUE);
+												  NULL, TRUE, TRUE);
 		if ((tags) && (tags->len > 0))
 		{
 			TMTag *tag;

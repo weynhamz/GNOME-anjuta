@@ -37,6 +37,10 @@ plugin_LTLIBRARIES = libanjuta-symbol-browser.la
 
 # Plugin sources
 libanjuta_symbol_browser_la_SOURCES = \
+	an_symbol.c \
+	an_symbol.h \
+	an_symbol_iter.h \
+	an_symbol_iter.c \
 	an_symbol_info.c \
 	an_symbol_info.h \
 	an_symbol_view.h \
@@ -45,10 +49,10 @@ libanjuta_symbol_browser_la_SOURCES = \
 	an_symbol_search.c \
 	an_symbol_prefs.c \
 	an_symbol_prefs.h \
-	plugin.c 
+	plugin.c \
+	plugin.h
 
 libanjuta_symbol_browser_la_LDFLAGS = -module
-
 
 # Plugin dependencies
 libanjuta_symbol_browser_la_LIBADD = \

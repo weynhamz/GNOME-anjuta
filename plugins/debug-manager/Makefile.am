@@ -40,4 +40,5 @@ EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \
 	$(plugin_in_files) \
 	$(anjuta_plugin_DATA) \
-	$(anjuta_ui_DATA)
+	$(anjuta_ui_DATA) \
+	$(anjuta_glade_DATA)
