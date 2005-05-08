@@ -25,10 +25,6 @@
 #include "watch_cbs.h"
 #include "memory.h"
 #include "registers.h"
-
-#if 0
-#include "signals_cbs.h"
-#endif
 #include "actions.h"
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"

@@ -1,3 +1,81 @@
+2005-05-08  Naba Kumar <naba@gnome.org>
+
+	* plugins/gdb/actions.c,
+	(removed) plugins/gdb/registers_cbs.c,
+	(removed) plugins/gdb/registers_cbs.h,
+	(removed) plugins/gdb/registers_gui.c,
+	(removed) plugins/gdb/sharedlib_cbs.c,
+	(removed) plugins/gdb/sharedlib_cbs.h,
+	(removed) plugins/gdb/sharedlib_gui.c,
+	(removed) plugins/gdb/signals_cbs.c,
+	(removed) plugins/gdb/signals_cbs.h,
+	(removed) plugins/gdb/signals_gui.c: Removed dead files.
+
+2005-05-08  Naba Kumar <naba@gnome.org>
+
+	* plugins/build-basic-autotools/executer.c: Fixed programs
+	listing dialog.
+	
+	* plugins/debug-manager/Makefile.am,
+	plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/Makefile.am: Used libglade for programs listing
+	dialog.
+	
+	* (added) plugins/gdb/pointer.png: Stack pointer image.
+	
+	* libanjuta/anjuta-marshal.list,
+	pixmaps/Makefile.am,
+	plugins/gdb/actions.c,
+	plugins/gdb/actions.h,
+	plugins/gdb/anjuta-gdb-plugin.ui,
+	plugins/gdb/anjuta-gdb.glade,
+	plugins/gdb/breakpoints.c,
+	plugins/gdb/breakpoints.h,
+	plugins/gdb/debug_tree.c,
+	plugins/gdb/debug_tree.h,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/gdbmi-test.c,
+	plugins/gdb/gdbmi.c,
+	plugins/gdb/gdbmi.h,
+	plugins/gdb/info.c,
+	plugins/gdb/info.h,
+	plugins/gdb/locals.c,
+	plugins/gdb/locals.h,
+	plugins/gdb/memory.c,
+	plugins/gdb/memory.h,
+	plugins/gdb/plugin.c,
+	plugins/gdb/plugin.h,
+	plugins/gdb/registers.c,
+	plugins/gdb/registers.h,
+	plugins/gdb/registers_cbs.c,
+	plugins/gdb/registers_cbs.h,
+	plugins/gdb/registers_gui.c,
+	plugins/gdb/sharedlib.c,
+	plugins/gdb/sharedlib.h,
+	plugins/gdb/sharedlib_cbs.c,
+	plugins/gdb/sharedlib_cbs.h,
+	plugins/gdb/sharedlib_gui.c,
+	plugins/gdb/signals.c,
+	plugins/gdb/signals.h,
+	plugins/gdb/signals_cbs.c,
+	plugins/gdb/signals_cbs.h,
+	plugins/gdb/signals_gui.c,
+	plugins/gdb/stack_trace.c,
+	plugins/gdb/stack_trace.h,
+	plugins/gdb/utilities.c,
+	plugins/gdb/utilities.h,
+	plugins/gdb/watch.c,
+	plugins/gdb/watch.h,
+	plugins/gdb/watch_cbs.c,
+	plugins/gdb/watch_cbs.h,
+	plugins/gdb/watch_gui.c: Implemented gdb MI interface and used
+	it for all debugger component updates and listing. Implemented
+	user custom debugger command window. Fixed all debugger components
+	to work correctly. Implemented debugger as GObject. Removed
+	deprecated codes.
+	
 2005-05-06  Naba Kumar  <naba@gnome.org>
 	
 	* TODO.tasks: Updated.
