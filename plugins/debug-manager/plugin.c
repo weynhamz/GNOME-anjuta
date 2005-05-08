@@ -33,6 +33,7 @@
 #include "attach_process.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debug-manager.ui"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
 
 static gpointer parent_class;
 
@@ -145,7 +146,8 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 			}
 			else
 			{
-				GtkWidget *dlg, *treeview, *sc;
+				GladeXML *gxml;
+				GtkWidget *dlg, *treeview;
 				GtkTreeViewColumn *column;
 				GtkCellRenderer *renderer;
 				GtkListStore *store;
@@ -153,28 +155,13 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				GList *node;
 				GtkTreeIter iter;
 				const gchar *sel_target = NULL;
+
+				gxml = glade_xml_new (GLADE_FILE, "debugger_start_dialog", NULL);
+				dlg = glade_xml_get_widget (gxml, "debugger_start_dialog");
+				treeview = glade_xml_get_widget (gxml, "programs_treeview");
 				
-				dlg = gtk_dialog_new_with_buttons (_("Select debugging target"),
-												   GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-												   GTK_DIALOG_DESTROY_WITH_PARENT,
-												   GTK_STOCK_OK,
-												   GTK_RESPONSE_ACCEPT,
-												   GTK_STOCK_CANCEL,
-												   GTK_RESPONSE_REJECT,
-												   NULL);
-				gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
-				sc = gtk_scrolled_window_new (NULL, NULL);
-				gtk_container_set_border_width (GTK_CONTAINER (sc), 5);
-				
-				gtk_widget_show (sc);
-				gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sc),
-													 GTK_SHADOW_IN);
-				gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sc),
-												GTK_POLICY_AUTOMATIC,
-												GTK_POLICY_AUTOMATIC);
-				
-				gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), sc,
-									TRUE, TRUE, 5);
+				gtk_window_set_transient_for (GTK_WINDOW (dlg),
+											  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
 			
 				store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 				node = exec_targets;
@@ -193,9 +180,8 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				}
 				g_list_free (exec_targets);
 				
-				treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-				gtk_container_add (GTK_CONTAINER (sc), treeview);
-				gtk_widget_show (treeview);
+				gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
+										 GTK_TREE_MODEL (store));
 				g_object_unref (store);
 				
 				column = gtk_tree_view_column_new ();
@@ -212,7 +198,7 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				
 				/* Run dialog */
 				response = gtk_dialog_run (GTK_DIALOG (dlg));
-				if (response == GTK_RESPONSE_ACCEPT)
+				if (response == GTK_RESPONSE_OK)
 				{
 					GtkTreeSelection *sel;
 					sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
@@ -230,6 +216,7 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 					ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 													sel_target, NULL);
 				}
+				g_object_unref (gxml);
 			}
 		}
 	}

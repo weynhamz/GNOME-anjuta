@@ -20,20 +20,4 @@
 #ifndef _SHAREDLIBS_CBS_H_
 #define _SHAREDLIBS_CBS_H_
 
-gint
-on_sharedlibs_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
-
-gboolean
-on_sharedlibs_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
-
-void
-on_sharedlibs_update_activate            (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-void
-on_sharedlibs_help_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-gboolean
-on_sharedlibs_event                (GtkWidget       *widget,
-                                        GdkEvent  *event,
-                                        gpointer         user_data);
 #endif

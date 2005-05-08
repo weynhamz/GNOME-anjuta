@@ -3,13 +3,13 @@
  * gdbmi.c
  * Copyright (C) Naba Kumar 2005 <naba@gnome.org>
  * 
- * main.c is free software.
+ * gdbmi.c is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2, or (at your option) any later version.
  * 
- * main.c is distributed in the hope that it will be useful,
+ * gdbmi.c is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
@@ -108,7 +108,7 @@ gdbmi_value_literal_new (const gchar *name, const gchar *data)
 }
 
 const gchar*
-gdbmi_value_get_name (GDBMIValue *val)
+gdbmi_value_get_name (const GDBMIValue *val)
 {
 	g_return_val_if_fail (val != NULL, NULL);
 	return val->name;
@@ -124,7 +124,7 @@ gdbmi_value_set_name (GDBMIValue *val, const gchar *name)
 }
 
 gint
-gdbmi_value_get_size (GDBMIValue* val)
+gdbmi_value_get_size (const GDBMIValue* val)
 {
 	g_return_val_if_fail (val != NULL, 0);
 	
@@ -151,7 +151,7 @@ gdbmi_value_hash_foreach (const gchar *key, GDBMIValue* val,
 }
 
 void
-gdbmi_value_foreach (GDBMIValue* val, GFunc func, gpointer user_data)
+gdbmi_value_foreach (const GDBMIValue* val, GFunc func, gpointer user_data)
 {
 	g_return_if_fail (val != NULL);
 	g_return_if_fail (func != NULL);
@@ -185,7 +185,7 @@ gdbmi_value_literal_set (GDBMIValue* val, const gchar *data)
 }
 
 const gchar*
-gdbmi_value_literal_get (GDBMIValue* val)
+gdbmi_value_literal_get (const GDBMIValue* val)
 {
 	g_return_val_if_fail (val != NULL, NULL);
 	g_return_val_if_fail (val->type == GDBMI_DATA_LITERAL, NULL);
@@ -204,8 +204,8 @@ gdbmi_value_hash_insert (GDBMIValue* val, const gchar *key, GDBMIValue *value)
 	g_hash_table_insert (val->data.hash, g_strdup (key), value);
 }
 
-GDBMIValue*
-gdbmi_value_hash_lookup (GDBMIValue* val, const gchar *key)
+const GDBMIValue*
+gdbmi_value_hash_lookup (const GDBMIValue* val, const gchar *key)
 {
 	g_return_val_if_fail (val != NULL, NULL);
 	g_return_val_if_fail (key != NULL, NULL);
@@ -225,8 +225,8 @@ gdbmi_value_list_append (GDBMIValue* val, GDBMIValue *value)
 	g_queue_push_tail (val->data.list, value);
 }
 
-GDBMIValue*
-gdbmi_value_list_get_nth (GDBMIValue* val, gint idx)
+const GDBMIValue*
+gdbmi_value_list_get_nth (const GDBMIValue* val, gint idx)
 {
 	g_return_val_if_fail (val != NULL, NULL);
 	g_return_val_if_fail (val->type == GDBMI_DATA_LIST, NULL);
@@ -238,13 +238,13 @@ gdbmi_value_list_get_nth (GDBMIValue* val, gint idx)
 }
 
 static void
-gdbmi_value_dump_foreach (GDBMIValue *val, gpointer indent_level)
+gdbmi_value_dump_foreach (const GDBMIValue *val, gpointer indent_level)
 {
 	gdbmi_value_dump (val, GPOINTER_TO_INT (indent_level));
 }
 
 void
-gdbmi_value_dump (GDBMIValue *val, gint indent_level)
+gdbmi_value_dump (const GDBMIValue *val, gint indent_level)
 {
 	gint i, next_indent;
 	
@@ -478,11 +478,20 @@ gdbmi_value_parse (const gchar *message)
 	gchar *msg, *ptr;
 	
 	g_return_val_if_fail (message != NULL, NULL);
-	g_return_val_if_fail (strncasecmp(message, "^done,", strlen("^done,")) == 0,
-									  NULL);
-	msg = g_strconcat ("{", message + strlen("^done,"), "}", NULL);
-	ptr = msg;
-	val = gdbmi_value_parse_real (&ptr);
-	g_free (msg);
+	
+	if (strcasecmp(message, "^error") == 0)
+	{
+		g_warning ("GDB reported error without any error message");
+		return NULL; /* No message */
+	}
+	
+	val = NULL;
+	if (strchr (message, ','))
+	{
+		msg = g_strconcat ("{", strchr (message, ',') + 1, "}", NULL);
+		ptr = msg;
+		val = gdbmi_value_parse_real (&ptr);
+		g_free (msg);
+	}
 	return val;
 }

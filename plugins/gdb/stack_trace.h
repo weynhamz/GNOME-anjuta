@@ -25,15 +25,13 @@
 
 typedef struct _StackTrace StackTrace;
 
-StackTrace *stack_trace_new (void);
+StackTrace *stack_trace_new (Debugger *debugger);
 
 /* Getters */
 GtkWidget *stack_trace_get_main_widget (StackTrace *st);
 
 void stack_trace_clear (StackTrace *st);
 void stack_trace_set_frame (StackTrace *st, gint frame);
-void stack_trace_update (GList *lines, gpointer st);
-void stack_trace_update_controls (StackTrace *st);
 void stack_trace_destroy (StackTrace *st);
 
 #endif

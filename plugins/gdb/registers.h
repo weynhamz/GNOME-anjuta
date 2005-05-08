@@ -21,7 +21,7 @@
 #define _REGISTERS_H_
 
 #include <gnome.h>
-/* #include "properties.h" */
+#include "debugger.h"
 
 typedef struct _CpuRegistersGui CpuRegistersGui;
 typedef struct _CpuRegisters CpuRegisters;
@@ -37,45 +37,27 @@ struct _CpuRegistersGui
 
 struct _CpuRegisters
 {
-  CpuRegistersGui  widgets;
-  gint                      current_index;
-  gboolean             is_showing;
-  gint             win_pos_x, win_pos_y, win_width, win_height;
+	Debugger *debugger;
+	CpuRegistersGui  widgets;
+	gint                      current_index;
+	gboolean             is_showing;
+	gint             win_pos_x, win_pos_y, win_width, win_height;
 };
 
-CpuRegisters*
-cpu_registers_new(void);
+CpuRegisters* cpu_registers_new(Debugger *debugger);
 
-void
-create_cpu_registers_gui(CpuRegisters* ew);
+GtkWidget* create_cpu_registers_modify_dialog(void);
 
-GtkWidget*
-create_cpu_registers_modify_dialog(void);
+void cpu_registers_clear(CpuRegisters *ew);
 
-void
-cpu_registers_clear(CpuRegisters *ew);
+void cpu_registers_destroy(CpuRegisters*ew);
 
-void
-cpu_registers_update(GList *lines, gpointer  ew);
+gboolean cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream);
 
-void
-cpu_registers_destroy(CpuRegisters*ew);
+void cpu_registers_show(CpuRegisters * ew);
 
-gboolean
-cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream);
+void cpu_registers_hide(CpuRegisters * ew);
 
-/* TODO
-gboolean
-cpu_registers_load_yourself(CpuRegisters* ew, PropsID props);
-*/
-
-void
-cpu_registers_show(CpuRegisters * ew);
-
-void
-cpu_registers_hide(CpuRegisters * ew);
-
-void
-registers_update_controls(CpuRegisters* ew);
+void registers_update_controls(CpuRegisters* ew);
 
 #endif

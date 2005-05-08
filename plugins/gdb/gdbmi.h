@@ -3,13 +3,13 @@
  * gdbmi.h
  * Copyright (C) Naba Kumar 2005 <naba@gnome.org>
  * 
- * main.c is free software.
+ * gdbmi.c is free software.
  * 
  * You may redistribute it and/or modify it under the terms of the
  * GNU General Public License, as published by the Free Software
  * Foundation; either version 2, or (at your option) any later version.
  * 
- * main.c is distributed in the hope that it will be useful,
+ * gdbmi.c is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
@@ -42,27 +42,27 @@ GDBMIValue *gdbmi_value_new (GDBMIDataType data_type, const gchar *name);
 GDBMIValue* gdbmi_value_literal_new (const gchar *name, const gchar *data);
 void gdbmi_value_free (GDBMIValue *val);
 
-const gchar* gdbmi_value_get_name (GDBMIValue *val);
+const gchar* gdbmi_value_get_name (const GDBMIValue *val);
 void gdbmi_value_set_name (GDBMIValue *val, const gchar *name);
-gint gdbmi_value_get_size (GDBMIValue* val);
-void gdbmi_value_foreach (GDBMIValue* val, GFunc func, gpointer user_data);
+gint gdbmi_value_get_size (const GDBMIValue* val);
+void gdbmi_value_foreach (const GDBMIValue* val, GFunc func, gpointer user_data);
 
 /* Literal operations */
 void gdbmi_value_literal_set (GDBMIValue* val, const gchar *data);
-const gchar* gdbmi_value_literal_get (GDBMIValue* val);
+const gchar* gdbmi_value_literal_get (const GDBMIValue* val);
 
 /* Hash operations */
 void gdbmi_value_hash_insert (GDBMIValue* val, const gchar *key,
 							  GDBMIValue *value);
-GDBMIValue* gdbmi_value_hash_lookup (GDBMIValue* val, const gchar *key);
+const GDBMIValue* gdbmi_value_hash_lookup (const GDBMIValue* val, const gchar *key);
 
 /* List operations */
 void gdbmi_value_list_append (GDBMIValue* val, GDBMIValue *value);
-GDBMIValue* gdbmi_value_list_get_nth (GDBMIValue* val, gint idx);
+const GDBMIValue* gdbmi_value_list_get_nth (const GDBMIValue* val, gint idx);
 
 /* Parser and dumper */
 GDBMIValue* gdbmi_value_parse (const gchar *message);
-void gdbmi_value_dump (GDBMIValue *val, gint indent_level);
+void gdbmi_value_dump (const GDBMIValue *val, gint indent_level);
 
 G_END_DECLS
 

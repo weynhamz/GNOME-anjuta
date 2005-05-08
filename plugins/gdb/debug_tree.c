@@ -25,6 +25,8 @@
 #  include <config.h>
 #endif
 
+#include <stdlib.h>
+#include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <ctype.h>
 #include "debug_tree.h"
@@ -32,7 +34,8 @@
 #include "memory.h"
 
 static void change_display_type (DebugTree *d_tree, gint display_type);
-static void debug_ctree_cmd_gdb (GtkTreeView *ctree, GtkTreeIter *node,
+static void debug_ctree_cmd_gdb (DebugTree *d_tree, GtkTreeView *ctree,
+								 GtkTreeIter *node,
 								 GList *list, gint display_type,
 								 gboolean is_pointer);
 static gboolean find_expanded (GtkTreeModel* , GtkTreePath* , GtkTreeIter*, gpointer);
@@ -302,14 +305,13 @@ change_display_type (DebugTree *d_tree, gint display_type)
 	/* store the new display type in the node's private data */
 	node_data->display_type = display_type;
 
-	debug_ctree_cmd_gdb (GTK_TREE_VIEW(d_tree->tree),
+	debug_ctree_cmd_gdb (d_tree, GTK_TREE_VIEW(d_tree->tree),
 						 d_tree->cur_node, NULL,
 						 display_type, FALSE);
 	
 	gtk_tree_iter_free(d_tree->cur_node);
 	d_tree->cur_node = NULL;
 }
-
 
 /*
  Return full name of the supplied node. caller must free the returned
@@ -382,7 +384,8 @@ extract_full_name (GtkTreeView * ctree, GtkTreeIter *node)
 }
 
 static void
-parse_pointer_cbs (GList * list, Parsepointer * parse)
+parse_pointer_cbs (Debugger *debugger, const GDBMIValue *mi_results,
+				   const GList * list, gpointer user_data)
 {
 	GtkTreeStore *store;	
 	gchar *pos = NULL;
@@ -392,6 +395,9 @@ parse_pointer_cbs (GList * list, Parsepointer * parse)
 	gchar *t;
 	gchar *question_mark = "?";
 	GtkTreeModel *model;
+	Parsepointer *parse;
+	
+	parse = (Parsepointer *)user_data;
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (parse->tree));
 	store = GTK_TREE_STORE (model);
@@ -461,7 +467,7 @@ parse_pointer_cbs (GList * list, Parsepointer * parse)
 	{
 		GtkTreeIter* iter = (GtkTreeIter*)parse->next->data;
 		gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &data, -1);			
-		debug_ctree_cmd_gdb (parse->tree, iter, parse->next,
+		debug_ctree_cmd_gdb (parse->d_tree, parse->tree, iter, parse->next,
 							 data->display_type, parse->is_pointer);
 		gtk_tree_iter_free(iter);
 	}
@@ -471,7 +477,8 @@ parse_pointer_cbs (GList * list, Parsepointer * parse)
 }
 
 static void
-debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
+debug_ctree_cmd_gdb (DebugTree *d_tree, GtkTreeView * ctree,
+					 GtkTreeIter * node, GList * list,
 					 gint display_type, gboolean is_pointer)
 {
 	gchar *full_name;
@@ -486,7 +493,8 @@ debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
 	parse->tree = ctree;
 	parse->node = gtk_tree_iter_copy(node);
 	parse->is_pointer = is_pointer;
-
+	parse->d_tree = d_tree;
+	
 	if (list)
 		parse->next = g_list_next (list);
 	else
@@ -510,10 +518,10 @@ debug_ctree_cmd_gdb (GtkTreeView * ctree, GtkTreeIter * node, GList * list,
 	//g_print("gdb comm %s\n", full_name); 
 //	debugger_put_cmd_in_queqe ("set print pretty on", 0, NULL, NULL);
 //	debugger_put_cmd_in_queqe ("set verbose off", 0, NULL, NULL);
-	debugger_put_cmd_in_queqe (full_name, 0, (void *) parse_pointer_cbs, parse);
+	debugger_command (d_tree->debugger, full_name, FALSE,
+					  parse_pointer_cbs, parse);
 //	debugger_put_cmd_in_queqe ("set verbose on", 0, NULL, NULL);
 //	debugger_put_cmd_in_queqe ("set print pretty off", 0, NULL, NULL);
-	debugger_execute_cmd_in_queqe ();
 
 	g_free (full_name);
 	/* g_free (comm); */
@@ -563,7 +571,7 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 		buttonevent = (GdkEventButton *) event;
 
 		if (buttonevent->button == 3)
-			return debug_tree_on_middle_click(widget,event,user_data);
+			return debug_tree_on_middle_click (widget, event, user_data);
 	}
 	
 	/* only when double clicking */
@@ -595,7 +603,8 @@ debug_tree_on_select_row (GtkWidget *widget, GdkEvent *event,
 		{
 			GtkTreePath* path;
 			data->expanded = TRUE;			
-			debug_ctree_cmd_gdb (view, &iter, NULL, FORMAT_DEFAULT, TRUE);
+			debug_ctree_cmd_gdb ((DebugTree*)user_data, view, &iter,
+								  NULL, FORMAT_DEFAULT, TRUE);
 			path = gtk_tree_model_get_path(model, &iter);
 			if (!path)
 				g_warning("cannot get path\n");
@@ -1341,7 +1350,7 @@ delete_node(GtkTreeModel *model, GtkTreePath* path,
 
 
 static void
-debug_tree_pointer_recursive (GtkTreeView* tree)
+debug_tree_pointer_recursive (DebugTree *d_tree, GtkTreeView* tree)
 {
 	GList *list = NULL;
 	TrimmableItem* data;
@@ -1359,7 +1368,8 @@ debug_tree_pointer_recursive (GtkTreeView* tree)
 	{
 		GtkTreeIter* iter = (GtkTreeIter*)list->data;
 		gtk_tree_model_get(model, iter, DTREE_ENTRY_COLUMN, &data, -1);
-		debug_ctree_cmd_gdb (tree, iter, list, data->display_type, TRUE);
+		debug_ctree_cmd_gdb (d_tree, tree, iter, list,
+							 data->display_type, TRUE);
 		gtk_tree_iter_free(iter);
 	}
 }
@@ -1389,18 +1399,17 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 			end++;
 		hexa = g_strndup (start, end - start);
 		adr = memory_info_address_to_decimal (hexa);
-		memory = memory_info_new (adr);
+		memory = memory_info_new (d_tree->debugger, NULL, adr);
 		gtk_widget_show (memory);
 		g_free (hexa);
 	}
 }
 
-
 /* parse debugger output into the debug tree */
 /* param: d_tree - debug tree object */
 /* param: list - debugger output */
 void
-debug_tree_parse_variables (DebugTree * d_tree, GList * list)
+debug_tree_parse_variables (DebugTree *d_tree, const GList * list)
 {
 	GtkTreeIter iter;
 	GtkTreeModel* model;
@@ -1424,7 +1433,7 @@ debug_tree_parse_variables (DebugTree * d_tree, GList * list)
 	destroy_non_analyzed(model, &iter);
 
 	/* Recursive analyze of Pointers */
-	debug_tree_pointer_recursive (GTK_TREE_VIEW(d_tree->tree));
+	debug_tree_pointer_recursive (d_tree, GTK_TREE_VIEW(d_tree->tree));
 	
 	path = gtk_tree_model_get_path(model, &iter);
 	gtk_tree_view_expand_row(GTK_TREE_VIEW(d_tree->tree),path,FALSE);
@@ -1456,7 +1465,7 @@ debug_tree_cell_data_func (GtkTreeViewColumn *tree_column,
 
 /* return a pointer to a newly allocated DebugTree object */
 DebugTree *
-debug_tree_create ()
+debug_tree_create (Debugger *debugger)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -1465,6 +1474,8 @@ debug_tree_create ()
 
 	DebugTree *d_tree = g_malloc (sizeof (DebugTree));
 
+	d_tree->debugger = debugger;
+	
 	model = GTK_TREE_MODEL (gtk_tree_store_new
 						   (N_COLUMNS, 
 	                        G_TYPE_STRING, 

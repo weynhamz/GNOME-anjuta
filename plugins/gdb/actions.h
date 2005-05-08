@@ -1,5 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* 
- * actions.h Copyright (C) 2000-2005 Kh. Naba Kumar Singh
+ * actions.h Copyright (C) 2000-2005 Naba Kumar <naba@gnome.org>
  * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,66 +21,40 @@
 #define _GDB_ACTIONS_H_
 
 #include <gtk/gtkaction.h>
+#include "plugin.h"
 
-void on_toggle_breakpoint1_activate (GtkAction * action,
-									 gpointer user_data);
-void on_set_breakpoint1_activate (GtkAction * action, gpointer user_data);
-void on_disable_all_breakpoints1_activate (GtkAction * action,
-										   gpointer user_data);
-void on_show_breakpoints1_activate (GtkAction * action, gpointer user_data);
-void on_clear_breakpoints1_activate (GtkAction * action,
-									 gpointer user_data);
+void on_toggle_breakpoint_activate (GtkAction * action, GdbPlugin *plugin);
+void on_set_breakpoint_activate (GtkAction * action, GdbPlugin *plugin);
+void on_disable_all_breakpoints_activate (GtkAction * action,
+										  GdbPlugin *plugin);
+void on_show_breakpoints_activate (GtkAction * action, GdbPlugin *plugin);
+void on_clear_breakpoints_activate (GtkAction * action, GdbPlugin *plugin);
+
+/*****************************************************************************/
+
+void on_info_targets_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_program_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_udot_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_threads_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_variables_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_locals_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_frame_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_args_activate (GtkAction *action, GdbPlugin *plugin);
+void on_info_memory_activate (GtkAction *action, GdbPlugin *plugin);
 
 /*****************************************************************************/
 
-void on_execution_continue1_activate (GtkAction * action,
-									  gpointer user_data);
-void on_execution_step_in1_activate (GtkAction * action,
-									 gpointer user_data);
-void on_execution_step_out1_activate (GtkAction * action,
-									  gpointer user_data);
-void on_execution_step_over1_activate (GtkAction * action,
-									   gpointer user_data);
-void on_execution_run_to_cursor1_activate (GtkAction * action,
-										   gpointer user_data);
-/*****************************************************************************/
+void on_debugger_restart_prog_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_stop_prog_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_detach_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_interrupt_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_signal_activate (GtkAction * action, GdbPlugin *plugin);
 
-void on_info_targets_activate (GtkAction * action, gpointer user_data);
-void on_info_program_activate (GtkAction * action, gpointer user_data);
-void on_info_udot_activate (GtkAction * action, gpointer user_data);
-void on_info_threads_activate (GtkAction * action, gpointer user_data);
-void on_info_variables_activate (GtkAction * action, gpointer user_data);
-void on_info_locals_activate (GtkAction * action, gpointer user_data);
-void on_info_frame_activate (GtkAction * action, gpointer user_data);
-void on_info_args_activate (GtkAction * action, gpointer user_data);
-void on_info_memory_activate (GtkAction * action, gpointer user_data);
+void on_debugger_inspect_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_add_watch_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_registers_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_signals_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_sharedlibs_activate (GtkAction * action, GdbPlugin *plugin);
+void on_debugger_custom_command_activate (GtkAction * action, GdbPlugin *plugin);
 
-/*****************************************************************************/
-void on_debugger_start_activate (GtkAction * action, gpointer user_data);
-void on_debugger_open_exec_activate (GtkAction * action,
-									 gpointer user_data);
-void on_debugger_attach_activate (GtkAction * action, gpointer user_data);
-void on_debugger_load_core_activate (GtkAction * action,
-									 gpointer user_data);
-void on_debugger_restart_prog_activate (GtkAction * action,
-										gpointer user_data);
-void on_debugger_stop_prog_activate (GtkAction * action,
-									 gpointer user_data);
-void on_debugger_detach_activate (GtkAction * action, gpointer user_data);
-void on_debugger_stop_activate (GtkAction * action, gpointer user_data);
-void on_debugger_confirm_stop_yes_clicked (GtkButton * button,
-										   gpointer user_data);
-void on_debugger_interrupt_activate (GtkAction * action,
-									 gpointer user_data);
-void on_debugger_signal_activate (GtkAction * action, gpointer user_data);
-
-void on_debugger_inspect_activate (GtkAction * action, gpointer user_data);
-void on_debugger_add_watch_activate (GtkAction * action,
-									 gpointer user_data);
-void on_debugger_registers_activate (GtkAction * action, gpointer user_data);
-void on_debugger_signals_activate (GtkAction * action, gpointer user_data);
-void on_debugger_sharedlibs_activate (GtkAction * action, gpointer user_data);
-
-void on_debugger_custom_command_activate (GtkAction * action,
-										  gpointer user_data);
 #endif

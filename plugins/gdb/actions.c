@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* 
  * actions.c Copyright (C) 2000-2005 Kh. Naba Kumar Singh
  * 
@@ -16,320 +17,232 @@
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <config.h>
+
 #include "debugger.h"
+#include "info.h"
 #include "watch_gui.h"
 #include "watch_cbs.h"
 #include "memory.h"
-#include "signals_cbs.h"
-#include "actions.h"
-
-void
-on_toggle_breakpoint1_activate (GtkAction * action, gpointer user_data)
-{
-	breakpoints_dbase_toggle_breakpoint(debugger.breakpoints_dbase, NULL, 0);
-}
-
-void
-on_set_breakpoint1_activate (GtkAction * action, gpointer user_data)
-{
-	breakpoints_dbase_add (debugger.breakpoints_dbase);
-}
-
-void
-on_disable_all_breakpoints1_activate (GtkAction * action,
-				      gpointer user_data)
-{
-	breakpoints_dbase_disable_all (debugger.breakpoints_dbase);
-}
-
-void
-on_show_breakpoints1_activate (GtkAction * action, gpointer user_data)
-{
-	breakpoints_dbase_show (debugger.breakpoints_dbase);
-}
-
-void
-on_clear_breakpoints1_activate (GtkAction * action, gpointer user_data)
-{
-	breakpoints_dbase_remove_all (debugger.breakpoints_dbase);
-}
-
-/*******************************************************************************/
-void
-on_execution_continue1_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_run ();
-}
-
-void
-on_execution_step_in1_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_step_in ();
-}
-
-void
-on_execution_step_out1_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_step_out ();
-}
-
-void
-on_execution_step_over1_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_step_over ();
-}
+#include "registers.h"
 
 #if 0
-void
-on_execution_run_to_cursor1_activate (GtkAction * action,
-				      gpointer user_data)
-{
-	guint line;
-	gchar *buff;
-	TextEditor* te;
-
-	te = anjuta_get_current_text_editor();
-	g_return_if_fail (te != NULL);
-	g_return_if_fail (te->full_filename != NULL);
-	if (debugger_is_active()==FALSE) return;
-	if (debugger_is_ready()==FALSE) return;
-
-	line = text_editor_get_current_lineno (te);
-
-	buff = g_strdup_printf ("%s:%d", te->filename, line);
-	debugger_run_to_location (buff);
-	g_free (buff);
-}
+#include "signals_cbs.h"
 #endif
+#include "actions.h"
 
-/*******************************************************************************/
-void
-on_info_targets_activate (GtkAction * action, gpointer user_data)
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
+
+static void
+on_debugger_dialog_message (Debugger *debugger, const GDBMIValue *mi_result,
+							const GList *cli_result, gpointer user_data)
 {
-	debugger_query_info_target (debugger_dialog_message);
-	debugger_query_execute ();
+	GtkWindow *parent = GTK_WINDOW (user_data);
+	if (g_list_length ((GList*)cli_result) < 1)
+		return;
+	gdb_info_show_list (parent, (GList*)cli_result, 0, 0);
+}
+
+static void
+debugger_info_command (Debugger *debugger, const gchar *command,
+					   DebuggerResultFunc parser, gpointer data)
+{
+	debugger_command (debugger, "set print pretty on", TRUE, NULL, NULL);
+	debugger_command (debugger, "set verbose off", TRUE, NULL, NULL);
+	debugger_command (debugger, command, FALSE, parser, data);
+	debugger_command (debugger, "set print pretty off", TRUE, NULL, NULL);
+	debugger_command (debugger, "set verbose on", TRUE, NULL, NULL);
 }
 
 void
-on_info_program_activate (GtkAction * action, gpointer user_data)
+on_toggle_breakpoint_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_query_info_program (debugger_dialog_message);
-	debugger_query_execute ();
+	breakpoints_dbase_toggle_breakpoint (plugin->breakpoints, NULL, 0);
 }
 
 void
-on_info_udot_activate (GtkAction * action, gpointer user_data)
+on_set_breakpoint_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_query_info_udot (debugger_dialog_message);
-	debugger_query_execute ();
+	breakpoints_dbase_add (plugin->breakpoints);
 }
 
 void
-on_info_threads_activate (GtkAction * action, gpointer user_data)
+on_disable_all_breakpoints_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_query_info_threads (debugger_dialog_message);
-	debugger_query_execute ();
+	breakpoints_dbase_disable_all (plugin->breakpoints);
 }
 
 void
-on_info_variables_activate (GtkAction * action, gpointer user_data)
+on_show_breakpoints_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_query_info_variables (debugger_dialog_message);
-	debugger_query_execute ();
+	breakpoints_dbase_show (plugin->breakpoints);
 }
 
 void
-on_info_locals_activate (GtkAction * action, gpointer user_data)
+on_clear_breakpoints_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_query_info_locals (debugger_dialog_message);
-	debugger_query_execute ();
+	breakpoints_dbase_remove_all (plugin->breakpoints);
+}
+
+/*****************************************************************************/
+void
+on_info_targets_activate (GtkAction *action, GdbPlugin *plugin)
+{
+	debugger_info_command (plugin->debugger, "info target",
+						   on_debugger_dialog_message, plugin);
 }
 
 void
-on_info_frame_activate (GtkAction * action, gpointer user_data)
+on_info_program_activate (GtkAction *action, GdbPlugin *plugin)
 {
-	debugger_query_info_frame (debugger_dialog_message);
-	debugger_query_execute ();
+	debugger_info_command (plugin->debugger, "info program",
+						   on_debugger_dialog_message, plugin);
 }
 
 void
-on_info_args_activate (GtkAction * action, gpointer user_data)
+on_info_udot_activate (GtkAction *action, GdbPlugin *plugin)
 {
-	debugger_query_info_args (debugger_dialog_message);
-	debugger_query_execute ();
+	debugger_info_command (plugin->debugger, "info udot",
+						   on_debugger_dialog_message, plugin);
 }
 
 void
-on_info_memory_activate (GtkAction * action, gpointer user_data)
+on_info_threads_activate (GtkAction *action, GdbPlugin *plugin)
+{
+	debugger_info_command (plugin->debugger, "info threads",
+						   on_debugger_dialog_message, plugin);
+}
+
+void
+on_info_variables_activate (GtkAction *action, GdbPlugin *plugin)
+{
+	debugger_info_command (plugin->debugger, "info variables",
+						   on_debugger_dialog_message, plugin);
+}
+
+void
+on_info_locals_activate (GtkAction *action, GdbPlugin *plugin)
+{
+	debugger_info_command (plugin->debugger, "info locals",
+						   on_debugger_dialog_message, plugin);
+}
+
+void
+on_info_frame_activate (GtkAction *action, GdbPlugin *plugin)
+{
+	debugger_info_command (plugin->debugger, "info frame",
+						   on_debugger_dialog_message, plugin);
+}
+
+void
+on_info_args_activate (GtkAction *action, GdbPlugin *plugin)
+{
+	debugger_info_command (plugin->debugger, "info args",
+						   on_debugger_dialog_message, plugin);
+}
+
+void
+on_info_memory_activate (GtkAction * action, GdbPlugin *plugin)
 {
 	GtkWidget *win_memory;
 
-	win_memory = memory_info_new (NULL);
+	win_memory = memory_info_new (plugin->debugger,
+								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+								  NULL);
 	gtk_widget_show(win_memory);
 }
 
+/*****************************************************************************/
 
-/********************************************************************************/
-
-#if 0
 void
-on_debugger_start_activate (GtkAction * action, gpointer user_data)
+on_debugger_restart_prog_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	gchar *prog, *temp;
-	gint s_re, e_re;
-	struct stat s_stat, e_stat;
-	TextEditor *te;
-
-	prog = NULL;
-	if (app->project_dbase->project_is_open)
-	{
-		gint target_type;
-		target_type = project_dbase_get_target_type (app->project_dbase);
-		if (target_type >= PROJECT_TARGET_TYPE_END_MARK)
-			anjuta_error (_("The target executable of this Project is unknown"));
-		else if ( target_type != PROJECT_TARGET_TYPE_EXECUTABLE)
-			anjuta_warning (_("The target executable of this Project is not executable"));
-		prog = project_dbase_get_source_target (app->project_dbase);
-		if (file_is_executable (prog) == FALSE)
-		{
-			anjuta_warning(_("The target executable does not exist for this Project"));
-			g_free (prog);
-			prog = NULL;
-		}
-	}
-	else
-	{
-		te = anjuta_get_current_text_editor ();
-		if (te)
-		{
-			if (te->full_filename)
-			{
-				prog = g_strdup (te->full_filename);
-				temp = get_file_extension (prog);
-				if (temp)
-					*(--temp) = '\0';
-				s_re = stat (te->full_filename, &s_stat);
-				e_re = stat (prog, &e_stat);
-				if ((e_re != 0) || (s_re != 0))
-				{
-					anjuta_warning(_("No executable for this file."));
-					g_free (prog);
-					prog = NULL;
-				}
-				else if ((!text_editor_is_saved (te)) || (e_stat.st_mtime < s_stat.st_mtime))
-				{
-					anjuta_warning (_("The executable is not up-to-date."));
-				}
-			}
-			else
-			{
-				anjuta_warning(_("No executable for this file."));
-			}
-		}
-	}
-	debugger_start (prog);
-	if (prog) g_free (prog);
+	debugger_restart_program (plugin->debugger);
 }
 
 void
-on_debugger_open_exec_activate (GtkAction * action, gpointer user_data)
+on_debugger_stop_prog_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_open_exec_file ();
+	debugger_stop_program (plugin->debugger);
 }
 
 void
-on_debugger_attach_activate (GtkAction * action, gpointer user_data)
+on_debugger_detach_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	if (debugger_is_active ())
-		attach_process_show (debugger.attach_process);
-	else
-		anjuta_error (_("Debugger is not running. Start it first."));
+	debugger_detach_process (plugin->debugger);
 }
 
 void
-on_debugger_load_core_activate (GtkAction * action, gpointer user_data)
+on_debugger_interrupt_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_load_core_file ();
-}
-
-#endif
-
-void
-on_debugger_restart_prog_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_restart_program ();
+	debugger_interrupt (plugin->debugger);
 }
 
 void
-on_debugger_stop_prog_activate (GtkAction * action, gpointer user_data)
+on_debugger_signal_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_stop_program ();
+	// on_signals_send_activate (NULL, plugin->signals);
 }
 
 void
-on_debugger_detach_activate (GtkAction * action, gpointer user_data)
+on_debugger_inspect_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_detach_process ();
-}
-
-void
-on_debugger_stop_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_stop ();
-}
-
-void
-on_debugger_confirm_stop_yes_clicked (GtkButton * button, gpointer data)
-{
-	debugger_stop ();
-}
-
-void
-on_debugger_interrupt_activate (GtkAction * action, gpointer user_data)
-{
-	debugger_interrupt ();
-}
-
-void
-on_debugger_signal_activate (GtkAction * action, gpointer user_data)
-{
-	on_signals_send_activate (NULL, debugger.signals);
-}
-
-void
-on_debugger_inspect_activate (GtkAction * action, gpointer user_data)
-{
-	GtkWidget *w = create_eval_dialog (NULL, debugger.watch);
+	GtkWidget *w = create_eval_dialog (NULL, plugin->watch);
 	gtk_widget_show (w);
 }
 
 void
-on_debugger_add_watch_activate (GtkAction * action, gpointer user_data)
+on_debugger_add_watch_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	on_watch_add_activate (NULL, debugger.watch);
+	on_watch_add_activate (NULL, plugin->watch);
 }
 
 void
-on_debugger_registers_activate (GtkAction * action, gpointer user_data)
+on_debugger_registers_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	cpu_registers_show (debugger.cpu_registers);
+	cpu_registers_show (plugin->registers);
 }
 
 void
-on_debugger_sharedlibs_activate (GtkAction * action, gpointer user_data)
+on_debugger_sharedlibs_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	sharedlibs_show (debugger.sharedlibs);
+	sharedlibs_show (plugin->sharedlibs);
 }
 
 void
-on_debugger_signals_activate (GtkAction * action, gpointer user_data)
+on_debugger_signals_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	signals_show (debugger.signals);
+	signals_show (plugin->signals);
+}
+
+static void
+on_debugger_command_entry_activate (GtkEntry *entry, GdbPlugin *plugin)
+{
+	const gchar *command;
+	
+	command = gtk_entry_get_text (GTK_ENTRY (entry));
+	if (command && strlen (command))
+		debugger_command (plugin->debugger, command, FALSE, NULL, NULL);
+	gtk_entry_set_text (entry, "");
 }
 
 void
-on_debugger_custom_command_activate (GtkAction * action,
-				     gpointer user_data)
+on_debugger_custom_command_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	debugger_custom_command ();
+	GladeXML *gxml;
+	GtkWidget *win, *entry;
+	
+	gxml = glade_xml_new (GLADE_FILE, "debugger_command_dialog", NULL);
+	win = glade_xml_get_widget (gxml, "debugger_command_dialog");
+	entry = glade_xml_get_widget (gxml, "debugger_command_entry");
+	
+	gtk_window_set_transient_for (GTK_WINDOW (win),
+								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
+	g_signal_connect_swapped (win, "response",
+							  G_CALLBACK (gtk_widget_destroy),
+							  win);
+	g_signal_connect (entry, "activate",
+					  G_CALLBACK (on_debugger_command_entry_activate),
+					  plugin);
+	g_object_unref (gxml);
 }

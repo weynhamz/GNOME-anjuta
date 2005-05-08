@@ -1,6 +1,6 @@
 /*
-    anjuta_info.h
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    gdb_info.h
+    Copyright (C) Naba Kumar  <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -135,9 +135,8 @@ create_dialog_with_treeview (GtkWindow *parent, gint width, gint height)
 }
 
 gboolean
-anjuta_info_show_file (GtkWindow *parent, const gchar *path,
-					   gint width,
-					   gint height)
+gdb_info_show_file (GtkWindow *parent, const gchar *path,
+					gint width, gint height)
 {
 	FILE *f;
 
@@ -149,7 +148,8 @@ anjuta_info_show_file (GtkWindow *parent, const gchar *path,
 	if ((f = fopen (path, "r")) == NULL)
 		return FALSE;
 
-	if (!anjuta_info_show_filestream (parent, f, width, height)) {
+	if (!gdb_info_show_filestream (parent, f, width, height))
+	{
 		int errno_bak = errno;
 
 		fclose (f);
@@ -163,9 +163,8 @@ anjuta_info_show_file (GtkWindow *parent, const gchar *path,
 }
 
 gboolean
-anjuta_info_show_command (GtkWindow *parent, const gchar *command_line,
-						  gint         width,
-						  gint         height)
+gdb_info_show_command (GtkWindow *parent, const gchar *command_line,
+					   gint width, gint height)
 {
 	GError *err = NULL;
 	gchar *std_output = NULL;
@@ -173,9 +172,12 @@ anjuta_info_show_command (GtkWindow *parent, const gchar *command_line,
 
 	g_return_val_if_fail (command_line != NULL, FALSE);
 
-	/* Note: we could use popen like anjuta_info_show_file, but g_spawn is safier */
-
-	if (!g_spawn_command_line_sync (command_line, &std_output, NULL, NULL, &err)) {
+	/* Note: we could use popen like gdb_info_show_file,
+	 * but g_spawn is safier
+	 */
+	if (!g_spawn_command_line_sync (command_line, &std_output,
+									NULL, NULL, &err))
+	{
 		g_warning (err->message);
 		g_error_free (err);
 
@@ -186,7 +188,7 @@ anjuta_info_show_command (GtkWindow *parent, const gchar *command_line,
 		g_warning ("Invalid UTF-8 data encountered reading output of command '%s'",
 				   command_line);
 
-	ret = anjuta_info_show_string (parent, std_output, width, height);
+	ret = gdb_info_show_string (parent, std_output, width, height);
 
 	g_free (std_output);
 
@@ -194,8 +196,8 @@ anjuta_info_show_command (GtkWindow *parent, const gchar *command_line,
 }
 
 gboolean
-anjuta_info_show_string (GtkWindow *parent, const gchar *s,
-						 gint width, gint height)
+gdb_info_show_string (GtkWindow *parent, const gchar *s,
+					  gint width, gint height)
 {
 	GtkWidget *textview;
 	GtkTextBuffer *buffer;
@@ -213,9 +215,8 @@ anjuta_info_show_string (GtkWindow *parent, const gchar *s,
 #define ANJUTA_INFO_TEXTVIEW_BUFSIZE 1024
 
 gboolean
-anjuta_info_show_filestream (GtkWindow *parent, FILE *f,
-							 gint  width,
-							 gint  height)
+gdb_info_show_filestream (GtkWindow *parent, FILE *f,
+						  gint  width, gint  height)
 {
 	GtkWidget *textview;
 	GtkTextBuffer *buffer;
@@ -242,16 +243,16 @@ anjuta_info_show_filestream (GtkWindow *parent, FILE *f,
 }
 
 gboolean
-anjuta_info_show_fd (GtkWindow *parent, int file_descriptor,
-					 gint width,
-					 gint height)
+gdb_info_show_fd (GtkWindow *parent, int file_descriptor,
+				  gint width, gint height)
 {
 	FILE *f;
 
 	if ((f = fdopen (file_descriptor, "r")) == NULL)
 		return FALSE;
 
-	if (!anjuta_info_show_filestream (parent, f, width, height)) {
+	if (!gdb_info_show_filestream (parent, f, width, height))
+	{
 		int errno_bak = errno;
 
 		fclose (f);
@@ -265,9 +266,8 @@ anjuta_info_show_fd (GtkWindow *parent, int file_descriptor,
 }
 
 void
-anjuta_info_show_list (GtkWindow *parent, GList* list,
-					   gint   width,
-					   gint   height)
+gdb_info_show_list (GtkWindow *parent, const GList* list,
+					gint   width, gint   height)
 {
 	GtkWidget *treeview;
 	GtkTreeModel *model;
@@ -277,7 +277,8 @@ anjuta_info_show_list (GtkWindow *parent, GList* list,
 	treeview = create_dialog_with_treeview (parent, width, height);
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
 
-	for (; list; list = g_list_next (list)) {
+	for (; list; list = g_list_next (list))
+	{
 		GtkTreeIter iter;
 		gchar *tmp;
 

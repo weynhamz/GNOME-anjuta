@@ -25,8 +25,12 @@
 #include "config.h"
 #endif
 
-#include <gnome.h>
-#include <glade/glade.h>
+#include <stdlib.h>
+#include <string.h>
+#include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
+#include <libgnome/gnome-i18n.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include "debugger.h"
 #include "memory.h"
@@ -79,22 +83,14 @@ static void on_dialog_memory_destroy (GtkObject *object, MemApp *memapp);
 static void on_button_quit_clicked (GtkButton *button, MemApp *memapp);
 
 
-static char *glade_names[] =
-{
-	ADR_ENTRY, BUTTON_INSPECT, BUTTON_QUIT, 
-	MEMORY_LABEL, ADR_TEXTVIEW, DATA_TEXTVIEW,
-	ASCII_TEXTVIEW, EVENTBOX_UP, EVENTBOX_DOWN, NULL
-};
-
 #define MEMORY_DIALOG "dialog_memory"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
 
 gboolean timeout = TRUE;
 
 GtkWidget*
-memory_info_new (guchar *ptr)
+memory_info_new (Debugger *debugger, GtkWindow *parent, guchar *ptr)
 {
-	int i;
 	MemApp *memapp;
 	
 	memapp = g_new0 (MemApp, 1);
@@ -102,16 +98,15 @@ memory_info_new (guchar *ptr)
 	
 	if (NULL == (memapp->xml = glade_xml_new (GLADE_FILE, MEMORY_DIALOG, NULL)))
 	{
-		GtkWindow *parent;
-		
-		parent = GTK_WINDOW (ANJUTA_PLUGIN(debugger.plugin)->shell);
-		anjuta_util_dialog_error (NULL, _("Unable to build user interface for Memory\n"));
+		anjuta_util_dialog_error (parent,
+						  _("Unable to build user interface for Memory\n"));
 		g_free (memapp);
 		memapp = NULL;
 		return NULL;
 	}
 
 	memapp->dialog = glade_xml_get_widget (memapp->xml, MEMORY_DIALOG);
+	memapp->debugger = debugger;
 	/*
 	for (i=0; NULL != glade_names[i]; ++i)
 		gtk_widget_ref (glade_xml_get_widget (memapp->xml, glade_names[i]));
@@ -333,8 +328,9 @@ convert_ascii_print (gchar c)
 		return ".";
 }
 
-extern void
-debugger_memory_cbs (GList* list, MemApp *memapp)
+static void
+debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
+					 const GList* list, gpointer user_data)
 {
 	gchar *address = "";
 	gchar *data = "";
@@ -344,10 +340,13 @@ debugger_memory_cbs (GList* list, MemApp *memapp)
 	gint line, i;
 	gint car;
 	GtkWidget *win_mem;
-
+	MemApp *memapp;
+	
+	memapp = (MemApp*) user_data;
+	
 	if (memapp->new_window)
 	{
-		win_mem = memory_info_new (memapp->adr);
+		win_mem = memory_info_new (debugger, NULL, memapp->adr);
 		gtk_widget_show (win_mem);
 	}
 	else
@@ -403,16 +402,16 @@ debugger_memory_cbs (GList* list, MemApp *memapp)
 
 static gboolean
 memory_timeout (MemApp * memapp)
-{	
-	if (debugger_is_ready())
+{
+	if (debugger_is_ready (memapp->debugger))
 		/*  Accessible address  */
 		gtk_label_set_text (GTK_LABEL (memapp->memory_label), 
 						_("Enter a Hexa address or Select one in the data"));
-  else
+	else
 	{
 		/*  Non Accessible address  */
 		memapp->adr = memapp->start_adr;
-		debugger_set_ready (TRUE);
+		/* debugger_set_ready (TRUE); */
 		gtk_label_set_text (GTK_LABEL (memapp->memory_label),
 							_("Non accessible address !"));
 	}
@@ -433,8 +432,8 @@ inspect_memory (gchar *adr, MemApp * memapp)
 	cmd = g_strconcat ("x", "/", nb_car, "bd ", address, " ", NULL);
 	memapp->adr = adr;
 	
-	debugger_put_cmd_in_queqe (cmd, 0, (void*) debugger_memory_cbs, memapp);
-	debugger_execute_cmd_in_queqe();
+	debugger_command (memapp->debugger, cmd, FALSE,
+					  debugger_memory_cbs, memapp);
 	
 	g_free (cmd);
 	g_free (address);

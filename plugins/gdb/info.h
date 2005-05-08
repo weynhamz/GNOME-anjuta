@@ -1,6 +1,6 @@
 /*
-    anjuta_info.h
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    gdb_info.h
+    Copyright (C) Naba Kumar  <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,28 +17,28 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _ANJUTA_INFO_H_
-#define _ANJUTA_INFO_H_
+#ifndef __GDB_INFO_H__
+#define __GDB_INFO_H__
 
 #include <stdio.h>
 
-gboolean anjuta_info_show_file (GtkWindow *parent, const gchar * path,
+gboolean gdb_info_show_file (GtkWindow *parent, const gchar * path,
+							 gint height, gint width);
+
+gboolean gdb_info_show_command (GtkWindow *parent,
+								const gchar * command_line,
 								gint height, gint width);
 
-gboolean anjuta_info_show_command (GtkWindow *parent,
-								   const gchar * command_line,
+gboolean gdb_info_show_string (GtkWindow *parent, const gchar * s,
+							   gint height, gint width);
+
+gboolean gdb_info_show_filestream (GtkWindow *parent, FILE * f,
 								   gint height, gint width);
 
-gboolean anjuta_info_show_string (GtkWindow *parent, const gchar * s,
-								  gint height, gint width);
+gboolean gdb_info_show_fd (GtkWindow *parent, int file_descriptor,
+						   gint height, gint width);
 
-gboolean anjuta_info_show_filestream (GtkWindow *parent, FILE * f,
-									  gint height, gint width);
-
-gboolean anjuta_info_show_fd (GtkWindow *parent, int file_descriptor,
-							  gint height, gint width);
-
-void anjuta_info_show_list (GtkWindow *parent, GList* list,
-							gint height, gint width);
+void gdb_info_show_list (GtkWindow *parent, const GList* list,
+						 gint height, gint width);
 
 #endif

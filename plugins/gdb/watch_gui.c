@@ -58,22 +58,9 @@ static GnomeUIInfo watch_menu_uiinfo[] = {
    GNOME_APP_PIXMAP_NONE, NULL,
    0, 0, NULL},
   {
-   GNOME_APP_UI_ITEM, N_("Toggle enable"),
-   NULL,
-   on_watch_toggle_activate, NULL, NULL,
-   GNOME_APP_PIXMAP_NONE, NULL,
-   0, 0, NULL},
-  {
    GNOME_APP_UI_ITEM, N_("Change item"),
    NULL,
    on_watch_change_activate, NULL, NULL,
-   GNOME_APP_PIXMAP_NONE, NULL,
-   0, 0, NULL},
-  GNOMEUIINFO_SEPARATOR,
-  {
-   GNOME_APP_UI_ITEM, N_("Help"),
-   NULL,
-   on_watch_help_activate, NULL, NULL,
    GNOME_APP_PIXMAP_NONE, NULL,
    0, 0, NULL},
   GNOMEUIINFO_END
@@ -166,7 +153,6 @@ create_watch_add_dialog (ExprWatch *ew)
 	GtkWidget *label15;
 	GtkWidget *entry7;
 	GtkWidget *dialog_action_area3;
-	GtkWidget *button18;
 	GtkWidget *button19;
 	GtkWidget *button20;
 	
@@ -196,12 +182,6 @@ create_watch_add_dialog (ExprWatch *ew)
 				 GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area3), 8);
 	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3),
-				  GNOME_STOCK_BUTTON_HELP);
-	button18 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button18);
-	GTK_WIDGET_SET_FLAGS (button18, GTK_CAN_DEFAULT);
-	
 	gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
 	button19 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
 	gtk_widget_show (button19);
@@ -213,8 +193,6 @@ create_watch_add_dialog (ExprWatch *ew)
 	gtk_widget_show (button20);
 	GTK_WIDGET_SET_FLAGS (button20, GTK_CAN_DEFAULT);
 	
-	gtk_signal_connect (GTK_OBJECT (button18), "clicked",
-			  GTK_SIGNAL_FUNC (on_ew_add_help_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (button20), "clicked",
 			  GTK_SIGNAL_FUNC (on_ew_add_ok_clicked), entry7);
 	gtk_signal_connect (GTK_OBJECT (entry7), "activate",
@@ -232,7 +210,6 @@ create_watch_change_dialog (ExprWatch *ew)
 	GtkWidget *label15;
 	GtkWidget *entry7;
 	GtkWidget *dialog_action_area3;
-	GtkWidget *button18;
 	GtkWidget *button19;
 	GtkWidget *button20;
 	
@@ -252,7 +229,9 @@ create_watch_change_dialog (ExprWatch *ew)
 	
 	entry7 = gtk_entry_new ();
 	g_object_set_data (G_OBJECT (entry7), "user_data", ew);
-/* TODO	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE); */
+	
+	/* TODO	entry_set_text_n_select (entry7, expr_watch_entry_history, TRUE); */
+	
 	gtk_widget_show (entry7);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox3), entry7, FALSE, FALSE, 0);
 	
@@ -261,12 +240,6 @@ create_watch_change_dialog (ExprWatch *ew)
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area3),
 				 GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area3), 8);
-	
-	gnome_dialog_append_button (GNOME_DIALOG (dialog3),
-				  GNOME_STOCK_BUTTON_HELP);
-	button18 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
-	gtk_widget_show (button18);
-	GTK_WIDGET_SET_FLAGS (button18, GTK_CAN_DEFAULT);
 	
 	gnome_dialog_append_button (GNOME_DIALOG (dialog3), GNOME_STOCK_BUTTON_CANCEL);
 	button19 = g_list_last (GNOME_DIALOG (dialog3)->buttons)->data;
@@ -279,8 +252,6 @@ create_watch_change_dialog (ExprWatch *ew)
 	gtk_widget_show (button20);
 	GTK_WIDGET_SET_FLAGS (button20, GTK_CAN_DEFAULT);
 	
-	gtk_signal_connect (GTK_OBJECT (button18), "clicked",
-			  GTK_SIGNAL_FUNC (on_ew_change_help_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (button20), "clicked",
 			  GTK_SIGNAL_FUNC (on_ew_change_ok_clicked), entry7);
 	gtk_signal_connect (GTK_OBJECT (entry7), "activate",
@@ -298,7 +269,6 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	GtkWidget *label16;
 	GtkWidget *entry8;
 	GtkWidget *dialog_action_area4;
-	GtkWidget *button21;
 	GtkWidget *button22;
 	GtkWidget *button23;
 	GtkWidget *addWatchButton;
@@ -318,8 +288,10 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	gtk_box_pack_start (GTK_BOX (dialog_vbox4), label16, FALSE, FALSE, 0);
 	
 	entry8 = gtk_entry_new ();
-	g_object_set_data (G_OBJECT (entry8), "user_data", ew);  
-/* TODO	entry_set_text_n_select (entry8, eval_entry_history, TRUE); */
+	g_object_set_data (G_OBJECT (entry8), "user_data", ew);
+	
+	/* TODO	entry_set_text_n_select (entry8, eval_entry_history, TRUE); */
+	
 	gtk_widget_show (entry8);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox4), entry8, FALSE, FALSE, 0);
 	
@@ -332,11 +304,6 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area4),
 				 GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing (GTK_BUTTON_BOX (dialog_action_area4), 8);
-	gnome_dialog_append_button (GNOME_DIALOG (dialog4),
-				  GNOME_STOCK_BUTTON_HELP);
-	button21 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
-	gtk_widget_show (button21);
-	GTK_WIDGET_SET_FLAGS (button21, GTK_CAN_DEFAULT);
 	
 	gnome_dialog_append_button (GNOME_DIALOG (dialog4), GNOME_STOCK_BUTTON_CANCEL);
 	button22 = g_list_last (GNOME_DIALOG (dialog4)->buttons)->data;
@@ -349,8 +316,6 @@ create_eval_dialog (GtkWindow* parent, ExprWatch *ew)
 	gtk_widget_show (button23);
 	GTK_WIDGET_SET_FLAGS (button23, GTK_CAN_DEFAULT);
 	
-	gtk_signal_connect (GTK_OBJECT (button21), "clicked",
-			  GTK_SIGNAL_FUNC (on_eval_help_clicked), NULL);
 	gtk_signal_connect (GTK_OBJECT (button23), "clicked",
 			  GTK_SIGNAL_FUNC (on_eval_ok_clicked), entry8);
 	gtk_signal_connect (GTK_OBJECT (entry8), "activate",

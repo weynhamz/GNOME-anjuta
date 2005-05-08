@@ -8,7 +8,8 @@ anjuta_glade_DATA = anjuta-gdb.glade
 
 plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
 plugin_pixmaps_DATA = \
-	anjuta-gdb.plugin.png
+	anjuta-gdb.plugin.png \
+	pointer.png
 
 plugin_in_files = anjuta-gdb.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -27,50 +28,40 @@ plugin_LTLIBRARIES = libanjuta-gdb.la
 libanjuta_gdb_la_LIBADD = $(LIBANJUTA_LIBS)
 
 libanjuta_gdb_la_SOURCES = \
-	global.h \
-	breakpoints.c \
-	breakpoints.h \
+	gdbmi.c \
+	gdbmi.h \
 	debugger.c \
 	debugger.h \
-	debug_tree.c \
-	debug_tree.h \
-	locals.c \
-	locals.h \
-	memory.c \
-	memory.h \
+	utilities.c \
+	utilities.h \
 	plugin.c \
 	plugin.h \
-	registers.c \
-	registers_cbs.c \
-	registers_cbs.h \
-	registers_gui.c \
-	registers.h \
-	sharedlib.c \
-	sharedlib_cbs.c \
-	sharedlib_cbs.h \
-	sharedlib_gui.c \
-	sharedlib.h \
-	signals.c \
-	signals_cbs.c \
-	signals_cbs.h \
-	signals_gui.c \
-	signals.h \
-	stack_trace.c \
-	stack_trace.h \
+	actions.c \
+	actions.h \
+	info.c \
+	info.h \
+	breakpoints.c \
+	breakpoints.h \
 	watch.c \
 	watch_cbs.c \
 	watch_cbs.h \
 	watch_gui.c \
 	watch_gui.h \
 	watch.h \
-	actions.c \
-	actions.h \
-	info.c \
-	info.h \
-	utilities.c \
-	utilities.h \
-	gdbmi.c \
-	gdbmi.h 
+	locals.c \
+	locals.h \
+	debug_tree.c \
+	debug_tree.h \
+	memory.c \
+	memory.h \
+	stack_trace.c \
+	stack_trace.h \
+	registers.c \
+	registers.h \
+	sharedlib.c \
+	sharedlib.h \
+	signals.c \
+	signals.h
 
 noinst_PROGRAMS = gdbmi-test
 gdbmi_test_SOURCES = gdbmi-test.c

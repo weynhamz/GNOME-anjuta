@@ -25,12 +25,13 @@
 #define _DEBUG_TREE_H_
 
 #include <gtk/gtk.h>
+#include "debugger.h"
 
 G_BEGIN_DECLS
 
 /* The debug tree object */
 typedef struct _DebugTree {
-	
+	Debugger *debugger;
 	GtkWidget* tree;        /* the tree widget */
 	GtkTreeIter* cur_node;
 	GtkWidget* middle_click_menu;
@@ -69,16 +70,17 @@ typedef struct _Parsepointer Parsepointer;
 
 struct _Parsepointer
 {
+	DebugTree *d_tree;
 	GtkTreeView *tree;
 	GtkTreeIter *node;
 	GList *next;
 	gboolean is_pointer;
 };
 
-DebugTree* debug_tree_create (void);
+DebugTree* debug_tree_create (Debugger *debugger);
 void debug_tree_destroy (DebugTree* d_tree);
 void debug_tree_clear (DebugTree* tree);
-void debug_tree_parse_variables (DebugTree* tree, GList* list);
+void debug_tree_parse_variables (DebugTree* tree, const GList* list);
 
 G_END_DECLS
 

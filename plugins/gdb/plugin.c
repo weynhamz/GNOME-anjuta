@@ -29,10 +29,12 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
 #include "debugger.h"
 #include "actions.h"
+#include "utilities.h"
 
 #define ICON_FILE "anjuta-gdb.plugin.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-gdb-plugin.ui"
@@ -65,7 +67,7 @@ static GtkActionEntry actions_gdb[] =
 		N_("Toggle breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Toggle breakpoint at the current location"), /* Tooltip */
-		G_CALLBACK (on_toggle_breakpoint1_activate) /* action callback */
+		G_CALLBACK (on_toggle_breakpoint_activate) /* action callback */
 	},
 	{
 		"ActionGdbSetBreakpoint",                 /* Action name */
@@ -73,7 +75,7 @@ static GtkActionEntry actions_gdb[] =
 		N_("Set Breakpoint ..."),                 /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Set a breakpoint"),                   /* Tooltip */
-		G_CALLBACK (on_set_breakpoint1_activate)  /* action callback */
+		G_CALLBACK (on_set_breakpoint_activate)   /* action callback */
 	},
 	{
 		"ActionGdbBreakpoints",                   /* Action name */
@@ -81,7 +83,7 @@ static GtkActionEntry actions_gdb[] =
 		N_("_Breakpoints ..."),                   /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Edit breakpoints"),                   /* Tooltip */
-		G_CALLBACK (on_show_breakpoints1_activate)/* action callback */
+		G_CALLBACK (on_show_breakpoints_activate) /* action callback */
 	},
 	{
 		"ActionGdbDisableAllBreakpoints",         /* Action name */
@@ -89,7 +91,7 @@ static GtkActionEntry actions_gdb[] =
 		N_("Disable all Breakpoints"),            /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Deactivate all breakpoints"),         /* Tooltip */
-		G_CALLBACK (on_disable_all_breakpoints1_activate)/* action callback */
+		G_CALLBACK (on_disable_all_breakpoints_activate)/* action callback */
 	},
 	{
 		"ActionGdbClearAllBreakpoints",           /* Action name */
@@ -97,7 +99,7 @@ static GtkActionEntry actions_gdb[] =
 		N_("C_lear all Breakpoints"),             /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Delete all breakpoints"),             /* Tooltip */
-		G_CALLBACK (on_clear_breakpoints1_activate)/* action callback */
+		G_CALLBACK (on_clear_breakpoints_activate)/* action callback */
 	},
 	{
 		"ActionMenuGdbInformation",
@@ -236,6 +238,14 @@ static GtkActionEntry actions_gdb[] =
 		G_CALLBACK (on_debugger_add_watch_activate)
 	},
 	{
+		"ActionGdbCommand",
+		NULL,
+		N_("Debugger command ..."),
+		NULL,
+		N_("Custom debugger command"),
+		G_CALLBACK (on_debugger_custom_command_activate)
+	},
+	{
 		"ActionGdbViewRegisters",
 		NULL,
 		N_("Registers ..."),
@@ -347,102 +357,103 @@ gdb_plugin_update_ui (GdbPlugin *plugin)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	gboolean DA, DR, Pr, PrA;
+	gboolean DR, Pr, PrA;
 	
-	/*
-	P = (plugin->project_root_uri != NULL);
-	F = (plugin->current_editor != NULL);
-	*/
-	DA = debugger_is_active ();
-	DR = debugger_is_ready ();
-	Pr = debugger.prog_is_running;
-	PrA = debugger.prog_is_attached;
+	DR = TRUE;
+	Pr = PrA = FALSE;
+	
+	if (plugin->debugger != NULL)
+	{
+		DR = debugger_is_ready (plugin->debugger);
+		Pr = debugger_program_is_running (plugin->debugger);
+		PrA = debugger_program_is_attached (plugin->debugger);
+	}
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbRestartProgram");
-	g_object_set (G_OBJECT (action), "sensitive", DA && Pr && !PrA, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", Pr && !PrA, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbStopProgram");
-	g_object_set (G_OBJECT (action), "sensitive", DA && Pr && !PrA, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", Pr && !PrA, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbDetachProgram");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR && Pr && PrA, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR && Pr && PrA, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbBreakpoints");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbSetBreakpoint");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbClearAllBreakpoints");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbDisableAllBreakpoints");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbAddWatch");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInspect");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInspect");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoTargetFiles");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoProgram");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoKernelUserStruct");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoGlobalVariables");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoLocalVariables");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoCurrentFrame");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbExamineMemory");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoFunctionArgs");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbInfoThreads");
-	g_object_set (G_OBJECT (action), "sensitive", DA && DR, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", DR, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbSignalProgram");
-	g_object_set (G_OBJECT (action), "sensitive", DA && Pr, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", Pr, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupGdb",
 								   "ActionGdbPauseProgram");
-	g_object_set (G_OBJECT (action), "sensitive", DA && !DR && Pr, NULL);
+	g_object_set (G_OBJECT (action), "sensitive", !DR && Pr, NULL);
 #if 0
 	gtk_widget_set_sensitive (dm->start_debug, !L);
 	gtk_widget_set_sensitive (dm->open_exec, A && R);
@@ -458,6 +469,113 @@ gdb_plugin_update_ui (GdbPlugin *plugin)
 #endif
 }
 
+static void
+on_output_arrived (Debugger *debugger, DebuggerOutputType type,
+				   const gchar *msg, gpointer user_data)
+{
+	gdb_util_append_message (ANJUTA_PLUGIN (user_data), msg);
+}
+
+static gboolean
+gdb_debugger_is_active (GdbPlugin *plugin)
+{
+	return (plugin->debugger != NULL);
+}
+
+static void
+on_location_changed (Debugger* debugger, const gchar *file, gint line,
+					 const gchar *address, AnjutaPlugin *plugin)
+{
+	IAnjutaDocumentManager *docman = NULL;
+	gchar *msg;
+	
+	msg = g_strdup_printf (_("Location: %s, line %d\n"), file, line);
+	gdb_util_append_message (plugin, msg);
+	g_free (msg);
+	
+	docman = anjuta_shell_get_interface (plugin->shell,
+										 IAnjutaDocumentManager, NULL);
+	if (docman)
+		ianjuta_document_manager_goto_file_line (docman, file,
+												 line, NULL);
+}
+
+static void
+on_program_running (Debugger* debugger, GdbPlugin *plugin)
+{
+	g_signal_emit_by_name (plugin, "busy", TRUE);
+	gdb_plugin_update_ui (plugin);
+}
+
+static void
+on_program_exited (Debugger* debugger, GDBMIValue *value, GdbPlugin *plugin)
+{
+	g_signal_emit_by_name (plugin, "busy", FALSE);
+	gdb_plugin_update_ui (plugin);
+}
+
+static void
+on_program_stopped (Debugger* debugger, GDBMIValue *value, GdbPlugin *plugin)
+{
+	g_signal_emit_by_name (plugin, "busy", FALSE);
+	gdb_plugin_update_ui (plugin);
+}
+
+static void
+gdb_initialize_debugger (GdbPlugin *plugin, const gchar *prog,
+						 gboolean is_libtool_target)
+{
+	GtkWindow *parent;
+	g_return_if_fail (plugin->debugger == NULL);
+	
+	parent = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+	if (prog == NULL)
+	{
+		plugin->debugger = debugger_new (parent, on_output_arrived,
+										 plugin);
+	}
+	else
+	{
+		plugin->debugger = debugger_new_with_program (parent, on_output_arrived,
+													  plugin, prog,
+													  is_libtool_target);
+	}
+	g_signal_connect (plugin->debugger, "location-changed",
+					  G_CALLBACK (on_location_changed), plugin);
+	g_signal_connect (plugin->debugger, "program-running",
+					  G_CALLBACK (on_program_running), plugin);
+	g_signal_connect (plugin->debugger, "program-exited",
+					  G_CALLBACK (on_program_exited), plugin);
+	g_signal_connect (plugin->debugger, "program-stopped",
+					  G_CALLBACK (on_program_stopped), plugin);
+	
+	plugin->watch = expr_watch_new (plugin->debugger);
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
+							 plugin->watch->widgets.scrolledwindow,
+							 "AnjutaDebuggerWatch", _("Watches"),
+							 "gdb-watch-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
+							 NULL);
+	plugin->locals = locals_create (plugin->debugger);
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
+							 locals_get_main_widget (plugin->locals),
+							 "AnjutaDebuggerLocals", _("Locals"),
+							 "gdb-locals-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
+							 NULL);
+	plugin->stack = stack_trace_new (plugin->debugger);
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
+							 stack_trace_get_main_widget (plugin->stack),
+							 "AnjutaDebuggerStack", _("Stack"),
+							 "gdb-stack-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
+							 NULL);
+	plugin->registers = cpu_registers_new (plugin->debugger);
+	plugin->sharedlibs = sharedlibs_new (plugin->debugger);
+	plugin->signals = signals_new (plugin->debugger);
+	plugin->breakpoints = breakpoints_dbase_new (ANJUTA_PLUGIN (plugin),
+												 plugin->debugger);
+	
+	g_signal_emit_by_name (plugin, "busy", FALSE);
+}
+
 static gboolean
 gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 {
@@ -465,8 +583,6 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 	GdbPlugin *gdb_plugin = (GdbPlugin *) plugin;
 
 	DEBUG_PRINT ("GdbPlugin: Activating Gdb plugin ...");
-
-	/* Query for object implementing IAnjutaMessageManager interface */
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -490,8 +606,9 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-	debugger_init (gdb_plugin);
-
+	gdb_plugin_update_ui (gdb_plugin);
+	gdb_util_clear_messages (plugin);
+	gdb_util_show_messages (plugin);
 	return TRUE;
 }
 
@@ -514,7 +631,19 @@ gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 	anjuta_plugin_remove_watch (plugin, gdb_plugin->editor_watch_id, TRUE);
 	
 	/* Views were removed from shell when they are destroyed */
-	debugger_shutdown ();
+	if (gdb_plugin->debugger)
+	{
+		g_object_unref (gdb_plugin->debugger);
+		expr_watch_destroy (gdb_plugin->watch);
+		locals_destroy (gdb_plugin->locals);
+		stack_trace_destroy (gdb_plugin->stack);
+		cpu_registers_destroy (gdb_plugin->registers);
+		sharedlibs_destroy (gdb_plugin->sharedlibs);
+		signals_destroy (gdb_plugin->signals);
+		breakpoints_dbase_destroy (gdb_plugin->breakpoints);
+		
+		gdb_plugin->debugger = NULL;
+	}
 	
 	/* Remvove action groups */
 	anjuta_ui_remove_action_group (ui, gdb_plugin->action_group);
@@ -532,6 +661,7 @@ static void
 gdb_plugin_instance_init (GObject* obj)
 {
 	GdbPlugin *plugin = (GdbPlugin *) obj;
+	plugin->debugger = NULL;
 	plugin->uiid = 0;
 	plugin->mesg_view = NULL;
 	plugin->merge_id = 0;
@@ -540,6 +670,8 @@ gdb_plugin_instance_init (GObject* obj)
 	
 	plugin->current_editor = NULL;
 	plugin->project_root_uri = NULL;
+	plugin->watch = NULL;
+	plugin->locals = NULL;
 }
 
 static void
@@ -558,7 +690,10 @@ gdb_plugin_class_init (GObjectClass* klass)
 static gboolean
 idebugger_is_busy (IAnjutaDebugger *plugin, GError **err)
 {
-	return !(debugger_is_ready ());
+	GdbPlugin *gdb_plugin = (GdbPlugin*)G_OBJECT (plugin);
+	if (gdb_plugin->debugger == NULL)
+		return TRUE;
+	return (!debugger_is_ready (gdb_plugin->debugger));
 }
 
 static void
@@ -570,11 +705,7 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 
 	gdb_plugin = (GdbPlugin*)G_OBJECT (plugin);
 	
-	/* if (debugger_is_active() == FALSE) return; */
-	if (debugger_is_active() &&
-		debugger_is_ready() == FALSE) return;
-	
-	if (debugger_is_active() &&
+	if (gdb_debugger_is_active (gdb_plugin) &&
 		strlen(prog_uri) > 6 &&
 		strncmp (prog_uri, "pid://", 6) == 0)
 	{
@@ -585,14 +716,14 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 		pid = lpid;
 		/* Attach to process */
 		if (pid > 0)
-			debugger_attach_process (pid);
+			debugger_attach_process (gdb_plugin->debugger, pid);
 		return;
 	}
 	
-	if (debugger_is_active() == FALSE &&
+	if (gdb_debugger_is_active (gdb_plugin) == FALSE &&
 		(prog_uri == NULL || strlen (prog_uri) <= 0))
 	{
-		debugger_start (NULL, FALSE);
+		gdb_initialize_debugger (gdb_plugin, NULL, FALSE);
 	}
 	else
 	{
@@ -609,15 +740,15 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 			filename = gnome_vfs_uri_get_path (vfs_uri);
 			if (strcmp (mime_type, "application/x-executable") == 0)
 			{
-				if (debugger_is_active())
-					debugger_load_executable (filename);
+				if (gdb_debugger_is_active (gdb_plugin))
+					debugger_load_executable (gdb_plugin->debugger, filename);
 				else
-					debugger_start (filename, FALSE);
+					gdb_initialize_debugger (gdb_plugin, filename, FALSE);
 			}
 			else if (strcmp (mime_type, "application/x-shellscript") == 0)
 			{
 				/* Sounds like a libtool executable */
-				if (debugger_is_active())
+				if (gdb_debugger_is_active (gdb_plugin))
 				{
 					gchar *basename;
 					gchar *dirname;
@@ -632,11 +763,13 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 					proper_path = g_build_filename (dirname, ".libs", basename, NULL);
 					if (g_file_test (proper_path, G_FILE_TEST_IS_EXECUTABLE))
 					{
-						debugger_load_executable (proper_path);
+						debugger_load_executable (gdb_plugin->debugger,
+												  proper_path);
 					}
 					else
 					{
-						debugger_load_executable (filename);
+						debugger_load_executable (gdb_plugin->debugger,
+												  filename);
 					}
 					g_free (proper_path);
 					g_free (dirname);
@@ -647,23 +780,23 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 					/* FIXME: We should really do more checks to confirm that
 					 * this target is indeed libtool target
 					 */
-					debugger_start (filename, TRUE);
+					gdb_initialize_debugger (gdb_plugin, filename, TRUE);
 				}
 			}
-			else if (debugger_is_active() &&
+			else if (gdb_debugger_is_active (gdb_plugin) &&
 					 strcmp (mime_type, "application/x-core") == 0)
 			{
-				debugger_load_core (filename);
+				debugger_load_core (gdb_plugin->debugger,filename);
 			}
-			else if (debugger_is_active())
+			else if (gdb_debugger_is_active (gdb_plugin))
 			{
-				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (debugger.plugin)->shell),
+				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 										  "Debugger can not load '%s' which is of mime type: '%s'",
 										  filename, mime_type);
 			}
-			else if (debugger_is_active() == FALSE)
+			else if (gdb_debugger_is_active (gdb_plugin) == FALSE)
 			{
-				debugger_start (NULL, FALSE);
+				gdb_initialize_debugger (gdb_plugin, NULL, FALSE);
 			}
 			g_free (mime_type);
 		}
@@ -674,19 +807,22 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 static void
 idebugger_run_continue (IAnjutaDebugger *plugin, GError **err)
 {
-	debugger_run ();
+	GdbPlugin *gdb_plugin = (GdbPlugin*)ANJUTA_PLUGIN (plugin);
+	debugger_run (gdb_plugin->debugger);
 }
 
 static void
 idebugger_step_in (IAnjutaDebugger *plugin, GError **err)
 {
-	debugger_step_in ();
+	GdbPlugin *gdb_plugin = (GdbPlugin*)ANJUTA_PLUGIN (plugin);
+	debugger_step_in (gdb_plugin->debugger);
 }
 
 static void
 idebugger_step_over (IAnjutaDebugger *plugin, GError **err)
 {
-	debugger_step_over ();
+	GdbPlugin *gdb_plugin = (GdbPlugin*)ANJUTA_PLUGIN (plugin);
+	debugger_step_over (gdb_plugin->debugger);
 }
 
 static void
@@ -699,8 +835,7 @@ idebugger_run_to_position (IAnjutaDebugger *plugin, const gchar *file_uri,
 	
 	gdb_plugin = (GdbPlugin*)G_OBJECT (plugin);
 	
-	if (debugger_is_active() == FALSE) return;
-	if (debugger_is_ready() == FALSE) return;
+	if (gdb_debugger_is_active (gdb_plugin) == FALSE) return;
 
 	g_return_if_fail (IANJUTA_IS_EDITOR (gdb_plugin->current_editor));
 	
@@ -711,7 +846,8 @@ idebugger_run_to_position (IAnjutaDebugger *plugin, const gchar *file_uri,
 	else
 	{
 		gchar *uri;
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (gdb_plugin->current_editor), NULL);
+		uri = ianjuta_file_get_uri (IANJUTA_FILE (gdb_plugin->current_editor),
+									NULL);
 		if (!uri)
 			return;
 		vfs_uri = gnome_vfs_uri_new (uri);
@@ -733,7 +869,7 @@ idebugger_run_to_position (IAnjutaDebugger *plugin, const gchar *file_uri,
 			line = file_line;
 		
 		buff = g_strdup_printf ("%s:%d", filename, line);
-		debugger_run_to_location (buff);
+		debugger_run_to_location (gdb_plugin->debugger, buff);
 		g_free (buff);
 	}
 	gnome_vfs_uri_unref (vfs_uri);
@@ -742,7 +878,8 @@ idebugger_run_to_position (IAnjutaDebugger *plugin, const gchar *file_uri,
 static void
 idebugger_step_out (IAnjutaDebugger *plugin, GError **err)
 {
-	debugger_step_out ();
+	GdbPlugin *gdb_plugin = (GdbPlugin*)ANJUTA_PLUGIN (plugin);
+	debugger_step_out (gdb_plugin->debugger);
 }
 
 static void
@@ -785,7 +922,8 @@ idebugger_breakpoint_toggle (IAnjutaDebugger *plugin, const gchar *file_uri,
 		else
 			line = file_line;
 		
-		debugger_toggle_breakpoint (filename, line);
+		breakpoints_dbase_toggle_breakpoint (gdb_plugin->breakpoints,
+											 filename, line);
 	}
 	gnome_vfs_uri_unref (vfs_uri);
 }

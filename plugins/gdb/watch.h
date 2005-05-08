@@ -20,7 +20,11 @@
 #ifndef _WATCH_H_
 #define _WATCH_H_
 
-#include <gnome.h>
+#include <gtk/gtkwidget.h>
+#include <gtk/gtktreemodel.h>
+
+#include "debugger.h"
+
 /* TODO #include "properties.h" */
 
 typedef struct _ExprWatchGui ExprWatchGui;
@@ -47,34 +51,29 @@ struct _ExprWatchGui
 
 struct _ExprWatch
 {
-  ExprWatchGui  widgets;
+	ExprWatchGui  widgets;
+	Debugger *debugger;
 };
 
 struct watch_cb_data {
 	ExprWatch* ew;
-	GtkTreeIter* iter;
+	GtkTreePath* path;
 };
 
+ExprWatch* expr_watch_new (Debugger *debugger);
 
-ExprWatch*
-expr_watch_new(void);
+void expr_watch_clear (ExprWatch *ew);
 
-void
-expr_watch_clear(ExprWatch *ew);
+void expr_watch_cmd_queqe (ExprWatch *ew);
 
-void
-expr_watch_cmd_queqe(ExprWatch *ew);
+void expr_watch_update (Debugger *debugger, const GDBMIValue *mi_result,
+						const GList *cli_result, gpointer  ew);
 
-void
-expr_watch_update(GList *lines, gpointer  ew);
+void expr_watch_evaluate_expression (ExprWatch *ew, const gchar *expr,
+									 DebuggerResultFunc parser, gpointer data);
 
-void
-expr_watch_update_controls(ExprWatch* ew);
+void expr_watch_update_controls (ExprWatch *ew);
 
-void
-expr_watch_destroy(ExprWatch*ew);
-
-void
-eval_output_arrived(GList *outputs, gpointer data);
+void expr_watch_destroy (ExprWatch*ew);
 
 #endif

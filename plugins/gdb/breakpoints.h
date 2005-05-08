@@ -24,6 +24,9 @@
 #include <stdio.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include "debugger.h"
+
+G_BEGIN_DECLS
 
 typedef struct _BreakpointsDBase BreakpointsDBase;
 typedef struct _BreakpointsDBasePriv BreakpointsDBasePriv;
@@ -33,7 +36,8 @@ struct _BreakpointsDBase
 	BreakpointsDBasePriv *priv;
 };
 
-BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin);
+BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin,
+										 Debugger *debugger);
 
 /* TODO
 void breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb );
@@ -51,7 +55,8 @@ void breakpoints_dbase_dock (BreakpointsDBase * bd);
 
 void breakpoints_dbase_undock (BreakpointsDBase * bd);
 
-void breakpoints_dbase_update (GList * outputs, gpointer p);
+void breakpoints_dbase_update (Debugger *debugger, const GDBMIValue *mi_values,
+							   const GList * outputs, gpointer p);
 
 void breakpoints_dbase_add_bp (BreakpointsDBase * bd);
 
@@ -66,9 +71,11 @@ void breakpoints_dbase_add (BreakpointsDBase *bd);
 gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd,
 											  const gchar *file, guint l);
 
-gboolean breakpoints_dbase_toggle_doubleclick (guint line);
+gboolean breakpoints_dbase_toggle_doubleclick (BreakpointsDBase* bd,
+											   guint line);
 
-void breakpoints_dbase_toggle_singleclick (guint line);
+void breakpoints_dbase_toggle_singleclick (BreakpointsDBase* bd,
+										   guint line);
 
 void breakpoints_dbase_disable_all (BreakpointsDBase *bd);
 
@@ -91,5 +98,6 @@ void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd,
 
 void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd,
 											IAnjutaEditor* te);
-
+G_END_DECLS
+											
 #endif

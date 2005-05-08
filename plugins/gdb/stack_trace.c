@@ -30,41 +30,40 @@
 
 #include "debugger.h"
 #include "utilities.h"
+#include "info.h"
+#include "stack_trace.h"
 
-#define ANJUTA_PIXMAP_POINTER PACKAGE_PIXMAPS_DIR"/pointer.xpm"
-
-/* TODO #include "anjuta.h" */
+#define ANJUTA_PIXMAP_POINTER PACKAGE_PIXMAPS_DIR"/pointer.png"
 
 typedef struct _StackTraceGui StackTraceGui;
 struct _StackTraceGui
 {
-  GtkWidget *scrolledwindow;
-  GtkWidget *clist;
-  GtkWidget *menu;
-  GtkWidget *menu_set;
-  GtkWidget *menu_info;
-  GtkWidget *menu_update;
-  GtkWidget *menu_view;
+	GtkWidget *scrolledwindow;
+	GtkWidget *clist;
+	GtkWidget *menu;
+	GtkWidget *menu_set;
+	GtkWidget *menu_info;
+	GtkWidget *menu_update;
+	GtkWidget *menu_view;
 };
 
 struct _StackTrace
 {
-  StackTraceGui widgets;
-  gint current_frame;
-  gint current_index;
-  GtkTreeIter *current_frame_iter;
-  GtkTreeIter *current_index_iter;
+	Debugger *debugger;
+	StackTraceGui widgets;
+	gint current_frame;
 };
 
 enum {
 	STACK_TRACE_ACTIVE_COLUMN,
-	STACK_TRACE_COUNT_COLUMN,
 	STACK_TRACE_FRAME_COLUMN,
+	STACK_TRACE_FILE_COLUMN,
+	STACK_TRACE_LINE_COLUMN,
+	STACK_TRACE_FUNC_COLUMN,
+	STACK_TRACE_ADDR_COLUMN,
+	STACK_TRACE_ARGS_COLUMN,
 	STACK_TRACE_N_COLUMNS
 };
-
-/* Pointer pixbuf */
-GdkPixbuf *pointer_pix = NULL;
 
 /*
  * returns the current stack frame or -1 on error
@@ -77,7 +76,7 @@ get_index_from_iter (StackTrace* st, GtkTreeIter* iter)
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));		
 
-	gtk_tree_model_get (model, iter, STACK_TRACE_COUNT_COLUMN, &count, -1);
+	gtk_tree_model_get (model, iter, STACK_TRACE_FRAME_COLUMN, &count, -1);
 	
 	return atoi(count);
 }
@@ -92,95 +91,241 @@ get_current_iter (StackTrace* st, GtkTreeIter* iter)
 	selection = gtk_tree_view_get_selection (view);
 
 	if (!gtk_tree_selection_get_selected (selection, NULL, iter))
-	{
-		g_warning("Error getting selection\n");
 		return FALSE;
-	}
-
-	return TRUE;
-}
-
-/*
- * extract the source file and line number from a stack frame
- */
-static gboolean
-get_file_and_line_from_frame (gchar* frame, gchar** file, glong* lineno)
-{   
-	char* end;
-	char* colon;
-
-	/* sanity check */
-	if (!frame)
-		return FALSE;
-    
-	/* we want the end of the frame; init to the beginning */
-	end = frame;
-	
-	/* search for the end of the string */
-	while (*end)
-    		end++;
-	
-	/* end reached - take one step back to the last char */
-	end--;
-
-	/* skip any spaces that come after the actual text */
-	while (isspace (*end))
-		end--;
-	
-	/* make sure we hit the end of the line number */
-	if (!isdigit (*end)) 
-		return FALSE;
-
-	/* find the beginning of the line number */
-	while (isdigit (*end))
-		end--;
-
-	/* between the file name and line number must be a colon */
-	if (*end != ':') 
-		return FALSE;
-    
-	/* save the colon's position */
-	colon = end;
-	
-	/* extract line number */
-	*lineno = atol (end+1);
-
-	/* find beginning of file name */
-
-	while (!isspace (*end))
-		end--;
-
-	/* one step forward to be on the beginning of the file name */
-	end++;
-	
-	/* extract file name */
-	*file = g_strndup (end, colon-end);
-	
 	return TRUE;
 }
 
 static void
-stack_trace_args_cbs (GList *outputs, gpointer data)
+set_func_args (const GDBMIValue *frame_hash, StackTrace * st)
 {
-	char* cmd = "info args";
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	const gchar *level, *args;
+	const GDBMIValue *literal, *args_list, *arg_hash;
+	gint frame, i;
+	GString *args_str;
 	
-	/* we get here after we set the correct frame */
+	level = args = "";
 	
-	debugger_put_cmd_in_queqe (cmd, 0, debugger_dialog_message, NULL);
-	debugger_execute_cmd_in_queqe ();	
+	literal = gdbmi_value_hash_lookup (frame_hash, "level");
+	if (!literal)
+		return;
+	
+	level = gdbmi_value_literal_get (literal);
+	if (!level)
+		return;
+	
+	frame = atoi(level);
+	
+	args_list = gdbmi_value_hash_lookup (frame_hash, "args");
+	if (!args_list)
+		return;
+	
+	args_str = g_string_new ("(");
+	for (i = 0; i < gdbmi_value_get_size (args_list); i++)
+	{
+		const gchar *name, *value;
+		
+		arg_hash = gdbmi_value_list_get_nth (args_list, i);
+		if (!arg_hash)
+			continue;
+		
+		literal = gdbmi_value_hash_lookup (arg_hash, "name");
+		if (!literal)
+			continue;
+		name = gdbmi_value_literal_get (literal);
+		if (!name)
+			continue;
+		
+		literal = gdbmi_value_hash_lookup (arg_hash, "value");
+		if (!literal)
+			continue;
+		value = gdbmi_value_literal_get (literal);
+		if (!value)
+			continue;
+		args_str = g_string_append (args_str, name);
+		args_str = g_string_append (args_str, "=");
+		args_str = g_string_append (args_str, value);
+		if (i < (gdbmi_value_get_size (args_list) - 1))
+			args_str = g_string_append (args_str, ", ");
+	}
+	args_str = g_string_append (args_str, ")");
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));
+	if (gtk_tree_model_iter_nth_child (model, &iter, NULL, frame))
+	{
+		gtk_list_store_set(GTK_LIST_STORE(model), &iter, 
+						   STACK_TRACE_ARGS_COLUMN, args_str->str,
+						   -1);
+	}
+	g_string_free (args_str, TRUE);
+}
+
+static void
+stack_trace_update_func_args (Debugger *debugger, const GDBMIValue *mi_results,
+							  const GList *cli_results, gpointer data)
+{
+	StackTrace *st;
+	const GDBMIValue *stack_list;
+	
+	st = (StackTrace *) data;
+
+	if (!mi_results)
+		return;
+	
+	stack_list = gdbmi_value_hash_lookup (mi_results, "stack-args");
+	if (stack_list)
+		gdbmi_value_foreach (stack_list, (GFunc)set_func_args, st);
+}
+
+static void
+add_frame (const GDBMIValue *frame_hash, StackTrace * st)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	const gchar *level, *file, *line, *func, *addr, *args;
+	const GDBMIValue *literal;
+	gint frame;
+	GdkPixbuf *pic;
+	
+	level = file = line = func = addr = args = "";
+	
+	literal = gdbmi_value_hash_lookup (frame_hash, "level");
+	if (literal)
+		level = gdbmi_value_literal_get (literal);
+	
+	literal = gdbmi_value_hash_lookup (frame_hash, "file");
+	if (literal)
+		file = gdbmi_value_literal_get (literal);
+	
+	literal = gdbmi_value_hash_lookup (frame_hash, "line");
+	if (literal)
+		line = gdbmi_value_literal_get (literal);
+	
+	literal = gdbmi_value_hash_lookup (frame_hash, "func");
+	if (literal)
+		func = gdbmi_value_literal_get (literal);
+	
+	literal = gdbmi_value_hash_lookup (frame_hash, "addr");
+	if (literal)
+		addr = gdbmi_value_literal_get (literal);
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));	
+
+	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+
+	frame = atoi(level);
+
+	/* if we are on the current frame set iterator and pixmap correctly */
+	if (frame == st->current_frame)
+		pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
+	else
+		pic = NULL;
+
+	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 
+					   STACK_TRACE_ACTIVE_COLUMN, pic,
+					   STACK_TRACE_FRAME_COLUMN, level, 
+					   STACK_TRACE_FILE_COLUMN, file,
+					   STACK_TRACE_LINE_COLUMN, line,
+					   STACK_TRACE_FUNC_COLUMN, func,
+					   STACK_TRACE_ADDR_COLUMN, addr,
+					   STACK_TRACE_ARGS_COLUMN, args,
+					   -1);
+	if (pic)
+		gdk_pixbuf_unref (pic);
+}
+
+static void
+stack_trace_update (Debugger *debugger, const GDBMIValue *mi_results,
+					const GList *cli_results, gpointer data)
+{
+	StackTrace *st;
+	const GDBMIValue *stack_list;
+	
+	st = (StackTrace *) data;
+	stack_trace_clear (st);
+
+	if (!mi_results)
+		return;
+	
+	stack_list = gdbmi_value_hash_lookup (mi_results, "stack");
+	if (stack_list)
+		gdbmi_value_foreach (stack_list, (GFunc)add_frame, st);
+}
+
+static void
+on_debugger_dialog_message (Debugger *debugger, const GDBMIValue *mi_result,
+							const GList *cli_result, gpointer user_data)
+{
+	if (g_list_length ((GList*)cli_result) < 1)
+		return;
+	gdb_info_show_list (user_data, cli_result, 0, 0);
 }
 
 static void 
-stack_trace_set_active_cbs (GList * outputs, gpointer data)
+stack_trace_set_active_cbs (Debugger *debugger, const GDBMIValue *mi_results,
+							const GList * outputs, gpointer data)
 {
+	GtkTreeIter iter;
 	GtkTreeModel *model;	
-
+	GdkPixbuf *pointer_pix;
+	const GDBMIValue *frame, *literal;
+	const gchar *level_str;
 	StackTrace *st = (StackTrace*) data;
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));	
+	
+	if (mi_results == NULL)
+		return;
+	
+	frame = gdbmi_value_hash_lookup (mi_results, "frame");
+	if (frame == NULL)
+		return;
+	
+	literal = gdbmi_value_hash_lookup (frame, "level");
+	if (literal == NULL)
+		return;
+	
+	level_str = gdbmi_value_literal_get (literal);
+	if (level_str == NULL || strlen (level_str) <= 0)
+		return;
+	st->current_frame = atoi (level_str);
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));
+	
+	/* Clear old pointer */
+	if(gtk_tree_model_get_iter_first (model, &iter))
+	{
+		do {
+			/* clear pixmap on the previous active frame */
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+								STACK_TRACE_ACTIVE_COLUMN, NULL, -1);
+		} while (gtk_tree_model_iter_next (model, &iter));
+	}
+	
+	/* Set pointer to current frame */
+	if (gtk_tree_model_iter_nth_child (model, &iter, NULL,
+									   st->current_frame))
+	{
+		pointer_pix = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
 
-	/* set pointer on this frame */
-	gtk_list_store_set (GTK_LIST_STORE(model), st->current_frame_iter, 
-					   STACK_TRACE_ACTIVE_COLUMN, pointer_pix, -1);		
+		/* set pointer on this frame */
+		gtk_list_store_set (GTK_LIST_STORE(model), &iter,
+							STACK_TRACE_ACTIVE_COLUMN, pointer_pix,
+							-1);
+		gdk_pixbuf_unref (pointer_pix);
+	}
+}
+
+static void
+stack_trace_update_controls (StackTrace * st)
+{
+	gboolean R;
+
+	R = debugger_is_ready (st->debugger);
+
+	gtk_widget_set_sensitive (st->widgets.menu_set, R);
+	gtk_widget_set_sensitive (st->widgets.menu_info, R);
+	gtk_widget_set_sensitive (st->widgets.menu_update, R);
+	gtk_widget_set_sensitive (st->widgets.menu_view, R);
 }
 
 static gboolean
@@ -190,25 +335,14 @@ on_stack_trace_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 
 	if (event->type == GDK_BUTTON_PRESS)
 	{
-		/* update the current index iterator and number in the stack
-		   trace object */
-		GtkTreeIter iter;
 		GdkEventButton *bevent;
-		
-		if (!get_current_iter (st,&iter))
-			return FALSE;
-		
-		gtk_tree_iter_free (st->current_index_iter);
-		st->current_index_iter = gtk_tree_iter_copy (&iter);		
-		st->current_index = get_index_from_iter (st,&iter);
-				
 		bevent = (GdkEventButton *) event;
 		if (bevent->button != 3)
 			return FALSE;
 		bevent->button = 1;
 		stack_trace_update_controls (st);
 		gtk_menu_popup (GTK_MENU (st->widgets.menu), NULL, NULL, NULL, NULL,
-				bevent->button, bevent->time);
+						bevent->button, bevent->time);
 		return TRUE;
 	}
 	else
@@ -219,73 +353,46 @@ static void
 on_stack_frame_set_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	StackTrace *st;
-	gchar* cmd = "frame ";
-	gchar current_index_no[16];
-	GtkTreeModel *model;
-	GtkTreeView *view;
+	gchar* cmd;
+	GtkTreeIter iter;
+	gint selected_frame;
 	
 	st = (StackTrace*) user_data;
 	
-	/* current frame is already active */
-	if (st->current_index == st->current_frame)
+	if (!get_current_iter (st, &iter))
 		return;
-
-	view = GTK_TREE_VIEW (st->widgets.clist);
-	model = gtk_tree_view_get_model (view);	
 	
-	/* clear pixmap on the previous active frame */
-	gtk_list_store_set(GTK_LIST_STORE (model), st->current_frame_iter, 
-					   STACK_TRACE_ACTIVE_COLUMN, NULL, -1);			
+	selected_frame = get_index_from_iter (st, &iter);
+	
+	/* current frame is already active */
+	if (selected_frame == st->current_frame)
+		return;
 	
 	/* issue a command to switch active frame to new location */
-	sprintf (current_index_no, "%d", st->current_index);	
-	cmd = g_strconcat (cmd,current_index_no, NULL);	
-	g_print ("Command: %s\n", cmd);
-	
-	/* make current index and frame the same in the stack trace object */
-	st->current_frame = st->current_index;
-	gtk_tree_iter_free (st->current_frame_iter);
-	st->current_frame_iter = gtk_tree_iter_copy (st->current_index_iter);
+	cmd = g_strdup_printf ("frame %d", selected_frame);
 
-	debugger_put_cmd_in_queqe (cmd, 0, stack_trace_set_active_cbs , st);
-	debugger_execute_cmd_in_queqe ();
+	debugger_command (st->debugger, cmd, FALSE,
+					  stack_trace_set_active_cbs, st);
+	g_free (cmd);
 }
 
 static void
 on_stack_frame_info_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	StackTrace *st;	
-	gchar* cmd = "info frame ";
-	gchar frame_no[16];
+	GtkTreeIter iter;
+	gint selected_frame;
+	gchar *cmd;
 	
 	st = (StackTrace*) user_data;
 	
-	sprintf (frame_no,"%d",st->current_index);
-	cmd = g_strconcat (cmd, frame_no, NULL);
+	if (!get_current_iter (st, &iter))
+		return;
+	selected_frame = get_index_from_iter (st, &iter);
 	
-	g_print ("Command: %s\n",cmd);
-	
-	debugger_put_cmd_in_queqe (cmd, 0, debugger_dialog_message, NULL);
-	debugger_execute_cmd_in_queqe ();
-	g_free (cmd);
-}
-
-static void
-on_stack_frame_args_activate (GtkMenuItem *menuitem, gpointer user_data)
-{
-	StackTrace *st;
-	gchar* cmd = "frame ";
-	gchar frame_no[16];
-	
-	st = (StackTrace*) user_data;
-
-	sprintf (frame_no, "%d", st->current_index);	
-	cmd = g_strconcat (cmd, frame_no, NULL);
-	
-	g_print ("Command: %s\n", cmd);
-	
-	debugger_put_cmd_in_queqe (cmd, 0, stack_trace_args_cbs, st);
-	debugger_execute_cmd_in_queqe ();
+	cmd = g_strdup_printf ("info frame %d", selected_frame);
+	debugger_command (st->debugger, cmd, FALSE,
+					  on_debugger_dialog_message, NULL);
 	g_free (cmd);
 }
 
@@ -293,8 +400,10 @@ static void
 on_stack_update_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	StackTrace* st = (StackTrace*) user_data;
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE, stack_trace_update, st);
-	debugger_execute_cmd_in_queqe ();
+	debugger_command (st->debugger, "-stack-list-frames", FALSE,
+					  stack_trace_update, st);
+	debugger_command (st->debugger, "-stack-list-arguments 1", FALSE,
+					  stack_trace_update_func_args, st);
 }
 
 static void
@@ -304,10 +413,7 @@ on_stack_view_src_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-	gchar* frame = NULL;
-	gchar* file;
-	glong lineno;
-	gboolean ret;
+	const gchar *file, *line, *addr;
 	
 	StackTrace* st = (StackTrace*) user_data;		
 
@@ -316,36 +422,23 @@ on_stack_view_src_activate (GtkMenuItem * menuitem, gpointer user_data)
 	selection = gtk_tree_view_get_selection (view);
 
 	if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
-	{
-		g_warning(_("Error getting selection\n"));
 		return;
-	}
 
 	/* get the frame info */
-	gtk_tree_model_get (model, &iter, STACK_TRACE_FRAME_COLUMN, &frame, -1);
+	gtk_tree_model_get (model, &iter,
+						STACK_TRACE_FILE_COLUMN, &file,
+						STACK_TRACE_LINE_COLUMN, &line,
+						STACK_TRACE_ADDR_COLUMN, &addr,
+						-1);
 	
-	ret = get_file_and_line_from_frame (frame, &file, &lineno);
-
-	if (!ret)
-	{
-		g_warning(_("Error getting source location from stack frame"));
-		return;
-	}
-	
-/* TODO	anjuta_goto_file_line (file, lineno); */
-}
-
-static void
-on_stack_help_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
+	debugger_change_location (st->debugger, file, atoi (line), addr);
 }
 
 /* Context pop up menu */
 static GnomeUIInfo stack_menu_uiinfo[] =
 {
   {
-    GNOME_APP_UI_ITEM, N_("Frame set"),
+    GNOME_APP_UI_ITEM, N_("Set current frame"),
     NULL,
     on_stack_frame_set_activate, NULL, NULL,
     GNOME_APP_PIXMAP_NONE, NULL,
@@ -355,13 +448,6 @@ static GnomeUIInfo stack_menu_uiinfo[] =
     GNOME_APP_UI_ITEM, N_("Frame info"),
     NULL,
     on_stack_frame_info_activate, NULL, NULL,
-    GNOME_APP_PIXMAP_NONE, NULL,
-    0, 0, NULL
-  },
-  {
-    GNOME_APP_UI_ITEM, N_("Frame args"),
-    NULL,
-    on_stack_frame_args_activate, NULL, NULL,
     GNOME_APP_PIXMAP_NONE, NULL,
     0, 0, NULL
   },
@@ -376,14 +462,6 @@ static GnomeUIInfo stack_menu_uiinfo[] =
     GNOME_APP_UI_ITEM, N_("View Source"),
     NULL,
     on_stack_view_src_activate, NULL, NULL,
-    GNOME_APP_PIXMAP_NONE, NULL,
-    0, 0, NULL
-  },
-  GNOMEUIINFO_SEPARATOR,
-  {
-    GNOME_APP_UI_ITEM, N_("Help"),
-    NULL,
-    on_stack_help_activate, NULL, NULL,
     GNOME_APP_PIXMAP_NONE, NULL,
     0, 0, NULL
   },
@@ -416,7 +494,6 @@ on_stack_trace_row_activated           (GtkTreeView     *treeview,
                                         StackTrace      *st)
 {
 	on_stack_frame_set_activate (NULL, st);
-	on_stack_view_src_activate (NULL, st);
 }
 
 static void
@@ -429,8 +506,12 @@ create_stack_trace_gui(StackTrace *st)
 	
 	model = GTK_TREE_MODEL(gtk_list_store_new (STACK_TRACE_N_COLUMNS,
 											   GDK_TYPE_PIXBUF,
-											   GTK_TYPE_STRING,
-											   GTK_TYPE_STRING));
+											   G_TYPE_STRING,
+											   G_TYPE_STRING,
+											   G_TYPE_STRING,
+											   G_TYPE_STRING,
+											   G_TYPE_STRING,
+											   G_TYPE_STRING));
 	st->widgets.scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (st->widgets.scrolledwindow);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (st->widgets.scrolledwindow),
@@ -462,11 +543,12 @@ create_stack_trace_gui(StackTrace *st)
 	
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Count"));
+	gtk_tree_view_column_set_title (column, _("Frame"));
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										STACK_TRACE_COUNT_COLUMN);
+										STACK_TRACE_FRAME_COLUMN);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (st->widgets.clist),
 									   column);
@@ -475,9 +557,45 @@ create_stack_trace_gui(StackTrace *st)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										STACK_TRACE_FRAME_COLUMN);
+										STACK_TRACE_FILE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Frame"));
+	gtk_tree_view_column_set_title (column, _("File"));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
+
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",
+										STACK_TRACE_LINE_COLUMN);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Line"));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
+	
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",
+										STACK_TRACE_FUNC_COLUMN);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Function"));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
+	
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",
+										STACK_TRACE_ADDR_COLUMN);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Address"));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
+	
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",
+										STACK_TRACE_ARGS_COLUMN);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Arguments"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (st->widgets.clist), column);
 	
 	g_signal_connect (st->widgets.clist, "event",
@@ -493,46 +611,25 @@ create_stack_trace_gui(StackTrace *st)
 }
 
 static void
-add_frame (StackTrace * st, gchar * line)
+on_program_stopped (Debugger *debugger, GDBMIValue *mi_results,
+					StackTrace *stack_trace)
 {
-	gchar frame_no[10];
-	gint count;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	GdkPixbuf *pic;
+	stack_trace->current_frame = 0;
+	debugger_command (debugger, "-stack-list-frames", TRUE,
+					  stack_trace_update, stack_trace);
+	debugger_command (debugger, "-stack-list-arguments 1", TRUE,
+					  stack_trace_update_func_args, stack_trace);
+}
 
-	count = sscanf (line, "#%s", frame_no);
-	if (count != 1)
-		return;
-	while (!isspace (*line))
-		line++;
-	while (isspace (*line))
-		line++;
-
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));	
-
-	gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-
-	count = atoi(frame_no);
-
-	/* if we are on the current frame set iterator and pixmap correctly */
-	if (count == st->current_frame) {
-		if (st->current_frame_iter) 
-			gtk_tree_iter_free (st->current_frame_iter);
-		st->current_frame_iter = gtk_tree_iter_copy (&iter);
-		pic = pointer_pix;
-	}
-	else
-		pic = NULL;
-
-	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 
-					   STACK_TRACE_ACTIVE_COLUMN, pic,
-					   STACK_TRACE_COUNT_COLUMN, g_strdup (frame_no), 
-					   STACK_TRACE_FRAME_COLUMN, g_strdup (line), -1);
+static void
+on_results_arrived (Debugger *debugger, const gchar *command,
+					const GDBMIValue *mi_results, StackTrace *stack_trace)
+{
+	stack_trace_set_active_cbs (debugger, mi_results, NULL, stack_trace);
 }
 
 StackTrace *
-stack_trace_new ()
+stack_trace_new (Debugger *debugger)
 {
 	StackTrace *st;
 
@@ -541,13 +638,16 @@ stack_trace_new ()
 	{
 		create_stack_trace_gui (st);
 		st->current_frame = 0;
-		st->current_index = 0;
-		st->current_frame_iter = NULL;
-		st->current_index_iter = NULL;
+		st->debugger = debugger;
 		
-		if (pointer_pix)
-			g_object_unref (pointer_pix);
-		pointer_pix = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
+		g_object_ref (debugger);
+		
+		g_signal_connect (debugger, "program-stopped",
+						  G_CALLBACK (on_program_stopped), st);
+		g_signal_connect_swapped (debugger, "program-exited",
+								  G_CALLBACK (stack_trace_clear), st);
+		g_signal_connect (debugger, "results-arrived",
+						  G_CALLBACK (on_results_arrived), st);
 	}
 	return st;
 }
@@ -558,94 +658,40 @@ stack_trace_clear (StackTrace * st)
 	GtkTreeModel* model;
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));
-
 	gtk_list_store_clear (GTK_LIST_STORE (model));
-
-	st->current_frame = 0;
-	st->current_index = 0;
-	st->current_frame_iter = NULL;
-	st->current_index_iter = NULL;
-}
-
-void
-stack_trace_update (GList * outputs, gpointer data)
-{
-	StackTrace *st;
-	gchar *ptr;
-	GList *list, *node;
-
-	st = (StackTrace *) data;
-	list = gdb_util_remove_blank_lines (outputs);
-	stack_trace_clear (st);
-
-	if (g_list_length (list) < 1)
-	{
-		g_list_free (list);
-		return;
-	}
-
-	node = list->next;
-	ptr = g_strdup ((gchar *) list->data);
-	while (node)
-	{
-		gchar *line = (gchar *) node->data;
-		node = g_list_next (node);
-		if (isspace (line[0]))	/* line break */
-		{
-			gchar *tmp;
-			tmp = ptr;
-			ptr = g_strconcat (tmp, line, NULL);
-			g_free (tmp);
-		}
-		else
-		{
-			add_frame (st, ptr);
-			g_free (ptr);
-			ptr = g_strdup (line);
-		}
-	}
-	if (ptr)
-	{
-		add_frame (st, ptr);
-		g_free (ptr);
-		ptr = NULL;
-	}
-
-	g_list_free (list);
 }
 
 void
 stack_trace_destroy (StackTrace * st)
 {
-	if (st)
-	{
-		stack_trace_clear (st);
-		if (pointer_pix)
-			g_object_unref (pointer_pix);
-		gtk_widget_destroy (st->widgets.menu);
-		gtk_widget_destroy (st->widgets.scrolledwindow);
-		g_free (st);
-	}
-}
-
-void
-stack_trace_update_controls (StackTrace * st)
-{
-	gboolean A, R;
-
-	A = debugger_is_active ();
-	R = debugger_is_ready ();
-
-	gtk_widget_set_sensitive (st->widgets.menu_set, A && R);
-	gtk_widget_set_sensitive (st->widgets.menu_info, A && R);
-	gtk_widget_set_sensitive (st->widgets.menu_update, A && R);
-	gtk_widget_set_sensitive (st->widgets.menu_view, A && R);
+	g_return_if_fail (st != NULL);
+	
+	g_signal_handlers_disconnect_by_func (st->debugger,
+										  G_CALLBACK (on_program_stopped),
+										  st);
+	g_signal_handlers_disconnect_by_func (st->debugger,
+										  G_CALLBACK (stack_trace_update),
+										  st);
+	g_signal_handlers_disconnect_by_func (st->debugger,
+										  G_CALLBACK (on_results_arrived),
+										  st);
+	g_object_unref (st->debugger);
+	
+	gtk_widget_destroy (st->widgets.menu);
+	gtk_widget_destroy (st->widgets.scrolledwindow);
+	g_free (st);
 }
 
 void
 stack_trace_set_frame (StackTrace *st, gint frame)
 {
-	st->current_frame = frame;
+	gchar *cmd;
+	
+	/* issue a command to switch active frame to new location */
+	cmd = g_strdup_printf ("frame %d", frame);
+	debugger_command (st->debugger, cmd, FALSE,
+					  stack_trace_set_active_cbs, st);
+	g_free (cmd);
 }
 
 GtkWidget*

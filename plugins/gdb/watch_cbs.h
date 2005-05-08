@@ -21,19 +21,6 @@
 #include <gnome.h>
 #include "watch.h"
 
-
-/*void
-on_watch_clist_select_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-void
-on_watch_clist_unselect_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);*/
 void
 on_watch_add_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
@@ -43,45 +30,29 @@ on_watch_remove_activate               (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
-on_watch_update_activate                    (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
+on_watch_update_activate               (GtkMenuItem     *menuitem,
+										gpointer         user_data);
 
 void
-on_watch_clear_activate                     (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_watch_toggle_activate               (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
+on_watch_clear_activate                (GtkMenuItem     *menuitem,
+										gpointer         user_data);
 										
 void
 on_watch_change_activate               (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
-void
-on_watch_help_activate                 (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
 gboolean
-on_watch_event                (GtkWidget       *widget,
+on_watch_event                         (GtkWidget       *widget,
                                         GdkEvent  *event,
                                         gpointer         user_data);
 
-/********************************************************************************/
-void
-on_ew_add_help_clicked                 (GtkButton       *button,
-                                        gpointer         user_data);
-
+/*****************************************************************************/
 void
 on_ew_add_ok_clicked                   (GtkButton       *button,
                                         gpointer         user_data);
 
 void
 on_ew_entry_activate                   (GtkWidget  *button,
-                                        gpointer         user_data);
-
-void
-on_ew_change_help_clicked              (GtkButton       *button,
                                         gpointer         user_data);
 
 void
@@ -92,21 +63,17 @@ void
 on_ew_entry_change_activate            (GtkWidget *button,
                                         gpointer user_data);
 
-/********************************************************************************/
-void
-on_eval_help_clicked                   (GtkButton       *button,
-                                        gpointer         user_data);
-
+/*****************************************************************************/
 void
 on_eval_ok_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
 void
 on_eval_entry_activate                 (GtkWidget   *button,		
-					gpointer         user_data);
+										gpointer         user_data);
 
 void
-on_eval_add_watch		       (GtkButton * button,
-                                        gpointer user_data);
+on_eval_add_watch		               (GtkButton * button,
+										gpointer user_data);
 
-/********************************************************************************/
+/*****************************************************************************/

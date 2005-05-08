@@ -33,12 +33,17 @@
 #include "watch_gui.h"
 
 ExprWatch *
-expr_watch_new ()
+expr_watch_new (Debugger *debugger)
 {
 	ExprWatch *ew;
 
 	ew = g_new0 (ExprWatch, 1);
 	create_expr_watch_gui (ew);
+	g_object_ref (debugger);
+	ew->debugger = debugger;
+	
+	g_signal_connect_swapped (ew->debugger, "program-stopped",
+							  G_CALLBACK (expr_watch_cmd_queqe), ew);
 	return ew;
 }
 
@@ -54,7 +59,8 @@ expr_watch_clear (ExprWatch * ew)
 }
 
 static gboolean
-get_watch_expr (GtkTreeModel *model, GtkTreePath* path, GtkTreeIter* iter, gpointer pdata)
+get_watch_expr (GtkTreeModel *model, GtkTreePath* path, GtkTreeIter* iter,
+				gpointer pdata)
 {
 
 	ExprWatch* ew = pdata;
@@ -64,18 +70,19 @@ get_watch_expr (GtkTreeModel *model, GtkTreePath* path, GtkTreeIter* iter, gpoin
 
 	g_return_val_if_fail (model,TRUE);
 	g_return_val_if_fail (iter,TRUE);
-
-	gtk_tree_model_get(model, iter, WATCH_VARIABLE_COLUMN, &variable, -1);	
+	
+	gtk_tree_model_get (model, iter, WATCH_VARIABLE_COLUMN, &variable, -1);	
 
 	if (variable)
 	{
 		/* allocate data structure for cb function */
 		cb_data = g_new(struct watch_cb_data,1);
 		cb_data->ew = ew;
-		cb_data->iter = gtk_tree_iter_copy(iter);
+		cb_data->path = gtk_tree_model_get_path (model, iter);
 		
 		buff = g_strconcat ("print ", (gchar *)variable, NULL);
-		debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
+		debugger_command (ew->debugger, buff, TRUE,
+						  expr_watch_update, cb_data);
 		g_free(buff);
 
 		return FALSE;
@@ -92,20 +99,34 @@ expr_watch_cmd_queqe (ExprWatch * ew)
 {
 	GtkTreeModel* model;
 	
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(ew->widgets.clist));
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (ew->widgets.clist));
 	
 	/* for each watched expression, send a print command using the debugger */
-	gtk_tree_model_foreach(model,get_watch_expr,ew);			
+	gtk_tree_model_foreach (model, get_watch_expr, ew);
 }
 
+void
+expr_watch_evaluate_expression (ExprWatch *ew, const gchar *expr,
+								DebuggerResultFunc parser, gpointer data)
+{
+	gchar *printcmd;
+	
+	debugger_command (ew->debugger, "set print pretty on", TRUE, NULL, NULL);
+	debugger_command (ew->debugger, "set verbose off", TRUE, NULL, NULL);
+	printcmd = g_strconcat ("print ", expr, NULL);
+	debugger_command (ew->debugger, printcmd, FALSE, parser, data);
+	g_free (printcmd);
+	debugger_command (ew->debugger, "set print pretty off", TRUE, NULL, NULL);
+	debugger_command (ew->debugger, "set verbose on", TRUE, NULL, NULL);
+}
 
 void
-expr_watch_update_controls (ExprWatch * ew)
+expr_watch_update_controls (ExprWatch *ew)
 {
 	gboolean A, R/*, C, S*/;
 
-	A = debugger_is_active ();
-	R = debugger_is_ready ();
+	A = TRUE;
+	R = debugger_is_ready (ew->debugger);
 	/*C = (g_list_length (ew->exprs) > 0);
 	S = (ew->current_index >= 0);*/
 	gtk_widget_set_sensitive (ew->widgets.menu_add, A && R);
@@ -117,40 +138,16 @@ expr_watch_update_controls (ExprWatch * ew)
 }
 
 void
-eval_output_arrived (GList * lines, gpointer data)
-{
-	GList *list;
-
-	list = lines;
-	if (g_list_length (list) < 1)
-		return;
-	if (data)
-	{
-		gchar *tmp1, *tmp2, *tmp3;
-
-		tmp1 = list->data;
-		tmp2 = strchr (tmp1, '=');
-		if (tmp2)
-		{
-			tmp3 = g_strconcat (data, " ", tmp2, NULL);
-			list = g_list_remove (list, tmp1);
-			if (tmp1)
-				g_free (tmp1);
-			list = g_list_prepend (list, tmp3);
-		}
-		g_free (data);
-	}
-	anjuta_info_show_list (NULL, lines, 0, 0);
-}
-
-void
 expr_watch_destroy (ExprWatch * ew)
 {
-	if (ew)
-	{
-		expr_watch_clear (ew);
-		gtk_widget_destroy (ew->widgets.scrolledwindow);
-		gtk_widget_destroy (ew->widgets.menu);
-		g_free (ew);
-	}
+	g_return_if_fail (ew != NULL);
+	
+	g_signal_handlers_disconnect_by_func (ew->debugger,
+										  G_CALLBACK (expr_watch_cmd_queqe),
+										  ew);
+	expr_watch_clear (ew);
+	gtk_widget_destroy (ew->widgets.scrolledwindow);
+	gtk_widget_destroy (ew->widgets.menu);
+	g_object_unref (ew->debugger);
+	g_free (ew);
 }

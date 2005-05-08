@@ -19,6 +19,7 @@
 #ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
+#include <glib.h>
 #include <libanjuta/anjuta-plugin.h>
 
 #if 0
@@ -342,7 +343,7 @@ gboolean gdb_util_parse_error_line(const gchar *line, gchar **filename,
 /* In this case only GList must be freed and not the data          */
 /* Because output data are the input data. Only GList is allocated */
 /*******************************************************************/
-GList* gdb_util_remove_blank_lines(GList* lines); 
+GList* gdb_util_remove_blank_lines(const GList* lines); 
 
 /* Allocates a struct of pointers if sep = 0 use ',' */
 gchar **gdb_util_string_parse_separator (const gint nItems, gchar *szStrIn,

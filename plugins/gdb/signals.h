@@ -20,8 +20,9 @@
 #ifndef _SIGNALS_H_
 #define _SIGNALS_H_
 
-#include <gnome.h>
-/* TODO #include "properties.h" */
+#include <glib.h>
+#include <gtk/gtkwidget.h>
+#include "debugger.h"
 
 typedef struct _SignalsGui SignalsGui;
 typedef struct _Signals Signals;
@@ -38,49 +39,25 @@ struct _SignalsGui
 
 struct _Signals
 {
-  SignalsGui  widgets;
-  gboolean         is_showing;
-  gint             win_pos_x, win_pos_y, win_width, win_height;
-  gint		idx;
-  gchar		*signal;
-  gboolean	stop;
-  gboolean	print;
-  gboolean	pass;
+	SignalsGui  widgets;
+	Debugger *debugger;
+	gboolean is_showing;
+	gint win_pos_x, win_pos_y, win_width, win_height;
+	gint	idx;
+	gchar	*signal;
+	gboolean stop;
+	gboolean print;
+	gboolean pass;
 };
 
-Signals*
-signals_new(void);
+Signals* signals_new (Debugger *debugger);
 
-void
-create_signals_gui(Signals* ew);
+void signals_clear (Signals *ew);
 
-GtkWidget*
-create_signals_set_dialog(Signals *s);
+void signals_destroy (Signals*ew);
 
-void
-signals_clear(Signals *ew);
+void signals_show (Signals *ew);
 
-void
-signals_update(GList *lines, gpointer  ew);
-
-void
-signals_destroy(Signals*ew);
-
-gboolean
-signals_save_yourself(Signals* ew, FILE* stream);
-
-/* TODO
-gboolean
-signals_load_yourself(Signals* ew, PropsID props);
-*/
-
-void
-signals_show(Signals * ew);
-
-void
-signals_hide(Signals * ew);
-
-void
-signals_update_controls(Signals* ew);
+void signals_hide (Signals *ew);
 
 #endif

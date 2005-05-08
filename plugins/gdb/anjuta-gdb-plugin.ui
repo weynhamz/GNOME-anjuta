@@ -37,6 +37,7 @@
 				<menuitem name="Memory" action="ActionGdbExamineMemory" />
 				<menuitem name="Inspect" action="ActionGdbInspect" />
 				<menuitem name="AddWatch" action="ActionGdbAddWatch" />
+				<menuitem name="AddWatch" action="ActionGdbCommand" />
 			</menu>
 		</placeholder>
 	</menubar>

@@ -20,30 +20,4 @@
 #ifndef _REGISTERS_CBS_H_
 #define _REGISTERS_CBS_H_
 
-gint on_registers_delete_event(GtkWidget* w, GdkEvent* event, gpointer data);
-
-gboolean on_registers_key_press_event(GtkWidget *widget, GdkEventKey *event,
-                                      gpointer data);
-
-void
-on_registers_clist_select_row          (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        gpointer         user_data);
-void
-on_register_modify_activate            (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_register_update_activate            (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-
-void
-on_register_help_activate              (GtkMenuItem     *menuitem,
-                                        gpointer         user_data);
-gboolean
-on_register_event                (GtkWidget       *widget,
-                                        GdkEvent  *event,
-                                        gpointer         user_data);
 #endif

@@ -190,13 +190,13 @@ gdb_util_remove_white_spaces (const gchar * text)
 }
 
 GList *
-gdb_util_remove_blank_lines (GList * lines)
+gdb_util_remove_blank_lines (const GList * lines)
 {
 	GList *list, *node;
 	gchar *str;
 
 	if (lines)
-		list = g_list_copy (lines);
+		list = g_list_copy ((GList*)lines);
 	else
 		list = NULL;
 
@@ -390,7 +390,6 @@ gdb_util_append_message (AnjutaPlugin *plugin, const gchar* message)
 	/* TODO: error checking */
 	message_view = gdb_util_get_message_view (plugin);
 	ianjuta_message_view_buffer_append (message_view, message, NULL);
-	ianjuta_message_view_buffer_append (message_view, "\n", NULL);
 }
 
 void

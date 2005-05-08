@@ -20,15 +20,13 @@
 #ifndef _LOCALS_H_
 #define _LOCALS_H_
 
-// TODO: #include <glib.h>
 #include <gtk/gtkwidget.h>
+#include "debugger.h"
 
 typedef struct _Locals Locals;
 
-Locals *locals_create (void);
+Locals *locals_create (Debugger *debugger);
 GtkWidget *locals_get_main_widget (Locals *l);
-void locals_clear (Locals *l);
-void locals_update (Locals *l, GList *lines, gpointer data);
 void locals_destroy (Locals *l);
 
 #endif

@@ -73,7 +73,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		
 		gxml = glade_xml_new (GLADE_FILE, "execute_dialog", NULL);
 		dlg = glade_xml_get_widget (gxml, "execute_dialog");
-		treeview = glade_xml_get_widget (gxml, "programs_treeview");;
+		treeview = glade_xml_get_widget (gxml, "programs_treeview");
 		use_terminal_check = glade_xml_get_widget (gxml, "program_run_in_terminal");
 		arguments_entry = glade_xml_get_widget (gxml, "program_arguments");
 		
@@ -89,14 +89,25 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 		node = exec_targets;
 		while (node)
 		{
+			gchar *local_path;
 			const gchar *rel_path;
 		
+			local_path = gnome_vfs_get_local_path_from_uri ((gchar*)node->data);
+			if (local_path == NULL)
+			{
+				g_free (node->data);
+				node = g_list_next (node);
+				continue;
+			}
+			
 			rel_path =
-				(gchar*)node->data +
+				(gchar*)local_path +
 				 strlen (plugin->project_root_dir) + 1;
+			
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter, 0, rel_path, 1,
 								node->data, -1);
+			g_free (local_path);
 			g_free (node->data);
 			node = g_list_next (node);
 		}

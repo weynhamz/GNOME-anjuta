@@ -47,6 +47,7 @@ anjuta_pixmaps_DATA = \
 	dock.xpm \
 	directory.png \
 	directory-accept.png
+
 #	frame.xpm \
 #	handle_hide.xpm \
 #	handle_undock.xpm \

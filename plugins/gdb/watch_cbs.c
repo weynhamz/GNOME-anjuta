@@ -20,10 +20,10 @@
 
 #include <gnome.h>
 /* TODO #include "anjuta.h" */
-#include "debugger.h"
 #include "watch_cbs.h"
 #include "watch_gui.h"
 #include "utilities.h"
+#include "info.h"
 
 extern gchar *eval_entry_history;
 extern gchar *expr_watch_entry_history;
@@ -36,10 +36,6 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 {
 	GdkEventButton *bevent;
 	ExprWatch *ew = user_data;
-	GtkTreeView *view;
-	GtkTreeModel *model;
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;
 
 	if (event->type != GDK_BUTTON_PRESS)
 		return FALSE;
@@ -51,16 +47,6 @@ on_watch_event (GtkWidget * widget, GdkEvent * event, gpointer user_data)
 		gtk_menu_popup (GTK_MENU (ew->widgets.menu), NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
 		return TRUE;
-	}
-
-	view = GTK_TREE_VIEW (widget);
-	model = gtk_tree_view_get_model (view);
-	selection = gtk_tree_view_get_selection (view);
-
-	if (!gtk_tree_selection_get_selected (selection, NULL, &iter) || !event)
-	{
-		g_warning("Error getting selection\n");
-		return FALSE;
 	}
 	return FALSE;
 }
@@ -106,12 +92,6 @@ on_watch_clear_activate (GtkMenuItem * menuitem, gpointer user_data)
 }
 
 void
-on_watch_toggle_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
-}
-
-void
 on_watch_change_activate (GtkMenuItem * menuitem, gpointer user_data)
 {
 	GtkWidget *dialog;
@@ -127,13 +107,6 @@ on_watch_update_activate (GtkMenuItem * menuitem, gpointer user_data)
 	ExprWatch* ew = (ExprWatch*) user_data;
 	
 	expr_watch_cmd_queqe (ew);
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-on_watch_help_activate (GtkMenuItem * menuitem, gpointer user_data)
-{
-
 }
 
 void
@@ -142,12 +115,6 @@ on_ew_add_ok_clicked (GtkButton * button, gpointer user_data)
 	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data),
 													"user_data");
 	add_watch_entry ((GtkEntry *) user_data, ew);
-}
-
-void
-on_ew_add_help_clicked (GtkButton * button, gpointer user_data)
-{
-
 }
 
 void
@@ -165,24 +132,10 @@ on_ew_entry_change_activate (GtkWidget * wid, gpointer user_data)
 }
 
 void
-on_ew_change_help_clicked (GtkButton * wid, gpointer user_data)
-{
-
-}
-
-void
 on_ew_change_ok_clicked (GtkButton * wid, gpointer user_data)
 {
 	ExprWatch* ew =(ExprWatch*)g_object_get_data(G_OBJECT(user_data),"user_data");	
 	change_watch_entry ((GtkEntry *) user_data, ew);
-}
-
-
-
-void
-on_eval_help_clicked (GtkButton * button, gpointer user_data)
-{
-
 }
 
 void
@@ -195,17 +148,50 @@ on_eval_entry_activate (GtkWidget * wid, gpointer user_data)
 void
 on_eval_add_watch (GtkButton * button, gpointer user_data)
 {
-	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data), "user_data");	
+	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data),
+													"user_data");
 	add_watch_entry ((GtkEntry *) user_data, ew);
 }
 
+static void
+eval_output_arrived (Debugger *debugger, const GDBMIValue *mi_result,
+					 const GList * lines, gpointer data)
+{
+	GList *list;
+	const gchar *tmp1, *tmp2;
+	gchar *tmp3 = NULL;
 
+	list = gdb_util_remove_blank_lines (lines);
+	if (g_list_length ((GList*)list) < 1)
+	{
+		g_list_free (list);
+		return;
+	}
+	if (data)
+	{
+		tmp1 = list->data;
+		tmp2 = strchr (tmp1, '=');
+		if (tmp2)
+		{
+			tmp3 = g_strconcat (data, " ", tmp2, NULL);
+			list = g_list_remove (list, tmp1);
+			list = g_list_prepend (list, tmp3);
+		}
+		g_free (data);
+	}
+	gdb_info_show_list (NULL, (GList*)lines, 0, 0);
+	g_list_free (list);
+	if (tmp3)
+		g_free (tmp3);
+}
 
 void
 on_eval_ok_clicked (GtkButton * button, gpointer user_data)
 {
 	GtkEntry *ent;
 	const gchar *buff1;
+	ExprWatch* ew = (ExprWatch*) g_object_get_data (G_OBJECT(user_data),
+													"user_data");	
 
 	ent = (GtkEntry *) user_data;
 	buff1 = gtk_entry_get_text (ent);
@@ -215,13 +201,13 @@ on_eval_ok_clicked (GtkButton * button, gpointer user_data)
 		g_free (eval_entry_history);
 	eval_entry_history = g_strdup (buff1);
 
-	debugger_query_evaluate_expr (buff1, eval_output_arrived, g_strdup (buff1));
-	debugger_query_execute ();
+	expr_watch_evaluate_expression (ew, buff1, eval_output_arrived,
+									g_strdup (buff1));
 }
 
-
 void
-expr_watch_update (GList * lines, gpointer data)
+expr_watch_update (Debugger *debugger, const GDBMIValue *mi_result,
+				   const GList *lines, gpointer data)
 {
 	gchar *ptr, *tmp;
 	GdkColor *color;
@@ -230,6 +216,8 @@ expr_watch_update (GList * lines, gpointer data)
 	GdkColor blue = { 16, 0, 0, -1 };
 	GList *list, *node;
 	GtkTreeModel* model;
+	GtkTreeIter iter;
+	
 	struct watch_cb_data* cb_data = (struct watch_cb_data*)data;
 
 	list = gdb_util_remove_blank_lines (lines);
@@ -261,14 +249,19 @@ expr_watch_update (GList * lines, gpointer data)
 		node = node->next;
 	}
 	
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(cb_data->ew->widgets.clist));	
-	gtk_list_store_set(GTK_LIST_STORE(model), 
-					   cb_data->iter, 
-					   WATCH_VALUE_COLUMN, ptr, -1);
-
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(cb_data->ew->widgets.clist));
+	if (gtk_tree_model_get_iter (model, &iter, cb_data->path))
+	{
+		gtk_list_store_set(GTK_LIST_STORE(model), 
+						   &iter, WATCH_VALUE_COLUMN, ptr, -1);
+	}
+	else
+	{
+		g_warning ("Invalid watch model path");
+	}
 	expr_watch_update_controls (cb_data->ew);
 	
-	gtk_tree_iter_free(cb_data->iter);
+	gtk_tree_path_free (cb_data->path);
 	g_free (ptr);
 	if (list)
 		g_list_free (list);
@@ -309,12 +302,11 @@ add_watch_entry (GtkEntry * ent, ExprWatch* ew)
 	
 	cb_data = g_new0 (struct watch_cb_data, 1);
 	cb_data->ew = ew;
-	cb_data->iter = gtk_tree_iter_copy (&iter);
+	cb_data->path = gtk_tree_model_get_path (model, &iter);
 	
-	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
-	debugger_execute_cmd_in_queqe ();
+	debugger_command (ew->debugger, buff, FALSE, expr_watch_update, cb_data);
 
-/* TODO	an_message_manager_show_pane (app->messages, MESSAGE_WATCHES); */
+	/* TODO	an_message_manager_show_pane (app->messages, MESSAGE_WATCHES); */
 	g_free (buff);
 }
 
@@ -361,10 +353,8 @@ change_watch_entry (GtkEntry * ent, ExprWatch* ew)
 	
 	cb_data = g_new (struct watch_cb_data, 1);
 	cb_data->ew = ew;
-	cb_data->iter = gtk_tree_iter_copy (&iter);
+	cb_data->path = gtk_tree_model_get_path (model, &iter);
 	
-	debugger_put_cmd_in_queqe (buff, DB_CMD_NONE, expr_watch_update, cb_data);
-	debugger_execute_cmd_in_queqe ();
-
+	debugger_command (ew->debugger, buff, FALSE, expr_watch_update, cb_data);
 	g_free (buff);
 }

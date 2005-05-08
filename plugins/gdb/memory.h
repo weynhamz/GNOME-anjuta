@@ -24,13 +24,15 @@
 #ifndef _MEMORY_H
 #define _MEMORY_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+G_BEGIN_DECLS
+
+#include <glade/glade.h>
+#include <gtk/gtkwidget.h>
+#include <gtk/gtktextbuffer.h>
 
 typedef struct _MemApp
 {
+	Debugger *debugger;
 	GladeXML *xml;
 	GtkWidget *dialog;
 	GtkWidget *adr_entry;
@@ -50,11 +52,9 @@ typedef struct _MemApp
 	gboolean new_window;
 } MemApp;
 
-GtkWidget* memory_info_new (guchar *ptr);
+GtkWidget* memory_info_new (Debugger *debugger, GtkWindow *parent, guchar *ptr);
 gchar *memory_info_address_to_decimal (gchar *hex_address);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _MEMORY_H */

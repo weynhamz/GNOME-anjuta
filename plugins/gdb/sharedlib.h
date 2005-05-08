@@ -20,7 +20,10 @@
 #ifndef _SHAREDLIBS_H_
 #define _SHAREDLIBS_H_
 
-#include <gnome.h>
+#include <glib.h>
+#include <gtk/gtkwidget.h>
+
+#include "debugger.h"
 
 typedef struct _SharedlibsGui SharedlibsGui;
 typedef struct _Sharedlibs Sharedlibs;
@@ -35,44 +38,25 @@ struct _SharedlibsGui
 
 struct _Sharedlibs
 {
-  SharedlibsGui  widgets;
-  gboolean         is_showing;
-  gint             win_pos_x, win_pos_y, win_width, win_height;
+	SharedlibsGui  widgets;
+	Debugger *debugger;
+	gboolean is_showing;
+	gint win_pos_x, win_pos_y, win_width, win_height;
 };
 
 Sharedlibs*
-sharedlibs_new(void);
+sharedlibs_new (Debugger *debugger);
 
 void
-create_sharedlibs_gui(Sharedlibs* ew);
-
-GtkWidget*
-create_sharedlibs_modify_dialog(void);
+sharedlibs_clear (Sharedlibs *ew);
 
 void
-sharedlibs_clear(Sharedlibs *ew);
+sharedlibs_destroy (Sharedlibs*ew);
 
 void
-sharedlibs_update(GList *lines, gpointer  ew);
+sharedlibs_show (Sharedlibs * ew);
 
 void
-sharedlibs_destroy(Sharedlibs*ew);
-
-gboolean
-sharedlibs_save_yourself(Sharedlibs* ew, FILE* stream);
-
-/* TODO
-gboolean
-sharedlibs_load_yourself(Sharedlibs* ew, PropsID props);
-*/
-
-void
-sharedlibs_show(Sharedlibs * ew);
-
-void
-sharedlibs_hide(Sharedlibs * ew);
-
-void
-sharedlibs_update_controls(Sharedlibs* ew);
+sharedlibs_hide (Sharedlibs * ew);
 
 #endif
