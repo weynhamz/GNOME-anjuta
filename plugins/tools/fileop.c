@@ -273,14 +273,7 @@ parse_tool_start (GMarkupParseContext* context,
 				}
 				else
 				{
-					if (parser->tool == NULL)
-					{
-						parser->tool = atp_tool_list_append_new (parser->list, tool_name, parser->storage);
-					}
-					else
-					{
-						parser->tool = atp_user_tool_append_new (parser->tool, tool_name, parser->storage);
-					}	
+					parser->tool = atp_tool_list_append_new (parser->list, tool_name, parser->storage);
 					known = TRUE;
 				}
 				break;
@@ -566,21 +559,10 @@ atp_anjuta_tools_load(ATPPlugin* plugin)
 /* Save tools file
  *---------------------------------------------------------------------------*/
 
-#if 0
-/* Writes tool information to the given file in xml format */
-#define STRWRITE(p) if (tool->p && '\0' != tool->p[0]) \
-	{\
-		if (1 > fprintf(f, "\t\t<%s><![CDATA[%s]]></%s>\n", #p, tool->p, #p))\
-			return FALSE;\
-	}
-#define NUMWRITE(p) if (1 > fprintf(f, "\t\t<%s>%d</%s>\n", #p, tool->p, #p))\
-	{\
-		return FALSE;\
-	}
-#endif
+typedef const gchar* const_gchar_ptr;
 
 static gboolean
-write_xml_string (const gchar* value, const gchar* tag, gchar** head, FILE *f)
+write_xml_string (const gchar *value, const gchar *tag, const_gchar_ptr *head, FILE *f)
 {
 	gchar* line;
 
@@ -589,8 +571,7 @@ write_xml_string (const gchar* value, const gchar* tag, gchar** head, FILE *f)
 	/* Check if we need the header */
 	if (*head != NULL)
 	{
-		fputs(*head, f);
-		g_free (*head);
+		fprintf(f, "\t<tool name=\"%s\">\n", *head);
 		*head = NULL;
 	}
 
@@ -603,13 +584,13 @@ write_xml_string (const gchar* value, const gchar* tag, gchar** head, FILE *f)
 }
 
 static gboolean
-write_xml_boolean (gboolean value, const gchar* tag, gchar** head, FILE *f)
+write_xml_boolean (gboolean value, const gchar *tag, const_gchar_ptr *head, FILE *f)
 {
 	return write_xml_string (value ? "1" : "0", tag, head, f);
 }
 
 static gboolean
-write_xml_integer (gint value, const gchar* tag, gchar** head, FILE *f)
+write_xml_integer (gint value, const gchar *tag, const_gchar_ptr *head, FILE *f)
 {
 	gchar buffer[33];
 
@@ -619,7 +600,7 @@ write_xml_integer (gint value, const gchar* tag, gchar** head, FILE *f)
 }
 
 static gboolean
-write_xml_accelerator (guint key, GdkModifierType mods, const gchar* tag, gchar** head, FILE *f)
+write_xml_accelerator (guint key, GdkModifierType mods, const gchar *tag, const_gchar_ptr *head, FILE *f)
 {
 	gchar* value;
 	gboolean ok;
@@ -631,29 +612,68 @@ write_xml_accelerator (guint key, GdkModifierType mods, const gchar* tag, gchar*
 	return ok;
 }
 
+#define SAVE_STRING(func, key) \
+{\
+	const gchar* save; \
+	save = atp_user_tool_get_##func (tool); \
+	if (!over || (save != atp_user_tool_get_##func (over))) \
+		write_xml_string (save, key, &head, f); \
+} 	
+
+#define SAVE_FLAG(flag, key) \
+{\
+	gboolean save; \
+	save = atp_user_tool_get_flag (tool, flag); \
+	if (!over || (save != atp_user_tool_get_flag (over, flag))) \
+		write_xml_boolean (save, key, &head, f); \
+} 
+
+#define SAVE_INTEGER(func, key) \
+{\
+	gint save; \
+	save = atp_user_tool_get_##func (tool); \
+	if (!over || (save != atp_user_tool_get_##func (over))) \
+		write_xml_integer (save, key, &head, f); \
+} 	
+
+#define SAVE_ACCELERATOR(func, key) \
+{\
+	guint save_key; \
+	GdkModifierType save_mask; \
+	guint over_key; \
+	GdkModifierType over_mask; \
+	atp_user_tool_get_##func (tool, &save_key, &save_mask); \
+	if (over) atp_user_tool_get_##func (over, &over_key, &over_mask); \
+	if (!over || (save_key != over_key) || (save_mask != over_mask)) \
+		write_xml_accelerator (save_key, save_mask, key, &head, f); \
+} 	
+
 /* Writes tool information to the given file in xml format */
 static gboolean
 atp_user_tool_save (ATPUserTool *tool, FILE *f)
 {
-	gchar* head;
+	const gchar* head;
 	guint key;
 	GdkModifierType mask;
+	ATPUserTool *over;
 
-	head = g_strdup_printf ("\t<tool name=\"%s\">\n", atp_user_tool_get_name (tool));
+	/* head contains the tool name until the tool header is written */
+	head = atp_user_tool_get_name (tool);
 
-	write_xml_string (atp_user_tool_get_command (tool), "command", &head, f);
-	write_xml_string (atp_user_tool_get_param (tool), "parameter", &head, f);
-	write_xml_string (atp_user_tool_get_working_dir (tool), "working_dir", &head, f);
-	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_ENABLE), "enabled", &head, f);
-	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_AUTOSAVE), "autosave", &head, f);
-	write_xml_boolean (atp_user_tool_get_flag (tool, ATP_TOOL_TERMINAL), "run_in_terminal", &head, f);
-	write_xml_integer (atp_user_tool_get_output (tool), "output", &head, f);
-	write_xml_integer (atp_user_tool_get_error (tool), "error", &head, f);
-	write_xml_integer (atp_user_tool_get_input (tool), "input_type", &head, f);
-	write_xml_string (atp_user_tool_get_input_string (tool), "input", &head, f);
-	atp_user_tool_get_accelerator (tool, &key, &mask);
-	write_xml_accelerator (key, mask, "shortcut", &head, f);
-	write_xml_string (atp_user_tool_get_icon (tool), "icon", &head, f);
+	over = atp_user_tool_override (tool);
+
+	SAVE_STRING (command , "command");	
+	SAVE_STRING (param , "parameter");
+	SAVE_STRING (working_dir, "working_dir");
+	SAVE_FLAG (ATP_TOOL_ENABLE, "enabled");
+	SAVE_FLAG (ATP_TOOL_AUTOSAVE, "autosave");
+	SAVE_FLAG (ATP_TOOL_TERMINAL, "run_in_terminal");
+	SAVE_INTEGER (output, "output");
+	SAVE_INTEGER (error, "error");
+	SAVE_INTEGER (input, "input_type");
+	SAVE_STRING (input_string, "input");
+	SAVE_ACCELERATOR (accelerator, "shortcut");
+	SAVE_STRING (icon, "icon");
 
 	if (head == NULL)
 	{
@@ -663,7 +683,8 @@ atp_user_tool_save (ATPUserTool *tool, FILE *f)
 	}
 	else
 	{
-		g_free (head);
+		/* Force at least one line for the tool */
+		fprintf (f, "\t<tool name=\"%s\"/>\n", atp_user_tool_get_name (tool));
 
 		return FALSE;
 	}
@@ -676,9 +697,7 @@ gboolean atp_anjuta_tools_save(ATPPlugin* plugin)
 {
 	FILE *f;
 	ATPUserTool *tool;
-	ATPUserTool *link;
 	gchar* file_name;
-	gboolean save;
 	gboolean ok;
 	gint storage;
 
@@ -691,34 +710,11 @@ gboolean atp_anjuta_tools_save(ATPPlugin* plugin)
 	}
 	fprintf (f, "<?xml version=\"1.0\"?>\n");
 	fprintf (f, "<anjuta-tools>\n");
-	save = FALSE;
 	ok = TRUE;
-	for (link = atp_tool_list_first (atp_plugin_get_tool_list(plugin)); link != NULL; link = atp_user_tool_next(link))
+	for (tool = atp_tool_list_first_in_storage (atp_plugin_get_tool_list(plugin), ATP_TSTORE_LOCAL); tool != NULL; tool = atp_user_tool_next_in_same_storage(tool))
 	{
-		tool = atp_user_tool_in (link, ATP_TSTORE_LOCAL);
-		if (tool == NULL)
-		{
-			if (save)
-			{
-				for (storage = ATP_TSTORE_LOCAL - 1; storage >= 0; storage--)
-				{
-					tool = atp_user_tool_in (link, storage);
-					if (tool != NULL)
-					{
-						char* line;
-
-						line = g_strdup_printf ("\t<tool name=\"%s\"/>\n", atp_user_tool_get_name (tool));
-						fputs (line, f);
-						g_free (line);
-					}
-				}
-			}
-		}
-		else
-		{
-			if (FALSE == atp_user_tool_save(tool, f)) ok = FALSE;
-			save = TRUE;
-		}
+		/* Tool is in local storage, save it */
+		atp_user_tool_save(tool, f);
 	}
 	fprintf (f, "</anjuta-tools>\n");
 	fclose(f);

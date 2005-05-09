@@ -1,3 +1,21 @@
+2005-05-08  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/anjuta-tools.glade,
+	plugins/tools/dialog.h,
+	plugins/tools/dialog.c,
+	plugins/tools/plugin.c,
+	plugins/tools/editor.c:
+	Improve graphical user interface
+	Remove old code
+	Correct an error on close
+	Some cleanups
+
+	* plugins/tools/fileop.c,
+	plugins/tools/tool.h,
+	plugins/tools/tool.c:
+	Change the tool internal structure
+	Support having tools configuration in several places
+
 2005-05-08  Naba Kumar <naba@gnome.org>
 
 	* plugins/gdb/actions.c,

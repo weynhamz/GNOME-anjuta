@@ -19,9 +19,20 @@
 */
 
 /*
- * Keep all external tool data. All tools are in a list which take care of
- * allocating all memory needed by each tool.
+ * Keep all external tool data (ATPUserTool)
+ * All tools belong to a list (ATPToolList) which take care of allocating 
+ * memory for them. This tool list is implemented with a linked list of all
+ * tools and a hash table to allow a fast access to a tool from its name.
  *
+ * It is possible to read tools configuration from differents files (typically
+ * a file in a system directory and another one in an user directory) and to
+ * have the same tools (= same name) defined in both files. In this case
+ * both are in the list and each tool have a different storage number and are
+ * linked with a pointer named over.
+ *
+ * It is not possible to ordered tool with different storage order. But to
+ * emulate this function, it is possible to create new tools with the same
+ * data in the right storage location.
  *---------------------------------------------------------------------------*/
 
 #include <config.h>
@@ -103,83 +114,261 @@ const ATPEnumType* atp_get_input_type_list (void)
 	return &input_type_list[0];
 }
 
-/* Tool list object containing all tools
+/* Tool object
+ *
  *---------------------------------------------------------------------------*/
 
-ATPToolList *
-atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin, AnjutaUI *ui)
+/* Private functions
+ *---------------------------------------------------------------------------*/
+
+/* Remove tool from list but doesn't remove from hash table */
+
+static gboolean
+atp_user_tool_remove_list (ATPUserTool* this)
 {
-	this->ui = ui;
-	this->plugin = plugin;
-	this->list = NULL;
-	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
-	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
-	this->data_pool = g_mem_chunk_new ("tool pool", sizeof (ATPUserTool), STRING_CHUNK_SIZE * sizeof (ATPUserTool) / 4, G_ALLOC_AND_FREE);
+	g_return_val_if_fail (this, FALSE);
+	g_return_val_if_fail (this->owner, FALSE);
 
-	return this;
-}
-
-void atp_tool_list_destroy (ATPToolList* this)
-{
-	g_hash_table_destroy (this->hash);
-	g_string_chunk_free (this->string_pool);
-	g_mem_chunk_destroy (this->data_pool);
-}
-
-static ATPUserTool *
-atp_tool_list_last (const ATPToolList *this)
-{
-	ATPUserTool* tool;
-
-	tool = this->list;
-	if (tool != NULL)
+	/* Remove from storage list */
+	if (this->owner->list == this)
 	{
-		for (; tool->next != NULL; tool = tool->next);
+		/* First tool in the list */
+		this->owner->list = this->next;
+		if (this->next != NULL)
+		{
+			this->next->prev = NULL;
+		}
+	}
+	else
+	{
+		if (this->next != NULL)
+		{
+			this->next->prev = this->prev;
+		}
+		if (this->prev != NULL)
+		{
+			this->prev->next = this->next;
+		}
+	}
+	this->next = NULL;
+	this->prev = NULL;
+
+	return TRUE;
+}
+
+/* Add tool in list but doesn't add in hash table */
+
+static gboolean
+atp_user_tool_append_list (ATPUserTool *this, ATPUserTool *tool)
+{
+	g_return_val_if_fail (tool, FALSE);
+
+	/* Keep storage type ordered */
+	if (this == NULL)
+	{
+		ATPUserTool* first;
+		/* Insert at the beginning of list (with right storage) */
+		for (first = tool->owner->list; first != NULL; first = first->next)
+		{
+			if (first->storage >= tool->storage) break;
+			this = first;
+		}	
 	}
 
-	return tool;
+	/* If this is NULL insert at the beginning of the list */
+	if (this == NULL)
+	{
+		tool->next = tool->owner->list;
+		if (tool->next != NULL)
+			tool->next->prev = tool;
+		tool->owner->list = tool;
+		tool->prev = NULL;
+	}
+	else if ((this->storage == tool->storage) || (this->next == NULL) || (this->next->storage >= tool->storage))
+	{
+		/* Insert tool in list */
+		tool->prev = this;
+		tool->next = this->next;
+		this->next = tool;
+		if (tool->next)
+		{
+			tool->next->prev = tool;
+		}
+	}
+	else if (this->storage < tool->storage)
+	{
+		ATPUserTool *prev;
+		/* Insert tool at the beginning of storage list */
+		atp_user_tool_append_list (NULL, tool);
+
+		/* Create new tool with the right storage and reorder them */
+		for (prev = tool;(prev = atp_user_tool_previous (prev)) != this;)
+		{
+			ATPUserTool *clone;
+
+			clone = atp_user_tool_new (this->owner, prev->name, tool->storage);
+			atp_user_tool_append_list (tool, clone);
+		}
+	}		
+	else
+	{
+		/* Unable to handle this case */
+		g_return_val_if_reached (FALSE);
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
-/* Create a tool with corresponding name and storage
- *  but does NOT add it in one of the storage list */
+/* Remove from hash table and list */
 
-static ATPUserTool *
-atp_tool_list_new_tool (ATPToolList *this, const gchar *name, ATPToolStore storage)
+gboolean
+atp_user_tool_remove (ATPUserTool *this)
 {
+	if (this->name != NULL)
+	{
+		/* Remove from hash table */
+		ATPUserTool *first;
+
+		first = (ATPUserTool *)g_hash_table_lookup (this->owner->hash, this->name);
+		if (first == NULL)
+		{
+		 	/* Unable to find tool */	
+			g_return_val_if_reached (FALSE);
+		}
+		if (first == this)
+		{
+			if (this->over == NULL)
+			{
+				g_hash_table_remove (this->owner->hash, this->name);
+			}
+			else
+			{
+				g_hash_table_replace (this->owner->hash, this->name, this->over);
+			}
+		}
+		else
+		{
+			for (; first->over != this; first = first->over)
+			{
+				if (first == NULL)
+				{
+					/* Unable to find tool */
+					return FALSE;
+				}
+			}
+			first->over = this->over;
+		}
+	}
+
+	/* Remove from list */
+	return atp_user_tool_remove_list (this);
+}
+
+/* Replace tool name */
+
+static gboolean
+atp_user_tool_replace_name (ATPUserTool *this, const gchar *name)
+{
+	if ((name != NULL) && (g_hash_table_lookup (this->owner->hash, name) != NULL))
+	{
+		/* Name already exist */
+		return FALSE;
+	}
+
+	if (this->name != NULL)
+	{
+		ATPUserTool *first;
+
+		first = (ATPUserTool *) g_hash_table_lookup (this->owner->hash, this->name);
+
+		if (first->over == NULL)
+		{
+			g_return_val_if_fail (first == this, FALSE);
+
+			g_hash_table_remove (this->owner->hash, this->name);
+		}
+		else
+		{
+			/* Remove tool from override list */
+			if (first == this)
+			{
+				g_hash_table_replace (this->owner->hash, this->name, this->over);
+				this->over = NULL;
+			}
+			else
+			{
+				ATPUserTool *tool;
+				
+				for (tool = first; tool->over != this; tool = tool->over)
+				{
+					/* Tool not in list */
+					g_return_val_if_fail (tool->over != NULL, FALSE);
+				}
+				tool->over = this->over;
+			}
+		}
+	}
+
+	/* Add in list */
+	this->name = name == NULL ? NULL : g_string_chunk_insert_const (this->owner->string_pool, name);
+	if (name != NULL)
+	{
+		/* Add name in hash table */
+		g_hash_table_insert (this->owner->hash, this->name, this);
+	}
+
+	return TRUE;
+}
+
+/* Creation and Destruction
+ *---------------------------------------------------------------------------*/
+
+/* Create a tool with corresponding name and storage
+ *  but does NOT add it in the list */
+
+ATPUserTool *
+atp_user_tool_new (ATPToolList *list, const gchar *name, ATPToolStore storage)
+{
+	ATPUserTool *first;
 	ATPUserTool *tool;
 
-	g_return_val_if_fail (this, NULL);
+	g_return_val_if_fail (list, NULL);
 
 	if (name)
 	{
 		/* Search tool in hash table */
-		tool = (ATPUserTool *) g_hash_table_lookup (this->hash, name);
-		if (tool != NULL)
+		first = (ATPUserTool *) g_hash_table_lookup (list->hash, name);
+		if (first != NULL)
 		{
 			/* Search tool in the list */
-			for(;;  tool = tool->over)
+			for(tool = first;;  tool = tool->over)
 			{
-				if (storage == tool->storage)
+				if (tool->storage == storage)
 				{
 					/* Tool already exist */
 
 					return NULL;
 				}
-				else if (storage > tool->storage)
+				else if (tool->storage > storage)
 				{
-					ATPUserTool *over;
+					/* Add tool before */
+					g_return_val_if_fail (tool == first, NULL);
 
-					/* Add tool before, using previous values as default */
-					over = g_chunk_new0(ATPUserTool, this->data_pool);
-					memcpy(over, tool, sizeof (ATPUserTool));
-					tool->over = over;
+					tool = g_chunk_new0(ATPUserTool, list->data_pool);
+					tool->over = first;
+					tool->flags = ATP_TOOL_ENABLE;
+					tool->name = first->name;
+					g_hash_table_replace (list->hash, tool->name, tool);
 					break;
 				}
-				else if (tool->over == NULL)
+				else if ((tool->over == NULL) || (tool->over->storage > storage)) 
 				{
-					/* Add tool after */
-					tool->over = g_chunk_new0(ATPUserTool, this->data_pool);
-					tool->over->name = tool->name;
+					/* Add tool after, using previous values as default */
+					first = g_chunk_new(ATPUserTool, list->data_pool);
+					memcpy(first, tool, sizeof (ATPUserTool));
+					first->over = tool->over;
+					tool->over = first;
 					tool = tool->over;
 					break;
 				}
@@ -188,291 +377,50 @@ atp_tool_list_new_tool (ATPToolList *this, const gchar *name, ATPToolStore stora
 		else
 		{
 			/* Create new tool */
-			tool = g_chunk_new0(ATPUserTool, this->data_pool);
-			tool->name = g_string_chunk_insert_const (this->string_pool, name);
-			g_hash_table_insert (this->hash, tool->name, tool);
+			tool = g_chunk_new0(ATPUserTool, list->data_pool);
+			tool->flags = ATP_TOOL_ENABLE;
+			tool->name = g_string_chunk_insert_const (list->string_pool, name);
+			g_hash_table_insert (list->hash, tool->name, tool);
 		}
 	}
 	else
 	{
 		/* Create stand alone tool */
-		tool = g_chunk_new0(ATPUserTool, this->data_pool);
+		tool = g_chunk_new0(ATPUserTool, list->data_pool);
+		tool->flags = ATP_TOOL_ENABLE;
 	}
 		
 	/* Set default values */
 	tool->storage = storage;
-	tool->owner = this;
-	#if 0
-	tool->enabled = TRUE;
-	tool->output = ATP_MESSAGE_STDOUT;
-	tool->error = ATP_MESSAGE_STDERR;
-	#endif
+	tool->owner = list;
 
 	return tool;
 }
-
-
-
-static ATPUserTool* 
-atp_tool_list_remove (ATPToolList *this, ATPUserTool* tool)
-{
-	ATPUserTool* first;
-
-	g_return_val_if_fail (tool, NULL);
-	g_return_val_if_fail (tool->owner == this, NULL);
-
-	/* Remove from storage list */
-	first = (ATPUserTool *) g_hash_table_lookup (this->hash, tool->name);
-	if (first == tool)
-	{
-		if (this->list == tool)
-		{
-			this->list = tool->next;
-			if (tool->next != NULL)
-			{
-				tool->next->prev = NULL;
-			}
-		}
-		else
-		{
-			if (tool->next != NULL)
-			{
-				tool->next->prev = tool->prev;
-			}
-			if (tool->prev != NULL)
-			{
-				tool->prev->next = tool->next;
-			}
-		}
-	}
-	tool->next = NULL;
-	tool->prev = NULL;
-
-	return tool;
-}
-
-ATPUserTool*
-atp_tool_list_move (ATPToolList *this, ATPUserTool *tool, ATPUserTool *position)
-{
-	ATPUserTool* first;
-
-	g_return_val_if_fail (tool, NULL);
-	g_return_val_if_fail (tool->owner == this, NULL);
-
-	if (tool->name != NULL)
-	{
-		/* Remove tool from list if necessary */
-		first = (ATPUserTool *) g_hash_table_lookup (this->hash, tool->name);
-		if (first == tool)
-		{
-			/* Remove tool from list */
-			if (tool->prev != NULL)
-			{
-				tool->prev->next = tool->next;
-			}
-			if (tool->next != NULL)
-			{
-				tool->next->prev = tool->prev;
-			}
-			if (this->list == tool)
-			{
-				this->list = tool->next;
-			}
-		}
-	}
-
-	/* By default move at the end */
-	if (position == NULL) position = atp_tool_list_last (this);
-
-	if (position == NULL)
-	{
-		tool->prev = NULL;
-		tool->next = NULL;
-		this->list = tool;
-	}
-	else
-	{
-		tool->prev = position;
-		tool->next = position->next;
-		position->next = tool;
-		if (tool->next)
-		{
-			tool->next->prev = tool;
-		}
-	}
-
-	return tool;
-}
-
-static gboolean
-atp_tool_list_unregister (ATPToolList *this, ATPUserTool *tool)
-{
-	/* Remove from hash table and override list */
-	if (tool->name != NULL)
-	{
-		ATPUserTool *first;
-
-		first = (ATPUserTool *)g_hash_table_lookup (this->hash, tool->name);
-		if (first == NULL) return TRUE;
-		if (first == tool)
-		{
-			if (first->over == NULL)
-			{
-				g_hash_table_remove (this->hash, tool->name);
-			}
-			else
-			{
-				g_hash_table_replace (this->hash, tool->name, first->over);
-			}
-		}
-		else
-		{
-			for (; first->over != tool; first = first->over)
-			{
-				if (first == NULL)
-				{
-					/* Unable to find tool */
-					return FALSE;
-				}
-			}
-			first->over = tool->over;
-		}
-	}
-
-	return TRUE;
-}
-
-static gboolean
-atp_tool_list_register (ATPToolList *this, ATPUserTool *tool)
-{
-	g_return_val_if_fail (tool, FALSE);
-	g_return_val_if_fail (tool->owner == this, FALSE);
-
-	if (tool->name != NULL)
-	{
-		ATPUserTool *first;
-
-		/* Add tool in hash table */
-		first = (ATPUserTool *) g_hash_table_lookup (this->hash, tool->name);
-		if (first != NULL)
-		{
-			if (first->storage == tool->storage)
-			{
-				/* Ok if tool is already here */
-				g_return_val_if_fail (first != tool, FALSE);
-			}
-			else if (first->storage < tool->storage)
-			{
-				/* Add before */
-				g_hash_table_replace (this->hash, tool->name, tool);
-			}
-			else
-			{
-				for (; first->over != NULL; first = first->over)
-				{
-					if (first->storage <= tool->storage) break;
-				}
-				if (first->storage == tool->storage)
-				{
-					/* Ok if tool is already here */
-					g_return_val_if_fail (first != tool, FALSE);
-				}
-				else
-				{
-					/* Add after */
-					tool->over = first->over;
-					first->over = tool;
-				}
-			}
-		}
-		else
-		{
-			/* Add new */
-			g_hash_table_insert (this->hash, tool->name, tool);
-		}
-	}
-
-	return TRUE;
-}
-
-ATPUserTool *
-atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore storage)
-{
-	ATPUserTool *tool;
-
-	g_return_val_if_fail (this, NULL);
-
-	/* Create tool */
-	tool = atp_tool_list_new_tool (this, name, storage);
-
-	/* Add it in one of the storage list if necessary */
-	if (tool)
-	{
-		atp_tool_list_move (this, tool, NULL);
-	}
-
-	return tool;
-}
-
-ATPUserTool* atp_tool_list_first (ATPToolList *this)
-{
-	ATPUserTool *tool;
-	guint storage;
-
-	for (storage = 0; storage < ATP_LAST_TSTORE; storage++)
-	{
-		for (tool = this->list; tool != NULL; tool = tool->next)
-		{
-			/* Skip tool not registered */
-			if ((tool->name != NULL) && (g_hash_table_lookup (this->hash, tool->name) == tool))
-			{
-				return tool;
-			}
-		}
-	}
-
-	return NULL;
-}
-
-gboolean atp_tool_list_activate (ATPToolList *this)
-{
-	ATPUserTool *next;
-	GtkMenu* menu;
-	GtkAccelGroup* group;
-
-	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(this->ui), MENU_PLACEHOLDER))));
-	group = anjuta_ui_get_accel_group(this->ui);
-
-	for (next = this->list; next != NULL; next = atp_user_tool_next (next))
-	{
-		atp_user_tool_activate (next, menu, group);
-	}
-
-	return TRUE;
-}
-
-/* Tool object
- *
- *---------------------------------------------------------------------------*/
 
 void
 atp_user_tool_free (ATPUserTool *this)
 {
 	g_return_if_fail (this->owner);
 
-	atp_tool_list_remove (this->owner, this);
-	atp_tool_list_unregister (this->owner, this);
+	atp_user_tool_remove (this);
+	atp_user_tool_deactivate (this);
 
-	if (this->menu_item) gtk_widget_destroy (this->menu_item);
 	g_chunk_free (this, this->owner->data_pool);
 }
+
+
+/* Access tool data
+ *---------------------------------------------------------------------------*/
 
 gboolean
 atp_user_tool_set_name (ATPUserTool *this, const gchar *value)
 {
-	atp_tool_list_unregister (this->owner, this);
-	this->name = value == NULL ? NULL : g_string_chunk_insert_const (this->owner->string_pool, value);
-	return atp_tool_list_register (this->owner, this);
+	if ((value != this->name) && ((value == NULL) || (this->name == NULL) || (strcmp (value, this->name) != 0)))
+	{
+		return atp_user_tool_replace_name (this, value);
+	}
+
+	return TRUE;
 }
 
 const gchar*
@@ -612,15 +560,92 @@ void atp_user_tool_set_icon (ATPUserTool *this, const gchar* value)
 	this->icon = value == NULL ? NULL : g_string_chunk_insert_const (this->owner->string_pool, value);
 }
 
-const gchar* atp_user_tool_get_icon (ATPUserTool *this)
+const gchar* atp_user_tool_get_icon (const ATPUserTool *this)
 {
 	return this->icon;
+}
+
+ATPToolStore atp_user_tool_get_storage (const ATPUserTool *this)
+{
+	return this->storage;
 }
 
 ATPPlugin*
 atp_user_tool_get_plugin (ATPUserTool* this)
 {
 	return this->owner->plugin;
+}
+
+/* Additional tool functions
+ *---------------------------------------------------------------------------*/
+
+ATPUserTool*
+atp_user_tool_next (ATPUserTool *this)
+{
+	for (;this = this->next;)
+	{
+		/* Skip unnamed and overridden tool */
+		if ((this->name != NULL) && (this->over == NULL)) break;
+	}
+
+	return this;
+}
+
+ATPUserTool*
+atp_user_tool_next_in_same_storage (ATPUserTool *this)
+{
+	ATPToolStore storage;
+
+	storage = this->storage;
+	for (;this = this->next;)
+	{
+		/* Skip unnamed */
+		if (this->storage != storage) return NULL;
+		if (this->name != NULL) break;
+	}
+
+	return this;
+}
+
+ATPUserTool*
+atp_user_tool_previous (ATPUserTool *this)
+{
+	for (;this = this->prev;)
+	{
+		/* Skip unnamed and overridden tool */
+		if ((this->name != NULL) && (this->over == NULL)) break;
+	}
+
+	return this;
+}
+
+ATPUserTool*
+atp_user_tool_override (const ATPUserTool *this)
+{
+	ATPUserTool* tool;
+
+	for (tool = g_hash_table_lookup (this->owner->hash, this->name); tool != NULL; tool = tool->over)
+	{
+		if (tool->over == this) return tool;
+	}
+
+	return NULL;
+}
+
+ATPUserTool*
+atp_user_tool_in_storage (ATPUserTool *this, ATPToolStore storage)
+{
+	ATPUserTool* tool;
+	ATPUserTool* last;
+	
+	last = NULL;
+	for (tool = this; tool != NULL; tool = tool->over)
+	{
+		last = tool;
+		if (tool->storage > storage) break;
+	}
+
+	return last;
 }
 
 ATPUserTool*
@@ -631,81 +656,60 @@ atp_user_tool_append_new (ATPUserTool *this, const gchar *name, ATPToolStore sto
 	g_return_val_if_fail (this, NULL);
 
 	/* Create tool */
-	tool = atp_tool_list_new_tool (this->owner, name, storage);
-
-	/* Add it in one of the storage list if necessary */
+	tool = atp_user_tool_new (this->owner, name, storage);
 	if (tool)
 	{
-		atp_tool_list_move (tool->owner, tool, this);
+		atp_user_tool_append_list (this, tool);
 	}
 
 	return tool;
 }
 
 ATPUserTool*
-atp_user_tool_next (const ATPUserTool *this)
+atp_user_tool_clone_new (ATPUserTool *this, ATPToolStore storage)
 {
-	ATPUserTool *next;
+	ATPUserTool *tool;
 
-	for (;;)
+	g_return_val_if_fail (this, NULL);
+
+	/* Create tool */
+	tool = atp_user_tool_new (this->owner, this->name, storage);
+	if (tool)
 	{
-		next = this->next;
-		if (next == NULL)
-		{
-			return NULL;
-		}
-		/* Skip tool not registered */
-		if ((next->name != NULL) && (g_hash_table_lookup (this->owner->hash, next->name) == next))
-		{
-			return next;
-		}
-		this = next;
+		ATPUserTool *prev;
+
+		prev = atp_user_tool_previous (this);
+		atp_user_tool_append_list (prev, tool);
 	}
+
+	return tool;
 }
 
-ATPUserTool*
-atp_user_tool_previous (const ATPUserTool *this)
+gboolean
+atp_user_tool_move_after (ATPUserTool *this, ATPUserTool *position)
 {
-	ATPUserTool *prev;
+	g_return_val_if_fail (this, FALSE);
 
-	for (;;)
-	{
-		prev = this->prev;
-		if (prev == NULL)
-		{
-			return NULL;
-		}
-		/* Skip tool not registered */
-		if ((prev->name != NULL) && (g_hash_table_lookup (this->owner->hash, prev->name) == prev))
-		{
-			return prev;
-		}
-		this = prev;
-	}
+	if (!atp_user_tool_remove_list (this)) return FALSE;
+	return atp_user_tool_append_list (position, this);
 }
 
-ATPUserTool*
-atp_user_tool_in (ATPUserTool *this, ATPToolStore storage)
+void
+atp_user_tool_deactivate (ATPUserTool* this)
 {
-	ATPUserTool* tool;
-
-	for (tool = this; (tool != NULL) && (tool->storage >= storage); tool = tool->over)
+	/* accelerator is destroyed with the widget */
+	if (this->menu_item)
 	{
-		if (tool->storage == storage) return tool;
+	       	gtk_widget_destroy (this->menu_item);
+		this->menu_item = NULL;
 	}
-
-	return NULL;
 }
 
 gboolean
 atp_user_tool_activate (ATPUserTool *this, GtkMenu *submenu, GtkAccelGroup *group)
 {
 	/* Remove previous menu */
-	if (this->menu_item != NULL)
-	{
-		/* destroy signal and icon at the same time */
-		gtk_widget_destroy (this->menu_item);
-	}
+	atp_user_tool_deactivate (this);
 
 	/* Create new menu item */
 	this->menu_item = gtk_image_menu_item_new_with_mnemonic (this->name);
@@ -745,4 +749,139 @@ atp_user_tool_activate (ATPUserTool *this, GtkMenu *submenu, GtkAccelGroup *grou
 
 	return TRUE;
 }
+
+/* Tool list object containing all tools
+ *---------------------------------------------------------------------------*/
+
+ATPToolList *
+atp_tool_list_construct (ATPToolList* this, ATPPlugin* plugin)
+{
+	this->plugin = plugin;
+	this->ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	this->list = NULL;
+	this->hash = g_hash_table_new (g_str_hash, g_str_equal);
+	this->string_pool = g_string_chunk_new (STRING_CHUNK_SIZE);
+	this->data_pool = g_mem_chunk_new ("tool pool", sizeof (ATPUserTool), STRING_CHUNK_SIZE * sizeof (ATPUserTool) / 4, G_ALLOC_AND_FREE);
+
+	return this;
+}
+
+void atp_tool_list_destroy (ATPToolList* this)
+{
+	g_hash_table_destroy (this->hash);
+	g_string_chunk_free (this->string_pool);
+	g_mem_chunk_destroy (this->data_pool);
+}
+
+/*---------------------------------------------------------------------------*/
+
+static ATPUserTool *
+atp_tool_list_last (const ATPToolList *this)
+{
+	ATPUserTool *tool;
+	ATPUserTool *last;
+
+	last = NULL;
+	for (tool = this->list; tool != NULL; tool = tool->next)
+	{
+		/* Skip tool not registered */
+		if (tool->name != NULL)
+		{
+			last = tool;
+		}
+	}
+
+	return last;
+}
+
+static ATPUserTool *
+atp_tool_list_last_in_storage (const ATPToolList *this, ATPToolStore storage)
+{
+	ATPUserTool *tool;
+	ATPUserTool *last;
+
+	last = NULL;
+	for (tool = this->list; tool != NULL; tool = tool->next)
+	{
+		if (tool->storage > storage) break;
+		/* Skip tool not registered */
+		if (tool->name != NULL)
+		{
+			last = tool;
+		}
+	}
+
+	return last;
+}
+
+ATPUserTool*
+atp_tool_list_first (ATPToolList *this)
+{
+	ATPUserTool *tool;
+
+	for (tool = this->list; tool != NULL; tool = tool->next)
+	{
+		/* Skip unnamed and overridden tool*/
+		if ((tool->name != NULL) && (tool->over == NULL))
+		{
+			return tool;
+		}
+	}
+
+	return NULL;
+}
+
+ATPUserTool*
+atp_tool_list_first_in_storage (ATPToolList *this, ATPToolStore storage)
+{
+	ATPUserTool *tool;
+
+	for (tool = this->list; tool != NULL; tool = tool->next)
+	{
+		/* Skip unamed tool */
+		if ((tool->name != NULL) && (tool->storage == storage))
+		{
+			return tool;
+		}
+	}
+
+	return NULL;
+}
+
+ATPUserTool *
+atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore storage)
+{
+	ATPUserTool *tool;
+
+	g_return_val_if_fail (this, NULL);
+
+	/* Create tool */
+	tool = atp_user_tool_new (this, name, storage);
+
+	/* Add it in one of the storage list if necessary */
+	if (tool)
+	{
+		atp_user_tool_append_list (atp_tool_list_last_in_storage (this, storage), tool);
+	}
+
+	return tool;
+}
+
+gboolean atp_tool_list_activate (ATPToolList *this)
+{
+	ATPUserTool *next;
+	GtkMenu* menu;
+	GtkAccelGroup* group;
+
+	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(this->ui), MENU_PLACEHOLDER))));
+	group = anjuta_ui_get_accel_group(this->ui);
+
+	for (next = this->list; next != NULL; next = atp_user_tool_next (next))
+	{
+		atp_user_tool_activate (next, menu, group);
+	}
+
+	return TRUE;
+}
+
 

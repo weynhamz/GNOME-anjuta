@@ -99,12 +99,24 @@ struct _ATPToolList
 	ATPPlugin* plugin;
 };
 
-ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATPToolStore storage);
-void atp_user_tool_free(ATPUserTool *tool);
+/*---------------------------------------------------------------------------*/
 
 const ATPEnumType* atp_get_output_type_list (void);
 const ATPEnumType* atp_get_error_type_list (void);
 const ATPEnumType* atp_get_input_type_list (void);
+
+/*---------------------------------------------------------------------------*/
+
+ATPUserTool* atp_user_tool_new (ATPToolList *list, const gchar* name, ATPToolStore storage);
+void atp_user_tool_free(ATPUserTool *tool);
+
+ATPUserTool *atp_user_tool_append_new (ATPUserTool* this, const gchar *name, ATPToolStore storage);
+ATPUserTool *atp_user_tool_clone_new (ATPUserTool* this, ATPToolStore storage);
+
+gboolean atp_user_tool_activate (ATPUserTool* this, GtkMenu* submenu, GtkAccelGroup* group);
+void atp_user_tool_deactivate (ATPUserTool* this);
+
+gboolean atp_user_tool_move_after (ATPUserTool* this, ATPUserTool* position);
 
 gboolean atp_user_tool_set_name (ATPUserTool *this, const gchar *value);
 const gchar* atp_user_tool_get_name (const ATPUserTool* this);
@@ -135,25 +147,27 @@ void atp_user_tool_set_accelerator (ATPUserTool *this, guint key, GdkModifierTyp
 gboolean atp_user_tool_get_accelerator (const ATPUserTool *this, guint *key, GdkModifierType *mods);
 
 void atp_user_tool_set_icon (ATPUserTool *this, const gchar* value);
-const gchar* atp_user_tool_get_icon (ATPUserTool *this);
+const gchar* atp_user_tool_get_icon (const ATPUserTool *this);
+
+ATPToolStore atp_user_tool_get_storage (const ATPUserTool *this);
 
 ATPPlugin* atp_user_tool_get_plugin (ATPUserTool* this);
 
-ATPUserTool *atp_user_tool_next (const ATPUserTool* this);
-ATPUserTool *atp_user_tool_previous (const ATPUserTool* this);
-ATPUserTool *atp_user_tool_in (ATPUserTool* this, ATPToolStore storage);
-
-gboolean atp_user_tool_activate (ATPUserTool* this, GtkMenu* submenu, GtkAccelGroup* group);
+ATPUserTool *atp_user_tool_next (ATPUserTool* this);
+ATPUserTool *atp_user_tool_next_in_same_storage (ATPUserTool* this);
+ATPUserTool *atp_user_tool_previous (ATPUserTool* this);
+ATPUserTool *atp_user_tool_override (const ATPUserTool* this);
 
 /*---------------------------------------------------------------------------*/
 
-ATPToolList *atp_tool_list_construct (ATPToolList *this, ATPPlugin* plugin, AnjutaUI* ui);
+ATPToolList *atp_tool_list_construct (ATPToolList *this, ATPPlugin* plugin);
 void atp_tool_list_destroy (ATPToolList *this);
 
-ATPUserTool* atp_tool_list_append_new (ATPToolList *this, const gchar *name, ATPToolStore storage);
 ATPUserTool* atp_tool_list_first (ATPToolList *this);
-ATPUserTool* atp_tool_list_move (ATPToolList *this, ATPUserTool *tool, ATPUserTool *position);
+ATPUserTool* atp_tool_list_first_in_storage (ATPToolList *this, ATPToolStore storage);
 
 gboolean atp_tool_list_activate (ATPToolList *this);
+ATPUserTool *atp_tool_list_append_new (ATPToolList* this, const gchar *name, ATPToolStore storage);
+
 
 #endif

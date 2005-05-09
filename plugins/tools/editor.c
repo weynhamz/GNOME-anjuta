@@ -1215,6 +1215,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			anjuta_util_dialog_error(NULL, _("A tool with the same name already exists!"));
 			return;
 		}
+
 		
 		if (ted->shortcut == NULL)
 		{
@@ -1270,9 +1271,10 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		value = gnome_icon_entry_get_filename (ted->icon_en);	
 		atp_user_tool_set_icon (ted->tool, value);
 		g_free (value);	
+
+		atp_tool_dialog_refresh (ted->parent, name);
 	}
 
-	atp_tool_dialog_refresh (ted->parent, name);
 	atp_tool_editor_free (ted);
 }
 
@@ -1397,7 +1399,14 @@ atp_tool_editor_show (ATPToolEditor* ted)
 {
 	GladeXML *xml;
 	guint i;
-	
+
+	if (ted->dialog != NULL)
+	{
+		/* dialog is already displayed */
+		gtk_window_present (GTK_WINDOW (ted->dialog));
+		return TRUE;
+	}
+
 	if (NULL == (xml = glade_xml_new(GLADE_FILE, TOOL_EDITOR, NULL)))
 	{
 		anjuta_util_dialog_error (NULL, _("Unable to build user interface for tool editor"));
@@ -1574,9 +1583,10 @@ atp_tool_editor_list_destroy (ATPToolEditorList* this)
 {
 	ATPToolEditor *ted;
 
-	for (ted = this->first; ted != NULL;)
+	for ( ; (ted = this->first) != NULL;)
 	{
 		atp_tool_editor_free (ted);
+		
 	}		
 }
 

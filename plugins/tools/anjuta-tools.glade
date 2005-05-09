@@ -98,6 +98,7 @@
 		  <property name="rules_hint">False</property>
 		  <property name="reorderable">False</property>
 		  <property name="enable_search">True</property>
+		  <signal name="row_activated" handler="on_tool_activated" last_modification_time="Thu, 05 May 2005 14:42:30 GMT"/>
 		</widget>
 	      </child>
 	    </widget>
@@ -116,7 +117,7 @@
 	      <property name="spacing">5</property>
 
 	      <child>
-		<widget class="GtkButton" id="button10">
+		<widget class="GtkButton" id="edit_bt">
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
@@ -187,7 +188,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkButton" id="button11">
+		<widget class="GtkButton" id="add_bt">
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
@@ -200,7 +201,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkButton" id="button12">
+		<widget class="GtkButton" id="delete_bt">
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
@@ -213,7 +214,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkButton" id="button13">
+		<widget class="GtkButton" id="up_bt">
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
@@ -226,7 +227,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkButton" id="button14">
+		<widget class="GtkButton" id="down_bt">
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>

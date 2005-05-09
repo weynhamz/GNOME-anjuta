@@ -32,6 +32,10 @@ typedef struct _ATPToolDialog ATPToolDialog;
 struct _ATPToolDialog {
 	GtkDialog* dialog;
 	GtkTreeView* view;
+	GtkWidget *edit_bt;
+	GtkWidget *delete_bt;
+	GtkWidget *up_bt;
+	GtkWidget *down_bt;
 	ATPToolEditorList tedl;
 	ATPPlugin* plugin;
 };

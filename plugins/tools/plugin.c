@@ -196,7 +196,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	gtk_widget_show (sep);
 
 	/* Add tool menu item */
-	atp_tool_list_construct (&this->list, this, ui);
+	atp_tool_list_construct (&this->list, this);
 	atp_anjuta_tools_load (this);
 	atp_tool_list_activate (&this->list);
 
