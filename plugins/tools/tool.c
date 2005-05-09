@@ -582,7 +582,7 @@ atp_user_tool_get_plugin (ATPUserTool* this)
 ATPUserTool*
 atp_user_tool_next (ATPUserTool *this)
 {
-	for (;this = this->next;)
+	while ((this = this->next))
 	{
 		/* Skip unnamed and overridden tool */
 		if ((this->name != NULL) && (this->over == NULL)) break;
@@ -597,7 +597,7 @@ atp_user_tool_next_in_same_storage (ATPUserTool *this)
 	ATPToolStore storage;
 
 	storage = this->storage;
-	for (;this = this->next;)
+	while ((this = this->next))
 	{
 		/* Skip unnamed */
 		if (this->storage != storage) return NULL;
@@ -610,7 +610,7 @@ atp_user_tool_next_in_same_storage (ATPUserTool *this)
 ATPUserTool*
 atp_user_tool_previous (ATPUserTool *this)
 {
-	for (;this = this->prev;)
+	while ((this = this->prev))
 	{
 		/* Skip unnamed and overridden tool */
 		if ((this->name != NULL) && (this->over == NULL)) break;
@@ -624,7 +624,8 @@ atp_user_tool_override (const ATPUserTool *this)
 {
 	ATPUserTool* tool;
 
-	for (tool = g_hash_table_lookup (this->owner->hash, this->name); tool != NULL; tool = tool->over)
+	for (tool = g_hash_table_lookup (this->owner->hash, this->name);
+		 tool != NULL; tool = tool->over)
 	{
 		if (tool->over == this) return tool;
 	}

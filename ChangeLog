@@ -1,3 +1,14 @@
+2005-05-09  Naba Kumar <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/gdb/debugger.[ch], plugins/gdb/plugin.c,
+	plugins/gdb/breakpoints.ch, plugins/gdb/gdbmi-test.c,
+	plugins/debug-manager/plugin.c, plugins/gdb/anjuta-gdb-plugin.ui:
+	Implemented debugger source directory search and emits location changed
+	signal with absolute path of the file.
+
+	* plugins/tools/tool.c: Fixed compile errors.
+	
 2005-05-08  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/anjuta-tools.glade,

@@ -89,11 +89,12 @@ struct _DebuggerClass
 
 GType debugger_get_type (void);
 
-Debugger* debugger_new (GtkWindow *parent_win,
+Debugger* debugger_new (GtkWindow *parent_win, const GList *search_dirs,
 						DebuggerOutputFunc output_callback,
 						gpointer user_data);
 
 Debugger* debugger_new_with_program (GtkWindow *parent_win,
+									 const GList *search_dirs,
 									 DebuggerOutputFunc output_callback,
 									 gpointer user_data,
 									 const gchar *program_path,
@@ -111,6 +112,7 @@ void debugger_command (Debugger *debugger, const gchar *command,
 
 void debugger_change_location (Debugger *debugger, const gchar *file,
 							   gint line, const gchar *address);
+gchar* debugger_get_source_path (Debugger *debugger, const gchar *file);
 
 /* Program loading */
 void debugger_load_executable (Debugger *debugger, const gchar *prog);

@@ -47,7 +47,8 @@ output_parser (Debugger* debugger, const GDBMIValue *mi_result,
 }
 
 static void
-on_location_changed (Debugger* debugger, const gchar *file, gint line, gpointer data)
+on_location_changed (Debugger* debugger, const gchar *file, gint line,
+					 gchar *addr, gpointer data)
 {
 	printf ("Location changed %s:%d\n", file, line);
 }
@@ -58,12 +59,14 @@ on_program_running (Debugger* debugger, gpointer data)
 }
 
 static void
-on_program_exited (Debugger* debugger, GDBMIValue *value, gpointer data)
+on_program_exited (Debugger* debugger, const GDBMIValue *value,
+				   gpointer data)
 {
 }
 
 static void
-on_program_stopped (Debugger* debugger, GDBMIValue *value, gpointer data)
+on_program_stopped (Debugger* debugger, const GDBMIValue *value,
+					gpointer data)
 {
 }
 
@@ -98,7 +101,7 @@ main(int argc, char **argv)
 	printf ("Testing debugger\n");
 	gtk_init (&argc, &argv);
 	
-	debugger = debugger_new_with_program (NULL, output_callback, NULL,
+	debugger = debugger_new_with_program (NULL, NULL, output_callback, NULL,
 										  "./gdbmi-test", TRUE);
 	
 	g_signal_connect (debugger, "location-changed",

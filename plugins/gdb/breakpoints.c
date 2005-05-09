@@ -38,7 +38,7 @@
 #include "plugin.h"
 #include "utilities.h"
 
-#define	BKPT_FIELDS	(13)
+#define BREAKPOINT_ITEM_TYPE breakpoint_item_get_type()
 
 typedef enum _BreakpointType BreakpointType;
 typedef struct _BreakpointItem BreakpointItem;
@@ -162,17 +162,6 @@ get_document_manager (AnjutaPlugin *plugin)
 			"IAnjutaDocumentManager", NULL /* TODO */);
 	return IANJUTA_DOCUMENT_MANAGER (obj);
 }
-/*
-void
-breakpoints_info (Debugger *debugger, const GDBMIValue *mi_results,
-				  const GList * outputs, gpointer data )
-{
-	BreakpointsDBase* bd = data;
-	
-	debugger_command (bd->priv->debugger, "info breakpoints", TRUE,
-					  breakpoints_dbase_update, bd);
-}
-*/
 
 void
 enable_all_breakpoints (BreakpointsDBase* bd)
@@ -273,8 +262,46 @@ breakpoint_item_new ()
 	return bi;
 }
 
+static BreakpointItem *
+breakpoint_item_copy (const BreakpointItem *src)
+{
+	BreakpointItem *bi;
+	bi = g_new0 (BreakpointItem, 1);
+	bi->is_editing = src->is_editing;
+	bi->id = src->id;
+	if (src->disp)
+		bi->disp = g_strdup (src->disp);
+	if (src->type)
+		bi->type = g_strdup (src->type);
+	
+	bi->enable = src->enable;
+	
+	if (src->address)
+		bi->address = g_strdup (src->address);
+	
+	bi->pass = src->pass;
+	bi->times = src->times;
+	if (src->condition)
+		bi->condition = g_strdup (src->condition);
+	
+	if (src->file)
+		bi->file = g_strdup (src->file);
+	if (src->file_path)
+		bi->file_path = g_strdup (src->file_path);
+	
+	bi->line = src->line;
+	bi->handle = src->handle;
+	bi->handle_invalid = src->handle_invalid;
+	if (src->function)
+		bi->function = g_strdup (src->function);
+	if (src->info)
+		bi->info = src->info;
+	bi->time = src->time;
+	return bi;
+}
+
 static void
-breakpoint_item_destroy (BreakpointItem *bi)
+breakpoint_item_free (BreakpointItem *bi)
 {
 	g_return_if_fail (bi != NULL);
 
@@ -287,6 +314,19 @@ breakpoint_item_destroy (BreakpointItem *bi)
 	g_free (bi->address);
 
 	g_free (bi);
+}
+
+static GType
+breakpoint_item_get_type (void)
+{
+	static GType type;
+	if (!type)
+	{
+		type = g_boxed_type_register_static ("BreakpointItem",
+										 (GBoxedCopyFunc)breakpoint_item_copy,
+										 (GBoxedFreeFunc)breakpoint_item_free);
+	}
+	return type;
 }
 
 static void
@@ -319,7 +359,6 @@ on_bk_jumpto_clicked (GtkWidget *button, gpointer   data)
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	gboolean valid;
-	IAnjutaDocumentManager *docman;
 
 	bd = (BreakpointsDBase *) data;
 
@@ -331,9 +370,8 @@ on_bk_jumpto_clicked (GtkWidget *button, gpointer   data)
 		BreakpointItem *bi;
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 		breakpoints_dbase_hide (bd);
-		docman = get_document_manager (bd->priv->plugin);
-		ianjuta_document_manager_goto_file_line (docman, bi->file, bi->line,
-												 NULL);
+		debugger_change_location (bd->priv->debugger, bi->file,
+								  bi->line, bi->address);
 	}
 }
 
@@ -771,7 +809,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin, Debugger *debugger)
 									G_TYPE_STRING,
 									G_TYPE_STRING,
 									G_TYPE_STRING,
-									G_TYPE_POINTER);
+									BREAKPOINT_ITEM_TYPE);
 		
 		gtk_tree_view_set_model (view, GTK_TREE_MODEL (store));
 		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (view),
@@ -1510,29 +1548,29 @@ breakpoints_dbase_toggle_breakpoint (BreakpointsDBase *bd,
 	IAnjutaMarkable *markable = NULL;
 	const gchar *filename = NULL;
 
-	if (debugger_is_ready (bd->priv->debugger) == FALSE) return FALSE;
-
 	g_return_val_if_fail (bd != NULL, FALSE);
-
+	g_return_val_if_fail (file != NULL, FALSE);
+	
+	if (debugger_is_ready (bd->priv->debugger) == FALSE) return FALSE;
+		
 	docman = get_document_manager (bd->priv->plugin);
 	g_return_val_if_fail (docman != NULL, FALSE);
-	
-	if (file)
-		ianjuta_document_manager_goto_file_line (docman, file, l, NULL);
-	
 	te = ianjuta_document_manager_get_current_editor (docman, NULL);
-	g_return_val_if_fail (te != NULL, FALSE);
-		
+	
+	if (file == NULL)
+		filename = ianjuta_editor_get_filename (te, NULL);
+	else
+		filename = file;
+	
 	if (l <= 0)
 		line = ianjuta_editor_get_lineno (te, NULL);
 	else
-	{
 		line = l;
-		ianjuta_editor_goto_line (te, line, NULL);
-	}
 
 	/* Is breakpoint set? */
-	if (IANJUTA_IS_MARKABLE (te))
+	if (te &&
+		strcmp (filename, ianjuta_editor_get_filename(te, NULL)) == 0 &&
+		IANJUTA_IS_MARKABLE (te))
 	{
 		markable = IANJUTA_MARKABLE (te);
 		if (ianjuta_markable_is_marker_set (markable, line,

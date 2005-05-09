@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -487,7 +488,7 @@ on_location_changed (Debugger* debugger, const gchar *file, gint line,
 					 const gchar *address, AnjutaPlugin *plugin)
 {
 	IAnjutaDocumentManager *docman = NULL;
-	gchar *msg;
+	gchar *msg, *file_uri;
 	
 	msg = g_strdup_printf (_("Location: %s, line %d\n"), file, line);
 	gdb_util_append_message (plugin, msg);
@@ -495,9 +496,11 @@ on_location_changed (Debugger* debugger, const gchar *file, gint line,
 	
 	docman = anjuta_shell_get_interface (plugin->shell,
 										 IAnjutaDocumentManager, NULL);
+	file_uri = g_strconcat ("file://", file, NULL);
 	if (docman)
-		ianjuta_document_manager_goto_file_line (docman, file,
+		ianjuta_document_manager_goto_file_line (docman, file_uri,
 												 line, NULL);
+	g_free (file_uri);
 }
 
 static void
@@ -523,23 +526,43 @@ on_program_stopped (Debugger* debugger, GDBMIValue *value, GdbPlugin *plugin)
 
 static void
 gdb_initialize_debugger (GdbPlugin *plugin, const gchar *prog,
-						 gboolean is_libtool_target)
+						 gboolean is_libtool_target,
+						 const GList *search_dir_uris)
 {
 	GtkWindow *parent;
+	const GList *node;
+	GList *search_dirs = NULL;
+	
 	g_return_if_fail (plugin->debugger == NULL);
+	
+	/* Convert search dirs to local paths, and reverse them */
+	node = search_dir_uris;
+	while (node)
+	{
+		gchar *local_path;
+		local_path = gnome_vfs_get_local_path_from_uri (node->data);
+		if (local_path)
+			search_dirs = g_list_prepend (search_dirs, local_path);
+		node = g_list_next (node);
+	}
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 	if (prog == NULL)
 	{
-		plugin->debugger = debugger_new (parent, on_output_arrived,
-										 plugin);
+		plugin->debugger = debugger_new (parent, search_dirs,
+										 on_output_arrived, plugin);
 	}
 	else
 	{
-		plugin->debugger = debugger_new_with_program (parent, on_output_arrived,
+		plugin->debugger = debugger_new_with_program (parent, search_dirs,
+													  on_output_arrived,
 													  plugin, prog,
 													  is_libtool_target);
 	}
+	
+	g_list_foreach (search_dirs, (GFunc)g_free, NULL);
+	g_list_free (search_dirs);
+	
 	g_signal_connect (plugin->debugger, "location-changed",
 					  G_CALLBACK (on_location_changed), plugin);
 	g_signal_connect (plugin->debugger, "program-running",
@@ -698,7 +721,7 @@ idebugger_is_busy (IAnjutaDebugger *plugin, GError **err)
 
 static void
 idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
-				GError **err)
+				const GList *search_directories, GError **err)
 {
 	GdbPlugin *gdb_plugin;
 	GnomeVFSURI *vfs_uri;
@@ -723,7 +746,8 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 	if (gdb_debugger_is_active (gdb_plugin) == FALSE &&
 		(prog_uri == NULL || strlen (prog_uri) <= 0))
 	{
-		gdb_initialize_debugger (gdb_plugin, NULL, FALSE);
+		gdb_initialize_debugger (gdb_plugin, NULL, FALSE,
+								 search_directories);
 	}
 	else
 	{
@@ -743,7 +767,8 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 				if (gdb_debugger_is_active (gdb_plugin))
 					debugger_load_executable (gdb_plugin->debugger, filename);
 				else
-					gdb_initialize_debugger (gdb_plugin, filename, FALSE);
+					gdb_initialize_debugger (gdb_plugin, filename, FALSE,
+											 search_directories);
 			}
 			else if (strcmp (mime_type, "application/x-shellscript") == 0)
 			{
@@ -760,7 +785,8 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 					 */
 					basename = g_path_get_basename (filename);
 					dirname = g_path_get_dirname (filename);
-					proper_path = g_build_filename (dirname, ".libs", basename, NULL);
+					proper_path = g_build_filename (dirname, ".libs",
+													basename, NULL);
 					if (g_file_test (proper_path, G_FILE_TEST_IS_EXECUTABLE))
 					{
 						debugger_load_executable (gdb_plugin->debugger,
@@ -780,7 +806,8 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 					/* FIXME: We should really do more checks to confirm that
 					 * this target is indeed libtool target
 					 */
-					gdb_initialize_debugger (gdb_plugin, filename, TRUE);
+					gdb_initialize_debugger (gdb_plugin, filename,
+											 TRUE, search_directories);
 				}
 			}
 			else if (gdb_debugger_is_active (gdb_plugin) &&
@@ -796,7 +823,8 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 			}
 			else if (gdb_debugger_is_active (gdb_plugin) == FALSE)
 			{
-				gdb_initialize_debugger (gdb_plugin, NULL, FALSE);
+				gdb_initialize_debugger (gdb_plugin, NULL,
+										 FALSE, search_directories);
 			}
 			g_free (mime_type);
 		}

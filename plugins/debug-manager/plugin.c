@@ -38,8 +38,36 @@
 static gpointer parent_class;
 
 
-static void on_load_file_response (GtkDialog* dialog, gint id, DebugManagerPlugin* plugin);
+static void on_load_file_response (GtkDialog* dialog, gint id,
+								   DebugManagerPlugin* plugin);
 static void debug_manager_plugin_update_ui (DebugManagerPlugin *plugin);
+
+static GList*
+get_search_directories (DebugManagerPlugin *plugin)
+{
+	gchar *cwd;
+	GList *search_dirs = NULL;
+	
+	cwd = g_get_current_dir();
+	
+	/* Set source file search directories */
+	if (plugin->project_root_uri)
+	{
+		IAnjutaProjectManager *pm;
+		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaProjectManager, NULL);
+		if (pm)
+		{
+			search_dirs =
+				ianjuta_project_manager_get_elements (pm,
+											  IANJUTA_PROJECT_MANAGER_GROUP,
+												  NULL);
+		}
+	}
+	search_dirs = g_list_append (search_dirs, cwd);
+
+	return search_dirs;
+}
 
 static void
 load_file (DebugManagerPlugin* plugin)
@@ -89,7 +117,8 @@ on_load_file_response (GtkDialog* dialog, gint response,
 					   DebugManagerPlugin* plugin)
 {
 	gchar *uri;
-
+	GList *search_dirs;
+	
 	if (response != GTK_RESPONSE_OK)
 	{
 		gtk_widget_destroy (GTK_WIDGET (dialog));
@@ -104,9 +133,12 @@ on_load_file_response (GtkDialog* dialog, gint response,
 
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 	
+	search_dirs = get_search_directories (plugin);
 	ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-									uri, NULL);
+									uri, search_dirs, NULL);
 	g_free (uri);
+	g_list_foreach (search_dirs, (GFunc)g_free, NULL);
+	g_list_free (search_dirs);
 }
 
 static void
@@ -114,33 +146,35 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (!plugin->debugger)
 	{
+		GList *search_dirs = get_search_directories (plugin);
 		if (!plugin->project_root_uri)
 		{
 			ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-											"", NULL);
+											"", search_dirs, NULL);
 		}
 		else
 		{
-			GList *exec_targets;
 			IAnjutaProjectManager *pm;
+			GList *exec_targets;
 			
 			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											 IAnjutaProjectManager, NULL);
 			g_return_if_fail (pm != NULL);
+			
 			exec_targets =
-			ianjuta_project_manager_get_targets (pm, 
+				ianjuta_project_manager_get_targets (pm,
 								 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
-												 NULL);
+													 NULL);
 			if (exec_targets == NULL)
 			{
 				ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-												"", NULL);
+												"", search_dirs, NULL);
 			}
 			else if (g_list_length (exec_targets) == 1)
 			{
 				ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
 												(gchar*)exec_targets->data,
-												NULL);
+												search_dirs, NULL);
 				g_free (exec_targets->data);
 				g_list_free (exec_targets);
 			}
@@ -156,12 +190,13 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				GtkTreeIter iter;
 				const gchar *sel_target = NULL;
 
-				gxml = glade_xml_new (GLADE_FILE, "debugger_start_dialog", NULL);
+				gxml = glade_xml_new (GLADE_FILE, "debugger_start_dialog",
+									  NULL);
 				dlg = glade_xml_get_widget (gxml, "debugger_start_dialog");
 				treeview = glade_xml_get_widget (gxml, "programs_treeview");
 				
 				gtk_window_set_transient_for (GTK_WINDOW (dlg),
-											  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
+								  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
 			
 				store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 				node = exec_targets;
@@ -187,14 +222,16 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				column = gtk_tree_view_column_new ();
 				gtk_tree_view_column_set_sizing (column,
 												 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-				gtk_tree_view_column_set_title (column, _("Select debugging target"));
+				gtk_tree_view_column_set_title (column,
+												_("Select debugging target"));
 				
 				renderer = gtk_cell_renderer_text_new ();
 				gtk_tree_view_column_pack_start (column, renderer, FALSE);
 				gtk_tree_view_column_add_attribute (column, renderer, "text",
 													0);
 				gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
-				gtk_tree_view_set_expander_column (GTK_TREE_VIEW (treeview), column);
+				gtk_tree_view_set_expander_column (GTK_TREE_VIEW (treeview),
+												   column);
 				
 				/* Run dialog */
 				response = gtk_dialog_run (GTK_DIALOG (dlg));
@@ -214,11 +251,14 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				if (sel_target)
 				{
 					ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-													sel_target, NULL);
+													sel_target, search_dirs,
+													NULL);
 				}
 				g_object_unref (gxml);
 			}
 		}
+		g_list_foreach (search_dirs, (GFunc)g_free, NULL);
+		g_list_free (search_dirs);
 	}
 }
 
@@ -260,7 +300,13 @@ on_attach_to_project_action_activate (GtkAction* action, DebugManagerPlugin* plu
 											"", NULL);
 		*/
 		if (plugin->debugger)
-			ianjuta_debugger_load (plugin->debugger, buffer, NULL);
+		{
+			GList *search_dirs;
+			search_dirs = get_search_directories (plugin);
+			ianjuta_debugger_load (plugin->debugger, buffer, search_dirs, NULL);
+			g_list_foreach (search_dirs, (GFunc)g_free, NULL);
+			g_list_free (search_dirs);
+		}
 		g_free (buffer);
 	}
 }
@@ -637,11 +683,14 @@ debug_manager_plugin_class_init (GObjectClass* klass)
 /* Implementation of IAnjutaDebuggerManager interface */
 static void
 idebugger_manager_start (IAnjutaDebuggerManager *debugman,
-						 const gchar *prog_uri, GError** e)
+						 const gchar *prog_uri,
+						 const GList *source_search_directories,
+						 GError** e)
 {
 	DebugManagerPlugin *plugin = (DebugManagerPlugin *) debugman;
 	IAnjutaDebugger *idebugger = get_anjuta_debugger_iface (plugin);
-	ianjuta_debugger_load (idebugger, prog_uri, NULL);
+	ianjuta_debugger_load (idebugger, prog_uri, source_search_directories,
+						   NULL);
 }
 
 static gboolean
@@ -709,8 +758,12 @@ idebugger_manager_iface_init (IAnjutaDebuggerManagerIface *iface)
 static void
 ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 {
+	DebugManagerPlugin *dplugin = (DebugManagerPlugin *) ANJUTA_PLUGIN (plugin);
+	GList *search_dirs = get_search_directories (dplugin);
 	ianjuta_debugger_manager_start (IANJUTA_DEBUGGER_MANAGER (plugin),
-									uri, NULL);
+									uri, search_dirs, NULL);
+	g_list_foreach (search_dirs, (GFunc)g_free, NULL);
+	g_list_free (search_dirs);
 }
 
 static gchar*

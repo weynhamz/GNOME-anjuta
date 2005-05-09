@@ -64,6 +64,8 @@ struct _DebuggerPriv
 	DebuggerOutputFunc output_callback;
 	gpointer output_user_data;
 	
+	GList *search_dirs;
+	
 	gboolean prog_is_running;
 	gboolean prog_is_attached;
 	gboolean debugger_is_ready;
@@ -89,8 +91,8 @@ struct _DebuggerPriv
 gpointer parent_class;
 static guint debugger_signals[LAST_SIGNAL] = { 0 };
 
-static void debugger_start (Debugger *debugger, const gchar *prog,
-							gboolean is_libtool_prog);
+static void debugger_start (Debugger *debugger, const GList *search_dirs,
+							const gchar *prog, gboolean is_libtool_prog);
 static gboolean debugger_stop (Debugger *debugger);
 
 static gchar *debugger_start_terminal (Debugger *debugger);
@@ -152,6 +154,9 @@ debugger_dispose (GObject *obj)
 		g_object_unref (debugger->priv->launcher);
 		debugger->priv->launcher = NULL;
 		debugger_queue_clear (debugger);
+		
+		g_list_foreach (debugger->priv->search_dirs, (GFunc)g_free, NULL);
+		g_list_free (debugger->priv->search_dirs);
 		
 		/* Good Bye message */
 		debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
@@ -245,7 +250,7 @@ debugger_initialize (Debugger *debugger)
 	
 	debugger->priv->output_callback = NULL;
 	debugger->priv->parent_win = NULL;
-	
+	debugger->priv->search_dirs = NULL;
 	debugger->priv->launcher = anjuta_launcher_new ();
 	
 	debugger->priv->prog_is_running = FALSE;
@@ -283,7 +288,8 @@ debugger_instance_init (Debugger *debugger)
 }
 
 Debugger*
-debugger_new (GtkWindow *parent_win, DebuggerOutputFunc output_callback,
+debugger_new (GtkWindow *parent_win, const GList *search_dirs,
+			  DebuggerOutputFunc output_callback,
 			  gpointer user_data)
 {
 	Debugger *debugger;
@@ -293,12 +299,13 @@ debugger_new (GtkWindow *parent_win, DebuggerOutputFunc output_callback,
 	debugger->priv->parent_win = parent_win;
 	debugger->priv->output_callback = output_callback;
 	debugger->priv->output_user_data = user_data;
-	debugger_start (debugger, NULL, FALSE);
+	debugger_start (debugger, search_dirs, NULL, FALSE);
 	return debugger;
 }
 
 Debugger*
 debugger_new_with_program (GtkWindow *parent_win,
+						   const GList *search_dirs,
 						   DebuggerOutputFunc output_callback,
 						   gpointer user_data,
 						   const gchar *program_path,
@@ -311,7 +318,7 @@ debugger_new_with_program (GtkWindow *parent_win,
 	debugger->priv->parent_win = parent_win;
 	debugger->priv->output_callback = output_callback;
 	debugger->priv->output_user_data = user_data;
-	debugger_start (debugger, program_path, is_libtool_prog);
+	debugger_start (debugger, search_dirs, program_path, is_libtool_prog);
 	return debugger;
 }
 
@@ -501,28 +508,25 @@ debugger_load_core (Debugger *debugger, const gchar *core)
 
 	msg = g_strconcat (_("Loading Core: "), core, "\n", NULL);
 	debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL, msg, 
-							   debugger->priv->output_user_data);
+									 debugger->priv->output_user_data);
 	g_free (msg);
 
 	command = g_strconcat ("core ", core, NULL);
 	dir = g_path_get_dirname (core);
-/* TODO
-	anjuta_set_execution_dir(dir);
-*/
-	g_free (dir);
-
+	debugger->priv->search_dirs = 
+		g_list_prepend (debugger->priv->search_dirs, dir);
 	debugger_queue_command (debugger, command, FALSE, NULL, NULL);
 	g_free (command);
 }
 
 static void
-debugger_start (Debugger *debugger, const gchar * prog,
-				gboolean is_libtool_prog)
+debugger_start (Debugger *debugger, const GList *search_dirs,
+				const gchar *prog, gboolean is_libtool_prog)
 {
 	gchar *command_str, *dir, *tmp, *text, *msg;
 	gchar *exec_dir;
 	gboolean ret;
-	GList *list, *node;
+	const GList *node;
 	AnjutaLauncher *launcher;
 	
 	DEBUG_PRINT ("In function: debugger_start()");
@@ -531,9 +535,6 @@ debugger_start (Debugger *debugger, const gchar * prog,
 		return;
 
 	debugger_queue_clear (debugger);
-	// locals_clear (debugger.locals);
-	// debugger->priv->term_is_running = FALSE;
-	// debugger->priv->term_pid = -1;
 
 	tmp = g_strconcat (PACKAGE_DATA_DIR, "/", "gdb.init", NULL);
 	if (g_file_test (tmp, G_FILE_TEST_IS_REGULAR) == FALSE)
@@ -548,76 +549,77 @@ debugger_start (Debugger *debugger, const gchar * prog,
 	}
 	g_free (tmp);
 
-/* TODO	exec_dir = project_dbase_get_module_dir (app->project_dbase, MODULE_SOURCE); */
-	exec_dir = NULL; /* TODO remove this line */
+	/* Prepare source search directories */
+	exec_dir = NULL;
+	if (prog)
+		exec_dir = g_path_get_dirname (prog);
+	
 	if (exec_dir)
 	{
 		dir = g_strconcat (" -directory=", exec_dir, NULL);
-		g_free (exec_dir);
 	}
 	else
+	{
 		dir = g_strdup (" ");
+	}
 	
-/* TODO	list = src_paths_get_paths(app->src_paths); */
-	list = NULL; /* TODO: remove this line */
-	node = list;
+	node = search_dirs;
 	while (node)
 	{
 		text = node->data;
 		if (text[0] == '/')
+		{
 			tmp = g_strconcat (dir, " -directory=", text, NULL);
+			g_free (dir);
+			dir = tmp;
+			
+			debugger->priv->search_dirs =
+				g_list_prepend (debugger->priv->search_dirs, g_strdup (text));
+		}
 		else
 		{
-/* TODO
-			if (app->project_dbase->project_is_open)
-				tmp =
-					g_strconcat (dir, " -directory=",
-						     app->project_dbase->
-						     top_proj_dir, "/", text,
-						     NULL);
-			else
-*/
-				tmp =
-					g_strconcat (dir, " -directory=",
-						     text, NULL);
+			g_warning ("Debugger source search dir '%s' is not absolute",
+					   text);
 		}
-		g_free (dir);
-		dir = tmp;
 		node = g_list_next (node);
 	}
-	anjuta_util_glist_strings_free (list);
+	
+	if (exec_dir)
+		debugger->priv->search_dirs =
+			g_list_prepend (debugger->priv->search_dirs, exec_dir);
+	
 	if (prog && strlen(prog) > 0)
 	{
-		tmp = g_path_get_dirname (prog);
-		chdir (tmp);
-/* TODO
-		anjuta_set_execution_dir (tmp);
-*/
+		if (exec_dir)
+			chdir (exec_dir);
 		if (is_libtool_prog == FALSE)
-			command_str =
-			    g_strdup_printf
-			       ("gdb -q -f -n -i=mi2 %s -cd=%s -x %s/gdb.init %s", dir, tmp,
-			        PACKAGE_DATA_DIR, prog);
+		{
+			command_str = g_strdup_printf ("gdb -q -f -n -i=mi2 %s -cd=%s "
+										   "-x %s/gdb.init %s", dir, tmp,
+										   PACKAGE_DATA_DIR, prog);
+		}
 		else
-			command_str =
-			    g_strdup_printf
-			       ("libtool --mode=execute gdb -q -f -n -i=mi2 %s -cd=%s -x %s/gdb.init %s", dir, tmp,
-			        PACKAGE_DATA_DIR, prog);
-		g_free (tmp);
+		{
+			command_str = g_strdup_printf ("libtool --mode=execute gdb -q "
+										   "-f -n -i=mi2 %s -cd=%s "
+										   "-x %s/gdb.init %s", dir, tmp,
+										   PACKAGE_DATA_DIR, prog);
+		}
 	}
 	else
 	{
 		if (is_libtool_prog == FALSE)
 		{
-			command_str =
-				g_strdup_printf ("gdb -q -f -n -i=mi2 %s -x %s/gdb.init ",
-						 dir, PACKAGE_DATA_DIR);
+			command_str = g_strdup_printf ("gdb -q -f -n -i=mi2 %s "
+										   "-x %s/gdb.init ",
+										   dir, PACKAGE_DATA_DIR);
 		}
 		else
 		{
-			command_str =
-				g_strdup_printf ("libtool --mode=execute gdb -q -f -n -i=mi2 %s -x %s/gdb.init ",
-						 dir, PACKAGE_DATA_DIR);
+			command_str = g_strdup_printf ("libtool --mode=execute gdb "
+										   "-q -f -n -i=mi2 %s -x "
+										   "%s/gdb.init ",
+										   dir, PACKAGE_DATA_DIR);
 		}
 	}
 	g_free (dir);
@@ -635,14 +637,16 @@ debugger_start (Debugger *debugger, const gchar * prog,
 	{
 		/* TODO		anjuta_update_app_status (TRUE, _("Debugger")); */
 		debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
-								   _("Getting ready to start debugging session ...\n"),
-								   debugger->priv->output_user_data);
+										 _("Getting ready to start debugging "
+										   "session ...\n"),
+										 debugger->priv->output_user_data);
 		
 		if (prog)
 		{
 			msg = g_strconcat (_("Loading Executable: "), prog, "\n", NULL);
 			debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
-									   msg, debugger->priv->output_user_data);
+											 msg,
+											 debugger->priv->output_user_data);
 			g_free (msg);
 		}
 		else
@@ -651,18 +655,22 @@ debugger_start (Debugger *debugger, const gchar * prog,
 									   _("No executable specified.\n"),
 									   debugger->priv->output_user_data);
 			debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
-									   _("Open an executable or attach to a process to start debugging.\n"),
-									   debugger->priv->output_user_data);
+											 _("Open an executable or attach "
+											   "to a process to start "
+											   "debugging.\n"),
+											 debugger->priv->output_user_data);
 		}
 	}
 	else
 	{
 		debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
-								   _("There was an error whilst launching the debugger.\n"),
-								   debugger->priv->output_user_data);
+										 _("There was an error whilst "
+										   "launching the debugger.\n"),
+										 debugger->priv->output_user_data);
 		debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
-								   _("Make sure 'gdb' is installed on the system.\n"),
-								   debugger->priv->output_user_data);
+										 _("Make sure 'gdb' is installed "
+										   "on the system.\n"),
+										 debugger->priv->output_user_data);
 	}
 	g_free (command_str);
 }
@@ -759,8 +767,8 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 		
 		if (file_str && line_str)
 		{
-			g_signal_emit_by_name (debugger, "location-changed", file_str,
-								   atoi (line_str), addr_str);
+			debugger_change_location (debugger, file_str,
+									  atoi(line_str), addr_str);
 		}
 	}
 	else if (frame)
@@ -777,8 +785,8 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 			line_str = gdbmi_value_literal_get (line);
 			if (file_str && line_str)
 			{
-				g_signal_emit_by_name (debugger, "location-changed", file_str,
-									   atoi (line_str), addr_str);
+				debugger_change_location (debugger, file_str,
+										  atoi(line_str), addr_str);
 			}
 		}
 	}
@@ -803,8 +811,7 @@ debugger_stdo_flush (Debugger *debugger)
 		gdb_util_parse_error_line (&(line[2]), &filename, &lineno);
 		if (filename)
 		{
-			g_signal_emit_by_name (debugger, "location-changed",
-								   filename, lineno);
+			debugger_change_location (debugger, filename, lineno, NULL);
 			g_free (filename);
 		}
 	}
@@ -1131,7 +1138,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->term_is_running = FALSE;
 	debugger->priv->term_pid = -1;
-	debugger_start (debugger, NULL, FALSE);
+	debugger_start (debugger, NULL, NULL, FALSE);
 	/* TODO	anjuta_update_app_status (TRUE, NULL); */
 }
 
@@ -1197,13 +1204,47 @@ on_debugger_terminal_terminated (int status, gpointer user_data)
 		debugger_stop_program (debugger);
 }
 
+gchar*
+debugger_get_source_path (Debugger *debugger, const gchar *file)
+{
+	GList *node;
+	gchar *path = NULL;
+	
+	if (g_path_is_absolute (file))
+		return g_strdup (file);
+	
+	node = debugger->priv->search_dirs;
+	while (node)
+	{
+		path = g_build_filename (node->data, file, NULL);
+		if (g_file_test (path, G_FILE_TEST_EXISTS))
+			break;
+		g_free (path);
+		node = g_list_next (node);
+	}
+	
+	if (path == NULL)
+	{
+		/* The file could be found nowhere. Use current directory */
+		gchar *cwd;
+		cwd = g_get_current_dir ();
+		path = g_build_filename (cwd, file, NULL);
+		g_free (cwd);
+	}
+	return path;
+}
+
 void
 debugger_change_location (Debugger *debugger, const gchar *file,
 						  gint line, const gchar *address)
 {
-	g_return_if_fail (file != NULL);
+	gchar *src_path;
 	
-	g_signal_emit_by_name (debugger, "location-changed", file, line, address);
+	g_return_if_fail (file != NULL);
+	src_path = debugger_get_source_path (debugger, file);
+	g_signal_emit_by_name (debugger, "location-changed", src_path,
+						   line, address);
+	g_free (src_path);
 }
 
 static gchar *

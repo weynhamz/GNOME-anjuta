@@ -620,7 +620,7 @@ interface IAnjutaDebuggerManager
 	gboolean is_active ();
 	gboolean is_busy ();
 	
-	void start (const gchar *prog_uri);
+	void start (const gchar *prog_uri, const GList *source_search_directories);
 	gboolean stop ();
 }
 
@@ -631,7 +631,7 @@ interface IAnjutaDebugger
 	
 	gboolean is_busy ();
 
-	void load (const gchar *prog_uri);
+	void load (const gchar *prog_uri, const GList *source_search_directories);
 
 	void run_continue ();
 	void step_in ();
