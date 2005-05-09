@@ -358,49 +358,34 @@ on_wizard_import_icon_select (GnomeIconList * gil,
 
 	switch (num)
 	{
-	case 0:
+	  case 0:
 		piw->prj_type = PROJECT_TYPE_GENERIC;
 		break;
-	case 1:
-		piw->prj_type = PROJECT_TYPE_GTK;
-		break;
-	case 2:
-		piw->prj_type = PROJECT_TYPE_GNOME;
-		break;
-	case 3:
-		piw->prj_type = PROJECT_TYPE_GTKMM;
-		break;
-	case 4:
-		piw->prj_type = PROJECT_TYPE_GNOMEMM;
-		break;
-	case 5:
-		piw->prj_type = PROJECT_TYPE_BONOBO;
-		break;
-	case 6:
-		piw->prj_type = PROJECT_TYPE_LIBGLADE;
-		break;
-	case 7:
-		piw->prj_type = PROJECT_TYPE_WXWIN;
-		break;
-	case 8:
+	  case 1:
 		piw->prj_type = PROJECT_TYPE_GTK2;
 		break;
-	case 9:
+	  case 2:
 		piw->prj_type = PROJECT_TYPE_GNOME2;
 		break;
-	case 10:
+	  case 3:
 		piw->prj_type = PROJECT_TYPE_LIBGLADE2;
 		break;
-	case 11:
+	  case 4:
 		piw->prj_type = PROJECT_TYPE_GTKMM2;
 		break;
-	case 12:
+	  case 5:
 		piw->prj_type = PROJECT_TYPE_GNOMEMM2;
 		break;
-	case 13:
+	  case 6:
+		piw->prj_type = PROJECT_TYPE_BONOBO2;
+		break;
+	  case 7:
+		piw->prj_type = PROJECT_TYPE_WXWIN;
+		break;
+	  case 8:
 		piw->prj_type = PROJECT_TYPE_XWIN;
 		break;
-	case 14:
+	  case 9:
 		piw->prj_type = PROJECT_TYPE_XWINDOCKAPP;
 		break;
 	

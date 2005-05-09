@@ -1,3 +1,8 @@
+2005-05-10  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from James Liggett (krliggett@cox.net>:
+	* src/project_import_cbs.c: Fixed project import
+
 2005-04-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/editor/search-replace.c :
