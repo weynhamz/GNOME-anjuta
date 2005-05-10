@@ -27,7 +27,9 @@ plugins/build/compile.c
 plugins/build/compiler_options.c
 plugins/build/configurer.c
 plugins/build/executer.c
+plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
 plugins/build-basic-autotools/build-basic-autotools.c
+plugins/build-basic-autotools/executer.c
 plugins/class-inheritance/class-inherit.c
 plugins/class-inheritance/plugin.c
 plugins/class-gen/action-callbacks.c
@@ -71,10 +73,9 @@ plugins/gdb/debugger.c
 plugins/gdb/info.c
 plugins/gdb/memory.c
 plugins/gdb/plugin.c
-plugins/gdb/registers_gui.c
-plugins/gdb/sharedlib_gui.c
-plugins/gdb/signals_cbs.c
-plugins/gdb/signals_gui.c
+plugins/gdb/registers.c
+plugins/gdb/sharedlib.c
+plugins/gdb/signals.c
 plugins/gdb/stack_trace.c
 plugins/gdb/utilities.c
 plugins/gdb/watch_cbs.c
@@ -146,6 +147,7 @@ plugins/tools/editor.c
 plugins/tools/execute.c
 plugins/tools/fileop.c
 plugins/tools/plugin.c
+plugins/tools/variable.c
 src/about.c
 src/action-callbacks.c
 src/anjuta.c

@@ -45,4 +45,5 @@ libanjuta_class_gen_la_SOURCES= \
 EXTRA_DIST = \
 	$(clsgen_pixmaps_DATA) \
 	$(clsgen_glade_DATA) \
-	$(clsgen_appdata_DATA)
+	$(clsgen_appdata_DATA) \
+	$(clsgen_plugin_DATA)

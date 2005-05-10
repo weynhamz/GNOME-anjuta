@@ -14,25 +14,6 @@ ianjuta-iterable
 
 </para>
 
-<!-- ##### ENUM IAnjutaIterableError ##### -->
-<para>
-
-</para>
-
-@IANJUTA_ITERABLE_INVALID_ITER: 
-@IANJUTA_ITERABLE_UNSETTABLE: 
-
-<!-- ##### STRUCT IAnjutaIterableIter ##### -->
-<para>
-
-</para>
-
-@a: 
-@b: 
-@c: 
-@d: 
-@e: 
-
 <!-- ##### MACRO IANJUTA_ITERABLE_ERROR ##### -->
 <para>
 
@@ -52,18 +33,18 @@ ianjuta-iterable
 </para>
 
 @g_iface: 
-@begin: 
-@copy: 
-@end: 
+@first: 
 @foreach: 
-@free_iter: 
 @get: 
+@get_length: 
+@get_nth: 
+@get_position: 
 @get_settable: 
+@last: 
 @next: 
 @previous: 
-@reset: 
 @set: 
-@valid: 
+@set_nth: 
 
 <!-- ##### FUNCTION ianjuta_iterable_error_quark ##### -->
 <para>
@@ -73,57 +54,18 @@ ianjuta-iterable
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_iterable_begin ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_iterable_copy ##### -->
-<para>
-
-</para>
-
-@obj: 
-@iter: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_iterable_end ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
 <!-- ##### FUNCTION ianjuta_iterable_foreach ##### -->
 <para>
 
 </para>
 
 @obj: 
-@start_iter: 
 @callback: 
+@user_data: 
+@err: 
+<!-- # Unused Parameters # -->
+@start_iter: 
 @user_dat: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_iterable_free_iter ##### -->
-<para>
-
-</para>
-
-@obj: 
-@iter: 
-@err: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_get ##### -->
@@ -132,9 +74,11 @@ ianjuta-iterable
 </para>
 
 @obj: 
-@iter: 
+@data_type: 
 @err: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_get_settable ##### -->
@@ -153,8 +97,10 @@ ianjuta-iterable
 </para>
 
 @obj: 
-@iter: 
 @err: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_previous ##### -->
@@ -163,18 +109,10 @@ ianjuta-iterable
 </para>
 
 @obj: 
-@iter: 
 @err: 
-
-
-<!-- ##### FUNCTION ianjuta_iterable_reset ##### -->
-<para>
-
-</para>
-
-@obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @iter: 
-@err: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_set ##### -->
@@ -183,19 +121,10 @@ ianjuta-iterable
 </para>
 
 @obj: 
-@iter: 
+@data_type: 
 @data: 
 @err: 
-
-
-<!-- ##### FUNCTION ianjuta_iterable_valid ##### -->
-<para>
-
-</para>
-
-@obj: 
+<!-- # Unused Parameters # -->
 @iter: 
-@err: 
-@Returns: 
 
 

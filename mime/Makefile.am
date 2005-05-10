@@ -18,7 +18,7 @@ EXTRA_DIST = \
 	$(mimeicon_DATA)
 
 install-data-local: install-mimexmlDATA
-	update-mime-database $(datadir)/mime
+	update-mime-database $(DESTDIR)$(datadir)/mime
 
 uninstall-local:
-	update-mime-database $(datadir)/mime
+	update-mime-database $(DESTDIR)$(datadir)/mime

@@ -28,8 +28,9 @@ install-data-local: system.tags
 		$(INSTALL_DATA) $$tagsfile $(DESTDIR)$(datadir)/anjuta/tags/; \
 	done
 
+## FIXME: We should only uninstall tags created by us.
 uninstall-local:
-	rm -fr $(anjuta_datadir)/tags
+	rm -fr $(DESTDIR)$(datadir)/anjuta/tags
 
 clean-local:
 	rm -fr system.tags tags

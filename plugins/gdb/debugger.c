@@ -528,6 +528,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	gboolean ret;
 	const GList *node;
 	AnjutaLauncher *launcher;
+	GList *dir_list = NULL;
 	
 	DEBUG_PRINT ("In function: debugger_start()");
 
@@ -557,6 +558,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	if (exec_dir)
 	{
 		dir = g_strconcat (" -directory=", exec_dir, NULL);
+		dir_list = g_list_prepend (dir_list, exec_dir);
 	}
 	else
 	{
@@ -573,8 +575,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 			g_free (dir);
 			dir = tmp;
 			
-			debugger->priv->search_dirs =
-				g_list_prepend (debugger->priv->search_dirs, g_strdup (text));
+			dir_list = g_list_prepend (dir_list, g_strdup (text));
 		}
 		else
 		{
@@ -584,9 +585,15 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 		node = g_list_next (node);
 	}
 	
-	if (exec_dir)
-		debugger->priv->search_dirs =
-			g_list_prepend (debugger->priv->search_dirs, exec_dir);
+	/* Now save the dir list. Order is automatically revesed */
+	node = dir_list;
+	while (node)
+	{
+		debugger->priv->search_dirs = 
+			g_list_prepend (debugger->priv->search_dirs, node->data);
+		node = g_list_next (node);
+	}
+	g_list_free (dir_list);
 	
 	if (prog && strlen(prog) > 0)
 	{
@@ -1776,144 +1783,11 @@ debugger_command (Debugger *debugger, const gchar *command,
 }
 
 
-#if 0
-
-/* FIXME: move the following stuffs to breakpoints.c */
+#if 0 /* FIXME */
 void
-debugger_toggle_breakpoint (const gchar *file, guint l)
+debugger_signal (const gchar *sig, gboolean show_msg)
 {
-	breakpoints_dbase_toggle_breakpoint (debugger.breakpoints_dbase,
-										 file, l);
-}
-
-void
-debugger_enable_breakpoint (gint id)
-{
-	gchar buff[20];
-
-	DEBUG_PRINT ("In function: debugger_enable_breakpoint()");
-	
-	if (debugger_is_active () == FALSE)
-		return;
-	if (debugger_is_ready () == FALSE)
-		return;
-	sprintf (buff, "-break-enable %d", id);
-	debugger_put_cmd_in_queqe (buff, NULL, NULL);
-	/*
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-	*/
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-debugger_enable_all_breakpoints ()
-{
-	DEBUG_PRINT ("In function: debugger_enable_all_breakpoints()");
-	
-	if (debugger_is_active () == FALSE)
-		return;
-	if (debugger_is_ready () == FALSE)
-		return;
-	
-	debugger_put_cmd_in_queqe ("enable breakpoints", NULL, NULL);
-	/*
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-	*/
-	gdb_util_append_message (ANJUTA_PLUGIN (debugger.plugin),
-							 _("All breakpoints enabled"));
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-debugger_disable_breakpoint (gint id)
-{
-	gchar buff[20];
-
-	DEBUG_PRINT ("In function: debugger_disable_breakpoint()");
-	
-	if (debugger_is_active () == FALSE)
-		return;
-	if (debugger_is_ready () == FALSE)
-		return;
-	sprintf (buff, "-break-disable %d", id);
-	debugger_put_cmd_in_queqe (buff, NULL, NULL);
-	/*
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-	*/
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-debugger_disable_all_breakpoints ()
-{
-	DEBUG_PRINT ("In function: debugger_disable_all_breakpoints()");
-	
-	if (debugger_is_active () == FALSE)
-		return;
-	if (debugger_is_ready () == FALSE)
-		return;
-	debugger_put_cmd_in_queqe ("disable breakpoints", NULL, NULL);
-	/*
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-	*/
-	gdb_util_append_message (ANJUTA_PLUGIN (debugger.plugin),
-							 _("All breakpoints disabled"));
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-debugger_delete_breakpoint (gint id)
-{
-	gchar buff[20];
-	DEBUG_PRINT ("In function: debugger_delete_breakpoint()");
-	
-	if (debugger_is_active () == FALSE)
-		return;
-	if (debugger_is_ready () == FALSE)
-		return;
-	sprintf (buff, "-break-delete %d", id);
-	debugger_put_cmd_in_queqe (buff, NULL, NULL);
-	/*
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-	*/
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-debugger_delete_all_breakpoints ()
-{
-	DEBUG_PRINT ("In function: debugger_delete_all_breakpoints()");
-	
-	if (debugger_is_active () == FALSE)
-		return;
-	if (debugger_is_ready () == FALSE)
-		return;
-	debugger_put_cmd_in_queqe ("delete breakpoints", NULL, NULL);
-	/*
-	debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-				   breakpoints_dbase_update,
-				   debugger.breakpoints_dbase);
-	*/
-	gdb_util_append_message (ANJUTA_PLUGIN (debugger.plugin),
-							 _("All breakpoints deleted"));
-	debugger_execute_cmd_in_queqe ();
-}
-
-void
-debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
-{
-/* FIXME */
-#if
+	/* eg:- "SIGTERM" */
 	gchar *buff;
 	gchar *cmd;
 
@@ -1959,52 +1833,6 @@ debugger_signal (const gchar *sig, gboolean show_msg)	/* eg:- "SIGTERM" */
 			anjuta_util_dialog_error (parent,
 									  _("Error whilst signaling the process."));
 	}
-#endif
-}
-
-/* TODO
-void debugger_reload_session_breakpoints( ProjectDBase *p )
-{
-	g_return_if_fail( NULL != p );
-	breakpoints_dbase_load ( debugger.breakpoints_dbase, p );
-}
-
-void 
-debugger_save_session_breakpoints( ProjectDBase *p )
-{
-	g_return_if_fail( NULL != p );
-	breakpoints_dbase_save ( debugger.breakpoints_dbase, p );
-}
-*/
-
-static void
-locals_update_controls(void)
-{
-	debugger_put_cmd_in_queqe ("info locals",
-				   DB_CMD_NONE/*DB_CMD_SE_MESG | DB_CMD_SE_DIALOG*/,
-				   debugger_info_locals_cb, NULL);
-}
-
-static void
-debugger_update_program_status (void)
-{
-	// try to speedup
-	debugger_put_cmd_in_queqe ("info sharedlibrary", DB_CMD_NONE,
-							   sharedlibs_update, debugger.sharedlibs);
-	expr_watch_cmd_queqe (debugger.watch);
-	debugger_put_cmd_in_queqe ("info registers", DB_CMD_NONE,
-							   cpu_registers_update,
-							   debugger.cpu_registers);
-	debugger_put_cmd_in_queqe ("backtrace", DB_CMD_NONE,
-							   stack_trace_update, debugger.stack);
-	locals_update_controls();
-
-	debugger_execute_cmd_in_queqe ();
-}
-
-static void debugger_info_locals_cb (GList* list, gpointer data)
-{
-	locals_update (debugger.locals, list, data);
 }
 
 static void

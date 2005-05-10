@@ -133,19 +133,6 @@ void debugger_run_to_location (Debugger *debugger, const gchar *loc);
 
 #if 0
 
-/* Breakpoints */
-void debugger_toggle_breakpoint (const char *file, guint l);
-void debugger_enable_breakpoint (gint id);
-void debugger_enable_all_breakpoints (void);
-void debugger_disable_breakpoint (gint id);
-void debugger_disable_all_breakpoints (void);
-void debugger_delete_breakpoint (gint id);
-void debugger_delete_all_breakpoints (void);
-
-// void debugger_frame (void);
-// void debugger_signal (const gchar * sig, gboolean show_error);/*eg: "SIGTERM"*/
-// void debugger_shared_library (void);
-
 /* Evaluations */
 void debugger_query_execute (void);
 void debugger_query_evaluate_expr_tip (const gchar *expr,

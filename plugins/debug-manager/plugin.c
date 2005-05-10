@@ -46,7 +46,9 @@ static GList*
 get_search_directories (DebugManagerPlugin *plugin)
 {
 	gchar *cwd;
-	GList *search_dirs = NULL;
+	GList *node, *search_dirs = NULL;
+	GList *slibs_dirs = NULL;
+	GList *libs_dirs = NULL;
 	
 	cwd = g_get_current_dir();
 	
@@ -58,15 +60,47 @@ get_search_directories (DebugManagerPlugin *plugin)
 										 IAnjutaProjectManager, NULL);
 		if (pm)
 		{
-			search_dirs =
-				ianjuta_project_manager_get_elements (pm,
-											  IANJUTA_PROJECT_MANAGER_GROUP,
+			slibs_dirs =
+				ianjuta_project_manager_get_targets (pm,
+					IANJUTA_PROJECT_MANAGER_TARGET_SHAREDLIB,
+												  NULL);
+			libs_dirs =
+				ianjuta_project_manager_get_targets (pm,
+					IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB,
 												  NULL);
 		}
 	}
-	search_dirs = g_list_append (search_dirs, cwd);
-
-	return search_dirs;
+	slibs_dirs = g_list_reverse (slibs_dirs);
+	libs_dirs = g_list_reverse (libs_dirs);
+	
+	search_dirs = g_list_prepend (search_dirs, g_strconcat ("file://",
+															cwd, NULL));
+	g_free (cwd);
+	
+	node = slibs_dirs;
+	while (node)
+	{
+		gchar *dir_uri;
+		dir_uri = g_path_get_dirname (node->data);
+		search_dirs = g_list_prepend (search_dirs, dir_uri);
+		node = g_list_next (node);
+	}
+	
+	node = libs_dirs;
+	while (node)
+	{
+		gchar *dir_uri;
+		dir_uri = g_path_get_dirname (node->data);
+		search_dirs = g_list_prepend (search_dirs, dir_uri);
+		node = g_list_next (node);
+	}
+	
+	g_list_foreach (slibs_dirs, (GFunc)g_free, NULL);
+	g_list_free (slibs_dirs);
+	g_list_foreach (libs_dirs, (GFunc)g_free, NULL);
+	g_list_free (libs_dirs);
+	
+	return g_list_reverse (search_dirs);
 }
 
 static void

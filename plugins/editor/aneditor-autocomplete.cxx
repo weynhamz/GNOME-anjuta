@@ -86,7 +86,8 @@ bool AnEditor::StartAutoComplete() {
 	linebuf.change(current, '\0');
 	const char *root = linebuf.c_str() + startword;
 	int rootlen = current - startword;
-	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL, TRUE, TRUE);
+	const GPtrArray *tags = tm_workspace_find(root, tm_tag_max_t, NULL,
+											  TRUE, TRUE);
 	if (NULL != tags)
 	{
 		GString *words = g_string_sized_new(100);
@@ -205,7 +206,8 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 	
 	{
 		TMTag *tag;
-		if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags, Line))))
+		if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags,
+														 Line))))
 		{
 			return NULL;
 		}
@@ -215,7 +217,7 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 	size_t rootlen = strlen(root);
 	posCurrentWord -= (rootlen + (type ? 1 : 2));
 	int EndBlokLine = 
-	GetBlockEndLine(SendEditor(SCI_LINEFROMPOSITION , posCurrentWord));  
+		GetBlockEndLine(SendEditor(SCI_LINEFROMPOSITION , posCurrentWord));  
 	if(EndBlokLine < 0) return NULL;
 		
 	SString linebuf;
@@ -772,6 +774,11 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 		}
 		linebuf.change(endword, tmp_chr);
 	
+		if (ScanType->atts.entry.file == NULL)
+		{
+			if(new_name) g_free(new_name);
+				return false;
+		}
 		CurrentFileTags = ScanType->atts.entry.file->work_object.tags_array;
 		name = ScanType->atts.entry.var_type;
 		isPointer = ScanType->atts.entry.isPointer;
@@ -923,7 +930,8 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	ft.chrg.cpMin = 0;
 	ft.chrgText.cpMin = 0;
 	ft.chrgText.cpMax = 0;
-	int flags = SCFIND_WORDSTART | (autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
+	int flags = SCFIND_WORDSTART |
+		(autoCompleteIgnoreCase ? 0 : SCFIND_MATCHCASE);
 	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS) - rootlen;
 
 	for (;;) {	// search all the document

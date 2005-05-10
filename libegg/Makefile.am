@@ -8,9 +8,8 @@ INCLUDES = \
 	$(GNOME_VFS_MODULE_CFLAGS) \
 	$(GNOME_UI_CFLAGS) \
 	$(GCONF_CFLAGS) \
+	$(DEPRECATED_FLAGS) \
 	-DEGG_COMPILATION \
-	-DGDK_DISABLE_DEPRECATED \
-	-DG_DISABLE_DEPRECATED \
 	-DEGG_GLADEDIR=\"$(gladefiledir)\" \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/libegg \

@@ -1068,6 +1068,25 @@ Properties
 @extentions: 
 @pattern: 
 
+<!-- ##### ENUM IAnjutaIterableError ##### -->
+<para>
+
+</para>
+
+@IANJUTA_ITERABLE_INVALID_ITER: 
+@IANJUTA_ITERABLE_UNSETTABLE: 
+
+<!-- ##### STRUCT IAnjutaIterableIter ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
+@c: 
+@d: 
+@e: 
+
 <!-- ##### MACRO MAX_NAME_LENGTH ##### -->
 <para>
 
@@ -1732,6 +1751,72 @@ Properties
 </para>
 
 @obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_begin ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_copy ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_end ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_free_iter ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_reset ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_tree_get_children ##### -->
+<para>
+
+</para>
+
+@obj: 
+@ter: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_valid ##### -->
+<para>
+
+</para>
+
+@obj: 
+@iter: 
 @err: 
 @Returns: 
 

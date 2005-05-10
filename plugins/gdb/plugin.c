@@ -545,6 +545,7 @@ gdb_initialize_debugger (GdbPlugin *plugin, const gchar *prog,
 			search_dirs = g_list_prepend (search_dirs, local_path);
 		node = g_list_next (node);
 	}
+	search_dirs = g_list_reverse (search_dirs);
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 	if (prog == NULL)

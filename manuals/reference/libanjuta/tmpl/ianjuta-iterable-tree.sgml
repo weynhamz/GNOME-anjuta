@@ -33,7 +33,9 @@ ianjuta-iterable-tree
 </para>
 
 @g_iface: 
-@get_children: 
+@children: 
+@foreach_post: 
+@foreach_pre: 
 @has_children: 
 @parent: 
 
@@ -45,26 +47,16 @@ ianjuta-iterable-tree
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_iterable_tree_get_children ##### -->
-<para>
-
-</para>
-
-@obj: 
-@ter: 
-@err: 
-@Returns: 
-
-
 <!-- ##### FUNCTION ianjuta_iterable_tree_has_children ##### -->
 <para>
 
 </para>
 
 @obj: 
-@iter: 
 @err: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_tree_parent ##### -->
@@ -73,7 +65,9 @@ ianjuta-iterable-tree
 </para>
 
 @obj: 
-@iter: 
 @err: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@iter: 
 
 

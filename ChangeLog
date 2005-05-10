@@ -1,3 +1,32 @@
+2005-05-10  Naba Kumar <naba@gnome.org>
+
+	* configure.in, manuals/Makefile.am: Fixed compile flags.
+	Disable outdated manuals builds.
+	
+	* global-tags/Makefile.am: Uninstall tags files on
+	'make uninstall'
+	
+	* libegg/Makefile.am: Use configured deprecated flags.
+	
+	* manuals/reference/libanjuta/tmpl/ianjuta-iterable-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml:
+	Updated.
+	
+	* mime/Makefile.am: Take DESTDIR into account.
+	
+	* plugins/class-gen/Makefile.am: Fixed 'make distcheck' errors.
+	
+	* plugins/editor/aneditor-autocomplete.cxx: Fixed crash bug
+	on scope autocompletion.
+	
+	* plugins/debug-manager/plugin.c, plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h, plugins/gdb/plugin.c: Use project
+	shared libs and static libs paths for debugging. Order them
+	correctly.
+	
+	* po/POTFILES.in: Updated.
+
 2005-05-09  Naba Kumar <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
