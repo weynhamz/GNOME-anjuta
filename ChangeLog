@@ -1,4 +1,19 @@
 2005-05-11  Naba Kumar <naba@gnome.org>
+	
+	* plugins/gdb/actions.c, plugins/gdb/breakpoints.c,
+	plugins/gdb/breakpoints.h, plugins/gdb/debug_tree.c,
+	plugins/gdb/plugin.c, plugins/gdb/plugin.h,
+	plugins/gdb/registers.c, plugins/gdb/stack_trace.c,
+	plugins/gdb/watch.c: Completed breakpoints implementation. Fixed
+	memory leaks.
+	
+	* plugins/symbol-browser/an_symbol_prefs.c,
+	plugins/symbol-browser/an_symbol_search.c,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/an_symbol_view.h,
+	plugins/symbol-browser/plugin.c: Fixed memory leaks.
+
+2005-05-11  Naba Kumar <naba@gnome.org>
 
 	* libanjuta/anjuta-shell.c: Fixed runtime warning.
 	

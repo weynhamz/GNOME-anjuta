@@ -39,28 +39,9 @@ struct _BreakpointsDBase
 BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin,
 										 Debugger *debugger);
 
-/* TODO
-void breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb );
-*/
-
 void breakpoints_dbase_show (BreakpointsDBase * bd);
 
 void breakpoints_dbase_hide (BreakpointsDBase * bd);
-
-void breakpoints_dbase_attach (BreakpointsDBase * bd);
-
-void breakpoints_dbase_detach (BreakpointsDBase * bd);
-
-void breakpoints_dbase_dock (BreakpointsDBase * bd);
-
-void breakpoints_dbase_undock (BreakpointsDBase * bd);
-
-void breakpoints_dbase_update (Debugger *debugger, const GDBMIValue *mi_values,
-							   const GList * outputs, gpointer p);
-
-void breakpoints_dbase_add_bp (BreakpointsDBase * bd);
-
-void breakpoints_dbase_append (BreakpointsDBase * bd, gchar * string);
 
 void breakpoints_dbase_clear (BreakpointsDBase * bd);
 
@@ -68,8 +49,7 @@ void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
 void breakpoints_dbase_add (BreakpointsDBase *bd);
 
-gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd,
-											  const gchar *file, guint l);
+gboolean breakpoints_dbase_toggle_breakpoint (BreakpointsDBase* bd, guint l);
 
 gboolean breakpoints_dbase_toggle_doubleclick (BreakpointsDBase* bd,
 											   guint line);
@@ -78,16 +58,8 @@ void breakpoints_dbase_toggle_singleclick (BreakpointsDBase* bd,
 										   guint line);
 
 void breakpoints_dbase_disable_all (BreakpointsDBase *bd);
-
+void breakpoints_dbase_enable_all (BreakpointsDBase *bd);
 void breakpoints_dbase_remove_all (BreakpointsDBase *bd);
-
-gboolean breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream);
-
-/* TODO
-gboolean breakpoints_dbase_load_yourself (BreakpointsDBase * bd, PropsID props);
-
-void breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p );
-*/
 
 void breakpoints_dbase_set_all (BreakpointsDBase * bd);
 
@@ -95,9 +67,15 @@ void breakpoints_dbase_update_controls (BreakpointsDBase * bd);
 
 void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd,
 										  IAnjutaEditor* te);
-
 void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd,
-											IAnjutaEditor* te);
+											GObject* dead_te);
+/* TODO
+gboolean breakpoints_dbase_save_yourself (BreakpointsDBase * bd, FILE * stream);
+gboolean breakpoints_dbase_load_yourself (BreakpointsDBase * bd, PropsID props);
+void breakpoints_dbase_save (BreakpointsDBase * bd, ProjectDBase * pdb );
+void breakpoints_dbase_load (BreakpointsDBase * bd, ProjectDBase *p );
+*/
+
 G_END_DECLS
 											
 #endif

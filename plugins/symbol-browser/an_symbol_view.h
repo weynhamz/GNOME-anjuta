@@ -56,17 +56,17 @@ GList* anjuta_symbol_view_get_node_expansion_states (AnjutaSymbolView *sv);
 void   anjuta_symbol_view_set_node_expansion_states (AnjutaSymbolView *sv,
 													 GList *expansion_states);
 
-G_CONST_RETURN gchar* anjuta_symbol_view_get_current_symbol (AnjutaSymbolView *sv);
+gchar* anjuta_symbol_view_get_current_symbol (AnjutaSymbolView *sv);
 
 void anjuta_symbol_view_add_source (AnjutaSymbolView *sv, const gchar *filename);
 void anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename);
 
 /* Returns TRUE if file and line are updated */
 gboolean anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView *sv,
-													const gchar** const file,
+													gchar** file,
 													gint *line);
 gboolean anjuta_symbol_view_get_current_symbol_decl (AnjutaSymbolView *sv,
-													 const gchar** const file,
+													 gchar** file,
 													 gint *line);
 GtkTreeModel *anjuta_symbol_view_get_file_symbol_model (AnjutaSymbolView *sv);
 

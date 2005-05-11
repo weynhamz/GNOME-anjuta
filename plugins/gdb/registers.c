@@ -167,6 +167,7 @@ on_registers_selecton_changed (GtkTreeSelection *selection, gpointer user_data)
 			cr->current_index = atoi (num);
 		else
 			cr->current_index = -1;
+		g_free (num);
 	}
 	else
 	{

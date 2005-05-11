@@ -53,7 +53,7 @@ debugger_info_command (Debugger *debugger, const gchar *command,
 void
 on_toggle_breakpoint_activate (GtkAction * action, GdbPlugin *plugin)
 {
-	breakpoints_dbase_toggle_breakpoint (plugin->breakpoints, NULL, 0);
+	breakpoints_dbase_toggle_breakpoint (plugin->breakpoints, 0);
 }
 
 void

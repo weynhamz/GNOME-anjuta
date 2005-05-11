@@ -132,7 +132,7 @@ select_loaded_tags (GtkListStore * store, AnjutaPreferences *prefs)
 	{
 		do
 		{
-			const gchar *tag_path;
+			gchar *tag_path;
 			
 			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
 								COLUMN_PATH, &tag_path,
@@ -141,6 +141,7 @@ select_loaded_tags (GtkListStore * store, AnjutaPreferences *prefs)
 				gtk_list_store_set (store, &iter, COLUMN_LOAD, TRUE, -1);
 			else
 				gtk_list_store_set (store, &iter, COLUMN_LOAD, FALSE, -1);
+			g_free (tag_path);
 		}
 		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
 	}
@@ -219,7 +220,7 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 	GtkTreePath *path;
 	gboolean enabled;
 	AnjutaPreferences *prefs;
-	const gchar *tag_path, *saved_path;
+	gchar *tag_path;
 	GList *enabled_paths;
 	GtkListStore *store;
 	AnjutaStatus *status;
@@ -234,7 +235,6 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
 	gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
 						COLUMN_LOAD, &enabled,
-						COLUMN_PATH, &saved_path,
 						-1);
 	enabled = !enabled;
 	gtk_list_store_set (store, &iter, COLUMN_LOAD, enabled, -1);
@@ -250,8 +250,7 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 								COLUMN_PATH, &tag_path,
 								-1);
 			if (enabled)
-				enabled_paths = g_list_prepend (enabled_paths,
-												(gpointer)tag_path);
+				enabled_paths = g_list_prepend (enabled_paths, tag_path);
 			
 		}
 		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
@@ -296,7 +295,7 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 		/* Update preferences */
 		final_str = g_string_free (str, FALSE);
 		anjuta_preferences_set (prefs, SYMBOL_BROWSER_TAGS, final_str);
-		
+		g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
 		g_list_free (enabled_paths);
 		g_free (final_str);
 	}
@@ -440,7 +439,7 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 		{
 			do
 			{
-				const gchar *dir;
+				gchar *dir;
 				gchar *files;
 				
 				gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
@@ -460,6 +459,8 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 				DEBUG_PRINT ("%d: Adding scan files '%s'", argc, files);
 				argv[argc++] = g_strconcat ("\"", files, "\"", NULL);
 				g_free (files);
+				
+				g_free (dir);
 			}
 			while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
 		}
@@ -598,7 +599,7 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 	sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (plugin->pref_tree_view));
 	if (gtk_tree_selection_get_selected (sel, &model, &iter))
 	{
-		const gchar *tags_filename;
+		gchar *tags_filename;
 		gtk_tree_model_get (model, &iter, 1, &tags_filename, -1);
 		if (tags_filename)
 		{
@@ -611,11 +612,11 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 			{
 				anjuta_util_dialog_error (GTK_WINDOW (parent),
 										  "Can not remove tags file '%s': "
-										  "You can only remove tags you created or added",
+						  "You can only remove tags you created or added",
 										  tags_filename);
 			}
 			else if (anjuta_util_dialog_boolean_question (GTK_WINDOW (parent),
-														  "Are you sure you want to remove the tags file '%s'?",
+					  "Are you sure you want to remove the tags file '%s'?",
 														  tags_filename))
 			{
 				unlink (file_path);
@@ -623,6 +624,7 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 			}
 			g_free (file_path);
 			g_free (path);
+			g_free (tags_filename);
 		}
 	}
 }

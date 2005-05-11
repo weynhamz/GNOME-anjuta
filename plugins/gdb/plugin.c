@@ -343,6 +343,11 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	editor = g_value_get_object (value);
 	gdb_plugin = (GdbPlugin*)plugin;
 	gdb_plugin->current_editor = editor;
+	
+	/* Restore breakpoints */
+	if (gdb_plugin->breakpoints)
+		breakpoints_dbase_set_all_in_editor (gdb_plugin->breakpoints,
+											 IANJUTA_EDITOR (editor));
 }
 
 static void
@@ -350,6 +355,9 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	GdbPlugin *gdb_plugin = (GdbPlugin*)plugin;
+	if (gdb_plugin->breakpoints && gdb_plugin->current_editor)
+		breakpoints_dbase_clear_all_in_editor (gdb_plugin->breakpoints,
+											   gdb_plugin->current_editor);
 	gdb_plugin->current_editor = NULL;
 }
 
@@ -667,6 +675,13 @@ gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 		breakpoints_dbase_destroy (gdb_plugin->breakpoints);
 		
 		gdb_plugin->debugger = NULL;
+		gdb_plugin->watch = NULL;
+		gdb_plugin->locals = NULL;
+		gdb_plugin->stack = NULL;
+		gdb_plugin->registers = NULL;
+		gdb_plugin->sharedlibs = NULL;
+		gdb_plugin->signals = NULL;
+		gdb_plugin->breakpoints = NULL;
 	}
 	
 	/* Remvove action groups */
@@ -951,8 +966,11 @@ idebugger_breakpoint_toggle (IAnjutaDebugger *plugin, const gchar *file_uri,
 		else
 			line = file_line;
 		
+		/* FIXME:
 		breakpoints_dbase_toggle_breakpoint (gdb_plugin->breakpoints,
 											 filename, line);
+		*/
+		breakpoints_dbase_toggle_breakpoint (gdb_plugin->breakpoints, line);
 	}
 	gnome_vfs_uri_unref (vfs_uri);
 }

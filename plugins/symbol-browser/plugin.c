@@ -119,7 +119,7 @@ goto_file_tag (SymbolBrowserPlugin *sv_plugin, const char *symbol,
 static void
 on_goto_def_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
-	const gchar *file;
+	gchar *file;
 	gint line;
 	gboolean ret;
 	
@@ -128,13 +128,14 @@ on_goto_def_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	if (ret)
 	{
 		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
+		g_free (file);
 	}
 }
 
 static void
 on_goto_decl_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
-	const gchar *file;
+	gchar *file;
 	gint line;
 	gboolean ret;
 	
@@ -143,6 +144,7 @@ on_goto_decl_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	if (ret)
 	{
 		goto_file_line (ANJUTA_PLUGIN (sv_plugin), file, line);
+		g_free (file);
 	}
 }
 
@@ -187,11 +189,12 @@ on_goto_file_tag_def_activate (GtkAction * action,
 static void
 on_find_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
-	const gchar *symbol;
+	gchar *symbol;
 	symbol = anjuta_symbol_view_get_current_symbol (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 	if (symbol)
 	{
 		g_warning ("TODO: Unimplemented");
+		g_free (symbol);
 	}
 }
 

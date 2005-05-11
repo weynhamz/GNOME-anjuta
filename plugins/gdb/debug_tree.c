@@ -692,11 +692,19 @@ is_long_array (GtkTreeView * ctree, GtkTreeIter* parent)
 	while (success)
 	{
 		gtk_tree_model_get(model, &iter, VALUE_COLUMN, &text, -1);
-		if (!text)
-			g_warning("Error getting value\n");
-		else
+		if (text)
+		{
 			if (strstr (text, "<repeats"))
+			{
+				g_free (text);
 				return TRUE;
+			}
+			g_free (text);
+		}
+		else
+		{
+			g_warning("Error getting value\n");
+		}
 		success = gtk_tree_model_iter_next(model, &iter);
 	}
 	return FALSE;
@@ -1403,6 +1411,7 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 		gtk_widget_show (memory);
 		g_free (hexa);
 	}
+	g_free (buf);
 }
 
 /* parse debugger output into the debug tree */
@@ -1461,6 +1470,7 @@ debug_tree_cell_data_func (GtkTreeViewColumn *tree_column,
 	g_value_set_static_string (&gvalue, colors[(item_data && item_data->modified ? 1 : 0)]);
 
 	g_object_set_property (G_OBJECT (cell), "foreground", &gvalue);
+	g_free (value);
 }
 
 /* return a pointer to a newly allocated DebugTree object */

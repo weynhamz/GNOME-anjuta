@@ -34,6 +34,7 @@ struct _GdbPlugin
 	guint project_watch_id;
 	
 	GObject *current_editor;
+	
 	gchar *project_root_uri;
 	IAnjutaMessageView *mesg_view;
 	

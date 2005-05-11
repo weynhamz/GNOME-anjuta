@@ -84,7 +84,7 @@ get_watch_expr (GtkTreeModel *model, GtkTreePath* path, GtkTreeIter* iter,
 		debugger_command (ew->debugger, buff, TRUE,
 						  expr_watch_update, cb_data);
 		g_free(buff);
-
+		g_free(variable);
 		return FALSE;
 	}
 	else

@@ -112,7 +112,7 @@ on_treeview_row_search (GtkTreeModel * model, gint column,
 	return FALSE;
 }
 
-static const AnjutaSymbolInfo *
+static AnjutaSymbolInfo *
 sv_current_symbol (AnjutaSymbolView * sv)
 {
 	GtkTreeModel *model;
@@ -247,8 +247,10 @@ sv_create (AnjutaSymbolView * sv)
 
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMNS_NB,
-				    GDK_TYPE_PIXBUF,
-				    G_TYPE_STRING, ANJUTA_TYPE_SYMBOL_INFO, G_TYPE_POINTER);
+								GDK_TYPE_PIXBUF,
+								G_TYPE_STRING,
+								ANJUTA_TYPE_SYMBOL_INFO,
+								G_TYPE_POINTER);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (sv), GTK_TREE_MODEL (store));
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (sv), FALSE);
@@ -748,50 +750,65 @@ anjuta_symbol_view_set_node_expansion_states (AnjutaSymbolView * sv,
 	}
 }
 
-G_CONST_RETURN gchar *
+gchar *
 anjuta_symbol_view_get_current_symbol (AnjutaSymbolView * sv)
 {
-	const AnjutaSymbolInfo *info;
+	AnjutaSymbolInfo *info;
+	gchar *sym_name;
 
 	info = sv_current_symbol (sv);
 	if (!info)
 		return NULL;
-	return info->sym_name;
+	sym_name = g_strdup (info->sym_name);
+	anjuta_symbol_info_free (info);
+	return sym_name;
 }
 
 gboolean
 anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView * sv,
-										   const gchar ** const filename,
+										   gchar ** filename,
 										   gint * line)
 {
-	const AnjutaSymbolInfo *info;
+	AnjutaSymbolInfo *info;
 
 	g_return_val_if_fail (filename != NULL, FALSE);
 	g_return_val_if_fail (line != NULL, FALSE);
 
 	info = sv_current_symbol (sv);
-	if (!info || !info->def.name)
+	if (!info)
 		return FALSE;
-	*filename = info->def.name;
+	if (!info->def.name)
+	{
+		anjuta_symbol_info_free (info);
+		return FALSE;
+	}
+	*filename = g_strdup (info->def.name);
 	*line = info->def.line;
+	anjuta_symbol_info_free (info);
 	return TRUE;
 }
 
 gboolean
 anjuta_symbol_view_get_current_symbol_decl (AnjutaSymbolView * sv,
-											const gchar ** const filename,
+											gchar ** filename,
 											gint * line)
 {
-	const AnjutaSymbolInfo *info;
+	AnjutaSymbolInfo *info;
 
 	g_return_val_if_fail (filename != NULL, FALSE);
 	g_return_val_if_fail (line != NULL, FALSE);
 
 	info = sv_current_symbol (sv);
-	if (!info || !info->decl.name)
+	if (!info)
 		return FALSE;
-	*filename = info->decl.name;
+	if (!info->decl.name)
+	{
+		anjuta_symbol_info_free (info);
+		return FALSE;
+	}
+	*filename = g_strdup (info->decl.name);
 	*line = info->decl.line;
+	anjuta_symbol_info_free (info);
 	return TRUE;
 }
 

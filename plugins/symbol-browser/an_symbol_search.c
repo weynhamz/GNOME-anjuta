@@ -144,6 +144,7 @@ an_symbol_search_finalize (GObject * obj)
 
 	DEBUG_PRINT ("Finalizing symbolsearch widget");
 	
+	g_list_foreach (priv->completion->items, (GFunc)g_free, NULL);
 	g_completion_free (priv->completion);
 	g_free (priv);
 			
@@ -162,7 +163,8 @@ void anjuta_symbol_search_clear (AnjutaSymbolSearch *search) {
 	gtk_entry_set_text (GTK_ENTRY (priv->entry), "");
 	
 	/* thrown away the g_completion words */
-	g_completion_clear_items(priv->completion);	
+	g_list_foreach (priv->completion->items, (GFunc)g_free, NULL);
+	g_completion_clear_items (priv->completion);	
 	
 	/* clean the gtk_tree_store */
 	gtk_tree_store_clear (GTK_TREE_STORE(gtk_tree_view_get_model
@@ -337,10 +339,10 @@ an_symbol_search_on_tree_row_activate (GtkTreeView * view,
 	}
 
 	gtk_tree_model_get (GTK_TREE_MODEL (priv->model),
-			    &iter, SVFILE_ENTRY_COLUMN, &sym, -1);
+						&iter, SVFILE_ENTRY_COLUMN, &sym, -1);
 
 	g_signal_emit (search, signals[SYM_SELECTED], 0, sym);
-
+	anjuta_symbol_info_free (sym);
 	/* Always return FALSE so the tree view gets the event and can update
 	 * the selection etc.
 	 */
@@ -377,7 +379,7 @@ an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 	{
 		GtkTreeIter iter;
 		AnjutaSymbolInfo *sym;
-		const gchar *name;
+		gchar *name;
 
 		DEBUG_PRINT("enter key pressed: getting the first entry found");
 
@@ -387,27 +389,25 @@ an_symbol_search_on_entry_key_press_event (GtkEntry * entry,
 		{
 
 			gtk_tree_model_get (GTK_TREE_MODEL (priv->model),
-					    &iter,
-					    NAME_COLUMN, &name,
-					    SVFILE_ENTRY_COLUMN, &sym, -1);
+								&iter,
+								NAME_COLUMN, &name,
+								SVFILE_ENTRY_COLUMN, &sym, -1);
 
 			g_return_val_if_fail (&iter != NULL, FALSE);
 
 			DEBUG_PRINT ("got -----> sym_name: %s ", sym->sym_name);
 			gtk_entry_set_text (GTK_ENTRY (entry), name);
 			
-			/* Do not free this! */
-			/* g_free (name); */
-
 			gtk_editable_set_position (GTK_EDITABLE (entry), -1);
-			gtk_editable_select_region (GTK_EDITABLE (entry), -1,
-						    -1);
+			gtk_editable_select_region (GTK_EDITABLE (entry), -1, -1);
 
 			g_signal_emit (search, signals[SYM_SELECTED], 0, sym);
+			
+			anjuta_symbol_info_free (sym);
+			g_free (name);
 
 			return TRUE;
 		}
-
 	}
 	return FALSE;
 }
@@ -437,6 +437,7 @@ static void
 an_symbol_search_on_entry_activated (GtkEntry * entry,
 				     AnjutaSymbolSearch * search)
 {
+	AnjutaSymbolInfo *info;
 	AnjutaSymbolSearchPriv *priv;
 	gchar *str;
 
@@ -448,7 +449,9 @@ an_symbol_search_on_entry_activated (GtkEntry * entry,
 	str = (gchar *) gtk_entry_get_text (GTK_ENTRY (priv->entry));
 
 	/* parse the string typed in the entry   */
-	an_symbol_search_model_filter (search, str);
+	info = an_symbol_search_model_filter (search, str);
+	if (info)
+		anjuta_symbol_info_free (info);
 }
 
 static void
@@ -487,7 +490,7 @@ an_symbol_search_complete_idle (AnjutaSymbolSearch * search)
 	text = gtk_entry_get_text (GTK_ENTRY (priv->entry));
 
 	list = g_completion_complete (priv->completion, (gchar *) text,
-				      &completed);
+								  &completed);
 
 	if (completed)
 	{
@@ -521,17 +524,15 @@ an_symbol_search_filter_idle (AnjutaSymbolSearch * search)
 
 	priv->idle_filter = 0;
 
-	
 	/* if you wanna that on word completion event we [open file->goto symbol line]
 	just uncomment this part. Anyway this could cause some involountary editing/tampering 
 	with just opened files */
 	
-/*/	
 	if (sym)
 	{
-		g_signal_emit (search, signals[SYM_SELECTED], 0, sym);
+		/* g_signal_emit (search, signals[SYM_SELECTED], 0, sym); */
+		anjuta_symbol_info_free (sym);
 	}
-/*/
 	return FALSE;
 }
 
@@ -556,6 +557,7 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 				(GTK_TREE_VIEW (priv->hitlist)));
 	
 	/* let's clean up rows from store model */
+	g_list_foreach (priv->completion->items, (GFunc)g_free, NULL);
 	g_completion_clear_items (priv->completion);
 	gtk_tree_store_clear (GTK_TREE_STORE (store));
 	
@@ -577,7 +579,7 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 				TMSymbol *symbol;
 				GtkTreeIter iter;
 				TMTag *tag;
-				AnjutaSymbolInfo *sym = NULL, *sym_copy;
+				AnjutaSymbolInfo *sym = NULL;
 				
 				tag = (TMTag *) tags->pdata[i];
 				symbol = g_new0 (TMSymbol, 1);
@@ -597,21 +599,20 @@ an_symbol_search_model_filter (AnjutaSymbolSearch * search,
 								NAME_COLUMN, tag->name,
 								SVFILE_ENTRY_COLUMN, sym, -1);
 					
-					/* Get the copy stored in the store */
-					gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
-										SVFILE_ENTRY_COLUMN, &sym_copy, -1);
-					
 					completion_list = g_list_prepend (completion_list,
-													  sym_copy->sym_name);
+													  g_strdup (sym->sym_name));
 					
 					if ((hits == 1) ||
 						(!exactsym && strcmp (tag->name, string) == 0))
 					{
-						exactsym = sym_copy;
+						if (exactsym)
+							anjuta_symbol_info_free (exactsym);
+						exactsym = sym;
 					}
 				}
 				g_free (symbol);
-				anjuta_symbol_info_free (sym);
+				if (exactsym != sym)
+					anjuta_symbol_info_free (sym);
 			}
 			if (completion_list)
 			{

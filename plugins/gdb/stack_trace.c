@@ -73,12 +73,14 @@ get_index_from_iter (StackTrace* st, GtkTreeIter* iter)
 {
 	GtkTreeModel *model;		
 	gchar* count = NULL;
+	gint frame_no;
 	
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (st->widgets.clist));		
 
 	gtk_tree_model_get (model, iter, STACK_TRACE_FRAME_COLUMN, &count, -1);
-	
-	return atoi(count);
+	frame_no = atoi(count);
+	g_free (count);
+	return frame_no;
 }
 
 static gboolean 
@@ -413,7 +415,7 @@ on_stack_view_src_activate (GtkMenuItem * menuitem, gpointer user_data)
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-	const gchar *file, *line, *addr;
+	gchar *file, *line, *addr;
 	
 	StackTrace* st = (StackTrace*) user_data;		
 
@@ -432,6 +434,9 @@ on_stack_view_src_activate (GtkMenuItem * menuitem, gpointer user_data)
 						-1);
 	
 	debugger_change_location (st->debugger, file, atoi (line), addr);
+	g_free (file);
+	g_free (line);
+	g_free (addr);
 }
 
 /* Context pop up menu */
