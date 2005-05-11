@@ -1,6 +1,7 @@
 2005-05-11  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* NEWS, README: Updated for 1.2.3
+	* autogen.sh: Use new one from 2.0
 
 2005-05-10  Johannes Schmid <jhs@cvs.gnome.org>
 	
