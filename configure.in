@@ -892,7 +892,9 @@ plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/message-view/Makefile
 plugins/gdb/Makefile
+plugins/gdb/images/Makefile
 plugins/debug-manager/Makefile
+plugins/debug-manager/images/Makefile
 plugins/devhelp/Makefile
 plugins/glade/Makefile
 plugins/file-manager/Makefile

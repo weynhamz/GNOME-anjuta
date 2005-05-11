@@ -1630,8 +1630,7 @@ void breakpoints_dbase_remove_all (BreakpointsDBase *bd)
 	GtkWidget *dialog;
 	
 	dialog = gtk_message_dialog_new (GTK_WINDOW (bd->priv->window),
-									 GTK_DIALOG_MODAL |
-										GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_NONE,
 					_("Are you sure you want to delete all the breakpoints?"));
@@ -1639,15 +1638,17 @@ void breakpoints_dbase_remove_all (BreakpointsDBase *bd)
 							GTK_STOCK_CANCEL, GTK_RESPONSE_NO,
 							GTK_STOCK_DELETE, GTK_RESPONSE_YES,
 							NULL);
+	
+	gtk_window_set_transient_for (GTK_WINDOW (dialog),
+								  GTK_WINDOW (bd->priv->window));
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 	{
-		breakpoints_dbase_remove_all (bd);
 		breakpoints_dbase_clear (bd);
-	}
-	else
-	{
-		breakpoints_dbase_hide (bd);
+		debugger_command (bd->priv->debugger, "delete breakpoints", FALSE,
+						  NULL, NULL);
+		gdb_util_append_message (ANJUTA_PLUGIN (bd->priv->plugin),
+								 _("All breakpoints removed.\n"));
 	}
 	gtk_widget_destroy (dialog);
 }

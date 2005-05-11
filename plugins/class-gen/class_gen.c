@@ -1,7 +1,8 @@
 /*
  * clsGen.h Copyright (C) 2002  Dave Huseby
+ * GOCbuilder Copyright (C) 2004  Aaron Bockover <aaron@aaronbock.net>
  * class_gen.c Copyright (C) 2005 Massimo Cora' [porting to Anjuta 2.x plugin style]
- * 
+ * 				
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free 
@@ -53,6 +54,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 
@@ -114,6 +116,7 @@ gobject_class_create_code (ClassGenData* data) {
 	const gchar *author_email = FETCH_STRING (data->gxml, "go_author_email");
 	gboolean date_output = FETCH_BOOLEAN (data->gxml, "go_date_output");
 	gboolean add_to_project = FETCH_BOOLEAN (data->gxml, "add_to_project_check");
+	gboolean add_to_repository = FETCH_BOOLEAN (data->gxml, "add_to_repository_check");
 	
 	GtkWidget* license_widget = glade_xml_get_widget (data->gxml, "license_combo");
 	gint license_output = gtk_combo_box_get_active (GTK_COMBO_BOX (license_widget));
@@ -170,7 +173,7 @@ gobject_class_create_code (ClassGenData* data) {
 	gtk_widget_hide (classgen_widget);
 	
 	if(a && b) {
-		if ( add_to_project ) {
+		if (add_to_project) {
 			IAnjutaProjectManager *pm;
 			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaProjectManager, NULL);
@@ -179,6 +182,16 @@ gobject_class_create_code (ClassGenData* data) {
 			
 			ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
 			ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+		}
+		
+		if (add_to_repository) {
+			IAnjutaVcs *vcs;
+			vcs = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
+										IAnjutaVcs, NULL);
+
+			g_return_val_if_fail (vcs != NULL, FALSE);
+			ianjuta_vcs_add (vcs, source_file, NULL);
+			ianjuta_vcs_add (vcs, header_file, NULL);
 		}
 		
 		/* let's open the files in new a pair of new editors */
@@ -348,6 +361,7 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
 	gboolean is_inline = FETCH_BOOLEAN (data->gxml, "cc_inline");
 	gboolean add_to_project = FETCH_BOOLEAN (data->gxml, "add_to_project_check");
+	gboolean add_to_repository = FETCH_BOOLEAN (data->gxml, "add_to_repository_check");
 	FILE* header_fd;
 	FILE* source_fd;
 	gboolean bOK = FALSE;
@@ -410,6 +424,16 @@ generic_cpp_class_create_code (ClassGenData *data) {
 			if (!is_inline) 
 				ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
 			ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
+		}
+		
+		if (add_to_repository) {
+			IAnjutaVcs *vcs;
+			vcs = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
+										IAnjutaVcs, NULL);
+
+			g_return_val_if_fail (vcs != NULL, FALSE);
+			ianjuta_vcs_add (vcs, source_file, NULL);
+			ianjuta_vcs_add (vcs, header_file, NULL);
 		}
 		
 		/* let's open the files */

@@ -73,3 +73,7 @@ EXTRA_DIST = \
 	$(anjuta_plugin_DATA) \
 	$(gdb_ui_DATA) \
 	$(anjuta_glade_DATA)
+
+SUBDIRS = \
+	images 
+

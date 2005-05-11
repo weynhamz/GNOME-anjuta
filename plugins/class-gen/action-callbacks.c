@@ -45,7 +45,7 @@ void on_cc_button_browse_header_clicked (GtkButton *button, GladeXML* gxml) {
 	/* let's set the header in the entry */
 	gtk_entry_set_text(GTK_ENTRY (header_file_widget), header_file);
 	
-	/* is source_file is void then fill it with a "header_file".c */
+	/* if source_file is void then fill it with a "header_file".c */
 	if( strlen (source_file) == 0) {
 		gchar *s = g_strdup(header_file), *t, *p = strrchr(s, '.');
 		if (p == NULL) {
@@ -276,8 +276,8 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 		gtk_widget_set_sensitive (add_to_project_check, FALSE);
 	}
 	
-	/* FIXME: what about add to repository? */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_to_repository_check), FALSE);
+	/* FIXME: fix the problem with the repository add, then enable this check-button */
 	gtk_widget_set_sensitive (add_to_repository_check, FALSE);
 	
 	/* connect signals */

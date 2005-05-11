@@ -1,3 +1,38 @@
+2005-05-11  Naba Kumar <naba@gnome.org>
+
+	* configure.in, plugins/debug-manager/Makefile.am,
+	plugins/debug-manager/plugin.c,
+	(added) plugins/debug-manager/images/.cvsignore,
+	(added) plugins/debug-manager/images/Makefile.am,
+	(added) plugins/debug-manager/images/detach-16.png,
+	(added) plugins/debug-manager/images/detach.png,
+	(added) plugins/debug-manager/images/step-into-16.png,
+	(added) plugins/debug-manager/images/step-into.png,
+	(added) plugins/debug-manager/images/step-out-16.png,
+	(added) plugins/debug-manager/images/step-out.png,
+	(added) plugins/debug-manager/images/step-over-16.png,
+	(added) plugins/debug-manager/images/step-over.png,
+	plugins/gdb/Makefile.am,
+	plugins/gdb/breakpoints.c,
+	plugins/gdb/plugin.c,
+	(added) plugins/gdb/images/.cvsignore,
+	(added) plugins/gdb/images/Makefile.am,
+	(added) plugins/gdb/images/breakpoint.png,
+	(added) plugins/gdb/images/locals.png,
+	(added) plugins/gdb/images/stack.png,
+	(added) plugins/gdb/images/watch.png: Fixed breakpoints
+	'remove all'. Added debugger icons.
+
+	* plugins/editor/text_editor.c: Fixed file monitor.
+
+	Patch from: Massimo Cora'  <maxcvs@email.it>
+	* plugins/patch/anjuta-patch-plugin.png,
+	plugins/class-gen/Makefile.am,
+	plugins/class-gen/action-callbacks.c,
+	plugins/class-gen/class_gen.c,
+	plugins/class-gen/class_logo.xpm: Implemented vcs
+	file addions. New icons by Fabio Zecchini
+
 2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* libanjuta/interfaces/libanjuta.idl

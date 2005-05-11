@@ -64,7 +64,7 @@ static GtkActionEntry actions_gdb[] =
 	},
 	{
 		"ActionGdbToggleBreakpoint",              /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
 		N_("Toggle breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Toggle breakpoint at the current location"), /* Tooltip */
@@ -277,7 +277,7 @@ static GtkActionEntry actions_gdb[] =
 	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
 	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
 	g_object_unref (pixbuf);
-#if 0
+
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
@@ -294,11 +294,11 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (GDB_PIXMAP_STACK_ICON, "gdb-stack-icon");
-	REGISTER_ICON (GDB_PIXMAP_WATCH_ICON, "gdb-locals-icon");
-	REGISTER_ICON (GDB_PIXMAP_LOCALS_ICON, "gdb-watch-icon");
+	REGISTER_ICON ("stack.png", "gdb-stack-icon");
+	REGISTER_ICON ("locals.png", "gdb-locals-icon");
+	REGISTER_ICON ("watch.png", "gdb-watch-icon");
+	REGISTER_ICON ("breakpoint.png", "gdb-breakpoint-toggle");
 }
-#endif
 
 static void
 value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
@@ -613,9 +613,15 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 {
 	AnjutaUI *ui;
 	GdbPlugin *gdb_plugin = (GdbPlugin *) plugin;
+	static gboolean initialized = FALSE;
 
 	DEBUG_PRINT ("GdbPlugin: Activating Gdb plugin ...");
 
+	if (!initialized)
+	{
+		initialized = TRUE;
+		register_stock_icons (plugin);
+	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Add action group */

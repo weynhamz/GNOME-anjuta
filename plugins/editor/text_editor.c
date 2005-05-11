@@ -275,6 +275,16 @@ text_editor_remove_view (TextEditor *te)
 }
 
 static void
+on_reload_dialog_response (GtkWidget *dlg, gint res, TextEditor *te)
+{
+	if (res == GTK_RESPONSE_YES)
+	{
+		text_editor_load_file (te);
+	}
+	gtk_widget_destroy (dlg);
+}
+
+static void
 on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 							const gchar *monitor_uri,
 							const gchar *info_uri,
@@ -312,9 +322,17 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 								   GTK_STOCK_REFRESH,
 								   GTK_RESPONSE_YES);
 	g_free (buff);
-	if (gtk_dialog_run (GTK_DIALOG (dlg)) == GTK_RESPONSE_YES)
-		text_editor_load_file (te);
-	gtk_widget_destroy (dlg);
+	
+	gtk_window_set_transient_for (GTK_WINDOW (dlg),
+								  GTK_WINDOW (parent));
+	
+	g_signal_connect (dlg, "response",
+					  G_CALLBACK (on_reload_dialog_response),
+					  te);
+	g_signal_connect_swapped (dlg, "delete-event",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dlg);
+	gtk_widget_show (dlg);
 }
 
 static void

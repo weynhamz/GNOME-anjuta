@@ -34,6 +34,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debug-manager.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
+#define ICON_FILE "anjuta-debug-manager.plugin.png"
 
 static gpointer parent_class;
 
@@ -41,6 +42,35 @@ static gpointer parent_class;
 static void on_load_file_response (GtkDialog* dialog, gint id,
 								   DebugManagerPlugin* plugin);
 static void debug_manager_plugin_update_ui (DebugManagerPlugin *plugin);
+
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (ICON_FILE, "debugger-icon");
+	REGISTER_ICON ("detach.png", "debugger-detach");
+	REGISTER_ICON ("step-into.png", "debugger-step-into");
+	REGISTER_ICON ("step-out.png", "debugger-step-out");
+	REGISTER_ICON ("step-over.png", "debugger-step-over");
+}
 
 static GList*
 get_search_directories (DebugManagerPlugin *plugin)
@@ -432,14 +462,14 @@ static GtkActionEntry actions_debug[] =
 	},
 	{
 		"ActionDebuggerStart",                    /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"debugger-icon",                          /* Stock icon, if any */
 		N_("_Start Debugger"),                    /* Display label */
 		"<shift>F12",                             /* short-cut */
 		N_("Start the debugging session"),        /* Tooltip */
 		G_CALLBACK (on_start_debug_activate)      /* action callback */
 	},
 	{
-		"ActionDebuggerLoad",                      /* Action name */
+		"ActionDebuggerLoad",                     /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Load debugging target ..."),          /* Display label */
 		NULL,                                     /* short-cut */
@@ -447,8 +477,8 @@ static GtkActionEntry actions_debug[] =
 		G_CALLBACK (on_load_target_action_activate) /* action callback */
 	},
 	{
-		"ActionDebuggerAttachToProcess",                  /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"ActionDebuggerAttachToProcess",          /* Action name */
+		"debugger-detach",                        /* Stock icon, if any */
 		N_("_Attach to Process ..."),             /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Attach to a running program"),        /* Tooltip */
@@ -471,16 +501,16 @@ static GtkActionEntry actions_debug[] =
 		G_CALLBACK (on_run_continue_action_activate) /* action callback */
 	},
 	{
-		"ActionDebuggerStepIn",                           /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"ActionDebuggerStepIn",                  /* Action name */
+		"debugger-step-into",                     /* Stock icon, if any */
 		N_("Step _In"),                           /* Display label */
 		"F5",                                     /* short-cut */
 		N_("Single step into function"),          /* Tooltip */
 		G_CALLBACK (on_step_in_action_activate)   /* action callback */
 	},
 	{
-		"ActionDebuggerStepOver",                         /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"ActionDebuggerStepOver",                 /* Action name */
+		"debugger-step-over",                     /* Stock icon, if any */
 		N_("Step O_ver"),                         /* Display label */
 		"F6",                                     /* short-cut */
 		N_("Single step over function"),          /* Tooltip */
@@ -488,7 +518,7 @@ static GtkActionEntry actions_debug[] =
 	},
 	{
 		"ActionDebuggerStepOut",                  /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"debugger-step-out",                      /* Stock icon, if any */
 		N_("Step _Out"),                          /* Display label */
 		"F7",                                     /* short-cut */
 		N_("Single step out of the function"),    /* Tooltip */
@@ -627,10 +657,16 @@ activate_plugin (AnjutaPlugin* plugin)
 {
 	AnjutaUI *ui;
 	DebugManagerPlugin *debug_manager_plugin;
-
+	static gboolean initialized = FALSE;
+	
 	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin ...");
 	debug_manager_plugin = (DebugManagerPlugin*) plugin;
-
+	
+	if (!initialized)
+	{
+		initialized = TRUE;
+		register_stock_icons (plugin);
+	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	/* Add all our debug manager actions */
