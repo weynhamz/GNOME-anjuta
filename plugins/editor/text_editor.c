@@ -333,11 +333,13 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 		res = gnome_vfs_monitor_add (&te->monitor, te->uri,
 									 GNOME_VFS_MONITOR_FILE,
 									 on_text_editor_uri_changed, te);
+		/*
 		if (res != GNOME_VFS_OK)
 		{
 			g_warning ("Error while setting up file monitor: %s",
 					   gnome_vfs_result_to_string (res));
 		}
+		*/
 	}
 }
 

@@ -35,10 +35,41 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-default-profile.ui"
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.anjuta"
+#define ANJUTA_MINI_SPLASH PACKAGE_PIXMAPS_DIR"/anjuta_splash_mini.png"
 
 static gpointer parent_class;
 
 static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
+
+static gchar*
+default_profile_plugin_get_session_dir (DefaultProfilePlugin *plugin)
+{
+	GnomeVFSURI *vfs_uri;
+	const gchar *project_root_uri;
+	gchar *session_dir = NULL;
+	
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
+					  G_TYPE_STRING, &project_root_uri, NULL);
+	
+	g_return_val_if_fail (project_root_uri, NULL);
+	
+	vfs_uri = gnome_vfs_uri_new (project_root_uri);
+	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
+	{
+		gchar *local_dir;
+		
+		local_dir = gnome_vfs_get_local_path_from_uri (project_root_uri);
+		if (local_dir)
+		{
+			session_dir = g_build_filename (local_dir, ".anjuta", NULL);
+		}
+		g_free (local_dir);
+	}
+	if (vfs_uri)
+		gnome_vfs_uri_unref (vfs_uri);
+	
+	return session_dir;
+}
 
 static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
@@ -55,13 +86,27 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	 */
 	if (plugin->project_uri && !plugin->session_by_me)
 	{
-		files = anjuta_session_get_string_list (session, "File Loader",
+		gchar *session_dir;
+		
+		files = anjuta_session_get_string_list (session,
+												"File Loader",
 												"Files");
 		files = g_list_append (files, g_strdup (plugin->project_uri));
-		anjuta_session_set_string_list (session, "File Loader", "Files",
-										files);
+		anjuta_session_set_string_list (session, "File Loader",
+										"Files", files);
 		g_list_foreach (files, (GFunc)g_free, NULL);
 		g_list_free (files);
+		
+		/* Save project session */
+		session_dir = default_profile_plugin_get_session_dir (plugin);
+		if (session_dir)
+		{
+			plugin->session_by_me = TRUE;
+			anjuta_shell_session_save (ANJUTA_PLUGIN (plugin)->shell,
+									   session_dir, NULL);
+			plugin->session_by_me = FALSE;
+			g_free (session_dir);
+		}
 	}
 }
 
@@ -773,36 +818,6 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	return TRUE;
 }
 
-static gchar*
-default_profile_plugin_get_session_dir (DefaultProfilePlugin *plugin)
-{
-	GnomeVFSURI *vfs_uri;
-	const gchar *project_root_uri;
-	gchar *session_dir = NULL;
-	
-	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
-					  G_TYPE_STRING, &project_root_uri, NULL);
-	
-	g_return_val_if_fail (project_root_uri, NULL);
-	
-	vfs_uri = gnome_vfs_uri_new (project_root_uri);
-	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
-	{
-		gchar *local_dir;
-		
-		local_dir = gnome_vfs_get_local_path_from_uri (project_root_uri);
-		if (local_dir)
-		{
-			session_dir = g_build_filename (local_dir, ".anjuta", NULL);
-		}
-		g_free (local_dir);
-	}
-	if (vfs_uri)
-		gnome_vfs_uri_unref (vfs_uri);
-	
-	return session_dir;
-}
-
 static void
 default_profile_plugin_close (DefaultProfilePlugin *plugin)
 {
@@ -867,6 +882,7 @@ static void
 ifile_open (IAnjutaFile *ifile, const gchar* uri,
 			GError **e)
 {
+	GtkWidget *splash;
 	GnomeVFSURI *vfs_uri;
 	gchar *dirname, *vfs_dir, *session_dir;
 	DefaultProfilePlugin *plugin;
@@ -877,12 +893,37 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	/* Freeze shell */
 	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
 	
-	if (!default_profile_plugin_load (plugin, uri, NULL, FALSE, e))
+	/* FIXME: This splash should actually be a progress bar */
+	splash = e_splash_new (ANJUTA_MINI_SPLASH, 15);
+	if (splash)
+	{
+		GtkWidget *shell = GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell);
+		gtk_window_set_transient_for (GTK_WINDOW (splash), GTK_WINDOW (shell));
+		if (shell->window)
+		{
+			gint root_x, root_y, root_width, root_height;
+			gdk_window_get_root_origin (shell->window,
+										&root_x, &root_y);
+			gdk_window_get_size (shell->window,
+								 &root_width, &root_height);
+			gtk_window_move (GTK_WINDOW (splash),
+							 root_x + root_width - 334,
+							 root_y + root_height - 70);
+		}
+		g_object_ref (G_OBJECT (splash));
+	}
+	if (!default_profile_plugin_load (plugin, uri, E_SPLASH (splash),
+									  FALSE, e))
 	{
 		/* Thaw shell */
 		anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
+		if (splash) {
+			g_object_unref (splash);
+			gtk_widget_destroy (splash);
+		}
 		return; /* FIXME: Propagate error */
 	}	
+	
 	/* Set project uri */
 	vfs_uri = gnome_vfs_uri_new (uri);
 	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
@@ -919,6 +960,10 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 								   session_dir, NULL);
 		plugin->session_by_me = FALSE;
 		g_free (session_dir);
+	}
+	if (splash) {
+		g_object_unref (splash);
+        gtk_widget_destroy (splash);
 	}
 }
 

@@ -53,11 +53,12 @@ struct _ESplashClass {
 	GtkWindowClass parent_class;
 };
 
-
 GtkType    e_splash_get_type            (void);
 void       e_splash_construct           (ESplash   *splash,
-					 GdkPixbuf *splash_image_pixbuf);
-GtkWidget *e_splash_new                 (const char *image_file);
+					 GdkPixbuf *splash_image_pixbuf,
+					 gint progressbar_position);
+GtkWidget *e_splash_new                 (const char *image_file,
+										 gint progressbar_position);
 
 int        e_splash_add_icon            (ESplash   *splash,
 					 GdkPixbuf *icon_pixbuf, const gchar *title,

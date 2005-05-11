@@ -1,3 +1,19 @@
+2005-05-11  Naba Kumar <naba@gnome.org>
+
+	* libanjuta/anjuta-shell.c: Fixed runtime warning.
+	
+	* libanjuta/e-splash.c,	libanjuta/e-splash.h, src/main.c: Pass the
+	progress bar location at create time, instead of hardcoding.
+	
+	* pixmaps/Makefile.am, (added) pixmaps/anjuta_splash_mini.png:
+	Added mini splash screen.
+	
+	* plugins/editor/text_editor.c: Do not produce warning when file
+	monitor could not be created.
+	
+	* plugins/profile-default/plugin.c: Save project session on exit.
+	Show mini splash with progress bar at profile load.
+
 2005-05-10  Naba Kumar <naba@gnome.org>
 
 	* configure.in, manuals/Makefile.am: Fixed compile flags.

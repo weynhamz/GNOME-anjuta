@@ -13,6 +13,7 @@ anjuta_pixmaps_DATA = \
 	anjuta_logo1.png \
 	anjuta_logo2.png \
 	anjuta_splash.png \
+	anjuta_splash_mini.png \
 	applogo.png \
 	appwizard.png \
 	appwiz_bonobo2.png \

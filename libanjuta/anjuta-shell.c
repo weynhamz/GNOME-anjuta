@@ -245,12 +245,35 @@ anjuta_shell_present_widget (AnjutaShell *shell,
 							 GtkWidget *widget,
 							 GError **error)
 {
+	GQueue *queue;
+	gboolean found_in_queue;
+	
 	g_return_if_fail (shell != NULL);
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (GTK_IS_WIDGET (widget));
 
-	ANJUTA_SHELL_GET_IFACE (shell)->present_widget (shell, widget, error);
+	/* If there is a queue and the widget is in the queue, there is no
+	 * way we can 'present' the widget */
+	found_in_queue = FALSE;
+	queue = g_object_get_data (G_OBJECT (shell), "__widget_queue");
+	if (queue)
+	{
+		gint i;
+		for (i = g_queue_get_length(queue) - 1; i >= 0; i--)
+		{
+			WidgetQueueData *qd;
+			
+			qd = g_queue_peek_nth (queue, i);
+			if (qd->widget == widget)
+			{
+				found_in_queue = TRUE;
+				break;
+			}
+		}
+	}
+	if (!found_in_queue)
+		ANJUTA_SHELL_GET_IFACE (shell)->present_widget (shell, widget, error);
 }
 
 /**

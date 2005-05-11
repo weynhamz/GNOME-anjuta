@@ -153,7 +153,7 @@ main (int argc, char *argv[])
 	if (!no_splash) {
 		char *im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 		if (im_file) {
-			if (NULL != (splash = e_splash_new(im_file))) {
+			if (NULL != (splash = e_splash_new(im_file, 100))) {
 				gtk_widget_show (splash);
 				g_object_ref (G_OBJECT (splash));
 				while (gtk_events_pending ())

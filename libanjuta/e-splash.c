@@ -45,7 +45,8 @@ struct _ESplashPrivate {
 	GnomeCanvasItem *canvas_line;
 	GnomeCanvasItem *canvas_line_back;
 	GdkPixbuf *splash_image_pixbuf;
-
+	gint progressbar_position;
+	
 	GList *icons;		/* (Icon *) */
 	int num_icons;
 };
@@ -54,7 +55,7 @@ GNOME_CLASS_BOILERPLATE (ESplash, e_splash, GtkWindow, GTK_TYPE_WINDOW);
 
 /* Layout constants.  These need to be changed if the splash changes.  */
 
-#define ICON_Y    100
+#define ICON_Y    priv->progressbar_position
 #define ICON_X    15
 #define ICON_SIZE 48
 #define PROGRESS_SIZE 5
@@ -183,7 +184,7 @@ e_splash_instance_init (ESplash *splash)
 	priv->splash_image_pixbuf = NULL;
 	priv->icons               = NULL;
 	priv->num_icons           = 0;
-
+	priv->progressbar_position = 100;
 	splash->priv = priv;
 }
 
@@ -206,7 +207,8 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
  **/
 void
 e_splash_construct (ESplash *splash,
-		    GdkPixbuf *splash_image_pixbuf)
+					GdkPixbuf *splash_image_pixbuf,
+					gint progressbar_position)
 {
 	ESplashPrivate *priv;
 	GtkWidget *canvas; /*, *frame; */
@@ -217,7 +219,7 @@ e_splash_construct (ESplash *splash,
 	g_return_if_fail (splash_image_pixbuf != NULL);
 
 	priv = splash->priv;
-
+	priv->progressbar_position = progressbar_position;
 	priv->splash_image_pixbuf = gdk_pixbuf_ref (splash_image_pixbuf);
 
 	canvas = gnome_canvas_new_aa ();
@@ -285,20 +287,20 @@ e_splash_construct (ESplash *splash,
  * Return value: A pointer to the newly created ESplash widget.
  **/
 GtkWidget *
-e_splash_new (const char *image_file)
+e_splash_new (const char *image_file, gint progressbar_position)
 {
-	ESplash *new;
+	ESplash *splash;
 	GdkPixbuf *splash_image_pixbuf;
 
 	splash_image_pixbuf = gdk_pixbuf_new_from_file (image_file, NULL);
 	g_return_val_if_fail (splash_image_pixbuf != NULL, NULL);
 
-	new = g_object_new (e_splash_get_type (), "type", GTK_WINDOW_TOPLEVEL, NULL);
-	e_splash_construct (new, splash_image_pixbuf);
+	splash = g_object_new (e_splash_get_type (), "type", GTK_WINDOW_TOPLEVEL, NULL);
+	e_splash_construct (splash, splash_image_pixbuf, progressbar_position);
 
 	/* gdk_pixbuf_unref (splash_image_pixbuf); */
 
-	return GTK_WIDGET (new);
+	return GTK_WIDGET (splash);
 }
 
 /**
