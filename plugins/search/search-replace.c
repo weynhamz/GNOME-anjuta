@@ -269,8 +269,7 @@ search_and_replace (void)
 	end_activity = FALSE;
 	
 	entries = create_search_entries(s);
-	
-	search_update_combos (); 
+//	search_update_combos (); 
 	if (s->action == SA_REPLACE || s->action == SA_REPLACEALL)
 		replace_update_combos ();
 
@@ -316,6 +315,7 @@ search_and_replace (void)
 			fb = file_buffer_new_from_te(se->te);
 		else /* if (SE_FILE == se->type) */
 			fb = file_buffer_new_from_path(se->path, NULL, -1, 0);
+
 		if (fb)
 		{		
 			fb->pos = se->start_pos;
@@ -504,7 +504,7 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, Ma
 	}
 	else /* if (SE_FILE == se->type) */
 	{
-		snprintf(buf, BUFSIZ, "%s:%ld:%s\n", fb->path, mi->line + 1, match_line);
+		snprintf(buf, BUFSIZ, "%s:%ld:%s\n", se->path, mi->line + 1, match_line);
 	}
 
 	g_free(match_line);

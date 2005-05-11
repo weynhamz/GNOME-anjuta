@@ -1,3 +1,10 @@
+2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* libanjuta/interfaces/libanjuta.idl
+	plugins/editor/anjuta-docman.c plugins/editor/search-replace.c
+	plugins/editor/search-replace_backend.c
+	plugins/project-manager/plugin.c : Search & Replace in all Project Files.
+
 2005-05-11  Naba Kumar <naba@gnome.org>
 	
 	* plugins/gdb/actions.c, plugins/gdb/breakpoints.c,

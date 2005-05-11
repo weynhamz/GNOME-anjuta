@@ -603,6 +603,7 @@ interface IAnjutaProjectManager
 	gboolean add_source (const gchar *source_uri, const gchar *target_uri);
 	gboolean add_target (const gchar *target_uri);
 	gboolean add_group (const gchar *group_uri);
+	gboolean is_open ();
 }
 
 interface IAnjutaTodo

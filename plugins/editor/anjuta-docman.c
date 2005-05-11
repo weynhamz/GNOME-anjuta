@@ -1194,9 +1194,9 @@ anjuta_docman_find_editor_with_path (AnjutaDocman *docman,
 		if (!te)
 			continue;
 		if (te->uri && 0 == strcmp(file_path, te->uri))
-			break;
+		return te;
 	}
-	return te;
+	return NULL;
 }
 
 GList*

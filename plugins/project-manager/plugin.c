@@ -1480,6 +1480,16 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager, const gchar
 	return TRUE;
 }
 
+static gboolean
+iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err) {
+	
+	ProjectManagerPlugin *plugin;
+
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	
+	return GBF_IS_PROJECT (plugin->project);
+}
+
 static void
 iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 {
@@ -1491,6 +1501,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_children = iproject_manager_get_children;
 	iface->get_selected = iproject_manager_get_selected;
 	iface->add_source = iproject_manager_add_source;
+	iface->is_open = iproject_manager_is_open;
 }
 
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);

@@ -39,6 +39,7 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-utils.h>
 
@@ -53,6 +54,7 @@
 
 #include "search-replace_backend.h"
 
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 /* Information about a matched substring */
 typedef struct _MatchSubStr
@@ -62,6 +64,9 @@ typedef struct _MatchSubStr
 } MatchSubStr;
 
 static SearchReplace *sr = NULL;
+
+void clear_search_replace_instance(void);
+
 
 static void
 pcre_info_free (PcreInfo *re)
@@ -362,54 +367,48 @@ expand_search_file_list(const char *top_dir, const char *str)
 	return NULL;
 }
 
-#if 0 //FIXME:
+
 /* Get a list of all project files */
 static GList *
 get_project_file_list(void)
 {
+	IAnjutaProjectManager* prjman;
+	GList* list = NULL;
 	GList *files = NULL;
-
-	if (app->project_dbase->project_is_open)
-	{
-		GList *names = NULL;
-		GList *tmp;
-		GList *file_name;
-		struct stat s;
-		gchar module_file_var[128];
-		char path[PATH_MAX];
-		gchar module_name_var[128];
-		gchar *module_name;
-		int i;
-
-		for (i=0; i < MODULE_END_MARK; ++i)
-		{
-			snprintf(module_file_var, 128, "module.%s.files", module_map[i]);
-			snprintf(module_name_var, 128, "module.%s.name", module_map[i]);
-			module_name = prop_get (app->project_dbase->props, module_name_var);
-			
-			file_name = prop_glist_from_data(app->project_dbase->props, 
-			                            module_file_var);
 	
-			if (*module_name != '.')	/* New Projects */
-				for (tmp = file_name; tmp; tmp = g_list_next(tmp))
-					tmp->data = g_strconcat (module_name, "/", tmp->data, NULL);
-               
-			names = g_list_concat(names, file_name);
-			g_free(module_name);
-		}
-		for (tmp = names; tmp; tmp = g_list_next(tmp))
+	prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
+	IAnjutaProjectManager , NULL);
+	prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
+	IAnjutaProjectManager , NULL);
+		
+	if (ianjuta_project_manager_is_open(prjman, NULL))
+	{	
+		list = ianjuta_project_manager_get_elements (prjman,
+													 IANJUTA_PROJECT_MANAGER_SOURCE,
+													 NULL);
+		if (list)
 		{
-			snprintf(path, PATH_MAX, "%s/%s", app->project_dbase->top_proj_dir
-			  , (char *) tmp->data);
-			if ((0 == stat(path, &s)) && (S_ISREG(s.st_mode)))
-				files = g_list_prepend(files, tm_get_real_path(path));
+			const gchar *uri;
+			GList *node;
+			node = list;
+	
+			while (node)
+			{
+				gchar *file_path;
+		
+				uri = (const gchar *)node->data;
+				file_path = gnome_vfs_get_local_path_from_uri (uri);
+				if (file_path)
+				files = g_list_prepend (files, file_path);
+				node = g_list_next (node);
+			}
+			files = g_list_reverse (files);
+			g_list_free(list);
 		}
-		anjuta_util_glist_strings_free(names);
-		files = g_list_reverse(files);
 	}
 	return files;
 }
-#endif
+
 
 static gboolean
 isawordchar (int c)
@@ -733,22 +732,26 @@ GList
 			break;
 		case SR_FILES:
 		case SR_VARIABLE:
+			break;
 		case SR_PROJECT:
-// FIXME: How to access project ??
-#if 0
 		{
-			char *dir;
 			GList *files;
-			if (!app->project_dbase->top_proj_dir)
-				dir = g_get_current_dir();
-			else
-				dir = g_strdup(app->project_dbase->top_proj_dir);
+			// gchar *dir;
+			
+			//~ if (!app->project_dbase->top_proj_dir)
+				//~ dir = g_get_current_dir();
+			//~ else
+				//~ dir = g_strdup(app->project_dbase->top_proj_dir);
+			
 			if (SR_FILES == s->range.type)
-				files = create_search_files_list(&(s->range.files), dir);
+				;
+				//~ files = create_search_files_list(&(s->range.files), dir);
 			else if (SR_VARIABLE == s->range.type)
-				files = expand_search_file_list(dir, s->range.var);
+				;
+				//~ files = expand_search_file_list(dir, s->range.var);
 			else /* if (SR_PROJECT == s->range.type) */
-				files = NULL; // FIXME: files = get_project_file_list();
+				files = get_project_file_list();	
+			
 			if (files)
 			{
 				for (tmp = files; tmp; tmp = g_list_next(tmp))
@@ -757,6 +760,7 @@ GList
 					se->type = SE_FILE;
 					se->path = (char *) tmp->data;
 					se->direction = SD_FORWARD;
+					se->type = SE_FILE;
 					se->start_pos = 0;
 					se->end_pos = -1;
 					entries = g_list_prepend(entries, se);
@@ -764,12 +768,11 @@ GList
 				g_list_free(files);
 				entries = g_list_reverse(entries);
 			}
-			g_free(dir);
+			//~ g_free(dir);
+			break;
 		}
-#endif
-		break;
-	}
-	return entries;
+	}	
+	return entries;		
 }
 
 gchar*
