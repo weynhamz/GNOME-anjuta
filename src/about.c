@@ -78,6 +78,7 @@ static const char *authors[] = {
 	"Dave Huseby <huseby@shockfusion.com>",
 	"Sebastien Cote <cots01@gel.usherb.ca>",
 	"Stephen Knight <steven.knight@unh.edu>",
+	"James Liggett <jrliggett@cox.net>",
 	NULL
 };
 

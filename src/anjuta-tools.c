@@ -1393,7 +1393,7 @@ on_user_tool_response (GtkDialog *dialog, gint res, gpointer user_data)
 			char question[1000];
 			GtkWidget *dlg;
 			
-			snprintf(question, 10000,
+			snprintf(question, sizeof(question),
 					 _("Are you sure you want to delete the '%s' tool?"),
 			  		 tool->name);
 			dlg = gtk_message_dialog_new (GTK_WINDOW (tl->dialog),

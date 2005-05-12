@@ -664,7 +664,7 @@ msgstr "Version der Projekts:"
 
 #: anjuta_dialogs_strings.c:193 src/wizard_gui.c:506
 msgid "Project Description"
-msgstr "Prohjektbeschreibung"
+msgstr "Projektbeschreibung"
 
 #: anjuta_dialogs_strings.c:195
 msgid "Ignome files and directories"

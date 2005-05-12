@@ -1,3 +1,14 @@
+2005-05-12  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* AUTHORS, src/about.c: Added James Ligett to constributors
+	
+	Patch from Ziaja Adam <ziajkens@users.sf.net>
+	* po/de.po: Fixed type
+	
+	Patches from Marcus Meissner <marcusmeissner@users.sf.net>
+	* gdl/gdl-dock-item: Fixed possible buffer overflow
+	* src/anjuta-tools.c: Fixed aliasing problem
+
 2005-05-11  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* NEWS, README: Updated for 1.2.3
