@@ -5,3 +5,6 @@ Location=anjuta-project-wizard:NPWPlugin
 Icon=anjuta-project-wizard-plugin.png
 Interfaces=IAnjutaWizard
 UserActivatable=no
+
+[Wizard]
+_Title=Create new project

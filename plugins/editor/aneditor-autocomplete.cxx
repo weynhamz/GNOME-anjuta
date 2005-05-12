@@ -237,9 +237,12 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 	TextToFind ft = {{0, 0}, 0, {0, 0}};
 	ft.lpstrText = const_cast<char*>(root);
 	ft.chrg.cpMin = posFind;
+	
 	/* find close block '}' */
 	ft.chrg.cpMax = SendEditor(SCI_BRACEMATCH , posFind, 0);
-    
+    if (ft.chrg.cpMax < ft.chrg.cpMin)
+		ft.chrg.cpMax = posCurrentWord;
+		
 	for (;;) {	// search all function blocks
 		posFind = SendEditorString(SCI_FINDTEXT,
 								   (SCFIND_WHOLEWORD | SCFIND_MATCHCASE),
@@ -494,7 +497,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 		g_completion_free (autocompletion);
 		autocompletion = NULL;
 	}
-	/* TagManager autocompletion - only for C/C++/Java */	  
+	/* TagManager autocompletion - only for C/C++/Java */
 	if (SCLEX_CPP != lexLanguage ||
 		((ch != '.') &&	(ch != '>') && (ch != ':')))
 		return false;

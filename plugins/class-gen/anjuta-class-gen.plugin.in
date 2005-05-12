@@ -5,3 +5,6 @@ Location=anjuta-class-gen:AnjutaClassGenPlugin
 Icon=class_logo.xpm
 Interfaces=IAnjutaWizard
 UserActivatable=no
+
+[Wizard]
+_Title=Create new c++/gobject class

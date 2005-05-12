@@ -8,3 +8,6 @@ UserActivatable=no
 
 [File Loader]
 SupportedMimeTypes=application/x-glade
+
+[Wizard]
+_Title=Create new glade file

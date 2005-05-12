@@ -907,10 +907,12 @@ idebugger_run_to_position (IAnjutaDebugger *plugin, const gchar *file_uri,
 	
 	if (gnome_vfs_uri_is_local (vfs_uri))
 	{
-		const gchar *filename;
+		const gchar *filepath;
+		gchar *filename;
 		gchar *buff;
 		
-		filename = gnome_vfs_uri_get_path (vfs_uri);
+		filepath = gnome_vfs_uri_get_path (vfs_uri);
+		filename = g_path_get_basename (filepath);
 		
 		if (file_line <= 0)
 			line = ianjuta_editor_get_lineno (IANJUTA_EDITOR (gdb_plugin->current_editor),
@@ -921,6 +923,7 @@ idebugger_run_to_position (IAnjutaDebugger *plugin, const gchar *file_uri,
 		buff = g_strdup_printf ("%s:%d", filename, line);
 		debugger_run_to_location (gdb_plugin->debugger, buff);
 		g_free (buff);
+		g_free (filename);
 	}
 	gnome_vfs_uri_unref (vfs_uri);
 }

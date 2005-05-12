@@ -8,3 +8,6 @@ Interfaces=IAnjutaWizard,IAnjutaFile
 
 [File Loader]
 SupportedMimeTypes=application/x-anjuta-old
+
+[Wizard]
+_Title=Import existing project

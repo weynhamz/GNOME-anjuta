@@ -1,5 +1,18 @@
 2005-05-11  Naba Kumar <naba@gnome.org>
 
+	* plugins/editor/aneditor-autocomplete.cxx: Fixed infinite loop in
+	scope autocompletion when the function definition is incomplete.
+	
+	* plugins/class-gen/anjuta-class-gen.plugin.in,
+	plugins/file-wizard/anjuta-file-wizard.plugin.in,
+	plugins/gdb/plugin.c,
+	plugins/glade/anjuta-glade.plugin.in,
+	plugins/project-import/anjuta-project-import.plugin.in,
+	plugins/project-wizard/anjuta-project-wizard.plugin.in: Give a proper
+	titles for the wizards.
+
+2005-05-11  Naba Kumar <naba@gnome.org>
+
 	* configure.in, plugins/debug-manager/Makefile.am,
 	plugins/debug-manager/plugin.c,
 	(added) plugins/debug-manager/images/.cvsignore,
