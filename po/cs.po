@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-06 02:36+0000\n"
-"PO-Revision-Date: 2005-05-06 09:40+0200\n"
+"POT-Creation-Date: 2005-05-12 02:36+0000\n"
+"PO-Revision-Date: 2005-05-12 11:24+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,7 @@ msgid "    "
 msgstr "    "
 
 #: ../anjuta.glade.h:2 ../libegg/layout.glade.h:1
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
 #: ../plugins/editor/anjuta-document-manager.glade.h:2
@@ -81,7 +82,7 @@ msgid "Ask for parameters at run-time"
 msgstr "Zeptat se na parametry při spuštění"
 
 #: ../anjuta.glade.h:12
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:3
 #: ../plugins/gdb/anjuta-gdb.glade.h:2
 msgid "Attach to process"
 msgstr "Připojit se k procesu"
@@ -103,13 +104,13 @@ msgid "Bookmark"
 msgstr "Záložka"
 
 #: ../anjuta.glade.h:17
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:3
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
 #: ../plugins/gdb/anjuta-gdb.glade.h:3
 msgid "Breakpoint properties"
 msgstr "Vlastnosti breakpointu"
 
 #: ../anjuta.glade.h:18
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Breakpointy"
@@ -139,8 +140,8 @@ msgid "Build symbol browser automatically"
 msgstr "Automaticky sestavit prohlížeč symbolů"
 
 #: ../anjuta.glade.h:25
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/gdb/anjuta-gdb.glade.h:5 ../plugins/gdb/registers_gui.c:89
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
+#: ../plugins/gdb/anjuta-gdb.glade.h:5 ../plugins/gdb/registers.c:261
 msgid "CPU Registers"
 msgstr "Registry CPU"
 
@@ -181,12 +182,13 @@ msgid "Combo Popdown:"
 msgstr "Kombinovaný rozbalovací seznam:"
 
 #: ../anjuta.glade.h:34
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:7
 #: ../plugins/gdb/anjuta-gdb.glade.h:6
 msgid "Command Line Parameters"
 msgstr "Parametry na příkazovém řádku"
 
 #: ../anjuta.glade.h:35 ../plugins/tools/anjuta-tools.glade.h:2
+#: ../plugins/tools/variable.c:383
 msgid "Command line parameters"
 msgstr "Parametry na příkazovém řádku"
 
@@ -246,8 +248,8 @@ msgid "Defines"
 msgstr "Definice"
 
 #: ../anjuta.glade.h:49
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:7
-#: ../plugins/gdb/anjuta-gdb.glade.h:7
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
+#: ../plugins/gdb/anjuta-gdb.glade.h:9
 msgid "Description:"
 msgstr "Popis:"
 
@@ -264,8 +266,8 @@ msgid "Disable overwriting files"
 msgstr "Zakázat přepisování souborů"
 
 #: ../anjuta.glade.h:53
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
-#: ../plugins/gdb/anjuta-gdb.glade.h:8
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:9
+#: ../plugins/gdb/anjuta-gdb.glade.h:10
 msgid "Display process _tree"
 msgstr "Zobrazit _strom procesů"
 
@@ -290,31 +292,31 @@ msgid "Enable Profiling"
 msgstr "Povolit profilování"
 
 #: ../anjuta.glade.h:59
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:9
-#: ../plugins/gdb/anjuta-gdb.glade.h:9
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:10
+#: ../plugins/gdb/anjuta-gdb.glade.h:11
 msgid "Enable _all"
 msgstr "Povolit _vše"
 
-#: ../anjuta.glade.h:60 ../plugins/gdb/breakpoints.c:117
-#: ../plugins/tools/anjuta-tools.glade.h:4
+#: ../anjuta.glade.h:60 ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Povoleno"
 
 #: ../anjuta.glade.h:61
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:10
-#: ../plugins/gdb/anjuta-gdb.glade.h:10
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:11
+#: ../plugins/gdb/anjuta-gdb.glade.h:12
 msgid "Enter a Hexa adress or select one in the data"
 msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
 
 #: ../anjuta.glade.h:62
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:11
-#: ../plugins/gdb/anjuta-gdb.glade.h:11
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:12
+#: ../plugins/gdb/anjuta-gdb.glade.h:13
 msgid "Execute Program"
 msgstr "Spustit program"
 
 #. Register actions
 #: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
-#: ../plugins/gdb/breakpoints.c:117 ../src/anjuta-app.c:439
+#: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:567
+#: ../src/anjuta-app.c:439
 msgid "File"
 msgstr "Soubor"
 
@@ -375,8 +377,8 @@ msgid "Help module Makefile.am"
 msgstr "Makefile.am modulu nápovědy"
 
 #: ../anjuta.glade.h:75
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:12
-#: ../plugins/gdb/anjuta-gdb.glade.h:12
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
+#: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
 msgstr "Skrýt _parametry procesu"
 
@@ -423,9 +425,9 @@ msgid "Input string:"
 msgstr "Řetězec na vstupu:"
 
 #: ../anjuta.glade.h:85
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
 #: ../plugins/editor/text_editor_menu.c:175
-#: ../plugins/gdb/anjuta-gdb.glade.h:13
+#: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
 msgstr "Zkoumat"
 
@@ -434,8 +436,8 @@ msgid "Keep going when some targets cannot be made"
 msgstr "Pokračovat, když nemohou být provedeny některé cíle"
 
 #: ../anjuta.glade.h:87
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
-#: ../plugins/gdb/anjuta-gdb.glade.h:14
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
+#: ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Signály jádra"
 
@@ -485,8 +487,8 @@ msgstr ""
 "Střední úroveň optimalizace (Bez rozhodování mezi velikostí a rychlostí)"
 
 #: ../anjuta.glade.h:99
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
-#: ../plugins/gdb/anjuta-gdb.glade.h:15
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
+#: ../plugins/gdb/anjuta-gdb.glade.h:18
 msgid "Memory"
 msgstr "Paměť"
 
@@ -567,8 +569,8 @@ msgid "Output files"
 msgstr "Výstupní soubory"
 
 #: ../anjuta.glade.h:116
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
-#: ../plugins/gdb/anjuta-gdb.glade.h:16 ../plugins/gdb/signals_gui.c:256
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
+#: ../plugins/gdb/anjuta-gdb.glade.h:19 ../plugins/gdb/signals.c:489
 msgid "Pass:"
 msgstr "Předat:"
 
@@ -581,14 +583,14 @@ msgid "Po module (translation) Makefile.am"
 msgstr "Makefile.am modulu po (překladů)"
 
 #: ../anjuta.glade.h:119
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
-#: ../plugins/gdb/anjuta-gdb.glade.h:17
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
+#: ../plugins/gdb/anjuta-gdb.glade.h:20
 msgid "Print:"
 msgstr "Tisk:"
 
 #: ../anjuta.glade.h:120
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
-#: ../plugins/gdb/anjuta-gdb.glade.h:18
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
+#: ../plugins/gdb/anjuta-gdb.glade.h:21
 msgid "Program Interrupt"
 msgstr "Přerušení programu"
 
@@ -649,18 +651,20 @@ msgid "Run detached"
 msgstr "Spustit odpojený"
 
 #: ../anjuta.glade.h:134
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/gdb/anjuta-gdb.glade.h:19
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
+#: ../plugins/gdb/anjuta-gdb.glade.h:22
 msgid "Run in Terminal"
 msgstr "Spustit v terminálu"
 
-#: ../anjuta.glade.h:135 ../plugins/tools/anjuta-tools.glade.h:8
+#: ../anjuta.glade.h:135
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
+#: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Spustit v terminálu"
 
 #: ../anjuta.glade.h:136
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/gdb/anjuta-gdb.glade.h:20
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
+#: ../plugins/gdb/anjuta-gdb.glade.h:23
 msgid "SIGINT"
 msgstr "SIGINT"
 
@@ -673,8 +677,8 @@ msgid "Scripts at the end of top level Makefile.am"
 msgstr "Skripty na konci Makefile.am nejvyšší úrovně"
 
 #: ../anjuta.glade.h:139
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/gdb/anjuta-gdb.glade.h:21 ../plugins/gdb/signals_gui.c:205
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
+#: ../plugins/gdb/anjuta-gdb.glade.h:24 ../plugins/gdb/signals.c:437
 msgid "Set Signal Property"
 msgstr "Nastavit vlastnost signálu"
 
@@ -691,8 +695,8 @@ msgid "Show tooltips"
 msgstr "Zobrazovat tipy"
 
 #: ../anjuta.glade.h:143
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/gdb/anjuta-gdb.glade.h:22
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:23
+#: ../plugins/gdb/anjuta-gdb.glade.h:25
 msgid "Signal:"
 msgstr "Signál:"
 
@@ -701,8 +705,8 @@ msgid "Silent. That is, do not echo shell commads during make"
 msgstr "Tiché. Tj. nevypisovat příkazy shellu při make"
 
 #: ../anjuta.glade.h:145
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:23
-#: ../plugins/gdb/anjuta-gdb.glade.h:23
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:24
+#: ../plugins/gdb/anjuta-gdb.glade.h:26
 msgid "Source Directories"
 msgstr "Adresáře zdrojů"
 
@@ -732,8 +736,8 @@ msgstr ""
 "S kouzelníkem aplikace budete moci vytvořit kostru různých typů projektů."
 
 #: ../anjuta.glade.h:151
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:24
-#: ../plugins/gdb/anjuta-gdb.glade.h:24
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
+#: ../plugins/gdb/anjuta-gdb.glade.h:27
 msgid "Stop:"
 msgstr "Zastavit:"
 
@@ -757,9 +761,9 @@ msgstr "Editor nástrojů"
 msgid "Top level Makefile.am"
 msgstr "Makefile.am nejvyšší úrovně"
 
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:875
-#: ../plugins/gdb/registers_gui.c:48 ../plugins/gdb/sharedlib_gui.c:41
-#: ../plugins/gdb/signals_gui.c:55 ../plugins/gdb/stack_trace.c:369
+#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:762
+#: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
+#: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:460
 #: ../plugins/subversion/svn-notify.c:118
 msgid "Update"
 msgstr "Aktualizovat"
@@ -807,9 +811,9 @@ msgstr "Pracovní adresář:"
 
 #. For the time being
 #: ../anjuta.glade.h:168
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
-#: ../plugins/gdb/anjuta-gdb.glade.h:25 ../plugins/gdb/signals_cbs.c:126
-#: ../plugins/gdb/signals_cbs.c:139 ../plugins/gdb/signals_cbs.c:152
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
+#: ../plugins/gdb/anjuta-gdb.glade.h:28 ../plugins/gdb/signals.c:190
+#: ../plugins/gdb/signals.c:203 ../plugins/gdb/signals.c:216
 #: ../plugins/project-manager/project_dbase.c:1466
 #: ../plugins/project-manager/project_dbase.c:1472
 #: ../plugins/project-manager/project_dbase.c:1475
@@ -819,8 +823,8 @@ msgid "Yes"
 msgstr "Ano"
 
 #: ../anjuta.glade.h:169
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
-#: ../plugins/gdb/anjuta-gdb.glade.h:26
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:27
+#: ../plugins/gdb/anjuta-gdb.glade.h:29
 msgid "_Attach"
 msgstr "_Připojit"
 
@@ -829,14 +833,14 @@ msgid "_Build a file:"
 msgstr "_Sestavit soubor:"
 
 #: ../anjuta.glade.h:171
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:27
-#: ../plugins/gdb/anjuta-gdb.glade.h:27
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
+#: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Condition:"
 msgstr "_Podmínka:"
 
 #: ../anjuta.glade.h:172
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
-#: ../plugins/gdb/anjuta-gdb.glade.h:28
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
+#: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Disable all"
 msgstr "_Zakázat vše"
 
@@ -851,8 +855,8 @@ msgid "_Execute:"
 msgstr "_Spustit:"
 
 #: ../anjuta.glade.h:175
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
-#: ../plugins/gdb/anjuta-gdb.glade.h:29
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
+#: ../plugins/gdb/anjuta-gdb.glade.h:32
 msgid "_Hide paths"
 msgstr "_Skrýt cesty"
 
@@ -865,8 +869,8 @@ msgid "_Language:"
 msgstr "_Jazyk:"
 
 #: ../anjuta.glade.h:178
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
-#: ../plugins/gdb/anjuta-gdb.glade.h:30
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
+#: ../plugins/gdb/anjuta-gdb.glade.h:33
 msgid "_Location:"
 msgstr "_Umístění:"
 
@@ -875,8 +879,8 @@ msgid "_Make a file:"
 msgstr "_Vytvořit soubor:"
 
 #: ../anjuta.glade.h:180
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
-#: ../plugins/gdb/anjuta-gdb.glade.h:31
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
+#: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Pass:"
 msgstr "_Průchod:"
 
@@ -885,14 +889,14 @@ msgid "_Pixmap editor:"
 msgstr "Editor _pixmap:"
 
 #: ../anjuta.glade.h:182
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
-#: ../plugins/gdb/anjuta-gdb.glade.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
+#: ../plugins/gdb/anjuta-gdb.glade.h:35
 msgid "_Process to attach to:"
 msgstr "Proces, _ke kterému se připojit:"
 
 #: ../anjuta.glade.h:183
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
-#: ../plugins/gdb/anjuta-gdb.glade.h:33
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
+#: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Remove all"
 msgstr "_Odstranit vše"
 
@@ -904,15 +908,15 @@ msgstr "_Terminál:"
 #. Stock icon, if any
 #: ../anjuta.glade.h:185 ../plugins/cvs-plugin/plugin.c:75
 #: ../plugins/cvs-plugin/plugin.c:131
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
-#: ../plugins/gdb/anjuta-gdb.glade.h:34 ../plugins/subversion/plugin.c:75
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
+#: ../plugins/gdb/anjuta-gdb.glade.h:37 ../plugins/subversion/plugin.c:75
 #: ../plugins/subversion/plugin.c:99
 msgid "_Update"
 msgstr "_Aktualizovat"
 
 #: ../anjuta.glade.h:186
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
-#: ../plugins/gdb/anjuta-gdb.glade.h:35
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
+#: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "dialog2"
 msgstr "dialog2"
 
@@ -1201,7 +1205,7 @@ msgstr "Objekt pixbuf"
 msgid "The pixbuf to render."
 msgstr "Pixbuf, který vykreslit."
 
-#: ../libanjuta/plugins.c:946 ../plugins/symbol-browser/an_symbol_prefs.c:651
+#: ../libanjuta/plugins.c:946 ../plugins/symbol-browser/an_symbol_prefs.c:653
 msgid "Load"
 msgstr "Načíst"
 
@@ -1240,7 +1244,7 @@ msgid "Width of the entry."
 msgstr "Šířka pole."
 
 #: ../libegg/egg-combo-action.c:294
-#: ../plugins/symbol-browser/an_symbol_view.c:292
+#: ../plugins/symbol-browser/an_symbol_view.c:279
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -1406,7 +1410,7 @@ msgstr "_Zamknout položky doku"
 #: ../plugins/editor/search-replace.c:1418
 #: ../plugins/editor/search-replace.c:1430
 #: ../plugins/editor/search-replace.c:1731
-#: ../plugins/symbol-browser/plugin.c:811
+#: ../plugins/symbol-browser/plugin.c:815
 msgid "Search"
 msgstr "Hledat"
 
@@ -1593,7 +1597,7 @@ msgstr "Název"
 #: ../plugins/build/compiler_options.c:805
 #: ../plugins/build/compiler_options.c:881
 #: ../plugins/build/compiler_options.c:904
-#: ../plugins/build/compiler_options.c:949 ../plugins/gdb/signals_gui.c:132
+#: ../plugins/build/compiler_options.c:949 ../plugins/gdb/signals.c:362
 msgid "Description"
 msgstr "Popis"
 
@@ -1637,24 +1641,25 @@ msgstr "Konfigurovat"
 msgid "Configuring the Project ....\n"
 msgstr "Konfiguruji projekt ....\n"
 
-#: ../plugins/build/executer.c:54 ../plugins/gdb/actions.c:189
+#: ../plugins/build/executer.c:54
 msgid "The target executable of this Project is unknown"
 msgstr "Cílový spustitelný soubor tohoto projektu není znám"
 
-#: ../plugins/build/executer.c:59 ../plugins/gdb/actions.c:191
+#: ../plugins/build/executer.c:59
 msgid "The target executable of this Project is not executable"
 msgstr "Cílový spustitelný soubor tohoto projektu není spustitelný"
 
-#: ../plugins/build/executer.c:64 ../plugins/gdb/actions.c:195
+#: ../plugins/build/executer.c:64
 msgid "The target executable does not exist for this Project"
 msgstr "Cílový spustitelný soubor tohoto projektu neexistuje"
 
 #: ../plugins/build/executer.c:77
+#: ../plugins/build-basic-autotools/executer.c:196
 msgid "No file or Project opened."
 msgstr "Neotevřen žádný soubor ani projekt."
 
 #: ../plugins/build/executer.c:82 ../plugins/build/executer.c:101
-#: ../plugins/gdb/actions.c:215 ../plugins/gdb/actions.c:226
+#: ../plugins/build-basic-autotools/executer.c:278
 msgid "No executable for this file."
 msgstr "Pro tento soubor neexistuje spustitelný soubor."
 
@@ -1673,6 +1678,18 @@ msgstr "Tento soubor nebyl uložen. Nejdříve jej uložte."
 #: ../plugins/build/executer.c:140
 msgid "Unable to execute file. Check Settings->Commands."
 msgstr "Nemohu spustit soubor. Zkontrolujte Nastavení->Příkazy."
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
+msgid "<b>Program execution:</b>"
+msgstr "<b>Spouštění programu:</b>"
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+msgid "Arguments: "
+msgstr "Parametry: "
+
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
+msgid "Select execution program"
+msgstr "Zvolte spouštěný program"
 
 # make has no Czech translation currently
 #. FIXME: What about translations in the following sscanf strings
@@ -1878,12 +1895,36 @@ msgstr "_Přeložit (%s)"
 msgid "Build commands"
 msgstr "Příkazy sestavení"
 
+#: ../plugins/build-basic-autotools/executer.c:123
+msgid "Program"
+msgstr "Program"
+
+#: ../plugins/build-basic-autotools/executer.c:223
+#, c-format
+msgid "Program '%s' is not a local file"
+msgstr "Program '%s' není mísní soubor"
+
+#: ../plugins/build-basic-autotools/executer.c:238
+#, c-format
+msgid "Program '%s' does not exists"
+msgstr "Program '%s' neexistuje"
+
+#: ../plugins/build-basic-autotools/executer.c:246
+#, c-format
+msgid "Program '%s' does not have execution permission"
+msgstr "Program '%s' nemá oprávnění ke spuštění"
+
+#: ../plugins/build-basic-autotools/executer.c:284
+#, c-format
+msgid "Executable '%s' is not up-to-date."
+msgstr "Spustitelný soubor '%s' není aktuální."
+
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:304
+#: ../plugins/class-inheritance/class-inherit.c:169
 msgid "Fixed data-view"
 msgstr "Pevný pohled na data"
 
-#: ../plugins/class-inheritance/class-inherit.c:876
+#: ../plugins/class-inheritance/class-inherit.c:763
 msgid "Update the graph"
 msgstr "Aktualizovat graf"
 
@@ -2040,7 +2081,10 @@ msgid ""
 "This plugin will create a class of the type you specify and add it to your "
 "project. Note that the creating class's parameters will be taken from the "
 "active tab. Please be sure to fill all required fields marked by *."
-msgstr "Tento zásuvný modul vytvoří třídu vámi zadaného typu a přidá ji do vašeho projektu. Parametry vytvářené třídy budou převzaty z aktivní karty. Přesvědčte se prosím, že jste vyplnili všechna vyžadovaná pole označená *."
+msgstr ""
+"Tento zásuvný modul vytvoří třídu vámi zadaného typu a přidá ji do vašeho "
+"projektu. Parametry vytvářené třídy budou převzaty z aktivní karty. "
+"Přesvědčte se prosím, že jste vyplnili všechna vyžadovaná pole označená *."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
 msgid "Virtual destructor"
@@ -2056,21 +2100,23 @@ msgstr ""
 "protected\n"
 "private"
 
-#: ../plugins/class-gen/class_gen.c:140
+#: ../plugins/class-gen/class_gen.c:143
 msgid "Please check your required fields."
 msgstr "Zkontrolujte prosím požadovaná pole."
 
-#: ../plugins/class-gen/class_gen.c:190
+#: ../plugins/class-gen/class_gen.c:203
 msgid ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
-msgstr "Při pokusu zapsat šablonu třídy GObject došlo k chybě. Zkontrolujte oprávnění souborů."
+msgstr ""
+"Při pokusu zapsat šablonu třídy GObject došlo k chybě. Zkontrolujte "
+"oprávnění souborů."
 
-#: ../plugins/class-gen/class_gen.c:362
+#: ../plugins/class-gen/class_gen.c:376
 msgid "Please fill required fields."
 msgstr "Vyplňte prosím vyžadovaná."
 
-#: ../plugins/class-gen/class_gen.c:420
+#: ../plugins/class-gen/class_gen.c:444
 msgid "Error in writing files"
 msgstr "Chyba při zápisu souborů"
 
@@ -2469,6 +2515,15 @@ msgstr "Importovat nový zdrojový strom do CVS"
 msgid "CVS operations"
 msgstr "Operace CVS"
 
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
+msgid "<b>Debugger:</b>"
+msgstr "<b>Debugger:</b>"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
+msgid "dialog1"
+msgstr "dialog1"
+
 #: ../plugins/debug-manager/attach_process.c:73
 msgid "Pid"
 msgstr "Pid"
@@ -2496,11 +2551,11 @@ msgstr "Nemohu spustit: %s."
 msgid "Unable to open the file: %s\n"
 msgstr "Nemohu otevřít soubor: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:46
+#: ../plugins/debug-manager/plugin.c:139
 msgid "Load Target to debug"
 msgstr "Načíst cíl pro ladění"
 
-#: ../plugins/debug-manager/plugin.c:58 ../plugins/file-loader/plugin.c:442
+#: ../plugins/debug-manager/plugin.c:151 ../plugins/file-loader/plugin.c:442
 #: ../plugins/project-manager/project_dbase.c:363
 #: ../plugins/project-manager/project_dbase_gui.c:153
 #: ../plugins/project-manager/project_dbase_gui.c:170
@@ -2512,127 +2567,127 @@ msgstr "Načíst cíl pro ladění"
 msgid "All files"
 msgstr "Všechny soubor"
 
-#: ../plugins/debug-manager/plugin.c:157 ../plugins/debug-manager/plugin.c:204
+#: ../plugins/debug-manager/plugin.c:290
 msgid "Select debugging target"
 msgstr "Zvolte cíl ladění"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:361 ../plugins/gdb/plugin.c:49
+#: ../plugins/debug-manager/plugin.c:458 ../plugins/gdb/plugin.c:52
 msgid "_Debug"
 msgstr "_Ladění"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:369
+#: ../plugins/debug-manager/plugin.c:466
 msgid "_Start Debugger"
 msgstr "_Spustit debugger"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:371
+#: ../plugins/debug-manager/plugin.c:468
 msgid "Start the debugging session"
 msgstr "Začít ladicí sezení"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:377
+#: ../plugins/debug-manager/plugin.c:474
 msgid "Load debugging target ..."
 msgstr "Načíst cíl ladění ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:379
+#: ../plugins/debug-manager/plugin.c:476
 msgid "Open the target for debugging"
 msgstr "Otevřít cíl pro ladění"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:385
+#: ../plugins/debug-manager/plugin.c:482
 msgid "_Attach to Process ..."
 msgstr "_Připojit se k procesu ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:387
+#: ../plugins/debug-manager/plugin.c:484
 msgid "Attach to a running program"
 msgstr "Připojit se k běžícímu programu"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:393
+#: ../plugins/debug-manager/plugin.c:490
 msgid "_Execution"
 msgstr "_Provádění"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:401
+#: ../plugins/debug-manager/plugin.c:498
 msgid "Run/_Continue"
 msgstr "Spustit/_Pokračovat"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:403
+#: ../plugins/debug-manager/plugin.c:500
 msgid "Continue the execution of the program"
 msgstr "Pokračovat provádění programu"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:409
+#: ../plugins/debug-manager/plugin.c:506
 msgid "Step _In"
 msgstr "Krok _dovnitř"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:411
+#: ../plugins/debug-manager/plugin.c:508
 msgid "Single step into function"
 msgstr "Jeden krok do funkce"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:417
+#: ../plugins/debug-manager/plugin.c:514
 msgid "Step O_ver"
 msgstr "Krok _přes"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:419
+#: ../plugins/debug-manager/plugin.c:516
 msgid "Single step over function"
 msgstr "Jeden krok přes funkci"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:425
+#: ../plugins/debug-manager/plugin.c:522
 msgid "Step _Out"
 msgstr "Krok _ven"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:427
+#: ../plugins/debug-manager/plugin.c:524
 msgid "Single step out of the function"
 msgstr "Jeden krok ven z funkce"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:433
+#: ../plugins/debug-manager/plugin.c:530
 msgid "_Run to cursor"
 msgstr "Spustit do _kurzoru"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:435
+#: ../plugins/debug-manager/plugin.c:532
 msgid "Run to the cursor"
 msgstr "Spustit do kurzoru"
 
-#: ../plugins/debug-manager/plugin.c:441
+#: ../plugins/debug-manager/plugin.c:538
 msgid "St_op Debugger"
 msgstr "Za_stavit debugger"
 
-#: ../plugins/debug-manager/plugin.c:443
+#: ../plugins/debug-manager/plugin.c:540
 msgid "Say goodbye to the debugger"
 msgstr "Rozloučit se s debuggerem"
 
-#: ../plugins/debug-manager/plugin.c:572
+#: ../plugins/debug-manager/plugin.c:675
 msgid "Debugger operations"
 msgstr "Operace debuggeru"
 
@@ -2643,9 +2698,7 @@ msgstr "Poznámky"
 #. 7
 #. 9
 #: ../plugins/devhelp/plugin.c:250 ../plugins/devhelp/plugin.c:476
-#: ../plugins/devhelp/plugin.c:489 ../plugins/gdb/registers_gui.c:56
-#: ../plugins/gdb/sharedlib_gui.c:49 ../plugins/gdb/signals_gui.c:63
-#: ../plugins/gdb/stack_trace.c:384 ../plugins/gdb/watch_gui.c:74
+#: ../plugins/devhelp/plugin.c:489
 #: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:458
 msgid "Help"
 msgstr "Nápověda"
@@ -2659,7 +2712,7 @@ msgid "Search Help:"
 msgstr "Hledat v nápovědě"
 
 #: ../plugins/devhelp/plugin.c:373 ../plugins/editor/plugin.c:249
-#: ../plugins/message-view/plugin.c:63 ../plugins/symbol-browser/plugin.c:260
+#: ../plugins/message-view/plugin.c:63 ../plugins/symbol-browser/plugin.c:264
 msgid "_Goto"
 msgstr "_Jít na"
 
@@ -2741,7 +2794,7 @@ msgstr ""
 "Neuložené změny budou ztraceny."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:311
+#: ../plugins/editor/text_editor.c:321
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
@@ -2759,7 +2812,9 @@ msgstr "Žádný výsledek. Hledat od druhého konce dokumentu?"
 msgid ""
 "Incremental search for '%s' failed. Press Enter or click Find to continue "
 "searching at the top."
-msgstr "Inkrementální hledání '%s' selhalo. Pokračujte hledání od začátku stisknutím Enter nebo kliknutím na Hledat."
+msgstr ""
+"Inkrementální hledání '%s' selhalo. Pokračujte hledání od začátku stisknutím "
+"Enter nebo kliknutím na Hledat."
 
 #: ../plugins/editor/action-callbacks.c:1220
 #, c-format
@@ -3227,7 +3282,7 @@ msgid "Mode:"
 msgstr "Režim:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:109
-#: ../plugins/gdb/registers_gui.c:41
+#: ../plugins/gdb/registers.c:220
 msgid "Modify"
 msgstr "Upravit"
 
@@ -4105,7 +4160,7 @@ msgid "Zoom"
 msgstr "Zvětšení"
 
 #: ../plugins/editor/plugin.c:730 ../plugins/editor/plugin.c:741
-#: ../plugins/gdb/breakpoints.c:117
+#: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:576
 msgid "Line"
 msgstr "Řádek"
 
@@ -4160,7 +4215,7 @@ msgstr "Tisknu .."
 msgid "Printing ..."
 msgstr "Tisknu ..."
 
-#: ../plugins/editor/print.c:1029 ../plugins/gdb/signals_gui.c:124
+#: ../plugins/editor/print.c:1029 ../plugins/gdb/signals.c:354
 msgid "Print"
 msgstr "Tisk"
 
@@ -4177,7 +4232,7 @@ msgstr "Základní hledání"
 msgid "Default"
 msgstr "Implicitní"
 
-#: ../plugins/editor/search-replace.c:279
+#: ../plugins/editor/search-replace.c:278
 msgid "Find: "
 msgstr "Hledat: "
 
@@ -4213,7 +4268,7 @@ msgstr "Bylo nahrazeno %d výsledků."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
-#: ../plugins/editor/text_editor.c:297
+#: ../plugins/editor/text_editor.c:307
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4224,23 +4279,23 @@ msgstr ""
 "aktuální buffer.\n"
 "Chcete jej znovu načíst?"
 
-#: ../plugins/editor/text_editor.c:1174
+#: ../plugins/editor/text_editor.c:1194
 msgid "Could not get file info"
 msgstr "Nemohu získat informace o souboru"
 
-#: ../plugins/editor/text_editor.c:1181
+#: ../plugins/editor/text_editor.c:1201
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tento soubor je příliš velký. Nemohu alokovat paměť."
 
-#: ../plugins/editor/text_editor.c:1188
+#: ../plugins/editor/text_editor.c:1208
 msgid "Could not open file"
 msgstr "Nemohu otevřít soubor"
 
-#: ../plugins/editor/text_editor.c:1196
+#: ../plugins/editor/text_editor.c:1216
 msgid "Error while reading from file"
 msgstr "Chyba při čtení ze souboru"
 
-#: ../plugins/editor/text_editor.c:1232
+#: ../plugins/editor/text_editor.c:1252
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4250,7 +4305,7 @@ msgstr ""
 "podporováno. Zkontrolujte prosím, jestli je kódování souboru v seznamu "
 "podporovaných kódování. Pokud není, přidejte ji v nastavení."
 
-#: ../plugins/editor/text_editor.c:1397
+#: ../plugins/editor/text_editor.c:1417
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4261,26 +4316,26 @@ msgstr ""
 "\n"
 "Detaily: %s"
 
-#: ../plugins/editor/text_editor.c:1444
+#: ../plugins/editor/text_editor.c:1464
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nemohu uložit soubor: %s."
 
-#: ../plugins/editor/text_editor.c:1620
+#: ../plugins/editor/text_editor.c:1640
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Automatické formátování je momentálně zakázáno. Změňte to v Nastavení."
 
-#: ../plugins/editor/text_editor.c:1639
+#: ../plugins/editor/text_editor.c:1659
 msgid "Error in auto formatting ..."
 msgstr "Chyba při automatickém formátování ..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1655
+#: ../plugins/editor/text_editor.c:1675
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta nezná %s!"
 
-#: ../plugins/editor/text_editor.c:1680
+#: ../plugins/editor/text_editor.c:1700
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4289,7 +4344,7 @@ msgstr ""
 "Chyba při automatickém formátování ...\n"
 "Detaily: %s"
 
-#: ../plugins/editor/text_editor.c:1927
+#: ../plugins/editor/text_editor.c:1947
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4337,7 +4392,7 @@ msgstr "Násl záložka"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/editor/text_editor_menu.c:137 ../plugins/gdb/plugin.c:65
+#: ../plugins/editor/text_editor_menu.c:137 ../plugins/gdb/plugin.c:68
 msgid "Toggle breakpoint"
 msgstr "Přepnout breakpoint"
 
@@ -4460,7 +4515,8 @@ msgid ""
 msgstr ""
 "<b>Nemohu otevřít \"%s\"</b>.\n"
 "\n"
-"Neexistuje zásuvný modul, implicitní akce ani aplikace nastavená pro zpracovávání tohoto typu souborů.\n"
+"Neexistuje zásuvný modul, implicitní akce ani aplikace nastavená pro "
+"zpracovávání tohoto typu souborů.\n"
 "\n"
 "Typ mime: %s.\n"
 "\n"
@@ -4585,7 +4641,7 @@ msgstr "Otevřít nedávný soubor"
 #: ../plugins/file-manager/an_file_view.c:388
 #: ../plugins/file-manager/an_file_view.c:551
 #: ../plugins/file-manager/an_file_view.c:819
-#: ../plugins/symbol-browser/an_symbol_view.c:524
+#: ../plugins/symbol-browser/an_symbol_view.c:514
 msgid "Loading ..."
 msgstr "Načítám ..."
 
@@ -4639,7 +4695,7 @@ msgid "dialog3"
 msgstr "dialog3"
 
 #: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:518
-#: ../plugins/symbol-browser/plugin.c:304
+#: ../plugins/symbol-browser/plugin.c:308
 msgid "_Refresh"
 msgstr "_Obnovit"
 
@@ -4934,118 +4990,130 @@ msgstr "Operace kouzelníka souborů"
 msgid "File Wizard"
 msgstr "Kouzelník souborů"
 
-#: ../plugins/gdb/actions.c:221
-msgid "The executable is not up-to-date."
-msgstr "Spustitelný soubor není aktuální."
+#: ../plugins/gdb/anjuta-gdb.glade.h:7
+msgid "Debugger command"
+msgstr "Příkaz debuggeru"
 
-#: ../plugins/gdb/actions.c:246
-msgid "Debugger is not running. Start it first."
-msgstr "Debugger neběží. Nejdříve jej spusťte."
+#: ../plugins/gdb/anjuta-gdb.glade.h:8
+msgid "Debugger command:"
+msgstr "Příkaz debuggeru:"
 
-#: ../plugins/gdb/breakpoints.c:118
+#: ../plugins/gdb/anjuta-gdb.glade.h:17
+msgid "Location"
+msgstr "Umístění"
+
+#: ../plugins/gdb/breakpoints.c:129
+msgid "Enb"
+msgstr "Enb"
+
+#: ../plugins/gdb/breakpoints.c:129
+msgid "ID"
+msgstr "ID"
+
+#: ../plugins/gdb/breakpoints.c:130 ../plugins/gdb/stack_trace.c:585
 msgid "Function"
 msgstr "Funkce"
 
-#: ../plugins/gdb/breakpoints.c:118 ../plugins/gdb/signals_gui.c:128
+#: ../plugins/gdb/breakpoints.c:130
+msgid "Type"
+msgstr "Typ"
+
+#: ../plugins/gdb/breakpoints.c:130 ../plugins/gdb/stack_trace.c:594
+msgid "Address"
+msgstr "Adresa"
+
+#: ../plugins/gdb/breakpoints.c:130 ../plugins/gdb/signals.c:358
 msgid "Pass"
 msgstr "Průchod"
 
-#: ../plugins/gdb/breakpoints.c:118
+#: ../plugins/gdb/breakpoints.c:131
+msgid "Times"
+msgstr "Počet"
+
+#: ../plugins/gdb/breakpoints.c:131
 msgid "Condition"
 msgstr "Podmínka"
 
-#: ../plugins/gdb/breakpoints.c:183 ../plugins/gdb/debugger.c:1705
-msgid "All breakpoints enabled:"
-msgstr "Všechny breakpointy povoleny:"
+#: ../plugins/gdb/breakpoints.c:131
+msgid "Disp"
+msgstr "Disp"
 
-#.
-#. debugger_put_cmd_in_queqe ("info breakpoints", DB_CMD_NONE,
-#. breakpoints_dbase_update,
-#. debugger.breakpoints_dbase);
-#.
-#: ../plugins/gdb/breakpoints.c:201 ../plugins/gdb/debugger.c:1746
-msgid "All breakpoints disabled:"
-msgstr "Všechny breakpointy zakázány:"
-
-#: ../plugins/gdb/breakpoints.c:673
+#: ../plugins/gdb/breakpoints.c:500
 msgid "You must give a valid location to set the breakpoint."
 msgstr "Pro nastavení breakpointu musíte zadat platné umístění."
 
-#: ../plugins/gdb/breakpoints.c:797
+#: ../plugins/gdb/breakpoints.c:1594
+msgid "All breakpoints disabled.\n"
+msgstr "Všechny breakpointy zakázány.\n"
+
+#: ../plugins/gdb/breakpoints.c:1625
+msgid "All breakpoints enabled.\n"
+msgstr "Všechny breakpointy povoleny.\n"
+
+#: ../plugins/gdb/breakpoints.c:1636
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Opravdu chcete odstranit všechny breakpointy?"
 
-#: ../plugins/gdb/breakpoints.c:1514
-msgid "0"
-msgstr "0"
+#: ../plugins/gdb/breakpoints.c:1651
+msgid "All breakpoints removed.\n"
+msgstr "Všechny breakpointy odstraněny.\n"
 
-#: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:135
+#: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
 #: ../plugins/tools/editor.c:463 ../plugins/tools/editor.c:1070
 msgid "Variable"
 msgstr "Proměnná"
 
-#: ../plugins/gdb/debug_tree.c:106 ../plugins/gdb/watch_gui.c:144
-#: ../plugins/tools/editor.c:469 ../plugins/tools/editor.c:1082
+#: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/registers.c:316
+#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:469
+#: ../plugins/tools/editor.c:1082
 msgid "Value"
 msgstr "Hodnota"
 
-#: ../plugins/gdb/debug_tree.c:1190
+#: ../plugins/gdb/debug_tree.c:1207
 msgid "Local Variables"
 msgstr "Lokální proměnné"
 
-#: ../plugins/gdb/debug_tree.c:1506
+#: ../plugins/gdb/debug_tree.c:1527
 msgid "Default format"
 msgstr "Implicitní formát"
 
-#: ../plugins/gdb/debug_tree.c:1510
+#: ../plugins/gdb/debug_tree.c:1531
 msgid "Binary"
 msgstr "Binární"
 
-#: ../plugins/gdb/debug_tree.c:1513
+#: ../plugins/gdb/debug_tree.c:1534
 msgid "Octal"
 msgstr "Osmičkový"
 
-#: ../plugins/gdb/debug_tree.c:1516
+#: ../plugins/gdb/debug_tree.c:1537
 msgid "Signed decimal"
 msgstr "Desítkový se znaménkem"
 
-#: ../plugins/gdb/debug_tree.c:1519
+#: ../plugins/gdb/debug_tree.c:1540
 msgid "Unsigned decimal"
 msgstr "Desítkový bez znaménka"
 
-#: ../plugins/gdb/debug_tree.c:1522 ../plugins/gdb/registers_gui.c:112
+#: ../plugins/gdb/debug_tree.c:1543
 msgid "Hex"
 msgstr "Šestnáctkový"
 
-#: ../plugins/gdb/debug_tree.c:1525
+#: ../plugins/gdb/debug_tree.c:1546
 msgid "Char"
 msgstr "Znak"
 
-#: ../plugins/gdb/debug_tree.c:1530
+#: ../plugins/gdb/debug_tree.c:1551
 msgid "Inspect memory"
 msgstr "Zkoumat paměť"
 
-#: ../plugins/gdb/debugger.c:114
-msgid "Stack"
-msgstr "Zásobník"
-
-#: ../plugins/gdb/debugger.c:119
-msgid "Locals"
-msgstr "Místní"
-
-#: ../plugins/gdb/debugger.c:124
-msgid "Watches"
-msgstr "Sledované"
-
-#: ../plugins/gdb/debugger.c:183 ../plugins/gdb/debugger.c:579
+#: ../plugins/gdb/debugger.c:483 ../plugins/gdb/debugger.c:653
 msgid "Loading Executable: "
 msgstr "Načítám spustitelný soubor: "
 
-#: ../plugins/gdb/debugger.c:214
+#: ../plugins/gdb/debugger.c:509
 msgid "Loading Core: "
 msgstr "Načítám core: "
 
-#: ../plugins/gdb/debugger.c:477
+#: ../plugins/gdb/debugger.c:544
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -5056,78 +5124,71 @@ msgstr ""
 "Nemohu inicializovat debugger.\n"
 "Přesvědčte se, že Anjuta je správně nainstalovaná."
 
-#: ../plugins/gdb/debugger.c:576
-msgid "Getting ready to start debugging session ..."
-msgstr "Připravuji se na spuštění ladicího sezení ..."
+#: ../plugins/gdb/debugger.c:647
+msgid "Getting ready to start debugging session ...\n"
+msgstr "Připravuji se na spuštění ladicího sezení ...\n"
 
-#: ../plugins/gdb/debugger.c:586
-msgid "No executable specified."
-msgstr "Nezadán spustitelný soubor."
+#: ../plugins/gdb/debugger.c:662
+msgid "No executable specified.\n"
+msgstr "Nezadán spustitelný soubor.\n"
 
-#: ../plugins/gdb/debugger.c:588
-msgid "Open an executable or attach to a process to start debugging."
-msgstr ""
-"Začněte ladit otevřením spustitelného souboru nebo připojením k procesu."
+#: ../plugins/gdb/debugger.c:665
+msgid "Open an executable or attach to a process to start debugging.\n"
+msgstr "Začněte ladit otevřením spustitelného souboru nebo připojením k procesu.\n"
 
-#: ../plugins/gdb/debugger.c:594
-msgid "There was an error whilst launching the debugger."
-msgstr "Při spouštění debuggeru došlo k chybě."
+#: ../plugins/gdb/debugger.c:674
+msgid "There was an error whilst launching the debugger.\n"
+msgstr "Při spouštění debuggeru došlo k chybě.\n"
 
-#: ../plugins/gdb/debugger.c:596
+#: ../plugins/gdb/debugger.c:678
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Přesvědčte se, že v systému je nainstalován 'gdb'.\n"
 
-#: ../plugins/gdb/debugger.c:753
-msgid "Error: "
-msgstr "Chyba: "
+#: ../plugins/gdb/debugger.c:873
+msgid "Program exited normally\n"
+msgstr "Program skončil normálně\n"
 
-#: ../plugins/gdb/debugger.c:770
+#: ../plugins/gdb/debugger.c:885
+#, c-format
+msgid "Program exited with error code %s\n"
+msgstr "Program skončil s kódem chyby %s\n"
+
+#: ../plugins/gdb/debugger.c:903
+#, c-format
+msgid "Program received signal %s (%s) and exited\n"
+msgstr "Program dostal signál %s (%s) a skončil\n"
+
+#: ../plugins/gdb/debugger.c:921
+#, c-format
+msgid "Program received signal %s (%s)\n"
+msgstr "Program dostal signál %s (%s)\n"
+
+#: ../plugins/gdb/debugger.c:937
+#, c-format
+msgid "Breakpoint number %s hit\n"
+msgstr "Dosažen breakpoint číslo %s\n"
+
+#: ../plugins/gdb/debugger.c:947
+msgid "Function finished\n"
+msgstr "Funkce dokončena\n"
+
+#: ../plugins/gdb/debugger.c:954
+msgid "Stepping finished\n"
+msgstr "Krok dokončen\n"
+
+#: ../plugins/gdb/debugger.c:961
+msgid "Location reached\n"
+msgstr "Umístění dosaženo\n"
+
+#: ../plugins/gdb/debugger.c:1033
 msgid "Debugger is ready.\n"
 msgstr "Debugger je připraven.\n"
 
-#: ../plugins/gdb/debugger.c:1111
-msgid "Cannot execute gnome-terminal"
-msgstr "Nemohu spustit gnome-terminal"
+#: ../plugins/gdb/debugger.c:1142
+msgid "gdb terminated unexpectedly. Restarting gdb\n"
+msgstr "gdb neočekávaně skončil. Znovu spouštím gdb\n"
 
-#: ../plugins/gdb/debugger.c:1147
-msgid "Cannot start terminal for debugging."
-msgstr "Otevřít spustit terminál pro ladění."
-
-#: ../plugins/gdb/debugger.c:1210
-msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-msgstr "Varování: Žádný ladicí terminál. Přesměrovávám stdio do /dev/null.\n"
-
-#: ../plugins/gdb/debugger.c:1229
-msgid "Running program ..."
-msgstr "Spouštím program ..."
-
-#: ../plugins/gdb/debugger.c:1349
-#, c-format
-msgid "Attaching to process: %d"
-msgstr "Připojuji se k procesu: %d"
-
-#: ../plugins/gdb/debugger.c:1380
-msgid ""
-"A process is already running.\n"
-"Would you like to terminate it and attach the new process?"
-msgstr ""
-"Proces již běží.\n"
-"CHcete jej ukončit a připojit nový proces?"
-
-#: ../plugins/gdb/debugger.c:1394
-msgid "Anjuta is unable to attach to itself."
-msgstr "Anjuta se nemůže připojit sama k sobě."
-
-#: ../plugins/gdb/debugger.c:1453
-msgid "Program forcefully terminated."
-msgstr "Projekt byl donucen skončit."
-
-#: ../plugins/gdb/debugger.c:1472
-#, c-format
-msgid "Detaching the process: %d"
-msgstr "Odpojuji proces: %d"
-
-#: ../plugins/gdb/debugger.c:1526
+#: ../plugins/gdb/debugger.c:1176
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -5135,7 +5196,7 @@ msgstr ""
 "Program je PŘIPOJEN.\n"
 "Chcete přesto zastavit debugger?"
 
-#: ../plugins/gdb/debugger.c:1529
+#: ../plugins/gdb/debugger.c:1179
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -5143,21 +5204,49 @@ msgstr ""
 "Program BĚŽÍ.\n"
 "Chcete přesto zastavit debugger?"
 
-#: ../plugins/gdb/debugger.c:1787
-msgid "All breakpoints deleted:"
-msgstr "Všechny breakpointy odstraněny:"
+#: ../plugins/gdb/debugger.c:1382
+msgid "Cannot execute gnome-terminal"
+msgstr "Nemohu spustit gnome-terminal"
 
-#: ../plugins/gdb/debugger.c:1814
+#: ../plugins/gdb/debugger.c:1418
+msgid "Cannot start terminal for debugging."
+msgstr "Otevřít spustit terminál pro ladění."
+
+#: ../plugins/gdb/debugger.c:1499
 #, c-format
-msgid "Interrupting the process: %d"
-msgstr "Přerušuji proces: %d"
+msgid "Attaching to process: %d\n"
+msgstr "Připojuji se k procesu: %d\n"
 
-#: ../plugins/gdb/debugger.c:1842
+#: ../plugins/gdb/debugger.c:1523
+msgid ""
+"A process is already running.\n"
+"Would you like to terminate it and attach the new process?"
+msgstr ""
+"Proces již běží.\n"
+"CHcete jej ukončit a připojit nový proces?"
+
+#: ../plugins/gdb/debugger.c:1540
+msgid "Anjuta is unable to attach to itself."
+msgstr "Anjuta se nemůže připojit sama k sobě."
+
+#: ../plugins/gdb/debugger.c:1587
+msgid "Program terminated\n"
+msgstr "Projekt ukončen\n"
+
+#: ../plugins/gdb/debugger.c:1602
+msgid "Detaching the process\n"
+msgstr "Odpojuji proces\n"
+
+#: ../plugins/gdb/debugger.c:1620
+msgid "Interrupting the process\n"
+msgstr "Přerušuji proces\n"
+
+#: ../plugins/gdb/debugger.c:1808
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Posílám procesu signál %s: %d"
 
-#: ../plugins/gdb/debugger.c:1868
+#: ../plugins/gdb/debugger.c:1834
 msgid "Error whilst signaling the process."
 msgstr "Chyba při signalizaci procesu."
 
@@ -5165,268 +5254,293 @@ msgstr "Chyba při signalizaci procesu."
 msgid "Information"
 msgstr "Informace"
 
-#: ../plugins/gdb/memory.c:108
+#: ../plugins/gdb/memory.c:102
 msgid "Unable to build user interface for Memory\n"
 msgstr "Nemohu sestavit uživatelské rozhraní pro paměť\n"
 
-#: ../plugins/gdb/memory.c:410
+#: ../plugins/gdb/memory.c:409
 msgid "Enter a Hexa address or Select one in the data"
 msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
 
-#: ../plugins/gdb/memory.c:417
+#: ../plugins/gdb/memory.c:416
 msgid "Non accessible address !"
 msgstr "Nepřístupná adresa !"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/gdb/plugin.c:57
+#: ../plugins/gdb/plugin.c:60
 msgid "_Breakpoints"
 msgstr "_Breakpointy"
 
 #. Display label
 #. short-cut
-#: ../plugins/gdb/plugin.c:67
+#: ../plugins/gdb/plugin.c:70
 msgid "Toggle breakpoint at the current location"
 msgstr "Přepnout breakpoint na aktuální pozici"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/gdb/plugin.c:73
+#: ../plugins/gdb/plugin.c:76
 msgid "Set Breakpoint ..."
 msgstr "Nastavit breakpoint ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/gdb/plugin.c:75
+#: ../plugins/gdb/plugin.c:78
 msgid "Set a breakpoint"
 msgstr "Nastavit breakpoint"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/gdb/plugin.c:81
+#: ../plugins/gdb/plugin.c:84
 msgid "_Breakpoints ..."
 msgstr "_Breakpointy ..."
 
 #. Display label
 #. short-cut
-#: ../plugins/gdb/plugin.c:83
+#: ../plugins/gdb/plugin.c:86
 msgid "Edit breakpoints"
 msgstr "Upravit breakpointy"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/gdb/plugin.c:89
+#: ../plugins/gdb/plugin.c:92
 msgid "Disable all Breakpoints"
 msgstr "Zakázat všechny breakpointy"
 
 #. Display label
 #. short-cut
-#: ../plugins/gdb/plugin.c:91
+#: ../plugins/gdb/plugin.c:94
 msgid "Deactivate all breakpoints"
 msgstr "Deaktivovat všechny breakpointy"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/gdb/plugin.c:97
+#: ../plugins/gdb/plugin.c:100
 msgid "C_lear all Breakpoints"
 msgstr "_Vymazat všechny breakpointy"
 
 #. Display label
 #. short-cut
-#: ../plugins/gdb/plugin.c:99
+#: ../plugins/gdb/plugin.c:102
 msgid "Delete all breakpoints"
 msgstr "Odstranit všechny breakpointy"
 
-#: ../plugins/gdb/plugin.c:105
+#: ../plugins/gdb/plugin.c:108
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/gdb/plugin.c:113
+#: ../plugins/gdb/plugin.c:116
 msgid "Info _Target Files"
 msgstr "Info Soubory _cíle"
 
-#: ../plugins/gdb/plugin.c:115
+#: ../plugins/gdb/plugin.c:118
 msgid "Display information on the files the debugger is active with"
 msgstr "Zobrazit informace o souborech, u kterých je aktivní debugger"
 
-#: ../plugins/gdb/plugin.c:121
+#: ../plugins/gdb/plugin.c:124
 msgid "Info _Program"
 msgstr "Info _Program"
 
-#: ../plugins/gdb/plugin.c:123
+#: ../plugins/gdb/plugin.c:126
 msgid "Display information on the execution status of the program"
 msgstr "Zobrazit informace o stavu provádění programu"
 
-#: ../plugins/gdb/plugin.c:129
+#: ../plugins/gdb/plugin.c:132
 msgid "Info _Kernel User Struct"
 msgstr "Info Struct user _jádra"
 
-#: ../plugins/gdb/plugin.c:131
+#: ../plugins/gdb/plugin.c:134
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Zobrazit obsah 'struct user' jádra o aktuálním potomku"
 
-#: ../plugins/gdb/plugin.c:137
+#: ../plugins/gdb/plugin.c:140
 msgid "Info _Threads"
 msgstr "Info _Vlákna"
 
-#: ../plugins/gdb/plugin.c:139
+#: ../plugins/gdb/plugin.c:142
 msgid "Display the IDs of currently known threads"
 msgstr "Zobrazit ID známých vláken"
 
-#: ../plugins/gdb/plugin.c:145
+#: ../plugins/gdb/plugin.c:148
 msgid "Info _Global variables"
 msgstr "Info _Globální proměnné"
 
-#: ../plugins/gdb/plugin.c:147
+#: ../plugins/gdb/plugin.c:150
 msgid "Display all global and static variables of the program"
 msgstr "Zobrazit všechny globální a statické proměnné programu"
 
-#: ../plugins/gdb/plugin.c:153
+#: ../plugins/gdb/plugin.c:156
 msgid "Info _Local variables"
 msgstr "Info _Lokální proměnné"
 
-#: ../plugins/gdb/plugin.c:155
+#: ../plugins/gdb/plugin.c:158
 msgid "Display local variables of the current frame"
 msgstr "Zobrazit lokální proměnné aktuálního aktivačního záznamu"
 
-#: ../plugins/gdb/plugin.c:161
+#: ../plugins/gdb/plugin.c:164
 msgid "Info _Current Frame"
 msgstr "Info _Aktuální aktivační záznam"
 
-#: ../plugins/gdb/plugin.c:163
+#: ../plugins/gdb/plugin.c:166
 msgid "Display information about the current frame of execution"
 msgstr "Zobrazit informace o aktuálním aktivačním záznamu"
 
-#: ../plugins/gdb/plugin.c:169
+#: ../plugins/gdb/plugin.c:172
 msgid "Info Function _Arguments"
 msgstr "Info _Parametry funkce"
 
-#: ../plugins/gdb/plugin.c:171
+#: ../plugins/gdb/plugin.c:174
 msgid "Display function arguments of the current frame"
 msgstr "Zobrazit parametry funkce aktuálního aktivačního záznamu"
 
-#: ../plugins/gdb/plugin.c:177
+#: ../plugins/gdb/plugin.c:180
 msgid "Examine _Memory"
 msgstr "Zkoumat _paměť"
 
-#: ../plugins/gdb/plugin.c:179
+#: ../plugins/gdb/plugin.c:182
 msgid "Display accessible memory"
 msgstr "Zobrazit přístupnou paměť"
 
-#: ../plugins/gdb/plugin.c:185
+#: ../plugins/gdb/plugin.c:188
 msgid "_Restart Program"
 msgstr "_Restartovat program"
 
-#: ../plugins/gdb/plugin.c:187
+#: ../plugins/gdb/plugin.c:190
 msgid "Stop and restart the program"
 msgstr "Zastavit a znovu spustit program"
 
-#: ../plugins/gdb/plugin.c:193
+#: ../plugins/gdb/plugin.c:196
 msgid "S_top Program"
 msgstr "Za_stavit program"
 
-#: ../plugins/gdb/plugin.c:195
+#: ../plugins/gdb/plugin.c:198
 msgid "Stop the program being debugged"
 msgstr "Zastavit laděný program"
 
-#: ../plugins/gdb/plugin.c:201
+#: ../plugins/gdb/plugin.c:204
 msgid "_Detach Debugger"
 msgstr "_Odpojit debugger"
 
-#: ../plugins/gdb/plugin.c:203
+#: ../plugins/gdb/plugin.c:206
 msgid "Detach from an attached program"
 msgstr "Odpojit se od připojeného programu"
 
-#: ../plugins/gdb/plugin.c:209
+#: ../plugins/gdb/plugin.c:212
 msgid "Pa_use Program"
 msgstr "_Pozastavit program"
 
-#: ../plugins/gdb/plugin.c:211
+#: ../plugins/gdb/plugin.c:214
 msgid "Pauses the execution of the program"
 msgstr "Pozastavit provádění programu"
 
-#: ../plugins/gdb/plugin.c:217
+#: ../plugins/gdb/plugin.c:220
 msgid "Si_gnal to Process"
 msgstr "_Poslat procesu _signál"
 
-#: ../plugins/gdb/plugin.c:219
+#: ../plugins/gdb/plugin.c:222
 msgid "Send a kernel signal to the process being debugged"
 msgstr "Posílám laděnému procesu signál jádra"
 
-#: ../plugins/gdb/plugin.c:225
+#: ../plugins/gdb/plugin.c:228
 msgid "Ins_pect/Evaluate ..."
 msgstr "Z_koumat/vyhodnotit ..."
 
-#: ../plugins/gdb/plugin.c:227
+#: ../plugins/gdb/plugin.c:230
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Zkoumat nebo vyhodnotit výraz nebo proměnnou"
 
-#: ../plugins/gdb/plugin.c:233
+#: ../plugins/gdb/plugin.c:236
 msgid "Add Expression in _Watch ..."
 msgstr "Přidat výraz mezi _sledované ..."
 
-#: ../plugins/gdb/plugin.c:235
+#: ../plugins/gdb/plugin.c:238
 msgid "Add expression or variable to the watch"
 msgstr "Přidat výraz nebo proměnnou mezi sledované"
 
-#: ../plugins/gdb/plugin.c:241
+#: ../plugins/gdb/plugin.c:244
+msgid "Debugger command ..."
+msgstr "Příkaz debuggeru ..."
+
+#: ../plugins/gdb/plugin.c:246
+msgid "Custom debugger command"
+msgstr "Vlastní příkaz debuggeru"
+
+#: ../plugins/gdb/plugin.c:252
 msgid "Registers ..."
 msgstr "Registry ..."
 
-#: ../plugins/gdb/plugin.c:243
+#: ../plugins/gdb/plugin.c:254
 msgid "Show CPU register contents"
 msgstr "Zobrazit obsah registrů CPU"
 
-#: ../plugins/gdb/plugin.c:249
+#: ../plugins/gdb/plugin.c:260
 msgid "Shared Libraries ..."
 msgstr "Sdílené knihovny ..."
 
-#: ../plugins/gdb/plugin.c:251
+#: ../plugins/gdb/plugin.c:262
 msgid "Show shared libraries mappings"
 msgstr "Zobrazit mapování sdílených knihoven"
 
-#: ../plugins/gdb/plugin.c:257
+#: ../plugins/gdb/plugin.c:268
 msgid "Kernel Signals ..."
 msgstr "Signály jádra ..."
 
-#: ../plugins/gdb/plugin.c:259
+#: ../plugins/gdb/plugin.c:270
 msgid "Show kernel signals"
 msgstr "Zobrazit signály jádra"
 
-#: ../plugins/gdb/plugin.c:477
+#: ../plugins/gdb/plugin.c:501
+#, c-format
+msgid "Location: %s, line %d\n"
+msgstr "Umístění: %s, řádek %d\n"
+
+#: ../plugins/gdb/plugin.c:587
+msgid "Watches"
+msgstr "Sledované"
+
+#: ../plugins/gdb/plugin.c:593
+msgid "Locals"
+msgstr "Místní"
+
+#: ../plugins/gdb/plugin.c:599
+msgid "Stack"
+msgstr "Zásobník"
+
+#: ../plugins/gdb/plugin.c:631
 msgid "Gdb (debugger) commands"
 msgstr "Příkaz gdb (debuggeru)"
 
-#: ../plugins/gdb/registers_gui.c:108
+#: ../plugins/gdb/registers.c:291
+msgid "Num"
+msgstr "Num"
+
+#: ../plugins/gdb/registers.c:307
 msgid "Register"
 msgstr "Registr"
 
-#: ../plugins/gdb/registers_gui.c:116
-msgid "Decimal"
-msgstr "Desítkově"
-
-#: ../plugins/gdb/sharedlib_gui.c:80
+#: ../plugins/gdb/sharedlib.c:159
 msgid "Shared libraries"
 msgstr "Sdílené knihovny"
 
-#: ../plugins/gdb/sharedlib_gui.c:101
+#: ../plugins/gdb/sharedlib.c:181
 msgid "  Shared Object  "
 msgstr "  Sdílený objekt  "
 
-#: ../plugins/gdb/sharedlib_gui.c:105
+#: ../plugins/gdb/sharedlib.c:185
 msgid "From"
 msgstr "Od"
 
-#: ../plugins/gdb/sharedlib_gui.c:109
+#: ../plugins/gdb/sharedlib.c:189
 msgid "To"
 msgstr "Do"
 
-#: ../plugins/gdb/sharedlib_gui.c:113
+#: ../plugins/gdb/sharedlib.c:193
 msgid "Sysm Read"
 msgstr "Symboly načteny"
 
-#: ../plugins/gdb/signals_cbs.c:128 ../plugins/gdb/signals_cbs.c:141
-#: ../plugins/gdb/signals_cbs.c:154
+#: ../plugins/gdb/signals.c:192 ../plugins/gdb/signals.c:205
+#: ../plugins/gdb/signals.c:218
 #: ../plugins/project-manager/project_dbase.c:1468
 #: ../plugins/project-manager/project_dbase.c:1477
 #: ../plugins/project-manager/project_import_cbs.c:229
@@ -5435,71 +5549,59 @@ msgstr "Symboly načteny"
 msgid "No"
 msgstr "Ne"
 
-#: ../plugins/gdb/signals_gui.c:41
+#: ../plugins/gdb/signals.c:274
 msgid "Modify Signal"
 msgstr "Upravit signál"
 
-#: ../plugins/gdb/signals_gui.c:48
+#: ../plugins/gdb/signals.c:281
 msgid "Send to process"
 msgstr "Poslat procesu"
 
-#: ../plugins/gdb/signals_gui.c:94
+#: ../plugins/gdb/signals.c:323
 msgid "Kernel signals"
 msgstr "Signály jádra"
 
-#: ../plugins/gdb/signals_gui.c:116
+#: ../plugins/gdb/signals.c:346
 msgid "Signal"
 msgstr "Signál"
 
-#: ../plugins/gdb/signals_gui.c:120
+#: ../plugins/gdb/signals.c:350
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../plugins/gdb/signals_gui.c:248
+#: ../plugins/gdb/signals.c:481
 msgid " Stop: "
 msgstr " Zastavit: "
 
-#: ../plugins/gdb/signals_gui.c:252
+#: ../plugins/gdb/signals.c:485
 msgid " Print: "
 msgstr " Vytisknout: "
 
-#: ../plugins/gdb/stack_trace.c:320
-msgid "Error getting selection\n"
-msgstr "Chyba při získávání výběru\n"
+#: ../plugins/gdb/stack_trace.c:446
+msgid "Set current frame"
+msgstr "Nastavit aktuální aktivační záznam"
 
-#: ../plugins/gdb/stack_trace.c:331
-msgid "Error getting source location from stack frame"
-msgstr "Chyba při získávání umístění zdroje z aktivačního záznamu"
-
-#: ../plugins/gdb/stack_trace.c:348
-msgid "Frame set"
-msgstr "Nastavení aktivačního záznamu"
-
-#: ../plugins/gdb/stack_trace.c:355
+#: ../plugins/gdb/stack_trace.c:453
 msgid "Frame info"
 msgstr "Informace o aktivačním záznamu"
 
-#: ../plugins/gdb/stack_trace.c:362
-msgid "Frame args"
-msgstr "Argumenty aktivačního záznamu"
-
-#: ../plugins/gdb/stack_trace.c:376
+#: ../plugins/gdb/stack_trace.c:467
 msgid "View Source"
 msgstr "Zobrazit zdroj"
 
-#: ../plugins/gdb/stack_trace.c:454
+#: ../plugins/gdb/stack_trace.c:540
 msgid "Active"
 msgstr "Aktivní"
 
-#: ../plugins/gdb/stack_trace.c:465
-msgid "Count"
-msgstr "Počet"
-
-#: ../plugins/gdb/stack_trace.c:480
+#: ../plugins/gdb/stack_trace.c:551
 msgid "Frame"
 msgstr "Aktivační záznam"
 
-#: ../plugins/gdb/watch_cbs.c:228
+#: ../plugins/gdb/stack_trace.c:603
+msgid "Arguments"
+msgstr "Parametry"
+
+#: ../plugins/gdb/watch_cbs.c:214
 msgid "< Not defined in current context >"
 msgstr "< Nedefinováno v aktuálním kontextu >"
 
@@ -5523,38 +5625,34 @@ msgid "Clear"
 msgstr "Vymazat"
 
 #: ../plugins/gdb/watch_gui.c:61
-msgid "Toggle enable"
-msgstr "Přepnout povolení"
-
-#: ../plugins/gdb/watch_gui.c:67
 msgid "Change item"
 msgstr "Změnit položku"
 
-#: ../plugins/gdb/watch_gui.c:173
+#: ../plugins/gdb/watch_gui.c:159
 msgid "Add Watch Expression"
 msgstr "Přidat sledovaný výraz"
 
-#: ../plugins/gdb/watch_gui.c:183
+#: ../plugins/gdb/watch_gui.c:169
 msgid "Add expression to watch"
 msgstr "Přidat výraz, který sledovat"
 
-#: ../plugins/gdb/watch_gui.c:239
+#: ../plugins/gdb/watch_gui.c:216
 msgid "Modify Watch Expression"
 msgstr "Upravit sledovaný výraz"
 
-#: ../plugins/gdb/watch_gui.c:249
+#: ../plugins/gdb/watch_gui.c:226
 msgid "Modify watched expression"
 msgstr "Upravit sledovaný výraz"
 
-#: ../plugins/gdb/watch_gui.c:306
+#: ../plugins/gdb/watch_gui.c:276
 msgid "Inspect/Evaluate"
 msgstr "Zkoumat/vyhodnotit"
 
-#: ../plugins/gdb/watch_gui.c:316
+#: ../plugins/gdb/watch_gui.c:286
 msgid "Inspect/Evaluate Expression"
 msgstr "Zkoumat/vyhodnotit výraz"
 
-#: ../plugins/gdb/watch_gui.c:326
+#: ../plugins/gdb/watch_gui.c:298
 msgid "Add To Watch"
 msgstr "Přidat do sledovaných"
 
@@ -7029,29 +7127,29 @@ msgstr "_Patch"
 msgid "Patch files/directories"
 msgstr "Patchovat soubory/adresáře"
 
-#: ../plugins/profile-default/plugin.c:112
+#: ../plugins/profile-default/plugin.c:157
 msgid "Close Pro_ject"
 msgstr "Zavřít p_rojekt"
 
-#: ../plugins/profile-default/plugin.c:112
+#: ../plugins/profile-default/plugin.c:157
 msgid "Close project"
 msgstr "Zavřít projekt"
 
-#: ../plugins/profile-default/plugin.c:131
+#: ../plugins/profile-default/plugin.c:176
 msgid "Profile actions"
 msgstr "Akce profilu"
 
-#: ../plugins/profile-default/plugin.c:397
+#: ../plugins/profile-default/plugin.c:442
 msgid "Last Session ..."
 msgstr "Poslední sezení..."
 
-#: ../plugins/profile-default/plugin.c:398
+#: ../plugins/profile-default/plugin.c:443
 msgid "Restoring last session ..."
 msgstr "Obnovuji poslední sezení..."
 
-#: ../plugins/profile-default/plugin.c:518
-#: ../plugins/profile-default/plugin.c:538
-#: ../plugins/profile-default/plugin.c:549
+#: ../plugins/profile-default/plugin.c:563
+#: ../plugins/profile-default/plugin.c:583
+#: ../plugins/profile-default/plugin.c:594
 #, c-format
 msgid ""
 "Cannot open: %s\n"
@@ -7060,13 +7158,13 @@ msgstr ""
 "Nemohu otevřít: %s\n"
 "&s"
 
-#: ../plugins/profile-default/plugin.c:530
+#: ../plugins/profile-default/plugin.c:575
 #, c-format
 msgid "No read permission for: %s"
 msgstr "Chybí oprávnění číst: %s"
 
-#: ../plugins/profile-default/plugin.c:559
-#: ../plugins/profile-default/plugin.c:568
+#: ../plugins/profile-default/plugin.c:604
+#: ../plugins/profile-default/plugin.c:613
 #, c-format
 msgid ""
 "Cannot open: %s\n"
@@ -7075,8 +7173,8 @@ msgstr ""
 "Nemohu otevřít: %s\n"
 "Chyba zpracovávání XML."
 
-#: ../plugins/profile-default/plugin.c:578
-#: ../plugins/profile-default/plugin.c:769
+#: ../plugins/profile-default/plugin.c:623
+#: ../plugins/profile-default/plugin.c:814
 #, c-format
 msgid ""
 "Cannot open: %s\n"
@@ -7101,7 +7199,9 @@ msgstr "Importovat projekt"
 msgid ""
 "This wizard will help you to import an existing automake/autoconf managed "
 "project into anjuta."
-msgstr "Tento kouzelník vám pomůže importovat existující projekt spravovaný automake/autoconfem do anjuty."
+msgstr ""
+"Tento kouzelník vám pomůže importovat existující projekt spravovaný automake/"
+"autoconfem do anjuty."
 
 #: ../plugins/project-import/project-import.c:89
 msgid ""
@@ -7125,7 +7225,9 @@ msgstr ""
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
 "the project directory: %s"
-msgstr "Generování souboru projektu selhalo. Zkontrolujte prosím, jestli máte oprávnění zapisovat do adresáře projektu: %s"
+msgstr ""
+"Generování souboru projektu selhalo. Zkontrolujte prosím, jestli máte "
+"oprávnění zapisovat do adresáře projektu: %s"
 
 #: ../plugins/project-manager/plugin.c:334
 #, c-format
@@ -7819,8 +7921,8 @@ msgid "Project Import Wizard"
 msgstr "Kouzelník importu projektu"
 
 #: ../plugins/project-manager/project_import_gui.c:190
-#: ../plugins/symbol-browser/an_symbol_prefs.c:319
-#: ../plugins/symbol-browser/an_symbol_prefs.c:513
+#: ../plugins/symbol-browser/an_symbol_prefs.c:318
+#: ../plugins/symbol-browser/an_symbol_prefs.c:514
 msgid "Select directory"
 msgstr "Vyberte adresář"
 
@@ -7934,7 +8036,9 @@ msgstr "Pole \"%s\" je povinné. Vyplňte je prosím."
 msgid ""
 "Directory \"%s\" already exists. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
-msgstr "Adresář \"%s\" již existuje. Tvorba projektu by mohla selhat, pokud nepůjde zapisovat do některých souborů. Chcete pokračovat?"
+msgstr ""
+"Adresář \"%s\" již existuje. Tvorba projektu by mohla selhat, pokud nepůjde "
+"zapisovat do některých souborů. Chcete pokračovat?"
 
 #: ../plugins/project-wizard/druid.c:804
 msgid ""
@@ -8153,19 +8257,19 @@ msgstr "Subversion"
 msgid "Subversion command finished!"
 msgstr "Příkaz Subversion dokončen!"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:385
+#: ../plugins/symbol-browser/an_symbol_prefs.c:384
 msgid "Directories to scan"
 msgstr "Adresáře, kde hledat"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:425
+#: ../plugins/symbol-browser/an_symbol_prefs.c:424
 msgid "Please enter a name and at least one directory."
 msgstr "Zadejte prosím název a alespoň jeden adresář."
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:522
+#: ../plugins/symbol-browser/an_symbol_prefs.c:523
 msgid "Anjuta tags files"
 msgstr "Soubory tagů Anjuty"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:659
+#: ../plugins/symbol-browser/an_symbol_prefs.c:661
 msgid "API Tags"
 msgstr "Tagy API"
 
@@ -8189,69 +8293,65 @@ msgstr "Přidat adresář"
 msgid "Crea_te"
 msgstr "_Vytvořit"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
-msgid "dialog1"
-msgstr "dialog1"
-
-#: ../plugins/symbol-browser/plugin.c:264
+#: ../plugins/symbol-browser/plugin.c:268
 msgid "Tag _Definition"
 msgstr "De_finice tagu"
 
-#: ../plugins/symbol-browser/plugin.c:266
-#: ../plugins/symbol-browser/plugin.c:282
+#: ../plugins/symbol-browser/plugin.c:270
+#: ../plugins/symbol-browser/plugin.c:286
 msgid "Goto symbol definition"
 msgstr "Jít na definici symbolu"
 
-#: ../plugins/symbol-browser/plugin.c:272
+#: ../plugins/symbol-browser/plugin.c:276
 msgid "Tag De_claration"
 msgstr "De_klarace tagu"
 
-#: ../plugins/symbol-browser/plugin.c:274
-#: ../plugins/symbol-browser/plugin.c:290
+#: ../plugins/symbol-browser/plugin.c:278
+#: ../plugins/symbol-browser/plugin.c:294
 msgid "Goto symbol declaration"
 msgstr "Jít na deklaraci symbolu"
 
-#: ../plugins/symbol-browser/plugin.c:280
+#: ../plugins/symbol-browser/plugin.c:284
 msgid "Goto _Definition"
 msgstr "Jít na de_finici"
 
-#: ../plugins/symbol-browser/plugin.c:288
+#: ../plugins/symbol-browser/plugin.c:292
 msgid "Goto De_claration"
 msgstr "Jít na de_klaraci"
 
-#: ../plugins/symbol-browser/plugin.c:296
+#: ../plugins/symbol-browser/plugin.c:300
 msgid "_Find Usage"
 msgstr "_Hledat použití"
 
-#: ../plugins/symbol-browser/plugin.c:298
+#: ../plugins/symbol-browser/plugin.c:302
 msgid "Find usage of symbol in project"
 msgstr "Hledat použití symbolu v projektu"
 
-#: ../plugins/symbol-browser/plugin.c:306
+#: ../plugins/symbol-browser/plugin.c:310
 msgid "Refresh symbol browser tree"
 msgstr "Obnovit strom prohlížeče symbolů"
 
-#: ../plugins/symbol-browser/plugin.c:785
+#: ../plugins/symbol-browser/plugin.c:789
 msgid "Tree"
 msgstr "Strom"
 
-#: ../plugins/symbol-browser/plugin.c:835
+#: ../plugins/symbol-browser/plugin.c:839
 msgid "Symbol browser popup actions"
 msgstr "Kontextové akce prohlížeče symbolů"
 
-#: ../plugins/symbol-browser/plugin.c:844
+#: ../plugins/symbol-browser/plugin.c:848
 msgid "Goto symbol"
 msgstr "Jít na symbol"
 
-#: ../plugins/symbol-browser/plugin.c:845
+#: ../plugins/symbol-browser/plugin.c:849
 msgid "Select the symbol to go"
 msgstr "Zvolte symbol, na který jít"
 
-#: ../plugins/symbol-browser/plugin.c:854
+#: ../plugins/symbol-browser/plugin.c:858
 msgid "Symbol navigations"
 msgstr "Navigace mezi symboly"
 
-#: ../plugins/symbol-browser/plugin.c:863
+#: ../plugins/symbol-browser/plugin.c:867
 msgid "Symbols"
 msgstr "Symboly"
 
@@ -8291,16 +8391,16 @@ msgstr "_Proměnná..."
 msgid "toggle"
 msgstr "přepnout"
 
-#: ../plugins/tools/dialog.c:303 ../plugins/tools/dialog.c:431
+#: ../plugins/tools/dialog.c:176
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Opravdu chcete odstranit nástroj '%s'?"
 
-#: ../plugins/tools/dialog.c:505
+#: ../plugins/tools/dialog.c:336
 msgid "Unable to build user interface for tool list"
 msgstr "Nemohu sestavit uživatelské rozhraní pro seznam nástrojů"
 
-#: ../plugins/tools/dialog.c:524
+#: ../plugins/tools/dialog.c:356
 msgid "Tool"
 msgstr "Nástroj"
 
@@ -8341,17 +8441,19 @@ msgstr "Nemohu sestavit uživatelské rozhraní pro nápovědu nástrojů"
 msgid "A tool with the same name already exists!"
 msgstr "Nástroj se stejným názvem již existuje!"
 
-#: ../plugins/tools/editor.c:1231
+#: ../plugins/tools/editor.c:1232
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway ?"
-msgstr "Tuto klávesovou zkratku již používá jiná komponenta Anjuty. Chcete ji přesto zachovat?"
+msgstr ""
+"Tuto klávesovou zkratku již používá jiná komponenta Anjuty. Chcete ji přesto "
+"zachovat?"
 
-#: ../plugins/tools/editor.c:1384
+#: ../plugins/tools/editor.c:1386
 msgid "New accelerator..."
 msgstr "Nová klávesová zkratka..."
 
-#: ../plugins/tools/editor.c:1403
+#: ../plugins/tools/editor.c:1412
 msgid "Unable to build user interface for tool editor"
 msgstr "Nemohu sestavit uživatelské rozhraní pro editor nástrojů"
 
@@ -8399,16 +8501,16 @@ msgstr "%s: Parametry na příkazovém řádku"
 msgid "Missing tool name"
 msgstr "Chybí název nástroje"
 
-#: ../plugins/tools/fileop.c:288
+#: ../plugins/tools/fileop.c:281
 #, c-format
 msgid "Unexpected element \"%s\""
 msgstr "Neočekávaný element \"%s\""
 
-#: ../plugins/tools/fileop.c:559
+#: ../plugins/tools/fileop.c:552
 msgid "Error when loading external tools"
 msgstr "Chyba při načítání externích nástrojů"
 
-#: ../plugins/tools/fileop.c:689
+#: ../plugins/tools/fileop.c:708
 #, c-format
 msgid "Unable to open %s for writing"
 msgstr "Nemohu otevřít %s pro zápis"
@@ -8668,6 +8770,43 @@ msgstr "Skupina akcí testovacího shellu"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Testovací shell Anjuty"
+
+#~ msgid "The executable is not up-to-date."
+#~ msgstr "Spustitelný soubor není aktuální."
+
+#~ msgid "Debugger is not running. Start it first."
+#~ msgstr "Debugger neběží. Nejdříve jej spusťte."
+
+#~ msgid "Error: "
+#~ msgstr "Chyba: "
+
+#~ msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
+#~ msgstr ""
+#~ "Varování: Žádný ladicí terminál. Přesměrovávám stdio do /dev/null.\n"
+
+#~ msgid "Running program ..."
+#~ msgstr "Spouštím program ..."
+
+#~ msgid "Decimal"
+#~ msgstr "Desítkově"
+
+#~ msgid "Error getting selection\n"
+#~ msgstr "Chyba při získávání výběru\n"
+
+#~ msgid "Error getting source location from stack frame"
+#~ msgstr "Chyba při získávání umístění zdroje z aktivačního záznamu"
+
+#~ msgid "Frame set"
+#~ msgstr "Nastavení aktivačního záznamu"
+
+#~ msgid "Frame args"
+#~ msgstr "Argumenty aktivačního záznamu"
+
+#~ msgid "Count"
+#~ msgstr "Počet"
+
+#~ msgid "Toggle enable"
+#~ msgstr "Přepnout povolení"
 
 #~ msgid "launcher.c: Failed to set channel encoding!"
 #~ msgstr "launcher.c: Nemohu nastavit kódování kanálu!"
@@ -8985,9 +9124,6 @@ msgstr "Testovací shell Anjuty"
 #~ msgid "Goto start of current code block"
 #~ msgstr "Jít na začátek aktuálního bloku kódu"
 
-#~ msgid "End"
-#~ msgstr "Konec"
-
 #~ msgid "Goto end of current code block"
 #~ msgstr "Jít na konec aktuálního bloku kódu"
 
@@ -9020,9 +9156,6 @@ msgstr "Testovací shell Anjuty"
 
 #~ msgid "Step out of the function"
 #~ msgstr "Krok ven z funkce"
-
-#~ msgid "Interrupt execution of the program"
-#~ msgstr "Přerušit provádění programu"
 
 #~ msgid "Toggle breakpoint at cursor"
 #~ msgstr "Přepnout breakpoint u kurzoru"
