@@ -755,6 +755,9 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 	const GDBMIValue *file, *line, *frame, *addr;
 	const gchar *file_str, *line_str, *addr_str;
 	
+	if (!val)
+		return;
+	
 	file_str = line_str = addr_str = NULL;
 	
 	g_return_if_fail (val != NULL);
@@ -809,8 +812,6 @@ debugger_stdo_flush (Debugger *debugger)
 	
 	if (strlen (line) == 0)
 	{
-		//debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
-		//						   "\n", debugger->priv->output_user_data);
 		return;
 	}
 	if (line[0] == '\032' && line[1] == '\032')
@@ -861,10 +862,13 @@ debugger_stdo_flush (Debugger *debugger)
 		if (val)
 		{
 			const GDBMIValue *reason;
-			const gchar *str;
+			const gchar *str = NULL;
+			
+			debugger_process_frame (debugger, val);
 			
 			reason = gdbmi_value_hash_lookup (val, "reason");
-			str = gdbmi_value_literal_get (reason);
+			if (reason)
+				str = gdbmi_value_literal_get (reason);
 			
 			if (str && strcmp (str, "exited-normally") == 0)
 			{
@@ -923,7 +927,6 @@ debugger_stdo_flush (Debugger *debugger)
 				debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 										   msg, debugger->priv->output_user_data);
 				g_free (msg);
-				debugger_process_frame (debugger, val);
 			}
 			else if (str && strcmp (str, "breakpoint-hit") == 0)
 			{
@@ -939,28 +942,24 @@ debugger_stdo_flush (Debugger *debugger)
 				debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 										   msg, debugger->priv->output_user_data);
 				g_free (msg);
-				debugger_process_frame (debugger, val);
 			}
 			else if (str && strcmp (str, "function-finished") == 0)
 			{
 				debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 										   _("Function finished\n"),
 										   debugger->priv->output_user_data);
-				debugger_process_frame (debugger, val);
 			}
 			else if (str && strcmp (str, "end-stepping-range") == 0)
 			{
 				debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 										   _("Stepping finished\n"),
 										   debugger->priv->output_user_data);
-				debugger_process_frame (debugger, val);
 			}
 			else if (str && strcmp (str, "location-reached") == 0)
 			{
 				debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 										   _("Location reached\n"),
 										   debugger->priv->output_user_data);
-				debugger_process_frame (debugger, val);
 			}
 		}
 		
@@ -968,12 +967,14 @@ debugger_stdo_flush (Debugger *debugger)
 		{
 			debugger->priv->prog_is_running = FALSE;
 			debugger->priv->prog_is_attached = FALSE;
+			debugger->priv->debugger_is_ready = TRUE;
 			debugger_stop_terminal (debugger);
 			g_signal_emit_by_name (debugger, "program-exited", val);
 			debugger_handle_post_execution (debugger);
 		}
 		else
 		{
+			debugger->priv->debugger_is_ready = TRUE;
 			g_signal_emit_by_name (debugger, "program-stopped", val);
 		}
 		
@@ -981,6 +982,7 @@ debugger_stdo_flush (Debugger *debugger)
 		if (debugger->priv->current_cmd.cmd[0] != '\0' &&
 			debugger->priv->current_cmd.parser != NULL)
 		{
+			debugger->priv->debugger_is_ready = TRUE;
 			debugger->priv->current_cmd.parser (debugger, val,
 										  debugger->priv->stdo_lines,
 										  debugger->priv->current_cmd.user_data);
@@ -1015,7 +1017,10 @@ debugger_stdo_flush (Debugger *debugger)
 		}
 		
 		if (val)
+		{
+			debugger_process_frame (debugger, val);
 			gdbmi_value_free (val);
+		}
 	}
 	else if (strncasecmp (line, GDB_PROMPT, strlen (GDB_PROMPT)) == 0)
 	{
@@ -1025,6 +1030,7 @@ debugger_stdo_flush (Debugger *debugger)
 		}
 		else
 		{
+			debugger->priv->debugger_is_ready = TRUE;
 			if (debugger->priv->starting)
 			{
 				debugger->priv->starting = FALSE;

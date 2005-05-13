@@ -20,6 +20,7 @@
 #  include <config.h>
 #endif
 
+#include <string.h>
 #include "locals.h"
 
 #include "debug_tree.h"
@@ -59,6 +60,19 @@ on_program_stopped (Debugger *debugger, GDBMIValue *mi_results, Locals *locals)
 					  locals_update, locals);
 }
 
+static void 
+on_output_arrived (Debugger *debugger, const gchar *command,
+				   const GDBMIValue *mi_results, gpointer data)
+{
+	Locals *locals = (Locals*) data;
+	
+	if (strncmp (command, "frame", strlen ("frame")) == 0)
+	{
+		debugger_command (locals->debugger, "info locals", TRUE,
+						  locals_update, locals);
+	}
+}
+
 Locals *
 locals_create (Debugger *debugger)
 {
@@ -81,6 +95,8 @@ locals_create (Debugger *debugger)
 	g_object_ref (debugger);
 	g_signal_connect (debugger, "program-stopped",
 					  G_CALLBACK (on_program_stopped), locals);
+	g_signal_connect (debugger, "results-arrived",
+					  G_CALLBACK (on_output_arrived), locals);
 	g_signal_connect_swapped (debugger, "program-exited",
 							  G_CALLBACK (locals_clear), locals);
 
@@ -108,6 +124,8 @@ locals_destroy (Locals *l)
 										  G_CALLBACK (on_program_stopped), l);
 	g_signal_handlers_disconnect_by_func (l->debugger,
 										  G_CALLBACK (locals_update), l);
+	g_signal_handlers_disconnect_by_func (l->debugger,
+										  G_CALLBACK (on_output_arrived), l);
 	g_object_unref (l->debugger);
 
 	debug_tree_destroy (l->debug_tree);

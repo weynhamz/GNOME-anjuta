@@ -32,6 +32,18 @@
 #include "watch.h"
 #include "watch_gui.h"
 
+static void 
+on_output_arrived (Debugger *debugger, const gchar *command,
+				   const GDBMIValue *mi_results, gpointer data)
+{
+	ExprWatch *ew = (ExprWatch*) data;
+	
+	if (strncmp (command, "frame", strlen ("frame")) == 0)
+	{
+		expr_watch_cmd_queqe (ew);
+	}
+}
+
 ExprWatch *
 expr_watch_new (Debugger *debugger)
 {
@@ -44,6 +56,8 @@ expr_watch_new (Debugger *debugger)
 	
 	g_signal_connect_swapped (ew->debugger, "program-stopped",
 							  G_CALLBACK (expr_watch_cmd_queqe), ew);
+	g_signal_connect (ew->debugger, "results-arrived",
+					  G_CALLBACK (on_output_arrived), ew);
 	return ew;
 }
 
@@ -144,6 +158,9 @@ expr_watch_destroy (ExprWatch * ew)
 	
 	g_signal_handlers_disconnect_by_func (ew->debugger,
 										  G_CALLBACK (expr_watch_cmd_queqe),
+										  ew);
+	g_signal_handlers_disconnect_by_func (ew->debugger,
+										  G_CALLBACK (on_output_arrived),
 										  ew);
 	expr_watch_clear (ew);
 	gtk_widget_destroy (ew->widgets.scrolledwindow);

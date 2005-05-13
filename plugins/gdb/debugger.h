@@ -82,7 +82,7 @@ struct _DebuggerClass
 									 const GDBMIValue *mi_result);
 	void (*results_arrived_signal)  (Debugger *debugger,
 									 const gchar *command,
-									 GDBMIValue *mi_result);
+									 const GDBMIValue *mi_result);
 	void (*location_changed_signal) (Debugger *debugger, const gchar *file,
 									 gint line, const gchar *address);
 };

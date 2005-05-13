@@ -373,8 +373,7 @@ on_stack_frame_set_activate (GtkMenuItem * menuitem, gpointer user_data)
 	/* issue a command to switch active frame to new location */
 	cmd = g_strdup_printf ("frame %d", selected_frame);
 
-	debugger_command (st->debugger, cmd, FALSE,
-					  stack_trace_set_active_cbs, st);
+	debugger_command (st->debugger, cmd, FALSE, FALSE, FALSE);
 	g_free (cmd);
 }
 
@@ -694,8 +693,7 @@ stack_trace_set_frame (StackTrace *st, gint frame)
 	
 	/* issue a command to switch active frame to new location */
 	cmd = g_strdup_printf ("frame %d", frame);
-	debugger_command (st->debugger, cmd, FALSE,
-					  stack_trace_set_active_cbs, st);
+	debugger_command (st->debugger, cmd, FALSE, NULL, NULL);
 	g_free (cmd);
 }
 

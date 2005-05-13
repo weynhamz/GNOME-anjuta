@@ -1,4 +1,13 @@
-2005-05-11  Naba Kumar <naba@gnome.org>
+2005-05-13  Naba Kumar <naba@gnome.org>
+
+	* configure.in: Fixed glade-3 version.
+	
+	* plugins/gdb/debugger.c, plugins/gdb/debugger.h,
+	plugins/gdb/locals.c, plugins/gdb/stack_trace.c,
+	plugins/gdb/watch.c: Update locals, watch and frame document on
+	frame change.
+
+2005-05-12  Naba Kumar <naba@gnome.org>
 
 	* plugins/editor/aneditor-autocomplete.cxx: Fixed infinite loop in
 	scope autocompletion when the function definition is incomplete.
