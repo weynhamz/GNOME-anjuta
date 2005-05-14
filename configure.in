@@ -26,7 +26,8 @@ PANGO_REQUIRED=1.1.1
 PCRE_REQUIRED=3.9
 LIBDEVHELP_REQUIRED=0.9
 LIBGTODO_REQUIRED=0.15
-GNOMEBUILD_REQUIRED=0.1.0
+GDL_REQUIRED=0.4.1
+GNOMEBUILD_REQUIRED=0.1.1
 LIBGLADEUI_REQUIRED=3.0.0
 LIBGRAPHVIZ_REQUIRED=2.2.1
 
@@ -52,8 +53,10 @@ AC_SUBST(VTE_NEW_REQUIRED)
 AC_SUBST(PCRE_REQUIRED)
 AC_SUBST(LIBDEVHELP_REQUIRED)
 AC_SUBST(LIBGTODO_REQUIRED)
+AC_SUBST(GDL_REQUIRED)
 AC_SUBST(GNOMEBUILD_REQUIRED)
 AC_SUBST(LIBGLADEUI_REQUIRED)
+AC_SUBST(LIBGRAPHVIZ_REQUIRED)
 
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
@@ -209,7 +212,7 @@ PKG_CHECK_MODULES(PANGO, pango >= $PANGO_REQUIRED)
 AC_SUBST(PANGO_CFLAGS)
 AC_SUBST(PANGO_LIBS)
 
-PKG_CHECK_MODULES(GDL, gdl-1.0 >= 0.4.0)
+PKG_CHECK_MODULES(GDL, gdl-1.0 >= $GDL_REQUIRED)
 AC_SUBST(GDL_CFLAGS)
 AC_SUBST(GDL_LIBS)
 
@@ -963,13 +966,13 @@ if [ test x$libgladeui_found = xyes ]; then
         echo "Building glade plugin: .................................YES"
 else
         echo "Building glade plugin: .................................NO"
-		echo "        Requires glade-3; CVS cvs.gnome.org, module glade-3"
+		echo "        Requires glade-3 (>= 3.0.0); CVS cvs.gnome.org, module glade-3"
 fi
 
 if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"
 else
         echo "Building class inheritance plugin: .....................NO"
-		echo "        Requires graphviz; http://graphviz.org"
+		echo "        Requires graphviz (>= 2.2.1); http://graphviz.org"
 fi
 echo "-------------------------------------------------------------------"

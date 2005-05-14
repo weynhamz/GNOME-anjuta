@@ -19,7 +19,8 @@
 */
 
 /*
- * First tool dialog, presenting all tools in a list.
+ * First tool configuratin dialog, presenting all tools in a list.
+ * In this dialog, you can enable, disable, add, remove and order tools.
  * 
  *---------------------------------------------------------------------------*/
 
@@ -173,7 +174,7 @@ on_tool_delete (GtkButton *button, gpointer user_data)
 	tool = get_current_tool (this);
 	if ((tool != NULL) && (atp_user_tool_get_storage (tool) > ATP_TSTORE_GLOBAL))
 	{
-		if (anjuta_util_dialog_boolean_question (NULL, _("Are you sure you want to delete the '%s' tool?"), atp_user_tool_get_name(tool)))
+		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (this->dialog), _("Are you sure you want to delete the '%s' tool?"), atp_user_tool_get_name(tool)))
 		{
 			atp_user_tool_free (tool);
 			atp_tool_dialog_refresh (this, NULL);
@@ -333,7 +334,7 @@ atp_tool_dialog_show (ATPToolDialog* this)
 	/* Load glade file */
 	if (NULL == (xml = glade_xml_new(GLADE_FILE, TOOL_LIST, NULL)))
 	{
-		anjuta_util_dialog_error(NULL, _("Unable to build user interface for tool list"));
+		anjuta_util_dialog_error(atp_plugin_get_app_window (this->plugin), _("Unable to build user interface for tool list"));
 		return FALSE;
 	}
 	this->dialog = GTK_DIALOG(glade_xml_get_widget(xml, TOOL_LIST));

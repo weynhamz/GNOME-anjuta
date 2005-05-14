@@ -19,7 +19,8 @@
 */
 
 /*
- * Read and Write tools.xml files
+ * Load and save tools.xml files. It is quite close but not compatible with
+ * the previous tools.xml file from Anjuta 1.2.
  * 
  *---------------------------------------------------------------------------*/
 
@@ -68,8 +69,6 @@ typedef enum {
 	ATP_NAME_ATTRIBUTE,
 	ATP_UNKNOW_ATTRIBUTE
 } ATPAttribute;
-
-/*---------------------------------------------------------------------------*/
 
 /* Common parser functions
  *---------------------------------------------------------------------------*/
@@ -178,23 +177,6 @@ parser_warning (GMarkupParseContext* ctx, const gchar* format,...)
 	va_end (args);
 	g_free (msg);
 }
-
-#if 0
-static void
-parser_critical (GMarkupParseContext* ctx, const gchar* format,...)
-{
-	va_list args;
-	gchar* msg;
-	gint line;
-
-	g_markup_parse_context_get_position (ctx, &line, NULL);
-	msg = g_strdup_printf ("line %d: %s", line, format);
-	va_start (args, format);
-	g_logv (G_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, msg, args);
-	va_end (args);
-	g_free (msg);
-}
-#endif
 
 /* Load anjuta-tools
  *---------------------------------------------------------------------------*/
@@ -653,8 +635,6 @@ static gboolean
 atp_user_tool_save (ATPUserTool *tool, FILE *f)
 {
 	const gchar* head;
-	guint key;
-	GdkModifierType mask;
 	ATPUserTool *over;
 
 	/* head contains the tool name until the tool header is written */
@@ -699,7 +679,6 @@ gboolean atp_anjuta_tools_save(ATPPlugin* plugin)
 	ATPUserTool *tool;
 	gchar* file_name;
 	gboolean ok;
-	gint storage;
 
 	/* Save local tools */
 	file_name = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_TOOLS_DIRECTORY, TOOLS_FILE, NULL);

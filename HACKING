@@ -6,17 +6,15 @@ Development mailing list or the project maintainer)
 Getting Started:
 ---------------
 
-First thing to do is to get a build working. Anjuta can be
-built using jhbuild, which is the recommended way to build GNOME
-2.x and Anjuta. It is advisable to use '--enable-warnings
---enable-debug' with configure while building anjuta if you want to hack
-on it. Anjuta can be used to hack on Anjuta, and there is a anjuta.anjuta
-project file in CVS for this purpose.
+First thing to do is to get a build working. Anjuta can be built using jhbuild,
+which is the recommended way to build GNOME 2.x and Anjuta. It is advisable to
+use '--enable-warnings --enable-debug' with configure while building anjuta if
+you want to hack on it. Anjuta can be used to hack on Anjuta, and there is a
+anjuta.anjuta project file in CVS for this purpose.
 
-Once you have got anjuta built and loaded in itself, the most important
-thing is to decide what to work on (the TODO, as you say). There are
-many directions you can take. I'm listing some of the more common ones
-in order of difficulty.
+Once you have got anjuta built and loaded in itself, the most important thing
+is to decide what to work on (the TODO, as you say). There are many directions
+you can take. I'm listing some of the more common ones in order of difficulty.
 
 0. Use it, test it, report bug, request features, etc. In short, become
 an active user. That is how most people become anjuta developers.
@@ -58,7 +56,6 @@ Resources:
 
 Tools:
 -----
-
 Anjuta is written using a mixture of C and C++. You will require
 the standard GNU tool chain and current stable GNOME libraries to 
 build and work with the Anjuta sources.
@@ -167,14 +164,17 @@ You should always use - instead of _, meaning anjuta-plugin.h
 insted of anjuta_plugin.h
 
 Key elements:
-* src/ - the main Anjuta sources
-* scintilla/ - the editor
-* widgets/ - additional widgets used
-* gdl/ - Gdl Widgets (esp. the dock)
+* libanjuta/ - Anjuta IDE framework
+* scintilla/ - the scintilla editing component
 * launcher/ - launcher wrapper used by the debugger
-* printing/ - gnome-print support
 * tagmanager/ - the tagmanager library
+* libegg/ - extra widgets
 * plugins/ - plugin components (see the sample for more information)
+* src/ - the main Anjuta IDE sources
+* data/ - System data.
+* mime/ - Mime related files.
+* global-tags/ - System tags.
+* manuals/ - All sorts of sgml documents (API and user).
 
 Scintilla:
 ---------
@@ -314,12 +314,7 @@ plugins/project-wizard/templates
 8) How to correctly credit people:
 ----------------------------------
 
-New contributors must always be credited. There are three files which 
-must be updated:
-
-<pre>
-	* AUTHORS
-</pre>
+New contributors must always be credited in AUTHORS file
 
 You should also ensure that you submit headed ChangeLog entries with a 
 name and e-mail address when you submit a patch.

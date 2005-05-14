@@ -1,3 +1,37 @@
+2005-05-14  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/anjuta-tools.glade:
+	Remove unused parameter dialog
+
+	* plugins/tools/dialog.c,
+	plugins/tools/fileop.c,
+	plugins/tools/fileop.h,
+	plugins/tools/tool.c,
+	plugins/tools/tool.h,
+	plugins/tools/variable.c:
+	Add a few comments and cleanups
+
+	* plugins/tools/editor.c,
+	plugins/tools/editor.h:
+	Remove code from previous plugin and add comments
+	Use main window as parent (instead of tool list)
+
+	* plugins/tools/execute.c,
+	plugins/tools/execute.h:
+	Remove code from previous plugin and add comments
+	Fix warnings
+
+2005-05-14  Naba Kumar <naba@gnome.org>
+
+	* AUTHORS, FUTURE, NEWS, README, ROADMAP: Updated and prepared for release.
+	
+	* configure.in: Fixed
+	
+	* plugins/class-inheritance/class-inheritance.png: New icon.
+	
+	* plugins/devhelp/plugin.c: Fixed docking bug where browser widget
+	screws up when reparented.
+
 2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/editor/search-replace.c, plugins/editor/search-replace_backend.c

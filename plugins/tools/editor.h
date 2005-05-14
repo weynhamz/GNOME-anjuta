@@ -38,9 +38,6 @@ ATPToolEditor* atp_tool_editor_new (ATPUserTool *tool, ATPToolEditorList* list, 
 gboolean atp_tool_editor_free (ATPToolEditor* this);
 gboolean atp_tool_editor_show (ATPToolEditor* this);
 
-gboolean atp_tool_editor_show (ATPToolEditor* this);
-
-
 ATPToolEditorList* atp_tool_editor_list_construct (ATPToolEditorList* this);
 void atp_tool_editor_list_destroy (ATPToolEditorList* this);
 

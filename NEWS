@@ -1,3 +1,46 @@
+Anjuta 2.0.0 (15 May 2005) -- Naba Kumar
+
+Architecture and code base:
+New: New plugin architecture and all IDE components ported to this framework.
+New: Complex docking shell that allows arbitrary docking of IDE widgets.
+New: Dynamic plugin activation and deactivation.
+New: Extensible architecture.
+New: Plugins can interact with other plugins through interface.
+New: Plugins can install dynamic UIs (menus/toolbars), including installing
+	 context menus in other plugins.
+New: Shell and Plugin API documentation.
+
+Integration:
+New: Integrated help system with Devhelp.
+New: Integrated glade UI designer (incomplete).
+
+Editor plugin:
+New: Scope memeber autocompletion (e.g ., -> and :: autocompletion).
+New: Editor split views.
+New: Automatic indentation with tabbing.
+New: More syntax highlighting lexers
+New: Split multiple views of document
+New: Remote editing (full gnome-vfs support)
+New: Real-time file modification monitor.
+
+Project management and build plugin:
+New: Multiple parallel builds and independent debugging and execution.
+New: Synchronous project management (simultaneous manual and automatic management)
+New: Mime based filemanager and desktop integration.
+
+Other plugins:
+New: Task Manager.
+New: Macro plugin allows inserting predefined and user defined texts (macros).
+New: Easily extensible template based project wizards (based on autogen).
+New: Symbol search plugin.
+New: C++ and GObject based class wizard.
+New: Class inheritance diagram plugin.
+New: Subversion plugin (incomplete)
+New: Session management framework.
+Updated: Debuger uses GDB machine-interface.
+Updated: CVS plugin
+Updated: Pretty much everyting.
+
 Anjuta 1.2.2 (13 Apr 2004) -- Naba Kumar
 
 New: Anjuta advanced tutorial

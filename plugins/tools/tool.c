@@ -222,7 +222,7 @@ atp_user_tool_append_list (ATPUserTool *this, ATPUserTool *tool)
 
 /* Remove from hash table and list */
 
-gboolean
+static gboolean
 atp_user_tool_remove (ATPUserTool *this)
 {
 	if (this->name != NULL)
@@ -634,22 +634,6 @@ atp_user_tool_override (const ATPUserTool *this)
 }
 
 ATPUserTool*
-atp_user_tool_in_storage (ATPUserTool *this, ATPToolStore storage)
-{
-	ATPUserTool* tool;
-	ATPUserTool* last;
-	
-	last = NULL;
-	for (tool = this; tool != NULL; tool = tool->over)
-	{
-		last = tool;
-		if (tool->storage > storage) break;
-	}
-
-	return last;
-}
-
-ATPUserTool*
 atp_user_tool_append_new (ATPUserTool *this, const gchar *name, ATPToolStore storage)
 {
 	ATPUserTool *tool;
@@ -776,8 +760,8 @@ void atp_tool_list_destroy (ATPToolList* this)
 
 /*---------------------------------------------------------------------------*/
 
-static ATPUserTool *
-atp_tool_list_last (const ATPToolList *this)
+ATPUserTool *
+atp_tool_list_last (ATPToolList *this)
 {
 	ATPUserTool *tool;
 	ATPUserTool *last;

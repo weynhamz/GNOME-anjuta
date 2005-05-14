@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     execute.h
-    Copyright (C) 2003 Biswapesh Chattopadhyay
+    Copyright (C) 2005 Sebastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

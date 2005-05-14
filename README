@@ -1,4 +1,4 @@
-                         Anjuta Version 1.3 Beta Release
+                         Anjuta Version 2.0.0 Alpha Release
 
                        Copyright (C) 2000-2005 Naba Kumar
                        Home site => http://anjuta.org/
@@ -15,6 +15,21 @@ with source browsing and syntax highlighting.
 Anjuta is an effort to marry the flexibility and power of text-based 
 command-line tools with the ease-of-use of the GNOME graphical user 
 interface. That is why it has been made as user-friendly as possible.
+
+Anjuta 2.x is the next generation Anjuta development studio with extensible
+plugin architecture. There has been a complete change in architecture of
+Anjuta since 1.x series. The new architecture allows writing independent
+plugins that could interact with existing plugins. Most of the older
+features have been already ported to the new architecture and are working.
+
+The new architecture has:
+
+    * Complex docking shell that allows arbitrary docking of IDE widgets.
+    * Dynamic plugin activation and deactivation.
+    * Extensible architecture.
+    * Plugins can interact with other plugins through interface.
+    * Plugins can install dynamic UIs (menus/toolbars), including installing
+	  context menus in other plugins.
 
 At present, Anjuta is only a beta release and lots of work needs to be done to 
 improve it. In the future, Anjuta is going to be much more capable and stable! 
@@ -90,13 +105,8 @@ Presently available features in Anjuta:
 
 	11. GNOME2 platform compliant.
 	
-	
 Contact Email addresses for Anjuta:
 -----------------------------------
-
-For personal contacts, reach us at:
-    o Maintainer => Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in>
-    o Main programmer and founder => Naba Kumar  <naba@gnome.org>
 
 Anjuta Home site:	http://anjuta.org.
 Anjuta Project site: 	http://www.sourceforge.net/projects/anjuta
@@ -145,13 +155,13 @@ version of the libraries
 	Optional:
 	* glade3 (from GNOME CVS) to build glade plugin
 	* libsvn (www.subversion.org) to build subversion plugin
+	* graphviz
 
 # From CVS:
 	* All the requirements for tarball
 	* GNU gettext 0.10.x (or later)
 	* Automake 1.4 (or later)
 	* Autoconf 2.13 (or later)
-
 
 2) Running
 	* X-Windows, any window manager should do as long
@@ -199,22 +209,6 @@ KNOWN ISSUES:
 	debug your application from Anjuta, please turn off optimization for
 	debug builds.
 
-	* Building anjuta on Debian (sid) may find a couple of issues related
-	to zvt library. If you encounter such problem, temporarily move out
-	any libzvt2 libraries that you can find. Build/install anjuta and
-	restore the libzvt2 libs.
-	
-	* Building anjuta n Debian (sid) may also find gnome-terminal to be
-	interfering. Uninstall it temporarily and restore it after installing
-	anjuta. The above two debian (sid) problems may not apprear if anjuta
-	rpms are installed.
-	
-	* Some versions of gettext (0.11.x) prompts to press Enter in the
-	middle of project build (in anjuta). This will be a problem, as there
-	is no known way to provide user feedback in anjuta message manager.
-	Upgrade your gettext to higher version which does not exhibit this
-	problem. gettext 0.11.40 and above should be just fine.
-	
 	* Calltips flicker when the cursor touches them if you have your window
 	manager set to follow-mouse-cursor for focus. Change it to focus-follow
 	mouse click to fix it.

@@ -18,8 +18,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef __PARSER_H__
-#define __PARSER_H__
+#ifndef __FILEOP_H__
+#define __FILEOP_H__
 
 #include "plugin.h"
 

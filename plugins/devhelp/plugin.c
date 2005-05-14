@@ -25,6 +25,11 @@
 #include <devhelp/dh-html.h>
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
+#include <devhelp/dh-preferences.h>
+/* FIXME: The function is declared in this header, but is private
+#include <devhelp/dh-gecko-utils.h>
+*/
+extern void dh_gecko_utils_init_services (void);
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -43,6 +48,7 @@ gchar *geometry = NULL;
 struct _DevhelpPluginPriv
 {
 	gint uiid;
+	gchar *current_uri;
 	
 	/* Devhelp widgets */
 	DhBase         *base;
@@ -100,7 +106,10 @@ devhelp_open_url (DevhelpPlugin *plugin, const gchar *url)
 	g_return_val_if_fail (url != NULL, FALSE);
 
 	priv = plugin->priv;
-
+	
+	g_free (priv->current_uri);
+	priv->current_uri = g_strdup (url);
+	
 	dh_html_open_uri (priv->html, url);
 	dh_book_tree_show_uri (DH_BOOK_TREE (priv->book_tree), url);
 	devhelp_check_history (plugin);
@@ -163,6 +172,40 @@ devhelp_notebook_switch_page_after_cb (GtkWidget       *notebook,
 					   devhelp_link_selected_cb, plugin);
 }
 
+static gint
+on_html_recreate_idle (DevhelpPlugin *plugin)
+{
+	DevhelpPluginPriv *priv = plugin->priv;
+	GtkWidget *html_sw = priv->browser_frame;
+	
+	DEBUG_PRINT ("Re creating html browser");
+	
+	/* If reparent happens, destroy devhelp html widget
+	 * and recrete it.
+	 */
+	/* dh_gecko_utils_init_services (); */
+	/* dh_preferences_setup_fonts (); */
+	gtk_container_remove (GTK_CONTAINER (html_sw),
+						  gtk_bin_get_child (GTK_BIN (html_sw)));
+	g_object_unref (priv->html);
+	priv->html = dh_html_new ();
+	priv->html_view = dh_html_get_widget (priv->html);
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (html_sw),
+					       priv->html_view);
+	if (priv->current_uri)
+		dh_html_open_uri (priv->html, priv->current_uri);
+	g_signal_connect (priv->html, "location-changed",
+					  G_CALLBACK (devhelp_location_changed_cb), plugin);
+	return FALSE;
+}
+
+static void
+on_html_sw_unrealized (GtkWidget *html_sw,
+					   DevhelpPlugin *plugin)
+{
+	g_idle_add ((GSourceFunc)on_html_recreate_idle, plugin);
+}
+
 static void
 devhelp_html_initialize (DevhelpPlugin *plugin)
 {
@@ -172,6 +215,7 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 	GNode        *contents_tree;
 	GList        *keywords = NULL;
 	DevhelpPluginPriv *priv;
+	gboolean initialized = FALSE;
 	
 	priv = plugin->priv;
 	
@@ -182,6 +226,13 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 	anjuta_status_busy_push (status);
 	
 	/* Create plugin widgets */
+	if (!initialized)
+	{
+		initialized = TRUE;
+		dh_gecko_utils_init_services ();
+		dh_preferences_init ();
+		dh_preferences_setup_fonts ();
+	}
 	priv->html      = dh_html_new ();
 	g_signal_connect (priv->html, "location-changed",
 					  G_CALLBACK (devhelp_location_changed_cb), plugin);
@@ -203,6 +254,9 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 					       priv->html_view);
 	
 	priv->browser_frame = html_sw;
+	g_signal_connect (html_sw, "unrealize",
+					  G_CALLBACK (on_html_sw_unrealized),
+					  plugin);
 	
 	priv->base    = dh_base_new ();
 	contents_tree = dh_base_get_book_tree (priv->base);
@@ -557,6 +611,7 @@ devhelp_plugin_dispose (GObject *obj)
 		g_object_unref (plugin->priv->base);
 		g_object_unref (plugin->priv->notebook);
 		g_object_unref (plugin->priv->browser_frame);
+		g_free (plugin->priv->current_uri);
 		
 		plugin->priv->browser_frame = NULL;
 		plugin->priv->notebook = NULL;

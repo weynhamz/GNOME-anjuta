@@ -165,6 +165,7 @@ void atp_tool_list_destroy (ATPToolList *this);
 
 ATPUserTool* atp_tool_list_first (ATPToolList *this);
 ATPUserTool* atp_tool_list_first_in_storage (ATPToolList *this, ATPToolStore storage);
+ATPUserTool* atp_tool_list_last (ATPToolList *this);
 
 gboolean atp_tool_list_activate (ATPToolList *this);
 ATPUserTool *atp_tool_list_append_new (ATPToolList* this, const gchar *name, ATPToolStore storage);
