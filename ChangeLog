@@ -1,3 +1,7 @@
+2005-05-14  Pawan Chitrakar  <pawan@nplinux.org>
+
+	* configure.in: Added ne in ALL_LINGUAS
+	
 2005-05-13  Naba Kumar <naba@gnome.org>
 
 	* configure.in: Fixed glade-3 version.
