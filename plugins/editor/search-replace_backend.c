@@ -375,12 +375,10 @@ get_project_file_list(void)
 	IAnjutaProjectManager* prjman;
 	GList* list = NULL;
 	GList *files = NULL;
+
+	prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
+	IAnjutaProjectManager , NULL);
 	
-	prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
-	IAnjutaProjectManager , NULL);
-	prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
-	IAnjutaProjectManager , NULL);
-		
 	if (ianjuta_project_manager_is_open(prjman, NULL))
 	{	
 		list = ianjuta_project_manager_get_elements (prjman,
@@ -732,20 +730,20 @@ GList
 			break;
 		case SR_FILES:
 		case SR_VARIABLE:
-			break;
 		case SR_PROJECT:
 		{
-			GList *files;
-			// gchar *dir;
+			GList *files = NULL;
+			gchar *dir;
 			
+			//FIXME : Get Top project directory
 			//~ if (!app->project_dbase->top_proj_dir)
-				//~ dir = g_get_current_dir();
+				dir = g_get_current_dir();
 			//~ else
 				//~ dir = g_strdup(app->project_dbase->top_proj_dir);
 			
 			if (SR_FILES == s->range.type)
-				;
-				//~ files = create_search_files_list(&(s->range.files), dir);
+				//;
+				files = create_search_files_list(&(s->range.files), dir);
 			else if (SR_VARIABLE == s->range.type)
 				;
 				//~ files = expand_search_file_list(dir, s->range.var);
@@ -768,7 +766,7 @@ GList
 				g_list_free(files);
 				entries = g_list_reverse(entries);
 			}
-			//~ g_free(dir);
+			g_free(dir);
 			break;
 		}
 	}	

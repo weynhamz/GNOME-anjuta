@@ -53,6 +53,8 @@
 #include "search-replace.h"
 #include "search_preferences.h"
 
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
+
 #define GLADE_FILE_SEARCH_REPLACE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
 
 /* LibGlade's auto-signal-connect will connect to these signals.
@@ -291,6 +293,8 @@ search_and_replace (void)
 			g_signal_connect (G_OBJECT(view), "message_clicked", 
 			                  G_CALLBACK (on_message_clicked), NULL);
 		}
+		else
+			ianjuta_message_view_clear(view, NULL);
 		ianjuta_message_manager_set_current_view(msgman, view, NULL);
 	}
 
@@ -604,7 +608,7 @@ search_replace_next_previous(SearchDirection dir)
 	}	
 	else
 	{
-		g_print("sr null\n");
+		g_message("sr null\n");
 	}
 }
 
@@ -1525,7 +1529,7 @@ on_search_button_stop_clicked(GtkButton *button, gpointer user_data)
 void
 on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 {	
-	clear_pcre(); //	
+	clear_pcre(); 	
 	search_replace_populate();
 
 	search_and_replace();
@@ -1547,12 +1551,10 @@ void search_replace_find_usage(const gchar *symbol)
 	sr->search.expr.actions_max = G_MAXINT;
 	sr->search.expr.re = NULL;
 
-	/* FIXME: */
-	/*
+	IAnjutaProjectManager* prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(
+		sr->docman)->shell, IAnjutaProjectManager , NULL);
 	sr->search.range.type =
-		app->project_dbase->project_is_open ? SR_PROJECT : SR_OPEN_BUFFERS;
-	*/
-	sr->search.range.type = SR_OPEN_BUFFERS;
+	ianjuta_project_manager_is_open(prjman, NULL) ? SR_PROJECT : SR_OPEN_BUFFERS;
 	
 	sr->search.range.direction = SD_BEGINNING;
 

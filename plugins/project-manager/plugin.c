@@ -1486,7 +1486,7 @@ iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err) 
 	ProjectManagerPlugin *plugin;
 
 	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
-	
+
 	return GBF_IS_PROJECT (plugin->project);
 }
 

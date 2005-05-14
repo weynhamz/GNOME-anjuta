@@ -1,3 +1,9 @@
+2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/editor/search-replace.c, plugins/editor/search-replace_backend.c
+	plugins/project-manager/plugin.c : Clear find pane if searching same 
+	expression. Clean code.
+
 2005-05-14  Pawan Chitrakar  <pawan@nplinux.org>
 
 	* configure.in: Added ne in ALL_LINGUAS
