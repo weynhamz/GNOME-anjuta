@@ -56,6 +56,7 @@ static void trees_signals_unblock (SymbolBrowserPlugin *sv_plugin);
 static void on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search, 
 												 AnjutaSymbolInfo *sym, 
 												 SymbolBrowserPlugin *sv_plugin);
+static void update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin);
 
 #define REGISTER_ICON(icon, stock_id) \
 	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
@@ -246,6 +247,10 @@ on_refresh_idle (gpointer user_data)
 	g_list_foreach (source_uris, (GFunc)g_free, NULL);
 	g_list_free (source_files);
 	g_list_free (source_uris);
+	
+	/* Current editor symbol model may have changed */
+	update_editor_symbol_model (sv_plugin);
+	
 	anjuta_status_busy_pop (status);
 	anjuta_status_pop (status);
 	return FALSE;
@@ -370,6 +375,10 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			trees_signals_block (sv_plugin);
 			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 									 root_dir);
+			
+			/* Current editor symbol model may have changed */
+			update_editor_symbol_model (sv_plugin);
+			
 			trees_signals_unblock (sv_plugin);
 			g_free (root_dir);
 		}
@@ -673,27 +682,16 @@ on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
 }
 
 static void
-value_added_current_editor (AnjutaPlugin *plugin, const char *name,
-							const GValue *value, gpointer data)
+update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 {
 	AnjutaUI *ui;
 	gchar *uri;
-	GObject *editor;
-	SymbolBrowserPlugin *sv_plugin;
+	GObject *editor = sv_plugin->current_editor;
 	
-	editor = g_value_get_object (value);
+	if (!editor)
+		return;
 	
-	sv_plugin = (SymbolBrowserPlugin*)plugin;
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
-	if (!sv_plugin->editor_connected)
-	{
-		sv_plugin->editor_connected = g_hash_table_new_full (g_direct_hash,
-															 g_direct_equal,
-															 NULL, g_free);
-	}
-	sv_plugin->current_editor = editor;
-	
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri)
 	{
@@ -710,7 +708,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
 		
-		/* DEBUG_PRINT ("adding file_symbol_model to egg_combo_action..........." ); */
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 		g_object_set_data (G_OBJECT (editor), "tm_file",
@@ -724,6 +721,33 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		else
 			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	}
+	if (uri)
+		g_free (uri);
+}
+
+static void
+value_added_current_editor (AnjutaPlugin *plugin, const char *name,
+							const GValue *value, gpointer data)
+{
+	gchar *uri;
+	GObject *editor;
+	SymbolBrowserPlugin *sv_plugin;
+	
+	editor = g_value_get_object (value);
+	
+	sv_plugin = (SymbolBrowserPlugin*)plugin;
+	
+	if (!sv_plugin->editor_connected)
+	{
+		sv_plugin->editor_connected = g_hash_table_new_full (g_direct_hash,
+															 g_direct_equal,
+															 NULL, g_free);
+	}
+	sv_plugin->current_editor = editor;
+	
+	update_editor_symbol_model (sv_plugin);
+	
+	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (g_hash_table_lookup (sv_plugin->editor_connected, editor) == NULL)
 	{
 		g_object_weak_ref (G_OBJECT (editor),
@@ -743,8 +767,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 						  G_CALLBACK (on_editor_saved),
 						  sv_plugin);
 	}
-	if (uri)
-		g_free (uri);
+	g_free (uri);
 }
 
 static void

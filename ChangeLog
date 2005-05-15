@@ -1,3 +1,17 @@
+2005-05-15  Naba Kumar <naba@gnome.org>
+
+	* configure.in: Adjusted gdl version requirement. Bumped anjuta
+	version to 2.0.0.
+
+	* plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/plugin.c,
+	tagmanager/tm_workspace.c: Fixed symbol-browser crash when
+	symbols have been updated. Reset file symbols when update
+	occurs. Fixed memory leaks.
+
+	Patch from Jason Bayman  <JBayman@HobbitHell.com>:
+	* plugins/file-wizard/action-callbacks.c: Fixed crash bug.
+	
 2005-05-14  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/anjuta-tools.glade:
@@ -23,7 +37,8 @@
 
 2005-05-14  Naba Kumar <naba@gnome.org>
 
-	* AUTHORS, FUTURE, NEWS, README, ROADMAP: Updated and prepared for release.
+	* AUTHORS, FUTURE, NEWS, README, ROADMAP: Updated and prepared for
+	release.
 	
 	* configure.in: Fixed
 	
@@ -34,7 +49,8 @@
 
 2005-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
-	* plugins/editor/search-replace.c, plugins/editor/search-replace_backend.c
+	* plugins/editor/search-replace.c,
+	plugins/editor/search-replace_backend.c
 	plugins/project-manager/plugin.c : Clear find pane if searching same 
 	expression. Clean code.
 

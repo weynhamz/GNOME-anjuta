@@ -100,18 +100,21 @@ on_insert_header_template(GtkAction * action, gpointer user_data)
 	const gchar *filename;
 
 	editor = get_current_editor (ANJUTA_PLUGIN (user_data));
-	filename = ianjuta_editor_get_filename (editor , NULL);	
-	if ( g_strcasecmp((filename) + strlen(filename) - 2, ".h") == 0)
+	filename = ianjuta_editor_get_filename (editor, NULL);
+	if (filename)
 	{
-		IAnjutaMacro *macro = get_macro(user_data);
-		if (macro)
-			ianjuta_macro_insert (macro, "Header_h", NULL);	
-	}
-	else
-	{
-		gchar *tmp = g_strdup_printf(_("%s is not a '.h' file !"), filename);
-		anjuta_util_dialog_error(NULL, tmp);
-		g_free(tmp);
+		if (g_strcasecmp((filename) + strlen(filename) - 2, ".h") == 0)
+		{
+			IAnjutaMacro *macro = get_macro(user_data);
+			if (macro)
+				ianjuta_macro_insert (macro, "Header_h", NULL);
+		}
+		else
+		{
+			gchar *tmp = g_strdup_printf(_("%s is not a '.h' file !"), filename);
+			anjuta_util_dialog_error(NULL, tmp);
+			g_free(tmp);
+		}
 	}
 }
 

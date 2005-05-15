@@ -77,6 +77,7 @@ void tm_workspace_free(gpointer workspace)
 			for (i=0; i < theWorkspace->global_tags->len; ++i)
 				tm_tag_free(theWorkspace->global_tags->pdata[i]);
 			g_ptr_array_free(theWorkspace->global_tags, TRUE);
+			tm_tag_chunk_clean ();
 		}
 		unlink(theWorkspace->work_object.file_name);
 		tm_work_object_destroy(TM_WORK_OBJECT(theWorkspace));

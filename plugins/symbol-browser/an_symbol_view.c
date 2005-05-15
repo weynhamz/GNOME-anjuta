@@ -94,11 +94,14 @@ on_remove_project_tm_files (gpointer key, gpointer val, gpointer data)
 	tm_file = g_object_get_data (G_OBJECT (val), "tm_file");
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv), FALSE);
+	g_return_val_if_fail (tm_file != NULL, FALSE);
 	
 	if (tm_file &&
-		tm_file->parent == TM_WORK_OBJECT (sv->priv->tm_project))
+		TM_WORK_OBJECT (tm_file)->parent == sv->priv->tm_project)
 	{
 		DEBUG_PRINT ("Removing tm_file");
+		if (sv->priv->file_symbol_model == val)
+			sv->priv->file_symbol_model = NULL;
 		return TRUE;
 	}
 	return FALSE;
@@ -311,10 +314,6 @@ anjuta_symbol_view_clear (AnjutaSymbolView * sv)
 	{
 		/* clean out gtk_tree_store. We won't need it anymore */
 		gtk_tree_store_clear (GTK_TREE_STORE (model));
-	}
-	if (sv->priv->file_symbol_model) {
-		/* clearing file_symbol_model */
-		gtk_tree_store_clear (GTK_TREE_STORE(sv->priv->file_symbol_model));
 	}
 	if (sv->priv->symbols)
 	{
@@ -537,7 +536,10 @@ anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv)
 		tm_symbol_tree_free (sv->priv->symbols);
 		sv->priv->symbols = NULL;
 	}
-	
+	/* Destroy file symbol models that belong to the project */
+	g_hash_table_foreach_remove (sv->priv->tm_files,
+								 on_remove_project_tm_files,
+								 sv);
 	if (!(sv->priv->symbols =
 		 tm_symbol_tree_new (sv->priv->tm_project->tags_array)))
 		goto clean_leave;
@@ -609,9 +611,6 @@ anjuta_symbol_view_dispose (GObject * obj)
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
 	
 	/* All file symbol refs would be freed when the hash table is distroyed */
-	/* if (sv->priv->file_symbol_model)
-	 *	g_object_unref (sv->priv->file_symbol_model);
-	 */
 	sv->priv->file_symbol_model = NULL;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -698,6 +697,9 @@ anjuta_symbol_view_update (AnjutaSymbolView * sv, GList *source_files)
 	
 	if (sv->priv->tm_project)
 	{
+		g_hash_table_foreach_remove (sv->priv->tm_files,
+									 on_remove_project_tm_files,
+									 sv);
 		if (source_files)
 			tm_project_sync (TM_PROJECT (sv->priv->tm_project), source_files);
 		else
@@ -705,10 +707,6 @@ anjuta_symbol_view_update (AnjutaSymbolView * sv, GList *source_files)
 		tm_project_save (TM_PROJECT (sv->priv->tm_project));
 		anjuta_symbol_view_refresh_tree (sv);
 	}
-	/*
-	 * else if (p->top_proj_dir)
-	 * p->tm_project = tm_project_new (p->top_proj_dir, NULL, NULL, TRUE);
-	 */
 }
 
 void
