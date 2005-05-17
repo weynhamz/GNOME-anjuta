@@ -1,4 +1,15 @@
 2005-05-17  Naba Kumar <naba@gnome.org>
+	
+	* plugins/cvs-plugin/Makefile.am,
+	plugins/devhelp/plugin.c,
+	plugins/file-loader/Makefile.am,
+	plugins/macro/Makefile.am,
+	plugins/message-view/Makefile.am,
+	plugins/patch/Makefile.am,
+	plugins/project-manager/Makefile.am,
+	plugins/subversion/Makefile.am,
+	plugins/symbol-browser/Makefile.am: Removed -module flags
+	from libtool flags
 
 	* MAINTAINERS: Added file so that I could recieve bugzilla
 	reports.

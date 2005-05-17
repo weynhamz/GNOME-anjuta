@@ -31,8 +31,6 @@ libanjuta_project_manager_la_SOURCES = \
 	plugin.c \
 	plugin.h
 
-libanjuta_project_manager_la_LDFLAGS = -module
-
 # Plugin dependencies
 libanjuta_project_manager_la_LIBADD = \
 	$(PLUGIN_GNOMEBUILD_LIBS) \

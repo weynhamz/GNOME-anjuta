@@ -32,8 +32,6 @@ libanjuta_loader_la_SOURCES = \
 	dnd.c \
 	dnd.h
 
-libanjuta_loader_la_LDFLAGS = -module
-
 libanjuta_loader_la_LIBADD = \
 	$(LIBANJUTA_LIBS)\
 	$(top_builddir)/libegg/libanjuta-egg.la

@@ -38,9 +38,6 @@ libanjuta_patch_la_SOURCES = \
 libanjuta_patch_la_LIBADD = \
 	$(LIBANJUTA_LIBS) 
 
-
-#libanjuta_patch_la_LDFLAGS = -module
-	
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(patch_plugin_DATA) \

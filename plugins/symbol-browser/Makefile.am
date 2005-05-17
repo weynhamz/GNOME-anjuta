@@ -52,8 +52,6 @@ libanjuta_symbol_browser_la_SOURCES = \
 	plugin.c \
 	plugin.h
 
-libanjuta_symbol_browser_la_LDFLAGS = -module
-
 # Plugin dependencies
 libanjuta_symbol_browser_la_LIBADD = \
 	$(GDL_LIBS) \

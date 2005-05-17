@@ -27,7 +27,6 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-macro.la
 
-libanjuta_macro_la_LDFLAGS = -module
 libanjuta_macro_la_LIBADD = \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS)
 libanjuta_macro_la_SOURCES = \

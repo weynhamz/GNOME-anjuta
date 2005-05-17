@@ -29,7 +29,6 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-message-view.la
 
-libanjuta_message_view_la_LDFLAGS = -module
 libanjuta_message_view_la_LIBADD = \
 	$(LIBANJUTA_LIBS)
 

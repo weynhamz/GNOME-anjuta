@@ -27,7 +27,6 @@ INCLUDES= \
 	$(PCRE_CFLAGS)
 
 plugindir = $(anjuta_plugin_dir)
-libanjuta_subversion_la_LDFLAGS = -module
 
 plugin_LTLIBRARIES = libanjuta-subversion.la
 

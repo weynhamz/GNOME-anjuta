@@ -24,7 +24,6 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-cvs-plugin.la
 
-libanjuta_cvs_plugin_la_LDFLAGS = -module
 libanjuta_cvs_plugin_la_LIBADD = \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS)
 
