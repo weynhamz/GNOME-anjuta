@@ -1,4 +1,6 @@
 2005-05-17  Naba Kumar <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Fixed compiler warnings.
 	
 	* plugins/cvs-plugin/Makefile.am,
 	plugins/devhelp/plugin.c,
