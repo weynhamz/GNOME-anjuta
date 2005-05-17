@@ -3,6 +3,8 @@
 	* MAINTAINERS: Added file so that I could recieve bugzilla
 	reports.
 
+	* plugins/glade/plugin.c: Fixed compile error.
+
 === Anjuta 2.0.0 ===
 
 2005-05-15  Naba Kumar <naba@gnome.org>
