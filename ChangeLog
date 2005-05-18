@@ -1,3 +1,13 @@
+2005-05-18  Naba Kumar <naba@gnome.org>
+
+	* AUTHORS: Fixed email address.
+	
+	* libanjuta/anjuta-utils.c,
+	plugins/project-manager/plugin.c: Take plugin shell as dialog parents
+	when the projectmanager toplevel is not a window. Check for valid
+	gtkwindow type before using the passed window as parent for anjuta
+	dialogs.
+
 2005-05-17  Naba Kumar <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: Fixed compiler warnings.

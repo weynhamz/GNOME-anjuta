@@ -197,8 +197,14 @@ on_refresh_idle (gpointer user_data)
 	gbf_project_refresh (GBF_PROJECT (plugin->project), &err);
 	if (err)
 	{
+		GtkWidget *toplevel;
 		GtkWindow *win;
-		win = GTK_WINDOW (gtk_widget_get_toplevel (plugin->scrolledwindow));
+		
+		toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+		if (toplevel && GTK_IS_WINDOW (toplevel))
+			win = GTK_WINDOW (toplevel);
+		else
+			win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 		anjuta_util_dialog_error (win, "Failed to refresh project: %s",
 								  err->message);
 		g_error_free (err);
@@ -324,9 +330,16 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 static gboolean
 confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 {
-	GtkWidget *win;
+	GtkWidget *toplevel;
+	GtkWindow *win;
 	gboolean answer;
 	gchar *mesg;
+
+	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	if (toplevel && GTK_IS_WINDOW (toplevel))
+		win = GTK_WINDOW (toplevel);
+	else
+		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 	
 	switch (data->type)
 	{
@@ -343,9 +356,7 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 			g_warning ("Unknow node");
 			return FALSE;
 	}
-	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	answer = anjuta_util_dialog_boolean_question (GTK_WINDOW (win),
-												  mesg,
+	answer = anjuta_util_dialog_boolean_question (win, mesg,
 		_("Are you sure you want to remove the following from project?\n\n"),
 												  data->name);
 	return answer;
@@ -391,8 +402,14 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 			update_operation_end (plugin, TRUE);
 			if (err)
 			{
+				GtkWidget *toplevel;
 				GtkWindow *win;
-				win = GTK_WINDOW (gtk_widget_get_toplevel (plugin->scrolledwindow));
+				
+				toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+				if (toplevel && GTK_IS_WINDOW (toplevel))
+					win = GTK_WINDOW (toplevel);
+				else
+					win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 				anjuta_util_dialog_error (win, "Failed to remove '%s':\n%s",
 										  err->message);
 				g_error_free (err);
@@ -405,11 +422,17 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkWidget *win;
+	GtkWidget *toplevel;
+	GtkWindow *win;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult res;
 	
-	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	if (toplevel && GTK_IS_WINDOW (toplevel))
+		win = GTK_WINDOW (toplevel);
+	else
+		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+	
 	res = gnome_vfs_get_file_info (plugin->fm_current_uri, &info,
 								   GNOME_VFS_FILE_INFO_DEFAULT |
 								   GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
@@ -433,7 +456,7 @@ on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		const gchar *mesg;
 		
 		mesg = gnome_vfs_result_to_string (res);
-		anjuta_util_dialog_error (GTK_WINDOW (win),
+		anjuta_util_dialog_error (win,
 								  "Failed to retried URI info of %s: %s",
 								  plugin->fm_current_uri, mesg);
 	}
@@ -896,8 +919,15 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	gbf_project_load (pm_plugin->project, dirname, &error);
 	if (error)
 	{
+		GtkWidget *toplevel;
 		GtkWindow *win;
-		win = GTK_WINDOW (gtk_widget_get_toplevel (pm_plugin->scrolledwindow));
+		
+		toplevel = gtk_widget_get_toplevel (pm_plugin->scrolledwindow);
+		if (toplevel && GTK_IS_WINDOW (toplevel))
+			win = GTK_WINDOW (toplevel);
+		else
+			win = GTK_WINDOW (plugin->shell);
+		
 		anjuta_util_dialog_error (win, _("Failed to load project %s: %s"),
 								  dirname, error->message);
 		/* g_propagate_error (err, error); */

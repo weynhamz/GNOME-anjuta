@@ -214,13 +214,23 @@ anjuta_util_dialog_error (GtkWindow *parent, const gchar *mesg, ...)
 	gchar* message;
 	va_list args;
 	GtkWidget *dialog;
+	GtkWindow *real_parent;
 
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
 	
+	if (parent && GTK_IS_WINDOW (parent))
+	{
+		real_parent = parent;
+	}
+	else
+	{
+		real_parent = NULL;
+	}
+	
 	// Dialog to be HIG compliant
-	dialog = gtk_message_dialog_new (parent,
+	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_ERROR,
 									 GTK_BUTTONS_CLOSE, message);
@@ -236,13 +246,23 @@ anjuta_util_dialog_warning (GtkWindow *parent, const gchar * mesg, ...)
 	gchar* message;
 	va_list args;
 	GtkWidget *dialog;
+	GtkWindow *real_parent;
 
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
 	
+	if (parent && GTK_IS_WINDOW (parent))
+	{
+		real_parent = parent;
+	}
+	else
+	{
+		real_parent = NULL;
+	}
+	
 	// Dialog to be HIG compliant
-	dialog = gtk_message_dialog_new (parent,
+	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_WARNING,
 									 GTK_BUTTONS_CLOSE, message);
@@ -258,13 +278,22 @@ anjuta_util_dialog_info (GtkWindow *parent, const gchar * mesg, ...)
 	gchar* message;
 	va_list args;
 	GtkWidget *dialog;
+	GtkWindow *real_parent;
 
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
 	
+	if (parent && GTK_IS_WINDOW (parent))
+	{
+		real_parent = parent;
+	}
+	else
+	{
+		real_parent = NULL;
+	}
 	// Dialog to be HIG compliant
-	dialog = gtk_message_dialog_new (parent,
+	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_INFO,
 									 GTK_BUTTONS_CLOSE, message);
@@ -282,6 +311,7 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 	gchar* tot_mesg;
 	va_list args;
 	GtkWidget *dialog;
+	GtkWindow *real_parent;
 
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
@@ -294,8 +324,16 @@ anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 	} else
 		tot_mesg = message;
 
+	if (parent && GTK_IS_WINDOW (parent))
+	{
+		real_parent = parent;
+	}
+	else
+	{
+		real_parent = NULL;
+	}
 	// Dialog to be HIG compliant
-	dialog = gtk_message_dialog_new (parent,
+	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_ERROR,
 									 GTK_BUTTONS_CLOSE, tot_mesg);
@@ -312,11 +350,22 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 	va_list args;
 	GtkWidget *dialog;
 	gint ret;
+	GtkWindow *real_parent;
 
 	va_start (args, mesg);
 	message = g_strdup_vprintf (mesg, args);
 	va_end (args);
-	dialog = gtk_message_dialog_new (parent,
+	
+	if (parent && GTK_IS_WINDOW (parent))
+	{
+		real_parent = parent;
+	}
+	else
+	{
+		real_parent = NULL;
+	}
+	
+	dialog = gtk_message_dialog_new (real_parent,
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_YES_NO, message);
@@ -335,8 +384,18 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	GtkWidget *dialog, *label, *frame, *entry, *dialog_vbox, *vbox;
 	gint res;
 	gchar *markup;
+	GtkWindow *real_parent;
 
-	dialog = gtk_dialog_new_with_buttons (prompt, parent,
+	if (parent && GTK_IS_WINDOW (parent))
+	{
+		real_parent = parent;
+	}
+	else
+	{
+		real_parent = NULL;
+	}
+
+	dialog = gtk_dialog_new_with_buttons (prompt, real_parent,
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 										  GTK_STOCK_OK, GTK_RESPONSE_OK,
