@@ -1,5 +1,9 @@
 2005-05-19  Naba Kumar <naba@gnome.org>
 
+	* configure.in: Fixed subversion checks. Added
+	--disable-plugin-subversion and --disable-plugin-glade
+	configure flags to manually turn off their plugin builds.
+
 	* plugins/editor/plugin.c: Save and restore current editor line
 	positions in session.
 
