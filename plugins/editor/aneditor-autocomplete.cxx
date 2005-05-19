@@ -528,7 +528,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 		{
 			endword--;
 		}
-		/* detect function parameter list or othgers () */
+		/* detect function parameter list or others () */
 		if(linebuf[endword - 1] == ')')
 		{
 			int count = 0;
@@ -651,7 +651,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 					{
 						ScanType =
 							(match ? match[iter] : TM_TAG(tags->pdata[iter]));
-						if(ch != ':' &&
+						if(ch != ':' && ScanType->atts.entry.scope &&
 						   0 == strcmp(name, ScanType->atts.entry.scope))
 						{
 							break;
@@ -730,6 +730,16 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 			}
 			while (count && endword < current);
 		}
+		else if(linebuf[endword] == '<')
+		{
+			int count = 0;
+			do {
+				if(linebuf[endword] == '>') count--;
+				if(linebuf[endword] == '<') count++;
+				endword++;
+			}
+			while (count && endword < current);
+		}
 		else
 		{
 			while(linebuf[endword] == '[')
@@ -786,7 +796,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 		name = ScanType->atts.entry.var_type;
 		isPointer = ScanType->atts.entry.isPointer;
 	}
-	if (ch == ':' && ScanType->type != tm_tag_class_t)
+	if (ch == ':' && ScanType && ScanType->type != tm_tag_class_t)
 	{
 		if(new_name) g_free(new_name);
 			//anjuta_status (_("Wrong acces operator ... "));

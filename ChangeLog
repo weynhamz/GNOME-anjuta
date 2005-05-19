@@ -1,5 +1,13 @@
 2005-05-19  Naba Kumar <naba@gnome.org>
 
+	* plugins/terminal/terminal.c: Fixed crash bug when terminal is used
+	while it's not visible.
+
+	Patch from: Jason Bayman  <JBayman@HobbitHell.com>
+	* plugins/editor/aneditor-autocomplete.cxx: Fixed crash bugs.
+	
+2005-05-19  Naba Kumar <naba@gnome.org>
+
 	* configure.in: Fixed subversion checks. Added
 	--disable-plugin-subversion and --disable-plugin-glade
 	configure flags to manually turn off their plugin builds.

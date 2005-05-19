@@ -173,7 +173,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	} else {
 		text = GET_PROFILE_STRING (GCONF_VTE_TERMINAL_FONT);
 	}
-	if (text)
+	if (text && GTK_WIDGET (vte)->window)
 		vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
 
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
