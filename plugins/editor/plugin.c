@@ -920,7 +920,14 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		TextEditor *te;
 		te = TEXT_EDITOR (node->data);
 		if (te->uri)
-			files = g_list_prepend (files, g_strdup (te->uri));
+		{
+			gchar *uri;
+			/* Save line locations also */
+			uri = g_strdup_printf ("%s#%d", te->uri,
+								   text_editor_get_current_lineno (te));
+			files = g_list_prepend (files, uri);
+			/* uri not be freed here */
+		}
 		node = g_list_next (node);
 	}
 	files = g_list_reverse (files);

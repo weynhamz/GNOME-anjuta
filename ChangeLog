@@ -1,3 +1,8 @@
+2005-05-19  Naba Kumar <naba@gnome.org>
+
+	* plugins/editor/plugin.c: Save and restore current editor line
+	positions in session.
+
 2005-05-18  Naba Kumar <naba@gnome.org>
 
 	* AUTHORS: Fixed email address.
