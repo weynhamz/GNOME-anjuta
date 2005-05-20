@@ -6,11 +6,12 @@
 Introduction:
 -------------
 
-Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
-It has been written for GTK/GNOME, and features a number of advanced
-programming facilities. These include project management, application
-wizards, an on-board interactive debugger, and a powerful source editor
-with source browsing and syntax highlighting.
+Anjuta DevStudio is a versatile Integrated Development Environment (IDE)
+on GNOME Desktop Environment and features a number of advanced
+programming facilities. These include project management, application and
+class wizards, an on-board interactive debugger, powerful source editor,
+syntax highlighting, intellisense autocompletions, symbol navigation,
+version controls, integrated GUI designing and other tools.
 
 Anjuta is an effort to marry the flexibility and power of text-based 
 command-line tools with the ease-of-use of the GNOME graphical user 

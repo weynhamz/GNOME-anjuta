@@ -17,8 +17,18 @@ EXTRA_DIST = \
 	$(mimexml_DATA) \
 	$(mimeicon_DATA)
 
+## Update mime only when system wide installation takes place
+
 install-data-local: install-mimexmlDATA
-	update-mime-database $(DESTDIR)$(datadir)/mime
+	if [ -f $(DESTDIR)$(datadir)/mime/packages/freedesktop.org.xml ] ; then \
+	  if which update-mime-database>/dev/null 2>&1; then \
+	    update-mime-database $(DESTDIR)$(datadir)/mime; \
+	  fi \
+	fi
 
 uninstall-local:
-	update-mime-database $(DESTDIR)$(datadir)/mime
+	if [ -f $(DESTDIR)$(datadir)/mime/packages/freedesktop.org.xml ] ; then \
+	  if which update-mime-database>/dev/null 2>&1; then \
+	    update-mime-database $(DESTDIR)$(datadir)/mime; \
+	  fi \
+	fi

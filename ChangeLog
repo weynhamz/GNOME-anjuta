@@ -1,3 +1,14 @@
+2005-05-20  Naba Kumar <naba@gnome.org>
+
+	* README, anjuta.spec.in, configure.in: Updated Anjuta Descriptions
+	and fixed rpm spec file (more testing required).
+	
+	* data/gdb.init: Don't set gdb prompt.
+	
+	* mime/Makefile.am: run update-mime-data only on system-wide install.
+	
+	* plugins/gdb/Makefile.am: Install plugin at correct paths.
+
 2005-05-19  Naba Kumar <naba@gnome.org>
 
 	* plugins/terminal/terminal.c: Fixed crash bug when terminal is used

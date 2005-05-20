@@ -2,7 +2,6 @@
 ##  If you are afraid of CORE DUMPS, then DO NOT modifiy this file.  ##
 #######################################################################
 
-set prompt GDB is waiting for command =>\n
 set confirm off
 set print elements 1000
 set print null-stop

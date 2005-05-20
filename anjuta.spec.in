@@ -4,7 +4,7 @@
 %define	release		1
 %define	serial		1
 
-Summary:	GNOME IDE for C and C++
+Summary:	Integrated Development Environment
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -32,6 +32,12 @@ Requires: 	vte >= @VTE_REQUIRED@
 Requires: 	libxml2 >= @LIBXML_REQUIRED@
 Requires: 	pango >= @PANGO_REQUIRED@
 Requires: 	pcre >= @PCRE_REQUIRED@
+Requires: 	devhelp >= @LIBDEVHELP_REQUIRED@
+Requires: 	gdl >= @GDL_REQUIRED@
+Requires: 	gnome-build >= @GNOMEBUILD_REQUIRED@
+Requires: 	graphviz >= @LIBGRAPHVIZ_REQUIRED@
+Requires: 	neon >= @NEON_REQUIRED@
+Requires: 	subversion >= @SUBVERSION_REQUIRED@
 
 BuildRequires: 	glib2-devel >= @GLIB_REQUIRED@
 BuildRequires: 	gtk2-devel >= @GTK_REQUIRED@
@@ -48,29 +54,37 @@ BuildRequires: 	vte-devel >= @VTE_REQUIRED@
 BuildRequires: 	libxml2-devel >= @LIBXML_REQUIRED@
 BuildRequires: 	pango-devel >= @PANGO_REQUIRED@
 BuildRequires: 	pcre-devel >= @PCRE_REQUIRED@
+BuildRequires: 	devhelp-devel >= @LIBDEVHELP_REQUIRED@
+BuildRequires: 	gdl-devel >= @GDL_REQUIRED@
+BuildRequires: 	gnome-build-devel >= @GNOMEBUILD_REQUIRED@
+BuildRequires: 	graphviz-devel >= @LIBGRAPHVIZ_REQUIRED@
+BuildRequires: 	neon-devel >= @NEON_REQUIRED@
+BuildRequires: 	subversion-devel >= @SUBVERSION_REQUIRED@
 
-Distribution:	Any
-Packager:	Naba Kumar  <naba@gnome.org>
+Distribution: 	Any
+Packager:     	Naba Kumar  <naba@gnome.org>
 
 %description
-Anjuta is a versatile Integrated Development Environment (IDE) for C and C++. 
-It has been written for GTK/GNOME, and features a number of advanced 
-programming facilities. It is basically a GUI interface for the collection 
-of command line programming utilities and tools available for the GNU system. 
-These are usually run via a text console, and can be unfriendly to use.
+Anjuta DevStudio is a versatile Integrated Development Environment (IDE)
+on GNOME Desktop Environment and features a number of advanced
+programming facilities. These include project management, application and
+class wizards, an on-board interactive debugger, powerful source editor,
+syntax highlighting, intellisense autocompletions, symbol navigation,
+version controls, integrated GUI designing and other tools.
 
-%package docs
-Summary: Anjuta docuemntations package.
-Group: Development/Tools
+%package devel
+Summary:	Libraries and include files for Anjuta plugins development.
+Group:		Development/Libraries
+Requires:	%{name} = %{version}
 
-%description docs
-Anjuta documentations.
+%description devel
+Libraries, header files and API docs for developing Anjuta plugins.
 
 %prep
 %setup -q
 
 %build
-%configure --enable-final                                                       
+%configure --disable-plugin-glade
 make %{?_smp_mflags}
 
 %install
@@ -81,11 +95,21 @@ rm -fr %{buildroot}/var/scrollkeeper
 %clean
 rm -rf %{buildroot}
 
-%post docs
-if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
+%post
+if which scrollkeeper-update>/dev/null 2>&1; then
+	scrollkeeper-update;
+fi
+if which update-mime-database>/dev/null 2>&1; then
+	update-mime-database %{datadir}/mime;
+fi
 
-%postun docs
-if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
+%postun
+if which scrollkeeper-update>/dev/null 2>&1; then
+	scrollkeeper-update;
+fi
+if which update-mime-database>/dev/null 2>&1; then
+	update-mime-database %{datadir}/mime;
+fi
 
 %files
 %defattr(-,root,root)
@@ -94,17 +118,28 @@ if which scrollkeeper-update>/dev/null 2>&1; then scrollkeeper-update; fi
 
 %defattr(-,root,root)
 %{_bindir}/%{name}*
+%{_libdir}/lib%{name}*.so.*
 %{_libdir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/pixmaps/%{name}
 %{_datadir}/doc/%{name}
-%{_datadir}/mime-info/anjuta.mime
+%{_datadir}/application-registry/%{name}.applications
+%{_datadir}/mime-info/%{name}.mime
+%{_datadir}/mime-info/%{name}.keys
+%{_datadir}/mime/packages/%{name}.xml
+%{_datadir}/icons/gnome/48x48/mimetypes/*%{name}.png
 %{_datadir}/mimelnk/application/x-anjuta-project.desktop
+%{_datadir}/gnome/help/%{name}
+%{_datadir}/omf/%{name}
 %{_datadir}/locale
 %{_mandir}/man1/*
 
-%files docs
-%defattr(-, root, root)
-%{_datadir}/gnome/help/%{name}
-%{_datadir}/omf/%{name}
+%files devel
+%defattr (-, root, root)
+%{_includedir}/*%{name}*
+%{_libdir}/pkgconfig/*%{name}*
+%{_libdir}/lib%{name}*.a
+%{_libdir}/lib%{name}*.la
+%{_libdir}/lib%{name}*.so
+%{_datadir}/gtk-doc/html/*%{name}*

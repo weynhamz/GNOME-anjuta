@@ -3,10 +3,10 @@ gdb_uidir = $(anjuta_ui_dir)
 gdb_ui_DATA = anjuta-gdb-plugin.ui
 
 # Plugin glade file
-anjuta_gladedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_gladedir = $(anjuta_glade_dir)
 anjuta_glade_DATA = anjuta-gdb.glade
 
-plugin_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
+plugin_pixmapsdir = $(anjuta_image_dir)
 plugin_pixmaps_DATA = \
 	anjuta-gdb.plugin.png \
 	pointer.png
@@ -14,7 +14,7 @@ plugin_pixmaps_DATA = \
 plugin_in_files = anjuta-gdb.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
-anjuta_plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+anjuta_plugindir = $(anjuta_plugin_dir)
 anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 INCLUDES= \
@@ -22,7 +22,7 @@ INCLUDES= \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
-plugindir = $(prefix)/@NO_PREFIX_PACKAGE_PLUGIN_DIR@
+plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-gdb.la
 
 libanjuta_gdb_la_LIBADD = $(LIBANJUTA_LIBS)
