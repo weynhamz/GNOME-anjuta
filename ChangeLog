@@ -1,4 +1,4 @@
-2005-05-20  Naba Kumar <naba@gnome.org>
+2005-05-20  Naba Kumar  <naba@gnome.org>
 
 	* README, anjuta.spec.in, configure.in: Updated Anjuta Descriptions
 	and fixed rpm spec file (more testing required).
@@ -9,7 +9,7 @@
 	
 	* plugins/gdb/Makefile.am: Install plugin at correct paths.
 
-2005-05-19  Naba Kumar <naba@gnome.org>
+2005-05-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/terminal/terminal.c: Fixed crash bug when terminal is used
 	while it's not visible.
@@ -26,7 +26,7 @@
 	* plugins/editor/plugin.c: Save and restore current editor line
 	positions in session.
 
-2005-05-18  Naba Kumar <naba@gnome.org>
+2005-05-18  Naba Kumar  <naba@gnome.org>
 
 	* AUTHORS: Fixed email address.
 	
@@ -36,7 +36,7 @@
 	gtkwindow type before using the passed window as parent for anjuta
 	dialogs.
 
-2005-05-17  Naba Kumar <naba@gnome.org>
+2005-05-17  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: Fixed compiler warnings.
 	
@@ -58,7 +58,7 @@
 
 === Anjuta 2.0.0 ===
 
-2005-05-15  Naba Kumar <naba@gnome.org>
+2005-05-15  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Adjusted gdl version requirement. Bumped anjuta
 	version to 2.0.0.
@@ -95,7 +95,7 @@
 	Remove code from previous plugin and add comments
 	Fix warnings
 
-2005-05-14  Naba Kumar <naba@gnome.org>
+2005-05-14  Naba Kumar  <naba@gnome.org>
 
 	* AUTHORS, FUTURE, NEWS, README, ROADMAP: Updated and prepared for
 	release.
@@ -118,7 +118,7 @@
 
 	* configure.in: Added ne in ALL_LINGUAS
 	
-2005-05-13  Naba Kumar <naba@gnome.org>
+2005-05-13  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Fixed glade-3 version.
 	
@@ -127,7 +127,7 @@
 	plugins/gdb/watch.c: Update locals, watch and frame document on
 	frame change.
 
-2005-05-12  Naba Kumar <naba@gnome.org>
+2005-05-12  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/aneditor-autocomplete.cxx: Fixed infinite loop in
 	scope autocompletion when the function definition is incomplete.
@@ -140,7 +140,7 @@
 	plugins/project-wizard/anjuta-project-wizard.plugin.in: Give a proper
 	titles for the wizards.
 
-2005-05-11  Naba Kumar <naba@gnome.org>
+2005-05-11  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, plugins/debug-manager/Makefile.am,
 	plugins/debug-manager/plugin.c,
@@ -182,7 +182,7 @@
 	plugins/editor/search-replace_backend.c
 	plugins/project-manager/plugin.c : Search & Replace in all Project Files.
 
-2005-05-11  Naba Kumar <naba@gnome.org>
+2005-05-11  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/gdb/actions.c, plugins/gdb/breakpoints.c,
 	plugins/gdb/breakpoints.h, plugins/gdb/debug_tree.c,
@@ -197,7 +197,7 @@
 	plugins/symbol-browser/an_symbol_view.h,
 	plugins/symbol-browser/plugin.c: Fixed memory leaks.
 
-2005-05-11  Naba Kumar <naba@gnome.org>
+2005-05-11  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-shell.c: Fixed runtime warning.
 	
@@ -213,7 +213,7 @@
 	* plugins/profile-default/plugin.c: Save project session on exit.
 	Show mini splash with progress bar at profile load.
 
-2005-05-10  Naba Kumar <naba@gnome.org>
+2005-05-10  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, manuals/Makefile.am: Fixed compile flags.
 	Disable outdated manuals builds.
@@ -242,7 +242,7 @@
 	
 	* po/POTFILES.in: Updated.
 
-2005-05-09  Naba Kumar <naba@gnome.org>
+2005-05-09  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/gdb/debugger.[ch], plugins/gdb/plugin.c,
@@ -271,7 +271,7 @@
 	Change the tool internal structure
 	Support having tools configuration in several places
 
-2005-05-08  Naba Kumar <naba@gnome.org>
+2005-05-08  Naba Kumar  <naba@gnome.org>
 
 	* plugins/gdb/actions.c,
 	(removed) plugins/gdb/registers_cbs.c,
@@ -284,7 +284,7 @@
 	(removed) plugins/gdb/signals_cbs.h,
 	(removed) plugins/gdb/signals_gui.c: Removed dead files.
 
-2005-05-08  Naba Kumar <naba@gnome.org>
+2005-05-08  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/executer.c: Fixed programs
 	listing dialog.
