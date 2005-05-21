@@ -1606,7 +1606,7 @@ get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
 		{"GNU coding style", " -gnu"},
 		{"Kernighan and Ritchie style", " -kr"},
 		{"Original Berkeley style", " -orig"},
-		{"Anjuta coding style", " -l80 -lc80 -t4 -i4 -sc -bli0 -bl0 -cbi0 -ss"},
+		{"Anjuta coding style", " -l80 -lc80 -ts4 -i4 -sc -bli0 -bl0 -cbi0 -ss"},
 		{"Style of Kangleipak", " -i8 -sc -bli0 -bl0 -cbi0 -ss"},
 		{"Hello World style", " -gnu -i0 -bli0 -cbi0 -cdb -sc -bl0 -ss"},
 		{"Crazy boy style", " "}

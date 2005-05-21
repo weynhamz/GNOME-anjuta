@@ -66,49 +66,40 @@ dnl AC_SUBST(LIBGTODO_REQUIRED)
 
 AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
 AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
 
 CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith"
-CFLAGS_DISABLE_CHECKS="-DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
-CFLAGS_OPTIMIZE="-Os -s"
-CXXFLAGS_OPTIMIZE="-Os -s -fno-exceptions -fno-check-new"
+CXXFLAGS_WARNINGS="-Wall -Wparentheses -Wpointer-arith"
+
 if test "x$GCC" = xyes; then
     CFLAGS_WARNINGS=""
-    CFLAGS_OPTIMIZE=""
-    CXXFLAGS_OPTIMIZE=""
+    CXXFLAGS_WARNINGS=""
 fi
 
-CFLAGS="$CFLAGS -O0 -g $CFLAGS_WARNINGS"
-CXXFLAGS="$CXXFLAGS -O0 -g $CFLAGS_WARNINGS"
+AM_CFLAGS="$AM_CFLAGS -O0 -g $CFLAGS_WARNINGS"
+AM_CXXFLAGS="$AM_CXXFLAGS -O0 -g $CXXFLAGS_WARNINGS"
 
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
-      [  --enable-debug           Enable debug messages],
-      CFLAGS="$CFLAGS -DDEBUG"
-      CXXFLAGS="$CXXFLAGS -DDEBUG")
+  [  --enable-debug           Enable debug messages],
+  AM_CFLAGS="$AM_CFLAGS -DDEBUG"
+  AM_CXXFLAGS="$AM_CXXFLAGS -DDEBUG")
+AC_SUBST(AM_CFLAGS)
+AC_SUBST(AM_CXXFLAGS)
 
-dnl Enable profiling mode
-AC_ARG_ENABLE(gprof,
-      [  --enable-gprof           Enable profiling with gprof],
-      CFLAGS="$CFLAGS -pg"
-      CXXFLAGS="$CXXFLAGS -pg"
-      LDFLAGS="$LDFLAGS -pg")
-
-dnl Enable release builds
-AC_ARG_ENABLE(final,
-      [  --enable-final           Build release executables (GCC only)],
-      CFLAGS="$CFLAGS"
-      CXXFLAGS="$CXXFLAGS")
-
-dnl Enable stripped and fully optimized output
-AC_ARG_ENABLE(optimize,
-      [  --enable-optimize           Enable stripped and full optimization],
-      CFLAGS="$CFLAGS -DNDEBUG ${CFLAGS_OPTIMIZE} ${CFLAGS_DISABLE_CHECKS}"
-      CXXFLAGS="$CXXFLAGS -DNDEBUG ${CXXFLAGS_OPTIMIZE} ${CFLAGS_DISABLE_CHECKS}")
+dnl Disable deprecated APIs
+AC_ARG_ENABLE(deprecated,
+  [  --disable-deprecated     Disable deprecated APIs],
+  [ if test "$enableval" = "no"; then
+    DEPRECATED_FLAGS="-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED -DBONOBO_DISABLE_DEPRECATED -DBONOBO_UI_DISABLE_DEPRECATED"
+  fi ],
+  [ DEPRECATED_FLAGS="" ])
+AC_SUBST(DEPRECATED_FLAGS)
 
 dnl Enable versioned user preferences directory
 AC_ARG_WITH(pref-suffix,
-      [  --with-pref-suffix=VALUE       	Suffix to add to user preferences dir.],
-      PREF_SUFFIX="$withval")
+  [  --with-pref-suffix=VALUE Suffix to add to user preferences dir.],
+  PREF_SUFFIX="$withval")
 
 AC_SUBST(PREF_SUFFIX)
 AC_DEFINE_UNQUOTED(PREF_SUFFIX,
@@ -123,6 +114,7 @@ AC_PROG_CPP
 AC_PROG_CXX
 AC_ISC_POSIX
 AC_HEADER_STDC
+AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
 AC_TYPE_SIGNAL
@@ -275,17 +267,32 @@ fi
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$libgladeui_found = xyes])
 
 dnl Check for graphviz (class inheritance plugin)
-dnl ----------------------------------------------
+dnl --------------------------------------------------------------------------
 dnl FIXME: For some strange reason graphviz-devel rpm install the *.pc files
 dnl in /usr/lib/graphviz/pkgconfig, instead of usual /usr/lib/pkgconfig. This
 dnl makes pkgconfig check fail if we don't add the above path in
 dnl PKG_CONFIG_PATH. We have added both /usr/lib/graphviz/pkgconfig and
 dnl /usr/local/lib/pkgconfig paths. If graphviz is installed in other prefix
-dnl (other than /usr or /usr/local), following pkgconfig check will fail.
-dnl ----------------------------------------------
-PKG_CONFIG_PATH="/usr/local/lib/graphviz/pkgconfig:/usr/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
-PKG_CHECK_MODULES(PLUGIN_CLASS_INHERITANCE, [libdotneato >= $LIBGRAPHVIZ_REQUIRED libdotgen >= $LIBGRAPHVIZ_REQUIRED], [libgraphviz_found="yes"], [libgraphviz_found="no"])
-AM_CONDITIONAL(HAVE_PLUGIN_CLASS_INHERITANCE, [test x$libgraphviz_found = xyes])
+dnl (other than /usr or /usr/local or the current installation prefix),
+dnl following pkgconfig check will fail.
+dnl --------------------------------------------------------------------------
+PKG_CONFIG_PATH="/usr/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="/usr/local/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="/usr/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+PKG_CONFIG_PATH="/usr/local/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+
+anjuta_save_prefix="$prefix"
+test "x$prefix" = xNONE && prefix=$ac_default_prefix
+graphviz_pkgconfig=`eval echo ${libdir}/graphviz/pkgconfig`
+PKG_CONFIG_PATH="$graphviz_pkgconfig:$PKG_CONFIG_PATH"
+prefix="$anjuta_save_prefix"
+
+PKG_CHECK_MODULES(PLUGIN_CLASS_INHERITANCE,
+  [libdotneato >= $LIBGRAPHVIZ_REQUIRED libdotgen >= $LIBGRAPHVIZ_REQUIRED],
+  [libgraphviz_found="yes"],
+  [libgraphviz_found="no"])
+AM_CONDITIONAL(HAVE_PLUGIN_CLASS_INHERITANCE,
+  [test x$libgraphviz_found = xyes])
 AC_SUBST(PLUGIN_CLASS_INHERITANCE_CFLAGS)
 AC_SUBST(PLUGIN_CLASS_INHERITANCE_LIBS)
 
@@ -836,7 +843,7 @@ test "x$exec_prefix" = xNONE && exec_prefix=$prefix
 packagesrcdir=`cd $srcdir && pwd`
 systemdatadir=`eval echo ${datadir}`
 packagedatadir=`eval echo ${datadir}/${PACKAGE}`
-packagedocdir=`eval echo ${datadir}/doc`
+packagedocdir=`eval echo ${datadir}/doc/${PACKAGE}`
 packageplugindir=`eval echo ${libdir}/${PACKAGE}`
 packagepixmapsdir=`eval echo ${datadir}/pixmaps/${PACKAGE}`
 packagehelpdir=`eval echo ${datadir}/gnome/help/${PACKAGE}`

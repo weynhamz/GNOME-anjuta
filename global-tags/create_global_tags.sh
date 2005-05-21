@@ -70,6 +70,9 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
     
     PKG_DEFAULT_CONFIG_PATH=`echo $PKG_CONFIG | sed -e 's/\/bin\/pkg-config/\/lib\/pkgconfig'/`
     PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PKG_DEFAULT_CONFIG_PATH"
+    PKG_DEFAULT_CONFIG_PATH=`echo $PKG_CONFIG | sed -e 's/\/bin\/pkg-config/\/lib64\/pkgconfig'/`
+    PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PKG_DEFAULT_CONFIG_PATH"
+	
     PKG_CONFIG_PATH_PROPER=`echo $PKG_CONFIG_PATH | sed -e 's/\:/ /g'`
     for pkg_path in $PKG_CONFIG_PATH_PROPER; do
 	for pkg_file in $pkg_path/*.pc; do

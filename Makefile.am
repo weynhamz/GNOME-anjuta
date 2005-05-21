@@ -6,8 +6,9 @@ SUBDIRS = po tagmanager global-tags scintilla \
 	libegg pixmaps scripts data launcher \
 	doc libanjuta plugins src manuals mime 
 
-anjutadocdir = $(datadir)/doc
+anjutadocdir = $(datadir)/doc/anjuta
 anjutadoc_DATA = \
+	MAINTAINERS\
 	README\
 	COPYING\
 	AUTHORS\
@@ -15,7 +16,9 @@ anjutadoc_DATA = \
 	INSTALL\
 	NEWS\
 	TODO\
-	FUTURE
+	FUTURE\
+	ROADMAP\
+	THANKS
 
 anjuta_glade_filedir = $(anjuta_glade_dir)
 anjuta_glade_file_DATA = anjuta.glade
@@ -61,3 +64,13 @@ rpm: dist
 ## 		  --add-category Development \
 ## 		  $(prefix)/@NO_PREFIX_PACKAGE_MENU_DIR@/Development/anjuta.desktop ; \
 ## 	fi
+
+
+CLEANFILES = \
+	$(gnomemenu_DATA)
+
+DISTCLEANFILES = \
+	intltool-extract \
+	intltool-merge \
+	intltool-update \
+	$(gnomemenu_DATA)

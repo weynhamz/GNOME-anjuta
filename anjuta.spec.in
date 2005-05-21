@@ -129,9 +129,8 @@ fi
 %{_datadir}/mime-info/%{name}.keys
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/icons/gnome/48x48/mimetypes/*%{name}.png
-%{_datadir}/mimelnk/application/x-anjuta-project.desktop
-%{_datadir}/gnome/help/%{name}
-%{_datadir}/omf/%{name}
+## %{_datadir}/gnome/help/%{name}
+## %{_datadir}/omf/%{name}
 %{_datadir}/locale
 %{_mandir}/man1/*
 
@@ -139,7 +138,7 @@ fi
 %defattr (-, root, root)
 %{_includedir}/*%{name}*
 %{_libdir}/pkgconfig/*%{name}*
-%{_libdir}/lib%{name}*.a
+## %{_libdir}/lib%{name}*.a
 %{_libdir}/lib%{name}*.la
 %{_libdir}/lib%{name}*.so
 %{_datadir}/gtk-doc/html/*%{name}*

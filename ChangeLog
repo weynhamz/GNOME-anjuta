@@ -1,5 +1,18 @@
 2005-05-21  Naba Kumar  <naba@gnome.org>
 
+	* Makefile.am, anjuta.spec.in, configure.in, data/properties/Makefile.am,
+	doc/Makefile.am, global-tags/create_global_tags.sh,
+	libanjuta/interfaces/Makefile.am.iface: Fixed 64bit arch related bugs
+	and rpm package creation. Fixed installation paths.
+	
+	* plugins/editor/anjuta-document-manager.glade,
+	plugins/editor/text_editor.c: Fixed autoformat settings in preferences
+	and indent options.
+	
+	* tagmanager/tm_workspace.c: Fixed code format and compiler warning.
+
+2005-05-21  Naba Kumar  <naba@gnome.org>
+
 	* Makefile.am, configure.in, data/Makefile.am, doc/Makefile.am,
 	global-tags/Makefile.am, launcher/Makefile.am, libegg/Makefile.am,
 	pixmaps/Makefile.am, scripts/Makefile.am, src/Makefile.am,

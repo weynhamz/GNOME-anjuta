@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-properties_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties
+properties_datadir = $(anjuta_data_dir)/properties
 
 properties_data_DATA = \
 	ada.properties \
