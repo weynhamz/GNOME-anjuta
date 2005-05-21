@@ -4,7 +4,7 @@
 ## If you don't want it to overwrite it,
 ## Please disable it in the Anjuta project configuration
 
-anjuta_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_PIXMAPS_DIR@
+anjuta_pixmapsdir = $(anjuta_image_dir)
 
 anjuta_pixmaps_DATA = \
 	anjuta_icon.svg \
@@ -102,7 +102,7 @@ anjuta_pixmaps_DATA = \
 #	watch.xpm \
 #	wizard.xpm
 
-anjuta_glade_pixmapsdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_pixmapsdir = $(anjuta_glade_dir)
 anjuta_glade_pixmaps_DATA = \
 	start-with-wizard.png \
 	start-with-import.png \

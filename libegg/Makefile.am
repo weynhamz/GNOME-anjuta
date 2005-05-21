@@ -1,7 +1,7 @@
 
 SUBDIRS = util treeviewutils menu recent-files
 
-gladefiledir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+gladefiledir = $(anjuta_glade_dir)
 gladefile_DATA = layout.glade
 
 INCLUDES = \

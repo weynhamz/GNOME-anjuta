@@ -6,7 +6,7 @@
 
 SUBDIRS = properties
 
-anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
+anjuta_datadir = $(anjuta_data_dir)
 
 anjuta_data_DATA = \
 	gdb.init\
@@ -14,15 +14,13 @@ anjuta_data_DATA = \
 
 EXTRA_DIST = $(anjuta_data_DATA)
 
-## $(anjuta_mime_DATA) $(anjuta_mimelnk_DATA)
-
 install-data-local: system.tags
-	$(INSTALL_DATA) system.tags $(DESTDIR)$(anjuta_datadir)
+	$(INSTALL_DATA) system.tags $(DESTDIR)$(anjuta_data_dir)
 
 uninstall-local:
 	@rm -fv $(anjuta_datadir)/system.tags
-	-if test -d $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties; then \
-	    rmdir $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/properties; fi
+	-if test -d $(DESTDIR)$(anjuta_data_dir)/properties; then \
+	    rmdir $(DESTDIR)$(anjuta_data_dir)/properties; fi
 
 clean-local:
 	@rm -f system.tags

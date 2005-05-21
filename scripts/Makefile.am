@@ -1,4 +1,4 @@
-anjuta_datadir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
+anjuta_datadir = $(anjuta_data_dir)
 
 bin_SCRIPTS = anjuta_import.sh
 

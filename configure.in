@@ -332,6 +332,7 @@ GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
+AM_GLIB_DEFINE_LOCALEDIR(PACKAGE_LOCALE_DIR)
 
 dnl gtk-doc
 dnl GTK_DOC_CHECK([1.0])
@@ -823,84 +824,34 @@ AC_SUBST(SVN_INCLUDE)
 AC_SUBST(SVN_LIB)
 AC_SUBST(SVN_CFLAGS)
 
-dnl ***************************************************************************
-dnl Checks for Additional stuffs
-dnl ***************************************************************************
+dnl *********************************************************************
+dnl Set PACKAGE DIRs in config.h
+dnl *********************************************************************
 
-dnl Set PACKAGE_LOCALE_DIR in config.h.
-if test "x${prefix}" = "xNONE"; then
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale", [Package local directory])
-else
-  AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale", [Package local directory])
-fi
+anjuta_save_prefix="$prefix"
+anjuta_save_exec_prefix="$exec_prefix"
+test "x$prefix" = xNONE && prefix=$ac_default_prefix
+test "x$exec_prefix" = xNONE && exec_prefix=$prefix
 
-dnl Set PACKAGE SOURCE DIR in config.h.
 packagesrcdir=`cd $srcdir && pwd`
+systemdatadir=`eval echo ${datadir}`
+packagedatadir=`eval echo ${datadir}/${PACKAGE}`
+packagedocdir=`eval echo ${datadir}/doc`
+packageplugindir=`eval echo ${libdir}/${PACKAGE}`
+packagepixmapsdir=`eval echo ${datadir}/pixmaps/${PACKAGE}`
+packagehelpdir=`eval echo ${datadir}/gnome/help/${PACKAGE}`
+packagemenudir=`eval echo ${datadir}/gnome/apps`
 
-dnl Set PACKAGE PREFIX
-if test "x${prefix}" = "xNONE"; then
-  packageprefix=${ac_default_prefix}
-else
-  packageprefix=${prefix}
-fi
+prefix="$anjuta_save_prefix"
+exec_prefix="$anjuta_save_exec_prefix"
 
-dnl Set PACKAGE DATA & DOC DIR
-systemdatadir=share
-packagedatadir=share/${PACKAGE}
-packagedocdir=share/doc/${PACKAGE}
-packageplugindir=lib/${PACKAGE}/plugins/${VERSION}
-
-dnl Set PACKAGE DIRs in config.h.
-packagepixmapsdir=share/pixmaps/${PACKAGE}
-packagehelpdir=share/gnome/help/${PACKAGE}
-packagemenudir=share/gnome/apps
-packageplugindir=lib/${PACKAGE}
-
-dnl Subst PACKAGE_DATA_DIR.
-NO_PREFIX_PACKAGE_DATA_DIR="${packagedatadir}"
-AC_SUBST(NO_PREFIX_PACKAGE_DATA_DIR)
-PACKAGE_DATA_DIR="${packageprefix}/${packagedatadir}"
-AC_SUBST(PACKAGE_DATA_DIR)
-SYSTEM_DATA_DIR="${packageprefix}/${systemdatadir}"
-AC_SUBST(SYSTEM_DATA_DIR)
-
-dnl Subst PACKAGE_DOC_DIR.
-NO_PREFIX_PACKAGE_DOC_DIR="${packagedocdir}"
-AC_SUBST(NO_PREFIX_PACKAGE_DOC_DIR)
-PACKAGE_DOC_DIR="${packageprefix}/${packagedocdir}"
-AC_SUBST(PACKAGE_DOC_DIR)
-
-dnl Subst PACKAGE_PIXMAPS_DIR.
-NO_PREFIX_PACKAGE_PIXMAPS_DIR="${packagepixmapsdir}"
-AC_SUBST(NO_PREFIX_PACKAGE_PIXMAPS_DIR)
-PACKAGE_PIXMAPS_DIR="${packageprefix}/${packagepixmapsdir}"
-AC_SUBST(PACKAGE_PIXMAPS_DIR)
-
-dnl Subst PACKAGE_HELP_DIR.
-NO_PREFIX_PACKAGE_HELP_DIR="${packagehelpdir}"
-AC_SUBST(NO_PREFIX_PACKAGE_HELP_DIR)
-PACKAGE_HELP_DIR="${packageprefix}/${packagehelpdir}"
-AC_SUBST(PACKAGE_HELP_DIR)
-
-dnl Subst PACKAGE_MENU_DIR.
-NO_PREFIX_PACKAGE_MENU_DIR="${packagemenudir}"
-AC_SUBST(NO_PREFIX_PACKAGE_MENU_DIR)
-PACKAGE_MENU_DIR="${packageprefix}/${packagemenudir}"
-AC_SUBST(PACKAGE_MENU_DIR)
-
-dnl Subst PACKAGE_PLUGIN_DIR.
-NO_PREFIX_PACKAGE_PLUGIN_DIR="${packageplugindir}"
-AC_SUBST(NO_PREFIX_PACKAGE_PLUGIN_DIR)
-PACKAGE_PLUGIN_DIR="${packageprefix}/${packageplugindir}"
-AC_SUBST(PACKAGE_PLUGIN_DIR)
-
-AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "${packageprefix}/${systemdatadir}", [System data directory])
-AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${packageprefix}/${packagedatadir}", [Package data directory])
-AC_DEFINE_UNQUOTED(PACKAGE_DOC_DIR, "${packageprefix}/${packagedocdir}", [Package doc directory])
-AC_DEFINE_UNQUOTED(PACKAGE_PIXMAPS_DIR, "${packageprefix}/${packagepixmapsdir}", [Package pixmaps directory])
-AC_DEFINE_UNQUOTED(PACKAGE_HELP_DIR, "${packageprefix}/${packagehelpdir}", [Package help directory])
-AC_DEFINE_UNQUOTED(PACKAGE_MENU_DIR, "${packageprefix}/${packagemenudir}", [Package program menu directory])
-AC_DEFINE_UNQUOTED(PACKAGE_PLUGIN_DIR, "${packageprefix}/${packageplugindir}", [Package plugins directory])
+AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "${systemdatadir}", [System data directory])
+AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${packagedatadir}", [Package data directory])
+AC_DEFINE_UNQUOTED(PACKAGE_DOC_DIR, "${packagedocdir}", [Package doc directory])
+AC_DEFINE_UNQUOTED(PACKAGE_PIXMAPS_DIR, "${packagepixmapsdir}", [Package pixmaps directory])
+AC_DEFINE_UNQUOTED(PACKAGE_HELP_DIR, "${packagehelpdir}", [Package help directory])
+AC_DEFINE_UNQUOTED(PACKAGE_MENU_DIR, "${packagemenudir}", [Package program menu directory])
+AC_DEFINE_UNQUOTED(PACKAGE_PLUGIN_DIR, "${packageplugindir}", [Package plugins directory])
 AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}", [Package source code directory])
 
 dnl --------- help outputs -----------

@@ -23,14 +23,14 @@ system.tags: create_global_tags.sh anjuta-tags
 all: system.tags
 
 install-data-local: system.tags
-	mkdir -p "$(DESTDIR)$(datadir)/anjuta/tags";
+	mkdir -p "$(DESTDIR)$(anjuta_data_dir)/tags";
 	for tagsfile in tags/*; do \
-		$(INSTALL_DATA) $$tagsfile $(DESTDIR)$(datadir)/anjuta/tags/; \
+		$(INSTALL_DATA) $$tagsfile $(DESTDIR)$(anjuta_data_dir)/tags/; \
 	done
 
 ## FIXME: We should only uninstall tags created by us.
 uninstall-local:
-	rm -fr $(DESTDIR)$(datadir)/anjuta/tags
+	rm -fr $(DESTDIR)$(anjuta_data_dir)/tags
 
 clean-local:
 	rm -fr system.tags tags

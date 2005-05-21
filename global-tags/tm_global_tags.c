@@ -9,9 +9,12 @@ int main(int argc, char **argv)
 		/* Create global taglist */
 		int status;
 		char *command;
-		command = g_strdup_printf("%s %s", pre_process, NVL(getenv("CFLAGS"), ""));
+		command = g_strdup_printf("%s %s", pre_process,
+								  NVL(getenv("CFLAGS"), ""));
 		//printf(">%s<\n", command);
-		status = tm_workspace_create_global_tags(command, (const char **) (argv + 2), argc - 2, argv[1]);
+		status = tm_workspace_create_global_tags(command,
+												 (const char **) (argv + 2),
+												 argc - 2, argv[1]);
 		g_free(command);
 		if (!status)
 			return 1;

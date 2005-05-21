@@ -29,6 +29,7 @@ ESplash
 
 @splash: 
 @splash_image_pixbuf: 
+@progressbar_position: 
 <!-- # Unused Parameters # -->
 @splash_image: 
 
@@ -39,6 +40,7 @@ ESplash
 </para>
 
 @image_file: 
+@progressbar_position: 
 @Returns: 
 
 

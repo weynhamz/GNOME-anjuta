@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
-anjuta_uidir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/ui
+anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA = anjuta.ui anjuta-shell.ui
 
-anjuta_layoutdir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@
+anjuta_layoutdir = $(anjuta_data_dir)
 anjuta_layout_DATA = layout.xml
 
 INCLUDES = \

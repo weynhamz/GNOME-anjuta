@@ -5,9 +5,8 @@
 SUBDIRS = po tagmanager global-tags scintilla \
 	libegg pixmaps scripts data launcher \
 	doc libanjuta plugins src manuals mime 
-#	intl
 
-anjutadocdir = ${prefix}/@NO_PREFIX_PACKAGE_DOC_DIR@
+anjutadocdir = $(datadir)/doc
 anjutadoc_DATA = \
 	README\
 	COPYING\
@@ -18,7 +17,7 @@ anjutadoc_DATA = \
 	TODO\
 	FUTURE
 
-anjuta_glade_filedir = $(prefix)/@NO_PREFIX_PACKAGE_DATA_DIR@/glade
+anjuta_glade_filedir = $(anjuta_glade_dir)
 anjuta_glade_file_DATA = anjuta.glade
 
 EXTRA_DIST = \

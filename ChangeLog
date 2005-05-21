@@ -1,3 +1,23 @@
+2005-05-21  Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am, configure.in, data/Makefile.am, doc/Makefile.am,
+	global-tags/Makefile.am, launcher/Makefile.am, libegg/Makefile.am,
+	pixmaps/Makefile.am, scripts/Makefile.am, src/Makefile.am,
+	tagmanager/Makefile.am: Fixed paths configure variables to take
+	automake configure variables instead of hardcoding.
+
+	* global-tags/tm_global_tags.c: Formated code.
+
+	* manuals/reference/libanjuta/tmpl/e-splash.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-text.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-renderable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-sand-box.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-transformable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+
 2005-05-20  Naba Kumar  <naba@gnome.org>
 
 	* README, anjuta.spec.in, configure.in: Updated Anjuta Descriptions

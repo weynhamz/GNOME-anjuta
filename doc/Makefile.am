@@ -4,7 +4,7 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-anjuta_docdir = $(prefix)/@NO_PREFIX_PACKAGE_DOC_DIR@
+anjuta_docdir = $(datadir)/doc
 
 anjuta_doc_DATA = \
 	ScintillaDoc.html
