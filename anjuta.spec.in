@@ -96,19 +96,19 @@ rm -fr %{buildroot}/var/scrollkeeper
 rm -rf %{buildroot}
 
 %post
-if which scrollkeeper-update>/dev/null 2>&1; then
-	scrollkeeper-update;
-fi
-if which update-mime-database>/dev/null 2>&1; then
-	update-mime-database %{datadir}/mime;
+## if which scrollkeeper-update>/dev/null 2>&1; then \
+## 	scrollkeeper-update; \
+## fi
+if which update-mime-database>/dev/null 2>&1; then \
+	update-mime-database %{_datadir}/mime; \
 fi
 
 %postun
-if which scrollkeeper-update>/dev/null 2>&1; then
-	scrollkeeper-update;
-fi
-if which update-mime-database>/dev/null 2>&1; then
-	update-mime-database %{datadir}/mime;
+## if which scrollkeeper-update>/dev/null 2>&1; then \
+## 	scrollkeeper-update; \
+## fi
+if which update-mime-database>/dev/null 2>&1; then \
+	update-mime-database %{_datadir}/mime; \
 fi
 
 %files

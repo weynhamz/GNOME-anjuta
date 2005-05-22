@@ -301,6 +301,8 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
 		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
 		return;
+	if (strcmp (monitor_uri, info_uri) != 0)
+		return;
 	
 	buff =
 		g_strdup_printf (_
