@@ -58,17 +58,28 @@ static void on_prev_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 		message_view_previous(view);
 }
 
+static void on_save_message(GtkAction* menuitem, MessageViewPlugin *plugin)
+{
+	AnjutaMsgman* msgman = ANJUTA_MSGMAN(plugin->msgman);
+	MessageView* view = anjuta_msgman_get_current_view(msgman);
+	if (view != NULL)
+		message_view_save(view);
+}
 
 static GtkActionEntry actions_goto[] = {
   { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
   { "ActionMessageNext", ANJUTA_STOCK_NEXT_MESSAGE,
-    N_("_Next message"), NULL,
+    N_("_Next message"), "<control><alt>n",
 	N_("Next message"),
     G_CALLBACK (on_next_message)},
   { "ActionMessagePrev", ANJUTA_STOCK_PREV_MESSAGE,
-    N_("_Previous message"), NULL,
+    N_("_Previous message"), "<control><alt>p",
 	N_("Previous message"),
-    G_CALLBACK (on_prev_message)}
+    G_CALLBACK (on_prev_message)},
+  { "ActionMessageSave", NULL,
+    N_("_Save message"), NULL,
+	N_("Save message"),
+    G_CALLBACK (on_save_message)}
 };
 
 static gpointer parent_class;

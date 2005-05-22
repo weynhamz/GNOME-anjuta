@@ -1,3 +1,15 @@
+2005-05-21  Sebastien Granjoux  <seb.sfo@free.fr>
+	
+	* TODO.tasks: Updated.
+
+	* plugins/message-view/anjuta-message-manager.ui,
+	plugins/message-view/message-view.c,
+	plugins/message-view/message-view.h,
+	plugins/message-view/plugin.c:
+	Add shortcut for next and previous message
+	Add a save message menu item
+	Fix a bug in previous message
+
 2005-05-21  Naba Kumar  <naba@gnome.org>
 
 	* Makefile.am, anjuta.spec.in, configure.in, data/properties/Makefile.am,

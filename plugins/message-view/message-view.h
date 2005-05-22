@@ -63,6 +63,7 @@ GtkWidget* message_view_new (AnjutaPreferences* prefs);
 
 void message_view_next(MessageView* view);
 void message_view_previous(MessageView* view);
+void message_view_save(MessageView* view);
 
 G_END_DECLS
 

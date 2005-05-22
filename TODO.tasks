@@ -366,20 +366,20 @@ instead of full path names.</comment>
       <comment>Make next/previous action work</comment>
     </item>
     <item>
-      <attribute id="1110343095" priority="1" done="0" start_date="732014" enddate="99999999" notify="0" endtime="-60" last_edited="1110343095"/>
+      <attribute id="1114162476" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114205428"/>
+      <summary>Complete preferences hooks</summary>
+      <comment>Tab position preferences does not work.</comment>
+    </item>
+    <item>
+      <attribute id="1110343095" priority="1" done="1" start_date="732014" completed_date="732087" notify="0" last_edited="1116682790"/>
       <summary>Next/Prev shortcuts</summary>
       <comment>Next and prev menuitems should have shortcuts similar
 to anjuta 1.x.</comment>
     </item>
     <item>
-      <attribute id="1110343137" priority="1" done="0" start_date="732014" enddate="99999999" notify="0" endtime="-60" last_edited="1110343137"/>
+      <attribute id="1110343137" priority="1" done="1" start_date="732014" completed_date="732087" notify="0" last_edited="1116682791"/>
       <summary>Save messages</summary>
       <comment>There should be a menuitem "Save messages ..." similar to anjuta 1.x.</comment>
-    </item>
-    <item>
-      <attribute id="1114162476" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114205428"/>
-      <summary>Complete preferences hooks</summary>
-      <comment>Tab position preferences does not work.</comment>
     </item>
   </category>
   <category title="Plugin: Debugger" place="15">

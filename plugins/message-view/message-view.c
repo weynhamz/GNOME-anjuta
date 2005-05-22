@@ -15,6 +15,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <libgnomevfs/gnome-vfs.h>
+
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
@@ -73,6 +75,31 @@ static gpointer parent_class;
 
 static void prefs_init (MessageView *mview);
 static void prefs_finalize (MessageView *mview);
+
+/* Ask the user for an uri name */
+static gchar *
+ask_user_for_save_uri (GtkWindow* parent)
+{
+	GtkWidget* dialog;
+	gchar* uri;
+
+       	dialog = gtk_file_chooser_dialog_new (_("Save file as"), parent,
+		GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+	}
+	else
+	{
+		uri = NULL;
+	}
+
+	gtk_widget_destroy(dialog);
+
+	return uri;
+}
 
 /* Message object creation, copy and freeing */
 static Message*
@@ -739,10 +766,9 @@ void message_view_previous(MessageView* view)
 			gtk_tree_selection_select_iter (select, &iter);
 	}
 
+	/* gtk_tree_model_iter_previous does not exist, use path */
 	path = gtk_tree_model_get_path (model, &iter);
 
-	if (gtk_tree_path_prev (path))
-		gtk_tree_selection_select_path (select, path);
 	while (gtk_tree_path_prev(path))
 	{
 		Message *message;
@@ -764,6 +790,77 @@ void message_view_previous(MessageView* view)
 		}
 	}
 	gtk_tree_path_free (path);
+}
+
+static gboolean message_view_save_as(MessageView* view, gchar* uri)
+{
+	GnomeVFSHandle* handle;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	gboolean ok;
+
+	if (uri == NULL) return FALSE;
+
+	/* Create file */
+	if (gnome_vfs_create (&handle, uri, GNOME_VFS_OPEN_WRITE, FALSE, 0664) != GNOME_VFS_OK)
+	{
+		return FALSE;
+	}
+
+	/* Save all lines of message view */	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+
+	ok = TRUE;
+	gtk_tree_model_get_iter_first (model, &iter);
+	while (gtk_tree_model_iter_next (model, &iter))
+	{
+		Message *message;
+		GnomeVFSFileSize written;
+
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
+		if (message)
+		{
+			if (message->details && (strlen (message->details) > 0))
+			{
+				if (gnome_vfs_write (handle, message->details, strlen (message->details), &written) != GNOME_VFS_OK)
+				{
+					ok = FALSE;
+				}
+			}
+			else
+			{
+				if (gnome_vfs_write (handle, message->summary, strlen (message->summary), &written) != GNOME_VFS_OK)
+				{
+					ok = FALSE;
+				}
+			}
+			if (gnome_vfs_write (handle, "\n", 1, &written) != GNOME_VFS_OK)
+			{
+				ok = FALSE;
+			}
+		}
+	}
+	gnome_vfs_close (handle);
+
+	return ok;
+}
+
+void message_view_save(MessageView* view)
+{
+	GtkWindow* parent;
+	gchar* uri;
+     
+       	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view)));	
+
+	uri = ask_user_for_save_uri (parent);
+	if (uri)
+	{
+		if (message_view_save_as (view, uri) == FALSE)
+		{
+			anjuta_util_dialog_error(parent, _("Error writing %s"), uri);
+		}
+		g_free (uri);
+	}
 }
 
 /* Preferences notifications */

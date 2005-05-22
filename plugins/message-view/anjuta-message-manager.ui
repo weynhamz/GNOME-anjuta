@@ -5,6 +5,7 @@
 			<menu name="Goto" action="ActionMenuGoto">
 					<menuitem name="NextMessage" action="ActionMessageNext" />
 					<menuitem name="PrevMessage" action="ActionMessagePrev" />
+					<menuitem name="SaveMessage" action="ActionMessageSave" />
 			</menu>
 		</placeholder>
 	</menubar>
