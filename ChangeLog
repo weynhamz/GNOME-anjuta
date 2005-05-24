@@ -1,5 +1,10 @@
 2005-05-24  Naba Kumar  <naba@gnome.org>
 
+	Patch from: Saleem Abdulrasool  <compnerd@gentoo.org>
+	* configure.in: graphviz pkgconfig path.
+
+2005-05-24  Naba Kumar  <naba@gnome.org>
+
 	* configure.in, anjuta.desktop.in.in: Fixed Icon path.
 	* TODO.tasks: Updated.
 	
