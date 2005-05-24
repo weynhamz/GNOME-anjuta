@@ -849,6 +849,9 @@ packagepixmapsdir=`eval echo ${datadir}/pixmaps/${PACKAGE}`
 packagehelpdir=`eval echo ${datadir}/gnome/help/${PACKAGE}`
 packagemenudir=`eval echo ${datadir}/gnome/apps`
 
+ANJUTA_PIXMAPS_DIR=${packagepixmapsdir}
+AC_SUBST(ANJUTA_PIXMAPS_DIR)
+
 prefix="$anjuta_save_prefix"
 exec_prefix="$anjuta_save_exec_prefix"
 

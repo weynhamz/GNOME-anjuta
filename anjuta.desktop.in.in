@@ -2,7 +2,7 @@
 _Name=Anjuta IDE
 _Comment=Integrated Development Environment
 Exec=anjuta %F
-Icon=@PACKAGE_PIXMAPS_DIR@/anjuta_icon.png
+Icon=@ANJUTA_PIXMAPS_DIR@/anjuta_icon.png
 Terminal=false
 X-MultipleArgs=false
 Type=Application

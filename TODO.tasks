@@ -259,7 +259,7 @@ plugin that can work with most languages type system.</comment>
       <comment>All documents need update.</comment>
     </item>
     <item>
-      <attribute id="1107512738" priority="1" done="0" start_date="731981" enddate="99999999" notify="0" endtime="-60" last_edited="1107512772"/>
+      <attribute id="1107512738" priority="1" done="1" start_date="731981" completed_date="732090" notify="0" last_edited="1116916023"/>
       <summary>Update README, HACKING and ROADMAP files</summary>
       <comment>Update README, HACKING and ROADMAP files</comment>
     </item>
@@ -399,7 +399,7 @@ user should be not prompted. If there is no project open,
 the debugger should start anyway without loading any exec.</comment>
     </item>
     <item>
-      <attribute id="1108355236" priority="2" done="0" start_date="731991" enddate="99999999" notify="0" endtime="-60" last_edited="1114162368"/>
+      <attribute id="1108355236" priority="2" done="1" start_date="731991" completed_date="732090" notify="0" last_edited="1116915999"/>
       <summary>Use gdb MI interface</summary>
       <comment>Current CLI parsing is inefficient and prone to failures across different gdb
 releases. Use gdb's MI interface to communicate with it.</comment>
