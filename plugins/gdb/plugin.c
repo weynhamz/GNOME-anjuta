@@ -765,13 +765,7 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 		return;
 	}
 	
-	if (gdb_debugger_is_active (gdb_plugin) == FALSE &&
-		(prog_uri == NULL || strlen (prog_uri) <= 0))
-	{
-		gdb_initialize_debugger (gdb_plugin, NULL, FALSE,
-								 search_directories);
-	}
-	else
+	if (prog_uri != NULL && strlen (prog_uri) > 0)
 	{
 		vfs_uri = gnome_vfs_uri_new (prog_uri);
 	
@@ -843,14 +837,14 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *prog_uri,
 										  "Debugger can not load '%s' which is of mime type: '%s'",
 										  filename, mime_type);
 			}
-			else if (gdb_debugger_is_active (gdb_plugin) == FALSE)
-			{
-				gdb_initialize_debugger (gdb_plugin, NULL,
-										 FALSE, search_directories);
-			}
 			g_free (mime_type);
 		}
 		gnome_vfs_uri_unref (vfs_uri);
+	}
+	if (gdb_debugger_is_active (gdb_plugin) == FALSE)
+	{
+		gdb_initialize_debugger (gdb_plugin, NULL,
+								 FALSE, search_directories);
 	}
 }
 

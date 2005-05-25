@@ -1,3 +1,8 @@
+2005-05-25  Naba Kumar  <naba@gnome.org>
+
+	* plugin/gdb/plugin.c: Start gdb even if the program does
+	not exists. Fixes bug #305074
+	
 2005-05-24  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Saleem Abdulrasool  <compnerd@gentoo.org>
