@@ -25,6 +25,8 @@
 #include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include "text_editor.h"
 #include "style-editor.h"
 
@@ -345,7 +347,7 @@ style_data_new_parse (gchar * style_string)
 	if (!style_data)
 		return NULL;
 
-	val = g_strdup (style_string);
+	val = (style_string != NULL)? g_strdup (style_string) : NULL;
 	opt = val;
 	while (opt)
 	{
@@ -414,7 +416,7 @@ style_data_new_parse (gchar * style_string)
 		if (cpComma)
 			opt = cpComma + 1;
 		else
-			opt = 0;
+			opt = NULL;
 	}
 	if (val)
 		g_free (val);
@@ -674,6 +676,7 @@ sync_from_props (StyleEditor *se)
 			break;
 		str = prop_get_expanded (se->props, hilite_style[i + 1]);
 		sdata = style_data_new_parse (str);
+		/* DEBUG_PRINT ("Parsing %s => %s", hilite_style[i + 1], str); */
 		if (str)
 			g_free (str);
 

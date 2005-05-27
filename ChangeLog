@@ -1,3 +1,10 @@
+2005-05-28  Naba Kumar  <naba@gnome.org>
+
+	* data/properties/styles.properties: Fixed default font
+	names and sizes.
+
+	* plugins/editor/style-editor.c: cleanup.
+	
 2005-05-25  Naba Kumar  <naba@gnome.org>
 
 	* plugin/gdb/plugin.c: Start gdb even if the program does
