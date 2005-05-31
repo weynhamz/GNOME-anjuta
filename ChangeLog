@@ -1,3 +1,9 @@
+2005-05-31  Naba Kumar  <naba@gnome.org>
+
+	Patch from Jason Bayman  <JBayman@HobbitHell.com>:
+	* plugins/editor/text_editor.c: Don't show error
+	for empty files.
+	
 2005-05-28  Sebastien Granjoux  <seb.sfo@free.fr>
 	
 	* plugins/message-view/anjuta-message-manager.ui,

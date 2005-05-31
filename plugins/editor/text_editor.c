@@ -1212,7 +1212,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	}
 	/* Crude way of loading, but faster */
  	result = gnome_vfs_read (vfs_read, buffer, info.size, &nchars);
-	if (result != GNOME_VFS_OK)
+	if (result != GNOME_VFS_OK && !(result == GNOME_VFS_ERROR_EOF && info.size == 0))
 	{
 		g_free(buffer);
 		*err = g_strdup (_("Error while reading from file"));
