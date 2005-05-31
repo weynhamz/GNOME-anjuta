@@ -5,7 +5,6 @@
 			<menu name="Goto" action="ActionMenuGoto">
 					<menuitem name="NextMessage" action="ActionMessageNext" />
 					<menuitem name="PrevMessage" action="ActionMessagePrev" />
-					<menuitem name="SaveMessage" action="ActionMessageSave" />
 			</menu>
 		</placeholder>
 	</menubar>
@@ -20,5 +19,10 @@
 			<menuitem name="NextMessage" action="ActionMessageNext" />
 			<menuitem name="PrevMessage" action="ActionMessagePrev" />
 		</menu>
+	</popup>
+	<popup name="PopupMessageView">
+		<menuitem name="NextMessage" action="ActionMessageNext" />
+		<menuitem name="PrevMessage" action="ActionMessagePrev" />
+		<menuitem name="SaveMessage" action="ActionMessageSave" />
 	</popup>
 </ui>

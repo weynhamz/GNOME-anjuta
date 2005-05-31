@@ -32,6 +32,7 @@ struct _MessageViewPrivate
 	GtkWidget *tree_view;
 
 	AnjutaPreferences* prefs;
+	GtkWidget *popup_menu;
 	
 	gint adj_chgd_hdlr;
 	
@@ -465,7 +466,17 @@ on_message_event (GObject* object, GdkEvent* event, gpointer data)
 			}
 		}	
 		return FALSE;
-	}		
+	}
+	else if (event->type == GDK_BUTTON_PRESS)
+	{
+		if (((GdkEventButton *) event)->button == 3)
+		{
+			gtk_menu_popup (GTK_MENU (view->privat->popup_menu), NULL, NULL, NULL, NULL,
+					((GdkEventButton *) event)->button,
+					((GdkEventButton *) event)->time);
+			return TRUE;
+		}
+	}	
 	return FALSE;
 }
 
@@ -703,10 +714,11 @@ message_view_class_init (MessageViewClass * klass)
 
 /* Returns a new message-view instance */
 GtkWidget *
-message_view_new (AnjutaPreferences* prefs)
+message_view_new (AnjutaPreferences* prefs, GtkWidget* popup_menu)
 {
 	MessageView * mv = MESSAGE_VIEW (g_object_new (message_view_get_type (), NULL));
 	mv->privat->prefs = prefs;
+	mv->privat->popup_menu = popup_menu;
 	prefs_init (mv);
 	return GTK_WIDGET(mv);
 }

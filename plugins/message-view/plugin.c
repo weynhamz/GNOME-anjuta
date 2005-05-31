@@ -133,6 +133,7 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
+	GtkWidget *popup;
 	MessageViewPlugin *mv_plugin;
 	static gboolean initialized = FALSE;
 	
@@ -144,13 +145,12 @@ activate_plugin (AnjutaPlugin *plugin)
 		register_stock_icons (plugin);
 	}
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	mv_plugin->msgman = anjuta_msgman_new(prefs);
 	mv_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
 											_("Next/Prev Message"),
 											actions_goto,
 											G_N_ELEMENTS (actions_goto), plugin);
+	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	if (!initialized)
 	{
 		GladeXML *gxml;
@@ -161,6 +161,8 @@ activate_plugin (AnjutaPlugin *plugin)
 		g_object_unref (gxml);
 	}
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
+	mv_plugin->msgman = anjuta_msgman_new(prefs, popup);
 	anjuta_shell_add_widget (plugin->shell, mv_plugin->msgman,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",

@@ -1,3 +1,14 @@
+2005-05-28  Sebastien Granjoux  <seb.sfo@free.fr>
+	
+	* plugins/message-view/anjuta-message-manager.ui,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/anjuta-msgman.h,
+	plugins/message-view/message-view.c,
+	plugins/message-view/message-view.h,
+	plugins/message-view/plugin.c:
+	Add a popup menu in messages panes
+	Move save message pane option in it
+
 2005-05-28  Naba Kumar  <naba@gnome.org>
 
 	* data/properties/styles.properties: Fixed default font

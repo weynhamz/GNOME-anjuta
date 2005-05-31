@@ -26,6 +26,7 @@
 struct _AnjutaMsgmanPriv
 {
 	AnjutaPreferences *preferences;
+	GtkWidget* popup_menu;
 	MessageView *current_view;
 	GList *views;
 };
@@ -159,13 +160,14 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 }
 
 GtkWidget*
-anjuta_msgman_new (AnjutaPreferences *pref)
+anjuta_msgman_new (AnjutaPreferences *pref, GtkWidget *popup_menu)
 {
 	GtkWidget *msgman = NULL;
 	msgman = gtk_widget_new (ANJUTA_TYPE_MSGMAN, NULL);
 	if (msgman)
 	{
 	    ANJUTA_MSGMAN (msgman)->priv->preferences = pref;
+	    ANJUTA_MSGMAN (msgman)->priv->popup_menu = popup_menu;
 #warning "TODO: Set tab position"
 	}
 	return msgman;
@@ -238,7 +240,7 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 	GtkWidget *mv;
 	AnjutaMsgmanPage *page;
 
-	mv = message_view_new (msgman->priv->preferences);
+	mv = message_view_new (msgman->priv->preferences, msgman->priv->popup_menu);
 	g_return_val_if_fail (mv != NULL, NULL);
 	g_object_set (G_OBJECT (mv), "highlite", TRUE, NULL);	
 	gtk_widget_show (mv);
