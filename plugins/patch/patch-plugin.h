@@ -17,25 +17,6 @@
 #ifndef _PATCH_PLUGIN_H
 #define _PATCH_PLUGIN_H
 
-typedef struct _PatchPluginGUI PatchPluginGUI;
-
-struct _PatchPluginGUI
-{
-	GtkWidget* dialog;
-	
-	GtkWidget* ok_button;
-	GtkWidget* cancel_button;
-	
-	GtkWidget* entry_patch_dir;
-	GtkWidget* entry_patch_file;
-	
-	GtkWidget* hscale_patch_level;
-	
-	PatchPlugin *plugin;
-	IAnjutaMessageView* mesg_view;
-};
-
-
 void patch_show_gui (PatchPlugin *plugin);
 
 #endif /* _PATCH_PLUGIN_H */

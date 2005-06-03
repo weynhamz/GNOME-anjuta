@@ -22,10 +22,12 @@
 #include "plugin.h"
 #include "patch-plugin.h"
 
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/patch-plugin.glade"
+
 static void patch_level_changed (GtkAdjustment *adj);
 
-static void on_ok_clicked (GtkButton *button, PatchPluginGUI* gui);
-static void on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui);
+static void on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin);
+static void on_cancel_clicked (GtkButton *button, GtkDialog* dialog);
 
 static void on_msg_arrived (AnjutaLauncher *launcher,
 							AnjutaLauncherOutputType output_type,
@@ -35,7 +37,7 @@ static void on_patch_terminated (AnjutaLauncher *launcher,
 								 gpointer data);
 
 
-gint patch_level = 0;
+static gint patch_level = 0;
 
 
 static void
@@ -47,66 +49,58 @@ patch_level_changed (GtkAdjustment *adj)
 void
 patch_show_gui (PatchPlugin *plugin)
 {
-	PatchPluginGUI *gui;
-	GtkObject* adj;
-	GtkWidget* dir_label = gtk_label_new (_("File/Dir to patch"));
-	GtkWidget* file_label = gtk_label_new (_("Patch file"));
-	GtkWidget* level_label = gtk_label_new (_("Patch level (-p)"));
-	GtkWidget* table = gtk_table_new (3, 2, FALSE);
-
-	gui = g_new0 (PatchPluginGUI, 1);
+	GtkWidget* table;
+	GtkWidget* patch_button;
+	GtkWidget* cancel_button;
+	GtkWidget* scale;
+	GtkAdjustment* adj;
 	
-	/* setting plugin reference */
-	gui->plugin = plugin;
+	GladeXML* gxml;
 	
-	gui->dialog = gnome_dialog_new (_("Patch Plugin"), _("Cancel"), _("Patch"), NULL);
-	gui->entry_patch_dir = gnome_file_entry_new ("patch-dir", 
-	_("Selected directory to patch"));
-	gui->entry_patch_file = gnome_file_entry_new ("patch-file",
-			_("Selected patch file"));
-
-	adj = gtk_adjustment_new (patch_level, 0, 10, 1, 1, 1);
-	gtk_signal_connect (adj, "value_changed",
+	gxml = glade_xml_new(GLADE_FILE, "patch_dialog", NULL);
+	
+	plugin->dialog = glade_xml_get_widget(gxml, "patch_dialog");
+	
+	table = glade_xml_get_widget(gxml, "patch_table");
+	plugin->file_chooser = gtk_file_chooser_button_new(_("File/Directory to patch"),
+											   GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	plugin->patch_chooser = gtk_file_chooser_button_new(_("Patch file"),
+											   GTK_FILE_CHOOSER_ACTION_OPEN);
+	
+	gtk_file_chooser_button_set_width_chars(GTK_FILE_CHOOSER_BUTTON(plugin->file_chooser),
+											30);
+	gtk_file_chooser_button_set_width_chars(GTK_FILE_CHOOSER_BUTTON(plugin->patch_chooser),
+											30);
+	
+	
+	gtk_table_attach_defaults(GTK_TABLE(table), plugin->file_chooser, 1, 2, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(table), plugin->patch_chooser, 1, 2, 1, 2);
+	
+	scale = glade_xml_get_widget(gxml, "patch_level_scale");
+	adj = gtk_range_get_adjustment(GTK_RANGE(scale));
+	g_signal_connect (G_OBJECT(adj), "value_changed",
 			    GTK_SIGNAL_FUNC (patch_level_changed), NULL);
-
-	gui->hscale_patch_level = gtk_hscale_new (GTK_ADJUSTMENT (adj));
-	gtk_scale_set_digits (GTK_SCALE (gui->hscale_patch_level), 0);
+		
+	patch_button = glade_xml_get_widget(gxml, "patch_button");
+	cancel_button = glade_xml_get_widget(gxml, "cancel_button");
 	
-	gtk_table_set_row_spacings (GTK_TABLE (table), 5);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 10);
+	g_signal_connect (G_OBJECT (patch_button), "clicked", 
+			G_CALLBACK(on_ok_clicked), plugin);
+	g_signal_connect (G_OBJECT (cancel_button), "clicked", 
+			G_CALLBACK(on_cancel_clicked), plugin->dialog);
 
-	gtk_table_attach_defaults (GTK_TABLE(table), dir_label, 0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE(table), file_label, 0, 1, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE(table), level_label, 0, 1, 2, 3);
-	gtk_table_attach_defaults (GTK_TABLE(table), gui->entry_patch_dir, 1, 2, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE(table), gui->entry_patch_file, 1, 2, 1, 2);
-	gtk_table_attach_defaults (GTK_TABLE(table), gui->hscale_patch_level, 1, 2, 2, 3);
-	
-	gui->ok_button = g_list_last (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	gui->cancel_button = g_list_first (GNOME_DIALOG (gui->dialog)->buttons)->data;
-	
-	g_signal_connect (G_OBJECT (gui->ok_button), "clicked", 
-			GTK_SIGNAL_FUNC(on_ok_clicked), gui);
-	g_signal_connect (G_OBJECT (gui->cancel_button), "clicked", 
-			GTK_SIGNAL_FUNC(on_cancel_clicked), gui);
-
-	gtk_container_set_border_width (GTK_CONTAINER (GNOME_DIALOG (gui->dialog)->vbox), 5);
-	gtk_box_pack_start_defaults (GTK_BOX (GNOME_DIALOG (gui->dialog)->vbox), table);
-
-	gtk_widget_show_all (gui->dialog);
+	gtk_widget_show_all (plugin->dialog);
 }
 
 
 static void 
-on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
+on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 {
 	const gchar* directory;
 	const gchar* patch_file;
 	GString* command = g_string_new (NULL);
 	gchar* message;
 	IAnjutaMessageManager *mesg_manager;
-	PatchPlugin *p_plugin;
-	p_plugin = gui->plugin;
 	
 	g_return_if_fail (p_plugin != NULL);
 
@@ -115,17 +109,15 @@ on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	
 	g_return_if_fail (mesg_manager != NULL);
 	
-	gui->mesg_view =
+	p_plugin->mesg_view =
 		ianjuta_message_manager_add_view (mesg_manager, _("Patch"), 
 		ICON_FILE, NULL);
 	
-	ianjuta_message_manager_set_current_view (mesg_manager, gui->mesg_view, NULL);	
+	ianjuta_message_manager_set_current_view (mesg_manager, p_plugin->mesg_view, NULL);	
 	
-	directory = gtk_entry_get_text(GTK_ENTRY(
-		gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY(gui->entry_patch_dir))));
-	patch_file = gtk_entry_get_text(GTK_ENTRY(
-		gnome_file_entry_gtk_entry(GNOME_FILE_ENTRY(gui->entry_patch_file))));
-
+	directory = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->file_chooser));
+	patch_file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->patch_chooser));
+	
 	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
 	{
 		g_string_free (command, TRUE);
@@ -139,46 +131,45 @@ on_ok_clicked (GtkButton *button, PatchPluginGUI* gui)
 	message = g_strdup_printf (_("Patching %s using %s\n"), 
 			  directory, patch_file);
 
-	ianjuta_message_view_append (gui->mesg_view,
+	ianjuta_message_view_append (p_plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 message, "", NULL);
 	
-	ianjuta_message_view_append (gui->mesg_view,
+	ianjuta_message_view_append (p_plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 _("Patching...\n"), "", NULL);
 
 	g_signal_connect (p_plugin->launcher, "child-exited",
-					  G_CALLBACK (on_patch_terminated), gui);
+					  G_CALLBACK (on_patch_terminated), p_plugin);
 	
 	if (!anjuta_launcher_is_busy (p_plugin->launcher))
 		anjuta_launcher_execute (p_plugin->launcher, command->str,
-								 (AnjutaLauncherOutputCallback)on_msg_arrived, gui);
+								 (AnjutaLauncherOutputCallback)on_msg_arrived, p_plugin);
 	else
 		gnome_ok_dialog (
 			_("There are unfinished jobs, please wait until they are finished"));
 	g_string_free(command, TRUE);
-	on_cancel_clicked (GTK_BUTTON(gui->cancel_button), gui);
-
+	
+	gtk_widget_hide (p_plugin->dialog);
+	gtk_widget_destroy (p_plugin->dialog);
 }
 
 static void 
-on_cancel_clicked (GtkButton *button, PatchPluginGUI* gui)
+on_cancel_clicked (GtkButton *button, GtkDialog* dialog)
 {
-	gtk_widget_hide (gui->dialog);
-	gtk_widget_destroy (gui->dialog);
+	gtk_widget_hide (GTK_WIDGET(dialog));
+	gtk_widget_destroy (GTK_WIDGET(dialog));
 }
 
 static void 
 on_msg_arrived (AnjutaLauncher *launcher,
 							AnjutaLauncherOutputType output_type,
 							const gchar* line, gpointer data)
-{
-	PatchPluginGUI *gui = (PatchPluginGUI*)data;
+{	
+	g_return_if_fail (line != NULL);	
 	
-	g_return_if_fail (line != NULL);
-	g_return_if_fail (gui != NULL);
-	
-	ianjuta_message_view_append (gui->mesg_view,
+	PatchPlugin* p_plugin = (PatchPlugin*)data;
+	ianjuta_message_view_append (p_plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 line, "", NULL);
 }
@@ -188,28 +179,27 @@ on_patch_terminated (AnjutaLauncher *launcher,
 								 gint child_pid, gint status, gulong time_taken,
 								 gpointer data)
 {
-	PatchPluginGUI *gui = (PatchPluginGUI*)data;
-	
-	g_return_if_fail (gui != NULL);
 	g_return_if_fail (launcher != NULL);
+	
+	PatchPlugin* plugin = (PatchPlugin*)data;
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_patch_terminated),
-										  gui);
+										  plugin);
 
 	if (status != 0)
 	{
-		ianjuta_message_view_append (gui->mesg_view,
+		ianjuta_message_view_append (plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
 								 _("Patch failed.\nPlease review the failure messages.\n"
 			"Examine and remove any rejected files.\n"), "", NULL);		
 	}
 	else
 	{
-		ianjuta_message_view_append (gui->mesg_view,
+		ianjuta_message_view_append (plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 _("Patch successful.\n"), "", NULL);
 	}
 
-	gui->mesg_view = NULL;
+	plugin->mesg_view = NULL;
 }

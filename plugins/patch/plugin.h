@@ -32,7 +32,13 @@ typedef struct _PatchPluginClass PatchPluginClass;
 struct _PatchPlugin {
 	AnjutaPlugin parent;
 	AnjutaLauncher *launcher;
-
+	
+	IAnjutaMessageView* mesg_view;
+	GtkWidget* file_chooser;
+	GtkWidget* patch_chooser;
+	GtkWidget* dialog;
+	GladeXML* gxml;
+	
 	gint uiid;
 };
 

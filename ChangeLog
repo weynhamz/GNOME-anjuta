@@ -1,3 +1,12 @@
+2005-06-03  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/patch/patch_plugin.c
+	plugins/patch/patch.h
+	plugin/patch/patch-plugin.glade
+	plugin/patch/Makefile.am:
+	
+	Changed patch plugin to use libglade and new gtk 2.6 widgets
+
 2005-05-31  Naba Kumar  <naba@gnome.org>
 
 	Patch from Jason Bayman  <JBayman@HobbitHell.com>:

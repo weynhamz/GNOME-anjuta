@@ -46,6 +46,7 @@ ianjuta-project-manager
 @get_selected: 
 @get_target_type: 
 @get_targets: 
+@is_open: 
 
 <!-- ##### FUNCTION ianjuta_project_manager_error_quark ##### -->
 <para>

@@ -2,6 +2,10 @@
 patch_uidir = $(anjuta_ui_dir)
 patch_ui_DATA = anjuta-patch.ui
 
+# Plugin glade file
+patch_gladedir = $(anjuta_glade_dir)
+patch_glade_DATA = patch-plugin.glade
+
 # Plugin Icon file
 patch_pixmapsdir = $(anjuta_image_dir)
 patch_pixmaps_DATA = \
@@ -42,4 +46,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(patch_plugin_DATA) \
 	$(patch_ui_DATA) \
-	$(patch_pixmaps_DATA)
+	$(patch_pixmaps_DATA) \
+	$(patch_glade_DATA)
