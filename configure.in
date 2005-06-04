@@ -463,7 +463,7 @@ AC_DEFUN([CHECK_HEADER_DEFINE],
 ]) ])
 
 dnl Checks for header files.
-AC_CHECK_HEADERS(dirent.h fcntl.h fnmatch.h stat.h stdlib.h string.h)
+AC_CHECK_HEADERS(dirent.h fcntl.h fnmatch.h stat.h stdlib.h string.h stdint.h)
 AC_CHECK_HEADERS(time.h types.h unistd.h)
 AC_CHECK_HEADERS(sys/dir.h sys/stat.h sys/times.h sys/types.h)
 
