@@ -62,15 +62,21 @@ patch_show_gui (PatchPlugin *plugin)
 	plugin->dialog = glade_xml_get_widget(gxml, "patch_dialog");
 	
 	table = glade_xml_get_widget(gxml, "patch_table");
+
+#if GTK_MINOR_VERSION >= 6
 	plugin->file_chooser = gtk_file_chooser_button_new(_("File/Directory to patch"),
 											   GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 	plugin->patch_chooser = gtk_file_chooser_button_new(_("Patch file"),
 											   GTK_FILE_CHOOSER_ACTION_OPEN);
-	
+
 	gtk_file_chooser_button_set_width_chars(GTK_FILE_CHOOSER_BUTTON(plugin->file_chooser),
 											30);
 	gtk_file_chooser_button_set_width_chars(GTK_FILE_CHOOSER_BUTTON(plugin->patch_chooser),
-											30);
+									30);
+#else
+	plugin->file_chooser = gnome_file_entry_new("patch_dir", _("File/Directory to patch"));
+	plugin->patch_chooser = gnome_file_entry_new("patch_file", _("Patch file"));
+#endif
 	
 	
 	gtk_table_attach_defaults(GTK_TABLE(table), plugin->file_chooser, 1, 2, 0, 1);
@@ -114,9 +120,16 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 		ICON_FILE, NULL);
 	
 	ianjuta_message_manager_set_current_view (mesg_manager, p_plugin->mesg_view, NULL);	
-	
+
+#if GTK_MINOR_VERSION >= 6
 	directory = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->file_chooser));
 	patch_file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(p_plugin->patch_chooser));
+#else
+	directory = gnome_file_entry_get_full_path(
+								GNOME_FILE_ENTRY(p_plugin->file_chooser), FALSE);
+	patch_file = gnome_file_entry_get_full_path(
+								GNOME_FILE_ENTRY(p_plugin->patch_chooser), FALSE);
+#endif								
 	
 	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
 	{
