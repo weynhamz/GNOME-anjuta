@@ -114,6 +114,30 @@ const ATPEnumType* atp_get_input_type_list (void)
 	return &input_type_list[0];
 }
 
+/* Return a copy of the name without mnemonic (underscore) */
+gchar*
+atp_remove_mnemonic (const gchar* label)
+{
+	const char *src;
+	char *dst;
+	char *without;
+
+	without = g_new (char, strlen(label) + 1);
+	dst = without;
+	for (src = label; *src != '\0'; ++src)
+	{
+		if (*src == '_')
+		{
+			/* Remove single underscore */
+			++src;
+		}
+		*dst++ = *src;
+	}
+	*dst = *src;
+
+	return without;
+}
+
 /* Tool object
  *
  *---------------------------------------------------------------------------*/
@@ -861,7 +885,7 @@ gboolean atp_tool_list_activate (ATPToolList *this)
 	menu = GTK_MENU (gtk_menu_item_get_submenu (GTK_MENU_ITEM (gtk_ui_manager_get_widget (GTK_UI_MANAGER(this->ui), MENU_PLACEHOLDER))));
 	group = anjuta_ui_get_accel_group(this->ui);
 
-	for (next = this->list; next != NULL; next = atp_user_tool_next (next))
+	for (next = atp_tool_list_first (this); next != NULL; next = atp_user_tool_next (next))
 	{
 		atp_user_tool_activate (next, menu, group);
 	}

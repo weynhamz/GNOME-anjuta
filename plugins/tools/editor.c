@@ -32,6 +32,11 @@
 #include "tool.h"
 #include "variable.h"
 
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
+
 #include <libgnomeui/libgnomeui.h>
 
 #include <gtk/gtk.h>
@@ -76,6 +81,7 @@ struct _ATPToolEditor
 	GtkToggleButton *enabled_tb;
 	GtkToggleButton *terminal_tb;
 	GtkToggleButton *autosave_tb;
+	GtkToggleButton *script_tb;
 	GtkComboBox *output_com;
 	GtkComboBox *error_com;
 	GtkComboBox *input_com;
@@ -105,6 +111,7 @@ struct _ATPToolEditor
 #define TOOL_ENABLED "enable_checkbox"
 #define TOOL_AUTOSAVE "save_checkbox"
 #define TOOL_TERMINAL "terminal_checkbox"
+#define TOOL_SCRIPT "script_checkbox"
 #define TOOL_OUTPUT "output_combo"
 #define TOOL_ERROR "error_combo"
 #define TOOL_INPUT "input_combo"
@@ -120,6 +127,7 @@ struct _ATPToolEditor
 #define EDITOR_INPUT_CHANGED_SIGNAL "on_input_changed"
 #define EDITOR_TOGGLE_TERMINAL_SIGNAL "on_toggle_terminal"
 #define EDITOR_TOGGLE_SHORCUT_SIGNAL "on_toggle_shorcut"
+#define EDITOR_TOGGLE_SCRIPT_SIGNAL "on_toggle_script"
 
 #define TOOL_VARIABLE "variable_dialog"
 #define VARIABLE_TREEVIEW "variable_treeview"
@@ -485,7 +493,7 @@ atp_editor_update_shortcut (ATPToolEditor* this)
 static void
 atp_populate_tool_editor(ATPToolEditor* this)
 {
-	int pos;
+	gint pos;
 	const gchar* value;
 	guint accel_key;
 	GdkModifierType accel_mods;
@@ -564,6 +572,54 @@ on_editor_terminal_toggle (GtkToggleButton *tb, gpointer user_data)
 }
 
 static void
+on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
+{
+	ATPToolEditor *this = (ATPToolEditor *)user_data;
+	gchar* command;
+
+	if (gtk_toggle_button_get_active(tb))
+	{
+		/* Get current command */
+		command = gtk_editable_get_chars(this->command_en, 0, -1);
+
+		if ((command == NULL) || (*command == '\0'))
+		{
+			gchar* name;
+			guint pos;
+
+			if (command) g_free (command);
+			/* Generate a new script file name */
+			command = gtk_editable_get_chars(this->name_en, 0, -1);
+			if ((command == NULL) || (*command == '\0'))
+			{
+				command = g_strdup("script");
+			}
+			name = atp_remove_mnemonic (command);
+			g_free (command);
+			command = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, name, NULL);
+			g_free (name);
+
+			/* Find a new file name */
+			name = command;
+			pos = 0;
+			while (g_file_test (command, G_FILE_TEST_EXISTS))
+			{
+				if (command != name) g_free (command);
+				command = g_strdup_printf("%s%d", name, pos); 
+				pos++;	
+			}
+			if (command != name) g_free (name);
+
+			/* Fill command line */
+			gtk_editable_delete_text(this->command_en, 0, -1);
+			gtk_editable_insert_text(this->command_en, command, strlen(command), &pos);
+		}
+		if (command) g_free (command);
+	}
+			
+}
+
+static void
 on_editor_input_changed (GtkComboBox *combo, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor *)user_data;
@@ -575,8 +631,8 @@ static void
 on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 {
 	ATPToolEditor* this = (ATPToolEditor*)user_data;
-	const gchar* name;
-	const gchar* data;
+	gchar* name;
+	gchar* data;
 	ATPInputType in_type;
 	gchar* value;
 	guint accel_key;
@@ -590,18 +646,23 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		name = gtk_editable_get_chars(this->name_en, 0, -1);
 		if (!name || '\0' == name[0])
 		{
+			if (name) g_free (name);
 			anjuta_util_dialog_error(GTK_WINDOW (this->dialog), _("You must provide a tool name!"));
 			return;
 		}
 		data = gtk_editable_get_chars(this->command_en, 0, -1);
 		if (!data || '\0' == data[0])
 		{
+			if (name) g_free (name);
+			if (data) g_free (data);
 			anjuta_util_dialog_error(GTK_WINDOW (this->dialog), _("You must provide a tool command!"));
 			return;
 		}
 
 		if (!atp_user_tool_set_name (this->tool, name))
 		{
+			if (name) g_free (name);
+			if (data) g_free (data);
 			anjuta_util_dialog_error(GTK_WINDOW (this->dialog), _("A tool with the same name already exists!"));
 			return;
 		}
@@ -628,18 +689,22 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 
 		/* Set new tool data */
 		atp_user_tool_set_command (this->tool, data);
+		g_free (data);
 
 		data = gtk_editable_get_chars(this->param_en, 0, -1);
 		atp_user_tool_set_param (this->tool, data);
+		g_free (data);
 
 		data = gtk_editable_get_chars(this->dir_en, 0, -1);
 		atp_user_tool_set_working_dir (this->tool, data);
+		g_free (data);
 
 		atp_user_tool_set_flag (this->tool, ATP_TOOL_ENABLE | (gtk_toggle_button_get_active(this->enabled_tb) ? ATP_SET : ATP_CLEAR));
 
 		atp_user_tool_set_flag (this->tool, ATP_TOOL_AUTOSAVE | (gtk_toggle_button_get_active(this->autosave_tb) ? ATP_SET : ATP_CLEAR));
 
 		atp_user_tool_set_flag (this->tool, ATP_TOOL_TERMINAL | (gtk_toggle_button_get_active(this->terminal_tb) ? ATP_SET : ATP_CLEAR));
+
 
 		atp_user_tool_set_output (this->tool, get_combo_box_value (this->output_com));
 		atp_user_tool_set_error (this->tool, get_combo_box_value (this->error_com));
@@ -650,6 +715,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		case ATP_TIN_STRING:
 			data = gtk_editable_get_chars(this->input_en, 0, -1);
 			atp_user_tool_set_input (this->tool, in_type, data);
+			g_free (data);
 			break;
 		default:
 			atp_user_tool_set_input (this->tool, in_type, NULL);
@@ -662,7 +728,72 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		atp_user_tool_set_icon (this->tool, value);
 		g_free (value);	
 
+		/* Open script in editor if requested */
+		if (gtk_toggle_button_get_active (this->script_tb))
+		{
+			IAnjutaDocumentManager *docman;
+			IAnjutaEditor *editor;
+
+			/* Check that default script directory exist */
+			data = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, NULL);
+			if (!g_file_test (data, G_FILE_TEST_EXISTS))
+			{
+				mkdir (data, 0755);
+			}
+			g_free (data);
+
+			data = gtk_editable_get_chars(this->command_en, 0, -1);
+
+			if (!g_file_test (data, G_FILE_TEST_EXISTS))
+			{
+				FILE* sh;
+
+				/* Create default script */
+				sh = fopen (data, "wt");
+				if (sh != NULL)
+				{
+					gint previous;
+
+					fprintf(sh, "#!\n#\tScript template generated by Anjuta.\n#\tYou can pass argument using command line parameters\n#\n\n");
+					fclose (sh);
+
+					/* Make this file executable */
+					previous = umask (0666);
+					chmod (data, 0777 & ~previous);
+					umask (previous);
+				}
+			}
+
+			/* Load the script in an editor window */
+			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->parent->plugin)->shell, IAnjutaDocumentManager, NULL);
+			if (docman == NULL)
+			{	       
+				anjuta_util_dialog_error(GTK_WINDOW (this->dialog), _("Unable to edit script"));
+				return;
+			}
+
+			editor = ianjuta_document_manager_find_editor_with_path (docman, data, NULL);
+			if (editor == NULL)
+			{
+				IAnjutaFileLoader* loader;
+				gchar *uri;
+
+				/* Not found, load file */
+				loader = (IAnjutaFileLoader *)anjuta_shell_get_interface (ANJUTA_PLUGIN (this->parent->plugin)->shell, IAnjutaFileLoader, NULL);
+				uri = g_strdup_printf("file:///%s", data);
+				ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+				g_free (uri);
+			}
+			else
+			{
+				/* Set as current */
+				ianjuta_document_manager_set_current_editor (docman, editor, NULL);
+			}
+			g_free (data);
+		}
+
 		atp_tool_dialog_refresh (this->parent, name);
+		g_free(name);
 	}
 
 	atp_tool_editor_free (this);
@@ -705,9 +836,9 @@ on_editor_get_keys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
 	ATPToolEditor *this = (ATPToolEditor*)user_data;
   	GdkDisplay *display;
-  	guint accel_key;
-	GdkModifierType	accel_mods;
-  	GdkModifierType consumed_mods;
+  	guint accel_key = 0;
+	GdkModifierType	accel_mods = 0;
+  	GdkModifierType consumed_mods = 0;
 	gboolean delete = FALSE;
 	gboolean edited = FALSE;
 
@@ -816,6 +947,7 @@ atp_tool_editor_show (ATPToolEditor* this)
 	this->enabled_tb = (GtkToggleButton *) glade_xml_get_widget (xml, TOOL_ENABLED);
 	this->terminal_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_TERMINAL);
 	this->autosave_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_AUTOSAVE);
+	this->script_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_SCRIPT);
 	this->output_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_OUTPUT);
 	this->error_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_ERROR);
 	this->input_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_INPUT);
@@ -841,6 +973,7 @@ atp_tool_editor_show (ATPToolEditor* this)
 	glade_xml_signal_connect_data (xml, EDITOR_DIR_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_dir_variable_show), this);
 	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SHORCUT_SIGNAL, GTK_SIGNAL_FUNC (on_editor_shortcut_toggle), this);
 	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_TERMINAL_SIGNAL, GTK_SIGNAL_FUNC (on_editor_terminal_toggle), this);
+	glade_xml_signal_connect_data (xml, EDITOR_TOGGLE_SCRIPT_SIGNAL, GTK_SIGNAL_FUNC (on_editor_script_toggle), this);
 	glade_xml_signal_connect_data (xml, EDITOR_INPUT_VARIABLE_SIGNAL, GTK_SIGNAL_FUNC (on_editor_input_variable_show), this);
 	glade_xml_signal_connect_data (xml, EDITOR_INPUT_CHANGED_SIGNAL, GTK_SIGNAL_FUNC (on_editor_input_changed), this);
 

@@ -107,6 +107,10 @@ const ATPEnumType* atp_get_input_type_list (void);
 
 /*---------------------------------------------------------------------------*/
 
+gchar* atp_remove_mnemonic (const gchar* label);
+
+/*---------------------------------------------------------------------------*/
+
 ATPUserTool* atp_user_tool_new (ATPToolList *list, const gchar* name, ATPToolStore storage);
 void atp_user_tool_free(ATPUserTool *tool);
 

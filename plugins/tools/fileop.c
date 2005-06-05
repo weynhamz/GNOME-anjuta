@@ -39,12 +39,6 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define ANJUTA_TOOLS_DIRECTORY PACKAGE_DATA_DIR
-#define LOCAL_ANJUTA_TOOLS_DIRECTORY "/.anjuta"
-#define TOOLS_FILE	"tools-2.xml"
-
-/*---------------------------------------------------------------------------*/
-
 typedef enum {
 	ATP_NO_TAG = 0,
 	ATP_ANJUTA_TOOLS_TAG,
@@ -131,7 +125,7 @@ parse_tag (const gchar* name)
 	else if (strcmp ("icon", name) == 0)
 	{
 		return ATP_ICON_TAG;
-	}	
+	}
 	else
 	{
 		return ATP_UNKNOW_TAG;

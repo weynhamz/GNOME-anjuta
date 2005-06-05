@@ -86,30 +86,6 @@ typedef struct _ATPExecutionContext
 /* Helper function
  *---------------------------------------------------------------------------*/
 
-/* Return a copy of the name without mnemonic (underscore) */
-static gchar*
-remove_mnemonic (const gchar* label)
-{
-	const char *src;
-	char *dst;
-	char *without;
-
-	without = g_new (char, strlen(label) + 1);
-	dst = without;
-	for (src = label; *src != '\0'; ++src)
-	{
-		if (*src == '_')
-		{
-			/* Remove single underscore */
-			++src;
-		}
-		*dst++ = *src;
-	}
-	*dst = *src;
-
-	return without;
-}
-
 /* Save all current anjuta files */
 static gboolean
 save_all_files (AnjutaPlugin *plugin)
@@ -538,7 +514,7 @@ static ATPExecutionContext*
 atp_execution_context_reuse (ATPExecutionContext* this, const gchar *name, ATPOutputType output, ATPOutputType error)
 {
 	if (this->name) g_free (this->name);
-	this->name = remove_mnemonic (name);
+	this->name = atp_remove_mnemonic (name);
 
 	if (atp_output_context_initialize (&this->output, this, output) == NULL)
 	{
@@ -562,7 +538,7 @@ atp_execution_context_new (AnjutaPlugin *plugin, const gchar *name, guint id, AT
 	this->plugin = plugin;
 	this->launcher =  anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
-	this->name = remove_mnemonic (name);
+	this->name = atp_remove_mnemonic (name);
 
 	if (atp_output_context_construct (&this->output, this, output) == NULL)
 	{
@@ -638,7 +614,7 @@ static ATPExecutionContext*
 atp_context_list_find_context (ATPContextList *this, AnjutaPlugin *plugin, const gchar* name, ATPOutputType output, ATPOutputType error)
 {
 	ATPExecutionContext* context;
-	GList* reuse;
+	GList* reuse = NULL;
 	guint best;
 	guint pane;
 	GList* node;
@@ -726,7 +702,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 	gchar* dir;
 	gchar* cmd;
 	gchar* input;
-	gchar* val;
+	gchar* val = NULL;
 	guint len;
 
 	plugin = atp_user_tool_get_plugin (this);

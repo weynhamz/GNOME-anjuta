@@ -1,3 +1,18 @@
+2005-06-04  Sebastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/tools/anjuta-tools.glade,
+	plugins/tools/editor.c,
+	plugins/tools/plugin.h,
+	plugins/tools/fileop.c:
+	Add a check box to edit an user script
+	Correct a few memory leak
+
+	* plugins/tools/execute.c,
+	plugins/tools/tool.c,
+	plugins/tools/tool.h:
+	Move utility remove_mnemonic function in tool.c
+	Small fix
+
 2005-06-04  Johannes Schmid <jhs@cvs.gnome.org>
 
 	Patch from sbrabec@suse.cz:

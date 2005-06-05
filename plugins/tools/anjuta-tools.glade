@@ -634,38 +634,6 @@
 	  </child>
 
 	  <child>
-	    <widget class="GnomeFileEntry" id="fileentry2">
-	      <property name="visible">True</property>
-	      <property name="max_saved">10</property>
-	      <property name="directory_entry">False</property>
-	      <property name="modal">True</property>
-	      <property name="use_filechooser">True</property>
-	      <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
-
-	      <child internal-child="entry">
-		<widget class="GtkEntry" id="command_entry">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="editable">True</property>
-		  <property name="visibility">True</property>
-		  <property name="max_length">0</property>
-		  <property name="text" translatable="yes"></property>
-		  <property name="has_frame">True</property>
-		  <property name="invisible_char">*</property>
-		  <property name="activates_default">False</property>
-		</widget>
-	      </child>
-	    </widget>
-	    <packing>
-	      <property name="left_attach">1</property>
-	      <property name="right_attach">4</property>
-	      <property name="top_attach">2</property>
-	      <property name="bottom_attach">3</property>
-	      <property name="y_options"></property>
-	    </packing>
-	  </child>
-
-	  <child>
 	    <widget class="GtkLabel" id="label105">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">Short cut:</property>
@@ -898,6 +866,73 @@
 	      <property name="right_attach">4</property>
 	      <property name="top_attach">6</property>
 	      <property name="bottom_attach">7</property>
+	      <property name="x_options">fill</property>
+	      <property name="y_options">fill</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkHBox" id="hbox29">
+	      <property name="visible">True</property>
+	      <property name="homogeneous">False</property>
+	      <property name="spacing">0</property>
+
+	      <child>
+		<widget class="GnomeFileEntry" id="fileentry2">
+		  <property name="visible">True</property>
+		  <property name="max_saved">10</property>
+		  <property name="directory_entry">False</property>
+		  <property name="modal">True</property>
+		  <property name="use_filechooser">True</property>
+		  <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+
+		  <child internal-child="entry">
+		    <widget class="GtkEntry" id="command_entry">
+		      <property name="visible">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="editable">True</property>
+		      <property name="visibility">True</property>
+		      <property name="max_length">0</property>
+		      <property name="text" translatable="yes"></property>
+		      <property name="has_frame">True</property>
+		      <property name="invisible_char">*</property>
+		      <property name="activates_default">False</property>
+		    </widget>
+		  </child>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">True</property>
+		  <property name="fill">True</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkCheckButton" id="script_checkbox">
+		  <property name="visible">True</property>
+		  <property name="tooltip" translatable="yes">Edit command in Anjuta on close</property>
+		  <property name="can_focus">True</property>
+		  <property name="label" translatable="yes">Edit as script</property>
+		  <property name="use_underline">True</property>
+		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <property name="focus_on_click">True</property>
+		  <property name="active">False</property>
+		  <property name="inconsistent">False</property>
+		  <property name="draw_indicator">True</property>
+		  <signal name="toggled" handler="on_toggle_script" last_modification_time="Sat, 04 Jun 2005 10:59:14 GMT"/>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="left_attach">1</property>
+	      <property name="right_attach">4</property>
+	      <property name="top_attach">2</property>
+	      <property name="bottom_attach">3</property>
 	      <property name="x_options">fill</property>
 	      <property name="y_options">fill</property>
 	    </packing>
