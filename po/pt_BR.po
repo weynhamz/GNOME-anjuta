@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-23 10:36+0000\n"
-"PO-Revision-Date: 2005-05-23 15:33-0300\n"
+"POT-Creation-Date: 2005-06-05 10:36+0000\n"
+"PO-Revision-Date: 2005-06-05 12:49-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -304,7 +304,7 @@ msgstr "Habilitar Análise de Perfil"
 msgid "Enable _all"
 msgstr "_Habilitar tudo"
 
-#: ../anjuta.glade.h:60 ../plugins/tools/anjuta-tools.glade.h:2
+#: ../anjuta.glade.h:60 ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Habilitado"
 
@@ -515,7 +515,7 @@ msgstr "Módulos"
 
 #: ../anjuta.glade.h:103 ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
-#: ../plugins/tools/anjuta-tools.glade.h:4
+#: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Nome:"
 
@@ -669,7 +669,7 @@ msgstr "Executar em um Terminal"
 
 #: ../anjuta.glade.h:135
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
-#: ../plugins/tools/anjuta-tools.glade.h:6
+#: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Executar em um terminal"
 
@@ -679,7 +679,7 @@ msgstr "Executar em um terminal"
 msgid "SIGINT"
 msgstr "SIGINT"
 
-#: ../anjuta.glade.h:137 ../plugins/tools/anjuta-tools.glade.h:7
+#: ../anjuta.glade.h:137 ../plugins/tools/anjuta-tools.glade.h:9
 msgid "Save all files"
 msgstr "Salva todos arquivos"
 
@@ -697,7 +697,7 @@ msgstr "Definir Propriedades do Sinal"
 msgid "Settings"
 msgstr "Definições"
 
-#: ../anjuta.glade.h:141 ../plugins/tools/anjuta-tools.glade.h:8
+#: ../anjuta.glade.h:141 ../plugins/tools/anjuta-tools.glade.h:10
 msgid "Short cut:"
 msgstr "Atalho:"
 
@@ -725,15 +725,15 @@ msgstr "Diretórios de Código Fonte"
 msgid "Source module Makefile.am"
 msgstr "Makefile.am do módulo fonte"
 
-#: ../anjuta.glade.h:147 ../plugins/tools/anjuta-tools.glade.h:9
+#: ../anjuta.glade.h:147 ../plugins/tools/anjuta-tools.glade.h:11
 msgid "Standard error:"
 msgstr "Erro padrão:"
 
-#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:10
+#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:12
 msgid "Standard input:"
 msgstr "Entrada padrão:"
 
-#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:11
+#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:13
 msgid "Standard output:"
 msgstr "Saída padrão:"
 
@@ -767,7 +767,7 @@ msgstr ""
 msgid "Target:"
 msgstr "Alvo:"
 
-#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:12
+#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:14
 msgid "Tool Editor"
 msgstr "Editor de Ferramentas"
 
@@ -786,7 +786,7 @@ msgstr "Atualizar"
 msgid "Update tags image automatically"
 msgstr "Atualizar tags de imagem automaticamente"
 
-#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:13
+#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:15
 msgid "User Tools"
 msgstr "Ferramentas do Usuário"
 
@@ -819,7 +819,7 @@ msgstr "Avisar quando uma variável não definida é referenciada no Makefile"
 msgid "Warnings"
 msgstr "Avisos"
 
-#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:15
+#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Working directory:"
 msgstr "Diretório de trabalho:"
 
@@ -859,7 +859,7 @@ msgid "_Disable all"
 msgstr "_Desabilitar todos"
 
 #: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
-#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:16
+#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
 #: ../src/anjuta-actions.h:30 ../src/shell.c:76
 msgid "_Edit"
 msgstr "_Editar"
@@ -1093,8 +1093,8 @@ msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
-"Tem a certeza que deseja restaurar as preferências para\n"
-"as definições padrão originais?"
+"Você tem certeza que deseja restaurar as preferências\n"
+"para as definições padrão originais?"
 
 #: ../libanjuta/anjuta-preferences.c:1163
 msgid "_Reset"
@@ -1282,7 +1282,7 @@ msgstr "Modo de Tecla Aceleradora"
 msgid "The type of accelerator."
 msgstr "O tipo de acelerador."
 
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:481
+#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:489
 msgid "Disabled"
 msgstr "Desabilitado"
 
@@ -1480,7 +1480,7 @@ msgstr "Concluído... sem sucesso"
 msgid "Completed ... successful\n"
 msgstr "Concluído... com sucesso\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:361
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:337
 msgid "Completed ... successful"
 msgstr "Concluído... com sucesso"
 
@@ -2808,7 +2808,7 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
-"Tem certeza de que quer recarregar o '%s'?\n"
+"Você tem certeza de que deseja recarregar o '%s'?\n"
 "Todas as informações não gravadas serão perdidas."
 
 #: ../plugins/editor/action-callbacks.c:238
@@ -2855,7 +2855,7 @@ msgid "_Replace"
 msgstr "_Substituir"
 
 #: ../plugins/editor/anjuta-docman.c:341
-#: ../plugins/message-view/message-view.c:86
+#: ../plugins/message-view/message-view.c:87
 msgid "Save file as"
 msgstr "Salva o arquivo como"
 
@@ -5090,12 +5090,12 @@ msgid "All breakpoints removed.\n"
 msgstr "Todos os pontos de interrupção excluídos\n"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
-#: ../plugins/tools/editor.c:403
+#: ../plugins/tools/editor.c:411
 msgid "Variable"
 msgstr "Variável"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/registers.c:316
-#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:409
+#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:417
 msgid "Value"
 msgstr "Valor"
 
@@ -7057,17 +7057,17 @@ msgstr "Estilo de indicador de mensagens aviso:"
 msgid "Warnings:"
 msgstr "Avisos:"
 
-#: ../plugins/message-view/message-view.c:253
-#: ../plugins/message-view/message-view.c:287
+#: ../plugins/message-view/message-view.c:254
+#: ../plugins/message-view/message-view.c:288
 msgid "No message details"
 msgstr "Sem detalhes de mensagens"
 
-#: ../plugins/message-view/message-view.c:629
-#: ../plugins/message-view/plugin.c:165
+#: ../plugins/message-view/message-view.c:640
+#: ../plugins/message-view/plugin.c:167
 msgid "Messages"
 msgstr "Mensagens"
 
-#: ../plugins/message-view/message-view.c:860
+#: ../plugins/message-view/message-view.c:872
 #, c-format
 msgid "Error writing %s"
 msgstr "Erro ao escrever: %s"
@@ -7096,60 +7096,40 @@ msgstr "_Salvar mensagem"
 msgid "Save message"
 msgstr "Salva a mensagem"
 
-#: ../plugins/message-view/plugin.c:151
+#: ../plugins/message-view/plugin.c:150
 msgid "Next/Prev Message"
 msgstr "Mensagem Anterior/Próxima"
 
-#: ../plugins/patch/patch-plugin.c:52
-msgid "File/Dir to patch"
+#: ../plugins/patch/patch-plugin.c:67 ../plugins/patch/patch-plugin.c:77
+msgid "File/Directory to patch"
 msgstr "Arquivo/Diretório para aplicar o patch"
 
-#: ../plugins/patch/patch-plugin.c:53
+#: ../plugins/patch/patch-plugin.c:69 ../plugins/patch/patch-plugin.c:78
 msgid "Patch file"
 msgstr "Arquivo de patch"
 
-#: ../plugins/patch/patch-plugin.c:54
-msgid "Patch level (-p)"
-msgstr "Nível de patch (-p)"
-
-#: ../plugins/patch/patch-plugin.c:62
-msgid "Patch Plugin"
-msgstr "Plugin de Patch"
-
-#: ../plugins/patch/patch-plugin.c:62
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: ../plugins/patch/patch-plugin.c:62 ../plugins/patch/patch-plugin.c:119
+#: ../plugins/patch/patch-plugin.c:119
 msgid "Patch"
 msgstr "Patch"
 
-#: ../plugins/patch/patch-plugin.c:64
-msgid "Selected directory to patch"
-msgstr "Diretório selecionado para aplicar o patch"
-
-#: ../plugins/patch/patch-plugin.c:66
-msgid "Selected patch file"
-msgstr "Arquivo de patch selecionado"
-
-#: ../plugins/patch/patch-plugin.c:132
+#: ../plugins/patch/patch-plugin.c:137
 msgid "Please select the directory where the patch should be applied"
 msgstr "Selecione o diretório onde deverá ser aplicado o patch"
 
-#: ../plugins/patch/patch-plugin.c:139
+#: ../plugins/patch/patch-plugin.c:144
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Aplicando o patch em %s utilizando %s\n"
 
-#: ../plugins/patch/patch-plugin.c:148
+#: ../plugins/patch/patch-plugin.c:153
 msgid "Patching...\n"
 msgstr "Aplicando o patch...\n"
 
-#: ../plugins/patch/patch-plugin.c:158
+#: ../plugins/patch/patch-plugin.c:163
 msgid "There are unfinished jobs, please wait until they are finished"
 msgstr "Existem tarefas não terminadas, aguarde até que elas terminem"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:207
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -7159,7 +7139,7 @@ msgstr ""
 "Por favor, verifique as mensagens de erro.\n"
 "Examine e remova qualquer arquivo rejeitado.\n"
 
-#: ../plugins/patch/patch-plugin.c:211
+#: ../plugins/patch/patch-plugin.c:214
 msgid "Patch successful.\n"
 msgstr "A aplicação do patch teve sucesso.\n"
 
@@ -8427,30 +8407,38 @@ msgstr "Utilizar o perfil atualmente selecionado no terminal GNOME"
 msgid "Terminal"
 msgstr "Terminal"
 
+#: ../plugins/tools/anjuta-tools.glade.h:2
+msgid "Edit as script"
+msgstr "Editar um script"
+
 #: ../plugins/tools/anjuta-tools.glade.h:3
-msgid "Menu Items:"
-msgstr "Itens de Menu:"
+msgid "Edit command in Anjuta on close"
+msgstr "Editar o comando no Anjuta ao sair"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
+msgid "Menu Items:"
+msgstr "Itens do Menu:"
+
+#: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Parameters:"
 msgstr "Parâmetros:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:14
+#: ../plugins/tools/anjuta-tools.glade.h:16
 msgid "Variable list"
-msgstr "Lista de variáveis"
+msgstr "Lista variável"
 
-#: ../plugins/tools/anjuta-tools.glade.h:17
+#: ../plugins/tools/anjuta-tools.glade.h:19
 msgid "_Variable..."
 msgstr "_Variável..."
 
-#: ../plugins/tools/anjuta-tools.glade.h:18
+#: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "toggle"
 msgstr "alternar"
 
 #: ../plugins/tools/dialog.c:177
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
-msgstr "Tem certeza de que deseja excluir a ferramenta '%s'?"
+msgstr "Você tem certeza de que deseja excluir a ferramenta '%s'?"
 
 #: ../plugins/tools/dialog.c:337
 msgid "Unable to build user interface for tool list"
@@ -8460,35 +8448,35 @@ msgstr "Impossível criar interface de usuário para a lista de ferramentas"
 msgid "Tool"
 msgstr "Ferramenta"
 
-#: ../plugins/tools/editor.c:251
+#: ../plugins/tools/editor.c:259
 msgid "ask at runtime"
 msgstr "perguntar no momento da execução"
 
-#: ../plugins/tools/editor.c:256
+#: ../plugins/tools/editor.c:264
 msgid "undefined"
 msgstr "não definido"
 
-#: ../plugins/tools/editor.c:390
+#: ../plugins/tools/editor.c:398
 msgid "Unable to build user interface for tool variable"
 msgstr "Impossível criar interface de usuário para a variável da ferramenta"
 
-#: ../plugins/tools/editor.c:406
+#: ../plugins/tools/editor.c:414
 msgid "Meaning"
 msgstr "Significando"
 
-#: ../plugins/tools/editor.c:593
+#: ../plugins/tools/editor.c:650
 msgid "You must provide a tool name!"
-msgstr "Você deve informar um nome de ferramenta!"
+msgstr "Você deve informar um nome para a ferramenta!"
 
-#: ../plugins/tools/editor.c:599
+#: ../plugins/tools/editor.c:658
 msgid "You must provide a tool command!"
-msgstr "Você deve informar um comando de ferramenta!"
+msgstr "Você deve informar um comando para a ferramenta!"
 
-#: ../plugins/tools/editor.c:605
+#: ../plugins/tools/editor.c:666
 msgid "A tool with the same name already exists!"
 msgstr "Já existe uma ferramenta com o mesmo nome!"
 
-#: ../plugins/tools/editor.c:622
+#: ../plugins/tools/editor.c:683
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway ?"
@@ -8496,59 +8484,63 @@ msgstr ""
 "Este atalho já é utilizado por outro componente do Anjuta. Você deseja mantê-"
 "lo mesmo assim?"
 
-#: ../plugins/tools/editor.c:776
+#: ../plugins/tools/editor.c:771
+msgid "Unable to edit script"
+msgstr "Impossível editar o script"
+
+#: ../plugins/tools/editor.c:907
 msgid "New accelerator..."
 msgstr "Novo acelerador..."
 
-#: ../plugins/tools/editor.c:801
+#: ../plugins/tools/editor.c:932
 msgid "Unable to build user interface for tool editor"
 msgstr "Impossível criar interface de usuário para o editor ferramentas"
 
 #. Only for output data
-#: ../plugins/tools/execute.c:263
+#: ../plugins/tools/execute.c:239
 msgid "(output)"
 msgstr "(saída)"
 
 #. Only for error data
-#: ../plugins/tools/execute.c:268
+#: ../plugins/tools/execute.c:244
 msgid "(error)"
 msgstr "(erro)"
 
-#: ../plugins/tools/execute.c:315
+#: ../plugins/tools/execute.c:291
 msgid "Running command: "
 msgstr "Comando de Execução: "
 
-#: ../plugins/tools/execute.c:355
+#: ../plugins/tools/execute.c:331
 msgid "Completed ... unsuccessful with "
 msgstr "Concluído... sem sucesso com"
 
-#: ../plugins/tools/execute.c:443
+#: ../plugins/tools/execute.c:419
 msgid "Unable to create a buffer, command aborted"
-msgstr "Impossível criar o buffer, comando abortado"
+msgstr "Impossível criar um buffer, comando abortado"
 
-#: ../plugins/tools/execute.c:454
+#: ../plugins/tools/execute.c:430
 msgid "No document currently open, command aborted"
 msgstr "Nenhum documento está aberto atualmente, comando abortado"
 
-#: ../plugins/tools/execute.c:784
+#: ../plugins/tools/execute.c:760
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Impossível abrir o arquivo de entrada %s, Comando abortado"
 
-#: ../plugins/tools/fileop.c:253
+#: ../plugins/tools/fileop.c:247
 msgid "Missing tool name"
 msgstr "Nome da ferramente perdido"
 
-#: ../plugins/tools/fileop.c:263
+#: ../plugins/tools/fileop.c:257
 #, c-format
 msgid "Unexpected element \"%s\""
 msgstr "Elemento não esperado \"%s\""
 
-#: ../plugins/tools/fileop.c:534
+#: ../plugins/tools/fileop.c:528
 msgid "Error when loading external tools"
 msgstr "Erro ao carregar ferramentas externas"
 
-#: ../plugins/tools/fileop.c:687
+#: ../plugins/tools/fileop.c:681
 #, c-format
 msgid "Unable to open %s for writing"
 msgstr "Impossível abrir %s para escrita"
@@ -8814,6 +8806,21 @@ msgstr "Testa o grupo de ação do shell"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
+
+#~ msgid "Patch level (-p)"
+#~ msgstr "Nível de patch (-p)"
+
+#~ msgid "Patch Plugin"
+#~ msgstr "Plugin de Patch"
+
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgid "Selected directory to patch"
+#~ msgstr "Diretório selecionado para aplicar o patch"
+
+#~ msgid "Selected patch file"
+#~ msgstr "Arquivo de patch selecionado"
 
 #~ msgid "Crazy boy style"
 #~ msgstr "Estilo rapaz maluco"
