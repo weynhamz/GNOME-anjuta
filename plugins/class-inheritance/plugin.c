@@ -73,6 +73,9 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	
 	/* clean up the canvas */
 	class_inheritance_clean_canvas (ci_plugin);
+
+	/* destroy and re-initialize the hashtable */
+	class_inheritance_hash_table_clear	(ci_plugin);
 	
 	if (ci_plugin->top_dir)
 		g_free(ci_plugin->top_dir);
@@ -143,6 +146,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	/* clean up the canvas [e.g. destroys it's elements */
 	class_inheritance_clean_canvas ((AnjutaClassInheritance*)plugin);
 	
+	/* destroy the nodestatus hash table */
+	if (((AnjutaClassInheritance*)plugin)->expansion_node_list) {
+		g_hash_table_destroy (((AnjutaClassInheritance*)plugin)->expansion_node_list);
+		((AnjutaClassInheritance*)plugin)->expansion_node_list = NULL;
+	}
+	
 	/* Container holds the last ref to this widget so it will be destroyed as
 	 * soon as removed. No need to separately destroy it. */
 	/* In most cases, only toplevel widgets (windows) require explicit 
@@ -189,6 +198,7 @@ class_inheritance_instance_init (GObject *obj)
 
 	plugin->widget = NULL;
 	plugin->graph = NULL;
+	plugin->expansion_node_list = NULL;
 }
 
 static void

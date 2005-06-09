@@ -44,7 +44,9 @@ libanjuta_class_inheritance_la_SOURCES = \
 	plugin.c \
 	plugin.h \
 	class-inherit.c \
-	class-inherit.h 
+	class-inherit.h \
+	class-callbacks.c \
+	class-callbacks.h 
 
 endif
 

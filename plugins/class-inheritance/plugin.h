@@ -43,10 +43,16 @@ struct _AnjutaClassInheritance {
 	GtkWidget *update;
 	
 	GtkWidget *canvas;
-	GList *drawable_list;   /* GnomeCanvasItem* list. Edges, arrows and texts */
-	GList *node_list;		/* NodeData* list */
+	GList *drawable_list;   		/* GnomeCanvasItem* list. Edges, arrows and texts */
+	GList *node_list;					/* NodeData* list */
+
+
+	// FIXME: better an hashtable?
+	// on symbol_update si preoccuperà di rimuovere gli eventuali nodi presenti su expanded_status
+	// se essi vengono tolti dal tagmanager [i.e. rimuovo una class..]
+	GHashTable *expansion_node_list;	/* expansion_status for the nodes */
 	
-	Agraph_t *graph;	
+	Agraph_t *graph;
 	
 	gchar *top_dir;
 	guint root_watch_id;

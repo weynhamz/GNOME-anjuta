@@ -26,83 +26,52 @@
 
 #include "plugin.h"
 #include "class-inherit.h"
+#include "class-callbacks.h"
 
 #define DEFAULT_GRAPH_NAME		"Anjuta Graph"
 #define CANVAS_MIN_SIZE			250
+
+/* some macros to access deep graphviz's node structures */
+#define NODE_LOWER_LEFT(node,main_index,rec_index) \
+	((point)((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->b.LL)
+
+#define NODE_UPPER_RIGHT(node,main_index,rec_index) \
+	((point)((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->b.UR)
+
+#define NODE_NUM_FIELDS(node) \
+	((field_t*)ND_shape_info (node))->n_flds
+
+#define NODE_NTH_FIELD(node,nth) \
+	((field_t*)ND_shape_info (node))->fld[nth]
+
+#define NODE_NTH_TEXT(node,main_index,rec_index) \
+	((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->lp->text
+
 
 #define INCH_TO_PIXELS_CONVERSION_FACTOR		72
 #define INCH_TO_PIXELS(inch_size) \
 				INCH_TO_PIXELS_CONVERSION_FACTOR * inch_size
 
-#define NODE_FONT_DEFAULT "-*-clean-medium-r-normal-*-10-*-*-*-*-*-*"
 
-static gint
-on_canvas_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data) {
-	AnjutaClassInheritance *plugin;
-	
-	plugin = (AnjutaClassInheritance*)data;
-	
-	switch (event->type)
-	{
-	case GDK_BUTTON_PRESS:
-		if (event->button.button == 3)
-		{
-			g_return_val_if_fail (plugin->menu != NULL, FALSE);
-			
-			gtk_menu_popup (GTK_MENU (plugin->menu), NULL, NULL, NULL, NULL, 
-							event->button.button, event->button.time);
-		}
-		break;
+/* TODO: check for symbol_updated event, and check in the nodestatus's hashtable
+for the nodes that are gone. In case remove them.
+*/
 
-	default:
-		break;
-	}
-	
-	return FALSE;
-}
 
 static void
-on_toggled_menuitem_clicked (GtkCheckMenuItem *checkmenuitem,
-							 gpointer data)
-{
-	NodeData *node;
-	node = (NodeData*)data;
+cls_inherit_nodestatus_destroy (NodeExpansionStatus *node) {
+	if (node->name)
+		g_free (node->name);
 	
-	if (node->anchored)
-		node->anchored = FALSE;
-	else
-		node->anchored = TRUE;
+	g_free (node);
 }
 
-static void
-on_member_menuitem_clicked (GtkMenuItem *menuitem, gpointer data)
-{
-	NodeData *node;
-	const gchar *file;
-	gint line;
-	
-	node = (NodeData*)data;
-	file = g_object_get_data (G_OBJECT (menuitem), "__file");
-	line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "__line"));
-	if (file)
-	{
-		/* Goto file line */
-		IAnjutaDocumentManager *dm;
-		dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (node->plugin)->shell,
-										 IAnjutaDocumentManager, NULL);
-		if (dm)
-		{
-			ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
-		}
-	}
-}
-
-static void
-cls_inherit_show_dynamic_class_popup_menu (GdkEvent *event,
+void
+class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 										   NodeData* nodedata)
 {
 	GtkWidget *item, *image;
-	GtkWidget *checkitem;
+	GtkWidget *checkitem, *separator;
 	
 	/* Destroy the old menu before creating a new one */
 	if (nodedata->menu)
@@ -165,6 +134,8 @@ cls_inherit_show_dynamic_class_popup_menu (GdkEvent *event,
 				g_object_unref (iter);
 		}
 	}
+	
+	separator = gtk_separator_menu_item_new ();
 	/* create the check menuitem */
 	checkitem = gtk_check_menu_item_new_with_label (_("Fixed data-view"));
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (checkitem),
@@ -174,61 +145,13 @@ cls_inherit_show_dynamic_class_popup_menu (GdkEvent *event,
 								G_CALLBACK (on_toggled_menuitem_clicked),
 								nodedata);
 	
+	gtk_container_add (GTK_CONTAINER (nodedata->menu), separator);
 	gtk_container_add (GTK_CONTAINER (nodedata->menu), checkitem);
-	
+		
 	gtk_widget_show_all (nodedata->menu);
 	gtk_menu_popup (GTK_MENU (nodedata->menu), NULL, NULL,
 	                NULL, NULL, event->button.button,
 					event->button.time);	
-}
-
-static gint
-on_nodedata_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
-{
-	AnjutaClassInheritance *plugin;
-	NodeData *nodedata;	
-	
-	nodedata = (NodeData*)data;
-	plugin = nodedata->plugin;
-
-	switch (event->type)
-	{
-	case GDK_2BUTTON_PRESS:		/* double click */
-		break;
-
-	case GDK_BUTTON_PRESS:		/* single click */
-		if (event->button.button == 1)
-		{
-			cls_inherit_show_dynamic_class_popup_menu (event, data);
-		}
-		break;
-		
-	case GDK_ENTER_NOTIFY:		/* mouse entered in item's area */
-		/* Make the outline wide */
-		gnome_canvas_item_set (nodedata->canvas_item,
-							   "width_units", 2.5,
-							   "fill_color_gdk",
-							   &plugin->canvas->style->light[GTK_STATE_SELECTED],
-							   "outline_color_gdk",
-							   &plugin->canvas->style->fg[GTK_STATE_ACTIVE],
-							   NULL);
-		return TRUE;
-
-	case GDK_LEAVE_NOTIFY:		/* mouse exited item's area */
-		/* Make the outline thin */
-		gnome_canvas_item_set (nodedata->canvas_item,
-							   "width_units", 1.0,
-							   "fill_color_gdk",
-							   &plugin->canvas->style->light[GTK_STATE_NORMAL],
-							   "outline_color_gdk",
-							   &plugin->canvas->style->fg[GTK_STATE_NORMAL],	
-							   NULL);
-		return TRUE;
-	default:
-		break;
-	}
-	
-	return FALSE;
 }
 	
 /*----------------------------------------------------------------------------
@@ -237,8 +160,6 @@ on_nodedata_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
 static void
 cls_inherit_graph_init (AnjutaClassInheritance *plugin, gchar* graph_label)
 {
-	DEBUG_PRINT ("initializing graph");
-
 	aginit ();
 	plugin->graph = agopen (graph_label, AGDIGRAPH);
 }
@@ -250,7 +171,6 @@ cls_inherit_graph_init (AnjutaClassInheritance *plugin, gchar* graph_label)
 static void
 cls_inherit_graph_cleanup (AnjutaClassInheritance *plugin)
 {
-	DEBUG_PRINT ("cleanupping graph");
 	if (plugin->graph != NULL)
 	{
 		dot_cleanup (plugin->graph);
@@ -284,6 +204,11 @@ cls_inherit_nodedata_destroy (NodeData *node_data)
 		gtk_widget_destroy (node_data->menu);
 		node_data->menu = NULL;
 	}
+	if (node_data->sub_item)
+	{
+		g_free (node_data->sub_item);
+		node_data->sub_item = NULL;
+	}
 	node_data->anchored = FALSE;	
 }
 
@@ -293,7 +218,6 @@ cls_inherit_nodedata_destroy (NodeData *node_data)
 void
 class_inheritance_clean_canvas (AnjutaClassInheritance *plugin)
 {
-	DEBUG_PRINT ("cleaning canvas");
 	if (plugin->drawable_list == NULL || plugin->node_list == NULL)
 		return;
 	
@@ -315,13 +239,15 @@ class_inheritance_clean_canvas (AnjutaClassInheritance *plugin)
 
 
 /*----------------------------------------------------------------------------
- * add a node to an Agraph.
+ * add a node to an Agraph. Check also if the node is yet in the hash_table so 
+ * that we can build the label of the node with the class-data.
  */
 static gboolean
 cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 {
 	Agnode_t *node;
 	Agsym_t *sym;
+	NodeExpansionStatus *node_status;
 	
 	/* if graph isn't initialized, init it */
 	if (!plugin->graph)
@@ -331,27 +257,109 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 	if ((node = agnode (plugin->graph, (gchar*)node_name)) == NULL)
 		return FALSE;
 	
-	/* Set an attribute - in this case one that affects the visible rendering */
-	if (!(sym = agfindattr(plugin->graph->proto->n, "shape")))
-		sym = agnodeattr(plugin->graph, "shape", "");
-	agxset(node, sym->index, "box");
+	/* check for the node in the hash_table */
+	if ( (node_status = 
+				(NodeExpansionStatus*)g_hash_table_lookup 
+				(plugin->expansion_node_list, node_name)) != NULL && 
+				node_status->expansion_status != NODE_NOT_EXPANDED) {
+		GString *label;
+		gint max_label_items = 0;
+		gint real_items_length = 0;
+		IAnjutaSymbolManager *sm;
+
+		if (!(sym = agfindattr(plugin->graph->proto->n, "shape")))
+			sym = agnodeattr(plugin->graph, "shape", "");
+		agxset(node, sym->index, "record");
+		
+		if (!(sym = agfindattr(plugin->graph->proto->n, "label")))
+			sym = agnodeattr(plugin->graph, "label", "");
+		
+		label = g_string_new ("");
+		g_string_printf (label, "{%s", node_name);
+		
+		sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaSymbolManager, NULL);
+		if (sm)
+		{
+			IAnjutaIterable *iter;
+			iter = ianjuta_symbol_manager_get_members (sm, node_name,
+													   FALSE, NULL);
+			real_items_length = ianjuta_iterable_get_length (iter, NULL);
+
+			/* set the max number of items to draw */
+			if (real_items_length <= NODE_HALF_DISPLAY_ELEM_NUM || 
+						node_status->expansion_status == NODE_FULL_EXPANDED) {
+				max_label_items = real_items_length;
+				node_status->expansion_status = NODE_FULL_EXPANDED;
+			}
+			else {
+				max_label_items = NODE_HALF_DISPLAY_ELEM_NUM;
+			}
+
+			if (iter && real_items_length > 0)
+			{
+				gint i;
+				i = 0;
+				do
+				{
+					IAnjutaSymbol *symbol;
+					
+					symbol = ianjuta_iterable_get (iter,
+												   IANJUTA_TYPE_SYMBOL,
+												   NULL);
+					if (symbol)
+					{
+						const gchar *name;
+						
+						name = ianjuta_symbol_name (symbol, NULL);
+						g_string_append_printf (label, "|%s", name);
+					}
+					i++;
+				} while (ianjuta_iterable_next (iter, NULL) && i < max_label_items);
+			}
+			if (iter)
+				g_object_unref (iter);
+		}
+		
+		if (node_status->expansion_status == NODE_HALF_EXPANDED &&
+				real_items_length > NODE_HALF_DISPLAY_ELEM_NUM) {
+			g_string_append_printf (label, "|%s", NODE_SHOW_ALL_MEMBERS_STR);
+		}
+		
+		g_string_append_printf (label, "|%s }", NODE_SHOW_NORMAL_VIEW_STR);
+		agxset(node, sym->index, label->str);
+		
+		g_string_free (label, TRUE);
+	}
+	else {	/* the node isn't in an expansion status. 
+				 * Go on setting a regular one */
+
+		/* Set an attribute - in this case one that affects the visible rendering */
+		if (!(sym = agfindattr(plugin->graph->proto->n, "shape")))
+			sym = agnodeattr(plugin->graph, "shape", "");
+		agxset(node, sym->index, "box");
+		
+		if (!(sym = agfindattr(plugin->graph->proto->n, "label")))
+			sym = agnodeattr(plugin->graph, "label", "");
+		agxset(node, sym->index, node->name);		
+	}
 
 	/* set the font */
 	if (!(sym = agfindattr(plugin->graph->proto->n, "fontname")))
 		sym = agnodeattr(plugin->graph, "fontname", "");
 	agxset(node, sym->index, "Courier new");
-	
+
 	/* set the font-size */	
 	if (!(sym = agfindattr(plugin->graph->proto->n, "fontsize")))
 		sym = agnodeattr(plugin->graph, "fontsize", "");
 	/* hack: set canvas_text_fontsize + 4 points or text would oversize the block */
-	agxset(node, sym->index, "14");
-	
+	/* add some more points for icons 16x16 space */
+	agxset(node, sym->index, "17");
+
 	if (!(sym = agfindattr(plugin->graph->proto->n, "ratio")))
 		sym = agnodeattr(plugin->graph, "ratio", "");
 	agxset(node, sym->index, "expand");	
-	
-	/* DEBUG_PRINT ("added node %s....", node_name); */
+
 	return TRUE;
 }
 
@@ -381,9 +389,259 @@ cls_inherit_add_edge (AnjutaClassInheritance *plugin,
 	if ((edge = agedge (plugin->graph, n_from, n_to)) == NULL)
 		return FALSE;
 	
-	/* DEBUG_PRINT ("added edge: %s ---> %s", node_from, node_to); */
 	return TRUE;
 }
+
+
+/*----------------------------------------------------------------------------
+ * Draw an expanded node. Function simplify cls_inherit_draw_graph().
+ */
+static void
+cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node, 
+					point* node_pos, gdouble node_width, gdouble node_height) {
+	GnomeCanvasItem *item;
+	NodeData *node_data;
+	NodeExpansionStatus *node_status;
+	gint expansion_status;
+	gint i, j;
+	IAnjutaSymbolManager *sm;
+	IAnjutaIterable *symbol_iter = NULL;
+	
+	sm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaSymbolManager, NULL);
+	if (sm) {
+		symbol_iter = ianjuta_symbol_manager_get_members (sm, node->name,
+															   FALSE, NULL);
+	}
+						
+	/* we need to know which label to draw, wether only the "show all" or just 
+	 * the "normal view" */
+	if ( (node_status = 
+				(NodeExpansionStatus*)g_hash_table_lookup 
+				(plugin->expansion_node_list, node->name)) == NULL) {
+		expansion_status = NODE_NOT_EXPANDED;
+	}
+	else
+		expansion_status = node_status->expansion_status;
+
+	for (i=0; i < NODE_NUM_FIELDS (node); i++ ) {
+		for (j=0; j < NODE_NTH_FIELD (node,i)->n_flds; j++ ) {
+			gint y1, y2;			
+			y1 = NODE_LOWER_LEFT(node,i,j).y;
+			y2 = NODE_UPPER_RIGHT(node,i,j).y;
+
+			node_data = g_new0 (NodeData, 1);
+
+			/* set the plugin reference */
+			node_data->plugin = plugin;
+			node_data->anchored = TRUE;
+			node_data->name = g_strdup (node->name);
+
+			node_data->sub_item = g_strdup (NODE_NTH_TEXT (node,i,j));
+			
+			node_data->canvas_item =
+			gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
+								   gnome_canvas_rect_get_type (),
+								   "x1",
+								   (gdouble) (node_pos->x -INCH_TO_PIXELS (node_width)/2),
+								   "y1",
+								   (gdouble) -node_pos->y -INCH_TO_PIXELS (node_height)/2 +
+									j*abs(y1-y2),
+								   "x2",
+								   (gdouble) (node_pos->x +INCH_TO_PIXELS (node_width)/2),
+								   "y2",
+								   (gdouble) -node_pos->y -INCH_TO_PIXELS (node_height)/2 +
+									(j+1)*abs(y1-y2),
+								   "fill_color_gdk",
+								   &plugin->canvas->style->light[GTK_STATE_NORMAL],
+								   NULL);
+									
+			/* add to the nodelist: we'll set the __file and __line properites later
+			 * on this loop, when we'll parse symbols. */			
+			plugin->node_list = g_list_prepend (plugin->node_list, node_data);
+
+			g_signal_connect (GTK_OBJECT (node_data->canvas_item), "event",
+							  G_CALLBACK (on_nodedata_expanded_event),
+							  node_data);
+
+			/* --- texts --- */		
+			item = gnome_canvas_item_new (gnome_canvas_root
+										  (GNOME_CANVAS (plugin->canvas)),
+										  gnome_canvas_text_get_type (),
+										  "text", NODE_NTH_TEXT (node,i,j),
+										  "font", NODE_FONT_DEFAULT,
+										  "justification", GTK_JUSTIFY_CENTER,
+										  "style", PANGO_STYLE_ITALIC,
+										  "anchor", GTK_ANCHOR_CENTER,
+									  	  "x",
+									  	  (gdouble) (node_pos->x - 
+										  INCH_TO_PIXELS (node_width)/2 + 20),
+									  	  "y", (gdouble) -node_pos->y -
+										  INCH_TO_PIXELS (node_height)/2+(j+0.5)*abs(y1-y2),
+									  	  "fill_color_gdk",
+									  	  &plugin->canvas->style->text[GTK_STATE_NORMAL],
+									  	  "anchor", GTK_ANCHOR_W,        
+									  	  NULL);
+			plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
+			
+			if (j == 0) {		/* the Class' name case: make it bold */
+				gnome_canvas_item_set (item, 
+							"weight", PANGO_WEIGHT_BOLD, 
+							"style", PANGO_STYLE_NORMAL,
+							NULL);
+				continue;
+			}
+			else					/* we need to draw the last 2 elements differently */
+				if (expansion_status == NODE_HALF_EXPANDED && 
+					j > (NODE_NTH_FIELD (node,i)->n_flds -3)) {
+					gnome_canvas_item_set (item, 
+								"weight", PANGO_WEIGHT_HEAVY, 
+								"style", PANGO_STYLE_NORMAL,
+								NULL);						
+					continue;
+				}
+				else				/* only the last one. Usually "Normal view" */
+					if (expansion_status == NODE_FULL_EXPANDED && 
+						j > (NODE_NTH_FIELD (node,i)->n_flds -2)) {
+						gnome_canvas_item_set (item, 
+									"weight", PANGO_WEIGHT_HEAVY,
+									"style", PANGO_STYLE_NORMAL,
+									NULL);
+						continue;
+					}
+					
+			/* go on with the icons */
+			if (symbol_iter && ianjuta_iterable_get_length (symbol_iter, NULL) > 0) {
+				IAnjutaSymbol *symbol;
+				
+				symbol = ianjuta_iterable_get (symbol_iter,
+											   IANJUTA_TYPE_SYMBOL,
+											   NULL);
+				if (symbol) {
+					GdkPixbuf *pixbuf;
+					const gchar* file;
+					gint line;
+
+					file = ianjuta_symbol_file (symbol, NULL);
+					line = ianjuta_symbol_line (symbol, NULL);
+					pixbuf = ianjuta_symbol_icon (symbol, NULL);
+					
+					item = gnome_canvas_item_new (	gnome_canvas_root
+									  	(GNOME_CANVAS (plugin->canvas)),
+										gnome_canvas_pixbuf_get_type(),
+						  	  			"x",
+						  	  			(gdouble) (node_pos->x -
+										INCH_TO_PIXELS (node_width)/2 +2),
+						  	  			"y", 
+										(gdouble) -node_pos->y -
+										INCH_TO_PIXELS (node_height)/2+(j+0.5)*abs(y1-y2)-5,
+										"pixbuf", pixbuf,
+										NULL);
+
+					/* set now the object properties on node_data. We still have a 
+					 * reference to it so we can access its canvas_item */
+					if (file) {
+						g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__file",
+												g_strdup (file), g_free);
+						g_object_set_data (G_OBJECT (node_data->canvas_item), "__line",
+										   GINT_TO_POINTER (line));
+					}
+				}
+			}
+			
+			plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
+			ianjuta_iterable_next (symbol_iter, NULL);
+
+		}
+	}
+	
+	if (symbol_iter)
+		g_object_unref (symbol_iter);
+	
+	/* make the outline bounds */
+	item =
+	gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
+							gnome_canvas_rect_get_type (),
+							"x1",
+							(gdouble) (node_pos->x -INCH_TO_PIXELS (node_width)/2-1 ),
+							"y1",
+							(gdouble) -node_pos->y -INCH_TO_PIXELS (node_height)/2 -1,
+							"x2",
+							(gdouble) node_pos->x +INCH_TO_PIXELS (node_width)/2+1,
+							"y2",
+							(gdouble) -node_pos->y +INCH_TO_PIXELS (node_height)/2 -1,
+  						   "outline_color_gdk",
+							&plugin->canvas->style->fg[GTK_STATE_NORMAL],
+							"width_units", 1.0,
+							NULL);
+
+	plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
+}
+
+static void
+cls_inherit_draw_single_node (AnjutaClassInheritance *plugin, Agnode_t *node, 
+					point *node_pos, gdouble node_width, gdouble node_height) {
+	NodeData *node_data;
+	GnomeCanvasItem *item;
+	gdouble text_width_value;
+
+	node_data = g_new0 (NodeData, 1);
+		
+	/* set the plugin reference */
+	node_data->plugin = plugin;
+	node_data->anchored = FALSE;
+	node_data->name = g_strdup (node->name);
+	node_data->sub_item = NULL;
+		
+	node_data->canvas_item =
+	gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
+						   gnome_canvas_rect_get_type (),
+						   "x1",
+						   (gdouble) (node_pos->x - INCH_TO_PIXELS (node_width)/2),
+						   "y1",
+						   (gdouble) -(node_pos->y - INCH_TO_PIXELS (node_height)/2),
+						   "x2",
+						   (gdouble) (node_pos->x + INCH_TO_PIXELS (node_width)/2),
+						   "y2",
+						   (gdouble) -(node_pos->y + INCH_TO_PIXELS (node_height)/2),
+						   "fill_color_gdk",
+						   &plugin->canvas->style->light[GTK_STATE_NORMAL],
+						   "outline_color_gdk",
+						   &plugin->canvas->style->fg[GTK_STATE_NORMAL],
+						   "width_units", 1.0,
+						   NULL);
+	
+	plugin->node_list = g_list_prepend (plugin->node_list, node_data);
+	
+	g_signal_connect (GTK_OBJECT (node_data->canvas_item), "event",
+					  G_CALLBACK (on_nodedata_event),
+					  node_data);
+
+	/* --- texts --- */		
+	item = gnome_canvas_item_new (gnome_canvas_root
+								  (GNOME_CANVAS (plugin->canvas)),
+								  gnome_canvas_text_get_type (),
+								  "text", node->name,
+								  "font", NODE_FONT_DEFAULT,
+								  "justification", GTK_JUSTIFY_CENTER,
+								  "anchor", GTK_ANCHOR_CENTER,
+								  "x",
+								  (gdouble) (node_pos->x - INCH_TO_PIXELS (node_width)/2),
+								  "y", (gdouble) -node_pos->y,
+								  "fill_color_gdk",
+								  &plugin->canvas->style->text[GTK_STATE_NORMAL],
+								  "anchor", GTK_ANCHOR_W,        
+								  NULL );
+		
+	/* center the text in the node... */
+	g_object_get (item, "text_width", &text_width_value, NULL);
+						
+	gnome_canvas_item_set (item, "x",
+						   (gdouble)((node_pos->x - text_width_value/2)), NULL);
+
+	plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
+}
+
 
 /*----------------------------------------------------------------------------
  * draw the graph on the canvas. So nodes, edges, arrows, texts..
@@ -398,27 +656,16 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	GnomeCanvasItem *item;
 	Agnode_t *node;
 	Agedge_t *edge;
-	/* ArtBpath *bpath; */
 	
 	if (plugin->graph == NULL)
 		return;
+	
 	DEBUG_PRINT ("======== going to draw graph ========");
 	num_nodes = agnnodes (plugin->graph);	
 	g_return_if_fail (num_nodes > 0);
 	
 	/* compiles nodes/edges informations, such as positions, coordinates etc */
 	dot_layout (plugin->graph);
-	
-	/*/ DEBUG
-	num_nodes = agnnodes (plugin->graph);
-	DEBUG_PRINT ("num of nodes: %d", num_nodes); 
-	for (node = agfstnode (plugin->graph); node; node = agnxtnode (plugin->graph, node)) {
-		point p;
-		p = ND_coord_i(node);
-		DEBUG_PRINT("%d,%d. rw is %d\n", p.x, p.y, ND_rw_i(node));
-	}	
-	agwrite (plugin->graph, stdout);	
-	//*/
 	
 	/* set the size of the canvas. We need this to set the scrolling.. */
 	max_canvas_size_x = max_canvas_size_y = CANVAS_MIN_SIZE;
@@ -439,77 +686,18 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	{
 		gdouble node_width;
 		gdouble node_height;
-		point p;
-		gdouble text_width_value;
-		NodeData *node_data;
+		point node_pos;
 		
 		/* get some infos from the node */
-		p = ND_coord_i(node);
+		node_pos = ND_coord_i(node);
 		node_width = ND_width (node);
 		node_height = ND_height (node);
-		/*/
-		DEBUG_PRINT ( "*******NODE %s: width is %f so %f-->%f; height is %f so %f-->%f; p.x %d; p.y %d", 
-						ND_label (node)->text, width, p.x - INCH_TO_PIXELS (width)/2, p.x + INCH_TO_PIXELS (width)/2,
-													  height, p.y - INCH_TO_PIXELS (height)/2, p.y + INCH_TO_PIXELS (height)/2,
-													  p.x, p.y );
-		/*/
-		
-		/* --- node --- */
-		/* create the nodedata item and then add it to the list */
-		node_data = g_new0 (NodeData, 1);
-		
-		/* set the plugin reference */
-		node_data->plugin = plugin;
-		node_data->anchored = FALSE;
-		node_data->name = g_strdup (ND_label (node)->text);
-		
-		node_data->canvas_item =
-		gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (plugin->canvas)),
-							   gnome_canvas_rect_get_type (),
-							   "x1",
-							   (gdouble) (p.x - INCH_TO_PIXELS (node_width)/2),
-							   "y1",
-							   (gdouble) -(p.y - INCH_TO_PIXELS (node_height)/2),
-							   "x2",
-							   (gdouble) (p.x + INCH_TO_PIXELS (node_width)/2),
-							   "y2",
-							   (gdouble) -(p.y + INCH_TO_PIXELS (node_height)/2),
-							   "fill_color_gdk",
-							   &plugin->canvas->style->light[GTK_STATE_NORMAL],
-							   "outline_color_gdk",
-							   &plugin->canvas->style->fg[GTK_STATE_NORMAL],
-							   "width_units", 1.0,
-							   NULL);
-		
-		plugin->node_list = g_list_prepend (plugin->node_list, node_data);
-		
-		g_signal_connect (GTK_OBJECT (node_data->canvas_item), "event",
-						  G_CALLBACK (on_nodedata_event),
-						  node_data);
 
-		/* --- texts --- */		
-		item = gnome_canvas_item_new (gnome_canvas_root
-									  (GNOME_CANVAS (plugin->canvas)),
-									  gnome_canvas_text_get_type (),
-									  "text", ND_label (node)->text, 
-									  "font", NODE_FONT_DEFAULT,
-									  "justification", GTK_JUSTIFY_CENTER,
-									  "anchor", GTK_ANCHOR_CENTER,
-									  "x",
-									  (gdouble) (p.x - INCH_TO_PIXELS (node_width)/2),
-									  "y", (gdouble) -p.y,
-									  "fill_color_gdk",
-									  &plugin->canvas->style->text[GTK_STATE_NORMAL],
-									  "anchor", GTK_ANCHOR_W,        
-									  NULL );
-		
-		/* center the text in the node... */
-		g_object_get (item, "text_width", &text_width_value, NULL);
-						
-		gnome_canvas_item_set (item, "x",
-							   (gdouble)((p.x - text_width_value/2)), NULL);
-
-		plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
+		if (strcmp ("record", ND_shape (node)->name) == 0 ) {
+			cls_inherit_draw_expanded_node (plugin, node, &node_pos, node_width, node_height);
+		}
+		else			/* it's a normal single node */
+			cls_inherit_draw_single_node (plugin, node, &node_pos, node_width, node_height);
 
 		/* --- edges --- */
 		for (edge = agfstedge (plugin->graph, node); edge;
@@ -542,7 +730,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 				if ( i+3 >= (ED_spl(edge)->list->size-1) )
 				{
 					GnomeCanvasPoints * points;
-					gdouble upper_bound = (gdouble)(p.y +
+					gdouble upper_bound = (gdouble)(node_pos.y +
 											INCH_TO_PIXELS (node_height)/2);
 					gdouble x_offset;
 					gint h;
@@ -610,18 +798,18 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 				g_list_prepend (plugin->drawable_list, item);
 		}
 
-		if (abs(p.x) > max_canvas_size_x ) 
-			max_canvas_size_x = abs(p.x) + INCH_TO_PIXELS (node_width)/2;
+		if (abs(node_pos.x) > max_canvas_size_x ) 
+			max_canvas_size_x = abs(node_pos.x) + INCH_TO_PIXELS (node_width)/2;
 		
-		if (abs(p.y) > max_canvas_size_y) 
-			max_canvas_size_y = abs(p.y) + INCH_TO_PIXELS (node_height)/2;
+		if (abs(node_pos.y + node_height) > max_canvas_size_y) 
+			max_canvas_size_y = abs(node_pos.y) + INCH_TO_PIXELS (node_height)/2;
 	}	
 	
 	gtk_widget_set_size_request (plugin->canvas, max_canvas_size_x +100,
 								 max_canvas_size_y +100);
 	gnome_canvas_set_scroll_region ( GNOME_CANVAS (plugin->canvas), -50,
 									50, max_canvas_size_x + 50,
-									-max_canvas_size_y -50);
+									-max_canvas_size_y -100);
 	
 	cls_inherit_graph_cleanup (plugin);
 }
@@ -733,27 +921,8 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 	}
 	g_list_foreach (classes, (GFunc)g_free, NULL);
 	g_list_free (classes);
+	g_hash_table_destroy (class_parents);
 	cls_inherit_draw_graph (plugin);	
-}
-
-/*----------------------------------------------------------------------------
- * callback for the canvas' right-click menu - update button.
- */
-static void
-on_update_menu_item_selected (GtkMenuItem *item,
-							  AnjutaClassInheritance *plugin)
-{
-	class_inheritance_update_graph (plugin);
-}
-
-/*----------------------------------------------------------------------------
- * callback for theme/colors changes
- */
-static void
-on_style_set (GtkWidget *widget, GtkStyle  *previous_style,
-			  AnjutaClassInheritance *plugin)
-{
-	class_inheritance_update_graph (plugin);
 }
 
 static GnomeUIInfo canvas_menu_uiinfo[] = {
@@ -771,6 +940,21 @@ static GnomeUIInfo canvas_menu_uiinfo[] = {
 	 NULL},
 	GNOMEUIINFO_END
 };
+
+void 
+class_inheritance_hash_table_clear (AnjutaClassInheritance *plugin) {
+	
+	if (plugin->expansion_node_list == NULL)
+		return;
+	
+	/* destroy the nodestatus hash table */
+	g_hash_table_destroy (plugin->expansion_node_list);
+	
+	/* reinitialize the table */
+	plugin->expansion_node_list = g_hash_table_new_full (g_str_hash, 
+												g_str_equal, g_free, 
+												(GDestroyNotify)cls_inherit_nodestatus_destroy);	
+}
 
 void
 class_inheritance_base_gui_init (AnjutaClassInheritance *plugin)
@@ -813,6 +997,10 @@ class_inheritance_base_gui_init (AnjutaClassInheritance *plugin)
 	/* create new GList */
 	plugin->drawable_list = NULL;
 	plugin->node_list = NULL;
+	
+	plugin->expansion_node_list = g_hash_table_new_full (g_str_hash, 
+												g_str_equal, g_free, 
+												(GDestroyNotify)cls_inherit_nodestatus_destroy);
 
 	/* menu create */
 	plugin->menu = gtk_menu_new ();

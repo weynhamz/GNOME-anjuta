@@ -1,3 +1,15 @@
+2005-06-07  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Massimo Cora'  <maxcvs@email.it>:
+	* plugins/class-inheritance/Makefile.am,
+	plugins/class-inheritance/class-inherit.c,
+	plugins/class-inheritance/class-inherit.h,
+	plugins/class-inheritance/plugin.c,
+	plugins/class-inheritance/plugin.h,
+	(added) plugins/class-inheritance/class-callbacks.[ch]: Implemented
+	expanded view of classes in hierarchy canvas (collapsable again).
+	
+
 2005-06-05  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* scintilla/patches/scintilla-64-bit.diff (added)
