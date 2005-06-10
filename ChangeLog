@@ -1,5 +1,7 @@
 2005-06-10  Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Increased gnome-build required to version 0.1.2.
+	
 	* plugins/project-manager/plugin.c: Fixed target/group removal.
 	Fixed memory leaks.
 	
