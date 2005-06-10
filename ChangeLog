@@ -1,5 +1,10 @@
 2005-06-10  Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-manager/plugin.c: Fixed target/group removal.
+	Fixed memory leaks.
+	
+2005-06-10  Naba Kumar  <naba@gnome.org>
+
 	* plugins/project-manager/plugin.c: Implemented target/group
 	configuration (update gnome-build module from cvs).
 	
@@ -14,7 +19,6 @@
 	(added) plugins/class-inheritance/class-callbacks.[ch]: Implemented
 	expanded view of classes in hierarchy canvas (collapsable again).
 	
-
 2005-06-05  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* scintilla/patches/scintilla-64-bit.diff (added)

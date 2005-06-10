@@ -132,7 +132,7 @@ update_operation_end (ProjectManagerPlugin *plugin, gboolean emit_signal)
 		{
 			GList *post_update_groups =
 			ianjuta_project_manager_get_elements (IANJUTA_PROJECT_MANAGER (plugin),
-												  IANJUTA_PROJECT_MANAGER_TARGET,
+												  IANJUTA_PROJECT_MANAGER_GROUP,
 												  NULL);
 			update_operation_emit_signals (plugin, plugin->pre_update_groups,
 										   post_update_groups);
@@ -159,7 +159,7 @@ update_operation_end (ProjectManagerPlugin *plugin, gboolean emit_signal)
 	{
 		g_list_foreach (plugin->pre_update_groups, (GFunc)g_free, NULL);
 		g_list_free (plugin->pre_update_groups);
-		plugin->pre_update_targets = NULL;
+		plugin->pre_update_groups = NULL;
 	}
 }
 
@@ -1333,6 +1333,7 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 					elements = g_list_prepend (elements,
 											   g_strdup (source->source_uri));
 				gbf_project_target_source_free (source);
+				g_free (node->data);
 				node = node->next;
 			}
 			g_list_free (sources);
@@ -1348,13 +1349,28 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 				elements = g_list_prepend (elements,
 										   get_element_uri_from_id (plugin,
 																	(const gchar *)node->data));
+				g_free (node->data);
 				node = node->next;
 			}
 			g_list_free (targets);
 			break;
 		}
 		case IANJUTA_PROJECT_MANAGER_GROUP:
-			g_warning ("Unimplemented: get groups");
+		{
+			GList *groups, *node;
+			groups = gbf_project_get_all_groups (plugin->project, NULL);
+			node = groups;
+			while (node)
+			{
+				elements = g_list_prepend (elements,
+										   get_element_uri_from_id (plugin,
+																	(const gchar *)node->data));
+				g_free (node->data);
+				node = node->next;
+			}
+			g_list_free (groups);
+			break;
+		}
 		default:
 			elements = NULL;
 	}
@@ -1468,6 +1484,7 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 				elements = g_list_prepend (elements, target_uri);
 			}
 		}
+		g_free (node->data);
 		node = node->next;
 	}
 	g_list_free (targets);
