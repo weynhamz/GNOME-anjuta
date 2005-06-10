@@ -223,7 +223,28 @@ on_refresh (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	/* FIXME: */
+	GtkWidget *win, *properties;
+	
+	properties = gbf_project_configure (plugin->project, NULL);
+	if (properties)
+	{
+		win = gtk_dialog_new_with_buttons (_("Project properties"),
+										   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+										   GTK_DIALOG_DESTROY_WITH_PARENT,
+										   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
+		g_signal_connect_swapped (win, "response",
+								  G_CALLBACK (gtk_widget_destroy), win);
+		
+		gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
+						   properties);
+		gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
+		gtk_widget_show (win);
+	}
+	else
+	{
+		anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+								 _("No properties available for this target"));
+	}
 }
 
 static void
@@ -261,6 +282,68 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 {
+	GbfTreeData *data;
+	const gchar *selected_target;
+	GtkWidget *properties, *win;
+	
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_TARGET);
+	selected_target = NULL;
+	if (data)
+	{
+		selected_target = data->id;
+		properties = gbf_project_configure_target (plugin->project,
+												   selected_target, NULL);
+		if (properties)
+		{
+			win = gtk_dialog_new_with_buttons (_("Target properties"),
+											   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+											   GTK_DIALOG_DESTROY_WITH_PARENT,
+											   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
+			g_signal_connect_swapped (win, "response",
+									  G_CALLBACK (gtk_widget_destroy), win);
+			
+			gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
+							   properties);
+			gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
+			gtk_widget_show (win);
+		}
+		else
+		{
+			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+									 _("No properties available for this target"));
+		}
+		return;
+	}
+	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
+										   GBF_TREE_NODE_GROUP);
+	selected_target = NULL;
+	if (data)
+	{
+		selected_target = data->id;
+		properties = gbf_project_configure_group (plugin->project,
+												  selected_target, NULL);
+		if (properties)
+		{
+			win = gtk_dialog_new_with_buttons (_("Group properties"),
+											   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+											   GTK_DIALOG_DESTROY_WITH_PARENT,
+											   _("Close"), GTK_RESPONSE_CANCEL, NULL);
+			g_signal_connect_swapped (win, "response",
+									  G_CALLBACK (gtk_widget_destroy), win);
+			
+			gtk_container_add (GTK_CONTAINER (GTK_DIALOG(win)->vbox),
+							   properties);
+			gtk_window_set_default_size (GTK_WINDOW (win), 450, -1);
+			gtk_widget_show (win);
+		}
+		else
+		{
+			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+									 _("No properties available for this group"));
+		}
+		return;
+	}
 	/* FIXME: */
 }
 
@@ -478,23 +561,11 @@ static void
 on_target_activated (GtkWidget *widget, const gchar *target_id,
 					 ProjectManagerPlugin *plugin)
 {
+	DEBUG_PRINT ("Target activated: %s", target_id);
+	on_popup_properties (NULL, plugin);
+#if 0
 	gchar *target, *ptr;
 	
-#if 0
-	GList *list;
-	
-	gbf_project_configure_target (GBF_PROJECT (plugin->project), target_id, NULL);
-	list = gbf_project_get_build_targets (GBF_PROJECT (plugin->project), NULL);
-	while (list)
-	{
-		GbfBuildTarget *t = list->data;
-		g_message ("Build target: %s, %s, %s", t->id, t->label, t->description);
-		list = g_list_next (list);
-	}
-	g_list_free (list);
-#endif
-	
-	DEBUG_PRINT ("Target activated: %s", target_id);
 	target = g_strdup (target_id);
 	ptr = strchr (target, ':');
 	if (ptr)
@@ -523,6 +594,7 @@ on_target_activated (GtkWidget *widget, const gchar *target_id,
 		}
 	}
 	g_free (target);
+#endif
 }
 
 static GtkActionEntry pm_actions[] = 

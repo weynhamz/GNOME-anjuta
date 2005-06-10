@@ -1,3 +1,8 @@
+2005-06-10  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-manager/plugin.c: Implemented target/group
+	configuration (update gnome-build module from cvs).
+	
 2005-06-07  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Massimo Cora'  <maxcvs@email.it>:
