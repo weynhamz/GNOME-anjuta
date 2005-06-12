@@ -137,6 +137,51 @@ struct _ATPToolEditor
 /* Add helper function
  *---------------------------------------------------------------------------*/
 
+static gboolean
+make_directory (gchar* path)
+{
+	gchar c;
+	gchar* ptr;
+
+	for (ptr = path; *ptr;)
+	{
+		/* Get next directory */
+		for (c = '\0'; *ptr; ++ptr)
+		{
+			if (*ptr == G_DIR_SEPARATOR)
+			{
+				/* Strip leading directory separator */
+				do
+				{
+					++ptr;
+				} while (*ptr == G_DIR_SEPARATOR);
+				c = *ptr;
+				*ptr = '\0';
+				break;
+			}
+		}
+
+		/* Create it */
+		if (mkdir (path, 0755) < 0)
+		{
+			/* Error creating directory */
+			*ptr = c;
+			if (errno != EEXIST)
+			{
+		 		/* An already existing directory is not an error */		
+				return FALSE;
+			}
+		}
+		else
+		{
+			/* New directory created */
+			*ptr = c;
+		}
+	}
+
+	return TRUE;
+}
+
 static void
 set_combo_box_enum_model (GtkComboBox* combo_box, const ATPEnumType* list)
 {
@@ -736,10 +781,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 
 			/* Check that default script directory exist */
 			data = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, NULL);
-			if (!g_file_test (data, G_FILE_TEST_EXISTS))
-			{
-				mkdir (data, 0755);
-			}
+			make_directory (data);
 			g_free (data);
 
 			data = gtk_editable_get_chars(this->command_en, 0, -1);
