@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-29 02:37+0000\n"
-"PO-Revision-Date: 2005-05-29 12:25+0200\n"
+"POT-Creation-Date: 2005-06-12 10:37+0000\n"
+"PO-Revision-Date: 2005-06-12 13:55+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -295,7 +295,7 @@ msgstr "Povolit profilování"
 msgid "Enable _all"
 msgstr "Povolit _vše"
 
-#: ../anjuta.glade.h:60 ../plugins/tools/anjuta-tools.glade.h:2
+#: ../anjuta.glade.h:60 ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Povoleno"
 
@@ -504,7 +504,7 @@ msgstr "Moduly"
 
 #: ../anjuta.glade.h:103 ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
-#: ../plugins/tools/anjuta-tools.glade.h:4
+#: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Název:"
 
@@ -597,9 +597,9 @@ msgid "Programs"
 msgstr "Programy"
 
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:951
-#: ../plugins/project-manager/plugin.c:971
-#: ../plugins/project-manager/plugin.c:1047
+#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1023
+#: ../plugins/project-manager/plugin.c:1043
+#: ../plugins/project-manager/plugin.c:1119
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projekt"
@@ -656,7 +656,7 @@ msgstr "Spustit v terminálu"
 
 #: ../anjuta.glade.h:135
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
-#: ../plugins/tools/anjuta-tools.glade.h:6
+#: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Spustit v terminálu"
 
@@ -666,7 +666,7 @@ msgstr "Spustit v terminálu"
 msgid "SIGINT"
 msgstr "SIGINT"
 
-#: ../anjuta.glade.h:137 ../plugins/tools/anjuta-tools.glade.h:7
+#: ../anjuta.glade.h:137 ../plugins/tools/anjuta-tools.glade.h:9
 msgid "Save all files"
 msgstr "Uložit všechny soubory"
 
@@ -684,7 +684,7 @@ msgstr "Nastavit vlastnost signálu"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: ../anjuta.glade.h:141 ../plugins/tools/anjuta-tools.glade.h:8
+#: ../anjuta.glade.h:141 ../plugins/tools/anjuta-tools.glade.h:10
 msgid "Short cut:"
 msgstr "Zkratka:"
 
@@ -712,15 +712,15 @@ msgstr "Adresáře zdrojů"
 msgid "Source module Makefile.am"
 msgstr "Makefile.am zdrojového modulu"
 
-#: ../anjuta.glade.h:147 ../plugins/tools/anjuta-tools.glade.h:9
+#: ../anjuta.glade.h:147 ../plugins/tools/anjuta-tools.glade.h:11
 msgid "Standard error:"
 msgstr "Standardní chyby:"
 
-#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:10
+#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:12
 msgid "Standard input:"
 msgstr "Standardní vstup:"
 
-#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:11
+#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:13
 msgid "Standard output:"
 msgstr "Standardní výstup:"
 
@@ -751,7 +751,7 @@ msgstr "Překlad a sestavování je podporováno jen v režimu Soubor."
 msgid "Target:"
 msgstr "Cíl:"
 
-#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:12
+#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:14
 msgid "Tool Editor"
 msgstr "Editor nástrojů"
 
@@ -759,7 +759,7 @@ msgstr "Editor nástrojů"
 msgid "Top level Makefile.am"
 msgstr "Makefile.am nejvyšší úrovně"
 
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:762
+#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
 #: ../plugins/subversion/svn-notify.c:118
@@ -770,7 +770,7 @@ msgstr "Aktualizovat"
 msgid "Update tags image automatically"
 msgstr "Automaticky aktualizovat obraz tags"
 
-#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:13
+#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:15
 msgid "User Tools"
 msgstr "Nástroje uživatele"
 
@@ -803,7 +803,7 @@ msgstr "Varovat, když se v Makefile odkazuje na nedefinovanou proměnnou"
 msgid "Warnings"
 msgstr "Varování"
 
-#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:15
+#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Working directory:"
 msgstr "Pracovní adresář:"
 
@@ -843,7 +843,7 @@ msgid "_Disable all"
 msgstr "_Zakázat vše"
 
 #: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
-#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:16
+#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
 #: ../src/anjuta-actions.h:30 ../src/shell.c:76
 msgid "_Edit"
 msgstr "_Upravit"
@@ -1266,7 +1266,7 @@ msgstr "Režim klávesové zkratky"
 msgid "The type of accelerator."
 msgstr "Typ klávesové zkratky."
 
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:481
+#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:534
 msgid "Disabled"
 msgstr "Zakázáno"
 
@@ -1462,7 +1462,7 @@ msgstr "Dokončeno ... neúspěšně"
 msgid "Completed ... successful\n"
 msgstr "Dokončeno...úspěšně\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:361
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:337
 msgid "Completed ... successful"
 msgstr "Dokončeno...úspěšně"
 
@@ -1918,15 +1918,15 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "Spustitelný soubor '%s' není aktuální."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:169
+#: ../plugins/class-inheritance/class-inherit.c:140
 msgid "Fixed data-view"
 msgstr "Pevný pohled na data"
 
-#: ../plugins/class-inheritance/class-inherit.c:763
+#: ../plugins/class-inheritance/class-inherit.c:932
 msgid "Update the graph"
 msgstr "Aktualizovat graf"
 
-#: ../plugins/class-inheritance/plugin.c:123
+#: ../plugins/class-inheritance/plugin.c:126
 msgid "Inheritance Graph"
 msgstr "Graf dědění"
 
@@ -2834,7 +2834,7 @@ msgid "_Replace"
 msgstr "_Nahradit"
 
 #: ../plugins/editor/anjuta-docman.c:341
-#: ../plugins/message-view/message-view.c:86
+#: ../plugins/message-view/message-view.c:87
 msgid "Save file as"
 msgstr "Uložit soubor jako"
 
@@ -4488,6 +4488,7 @@ msgstr "Hledat použití"
 
 #. 18
 #: ../plugins/editor/text_editor_menu.c:348
+#: ../plugins/project-manager/plugin.c:331
 msgid "Close"
 msgstr "Zavřít"
 
@@ -4689,7 +4690,7 @@ msgstr "Ignorované soubory"
 msgid "dialog3"
 msgstr "dialog3"
 
-#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:541
+#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:613
 #: ../plugins/symbol-browser/plugin.c:313
 msgid "_Refresh"
 msgstr "_Obnovit"
@@ -5054,12 +5055,12 @@ msgid "All breakpoints removed.\n"
 msgstr "Všechny breakpointy odstraněny.\n"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
-#: ../plugins/tools/editor.c:403
+#: ../plugins/tools/editor.c:456
 msgid "Variable"
 msgstr "Proměnná"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/registers.c:316
-#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:409
+#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:462
 msgid "Value"
 msgstr "Hodnota"
 
@@ -7019,17 +7020,17 @@ msgstr "Styl indikátoru zprávy varování:"
 msgid "Warnings:"
 msgstr "Varování:"
 
-#: ../plugins/message-view/message-view.c:253
-#: ../plugins/message-view/message-view.c:287
+#: ../plugins/message-view/message-view.c:254
+#: ../plugins/message-view/message-view.c:288
 msgid "No message details"
 msgstr "Žádní podrobnosti o zprávě"
 
-#: ../plugins/message-view/message-view.c:629
-#: ../plugins/message-view/plugin.c:165
+#: ../plugins/message-view/message-view.c:640
+#: ../plugins/message-view/plugin.c:167
 msgid "Messages"
 msgstr "Zprávy"
 
-#: ../plugins/message-view/message-view.c:860
+#: ../plugins/message-view/message-view.c:872
 #, c-format
 msgid "Error writing %s"
 msgstr "Chyba při zápisu do %s"
@@ -7058,60 +7059,40 @@ msgstr "_Uložit zprávu"
 msgid "Save message"
 msgstr "Uložit zprávu"
 
-#: ../plugins/message-view/plugin.c:151
+#: ../plugins/message-view/plugin.c:150
 msgid "Next/Prev Message"
 msgstr "Násl/předch zpráva"
 
-#: ../plugins/patch/patch-plugin.c:52
-msgid "File/Dir to patch"
+#: ../plugins/patch/patch-plugin.c:67 ../plugins/patch/patch-plugin.c:77
+msgid "File/Directory to patch"
 msgstr "Soubor/adresář, který patchovat"
 
-#: ../plugins/patch/patch-plugin.c:53
+#: ../plugins/patch/patch-plugin.c:69 ../plugins/patch/patch-plugin.c:78
 msgid "Patch file"
 msgstr "Soubor patche"
 
-#: ../plugins/patch/patch-plugin.c:54
-msgid "Patch level (-p)"
-msgstr "Úroveň patche (-p)"
-
-#: ../plugins/patch/patch-plugin.c:62
-msgid "Patch Plugin"
-msgstr "Zásuvný modul patch"
-
-#: ../plugins/patch/patch-plugin.c:62
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: ../plugins/patch/patch-plugin.c:62 ../plugins/patch/patch-plugin.c:119
+#: ../plugins/patch/patch-plugin.c:119
 msgid "Patch"
 msgstr "Patch"
 
-#: ../plugins/patch/patch-plugin.c:64
-msgid "Selected directory to patch"
-msgstr "Vybraný adresář, který patchovat"
-
-#: ../plugins/patch/patch-plugin.c:66
-msgid "Selected patch file"
-msgstr "Vybraný soubor patche"
-
-#: ../plugins/patch/patch-plugin.c:132
+#: ../plugins/patch/patch-plugin.c:137
 msgid "Please select the directory where the patch should be applied"
 msgstr "Zvolte prosím adresář, kde má být patch použit"
 
-#: ../plugins/patch/patch-plugin.c:139
+#: ../plugins/patch/patch-plugin.c:144
 #, c-format
 msgid "Patching %s using %s\n"
 msgstr "Patchuji %s s %s\n"
 
-#: ../plugins/patch/patch-plugin.c:148
+#: ../plugins/patch/patch-plugin.c:153
 msgid "Patching...\n"
 msgstr "Patchuji...\n"
 
-#: ../plugins/patch/patch-plugin.c:158
+#: ../plugins/patch/patch-plugin.c:163
 msgid "There are unfinished jobs, please wait until they are finished"
 msgstr "Existují nedokončené úlohy, počkejte prosím na jejich dokončení"
 
-#: ../plugins/patch/patch-plugin.c:204
+#: ../plugins/patch/patch-plugin.c:207
 msgid ""
 "Patch failed.\n"
 "Please review the failure messages.\n"
@@ -7121,7 +7102,7 @@ msgstr ""
 "Přečtěte si prosím zprávy o selhání.\n"
 "Prozkoumejte a odstraňte odmítnuté soubory.\n"
 
-#: ../plugins/patch/patch-plugin.c:211
+#: ../plugins/patch/patch-plugin.c:214
 msgid "Patch successful.\n"
 msgstr "Patchování úspěšné.\n"
 
@@ -7237,7 +7218,29 @@ msgstr ""
 "Generování souboru projektu selhalo. Zkontrolujte prosím, jestli máte "
 "oprávnění zapisovat do adresáře projektu: %s"
 
-#: ../plugins/project-manager/plugin.c:347
+#: ../plugins/project-manager/plugin.c:231
+#: ../plugins/project-manager/plugin.c:608
+msgid "Project properties"
+msgstr "Vlastnosti projektu"
+
+#: ../plugins/project-manager/plugin.c:246
+#: ../plugins/project-manager/plugin.c:314
+msgid "No properties available for this target"
+msgstr "Pro tento cíl nejsou k dispozici vlastnosti"
+
+#: ../plugins/project-manager/plugin.c:299
+msgid "Target properties"
+msgstr "Vlastnosti cíle"
+
+#: ../plugins/project-manager/plugin.c:328
+msgid "Group properties"
+msgstr "Vlastnosti skupiny"
+
+#: ../plugins/project-manager/plugin.c:343
+msgid "No properties available for this group"
+msgstr "Pro tuto skupinu nejsou k dispozici vlastnosti"
+
+#: ../plugins/project-manager/plugin.c:430
 #, c-format
 msgid ""
 "%sGroup: %s\n"
@@ -7248,12 +7251,12 @@ msgstr ""
 "\n"
 "Skupina nebude odstraněna ze systému souborů."
 
-#: ../plugins/project-manager/plugin.c:350
+#: ../plugins/project-manager/plugin.c:433
 #, c-format
 msgid "%sTarget: %s"
 msgstr "%sCíl: %s"
 
-#: ../plugins/project-manager/plugin.c:353
+#: ../plugins/project-manager/plugin.c:436
 #, c-format
 msgid ""
 "%sSource: %s\n"
@@ -7264,7 +7267,7 @@ msgstr ""
 "\n"
 "Zdrojový soubor nebude odstraněn ze systému souborů."
 
-#: ../plugins/project-manager/plugin.c:360
+#: ../plugins/project-manager/plugin.c:443
 msgid ""
 "Are you sure you want to remove the following from project?\n"
 "\n"
@@ -7272,89 +7275,85 @@ msgstr ""
 "Opravdu chcete odstranit z projektu následující?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:532
+#: ../plugins/project-manager/plugin.c:604
 msgid "_Project"
 msgstr "_Projekt"
 
-#: ../plugins/project-manager/plugin.c:536
-#: ../plugins/project-manager/plugin.c:565
+#: ../plugins/project-manager/plugin.c:608
+#: ../plugins/project-manager/plugin.c:637
 msgid "_Properties"
 msgstr "_Vlastnosti"
 
-#: ../plugins/project-manager/plugin.c:536
-msgid "Project properties"
-msgstr "Vlastnosti projektu"
-
-#: ../plugins/project-manager/plugin.c:541
+#: ../plugins/project-manager/plugin.c:613
 msgid "Refresh project manager tree"
 msgstr "Obnovit strom správce projektu"
 
-#: ../plugins/project-manager/plugin.c:546
-#: ../plugins/project-manager/plugin.c:575
+#: ../plugins/project-manager/plugin.c:618
+#: ../plugins/project-manager/plugin.c:647
 msgid "Add _Group"
 msgstr "Přidat _skupinu"
 
-#: ../plugins/project-manager/plugin.c:546
-#: ../plugins/project-manager/plugin.c:575
+#: ../plugins/project-manager/plugin.c:618
+#: ../plugins/project-manager/plugin.c:647
 msgid "Add a group to project"
 msgstr "Přidat skupinu do projektu"
 
-#: ../plugins/project-manager/plugin.c:551
-#: ../plugins/project-manager/plugin.c:580
+#: ../plugins/project-manager/plugin.c:623
+#: ../plugins/project-manager/plugin.c:652
 msgid "Add _Target"
 msgstr "Přidat _cíl"
 
-#: ../plugins/project-manager/plugin.c:551
-#: ../plugins/project-manager/plugin.c:580
+#: ../plugins/project-manager/plugin.c:623
+#: ../plugins/project-manager/plugin.c:652
 msgid "Add a target to project"
 msgstr "Přidat cíl do projektu"
 
-#: ../plugins/project-manager/plugin.c:556
-#: ../plugins/project-manager/plugin.c:585
+#: ../plugins/project-manager/plugin.c:628
+#: ../plugins/project-manager/plugin.c:657
 msgid "Add _Source File"
 msgstr "Přidat _zdrojový soubor"
 
-#: ../plugins/project-manager/plugin.c:556
-#: ../plugins/project-manager/plugin.c:570
-#: ../plugins/project-manager/plugin.c:585
+#: ../plugins/project-manager/plugin.c:628
+#: ../plugins/project-manager/plugin.c:642
+#: ../plugins/project-manager/plugin.c:657
 msgid "Add a source file to project"
 msgstr "Přidat zdrojový soubor do projektu"
 
-#: ../plugins/project-manager/plugin.c:565
+#: ../plugins/project-manager/plugin.c:637
 msgid "Properties of group/target/source"
 msgstr "Vlastnosti skupiny/cíle/zdroje"
 
-#: ../plugins/project-manager/plugin.c:570
+#: ../plugins/project-manager/plugin.c:642
 msgid "_Add To Project"
 msgstr "_Přidat do projektu"
 
-#: ../plugins/project-manager/plugin.c:590
+#: ../plugins/project-manager/plugin.c:662
 msgid "Re_move"
 msgstr "_Odstranit"
 
-#: ../plugins/project-manager/plugin.c:590
+#: ../plugins/project-manager/plugin.c:662
 msgid "Remove from project"
 msgstr "Odstranit z projektu"
 
-#: ../plugins/project-manager/plugin.c:844
+#: ../plugins/project-manager/plugin.c:916
 msgid "Loading project. Please wait ..."
 msgstr "Načítám projekt. Čekejte prosím ..."
 
-#: ../plugins/project-manager/plugin.c:913
+#: ../plugins/project-manager/plugin.c:985
 #, c-format
 msgid "Loading project: %s"
 msgstr "Načítám projekt: %s"
 
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:1003
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Nemohu načíst projekt %s: %s"
 
-#: ../plugins/project-manager/plugin.c:1029
+#: ../plugins/project-manager/plugin.c:1101
 msgid "Project manager actions"
 msgstr "Akce správce projektu"
 
-#: ../plugins/project-manager/plugin.c:1035
+#: ../plugins/project-manager/plugin.c:1107
 msgid "Project manager popup actions"
 msgstr "Kontextové akce správce projektu"
 
@@ -8379,23 +8378,31 @@ msgstr "Používat aktuální zvolený profil v GNOME terminálu"
 msgid "Terminal"
 msgstr "Terminál"
 
+#: ../plugins/tools/anjuta-tools.glade.h:2
+msgid "Edit as script"
+msgstr "Upravit jako skript"
+
 #: ../plugins/tools/anjuta-tools.glade.h:3
+msgid "Edit command in Anjuta on close"
+msgstr ""
+
+#: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
 msgstr "Položky menu:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:5
+#: ../plugins/tools/anjuta-tools.glade.h:7
 msgid "Parameters:"
 msgstr "Parametry:"
 
-#: ../plugins/tools/anjuta-tools.glade.h:14
+#: ../plugins/tools/anjuta-tools.glade.h:16
 msgid "Variable list"
 msgstr "Seznam proměnných"
 
-#: ../plugins/tools/anjuta-tools.glade.h:17
+#: ../plugins/tools/anjuta-tools.glade.h:19
 msgid "_Variable..."
 msgstr "_Proměnná..."
 
-#: ../plugins/tools/anjuta-tools.glade.h:18
+#: ../plugins/tools/anjuta-tools.glade.h:20
 msgid "toggle"
 msgstr "přepnout"
 
@@ -8412,35 +8419,35 @@ msgstr "Nemohu sestavit uživatelské rozhraní pro seznam nástrojů"
 msgid "Tool"
 msgstr "Nástroj"
 
-#: ../plugins/tools/editor.c:251
+#: ../plugins/tools/editor.c:304
 msgid "ask at runtime"
 msgstr "zeptat se při běhu"
 
-#: ../plugins/tools/editor.c:256
+#: ../plugins/tools/editor.c:309
 msgid "undefined"
 msgstr "nedefinováno"
 
-#: ../plugins/tools/editor.c:390
+#: ../plugins/tools/editor.c:443
 msgid "Unable to build user interface for tool variable"
 msgstr "Nemohu sestavit uživatelské rozhraní pro proměnnou nástroje"
 
-#: ../plugins/tools/editor.c:406
+#: ../plugins/tools/editor.c:459
 msgid "Meaning"
 msgstr "Význam"
 
-#: ../plugins/tools/editor.c:593
+#: ../plugins/tools/editor.c:695
 msgid "You must provide a tool name!"
 msgstr "Musíte určit název nástroje!"
 
-#: ../plugins/tools/editor.c:599
+#: ../plugins/tools/editor.c:703
 msgid "You must provide a tool command!"
 msgstr "Musíte určit příkaz nástroje!"
 
-#: ../plugins/tools/editor.c:605
+#: ../plugins/tools/editor.c:711
 msgid "A tool with the same name already exists!"
 msgstr "Nástroj se stejným názvem již existuje!"
 
-#: ../plugins/tools/editor.c:622
+#: ../plugins/tools/editor.c:728
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway ?"
@@ -8448,59 +8455,63 @@ msgstr ""
 "Tuto klávesovou zkratku již používá jiná komponenta Anjuty. Chcete ji přesto "
 "zachovat?"
 
-#: ../plugins/tools/editor.c:776
+#: ../plugins/tools/editor.c:813
+msgid "Unable to edit script"
+msgstr "Nemohu upravit skript"
+
+#: ../plugins/tools/editor.c:949
 msgid "New accelerator..."
 msgstr "Nová klávesová zkratka..."
 
-#: ../plugins/tools/editor.c:801
+#: ../plugins/tools/editor.c:974
 msgid "Unable to build user interface for tool editor"
 msgstr "Nemohu sestavit uživatelské rozhraní pro editor nástrojů"
 
 #. Only for output data
-#: ../plugins/tools/execute.c:263
+#: ../plugins/tools/execute.c:239
 msgid "(output)"
 msgstr "(výstup)"
 
 #. Only for error data
-#: ../plugins/tools/execute.c:268
+#: ../plugins/tools/execute.c:244
 msgid "(error)"
 msgstr "(chyba)"
 
-#: ../plugins/tools/execute.c:315
+#: ../plugins/tools/execute.c:291
 msgid "Running command: "
 msgstr "Spouštím příkaz: "
 
-#: ../plugins/tools/execute.c:355
+#: ../plugins/tools/execute.c:331
 msgid "Completed ... unsuccessful with "
 msgstr "Dokončeno ... neúspěšně s "
 
-#: ../plugins/tools/execute.c:443
+#: ../plugins/tools/execute.c:419
 msgid "Unable to create a buffer, command aborted"
 msgstr "Nemohu vytvořit buffer, příkaz přerušen"
 
-#: ../plugins/tools/execute.c:454
+#: ../plugins/tools/execute.c:430
 msgid "No document currently open, command aborted"
 msgstr "Momentálně není otevřen žádný dokument, příkaz přerušen"
 
-#: ../plugins/tools/execute.c:784
+#: ../plugins/tools/execute.c:760
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Nemohu otevřít vstupní soubor %s, příkaz přerušen"
 
-#: ../plugins/tools/fileop.c:253
+#: ../plugins/tools/fileop.c:247
 msgid "Missing tool name"
 msgstr "Chybí název nástroje"
 
-#: ../plugins/tools/fileop.c:263
+#: ../plugins/tools/fileop.c:257
 #, c-format
 msgid "Unexpected element \"%s\""
 msgstr "Neočekávaný element \"%s\""
 
-#: ../plugins/tools/fileop.c:534
+#: ../plugins/tools/fileop.c:528
 msgid "Error when loading external tools"
 msgstr "Chyba při načítání externích nástrojů"
 
-#: ../plugins/tools/fileop.c:687
+#: ../plugins/tools/fileop.c:681
 #, c-format
 msgid "Unable to open %s for writing"
 msgstr "Nemohu otevřít %s pro zápis"
@@ -8760,6 +8771,21 @@ msgstr "Skupina akcí testovacího shellu"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Testovací shell Anjuty"
+
+#~ msgid "Patch level (-p)"
+#~ msgstr "Úroveň patche (-p)"
+
+#~ msgid "Patch Plugin"
+#~ msgstr "Zásuvný modul patch"
+
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#~ msgid "Selected directory to patch"
+#~ msgstr "Vybraný adresář, který patchovat"
+
+#~ msgid "Selected patch file"
+#~ msgstr "Vybraný soubor patche"
 
 #~ msgid "Crazy boy style"
 #~ msgstr "Styl šílený kluk"
