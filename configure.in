@@ -873,6 +873,8 @@ packagemenudir=`eval echo ${datadir}/gnome/apps`
 
 ANJUTA_PIXMAPS_DIR=${packagepixmapsdir}
 AC_SUBST(ANJUTA_PIXMAPS_DIR)
+ANJUTA_DATA_DIR=${packagedatadir}
+AC_SUBST(ANJUTA_DATA_DIR)
 
 prefix="$anjuta_save_prefix"
 exec_prefix="$anjuta_save_exec_prefix"
@@ -953,6 +955,8 @@ plugins/project-wizard/Makefile
 plugins/macro/Makefile
 plugins/subversion/Makefile
 plugins/tools/Makefile
+plugins/tools/scripts/Makefile
+plugins/tools/scripts/tools-2.xml
 plugins/class-inheritance/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile

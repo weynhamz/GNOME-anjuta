@@ -31,6 +31,7 @@
 #include "tool.h"
 
 #include <glib.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <string.h>
 #include <stdarg.h>
@@ -516,6 +517,7 @@ atp_anjuta_tools_load(ATPPlugin* plugin)
 
 	/* First, load global tools */
 	file_name = g_build_filename (ANJUTA_TOOLS_DIRECTORY, TOOLS_FILE, NULL);
+	DEBUG_PRINT ("Loading system tools: %s", file_name);
 	ok = atp_tool_list_load_from_file (atp_plugin_get_tool_list(plugin), file_name, ATP_TSTORE_GLOBAL);
 	g_free (file_name);
 

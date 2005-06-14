@@ -52,3 +52,7 @@ EXTRA_DIST = \
 	$(tools_plugin_DATA) \
 	$(tools_glade_DATA) \
 	$(tools_ui_DATA)
+
+SUBDIRS = \
+	scripts 
+

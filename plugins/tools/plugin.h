@@ -31,7 +31,7 @@
 
 #define MENU_PLACEHOLDER "/MenuMain/PlaceHolderToolMenus/Tools"
 
-#define ANJUTA_TOOLS_DIRECTORY PACKAGE_DATA_DIR
+#define ANJUTA_TOOLS_DIRECTORY PACKAGE_DATA_DIR"/tools"
 #define LOCAL_ANJUTA_TOOLS_DIRECTORY "/.anjuta"
 #define TOOLS_FILE	"tools-2.xml"
 #define LOCAL_ANJUTA_SCRIPT_DIRECTORY "/.anjuta/script"

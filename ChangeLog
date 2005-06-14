@@ -1,3 +1,12 @@
+2005-06-14  Naba Kumar  <naba@gnome.org>
+
+	* (new) plugins/tools/scripts/find-fixmes.pl,
+	(new) plugins/tools/scripts/tools-2.xml.in,
+	(new) plugins/tools/scripts/Makefile.am,
+	(new) plugins/tools/scripts/prepare-changelog.pl,
+	plugins/tools/plugin.h, plugins/tools/fileop.c,
+	plugins/tools/Makefile.am, configure.in: Added system tools.
+
 2005-06-11  Sebastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/editor.c:
