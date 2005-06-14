@@ -23,6 +23,9 @@
 #include "anjuta-msgman.h"
 #include "message-view.h"
 
+
+#define MESSAGES_TABS_POS            "messages.tab.position"
+
 struct _AnjutaMsgmanPriv
 {
 	AnjutaPreferences *preferences;
@@ -159,19 +162,56 @@ anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 	gobject_class->dispose = anjuta_msgman_dispose;
 }
 
+static void
+set_message_tab(AnjutaPreferences *pref, GtkNotebook *msgman)
+{
+	gchar *tab_pos; 
+	GtkPositionType pos;
+	
+	tab_pos = anjuta_preferences_get (pref, MESSAGES_TABS_POS);
+	pos = GTK_POS_TOP;
+	if (tab_pos)
+	{
+		if (strcasecmp (tab_pos, "left") == 0)
+			pos = GTK_POS_LEFT;
+		else if (strcasecmp (tab_pos, "right") == 0)
+			pos = GTK_POS_RIGHT;
+		else if (strcasecmp (tab_pos, "bottom") == 0)
+			pos = GTK_POS_BOTTOM;
+	}
+	gtk_notebook_set_tab_pos (msgman, pos);
+	g_free (tab_pos);
+}
+
+static void
+on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
+					   GConfEntry *entry, gpointer user_data)
+{
+	AnjutaPreferences *pref;
+	
+	pref = ANJUTA_MSGMAN (user_data)->priv->preferences;
+	set_message_tab(pref, GTK_NOTEBOOK (user_data));
+}
+
+
 GtkWidget*
 anjuta_msgman_new (AnjutaPreferences *pref, GtkWidget *popup_menu)
 {
+	guint notify_id;
 	GtkWidget *msgman = NULL;
 	msgman = gtk_widget_new (ANJUTA_TYPE_MSGMAN, NULL);
 	if (msgman)
 	{
 	    ANJUTA_MSGMAN (msgman)->priv->preferences = pref;
 	    ANJUTA_MSGMAN (msgman)->priv->popup_menu = popup_menu;
-#warning "TODO: Set tab position"
+
+		set_message_tab(pref, GTK_NOTEBOOK (msgman));
+		notify_id = anjuta_preferences_notify_add (pref, MESSAGES_TABS_POS, 
+		on_gconf_notify_message_pref, GTK_NOTEBOOK (msgman), NULL);
 	}
 	return msgman;
 }
+
 
 ANJUTA_TYPE_BEGIN (AnjutaMsgman, anjuta_msgman, GTK_TYPE_NOTEBOOK);
 ANJUTA_TYPE_END;

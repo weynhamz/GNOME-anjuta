@@ -1,3 +1,10 @@
+2005-06-14  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/message-view/anjuta-message-manager-plugin.glade :
+	renamed "messages.tag.position" to "messages.tab.position".
+	plugins/message-view/anjuta-msgman.c : 
+	Messages tab position prefrences.
+	
 2005-06-14  Naba Kumar  <naba@gnome.org>
 
 	* (new) plugins/tools/scripts/find-fixmes.pl,

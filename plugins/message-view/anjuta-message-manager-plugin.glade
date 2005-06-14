@@ -175,7 +175,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkOptionMenu" id="preferences_menu:text:Top,Bottom,Left,Right:0:messages.tag.position">
+		<widget class="GtkOptionMenu" id="preferences_menu:text:Top,Bottom,Left,Right:0:messages.tab.position">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="history">0</property>

@@ -500,6 +500,7 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, Ma
 
 	if (SE_BUFFER == se->type)
 	{
+g_print("FBPATH  %s\n", fb->path);
 		tmp = g_strrstr(fb->path, "/");
 		tmp = g_strndup(fb->path, tmp + 1 -(fb->path));
 		snprintf(buf, BUFSIZ, "%s%s:%ld:%s\n", tmp, se->te->filename, 
