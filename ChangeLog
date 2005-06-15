@@ -1,3 +1,8 @@
+2005-06-15  Naba Kumar  <naba@gnome.org>
+
+	* plugins/tools/scripts/tools-2.xml.in: Fixed prepare-changelog
+	tool path.
+
 2005-06-14  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/message-view/anjuta-message-manager-plugin.glade :

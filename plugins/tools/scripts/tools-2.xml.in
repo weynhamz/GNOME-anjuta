@@ -63,7 +63,7 @@
 		<shortcut></shortcut>
 	</tool>
 	<tool name="Prepare ChangeLog">
-		<command>@ANJUTA_DATA_DIR@/anjuta/tools/prepare-change-log.pl</command>
+		<command>@ANJUTA_DATA_DIR@/tools/prepare-changelog.pl</command>
 		<parameter>$(project_root_directory)</parameter>
 		<working_dir></working_dir>
 		<enabled>1</enabled>
