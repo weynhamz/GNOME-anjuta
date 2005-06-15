@@ -1,5 +1,41 @@
 <?xml version="1.0"?>
 <anjuta-tools>
+	<tool name="Prepare ChangeLog">
+		<command>@ANJUTA_DATA_DIR@/tools/prepare-changelog.pl</command>
+		<parameter>$(project_root_directory)</parameter>
+		<working_dir></working_dir>
+		<enabled>1</enabled>
+		<autosave>0</autosave>
+		<run_in_terminal>0</run_in_terminal>
+		<output>3</output>
+		<error>1</error>
+		<input_type>0</input_type>
+		<shortcut></shortcut>
+	</tool>
+	<tool name="Translation status">
+		<command>@ANJUTA_DATA_DIR@/tools/translation-status.pl</command>
+		<parameter>$(project_root_directory)</parameter>
+		<working_dir>$(project_root_directory)</working_dir>
+		<enabled>1</enabled>
+		<autosave>0</autosave>
+		<run_in_terminal>0</run_in_terminal>
+		<output>3</output>
+		<error>1</error>
+		<input_type>0</input_type>
+		<shortcut></shortcut>
+	</tool>
+	<tool name="Find FIXMEs">
+		<command>@ANJUTA_DATA_DIR@/tools/find-fixmes.pl</command>
+		<parameter>$(project_root_directory)</parameter>
+		<working_dir>$(project_root_directory)</working_dir>
+		<enabled>1</enabled>
+		<autosave>0</autosave>
+		<run_in_terminal>0</run_in_terminal>
+		<output>1</output>
+		<error>0</error>
+		<input_type>0</input_type>
+		<shortcut></shortcut>
+	</tool>
 	<tool name="Find with grep">
 		<command>grep -r -e</command>
 		<parameter>$(ask_user_string) .</parameter>
@@ -9,34 +45,8 @@
 		<run_in_terminal>0</run_in_terminal>
 		<output>1</output>
 		<error>0</error>
-		<input_type>4</input_type>
-		<input>$(file_manager_current_full_filename)</input>
+		<input_type>0</input_type>
 		<shortcut>&lt;Control&gt;grave</shortcut>
-		<icon>/usr/share/pixmaps/gnome-question.png</icon>
-	</tool>
-	<tool name="Find FIXMEs">
-		<command>sh -c</command>
-		<parameter>&apos;tree -if | egrep \&apos;\\.(c|cpp|cxx|h|hpp|idl)$\&apos; | xargs grep -n \&apos;FIXME:\&apos;&apos;</parameter>
-		<working_dir>$(project_root_directory)</working_dir>
-		<enabled>1</enabled>
-		<autosave>0</autosave>
-		<run_in_terminal>0</run_in_terminal>
-		<output>1</output>
-		<error>0</error>
-		<input_type>0</input_type>
-		<shortcut></shortcut>
-	</tool>
-	<tool name="Translation status">
-		<command>sh -c</command>
-		<parameter>&apos;cd po &amp;&amp; ./status.pl&apos;</parameter>
-		<working_dir>$(project_root_directory)</working_dir>
-		<enabled>1</enabled>
-		<autosave>0</autosave>
-		<run_in_terminal>0</run_in_terminal>
-		<output>3</output>
-		<error>0</error>
-		<input_type>0</input_type>
-		<shortcut></shortcut>
 	</tool>
 	<tool name="Make distribution">
 		<command>make dist</command>
@@ -59,18 +69,6 @@
 		<run_in_terminal>0</run_in_terminal>
 		<output>1</output>
 		<error>0</error>
-		<input_type>0</input_type>
-		<shortcut></shortcut>
-	</tool>
-	<tool name="Prepare ChangeLog">
-		<command>@ANJUTA_DATA_DIR@/tools/prepare-changelog.pl</command>
-		<parameter>$(project_root_directory)</parameter>
-		<working_dir></working_dir>
-		<enabled>1</enabled>
-		<autosave>0</autosave>
-		<run_in_terminal>0</run_in_terminal>
-		<output>3</output>
-		<error>1</error>
 		<input_type>0</input_type>
 		<shortcut></shortcut>
 	</tool>

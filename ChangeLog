@@ -1,5 +1,12 @@
 2005-06-15  Naba Kumar  <naba@gnome.org>
 
+	* plugins/tools/scripts/find-fixmes.pl,
+	(new) plugins/tools/scripts/translation-status.pl,
+	plugins/tools/scripts/tools-2.xml.in,
+	plugins/tools/scripts/Makefile.am,
+	plugins/tools/scripts/prepare-changelog.pl: Added translation
+	status script. Completed find-fixmes.pl script. Fixed bugs.
+
 	* plugins/tools/scripts/tools-2.xml.in: Fixed prepare-changelog
 	tool path.
 
