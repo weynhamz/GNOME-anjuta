@@ -22,6 +22,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
@@ -40,6 +41,8 @@
 static gpointer parent_class;
 
 static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
+static gboolean default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
+													 ESplash *splash, GError **err);
 
 static gchar*
 default_profile_plugin_get_session_dir (DefaultProfilePlugin *plugin)
@@ -76,9 +79,93 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, DefaultProfilePlugin *plugin)
 {
 	GList *files;
+	const gchar *dir;
+	gchar *profile_name, *profile_file;
+	GnomeVFSHandle* vfs_write;
+	GnomeVFSResult result;
+	GnomeVFSFileSize nchars;
+	GSList *plugins, *node;
+	GHashTable *base_plugins_hash;
+	GString *str;
 	
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
+	
+	if (plugin->session_by_me == TRUE)
+		/* Project session */
+		plugins = plugin->project_plugins;
+	else
+		/* External session */
+		plugins = plugin->system_plugins;
+	
+	/* Save currently active plugins */
+	profile_name = g_path_get_basename (plugin->default_profile);
+	dir = anjuta_session_get_session_directory (session);
+	profile_file = g_build_filename (dir, profile_name, NULL);
+	g_free (profile_name);
+	
+	/* Prepare the write data */
+	base_plugins_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
+	node = plugins;
+	while (node)
+	{
+		g_hash_table_insert (base_plugins_hash, node->data, node->data);
+		node = g_slist_next (node);
+	}
+	plugins = anjuta_plugins_get_active_plugins (ANJUTA_PLUGIN (plugin)->shell);
+	str = g_string_new ("<?xml version=\"1.0\"?>\n<anjuta>\n");
+	node = plugins;
+	while (node)
+	{
+		if (!g_hash_table_lookup (base_plugins_hash, node->data))
+		{
+			GObject *plugin_object;
+			AnjutaPluginDescription *desc;
+			gchar *name = NULL, *plugin_id = NULL;
+			
+			desc = (AnjutaPluginDescription *)node->data;
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+													  "Name", &name);
+			if (!name)
+				name = g_strdup ("Unknown");
+			
+			if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+													  "Location", &plugin_id))
+			{
+				plugin_object = anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
+																 plugin_id);
+				if (plugin_object != G_OBJECT (plugin))
+				{
+					g_string_append (str, "    <plugin name=\"");
+					g_string_append (str, name);
+					g_string_append (str, "\" mandatory=\"no\">\n");
+					g_string_append (str, "        <require group=\"Anjuta Plugin\"\n");
+					g_string_append (str, "                 attribute=\"Location\"\n");
+					g_string_append (str, "                 value=\"");
+					g_string_append (str, plugin_id);
+					g_string_append (str, "\"/>\n");
+					g_string_append (str, "    </plugin>\n");
+					g_free (plugin_id);
+				}
+			}
+			g_free (name);
+		}
+		node = g_slist_next (node);
+	}
+	g_string_append (str, "</anjuta>\n");
+	
+	result = gnome_vfs_create (&vfs_write, profile_file, GNOME_VFS_OPEN_WRITE,
+							   FALSE, 0664);
+	
+ 	if (result == GNOME_VFS_OK)
+	{
+		gnome_vfs_write(vfs_write, str->str, str->len, &nchars);
+		gnome_vfs_close(vfs_write);
+	}
+	g_hash_table_destroy (base_plugins_hash);
+	g_slist_free (plugins);
+	g_string_free (str, TRUE);
+	
 	/*
 	 * When a project session is being saved (session_by_me == TRUE),
 	 * we should not save the current project uri, because project 
@@ -123,23 +210,12 @@ update_ui (DefaultProfilePlugin *plugin)
 				  (plugin->project_uri != NULL), NULL);
 }
 
-static void
-on_queue_foreach_disconnect (GObject *obj, DefaultProfilePlugin* plugin)
-{
-	g_signal_handlers_disconnect_by_func (obj, G_CALLBACK (g_list_remove),
-										  plugin->loaded_plugins);
-}
-
-static void
-on_queue_foreach_unload (GObject *obj, DefaultProfilePlugin* plugin)
-{
-		anjuta_plugins_unload_plugin (ANJUTA_PLUGIN (plugin)->shell, obj);
-}
-
 static gboolean
 on_close_project_idle (gpointer plugin)
 {
 	default_profile_plugin_close ((DefaultProfilePlugin *)plugin);
+	default_profile_plugin_load_default ((DefaultProfilePlugin *)plugin,
+										 NULL, NULL);
 	return FALSE;
 }
 
@@ -212,25 +288,26 @@ static void
 default_profile_plugin_dispose (GObject *obj)
 {
 	DefaultProfilePlugin* plugin = (DefaultProfilePlugin *)obj;
-	
+	if (plugin->default_profile)
+	{
+		g_free (plugin->default_profile);
+		plugin->default_profile = NULL;
+	}
 	if (plugin->project_uri)
 	{
 		g_free (plugin->project_uri);
 		plugin->project_uri = NULL;
 	}
-	if (plugin->default_plugins)
+	if (plugin->system_plugins)
 	{
-		g_hash_table_destroy (plugin->default_plugins);
-		plugin->default_plugins = NULL;
+		g_slist_free (plugin->system_plugins);
+		plugin->system_plugins = NULL;
 	}
-	if (plugin->loaded_plugins)
+	if (plugin->project_plugins)
 	{
-		g_queue_foreach (plugin->loaded_plugins,
-						 (GFunc) on_queue_foreach_disconnect,
-						 plugin);
-		plugin->loaded_plugins = NULL;
-	}	
-	
+		g_slist_free (plugin->project_plugins);
+		plugin->project_plugins = NULL;
+	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -241,8 +318,9 @@ default_profile_plugin_instance_init (GObject *obj)
 	plugin->project_uri = NULL;
 	plugin->merge_id = 0;
 	plugin->action_group = NULL;
-	plugin->loaded_plugins = NULL;
-	plugin->default_plugins = NULL;
+	plugin->default_profile = NULL;
+	plugin->system_plugins = NULL;
+	plugin->project_plugins = NULL;
 	plugin->session_by_me = FALSE;
 }
 
@@ -328,17 +406,6 @@ default_profile_plugin_query_plugins (DefaultProfilePlugin *plugin,
 	return NULL;
 }
 
-
-static void
-disconnect_plugin_deactivate_signal (GObject *obj)
-{
-	DefaultProfilePlugin *plugin = 
-		g_object_get_data (G_OBJECT (obj), "__default_profile_plugin");
-	g_signal_handlers_disconnect_by_func (obj,
-										  G_CALLBACK (g_hash_table_remove),
-										  plugin->default_plugins);
-}
-
 static GSList*
 default_profile_plugin_select_plugins (DefaultProfilePlugin *plugin,
 									   GSList *descs_list)
@@ -370,8 +437,7 @@ default_profile_plugin_select_plugins (DefaultProfilePlugin *plugin,
 static void
 default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 										 GSList *selected_plugins,
-										 ESplash *splash,
-										 gboolean default_profile)
+										 ESplash *splash)
 {
 	GSList *node;
 	gint i, max_icons;
@@ -470,6 +536,7 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 			plugin_obj =
 				anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
 												 plugin_id);
+#if 0
 			if (!default_profile && plugin_obj)
 			{
 				if (!plugin->default_plugins ||
@@ -510,6 +577,7 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 										  G_CALLBACK (g_hash_table_remove),
 										  plugin->default_plugins);
 			}
+#endif
 		}
 		i++;
 		max_icons--;
@@ -525,34 +593,21 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 	anjuta_shell_thaw (ANJUTA_PLUGIN (plugin)->shell, NULL);
 }
 
-static gboolean
-default_profile_plugin_load (DefaultProfilePlugin *plugin,
-							 const gchar *uri,
-							 ESplash *splash,
-							 gboolean default_profile, GError **e)
+static GSList*
+default_profile_plugin_read (DefaultProfilePlugin *plugin,
+							 const gchar *xml_uri)
 {
 	xmlDocPtr xml_doc;
 	xmlNodePtr xml_root, xml_node;
 	GnomeVFSHandle *handle;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult result;
-	int perm, read;
 	GSList *descs_list, *selected_plugins, *not_found_names, *not_found_urls;
+	int perm, read;
 	gboolean error = FALSE;
 	gchar *read_buf = NULL;
 	
-	g_return_val_if_fail (uri != NULL, FALSE);
-	
-	/* FIXME: Propagate the following errors */
-	
-	/* Can not load more than one default profile */
-	g_return_val_if_fail (!(default_profile && plugin->default_plugins != NULL),
-						  FALSE);
-
-	/* Can not load default profile if a project profile is loaded */
-	g_return_val_if_fail (!(default_profile && plugin->project_uri), FALSE);
-	
-	result = gnome_vfs_get_file_info(uri, &info,
+	result = gnome_vfs_get_file_info(xml_uri, &info,
 									 GNOME_VFS_FILE_INFO_DEFAULT |
 									 GNOME_VFS_FILE_INFO_GET_ACCESS_RIGHTS);
 
@@ -561,8 +616,8 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Cannot open: %s\n&s"),
-								  uri, gnome_vfs_result_to_string(result));
-		return FALSE;
+								  xml_uri, gnome_vfs_result_to_string(result));
+		return NULL;
 	}
 	
 	/* FIXME: Fix this bit masking */
@@ -573,16 +628,16 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("No read permission for: %s"),
-								  uri);
-		return FALSE;
+								  xml_uri);
+		return NULL;
 	}
-	if((result = gnome_vfs_open (&handle, uri,
+	if((result = gnome_vfs_open (&handle, xml_uri,
 								 GNOME_VFS_OPEN_READ)) != GNOME_VFS_OK)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Cannot open: %s\n&s"),
-								  uri, gnome_vfs_result_to_string(result));
-		return FALSE;
+								  xml_uri, gnome_vfs_result_to_string(result));
+		return NULL;
 	}
 	read_buf = g_new0(char, info.size + 1);
 	
@@ -592,8 +647,8 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 		g_free (read_buf);
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Cannot open: %s\n&s"),
-								  uri, gnome_vfs_result_to_string(result));
-		return FALSE;
+								  xml_uri, gnome_vfs_result_to_string(result));
+		return NULL;
 	}
 	gnome_vfs_close (handle);
 	xml_doc = xmlParseMemory (read_buf, info.size);
@@ -602,8 +657,8 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Cannot open: %s\nXML parse error."),
-								  uri);
-		return FALSE;
+								  xml_uri);
+		return NULL;
 	}
 	
 	xml_root = xmlDocGetRootElement(xml_doc);
@@ -611,9 +666,9 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Cannot open: %s\nXML parse error."),
-								  uri);
+								  xml_uri);
 		/* Free xml doc */
-		return FALSE;
+		return NULL;
 	}
 	
 	if(!xml_root->name ||
@@ -621,8 +676,8 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
-								  uri);
-		return FALSE;
+								  xml_uri);
+		return NULL;
 	}
 	
 	error = FALSE;
@@ -759,7 +814,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 		g_slist_free (not_found_names);
 		g_slist_free (not_found_urls);
 		g_slist_free (descs_list);
-		return FALSE;
+		return NULL;
 	}
 	if (not_found_names)
 	{
@@ -789,33 +844,139 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 		g_slist_free (not_found_names);
 		g_slist_free (not_found_urls);
 		g_slist_free (descs_list);
-		return FALSE;
+		return NULL;
 	}
-	
 	if (descs_list)
 	{
-		/* Now everything okay. Select the plugins and activate them */
+		/* Now everything okay. Select the plugins */
 		descs_list = g_slist_reverse (descs_list);
 		selected_plugins = default_profile_plugin_select_plugins (plugin,
 																  descs_list);
-		
-		/* Activate them */
-		default_profile_plugin_activate_plugins (plugin, selected_plugins,
-												 splash,
-												 default_profile);
-		g_slist_free (selected_plugins);
 		g_slist_foreach (descs_list, (GFunc)g_slist_free, NULL);
 		g_slist_free (descs_list);
+		return selected_plugins;
+	}
+	return NULL;
+}
+
+static gboolean
+default_profile_plugin_load (DefaultProfilePlugin *plugin,
+							 GSList *selected_plugins,
+							 ESplash *splash, GError **e)
+{
+	GSList *active_plugins, *node, *plugins_to_activate;
+	GHashTable *active_plugins_hash, *plugins_to_activate_hash;
+	gboolean ret = TRUE;
+	
+	/* Prepare plugins to activate */
+	plugins_to_activate_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
+	node = selected_plugins;
+	while (node)
+	{
+		g_hash_table_insert (plugins_to_activate_hash, node->data, node->data);
+		node = g_slist_next (node);
+	}
+	
+	/* Deactivate plugins that are already active, but are not requested to
+	 * to be active */
+	active_plugins = anjuta_plugins_get_active_plugins (ANJUTA_PLUGIN (plugin)->shell);
+	active_plugins_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
+	node = active_plugins;
+	while (node)
+	{
+		if (!g_hash_table_lookup (plugins_to_activate_hash, node->data))
+		{
+			AnjutaPluginDescription *desc;
+			GObject *plugin_object;
+			gchar *plugin_id = NULL;
+			
+			desc = (AnjutaPluginDescription *)node->data;
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Location", &plugin_id);
+			g_assert (plugin_id != NULL);
+			
+			plugin_object = anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
+															 plugin_id);
+			g_assert (plugin_object != NULL);
+			
+			/* Refrain from unloading self. bah */
+			if (G_OBJECT (plugin) != plugin_object)
+			{
+				anjuta_plugins_unload_plugin (ANJUTA_PLUGIN (plugin)->shell,
+											  plugin_object);
+			}
+			g_free (plugin_id);
+		}
+		g_hash_table_insert (active_plugins_hash, node->data, node->data);
+		node = g_slist_next (node);
+	}
+	
+	/* Prepare the plugins to activate */
+	plugins_to_activate = NULL;
+	node = selected_plugins;
+	while (node)
+	{
+		if (!g_hash_table_lookup (active_plugins_hash, node->data))
+			plugins_to_activate = g_slist_prepend (plugins_to_activate,
+												   node->data);
+		node = g_slist_next (node);
+	}
+	
+	/* Now activate the plugins */
+	if (plugins_to_activate)
+	{
+		/* Activate them */
+		plugins_to_activate = g_slist_reverse (plugins_to_activate);
+		default_profile_plugin_activate_plugins (plugin, plugins_to_activate,
+												 splash);
 	}
 	else
 	{
-		/* The project file is empty */
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
-								  uri);
-		return FALSE;
+		ret = FALSE;
 	}
-	return TRUE;
+	g_slist_free (plugins_to_activate);
+	g_slist_free (active_plugins);
+	g_hash_table_destroy (plugins_to_activate_hash);
+	g_hash_table_destroy (active_plugins_hash);
+	return ret;
+}
+
+static gboolean
+default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
+									 ESplash *splash, GError **err)
+{
+	gchar *session_plugins, *profile_name;
+	GSList *selected_plugins, *temp_plugins;
+	gboolean ret = TRUE;
+	
+	g_return_val_if_fail (plugin->default_profile != NULL, FALSE);
+	
+	/* Load system default plugins */
+	selected_plugins = default_profile_plugin_read (plugin,
+													plugin->default_profile);
+	
+	/* Save the list for later comparision */
+	if (plugin->system_plugins) {
+		g_slist_free (plugin->system_plugins);
+		plugin->system_plugins = NULL;
+	}
+	plugin->system_plugins = g_slist_copy (selected_plugins);
+	
+	/* Load user session plugins */
+	profile_name = g_path_get_basename (plugin->default_profile);
+	session_plugins = g_build_filename (g_get_home_dir(), ".anjuta",
+										profile_name, NULL);
+	g_free (profile_name);
+	if (g_file_test (session_plugins, G_FILE_TEST_EXISTS))
+	{
+		temp_plugins = default_profile_plugin_read (plugin, session_plugins);
+		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
+	}
+	ret = default_profile_plugin_load (plugin, selected_plugins,
+									   splash, err);
+	g_slist_free (selected_plugins);
+	g_free (session_plugins);
+	return ret;
 }
 
 static void
@@ -824,9 +985,6 @@ default_profile_plugin_close (DefaultProfilePlugin *plugin)
 	gchar *session_dir;
 	
 	g_return_if_fail (plugin->project_uri != NULL);
-	
-	if (!plugin->loaded_plugins)
-		return;
 	
 	/* Save project session */
 	session_dir = default_profile_plugin_get_session_dir (plugin);
@@ -842,21 +1000,6 @@ default_profile_plugin_close (DefaultProfilePlugin *plugin)
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 							   "project_root_uri", NULL);
 	
-	/* Unload the plugins */
-	g_queue_foreach (plugin->loaded_plugins,
-					 (GFunc) on_queue_foreach_disconnect,
-					 plugin);
-	
-	/* Unload the plugin in reverse order */
-	g_queue_reverse (plugin->loaded_plugins);
-	
-	/* Unload them */
-	g_queue_foreach (plugin->loaded_plugins,
-					 (GFunc) on_queue_foreach_unload,
-					 plugin);
-	
-	g_queue_free (plugin->loaded_plugins);
-	plugin->loaded_plugins = NULL;
 	g_free (plugin->project_uri);
 	plugin->project_uri = NULL;
 	update_ui (plugin);
@@ -868,8 +1011,14 @@ iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
 	DefaultProfilePlugin *plugin;
 	
 	plugin = (DefaultProfilePlugin*)ANJUTA_PLUGIN (profile);
-	default_profile_plugin_load (plugin, DEFAULT_PROFILE,
-								 splash, TRUE, err);
+	
+	if (plugin->default_profile)
+	{
+		g_free (plugin->default_profile);
+		plugin->default_profile = NULL;
+	}
+	plugin->default_profile = g_strdup (DEFAULT_PROFILE);
+	default_profile_plugin_load_default (plugin, splash, err);
 }
 
 static void
@@ -884,9 +1033,10 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 {
 	GtkWidget *splash;
 	GnomeVFSURI *vfs_uri;
-	gchar *dirname, *vfs_dir, *session_dir;
+	gchar *dirname, *vfs_dir, *session_dir, *session_plugins, *profile_name;
 	DefaultProfilePlugin *plugin;
 	GValue *value;
+	GSList *selected_plugins, *temp_plugins;
 	
 	plugin = (DefaultProfilePlugin*)G_OBJECT (ifile);
 	
@@ -912,8 +1062,42 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		}
 		g_object_ref (G_OBJECT (splash));
 	}
-	if (!default_profile_plugin_load (plugin, uri, E_SPLASH (splash),
-									  FALSE, e))
+	
+	/* Load system default plugins */
+	selected_plugins = default_profile_plugin_read (plugin,
+													plugin->default_profile);
+	
+	/* Load project default plugins */
+	temp_plugins = default_profile_plugin_read (plugin, uri);
+	selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
+	
+	/* Save the list for later comparision */
+	if (plugin->project_plugins) {
+		g_slist_free (plugin->project_plugins);
+		plugin->project_plugins = NULL;
+	}
+	plugin->project_plugins = g_slist_copy (selected_plugins);
+	
+	/* Load project session plugins */
+	vfs_uri = gnome_vfs_uri_new (uri);
+	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
+	profile_name = g_path_get_basename (plugin->default_profile);
+	gnome_vfs_uri_unref (vfs_uri);
+	session_plugins = g_build_filename (dirname, ".anjuta",
+										profile_name, NULL);
+	g_free (profile_name);
+	
+	DEBUG_PRINT ("Loading session profile: %s", session_plugins);
+	
+	if (g_file_test (session_plugins, G_FILE_TEST_EXISTS))
+	{
+		temp_plugins = default_profile_plugin_read (plugin, session_plugins);
+		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
+	}
+	g_free (session_plugins);
+	
+	if (!default_profile_plugin_load (plugin, selected_plugins,
+									  E_SPLASH (splash), e))
 	{
 		/* Thaw shell */
 		anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
@@ -921,13 +1105,18 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 			g_object_unref (splash);
 			gtk_widget_destroy (splash);
 		}
+		g_free (dirname);
+		g_slist_free (selected_plugins);
+		
+		/* The project file is empty */
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
+								  uri);
 		return; /* FIXME: Propagate error */
 	}	
+	g_slist_free (selected_plugins);
 	
 	/* Set project uri */
-	vfs_uri = gnome_vfs_uri_new (uri);
-	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
-	gnome_vfs_uri_unref (vfs_uri);
 	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
 	g_free (dirname);
 

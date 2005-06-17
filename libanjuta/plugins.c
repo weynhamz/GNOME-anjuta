@@ -1241,6 +1241,28 @@ anjuta_plugins_get_plugin_by_id (AnjutaShell *shell,
 	return NULL;
 }
 
+static void
+on_installed_tools_foreach (gpointer key, gpointer data, gpointer user_data)
+{
+	AvailableTool *tool = (AvailableTool*)key;
+	GSList **active_plugins = (GSList **)user_data;
+	*active_plugins = g_slist_prepend (*active_plugins, tool->description);
+}
+
+GSList*
+anjuta_plugins_get_active_plugins (AnjutaShell *shell)
+{
+	GHashTable *installed_tools;
+	GSList *active_plugins = NULL;
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	if (installed_tools)
+	{
+		g_hash_table_foreach (installed_tools, on_installed_tools_foreach,
+							  &active_plugins);
+	}
+	return g_slist_reverse (active_plugins);
+}
+
 gboolean
 anjuta_plugins_unload_plugin_by_id (AnjutaShell *shell,
 									const gchar *plugin_id)

@@ -46,6 +46,8 @@ GObject *anjuta_plugins_get_plugin (AnjutaShell *shell,
 GObject *anjuta_plugins_get_plugin_by_id (AnjutaShell *shell,
 										  const gchar *plugin_id);
 
+GSList *anjuta_plugins_get_active_plugins (AnjutaShell *shell);
+
 gboolean anjuta_plugins_unload_plugin (AnjutaShell *shell, GObject *plugin);
 
 gboolean anjuta_plugins_unload_plugin_by_id (AnjutaShell *shell,
