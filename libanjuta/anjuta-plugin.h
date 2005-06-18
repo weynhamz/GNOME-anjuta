@@ -88,7 +88,7 @@ struct _AnjutaPluginClass {
 
 	/* Signals  */
 	void (*activated_signal) (AnjutaPlugin *plugin);
-	void (*deactivated_signal) (AnjutaPlugin *);
+	void (*deactivated_signal) (AnjutaPlugin *plugin);
 
 	/* Virtual functions */
 	gboolean (*activate) (AnjutaPlugin *plugin);

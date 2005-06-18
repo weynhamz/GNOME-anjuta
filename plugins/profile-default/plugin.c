@@ -44,77 +44,34 @@ static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
 static gboolean default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 													 ESplash *splash, GError **err);
 
-static gchar*
-default_profile_plugin_get_session_dir (DefaultProfilePlugin *plugin)
-{
-	GnomeVFSURI *vfs_uri;
-	const gchar *project_root_uri;
-	gchar *session_dir = NULL;
-	
-	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
-					  G_TYPE_STRING, &project_root_uri, NULL);
-	
-	g_return_val_if_fail (project_root_uri, NULL);
-	
-	vfs_uri = gnome_vfs_uri_new (project_root_uri);
-	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
-	{
-		gchar *local_dir;
-		
-		local_dir = gnome_vfs_get_local_path_from_uri (project_root_uri);
-		if (local_dir)
-		{
-			session_dir = g_build_filename (local_dir, ".anjuta", NULL);
-		}
-		g_free (local_dir);
-	}
-	if (vfs_uri)
-		gnome_vfs_uri_unref (vfs_uri);
-	
-	return session_dir;
-}
-
 static void
-on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
-				 AnjutaSession *session, DefaultProfilePlugin *plugin)
+default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
+									  const gchar *dir,
+									  GSList *plugins_to_exclude)
 {
-	GList *files;
-	const gchar *dir;
 	gchar *profile_name, *profile_file;
 	GnomeVFSHandle* vfs_write;
 	GnomeVFSResult result;
 	GnomeVFSFileSize nchars;
-	GSList *plugins, *node;
+	GSList *active_plugins, *node;
 	GHashTable *base_plugins_hash;
 	GString *str;
-	
-	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
-		return;
-	
-	if (plugin->session_by_me == TRUE)
-		/* Project session */
-		plugins = plugin->project_plugins;
-	else
-		/* External session */
-		plugins = plugin->system_plugins;
-	
-	/* Save currently active plugins */
+
 	profile_name = g_path_get_basename (plugin->default_profile);
-	dir = anjuta_session_get_session_directory (session);
 	profile_file = g_build_filename (dir, profile_name, NULL);
 	g_free (profile_name);
 	
 	/* Prepare the write data */
 	base_plugins_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
-	node = plugins;
+	node = plugins_to_exclude;
 	while (node)
 	{
 		g_hash_table_insert (base_plugins_hash, node->data, node->data);
 		node = g_slist_next (node);
 	}
-	plugins = anjuta_plugins_get_active_plugins (ANJUTA_PLUGIN (plugin)->shell);
+	active_plugins = anjuta_plugins_get_active_plugins (ANJUTA_PLUGIN (plugin)->shell);
 	str = g_string_new ("<?xml version=\"1.0\"?>\n<anjuta>\n");
-	node = plugins;
+	node = active_plugins;
 	while (node)
 	{
 		if (!g_hash_table_lookup (base_plugins_hash, node->data))
@@ -163,8 +120,60 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		gnome_vfs_close(vfs_write);
 	}
 	g_hash_table_destroy (base_plugins_hash);
-	g_slist_free (plugins);
+	g_slist_free (active_plugins);
 	g_string_free (str, TRUE);
+}
+													 
+static gchar*
+default_profile_plugin_get_session_dir (DefaultProfilePlugin *plugin)
+{
+	GnomeVFSURI *vfs_uri;
+	const gchar *project_root_uri;
+	gchar *session_dir = NULL;
+	
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
+					  G_TYPE_STRING, &project_root_uri, NULL);
+	
+	g_return_val_if_fail (project_root_uri, NULL);
+	
+	vfs_uri = gnome_vfs_uri_new (project_root_uri);
+	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
+	{
+		gchar *local_dir;
+		
+		local_dir = gnome_vfs_get_local_path_from_uri (project_root_uri);
+		if (local_dir)
+		{
+			session_dir = g_build_filename (local_dir, ".anjuta", NULL);
+		}
+		g_free (local_dir);
+	}
+	if (vfs_uri)
+		gnome_vfs_uri_unref (vfs_uri);
+	
+	return session_dir;
+}
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, DefaultProfilePlugin *plugin)
+{
+	GList *files;
+	const gchar *dir;
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	/* Save currently active plugins */
+	dir = anjuta_session_get_session_directory (session);
+	if (plugin->session_by_me == TRUE)
+		/* Project session */
+		default_profile_plugin_write_to_file (plugin, dir,
+											  plugin->project_plugins);
+	else
+		/* External session */
+		default_profile_plugin_write_to_file (plugin, dir,
+											  plugin->system_plugins);
 	
 	/*
 	 * When a project session is being saved (session_by_me == TRUE),
@@ -448,7 +457,9 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 	
 	/* First of all close existing project profile */
 	if (plugin->project_uri)
+	{
 		default_profile_plugin_close (plugin);
+	}
 	
 	if (splash)
 	{
@@ -560,7 +571,7 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 			}
 			if (default_profile && plugin_obj)
 			{
-				/* The default-profile plugin is successfully loade.
+				/* The default-profile plugin is successfully loaded.
 				 * Record it.
 				 */
 				if (!plugin->default_plugins)
@@ -1095,6 +1106,20 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
 	}
 	g_free (session_plugins);
+	
+	if (!plugin->project_uri)
+	{
+		/* If there is no project opened, save the currently active
+		 * plugins so that they could be restored later when project
+		 * is closed.
+		 */
+		gchar *dir;
+		
+		dir = g_build_filename (g_get_home_dir(), ".anjuta", NULL);
+		default_profile_plugin_write_to_file (plugin, dir,
+											  plugin->system_plugins);
+		g_free (dir);
+	}
 	
 	if (!default_profile_plugin_load (plugin, selected_plugins,
 									  E_SPLASH (splash), e))

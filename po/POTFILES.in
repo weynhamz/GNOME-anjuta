@@ -110,6 +110,7 @@ plugins/message-view/anjuta-message-manager-plugin.glade
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
 plugins/patch/patch-plugin.c
+plugins/patch/patch-plugin.glade
 plugins/patch/plugin.c
 plugins/profile-default/plugin.c
 plugins/project-import/anjuta-project-import.glade

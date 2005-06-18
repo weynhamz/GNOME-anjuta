@@ -1,3 +1,17 @@
+2005-06-18  Naba Kumar  <naba@gnome.org>
+
+	* po/POTFILES.in: Added missing files.
+	
+	* libanjuta/anjuta-plugin.[ch], libanjuta/plugins.[ch]: Do not
+	activate plugin on load (activate it separately). Connect to activate
+	and deactivate signals for housekeeping, so that if plugins are
+	activated or deactivate externally, they are properly recorded.
+	
+	* plugins/profile-default/plugin.c: Save profile before a project
+	is loaded so that it could be restored when project is closed.
+	
+	* plugins/file-loader/plugin.c: Fixed ok/cancel buttons order.
+
 2005-06-17  Naba Kumar  <naba@gnome.org>
 
 	* plugins/profile-default/plugin.h, plugins/profile-default/plugin.c,

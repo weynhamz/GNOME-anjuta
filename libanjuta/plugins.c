@@ -2,25 +2,24 @@
 
 #include <sys/types.h>
 #include <dirent.h>
-
-#include <libanjuta/libanjuta.h>
-#include <libanjuta/anjuta-utils.h>
-#include <libanjuta/glue-factory.h>
-
-#include <libgnome/gnome-config.h>
-#include <libgnome/gnome-util.h>
-#include <libgnomeui/gnome-uidefs.h>
+#include <string.h>
 
 #include <gtk/gtk.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
-#include "plugins.h"
+#include <libgnome/gnome-config.h>
+#include <libgnome/gnome-util.h>
+#include <libgnomeui/gnome-uidefs.h>
+
+#include <libanjuta/libanjuta.h>
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/glue-factory.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-plugin-description.h>
-#include <e-splash.h>
-#include "resources.h"
 #include <libanjuta/anjuta-debug.h>
-#include <string.h>
+#include "e-splash.h"
+#include "resources.h"
+#include "plugins.h"
 
 typedef struct {
 	char *id;
@@ -555,6 +554,38 @@ unload_available_tools (void)
 	}
 }
 
+static void
+on_plugin_activated (AnjutaPlugin *plugin, AvailableTool *tool)
+{
+	GHashTable *installed_tools, *tools_cache;
+	AnjutaShell *shell = plugin->shell;
+	
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	tools_cache =  g_object_get_data (G_OBJECT (shell), "ToolsCache");
+	
+	g_return_if_fail (g_hash_table_lookup (installed_tools, tool) == NULL);
+	
+	g_hash_table_insert (installed_tools, tool, G_OBJECT (plugin));
+	if (g_hash_table_lookup (tools_cache, tool))
+		g_hash_table_remove (tools_cache, tool);
+}
+
+static void
+on_plugin_deactivated (AnjutaPlugin *plugin, AvailableTool *tool)
+{
+	GHashTable *installed_tools, *tools_cache;
+	AnjutaShell *shell = plugin->shell;
+	
+	installed_tools = g_object_get_data (G_OBJECT (shell), "InstalledTools");
+	tools_cache =  g_object_get_data (G_OBJECT (shell), "ToolsCache");
+	
+	g_return_if_fail (g_hash_table_lookup (installed_tools, tool) != NULL);
+	g_return_if_fail (g_hash_table_lookup (tools_cache, tool) == NULL);
+	
+	g_hash_table_insert (tools_cache, tool, G_OBJECT (plugin));
+	g_hash_table_remove (installed_tools, tool);
+}
+
 static GObject *
 activate_tool (AnjutaShell *shell, AvailableTool *tool)
 {
@@ -582,6 +613,10 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 		ret = NULL;
 	} else {
 		ret = g_object_new (type, "shell", shell, NULL);
+		g_signal_connect (ret, "activated",
+						  G_CALLBACK (on_plugin_activated), tool);
+		g_signal_connect (ret, "deactivated",
+						  G_CALLBACK (on_plugin_deactivated), tool);
 	}
 	return ret;
 }
@@ -828,15 +863,9 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool,
 			AvailableTool *tool = l->data;
 			if (should_unload (installed_tools, selected_tool, tool)) {
 				/* FIXME: Unload the class and sharedlib if possible */
-				gboolean success;
 				AnjutaPlugin *anjuta_tool = ANJUTA_PLUGIN (tool_obj);
-				
-				success = anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_tool));
-				if (success) {
-					// g_object_unref (tool_obj);
-					g_hash_table_insert (tools_cache, tool, tool_obj);
-					g_hash_table_remove (installed_tools, tool);
-				} else {
+				if (!anjuta_plugin_deactivate (ANJUTA_PLUGIN (anjuta_tool)))
+				{
 					anjuta_util_dialog_info (GTK_WINDOW (shell),
 								 "Plugin '%s' do not want to be deactivated",
 											 tool->name);
@@ -852,12 +881,8 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool,
 				tool_obj = g_hash_table_lookup (tools_cache, tool);
 				if (!tool_obj)
 					tool_obj = activate_tool (shell, tool);
-				else
+				if (tool_obj)
 					anjuta_plugin_activate (ANJUTA_PLUGIN (tool_obj));
-				if (tool_obj) {
-					g_hash_table_insert (installed_tools, tool, tool_obj);
-					g_hash_table_remove (tools_cache, tool);
-				}
 			}
 		}
 	}

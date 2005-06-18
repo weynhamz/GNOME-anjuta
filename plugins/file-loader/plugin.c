@@ -536,8 +536,8 @@ create_file_open_dialog_gui(GtkWindow* parent, AnjutaFileLoaderPlugin* plugin)
 		gtk_file_chooser_dialog_new (_("Open file"), 
 									parent,
 									GTK_FILE_CHOOSER_ACTION_OPEN,
-									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 									NULL);
 	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(dialog), TRUE);
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);

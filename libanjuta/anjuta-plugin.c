@@ -19,18 +19,9 @@
  */
 
 #include <config.h>
-#include "anjuta-plugin.h"
-
 #include <string.h>
-
-/*
-#include <bonobo/bonobo-i18n.h>
-#include <bonobo/bonobo-ui-util.h>
-#include <bonobo/bonobo-window.h>
-#include <libgnome/gnome-macros.h>
-*/
-
 #include <libanjuta/anjuta-marshal.h>
+#include "anjuta-plugin.h"
 
 typedef struct 
 {
@@ -120,11 +111,6 @@ static void
 anjuta_plugin_finalize (GObject *object) 
 {
 	AnjutaPlugin *plugin = ANJUTA_PLUGIN (object);
-/*	
-	if (plugin->uic) {
-		g_warning ("UI not unmerged\n");
-	}
-*/
 	g_free (plugin->priv);
 }
 
@@ -159,11 +145,6 @@ anjuta_plugin_set_property (GObject *object,
 		g_return_if_fail (plugin->shell == NULL);
 		plugin->shell = g_value_get_object (value);
 		g_object_ref (plugin->shell);
-		
-		if (ANJUTA_PLUGIN_GET_CLASS (object)->activate)
-			// ANJUTA_PLUGIN_GET_CLASS (object)->activate (plugin);
-			anjuta_plugin_activate (ANJUTA_PLUGIN (object));
-
 		g_object_notify (object, "shell");
 		break;
 	default :
