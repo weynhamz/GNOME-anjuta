@@ -1,5 +1,13 @@
 2005-06-18  Naba Kumar  <naba@gnome.org>
 
+	* plugins/profile-default/plugin.c: Fixed error when loading another
+	project while a project is still loaded.
+	
+	* plugins/project-manager/plugin.c: Used (newly added) group-activated
+	signal from gnome-build to popup group properties.
+	
+	* src/anjuta.c: Load default session by default.
+
 	* po/POTFILES.in: Added missing files.
 	
 	* libanjuta/anjuta-plugin.[ch], libanjuta/plugins.[ch]: Do not

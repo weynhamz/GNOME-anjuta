@@ -561,40 +561,14 @@ static void
 on_target_activated (GtkWidget *widget, const gchar *target_id,
 					 ProjectManagerPlugin *plugin)
 {
-	DEBUG_PRINT ("Target activated: %s", target_id);
 	on_popup_properties (NULL, plugin);
-#if 0
-	gchar *target, *ptr;
-	
-	target = g_strdup (target_id);
-	ptr = strchr (target, ':');
-	if (ptr)
-	{
-		*ptr = '\0';
-		ptr++;
-		
-		if (strcmp (ptr, "static_lib") == 0 ||
-			strcmp (ptr, "shared_lib") == 0 ||
-			strcmp (ptr, "program") == 0 ||
-			strcmp (ptr, "configure_generated_file") == 0)
-		{
-			IAnjutaFileLoader *loader;
-			gchar *uri;
-			const gchar *project_root;
-			
-			anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-							  "project_root_uri", G_TYPE_STRING,
-							  &project_root, NULL);
-			uri = g_build_filename (project_root, target, NULL);
-			loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-												 IAnjutaFileLoader, NULL);
-			if (loader)
-				ianjuta_file_loader_load (loader, uri, FALSE, NULL);
-			g_free (uri);
-		}
-	}
-	g_free (target);
-#endif
+}
+
+static void
+on_group_activated (GtkWidget *widget, const gchar *group_id,
+					 ProjectManagerPlugin *plugin)
+{
+	on_popup_properties (NULL, plugin);
 }
 
 static GtkActionEntry pm_actions[] = 
@@ -1075,6 +1049,8 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_uri_activated), plugin);
 	g_signal_connect (view, "target-selected",
 					  G_CALLBACK (on_target_activated), plugin);
+	g_signal_connect (view, "group-selected",
+					  G_CALLBACK (on_group_activated), plugin);
 	g_signal_connect (selection, "changed",
 					  G_CALLBACK (on_treeview_selection_changed), plugin);
 	g_signal_connect (view, "event",

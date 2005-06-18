@@ -26,7 +26,7 @@
 
 #include "anjuta.h"
 
-#define ANJUTA_SESSION_LOAD_LAST "anjuta.session.load.last"
+#define ANJUTA_SESSION_SKIP_LAST "anjuta.session.skip.last"
 
 static gboolean
 on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
@@ -173,8 +173,8 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 		session_dir = g_build_filename (g_get_home_dir (), ".anjuta",
 										"session", NULL);
 		/* If preferences is not set to load last session, clear it */
-		if (!anjuta_preferences_get_int (app->preferences,
-										 ANJUTA_SESSION_LOAD_LAST))
+		if (anjuta_preferences_get_int (app->preferences,
+										ANJUTA_SESSION_SKIP_LAST))
 		{
 			/* Reset default session */
 			session_dir = g_build_filename (g_get_home_dir (), ".anjuta",

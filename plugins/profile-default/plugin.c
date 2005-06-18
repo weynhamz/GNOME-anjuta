@@ -41,8 +41,8 @@
 static gpointer parent_class;
 
 static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
-static gboolean default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
-													 ESplash *splash, GError **err);
+static void default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
+												 ESplash *splash, GError **err);
 
 static void
 default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
@@ -870,14 +870,13 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 	return NULL;
 }
 
-static gboolean
+static void
 default_profile_plugin_load (DefaultProfilePlugin *plugin,
 							 GSList *selected_plugins,
 							 ESplash *splash, GError **e)
 {
 	GSList *active_plugins, *node, *plugins_to_activate;
 	GHashTable *active_plugins_hash, *plugins_to_activate_hash;
-	gboolean ret = TRUE;
 	
 	/* Prepare plugins to activate */
 	plugins_to_activate_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
@@ -941,26 +940,20 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 		default_profile_plugin_activate_plugins (plugin, plugins_to_activate,
 												 splash);
 	}
-	else
-	{
-		ret = FALSE;
-	}
 	g_slist_free (plugins_to_activate);
 	g_slist_free (active_plugins);
 	g_hash_table_destroy (plugins_to_activate_hash);
 	g_hash_table_destroy (active_plugins_hash);
-	return ret;
 }
 
-static gboolean
+static void
 default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 									 ESplash *splash, GError **err)
 {
 	gchar *session_plugins, *profile_name;
 	GSList *selected_plugins, *temp_plugins;
-	gboolean ret = TRUE;
 	
-	g_return_val_if_fail (plugin->default_profile != NULL, FALSE);
+	g_return_if_fail (plugin->default_profile != NULL);
 	
 	/* Load system default plugins */
 	selected_plugins = default_profile_plugin_read (plugin,
@@ -983,11 +976,9 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 		temp_plugins = default_profile_plugin_read (plugin, session_plugins);
 		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
 	}
-	ret = default_profile_plugin_load (plugin, selected_plugins,
-									   splash, err);
+	default_profile_plugin_load (plugin, selected_plugins, splash, err);
 	g_slist_free (selected_plugins);
 	g_free (session_plugins);
-	return ret;
 }
 
 static void
@@ -1080,6 +1071,16 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	/* Load project default plugins */
 	temp_plugins = default_profile_plugin_read (plugin, uri);
+	if (!temp_plugins)
+	{
+		/* The project file is empty */
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+								  _("Cannot open: %s\n"
+									"Does not look like a valid Anjuta project."),
+								  uri);
+		g_slist_free (selected_plugins);
+		return; /* FIXME: Propagate error */
+	}
 	selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
 	
 	/* Save the list for later comparision */
@@ -1120,25 +1121,8 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 											  plugin->system_plugins);
 		g_free (dir);
 	}
-	
-	if (!default_profile_plugin_load (plugin, selected_plugins,
-									  E_SPLASH (splash), e))
-	{
-		/* Thaw shell */
-		anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
-		if (splash) {
-			g_object_unref (splash);
-			gtk_widget_destroy (splash);
-		}
-		g_free (dirname);
-		g_slist_free (selected_plugins);
-		
-		/* The project file is empty */
-		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
-								  uri);
-		return; /* FIXME: Propagate error */
-	}	
+	default_profile_plugin_load (plugin, selected_plugins,
+								 E_SPLASH (splash), e);
 	g_slist_free (selected_plugins);
 	
 	/* Set project uri */
