@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function anjuta_tags () {
+function anjuta_tags {
 
     FILES=""
     BASEDIR=`pwd`
@@ -77,7 +77,7 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
     for pkg_path in $PKG_CONFIG_PATH_PROPER; do
 	for pkg_file in $pkg_path/*.pc; do
 		# echo "Scanning package: $pkg_file"
-	    PKG_CFLAGS=`cat $pkg_file | grep -e "^\(\w\+\=\|\s*Cflags\:\)" | sed -e "s/^\s*Cflags\:\(.*\)/echo \"\1\"/" | sed -e 's/^\(\w\+\)\=\(.*\)/\1\=\"\2\"/' | sh`
+	    PKG_CFLAGS=`cat $pkg_file  2>/dev/null | grep -e "^\(\w\+\=\|\s*Cflags\:\)" | sed -e "s/^\s*Cflags\:\(.*\)/echo \"\1\"/" | sed -e 's/^\(\w\+\)\=\(.*\)/\1\=\"\2\"/' | sh`
 		# echo $PKG_CFLAGS
 	    package=`echo $pkg_file | sed -e 's/^.*\/\(.*\)\.pc/\1/'`
 	    # if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
