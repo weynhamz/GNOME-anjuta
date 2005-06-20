@@ -462,10 +462,10 @@ on_file_view_row_expanded (GtkTreeView *view,
 	/* Deleting multiple rows at one go is little tricky. We need to
 	   take row references before they are deleted
 	*/
+	row_refs = NULL;
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter))
 	{
 		/* Get row references */
-		row_refs = NULL;
 		do
 		{
 			path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &child);
@@ -525,10 +525,10 @@ on_file_view_row_collapsed (GtkTreeView *view,
 	/* Deleting multiple rows at one go is little tricky. We need to
 	   take row references before they are deleted
 	*/
+	row_refs = NULL;
 	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter))
 	{
 		/* Get row references */
-		row_refs = NULL;
 		do {
 			path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &child);
 			row_ref = gtk_tree_row_reference_new (GTK_TREE_MODEL (store), path);

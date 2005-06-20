@@ -1559,6 +1559,27 @@ Properties
 @parent: 
 @Returns: 
 
+<!-- ##### FUNCTION e_splash_add_icon ##### -->
+<para>
+
+</para>
+
+@splash: 
+@icon_pixbuf: 
+@title: 
+@desc: 
+@Returns: 
+@icon: 
+
+<!-- ##### FUNCTION e_splash_set_icon_highlight ##### -->
+<para>
+
+</para>
+
+@splash: 
+@num: 
+@highlight: 
+
 <!-- ##### FUNCTION fileselection_addtype ##### -->
 <para>
 

@@ -49,7 +49,8 @@ ianjuta-profile
 </para>
 
 @obj: 
-@splash: 
 @err: 
+<!-- # Unused Parameters # -->
+@splash: 
 
 

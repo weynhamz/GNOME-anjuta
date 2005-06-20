@@ -261,8 +261,9 @@ on_new_file_entry_changed (GtkEditable *entry, gpointer user_data)
 	GtkWidget *optionmenu;
 	
 	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
+	length = strlen(name);
 	
-	if ( (last_length != 2) && ((length = strlen(name)) == 1) )
+	if (last_length != 2 && length == 1)
 	{
 		optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
 		sel = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));

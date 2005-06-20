@@ -388,6 +388,9 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 		launcher->priv->stderr_is_done)
 	{
 		launcher->priv->in_synchronization = TRUE;
+		
+		if (launcher->priv->completion_check_timeout)
+			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
 		    g_timeout_add (50, anjuta_launcher_check_for_execution_done,
 							 launcher);
@@ -772,7 +775,7 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 		g_free (launcher->priv->stdout_buffer);
 	
 	/* Save them before we re-initialize */
-	child_status = launcher->priv->child_status;
+	child_status = WEXITSTATUS(launcher->priv->child_status);
 	child_pid = launcher->priv->child_pid;
 	start_time = launcher->priv->start_time;
 	
@@ -820,8 +823,6 @@ static void
 anjuta_launcher_child_terminated (int status, gpointer data)
 {
 	AnjutaLauncher *launcher = data;
-	
-	// DEBUG_PRINT ("Terminal child terminated called .. status = %d", status);
 	
 	/* Save child exit code */
 	launcher->priv->child_status = status;
