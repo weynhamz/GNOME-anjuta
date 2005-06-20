@@ -1063,6 +1063,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session,
 				 AnjutaFileLoaderPlugin *plugin)
 {
+	AnjutaStatus *status;
 	const gchar *uri;
 	gchar *mime_type;
 	GList *files, *node;
@@ -1076,6 +1077,9 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	if (!files)
 		return;
 	
+	status = anjuta_shell_get_status (shell, NULL);
+	anjuta_status_progress_add_ticks (status, g_list_length(files));
+	
 	/* Open project files first and then regular files */
 	for (i = 0; i < 2; i++)
 	{
@@ -1085,14 +1089,23 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 			uri = node->data;
 			if (uri)
 			{
+				gchar *label, *filename;
+				
 				mime_type = get_uri_mime_type (uri);
-		
+				
+				filename = g_path_get_basename (uri);
+				if (strchr (filename, '#'))
+					*(strchr (filename, '#')) = '\0';
+				
+				label = g_strconcat ("Loaded: ", filename, NULL);
+				
 				if (i == 0 && mime_type &&
 					strcmp (mime_type, "application/x-anjuta") == 0)
 				{
 					/* Project files first */
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  uri, FALSE, NULL);
+					anjuta_status_progress_tick (status, NULL, label);
 				}
 				else if (i != 0 &&
 						 (!mime_type ||
@@ -1101,7 +1114,10 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 					/* Then rest of the files */
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  uri, FALSE, NULL);
+					anjuta_status_progress_tick (status, NULL, label);
 				}
+				g_free (filename);
+				g_free (label);
 				g_free (mime_type);
 			}
 			node = g_list_next (node);

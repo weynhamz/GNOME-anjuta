@@ -24,7 +24,8 @@
 #include <libanjuta/e-splash.h>
 #include "anjuta-app.h"
 
-AnjutaApp* anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
-					   gboolean proper_shutdown, const gchar *geometry);
+AnjutaApp* anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
+					   const gchar *im_file, gboolean proper_shutdown,
+					   const gchar *geometry);
 
 #endif

@@ -101,17 +101,26 @@ on_anjuta_session_die (GnomeClient * client, gpointer data)
 }
 
 AnjutaApp*
-anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
+anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
+			const gchar *im_file,
 			gboolean proper_shutdown, const gchar *geometry)
 {
 	gchar *session_dir;
 	AnjutaApp *app;
+	AnjutaStatus *status;
 	GnomeClient *client;
 	GnomeClientFlags flags;
 	IAnjutaProfile *profile;
 	
 	/* Initialize application */
 	app = ANJUTA_APP (anjuta_app_new ());
+	status = anjuta_shell_get_status (ANJUTA_SHELL (app), NULL);
+	anjuta_status_progress_add_ticks (status, 1);
+	
+	if (im_file)
+		anjuta_status_progress_set_splash (status, im_file, 100);
+	if (no_splash)
+		anjuta_status_progress_disable_splash (status, no_splash);
 
 	if (proper_shutdown)
 	{
@@ -130,7 +139,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 		g_warning ("No profile could be loaded");
 		exit(1);
 	}
-	ianjuta_profile_load (profile, splash, NULL);
+	ianjuta_profile_load (profile, NULL);
 	
 	/* Session management */
 	client = gnome_master_client();
@@ -187,6 +196,6 @@ anjuta_new (gchar *prog_name, GList *prog_args, ESplash *splash,
 	/* Restore session */
 	anjuta_shell_session_load (ANJUTA_SHELL (app), session_dir, NULL);
 	g_free (session_dir);
-	
+	anjuta_status_progress_tick (status, NULL, _("Loaded Session ..."));
 	return app;
 }

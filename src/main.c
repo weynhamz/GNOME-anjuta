@@ -29,7 +29,6 @@
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/plugins.h>
-#include <libanjuta/e-splash.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include "anjuta.h"
@@ -119,11 +118,11 @@ int
 main (int argc, char *argv[])
 {
 	AnjutaApp *app;
-	GtkWidget *splash = NULL;
 	GnomeProgram *program;
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
 	GList* command_args;
+	char *im_file;
 	
 #ifdef ENABLE_NLS
 	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
@@ -150,31 +149,17 @@ main (int argc, char *argv[])
 	command_args = get_command_line_args (program);
 	gtk_window_set_auto_startup_notification(FALSE);
 
-	if (!no_splash) {
-		char *im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
-		if (im_file) {
-			if (NULL != (splash = e_splash_new(im_file, 100))) {
-				gtk_widget_show (splash);
-				g_object_ref (G_OBJECT (splash));
-				while (gtk_events_pending ())
-					gtk_main_iteration ();
-			}
-		}
-	}
+	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 	
 	/* Initialize plugins */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
 	anjuta_plugins_init (plugins_dirs);
 
 	/* Create Anjuta application */
-	app = anjuta_new (argv[0], command_args, E_SPLASH (splash),
+	app = anjuta_new (argv[0], command_args, no_splash, im_file,
 					  proper_shutdown, anjuta_geometry);
+	g_free (im_file);
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
-	
-	if (splash) {
-		g_object_unref (splash);
-        gtk_widget_destroy (splash);
-	}
 	
 	/* Run Anjuta application */
 	gtk_window_set_auto_startup_notification(TRUE);

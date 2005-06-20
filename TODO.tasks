@@ -419,7 +419,7 @@ releases. Use gdb's MI interface to communicate with it.</comment>
   </category>
   <category title="Plugin: Default Profile" place="17">
     <item>
-      <attribute id="1110343521" priority="1" done="0" start_date="732014" enddate="99999999" notify="0" endtime="-60" last_edited="1118909052"/>
+      <attribute id="1110343521" priority="1" done="1" start_date="732014" completed_date="732117" notify="0" last_edited="1119260206"/>
       <summary>The profile should record user activated plugins</summary>
       <comment>During the course of usage, the user could have activated
 or deactived various plugins. The profile plugin should record this

@@ -1,3 +1,13 @@
+2005-06-20  Naba Kumar  <naba@gnome.org>
+
+	* plugins/profile-default/plugin.c, libanjuta/interfaces/libanjuta.idl,
+	libanjuta/e-splash.h, libanjuta/anjuta-status.c, src/main.c,
+	plugins/file-loader/plugin.c, libanjuta/e-splash.c, src/anjuta.h,
+	libanjuta/anjuta-status.h, src/anjuta.c: Implemented progress
+	bar.
+
+	* TODO.tasks: Updated.
+
 2005-06-19  Naba Kumar  <naba@gnome.org>
 
 	* global_tags/create_global_tags.sh: Fixed sh incompatibility bug.

@@ -42,7 +42,7 @@ static gpointer parent_class;
 
 static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
 static void default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
-												 ESplash *splash, GError **err);
+												 GError **err);
 
 static void
 default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
@@ -224,7 +224,7 @@ on_close_project_idle (gpointer plugin)
 {
 	default_profile_plugin_close ((DefaultProfilePlugin *)plugin);
 	default_profile_plugin_load_default ((DefaultProfilePlugin *)plugin,
-										 NULL, NULL);
+										 NULL);
 	return FALSE;
 }
 
@@ -445,101 +445,61 @@ default_profile_plugin_select_plugins (DefaultProfilePlugin *plugin,
 
 static void
 default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
-										 GSList *selected_plugins,
-										 ESplash *splash)
+										 GSList *selected_plugins)
 {
+	AnjutaStatus *status;
+	GdkPixbuf *icon_pixbuf;
 	GSList *node;
-	gint i, max_icons;
-	max_icons = 0;
 	
 	/* Freeze shell operations */
 	anjuta_shell_freeze (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	
 	/* First of all close existing project profile */
 	if (plugin->project_uri)
 	{
 		default_profile_plugin_close (plugin);
 	}
+	if (selected_plugins)
+		anjuta_status_progress_add_ticks (status,
+										  g_slist_length (selected_plugins));
 	
-	if (splash)
-	{
-		GdkPixbuf *icon_pixbuf;
-		i = 0;
-		
-		gtk_widget_show (GTK_WIDGET (splash));
-		node = selected_plugins;
-		while (node)
-		{
-			AnjutaPluginDescription *desc = node->data;
-			gchar *icon_filename;
-			gchar *icon_path = NULL;
-			
-			if (anjuta_plugin_description_get_string (desc,
-													  "Anjuta Plugin",
-													  "Icon",
-												  &icon_filename))
-			{
-				gchar *title, *description;
-				anjuta_plugin_description_get_string (desc,
-													  "Anjuta Plugin",
-													  "Name",
-													  &title);
-				anjuta_plugin_description_get_string (desc,
-													  "Anjuta Plugin",
-													  "Description",
-													  &description);
-				icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
-										 icon_filename, NULL);
-				// g_message ("Icon: %s", icon_path);
-				icon_pixbuf = 
-				gdk_pixbuf_new_from_file (icon_path, NULL);
-				g_free (icon_path);
-				if (icon_pixbuf) {
-					e_splash_add_icon (E_SPLASH (splash),
-									   icon_pixbuf, title,
-									   description);
-					max_icons++;
-					g_object_unref (icon_pixbuf);
-				}
-			} else {
-				g_warning ("Plugin does not define Icon: No such file %s",
-						   icon_path);
-			}
-			i++;
-			node = g_slist_next (node);
-		}
-		
-		/* Session loading icon */
-		icon_pixbuf = 
-			gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png",
-									  NULL);
-		if (icon_pixbuf)
-		{
-			e_splash_add_icon (E_SPLASH (splash),
-							   icon_pixbuf, _("Last Session ..."),
-							   _("Restoring last session ..."));
-			max_icons++;
-			g_object_unref (icon_pixbuf);
-		}
-		while (gtk_events_pending ())
-			gtk_main_iteration ();
-	}
-	
-	i = 0;
 	node = selected_plugins;
 	while (node)
 	{
 		AnjutaPluginDescription *d;
 		gchar *plugin_id;
+		gchar *icon_filename, *label;
+		gchar *icon_path = NULL;
 		
 		d = node->data;
-		if (splash && max_icons > 0)
+		
+		icon_pixbuf = NULL;
+		label = NULL;
+		if (anjuta_plugin_description_get_string (d, "Anjuta Plugin",
+												  "Icon",
+											  &icon_filename))
 		{
-			e_splash_set_icon_highlight (E_SPLASH (splash), i, TRUE);
-			while (gtk_events_pending ())
-				gtk_main_iteration ();
+			gchar *title, *description;
+			anjuta_plugin_description_get_string (d, "Anjuta Plugin",
+												  "Name",
+												  &title);
+			anjuta_plugin_description_get_string (d, "Anjuta Plugin",
+												  "Description",
+												  &description);
+			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
+									 icon_filename, NULL);
+			// g_message ("Icon: %s", icon_path);
+			label = g_strconcat (_("Loaded: "), title, _(" ..."), NULL);
+			icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
+			if (!icon_pixbuf)
+				g_warning ("Plugin does not define Icon: No such file %s",
+						   icon_path);
+			g_free (icon_path);
+			g_free (icon_filename);
 		}
-		if (anjuta_plugin_description_get_string (d,"Anjuta Plugin",
+		
+		if (anjuta_plugin_description_get_string (d, "Anjuta Plugin",
 												  "Location", &plugin_id))
 		{
 			GObject *plugin_obj;
@@ -547,59 +507,16 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 			plugin_obj =
 				anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
 												 plugin_id);
-#if 0
-			if (!default_profile && plugin_obj)
-			{
-				if (!plugin->default_plugins ||
-					!g_hash_table_lookup (plugin->default_plugins, plugin_obj))
-				{
-					/* The non-default-profile plugin is successfully loaded
-					 * and is already not loaded
-					 */
-					if (!plugin->loaded_plugins)
-						plugin->loaded_plugins = g_queue_new ();
-					
-					/* Store the object for later unloading */
-					g_queue_push_tail (plugin->loaded_plugins, plugin_obj);
-					
-					/* Remove the plugin on deactivation */
-					g_signal_connect_swapped (G_OBJECT (plugin_obj),
-											  "deactivated",
-											  G_CALLBACK (g_queue_remove),
-											  plugin->loaded_plugins);
-				}
-			}
-			if (default_profile && plugin_obj)
-			{
-				/* The default-profile plugin is successfully loaded.
-				 * Record it.
-				 */
-				if (!plugin->default_plugins)
-					plugin->default_plugins = 
-						g_hash_table_new_full (g_direct_hash, g_direct_equal,
-						  (GDestroyNotify) disconnect_plugin_deactivate_signal,
-											   (GDestroyNotify) g_free);
-				g_object_set_data (G_OBJECT (plugin_obj),
-								   "__default_profile_plugin", plugin);
-				g_hash_table_insert (plugin->default_plugins,
-									 plugin_obj, g_strdup (plugin_id));
-				/* Remove the plugin on deactivation */
-				g_signal_connect_swapped (G_OBJECT (plugin_obj), "deactivated",
-										  G_CALLBACK (g_hash_table_remove),
-										  plugin->default_plugins);
-			}
-#endif
+			g_free (plugin_id);
 		}
-		i++;
-		max_icons--;
+		anjuta_status_progress_tick (status, icon_pixbuf, label);
+		g_free (label);
+		if (icon_pixbuf)
+			g_object_unref (icon_pixbuf);
+		
 		node = g_slist_next (node);
 	}
-	if (splash && max_icons > 0)
-	{
-		e_splash_set_icon_highlight (E_SPLASH (splash), i, TRUE);
-		while (gtk_events_pending ())
-			gtk_main_iteration ();
-	}
+	
 	/* Thaw shell operations */
 	anjuta_shell_thaw (ANJUTA_PLUGIN (plugin)->shell, NULL);
 }
@@ -872,8 +789,7 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 
 static void
 default_profile_plugin_load (DefaultProfilePlugin *plugin,
-							 GSList *selected_plugins,
-							 ESplash *splash, GError **e)
+							 GSList *selected_plugins, GError **e)
 {
 	GSList *active_plugins, *node, *plugins_to_activate;
 	GHashTable *active_plugins_hash, *plugins_to_activate_hash;
@@ -937,8 +853,7 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	{
 		/* Activate them */
 		plugins_to_activate = g_slist_reverse (plugins_to_activate);
-		default_profile_plugin_activate_plugins (plugin, plugins_to_activate,
-												 splash);
+		default_profile_plugin_activate_plugins (plugin, plugins_to_activate);
 	}
 	g_slist_free (plugins_to_activate);
 	g_slist_free (active_plugins);
@@ -948,8 +863,9 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 
 static void
 default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
-									 ESplash *splash, GError **err)
+									 GError **err)
 {
+	AnjutaStatus *status;
 	gchar *session_plugins, *profile_name;
 	GSList *selected_plugins, *temp_plugins;
 	
@@ -958,6 +874,8 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 	/* Load system default plugins */
 	selected_plugins = default_profile_plugin_read (plugin,
 													plugin->default_profile);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	anjuta_status_progress_add_ticks (status, 1);
 	
 	/* Save the list for later comparision */
 	if (plugin->system_plugins) {
@@ -976,7 +894,9 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 		temp_plugins = default_profile_plugin_read (plugin, session_plugins);
 		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
 	}
-	default_profile_plugin_load (plugin, selected_plugins, splash, err);
+	default_profile_plugin_load (plugin, selected_plugins, err);
+	anjuta_status_progress_tick (status, NULL, _("Loaded default profile ..."));
+	
 	g_slist_free (selected_plugins);
 	g_free (session_plugins);
 }
@@ -1008,19 +928,24 @@ default_profile_plugin_close (DefaultProfilePlugin *plugin)
 }
 
 static void
-iprofile_load (IAnjutaProfile *profile, ESplash *splash, GError **err)
+iprofile_load (IAnjutaProfile *profile, GError **err)
 {
+	AnjutaStatus *status;
 	DefaultProfilePlugin *plugin;
 	
 	plugin = (DefaultProfilePlugin*)ANJUTA_PLUGIN (profile);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (profile)->shell, NULL);
 	
+	anjuta_status_progress_add_ticks (status, 1);
 	if (plugin->default_profile)
 	{
 		g_free (plugin->default_profile);
 		plugin->default_profile = NULL;
 	}
 	plugin->default_profile = g_strdup (DEFAULT_PROFILE);
-	default_profile_plugin_load_default (plugin, splash, err);
+	default_profile_plugin_load_default (plugin, err);
+	
+	anjuta_status_progress_tick (status, NULL, _("Loaded Profile ..."));
 }
 
 static void
@@ -1033,7 +958,7 @@ static void
 ifile_open (IAnjutaFile *ifile, const gchar* uri,
 			GError **e)
 {
-	GtkWidget *splash;
+	AnjutaStatus *status;
 	GnomeVFSURI *vfs_uri;
 	gchar *dirname, *vfs_dir, *session_dir, *session_plugins, *profile_name;
 	DefaultProfilePlugin *plugin;
@@ -1044,26 +969,6 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	/* Freeze shell */
 	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
-	
-	/* FIXME: This splash should actually be a progress bar */
-	splash = e_splash_new (ANJUTA_MINI_SPLASH, 15);
-	if (splash)
-	{
-		GtkWidget *shell = GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell);
-		gtk_window_set_transient_for (GTK_WINDOW (splash), GTK_WINDOW (shell));
-		if (shell->window)
-		{
-			gint root_x, root_y, root_width, root_height;
-			gdk_window_get_root_origin (shell->window,
-										&root_x, &root_y);
-			gdk_window_get_size (shell->window,
-								 &root_width, &root_height);
-			gtk_window_move (GTK_WINDOW (splash),
-							 root_x + root_width - 334,
-							 root_y + root_height - 70);
-		}
-		g_object_ref (G_OBJECT (splash));
-	}
 	
 	/* Load system default plugins */
 	selected_plugins = default_profile_plugin_read (plugin,
@@ -1100,6 +1005,9 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	g_free (profile_name);
 	
 	DEBUG_PRINT ("Loading session profile: %s", session_plugins);
+
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (ifile)->shell, NULL);
+	anjuta_status_progress_add_ticks (status, 2);
 	
 	if (g_file_test (session_plugins, G_FILE_TEST_EXISTS))
 	{
@@ -1121,8 +1029,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 											  plugin->system_plugins);
 		g_free (dir);
 	}
-	default_profile_plugin_load (plugin, selected_plugins,
-								 E_SPLASH (splash), e);
+	default_profile_plugin_load (plugin, selected_plugins, e);
 	g_slist_free (selected_plugins);
 	
 	/* Set project uri */
@@ -1135,6 +1042,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	g_free (plugin->project_uri);
 	plugin->project_uri = g_strdup (uri);
+	anjuta_status_progress_tick (status, NULL, _("Loaded Project ... Initializing"));
 	
 	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
 							"project_root_uri",
@@ -1159,10 +1067,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		plugin->session_by_me = FALSE;
 		g_free (session_dir);
 	}
-	if (splash) {
-		g_object_unref (splash);
-        gtk_widget_destroy (splash);
-	}
+	anjuta_status_progress_tick (status, NULL, _("Loaded Profile ..."));
 }
 
 static gchar*

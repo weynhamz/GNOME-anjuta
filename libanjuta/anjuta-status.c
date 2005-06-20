@@ -19,12 +19,24 @@
 
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/resources.h>
+#include <libanjuta/e-splash.h>
 
 struct _AnjutaStatusPriv
 {
 	GHashTable *default_status_items;
 	gint busy_count;
 	GHashTable *widgets;
+	
+	/* Progress bar */
+	gint total_ticks;
+	gint current_ticks;
+	GtkWidget *splash;
+	
+	/* Splash */
+	gboolean disable_splash;
+	gchar *splash_file;
+	gint splash_progress_position;
 };
 
 enum {
@@ -61,7 +73,15 @@ anjuta_status_dispose (GObject *widget)
 		g_hash_table_destroy (status->priv->default_status_items);
 		status->priv->default_status_items = NULL;
 	}
-	
+	if (status->priv->splash != NULL) {
+		gtk_widget_destroy (status->priv->splash);
+		status->priv->splash = NULL;
+	}
+	if (status->priv->splash_file)
+	{
+		g_free (status->priv->splash_file);
+		status->priv->splash_file = NULL;
+	}
 	if (status->priv->widgets)
 	{
 		g_hash_table_foreach (status->priv->widgets,
@@ -77,7 +97,12 @@ static void
 anjuta_status_instance_init (AnjutaStatus *status)
 {
 	status->priv = g_new0 (AnjutaStatusPriv, 1);
-	
+	status->priv->splash_file = NULL;
+	status->priv->splash_progress_position = 0;
+	status->priv->disable_splash = FALSE;
+	status->priv->total_ticks = 0;
+	status->priv->current_ticks = 0;
+	status->priv->splash = NULL;
 	status->priv->default_status_items =
 		g_hash_table_new_full (g_str_hash, g_str_equal,
 							   g_free, g_free);
@@ -110,7 +135,7 @@ anjuta_status_new (void)
 	GtkWidget *status;
 
 	status = GTK_WIDGET (g_object_new (ANJUTA_TYPE_STATUS,
-						 "has-progress", FALSE, "has-status", TRUE,
+						 "has-progress", TRUE, "has-status", TRUE,
 						 "interactivity", GNOME_PREFERENCES_NEVER, NULL));
 	return status;
 }
@@ -274,6 +299,106 @@ anjuta_status_add_widget (AnjutaStatus *status, GtkWidget *widget)
 	g_hash_table_insert (status->priv->widgets, widget, widget);
 	g_object_weak_ref (G_OBJECT (widget),
 					   (GWeakNotify) (on_widget_destroy), status);
+}
+
+void
+anjuta_status_progress_set_splash (AnjutaStatus *status, const gchar *splash_file,
+								   gint splash_progress_position)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	g_return_if_fail (splash_file != NULL);
+	g_return_if_fail (splash_progress_position >= 0);
+	if (status->priv->splash_file)
+		g_free (status->priv->splash_file);
+	status->priv->splash_file = g_strdup (splash_file);
+	status->priv->splash_progress_position = splash_progress_position;
+}
+
+void
+anjuta_status_progress_disable_splash (AnjutaStatus *status,
+									   gboolean disable_splash)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+
+	status->priv->disable_splash = disable_splash;
+}
+
+void
+anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
+{
+	gfloat percentage;
+	
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	g_return_if_fail (ticks > 0);
+	
+	status->priv->total_ticks += ticks;
+	if (!GTK_WIDGET_REALIZED (status))
+	{
+		if (status->priv->splash == NULL &&
+			status->priv->splash_file &&
+			!status->priv->disable_splash)
+		{
+			status->priv->splash = e_splash_new (status->priv->splash_file, 100);
+			if (status->priv->splash)
+					gtk_widget_show (status->priv->splash);
+		}
+	}
+	percentage = ((gfloat)status->priv->current_ticks)/status->priv->total_ticks;
+	
+	if (status->priv->splash)
+	{
+		e_splash_set (E_SPLASH(status->priv->splash), NULL, NULL, NULL,
+					  percentage);
+		while (gtk_events_pending ())
+			gtk_main_iteration ();
+	}
+	else
+		gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
+											  percentage);
+}
+
+void
+anjuta_status_progress_tick (AnjutaStatus *status,
+							 GdkPixbuf *icon, const gchar *text)
+{
+	gfloat percentage;
+		
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	g_return_if_fail (status->priv->total_ticks != 0);
+	
+	status->priv->current_ticks++;
+	percentage = ((gfloat)status->priv->current_ticks)*100.0/status->priv->total_ticks;
+	
+	if (status->priv->splash)
+	{
+		e_splash_set (E_SPLASH(status->priv->splash), icon, text, NULL, percentage);
+		while (gtk_events_pending ())
+			gtk_main_iteration ();
+	}
+	else
+	{
+		if (text)
+			anjuta_status_set (status, "%s", text);
+		gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
+											  percentage);
+	}
+	if (status->priv->current_ticks >= status->priv->total_ticks)
+		anjuta_status_progress_reset (status);
+}
+
+void
+anjuta_status_progress_reset (AnjutaStatus *status)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	if (status->priv->splash)
+	{
+		gtk_widget_destroy (status->priv->splash);
+		status->priv->splash = NULL;
+	}
+	status->priv->current_ticks = 0;
+	status->priv->total_ticks = 0;
+	gnome_appbar_set_progress_percentage (GNOME_APPBAR (status), 0);
+	gnome_appbar_refresh (GNOME_APPBAR(status));
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GNOME_TYPE_APPBAR);

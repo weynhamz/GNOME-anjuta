@@ -279,7 +279,7 @@ interface IAnjutaProfile
 {
 	#include <libanjuta/e-splash.h>
 	
-	void load(ESplash *splash);
+	void load ();
 }
 
 interface IAnjutaHelp

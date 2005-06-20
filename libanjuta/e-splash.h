@@ -55,17 +55,16 @@ struct _ESplashClass {
 
 GtkType    e_splash_get_type            (void);
 void       e_splash_construct           (ESplash   *splash,
-					 GdkPixbuf *splash_image_pixbuf,
-					 gint progressbar_position);
+										 GdkPixbuf *splash_image_pixbuf,
+										 gint progressbar_position);
 GtkWidget *e_splash_new                 (const char *image_file,
 										 gint progressbar_position);
 
-int        e_splash_add_icon            (ESplash   *splash,
-					 GdkPixbuf *icon_pixbuf, const gchar *title,
-					 const gchar *desc);
-void       e_splash_set_icon_highlight  (ESplash   *splash,
-					 int        num,
-					 gboolean   highlight);
+void       e_splash_set                 (ESplash   *splash,
+										 GdkPixbuf *icon_pixbuf,
+										 const gchar *title,
+										 const gchar *desc,
+										 gfloat progress_percentage);
 
 #ifdef __cplusplus
 }
