@@ -1050,6 +1050,11 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	update_ui (plugin);
 	
 	/* Thaw shell */
+	/* FIXME: The shell can not be thawed after the session is loaded,
+	 * because the layout is loaded in the session. If shell is not thawed
+	 * before that, the widgets on which layout is applied are not present
+	 * side the shell (freezing delays the widgets addition).
+	 */
 	anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
 	
 	/* Load Project session */

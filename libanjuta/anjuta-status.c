@@ -349,12 +349,20 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 	{
 		e_splash_set (E_SPLASH(status->priv->splash), NULL, NULL, NULL,
 					  percentage);
-		while (gtk_events_pending ())
-			gtk_main_iteration ();
+		while (g_main_context_iteration(NULL, FALSE));
 	}
 	else
+	{
+		GtkProgressBar *progressbar;
+		GtkWidget *statusbar;
+		
 		gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
 											  percentage);
+		progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
+		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+		gtk_widget_draw (GTK_WIDGET (statusbar), NULL);
+		gtk_widget_draw (GTK_WIDGET (progressbar), NULL);
+	}
 }
 
 void
@@ -367,20 +375,26 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 	g_return_if_fail (status->priv->total_ticks != 0);
 	
 	status->priv->current_ticks++;
-	percentage = ((gfloat)status->priv->current_ticks)*100.0/status->priv->total_ticks;
+	percentage = ((gfloat)status->priv->current_ticks)/status->priv->total_ticks;
 	
 	if (status->priv->splash)
 	{
 		e_splash_set (E_SPLASH(status->priv->splash), icon, text, NULL, percentage);
-		while (gtk_events_pending ())
-			gtk_main_iteration ();
+		while (g_main_context_iteration(NULL, FALSE));
 	}
 	else
 	{
+		GtkProgressBar *progressbar;
+		GtkWidget *statusbar;
+		
 		if (text)
 			anjuta_status_set (status, "%s", text);
 		gnome_appbar_set_progress_percentage (GNOME_APPBAR (status),
 											  percentage);
+		progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
+		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+		gtk_widget_draw (GTK_WIDGET (statusbar), NULL);
+		gtk_widget_draw (GTK_WIDGET (progressbar), NULL);
 	}
 	if (status->priv->current_ticks >= status->priv->total_ticks)
 		anjuta_status_progress_reset (status);

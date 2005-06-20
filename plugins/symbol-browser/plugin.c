@@ -358,6 +358,7 @@ static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
+	AnjutaStatus *status;
 	IAnjutaProjectManager *pm;
 	SymbolBrowserPlugin *sv_plugin;
 	const gchar *root_uri;
@@ -372,13 +373,15 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
 		if (root_dir)
 		{
+			status = anjuta_shell_get_status (plugin->shell, NULL);
+			anjuta_status_progress_add_ticks (status, 1);
 			trees_signals_block (sv_plugin);
 			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 									 root_dir);
 			
 			/* Current editor symbol model may have changed */
 			update_editor_symbol_model (sv_plugin);
-			
+			anjuta_status_progress_tick (status, NULL, _("Created sysmbols ..."));
 			trees_signals_unblock (sv_plugin);
 			g_free (root_dir);
 		}

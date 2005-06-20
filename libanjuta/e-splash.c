@@ -255,7 +255,6 @@ e_splash_set  (ESplash *splash, GdkPixbuf *icon_pixbuf,
 	inc_width = gdk_pixbuf_get_width (priv->splash_image_pixbuf);
 	inc_width -= (ICON_X + ICON_SIZE + 20);
 	progress_width = inc_width;
-	inc_width /= 100;
 	
 	points = gnome_canvas_points_new (2);
 	points->coords[0] = ICON_X + ICON_SIZE + 10;

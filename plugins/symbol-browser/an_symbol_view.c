@@ -896,7 +896,9 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 
 	if (strncmp (file_uri, "file://", 7) == 0)
 		uri = &file_uri[7];
-
+	else
+		return;
+	
 	store = g_hash_table_lookup (sv->priv->tm_files, uri);
 	if (!store)
 	{
@@ -949,7 +951,9 @@ anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView * sv,
 	DEBUG_PRINT ("Removing Symbol URI: %s", file_uri);
 	if (strncmp (file_uri, "file://", 7) == 0)
 		uri = &file_uri[7];
-
+	else
+		uri = file_uri;
+	
 	if (g_hash_table_lookup (sv->priv->tm_files, uri))
 		g_hash_table_remove (sv->priv->tm_files, uri);
 }

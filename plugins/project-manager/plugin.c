@@ -945,6 +945,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	}
 	
 	DEBUG_PRINT ("Creating new gbf-am project\n");
+	
 	pm_plugin->project = gbf_backend_new_project (backend->id);
 	if (!pm_plugin->project)
 	{
@@ -956,6 +957,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	}
 	
 	status = anjuta_shell_get_status (plugin->shell, NULL);
+	anjuta_status_progress_add_ticks (status, 1);
 	anjuta_status_push (status, _("Loading project: %s"), g_basename (dirname));
 	anjuta_status_busy_push (status);
 	
@@ -963,6 +965,9 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	/* FIXME: use the error parameter to determine if the project
 	 * was loaded successfully */
 	gbf_project_load (pm_plugin->project, dirname, &error);
+	
+	anjuta_status_progress_tick (status, NULL, _("Created project view ..."));
+	
 	if (error)
 	{
 		GtkWidget *toplevel;
