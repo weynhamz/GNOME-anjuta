@@ -75,7 +75,7 @@ version controls, integrated GUI designing and other tools.
 %package devel
 Summary:	Libraries and include files for Anjuta plugins development.
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Libraries, header files and API docs for developing Anjuta plugins.

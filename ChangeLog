@@ -1,5 +1,7 @@
 2005-06-21  Naba Kumar  <naba@gnome.org>
 
+	* anjuta.spec.in: Fixed devel package requirement.
+
 	* plugins/message-view/message-view.c: Scroll message on next/previous.
 
 	* TODO.tasks: Updated.
