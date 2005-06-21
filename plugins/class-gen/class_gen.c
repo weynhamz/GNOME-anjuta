@@ -37,7 +37,7 @@
 #include "class_gen.h"
 #include "action-callbacks.h"
 #include "plugin.h"
-#include "class_logo.xpm"
+/* #include "class_logo.xpm" */
 
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
@@ -491,6 +491,7 @@ gen_cpp_generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {
 			break;
 		
 		default:
+			access_inheritance = "";
 			break;
 	}
 	
@@ -626,12 +627,12 @@ gen_cpp_generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {
 static void
 gen_cpp_generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut)
 {
-	GtkWidget *combo;
+	/* GtkWidget *combo; */
 	const gchar *base_class = FETCH_STRING (data->gxml, "cc_base_class");	
 	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
 	const gchar *author_name = FETCH_STRING (data->gxml, "cc_author_name");
 	const gchar *author_email = FETCH_STRING (data->gxml, "cc_author_email");
-	gboolean is_virtual_destructor = FETCH_BOOLEAN (data->gxml, "cc_virtual_destructor");
+	/* gboolean is_virtual_destructor = FETCH_BOOLEAN (data->gxml, "cc_virtual_destructor"); */
 	gboolean date_output = FETCH_BOOLEAN (data->gxml, "cc_date_output");
 	struct tm *t = GetNowTime();	
 

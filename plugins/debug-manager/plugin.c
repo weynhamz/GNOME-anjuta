@@ -302,13 +302,12 @@ on_start_debug_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				if (response == GTK_RESPONSE_OK)
 				{
 					GtkTreeSelection *sel;
+					GtkTreeModel *model;
+					
 					sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
-					if (gtk_tree_selection_get_selected (sel,
-														 (GtkTreeModel**)(&store),
-														 &iter))
+					if (gtk_tree_selection_get_selected (sel, &model, &iter))
 					{
-						gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 1,
-											&sel_target, -1);
+						gtk_tree_model_get (model, &iter, 1, &sel_target, -1);
 					}
 				}
 				gtk_widget_destroy (dlg);

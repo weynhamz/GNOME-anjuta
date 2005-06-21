@@ -120,9 +120,11 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 	/* TTimo - don't follow symlinks */
 	if (tm_file_entry_type(path) == tm_file_link_t)
 		return NULL;
+	
 	real_path = tm_get_real_path(path);
 	if (!real_path)
 		return NULL;
+	
 	FILE_NEW(entry);
 	entry->type = tm_file_entry_type(real_path);
 	entry->parent = parent;
@@ -134,6 +136,9 @@ TMFileEntry *tm_file_entry_new(const char *path, TMFileEntry *parent
 		entry->name = entry->path;
 	switch(entry->type)
 	{
+		case tm_file_link_t:
+			FILE_FREE (entry);
+			return NULL;
 		case tm_file_unknown_t:
 			g_free(real_path);
 			FILE_FREE(entry);

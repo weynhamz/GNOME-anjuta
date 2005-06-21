@@ -160,7 +160,7 @@ on_registers_selecton_changed (GtkTreeSelection *selection, gpointer user_data)
 	
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
-		const gchar *num;
+		gchar *num;
 		
 		gtk_tree_model_get (model, &iter, REG_NUM_COL, &num, -1);
 		if (num)

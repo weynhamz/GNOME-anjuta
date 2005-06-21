@@ -32,8 +32,10 @@ static gpointer parent_class;
 
 static gboolean patch_plugin_activate (AnjutaPlugin *plugin);
 static gboolean patch_plugin_deactivate (AnjutaPlugin *plugin);
+/*
 static void dispose (GObject *obj);
 static void finalize (GObject *obj);
+*/
 static void patch_plugin_instance_init (GObject *obj);
 static void patch_plugin_class_init (GObjectClass *klass);
 static void on_patch_action_activate (GtkAction *action, PatchPlugin *plugin);

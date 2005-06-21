@@ -213,7 +213,7 @@ static gboolean create_dialog(void);
 static void show_dialog(void);
 static gboolean word_in_list(GList *list, gchar *word);
 static GList* list_max_items(GList *list, guint nb_max);
-static void search_update_combos (void);
+/* static void search_update_combos (void); */
 static void replace_update_combos (void);
 static void search_direction_changed(SearchDirection dir);
 static void search_set_direction(SearchDirection dir);
@@ -261,7 +261,8 @@ search_and_replace (void)
 	static gchar *ch= NULL;
 	gboolean save_file = FALSE;
 	IAnjutaMessageManager* msgman;
-	IAnjutaMessageView* view;
+	IAnjutaMessageView* view = NULL;
+	
 	g_return_if_fail(sr);
 	s = &(sr->search);
 	
@@ -1106,9 +1107,8 @@ search_toolbar_set_text(gchar *search_text)
 	egg_entry_action_set_text (EGG_ENTRY_ACTION(action), search_text);	
 }
 
-
-//  FIXME  free GList sr->search.expr_history ?????
-
+/* FIXME  free GList sr->search.expr_history ????? */
+#if 0
 static void
 search_update_combos(void)
 {
@@ -1141,6 +1141,7 @@ search_update_combos(void)
 		}
 	}
 }
+#endif
 
 static void
 replace_update_combos(void)

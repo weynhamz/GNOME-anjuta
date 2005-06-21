@@ -14,3 +14,64 @@ ianjuta-context-text
 
 </para>
 
+<!-- ##### MACRO IANJUTA_CONTEXT_TEXT_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaContextText ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaContextTextIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_indentation: 
+@render: 
+@set_indentation: 
+
+<!-- ##### FUNCTION ianjuta_context_text_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_context_text_get_indentation ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_context_text_render ##### -->
+<para>
+
+</para>
+
+@obj: 
+@text: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_context_text_set_indentation ##### -->
+<para>
+
+</para>
+
+@obj: 
+@spaces: 
+@err: 
+
+

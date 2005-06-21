@@ -134,8 +134,8 @@ static gchar*
 get_property_value_as_string (AnjutaProperty *prop)
 {
 	gint  int_value;
-	gchar *text_value;
 	gchar** values;
+	gchar *text_value = NULL;
 	
 	if (prop->custom)
 	{

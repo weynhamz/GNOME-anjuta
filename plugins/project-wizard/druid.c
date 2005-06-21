@@ -750,7 +750,7 @@ npw_druid_add_default_property (NPWDruid* this)
 {
 	NPWValue* value;
 	const gchar* s;
-	gchar* email;
+	/* gchar* email; */
 	AnjutaPreferences* pref;
 
 	pref = anjuta_shell_get_preferences (ANJUTA_PLUGIN (this->plugin)->shell, NULL);

@@ -1,3 +1,41 @@
+2005-06-21  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Updated.
+
+	* manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-text.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-renderable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-sand-box.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-transformable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+
+	* libanjuta/anjuta-preferences.c,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/executer.c,
+	plugins/class-gen/action-callbacks.c,
+	plugins/class-gen/action-callbacks.h,
+	plugins/class-gen/class_gen.c,
+	plugins/cvs-plugin/cvs-interface.c,
+	plugins/debug-manager/attach_process.c,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/utilities.c,
+	plugins/debug-manager/utilities.h,
+	plugins/editor/aneditor-autocomplete.cxx,
+	plugins/editor/aneditor.cxx,
+	plugins/editor/search-replace.c,
+	plugins/editor/search-replace_backend.c,
+	plugins/gdb/breakpoints.c,
+	plugins/gdb/registers.c,
+	plugins/patch/plugin.c,
+	plugins/project-wizard/druid.c,
+	plugins/project-wizard/install.c,
+	plugins/subversion/plugin.c,
+	plugins/tools/scripts/prepare-changelog.pl,
+	tagmanager/tm_file_entry.c: Fixed compiler warnings and deleted dead
+	codes.
+
 2005-06-20  Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/tmpl/ianjuta-profile.sgml,

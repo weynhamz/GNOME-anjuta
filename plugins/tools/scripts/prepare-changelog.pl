@@ -54,7 +54,7 @@ my $date_str = sprintf ("%04d-%02d-%02d", $year, $month, $mday);
 my $changelog = "$date_str $ENV{USER}  <$ENV{USER}\@$ENV{HOSTNAME}>\n\n";
 
 my $first = 1;
-foreach my $file (@files) {
+foreach my $file (sort @files) {
 	if ($first == 1) {
 		$changelog .= "\t* $file";
 		$first = 0;

@@ -393,7 +393,7 @@ attach_process_update (AttachProcess * ap)
 	if (anjuta_util_prog_is_installed ("ps", TRUE) == FALSE)
 		return;
 
-	tmp = get_a_tmp_file ();
+	tmp = anjuta_util_get_a_tmp_file ();
 	cmd = g_strconcat ("ps axw -H -o pid,user,start_time,args > ", tmp, NULL);
 	shell = gnome_util_user_shell ();
 	ch_pid = fork ();

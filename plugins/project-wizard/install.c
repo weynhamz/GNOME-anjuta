@@ -444,6 +444,8 @@ npw_install_install_file (NPWInstall* this)
 	case NPW_DEFAULT:
 		use_autogen = npw_is_autogen_template (source);
 		break;
+	default:
+		use_autogen = FALSE;
 	}
 
 	if (use_autogen)

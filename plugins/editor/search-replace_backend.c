@@ -328,13 +328,14 @@ create_search_files_list(SearchFiles *sf, const char *top_dir)
 }
 
 /* Create a list of files to search in from a user specified list. Variables
-should be expanded so that the user can use strings like:
-'$(module.source.files)', '$(module.include.files)', etc. */
+ * should be expanded so that the user can use strings like:
+ * '$(module.source.files)', '$(module.include.files)', etc.
+ */
+/*FIXME: How to access project from here??*/
+#if 0
 static GList *
 expand_search_file_list(const char *top_dir, const char *str)
 {
-//FIXME: How to access project from here??
-#if 0
 	gchar *dir;
 	GList *names;
 	GList *files = NULL;
@@ -363,10 +364,8 @@ expand_search_file_list(const char *top_dir, const char *str)
 	anjuta_util_glist_strings_free(names);
 	files = g_list_reverse(files);
 	return files;
-#endif
-	return NULL;
 }
-
+#endif
 
 /* Get a list of all project files */
 static GList *
@@ -681,7 +680,7 @@ GList
 			se->te = anjuta_docman_get_current_editor (sr->docman);
 			if (se->te != NULL)
 			{
-				gint sel_start, sel_end;
+				gint sel_start = 0, sel_end = 0;
 				
 				if (s->range.type != SR_SELECTION)
 				{

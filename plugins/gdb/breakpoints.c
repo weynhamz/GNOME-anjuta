@@ -523,10 +523,7 @@ on_bk_properties_clicked (GtkWidget *button, gpointer data)
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (bd->priv->treeview));
 	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
 	if (!valid)
-	{
-		g_object_unref (gxml);
 		return;
-	}
 	
 	gtk_tree_model_get (model, &iter, DATA_COLUMN, &bid, -1);
 

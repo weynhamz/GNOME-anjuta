@@ -514,9 +514,9 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 	char tmp_chr;
 	bool was_long_decl = false, long_declaration = true;
 	int endword, startword = current;
-	TMTag *ScanType;
-	GPtrArray *CurrentFileTags;
-	const GPtrArray *tags;
+	TMTag *ScanType = NULL;
+	GPtrArray *CurrentFileTags = NULL;
+	const GPtrArray *tags = NULL;
 	
 	/* scan entire record's chain */
 	while(long_declaration)

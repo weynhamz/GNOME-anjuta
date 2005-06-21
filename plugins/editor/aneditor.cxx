@@ -932,6 +932,8 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 	size_t selectionStart = SendEditor(SCI_GETSELECTIONSTART);
 	size_t selectionEnd = SendEditor(SCI_GETSELECTIONEND);
 	int line = SendEditor(SCI_LINEFROMPOSITION, selectionStart);
+	if (line < 0)
+		return FALSE;
 	bool start1 = false, start2 = false;
 	bool end1 = false, end2 = false;
 	int lineEnd1;
@@ -942,9 +944,9 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 	if (lineEnd1 > LengthDocument())
 		lineEnd1 = LengthDocument();
 
-	int lineStart1;
-	size_t start_cmt, end_cmt;
-	int index;	
+	int lineStart1 = 0;
+	size_t start_cmt  = 0, end_cmt = 0;
+	int index = 0;
 	// Find Backward StartComment
 	while (line >= 0 && start1 == false && end1 == false)
 	{

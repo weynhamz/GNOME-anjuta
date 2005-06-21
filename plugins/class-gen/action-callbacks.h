@@ -39,5 +39,6 @@ void on_create_button_clicked (GtkButton *button, ClassGenData* data);
 void on_cancel_button_clicked (GtkButton *button, ClassGenData *data);
 gboolean on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
                                            ClassGenData *data);
+void on_inline_toggled (GtkToggleButton *buttom, ClassGenData *data);
 
 #endif

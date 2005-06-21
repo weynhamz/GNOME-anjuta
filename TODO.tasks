@@ -54,18 +54,18 @@ preferences dialog when it is closed.</comment>
 by CVS surgery into editor plugin.</comment>
     </item>
     <item>
-      <attribute id="1107253918" priority="1" done="0" start_date="731978" notify="0" last_edited="1112104270"/>
-      <summary>Progress bar</summary>
-      <comment>Implement  multiple progress bars in AnjutaStatus class. Any
-number of progressbar should be acceptable. All of them
-should be shown side-by-side in status bar.</comment>
-    </item>
-    <item>
       <attribute id="1098253494" priority="2" done="0" start_date="731874" notify="0" last_edited="1113555538"/>
       <summary>Preferences keys with no defaults do not register</summary>
       <comment>Preferences keys without default values (defined in .glade file) are not
 registered during preferences registeration. This results in gconf type
 mismatch when the keys are queried.</comment>
+    </item>
+    <item>
+      <attribute id="1107253918" priority="1" done="1" start_date="731978" completed_date="732118" notify="0" last_edited="1119330389"/>
+      <summary>Progress bar</summary>
+      <comment>Implement  multiple progress bars in AnjutaStatus class. Any
+number of progressbar should be acceptable. All of them
+should be shown side-by-side in status bar.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">

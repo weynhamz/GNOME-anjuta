@@ -305,17 +305,16 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 	const gchar* log, gint server_type, const gchar* username, const 
 	gchar* password, GError** error)
 {
-	GString* options = g_string_new("");
-	CVSPlugin* plugin = (CVSPlugin*) obj;
 	gchar* cvs_command;
 	gchar* root;
+	GString* options = g_string_new("");
+	CVSPlugin* plugin = (CVSPlugin*) obj;
 	
 	switch (server_type)
 	{
 		case SERVER_LOCAL:
 		{
-			root = g_strdup_printf("-d %s", 
-				cvsroot);
+			root = g_strdup_printf("-d %s", cvsroot);
 			break;
 		}
 		case SERVER_EXTERN:
@@ -330,11 +329,14 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 			break;
 		}
 		default:
+		{
 			g_warning("Invalid cvs server type!");
+			g_string_free (options, TRUE);
+			return;
+		}
 	}
 	g_string_printf(options, "-m '%s'", log);
-	g_string_append_printf(options, " %s %s %s",
-		module, vendor, release);
+	g_string_append_printf(options, " %s %s %s", module, vendor, release);
 	
 	cvs_command = create_cvs_command_with_cvsroot(
 		anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL),
@@ -344,4 +346,3 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 	g_string_free(options, TRUE);
 	g_free(cvs_command);
 }
-

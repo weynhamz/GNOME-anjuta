@@ -379,11 +379,12 @@ static void
 on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 					  BuildContext *context)
 {
-	gchar *dummy_fn, *summary, *line;
+	gchar *dummy_fn, *line;
 	gint dummy_int;
 	IAnjutaMessageViewType type;
 	GList *node;
 	gchar dir[2048];
+	gchar *summary = NULL;
 	
 	g_return_if_fail (one_line != NULL);
 	
