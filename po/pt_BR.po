@@ -8,16 +8,16 @@
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2004.
-# Afonso Celso Medina <medina@maua.br>,2004, 2005.
-#
-#
+# Afonso Celso Medina <afmedina@uol.com.br>,2004, 2005.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-05 10:36+0000\n"
-"PO-Revision-Date: 2005-06-05 12:49-0300\n"
-"Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
+"POT-Creation-Date: 2005-06-12 10:37+0000\n"
+"PO-Revision-Date: 2005-06-12 19:43-0300\n"
+"Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -608,9 +608,9 @@ msgid "Programs"
 msgstr "Programas"
 
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:951
-#: ../plugins/project-manager/plugin.c:971
-#: ../plugins/project-manager/plugin.c:1047
+#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1023
+#: ../plugins/project-manager/plugin.c:1043
+#: ../plugins/project-manager/plugin.c:1119
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projeto"
@@ -775,7 +775,7 @@ msgstr "Editor de Ferramentas"
 msgid "Top level Makefile.am"
 msgstr "Makefile.am do diretório raíz"
 
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:762
+#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
 #: ../plugins/subversion/svn-notify.c:118
@@ -1282,7 +1282,7 @@ msgstr "Modo de Tecla Aceleradora"
 msgid "The type of accelerator."
 msgstr "O tipo de acelerador."
 
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:489
+#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:534
 msgid "Disabled"
 msgstr "Desabilitado"
 
@@ -1933,15 +1933,15 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "O executável '%s' não está atualizado."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:169
+#: ../plugins/class-inheritance/class-inherit.c:140
 msgid "Fixed data-view"
 msgstr "Visualização de dados fixa"
 
-#: ../plugins/class-inheritance/class-inherit.c:763
+#: ../plugins/class-inheritance/class-inherit.c:932
 msgid "Update the graph"
 msgstr "Atualizar o gráfico"
 
-#: ../plugins/class-inheritance/plugin.c:123
+#: ../plugins/class-inheritance/plugin.c:126
 msgid "Inheritance Graph"
 msgstr "Gráfico de Herança"
 
@@ -4522,6 +4522,7 @@ msgstr "Procurar Usos da Região Selecionada"
 
 #. 18
 #: ../plugins/editor/text_editor_menu.c:348
+#: ../plugins/project-manager/plugin.c:331
 msgid "Close"
 msgstr "Fechar"
 
@@ -4723,7 +4724,7 @@ msgstr "Ignorar arquivos"
 msgid "dialog3"
 msgstr "diálogo3"
 
-#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:541
+#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:613
 #: ../plugins/symbol-browser/plugin.c:313
 msgid "_Refresh"
 msgstr "_Atualizar"
@@ -5090,12 +5091,12 @@ msgid "All breakpoints removed.\n"
 msgstr "Todos os pontos de interrupção excluídos\n"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
-#: ../plugins/tools/editor.c:411
+#: ../plugins/tools/editor.c:456
 msgid "Variable"
 msgstr "Variável"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/registers.c:316
-#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:417
+#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:462
 msgid "Value"
 msgstr "Valor"
 
@@ -7257,7 +7258,29 @@ msgstr ""
 "A geração do arquivo de projeto falhou. Por favor, verifique se você tem as "
 "permissões de escrita para o diretório de projeto: %s"
 
-#: ../plugins/project-manager/plugin.c:347
+#: ../plugins/project-manager/plugin.c:231
+#: ../plugins/project-manager/plugin.c:608
+msgid "Project properties"
+msgstr "Propriedades do Projeto"
+
+#: ../plugins/project-manager/plugin.c:246
+#: ../plugins/project-manager/plugin.c:314
+msgid "No properties available for this target"
+msgstr "Nenhuma propriedade disponível para este alvo"
+
+#: ../plugins/project-manager/plugin.c:299
+msgid "Target properties"
+msgstr "Propriedades do alvo"
+
+#: ../plugins/project-manager/plugin.c:328
+msgid "Group properties"
+msgstr "Propriedades do grupo"
+
+#: ../plugins/project-manager/plugin.c:343
+msgid "No properties available for this group"
+msgstr "Nenhuma propriedade disponível para este grupo"
+
+#: ../plugins/project-manager/plugin.c:430
 #, c-format
 msgid ""
 "%sGroup: %s\n"
@@ -7268,12 +7291,12 @@ msgstr ""
 "\n"
 "O grupo não será deletado pelo sistema."
 
-#: ../plugins/project-manager/plugin.c:350
+#: ../plugins/project-manager/plugin.c:433
 #, c-format
 msgid "%sTarget: %s"
 msgstr "%sAlvo: %s"
 
-#: ../plugins/project-manager/plugin.c:353
+#: ../plugins/project-manager/plugin.c:436
 #, c-format
 msgid ""
 "%sSource: %s\n"
@@ -7284,7 +7307,7 @@ msgstr ""
 "\n"
 "O arquivo fonte não será deletado pelo sistema."
 
-#: ../plugins/project-manager/plugin.c:360
+#: ../plugins/project-manager/plugin.c:443
 msgid ""
 "Are you sure you want to remove the following from project?\n"
 "\n"
@@ -7292,89 +7315,85 @@ msgstr ""
 "Você tem certeza de que deseja remover o seguinte do Projeto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:532
+#: ../plugins/project-manager/plugin.c:604
 msgid "_Project"
 msgstr "_Projeto"
 
-#: ../plugins/project-manager/plugin.c:536
-#: ../plugins/project-manager/plugin.c:565
+#: ../plugins/project-manager/plugin.c:608
+#: ../plugins/project-manager/plugin.c:637
 msgid "_Properties"
 msgstr "_Propriedades"
 
-#: ../plugins/project-manager/plugin.c:536
-msgid "Project properties"
-msgstr "Propriedades do Projeto"
-
-#: ../plugins/project-manager/plugin.c:541
+#: ../plugins/project-manager/plugin.c:613
 msgid "Refresh project manager tree"
 msgstr "Atualizando a árvore do gerenciador de Projeto"
 
-#: ../plugins/project-manager/plugin.c:546
-#: ../plugins/project-manager/plugin.c:575
+#: ../plugins/project-manager/plugin.c:618
+#: ../plugins/project-manager/plugin.c:647
 msgid "Add _Group"
 msgstr "Adicionar _Grupo"
 
-#: ../plugins/project-manager/plugin.c:546
-#: ../plugins/project-manager/plugin.c:575
+#: ../plugins/project-manager/plugin.c:618
+#: ../plugins/project-manager/plugin.c:647
 msgid "Add a group to project"
 msgstr "Adicionar um grupo ao Projeto"
 
-#: ../plugins/project-manager/plugin.c:551
-#: ../plugins/project-manager/plugin.c:580
+#: ../plugins/project-manager/plugin.c:623
+#: ../plugins/project-manager/plugin.c:652
 msgid "Add _Target"
 msgstr "Adicionar Al_vo"
 
-#: ../plugins/project-manager/plugin.c:551
-#: ../plugins/project-manager/plugin.c:580
+#: ../plugins/project-manager/plugin.c:623
+#: ../plugins/project-manager/plugin.c:652
 msgid "Add a target to project"
 msgstr "Adicionar um alvo ao Projeto"
 
-#: ../plugins/project-manager/plugin.c:556
-#: ../plugins/project-manager/plugin.c:585
+#: ../plugins/project-manager/plugin.c:628
+#: ../plugins/project-manager/plugin.c:657
 msgid "Add _Source File"
 msgstr "Adicionar Arquivo _Fonte"
 
-#: ../plugins/project-manager/plugin.c:556
-#: ../plugins/project-manager/plugin.c:570
-#: ../plugins/project-manager/plugin.c:585
+#: ../plugins/project-manager/plugin.c:628
+#: ../plugins/project-manager/plugin.c:642
+#: ../plugins/project-manager/plugin.c:657
 msgid "Add a source file to project"
 msgstr "Adiciona um arquivo de código fonte ao Projeto"
 
-#: ../plugins/project-manager/plugin.c:565
+#: ../plugins/project-manager/plugin.c:637
 msgid "Properties of group/target/source"
 msgstr "Propriedades do grupo/alvo/fonte"
 
-#: ../plugins/project-manager/plugin.c:570
+#: ../plugins/project-manager/plugin.c:642
 msgid "_Add To Project"
 msgstr "_Adicionar ao Projeto"
 
-#: ../plugins/project-manager/plugin.c:590
+#: ../plugins/project-manager/plugin.c:662
 msgid "Re_move"
 msgstr "Re_mover"
 
-#: ../plugins/project-manager/plugin.c:590
+#: ../plugins/project-manager/plugin.c:662
 msgid "Remove from project"
 msgstr "Remove do Projeto"
 
-#: ../plugins/project-manager/plugin.c:844
+#: ../plugins/project-manager/plugin.c:916
 msgid "Loading project. Please wait ..."
 msgstr "Carregando o Projeto. Por favor, aguarde..."
 
-#: ../plugins/project-manager/plugin.c:913
+#: ../plugins/project-manager/plugin.c:985
 #, c-format
 msgid "Loading project: %s"
 msgstr "Carregando o Projeto: %s"
 
-#: ../plugins/project-manager/plugin.c:931
+#: ../plugins/project-manager/plugin.c:1003
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Falha ao carregar o Projeto %s: %s"
 
-#: ../plugins/project-manager/plugin.c:1029
+#: ../plugins/project-manager/plugin.c:1101
 msgid "Project manager actions"
 msgstr "Ações do gerenciador de Projeto"
 
-#: ../plugins/project-manager/plugin.c:1035
+#: ../plugins/project-manager/plugin.c:1107
 msgid "Project manager popup actions"
 msgstr "Ações de popup do gerenciador de Projeto"
 
@@ -8448,35 +8467,35 @@ msgstr "Impossível criar interface de usuário para a lista de ferramentas"
 msgid "Tool"
 msgstr "Ferramenta"
 
-#: ../plugins/tools/editor.c:259
+#: ../plugins/tools/editor.c:304
 msgid "ask at runtime"
 msgstr "perguntar no momento da execução"
 
-#: ../plugins/tools/editor.c:264
+#: ../plugins/tools/editor.c:309
 msgid "undefined"
 msgstr "não definido"
 
-#: ../plugins/tools/editor.c:398
+#: ../plugins/tools/editor.c:443
 msgid "Unable to build user interface for tool variable"
 msgstr "Impossível criar interface de usuário para a variável da ferramenta"
 
-#: ../plugins/tools/editor.c:414
+#: ../plugins/tools/editor.c:459
 msgid "Meaning"
 msgstr "Significando"
 
-#: ../plugins/tools/editor.c:650
+#: ../plugins/tools/editor.c:695
 msgid "You must provide a tool name!"
 msgstr "Você deve informar um nome para a ferramenta!"
 
-#: ../plugins/tools/editor.c:658
+#: ../plugins/tools/editor.c:703
 msgid "You must provide a tool command!"
 msgstr "Você deve informar um comando para a ferramenta!"
 
-#: ../plugins/tools/editor.c:666
+#: ../plugins/tools/editor.c:711
 msgid "A tool with the same name already exists!"
 msgstr "Já existe uma ferramenta com o mesmo nome!"
 
-#: ../plugins/tools/editor.c:683
+#: ../plugins/tools/editor.c:728
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway ?"
@@ -8484,15 +8503,15 @@ msgstr ""
 "Este atalho já é utilizado por outro componente do Anjuta. Você deseja mantê-"
 "lo mesmo assim?"
 
-#: ../plugins/tools/editor.c:771
+#: ../plugins/tools/editor.c:813
 msgid "Unable to edit script"
 msgstr "Impossível editar o script"
 
-#: ../plugins/tools/editor.c:907
+#: ../plugins/tools/editor.c:949
 msgid "New accelerator..."
 msgstr "Novo acelerador..."
 
-#: ../plugins/tools/editor.c:932
+#: ../plugins/tools/editor.c:974
 msgid "Unable to build user interface for tool editor"
 msgstr "Impossível criar interface de usuário para o editor ferramentas"
 
@@ -9034,10 +9053,10 @@ msgstr "Shell de teste do Anjuta"
 #~ msgstr "Personaliza o navegador de arquivos"
 
 #~ msgid "Date_Y"
-#~ msgstr "Date_Y"
+#~ msgstr "Data_Y"
 
 #~ msgid "Date_Ymd"
-#~ msgstr "Date_Ymd"
+#~ msgstr "Data_Ymd"
 
 #~ msgid "EXPAND"
 #~ msgstr "EXPAND"
