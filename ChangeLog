@@ -1,5 +1,7 @@
 2005-06-21  Naba Kumar  <naba@gnome.org>
 
+	* plugins/message-view/message-view.c: Scroll message on next/previous.
+
 	* TODO.tasks: Updated.
 
 	* manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
