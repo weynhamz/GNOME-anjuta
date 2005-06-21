@@ -150,7 +150,7 @@ isymbol_var_type (IAnjutaSymbol *isymbol, GError **err)
 	return s->priv->tm_tag->atts.entry.var_type;
 }
 
-static const gchar
+static gchar
 isymbol_access (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
@@ -160,7 +160,7 @@ isymbol_access (IAnjutaSymbol *isymbol, GError **err)
 	return s->priv->tm_tag->atts.entry.access;
 }
 
-static const gchar
+static gchar
 isymbol_impl (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;

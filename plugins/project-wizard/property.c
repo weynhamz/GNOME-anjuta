@@ -98,6 +98,7 @@ npw_property_type_from_string (const gchar* type)
 	return NPW_UNKNOWN_PROPERTY;
 }
 
+#if 0
 static const gchar*
 npw_property_string_from_type (NPWPropertyType type)
 {
@@ -108,6 +109,7 @@ npw_property_string_from_type (NPWPropertyType type)
 
 	return NULL;
 }
+#endif
 
 NPWProperty*
 npw_property_new (NPWPage* owner)

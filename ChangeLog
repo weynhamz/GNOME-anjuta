@@ -32,9 +32,17 @@
 	plugins/project-wizard/druid.c,
 	plugins/project-wizard/install.c,
 	plugins/subversion/plugin.c,
-	plugins/tools/scripts/prepare-changelog.pl,
 	tagmanager/tm_file_entry.c: Fixed compiler warnings and deleted dead
 	codes.
+
+	* plugins/class-gen/action-callbacks.c,
+	plugins/project-wizard/parser.c,
+	plugins/project-wizard/property.c,
+	plugins/project-wizard/values.c,
+	plugins/symbol-browser/an_symbol.c: Fixed compiler warnings.
+
+	* plugins/tools/scripts/prepare-changelog.pl: Order filenames
+	alphabetically
 
 2005-06-20  Naba Kumar  <naba@gnome.org>
 

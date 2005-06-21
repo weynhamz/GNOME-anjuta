@@ -97,7 +97,7 @@ npw_value_heap_new (void)
 void
 npw_value_heap_free (NPWValueHeap* this)
 {
-	GSList* node;
+	/* GSList* node; */
 	g_return_if_fail (this != NULL);
 
 	npw_value_heap_deinitialize (this);

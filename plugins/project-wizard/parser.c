@@ -542,17 +542,14 @@ npw_header_parser_new (NPWHeaderList* list, const gchar* filename)
 	NPWHeaderParser* this;
 
 	g_return_val_if_fail (list != NULL, NULL);
-	g_return_val_if_fail (this != NULL, NULL);
 	g_return_val_if_fail (filename != NULL, NULL);
 
-	this = g_new (NPWHeaderParser, 1);
+	this = g_new0 (NPWHeaderParser, 1);
 
 	this->type = NPW_HEADER_PARSER;
-
 	this->unknown = 0;
 	this->tag[0] = NPW_NO_TAG;
 	this->last = this->tag;
-
 	this->list = list;
 	this->header = NULL;
 	this->filename = g_strdup (filename);
@@ -1155,6 +1152,7 @@ parse_file (NPWFileListParser* this, NPWFileTag* child, const gchar** attributes
 	destination = NULL;
 	execute = FALSE;
 	project = FALSE;
+	autogen = FALSE;
 	autogen_set = FALSE;
 
 	while (*attributes != NULL)
@@ -1224,11 +1222,14 @@ parse_file (NPWFileListParser* this, NPWFileTag* child, const gchar** attributes
 	npw_file_set_destination (file, full_destination);
 	npw_file_set_execute (file, execute);
 	npw_file_set_project (file, project);
-	if (autogen_set) npw_file_set_autogen (file, autogen ? NPW_TRUE : NPW_FALSE);
+	if (autogen_set)
+		npw_file_set_autogen (file, autogen ? NPW_TRUE : NPW_FALSE);
 
-	if (source != full_source) g_free (full_source);	
-	if (destination != full_destination) g_free (full_destination);	
-}	
+	if (source != full_source)
+		g_free (full_source);
+	if (destination != full_destination)
+		g_free (full_destination);
+}
 
 static void
 parse_file_start (GMarkupParseContext* context,
