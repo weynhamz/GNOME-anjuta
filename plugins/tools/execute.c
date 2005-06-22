@@ -33,8 +33,11 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include <glib.h>
+
+#include <ctype.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -76,6 +79,7 @@ typedef struct
 typedef struct _ATPExecutionContext
 {
 	gchar* name;
+	gchar* directory; // used for opening file from message pane
 	ATPOutputContext output;
 	ATPOutputContext error;
 	AnjutaPlugin *plugin;
@@ -176,15 +180,142 @@ replace_variable (const gchar* prefix,  const gchar* source, ATPVariable* variab
 	return val;
 }
 
+static gboolean
+parse_error_line (const gchar * line, gchar ** filename, int *lineno)
+{
+	gint i = 0;
+	gint j = 0;
+	gint k = 0;
+	gchar *dummy;
+
+	while (line[i++] != ':')
+	{
+		if (i >= strlen (line) || i >= 512 || line[i - 1] == ' ')
+		{
+			goto down;
+		}
+	}
+	if (isdigit (line[i]))
+	{
+		j = i;
+		while (isdigit (line[i++])) ;
+		dummy = g_strndup (&line[j], i - j - 1);
+		*lineno = atoi (dummy);
+		if (dummy)
+			g_free (dummy);
+		dummy = g_strndup (line, j - 1);
+		*filename = g_strdup (g_strstrip (dummy));
+		if (dummy)
+			g_free (dummy);
+		return TRUE;
+	}
+
+      down:
+	i = strlen (line) - 1;
+	while (isspace (line[i]) == FALSE)
+	{
+		i--;
+		if (i < 0)
+		{
+			*filename = NULL;
+			*lineno = 0;
+			return FALSE;
+		}
+	}
+	k = i++;
+	while (line[i++] != ':')
+	{
+		if (i >= strlen (line) || i >= 512 || line[i - 1] == ' ')
+		{
+			*filename = NULL;
+			*lineno = 0;
+			return FALSE;
+		}
+	}
+	if (isdigit (line[i]))
+	{
+		j = i;
+		while (isdigit (line[i++])) ;
+		dummy = g_strndup (&line[j], i - j - 1);
+		*lineno = atoi (dummy);
+		if (dummy)
+			g_free (dummy);
+		dummy = g_strndup (&line[k], j - k - 1);
+		*filename = g_strdup (g_strstrip (dummy));
+		if (dummy)
+			g_free (dummy);
+		return TRUE;
+	}
+	*lineno = 0;
+	*filename = NULL;
+	return FALSE;
+}
+
 /* Output context functions
  *---------------------------------------------------------------------------*/
+
+static void
+on_message_buffer_click (IAnjutaMessageView *view, const gchar *line,
+						 ATPOutputContext *this)
+{
+	gchar *filename;
+	gint lineno;
+
+	if (parse_error_line (line, &filename, &lineno))
+	{
+		gchar *uri;
+		IAnjutaFileLoader *loader;
+	
+		/* Go to file and line number */
+		loader = anjuta_shell_get_interface (this->execution->plugin->shell,
+											 IAnjutaFileLoader,
+											 NULL);
+		
+		/* Append current directory */
+		if ((this->execution->directory != NULL) && (*filename != G_DIR_SEPARATOR))
+		{
+			if (*filename == '.')
+			{
+				uri = g_strdup_printf ("file://%s/%s#%d", this->execution->directory, filename + 1, lineno);
+			}
+			else
+			{
+				uri = g_strdup_printf ("file://%s/%s#%d", this->execution->directory, filename, lineno);
+			}
+		}
+		else
+		{
+			uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
+		}
+		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+		g_free (uri);
+	}
+}
 
 static void
 on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
 						 ATPOutputContext *this)
 {
+	gchar *dummy_fn;
+	gint dummy_int;
+	IAnjutaMessageViewType type;
+	
 	if (this->view)
-		ianjuta_message_view_append (this->view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line, "", NULL);
+	{
+		type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
+		if (parse_error_line(line, &dummy_fn, &dummy_int))
+		{
+			if (strstr (line, _("warning:")) != NULL)
+				type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
+			else if (strstr (line, _("error:")) != NULL)
+				type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
+		}
+		else if (strstr (line, ":") != NULL)
+		{
+			type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
+		}
+		ianjuta_message_view_append (this->view, type, line, "", NULL);
+	}
 }
 
 /* Handle output for stdout and stderr */
@@ -222,6 +353,8 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 				this->view = ianjuta_message_manager_add_view (man, "", ICON_FILE, NULL);
 				g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
 							  G_CALLBACK (on_message_buffer_flush), this);
+				g_signal_connect (G_OBJECT (this->view), "message_clicked",
+							  G_CALLBACK (on_message_buffer_click), this);
 				g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
 			}
 			else
@@ -565,16 +698,39 @@ atp_execution_context_free (ATPExecutionContext* this)
 		g_object_unref (this->launcher);
 	}
 	if (this->name) g_free (this->name);
+	if (this->directory) g_free (this->directory);
 
 	g_free (this);
 }
 
 static void
+atp_execution_context_set_directory (ATPExecutionContext* this, const gchar* directory)
+{
+	if (this->directory != NULL) g_free (this->directory);
+	this->directory = directory == NULL ? NULL : g_strdup (directory);
+}
+
+static void
 atp_execution_context_execute (ATPExecutionContext* this, const gchar* command, const gchar* input)
 {
+	gchar* prev_dir = NULL;
 
 	atp_output_context_print_command (&this->output, command);
+
+	/* Change working directory */
+	if (this->directory != NULL)
+	{
+		prev_dir = g_get_current_dir();
+		chdir (this->directory);
+	}
+	/* Execute */
 	anjuta_launcher_execute (this->launcher, command, on_run_output, this);
+	/* Restore previous current directory */
+	if (this->directory != NULL)
+	{
+		chdir (prev_dir);
+		g_free (prev_dir);
+	}
 	anjuta_launcher_set_encoding (this->launcher, NULL);
 	this->busy = TRUE;
 
@@ -602,7 +758,7 @@ atp_context_list_destroy (ATPContextList *this)
 {
 	GList *item;
 
-	for (item = this->list; item != NULL;)
+	for (item = this->list; item != NULL; item = this->list)
 	{
 		this->list = g_list_remove_link (this->list, item);
 		atp_execution_context_free ((ATPExecutionContext *)item->data);
@@ -780,21 +936,10 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 		if (context)
 		{
 			/* Set working directory */
-			if (dir != NULL)
-			{
-				val = g_get_current_dir();
-				chdir (dir);
-			}
+			atp_execution_context_set_directory (context, dir);
 	
 			/* Run command */
 			atp_execution_context_execute (context, cmd, input);
-
-			/* Restore previous current directory */
-			if (dir != NULL)
-			{
-				chdir (val);
-				g_free (val);
-			}
 		}
 
 		if (input != NULL) g_free(input);

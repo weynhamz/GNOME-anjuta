@@ -321,6 +321,13 @@ parse_tool_end (GMarkupParseContext* context,
 	{
 		/* Pop known element */
 		parser->last--;
+
+		/* Check if tool is valid */
+		if (atp_user_tool_is_valid (parser->tool) ==  FALSE)
+		{
+			/* Remove it */
+			atp_user_tool_free (parser->tool);
+		}
 		parser->tool = NULL;
 	}
 	else if (*parser->last != ATP_NO_TAG)

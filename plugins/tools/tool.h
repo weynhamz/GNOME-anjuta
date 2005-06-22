@@ -157,6 +157,8 @@ ATPToolStore atp_user_tool_get_storage (const ATPUserTool *this);
 
 ATPPlugin* atp_user_tool_get_plugin (ATPUserTool* this);
 
+gboolean atp_user_tool_is_valid (const ATPUserTool* this);
+
 ATPUserTool *atp_user_tool_next (ATPUserTool* this);
 ATPUserTool *atp_user_tool_next_in_same_storage (ATPUserTool* this);
 ATPUserTool *atp_user_tool_previous (ATPUserTool* this);

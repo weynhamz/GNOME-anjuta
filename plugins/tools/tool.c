@@ -600,6 +600,12 @@ atp_user_tool_get_plugin (ATPUserTool* this)
 	return this->owner->plugin;
 }
 
+gboolean
+atp_user_tool_is_valid (const ATPUserTool* this)
+{
+	return (this->command != NULL);
+}
+
 /* Additional tool functions
  *---------------------------------------------------------------------------*/
 

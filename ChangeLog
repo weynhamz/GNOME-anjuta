@@ -1,3 +1,14 @@
+2005-06-21 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/tools/execute.c:
+	Parse output in message pane
+	Correct a crash on plugin deactivation
+
+	* plugins/tools/fileop.c,
+	plugins/tools/tool.c,
+	plugins/tools/tool.h:
+	Load only valid tools
+
 2005-06-21  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.spec.in: Fixed devel package requirement.
