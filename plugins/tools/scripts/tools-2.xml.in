@@ -7,8 +7,8 @@
 		<enabled>1</enabled>
 		<autosave>0</autosave>
 		<run_in_terminal>0</run_in_terminal>
-		<output>3</output>
-		<error>1</error>
+		<output>1</output>
+		<error>0</error>
 		<input_type>0</input_type>
 		<shortcut></shortcut>
 	</tool>

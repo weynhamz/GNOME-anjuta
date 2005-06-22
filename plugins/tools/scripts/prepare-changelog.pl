@@ -37,13 +37,13 @@ unless (-d "$project_root/CVS") {
 }
 
 my %data_hash;
-print STDERR "Preparing ChangeLog for $project_root\n";
+print "Preparing ChangeLog for $project_root\n";
 process_directory ("", \%data_hash);
 
 my @files = keys (%data_hash);
 
 if (@files <= 0) {
-	print STDERR "No changes made to project\n";
+	print "No changes made to project\n";
 	exit(0);
 }
 
@@ -64,16 +64,29 @@ foreach my $file (sort @files) {
 }
 $changelog .= ":\n\n";
 
-print $changelog;
+my $changelog_file = "$project_root/ChangeLog";
+if ((-r $changelog_file) && (-w $changelog_file)) {
+	$changelog .= `cat $changelog_file`;
+	unless (open (CHLOG, ">$changelog_file")) {
+		print STDERR "Failed to open $changelog_file for reading/writing\n";
+		exit (1);
+	}
+	print CHLOG $changelog;
+	close (CHLOG);
+	print "\032\032$changelog_file:0\n";
+} else {
+	print STDERR "Failed to open $changelog_file for reading/writing\n";
+	exit(1);
+}
 
 sub process_directory
 {
 	my ($dir, $data_hr) = @_;
 	
 	if ($dir ne "") {
-		print STDERR "Scanning $dir\n";
+		print "Scanning $dir\n";
 	} else {
-		print STDERR "Scanning .\n";
+		print "Scanning .\n";
 	}
 	open (ENTRIES, "$project_root/$dir/CVS/Entries") or
 		die "Can not open $project_root/$dir/CVS/Entries for reading";
@@ -86,14 +99,16 @@ sub process_directory
 		if ($line =~ /^\/([^\/]+)\/([^\/]+)\/([^\/]+)/) {
 			my $file = $1;
 			my $repo_time = $3;
-			my $file_time = `date -u -r $project_root/$dir/$file`;
-			$file_time =~ s/\s+$//sg;
-			$file_time =~ s/\w+\s+(\d+)$/$1/;
-			## print "Comparing '$repo_time' and '$file_time'\n";
-			if ($file_time ne $repo_time) {
-				my $path = "$dir/$file";
-				$path =~ s/^\///;
-				$data_hr->{$path} = "modified";
+			if (-f "$project_root/$dir/$file") {
+				my $file_time = `date -u -r $project_root/$dir/$file`;
+				$file_time =~ s/\s+$//sg;
+				$file_time =~ s/\w+\s+(\d+)$/$1/;
+				## print "Comparing '$repo_time' and '$file_time'\n";
+				if ($file_time ne $repo_time) {
+					my $path = "$dir/$file";
+					$path =~ s/^\///;
+					$data_hr->{$path} = "modified";
+				}
 			}
 		}
 	}

@@ -1,3 +1,14 @@
+2005-05-22 Naba Kumar  <naba@gnome.org>
+
+	* plugins/tools/execute.c: Make parsable lines distinct by adding
+	a "Click me" description in the message. Allow tools to open arbibrary
+	file in editory using gdb-styled annotation (The line starts with two
+	\032 characters followed by the file:line).
+	
+	* plugins/tools/scripts/prepare-changelog.pl,
+	plugins/tools/scripts/tools-2.xml.in: Fixed to add changelog entry in
+	ChangeLog file itself and open it.
+
 2005-06-21 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/tools/execute.c:

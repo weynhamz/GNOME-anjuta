@@ -293,15 +293,29 @@ on_message_buffer_click (IAnjutaMessageView *view, const gchar *line,
 }
 
 static void
-on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
+on_message_buffer_flush (IAnjutaMessageView *view, const gchar *msg_line,
 						 ATPOutputContext *this)
 {
 	gchar *dummy_fn;
 	gint dummy_int;
+	gchar *line;
 	IAnjutaMessageViewType type;
+	
+	/* If there is a gdb style annotation to open a file, open it */
+	if (strlen(msg_line) > 2 && msg_line[0] == '\032' && msg_line[1] == '\032')
+	{
+		line = g_strdup_printf (_("Opening %s"), &msg_line[2]);
+		on_message_buffer_click (view, &msg_line[2], this);
+	}
+	else
+	{
+		line = g_strdup (msg_line);
+	}
 	
 	if (this->view)
 	{
+		gchar *desc = "";
+		
 		type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 		if (parse_error_line(line, &dummy_fn, &dummy_int))
 		{
@@ -309,13 +323,15 @@ on_message_buffer_flush (IAnjutaMessageView *view, const gchar *line,
 				type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 			else if (strstr (line, _("error:")) != NULL)
 				type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
+			desc = _("Click to visit the location");
 		}
 		else if (strstr (line, ":") != NULL)
 		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
 		}
-		ianjuta_message_view_append (this->view, type, line, "", NULL);
+		ianjuta_message_view_append (this->view, type, line, desc, NULL);
 	}
+	g_free (line);
 }
 
 /* Handle output for stdout and stderr */
