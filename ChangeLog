@@ -2,6 +2,7 @@
 
 	* AUTHORS: Added developers for other projects. Updated.
 	* TODO.tasks: Updated.
+	* ChangeLog: Added past changelogs from anjuta-0.1.5.
 	
 2005-05-22 Naba Kumar  <naba@gnome.org>
 
@@ -13843,3 +13844,87 @@ attached the fix for the menu
 2001-04-22  Stéphane Démurget <demurgets@free.fr>
 
 	* Emptied that ugly old Changelog.
+
+== Anjuta 0.1.5 ===
+== Anjuta 0.1.4 ==
+
+2001-03-10 Naba kumar  <naba@gnome.org>
+
+	* src/gnome_project.c: Fixed project dir creation bug.
+
+	* src/text_editor.c: Fixed double accelerators bug.
+	
+	* src/glade_iface.c, src/project_dbase.c: Fixed source generation bug.
+
+	* src/stack_trace.c, * src/compiler_options.c,
+	data/internals.properties, src/defaults.c:
+	Fixed pixmap creation with NULL window.
+
+	* src/commands.c, src/preferences_gui.c, src/build_project.c
+	src/clean_project.c: Bug fix.
+	
+	* src/main_menubar_def.h: i18n bug fix.
+	
+	* src/executer.h, src/executer.c: Bug fix.
+	
+	* src/controls.c: Bug fix.
+	
+	* src/debugger.c: Debugger now takes program args.
+	
+	* po/ja.po: Added japanese translation file.
+	
+	Upgraded to ver 0.1.4
+	... Fixed other minor bugs.
+
+== Anjuta 0.1.3 ===
+
+2001-XX-XX Naba kumar  <naba@gnome.org>
+
+	* Lots of unaccountable changes. Integrated scintilla.
+	Redesigned Project managemet. Added supports for other languages.
+	Java style properties managements. .... blah blah
+	
+2000-11-11 Naba kumar  <naba@gnome.org>
+
+	* README, htmls/page111.html, configure.in, anjuta.prj, anjuta.spec:
+	Upgraded to version 0.1.3.
+
+	* src/mainmenu_callbacks.c, src/main_menubar_def.h:
+	Fixed to activate Debug->add watch properly.
+
+=== Anjuta 0.1.2 beta_2 ===
+=== Anjuta 0.1.2 ===
+
+2000-11-05 Naba kumar  <naba@gnome.org>
+
+	* src/compiler_options.c, src/compiler_options_cbs.c
+	src/compiler_options_cbs.h, src/compiler_options_gui.c
+	src/anjuta2.c, extra/stock_libs.anj (new),
+	extra/README.stock_libs (new), htmls/page13.html,
+	htmls/images/*: Improved Library settings GUI. Can now enable/disable
+	added libraries. Stock libs provided for ease of entry.	Modified
+	help html file accordingly.
+
+2000-11-03 Naba kumar  <naba@gnome.org>
+
+	* README: Minor fixes in Doc files.
+
+	* src/gnome_prj.c, src/appwidzard_cbs.c:
+	Fixed to ignore non-existant dir for blank prj.
+	More checking in project creation, especially to confirm
+	that the prj file already does not exist.
+
+	* anjuta.spec, configure.in: Upgraded to version 0.1.2
+
+	* src/controls.c: Now Menu item "Format/Detach current document"
+	is inactive when there is no document opened.
+
+=== Anjuta 0.1.1 ===
+
+2000-11-01 Naba kumar  <naba@gnome.org>
+
+	Completed and Release of first version (Beta) with lots of bugs.
+
+1999-12-27 Naba kumar  <naba@gnome.org>
+
+	Anjuta project started.
