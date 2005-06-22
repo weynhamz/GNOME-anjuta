@@ -1,3 +1,35 @@
+Anjuta 2.0.1 (25 May 2005) -- Naba Kumar
+
+New: Group and target properties (for automake based projects)
+New: Improvements in class heirarchy. Added members view.
+New: Tools plugin improvements and scripts as tools.
+New: Prepare-ChangeLog tool.
+New: Find-Fixmes tool.
+New: Project translation status tool.
+New: Save and restore editor current line positions.
+New: Added configure flags to enable/disable optional plugins.
+New: Message saving from menu.
+New: Message manager context menu.
+New: Remember plugins profile for project sessions.
+Mew: Progress bar implementation.
+New: Better progress bar in splash.
+Updated: RPM spec file
+Bug fix: Group and target removal.
+Bug fix: Fixed Message tab position preferece.
+Bug fix: Scroll messages on next/previous.
+Bug fix: Fixed crash on project Import
+Bug fix: Fixed crash on terminal dockings.
+Bug fix: Fixed mime installation screw-up
+Bug fix: Fixed installation paths.
+Bug fix: Fixed 64bit arch build problems
+Bug fix: Fixed Autoformat/indent problems.
+Bug fix: Fixed Keyboard shortcuts for message navigation.
+Bug fix: Fixed graphviz build problems.
+Bug fix: Start gdb even if the program does	not exists. Fixes bug #305074
+Bug fix: Fixed default font names and sizes.
+Bug fix: Fixed errors in opening zero sized files.
+Bug fix: Fixed buttons order in open dialog.
+
 Anjuta 2.0.0 (15 May 2005) -- Naba Kumar
 
 Architecture and code base:
