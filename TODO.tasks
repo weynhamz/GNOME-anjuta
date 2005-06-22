@@ -156,7 +156,7 @@ Export currenct selected target or source.
 Added context menu based on current selected target or source.</comment>
     </item>
     <item>
-      <attribute id="1114162826" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114162826"/>
+      <attribute id="1114162826" priority="1" done="1" start_date="732058" completed_date="732119" notify="0" last_edited="1119425386"/>
       <summary>Implemente "Properties" method</summary>
       <comment>Implement "Configure" method in gnome-build for the automake backend.
 This will correspond to the "Properties" method in our project manager.</comment>

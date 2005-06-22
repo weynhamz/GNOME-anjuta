@@ -1,5 +1,10 @@
 2005-05-22 Naba Kumar  <naba@gnome.org>
 
+	* AUTHORS: Added developers for other projects. Updated.
+	* TODO.tasks: Updated.
+	
+2005-05-22 Naba Kumar  <naba@gnome.org>
+
 	* plugins/tools/execute.c: Make parsable lines distinct by adding
 	a "Click me" description in the message. Allow tools to open arbibrary
 	file in editory using gdb-styled annotation (The line starts with two

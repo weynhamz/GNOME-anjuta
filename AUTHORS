@@ -1,26 +1,42 @@
 Founder and Lead Developer:
------------------------------------------------------
+-------------------------------------------------------------------------------
 	Naba kumar  <naba@gnome.org> (Manipur, India)
 	
 Present Developers:
------------------------------------
+-------------------------------------------------------------------------------
 	Biswapesh Chattopadhyay  <biswapesh_chatterjee@tcscal.co.in> (Kolkata, India)
 	Jean-Noel Guiheneuf  <guiheneuf.jean-noel@wanadoo.fr> (France)
 	Johannes Schmid  <clubfan@users.sourceforge.net> (Germany)
 	Sebastien Granjoux  <seb.sfo@free.fr> (France)
 	
 Past Developers:
-------------------------------
+-------------------------------------------------------------------------------
 	Andy Piper  <andy.piper@freeuk.com> (United Kingdom)
 	Stéphane Démurget  <demurgets@free.fr> (France)
 	
-Website:
---------------
+GNOME Build Developers:
+-------------------------------------------------------------------------------
+	JP Rosevear  <jpr@helixcode.com> (USA)
+	Dave Camp  <dave@helixcode.com> (USA)
+	Jeroen Zwartepoorte  <jeroen@xs4all.nl> (United Kingdom)
+	Gustavo Giráldez  <gustavo_giraldez@gmx.net> (Argentina)
 	Naba kumar  <naba@gnome.org> (Manipur, India)
 	
+GDL Developers:
+-------------------------------------------------------------------------------
+	Dave Camp  <dave@ximian com> (USA)
+	Gustavo Giráldez  <gustavo_giraldez@gmx.net> (Argentina)
 	
-Patches, bugfixes and beta-testing Contributors:
---------------------------------------------------------------------------------------
+Scintilla Developer:
+-------------------------------------------------------------------------------
+	Neil Hodgson  <neilh@scintilla org>
+	
+Website:
+-------------------------------------------------------------------------------
+	Naba kumar  <naba@gnome.org> (Manipur, India)
+	
+Contributors:
+-------------------------------------------------------------------------------
 	Archit Baweja  <bighead@crosswinds.net> (India)
 	Benke Lázló  <decike@freemail.hu>
 	Chris Woodruff  <cwoodruff@openpenguin.com> (US)
@@ -70,13 +86,13 @@ Patches, bugfixes and beta-testing Contributors:
 	Yannick Koehler  <yannick.koehler@colubris.com>
 
 Documenters:
--------------------------
+-------------------------------------------------------------------------------
 	Naba Kumar <naba@gnome.org> (Manipur, India)
 	Andy Piper <andy.piper@freeuk.com> (England)
 	Biswapesh Chattopadhyay <Biswapesh Chattopadhyay>	
 	
 Main Translators:
----------------
+-------------------------------------------------------------------------------
 	zh_TW 	Abel Cheung <maddog@linux.org.hk>
 	en_CA 	Adam Weinberger <adamw@gnome.org>
 	ga 		Alastair McKinstry <mckinstry@computer.org>
@@ -115,14 +131,14 @@ Main Translators:
 	uk 		Yuriy Syrota <rasta@renome.rovno.ua>
 	
 Note: 
----------
+-------------------------------------------------------------------------------
 If you have contributed something significant to Anjuta 
 and your name is missing here, please email naba@gnome.org 
 with your Full name, email address, country and a brief 
 reminder of what you have done.
 
 Format :
-------
+-------------------------------------------------------------------------------
 In order to parse AUTHORS files some rules must be followed :
 
 1 - Each first chapter line must end by ':'
