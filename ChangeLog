@@ -1,5 +1,6 @@
 2005-05-23 Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta-app.c: Save menu accelerators on change.
 	* NEWS: Updated.
 	* plugins/editor/anjuta-docman.c: Fixed premature destruction of
 	save-as dialog (leading to crash later).

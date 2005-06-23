@@ -297,6 +297,13 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 }
 
 static void
+on_accel_changed (GtkAccelGroup *accelgroup, guint arg1, GdkModifierType arg2,
+				  GClosure *arg3, AnjutaApp *app)
+{
+	gnome_accelerators_sync ();
+}
+
+static void
 anjuta_app_dispose (GObject *widget)
 {
 	AnjutaApp *app;
@@ -366,6 +373,8 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkWidget *toolbar_menu, *about_menu;
 	GtkWidget *view_menu, *hbox;
 	GtkWidget *dockbar;
+	GtkAccelGroup *accel_group;
+	
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 0, 0, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST  
   	};
@@ -428,8 +437,12 @@ anjuta_app_instance_init (AnjutaApp *app)
 							  GTK_WIDGET (app->preferences));
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
-	gtk_window_add_accel_group (GTK_WINDOW (app),
-								anjuta_ui_get_accel_group (app->ui));
+	
+	accel_group = anjuta_ui_get_accel_group (app->ui);
+	g_signal_connect (accel_group, "accel-changed",
+					  G_CALLBACK (on_accel_changed), app);
+	
+	gtk_window_add_accel_group (GTK_WINDOW (app), accel_group);
 	g_signal_connect (G_OBJECT (app->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
