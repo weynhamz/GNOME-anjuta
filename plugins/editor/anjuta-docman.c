@@ -185,7 +185,7 @@ anjuta_docman_page_destroy (AnjutaDocmanPage *page)
 }
 
 static void
-on_open_filesel_ok_clicked (GtkDialog* dialog, gint id, AnjutaDocman *docman)
+on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 {
 	gchar *uri;
 	gchar *entry_filename = NULL;
@@ -268,7 +268,7 @@ save_as_real (AnjutaDocman *docman)
 }
 
 static void
-on_save_as_filesel_ok_clicked (GtkDialog* dialog, gint id, AnjutaDocman *docman)
+on_save_as_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 {
 	gchar* uri;
 	GnomeVFSURI* vfs_uri;
@@ -314,43 +314,39 @@ on_save_as_filesel_ok_clicked (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 }
 
 static GtkWidget*
-create_file_open_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
+create_file_open_dialog_gui (GtkWindow* parent, AnjutaDocman* docman)
 {
 	GtkWidget* dialog = 
 		gtk_file_chooser_dialog_new (_("Open file"), 
 									parent,
 									GTK_FILE_CHOOSER_ACTION_OPEN,
-									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 									NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
 	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER(dialog), TRUE);
-	g_signal_connect(G_OBJECT(dialog), "response", 
-					G_CALLBACK(on_open_filesel_ok_clicked), docman);
-	g_signal_connect_swapped (GTK_OBJECT (dialog), 
-                             "response", 
-                             G_CALLBACK (gtk_widget_hide),
-                             GTK_OBJECT (dialog));
-
+	g_signal_connect (G_OBJECT(dialog), "response", 
+					  G_CALLBACK(on_open_filesel_response), docman);
+	g_signal_connect_swapped (G_OBJECT(dialog), "delete-event",
+							  G_CALLBACK(gtk_widget_hide), dialog);	
 	return dialog;
 }
 
 static GtkWidget*
-create_file_save_dialog_gui(GtkWindow* parent, AnjutaDocman* docman)
+create_file_save_dialog_gui (GtkWindow* parent, AnjutaDocman* docman)
 {
 	GtkWidget* dialog = 
 		gtk_file_chooser_dialog_new (_("Save file as"), 
 									parent,
 									GTK_FILE_CHOOSER_ACTION_SAVE,
-									GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+									GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 									NULL); 
-
-	g_signal_connect(G_OBJECT(dialog), "response", 
-					G_CALLBACK(on_save_as_filesel_ok_clicked), docman);	
-	g_signal_connect_swapped (GTK_OBJECT (dialog), 
-                             "response", 
-                             G_CALLBACK (gtk_widget_hide),
-                             GTK_OBJECT (dialog));
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
+	g_signal_connect (G_OBJECT(dialog), "response", 
+					  G_CALLBACK(on_save_as_filesel_response), docman);	
+	g_signal_connect_swapped (G_OBJECT(dialog), "delete-event",
+							  G_CALLBACK(gtk_widget_hide), dialog);	
 	return dialog;
 }
 

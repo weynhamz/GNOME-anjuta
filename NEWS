@@ -14,11 +14,13 @@ New: Remember plugins profile for project sessions.
 Mew: Progress bar implementation.
 New: Better progress bar in splash.
 Updated: RPM spec file
+Bug fix: Fixed lots of project import bugs.
 Bug fix: Group and target removal.
 Bug fix: Fixed Message tab position preferece.
 Bug fix: Scroll messages on next/previous.
 Bug fix: Fixed crash on project Import
 Bug fix: Fixed crash on terminal dockings.
+Bug fix: Fixed crash on exit (after using save-as dialog once).
 Bug fix: Fixed mime installation screw-up
 Bug fix: Fixed installation paths.
 Bug fix: Fixed 64bit arch build problems
