@@ -1,5 +1,37 @@
 2005-05-24 Naba Kumar  <naba@gnome.org>
 
+	* manuals/reference/libanjuta/tmpl/anjuta-utils.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-list.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-text.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-context.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-renderable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-sand-box.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-transformable.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+	
+	* libanjuta/anjuta-utils.c, libanjuta/anjuta-utils.h,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h,
+	plugins/build-basic-autotools/executer.c,
+	plugins/build-basic-autotools/executer.h,
+	plugins/devhelp/plugin.c, plugins/gdb/debugger.c,
+	plugins/tools/variable.c: Added an extra argument to
+	anuta_util_dialog_input() to pass default value. Save/load project
+	configure and execution parameters in/from session.
+
+	* plugins/editor/aneditor-autocomplete.cxx: Fixed crash bug when no
+	symbol browser is loaded.
+	
+	* plugins/profile-default/plugin.c: Fixed an unbalanced shell
+	freeze/thaw.
+
+	* plugins/terminal/terminal.c: Fixed bug where repeated activate and
+	deactivate would not start shell.
+
+2005-05-24 Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/anjuta-ui.c, libanjuta/plugins.c,
 	libegg/egg-combo-action.c, libegg/egg-recent-action.c,
 	libegg/egg-submenu-action.c, libegg/test-actions.c,

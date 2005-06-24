@@ -77,6 +77,8 @@ struct _TerminalPlugin{
 	GtkWidget *pref_profile_combo;
 	GtkWidget *pref_default_button;
 	GList *gconf_notify_ids;
+	gboolean child_initizlized;
+	gboolean first_time_realization;
 };
 
 struct _TerminalPluginClass{
@@ -404,15 +406,13 @@ static gboolean
 terminal_focus_cb (GtkWidget *widget, GdkEvent  *event,
 				   TerminalPlugin *term) 
 {
-	static gboolean need_init = TRUE;
-	
 	if (term->child_pid > 0)
-		need_init = FALSE;
+		term->child_initizlized = TRUE;
 	
-	if (need_init)
+	if (term->child_initizlized == FALSE)
 	{
 		terminal_init_cb (widget, term);
-		need_init = FALSE;
+		term->child_initizlized = TRUE;
 	}
 	gtk_widget_grab_focus (widget);
 	return FALSE;
@@ -461,12 +461,11 @@ static void
 terminal_realize_cb (GtkWidget *term, TerminalPlugin *plugin)
 {
 	gint count;
-	static gboolean first_time = TRUE;
 	
-	if (first_time)
+	if (plugin->first_time_realization)
 	{
 		/* First time realize does not have the signals blocked */
-		first_time = FALSE;
+		plugin->first_time_realization = FALSE;
 		return;
 	}
 	count = g_signal_handlers_unblock_matched (term,
@@ -539,11 +538,9 @@ terminal_create (TerminalPlugin *term_plugin)
 	gtk_box_pack_start (GTK_BOX (hbox), term_plugin->term, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), sb, FALSE, TRUE, 0);
 	gtk_widget_show_all (frame);
-	// gtk_widget_show_all (hbox);
 	
 	term_plugin->scrollbar = sb;
 	term_plugin->frame = frame;
-	// term_plugin->frame = hbox;
 	term_plugin->hbox = hbox;
 }
 
@@ -638,7 +635,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	term_plugin->term = NULL;
 	term_plugin->scrollbar = NULL;
 	term_plugin->hbox = NULL;
-	
+	term_plugin->child_initizlized = FALSE;
+	term_plugin->first_time_realization = TRUE;
+
 	// terminal_finalize (term_plugin);
 	return TRUE;
 }
@@ -660,6 +659,8 @@ terminal_plugin_instance_init (GObject *obj)
 {
 	TerminalPlugin *plugin = (TerminalPlugin*) obj;
 	plugin->gconf_notify_ids = NULL;
+	plugin->child_initizlized = FALSE;
+	plugin->first_time_realization = TRUE;
 }
 
 static void

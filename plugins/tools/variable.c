@@ -380,7 +380,8 @@ atp_variable_get_value_from_id (const ATPVariable* this, guint id)
 		break;
 	case ATP_ASK_USER_STRING:
 		val = NULL;
-		anjuta_util_dialog_input (GTK_WINDOW (this->shell), _("Command line parameters"), &val);
+		anjuta_util_dialog_input (GTK_WINDOW (this->shell),
+								  _("Command line parameters"), NULL, &val);
 		break;
 	default:
 		/* Variable does not exist */

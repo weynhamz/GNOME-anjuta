@@ -39,9 +39,6 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
 
-static const gchar szRunInTerminalItem[] = {"RunInTerminal"};
-//static const gchar szPgmArgsSection[] = {"PgmArgs"};
-
 static gboolean
 get_program_parameters (BasicAutotoolsPlugin *plugin,
 						const gchar *pre_select_uri,
@@ -49,38 +46,53 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 						gchar **program_args,
 						gboolean *run_in_terminal)
 {
+	GladeXML *gxml;
+	GtkWidget *dlg, *treeview, *use_terminal_check, *arguments_entry;
+	GtkWidget *treeview_frame;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	GtkListStore *store;
+	gint response;
+	GList *node;
+	GtkTreeIter iter;
 	GList *exec_targets;
 	IAnjutaProjectManager *pm;
 	gboolean success = FALSE;
 	
-	pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-									 IAnjutaProjectManager, NULL);
-	g_return_val_if_fail (pm != NULL, FALSE);
-	exec_targets =
-	ianjuta_project_manager_get_targets (pm, 
-						 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
-										 NULL);
+	if (plugin->project_root_dir)
+	{
+		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaProjectManager, NULL);
+		g_return_val_if_fail (pm != NULL, FALSE);
+		exec_targets =
+		ianjuta_project_manager_get_targets (pm, 
+							 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
+											 NULL);
+		if (!exec_targets)
+			return FALSE;
+	}
+	else
+	{
+		exec_targets = NULL;
+	}
+		
+	gxml = glade_xml_new (GLADE_FILE, "execute_dialog", NULL);
+	dlg = glade_xml_get_widget (gxml, "execute_dialog");
+	treeview = glade_xml_get_widget (gxml, "programs_treeview");
+	treeview_frame = glade_xml_get_widget (gxml, "treeview_frame");
+	use_terminal_check = glade_xml_get_widget (gxml, "program_run_in_terminal");
+	arguments_entry = glade_xml_get_widget (gxml, "program_arguments");
+	
+	gtk_window_set_transient_for (GTK_WINDOW (dlg),
+								  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (use_terminal_check),
+								  plugin->run_in_terminal);
+	if (plugin->program_args)
+		gtk_entry_set_text (GTK_ENTRY (arguments_entry),
+							plugin->program_args);
+		
 	if (g_list_length (exec_targets) > 0)
 	{
-		GladeXML *gxml;
-		GtkWidget *dlg, *treeview, *use_terminal_check, *arguments_entry;
-		GtkTreeViewColumn *column;
-		GtkCellRenderer *renderer;
-		GtkListStore *store;
-		gint response;
-		GList *node;
-		GtkTreeIter iter;
-		
-		gxml = glade_xml_new (GLADE_FILE, "execute_dialog", NULL);
-		dlg = glade_xml_get_widget (gxml, "execute_dialog");
-		treeview = glade_xml_get_widget (gxml, "programs_treeview");
-		use_terminal_check = glade_xml_get_widget (gxml, "program_run_in_terminal");
-		arguments_entry = glade_xml_get_widget (gxml, "program_arguments");
-		
-		gtk_window_set_transient_for (GTK_WINDOW (dlg),
-									  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (use_terminal_check),
-									  TRUE);
 		/* Populate treeview */
 		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW
 																  (treeview)),
@@ -128,15 +140,23 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 											0);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 		gtk_tree_view_set_expander_column (GTK_TREE_VIEW (treeview), column);
+	}
+	else
+	{
+		gtk_widget_hide (treeview_frame);
+		gtk_window_set_default_size (GTK_WINDOW (dlg), 400, -1);
+	}
+	
+	/* Run dialog */
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	if (response == GTK_RESPONSE_OK)
+	{
+		GtkTreeSelection *sel;
+		GtkTreeModel *model;
+		gchar *target = NULL;
 		
-		/* Run dialog */
-		response = gtk_dialog_run (GTK_DIALOG (dlg));
-		if (response == GTK_RESPONSE_OK)
+		if (exec_targets)
 		{
-			GtkTreeSelection *sel;
-			GtkTreeModel *model;
-			gchar *target = NULL;
-			
 			sel = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
 			if (gtk_tree_selection_get_selected (sel, &model, &iter))
 			{
@@ -144,15 +164,27 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 				if (program_uri)
 					*program_uri = g_strdup (target);
 				if (run_in_terminal)
-					*run_in_terminal = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_terminal_check));
+					*run_in_terminal = gtk_toggle_button_get_active (
+									GTK_TOGGLE_BUTTON (use_terminal_check));
 				if (program_args)
-					*program_args = g_strdup (gtk_entry_get_text (GTK_ENTRY (arguments_entry)));
+					*program_args = g_strdup (gtk_entry_get_text (
+											GTK_ENTRY (arguments_entry)));
 				success = TRUE;
 			}
 		}
-		gtk_widget_destroy (dlg);
-		g_object_unref (gxml);
+		else
+		{
+			if (run_in_terminal)
+				*run_in_terminal = gtk_toggle_button_get_active (
+									GTK_TOGGLE_BUTTON (use_terminal_check));
+			if (program_args)
+				*program_args = g_strdup (gtk_entry_get_text (
+												GTK_ENTRY (arguments_entry)));
+			success = TRUE;
+		}
 	}
+	gtk_widget_destroy (dlg);
+	g_object_unref (gxml);
 	return success;
 }
 
@@ -160,7 +192,7 @@ void
 execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 {
 	gboolean run_in_terminal, error_condition;
-	gchar *target, *args, *dir, *cmd;
+	gchar *target = NULL, *args = NULL, *dir = NULL, *cmd = NULL;
 
 	g_return_if_fail (pre_select_uri != NULL ||
 					  plugin->project_root_dir != NULL ||
@@ -179,7 +211,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		if (plugin->project_root_dir)
 		{
 			/* Get a program from project */
-			if (!get_program_parameters (plugin, pre_select_uri,
+			if (!get_program_parameters (plugin, NULL,
 										 &target, &args, &run_in_terminal))
 				return;
 		}
@@ -204,12 +236,25 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 					*ext = '\0';
 				}
 			}
+			if (!get_program_parameters (plugin, NULL,
+										 NULL, &args, &run_in_terminal))
+			{
+				error_condition = TRUE;
+			}
 		}
 	}
 	
 	/* Doing some checks before actualing starting */
 	if (!error_condition)
 	{
+		/* Save states */
+		if (args)
+		{
+			g_free (plugin->program_args);
+			plugin->program_args = g_strdup (args);
+		}
+		plugin->run_in_terminal = run_in_terminal;
+		
 		/* Check if target is local */
 		gchar *local_uri;
 		

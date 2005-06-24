@@ -45,8 +45,8 @@ void anjuta_util_dialog_error_system (GtkWindow* parent, gint errnum,
 									  const gchar * mesg, ... );
 gboolean anjuta_util_dialog_boolean_question (GtkWindow *parent,
 											  const gchar * mesg, ...);
-gboolean anjuta_util_dialog_input (GtkWindow *parent,
-								   const gchar *label, gchar **value);
+gboolean anjuta_util_dialog_input (GtkWindow *parent, const gchar *label,
+								   const gchar *default_value, gchar **value);
 
 gboolean anjuta_util_prog_is_installed (gchar * prog, gboolean show);
 

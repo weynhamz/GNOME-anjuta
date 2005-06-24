@@ -406,7 +406,8 @@ on_search_help_activate (GtkAction * action, DevhelpPlugin *dh_plugin)
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (dh_plugin)->shell);
 	status =
-		anjuta_util_dialog_input (parent, _("Search Help:"), &search_term);
+		anjuta_util_dialog_input (parent, _("Search Help:"),
+								  NULL, &search_term);
 	if (status)
 	{
 		if (search_term && strlen (search_term) > 0)

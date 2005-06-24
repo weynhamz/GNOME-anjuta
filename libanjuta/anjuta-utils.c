@@ -379,7 +379,7 @@ anjuta_util_dialog_boolean_question (GtkWindow *parent, const gchar *mesg, ...)
 
 gboolean
 anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
-						  gchar **return_value)
+						  const gchar *default_value, gchar **return_value)
 {
 	GtkWidget *dialog, *label, *frame, *entry, *dialog_vbox, *vbox;
 	gint res;
@@ -427,7 +427,9 @@ anjuta_util_dialog_input (GtkWindow *parent, const gchar *prompt,
 	gtk_widget_show (entry);
 	gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
 	gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, FALSE, 0);
-
+	if (default_value)
+		gtk_entry_set_text (GTK_ENTRY (entry), default_value);
+	
 	res = gtk_dialog_run (GTK_DIALOG (dialog));
 	
 	if (gtk_entry_get_text (GTK_ENTRY (entry)) &&

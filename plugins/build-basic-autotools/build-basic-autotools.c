@@ -759,14 +759,15 @@ build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
 	response = anjuta_util_dialog_input (parent, _("Configure Parameters:"),
-										 &input);
+										 plugin->configure_args, &input);
 	if (response)
 	{
 		gchar *cmd;
 		if (input)
 		{
 			cmd = g_strconcat ("./configure ", input, NULL);
-			g_free (input);
+			g_free (plugin->configure_args);
+			plugin->configure_args = input;
 		}
 		else
 		{
@@ -786,14 +787,15 @@ build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
 	response = anjuta_util_dialog_input (parent, _("Configure Parameters:"),
-										 &input);
+										 plugin->configure_args, &input);
 	if (response)
 	{
 		gchar *cmd;
 		if (input)
 		{
 			cmd = g_strconcat ("./autogen.sh ", input, NULL);
-			g_free (input);
+			g_free (plugin->configure_args);
+			plugin->configure_args = input;
 		}
 		else
 		{
@@ -1289,6 +1291,58 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 }
 
 static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, BasicAutotoolsPlugin *plugin)
+{
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	if (plugin->program_args)
+		anjuta_session_set_string (session, "Execution",
+								   "Program arguments", plugin->program_args);
+	anjuta_session_set_int (session, "Execution", "Run in terminal",
+							plugin->run_in_terminal + 1);
+	if (plugin->configure_args)
+		anjuta_session_set_string (session, "Build",
+								   "Configure parameters",
+								   plugin->configure_args);
+}
+
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, BasicAutotoolsPlugin *plugin)
+{
+	gchar *program_args, *configure_args;
+	gint run_in_terminal;
+				
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	program_args = anjuta_session_get_string (session, "Execution",
+											  "Program arguments");
+	if (program_args)
+	{
+		g_free (plugin->program_args);
+		plugin->program_args = program_args;
+	}
+	
+	configure_args = anjuta_session_get_string (session, "Build",
+											  "Configure parameters");
+	if (configure_args)
+	{
+		g_free (plugin->configure_args);
+		plugin->configure_args = configure_args;
+	}
+	
+	/* The flag is store as 1 == FALSE, 2 == TRUE */
+	run_in_terminal =
+		anjuta_session_get_int (session, "Execution", "Run in terminal");
+	run_in_terminal--;
+	
+	if (run_in_terminal >= 0)
+		plugin->run_in_terminal = run_in_terminal;
+}
+
+static void
 value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
@@ -1422,8 +1476,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	
 	DEBUG_PRINT ("Project added");
 	
-	if (bb_plugin->project_root_dir)
-		g_free (bb_plugin->project_root_dir);
+	g_free (bb_plugin->project_root_dir);
 	bb_plugin->project_root_dir = NULL;
 	
 	root_uri = g_value_get_string (value);
@@ -1445,8 +1498,14 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	BasicAutotoolsPlugin *bb_plugin;
 
 	bb_plugin = (BasicAutotoolsPlugin *) plugin;
-	if (bb_plugin->project_root_dir)
-		g_free (bb_plugin->project_root_dir);
+	
+	g_free (bb_plugin->project_root_dir);
+	g_free (bb_plugin->program_args);
+	g_free (bb_plugin->configure_args);
+	
+	bb_plugin->run_in_terminal = TRUE;
+	bb_plugin->program_args = NULL;
+	bb_plugin->configure_args = NULL;
 	bb_plugin->project_root_dir = NULL;
 	update_project_ui (bb_plugin);
 }
@@ -1464,8 +1523,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	if (ba_plugin->current_editor_filename)
-		g_free (ba_plugin->current_editor_filename);
+	g_free (ba_plugin->current_editor_filename);
 	ba_plugin->current_editor_filename = NULL;
 	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
@@ -1501,6 +1559,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	g_signal_connect (plugin->shell, "save-session",
+					  G_CALLBACK (on_session_save),
+					  plugin);
+	g_signal_connect (plugin->shell, "load-session",
+					  G_CALLBACK (on_session_load),
+					  plugin);
 	
 	/* Add action group */
 	ba_plugin->build_action_group = 
@@ -1540,10 +1605,16 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
+	g_signal_handlers_disconnect_by_func (plugin->shell,
+										  G_CALLBACK (on_session_save),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (plugin->shell,
+										  G_CALLBACK (on_session_load),
+										  plugin);
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, ba_plugin->fm_watch_id, TRUE);
@@ -1569,15 +1640,12 @@ static void
 finalize (GObject *obj)
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
-	if (ba_plugin->fm_current_filename)
-		g_free (ba_plugin->fm_current_filename);
-	if (ba_plugin->pm_current_filename)
-		g_free (ba_plugin->pm_current_filename);
-	if (ba_plugin->project_root_dir)
-		g_free (ba_plugin->project_root_dir);
-	if (ba_plugin->current_editor_filename)
-		g_free (ba_plugin->current_editor_filename);
-
+	g_free (ba_plugin->fm_current_filename);
+	g_free (ba_plugin->pm_current_filename);
+	g_free (ba_plugin->project_root_dir);
+	g_free (ba_plugin->current_editor_filename);
+	g_free (ba_plugin->program_args);
+	g_free (ba_plugin->configure_args);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
@@ -1590,6 +1658,9 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->project_root_dir = NULL;
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->contexts_pool = NULL;
+	ba_plugin->configure_args = NULL;
+	ba_plugin->program_args = NULL;
+	ba_plugin->run_in_terminal = TRUE;
 }
 
 static void

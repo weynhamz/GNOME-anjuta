@@ -1469,7 +1469,9 @@ debugger_start_program (Debugger *debugger)
 	g_return_if_fail (debugger->priv->prog_is_running == FALSE);
 
 	args = NULL;
-	anjuta_util_dialog_input (debugger->priv->parent_win, "Program arguments", &args);
+	anjuta_util_dialog_input (debugger->priv->parent_win,
+							  _("Program arguments"),
+							  NULL, &args);
 	
 	if (args)
 	{

@@ -28,6 +28,13 @@ struct _BasicAutotoolsPlugin{
 	/* UI */
 	gint build_merge_id;
 	GtkActionGroup *build_action_group;
+	
+	/* Build parameters */
+	gchar *configure_args;
+	
+	/* Execution parameters */
+	gchar *program_args;
+	gboolean run_in_terminal;
 };
 
 struct _BasicAutotoolsPluginClass{

@@ -623,11 +623,11 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 			{
 				/* search in global variables and functions tag's entrys */
 				tags = tm_workspace_find(root, types, attrs, FALSE, TRUE);  
-				count = tags->len;
+				count = (tags != NULL)? tags->len: 0;
 				match = NULL;
 			}
 			ScanType = NULL;
-			if( count == 1 )
+			if (count == 1)
 			{
 				ScanType = (match ? match[0] : TM_TAG(tags->pdata[0]));
 				if(!(!ScanType->atts.entry.scope ||

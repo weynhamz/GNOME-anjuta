@@ -5,7 +5,7 @@
 <requires lib="gnome"/>
 
 <widget class="GtkDialog" id="execute_dialog">
-  <property name="title" translatable="yes">Select execution program</property>
+  <property name="title" translatable="yes">Select execution program and args</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
   <property name="modal">False</property>
@@ -80,7 +80,7 @@
 	      <property name="spacing">0</property>
 
 	      <child>
-		<widget class="GtkScrolledWindow" id="scrolledwindow17">
+		<widget class="GtkScrolledWindow" id="treeview_frame">
 		  <property name="border_width">5</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>

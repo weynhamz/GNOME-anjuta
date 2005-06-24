@@ -967,9 +967,6 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	plugin = (DefaultProfilePlugin*)G_OBJECT (ifile);
 	
-	/* Freeze shell */
-	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
-	
 	/* Load system default plugins */
 	selected_plugins = default_profile_plugin_read (plugin,
 													plugin->default_profile);
@@ -994,6 +991,9 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		plugin->project_plugins = NULL;
 	}
 	plugin->project_plugins = g_slist_copy (selected_plugins);
+	
+	/* Freeze shell */
+	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
 	
 	/* Load project session plugins */
 	vfs_uri = gnome_vfs_uri_new (uri);
