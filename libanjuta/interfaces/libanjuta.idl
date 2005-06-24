@@ -600,9 +600,10 @@ interface IAnjutaProjectManager
 	GList* get_children (const gchar *element_uri);
 	gchar* get_selected ();
 	
-	gboolean add_source (const gchar *source_uri, const gchar *target_uri);
-	gboolean add_target (const gchar *target_uri);
-	gboolean add_group (const gchar *group_uri);
+	/* Returns element URIs. Must be freed when no longer required */
+	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+	gchar* add_target (const gchar *target_name_to_add, const gchar *default_location_uri);
+	gchar* add_group (const gchar *group_name_to_add, const gchar *default_location_uri);
 	gboolean is_open ();
 }
 

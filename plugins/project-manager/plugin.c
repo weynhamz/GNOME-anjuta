@@ -39,6 +39,22 @@
 static gpointer parent_class;
 
 static void update_ui (ProjectManagerPlugin *plugin);
+static gboolean uri_is_inside_project (ProjectManagerPlugin *plugin,
+									   const gchar *uri);
+
+static GtkWindow*
+get_plugin_parent_window (ProjectManagerPlugin *plugin)
+{
+	GtkWindow *win;
+	GtkWidget *toplevel;
+	
+	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	if (toplevel && GTK_IS_WINDOW (toplevel))
+		win = GTK_WINDOW (toplevel);
+	else
+		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+	return win;
+}
 
 static GList *
 find_missing_uris (GList *pre, GList *post)
@@ -197,15 +213,8 @@ on_refresh_idle (gpointer user_data)
 	gbf_project_refresh (GBF_PROJECT (plugin->project), &err);
 	if (err)
 	{
-		GtkWidget *toplevel;
-		GtkWindow *win;
-		
-		toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-		if (toplevel && GTK_IS_WINDOW (toplevel))
-			win = GTK_WINDOW (toplevel);
-		else
-			win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-		anjuta_util_dialog_error (win, "Failed to refresh project: %s",
+		anjuta_util_dialog_error (get_plugin_parent_window (plugin),
+								  _("Failed to refresh project: %s"),
 								  err->message);
 		g_error_free (err);
 	}
@@ -250,33 +259,53 @@ on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	
-	update_operation_begin (plugin);
-	gbf_project_util_new_group (plugin->model,
-								GTK_WINDOW (win), NULL);
-	update_operation_end (plugin, TRUE);
+	gchar *group_uri, *default_group_uri = NULL;
+	if (plugin->current_editor_uri)
+		default_group_uri = g_path_get_dirname (plugin->current_editor_uri);
+	else
+		default_group_uri = g_strdup ("");
+	group_uri = ianjuta_project_manager_add_group (IANJUTA_PROJECT_MANAGER (plugin),
+												   "", default_group_uri,
+												   NULL);
+	g_free (group_uri);
+	g_free (default_group_uri);
 }
- 
+
 static void
 on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	update_operation_begin (plugin);
-	gbf_project_util_new_target (plugin->model,
-								 GTK_WINDOW (win), NULL);
-	update_operation_end (plugin, TRUE);
+	gchar *target_uri, *default_group_uri = NULL;
+	if (plugin->current_editor_uri)
+		default_group_uri = g_path_get_dirname (plugin->current_editor_uri);
+	else
+		default_group_uri = g_strdup ("");
+	target_uri = ianjuta_project_manager_add_target (IANJUTA_PROJECT_MANAGER (plugin),
+													 "", default_group_uri,
+													 NULL);
+	g_free (target_uri);
+	g_free (default_group_uri);
 }
 
 static void
 on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkWidget *win = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	update_operation_begin (plugin);
-	gbf_project_util_add_source (plugin->model,
-								 GTK_WINDOW (win), NULL,
-								 plugin->current_editor_uri);
-	update_operation_end (plugin, TRUE);
+	gchar *source_uri, *default_group_uri = NULL, *default_source_uri;
+	
+	if (plugin->current_editor_uri)
+	{
+		default_group_uri = g_path_get_dirname (plugin->current_editor_uri);
+		default_source_uri = plugin->current_editor_uri;
+	}
+	else
+	{
+		default_group_uri = g_strdup ("");
+		default_source_uri = "";
+	}
+	source_uri = ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
+													 default_source_uri,
+													 default_group_uri, NULL);
+	g_free (source_uri);
+	g_free (default_group_uri);
 }
 
 static void
@@ -352,20 +381,21 @@ on_popup_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GbfTreeData *data;
 	const gchar *selected_group;
-	GtkWidget *win;
-
+	gchar *group_id;
+	
 	update_operation_begin (plugin);
-	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_GROUP);
 	selected_group = NULL;
 	if (data)
 		selected_group = data->id;
-	gbf_project_util_new_group (plugin->model, GTK_WINDOW (win),
-								selected_group);
+	group_id = gbf_project_util_new_group (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   selected_group, NULL);
 	if (data)
 		gbf_tree_data_free (data);
 	update_operation_end (plugin, TRUE);
+	g_free (group_id);
 }
 
 static void
@@ -373,20 +403,21 @@ on_popup_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GbfTreeData *data;
 	const gchar *selected_group;
-	GtkWidget *win;
+	gchar *target_id;
 
 	update_operation_begin (plugin);
-	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_GROUP);
 	selected_group = NULL;
 	if (data)
 		selected_group = data->id;
-	gbf_project_util_new_target (plugin->model,
-								 GTK_WINDOW (win), selected_group);
+	target_id = gbf_project_util_new_target (plugin->model,
+											 get_plugin_parent_window (plugin),
+											 selected_group, NULL);
 	if (data)
 		gbf_tree_data_free (data);
 	update_operation_end (plugin, TRUE);
+	g_free (target_id);
 }
 
 static void
@@ -394,36 +425,29 @@ on_popup_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
 	GbfTreeData *data;
 	const gchar *selected_target;
-	GtkWidget *win;
-
+	gchar *source_id;
+	
 	update_operation_begin (plugin);
-	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_TARGET);
 	selected_target = NULL;
 	if (data)
 		selected_target = data->id;
-	gbf_project_util_add_source (plugin->model,
-								 GTK_WINDOW (win), selected_target, NULL);
+	source_id = gbf_project_util_add_source (plugin->model,
+											 get_plugin_parent_window (plugin),
+											 selected_target, NULL, NULL);
 	if (data)
 		gbf_tree_data_free (data);
 	update_operation_end (plugin, TRUE);
+	g_free (source_id);
 }
 
 static gboolean
 confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 {
-	GtkWidget *toplevel;
-	GtkWindow *win;
 	gboolean answer;
 	gchar *mesg;
 
-	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	if (toplevel && GTK_IS_WINDOW (toplevel))
-		win = GTK_WINDOW (toplevel);
-	else
-		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-	
 	switch (data->type)
 	{
 		case GBF_TREE_NODE_GROUP:
@@ -439,9 +463,11 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 			g_warning ("Unknow node");
 			return FALSE;
 	}
-	answer = anjuta_util_dialog_boolean_question (win, mesg,
+	answer =
+		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin),
+											 mesg,
 		_("Are you sure you want to remove the following from project?\n\n"),
-												  data->name);
+											 data->name);
 	return answer;
 }
 
@@ -485,15 +511,8 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 			update_operation_end (plugin, TRUE);
 			if (err)
 			{
-				GtkWidget *toplevel;
-				GtkWindow *win;
-				
-				toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-				if (toplevel && GTK_IS_WINDOW (toplevel))
-					win = GTK_WINDOW (toplevel);
-				else
-					win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-				anjuta_util_dialog_error (win, "Failed to remove '%s':\n%s",
+				anjuta_util_dialog_error (get_plugin_parent_window (plugin),
+										  _("Failed to remove '%s':\n%s"),
 										  err->message);
 				g_error_free (err);
 			}
@@ -505,42 +524,52 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	GtkWidget *toplevel;
 	GtkWindow *win;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult res;
+	gchar *parent_directory, *filename;
 	
-	toplevel = gtk_widget_get_toplevel (plugin->scrolledwindow);
-	if (toplevel && GTK_IS_WINDOW (toplevel))
-		win = GTK_WINDOW (toplevel);
-	else
-		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-	
+	win = get_plugin_parent_window (plugin);
 	res = gnome_vfs_get_file_info (plugin->fm_current_uri, &info,
 								   GNOME_VFS_FILE_INFO_DEFAULT |
 								   GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 	if (res == GNOME_VFS_OK)
 	{
+		parent_directory = g_path_get_dirname (plugin->fm_current_uri);
+		if (!parent_directory)
+			parent_directory = g_strdup ("");
+		
+		filename = g_path_get_basename (plugin->fm_current_uri);
 		if (info.type == GNOME_VFS_FILE_TYPE_DIRECTORY)
 		{
-			/* FIXME: Should select current directory */
-			gbf_project_util_new_group (plugin->model,
-										GTK_WINDOW (win), NULL);
+			gchar *group_id =
+			ianjuta_project_manager_add_group (IANJUTA_PROJECT_MANAGER (plugin),
+											   filename, parent_directory,
+											   NULL);
+			g_free (group_id);
 		}
 		else
 		{
-			gbf_project_util_add_source (plugin->model,
-										 GTK_WINDOW (win), NULL,
-										 plugin->fm_current_uri);
+			gchar *source_id =
+			ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
+												plugin->fm_current_uri,
+												parent_directory,
+												NULL);
+			g_free (source_id);
 		}
+		g_free (filename);
+		g_free (parent_directory);
 	}
 	else
 	{
 		const gchar *mesg;
 		
-		mesg = gnome_vfs_result_to_string (res);
+		if (res != GNOME_VFS_OK)
+			mesg = gnome_vfs_result_to_string (res);
+		else
+			mesg = _("URI is link");
 		anjuta_util_dialog_error (win,
-								  "Failed to retried URI info of %s: %s",
+								  _("Failed to retried URI info of %s: %s"),
 								  plugin->fm_current_uri, mesg);
 	}
 }
@@ -1194,7 +1223,7 @@ project_manager_plugin_class_init (GObjectClass *klass)
 /* IAnjutaProjectManager implementation */
 
 static GnomeVFSFileType
-uri_get_type (const gchar *uri)
+get_uri_vfs_type (const gchar *uri)
 {
 	GnomeVFSFileInfo info;
 	gnome_vfs_get_file_info (uri, &info, 0);
@@ -1222,6 +1251,9 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
 	gchar *uri;
 	const gchar *project_root;
 	
+	if (!id)
+		return NULL;
+	
 	path = g_strdup (id);
 	ptr = strchr (path, ':');
 	if (ptr)
@@ -1248,6 +1280,67 @@ get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri)
 	return uri + strlen (project_root);
 }
 
+static GbfProjectTarget*
+get_target_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
+{
+	GbfProjectTarget *data;
+	const gchar *rel_path;
+	gchar *test_id;
+	
+	rel_path = get_element_relative_path (plugin, uri);
+	
+	if (!rel_path)
+		return NULL;
+	
+	/* FIXME: More target types should be handled */
+	/* Test for shared lib */
+	test_id = g_strconcat (rel_path, ":shared_lib", NULL);
+	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+	g_free (test_id);
+	
+	if (!data)
+	{
+		/* Test for static lib */
+		test_id = g_strconcat (rel_path, ":static_lib", NULL);
+		data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+		g_free (test_id);
+	}
+	if (!data)
+	{
+		/* Test for program */
+		test_id = g_strconcat (rel_path, ":program", NULL);
+		data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+		g_free (test_id);
+	}
+	return data;
+}
+
+static gchar *
+get_element_id_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
+{
+	GbfProjectTarget *target;
+	gchar *id;
+	
+	if (!uri_is_inside_project (plugin, uri))
+		return NULL;
+	
+	target = get_target_from_uri (plugin, uri);
+	if (target)
+	{
+		id = g_strdup (target->id);
+		gbf_project_target_free (target);
+	}
+	else if (get_uri_vfs_type (uri) | GNOME_VFS_FILE_TYPE_DIRECTORY)
+	{
+		id = g_strconcat (get_element_relative_path (plugin, uri), "/", NULL);
+	}
+	else
+	{
+		id = strdup (get_element_relative_path (plugin, uri));
+	}
+	return id;
+}
+
 static IAnjutaProjectManagerElementType
 iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
 								   const gchar *element_uri,
@@ -1265,7 +1358,7 @@ iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (uri_is_inside_project (plugin, element_uri),
 						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
 	
-	ftype = uri_get_type (element_uri);
+	ftype = get_uri_vfs_type (element_uri);
 	if (ftype | GNOME_VFS_FILE_TYPE_DIRECTORY)
 	{
 		return IANJUTA_PROJECT_MANAGER_GROUP;
@@ -1364,10 +1457,9 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 								   GError **err)
 {
 	IAnjutaProjectManagerElementType element_type;
+	IAnjutaProjectManagerTargetType target_type;
 	ProjectManagerPlugin *plugin;
 	GbfProjectTarget *data;
-	const gchar *rel_path;
-	gchar *test_id;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
 						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
@@ -1382,36 +1474,27 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (uri_is_inside_project (plugin, target_uri),
 						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
 	
-	rel_path = get_element_relative_path (plugin, target_uri);
+	data = get_target_from_uri (plugin, target_uri);
 	
-	/* Test for shared lib */
-	test_id = g_strconcat (rel_path, ":shared_lib", NULL);
-	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
-	g_free (test_id);
-	if (data)
+	if (data && data->type && strcmp (data->type, "shared_lib") == 0)
 	{
-		gbf_project_target_free (data);
-		return IANJUTA_PROJECT_MANAGER_TARGET_SHAREDLIB;
+		target_type = IANJUTA_PROJECT_MANAGER_TARGET_SHAREDLIB;
 	}
-	/* Test for static lib */
-	test_id = g_strconcat (rel_path, ":static_lib", NULL);
-	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
-	g_free (test_id);
-	if (data)
+	else if (data && data->type && strcmp (data->type, "static_lib") == 0)
 	{
-		gbf_project_target_free (data);
-		return IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB;
+		target_type = IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB;
 	}
-	/* Test for program */
-	test_id = g_strconcat (rel_path, ":program", NULL);
-	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
-	g_free (test_id);
-	if (data)
+	else if (data && data->type && strcmp (data->type, "program") == 0)
 	{
-		gbf_project_target_free (data);
-		return IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB;
+		target_type = IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB;
 	}
-	return IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN;
+	else
+	{
+		target_type = IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN;
+	}
+	if (data)
+		gbf_project_target_free (data);
+	return target_type;
 }
 
 static GList*
@@ -1558,31 +1641,116 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	return NULL;
 }
 
-static gboolean
-iproject_manager_add_source (IAnjutaProjectManager *project_manager, const gchar *source_uri, const gchar *target_uri, GError **err) {
-	
+static gchar*
+iproject_manager_add_source (IAnjutaProjectManager *project_manager,
+							 const gchar *source_uri_to_add,
+							 const gchar *default_location_uri,
+							 GError **err)
+{
 	ProjectManagerPlugin *plugin;
-	GtkWidget *win;
+	IAnjutaProjectManagerElementType default_location_type;
+	gchar *source_id, *location_id;
+	gchar *source_uri = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
 	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
 
-	win = gtk_widget_get_toplevel (plugin->scrolledwindow);
+	update_operation_begin (plugin);
+	default_location_type =
+		ianjuta_project_manager_get_element_type (project_manager,
+												  default_location_uri, NULL);
+	location_id = get_element_id_from_uri (plugin, default_location_uri);
+	if (default_location_type == IANJUTA_PROJECT_MANAGER_GROUP)
+	{
+		source_id = gbf_project_util_add_source (plugin->model,
+												 get_plugin_parent_window (plugin),
+												 NULL, location_id,
+												 source_uri_to_add);
+	}
+	else if (default_location_type == IANJUTA_PROJECT_MANAGER_TARGET)
+	{
+		source_id = gbf_project_util_add_source (plugin->model,
+												 get_plugin_parent_window (plugin),
+												 location_id, NULL,
+												 source_uri_to_add);
+	}
+	else
+	{
+		source_id = gbf_project_util_add_source (plugin->model,
+												 get_plugin_parent_window (plugin),
+												 NULL, NULL,
+												 source_uri_to_add);
+	}
+	update_operation_end (plugin, TRUE);
+	source_uri = get_element_uri_from_id (plugin, source_id);
+	g_free (source_id);
+	g_free (location_id);
+	return source_uri;
+}
+
+static gchar*
+iproject_manager_add_target (IAnjutaProjectManager *project_manager,
+							 const gchar *target_name_to_add,
+							 const gchar *default_group_uri,
+							 GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	gchar *default_group_id, *target_id, *target_uri = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
+
+	default_group_id = get_element_id_from_uri (plugin, default_group_uri);
 	
 	update_operation_begin (plugin);
-	gbf_project_util_add_source (plugin->model,
-								 GTK_WINDOW (win), 
-								 source_uri,
-								 target_uri);
+	target_id = gbf_project_util_new_target (plugin->model,
+											 get_plugin_parent_window (plugin),
+											 default_group_id,
+											 target_name_to_add);
 	update_operation_end (plugin, TRUE);
-	return TRUE;
+	target_uri = get_element_uri_from_id (plugin, target_id);
+	g_free (target_id);
+	g_free (default_group_id);
+	return target_uri;
+}
+
+static gchar*
+iproject_manager_add_group (IAnjutaProjectManager *project_manager,
+							const gchar *group_name_to_add,
+							const gchar *default_group_uri,
+							GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	gchar *group_id, *group_uri = NULL;
+	gchar *default_group_id;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
+
+	default_group_id = get_element_id_from_uri (plugin, default_group_uri);
+	
+	update_operation_begin (plugin);
+	group_id = gbf_project_util_new_group (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   default_group_id,
+										   group_name_to_add);
+	update_operation_end (plugin, TRUE);
+	group_uri = get_element_uri_from_id (plugin, group_id);
+	g_free (group_id);
+	g_free (default_group_id);
+	return group_uri;
 }
 
 static gboolean
-iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err) {
-	
+iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err)
+{
 	ProjectManagerPlugin *plugin;
 
 	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
@@ -1601,6 +1769,8 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_children = iproject_manager_get_children;
 	iface->get_selected = iproject_manager_get_selected;
 	iface->add_source = iproject_manager_add_source;
+	iface->add_target = iproject_manager_add_target;
+	iface->add_group = iproject_manager_add_group;
 	iface->is_open = iproject_manager_is_open;
 }
 

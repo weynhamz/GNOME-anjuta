@@ -34,6 +34,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 
@@ -194,6 +195,7 @@ static GladeWidget glade_widgets[] = {
 static void
 write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, MatchInfo *mi);
 static gboolean on_message_clicked (GObject* object, gchar* message, gpointer data);
+static void on_message_buffer_flush (IAnjutaMessageView *view, const gchar *one_line, gpointer data);
 static void save_not_opened_files(FileBuffer *fb);
 static gboolean replace_in_not_opened_files(FileBuffer *fb, MatchInfo *mi, gchar *repl_str);
 static void search_set_action(SearchAction action);
@@ -287,11 +289,12 @@ search_and_replace (void)
 		if (view == NULL)	
 		{
 			// FIXME: Put a nice icon here:
-
-			ianjuta_message_manager_add_view(msgman, name, "anjuta_icon.png", NULL);	
-			view = ianjuta_message_manager_get_view_by_name(msgman, name, NULL);
+			view = ianjuta_message_manager_add_view(msgman, name,
+													"anjuta_icon.png", NULL);	
 			g_return_if_fail(view != NULL);
-			g_signal_connect (G_OBJECT(view), "message_clicked", 
+			g_signal_connect (G_OBJECT(view), "buffer_flushed",
+			                  G_CALLBACK (on_message_buffer_flush), NULL);
+			g_signal_connect (G_OBJECT(view), "message_clicked",
 			                  G_CALLBACK (on_message_clicked), NULL);
 		}
 		else
@@ -491,7 +494,8 @@ search_and_replace (void)
 }
 
 static void
-write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, MatchInfo *mi)
+write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
+				   MatchInfo *mi)
 {
 	gchar *match_line;
 	char buf[BUFSIZ];
@@ -501,7 +505,7 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se, Ma
 
 	if (SE_BUFFER == se->type)
 	{
-g_print("FBPATH  %s\n", fb->path);
+		/* DEBUG_PRINT ("FBPATH  %s\n", fb->path); */
 		tmp = g_strrstr(fb->path, "/");
 		tmp = g_strndup(fb->path, tmp + 1 -(fb->path));
 		snprintf(buf, BUFSIZ, "%s%s:%ld:%s\n", tmp, se->te->filename, 
@@ -514,9 +518,16 @@ g_print("FBPATH  %s\n", fb->path);
 	}
 
 	g_free(match_line);
-	ianjuta_message_view_append(view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, buf, "", NULL);
+	ianjuta_message_view_buffer_append (view, buf, NULL);
 }
 
+static void
+on_message_buffer_flush (IAnjutaMessageView *view, const gchar *one_line,
+						 gpointer data)
+{
+	ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
+								 one_line, "", NULL);
+}
 
 static gboolean
 on_message_clicked (GObject* object, gchar* message, gpointer data)
@@ -1539,7 +1550,9 @@ on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 
 void search_replace_find_usage(const gchar *symbol)
 {
+	gchar *project_root_uri = NULL;
 	SearchReplace *old_sr = sr;
+	
 	sr = g_new (SearchReplace, 1);
 
 	sr->search.expr.search_str = g_strdup (symbol);
@@ -1553,10 +1566,13 @@ void search_replace_find_usage(const gchar *symbol)
 	sr->search.expr.actions_max = G_MAXINT;
 	sr->search.expr.re = NULL;
 
-	IAnjutaProjectManager* prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(
-		sr->docman)->shell, IAnjutaProjectManager , NULL);
+	anjuta_shell_get (ANJUTA_DOCMAN(sr->docman)->shell,
+					  "project_root_uri", G_TYPE_STRING,
+					  &project_root_uri, NULL);
+	
 	sr->search.range.type =
-	ianjuta_project_manager_is_open(prjman, NULL) ? SR_PROJECT : SR_OPEN_BUFFERS;
+		project_root_uri != NULL ? SR_PROJECT : SR_OPEN_BUFFERS;
+	g_free (project_root_uri);
 	
 	sr->search.range.direction = SD_BEGINNING;
 

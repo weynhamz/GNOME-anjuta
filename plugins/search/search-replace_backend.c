@@ -371,15 +371,20 @@ expand_search_file_list(const char *top_dir, const char *str)
 static GList *
 get_project_file_list(void)
 {
-	IAnjutaProjectManager* prjman;
 	GList* list = NULL;
 	GList *files = NULL;
-
-	prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
-	IAnjutaProjectManager , NULL);
+	gchar *project_root_uri = NULL;
 	
-	if (ianjuta_project_manager_is_open(prjman, NULL))
-	{	
+	anjuta_shell_get (ANJUTA_DOCMAN(sr->docman)->shell,
+					  "project_root_uri", G_TYPE_STRING,
+					  &project_root_uri, NULL);
+	
+	if (project_root_uri)
+	{
+		IAnjutaProjectManager* prjman;
+		prjman = anjuta_shell_get_interface(ANJUTA_DOCMAN(sr->docman)->shell, 
+											IAnjutaProjectManager , NULL);
+		
 		list = ianjuta_project_manager_get_elements (prjman,
 													 IANJUTA_PROJECT_MANAGER_SOURCE,
 													 NULL);
@@ -403,6 +408,7 @@ get_project_file_list(void)
 			g_list_free(list);
 		}
 	}
+	g_free (project_root_uri);
 	return files;
 }
 
