@@ -245,7 +245,7 @@ on_button_pressed (GtkToggleToolButton *button, EggRecentAction *action)
 {
 	GtkWidget *submenu;
 
-	g_message ("Recent toolitem toggled");
+	/* g_message ("Recent toolitem toggled"); */
 	submenu = g_object_get_data (G_OBJECT (button), "submenu");
 	if (!submenu)
 	{
@@ -277,7 +277,7 @@ create_tool_item (GtkAction *action)
   GtkToolItem *item;
 	
   g_return_val_if_fail (EGG_IS_RECENT_ACTION (action), NULL);
-  g_message ("Creating recent toolitem");
+  /* g_message ("Creating recent toolitem"); */
 	
   item = gtk_tool_item_new ();
   gtk_widget_show(GTK_WIDGET (item));

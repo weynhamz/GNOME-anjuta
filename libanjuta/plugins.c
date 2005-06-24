@@ -1515,7 +1515,7 @@ anjuta_plugins_query (AnjutaShell *shell,
 		if (satisfied)
 		{
 			selected_plugins = g_slist_prepend (selected_plugins, desc);
-			g_message ("Satisfied, Adding %s", tool->name);
+			DEBUG_PRINT ("Satisfied, Adding %s", tool->name);
 		}
 		available = g_slist_next (available);
 	}
@@ -1621,7 +1621,7 @@ anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 				gchar *icon_path = NULL;
 				icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 										 icon_filename, NULL);
-				g_message ("Icon: %s", icon_path);
+				DEBUG_PRINT ("Icon: %s", icon_path);
 				icon_pixbuf = 
 					gdk_pixbuf_new_from_file (icon_path, NULL);
 				if (icon_pixbuf == NULL)

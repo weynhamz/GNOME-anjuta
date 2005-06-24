@@ -1060,10 +1060,8 @@ determine_editor_mode(gchar* buffer, glong size)
 		mode = SC_EOL_CR;
 		max_mode = cr;
 	}
-#ifdef DEBUG
-	g_message("EOL chars: LR = %d, CR = %d, CRLF = %d", lf, cr, crlf);
-	g_message("Autodetected Editor mode [%d]", mode);
-#endif
+	DEBUG_PRINT ("EOL chars: LR = %d, CR = %d, CRLF = %d", lf, cr, crlf);
+	DEBUG_PRINT ("Autodetected Editor mode [%d]", mode);
 	return mode;
 }
 
@@ -1821,9 +1819,7 @@ gchar
 	}
 #ifdef DEBUG
 	if (buf)
-	{
-		g_message("Current word is '%s'", buf);
-	}
+		DEBUG_PRINT ("Current word is '%s'", buf);
 #endif
 	return buf;
 }

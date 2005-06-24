@@ -1133,7 +1133,7 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	
-	g_message ("Updateing project UI");
+	DEBUG_PRINT ("Updateing project UI");
 	
 	if (!bb_plugin->project_root_dir)
 	{
@@ -1228,7 +1228,7 @@ update_module_ui (BasicAutotoolsPlugin *bb_plugin)
 
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bb_plugin)->shell, NULL);
 	
-	g_message ("Updateing module UI");
+	DEBUG_PRINT ("Updateing module UI");
 	
 	if (!bb_plugin->current_editor_filename)
 	{
@@ -1420,7 +1420,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	bb_plugin = (BasicAutotoolsPlugin *) plugin;
 	
-	g_message ("Project added");
+	DEBUG_PRINT ("Project added");
 	
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);

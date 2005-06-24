@@ -1,5 +1,22 @@
 2005-05-24 Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/anjuta-ui.c, libanjuta/plugins.c,
+	libegg/egg-combo-action.c, libegg/egg-recent-action.c,
+	libegg/egg-submenu-action.c, libegg/test-actions.c,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/cvs-plugin/plugin.c, plugins/editor/aneditor-autocomplete.cxx,
+	plugins/editor/search-replace.c, plugins/editor/text_editor.c,
+	plugins/file-wizard/plugin.c, plugins/gdb/debugger.c,
+	plugins/gtodo/plugin.c, plugins/macro/macro-db.c,
+	plugins/macro/plugin.c,	plugins/message-view/plugin.c,
+	plugins/profile-default/plugin.c, plugins/project-import/plugin.c,
+	plugins/project-manager/plugin.c, plugins/project-wizard/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	plugins/sample1/plugin.c, plugins/subversion/plugin.c,
+	plugins/tools/plugin.c: Used DEBUG_PRINT() instead of g_message().
+
+2005-05-24 Naba Kumar  <naba@gnome.org>
+
 	* data/properties/styles.properties: Fixed defalt font.
 
 	* plugins/editor/search-replace.c,

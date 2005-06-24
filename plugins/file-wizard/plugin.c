@@ -21,6 +21,7 @@
 #include <config.h>
 #include <gtk/gtkactiongroup.h>
 #include <libgnome/gnome-i18n.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
@@ -136,7 +137,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaFileWizardPlugin *w_plugin;
 	static gboolean initialized = FALSE;
 	
-	g_message ("AnjutaFileWizardPlugin: Activating File wizard plugin ...");
+	DEBUG_PRINT ("AnjutaFileWizardPlugin: Activating File wizard plugin ...");
 	w_plugin = (AnjutaFileWizardPlugin*) plugin;
 	w_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	w_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);

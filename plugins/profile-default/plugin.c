@@ -489,7 +489,7 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 												  &description);
 			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 									 icon_filename, NULL);
-			// g_message ("Icon: %s", icon_path);
+			// DEBUG_PRINT ("Icon: %s", icon_path);
 			label = g_strconcat (_("Loaded: "), title, _(" ..."), NULL);
 			icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
 			if (!icon_pixbuf)

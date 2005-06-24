@@ -21,7 +21,7 @@ activate_action (GtkAction *action)
   g_object_get (G_OBJECT (action), "name", &name, NULL);
   const gchar *typename = G_OBJECT_TYPE_NAME (action);
 
-  g_message ("Action %s (type=%s) activated", name, typename);
+  g_print ("Action %s (type=%s) activated", name, typename);
 }
 
 static void
@@ -32,7 +32,7 @@ changed_action (GtkAction *action)
   g_object_get (G_OBJECT (action), "name", &name, NULL);
   const gchar *typename = G_OBJECT_TYPE_NAME (action);
 
-  g_message ("Action %s (type=%s) changed activated", name, typename);
+  g_print ("Action %s (type=%s) changed activated", name, typename);
 }
 
 /* convenience functions for declaring actions */
@@ -184,7 +184,7 @@ main (int argc, char **argv)
   gtk_ui_manager_add_ui_from_string (menu_merge, ui_info, strlen(ui_info), &error);
   if (error != NULL)
   {
-      g_message ("building menus failed: %s", error->message);
+      g_warning ("building menus failed: %s", error->message);
       g_error_free (error);
   }
 

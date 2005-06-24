@@ -23,6 +23,7 @@
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
@@ -251,7 +252,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	bb_plugin = (CVSPlugin *) plugin;
 	
-	g_message ("Project added");
+	DEBUG_PRINT ("Project added");
 	
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
@@ -335,7 +336,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	static gboolean prefs_init = FALSE;
 	
-	g_message ("CVSPlugin: Activating CVS plugin ...");
+	DEBUG_PRINT ("CVSPlugin: Activating CVS plugin ...");
 	cvs_plugin = (CVSPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -378,7 +379,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("CVSPlugin: Dectivating CVS plugin ...");
+	DEBUG_PRINT ("CVSPlugin: Dectivating CVS plugin ...");
 	anjuta_ui_unmerge (ui, ((CVSPlugin*)plugin)->uiid);
 	return TRUE;
 }

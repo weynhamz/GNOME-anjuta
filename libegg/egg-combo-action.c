@@ -288,7 +288,7 @@ create_tool_item (GtkAction *action)
   GtkCellRenderer *renderer;
 	
   g_return_val_if_fail (EGG_IS_COMBO_ACTION (action), NULL);
-  g_message ("Creating combo toolitem");
+  /* g_message ("Creating combo toolitem"); */
   item = gtk_tool_item_new ();
   combo = egg_combo_select_new ();
   egg_combo_select_set_title (EGG_COMBO_SELECT (combo), _("Symbol"));

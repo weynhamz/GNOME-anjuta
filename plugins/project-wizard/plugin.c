@@ -29,6 +29,7 @@
 
 #include "druid.h"
 
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
 /*---------------------------------------------------------------------------*/
@@ -71,7 +72,7 @@ npw_plugin_activate (AnjutaPlugin *plugin)
 	GladeXML* gxml;
 	NPWPlugin *this = (NPWPlugin*)plugin;
 	
-	g_message ("Project Wizard Plugin: Activating project wizard plugin...");
+	DEBUG_PRINT ("Project Wizard Plugin: Activating project wizard plugin...");
 
 	/* Create the messages preferences page */
 	this->pref = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -87,7 +88,7 @@ npw_plugin_deactivate (AnjutaPlugin *plugin)
 {
 	/*NPWPlugin *this = (NPWPlugin*)plugin; */
 
-	g_message ("Project Wizard Plugin: Deactivating project wizard plugin...");
+	DEBUG_PRINT ("Project Wizard Plugin: Deactivating project wizard plugin...");
 
 	/*anjuta_preferences_remove_page (this->pref, "New Project Wizard");*/
 

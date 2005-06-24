@@ -137,7 +137,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	MessageViewPlugin *mv_plugin;
 	static gboolean initialized = FALSE;
 	
-	g_message ("MessageViewPlugin: Activating MessageView plugin ...");
+	DEBUG_PRINT ("MessageViewPlugin: Activating MessageView plugin ...");
 	mv_plugin = (MessageViewPlugin*) plugin;
 	
 	if (!initialized)

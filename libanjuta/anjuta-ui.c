@@ -726,7 +726,7 @@ anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 #ifdef DEBUG
 	{
 		gchar *basename = g_path_get_basename (ui_filename);
-		g_message("merged [%d] %s", id, basename);
+		DEBUG_PRINT ("merged [%d] %s", id, basename);
 	}
 #endif
 	if (err != NULL)
@@ -745,9 +745,7 @@ anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 void
 anjuta_ui_unmerge (AnjutaUI *ui, gint id)
 {
-#ifdef DEBUG
-	g_message("Menu unmerging %d", id);
-#endif
+	DEBUG_PRINT ("Menu unmerging %d", id);
 	g_return_if_fail (ANJUTA_IS_UI (ui));
 	gtk_ui_manager_remove_ui(GTK_UI_MANAGER (ui), id);
 }

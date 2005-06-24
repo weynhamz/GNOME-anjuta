@@ -21,6 +21,7 @@
 #include <config.h>
 #include <gtk/gtkactiongroup.h>
 #include <libgnome/gnome-i18n.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 
@@ -36,9 +37,7 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaProjectImportPlugin *iplugin;
 	
-#ifdef DEBUG
-	g_message ("AnjutaProjectImportPlugin: Activating Project Import Plugin ...");
-#endif
+	DEBUG_PRINT ("AnjutaProjectImportPlugin: Activating Project Import Plugin ...");
 	
 	iplugin = (AnjutaProjectImportPlugin*) plugin;
 	iplugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);

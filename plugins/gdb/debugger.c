@@ -1393,7 +1393,7 @@ debugger_start_terminal (Debugger *debugger)
 	debugger->priv->term_pid = pid;
 	if (pid < 1)
 		goto error;
-	g_message  ("terminal pid = %d\n", pid);
+	DEBUG_PRINT  ("terminal pid = %d\n", pid);
 	anjuta_children_register (pid, on_debugger_terminal_terminated, debugger);
 
 	/*

@@ -405,7 +405,7 @@ static char * get_current_function_scope (GtkWidget *scintilla, int line)
 	if((tm_file) && (tm_file->tags_array))
 	{
 		TMTag *tag;
-		g_message ("TMFile for editor found");
+		/* g_message ("TMFile for editor found"); */
 		if(NULL != (tag = TM_TAG(tm_get_current_function(tm_file->tags_array,
 														 line))))
 		{

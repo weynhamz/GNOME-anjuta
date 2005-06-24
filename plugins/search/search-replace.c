@@ -439,7 +439,7 @@ search_and_replace (void)
  							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						break;
 					default:
-						g_message("Not implemented - File %s - Line %d\n", __FILE__, __LINE__);
+						g_warning ("Not implemented - File %s - Line %d\n", __FILE__, __LINE__);
 						break;
 				}  // switch
 
@@ -621,7 +621,7 @@ search_replace_next_previous(SearchDirection dir)
 	}	
 	else
 	{
-		g_message("sr null\n");
+		DEBUG_PRINT ("sr null\n");
 	}
 }
 

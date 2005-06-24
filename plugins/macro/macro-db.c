@@ -21,6 +21,7 @@
 #include <libxml/parser.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <stdlib.h>
+#include <libanjuta/anjuta-debug.h>
 
 #define PREDEFINED_MACRO_FILE PACKAGE_DATA_DIR"/macros.xml"
 
@@ -212,7 +213,7 @@ static gpointer parent_class;
 static void
 macro_db_dispose (GObject * db)
 {
-	g_message ("Disposing MacroDB");
+	DEBUG_PRINT ("Disposing MacroDB");
 	macro_db_save (MACRO_DB (db));
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT (db)));
 }

@@ -95,6 +95,7 @@ R7: Tool Storage
 #include "execute.h"
 
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -176,7 +177,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 	GtkMenu* menu;
 	GtkWidget* sep;
 	
-	g_message ("Tools Plugin: Activating tools plugin...");
+	DEBUG_PRINT ("Tools Plugin: Activating tools plugin...");
 	
 	/* Add all our actions */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -214,7 +215,7 @@ atp_plugin_deactivate (AnjutaPlugin *plugin)
 	ATPPlugin *this = (ATPPlugin*)plugin;
 	AnjutaUI *ui;
 
-	g_message ("Tools Plugin: Deactivating tools plugin...");
+	DEBUG_PRINT ("Tools Plugin: Deactivating tools plugin...");
 
 	atp_context_list_destroy (&this->context);
 	atp_variable_destroy (&this->variable);

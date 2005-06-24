@@ -140,7 +140,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GdkPixbuf *pixbuf;
 	static gboolean initialized = FALSE;
 	
-	g_message ("GTodoPlugin: Activating Task manager plugin ...");
+	DEBUG_PRINT ("GTodoPlugin: Activating Task manager plugin ...");
 	gtodo_plugin = (GTodoPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);

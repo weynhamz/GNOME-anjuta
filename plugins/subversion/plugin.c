@@ -23,6 +23,7 @@
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
@@ -200,7 +201,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	bb_plugin = (Subversion *) plugin;
 	
-	g_message ("Project added");
+	DEBUG_PRINT ("Project added");
 	
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
@@ -284,7 +285,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	Subversion *subversion;
 	
-	g_message ("Subversion: Activating Subversion plugin ...");
+	DEBUG_PRINT ("Subversion: Activating Subversion plugin ...");
 	subversion = (Subversion*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -325,7 +326,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("Subversion: Dectivating Subversion plugin ...");
+	DEBUG_PRINT ("Subversion: Dectivating Subversion plugin ...");
 	anjuta_ui_unmerge (ui, ((Subversion*)plugin)->uiid);
 	return TRUE;
 }

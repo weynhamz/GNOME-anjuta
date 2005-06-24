@@ -1062,7 +1062,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* GladeXML *gxml; */
 	ProjectManagerPlugin *pm_plugin;
 	
-	g_message ("ProjectManagerPlugin: Activating Project Manager plugin ...");
+	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin ...");
 	
 	if (!initialized)
 		register_stock_icons (plugin);

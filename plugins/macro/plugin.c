@@ -19,6 +19,7 @@
 #include "macro-actions.h"
 #include "macro-db.h"
 
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-macro.ui"
@@ -100,9 +101,7 @@ activate_plugin (AnjutaPlugin * plugin)
 	AnjutaUI *ui;
 	MacroPlugin *macro_plugin;
 
-#ifdef DEBUG
-	g_message ("MacroPlugin: Activating Macro plugin ...");
-#endif
+	DEBUG_PRINT ("MacroPlugin: Activating Macro plugin ...");
 
 	macro_plugin = (MacroPlugin *) plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -130,9 +129,9 @@ static gboolean
 deactivate_plugin (AnjutaPlugin * plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-#ifdef DEBUG
-	g_message ("MacroPlugin: Deactivating Macro plugin ...");
-#endif
+
+	DEBUG_PRINT ("MacroPlugin: Deactivating Macro plugin ...");
+
 	anjuta_ui_unmerge (ui, ((MacroPlugin *) plugin)->uiid);
 	return TRUE;
 }

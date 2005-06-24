@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include "plugin.h"
@@ -66,7 +67,7 @@ sample_plugin_activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	SamplePlugin *sample_plugin;
 	
-	g_message ("SamplePlugin: Activating Sample plugin ...");
+	DEBUG_PRINT ("SamplePlugin: Activating Sample plugin ...");
 	sample_plugin = (SamplePlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -90,7 +91,7 @@ static gboolean
 sample_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	g_message ("SamplePlugin: Dectivating Sample plugin ...");
+	DEBUG_PRINT ("SamplePlugin: Dectivating Sample plugin ...");
 	anjuta_shell_remove_widget (plugin->shell, ((SamplePlugin*)plugin)->widget,
 								NULL);
 	anjuta_ui_unmerge (ui, ((SamplePlugin*)plugin)->uiid);
