@@ -1,5 +1,7 @@
 2005-05-24 Naba Kumar  <naba@gnome.org>
 
+	* data/properties/styles.properties: Fixed defalt font.
+
 	* plugins/editor/search-replace.c,
 	plugins/editor/search-replace_backend.c: Fixed message outputs. Identify
 	project openness wihtout activating project-manager plugin (i.e.
