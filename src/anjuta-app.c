@@ -46,6 +46,8 @@
 #include "about.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
+#define ICON_FILE "anjuta_icon.png"
 
 static void anjuta_app_layout_load (AnjutaApp *app,
 									const gchar *layout_filename,
@@ -369,6 +371,7 @@ anjuta_app_finalize (GObject *widget)
 static void
 anjuta_app_instance_init (AnjutaApp *app)
 {
+	GladeXML* gxml;
 	gint merge_id;
 	GtkWidget *toolbar_menu, *about_menu;
 	GtkWidget *view_menu, *hbox;
@@ -494,16 +497,20 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* Create about plugins menu */
 	about_menu = 
 		gtk_ui_manager_get_widget (GTK_UI_MANAGER(app->ui),
-								  "/MenuMain/PlaceHolderHelpMenus/MenuHelp/PlaceHolderHelpAbout/AboutPlugins");
+								   "/MenuMain/PlaceHolderHelpMenus/MenuHelp/"
+								   "PlaceHolderHelpAbout/AboutPlugins");
 	about_create_plugins_submenu (ANJUTA_SHELL (app), about_menu);
 							  
 	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
 								  GTK_WINDOW (app));
-	/*
-	gtk_window_add_accel_group (GTK_WINDOW (app->preferences),
-								app->accel_group);
-	*/
 	
+	/* Create preferences page */
+	gxml = glade_xml_new (GLADE_FILE, "anjuta_preferences_window", NULL);
+	anjuta_preferences_add_page (app->preferences, gxml,
+								 "General", ICON_FILE);
+	g_object_unref (gxml);
+	
+	/* Connect to session */
 	g_signal_connect (G_OBJECT (app), "save_session",
 					  G_CALLBACK (on_session_save), app);
 	g_signal_connect (G_OBJECT (app), "load_session",

@@ -1,3 +1,32 @@
+2005-05-26 Naba Kumar  <naba@gnome.org>
+
+	* plugins/class-gen/action-callbacks.c,
+	plugins/class-gen/anjuta-class-gen-plugin.glade,
+	plugins/class-gen/class_gen.c, plugins/class-gen/plugin.c,
+	plugins/file-wizard/anjuta-file-wizard.glade,
+	plugins/file-wizard/file.c, plugins/file-wizard/file.h,
+	plugins/file-wizard/plugin.c, plugins/file-wizard/plugin.h: Implemented
+	"Add to project" correctly. Use the source file path returned after
+	adding to project. Fixed memory leaks. Deactivate wizard plugins
+	after use.
+	
+	* plugins/project-manager/plugin.c,
+	plugins/project-wizard/anjuta-project-wizard.glade,
+	plugins/project-wizard/druid.c, plugins/project-wizard/install.c,
+	plugins/project-wizard/plugin.c, plugins/project-wizard/plugin.h,
+	src/Makefile.am, src/anjuta-app.c, src/anjuta.glade: Moved
+	project-wizard preference page to anjuta app, because they are
+	more appropriated as general preferences. Renamed username and
+	useremail properties keys.
+	
+	* po/POTFILES.in: Updated.
+
+	* plugins/editor/action-callbacks.c: Fixed a crash bug when a file is
+	saved at closing.
+	
+	* plugins/file-loader/plugin.c: Do not use static variable to store
+	created submenu in factory. Fixed crash in anjuta exit.
+	
 2005-05-24 Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/tmpl/anjuta-utils.sgml,

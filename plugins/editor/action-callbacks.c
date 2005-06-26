@@ -166,7 +166,7 @@ on_close_file1_activate (GtkAction * action, gpointer user_data)
 										 GTK_RESPONSE_CANCEL);
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
 		if (res == GTK_RESPONSE_YES)
-			on_save1_activate (NULL, docman);
+			on_save1_activate (NULL, user_data);
 		else if (res == GTK_RESPONSE_NO)
 		{
 			anjuta_docman_remove_editor (docman, te);

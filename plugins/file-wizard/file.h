@@ -35,8 +35,10 @@ extern "C"
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
+#include <plugin.h>
 
-void display_new_file(IAnjutaDocumentManager *docman);	
+void display_new_file(AnjutaFileWizardPlugin *plugin,
+					  IAnjutaDocumentManager *docman);	
 gboolean on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 			                              gboolean user_data);
 gboolean on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,

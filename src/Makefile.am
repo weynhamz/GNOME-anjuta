@@ -1,5 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
+anjuta_gladedir = $(anjuta_glade_dir)
+anjuta_glade_DATA = anjuta.glade
+
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA = anjuta.ui anjuta-shell.ui
 
@@ -41,4 +44,5 @@ anjuta_shell_LDADD =  \
 
 EXTRA_DIST = \
 	$(anjuta_ui_DATA) \
-	$(anjuta_layout_DATA)
+	$(anjuta_layout_DATA) \
+	$(anjuta_glade_DATA)

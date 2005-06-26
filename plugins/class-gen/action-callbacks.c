@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-
+#include <ctype.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -160,7 +160,6 @@ void on_go_button_browse_source_clicked (GtkButton *button, GladeXML* gxml) {
 	}	
 }
 
-
 void on_create_button_clicked (GtkButton *button, ClassGenData* data) {
 	
 	GtkWidget *classgen_widget;
@@ -185,6 +184,8 @@ void on_create_button_clicked (GtkButton *button, ClassGenData* data) {
 	
 	if (can_close) {
 		gtk_widget_destroy (classgen_widget);
+		g_object_unref (data->gxml);
+		anjuta_plugin_deactivate (ANJUTA_PLUGIN (data->plugin));
 		g_free (data);
 	}
 }
@@ -194,7 +195,8 @@ void on_cancel_button_clicked (GtkButton *button, ClassGenData *data) {
 	
 	classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");
 	gtk_widget_destroy (classgen_widget);
-	
+	g_object_unref (data->gxml);
+	anjuta_plugin_deactivate (ANJUTA_PLUGIN (data->plugin));
 	g_free (data);
 }
 
@@ -221,6 +223,85 @@ void on_inline_toggled (GtkToggleButton *buttom, ClassGenData *data) {
 	}
 }
 
+static void
+on_go_base_class_changed (GtkEntry *entry, GladeXML* gxml)
+{
+	GtkWidget *type_prefix, *type_name, *func_prefix;
+	GString *type_prefix_str, *type_name_str, *func_prefix_str;
+	const gchar *name;
+	gboolean first = TRUE, prefix = TRUE;
+	
+	type_prefix = glade_xml_get_widget (gxml, "go_type_prefix");
+	type_name = glade_xml_get_widget (gxml, "go_type_name");
+	func_prefix = glade_xml_get_widget (gxml, "go_class_func_prefix");
+	type_prefix_str = g_string_new ("");
+	type_name_str = g_string_new ("");
+	func_prefix_str = g_string_new ("");
+	
+	name = gtk_entry_get_text (GTK_ENTRY (entry));
+	while (*name)
+	{
+		if (first)
+		{
+			g_string_append_c (func_prefix_str, tolower(*name));
+			g_string_append_c (type_prefix_str, toupper(*name));
+			first = FALSE;
+		}
+		else
+		{
+			if (isupper(*name))
+			{
+				g_string_append_c (func_prefix_str, '_');
+				prefix = FALSE;
+			}
+			g_string_append_c (func_prefix_str, tolower(*name));
+			if (prefix)
+				g_string_append_c (type_prefix_str, toupper(*name));
+			else
+				g_string_append_c (type_name_str, toupper(*name));
+		}
+		name++;
+	}
+	gtk_entry_set_text (GTK_ENTRY (type_prefix), type_prefix_str->str);
+	gtk_entry_set_text (GTK_ENTRY (type_name), type_name_str->str);
+	gtk_entry_set_text (GTK_ENTRY (func_prefix), func_prefix_str->str);
+	g_string_free (type_prefix_str, TRUE);
+	g_string_free (type_name_str, TRUE);
+	g_string_free (func_prefix_str, TRUE);
+}
+
+static void
+on_cc_base_class_changed (GtkEntry *entry, GladeXML* gxml) {
+}
+
+gboolean
+on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
+							 ClassGenData *data)
+{
+	if (event->keyval == GDK_Escape)
+	{
+		GtkWidget *classgen_widget;
+	
+		classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");
+		gtk_widget_destroy (classgen_widget);
+		g_object_unref (data->gxml);
+		anjuta_plugin_deactivate (ANJUTA_PLUGIN (data->plugin));
+		g_free (data);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static gboolean
+on_class_gen_delete_event(GtkWidget *widget, GdkEvent *event,
+						  ClassGenData *data)
+{
+	g_object_unref (data->gxml);
+	anjuta_plugin_deactivate (ANJUTA_PLUGIN (data->plugin));
+	g_free (data);
+	return FALSE;
+}
+
 /*----------------------------------------------------------------------------
  * Create the main widget and connect signals to buttons/etc.
  */
@@ -234,18 +315,28 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 	GtkWidget *add_to_project_check;
 	GtkWidget *add_to_repository_check;	
 	GtkWidget *license_combo;
+	GtkWidget *cc_base_class;
 	GtkWidget *cc_button_browse_source;
 	GtkWidget *cc_button_browse_header;
 	GtkWidget *cc_inheritance;
 	GtkWidget *cc_inline;
+	GtkWidget *cc_author_name;
+	GtkWidget *cc_author_email;
+	GtkWidget *go_base_class;
 	GtkWidget *go_button_browse_source;
 	GtkWidget *go_button_browse_header;
+	GtkWidget *go_author_name;
+	GtkWidget *go_author_email;
+	gchar *username, *email;
 	ClassGenData *data;
 	
 	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
 	g_return_if_fail (gxml != NULL );
 
 	classgen_widget = glade_xml_get_widget (gxml, "classgen_main" );
+	
+	go_base_class =  glade_xml_get_widget (gxml, "go_base_class");
+	cc_base_class =  glade_xml_get_widget (gxml, "cc_base_class");
 
 	cc_button_browse_source = 
 					glade_xml_get_widget (gxml, "cc_button_browse_source");
@@ -269,6 +360,26 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX (cc_inheritance), 0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX (license_combo), 0);
+	
+	/* Initialize user name/email */
+	username = anjuta_preferences_get (plugin->prefs, "anjuta.user.name");
+	email = anjuta_preferences_get (plugin->prefs, "anjuta.user.email");
+	cc_author_name = glade_xml_get_widget (gxml, "cc_author_name");
+	cc_author_email = glade_xml_get_widget (gxml, "cc_author_email");
+	go_author_name = glade_xml_get_widget (gxml, "go_author_name");
+	go_author_email = glade_xml_get_widget (gxml, "go_author_email");
+	if (username)
+	{
+		gtk_entry_set_text (GTK_ENTRY (cc_author_name), username);
+		gtk_entry_set_text (GTK_ENTRY (go_author_name), username);
+	}
+	if (email)
+	{
+		gtk_entry_set_text (GTK_ENTRY (cc_author_email), email);
+		gtk_entry_set_text (GTK_ENTRY (go_author_email), email);
+	}
+	g_free (username);
+	g_free (email);
 	
 	/* check whether we have a loaded project or not */
 	if ( !plugin->top_dir ) {
@@ -297,6 +408,12 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 	g_signal_connect (G_OBJECT (go_button_browse_source), "clicked",
 		G_CALLBACK (on_go_button_browse_source_clicked), gxml);
 
+	g_signal_connect (G_OBJECT (go_base_class), "changed",
+		G_CALLBACK (on_go_base_class_changed), gxml);
+		
+	g_signal_connect (G_OBJECT (cc_base_class), "changed",
+		G_CALLBACK (on_cc_base_class_changed), gxml);
+	
 	g_signal_connect (G_OBJECT (create_button), "clicked",
 		G_CALLBACK (on_create_button_clicked), data);
 
@@ -309,23 +426,9 @@ on_classgen_new (AnjutaClassGenPlugin* plugin) {
 	g_signal_connect (G_OBJECT (classgen_widget), "key-press-event",
 					  GTK_SIGNAL_FUNC (on_class_gen_key_press_event),
 					  data);
+	g_signal_connect (G_OBJECT (classgen_widget), "delete-event",
+					  GTK_SIGNAL_FUNC (on_class_gen_delete_event),
+					  data);
 
 	gtk_widget_show (classgen_widget);
-}
-
-
-gboolean
-on_class_gen_key_press_event(GtkWidget *widget, GdkEventKey *event,
-                                  ClassGenData *data)
-{
-	if (event->keyval == GDK_Escape)
-	{
-		GtkWidget *classgen_widget;
-	
-		classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");
-		gtk_widget_destroy (classgen_widget);
-		g_free (data);
-		return TRUE;
-	}
-	return FALSE;
 }

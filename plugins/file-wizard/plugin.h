@@ -34,6 +34,8 @@ struct _AnjutaFileWizardPlugin {
 	AnjutaPreferences *prefs;
 	GtkActionGroup *action_group;
 	gint merge_id;
+	gint root_watch_id;
+	gchar *top_dir;
 };
 
 struct _AnjutaFileWizardPluginClass {

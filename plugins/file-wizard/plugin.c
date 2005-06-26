@@ -21,6 +21,7 @@
 #include <config.h>
 #include <gtk/gtkactiongroup.h>
 #include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
@@ -131,6 +132,40 @@ swap_label_and_stock (GtkActionEntry* actions, gint size)
 	}
 }
 
+static void
+project_root_added (AnjutaPlugin *plugin, const gchar *name,
+					const GValue *value, gpointer user_data)
+{
+	AnjutaFileWizardPlugin *w_plugin;
+	const gchar *root_uri;
+
+	w_plugin = (AnjutaFileWizardPlugin*) plugin;
+	root_uri = g_value_get_string (value);
+	
+	if (root_uri)
+	{
+		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
+		if (root_dir)
+			w_plugin->top_dir = g_strdup(root_dir);
+		else
+			w_plugin->top_dir = NULL;
+		g_free (root_dir);
+	}
+	else
+		w_plugin->top_dir = NULL;
+}
+
+static void
+project_root_removed (AnjutaPlugin *plugin, const gchar *name,
+					  gpointer user_data)
+{
+	AnjutaFileWizardPlugin *w_plugin;
+	w_plugin = (AnjutaFileWizardPlugin*) plugin;
+	
+	g_free (w_plugin->top_dir);
+	w_plugin->top_dir = NULL;
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -145,6 +180,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Action groups */
 	if (!initialized)
 		swap_label_and_stock (actions_insert, G_N_ELEMENTS (actions_insert));
+	
 	w_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (w_plugin->ui,
 											"ActionGroupFileWizard",
@@ -155,23 +191,14 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Merge UI */
 	w_plugin->merge_id = 
 		anjuta_ui_merge (w_plugin->ui, UI_FILE);
-#if 0
-	/* Added widget in shell */
-	anjuta_shell_add_widget (plugin->shell, w_plugin->widget,
-							 "AnjutaFileWizard", _("File Wizard"),
-							 GTK_STOCK_OPEN,
-							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-	/* Add preferences page */
-	gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
 	
-	anjuta_preferences_add_page (fm_plugin->prefs,
-								gxml, "File Manager", ICON_FILE);
-	preferences_changed(fm_plugin->prefs, fm_plugin);
-	g_signal_connect (G_OBJECT (fm_plugin->prefs), "changed",
-					  G_CALLBACK (preferences_changed), fm_plugin);
-	g_object_unref (G_OBJECT (gxml));
-#endif
-	initialized = TRUE;	
+	/* set up project directory watch */
+	w_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
+													   "project_root_uri",
+													   project_root_added,
+													   project_root_removed,
+													   NULL);
+	initialized = TRUE;
 	return TRUE;
 }
 
@@ -180,11 +207,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaFileWizardPlugin *w_plugin;
 	w_plugin = (AnjutaFileWizardPlugin*) plugin;
-#if 0
-	g_signal_handlers_disconnect_by_func (G_OBJECT (w_plugin->prefs),
-										  G_CALLBACK (preferences_changed),
-										  w_plugin);
-#endif
+	anjuta_plugin_remove_watch (plugin, w_plugin->root_watch_id, TRUE);
 	anjuta_ui_unmerge (w_plugin->ui, w_plugin->merge_id);
 	anjuta_ui_remove_action_group (w_plugin->ui, w_plugin->action_group);
 	return TRUE;
@@ -199,7 +222,8 @@ dispose (GObject *obj)
 static void
 file_wizard_plugin_instance_init (GObject *obj)
 {
-	// AnjutaFileWizardPlugin *plugin = (AnjutaFileWizardPlugin*) obj;
+	AnjutaFileWizardPlugin *plugin = (AnjutaFileWizardPlugin*) obj;
+	plugin->top_dir = NULL;
 }
 
 static void
@@ -217,10 +241,13 @@ file_wizard_plugin_class_init (GObjectClass *klass)
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
 {
+	AnjutaFileWizardPlugin *plugin;
 	IAnjutaDocumentManager *docman;
+	
+	plugin = (AnjutaFileWizardPlugin *)ANJUTA_PLUGIN (wiz);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (wiz)->shell,
 										 IAnjutaDocumentManager, NULL);
-	display_new_file(docman);
+	display_new_file(plugin, docman);
 }
 
 static void

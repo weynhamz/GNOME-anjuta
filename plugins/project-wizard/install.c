@@ -35,6 +35,7 @@
 
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -270,7 +271,6 @@ on_install_end_action (gpointer data)
 {
 	NPWInstall* this = (NPWInstall*)data;
 
-
 	for (;;)
 	{
 		if (this->action == NULL)
@@ -283,6 +283,12 @@ on_install_end_action (gpointer data)
 		}
 		if (this->action == NULL)
 		{
+			DEBUG_PRINT ("Project wizard done");
+			/* The wizard could have been deactivated when loading the new
+			 * project. Hence, the following check.
+			 */
+			if (anjuta_plugin_is_active (ANJUTA_PLUGIN (this->plugin)))
+				anjuta_plugin_deactivate (ANJUTA_PLUGIN (this->plugin));
 			npw_install_free (this);
 			return;
 		}
@@ -498,7 +504,6 @@ npw_install_install_file (NPWInstall* this)
 
 	return TRUE;
 }
-
 
 static void
 on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, NPWInstall* this)

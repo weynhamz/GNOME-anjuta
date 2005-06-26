@@ -25,15 +25,12 @@
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 
-
 #include "plugin.h"
 #include "class_gen.h"
 
 #define ICON_FILE "class_logo.xpm"
 
 static gpointer parent_class;
-
-
 
 static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -49,9 +46,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	{
 		gchar *root_dir = gnome_vfs_get_local_path_from_uri (root_uri);
 		if (root_dir)
-		{	
 			cg_plugin->top_dir = g_strdup(root_dir);
-		}
 		else
 			cg_plugin->top_dir = NULL;
 		g_free (root_dir);
@@ -71,7 +66,6 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 		g_free(cg_plugin->top_dir);
 	cg_plugin->top_dir = NULL;
 }
-
 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
@@ -94,7 +88,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	return TRUE;
 }
 
-
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
@@ -108,23 +101,18 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	return TRUE;
 }
 
-
 static void
 dispose (GObject *obj)
 {
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
-
 static void
 finalize (GObject *obj)
 {
 	AnjutaClassGenPlugin *cg_plugin;
 	cg_plugin = (AnjutaClassGenPlugin *) obj;
-
-	if (cg_plugin->top_dir)
-		g_free (cg_plugin->top_dir);
-	
+	g_free (cg_plugin->top_dir);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
@@ -141,12 +129,13 @@ class_gen_plugin_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
-
 static void
 class_gen_plugin_instance_init (GObject *obj)
 {
+	AnjutaClassGenPlugin *plugin = (AnjutaClassGenPlugin *)obj;
+	plugin->root_watch_id = 0;
+	plugin->top_dir = NULL;
 }
-
 
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
@@ -163,7 +152,6 @@ iwizard_iface_init (IAnjutaWizardIface *iface)
 {
 	iface->activate = iwizard_activate;
 }
-
 
 ANJUTA_PLUGIN_BEGIN (AnjutaClassGenPlugin, class_gen_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(iwizard, IANJUTA_TYPE_WIZARD);

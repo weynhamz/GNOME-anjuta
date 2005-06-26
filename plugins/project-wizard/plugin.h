@@ -34,7 +34,6 @@ struct _NPWPlugin {
 	struct _NPWDruid* druid;
 	struct _NPWInstall* install;
 	IAnjutaMessageView* view;
-	AnjutaPreferences *pref;
 };
 
 struct _NPWPluginClass {

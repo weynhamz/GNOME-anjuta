@@ -32,9 +32,13 @@
 #include <time.h>
 
 #include <gnome.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-macro.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 
 #include "plugin.h"
 #include "file.h"
@@ -47,13 +51,17 @@
 #define NEW_FILE_HEADER "new.file.header"
 #define NEW_FILE_LICENSE "new.file.license"
 #define NEW_FILE_MENU_LICENSE "new.file.menu.license"
-
+#define NEW_FILE_ADD_TO_PROJECT "add_to_project"
+#define NEW_FILE_ADD_TO_REPOSITORY "add_to_repository"
 
 typedef struct _NewFileGUI
 {
 	GladeXML *xml;
 	GtkWidget *dialog;
+	GtkWidget *add_to_project;
+	GtkWidget *add_to_repository;
 	gboolean showing;
+	AnjutaFileWizardPlugin *plugin;
 } NewFileGUI;
 
 
@@ -110,18 +118,38 @@ static void insert_notice(IAnjutaMacro* macro, gint license_type, gint comment_t
 static void insert_header(IAnjutaMacro* macro, gint source_type);
 
 void
-display_new_file(IAnjutaDocumentManager *docman)
-{	
+display_new_file(AnjutaFileWizardPlugin *plugin,
+				 IAnjutaDocumentManager *docman)
+{
 	if (!nfg)
-		if (! create_new_file_dialog(docman))
+		if (!create_new_file_dialog (docman))
 			return;
+	
+	nfg->plugin = plugin;
+	
+	/* check whether we have a loaded project or not */
+	if (!plugin->top_dir) {
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
+									  FALSE);
+		gtk_widget_set_sensitive (nfg->add_to_project, FALSE);
+	}
+	else
+	{
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
+									  TRUE);
+		gtk_widget_set_sensitive (nfg->add_to_project, TRUE);
+	}
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_repository),
+								  FALSE);
+	/* FIXME: fix the problem with the repository add, then enable this check-button */
+	gtk_widget_set_sensitive (nfg->add_to_repository, FALSE);
+	
 	if (nfg && !(nfg->showing))
 	{
 		gtk_window_present (GTK_WINDOW (nfg->dialog));
 		nfg->showing = TRUE;
 	}
 }
-
 
 static gboolean
 create_new_file_dialog(IAnjutaDocumentManager *docman)
@@ -140,6 +168,8 @@ create_new_file_dialog(IAnjutaDocumentManager *docman)
 		return FALSE;
 	}
 	nfg->dialog = glade_xml_get_widget(nfg->xml, NEW_FILE_DIALOG);
+	nfg->add_to_project = glade_xml_get_widget (nfg->xml, NEW_FILE_ADD_TO_PROJECT);
+	nfg->add_to_repository = glade_xml_get_widget (nfg->xml, NEW_FILE_ADD_TO_REPOSITORY);
 	nfg->showing = FALSE;
 	
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
@@ -181,6 +211,40 @@ on_new_file_cancelbutton_clicked(GtkWidget *window, GdkEvent *event,
 	return TRUE;
 }
 
+static gboolean
+confirm_file_overwrite (AnjutaPlugin* plugin, const gchar *uri)
+{
+	GnomeVFSURI *vfs_uri;
+	gboolean ret = TRUE;
+	
+	vfs_uri = gnome_vfs_uri_new (uri);
+	if (gnome_vfs_uri_exists (vfs_uri))
+	{
+		GtkWidget *dialog;
+		gint res;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE,
+										 _("The file '%s' already exists.\n"
+										   "Do you want to replace it with the "
+										   "one you are saving?"),
+										 uri);
+		gtk_dialog_add_button (GTK_DIALOG(dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_util_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
+		res = gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		if (res != GTK_RESPONSE_YES)
+			ret = FALSE;
+	}
+	gnome_vfs_uri_unref (vfs_uri);
+	return ret;
+}
 
 gboolean
 on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
@@ -189,33 +253,61 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	GtkWidget *entry;
 	GtkWidget *checkbutton;
 	GtkWidget *optionmenu;
-	gchar *name;
+	const gchar *name;
 	gint sel;
 	gint license_type;
 	gint comment_type;
 	gint source_type;
-	IAnjutaEditor *te;
 	IAnjutaDocumentManager *docman;
 	GtkWidget *toplevel;
 	IAnjutaMacro* macro;
+	IAnjutaEditor *te = NULL;
 	
 	toplevel= gtk_widget_get_toplevel (window);
 	docman = IANJUTA_DOCUMENT_MANAGER (g_object_get_data (G_OBJECT(toplevel),
 										"IAnjutaDocumentManager"));
-	macro = anjuta_shell_get_interface
-		                      (ANJUTA_PLUGIN(docman)->shell, 
+	macro = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
 		                       IAnjutaMacro, NULL);
 	entry = glade_xml_get_widget(nfg->xml, NEW_FILE_ENTRY);
-	name = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
-	if (strlen(name) > 0)
-		te = ianjuta_document_manager_add_buffer (docman, name, "", NULL);
-	else
-		te = ianjuta_document_manager_add_buffer (docman, "", "", NULL);
-	g_free(name);
+	name = gtk_entry_get_text(GTK_ENTRY(entry));
 	
-	if (te == NULL)
-		return FALSE;
-
+	if (nfg->plugin->top_dir &&
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_project)))
+	{
+		gchar *file_uri = NULL;
+		IAnjutaProjectManager *pm;
+		GnomeVFSHandle *vfs_write;
+		
+		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
+										 IAnjutaProjectManager, NULL);
+		g_return_val_if_fail (pm != NULL, FALSE);
+		
+		file_uri = ianjuta_project_manager_add_source (pm, name, "", NULL);
+		if (!file_uri)
+			return FALSE;
+		
+		/* Create empty file */
+		if (!confirm_file_overwrite (ANJUTA_PLUGIN (nfg->plugin), file_uri) ||
+			gnome_vfs_create (&vfs_write, file_uri, GNOME_VFS_OPEN_WRITE,
+							  FALSE, 0664) != GNOME_VFS_OK ||
+			gnome_vfs_close(vfs_write) != GNOME_VFS_OK)
+		{
+			g_free (file_uri);
+			return FALSE;
+		}
+		ianjuta_file_open (IANJUTA_FILE (docman), file_uri, NULL);
+		g_free (file_uri);
+	}
+	else
+	{
+		if (name && strlen (name) > 0)
+			te = ianjuta_document_manager_add_buffer (docman, name, "", NULL);
+		else
+			te = ianjuta_document_manager_add_buffer (docman, "", "", NULL);
+		if (te == NULL)
+			return FALSE;
+	}
+	
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
 	source_type = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
 		
@@ -245,7 +337,7 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		insert_header(macro, source_type);
 	}
 	
-	gtk_widget_hide(nfg->dialog);
+	gtk_widget_hide (nfg->dialog);
 	nfg->showing = FALSE;
 	
 	return TRUE;

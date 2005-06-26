@@ -152,6 +152,7 @@ plugins/tools/variable.c
 src/about.c
 src/action-callbacks.c
 src/anjuta.c
+src/anjuta.glade
 src/anjuta-actions.h
 src/anjuta-app.c
 src/anjuta-callbacks.c

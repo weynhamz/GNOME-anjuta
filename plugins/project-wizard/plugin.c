@@ -57,7 +57,8 @@ npw_plugin_dispose (GObject *obj)
 	/* Warning this function could be called several times */
 	if (this->view != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)&this->view);
+		g_object_remove_weak_pointer (G_OBJECT (this->view),
+									  (gpointer*)&this->view);
 		this->view = NULL;
 	}
 
@@ -69,29 +70,14 @@ npw_plugin_dispose (GObject *obj)
 static gboolean
 npw_plugin_activate (AnjutaPlugin *plugin)
 {
-	GladeXML* gxml;
-	NPWPlugin *this = (NPWPlugin*)plugin;
-	
 	DEBUG_PRINT ("Project Wizard Plugin: Activating project wizard plugin...");
-
-	/* Create the messages preferences page */
-	this->pref = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gxml = glade_xml_new (GLADE_FILE, "Project Wizard", NULL);
-	anjuta_preferences_add_page (this->pref, gxml, "Project Wizard", ICON_FILE);
-	g_object_unref (gxml);
-	
 	return TRUE;
 }
 
 static gboolean
 npw_plugin_deactivate (AnjutaPlugin *plugin)
 {
-	/*NPWPlugin *this = (NPWPlugin*)plugin; */
-
 	DEBUG_PRINT ("Project Wizard Plugin: Deactivating project wizard plugin...");
-
-	/*anjuta_preferences_remove_page (this->pref, "New Project Wizard");*/
-
 	return TRUE;
 }
 
@@ -158,13 +144,17 @@ npw_plugin_create_view (NPWPlugin* this)
 	{
 		IAnjutaMessageManager* man;
 
-		man = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaMessageManager, NULL);
-		this->view = ianjuta_message_manager_add_view (man, _("New Project Wizard"), ICON_FILE, NULL);
+		man = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell,
+										  IAnjutaMessageManager, NULL);
+		this->view =
+			ianjuta_message_manager_add_view (man, _("New Project Wizard"),
+											  ICON_FILE, NULL);
 		if (this->view != NULL)
 		{
 			g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
 							  G_CALLBACK (on_message_buffer_flush), this);
-			g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
+			g_object_add_weak_pointer (G_OBJECT (this->view),
+									   (gpointer *)&this->view);
 		}
 	}
 	else
@@ -185,7 +175,8 @@ npw_plugin_append_view (NPWPlugin* this, const gchar* text)
 }
 
 void
-npw_plugin_print_view (NPWPlugin* this, IAnjutaMessageViewType type, const gchar* summary, const gchar* details)
+npw_plugin_print_view (NPWPlugin* this, IAnjutaMessageViewType type,
+					   const gchar* summary, const gchar* details)
 {
 	if (this->view)
 	{

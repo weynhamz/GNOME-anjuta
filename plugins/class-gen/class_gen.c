@@ -3,7 +3,6 @@
  * GOCbuilder Copyright (C) 2004  Aaron Bockover <aaron@aaronbock.net>
  * class_gen.c Copyright (C) 2005 Massimo Cora' [porting to Anjuta 2.x plugin style]
  * 				
- *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free 
  * Software Foundation; either version 2 of the License, or (at your option)
@@ -33,12 +32,6 @@
  *
  */
 
-
-#include "class_gen.h"
-#include "action-callbacks.h"
-#include "plugin.h"
-/* #include "class_logo.xpm" */
-
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -51,25 +44,28 @@
 
 #include <gnome.h>
 #include <libgnomeui/gnome-window-icon.h>
+#include <libgnomevfs/gnome-vfs.h>
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
+#include "class_gen.h"
+#include "action-callbacks.h"
+#include "plugin.h"
 
 /*
  *------------------------------------------------------------------------------
  * Foward Declarations
  *------------------------------------------------------------------------------
  */
-
-
 static struct tm* GetNowTime(void);
-static void gen_cpp_generate_header (ClassGenData* data, gboolean is_inline, FILE* fpOut);
-static void gen_cpp_generate_source (ClassGenData *data, gboolean is_inline, const gchar* header_file, FILE* fpOut);
-
-
+static void gen_cpp_generate_header (ClassGenData* data, gboolean is_inline,
+									 FILE* fpOut);
+static void gen_cpp_generate_source (ClassGenData *data, gboolean is_inline,
+									 const gchar* header_file, FILE* fpOut);
 
 gchar *
 browse_for_file (gchar *title)
@@ -85,33 +81,72 @@ browse_for_file (gchar *title)
 		NULL);
 	
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
-		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 	
 	gtk_widget_destroy(dialog);
 	
 	return filename;
 }
 
-
+static gboolean
+confirm_file_overwrite (AnjutaClassGenPlugin* plugin, const gchar *uri)
+{
+	GnomeVFSURI *vfs_uri;
+	gboolean ret = TRUE;
+	
+	vfs_uri = gnome_vfs_uri_new (uri);
+	if (gnome_vfs_uri_exists (vfs_uri))
+	{
+		GtkWidget *dialog;
+		gint res;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE,
+										 _("The file '%s' already exists.\n"
+										   "Do you want to replace it with the "
+										   "one you are saving?"),
+										 uri);
+		gtk_dialog_add_button (GTK_DIALOG(dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_util_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
+		res = gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		if (res != GTK_RESPONSE_YES)
+			ret = FALSE;
+	}
+	gnome_vfs_uri_unref (vfs_uri);
+	return ret;
+}
 
 /*
  *------------------------------------------------------------------------------
  * GObject Builder
  *------------------------------------------------------------------------------
  */
-
 gboolean
 gobject_class_create_code (ClassGenData* data) {
+	
+	gchar *header_file_base; 
+	gchar *header_define;
+	gchar *t; 
+	AnjutaClassGenPlugin *plugin;
+	IAnjutaFileLoader *loader;
 	
 	GtkWidget *classgen_widget;	
 	gchar *trans_table[8];
 	gboolean a, b;
+	gchar *source_file, *header_file;
 	const gchar *base_class = FETCH_STRING (data->gxml, "go_base_class");
 	const gchar *gtype_name = FETCH_STRING (data->gxml, "go_type_name");
 	const gchar *gtype_prefix = FETCH_STRING (data->gxml, "go_type_prefix");
 	const gchar *class_function_prefix = FETCH_STRING (data->gxml, "go_class_func_prefix");
-	const gchar *source_file = FETCH_STRING (data->gxml, "go_source_file");
-	const gchar *header_file = FETCH_STRING (data->gxml, "go_header_file");
+	const gchar *source_filename = FETCH_STRING (data->gxml, "go_source_file");
+	const gchar *header_filename = FETCH_STRING (data->gxml, "go_header_file");
 	const gchar *author_name = FETCH_STRING (data->gxml, "go_author_name");
 	const gchar *author_email = FETCH_STRING (data->gxml, "go_author_email");
 	gboolean date_output = FETCH_BOOLEAN (data->gxml, "go_date_output");
@@ -120,12 +155,6 @@ gobject_class_create_code (ClassGenData* data) {
 	
 	GtkWidget* license_widget = glade_xml_get_widget (data->gxml, "license_combo");
 	gint license_output = gtk_combo_box_get_active (GTK_COMBO_BOX (license_widget));
-	
-	gchar *header_file_base; 
-	gchar *header_define;
-	gchar *t; 
-	AnjutaClassGenPlugin *plugin;
-	IAnjutaFileLoader *loader;
 	
 	plugin = data->plugin;
 	
@@ -139,12 +168,12 @@ gobject_class_create_code (ClassGenData* data) {
 	/* check whether all required fields are filled or not */
 	if ( g_str_equal (base_class, "") || g_str_equal (gtype_name, "") ||
 		  g_str_equal (gtype_prefix, "") || g_str_equal (class_function_prefix, "") ||
-		  g_str_equal (source_file, "") || g_str_equal (header_file, "") ) {
+		  g_str_equal (source_filename, "") || g_str_equal (header_filename, "") ) {
 		anjuta_util_dialog_error (NULL, _("Please check your required fields."));
 		return FALSE;
 	}
-		
-	header_file_base = g_path_get_basename(header_file);
+	
+	header_file_base = g_path_get_basename(header_filename);
 	header_define = cstr_replace_all(header_file_base, "-", "_");
 	t = header_define;
 	header_define = cstr_replace_all(t, ".", "_");
@@ -161,6 +190,68 @@ gobject_class_create_code (ClassGenData* data) {
 	trans_table[4] = header_file_base;
 	trans_table[5] = header_define;
 
+	/* Add to project first so that user could change the files path */
+	if (plugin->top_dir && add_to_project)
+	{
+		IAnjutaProjectManager *pm;
+		gchar *filename, *dirname, *curdir;
+		
+		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+		
+		g_return_val_if_fail (pm != NULL, FALSE);			
+		
+		curdir = g_get_current_dir ();
+		filename = g_path_get_basename (source_filename);
+		dirname  = g_path_get_dirname (source_filename);
+		if (dirname && strcmp (dirname, ".") != 0)
+			source_file = ianjuta_project_manager_add_source (pm, filename,
+															  dirname, NULL);
+		else
+			source_file = ianjuta_project_manager_add_source (pm, filename,
+															  curdir, NULL);
+		g_free (filename);
+		g_free (dirname);
+		
+		if (!source_file)
+		{
+			/* User has canceled it */
+			g_free (curdir);
+			return FALSE;
+		}
+		filename = g_path_get_basename (header_filename);
+		dirname  = g_path_get_dirname (header_filename);
+		if (dirname && strcmp (dirname, ".") != 0)
+			header_file = ianjuta_project_manager_add_source (pm, filename,
+															  dirname, NULL);
+		else
+			header_file = ianjuta_project_manager_add_source (pm, filename,
+															  curdir, NULL);
+		g_free (filename);
+		g_free (dirname);
+		g_free (curdir);
+		if (!header_file)
+		{
+			/* User has canceled it */
+			g_free (source_file);
+			return FALSE;
+		}
+	}
+	else
+	{
+		source_file = g_strdup (source_filename);
+		header_file = g_strdup (header_filename);
+	}
+	
+	/* Confirm overwriting files */
+	if (!confirm_file_overwrite (data->plugin, header_file) ||
+		!confirm_file_overwrite (data->plugin, source_file))
+	{
+		g_free (source_file);
+		g_free (header_file);
+		return FALSE;
+	}
+
 	/* act with templates... */
 	a = transform_file(CLASS_TEMPLATE"/"CLASS_GOC_HEADER_TEMPLATE, 
 					header_file, trans_table, author_name, author_email, 
@@ -172,18 +263,7 @@ gobject_class_create_code (ClassGenData* data) {
 
 	gtk_widget_hide (classgen_widget);
 	
-	if(a && b) {
-		if (add_to_project) {
-			IAnjutaProjectManager *pm;
-			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										 IAnjutaProjectManager, NULL);
-			
-			g_return_val_if_fail (pm != NULL, FALSE);			
-			
-			ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
-			ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
-		}
-		
+	if (a && b) {
 		if (add_to_repository) {
 			IAnjutaVcs *vcs;
 			vcs = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
@@ -193,18 +273,20 @@ gobject_class_create_code (ClassGenData* data) {
 			ianjuta_vcs_add (vcs, source_file, NULL);
 			ianjuta_vcs_add (vcs, header_file, NULL);
 		}
-		
-		/* let's open the files in new a pair of new editors */
+		/* let's open the files in editor buffers */
 		ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
 		ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
-		
 	} else {
 		anjuta_util_dialog_error (NULL,
-							  _("An error occurred when trying to write GObject Class Template. Check file permissions."));
+								  _("An error occurred when trying to write"
+									" GObject Class Template. Check file"
+									" permissions."));
 	}
 	
-	g_free(header_file_base);
-	g_free(header_define);	
+	g_free (header_file_base);
+	g_free (header_define);
+	g_free (source_file);
+	g_free (header_file);
 	return TRUE;
 }
 
@@ -254,17 +336,37 @@ cstr_replace_all(gchar *search, const gchar *find, const gchar *replace)
 	return (gchar *)realloc(buffer, strlen(buffer) + 1);
 }
 
+static gboolean
+write_to_uri (const gchar *uri, const gchar *content)
+{
+	GnomeVFSHandle* vfs_write;
+	GnomeVFSFileSize nchars;
+
+	g_return_val_if_fail (uri != NULL, FALSE);
+	g_return_val_if_fail (content != NULL, FALSE);
+	
+	if (gnome_vfs_create (&vfs_write, uri, GNOME_VFS_OPEN_WRITE,
+						  FALSE, 0664) != GNOME_VFS_OK)
+		return FALSE;
+	
+	if (gnome_vfs_write (vfs_write, content, strlen (content),
+						 &nchars) == GNOME_VFS_OK &&
+		gnome_vfs_close(vfs_write) == GNOME_VFS_OK)
+		return TRUE;
+	else
+		return FALSE;
+}
 
 gboolean 
 transform_file(const gchar *input_file, const gchar *output_file, 
-	gchar **replace_table, const gchar *author, const gchar *email, 
-	gboolean date_output, gint license_output)
+			   gchar **replace_table, const gchar *author, const gchar *email, 
+			   gboolean date_output, gint license_output)
 {
 	gchar *contents;
 	gchar *working;
 	gsize length;
-	gint i, st_size;
-	FILE *out;
+	gint i, st_size, ret;
+	GString *file_content;
 	
 	gchar *search_table[] = {
 		"{{BASE_CLASS}}", 
@@ -276,15 +378,10 @@ transform_file(const gchar *input_file, const gchar *output_file,
 		NULL
 	};
 	
-	if((out = fopen(output_file, "w+")) == NULL) {
-		g_printerr("Could not open %s for writing\n", output_file);
-		return FALSE;
-	}
-	
 	for(st_size = 0; search_table[st_size] != NULL; st_size++); 
 	
 	if(!g_file_get_contents(input_file, &contents, &length, NULL)) {
-		g_printerr("Could not read %s\n", input_file);
+		g_warning ("Could not read %s\n", input_file);
 		return FALSE;
 	}
 
@@ -297,6 +394,8 @@ transform_file(const gchar *input_file, const gchar *output_file,
 		contents = working;
 	}
 	
+	file_content = g_string_new ("");
+	
 	if (date_output) {
 		gchar *basename = g_path_get_basename(output_file);
 		gchar buf[128], year[5];
@@ -306,41 +405,42 @@ transform_file(const gchar *input_file, const gchar *output_file,
 		strftime(buf, sizeof(buf), "%a %b %e %T %Y", lt);
 		strftime(year, sizeof(year), "%Y", lt);
 		
-		fputs("/***************************************************************************\n", out);
-		fprintf(out, "*            %s\n", basename);
-		fputs("*\n", out);
-		fprintf(out, "*  %s\n", buf);
-		fprintf(out, "*  Copyright  %s  %s\n", year, author);
-		fprintf(out, "*  %s\n", email);
-		fputs("****************************************************************************/\n\n", out);
-		
+		g_string_append (file_content, "/***************************************************************************\n");
+		g_string_append (file_content, " *            ");
+		g_string_append (file_content, basename);
+		g_string_append (file_content, "\n *\n *  ");
+		g_string_append (file_content, buf);
+		g_string_append (file_content, "\n *  Copyright  ");
+		g_string_append (file_content, year);
+		g_string_append (file_content, "  ");
+		g_string_append (file_content, author);
+		g_string_append (file_content, "\n *  ");
+		g_string_append (file_content, email);
+		g_string_append (file_content, "\n");
+		g_string_append (file_content, " ***************************************************************************/\n\n");
 		g_free(basename);
 	}
 	
-	
 	switch (license_output) {
 		case GPL:
-			fputs(GPL_HEADING, out);
+			g_string_append (file_content, GPL_HEADING);
 			break;
 		
 		case LGPL:
-			fputs(LGPL_HEADING, out);
+			g_string_append (file_content, LGPL_HEADING);
 			break;
 		
-		case NO_LICENSE: 
+		case NO_LICENSE:
 		default:
 			break;
 	}
 
-	fputs(contents, out);
-	fclose(out);
-	
-	g_free(contents);
-	
-	return TRUE;
+	g_string_append (file_content, contents);
+	ret = write_to_uri (output_file, file_content->str);
+	g_free (contents);
+	g_string_free (file_content, TRUE);
+	return ret;
 }
-
-
 
 /*
  *------------------------------------------------------------------------------
@@ -355,35 +455,142 @@ transform_file(const gchar *input_file, const gchar *output_file,
 
 gboolean
 generic_cpp_class_create_code (ClassGenData *data) {
-	AnjutaClassGenPlugin *plugin;	
-	const gchar *source_file = FETCH_STRING (data->gxml, "cc_source_file");
-	const gchar *header_file = FETCH_STRING (data->gxml, "cc_header_file");
+	FILE* header_fd;
+	FILE* source_fd;
+	gboolean bOK = FALSE;
+	IAnjutaFileLoader *loader;
+	AnjutaClassGenPlugin *plugin;
+	gchar *source_file, *header_file;
+	GnomeVFSURI *vfs_uri;
+	const gchar *source_filename = FETCH_STRING (data->gxml, "cc_source_file");
+	const gchar *header_filename = FETCH_STRING (data->gxml, "cc_header_file");
 	const gchar *class_name = FETCH_STRING (data->gxml, "cc_class_name");
 	gboolean is_inline = FETCH_BOOLEAN (data->gxml, "cc_inline");
 	gboolean add_to_project = FETCH_BOOLEAN (data->gxml, "add_to_project_check");
 	gboolean add_to_repository = FETCH_BOOLEAN (data->gxml, "add_to_repository_check");
-	FILE* header_fd;
-	FILE* source_fd;
-	gboolean bOK = FALSE;
-	IAnjutaProjectManager *pm;
-	IAnjutaFileLoader *loader;
 	
 	plugin = data->plugin;
 	
 	/* check whether all required fields are filled or not */
-	if ( g_str_equal (source_file, "") || g_str_equal (header_file, "") ||
-		  g_str_equal (class_name, "")) {
-		anjuta_util_dialog_error (NULL, _("Please fill required fields."));
-		return FALSE;
+	if (!is_inline)
+	{
+		if (g_str_equal (source_filename, "") ||
+			g_str_equal (header_filename, "") ||
+			g_str_equal (class_name, "")) {
+			anjuta_util_dialog_error (NULL, _("Please fill required fields."));
+			return FALSE;
+		}
 	}
-
+	else
+	{
+		if (g_str_equal (header_filename, "") ||
+			g_str_equal (class_name, "")) {
+			anjuta_util_dialog_error (NULL, _("Please fill required fields."));
+			return FALSE;
+		}
+	}
+	
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										 IAnjutaFileLoader, NULL);
 
 	g_return_val_if_fail (loader != NULL, FALSE);
+
+	/* Add to project first so that user could change the files path */
+	if (plugin->top_dir && add_to_project)
+	{
+		IAnjutaProjectManager *pm;
+		gchar *filename, *dirname, *curdir;
+		
+		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+									 IAnjutaProjectManager, NULL);
+		
+		g_return_val_if_fail (pm != NULL, FALSE);			
+		
+		curdir = g_get_current_dir ();
+		filename = g_path_get_basename (header_filename);
+		dirname  = g_path_get_dirname (header_filename);
+		if (dirname && strcmp (dirname, ".") != 0)
+			header_file = ianjuta_project_manager_add_source (pm, filename,
+															  dirname, NULL);
+		else
+			header_file = ianjuta_project_manager_add_source (pm, filename,
+															  curdir, NULL);
+			
+		g_free (filename);
+		g_free (dirname);
+		if (!header_file)
+		{
+			/* User has canceled it */
+			g_free (curdir);
+			return FALSE;
+		}
+		if (!is_inline)
+		{
+			filename = g_path_get_basename (source_filename);
+			dirname  = g_path_get_dirname (source_filename);
+			if (dirname && strcmp (dirname, ".") != 0)
+				source_file = ianjuta_project_manager_add_source (pm, filename,
+																  dirname, NULL);
+			else
+				source_file = ianjuta_project_manager_add_source (pm, filename,
+																  curdir, NULL);
+			g_free (filename);
+			g_free (dirname);
+			
+			if (!source_file)
+			{
+				/* User has canceled it */
+				g_free (curdir);
+				g_free (header_file);
+				return FALSE;
+			}
+		}
+		g_free (curdir);
+	}
+	else
+	{
+		if (!is_inline)
+			source_file = g_strdup (source_filename);
+		header_file = g_strdup (header_filename);
+	}
+	
+	/* FIXME: Convert to local paths, since new file doesn't support gnome-vfs.
+	 * Fix the following codes to use gnome-vfs.
+	 */
+	vfs_uri = gnome_vfs_uri_new (header_file);
+	g_free (header_file);
+	header_file = g_strdup (gnome_vfs_uri_get_path (vfs_uri));
+	gnome_vfs_uri_unref (vfs_uri);
+	if (!is_inline)
+	{
+		vfs_uri = gnome_vfs_uri_new (source_file);
+		g_free (source_file);
+		source_file = g_strdup (gnome_vfs_uri_get_path (vfs_uri));
+		gnome_vfs_uri_unref (vfs_uri);
+	}
+	
+	/* Confirm overwriting files */
+	if (!is_inline)
+	{
+		if (!confirm_file_overwrite (data->plugin, header_file) ||
+			!confirm_file_overwrite (data->plugin, source_file))
+		{
+			g_free (source_file);
+			g_free (header_file);
+			return FALSE;
+		}
+	}
+	else
+	{
+		if (!confirm_file_overwrite (data->plugin, header_file))
+		{
+			g_free (header_file);
+			return FALSE;
+		}
+	}		
 	
 	if (!is_inline) {	/* not inlined */
-		header_fd = fopen (header_file, "at");
+		header_fd = fopen (header_file, "wt");
 		if (header_fd != NULL) {
 			gen_cpp_generate_header (data, is_inline, header_fd);
 			fflush (header_fd);
@@ -392,7 +599,7 @@ generic_cpp_class_create_code (ClassGenData *data) {
 			header_fd = NULL;
 		}
 		
-		source_fd = fopen (source_file, "at");
+		source_fd = fopen (source_file, "wt");
 		if (source_fd != NULL) {
 			gen_cpp_generate_source (data, is_inline, header_file, source_fd);
 			fflush (source_fd);
@@ -414,35 +621,28 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	}
 	
 	if (bOK) {
-		/* add the files to the project */
-		if (add_to_project) {
-			pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										 IAnjutaProjectManager, NULL);
-			
-			g_return_val_if_fail (pm != NULL, FALSE);
-			
-			if (!is_inline) 
-				ianjuta_project_manager_add_source (pm, source_file, source_file, NULL);
-			ianjuta_project_manager_add_source (pm, header_file, header_file, NULL);
-		}
-		
 		if (add_to_repository) {
 			IAnjutaVcs *vcs;
 			vcs = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
 										IAnjutaVcs, NULL);
 
 			g_return_val_if_fail (vcs != NULL, FALSE);
-			ianjuta_vcs_add (vcs, source_file, NULL);
+			if (!is_inline)
+				ianjuta_vcs_add (vcs, source_file, NULL);
 			ianjuta_vcs_add (vcs, header_file, NULL);
 		}
 		
 		/* let's open the files */
-		ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
+		if (!is_inline)
+			ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
 		ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
 	}
 	else
 		anjuta_util_dialog_error (NULL, _("Error in writing files"));
-
+	
+	if (!is_inline)
+		g_free (source_file);
+	g_free (header_file);
 	return TRUE;
 }
 
@@ -455,7 +655,6 @@ GetNowTime(void)
 	l_time = time(NULL);
 	return localtime(&l_time);
 }
-
 
 static void
 gen_cpp_generate_header (ClassGenData *data, gboolean is_inline, FILE* fpOut) {

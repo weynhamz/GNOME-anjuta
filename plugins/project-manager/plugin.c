@@ -1235,13 +1235,23 @@ uri_is_inside_project (ProjectManagerPlugin *plugin, const gchar *uri)
 {
 	const gchar *root_uri;
 
+	/* DEBUG_PRINT ("Is '%s' inside project", uri); */
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
 					  G_TYPE_STRING, &root_uri, NULL);
 
 	if (strncmp (uri, root_uri, strlen (root_uri)) == 0)
 		return TRUE;
-	else
-		return FALSE;
+	
+	if (uri[0] == '/')
+	{
+		const gchar *project_root_path = strchr (root_uri, ':');
+		if (project_root_path)
+			project_root_path += 3;
+		else
+			project_root_path = root_uri;
+		return (strncmp (uri, project_root_path, strlen (project_root_path)) == 0);
+	}
+	return FALSE;
 }
 
 static gchar *
@@ -1255,9 +1265,15 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
 		return NULL;
 	
 	path = g_strdup (id);
-	ptr = strchr (path, ':');
+	ptr = strrchr (path, ':');
 	if (ptr)
 	{
+		if (ptr[1] == '/')
+		{
+			 /* ID is source ID, extract source uri */
+			ptr = strrchr (ptr, ':');
+			return g_strdup (ptr+1);
+		}
 		*ptr = '\0';
 	}
 	
@@ -1265,6 +1281,7 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
 					  "project_root_uri", G_TYPE_STRING,
 					  &project_root, NULL);
 	uri = g_build_filename (project_root, path, NULL);
+	/* DEBUG_PRINT ("Converting id: %s to %s", id, uri); */
 	g_free (path);
 	return uri;
 }
@@ -1272,12 +1289,28 @@ get_element_uri_from_id (ProjectManagerPlugin *plugin, const gchar *id)
 static const gchar *
 get_element_relative_path (ProjectManagerPlugin *plugin, const gchar *uri)
 {
-	const gchar *project_root;
+	const gchar *project_root = NULL;
 	
 	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
 					  "project_root_uri", G_TYPE_STRING,
 					  &project_root, NULL);
-	return uri + strlen (project_root);
+	if (project_root)
+	{
+		if (uri[0] != '/')
+		{
+			return uri + strlen (project_root);
+		}
+		else
+		{
+			const gchar *project_root_path = strchr (project_root, ':');
+			if (project_root_path)
+				project_root_path += 3;
+			else
+				project_root_path = project_root;
+			return uri + strlen (project_root_path);
+		}
+	}
+	return NULL;
 }
 
 static GbfProjectTarget*

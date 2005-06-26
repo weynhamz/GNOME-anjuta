@@ -604,11 +604,8 @@ on_create_submenu (gpointer user_data)
 	AnjutaFileLoaderPlugin *loader;
 	GSList *node;
 	gint count;
-	static GtkWidget *submenu = NULL;
+	GtkWidget *submenu = NULL;
 	GSList *plugin_descs = NULL;
-	
-	if (submenu)
-		return submenu;
 	
 	loader = (AnjutaFileLoaderPlugin *)user_data;
 	

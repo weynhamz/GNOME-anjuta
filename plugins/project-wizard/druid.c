@@ -34,6 +34,7 @@
 #include "install.h"
 #include "autogen.h"
 
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 
 #include <gnome.h>
@@ -580,6 +581,8 @@ npw_druid_set_busy (NPWDruid *this, gboolean busy_state)
 static gboolean
 on_druid_cancel (GtkWidget* window, NPWDruid* druid)
 {
+	DEBUG_PRINT ("Project wizard canceled");
+	anjuta_plugin_deactivate (ANJUTA_PLUGIN (druid->plugin));
 	npw_druid_free (druid);
 
 	return TRUE;
@@ -588,6 +591,8 @@ on_druid_cancel (GtkWidget* window, NPWDruid* druid)
 static gboolean
 on_druid_delete (GtkWidget* window, GdkEvent* event, NPWDruid* druid)
 {
+	DEBUG_PRINT ("Project wizard canceled");
+	anjuta_plugin_deactivate (ANJUTA_PLUGIN (druid->plugin));
 	npw_druid_free (druid);
 
 	return TRUE;
@@ -762,7 +767,7 @@ npw_druid_add_default_property (NPWDruid* this)
 
 	/* Add user name */
 	value = npw_value_heap_find_value (this->values, USER_NAME_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.project.user");
+	s = anjuta_preferences_get (pref, "anjuta.user.name");
 	if (!s || strlen(s) == 0)
 	{
 		s = g_get_real_name();
@@ -774,7 +779,7 @@ npw_druid_add_default_property (NPWDruid* this)
 	}
 	/* Add Email address */
 	value = npw_value_heap_find_value (this->values, EMAIL_ADDRESS_PROPERTY);
-	s = anjuta_preferences_get (pref, "anjuta.project.email");
+	s = anjuta_preferences_get (pref, "anjuta.user.email");
 	/* If Email address not defined in Preferences */
 	if (!s || strlen(s) == 0)
 	{
