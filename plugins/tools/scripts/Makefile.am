@@ -7,3 +7,7 @@ tools_SCRIPTS = \
 	find-fixmes.pl \
 	translation-status.pl
 tools_DATA = tools-2.xml
+
+EXTRA_DIST = \
+	$(tools_SCRIPTS) \
+	$(tools_DATA)

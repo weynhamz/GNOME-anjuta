@@ -1,5 +1,8 @@
 2005-05-26 Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Bumped version to 2.0.1
+	* plugins/tools/scripts/Makefile.am: Fixed make checkdist bugs.
+
 	* plugins/tools/execute.c: Fixed clickable messages.
 	* NEWS: Updated.
 
