@@ -323,7 +323,7 @@ on_message_buffer_flush (IAnjutaMessageView *view, const gchar *msg_line,
 				type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 			else if (strstr (line, _("error:")) != NULL)
 				type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
-			desc = _("Click to visit the location");
+			desc = line;
 		}
 		else if (strstr (line, ":") != NULL)
 		{

@@ -1,5 +1,8 @@
 2005-05-26 Naba Kumar  <naba@gnome.org>
 
+	* plugins/tools/execute.c: Fixed clickable messages.
+	* NEWS: Updated.
+
 	* plugins/glade/plugin.c, src/layout.xml: Added glade stock icon.
 	Deactivate glade plugin when last glade project is closed. Reorder
 	glade widgets in layout. Change glade project when user selects a
