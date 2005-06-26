@@ -21,6 +21,7 @@
 #include <config.h>
 #include <gtk/gtk.h>
 
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -123,6 +124,7 @@ glade_update_ui (GladeApp *app, GladePlugin *plugin)
 	{
 		g_object_set (G_OBJECT (action), "sensitive", FALSE, "label", _("_Redo"), NULL);
 	}
+	
 	/* Update current project */
 	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
 	if (gtk_tree_model_get_iter_first (model, &iter))
@@ -366,6 +368,8 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 	GladeApp *gpw;
 	GladeProject *project;
 	gboolean close;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
 	
 	gpw = plugin->priv->gpw;
 	project = glade_app_get_active_project (GLADE_APP (gpw));
@@ -379,7 +383,42 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 			if (!close)
 				return;
 	}
+	
+	/* Remove project from our list */
+	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
+	if (gtk_tree_model_get_iter_first (model, &iter))
+	{
+		do
+		{
+			GladeProject *project_node;
+			
+			gtk_tree_model_get (model, &iter, PROJECT_COL, &project_node, -1);
+			if (project == project_node)
+			{
+				gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+				break;
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &iter));
+	}
 	glade_do_close (plugin, project);
+	if (gtk_tree_model_iter_n_children (model, NULL) <= 0)
+		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+}
+
+static void
+on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
+	if (gtk_combo_box_get_active_iter (combo, &iter))
+	{
+		GladeProject *project;
+		gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
+		glade_app_set_project (plugin->priv->gpw, project);
+	}
 }
 
 /* Action definitions */
@@ -475,6 +514,70 @@ static GtkActionEntry actions[] = {
 	}
 };
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/anjuta-glade-plugin.png",
+				   "glade-plugin-icon");
+}
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, GladePlugin *plugin)
+{
+	GList *files;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	files = anjuta_session_get_string_list (session, "File Loader", "Files");
+	files = g_list_reverse (files);
+	
+	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
+	if (gtk_tree_model_get_iter_first (model, &iter))
+	{
+		do
+		{
+			gchar *uri;
+			GladeProject *project;
+			gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
+			if (project->path)
+			{
+				uri = gnome_vfs_get_uri_from_local_path (project->path);
+				if (uri)
+					files = g_list_prepend (files, uri);
+				/* URI is not freed here */
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &iter));
+	}
+	files = g_list_reverse (files);
+	anjuta_session_set_string_list (session, "File Loader", "Files", files);
+	g_list_foreach (files, (GFunc)g_free, NULL);
+	g_list_free (files);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -492,6 +595,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	priv = glade_plugin->priv;
 	
+	register_stock_icons (plugin);
 	priv->gpw = glade_app_new();
 	glade_app_set_window (priv->gpw, GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
 	glade_default_app_set (priv->gpw);
@@ -522,6 +626,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	gtk_widget_show_all (priv->view_box);
 	
+	g_signal_connect (G_OBJECT (priv->projects_combo), "changed",
+					  G_CALLBACK (on_glade_project_changed), plugin);
 	g_signal_connect (G_OBJECT (priv->gpw), "update-ui",
 					  G_CALLBACK (glade_update_ui), plugin);
 	
@@ -542,16 +648,22 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Add widgets */
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (glade_app_get_palette (priv->gpw)),
-							 "AnjutaGladePalette", "Glade Palette", NULL,
-							 ANJUTA_SHELL_PLACEMENT_TOP, NULL);
-	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
-							 GTK_WIDGET (glade_app_get_editor (priv->gpw)),
-							 "AnjutaGladeEditor", "Glade Editor", NULL,
-							 ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
+							 "AnjutaGladePalette", "Glade Palette",
+							 "glade-plugin-icon",
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (priv->view_box),
-							 "AnjutaGladeTree", "Glade Tree", NULL,
-							 ANJUTA_SHELL_PLACEMENT_RIGHT, NULL);
+							 "AnjutaGladeTree", "Glade Tree",
+							 "glade-plugin-icon",
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
+							 GTK_WIDGET (glade_app_get_editor (priv->gpw)),
+							 "AnjutaGladeEditor", "Glade Editor",
+							 "glade-plugin-icon",
+							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+	/* Connect to save session */
+	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
+					  G_CALLBACK (on_session_save), plugin);
 	return TRUE;
 }
 
@@ -565,6 +677,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	DEBUG_PRINT ("GladePlugin: Dectivating Glade plugin ...");
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_save), plugin);
 	
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell,
@@ -642,11 +757,21 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	GladeProject *project;
 	GtkListStore *store;
 	GtkTreeIter iter;
+	gchar *filename;
 	
 	g_return_if_fail (uri != NULL);
 	
 	priv = ((GladePlugin*)G_OBJECT (ifile))->priv;
-	project = glade_project_open (uri);
+	
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	if (!filename)
+	{
+		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
+								    _("Not local file: %s"), uri);
+		return;
+	}
+	project = glade_project_open (filename);
+	g_free (filename);
 	if (!project)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),

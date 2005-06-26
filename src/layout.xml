@@ -9,12 +9,13 @@
 						<item name="AnjutaProjectManager" orientation="horizontal" locked="no"/>
 						<item name="AnjutaSymbolBrowser" orientation="horizontal" locked="no"/>
 						<item name="AnjutaDevhelpIndex" orientation="horizontal" locked="no"/>
+						<item name="AnjutaGladeTree" orientation="horizontal" locked="no"/>
+						<item name="AnjutaGladePalette" orientation="horizontal" locked="no"/>
 						<placeholder name="ph_left" next-placement="center"/>
 					</notebook>
 					<paned orientation="horizontal" locked="no" position="500">
 						<paned orientation="vertical" locked="no" position="200">
 							<notebook orientation="vertical" locked="no" page="0">
-								<item name="AnjutaGladeEditor" orientation="horizontal" locked="no"/>
 								<placeholder name="ph_top" next-placement="center"/>
 							</notebook>
 							<notebook orientation="vertical" locked="no" page="0">
@@ -23,13 +24,12 @@
 								<item name="AnjutaTodoPlugin" orientation="horizontal" locked="no"/>
 								<item name="AnjutaClassInheritance" orientation="horizontal" locked="no"/>
 								<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
+								<item name="AnjutaGladeEditor" orientation="horizontal" locked="no"/>
 								<placeholder name="ph_center" next-placement="center"/>
 							</notebook>
 						</paned>
 						<notebook orientation="vertical" locked="no" page="0">
-							<item name="AnjutaGladeTree" orientation="horizontal" locked="no"/>
-							<item name="AnjutaGladePalette" orientation="horizontal" locked="no"/>
-							<placeholder name="ph_right" next-placement="right"/>
+							<placeholder name="ph_right" next-placement="center"/>
 						</notebook>
 					</paned>
 				</paned>

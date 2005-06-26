@@ -1,5 +1,12 @@
 2005-05-26 Naba Kumar  <naba@gnome.org>
 
+	* plugins/glade/plugin.c, src/layout.xml: Added glade stock icon.
+	Deactivate glade plugin when last glade project is closed. Reorder
+	glade widgets in layout. Change glade project when user selects a
+	new project. Removed project from the list when user closes it. Fixed
+	glade project file loading from URI. Save and restored loaded glade
+	projects in/from session.
+
 	* plugins/class-gen/action-callbacks.c,
 	plugins/class-gen/anjuta-class-gen-plugin.glade,
 	plugins/class-gen/class_gen.c, plugins/class-gen/plugin.c,
