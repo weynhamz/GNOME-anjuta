@@ -99,11 +99,13 @@ save_all_files (AnjutaPlugin *plugin)
 	gboolean save;
 
 	save = FALSE;	
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaDocumentManager, NULL);
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaDocumentManager, NULL);
 	/* No document manager, so no file to save */
 	if (docman == NULL) return FALSE;
 
-	for (node = ianjuta_document_manager_get_editors (docman, NULL); node != NULL; node = g_list_next (node))
+	for (node = ianjuta_document_manager_get_editors (docman, NULL);
+		 node != NULL; node = g_list_next (node))
 	{
 		IAnjutaFileSavable* ed;
 
@@ -123,7 +125,8 @@ save_all_files (AnjutaPlugin *plugin)
 
 /* Replace variable in source and add prefix separated with a space */
 static gchar*
-replace_variable (const gchar* prefix,  const gchar* source, ATPVariable* variable)
+replace_variable (const gchar* prefix,  const gchar* source,
+				  ATPVariable* variable)
 {
 	guint len;
 	gchar *val;
@@ -141,13 +144,18 @@ replace_variable (const gchar* prefix,  const gchar* source, ATPVariable* variab
 	{
 		for (; *source != '\0'; source += len)
 		{
-			for (len = 0; (source[len] != '\0') && g_ascii_isspace (source[len]); len++);
+			for (len = 0; (source[len] != '\0') &&
+				 g_ascii_isspace (source[len]); len++);
 			g_string_append_len (str, source, len);
 			source += len;
-			for (len = 0; (source[len] != '\0') && !g_ascii_isspace (source[len]); len++);
-			if ((len > 3) && (source[0] == '$') && (source[1] == '(') && (source[len - 1] == ')'))
+			for (len = 0; (source[len] != '\0') &&
+				 !g_ascii_isspace (source[len]); len++);
+			if ((len > 3) && (source[0] == '$') && (source[1] == '(') &&
+				 (source[len - 1] == ')'))
 			{
-				val = atp_variable_get_value_from_name_part (variable, source + 2, len - 3);
+				val = atp_variable_get_value_from_name_part (variable,
+															 source + 2,
+															 len - 3);
 				if (val)
 				{
 					g_string_append (str, val);
@@ -272,15 +280,20 @@ on_message_buffer_click (IAnjutaMessageView *view, const gchar *line,
 											 NULL);
 		
 		/* Append current directory */
-		if ((this->execution->directory != NULL) && (*filename != G_DIR_SEPARATOR))
+		if ((this->execution->directory != NULL) &&
+			 (*filename != G_DIR_SEPARATOR))
 		{
 			if (*filename == '.')
 			{
-				uri = g_strdup_printf ("file://%s/%s#%d", this->execution->directory, filename + 1, lineno);
+				uri = g_strdup_printf ("file://%s/%s#%d",
+									   this->execution->directory,
+									   filename + 1, lineno);
 			}
 			else
 			{
-				uri = g_strdup_printf ("file://%s/%s#%d", this->execution->directory, filename, lineno);
+				uri = g_strdup_printf ("file://%s/%s#%d",
+									   this->execution->directory,
+									   filename, lineno);
 			}
 		}
 		else
@@ -303,7 +316,8 @@ on_message_buffer_flush (IAnjutaMessageView *view, const gchar *msg_line,
 	IAnjutaMessageViewType type;
 	
 	/* If there is a gdb style annotation to open a file, open it */
-	if (strlen(msg_line) > 2 && msg_line[0] == '\032' && msg_line[1] == '\032')
+	if (strlen(msg_line) > 2 && msg_line[0] == '\032' &&
+		msg_line[1] == '\032')
 	{
 		line = g_strdup_printf (_("Opening %s"), &msg_line[2]);
 		on_message_buffer_click (view, &msg_line[2], this);
@@ -371,15 +385,19 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 			IAnjutaMessageManager *man;
 			gchar* title;
 
-			man = anjuta_shell_get_interface (this->execution->plugin->shell, IAnjutaMessageManager, NULL);
+			man = anjuta_shell_get_interface (this->execution->plugin->shell,
+											  IAnjutaMessageManager, NULL);
 			if (this->view == NULL)
 			{
-				this->view = ianjuta_message_manager_add_view (man, "", ICON_FILE, NULL);
+				this->view = ianjuta_message_manager_add_view (man, "",
+															   ICON_FILE,
+															   NULL);
 				g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
 							  G_CALLBACK (on_message_buffer_flush), this);
 				g_signal_connect (G_OBJECT (this->view), "message_clicked",
 							  G_CALLBACK (on_message_buffer_click), this);
-				g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
+				g_object_add_weak_pointer (G_OBJECT (this->view),
+										   (gpointer *)&this->view);
 			}
 			else
 			{
@@ -402,7 +420,8 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 			}
 			title = g_strdup_printf ("%s %s", this->execution->name, str);
 			
-			ianjuta_message_manager_set_view_title (man, this->view, title, NULL);
+			ianjuta_message_manager_set_view_title (man, this->view,
+													title, NULL);
 			g_free (title);
 			this->created = TRUE;
 		}
@@ -496,7 +515,8 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 			ok &= atp_output_context_print (this, "\n");
 			if (this->view)
 			{
-				man = anjuta_shell_get_interface (this->execution->plugin->shell, IAnjutaMessageManager, NULL);
+				man = anjuta_shell_get_interface (this->execution->plugin->shell,
+												  IAnjutaMessageManager, NULL);
 				ianjuta_message_manager_set_current_view (man, this->view, NULL);
 			}
 
@@ -507,17 +527,20 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		/* Do nothing  */
 		break;
 	case ATP_TOUT_INSERT_BUFFER:
-		ianjuta_editor_insert (this->editor, this->position, this->buffer->str, this->buffer->len, NULL);
+		ianjuta_editor_insert (this->editor, this->position, this->buffer->str,
+							   this->buffer->len, NULL);
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
 	case ATP_TOUT_APPEND_BUFFER:
-		ianjuta_editor_append (this->editor, this->buffer->str, this->buffer->len, NULL);
+		ianjuta_editor_append (this->editor, this->buffer->str,
+							   this->buffer->len, NULL);
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
 	case ATP_TOUT_REPLACE_SELECTION:
-		ianjuta_editor_replace_selection (this->editor, this->buffer->str, this->buffer->len, NULL);
+		ianjuta_editor_replace_selection (this->editor, this->buffer->str,
+										  this->buffer->len, NULL);
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
@@ -526,11 +549,13 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		{
 			if (this == &this->execution->output)
 			{
-				anjuta_util_dialog_info (GTK_WINDOW (this->execution->plugin->shell), this->buffer->str);
+				anjuta_util_dialog_info (GTK_WINDOW (this->execution->plugin->shell),
+										 this->buffer->str);
 			}
 			else
 			{
-				anjuta_util_dialog_error (GTK_WINDOW (this->execution->plugin->shell), this->buffer->str);
+				anjuta_util_dialog_error (GTK_WINDOW (this->execution->plugin->shell),
+										  this->buffer->str);
 			}
 			g_string_free (this->buffer, TRUE);
 			this->buffer = NULL;
@@ -545,7 +570,9 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 };
 
 static ATPOutputContext*
-atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *execution, ATPOutputType type)
+atp_output_context_initialize (ATPOutputContext *this,
+							   ATPExecutionContext *execution,
+							   ATPOutputType type)
 {
 	IAnjutaDocumentManager *docman;
 
@@ -609,7 +636,9 @@ atp_output_context_initialize (ATPOutputContext *this, ATPExecutionContext *exec
 
 
 static ATPOutputContext*
-atp_output_context_construct (ATPOutputContext *this, ATPExecutionContext *execution, ATPOutputType type)
+atp_output_context_construct (ATPOutputContext *this,
+							  ATPExecutionContext *execution,
+							  ATPOutputType type)
 {
 
 	this->execution = execution;
@@ -626,7 +655,8 @@ atp_output_context_destroy (ATPOutputContext *this)
 	{
 		IAnjutaMessageManager *man;
 
-		man = anjuta_shell_get_interface (this->execution->plugin->shell, IAnjutaMessageManager, NULL);
+		man = anjuta_shell_get_interface (this->execution->plugin->shell,
+										  IAnjutaMessageManager, NULL);
 		ianjuta_message_manager_remove_view (man, this->view, NULL);
 		this->view = NULL;
 	}
@@ -640,7 +670,8 @@ atp_output_context_destroy (ATPOutputContext *this)
  *---------------------------------------------------------------------------*/
 
 static void
-on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time, gpointer user_data)
+on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status,
+				   gulong time, gpointer user_data)
 {
 	ATPExecutionContext *this = (ATPExecutionContext *)user_data;
 
@@ -650,7 +681,8 @@ on_run_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong time,
 }
 
 static void
-on_run_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gchar* output, gpointer user_data)
+on_run_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type,
+			   const gchar* output, gpointer user_data)
 {
 	ATPExecutionContext* this = (ATPExecutionContext*)user_data;
 
@@ -668,7 +700,8 @@ on_run_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, const gc
 }
 
 static ATPExecutionContext*
-atp_execution_context_reuse (ATPExecutionContext* this, const gchar *name, ATPOutputType output, ATPOutputType error)
+atp_execution_context_reuse (ATPExecutionContext* this, const gchar *name,
+							 ATPOutputType output, ATPOutputType error)
 {
 	if (this->name) g_free (this->name);
 	this->name = atp_remove_mnemonic (name);
@@ -686,7 +719,8 @@ atp_execution_context_reuse (ATPExecutionContext* this, const gchar *name, ATPOu
 }
 
 static ATPExecutionContext*
-atp_execution_context_new (AnjutaPlugin *plugin, const gchar *name, guint id, ATPOutputType output, ATPOutputType error)
+atp_execution_context_new (AnjutaPlugin *plugin, const gchar *name,
+						   guint id, ATPOutputType output, ATPOutputType error)
 {
 	ATPExecutionContext *this;
 
@@ -694,7 +728,8 @@ atp_execution_context_new (AnjutaPlugin *plugin, const gchar *name, guint id, AT
 
 	this->plugin = plugin;
 	this->launcher =  anjuta_launcher_new ();
-	g_signal_connect (G_OBJECT (this->launcher), "child-exited", G_CALLBACK (on_run_terminated), this);
+	g_signal_connect (G_OBJECT (this->launcher), "child-exited",
+					  G_CALLBACK (on_run_terminated), this);
 	this->name = atp_remove_mnemonic (name);
 
 	if (atp_output_context_construct (&this->output, this, output) == NULL)
@@ -728,14 +763,16 @@ atp_execution_context_free (ATPExecutionContext* this)
 }
 
 static void
-atp_execution_context_set_directory (ATPExecutionContext* this, const gchar* directory)
+atp_execution_context_set_directory (ATPExecutionContext* this,
+									 const gchar* directory)
 {
 	if (this->directory != NULL) g_free (this->directory);
 	this->directory = directory == NULL ? NULL : g_strdup (directory);
 }
 
 static void
-atp_execution_context_execute (ATPExecutionContext* this, const gchar* command, const gchar* input)
+atp_execution_context_execute (ATPExecutionContext* this,
+							   const gchar* command, const gchar* input)
 {
 	gchar* prev_dir = NULL;
 
@@ -791,7 +828,9 @@ atp_context_list_destroy (ATPContextList *this)
 }
 
 static ATPExecutionContext*
-atp_context_list_find_context (ATPContextList *this, AnjutaPlugin *plugin, const gchar* name, ATPOutputType output, ATPOutputType error)
+atp_context_list_find_context (ATPContextList *this, AnjutaPlugin *plugin,
+							   const gchar* name, ATPOutputType output,
+							   ATPOutputType error)
 {
 	ATPExecutionContext* context;
 	GList* reuse = NULL;
@@ -895,10 +934,12 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 	}
 	
 	/* Make command line */
-	cmd = replace_variable (atp_user_tool_get_command (this), atp_user_tool_get_param (this), variable);
+	cmd = replace_variable (atp_user_tool_get_command (this),
+							atp_user_tool_get_param (this), variable);
 
 	/* Get working directory and replace variable */
-	dir = replace_variable (NULL, atp_user_tool_get_working_dir (this), variable);
+	dir = replace_variable (NULL, atp_user_tool_get_working_dir (this),
+							variable);
 
 	if (atp_user_tool_get_flag (this, ATP_TOOL_TERMINAL))
 	{
@@ -914,7 +955,8 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 		switch (atp_user_tool_get_input (this))
 		{
 		case ATP_TIN_BUFFER:
-			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaDocumentManager, NULL);
+			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												 IAnjutaDocumentManager, NULL);
 			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 			if (ed != NULL)
 			{
@@ -923,7 +965,8 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			}
 			break;
 		case ATP_TIN_SELECTION:
-			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaDocumentManager, NULL);
+			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+												 IAnjutaDocumentManager, NULL);
 			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 			if (ed != NULL)
 			{
@@ -931,13 +974,17 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			}
 			break;
 		case ATP_TIN_STRING:
-			input = replace_variable (NULL, atp_user_tool_get_input_string (this), variable);
+			input = replace_variable (NULL,
+									  atp_user_tool_get_input_string (this),
+									  variable);
 			break;
 		case ATP_TIN_FILE:
-			val = replace_variable (NULL, atp_user_tool_get_input_string (this), variable);
+			val = replace_variable (NULL, atp_user_tool_get_input_string (this),
+									variable);
 			if ((val == NULL) || (!g_file_get_contents (val, &input, NULL, NULL)))
 			{
-				anjuta_util_dialog_error (atp_plugin_get_app_window (plugin),_("Unable to open input file %s, Command aborted"), val == NULL ? "(null)" : val);		
+				anjuta_util_dialog_error (atp_plugin_get_app_window (plugin),
+										  _("Unable to open input file %s, Command aborted"), val == NULL ? "(null)" : val);		
 				if (val != NULL) g_free (val);
 				if (dir != NULL) g_free (dir);
 				if (cmd != NULL) g_free (cmd);
