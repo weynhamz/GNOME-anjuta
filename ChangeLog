@@ -1,3 +1,17 @@
+2005-06-26 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Remove two memory leaks
+	Check command output versus untranslated strings too
+
+	* plugins/tools/execute.c:
+	Remove two memory leaks
+	Check command output versus untranslated strings too
+	Remove description message
+
+	* plugins/tools/fileop.c:
+	Escape tool name in xml configuration file
+
 2005-05-26 Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Bumped version to 2.0.1

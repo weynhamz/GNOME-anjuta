@@ -556,14 +556,27 @@ write_xml_string (const gchar *value, const gchar *tag, const_gchar_ptr *head, F
 	/* Check if we need the header */
 	if (*head != NULL)
 	{
-		fprintf(f, "\t<tool name=\"%s\">\n", *head);
+		if (value == NULL)
+		{
+			/* Use for writing tools without value */
+			line = g_markup_printf_escaped ("\t<tool name=\"%s\"/>\n", *head);
+		}
+		else
+		{
+			line = g_markup_printf_escaped ("\t<tool name=\"%s\">\n", *head);
+		}
+		fputs (line, f);
+		g_free (line);
 		*head = NULL;
 	}
 
-	/* Write xml line */
-	line = g_markup_printf_escaped ("\t\t<%s>%s</%s>\n", tag, value, tag);
-	fputs (line, f);
-	g_free (line);
+	if (value != NULL)
+	{
+		/* Write xml line */
+		line = g_markup_printf_escaped ("\t\t<%s>%s</%s>\n", tag, value, tag);
+		fputs (line, f);
+		g_free (line);
+	}
 
 	return TRUE;
 }
@@ -667,7 +680,7 @@ atp_user_tool_save (ATPUserTool *tool, FILE *f)
 	else
 	{
 		/* Force at least one line for the tool */
-		fprintf (f, "\t<tool name=\"%s\"/>\n", atp_user_tool_get_name (tool));
+		write_xml_string (NULL, NULL, &head, f);
 
 		return FALSE;
 	}

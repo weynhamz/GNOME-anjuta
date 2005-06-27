@@ -287,6 +287,7 @@ on_message_buffer_click (IAnjutaMessageView *view, const gchar *line,
 		{
 			uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
 		}
+		g_free (filename);
 		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 		g_free (uri);
 	}
@@ -319,10 +320,17 @@ on_message_buffer_flush (IAnjutaMessageView *view, const gchar *msg_line,
 		type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 		if (parse_error_line(line, &dummy_fn, &dummy_int))
 		{
-			if (strstr (line, _("warning:")) != NULL)
+			g_free (dummy_fn);
+			if ((strstr (line, _("warning:")) != NULL) ||
+				(strstr (line, "warning:") != NULL))
+			{
 				type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
-			else if (strstr (line, _("error:")) != NULL)
+			}
+			else if ((strstr (line, _("error:")) != NULL) ||
+					 (strstr (line, "error:") != NULL))
+			{
 				type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
+			}
 			desc = line;
 		}
 		else if (strstr (line, ":") != NULL)

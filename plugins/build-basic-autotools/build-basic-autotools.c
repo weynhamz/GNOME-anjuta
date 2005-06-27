@@ -424,8 +424,9 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	if (parse_error_line(line, &dummy_fn, &dummy_int))
 	{
 		gchar *start_str, *end_str, *mid_str;
-		
-		if (strstr (line, _("warning:")) != NULL)
+	
+		g_free (dummy_fn);	
+		if ((strstr (line, "warning:") != NULL) || (strstr (line, _("warning:")) != NULL))
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 		else
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
@@ -490,6 +491,7 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 		
 		/* FIXME: Determine full file path */
 		uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
+		g_free (filename);
 		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 		g_free (uri);
 	}
