@@ -425,13 +425,13 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	{
 		gchar *start_str, *end_str, *mid_str;
 	
-		g_free (dummy_fn);	
 		if ((strstr (line, "warning:") != NULL) || (strstr (line, _("warning:")) != NULL))
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
 		else
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
 		
 		mid_str = strstr (line, dummy_fn);
+		g_message("mid_str = %s, line = %s", mid_str, line);
 		start_str = g_strndup (line, mid_str - line);
 		end_str = line + strlen (start_str) + strlen (dummy_fn);
 		mid_str = g_build_filename (build_context_get_dir (context, "default"),

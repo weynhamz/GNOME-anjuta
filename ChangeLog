@@ -1,6 +1,13 @@
+2005-06-30 Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Fixed crash bug! Might be usefull to release 2.0.2 soon
+	because this bug will crash any build which produces errors
+	or warnings
+
 === Anjuta 2.0.1 ===
 
-2005-05-27 Naba Kumar  <naba@gnome.org>
+2005-06-27 Naba Kumar  <naba@gnome.org>
 
 	* plugins/tools/execute.c: Formated code.
 	
