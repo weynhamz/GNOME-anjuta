@@ -20,6 +20,7 @@
 #include "svn-notify.h"
 #include "svn-thread.h"
 #include "plugin.h"
+#include "libanjuta/anjuta-debug.h"
 
 #include <subversion-1/svn_pools.h>
 #include <subversion-1/svn_auth.h>
@@ -43,10 +44,10 @@ print_svn_error (svn_error_t *error)
 	{
 		char buffer[256] = { 0 };
 
-		g_warning ("SVN: Source error code: %d (%s)\n",
+		DEBUG_PRINT ("SVN: Source error code: %d (%s)\n",
 				   error->apr_err,
 				   svn_strerror (itr->apr_err, buffer, sizeof (buffer)));
-		g_warning ("SVN: Error description: %s\n", error->message);
+		DEBUG_PRINT ("SVN: Error description: %s\n", error->message);
 				
 		itr = itr->child;
 	}
@@ -206,4 +207,16 @@ svn_backend_update(SVNBackend* backend, const gchar* path,
 	update->svn = backend->svn;
 	
 	svn_thread_start(backend, (GThreadFunc) svn_update_thread, update);
+}
+
+void svn_backend_diff(SVNBackend* backend, const gchar* path,
+						const gchar* revision, gboolean recurse)
+{
+	SVNUpdate* update = g_new0(SVNUpdate, 1);
+	update->path = g_strdup(path);
+	update->revision = g_strdup(revision);
+	update->recurse = recurse;
+	update->svn = backend->svn;
+	
+	svn_thread_start(backend, (GThreadFunc) svn_diff_thread, update);
 }

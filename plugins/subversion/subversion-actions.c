@@ -55,6 +55,11 @@ subversion_add_dialog(GtkAction* action, Subversion* plugin, gchar *filename)
 	GtkWidget* fileentry;
 	SubversionData* data;
 	gxml = glade_xml_new(GLADE_FILE, "subversion_add", NULL);
+	GtkWidget* force = glade_xml_get_widget(data->gxml, "subversion_force");
+	
+#if SVN_MINOR_VERSION >= 1
+	gtk_widget_set_sensitive(force, TRUE);
+#endif
 	
 	dialog = glade_xml_get_widget(gxml, "subversion_add");
 	fileentry = glade_xml_get_widget(gxml, "subversion_filename");
@@ -150,6 +155,35 @@ subversion_update_dialog (GtkAction* action, Subversion* plugin, gchar *filename
 	gtk_widget_show(dialog);	
 }
 
+static void
+subversion_diff_dialog (GtkAction* action, Subversion* plugin, gchar *filename)
+{
+	GladeXML* gxml;
+	GtkWidget* dialog; 
+	GtkWidget* fileentry;
+	GtkWidget* project;
+	SubversionData* data;
+	
+	gxml = glade_xml_new(GLADE_FILE, "subversion_diff", NULL);
+	
+	dialog = glade_xml_get_widget(gxml, "subversion_diff");
+	fileentry = glade_xml_get_widget(gxml, "subversion_filename");
+	if (filename)
+		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
+	
+	project = glade_xml_get_widget(gxml, "subversion_project");
+	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
+	g_signal_connect(G_OBJECT(project), "toggled", 
+		G_CALLBACK(on_whole_project_toggled), plugin);
+	init_whole_project(plugin, project);
+	
+	data = subversion_data_new(plugin, gxml);
+	g_signal_connect(G_OBJECT(dialog), "response", 
+		G_CALLBACK(on_subversion_diff_response), data);
+	
+	gtk_widget_show(dialog);
+}
+
 void on_menu_subversion_add (GtkAction* action, Subversion* plugin)
 {
 	subversion_add_dialog(action, plugin, plugin->current_editor_filename);
@@ -169,6 +203,12 @@ void on_menu_subversion_update (GtkAction* action, Subversion* plugin)
 {
 	subversion_update_dialog(action, plugin, plugin->current_editor_filename);
 }
+
+void on_menu_subversion_diff (GtkAction* action, Subversion* plugin)
+{
+	subversion_diff_dialog(action, plugin, plugin->current_editor_filename);
+}
+
 
 void on_fm_subversion_commit (GtkAction* action, Subversion* plugin)
 {

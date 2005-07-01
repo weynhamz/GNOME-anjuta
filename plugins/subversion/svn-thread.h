@@ -25,6 +25,8 @@ typedef struct _SVNAdd SVNAdd;
 typedef struct _SVNRemove SVNRemove;
 typedef struct _SVNCommit SVNCommit;
 typedef struct _SVNUpdate SVNUpdate;
+/* These are currently identical */
+typedef struct _SVNUpdate SVNDiff;
 typedef struct _SVNStatus SVNStatus;
 	
 struct _SVNAdd
@@ -76,5 +78,8 @@ svn_commit_thread(SVNCommit* commit);
 
 gpointer
 svn_update_thread(SVNUpdate* update);
+
+gpointer
+svn_diff_thread(SVNDiff* diff);
 
 #endif

@@ -30,6 +30,7 @@ struct _SVNThread
 	
 	GQueue* info_messages;
 	GQueue* error_messages;
+	GQueue* diff_messages;
 	
 	gboolean complete;
 };

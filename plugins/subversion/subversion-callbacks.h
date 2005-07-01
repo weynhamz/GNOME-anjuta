@@ -42,4 +42,7 @@ on_subversion_update_response(GtkDialog* dialog, gint response, SubversionData* 
 void
 on_subversion_commit_response(GtkDialog* dialog, gint response, SubversionData* data);
 
+void
+on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* data);
+
 #endif

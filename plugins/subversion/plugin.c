@@ -79,6 +79,14 @@ static GtkActionEntry actions_subversion[] = {
 		G_CALLBACK (on_menu_subversion_update)    /* action callback */
 	},
 	{
+		"ActionSubversionDiff",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_Diff"),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Diff local tree with repositry"),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_diff)    /* action callback */
+	},
+	{
 		"ActionPopupSubversion",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
 		N_("_Subversion"),                     /* Display label */

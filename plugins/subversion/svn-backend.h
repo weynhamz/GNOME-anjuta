@@ -64,6 +64,7 @@ void svn_backend_commit(SVNBackend* backend, const gchar* path,
 						const gchar* log, gboolean recurse);
 void svn_backend_update(SVNBackend* backend, const gchar* path,
 						const gchar* revision, gboolean recurse);
-
+void svn_backend_diff(SVNBackend* backend, const gchar* path,
+						const gchar* revision, gboolean recurse);
 #endif
 

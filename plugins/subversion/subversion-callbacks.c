@@ -20,6 +20,14 @@
 #include "glade/glade.h"
 #include <libgnomevfs/gnome-vfs.h>
 
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
+
+static void on_editor_destroy(Subversion* plugin, GObject* editor)
+{
+	plugin->diff_editor = NULL;
+}
+
 static gchar* get_log_from_textview(GtkWidget* textview)
 {
 	gchar* log;
@@ -253,6 +261,52 @@ on_subversion_commit_response(GtkDialog* dialog, gint response, SubversionData* 
 		default:
 		{
 			gtk_widget_destroy (GTK_WIDGET(dialog));
+			subversion_data_free(data);
+			break;
+		}
+	}
+}
+
+void
+on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* data)
+{	
+	switch (response)
+	{
+		case GTK_RESPONSE_OK:
+		{
+			IAnjutaDocumentManager *docman;
+			const gchar* revision;
+		
+			GtkWidget* norecurse;
+			GtkWidget* revisionentry;
+			GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "subversion_filename");
+			const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+		
+			if (is_busy(dialog, data->plugin))
+					return;
+			
+			norecurse = glade_xml_get_widget(data->gxml, "subversion_norecurse");
+			revisionentry = glade_xml_get_widget(data->gxml, "subversion_revision");
+			revision = gtk_entry_get_text(GTK_ENTRY(revisionentry));
+			
+			if (!check_filename(dialog, filename))
+				break;	
+				
+			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
+	                                     IAnjutaDocumentManager, NULL);
+			data->plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("svn.diff"), "", NULL);
+			g_object_weak_ref(G_OBJECT(data->plugin->diff_editor), G_CALLBACK(on_editor_destroy), data->plugin);
+			
+			svn_backend_diff(data->plugin->backend, filename, revision,
+							   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
+			
+			subversion_data_free(data);
+			gtk_widget_destroy(GTK_WIDGET(dialog));
+			break;
+		}
+		default:
+		{
+			gtk_widget_destroy(GTK_WIDGET(dialog));
 			subversion_data_free(data);
 			break;
 		}

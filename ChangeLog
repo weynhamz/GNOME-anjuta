@@ -1,3 +1,19 @@
+2005-07-01 Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* plugins/subversion/anjuta-subversion.glade
+	plugins/subversion/anjuta-subversion.ui
+	plugins/subversion/plugin.c
+	plugins/subversion/subversion-actions.c
+	plugins/subversion/subversion-callbacks.h
+	plugins/subversion/subversion-callbacks.c
+	plugins/subversion/svn-backend-priv.h
+	plugins/subversion/svn-backend.h
+	plugins/subversion/svn-backend.c
+	plugins/subversion/svn-thread.h
+	plugins/subversion/svn-thread.c:
+	
+	Implemented Subversion diff
+	
 2005-06-30 Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/build-basic-autotools/build-basic-autotools.c:

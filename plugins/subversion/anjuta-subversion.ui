@@ -10,6 +10,7 @@
 				<menuitem name="AddFile" action="ActionSubversionAdd" />
 				<menuitem name="RemoveFile" action="ActionSubversionRemove" />
 				<separator name="separator2"/>
+				<menuitem name="Diff" action="ActionSubversionDiff" />
 			</placeholder>
 		</menu>
 		</placeholder>
