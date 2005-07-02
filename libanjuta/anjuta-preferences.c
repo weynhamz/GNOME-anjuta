@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
+#include <libgnomeui/gnome-color-picker.h>
 #include <glade/glade-parser.h>
 #include <gconf/gconf-client.h>
 

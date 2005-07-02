@@ -22,6 +22,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <glib/gi18n.h>
 #include <gtk/gtkscrolledwindow.h>
 #include <gtk/gtkiconfactory.h>
 #include <gtk/gtktreeview.h>
@@ -32,7 +33,8 @@
 #include <gtk/gtkimage.h>
 #include <gtk/gtklabel.h>
 
-#include <libgnome/libgnome.h>
+#include <libgnome/gnome-macros.h>
+
 #include <libegg/treeviewutils/eggcellrendererkeys.h>
 
 #include "resources.h"

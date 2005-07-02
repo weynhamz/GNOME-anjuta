@@ -1244,6 +1244,13 @@ void gtodo_client_delete_todo_by_id(GTodoClient *cl, guint32 id)
 
 int check_item_changed(GnomeVFSMonitorHandle *handle, const gchar *uri, const gchar *info, GnomeVFSMonitorEventType event, GTodoClient *cl)
 {
+	GnomeVFSURI* vfs_uri = gnome_vfs_uri_new(uri);
+	gboolean exists = gnome_vfs_uri_exists(vfs_uri);
+	g_free(vfs_uri);
+	if (!exists)
+	{
+		return FALSE;
+	}
 	gtodo_client_reload(cl);
 	if(debug)g_print("**DEBUG** Item changed\n");
 	(void *)cl->function(cl, cl->data);

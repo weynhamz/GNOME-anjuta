@@ -18,10 +18,12 @@
  */
 
 #include <stdlib.h>
+#include <glib/gi18n.h>
+
+#include <libgnome/gnome-macros.h>
+
 #include "cell-renderer-captioned-image.h"
 
-#include <bonobo/bonobo-i18n.h>
-#include <libgnome/gnome-macros.h>
 
 static void anjuta_cell_renderer_captioned_image_instance_init (AnjutaCellRendererCaptionedImage      *cell);
 static void anjuta_cell_renderer_captioned_image_class_init    (AnjutaCellRendererCaptionedImageClass *class);

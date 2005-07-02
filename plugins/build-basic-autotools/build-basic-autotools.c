@@ -1122,7 +1122,7 @@ directory_has_file (const gchar *dirname, const gchar *filename)
 	
 	exists = TRUE;	
 	filepath = g_build_filename (dirname, filename, NULL);
-	if (!g_file_test (filename, G_FILE_TEST_EXISTS))
+	if (!g_file_test (filepath, G_FILE_TEST_EXISTS))
 		exists = FALSE;
 	
 	g_free (filepath);

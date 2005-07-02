@@ -32,7 +32,6 @@
 
 #include <gtk/gtktreeview.h>
 #include <gtk/gtkliststore.h>
-#include <bonobo/bonobo-i18n.h>
 #include <string.h>
 
 #include <libanjuta/anjuta-encodings.h>

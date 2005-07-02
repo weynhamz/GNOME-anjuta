@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <glib/gi18n.h>
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkliststore.h>
 #include <gtk/gtknotebook.h>
@@ -26,9 +27,8 @@
 #include <gtk/gtktreeview.h>
 #include <gtk/gtktreeselection.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+
 #include <libgnome/gnome-macros.h>
-#include <libgnome/gnome-i18n.h>
-#include <libgnomeui/gnome-uidefs.h>
 
 #include <cell-renderer-captioned-image.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
@@ -200,7 +200,7 @@ anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
 	gtk_notebook_set_show_border (GTK_NOTEBOOK (dlg->priv->notebook), 
 				      FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dlg->priv->notebook),
-					GNOME_PAD_SMALL);
+					8);
 	
 	gtk_box_pack_start (GTK_BOX (hbox), dlg->priv->notebook,
 			    TRUE, TRUE, 0);

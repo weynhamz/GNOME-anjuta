@@ -28,10 +28,14 @@
 #include <pty.h>
 #endif
 #include <assert.h>
-#include <gnome.h>
 #include <termios.h>
 
 #include <string.h>
+#include <time.h>
+#include <glib/gi18n.h>
+
+#include <libgnome/gnome-macros.h>
+
 
 #include "anjuta-children.h"
 #include "anjuta-utils.h"

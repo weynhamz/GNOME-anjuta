@@ -1,3 +1,24 @@
+2005-07-02 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/build-basic-autotools.c:
+	Fixed #307810
+	
+	* plugins/gtodo/libgtodo.c:
+	Possible fix for #307800
+
+	* libanjuta/anjuta-encodings.c
+	libanjuta/anjuta-launcher.c
+	libanjuta/anjuta-preference-dialog.c
+	libanjuta/anjuta-preferences.c
+	libanjuta/anjuta-ui.c
+	libanjuta/anjuta-util.c
+	libanjuta/cell-renderer-captioned-image.c
+	libanjuta/plugin.c:
+	
+	Patch from de_lupus@pandora.be (Kristof Vansant):
+	Replaced deprecated gnome-i18n.h
+	Closed #309153
+
 2005-07-01 Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/subversion/anjuta-subversion.glade

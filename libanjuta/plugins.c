@@ -7,9 +7,6 @@
 #include <gtk/gtk.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
-#include <libgnome/gnome-config.h>
-#include <libgnome/gnome-util.h>
-#include <libgnomeui/gnome-uidefs.h>
 
 #include <libanjuta/libanjuta.h>
 #include <libanjuta/anjuta-utils.h>
