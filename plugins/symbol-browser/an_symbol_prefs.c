@@ -208,6 +208,8 @@ create_store (AnjutaPreferences *prefs)
 	g_list_foreach (tags_dirs, (GFunc)g_free, NULL);
 	g_list_free (tags_dirs);
 	
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(store),
+			COLUMN_NAME, GTK_SORT_ASCENDING);
 	select_loaded_tags (store, prefs);
 	return store;
 }

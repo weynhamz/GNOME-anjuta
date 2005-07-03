@@ -1,3 +1,8 @@
+2005-07-03 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/an_symbol_prefs.c:
+	Sort list of available symbol files
+
 2005-07-02 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/build-basic-autotools.c:
