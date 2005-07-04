@@ -1,13 +1,15 @@
 # German translation for anjuta.
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Jens Georg <mail@jensgeorg>, 2001.
+# Hendrik Richter <hendi@gnome-de.org>, 2005.
+#
 # folgende Kommentare:
 # ?? keinen Plan wie zu übersetzen
 # -- braucht m.E. nicht übersetzt zu werden
 #
 # 11-29-2001  Christian Meyer <chrisime@gnome.org>
-# Jens, bitte niemals(!!) application mit Applikation uebersetzen, da fliegen
-# mir die Ohren weg, wenn ich das hoere. Ich habe das korrigiert. Bitte so
+# Jens, bitte niemals(!!) application mit Applikation übersetzen, da fliegen
+# mir die Ohren weg, wenn ich das höre. Ich habe das korrigiert. Bitte so
 # beibehalten. Danke!
 # Auf neue deutsche Rechtschreibreform achten!!
 # Display... != Zeigt...an (Bitte aufpassen, ist hier besonders wichtig!)
@@ -17,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 0.1.8\n"
 "POT-Creation-Date: 2003-03-24 17:29+0530\n"
-"PO-Revision-Date: 2002-03-03 15:19+0100\n"
-"Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
+"PO-Revision-Date: 2005-07-04 17:04+0200\n"
+"Last-Translator: Hendrik Richter <hendi@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -438,14 +440,12 @@ msgid "Find & Replace"
 msgstr "Suchen und Ersetzen"
 
 #: anjuta_dialogs_strings.c:130 anjuta_dialogs_strings.c:138
-#, fuzzy
 msgid "Search Expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Suchausdruck"
 
 #: anjuta_dialogs_strings.c:131
-#, fuzzy
 msgid "Regular Expression"
-msgstr "Ausdruck"
+msgstr "Regulärer Ausdruck"
 
 #: anjuta_dialogs_strings.c:132
 msgid "Greedy matching"
@@ -664,7 +664,7 @@ msgstr "Version der Projekts:"
 
 #: anjuta_dialogs_strings.c:193 src/wizard_gui.c:506
 msgid "Project Description"
-msgstr "Prohjektbeschreibung"
+msgstr "Projektbeschreibung"
 
 #: anjuta_dialogs_strings.c:195
 msgid "Ignome files and directories"
@@ -1961,7 +1961,7 @@ msgstr "Projekt erfolgreich geladen"
 
 #: plugins/sample1/plugin-sample1.c:17
 msgid "Sample Plugin Description. Holla!"
-msgstr "Beispiel Plug-in Bescreibung. Holla!"
+msgstr "Beispiel Plug-in Beschreibung. Holla!"
 
 #: plugins/sample1/plugin-sample1.c:47
 msgid "Hello world!"
@@ -2468,7 +2468,7 @@ msgid ""
 "You must supply a valid %s field to proceed further."
 msgstr ""
 "Das Feld %s enthält ungültige Daten.\n"
-"%s muß gültige Daten enthalten, damit Sie fortfahren können"
+"%s muss gültige Daten enthalten, damit Sie fortfahren können"
 
 #. For the time being
 #: src/appwizard_cbs.c:277 src/project_dbase.c:1509 src/project_dbase.c:1515
@@ -2686,7 +2686,7 @@ msgstr "Gesamtes Projekt wird übersetzt:"
 #, fuzzy
 msgid "Unable to build tarball. Check Settings->Commands."
 msgstr ""
-"Tar-Archiv konnte nicht erstellt werdenn. Prüfen Sie Einstellungen->Befehle."
+"Tar-Archiv konnte nicht erstellt werden. Prüfen Sie Einstellungen->Befehle."
 
 #: src/build_project.c:193
 msgid "Build Distribution"
@@ -3296,7 +3296,7 @@ msgid ""
 msgstr ""
 "%s konnte nicht gefunden werden.\n"
 "Der Debugger konnte nicht initialisiert werden.\n"
-"Stellen Sie sicher, daß Anjuta korrekt installiert ist."
+"Stellen Sie sicher, dass Anjuta korrekt installiert ist."
 
 #: src/debugger.c:640
 msgid "Debugger"
@@ -4636,7 +4636,7 @@ msgstr "Projektfenster zeigen/verbergen"
 #. 2
 #: src/main_menubar_def.h:805
 msgid "B_ookmarks"
-msgstr "_Lesezeicen"
+msgstr "_Lesezeichen"
 
 #: src/main_menubar_def.h:806
 msgid "Show the Bookmark window"
@@ -4669,7 +4669,7 @@ msgstr "_Breakpoints"
 
 #: src/main_menubar_def.h:832
 msgid "Show breakpoints editor window"
-msgstr "Editierfenster für Brekapoints zeigen"
+msgstr "Editierfenster für Breakpoints zeigen"
 
 #. 9
 #: src/main_menubar_def.h:837
@@ -6715,7 +6715,7 @@ msgstr "Pixmap %s der Applikation kann nicht gefunden werden."
 #: src/resources.c:266 src/resources.c:274
 msgid "Cannot execute Devhelp. Make sure it is installed"
 msgstr ""
-"Devhelp konnte nicht ausgeführt werden. Stellen Sie sicher, daß es "
+"Devhelp konnte nicht ausgeführt werden. Stellen Sie sicher, dass es "
 "installiert ist."
 
 #: src/sharedlib_gui.c:79
@@ -6930,7 +6930,7 @@ msgstr "Neu laden"
 #. 0
 #: src/text_editor_gui.c:118 src/text_editor_menu.c:239
 msgid "Cut"
-msgstr "Auschneiden"
+msgstr "Ausschneiden"
 
 #: src/text_editor_gui.c:119
 msgid "Cut to clipboard"
@@ -7452,7 +7452,7 @@ msgstr "Ausdruck"
 
 #: src/watch_gui.c:183
 msgid "Add Watch Expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Überwachten Ausdruck hinzufügen"
 
 #: src/watch_gui.c:193
 msgid "Add expression to watch"
@@ -7461,12 +7461,12 @@ msgstr "Einen zu überwachenden Ausdruck hinzufügen"
 #: src/watch_gui.c:248
 #, fuzzy
 msgid "Modify Watch Expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Überwachten Ausdruck hinzufügen"
 
 #: src/watch_gui.c:258
 #, fuzzy
 msgid "Modify watched expression"
-msgstr "Überachten Ausdruck hinzufügen"
+msgstr "Überwachten Ausdruck hinzufügen"
 
 #: src/watch_gui.c:314
 msgid "Inspect/Evaluate"
@@ -8145,7 +8145,7 @@ msgstr ""
 #~ msgstr "Projektinformation"
 
 #~ msgid "Detailed information about the project"
-#~ msgstr "Detailierte Informationen über das Projekt"
+#~ msgstr "Detaillierte Informationen über das Projekt"
 
 #~ msgid "Force the highlight style to None"
 #~ msgstr "Highlighting abschalten"
@@ -8459,7 +8459,7 @@ msgstr ""
 #~ msgstr ""
 #~ "Status-LED: \n"
 #~ "1) Rot: beschäftigt. 2)Grün: bereit.\n"
-#~ "3) Blinkend: bereit, aber im Hintergund beschäftigt."
+#~ "3) Blinkend: bereit, aber im Hintergrund beschäftigt."
 
 #~ msgid "Save All"
 #~ msgstr "Alles speichern"
