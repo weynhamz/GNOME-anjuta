@@ -20,8 +20,8 @@ anjutadoc_DATA = \
 	ROADMAP\
 	THANKS
 
-anjuta_glade_filedir = $(anjuta_glade_dir)
-anjuta_glade_file_DATA = anjuta.glade
+## anjuta_glade_filedir = $(anjuta_glade_dir)
+## anjuta_glade_file_DATA = anjuta.glade
 
 EXTRA_DIST = \
 	anjuta.desktop.in.in \
@@ -33,7 +33,6 @@ EXTRA_DIST = \
 	intltool-merge.in\
 	intltool-update.in\
 	$(anjutadoc_DATA)\
-	$(anjuta_glade_file_DATA)\
 	anjuta_dialogs_strings.c
 
 gnomemenudir = $(datadir)/applications

@@ -1,3 +1,8 @@
+2005-07-04 Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am: Do not install old anjuta.glade file which conflicts
+	with newer src/anjuta.glade.
+
 2005-07-03 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/an_symbol_prefs.c:
