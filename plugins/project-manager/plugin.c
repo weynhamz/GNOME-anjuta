@@ -956,33 +956,44 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	
 	DEBUG_PRINT ("initializing gbf backend...\n");
 	gbf_backend_init ();
-	
 	for (l = gbf_backend_get_backends (); l; l = l->next) {
-			backend = l->data;
-			if (!strcmp (backend->id, "gbf-am:GbfAmProject"))
-					break;
-			backend = NULL;
+		backend = l->data;
+		
+		pm_plugin->project = gbf_backend_new_project (backend->id);
+		if (pm_plugin->project)
+		{
+			if (gbf_project_probe (pm_plugin->project, dirname, NULL))
+			{
+				/* Backend found */
+				break;
+			}
+			g_object_unref (pm_plugin->project);
+			pm_plugin->project = NULL;
+		}
+		/*
+		if (!strcmp (backend->id, "gbf-am:GbfAmProject"))
+			break;
+		*/
+		backend = NULL;
 	}
 	
 	if (!backend)
 	{
-			/* FIXME: Set err */
-			g_warning ("no automake/autoconf backend available\n");
-			g_free (dirname);
-			/* gtk_widget_destroy (progress_win); */
-			return;
+		/* FIXME: Set err */
+		g_warning ("no backend available for this project\n");
+		g_free (dirname);
+		return;
 	}
 	
 	DEBUG_PRINT ("Creating new gbf-am project\n");
 	
-	pm_plugin->project = gbf_backend_new_project (backend->id);
+	/* pm_plugin->project = gbf_backend_new_project (backend->id); */
 	if (!pm_plugin->project)
 	{
-			/* FIXME: Set err */
-			g_warning ("project creation failed\n");
-			g_free (dirname);
-			/* gtk_widget_destroy (progress_win); */
-			return;
+		/* FIXME: Set err */
+		g_warning ("project creation failed\n");
+		g_free (dirname);
+		return;
 	}
 	
 	status = anjuta_shell_get_status (plugin->shell, NULL);
