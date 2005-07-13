@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-24 18:36+0000\n"
-"PO-Revision-Date: 2005-06-24 20:07-0300\n"
+"POT-Creation-Date: 2005-07-01 18:36+0000\n"
+"PO-Revision-Date: 2005-07-09 23:55-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,7 @@ msgstr "    "
 
 #: ../anjuta.glade.h:2 ../libegg/layout.glade.h:1
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
 #: ../plugins/editor/anjuta-document-manager.glade.h:2
@@ -47,6 +48,7 @@ msgstr "    "
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
+#: ../src/anjuta.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -79,7 +81,7 @@ msgid "Anjuta start with dialog"
 msgstr "Iniciar o Anjuta com uma caixa de diálogo de opções"
 
 #: ../anjuta.glade.h:10
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Wizard"
 msgstr "Assistente de Aplicação"
 
@@ -286,7 +288,7 @@ msgstr "Não inciar o Anjuta com este diálogo novamente."
 msgid "Document module Makefile.am"
 msgstr "Makefile.am do módulo de documentação"
 
-#: ../anjuta.glade.h:56 ../src/anjuta-app.c:455
+#: ../anjuta.glade.h:56 ../src/anjuta-app.c:458
 msgid "Edit"
 msgstr "Editar"
 
@@ -323,7 +325,7 @@ msgstr "Executar o Programa"
 #. Register actions
 #: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
 #: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:566
-#: ../src/anjuta-app.c:452
+#: ../src/anjuta-app.c:455
 msgid "File"
 msgstr "Arquivo"
 
@@ -551,8 +553,8 @@ msgid "Open existing file or create a new file."
 msgstr "Abre um arquivo existente ou cria um novo arquivo."
 
 #: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:320
-#: ../plugins/file-loader/plugin.c:536 ../plugins/file-loader/plugin.c:814
-#: ../plugins/file-loader/plugin.c:821 ../plugins/file-loader/plugin.c:834
+#: ../plugins/file-loader/plugin.c:536 ../plugins/file-loader/plugin.c:811
+#: ../plugins/file-loader/plugin.c:818 ../plugins/file-loader/plugin.c:831
 msgid "Open file"
 msgstr "Abre um arquivo"
 
@@ -693,7 +695,7 @@ msgstr "Scripts ao final do arquivo Makefile.am do diretório raíz"
 msgid "Set Signal Property"
 msgstr "Definir Propriedades do Sinal"
 
-#: ../anjuta.glade.h:140 ../src/anjuta-app.c:467
+#: ../anjuta.glade.h:140 ../src/anjuta-app.c:470
 msgid "Settings"
 msgstr "Definições"
 
@@ -803,11 +805,11 @@ msgid "User name:"
 msgstr "Nome do usuário:"
 
 #: ../anjuta.glade.h:163 ../plugins/project-manager/project_dbase_gui.c:871
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:18
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 msgid "Version:"
 msgstr "Versão:"
 
-#: ../anjuta.glade.h:164 ../src/anjuta-app.c:458
+#: ../anjuta.glade.h:164 ../src/anjuta-app.c:461
 msgid "View"
 msgstr "Vista"
 
@@ -924,7 +926,7 @@ msgstr "_Terminal:"
 #: ../plugins/cvs-plugin/plugin.c:132
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
 #: ../plugins/gdb/anjuta-gdb.glade.h:37 ../plugins/subversion/plugin.c:76
-#: ../plugins/subversion/plugin.c:100
+#: ../plugins/subversion/plugin.c:108
 msgid "_Update"
 msgstr "_Atualizar"
 
@@ -1430,11 +1432,11 @@ msgstr "Procurar"
 msgid "Incremental search"
 msgstr "Procura incremental"
 
-#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1178
+#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1175
 msgid "Open _Recent"
 msgstr "Abrir _Recente"
 
-#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1189
+#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1186
 msgid "Open recent files"
 msgstr "Abre arquivos utilizados recentemente"
 
@@ -1459,14 +1461,14 @@ msgid "Building file: %s ...\n"
 msgstr "Construindo o arquivo: %s ...\n"
 
 #: ../plugins/build/build_file.c:132
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:511
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:513
 #: ../plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Tempo total utilizado: %lu segundos\n"
 
 #: ../plugins/build/build_file.c:136
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:516
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:518
 msgid "Completed ... unsuccessful\n"
 msgstr "Concluído... sem sucesso\n"
 
@@ -1475,11 +1477,11 @@ msgid "Completed ... unsuccessful"
 msgstr "Concluído... sem sucesso"
 
 #: ../plugins/build/build_file.c:145
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:521
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:523
 msgid "Completed ... successful\n"
 msgstr "Concluído... com sucesso\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:486
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:513
 msgid "Completed ... successful"
 msgstr "Concluído... com sucesso"
 
@@ -1732,179 +1734,179 @@ msgid "make: Leaving directory `%s'"
 msgstr "make: Saindo do diretório `%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:428
-#: ../plugins/tools/execute.c:322
+#: ../plugins/tools/execute.c:338
 msgid "warning:"
 msgstr "aviso:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:572
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:574
 #, c-format
 msgid "Build %d: %s"
 msgstr "Construir %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:761
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:789
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:791
 msgid "Configure Parameters:"
 msgstr "Configurar Parâmetros:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:963
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1033
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1043
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1061
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1071
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1240
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:965
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1035
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1045
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1063
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1073
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1242
 msgid "_Build"
 msgstr "_Construir"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:967
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:969
 msgid "_Build Project"
 msgstr "Construir o _Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:968
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:970
 msgid "Build whole project"
 msgstr "Constrói todo o Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:973
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:975
 msgid "_Install Project"
 msgstr "I_nstalar o Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:974
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:976
 msgid "Install whole project"
 msgstr "Instala todo o Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:979
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:981
 msgid "_Clean Project"
 msgstr "_Limpar o Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:980
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:982
 msgid "Clean whole project"
 msgstr "Limpa todo o Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:985
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:987
 msgid "Run C_onfigure ..."
 msgstr "Executar C_onfiguração..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:986
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:988
 msgid "Configure project"
 msgstr "Configura o Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:991
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:993
 msgid "Run _Autogenerate ..."
 msgstr "Executar _Autogerar..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:992
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:994
 msgid "Autogenrate project files"
 msgstr "Gera automaticamente os arquivos do Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:997
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:999
 msgid "Build _Tarball"
 msgstr "Construir o _Tarball"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:998
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1000
 msgid "Build project tarball distribution"
 msgstr "Constrói um arquivo .tar.gz (tarball) para distribuição do Projeto"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1003
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1005
 msgid "_Execute program"
 msgstr "_Executar o programa"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1004
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
 msgid "Execute program"
 msgstr "Executa o programa"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1009
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1011
 msgid "_Build Module"
 msgstr "_Construir o Módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1010
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
 msgid "Build module associated with current file"
 msgstr "Constrói o módulo associado com o arquivo atual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1015
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1017
 msgid "_Install Module"
 msgstr "Instalar _Módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1016
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1018
 msgid "Install module associated with current file"
 msgstr "Instala o módulo associado com o arquivo atual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1021
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1023
 msgid "_Clean Module"
 msgstr "_Limpar Módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1022
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1024
 msgid "Clean module associated with current file"
 msgstr "Limpa o módulo associado ao arquivo atual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1027
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1029
 msgid "Co_mpile File"
 msgstr "Co_mpilar Arquivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1028
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1030
 msgid "Compile current editor file"
 msgstr "Compila o arquivo de código atualmente no editor"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1037
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1065
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1039
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1067
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1038
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1066
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
 msgid "Complie file"
 msgstr "Compila o arquivo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1044
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1072
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1046
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1074
 msgid "Build module"
 msgstr "Constrói um módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1049
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1077
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1244
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1051
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1079
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1246
 msgid "_Install"
 msgstr "I_nstalar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1050
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1078
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1052
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1080
 msgid "Install module"
 msgstr "Instala o módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1055
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1083
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1248
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1057
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1085
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1250
 msgid "_Clean"
 msgstr "_Limpar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1056
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1084
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1058
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1086
 msgid "Clean module"
 msgstr "Limpa o módulo"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1252
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1254
 msgid "Co_mpile"
 msgstr "Co_mpilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1261
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1263
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Construir (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1268
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1270
 #, c-format
 msgid "_Install (%s)"
 msgstr "I_nstalar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1275
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1277
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Limpar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1282
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1284
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpilar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1574
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1576
 msgid "Build commands"
 msgstr "Comandos de construção de arquivos executáveis"
 
@@ -1956,25 +1958,21 @@ msgstr "Arquivo de cabeçalho selecionado"
 msgid "Select source file"
 msgstr "Arquivo de código fonte selecionado"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
-msgid "* Base Class Name:"
-msgstr "* Nome da Classe Base:"
-
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
 msgid "* Class Function Prefix:"
 msgstr "* Prefixo de Função de Classe:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
+msgid "* Class Name:"
+msgstr "* Nome da Classe:"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
 msgid "* Class name:"
 msgstr "* Nome da classe:"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
-msgid "* GObject Type Prefix:"
-msgstr "* Tipo de Prefixo do GObject:"
-
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
-msgid "* GObject Type:"
-msgstr "* Tipo do GObject:"
+msgid "* GObject Prefix and Type:"
+msgstr "* Prefixo e Tipo do GObject:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
 msgid "* Output Header File:"
@@ -2005,7 +2003,7 @@ msgid "Add to current Project?"
 msgstr "Adicionar ao Projeto atual?"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:5
 msgid "Add to project"
 msgstr "Adicionar ao Projeto"
 
@@ -2108,6 +2106,10 @@ msgid "Virtual destructor"
 msgstr "Destructor virtual"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:37
+msgid "_TYPE_"
+msgstr "_TYPE_"
+
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:38
 msgid ""
 "public\n"
 "protected\n"
@@ -2117,11 +2119,27 @@ msgstr ""
 "protected\n"
 "private"
 
-#: ../plugins/class-gen/class_gen.c:143
+#: ../plugins/class-gen/class_gen.c:106 ../plugins/editor/anjuta-docman.c:293
+#: ../plugins/file-wizard/file.c:229 ../src/anjuta_cbs.c:426
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to replace it with the one you are saving?"
+msgstr ""
+"O arquivo '%s' já existe.\n"
+"Deseja sobrescrevê-lo?"
+
+#: ../plugins/class-gen/class_gen.c:114 ../plugins/editor/anjuta-docman.c:300
+#: ../plugins/file-wizard/file.c:237 ../src/anjuta-callbacks.c:79
+#: ../src/anjuta_cbs.c:433 ../src/anjuta_cbs.c:497
+msgid "_Replace"
+msgstr "_Substituir"
+
+#: ../plugins/class-gen/class_gen.c:172
 msgid "Please check your required fields."
 msgstr "Por favor, verifique os campos requeridos."
 
-#: ../plugins/class-gen/class_gen.c:203
+#: ../plugins/class-gen/class_gen.c:281
 msgid ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
@@ -2129,11 +2147,11 @@ msgstr ""
 "Um erro ocorreu ao tentar escrever o Modelo de Classe GObject. Verifique as "
 "permissões do arquivo."
 
-#: ../plugins/class-gen/class_gen.c:376
+#: ../plugins/class-gen/class_gen.c:480 ../plugins/class-gen/class_gen.c:488
 msgid "Please fill required fields."
 msgstr "Por favor, preencha os campos requeridos."
 
-#: ../plugins/class-gen/class_gen.c:444
+#: ../plugins/class-gen/class_gen.c:641
 msgid "Error in writing files"
 msgstr "Erro ao escrever arquivos"
 
@@ -2368,7 +2386,7 @@ msgid "start"
 msgstr "início"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:47
+#: ../plugins/subversion/subversion-callbacks.c:55
 msgid "Please enter a filename!"
 msgstr "Por favor, entre com um nome de arquivo!"
 
@@ -2387,7 +2405,7 @@ msgstr "Impossível excluir arquivo"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:454
-#: ../plugins/subversion/subversion-callbacks.c:234
+#: ../plugins/subversion/subversion-callbacks.c:242
 msgid "Are you sure that you do not want a log message?"
 msgstr "Você tem certeza de que não deseja uma mensagem de log?"
 
@@ -2465,7 +2483,7 @@ msgstr "Remove um arquivo/diretório da árvore CVS"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:68 ../plugins/cvs-plugin/plugin.c:124
-#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:92
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:100
 msgid "_Commit"
 msgstr "_Commit"
 
@@ -2484,6 +2502,7 @@ msgstr "Sincroniza sua cópia local com a árvore CVS"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:84 ../plugins/cvs-plugin/plugin.c:140
+#: ../plugins/subversion/plugin.c:84
 msgid "_Diff"
 msgstr "_Diff"
 
@@ -2717,7 +2736,7 @@ msgstr "Conteúdo"
 #. 9
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:471
+#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:474
 msgid "Help"
 msgstr "Ajuda"
 
@@ -2839,20 +2858,6 @@ msgstr ""
 #, c-format
 msgid "Incremental search for '%s' (continued at top) failed."
 msgstr "Procura incremental para '%s' (continuada a partir do topo) falhou."
-
-#: ../plugins/editor/anjuta-docman.c:293 ../src/anjuta_cbs.c:426
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to replace it with the one you are saving?"
-msgstr ""
-"O arquivo '%s' já existe.\n"
-"Deseja sobrescrevê-lo?"
-
-#: ../plugins/editor/anjuta-docman.c:300 ../src/anjuta-callbacks.c:79
-#: ../src/anjuta_cbs.c:433 ../src/anjuta_cbs.c:497
-msgid "_Replace"
-msgstr "_Substituir"
 
 #: ../plugins/editor/anjuta-docman.c:339
 #: ../plugins/message-view/message-view.c:87
@@ -3528,7 +3533,7 @@ msgstr "_Salvar Tema Como"
 msgid "<b>Go to Line number:</b>"
 msgstr "<b>Vai Para a Linha número:</b>"
 
-#: ../plugins/editor/plugin.c:139 ../plugins/glade/plugin.c:455
+#: ../plugins/editor/plugin.c:139 ../plugins/glade/plugin.c:494
 msgid "_Save"
 msgstr "_Salvar"
 
@@ -3536,7 +3541,7 @@ msgstr "_Salvar"
 msgid "Save current file"
 msgstr "Salva o arquivo atual"
 
-#: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:463
+#: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:502
 msgid "Save _As ..."
 msgstr "Salvar _Como..."
 
@@ -3869,8 +3874,8 @@ msgstr "Desfa_zer"
 msgid "Undo the last action"
 msgstr "Desfaz a última ação"
 
-#: ../plugins/editor/plugin.c:300 ../plugins/glade/plugin.c:124
-#: ../plugins/glade/plugin.c:407
+#: ../plugins/editor/plugin.c:300 ../plugins/glade/plugin.c:125
+#: ../plugins/glade/plugin.c:446
 msgid "_Redo"
 msgstr "_Refazer"
 
@@ -3886,7 +3891,7 @@ msgstr "C_ortar"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Corta o texto selecionado do editor para a área de transferência"
 
-#: ../plugins/editor/plugin.c:306 ../plugins/glade/plugin.c:423
+#: ../plugins/editor/plugin.c:306 ../plugins/glade/plugin.c:462
 msgid "_Copy"
 msgstr "_Copiar"
 
@@ -3894,7 +3899,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia o texto selecionado para a área de transferência"
 
-#: ../plugins/editor/plugin.c:309 ../plugins/glade/plugin.c:431
+#: ../plugins/editor/plugin.c:309 ../plugins/glade/plugin.c:470
 msgid "_Paste"
 msgstr "Col_ar"
 
@@ -4615,56 +4620,56 @@ msgstr "Arquivos Lua"
 msgid "Diff files"
 msgstr "Arquivos diff"
 
-#: ../plugins/file-loader/plugin.c:748
+#: ../plugins/file-loader/plugin.c:745
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Falha ao ativar o plugin: %s"
 
-#: ../plugins/file-loader/plugin.c:804
+#: ../plugins/file-loader/plugin.c:801
 msgid "_New ..."
 msgstr "_Novo..."
 
-#: ../plugins/file-loader/plugin.c:806
+#: ../plugins/file-loader/plugin.c:803
 msgid "New empty editor."
 msgstr "Novo editor vazio."
 
-#: ../plugins/file-loader/plugin.c:812
+#: ../plugins/file-loader/plugin.c:809
 msgid "_Open ..."
 msgstr "_Abrir..."
 
-#: ../plugins/file-loader/plugin.c:820 ../plugins/file-loader/plugin.c:833
+#: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../plugins/file-loader/plugin.c:827 ../plugins/file-loader/plugin.c:840
+#: ../plugins/file-loader/plugin.c:824 ../plugins/file-loader/plugin.c:837
 msgid "Open _With"
 msgstr "Abrir _Com"
 
-#: ../plugins/file-loader/plugin.c:828 ../plugins/file-loader/plugin.c:841
+#: ../plugins/file-loader/plugin.c:825 ../plugins/file-loader/plugin.c:838
 msgid "Open with"
 msgstr "Abre com"
 
-#: ../plugins/file-loader/plugin.c:1153
+#: ../plugins/file-loader/plugin.c:1150
 msgid "File Loader"
 msgstr "Carregador de Arquivo"
 
-#: ../plugins/file-loader/plugin.c:1159
+#: ../plugins/file-loader/plugin.c:1156
 msgid "_Wizard"
 msgstr "_Assistente"
 
-#: ../plugins/file-loader/plugin.c:1160
+#: ../plugins/file-loader/plugin.c:1157
 msgid "New file, project and project components."
 msgstr "Novo arquivo, Projeto e componentes de Projeto."
 
-#: ../plugins/file-loader/plugin.c:1169
+#: ../plugins/file-loader/plugin.c:1166
 msgid "New"
 msgstr "Novo"
 
-#: ../plugins/file-loader/plugin.c:1172
+#: ../plugins/file-loader/plugin.c:1169
 msgid "Open"
 msgstr "Abre"
 
-#: ../plugins/file-loader/plugin.c:1179
+#: ../plugins/file-loader/plugin.c:1176
 msgid "Open recent file"
 msgstr "Abre um arquivo utilizado recentemente"
 
@@ -4758,9 +4763,9 @@ msgstr "<span weight=\"bold\">Opções</span>"
 msgid "Add License Information"
 msgstr "Adiciona Informação de Licença"
 
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:5
-msgid "Add to CVS"
-msgstr "Adicionar ao CVS"
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
+msgid "Add to repository"
+msgstr "Adicionar ao repositório"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid "Create corresponding header file"
@@ -4775,7 +4780,7 @@ msgstr ""
 "A extensão será adicionada de acordo com o tipo de arquivo."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "License:"
 msgstr "Licença:"
 
@@ -4791,235 +4796,231 @@ msgstr "Tipo:"
 msgid "Use Template for the Header file"
 msgstr "Utiliza um Modelo para o arquivo de Cabeçalho"
 
-#: ../plugins/file-wizard/file.c:74
+#: ../plugins/file-wizard/file.c:82
 msgid "C Source File"
 msgstr "Arquivo de fonte em C"
 
-#: ../plugins/file-wizard/file.c:75
+#: ../plugins/file-wizard/file.c:83
 msgid "C -C++ Header File"
 msgstr "Cabeçalhos C/C++"
 
-#: ../plugins/file-wizard/file.c:76
+#: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
 msgstr "Arquivos de fonte em C/C++"
 
-#: ../plugins/file-wizard/file.c:77
+#: ../plugins/file-wizard/file.c:85
 msgid "C# Source File"
 msgstr "Arquivo de fonte em C#"
 
-#: ../plugins/file-wizard/file.c:78
+#: ../plugins/file-wizard/file.c:86
 msgid "Java Source File"
 msgstr "Arquivos de fonte em Java"
 
-#: ../plugins/file-wizard/file.c:79
+#: ../plugins/file-wizard/file.c:87
 msgid "Perl Source File"
 msgstr "Arquivo de fonte em Perl"
 
-#: ../plugins/file-wizard/file.c:80
+#: ../plugins/file-wizard/file.c:88
 msgid "Python Source File"
 msgstr "Arquivo de fonte em Python"
 
-#: ../plugins/file-wizard/file.c:81
+#: ../plugins/file-wizard/file.c:89
 msgid "Shell Script File"
 msgstr "Arquivos Script de Shell"
 
-#: ../plugins/file-wizard/file.c:82
+#: ../plugins/file-wizard/file.c:90
 msgid "Other"
 msgstr "Outro"
 
-#: ../plugins/file-wizard/file.c:99
+#: ../plugins/file-wizard/file.c:107
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
-#: ../plugins/file-wizard/file.c:100
+#: ../plugins/file-wizard/file.c:108
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/file-wizard/file.c:137
+#: ../plugins/file-wizard/file.c:165
 msgid "Unable to build user interface for New File"
 msgstr "Impossível criar interface de usuário para o Novo Arquivo"
 
-#: ../plugins/file-wizard/plugin.c:50
+#: ../plugins/file-wizard/plugin.c:51
 msgid "_Insert text"
 msgstr "I_nserir texto"
 
-#: ../plugins/file-wizard/plugin.c:51
+#: ../plugins/file-wizard/plugin.c:52
 msgid "C _template"
 msgstr "_Template do C"
 
-#: ../plugins/file-wizard/plugin.c:52
+#: ../plugins/file-wizard/plugin.c:53
 msgid "_CVS keyword"
 msgstr "Palavra-Chave _CVS"
 
-#: ../plugins/file-wizard/plugin.c:53
+#: ../plugins/file-wizard/plugin.c:54
 msgid "_General"
 msgstr "_Geral"
 
-#: ../plugins/file-wizard/plugin.c:54 ../plugins/file-wizard/plugin.c:96
+#: ../plugins/file-wizard/plugin.c:55 ../plugins/file-wizard/plugin.c:97
 msgid "_Header"
 msgstr "Cabeçal_ho"
 
-#: ../plugins/file-wizard/plugin.c:55
+#: ../plugins/file-wizard/plugin.c:56
 msgid "Insert a file header"
 msgstr "Insere um cabeçalho de arquivo"
 
-#: ../plugins/file-wizard/plugin.c:57
+#: ../plugins/file-wizard/plugin.c:58
 msgid "/_* GPL Notice */"
 msgstr "/_* Aviso GPL */"
 
-#: ../plugins/file-wizard/plugin.c:58
+#: ../plugins/file-wizard/plugin.c:59
 msgid "Insert GPL notice with C style comments"
 msgstr "Insere um aviso GPL com comentário no estilo C"
 
-#: ../plugins/file-wizard/plugin.c:60
+#: ../plugins/file-wizard/plugin.c:61
 msgid "/_/ GPL Notice"
 msgstr "/_/ Aviso GPL"
 
-#: ../plugins/file-wizard/plugin.c:61
+#: ../plugins/file-wizard/plugin.c:62
 msgid "Insert GPL notice with C++ style comments"
 msgstr "Insere um aviso GPL com comentário no estilo C++"
 
-#: ../plugins/file-wizard/plugin.c:63
+#: ../plugins/file-wizard/plugin.c:64
 msgid "_# GPL Notice"
 msgstr "_# Aviso GPL"
 
-#: ../plugins/file-wizard/plugin.c:64
+#: ../plugins/file-wizard/plugin.c:65
 msgid "Insert GPL notice with Python style comments"
 msgstr "Insere um aviso GPL com comentário no estilo Python"
 
-#: ../plugins/file-wizard/plugin.c:66
+#: ../plugins/file-wizard/plugin.c:67
 msgid "Current _Username"
 msgstr "Nome do _Usuário Atual"
 
-#: ../plugins/file-wizard/plugin.c:67
+#: ../plugins/file-wizard/plugin.c:68
 msgid "Insert name of current user"
 msgstr "Insere o nome do usuário atual"
 
-#: ../plugins/file-wizard/plugin.c:69
+#: ../plugins/file-wizard/plugin.c:70
 msgid "Current _Date & Time"
 msgstr "_Data e Hora Atuais"
 
-#: ../plugins/file-wizard/plugin.c:70
+#: ../plugins/file-wizard/plugin.c:71
 msgid "Insert current date & time"
 msgstr "Insere a data e hora atuais"
 
-#: ../plugins/file-wizard/plugin.c:72
+#: ../plugins/file-wizard/plugin.c:73
 msgid "Header File _Template"
 msgstr "Modelo de Arquivo de _Cabeçalho"
 
-#: ../plugins/file-wizard/plugin.c:73
+#: ../plugins/file-wizard/plugin.c:74
 msgid "Insert a standard header file template"
 msgstr "Insere um modelo padrão de arquivo de cabeçalho"
 
-#: ../plugins/file-wizard/plugin.c:75
+#: ../plugins/file-wizard/plugin.c:76
 msgid "ChangeLog entry"
 msgstr "Registro ChangeLog"
 
-#: ../plugins/file-wizard/plugin.c:76
+#: ../plugins/file-wizard/plugin.c:77
 msgid "Insert a ChangeLog entry"
 msgstr "Insere uma entrada no ChangeLog"
 
-#: ../plugins/file-wizard/plugin.c:78
+#: ../plugins/file-wizard/plugin.c:79
 msgid "_switch"
 msgstr "_switch"
 
-#: ../plugins/file-wizard/plugin.c:79
+#: ../plugins/file-wizard/plugin.c:80
 msgid "Insert a switch template"
 msgstr "Insere um modelo de switch"
 
-#: ../plugins/file-wizard/plugin.c:81
+#: ../plugins/file-wizard/plugin.c:82
 msgid "_for"
 msgstr "_for"
 
-#: ../plugins/file-wizard/plugin.c:82
+#: ../plugins/file-wizard/plugin.c:83
 msgid "Insert a for template"
 msgstr "Insere um modelo de for"
 
-#: ../plugins/file-wizard/plugin.c:84
+#: ../plugins/file-wizard/plugin.c:85
 msgid "_while"
 msgstr "_while"
 
-#: ../plugins/file-wizard/plugin.c:85
+#: ../plugins/file-wizard/plugin.c:86
 msgid "Insert a while template"
 msgstr "Insere um modelo de while"
 
-#: ../plugins/file-wizard/plugin.c:87
+#: ../plugins/file-wizard/plugin.c:88
 msgid "_if...else"
 msgstr "i_f...else"
 
-#: ../plugins/file-wizard/plugin.c:88
+#: ../plugins/file-wizard/plugin.c:89
 msgid "Insert an if...else template"
 msgstr "Insere um modelo de if...else"
 
-#: ../plugins/file-wizard/plugin.c:90
+#: ../plugins/file-wizard/plugin.c:91
 msgid "_Author"
 msgstr "_Autor"
 
-#: ../plugins/file-wizard/plugin.c:91
+#: ../plugins/file-wizard/plugin.c:92
 msgid "Insert the CVS Author keyword (author of the change)"
 msgstr "Insere a palavra-chave CVS Author (autor da alteração)"
 
-#: ../plugins/file-wizard/plugin.c:93
+#: ../plugins/file-wizard/plugin.c:94
 msgid "_Date"
 msgstr "_Data"
 
-#: ../plugins/file-wizard/plugin.c:94
+#: ../plugins/file-wizard/plugin.c:95
 msgid "Insert the CVS Date keyword (date and time of the change)"
 msgstr "Insere a palavra-chave CVS Date (data e hora da alteração)"
 
-#: ../plugins/file-wizard/plugin.c:97
+#: ../plugins/file-wizard/plugin.c:98
 msgid "Insert the CVS Header keyword (full path revision, date, author, state)"
 msgstr ""
 "Insere a palavra-chave CVS Header (caminho completo, revisão, data, autor e "
 "estado)"
 
-#: ../plugins/file-wizard/plugin.c:99
+#: ../plugins/file-wizard/plugin.c:100
 msgid "_Id"
 msgstr "I_d"
 
-#: ../plugins/file-wizard/plugin.c:100
+#: ../plugins/file-wizard/plugin.c:101
 msgid "Insert the CVS Id keyword (file revision, date, author)"
 msgstr "Insere a palavra-chave CVS Id (arquivo, revisão, data e autor)"
 
-#: ../plugins/file-wizard/plugin.c:102
+#: ../plugins/file-wizard/plugin.c:103
 msgid "_Log"
 msgstr "Iniciar _Sessão"
 
-#: ../plugins/file-wizard/plugin.c:103
+#: ../plugins/file-wizard/plugin.c:104
 msgid "Insert the CVS Log keyword (log message)"
 msgstr "Insere a palavra-chave CVS Log (mensagem de log)"
 
-#: ../plugins/file-wizard/plugin.c:105
+#: ../plugins/file-wizard/plugin.c:106
 msgid "_Name"
 msgstr "_Nome"
 
-#: ../plugins/file-wizard/plugin.c:106
+#: ../plugins/file-wizard/plugin.c:107
 msgid "Insert the CVS Name keyword (name of the sticky tag)"
 msgstr "Insere a palavra-chave CVS Name (nome da tag grudada)"
 
-#: ../plugins/file-wizard/plugin.c:108
+#: ../plugins/file-wizard/plugin.c:109
 msgid "_Revision"
 msgstr "_Revisão"
 
-#: ../plugins/file-wizard/plugin.c:109
+#: ../plugins/file-wizard/plugin.c:110
 msgid "Insert the CVS Revision keyword (revision number)"
 msgstr "Insere a palavra-chave CVS Revision (número da revisão)"
 
-#: ../plugins/file-wizard/plugin.c:111
+#: ../plugins/file-wizard/plugin.c:112
 msgid "_Source"
 msgstr "_Código Fonte"
 
-#: ../plugins/file-wizard/plugin.c:112
+#: ../plugins/file-wizard/plugin.c:113
 msgid "Insert the CVS Source keyword (full path)"
 msgstr "Insere a palavra-chave CVS Source (caminho completo)"
 
-#: ../plugins/file-wizard/plugin.c:151
+#: ../plugins/file-wizard/plugin.c:187
 msgid "File wizard operations"
 msgstr "Operações de arquivo de assistência"
-
-#: ../plugins/file-wizard/plugin.c:161
-msgid "File Wizard"
-msgstr "Assistente de Arquivos"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:7
 msgid "Debugger command"
@@ -5691,40 +5692,40 @@ msgstr "Inspecionar/Avaliar Expressão"
 msgid "Add To Watch"
 msgstr "Adicionar à Observação"
 
-#: ../plugins/glade/plugin.c:109
+#: ../plugins/glade/plugin.c:110
 #, c-format
 msgid "_Undo: %s"
 msgstr "_Desfazer: %s"
 
-#: ../plugins/glade/plugin.c:114 ../plugins/glade/plugin.c:399
+#: ../plugins/glade/plugin.c:115 ../plugins/glade/plugin.c:438
 msgid "_Undo"
 msgstr "_Desfazer"
 
-#: ../plugins/glade/plugin.c:119
+#: ../plugins/glade/plugin.c:120
 #, c-format
 msgid "_Redo: %s"
 msgstr "_Refazer: %s"
 
-#: ../plugins/glade/plugin.c:200 ../plugins/glade/plugin.c:226
+#: ../plugins/glade/plugin.c:202 ../plugins/glade/plugin.c:228
 msgid "Invalid glade file name"
 msgstr "Nome de arquivo glade inválido"
 
 #. FIXME: gpw_refresh_project_entry (gpw, project);
-#: ../plugins/glade/plugin.c:204 ../plugins/glade/plugin.c:223
+#: ../plugins/glade/plugin.c:206 ../plugins/glade/plugin.c:225
 #, c-format
 msgid "Glade project '%s' saved"
 msgstr "Projeto do Glade '%s' salvo"
 
 #. If instead we dont have a path yet, fire up a file selector
-#: ../plugins/glade/plugin.c:232
+#: ../plugins/glade/plugin.c:234
 msgid "Save glade file ..."
 msgstr "Salva arquivo do Glade..."
 
-#: ../plugins/glade/plugin.c:259
+#: ../plugins/glade/plugin.c:261
 msgid "Save glade file as ..."
 msgstr "Salva o arquivo do Glade como..."
 
-#: ../plugins/glade/plugin.c:287
+#: ../plugins/glade/plugin.c:289
 #, c-format
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" "
@@ -5737,84 +5738,89 @@ msgstr ""
 "\n"
 "Suas alterações serão perdidas se você não salvá-las.\n"
 
-#: ../plugins/glade/plugin.c:300
+#: ../plugins/glade/plugin.c:302
 msgid "_Close without Saving"
 msgstr "_Fechara sem Salvar"
 
-#: ../plugins/glade/plugin.c:322
+#: ../plugins/glade/plugin.c:324
 msgid "Save glade project..."
 msgstr "Salva o Projeto do Glade..."
 
-#: ../plugins/glade/plugin.c:391
+#: ../plugins/glade/plugin.c:430
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:401
+#: ../plugins/glade/plugin.c:440
 msgid "Undo last action"
 msgstr "Desfaz a última ação"
 
-#: ../plugins/glade/plugin.c:409
+#: ../plugins/glade/plugin.c:448
 msgid "Redo last undone action"
 msgstr "Refaz a última ação desfeita"
 
-#: ../plugins/glade/plugin.c:415
+#: ../plugins/glade/plugin.c:454
 msgid "Cu_t"
 msgstr "Cor_tar"
 
-#: ../plugins/glade/plugin.c:417
+#: ../plugins/glade/plugin.c:456
 msgid "Cut selection"
 msgstr "Corta a seleção"
 
-#: ../plugins/glade/plugin.c:425
+#: ../plugins/glade/plugin.c:464
 msgid "Copy selection"
 msgstr "Copia a seleção"
 
-#: ../plugins/glade/plugin.c:433
+#: ../plugins/glade/plugin.c:472
 msgid "Paste selection"
 msgstr "Cola a seleção"
 
-#: ../plugins/glade/plugin.c:439
+#: ../plugins/glade/plugin.c:478
 msgid "_Delete"
 msgstr "_Excluir"
 
-#: ../plugins/glade/plugin.c:441
+#: ../plugins/glade/plugin.c:480
 msgid "Delete selection"
 msgstr "Exclui a seleção"
 
-#: ../plugins/glade/plugin.c:447
+#: ../plugins/glade/plugin.c:486
 msgid "_Show Clipboard"
 msgstr "_Mostra a "
 
-#: ../plugins/glade/plugin.c:449
+#: ../plugins/glade/plugin.c:488
 msgid "Show clipboard"
 msgstr "Mostra a área de transferência"
 
-#: ../plugins/glade/plugin.c:457
+#: ../plugins/glade/plugin.c:496
 msgid "Save glade project"
 msgstr "Salva o Projeto do Glade"
 
-#: ../plugins/glade/plugin.c:465
+#: ../plugins/glade/plugin.c:504
 msgid "Save as glade project"
 msgstr "Salva como um Projeto do Glade"
 
-#: ../plugins/glade/plugin.c:471
+#: ../plugins/glade/plugin.c:510
 msgid "Clos_e"
 msgstr "F_echar"
 
-#: ../plugins/glade/plugin.c:473
+#: ../plugins/glade/plugin.c:512
 msgid "Close current glade project"
 msgstr "Fecha o Projeto atual do Glade"
 
-#: ../plugins/glade/plugin.c:535
+#: ../plugins/glade/plugin.c:641
 msgid "Glade operations"
 msgstr "Operações com o Glade"
 
-#: ../plugins/glade/plugin.c:653
+#: ../plugins/glade/plugin.c:770
+#, c-format
+msgid "Not local file: %s"
+msgstr "Não é um arquivo local: %s"
+
+#: ../plugins/glade/plugin.c:778
 #, c-format
 msgid "Could not open: %s"
 msgstr "Impossível abrir: %s"
 
-#: ../plugins/glade/plugin.c:684
+#: ../plugins/glade/plugin.c:809
 msgid "Could not create a new glade project."
 msgstr "Impossível criar um novo Projeto do Glade."
 
@@ -6366,7 +6372,7 @@ msgid "Due date"
 msgstr "Data de término"
 
 #: ../plugins/gtodo/interface.c:228
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
 msgid "Summary"
 msgstr "Resumo"
 
@@ -7343,7 +7349,8 @@ msgstr ""
 msgid ""
 "Failed to remove '%s':\n"
 "%s"
-msgstr "Falha ao remover '%s':\n"
+msgstr ""
+"Falha ao remover '%s':\n"
 "%s"
 
 #: ../plugins/project-manager/plugin.c:570
@@ -7690,12 +7697,12 @@ msgid " Project Information "
 msgstr " Informações do Projeto "
 
 #: ../plugins/project-manager/project_dbase_gui.c:721
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 msgid "Author:"
 msgstr "Autor:"
 
 #: ../plugins/project-manager/project_dbase_gui.c:729
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:12
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
 msgid "Project Name:"
 msgstr "Nome do Projeto:"
 
@@ -8050,38 +8057,30 @@ msgid "Source Paths"
 msgstr "Caminhos de Código"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
-msgid "<b>New Project Wizard Options</b>"
-msgstr "<b>Opções do Assistente de Novo Projeto</b>"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Project description:</b>"
 msgstr "<b>Descrição do Projeto:</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Select the type of application to be developed</b>"
 msgstr "<b>Selecione o tipo de aplicação a ser desenvolvida</b>"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
 msgstr "Informações Básicas"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
-msgid "Default project directory"
-msgstr "Diretório padrão do Projeto"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 msgid "Destination:"
 msgstr "Destinação:"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 msgid "Enter the basic Project information"
 msgstr "Forneça algumas informações básicas do Projeto"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "Project Type"
 msgstr "Tipo de Projeto"
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid ""
 "The Application Wizard will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
@@ -8094,19 +8093,11 @@ msgstr ""
 "questões, já que poderá não ser possível modificar algumas destas definições "
 "posteriormente."
 
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:16
-msgid "User email address"
-msgstr "Endereço de correio eletrônico do usuário"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:17
-msgid "User name"
-msgstr "Nome do usuário"
-
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:19
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
 msgstr "rótulo"
 
-#: ../plugins/project-wizard/druid.c:176
+#: ../plugins/project-wizard/druid.c:177
 msgid ""
 "Confim the following information:\n"
 "\n"
@@ -8114,21 +8105,21 @@ msgstr ""
 "Confirme as seguintes informações:\n"
 "\n"
 
-#: ../plugins/project-wizard/druid.c:178
+#: ../plugins/project-wizard/druid.c:179
 msgid "Project Type: "
 msgstr "Tipo de Projeto: "
 
-#: ../plugins/project-wizard/druid.c:302
+#: ../plugins/project-wizard/druid.c:303
 #, c-format
 msgid "Unable to find any project template in %s"
 msgstr "Impossível encontrar algum modelo de Projeto em %s"
 
-#: ../plugins/project-wizard/druid.c:478
+#: ../plugins/project-wizard/druid.c:479
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "O campo \"%s\" é obrigatório. Por favor, você deve preenchê-lo."
 
-#: ../plugins/project-wizard/druid.c:496
+#: ../plugins/project-wizard/druid.c:497
 #, c-format
 msgid ""
 "Directory \"%s\" already exists. Project creation could fail if some files "
@@ -8137,7 +8128,7 @@ msgstr ""
 "O diretório \"%s\" já existe. A criação do Projeto pode falhar se alguns "
 "arquivos não puderem ser escritos. Você deseja continuar?"
 
-#: ../plugins/project-wizard/druid.c:804
+#: ../plugins/project-wizard/druid.c:809
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -8145,34 +8136,34 @@ msgstr ""
 "Impossível localiza a versão 5 do autogen, por favor, instale o pacote do "
 "autogen. Você pode obtê-lo a partir do sítio: http://autogen.sourceforge.net"
 
-#: ../plugins/project-wizard/druid.c:812
+#: ../plugins/project-wizard/druid.c:817
 msgid "Unable to build project wizard user interface"
 msgstr "Impossível criar interface do assistente de Projeto"
 
-#: ../plugins/project-wizard/install.c:373
+#: ../plugins/project-wizard/install.c:379
 msgid "New project has been created successfully"
 msgstr "Um novo Projeto foi criado com sucesso"
 
-#: ../plugins/project-wizard/install.c:427
+#: ../plugins/project-wizard/install.c:433
 #, c-format
 msgid "Skipping %s: file already exists"
 msgstr "Pulando %s: o arquivo já existe"
 
-#: ../plugins/project-wizard/install.c:453
+#: ../plugins/project-wizard/install.c:459
 #, c-format
 msgid "Creating %s (using AutoGen)"
 msgstr "Criando %s (utilizando o AutoGen)"
 
-#: ../plugins/project-wizard/install.c:457
+#: ../plugins/project-wizard/install.c:463
 #, c-format
 msgid "Creating %s"
 msgstr "Criando %s"
 
-#: ../plugins/project-wizard/install.c:526
+#: ../plugins/project-wizard/install.c:531
 msgid "Executing: "
 msgstr "Executando: "
 
-#: ../plugins/project-wizard/plugin.c:162
+#: ../plugins/project-wizard/plugin.c:150
 msgid "New Project Wizard"
 msgstr "Assistente de Criação de um Novo Projeto"
 
@@ -8238,7 +8229,7 @@ msgstr "TAREFAS!"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:44 ../plugins/subversion/plugin.c:84
+#: ../plugins/subversion/plugin.c:44 ../plugins/subversion/plugin.c:92
 msgid "_Subversion"
 msgstr "_Subversion"
 
@@ -8246,47 +8237,56 @@ msgstr "_Subversion"
 #. short-cut
 #: ../plugins/subversion/plugin.c:54
 msgid "Add a new file/directory to the Subversion tree"
-msgstr "Adiciona um novo arquivo/diretório à árvore do Subversion"
+msgstr "Adicionar um novo arquivo/diretório à árvore do Subversion"
 
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:62
 msgid "Remove a file/directory from Subversion tree"
-msgstr "Remove um arquivo/diretório da árvore do Subversion"
+msgstr "Remover um arquivo/diretório da árvore do Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:94
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:102
 msgid "Commit your changes to the Subversion tree"
-msgstr "Submete as suas alterações para a árvore do Subversion"
+msgstr "Submeter as suas alterações para a árvore do Subversion"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:78 ../plugins/subversion/plugin.c:102
+#: ../plugins/subversion/plugin.c:78 ../plugins/subversion/plugin.c:110
 msgid "Sync your local copy with the Subversion tree"
-msgstr "Sincroniza sua cópia local com a árvore do Subversion"
+msgstr "Sincronizar sua cópia local com a árvore do Subversion"
 
-#: ../plugins/subversion/plugin.c:303
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:86
+msgid "Diff local tree with repositry"
+msgstr "Diff da árvore local com o repositório"
+
+#: ../plugins/subversion/plugin.c:311
 msgid "Subversion operations"
 msgstr "Operações do Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:63
+#: ../plugins/subversion/subversion-callbacks.c:71
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr ""
-"O comando do Subversion está em execução - por favor, aguarde sua "
+msgstr "Um comando do Subversion está em execução - por favor, aguarde sua "
 "finalização!"
+
+#: ../plugins/subversion/subversion-callbacks.c:297
+msgid "svn.diff"
+msgstr "svn.diff"
 
 #: ../plugins/subversion/svn-notify.c:68
 msgid "Add"
-msgstr "Adiciona"
+msgstr "Adicionar"
 
 #: ../plugins/subversion/svn-notify.c:83
 msgid "Restore"
-msgstr "Recupera"
+msgstr "Recuperar"
 
 #: ../plugins/subversion/svn-notify.c:88
 msgid "Revert"
-msgstr "Reverte"
+msgstr "Reverter"
 
 #: ../plugins/subversion/svn-notify.c:93
 msgid "Revert failed"
@@ -8326,33 +8326,33 @@ msgstr "Estado externo"
 
 #: ../plugins/subversion/svn-notify.c:143
 msgid "Commit modified"
-msgstr "Submete modificado"
+msgstr "Submeter modificado"
 
 #: ../plugins/subversion/svn-notify.c:148
 msgid "Commit added"
-msgstr "Submete adicionado"
+msgstr "Submeter adicionado"
 
 #: ../plugins/subversion/svn-notify.c:153
 msgid "Commit deleted"
-msgstr "Submete excluído"
+msgstr "Submeter excluído"
 
 #: ../plugins/subversion/svn-notify.c:158
 msgid "Commit replaced"
-msgstr "Submete substituído"
+msgstr "Submeter substituído"
 
 #: ../plugins/subversion/svn-notify.c:163
 msgid "Commit postfix"
-msgstr "Submete postfix"
+msgstr "Submeter postfix"
 
 #: ../plugins/subversion/svn-notify.c:168
 msgid "Blame revision"
 msgstr "Responsável pela revisão"
 
-#: ../plugins/subversion/svn-thread.c:59 ../plugins/subversion/svn-thread.c:64
+#: ../plugins/subversion/svn-thread.c:72 ../plugins/subversion/svn-thread.c:77
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/svn-thread.c:125
+#: ../plugins/subversion/svn-thread.c:154
 msgid "Subversion command finished!"
 msgstr "O comando do Subversion terminou!"
 
@@ -8476,7 +8476,7 @@ msgstr "Terminal"
 
 #: ../plugins/tools/anjuta-tools.glade.h:2
 msgid "Edit as script"
-msgstr "Editar um script"
+msgstr "Editar como script"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit command in Anjuta on close"
@@ -8563,46 +8563,42 @@ msgstr "Novo acelerador..."
 msgid "Unable to build user interface for tool editor"
 msgstr "Impossível criar interface de usuário para o editor ferramentas"
 
-#: ../plugins/tools/execute.c:307
+#: ../plugins/tools/execute.c:322
 #, c-format
 msgid "Opening %s"
 msgstr "Abrindo %s"
 
-#: ../plugins/tools/execute.c:324
+#: ../plugins/tools/execute.c:343
 msgid "error:"
 msgstr "erro:"
 
-#: ../plugins/tools/execute.c:326
-msgid "Click to visit the location"
-msgstr "Clique para visitar o endereço"
-
 #. Only for output data
-#: ../plugins/tools/execute.c:388
+#: ../plugins/tools/execute.c:414
 msgid "(output)"
 msgstr "(saída)"
 
 #. Only for error data
-#: ../plugins/tools/execute.c:393
+#: ../plugins/tools/execute.c:419
 msgid "(error)"
 msgstr "(erro)"
 
-#: ../plugins/tools/execute.c:440
+#: ../plugins/tools/execute.c:467
 msgid "Running command: "
 msgstr "Comando de Execução: "
 
-#: ../plugins/tools/execute.c:480
+#: ../plugins/tools/execute.c:507
 msgid "Completed ... unsuccessful with "
 msgstr "Concluído... sem sucesso com"
 
-#: ../plugins/tools/execute.c:568
+#: ../plugins/tools/execute.c:603
 msgid "Unable to create a buffer, command aborted"
 msgstr "Impossível criar um buffer, comando abortado"
 
-#: ../plugins/tools/execute.c:579
+#: ../plugins/tools/execute.c:614
 msgid "No document currently open, command aborted"
 msgstr "Nenhum documento está aberto atualmente, comando abortado"
 
-#: ../plugins/tools/execute.c:932
+#: ../plugins/tools/execute.c:987
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Impossível abrir o arquivo de entrada %s, Comando abortado"
@@ -8620,7 +8616,7 @@ msgstr "Elemento não esperado \"%s\""
 msgid "Error when loading external tools"
 msgstr "Erro ao carregar ferramentas externas"
 
-#: ../plugins/tools/fileop.c:690
+#: ../plugins/tools/fileop.c:703
 #, c-format
 msgid "Unable to open %s for writing"
 msgstr "Impossível abrir %s para escrita"
@@ -8672,6 +8668,22 @@ msgstr ""
 #: ../src/anjuta.c:199
 msgid "Loaded Session ..."
 msgstr "Sessão Carregada..."
+
+#: ../src/anjuta.glade.h:2
+msgid "<b>General Information:</b>"
+msgstr "<b>Informações Gerais</b>"
+
+#: ../src/anjuta.glade.h:3
+msgid "Default project directory"
+msgstr "Diretório padrão do Projeto"
+
+#: ../src/anjuta.glade.h:4
+msgid "User email address"
+msgstr "Endereço de correio eletrônico do usuário"
+
+#: ../src/anjuta.glade.h:5
+msgid "User name"
+msgstr "Nome do usuário"
 
 #: ../src/anjuta-actions.h:23 ../src/shell.c:75
 msgid "_File"
@@ -8829,11 +8841,11 @@ msgstr "Sobre _Plugins Externos do Anjuta"
 msgid "About third party Anjuta plugins"
 msgstr "Sobre plugins do Anjuta de terceiros"
 
-#: ../src/anjuta-app.c:462
+#: ../src/anjuta-app.c:465
 msgid "Toggle View"
 msgstr "Alternar Vistas"
 
-#: ../src/anjuta-app.c:711 ../src/shell.c:213
+#: ../src/anjuta-app.c:718 ../src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "O valor não existe"
 
@@ -8890,6 +8902,24 @@ msgstr "Testa o grupo de ação do shell"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
+
+#~ msgid "* Base Class Name:"
+#~ msgstr "* Nome da Classe Base:"
+
+#~ msgid "* GObject Type Prefix:"
+#~ msgstr "* Tipo de Prefixo do GObject:"
+
+#~ msgid "Add to CVS"
+#~ msgstr "Adicionar ao CVS"
+
+#~ msgid "File Wizard"
+#~ msgstr "Assistente de Arquivos"
+
+#~ msgid "<b>New Project Wizard Options</b>"
+#~ msgstr "<b>Opções do Assistente de Novo Projeto</b>"
+
+#~ msgid "Click to visit the location"
+#~ msgstr "Clique para visitar o endereço"
 
 #~ msgid "Restoring last session ..."
 #~ msgstr "Recuperando a última sessão..."
@@ -9077,9 +9107,6 @@ msgstr "Shell de teste do Anjuta"
 
 #~ msgid "Update current working copy"
 #~ msgstr "Atualizar cópia de trabalho atual"
-
-#~ msgid "Commit changes to the repository"
-#~ msgstr "Submete as alterações para o repositório"
 
 #~ msgid "Print the status of the current file"
 #~ msgstr "Imprimir o estado do arquivo atual"
