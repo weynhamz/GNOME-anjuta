@@ -1,3 +1,37 @@
+2005-07-15 Naba Kumar  <naba@gnome.org>
+
+	* configure.in,	plugins/project-wizard/templates/Makefile.am,
+	plugins/project-wizard/templates/gcj-logo.png,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/project-wizard/templates/gcj/.cvsignore,
+	plugins/project-wizard/templates/gcj/Makefile.am,
+	plugins/project-wizard/templates/gcj/configure.in.tpl,
+	plugins/project-wizard/templates/gcj/src/.cvsignore,
+	plugins/project-wizard/templates/gcj/src/Makefile.am,
+	plugins/project-wizard/templates/gcj/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/java-logo.png,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/java/configure.in.tpl,
+	plugins/project-wizard/templates/java/po/Makefile.am,
+	plugins/project-wizard/templates/java/po/POTFILES.in,
+	plugins/project-wizard/templates/java/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/java/src/main.java,
+	plugins/project-wizard/templates/python-logo.png,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/python/.cvsignore,
+	plugins/project-wizard/templates/python/Makefile.am,
+	plugins/project-wizard/templates/python/configure.in.tpl,
+	plugins/project-wizard/templates/python/po/.cvsignore,
+	plugins/project-wizard/templates/python/po/Makefile.am,
+	plugins/project-wizard/templates/python/po/POTFILES.in,
+	plugins/project-wizard/templates/python/src/.cvsignore,
+	plugins/project-wizard/templates/python/src/Makefile.am,
+	plugins/project-wizard/templates/python/src/Makefile.am.tpl,
+	plugins/project-wizard/templates/python/src/main.py: Added Generic
+	gcj and python project wizards. Fixed Generic java project to
+	use _JAVA primary. Update gnome-build from cvs for them to work
+	correctly.
+
 2005-07-12 Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-manager/plugin.c: Automatically determine

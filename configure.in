@@ -975,6 +975,14 @@ plugins/project-wizard/templates/gnome/po/Makefile
 plugins/project-wizard/templates/gtkmm/Makefile
 plugins/project-wizard/templates/gtkmm/src/Makefile
 plugins/project-wizard/templates/gtkmm/po/Makefile
+plugins/project-wizard/templates/gcj/Makefile
+plugins/project-wizard/templates/gcj/src/Makefile
+plugins/project-wizard/templates/java/Makefile
+plugins/project-wizard/templates/java/src/Makefile
+plugins/project-wizard/templates/java/po/Makefile
+plugins/project-wizard/templates/python/Makefile
+plugins/project-wizard/templates/python/src/Makefile
+plugins/project-wizard/templates/python/po/Makefile
 plugins/project-wizard/templates/wxwin/Makefile
 plugins/project-wizard/templates/wxwin/src/Makefile
 plugins/project-wizard/templates/wxwin/po/Makefile
@@ -984,9 +992,6 @@ plugins/project-wizard/templates/xlib/po/Makefile
 plugins/project-wizard/templates/xlib-dock/Makefile
 plugins/project-wizard/templates/xlib-dock/src/Makefile
 plugins/project-wizard/templates/xlib-dock/po/Makefile
-plugins/project-wizard/templates/java/Makefile
-plugins/project-wizard/templates/java/src/Makefile
-plugins/project-wizard/templates/java/po/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile

@@ -1,5 +1,6 @@
 
-SUBDIRS = terminal gtk anjuta-plugin gnome gtkmm wxwin xlib xlib-dock java
+SUBDIRS = terminal gtk anjuta-plugin gnome gtkmm wxwin xlib xlib-dock gcj java \
+	python 
 
 wizard_filesdir = $(anjuta_data_dir)/project
 wizard_files_DATA = \
@@ -18,8 +19,11 @@ wizard_files_DATA = \
 	xlib.wiz \
 	xlib-dock.wiz \
 	xlib-logo.png \
+	gcj.wiz \
+	gcj-logo.png \
 	java.wiz \
-	java-logo.png
-
+	java-logo.png \
+	python.wiz \
+	python-logo.png 
 
 EXTRA_DIST = $(wizard_files_DATA)

@@ -1,13 +1,13 @@
 <project-wizard>
-	<name>Generic java (automake)</name>
-	<description>A simple java project using automake project management</description>
-	<icon>java-logo.png</icon>
+	<name>Generic gcj compiled java</name>
+	<description>A simple natively compiled java project using the GNU Java Compiler (gcj)</description>
+	<icon>gcj-logo.png</icon>
 	<category>Java</category>
 </project-wizard>
 
 <page name="basic" _label="Basic information" _description="General Project Infromation">
-	<property type="string" name="Name" _label="Project Name:" _description="project name" default="java-foobar" summary="yes" mandatory="yes"/>
-	<property type="string" name="MainClass" _label="Main Class:" _description="Main class" default="MainApp" mandatory="yes"/>
+	<property type="string" name="Name" _label="Project Name:" _description="project name" default="gcj-foobar" summary="yes" mandatory="yes"/>
+	<property type="string" name="MainClass" _label="Main Class:" _description="GCJ needs to know which class contains the main() function" default="MainApp" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
 	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
@@ -61,9 +61,13 @@
 			<file source="POTFILES.in"/>
 		</directory>
 		[+ENDIF+]
-		<file source="configure.in.tpl" destination="configure.in"/>
 		<directory source="src">
 			<file source="main.java" destination="[+MainClass+].java"/>
+		</directory>
+	</directory>
+	<directory source="gcj" destination="[+Destination+]">
+		<file source="configure.in.tpl" destination="configure.in"/>
+		<directory source="src">
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		</directory>
 	</directory>

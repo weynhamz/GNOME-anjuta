@@ -1,4 +1,4 @@
 [+ autogen5 template +]
 # List of source files containing translatable strings.
 
-src/[+MainClass+].java
+src/main.py

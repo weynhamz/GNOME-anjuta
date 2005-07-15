@@ -7,6 +7,8 @@ AM_INIT_AUTOMAKE([+NameLower+], [+Version+])
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
+AM_PROG_GCJ
+
 [+IF (=(get "HaveI18n") "1")+]
 dnl Set gettext package name
 GETTEXT_PACKAGE=[+NameLower+]
