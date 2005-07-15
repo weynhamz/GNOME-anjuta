@@ -48,7 +48,6 @@
 		<file source="NEWS"/>
 		<file source="README"/>
 		<file source="autogen.sh" executable="yes"/>
-		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 		[+IF (=(get "HaveI18n") "1") +]
 		<directory source="po">
 			<file source="ChangeLog"/>
@@ -61,6 +60,7 @@
 			<file source="POTFILES.in"/>
 		</directory>
 		[+ENDIF+]
+		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 		<file source="configure.in.tpl" destination="configure.in"/>
 		<directory source="src">
 			<file source="main.java" destination="[+MainClass+].java"/>

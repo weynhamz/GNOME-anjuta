@@ -1,5 +1,16 @@
 2005-07-15 Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/java/Makefile.am,
+	plugins/project-wizard/templates/java/project.anjuta,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/python/Makefile.am,
+	plugins/project-wizard/templates/python/project.anjuta: Use different
+	project files for java and python module where debugger is not
+	included in the list of plugins.
+
+2005-07-15 Naba Kumar  <naba@gnome.org>
+
 	* configure.in,	plugins/project-wizard/templates/Makefile.am,
 	plugins/project-wizard/templates/gcj-logo.png,
 	plugins/project-wizard/templates/gcj.wiz,
