@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>GTKmm</name>
-	<description>A Generic GTKmm (C++) project</description>
+	<description>A generic GTKmm (C++) project</description>
 	<icon>gtkmm-logo.png</icon>
 	<category>C++</category>
 </project-wizard>

@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>Anjuta Plugin</name>
-	<description>Anjuta plugin</description>
+	<description>Anjuta plugin project that uses libanjuta framework</description>
 	<icon>anjuta-plugin-logo.png</icon>
 	<category>C</category>
 </project-wizard>

@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>Wx Widgets</name>
-	<description>A simple wx Widgets project</description>
+	<description>A generic wx Widgets project</description>
 	<icon>wxwin-logo.png</icon>
 	<category>C++</category>
 </project-wizard>

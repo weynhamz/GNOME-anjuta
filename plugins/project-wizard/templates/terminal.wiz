@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Terminal</name>
-	<description>A Simple "Hello world !" C project</description>
+	<name>Generic</name>
+	<description>A generic project</description>
 	<icon>terminal-logo.png</icon>
 	<category>C</category>
 </project-wizard>

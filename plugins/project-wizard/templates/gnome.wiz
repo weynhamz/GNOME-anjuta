@@ -1,6 +1,6 @@
 <project-wizard>
-	<name>Gnome</name>
-	<description>A Generic Gnome project</description>
+	<name>GNOME</name>
+	<description>A generic GNOME project</description>
 	<icon>gnome-logo.png</icon>
 	<category>C</category>
 </project-wizard>

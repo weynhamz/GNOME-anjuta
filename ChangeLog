@@ -1,5 +1,23 @@
 2005-07-15 Naba Kumar  <naba@gnome.org>
 
+	* plugins/project-wizard/property.c: Used parenthesis to remove
+	ambiguty.
+	
+	* plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/xlib.wiz: Fixed wizard descriptions
+	and names.
+
+2005-07-15 Naba Kumar  <naba@gnome.org>
+
 	* plugins/project-wizard/templates/java.wiz,
 	plugins/project-wizard/templates/java/Makefile.am,
 	plugins/project-wizard/templates/java/project.anjuta,

@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>Xlib</name>
-	<description>A Generic Xlib project</description>
+	<description>A generic Xlib project</description>
 	<icon>xlib-logo.png</icon>
 	<category>C</category>
 </project-wizard>

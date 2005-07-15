@@ -326,7 +326,7 @@ npw_property_set_default (NPWProperty* this, const gchar* value)
 	 * the default property */
 	if (this->defvalue != value)
 	{
-		this->defvalue = value == NULL ? NULL : g_string_chunk_insert (this->owner->string_pool, value);
+		this->defvalue = (value == NULL) ? NULL : g_string_chunk_insert (this->owner->string_pool, value);
 	}
 }
 

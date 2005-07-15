@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>Generic python (automake)</name>
-	<description>A simple python project using automake project management</description>
+	<description>A generic python project using automake project management</description>
 	<icon>python-logo.png</icon>
 	<category>Python</category>
 </project-wizard>

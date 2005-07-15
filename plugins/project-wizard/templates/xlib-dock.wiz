@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>Xlib dock</name>
-	<description>A basic Xlib dock applet</description>
+	<description>A generic Xlib dock applet</description>
 	<icon>xlib-logo.png</icon>
 	<category>C</category>
 </project-wizard>

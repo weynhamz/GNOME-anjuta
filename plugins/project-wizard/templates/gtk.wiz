@@ -1,6 +1,6 @@
 <project-wizard>
 	<name>GTK+</name>
-	<description>A Generic GTK+ project</description>
+	<description>A generic GTK+ project</description>
 	<icon>gtk-logo.png</icon>
 	<category>C</category>
 </project-wizard>
