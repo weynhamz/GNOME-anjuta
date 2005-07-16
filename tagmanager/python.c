@@ -24,12 +24,13 @@
 *   DATA DEFINITIONS
 */
 typedef enum {
-    K_CLASS, K_FUNCTION
+    K_CLASS, K_FUNCTION, K_METHOD
 } pythonKind;
 
 static kindOption PythonKinds [] = {
     { TRUE, 'c', "class",    "classes" },
-    { TRUE, 'f', "function", "functions" }
+    { TRUE, 'f', "function", "functions" },
+    { TRUE, 'm', "method", "methods" }
 };
 
 /*
@@ -39,13 +40,14 @@ static kindOption PythonKinds [] = {
 static void findPythonTags (void)
 {
     vString *name = vStringNew ();
+    vString *lastClass = vStringNew();
     const unsigned char *line;
     boolean inMultilineString = FALSE;
 
     while ((line = fileReadLine ()) != NULL)
     {
 	const unsigned char *cp = line;
-
+	
 	while (*cp != '\0')
 	{
 	    if (*cp=='"' &&
@@ -72,6 +74,7 @@ static void findPythonTags (void)
 		    }
 		    vStringTerminate (name);
 		    makeSimpleTag (name, PythonKinds, K_CLASS);
+		    vStringCopy (lastClass, name);
 		    vStringClear (name);
 		}
 	    }
@@ -88,7 +91,12 @@ static void findPythonTags (void)
 			++cp;
 		    }
 		    vStringTerminate (name);
-		    makeSimpleTag (name, PythonKinds, K_FUNCTION);
+		    if (!isspace(*line) || vStringSize(lastClass) <= 0)
+			makeSimpleTag (name, PythonKinds, K_FUNCTION);
+		    else
+			makeSimpleScopedTag (name, PythonKinds, K_METHOD,
+					     PythonKinds[K_CLASS].name,
+					     vStringValue(lastClass), "public");
 		    vStringClear (name);
 		}
 	    }

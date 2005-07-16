@@ -1,5 +1,10 @@
 2005-07-15 Naba Kumar  <naba@gnome.org>
 
+	* tagmanager/parse.c, tagmanager/parse.h, tagmanager/python.c:
+	Fixed python parser to parser class methods.
+
+2005-07-15 Naba Kumar  <naba@gnome.org>
+
 	* plugins/project-wizard/property.c: Used parenthesis to remove
 	ambiguty.
 	

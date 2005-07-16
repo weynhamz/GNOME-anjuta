@@ -55,6 +55,26 @@ extern void makeSimpleTag (const vString* const name,
     }
 }
 
+extern void makeSimpleScopedTag (const vString* const name,
+				 kindOption* const kinds, const int kind,
+				 const char* scope, const char *scope2,
+				 const char *access)
+{
+    if (name != NULL  &&  vStringLength (name) > 0)
+    {
+        tagEntryInfo e;
+        initTagEntry (&e, vStringValue (name));
+
+        e.kindName = kinds [kind].name;
+        e.kind     = kinds [kind].letter;
+	e.extensionFields.scope[0] = scope;
+	e.extensionFields.scope[1] = scope2;
+	e.extensionFields.access = access;
+
+        makeTagEntry (&e);
+    }
+}
+
 /*
 *   parserDescription mapping management
 */
