@@ -1,11 +1,14 @@
 Makefile
 Makefile.in
 *.o
+*.lo
+*.la
 *~
+*.a
+*.bak
 .*swp
 .deps
 .libs
 .sources
 .nautilus-metafile.xml
-*.a
 test-scintilla

@@ -61,6 +61,7 @@ typedef struct _FileFilter
 	GList *dir_unmatch;
 	gboolean ignore_hidden_files;
 	gboolean ignore_hidden_dirs;
+	gboolean ignore_nonrepo_files;
 } FileFilter;
 
 static GdlIcons *icon_set = NULL;
@@ -93,6 +94,7 @@ anjuta_fv_open_file (FileManagerPlugin * fv, const char *path)
 #define DIR_FILTER_UNMATCH "filter.dir.unmatch"
 #define DIR_FILTER_UNMATCH_COMBO "filter.dir.unmatch.combo"
 #define DIR_FILTER_IGNORE_HIDDEN "filter.dir.ignore.hidden"
+#define FILE_FILTER_IGNORE_NONREPO "filter.file.ignore.nonrepo"
 
 #define GET_PREF(var, P) \
 	if (ff->var) \
@@ -119,6 +121,7 @@ fv_prefs_new (FileManagerPlugin *fv)
 	GET_PREF(dir_match, DIR_FILTER_MATCH);
 	GET_PREF(dir_unmatch, DIR_FILTER_UNMATCH);
 	GET_PREF_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
+	GET_PREF_BOOL(ignore_nonrepo_files, FILE_FILTER_IGNORE_NONREPO);
 	return ff;
 }
 
@@ -271,7 +274,6 @@ fv_connect (FileManagerPlugin *fv)
 									   NULL);
 }
 
-#if 0
 static gboolean
 file_entry_apply_filter (const char *name, GList *match, GList *unmatch,
 						 gboolean ignore_hidden)
@@ -280,9 +282,6 @@ file_entry_apply_filter (const char *name, GList *match, GList *unmatch,
 	gboolean matched = (match == NULL);
 	g_return_val_if_fail(name, FALSE);
 	if (ignore_hidden && ('.' == name[0]))
-		return FALSE;
-	/* TTimo - ignore .svn directories */
-	if (!strcmp(name, ".svn"))
 		return FALSE;
 	for (tmp = match; tmp; tmp = g_list_next(tmp))
 	{
@@ -303,7 +302,6 @@ file_entry_apply_filter (const char *name, GList *match, GList *unmatch,
 	}
 	return matched;	
 }
-#endif
 
 static void
 fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
@@ -317,6 +315,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 	GdkPixbuf *pixbuf;
 	GSList *file_node;
 	GSList *files = NULL;
+	GList *ignore_files = NULL;
 	gchar *entries = NULL;
 
 	g_return_if_fail (path != NULL);
@@ -347,6 +346,43 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			}
 		}
 	}
+	
+	g_snprintf(file_name, PATH_MAX, "%s/.cvsignore", path);
+	if (ff->ignore_nonrepo_files && 0 == stat(file_name, &s))
+	{
+		if (S_ISREG(s.st_mode))
+		{
+			int fd;
+			if ((fd = open(file_name, O_RDONLY)) >= 0)
+			{
+				off_t n = 0;
+				off_t total_read = 0;
+				gchar **strv = NULL;
+				gchar **ptrv = NULL;
+				gchar *content = g_new (char, s.st_size + 2);
+				
+				while (0 < (n = read(fd, content + total_read,
+									 s.st_size - total_read)))
+					total_read += n;
+				
+				content[s.st_size] = '\0';
+				close(fd);
+				
+				strv = g_strsplit (content, "\n", -1);
+				ptrv = strv;
+				while (strv && *ptrv)
+				{
+					ignore_files = g_list_prepend (ignore_files,
+												   g_strdup (*ptrv));
+					DEBUG_PRINT ("Ignoring: %s", *ptrv);
+					ptrv++;
+				}
+				g_strfreev (strv);
+				g_free (content);
+			}
+		}
+	}
+	
 	if (NULL != (dir = opendir(path)))
 	{
 		while (NULL != (dir_entry = readdir(dir)))
@@ -358,6 +394,10 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			if ((ff->ignore_hidden_files && *file == '.') ||
 				(0 == strcmp(file, ".")) ||
 				(0 == strcmp(file, "..")))
+				continue;
+			if (ignore_files &&
+				!file_entry_apply_filter (file, NULL, ignore_files,
+										  FALSE))
 				continue;
 			
 			g_snprintf(file_name, PATH_MAX, "%s/%s", path, file);
@@ -438,6 +478,11 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 	}
 	if (entries)
 		g_free (entries);
+	if (ignore_files)
+	{
+		g_list_foreach (ignore_files, (GFunc)g_free, NULL);
+		g_list_free (ignore_files);
+	}
 }
 
 static void

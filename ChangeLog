@@ -1,4 +1,24 @@
-2005-07-15 Naba Kumar  <naba@gnome.org>
+2005-07-16 Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/anjuta-document-manager.plugin.in: Added mime types.
+	
+	* plugins/file-manager/an_file_view.c,
+	plugins/file-manager/plugin.c: Added file manager preferences to
+	show/hide files ignored by version control (e.g. cvsignore).
+	
+	* plugins/editor/text_editor.c: Initialize vfs info struct.
+	
+	* .cvsignore, global-tags/.cvsignore, libanjuta/.cvsignore,
+	libanjuta/interfaces/.cvsignore, libegg/.cvsignore,
+	libegg/menu/.cvsignore, libegg/recent-files/.cvsignore,
+	libegg/treeviewutils/.cvsignore, libegg/util/.cvsignore,
+	omf-install/.cvsignore, pixmaps/.cvsignore,
+	plugins/file-manager/anjuta-file-manager-plugin.glade,
+	scintilla/.cvsignore, scintilla/include/.cvsignore,
+	scripts/.cvsignore, src/.cvsignore, tagmanager/.cvsignore,
+	tagmanager/python.c: Updated.
+
+2005-07-16 Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/parse.c, tagmanager/parse.h, tagmanager/python.c:
 	Fixed python parser to parser class methods.

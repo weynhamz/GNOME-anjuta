@@ -1,4 +1,7 @@
 Makefile.in
 Makefile
-tm_global_tags
+anjuta-tags
 system.tags
+*.lo
+*.o
+*.bak

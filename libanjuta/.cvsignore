@@ -3,3 +3,8 @@ Makefile.in
 *.pc
 anjuta-marshal.c
 anjuta-marshal.h
+*.lo
+*.o
+*~
+*.la
+*.bak

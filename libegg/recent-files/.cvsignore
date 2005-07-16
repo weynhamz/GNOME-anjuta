@@ -2,6 +2,8 @@
 .deps
 *.lo
 *.la
+*.bak
+*~
 Makefile
 Makefile.in
 test-multi-drag

@@ -2,3 +2,5 @@ Makefile
 Makefile.in
 *.omf
 .nautilus-metafile.xml
+*.bak
+*~

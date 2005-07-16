@@ -7,4 +7,5 @@ Makefile.in
 test-actions
 accels
 test-merge
-
+*.bak
+*~

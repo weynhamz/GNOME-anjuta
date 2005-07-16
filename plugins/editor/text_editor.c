@@ -376,10 +376,11 @@ text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 	else 
 		te->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	if (uri)
-	{	
-		GnomeVFSFileInfo info;
+	{
 		GnomeVFSResult result;
 		GnomeVFSURI* vfs_uri;
+		GnomeVFSFileInfo info = {0,0};
+		
 		new_file_count--;
 		if (te->filename)
 			g_free (te->filename);

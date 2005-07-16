@@ -1,9 +1,12 @@
 Makefile
 Makefile.in
 *.o
+*.la
+*.lo
 *~
 .*swp
 .deps
 .libs
 .sources
 .nautilus-metafile.xml
+*.bak

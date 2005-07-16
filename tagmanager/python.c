@@ -109,6 +109,7 @@ static void findPythonTags (void)
 	}
     }
     vStringDelete (name);
+    vStringDelete (lastClass);
 }
 
 extern parserDefinition* PythonParser (void)

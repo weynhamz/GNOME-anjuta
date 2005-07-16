@@ -93,6 +93,7 @@ prefs_init (FileManagerPlugin *fv)
 	REGISTER_NOTIFY ("filter.file.ignore.hidden", on_gconf_notify_prefs);
 	REGISTER_NOTIFY ("filter.file.match", on_gconf_notify_prefs);
 	REGISTER_NOTIFY ("filter.file.unmatch", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.file.ignore.nonrepo", on_gconf_notify_prefs);
 }
 
 static void

@@ -1,7 +1,11 @@
 Makefile
 Makefile.in
 *.o
+*.lo
+*.la
 *~
+*.bak
+*.gladep
 .*swp
 .gdbinit
 .deps

@@ -2,6 +2,7 @@
 .deps
 *.lo
 *.la
+*.o
 Makefile
 Makefile.in
 eggmarshalers.c
@@ -17,3 +18,5 @@ test-tree-utils
 test-union
 libeggdocktypebuiltins.c
 test-dock
+*.bak
+*~
