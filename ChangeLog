@@ -1,3 +1,25 @@
+2005-07-17 Naba Kumar  <naba@gnome.org>
+
+	* (new) plugins/project-wizard/templates/terminal/cvsignore,
+	(new) plugins/project-wizard/templates/terminal/po/cvsignore,
+	(new) plugins/project-wizard/templates/terminal/src/cvsignore,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/terminal/Makefile.am,
+	plugins/project-wizard/templates/terminal/po/Makefile.am,
+	plugins/project-wizard/templates/terminal/src/Makefile.am,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/xlib.wiz: Added cvsignore files for
+	wizards and updated .wiz files to install them in newly created
+	projects.
+
 2005-07-16 Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/anjuta-document-manager.plugin.in: Added mime types.

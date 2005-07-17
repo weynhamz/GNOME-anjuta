@@ -47,9 +47,14 @@
 		<file source="NEWS"/>
 		<file source="README"/>
 		<file source="autogen.sh" executable="yes"/>
+		<file source="cvsignore" destination=".cvsignore"/>
+		<directory source="src">
+			<file source="cvsignore" destination=".cvsignore"/>
+		</directory>
 		[+IF (=(get "HaveI18n") "1") +]
 		<directory source="po">
 			<file source="ChangeLog"/>
+			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+ENDIF+]
 	</directory>

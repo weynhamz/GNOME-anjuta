@@ -49,10 +49,15 @@
 		<file source="README"/>
 		<file source="autogen.sh" executable="yes"/>
 		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+		<file source="cvsignore" destination=".cvsignore"/>
+		<directory source="src">
+			<file source="cvsignore" destination=".cvsignore"/>
+		</directory>
 		[+IF (=(get "HaveI18n") "1") +]
 		<directory source="po">
 			<file source="ChangeLog"/>
 			<file source="POTFILES.in"/>
+			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+ENDIF+]
 	</directory>
