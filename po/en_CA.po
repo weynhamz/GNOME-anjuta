@@ -3342,19 +3342,19 @@ msgstr "Sorted in opening order"
 
 #: plugins/editor/anjuta-document-manager.glade.h:141
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Space-seperated list of directory name patterns to ignore"
+msgstr "Space-separated list of directory name patterns to ignore"
 
 #: plugins/editor/anjuta-document-manager.glade.h:142
 msgid "Space-seperated list of directory name patterns to match"
-msgstr "Space-seperated list of directory name patterns to match"
+msgstr "Space-separated list of directory name patterns to match"
 
 #: plugins/editor/anjuta-document-manager.glade.h:143
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Space-seperated list of file name patterns to ignore"
+msgstr "Space-separated list of file name patterns to ignore"
 
 #: plugins/editor/anjuta-document-manager.glade.h:144
 msgid "Space-seperated list of file name patterns to match"
-msgstr "Space-seperated list of file name patterns to match"
+msgstr "Space-separated list of file name patterns to match"
 
 #: plugins/editor/anjuta-document-manager.glade.h:145
 msgid "Squares"
