@@ -219,7 +219,7 @@
 			  <child internal-child="entry">
 			    <widget class="GtkEntry" id="preferences_entry:text::0:filter.file.match">
 			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Space-seperated list of file name patterns to match</property>
+			      <property name="tooltip" translatable="yes">Space-separated list of file name patterns to match</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
 			      <property name="visibility">True</property>
@@ -391,7 +391,7 @@
 			  <child internal-child="entry">
 			    <widget class="GtkEntry" id="preferences_entry:text::0:filter.file.unmatch">
 			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Space-seperated list of file name patterns to ignore</property>
+			      <property name="tooltip" translatable="yes">Space-separated list of file name patterns to ignore</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
 			      <property name="visibility">True</property>
@@ -489,7 +489,7 @@
 			<widget class="GtkCheckButton" id="preferences_toggle:bool:1:0:filter.file.ignore.nonrepo">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Do not show files ignore by version control</property>
+			  <property name="label" translatable="yes">Do not show files ignored by version control</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
@@ -611,7 +611,7 @@
 			  <child internal-child="entry">
 			    <widget class="GtkEntry" id="preferences_entry:text::0:filter.dir.match">
 			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Space-seperated list of directory name patterns to match</property>
+			      <property name="tooltip" translatable="yes">Space-separated list of directory name patterns to match</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
 			      <property name="visibility">True</property>
@@ -673,7 +673,7 @@
 			  <child internal-child="entry">
 			    <widget class="GtkEntry" id="preferences_entry:text::0:filter.dir.unmatch">
 			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Space-seperated list of directory name patterns to ignore</property>
+			      <property name="tooltip" translatable="yes">Space-separated list of directory name patterns to ignore</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
 			      <property name="visibility">True</property>
