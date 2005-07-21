@@ -8,4 +8,4 @@ Interfaces=IAnjutaDocumentManager,IAnjutaFile
 UserActivatable=no
 
 [File Loader]
-SupportedMimeTypes=text/*,text/source,application/x-perl,application/x-python,application/x-shellscript,application/x-php,application/x-java,application/x-javascript
+SupportedMimeTypes=text/*,text/source,application/x-perl,application/x-python,application/x-shellscript,application/x-php,application/x-java,application/x-javascript,application/x-ruby

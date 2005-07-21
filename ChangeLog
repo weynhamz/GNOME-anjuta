@@ -13,6 +13,9 @@
 	to mesg_view private member (not required) so that any pending outputs
 	to view is processed.Fixed bug #172666.
 
+	* plugins/editor/anjuta-document-manager.plugin.in: Added ruby mime
+	type in supported list.
+	
 2005-07-18  Adam Weinberger  <adamw@gnome.org>
 
 	* plugins/file-manager/anjuta-file-manager-plugin.glade:
