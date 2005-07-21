@@ -115,19 +115,11 @@ on_cvs_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 }
 
 static void
-on_cvs_terminated (AnjutaLauncher *launcher,
-					 gint child_pid, gint status, gulong time_taken,
-					 CVSPlugin *plugin)
+on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid, gint status,
+				   gulong time_taken, CVSPlugin *plugin)
 {
 	g_return_if_fail (plugin != NULL);
-	
-	g_signal_handlers_disconnect_by_func (plugin->mesg_view,
-										  G_CALLBACK (on_cvs_mesg_format),
-										  plugin);
-	g_signal_handlers_disconnect_by_func (plugin->mesg_view,
-										  G_CALLBACK (on_cvs_mesg_parse),
-										  plugin);
-	DEBUG_PRINT ("Shuting down cvs message view");
+	/* DEBUG_PRINT ("Shuting down cvs message view"); */
 	
 	if (status != 0)
 	{
@@ -145,10 +137,6 @@ on_cvs_terminated (AnjutaLauncher *launcher,
 									 mesg, "", NULL);
 		g_free (mesg);
 	}
-
-	/* We do not care about this view any longer, it will be freed when 
-	the users closes it */
-	plugin->mesg_view = NULL;
 	plugin->executing_command = FALSE;
 }
 
@@ -171,28 +159,31 @@ on_cvs_status(AnjutaLauncher *launcher,
 	switch(output_type)
 	{
 		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
-			ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
+			if (plugin->mesg_view)
+				ianjuta_message_view_buffer_append (plugin->mesg_view,
+													mesg, NULL);
 			break;
 		default:
+		{
+			GtkTextBuffer* textbuf;
+			GtkTextIter end;
+			
+			if (status_text)
 			{
-				GtkTextBuffer* textbuf;
-				GtkTextIter end;
+				textbuf =
+					gtk_text_view_get_buffer(GTK_TEXT_VIEW(status_text));
+				gtk_text_buffer_get_end_iter(textbuf, &end);
 				
-				if (status_text)
-				{
-					textbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(status_text));
-					gtk_text_buffer_get_end_iter(textbuf, &end);
-					
-					gtk_text_buffer_insert(textbuf, &end, mesg, -1);
-				}
+				gtk_text_buffer_insert(textbuf, &end, mesg, -1);
 			}
+		}
 	}	
 }
 
 static void
 on_cvs_diff(AnjutaLauncher *launcher,
-					   AnjutaLauncherOutputType output_type,
-					   const gchar * mesg, gpointer user_data)
+			AnjutaLauncherOutputType output_type,
+			const gchar * mesg, gpointer user_data)
 {
 	g_return_if_fail (user_data != NULL);
 	CVSPlugin* plugin = (CVSPlugin*)user_data;
@@ -200,7 +191,9 @@ on_cvs_diff(AnjutaLauncher *launcher,
 	switch(output_type)
 	{
 		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
-			ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
+			if (plugin->mesg_view)
+				ianjuta_message_view_buffer_append (plugin->mesg_view,
+													mesg, NULL);
 			break;
 		default:
 			ianjuta_editor_append (plugin->diff_editor, mesg, -1, NULL);
@@ -227,7 +220,8 @@ cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
 	if (plugin->executing_command)
 	{
 		anjuta_util_dialog_error
-			(NULL,_("CVS command is running - please wait until it finishes!"), NULL);
+			(NULL,_("CVS command is running - please wait until it finishes!"),
+			 NULL);
 		return;
 	}
 		
@@ -259,12 +253,11 @@ cvs_execute_common (CVSPlugin* plugin, const gchar* command, const gchar* dir,
 	chdir (dir);
 	plugin->executing_command = TRUE;
 
-	DEBUG_PRINT ("CVS Executing: %s", command);
+	/* DEBUG_PRINT ("CVS Executing: %s", command); */
 	ianjuta_message_view_append (plugin->mesg_view,
 								 IANJUTA_MESSAGE_VIEW_TYPE_NORMAL,
 								 command, "", NULL);
-	anjuta_launcher_execute (plugin->launcher, command,
-							 output, plugin);
+	anjuta_launcher_execute (plugin->launcher, command, output, plugin);
 }
 
 void 
@@ -287,7 +280,7 @@ cvs_execute_status(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 		G_CALLBACK(on_cvs_status_destroy), status_text);
 	
 	gtk_widget_show(window);
-	cvs_execute_common(plugin, command, dir, on_cvs_status);		
+	cvs_execute_common(plugin, command, dir, on_cvs_status);	
 }
 
 void
@@ -297,9 +290,8 @@ cvs_execute_diff(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 	
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
-	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("cvs.diff"), "", NULL);
-
-
+	plugin->diff_editor =
+		ianjuta_document_manager_add_buffer(docman, "cvs.diff", "", NULL);
 	cvs_execute_common(plugin, command, dir, on_cvs_diff);
 }
 
@@ -310,8 +302,7 @@ cvs_execute_log(CVSPlugin* plugin, const gchar* command, const gchar* dir)
 	
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
-	plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("cvs.log"), "", NULL);
-
-
+	plugin->diff_editor =
+		ianjuta_document_manager_add_buffer(docman, "cvs.log", "", NULL);
 	cvs_execute_common(plugin, command, dir, on_cvs_diff);
 }
