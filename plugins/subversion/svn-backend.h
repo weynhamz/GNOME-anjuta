@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * svn-backend.h (c) 2005 Johannes Schmid
  * This program is free software; you can redistribute it and/or modify

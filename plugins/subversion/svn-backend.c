@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* 
  * svn-backend.c (c) 2005 Johannes Schmid
  * This program is free software; you can redistribute it and/or modify
@@ -19,11 +20,11 @@
 #include "svn-backend-priv.h"
 #include "svn-notify.h"
 #include "svn-thread.h"
+#include "svn-auth.h"
 #include "plugin.h"
 #include "libanjuta/anjuta-debug.h"
 
 #include <subversion-1/svn_pools.h>
-#include <subversion-1/svn_auth.h>
 #include <subversion-1/svn_config.h>
 /*
 #include <apr.h>
@@ -52,30 +53,6 @@ print_svn_error (svn_error_t *error)
 		itr = itr->child;
 	}
 	svn_error_clear (error);
-}
-
-/* This is just a simple example how svn_auth can be used. We need
-to investigate how this works in detail */
-
-static void
-svn_fill_auth(SVN* svn)
-{
-	svn_auth_baton_t *auth_baton;
-
-    apr_array_header_t *providers
-      = apr_array_make (svn->pool, 1, sizeof (svn_auth_provider_object_t *));
-
-    svn_auth_provider_object_t *username_provider 
-      = apr_pcalloc (svn->pool, sizeof(*username_provider));
-
-    svn_client_get_username_provider(&username_provider, svn->pool);
-
-    *(svn_auth_provider_object_t **)apr_array_push (providers) 
-      = username_provider;
-
-    svn_auth_open (&auth_baton, providers, svn->pool);
-
-    svn->ctx->auth_baton = auth_baton;
 }
 
 static void

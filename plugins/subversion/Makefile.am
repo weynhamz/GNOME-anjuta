@@ -46,7 +46,9 @@ libanjuta_subversion_la_SOURCES = \
 	svn-thread.c \
 	svn-thread.h \
 	svn-backend-priv.h \
-	svn-backend.h
+	svn-backend.h \
+	svn-auth.c \
+	svn-auth.h 
 
 endif
 

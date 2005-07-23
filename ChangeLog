@@ -1,3 +1,18 @@
+2005-07-23 Naba Kumar  <naba@gnome.org>
+
+	* plugins/subversion/Makefile.am,
+	plugins/subversion/svn-auth.c,
+	plugins/subversion/svn-auth.h: Added subversion authentication code
+	stubs.
+	
+	* plugins/subversion/subversion-callbacks.c,
+	plugins/subversion/subversion-callbacks.h,
+	plugins/subversion/svn-backend-priv.h,
+	plugins/subversion/svn-backend.c, plugins/subversion/svn-backend.h,
+	plugins/subversion/svn-notify.c, plugins/subversion/svn-notify.h,
+	plugins/subversion/svn-thread.c, plugins/subversion/svn-thread.h:
+	Added file mode line.
+
 2005-07-22  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	* configure.in: Added 'gl' to ALL_LINGUAS.
