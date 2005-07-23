@@ -1,3 +1,7 @@
+2005-07-23  Naba Kumar  <naba@gnome.org>
+
+	* ROADMAP: updated.
+
 2005-07-23 Naba Kumar  <naba@gnome.org>
 
 	* plugins/subversion/Makefile.am,

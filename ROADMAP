@@ -48,3 +48,28 @@ Milestone 2.3.0 - (Estimated release time Dec 2005):
 Milestone 2.4.0 - (Estimated release time Feb 2006):
 ----------------------------------------------------
 - Bug fixing and stable release.
+
+gTranslator plugin for Anjuta:
+------------------------------
+gTranslator is a software used by translators to edit and update .po files,
+which are localization files in a project. This plugin will be responsible
+for integrating gTranslator in Anjuta DevStudio. The implementation will
+closely follow the way we have integrated DevHelp in Anjuta.
+
+The first task
+involves collaborating with gTranslator developers to have gTranslator in
+form of a library that will provide all the neccessary widgets to be embeded
+in Anjuta. The approach would be to segregate all UI (menus and toolbars)
+controls from the main engine. The main engine (library) should contain only
+the main widgets and API for their interaction with the UI and themsleves.
+gTranslator executable will itself use this library and implement the UIs
+within.
+
+Once that has been done and neccessary library interface has been created
+in gTranslator, we can move ahead with creating the actual Anjuta plugin. If
+gTranslator library creation is done properly, the Anjuta plugin should
+not involve much work, because the only thing that matters at this point is
+it to wrap the library with our own UI and embed the widgets in Anjuta Shell.
+Much of this can be easily understood from existing plugins (e.g. devhelp
+plugin).
+
