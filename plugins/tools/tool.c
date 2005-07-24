@@ -393,6 +393,7 @@ atp_user_tool_new (ATPToolList *list, const gchar *name, ATPToolStore storage)
 					memcpy(first, tool, sizeof (ATPUserTool));
 					first->over = tool->over;
 					tool->over = first;
+					tool->menu_item = NULL;
 					tool = tool->over;
 					break;
 				}

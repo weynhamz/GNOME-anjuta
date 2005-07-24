@@ -32,6 +32,7 @@ typedef struct _ATPToolDialog ATPToolDialog;
 struct _ATPToolDialog {
 	GtkDialog* dialog;
 	GtkTreeView* view;
+	gboolean changed_sig ;
 	GtkWidget *edit_bt;
 	GtkWidget *delete_bt;
 	GtkWidget *up_bt;

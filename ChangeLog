@@ -1,3 +1,16 @@
+2005-07-24 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/tools/dialog.c, plugins/tools/dialog.h:
+	Correct wrong sensitivity setting
+	
+	* plugins/tools/tool.c:	Correct a crash when removing overridden tool
+	
+	* plugins/tools/variable.c:	Add variables for project manager
+
+2005-06-23 naba  <naba@anjuta>
+
+	* ROADMAP:
+
 2005-07-23  Naba Kumar  <naba@gnome.org>
 
 	* ROADMAP: updated.

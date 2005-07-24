@@ -278,7 +278,11 @@ atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select)
 {
 	ATPUserTool *tool;
 	GtkTreeModel *model;
+	GtkTreeSelection *selection;
 
+	/* Disable changed signal to avoid changing buttons sensitivity */
+	selection = gtk_tree_view_get_selection (this->view);
+	g_signal_handler_block (selection, this->changed_sig);	
 
 	/* Regenerate the tool list */
 	model = gtk_tree_view_get_model (this->view);
@@ -298,10 +302,7 @@ atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select)
 				-1);
 		if ((select != NULL) && (strcmp(select, atp_user_tool_get_name (tool)) == 0))
 		{
-			GtkTreeSelection *sel;
-
-			sel = gtk_tree_view_get_selection (this->view);
-			gtk_tree_selection_select_iter (sel, &iter);
+			gtk_tree_selection_select_iter (selection, &iter);
 		}
 		tool = atp_user_tool_next (tool);
 				
@@ -310,6 +311,8 @@ atp_tool_dialog_refresh (const ATPToolDialog *this, const gchar* select)
 	/* Regenerate the tool menu */
 	atp_tool_list_activate (atp_plugin_get_tool_list (this->plugin));
 
+	/* Restore changed signal */
+	g_signal_handler_unblock (selection, this->changed_sig);	
 	update_sensitivity(this);
 }
 
@@ -374,7 +377,7 @@ atp_tool_dialog_show (ATPToolDialog* this)
 	glade_xml_signal_connect_data (xml, TOOL_UP_SIGNAL, GTK_SIGNAL_FUNC (on_tool_up), this);
 	glade_xml_signal_connect_data (xml, TOOL_DOWN_SIGNAL, GTK_SIGNAL_FUNC (on_tool_down), this);
 	selection = gtk_tree_view_get_selection (this->view);
-	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (on_tool_selection_changed), this);
+	this->changed_sig = g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (on_tool_selection_changed), this);
 
 	g_object_unref (xml);
 

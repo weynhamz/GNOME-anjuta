@@ -32,6 +32,7 @@
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
 #include <libgnomevfs/gnome-vfs.h>
@@ -55,6 +56,13 @@ enum {
 	ATP_FILE_MANAGER_CURRENT_FILENAME,
 	ATP_FILE_MANAGER_CURRENT_FILENAME_WITHOUT_EXT,
 	ATP_FILE_MANAGER_CURRENT_EXTENSION,
+	ATP_PROJECT_MANAGER_CURRENT_URI,
+	ATP_PROJECT_MANAGER_CURRENT_DIRECTORY,
+	ATP_PROJECT_MANAGER_CURRENT_FULL_FILENAME,
+	ATP_PROJECT_MANAGER_CURRENT_FULL_FILENAME_WITHOUT_EXT,
+	ATP_PROJECT_MANAGER_CURRENT_FILENAME,
+	ATP_PROJECT_MANAGER_CURRENT_FILENAME_WITHOUT_EXT,
+	ATP_PROJECT_MANAGER_CURRENT_EXTENSION,
 	ATP_EDITOR_CURRENT_FILENAME,
 	ATP_EDITOR_CURRENT_FILENAME_WITHOUT_EXT,
 	ATP_EDITOR_CURRENT_SELECTION,
@@ -78,8 +86,15 @@ static const struct
  {"file_manager_current_full_filename", "selected file manager full file name", ATP_FILE_VARIABLE },
  {"file_manager_current_full_filename_without_ext", "selected file manager full file name without extension", ATP_FILE_VARIABLE },
  {"file_manager_current_filename", "selected file manager file name", ATP_FILE_VARIABLE },
- {"file_manager_current_fileame_without_ext", "selected file manager file name without extension", ATP_FILE_VARIABLE },
+ {"file_manager_current_filename_without_ext", "selected file manager file name without extension", ATP_FILE_VARIABLE },
  {"file_manager_current_extension", "selected file manager file extension", ATP_DEFAULT_VARIABLE },
+ {"project_manager_current_uri", "selected project manager URI", ATP_DEFAULT_VARIABLE },
+ {"project_manager_current_directory", "selected project manager directory", ATP_DIRECTORY_VARIABLE },
+ {"project_manager_current_full_filename", "selected project manager full file name", ATP_FILE_VARIABLE },
+ {"project_manager_current_full_filename_without_ext", "selected project manager full file name without extension", ATP_FILE_VARIABLE },
+ {"project_manager_current_filename", "selected project manager file name", ATP_FILE_VARIABLE },
+ {"project_manager_current_filename_without_ext", "selected project manager file name without extension", ATP_FILE_VARIABLE },
+ {"project_manager_current_extension", "selected project manager file extension", ATP_DEFAULT_VARIABLE },
  {"editor_current_filename", "current edited file name", ATP_FILE_VARIABLE },
  {"editor_current_filename_without_ext", "current edited file name without extension", ATP_FILE_VARIABLE },
  {"editor_current_selection", "current selection in editor", ATP_FILE_VARIABLE },
@@ -233,6 +248,38 @@ atp_variable_get_anjuta_variable (const ATPVariable *this, guint id)
 }
 
 static gchar*
+atp_variable_get_project_manager_variable (const ATPVariable *this, guint id)
+{
+	IAnjutaProjectManager *prjman;
+	gchar* val;
+	GError* err = NULL;
+
+	prjman = anjuta_shell_get_interface (this->shell, IAnjutaProjectManager, NULL);
+
+	if (prjman == NULL) return NULL;
+
+	switch (id)
+	{
+	case ATP_PROJECT_MANAGER_CURRENT_URI:
+		val = ianjuta_project_manager_get_selected (prjman, &err);
+		break;
+	default:
+		g_return_val_if_reached (NULL);
+	}	
+
+	if (err != NULL)
+	{
+		g_error_free (err);
+
+		return NULL;
+	}
+	else
+	{
+		return val;
+	}
+}
+
+static gchar*
 atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 {
 	IAnjutaDocumentManager *docman;
@@ -365,6 +412,39 @@ atp_variable_get_value_from_id (const ATPVariable* this, guint id)
 		break;	
 	case ATP_FILE_MANAGER_CURRENT_EXTENSION:
 		val = atp_variable_get_anjuta_variable (this, ATP_FILE_MANAGER_CURRENT_URI);
+		val = get_path_from_uri (val);
+		val = remove_all_but_extension (val);
+		break;
+	case ATP_PROJECT_MANAGER_CURRENT_URI:
+		val = atp_variable_get_project_manager_variable (this, id);
+		break;
+	case ATP_PROJECT_MANAGER_CURRENT_DIRECTORY:
+		val = atp_variable_get_project_manager_variable (this, ATP_PROJECT_MANAGER_CURRENT_URI);
+		val = get_path_from_uri (val);
+		val = remove_filename (val);
+		break;
+	case ATP_PROJECT_MANAGER_CURRENT_FULL_FILENAME:
+		val = atp_variable_get_project_manager_variable (this, ATP_PROJECT_MANAGER_CURRENT_URI);
+		val = get_path_from_uri (val);
+		break;
+	case ATP_PROJECT_MANAGER_CURRENT_FULL_FILENAME_WITHOUT_EXT:
+		val = atp_variable_get_project_manager_variable (this, ATP_PROJECT_MANAGER_CURRENT_URI);
+		val = get_path_from_uri (val);
+		val = remove_extension (val);
+		break;
+	case ATP_PROJECT_MANAGER_CURRENT_FILENAME:
+		val = atp_variable_get_anjuta_variable (this, ATP_PROJECT_MANAGER_CURRENT_URI);
+		val = get_path_from_uri (val);
+		val = remove_directory (val);
+		break;
+	case ATP_PROJECT_MANAGER_CURRENT_FILENAME_WITHOUT_EXT:
+		val = atp_variable_get_anjuta_variable (this, ATP_PROJECT_MANAGER_CURRENT_URI);
+		val = get_path_from_uri (val);
+		val = remove_directory (val);
+		val = remove_extension (val);
+		break;	
+	case ATP_PROJECT_MANAGER_CURRENT_EXTENSION:
+		val = atp_variable_get_anjuta_variable (this, ATP_PROJECT_MANAGER_CURRENT_URI);
 		val = get_path_from_uri (val);
 		val = remove_all_but_extension (val);
 		break;
