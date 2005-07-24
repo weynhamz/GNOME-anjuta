@@ -9,19 +9,20 @@
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2004.
 # Afonso Celso Medina <afmedina@uol.com.br>,2004, 2005.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-01 18:36+0000\n"
-"PO-Revision-Date: 2005-07-09 23:55-0300\n"
+"POT-Creation-Date: 2005-07-18 18:36+0000\n"
+"PO-Revision-Date: 2005-07-18 23:06-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
-"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -323,7 +324,7 @@ msgid "Execute Program"
 msgstr "Executar o Programa"
 
 #. Register actions
-#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
+#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:710
 #: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:566
 #: ../src/anjuta-app.c:455
 msgid "File"
@@ -395,8 +396,7 @@ msgstr "Ocultar parâ_metros de processo"
 
 #: ../anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr ""
-"Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
+msgstr "Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
 
 #: ../anjuta.glade.h:77
 msgid "History sizes"
@@ -610,9 +610,9 @@ msgid "Programs"
 msgstr "Programas"
 
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1031
-#: ../plugins/project-manager/plugin.c:1051
-#: ../plugins/project-manager/plugin.c:1129
+#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
+#: ../plugins/project-manager/plugin.c:1062
+#: ../plugins/project-manager/plugin.c:1140
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projeto"
@@ -940,133 +940,133 @@ msgstr "diálogo2"
 msgid "dialog4"
 msgstr "diálogo4"
 
-#: ../libanjuta/anjuta-encodings.c:130 ../libanjuta/anjuta-encodings.c:156
-#: ../libanjuta/anjuta-encodings.c:197 ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:129 ../libanjuta/anjuta-encodings.c:155
+#: ../libanjuta/anjuta-encodings.c:196 ../libanjuta/anjuta-encodings.c:237
 msgid "Western"
 msgstr "Ocidental"
 
-#: ../libanjuta/anjuta-encodings.c:132 ../libanjuta/anjuta-encodings.c:199
-#: ../libanjuta/anjuta-encodings.c:234
+#: ../libanjuta/anjuta-encodings.c:131 ../libanjuta/anjuta-encodings.c:198
+#: ../libanjuta/anjuta-encodings.c:233
 msgid "Central European"
 msgstr "Europeu Central"
 
-#: ../libanjuta/anjuta-encodings.c:134
+#: ../libanjuta/anjuta-encodings.c:133
 msgid "South European"
 msgstr "Sul Europeu"
 
-#: ../libanjuta/anjuta-encodings.c:136 ../libanjuta/anjuta-encodings.c:152
-#: ../libanjuta/anjuta-encodings.c:248
+#: ../libanjuta/anjuta-encodings.c:135 ../libanjuta/anjuta-encodings.c:151
+#: ../libanjuta/anjuta-encodings.c:247
 msgid "Baltic"
 msgstr "Báltico"
 
-#: ../libanjuta/anjuta-encodings.c:138 ../libanjuta/anjuta-encodings.c:201
-#: ../libanjuta/anjuta-encodings.c:214 ../libanjuta/anjuta-encodings.c:218
-#: ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:200
+#: ../libanjuta/anjuta-encodings.c:213 ../libanjuta/anjuta-encodings.c:217
+#: ../libanjuta/anjuta-encodings.c:235
 msgid "Cyrillic"
 msgstr "Cilírico"
 
-#: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:246
+#: ../libanjuta/anjuta-encodings.c:139 ../libanjuta/anjuta-encodings.c:206
+#: ../libanjuta/anjuta-encodings.c:245
 msgid "Arabic"
 msgstr "Arábico"
 
-#: ../libanjuta/anjuta-encodings.c:142 ../libanjuta/anjuta-encodings.c:240
+#: ../libanjuta/anjuta-encodings.c:141 ../libanjuta/anjuta-encodings.c:239
 #: ../plugins/project-manager/project_dbase_gui.c:1081
 msgid "Greek"
 msgstr "Grego"
 
-#: ../libanjuta/anjuta-encodings.c:144
+#: ../libanjuta/anjuta-encodings.c:143
 msgid "Hebrew Visual"
 msgstr "Hebreu Visual"
 
-#: ../libanjuta/anjuta-encodings.c:146 ../libanjuta/anjuta-encodings.c:205
-#: ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:145 ../libanjuta/anjuta-encodings.c:204
+#: ../libanjuta/anjuta-encodings.c:243
 msgid "Hebrew"
 msgstr "Hebreu"
 
-#: ../libanjuta/anjuta-encodings.c:148 ../libanjuta/anjuta-encodings.c:203
-#: ../libanjuta/anjuta-encodings.c:242
+#: ../libanjuta/anjuta-encodings.c:147 ../libanjuta/anjuta-encodings.c:202
+#: ../libanjuta/anjuta-encodings.c:241
 #: ../plugins/project-manager/project_dbase_gui.c:1101
 msgid "Turkish"
 msgstr "Turco"
 
-#: ../libanjuta/anjuta-encodings.c:150
+#: ../libanjuta/anjuta-encodings.c:149
 msgid "Nordic"
 msgstr "Nórdico"
 
-#: ../libanjuta/anjuta-encodings.c:154
+#: ../libanjuta/anjuta-encodings.c:153
 msgid "Celtic"
 msgstr "Céltico"
 
-#: ../libanjuta/anjuta-encodings.c:158
+#: ../libanjuta/anjuta-encodings.c:157
 #: ../plugins/project-manager/project_dbase_gui.c:1098
 msgid "Romanian"
 msgstr "Romeno"
 
-#: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:165 ../libanjuta/anjuta-encodings.c:167
+#: ../libanjuta/anjuta-encodings.c:160 ../libanjuta/anjuta-encodings.c:162
+#: ../libanjuta/anjuta-encodings.c:164 ../libanjuta/anjuta-encodings.c:166
 msgid "Unicode"
 msgstr "Unicode"
 
-#: ../libanjuta/anjuta-encodings.c:170
+#: ../libanjuta/anjuta-encodings.c:169
 msgid "Armenian"
 msgstr "Armênio"
 
-#: ../libanjuta/anjuta-encodings.c:172 ../libanjuta/anjuta-encodings.c:174
-#: ../libanjuta/anjuta-encodings.c:183
+#: ../libanjuta/anjuta-encodings.c:171 ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:182
 msgid "Chinese Traditional"
 msgstr "Chinês Tradicional"
 
-#: ../libanjuta/anjuta-encodings.c:176
+#: ../libanjuta/anjuta-encodings.c:175
 msgid "Cyrillic/Russian"
 msgstr "Cilírico/Russo"
 
-#: ../libanjuta/anjuta-encodings.c:179 ../libanjuta/anjuta-encodings.c:210
-#: ../libanjuta/anjuta-encodings.c:223
+#: ../libanjuta/anjuta-encodings.c:178 ../libanjuta/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:222
 msgid "Japanese"
 msgstr "Japonês"
 
-#: ../libanjuta/anjuta-encodings.c:181 ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:180 ../libanjuta/anjuta-encodings.c:211
+#: ../libanjuta/anjuta-encodings.c:215 ../libanjuta/anjuta-encodings.c:228
 #: ../plugins/project-manager/project_dbase_gui.c:1092
 msgid "Korean"
 msgstr "Coreano"
 
-#: ../libanjuta/anjuta-encodings.c:186 ../libanjuta/anjuta-encodings.c:188
-#: ../libanjuta/anjuta-encodings.c:190 ../libanjuta/anjuta-encodings.c:194
+#: ../libanjuta/anjuta-encodings.c:185 ../libanjuta/anjuta-encodings.c:187
+#: ../libanjuta/anjuta-encodings.c:189 ../libanjuta/anjuta-encodings.c:193
 msgid "Chinese Simplified"
 msgstr "Chinês Simplificado"
 
-#: ../libanjuta/anjuta-encodings.c:192
+#: ../libanjuta/anjuta-encodings.c:191
 msgid "Georgian"
 msgstr "Georgiano"
 
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:219
 msgid "Cyrillic/Ukrainian"
 msgstr "Cilírico/Ucraniano"
 
-#: ../libanjuta/anjuta-encodings.c:225 ../libanjuta/anjuta-encodings.c:231
-#: ../libanjuta/anjuta-encodings.c:250
+#: ../libanjuta/anjuta-encodings.c:224 ../libanjuta/anjuta-encodings.c:230
+#: ../libanjuta/anjuta-encodings.c:249
 msgid "Vietnamese"
 msgstr "Vietnamita"
 
-#: ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:226
 msgid "Thai"
 msgstr "Thai"
 
-#: ../libanjuta/anjuta-encodings.c:703
+#: ../libanjuta/anjuta-encodings.c:702
 msgid "Stock Encodings"
 msgstr "Codificações Armazenadas"
 
-#: ../libanjuta/anjuta-encodings.c:722
+#: ../libanjuta/anjuta-encodings.c:721
 msgid "Supported Encodings"
 msgstr "Codificações Suportadas"
 
-#: ../libanjuta/anjuta-launcher.c:725
+#: ../libanjuta/anjuta-launcher.c:729
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "laucher.c: Erro enquanto lia child pty\n"
 
-#: ../libanjuta/anjuta-launcher.c:906 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:910 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1106,28 +1106,28 @@ msgid "Anjuta Preferences"
 msgstr "Preferências do Anjuta"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:793
+#: ../libanjuta/anjuta-ui.c:795
 msgid "Action"
 msgstr "Ação"
 
-#: ../libanjuta/anjuta-ui.c:811
+#: ../libanjuta/anjuta-ui.c:813
 msgid "Visible"
 msgstr "Visível"
 
-#: ../libanjuta/anjuta-ui.c:822
+#: ../libanjuta/anjuta-ui.c:824
 msgid "Sensitive"
 msgstr "Sensível à capitalização"
 
-#: ../libanjuta/anjuta-ui.c:831
+#: ../libanjuta/anjuta-ui.c:833
 msgid "Shortcut"
 msgstr "Atalho"
 
-#: ../libanjuta/anjuta-utils.c:53 ../src/utilities.c:697
+#: ../libanjuta/anjuta-utils.c:56 ../src/utilities.c:697
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Impossível ler arquivo: %s."
 
-#: ../libanjuta/anjuta-utils.c:63 ../plugins/project-manager/source.c:120
+#: ../libanjuta/anjuta-utils.c:66 ../plugins/project-manager/source.c:120
 #: ../plugins/project-manager/source.c:167
 #: ../plugins/project-manager/source.c:205
 #: ../plugins/project-manager/source.c:455
@@ -1172,11 +1172,11 @@ msgstr "Impossível ler arquivo: %s."
 msgid "Unable to create file: %s."
 msgstr "Impossível criar arquivo: %s."
 
-#: ../libanjuta/anjuta-utils.c:99 ../src/utilities.c:739
+#: ../libanjuta/anjuta-utils.c:102 ../src/utilities.c:739
 msgid "Unable to complete file copy"
 msgstr "Impossível completar cópia de arquivo"
 
-#: ../libanjuta/anjuta-utils.c:321
+#: ../libanjuta/anjuta-utils.c:324
 msgid ""
 "\n"
 "System: "
@@ -1184,7 +1184,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: ../libanjuta/anjuta-utils.c:459
+#: ../libanjuta/anjuta-utils.c:462
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -1193,42 +1193,42 @@ msgstr ""
 "O utilitário \"%s\" não está instalado.\n"
 "Por favor, instale-o."
 
-#: ../libanjuta/anjuta-utils.c:759
+#: ../libanjuta/anjuta-utils.c:762
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Impossível executar o comando: %s (utilizando o shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:763
+#: ../libanjuta/anjuta-utils.c:766
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "Impossível executar o comando %s (utilizando o shell %s)\n"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:207
+#: ../libanjuta/cell-renderer-captioned-image.c:209
 #: ../libegg/egg-entry-action.c:131
 msgid "Text"
 msgstr "Texto"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:208
+#: ../libanjuta/cell-renderer-captioned-image.c:210
 msgid "Text to render"
 msgstr "Texto a renderizar"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:214
+#: ../libanjuta/cell-renderer-captioned-image.c:216
 msgid "Pixbuf Object"
 msgstr "Objeto Pixbuf"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:215
+#: ../libanjuta/cell-renderer-captioned-image.c:217
 msgid "The pixbuf to render."
 msgstr "O pixbuf a renderizar."
 
-#: ../libanjuta/plugins.c:971 ../plugins/symbol-browser/an_symbol_prefs.c:653
+#: ../libanjuta/plugins.c:968 ../plugins/symbol-browser/an_symbol_prefs.c:655
 msgid "Load"
 msgstr "Carregar"
 
-#: ../libanjuta/plugins.c:993 ../libanjuta/plugins.c:1590
+#: ../libanjuta/plugins.c:990 ../libanjuta/plugins.c:1587
 msgid "Available Plugins"
 msgstr "Plugins Disponíveis"
 
-#: ../libanjuta/plugins.c:1089
+#: ../libanjuta/plugins.c:1086
 msgid "Only show user activatable plugins"
 msgstr "Mostra somente plugins ativáveis pelo usuário"
 
@@ -1452,8 +1452,7 @@ msgstr "O executável está atualizado, não é necessário construí-lo novamen
 
 #: ../plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr ""
-"Não foi especificado nenhum comando de construção para este tipo de arquivo."
+msgstr "Não foi especificado nenhum comando de construção para este tipo de arquivo."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
@@ -1576,13 +1575,11 @@ msgstr "O arquivo não foi salvo. Salve-o primeiro e então compile."
 
 #: ../plugins/build/compile.c:128
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr ""
-"O arquivo objeto está atualizado, não é necessário compilá-lo novamente."
+msgstr "O arquivo objeto está atualizado, não é necessário compilá-lo novamente."
 
 #: ../plugins/build/compile.c:140
 msgid "No compile command has been specified for this type of file."
-msgstr ""
-"Nenhum comando de compilação foi especificado para este tipo de arquivo."
+msgstr "Nenhum comando de compilação foi especificado para este tipo de arquivo."
 
 #: ../plugins/build/compile.c:153
 msgid "Compile"
@@ -1983,16 +1980,14 @@ msgid "* Output Source File:"
 msgstr "* Arquivo Fonte de Saída:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid ""
-"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 "<span size=\"large\" weight=\"bold\">Construtor de Modelo de Classe GObject</"
 "span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
-msgstr ""
-"<span size=\"large\" weight=\"bold\">Construtor de Classe C++ Genérica</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Construtor de Classe C++ Genérica</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
@@ -2277,7 +2272,7 @@ msgstr "Escolha o arquivo ou diretório a ser atualizado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Compression Level (0=off, 10=max):"
-msgstr "Nível de Compressão (0=nenhum, 10=máx)"
+msgstr "Nível de Compressão (0=nenhum, 10=máx):"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 msgid "Create new directories"
@@ -2321,7 +2316,7 @@ msgstr "Nome do módulo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Password: "
-msgstr "Senha:"
+msgstr "Senha: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
 msgid "Path to \"cvs\" command"
@@ -2370,7 +2365,7 @@ msgstr "Nome do usuário: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
 msgid "Vendor tag:"
-msgstr "Tag do vendedor: "
+msgstr "Tag do vendedor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
@@ -2842,8 +2837,7 @@ msgstr "Não existe linha número %d em \"%s\"."
 
 #: ../plugins/editor/action-callbacks.c:1203
 msgid "No matches. Wrap search around the document?"
-msgstr ""
-"Nenhuma equivalência. Continuar a busca a partir do início do documento?"
+msgstr "Nenhuma equivalência. Continuar a busca a partir do início do documento?"
 
 #: ../plugins/editor/action-callbacks.c:1213
 #, c-format
@@ -3177,7 +3171,7 @@ msgstr "Procurar & Substituir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:77
 msgid "Fold style:"
-msgstr "Estilo do indicador de folding: "
+msgstr "Estilo do indicador de folding:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:78
 msgid "Font:"
@@ -3433,28 +3427,24 @@ msgid "Sorted in opening order"
 msgstr "Ordenar na ordem de abertura"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:141
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de diretórios que devem ser "
 "ignorados"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:142
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de diretório que devem ser "
 "coincididos"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:143
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de arquivos que devem ser "
 "ignorados"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr ""
 "Lista separada por espaços de padrões de nomes de arquivos que devem ser "
@@ -3721,10 +3711,8 @@ msgid "Find and R_eplace ..."
 msgstr "Procurar e Su_bstituir ..."
 
 #: ../plugins/editor/plugin.c:220
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr ""
-"Procura e substitui uma expressão ou expressão regular por outra expressão"
+msgid "Search for and replace a string or regular expression with another string"
+msgstr "Procura e substitui uma expressão ou expressão regular por outra expressão"
 
 #: ../plugins/editor/plugin.c:222
 msgid "Advanced Search And Replace"
@@ -4312,23 +4300,23 @@ msgstr ""
 "disponível no buffer atualmente.\n"
 "Deseja recarregá-lo?"
 
-#: ../plugins/editor/text_editor.c:1194
+#: ../plugins/editor/text_editor.c:1195
 msgid "Could not get file info"
 msgstr "Impossível obter as informações do arquivo"
 
-#: ../plugins/editor/text_editor.c:1201
+#: ../plugins/editor/text_editor.c:1202
 msgid "This file is too big. Unable to allocate memory."
 msgstr "O arquivo é muito grande. Impossível alocar memória."
 
-#: ../plugins/editor/text_editor.c:1208
+#: ../plugins/editor/text_editor.c:1209
 msgid "Could not open file"
 msgstr "Impossível abrir o arquivo"
 
-#: ../plugins/editor/text_editor.c:1216
+#: ../plugins/editor/text_editor.c:1217
 msgid "Error while reading from file"
 msgstr "Erro ao ler o arquivo"
 
-#: ../plugins/editor/text_editor.c:1252
+#: ../plugins/editor/text_editor.c:1253
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4339,7 +4327,7 @@ msgstr ""
 "relação de codificações. Se ela não for suportada, você deve adicioná-la a "
 "partir de preferências."
 
-#: ../plugins/editor/text_editor.c:1417
+#: ../plugins/editor/text_editor.c:1418
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4350,26 +4338,26 @@ msgstr ""
 "\n"
 "Detalhes: %s"
 
-#: ../plugins/editor/text_editor.c:1464
+#: ../plugins/editor/text_editor.c:1465
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Impossível salvar o arquivo: %s."
 
-#: ../plugins/editor/text_editor.c:1640
+#: ../plugins/editor/text_editor.c:1641
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "A autoformatação está desabilitada. Altere os padrões em Preferências."
 
-#: ../plugins/editor/text_editor.c:1659
+#: ../plugins/editor/text_editor.c:1660
 msgid "Error in auto formatting ..."
 msgstr "Erro na autoformatação..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1675
+#: ../plugins/editor/text_editor.c:1676
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "O Anjuta não conhece %s!"
 
-#: ../plugins/editor/text_editor.c:1700
+#: ../plugins/editor/text_editor.c:1701
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4378,7 +4366,7 @@ msgstr ""
 "Erro na autoformatação...\n"
 "Detalhes: %s"
 
-#: ../plugins/editor/text_editor.c:1945
+#: ../plugins/editor/text_editor.c:1946
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4673,14 +4661,14 @@ msgstr "Abre"
 msgid "Open recent file"
 msgstr "Abre um arquivo utilizado recentemente"
 
-#: ../plugins/file-manager/an_file_view.c:388
-#: ../plugins/file-manager/an_file_view.c:551
-#: ../plugins/file-manager/an_file_view.c:819
+#: ../plugins/file-manager/an_file_view.c:428
+#: ../plugins/file-manager/an_file_view.c:596
+#: ../plugins/file-manager/an_file_view.c:864
 #: ../plugins/symbol-browser/an_symbol_view.c:513
 msgid "Loading ..."
 msgstr "Carregando..."
 
-#: ../plugins/file-manager/an_file_view.c:679
+#: ../plugins/file-manager/an_file_view.c:724
 msgid "Rev"
 msgstr "Rev"
 
@@ -4709,22 +4697,50 @@ msgid "Directory "
 msgstr "Diretório"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+msgid "Do not show files ignored by version control"
+msgstr "Não mostrar arquivos ignorados pelo controle de versão"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
 msgid "Do not show hidden directories"
 msgstr "Não exibir diretórios ocultos"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
 msgid "Do not show hidden files"
 msgstr "Não exibir arquivos ocultos"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
 msgid "Ignore directories"
 msgstr "Ignorar diretórios"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Ignore files"
 msgstr "Ignorar arquivos"
 
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+msgid "Space-separated list of directory name patterns to ignore"
+msgstr ""
+"Lista separada por espaços de padrões de nomes de diretórios que devem ser "
+"ignorados"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+msgid "Space-separated list of directory name patterns to match"
+msgstr ""
+"Lista separada por espaços de padrões de nomes de diretório que devem ser "
+"coincididos"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+msgid "Space-separated list of file name patterns to ignore"
+msgstr ""
+"Lista separada por espaços de padrões de nomes de arquivos que devem ser "
+"ignorados"
+
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+msgid "Space-separated list of file name patterns to match"
+msgstr ""
+"Lista separada por espaços de padrões de nomes de arquivos que devem ser "
+"coincididos"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "diálogo3"
@@ -4738,11 +4754,11 @@ msgstr "_Atualizar"
 msgid "Refresh file manager tree"
 msgstr "Atualizando a árvore do gerenciador de arquivo"
 
-#: ../plugins/file-manager/plugin.c:164
+#: ../plugins/file-manager/plugin.c:165
 msgid "File manager popup actions"
 msgstr "Ações de popup do gerenciador de arquivos"
 
-#: ../plugins/file-manager/plugin.c:172
+#: ../plugins/file-manager/plugin.c:173
 msgid "Files"
 msgstr "Arquivos"
 
@@ -5072,8 +5088,7 @@ msgstr "Disp"
 
 #: ../plugins/gdb/breakpoints.c:500
 msgid "You must give a valid location to set the breakpoint."
-msgstr ""
-"Você deve fornecer um local válido para definir o ponto de interrupção."
+msgstr "Você deve fornecer um local válido para definir o ponto de interrupção."
 
 #: ../plugins/gdb/breakpoints.c:1591
 msgid "All breakpoints disabled.\n"
@@ -5242,7 +5257,7 @@ msgstr "Impossível executar o gnome-terminal"
 
 #: ../plugins/gdb/debugger.c:1424
 msgid "Cannot start terminal for debugging."
-msgstr "Impossível iniciar o terminal para depuração"
+msgstr "Impossível iniciar o terminal para depuração."
 
 #: ../plugins/gdb/debugger.c:1473
 msgid "Program arguments"
@@ -5263,7 +5278,7 @@ msgstr ""
 
 #: ../plugins/gdb/debugger.c:1548
 msgid "Anjuta is unable to attach to itself."
-msgstr "O Anjunta não pode anexar-se a ele memo"
+msgstr "O Anjunta não pode anexar-se a ele memo."
 
 #: ../plugins/gdb/debugger.c:1595
 msgid "Program terminated\n"
@@ -6544,8 +6559,7 @@ msgstr "--new"
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr ""
-"Quando você deleta a categoria \"%s\", todos os itens contidos são eliminados"
+msgstr "Quando você deleta a categoria \"%s\", todos os itens contidos são eliminados"
 
 #: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:78
 msgid "Delete"
@@ -7426,25 +7440,25 @@ msgstr "Remove do Projeto"
 msgid "Loading project. Please wait ..."
 msgstr "Carregando o Projeto. Por favor, aguarde..."
 
-#: ../plugins/project-manager/plugin.c:990
+#: ../plugins/project-manager/plugin.c:1001
 #, c-format
 msgid "Loading project: %s"
 msgstr "Carregando o Projeto: %s"
 
-#: ../plugins/project-manager/plugin.c:998
+#: ../plugins/project-manager/plugin.c:1009
 msgid "Created project view ..."
 msgstr "Vista do projeto criada..."
 
-#: ../plugins/project-manager/plugin.c:1011
+#: ../plugins/project-manager/plugin.c:1022
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Falha ao carregar o Projeto %s: %s"
 
-#: ../plugins/project-manager/plugin.c:1111
+#: ../plugins/project-manager/plugin.c:1122
 msgid "Project manager actions"
 msgstr "Ações do gerenciador de Projeto"
 
-#: ../plugins/project-manager/plugin.c:1117
+#: ../plugins/project-manager/plugin.c:1128
 msgid "Project manager popup actions"
 msgstr "Ações de popup do gerenciador de Projeto"
 
@@ -8024,8 +8038,8 @@ msgid "Project Import Wizard"
 msgstr "Assistente de Importação de Projeto"
 
 #: ../plugins/project-manager/project_import_gui.c:190
-#: ../plugins/symbol-browser/an_symbol_prefs.c:318
-#: ../plugins/symbol-browser/an_symbol_prefs.c:514
+#: ../plugins/symbol-browser/an_symbol_prefs.c:320
+#: ../plugins/symbol-browser/an_symbol_prefs.c:516
 msgid "Select directory"
 msgstr "Selecione um diretório"
 
@@ -8269,7 +8283,8 @@ msgstr "Operações do Subversion"
 
 #: ../plugins/subversion/subversion-callbacks.c:71
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "Um comando do Subversion está em execução - por favor, aguarde sua "
+msgstr ""
+"Um comando do Subversion está em execução - por favor, aguarde sua "
 "finalização!"
 
 #: ../plugins/subversion/subversion-callbacks.c:297
@@ -8356,19 +8371,19 @@ msgstr "Subversion"
 msgid "Subversion command finished!"
 msgstr "O comando do Subversion terminou!"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:384
+#: ../plugins/symbol-browser/an_symbol_prefs.c:386
 msgid "Directories to scan"
 msgstr "Diretórios a serem pesquisados"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:424
+#: ../plugins/symbol-browser/an_symbol_prefs.c:426
 msgid "Please enter a name and at least one directory."
 msgstr "Por favor, entre um nome ou ao menos um diretório."
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:523
+#: ../plugins/symbol-browser/an_symbol_prefs.c:525
 msgid "Anjuta tags files"
 msgstr "Arquivos de tags do Anjuta"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:661
+#: ../plugins/symbol-browser/an_symbol_prefs.c:663
 msgid "API Tags"
 msgstr "Tags API"
 
@@ -8588,7 +8603,7 @@ msgstr "Comando de Execução: "
 
 #: ../plugins/tools/execute.c:507
 msgid "Completed ... unsuccessful with "
-msgstr "Concluído... sem sucesso com"
+msgstr "Concluído... sem sucesso com "
 
 #: ../plugins/tools/execute.c:603
 msgid "Unable to create a buffer, command aborted"
@@ -8884,8 +8899,7 @@ msgstr "Não exibir a tela de logotipo"
 
 #: ../src/main.c:66
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr ""
-"Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
+msgstr "Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
 
 #: ../src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -8903,619 +8917,3 @@ msgstr "Testa o grupo de ação do shell"
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
 
-#~ msgid "* Base Class Name:"
-#~ msgstr "* Nome da Classe Base:"
-
-#~ msgid "* GObject Type Prefix:"
-#~ msgstr "* Tipo de Prefixo do GObject:"
-
-#~ msgid "Add to CVS"
-#~ msgstr "Adicionar ao CVS"
-
-#~ msgid "File Wizard"
-#~ msgstr "Assistente de Arquivos"
-
-#~ msgid "<b>New Project Wizard Options</b>"
-#~ msgstr "<b>Opções do Assistente de Novo Projeto</b>"
-
-#~ msgid "Click to visit the location"
-#~ msgstr "Clique para visitar o endereço"
-
-#~ msgid "Restoring last session ..."
-#~ msgstr "Recuperando a última sessão..."
-
-#~ msgid "Patch level (-p)"
-#~ msgstr "Nível de patch (-p)"
-
-#~ msgid "Patch Plugin"
-#~ msgstr "Plugin de Patch"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgid "Selected directory to patch"
-#~ msgstr "Diretório selecionado para aplicar o patch"
-
-#~ msgid "Selected patch file"
-#~ msgstr "Arquivo de patch selecionado"
-
-#~ msgid "Crazy boy style"
-#~ msgstr "Estilo rapaz maluco"
-
-#~ msgid "Hello World style"
-#~ msgstr "Estilo Olá Mundo"
-
-#~ msgid "A tool with the name '%s' already exists!"
-#~ msgstr "Já existe uma ferramenta com o nome '%s'!"
-
-#~ msgid "Unable to build user interface for tool help"
-#~ msgstr "Impossível criar interface de usuário para ferramenta de ajuda"
-
-#~ msgid "Unable to build user interface for tool parameters"
-#~ msgstr ""
-#~ "Impossível criar interface de usuário para os parâmetros da ferramenta"
-
-#~ msgid "%s: Command line parameters"
-#~ msgstr "%s: Parâmetros de linha de comando"
-
-#~ msgid "The executable is not up-to-date."
-#~ msgstr "O executável não está atualizado."
-
-#~ msgid "Debugger is not running. Start it first."
-#~ msgstr "O depurador não está rodando. Você deve iniciá-lo antes."
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "Error: "
-#~ msgstr "Erro: "
-
-#~ msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-#~ msgstr ""
-#~ "Aviso: Nenhum terminal de depuração. Redirecionando stdio para /dev/"
-#~ "null.\n"
-
-#~ msgid "Running program ..."
-#~ msgstr "Executando o programa..."
-
-#~ msgid "Decimal"
-#~ msgstr "Decimal"
-
-#~ msgid "Error getting selection\n"
-#~ msgstr "Erro ao obter seleção\n"
-
-#~ msgid "Error getting source location from stack frame"
-#~ msgstr "Erro ao obter a localização a partir da pilha de memória"
-
-#~ msgid "Frame set"
-#~ msgstr "Conjunto de Frames"
-
-#~ msgid "Frame args"
-#~ msgstr "Argumentos do frame"
-
-#~ msgid "Count"
-#~ msgstr "Contar"
-
-#~ msgid "Toggle enable"
-#~ msgstr "Alternar habilitação"
-
-#~ msgid "launcher.c: Failed to set channel encoding!"
-#~ msgstr "laucher.c: Falhar ao definir o canal de codificação!"
-
-#~ msgid "Failling Overwrapped I-Search: %s."
-#~ msgstr "Falha ao continuar a I-Procura: %s."
-
-#~ msgid "GPL Notice"
-#~ msgstr "Aviso GPL"
-
-#~ msgid "A project must be open before creating a class"
-#~ msgstr "Um Projeto deve estar aberto antes de se criar uma classe"
-
-#~ msgid "Can not execute command: \"%s\""
-#~ msgstr "Impossível executar o comando: \"%s\""
-
-#~ msgid "Class name not valid"
-#~ msgstr "Nome de classe inválido"
-
-#~ msgid "Base class name not valid"
-#~ msgstr "Nome de classe base inválido"
-
-#~ msgid "Declaration file name not valid"
-#~ msgstr "Nome de arquivo de declarações inválido"
-
-#~ msgid "Implementation file name not valid"
-#~ msgstr "Nome de arquivo de implementação inválido"
-
-#~ msgid "Class Builder"
-#~ msgstr "Construtor de Classes"
-
-#~ msgid "Finish"
-#~ msgstr "Encerrar"
-
-#~ msgid "Enter the declaration file name."
-#~ msgstr "Informe o nome do arquivo de declarações."
-
-#~ msgid "Enter the implementation file name."
-#~ msgstr "Informe o nome do arquivo de implementações."
-
-#~ msgid "Source file:  "
-#~ msgstr "Arquivo fonte:  "
-
-#~ msgid ""
-#~ "If checked, the plugin will generate both the declaration and "
-#~ "implementation in the header file and will not create a source file."
-#~ msgstr ""
-#~ "Quando selecionado, o plugin irá gerar a declaração e a implementação no "
-#~ "arquivo de cabeçalho e não criará um arquivo de código fonte."
-
-#~ msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
-#~ msgstr "Por:  Dave Huseby <huseby@linuxprogrammer.org>"
-
-#~ msgid "V 0.0.2 (June 11, 2002)"
-#~ msgstr "V 0.0.2 (11 de Junho de 2002)"
-
-#~ msgid ""
-#~ "TODO: add the ability to declare member functions and their parameters "
-#~ "here."
-#~ msgstr ""
-#~ "TODO: adicionar aqui a capacidade de declarar funções e seus parâmetros."
-
-#~ msgid "Welcome to the Anjuta Class Builder. "
-#~ msgstr "Bem vindo ao Construtor de Classes Anjuta. "
-
-#~ msgid "Class type:   "
-#~ msgstr "Tipo de classe:   "
-
-#~ msgid "public"
-#~ msgstr "public"
-
-#~ msgid "protected"
-#~ msgstr "protected"
-
-#~ msgid "private"
-#~ msgstr "private"
-
-#~ msgid "Choose the type of inheritence from the base class."
-#~ msgstr "Selecione o tipo de hereditariedade a partir da classe base."
-
-#~ msgid "If checked, the destructor of your class will be declared virtual."
-#~ msgstr "Se selecionado, o destructor da sua classe será declarado virtual."
-
-#~ msgid "Select the type of class you would like to create."
-#~ msgstr "Selecione o tipo de classe que deseja criar."
-
-#~ msgid "Force _Highlight Style"
-#~ msgstr "Forçar o _Estilo de Realce"
-
-#~ msgid "Autoformat _settings"
-#~ msgstr "_Padrões de autoformatação"
-
-#~ msgid "Autoformat settings"
-#~ msgstr "Padrões de Autoformatação"
-
-#~ msgid "_Increase Indent"
-#~ msgstr "Aumentar I_ndentação"
-
-#~ msgid "Increase indentation of line/selection"
-#~ msgstr "Aumenta a indentação da linha/seleção"
-
-#~ msgid "_Decrease Indent"
-#~ msgstr "_Diminuir Indentação"
-
-#~ msgid "Decrease indentation of line/selection"
-#~ msgstr "Diminui a indentação da linha/seleção"
-
-#~ msgid "Update current working copy"
-#~ msgstr "Atualizar cópia de trabalho atual"
-
-#~ msgid "Print the status of the current file"
-#~ msgstr "Imprimir o estado do arquivo atual"
-
-#~ msgid "Get file log"
-#~ msgstr "Obter log de arquivo"
-
-#~ msgid "Print the CVS log for the current file"
-#~ msgstr "Imprimir o log de CVS do arquivo atual"
-
-#~ msgid "Add file"
-#~ msgstr "Adicionar arquivo"
-
-#~ msgid "Add the current file to the repository"
-#~ msgstr "Adicionar o arquivo atual ao repositório"
-
-#~ msgid "Remove the current file from the repository"
-#~ msgstr "Remover o arquivo atual do repositório"
-
-#~ msgid "Diff file"
-#~ msgstr "Arquivo Diff"
-
-#~ msgid "Create a diff between the working copy and the repository"
-#~ msgstr "Criar um diff entre a cópia de trabalho e o repositório"
-
-#~ msgid "Refresh"
-#~ msgstr "Atualizar"
-
-#~ msgid "Dock/Undock the Project Window"
-#~ msgstr "Doca/Desdoca a Janela de Projeto"
-
-#~ msgid "Customize"
-#~ msgstr "Personalizar"
-
-#~ msgid "Customize the file browser"
-#~ msgstr "Personaliza o navegador de arquivos"
-
-#~ msgid "Date_Y"
-#~ msgstr "Data_Y"
-
-#~ msgid "Date_Ymd"
-#~ msgstr "Data_Ymd"
-
-#~ msgid "EXPAND"
-#~ msgstr "EXPAND"
-
-#~ msgid "Email"
-#~ msgstr "Email"
-
-#~ msgid "File_Name"
-#~ msgstr "File_Name"
-
-#~ msgid "File_Name_Up"
-#~ msgstr "File_Name_Up"
-
-#~ msgid "File_Name_Up_Prefix"
-#~ msgstr "File_Name_Up_Prefix"
-
-#~ msgid "Layout manager"
-#~ msgstr "Gerenciador de layout"
-
-#~ msgid "Manipulate layout manager items"
-#~ msgstr "Manipula itens do gerenciador de layout"
-
-#~ msgid "Unable to create settings directory.\n"
-#~ msgstr "Impossível criar o diretório de definições.\n"
-
-#~ msgid "Navigate"
-#~ msgstr "Navegar"
-
-#~ msgid "Recent Files    "
-#~ msgstr "Arquivos Recentes "
-
-#~ msgid "No tags"
-#~ msgstr "Sem tags"
-
-#~ msgid ""
-#~ "Warning: Can not generate c/c++ source code.\n"
-#~ "Warning: It is because either glade (for gtk/gnome projects) or glademm "
-#~ "(for gtkmm/gnomemm projects) is not installed.\n"
-#~ "Warning: Your generated project will still be fine, though.\n"
-#~ msgstr ""
-#~ "Aviso: Impossível geral o código C/C++.\n"
-#~ "Aviso: Isto ocorreu porque ou o glade (em Projetos gtk/gnome) ou o "
-#~ "glademm (em Projetos gtkmm/gnomemm) não está intalado.\n"
-#~ "Aviso: O Projeto gerado continuará correto, apesar disso.\n"
-
-#~ msgid "Cannot fork glade."
-#~ msgstr "Impossível executar o glade."
-
-#~ msgid "Cannot fork glade--."
-#~ msgstr "Impossível executar o glade--."
-
-#~ msgid "Cannot fork glade-2."
-#~ msgstr "Impossível executar o glade-2."
-
-#~ msgid "launcher.c: Error while reading child stdout\n"
-#~ msgstr "laucher.c: Erro enquanto lia child·stdout\n"
-
-#~ msgid "launcher.c: STDOUT pipe closed"
-#~ msgstr "launcher.c: o canal STDOUT está fechado"
-
-#~ msgid "launcher.c: Error while reading child stderr"
-#~ msgstr "laucher.c: Erro enquanto lia child stderr"
-
-#~ msgid "launcher.c: STDERR pipe closed"
-#~ msgstr "launcher.c: o canal STDERR está fechado"
-
-#~ msgid "launcher.c: PTY pipe error!"
-#~ msgstr "laucher.c: erro no canal PTY!"
-
-#~ msgid "Cannot execute command shell"
-#~ msgstr "Impossível executar o shell de comando"
-
-#~ msgid "Couldn't find pixmap file: %s"
-#~ msgstr "Impossível encontrar o arquivo de pixmap: %s"
-
-#~ msgid "Detach"
-#~ msgstr "Desanexar"
-
-#~ msgid "Detach the current page"
-#~ msgstr "Desanexa a página atual"
-
-#~ msgid "Search for the given string in the current file"
-#~ msgstr "Procura a expressão indicada no arquivo atual"
-
-#~ msgid "Enter the string to search for"
-#~ msgstr "Informe a expressão a ser procurada"
-
-#~ msgid "Go to the given line number in the current file"
-#~ msgstr "Vai para o número de linha indicado no arquivo atual"
-
-#~ msgid "Enter the line number to go to"
-#~ msgstr "Informe o número da linha para onde ir"
-
-#~ msgid "Show/Hide the Project window"
-#~ msgstr "Exibe/Oculta a janela de Projeto"
-
-#~ msgid "Show/Hide the Message window"
-#~ msgstr "Exibe/Oculta a janela de Mensagens"
-
-#~ msgid "Context sensitive help"
-#~ msgstr "Ajuda sensível ao contexto"
-
-#~ msgid "Open a Project"
-#~ msgstr "Abre um Projeto"
-
-#~ msgid "Save Project"
-#~ msgstr "Salva o Projeto"
-
-#~ msgid "Close Project"
-#~ msgstr "Fecha o Projeto atual"
-
-#~ msgid "Close the current Project"
-#~ msgstr "Fecha o Projeto atual"
-
-#~ msgid "Compile the current file"
-#~ msgstr "Compila o arquivo atual"
-
-#~ msgid "Run configure"
-#~ msgstr "Executa o configurador"
-
-#~ msgid "Build current file, or build the source directory of the Project"
-#~ msgstr ""
-#~ "Constrói o arquivo atual, ou compila e linka todo o diretório fonte do "
-#~ "Projeto"
-
-#~ msgid "Build_all"
-#~ msgstr "Construir todo o Projeto"
-
-#~ msgid "Build from the top directory of the Project"
-#~ msgstr "Constrói todo o Projeto a partir do diretório principal"
-
-#~ msgid "Execute the program"
-#~ msgstr "Executa o programa"
-
-#~ msgid "Start the Debugger"
-#~ msgstr "Inicia o Depurador"
-
-#~ msgid "Stop/interrupt compile or build"
-#~ msgstr "Para/Interrompe a compilação ou construção"
-
-#~ msgid "Toggle bookmark at current location"
-#~ msgstr "Alterna o marcador da posição atual"
-
-#~ msgid "Goto first bookmark in this document"
-#~ msgstr "Vai para o primeiro marcador neste documento"
-
-#~ msgid "Goto previous bookmark in this document"
-#~ msgstr "Vai para o marcador anterior neste documento"
-
-#~ msgid "Goto next bookmark in this document"
-#~ msgstr "Vai para o marcador seguinte neste documento"
-
-#~ msgid "Goto last bookmark in this document"
-#~ msgstr "Vai para o último marcador neste documento"
-
-#~ msgid "Prev"
-#~ msgstr "Anterior"
-
-#~ msgid "Goto previous message in this document"
-#~ msgstr "Vai para a mensagem anterior neste documento"
-
-#~ msgid "Next"
-#~ msgstr "Próximo"
-
-#~ msgid "Goto next message in this document"
-#~ msgstr "Vai para a próxima mensagem neste documento"
-
-#~ msgid "Start"
-#~ msgstr "Início"
-
-#~ msgid "Goto start of current code block"
-#~ msgstr "Vai para o início do bloco de código atual"
-
-#~ msgid "Goto end of current code block"
-#~ msgstr "Vai para o final do bloco do código atual"
-
-#~ msgid "Tags:"
-#~ msgstr "Tags:"
-
-#~ msgid "Search for the given tag in the current file"
-#~ msgstr "Procura a tag indicada no arquivo atual"
-
-#~ msgid "Enter the tag to jump to"
-#~ msgstr "Informe a tag para onde ir"
-
-#~ msgid "Go or continue execution"
-#~ msgstr "Vai ou continua a execução"
-
-#~ msgid "Run"
-#~ msgstr "Executar"
-
-#~ msgid "Single step in execution"
-#~ msgstr "Execução passo a passo"
-
-#~ msgid "Step Over"
-#~ msgstr "Passo por Sobre"
-
-#~ msgid "Step over the function"
-#~ msgstr "Dá um passo por sobre toda a função"
-
-#~ msgid "Step Out"
-#~ msgstr "Passo para Fora"
-
-#~ msgid "Step out of the function"
-#~ msgstr "Dá um passo para fora da função"
-
-#~ msgid "Breakpoint"
-#~ msgstr "Ponto de Interrupção"
-
-#~ msgid "Toggle breakpoint at cursor"
-#~ msgstr "Alterna o ponto de interrupção na posição do cursor"
-
-#~ msgid "Inspect or evaluate an expression"
-#~ msgstr "Inspeciona ou avalia uma expressão"
-
-#~ msgid "Display the current frame information"
-#~ msgstr "Exibe informações do frame atual"
-
-#~ msgid "Signals"
-#~ msgstr "Sinais"
-
-#~ msgid "kernel signals of the program"
-#~ msgstr "sinais do kernel para o programa"
-
-#~ msgid "Registers"
-#~ msgstr "Registradores"
-
-#~ msgid "CPU registers and their contents"
-#~ msgstr "Registradores da CPU e seus conteúdos"
-
-#~ msgid "End the debugging session"
-#~ msgstr "Finaliza a sessão de depuração"
-
-#~ msgid "Toggle current code fold hide/show"
-#~ msgstr "Alterna a condição de ocultar/exibir do fold do código atual"
-
-#~ msgid "Close all"
-#~ msgstr "Fecha tudo"
-
-#~ msgid "Close all code folds in this document"
-#~ msgstr "Fecha todos os folds de código neste documento"
-
-#~ msgid "Open all"
-#~ msgstr "Abre tudo"
-
-#~ msgid "Open all code folds in this document"
-#~ msgstr "Abre todos os folds de código neste documento"
-
-#~ msgid "Select"
-#~ msgstr "Seleciona"
-
-#~ msgid "Select current code block"
-#~ msgstr "Seleciona o bloco de código atual"
-
-#~ msgid "Indent inc"
-#~ msgstr "Aumenta a indentação"
-
-#~ msgid "Increase indentation of block/line"
-#~ msgstr "Aumenta a indentação do bloco/linha"
-
-#~ msgid "Indent dcr"
-#~ msgstr "Diminui a indentação"
-
-#~ msgid "Decrease indentation of block/line"
-#~ msgstr "Diminui a indentação do bloco/linha"
-
-#~ msgid "Autoformat"
-#~ msgstr "Autoformatar"
-
-#~ msgid "Automatically format the code"
-#~ msgstr "Formata o código automaticamente"
-
-#~ msgid "Format style"
-#~ msgstr "Estilo de formatação"
-
-#~ msgid "Configure style to use for auto format"
-#~ msgstr "Configura o estilo a ser utilizado na autoformatação"
-
-#~ msgid "Calltip"
-#~ msgstr "Dica"
-
-#~ msgid "Show Calltip"
-#~ msgstr "Exibir Dica"
-
-#~ msgid "Autocomplete"
-#~ msgstr "Autocompletar"
-
-#~ msgid "Autocomplete word"
-#~ msgstr "Autocompleta a palavra"
-
-#~ msgid "# * DO NOT EDIT OR RENAME THIS FILE ** Generated by Anjuta **\n"
-#~ msgstr "# * NÃO EDITE OU RENOMEIE ESTE ARQUIVO ** Gerado pelo Anjuta **\n"
-
-#~ msgid "Looking up symbol"
-#~ msgstr "Procurando o símbolo"
-
-#~ msgid "Finding in Files ....\n"
-#~ msgstr "Buscando nos Arquivos....\n"
-
-#~ msgid "C++: // comment"
-#~ msgstr "C++: // comentário"
-
-#~ msgid "Comment Style:"
-#~ msgstr "Estilo de Comentário:"
-
-#~ msgid "Shell: # comment"
-#~ msgstr "Shell: # comentário"
-
-#~ msgid "_C: /* comment */"
-#~ msgstr "_C: /* comentário */"
-
-#~ msgid "Expand_Test"
-#~ msgstr "Expand_Test"
-
-#~ msgid "Interface to patch Projects or individual files"
-#~ msgstr "Interface para aplicar correções a Projetos ou arquivos individuais"
-
-#~ msgid "Patch plugin"
-#~ msgstr "Plugin de patch"
-
-#~ msgid "The patch plugin"
-#~ msgstr "O plugin de patch"
-
-#~ msgid "Load Executable File"
-#~ msgstr "Carregar Arquivo Executável"
-
-#~ msgid "Load Core File"
-#~ msgstr "Carregar Arquivo Core"
-
-#~ msgid "Load a core file to dissect"
-#~ msgstr "Carrega um arquivo core para dissecar"
-
-#~ msgid "Browse _Man Pages"
-#~ msgstr "Navegar as Páginas _Man"
-
-#~ msgid "The good old manual pages"
-#~ msgstr "As boas e velhas páginas do manual"
-
-#~ msgid "Browse _Info Pages"
-#~ msgstr "Navegar as Páginas _Info"
-
-#~ msgid "The good info pages"
-#~ msgstr "As boas e velhas páginas de info"
-
-#~ msgid "Report _Bugs"
-#~ msgstr "Relatar _Bugs"
-
-#~ msgid "Submit a bug report for Anjuta"
-#~ msgstr "Envia um relatório de bug sobre o Anjuta"
-
-#~ msgid "Request _Features"
-#~ msgstr "Solicitar _Funcionalidades"
-
-#~ msgid "Submit _patches"
-#~ msgstr "Enviar _patches"
-
-#~ msgid "Submit patches for Anjuta"
-#~ msgstr "Envia patches para o Anjuta"
-
-#~ msgid "[+PluginClass+] widget"
-#~ msgstr "Componente [+PluginClass+]"
-
-#~ msgid "Classes"
-#~ msgstr "Classes"
-
-#~ msgid "Structs"
-#~ msgstr "Estruturas"
-
-#~ msgid "Copying %s to %s"
-#~ msgstr "Copiando %s para %s"
