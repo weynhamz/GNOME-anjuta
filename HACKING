@@ -129,8 +129,9 @@ or your name and the date in the name of the file. Thanks!
 
 Coding style:
 --------------
-Tab size = 4, Indentation 4, Use tabs for indentation.
-
+Tab size = 4, Indentation = 4, Use tabs for indentation.
+Autoformat style: Anjuta coding style.
+Example code:
 <pre>
 gchar*
 function (gchar *arg1, gint arg2, gint arg3, gpointer arg4, GHashTable *arg5,
@@ -142,12 +143,13 @@ function (gchar *arg1, gint arg2, gint arg3, gpointer arg4, GHashTable *arg5,
         {
         case 1:
             printf ("Hello World");
-		case 2:
+        case 2:
             printf ("Welcome to Anjuta");
-		default:
+        default:
             printf ("Welcome");
         }
-	}
+    }
+    return str;
 }
 </pre>
 
