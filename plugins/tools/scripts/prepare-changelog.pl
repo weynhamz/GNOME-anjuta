@@ -49,6 +49,7 @@ if (@files <= 0) {
 
 my ($a, $b, $c, $mday, $month, $year) = gmtime(time());
 $year += 1900;
+$month ++;
 
 my $date_str = sprintf ("%04d-%02d-%02d", $year, $month, $mday);
 my $changelog = "$date_str $ENV{USER}  <$ENV{USER}\@$ENV{HOSTNAME}>\n\n";

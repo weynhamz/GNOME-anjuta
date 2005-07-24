@@ -24,7 +24,6 @@ estimated dates given. There will be smaller releases in-between, mainly
 stablization and bugfix releases.
 
 Milestone 2.1.0 - (Estimated release time Aug 2005):
-----------------------------------------------------
 - Compelete autotools project management implementation (gnome-build)
 - Complete libanjuta API definition and documentation
 - Complete Users manual, tutorials and FAQ
@@ -34,11 +33,9 @@ Milestone 2.1.0 - (Estimated release time Aug 2005):
 - Fix GDL to restore widgets geometry correctly on dock.
 
 Milestone 2.2.0 - (Estimated release time Oct 2005):
-----------------------------------------------------
 - Bug fixing and stable release.
 
 Milestone 2.3.0 - (Estimated release time Dec 2005):
-----------------------------------------------------
 - Complete ants project management backend for gnome-build
 - Complete ants build system plugin.
 - Complete online anjuta plugin installer
@@ -46,7 +43,6 @@ Milestone 2.3.0 - (Estimated release time Dec 2005):
 - More plugins.
 
 Milestone 2.4.0 - (Estimated release time Feb 2006):
-----------------------------------------------------
 - Bug fixing and stable release.
 
 gTranslator plugin for Anjuta:

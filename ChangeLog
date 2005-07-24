@@ -1,3 +1,8 @@
+2005-07-24   Naba Kumar  <naba@gnome.org>
+
+	* ROADMAP: Fixed format.
+	* plugins/tools/scripts/prepare-changelog.pl: Fixed month figure.
+
 2005-07-24  Naba Kumar  <naba@gnome.org>
 
 	* HACKING, ROADMAP: Fixed format and add some tasks to do in ROADMAP.
