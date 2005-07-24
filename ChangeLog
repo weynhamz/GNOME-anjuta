@@ -1,8 +1,8 @@
-2005-07-24 naba  <naba@anjuta>
+2005-07-24  Naba Kumar  <naba@gnome.org>
 
 	* HACKING: Fixed format.
 
-2005-07-24   Naba Kumar  <naba@gnome.org>
+2005-07-24  Naba Kumar  <naba@gnome.org>
 
 	* ROADMAP: Fixed format.
 	* plugins/tools/scripts/prepare-changelog.pl: Fixed month figure.
