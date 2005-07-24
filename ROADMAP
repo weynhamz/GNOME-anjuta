@@ -56,14 +56,13 @@ which are localization files in a project. This plugin will be responsible
 for integrating gTranslator in Anjuta DevStudio. The implementation will
 closely follow the way we have integrated DevHelp in Anjuta.
 
-The first task
-involves collaborating with gTranslator developers to have gTranslator in
-form of a library that will provide all the neccessary widgets to be embeded
-in Anjuta. The approach would be to segregate all UI (menus and toolbars)
-controls from the main engine. The main engine (library) should contain only
-the main widgets and API for their interaction with the UI and themsleves.
-gTranslator executable will itself use this library and implement the UIs
-within.
+The first task involves collaborating with gTranslator developers to have
+gTranslator in form of a library that will provide all the neccessary widgets
+to be embeded in Anjuta. The approach would be to segregate all UI (menus and
+toolbars) controls from the main engine. The main engine (library) should
+contain only the main widgets and API for their interaction with the UI and
+themsleves. gTranslator executable will itself use this library and implement
+the UIs within.
 
 Once that has been done and neccessary library interface has been created
 in gTranslator, we can move ahead with creating the actual Anjuta plugin. If
@@ -73,3 +72,32 @@ it to wrap the library with our own UI and embed the widgets in Anjuta Shell.
 Much of this can be easily understood from existing plugins (e.g. devhelp
 plugin).
 
+Performance Profiler plugin:
+----------------------------
+gprof is a command line tool for profiling program performance. The executable
+is required to be compiled with -p flag and when the program is executed,
+a profiling info is collected in a file. After the execution is done, gprof
+can be used to interpret the profile data. This plugin parses the output from
+gprof and presents the information in different views -- text, lists
+and graphs. It is similar to the valgrind plugin given below.
+
+Valgrind plugin:
+----------------
+Valgrind is a command-line memory profiling tool and is considered one of
+bests. The plugin basically gives a graphical front-end to it that can be
+used by Anjuta users to profile their projects. There should be a menu item
+in Build submenu that, when activated, will bring up a list of all existing
+executables and let the user select one (ala Execute and Start debugger menus).
+There should also be interface to specify various valgrind options in the
+dialog.
+
+The output from the valgrind should be then parsed and the statistics
+presented in different views. Some views will be in form of lists and trees,
+while some will be in nicely drawn graphics (using GnomeCanvas widget).
+All views should be implemented as notebook pages in a single plugin widget
+for docking in shell. The plugin should accept application/x-executable
+mime type and should be user activatable.
+
+The parsing code can be taken from Alleyoop project, which is a gnome
+front-end for valgrind. Some of the ideas for the user interface can also be
+taken from it.

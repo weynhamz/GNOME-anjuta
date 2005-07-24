@@ -129,15 +129,27 @@ or your name and the date in the name of the file. Thanks!
 
 Coding style:
 --------------
+Tab size = 4, Indentation 4, Use tabs for indentation.
 
+<pre>
 gchar*
-function (gchar *arg1, gint arg2)
+function (gchar *arg1, gint arg2, gint arg3, gpointer arg4, GHashTable *arg5,
+          gint arg7, gpointer arg7)
 {
-	if (x == y)
-	{
-
+    if (x == y)
+    {
+        switch (a)
+        {
+        case 1:
+            printf ("Hello World");
+		case 2:
+            printf ("Welcome to Anjuta");
+		default:
+            printf ("Welcome");
+        }
 	}
 }
+</pre>
 
 - Try to limit the lines to 80 characters.
 - Please try to write OO-code using GObject (or derived class) as baseclass.

@@ -1,3 +1,8 @@
+2005-07-24  Naba Kumar  <naba@gnome.org>
+
+	* HACKING, ROADMAP: Fixed format and add some tasks to do in ROADMAP.
+	* data/properties/cpp.properties: Added *.c++ as file extension for c++
+
 2005-07-24 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/tools/dialog.c, plugins/tools/dialog.h:
@@ -6,10 +11,6 @@
 	* plugins/tools/tool.c:	Correct a crash when removing overridden tool
 	
 	* plugins/tools/variable.c:	Add variables for project manager
-
-2005-06-23 naba  <naba@anjuta>
-
-	* ROADMAP:
 
 2005-07-23  Naba Kumar  <naba@gnome.org>
 
