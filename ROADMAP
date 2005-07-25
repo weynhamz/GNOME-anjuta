@@ -97,3 +97,49 @@ mime type and should be user activatable.
 The parsing code can be taken from Alleyoop project, which is a gnome
 front-end for valgrind. Some of the ideas for the user interface can also be
 taken from it.
+
+Users manual, tutorials and FAQ update:
+---------------------------------------
+This is a non-technical work, but is an extremely important part of Anjuta
+project. We used to have a very handy users documentation in
+Anjuta 1.x series, but they are no longer useful for Anjuta 2.x series.
+The task envolve getting familiar with Anjuta 2.x operation and updating the
+existing documents. The documents are written in docbook sgml format. So,
+in addition to being able to write good english and having some basic
+programming/development skills, one must also be familiar with writing sgml
+documents. Screenshots should be taken with default GNOME theme with shadow
+drops. Uneccessary screenshots that could be effectively explained in text
+should be avoided as much as possible.
+
+For compiling FAQ (frequently asked questions), one needs to research Anjuta
+mailing lists, bugzilla discussions and forums to identify repeated questions
+and answers that would qualify for FAQ.
+
+Glade3 Integration:
+-------------------
+We already have glade3 integration in anjuta working. But the implementation
+is incomplete and not fully usable. The main reason is that glade3 is not
+fully ready for general consumption. One part of this task involve
+collaborating with glade3 developers and helping them complete it so that it
+is fully compatible with glade2 files and libglade.
+
+The second part involves interfacing it with anjuta glade plugin for
+signals navigation, stubs creations and project files negotiations.
+
+Signals navigation" means when user selects a signal in glade properties editor,
+Anjuta automatically brings up the implementation of that signal in its editor.
+This can be accomplished with SymbolBrowser plugin in anjuta, that keeps tab
+on all symbol updates in the project. Using the signal handler signature,
+Anjuta glade plugin can take help of symbol-browser plugin to find the location
+of function definitions in the project.
+
+"Stubs creation" means when the user adds new signals, Anjuta glade plugin
+automatically creates the stub for the signal handler using gtk signal
+introspection. The signal prototype can be identified with the introspection.
+Where and how the stubs are added in project is a matter of dissussion.
+
+"Project files negotiation" means when user adds file via glade (e.g. images
+in dialogs), glade will notify anjuta to add the file in project and give
+a change to relocate it within the project. Anjuta needs to handle this
+request and add the files in project (possibly prompting user for relocation).
+Anjuta also needs to make sure glade is able to find them later.
