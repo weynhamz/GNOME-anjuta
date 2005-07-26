@@ -45,14 +45,25 @@ Milestone 2.3.0 - (Estimated release time Dec 2005):
 Milestone 2.4.0 - (Estimated release time Feb 2006):
 - Bug fixing and stable release.
 
-gTranslator plugin for Anjuta:
+Projects:
+---------
+Given below are some major tasks that no one has yet considered doing. If you
+are interested in having these done, you will get our blessings :-). You will
+also get our full support while taking up these projects. Please subscribe
+to our development mailing list if you want to discuss these further.
+
+Some helpful links that will give initial guide are:
+- HACKING: http://anjuta.org/hacking
+- API docs: http://anjuta.org/documents/libanjuta/
+
+gtranslator plugin for Anjuta:
 ------------------------------
-gTranslator is a software used by translators to edit and update .po files,
+gtranslator is a software used by translators to edit and update .po files,
 which are localization files in a project. This plugin will be responsible
 for integrating gTranslator in Anjuta DevStudio. The implementation will
 closely follow the way we have integrated DevHelp in Anjuta.
 
-The first task involves collaborating with gTranslator developers to have
+The first task involves collaborating with gtranslator developers to have
 gTranslator in form of a library that will provide all the neccessary widgets
 to be embeded in Anjuta. The approach would be to segregate all UI (menus and
 toolbars) controls from the main engine. The main engine (library) should
@@ -64,9 +75,12 @@ Once that has been done and neccessary library interface has been created
 in gTranslator, we can move ahead with creating the actual Anjuta plugin. If
 gTranslator library creation is done properly, the Anjuta plugin should
 not involve much work, because the only thing that matters at this point is
-it to wrap the library with our own UI and embed the widgets in Anjuta Shell.
+to wrap the library with our own UI and embed the widgets in Anjuta Shell.
 Much of this can be easily understood from existing plugins (e.g. devhelp
 plugin).
+
+Links:
+- gtranslator: http://gtranslator.sourceforge.net/
 
 Performance Profiler plugin:
 ----------------------------
@@ -97,6 +111,10 @@ mime type and should be user activatable.
 The parsing code can be taken from Alleyoop project, which is a gnome
 front-end for valgrind. Some of the ideas for the user interface can also be
 taken from it.
+
+Links:
+- Valgrind: http://valgrind.org/
+- Alleyoop: http://alleyoop.sourceforge.net/
 
 Users manual, tutorials and FAQ update:
 ---------------------------------------
@@ -143,3 +161,22 @@ in dialogs), glade will notify anjuta to add the file in project and give
 a change to relocate it within the project. Anjuta needs to handle this
 request and add the files in project (possibly prompting user for relocation).
 Anjuta also needs to make sure glade is able to find them later.
+
+Links:
+- Glade3: http://glade.gnome.org/todo.html
+
+Implement preferences as interface:
+-----------------------------------
+Currently all plugins register their preferences at activate time. This has
+the obvious performance issue of unneccessarily overloading plugin activation
+It can stack up significantly when lots of plugins are activated simultaneously.
+We want to get rid of this and only construct the preferences pages at
+request time.
+
+Define a IAnjutaPreferences interface with construct() method (in addition
+to other related methods) in it. Then implement this interface in all plugins
+having preferences. Initialize the plugin preferences in construct method,
+instead of what currently is been done in activate_plugin(). Then when user
+activates Settings->Preferences, find all "loaded" plugins that implement
+IAnjutaPreferences and call construct() on them. Display the newly constructed
+preferences dialog. Destroy the preferences dialog when it is closed.
