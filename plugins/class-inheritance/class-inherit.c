@@ -453,7 +453,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 								   (gdouble) -node_pos->y -INCH_TO_PIXELS (node_height)/2 +
 									(j+1)*abs(y1-y2),
 								   "fill_color_gdk",
-								   &plugin->canvas->style->light[GTK_STATE_NORMAL],
+								   &plugin->canvas->style->base[GTK_STATE_ACTIVE],
 								   NULL);
 									
 			/* add to the nodelist: we'll set the __file and __line properites later
@@ -479,7 +479,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 									  	  "y", (gdouble) -node_pos->y -
 										  INCH_TO_PIXELS (node_height)/2+(j+0.5)*abs(y1-y2),
 									  	  "fill_color_gdk",
-									  	  &plugin->canvas->style->text[GTK_STATE_NORMAL],
+									  	  &plugin->canvas->style->text[GTK_STATE_ACTIVE],
 									  	  "anchor", GTK_ANCHOR_W,        
 									  	  NULL);
 			plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
@@ -571,7 +571,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 							"y2",
 							(gdouble) -node_pos->y +INCH_TO_PIXELS (node_height)/2 -1,
   						   "outline_color_gdk",
-							&plugin->canvas->style->fg[GTK_STATE_NORMAL],
+							&plugin->canvas->style->text[GTK_STATE_ACTIVE],
 							"width_units", 1.0,
 							NULL);
 
@@ -605,9 +605,9 @@ cls_inherit_draw_single_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 						   "y2",
 						   (gdouble) -(node_pos->y + INCH_TO_PIXELS (node_height)/2),
 						   "fill_color_gdk",
-						   &plugin->canvas->style->light[GTK_STATE_NORMAL],
+						   &plugin->canvas->style->base[GTK_STATE_NORMAL],
 						   "outline_color_gdk",
-						   &plugin->canvas->style->fg[GTK_STATE_NORMAL],
+						   &plugin->canvas->style->text[GTK_STATE_NORMAL],
 						   "width_units", 1.0,
 						   NULL);
 	
@@ -772,7 +772,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 										   gnome_canvas_line_get_type(),
 										   "points", points,
 										   "fill_color_gdk",
-							  &plugin->canvas->style->dark[GTK_STATE_SELECTED],
+							  &plugin->canvas->style->text[GTK_STATE_NORMAL],
 												   "last_arrowhead", TRUE,
 												   "arrow_shape_a", 10.0,
 												   "arrow_shape_b", 10.0,
@@ -791,7 +791,7 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 									   gnome_canvas_bpath_get_type(),
 									   "bpath", path_def,
 									   "outline_color_gdk",
-									   &plugin->canvas->style->dark[GTK_STATE_SELECTED],
+									   &plugin->canvas->style->text[GTK_STATE_NORMAL],
 									   "width_pixels", 1,
 									   NULL);
 			plugin->drawable_list =
@@ -963,7 +963,8 @@ class_inheritance_base_gui_init (AnjutaClassInheritance *plugin)
 
 	s_window = gtk_scrolled_window_new (NULL, NULL);
 	plugin->canvas = gnome_canvas_new_aa ();
-
+	//gtk_widget_modify_bg (plugin->canvas, GTK_STATE_NORMAL,
+	//					  &plugin->canvas->style->base[GTK_STATE_NORMAL]);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (s_window),
 									GTK_POLICY_AUTOMATIC, 
 									GTK_POLICY_AUTOMATIC);

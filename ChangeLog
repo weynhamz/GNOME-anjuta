@@ -1,3 +1,9 @@
+2005-07-27  Naba Kumar  <naba@gnome.org>
+
+	* plugins/class-inheritance/class-callbacks.c,
+	plugins/class-inheritance/class-inherit.c: Fixed color scheme to use
+	proper system colors.
+
 2005-07-26  Naba Kumar  <naba@gnome.org>
 
 	* ROADMAP: Updated and added more tasks.
